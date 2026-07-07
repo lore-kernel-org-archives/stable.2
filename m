@@ -1,154 +1,168 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800D23FD159
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 12:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783429130; cv=none; b=YIz+tutdzv5dVotCEfLtcYdbQrcHRLqUg3KhHLKENHKWzQM61pCp4Z8IsLNEtDB1OLt2f5onkdO8r+L8vLb0KL1JXxUsQxeYcasLi5BVptEuaDv9rBP7SKQSTyvHiDNdKsFvXDvXGABQLFCO6v8hiD7oKJaFlKsXr9Jdy2VF6CM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783429130; c=relaxed/simple;
-	bh=hWtm8ZM2aIA2ZT1KJL0dTdHDIf+NYjTE56/Vi9ewZDg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GfIAqlGnSGJESdAeD4xO9Wf8ZiaSbkZxCERuoAJkZ+VDdXX2pfUDyaWnkTF8gDz+zM6RvfZ4PVT3nsm7A4ihP7pXsICH5yA1lWvEj/TgliT1gqKL7XKdWC9IxS9QFI2RzPY2280W8OJ7k7TOq9OZ2o3oWnQmhQzAUWy0QQU0eW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DX12F3De; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YAQczb83; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728FB41A76C
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 13:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783430283; cv=pass; b=mVdSzW7VG7/tncvNrsfDkLnt5j6XbVC1C2oFyQK5K1N8c8znis+Cu7qsdGOrH5maszx7L6k8vbV4ygrlprsLweov824eNRIFMY8tRybJGaynR/1viyQxW9hgJIxWIjQcqKT1MeNhs86bAdZ4sLwu1T+CCfst49z4XyECZgTx7fM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783430283; c=relaxed/simple;
+	bh=HcHtACwu8/iGQkr2r+eW84TtzcCN38sbtol1tFCcY9g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cqipQb7eQWiL3nUXxFZ06lScEqgtZ7jROF6+KOatMaYYm4Q0lb6DQDF3k4O5U5tFO2Ca23aKD0a4lIIBux/KDNwnrXsFvb5Noj69eA6Vd6H9d77ggErvSW2rS2O1YtR8njBJY3+vOAzBBS38Zq7SjHbShnSYA3qN0vhQGJz4m9Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dttDZBAE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=h2Iiq2ss; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DX12F3De";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YAQczb83"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667C8w3E3676770
-	for <stable@vger.kernel.org>; Tue, 7 Jul 2026 12:58:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=07HWQhr0mW5AKge6itfDXP0o6z4eCVE5Fz7
-	ySaPNK+A=; b=DX12F3DeAwO+uo7rfH9oy/SRxcPIO6ddg6c8OO1d+2z9KG6Y0Jt
-	OfCx8vQ5HavN4oVCoCNygsCZPI2ZYI9thuXK7s6WLwiQZ8buuWs8CDwaP/6VwEz5
-	d3XLk/n901rtSw5tOF0hNLxd8z4+uBXaVvbHf7db790+lEZ3u4QlsPLe5NiEtUKf
-	HjPeDbK/9qsLEULYBl9U4O85856tI4tD5Rochhu5UDFtImO5aYd6FqhEKkUidMY+
-	32rxF2P4vPsbwEKchJ7Hl3qHooBWvUBhgAqJR2oDA7VprL7z3IZm+HIFg97+Hn6w
-	zFx/DLt0juu+WhiujUPafnvcCHTC7UqcoyA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8t15a2dn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 07 Jul 2026 12:58:46 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c12e43b98so51468711cf.1
-        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 05:58:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dttDZBAE";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="h2Iiq2ss"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783430281;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G+ucBQNKh2u8TygJUyr/SqZFCxEUaj4Cx7Z/tP8WgQ4=;
+	b=dttDZBAE6iJ+B3LV0BG15B2F1Idp5gz7oUo9XX0AWCkyQZlko3y4unMd/IgW+bB2HMgYNF
+	hwZFQaj1cuQFh43q8yBMAaYxamenmsxeJGNdUcWLxCbuTLASNfTv81kWhOmqZvY9R+jckN
+	RMaVzbNwzMluOB1aZi2UUukVkjLPMVw=
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
+ [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-611-dIX_Rp-9NTa3zDyZhPzLsg-1; Tue, 07 Jul 2026 09:18:00 -0400
+X-MC-Unique: dIX_Rp-9NTa3zDyZhPzLsg-1
+X-Mimecast-MFC-AGG-ID: dIX_Rp-9NTa3zDyZhPzLsg_1783430279
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-48f680bda84so1913330b6e.1
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 06:18:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783430279; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TRJ2tIMbR67DFxSkVDIW0k7XDY/TXQaXqUWPbNo/d3a0XVsWb8YvabfpML5DZNq9n0
+         M1XRtmDNhUXXf1W3HgIkrBL9sAZS9bRltibPxYsNxpvAS2UriT2EeU0KVwvb1hp4vP38
+         OlZVrIx8Wzq4qtU9qIQ9jyA0NjZ5w+dIMtJG7nI1W5/O5qbNC9B51VXCDPusfu+ifpKD
+         3waVFR4ztKSVPHC4inddQy+TQPKgS6FKVpKq+dnvipWulvIMv1pGv+bvSFnho2j77Ghv
+         DoPcIG1pCEj0aMCCJfiN6v6KE4QxYvHIXoeBUJCGHIHQUkrpRio8E8vcmcv94A+qqn4/
+         67aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=G+ucBQNKh2u8TygJUyr/SqZFCxEUaj4Cx7Z/tP8WgQ4=;
+        fh=Nr30+KqeA46EooJTRX9vPAQ8z9V6EbB7xQzrkJFUp3E=;
+        b=rwwsGk/aG1iCa0dozFgKBCVc86YgPc7/c+3YPURYN6VUG4+5B7RWqgSLOzXNubcoI9
+         IIbKI2yxB4089mjBV0Ews9n/B1AubQiSHQ/EPgcfak6vPKkSMediZob3V+Q48RNQWAOp
+         Ng7RkkubJKJxmI1R7bu0aOTkK+spW2zHB/2a8tcI5PchV5rlmwfDd9xzK2jwh1u/usHH
+         T9pgS9ozeEDp+XjL98MpT3/QDm9UDVTVcIfAxPOqS88/IOTSSGeavUgQp4WloxWQTRUW
+         SIvrbdGFwDRF0jjw3HeOjE2SUAgOyJI2jS3XfePpbs6J3FbotqNKF6Dvi6onGLb6d72t
+         H/SA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783429126; x=1784033926; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=07HWQhr0mW5AKge6itfDXP0o6z4eCVE5Fz7ySaPNK+A=;
-        b=YAQczb83wsw8szNYa4aY/2r/AwJ2ihOKBDreehlKuGZDVIWKXXG+u7bPZWEtgyaskS
-         QlHRnL/VoSlLZCPhkR/vPgJT1gOzGtG41biCeGjK6s+DkJPapJMJsA+Hs3RzPXEzCJ7D
-         FqbVikZriCYXdK0FeDOjSSaERyG8nZdbn87mJhfaGvOAl5271fEwFGsjBePX7iQJK0It
-         wwAG77Eo/QcpuQ1ZKV+ngg9c2wrpU2ZZRzemUazEyB9GJI4TbQJk6kARG8zkEKmp6HhX
-         PUMYGabKdpe7nDQNeIAhX8uMiiUKgh7brG5VgHs0lKyS+qGJFSHajtlVnKs2sJq+uEPf
-         XqiA==
+        d=redhat.com; s=google; t=1783430279; x=1784035079; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G+ucBQNKh2u8TygJUyr/SqZFCxEUaj4Cx7Z/tP8WgQ4=;
+        b=h2Iiq2ssMJ0lDFibn+ASfPsKWo0+pJevwyB3NgKJMuG3ExWF0//JcHC4TezJbjNE+P
+         AopTMKa0wfRZp1+KIXGsKHUXgbxmMfAf0GOlCCH3bcpBF5xkW7qKDLSP2J1hKrO/o1Hd
+         rYZu/DXpHypWQcKK1bMXarDjBJGAyR56Fr89r9wIQVkod6YE4UjkBZPT0DL4hzxtBQ4n
+         tlfZJ+UVHCV9HHU64SEN1USqMYqdygLTKukNd1CqYwh+pHGJ2CZsAEIxY0rf7tQ681sl
+         ZBHnszBX24gr/nFoLSqyFsGFFTTSnHEPRz7ia20MIYCShLZJFAk7PxszNiw3g0zBGx/2
+         GeWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783429126; x=1784033926;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=07HWQhr0mW5AKge6itfDXP0o6z4eCVE5Fz7ySaPNK+A=;
-        b=rhuLWTP/VUfLDiwvxX5nnzRDK6d1O+phhuHwcQkxt9dXuckAnkUNSQkrehy/fOVSXT
-         Y7NLdnH0HSaqJCVvppfdi9931SWX7d09oNEsHW1gR2sIc61Of6KopF8LhQP8k1G9Xtvw
-         uLIn7kjnpE6QmydPBR5hrdPUzwvAL011bzLlDLqDspjSBIGqEm38oUqhbn52i5qalvvF
-         qxXk8iyGRPMWJ7EU7S5EV8OhNcevGNat2xnriXXxChNMIbwGevr1Nza1qGPq3DBAWSA3
-         5zFE96UucgdcUVubHu4H+ywvzReW72OD/PSnc5vHFwQkT9tVn+tXDLalycTwj70XKgcZ
-         l9ww==
-X-Forwarded-Encrypted: i=1; AHgh+RqJEgeYgwvsCaD89zpnmi56eg79HwLL5qvWVeLtzTNiJNXB2sW3Qu4lQHr8YWq8BZhKVQmOm7U=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz3sgjJpeF2UTMl21miK82H0H2+iyD7kQyg4pNeNgW90/PwDg3L
-	AUAusOq56oFq3v4Z0COPgSczm716OzZwmr2VsOKamD2ViMCYOo7eYq4COri3gjqE5lpJjBtAls2
-	lyeTMF6xms/BsmTSdDIV+kLKOam3DNrQFs0Z6LIeefLJ+YHRKSQ1uERwz2a4=
-X-Gm-Gg: AfdE7ckHKVAa87rwb+K+lmPqwinYh6HBEN99L0Qrjm28sNgC5QKTXoyhoc8vrd8OSD1
-	trTUWnvJzXfKXWPRTrohiHYtH/1Ls3uyK1QOxr58r/WawQQajFItQY7Twji1GzfNI+Das1mpRjR
-	qscS8sYI23/0mS3Q6cJAIb5x16mKvSE4PptqI6UL3NGviCi8PQxs0QHt9/E/RXhFen6uYBCpV+x
-	cQDs1gYEIGx68kvJUMciQ2hQ9M91Y7sKXXyEzQvvnvnr0M6d0RVH+4PY7tyiDcEiOJs++vscuRH
-	3Kg9ViXqwWf2QgHF4r6UjkeBFgiM4PDNlmnf2kIiMYLpFNEwhnUi5YJMawX9w2jJ47HBGEFh1zA
-	0B3JwIbk3sT8BUvpHdiFpS4ALTKSe7950diN8qLo=
-X-Received: by 2002:ac8:7e88:0:b0:51c:4dc:287b with SMTP id d75a77b69052e-51c7479f5e1mr54014801cf.7.1783429125903;
-        Tue, 07 Jul 2026 05:58:45 -0700 (PDT)
-X-Received: by 2002:ac8:7e88:0:b0:51c:4dc:287b with SMTP id d75a77b69052e-51c7479f5e1mr54014531cf.7.1783429125444;
-        Tue, 07 Jul 2026 05:58:45 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:47a8:72a4:c756:37f3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm34539417f8f.13.2026.07.07.05.58.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 05:58:44 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Shuah Khan <skhan@linuxfoundation.org>, Guenter Roeck <linux@roeck-us.net>,
-        Albert Esteve <aesteve@redhat.com>, Kees Cook <kees@kernel.org>,
-        Alessandro Carminati <acarmina@redhat.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Brendan Higgins <brendan.higgins@linux.dev>,
-        David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-        brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        stable@vger.kernel.org
-Subject: [PATCH] bug: fix warning suppressions with kunit built as module
-Date: Tue,  7 Jul 2026 14:58:37 +0200
-Message-ID: <20260707125837.57256-1-bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20251104; t=1783430279; x=1784035079;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G+ucBQNKh2u8TygJUyr/SqZFCxEUaj4Cx7Z/tP8WgQ4=;
+        b=dNgqIn64KfMRU2tMyHY3fkI9zzErvyOSR5VonWdv5Et8j+m9DVmbnzYRHpdVV08SCh
+         uKyq1Ygtu5A5PZAEJeAEu7y0Nv9oFuNecmLqKn210g435HgX4scuGEN2QHroFHvB3DD5
+         1LiwBxV7ubwSGxxZkFHx8lUqJZ8BPWFMwk1h7xrhq2VYQwXIZE/y/0UQ2kyFFDT2/EHY
+         syesoYH/Mvoyjh5CgDfb+C9IeNWfQQi6hTnDJe1G4nTYYlqnJ3860+j3X3Dr4/zHyrgB
+         J1rEvrpv6zGFITectyGPx6aI14AJlHP0yx5tydS+TvOJQgX5VDR46LdPW2LNk781HxH1
+         lplQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9A/2klNOevrfYL4znXkSWRraMQ3R++x6BWnXrVGQZshLNXzG9hOROKIdCJt3sUrNAiJSUOxAw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/patW/BsfhJvp7jTRWT3PKNDe1VZYJUrWWmwTBVBKgba7jFz9
+	V0z6LGU+3ZPSUsgPz6jJuUYnsFjfUjA6saIj1dB4GEaDYg8PPAMzqJwPiYQK00ECeM18/Uj9jVv
+	8MB3RQlPIhjCa0aXxk0BNww3wzaT5w9YYJC3J6uY+Ax+D85ZCVBqsQmsqw9vNLi6Rl4IweC9TvM
+	XeLIiKFpKF0OXJqUyvf78fQRi5h9MNHUbp
+X-Gm-Gg: AfdE7clGdkF1jmJzm0O/3HAGJvifDttHJMznl3l4S6gkwuJjBJWQwUGWtMkx6v58T4T
+	+eXbP/T6bMJs23k8Xa4gRUp8QuaVwKc3951yLpuDMvN2oDjVwGk/FrYzWrhXoetkNz7OuAph8A3
+	uMRuczErbX1nUJhEFjBcuREKJ5gT9N/K+IoGFSUrSxt7Bp3+SHPdG0oEFlzZmWWhz42kw=
+X-Received: by 2002:a05:6808:4701:b0:495:effa:f06e with SMTP id 5614622812f47-49fdf307c8cmr4281338b6e.42.1783430279235;
+        Tue, 07 Jul 2026 06:17:59 -0700 (PDT)
+X-Received: by 2002:a05:6808:4701:b0:495:effa:f06e with SMTP id
+ 5614622812f47-49fdf307c8cmr4281307b6e.42.1783430278702; Tue, 07 Jul 2026
+ 06:17:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 81n1pewWwKJ6jpKON8gFdfIYYZyA1dOK
-X-Authority-Analysis: v=2.4 cv=HstG3UTS c=1 sm=1 tr=0 ts=6a4cf806 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=RAioF0-LDSMA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=AttVjD3uJjTWtuEPW6QA:9 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: 81n1pewWwKJ6jpKON8gFdfIYYZyA1dOK
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDEyNiBTYWx0ZWRfX6vVqqxrUDNyC
- VVURQrLNwuxRpt7bCt0cbU23t+7huyYoerNLbkqaLA/Ji5YChQndZuzmfd+/dd84hspOkJLIM6f
- 1sA8OllkQmgMHwnKZVGuybqT5rKTB/M=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDEyNiBTYWx0ZWRfX6/CbClUvAfkC
- scmK5nxRxafP4HTE+7gKewtu5r5ZpPOK1eFVw4jg2k7iagzRFYvOz5p1HdeHUwvwYFcPI/IBtm4
- wvZ8de3K1zk9Df1orYD+rrkSPm59dYL6u4IFflOg0hbdv2zd8Gn4HcIJAgmc+bzl3pBo3L3znfW
- I5+Ap32jRNKLUpr8CjZR1JajN2maLNGRTt/bQPkdRnjWgucd6XOJFqBZQHpnIp4dzrEMP2SaOwQ
- wgnbRMf/MpZ5foJNeC9b0z3Ct7LfiQ6NJuc2ioge0cvpIOnmFQ1XuPDGZ8PUnWRh2UKbuu1QJMb
- mfYwpiMSWaZz9fUOUtOiN53RnACw7sstesnJLtpnzXwnT5HfVWPZshZICeGveglAcyWwEMPKLtg
- Zu2VExX630tr820okfFCr0PzD0s3hYHGziYzMsgDJ8H98SSvDzfKaDDugiIPwyNSrCMKY0HmIJP
- tOhqN2KHKL1ddPfAxow==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_03,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0
- clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070126
+References: <20260707125837.57256-1-bartosz.golaszewski@oss.qualcomm.com>
+In-Reply-To: <20260707125837.57256-1-bartosz.golaszewski@oss.qualcomm.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Tue, 7 Jul 2026 15:17:47 +0200
+X-Gm-Features: AVVi8CcyzJYF53EZRdJRAa2OjT7bI6MDT1HI0t6HzQ3B3Epg4HnpwPsiwafwkSc
+Message-ID: <CADSE00JrbEXXczJUwT8Lpn4MkMdSjcHWOsX+7F1Z_hkzjMos0Q@mail.gmail.com>
+Subject: Re: [PATCH] bug: fix warning suppressions with kunit built as module
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Kees Cook <kees@kernel.org>, Alessandro Carminati <acarmina@redhat.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Brendan Higgins <brendan.higgins@linux.dev>, 
+	David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-CONFIG_KUNIT is a tristate symbol but the warning suppression code in
-lib/bug.c is only built if it's built-in. Use IS_ENABLE(CONFIG_KUNIT) to
-enable it for a loadable kunit module as well. When using a plain #ifdef,
-the suppressions only work if kunit is built-in.
+On Tue, Jul 7, 2026 at 2:58=E2=80=AFPM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
+>
+> CONFIG_KUNIT is a tristate symbol but the warning suppression code in
+> lib/bug.c is only built if it's built-in. Use IS_ENABLE(CONFIG_KUNIT) to
+> enable it for a loadable kunit module as well. When using a plain #ifdef,
+> the suppressions only work if kunit is built-in.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 85347718ab0d ("bug/kunit: Core support for suppressing warning bac=
+ktraces")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  lib/bug.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/lib/bug.c b/lib/bug.c
+> index 292420f45811..b9820a0226f5 100644
+> --- a/lib/bug.c
+> +++ b/lib/bug.c
+> @@ -219,7 +219,7 @@ static enum bug_trap_type __report_bug(struct bug_ent=
+ry *bug, unsigned long buga
+>         no_cut   =3D bug->flags & BUGFLAG_NO_CUT_HERE;
+>         has_args =3D bug->flags & BUGFLAG_ARGS;
+>
+> -#ifdef CONFIG_KUNIT
+> +#if IS_ENABLED(CONFIG_KUNIT)
 
-Cc: stable@vger.kernel.org
-Fixes: 85347718ab0d ("bug/kunit: Core support for suppressing warning backtraces")
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- lib/bug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hello Bartosz,
 
-diff --git a/lib/bug.c b/lib/bug.c
-index 292420f45811..b9820a0226f5 100644
---- a/lib/bug.c
-+++ b/lib/bug.c
-@@ -219,7 +219,7 @@ static enum bug_trap_type __report_bug(struct bug_entry *bug, unsigned long buga
- 	no_cut   = bug->flags & BUGFLAG_NO_CUT_HERE;
- 	has_args = bug->flags & BUGFLAG_ARGS;
- 
--#ifdef CONFIG_KUNIT
-+#if IS_ENABLED(CONFIG_KUNIT)
- 	/*
- 	 * Before the once logic so suppressed warnings do not consume
- 	 * the single-fire budget of WARN_ON_ONCE().
--- 
-2.47.3
+Thanks for the fix! While it is correct, I think we could just drop
+the guard completely. kunit_is_suppressed_warning() already has a
+correct stub in the #else branch of include/kunit/test-bug.h when
+CONFIG_KUNIT is not enabled:
+
+    static inline bool kunit_is_suppressed_warning(bool count) { return fal=
+se; }
+
+With it, the check in lib/bug.c is redundant.
+
+BR,
+Albert
+
+>         /*
+>          * Before the once logic so suppressed warnings do not consume
+>          * the single-fire budget of WARN_ON_ONCE().
+> --
+> 2.47.3
+>
 
