@@ -1,135 +1,173 @@
-Received: from mail-wr2-f2.google.com (mail-wr2-f2.google.com [74.125.225.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F2136F912
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 23:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841C23093DF;
+	Tue,  7 Jul 2026 23:34:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.177.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783466218; cv=none; b=HPhbkI0dxnG3z/FQKC75Kjdp3kE8cT3ohFXZYSmeB8CMVPQfTYQV0JYarYZF5U8GtGJSplxuZbAScXKYtyheH4NB70dJz9nrznvWyU951DYX3TuwJzhRnEmyGuCIBVZfomCrGoy0F57aGZS2axaZTeJVUGDbWrN9C5C0XATYiTE=
+	t=1783467242; cv=none; b=MzCJ/N/zyK8tlPVeY7NVreAbWnOP61udbp9heb4R43mwD6JEgwuYrD3qQ8Ph2Pf0o43cpvN1eYYGhUwCrNXUbtM+E12wqd9c3KdScNq6XM93UDccN0QQeFgmIQVw0jisTW3qwdgtp+gVTLnvJRSu/UCiMN9SF5FV41xWn/FGIYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783466218; c=relaxed/simple;
-	bh=Pc/WLT8vyh7rH9PhvdoTJsW2NbouCdu7hSBg4pbUsDo=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=hfQubjIc5Xt80d/cDVN0etqECj+VDvnshxFWuyglSPHuLDXDQtlxIXZPfeQrisXabZ3lSAAHu5GIhGhvsuCVCnfArivhsay3HwvYxa21OsUyUijdEED4OSdE0GIqaehe35ueI9pdR5opcvgg65SldbG6tbyP4PVqDgU4Yuh2zPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr2-f2.google.com with SMTP id ffacd0b85a97d-472365266f5so37199f8f.1
-        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 16:16:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783466215; x=1784071015;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:cc:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UKwBKxnEgAfUGchM8aY1vGW2Ffzyqi1WFv0RQ03fjak=;
-        b=nmFitBzb1j0pO1TNd+tpnEhRsn1kmN4WxNNMFgIXB/+2BUhWck6H0RyIH9Npl0hjDu
-         0GFrhPGgvXluzNRBxKR8ahqcbU9m4f3FKBjYdjwsVt2mvR0kSLuBMNCGdE6oyXdSDPib
-         RY+iV4oeSwrzjCij6J+vbSAcgTWOcQuJpN6rep8ewSSE5QgPN1JxrX+6PV/oVR4zBWXQ
-         4HwHLnQxo74/kKyInQ9Rj6gwMrmbclHB71JQVA602/9zkPbjdHg+Xw6dDl0lwp+ZcBP8
-         J3jMnZq4V3v0cdNNKnY05HA9AFMQHwbDbghg1VldIYTqynRsnZG2Da+5hQdQbgG3NC3Y
-         dtjQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrBTbBBVAAKDo4W1rSj4hPjrwLkfdupTYboeFyuqDunjAr8xWnyDy0jgY951ER26IY7MR3Assw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyuBpyYcR/pC5xBIHEdNQQnQiiVjBmP6aXd1LceJ+vLuQmldheW
-	OIenyotsVJCZG8ZMTE5BC/NuAtn5GtILxM8YN8AV7ZpLZHfgnVdVGsxI
-X-Gm-Gg: AfdE7ckkM92y9QJoXNl8jr7Vs39gEUvWxSgSwAqna6ZXzBdkk+hg8Hn6f5rlUaV0vM3
-	VBJQLWMfykBBbUsV1mkxZuG26utaNRz/xyOjUKcWTEOJQ7TfSLT8N8cy3YKkILTa+SLpwFktRO/
-	zAWJ5OqOeZ2f41zxjHC5U3Rvz/CShvTcVg4iTGZ7dahB0heBJl6TgtpftP/yHumu8d2NsggIsEH
-	RjFARm0sN0sy1G88eysC49IsiZggms0fH4qz5MLi7bPVEUiiNIMkoslOzGLuHuWgDu6h/etinsD
-	YX+wOWV+4d871NWrcUSz4athSqXbPOYrzc52SnYaDGsUZCGHjOePVUqHOxyaOY5Im4BpkUslO5S
-	QQmBnEqFp80VpNE+rPjJGtdrmQ5N/wvfBwZT2IoXS06PCXZzqYHmuqB7XwfXtf72H73A+36vdhj
-	Ia2jIGa/9cMedbV0nVhtmNQTFoemw6OXKaiPmnXX4WsAnSebxvKw==
-X-Received: by 2002:a05:600c:4e93:b0:493:e508:1137 with SMTP id 5b1f17b1804b1-493e5081183mr18112435e9.39.1783466215520;
-        Tue, 07 Jul 2026 16:16:55 -0700 (PDT)
-Received: from [192.168.88.241] (78-80-108-129.customers.tmcz.cz. [78.80.108.129])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0f294a6sm178853125e9.1.2026.07.07.16.16.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 16:16:55 -0700 (PDT)
-Message-ID: <7bc054f8-7afc-4fa5-b392-bcad1f9d70bd@ovn.org>
-Date: Wed, 8 Jul 2026 01:16:53 +0200
+	s=arc-20240116; t=1783467242; c=relaxed/simple;
+	bh=4IKLks/ucOA2auXD2KLMR9GT/BPTMyC9nZ/pdpCputg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NeBz8XiYNbTaakO04YqATu8FHC5ErAU5XLMeo/4TNXwM9wovOIA1PKcECT7WQLgjWPoGyPOg969WTGb31ZArujVdAIPAvVu57k53YHnVkn47nPWLDOS+iTYX/zBMRgMpb8rpnbPwyOHERdz+BxPDIHxM8wB1ElK8W03xZZ/0Q3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=TONy3GhC; arc=none smtp.client-ip=205.220.177.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="TONy3GhC"
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667JCPva1347545;
+	Tue, 7 Jul 2026 23:33:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=corp-2025-04-25; bh=igrpj
+	jJQUd+/3TCJOxayjEdZm97gP08Q/nEq7T9dCWs=; b=TONy3GhCIpCyKpqmFFVrA
+	1MG8TK+bHWVR1PhIZoYms0TERlkCwi87YnyNmaXZpPxQLn2WsFoBxBScQ7E35OvK
+	ZDzlw9Lzm19ioTmDFA6gNjMMjBNfiilNaWqtXWg8jxrZE9bCnaM4G5rU+ifvvia7
+	2Ya16Yrfe/5Eay06KExyESYMSq2GVatif7jRPTu0znrJFrL0dXWyDoUlYKCAvDxp
+	O2H87f7rgMJcEAQeH01DH6kTQwFnTC3tuEbPM89bBGg+HgR020+cEroOOiBfk5Ah
+	TwRptbdpW2BGo54j/3xBPOwc6SyWIFnEOUAVeXDCt18GHfjUHw/b+LyZIddJKP1l
+	w==
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4f6rkbeqvr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 07 Jul 2026 23:33:47 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 667NXblx027095;
+	Tue, 7 Jul 2026 23:33:46 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4f6rmr37j1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 07 Jul 2026 23:33:46 +0000 (GMT)
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 667NXjpv028202;
+	Tue, 7 Jul 2026 23:33:45 GMT
+Received: from mbpatil-ws.osdevelopmeniad.oraclevcn.com (mbpatil-ol10-ws.webad1iad.osdevelopmeniad.oraclevcn.com [100.100.228.95])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4f6rmr37gg-1;
+	Tue, 07 Jul 2026 23:33:45 +0000 (GMT)
+From: Manjunath Patil <manjunath.b.patil@oracle.com>
+To: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+        Mark Bloch <mbloch@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
+        netdev@vger.kernel.org
+Cc: Manjunath Patil <manjunath.b.patil@oracle.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S . Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Patrisious Haddad <phaddad@nvidia.com>, linux-rdma@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH net v2] net/mlx5e: Use sender devcom for MPV master-up
+Date: Tue,  7 Jul 2026 16:33:37 -0700
+Message-ID: <20260707233337.3650025-1-manjunath.b.patil@oracle.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260610173915.4053423-1-manjunath.b.patil@oracle.com>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: i.maximets@ovn.org, Aaron Conole <aconole@redhat.com>,
- Eelco Chaudron <echaudro@redhat.com>, stable@vger.kernel.org,
- ovs dev <dev@openvswitch.org>, Paolo Abeni <pabeni@redhat.com>
-Subject: Re: [PATCH net] openvswitch: fix GSO userspace truncation underflow
-To: Kyle Zeng <kylebot@openai.com>, netdev@vger.kernel.org
-References: <20260707221635.27489-1-kylebot@openai.com>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <20260707221635.27489-1-kylebot@openai.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_06,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ mlxscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ adultscore=0 mlxlogscore=999 phishscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2606160000 definitions=main-2607070231
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDIzMSBTYWx0ZWRfX4sekCjK1gNAZ
+ QfpXJvUjUW1ubt/5/K0wfgEXhPPfG9rltDFRFDlAacmWTW9jl2Mr+W0SMMKQomSG6vgYINh3x1t
+ 7jnmLt82MFWNyy3GY2cBNYY5zSGCp5B70ImiaELAxip7pLz5A1m6
+X-Authority-Analysis: v=2.4 cv=QP1YgALL c=1 sm=1 tr=0 ts=6a4d8cdb b=1 cx=c_pps
+ a=qoll8+KPOyaMroiJ2sR5sw==:117 a=qoll8+KPOyaMroiJ2sR5sw==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=x4eqshVgHu-cdnggieHk:22 a=yPCof4ZbAAAA:8 a=VwQbUJbxAAAA:8
+ a=JXUkVfB3YJkj4ag9OGkA:9 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
+ cc=ntf awl=host:12222
+X-Proofpoint-GUID: 3Rm26ahq8YpeFLvGo3iYoOo9mZdWgpRx
+X-Proofpoint-ORIG-GUID: 3Rm26ahq8YpeFLvGo3iYoOo9mZdWgpRx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDIzMSBTYWx0ZWRfXwE0VWMd3mEQk
+ jZWl4eQToT5eO5BKmyFa7pPuo+GnZMf9MqGDBAPBrBkEKAq4kem8Bdyw7g16DqY2ShLrsEGhfxX
+ zhYDxBzxtGqDYVBSkU0KFnn/NdviWGMR1I2sHPwZuR6iF4pUV/DnxM4gAtbksf5KHcW6bUYU3eD
+ U0v7ueRi72G5lLgXnJT3vUU19wvMcaeGxMI0LnXAzX6YC2avaL/Y97TeExnFmDPYqRSh08eCM6d
+ +c5T0s0wVhTz45c6ka6GmtFYNpyaUaPvvGQMEhBCvChCOmmcSJLvOb3fKTebMODiXFDLVfUmmwv
+ iTI6W04a88x0Xi+WpRIR1Rr6+jAZA1dkk7/bzgD9bINHQvHNozxa6q+1jZtyrDN7s5BlosndQNr
+ U4/hKywlDkeRf+7aCNkc62KSYOcFyluAT7I4+BSuoLNMjNyKft96gJeXhhL/IHo+jONKkpyB3im
+ oVav9JIQpR8+VciMGlL8z3dS7b6Ncv7oYPjH9vTw=
 
-On 7/8/26 12:16 AM, Kyle Zeng wrote:
-> OVS_ACTION_ATTR_TRUNC currently stores a delta from the original skb
-> length in OVS_CB(skb)->cutlen. When a later userspace action segments a
-> GSO skb, queue_gso_packets() reuses that delta for each smaller segment.
-> A segment can then reach queue_userspace_packet() with cutlen greater
-> than skb->len, underflowing the length passed to skb_zerocopy().
-> 
-> Store the maximum preserved length instead and bound each consumer
-> against the current skb length. Use U32_MAX as the no-truncation
-> sentinel so the value remains valid if skb geometry changes before a
-> consumer handles it.
-> 
-> Fixes: f2a4d086ed4c ("openvswitch: Add packet truncation support.")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.5
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> ---
+After PCIe DPC recovery, mlx5 reloads the affected functions and
+replays multiport affiliation events. In the reported failure, the
+first relevant device error was:
 
-Thanks, Kyle!  For the future, please, don't skip the general networking
-maintainers and the ovs dev list while sending openvswitch -related patches.
+  pcieport 0000:10:01.1: DPC: containment event
+  pcieport 0000:10:01.1: PCIe Bus Error: severity=Uncorrected (Fatal)
+  pcieport 0000:10:01.1:    [ 5] SDES                   (First)
 
-Otherwise, this patch looks good to me:
+mlx5 recovered the PCI functions and resumed 0000:11:00.1. During
+that resume, RDMA multiport binding replayed
+MLX5_DRIVER_EVENT_AFFILIATION_DONE and mlx5e sent
+MPV_DEVCOM_MASTER_UP. The host then panicked with:
 
-Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+  BUG: kernel NULL pointer dereference, address: 0000000000000010
+  RIP: mlx5_devcom_comp_set_ready+0x5/0x40 [mlx5_core]
+  RDI: 0000000000000000
+
+Call trace included:
+
+  mlx5_devcom_comp_set_ready
+  mlx5e_devcom_event_mpv
+  mlx5_devcom_send_event
+  mlx5_ib_bind_slave_port
+  mlx5r_mp_probe
+  mlx5_pci_resume
+
+MPV devcom registration publishes mlx5e private data to the component
+peer list before mlx5e_devcom_init_mpv() stores the returned component
+device in priv->devcom. A concurrent master-up event can therefore
+reach a peer whose private data is visible but whose priv->devcom
+backpointer is still NULL.
+
+MPV_DEVCOM_MASTER_UP already carries the sender/master mlx5e private
+data as event_data. The ready bit is stored on the shared devcom
+component, not on an individual peer. Use the sender devcom when
+marking the MPV component ready.
+
+This preserves the readiness transition while avoiding a NULL
+dereference of the peer devcom pointer during affiliation replay after
+PCI error recovery.
+
+Fixes: bf11485f8419 ("net/mlx5: Register mlx5e priv to devcom in MPV mode")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Manjunath Patil <manjunath.b.patil@oracle.com>
+Cc: stable@vger.kernel.org # 6.7+
+---
+v2:
+- Drop defensive master_priv/master_priv->devcom check as suggested by Tariq.
+
+ drivers/net/ethernet/mellanox/mlx5/core/en_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+index 8f2b3abe0092..9b27afeb9b12 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+@@ -211,11 +211,11 @@ static void mlx5e_disable_async_events(struct mlx5e_priv *priv)
+ 
+ static int mlx5e_devcom_event_mpv(int event, void *my_data, void *event_data)
+ {
+-	struct mlx5e_priv *slave_priv = my_data;
++	struct mlx5e_priv *master_priv = event_data;
+ 
+ 	switch (event) {
+ 	case MPV_DEVCOM_MASTER_UP:
+-		mlx5_devcom_comp_set_ready(slave_priv->devcom, true);
++		mlx5_devcom_comp_set_ready(master_priv->devcom, true);
+ 		break;
+ 	case MPV_DEVCOM_MASTER_DOWN:
+ 		/* no need for comp set ready false since we unregister after
+
+base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+-- 
+2.47.3
