@@ -1,178 +1,132 @@
-Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5025830D403
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 19:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF08733B6F6
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 19:49:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783453514; cv=none; b=S/ZA647pN+negDRah+ygBQtBSizzOQGT/Y95iiUtBv0gUpW+RwblLE82dwzYGDG40l+mleCERA1ERD2GWYuZNl+hONfyaeFImBrbtYrDf3JX3R3HTNzAwkqo71vvYDEq9Zqt0H08JwEEHjL9avqR71XyednUymBtIBKPs1+kGbE=
+	t=1783453782; cv=none; b=s9KIV0ykkUlNdUgSU3Kz7IUo2r4G873q35SC6K49luWoUcjRA0TaMu1NvV6Ev9ThMcAn8Z38NsGNa9IKwdX0zHChXjCLK9BM2iK+dh60iQEw8tOc8gHJVTfCWBn8hzPXuVAfI3a5CjRHt13WAfNyIrROrG9OKHn8XuBLvrn7I+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783453514; c=relaxed/simple;
-	bh=vpfGcDaKn93kO0c0pBHut+lxXP6vFT8v6Ae7YDmYrQU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q6IWzhduaK2cS1T9rhJC3mb4JyAnz9d0aAC1Z+ka7yUbP1eug7075kvVN6qf1VsIGAe4JJAQj/K26O/xDiGUGqtzONxN++uEjGTGAbZox+cgzyjKZVNxfWVgFdIk0u519GRg06ji63gJ/shG2Sjwf+D6ccuTfAV3XaR7xaWHPy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XA6YjNGE; arc=none smtp.client-ip=95.215.58.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1783453782; c=relaxed/simple;
+	bh=cWUDemI2fy2468Rcc9hA4tMRSKDMQfvaEw9RCKkrqaE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=h5geZ/A7oy2sOSrjiCYV9PWQg2ewUnTjinmDh1Nf8C8F0PdGYcQgQzoDp14ni5tmKJ3zTL8Eehcd1hkIkGo9iI/LOq4JkHiKZIUm8pl7LYcLyqNyXYkRfdB7iYRLL1owcXTS2JNErKL/T+c+z+u5pDcRujUeqFxLoiiazgopWLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p7CHO8t+; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XA6YjNGE"
-Message-ID: <bec46089-abc2-418e-9b27-34dd9f6d1dde@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783453500;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Fa9GDRjYxkf/DCTXoRTIYtmmpV/5FZvirgY/VRgV3Dg=;
-	b=XA6YjNGECwbiVp7XCLdWtDjDiszb+KoKrNuUEq50kBFjzH2naO39dtx+ZXnoY5ekQOi+wi
-	ysny/gl4qtDZCJXQg1arirNYR0APMwJfNeNmhiubvju/il8C96lBttCZNrRqO6B6fgASKn
-	KHZ9HyHvDuGlXHGhf+ehkd0JX+6dyyU=
-Date: Tue, 7 Jul 2026 12:44:47 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p7CHO8t+"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47d70879764so2018556f8f.2
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 12:49:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783453779; x=1784058579; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=F7TEXP25/oGnwFyrCpdS4x0e3KbTeuTKFgjnVzacGG8=;
+        b=p7CHO8t+ngkbTlk6SqV5aC3s1O1EXgcx9lqvtL59ws2LCl8KvQ+uSrtfD3rDNwyL//
+         9mNqeENsDqNAbl6jaWlJNlflIijcYNgmHb/CBtZ59ngpvVI85Vm551MygoLf8P/ms/8m
+         vUiA28SA139tU42HoeTbXF9KbWoAmYkvYNj7mdqnYuudhb70xHLO08ScaO8FKzVfYn7o
+         4AExCPFLqQiZPPBUBcgTsAmejVSXtdsplbxFVTp3bvHqqcqJT3OFkZwx+C7puxAMuzLI
+         LpgKzDj+B7DSjEb4JSj2CFax0SWYOhQPeuU7QyyVnOJSsrcxMKwjS9UjhbT3uSwG0bsL
+         6g6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783453779; x=1784058579;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F7TEXP25/oGnwFyrCpdS4x0e3KbTeuTKFgjnVzacGG8=;
+        b=UC/70GfcEulGOyR5UO+gxZL2lCa1OAjpm8L8uHx0zOpax9HeOSQa3hOgPpmBJ2FGlE
+         BGBX/pVwXnnTLLpvLNlWxviGiu4mzDkHGEppdG6zK8xJ4fzaQKQHsbCubW2sJL7pP510
+         bn8bNOuih93Ht/f4krLZwbA5N/zPcrkzfKtVby8CIAvWSwHmQNXu7fTSNxLXMayLRWDs
+         Xq1YKSOqZLxYw0TFtWtccm2WHHaUipdlk20rKRIouod6cfS4RtaPzZ+dBR9nei001D9b
+         OgWcZ9Yt1AWiKrlcOpsMnw8600cN3OWSNY4r7/uUpoJEb3R1QtyAmk3g6QurqiUhRfdb
+         7UiQ==
+X-Forwarded-Encrypted: i=1; AHgh+RopeWojHFwP6iWi2E411fdBLfLnX3uLvdb+wJIHbKGzva1J17yV1JWwrGhz4CqqIUEUDMv9D/s=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMREYLr/EK90X7DsElDDcGGESMel5RSWlez1WGP5+3YIV31iWc
+	vFIZSmOx8XVb+hZmlEcsvbQM9kQl5HyT/H/V7oB0LxXJ2sXQ/SEqR2Ec
+X-Gm-Gg: AfdE7cmctmk+sZlZzQBHqD7CeoACUk1hcxNJkKnT8LrY+J7ttclTribLVzokJ5PUHuu
+	F9+E0KMRXGwww00qPqbX6UItZF0YDk8x1TfKWOxxUn2VlZ3aWW45uoAm3/SnORYV9fM4fqniJPm
+	MC7APryZ/a5hEOpaw0L8kFnbbmGwq5VsAdxwsRHGfbhngMCPey/zsfrno75jtH/u13fS32ml6HR
+	IgEQloAB2THikmViIFnR+CXJjklUf8UHrY8zbNT10eH2eDlhUL0d6SSWkpESAT6ACKXQbQSkm7D
+	nT93TbYQUM8jFgH3ct17n0edrHGEn1WTRltVTIH1PAS68pJ/MSQicwoOuv6ddx5e6B+1xtIkMoi
+	Z3i2931Hza/lTpu+a89lVh2IIRuy6Zttkpb9Daz5X2CnIoG0ZVfU+rINB0eHc+D95N8Y5tAgbNJ
+	IOUKvYcocDWnh9B8c4Nz/ZWA32noC4xfLD9yjJSJnqCLVLfA==
+X-Received: by 2002:a05:600c:8b6e:b0:493:a5d4:3798 with SMTP id 5b1f17b1804b1-493df0663fdmr71499135e9.1.1783453778982;
+        Tue, 07 Jul 2026 12:49:38 -0700 (PDT)
+Received: from pumpkin (host-92-21-50-228.as13285.net. [92.21.50.228])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0f294a6sm153839565e9.1.2026.07.07.12.49.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 12:49:38 -0700 (PDT)
+Date: Tue, 7 Jul 2026 20:49:36 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: <Alexander.Chesnokov@kaspersky.com>
+Cc: <xuhaoyue1@hisilicon.com>, <lvc-project@linuxtesting.org>,
+ <Oleg.Kazakov@kaspersky.com>, <Pavel.Zhigulin@kaspersky.com>,
+ <stable@vger.kernel.org>, Wenpeng Liang <liangwenpeng@huawei.com>, Jason
+ Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Xi Wang
+ <wangxi11@huawei.com>, Weihang Li <liweihang@huawei.com>,
+ <linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] RDMA/hns: Fix arithmetic overflow in
+ hns_roce_v2_set_hem()
+Message-ID: <20260707204936.6a8e5c35@pumpkin>
+In-Reply-To: <20260707140938.3106919-1-Alexander.Chesnokov@kaspersky.com>
+References: <20260707140938.3106919-1-Alexander.Chesnokov@kaspersky.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2] resolve_btfids: preserve tag and parameter names when
- processing implicit args
-To: Henrik Grimler <henrik@grimler.se>
-Cc: Aelin Reidel <aelin@mainlining.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260620-resolve-btfids-implicit-args-use-after-free-v2-1-4132e1f639f0@mainlining.org>
- <0606be50-1f21-438f-bf00-024f31b9eda8@linux.dev>
- <20260707075500.GA10854@localhost>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <20260707075500.GA10854@localhost>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 
-On 7/7/26 12:55 AM, Henrik Grimler wrote:
-> Hi Ihor,
+On Tue, 7 Jul 2026 17:09:38 +0300
+<Alexander.Chesnokov@kaspersky.com> wrote:
+
+> From: Alexander Chesnokov <Alexander.Chesnokov@kaspersky.com>
 > 
-> On Thu, Jun 25, 2026 at 10:26:27PM -0700, Ihor Solodrai wrote:
->> [...]
->>
->> However you have a stable reproducer, so your strdup() change probably
->> covers a real UAF bug somewhere else (in libbpf?).
->>
->> Let's track this down before coming up with a fix.
->>
->> What version/commit of libbpf are you using in your kernel tree?
+> If hop_num is 2 or 1, then the expressions like
+> i * chunk_ba_num + j are computed in 32-bit
+> arithmetic before being assigned to a u64 index field,
+> which can lead to overflow.
 > 
-> I use the same build environment as Aelin and get the same issue with
-> resolve_btfids from linux v7.1.1. System libbpf is at v1.7.0 [1] (but
-> I guess this is not relevant? resolve_btfids is not linked against
-> it).
-> 
->> You could build resolve_btfids with ASAN, or run it with valgrind.
-> 
-> Valgrind reports some invalid reads, see log here:
-> https://grimler.se/files/valgrind-resolve-btfids.txt
-> 
-> and if run under gdb I get:
-> 
-> ```
-> $ gdb -ex r --args tools/bpf/resolve_btfids/resolve_btfids --fatal_warnings --verbose --btf .tmp_vmlinux1.BTF.1 .tmp_vmlinux1
-> [ ... ]
-> found kfunc tcp_reno_ssthresh in BTF_ID_FLAGS bpf_tcp_ca_check_kfunc_ids
-> found kfunc tcp_reno_undo_cwnd in BTF_ID_FLAGS bpf_tcp_ca_check_kfunc_ids
-> found kfunc tcp_slow_start in BTF_ID_FLAGS bpf_tcp_ca_check_kfunc_ids
-> resolve_btfids: function bpf_list_push_back_impl already exists in BTF
-> 
-> Program received signal SIGSEGV, Segmentation fault.
-> 0x00007ffff7f7aaa0 in memcpy (dest=0x7fffebb05a93, src=<optimized out>, n=5) at src/string/memcpy.c:23
-> warning: 23     src/string/memcpy.c: No such file or directory
-> (gdb) bt
-> #0  0x00007ffff7f7aaa0 in memcpy (dest=0x7fffebb05a93, src=<optimized out>, n=5) at src/string/memcpy.c:23
-> #1  0x000055555559865b in _ZL6memcpyPvU17pass_object_size0PKvU17pass_object_size0m (__od=0x7fffeb115c71, __os=0x7fffeb115c71, __n=5) at /usr/include/fortify/string.h:57
-> #2  strset__add_str (set=0x7fffebb85fd0, s=s@entry=0x7fffeb115c71 <error: Cannot access memory at address 0x7fffeb115c71>) at strset.c:162
-> #3  0x0000555555587b2c in btf__add_str (btf=btf@entry=0x7fffebb860a0, s=0x7fffeb115c71 <error: Cannot access memory at address 0x7fffeb115c71>) at btf.c:2109
-> #4  0x00005555555898b1 in btf__add_func_param (btf=0x7fffebb860a0, name=0x7fffeb115c71 <error: Cannot access memory at address 0x7fffeb115c71>, type_id=11011) at btf.c:3108
-> #5  0x000055555555de50 in process_kfunc_with_implicit_args (ctx=0x7fffffffd7d0, kfunc=0x7fffebb739a0) at main.c:1196
-> #6  0x000055555555cc02 in btf2btf (obj=0x7fffffffd868) at main.c:1229
-> #7  0x000055555555b869 in main (argc=1, argv=0x7fffffffec08) at main.c:1535
-> ```
-> 
->> If you can share a reproducer that's easy to run, that would be
->> great too.
-> 
-> I have uploaded .tmp_vmlinux1 and .tmp_vmlinux1.BTF.1 files (for an
-> ARM kernel) that reproduce the issue here:
-> 
-> https://grimler.se/files/tmp_vmlinux1
-> https://grimler.se/files/tmp_vmlinux1.BTF.1
+> Cast the first operand to u64 to ensure the arithmetic
+> is performed in 64-bit.
 
-Hi Henrik,
+If the values can be 64bit it would be better to just make i/j/k u64.
 
-Thanks for the reproducer and the logs, very helpful.
-The crash you hit is a real UAF that was recently fixed in libbpf:
-
-    b23705e6afb6 ("libbpf: Fix UAF in strset__add_str()") [1]
-
-strset__add_str() reallocs its buffer, then copies from a string that
-may point into that same buffer (what btf__name_by_offset() returns)
-dangling after the realloc.
-
-I ran unpatched resolve_btfids under valgrind on your binaries,
-toggling only b23705e6afb6.
-
-Reverting b23705e6afb6:
-
-    Invalid read of size 1
-       at memmove
-       by strset__add_str (strset.c:162)
-       by btf__add_str (btf.c:2109)
-       by btf__add_func_param (btf.c:3118)
-       by process_kfunc_with_implicit_args (main.c:1196)
-       by btf2btf (main.c:1229)
-       by main (main.c:1535)
-     Address 0x11dfb901 is 22,721 bytes inside a block of size 1,787,619 free'd
-       at realloc
-       by libbpf_add_mem (btf.c:224)
-       by strset_add_str_mem (strset.c:106)
-       by strset__add_str (strset.c:157)
-
-      [...]
-
-    ERROR SUMMARY: 5 errors from 2 contexts
-
-With b23705e6afb6 there are no errors.
-
-resolve_btfids statically links the in-tree tools/lib/bpf, so system
-libbpf 1.7.0 is irrelevant, as you correctly noted. v7.1.1 predates
-b23705e6afb6, which is why you are seeing the crash. It's been merged
-into 7.2-rc1, so it will be in the 7.2 release.
-
-I suggest you apply b23705e6afb6 for your build.
-
-Let's drop this resolve_btfids patch, since the root cause has already been fixed.
-
-Thank you!
-
-[1] https://lore.kernel.org/bpf/20260523162722.2718940-1-cmllamas@google.com/
+	David
 
 > 
-> When resolve_btfids is compiled with musl and alpine's toolchain, then
-> the following command segfaults roughly 50 % of the time:
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
 > 
-> tools/bpf/resolve_btfids/resolve_btfids --fatal_warnings --verbose --btf tmp_vmlinux1.BTF.1 tmp_vmlinux1
+> Fixes: a81fba28136d ("RDMA/hns: Configure BT BA and BT attribute for the contexts in hip08")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alexander Chesnokov <Alexander.Chesnokov@kaspersky.com>
+> ---
+>  drivers/infiniband/hw/hns/hns_roce_hw_v2.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> With a resolve_btfids compiled for glibc it does not segfault, but valgrind still reports invalid reads.
-> 
->> Thanks!
-> 
-> [1] https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/main/libbpf/APKBUILD#L3
-> 
-> Best regards,
-> Henrik Grimler
+> diff --git a/drivers/infiniband/hw/hns/hns_roce_hw_v2.c b/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
+> index 1c180a6b1c07..b62513b4db09 100644
+> --- a/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
+> +++ b/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
+> @@ -4257,11 +4257,11 @@ static int hns_roce_v2_set_hem(struct hns_roce_dev *hr_dev,
+>  	chunk_ba_num = mhop.bt_chunk_size / 8;
+>  
+>  	if (hop_num == 2) {
+> -		hem_idx = i * chunk_ba_num * chunk_ba_num + j * chunk_ba_num +
+> +		hem_idx = (u64)i * chunk_ba_num * chunk_ba_num + (u64)j * chunk_ba_num +
+>  			  k;
+> -		l1_idx = i * chunk_ba_num + j;
+> +		l1_idx = (u64)i * chunk_ba_num + j;
+>  	} else if (hop_num == 1) {
+> -		hem_idx = i * chunk_ba_num + j;
+> +		hem_idx = (u64)i * chunk_ba_num + j;
+>  	} else if (hop_num == HNS_ROCE_HOP_NUM_0) {
+>  		hem_idx = i;
+>  	}
 
