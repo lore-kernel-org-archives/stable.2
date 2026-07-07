@@ -1,149 +1,173 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5092DC79B
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 09:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783416476; cv=none; b=Z3ThRDgkjH0lOTDBYJBUvItCiLQPeHmna/UsSH0sC3pFTomaNKRVplWhWT0TxkfhDoiNzew7I181VNWLtGfkxwsZH/qIu6oyhGhhjJVa7TerjVKjP49NWYCC+2NxvUpDy3HneG6HP+OEwnPrz7XNCNH1HgkQMyeA9giedyCoMjk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783416476; c=relaxed/simple;
-	bh=3bYECwpBfkTcXe9Xf4qgJEYNbyztdqohJjIZZ7uI0/k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MOGLa4g6TsbDpx3R0ZP1kRJhdIf5Ln7Z8TGrbquqAJsdkxEj2mkiauSxlhsFgqzKNLRxyLLV5sGlPveaezVL5/EiGhiMXvVrgjBeMsHI24gn9rZVmmwQe8dk60OU8zT56FcUH7Dai6KBVKixWNMxGWbSrUwZvMWxSkHGsmIL/68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aU6xEIv5; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=EgRcJsUM; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73D03AB267
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 09:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.125.188.123
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783416946; cv=pass; b=teWbng9z+jdAUdq+VLyiv6vLsIPaDBH7eCGit7ne+gYVKZgWrtAq35w8zgrDKSSzgvSmEPri/M+GwKR6RikjuSQv8yvD8gd+MQf9wbg439AgKF8gdWc+l2MGxGKeVVUHHL0ctpPy2OlwEvzj0PKgv1fxmADHUMF7gjzJY+qFaRQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783416946; c=relaxed/simple;
+	bh=uLybiMWMjmE4TRojd9HQOPaGaWZeCtzCpL0SPNTzJx4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jwDOMJdRuKN5HVyjYBYiJ7qy77jb6icBZ4WVR6Wa22SxSQuJZvQLrlM1XPveTIKNeDNaBuJwb3bBG+XIJ+tlBqL1BC0gPLlNgdsy7XjnDDJVZq3lW1PrU2rsVesjjWsl9o6DgIB1V8JQ8m5AkVmLPMop+o8s/d8/V+5hrjqcpBo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=S7JQDAE4; arc=pass smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aU6xEIv5";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="EgRcJsUM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783416474;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dWXC2U5pS/sHIFMNKjcnHZ2j56kpHPifAM+RlNplU0Q=;
-	b=aU6xEIv5GCjhsSKNRdzG9RpiStMs+glGmXSjsshuXZAi2pBsxP6nRFA3TXx6lVjgeC7kcM
-	lW0kbn5EJzfXk7i/edh3z6T7b8BEh15YZjYfbfxh3RKm/XmWu5sRs3ZYr+E7QevEElJWMq
-	UY8JwrWyaZYj8M8fyD4ksVvvmvdMT9I=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-195-v0hUJyOwOXWvLWnF1GLAug-1; Tue, 07 Jul 2026 05:27:53 -0400
-X-MC-Unique: v0hUJyOwOXWvLWnF1GLAug-1
-X-Mimecast-MFC-AGG-ID: v0hUJyOwOXWvLWnF1GLAug_1783416472
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-493c588b6f2so27505565e9.0
-        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 02:27:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1783416472; x=1784021272; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=dWXC2U5pS/sHIFMNKjcnHZ2j56kpHPifAM+RlNplU0Q=;
-        b=EgRcJsUMwNTfmjcjtTEh0B3qY8pZ2jTTl4RMibEsP2AC6oPkcA1m9ed8kO3wmfmciW
-         XgFCGvYzbmiVCC1ESidbypkqxh/Px2k4Wnl7ckZlV5uoXSdKREqljgNJ6Y4d5NcJCUAH
-         RPvwbPonvKQhsya0Xq+zx8i0HrVp5hTwxRMjr32/hqG0M7t/i1haIHHH+5YZJJFFUatC
-         SrO/2WMMwcbsu/2ei/zknM/dpS7cUqt9Z2njY8CgcAcUaD4audPIfGXOkNzdSc0O6EXA
-         VHS5VTYq2sqfyuSGP2Sgcclm0jabmKiMSEgjBJFbmvSusV5mgBmCtBHOTY2w7Aq0rt2g
-         K2yg==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="S7JQDAE4"
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 658573F16D
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 09:35:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1783416936;
+	bh=bbT/31W+nDI+goBOogRFsrx2+HdUbut6Kmz6fgFzHhY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type;
+	b=S7JQDAE4E5CD/4AHpJ6qVSF1mqvol6EdkTCI/SUrz4xbNguPJFc0eOhr7wC1T4CgE
+	 p4w9azv+i5Y1JeX3UJReQ/tpOGdb1drIJu1Ca8095BN7EKshUskm9DgBq6GBfQZ6Es
+	 6XDPjt09NB10eWkOw3AU0ZjgMNE7luI7Yo0SggDj3Z+epxUMyoucCmFaztdfRqhWVr
+	 L72VJeAT0OnruEV4TY+r+rBYcFRKkRqlrXlVtUGMqIMUbq/tVcKadL1JVFkL2yruDz
+	 HXVGXzAQMm2IEAFnicg8eReQoWbpc06/B8dnSYA0NtOSuDzNAigKVTJdkpGU1FufXZ
+	 OhHN+L4sFtkJtBeDQqGgpaeiLMjbcTmqzi0PsU3Jrw4ABYSiqfDcQHmDpIrPj0Glvl
+	 km8BFcOoB82PLweejoRL8UqWwfCHYHsqUzr7tcyf3Bmwkh1/FV9+xicjeO1dVxNpo7
+	 MfTE/NnZ1PPfZQPBxWYeJCePIF+iRxuV1VxGbomaM3t1xe83sb05jubUQBHtOO7kmr
+	 Z9pV7k0w0AVnZ99M51QH0W2lRkGxNgaJFJzXZjlNBB6xwwqFRGD8EjirkoVLpBEDs/
+	 XQ3uHgDmgyA3jR+55RkJop4SnL+4wWbonjGFCO3OYjMM5HCQl/tqyML5sSDdURi1q6
+	 x/QMXU6Pj1NvQAv7qYmt+h2k=
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c96b4f58ddcso3704468a12.3
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 02:35:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783416935; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aiuOzLh66rRWUQ366BccTuLD+cDmYvvkDJj7uNZGORXK3EHYrejDM5xiRSTVbdt7BK
+         1CNnImoXofTqEjhQwWwlbEx47XGzWdRUS0cpZGMPZpYPELnYRjjOB0YGZhJiMmg9RiqT
+         cB6Vkk7t9Hhye/+4ApOGGFqhucgR2iZ3EGrdkKAP+2J+k9DAMnLKq3aPiab8WSZEv+C1
+         DlpUzgEOKL5j7xHuvDPXmOxuehp7vIBqbP7zZM5uzwpiJ9Lh4Q2vAXkiL+2QUCPex7ML
+         0/7603/nqPjPBfDOpedCSor2FHzyLeyYOOaQ0sIF8O8e9v+lGcembvozUVQ7v4xZaPC0
+         ypsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version;
+        bh=bbT/31W+nDI+goBOogRFsrx2+HdUbut6Kmz6fgFzHhY=;
+        fh=D9SZv+x9ntfsuWVQ5Yf/+No6sGT3zgK7/rA31A6UTW8=;
+        b=jNipB9dJ48tz5OrBYGtYYKMYFgJ/sRUqbc+lQy5V3XPQ/OjWQytO7OMKAaER19kvus
+         Wr2cvtGPTicSYM+Css/haC+CzyjgssX19T7A1eyJNmV2K07uWkaWzV1Q/qRevQtJydT2
+         4z2xgToEbRzVv4bk3Notso7WuefQHzAoD0R7WV5pG1F6Szq4Nqu8z0u3bx1fPOJ84Zmf
+         BWk5A6jTgZOmVS/4H0zSYSjJoFKSng8ovAAAksv93gOtRc0nLz5DiNB9HGashigRTNH4
+         p8QzMNcdmAhGv/Frj1dbGLVoKXxpQe66DYWkBqEtkBwPsnUvNXZE8yQs3QObK7TrTg9c
+         o2KQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783416472; x=1784021272;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dWXC2U5pS/sHIFMNKjcnHZ2j56kpHPifAM+RlNplU0Q=;
-        b=D2Y4xM7nSuRcnj5acvZemCqR+Pqd4nmrOgjEGgW8uXMgr1su6HVrW4yzal9fknCE7q
-         8UOJGZ3FZO/galV3h8CRCPODPaQzvwOg/X0t47ha93gU1idqV1rHQ8olK23Bdm+LY9gY
-         XuApnEDMOwZ5hrnEdaA7fQQdJAWP/LwUR0s3veRDVu/h8sdjrRXgcRmj7JOfrB6Zurj6
-         aztv89iH3ZRJK6KuoXF/ASTjAsMK6fsH3pHR32tr5kyvBKofEm4Jnc9phTXf7A0ZAp5Z
-         zO18PBAd6Y0Hw9cuAtOCjzUA6IGml0FhKf7SwTq2jdWC8Jlp4+wiIo26bkA76kY79rp5
-         caHw==
-X-Forwarded-Encrypted: i=1; AHgh+RpPCw8Zs6bDpARTYjQoq7yarX4KLMaoFdJZDsxlBquPC3TI9lNnSZYdcAZYRQTdeEbLjaX9+QI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwqQRXHAWBMeDWOAqsVtqCSCJxYtrP2Ax/A0t7CLdOgj+dYzS89
-	Zxo8y657u3xJJEQaFa9KMhl0jdyWsZwYj378nyh9ZU7CXp4Xeve0xr9mPGYufDasoqpHEktb3Wb
-	t/MplQzhuqIFCB4rxcSWbVuP0cBvkPe8FsQvMwlBVUhYm784kpVZdhgHvag==
-X-Gm-Gg: AfdE7clVgdcu0OMNUvJ6oKHVHzC9oiZ8dBf9P513QSuOsdJr8LsucZFHYTZw5DuG5Rm
-	RkdvvdqciB3mdfOR2Z5ZRFF571/ozpZMFODtCAJjsvYPIaOh9UQXNkdyQekWDTdFfbX0elu89Zn
-	LMumV+ChNUiFgS7LmNjGSP2Tzd7A0bRYmrdSbdibH3JTduy/daod2RjYQL7Nr6eemkr13PhZg9V
-	NCB66UoIYGqQHP29NzQRfVV9dAAqmjZvgZRNrAsU6FAd8SZgascaJcMxUb0H3o8wFnTiNIIUVT1
-	YHKltsgAap9MOozuP2BeKKjiiMTuqvWJATU5f1ehok+WkkFaSRS7PC5Tm22todJXVvda9d7DPZ2
-	aHAMT28UAlWsrXE5dCkPbyNVSz4XNCKL/7YJ4yC0TKRi+P34T2QTv8Gt3Qm3I
-X-Received: by 2002:a05:600c:6ad0:b0:493:c2cc:aecb with SMTP id 5b1f17b1804b1-493df0a08ffmr34351495e9.38.1783416471686;
-        Tue, 07 Jul 2026 02:27:51 -0700 (PDT)
-X-Received: by 2002:a05:600c:6ad0:b0:493:c2cc:aecb with SMTP id 5b1f17b1804b1-493df0a08ffmr34351085e9.38.1783416471154;
-        Tue, 07 Jul 2026 02:27:51 -0700 (PDT)
-Received: from sgarzare-redhat (host-79-34-22-35.business.telecomitalia.it. [79.34.22.35])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0f4e3afsm48240745e9.7.2026.07.07.02.27.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 02:27:50 -0700 (PDT)
-Date: Tue, 7 Jul 2026 11:27:36 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: netdev@vger.kernel.org, Jason Wang <jasowang@redhat.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, kvm@vger.kernel.org, virtualization@lists.linux.dev, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eric Dumazet <edumazet@google.com>, 
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org, 
-	Stefan Hajnoczi <stefanha@redhat.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, stable@vger.kernel.org, Brien Oberstein <brienpub@gmail.com>
-Subject: Re: [PATCH net 1/2] vsock/virtio: collapse receive queue under
- memory pressure
-Message-ID: <akzGUvB9g3smaXO6@sgarzare-redhat>
-References: <20260626134823.206676-1-sgarzare@redhat.com>
- <20260626134823.206676-2-sgarzare@redhat.com>
- <akVBmydgSd0Eb46/@devvm29614.prn0.facebook.com>
- <akYl38_9Y4ydXuqE@sgarzare-redhat>
- <akbFcMHenseQW7mJ@devvm29614.prn0.facebook.com>
+        d=1e100.net; s=20251104; t=1783416935; x=1784021735;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bbT/31W+nDI+goBOogRFsrx2+HdUbut6Kmz6fgFzHhY=;
+        b=XN8AWlJFeAVBglW1OW5p2o+Smp3fN0sksK7TOBFuMvGRB9lsNWAB7kqbDZ3tL3kG8W
+         eWCi56+Qnpp0IK0m/Gd84r1IdeOWpA704q20gLhsCQ87QrZ61+CvokJTPlQLBQiUimaf
+         MFvUCGL23UU8yZ7HaOHzcFIMQ27Et9Op0o5ApUrzfVBnNE+7EHbjE3dZ3m1IjiSrADJc
+         +RrpXukxdbYxofj7VSrWmkglhNY4IynhwJYWMAoot10SjMcXNEDfCIaDGGGWslRIGAk+
+         7gyrPniPQadi1DvS+JKSEVvOAJJmj+8/dMLwEof00bGIOUDTa/Xy61Ip1HA3A+niCnmu
+         OvKA==
+X-Forwarded-Encrypted: i=1; AHgh+Roga/u7OOHSqwlcBIhTg4hPH0pWHHV7cp4SJKUuwfuMfx/JjAidMOBZ8oc8M+oAwkc+4ZPRVks=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9euCY8f+RJDU5XC9PkkgsymZEsuJ2x8ZpaiqA702vUYDFIvPu
+	EMhE/opuFK7geDr3hyn/upSzl4zZ50OBMmsNWQy1WBN7uOgs2odQFuLCqpQWFNjWPijAI8jHiYW
+	CsO+mbIEyKSoMjWcidHsmQueO2ZKgrA+bxzJmHICgKdZat9p8r1E068Emy3Bnu8efj3zDm+Zpp6
+	twdqHoRokal9m98GOVSfxLIszpUxux2KxUmMnqM4dbnhDjvUdr
+X-Gm-Gg: AfdE7ckjOknxRQ3wWLYbrnqEQl1/VlsZlTp7Y8rYsOKrFEsEzSoKcRWZBnkX6op8/oT
+	NpNzRMQbcJWWjUwzmE7gut673pE+w46tbiexwFg9mRh6o2au/YNCmmuacxmYCUA0xdmBPZlW9yi
+	a/axygrGgVuqKQfOLcC7w5Qg34gzPia/70QH9l+fwLAnmOcDUJhJ1EbxjM+hD3Q9E0Zf/1Te7/Y
+	C/VrxlByASWek2NYxj8hCjqgx7JMduW7cHLddEnKBFdJUw57lL+GmK4hGG1pS05jSB2g6F2PCQm
+	pY+dCV4=
+X-Received: by 2002:a05:6a20:c5aa:b0:3c0:9c1a:8948 with SMTP id adf61e73a8af0-3c09c1a9c1bmr2553468637.64.1783416934874;
+        Tue, 07 Jul 2026 02:35:34 -0700 (PDT)
+X-Received: by 2002:a05:6a20:c5aa:b0:3c0:9c1a:8948 with SMTP id
+ adf61e73a8af0-3c09c1a9c1bmr2553433637.64.1783416934523; Tue, 07 Jul 2026
+ 02:35:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <akbFcMHenseQW7mJ@devvm29614.prn0.facebook.com>
+References: <20260630214404.930923-1-anthony.l.nguyen@intel.com>
+ <20260630214404.930923-2-anthony.l.nguyen@intel.com> <0496c117-0731-4de4-9f5d-7fdacf34bd71@redhat.com>
+In-Reply-To: <0496c117-0731-4de4-9f5d-7fdacf34bd71@redhat.com>
+From: Aaron Ma <aaron.ma@canonical.com>
+Date: Tue, 7 Jul 2026 17:35:22 +0800
+X-Gm-Features: AVVi8CfFkGBoEQGbtTlj_qWkJDI5c9F_6NwSBaUWRPxR7DFsx1-u2mFLOdzGCoU
+Message-ID: <CAJ6xRxVwD9nLk96y6-HNSFt1AL8o=24UMUGxCYZdht2_+36Xhg@mail.gmail.com>
+Subject: Re: [PATCH net 1/4] ice: wait for reset completion in ice_resume()
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>, davem@davemloft.net, kuba@kernel.org, 
+	edumazet@google.com, andrew+netdev@lunn.ch, netdev@vger.kernel.org, 
+	jbrandeb@kernel.org, stable@vger.kernel.org, Kohei Enju <kohei@enjuk.jp>, 
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Alexander Nowlin <alexander.nowlin@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 02, 2026 at 01:09:20PM -0700, Bobby Eshleman wrote:
->On Thu, Jul 02, 2026 at 10:56:04AM +0200, Stefano Garzarella wrote:
->> On Wed, Jul 01, 2026 at 09:34:35AM -0700, Bobby Eshleman wrote:
->> > On Fri, Jun 26, 2026 at 03:48:22PM +0200, Stefano Garzarella wrote:
->>
->> [...]
->>
->> > > +out:
->> > > +	if (new_skb)
->> > > +		__skb_queue_tail(&new_queue, new_skb);
->> > > +
->> > > +	skb_queue_splice(&new_queue, &vvs->rx_queue);
->> >
->> > I think the new skbs will also need skb_set_owner_sk_safe(skb, sk)
->> > when adding to rx_queue?
->>
->> IIRC we added it in the rx path, mainily for loopback to pass the ownership
->> from the tx socket to the rx socket, but here we are already in the rx path,
->> so the skb will never leave this socket.
->>
+On Tue, Jul 7, 2026 at 4:28=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wrot=
+e:
 >
->Ah that's right, I stand corrected. There is no sender to leak in this
->case.
+> On 6/30/26 11:43 PM, Tony Nguyen wrote:
+> > From: Aaron Ma <aaron.ma@canonical.com>
+> >
+> > ice_resume() schedules an asynchronous PF reset and returns
+> > immediately. The reset runs later in ice_service_task(). If
+> > userspace tries to bring up the net device before the reset
+> > finishes, ice_open() fails with -EBUSY:
+> >
+> >   ice_resume()
+> >     ice_schedule_reset()          # sets ICE_PFR_REQ, returns
+> >   ...
+> >   ice_open()
+> >     ice_is_reset_in_progress()    # ICE_PFR_REQ still set, -EBUSY
+> >   ...
+> >   ice_service_task()
+> >     ice_do_reset()
+> >       ice_rebuild()               # clears ICE_PFR_REQ, too late
+> >
+> > Reproduced on E800 series NICs during suspend/resume with irdma
+> > enabled, where the aux device probe widens the race window.
+> >
+> >   ice 0000:81:00.0: can't open net device while reset is in progress
+> >
+> > Add a best-effort wait (10s timeout, matching ice_devlink_info_get())
+> > for the reset to complete before returning from ice_resume(). In
+> > practice the reset completes in ~300ms.
 >
->> Maybe it's necessary for the eBPF path?
+> Would not be better to (eventually) wait in ice_open()? Why? AFAICS that
+> would be also more consistent with i.e. the current wait in
+> ice_devlink_info_get().
 >
->Looking through sockmap, I don't think it depends on skb->sk being
->non-null either (it reassigns owner to the redirect socket anyway using
->skb_set_owner_r()).
+> Otherwise why don't consolidate all the wait at resume time and remove
+> the other one in ice_devlink_info_get()?
 >
->Sorry for the false alarm. LGTM.
 
-Thanks for checking!
+Hi Paolo,
 
+ice_open() is where the failure is observed, but it is not what creates
+this race. ice_resume() schedules a PFR and returns success before that
+reset/rebuild has completed, so userspace can call open immediately after
+resume and hit -EBUSY.
+
+Waiting in ice_resume() keeps the fix scoped to the PM path and to the
+reset initiated by resume. Moving the wait into ice_open() would change
+all opens during any reset from immediate -EBUSY to sleeping, and ndo_open
+runs under RTNL.
+
+The devlink wait should stay because ice_devlink_info_get() is reached by
+DEVLINK_CMD_INFO_GET userspace requests and reads device/FW state. That
+path still needs protection from resets unrelated to PM resume.
+
+Aaron
+
+> /P
 >
->Reviewed-by: Bobby Eshleman <bobbyeshleman@meta.com>
->
-
-I'm going to add a threashold as Paolo suggested. Do you prefer to look 
-at v2 or should I carry your R-b ?
-
-Thanks,
-Stefano
-
