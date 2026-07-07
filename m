@@ -1,87 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA9D3D812C;
-	Tue,  7 Jul 2026 11:06:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9CD1A6813;
+	Tue,  7 Jul 2026 11:18:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783422378; cv=none; b=FZgWjNWSPsnIRQVRTg59tCMJw8BgyJDXz1puEPMZ623n8Bm8te1HAzr6XXeC10TnXkGm05nOycFRsv7YEmxtve8F20NJdia/6iBoc3iokaZjAnYnPWLuEUsuL1X/rCzhb5E/QAde+c7C4FHxvu4lq2OQE867FhsG73xsPWClzDw=
+	t=1783423116; cv=none; b=qwRmiKMP/gV0kR6S+OT7zs3qXXrb7PN811GksaEVzPm0KcgVJF9rKKbPegNYE9ul96C4iVlpFSV/sx/Log3iCDUrZ9pqTNp1ApwTkjS6ZG9XafIa6DknterkBrjRx/6Uh0x49L8Ly5tqzbh/PrrrdTbnzZIRHO3kjaqEJInJSdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783422378; c=relaxed/simple;
-	bh=5oQBslVXVyGoBt+yGH7KL6hP/GNNUnSmmKKmAhRb7hc=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=bn8BubqVxSqaBJsALeiUSzomb6m3MXkqxZebW0QB3A6wTDmJwH6z322IwwlhA19HzyLGTvzZ0c+IDb4WGy9I+WlUNulpBVMQQFuPkF/zoOR16e3eSlu2fWL3K63eoYp5Q7mRtm0WOwmTeJ5s2/i3+ZxYZQM8DK1TRUQGVGg6KM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gyMp04QI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783423116; c=relaxed/simple;
+	bh=7UCi43GmipmiLetxX+Oon2QMDAX8rL7BTaGfS0ixXas=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OSK2bTdrksf5DvwL+V8ijQTfS2c2bKdmq/TxX+56jBax97/6ufjWOTI+LKu3cpswp2gzp7eR9d8iMGQkdB247nQ1nxx331R1u42TKNn1whO5ZekZOMu72USYtadvsCFlrXx5u/JJtiV0Ur1VgEhk2nQQqDOhCx2ycgcTpaQpaKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pLcLhWoM; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gyMp04QI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36ACA1F000E9;
-	Tue,  7 Jul 2026 11:06:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783422377;
-	bh=JKxHYicutn9lHYVVegEG1F9eKWFhJlIjTLa68GjK0l8=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=gyMp04QITLFRFc5jTjaImw4fF6NT0FHjfTsZpl3YhjEEX+9DzUkH/tskh23b9e6WW
-	 LouAB5fIU6xJ+gd/8p8XpuLtntt+xWzybr3l5cb9jM/MxrB9bAjVkdjgn9t4ac4mwF
-	 Dh899/mDheHU+6MkH9kTdbEBUj1YKv6BN7KhTP3L60xhM7LUjFLB2M/IpF13ZBGXtN
-	 V8NpCTqN5KKS3aKBB+Wi/QEVQzqQCmLOb640Tyk92cE3Z26ncZmpHBdIEwH6imqUAu
-	 VbHMZVrr86CCcfS0u50bf2IEcLV9W4elOrfc/ECmdvpr5JjSP5VJvAmYh7N/agUuUU
-	 eiwfs3SF7GxkA==
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pLcLhWoM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783423113;
+	bh=7UCi43GmipmiLetxX+Oon2QMDAX8rL7BTaGfS0ixXas=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=pLcLhWoMwdfblHH/7hrnTvIbXdJEYmCJ0mZhdXTKyIXfv7KMQN3volzewLfzVEbs5
+	 4dC6vCL+XRS/aOoFowCUYPUBbPnnaqXyylAJLmAkAX53yESu0UqlU0Zt5hi2+DxZvt
+	 Es93mC6VB3Mjh4dkDjbicNLefEvM+ycEIFiVfpE1YnJfFsbOwm+/I0zlhUxtmILFPQ
+	 obWnahbqXo0zCl+YU8i7NBBcSahNVF+z0mASDQ/jUuKEEdlEABxnYUJZLEOQZJrwvM
+	 DaRdIit9IVTcJDO7A9uLs3nzyB1XHlrp03K9kmPeS/Ft39BP80juhrY55wAnVv0gxk
+	 bQtrU3MaKo7vA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7EBA417E0713;
+	Tue, 07 Jul 2026 13:18:32 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: jic23@kernel.org,
+	sboyd@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org,
+	srini@kernel.org,
+	vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	sre@kernel.org,
+	angelogioacchino.delregno@collabora.com,
+	krzk@kernel.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	quic_wcheng@quicinc.com,
+	melody.olvera@oss.qualcomm.com,
+	quic_nsekar@quicinc.com,
+	ivo.ivanov.ivanov1@gmail.com,
+	abelvesa@kernel.org,
+	luca.weiss@fairphone.com,
+	konrad.dybcio@oss.qualcomm.com,
+	mitltlatltl@gmail.com,
+	krishna.kurapati@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	kernel@collabora.com,
+	stable@vger.kernel.org,
+	Sashiko Bot <sashiko-bot@kernel.org>
+Subject: [PATCH v12 01/12] spmi: Fix potential use-after-free by grabbing of_node reference
+Date: Tue,  7 Jul 2026 13:18:18 +0200
+Message-ID: <20260707111829.180158-2-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260707111829.180158-1-angelogioacchino.delregno@collabora.com>
+References: <20260707111829.180158-1-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/3] iomap: consolidate bio submission
-From: Christian Brauner <brauner@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Christian Brauner <brauner@kernel.org>, 
- "Darrick J. Wong" <djwong@kernel.org>, Kelu Ye <yekelu1@huawei.com>, 
- Yifan Zhao <zhaoyifan28@huawei.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
- Joanne Koong <joannelkoong@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>, 
- Sungjong Seo <sj1557.seo@samsung.com>, Hyunchul Lee <hyc.lee@gmail.com>, 
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
- Miklos Szeredi <miklos@szeredi.hu>, fuse-devel@lists.linux.dev, 
- ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org, 
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260702102705.GB6252@lst.de>
-References: <20260629121750.3392300-2-hch@lst.de>
- <20260701-davon-kniegelenk-gedehnt-96476b242a09@brauner>
- <20260702102705.GB6252@lst.de>
-Date: Tue, 07 Jul 2026 13:06:12 +0200
-Message-Id: <20260707-geleast-bemerken-zollen-dbee3cf1939a@brauner>
-X-Mailer: b4 0.16-dev-4217c
-X-Developer-Signature: v=1; a=openpgp-sha256; l=970; i=brauner@kernel.org;
- h=from:subject:message-id; bh=5oQBslVXVyGoBt+yGH7KL6hP/GNNUnSmmKKmAhRb7hc=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT53F166Ypbtvjzjw9+WiVKHlG+m/XX6FyTmpj5sce8O
- nnTXzPzdpSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzkdiojw6wZ5x8nJ71QqAj8
- 9VjoeHBFpkEC35eNX9f8zVJvWLzkyGmGf/ZC2Sk2qmXmf45YsK/f37Z5xoTH/OtXd3wKqdp7/+l
- cXw4A
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On 2026-07-02 12:27 +0200, Christoph Hellwig wrote:
-> On Wed, Jul 01, 2026 at 03:27:40PM +0200, Christian Brauner wrote:
-> > Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-> > Patches in the vfs.fixes branch should appear in linux-next soon.
-> 
-> Hmm, both this mail and the merge commit in git reference the first
-> commit instead of the cower letter.  Is there an issue with your
-> automation that made it miss the cover letter?
+As noticed by Sashiko during a review run of an unrelated patch,
+in of_spmi_register_devices(), for_each_available_child_of_node()
+is used to loop through children, and to also assign a node to a
+newly created SPMI child device.
 
-Yes, your series aren't picked up by b4 correctly - I always take care
-that your cover letter is actually used but the tooling trips over it.
+Problem is that the refcount is dropped at every iteration so, in
+the specific case of DT overlays, a use-after-free may occur when
+an overlay is dynamically unloaded!
 
-I thought about telling you but then I thought it might be easier to
-first try and fix the tooling. So a week ago or so I sent:
+To resolve this, increase the of_node refcount when assigning (in
+function of_spmi_register_devices) and release the reference in
+spmi_device_remove().
 
-https://lore.kernel.org/tools/20260701-work-b4-naked-cover-letter-v1-0-f651c2ffb63b@kernel.org
+Fixes: bc32bbd04011 ("spmi: Set fwnode for spmi devices")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260608100949.36309-1-angelogioacchino.delregno@collabora.com?part=2
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ drivers/spmi/spmi.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-The issue basically is that b4 expects 0/N for the cover letter whereas
-you send "naked" cover letters.
-
-Konstantin is on vacation though.
+diff --git a/drivers/spmi/spmi.c b/drivers/spmi/spmi.c
+index 57b7c0cb4240..2e4ed06fab42 100644
+--- a/drivers/spmi/spmi.c
++++ b/drivers/spmi/spmi.c
+@@ -24,6 +24,9 @@ static void spmi_dev_release(struct device *dev)
+ {
+ 	struct spmi_device *sdev = to_spmi_device(dev);
+ 
++	if (IS_ENABLED(CONFIG_OF))
++		of_node_put(dev->of_node);
++
+ 	kfree(sdev);
+ }
+ 
+@@ -517,7 +520,7 @@ static void of_spmi_register_devices(struct spmi_controller *ctrl)
+ 		if (!sdev)
+ 			continue;
+ 
+-		device_set_node(&sdev->dev, of_fwnode_handle(node));
++		device_set_node(&sdev->dev, of_fwnode_handle(of_node_get(node)));
+ 		sdev->usid = (u8)reg[0];
+ 
+ 		err = spmi_device_add(sdev);
+-- 
+2.54.0
 
