@@ -1,65 +1,69 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E8138E8BE;
-	Tue,  7 Jul 2026 09:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D101E37AA9F;
+	Tue,  7 Jul 2026 09:07:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783414956; cv=none; b=Uq7f6qJ/i55vBuMccAxZHf8WteAff7FEtkA4zZWZI2llLmLnKb8DeQJ1VCbBtEEvZDZgVtuWFT+JOl9YxgxFf+86YJrjmlv8WkMxSu2cWmmK010C9pEO2SceUVh+FsC6tbeYW37TEHyNhrYk2ZckAghqILQwrLZfqMXZUHtgjhM=
+	t=1783415232; cv=none; b=lX5RBg9jsAZRNIv9da29JaA38Xg7IDmiJMW3iKtQYkiQOpMcnUtRw7k/7IrXoxAaq+bITaUf4c3dKAlcCJLVmpRRfXc8nltArUMtnbI9mgg5Yp64neSiwaaoRusqAmZwDuLbFqItoAoGCgwHQUirCZ+RUfWcRzegSzyL00YOM/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783414956; c=relaxed/simple;
-	bh=+e+ez9ewvt0ECIJbO/nKkoaBW6MIulXZo8Sc0cbiZro=;
+	s=arc-20240116; t=1783415232; c=relaxed/simple;
+	bh=gVY3iRWoJPje433nYucl93kbMIGsxUeX/697NT+uj6w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U3pP9IvR4L9kK+rI60ocOBapgTL7MvGp+kbmeZqP53Udd4jLkAV0eq1gLuZ9bTMr40qt5B8DWDDNp2LzZrj+JgpyUcPYSR6jyVWYdb0YTkgeoDMrW9de+bsSaZW1IC13zfsrm2C7vHfCKVj1qBjKATWfF7Sl+aUTpAArqV5QTJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aSVIX2y8; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=p++CxF8nDLbBRujq1/MuRT9Unfs0l2roDrl8LD+iVkZyWvcydryfT+IOM1ufD5DcfbKLLoCty8HDH5hrLWXGmeWt+glZTcVurlZx0fOVF05EBsM0MxHdbqdlmZ8uLKpxxG9O40qELzfIDXF/YXGDEwJBBZUfxaxxhkDe2/yFv9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y0o00ujl; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aSVIX2y8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y0o00ujl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783414954; x=1814950954;
+  t=1783415231; x=1814951231;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=+e+ez9ewvt0ECIJbO/nKkoaBW6MIulXZo8Sc0cbiZro=;
-  b=aSVIX2y82vo8zUehaNLOFqJZMoO9vBnkE+eNn7QOTqaUtyz04SoP7+uS
-   0RTgQI0ioH6VqeXP23mIgXnhmyRMMBLmarJhYTCxhhaoQ2n8/75Szn09K
-   sIB541Pkep+ctcSUxA7QkJNXFC2+wOKaTWrzDsfSrF7yk/k4TmkK68NXm
-   D/YV0jOpVc2EIVGGIJIiSBUIPOHDOZPEMIrq50CNlIYV+3wGO0+/GBwLi
-   Fa0e0/02s2z3Uf4318VHzc4jxt+QMkV1TMsiZNja4r8i1ZK9SkY/OeVce
-   344VctyS2sjGOybhGMK5Pu66GRFEZgRGNS84LMa+aZqquA1ztBtNL4sV3
-   A==;
-X-CSE-ConnectionGUID: c1lhTsPCTm62uOstoLfd8Q==
-X-CSE-MsgGUID: 0+cw6w5vSvGcuY7DohtSLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="94702511"
+  bh=gVY3iRWoJPje433nYucl93kbMIGsxUeX/697NT+uj6w=;
+  b=Y0o00ujlsdweZAQQOcLnr/0V/G/zOaRCbbRnGvmOqv2L6cy7Lu0+CFrE
+   6L2PXgLDBRbL1QQLXx9dlIHKCmRzq8TcRW9qQWsRVQJR4LNB1SuV5O02r
+   +mNLdFH+goNZAhGv4klK99UAlEo0KgzmNa21C+MAqz3hfymAQoGSPryAb
+   BtZ/I08iQXR73N8fiLmjWJHUb0taTqkzHGtd5MeLxnK3AIgmdpEuqKodd
+   s/gscvkzkmuXBO1qHCoutmtgmGqFtB5g9yW4zQU7qbREFz99zlpq6/I+N
+   DNkPjKWoTN81R5s8HqOvIhWvNLQj7wz0RfRWKN8/WbNMycaHoJHjYSB/q
+   Q==;
+X-CSE-ConnectionGUID: F+eiPi34Qg6EM0C75cOITw==
+X-CSE-MsgGUID: sEL7zRZcTHebAS0qh5djuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="87740981"
 X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="94702511"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 02:02:33 -0700
-X-CSE-ConnectionGUID: hZsRr+XZRJuF1HByaaTvcA==
-X-CSE-MsgGUID: VTWvL/QdTue5Ae6n9N3UMQ==
+   d="scan'208";a="87740981"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 02:07:11 -0700
+X-CSE-ConnectionGUID: CIM2WCXfQH6G4eHBrtF8Bw==
+X-CSE-MsgGUID: s6S0Sy4+TAelQsVBP8aVYA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="252871119"
+   d="scan'208";a="253474346"
 Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.178])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 02:02:31 -0700
-Date: Tue, 7 Jul 2026 12:02:28 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Usyskin, Alexander" <alexander.usyskin@intel.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	"Nilawar, Badal" <badal.nilawar@intel.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Adin, Menachem" <menachem.adin@intel.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	lkp <lkp@intel.com>
-Subject: Re: [PATCH char-misc v2] mei: lb: fix incorrect type in assignment
-Message-ID: <akzApAxptnbNwg_y@ashevche-desk.local>
-References: <20260706-fix_type_le-v2-1-586826351454@intel.com>
- <2026070608-reformat-pungent-aeb4@gregkh>
- <CY5PR11MB63665C97B337ACAC21A8A626EDF02@CY5PR11MB6366.namprd11.prod.outlook.com>
- <akypBhzJdxGLJiYq@ashevche-desk.local>
- <2026070722-zips-outgrow-ee43@gregkh>
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 02:07:03 -0700
+Date: Tue, 7 Jul 2026 12:07:00 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: jic23@kernel.org, sboyd@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, arnd@arndb.de,
+	gregkh@linuxfoundation.org, srini@kernel.org, vkoul@kernel.org,
+	neil.armstrong@linaro.org, sre@kernel.org, krzk@kernel.org,
+	dmitry.baryshkov@oss.qualcomm.com, quic_wcheng@quicinc.com,
+	melody.olvera@oss.qualcomm.com, quic_nsekar@quicinc.com,
+	ivo.ivanov.ivanov1@gmail.com, abelvesa@kernel.org,
+	luca.weiss@fairphone.com, konrad.dybcio@oss.qualcomm.com,
+	mitltlatltl@gmail.com, krishna.kurapati@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-pm@vger.kernel.org, kernel@collabora.com,
+	stable@vger.kernel.org, Sashiko Bot <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v10 01/11] spmi: Fix potential use-after-free by grabbing
+ of_node reference
+Message-ID: <akzBtOjs0Blb1pnF@ashevche-desk.local>
+References: <20260707083730.33977-1-angelogioacchino.delregno@collabora.com>
+ <20260707083730.33977-2-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,41 +72,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2026070722-zips-outgrow-ee43@gregkh>
+In-Reply-To: <20260707083730.33977-2-angelogioacchino.delregno@collabora.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Jul 07, 2026 at 10:47:42AM +0200, Greg Kroah-Hartman wrote:
-> On Tue, Jul 07, 2026 at 10:21:42AM +0300, Andy Shevchenko wrote:
-> > On Tue, Jul 07, 2026 at 06:43:20AM +0000, Usyskin, Alexander wrote:
-> > > > On Mon, Jul 06, 2026 at 04:01:30PM +0300, Alexander Usyskin wrote:
+On Tue, Jul 07, 2026 at 10:37:20AM +0200, AngeloGioacchino Del Regno wrote:
+> As noticed by Sashiko during a review run of an unrelated patch,
+> in of_spmi_register_devices(), for_each_available_child_of_node()
+> is used to loop through children, and to also assign a node to a
+> newly created SPMI child device.
+> 
+> Problem is that the refcount is dropped at every iteration so, in
+> the specific case of DT overlays, a use-after-free may occur when
+> an overlay is dynamically unloaded!
+> 
+> To resolve this, increase the of_node refcount when assigning (in
+> function of_spmi_register_devices) and release the reference in
+> spmi_device_remove().
 
 ...
 
-> > > > > Cc: stable@vger.kernel.org
-> > > > 
-> > > > Why cc: stable?  It doesn't actually cause any functional change to the
-> > > > code at all, right?  This isn't running on s390, or am I mistaken?
-> > > 
-> > > This driver is for discrete graphics card, so it may run on non-x86 system, thus all conversions.
-> > > 
-> > > I've been told that if there is Fixes: for commit that already in stable, I should cc: stable.
-> > > If it is not hard rule, I'll drop cc: from the next patch revision.
-> > 
-> > Cc'ing stable@ is a rule which is documented in-tree. Many developers just omit
-> > it for unknown reasons.
-> 
-> My point is that this is NOT an actual bugfix that needs to be applied
-> anywhere except during the next merge window, as all it does is make
-> sparse quiet (which is a valid change).  It doesn't do anything "real"
-> as this hardware is not on any big-endian systems.
+>  void spmi_device_remove(struct spmi_device *sdev)
+>  {
+> +	if (IS_ENABLED(CONFIG_OF))
 
-I was not objecting that. My comment was regarding to "if it's not a hard rule".
+Unneeded check.
 
-> Please don't send stuff to stable that does not actually need to be in a
-> stable kernel tree.
-
-Fully agree.
+> +		of_node_put(sdev->dev.of_node);
+> +
+>  	device_unregister(&sdev->dev);
+>  }
 
 -- 
 With Best Regards,
