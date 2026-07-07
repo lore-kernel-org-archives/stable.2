@@ -1,236 +1,154 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 936C72FB969;
-	Tue,  7 Jul 2026 11:49:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800D23FD159
+	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 12:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783424981; cv=none; b=u6WtBy+zvyb3pJuWS7RcgkskaX1R9Tq71mq3M85Y6EoDTXRntVnrY9GKpfwX3BSOP9mpXiuAffKMgpHxahzghzDCO8iktznGB3Gx6VmrfikDX0pINrZgtoJqLU5rKLW19tN4yM0vkQ9VxyuGcryEYPCpPyrpKPcVHAd6u8VSIuQ=
+	t=1783429130; cv=none; b=YIz+tutdzv5dVotCEfLtcYdbQrcHRLqUg3KhHLKENHKWzQM61pCp4Z8IsLNEtDB1OLt2f5onkdO8r+L8vLb0KL1JXxUsQxeYcasLi5BVptEuaDv9rBP7SKQSTyvHiDNdKsFvXDvXGABQLFCO6v8hiD7oKJaFlKsXr9Jdy2VF6CM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783424981; c=relaxed/simple;
-	bh=yiidr10o1JLDo1KPeEHzsBKcD/5fkjnGpE+bhwZVEFw=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=sO/GYtcB+WXMzMgDqdfI17t9gvh21A0yoqB9Fi65JOlrnwPMSVxQ0De/CLczh7JHE1LKAywSxdMsgMfJ5jUZlCJpZppjzHtSKhQc/3iv6IX6N/x16Qtd5TaowzbCZPnK8lZHfHgtkBqcMsgxAlwkd6Y+DvwLgPea6sl7Opo5USU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.175.55.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.97.40.56])
-	by mtasvr (Coremail) with SMTP id _____wDHz+PL50xqws8ZAA--.56593S3;
-	Tue, 07 Jul 2026 19:49:32 +0800 (CST)
-Received: from smtpclient.apple (unknown [10.97.40.56])
-	by mail-app2 (Coremail) with SMTP id zC_KCgAXy9LK50xqTXKzAg--.29900S2;
-	Tue, 07 Jul 2026 19:49:30 +0800 (CST)
-Content-Type: text/plain;
-	charset=us-ascii
+	s=arc-20240116; t=1783429130; c=relaxed/simple;
+	bh=hWtm8ZM2aIA2ZT1KJL0dTdHDIf+NYjTE56/Vi9ewZDg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GfIAqlGnSGJESdAeD4xO9Wf8ZiaSbkZxCERuoAJkZ+VDdXX2pfUDyaWnkTF8gDz+zM6RvfZ4PVT3nsm7A4ihP7pXsICH5yA1lWvEj/TgliT1gqKL7XKdWC9IxS9QFI2RzPY2280W8OJ7k7TOq9OZ2o3oWnQmhQzAUWy0QQU0eW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DX12F3De; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YAQczb83; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DX12F3De";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YAQczb83"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667C8w3E3676770
+	for <stable@vger.kernel.org>; Tue, 7 Jul 2026 12:58:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=07HWQhr0mW5AKge6itfDXP0o6z4eCVE5Fz7
+	ySaPNK+A=; b=DX12F3DeAwO+uo7rfH9oy/SRxcPIO6ddg6c8OO1d+2z9KG6Y0Jt
+	OfCx8vQ5HavN4oVCoCNygsCZPI2ZYI9thuXK7s6WLwiQZ8buuWs8CDwaP/6VwEz5
+	d3XLk/n901rtSw5tOF0hNLxd8z4+uBXaVvbHf7db790+lEZ3u4QlsPLe5NiEtUKf
+	HjPeDbK/9qsLEULYBl9U4O85856tI4tD5Rochhu5UDFtImO5aYd6FqhEKkUidMY+
+	32rxF2P4vPsbwEKchJ7Hl3qHooBWvUBhgAqJR2oDA7VprL7z3IZm+HIFg97+Hn6w
+	zFx/DLt0juu+WhiujUPafnvcCHTC7UqcoyA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8t15a2dn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 07 Jul 2026 12:58:46 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c12e43b98so51468711cf.1
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 05:58:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783429126; x=1784033926; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=07HWQhr0mW5AKge6itfDXP0o6z4eCVE5Fz7ySaPNK+A=;
+        b=YAQczb83wsw8szNYa4aY/2r/AwJ2ihOKBDreehlKuGZDVIWKXXG+u7bPZWEtgyaskS
+         QlHRnL/VoSlLZCPhkR/vPgJT1gOzGtG41biCeGjK6s+DkJPapJMJsA+Hs3RzPXEzCJ7D
+         FqbVikZriCYXdK0FeDOjSSaERyG8nZdbn87mJhfaGvOAl5271fEwFGsjBePX7iQJK0It
+         wwAG77Eo/QcpuQ1ZKV+ngg9c2wrpU2ZZRzemUazEyB9GJI4TbQJk6kARG8zkEKmp6HhX
+         PUMYGabKdpe7nDQNeIAhX8uMiiUKgh7brG5VgHs0lKyS+qGJFSHajtlVnKs2sJq+uEPf
+         XqiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783429126; x=1784033926;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=07HWQhr0mW5AKge6itfDXP0o6z4eCVE5Fz7ySaPNK+A=;
+        b=rhuLWTP/VUfLDiwvxX5nnzRDK6d1O+phhuHwcQkxt9dXuckAnkUNSQkrehy/fOVSXT
+         Y7NLdnH0HSaqJCVvppfdi9931SWX7d09oNEsHW1gR2sIc61Of6KopF8LhQP8k1G9Xtvw
+         uLIn7kjnpE6QmydPBR5hrdPUzwvAL011bzLlDLqDspjSBIGqEm38oUqhbn52i5qalvvF
+         qxXk8iyGRPMWJ7EU7S5EV8OhNcevGNat2xnriXXxChNMIbwGevr1Nza1qGPq3DBAWSA3
+         5zFE96UucgdcUVubHu4H+ywvzReW72OD/PSnc5vHFwQkT9tVn+tXDLalycTwj70XKgcZ
+         l9ww==
+X-Forwarded-Encrypted: i=1; AHgh+RqJEgeYgwvsCaD89zpnmi56eg79HwLL5qvWVeLtzTNiJNXB2sW3Qu4lQHr8YWq8BZhKVQmOm7U=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz3sgjJpeF2UTMl21miK82H0H2+iyD7kQyg4pNeNgW90/PwDg3L
+	AUAusOq56oFq3v4Z0COPgSczm716OzZwmr2VsOKamD2ViMCYOo7eYq4COri3gjqE5lpJjBtAls2
+	lyeTMF6xms/BsmTSdDIV+kLKOam3DNrQFs0Z6LIeefLJ+YHRKSQ1uERwz2a4=
+X-Gm-Gg: AfdE7ckHKVAa87rwb+K+lmPqwinYh6HBEN99L0Qrjm28sNgC5QKTXoyhoc8vrd8OSD1
+	trTUWnvJzXfKXWPRTrohiHYtH/1Ls3uyK1QOxr58r/WawQQajFItQY7Twji1GzfNI+Das1mpRjR
+	qscS8sYI23/0mS3Q6cJAIb5x16mKvSE4PptqI6UL3NGviCi8PQxs0QHt9/E/RXhFen6uYBCpV+x
+	cQDs1gYEIGx68kvJUMciQ2hQ9M91Y7sKXXyEzQvvnvnr0M6d0RVH+4PY7tyiDcEiOJs++vscuRH
+	3Kg9ViXqwWf2QgHF4r6UjkeBFgiM4PDNlmnf2kIiMYLpFNEwhnUi5YJMawX9w2jJ47HBGEFh1zA
+	0B3JwIbk3sT8BUvpHdiFpS4ALTKSe7950diN8qLo=
+X-Received: by 2002:ac8:7e88:0:b0:51c:4dc:287b with SMTP id d75a77b69052e-51c7479f5e1mr54014801cf.7.1783429125903;
+        Tue, 07 Jul 2026 05:58:45 -0700 (PDT)
+X-Received: by 2002:ac8:7e88:0:b0:51c:4dc:287b with SMTP id d75a77b69052e-51c7479f5e1mr54014531cf.7.1783429125444;
+        Tue, 07 Jul 2026 05:58:45 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:47a8:72a4:c756:37f3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm34539417f8f.13.2026.07.07.05.58.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 05:58:44 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Shuah Khan <skhan@linuxfoundation.org>, Guenter Roeck <linux@roeck-us.net>,
+        Albert Esteve <aesteve@redhat.com>, Kees Cook <kees@kernel.org>,
+        Alessandro Carminati <acarmina@redhat.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Brendan Higgins <brendan.higgins@linux.dev>,
+        David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        brgl@kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+Subject: [PATCH] bug: fix warning suppressions with kunit built as module
+Date: Tue,  7 Jul 2026 14:58:37 +0200
+Message-ID: <20260707125837.57256-1-bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH] media: ti: vpe: quiesce overflow recovery before freeing
- streams
-From: Fan Wu <12321260@zju.edu.cn>
-In-Reply-To: <246a3e47-02ac-46c1-b3cc-dfcf30c00065@ti.com>
-Date: Tue, 7 Jul 2026 19:49:20 +0800
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
- mchehab@kernel.org,
- hverkuil+cisco@kernel.org,
- bparrot@ti.com,
- dale@farnsworth.org,
- dagriego@biglakesoftware.com,
- sbellary@baylibre.com,
- linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <F7B77DB3-16E3-48E2-A3A8-94DCD9C87E2F@zju.edu.cn>
-References: <20260707015251.877945-1-fanwu01@zju.edu.cn>
- <246a3e47-02ac-46c1-b3cc-dfcf30c00065@ti.com>
-To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
-X-Mailer: Apple Mail (2.3774.600.62)
-X-CM-TRANSID:zC_KCgAXy9LK50xqTXKzAg--.29900S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?IsCW8gXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI1bZjlozGzkKqTDAx6jmkX1AtmyPOiUyTkTlOpJ2yYEpiai
-	M70ZXZDhB2e0N/wjZIKp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW3AF18ur1xury7Gr1rZF45twc_yoWxCrWDpr
-	WfJ34YkFWvgF48tF17uw45uFyfCrn5t3yjkry5u347A3y5Cr1YvF18KF1rXFyxArnava43
-	tr45KayxuFs8WFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 81n1pewWwKJ6jpKON8gFdfIYYZyA1dOK
+X-Authority-Analysis: v=2.4 cv=HstG3UTS c=1 sm=1 tr=0 ts=6a4cf806 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=AttVjD3uJjTWtuEPW6QA:9 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: 81n1pewWwKJ6jpKON8gFdfIYYZyA1dOK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDEyNiBTYWx0ZWRfX6vVqqxrUDNyC
+ VVURQrLNwuxRpt7bCt0cbU23t+7huyYoerNLbkqaLA/Ji5YChQndZuzmfd+/dd84hspOkJLIM6f
+ 1sA8OllkQmgMHwnKZVGuybqT5rKTB/M=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDEyNiBTYWx0ZWRfX6/CbClUvAfkC
+ scmK5nxRxafP4HTE+7gKewtu5r5ZpPOK1eFVw4jg2k7iagzRFYvOz5p1HdeHUwvwYFcPI/IBtm4
+ wvZ8de3K1zk9Df1orYD+rrkSPm59dYL6u4IFflOg0hbdv2zd8Gn4HcIJAgmc+bzl3pBo3L3znfW
+ I5+Ap32jRNKLUpr8CjZR1JajN2maLNGRTt/bQPkdRnjWgucd6XOJFqBZQHpnIp4dzrEMP2SaOwQ
+ wgnbRMf/MpZ5foJNeC9b0z3Ct7LfiQ6NJuc2ioge0cvpIOnmFQ1XuPDGZ8PUnWRh2UKbuu1QJMb
+ mfYwpiMSWaZz9fUOUtOiN53RnACw7sstesnJLtpnzXwnT5HfVWPZshZICeGveglAcyWwEMPKLtg
+ Zu2VExX630tr820okfFCr0PzD0s3hYHGziYzMsgDJ8H98SSvDzfKaDDugiIPwyNSrCMKY0HmIJP
+ tOhqN2KHKL1ddPfAxow==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_03,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070126
 
-Hi Yemike,
+CONFIG_KUNIT is a tristate symbol but the warning suppression code in
+lib/bug.c is only built if it's built-in. Use IS_ENABLE(CONFIG_KUNIT) to
+enable it for a loadable kunit module as well. When using a plain #ifdef,
+the suppressions only work if kunit is built-in.
 
-Thanks for the review.
+Cc: stable@vger.kernel.org
+Fixes: 85347718ab0d ("bug/kunit: Core support for suppressing warning backtraces")
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+ lib/bug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I have not reproduced this on hardware. The issue was reported by our
-in-house static analysis tool, and I manually audited the driver to =
-confirm
-the lifetime race. The overflow IRQ can queue recovery_work, while the
-list-complete IRQ handler can obtain a stale stream pointer through the
-VPDMA list private data (vpdma_hwlist_get_priv()). vip_stop_streaming()
-only masks and clears the IRQs; it does not wait for an in-flight =
-handler
-and does not cancel recovery_work. Both the handler and the worker can
-still dereference stream-owned state, and the worker may also re-enable
-the IRQs, so free_stream() needs to drain the handler/work item before
-releasing the stream-owned resources.
-
-Your suggestion makes sense. I will update v2 so that
-vip_overflow_recovery_work() checks whether the vb2 queue is still =
-active
-before re-enabling IRQs/restarting the parser. With that guard in place,
-free_stream() should then only need the first =
-disable/clear/synchronize_irq()
-followed by cancel_work_sync(), and the second =
-disable/clear/synchronize_irq()
-sequence can be dropped.
-
-Regarding your tooling question: in addition to the in-house static
-analysis tool that found the bug, I used the Codex coding assistant
-(gpt-5.5) to help prepare the patch. The final submitted change was
-reviewed and edited by me, and I take full responsibility for it.
-
-I will document this in the v2 commit message, for example:
-
-  This issue was found by an in-house static analysis tool.
-
-  Assisted-by: Codex:gpt-5.5
-
-Thanks,
-Fan
-
-> On Jul 7, 2026, at 16:54, Yemike Abhilash Chandra =
-<y-abhilashchandra@ti.com> wrote:
->=20
-> Hi,
-> Thanks for the patch
->=20
-> On 07/07/26 07:22, Fan Wu wrote:
->> The VIP overflow recovery work is armed from the hardirq handler when =
-a
->> FIFO overflow is detected, and the list-complete path looks the =
-stream
->> up through the VPDMA list private pointer. Both keep touching stream,
->> port and device state; the recovery worker also resets the parser and
->> VPDMA and can re-enable overflow interrupts.
->> vip_stop_streaming() masks and clears the per-list IRQs, but it =
-neither
->> synchronizes the hardirq handler nor cancels recovery_work. If an
->> overflow IRQ has already queued recovery_work, or a list-complete IRQ =
-is
->> in flight when the stream is torn down, the handler or worker can =
-still
->> dereference the stream after its resources are released.
->> free_stream() owns the stream lifetime, so drain the IRQ handler and
->> recovery work there before freeing stream-owned resources: drop the
->> stream from cap_streams[], disable IRQs for its list (disable_irqs()
->> masks both the parser-overflow and the list-complete IRQ), wait for =
-any
->> in-flight handler, cancel the worker, then disable and sync again
->> because the worker may have re-enabled interrupts while it ran. Only
->> then are the drop queue, video device and VPDMA list released and the
->> stream freed.
->> Additionally clear the VPDMA list private pointer in =
-vpdma_hwlist_release
->> (and return the released slot's value instead of the array base), so
->> later list-complete handling cannot recover a freed stream through a
->> stale private pointer.
->> Fixes: fc2873aa4a21 ("media: ti: vpe: Add the VIP driver")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
->> ---
->>  drivers/media/platform/ti/vpe/vip.c   | 20 +++++++++++++++++++-
->>  drivers/media/platform/ti/vpe/vpdma.c |  3 ++-
->>  2 files changed, 21 insertions(+), 2 deletions(-)
->> diff --git a/drivers/media/platform/ti/vpe/vip.c =
-b/drivers/media/platform/ti/vpe/vip.c
->> index cb0a5a07a3d4..9c5bf91ade1b 100644
->> --- a/drivers/media/platform/ti/vpe/vip.c
->> +++ b/drivers/media/platform/ti/vpe/vip.c
->> @@ -3139,6 +3139,25 @@ static void free_stream(struct vip_stream =
-*stream)
->>   return;
->>     dev =3D stream->port->dev;
->> + /*
->> + * Quiesce the overflow IRQ and recovery work for this stream
->> + * before releasing its resources: the handler and the worker
->> + * both keep touching stream, port and device state. disable_irqs()
->> + * masks both the parser-overflow and the list-complete IRQ for
->> + * this list. Drop the stream from cap_streams[] first so a racing
->> + * overflow handler misses the lookup, wait for any in-flight
->> + * handler, cancel the worker, then disable and sync again because
->> + * the worker may have re-enabled interrupts while it ran.
->> + */
->=20
-> Did you able to reproduce this?
->=20
-> I am not sure if it is reproducible in practice? I will try to =
-reproduce
-> this with hardware, (again I am not really sure how to simulate the
-> overflow to trigger the overflow recovery) but in the meantime few
-> comments.
->=20
->> + stream->port->cap_streams[stream->stream_id] =3D NULL;
->> + disable_irqs(dev, dev->slice_id, stream->list_num);
->> + clear_irqs(dev, dev->slice_id, stream->list_num);
->> + synchronize_irq(dev->irq);
->> + cancel_work_sync(&stream->recovery_work);
->> + disable_irqs(dev, dev->slice_id, stream->list_num);
->> + clear_irqs(dev, dev->slice_id, stream->list_num);
->> + synchronize_irq(dev->irq);
->> +
->=20
-> Having synchronize_irq and etc twice seems ugly, I understand the =
-reason.
->=20
-> But in vip_overflow_recovery_work before actually enabling the irqs =
-again,
-> Can you check if the queue is currently active? and If not we can =
-choose
-> not enable the irqs again, thereby eliminating need for second
-> synchronize_irq, disable_irqs call?
->=20
-> and also are you using any LLM or other tool? if so, please document =
-the
-> same in the commit message.
->=20
-> Thanks and Regards,
-> Yemike Abhilash Chandra
->=20
->>   /* Free up the Drop queue */
->>   list_for_each_safe(pos, q, &stream->dropq) {
->>   buf =3D list_entry(pos,
->> @@ -3150,7 +3169,6 @@ static void free_stream(struct vip_stream =
-*stream)
->>     video_unregister_device(stream->vfd);
->>   vpdma_hwlist_release(dev->shared->vpdma, stream->list_num);
->> - stream->port->cap_streams[stream->stream_id] =3D NULL;
->>   kfree(stream);
->>  }
->>  diff --git a/drivers/media/platform/ti/vpe/vpdma.c =
-b/drivers/media/platform/ti/vpe/vpdma.c
->> index 573aa83f62eb..f9f5b2f1ee1a 100644
->> --- a/drivers/media/platform/ti/vpe/vpdma.c
->> +++ b/drivers/media/platform/ti/vpe/vpdma.c
->> @@ -988,7 +988,8 @@ void *vpdma_hwlist_release(struct vpdma_data =
-*vpdma, int list_num)
->>     spin_lock_irqsave(&vpdma->lock, flags);
->>   vpdma->hwlist_used[list_num] =3D false;
->> - priv =3D vpdma->hwlist_priv;
->> + priv =3D vpdma->hwlist_priv[list_num];
->> + vpdma->hwlist_priv[list_num] =3D NULL;
->>   spin_unlock_irqrestore(&vpdma->lock, flags);
->>     return priv;
+diff --git a/lib/bug.c b/lib/bug.c
+index 292420f45811..b9820a0226f5 100644
+--- a/lib/bug.c
++++ b/lib/bug.c
+@@ -219,7 +219,7 @@ static enum bug_trap_type __report_bug(struct bug_entry *bug, unsigned long buga
+ 	no_cut   = bug->flags & BUGFLAG_NO_CUT_HERE;
+ 	has_args = bug->flags & BUGFLAG_ARGS;
+ 
+-#ifdef CONFIG_KUNIT
++#if IS_ENABLED(CONFIG_KUNIT)
+ 	/*
+ 	 * Before the once logic so suppressed warnings do not consume
+ 	 * the single-fire budget of WARN_ON_ONCE().
+-- 
+2.47.3
 
