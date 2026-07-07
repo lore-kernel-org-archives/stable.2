@@ -1,84 +1,38 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BC83BB48
-	for <stable@vger.kernel.org>; Tue,  7 Jul 2026 01:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 594373101A9;
+	Tue,  7 Jul 2026 01:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783387844; cv=none; b=pMhHhzGrD/r1j31VFQ5dumj+Tajl8ew/fTGX+pQhJa85Lo/abF6OskIM+hBa+CKnRzVKt1Jk8T8K76DSY6UOm4d/IGeODyHBc28vW/2LOT6m+AFBVnl4GEkmqT4YGdupfGQ0ZOn0BsE9MWGxO9CvI5R4vO7f/XfuYmQWzrtnoX8=
+	t=1783389236; cv=none; b=hm+Otw2VZpBb4HjOtNGm5gc1fTDzkaZIYhOJMfdrTwnLkX2T5HGAuJaZ6iEvLATafkxY4XeSGDJvJWWTKoeXiA7WoSsFFTE9mGLP1FZAuw9/V6tGs4jokUWof40Z/T3CzmG8G7a6cX02pLPn1mOlznWoIXlVGmwa+vFXTBqO06A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783387844; c=relaxed/simple;
-	bh=hlzNnsVV1o1LCgnMnPlGAyIjyXfohOSH516CMeMRHeA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m+6PGIThLi6UqmlIfvg4PXTjgj4wyx++W5MNFdEq2r13WcSsdVh8MW3V4xFas1/+QHu5SRAHZKh3QtOB66JCW33WV1WbDd7Js12hOogxTDGbaCCSzQCTLHRicraM43ClCz6TYgT/RQSZSJ0fe1N2qxydcP75Xnz+hJfOyjRHIAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pHaIJQ0x; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pHaIJQ0x"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-384422b05b5so415478a91.2
-        for <stable@vger.kernel.org>; Mon, 06 Jul 2026 18:30:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783387842; x=1783992642; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ROUC3cgy4QtTAai8fuwZ/i9UUpJYp/TQoiTouEVN0vM=;
-        b=pHaIJQ0xeZJB1D+gX7nlpC3oz/xmmdw/1EyKN4id4/+x9EeAPpTVxlWtzik8mZRw03
-         hBzYVGCDtAo0bmP/dNK34zc0bKFc6dy8XEQtZMBkNtCNaGp85He8zBWPMv8d4fPpPQRZ
-         qrHDm0oM6TsngwbMlQUvHpRyzeKPVWm0sB9KLD62KmhD4ap51zQWvnMMrRj3qvkFsBK7
-         fcpd95vDaOcY5Xm1vKuDiFMXTxZNBbFBayZ1n7LbCu9BzbPeoOqcpwzyQK5DjFaW0u1Z
-         lWCT09L0FI0HmCovHSlK9KRDSq62qGRm0bH/Z1wxSpzWZoMySQYsFdj17JVUEK3PTo5K
-         4p7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783387842; x=1783992642;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ROUC3cgy4QtTAai8fuwZ/i9UUpJYp/TQoiTouEVN0vM=;
-        b=HbNKMiLe8W4YYNWPLORYLT7psrqHusmJ+aNR43B0wsvwW45BOQ+unVwkGcOZjJ8Rx+
-         n0hTYJaxT75p4bJYzWJaXrMQ+dKDlaSHyW3NgvQ2N9q32Eqs6JkVuMtSUUc02xO1nRIs
-         IBIRpXT+x8OOu0IxRhCViU5vsG1NTgLUmGN7Te97/6m+dFJTARRhdCGCKJY4GVtKG8By
-         /lRnNCscvV/neKg5qPnegCayYAxYXNvA3/7TWc+WnPSaWwInY+yJCmrrx67tCnnI3AZ4
-         cTXHR+src83hvoIYisxJ/U8fyYGPcj6wnjxegNUkS/q5ixW69FFUzUuo+dppA0t6rsi2
-         3Arg==
-X-Forwarded-Encrypted: i=1; AHgh+RorqD+jaVpDm9QG9yi2Se9KltloQBk/suXAavuyWuW3SpI5SWEuFmPn4XB7efqROSZkRdaSmu0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YznOnl5hk9ymGRk6DoDE9noYlr/ba2hzt3ent32vE480Q9H+c2M
-	ZyUM16qWAKe6twTcuKhiQP4tcSsA1nUId+4GtUkG3JiwoKVUPqhBOb98
-X-Gm-Gg: AfdE7clczzPPIe+yp4HaavT5bfQx8BYDXeqfXhLPqPT8NhB6utvZhFh/KLSG+Qan+JP
-	+hm/JHfwYDBK/vG/T+uBzpQIc5QL+blLhTimubiP3F8tccSxrZSCX1m8hLMJmyfNOA22fyg1SaO
-	HIeBrtfKmN8JIbY2++aMn+EpC+TdHozHwVLvD8azJDApkkMYhRFCQ+uoDSYEDrjhjeEpmxcsnzn
-	SyeFgOeabImbRl89r1P0+8V/vMxBXWMgunRr8FTV2TizSEndqiD5GWR+EIjpKjFeDFpt/4MUiya
-	f9SZDf0R3Z8Uc0Nwh1AXPCCJ2bAN39NrY6/EwIfuZNaFXRwSXz2V/qiGUSC1svl22juqmhA1RHU
-	xemiqcIn+3LNugClXYrDiE59f29hRZxufwxr8w9FBvpsUm8UBT1/7lWp4vze5TwDgGwzxnQLBo1
-	mT4utS6r8lM6qWVUJMzi9OxQBCWnnHew==
-X-Received: by 2002:a17:903:41cf:b0:2c9:e9ef:bdd9 with SMTP id d9443c01a7336-2cccad90e8cmr5468245ad.7.1783387841900;
-        Mon, 06 Jul 2026 18:30:41 -0700 (PDT)
-Received: from kavandesktop.local.lan ([50.46.174.241])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d1e279sm2653435ad.45.2026.07.06.18.30.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 18:30:41 -0700 (PDT)
-From: Kavan Smith <kavansmith82@gmail.com>
-To: robdclark@gmail.com,
-	quic_abhinavk@quicinc.com,
-	dmitry.baryshkov@oss.qualcomm.com
-Cc: sean@poorly.run,
-	marijn.suijten@somainline.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
+	s=arc-20240116; t=1783389236; c=relaxed/simple;
+	bh=Co06N/H4+kM77LKr0xFPV4VHsc2xnihPmlU/wcj0Uw0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O7qbBKOcZhq5ilk0ZJHB80Lw7KsrmQnEpB5v7LRtgKUe91qJAqyhjrXYuKpVNrqJSK90Ts+0TYSJrDYJQUZBkhsKaGThwBwOLJKz9cYCjUGJ60Rat1oXCZH7nwrkgRxErfC6RMpr7DcdkFGNi9Mp8sobexCTElNiGMVZK0taY0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.21.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCHx10qXExqDZ4VAA--.47898S3;
+	Tue, 07 Jul 2026 09:53:47 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgC3BZ4qXExqGomhAg--.62828S2;
+	Tue, 07 Jul 2026 09:53:46 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: y-abhilashchandra@ti.com
+Cc: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org,
+	bparrot@ti.com,
+	dale@farnsworth.org,
+	dagriego@biglakesoftware.com,
+	sbellary@baylibre.com,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Kavan Smith <kavansmith82@gmail.com>,
-	Daniel Mack <daniel@zonque.org>
-Subject: [PATCH v2] drm/msm/dsi: round 6G byte clock rate to the PLL-achievable value
-Date: Mon,  6 Jul 2026 18:32:40 -0700
-Message-ID: <20260707013240.681012-1-kavansmith82@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260706180753.408753-1-kavansmith82@gmail.com>
-References: <20260706180753.408753-1-kavansmith82@gmail.com>
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] media: ti: vpe: quiesce overflow recovery before freeing streams
+Date: Tue,  7 Jul 2026 01:52:51 +0000
+Message-Id: <20260707015251.877945-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,89 +40,115 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgC3BZ4qXExqGomhAg--.62828S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?FTPsNgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBEOdrwoTKE/heUMp91lDG7JJs3IuOigzybroPMUl6E8cnJy
+	7r+uZYCb4yuNbR3k7Ump9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxAr45XFy3trW8WrykKry8JFc_yoWrWF1fpr
+	WrJ34SkF97KF48tF43Cw1Y9FW5Ar1rtayjkry7u34UC3y3Gr4YvF18K3W8Zr97Ar93Zay3
+	tr45Kay8uF45WFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
+	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-MSM8916 runtime DSI commands still go through
-msm_dsi_host_xfer_prepare(), which re-applies the link clock rate before
-enabling the link clocks. That is fine in principle, but on DSI 6G the
-requested byte clock rate often does not exactly match the DSI PHY PLL's
-realizable rate. For example, the driver can request 56250000 Hz while the
-PLL actually runs at 56246337 Hz.
+The VIP overflow recovery work is armed from the hardirq handler when a
+FIFO overflow is detected, and the list-complete path looks the stream
+up through the VPDMA list private pointer. Both keep touching stream,
+port and device state; the recovery worker also resets the parser and
+VPDMA and can re-enable overflow interrupts.
 
-Because the requested and actual rates differ slightly, every later
-link_clk_set_rate() call is treated as a real clock change and re-locks
-the PLL. On a video-mode panel without an internal timing generator, such
-as samsung,s6d7aa0 / lsl080al03 on MSM8916, that live-clock glitch makes
-the panel lose pixel lock and visibly corrupts scanout on each runtime DCS
-command, including backlight writes.
+vip_stop_streaming() masks and clears the per-list IRQs, but it neither
+synchronizes the hardirq handler nor cancels recovery_work. If an
+overflow IRQ has already queued recovery_work, or a list-complete IRQ is
+in flight when the stream is torn down, the handler or worker can still
+dereference the stream after its resources are released.
 
-Fix this by rounding the computed 6G byte clock rate up front, before it is
-stored in msm_host->byte_clk_rate and reused by later transfers. Once the
-host carries the PLL-achievable rate instead of the idealized one,
-repeated link_clk_set_rate() calls become no-ops in the common clock
-framework and no longer re-lock the PLL.
+free_stream() owns the stream lifetime, so drain the IRQ handler and
+recovery work there before freeing stream-owned resources: drop the
+stream from cap_streams[], disable IRQs for its list (disable_irqs()
+masks both the parser-overflow and the list-complete IRQ), wait for any
+in-flight handler, cancel the worker, then disable and sync again
+because the worker may have re-enabled interrupts while it ran. Only
+then are the drop queue, video device and VPDMA list released and the
+stream freed.
 
-This keeps the normal transfer callback sequencing intact, preserves the
-OPP vote path in link_clk_set_rate(), and matches the fix direction
-suggested in the original 2018 discussion.
+Additionally clear the VPDMA list private pointer in vpdma_hwlist_release
+(and return the released slot's value instead of the array base), so
+later list-complete handling cannot recover a freed stream through a
+stale private pointer.
 
-Reported-by: Daniel Mack <daniel@zonque.org>
-Closes: https://lore.kernel.org/all/1a682c5b-7fc9-3aaa-120b-64b239a355a3@zonque.org/
-Fixes: 6b16f05aa39f ("drm/msm/dsi: Split clk rate setting and enable")
+Fixes: fc2873aa4a21 ("media: ti: vpe: Add the VIP driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Kavan Smith <kavansmith82@gmail.com>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 25 +++++++++++++------------
- 1 file changed, 13 insertions(+), 12 deletions(-)
+ drivers/media/platform/ti/vpe/vip.c   | 20 +++++++++++++++++++-
+ drivers/media/platform/ti/vpe/vpdma.c |  3 ++-
+ 2 files changed, 21 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index eabdaa4..5119862 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -603,12 +603,24 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
+index cb0a5a07a3d4..9c5bf91ade1b 100644
+--- a/drivers/media/platform/ti/vpe/vip.c
++++ b/drivers/media/platform/ti/vpe/vip.c
+@@ -3139,6 +3139,25 @@ static void free_stream(struct vip_stream *stream)
+ 		return;
  
- int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- {
-+	long rounded_byte_clk_rate;
+ 	dev = stream->port->dev;
++	/*
++	 * Quiesce the overflow IRQ and recovery work for this stream
++	 * before releasing its resources: the handler and the worker
++	 * both keep touching stream, port and device state. disable_irqs()
++	 * masks both the parser-overflow and the list-complete IRQ for
++	 * this list. Drop the stream from cap_streams[] first so a racing
++	 * overflow handler misses the lookup, wait for any in-flight
++	 * handler, cancel the worker, then disable and sync again because
++	 * the worker may have re-enabled interrupts while it ran.
++	 */
++	stream->port->cap_streams[stream->stream_id] = NULL;
++	disable_irqs(dev, dev->slice_id, stream->list_num);
++	clear_irqs(dev, dev->slice_id, stream->list_num);
++	synchronize_irq(dev->irq);
++	cancel_work_sync(&stream->recovery_work);
++	disable_irqs(dev, dev->slice_id, stream->list_num);
++	clear_irqs(dev, dev->slice_id, stream->list_num);
++	synchronize_irq(dev->irq);
 +
- 	if (!msm_host->mode) {
- 		pr_err("%s: mode not set\n", __func__);
- 		return -EINVAL;
- 	}
+ 	/* Free up the Drop queue */
+ 	list_for_each_safe(pos, q, &stream->dropq) {
+ 		buf = list_entry(pos,
+@@ -3150,7 +3169,6 @@ static void free_stream(struct vip_stream *stream)
  
- 	dsi_calc_pclk(msm_host, is_bonded_dsi);
-+
-+	rounded_byte_clk_rate = clk_round_rate(msm_host->byte_clk,
-+					       msm_host->byte_clk_rate);
-+	if (rounded_byte_clk_rate < 0) {
-+		pr_err("%s: failed to round byte clock rate, %ld\n",
-+		       __func__, rounded_byte_clk_rate);
-+		return rounded_byte_clk_rate;
-+	}
-+
-+	msm_host->byte_clk_rate = rounded_byte_clk_rate;
- 	msm_host->esc_clk_rate = clk_get_rate(msm_host->esc_clk);
- 	return 0;
+ 	video_unregister_device(stream->vfd);
+ 	vpdma_hwlist_release(dev->shared->vpdma, stream->list_num);
+-	stream->port->cap_streams[stream->stream_id] = NULL;
+ 	kfree(stream);
  }
-@@ -2056,18 +2068,7 @@ int msm_dsi_host_xfer_prepare(struct mipi_dsi_host *host,
- 	 * mdp clock need to be enabled to receive dsi interrupt
- 	 */
- 	pm_runtime_get_sync(&msm_host->pdev->dev);
--	/*
--	 * Do NOT re-set the link clock rate when the link is already up and
--	 * streaming. On MSM8916 the requested byte-clock rate never exactly equals
--	 * the DSI PHY PLL's achievable rate, so clk_set_rate() re-locks the PLL on
--	 * every command. For a video-mode panel with no internal timing generator
--	 * (e.g. s6d7aa0), that clock glitch makes the panel lose pixel lock mid-
--	 * scanout -> ~1s of displaced/wrapped image on every DCS write (backlight).
--	 * The rate is already correct from power-on; downstream MDSS only refcount-
--	 * enables the clocks here (CMD_CLK_CTRL) and never re-sets the rate.
--	 */
--	if (!msm_host->power_on)
--		cfg_hnd->ops->link_clk_set_rate(msm_host);
-+	cfg_hnd->ops->link_clk_set_rate(msm_host);
- 	cfg_hnd->ops->link_clk_enable(msm_host);
  
- 	/* TODO: vote for bus bandwidth */
+diff --git a/drivers/media/platform/ti/vpe/vpdma.c b/drivers/media/platform/ti/vpe/vpdma.c
+index 573aa83f62eb..f9f5b2f1ee1a 100644
+--- a/drivers/media/platform/ti/vpe/vpdma.c
++++ b/drivers/media/platform/ti/vpe/vpdma.c
+@@ -988,7 +988,8 @@ void *vpdma_hwlist_release(struct vpdma_data *vpdma, int list_num)
+ 
+ 	spin_lock_irqsave(&vpdma->lock, flags);
+ 	vpdma->hwlist_used[list_num] = false;
+-	priv = vpdma->hwlist_priv;
++	priv = vpdma->hwlist_priv[list_num];
++	vpdma->hwlist_priv[list_num] = NULL;
+ 	spin_unlock_irqrestore(&vpdma->lock, flags);
+ 
+ 	return priv;
 -- 
-2.43.0
+2.34.1
 
