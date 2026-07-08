@@ -1,50 +1,48 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+Received: from sender-op-o14.zoho.eu (sender-op-o14.zoho.eu [136.143.169.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169FC27A907;
-	Wed,  8 Jul 2026 22:46:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FD12E03E4;
+	Wed,  8 Jul 2026 22:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783550767; cv=pass; b=iFq9HvUG/B7/lRapzTL4eoB5TXZ5ZGX2I+5EKuU3fYEPUiCJaEOb+IqEHa4DNUKH2hOGu8ko5E7q0K16CdpFkSAzxIRyBOOmDx6xoIatUtfwPCO56D2qJHaZGBgeuhR4Ssg6jgBF+nNsoVI7tnNi0/ReWPGW1ZY5cLamIo602jQ=
+	t=1783550796; cv=pass; b=tyDl1Gvwcpkfo7E3VLj9ZC7jxfBStFJtSDi1He2JIWDYm4VW9CbNgekw0UyRY38CvrfGwPKY238TJ4TZDqqjvGAj/Uy/Kpai2H68H761iGSKDmHq2TaDCYo/u4r4sS7T89TzavZ7w8h9ZR3aYWe5+sPuHq+p9HsZcYE5TiP0eIs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783550767; c=relaxed/simple;
-	bh=f7hTj5Z6gRvSa0KtpoX7/eRvO2RceLcXei9E5wV8n3A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ahr9xFVU5uhKoZ1gB0lcX5uJgxSqiXvcT7rnuKUJcyuEfo3nNa6042wj616HAXEH12aWTwmFmys3MbVJwY9EouydyEDksmoV+2gsT+d3FW2W9hC8RAfEEHowsfnZgySxMltgfEDImT1WphT2iCZqnUpG9FNKrMjavOt0D63/4sI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=CvhVL2bG; arc=pass smtp.client-ip=136.143.169.17
+	s=arc-20240116; t=1783550796; c=relaxed/simple;
+	bh=IdLjKUWHVlwK8p1thSjt5pd26TOAvNAKXZTV5lMP/UY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sK/sll/ESMN8D6qs5yCxsC84GPRVnK4tI4IJiZGx1C3rJjVLM9jK8ooFNdTN29oqE/zjtPkUIjDGutSf/lxg2J+25cVpu1SoUrEjaoDLSmKBRP7rYvrDsX3r7l9c7LTPGQeANO9cDuYXFZUN0tL3i9gBsQlMnJpORK9NM0kNzTc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=G5ek6yrY; arc=pass smtp.client-ip=136.143.169.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="CvhVL2bG"
-ARC-Seal: i=1; a=rsa-sha256; t=1783550756; cv=none; 
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="G5ek6yrY"
+ARC-Seal: i=1; a=rsa-sha256; t=1783550783; cv=none; 
 	d=zohomail.eu; s=zohoarc; 
-	b=EntOqNFnDL0j9g0Q8/LcCZsE3AMe4Cy55gFdZAX1IVbouzqN13rYpOpMiXXIdMBeJ+105gOIb09pXHxKY76YHZ99vRXYd3giKKI4eNTRLwcrOOVmS8iLCcr3RLaZsjJXswZC5KkJKGvEbHzyXRZkyazussOqS8bXIrYsXkRXMHc=
+	b=BD6f7jHYctW9OnW1WkeiiVTW+Bh6cfn4dWwL4XJdDqRHtUvKLb86HBINflPLASWpQ2BUT0s+r8PS/OG16jadUbkH9e6L3xdvphWuU2Ykwe5dSWR4begLY1QFbpBibk+J4+87t94NgUapD/HX0N0k8hkSTw67fR1Fdq6xr9y7efU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1783550756; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=BLuv8CvIQiEDopySExwjFH41Ldb+fBdbqFUmbwvT514=; 
-	b=CLiE+9E34LBmq1RwvJrzKuP9Tz1bS0W3miCi2K1ZRUmX7ik06SvMgM1FPlkt8kp+OVGSBAoek/2dZXNBIgqjNMtPc0hujpYY77fJzXKmp+YQRJn9flVOVFMItaf3hn6Lp2VeVp5hGddeHkOcjq3MH10jJ8EZ5rrEkabJEDH1Mc8=
+	t=1783550783; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=UvKEqvHUn0DLpNmYFQa2M7TyKCELkaUuyUzSxfV9lDE=; 
+	b=B57qWVJ+mWdhgUR9Mfx9bG6kBJK89hOgei0EL4eM3Nj9Y1uTVmRhjjQbqO8c01aONWlk5FttznddesOtEjPQUeBDSwFKegjyP2RqqgXOUedfuG8xlCPA9Hu7kJb9So/zxmKKo9y4ku47gQJcGM7VXx8sdfSMFsDPNFdHlnhc2eI=
 ARC-Authentication-Results: i=1; mx.zohomail.eu;
 	dkim=pass  header.i=auditcode.ai;
 	spf=pass  smtp.mailfrom=security@auditcode.ai;
 	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783550756;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783550783;
 	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=BLuv8CvIQiEDopySExwjFH41Ldb+fBdbqFUmbwvT514=;
-	b=CvhVL2bGy4TIMKeHHBqcGdUfbOHUaWZhhBBomigDD4Db8bo5o6kov7vLUrFK+5wu
-	Q0yJigXsQ3cutfSy7gv9+8iy+NPyC+22OGaNicBvh54rLdy7FpMHVd1xQFyX0rqlTRc
-	ye3ZlPC2oZA30lfRH7NjW4aUrzS97/cY1P4JrwTY=
-Received: by mx.zoho.eu with SMTPS id 1783550753234656.5754088413917;
-	Thu, 9 Jul 2026 00:45:53 +0200 (CEST)
+	bh=UvKEqvHUn0DLpNmYFQa2M7TyKCELkaUuyUzSxfV9lDE=;
+	b=G5ek6yrYdDIFgIWK4AUTP7RVXevKk6PsYJh49XYSm6rshoHALS18gNkTyG5Wvuff
+	tmNZ+a/msiYLTZunA1sdSDOveD7IX/yXaxTFnIfGHgeNB4aPEOCPLpLYk1WXY+EAlIH
+	jxKMPq2BjPVbl/I9g7x10Ks5290Epgf1fMWpqnuk=
+Received: by mx.zoho.eu with SMTPS id 1783550781426701.195803168272;
+	Thu, 9 Jul 2026 00:46:21 +0200 (CEST)
 From: Ibrahim Hashimov <security@auditcode.ai>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] RDMA/rxe: fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp
-Date: Thu,  9 Jul 2026 00:45:50 +0200
-Message-ID: <20260708224550.1281-1-security@auditcode.ai>
+Subject: [PATCH] fs/ntfs3: fix integer overflow in find_log_rec() causing OOB read
+Date: Thu,  9 Jul 2026 00:46:18 +0200
+Message-ID: <20260708224618.1328-1-security@auditcode.ai>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -55,110 +53,105 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-rxe_qp_from_attr()'s IB_QP_MAX_DEST_RD_ATOMIC branch frees and
-reallocates qp->resp.resources[] (the rd_atomic resource array used by
-the responder to track in-flight RDMA READ/ATOMIC/FLUSH requests)
-completely outside of the IB_QP_STATE handling above it. Unlike every
-other place that tears this array down -- rxe_qp_reset(), reached only
-under IB_QP_STATE, always calls rxe_disable_task(&qp->recv_task) /
-rxe_disable_task(&qp->send_task) to drain the responder and requester
-tasks before touching per-QP state, then re-enables them -- this branch
-runs with the responder task (rxe_receiver(), scheduled as recv_task on
-the rxe_wq workqueue) fully live and unlocked. A userspace modify_qp()
-that sets only IB_QP_MAX_DEST_RD_ATOMIC (no state change, so
-__qp_chk_state()/ib_modify_qp_is_ok() never runs and qp->state_lock is
-never taken here) can therefore race the responder in two ways:
+find_log_rec() validates the on-disk LFS_RECORD_HDR.client_data_len
+field (`len`, a raw u32 read straight from a mounted $LogFile page)
+against the log's total available space:
 
- 1. free_rd_atomic_resources() calls kfree(qp->resp.resources) and
-    alloc_rd_atomic_resources() kzalloc_objs()'s a new array while
-    rxe_prepare_res()/find_resource() in rxe_resp.c are concurrently
-    walking &qp->resp.resources[i] with no lock held -- a straight
-    free-vs-read race on the array itself.
+    len = le32_to_cpu(rh->client_data_len);
+    rec_len = len + log->record_header_len;
+    if (rec_len >= log->total_avail)
+            return -EINVAL;
 
- 2. free_rd_atomic_resources() only NULLs qp->resp.resources; it never
-    clears qp->resp.res, the raw pointer *into* that array that
-    rxe_resp.c caches across a multi-packet RDMA READ/ATOMIC/FLUSH
-    reply (set at rxe_resp.c read/atomic/flush-reply sites, cleared
-    only on the normal completion paths). If a modify_qp() races a
-    resource still referenced by qp->resp.res, the array is freed out
-    from under the cached pointer and the next reply packet dereferences
-    it -- independent of the kfree/kzalloc_objs() window in (1).
+The addition is unchecked. For len in [0xffffffd0, 0xffffffff] (i.e.
+log->record_header_len away from UINT_MAX), `rec_len` wraps to a small
+u32 value that trivially clears the `rec_len >= log->total_avail`
+guard, so a record whose declared length is actually ~4 GiB is
+reported as valid and in-page.
 
-Reproduced with KASAN: a single process driving one RC QP pair in rxe
-loopback, one thread pumping large multi-packet IBV_WR_RDMA_READs
-against qpB while a second thread hammers
-ibv_modify_qp(qpB, IB_QP_MAX_DEST_RD_ATOMIC), reliably (~11s) produces
+Because find_log_rec() wrongly accepts the record, its caller
+read_log_rec_lcb() hands it back to log_replay() as good. On the
+transaction-table replay leg, log_replay() re-derives the record
+length directly from the same raw, still-unclamped client_data_len
+field and uses it to size the restart-table blob:
 
-  BUG: KASAN: slab-use-after-free in rxe_receiver+0x4f78/0x89e0 [rdma_rxe]
-  Workqueue: rxe_wq do_work [rdma_rxe]
+    rec_len = le32_to_cpu(frh->client_data_len);   /* ~0xffffffff */
+    ...
+    t16 = le16_to_cpu(lrh->redo_off);
+    rt  = Add2Ptr(lrh, t16);
+    t32 = rec_len - t16;                            /* still ~4 GiB */
+    if (!check_rstbl(rt, t32))
+            return -EINVAL;
 
-with the freed kmalloc-1k object being the rd_atomic resource array
-freed by the modify_qp() thread while the recv_task kworker reads it.
-An identical run modifying only IB_QP_MIN_RNR_TIMER (no resource free)
-is clean.
+check_rstbl()'s own `bytes < ts` bounds guard is defeated because the
+caller-supplied `bytes` (t32) is itself the poisoned ~4 GiB value, so
+the guard can never trigger. The subsequent entry-validation loop then
+walks `rt->used` (also attacker-controlled) entries of
+sizeof(struct RESTART_TABLE) == 0x18 bytes each straight past the end
+of the kmalloc(log->page_size) log-page buffer allocated in
+read_log_page(), producing an out-of-bounds read that is reachable
+simply by mounting a crafted $LogFile (no genuine dirty-page /
+crash-recovery state is required). Confirmed via KASAN as a
+slab-out-of-bounds read in check_rstbl(), called from log_replay() ->
+ntfs_loadlog_and_replay() -> ntfs_fill_super() -> mount(2).
 
-Fix both races the same way rxe_qp_reset() already handles tearing down
-this exact array: quiesce the responder task around the free/realloc by
-calling rxe_disable_task(&qp->recv_task) before free_rd_atomic_resources()
-and rxe_enable_task(&qp->recv_task) after alloc_rd_atomic_resources(),
-so rxe_receiver() cannot observe the array mid-free/mid-realloc. And
-close the still-open window for (2) at the source: have
-free_rd_atomic_resources() clear qp->resp.res along with
-qp->resp.resources, exactly like the existing completion paths in
-rxe_resp.c (check_rkey()/duplicate_request()/RESPST_CLEANUP) already do
-when a resource's lifetime ends, so a drained-and-resumed responder
-restarts at RESPST_CHK_PSN against the fresh array instead of replaying
-a stale reference into the old one.
+Fix the root cause instead of hardening every downstream consumer of
+the poisoned length: make the addition in find_log_rec() overflow-safe
+with check_add_overflow(), mirroring the pattern fs/ntfs3/run.c
+already uses to validate other attacker-controlled on-disk
+length/offset arithmetic decoded from MAPPING_PAIRS runs, e.g.:
 
-Only qp->recv_task is drained: qp->resp.resources / qp->resp.res are
-touched exclusively by the responder (rxe_resp.c); the requester
-(send_task / rxe_sender()) never reads them, so there is no need to
-widen this beyond what rxe_qp_reset() would drain for the equivalent
-state.
+    if (check_add_overflow(vcn64, len, &next_vcn))
+            return -EINVAL;
+    ...
+    if (check_add_overflow(lcn, len, &lcn_end))
+            return -EINVAL;
 
-Verified on the same v6.19 KASAN stand: with this fix applied, the
-identical differential reproducer drives sustained MAX_DEST_RD_ATOMIC
-storms against qpB well past the ~11s pre-fix time-to-first-splat with
-zero KASAN reports, versus reliably tripping the slab-use-after-free in
-rxe_receiver() described above before the fix.
+(fs/ntfs3/run.c, run_unpack()).
 
-Fixes: 8700e3e7c485 ("Soft RoCE driver")
+With the overflow rejected instead of silently wrapped, `rec_len` is
+only ever a true, non-wrapped sum, so the existing
+`rec_len >= log->total_avail` check now correctly rejects any
+oversized record up front. log_replay()'s transaction-table leg then
+never gets a chance to re-read the poisoned client_data_len, and
+check_rstbl() is never invoked with an attacker-inflated `bytes` for
+this path.
+
+Verified on a v6.19 KASAN build: mounting a crafted $LogFile whose
+client_data_len overflows trips a KASAN slab-out-of-bounds-read
+report in check_rstbl() before this fix; with check_add_overflow()
+applied, the same image is cleanly rejected during log replay and no
+KASAN report fires.
+
+Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
 Assisted-by: AuditCode-AI:2026.07
 ---
- drivers/infiniband/sw/rxe/rxe_qp.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ fs/ntfs3/fslog.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-index f3dff1aea96a..646957707765 100644
---- a/drivers/infiniband/sw/rxe/rxe_qp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-@@ -172,6 +172,7 @@ static void free_rd_atomic_resources(struct rxe_qp *qp)
- 		}
- 		kfree(qp->resp.resources);
- 		qp->resp.resources = NULL;
-+		qp->resp.res = NULL;
- 	}
- }
+diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+index f038c799e7ac..e5b63a02b827 100644
+--- a/fs/ntfs3/fslog.c
++++ b/fs/ntfs3/fslog.c
+@@ -7,6 +7,7 @@
  
-@@ -709,9 +710,15 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
+ #include <linux/blkdev.h>
+ #include <linux/fs.h>
++#include <linux/overflow.h>
+ #include <linux/random.h>
+ #include <linux/slab.h>
  
- 		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+@@ -2424,7 +2425,8 @@ static int find_log_rec(struct ntfs_log *log, u64 lsn, struct lcb *lcb)
+ 	 * Check that the length field isn't greater than the total
+ 	 * available space the log file.
+ 	 */
+-	rec_len = len + log->record_header_len;
++	if (check_add_overflow(len, log->record_header_len, &rec_len))
++		return -EINVAL;
+ 	if (rec_len >= log->total_avail)
+ 		return -EINVAL;
  
-+		/*
-+		 * Not gated by IB_QP_STATE above: quiesce the responder task
-+		 * the same way rxe_qp_reset() does before touching this
-+		 * array, so rxe_receiver() can't race the free/realloc.
-+		 */
-+		rxe_disable_task(&qp->recv_task);
- 		free_rd_atomic_resources(qp);
--
- 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
-+		rxe_enable_task(&qp->recv_task);
- 		if (err)
- 			return err;
- 	}
 -- 
 2.50.1 (Apple Git-155)
 
