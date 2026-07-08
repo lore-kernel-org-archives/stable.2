@@ -1,56 +1,56 @@
-Received: from mail-oa1-f73.google.com (mail-oa1-f73.google.com [209.85.160.73])
+Received: from mail-oi1-f201.google.com (mail-oi1-f201.google.com [209.85.167.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80FC393DF1
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 22:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C680638B14B
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 22:52:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783551140; cv=none; b=ETDkl3hBVK9OjsnqrPqX/XqAnF6+A3vKPQ3EaAwk7dqXo0KZpNuKfaILCnpOwr9oJTDsSwWURZARZg+L/t7rCpZPL1NgyKcvtQ/v1AtJyGwQM3QuGykQfhY+ftQ56vSh73fcB5FpAdZbH1js8gZj03MH/kvlg7Sstv2JfLI8Ywo=
+	t=1783551140; cv=none; b=mlYXJGtyZQIIq2DLMuRfauB366uVq+KBn3AIj1LRKLOG1Ua+e87kz9bXFF0uXMawVnNUhBW2ofnjaqCc+5gj0zEPTq+A+oMAf30n4CvtooMr2GCPnA3ZPd3wZwHps8334rgj8FYYwE2d9B1lveBuqNZr+Lrt8ZC/vvaGRPG+yJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783551140; c=relaxed/simple;
-	bh=lIhEm2wVtEXNQNvGEaqy2EwOqFAEAnqOIu34Qyyuk0A=;
+	bh=nUhFMfzpySNDZtLZSUs7iGBvYNcjPGt8shYlgz2wNtQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=AlJXSbQ0Z6ghiv7USJPmR6WVL9n+yBJNmdKZ/oNFjiBHHxPuQJT6MzouMjr5XvRs6ErmkIXF8JABgP9+SBF6N17to0pa+Z9Q+H0BZ1sAsNQ3/Tm/M3s3Q/WH2otV7X4m3udr37nWEi8wiN95ETMqYcP+7S6Wwxw5CKYTmP4gZQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=b6Z8LYQI; arc=none smtp.client-ip=209.85.160.73
+	 To:Cc:Content-Type; b=ZNqIeBVJcIoMMquRJtmhRE28sbqA2c835HsXyKbVEYgwBvya8vAgClZGqiB0Lfe96gmbQnQo9HDk0laG5qe5vn9j7mQdIhvgAencgTkORMff+vsYLVz/RzTtx0MDkYQnsj8CSrwB7/IY6/C+/M2RUG8lRF+B/lLan1rQk58sqSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=E9afbvFy; arc=none smtp.client-ip=209.85.167.201
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="b6Z8LYQI"
-Received: by mail-oa1-f73.google.com with SMTP id 586e51a60fabf-44801afec53so1280208fac.2
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 15:52:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="E9afbvFy"
+Received: by mail-oi1-f201.google.com with SMTP id 5614622812f47-4893fc86bebso1663141b6e.0
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 15:52:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783551133; x=1784155933; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1783551134; x=1784155934; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mutBHrPPn84rf+SwTAASYZI6R7q+QxGKCuZHvQ7HuZU=;
-        b=b6Z8LYQIoHhdlG0uY11Qn1ocSIGISnAh1JWCgfaEjAj+f27YYr1yuLaxWZzX+/AQ8l
-         LnhGzy4A1BGjwjHiym+odbkkRAzEOlEc67Ti9Wcvdn359wVB5Lr9AC5qIYX/iuwV9NYA
-         6hH1XijPxXQzsUfTGIKfPrKiRLKFY5OtIWpD2cNJcdxvAKxd6iroU0tgrt+tvbImQSby
-         nfu1P/1Nl3Oetvdxl4gJftsi4ZJciETTexgfxY2E20oohX0kVp0iojBGUDyziQLTzH49
-         RAfYmLqk1wowYObBMciiY5Z+DTeSMJ9AG/yLsVS0P5URe4DaJg6J+B9WCBvp0SGwVQyu
-         3nuA==
+        bh=BRLBDv0GR5+I5QEs+yagz6DalTxaINze8PKIAjmPSRo=;
+        b=E9afbvFyEVMONUp2AKT9TkUB/R1XHvbFpFFN4KtN5q4W3kC9CTCa3QNuKtQbaZ++2U
+         Uqc0ml4g+DzYmKwhk32M84CBk2HL7sr/qJsbETnPEQQkR4TeKZIHysr13VJaty3INlRU
+         7ojOJr1lHuhawvNH7Xl4ZvaqnSQ4gvVtDh76nmjBjtMIgBjo2ctAyD6IXAe4ALcKRNKT
+         tELIQFx8DdTtkYKqDxuOBjBEb4Tn05AtTMatXkDwQ5Z0hlh1jYQfYwzxe8zmjoTTejrs
+         /SqMSxOHw70I66eOVlzST6J+Q/z27tMjyeyksqiBNWT6vbx51pf84E0ZOFofZ1ZWz0Sc
+         COCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783551133; x=1784155933;
+        d=1e100.net; s=20251104; t=1783551134; x=1784155934;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mutBHrPPn84rf+SwTAASYZI6R7q+QxGKCuZHvQ7HuZU=;
-        b=qjgEH22aYBNuJG77WEohILKbiaDrwYSgI4xwk5crnwI6qlxkOHE9UwcfnqGDq0/G+I
-         0PmH9a3xQHQkzC6uGngSynedyFiHCB0QSajtq9OQx/bT+/wkIUwcZpT0Lju5hWLieqzm
-         EiC4BWKhzoQI6hvY9SOKMfP/0xiCUfS8CvegSKmbUANaCeoFMC+LJ6UQrheGmEfufCcf
-         lp1mpPgnJpEpP3O++xt0BcfFK8sj3IrtNCrhMvdsR7kpvsbSbUP1bEx56wZhLEcThsNN
-         wCcUSUzjThBdKIMlxFhaVjUqbcozsJin23ZZPUNm9ghDAmXva/XS4QR6oyOaWAqqvHQt
-         AYYw==
-X-Gm-Message-State: AOJu0YxQMMp9tA/c5+KUsnwZSg+ufscP2DTbYvp5cFDhMl5iV2C1RSI2
-	FukCoAjlel1NMfkY82z/BS50DkhV51DwKIjhNREW29rbI/Sr5UkiJkmIQA/0ZYMsCDih6copplE
-	xvEzRl6ChzhHlJElVjSXpHBwG1gR51mcVp3wTXmtHL8fQ8iKRtZ5Y9NOO3l11WPCrQmaaOwx0ek
-	vL7+znNlas3JnvF9iJgg/jIsQ466ZrzMBG0BWpOBKx2SP5hosxxAAjHDdPMFw8CaY=
-X-Received: from iltr14.prod.google.com ([2002:a92:c5ae:0:b0:502:eb99:7080])
+        bh=BRLBDv0GR5+I5QEs+yagz6DalTxaINze8PKIAjmPSRo=;
+        b=MEqj1o4zyNxnFSCTClfNHP4Wi4AIPWvAiXVDcjZGdkoA5b2AkSM70LPi6ARDBWw+6x
+         zJ+adzIlZuY9oQ5RXxBypHM22je95py5BFwpAKhBpwIzVMTewPLIqev3dHEgwEejIZe3
+         SYjsnAFMyD3qVBbb9cBKNdggU21M8AftrlyFhNim8eBC++V27mhclDHkF8+q2YJi3gcD
+         40qKA/mgZvfNx9WuAkAQ9xq2DlrpAUMg1y7waeJqGd0BDKSa8EQzBLyHgF91oYoAuK/M
+         xdJQO3cpeWYiAGVBpevBglelNZCIIYCSrBTtyDV3PKpuSNywtqeizf8RClSQSZBdOlPH
+         hJFg==
+X-Gm-Message-State: AOJu0YyuVCSV+CewgwE+YRv4odwyq3XlqoQRm3djdqiWmT8gRNlq7JsF
+	1DEdg7xCDZXD735NkadGwgoFu1z+kLQKxMnDw1Ms3Z81QILl5BGD074EopVYWb2QDCR3X3shQOA
+	pOh2zYxaUa0/fDgzdGy2YraUTUIgVWoUuy2Yn6KPt+Y8rNaXA0nMmBVZnMsABgbezpLNpzhUBMA
+	qmwVKCa8uGzKOxzmOAMRsVeeSVmc6bVkDGQdh49+EJ1vg/LaOpIWDZLbsaTphzzWA=
+X-Received: from ilmq1.prod.google.com ([2002:a92:d401:0:b0:503:8d4a:5b5b])
  (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6820:c0d4:10b0:6a3:76ab:476b with SMTP id 006d021491bc7-6a376ab4a96mr1122254eaf.57.1783551132443;
- Wed, 08 Jul 2026 15:52:12 -0700 (PDT)
-Date: Wed,  8 Jul 2026 22:51:23 +0000
+ 2002:a05:6820:5708:10b0:6a3:74fd:a86f with SMTP id 006d021491bc7-6a374fdb227mr1250772eaf.9.1783551133388;
+ Wed, 08 Jul 2026 15:52:13 -0700 (PDT)
+Date: Wed,  8 Jul 2026 22:51:24 +0000
 In-Reply-To: <20260708225124.4130846-1-coltonlewis@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260708225124.4130846-1-coltonlewis@google.com>
 X-Mailer: git-send-email 2.55.0.795.g602f6c329a-goog
-Message-ID: <20260708225124.4130846-6-coltonlewis@google.com>
-Subject: [PATCH 6.6 v2 5/6] KVM: arm64: Initialize SCTLR_EL1 in __kvm_hyp_init_cpu()
+Message-ID: <20260708225124.4130846-7-coltonlewis@google.com>
+Subject: [PATCH 6.6 v2 6/6] arm64: Revamp HCR_EL2.E2H RES1 detection
 From: Colton Lewis <coltonlewis@google.com>
 To: stable@vger.kernel.org
 Cc: oliver.upton@linux.dev, sashal@kernel.org, gregkh@linuxfoundation.org, 
@@ -70,109 +70,112 @@ Cc: oliver.upton@linux.dev, sashal@kernel.org, gregkh@linuxfoundation.org,
 	mark.rutland@arm.com, ahmed.genidi@arm.com, leo.yan@arm.com, 
 	miguel.luis@oracle.com, dbrazdil@google.com, kvmarm@lists.linux.dev, 
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Ben Horgan <ben.horgan@arm.com>
+	Jan Kotas <jank@cadence.com>
 Content-Type: text/plain; charset="UTF-8"
 
-From: Ahmed Genidi <ahmed.genidi@arm.com>
+From: Marc Zyngier <maz@kernel.org>
 
-[ Upstream commit 3855a7b91d42ebf3513b7ccffc44807274978b3d ]
+[ Upstream commit ca88ecdce5f51874a7c151809bd2c936ee0d3805 ]
 
-When KVM is in protected mode, host calls to PSCI are proxied via EL2,
-and cold entries from CPU_ON, CPU_SUSPEND, and SYSTEM_SUSPEND bounce
-through __kvm_hyp_init_cpu() at EL2 before entering the host kernel's
-entry point at EL1. While __kvm_hyp_init_cpu() initializes SPSR_EL2 for
-the exception return to EL1, it does not initialize SCTLR_EL1.
+We currently have two ways to identify CPUs that only implement FEAT_VHE
+and not FEAT_E2H0:
 
-Due to this, it's possible to enter EL1 with SCTLR_EL1 in an UNKNOWN
-state. In practice this has been seen to result in kernel crashes after
-CPU_ON as a result of SCTLR_EL1.M being 1 in violation of the initial
-core configuration specified by PSCI.
+- either they advertise it via ID_AA64MMFR4_EL1.E2H0,
+- or the HCR_EL2.E2H bit is RAO/WI
 
-Fix this by initializing SCTLR_EL1 for cold entry to the host kernel.
-As it's necessary to write to SCTLR_EL12 in VHE mode, this
-initialization is moved into __kvm_host_psci_cpu_entry() where we can
-use write_sysreg_el1().
+However, there is a third category of "cpus" that fall between these
+two cases: on CPUs that do not implement FEAT_FGT, it is IMPDEF whether
+an access to ID_AA64MMFR4_EL1 can trap to EL2 when the register value
+is zero.
 
-The remnants of the '__init_el2_nvhe_prepare_eret' macro are folded into
-its only caller, as this is clearer than having the macro.
+A consequence of this is that on systems such as Neoverse V2, a NV
+guest cannot reliably detect that it is in a VHE-only configuration
+(E2H is writable, and ID_AA64MMFR0_EL1 is 0), despite the hypervisor's
+best effort to repaint the id register.
 
-Fixes: cdf367192766ad11 ("KVM: arm64: Intercept host's CPU_ON SMCs")
-Reported-by: Leo Yan <leo.yan@arm.com>
-Signed-off-by: Ahmed Genidi <ahmed.genidi@arm.com>
-[ Mark: clarify commit message, handle E2H, move to C, remove macro ]
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-Cc: Ahmed Genidi <ahmed.genidi@arm.com>
-Cc: Ben Horgan <ben.horgan@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Leo Yan <leo.yan@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oliver.upton@linux.dev>
-Cc: Will Deacon <will@kernel.org>
-Reviewed-by: Leo Yan <leo.yan@arm.com>
-Link: https://lore.kernel.org/r/20250227180526.1204723-3-mark.rutland@arm.com
+Replace the RAO/WI test by a sequence that makes use of the VHE
+register remnapping between EL1 and EL2 to detect this situation,
+and work out whether we get the VHE behaviour even after having
+set HCR_EL2.E2H to 0.
+
+This solves the NV problem, and provides a more reliable acid test
+for CPUs that do not completely follow the letter of the architecture
+while providing a RES1 behaviour for HCR_EL2.E2H.
+
+Suggested-by: Mark Rutland <mark.rutland@arm.com>
+Acked-by: Mark Rutland <mark.rutland@arm.com>
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Reviewed-by: Oliver Upton <oliver.upton@linux.dev>
+Tested-by: Jan Kotas <jank@cadence.com>
 Signed-off-by: Marc Zyngier <maz@kernel.org>
+Link: https://lore.kernel.org/r/15A85F2B-1A0C-4FA7-9FE4-EEC2203CC09E@global.cadence.com
+
+[ Backport: Resolved conflict in arch/arm64/include/asm/el2_setup.h
+  by replacing msr_hcr_el2 macro usages with raw msr hcr_el2 (since
+  the macro is missing in 6.6.y). ]
 ---
- arch/arm64/include/asm/el2_setup.h   | 4 ----
- arch/arm64/kernel/head.S             | 3 ++-
- arch/arm64/kvm/hyp/nvhe/hyp-init.S   | 1 -
- arch/arm64/kvm/hyp/nvhe/psci-relay.c | 3 +++
- 4 files changed, 5 insertions(+), 6 deletions(-)
+ arch/arm64/include/asm/el2_setup.h | 38 +++++++++++++++++++++++++-----
+ 1 file changed, 32 insertions(+), 6 deletions(-)
 
 diff --git a/arch/arm64/include/asm/el2_setup.h b/arch/arm64/include/asm/el2_setup.h
-index 3498dc5d02c18..76b0d50d286d5 100644
+index 76b0d50d286d5..4c7467b382b60 100644
 --- a/arch/arm64/include/asm/el2_setup.h
 +++ b/arch/arm64/include/asm/el2_setup.h
-@@ -229,10 +229,6 @@
- .Lskip_fgt_\@:
+@@ -24,22 +24,48 @@
+ 	 * ID_AA64MMFR4_EL1.E2H0 < 0. On such CPUs HCR_EL2.E2H is RES1, but it
+ 	 * can reset into an UNKNOWN state and might not read as 1 until it has
+ 	 * been initialized explicitly.
+-	 *
+-	 * Fruity CPUs seem to have HCR_EL2.E2H set to RAO/WI, but
+-	 * don't advertise it (they predate this relaxation).
+-	 *
+ 	 * Initalize HCR_EL2.E2H so that later code can rely upon HCR_EL2.E2H
+ 	 * indicating whether the CPU is running in E2H mode.
+ 	 */
+ 	mrs_s	x1, SYS_ID_AA64MMFR4_EL1
+ 	sbfx	x1, x1, #ID_AA64MMFR4_EL1_E2H0_SHIFT, #ID_AA64MMFR4_EL1_E2H0_WIDTH
+ 	cmp	x1, #0
+-	b.ge	.LnVHE_\@
++	b.lt	.LnE2H0_\@
+ 
++	/*
++	 * Unfortunately, HCR_EL2.E2H can be RES1 even if not advertised
++	 * as such via ID_AA64MMFR4_EL1.E2H0:
++	 *
++	 * - Fruity CPUs predate the !FEAT_E2H0 relaxation, and seem to
++	 *   have HCR_EL2.E2H implemented as RAO/WI.
++	 *
++	 * - On CPUs that lack FEAT_FGT, a hypervisor can't trap guest
++	 *   reads of ID_AA64MMFR4_EL1 to advertise !FEAT_E2H0. NV
++	 *   guests on these hosts can write to HCR_EL2.E2H without
++	 *   trapping to the hypervisor, but these writes have no
++	 *   functional effect.
++	 *
++	 * Handle both cases by checking for an essential VHE property
++	 * (system register remapping) to decide whether we're
++	 * effectively VHE-only or not.
++	 */
++	msr	hcr_el2, x0		// Setup HCR_EL2 as nVHE
++	isb
++	mov	x1, #1		// Write something to FAR_EL1
++	msr	far_el1, x1
++	isb
++	mov	x1, #2		// Try to overwrite it via FAR_EL2
++	msr	far_el2, x1
++	isb
++	mrs	x1, far_el1	// If we see the latest write in FAR_EL1,
++	cmp	x1, #2		// we can safely assume we are VHE only.
++	b.ne	.LnVHE_\@	// Otherwise, we know that nVHE works.
++
++.LnE2H0_\@:
+ 	orr	x0, x0, #HCR_E2H
+-.LnVHE_\@:
+ 	msr	hcr_el2, x0
+ 	isb
++.LnVHE_\@:
  .endm
  
--.macro __init_el2_nvhe_prepare_eret
--	mov	x0, #INIT_PSTATE_EL1
--	msr	spsr_el2, x0
--.endm
- 
- /**
-  * Initialize EL2 registers to sane values. This should be called early on all
-diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index ff7769821166a..9996029853d23 100644
---- a/arch/arm64/kernel/head.S
-+++ b/arch/arm64/kernel/head.S
-@@ -601,7 +601,8 @@ SYM_INNER_LABEL(init_el2, SYM_L_LOCAL)
- 	msr	sctlr_el1, x1
- 	mov	x2, xzr
- 3:
--	__init_el2_nvhe_prepare_eret
-+	mov	x0, #INIT_PSTATE_EL1
-+	msr	spsr_el2, x0
- 
- 	mov	w0, #BOOT_CPU_MODE_EL2
- 	orr	x0, x0, x2
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-init.S b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-index 3efa9cfaa9d48..9b2ada54be538 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-@@ -207,7 +207,6 @@ SYM_CODE_START_LOCAL(__kvm_hyp_init_cpu)
- 	/* Initialize EL2 CPU state to sane values. */
- 	init_el2_state				// Clobbers x0..x2
- 	finalise_el2_state
--	__init_el2_nvhe_prepare_eret
- 
- 	/* Enable MMU, set vectors and stack. */
- 	mov	x0, x28
-diff --git a/arch/arm64/kvm/hyp/nvhe/psci-relay.c b/arch/arm64/kvm/hyp/nvhe/psci-relay.c
-index d57bcb6ab94d2..5688a16e2ea75 100644
---- a/arch/arm64/kvm/hyp/nvhe/psci-relay.c
-+++ b/arch/arm64/kvm/hyp/nvhe/psci-relay.c
-@@ -218,6 +218,9 @@ asmlinkage void __noreturn __kvm_host_psci_cpu_entry(bool is_cpu_on)
- 	if (is_cpu_on)
- 		release_boot_args(boot_args);
- 
-+	write_sysreg_el1(INIT_SCTLR_EL1_MMU_OFF, SYS_SCTLR);
-+	write_sysreg(INIT_PSTATE_EL1, SPSR_EL2);
-+
- 	__host_enter(host_ctxt);
- }
- 
+ .macro __init_el2_sctlr
 -- 
 2.55.0.795.g602f6c329a-goog
 
