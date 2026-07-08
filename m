@@ -1,33 +1,33 @@
 Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A7F40910A;
-	Wed,  8 Jul 2026 09:18:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001E1407CD3;
+	Wed,  8 Jul 2026 09:25:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.38.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783502329; cv=none; b=jcKECJLJO9H2cuKUdA2a468UQexJ/JtIWbw23almkIQkZ9VYZYbQXD4MUbWbfvrp2u+ipLGCWKpS93/DK0PeVc4iOU65L5N+Ve7K3k49VoXhpPCntNHQhXob64J6b3TcXrg1mwCmqiRsAt93m0XWWdqeNkr4noY9B2XabdBFwms=
+	t=1783502738; cv=none; b=a1Kz8KZjS7WB3NyTNxmKMt5yhNuC2zmn0LKlPJhQc9tfeaQnH4bDoOV5O6Lprtp08TeUw2DgWXwUgEthsum8rldn0vX4I8LadxCtAFAavE1fPyaccCxLRfu8HuBsA9g8VqXWa8rHzpjeq8jqidFo8N+lOtEVb2/g7oy1imjrcdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783502329; c=relaxed/simple;
-	bh=+uBP9PtDhwXEi7TsSznUgZBVMjhLfvVFuXzlaIOWAVo=;
+	s=arc-20240116; t=1783502738; c=relaxed/simple;
+	bh=ZyOHC+XlSbYcmggV/wyB/7gLKiYlGOSn1jgsbJrnOxY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UwHNbtJseqmOvGvde3w8tNZ/Ot6tgHPXa7e33T2Tbjmhj9zPrxOtYVP4ZZPn/FvWWRe3Ut2zKw2VZQKtFnp+eOj0xfvB8j0bthFGTR0g3IJSSTXCNXbKHKGMtNAZOnQWhH1SYVjuoDSvLCMygyww2+oaijV1663qkskS47n/2JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de; spf=pass smtp.mailfrom=simonwunderlich.de; dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b=HUkddEM8; arc=none smtp.client-ip=23.88.38.48
+	 MIME-Version; b=e+iXtyFeeZ61rjY8YWUOQ1H6iXVZ6ni2xdqqA0sHYUImhBXv3GeXlRMjMg/qjhMzg7fiNY/yfu8f4KIAe1w6PMzbG8KjYF9+zDSl+OFGlM9J+8uczHJ+zpB/zm7+1tJVcrh+0bjMp1/0S1nm0YgYI2Pj1YOVfU+4kWqLtqbyLdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de; spf=pass smtp.mailfrom=simonwunderlich.de; dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b=yR0X5FCa; arc=none smtp.client-ip=23.88.38.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b="HUkddEM8"
+	dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b="yR0X5FCa"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
-	s=09092022; t=1783502322;
+	s=09092022; t=1783502318;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GKgYyF6RXM0vULAsGu0pR6G/eWYQjyyVfdhlWFhcPgw=;
-	b=HUkddEM8pEutJmcLkpywE8+mpQeIi/PvNIrVE8Upos6kAjOAWvwWfatriY4PCC8kdqNOak
-	V56lj8QMFitkVs/13GOAPIdB6wUcNidS9EZAmH1LR8XLuIEKukrqShJEM37iCqihTCcrOB
-	PgrtdFlGRVAeu8qrefZv+FOorz7FiGM3sFtfki5fOoTHOunJRVDxV0ZInahNR5xyJHXCT9
-	pBXyk4KgZ0gRDf8vXymiZ5L3CFn9E3wvwyx3RsbMoGseGq5RJhk9JJwN7cwQjFxcNoPp88
-	IoTAsX4AIDx9WIaPY7PvG39LUiGssE2ihF3MXQVWLv/f/352pe6xL784l/lurQ==
+	bh=iKVr6k89o6c2SMn62B3acIsRyxHbKZyCo6kVHh2xDwU=;
+	b=yR0X5FCaJ/Pz0v6Ak83gzmOdsOjnN4BYXXJ0lzqjd1nym7vRWHa/cmSCaM/nJ3KPulJ7A8
+	nIGLvaOlOLOqxCR2DcVUypCBUN5xAIqLlhshWNy/tDcDdy+I9h8uqazQwuzXd/x2SdHSSq
+	ZWu8Zs/qypEas5HNpN07N77oqv2AVXpLgEB213NnBtCdkB6ZmG3VZgzrZLV3E5L+B+uUzp
+	bgngvfjJBK1Kj/d4cJr0kC3eJAtv04tlZJ+k6VG5hzZvXTU/CJ7xDfnrUCDpdKcyPw1W5P
+	hca30uz/2LYvg8NkKYYMMYPXIASjODIC4aH2a0IZWFQfb1qhSKhoFtftKOvIhA==
 From: Simon Wunderlich <sw@simonwunderlich.de>
 To: netdev@vger.kernel.org
 Cc: "David S. Miller" <davem@davemloft.net>,
@@ -39,9 +39,9 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	Sven Eckelmann <sven@narfation.org>,
 	stable@vger.kernel.org,
 	Simon Wunderlich <sw@simonwunderlich.de>
-Subject: [PATCH net 6/9] batman-adv: frag: free unfragmentable packet
-Date: Wed,  8 Jul 2026 11:18:18 +0200
-Message-ID: <20260708091821.314516-7-sw@simonwunderlich.de>
+Subject: [PATCH net 2/9] batman-adv: fix VLAN priority offset
+Date: Wed,  8 Jul 2026 11:18:14 +0200
+Message-ID: <20260708091821.314516-3-sw@simonwunderlich.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260708091821.314516-1-sw@simonwunderlich.de>
 References: <20260708091821.314516-1-sw@simonwunderlich.de>
@@ -55,38 +55,37 @@ Content-Transfer-Encoding: 8bit
 
 From: Sven Eckelmann <sven@narfation.org>
 
-The caller of batadv_frag_send_packet() assume that the skb provided to the
-function are always consumed. But the pre-check for an empty payload or the
-zero fragment size returned an error without any further actions.
+The batadv_skb_set_priority() receives an SKB with the inner ethernet
+header at position "offset". When it tries to extract the IPv4 and IPv6
+header, it needs to skip the ethernet header to get access to the IP
+header.
 
-A failed pre-check must use the same error handling code as the rest of the
-function.
+But for VLAN header, it performs the access with the struct vlan_ethhdr.
+This struct contains both both the ethernet header and the VLAN header. It
+is therefore incorrect to skip over the whole vlan_ethhdr size to get
+access to the vlan_ethhdr.
 
 Cc: stable@vger.kernel.org
-Fixes: ee75ed88879a ("batman-adv: Fragment and send skbs larger than mtu")
+Fixes: c54f38c9aa22 ("batman-adv: set skb priority according to content")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
 ---
- net/batman-adv/fragmentation.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ net/batman-adv/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/batman-adv/fragmentation.c b/net/batman-adv/fragmentation.c
-index 8a006a0473a87..13d4689d332dc 100644
---- a/net/batman-adv/fragmentation.c
-+++ b/net/batman-adv/fragmentation.c
-@@ -518,8 +518,10 @@ int batadv_frag_send_packet(struct sk_buff *skb,
- 	mtu = min_t(unsigned int, mtu, BATADV_FRAG_MAX_FRAG_SIZE);
- 	max_fragment_size = mtu - header_size;
+diff --git a/net/batman-adv/main.c b/net/batman-adv/main.c
+index 4d3807a645b78..8844e40e6a803 100644
+--- a/net/batman-adv/main.c
++++ b/net/batman-adv/main.c
+@@ -368,7 +368,7 @@ void batadv_skb_set_priority(struct sk_buff *skb, int offset)
  
--	if (skb->len == 0 || max_fragment_size == 0)
--		return -EINVAL;
-+	if (skb->len == 0 || max_fragment_size == 0) {
-+		ret = -EINVAL;
-+		goto free_skb;
-+	}
- 
- 	num_fragments = (skb->len - 1) / max_fragment_size + 1;
- 	max_fragment_size = (skb->len - 1) / num_fragments + 1;
+ 	switch (ethhdr->h_proto) {
+ 	case htons(ETH_P_8021Q):
+-		vhdr = skb_header_pointer(skb, offset + sizeof(*vhdr),
++		vhdr = skb_header_pointer(skb, offset,
+ 					  sizeof(*vhdr), &vhdr_tmp);
+ 		if (!vhdr)
+ 			return;
 -- 
 2.47.3
 
