@@ -1,147 +1,167 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382BC44D021
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 12:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B3A43C057
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 12:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783514261; cv=none; b=ZrsNIREOeX5baayFwMI5zDXKs5VAE2iVfedSJcBwtHD+G9KfEZx4+8itXYz2afu3RL8+/iC39UWRm5n7NoAcLMRUOjcIA4T1XX2+XMZbv4vbJzU2h0XIp792A0Mw+4S9Apgd3yhrHlmdcAZ8NJd9ldTo1iMJz0FDzrFL3xg49tg=
+	t=1783514278; cv=none; b=HKkL1vygtIc2uYnKlWefeQw5ZQqR83Os0fuXHLUxfj3ZGR7iVAMNdzk3S4b6IZXnQjanOtw+rmmEOWJvVn101CjaV0zja+M69OLiJ+xLLQUWrfA8ZkGel2ttayqQhvW0tcPObVQYACoZGXQgxs6kM5ZSQsFirpArs8+t2nNt+f0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783514261; c=relaxed/simple;
-	bh=TY4aCopFbN3dYhQmkdEiXOewerjmzHG8UUy9gUxqM/I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RJcyoZH1NGe6ike8JxnGkh3rhc6nVdArJYykgsxGZSTM3ZlvTADUr9uhlPRbmt7ZhTM+FxFeRp0k3mUN6m6uRhIB0SC9gQlv7KN+VRKSJfL/j0uSU5xC1nObeXSEiAfnn1WttnD9WRbcg4tWanKgencZkJJQNZG7EaA0QALiZ8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HfnJ9r26; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783514278; c=relaxed/simple;
+	bh=HmWZcnjkxjwGShMAnKpvXCWgZavbXkBjdSkiakMAU/Q=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tLG1btiF06DK6jM6xZDDth2F56R/NgD6kNE7LDXYukJGGALMQrmGKffli9UF4Vc6MgtqG6DM43ZMn6i3GtpxgGN+c+tfGPkd+lpDb9saO8D+qiFd37lEImwQEJdfrfJa63H43bPWQHJcR5DFz0pzhZ4s/EFRHSOMDKjqVxVLyU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g0JswxX7; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HfnJ9r26"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c9d1fc053e0so448401a12.1
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 05:37:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783514258; x=1784119058; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m2NCGWcB63pGFQ2fmc+yu9xWhLG7x52oZf2ocF8l0Sg=;
-        b=HfnJ9r26VJ8gaIMhf7uOQ8PK+JrPFA+v8ZCEYRbT6d/oj1DRfadhl8puYbayvibIC7
-         d5AvgUmlRFq+F+eXkChdXwTnt3SnkTZeNCEJkUzz/dUiJ5tzWPKzA/z3AoBB/oSfV+4o
-         Frpqroa5+70UACQmamXVd0YYA6AxdyHf9HNUvM/sIQdiCJ6a11wDLtAuVs4CaEssZiZ3
-         bsh4/tQY88/981ilxcHjIQiJfgjFasa5l0UZ3Tvcugw9+yOyhMqYVMrlec5Xq2q2h3XI
-         HG4r281GZZmCmfyG2HTKBR9GUCj/cbMR0ii4ARJtTzmAH+Dy6lZv/mTIrB3H4ncU0s2j
-         GN2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783514258; x=1784119058;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m2NCGWcB63pGFQ2fmc+yu9xWhLG7x52oZf2ocF8l0Sg=;
-        b=dWZ4cSxER9xrTJQ+aiqQl7boDB5iaZCl0oP9cXnQ2m6wv4eVTy3KbHrzddq9dbnwJd
-         vPtD+bycftnr+FCzeK+315MZsDk6N4NrvAFSFXpWJD7/x6wMp8mRYrQKOSsBkQ3H7lbE
-         +6+qII7kT+KCdRrWJKmJoocQ4PZlOAhgDQII0NxBMD4HFz5yBGQxMdOT1ai+TjUPpUeh
-         fMD6tD5tM8XdcmjsSXK8pJDSK5Xs0sw3FqewHaDr5wZEO4PpKkVnOCUw1wI6jbf6GnIW
-         FNna5pHrF9DzYUWTmyduKcht2sK5dve59sSV91O9KbU7RYpPPkSrDHy9Y+/UrBQvr0G6
-         Ud+w==
-X-Forwarded-Encrypted: i=1; AHgh+RqYD4M0Zatg4GIgw2WjBSvZdRdBM2yI2TMQ7INYDbLPxQOw7GjZauHHc29LdO8d8jLZWKpn6mE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzxmu5uo7RgR28H+6Ac3KaCZceaZmhF5cu4UB+UYa02ilLppyze
-	ui/8n82NyBgmEwssfLJFryPmmosfX9iY5gQB0XFlDiDcWY9SGBgfOOfYewK1XD0l
-X-Gm-Gg: AfdE7clqV/0f8QMmIaPTiQQnRX4NnhLloH1ssHruGBTYSYsjab9q/FfNQZlVOIPPHyZ
-	CYjLC7dvLHwLA281O8Kgk2wYkbEE9GZqvEzwiqW30TXMHh5feKp7xj1K9ajGHQJ3mx5M5Gya3vz
-	2swb1aHn7VaG9emBDzmHfYfWOP7grLrPYDynthfCPEQE+vl9hIo2obOjk2nUPmsa3U7uPm1tbvS
-	NuFWTeyHN9FJu98wwSeeuPOJEQ+sCm69xd/Ki5RNYTO9xg5bxT5nMwwdSO/NZf0JXshpF32SqVW
-	ulVXGIpV8lyBi77lvqFw0O7+0sIY7PTP1vA+Fid4TG1fkl/nBBUs22ILfN0NKURy7SWtgoH3sJi
-	PUUxu2ckb/se53WEBcUjshZZ1R0HSuBfl0wa6J1FNgpyvggtc6ovK5DdEMwPZEC4uYlMXJIxnJH
-	HmWtN5LXQ/WteX7oHRjCNt/Bsz1lGtzUFhe7gWUnKDuQk=
-X-Received: by 2002:a05:6a20:2d06:b0:3bf:6c08:2844 with SMTP id adf61e73a8af0-3c0bd252e38mr3247489637.51.1783514258356;
-        Wed, 08 Jul 2026 05:37:38 -0700 (PDT)
-Received: from localhost.localdomain ([49.207.223.101])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174a92eccsm18701979eec.23.2026.07.08.05.37.34
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 08 Jul 2026 05:37:37 -0700 (PDT)
-From: Biren Pandya <birenpandya@gmail.com>
-To: laurent.pinchart@ideasonboard.com,
-	sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	hverkuil@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Biren Pandya <birenpandya@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: i2c: mt9p031: fix endpoint parsing use-after-free
-Date: Wed,  8 Jul 2026 18:07:25 +0530
-Message-ID: <20260708123724.26707-2-birenpandya@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260613084849.57897-1-birenpandya@gmail.com>
-References: <20260613084849.57897-1-birenpandya@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g0JswxX7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783514276; x=1815050276;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=HmWZcnjkxjwGShMAnKpvXCWgZavbXkBjdSkiakMAU/Q=;
+  b=g0JswxX7r1MKOr1DYry6PfKbqTczOOTSSq9N4r+Q3laGsz90efCFymxm
+   PKHQC8Jhz6COLnin9MSBlA22vvfDn1Ol8INtpm2cR02mBaNekSd5fSuIi
+   8YgEdVWzV2VV9cCerv2ZKKRAibTsqGmzEQgO+FUYtxH3id2JkJgT0zUc+
+   ACGSqPL/TbYGAQd1RVU5HqiX0s6mHb/LYPHHnjGfr5/f3aMqOEBdE4Anu
+   s2nJW5AgblWDCqllFUYm6w+l/oQH20mNFynLnDC19QEm77I7vt3NJ6rpY
+   sVeK6ocAWBJ/1AHICPCTj4Hwdnp9Tw6WSVhJD+6q4fa6EGldvR8IGQaN4
+   g==;
+X-CSE-ConnectionGUID: Pe5jl7/uR1S+F69YhIpxDw==
+X-CSE-MsgGUID: aoST8LdoSIKqYdGzvykRHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84231337"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="84231337"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 05:37:55 -0700
+X-CSE-ConnectionGUID: WBSaY9xqSqCFIACNmCYwdw==
+X-CSE-MsgGUID: jH2hvz0qSBqoZnPHGrYL4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="249831970"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO [10.245.245.113]) ([10.245.245.113])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 05:37:54 -0700
+Message-ID: <df72ae4a41d526c3db1577532d13260bbe331869.camel@linux.intel.com>
+Subject: Re: [PATCH v5 1/2] drm/ttm: Fix UAF on dma-buf attach failure for
+ sg BOs
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Nitin Gote <nitin.r.gote@intel.com>, intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Christian Konig <christian.koenig@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>
+Date: Wed, 08 Jul 2026 14:37:51 +0200
+In-Reply-To: <20260708091512.205482-5-nitin.r.gote@intel.com>
+References: <20260708091512.205482-4-nitin.r.gote@intel.com>
+	 <20260708091512.205482-5-nitin.r.gote@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The mt9p031_parse_properties() function calls fwnode_handle_put(np)
-immediately after parsing the endpoint. However, it subsequently reads
-the 'input-clock-frequency' and 'pixel-clock-frequency' properties
-using the same 'np' handle, leading to a use-after-free.
+Hi, Nitin,
 
-Fix the use-after-free by reordering the property reads to occur before
-the endpoint is parsed and freed. Additionally, utilize the
-__free(fwnode_handle) scoped guard to automate the endpoint's lifecycle
-management, preventing future leaks and simplifying the error paths.
+On Wed, 2026-07-08 at 14:45 +0530, Nitin Gote wrote:
+> When a dma-buf importer creates a ttm_bo_type_sg BO with bo-
+> >base.resv
+> pointing at the exporter's dma_buf->resv and dma_buf_dynamic_attach()
+> fails, no dma_buf reference is held. The exporter can be freed before
+> the delayed_delete worker calls dma_resv_lock(bo->base.resv), causing
+> a
+> use-after-free:
+>=20
+> =C2=A0 Oops: general protection fault, probably for non-canonical address
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x6b6b6b6b6b6b6b9c
+> =C2=A0 Workqueue: ttm ttm_bo_delayed_delete [ttm]
+> =C2=A0 RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
+>=20
+> ttm_bo_individualize_resv() skips the resv swap for all sg BOs to
+> keep
+> the shared resv available for delayed_delete to release the dma-buf
+> mapping. A BO whose attach never succeeded has no mapping to release,
+> yet it keeps bo->base.resv pointing at the exporter resv that
+> delayed_delete later locks once the exporter is gone.
+>=20
+> Fix this by checking bo->base.import_attach, which is set only after
+> a
+> successful attach. The check is placed after dma_resv_copy_fences()
+> so
+> successful imports still copy fences to _resv before returning,
+> keeping
+> the shared resv for delayed_delete. Failed imports fall through to
+> swap
+> resv to _resv, so delayed_delete never locks the stale exporter resv.
+>=20
+> Closes:
+> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
+> Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup
+> path for imported bos")
+> Cc: stable@vger.kernel.org=C2=A0# v6.8+
+> Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+> Cc: Christian Konig <christian.koenig@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
 
-Fixes: 8f2da25e85c1 ("media: i2c: mt9p031: Switch from OF to fwnode API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Biren Pandya <birenpandya@gmail.com>
----
- v2: reworded as the UAF fix it is; added Fixes/Cc stable; moved property reads before parse (Sakari); adopted __free (Laurent).
----
- drivers/media/i2c/mt9p031.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+It seems you dropped the patch changelog?
 
-diff --git a/drivers/media/i2c/mt9p031.c b/drivers/media/i2c/mt9p031.c
-index d21510caf45a8..4dcb6c973ef1c 100644
---- a/drivers/media/i2c/mt9p031.c
-+++ b/drivers/media/i2c/mt9p031.c
-@@ -9,6 +9,7 @@
-  * Based on the MT9V032 driver and Bastian Hecht's code.
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-@@ -1067,23 +1068,22 @@ static int mt9p031_parse_properties(struct mt9p031 *mt9p031, struct device *dev)
- 	struct v4l2_fwnode_endpoint endpoint = {
- 		.bus_type = V4L2_MBUS_PARALLEL
- 	};
--	struct fwnode_handle *np;
- 	int ret;
- 
--	np = fwnode_graph_get_next_endpoint(dev_fwnode(dev), NULL);
-+	struct fwnode_handle *np __free(fwnode_handle) =
-+		fwnode_graph_get_next_endpoint(dev_fwnode(dev), NULL);
- 	if (!np)
- 		return dev_err_probe(dev, -EINVAL, "endpoint node not found\n");
- 
--	ret = v4l2_fwnode_endpoint_parse(np, &endpoint);
--	fwnode_handle_put(np);
--	if (ret)
--		return dev_err_probe(dev, -EINVAL, "could not parse endpoint\n");
--
- 	fwnode_property_read_u32(np, "input-clock-frequency",
- 				 &mt9p031->ext_freq);
- 	fwnode_property_read_u32(np, "pixel-clock-frequency",
- 				 &mt9p031->target_freq);
- 
-+	ret = v4l2_fwnode_endpoint_parse(np, &endpoint);
-+	if (ret)
-+		return dev_err_probe(dev, -EINVAL, "could not parse endpoint\n");
-+
- 	mt9p031->pixclk_pol = !!(endpoint.bus.parallel.flags &
- 				 V4L2_MBUS_PCLK_SAMPLE_RISING);
- 
--- 
-2.50.1 (Apple Git-155)
+Also the WARN_ON_ONCE() we discussed for last version?
 
+/Thomas
+
+
+
+> ---
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++++++++---------
+> =C2=A01 file changed, 15 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+> b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 3980f376e3ba..f157e259dd5f 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -203,15 +203,21 @@ static int ttm_bo_individualize_resv(struct
+> ttm_buffer_object *bo)
+> =C2=A0	if (r)
+> =C2=A0		return r;
+> =C2=A0
+> -	if (bo->type !=3D ttm_bo_type_sg) {
+> -		/* This works because the BO is about to be
+> destroyed and nobody
+> -		 * reference it any more. The only tricky case is
+> the trylock on
+> -		 * the resv object while holding the lru_lock.
+> -		 */
+> -		spin_lock(&bo->bdev->lru_lock);
+> -		bo->base.resv =3D &bo->base._resv;
+> -		spin_unlock(&bo->bdev->lru_lock);
+> -	}
+> +	/*
+> +	 * Successfully imported sg BOs need the shared resv for
+> dma-buf
+> +	 * cleanup. Failed imports have no attachment or mapping and
+> can
+> +	 * use the private _resv.
+> +	 */
+> +	if (bo->type =3D=3D ttm_bo_type_sg && bo->base.import_attach)
+> +		return 0;
+> +
+> +	/* This works because the BO is about to be destroyed and
+> nobody
+> +	 * references it any more. The only tricky case is the
+> trylock on
+> +	 * the resv object while holding the lru_lock.
+> +	 */
+> +	spin_lock(&bo->bdev->lru_lock);
+> +	bo->base.resv =3D &bo->base._resv;
+> +	spin_unlock(&bo->bdev->lru_lock);
+> =C2=A0
+> =C2=A0	return r;
+> =C2=A0}
