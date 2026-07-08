@@ -1,53 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A5E42DA44;
-	Wed,  8 Jul 2026 16:18:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C8142DA43;
+	Wed,  8 Jul 2026 16:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783527496; cv=none; b=IN2dVvybIrWRhyQsaCI18coa7R6veaHwd1A7Yl62gS3J6wHl23P+c/MfMinkw0qR+QUT2avCIS+94Mhy5NuwOutUU4ZaTqVIPioTQBgid0ygJ1GTsw3ggh3t6+xYQYZ4ZR7Tw8Pi4QJRnSKZThJaghJlxdugswOSu1O5KafwEnU=
+	t=1783527497; cv=none; b=cBE3Y6U2QE8YyOwrpuu5q/HAgwKOQOuL8xZ29NuxT2S3r4EsClczXoBAax0VGnuAqZFaPfpmLq8QsywtDMp97DQ1TXCgwtDpouAkajtO2ch0PcWyNM9S+B3GJilTYhVfGQV7cRSOBpTWa5er3UTau/ZWe3NrjoW9kGsd1cKsCw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783527496; c=relaxed/simple;
-	bh=g6M3lGbwNCXgQ5KgLhh/+rShX5VadDF7bwG1iRenO6U=;
+	s=arc-20240116; t=1783527497; c=relaxed/simple;
+	bh=emeqFPYJhsU54P4D5pKnIVo2bLb1/yDskAr0lHzp7o0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kZ9pgXySuHXYuITmJYsY6WRnH592IDlqx0Stfi9FbyOKnjRTZC6+aum/gKp91wuVupktUmk7BP2S+EuTt+6Imx8nXUTXGJ8Ov8xWJ9H9ZyPDKC6ALHSa3HGHpWVFthNkRinAaVqcy3WNIDkNVucz0nW9pMYBY5xQDRIkzfDY0xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bb2Ji3MM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YBYTyhTf+3PkcXWmnKKkDTzOl0+NuwuYwnkaChHcBc9SzJBeRSlWjv4vwtmq6L7ZKcfL17k5HNduf3wujaqVmRts6hbDCmjw+iGdOyciG6LV71dyAd616mtmOcwSzXR2MQ4Cy0SAK7SHfPh3jphdCjA0U7OEVkGCMZRgQFrINHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+LU6yiJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bb2Ji3MM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9511F00A3E;
-	Wed,  8 Jul 2026 16:18:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+LU6yiJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBF1C1F00A3D;
+	Wed,  8 Jul 2026 16:18:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783527494;
-	bh=jKssdYZiy6udKlNV01GqsnyHLqSFgLJHIAJ0O3hJg4s=;
+	s=k20260515; t=1783527496;
+	bh=JiC5/914qoX/pLC23xYMfmaM5nvG9RDJDy++UnOezLY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bb2Ji3MMofOwrfCPD9WmYbHt/0TR4qmaPEKm6cLd+lywOAsljbIVW2WYfgLAH12Qy
-	 XOmcU4Sd3HHKftB30QlTctZkh7oLs9EP9UTuNWHpI9cmChLobCrdipI4vfip1Vv/ZU
-	 EAVkMmiBOhZpOvi3Fks7c5LDd83Ju/EVCO2GyWxO/4PgdlqE/4cusG6iuIUeWfI+3f
-	 9tA5RRPZgsdPhQENMGCgsoTWFH1L6wFu2yr9e5dKY+gLjhOWpvM48QXoXQDpSaFnlP
-	 Ags4V9BPmjPqRqkZ9ivxVPKDqL2Mat7nCugMCT6hOqvABBNnZzogMSllbBSu2Z8ztf
-	 PBd35A9rA9JsQ==
+	b=P+LU6yiJCrkAx1zLq9qFp3mjvSNsmF1Ik1xPmJNmb/SD+Ox4RCmHRhlZJmaIOfFGl
+	 e5L5WbJok5h5KvYloSY8cauaFg6D40uLnX8Ahgv4X6xPZT0akCmMJ8okiBkMzNwxlc
+	 9TC12QsYiUJ4QXcAAJfq+qRBvRiyUNKUVTFxe3QZSbkKv0+ONzqsPPyyX4jBuDrZho
+	 g95UOTIJ8HEokiLssLxr2/qUitCFNtSxJl0IhmM89z8VbmezPfVwtPkYkg4q3fPKpj
+	 hGUZ1oPJM5FW8QYhPefAQeUokFh8tXGjyQoXewPMtEeUOSfW3zszr8MmIhxmBTaJx7
+	 BWV7GvOv8ooew==
 From: Sasha Levin <sashal@kernel.org>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Fedor Pchelkin <pchelkin@ispras.ru>,
-	stable@vger.kernel.org,
-	xfs-stable@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	Christoph Hellwig <hch@lst.de>,
-	Catherine Hoang <catherine.hoang@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	lvc-project@linuxtesting.org,
-	linux-xfs@vger.kernel.org,
-	Leah Rumancik <leah.rumancik@gmail.com>,
-	Theodore Ts'o <tytso@mit.edu>,
-	"Darrick J. Wong" <djwong@kernel.org>
-Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
-Date: Wed,  8 Jul 2026 12:18:02 -0400
-Message-ID: <20260708120504.agent5-0004@kernel.org>
+	Ming Lei <ming.lei@redhat.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	John Garry <john.g.garry@oracle.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Konstantin Andreev <andreev@swemel.ru>
+Subject: Re: [PATCH 6.12.y 1/2] block: add a store_limit operations for sysfs entries
+Date: Wed,  8 Jul 2026 12:18:03 -0400
+Message-ID: <20260708120505.agent5-0005@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ak2bBIGLumgLD4nd@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <ak2bBIGLumgLD4nd@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+In-Reply-To: <20260707153729.1834723-1-andreev@swemel.ru>
+References: <20260707153729.1834723-1-andreev@swemel.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,14 +54,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 07, 2026 at 08:34:12PM -0400, Hamza Mahfooz wrote:
-> I ran fstests both before and after applying the series with "-g auto"
-> as Amir suggested and the only meaningful difference between the two is
-> that all of the tests after xfs/234 refuse to run on the unpatched
-> kernel (presumably because of the kernel panic). I have also attached
-> both runs if you're interested in having a look for yourself.
+On Tue, Jul 07, 2026 at 06:37:27PM +0300, Konstantin Andreev wrote:
+> The prerequisite patch to backport of the CVE-2025-21807 fix to 6.12.y LTS
+> (see Stable-dep-of)
 
-Thanks for running these! Queued the series for 6.6.
+Queued the series for 6.12, thanks.
 
 -- 
 Thanks,
