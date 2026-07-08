@@ -1,107 +1,94 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCDE41B374
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 10:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D752240913C;
+	Wed,  8 Jul 2026 10:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783506562; cv=none; b=UNiKkfpcfCK7jw+MMMQ3si7xaBxnxvGNG7xrH8U2YjFRjzFKIkjUyjtmxn0EGpNOxHlrgH7IT2xtb8mDhYwiifVVIjS2ofqDFGq8AuiHx71nqMqsMtbMYwd9mWabImvik2qnxJw/y5VDsQAvg3hCiKGhmcQ6ek0C5ZijyNRq1wA=
+	t=1783506884; cv=none; b=l1NRLwQ7aXS9NCAT87IXC/WfeIKY1eiBSY0EUI7XkD6fyk3hWfS+FsgspLW/TYeNeD853DdOb4OqUkzFD5JttgSDZxjClENdyhvB5alsKUdif+V+BOwN1IMmF2Ruu2FT/MUixLwygg5NlvOXmhQsnGlgSmzG2sLlflZCCOEuid8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783506562; c=relaxed/simple;
-	bh=4Ioj+uXwmlNtFGd3w9E4QvxQHEehHS7LxUvD6BHqD3o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RU8NZfEFXPkeuTDTGF9hlYvrmF+KUMCAW38SYxoeht9ZC0SGqIvNMJuO1b5MTek6T+XuZMCEs2DomTcSUy/UY20ehq1ZO9Ry7PHdDMF/xbE9UeE4tZkyV61TVfAZw3jXFf7A6vUauyJjQLITmaRMsXT/YnzAUKK+t8D/5ZwvuIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CtN9rxaq; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=mHSXlZT8; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1783506884; c=relaxed/simple;
+	bh=sB5GmOPx9Utf7L6/OTIi4AFfWeCPHcUN4T5nv0kMOhI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j6eTa93hkRqbR5FX4dbXZ5Kz9U5hn4+nKCutLeDKLwhbNQsGy2pNLQMsCK0VK6snGVAvzhbS6KV9Kt4M+aPDLcWLC8tmf6g2hkZ7fBmQjqa7gLItpdESZro8rAoXRW38sa+nHXPgWLTNODWaXx1KHxsGPApUAw6yZBUvm0XEZ0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=kIUtDK6S; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mMMCYaSE; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CtN9rxaq";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="mHSXlZT8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783506555;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QeIXOWju9kpJlG84+jBij7M8XqoyvMRFU8kzphZpY1c=;
-	b=CtN9rxaqWL9oYOuh5R3nS5YnPf8XNBsIlAqnal3+iKS62KpEuE2wq+wbMYmiTpq48W9GCS
-	Epicaji/I3Oow+YOZs+cBC0mHleGOe8SMCXQq+YADzOyD7g/i08RgJJmm4QlZsUV+zV3M3
-	4TAHI8lmgD/VNej/0ME/XKniRp7d5Ts=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-446-2TLYwcqVNwObHJs5ZWHUFg-1; Wed, 08 Jul 2026 06:29:13 -0400
-X-MC-Unique: 2TLYwcqVNwObHJs5ZWHUFg-1
-X-Mimecast-MFC-AGG-ID: 2TLYwcqVNwObHJs5ZWHUFg_1783506553
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-475e540a0ffso343732f8f.3
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 03:29:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1783506553; x=1784111353; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QeIXOWju9kpJlG84+jBij7M8XqoyvMRFU8kzphZpY1c=;
-        b=mHSXlZT8KnvAZcy711jz5+Jv2hR/lF93k+JS3BlWwqy60RGMRp7LL0Iijsjb0bd4Zi
-         h4GZEP0sh1t2EPLNYyrQuJDnI4vWlWmpE9svV+ky/UZCx4irCm5icgVqEyLDs0fpyGq3
-         AniuwdJ8yBFG3GSJv+HC6+gKuro62GQoRXfIeMnwjrjnK/DfpfIsAZwVxOKN/QY93vI2
-         RLJqP+/aHC609rgqMhhfwH8hEHd++OK+yMPAuLSrtlBHUc5F2YISQfWByXm5lkAwqF8P
-         s6Gx+rSYDqKDSuBbSYPpPvSL+K0BSkUQyRMlLGZRgDoeXRX3O6in9ZvvVYSJqDPC0GOX
-         rqOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783506553; x=1784111353;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=QeIXOWju9kpJlG84+jBij7M8XqoyvMRFU8kzphZpY1c=;
-        b=ajC3AuLbXioZYEO2yK+swhPtuNId6hQGsW8NhPh+o9i/rTkSMXGv8x6NH/Wd0EC39n
-         rm7p+zHnoF9NqqozOw9Uc86TAUtH6qjHOvsE+1Gx302TqT7HxTTWVPsi5cepZ1nYSpgc
-         8TkpzW8BddHPJEer+g0q5n9s1BkrzH56n3MMQMN5108CTOJKpuzWfXhbs/Xk7kfcnqYI
-         fVfufJ+BvvRTr3qPfIpdX5XH5gEFbnruL/yGsmjIkzmx3jMJ7CrVQ5iN8DDCGRjrNuEo
-         xLIPOrnxe+JlCo06GecUpJEKDhhJWVdZKRuPGAvFZw7+u2OUShMMRibg2I60L2kA3Rpb
-         tGTg==
-X-Forwarded-Encrypted: i=1; AHgh+RqprQVhbTBVBHOfMyj7ms0tKnzTGWr6aU4JaGM4JituS1OJgvf8sUYBgkx6wI5rkEYgipzUVIg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwusB/x1nP6OkzYMDRoWyqg0OvZ8yzQpAL4+AzAxL/OdgaqIfYP
-	WDpYdqhWfNzHdRgThEBkV6QOEDCdeFAAaawFpEWMO8MgZgxYNCm3JqRtI7fmJRYd+ak86PoA5nZ
-	8vVc8N7iD5jI9T8GPals5O+P/B1gJ3Eu6mJFz7kAgDP8U5EvDIh3Hwgo1Sw==
-X-Gm-Gg: AfdE7cleKuePEs34/qjmrh77zNhcnBr0Z+iyojiK4pGhSmwJ25SSWza1/tIsJr5bAOo
-	De+jJS0vhCbMBJVwyq0HupAT+Tcy9hmQwcG6LOr5W3av3X8LMC9YWwLM7bE/8mUSiy9lWEdtivV
-	AcTqUIMi43wz9wa85DqG1q/dN/ByiaEl8DU659N+BUeggZaoojDa1lQy6WVB/iKK20FF/ipzb4k
-	E5ERkRx2VaRPkOh+9YlKzxF4hf5UzPXSoiV0z+gsBaEs5zL9JBYWwKirFFbXL2rvQqWcbTym+LN
-	as76eF3Tyz5GHpSKGeqIhJFGoNj4Vd0FBU2sA283eT4SZq1w1u81R7pVVPKiJf6GfGOzCbDuBZ6
-	SLg90dsI3yzFEBJz0wGjAVGaYJTS0bOiHhahRBssG8p/6kJI=
-X-Received: by 2002:a05:6000:310c:b0:475:f0c2:5afb with SMTP id ffacd0b85a97d-47df078bf3fmr2020557f8f.49.1783506552536;
-        Wed, 08 Jul 2026 03:29:12 -0700 (PDT)
-X-Received: by 2002:a05:6000:310c:b0:475:f0c2:5afb with SMTP id ffacd0b85a97d-47df078bf3fmr2020485f8f.49.1783506551889;
-        Wed, 08 Jul 2026 03:29:11 -0700 (PDT)
-Received: from stex1 (host-79-34-22-35.business.telecomitalia.it. [79.34.22.35])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9de1d905sm43045414f8f.2.2026.07.08.03.29.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 03:29:11 -0700 (PDT)
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: netdev@vger.kernel.org
-Cc: Jason Wang <jasowangio@gmail.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eric Dumazet <edumazet@google.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="kIUtDK6S";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mMMCYaSE"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 000777A0118;
+	Wed,  8 Jul 2026 06:34:31 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Wed, 08 Jul 2026 06:34:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm3; t=1783506871; x=1783593271; bh=2h8jyIfaVx
+	T1n76UeixMaq5PQ/5hlh5CP4XoQBQpKN0=; b=kIUtDK6S2SV3BHIbHpNl7150il
+	Xcjgv7aU6Ne6bpWk7peFRq8DpfiAEmxYjBzx/XXbAU2KgVnb+iZ1UbJ2eU5dtSrc
+	fcefdE+1n0c+zBEvVir1GmyozLbViF414gqRnsIQcHU7sQLhbVQVSa4r44chvEqk
+	4xftnLFdx+c1kEeUnHl5DD4ZwU3akEK3phC7EuZeG9NAsCyaOn6cVNBEZod6/CQO
+	BpcOVEwAG7IDLFde3Snx6jebdnaE8pdgtI7qS04rAcS4wkhdrBu/8xytKsJdfSbK
+	TKUXNs+EmH/nqoprbNafhoSFyvE7IUl6lix20ooD83w91KXIAI7+tKqRgfpA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1783506871; x=1783593271; bh=2h8jyIfaVxT1n76UeixMaq5PQ/5hlh5CP4X
+	oQBQpKN0=; b=mMMCYaSEWrHESHn4kTMSGlkrX7InDtJHWZfYd8n2TD4PxeT8I+b
+	VJGPpZl0yUjjURUx7znzca6Ddmk7KZrUT0tzigfm4qqqutBgDLuzVQpCZ8s+BNP8
+	smDa47wzd7nihw9YiSMY7mdeDEnrpPoZiQeFrqtLI2aD82iXZirOl1qsrmt9EKaD
+	6h4Xij7HHOQk3egZbQMoOtxydMIOn9LiZDVgYjrwuQqpfSMWqWRzy0qxRVj0iyEW
+	oqbwchMkGXCwzeL/ZcM6P5eBY7bymWW3ujGm7mLrbzM8HjnqniJKI9s5qhvoJPea
+	sM/rY2K0S+N3DpZhA9jNhUgozs9xVK2QzAg==
+X-ME-Sender: <xms:tidOartV0wIEmIOf0xW-mAYOFIVHVU3Iqa7Up9AKyQA8bQu4G0bLWw>
+    <xme:tidOajbgSFrrObj0ODgBCl0jv1EV_XrMCzLe6K_KpgyMZYUQq7GPrRmjNIEN7lst5
+    M_VpBAA7fio8N7durg3-Mtk11GADrp3ozBsrcBE5VSGbmamU8TeYe0>
+X-ME-Received: <xmr:tidOaj1NLyKGtfVtk3H-JYqehPwbSJ8c00zNDRb4H8fqkp-cQRCtDfAnhZf5Wg>
+X-ME-Proxy-Cause: dmFkZTFi9VmUiW6GoSgieIDCNHZMP6Q4DB8+o7rZTrkdeg57rA0WNV4UEMbgfG0zqEFRUN
+    bXrFMDzJDmZVhoVTGiGO/YRZN4+1ov2mMJFLC5jX/nlhFoDFmzTj8HNBkDkHBGBbyyKNkf
+    xZyAkkud2L2K5Av8QUdjQ5XYi8pC5FMJ9A1ss/qdDvFmJlh+CQ6jFJwaNX0ej5Siij9oFZ
+    cP0MKYvpt39/1cQ3CBE3x8ZOPmF/uGsecIgtn1+CV1GNHhyQ4cOMS01XDL40bu5rWXZprv
+    BWtgM3ddnbRujsfBq+Fby5hiFsr6MLJ86Q8b7L7JJxrVIwGb0u9jFP9lAv+zowk++T7YB6
+    HOp4mtnq70dVslAGbj3R2UOMUBNZYJPdTV0DnCz3sQCR0Ek0+QQxnRlIF3JB58ygEszI25
+    p4oYA5aFORyfRBSBqv1I8QCaPHQPsfLaYbWOLk2WrRj8Y79U/KL6Nx/tsXtaMydAm9Tes5
+    Mc1/rFgMwhq6lPUtSoiJpgHrFify7+Xbn+wbI+hSH74ekV6owJG2yDPKf7PDin/JadrBDa
+    CCy2A3i7dD+EkUwWBamz61NVgNQCCLDmfhurQjHdOlK0YdpinJ79m3XCX999cNur+mPXji
+    DuqIyzIZE1sjoMgFv/Fwp5bD2A/vxM0aPV9PThvHFbmin+zESmqICQg5mu9A
+X-ME-Proxy: <xmx:tidOahXpekzdcOJWgMsRZQaihlEpSI84kMkNVgBSEc2QCHz6j74NVQ>
+    <xmx:tidOamsQeS1_J8zdCYwbRdXomYM9AymNteYnMTnTj6V-0BrXlKLorw>
+    <xmx:tidOagX3wYp3u8_ZPY3-tqCV2NjE0KHtChFS14L2dc320tsRm3TpUw>
+    <xmx:tidOaqXzbJrykAwT5pEjXxVYvh2ZmPuDHw6-j9gZqiMBGo-CKJaomw>
+    <xmx:tydOarwHV-PCon1kFV8UbIIIzFdPO9Y-Wi8ZAokZAu8erJB6G63gxMh_>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 8 Jul 2026 06:34:30 -0400 (EDT)
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: akpm@linux-foundation.org
+Cc: usama.anjum@collabora.com,
+	peterx@redhat.com,
+	liam@infradead.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	david@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	shuah@kernel.org,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	kvm@vger.kernel.org,
-	Paolo Abeni <pabeni@redhat.com>,
-	virtualization@lists.linux.dev,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jason Wang <jasowang@redhat.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	stable@vger.kernel.org,
-	Brien Oberstein <brienpub@gmail.com>
-Subject: [PATCH net v2 1/2] vsock/virtio: collapse receive queue under memory pressure
-Date: Wed,  8 Jul 2026 12:29:03 +0200
-Message-ID: <20260708102904.50732-2-sgarzare@redhat.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260708102904.50732-1-sgarzare@redhat.com>
-References: <20260708102904.50732-1-sgarzare@redhat.com>
+	kernel-team@meta.com
+Subject: [PATCH v2] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for PMD holes
+Date: Wed,  8 Jul 2026 11:34:29 +0100
+Message-ID: <20260708103429.150655-1-kirill@shutemov.name>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -110,259 +97,197 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stefano Garzarella <sgarzare@redhat.com>
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-When many small packets accumulate in the receive queue, the skb overhead
-can exceed buf_alloc even while the payload is within bounds. This causes
-virtio_transport_inc_rx_pkt() to reject packets, leading to connection
-resets during large transfers under backpressure.
+PAGEMAP_SCAN reports an unpopulated PTE in a uffd-wp VMA as written
+(pagemap_page_category() and the PAGE_IS_WRITTEN fast path), but a range
+with no page table at all -- a PMD hole -- is skipped.
+pagemap_scan_pte_hole() evaluates the hole against p->cur_vma_category,
+which pagemap_scan_test_walk() builds from only PAGE_IS_WPALLOWED and
+PAGE_IS_SOFT_DIRTY, so PAGE_IS_WRITTEN is never set: the hole is neither
+reported nor, under PM_SCAN_WP_MATCHING, armed.
 
-The issue was reported by Brien, who has a reproducer, but it is also
-easily reproducible with iperf-vsock [1] using a small packet size:
+This is reachable. An anonymous THP is write-protected in place as a huge
+PMD (change_huge_pmd(), anon is not split), and a full-PMD MADV_DONTNEED
+clears it to pmd_none. A WP-async consumer such as CRIU then misses the
+2MB drop -- the range is not reported written and the next incremental
+dump keeps stale data. (A file/shmem THP is split on write-protect, so a
+later DONTNEED leaves a populated page table of pte_none entries, which
+are already reported; only anon THP reaches the hole path.)
 
-  iperf3 --vsock -c $CID -l 129
+Add PAGE_IS_WRITTEN to the categories evaluated for a hole in a
+non-hugetlb uffd-wp VMA, matching the pte_none handling in
+pagemap_page_category(). The existing PM_SCAN_WP_MATCHING path then also
+arms the range: uffd_wp_range() allocates the page table and installs
+markers under WP_UNPOPULATED, so the next scan sees it clean until
+re-written.
 
-which fails immediately without this patch but with commit 059b7dbd20a6
-("vsock/virtio: fix potential unbounded skb queue").
+hugetlb is excluded on purpose: an allocated-but-empty huge entry reads
+as not-written via pagemap_hugetlb_category(), so reporting an
+unallocated hugetlb hole (which also reaches this path) as written would
+be inconsistent within the same VMA. hugetlb hole handling is left as-is.
 
-Inspired by TCP's tcp_collapse() which solves a similar problem, add
-virtio_transport_collapse_rx_queue() that walks the receive queue and
-re-copies data into compact linear skbs to reduce the overhead.
+Add a pagemap_ioctl selftest that forms an anon THP, drops it with
+MADV_DONTNEED and checks the resulting PMD hole is reported written.
 
-The collapse is triggered proactively from when the number of skb queued
-is close to exceeding the overhead budget.
-
-A pre-scan counts the eligible bytes to size each allocation precisely,
-avoiding waste for isolated small packets. Partially consumed skbs are
-kept as-is to preserve buf_used/fwd_cnt accounting, EOM-marked skbs to
-maintain SEQPACKET message boundaries, and skbs already larger than the
-collapse target because they already have a good data-to-overhead ratio.
-
-Walking a large queue may take a significant amount of time and cache
-misses, causing traffic burstiness. To limit this, the collapse stops
-once enough room is freed for this packet and the next one, but may
-opportunistically free more to fill each collapsed skb to capacity.
-
-[1] https://github.com/stefano-garzarella/iperf-vsock
-
-Fixes: 059b7dbd20a6 ("vsock/virtio: fix potential unbounded skb queue")
+Fixes: 2bad466cc9d9 ("mm/uffd: UFFD_FEATURE_WP_UNPOPULATED")
+Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
+Cc: Peter Xu <peterx@redhat.com>
 Cc: stable@vger.kernel.org
-Reported-by: Brien Oberstein <brienpub@gmail.com>
-Closes: https://lore.kernel.org/netdev/618701dd023e$063de350$12b9a9f0$@gmail.com/
-Tested-by: Brien Oberstein <brienpub@gmail.com>
-Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
+Assisted-by: Claude:claude-fable-5
 ---
-v2:
-- defined MAX_COLLAPSE_LEN macro instead of using a variable [Paolo]
-- added a threshold to avoid walking all the queue while collapsing
-  [Paolo]
-- collapsed the queue before calling virtio_transport_inc_rx_pkt().
-  While working on the threshold, I figured out that the check I was
-  introducing can also be used to proactively trigger the collapse, so I
-  moved the call to virtio_transport_collapse_rx_queue() before acquiring
-  the rx_lock to have also a better diff to simplify backports
-- improved code readability (removed `out` label, `keep` initialization,
-  etc.) [Paolo + other small stuff]
-- Brien kindly retested this version as well (thank you so much)
----
- net/vmw_vsock/virtio_transport_common.c | 165 +++++++++++++++++++++++-
- 1 file changed, 164 insertions(+), 1 deletion(-)
 
-diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index 09475007165b..8becad81279c 100644
---- a/net/vmw_vsock/virtio_transport_common.c
-+++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -26,6 +26,13 @@
- /* Threshold for detecting small packets to copy */
- #define GOOD_COPY_LEN  128
+Changes since v1 [1], addressing Sashiko AI review:
+  - Exclude hugetlb from the hole PAGE_IS_WRITTEN report. An unallocated
+    hugetlb slot also reaches pagemap_scan_pte_hole(), and reporting it
+    written while an allocated-but-empty huge entry reads not-written
+    (pagemap_hugetlb_category()) would be inconsistent within the VMA.
+    This also keeps the pre-existing pagemap_scan_hugetlb_hole_wp() range
+    concern out of scope here.
+
+Based on the pte_none fix [2] (same selftest file).
+
+[1] https://lore.kernel.org/all/20260708093444.145566-1-kirill@shutemov.name/
+[2] https://lore.kernel.org/all/20260707151349.92143-1-kirill@shutemov.name/
+ fs/proc/task_mmu.c                         | 25 ++++++++-
+ tools/testing/selftests/mm/pagemap_ioctl.c | 60 +++++++++++++++++++++-
+ 2 files changed, 82 insertions(+), 3 deletions(-)
+
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index d45c729ab6bb..fad648f9a40c 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -3049,12 +3049,33 @@ static int pagemap_scan_pte_hole(unsigned long addr, unsigned long end,
+ {
+ 	struct pagemap_scan_private *p = walk->private;
+ 	struct vm_area_struct *vma = walk->vma;
++	unsigned long categories;
+ 	int ret, err;
  
-+/* Max payload that can be collapsed into a single linear skb, using the same
-+ * allocation threshold as virtio_vsock_alloc_skb() to avoid adding pressure
-+ * on the page allocator.
-+ */
-+#define MAX_COLLAPSE_LEN \
-+	SKB_MAX_ORDER(VIRTIO_VSOCK_SKB_HEADROOM, PAGE_ALLOC_COSTLY_ORDER)
+-	if (!vma || !pagemap_scan_is_interesting_page(p->cur_vma_category, p))
++	if (!vma)
+ 		return 0;
+ 
+-	ret = pagemap_scan_output(p->cur_vma_category, p, addr, &end);
++	/*
++	 * An unpopulated range with no page table -- e.g. a 2MB anon THP
++	 * dropped via MADV_DONTNEED, which pagemap_page_category() never sees
++	 * -- reads as written on a uffd-wp VMA, matching the pte_none case
++	 * there. Reporting it also lets the PM_SCAN_WP_MATCHING arming below
++	 * install markers (uffd_wp_range() allocates the page table under
++	 * WP_UNPOPULATED), so the next scan sees it clean until re-written.
++	 *
++	 * hugetlb is excluded: an allocated-but-empty huge entry reads as
++	 * not-written via pagemap_hugetlb_category(), so reporting an
++	 * unallocated hugetlb hole as written here would be inconsistent
++	 * within the same VMA.
++	 */
++	categories = p->cur_vma_category;
++	if (userfaultfd_wp(vma) && !is_vm_hugetlb_page(vma))
++		categories |= PAGE_IS_WRITTEN;
 +
- static void virtio_transport_cancel_close_work(struct vsock_sock *vsk,
- 					       bool cancel_timeout);
- static s64 virtio_transport_has_space(struct virtio_vsock_sock *vvs);
-@@ -420,6 +427,145 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
- 	return ret;
++	if (!pagemap_scan_is_interesting_page(categories, p))
++		return 0;
++
++	ret = pagemap_scan_output(categories, p, addr, &end);
+ 	if (addr == end)
+ 		return ret;
+ 
+diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
+index 550d1f2c059b..c0e45d0f7478 100644
+--- a/tools/testing/selftests/mm/pagemap_ioctl.c
++++ b/tools/testing/selftests/mm/pagemap_ioctl.c
+@@ -25,6 +25,10 @@
+ #include "kselftest.h"
+ #include "hugepage_settings.h"
+ 
++#ifndef MADV_COLLAPSE
++#define MADV_COLLAPSE 25
++#endif
++
+ #define PAGEMAP_BITS_ALL		(PAGE_IS_WPALLOWED | PAGE_IS_WRITTEN |	\
+ 					 PAGE_IS_FILE | PAGE_IS_PRESENT |	\
+ 					 PAGE_IS_SWAPPED | PAGE_IS_PFNZERO |	\
+@@ -1102,6 +1106,59 @@ static void unpopulated_scan_test(void)
+ 	munmap(mem, mem_size);
  }
  
-+static bool virtio_transport_can_collapse(struct sk_buff *skb)
-+{
-+	/* skbs that are partially consumed, mark a SEQPACKET message boundary,
-+	 * or are already large enough should not be collapsed: they either
-+	 * need special accounting, carry protocol state, or already have a
-+	 * good data-to-overhead ratio.
-+	 */
-+	if (VIRTIO_VSOCK_SKB_CB(skb)->offset)
-+		return false;
-+	if (le32_to_cpu(virtio_vsock_hdr(skb)->flags) & VIRTIO_VSOCK_SEQ_EOM)
-+		return false;
-+	if (skb->len >= MAX_COLLAPSE_LEN)
-+		return false;
-+	return true;
-+}
-+
-+/* Iterate through the packets in the queue starting from the current skb to
-+ * count the number of bytes we can collapse.
++/*
++ * A 2MB anon THP dropped with MADV_DONTNEED leaves a pmd_none hole with no
++ * page table, which pagemap_page_category() never sees. PAGEMAP_SCAN must
++ * still report it as written on a uffd-wp VMA, via pagemap_scan_pte_hole().
 + */
-+static unsigned int
-+virtio_transport_collapse_size(struct sk_buff *skb, struct sk_buff_head *queue)
++static void unpopulated_thp_hole_test(void)
 +{
-+	unsigned int target = skb->len - VIRTIO_VSOCK_SKB_CB(skb)->offset;
++	long npages, written = 0, ret, i;
++	struct page_region regions[16];
++	char *area, *mem;
 +
-+	while ((skb = skb_peek_next(skb, queue)) &&
-+	       virtio_transport_can_collapse(skb)) {
-+		unsigned int len = skb->len - VIRTIO_VSOCK_SKB_CB(skb)->offset;
++	if (!hpage_size) {
++		ksft_test_result_skip("%s THP not supported\n", __func__);
++		return;
++	}
++	npages = hpage_size / page_size;
 +
-+		if (len > MAX_COLLAPSE_LEN - target)
-+			return target;
++	/* Get a PMD-aligned range so the range can be a single THP. */
++	area = mmap(NULL, 2 * hpage_size, PROT_READ | PROT_WRITE,
++		    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	if (area == MAP_FAILED)
++		ksft_exit_fail_msg("%s mmap failed\n", __func__);
++	mem = (char *)(((unsigned long)area + hpage_size - 1) & ~(hpage_size - 1));
 +
-+		target += len;
++	memset(mem, 1, hpage_size);
++	if (madvise(mem, hpage_size, MADV_COLLAPSE) ||
++	    !check_huge_anon(mem, 1, hpage_size)) {
++		ksft_test_result_skip("%s could not form a THP\n", __func__);
++		munmap(area, 2 * hpage_size);
++		return;
 +	}
 +
-+	return target;
++	wp_init(mem, hpage_size);
++
++	/* Drop the whole PMD: it is cleared to a pmd_none hole. */
++	if (madvise(mem, hpage_size, MADV_DONTNEED))
++		ksft_exit_fail_msg("%s MADV_DONTNEED failed\n", __func__);
++
++	ret = pagemap_ioctl(mem, hpage_size, regions, 16, 0, 0,
++			    PAGE_IS_WRITTEN, 0, 0, PAGE_IS_WRITTEN);
++	if (ret < 0)
++		ksft_exit_fail_msg("%s scan failed\n", __func__);
++	for (i = 0; i < ret; i++)
++		written += LEN(regions[i]);
++
++	ksft_test_result(written == npages,
++			 "%s pmd-hole reported written (%ld of %ld)\n",
++			 __func__, written, npages);
++
++	wp_free(mem, hpage_size);
++	munmap(area, 2 * hpage_size);
 +}
 +
-+/* Called under lock_sock to compact the receive queue by merging small skbs.
-+ * @min_to_free: minimum number of skbs to eliminate from the queue. May free
-+ *               more to fill each collapsed skb to capacity.
-+ */
-+static void
-+virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs,
-+				   u32 min_to_free)
-+{
-+	struct sk_buff *skb, *next_skb, *new_skb = NULL;
-+	struct sk_buff_head new_queue;
-+	u32 saved = 0;
-+
-+	__skb_queue_head_init(&new_queue);
-+
-+	skb_queue_walk_safe(&vvs->rx_queue, skb, next_skb) {
-+		struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-+		u32 src_off = VIRTIO_VSOCK_SKB_CB(skb)->offset;
-+		u32 src_len = skb->len - src_off;
-+		bool keep;
-+
-+		keep = !virtio_transport_can_collapse(skb);
-+		if (keep) {
-+			/* Finalize pending collapsed skb to preserve packet
-+			 * ordering.
-+			 */
-+			if (new_skb) {
-+				__skb_queue_tail(&new_queue, new_skb);
-+				new_skb = NULL;
-+				saved--;
-+			}
-+			goto next;
-+		}
-+
-+		/* Finalize if this packet won't fit in the remaining tailroom,
-+		 * so we can allocate a right-sized new_skb.
-+		 */
-+		if (new_skb && src_len > skb_tailroom(new_skb)) {
-+			__skb_queue_tail(&new_queue, new_skb);
-+			new_skb = NULL;
-+			saved--;
-+		}
-+
-+		if (!new_skb) {
-+			unsigned int alloc_size;
-+
-+			/* Check after finalizing to opportunistically fill
-+			 * each collapsed skb to capacity, merging more skbs
-+			 * than strictly required.
-+			 */
-+			if (saved >= min_to_free)
-+				break;
-+
-+			alloc_size = virtio_transport_collapse_size(skb, &vvs->rx_queue);
-+
-+			/* Only this skb's data is eligible, nothing to merge
-+			 * with. Keep as-is.
-+			 */
-+			if (alloc_size <= src_len) {
-+				keep = true;
-+				goto next;
-+			}
-+
-+			new_skb = virtio_vsock_alloc_linear_skb(alloc_size +
-+					VIRTIO_VSOCK_SKB_HEADROOM, GFP_KERNEL);
-+			if (!new_skb)
-+				break;
-+
-+			memcpy(virtio_vsock_hdr(new_skb), hdr,
-+			       sizeof(struct virtio_vsock_hdr));
-+			virtio_vsock_hdr(new_skb)->len = 0;
-+		}
-+
-+		/* Cannot fail since src_off/src_len are within bounds, but if
-+		 * it does, discard new_skb to avoid queuing corrupted data.
-+		 */
-+		if (WARN_ON_ONCE(skb_copy_bits(skb, src_off,
-+					       skb_put(new_skb, src_len),
-+					       src_len))) {
-+			kfree_skb(new_skb);
-+			new_skb = NULL;
-+			break;
-+		}
-+
-+		le32_add_cpu(&virtio_vsock_hdr(new_skb)->len, src_len);
-+		virtio_vsock_hdr(new_skb)->flags |= hdr->flags;
-+
-+next:
-+		__skb_unlink(skb, &vvs->rx_queue);
-+		if (keep) {
-+			__skb_queue_tail(&new_queue, skb);
-+		} else {
-+			consume_skb(skb);
-+			saved++;
-+		}
-+	}
-+
-+	if (new_skb)
-+		__skb_queue_tail(&new_queue, new_skb);
-+
-+	skb_queue_splice(&new_queue, &vvs->rx_queue);
-+}
-+
- static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
- 					u32 len)
+ int sanity_tests(void)
  {
-@@ -1354,12 +1500,29 @@ virtio_transport_recv_enqueue(struct vsock_sock *vsk,
- {
- 	struct virtio_vsock_sock *vvs = vsk->trans;
- 	bool can_enqueue, free_pkt = false;
-+	u32 len, queue_max, queue_len;
- 	struct virtio_vsock_hdr *hdr;
--	u32 len;
+ 	unsigned long long mem_size, vec_size;
+@@ -1610,7 +1667,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
+ 	if (!hugetlb_setup_default(4))
+ 		ksft_print_msg("HugeTLB test will be skipped\n");
  
- 	hdr = virtio_vsock_hdr(skb);
- 	len = le32_to_cpu(hdr->len);
+-	ksft_set_plan(118);
++	ksft_set_plan(119);
  
-+	/* virtio_transport_inc_rx_pkt() rejects packets when the per-skb
-+	 * overhead (skb_queue_len * SKB_TRUESIZE(0)) exceeds buf_alloc.
-+	 * Proactively collapse the queue before that happens.
-+	 * No rx_lock needed: lock_sock is held by caller, preventing
-+	 * concurrent enqueue or dequeue.
-+	 */
-+	queue_max = vvs->buf_alloc / SKB_TRUESIZE(0);
-+	queue_len = skb_queue_len(&vvs->rx_queue);
-+	if (queue_len >= queue_max) {
-+		/* Walking a large queue may take a significant amount of time
-+		 * and cache misses, causing traffic burstiness. Limit the
-+		 * collapse to freeing room for this packet and the next one.
-+		 * It may free more to fill each collapsed skb to capacity.
-+		 */
-+		virtio_transport_collapse_rx_queue(vvs, queue_len + 2 - queue_max);
-+	}
-+
- 	spin_lock_bh(&vvs->rx_lock);
+ 	page_size = getpagesize();
+ 	hpage_size = read_pmd_pagesize();
+@@ -1790,6 +1847,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
  
- 	can_enqueue = virtio_transport_inc_rx_pkt(vvs, len);
+ 	/* 18. Unpopulated pte scan-path consistency */
+ 	unpopulated_scan_test();
++	unpopulated_thp_hole_test();
+ 
+ 	close(pagemap_fd);
+ 	ksft_finished();
+
+base-commit: 9795ad96d277c4af049fe30de1cebd4e39d7bcbe
 -- 
-2.55.0
+2.54.0
 
