@@ -1,142 +1,124 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A78DA3BB138;
-	Wed,  8 Jul 2026 05:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30D23BCD2E
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 05:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783488665; cv=none; b=ZrqRLynNmsc06UQZBWPv7P5/WqhlCTZ1A0lAABOoSkhAMRQGhrYmtYPs81NEM5vDDBv2XPkCzPLdRcAejVJNctyP/yrrXGPoIEv6NkfSQcsld2t1OjhBjL7kWijLdPiG23FmVqxRzqFZ+QVmD7PO/Fn8kE7dt5IYWbWQgByxBA8=
+	t=1783488863; cv=none; b=ioh9tMGDeBTsL4SCtLkdWd892N0wTEqx3oL6c9zKSUaURdB6GL4IwcFTaAnSqjtFFOEjqoinkAK8iU0IvNABzV50w6WM7spBxHrXze90TDtOvdVXfg37Pzd0jRWda133QggJlTgg0YHNBHBJDs411MSxh85VJRzv3hTRhVk5bFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783488665; c=relaxed/simple;
-	bh=GUjit2YTzZhJozwftDn8U/tKWzvCKxfMqtwIw36YdDE=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=J3hAxU05N2sjEEv7Z2tU1deA9pJtr/+2gyxuo8I00sXd7tRQv8LOt10xxvEv/8N3yB3qJYingaO5mpc4O1Ih/SL2hCkBF/KMMm5PlGNxlbTh434qkw5Jh1BPS5bk77PT+KOrhs4IrFxuYKzICT4UQLnG00jaq23sbXQ0xyNxOgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=JKFLS0Fv; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1783488863; c=relaxed/simple;
+	bh=YHDLftGTXkviSiCuA++kFBxR6Qc7YkPsAi1+MB3+5Kg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=m37mdTfvSfSg0SCh5QfiVBVpUs+xMSM5RkoKDGUT09+aY89dF88/IHoIMI7ogSLGn0rwRjPtiGemLfcp7yLLzdjo+rWMP1IZJzZbJT0G9FyWQXtPk6kTh706mhUf1AK+exQysevg9R1zL8DjGMsM2CvSnhavQRlaKX0CPPhez2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hHPlu4xJ; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="JKFLS0Fv"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hHPlu4xJ"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493c7902f47so1259055e9.1
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 22:34:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:Content-Type:
-	Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	Content-Transfer-Encoding:Message-Id:References:To; bh=zS/AaYZRL
-	DGNhDHjzwOvNEYFJ4rEMVLDHc6bZcDTxTA=; b=JKFLS0FvyGh1EZ+C7JhjhuVgN
-	T/4NXo62934pRkCPPjVp8Rm8JFVFjyGi4Q96DaQj7jT7oVSK2uMRQzdjpUP+LvHT
-	wBj2aSkpFEOOR9GbCHBDgAzlAhFyOf+wW4Bz91H29ewtnzhYb9T68wI85kDTvH/i
-	lZerMk/7AAPELFfbvI=
-Received: from smtpclient.apple (unknown [211.102.241.101])
-	by web4 (Coremail) with SMTP id ywQGZQB3i6CB4E1qZLnSAg--.41268S2;
-	Wed, 08 Jul 2026 13:30:41 +0800 (CST)
-Content-Type: text/plain;
-	charset=us-ascii
+        d=gmail.com; s=20251104; t=1783488860; x=1784093660; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hP4GuqRT5FtMAFHBUjU6kmy4KMyxCZiL8K3lKmV8f6g=;
+        b=hHPlu4xJmZn/PeJoRHc//CvBkbul392JKMmJVzP/SdOEeUm1pulBYxMQhFnZ2YDDxq
+         TmdEzINeB71gYIPi/HaLDLoFwt+o2xGNI3Wvj3gL7TWb2YZmN8mFy5BCDODiQvfb1wZV
+         XYEMe+YygIWarhR/3y6+QUHp1TKwZBrHNjTZX0699jzDyfUqsmk/+uZ4Fb+gJpDii0cb
+         EHo3WlE36JRYKgY+e4CU/rih1vkVJdzFffDz1dFxWHedubKq5n+EtkIRhHuYH6P0cqGa
+         dZ+DOqX6Fnr+v1UtSBv3rHBRUnqOgFv9HAa6iksPKIkKLANq7wxxsXpMV7SdHmq4xRnd
+         EkMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783488860; x=1784093660;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hP4GuqRT5FtMAFHBUjU6kmy4KMyxCZiL8K3lKmV8f6g=;
+        b=Ht6KHDq7IFDc07vM+cKtcsoqbhCdRM0Tu0LMxJ789KCTwrvUbLD7gEPUS4iUMk5ED2
+         eophRRd1/leW4g3TYpE/zZIN9yiQwxvageSTwj8Y1SUNiZtuLijqaoV5vpacfWhGHacS
+         k+ebXZVUtTFy4qSyRQEEeQ5lYWG8DBhxlOYTI6Z/IDNlnZiNtWixpPNbty8h2yi3vm0V
+         3rmSDVBALTpzEjuNQIhuNLZ1BumZRxY9b2quTCou21s4R0zYkSJ1765me7XnGVrEKnH1
+         HPHUIiAOhFwJ8dyOhtEwwsqb0tZGYE1eYz/6S2zjMI9hJyNn/tTVf9Tm6XbjifQPnC27
+         6hUw==
+X-Forwarded-Encrypted: i=1; AHgh+RqxbQB2yjTZcLAi0feFRqmpbhTutLMhu9Hoxkoagjt9DIdD6bnIJHIYxdLUAijiJiOM53O1tUY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4Uew7bF5FC7RiEDvkQQLuet8XpYKuKJpo2znJsgg9fnQUjsDf
+	n4j+Vxca8CpNd7LuS0I+LnWMUwt6Pse60pA5fs02pOcLUPt9Yaph3f+F
+X-Gm-Gg: AfdE7cllKcXw6MQdSvT0CkDJrGH6qy2mI7TL3nKdzK8BCWZYyIpWuf2GOT2YElWALVu
+	MjMzWtvX3dYsaeKoyqLrBDNyuxKAsrRcYahsa1uvGYOpoxpqvhK5zE3Ok6+ykNDBuUDIQkHf3Ma
+	THherytQPzGvJ7okG9RkxbdRQ8F7Kwl0YUIljciqVhBtcd62MgaGSGVXjxcFwuQZeP0X2TN0iTQ
+	n36PDPE2AQH+CDcCFb3Y0GNSo/Z32Q7d8BhPJuKV0svkxoZlS46g3Stn0EhA2WlCEGOFDNghBJQ
+	vE4Ktg0YRswadA7FLLsp1XnRueVdKXiCODceDE23LVgoHPxYgLoYPTzVGg/I6tG/IUdHhXmzT5M
+	JSWSNt4BsX3J94v4+YLuWFR6KcIrER0NPn4Ula2oJ2l5tYJBO2sWTUnnNop4QuiPopgTGNEcC13
+	9nxAwi19bmzm/y1ZMf/PfV1McxSEONuWWLscWiXvPY40e9Ag3BkrKnd32JOHvC0nYGD4+3AVGTd
+	vXVDo+7pI20M9797AeR8R7jwxPCb9LqRVoKmze/0TI/5nlTlpxW8crZTSKo5Sm4H4/EptFedqZt
+	MREqCXJiob7+B2mWejce2QYud/2twKf0ndgXA+a5pPdsTG/Dcj+wpA==
+X-Received: by 2002:a05:600c:8b34:b0:493:b03c:5650 with SMTP id 5b1f17b1804b1-493e685f1dbmr7597595e9.19.1783488859746;
+        Tue, 07 Jul 2026 22:34:19 -0700 (PDT)
+Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e544837dsm35528415e9.0.2026.07.07.22.34.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 22:34:19 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: [PATCH 0/3] iio: adc: add missing 'select REGMAP' to Kconfig
+Date: Wed, 08 Jul 2026 07:34:11 +0200
+Message-Id: <20260708-add-missing-regmap-v1-0-6d424322e3d4@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH nf] netfilter: nf_conncount: fix zone comparison in tuple
- dedup
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-In-Reply-To: <ak0UDVc4gZbfzrtM@strlen.de>
-Date: Wed, 8 Jul 2026 13:30:31 +0800
-Cc: netfilter-devel@vger.kernel.org,
- Pablo Neira Ayuso <pablo@netfilter.org>,
- Phil Sutter <phil@nwl.cc>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- coreteam@netfilter.org,
- netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
- Ao Wang <wangao@seu.edu.cn>,
- Xuewei Feng <fengxw06@126.com>,
- Qi Li <qli01@tsinghua.edu.cn>,
- Ke Xu <xuke@tsinghua.edu.cn>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E7AB1D22-A7EF-4401-A2E7-08C97D9868E6@mails.tsinghua.edu.cn>
-References: <20260706114820.74006-1-zhaoyz24@mails.tsinghua.edu.cn>
- <ak0UDVc4gZbfzrtM@strlen.de>
-To: Florian Westphal <fw@strlen.de>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
-X-CM-TRANSID:ywQGZQB3i6CB4E1qZLnSAg--.41268S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kw4xXrWUCF4rWry3Ww45Wrg_yoW8AryDpw
-	4Fg3ySyF4kJrnIyF97ZrnrA3W8trsrtF1fJr1UA3y7C3Z0vF93t3yxG3W3CayDuFyDJF1S
-	qFy5XF95u3Z09rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
-	648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK67
-	AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
-	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc4
-	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
-	xVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
-	1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRRnNVPUU
-	UUU==
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgECAWpNfR6UyQABsY
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBuwIMOuEi1MR5uFFg5EIN09a
+ fkW/1cQKkwCS1eh0M3CZ24Y+g7cYXMkZN8Moxq1mtWM1ntMLMI5YqGY7IW7doMxdnJBB2jhVSj
+ w80/X7X0/iHqVj2QAAAA=
+X-Change-ID: 20260707-add-missing-regmap-b6c199a5cf6f
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Stefan Popa <stefan.popa@analog.com>, 
+ Julien Stephan <jstephan@baylibre.com>, 
+ Ivan Mikhaylov <fr0st61te@gmail.com>, 
+ Marcelo Schmitt <marcelo.schmitt1@gmail.com>, 
+ Marilene Andrade Garcia <marilene.agarcia@gmail.com>, 
+ Kim Seer Paller <kimseer.paller@analog.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joshua Crofts <joshua.crofts1@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783488858; l=882;
+ i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
+ bh=YHDLftGTXkviSiCuA++kFBxR6Qc7YkPsAi1+MB3+5Kg=;
+ b=RGlh604wq8PDBvBXVLlP7OCpvztabJpNoNEs1/AR+UrZOVteZ2j5DyI1tw5nznqdMKV6XTi1X
+ zLp4zZNBqtdD0pAqtW47dOnjBO8uSl4kVY9oy7nWTlX4lR7w+FvW19w
+X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
+ pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-Hi Florian,
+This series adds missing `select REGMAP` and `select REGMAP_I2C` to the
+AD7380/MAX34408/MAX14001 Kconfig entries. Without these, some builds
+may result in a failure.
 
-> On Jul 7, 2026, at 22:58, Florian Westphal <fw@strlen.de> wrote:
->=20
-> Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn> wrote:
->> The "already exists" dedup logic in __nf_conncount_add() decides
->> whether a connection has already been counted and can be skipped =
-instead
->> of incrementing the connlimit count.  It compares the conntrack zone =
-of a
->> list entry with the zone of the connection being added using
->> nf_ct_zone_id() and nf_ct_zone_equal(), passing conn->zone.dir or
->> zone->dir as the direction argument.
->=20
-> Right, thats bogus.
->=20
->> @@ -211,8 +220,10 @@ static int __nf_conncount_add(struct net *net,
->> /* Not found, but might be about to be confirmed */
->> if (PTR_ERR(found) =3D=3D -EAGAIN) {
->> if (nf_ct_tuple_equal(&conn->tuple, &tuple) &&
->> -    nf_ct_zone_id(&conn->zone, conn->zone.dir) =3D=3D
->> -    nf_ct_zone_id(zone, zone->dir))
->> +    nf_ct_zone_id(&conn->zone,
->> +  nf_conncount_zone_dir(&conn->zone)) =3D=3D
->> +    nf_ct_zone_id(zone,
->> +  nf_conncount_zone_dir(zone)))
->=20
-> Should this be a simpler:
->=20
->                                if (nf_ct_tuple_equal(&conn->tuple, =
-&tuple) &&
-> -                                   nf_ct_zone_id(&conn->zone, =
-conn->zone.dir) =3D=3D
-> -                                   nf_ct_zone_id(zone, zone->dir))
-> +                                   nf_ct_zone_equal(&conn->zone, =
-&zone), IP_CT_DIR_ORIGINAL)
->=20
-> ?
->=20
-> The tuple is always the 'original' direction, so it would follow that
-> we should not care about reply zone dir.
->=20
-> Also see:
-> =
-https://sashiko.dev/#/patchset/20260706114820.74006-1-zhaoyz24%40mails.tsi=
-nghua.edu.cn
+Steps to reproduce build failure:
+1. Run `make allnoconfig`.
+2. Run `make menuconfig` and select I2C/SPI, IIO and any of said drivers.
+3. Run `make .` and make will end with regmap-related errors.
 
-Thank you for pointing out this.
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+Joshua Crofts (3):
+      iio: adc: ad7380: add missing 'select REGMAP' to Kconfig
+      iio: adc: max34408: add missing 'select REGMAP_I2C' to Kconfig
+      iio: adc: max14001: add missing 'select REGMAP' to Kconfig
 
-We have published a v2 patch following your suggestions:
+ drivers/iio/adc/Kconfig | 3 +++
+ 1 file changed, 3 insertions(+)
+---
+base-commit: 093239070573637ad2b4cb56abc9c4c7ee109294
+change-id: 20260707-add-missing-regmap-b6c199a5cf6f
 
-=
-https://lore.kernel.org/netfilter-devel/20260708052730.18354-1-zhaoyz24@ma=
-ils.tsinghua.edu.cn/
+Best regards,
+-- 
+Kind regards
 
-
-Thanks,
-Yizhou=
+CJD
 
