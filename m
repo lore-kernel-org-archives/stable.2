@@ -1,79 +1,75 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDA3439332
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 15:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DD1373BF8
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 15:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783525106; cv=none; b=LZeF8yxQD6RtbCv9rqOL9nRM0H7kobTjhxhzQf1jf+4B2ZCD403ns9khl9WpgphtiCIF1sx/GqdeLCLrP/6LFiJZ2FJeubKqnT7LZP6KwosXOMfFEn7D5wnIC0jmMfKda5mxJOEwCE3pMHqgaE8P7lzee9LTeOxQmrrgsj0zEyo=
+	t=1783525734; cv=none; b=rfWKEEBQxOMneDcqKs7sX47hMR5tcyV4mXTDbYEzxOYuYCy770p1ff14PT2iDuEyasqZlQ04/hFoAJcJZuOJXBh1Dlzt5AHr5AnUB9OxDJaR07XZMKasOLf7/Hv/i51PNkUAWEe8ct15LXtJ8NQSFCHczl+ROSfRqMyi/WxYLvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783525106; c=relaxed/simple;
-	bh=y1Zkb/qQ7tH76c5nw0yWw9pfRRFL5z9KF7XJjkvkH3c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kVw+oBIlmgLAurlAFomBianrQWt48mXy+h06ON60JgPecOSfpduv8OATPBTR7yLK3WWDEzawjr9kbjM/MqvamfZ+BmwT4der9OPLg0JtrTrRbCUi3yUK5nMZnSGBfNbe7rdzz7fGK4GBefkjiYnpfWJBaYmwYui9AxX6BTwkDm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LKRw+KqK; arc=none smtp.client-ip=209.85.214.182
+	s=arc-20240116; t=1783525734; c=relaxed/simple;
+	bh=8QbeqJbFf9oi4h55Efl5R8F7Lfx9SdpLOJ/gAAydHD8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s9zbFIr5PXT7c+BdhBq1eSep6uAhm/hauxniH6ErLdxjOrOHINjX8xUTayHvhdtnmgt9Bms2ZQjLbQ752f8P42P2qTdOXHf74ENuH+ucxq2gSf8CP7mq2G/YMGMI0luQdP9hRZ5DVNUx2WKKfSH7ZV4fNQKL9IFomEO4gfzxMOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E4X7i1fk; arc=none smtp.client-ip=209.85.208.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LKRw+KqK"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cce6a0c9c3so9715825ad.1
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 08:38:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E4X7i1fk"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-698aa7ba320so1923300a12.1
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 08:48:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783525105; x=1784129905; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E7M+3gHwLkUuZk+ZzB1+zc6TOfv5YYqtskQPl4nbwro=;
-        b=LKRw+KqKrPUGMl3c149vOZRWpZbsXbk4Ycm4mUuHMgaiBk8qaoFjnbbj3eqR6TELcU
-         iIJ3yWUSvw0TOofMr90DyGK8Sso30iLH4raoksC6+VgPjsb6QYDTXTfRVa+zYGgGxw7E
-         BHV+Z83vvly+BOLX/Xq+fOpONF429m0X6zgRzFGgKqM4AuRJd2nUTiutiUwdy+ULSJIj
-         PAA52xbIVk4CA5O9B5RHK4gO8LhIyt3aM2u4IwsiM5JdT2NsFyvDhEFzDAEAZr6rd595
-         rd4QcC+7xguCaHseLu5AwcD75qN4/SWIUk0iOV+Q1qAdsOhmMJMQ4h66A0sg/kKJxzzL
-         N2eA==
+        d=gmail.com; s=20251104; t=1783525731; x=1784130531; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8HYyhfh32LFwdBV4eDfTnSyUP2grGJ7M7W0Gn17mFP0=;
+        b=E4X7i1fkS3Z40nI7+jpkxdQGzUL+RUBBDZtuVX33IO+WhcUc6C/KD9Mzy9B9nEW/d7
+         rK/G5GJ8uNypzkyhf1HUj2ofBuZ9vkusGajBwt0Tj+dMXtSWx7UYRfKHVjbt9lB2Vkeh
+         OHdBWkvBHeFDlS8POuLuwaHU9u5GPYneOgBuiMByfWohBqeLZVkV71jEKpi2NiD2YWVw
+         PZru7AoXShcvuXzIPCvC1qB3W0qc1h0RRnBhZB/aktOb5hQ3+epwfS3lWKVV7baIy5Ng
+         26mNZvc+b8UW3zee69cyJsIFzoS4dveZJbPabW1W5AACU18heUZKgAxxzG3zCRxt2ndZ
+         zGag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783525105; x=1784129905;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E7M+3gHwLkUuZk+ZzB1+zc6TOfv5YYqtskQPl4nbwro=;
-        b=GgT0GZn76fEbtAc3oDiJH3szCxtE19XGrtywqUs2rynbXyalMj3qkXB5WVVvlXxwqE
-         GWcW0OGR23RQ69fr2Ou0Gd5CWcE/BPLeQVXbZ4yC7FGDWpspN7c6cqflyodFboruF6mm
-         embSOtuV1noBbYub4cL/0CFzZX7CbsYZyBjwTHSRwfG3XRjxfZhja33MB5L9MdjMuCXA
-         T+LX7S1Nwfz8OvgdueccFhgPLDpZa31+1mRRpALGPezQfqnxTzaxHRWUhlk8yCRiy8i0
-         I+un+9OW6XQfv1fn/PmYXiupRF2Fmnze2LeH0HPfukjr0PtZe0HbHjhHN87DExGvjfA/
-         vn3A==
-X-Forwarded-Encrypted: i=1; AHgh+RqAxNmVbZj57F0j1V26k7kYc/21mqtJ0KLEuUipLtujhDYKQl4vCCwG7fnSW3JshUZsZjWROUw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKJnvsWM/i0aYVg0jtl1HItB+TrU+uSGQdSZAo54+JporBvcsp
-	fS3VFuVbcfraet3ReojtTddDC2debUIfwDtow+6zZUdKtyWp+oGcUaF+
-X-Gm-Gg: AfdE7cm8GNcYzQt+fhFuPy3ffj/iumK3WfWQV9m493zoFMmsRPQJv2LodE0z0qZ/IxT
-	PQKDX1esKvrt3JWD1JB9/pLLeGBv7lTEspCZ/j31prOnZRun++NXaccR1SEhlIHki4AAA5i45ZV
-	7NhNwR4F43Ge0KK0HQVKi3dJ06F8RmINz+40yC5fCSGb8aLy+gsAboWBkFvYuDxGr4vkpoXgaMO
-	IbhvxUPdPDeZz5kePTQ9u/ZOQ9wMpFHNUEKyFBS5nTPz18jZSYNw5drlztzt3zVTQE3fYTgwhy1
-	Q5lgVIrz94BcK3aB54CpIIUDpWtEqCfXFXFt/eMzZ1WuElI3ToqTGFKL4lYcF70epvel5OHc8Tv
-	/kuB/Pq0X82R6+7VLg2dM7OTtz2kMq+ZkbFNO4AzXgWGU9mZqShZ3F/CeiDzN4nQAKhl9WcPq9Z
-	kKMTG8nPIiU1b3xz8VAj1NMmvZ7RljRDXg0WJw2MvD3r0=
-X-Received: by 2002:a05:6a20:c998:b0:3bf:bdb9:f602 with SMTP id adf61e73a8af0-3c0bcc6a270mr3505171637.22.1783525104357;
-        Wed, 08 Jul 2026 08:38:24 -0700 (PDT)
-Received: from localhost.localdomain ([49.207.223.101])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174a583bcsm24462238eec.19.2026.07.08.08.38.20
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 08 Jul 2026 08:38:23 -0700 (PDT)
-From: Biren Pandya <birenpandya@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	dongchun.zhu@mediatek.com,
-	andriy.shevchenko@linux.intel.com,
-	linux-media@vger.kernel.org,
+        d=1e100.net; s=20251104; t=1783525731; x=1784130531;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8HYyhfh32LFwdBV4eDfTnSyUP2grGJ7M7W0Gn17mFP0=;
+        b=QP2dMnO+/kNNiAK2eiS4I1bOgFmog6FNH3khS5d0Rs9gJZFpLoQZ6/3LdtjyHBVhcx
+         eOH10Md02uj3Ddbf3CDgTa8oo/PqbzFobOw4uMmu+n9MVaYvw4zA8ya4bjZLmYo1SFNf
+         Z6GU/WsK05rHNEAsgIW7uy44neU79/qBLldWT1b+YQEezdCyTA3LeNp3Av4gWUaOwRG4
+         q2FFJpP9cvbFDvBg6URTgZzgaIxtyS1xQJjDCo/TfyQuRXvqQs9E4Z9MSAs9PUDeT2u0
+         umq7H+dSswadyAMwVzB285cCU4GpgcUl6Y1yV+6Y5JoA/kkCxRmw73Hb9lSIAgPfiT22
+         EMSw==
+X-Gm-Message-State: AOJu0Yzd3QwWRt+oXKSXUzyxliUr9heJVmThmhr2FuVVto6GD9tpVmlV
+	5rSvSYV5kaHBFLzTm6epE3cTYPi4TVA/kTnLVM2FJZIpWF3NgzurV2B3
+X-Gm-Gg: AfdE7cntnJtmMpgpe7E5qK9RrPNR/B9HrjhX4eVexiJBVcDhVSDB07Usm1wnKujmNn4
+	KH8ry8U/We2bmw8W+WeAhwB9sg0vp+/gQ3s+e0CW2wEErM6Mvvyj/OTUA2FW4KszwSebaQszLHD
+	h8RhjkjkheFo0uIzP/5vATX1h2jC1aNnxU6AG1AA/89OhkLOxdpJoMrB3ZsX2dmYEFws2nIwu2t
+	dRLywpMq8HvOoZFSqUzQIgtqrf+MMKY3gVlso5+9gVBoraaCvQ5GTXqvEoaDfJN9CM/wKoyHuTU
+	NDiCxZRYtBB1JUQi7undqDENmCU/56Sm3dSCk5ZM7LpFX3Bt1lQkaL0iFfyJk4cbKDIYRnBEwPx
+	NqvJVym10+eJEE6K3Nbm+IIVJ53xXo+M/YFbQ+TEaG6GHivDHu540C2fhfYTBGtlHmSoa7CK7F7
+	oLnoIjO5infkHWP6p74s6fZ8ORslQUdZETUcFjNeND6yPXWFNsxVEaa4X18mBuiv8=
+X-Received: by 2002:a05:6402:50ca:b0:698:ec2f:d6c9 with SMTP id 4fb4d7f45d1cf-69ab3c16be8mr1547585a12.14.1783525731269;
+        Wed, 08 Jul 2026 08:48:51 -0700 (PDT)
+Received: from node ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69ac41d7ceesm945125a12.23.2026.07.08.08.48.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 08:48:50 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	jorge.lopez2@hp.com,
+	linux@weissschuh.net,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Biren Pandya <birenpandya@gmail.com>,
-	stable@vger.kernel.org,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Subject: [PATCH v4] media: i2c: ov02a10: fix endpoint parsing use-after-free
-Date: Wed,  8 Jul 2026 21:08:15 +0530
-Message-ID: <20260708153815.50692-2-birenpandya@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260613083235.57363-1-birenpandya@gmail.com>
-References: <20260613083235.57363-1-birenpandya@gmail.com>
+Cc: stable@vger.kernel.org,
+	Mario Limonciello <superm1@kernel.org>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH v4 0/4] platform/x86: hp-bioscfg: fix ACPI package handling on HP EliteBook 840 G2
+Date: Wed,  8 Jul 2026 20:48:41 +0500
+Message-ID: <20260708154846.12356-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,64 +78,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ov02a10_check_hwcfg() function calls fwnode_handle_put(ep)
-immediately after allocating and parsing the endpoint. However, it
-subsequently calls fwnode_property_read_u32() using the same 'ep'
-handle, leading to a potential use-after-free.
+This series fixes attribute enumeration failures on the HP EliteBook 840
+G2 (BIOS M71 Ver. 01.31), whose BIOS returns shorter ACPI WMI packages
+than hp_init_bios_package_attribute() currently accepts, plus occasional
+type-mismatched elements after a failed WMI query.
 
-Additionally, reading the optional 'ovti,mipi-clock-voltage' property
-used to overwrite the 'ret' variable. If the property was missing,
-'ret' would become negative, and this failure code would be incorrectly
-returned at the end of the function, causing probe to fail entirely.
+Patches 1 and 2 are prerequisites: they make each per-type parser bound
+itself on the real, validated package count instead of an incorrect value
+derived from the NAME string's length. Both are no-ops today, since
+every package the driver currently handles already meets the old
+minimum size. They matter because patch 3 depends on them: once the
+minimum size check is relaxed, the elements array can genuinely be
+smaller than a parser's fixed per-type count, and without patches 1 and
+2 this would result in an out-of-bounds heap read.
 
-Fix the use-after-free by moving fwnode_property_read_u32() before
-the endpoint is parsed and freed. Avoid the error leak by not
-assigning the result of fwnode_property_read_u32() to 'ret'.
+Patch 3 relaxes that minimum size check to accept packages missing
+optional type-specific fields, as long as the common fields (NAME
+through SECURITY_LEVEL) are present.
 
-Fixes: 91807efbe8ec ("media: i2c: add OV02A10 image sensor driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Biren Pandya <birenpandya@gmail.com>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
----
-Changes in v4:
-- Collapsed fwnode_property_read_u32() into a single line per Vladimir's review.
+Patch 4 changes a type mismatch on one element from aborting the whole
+attribute to warning and skipping the offending element, matching the
+existing handling of unsupported element types.
 
-Changes in v3:
-- Moved property reads before parse to avoid UAF.
-- Fixed error leak by dropping assignment to ret.
-- Added Fixes/Cc stable.
-- Picked up Reviewed-by.
----
- drivers/media/i2c/ov02a10.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+Patches 1 through 3 are intended to be applied together, as patch 3
+depends on the preparatory fixes in patches 1 and 2.
 
-diff --git a/drivers/media/i2c/ov02a10.c b/drivers/media/i2c/ov02a10.c
-index 143dcfe104456..98f8fc5b6a5ae 100644
---- a/drivers/media/i2c/ov02a10.c
-+++ b/drivers/media/i2c/ov02a10.c
-@@ -820,18 +820,15 @@ static int ov02a10_check_hwcfg(struct device *dev, struct ov02a10 *ov02a10)
- 	if (!ep)
- 		return -ENXIO;
- 
-+	/* Optional indication of MIPI clock voltage unit */
-+	if (!fwnode_property_read_u32(ep, "ovti,mipi-clock-voltage", &clk_volt))
-+		ov02a10->mipi_clock_voltage = clk_volt;
-+
- 	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
- 	fwnode_handle_put(ep);
- 	if (ret)
- 		return ret;
- 
--	/* Optional indication of MIPI clock voltage unit */
--	ret = fwnode_property_read_u32(ep, "ovti,mipi-clock-voltage",
--				       &clk_volt);
--
--	if (!ret)
--		ov02a10->mipi_clock_voltage = clk_volt;
--
- 	for (i = 0; i < ARRAY_SIZE(link_freq_menu_items); i++) {
- 		for (j = 0; j < bus_cfg.nr_of_link_frequencies; j++) {
- 			if (link_freq_menu_items[i] ==
+v3: https://lore.kernel.org/all/20260707202111.35414-1-meatuni001@gmail.com/
+
+Changes since v3:
+- Patch 1: dropped the Fixes: tag (the patch does not fix anything on
+  its own; Cc: stable is enough for stable to pull it in as a series
+  dependency) and reworded the forward reference from "a later patch"
+  to "an upcoming change". (Ilpo)
+- Patch 2: dropped the Fixes: tag and reworded the forward reference as
+  in patch 1, plus dropped the redundant sentence describing the
+  out-of-bounds read. (Ilpo)
+- No code changes; commit-message wording only.
+
+Changes since v2:
+- Split the single "pass validated count and bound ordered list
+  parsing" patch into two: patch 1 fixes the count value passed to
+  each wrapper, patch 2 adds the missing elem < count bound to the
+  ordered list parser. (Ilpo)
+- Rewrote patch 1's commit message to lead with the bug instead of
+  quoting code, and to state up front that a later patch depends on
+  it. (Ilpo)
+- Reworded "thread the count down" and "guess at it" phrasing. (Ilpo)
+
+Muhammad Bilal (4):
+  platform/x86: hp-bioscfg: pass validated element count to package
+    parsers
+  platform/x86: hp-bioscfg: bound ordered-list parsing by the package
+    count
+  platform/x86: hp-bioscfg: accept reduced ACPI packages from older HP
+    BIOS
+  platform/x86: hp-bioscfg: warn on element type mismatch instead of
+    failing
+
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c     | 16 +++++++++++++---
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.h     |  8 ++++++++
+ .../platform/x86/hp/hp-bioscfg/enum-attributes.c | 10 ++++++----
+ .../platform/x86/hp/hp-bioscfg/int-attributes.c  |  3 ++-
+ .../x86/hp/hp-bioscfg/order-list-attributes.c    |  7 ++++---
+ .../x86/hp/hp-bioscfg/passwdobj-attributes.c     |  5 +++--
+ .../x86/hp/hp-bioscfg/string-attributes.c        |  3 ++-
+ 7 files changed, 38 insertions(+), 14 deletions(-)
+
 -- 
-2.50.1 (Apple Git-155)
+2.55.0
 
