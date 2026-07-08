@@ -1,137 +1,179 @@
-Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2225E402B87
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 08:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79345407CD3;
+	Wed,  8 Jul 2026 09:01:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783500819; cv=none; b=BFdCre49Og9USzq/1FP2Y2bzWfhOIvTcrCjLIof1D+Xxxopn+0I/1Fu1O54rr2iUtvqeS1/huI3Wkajjerif0FeAFEICDXzDTjlq6gUAX9qbchBT8uDHD5NUQPtwHggZ9QCRlsrcrEBGAiakA14aiXDeFBwdT0C6TbKk1pHzvpU=
+	t=1783501277; cv=none; b=QDpNQ5m9/nBl8HopzvaRyMyWChWhCpG6t3FgM3v4mtQ1WbbFIFoo5/IzyYuZ09RXvB/mbwCGY9mUvs4L/1VCOkUpq4LVPJ11w7dwIuONWrFfxQGpRjywQDC+yeKuc0GCdjHpmiWkwg3lWzRtoTWngHl7reufOIYPAkXXrqp57G8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783500819; c=relaxed/simple;
-	bh=zOlEVYeGEnHUWgGiq13W7clte+Kjpp6lbmP5AtRSte4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aP9dFdMpAdUsbxwimIZjsklKFD6e5N4xM3FZyrP9QDZEJqdH6F+VT32/vYWc3xWmJwENnL6s8POw+KKHFxaIJhLUxn0J4Kqbx/pQ+Wr4UXEGe8VEG+xXeE+ErfW62E4R4mwJT45jqOVJh7OfwxZpkVEevksnUoD3PN48C3Lim24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IPMFtSyw; arc=none smtp.client-ip=91.218.175.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1783501277; c=relaxed/simple;
+	bh=40hS5aXScXxGw3QNOjh0cOQTX/xYFBCGE+TErw6YzD8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z+9RgsN5/nNAHD+RwSkV8tqimQaPbF7RS9dcQ3xk644C3RCaco5xWbL5YbHc2g0BON2l3DwYWSojHlKnhOUGAZ/Ifa+3M1b4RVcItSrJ81UG7dtyWEvLwMdeBcbJZqHUImj04VMSStWIDevXmx32Qb4kuFfX4t103rDBrhwyctU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=eKrKQxMC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YoL2U77N; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IPMFtSyw"
-Message-ID: <7298c8b1-be12-444d-b7ff-fd88bac48022@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783500814;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hdkSyk5AuGaQo2OKjcPZNgt6Jx7S1vSumu70nXXh9iU=;
-	b=IPMFtSyw5HezFJEHu/c2l5XBBfPimAsvCz5NU9Rs/W4y5iZxgvqAUdVX04q1HdFoqt+k+7
-	9OEa2rwougvpcH7ICxzOhHoENlyyUlVJTUOGq/f9P7Wc5pVy52dLYRbu8LZILu4Z34d3NA
-	8bA+vCxGYPfBxJtlW7lbT17x80Y6fSY=
-Date: Wed, 8 Jul 2026 09:53:28 +0100
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="eKrKQxMC";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YoL2U77N"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 6CE7E1D0016E;
+	Wed,  8 Jul 2026 05:01:12 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Wed, 08 Jul 2026 05:01:12 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm3; t=1783501272; x=1783587672; bh=3EvSgYePAJ
+	nK+4qlwHYKXhCIUGXCFLK3nzDr6fryuDE=; b=eKrKQxMCPWq8Jl95v/321bYSwA
+	4HTvxYiDq5lnoHlR/jGkmmZ8cuSCXfTSOdRtjETPRrSDASIDfTVU7kIcF5WCkyAj
+	uV3+NSEiXsVtBSNZey9EbfFl4x432UkP1cKWV0WGoANO+WBCEfgpV5ow7hn1bzH+
+	+XpgcAHcKaHE20UmEZDrlLxieJRNCqqfj7re3SYYNPI3rDNPzRh3uJz43zK/fBzY
+	WqFYxBijP+yPsylw41jE5nG4gbW6igPdGWhAx1+r8nfdjDmW8+la453AMV9MF3uF
+	PVC9mcWsEBIGlvl5kx/ZHeP0JJHhhax09vJp8wD6prD6Sp3DrWpuafoy0XrA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1783501272; x=1783587672; bh=3EvSgYePAJnK+4qlwHYKXhCIUGXCFLK3nzD
+	r6fryuDE=; b=YoL2U77NQpgUHAfBKjSmwkNghLl0bQgv3T9xKeklzlFG9GvGoJG
+	8ZKchXzooom+CWFxFW32qnrqol1cIBe5efbk82GMlp34JavoaMq6EFyYBP6qUxh3
+	SJfwSOGFSHlV7RkfPUkxh2WSIgWc4RC2d7eThIlcrsD8D+C3VV16f3GknnwXOm5z
+	8kvTfAAiKWcnfkzQmgGZ+ULdzYYwULMz6fZD202ePnzlqj8v4fu2c6jMocG6JxJA
+	ImtAGREHeZ6khylKWYi3JgvvTUg4xx/MSxUw6FDMj0jsMJriw24z+oL609VV25xT
+	4dn1t6c6TG+MTVljikzxxBiK7UNKziUBQ3Q==
+X-ME-Sender: <xms:1xFOal35iYtvPjarH-OjcEezHaQoV7a21Uuuc7-cc2copfeJ209YEQ>
+    <xme:1xFOavK7-RcUAhr6p_m_ZFlBg852mxz9oFeO6uHluG555Od-JPLn1IYahcnZS44wm
+    qfqbRLQ8g5a3YE1xnyR7IMlVKOJh7q8kSrlEEyVw5Bz75HitTyqkwA>
+X-ME-Received: <xmr:1xFOaghKZg_ya0wAroDEjqdeazzMckpe75BjZpHzRh3vQ5nRskTpA8OEzTJ0Nw>
+X-ME-Proxy-Cause: dmFkZTFC0PHmAvXUdlZfYzz6cW71H2m7i9+krYVZQo388FxfEPciPyUfJ6xbOuVTbqrZt6
+    unpquqm4bgD31w7QYeNnsOp2ZNFClpIvVbxp9QErPwFGa7zl1ciPYqQkt5nXltGb7RHRVs
+    Hjah+0Z8QDDzeMIF8cYW6HVb10krpmI/KKw/dgaOKn5iC9zXv4BG8Uz3IZIb35Hw/od0nO
+    aIyVPjOZ+OmvNKTENB11ZmWMC5kzjR1HfzoOeSv/HR8Si0rOpUgOHdXqn4q/a5s4iLCEIo
+    IZwSc/fczKDniwH2HnxcdBRf/GRQNi138GRgd5JXWn+XpgmOqcCsI1Hx9lRD6iCrLM81Zi
+    7F8xGRyRA5E6IaakjbAeAWrZRQOOF+qR6LkNMD02FDRbipPe0Wlzk4llZLUonBaT39Keva
+    TloSo0sQQsIuVvYhRXnbEdca+Nqt6sXw20N2m4AjZQanMC3lOKoLwhOuz5bb4hWU/VHZ8o
+    XfP8OnINse2+MggziHGxiLTafZabMvEAMkYBpz5FB/DXGHwSa/nChyqJGZM4EmiIddyLz6
+    P4ez3IRoMctdIjMJaAbcSd294NaGGrV2EkjuXAp3gfCU14s/wvkQu54JTMukIkGkZcUIQA
+    qpfA8GfMz+T7MDQ84u0e6JyULhoYOI5R8e0peMRe+sWIBh41I/UkrjUp16cQ
+X-ME-Proxy: <xmx:1xFOavAsc33qBqZa3hn6u1knk32LbUPGTWK1ADqPGEpBLgSNMQkO-A>
+    <xmx:1xFOai4ragVMXbm7m1tPWm8R2BIQdOZTTRgJ79YYhocHaC90khxWTQ>
+    <xmx:1xFOakHH2SUnvZZKaLcWrzy--PfmpuYiSLgdhMhZvSkRVHjJz2ucew>
+    <xmx:1xFOatD-JF5nHbkVeKbtWvGtm7aIVzpP5iaxM53rRQBTIsFigsJsNg>
+    <xmx:2BFOavySkKoyMOWTS7YMdxd90RKbaGTuMSD2xflwgTJwOhzLYk5r0KLx>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 8 Jul 2026 05:01:11 -0400 (EDT)
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: akpm@linux-foundation.org
+Cc: muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	peterx@redhat.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	kernel-team@meta.com,
+	kas@kernel.org
+Subject: [PATCH v2] mm/hugetlb: fix swap entry corruption when clearing uffd-wp at fork()
+Date: Wed,  8 Jul 2026 10:01:10 +0100
+Message-ID: <20260708090110.136162-1-kirill@shutemov.name>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH nf v2] ipvs: make destination flags atomic
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
- Simon Horman <horms@verge.net.au>, Julian Anastasov <ja@ssi.bg>,
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>, Alexander Frolkin <avf@eldamar.org.uk>
-Cc: netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
- linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, stable@vger.kernel.org,
- Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>, Ao Wang <wangao@seu.edu.cn>,
- Xuewei Feng <fengxw06@126.com>, Qi Li <qli01@tsinghua.edu.cn>,
- Ke Xu <xuke@tsinghua.edu.cn>
-References: <20260708060454.20534-1-zhaoyz24@mails.tsinghua.edu.cn>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20260708060454.20534-1-zhaoyz24@mails.tsinghua.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 
-On 08/07/2026 07:04, Yizhou Zhao wrote:
-> IPVS destination schedulers read dest->flags from packet processing paths
-> while holding only the RCU read lock.  The same word is updated by plain
-> read-modify-write operations from connection accounting and destination
-> update paths, for example ip_vs_bind_dest(), ip_vs_unbind_dest(), and
-> __ip_vs_update_dest().
-> 
-> The RCU read lock protects the destination lifetime, but it does not
-> serialize accesses to dest->flags.  A plain load can therefore race with a
-> plain write, and concurrent plain read-modify-write updates can lose an
-> AVAILABLE or OVERLOAD bit update.
-> 
-> KCSAN reports the race with a standard IPVS configuration using the SH
-> scheduler and a destination with u_threshold set:
-> 
->    BUG: KCSAN: data-race in __ip_vs_update_dest / ip_vs_sh_schedule
->    write to ... of 4 bytes by task ipvs_cfg:
->      __ip_vs_update_dest
->      ip_vs_edit_dest
->      do_ip_vs_set_ctl
->      __x64_sys_setsockopt
->    read to ... of 4 bytes by task ipvs_churn:
->      ip_vs_sh_schedule
->      ip_vs_schedule
->      tcp_conn_schedule
->      ip_vs_in_hook
->      tcp_connect
->      __x64_sys_connect
->    value changed: 0x00000003 -> 0x00000001
-> 
-> Convert dest->flags to atomic_t and use atomic_read(), atomic_or(), and
-> atomic_and() for all destination flag tests and updates.  This preserves
-> the existing 32-bit field size while making the flag updates atomic RMW
-> operations and making readers use atomic accesses.  Valid minimum-sized
-> IPVS configuration and scheduling paths are unchanged; only the
-> synchronization of the destination status flags changes.
-> 
-> This is limited to synchronizing the flags word itself.  It does not add
-> ordering for readers, and it does not make scheduler decisions operate on a
-> fresh snapshot of all destination state; readers may still observe stale
-> state in the usual IPVS fast path. This keeps the packet fast path free
-> of additional barriers or locks.
-> 
-> Fixes: eba3b5a78799d ("ipvs: SH fallback and L4 hashing")
-> Cc: stable@vger.kernel.org
-> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-> Reported-by: Ao Wang <wangao@seu.edu.cn>
-> Reported-by: Xuewei Feng <fengxw06@126.com>
-> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-> Assisted-by: Claude-Code:GLM-5.2
-> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-> ---
-> Changes in v2:
-> - Clarify that the patch fixes the flags data race and RMW lost updates,
->    but does not prevent readers from observing stale scheduling state.
-> - Fix checkpatch logical-continuation warnings.
-> - Suggested by Julian Anastasov.
-> - Link to v1: https://lore.kernel.org/netfilter-devel/20260707085706.96322-1-zhaoyz24@mails.tsinghua.edu.cn/
-> ---
-> diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-> index 49297fec448a..bb969738ed73 100644
-> --- a/include/net/ip_vs.h
-> +++ b/include/net/ip_vs.h
-> @@ -972,7 +972,7 @@ struct ip_vs_dest {
->   	u16			af;		/* address family */
->   	__be16			port;		/* port number of the server */
->   	union nf_inet_addr	addr;		/* IP address of the server */
-> -	volatile unsigned int	flags;		/* dest status flags */
-> +	atomic_t		flags;		/* dest status flags */
->   	atomic_t		conn_flags;	/* flags to copy to conn */
->   	atomic_t		weight;		/* server weight */
->   	atomic_t		last_weight;	/* server latest weight */
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-It would be quite interesting to look at pahole output of ip_vs_dest
-structure after the modification, it may have some "areas to improve"
-for the performance
+copy_hugetlb_page_range() clears the uffd-wp bit of migration and
+hwpoison entries with huge_pte_clear_uffd_wp(), which operates on the
+present-PTE bit position. Swap entries keep the uffd-wp state elsewhere
+-- the migration branch reads and sets it with pte_swp_uffd_wp() and
+pte_swp_mkuffd_wp() -- and the present-PTE position falls into the swap
+payload. On x86-64 it lands in the inverted swap offset, where a
+naturally-aligned hugetlb PFN always has the affected bit set, so the
+clear advances the encoded PFN by two pages.
+
+No userfaultfd needs to be involved: the clear is guarded only by the
+child VMA not being uffd-wp registered, so a plain fork() with an
+in-flight hugetlb migration entry (or a poisoned hugetlb page) corrupts
+the entry copied into the child. Instrumenting the clear and forking
+after MADV_HWPOISON on a 2MB anon hugetlb page shows:
+
+  offset before=120e00
+  offset after =120e02
+
+The fallout is mostly latent: rmap walks match migration entries by
+folio range and remove_migration_pte() rebuilds the PTE from the folio,
+so a within-folio PFN skew heals once migration completes. But any path
+that re-encodes the corrupted offset -- e.g. hugetlb_change_protection()
+rewriting a writable migration entry via
+make_readable_migration_entry(swp_offset(entry)) -- propagates it.
+
+Migration entries legitimately carry uffd-wp, so clear it with
+pte_swp_clear_uffd_wp(), matching copy_nonpresent_pte() and
+move_huge_pte().
+
+A hwpoison entry, on the other hand, never carries the uffd-wp bit: it
+is installed fresh by make_hwpoison_entry() (try_to_unmap_one() does not
+preserve uffd-wp on the hwpoison path) and hugetlb_change_protection()
+leaves hwpoison entries untouched. There was nothing to clear there,
+only the corruption, so drop the clear entirely.
+
+Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260703140011.99E601F000E9@smtp.kernel.org/
+Suggested-by: David Hildenbrand <david@kernel.org>
+Fixes: bc70fbf269fd ("mm/hugetlb: handle uffd-wp during fork()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
+Assisted-by: Claude:claude-fable-5
+---
+
+Changes since v1 [1]:
+  - Drop the clear on the hwpoison branch entirely rather than
+    switching it to pte_swp_clear_uffd_wp(): a hugetlb hwpoison entry
+    never carries the uffd-wp bit, so there is nothing to clear.
+    (David Hildenbrand)
+
+[1] https://lore.kernel.org/all/20260703161833.57416-1-kirill@shutemov.name/
+ mm/hugetlb.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 571212b80835..bca2707d02e3 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -4917,8 +4917,12 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 
+ 		softleaf = softleaf_from_pte(entry);
+ 		if (unlikely(softleaf_is_hwpoison(softleaf))) {
+-			if (!userfaultfd_wp(dst_vma))
+-				entry = huge_pte_clear_uffd_wp(entry);
++			/*
++			 * A hwpoison entry never carries the uffd-wp bit: it is
++			 * installed fresh by make_hwpoison_entry() and
++			 * hugetlb_change_protection() leaves it untouched, so
++			 * there is nothing to clear for the child.
++			 */
+ 			set_huge_pte_at(dst, addr, dst_pte, entry, sz);
+ 		} else if (unlikely(softleaf_is_migration(softleaf))) {
+ 			bool uffd_wp = pte_swp_uffd_wp(entry);
+@@ -4936,7 +4940,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 				set_huge_pte_at(src, addr, src_pte, entry, sz);
+ 			}
+ 			if (!userfaultfd_wp(dst_vma))
+-				entry = huge_pte_clear_uffd_wp(entry);
++				entry = pte_swp_clear_uffd_wp(entry);
+ 			set_huge_pte_at(dst, addr, dst_pte, entry, sz);
+ 		} else if (unlikely(pte_is_marker(entry))) {
+ 			const pte_marker marker = copy_pte_marker(softleaf, dst_vma);
+
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+-- 
+2.54.0
+
