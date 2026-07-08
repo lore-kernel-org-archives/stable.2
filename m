@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A614D2749E6;
-	Wed,  8 Jul 2026 13:10:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEF9271464;
+	Wed,  8 Jul 2026 13:12:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783516239; cv=none; b=T7DCwpaPpqaYeirjKPJIi52oQkE5j1RLRmY3bCKTYEpHdS8mQ5i27oUSApO30iTdpfFXYx0ptccj5BRMVc+UzhBsq7zzASDoiFK7CEhQXXXPbC8iurNPNyz6B2pYARqjOsuH1jq7zUEUUTQfgQ8iz4QYvbMqaSfuJIjWFfdJl0o=
+	t=1783516327; cv=none; b=DzRoBiP7yII2KNNFs+B4k6mfl9eBYqvaM35JHVF1bXeO6Wgm8tnICBgun9zSPDK1KmrmkvfgWzBU1lM+l9IsTpyp8HbDefasKxXhczde+y2Z+U3dZg10dlerGpcK2astKaJDwimGVAK2b7EqnNHADU21ThneQzkmmSBqxytFM+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783516239; c=relaxed/simple;
-	bh=bVPE4zsNgkKpefdLoNfBb49FFgM1FAOs59suGh2PYSI=;
+	s=arc-20240116; t=1783516327; c=relaxed/simple;
+	bh=SzXjE3q2spX06tS525dlI9mzedQrqWwffX1C55R7s/E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CA48uKkxj/c6xK/dUqC0Kd5LKdElZPfT6lrUe++GY4KrI8W60+mj28/7wXa6wC6b0bFeSGl5rQ+VPHAyDLcq/9picWJlZEG2aVeNX5p8q+dSNjdX7OcccjKwVf5OhAPuGP8mHCO/Zg0HZgAiteLebxpaHn1diGwuZSK0uRanAMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X0+8cPel; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=n4So7zqYXSxTh0wh3fmpnux60HqKzi+Jj4yX4QhU7q5BWJ5cpYSy6ef7zI//FH4SQ4pVXxNg9owy8sPZaWjbuvUPsRAglX9rGH70teS2MCrytNn/GYx/AfuqHvuTVWXqFoGOYNQarGux9X6snralKcSFW90o+9nWNdUChqS7FAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ncv/lTIr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X0+8cPel"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C5D1F000E9;
-	Wed,  8 Jul 2026 13:10:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ncv/lTIr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1851F000E9;
+	Wed,  8 Jul 2026 13:11:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783516237;
-	bh=XVbR6znNF637T9MAgobLVmsZoz7qMXfdjHyuLiDhLeU=;
+	s=k20260515; t=1783516325;
+	bh=2xoTJUVCMoAA0S9QwdA/2rHDyx2S8Uo8HqqZplJCTfU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=X0+8cPelmsVUM1oV9qfkrrvutBumdGTkzTk5XjIq+6Nxv952UFEV0WE1hwFN/lEdR
-	 thDgQXiPP0LZ3ythiiSua63U9+jgwV4dcluGeGF3H9+1zWP3x22hKA6K3gPSkkiAij
-	 2vd5CvcgynxmGndas4FjOEyBbjEf0tUGGzUdsG5i2Ert4NSKokmzxDzQjBmZG9mirr
-	 sUmPtCRbrFovnNg4CImiBzuRY8tQEJOYgYcMUfXE2saapFJ+xArHATO7Dn4BS4AzGu
-	 b5a+YZtS2JchD3P4W+SG86maqmyD8WWY0dkcO7fArhaLENrvXiOulr1fFY4Ona1mCT
-	 l0vop9xiE7cEQ==
-Message-ID: <bafd6e63-c4c6-432f-97bd-ad0d49391c52@kernel.org>
-Date: Wed, 8 Jul 2026 15:10:28 +0200
+	b=Ncv/lTIrZk4Eu47jjFa/0pc7PWzz9gHW0qPdQR1xTsVinQsfV+Mugp3a+N1Ojy74s
+	 9wJNnFKACFz8xG3pH/rfJZgPXLJwuNZ3ID4sBDXjDcGUAe9r+ZG5/sJkqwP3lC8Pom
+	 ZkHwS4+W7mewk8oT/lyAvGr3B8tiAYH+9K8lRVGhRZfVsgBF7Cap1maGcEGAdQBpDC
+	 NdqkG0EC5hSnvTEw9m9RgxHm1sBxE8GLaAeGYpJeHWrB4tWMGumSe6YMliFRIIsluC
+	 Cd6RueppI/F9zAFEFDHXOQ4pOcOWpGjuibK2PMBnCDlv5alOXU1XJExf2dOQhwMcnM
+	 fBDxYxKevuGCg==
+Message-ID: <9450b10b-3340-4261-9a9c-3f95cea3fb65@kernel.org>
+Date: Wed, 8 Jul 2026 15:11:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] mm/madvise: skip device-private PMDs in cold and
- pageout walks
+Subject: Re: [PATCH v2 3/3] mm/huge_memory: skip device-private PMDs in
+ madvise_free_huge_pmd
 To: Usama Arif <usama.arif@linux.dev>,
  Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
  balbirs@nvidia.com, baohua@kernel.org, baolin.wang@linux.alibaba.com,
@@ -46,9 +46,9 @@ To: Usama Arif <usama.arif@linux.dev>,
  matthew.brost@intel.com, npache@redhat.com, rakie.kim@sk.com,
  ryan.roberts@arm.com, vbabka@kernel.org, ying.huang@linux.alibaba.com,
  ziy@nvidia.com, shakeel.butt@linux.dev, hannes@cmpxchg.org
-Cc: sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Cc: stable@vger.kernel.org
 References: <20260708122040.861335-1-usama.arif@linux.dev>
- <20260708122040.861335-3-usama.arif@linux.dev>
+ <20260708122040.861335-4-usama.arif@linux.dev>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -95,28 +95,25 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260708122040.861335-3-usama.arif@linux.dev>
+In-Reply-To: <20260708122040.861335-4-usama.arif@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 7/8/26 14:20, Usama Arif wrote:
-> madvise_cold_or_pageout_pte_range() takes pmd_trans_huge_lock(), whose
-> pmd_is_huge() check returns true for a device-private PMD. The subsequent
-> !pmd_present() branch has a VM_BUG_ON() asserting migration is the only
-> allowed non-present case; a device-private PMD trips it.
+> madvise_free_pte_range() checks pmd_trans_huge(*pmd) unlocked, then
+> madvise_free_huge_pmd() takes pmd_trans_huge_lock(). pmd_is_huge()
+> returns true for a device-private PMD, so orig_pmd can be device-private
+> and enter the !pmd_present() branch.
 > 
 > Allow device-private PMDs in that non-present assertion and continue to
-> huge_unlock before calling pmd_folio(). This keeps the assertion for
-> unexpected PMD softleafs while skipping device-private PMDs like other
-> non-present PMDs in this path.
+> out before calling pmd_folio(). This keeps the assertion for unexpected
+> PMD softleafs while skipping device-private PMDs like other non-present
+> PMDs in this path.
 > 
-> Potential trigger: an HMM-based GPU driver races with
-> madvise(MADV_COLD)/MADV_PAGEOUT: pmd_trans_huge(*pmd) reads true, then
-> migrate_vma_pages() flips the PMD to a device-private entry before the
-> PMD lock is acquired.
+> Potential trigger: an HMM-based GPU driver races with madvise(MADV_FREE):
+> migrate_vma_pages() flips the PMD to a device-private entry between the
+> caller's pmd_trans_huge() check and the callee's pmd_trans_huge_lock().
 > 
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260703173903.3789516-1-usama.arif%40linux.dev?part=6
 > Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to PMD operations")
 > Cc: <stable@vger.kernel.org>
 > Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
@@ -124,30 +121,22 @@ On 7/8/26 14:20, Usama Arif wrote:
 > Reviewed-by: Balbir Singh <balbirs@nvidia.com>
 > Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > ---
->  mm/madvise.c | 3 ++-
+>  mm/huge_memory.c | 3 ++-
 >  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/mm/madvise.c b/mm/madvise.c
-> index 9292f60b19aa..1065b5a84ea7 100644
-> --- a/mm/madvise.c
-> +++ b/mm/madvise.c
-> @@ -389,7 +389,8 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index c0892cc533a9..ddbdc83b4cae 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -2298,7 +2298,8 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
 >  
->  		if (unlikely(!pmd_present(orig_pmd))) {
->  			VM_BUG_ON(thp_migration_supported() &&
-> -					!pmd_is_migration_entry(orig_pmd));
-> +					!pmd_is_migration_entry(orig_pmd) &&
-> +					!pmd_is_device_private_entry(orig_pmd));
+>  	if (unlikely(!pmd_present(orig_pmd))) {
+>  		VM_BUG_ON(thp_migration_supported() &&
+> -				  !pmd_is_migration_entry(orig_pmd));
+> +				  !pmd_is_migration_entry(orig_pmd) &&
+> +				  !pmd_is_device_private_entry(orig_pmd));
 
-thp_migration_supported() is just effectively CONFIG_TRANSPARENT_HUGEPAGE &&
-CONFIG_ARCH_HAS_PMD_SOFTLEAVES.
-
-pmd_is_migration_entry() -> softleaf_is_migration(softleaf_from_pmd(pmd)) ==
-false without CONFIG_ARCH_HAS_PMD_SOFTLEAVES. ... and
-CONFIG_ARCH_HAS_PMD_SOFTLEAVES is only selected if TRANSPARENT_HUGEPAGE.
-
-While at it, can you drop the thp_migration_supported() check and turn the
-VM_BUG_ON into a VM_WARN_ON_ONCE() ?
+Same comment as to #2.
 
 -- 
 Cheers,
