@@ -1,140 +1,152 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240D93438A2
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 17:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9003B95FA
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 17:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783532016; cv=none; b=qHBI11eLZXiwPu6LrQf4QpjSM0UK3oUcYDn4+3G7+hqq+G0BklnnvGQauW7shU2OGI/snudTM4vBU4H2eTdJAzogFLkPXxC1na4PIPYXQKJ1nA3TDFWfJJf2ucQKtQ6ja/x962lvm2fqcxYkmchK1yPf52bMLza0OlIKdReIocc=
+	t=1783532985; cv=none; b=ckDjdd8pXdTK7ed2txWyK2UsM3fh5dg2WYLZ5/7Vc1PM9XaBdt7yBnEJjXc4agLLxgtrHeMDhfRo7oJ4fkff8AacATnnoRraMfGvOI1aknWbTspbG+ja2F+b8oUyoksLRe7sbtVwutB7B8UpV8g+uUxnjUDOz5GnSzZAJlB2ur4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783532016; c=relaxed/simple;
-	bh=2TMhGFAcZdr+dnyC+i9/GTenfE85ePdYEmpPlVabXk8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JekH/YzqABdbRNXwKBQHFwTN7soY3nVE1VBkEqWuAVUBP4yV9aFCHBNY7b++lhzG/4eqAcjrJ/C1Ajv1bY8Ai2xgREaOhlKaXg4HvbNSBNy0fgnsfTlk+232QjGsOkPxwXXfROKi6P/peP0D+rzgjpjXQvtxmcErOYW3FMX2DzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X/l0A+Q2; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783532985; c=relaxed/simple;
+	bh=LvxCHrdM6ZOJ/J3A7orQz/W8gmnF4rhcghvrTkQNOts=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Wo1MwjJYDoCRMN8hn2cBIfLuW6KdlYWIQJWFtAzQnfwkdae08/L6CPuALtUUGJAeo7SL1e3HWbGhW+3IDJWgeh34Yl97c7/RPHyVL3lHRQe2DNV5QVu1u8yxjCguQOYYhU57lLrfO/9SxiA99xpvCjCGf4E7MbXwOmuv6HJ0/3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mCMPP877; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gusWzy/r; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X/l0A+Q2"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-ca2fad0ae38so658765a12.3
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 10:33:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mCMPP877";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gusWzy/r"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668GLK563387170
+	for <stable@vger.kernel.org>; Wed, 8 Jul 2026 17:49:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6RZBHsUYn+gNl91h+2+3Z/xDo4fDHSJPAjCPO8O7F80=; b=mCMPP877x0Bol91s
+	Jmsy1krXdXHP7nY8Jv+E0deztqPdfrX1okfouEc0C2nZBoCOGMh+z3oPcgXzzhvD
+	/wPeTR/KU1m6AKZN1HTPDNfZx1f8KDLAQjlFIi/PmJQBoEAN0Z53BPeJnRZJ2pdt
+	MkWvxNUNjoIjDp6d4dJOAEDytmcfgtkwei7BLxfaFghtSq3AmOClVnpWLG7qThkL
+	0cy8ZXXPky1NEsG++gDZhJ7p3PKHkTGpjxBm83P41w+O5sjVEXnKfHYLD/5VVrGj
+	fLWLsh8+95S0kkvSzbP3aMWF+vMjtn9UpHTvfPglA/A03wcikzfKwX0nVJcBKY4M
+	qmczXA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9cswbuuf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 08 Jul 2026 17:49:42 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c1e6f602cso18844491cf.3
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 10:49:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783532014; x=1784136814; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bc5YeSbJRmHy6yiZUOFHLCE8fvktQKlisrn95zQ65go=;
-        b=X/l0A+Q2tODhJwqT/nXoBfB6QDugd1RViFDqMuNmRxTVhgy3s+FrWonIepJlH77qkE
-         /siiceBHQFiamTIO0+s9BAGXN9sL40M/kMQ9Txw1BXJURpoTubgPPRrnVxNjsZ9rpGjN
-         FCUj6MF82zOC6936To0Q2zwymfGJtTUHp+QNhwZpS0sFivawIE0QXxja1ENq4F34PQYb
-         OZNKmsvHHiDaxAFMCUhXBsEpua0uXYjjk2LCKQpBqpHWMlrnSkkVZhRoBPaMYpicvDAB
-         QhsMJdQv1PzSVgeyAg6KWflgGiYqxuXLnI88fIRUKRcVlm7m//bAmcJhZu0oxJ6FOvak
-         LKdg==
+        d=oss.qualcomm.com; s=google; t=1783532982; x=1784137782; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6RZBHsUYn+gNl91h+2+3Z/xDo4fDHSJPAjCPO8O7F80=;
+        b=gusWzy/rJ8lJ7jXr9qWTXHOTLBE/8n0643mRrRMJMUFQlMfI0Eg2+lugOT544pRy42
+         0YtWYL8/VzZxrxJh7/YRa5WTy/LhpzeDz4r/XfHTHLpLPBdvwpClGrrm8fVAdXPq3XpO
+         m6Al3rXp+pukBQ+AXQBlA8WQZycHXL/dWGwMRP3iaBLNLAfzv5DndgE4QEUqC0d5YzeJ
+         P/pwDrNum/2mDAHNrvhFClTjmSDhQTAjC7KSJ0/GtJrvIFSMFN8Lr0XC4/5kcIiXfKSH
+         o6Am/ujEsV9h8Lvdmz4YwANonfWaiTAwVDIxa1AorY6SmrTsMfllADfGvDs0sM+4VTL0
+         DJcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783532014; x=1784136814;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1783532982; x=1784137782;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Bc5YeSbJRmHy6yiZUOFHLCE8fvktQKlisrn95zQ65go=;
-        b=BscYQYO00LkOJuBUEfRycbrW6VJdmQtTeZ0vnQ7lsDCJgVFEHd/m2B2n3VYJmbHLPR
-         0v6yUY6bPYjWGmKUmHhjEAMSjzqqeExnsgymuOElpAbfVhaspH5/HWjBC3sp1QMQvFJr
-         k1Gac6c4Hw+gzOC+82asVL1ZzPM7TG8bmBI0mCitLBSxTlnfIkAKbiHnbnbaBcU5+nAM
-         qK9RpuAZcGRgieNK2n3wlU/34XTdv7YuCSxN2IoezcKgqySPhccRHdxvfrXSsk79FnJ0
-         i9c1owvmtvnob+kkzg7ZR/cast0g5FzoO2BEgzLvpVsRy23GglI15gOpxDoV2qLGKW24
-         7jfQ==
-X-Forwarded-Encrypted: i=1; AHgh+Roe2PoWh4dK3bMVF1+5M1JjuDctU8i010i7lV+mB5RCkHfdodc7o6MECXZXeKhA3yqYm/lLqHQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywzt4cNenNrQnSJW7PESvSADhAVQ9jzN+AFl7uW8Dmv3qHdeAbL
-	6mld0lmks3BIV5II3dDXNH1GTP2w4CY4bTkE0NCr6jikigFQ2kifgLKT
-X-Gm-Gg: AfdE7cmwpofOtcAeXITl2p4VB7KiO6jfnw3PjKMJrfu2wNMeyjs1lVi4Kc4pBbSjU5A
-	WH7EDZbly6mZfoEdN346rztXNhFFFtdKW2ScY/BhZP52CwoY/KoLF31fD3LbiaDUFxzbh/EALHt
-	FI6ifRyz0ds7hcJkQdYATZtuCOgbKkO9AbIRfuEk8zH94lDrNhJHz4aNVQol0u9hsRbq3zr8hIo
-	5y3nCrSdk3X5Q9lze7212/sMW2Fwhjhxve7TlCdzKLiuCWnikuF0MN54kZYESlk0+H0r343oKOj
-	Fvxg+roLkx7LXJmCKfrRzcGfxoyYByvtpso4WskfvnsbOHgbxV7HhcXzIkRVBnfr/iKgCagB6Fq
-	KQMD1EEUe82//azpmJjgEEit+u7Vwd5DtGIlCEmxuj6XVS0u5NrJrTg9GnQMUULHs40xSrjZQqx
-	aJLvBaKFVQkR7CBLqDw80mWosLFxNz1H62N1QwYAclJ2qZnraZi+Tizb4YGw==
-X-Received: by 2002:a05:6a20:d491:b0:3b4:81b4:9b79 with SMTP id adf61e73a8af0-3c0bd219f9dmr4323068637.40.1783532014366;
-        Wed, 08 Jul 2026 10:33:34 -0700 (PDT)
-Received: from fx.tailc0aff1.ts.net ([206.206.192.132])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b65960d88sm19063773c88.6.2026.07.08.10.33.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 10:33:33 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Jon Maloy <jmaloy@redhat.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: Xiang Mei <xmei5@asu.edu>,
-	netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Weiming Shi <bestswngs@gmail.com>
-Subject: [PATCH net] tipc: fix NULL deref in tipc_lxc_xmit() on node up
-Date: Wed,  8 Jul 2026 10:30:54 -0700
-Message-ID: <20260708173052.2973990-3-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=6RZBHsUYn+gNl91h+2+3Z/xDo4fDHSJPAjCPO8O7F80=;
+        b=NiCbuav9/WUC4bPtLwIms3iG4r7s90k3HB26mMOhj/B9Rk75kkXwZGvT6ynOdd8g9A
+         4PaLeW2zfOvUuPr6Ii4LXdifPYKLXv8wdJP+ab3hbqb8nNaFc6jtqw2pQugrqqM+pzlG
+         4qD+ry4wnOHOEQ/pxvyE7fW+Pej1B61iAHvwfcznIt/BQ3TzBlRJcTADJBvEXFg6igYB
+         lMB7EcTeZ+d3PhpiVeftMiMkOP8f1q+WE4UW2AhIPDQw/7n0rER6GBiNRYSbDS49B1g3
+         i+ZyEYpBdr+np4CxSiCMqdRMIhw0jbyuh5Lp/4i0Si10cUVXWikeDeDwJp30WXFJ0Di2
+         0grg==
+X-Forwarded-Encrypted: i=1; AHgh+RqQHCykRQkfMpbk/c8os0ED+dvm/Pk4dGZE2EpDI206F5RyTCYqlPfo1K8/nwMtTRhZIt08B14=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9mLgHer9DJDhvGKzz2JMgVB6w2t9G0TrL4fAvP/uA+/tVdJYA
+	9i3dqqs1NDr/Z7Ol67THDicxEqs4kdIl+6F5EK/eqdjKQ+irp0xehHx/uu3AUjLERD0WOWFcsqs
+	htfeb6JfVitddcmEkkYZrTQi9IctBCsrFFOKAiZA/oRfL/7Z355oBlDRVVWg=
+X-Gm-Gg: AfdE7cmH6IKD2Yprvit5P4UPxiqJNDp3QiRL/WOv5pM1HvpvIsxeDKc/7tKg4/eJVxK
+	I2JTPYuA6PDtbdUjJEKoUfrzN+rq3RAh6tRe3IQvKpR5or0yk6nMedAk7MZ1oUVw9YaL5tqWdBy
+	j0rmHhnLTHKvHeDPR/FvCElzK7mGac1WhaqX24vjIPWNaZ6nyNXy3VH0AOXiKi9uyqc4BqUgCa7
+	Jx3W3WkkizCHxuIateJOdusrugZF8YlMfCYC9g1WAnsLvhcJxZwLjsggMRdOZBME+UcFeZPw6T7
+	KbI+PGgfpOh2/Q1fr0AhxCPaa04rh5av909/vdbBTBMfTBDeSBYVSOCXvrauqNfghAdSoRa+CvD
+	5Ozx+cioqLWSNTdKnpWowarx1qy9/3zkMh4ddqCXQQQe71NNGIw==
+X-Received: by 2002:a05:622a:5592:b0:51b:ef2c:7bf0 with SMTP id d75a77b69052e-51c8b4095fdmr37755521cf.35.1783532981922;
+        Wed, 08 Jul 2026 10:49:41 -0700 (PDT)
+X-Received: by 2002:a05:622a:5592:b0:51b:ef2c:7bf0 with SMTP id d75a77b69052e-51c8b4095fdmr37755241cf.35.1783532981529;
+        Wed, 08 Jul 2026 10:49:41 -0700 (PDT)
+Received: from [10.243.141.238] ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ada04d04sm359763166b.47.2026.07.08.10.49.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Jul 2026 10:49:40 -0700 (PDT)
+Message-ID: <c4cb79ac-1f90-499d-98ed-94ec431d9368@oss.qualcomm.com>
+Date: Wed, 8 Jul 2026 18:49:39 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Subject: Re: [PATCH v3 4/5] net: qrtr: ns: Limit the total number of nodes
+To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        jeff.hugo@oss.qualcomm.com
+References: <20260409-qrtr-fix-v3-0-00a8a5ff2b51@oss.qualcomm.com>
+ <20260409-qrtr-fix-v3-4-00a8a5ff2b51@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260409-qrtr-fix-v3-4-00a8a5ff2b51@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: UPM3bG9QYwh_T7AfwV3QyVHnuyepmqNU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE3NCBTYWx0ZWRfXx64a4SqDgmHp
+ z5vBirwiRlVBguy0BOSDK53tEUpKeva+utM84iDNWqkA2rg+IdxQ8tVFHRLKQ8QNl7vtXhkU//s
+ 4C4dBO9B+nx/ibK2lR/TFnAWasM1Ilc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE3NCBTYWx0ZWRfX82fKwIvb7qFc
+ xNbAZ7cuJZoYizrt2zBkDJ5ebGztg+wZSq4ZojbVqM1JcY42qfenpOo3XpUxoLHTcgqto8Y/YlB
+ yek4iRuBkweCfY60WfZSQLqmEluGpGTICf/RDbA3oJI0K+e9YFh1J9jvMZj81S79O3x4wczExVq
+ wQtazooK/0qC9zuks/3nTVLhrm1HWAypVKN1ujt6H3M9vEL71L/LxfN7RUTVRGLkxFY7mvwREow
+ YMWFTZRZUXaCi8WqcWDp0wxk7IGKv9/iRlWJYJ0m1fyKAVgK7IDPFMmqASwdtN95djZ6R80w5pY
+ iH0Ck1OoMlVAG682LGq95lql8+/KAbwlK+PSdQgB8moWfJ75r7fLxEeONRk567g8jQR+IWXgwzO
+ GhVrGn9LZewrko1SDyoBgK+ui5DPlu/hQT1ELjlyaWMdSrsUveAqCeSSUXNztyNDfCRo18RpWJh
+ DDPxOkt+M4bRB5YZNjg==
+X-Authority-Analysis: v=2.4 cv=HaYkiCE8 c=1 sm=1 tr=0 ts=6a4e8db6 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=iDFCKaCMZfxtLc4CjNwA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: UPM3bG9QYwh_T7AfwV3QyVHnuyepmqNU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_03,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0
+ malwarescore=0 suspectscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080174
 
-tipc_named_node_up() builds a bulk of this node's cluster-scope service
-bindings for a peer that just came up and sends it with tipc_node_xmit().
-When cluster_scope is empty the bulk is an empty skb chain, and both
-consumers dereference the head unconditionally: named_distribute() reads
-buf_msg(skb_peek_tail(list)) to tag the last message, and for a same-host
-peer tipc_node_xmit() routes into tipc_lxc_xmit(), which reads
-buf_msg(skb_peek(list)). skb_peek*() returns NULL on an empty chain, so
-buf_msg(NULL) faults.
 
-cluster_scope is legitimately empty during the window in
-tipc_net_finalize() between setting the node address, after which peers
-can link up and trigger tipc_named_node_up(), and tipc_nametbl_publish()
-inserting the first self-binding. A peer linking in that window crashes
-the node. It is reachable by an unprivileged user, who can gain
-CAP_NET_ADMIN in a private net namespace and drive TIPC there.
 
- Oops: general protection fault, probably for non-canonical address
- KASAN: null-ptr-deref in range [0x00000000000000d8-0x00000000000000df]
- RIP: 0010:tipc_lxc_xmit (net/tipc/node.c:1629 net/tipc/msg.h:202)
-  tipc_node_xmit (net/tipc/node.c:1718)
-  tipc_named_node_up (net/tipc/name_distr.c:222)
-  tipc_node_write_unlock (net/tipc/node.c:428)
-  tipc_rcv (net/tipc/node.c:2185)
-  tipc_l2_rcv_msg (net/tipc/bearer.c:669)
+On 4/9/2026 6:34 PM, Manivannan Sadhasivam wrote:
+> Currently, the nameserver doesn't limit the number of nodes it handles.
+> This can be an attack vector if a malicious client starts registering
+> random nodes, leading to memory exhaustion.
+> 
+> Hence, limit the maximum number of nodes to 64. Note that, limit of 64 is
+> chosen based on the current platform requirements. If requirement changes
+> in the future, this limit can be increased.
 
-Skip the distribution when cluster_scope is empty; an empty bulk carries
-no bindings, so not sending it changes nothing.
+Hi Mani,
 
-Fixes: cad2929dc432 ("tipc: update a binding service via broadcast")
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Assisted-by: Claude:claude-opus-4-8
-Cc: stable@vger.kernel.org
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- net/tipc/name_distr.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+There are AI200 setups that can reach 384 nodes (192 * (AI200PF + AI200VF)).
+I'm not sure about limiting the number of nodes, but if there's a use-case
+that led to enforcing that limit, could we increase it to something like 512?
 
-diff --git a/net/tipc/name_distr.c b/net/tipc/name_distr.c
-index ba4f4906e13b..495e46defddb 100644
---- a/net/tipc/name_distr.c
-+++ b/net/tipc/name_distr.c
-@@ -218,8 +218,10 @@ void tipc_named_node_up(struct net *net, u32 dnode, u16 capabilities)
- 	spin_unlock_bh(&tn->nametbl_lock);
- 
- 	read_lock_bh(&nt->cluster_scope_lock);
--	named_distribute(net, &head, dnode, &nt->cluster_scope, seqno);
--	tipc_node_xmit(net, &head, dnode, 0);
-+	if (!list_empty(&nt->cluster_scope)) {
-+		named_distribute(net, &head, dnode, &nt->cluster_scope, seqno);
-+		tipc_node_xmit(net, &head, dnode, 0);
-+	}
- 	read_unlock_bh(&nt->cluster_scope_lock);
- }
- 
--- 
-2.43.0
-
+Thanks,
+Youssef
