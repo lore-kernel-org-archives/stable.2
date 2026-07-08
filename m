@@ -1,131 +1,251 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7BD40FD9B
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 15:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF802EF64F;
+	Wed,  8 Jul 2026 15:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783525745; cv=none; b=nPfJir4XjsmV6fJGvewNdnNCAiZNQLkjnhy+SlwGWgB18gU9LC97FEnUD/ed8iaEHa7dUG71/IMadTY/+keegfiDi9szfGqRk3Pt9ntmBtMpLLNkM+98qgGcMeu51j+m1UjzTqlb5p5STgMVfqtf/FTvyk3Tw8D9JM6jZpRswOk=
+	t=1783526018; cv=none; b=pbZ4bRdG/v28OFSp3j3Ij3QI9Zp47TxmDL1BpF2ulQz2mSN+qvCSrMAFGrdxoS0d0euG7msGMXsDTr7zv9v8wmiAm2ug8aJEmXY3T5iMYGskxe/3LbxS5PTrHj+ru+aK2Meywb1Cyc/BO/zzKR2v/QBQnkNw7XJE7k8aW7a/XEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783525745; c=relaxed/simple;
-	bh=+fb2hm/AV+gpBOcwwKZ0VASVGKm3XP6ZLpjp9sYFqfw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L1xrvqdk1g2KMKasvZNbKNTcsxPgbIm7OnWygjp+WVY3nQQt3fxZQc0x3xNvtodMxhj3bHCUrVVT+c2w2YfWvtgQHv6s49eh4uwj+t9u0NWRIGSSUjxvKoEHHuF331+eWFnXpweMYkebKr+erqBCgdSZ8g+KuNus1OFpfBArV5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tCVFg0vE; arc=none smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783526018; c=relaxed/simple;
+	bh=0Mge3JAgIP+E0X+MesrXp8TixEJc4l6be13natFqp4w=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Vz2cXP7C18vlqqBWxHH8mlE9JQuD1yv1UeLXYZXt0g90wwcAOi1936iVEEpWcgc6FlUlqZlbJ3D2/+iFNRewsgnXJDvfEdPGQPFDE5pnfd/4l21PcqFhq/j208XTpmIH4rdO2IbGcn/9gwNCMwzYJEhdwKlnhSR9CYQ0kBpaJbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=rGhaM8I/; arc=none smtp.client-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tCVFg0vE"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-698beff7178so1503619a12.3
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 08:49:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783525742; x=1784130542; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aWjcO3quzBLPCQpyEkYQryJlDPpxypgV7KUttYaLljc=;
-        b=tCVFg0vE8SjqeX73phKxLJdwORjAjBov0SFnBJxL5VAlKDnjn+qfjAmxSwpBUBTEtS
-         xZ9vySE7EDsJzTcWUoU5gZnLxmLg0lj/ss3zj9JaI5lAV7nhV1dRIEbHwRTqQz6xn3TY
-         bItr2zHbVWrrvJ4s4YUumBY2XYQsx4f+HREw316kAL/uVAZbdRqiIgAjHaJEAieu6mZg
-         HQA6Nt7oM6GKeaJI+g+iNw5WDoln3643MTkQ/N9qs5GzSaz6wuUine6180jR4Zh4n1r3
-         35gkjlaiRCRuYjq21IIsstw0RLZsAdX6IcZu9dA+oabNn8jyNnefHmzbwLvjtJMtl26K
-         J+ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783525742; x=1784130542;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aWjcO3quzBLPCQpyEkYQryJlDPpxypgV7KUttYaLljc=;
-        b=LzS7X1AWkYQpr5PKnPAAc5OWpSiNErxP6nqf0CJIhw/RMxST5JolTSM+VukzCw0tYH
-         aIsCEm0xqEXmHTDlcfS3icKkRAUxxNlmpZjzTIUFk5MpIMHG6wzJOFdZMC/zaspFtcIs
-         0IcHLx5dZExzQwK8jiLbCIQmNXSm6C/MylhzyZ+yCQADaAC5UIf7KFAvDAmMFt/1GEgA
-         5bKm/SuGsF6g6l2+1tzSje2UGImDtQWkGf7b8+gVCoAGcqNTGnc9f387phJhB9rPx1MU
-         urq6g6VmT8dYUQLOKNvtdo1gqiDEnS5yz97QAJN1l7+I/n8TdipVvNnYTt0lm2r+tNS9
-         JtAg==
-X-Gm-Message-State: AOJu0Yzxn630MmhdhurTXXoSZpell4nCWkdvFV8g6Ou0JLxQP/xWAUG+
-	E5L68a+XxxN55nTui/Xmlt51LxjzzT+SD/+JAq3QXuOBf49bkDi0YBC1
-X-Gm-Gg: AfdE7cm1pqoSD/A0RXIQcH/BcJamQ4v3pelT/xt8vw50DS6I1ZNalVEQdbe7f0mRhmN
-	gcHOOWotYOGMXs6wvaGDP+ciyuozbSk4p6XHF4CPbXsD8XqCkvwasGT7/I58BpFrVO1Pmlly1SK
-	QZ4ySzSduhnTCH8Ldk9S/+g908wuuRMHebqhX0SbyKPJtpIc0sqR0s6DWRNPQiCC9Aesp1+x+8B
-	iBgG2jKhoD7rPbp1qKFWpb1J4K+wq5ghTHz3fOX+5lWHMdPDGn6vRxXJKTdHib6NXn/S6qE8xEY
-	w2kUhsFMuH655G3eRlS7K3AR31Xud+Nf4q1AmRPJlGi1XoKyfJS3DoXOh5wBEzyUStpqNzQ+1jn
-	nsuGY26+00r4K8UXtwPrPLVf0M7TkVM2Mv/d583CQlaKLPU5h2QYi/W6tXj8e6ps/HjZvjj3Bbl
-	G+i+xozeZsHHLmmG7e6V0PiIftd3fM3LISNrvfoagcbuvjYJSO84B8Etj9KHpc6qU=
-X-Received: by 2002:a17:906:6a0f:b0:bec:fa92:d36c with SMTP id a640c23a62f3a-c15ce1884e6mr147647666b.38.1783525742031;
-        Wed, 08 Jul 2026 08:49:02 -0700 (PDT)
-Received: from node ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69ac41d7ceesm945125a12.23.2026.07.08.08.48.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 08:49:01 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	jorge.lopez2@hp.com,
-	linux@weissschuh.net,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Mario Limonciello <superm1@kernel.org>,
-	Armin Wolf <W_Armin@gmx.de>,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v4 4/4] platform/x86: hp-bioscfg: warn on element type mismatch instead of failing
-Date: Wed,  8 Jul 2026 20:48:45 +0500
-Message-ID: <20260708154846.12356-5-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260708154846.12356-1-meatuni001@gmail.com>
-References: <20260708154846.12356-1-meatuni001@gmail.com>
+	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="rGhaM8I/"
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id C88EE20252;
+	Wed, 08 Jul 2026 18:53:32 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=IrBFyo4X9p4vQcBuAXEscbyeWrGozHn+zcsBI+OqvLA=; b=rGhaM8I/EwgW
+	HvSp6hduo21Rar8HkjRO+WuJ2VuHDC7d9dlomU8UF5YtzUV0ZLUBZ4BDZ08MF/w0
+	QJ7eBHhkZ2e1NoYOCraLJ3pYyMxAKJ5BcMYPOQg806+fBw5l5XpfcrW5dwNDch6u
+	1VC8zjSgewpLyAqLebPHaAlK+2c69PL+0FXofnBLcK5lSGeQl8I+47LGd2CywkeP
+	rDOM3CO93CCJk8z73uWAATYexH7/Um7MV5KmHhEEk8buXJ5MwjYPByGVNGabhuVn
+	bgs30xxlohn3+P/jo2HLU6Dvbk1OwD3Eqa8gfi4/UnCcY+EzsI5dsOfxXq3sa/B2
+	5r2jTdci421Kgtas6DtmX3bXaiF2DHQ6HU4a26NBvB14ub+IFWzaNMweT0OBw2vs
+	I4sQZRbDVyCcwa9HeDjmRxRxzn3b3ma31pVETQ2eSgL06lotDaEBUgVNwZGIlYNm
+	M9qrrq1JHtZKbAUczLfVwQLqq2JvtYF8+pycZ82cZ50lHdYG0tyLJ2SP3c6+nN6B
+	N0kVBOAgkgF4GL6Um+5+uQfBzTigZuKuiruGLTwj6BPVFoTAlxc3GVmjz1aEQD7N
+	HzEXw0pyQQseqVouHpUp4bs4FYPm9GAlUxk/iF8BCDzA91VlGRBDOQYIDzOAVH6J
+	uxDfS/k6eoCCalWOWvg+8UwnkSsj4Go=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Wed, 08 Jul 2026 18:53:32 +0300 (EEST)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 5F34C6029E;
+	Wed,  8 Jul 2026 18:53:25 +0300 (EEST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 668FrEwS064811;
+	Wed, 8 Jul 2026 18:53:16 +0300
+Date: Wed, 8 Jul 2026 18:53:14 +0300 (EEST)
+From: Julian Anastasov <ja@ssi.bg>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+cc: Simon Horman <horms@verge.net.au>, David Ahern <dsahern@kernel.org>,
+        Ido Schimmel <idosch@nvidia.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Pablo Neira Ayuso <pablo@netfilter.org>,
+        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+        Alexander Frolkin <avf@eldamar.org.uk>, netdev@vger.kernel.org,
+        lvs-devel@vger.kernel.org, linux-kernel <linux-kernel@vger.kernel.org>,
+        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+        stable@vger.kernel.org, Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+        Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+        Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
+Subject: Re: [PATCH nf] ipvs: make destination flags atomic
+In-Reply-To: <91509A0C-9E4A-4F0E-A45C-ABD29396067E@mails.tsinghua.edu.cn>
+Message-ID: <afcdb34c-ec10-de8e-083c-624bcedca90e@ssi.bg>
+References: <20260707085706.96322-1-zhaoyz24@mails.tsinghua.edu.cn> <41c3d792-af7d-5582-5057-ac3df5f7bfd6@ssi.bg> <91509A0C-9E4A-4F0E-A45C-ABD29396067E@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-hp_populate_enumeration_elements_from_package() returns -EIO and aborts
-enumeration of the entire attribute when any single element has an
-unexpected ACPI type. This is observed on HP EliteBook 840 G2 when the
-BIOS returns malformed ACPI data following a failed WMI query:
 
-  ACPI BIOS Error (bug): AE_AML_BUFFER_LIMIT, Index (0x000000032)
-    is beyond end of object (length 0x32)
-  ACPI Error: Aborting method \_SB.WMID.WQBE due to previous error
-  Error expected type 2 for elem 13, but got type 1 instead
-  hp_bioscfg: Returned error 0x3,
-    "Invalid command value/Feature not supported"
+	Hello,
 
-Aborting immediately discards the attribute entirely.
+On Wed, 8 Jul 2026, Yizhou Zhao wrote:
 
-Warn about the unexpected element type, free the temporary string, skip
-the offending element, and continue parsing the remaining package
-instead of failing the whole attribute.
+> > On Jul 8, 2026, at 03:18, Julian Anastasov <ja@ssi.bg> wrote:
+> > 
+> > On Tue, 7 Jul 2026, Yizhou Zhao wrote:
+> > 
+> 
+> We have posted a v2 patch at:
+> https://lore.kernel.org/netfilter-devel/20260708060454.20534-1-zhaoyz24@mails.tsinghua.edu.cn/
+> 
+> The v2 patch updates the commit message with more conservative
+> wording, and fixes the checkpatch logical-continuation warnings.
 
-Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
- drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+	After looking again at the code, I think we can
+do it in different way:
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
-index 3aa2c440e0528..b834303e5bc79 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
-@@ -163,10 +163,11 @@ static int hp_populate_enumeration_elements_from_package(union acpi_object *enum
+- IP_VS_DEST_F_AVAILABLE and IP_VS_DEST_F_OVERLOAD are defined
+in include/uapi/linux/ip_vs.h but we never export them to user
+space. So, we are free to change them. We can move them to 
+include/net/ip_vs.h, see below...
+
+- IP_VS_DEST_F_AVAILABLE is changed only under service_mutex,
+so we can keep its usage
+
+- IP_VS_DEST_F_OVERLOAD needs different access methods.
+We can add 'unsigned long flags2;', may be after l_threshold.
+And to switch to such usage (F_OVERLOAD -> FL_OVERLOAD):
+
+	- test_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
+	- set_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
+
+		Sometimes if (test_bit()) clear_bit() can avoid
+		full memory barrier in ip_vs_dest_update_overload()
+
+	- clear_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
+		test_bit() guard can help here too
+
+	As there are other races involved, something like
+this can be a starting point for such change. It tries harder
+to update the overload flag on dest edit/add but it does not
+include the proposed bitops:
+
+diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
+index 49297fec448a..b34631270e24 100644
+--- a/include/net/ip_vs.h
++++ b/include/net/ip_vs.h
+@@ -1906,6 +1906,8 @@ static inline void ip_vs_dest_put_and_free(struct ip_vs_dest *dest)
+ 		kfree(dest);
+ }
  
- 		/* Check that both expected and read object type match */
- 		if (expected_enum_types[eloc] != enum_obj[elem].type) {
--			pr_err("Error expected type %d for elem %d, but got type %d instead\n",
--			       expected_enum_types[eloc], elem, enum_obj[elem].type);
-+			pr_warn("Unexpected element type at elem %d: expected %d, got %d, skipping\n",
-+				elem, expected_enum_types[eloc], enum_obj[elem].type);
- 			kfree(str_value);
--			return -EIO;
-+			str_value = NULL;
-+			continue;
- 		}
++void ip_vs_dest_update_overload(struct ip_vs_dest *dest);
++
+ /* IPVS sync daemon data and function prototypes
+  * (from ip_vs_sync.c)
+  */
+diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
+index d19caf66afeb..3fd221996e6e 100644
+--- a/net/netfilter/ipvs/ip_vs_conn.c
++++ b/net/netfilter/ipvs/ip_vs_conn.c
+@@ -1087,6 +1087,26 @@ static inline int ip_vs_dest_totalconns(struct ip_vs_dest *dest)
+ 		+ atomic_read(&dest->inactconns);
+ }
  
- 		/* Assign appropriate element value to corresponding field */
--- 
-2.55.0
++__always_inline void ip_vs_dest_update_overload(struct ip_vs_dest *dest)
++{
++	int conns, l, u;
++
++	u = READ_ONCE(dest->u_threshold);
++	if (!u)
++		goto unset;
++	conns = ip_vs_dest_totalconns(dest);
++	if (conns >= u) {
++		dest->flags |= IP_VS_DEST_F_OVERLOAD;
++		return;
++	}
++	l = READ_ONCE(dest->l_threshold) ? : (u * 3 / 4);
++	if (conns >= l && l)
++		return;
++
++unset:
++	dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
++}
++
+ /*
+  *	Bind a connection entry with a virtual service destination
+  *	Called just after a new connection entry is created.
+@@ -1161,9 +1181,7 @@ ip_vs_bind_dest(struct ip_vs_conn *cp, struct ip_vs_dest *dest)
+ 		atomic_inc(&dest->persistconns);
+ 	}
+ 
+-	if (dest->u_threshold != 0 &&
+-	    ip_vs_dest_totalconns(dest) >= dest->u_threshold)
+-		dest->flags |= IP_VS_DEST_F_OVERLOAD;
++	ip_vs_dest_update_overload(dest);
+ }
+ 
+ 
+@@ -1257,16 +1275,8 @@ static inline void ip_vs_unbind_dest(struct ip_vs_conn *cp)
+ 		atomic_dec(&dest->persistconns);
+ 	}
+ 
+-	if (dest->l_threshold != 0) {
+-		if (ip_vs_dest_totalconns(dest) < dest->l_threshold)
+-			dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
+-	} else if (dest->u_threshold != 0) {
+-		if (ip_vs_dest_totalconns(dest) * 4 < dest->u_threshold * 3)
+-			dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
+-	} else {
+-		if (dest->flags & IP_VS_DEST_F_OVERLOAD)
+-			dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
+-	}
++	if (dest->flags & IP_VS_DEST_F_OVERLOAD)
++		ip_vs_dest_update_overload(dest);
+ 
+ 	ip_vs_dest_put(dest);
+ }
+diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
+index bcf40b8c41cf..2871116e46ec 100644
+--- a/net/netfilter/ipvs/ip_vs_ctl.c
++++ b/net/netfilter/ipvs/ip_vs_ctl.c
+@@ -1315,6 +1315,7 @@ __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
+ 	struct ip_vs_service *old_svc;
+ 	struct ip_vs_scheduler *sched;
+ 	int conn_flags;
++	bool upd_thresh;
+ 
+ 	/* We cannot modify an address and change the address family */
+ 	BUG_ON(!add && udest->af != dest->af);
+@@ -1370,10 +1371,12 @@ __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
+ 	/* set the dest status flags */
+ 	dest->flags |= IP_VS_DEST_F_AVAILABLE;
+ 
+-	if (udest->u_threshold == 0 || udest->u_threshold > dest->u_threshold)
+-		dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
+-	dest->u_threshold = udest->u_threshold;
+-	dest->l_threshold = udest->l_threshold;
++	upd_thresh = READ_ONCE(dest->u_threshold) != udest->u_threshold ||
++		     READ_ONCE(dest->l_threshold) != udest->l_threshold;
++	WRITE_ONCE(dest->u_threshold, udest->u_threshold);
++	WRITE_ONCE(dest->l_threshold, udest->l_threshold);
++	if (upd_thresh)
++		ip_vs_dest_update_overload(dest);
+ 
+ 	dest->af = udest->af;
+ 
+@@ -3667,8 +3670,8 @@ __ip_vs_get_dest_entries(struct netns_ipvs *ipvs, const struct ip_vs_get_dests *
+ 			entry.port = dest->port;
+ 			entry.conn_flags = atomic_read(&dest->conn_flags);
+ 			entry.weight = atomic_read(&dest->weight);
+-			entry.u_threshold = dest->u_threshold;
+-			entry.l_threshold = dest->l_threshold;
++			entry.u_threshold = READ_ONCE(dest->u_threshold);
++			entry.l_threshold = READ_ONCE(dest->l_threshold);
+ 			entry.activeconns = atomic_read(&dest->activeconns);
+ 			entry.inactconns = atomic_read(&dest->inactconns);
+ 			entry.persistconns = atomic_read(&dest->persistconns);
+@@ -4277,8 +4280,10 @@ static int ip_vs_genl_fill_dest(struct sk_buff *skb, struct ip_vs_dest *dest)
+ 			 dest->tun_port) ||
+ 	    nla_put_u16(skb, IPVS_DEST_ATTR_TUN_FLAGS,
+ 			dest->tun_flags) ||
+-	    nla_put_u32(skb, IPVS_DEST_ATTR_U_THRESH, dest->u_threshold) ||
+-	    nla_put_u32(skb, IPVS_DEST_ATTR_L_THRESH, dest->l_threshold) ||
++	    nla_put_u32(skb, IPVS_DEST_ATTR_U_THRESH,
++			READ_ONCE(dest->u_threshold)) ||
++	    nla_put_u32(skb, IPVS_DEST_ATTR_L_THRESH,
++			READ_ONCE(dest->l_threshold)) ||
+ 	    nla_put_u32(skb, IPVS_DEST_ATTR_ACTIVE_CONNS,
+ 			atomic_read(&dest->activeconns)) ||
+ 	    nla_put_u32(skb, IPVS_DEST_ATTR_INACT_CONNS,
+
+Regards
+
+--
+Julian Anastasov <ja@ssi.bg>
 
