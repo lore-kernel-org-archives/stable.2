@@ -1,61 +1,61 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4389F3A6B81
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 21:53:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3BB3FBB5F
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 21:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783547637; cv=none; b=cu+gtAegtcxY3vIb6RPePK0m9tuHMDQyKsW+g2UXzIGGN+qRrIlpiwhraijL3lyZqUkPA7+svmeR0JD3x4dvvPuWqj26uD/H+EGHGbKj9als7UP/i7YnI/h/BOcEZGLKqTehfw1ZVBEPZGKvrVLHhZcbVq79BYmJ5GveW9OX8cI=
+	t=1783547663; cv=none; b=bzKmHvPtdL4tjraD0rv0KfObyZFA6oquoByhq8jAPzSJogr/XGtL9/anx/+k8ZUTmWKBtD9wBDZA4PzV5hTK/asMS3rIUuNqDYVPIFdY34fFUGJMU6a+5NM0xAOezpFUwK+tnetpu77dE11pRo2gWzXreXhkPlXkrV3z+y1XSw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783547637; c=relaxed/simple;
-	bh=6Ybfx0lFdICtzKlrOMUeIb8C42jMZMhMcXq2Ao+QSu8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qEnkUAhCL+ZywSo71x0Pu80FrBfMomDraHmNiZO6+CiPacQ2/Sc9kn2EAS9aCD4q0LaPVSowDo3/mRMZ5AL+1U8VgHXqVOXQ1SLJC07qncEgK3K5rhWmELfaLI1roLTKZ+CaxFhAfq05bsOmnBCL5EPSri8I1rnleUb3MGkTdHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q35hGRKq; arc=none smtp.client-ip=209.85.221.53
+	s=arc-20240116; t=1783547663; c=relaxed/simple;
+	bh=mYO2vEWxO84mPWA2NS2Y7rpAH5cxlgNY1vFZOBHYWKU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B1wSiob1h2+4AoJBlmg+NdxyGXmI3qKGOOBE1h2gD6U8IqpNF+Vlhc9FehS99gb5TzfzRzrXhhAmbeMcvkFvt1oB+mQu1+YBJIdr8MKtBUrXMtiV9ZPCtADfp2dw0US/2BTkTytHtaDiwVQAuIq521EEltbUogpZrSha7O9B18c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aVIz60PR; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q35hGRKq"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4758bd3731bso182666f8f.0
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 14:53:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aVIz60PR"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493b27c7451so3829795e9.0
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 14:54:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783547634; x=1784152434; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783547659; x=1784152459; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IIMECz0v1f4LVIdLn0HTlLUSx/SJvMxrwrh19eAWfPY=;
-        b=Q35hGRKqsmeseGbLCPSZpxptC2838DtDhPn6pMmBW+qfyIyiaj/LEKXWP+nIYF0g3b
-         46CLh4n2zcgCqhA4gq1GtVVvaT4SffCtqWb3ERoOIc0D7baK4JPPt+tJ2tRBmsOUb8a8
-         8c9N/+O3KSxZibGTXSfDoBcS4fTrtDTcEvVMO84BQ5F7JJ3uD+TkURGef9eyeAL9XlcP
-         nh6sDNEw7+p333Gp7lLJgNlE0bod24lNXLMKgjvIZ2TCwsgnw/W4or7VYjfynb1y2Ghb
-         QrYqOaYyeWgVsKu8oYHlH8Xidf+bMiTaWXGXbVAZralerx4Yk7szQLBbix9THgAWgVv5
-         gfeg==
+        bh=864WgdCGKVvhVw+X58LxeAIhuiQbwracGrd3VXI+iDM=;
+        b=aVIz60PROIbu3uClpOiCCKhO46Q81gKagqXuIADN+P5WSLd+X9bbQ5KpSLHX4VKOWr
+         BkRHg0FytVA4uH8THfowTY4aOLZGxVYvEItlTETtwCSg2iD+cIQIm2SlJVYWAVUraUug
+         bPySsVzR1a+XJy0KJ2r4RiXE6VbSYtzM58tw8aoRuRbNrcMWfKhEboFfsIMlwxeHYkfx
+         GFRh6fR52Tp3H9ffkYpffwQE3qAHwJrQWY4CpqsDIrszr6KwP5dLviJbXcnPqxmyPSDP
+         VVMfNhtnuBKVvi5NysKCkSBRcnaAXiI0lfTkwWTshzmf/SfivZiAugztd5+FQCDO2zHF
+         UpTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783547634; x=1784152434;
+        d=1e100.net; s=20251104; t=1783547659; x=1784152459;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IIMECz0v1f4LVIdLn0HTlLUSx/SJvMxrwrh19eAWfPY=;
-        b=rXf1bKMuG3UW9qkRhy5lxiq+JFz94fkHeRr0yQApptSDGDpTm+WOIupmCPlB4nJKGE
-         d9QbV7vUEsjaPjK4k3jAaH78bqzizrjAKoG0vI8kx/d1ST13SZClGmaKEgj73S001P6U
-         VukwxperPa3sk2ygDz+wsGSf2Uz3LN6cj+hrOs3w5T9TCPKWXynCNVkvUdGw19GQ77Hh
-         vhskBaxvex0SbnxlRKCfaJKkofXAhGQY66m0zd6AEISaJ4QXJB64QiGzYb7lXYtM0/eI
-         kitRipyOpTz/MHmgIl+r3oJZeqA+NS01dJz2ytt+KNXbVDSK6xRlHp0Rg+BRCVRpH8vk
-         7iNw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1ky83f4iDFTDpfmNK1TqM3P+MOwU0MchOdNUdFFx2XmlGjf7QgpagYTruniodEvMo+8nmDYA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz3B2Y65MqNTBpd2dxpG8ytXiZbkp2uOOXPy6BnH+pS/XpsiKci
-	6AKuspoNIVDVFRUkaGDrb0YfBsyqkT+M6MDPGbfhle1EZXbK4NHT0k8z
-X-Gm-Gg: AfdE7clbt7vL6iSJ9HF8Xq1sc4KRNy7aM+I+m1RL2r182lj0ZjG0L6eTt3hpCvWgQxU
-	TFhdPDIORG1q6Jss51L75Nq1pWjxlM4oVOyDF19zX5U5s7MV9H8/L2bHX0VtbRCROvzmLXtKZQC
-	FtHRXzyAM58H7Ov9RSQ2LdNrKJCPVX87sR5P3skiFLm/tnC0Zc6mHbWIkN6WRp0v7eCuq+fC51r
-	1AfXs+6O5jlXPu4CeC8qYHv7/TMjRUih2yJ1GGSItjjhKdFTSNCcIU+jJrxfG9U0jtN8t3z1ir0
-	jdwx2oPQybd8oHQWqSjINIcqKwbCy2vsL3ROU/5QQz6igOQz/ShgwVPX458rhVatLMlDPwNeaNd
-	ev/5R83L/TaP7JBWW0fhVpFN3y5Vxzxg18KRLPTqkZBqS5LBvenH3I5Gw+3BsSX6UsXaIkoZB/R
-	MkHjKyx8iHiozTrk5ZmQq+yA4wAYMnmBLtVZB63jQSuJiHLrrPHw==
-X-Received: by 2002:a05:6000:4602:b0:47d:f6a5:1fd6 with SMTP id ffacd0b85a97d-47df7561c98mr84937f8f.26.1783547634411;
-        Wed, 08 Jul 2026 14:53:54 -0700 (PDT)
+        bh=864WgdCGKVvhVw+X58LxeAIhuiQbwracGrd3VXI+iDM=;
+        b=qZL8729bg1T9YJ1efG7tB+kGAsCk5T5PdzKkMrHj8VDV6UqXPhOuXyLAqDRXEBkyOs
+         OxZdp+Wbo7JRu2BvLIzr3PHCOQK/Vu5J5e2s3j1axlvfBsUDwbN7PoOH5XdM/7l250M4
+         kZ8yxyB6GK4tSuwVmJH1kiEgne8ERT5j0SyZ2BmyuaW0Cap6xxmdt6Wb+jAEbgTjFsfx
+         MrhjMcJRtUa5BoRAi2oOCIxkpPVBFy36mzhPIAl5JLLbgOWEvO31MHCce+mCu6CWzcSr
+         s6+wan0B9tXSHCP2Ux7wFiFkIOjbKDIsqWP4bC7RfRtgQM0SySLJ6vJOY/pyApEEv8rd
+         mKpw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/ntR0cSf9jEI24+CX6JfleIL0bRzhQczFP0OEaEjkjije3aZoShEEeDjMzUE9l0I/E8iL0Tc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8CZ2B8SFWjdNVAGIdJaKaeQI7UnpQl/9LBnJIInZnFWi5LufA
+	p0Xpp3t0n1pz4AhUYyxk2N5rfk0V7Kw7sIqwqIR9mMTmWPjIamR6b9YS
+X-Gm-Gg: AfdE7clJ3y9Tyz52LHEujkNAdgEYWOIDLLUQaJlqnI2+bIURnHXkGQ9Ts3G5WVJrhV9
+	icacmzxk/rkWdsum/95FYlZeRsMPMQXWAPbM5lxIvukmY/sshMinhoX/xuSlRwh+2twTk65jMmA
+	Pb1TlqvKBcTAHQ+1q9hYGeV0roAICKycqJWcCuwqEdz0a90MW2ELeTAJDS1udAsQavpzObyRLb5
+	BfXOz52VGsHi1/YY2alRPmEB3CJGGJLOgTz6URk9uB9YMdrKhi+T3Ha7uelmo/cX/L8KP451+Fi
+	IjJZzEbekcQ8N2btawUg6MQ+bZtNcB5MXcCSDDZbmx/FJS6sUNHZboDZUB2FLTC0Lt2rUBi09Li
+	KtigLjcpQX0dTloo2mg/XF8iPuSkaKrZD2KKHThZBCJLFbhTyoWYwiAcSuebDLDMVGyaVSbWhtd
+	6P3WVzT1OBO1/tIGuvEpRPx+CFgg+fvZ3ZGfgYxYEdB9pVUi94mg==
+X-Received: by 2002:a05:600c:3421:b0:493:cbd4:8925 with SMTP id 5b1f17b1804b1-493ec55d788mr490785e9.4.1783547658604;
+        Wed, 08 Jul 2026 14:54:18 -0700 (PDT)
 Received: from osama.. ([2a02:908:1b8:2060:7550:b182:7bdf:fbd0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d8410sm46622289f8f.15.2026.07.08.14.53.53
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47df6a31dd5sm1032704f8f.16.2026.07.08.14.54.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 14:53:53 -0700 (PDT)
+        Wed, 08 Jul 2026 14:54:18 -0700 (PDT)
 From: Osama Abdelkader <osama.abdelkader@gmail.com>
 To: Philipp Zabel <p.zabel@pengutronix.de>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -74,9 +74,9 @@ To: Philipp Zabel <p.zabel@pengutronix.de>,
 	linux-kernel@vger.kernel.org
 Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] drm/imx: ipuv3: account for active PREs in atomic check
-Date: Wed,  8 Jul 2026 23:53:38 +0200
-Message-ID: <20260708215338.147145-1-osama.abdelkader@gmail.com>
+Subject: [PATCH 2/2] drm/imx: ipuv3: handle PRG channel configuration failure
+Date: Wed,  8 Jul 2026 23:54:16 +0200
+Message-ID: <20260708215416.147586-1-osama.abdelkader@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -86,67 +86,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ipu_planes_assign_pre() starts each atomic check with the number of
-registered PRE blocks, but that value does not account for PREs that are
-already used by planes outside the current atomic state.
+ipu_prg_channel_configure() can fail when no PRE is available for the PRG
+channel, but ipu_plane_atomic_update() ignores its return value.
 
-This can happen when CRTCs are updated independently: the current commit
-only adds planes from the affected CRTCs, while PREs used by other active
-CRTCs are ignored. As a result, atomic check can approve more PRE users
-than the hardware can provide.
-
-Subtract already-active PRE users that are not part of the current atomic
-state before assigning PREs to the planes in the commit.
+Atomic check is expected to prevent this condition. If it still happens,
+warn and abort the update instead of continuing with the original
+framebuffer address after the PRG/PRE setup failed.
 
 Fixes: 00514e859335 ("drm/imx: use PRG/PRE when possible")
 Cc: stable@vger.kernel.org
 Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 ---
- drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c b/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
-index 67f2da7f2b65..d6806d1ae6e1 100644
+index d6806d1ae6e1..78a3ea0581c0 100644
 --- a/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
 +++ b/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
-@@ -822,6 +822,19 @@ int ipu_planes_assign_pre(struct drm_device *dev,
- 			return ret;
+@@ -629,10 +629,14 @@ static void ipu_plane_atomic_update(struct drm_plane *plane,
+ 	 */
+ 	if (ipu_state->use_pre) {
+ 		axi_id = ipu_chan_assign_axi_id(ipu_plane->dma);
+-		ipu_prg_channel_configure(ipu_plane->ipu_ch, axi_id, width,
+-					  height, fb->pitches[0],
+-					  fb->format->format, fb->modifier,
+-					  &eba);
++		if (WARN_ON_ONCE(ipu_prg_channel_configure(ipu_plane->ipu_ch,
++							   axi_id, width,
++							   height,
++							   fb->pitches[0],
++							   fb->format->format,
++							   fb->modifier,
++							   &eba)))
++			return;
  	}
  
-+	list_for_each_entry(plane, &dev->mode_config.plane_list, head) {
-+		if (drm_atomic_get_new_plane_state(state, plane))
-+			continue;
-+
-+		plane_state = plane->state;
-+		if (!plane_state || !plane_state->crtc || !plane_state->fb)
-+			continue;
-+
-+		ipu_state = to_ipu_plane_state(plane_state);
-+		if (ipu_state->use_pre)
-+			available_pres--;
-+	}
-+
- 	/*
- 	 * We are going over the planes in 2 passes: first we assign PREs to
- 	 * planes with a tiling modifier, which need the PREs to resolve into
-@@ -843,7 +856,7 @@ int ipu_planes_assign_pre(struct drm_device *dev,
- 		    plane_state->fb->modifier == DRM_FORMAT_MOD_LINEAR)
- 			continue;
- 
--		if (!ipu_prg_present(ipu_plane->ipu) || !available_pres)
-+		if (!ipu_prg_present(ipu_plane->ipu) || available_pres <= 0)
- 			return -EINVAL;
- 
- 		if (!ipu_prg_format_supported(ipu_plane->ipu,
-@@ -871,7 +884,7 @@ int ipu_planes_assign_pre(struct drm_device *dev,
- 		/* make sure that modifier is initialized */
- 		plane_state->fb->modifier = DRM_FORMAT_MOD_LINEAR;
- 
--		if (ipu_prg_present(ipu_plane->ipu) && available_pres &&
-+		if (ipu_prg_present(ipu_plane->ipu) && available_pres > 0 &&
- 		    ipu_prg_format_supported(ipu_plane->ipu,
- 					     plane_state->fb->format->format,
- 					     plane_state->fb->modifier)) {
+ 	if (!old_state->fb ||
 -- 
 2.43.0
 
