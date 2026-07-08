@@ -1,55 +1,50 @@
 Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE37831F99D;
-	Wed,  8 Jul 2026 22:39:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06F9233955;
+	Wed,  8 Jul 2026 22:45:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783550370; cv=pass; b=mBEXux+VNaq8Ukr7uU3b+QZIPxuN/GIPDaTc4zPmtnBioos4tND3Cg0tcc9Lxc0DEiQfTskn/2IkZnHjNo3A0YyWASs7oPHiycx02usYBux1c0a7L/W+HWfd7Yjq0wOI3r49+atoh2faEkgQzxnqlOMVQUzT1jLy0AERuPNaGZ0=
+	t=1783550750; cv=pass; b=hpv7HKy4rtRn+XWOZx85kEWctQqUd6kqtbtqVkC2Px8Hk/qgSQPLWeBZVQLrdbRwz3dIh+jytntYO2wn1L7BYwSzui9mF9Os6KZ2caEuOfLfUyIwvo9n0m6r6mKHY+KE2eogShCip9c++g3VBnmm8k0xSKb+xafd4Dk/GTlwTzY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783550370; c=relaxed/simple;
-	bh=id2LVrgB3XdholmWTTMhQw8tjgBW2MwTGja3f0pHQ+M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=joiTKhGFAAQw5WBDpOYMucfMNy8+25f9XAea3FKARJCoNXPPPYgOD+ILFEFFyGVMjztH159c+HT1Fsuw30H//lVJ9oe91Hf3U5zDE3t1b4sFLMHytvtXrWtMzoY6reQRakSa7u5Vgrws+al4S4t6f17bI9yCV7g8sdUJmZ2R8dI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=kOdI55fx; arc=pass smtp.client-ip=136.143.169.17
+	s=arc-20240116; t=1783550750; c=relaxed/simple;
+	bh=1BXqvaegiwBMFTNvtId773TO+wCSJGm9zuNVe+aMTN8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t1Nq4DqySd6/f15apMIG7wVKVOnvLvu3gk2u08wgZSe4w/ZZp+hgYWUKJFN3dZ19YsVXGKOjJ7yA59oXD1OhZuekpU3eZ+0egdnk4ErzNHV4Q2AX5ImqXXVjXQ+l1wb7z81VOJDRP2HNQwR7In1N56nGHV9AV0IhIOru1mzbs7w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=YhthOYiN; arc=pass smtp.client-ip=136.143.169.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="kOdI55fx"
-ARC-Seal: i=1; a=rsa-sha256; t=1783550334; cv=none; 
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="YhthOYiN"
+ARC-Seal: i=1; a=rsa-sha256; t=1783550739; cv=none; 
 	d=zohomail.eu; s=zohoarc; 
-	b=Xpp7dn8rogtUf3NY3U8CqN6MNf/irzgh1unRn+KuBK1BQ3gzED/U5CgXyQIe/LVWjs1Nh4qeQa7Y678nArcMjVhE2mJbdAgS43S6rddXRxneMgqnJJ11rnkDwaQjum5EjoO8L3TztE3Gq+9wx0RLIjC068oe7jhp5vpT1KMD3Fw=
+	b=IXzlc5PCLYVWiPk4sCq6Mr2JBMa1FtOgZK3MooaV7prWauQBhqhdhsMN1uJqDOZIB6aPy4lMs5tvXU9GN5RmYiGZDcPwFm5VcBh5ayfgnBPvhSvSqsedS8G01cr0Fk8f4bjPMLZdFrmDPuYsLqDE+bgSxefrJxlJpHLQUvA9cyQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1783550334; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=KD+78gqKitQWJexdyygyJauU64BB4Fr2VXjIRjjGnW8=; 
-	b=f/Diar+WoSKuiW4XrjC4tYE97V8+3g6+PJKbjGvtxjWoqRBCx58Qlne7UKVPn0VGICSUhZUuJKJ4QW7Y+n9X232aATT1ZiPZvdogNrobVnD2FIqdLJhyd9OP5MsiO2tCFH3Qk1u79t9xoqhinHJaYjjGkLz9/A++QtMwID40+bc=
+	t=1783550739; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=A9ZSaY1dOlXF8qW8X5vfZ8p79gCdbkf6XGNk5YfsOvo=; 
+	b=FdndDBuDouBWIdPtdPSEKyYf0A8vAy9fTnHBVFbRjlcYKZFlDPqcaihMHkWCSEWp+zU/NLfAO6qK3L3YDlpqfQZzyb2hebT/I9sAhmQZCXEzeqyH0peMm6KCjCIGOSB/mIcAE8Xn3dk/FWt4XQTcUFCl7Ws4jEVCWEv0xn7yBrw=
 ARC-Authentication-Results: i=1; mx.zohomail.eu;
 	dkim=pass  header.i=auditcode.ai;
 	spf=pass  smtp.mailfrom=security@auditcode.ai;
 	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783550334;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783550739;
 	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=KD+78gqKitQWJexdyygyJauU64BB4Fr2VXjIRjjGnW8=;
-	b=kOdI55fx6lR8T1hz5wNJyOjjXF+3jT5uxsxHzvVjnUR0iLZupf/hfmeYF9dFi5r5
-	xC8BMM0JL+XFDqNNbW7ADmei7R65k6H7u5j9fU7hJWNXHLPuNXnyienVeD0MxgL4cUH
-	5TcXqHiOge45t+Az5myKv7kZA4qAGma55LPTMIyo=
-Received: by mx.zoho.eu with SMTPS id 1783550330792672.1750921891683;
-	Thu, 9 Jul 2026 00:38:50 +0200 (CEST)
+	bh=A9ZSaY1dOlXF8qW8X5vfZ8p79gCdbkf6XGNk5YfsOvo=;
+	b=YhthOYiNXwgKVEUZH9UgLKDaCf9kXKHblca3nYSk+UQyjAtBaT921cvcGWLCtHFw
+	cYTiabOytDOsUM6bFWso0R5vSErMcefAR46MmB9lD4Or6DMzAObmxboVj7+idyic8ZN
+	qM1G3V+NvkOsdIw1ymQAlxaVBbPLG2uc+7NzR/ks=
+Received: by mx.zoho.eu with SMTPS id 178355073702292.05988634109019;
+	Thu, 9 Jul 2026 00:45:37 +0200 (CEST)
 From: Ibrahim Hashimov <security@auditcode.ai>
-To: Louis Chauvet <louis.chauvet@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Melissa Wen <melissa.srw@gmail.com>,
-	dri-devel@lists.freedesktop.org,
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/vkms: fix vertical stride miscalculation in get_block_step_bytes()
-Date: Thu,  9 Jul 2026 00:38:40 +0200
-Message-ID: <20260708223840.973-1-security@auditcode.ai>
+Subject: [PATCH] RDMA/rxe: validate num_sge/cur_sge before indexing wqe->dma.sge[]
+Date: Thu,  9 Jul 2026 00:45:34 +0200
+Message-ID: <20260708224534.1206-1-security@auditcode.ai>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -60,82 +55,126 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-get_block_step_bytes() computes the byte distance between two
-vertically adjacent pixel blocks for the READ_TOP_TO_BOTTOM and
-READ_BOTTOM_TO_TOP directions as:
+A user QP's send queue (qp->sq.queue) is a shared ring the userspace
+application writes to directly via mmap (vmalloc_user(), see
+rxe_queue.c). For such a QP, rxe_post_send() takes the qp->is_user
+branch and only schedules the requester task -- it never validates or
+copies the posted WQE:
 
-	pitch * drm_format_info_block_width(fb->format, plane_index)
+	drivers/infiniband/sw/rxe/rxe_verbs.c:
+		if (qp->is_user) {
+			rxe_sched_task(&qp->send_task);
+			...
+		}
 
-This is wrong: the vertical distance between two rows of blocks is
-the block *pitch*, i.e. pitch multiplied by the block *height*, not
-the block width. This is exactly how packed_pixels_offset() computes
-it a few lines above in the same file:
+The requester then consumes the WQE in place straight out of that
+mmap'd ring:
 
-	int block_pitch = fb->pitches[plane_index] *
-			   drm_format_info_block_height(format, plane_index);
+	rxe_req.c:	wqe = req_next_wqe(qp);
+	rxe_req.c:	err = copy_data(qp->pd, 0, &wqe->dma,
+					payload_addr(pkt), payload,
+					RXE_FROM_MR_OBJ);
 
-For 1x1-block formats (block_width == block_height == 1) the two
-expressions happen to coincide, which is why the bug went unnoticed
-for regular formats. Packed sub-byte formats break the assumption:
-DRM_FORMAT_R1 has block_width == 8 and block_height == 1, so the
-vertical step computed by get_block_step_bytes() is 8x too large.
+copy_data() immediately indexes the per-WQE sge array with the
+attacker-controlled cur_sge field, before any bound is checked:
 
-This over-large step is consumed verbatim by Rx_read_line(), which
-advances src_pixels by `step` once per output row without ever
-re-validating the result against the framebuffer object bounds
-(those bounds were only checked assuming a correct, 1x, step):
+	rxe_mr.c:	struct rxe_sge *sge = &dma->sge[dma->cur_sge];
+	rxe_mr.c:	...
+	rxe_mr.c:	if (sge->length && (offset < sge->length)) {
 
-	src_pixels += step;
+dma->sge[] is a flex array whose real backing storage is exactly
+qp->sq.max_sge entries per WQE slot (see rxe_qp.c, wqe_size computed
+from max_sge at QP create time). Since a user QP's WQE bytes are
+entirely attacker-supplied, both wqe->dma.num_sge and wqe->dma.cur_sge
+can be set to arbitrary values independent of each other and of
+max_sge. Only the *kernel*-QP post path bounds num_sge:
 
-so reading a plane in the vertical direction (READ_TOP_TO_BOTTOM /
-READ_BOTTOM_TO_TOP, reached via a plane rotation of 90 or 270
-degrees) walks off the end of the source buffer object after very
-few rows and over-reads adjacent kernel memory (an
-out-of-bounds read, not a write). With DRM_FORMAT_R1 and a
-writeback connector attached, this is reachable by a local process
-that holds DRM master on a loaded vkms device (composition happens
-synchronously in vkms_composer_worker()).
+	rxe_verbs.c: validate_send_wr()
+		if (num_sge > sq->max_sge) {
+			rxe_err_qp(qp, "num_sge > max_sge\n");
 
-Fix get_block_step_bytes() to use drm_format_info_block_height()
-for the vertical directions, which matches packed_pixels_offset()
-and restores the invariant that the vertical step is exactly one
-row of blocks.
+but that function is only reachable from rxe_post_one_send() for
+kernel-owned QPs; it is never consulted for a user QP's raw WQE.
 
-Runtime-verified on a v6.19 KASAN (KASAN_VMALLOC) stand: before
-this fix, a writeback commit on a rotated DRM_FORMAT_R1 plane
-reliably tripped a KASAN-attributed out-of-bounds-read page fault
-in Rx_read_line() during vkms_composer_worker(); with this fix
-applied, the identical reproducer completes cleanly with no fault
-and no KASAN report.
+The sibling receive path already has the equivalent guard, with the
+literal comment documenting exactly why it is required:
 
-Fixes: b52fd27356af ("drm/vkms: Introduce pixel_read_direction enum")
+	rxe_resp.c: get_srq_wqe()
+		/* don't trust user space data */
+		if (unlikely(wqe->dma.num_sge > srq->rq.max_sge)) {
+			...
+			rxe_dbg_qp(qp, "invalid num_sge in SRQ entry\n");
+			return RESPST_ERR_MALFORMED_WQE;
+		}
+
+The send/requester path has no analogous check, so a local,
+unprivileged user who can open /dev/infiniband/uverbs* and create a
+user QP on a soft-RoCE (rxe) link can hand-craft a WQE in the shared
+send queue with an out-of-range wqe->dma.cur_sge (or an oversized
+wqe->dma.num_sge) and ring the send doorbell. rxe_requester() then
+calls copy_data(), which dereferences &dma->sge[cur_sge] out of the
+bounds of the per-WQE sge array -- a vmalloc out-of-bounds *read*
+(confirmed via KASAN: "KASAN: vmalloc-out-of-bounds in copy_data"),
+reliably panicking the kernel (local DoS). sge->addr itself is still
+bounds-checked later by lookup_mr()/rxe_mr_copy(), so the primitive is
+an OOB read of sge metadata, not an arbitrary read/write primitive.
+
+Fix this the same way get_srq_wqe() already does for SRQ entries:
+bound both fields pulled from the (possibly user-mapped) send queue
+entry before they are ever used to index wqe->dma.sge[], right where
+the requester fetches the next WQE off the ring in rxe_requester().
+num_sge is capped at qp->sq.max_sge (matching the sibling SRQ check
+and the kernel-QP validate_send_wr() check), and cur_sge is capped at
+qp->sq.max_sge directly, since that is the true per-WQE array capacity
+that copy_data() indexes into -- this also covers num_sge == 0 /
+cur_sge == 0 local-op and zero-payload WQEs, which remain valid.
+
+This is a long-standing bug in the rxe (soft-RoCE) driver: the
+qp->is_user bypass in rxe_post_send() and the unbounded
+&dma->sge[dma->cur_sge] indexing in copy_data() have been present
+since the driver was introduced.
+
+Runtime-verified on a v6.19 KASAN (CONFIG_KASAN_VMALLOC=y) stand: a
+reproducer that posts a user QP send WQE with an out-of-range
+cur_sge reliably tripped "KASAN: vmalloc-out-of-bounds in
+copy_data" (an out-of-bounds read) before this patch, and no longer
+triggers that report with the patch applied.
+
+Fixes: 8700e3e7c485 ("Soft RoCE driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
 Assisted-by: AuditCode-AI:2026.07
 ---
- drivers/gpu/drm/vkms/vkms_formats.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/infiniband/sw/rxe/rxe_req.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-index dfb8e13cba87..1e3a6af9cea5 100644
---- a/drivers/gpu/drm/vkms/vkms_formats.c
-+++ b/drivers/gpu/drm/vkms/vkms_formats.c
-@@ -103,11 +103,11 @@ static int get_block_step_bytes(struct drm_framebuffer *fb, enum pixel_read_dire
- 	case READ_RIGHT_TO_LEFT:
- 		return -fb->format->char_per_block[plane_index];
- 	case READ_TOP_TO_BOTTOM:
--		return (int)fb->pitches[plane_index] * drm_format_info_block_width(fb->format,
--										   plane_index);
--	case READ_BOTTOM_TO_TOP:
--		return -(int)fb->pitches[plane_index] * drm_format_info_block_width(fb->format,
-+		return (int)fb->pitches[plane_index] * drm_format_info_block_height(fb->format,
- 										    plane_index);
-+	case READ_BOTTOM_TO_TOP:
-+		return -(int)fb->pitches[plane_index] * drm_format_info_block_height(fb->format,
-+										     plane_index);
- 	}
+diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+index 12d03f390b09..9fb2c49fb503 100644
+--- a/drivers/infiniband/sw/rxe/rxe_req.c
++++ b/drivers/infiniband/sw/rxe/rxe_req.c
+@@ -701,6 +701,22 @@ int rxe_requester(struct rxe_qp *qp)
+ 	if (unlikely(!wqe))
+ 		goto exit;
  
- 	return 0;
++	/*
++	 * Don't trust user space data: qp->sq.queue is a raw ring the
++	 * application writes directly for a user QP, so wqe->dma.num_sge
++	 * and wqe->dma.cur_sge must be bounds-checked the same way
++	 * get_srq_wqe() checks an SRQ entry's num_sge before it is used.
++	 * Otherwise copy_data() indexes wqe->dma.sge[wqe->dma.cur_sge]
++	 * with an unvalidated, attacker-controlled index/count and reads
++	 * out of bounds of the per-wqe sge array.
++	 */
++	if (unlikely(wqe->dma.num_sge > qp->sq.max_sge ||
++		     wqe->dma.cur_sge >= qp->sq.max_sge)) {
++		rxe_dbg_qp(qp, "invalid num_sge/cur_sge in send wqe\n");
++		wqe->status = IB_WC_LOC_QP_OP_ERR;
++		goto err;
++	}
++
+ 	if (rxe_wqe_is_fenced(qp, wqe)) {
+ 		qp->req.wait_fence = 1;
+ 		goto exit;
 -- 
 2.50.1 (Apple Git-155)
 
