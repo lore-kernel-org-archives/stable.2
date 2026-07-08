@@ -1,157 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B84C29992B;
-	Wed,  8 Jul 2026 08:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40068403AE5
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 08:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783499529; cv=none; b=A33ZsWS0GfFtF7wdRLUWFn3x0zT2K/2CWzOApY40GfEjZgIv/Q782Vma3JUHeeXRT3NzI4Sw4bNrixXjSRFlABt8FgT4LP1E18nXdyXgN3dat7oBU4P0omrHSivP4dYU1zvLHbVpQO5WVVapYWcOWI1+xQiL6FkkJy98n3ckfNA=
+	t=1783499929; cv=none; b=efu3N89wlSg+N7EAf+KOVsL8Ydanmoitm7QduM0SlxuPa2FX4EH2eZvJRIu2/pISTY93bjHS5rGENAwaWuI5rVe3M5jCo/E0mvBdkttfND0x0gun/U2cyYaxFy0b0/A3U7RVBe2zU0LTluNR/Xd+aO2YbVdJ/u1bnkz/e8NGAuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783499529; c=relaxed/simple;
-	bh=Yo2zB0eULVVqb8jXoImLc72duqPtdPjbKTlsD6uwDqY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CEt9aIx/9GoM6JqAYGY10duXjLDRC1JDes1kDGQTPQaB8aofM8vn2H20h/7G7d3YSvMlWALDyPU9MVdLcfUhQh++/aw948BIoictYp7MI59yMdIlMob4AMb0a1zlsaU8UxJzccBf/dRfI2vHUnUAzIgxrAqhfRRFEGSxBASo5Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/F6NZyn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783499929; c=relaxed/simple;
+	bh=7/SS1b53la8wj26oX2KDb+61KE6NUg8vXMTiB/BKZ0M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cQhyUemxDCiSB6sM/uSPeXQpXt9dumjkpI0dJcIRQwEdtHzUTbpDgInJBj6w2cDuyrtqbqDBqh/MZ7bEJw6Uk5aZu6UiHAlryJbwG7BBf+D/6s6d6M3rSoMzaDF3Cbp2Z9lYpPrxrj1yWE5hjEiT8FnWwLdiHMZHNapO0PqUn3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J1OCy27X; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/F6NZyn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD7831F000E9;
-	Wed,  8 Jul 2026 08:32:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783499527;
-	bh=c4ESd5w+M2nYuptCS0AZ2uFcE5EIsy34u8jWL9YQIJs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g/F6NZynkHZZkdMtfyNvxGJ83yPjcmU31yD2r/fGncf00K1xWvN34mwxbRKQ4iSxC
-	 G5hFe+apUbqNMCB9UyRUOxa6zNKzqCMz6tBRvAYoIrQSFIYfPdctennxQeO+G3Kk4k
-	 irJDpo0mZ5/I8gFw6zSGfprFs6k+pbS0Dhj516GApTErgkop/C1Fm1yj+K6A8VBFN+
-	 IhDLzOYO+ozJqAXJ245zl9cCajx8Lo17qbFs9AnGgOWIeKNmx/s04lzTTB7gxEcT8s
-	 vPNDhuz8rbOZcR9IAXJp/Lm9zi4rXFb0MbiHaRfEcoKVB2Ua0+h2MFfwS9GTp9Cl8w
-	 dsDJo4QXWiL6A==
-Date: Wed, 8 Jul 2026 09:31:55 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Aboorva Devarajan <aboorvad@linux.ibm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R . Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Luiz Capitulino <luizcap@redhat.com>, Sourabh Jain <sourabhjain@linux.ibm.com>, 
-	Ritesh Harjani <ritesh.list@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/util: don't read __page_2 for order-1 folios in
- snapshot_page()
-Message-ID: <ak4KweoRcwnxZC-5@lucifer>
-References: <20260708015252.296103-1-aboorvad@linux.ibm.com>
- <6fec660b-7c6b-44b1-a7bc-f4687cda734a@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J1OCy27X"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783499924; x=1815035924;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=7/SS1b53la8wj26oX2KDb+61KE6NUg8vXMTiB/BKZ0M=;
+  b=J1OCy27Xoyf4q1iRHDCBYYflfCovl12e+JCA1wWuSCk+Wahf9jZov7Hu
+   4kNOs1cdrnPbdCVHKssC3njfow02mYAWktO5or1gafreURmBaVe/7MrrA
+   c6xZdiXZroIW1MUcX5liRumkzSr4AFgD1eLXyMmcnxiOjoAgS+YYa+THB
+   cd5VRdPqZTwUK1cMu1wes09EEhwNSspmBdD9jzOUkcED+i0MB4SFT3Xxq
+   G0btb5EQ2RJeGZinxM23Y+qLGoGhhFlmwwSpNqziduKoLiE0TJ3LWBbdU
+   DLY9ZryufiAmvqD695a2qzwPNHWkO1UOeaUA/UGD521qnNjE/5Q/cAydG
+   g==;
+X-CSE-ConnectionGUID: G/2GX8sBTVKTxRvT+qT9EA==
+X-CSE-MsgGUID: bYgTh6tdSGOHaThNafaNDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="94800424"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="94800424"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 01:38:43 -0700
+X-CSE-ConnectionGUID: yQ+uWy/zRQSflR4DtoMf8Q==
+X-CSE-MsgGUID: aZGCMK7vTia+hL5VXiVS1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="250240882"
+Received: from nitin-super-server.iind.intel.com ([10.190.238.72])
+  by fmviesa010.fm.intel.com with ESMTP; 08 Jul 2026 01:38:41 -0700
+From: Nitin Gote <nitin.r.gote@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Nitin Gote <nitin.r.gote@intel.com>,
+	stable@vger.kernel.org,
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+	Christian Konig <christian.koenig@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>
+Subject: [PATCH v5 1/2] drm/ttm: Fix UAF on dma-buf attach failure for sg BOs
+Date: Wed,  8 Jul 2026 14:45:07 +0530
+Message-ID: <20260708091512.205482-5-nitin.r.gote@intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260708091512.205482-4-nitin.r.gote@intel.com>
+References: <20260708091512.205482-4-nitin.r.gote@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6fec660b-7c6b-44b1-a7bc-f4687cda734a@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 08, 2026 at 10:10:33AM +0200, David Hildenbrand (Arm) wrote:
-> On 7/8/26 03:52, Aboorva Devarajan wrote:
-> > snapshot_page() reconstructs a folio from a struct page.  After copying
-> > the head and __page_1 it reads __page_2 whenever the folio has more than
-> > one page:
-> >
-> > 	if (nr_pages > 1)
-> > 		memcpy(&ps->folio_snapshot.__page_2, &foliop->__page_2,
-> > 		       sizeof(struct page));
-> >
-> > __page_2 is the folio's third struct page, so it is part of the folio
-> > only for order >= 2 (nr_pages > 2).  For an order-1 folio (exactly two
-> > pages) __page_2 is not part of the folio at all, it is the struct page
-> > of the following pfn.
-> >
-> > When such an order-1 head sits in the last struct page slots of a
-> > populated section whose neighbouring section is absent (a memory hole),
-> > __page_2 falls into the next section's unpopulated vmemmap and the
-> > read oopses.
-> >
-> > Observed on a 22 TB ppc64le LPAR during DLPAR memory remove, on the page
-> > isolation dump path:
-> >
-> > 	offline_pages -> start_isolate_page_range -> isolate_single_pageblock
-> > 	  -> set_migratetype_isolate -> dump_page -> __dump_page -> snapshot_page
-> >
-> > 	NIP   = snapshot_page+264  (ld of __page_2)
-> > 	r4    = foliop = head = 0xc00c0005a03fff80
-> > 	DAR   = r4 + 0x88     = 0xc00c0005a0400008   (unmapped)
-> > 	DSISR = 0x40000000                           (no translation)
-> >
-> > The faulting head was a free page that still carried PG_head with
-> > _nr_pages == 2; its __page_2 is the first entry of the absent section.
-> >
-> > It is also reproducible deterministically in a VM by placing an order-1
-> > folio in the last slots of a populated section adjacent to a hole
-> > (memmap=nnM$ssM) and calling dump_page() on it.
-> >
-> > Only read __page_2 for order >= 2 folios (nr_pages > 2).
->
-> Hi!
->
-> Can you shorten that a bit? It's rather trivial, really.
->
-> "snapshot_page() currently reads __page_2 after checking nr_pages > 1, whereby
-> we really should only do so for nr_pages > 2. Let's fix that to avoid reading
-> memmap that doesn't exist (e.g., vmemmap hole)
->
->
-> Observed on a 22 TB ppc64le LPAR during DLPAR memory remove ...
-> "
->
-> >
-> > Fixes: 31a31da8a618 ("mm: move _pincount in folio to page[2] on 32bit")
-> > Cc: stable@vger.kernel.org # v6.15+
-> > Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> > Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
-> > ---
-> >  mm/util.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/mm/util.c b/mm/util.c
-> > index af2c2103f0d95..b3d48a05e6d82 100644
-> > --- a/mm/util.c
-> > +++ b/mm/util.c
-> > @@ -1353,7 +1353,13 @@ void snapshot_page(struct page_snapshot *ps, const struct page *page)
-> >  	if (ps->idx < MAX_FOLIO_NR_PAGES) {
-> >  		memcpy(&ps->folio_snapshot, foliop, 2 * sizeof(struct page));
-> >  		nr_pages = folio_nr_pages(&ps->folio_snapshot);
-> > -		if (nr_pages > 1)
-> > +		/*
-> > +		 * __page_2 is the folio's third struct page and is part of the
-> > +		 * folio only for order >= 2 (nr_pages > 2).  For an order-1
-> > +		 * folio it is not part of the folio and may fall into an
-> > +		 * adjacent, possibly absent, section.
-> > +		 */
->
-> No need for the comment, really, this is rather trivial.
->
-> > +		if (nr_pages > 2)
-> >  			memcpy(&ps->folio_snapshot.__page_2, &foliop->__page_2,
-> >  			       sizeof(struct page));
-> >  		set_ps_flags(ps, foliop, page);
->
->
-> With a condensed patch description and the comment dropped
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
->
-> Thanks!
->
-> --
-> Cheers,
->
-> David
+When a dma-buf importer creates a ttm_bo_type_sg BO with bo->base.resv
+pointing at the exporter's dma_buf->resv and dma_buf_dynamic_attach()
+fails, no dma_buf reference is held. The exporter can be freed before
+the delayed_delete worker calls dma_resv_lock(bo->base.resv), causing a
+use-after-free:
 
-Agree with everything David said :)
+  Oops: general protection fault, probably for non-canonical address
+        0x6b6b6b6b6b6b6b9c
+  Workqueue: ttm ttm_bo_delayed_delete [ttm]
+  RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
 
-Patch looks good with changes David suggested applied, so feel free to add my
-tag to v2 alongside David's:
+ttm_bo_individualize_resv() skips the resv swap for all sg BOs to keep
+the shared resv available for delayed_delete to release the dma-buf
+mapping. A BO whose attach never succeeded has no mapping to release,
+yet it keeps bo->base.resv pointing at the exporter resv that
+delayed_delete later locks once the exporter is gone.
 
-Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+Fix this by checking bo->base.import_attach, which is set only after a
+successful attach. The check is placed after dma_resv_copy_fences() so
+successful imports still copy fences to _resv before returning, keeping
+the shared resv for delayed_delete. Failed imports fall through to swap
+resv to _resv, so delayed_delete never locks the stale exporter resv.
 
-Cheers, Lorenzo
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
+Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup path for imported bos")
+Cc: stable@vger.kernel.org # v6.8+
+Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+Cc: Christian Konig <christian.koenig@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 3980f376e3ba..f157e259dd5f 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -203,15 +203,21 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
+ 	if (r)
+ 		return r;
+ 
+-	if (bo->type != ttm_bo_type_sg) {
+-		/* This works because the BO is about to be destroyed and nobody
+-		 * reference it any more. The only tricky case is the trylock on
+-		 * the resv object while holding the lru_lock.
+-		 */
+-		spin_lock(&bo->bdev->lru_lock);
+-		bo->base.resv = &bo->base._resv;
+-		spin_unlock(&bo->bdev->lru_lock);
+-	}
++	/*
++	 * Successfully imported sg BOs need the shared resv for dma-buf
++	 * cleanup. Failed imports have no attachment or mapping and can
++	 * use the private _resv.
++	 */
++	if (bo->type == ttm_bo_type_sg && bo->base.import_attach)
++		return 0;
++
++	/* This works because the BO is about to be destroyed and nobody
++	 * references it any more. The only tricky case is the trylock on
++	 * the resv object while holding the lru_lock.
++	 */
++	spin_lock(&bo->bdev->lru_lock);
++	bo->base.resv = &bo->base._resv;
++	spin_unlock(&bo->bdev->lru_lock);
+ 
+ 	return r;
+ }
+-- 
+2.50.1
+
