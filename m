@@ -1,81 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A3B2459EA;
-	Wed,  8 Jul 2026 17:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1A82459EA;
+	Wed,  8 Jul 2026 17:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783533465; cv=none; b=r8dD7YX5Eri5K/e0/stKE4h5kUdHA6y4kB+3Fe2jeQ/le2C7pNJFHQ+LioW47UlH0nwhj2HvlYqLr9tkzFYuk5wa0erHTBiY/gYGTo/mFUDOWfP8Un4FAowIhxHIjfci1W3Ts4siWg5t2A/0feUiHkawHFpRXRidkGboilE1fr4=
+	t=1783533491; cv=none; b=d8CqI5ALLhFUqHtaIlKd+q14Ap4Ww5A0y6++ogDxADEwaMN3kD9J2nrvn8AWH7nGtwOuiM8QkFfwUNLxBgGjHY3KkZzVS4pK1OFT4BLY3Y6M46zwcTIAcPWFVu47M/TbwkgzsH2Um1EOfavYOt8iXUCDQJQHlgMqGrfBVOWVSy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783533465; c=relaxed/simple;
-	bh=W9m83feI2MN3NakV4AI5z98Wxj8EM++dFgxKsLp7dRQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bG01l7Z7yVoyX1BYIej01p0eP24OLfeoupyNoUWUU2yh4Qytcip4p3s21E4WPSUlb8HZw82xnKTIoppZyQfEjHH/AcqcV/boUV4P8hAgdLwEVI6VVMY+zTujpE1YWtJaI7HzgD9QORyUcEG0PHtjF7IfoyOlS2py/dx2bJ9kcbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cGLSeddA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783533491; c=relaxed/simple;
+	bh=c3uFcMRjJwERNWtlFP49t0Wal7m+JJxOTcx+RGrtDLE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Wtl+KQeVNDtY+sBeddp9X9NkKoqWj32d+dR9FEKPBs/tDorm6FGP5XyQOX0/k3NvFSu4/P4L8lqmOAsAbQB1bkVtEyWxOHyTL7e3+yhxhKQTl+BzvyV0sZgTm8R3H2NUq2v7WhJTzElT8ms+Thi6iTtJe8KxzS0r0vnYcovlNvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IyWZ1gTF; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cGLSeddA"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CAD761F000E9;
-	Wed,  8 Jul 2026 17:57:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783533463;
-	bh=MbX21ZndWDGPuQwpsJkukVtQmhmNbCxepuwSUPCB+kk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cGLSeddAdopBC6pKZwA7ZL8ydsZFEujFX+Gz5+7uYMZP3Ab41Taaykgx4kz/AIyUZ
-	 KH0fxzv+FTAyAZgvd6dnOINBi/av8PcTrw3vsbtbKbYex5nooeKL+Lo8iGS+0dI3Sc
-	 bfnSL+eRZ1vsIhbLpk9KWlJL+infnUqWKgQpyWpH115TeO2X37UoFOCj0LKrSPsPoN
-	 g7SLll7eTEY7nxkbWMLDnXU6nzPnTwTK13qamvaI81N2aAEvM091Iu9AGNeqtBe7Ui
-	 PzUlK0lVlVaJ6OhRz57+EQ3so/9zn8CIi9F0LOeHWW4ZoefCwAATqjQQwp0pZd1xj6
-	 mw0m7G1gsD2cw==
-Date: Wed, 8 Jul 2026 10:57:43 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 1/6] xfs: don't replace the wrong part of the cow fork
-Message-ID: <20260708175743.GI9392@frogsfrogsfrogs>
-References: <178346726054.1271589.14164163317011378817.stgit@frogsfrogsfrogs>
- <178346726108.1271589.7681324440256265003.stgit@frogsfrogsfrogs>
- <20260708091220.GA5902@lst.de>
- <20260708152516.GG9392@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IyWZ1gTF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783533489; x=1815069489;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=c3uFcMRjJwERNWtlFP49t0Wal7m+JJxOTcx+RGrtDLE=;
+  b=IyWZ1gTFfnxpv3aoypsuw7x5Xe1jNSvn4HAEiOGry88CsdIc1GNocYkC
+   KSZ+W23Q35jytUuCxrj6kuz6lLoKwgQkBGCLkAt0z+GANkMcX7WlypqTv
+   oyA51TSYYIXD7+bDbEffIFToXjdF1fzr1rl7Gfgd5k3U92qW6bfTADnBO
+   16wcDTZ4rsZJuTwZyrQ985v8XzHGvgLG7ubpyEkDGb6tiQ1TbmnvFjyZB
+   EcZwYgAQwZSkh2HFaVuFweHwZdZiDXibDzvvFTEbmA7kNkSzFjEmq8xjv
+   UoDyFzNAX5GIhWk+FW16diKqGEgi7q8+r3cSec8XLL+7W4onYLNS677Kj
+   A==;
+X-CSE-ConnectionGUID: WMcU1LYoQQCxdsKnDWhRGg==
+X-CSE-MsgGUID: GTA5zSJ3SqW3qDWr0rUHNQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84322770"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="84322770"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 10:58:08 -0700
+X-CSE-ConnectionGUID: zNo/mCUWQh+yx9UBcP7gBw==
+X-CSE-MsgGUID: T69FPF+qTdGXWCyuKxKDvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="258223335"
+Received: from gabaabhi-mobl2.amr.corp.intel.com (HELO [10.125.111.97]) ([10.125.111.97])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 10:58:07 -0700
+Message-ID: <d7f8d8f45d4fc849f5ad13472803df898e080caf.camel@linux.intel.com>
+Subject: Re: [PATCH v3 1/2] HID: sensor: custom: Fix use-after-free in
+ enable_sensor
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Haoxiang Li <haoxiang_li2024@163.com>, jikos@kernel.org,
+ jic23@kernel.org, 	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sashiko AI Review <sashiko-bot@kernel.org>, 
+	stable@vger.kernel.org
+Date: Wed, 08 Jul 2026 10:58:06 -0700
+In-Reply-To: <20260707071545.3087073-2-haoxiang_li2024@163.com>
+References: <20260707071545.3087073-1-haoxiang_li2024@163.com>
+	 <20260707071545.3087073-2-haoxiang_li2024@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708152516.GG9392@frogsfrogsfrogs>
 
-On Wed, Jul 08, 2026 at 08:25:16AM -0700, Darrick J. Wong wrote:
-> On Wed, Jul 08, 2026 at 11:12:20AM +0200, Christoph Hellwig wrote:
-> > On Tue, Jul 07, 2026 at 10:03:24PM -0700, Darrick J. Wong wrote:
-> > >  static inline void
-> > >  xrep_cow_replace_mapping(
-> > > +	struct xfs_inode	*ip,
-> > > +	struct xfs_iext_cursor	*icur,
-> > > +	struct xfs_bmbt_irec	*got,
-> > > +	struct xfs_bmbt_irec	*rep)
-> > 
-> > This looks like something that should sit in xfs_bmap.c (or at
-> > least xfs_bmap_util.c) and not in random scrub code.
+On Tue, 2026-07-07 at 15:15 +0800, Haoxiang Li wrote:
+> enable_sensor_store() can call set_power_report_state(), which
+> dereferences sensor_inst->power_state and sensor_inst->report_state.
+> These pointers refer to entries in sensor_inst->fields.
+>=20
+> Create the field attributes before exposing the enable_sensor sysfs
+> attribute, so enable_sensor cannot be accessed before the state it
+> depends on has been initialized.
+>=20
+> On remove, delete enable_sensor before freeing the field attributes,
+> so a concurrent sysfs write cannot dereference freed memory through
+> power_state or report_state.
+>=20
+> Reported-by: Sashiko AI Review <sashiko-bot@kernel.org>
+> Link:
+> https://sashiko.dev/#/patchset/20260623021950.1736413-1-haoxiang_li2024@1=
+63.com?part=3D1
+> Fixes: 4a7de0519df5 ("HID: sensor: Custom and Generic sensor
+> support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
 
-To push back on this: there's only one user of this, why not keep it
-local to the scrub code?  AFAICT there's nowhere else in xfs that needs
-to replace a subset of an existing cow fork mapping with another
-mapping.
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
---D
-
-> > And I really wonder how we can get good test coverage for this, including
-> > for the original bug that this tries to address.
-> 
-> I'll post the debug patch I made that hijacks the errortag knob to make
-> it randomly shrink the range passed to mark_cow_range instead of the
-> entire iext record.
-> 
-> The original bug that this tries to address was a pile of bug fixes to
-> the xfs cow code that you posted for 5.1 that we neglected to backport
-> to 4.14, resulting in corruption of the cow fork mappings.
-> 
-> --D
-> 
+> ---
+> =C2=A0drivers/hid/hid-sensor-custom.c | 17 +++++++++--------
+> =C2=A01 file changed, 9 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/hid/hid-sensor-custom.c b/drivers/hid/hid-
+> sensor-custom.c
+> index afffea894021..6b0da2e0e1c9 100644
+> --- a/drivers/hid/hid-sensor-custom.c
+> +++ b/drivers/hid/hid-sensor-custom.c
+> @@ -1005,26 +1005,26 @@ static int hid_sensor_custom_probe(struct
+> platform_device *pdev)
+> =C2=A0		return ret;
+> =C2=A0	}
+> =C2=A0
+> -	ret =3D sysfs_create_group(&sensor_inst->pdev->dev.kobj,
+> -				 &enable_sensor_attr_group);
+> +	ret =3D hid_sensor_custom_add_attributes(sensor_inst);
+> =C2=A0	if (ret)
+> =C2=A0		goto err_remove_callback;
+> =C2=A0
+> -	ret =3D hid_sensor_custom_add_attributes(sensor_inst);
+> +	ret =3D sysfs_create_group(&sensor_inst->pdev->dev.kobj,
+> +				 &enable_sensor_attr_group);
+> =C2=A0	if (ret)
+> -		goto err_remove_group;
+> +		goto err_remove_attributes;
+> =C2=A0
+> =C2=A0	ret =3D hid_sensor_custom_dev_if_add(sensor_inst);
+> =C2=A0	if (ret)
+> -		goto err_remove_attributes;
+> +		goto err_remove_group;
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0
+> -err_remove_attributes:
+> -	hid_sensor_custom_remove_attributes(sensor_inst);
+> =C2=A0err_remove_group:
+> =C2=A0	sysfs_remove_group(&sensor_inst->pdev->dev.kobj,
+> =C2=A0			=C2=A0=C2=A0 &enable_sensor_attr_group);
+> +err_remove_attributes:
+> +	hid_sensor_custom_remove_attributes(sensor_inst);
+> =C2=A0err_remove_callback:
+> =C2=A0	sensor_hub_remove_callback(hsdev, hsdev->usage);
+> =C2=A0
+> @@ -1042,9 +1042,10 @@ static void hid_sensor_custom_remove(struct
+> platform_device *pdev)
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	hid_sensor_custom_dev_if_remove(sensor_inst);
+> -	hid_sensor_custom_remove_attributes(sensor_inst);
+> +	/* Remove enable_sensor first as it uses fields via
+> power_state/report_state. */
+> =C2=A0	sysfs_remove_group(&sensor_inst->pdev->dev.kobj,
+> =C2=A0			=C2=A0=C2=A0 &enable_sensor_attr_group);
+> +	hid_sensor_custom_remove_attributes(sensor_inst);
+> =C2=A0	sensor_hub_remove_callback(hsdev, hsdev->usage);
+> =C2=A0}
+> =C2=A0
