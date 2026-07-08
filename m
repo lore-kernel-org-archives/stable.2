@@ -1,77 +1,145 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C310B2EF64F
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 15:30:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDA3439332
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 15:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783524655; cv=none; b=AkassZftVZZdTyzlni/UxsCsKUDmTM7L2QPfqPj0fbOtUmvosJRuL/oMZc1+8jhb6JKPdF/fvU6FfbGg5yFnKzYhhoIHYmt9kVgpU529rI0cT98A+fFKQ09z+AroIs+qufVnIBwdCzD6SHXuub5NKL81+k48HxbUaYULiNTXvvw=
+	t=1783525106; cv=none; b=LZeF8yxQD6RtbCv9rqOL9nRM0H7kobTjhxhzQf1jf+4B2ZCD403ns9khl9WpgphtiCIF1sx/GqdeLCLrP/6LFiJZ2FJeubKqnT7LZP6KwosXOMfFEn7D5wnIC0jmMfKda5mxJOEwCE3pMHqgaE8P7lzee9LTeOxQmrrgsj0zEyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783524655; c=relaxed/simple;
-	bh=VlJ90b00Rg0vknYDy6y6/51rSu66HRXtuK12/Y2GQEc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n8B7cAIjZjugqDiZSX5Lf32E8zpu6z3vvJmNGSAjKYPCpceXlAzrDxFRPXE7+OYp1JEifQXcwf+uDKR4WSm72QXeC0matNuhB1JKTY2uYuksl0a/QWuVVPVQHMq2lhcrUXW2b+okB7AOfucNzVUDX6Tm2cvY9ef0vPwuF6URaiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=aQ3bxVFf; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1783525106; c=relaxed/simple;
+	bh=y1Zkb/qQ7tH76c5nw0yWw9pfRRFL5z9KF7XJjkvkH3c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kVw+oBIlmgLAurlAFomBianrQWt48mXy+h06ON60JgPecOSfpduv8OATPBTR7yLK3WWDEzawjr9kbjM/MqvamfZ+BmwT4der9OPLg0JtrTrRbCUi3yUK5nMZnSGBfNbe7rdzz7fGK4GBefkjiYnpfWJBaYmwYui9AxX6BTwkDm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LKRw+KqK; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="aQ3bxVFf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=yj4jQFmBmUzn/uPgSKizUWw5uE+RcJSk7gPClzg/JRk=; b=aQ3bxVFf02H8TAwNwPUUnSL8gB
-	i/H7raG+4edezBZGqI9cTaaYzWob0kRWtfpHKAnG0eQOy2uB54uKUWEOD2LP296hpkv8EZVJ/30dK
-	A1tji5ftRquotirkq7NnJkJBXH0uzqYS3qmfRTmIKIWAQY+8ar74aVQ0FxRAYBZRFfhniJhe/0pbA
-	mFogNX7cR39xJuF+OaLnTvkqya7Y5W0UFmsh99wlcS9HSzh91CZiGLTzedAqzftunZXg+0iKWamkG
-	D0X1uVPKknvzXCV6DhCjj1xFt40rSlkwpA2c8ZyQ36HGLKKemY8GM1ReT3td4Ole8OT25xdv52ECR
-	vyJUVxBg==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1whUEa-00000002x1r-3Pum;
-	Wed, 08 Jul 2026 15:30:49 +0000
-Date: Wed, 8 Jul 2026 16:30:48 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, stable@vger.kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Song Liu <song@kernel.org>, Eric Hagberg <ehagberg@janestreet.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Gregg Leventhal <gleventhal@janestreet.com>,
-	Lance Yang <lance.yang@linux.dev>
-Subject: Re: [PATCH stable v2] mm/khugepaged: write all dirty file folios
- when collapsing
-Message-ID: <ak5tKPfX99kdkhIG@casper.infradead.org>
-References: <20260708151357.353173-1-pfalcato@suse.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LKRw+KqK"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cce6a0c9c3so9715825ad.1
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 08:38:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783525105; x=1784129905; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E7M+3gHwLkUuZk+ZzB1+zc6TOfv5YYqtskQPl4nbwro=;
+        b=LKRw+KqKrPUGMl3c149vOZRWpZbsXbk4Ycm4mUuHMgaiBk8qaoFjnbbj3eqR6TELcU
+         iIJ3yWUSvw0TOofMr90DyGK8Sso30iLH4raoksC6+VgPjsb6QYDTXTfRVa+zYGgGxw7E
+         BHV+Z83vvly+BOLX/Xq+fOpONF429m0X6zgRzFGgKqM4AuRJd2nUTiutiUwdy+ULSJIj
+         PAA52xbIVk4CA5O9B5RHK4gO8LhIyt3aM2u4IwsiM5JdT2NsFyvDhEFzDAEAZr6rd595
+         rd4QcC+7xguCaHseLu5AwcD75qN4/SWIUk0iOV+Q1qAdsOhmMJMQ4h66A0sg/kKJxzzL
+         N2eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783525105; x=1784129905;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E7M+3gHwLkUuZk+ZzB1+zc6TOfv5YYqtskQPl4nbwro=;
+        b=GgT0GZn76fEbtAc3oDiJH3szCxtE19XGrtywqUs2rynbXyalMj3qkXB5WVVvlXxwqE
+         GWcW0OGR23RQ69fr2Ou0Gd5CWcE/BPLeQVXbZ4yC7FGDWpspN7c6cqflyodFboruF6mm
+         embSOtuV1noBbYub4cL/0CFzZX7CbsYZyBjwTHSRwfG3XRjxfZhja33MB5L9MdjMuCXA
+         T+LX7S1Nwfz8OvgdueccFhgPLDpZa31+1mRRpALGPezQfqnxTzaxHRWUhlk8yCRiy8i0
+         I+un+9OW6XQfv1fn/PmYXiupRF2Fmnze2LeH0HPfukjr0PtZe0HbHjhHN87DExGvjfA/
+         vn3A==
+X-Forwarded-Encrypted: i=1; AHgh+RqAxNmVbZj57F0j1V26k7kYc/21mqtJ0KLEuUipLtujhDYKQl4vCCwG7fnSW3JshUZsZjWROUw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKJnvsWM/i0aYVg0jtl1HItB+TrU+uSGQdSZAo54+JporBvcsp
+	fS3VFuVbcfraet3ReojtTddDC2debUIfwDtow+6zZUdKtyWp+oGcUaF+
+X-Gm-Gg: AfdE7cm8GNcYzQt+fhFuPy3ffj/iumK3WfWQV9m493zoFMmsRPQJv2LodE0z0qZ/IxT
+	PQKDX1esKvrt3JWD1JB9/pLLeGBv7lTEspCZ/j31prOnZRun++NXaccR1SEhlIHki4AAA5i45ZV
+	7NhNwR4F43Ge0KK0HQVKi3dJ06F8RmINz+40yC5fCSGb8aLy+gsAboWBkFvYuDxGr4vkpoXgaMO
+	IbhvxUPdPDeZz5kePTQ9u/ZOQ9wMpFHNUEKyFBS5nTPz18jZSYNw5drlztzt3zVTQE3fYTgwhy1
+	Q5lgVIrz94BcK3aB54CpIIUDpWtEqCfXFXFt/eMzZ1WuElI3ToqTGFKL4lYcF70epvel5OHc8Tv
+	/kuB/Pq0X82R6+7VLg2dM7OTtz2kMq+ZkbFNO4AzXgWGU9mZqShZ3F/CeiDzN4nQAKhl9WcPq9Z
+	kKMTG8nPIiU1b3xz8VAj1NMmvZ7RljRDXg0WJw2MvD3r0=
+X-Received: by 2002:a05:6a20:c998:b0:3bf:bdb9:f602 with SMTP id adf61e73a8af0-3c0bcc6a270mr3505171637.22.1783525104357;
+        Wed, 08 Jul 2026 08:38:24 -0700 (PDT)
+Received: from localhost.localdomain ([49.207.223.101])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174a583bcsm24462238eec.19.2026.07.08.08.38.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 08 Jul 2026 08:38:23 -0700 (PDT)
+From: Biren Pandya <birenpandya@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	dongchun.zhu@mediatek.com,
+	andriy.shevchenko@linux.intel.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Biren Pandya <birenpandya@gmail.com>,
+	stable@vger.kernel.org,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Subject: [PATCH v4] media: i2c: ov02a10: fix endpoint parsing use-after-free
+Date: Wed,  8 Jul 2026 21:08:15 +0530
+Message-ID: <20260708153815.50692-2-birenpandya@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260613083235.57363-1-birenpandya@gmail.com>
+References: <20260613083235.57363-1-birenpandya@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708151357.353173-1-pfalcato@suse.de>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 08, 2026 at 04:13:57PM +0100, Pedro Falcato wrote:
-> [There is no upstream commit, as this code was removed by upstream
->  commit 044925f9b565 ("mm: fs: remove filemap_nr_thps*() functions and their users")]
-> 
-> Cc: stable@vger.kernel.org
-> Cc: Alexander Viro <viro@zeniv.linux.org.uk>
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: Matthew Wilcox <willy@infradead.org>
-> Cc: Song Liu <song@kernel.org>
-> Cc: Eric Hagberg <ehagberg@janestreet.com>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> Reported-by: Gregg Leventhal <gleventhal@janestreet.com>
-> Closes: https://lore.kernel.org/linux-mm/CAFN_u7H_0ECF3jixP=T=U7AH5=Q3wQNvJMo8an3VqUDMerQfUw@mail.gmail.com/
-> Tested-by: Zi Yan <ziy@nvidia.com>
-> Tested-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+The ov02a10_check_hwcfg() function calls fwnode_handle_put(ep)
+immediately after allocating and parsing the endpoint. However, it
+subsequently calls fwnode_property_read_u32() using the same 'ep'
+handle, leading to a potential use-after-free.
 
-Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Additionally, reading the optional 'ovti,mipi-clock-voltage' property
+used to overwrite the 'ret' variable. If the property was missing,
+'ret' would become negative, and this failure code would be incorrectly
+returned at the end of the function, causing probe to fail entirely.
+
+Fix the use-after-free by moving fwnode_property_read_u32() before
+the endpoint is parsed and freed. Avoid the error leak by not
+assigning the result of fwnode_property_read_u32() to 'ret'.
+
+Fixes: 91807efbe8ec ("media: i2c: add OV02A10 image sensor driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Biren Pandya <birenpandya@gmail.com>
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+---
+Changes in v4:
+- Collapsed fwnode_property_read_u32() into a single line per Vladimir's review.
+
+Changes in v3:
+- Moved property reads before parse to avoid UAF.
+- Fixed error leak by dropping assignment to ret.
+- Added Fixes/Cc stable.
+- Picked up Reviewed-by.
+---
+ drivers/media/i2c/ov02a10.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/i2c/ov02a10.c b/drivers/media/i2c/ov02a10.c
+index 143dcfe104456..98f8fc5b6a5ae 100644
+--- a/drivers/media/i2c/ov02a10.c
++++ b/drivers/media/i2c/ov02a10.c
+@@ -820,18 +820,15 @@ static int ov02a10_check_hwcfg(struct device *dev, struct ov02a10 *ov02a10)
+ 	if (!ep)
+ 		return -ENXIO;
+ 
++	/* Optional indication of MIPI clock voltage unit */
++	if (!fwnode_property_read_u32(ep, "ovti,mipi-clock-voltage", &clk_volt))
++		ov02a10->mipi_clock_voltage = clk_volt;
++
+ 	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
+ 	fwnode_handle_put(ep);
+ 	if (ret)
+ 		return ret;
+ 
+-	/* Optional indication of MIPI clock voltage unit */
+-	ret = fwnode_property_read_u32(ep, "ovti,mipi-clock-voltage",
+-				       &clk_volt);
+-
+-	if (!ret)
+-		ov02a10->mipi_clock_voltage = clk_volt;
+-
+ 	for (i = 0; i < ARRAY_SIZE(link_freq_menu_items); i++) {
+ 		for (j = 0; j < bus_cfg.nr_of_link_frequencies; j++) {
+ 			if (link_freq_menu_items[i] ==
+-- 
+2.50.1 (Apple Git-155)
+
