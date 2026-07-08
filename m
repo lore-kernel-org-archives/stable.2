@@ -1,268 +1,185 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010056.outbound.protection.outlook.com [52.101.228.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2F536F8FB
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 16:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE73A41CB5B;
+	Wed,  8 Jul 2026 16:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.56
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783526999; cv=pass; b=HwqTbBg5kkbBgeWAcoCm9ZTz93q+XPNiC/cZepAE3kIYRPdNAOnJEBbKOw0ap1HDHkuHXFdPyh81P/emp2dTD5sof0TnfKrY1Pnhy6yVxqxfzsaVPUJL/iEsvqtpwp9+wGM6mV7fCoKbYraE+vrvm6kp5oOhc78SDnQuCqzm5HE=
+	t=1783527300; cv=fail; b=rq3bQTPTwqVOo0WaajVyuBmbkytaOJfWhUKLXAd9ISiUAC4bt+m7fMfF4gSalCIOfdq3vHfOlpJRN3Wld4wy0EZLFcfWGg0TXHfvNmgbd1zWMRcglx5gcFM21cHCz5mwwoMuFxJtfY1y60GCjoZrUeKeylrl36ud7cy9QUoENro=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783526999; c=relaxed/simple;
-	bh=/cCoEIAMZjgDwndNc5TH4+TopiGNAKrc5bmeS1zi6bo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VG+rm1KzUJ/CxwIbXg1RH2lGMG5K2eGSH42IaGekbpwBeMm+c6jsTNxYaaTpjIF4l+skg3VDUNH+Ck1+bFmIYdLvHx1l0fLxh8HLKujva8MLV/6oez0yw5ciAD5noT4Ux1SgWJ0O8L9ygHW/1ftlObwPPThpy0Zd9PiegpWTJ4U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fay8I8/v; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783527300; c=relaxed/simple;
+	bh=h1TTlHZ8LphahUM50iI7+M7sasiXRDBk7hT17agmbc0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IaOc7TsrIbB6gaRTwe5Vo2bz/MTqHUtIaJamBmfTYSy2eDp0lTyONPPPK4dT6AjWqX9C7zPzVNEILgVijcALW6eS8RoEDO5miN48/F+jz75o3MwWCDOUcYissL5Dr3HWfYrXS6LEiwZCsx4XsyUpW65yTY3Dys6eVCanYEfXT6c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=cPho1Hya; arc=fail smtp.client-ip=52.101.228.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fay8I8/v"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-68bd9fce347so1704073a12.2
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 09:09:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783526996; cv=none;
-        d=google.com; s=arc-20260327;
-        b=e59Zxs/ITtyBecLEFBeekunMDxR7nDp9f9MfpK2OrzEBSmBXT5zo2Y7WSX4OQUL5qN
-         fnq7HRHhlXPQ63JYAfq8WGvZc5bZ5XUjFYvzuu0hkGyzdM7EYE/vegpKmAaMIvdShe5Z
-         TUcY+g6z4Z2O1NWVw79UzkSTNIJqm3uwd6zQBIlwcals3s44BFF+WflJvVeqow+/sk1c
-         KHswecTH7ezuYKnQpIJO51aZw5wr4u1rxcxU2OGTKc3w8226Ych+EhTkblccUeOMDeFb
-         eBTAv40lSqaCXT42EU5rcRPcC8tLuHDXmvpUCSpMm37+WcqIqJU2+WsKeAgMJ4wQ9uRX
-         5h/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NhVUTGb4dwhaH+1X487bCAmqqigGbO5f/feF/gmVFJ4=;
-        fh=boZlSHyvR4+e5W8MdWWZyKFC2U9wQ/yVowg14ZosBqM=;
-        b=OtRDNi8YYdyGnFEQAw0E+Mb6EYss/DdS//KQLNniJbXs97ggnfoBluPhaRo5reI2gA
-         8Ak9aXypNdxBBpg+37ML+HrM1Fm45hTnSjdqkz0XT6G2olSQz6dNxYv0//uQzEd5xYfD
-         1+KcEQ5qZ0O2WaLhub9dfezCf/JM3WLnoB8m0OaFmX40RLFRfH8g1NMgeFK13mveDRZO
-         LiTZmfZqjHE4mKfhyczdM/WLPaMuvEegIXhBHWeIki2m6Ss/UTuulITm6Bj6YJa1TGjm
-         ZmUytxRpJqtL+ubN7ffzyAqjhTdzkW6LAuD5wwicf4bevTlmowKu9VzkFAb3g/VZ/bAt
-         sNjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783526996; x=1784131796; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NhVUTGb4dwhaH+1X487bCAmqqigGbO5f/feF/gmVFJ4=;
-        b=Fay8I8/vpDP1QBgBTTYX0h13G/I/vEu+ovK0C+YLKeZIv55mE7xkQv3XU22t64LuOZ
-         JzNANBMWND42Ka0ImxBBmyOUpDIksGdM/SnT7cYmFSsAv21eVm1brGwuRoL8S82LlM81
-         55GnewrZEcKYNiHhqZUjxa30JTtESyft+waSM9Goe6tpjXYRdztl9Hja0fVGUvpe6/JW
-         /1alxPL/NuHRGfsLUbABdW0+z6zh2UmFGBBWkLv8v4/MqvgJT8jFVE5cdBaRnUqDrfVz
-         sqTFwF+/Dpoz23CoJwxe+SoW07tVA1CSVyrWyPF9i6ZHxFs9OH+yhK59IlqzwGVf9BRO
-         SoNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783526996; x=1784131796;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NhVUTGb4dwhaH+1X487bCAmqqigGbO5f/feF/gmVFJ4=;
-        b=IorOjHVYzblOm/+XhblaMvEggNHyp+PkSJwqFR8gzw6LnryBUmp1YByzOCLjqnTqRp
-         xmcV6i2z2mhPVkHeA83d5Bp0u/7sFqhPdOrx/REkSyYgGlV72h5Fpvuc1IdkzLiPSs/X
-         /4SKx5f+DIJgLg1+mHIzusCHVkkWcjrIBUAd3AyTPTH19CzDXEsA7MYmtMdhlKaHOHzN
-         0GiCE8s24TIaKye8BJdZE5CT5mTbncRn60dLQGVvKEYWq0yqtH+dXGb3dDG26G+tnp1c
-         ES45RX1wR/12iRlojCCZiycFIQnKnsyCU2B4rU1ghEvO7EaAu6Q7o3oxq5bx8jgmZY0E
-         CHbg==
-X-Forwarded-Encrypted: i=1; AHgh+RqnyrpsfrJmHbS1GrbwTg5+2q3e673RFivaSNIgpfOFT8HzBEJeIqNMGQqklqXMWVSR8Y03wAY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZPisXSHOlRGY1KZMEttMWqzI8HRw//eCJkRkfkqpfj0UJ9kEt
-	u6Dx4MHlOHLNWyk1TqYgcMduektg/sFL62PGWpJEXoQWKhQnkaPM8IlSfH52WEL5dXieJ/OdihA
-	EUm+ihPL06PKSyiG9I7luwAmmE6dsarY=
-X-Gm-Gg: AfdE7cm6scsDkg3l4fhsVFpATKHHCE1G1fbVAVuXPIQLdi4r1HpkMZGRz8cNkd3fqSv
-	43GjGhkndXsIB/nL9W3MCjvBYTD1mZRB1qVaSfWAnDmpO5/I7Y1q9O3hUmNLWCQZsEJyplbsnVd
-	MGrxprz5ust+Gl4QyqarVjna12EY9XnvQ0aGmjfmuJjt6c+IdgMUlgzJcBgBlpL6wRq4z8n3E3d
-	z9ZSpAkOg3maItRFtin2XqMZaqe6tZBUxLejUXMQaINMPRbBoyKsixa5dfPzvdCl1riWfqEO5dW
-	3qSTASzSb/R79zaBXC5R/nDueBmb
-X-Received: by 2002:a17:907:9709:b0:c15:dc92:5df with SMTP id
- a640c23a62f3a-c15dc9207cfmr57067666b.49.1783526995710; Wed, 08 Jul 2026
- 09:09:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="cPho1Hya"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tKRAJboiyakHVnqmurLdaKDU5I64BrKA0vURN46GvroATytPSR+Scx3pJvexJUahyC01U0+rIH//iDfGH79cItYoCKixF69wfHjP2/4isDFtLr1xIaCBU/x2LYwo61aSUIVlYnjnUWMOu1tYNWEBxuuPAwEkmtQW+XQaDTko3AfrwCbAC4daIsWJ6OggkRawrybtbcROlZH0Sj2BZSjRw11BF3fEiwg33SZnNcbeG1iMlqojitCE1Ztq44N1j10ttqYMxJ6/7VxKhwSM8N8rgM9tiAP/TvFjC72y93HdazSIMkrxBdFiU8+nmq/JVZL4RqoEB3TreShP9fs/+BNWNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bBKFNULemZ7wi9WD9PiZ7Avcz6O4GytUG3cCJLE0GsQ=;
+ b=ksdDruW50xetEhDJQcbMymyLo/d59/wOFLa9TGOnVB1KXdPqGTLurbZ+tYxyRgvRQcL5EVvGu1ZiZoV25s/Fz0jQrrfRD1pBQEfZu4a9jIrFs3e631G0viAruwx4EyvdtR5bCg5UoemykxVDWq6eOwNcTHpRlYcR4LUTFJoaCxnckrp0u/3w924GM0r4Wm8myk/dDZ+pjMe025uFnDTYwf2EP3YGqNTc7cWKnbVBVd4X5m1Ke0d8ktt/ZKU5pJZiTVY7lGVvHe5e+qNdxFkdA9SEoeZU7ZzmrPJIFALrvnOy2RGncofbffbioROLNrMhViqA4dIg03vV5mM0WTJ2Vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bBKFNULemZ7wi9WD9PiZ7Avcz6O4GytUG3cCJLE0GsQ=;
+ b=cPho1HyaGuSzAV0upgwuWCo9b4CDjqhgR4LA978Gbd0TelJ6g0UrZ9gtGb6jAT0pIz+8oAo3qsJY9dDQbq8McO/Ii19rgELV0h3TAiowR28vjZQkBNSdFDWQ0otkbue6ZEinuo+75TvxSr8Y0DdUiFfGYHaWf0WneLGxKH1yvXo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TYCPR01MB11590.jpnprd01.prod.outlook.com (2603:1096:400:3b9::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Wed, 8 Jul
+ 2026 16:14:56 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
+ 16:14:56 +0000
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: tomm.merciai@gmail.com
+Cc: linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	=?UTF-8?q?Sven=20P=C3=BCschel?= <s.pueschel@pengutronix.de>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Isaac Scott <isaac.scott@ideasonboard.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Daniel Scally <dan.scally+renesas@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 4/4] media: rzg2l-cru: Align bytesperline to hardware DMA stride requirement
+Date: Wed,  8 Jul 2026 18:14:05 +0200
+Message-ID: <20260708161406.396183-5-tommaso.merciai.xr@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260708161406.396183-1-tommaso.merciai.xr@bp.renesas.com>
+References: <20260708161406.396183-1-tommaso.merciai.xr@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR4P281CA0250.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f5::8) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260707180235.1142581-4-bestswngs@gmail.com> <20260708052855.GF9392@frogsfrogsfrogs>
-In-Reply-To: <20260708052855.GF9392@frogsfrogsfrogs>
-From: Weiming Shi <bestswngs@gmail.com>
-Date: Thu, 9 Jul 2026 00:09:18 +0800
-X-Gm-Features: AVVi8Cc62Fx0LBjbFwac7xQonQf9upQeMKEfyzwrMHGOC-FWNYnt6BGYtL2Isds
-Message-ID: <CANgPUi2ydzD7P_agT_c5EACVbjqZ=ujsr0W6TYsBsMYjqiw9zQ@mail.gmail.com>
-Subject: Re: [PATCH v2] xfs: reject attr leaf blocks with inconsistent usedbytes
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
-	Brian Foster <bfoster@redhat.com>, Xiang Mei <xmei5@asu.edu>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYCPR01MB11590:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac4b56c3-76dd-4836-d179-08dedd0c0cf8
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|52116014|7416014|23010399003|1800799024|366016|38350700014|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ hG/zhIsrkDf4h133LZL7nXtekrDqQNdaz+6zlyqdP0Xa2wRAjgz4d1XzfFrmRaSVfMbC6GdxpIDugA0mbWXNVJ7zrPWeslYpZvQW3uXOOxuGwyyGkOSzNX7iedpxBqWbBSOX/97VGqCPZS9Gy+SogbVklimNAVMJY7TFIcPcqC/AbMWsin1/tfmupx8H2kR6kxo3/FYCsZK4Tk8fazh/u/0KJFugDmae2XUdJsF8p7qqkBdd6iYKlI6Hqmgsdf3DrGZt1i7BU1Ag7RqSaRZd5MTUNRABfAdWDndxKLX9RbT5UQuNc7aGkrfniPa9CSa08Fyjo1wjWf8cuYFCiBpSjlfy6pfJM+RWBvvwaA9NiElovOdW6vvRufh+dbK85f8ZobHE1zu7+bN7IX6K9tm4Lgkw2XUwkp5V2FcbayO+T64+OHk4visYhJPSHcYx13bhLp44bawCRuC2oRxHI1mKPw1raTuVqTFT40YGjh24gRZHVYGCstJ663YVzO8+c+m5FDlVFc7JaPI1O9uPm5z7EERd4B4YmHm8EPPSmEDK/f59fPI4nSKYzSMPNk+fng5iCeS9ChTWR9xFzvxIIQsJWSHA319UaBDMfynLU6BneAHTXDviD8ko1TRusLqsnAR1b/Qt2j16BvOdbXb9Z6RgfI2UgFrKn1b+tnVqxGDYEjm3HDzhd9be11Gq4/Ilj6AQFn0YAoIKP/PyaPRatTCHz1vIAW187KNUQj4W0H4dus4=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(7416014)(23010399003)(1800799024)(366016)(38350700014)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?TX0piT7etPvFq/HARLV3jeNT4HBDabpve41pMLDtiGygszyKM3k5Mbx0srUn?=
+ =?us-ascii?Q?gcB1AGRW0+coefuO4htbAnqnWpkbQrKW20Wxu3+0D0U/n1KD2msvwQeoiV2U?=
+ =?us-ascii?Q?fl5++/P+twWbYu2ARRxZmNAO7Za/pAKx9jVT+PHpoUKiI39mVpdPBr0fSm4l?=
+ =?us-ascii?Q?opg1JwMgCequ6IssXN42POf+BypeBQyb0aul9Nu1ADr9Hkg/ScBDZwQ+eMfc?=
+ =?us-ascii?Q?O2w31IUyO8Hm2TLgFLSrdGAuPQDwgORu3ZXnFuMOPF/ERbjEGMOVHeOnIN0S?=
+ =?us-ascii?Q?4CwtG45QLWPvHcmaXjUKeDyjPQNyiuwWbwLmDRGaeXQlNiRQz/YbTIQ94SYS?=
+ =?us-ascii?Q?0QhZKhkkda2Z/i8K94CQ6JRM+dg8o9m6llpB+LOgaGtPOMB44tsQFIVYpeWw?=
+ =?us-ascii?Q?MxG0zN2ya87q/scxuakbHtSH6iaMPOAr+kv73j+27jZrqdFa1amdjD+cbb61?=
+ =?us-ascii?Q?PF8YjeAnEYHKvAH3eCqlnQx5KyKqF/qbLAxe8biecnPjegGMrAOHvooFLjB9?=
+ =?us-ascii?Q?LWftuRe945ToGRMRmrGXlkpjh2MUuZGJNLD3UMCjmLmAYrwrbsV7CiZpYsDP?=
+ =?us-ascii?Q?qkRo6R62sulkY5exHji1iKYmYSxbjIkQ+FZ55uE3LsYf0ZfpvG0amGwmUCTC?=
+ =?us-ascii?Q?fjGFQVC7kiApQNEHlWahMZIZbYhAzjuA0ooiH82yGUqE2SWJ7Xy5qFyJOtrz?=
+ =?us-ascii?Q?HcOWw8RjObnC3OwDr5Q4gZIoiTVDXn5KSjsKFwsSWJ4s68gd/42XDUo2iRiU?=
+ =?us-ascii?Q?KJzqUByTo/+UYLngyHv2jpLm1h8Fqn6VoUoyS14NS4LzLdLlVEgJfnZGHT8A?=
+ =?us-ascii?Q?FwasmHJDHmy3PbzUqaK55MSFW4d60sWgrNkEE9M/Lq4p8fzM5J1LgcXBTbEg?=
+ =?us-ascii?Q?LteQTW36jMqe7gcAZwCbrDxOexgDzAUUwwZrK32qQq/H1e6NV/eVG0WhKAC/?=
+ =?us-ascii?Q?7vr8Jn9Nl/uC6g+uezg5X7sYzCFyYbl4ig64d20fWCSqtFoWnyvvU43QyT0e?=
+ =?us-ascii?Q?KpSZ7kcw/E3isQTBun36nGF4WgWc42ddmHspG7xLxfduDTSCM4A1uJD7TWAa?=
+ =?us-ascii?Q?QUQahqOS7ZkvcCciF13ErrmcBOMyjDptJDAFxHp79CHoiLA9Fo4+UoXluXI4?=
+ =?us-ascii?Q?CPDxPnBA2KdqSXPeHWpPZROPdBaiKrCHtvSCIxazisgm/LMNgjYEzTJvaOlk?=
+ =?us-ascii?Q?8txI+ioQwI43Tdf5UPEtky9nf0qvttijmnwoX+1UzkJ10YXKQOlppC84aZlw?=
+ =?us-ascii?Q?HYi9Q1OA88spvvrgeT6799K9kNguDXVLt7E21SXhEjzgIyh5Yn0XtaNZitGN?=
+ =?us-ascii?Q?4MhYx57o3d01mpE/wct9N6RTj+XRrqTCtbozOe5DJk34Zp/TOGj14bFKclHh?=
+ =?us-ascii?Q?25YwwL71kjjf/unVarNFadejTW3r03CJ8ribFxUgdzqottiyiOX+AV5pYHvh?=
+ =?us-ascii?Q?d6K59DtJjOmJWr/UpfSk5qGo94UXHCRtwgXGzRjXSbsyqQjhw4MZ/aNi3IQn?=
+ =?us-ascii?Q?X3q2nI3WUYBxT8PvbjyHMlg15afLP0qA8v+5/5ypiWHTpTzGQr/7gOgNSQ24?=
+ =?us-ascii?Q?8yqFfpyVId2prlmMH9Zv6dqxU9jWIXMtKjUzplz4h8ZmrvUzgxmIvTyInO29?=
+ =?us-ascii?Q?xF/WX91zDWcRxYvmP/83V1C6C14ghHc0V24ApGPv3vs8Ws4AG8/hj6MD5y7G?=
+ =?us-ascii?Q?WBwNwKDPi30EjrX06khCrQCY+8KmZAlTSbYpfbfTGgP7qU0fjI04wnoTkgcn?=
+ =?us-ascii?Q?qJa6bHGCm+fCYtfxPVBRTrkDgUbwHUO8jAXj26H5jiF3NvIO4VbB?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac4b56c3-76dd-4836-d179-08dedd0c0cf8
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 16:14:56.0908
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h492lk3AcvvTo3UAeRmg/kzYOfIzg2LtYusQJOGDZF3tNsXIsnr1/fljPUe7k0bmEGqGeJuGO5L4nALtSyj7T06k7QdQ8+cc51F2dqSB+2Ve4k9cizo47jUyqiKJUAHi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11590
 
-Darrick J. Wong <djwong@kernel.org> =E4=BA=8E2026=E5=B9=B47=E6=9C=888=E6=97=
-=A5=E5=91=A8=E4=B8=89 13:28=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Tue, Jul 07, 2026 at 11:02:38AM -0700, Weiming Shi wrote:
-> > xfs_attr3_leaf_verify() checks each attr leaf entry on its own, but nev=
-er
-> > checks that the entries' nameval regions are disjoint. A crafted leaf c=
-an
-> > point several entries at overlapping offsets: every entry passes the
-> > per-entry check, yet the summed entry sizes far exceed the nameval regi=
-on.
-> >
-> > ichdr.usedbytes is kept as the exact sum of the entries'
-> > xfs_attr_leaf_entsize() (see xfs_attr3_leaf_add()), so for such a leaf =
-the
-> > real sum no longer matches usedbytes. When the leaf is later repacked,
-> > xfs_attr3_leaf_compact() resets firstused to blksize and calls
-> > xfs_attr3_leaf_moveents(), which subtracts each entry size from firstus=
-ed;
-> > the oversized sum underflows the 32-bit firstused and the following mem=
-move
-> > writes out of bounds. The same repack runs from xfs_attr3_leaf_rebalanc=
-e()
-> > and xfs_attr3_leaf_unbalance(). The only guard is an ASSERT, which is
-> > compiled out on production kernels.
-> >
-> > A single setxattr() on a file with such a leaf, after mounting a crafte=
-d
-> > image, triggers the write:
-> >
-> >   BUG: KASAN: use-after-free in xfs_attr3_leaf_moveents (fs/xfs/libxfs/=
-xfs_attr_leaf.c:2788)
-> >   Write of size 400 at addr ffff88802b187f98 by task exploit
-> >    xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
-> >    xfs_attr3_leaf_compact (fs/xfs/libxfs/xfs_attr_leaf.c:1790)
-> >    xfs_attr3_leaf_add (fs/xfs/libxfs/xfs_attr_leaf.c:1563)
-> >    xfs_attr_set_iter (fs/xfs/libxfs/xfs_attr.c:556)
-> >    xfs_attr_set (fs/xfs/libxfs/xfs_attr.c:1244)
-> >    xfs_xattr_set (fs/xfs/xfs_xattr.c:186)
-> >    __vfs_setxattr (fs/xattr.c:218)
-> >    vfs_setxattr (fs/xattr.c:339)
-> >    __x64_sys_fsetxattr (fs/xattr.c:774)
-> >
-> > Sum the entry sizes while verifying and reject the leaf unless the sum
-> > equals usedbytes (so the on-disk usedbytes can be trusted) and that
-> > usedbytes fits in the nameval region [firstused, blksize) (so the trust=
-ed
-> > value cannot drive firstused below zero).  Both checks are required: th=
-e
-> > first alone can be bypassed by forging usedbytes to equal the real sum,=
- and
-> > the second alone by forging a small usedbytes, so only together do they
-> > bound the actual summed entry size against the nameval region and preve=
-nt
-> > the underflow.
-> >
-> > Fixes: c84760659dcf ("xfs: check attribute leaf block structure")
-> > Reported-by: Xiang Mei <xmei5@asu.edu>
-> > Assisted-by: Claude:claude-opus-4-8
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> > ---
-> > v2: drop the inaccurate scrubber reference; explain why both checks are
-> >     needed. No code change.
-> >
-> >  fs/xfs/libxfs/xfs_attr_leaf.c | 17 +++++++++++++++--
-> >  1 file changed, 15 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_lea=
-f.c
-> > index 86c5c09a5db4..9814dcfbd7ac 100644
-> > --- a/fs/xfs/libxfs/xfs_attr_leaf.c
-> > +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
-> > @@ -300,7 +300,8 @@ xfs_attr3_leaf_verify_entry(
-> >       struct xfs_attr3_icleaf_hdr             *leafhdr,
-> >       struct xfs_attr_leaf_entry              *ent,
-> >       int                                     idx,
-> > -     __u32                                   *last_hashval)
-> > +     __u32                                   *last_hashval,
-> > +     unsigned int                            *usedbytes)
-> >  {
-> >       struct xfs_attr_leaf_name_local         *lentry;
-> >       struct xfs_attr_leaf_name_remote        *rentry;
-> > @@ -344,6 +345,7 @@ xfs_attr3_leaf_verify_entry(
-> >       if (name_end > buf_end)
-> >               return __this_address;
-> >
-> > +     *usedbytes +=3D namesize;
-> >       return NULL;
-> >  }
-> >
-> > @@ -376,6 +378,7 @@ xfs_attr3_leaf_verify(
-> >       char                            *buf_end;
-> >       uint32_t                        end;    /* must be 32bit - see be=
-low */
-> >       __u32                           last_hashval =3D 0;
-> > +     unsigned int                    usedbytes =3D 0;
-> >       int                             i;
-> >       xfs_failaddr_t                  fa;
-> >
-> > @@ -410,11 +413,21 @@ xfs_attr3_leaf_verify(
-> >       buf_end =3D (char *)bp->b_addr + mp->m_attr_geo->blksize;
-> >       for (i =3D 0, ent =3D entries; i < ichdr.count; ent++, i++) {
-> >               fa =3D xfs_attr3_leaf_verify_entry(mp, buf_end, leaf, &ic=
-hdr,
-> > -                             ent, i, &last_hashval);
-> > +                             ent, i, &last_hashval, &usedbytes);
-> >               if (fa)
-> >                       return fa;
-> >       }
-> >
-> > +     /*
-> > +      * usedbytes must equal the summed entry sizes and fit in the
-> > +      * nameval region; otherwise a later repack underflows firstused
-> > +      * in xfs_attr3_leaf_moveents().
-> > +      */
-> > +     if (usedbytes !=3D ichdr.usedbytes)
-> > +             return __this_address;
->
-> This part is clearly correct.
->
-> > +     if (ichdr.usedbytes > mp->m_attr_geo->blksize - ichdr.firstused)
->
-> This check is still novel to me -- neither online fsck nor xfs_repair
-> check this explicitly.  It makes sense to me that usedbytes can't exceed
-> the number of bytes between the start of the nameval data and the end of
-> the block (the entries array grows up from zero; namevals grow down from
-> $blocksize).
->
-> I wonder, will this make it harder to salvage xattrs from a broken leaf
-> block since the verifier won't work?  I think it won't because the
-> salvage operation does an xfs_buf read with null ops, but I wonder if
-> you've considered this point?  Or run this through the xattr stress
-> tests?
->
-> --D
->
-> > +             return __this_address;
-> > +
-> >       /*
-> >        * Quickly check the freemap information.  Attribute data has to =
-be
-> >        * aligned to 4-byte boundaries, and likewise for the free space.
-> > --
-> > 2.43.0
-> >
-> >
+The RZ/G3E CRU programs the line stride via the AMnIS register, whose
+IS field encodes the value in units of 128 bytes. If bytesperline is
+not a multiple of 128, the division truncates and the hardware uses a
+wrong stride, causing horizontal banding.
 
-Hi,
+Commit ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+replaced the open-coded aligned calculation with v4l2_fill_pixfmt(),
+which sets no alignment, reintroducing the issue.
 
-Yeah, it does affect salvage. The read uses NULL ops, but
-xrep_xattr_recover_block() gates recovery on xrep_buf_verify_struct(), whic=
-h
-runs the verifier including my checks. So a leaf that fails the usedbytes
-check never reaches xrep_xattr_recover_leaf(), and a leaf that's only off i=
-n
-usedbytes (entries otherwise fine) now gets tossed instead of salvaged.
-That's in attr_repair.c, not this patch, so the verifier change itself
-doesn't need to move. I didn't want to poke at the salvage gate blindly
-since it leans on the verifier for the firstused/count bounds too, so how d=
-o
-you want to handle it?
+Switch to v4l2_fill_pixfmt_aligned() with RZG2L_CRU_STRIDE_ALIGN when
+info->has_stride is set. RZ/G2L has no AMnIS register and keeps using
+v4l2_fill_pixfmt() unchanged.
 
-On stress: I ran fsstress on the patched KASAN kernel, weighted toward the
-attr ops (setxattr/removexattr/setfattr etc), 4 rounds of -n 5000 -p 4,
-unmounting and remounting between rounds to force re-verify. All rc=3D0, no
-EFSCORRUPTED, nothing from the verifier. Haven't done a full auto run.
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: stable@vger.kernel.org
+Fixes: ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+---
+v2->v3:
+ - No changes.
 
-Best,
-Weiming Shi
+v1->v2:
+ - Collected tag
+ - Add missing Cc stable
+ - Fix s/commit/Commit/ into commit body
+
+ drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+index 69346a585f9f..478264f26466 100644
+--- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
++++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+@@ -860,7 +860,8 @@ static void rzg2l_cru_format_align(struct rzg2l_cru_dev *cru,
+ 	v4l_bound_align_image(&pix->width, 320, info->max_width, 1,
+ 			      &pix->height, 240, info->max_height, 0, 0);
+ 
+-	v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
++	v4l2_fill_pixfmt_aligned(pix, pix->pixelformat, pix->width, pix->height,
++				 info->has_stride ? RZG2L_CRU_STRIDE_ALIGN : 1);
+ 
+ 	dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
+ 		pix->width, pix->height, pix->bytesperline, pix->sizeimage);
+-- 
+2.54.0
+
