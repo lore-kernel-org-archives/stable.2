@@ -1,94 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C49C3C09FE;
-	Wed,  8 Jul 2026 10:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733653B895F
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 10:57:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783508147; cv=none; b=m2uxcJlDgR8gfUagzXW9rRM6rSa03wb/42v47s3v4Uc1F5OKKafFUsmhoT4+W4QNNhB9Fty/KPA8brMXYHdpT2tEQm5Fr7p+RbNjNNq6WnNjEu0g13jE46WItofeI3TtDsqUM5PZHtV2qc5hYd1140K3Hgh9QL6WPERBHqzwSVM=
+	t=1783508237; cv=none; b=s6qNrxN2TGRjlcLOo4VSeuyE7KYRoivBhq45ZzXe4FqLhpWPKnf021fFtN3C++QxI/CssxVM6c+vfoLfZ5Az7JQ2YB/tQh/fVbB2woc29t4+Xf1xNgXOivXxzpEvQZ6E2hpwCto93gq9ZA2tT0viRa3RKgELBmA50eLyxUvmj8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783508147; c=relaxed/simple;
-	bh=aMBco8sdazwnk4KPza4ON2ECyBlRQLZFTYPb2ZivFZ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OwxBwHFZSLrjltWTh67PMMKSoyc3z8wfn8ziD2sQHQPwzPHdjjmNi1qsT3BETp9O/OBmHrRKYi+YdENWFi57alvt1ul7PDZTdfdRzuDm1jPhmjWlAmyZOH4zBS7P4vY2kfGMhDXAcAz0kPrteJEDfyiC+gkmLkUVvbal4cfBFR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l/ULR2K9; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783508237; c=relaxed/simple;
+	bh=M4cKxG7rn03qGW5kSZE88jYrpIP4zvhW58ZIabmPFvY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KKNZYIqqCAYktbrMNlzmmAns2z9F99KvAeDFPeuHkbj73luF9xKnFTkAEvsQg9cWD7eL/yCsDdCRo5w93mCzaKSDimdfUpIvIsmLGG0O9A7lBEvwEEDG3kaSWsPeBXiw9J8gTUiZtkWTPi4NO+fSgb34bKynGesl9vlr+GbnP/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Kchoqdpo; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=IiBeau2n; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l/ULR2K9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783508144; x=1815044144;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=aMBco8sdazwnk4KPza4ON2ECyBlRQLZFTYPb2ZivFZ4=;
-  b=l/ULR2K9V5cg80EGsv+VJG5NkMeMFA9R+Rcybtbid0QxQADdDIh2/pel
-   ndYmvok7CACKIF1RmbhyX2dudkiKO7dHpbEDtDFs/QjVIFloUESGmTZ1E
-   MLYSfiENu9hyVjyQC/LFHvXjEZjYDZEtOap6pFdXiFZteFUVrJALgMZrH
-   NLdk7QRSrbYySDJ+Bho+bqytaUb4av7mrixjz+OTmnmARxY3Hgmo10II9
-   kiEUETxhdJHCfbzUvTLCSTdTqUizttu/JUrGpurWHrNLDt/Pgb8Gp9p16
-   bAmSoMbhGE3AuXsKWI9UkvabHIS4xlRvntzVRKo7NtZwBORwLe46WmIIO
-   w==;
-X-CSE-ConnectionGUID: 6cEqEDoyT2GMxTPfe3afBg==
-X-CSE-MsgGUID: t+p0s9ZMQ5ytPYgR6V2Lrw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="83945310"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="83945310"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 03:55:38 -0700
-X-CSE-ConnectionGUID: 9hBYBX1QRCSFbPbMG3gVXw==
-X-CSE-MsgGUID: 8KapFLm9QaO2avoRMW2bqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="277469880"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 03:55:34 -0700
-Date: Wed, 8 Jul 2026 13:55:31 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Stefan Popa <stefan.popa@analog.com>,
-	Julien Stephan <jstephan@baylibre.com>,
-	Ivan Mikhaylov <fr0st61te@gmail.com>,
-	Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Kim Seer Paller <kimseer.paller@analog.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 0/3] iio: adc: add missing 'select REGMAP' to Kconfig
-Message-ID: <ak4so4KAztmqaUgk@ashevche-desk.local>
-References: <20260708-add-missing-regmap-v1-0-6d424322e3d4@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Kchoqdpo";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="IiBeau2n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783508231;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nRaQ/pUZXsFDjpZJaNCEg3QzvRcLSiDykic5pLM08Kc=;
+	b=KchoqdpongJZWdD5sul4eLeyYZ7XRJRHb+k2T40+75Fvl9bAPTBIWpYkqQW7PX6yYf+fHS
+	2draiQMSMx05mm4wfpXgQM85hsd48yK4SH7NLAQ2+K5oUXD/dtNFld7gkMYyFMWHD212uq
+	LyCNu5oG2X9KajDvTHLamHD53USL+lE=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-633-yywlBNRtMHy5MHMdW8waKA-1; Wed, 08 Jul 2026 06:57:09 -0400
+X-MC-Unique: yywlBNRtMHy5MHMdW8waKA-1
+X-Mimecast-MFC-AGG-ID: yywlBNRtMHy5MHMdW8waKA_1783508229
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-493bc2b376fso5117555e9.3
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 03:57:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1783508228; x=1784113028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nRaQ/pUZXsFDjpZJaNCEg3QzvRcLSiDykic5pLM08Kc=;
+        b=IiBeau2n1BfryWMwc0qCCUjEim+xQwfL8k2wOB8NIKCOenk3RKWofZGJEFB2UpcAbr
+         DOXPqCTVfwsyDWxl8P0R3B4GZjj22tNrx1vcRpk7PEvWWSfuRJLTJhlI0KYi5Renx5JJ
+         0UFKhCTfY9ZztsT5x5Ly1UfSzsN9doxvZtbTiBN1xoNzaSQAx2FX1hcAnUUEneFgAKzs
+         OVUiTYs2/v+PJ9mFcPIM5FjNGEhYb268be2UcZXMBn8C+/8TILpINNiFq8z/WGPZnVgn
+         IHDnNMRdVeDOhv5zz3hFiDbHXwjHpMKsvFz3X96+TiPumRQzwvMXWnECxeIsoqQ46jai
+         DTZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783508228; x=1784113028;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nRaQ/pUZXsFDjpZJaNCEg3QzvRcLSiDykic5pLM08Kc=;
+        b=NZ+JRpLoKjQPoo9hvuKvxE2weLu0axnWzRLi+IZ+B9pDBxPLopqqBB7CuQRLDoxYIk
+         NcAeY2WwjVoxrNVDqK8wzmvCuCTpnW413uFU0NF+yUNnxzFwsU8r1ZoZOJ2xtG/7d1oE
+         o7NjM3VoXH1KZe8Ww7K/tWASAVldDgZ3Zkg+2dS0E4wfihgS8PWySSY37LgZQs93AKQG
+         THjm84bxs4U2soXqxmVaEvbwupTukpDZxiLDj6qAZjsSRLCJU9udLhfxx8Bt0vEnYIi+
+         CD2aLo9DYcgscq4sGiN1oAGd1D4dDDragzrOJ19mVZLleukcl74hKvggRNwBbjQEQBsr
+         5BCQ==
+X-Gm-Message-State: AOJu0YxZrzZCIGmN3Ivy8OwcTnYclqY8Z95OxbnlCccuOaVWHmud8wNH
+	eLQn/fG5lWZvEp56oj6vKTCFBM9OfVzkruTtrlk70sGv/PEfSvFcWuUCRXPuc0tNEkfUHdy9I9h
+	y3VJkwLkiGTR7ddkOWT3wqos8LJz+6GGuW1pqFhE7H69R6r9j2GI/zKiaAQ==
+X-Gm-Gg: AfdE7cn08rtfZFb7y6eV/A7g7ZhdHsZU9KzNbiC5QPbQpk6W9RrnOwi5BgcvWgZpw7c
+	3346K73DIKkAPTajPaV9Pk6jjh2ES3N/7SeTlN1ug+H1VNgYbf/4+KczeYMYOVUzbA9YIdLjjNS
+	Xf2ptUTUnnFDYqcWfjh+ys1kS4JNyidVp5dyW8rXtuCsqKjfvo5DvHAJ+RUUM3SHDsqGC1eA+6h
+	eshDW6CvmKaarNj0qCbj8B4vZviZ1stz7IyZj8AKqqBaSTPrjIelDZZqVQauRkWbEXNWq2ldgkH
+	ZGW7UZx8zQ+ixCNhpW/+2wHuJ5HaL6zoe6CiBAW0LPAyv62DKRS3hNFvx+o4m7VTSNEyYrBvzi+
+	p977aWgMpyUmQUBpgfTODQewDXgY0ovmEPgJXv5imUNvZN29huEaqljU2e/iL6bm0Eav4Vdhl+k
+	2sDqgByBx7Pbio
+X-Received: by 2002:a05:600c:34c3:b0:493:e79e:daa6 with SMTP id 5b1f17b1804b1-493e79edba5mr17133915e9.33.1783508228713;
+        Wed, 08 Jul 2026 03:57:08 -0700 (PDT)
+X-Received: by 2002:a05:600c:34c3:b0:493:e79e:daa6 with SMTP id 5b1f17b1804b1-493e79edba5mr17133315e9.33.1783508228188;
+        Wed, 08 Jul 2026 03:57:08 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d? ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0f5b811sm211634515e9.13.2026.07.08.03.57.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Jul 2026 03:57:07 -0700 (PDT)
+Message-ID: <d359508d-76a8-4df8-87ef-2767fe7fb40d@redhat.com>
+Date: Wed, 8 Jul 2026 12:57:05 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708-add-missing-regmap-v1-0-6d424322e3d4@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 1/2] net: mana: Validate the packet length reported
+ by the NIC
+To: Dexuan Cui <decui@microsoft.com>, kys@microsoft.com,
+ haiyangz@microsoft.com, wei.liu@kernel.org, longli@microsoft.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, kotaranov@microsoft.com, horms@kernel.org,
+ ernis@linux.microsoft.com, dipayanroy@linux.microsoft.com, kees@kernel.org,
+ jacob.e.keller@intel.com, ssengar@linux.microsoft.com,
+ linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260702041237.617719-1-decui@microsoft.com>
+ <20260702041237.617719-2-decui@microsoft.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260702041237.617719-2-decui@microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 08, 2026 at 07:34:11AM +0200, Joshua Crofts wrote:
-> This series adds missing `select REGMAP` and `select REGMAP_I2C` to the
-> AD7380/MAX34408/MAX14001 Kconfig entries. Without these, some builds
-> may result in a failure.
+On 7/2/26 6:12 AM, Dexuan Cui wrote:
+> Validate the packet length reported in the RX CQE before passing it
+> to skb processing. The CQE is supplied by the NIC device and should
+> not be blindly trusted.
 > 
-> Steps to reproduce build failure:
-> 1. Run `make allnoconfig`.
-> 2. Run `make menuconfig` and select I2C/SPI, IIO and any of said drivers.
-> 3. Run `make .` and make will end with regmap-related errors.
+> Cc: stable@vger.kernel.org
 
-Taking into account the real build failures as pointed in the replies,
-the fixes LGTM,
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+This need a Fixes: tag, to help stable team backport.
 
--- 
-With Best Regards,
-Andy Shevchenko
+No need to repost: just reply here, and I'll add it while applying the
+patch.
 
+Thanks,
+
+Paolo
 
