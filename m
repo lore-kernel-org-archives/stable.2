@@ -1,163 +1,136 @@
-Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDB67315D40
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 03:14:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.39
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EEFA43271FD;
+	Wed,  8 Jul 2026 03:35:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783480461; cv=none; b=ui6SA/6bMfl/xgrGrDxHNXe8BVZHEIUFumPUFULl73iLkWNXtdySc2B5dPCgosmDGPgxSSy8VRNFGlrBJF7NVZ5y1YtvjEBc1A1JAaDxc/lL0NbED9hfxqDj/P6TBFxvjK2Gm41WrpVjRqmd+1GgwMOb172kTY3v7VhBgML1Te0=
+	t=1783481762; cv=none; b=fdP1TgFSpUOnltVrtZsb9si7s7JZ9CTbv4/Wd8T9sS3phuPsWI+tBTPcxPjPzpkOQUW4oqtfiUWNPPXQKv8f53Xej9pVkUI8LZ3+PbyNpeNcAE3gUMXIaMKz55vFZ9XSRVL6ZOEvYoJTlRvP//AELsgQpeKoWhWfg/fkslSogoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783480461; c=relaxed/simple;
-	bh=4l2+byjnLrS3HSN9NzXdSmgIgF+PWBE0pX4OLlNfyQA=;
-	h=Subject:References:Content-Type:Cc:Mime-Version:In-Reply-To:To:
-	 Message-Id:From:Date; b=Wuq6YAmEUx0ghS9BX5Oe4SHqAHcTWdXzqa9YxM7HPxUarhAzt0MqkzKtPnhaozDVxHxpwHezlQzVA65dMFK8zgr96BIX3oGzhXVnZnP/VKDomdZDyH40CuOI4WsrabRzJu5ratgitRwXEFSge3UYcwkoUMNAyB2kLpEuXsGyQ2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com; spf=pass smtp.mailfrom=fnnas.com; dkim=pass (2048-bit key) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.b=qObJkiV5; arc=none smtp.client-ip=209.127.231.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fnnas.com
+	s=arc-20240116; t=1783481762; c=relaxed/simple;
+	bh=/TxT7+LqcF/EQaAAzNtP/qRbeXyI866HvEjmWx8r2IA=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=eRwxQrkM4N1GxplCI9ezZA6DeWLLD8bgNFuLOXPvIxwx4Dmm2IqZlihh0odIPCgOxFTH3ieuIG3xYfaauOJo2cU/GYxSE19KdGqeY/hWxyq0NazTUWQPYeWf8rQQ92i4QHw5QeF251wcqIo/BvhWRMJqFNXfxCzy7woWORg+OJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=jmTOj9Z1; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.b="qObJkiV5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fnnas-com.20200927.dkim.feishu.cn; t=1783480329;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=yue4skZaKFuTAjJE0A8qYWVzHdt7vUztId56TGPY1HA=;
- b=qObJkiV53khoogeg6yczJi9tovbsc1AvfuldYrd5PI5y9SFWAxkhiWFBJqP6gLDwW1mnFb
- 2yEeSsxwbttz8c9zp/O0onL5vTuNm9ewWJg+a5wDaqinDr2IwdsiO08HCkepbzup1YeDOb
- PpKsqDYbSAmVuPdoobwVX9l2342DnMgG1LeWjUq91woZ1T61jMBOR7+7usXCPEueEqo1pl
- 2jdtyFLeGN5aJ2KO1vODx7oTRr2jh82/i/XBv8p3CL5iLKkxi7+oR5MBB3ZbhhPeUWjrxz
- 54o3V7HMSdjEJ7tHZQ6kjydAGakulHMzBhZz3dWghW11q+wj0ogVOZ0Nr5y6ew==
-Subject: [PATCH v2] serial: 8250: fix shared IRQ startup race causing IRQ warning
-References: <20260527092052.2086342-1-wangzhaolong@fnnas.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, <andriy.shevchenko@linux.intel.com>, 
-	<albanhuang@tencent.com>, <tombinfan@tencent.com>, 
-	<jackzxcui1989@163.com>, <kees@kernel.org>, <osama.abdelkader@gmail.com>, 
-	<realwujing@gmail.com>, "Wang Zhaolong" <wangzhaolong@fnnas.com>
-X-Lms-Return-Path: <lba+26a4dc007+04c453+vger.kernel.org+wangzhaolong@fnnas.com>
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="jmTOj9Z1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=yIm/R+UfKG6ozRg3WZyqHLKZhdaLouDOHlH/xTo8KtU=; b=jmTOj9Z1zbuC8
+	QTDDjncUaA/bNYyRHJ11FQsetLK1gwXc5nbWf2nQfL2B6swi+Xd1k+L68m1xrf3j
+	25SkZ4VNGAGxxp6CDJNLd0zlEL+IPVxP5lTI5X3hlbllufFDyPrUgC5O32m9iRxz
+	J1Qlyy07tgENMe1GDWn7IDiCG/pOsU=
+Received: from [127.0.1.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cUKoxU1qq0gPAA--.15489S2;
+	Wed, 08 Jul 2026 11:36:08 +0800 (CST)
+From: Xie Bo <xb@ultrarisc.com>
+To: Anup Patel <anup@brainfault.org>, kvm-riscv@lists.infradead.org
+Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Paolo Bonzini <pbonzini@redhat.com>,
+ Alexander Graf <graf@amazon.com>, kvm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Xie Bo <xb@ultrarisc.com>
+Subject:
+ [PATCH v2 0/1] RISC-V: KVM: Serialize virtual interrupt pending state updates
+Date: Wed, 08 Jul 2026 11:35:36 +0800
+Message-ID: <178348173646.64306.17443207006998871369@ultrarisc.com>
+X-Mailer: python-smtplib kernel patch sender
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.54.0
-X-Original-From: Wang Zhaolong <wangzhaolong@fnnas.com>
-Content-Transfer-Encoding: 7bit
-In-Reply-To: <20260527092052.2086342-1-wangzhaolong@fnnas.com>
-Received: from MiniServer ([183.34.163.178]) by smtp.feishu.cn with ESMTPS; Wed, 08 Jul 2026 11:12:06 +0800
-To: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>
-Message-Id: <20260708031115.3757150-1-wangzhaolong@fnnas.com>
-From: "Wang Zhaolong" <wangzhaolong@fnnas.com>
-Date: Wed,  8 Jul 2026 11:11:14 +0800
+MIME-Version: 1.0
+X-CM-TRANSID:AQAAfwA3cUKoxU1qq0gPAA--.15489S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tw48Ww1rur15Aw1DCw48WFg_yoW8KF43pF
+	Z8G34Sgr1kJrWfCwn3Jr48Zr1SgF1kGa15Grn7G347Ars0vF10vF1kKa4jyF1UCr97Zw1j
+	vr4YgryDu3yUZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
+X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQABB2pMd84ABQABsc
 
-Concurrent startup of two 8250 ports sharing the same IRQ can trigger an
-IRQ core warning:
+Hi,
 
-  Unbalanced enable for IRQ 3
-  WARNING: CPU: 0 PID: 580 at kernel/irq/manage.c:774 __enable_irq+0x3b/0x60
-  Call Trace:
-   enable_irq+0x8d/0x120
-   serial8250_do_startup+0x80d/0xa80
-   uart_port_startup+0x13d/0x440
-   uart_port_activate+0x5b/0xb0
-   tty_port_open+0xa1/0x120
-   uart_open+0x1e/0x30
-   tty_open+0x140/0x7a0
+This is v2 of the RISC-V KVM virtual interrupt synchronization fix.
 
-This is reproducible in QEMU with four legacy 8250/16550 ports where ttyS1
-and ttyS3 share IRQ 3.  A small userspace reproducer that synchronizes two
-threads before open(), waits for both open attempts, and then closes both file
-descriptors can trigger the warning almost immediately.
+The first version described the irqs_pending/irqs_pending_mask race, but
+it did not provide enough context on:
 
-The regression was bisected to commit 64c79dfbc458 ("serial: 8250_pnp:
-Support configurable reg shift property").  That change made QEMU's legacy
-PNP serial ports take the shared-IRQ THRE test path in
-serial8250_do_startup():
+  - the exact lost-interrupt interleaving
+  - the user-visible failure mode
+  - why the existing lockless protocol is replaced instead of being
+    repaired with additional barriers
+  - what was exercised during validation
 
-  if (port->irqflags & IRQF_SHARED)
-    disable_irq_nosync(port->irq)
-  ...
-  if (port->irqflags & IRQF_SHARED)
-    enable_irq(port->irq)
+This version updates only the commit message and keeps the code change
+the same.
 
-The disable_irq_nosync()/enable_irq() pair is locally balanced, but it can
-race with the IRQ core startup path for the first 8250 port on the same IRQ.
-One possible interleaving is:
+Problem summary
+===============
 
-  CPU0, ttyS1                         CPU1, ttyS3
+The current code treats irqs_pending and irqs_pending_mask as a lockless
+multiple-producer, single-consumer state machine.  In practice,
+kvm_riscv_vcpu_sync_interrupts() is not a pure consumer because it also
+writes both bitmaps while synchronizing guest-visible HVIP state back
+into KVM state.
 
-  serial_link_irq_chain()
-    hash_add(i)
-    i->head = &ttyS1
-    request_irq()
-                                        serial_link_irq_chain()
-                                          find i in irq_lists
-                                          list_add(&ttyS3, i->head)
-                                        serial8250_do_startup()
-                                          disable_irq_nosync(irq)
-    irq_startup()
-      desc->depth = 0
-                                          enable_irq(irq)
-                                            WARN: Unbalanced enable for IRQ 3
+That means the two bitmaps represent one logical state transition, but
+they are updated independently.  A host-side interrupt injection can
+race with guest-side VSSIP clearing and lose the newly injected pending
+bit.
 
-Hold hash_mutex in serial_link_irq_chain() until the first request_irq() has
-completed.  This prevents another 8250 port sharing the IRQ from joining the
-chain and running the THRE test while the IRQ core is still starting the
-interrupt.  The request_irq() failure cleanup also remains covered by
-hash_mutex, so the just-published irq_info cannot be observed by another link
-attempt before it is unlinked again.
+Observed symptom
+================
 
-Fixes: 64c79dfbc458 ("serial: 8250_pnp: Support configurable reg shift property")
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221579
-Cc: stable@vger.kernel.org # 6.10+
-Signed-off-by: Wang Zhaolong <wangzhaolong@fnnas.com>
----
+The failure that motivated this patch was an occasional guest hang where
+the guest remained blocked in WFI even though host-side virtual
+interrupt injection and vCPU kick had already happened.
 
-Changes in v2:
-  - Retitle the patch to describe the unbalanced IRQ enable warning.
-  - Move the code comment to the hash_mutex acquisition site to document why the
-    lock must cover the first request_irq() completion.
-  - Drop the Assisted-by tag.
+Why replace the lockless protocol
+=================================
 
- drivers/tty/serial/8250/8250_core.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+This is not just a missing barrier.  The bug comes from encoding one
+shared state machine in two separate bitmaps while allowing both
+producers and the sync path to modify them.
 
-diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
-index a428e88938eb..dd202032cc7c 100644
---- a/drivers/tty/serial/8250/8250_core.c
-+++ b/drivers/tty/serial/8250/8250_core.c
-@@ -132,12 +132,10 @@ static void serial_do_unlink(struct irq_info *i, struct uart_8250_port *up)
-  */
- static struct irq_info *serial_get_or_create_irq_info(const struct uart_8250_port *up)
- {
- 	struct irq_info *i;
- 
--	guard(mutex)(&hash_mutex);
--
- 	hash_for_each_possible(irq_lists, i, node, up->port.irq)
- 		if (i->irq == up->port.irq)
- 			return i;
- 
- 	i = kzalloc_obj(*i);
-@@ -154,10 +152,18 @@ static struct irq_info *serial_get_or_create_irq_info(const struct uart_8250_por
- static int serial_link_irq_chain(struct uart_8250_port *up)
- {
- 	struct irq_info *i;
- 	int ret;
- 
-+	/*
-+	 * Keep the hash lock held until the first request_irq() completes.
-+	 * The first port publishes i->head before request_irq() starts the IRQ;
-+	 * a second port sharing the IRQ must not join the chain and run the
-+	 * THRE test while the IRQ core is still bringing the line up.
-+	 */
-+	guard(mutex)(&hash_mutex);
-+
- 	i = serial_get_or_create_irq_info(up);
- 	if (IS_ERR(i))
- 		return PTR_ERR(i);
- 
- 	scoped_guard(spinlock_irq, &i->lock) {
+Repairing that while staying lockless would require redesigning the
+state transition protocol itself.  A per-vCPU raw spinlock makes the
+state transition explicit and keeps the fix small enough for stable
+backporting.
+
+Validation
+==========
+
+The issue was reproduced under RISC-V KVM stress workloads that exposed
+guest stalls in WFI.  After applying this patch, the same stress setup
+no longer reproduced the lost-VSSIP hang.
+
+Thanks,
+Xie Bo
+
+Xie Bo (1):
+  RISC-V: KVM: Serialize virtual interrupt pending state updates
+
+ arch/riscv/include/asm/kvm_host.h | 10 +++++-----
+ arch/riscv/kvm/aia.c              | 28 +++++++++++++++++++++-------
+ arch/riscv/kvm/vcpu.c             | 27 ++++++++++++++++++++++-----
+ arch/riscv/kvm/vcpu_onereg.c      | 13 +++++++++----
+ 4 files changed, 57 insertions(+), 21 deletions(-)
+
 -- 
 2.54.0
+
