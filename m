@@ -1,78 +1,88 @@
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B0140928F
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 15:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24685439332
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 15:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783523134; cv=none; b=icikIYm6Fx2gBKtiWoKBDMnq4NtcYcGyxI/zohC03ftdGJ4raJ5Ol47Je8lD7o3rKAIwopGYJpSA1KuN+rNA4jA6S4yzSlAsSgN1ARVMaAvDnShl3o65Z2yLWKzU1QoZbivNZhYHalT88U+Nop1XmGr6VWJ5YJSQrYs+70EehVM=
+	t=1783523644; cv=none; b=s9aFfCsPPFReJr7qXnu6Ctd+t7c0e4vfNQSwo7Xqvv/c2FGh7cO5v7eJ/FcI0Al3ziyoDtixHMfH97md2XAjuN79/LWXUEsSp+ApLwvDmKnrzszRk4hzNWIqvzfI2m/Dr9Rnrwsfb1F0vtOkB5SCIQ/bm5+2knY0TJlbCkI4K7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783523134; c=relaxed/simple;
-	bh=1yVTfUcNgUS1ulpZLy9An3ShkB5C76Jexu6G3Gsalxw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KXBp5zojNqviZ3RPBsS/T9H0xcdaI7vUywwqP0axQPQxZMWc/nSzFho2HY+dtGr/1x4TZjEsR8l6sOWPmC0xZP7spbpLwp9tcMrrwtq3fBzfAWRmDPdBufkkeM5dWYtyxqiMrHGJVJamMxGFkMsuJrS9ybt/umccIjtoTm8O0+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ndT9M2GA; arc=none smtp.client-ip=209.85.219.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783523644; c=relaxed/simple;
+	bh=i2gPbW9LCVgFfB4Z7e9IeKDCtST6OInAsRz/u1+6GdU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B/dWVJUZk9e7krzaNsoKaEArivpR2f3Q1zH4Hr/7njqoBozNd1I8b0UcZFPFqs9r/2UnpNaOv8VyCVS8k64zG95XDBu/VvZ6WZbYuXVBYKSCfhv2ZnchARIf0EwFQ7/Yqsk++gf5yF3xUb1Lmclpyf0g1uN9frIl6VPAw8DcD/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZWy3N8Uw; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=p+YNGRJu; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZWy3N8Uw; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=p+YNGRJu; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ndT9M2GA"
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-8f18d92172aso10147916d6.2
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 08:05:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783523132; x=1784127932; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pLVhwAX9nNwgl4ODyEb98lq7vMVDHRccpj+VTBcaPiE=;
-        b=ndT9M2GAdDvMjNrlwqhX1E1vFOrOuj8cA9mAkJ0LkTfw+Z5Uvrp3GQLD4ORrcJ5E27
-         HCiwQqzd66Z5Zgr6fWX0b/YZaG7p97YWepKs0RVwhL5sBFvgJ1CkBIskvr0Lhy/m2J7N
-         BRhIB3IdNocAjs6QE+C6/Y/BDJcNkxhwxDYkIUd+EEw1sxURSVMnamlzImNbhjgtbcDQ
-         pEHA+F9viCUDUlyCLKf61ax9w9q6bX+eHU5rHubwsxuoTXZIbDf7+az5zG843tPooxZw
-         1cHrfrJHll2MxXTEamDzwNVNk5W/aQYVuHGJANMScmN3heWZS5uR1GtpeaJKadUqVOXm
-         iLCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783523132; x=1784127932;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pLVhwAX9nNwgl4ODyEb98lq7vMVDHRccpj+VTBcaPiE=;
-        b=aXIFeLUG0TL/ofLUxWAZOnhDSmMV1S5LJ7+BWpaCM9oWD1yjiFLolbrCDdg32ZXb1l
-         0gxcS3jM0dlL0AXO9f3XNHC5Gsbiafh/bFdhS2jgfLQFWEm635CfoJXi58Ti0CmxLKJO
-         argW9hWf6FbTt77mSikM1m0QOqcnQWr9Pqs99LX6AQ6hP1vlvjTzx9CatcErqQ8wWZRu
-         rs9JTfgU3DOPdqzrS6QryyKI+Qzwdw18BE3LPsismJeIxZNBJ3EJFFCmpQNEolgS/Sdj
-         SOUieWa3cqXqqWw4oSoDAPe5r5ApWrveFFJW2HM/jbUgJRVhvnmHwjiKbvhGAvRnYnuz
-         zegw==
-X-Gm-Message-State: AOJu0YwLeZC4jVRcww6MtyNNTEOLpTK61whvJ7HozNOKI91IhyWV0gYG
-	JXLU9Mnx0whIGaaqN6uR/GJTys/CrhJHSgzqGlis2bOUScjuGMU/CUJNFNldU0Ee
-X-Gm-Gg: AfdE7clHdOpP9nIk1lWlN16V8cuCsQlVzQNVTkS5pioCQdKreX3N9XyesdUAYCU8Dwz
-	qGgaAov6fA6LKIlx/Remhg5SSZ4Cj1ZlWSUfIWSgs7jJFbBcPchgpSRgVuvWfRJlTr0REq0pirM
-	zA+77/DC7Hy34lDQTxED9c7LfdaQOfZWbtRZA0v0nlSCb5DgtlxzE3bNYkFByWo7yyBbZkvMEXB
-	QVTKYs5EkxEAr2iRh3rUIHIt7afNIGLjFpye1I692o/uGGCMWJGnI4gEU8kSFYx1lJD++xrUbGD
-	gXycCEaAA2vZ7APlyLZ3bKE8l0utqVA0s/gsTPnVe+2KYv3504+p9NmlXaaDoA67hiJl1WxSUBb
-	MzMsKozeFoyuR5DoUz7E56MzM5Inxl2RUod5rsE5Bo3++kz3WB96YOzNBswxf7qU2oAhaix6J6Y
-	eMDLcRltWwePJFxiKQKc0ywTHncrOHHrJ1g5gw9yVEEjqZEkCYluxkL2ctGND42otq3yeo6oZpF
-	iLbsHdNceH912Jq2NXbFqfNqu93RvA89Ik/jvYvB78f4LBCgs38whk=
-X-Received: by 2002:a05:6214:e87:b0:8ee:e686:1b24 with SMTP id 6a1803df08f44-8fec2a48035mr32916256d6.45.1783523130869;
-        Wed, 08 Jul 2026 08:05:30 -0700 (PDT)
-Received: from sm-sl16-1.lab-skae.tower-research.com (static-71-183-126-99.nycmny.fios.verizon.net. [71.183.126.99])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f4722ca4c6sm185022976d6.39.2026.07.08.08.05.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 08:05:29 -0700 (PDT)
-From: Sid Kumar <sidkumar1@gmail.com>
-To: stable@vger.kernel.org
-Cc: Keenan Dong <keenanat2000@gmail.com>,
-	Yuan Tan <yuantan098@gmail.com>,
-	Yifan Wu <yifanwucs@gmail.com>,
-	Juefei Pu <tomapufckgml@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Sid Kumar <sidkumar1@gmail.com>
-Subject: [PATCH 5.15.y] rtmutex: Use waiter::task instead of current in remove_waiter()
-Date: Wed,  8 Jul 2026 11:05:27 -0400
-Message-ID: <20260708150527.3212183-1-sidkumar1@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <2026050433-granular-zookeeper-b705@gregkh>
-References: <2026050433-granular-zookeeper-b705@gregkh>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZWy3N8Uw";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="p+YNGRJu";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZWy3N8Uw";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="p+YNGRJu"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5040C75E7E;
+	Wed,  8 Jul 2026 15:14:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1783523641; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=wQy7yDgdq9Z/roCwYuyv8+aMjSsm8rVgT4zef9CjDk0=;
+	b=ZWy3N8Uw+02AbAgf6a7+uw5cKFXVuTKGxOMZGXlnPZQlLoqP52I3EnU9T46wviV6Sv5uE9
+	plWKp6+M37mYCv9gLuTbABnILOQudSQA+7QM2h332VhP5wvtBq7B03ckqPur4j/hGG2NfN
+	YoLQ3Md9qBYylNVH5fqKz+xIB2Sbsk8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1783523641;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=wQy7yDgdq9Z/roCwYuyv8+aMjSsm8rVgT4zef9CjDk0=;
+	b=p+YNGRJuSNgJriA0iJ4MSEpQyGB6ATzbn0oYm87Z7EQlhu507LaoDHc6SuDOXEXBnkjh1F
+	Aw75bhAWEY304SDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1783523641; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=wQy7yDgdq9Z/roCwYuyv8+aMjSsm8rVgT4zef9CjDk0=;
+	b=ZWy3N8Uw+02AbAgf6a7+uw5cKFXVuTKGxOMZGXlnPZQlLoqP52I3EnU9T46wviV6Sv5uE9
+	plWKp6+M37mYCv9gLuTbABnILOQudSQA+7QM2h332VhP5wvtBq7B03ckqPur4j/hGG2NfN
+	YoLQ3Md9qBYylNVH5fqKz+xIB2Sbsk8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1783523641;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=wQy7yDgdq9Z/roCwYuyv8+aMjSsm8rVgT4zef9CjDk0=;
+	b=p+YNGRJuSNgJriA0iJ4MSEpQyGB6ATzbn0oYm87Z7EQlhu507LaoDHc6SuDOXEXBnkjh1F
+	Aw75bhAWEY304SDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 63F59779AE;
+	Wed,  8 Jul 2026 15:14:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id K50YFThpTmrWLQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 08 Jul 2026 15:14:00 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>
+Cc: Pedro Falcato <pfalcato@suse.de>,
+	stable@vger.kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Matthew Wilcox <willy@infradead.org>,
+	Song Liu <song@kernel.org>,
+	Eric Hagberg <ehagberg@janestreet.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Gregg Leventhal <gleventhal@janestreet.com>,
+	Lance Yang <lance.yang@linux.dev>
+Subject: [PATCH stable v2] mm/khugepaged: write all dirty file folios when collapsing
+Date: Wed,  8 Jul 2026 16:13:57 +0100
+Message-ID: <20260708151357.353173-1-pfalcato@suse.de>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,88 +90,153 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[janestreet.com:email,infradead.org:email,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,nvidia.com:email,suse.cz:email];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Level: 
 
-From: Keenan Dong <keenanat2000@gmail.com>
+[There is no upstream commit, as this code was removed by upstream
+ commit 044925f9b565 ("mm: fs: remove filemap_nr_thps*() functions and their users")]
 
-remove_waiter() is used by the slowlock paths, but it is also used for
-proxy-lock rollback in rt_mutex_start_proxy_lock() when invoked from
-futex_requeue().
+As-is, khugepaged and writable-file opening exclude each other. A file
+cannot be open writeable and have THPs (because the filesystem is not aware
+of them). khugepaged will never collapse file pages for files that are
+opened writeable. On an open(O_RDWR/O_WRONLY), the page cache for that
+particular file is dropped. This is fine because nothing could've been
+dirtied.
 
-In the latter case waiter::task is not current, but remove_waiter()
-operates on current for the dequeue operation. That results in several
-problems:
+However, there is an edge-case: collapse_file() might not be able to
+coexist with concurrent writers, but it can coexist with dirty folios
+(from previous writers). Therefore, the following can happen:
 
-  1) the rbtree dequeue happens without waiter::task::pi_lock being held
+open(file, O_RDWR)
+write(file)
+close(file)
+madvise(file_mapping, MADV_COLLAPSE, some non-dirty range)
+open(file, O_RDWR)
+ nr_thps > 0
+  truncate_inode_pages()
+    /* THPs are cleared out, but so are the dirty folios */
 
-  2) the waiter task's pi_blocked_on state is not cleared, which leaves a
-     dangling pointer primed for UAF around.
+When this edge-case happens, there is data loss, as the dirty folios are
+fully discarded.
 
-  3) rt_mutex_adjust_prio_chain() operates on the wrong top priority waiter
-     task
+Fix it by fully writing back the page cache (and waiting) when collapsing
+file THPs. Doing so provides the guarantee that no dirty folio will be
+observed while there are active THPs. To fully ensure this is safe, the
+invalidate_lock needs to be held while doing the writeout, so that
+do_dentry_open()'s page cache truncation excludes this write-and-wait.
 
-Use waiter::task instead of current in all related operations in
-remove_waiter() to cure those problems.
+As a side effect, move the nr_thps counter bumping outside the i_pages
+lock. This is correct since the counter itself is an atomic_t and the
+producer <-> consumer correctness is provided by a full memory barrier:
+smp_mb() in collapse_file()/memory barrier implied by full ordering in
+get_write_access() -> atomic_inc_unless_negative().
 
-[ tglx: Fixup rt_mutex_adjust_prio_chain(), add a comment and amend the
-  	changelog ]
-
-[ sidk: Replace scoped_guard() macro with raw spinlock operations for
-	5.15]
-
-Fixes: 8161239a8bcc ("rtmutex: Simplify PI algorithm and make highest prio task get lock")
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Signed-off-by: Keenan Dong <keenanat2000@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-(cherry picked from commit 3bfdc63936dd4773109b7b8c280c0f3b5ae7d349)
-Signed-off-by: Sid Kumar <sidkumar1@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Song Liu <song@kernel.org>
+Cc: Eric Hagberg <ehagberg@janestreet.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+Reported-by: Gregg Leventhal <gleventhal@janestreet.com>
+Closes: https://lore.kernel.org/linux-mm/CAFN_u7H_0ECF3jixP=T=U7AH5=Q3wQNvJMo8an3VqUDMerQfUw@mail.gmail.com/
+Tested-by: Zi Yan <ziy@nvidia.com>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: Pedro Falcato <pfalcato@suse.de>
 ---
- kernel/locking/rtmutex.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+v2:
+ - condition this logic on !mapping_large_folio_support(mapping) (Baolin, Lance, Matthew)
+ - explain why moving the nr_thps bumping outside the i_pages lock is safe (Matthew)
+ - pick up Tested-by from Lance (thank you!)
 
-diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
-index cf72ef77bfe7..f79c9286c7c0 100644
---- a/kernel/locking/rtmutex.c
-+++ b/kernel/locking/rtmutex.c
-@@ -1500,20 +1500,23 @@ static bool rtmutex_spin_on_owner(struct rt_mutex_base *lock,
-  *
-  * Must be called with lock->wait_lock held and interrupts disabled. It must
-  * have just failed to try_to_take_rt_mutex().
-+ *
-+ * When invoked from rt_mutex_start_proxy_lock() waiter::task != current !
-  */
- static void __sched remove_waiter(struct rt_mutex_base *lock,
- 				  struct rt_mutex_waiter *waiter)
- {
- 	bool is_top_waiter = (waiter == rt_mutex_top_waiter(lock));
- 	struct task_struct *owner = rt_mutex_owner(lock);
-+	struct task_struct *waiter_task = waiter->task;
- 	struct rt_mutex_base *next_lock;
+ mm/khugepaged.c | 39 +++++++++++++++++++++++++--------------
+ 1 file changed, 25 insertions(+), 14 deletions(-)
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index b8452dbdb043..d6e04041f5dc 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2094,32 +2094,43 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 		goto xa_unlocked;
+ 	}
  
- 	lockdep_assert_held(&lock->wait_lock);
+-	if (!is_shmem) {
++xa_locked:
++	xas_unlock_irq(&xas);
++xa_unlocked:
++
++	/*
++	 * If collapse is successful, flush must be done now before copying.
++	 * If collapse is unsuccessful, does flush actually need to be done?
++	 * Do it anyway, to clear the state.
++	 */
++	try_to_unmap_flush();
++
++	if (result == SCAN_SUCCEED && !is_shmem && !mapping_large_folio_support(mapping)) {
++		/*
++		 * invalidate_lock as shared excludes against concurrent opens
++		 * in do_dentry_open() truncating the page cache. This is
++		 * particularly important if there are dirty folios in transit.
++		 */
++		filemap_invalidate_lock_shared(mapping);
+ 		filemap_nr_thps_inc(mapping);
+ 		/*
+ 		 * Paired with the fence in do_dentry_open() -> get_write_access()
+ 		 * to ensure i_writecount is up to date and the update to nr_thps
+ 		 * is visible. Ensures the page cache will be truncated if the
+-		 * file is opened writable.
++		 * file is opened writable. If collapse looks to be successful,
++		 * flush any dirty pages out the page cache. With the nr_thps
++		 * incremented, there won't be any new writers (nor new dirties).
+ 		 */
+ 		smp_mb();
+-		if (inode_is_open_for_write(mapping->host)) {
++		if (inode_is_open_for_write(mapping->host) || filemap_write_and_wait(mapping)) {
+ 			result = SCAN_FAIL;
+ 			filemap_nr_thps_dec(mapping);
++			filemap_invalidate_unlock_shared(mapping);
++			goto rollback;
+ 		}
++		filemap_invalidate_unlock_shared(mapping);
+ 	}
  
--	raw_spin_lock(&current->pi_lock);
-+	raw_spin_lock(&waiter_task->pi_lock);
- 	rt_mutex_dequeue(lock, waiter);
--	current->pi_blocked_on = NULL;
--	raw_spin_unlock(&current->pi_lock);
-+	waiter_task->pi_blocked_on = NULL;
-+	raw_spin_unlock(&waiter_task->pi_lock);
- 
- 	/*
- 	 * Only update priority if the waiter was the highest priority
-@@ -1549,7 +1552,7 @@ static void __sched remove_waiter(struct rt_mutex_base *lock,
- 	raw_spin_unlock_irq(&lock->wait_lock);
- 
- 	rt_mutex_adjust_prio_chain(owner, RT_MUTEX_MIN_CHAINWALK, lock,
--				   next_lock, NULL, current);
-+				   next_lock, NULL, waiter_task);
- 
- 	raw_spin_lock_irq(&lock->wait_lock);
- }
+-xa_locked:
+-	xas_unlock_irq(&xas);
+-xa_unlocked:
+-
+-	/*
+-	 * If collapse is successful, flush must be done now before copying.
+-	 * If collapse is unsuccessful, does flush actually need to be done?
+-	 * Do it anyway, to clear the state.
+-	 */
+-	try_to_unmap_flush();
+-
+ 	if (result == SCAN_SUCCEED && nr_none &&
+ 	    !shmem_charge(mapping->host, nr_none))
+ 		result = SCAN_FAIL;
 -- 
-2.52.0
+2.54.0
 
