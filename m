@@ -1,127 +1,132 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6BF422547
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 11:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E225433E99;
+	Wed,  8 Jul 2026 11:35:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783508887; cv=none; b=Qlw1e8ipVODSqeixlv23PKY5WxiC3SnMIqfu/etRdvcMikgSauCHUiMyhUsJukfYgi6+jDqKtlipljziqQyL/exJht7kb48ZdIgVqwZ+lmNPLyln7IB06b7g6E1uNb8jE8HCGZCXlxpK1PeaH225pLzPAG+z4fYlTf91OZVc+pM=
+	t=1783510560; cv=none; b=mPfpXCzToDlZpQbBAF6uhNJY7O72AaWIG6sVAo7kBcFqvtQCaOkYNuSJw13l9SYRfQ9ATq4mqiaI8miZqLgU+n+2T4YMV6hnXULG5OvTWccDA8nj0AwfUPXP6kAki9+dLwmJo9pvvRqB5QFAwbBlHiZj5J6N9q2QJBjAvRlz6F8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783508887; c=relaxed/simple;
-	bh=NTcQdvz0cR4eDOgCH5pZ9kcPw+nCYiZrb1LKuCO/DoA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VAy3r7YbmGKZXQ53EwnWGpD4oeK7UQM+NM8BtDDNz+Dn3ZVDY08Nm9pjR53nfRxuqFV26Gv662NHHSZbPscZxRAocc4UnMYTEQCs2LHFE/xRfIEsNm3e1XbhBDWHVBNqap328QkiBRYxuvK2H9KQH2SPQpdypmU3YJlmrXyxa9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kCQHP4/a; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783510560; c=relaxed/simple;
+	bh=Q2Qnk1hogSqDDsPQYYaS7M/yFKkup3CqxIVtncozZqE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O+6qNuZuLFbS4q5EiTV7a8cjMdAY9UGBaU0QKep/wLQAICHNGA9WqBqw3KqYx8t4g4sRWeD6dbwjbwoRkHNkddG4Xn1gI6U0mdzpPc0bxwEFC02vNOwoUGAfKThXzD66gKnXvd4cgmY/onK4PBjcyalr81q05X8jBAcx/6cf108=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VPTPKnwS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kCQHP4/a"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3825c406ffeso614105a91.0
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 04:08:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783508882; x=1784113682; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TXBoNjYqVijB2YGKr+ij7ht747n3ecSYIrYL6ggZywQ=;
-        b=kCQHP4/a30DAPY+VEylDlKyqF2WzadvMH8d8OdGHznWWaY19+3GVk1Di1BxiXYfDxN
-         FyZZMHtcC92DY5zDiCqok5yPVxaYXvo/UAmYk1s4Gca4iAkm4rFD5gtJfz31CII8FKPl
-         q3K+JFOzxXFaLbOokxIQMkM8boHAR5m/0bsd/g1uPMuXAoWbblvik5bcLbbjrUWfXJbC
-         Zbz3oYC7ji2G19uG0e/j3e3qAQad9E0g5SgpmpguuI8VSkD9xKMNHOY8mywvJl1F/3mK
-         e1+9Jgt9RmVhytbNUXWfNb4t1VOOpJFPJEIdoMvOX20WQ4xsKuXszWzh9ELQ6hgWzqH5
-         MRPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783508882; x=1784113682;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=TXBoNjYqVijB2YGKr+ij7ht747n3ecSYIrYL6ggZywQ=;
-        b=p5nDeIZxNlUcC+iCZsIG1rBXn/L4zgpzPkncrCHjoZFT81S2evF4TQ4IKbwAUcfk+S
-         Hy47uhCNsXAF895DP5nGlQTkalnCYLebNv3Hrm4YmJ2grdKEd0KdGjIcEJvS7dJ2nn/7
-         Et1D36uAizulInx5Jkq6UDCMhXjDJORxMHZIMM8Givzo9kK/3cmNLUGi0TY/r1JFEzzi
-         rL/i0yFxoW8vCpDlnawksaYtNxOp7mQ723A+0jcQqXdEM1PoDZPJQSxh/hYFoJTc5fXr
-         dQCoGLhURt5zdbAs6vax6LkLXx61/PkTp6NTpBKGOLYnc+NAaeEPsD/a2IfLtlDIQw4w
-         Pq6Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpwVhwbSHl1RCpsfB6qV/krxiTz9paS0Z06yzNMi0Pi7PWXuDxDTO2Xu3wmuujKCtPHxdLfed0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxrRa6+6SgPCcEeBc4sqb15ugEfrmiVSpBllwQDT505rWttjEOn
-	1mjqie5S+jp1MD5kxIy7caq+rPuAU43BV0dE6Mg7y7IgjA+qx0hlnMlt
-X-Gm-Gg: AfdE7clF0INypezsoIR/xsWIgTRsNgQ3VP461YkdOrNAvcT2cQzYHEDCK0n2A4UcAIC
-	r24BKOF1ahzu3wTi3FBd/U9ov1y2YaXtaPfPUgapcqUgfQZpmoNZj94JAdxtKNW7RRlG8/jt9rQ
-	eKmwm73/qsCzSbVjAMlyVee0qg6ohSgeZtSbJF2ZP9nlvEC70fPNWyIXW5IWAyc8sjMNtwFD0gX
-	mchACHEUBs/7bgEld6svUrJSLIpQemuLRakJou9uERmC1Z2Ec0uVOOXdIM5zGCIkj8xahESSXZV
-	6/qeIgvNjCWEe3GFCQvGxDTaYH6WhCIVzyYtLLfNkiR7jc0ea2iyFHAvwDPSDL6FJI+S08bQMit
-	LWZtsqxQPmqKNfFW783z7RUp7zNJl09ZlYpmOepiY1YbutBAgpa0P6GmqCS2YAdzBmE46KY+aFX
-	Lay6g6OeBnldXdTG2R/z74aA==
-X-Received: by 2002:a17:90b:58e5:b0:36b:9e24:c692 with SMTP id 98e67ed59e1d1-38942f73563mr2056426a91.20.1783508882198;
-        Wed, 08 Jul 2026 04:08:02 -0700 (PDT)
-Received: from xiao.mioffice.cn ([43.224.245.230])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-387d229a20csm2570824a91.16.2026.07.08.04.07.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 04:08:01 -0700 (PDT)
-From: Xiang Gao <gxxa03070307@gmail.com>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	will@kernel.org,
-	boqun@kernel.org
-Cc: longman@redhat.com,
-	d@ilvokhin.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Xiang Gao <gaoxiang17@xiaomi.com>
-Subject: [PATCH v3] lockdep: fix NULL pointer dereference in __lock_set_class()
-Date: Wed,  8 Jul 2026 19:07:55 +0800
-Message-Id: <20260708110755.1636112-1-gxxa03070307@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260418141450.1499057-1-gxxa03070307@gmail.com>
-References: <20260418141450.1499057-1-gxxa03070307@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VPTPKnwS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EECB1F00A3A;
+	Wed,  8 Jul 2026 11:35:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1783510559;
+	bh=EEbcityEZ0Yex7B8TH8L8kxhoIKkE2qcglVaaqevIfw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VPTPKnwSe5X/kbPP13nBrvlt5ZX4vrrFQpjcjYfqkmnJyAP9G/rZh55RC6gOo9GLY
+	 dIqF1Y90jkBhydUEhNjGXav0C/mMgazQDhcrvk9yvyoNpIPMlnn3z7+kj8ZrDBsmTO
+	 cphsiwdFb5PfEAN9Wgvm6ru5c1/6yTbJihlfdfwo=
+Date: Wed, 8 Jul 2026 13:34:41 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Melbin K Mathew <mlbnkm1@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Peter Chen <peter.chen@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] usb: gadget: printer: fix infinite loop in
+ printer_read()
+Message-ID: <2026070828-salvaging-brook-67cb@gregkh>
+References: <20260701205320.227791-1-mlbnkm1@gmail.com>
+ <20260703075429.302687-1-mlbnkm1@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260703075429.302687-1-mlbnkm1@gmail.com>
 
-From: Xiang Gao <gaoxiang17@xiaomi.com>
+On Fri, Jul 03, 2026 at 09:54:29AM +0200, Melbin K Mathew wrote:
+> printer_read() uses the same variable for the requested copy size and
+> the number of bytes actually copied to user space. copy_to_user()
+> returns the number of bytes not copied, so when it fails to copy
+> anything, the computed copied length becomes zero.
+> 
+> In that case len, buf, current_rx_bytes and current_rx_buf are left
+> unchanged. If RX data is available and the user buffer remains
+> unwritable, the read loop can repeat indefinitely.
+> 
+> Track the copied length separately and return -EFAULT, or the number of
+> bytes already copied, if an iteration makes no progress.
+> 
+> Fixes: b185f01a9ab7 ("usb: gadget: printer: factor out f_printer")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Peter Chen <peter.chen@kernel.org>
+> Signed-off-by: Melbin K Mathew <mlbnkm1@gmail.com>
+> ---
+> Changes in v2:
+> - Drop unrelated comment wording change.
+> - Add Reviewed-by tag from Peter Chen.
+> 
+>  drivers/usb/gadget/function/f_printer.c | 25 +++++++++++++++++++------
+>  1 file changed, 19 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
+> index e4f7828ae7..e346e4c26e 100644
+> --- a/drivers/usb/gadget/function/f_printer.c
+> +++ b/drivers/usb/gadget/function/f_printer.c
+> @@ -432,7 +432,7 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+>  {
+>  	struct printer_dev		*dev = fd->private_data;
+>  	unsigned long			flags;
+> -	size_t				size;
+> +	size_t				size, not_copied, copied;
+>  	size_t				bytes_copied;
+>  	struct usb_request		*req;
+>  	/* This is a pointer to the current USB rx request. */
+> @@ -525,14 +525,16 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+>  		else
+>  			size = len;
+>  
+> -		size -= copy_to_user(buf, current_rx_buf, size);
+> -		bytes_copied += size;
+> -		len -= size;
+> -		buf += size;
+> +		not_copied = copy_to_user(buf, current_rx_buf, size);
+> +		copied = size - not_copied;
+> +
+> +		bytes_copied += copied;
+> +		len -= copied;
+> +		buf += copied;
+>  
+>  		spin_lock_irqsave(&dev->lock, flags);
+>  
+>  		if (dev->reset_printer) {
+>  			list_add(&current_rx_req->list, &dev->rx_reqs);
+>  			spin_unlock_irqrestore(&dev->lock, flags);
+> @@ -543,6 +545,17 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+>  		if (dev->interface < 0)
+>  			goto out_disabled;
+>  
+> +		if (!copied) {
+> +			dev->current_rx_req = current_rx_req;
+> +			dev->current_rx_bytes = current_rx_bytes;
+> +			dev->current_rx_buf = current_rx_buf;
+> +			spin_unlock_irqrestore(&dev->lock, flags);
+> +			mutex_unlock(&dev->lock_printer_io);
+> +			return bytes_copied ? bytes_copied : -EFAULT;
+> +		}
+> +
+> +		size = copied;
+> +
+>  		/* If we not returning all the data left in this RX request
+>  		 * buffer then adjust the amount of data left in the buffer.
+>  		 * Othewise if we are done with this RX request buffer then
+> -- 
+> 2.39.5
+> 
 
-register_lock_class() can return NULL on failure (e.g., exceeding
-MAX_LOCKDEP_KEYS or lock_keys_in_use overflow). __lock_set_class()
-uses the return value directly in pointer arithmetic without a NULL
-check:
+Patch is corrupted and can not be applied :(
 
-  class = register_lock_class(lock, subclass, 0);
-  hlock->class_idx = class - lock_classes;
+can you fix that up and resend?
 
-If class is NULL, this computes a garbage negative offset that corrupts
-hlock->class_idx (a bitfield). Any subsequent hlock_class() call on
-this hlock returns a garbage pointer, leading to memory corruption or
-a crash.
+thanks,
 
-The other call site in __lock_acquire() (line 5112) already handles
-this correctly with an explicit NULL check. Add the same guard here.
-
-Fixes: 64aa348edc61 ("lockdep: lock_set_subclass - reset a held lock's subclass")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dmitry Ilvokhin <d@ilvokhin.com>
-Reviewed-by: Waiman Long <longman@redhat.com>
-Signed-off-by: Xiang Gao <gaoxiang17@xiaomi.com>
----
- kernel/locking/lockdep.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index 2d4c5bab5af8..e0de81114824 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -5437,6 +5437,8 @@ __lock_set_class(struct lockdep_map *lock, const char *name,
- 			      lock->wait_type_outer,
- 			      lock->lock_type);
- 	class = register_lock_class(lock, subclass, 0);
-+	if (!class)
-+		return 0;
- 	hlock->class_idx = class - lock_classes;
- 
- 	curr->lockdep_depth = i;
--- 
-2.34.1
-
+greg k-h
