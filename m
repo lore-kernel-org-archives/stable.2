@@ -1,155 +1,175 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50A133B9D9B;
-	Wed,  8 Jul 2026 05:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73673B9952;
+	Wed,  8 Jul 2026 05:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783488488; cv=none; b=HUNaQHXCtaIpusJ8727RfKy2Bp36nCOLC04lrxN2osaz9GX0VS2HVSYLBcrpltjGNGS03sOCTasP3oRqw4rr+ZNbtb9PRGBhJn24JAM38hPpvMwYXaQ3ocCQv1CnA3iYSfCgDWBHXyP/Tp37zIa5f1GmoeJUYpZ5fycjhVH/wx8=
+	t=1783488538; cv=none; b=Jt5/ROz5CDwbzYbClNvKuqY7HPMWpSWdLVrWkPpbM8Fc+aJfa8tN4onpN5CcA1XEBXG4Vvk/hKngsJFVpc89dY3geZ+eSq5RHMthnb7pi25+Tg2d3DgaOi3lCY+KVxOcJHm7aosiM2xAnjBEFeRWkyVfZw+wuMGMaYQ3DSuCYM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783488488; c=relaxed/simple;
-	bh=Tk/SIKN81NVDuX2stQgrEZFJK2nWKRLk8SvQKPTSZ3E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OsRnCH24sC2VSyYdNt79a7+C1QlOeFyeGI/PtaCz7wmKT6i6Uc+KgRhC8wGLVoXWp7oZtflHoNji7m5rhsdQbB4znSIfJzaZZyuC/ZAcj5C4OlUtQ23A4EgyuUJ9sNs5CJgSCvMFsy8wNNeKPdVoa0So0zYRn+KNN8FHeDTvwj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=l6ln1pnu; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1783488538; c=relaxed/simple;
+	bh=1oH3zdJRT67+Fd7BkVParF0bxNkAG1VvaFthl+K2Ykk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lKeDHGDhUkFxFfcAGj/5dpSPDzW2N6DrZoUqKf7wAv8PeprsSken0BDkq/9m47Yo2fmeeeYIiDaQn5hZwfvOkM380DujptTA8Xp095nQUox2s20sP99CiTaiMe7qq/4QeJTu2v2AToaJgYJI96g9BYf5TQQdFnhttSga3lknJE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DLXPtPj/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="l6ln1pnu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=U0Et5
-	gxWdJSPtba9Rc9sxcUYbgY5trVM/vydxYE7rrU=; b=l6ln1pnu/vRxkC5K83wYe
-	du07UKyn0SenuEp3eHTCumEep/rSCnCsdOf7p2kvHEV8peZVlm+ZTFkIq3jTjQy2
-	zXHTHuEgA6q5Ah+UJeU4USC6zUoaTHf+i3O+PjuOwZOSmtfYfL0kMNvDz0XbvQGT
-	6NtgJRkJ3STAyuJ2u+UdZU=
-Received: from localhost.localdomain (unknown [211.102.241.101])
-	by web2 (Coremail) with SMTP id yQQGZQAnAprF301qtzPPAg--.34710S2;
-	Wed, 08 Jul 2026 13:27:34 +0800 (CST)
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-To: netfilter-devel@vger.kernel.org
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH nf v2] netfilter: nf_conncount: fix zone comparison in tuple dedup
-Date: Wed,  8 Jul 2026 13:27:28 +0800
-Message-ID: <20260708052730.18354-1-zhaoyz24@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.46.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DLXPtPj/"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6C1D51F000E9;
+	Wed,  8 Jul 2026 05:28:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783488536;
+	bh=yO8w3gRLyiBN35u0scI5CxYggr9jPH3LU8Xm8lIQNmY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DLXPtPj/dnX/EdA7F7vCe+VdDGZiaKccx1olOQ9BAMxRO0/LN4C8uAonp4KKof0Tn
+	 QXg4XuVephySKTJ/ZlSorS+bPrq7RjcthvRx0G7H4fEUovVKeiVa1LdsKFS5dMIIt8
+	 LZJa+cOZJ8jkjA4ejyzIW9spXgLYAiQduVzI8lG9rzUgSCJjfo1EJCg/BwWafdkrY2
+	 oYOfynC+HJ3q6jgwHlnk94IaAhzIG8gT6AAvLgFUrquvk+aoRKihznDSR4+SvrHmPZ
+	 Q+5yhPcwu4Zu6NmzCxTm24+LfheBnm3nvJNQHSWnZs77Y5xUOb5nPoIQsTgD61jZPh
+	 z2T4cSDglLmYA==
+Date: Tue, 7 Jul 2026 22:28:55 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	Brian Foster <bfoster@redhat.com>, Xiang Mei <xmei5@asu.edu>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] xfs: reject attr leaf blocks with inconsistent
+ usedbytes
+Message-ID: <20260708052855.GF9392@frogsfrogsfrogs>
+References: <20260707180235.1142581-4-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yQQGZQAnAprF301qtzPPAg--.34710S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCw1rXr4UWF4fZryktF17Awb_yoWrXFWfpr
-	WYkrZayFZ7XrZFk3s7Zw17AF13Jws8AFy3JFn5A3yqvws0gas0yayxt343A3WDuF4DXF17
-	ZF45Wr1jyan8ArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
-	648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK67
-	AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
-	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc4
-	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
-	xVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
-	1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sREK0PPUU
-	UUU==
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQECAWpNfDKVPAAAsD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260707180235.1142581-4-bestswngs@gmail.com>
 
-The "already exists" dedup logic in __nf_conncount_add() decides
-whether a connection has already been counted and can be skipped instead
-of incrementing the connlimit count.  It compares the conntrack zone of a
-list entry with the zone of the connection being added using
-nf_ct_zone_id() and nf_ct_zone_equal(), passing conn->zone.dir or
-zone->dir as the direction argument.
+On Tue, Jul 07, 2026 at 11:02:38AM -0700, Weiming Shi wrote:
+> xfs_attr3_leaf_verify() checks each attr leaf entry on its own, but never
+> checks that the entries' nameval regions are disjoint. A crafted leaf can
+> point several entries at overlapping offsets: every entry passes the
+> per-entry check, yet the summed entry sizes far exceed the nameval region.
+> 
+> ichdr.usedbytes is kept as the exact sum of the entries'
+> xfs_attr_leaf_entsize() (see xfs_attr3_leaf_add()), so for such a leaf the
+> real sum no longer matches usedbytes. When the leaf is later repacked,
+> xfs_attr3_leaf_compact() resets firstused to blksize and calls
+> xfs_attr3_leaf_moveents(), which subtracts each entry size from firstused;
+> the oversized sum underflows the 32-bit firstused and the following memmove
+> writes out of bounds. The same repack runs from xfs_attr3_leaf_rebalance()
+> and xfs_attr3_leaf_unbalance(). The only guard is an ASSERT, which is
+> compiled out on production kernels.
+> 
+> A single setxattr() on a file with such a leaf, after mounting a crafted
+> image, triggers the write:
+> 
+>   BUG: KASAN: use-after-free in xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
+>   Write of size 400 at addr ffff88802b187f98 by task exploit
+>    xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
+>    xfs_attr3_leaf_compact (fs/xfs/libxfs/xfs_attr_leaf.c:1790)
+>    xfs_attr3_leaf_add (fs/xfs/libxfs/xfs_attr_leaf.c:1563)
+>    xfs_attr_set_iter (fs/xfs/libxfs/xfs_attr.c:556)
+>    xfs_attr_set (fs/xfs/libxfs/xfs_attr.c:1244)
+>    xfs_xattr_set (fs/xfs/xfs_xattr.c:186)
+>    __vfs_setxattr (fs/xattr.c:218)
+>    vfs_setxattr (fs/xattr.c:339)
+>    __x64_sys_fsetxattr (fs/xattr.c:774)
+> 
+> Sum the entry sizes while verifying and reject the leaf unless the sum
+> equals usedbytes (so the on-disk usedbytes can be trusted) and that
+> usedbytes fits in the nameval region [firstused, blksize) (so the trusted
+> value cannot drive firstused below zero).  Both checks are required: the
+> first alone can be bypassed by forging usedbytes to equal the real sum, and
+> the second alone by forging a small usedbytes, so only together do they
+> bound the actual summed entry size against the nameval region and prevent
+> the underflow.
+> 
+> Fixes: c84760659dcf ("xfs: check attribute leaf block structure")
+> Reported-by: Xiang Mei <xmei5@asu.edu>
+> Assisted-by: Claude:claude-opus-4-8
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> ---
+> v2: drop the inaccurate scrubber reference; explain why both checks are
+>     needed. No code change.
+> 
+>  fs/xfs/libxfs/xfs_attr_leaf.c | 17 +++++++++++++++--
+>  1 file changed, 15 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
+> index 86c5c09a5db4..9814dcfbd7ac 100644
+> --- a/fs/xfs/libxfs/xfs_attr_leaf.c
+> +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
+> @@ -300,7 +300,8 @@ xfs_attr3_leaf_verify_entry(
+>  	struct xfs_attr3_icleaf_hdr		*leafhdr,
+>  	struct xfs_attr_leaf_entry		*ent,
+>  	int					idx,
+> -	__u32					*last_hashval)
+> +	__u32					*last_hashval,
+> +	unsigned int				*usedbytes)
+>  {
+>  	struct xfs_attr_leaf_name_local		*lentry;
+>  	struct xfs_attr_leaf_name_remote	*rentry;
+> @@ -344,6 +345,7 @@ xfs_attr3_leaf_verify_entry(
+>  	if (name_end > buf_end)
+>  		return __this_address;
+>  
+> +	*usedbytes += namesize;
+>  	return NULL;
+>  }
+>  
+> @@ -376,6 +378,7 @@ xfs_attr3_leaf_verify(
+>  	char				*buf_end;
+>  	uint32_t			end;	/* must be 32bit - see below */
+>  	__u32				last_hashval = 0;
+> +	unsigned int			usedbytes = 0;
+>  	int				i;
+>  	xfs_failaddr_t			fa;
+>  
+> @@ -410,11 +413,21 @@ xfs_attr3_leaf_verify(
+>  	buf_end = (char *)bp->b_addr + mp->m_attr_geo->blksize;
+>  	for (i = 0, ent = entries; i < ichdr.count; ent++, i++) {
+>  		fa = xfs_attr3_leaf_verify_entry(mp, buf_end, leaf, &ichdr,
+> -				ent, i, &last_hashval);
+> +				ent, i, &last_hashval, &usedbytes);
+>  		if (fa)
+>  			return fa;
+>  	}
+>  
+> +	/*
+> +	 * usedbytes must equal the summed entry sizes and fit in the
+> +	 * nameval region; otherwise a later repack underflows firstused
+> +	 * in xfs_attr3_leaf_moveents().
+> +	 */
+> +	if (usedbytes != ichdr.usedbytes)
+> +		return __this_address;
 
-Those helpers take enum ip_conntrack_dir values: IP_CT_DIR_ORIGINAL is 0
-and IP_CT_DIR_REPLY is 1.  However, zone->dir is a u8 bitmask:
-NF_CT_ZONE_DIR_ORIG is 1, NF_CT_ZONE_DIR_REPL is 2 and
-NF_CT_DEFAULT_ZONE_DIR is 3.  Passing that bitmask as the enum direction
-shifts the meaning of every non-zero value.  An ORIG-only zone passes 1
-and is tested as REPLY, while REPL-only and default zones pass 2 or 3 and
-test bits beyond the valid direction range.  In those cases
-nf_ct_zone_id() can fall back to NF_CT_DEFAULT_ZONE_ID instead of using
-the real zone id, so different zones can be treated as equal and dedup
-collapses to tuple equality alone.
+This part is clearly correct.
 
-nf_conncount stores and compares the original-direction tuple for a
-connection.  If an skb already has an attached conntrack entry,
-get_ct_or_tuple_from_skb() explicitly copies
-ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple, regardless of the packet's
-ctinfo.  Therefore the zone comparison in the tuple dedup path must use
-IP_CT_DIR_ORIGINAL as well; the zone direction bitmask describes where a
-zone id applies, not which direction this conncount tuple represents.
+> +	if (ichdr.usedbytes > mp->m_attr_geo->blksize - ichdr.firstused)
 
-Fix the two dedup comparisons by passing IP_CT_DIR_ORIGINAL directly.
-Do not special-case NF_CT_DEFAULT_ZONE_DIR and do not compare raw zone
-ids: using the existing helpers with IP_CT_DIR_ORIGINAL preserves the
-direction-aware NF_CT_DEFAULT_ZONE_ID fallback.  A default bidirectional
-zone contains the ORIG bit, so it naturally returns the real zone id;
-reply-only zones continue to fall back for original-direction tuple
-comparisons.
+This check is still novel to me -- neither online fsck nor xfs_repair
+check this explicitly.  It makes sense to me that usedbytes can't exceed
+the number of bytes between the start of the nameval data and the end of
+the block (the entries array grows up from zero; namevals grow down from
+$blocksize).
 
-Fixes: 21ba8847f857 ("netfilter: nf_conncount: Fix garbage collection with zones")
-Fixes: b36e4523d4d5 ("netfilter: nf_conncount: fix garbage collection confirm race")
-Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: Claude-Code:GLM-5.2
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
----
-Changes in v2:
-- Use IP_CT_DIR_ORIGINAL directly instead of adding a helper to map
-  zone->dir to an enum direction, suggested by Florian Westphal.
-- Link to v1: https://lore.kernel.org/netfilter-devel/20260706114820.74006-1-zhaoyz24@mails.tsinghua.edu.cn/
----
-diff --git a/net/netfilter/nf_conncount.c b/net/netfilter/nf_conncount.c
-index 91582069f6d2..e9ea6d9466e7 100644
---- a/net/netfilter/nf_conncount.c
-+++ b/net/netfilter/nf_conncount.c
-@@ -211,8 +211,8 @@ static int __nf_conncount_add(struct net *net,
- 			/* Not found, but might be about to be confirmed */
- 			if (PTR_ERR(found) == -EAGAIN) {
- 				if (nf_ct_tuple_equal(&conn->tuple, &tuple) &&
--				    nf_ct_zone_id(&conn->zone, conn->zone.dir) ==
--				    nf_ct_zone_id(zone, zone->dir))
-+				    nf_ct_zone_id(&conn->zone, IP_CT_DIR_ORIGINAL) ==
-+				    nf_ct_zone_id(zone, IP_CT_DIR_ORIGINAL))
- 					goto out_put; /* already exists */
- 			} else {
- 				collect++;
-@@ -223,7 +223,7 @@ static int __nf_conncount_add(struct net *net,
- 		found_ct = nf_ct_tuplehash_to_ctrack(found);
- 
- 		if (nf_ct_tuple_equal(&conn->tuple, &tuple) &&
--		    nf_ct_zone_equal(found_ct, zone, zone->dir)) {
-+		    nf_ct_zone_equal(found_ct, zone, IP_CT_DIR_ORIGINAL)) {
- 			/*
- 			 * We should not see tuples twice unless someone hooks
- 			 * this into a table without "-p tcp --syn".
+I wonder, will this make it harder to salvage xattrs from a broken leaf
+block since the verifier won't work?  I think it won't because the
+salvage operation does an xfs_buf read with null ops, but I wonder if
+you've considered this point?  Or run this through the xattr stress
+tests?
 
---
-2.47.3
+--D
 
+> +		return __this_address;
+> +
+>  	/*
+>  	 * Quickly check the freemap information.  Attribute data has to be
+>  	 * aligned to 4-byte boundaries, and likewise for the free space.
+> -- 
+> 2.43.0
+> 
+> 
