@@ -1,208 +1,283 @@
-Received: from va-2-35.ptr.blmpb.com (va-2-35.ptr.blmpb.com [209.127.231.35])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18693A544C
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 07:24:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E203EDE61
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 07:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783495449; cv=none; b=AswyDOFpaP5L7WcLhavIqkWl398+7lkXvbXyTogTb/e4tRlxmjwOFbH3YquVwEvdD7kVZ1kPPv5uduXygRtBi34UP/7qB0ZdAzcrspQvLMePH9oojpVwwOYwzIsx2CYw9OIMiOLtU1o3aphKKanIM1NM19nzto2axRvn5V4DedI=
+	t=1783496208; cv=none; b=aqql8TTGUhSQJR6R/0Kq++FC2WiNF+eZZBbXW0za8cZWE36/Uwq5YUvFZI1JQA/m6E0JIkL4SWF+7Eu67x8fNxs7ugO1w6RUAn1N/e8KIn4iG6dvUQvvJTO7TfTRsSsIEG5PpM/PAKAjfd61XJcS6ACPpxrSZK5aIQi3OETQ/3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783495449; c=relaxed/simple;
-	bh=h8QTaqefpSOrkYAWZLLDXn6yyypD4+TG3kE/TT1Jvhg=;
-	h=Date:Message-Id:References:In-Reply-To:Content-Type:To:From:
-	 Subject:Mime-Version:Cc; b=m6N8lVRVP3YTOSX7kD/cam1Kkw3lMtrEuiILUz0GcVLrk0NgsvhFkStI2vLnN+zA1na7V+0DyUHBLCDWjQQJ6PzkuZ5wns0EfZ7UvFQ28osX+eB9h6eCSN+GoFDOTCTeaIShOE59h39Ej6akVE+L0mWujJw/+CN+s3eLprA9Uoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com; spf=none smtp.mailfrom=fnnas.com; dkim=pass (2048-bit key) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.b=QHLwHv5R; arc=none smtp.client-ip=209.127.231.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fnnas.com
+	s=arc-20240116; t=1783496208; c=relaxed/simple;
+	bh=kloYd8hj9ymhhOcVIAL9ZCV91W2yj2qJjk9x0q35lBE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=S6hVjYZskF22gumRaOiy92snHoEwSi9gtzfLQJXzO7AD8rmHcz9cNy9FP58zGiRFFVBrVqGZbJDQrscl+JNJTKIJmfNKUl9RJh9K98VN1YVdbwy8vnz3AYnyIiFzvf4AuBJ1TCPJPyU5JISIe0xSUxMjbnjX3MzTIb6dIgUQe84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S+WcdiPv; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.b="QHLwHv5R"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fnnas-com.20200927.dkim.feishu.cn; t=1783495432;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=LthgASm8+ltQBc7DJDrsqONP7c+qnel+m0m01QIqoO4=;
- b=QHLwHv5RWkbfYOeOLqwH4f5kyvMJnQgUzrBNk5+uxXTgT7+pNJ2NjnF6dEGwoIkRmB7IuU
- d9MJ2+6r4NcWdkhQbRoHen7D6pk21EJBZY+QWeG3Vke33O7ULrr2j/tcM6CegDTKufJBH2
- iZs9VLBrR8FRmvUzP4uRmBOaMcr/fvwZcLubJEvNbEzuIKPQeVjqKLyvlUEWS193EoaGdN
- OfcJhYwaw2scBCNb3vLu/qkheqdaeo9j8i2z3WfU3XxFQzVVAmOPEGQ+W0Jj0X9G2V54y0
- ZtjsNMB0qjz8CPPwvbUAGTWMPMKU+Du3TE0PwkWLqztpcUGVoxhJ2HtpK6be/w==
-Date: Wed,  8 Jul 2026 15:23:06 +0800
-Message-Id: <20260708072306.3921604-1-wangzhaolong@fnnas.com>
-References: <20260708031115.3757150-1-wangzhaolong@fnnas.com>
-X-Original-From: Wang Zhaolong <wangzhaolong@fnnas.com>
-In-Reply-To: <20260708031115.3757150-1-wangzhaolong@fnnas.com>
-Content-Type: text/plain; charset=UTF-8
-To: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>
-From: "Wang Zhaolong" <wangzhaolong@fnnas.com>
-Subject: [PATCH v3] serial: 8250: fix shared IRQ startup race causing IRQ warning
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+WcdiPv"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ca7605ce4bso673935ad.1
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 00:36:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783496199; x=1784100999; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M+Z591dKHRQIbm/9qQxgkj49e7bXoy6gVEbYhl8bF6k=;
+        b=S+WcdiPvAta9FaEgJihIg0HHvlUJ4sUjohEihFcl6ShfYxc8ekd3eUMsQO2Z/TaKqB
+         8MuO5kVT7YMNnCNdcReC1d8HJQ5oOEs1ekVeSWsBkQ/FzLsjPP2CafkcWxII3trPtOQp
+         /3sIs1bxg7OPQxL3T9lXYWldr5vgnR+Vvgfy+MgQ9xQdgkb86OykKUVtCrC52PnP79YK
+         w1/1+PmFUojM3AxUKHJLzqqieVMtGW8xXmZnyLYQK/hHnag34xz00A+49186Tv+atqpq
+         zngviA1tQd/TAI8JJUfrjz71YmKzuyPM/YHAm0i4qpctDBQ165H1f+8cgnUO8TKjKDSi
+         pEbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783496199; x=1784100999;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M+Z591dKHRQIbm/9qQxgkj49e7bXoy6gVEbYhl8bF6k=;
+        b=AjO/7Cz7UTu2Eyyr+yWgW4+lg8NGb8V71s9LQP/WbKrTHqTnkXClUv8H0qrBuTpbEV
+         hC1gaOIf4TLHft7nz4TieQjoif0HHjnrzhVcWGJiLyCQjLcXZxD82ppST4Iweo0Nv8Ay
+         D/yOOTevjPe/CQ4XGB08XA23KLMMLuiKDKwFyz/liitV/qKh5lzWMiGY2ibhL+STEJ4z
+         xgF9YAw9P+uNjmNNslbD5tFG2IEpPxz6aJOQ2v5QYPVn+6MEWUt83vUZxjnM8HzE8YGW
+         RCRgwoTLZwm6yh0SRg55n8e29WKmtHGWNzDwgCR9DC0rStVo4ImMMRX8fc/13P/l4F8m
+         0g6w==
+X-Forwarded-Encrypted: i=1; AHgh+RpmT0g30JDxTBvGRzThd89UteKDWmAy3h0hlROhyvbLgAaaCIW2fkLTBHxfDN5t1XZdRQ+3rZo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxb9Sztv4l5nftnwfnccOYnLqP1mosYDuTqja2RZdPNEgGsZTtB
+	9jGnmGUfw3OUoXNAV69UdebAIySmyOrdHGVKzhoSx8AyAUr4DEEp1U8S
+X-Gm-Gg: AfdE7cl27F7REu2izknFohMa5ZdkqgMuPCebqUUxTTupeQEjHOVX9PD3ikNKcdUYe1l
+	HTv+gzO7IgyNfVGTXd41xC4/evTaPuogjFpzAWIIeBL6/i68yR8zNmookoN3W9fdwE9U+cAmxGA
+	N3CqelIrafyaund9xKGKe78uCBk8QHg12vc3mjVdx4U/FFPSbejc85bVh0LHLV7dIVKXmn4X3a8
+	hajWLAXVEwLVr9iZckVqHmYOpP1mAxsZENJszRSlvUnHLjeZ9hYV09wxvSfdzrYb7NL7TsMn7Gd
+	H2sdAxAKYFEca31jAFV05BloYjBCU2LxIyYDXK7O9fohkxWPDcOx2e03FQjcGa0qnDH627Ixm3v
+	6hV6ghMNW2siWOya7D+IiGCwa/uPZWQBF9eVHKQ08MXb8ek5oDawhRo2tzsmvK3HKFDfE3ZuHRQ
+	JXCovC2H5kprNY42CEVg==
+X-Received: by 2002:a17:90b:3d87:b0:37d:f70f:fbf8 with SMTP id 98e67ed59e1d1-3893d33d854mr1202661a91.0.1783496198724;
+        Wed, 08 Jul 2026 00:36:38 -0700 (PDT)
+Received: from kali ([122.162.146.188])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174accae5sm25193670eec.29.2026.07.08.00.36.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 00:36:38 -0700 (PDT)
+From: Pavitra Jha <jhapavitra98@gmail.com>
+To: Dave Penkler <dpenkler@gmail.com>
+Cc: gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Pavitra Jha <jhapavitra98@gmail.com>
+Subject: [PATCH v2] gpib: fix use-after-free between iboffline() detach and in-flight I/O
+Date: Wed,  8 Jul 2026 03:36:18 -0400
+Message-ID: <20260708073618.147714-1-jhapavitra98@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <akKZBpW135YW2Def@egonzo>
+References: <akKZBpW135YW2Def@egonzo>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Received: from MiniServer ([14.21.188.215]) by smtp.feishu.cn with ESMTPS; Wed, 08 Jul 2026 15:23:49 +0800
-X-Mailer: git-send-email 2.54.0
-X-Lms-Return-Path: <lba+26a4dfb06+307278+vger.kernel.org+wangzhaolong@fnnas.com>
-Cc: <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, <andriy.shevchenko@linux.intel.com>, 
-	<albanhuang@tencent.com>, <tombinfan@tencent.com>, 
-	<jackzxcui1989@163.com>, <kees@kernel.org>, <osama.abdelkader@gmail.com>, 
-	<realwujing@gmail.com>, "Wang Zhaolong" <wangzhaolong@fnnas.com>
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Concurrent startup of two 8250 ports sharing the same IRQ can trigger an
-IRQ core warning:
+iboffline() calls board->interface->detach(), which frees
+board->private_data, with no guarantee that a read/write/command
+ioctl already in progress on that board has finished touching it.
 
-  Unbalanced enable for IRQ 3
-  WARNING: CPU: 0 PID: 580 at kernel/irq/manage.c:774 __enable_irq+0x3b/0x60
-  Call Trace:
-   enable_irq+0x8d/0x120
-   serial8250_do_startup+0x80d/0xa80
-   uart_port_startup+0x13d/0x440
-   uart_port_activate+0x5b/0xb0
-   tty_port_open+0xa1/0x120
-   uart_open+0x1e/0x30
-   tty_open+0x140/0x7a0
+v1 of this fix took board->big_gpib_mutex around the detach() call.
+That was wrong on two counts, both pointed out by Dave Penkler:
 
-This is reproducible in QEMU with four legacy 8250/16550 ports.  In that
-setup, ttyS1 and ttyS3 share IRQ 3.  A small userspace reproducer
-synchronizes two threads before open(), waits for both open attempts, and
-then closes both file descriptors.  It can trigger the warning almost
-immediately.
+ 1. iboffline() is reached from ibioctl() via the IBONL ioctl, which
+    is dispatched while big_gpib_mutex is already held. Taking it
+    again inside iboffline() self-deadlocks.
 
-The regression was bisected to commit 64c79dfbc458 ("serial: 8250_pnp:
-Support configurable reg shift property").  That change made QEMU's legacy
-PNP serial ports take the shared-IRQ THRE test path in
-serial8250_do_startup():
+ 2. IBRD/IBWRT/IBCMD explicitly drop big_gpib_mutex before calling
+    into board->interface, because those calls can block for the
+    duration of board->usec_timeout. So even without the deadlock,
+    the mutex was never actually held during the in-flight callback
+    it was meant to exclude.
 
-  if (port->irqflags & IRQF_SHARED)
-    disable_irq_nosync(port->irq)
-  ...
-  if (port->irqflags & IRQF_SHARED)
-    enable_irq(port->irq)
+Fix this by tracking in-flight callbacks directly instead of
+overloading big_gpib_mutex. Add board->io_active, an atomic counter
+incremented around the body of read_ioctl(), write_ioctl(), and
+command_ioctl() (which is where board->interface is dereferenced,
+via ibrd()/ibwrt()/ibcmd()), and board->io_drain_wait, a waitqueue
+woken when the counter reaches zero.
 
-The disable_irq_nosync()/enable_irq() pair is locally balanced, but it can
-race with the IRQ core startup path for the first 8250 port on the same
-IRQ.  One possible interleaving is:
+iboffline() waits uninterruptibly on io_drain_wait before calling
+detach(). big_gpib_mutex is already held at that point (via IBONL),
+which blocks any *new* I/O ioctl from starting, so the wait only
+drains whatever was already in flight; it does not need a timeout,
+and adding one would just let detach() free private_data out from
+under a callback that is still running.
 
-  CPU0, ttyS1                         CPU1, ttyS3
+gpib_unregister_driver() also calls iboffline(), but unlike the
+IBONL path it holds no lock at all, so a fresh ioctl could still
+race the detach()/board->interface=NULL sequence there. Take
+big_gpib_mutex around that call site to close the same window.
 
-  serial_link_irq_chain()
-    hash_add(i)
-    i->head = &ttyS1
-    request_irq()
-                                        serial_link_irq_chain()
-                                          find i in irq_lists
-                                          list_add(&ttyS3, i->head)
-                                        serial8250_do_startup()
-                                          disable_irq_nosync(irq)
-    irq_startup()
-      desc->depth = 0
-                                          enable_irq(irq)
-                                            WARN: Unbalanced enable for IRQ 3
+The KASAN reproducer from v1 (kprobe on a driver read callback,
+concurrent kfree from a detach kthread) demonstrates the class of
+bug this closes: a blocking read callback dereferencing freed
+private_data. It is reproduced against board->io_active rather than
+the mutex in this version; behavior against the harness is
+unchanged, since the harness only exercises the missing exclusion
+between detach() and an in-flight read, not the specific mechanism
+used to provide it.
 
-Hold irq_chain_mutex in serial_link_irq_chain() until the first request_irq()
-has completed.  This prevents another 8250 port sharing the IRQ from joining
-the chain and running the THRE test while the IRQ core is still starting the
-interrupt.  The request_irq() failure cleanup also remains covered by
-irq_chain_mutex, so the just-published irq_info cannot be observed by another
-link attempt before it is unlinked again.
-
-The lock used to only protect irq_lists hash walks, but it now also serializes
-IRQ chain publication and the first request_irq() completion.  Rename it to
-irq_chain_mutex and document the locking requirement for
-serial_get_or_create_irq_info() with __must_hold() and lockdep_assert_held().
-
-Fixes: 64c79dfbc458 ("serial: 8250_pnp: Support configurable reg shift property")
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221579
-Cc: stable@vger.kernel.org # 6.10+
-Signed-off-by: Wang Zhaolong <wangzhaolong@fnnas.com>
+Fixes: e6ab504633e4 ("staging: gpib: Destage gpib")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
 ---
-Changes in v3:
-  - Rename hash_mutex to irq_chain_mutex now that it also serializes IRQ chain
-    publication and first request_irq() completion.
-  - Add __must_hold() and lockdep_assert_held() to document the locking
-    requirement for serial_get_or_create_irq_info().
-  - Verify again with the QEMU ttyS1/ttyS3 shared IRQ reproducer.
+ drivers/gpib/common/gpib_os.c     | 21 +++++++++++++++++++++
+ drivers/gpib/common/iblib.c       | 27 ++++++++++++++++-----------
+ drivers/gpib/include/gpib_types.h |  9 +++++++++
+ 3 files changed, 46 insertions(+), 11 deletions(-)
 
-Changes in v2:
-  - Retitle the patch to describe the unbalanced IRQ enable warning.
-  - Move the code comment to the mutex acquisition site to document why the
-    lock must cover the first request_irq() completion.
-  - Drop the Assisted-by tag.
-
-v2: https://lore.kernel.org/all/20260708031115.3757150-1-wangzhaolong@fnnas.com/
-v1: https://lore.kernel.org/all/20260527092052.2086342-1-wangzhaolong@fnnas.com/
-
- drivers/tty/serial/8250/8250_core.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
-index f49862d90eeb..41d87cdc69d7 100644
---- a/drivers/tty/serial/8250/8250_core.c
-+++ b/drivers/tty/serial/8250/8250_core.c
-@@ -48,11 +48,11 @@ struct irq_info {
- 	struct list_head	*head;
- };
+diff --git a/drivers/gpib/common/gpib_os.c b/drivers/gpib/common/gpib_os.c
+index 5909274dd..86921856f 100644
+--- a/drivers/gpib/common/gpib_os.c
++++ b/drivers/gpib/common/gpib_os.c
+@@ -912,6 +912,7 @@ static int read_ioctl(struct gpib_file_private *file_priv, struct gpib_board *bo
+ 	mutex_unlock(&file_priv->descriptors_mutex);
  
- #define IRQ_HASH_BITS		5	/* Can be adjusted later */
- static DEFINE_HASHTABLE(irq_lists, IRQ_HASH_BITS);
--static DEFINE_MUTEX(hash_mutex);	/* Used to walk the hash */
-+static DEFINE_MUTEX(irq_chain_mutex);
+ 	atomic_set(&desc->io_in_progress, 1);
++	atomic_inc(&board->io_active);
  
- static bool skip_txen_test;
- module_param(skip_txen_test, bool, 0644);
- MODULE_PARM_DESC(skip_txen_test, "Skip checking for the TXEN bug at init time");
+ 	/* Read buffer loads till we fill the user supplied buffer */
+ 	while (remain > 0 && end_flag == 0) {
+@@ -944,6 +945,8 @@ static int read_ioctl(struct gpib_file_private *file_priv, struct gpib_board *bo
+ 		retval = copy_to_user((void __user *)arg, &read_cmd, sizeof(read_cmd));
  
-@@ -129,14 +129,15 @@ static void serial_do_unlink(struct irq_info *i, struct uart_8250_port *up)
-  * Either:
-  * - find the corresponding info in the hashtable and return it, or
-  * - allocate a new one, add it to the hashtable and return it.
-  */
- static struct irq_info *serial_get_or_create_irq_info(const struct uart_8250_port *up)
-+	__must_hold(&irq_chain_mutex)
- {
- 	struct irq_info *i;
+ 	atomic_set(&desc->io_in_progress, 0);
++	atomic_dec(&board->io_active);
++	wake_up(&board->io_drain_wait);
+ 	atomic_dec(&desc->descriptor_busy);
  
--	guard(mutex)(&hash_mutex);
-+	lockdep_assert_held(&irq_chain_mutex);
+ 	wake_up_interruptible(&board->wait);
+@@ -1003,6 +1006,7 @@ static int command_ioctl(struct gpib_file_private *file_priv,
+ 	 */
  
- 	hash_for_each_possible(irq_lists, i, node, up->port.irq)
- 		if (i->irq == up->port.irq)
- 			return i;
+ 	atomic_set(&desc->io_in_progress, 1);
++	atomic_inc(&board->io_active);
  
-@@ -154,10 +155,18 @@ static struct irq_info *serial_get_or_create_irq_info(const struct uart_8250_por
- static int serial_link_irq_chain(struct uart_8250_port *up)
- {
- 	struct irq_info *i;
- 	int ret;
+ 	do {
+ 		fault = copy_from_user(board->buffer, userbuf, (board->buffer_length < remain) ?
+@@ -1038,6 +1042,8 @@ static int command_ioctl(struct gpib_file_private *file_priv,
+ 	 */
+ 	if (!no_clear_io_in_prog || fault)
+ 		atomic_set(&desc->io_in_progress, 0);
++	atomic_dec(&board->io_active);
++	wake_up(&board->io_drain_wait);
+ 	atomic_dec(&desc->descriptor_busy);
  
-+	/*
-+	 * Keep the IRQ chain lock held until the first request_irq() completes.
-+	 * The first port publishes i->head before request_irq() starts the IRQ;
-+	 * a second port sharing the IRQ must not join the chain and run the
-+	 * THRE test while the IRQ core is still bringing the line up.
-+	 */
-+	guard(mutex)(&irq_chain_mutex);
+ 	wake_up_interruptible(&board->wait);
+@@ -1085,6 +1091,7 @@ static int write_ioctl(struct gpib_file_private *file_priv, struct gpib_board *b
+ 	mutex_unlock(&file_priv->descriptors_mutex);
+ 
+ 	atomic_set(&desc->io_in_progress, 1);
++	atomic_inc(&board->io_active);
+ 
+ 	/* Write buffer loads till we empty the user supplied buffer */
+ 	while (remain > 0) {
+@@ -1118,6 +1125,8 @@ static int write_ioctl(struct gpib_file_private *file_priv, struct gpib_board *b
+ 		fault = copy_to_user((void __user *)arg, &write_cmd, sizeof(write_cmd));
+ 
+ 	atomic_set(&desc->io_in_progress, 0);
++	atomic_dec(&board->io_active);
++	wake_up(&board->io_drain_wait);
+ 	atomic_dec(&desc->descriptor_busy);
+ 
+ 	wake_up_interruptible(&board->wait);
+@@ -2115,8 +2124,18 @@ void gpib_unregister_driver(struct gpib_interface *interface)
+ 			if (board->use_count > 0)
+ 				pr_warn("gpib: Warning: deregistered interface %s in use\n",
+ 					interface->name);
++			/*
++			 * Unlike the IBONL ioctl path, nothing else holds
++			 * big_gpib_mutex here, so a fresh ioctl could race
++			 * this teardown and dispatch into board->interface
++			 * right as it becomes NULL below. Hold the mutex
++			 * across iboffline() and clearing board->interface
++			 * so ibioctl() cannot enter until this is done.
++			 */
++			mutex_lock(&board->big_gpib_mutex);
+ 			iboffline(board);
+ 			board->interface = NULL;
++			mutex_unlock(&board->big_gpib_mutex);
+ 		}
+ 	}
+ 	for (list_ptr = registered_drivers.next; list_ptr != &registered_drivers;) {
+@@ -2149,6 +2168,8 @@ void init_gpib_board(struct gpib_board *board)
+ 	init_waitqueue_head(&board->wait);
+ 	mutex_init(&board->user_mutex);
+ 	mutex_init(&board->big_gpib_mutex);
++	atomic_set(&board->io_active, 0);
++	init_waitqueue_head(&board->io_drain_wait);
+ 	board->locking_pid = 0;
+ 	spin_lock_init(&board->locking_pid_spinlock);
+ 	spin_lock_init(&board->spinlock);
+diff --git a/drivers/gpib/common/iblib.c b/drivers/gpib/common/iblib.c
+index 07a30d520..0de6ca50c 100644
+--- a/drivers/gpib/common/iblib.c
++++ b/drivers/gpib/common/iblib.c
+@@ -257,22 +257,27 @@ int iboffline(struct gpib_board *board)
+ 	}
+ 
+ 	/*
+-	 * Acquire big_gpib_mutex before calling detach() to prevent a
+-	 * use-after-free race. I/O callbacks (read/write/command) hold
+-	 * big_gpib_mutex while caching board->private_data on their stack.
+-	 * Without this lock, iboffline() can kfree(board->private_data)
+-	 * inside detach() while an I/O callback is still running and holds
+-	 * a stale pointer to the freed memory.
++	 * iboffline() is always called with board->big_gpib_mutex already
++	 * held (via the IBONL ioctl), so it cannot take that mutex itself.
++	 * That mutex is also dropped by IBRD/IBWRT/IBCMD before they call
++	 * into board->interface, since those calls can block for a long
++	 * time, so it never actually excludes an in-flight read/write/
++	 * command callback in the first place.
+ 	 *
+-	 * Affected board drivers: cb7210, ines_gpib, tnt4882 (all delegate
+-	 * to nec7210_read/pio_read which blocks in wait_event_interruptible
+-	 * for up to board->usec_timeout microseconds while holding priv).
++	 * board->io_active counts callbacks currently executing inside
++	 * board->interface. Wait here, uninterruptibly and without a
++	 * timeout, for it to reach zero before calling detach(). Since
++	 * big_gpib_mutex is held, no *new* I/O ioctl can start while we
++	 * wait, so this only drains whatever was already in flight.
++	 * Returning early would let detach() free board->private_data
++	 * while that in-flight callback is still dereferencing it, which
++	 * is the use-after-free this is closing.
+ 	 */
+-	mutex_lock(&board->big_gpib_mutex);
++	wait_event(board->io_drain_wait, atomic_read(&board->io_active) == 0);
 +
- 	i = serial_get_or_create_irq_info(up);
- 	if (IS_ERR(i))
- 		return PTR_ERR(i);
+ 	board->interface->detach(board);
+ 	gpib_deallocate_board(board);
+ 	board->online = 0;
+-	mutex_unlock(&board->big_gpib_mutex);
+ 	dev_dbg(board->gpib_dev, "board offline\n");
  
- 	scoped_guard(spinlock_irq, &i->lock) {
-@@ -180,11 +189,11 @@ static int serial_link_irq_chain(struct uart_8250_port *up)
- 
- static void serial_unlink_irq_chain(struct uart_8250_port *up)
- {
- 	struct irq_info *i;
- 
--	guard(mutex)(&hash_mutex);
-+	guard(mutex)(&irq_chain_mutex);
- 
- 	hash_for_each_possible(irq_lists, i, node, up->port.irq)
- 		if (i->irq == up->port.irq) {
- 			if (WARN_ON(i->head == NULL))
- 				return;
+ 	return 0;
+diff --git a/drivers/gpib/include/gpib_types.h b/drivers/gpib/include/gpib_types.h
+index 28b73157f..1c1f29c12 100644
+--- a/drivers/gpib/include/gpib_types.h
++++ b/drivers/gpib/include/gpib_types.h
+@@ -288,6 +288,15 @@ struct gpib_board {
+ 	 * store additional variables for this board
+ 	 */
+ 	void *private_data;
++	/*
++	 * Counts read/write/command callbacks currently executing in
++	 * board->interface. iboffline() waits for this to reach zero
++	 * before calling detach(), so its teardown of private_data
++	 * cannot race an in-flight callback still dereferencing it.
++	 */
++	atomic_t io_active;
++	/* Woken when io_active reaches zero, so iboffline() can wait for drain. */
++	wait_queue_head_t io_drain_wait;
+ 	/* Number of open file descriptors using this board */
+ 	unsigned int use_count;
+ 	/* list of open devices connected to this board */
 -- 
-2.54.0
+2.53.0
+
