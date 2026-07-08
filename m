@@ -1,209 +1,278 @@
-Received: from mail-ot1-f73.google.com (mail-ot1-f73.google.com [209.85.210.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o14.zoho.eu (sender-op-o14.zoho.eu [136.143.169.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE767384258
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 22:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.73
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783551140; cv=none; b=pTeIYKE6HnRDEnPsQQTvwB9ML0kcneLbb2AK/RtLaQLiOqWudB20oeHJOlswQYLFgDdMxMAHa1RhE2QjLIYtXMl/Q0OKBnVxAKx4GQL2txTbI+5DqD/kFgKA7PBHlx8sH8J3sRLQ3X8hL9qbRGURMh7dIgZZc72G3ZRe+XIjCVA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783551140; c=relaxed/simple;
-	bh=E+z0mSY99NzfjH7XlauQzJBh4gqBbtEbX4/+lWjFsGE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=JO6dIzCT566XYDjcNyg4kCxieepYHFb8/tSo/fqye51FwcGBwW+Jb25tlt2yc8fSzWwbE2AtWDwTngb1m5mJL7Pe8hYAtCFamFgPTGK1VEcp1l7ksobrl3Ph5gkg787zvRkhte39/u7mJjrexAd3xDCCb2apAICwDE++wg7LrUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bWkgMq81; arc=none smtp.client-ip=209.85.210.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18D436E497;
+	Wed,  8 Jul 2026 22:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783551510; cv=pass; b=PI8QptP7BV5SdKonyFcOkz1x1I4SDMi+7aER/L6SUUsZKHJVhl3qpu6yZSKyqUt7wj1PBoVeAGdASHso3t+BJWoJSBpr7xOqQnrUEYNhzHNliKwqfJcKyvd3yGGpu5CAHt9gXCsezz1ldfmIyNnXfw3eJ5EEDs2ZvjIScrFdb8s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783551510; c=relaxed/simple;
+	bh=VLjkFrWgCIob8o/O1KWG/iAXwV9ZRpIg4fm1G3xE9kI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nYtYVSzntaLWR2mTWBhta+/4F1/N3q9ORbyYD7YGG/jXlVtaJc8o5XFtAny0ZtvV5v8dkWnAsB2db+SHzc5jzyFKY5Xrde3BvBXHzLSE2XjdFn3o1dU+/i3agrgsAziDD4PFcvnUQQ2p+ohiq7OtTyvyjYOyEXF7Sfjc5J/XFGI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=YvjUXrCV; arc=pass smtp.client-ip=136.143.169.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bWkgMq81"
-Received: by mail-ot1-f73.google.com with SMTP id 46e09a7af769-7eb60cfd476so277859a34.3
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 15:52:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783551132; x=1784155932; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xYbxzb3UFNoiytOECv3hgns4dgvMX5WmqlL/nKi0B9I=;
-        b=bWkgMq81vnOaY7I6sS1qIAULwI9RWtcWj2zbGRw2JroNPyou3+tJTiD3KiDtsPqKM+
-         8LAvHc1wYj52+3QXykBwSVfILpXk2YJf4ytl7FCwBaPA95JsILj28BW4BQztI4PqWywc
-         zV8/rw2w+WSvlKwMMrRhqwmgLNVlcOrJSb4z00lLoIeg45bw4FfFKDJRmADc4ub6gU1m
-         jHCSHbfvE0SxnHPxO64J5/2My6vfpMR4ZCjc36HyMrNDHReuFsPNIqQHyEVz6pQa8dBs
-         gGMY/T0DwQgv9Kri/C/qm8mN5jsadfAkRoqQXhOU9cTRsxlqq1vCorY/wETtgdXV4Eq+
-         al9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783551132; x=1784155932;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xYbxzb3UFNoiytOECv3hgns4dgvMX5WmqlL/nKi0B9I=;
-        b=aNXeTFpBbgLnaRt6aAy/yeJmVe9xNJ1SNU7xVUvL7KcFUdTTUGpcpJNWwOB7hLMWyi
-         g2j27Kgd1rYlzgbLJ0yNAf007jN01xDxL2MO4Auq6xlKFcWeSFWSr3EO5Ajh90SRtP/y
-         eHGSBPOBVL4PDFXb0b25CmrHAMClVfcbpa6AoFzhtlZZobBeMRbhDomXNfJ9JO4mU8Y9
-         pyYGasrJ33JmNdtV7DmtBoL8Tmt9w2PCOwvk/U0fvZ9DHECh3PxeRSt7Kr5K03u90ZHC
-         xTce/k3lKmb1PRRZJ7DnsY8Wr53h6uiNhwJJz5uq0fxE+me7Xk5iEDNnOXjrOSX41nGP
-         RuNQ==
-X-Gm-Message-State: AOJu0Ywsi0kNl1Ba3AYpw2ojiYvOLnxUusvPSwouK9AsHW+3/TBRhqBn
-	FsvRNIksJmqzO9fD4zxkBklby/+FpvwdOUEecC8e2oiD0typDKM8zKuwhEIqMwBCclGtbY8Y/Gw
-	XplQmUfNXB74LolGKl+D7BW9Coy4HSpF21HqbdMxwI2X7sA80FH434PJ1rjOZeR8Cm4HMlHFsc7
-	PLHNecu1um7X8dPIRf39i+1G1p6ssmwoxf08qgVVEhAO38Lt5ri7i/ykFZNPKEQRE=
-X-Received: from ilmt14.prod.google.com ([2002:a05:6e02:10e:b0:503:bd20:d827])
- (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
- 2002:a4a:e910:0:b0:6a1:53a0:5330 with SMTP id 006d021491bc7-6a36d971080mr3288768eaf.16.1783551131404;
- Wed, 08 Jul 2026 15:52:11 -0700 (PDT)
-Date: Wed,  8 Jul 2026 22:51:22 +0000
-In-Reply-To: <20260708225124.4130846-1-coltonlewis@google.com>
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="YvjUXrCV"
+ARC-Seal: i=1; a=rsa-sha256; t=1783551500; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=B358wxnbpe+FJvVhVnIfQR6nUeD0NVaQd1vmfBQzul73WnWhrNO+bFJ3UNxHukcv9ffW6XPGTRo73KBDppmWy60cmmRlevdAOsg+0xa2ekMifIOdMXuOzuiHzpF+j7k8kxoNt8Fqo0FdHmAIKyz6j7DsXESX6ib+nSLUepL6o+c=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1783551500; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Lu6xH0wFJCLSeNQ17VPjjwqn18LJ/RAwHmO958eeQtI=; 
+	b=Qr5RY3Qkid8Trn72qj+s/bMGaHHGHICrWfMEoDTC/q6UWyeNtdNd9FlYTWgjMfZgqHIrT1NIQtrIqtb9HYBxIi3uvgvC1Z+mXORJ2DVgd5z+H3y47HkYx65kBoRUdQkFCQ3vZkfREl6gzIhgYKzlraIs7imycDsQhOVViF7noQw=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783551500;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Lu6xH0wFJCLSeNQ17VPjjwqn18LJ/RAwHmO958eeQtI=;
+	b=YvjUXrCVZKIHhsl6WCnnRrb0XARVNZCmYhLTHtfqhBRuCWei3wH2ye8p7r5nPtXS
+	vpKnFyz8KBmJrFep4Gb2ucU/fZXIttvSzZv9mhIysys8egsTjiuueeqMAh1KCmIMOxl
+	AHd2xtIhMBcMjYPtOk5opuYIz2kUZ5KVR+BbsBD0=
+Received: by mx.zoho.eu with SMTPS id 1783551499229535.5740914169622;
+	Thu, 9 Jul 2026 00:58:19 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] xfs: bounds-check buffer log item's dirty bitmap
+Date: Thu,  9 Jul 2026 00:58:14 +0200
+Message-ID: <20260708225814.2568-1-security@auditcode.ai>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260708225124.4130846-1-coltonlewis@google.com>
-X-Mailer: git-send-email 2.55.0.795.g602f6c329a-goog
-Message-ID: <20260708225124.4130846-5-coltonlewis@google.com>
-Subject: [PATCH 6.6 v2 4/6] KVM: arm64: Initialize HCR_EL2.E2H early
-From: Colton Lewis <coltonlewis@google.com>
-To: stable@vger.kernel.org
-Cc: oliver.upton@linux.dev, sashal@kernel.org, gregkh@linuxfoundation.org, 
-	mizhang@google.com, catalin.marinas@arm.com, will@kernel.org, maz@kernel.org, 
-	james.morse@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
-	mark.rutland@arm.com, ahmed.genidi@arm.com, leo.yan@arm.com, 
-	miguel.luis@oracle.com, dbrazdil@google.com, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Ben Horgan <ben.horgan@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-From: Mark Rutland <mark.rutland@arm.com>
+xlog_recover_do_reg_buffer() replays each dirty region a buffer log
+item's bitmap describes into the in-core buffer read for that log
+item:
 
-[ Upstream commit 7a68b55ff39b0a1638acb1694c185d49f6077a0d ]
+	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
+		item->ri_buf[i].iov_base,
+		nbits << XFS_BLF_SHIFT);
 
-On CPUs without FEAT_E2H0, HCR_EL2.E2H is RES1, but may reset to an
-UNKNOWN value out of reset and consequently may not read as 1 unless it
-has been explicitly initialized.
+The only thing standing between that destination offset and the end
+of "bp" is:
 
-We handled this for the head.S boot code in commits:
+	ASSERT(BBTOB(bp->b_length) >=
+	       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
 
-  3944382fa6f22b54 ("arm64: Treat HCR_EL2.E2H as RES1 when ID_AA64MMFR4_EL1.E2H0 is negative")
-  b3320142f3db9b3f ("arm64: Fix early handling of FEAT_E2H0 not being implemented")
+"bp" is sized directly from the logged, attacker-controlled
+buf_f->blf_len (xlog_recover_buf_commit_pass2() ->
+xfs_buf_read(..., buf_f->blf_blkno, buf_f->blf_len, ...)), while
+"bit"/"nbits" come from the logged dirty bitmap (buf_f->blf_data_map),
+also attacker-controlled. Nothing else relates the two: the source
+side is trimmed against the log iovec length a few lines down
+(item->ri_buf[i].iov_len), but the destination side has no equivalent
+runtime check.
 
-Unfortunately, we forgot to apply a similar fix to the KVM PSCI entry
-points used when relaying CPU_ON, CPU_SUSPEND, and SYSTEM SUSPEND. When
-KVM is entered via these entry points, the value of HCR_EL2.E2H may be
-consumed before it has been initialized (e.g. by the 'init_el2_state'
-macro).
+ASSERT() compiles to a no-op on production (non-DEBUG, non-XFS_WARN)
+kernels, which is exactly where this matters. A dirty log record
+whose buffer-log-format item logs a small blf_len (e.g. 1, a
+512-byte buffer) together with a dirty bitmap bit that indexes past
+that buffer drives the memcpy() above straight past the end of the
+recovered buffer's backing allocation, corrupting adjacent kernel
+heap memory during mount-time log recovery of a crafted (or merely
+corrupt) XFS image. This is reachable by anyone who can get such an
+image mounted (CAP_SYS_ADMIN in the init namespace, or automount of
+removable/untrusted media) -- the standard malicious-filesystem
+threat model XFS's other verifiers guard against. Found with a
+KASAN-enabled kernel: a crafted image with a small blf_len and an
+out-of-range bitmap bit produces a slab-out-of-bounds write during
+log recovery.
 
-Initialize HCR_EL2.E2H early in these paths such that it can be consumed
-reliably. The existing code in head.S is factored out into a new
-'init_el2_hcr' macro, and this is used in the __kvm_hyp_init_cpu()
-function common to all the relevant PSCI entry points.
+Nearby recovery code already treats this class of "logged size
+doesn't match reality" problem as a real runtime condition rather
+than an invariant to assert on. In this very function, the dquot
+sanity check a few lines below does exactly that:
 
-For clarity, I've tweaked the assembly used to check whether
-ID_AA64MMFR4_EL1.E2H0 is negative. The bitfield is extracted as a signed
-value, and this is checked with a signed-greater-or-equal (GE) comparison.
+	if (item->ri_buf[i].iov_len < size_disk_dquot) {
+		xfs_alert(mp, "XFS: dquot too small (%zd) in %s.", ...);
+		goto next;
+	}
 
-As the hyp code will reconfigure HCR_EL2 later in ___kvm_hyp_init(), all
-bits other than E2H are initialized to zero in __kvm_hyp_init_cpu().
+and its sibling xlog_recover_do_inode_buffer(), a little further down
+in this same file, converts the equivalent destination-bounds
+ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery of
+the item instead of trusting the log:
 
-Fixes: 3944382fa6f22b54 ("arm64: Treat HCR_EL2.E2H as RES1 when ID_AA64MMFR4_EL1.E2H0 is negative")
-Fixes: b3320142f3db9b3f ("arm64: Fix early handling of FEAT_E2H0 not being implemented")
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-Cc: Ahmed Genidi <ahmed.genidi@arm.com>
-Cc: Ben Horgan <ben.horgan@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Leo Yan <leo.yan@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oliver.upton@linux.dev>
-Cc: Will Deacon <will@kernel.org>
-Link: https://lore.kernel.org/r/20250227180526.1204723-2-mark.rutland@arm.com
-[maz: fixed LT->GE thinko]
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+	ASSERT((reg_buf_offset + reg_buf_bytes) <= BBTOB(bp->b_length));
+	...
+	if (XFS_IS_CORRUPT(mp, *logged_nextp == 0)) {
+		xfs_alert(mp, "Bad inode buffer log record ...");
+		return -EFSCORRUPTED;
+	}
+
+Give xlog_recover_do_reg_buffer() the same treatment: turn the
+destination-bounds ASSERT() into a real XFS_IS_CORRUPT() check, log
+it with xfs_alert() (matching xlog_recover_do_inode_buffer() and the
+xfs_dquot_item_recover.c size checks), and fail recovery of this
+buffer with -EFSCORRUPTED instead of copying past its end. Since the
+function now needs to report failure, change it from "STATIC void"
+to "STATIC int" and propagate the new error out of all three
+callers:
+
+  - xlog_recover_do_primary_sb_buffer(), which already returns int
+    and already checks other error conditions inline;
+  - xlog_recover_do_dquot_buffer(), which returns a "dirty" bool to
+    its one caller; it gains an "int *error" out-parameter so the
+    caller can distinguish "buffer intentionally skipped" from
+    "buffer recovery failed";
+  - the plain regular-buffer branch of
+    xlog_recover_buf_commit_pass2(), which already has an in-scope
+    "error" local used by the sibling branches right next to it.
+
+This is a minimal, targeted fix: it does not change any successful
+recovery path (the new check only rejects logs that were already
+violating the invariant the ASSERT() was documenting), and it
+mirrors the exact validate-and-fail idiom already used a few lines
+away in the same file and in fs/xfs/xfs_dquot_item_recover.c.
+
+Verified on a v6.19 KASAN-enabled kernel (CONFIG_XFS_DEBUG=n): mount
+of a crafted image whose buffer log item's dirty bitmap indexes past
+its logged blf_len trips a KASAN slab-out-of-bounds write in
+xlog_recover_do_reg_buffer() before this patch; with the patch
+applied, mounting the same image fails recovery with -EFSCORRUPTED
+and no KASAN report is produced.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
 ---
- arch/arm64/include/asm/el2_setup.h | 26 ++++++++++++++++++++++++++
- arch/arm64/kernel/head.S           | 19 +------------------
- arch/arm64/kvm/hyp/nvhe/hyp-init.S |  2 ++
- 3 files changed, 29 insertions(+), 18 deletions(-)
+v2: no functional change; v1 was sent with an empty Subject line due to
+    a local git send-email glitch (leading blank line in the patch file).
 
-diff --git a/arch/arm64/include/asm/el2_setup.h b/arch/arm64/include/asm/el2_setup.h
-index b7afaa026842b..3498dc5d02c18 100644
---- a/arch/arm64/include/asm/el2_setup.h
-+++ b/arch/arm64/include/asm/el2_setup.h
-@@ -16,6 +16,32 @@
- #include <asm/sysreg.h>
- #include <linux/irqchip/arm-gic-v3.h>
- 
-+.macro init_el2_hcr	val
-+	mov_q	x0, \val
+ fs/xfs/xfs_buf_item_recover.c | 48 ++++++++++++++++++++++++++++-------
+ 1 file changed, 39 insertions(+), 9 deletions(-)
+
+diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+index 02b95b89d1b5..521e5f544caf 100644
+--- a/fs/xfs/xfs_buf_item_recover.c
++++ b/fs/xfs/xfs_buf_item_recover.c
+@@ -461,7 +461,7 @@ xlog_recover_validate_buf_type(
+  * given buffer.  The bitmap in the buf log format structure indicates
+  * where to place the logged data.
+  */
+-STATIC void
++STATIC int
+ xlog_recover_do_reg_buffer(
+ 	struct xfs_mount		*mp,
+ 	struct xlog_recover_item	*item,
+@@ -489,8 +489,25 @@ xlog_recover_do_reg_buffer(
+ 		ASSERT(nbits > 0);
+ 		ASSERT(item->ri_buf[i].iov_base != NULL);
+ 		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
+-		ASSERT(BBTOB(bp->b_length) >=
+-		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
 +
-+	/*
-+	 * Compliant CPUs advertise their VHE-onlyness with
-+	 * ID_AA64MMFR4_EL1.E2H0 < 0. On such CPUs HCR_EL2.E2H is RES1, but it
-+	 * can reset into an UNKNOWN state and might not read as 1 until it has
-+	 * been initialized explicitly.
-+	 *
-+	 * Fruity CPUs seem to have HCR_EL2.E2H set to RAO/WI, but
-+	 * don't advertise it (they predate this relaxation).
-+	 *
-+	 * Initalize HCR_EL2.E2H so that later code can rely upon HCR_EL2.E2H
-+	 * indicating whether the CPU is running in E2H mode.
-+	 */
-+	mrs_s	x1, SYS_ID_AA64MMFR4_EL1
-+	sbfx	x1, x1, #ID_AA64MMFR4_EL1_E2H0_SHIFT, #ID_AA64MMFR4_EL1_E2H0_WIDTH
-+	cmp	x1, #0
-+	b.ge	.LnVHE_\@
-+
-+	orr	x0, x0, #HCR_E2H
-+.LnVHE_\@:
-+	msr	hcr_el2, x0
-+	isb
-+.endm
-+
- .macro __init_el2_sctlr
- 	mov_q	x0, INIT_SCTLR_EL2_MMU_OFF
- 	msr	sctlr_el2, x0
-diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index e0e710b36da37..ff7769821166a 100644
---- a/arch/arm64/kernel/head.S
-+++ b/arch/arm64/kernel/head.S
-@@ -575,25 +575,8 @@ SYM_INNER_LABEL(init_el2, SYM_L_LOCAL)
- 	msr	sctlr_el2, x0
- 	isb
- 0:
--	mov_q	x0, HCR_HOST_NVHE_FLAGS
--
--	/*
--	 * Compliant CPUs advertise their VHE-onlyness with
--	 * ID_AA64MMFR4_EL1.E2H0 < 0. HCR_EL2.E2H can be
--	 * RES1 in that case. Publish the E2H bit early so that
--	 * it can be picked up by the init_el2_state macro.
--	 *
--	 * Fruity CPUs seem to have HCR_EL2.E2H set to RAO/WI, but
--	 * don't advertise it (they predate this relaxation).
--	 */
--	mrs_s	x1, SYS_ID_AA64MMFR4_EL1
--	tbz	x1, #(ID_AA64MMFR4_EL1_E2H0_SHIFT + ID_AA64MMFR4_EL1_E2H0_WIDTH - 1), 1f
--
--	orr	x0, x0, #HCR_E2H
--1:
--	msr	hcr_el2, x0
--	isb
++		/*
++		 * The bitmap is only trustworthy to the extent that it
++		 * describes a region that actually fits inside the buffer we
++		 * read in based on the (attacker-controlled) blf_len.  Do not
++		 * rely on an ASSERT() for this -- it compiles away entirely
++		 * on non-DEBUG kernels, which is exactly where this matters,
++		 * so validate it for real and abort recovery of this buffer
++		 * rather than copying past the end of it.
++		 */
++		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
++				((uint)bit << XFS_BLF_SHIFT) +
++				(nbits << XFS_BLF_SHIFT))) {
++			xfs_alert(mp,
++	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
++				bit, nbits, BBTOB(bp->b_length),
++				xfs_buf_daddr(bp));
++			return -EFSCORRUPTED;
++		}
  
-+	init_el2_hcr	HCR_HOST_NVHE_FLAGS
- 	init_el2_state
+ 		/*
+ 		 * The dirty regions logged in the buffer, even though
+@@ -544,6 +561,7 @@ xlog_recover_do_reg_buffer(
+ 	ASSERT(i == item->ri_total);
  
- 	/* Hypervisor stub */
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-init.S b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-index 1cc06e6797bda..3efa9cfaa9d48 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-@@ -202,6 +202,8 @@ SYM_CODE_START_LOCAL(__kvm_hyp_init_cpu)
+ 	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
++	return 0;
+ }
  
- 2:	msr	SPsel, #1			// We want to use SP_EL{1,2}
+ /*
+@@ -553,7 +571,9 @@ xlog_recover_do_reg_buffer(
+  * Else, treat it as a regular buffer and do recovery.
+  *
+  * Return false if the buffer was tossed and true if we recovered the buffer to
+- * indicate to the caller if the buffer needs writing.
++ * indicate to the caller if the buffer needs writing.  *error is set if
++ * recovery of the buffer failed and the caller must abort replay of this
++ * buffer.
+  */
+ STATIC bool
+ xlog_recover_do_dquot_buffer(
+@@ -561,10 +581,12 @@ xlog_recover_do_dquot_buffer(
+ 	struct xlog			*log,
+ 	struct xlog_recover_item	*item,
+ 	struct xfs_buf			*bp,
+-	struct xfs_buf_log_format	*buf_f)
++	struct xfs_buf_log_format	*buf_f,
++	int				*error)
+ {
+ 	uint			type;
  
-+	init_el2_hcr	0
-+
- 	/* Initialize EL2 CPU state to sane values. */
- 	init_el2_state				// Clobbers x0..x2
- 	finalise_el2_state
++	*error = 0;
+ 	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
+ 
+ 	/*
+@@ -586,7 +608,7 @@ xlog_recover_do_dquot_buffer(
+ 	if (log->l_quotaoffs_flag & type)
+ 		return false;
+ 
+-	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
++	*error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
+ 	return true;
+ }
+ 
+@@ -724,7 +746,9 @@ xlog_recover_do_primary_sb_buffer(
+ 	xfs_rgnumber_t			orig_rgcount = mp->m_sb.sb_rgcount;
+ 	int				error;
+ 
+-	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++	if (error)
++		return error;
+ 
+ 	if (orig_agcount == 0) {
+ 		xfs_alert(mp, "Trying to grow file system without AGs");
+@@ -1083,7 +1107,10 @@ xlog_recover_buf_commit_pass2(
+ 		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
+ 		bool	dirty;
+ 
+-		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
++		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f,
++						     &error);
++		if (error)
++			goto out_release;
+ 		if (!dirty)
+ 			goto out_release;
+ 	} else if ((xfs_blft_from_flags(buf_f) & XFS_BLFT_SB_BUF) &&
+@@ -1105,7 +1132,10 @@ xlog_recover_buf_commit_pass2(
+ 			xfs_buf_relse(rtsb_bp);
+ 		}
+ 	} else {
+-		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
++						   current_lsn);
++		if (error)
++			goto out_release;
+ 	}
+ 
+ 	/*
 -- 
-2.55.0.795.g602f6c329a-goog
+2.50.1 (Apple Git-155)
 
