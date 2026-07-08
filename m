@@ -1,49 +1,51 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7321292B54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA321F130B
 	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 09:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783504171; cv=none; b=J+uk7ua1vr95/REQ/hpeyNZpMQJ7v8M9BfF3kMVm/aaqRZXJZajA/zFpQfbA/ArfvSKnaPBH2BlxONO9s5UPzkkRF7+rUqe1sE5Ej1V9JBCJfDj2DYxXkWqXniqEZi4bNWPICsGaSfB1hNiiwnYzeCtcCYz1tyOwCHDrG35qjIM=
+	t=1783504171; cv=none; b=i/3Y5tCaD5d5ZYmU2/yq+jZCm7Gq/Zd75i5oaOlPm7E9vxTqIg8fEgNMcXD7oKl9LJrN7z3H4HPD3gzF2bYrkeipjEur3HnzeA5vrsp7Q4Kokc3W0vrqQ4kw0PDxKFWP7aNy7NHOOZc+vDyulET7yoELsgJV/qZY5sVqzbpLYx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783504171; c=relaxed/simple;
-	bh=kuFxI6zCr4dVGnzCYou53VWrkVBAA208Iv+yWiSAhc4=;
+	bh=FF44kqTDfVUFxHg9EYFd2Pz2EhO3TCToB9VJbVEuTQI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Wzj4aj6012aBLe6zz5LZategY1qX8mvni+wbHEsJ1KeoYz1G2A4sCSxbimrhDYic/GxRwBqWTEb5Tg4dPj307ot9q5EyL88/LHkTWR8STRgGdfdoIl8KQe6FryZT/etb069mOZFlatRF9P78t03vsPdmddRAlE8D9Qla2WVJMZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=PKV7H0qD; arc=none smtp.client-ip=54.206.16.166
+	 MIME-Version; b=mOX8GMhvc4D6DdBUBsOPx3Wc2D+aKQZYX/q31J115UGwaQZVCOEcvBa5aP2AMT+8ABwnxy0+svQq1GwKFcYvNDdlSQxnaFYQ8vTl2wbe03HNgw0U/2HECA8FUs6q3wenMtswR9zYN1N2NinS6XvCKYboQFCNuL6YdrZ8rdpszQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Vqr/0Gbe; arc=none smtp.client-ip=52.59.177.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="PKV7H0qD"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Vqr/0Gbe"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1783504131;
-	bh=/ddKzM3gMm80IOv2mlqZS7PwC2cFb2QASKOWts7w2TI=;
+	s=onoh2408; t=1783504086;
+	bh=2a3ZLqPBvZDVtawq0cVQbtmHfF2UJfaGQSoSNsHEYk4=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=PKV7H0qDZRllCF2EhOE7/L7cyTiXaaQ1TxeA8dEcKqvrnBabSMdnWNzMwiprDRL1m
-	 W5XTo24Lp51wZRZaNE7gc1q3eVO/uWneJQjxNG3u8LXyqO0/6JqZ5mb613rtazMneV
-	 NNhMumET6xaSzDUIvzklwMGS/4slDCgwUl/S7aNw=
-X-QQ-mid: zesmtpgz3t1783504112td99ea5de
-X-QQ-Originating-IP: Yx/VzgTY33xSfla6hLCeVqqRMqX3fielqx8gwo+la2o=
+	b=Vqr/0Gbew/VqW7e49JIX2RgfBmUctf2of19EwNJLuRfDFAy6BbuYPU72UkoNJsAiZ
+	 nXOTyG233sDR8NUOW9nuX6Iv+uOipdWk2hDXBzp4YHtv/7crGSPGOFacY3ex4rcdSn
+	 shVhPnVsBhUfjqEyOIPCKug1C6EGhsPpDLgFgMzM=
+X-QQ-mid: zesmtpgz3t1783504080ta3c8fd61
+X-QQ-Originating-IP: yuh2E71A8T01Lx1Ov40dE06pghTaDM2LIlF36J2bePU=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 08 Jul 2026 17:48:20 +0800 (CST)
+	id ; Wed, 08 Jul 2026 17:47:34 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 4816621095025621651
-EX-QQ-RecipientCnt: 8
+X-BIZMAIL-ID: 9541104624205774073
+EX-QQ-RecipientCnt: 10
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org
 Cc: stable@vger.kernel.org,
 	gregkh@linuxfoundation.org,
-	Jianbo Liu <jianbol@nvidia.com>,
-	Boris Pismenny <borisp@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Ido Schimmel <idosch@idosch.org>,
+	Jiri Pirko <jiri@nvidia.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH 6.6.y 04/11] bonding: add ESP offload features when slaves support
-Date: Wed,  8 Jul 2026 17:47:08 +0800
-Message-Id: <20260708094710.27047-5-guanwentao@uniontech.com>
+Subject: [PATCH 6.6.y 02/11] net, team, bonding: Add netdev_base_features helper
+Date: Wed,  8 Jul 2026 17:47:04 +0800
+Message-Id: <20260708094710.27047-3-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260708094710.27047-1-guanwentao@uniontech.com>
 References: <20260708094710.27047-1-guanwentao@uniontech.com>
@@ -56,81 +58,96 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MdW1uYX7ZYF9ZaFC4EFdwcmYMjGOu/G9pykAOJxn/SepUOAsYO9i5NuR
-	axFeLZA1HBc6mAyYKHe+6bs/HBPDXVVy3JzPmoh8pQmsFVT1u16fJclKkfF1rXOrina0yMe
-	Gy7Gr9S1ZSN42sfKjMY0AScmHm4t0ozKhsCFsP358ipD5sz/uGdc2gHs58S1QeoNsKh3gR3
-	c2w+HGy+dq6k8zFcRzHboJN2qk8xMRcB61b144f/GAWLxLxkw9oUmdTfFZMMwcgkaaQyuzd
-	SSEEEhNEvKfDz5ksnRYFARhq3y/+mqPNtvryzeB5hwhxWGNP3zjeYOGK+c1LicQfzu2bEpQ
-	KBhp3HnVMxvqPbr4QX37sSzRnOBfRiTtJOAZjzLoVaFVg61tDFN+GwTTHUxR5/NA6DRMWEp
-	ASWBlrNSbPS6ZN/+8y9Q6Nfrf3X2eETFW/+/NCmHcDNPkSyRVTfKL3dA2pNNmFMEstdSldp
-	JTbJ6tCEtgxI7MDOcjZPrA/TW1hEST8xRXS9YSrC8RqXiMzlqJtG277H/6zdQqYgsAOFVBq
-	1+SJksh1S0PIiaEbA8JYIImtPJ2VfqCyMOrBG6gLzrTdf4LlWTC9V0Lu2GngyNOE7j71Q+M
-	oCsbH28x6W1esECO8XKz5OyfVT4qFMT4wY4MmmPQ+pl/xB8tR2WJj0M7K2mjbRf3e7jJ6T3
-	AJYuI3CMY3SszC30hCF9doaCz7FrPGelrxD1V9O6nNeR/b4A9FF6PJvSC1u2ZewRx8mNiLR
-	u3cfISU5LSviudjlcnE2Q8pXar8nuPD+bcZlpCj8+7sU9dI9zFUcs2ULp3anvhhgtQekpsh
-	S64V+PDOHH+roufMVvwpPTfUk42TSD/XShOml9Rf710ums3bSyJNr3xb6vP2CA+zJgjRQXe
-	gkhokcjY0CtSlJzaye53qR60m0DM8StJTteDHmyp/ctxDAwUM4Pg+5uQGSBjDJ99t+eeLqj
-	pBfE8KeYFhlBAgBuf6/kQ3DrqOsWJBNVPLEvhdEy8hZco4AlL6Anhxt6fTGlfS6zyQBjb4B
-	oil8bFHavMvhaGjL7bnjuka2CV4QLTMv5uWzE4iLBxqDkxDr/UJBlclDJPg7odTtOVWAXJS
-	yCAUkdzrC+IOy8nlUOi+59+dGp1zbsoJRhyFW0qgV1bvSHHZaj+cU/5uGAUToy37LGUNY6E
-	WaAd
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: ORKp4oz66c+QYO4cgFvVhGymJA2GL8UqQa9IwTzNs3wjR+uLxrMhVd59
+	vh4Ctew7gVQl+VurlAAuNLGiafqYzWke+RaTJhQJB5pETzZw82DPawh5YfpW0El3XJm84GZ
+	ahLtvcj2K0bfkrZkxq7V6w97Oe9DuFhbmKWhqrZ4A+96e0Ud6COWi6PU0hL1Vn0821uim3O
+	rysXrGrlCCG3yHH0KmdeJ+8ux8WwmKpl7j5DirUhHzX4A91JI49jjLZTL0bZSr5+EvpsTnm
+	zqTv6UPulQzXZRB4OlNehK4AD/D5OAWtlvrePeULPiBmtFEjsy0mYsgnOXfmsPmbhMYOTQm
+	gQXrlJIeDuOYPioU1pE8Z7Y1EZoAm343tWSkbfx5uEz9MaMzyQ2nfwKcH1e/Q66p+Fvr8QW
+	qu8MOsgDChoE1d7oB8wPoN692SOhrF4z/bgI6ZTvu7jOKipPKHdZAXHODJPskMpojuwEQ5a
+	5x5dkxw4lIxmcrNAkTDIvpqYH1usKYTxmeIjJ5/49dpEwA2+Qlam+i7pXaGnUpbGj5gIxzr
+	U57+nHGigp53RZj6EQ8eVmBedgTJMrgrvC58YuuOGrMGVNW+TNAvxPfoRXFnEceGFi62kFo
+	mgsF9/+rUEdK50Tg2OjWIsPe6Cd89ivh9Aty1gFckeb0nUXYPw0MQGKNblhlKg3Xw99jJMz
+	zYGhxE88HaePXUxRNYwFEjPV2ex5GMzgJoDT0wMOYOWVFBWQvldKTP9gZOdu0Iy/Oq0+30o
+	wmyUR1QX+xNAr0oKoaS1WHcF6NgCDNBBgeEBTp2gPpvA19nh9s22eDqJCieLQIPq12sEewM
+	EeUBDH19sIQPs0IIodlFXpJ3rndgBAV4XmwFk+DFCmT0I/uCEMgXPs78/93lSpvCHEm2b3/
+	A57TYo4LZ+kACMyVrAdrER3+8MKs0rFV76aQUiwGXoi4oRxPxkvD+Ow+nMiYew/XsYhD9Bp
+	te8fKv5AJYyvN1RW3Q3D44Hu4ToDaMqlONo8327Ja+73tkNtMUS74DYSIQIlIfgwwI4xTRA
+	58G4K+sutofaW8FbIIpmd0w4j2VL0XAQW9rhjCUCD7DKA1XgzbGGBNGTLqCttKhaSK3MPB4
+	DxylOnlnrjy5x1HLbUxCbtT5aSgy+lFw0cllFbIvy7JfrMMVZWIYuuoX2ccB0sqlw==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
 X-QQ-RECHKSPAM: 0
 
-From: Jianbo Liu <jianbol@nvidia.com>
+From: Daniel Borkmann <daniel@iogearbox.net>
 
-[ Upstream commit 4861333b42178fa3d8fd1bb4e2cfb2fedc968dba ]
+Both bonding and team driver have logic to derive the base feature
+flags before iterating over their slave devices to refine the set
+via netdev_increment_features().
 
-Add NETIF_F_GSO_ESP bit to bond's gso_partial_features if all slaves
-support it, such that ESP segmentation is handled by hardware if possible.
+Add a small helper netdev_base_features() so this can be reused
+instead of having it open-coded multiple times.
 
-Signed-off-by: Jianbo Liu <jianbol@nvidia.com>
-Reviewed-by: Boris Pismenny <borisp@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://patch.msgid.link/20241105192721.584822-1-tariqt@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 950803f72547 ("bonding: fix type confusion in bond_setup_by_slave()")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-(cherry picked from commit 999fed0236754ea6efbaa1b5304373e7761c8322)
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Cc: Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Ido Schimmel <idosch@idosch.org>
+Cc: Jiri Pirko <jiri@nvidia.com>
+Reviewed-by: Hangbin Liu <liuhangbin@gmail.com>
+Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
+Link: https://patch.msgid.link/20241210141245.327886-1-daniel@iogearbox.net
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+(cherry picked from commit d2516c3a53705f783bb6868df0f4a2b977898a71)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- drivers/net/bonding/bond_main.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/net/bonding/bond_main.c | 4 +---
+ drivers/net/team/team_core.c    | 3 +--
+ include/linux/netdev_features.h | 7 +++++++
+ 3 files changed, 9 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index d200909a75cfe..ec21958babe7d 100644
+index e57e1296da374..36277bcefe290 100644
 --- a/drivers/net/bonding/bond_main.c
 +++ b/drivers/net/bonding/bond_main.c
-@@ -1484,6 +1484,7 @@ static void bond_compute_features(struct bonding *bond)
- {
- 	unsigned int dst_release_flag = IFF_XMIT_DST_RELEASE |
- 					IFF_XMIT_DST_RELEASE_PERM;
-+	netdev_features_t gso_partial_features = NETIF_F_GSO_ESP;
- 	netdev_features_t vlan_features = BOND_VLAN_FEATURES;
- 	netdev_features_t enc_features  = BOND_ENC_FEATURES;
- #ifdef CONFIG_XFRM_OFFLOAD
-@@ -1517,6 +1518,9 @@ static void bond_compute_features(struct bonding *bond)
- 							  BOND_XFRM_FEATURES);
- #endif /* CONFIG_XFRM_OFFLOAD */
+@@ -1456,9 +1456,7 @@ static netdev_features_t bond_fix_features(struct net_device *dev,
+ 	struct slave *slave;
  
-+		if (slave->dev->hw_enc_features & NETIF_F_GSO_PARTIAL)
-+			gso_partial_features &= slave->dev->gso_partial_features;
-+
- 		mpls_features = netdev_increment_features(mpls_features,
- 							  slave->dev->mpls_features,
- 							  BOND_MPLS_FEATURES);
-@@ -1530,6 +1534,11 @@ static void bond_compute_features(struct bonding *bond)
- 	}
- 	bond_dev->hard_header_len = max_hard_header_len;
+ 	mask = features;
+-
+-	features &= ~NETIF_F_ONE_FOR_ALL;
+-	features |= NETIF_F_ALL_FOR_ALL;
++	features = netdev_base_features(features);
  
-+	if (gso_partial_features & NETIF_F_GSO_ESP)
-+		bond_dev->gso_partial_features |= NETIF_F_GSO_ESP;
-+	else
-+		bond_dev->gso_partial_features &= ~NETIF_F_GSO_ESP;
+ 	bond_for_each_slave(bond, slave, iter) {
+ 		features = netdev_increment_features(features,
+diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
+index deb6eb3a240a0..5cd1807e11f79 100644
+--- a/drivers/net/team/team_core.c
++++ b/drivers/net/team/team_core.c
+@@ -2026,8 +2026,7 @@ static netdev_features_t team_fix_features(struct net_device *dev,
+ 	netdev_features_t mask;
+ 
+ 	mask = features;
+-	features &= ~NETIF_F_ONE_FOR_ALL;
+-	features |= NETIF_F_ALL_FOR_ALL;
++	features = netdev_base_features(features);
+ 
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(port, &team->port_list, list) {
+diff --git a/include/linux/netdev_features.h b/include/linux/netdev_features.h
+index 7c2d77d75a888..1b5ad57e7cbf5 100644
+--- a/include/linux/netdev_features.h
++++ b/include/linux/netdev_features.h
+@@ -261,4 +261,11 @@ static inline int find_next_netdev_feature(u64 feature, unsigned long start)
+ 				 NETIF_F_GSO_UDP_TUNNEL |		\
+ 				 NETIF_F_GSO_UDP_TUNNEL_CSUM)
+ 
++static inline netdev_features_t netdev_base_features(netdev_features_t features)
++{
++	features &= ~NETIF_F_ONE_FOR_ALL;
++	features |= NETIF_F_ALL_FOR_ALL;
++	return features;
++}
 +
- done:
- 	bond_dev->vlan_features = vlan_features;
- 	bond_dev->hw_enc_features = enc_features | NETIF_F_GSO_ENCAP_ALL |
+ #endif	/* _LINUX_NETDEV_FEATURES_H */
 -- 
 2.30.2
 
