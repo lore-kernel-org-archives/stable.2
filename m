@@ -1,179 +1,149 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79345407CD3;
-	Wed,  8 Jul 2026 09:01:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E614358389;
+	Wed,  8 Jul 2026 09:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783501277; cv=none; b=QDpNQ5m9/nBl8HopzvaRyMyWChWhCpG6t3FgM3v4mtQ1WbbFIFoo5/IzyYuZ09RXvB/mbwCGY9mUvs4L/1VCOkUpq4LVPJ11w7dwIuONWrFfxQGpRjywQDC+yeKuc0GCdjHpmiWkwg3lWzRtoTWngHl7reufOIYPAkXXrqp57G8=
+	t=1783501439; cv=none; b=W/nump0s/F8jZbb4/cEuTblmMwtp4REHRv3J9/N02xMxz1GiEFhSzZtwZF7yGpCYSPYXpTKN0eV5RM/rsbIVqU6mnc6xIWVj/8PTU7a5U96oa9zxUCXIxeDebsrfK17FVg/6fcCCU0PpyHOAtOZOeP+0ctyOqCdDq8+1mnKTrfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783501277; c=relaxed/simple;
-	bh=40hS5aXScXxGw3QNOjh0cOQTX/xYFBCGE+TErw6YzD8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z+9RgsN5/nNAHD+RwSkV8tqimQaPbF7RS9dcQ3xk644C3RCaco5xWbL5YbHc2g0BON2l3DwYWSojHlKnhOUGAZ/Ifa+3M1b4RVcItSrJ81UG7dtyWEvLwMdeBcbJZqHUImj04VMSStWIDevXmx32Qb4kuFfX4t103rDBrhwyctU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=eKrKQxMC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YoL2U77N; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1783501439; c=relaxed/simple;
+	bh=rUOGVHBUwq7tQTxZP9PeO4F9sEPjz9/ItgaGP9p9Ij4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pkI5B4LUOnatGev1DEhL0hAZ/VsdoiTs126rZvbhz9l48MtA/nkO/ukoLvOyX+Ck/MRljvuE/1acu5WKUPG1681pPxEqv0cVesk5aZxJ2foRnvo7ad2Iowj5DfOm+sqEaTd6A/9JyhM2PN/lCvww70MTrwi8T3v+0t7LWhudj54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hIHqXnlD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="eKrKQxMC";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YoL2U77N"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id 6CE7E1D0016E;
-	Wed,  8 Jul 2026 05:01:12 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Wed, 08 Jul 2026 05:01:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1783501272; x=1783587672; bh=3EvSgYePAJ
-	nK+4qlwHYKXhCIUGXCFLK3nzDr6fryuDE=; b=eKrKQxMCPWq8Jl95v/321bYSwA
-	4HTvxYiDq5lnoHlR/jGkmmZ8cuSCXfTSOdRtjETPRrSDASIDfTVU7kIcF5WCkyAj
-	uV3+NSEiXsVtBSNZey9EbfFl4x432UkP1cKWV0WGoANO+WBCEfgpV5ow7hn1bzH+
-	+XpgcAHcKaHE20UmEZDrlLxieJRNCqqfj7re3SYYNPI3rDNPzRh3uJz43zK/fBzY
-	WqFYxBijP+yPsylw41jE5nG4gbW6igPdGWhAx1+r8nfdjDmW8+la453AMV9MF3uF
-	PVC9mcWsEBIGlvl5kx/ZHeP0JJHhhax09vJp8wD6prD6Sp3DrWpuafoy0XrA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1783501272; x=1783587672; bh=3EvSgYePAJnK+4qlwHYKXhCIUGXCFLK3nzD
-	r6fryuDE=; b=YoL2U77NQpgUHAfBKjSmwkNghLl0bQgv3T9xKeklzlFG9GvGoJG
-	8ZKchXzooom+CWFxFW32qnrqol1cIBe5efbk82GMlp34JavoaMq6EFyYBP6qUxh3
-	SJfwSOGFSHlV7RkfPUkxh2WSIgWc4RC2d7eThIlcrsD8D+C3VV16f3GknnwXOm5z
-	8kvTfAAiKWcnfkzQmgGZ+ULdzYYwULMz6fZD202ePnzlqj8v4fu2c6jMocG6JxJA
-	ImtAGREHeZ6khylKWYi3JgvvTUg4xx/MSxUw6FDMj0jsMJriw24z+oL609VV25xT
-	4dn1t6c6TG+MTVljikzxxBiK7UNKziUBQ3Q==
-X-ME-Sender: <xms:1xFOal35iYtvPjarH-OjcEezHaQoV7a21Uuuc7-cc2copfeJ209YEQ>
-    <xme:1xFOavK7-RcUAhr6p_m_ZFlBg852mxz9oFeO6uHluG555Od-JPLn1IYahcnZS44wm
-    qfqbRLQ8g5a3YE1xnyR7IMlVKOJh7q8kSrlEEyVw5Bz75HitTyqkwA>
-X-ME-Received: <xmr:1xFOaghKZg_ya0wAroDEjqdeazzMckpe75BjZpHzRh3vQ5nRskTpA8OEzTJ0Nw>
-X-ME-Proxy-Cause: dmFkZTFC0PHmAvXUdlZfYzz6cW71H2m7i9+krYVZQo388FxfEPciPyUfJ6xbOuVTbqrZt6
-    unpquqm4bgD31w7QYeNnsOp2ZNFClpIvVbxp9QErPwFGa7zl1ciPYqQkt5nXltGb7RHRVs
-    Hjah+0Z8QDDzeMIF8cYW6HVb10krpmI/KKw/dgaOKn5iC9zXv4BG8Uz3IZIb35Hw/od0nO
-    aIyVPjOZ+OmvNKTENB11ZmWMC5kzjR1HfzoOeSv/HR8Si0rOpUgOHdXqn4q/a5s4iLCEIo
-    IZwSc/fczKDniwH2HnxcdBRf/GRQNi138GRgd5JXWn+XpgmOqcCsI1Hx9lRD6iCrLM81Zi
-    7F8xGRyRA5E6IaakjbAeAWrZRQOOF+qR6LkNMD02FDRbipPe0Wlzk4llZLUonBaT39Keva
-    TloSo0sQQsIuVvYhRXnbEdca+Nqt6sXw20N2m4AjZQanMC3lOKoLwhOuz5bb4hWU/VHZ8o
-    XfP8OnINse2+MggziHGxiLTafZabMvEAMkYBpz5FB/DXGHwSa/nChyqJGZM4EmiIddyLz6
-    P4ez3IRoMctdIjMJaAbcSd294NaGGrV2EkjuXAp3gfCU14s/wvkQu54JTMukIkGkZcUIQA
-    qpfA8GfMz+T7MDQ84u0e6JyULhoYOI5R8e0peMRe+sWIBh41I/UkrjUp16cQ
-X-ME-Proxy: <xmx:1xFOavAsc33qBqZa3hn6u1knk32LbUPGTWK1ADqPGEpBLgSNMQkO-A>
-    <xmx:1xFOai4ragVMXbm7m1tPWm8R2BIQdOZTTRgJ79YYhocHaC90khxWTQ>
-    <xmx:1xFOakHH2SUnvZZKaLcWrzy--PfmpuYiSLgdhMhZvSkRVHjJz2ucew>
-    <xmx:1xFOatD-JF5nHbkVeKbtWvGtm7aIVzpP5iaxM53rRQBTIsFigsJsNg>
-    <xmx:2BFOavySkKoyMOWTS7YMdxd90RKbaGTuMSD2xflwgTJwOhzLYk5r0KLx>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 8 Jul 2026 05:01:11 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: akpm@linux-foundation.org
-Cc: muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org,
-	peterx@redhat.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	kernel-team@meta.com,
-	kas@kernel.org
-Subject: [PATCH v2] mm/hugetlb: fix swap entry corruption when clearing uffd-wp at fork()
-Date: Wed,  8 Jul 2026 10:01:10 +0100
-Message-ID: <20260708090110.136162-1-kirill@shutemov.name>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hIHqXnlD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 688E81F000E9;
+	Wed,  8 Jul 2026 09:03:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783501437;
+	bh=kL1O5SOSvh8DK+WYrTl8sFVr/PSbxrbspWMqNwrQBSk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hIHqXnlD6LBlrIWncM1iS+Ssr4Dtp/DrEcECJJWIQIL5j1SRatmszSYTEahxRkEtK
+	 SHtbnuQP1HtGCPU8p1fNEFNInOf93shaNULGIDKVpXCEUMOdnJYjT4ywKxdZ/GikvL
+	 JTkg8oYJHU0Ai4hN37+LKivtX0rTTg0f/OUv+VuflsrujYJvOxzWJFZ6JySChD2LI8
+	 V0cv8EUqNZ640GHcmE+E17DvRMVnt9ASeb+DcSZ2EcyJDxEF7t5N7WZ2S6LG7Z+Gqd
+	 B/C0qMpD4o+sh6GUK67lbxybqde09mUTVJz0iVQeENBmGhCEt9Q7uHy7Py7De8gZUy
+	 7ZASSzkq9CYgA==
+Message-ID: <ea729934-cbee-4271-b700-4b049f682691@kernel.org>
+Date: Wed, 8 Jul 2026 11:03:52 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/hugetlb: fix swap entry corruption when clearing
+ uffd-wp at fork()
+To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org
+Cc: muchun.song@linux.dev, osalvador@suse.de, peterx@redhat.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ kernel-team@meta.com, kas@kernel.org
+References: <20260708090110.136162-1-kirill@shutemov.name>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260708090110.136162-1-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On 7/8/26 11:01, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> copy_hugetlb_page_range() clears the uffd-wp bit of migration and
+> hwpoison entries with huge_pte_clear_uffd_wp(), which operates on the
+> present-PTE bit position. Swap entries keep the uffd-wp state elsewhere
+> -- the migration branch reads and sets it with pte_swp_uffd_wp() and
+> pte_swp_mkuffd_wp() -- and the present-PTE position falls into the swap
+> payload. On x86-64 it lands in the inverted swap offset, where a
+> naturally-aligned hugetlb PFN always has the affected bit set, so the
+> clear advances the encoded PFN by two pages.
+> 
+> No userfaultfd needs to be involved: the clear is guarded only by the
+> child VMA not being uffd-wp registered, so a plain fork() with an
+> in-flight hugetlb migration entry (or a poisoned hugetlb page) corrupts
+> the entry copied into the child. Instrumenting the clear and forking
+> after MADV_HWPOISON on a 2MB anon hugetlb page shows:
+> 
+>   offset before=120e00
+>   offset after =120e02
+> 
+> The fallout is mostly latent: rmap walks match migration entries by
+> folio range and remove_migration_pte() rebuilds the PTE from the folio,
+> so a within-folio PFN skew heals once migration completes. But any path
+> that re-encodes the corrupted offset -- e.g. hugetlb_change_protection()
+> rewriting a writable migration entry via
+> make_readable_migration_entry(swp_offset(entry)) -- propagates it.
+> 
+> Migration entries legitimately carry uffd-wp, so clear it with
+> pte_swp_clear_uffd_wp(), matching copy_nonpresent_pte() and
+> move_huge_pte().
+> 
+> A hwpoison entry, on the other hand, never carries the uffd-wp bit: it
+> is installed fresh by make_hwpoison_entry() (try_to_unmap_one() does not
+> preserve uffd-wp on the hwpoison path) and hugetlb_change_protection()
+> leaves hwpoison entries untouched. There was nothing to clear there,
+> only the corruption, so drop the clear entirely.
+> 
+> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260703140011.99E601F000E9@smtp.kernel.org/
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Fixes: bc70fbf269fd ("mm/hugetlb: handle uffd-wp during fork()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
+> Assisted-by: Claude:claude-fable-5
+> ---
 
-copy_hugetlb_page_range() clears the uffd-wp bit of migration and
-hwpoison entries with huge_pte_clear_uffd_wp(), which operates on the
-present-PTE bit position. Swap entries keep the uffd-wp state elsewhere
--- the migration branch reads and sets it with pte_swp_uffd_wp() and
-pte_swp_mkuffd_wp() -- and the present-PTE position falls into the swap
-payload. On x86-64 it lands in the inverted swap offset, where a
-naturally-aligned hugetlb PFN always has the affected bit set, so the
-clear advances the encoded PFN by two pages.
+Thanks!
 
-No userfaultfd needs to be involved: the clear is guarded only by the
-child VMA not being uffd-wp registered, so a plain fork() with an
-in-flight hugetlb migration entry (or a poisoned hugetlb page) corrupts
-the entry copied into the child. Instrumenting the clear and forking
-after MADV_HWPOISON on a 2MB anon hugetlb page shows:
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-  offset before=120e00
-  offset after =120e02
-
-The fallout is mostly latent: rmap walks match migration entries by
-folio range and remove_migration_pte() rebuilds the PTE from the folio,
-so a within-folio PFN skew heals once migration completes. But any path
-that re-encodes the corrupted offset -- e.g. hugetlb_change_protection()
-rewriting a writable migration entry via
-make_readable_migration_entry(swp_offset(entry)) -- propagates it.
-
-Migration entries legitimately carry uffd-wp, so clear it with
-pte_swp_clear_uffd_wp(), matching copy_nonpresent_pte() and
-move_huge_pte().
-
-A hwpoison entry, on the other hand, never carries the uffd-wp bit: it
-is installed fresh by make_hwpoison_entry() (try_to_unmap_one() does not
-preserve uffd-wp on the hwpoison path) and hugetlb_change_protection()
-leaves hwpoison entries untouched. There was nothing to clear there,
-only the corruption, so drop the clear entirely.
-
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260703140011.99E601F000E9@smtp.kernel.org/
-Suggested-by: David Hildenbrand <david@kernel.org>
-Fixes: bc70fbf269fd ("mm/hugetlb: handle uffd-wp during fork()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Assisted-by: Claude:claude-fable-5
----
-
-Changes since v1 [1]:
-  - Drop the clear on the hwpoison branch entirely rather than
-    switching it to pte_swp_clear_uffd_wp(): a hugetlb hwpoison entry
-    never carries the uffd-wp bit, so there is nothing to clear.
-    (David Hildenbrand)
-
-[1] https://lore.kernel.org/all/20260703161833.57416-1-kirill@shutemov.name/
- mm/hugetlb.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 571212b80835..bca2707d02e3 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -4917,8 +4917,12 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
- 
- 		softleaf = softleaf_from_pte(entry);
- 		if (unlikely(softleaf_is_hwpoison(softleaf))) {
--			if (!userfaultfd_wp(dst_vma))
--				entry = huge_pte_clear_uffd_wp(entry);
-+			/*
-+			 * A hwpoison entry never carries the uffd-wp bit: it is
-+			 * installed fresh by make_hwpoison_entry() and
-+			 * hugetlb_change_protection() leaves it untouched, so
-+			 * there is nothing to clear for the child.
-+			 */
- 			set_huge_pte_at(dst, addr, dst_pte, entry, sz);
- 		} else if (unlikely(softleaf_is_migration(softleaf))) {
- 			bool uffd_wp = pte_swp_uffd_wp(entry);
-@@ -4936,7 +4940,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
- 				set_huge_pte_at(src, addr, src_pte, entry, sz);
- 			}
- 			if (!userfaultfd_wp(dst_vma))
--				entry = huge_pte_clear_uffd_wp(entry);
-+				entry = pte_swp_clear_uffd_wp(entry);
- 			set_huge_pte_at(dst, addr, dst_pte, entry, sz);
- 		} else if (unlikely(pte_is_marker(entry))) {
- 			const pte_marker marker = copy_pte_marker(softleaf, dst_vma);
-
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
 -- 
-2.54.0
+Cheers,
 
+David
