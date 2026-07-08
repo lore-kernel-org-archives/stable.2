@@ -1,251 +1,102 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF802EF64F;
-	Wed,  8 Jul 2026 15:53:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5563240929A;
+	Wed,  8 Jul 2026 15:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783526018; cv=none; b=pbZ4bRdG/v28OFSp3j3Ij3QI9Zp47TxmDL1BpF2ulQz2mSN+qvCSrMAFGrdxoS0d0euG7msGMXsDTr7zv9v8wmiAm2ug8aJEmXY3T5iMYGskxe/3LbxS5PTrHj+ru+aK2Meywb1Cyc/BO/zzKR2v/QBQnkNw7XJE7k8aW7a/XEU=
+	t=1783526085; cv=none; b=NRdAJ/DruzB3vhEvHGMri0SflCMzNMnFv23BK9MDPx5qc0IdoMDsSO9cB/Dqu5fm6VSWpSeRhPgpgUYaVTtSjDO6A5y0sOTMlR98IpnxdPZ9Kq31zUBoplLy3HehILt1t/Sgm1WsJk4pv5gLcnEPdGV6q9e1jhSkY2kWuBXf/+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783526018; c=relaxed/simple;
-	bh=0Mge3JAgIP+E0X+MesrXp8TixEJc4l6be13natFqp4w=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Vz2cXP7C18vlqqBWxHH8mlE9JQuD1yv1UeLXYZXt0g90wwcAOi1936iVEEpWcgc6FlUlqZlbJ3D2/+iFNRewsgnXJDvfEdPGQPFDE5pnfd/4l21PcqFhq/j208XTpmIH4rdO2IbGcn/9gwNCMwzYJEhdwKlnhSR9CYQ0kBpaJbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=rGhaM8I/; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1783526085; c=relaxed/simple;
+	bh=DLS6VSSemakoBkDhOWGR9m6sSSKE9/Pp9lCNn8ra+wc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YNkCtMqHUldVF63zFuWTPOFPhDHFqgUkMmRtBLhi1rXJH2WfLaJq8iYNu2aMo8SjVMLixJkpED1wzDjgglCcpvVdhex/00nqvCdFqQU6zyAADyDeLiz5w8FW93nNNW1LiIZGZ1JZmc3oStSVWdGmSWWlm1QyD+JiLVAIXDlIz9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2vMsTpt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="rGhaM8I/"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id C88EE20252;
-	Wed, 08 Jul 2026 18:53:32 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=IrBFyo4X9p4vQcBuAXEscbyeWrGozHn+zcsBI+OqvLA=; b=rGhaM8I/EwgW
-	HvSp6hduo21Rar8HkjRO+WuJ2VuHDC7d9dlomU8UF5YtzUV0ZLUBZ4BDZ08MF/w0
-	QJ7eBHhkZ2e1NoYOCraLJ3pYyMxAKJ5BcMYPOQg806+fBw5l5XpfcrW5dwNDch6u
-	1VC8zjSgewpLyAqLebPHaAlK+2c69PL+0FXofnBLcK5lSGeQl8I+47LGd2CywkeP
-	rDOM3CO93CCJk8z73uWAATYexH7/Um7MV5KmHhEEk8buXJ5MwjYPByGVNGabhuVn
-	bgs30xxlohn3+P/jo2HLU6Dvbk1OwD3Eqa8gfi4/UnCcY+EzsI5dsOfxXq3sa/B2
-	5r2jTdci421Kgtas6DtmX3bXaiF2DHQ6HU4a26NBvB14ub+IFWzaNMweT0OBw2vs
-	I4sQZRbDVyCcwa9HeDjmRxRxzn3b3ma31pVETQ2eSgL06lotDaEBUgVNwZGIlYNm
-	M9qrrq1JHtZKbAUczLfVwQLqq2JvtYF8+pycZ82cZ50lHdYG0tyLJ2SP3c6+nN6B
-	N0kVBOAgkgF4GL6Um+5+uQfBzTigZuKuiruGLTwj6BPVFoTAlxc3GVmjz1aEQD7N
-	HzEXw0pyQQseqVouHpUp4bs4FYPm9GAlUxk/iF8BCDzA91VlGRBDOQYIDzOAVH6J
-	uxDfS/k6eoCCalWOWvg+8UwnkSsj4Go=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Wed, 08 Jul 2026 18:53:32 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 5F34C6029E;
-	Wed,  8 Jul 2026 18:53:25 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 668FrEwS064811;
-	Wed, 8 Jul 2026 18:53:16 +0300
-Date: Wed, 8 Jul 2026 18:53:14 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-cc: Simon Horman <horms@verge.net.au>, David Ahern <dsahern@kernel.org>,
-        Ido Schimmel <idosch@nvidia.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Pablo Neira Ayuso <pablo@netfilter.org>,
-        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-        Alexander Frolkin <avf@eldamar.org.uk>, netdev@vger.kernel.org,
-        lvs-devel@vger.kernel.org, linux-kernel <linux-kernel@vger.kernel.org>,
-        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-        stable@vger.kernel.org, Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-        Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-        Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
-Subject: Re: [PATCH nf] ipvs: make destination flags atomic
-In-Reply-To: <91509A0C-9E4A-4F0E-A45C-ABD29396067E@mails.tsinghua.edu.cn>
-Message-ID: <afcdb34c-ec10-de8e-083c-624bcedca90e@ssi.bg>
-References: <20260707085706.96322-1-zhaoyz24@mails.tsinghua.edu.cn> <41c3d792-af7d-5582-5057-ac3df5f7bfd6@ssi.bg> <91509A0C-9E4A-4F0E-A45C-ABD29396067E@mails.tsinghua.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2vMsTpt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFC5C1F000E9;
+	Wed,  8 Jul 2026 15:54:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783526083;
+	bh=KKAzj4n0YE1Xa5FzF2BSDGqiRzx/bn1JAO4Hbd9XW3I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P2vMsTptkfou8lJ8jzolPg3/0xKJCLpVP+OC6NWBWhuhi2wRw/PBETlfPiarBWa5J
+	 Y3RJBIcl9zC4LhRGo6tyTM/u9MHQyp65ntFqPd/GRpTzqmvK3l2kEMawiWoyDV309S
+	 YgEh3zalFpXny0RSXoC2EZT1rK2u1/a7XJaQrpIJWqTt+jz/lP12UYKS7o8VmadOWA
+	 HQRyyQ0XqXTg81E5uXsMBNBou5mUhcN1GuGMkz1MNNaaN+8OU4dTNXMUdxLGsvsDTn
+	 js5lqOO/cLw31ArXnYH9M0tRVWAIi/Yp0cjOOiS1HvrlKa2fI1d7LDX/J7Jhx4inyc
+	 iibPs0xov9kdA==
+Date: Wed, 8 Jul 2026 18:54:35 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Alexander.Chesnokov@kaspersky.com
+Cc: xuhaoyue1@hisilicon.com, David Laight <david.laight.linux@gmail.com>,
+	lvc-project@linuxtesting.org, Oleg.Kazakov@kaspersky.com,
+	Pavel.Zhigulin@kaspersky.com, stable@vger.kernel.org,
+	Wenpeng Liang <liangwenpeng@huawei.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Xi Wang <wangxi11@huawei.com>,
+	Weihang Li <liweihang@huawei.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] RDMA/hns: Fix arithmetic overflow in
+ hns_roce_v2_set_hem()
+Message-ID: <20260708155435.GO15188@unreal>
+References: <20260707140938.3106919-1-Alexander.Chesnokov@kaspersky.com>
+ <20260708092146.3325855-1-Alexander.Chesnokov@kaspersky.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708092146.3325855-1-Alexander.Chesnokov@kaspersky.com>
 
-
-	Hello,
-
-On Wed, 8 Jul 2026, Yizhou Zhao wrote:
-
-> > On Jul 8, 2026, at 03:18, Julian Anastasov <ja@ssi.bg> wrote:
-> > 
-> > On Tue, 7 Jul 2026, Yizhou Zhao wrote:
-> > 
+On Wed, Jul 08, 2026 at 12:21:46PM +0300, Alexander.Chesnokov@kaspersky.com wrote:
+> From: Alexander Chesnokov <Alexander.Chesnokov@kaspersky.com>
 > 
-> We have posted a v2 patch at:
-> https://lore.kernel.org/netfilter-devel/20260708060454.20534-1-zhaoyz24@mails.tsinghua.edu.cn/
+> If hop_num is 2 or 1, then the expressions like
+> i * chunk_ba_num + j are computed in 32-bit
+> arithmetic before being assigned to a u64 index field,
+> which can lead to overflow.
 > 
-> The v2 patch updates the commit message with more conservative
-> wording, and fixes the checkpatch logical-continuation warnings.
+> Declare i, j and k as u64 so that the address index
+> arithmetic is performed in 64-bit.
+> 
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 
+> Fixes: a81fba28136d ("RDMA/hns: Configure BT BA and BT attribute for the contexts in hip08")
+> Cc: stable@vger.kernel.org
+> Suggested-by: David Laight <david.laight.linux@gmail.com>
+> Signed-off-by: Alexander Chesnokov <Alexander.Chesnokov@kaspersky.com>
 
-	After looking again at the code, I think we can
-do it in different way:
+Please resend this patch as standalone message without "Reply-to".
 
-- IP_VS_DEST_F_AVAILABLE and IP_VS_DEST_F_OVERLOAD are defined
-in include/uapi/linux/ip_vs.h but we never export them to user
-space. So, we are free to change them. We can move them to 
-include/net/ip_vs.h, see below...
+Thanks
 
-- IP_VS_DEST_F_AVAILABLE is changed only under service_mutex,
-so we can keep its usage
-
-- IP_VS_DEST_F_OVERLOAD needs different access methods.
-We can add 'unsigned long flags2;', may be after l_threshold.
-And to switch to such usage (F_OVERLOAD -> FL_OVERLOAD):
-
-	- test_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
-	- set_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
-
-		Sometimes if (test_bit()) clear_bit() can avoid
-		full memory barrier in ip_vs_dest_update_overload()
-
-	- clear_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
-		test_bit() guard can help here too
-
-	As there are other races involved, something like
-this can be a starting point for such change. It tries harder
-to update the overload flag on dest edit/add but it does not
-include the proposed bitops:
-
-diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-index 49297fec448a..b34631270e24 100644
---- a/include/net/ip_vs.h
-+++ b/include/net/ip_vs.h
-@@ -1906,6 +1906,8 @@ static inline void ip_vs_dest_put_and_free(struct ip_vs_dest *dest)
- 		kfree(dest);
- }
- 
-+void ip_vs_dest_update_overload(struct ip_vs_dest *dest);
-+
- /* IPVS sync daemon data and function prototypes
-  * (from ip_vs_sync.c)
-  */
-diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-index d19caf66afeb..3fd221996e6e 100644
---- a/net/netfilter/ipvs/ip_vs_conn.c
-+++ b/net/netfilter/ipvs/ip_vs_conn.c
-@@ -1087,6 +1087,26 @@ static inline int ip_vs_dest_totalconns(struct ip_vs_dest *dest)
- 		+ atomic_read(&dest->inactconns);
- }
- 
-+__always_inline void ip_vs_dest_update_overload(struct ip_vs_dest *dest)
-+{
-+	int conns, l, u;
-+
-+	u = READ_ONCE(dest->u_threshold);
-+	if (!u)
-+		goto unset;
-+	conns = ip_vs_dest_totalconns(dest);
-+	if (conns >= u) {
-+		dest->flags |= IP_VS_DEST_F_OVERLOAD;
-+		return;
-+	}
-+	l = READ_ONCE(dest->l_threshold) ? : (u * 3 / 4);
-+	if (conns >= l && l)
-+		return;
-+
-+unset:
-+	dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
-+}
-+
- /*
-  *	Bind a connection entry with a virtual service destination
-  *	Called just after a new connection entry is created.
-@@ -1161,9 +1181,7 @@ ip_vs_bind_dest(struct ip_vs_conn *cp, struct ip_vs_dest *dest)
- 		atomic_inc(&dest->persistconns);
- 	}
- 
--	if (dest->u_threshold != 0 &&
--	    ip_vs_dest_totalconns(dest) >= dest->u_threshold)
--		dest->flags |= IP_VS_DEST_F_OVERLOAD;
-+	ip_vs_dest_update_overload(dest);
- }
- 
- 
-@@ -1257,16 +1275,8 @@ static inline void ip_vs_unbind_dest(struct ip_vs_conn *cp)
- 		atomic_dec(&dest->persistconns);
- 	}
- 
--	if (dest->l_threshold != 0) {
--		if (ip_vs_dest_totalconns(dest) < dest->l_threshold)
--			dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
--	} else if (dest->u_threshold != 0) {
--		if (ip_vs_dest_totalconns(dest) * 4 < dest->u_threshold * 3)
--			dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
--	} else {
--		if (dest->flags & IP_VS_DEST_F_OVERLOAD)
--			dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
--	}
-+	if (dest->flags & IP_VS_DEST_F_OVERLOAD)
-+		ip_vs_dest_update_overload(dest);
- 
- 	ip_vs_dest_put(dest);
- }
-diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
-index bcf40b8c41cf..2871116e46ec 100644
---- a/net/netfilter/ipvs/ip_vs_ctl.c
-+++ b/net/netfilter/ipvs/ip_vs_ctl.c
-@@ -1315,6 +1315,7 @@ __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
- 	struct ip_vs_service *old_svc;
- 	struct ip_vs_scheduler *sched;
- 	int conn_flags;
-+	bool upd_thresh;
- 
- 	/* We cannot modify an address and change the address family */
- 	BUG_ON(!add && udest->af != dest->af);
-@@ -1370,10 +1371,12 @@ __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
- 	/* set the dest status flags */
- 	dest->flags |= IP_VS_DEST_F_AVAILABLE;
- 
--	if (udest->u_threshold == 0 || udest->u_threshold > dest->u_threshold)
--		dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
--	dest->u_threshold = udest->u_threshold;
--	dest->l_threshold = udest->l_threshold;
-+	upd_thresh = READ_ONCE(dest->u_threshold) != udest->u_threshold ||
-+		     READ_ONCE(dest->l_threshold) != udest->l_threshold;
-+	WRITE_ONCE(dest->u_threshold, udest->u_threshold);
-+	WRITE_ONCE(dest->l_threshold, udest->l_threshold);
-+	if (upd_thresh)
-+		ip_vs_dest_update_overload(dest);
- 
- 	dest->af = udest->af;
- 
-@@ -3667,8 +3670,8 @@ __ip_vs_get_dest_entries(struct netns_ipvs *ipvs, const struct ip_vs_get_dests *
- 			entry.port = dest->port;
- 			entry.conn_flags = atomic_read(&dest->conn_flags);
- 			entry.weight = atomic_read(&dest->weight);
--			entry.u_threshold = dest->u_threshold;
--			entry.l_threshold = dest->l_threshold;
-+			entry.u_threshold = READ_ONCE(dest->u_threshold);
-+			entry.l_threshold = READ_ONCE(dest->l_threshold);
- 			entry.activeconns = atomic_read(&dest->activeconns);
- 			entry.inactconns = atomic_read(&dest->inactconns);
- 			entry.persistconns = atomic_read(&dest->persistconns);
-@@ -4277,8 +4280,10 @@ static int ip_vs_genl_fill_dest(struct sk_buff *skb, struct ip_vs_dest *dest)
- 			 dest->tun_port) ||
- 	    nla_put_u16(skb, IPVS_DEST_ATTR_TUN_FLAGS,
- 			dest->tun_flags) ||
--	    nla_put_u32(skb, IPVS_DEST_ATTR_U_THRESH, dest->u_threshold) ||
--	    nla_put_u32(skb, IPVS_DEST_ATTR_L_THRESH, dest->l_threshold) ||
-+	    nla_put_u32(skb, IPVS_DEST_ATTR_U_THRESH,
-+			READ_ONCE(dest->u_threshold)) ||
-+	    nla_put_u32(skb, IPVS_DEST_ATTR_L_THRESH,
-+			READ_ONCE(dest->l_threshold)) ||
- 	    nla_put_u32(skb, IPVS_DEST_ATTR_ACTIVE_CONNS,
- 			atomic_read(&dest->activeconns)) ||
- 	    nla_put_u32(skb, IPVS_DEST_ATTR_INACT_CONNS,
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
-
+> 
+> ---
+> Changes in v2:
+> - Instead of casting the operands to u64, declare i, j and k as u64
+>   so the index arithmetic is performed in 64-bit (David Laight).
+> 
+> v1: https://lore.kernel.org/linux-rdma/20260707140938.3106919-1-Alexander.Chesnokov@kaspersky.com/
+> ---
+>  drivers/infiniband/hw/hns/hns_roce_hw_v2.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/infiniband/hw/hns/hns_roce_hw_v2.c b/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
+> index 1c180a6b1c07..3469a9a68d3b 100644
+> --- a/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
+> +++ b/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
+> @@ -4238,7 +4238,7 @@ static int hns_roce_v2_set_hem(struct hns_roce_dev *hr_dev,
+>  	struct hns_roce_hem_mhop mhop;
+>  	struct hns_roce_hem *hem;
+>  	unsigned long mhop_obj = obj;
+> -	int i, j, k;
+> +	u64 i, j, k;
+>  	int ret = 0;
+>  	u64 hem_idx = 0;
+>  	u64 l1_idx = 0;
+> -- 
+> 2.43.0
+> 
