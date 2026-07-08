@@ -1,63 +1,67 @@
-Received: from mail-ot1-f73.google.com (mail-ot1-f73.google.com [209.85.210.73])
+Received: from mail-oo1-f74.google.com (mail-oo1-f74.google.com [209.85.161.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042EC36E497
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 22:52:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB36B3859E3
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 22:52:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783551130; cv=none; b=PE6Lm7Lx9atA177hvvxhD6sZ1jHjOVIgRgYys9mZNw6nmFfHVhdoZkKguoizSst3y5apwLf6fi0xCkf8iH4pxnMDSYs+1MTodOYJKsYC4IOXMdSTbKCkp/W3GQjONiyNE1T4Yrp1Nu+kd5KZfHz6FeF8l8r/Fcnw6MQo/yOlKFo=
+	t=1783551131; cv=none; b=jurnT20JKkNaTvs0pCBa7SelfVonejlTtHMP3iPSw8LYe9qQD1jxrx8tIabWxKdPjfHLH1Fca7nBiMgkioUkZT17owYHM7f4GkNbZ+lit7ptD7/g8l9pA0zJH6TyvYeEKiyJX2deQPRYoR/dBaci+6oujcCKUstkS/QHYcxjzBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783551130; c=relaxed/simple;
-	bh=W9eRCyxeQaxWVre9xRAxVREG5IbAzd3SpzWk9523/DY=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CipvM/fHT/EynDzccuz5xJDy0OBCHsyF9wpUDVf3NlWQUNGUwMPMsJQ7Z+kDtZ2JlAUdvGNnO/UvvHFztBvyw4smvxE8ICWgorz1oean/dTNaTVMQ6EvAULE0IOfK6Dut5ZkUAiakk/KmgN8jD32XNyMbB/6Z+8q59Gnl/1a/uE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eeYwGlDC; arc=none smtp.client-ip=209.85.210.73
+	s=arc-20240116; t=1783551131; c=relaxed/simple;
+	bh=2c8XTPNphIfSHGS9kO7V0RYBdRMxPd8eKXEBM1ea3OI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ZY0ZYV1GogImoBCzORuvkskO1w5osZY3yceiqfnbfNXPuzy+KG1UFsX8I8rBpHb9gMoPe26X1ZMHbKlmW90xLNNxx+9z0449QGGvcvNWRM7xDRgsxxRIq0Na1/s06dg3TRpm7H7Ktw1GSmC5kkfv5fi1gq/eRTFVm3sjAeEeTmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NEkSsp15; arc=none smtp.client-ip=209.85.161.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eeYwGlDC"
-Received: by mail-ot1-f73.google.com with SMTP id 46e09a7af769-7e9dc0f5900so629919a34.0
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 15:52:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NEkSsp15"
+Received: by mail-oo1-f74.google.com with SMTP id 006d021491bc7-6a180a73049so422376eaf.0
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 15:52:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783551128; x=1784155928; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VXjaTRbhjgdEqS1UyFYRJTvGMmWZaq4i6pqgK3sf76s=;
-        b=eeYwGlDCZv9DMSp2DV/952sAT1XXPr0a0IpWJolHGBB9GwE2BiCN3kRDUfvk6d9ZKt
-         +N1NmdjSic3gwp+vSoefI8nXSuJD8C6MB8AsxNZkIOB2QLD2dXJeftK+8c2QTeBHb4bE
-         70lJpPp+rqgmn/w1qWzpCjpFLMJk+SfLpi9Pq2Y1dPUGN8ih9A1uoqrP/ok/gNGhJnzB
-         WyKExpp3lvggpEkTUPb8VeKeb+qb2VPGeRZQmmAe0mj7JARLFlzCHDY/iZ5oZdAD+O5/
-         YQWxekosGnwkOdtEZpracdN8o+5iM8zqjBbHqbFwG8xPa6HhPoYRCDqjY/L75RGdR44+
-         6OYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783551128; x=1784155928;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1783551129; x=1784155929; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VXjaTRbhjgdEqS1UyFYRJTvGMmWZaq4i6pqgK3sf76s=;
-        b=NdAB9SvmI7cnFcBZQ+L04GOGf9KKQiwr3/b+RC/UC7iCPpQpgflQw2uXY2vhsRKwvp
-         Jw2xsQPAft+QK1iNKnnmPYwsBKLKmUrFMrAbXLyEXAjuQfIBu7S3Re8uuj1X7mpwkw9y
-         zjmCBK9aKK6qF9HegVqAZWZWfEXIbvktNZ/IWe7/sKWPmYLseuNF2cR+I7+FOaruJXfZ
-         1MOJeOHBA+annMhFhnTVDNWA456Re0qVO/MX4baJNA+C5/iM5tJTkm3s6/kc0ViS5HjW
-         4tlASxxbi2soAt2mVCG+hQHEfdFUrn1vXK3169o55pEf49fYKHlxzBEDHLQXEHwNzBJ/
-         iLnw==
-X-Gm-Message-State: AOJu0YyzlH8k3Alq9jlk5oVHhGempIb7+RNiyQDUkKmWhfceNTdMcMEw
-	DQthVTLloAzqtITWdKp0+gPl4OR6JgYwn6Cy3v10eTVD9qawcaHgPajbVmlPZ3mjtEaQUq16H95
-	tXbnYfb3yprVFXwPw8Lhmt8THrBm7ABwapX+ZGj2rBBTeuq+qnKEX5coEsioyMK1+0xX49Pvz3H
-	r5F04vO7LII55THiZsDM5B4RBdcb5GjdHKOJwX4PFyqAKWtCqgCUAvnVgiiTv2nR0=
-X-Received: from ilsl6.prod.google.com ([2002:a05:6e02:5c6:b0:502:20e8:e7ce])
+        bh=nzHvY4Nn6plbaCF35zKiwiQUdpmfX8uqx6rHpqc+ZhY=;
+        b=NEkSsp15pTuoUi92ye8hUo7kHPJ6GFtFwyrhI8nFTx7XgSs8w0k6hRGh9a6kWWDiPJ
+         vJSRDBL3hwEkU+8q+PDKlaeVKttZofhob2XEnkXWk/BlL8svjxEMS6iq2OYpWL+GaiK7
+         a+UzLcHj2YJaDls2EVuKUjtAGJNYqKaxrF5O4t6uP1HK0SiQd3g3DZqDa9HFDAS9bC9w
+         w5bo9ZQM5xlv6klq6m4LW0LpU6IGAay6V/WUhu50ZV+P51isd5Q6aOCGP5aEJf+jhweV
+         EckUuDDIZRRaz4xfbMWxoHzBo4ehX74WwBrETOJuoNH9npjCeIN5n89sJZ+EjjOJO6b9
+         NZ+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783551129; x=1784155929;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nzHvY4Nn6plbaCF35zKiwiQUdpmfX8uqx6rHpqc+ZhY=;
+        b=pa7zsHjosLUc+0bkWLrNSsy9NHiAHz1GRq97uhU+QOxHk08IICrLkazdZhvsVIJAnR
+         08TR/Uilhu7NY4Vyp6oQu7PdEd+RYQGmso8nUZbvK4RORg1zoTwJSsBFm6Lelpv5GvVq
+         225s++UBbRepypFnl0XILr8HLl8IHC28bIuKA5Flpz8mMAail41KZmWWB+E1OBNMl395
+         h476OoPPqdWe6ujQ1dSJou+uyf8ox6bD2ajPvVKkGQNhziggL2bC47EDg3Ii4jH6Bjht
+         +iwzoMCj50Z0+ZUMbeqdDDvJD5IvhdMpgLZ2djnHKuVu5XCrf37uucX9Xidair2qFzU6
+         1Hlw==
+X-Gm-Message-State: AOJu0YxKNORr28NZjTzBjljF90aEWL7gTdKh96ty4O9U0GkxwE48wket
+	j4s+1BdXU5haOd0XAFj68HfIUW24m3vTEyeYamJ4+l1rPexpsNWl2aI6lMzgREHEfyJ6ndANvUc
+	UjMO7z7PaNvacVAUi4F7zFGdRYgV+0QBVGjn8Og82TmAlVGDep35XSX5hyzhxdCOijsQJkcKOw+
+	PY5/buLy1LaveoIHR9nUcwvgwstap71EsSExdvBykJm7olrZTukqWRdqeEjb4zsSw=
+X-Received: from ilqn12.prod.google.com ([2002:a92:d9cc:0:b0:503:92be:9a74])
  (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6820:2209:b0:6a3:7d5a:1ae0 with SMTP id 006d021491bc7-6a37d9d6e0amr220936eaf.29.1783551127438;
- Wed, 08 Jul 2026 15:52:07 -0700 (PDT)
-Date: Wed,  8 Jul 2026 22:51:18 +0000
+ 2002:a05:6820:2222:b0:6a1:805b:5281 with SMTP id 006d021491bc7-6a36da5e3a0mr3401844eaf.37.1783551128581;
+ Wed, 08 Jul 2026 15:52:08 -0700 (PDT)
+Date: Wed,  8 Jul 2026 22:51:19 +0000
+In-Reply-To: <20260708225124.4130846-1-coltonlewis@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260708225124.4130846-1-coltonlewis@google.com>
 X-Mailer: git-send-email 2.55.0.795.g602f6c329a-goog
-Message-ID: <20260708225124.4130846-1-coltonlewis@google.com>
-Subject: [PATCH 6.6 v2 0/6] arm64: KVM: Backport VHE-only boot fixes
+Message-ID: <20260708225124.4130846-2-coltonlewis@google.com>
+Subject: [PATCH 6.6 v2 1/6] arm64: sysreg: Add layout for ID_AA64MMFR4_EL1
 From: Colton Lewis <coltonlewis@google.com>
 To: stable@vger.kernel.org
 Cc: oliver.upton@linux.dev, sashal@kernel.org, gregkh@linuxfoundation.org, 
@@ -65,57 +69,77 @@ Cc: oliver.upton@linux.dev, sashal@kernel.org, gregkh@linuxfoundation.org,
 	james.morse@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
 	mark.rutland@arm.com, ahmed.genidi@arm.com, leo.yan@arm.com, 
 	miguel.luis@oracle.com, dbrazdil@google.com, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Colton Lewis <coltonlewis@google.com>
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Architectural updates retroactively made FEAT_E2H0 optional, meaning
-hardware can implement FEAT_VHE without FEAT_E2H0. On such CPUs,
-HCR_EL2.E2H can reset to an unknown state and must be initialized early
-so later code can reliably detect whether E2H mode is active.
+From: Marc Zyngier <maz@kernel.org>
 
-Without these fixes, booting 6.6.y as a guest under KVM nested
-virtualization will hang at boot.
+[ Upstream commit cfc680bb04c54e61faa51a34d8383a0aa25b583f ]
 
-This series targets 6.6.y specifically because these patches are all
-present in 6.12.y and applying these patches to 6.1.y and presumably
-older kernels has more conflicts and results in other issues booting
-as a guest under nested virtualization. More work is needed to enable
-that.
+ARMv9.5 has infroduced ID_AA64MMFR4_EL1 with a bunch of new features.
+Add the corresponding layout.
 
-Changes in v2:
-- Updated commit messages to reference correct upstream SHA1s.
-- Preserved inline EL2 state initialization in Patch 4 to avoid
-  unrelated code churn.
-- Added upstream commit 3855a7b91d42 ("KVM: arm64: Initialize SCTLR_EL1 in
-  __kvm_hyp_init_cpu()") as Patch 5.
-- Verified boot and KVM initialization across all KVM execution modes
-  (nVHE, hVHE/nested, VHE, and protected).
+This is extracted from the public ARM SysReg_xml_A_profile-2023-09
+delivery, timestamped d55f5af8e09052abe92a02adf820deea2eaed717.
 
-v1:
-https://lore.kernel.org/kvmarm/20260701204342.2654385-1-coltonlewis@google.com/
+Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Reviewed-by: Miguel Luis <miguel.luis@oracle.com>
+Link: https://lore.kernel.org/r/20240122181344.258974-5-maz@kernel.org
+Signed-off-by: Oliver Upton <oliver.upton@linux.dev>
+---
+ arch/arm64/tools/sysreg | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-Ahmed Genidi (1):
-  KVM: arm64: Initialize SCTLR_EL1 in __kvm_hyp_init_cpu()
-
-Marc Zyngier (4):
-  arm64: sysreg: Add layout for ID_AA64MMFR4_EL1
-  arm64: Treat HCR_EL2.E2H as RES1 when ID_AA64MMFR4_EL1.E2H0 is
-    negative
-  arm64: Fix early handling of FEAT_E2H0 not being implemented
-  arm64: Revamp HCR_EL2.E2H RES1 detection
-
-Mark Rutland (1):
-  KVM: arm64: Initialize HCR_EL2.E2H early
-
- arch/arm64/include/asm/el2_setup.h   | 56 ++++++++++++++++++++++++++--
- arch/arm64/kernel/head.S             | 20 ++++------
- arch/arm64/kvm/hyp/nvhe/hyp-init.S   |  3 +-
- arch/arm64/kvm/hyp/nvhe/psci-relay.c |  3 ++
- arch/arm64/tools/sysreg              | 37 ++++++++++++++++++
- 5 files changed, 101 insertions(+), 18 deletions(-)
-
-
-base-commit: da47cbc254661aa66d61ef061485a7080305c4be
---
+diff --git a/arch/arm64/tools/sysreg b/arch/arm64/tools/sysreg
+index 76ce150e7347e..f7180d391f829 100644
+--- a/arch/arm64/tools/sysreg
++++ b/arch/arm64/tools/sysreg
+@@ -1669,6 +1669,43 @@ UnsignedEnum	3:0	TCRX
+ EndEnum
+ EndSysreg
+ 
++Sysreg	ID_AA64MMFR4_EL1	3	0	0	7	4
++Res0	63:40
++UnsignedEnum	39:36	E3DSE
++	0b0000	NI
++	0b0001	IMP
++EndEnum
++Res0	35:28
++SignedEnum	27:24	E2H0
++	0b0000	IMP
++	0b1110	NI_NV1
++	0b1111	NI
++EndEnum
++UnsignedEnum	23:20	NV_frac
++	0b0000	NV_NV2
++	0b0001	NV2_ONLY
++EndEnum
++UnsignedEnum	19:16	FGWTE3
++	0b0000	NI
++	0b0001	IMP
++EndEnum
++UnsignedEnum	15:12	HACDBS
++	0b0000	NI
++	0b0001	IMP
++EndEnum
++UnsignedEnum	11:8	ASID2
++	0b0000	NI
++	0b0001	IMP
++EndEnum
++SignedEnum	7:4	EIESB
++	0b0000	NI
++	0b0001	ToEL3
++	0b0010	ToELx
++	0b1111	ANY
++EndEnum
++Res0	3:0
++EndSysreg
++
+ Sysreg	SCTLR_EL1	3	0	1	0	0
+ Field	63	TIDCP
+ Field	62	SPINTMASK
+-- 
 2.55.0.795.g602f6c329a-goog
+
