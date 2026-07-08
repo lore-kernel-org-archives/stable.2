@@ -1,158 +1,153 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C03367B98
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 06:18:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6941B34DCC8
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 06:20:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783491536; cv=none; b=ERkaIMutY6c7x6MdmT/LzcHB3BGxKKRpn/fDHsAvU9fFpjssdwZrKDAWJZ0O5bHGl6Y/jc0zOy+aiPx5WXlL9fLGEvk8iyRs2Si1i9FhagI+fKGqJ/PnPzOXKUvioTrN145dlNoFpb2l2PnX78SxOpF7KFnlaVexMkJS1yLg1qs=
+	t=1783491645; cv=none; b=Ne/i6ZVTB2xJPW8NOytuXe9eWnQolex/rFMnf5zOGd5RodtDk8YP2Kii8ZM3Vm+NHmQH5p7C0KAYutm29PIysl43BvjIsoFYM4wnJKN6R9FDmpVC9GVXpcnmMePw5dtcliCVm9DS8IqJpqzBEJSfVXCRB7pVbIniP2Hm5yWZbdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783491536; c=relaxed/simple;
-	bh=DDVqik3g024djbtq8wKsjUTyoUV/gR/76I31qdIO8Gs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s7hS5J4cg5DJM4kE9/5rxMxEXTfpwMe6EyEs7QgV3UFBEgByxHLZlOOpGMrv6uUKgzIId2458iU7XlVJ80HA7XPSvZHs5MLXGY5cj3zIYyd4heXm4pEM4Y13r08C2Sics9xYoOJevQQ5dwAoCgsrHLR25ymkjhZOAVApKg7TCaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ncm56dnO; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783491645; c=relaxed/simple;
+	bh=AN2GzrMWkyFaJbYvNPReXuJ+xD3LE+ovrbMBLCvTCio=;
+	h=Content-Type:To:References:Cc:Subject:From:Mime-Version:
+	 In-Reply-To:Date:Message-Id; b=VK3m9boz4VRFF3ZsZnIdjmHHtABO49IG0cLIpZ7KFCqXrC74gpfgNyxz2OBu21ot3gfmEXtD+riHN4Qz8/AiWzzGUP69zbcJL6DjCt5LxgOaNfrEHW2TAhYRdNobOacTchtCPAqT/xC5sPv7V/gd7N9I2GLOFoT2npJFjRZ+oWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com; spf=pass smtp.mailfrom=fnnas.com; dkim=pass (2048-bit key) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.b=Xh0KLllu; arc=none smtp.client-ip=209.127.231.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fnnas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ncm56dnO"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38096590070so27433a91.3
-        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 23:18:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783491534; x=1784096334; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IeKjljjW0rbzKqDo5+JHTj1l65dd8fRajYjS5rdVpUg=;
-        b=Ncm56dnOmxWEZqFw+UiCfm7QHIwmrAZCmFkSHZE1YNvpuwT9phCGNFjyjicDT7SiSf
-         iEaw1X0RC8vlGdq7QqVr6mWOZNRfDUaGF2nzwq5EOchTcE5NY0o/3J2PRDWA4NJxj6yP
-         8w/ZvoercZ7Wb8crVq9pLG/eFT5LiYwYrEU1He7L+0rGeeLnIV2zQ+d4BOggVJIfGSM1
-         h7dqWB5168hFOTHBuAMhnZ7hhV3DGCuGoWJb6Tg9Nc9BkLx5bGFv/Ey7dYGjTZhZZ+B4
-         wok78O9Q6IrrDMbaFs9xZLc/+U832lB9c/vghiQlSWx4wQNFbqQ2kDQaBY8UVy+1vVzV
-         RsNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783491534; x=1784096334;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IeKjljjW0rbzKqDo5+JHTj1l65dd8fRajYjS5rdVpUg=;
-        b=fFZnX86uG3neztjwjBXy0E9ZOgFEYdqZh3o3tM/sE8pcj9mbvl8ZomRs6VVL0cAkYJ
-         b4qTCWrKAaDDAMGRj+PfrC5CRjLhqk5e0CD2b6UZRAD7taS48e8v4MIXeBfUiljlW9zQ
-         frv8M80NpAfBypXs3tXgmCVDUH28BPGs0fTc3KRE4WElKb0Z8T0q7H8rXx/lMjyFZfEe
-         lhrVeWbrkbAE8bYrL5OWTqhI4PQffTypJsy5piDCBbVB5soCycLZRrO4wL1fnNoQR8wn
-         I6qutlgvgsIkUPv6qQ5OyZVRIOIjZeopsbHyZ07r/ZJmdysEXSRJZMZrA9IXYgkul+n3
-         UYaQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqeJ/hkpjAlmCJecLR7BEuij0kDUU9JRkICI7KcVlguu/ePKCwEbcbtOW+89rTjULLUv1yK9uE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNkT5sRPoxAtdNVz7UAZjaUhVso9zmCP/LX6Dik7qvNeKTzCQD
-	YfsgCfCtTsWZHRfRnHzVkFFWbaIX6w2kMeFmWgmfkVi9fQelf/Yo2Rng
-X-Gm-Gg: AfdE7cnS7wcc0+rEgFDccN3/GVWnxsCZMhrZqJaTPa6gx/BaI90fAg6HbDjQiZFVHmE
-	Yauw003ukAKP2wEdCxQ1lYqpzTMdw5JEbpwPOZOl4rBcyw7iScTo+P7i76eGYtDFeW2+y/mzd5a
-	H4Cu6+Jh/MSeESR9V+8Kr2Nc2n98Q1UuKnftLRp+RDN9t39I5wonKuqHLeBilQh72zVqClrMAVG
-	l5GFzTB//DhrMLqb4TOxToOpi8p2nk78KZi5EjMhIxFwOXPjxch96TjDM9W7VX9k7jeR4pTasGI
-	mNQyS/wKrhm8UsT+E2zREstYnI/sj96uG3E7HojcqAe201sK3EBK4Si6xk5p5Qh5unhyINQCiWK
-	Ja/p+NhesEneFY7y+tQtQe7nvkhfGdMWOKw07qw94POu6h6rDd6lBKp22vj3atb+nqpJHHStnfI
-	IHw3Uk3gSu5winhefZdg==
-X-Received: by 2002:a17:90b:57cd:b0:381:77cd:38ca with SMTP id 98e67ed59e1d1-389417e432fmr977538a91.4.1783491534182;
-        Tue, 07 Jul 2026 23:18:54 -0700 (PDT)
-Received: from kali ([122.162.146.188])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3117d847e17sm12888463eec.18.2026.07.07.23.18.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 23:18:53 -0700 (PDT)
-From: Pavitra Jha <jhapavitra98@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Pavitra Jha <jhapavitra98@gmail.com>
-Subject: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP discovery header cast
-Date: Wed,  8 Jul 2026 02:18:34 -0400
-Message-ID: <20260708061835.111986-1-jhapavitra98@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260624184444.D4A401F000E9@smtp.kernel.org>
-References: <20260624184444.D4A401F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.b="Xh0KLllu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fnnas-com.20200927.dkim.feishu.cn; t=1783491637;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=AN2GzrMWkyFaJbYvNPReXuJ+xD3LE+ovrbMBLCvTCio=;
+ b=Xh0KLlluYI56IvxQgmg14Ig5KjCro7Rdqk1mRMbkh4oPkXunjrNe1J8TJ8V3L/eoEgEeBQ
+ pVEzmB8SsS9qd1ZbqBIIn0yNaLS6r1rTVoh+xXCYFp6Rf/wyySTwUAnputTYpptr7LZffD
+ hJKyF0dCJJqGoysHtGcTDxIsSp3BVjezX4p2PHV/XIcaF2+ay2ayU1/TCdosax1g9uE/he
+ 1i3fkOJO6UE42/kKfOt5KF6J21b6S4JvApwHr29HRzm62wSD+cUW7RPs3LJ+61J+iTM3RM
+ eYOC+VXF0Clp0nr9mzK4bkmJ/idBrmE6VnEumq65hQCpM3DW7JXGT+cM5ykKEg==
+X-Lms-Return-Path: <lba+16a4dec33+85c115+vger.kernel.org+wangzhaolong@fnnas.com>
+Content-Type: text/plain; charset=UTF-8
+To: "Jiri Slaby" <jirislaby@kernel.org>
+References: <20260527092052.2086342-1-wangzhaolong@fnnas.com> <20260708031115.3757150-1-wangzhaolong@fnnas.com>
+	<25599a7f-e9cb-4aa0-a375-d9b4ed52be5e@kernel.org>
+Cc: <gregkh@linuxfoundation.org>, <linux-serial@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	<andriy.shevchenko@linux.intel.com>, <albanhuang@tencent.com>, 
+	<tombinfan@tencent.com>, <jackzxcui1989@163.com>, <kees@kernel.org>, 
+	<osama.abdelkader@gmail.com>, <realwujing@gmail.com>
+Subject: Re: [PATCH v2] serial: 8250: fix shared IRQ startup race causing IRQ warning
+From: "Wang Zhaolong" <wangzhaolong@fnnas.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+In-Reply-To: <25599a7f-e9cb-4aa0-a375-d9b4ed52be5e@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 14:20:34 +0800
+Message-Id: <5cf37150673ea4d5c28f94db91cdf68504b50522.5fc19520.ca7d.459c.8589.c67efbed854f@feishu.cn>
 
-Sashiko AI review of the previous fix flagged three remaining gaps in
-the discovery blob parser, all stemming from the same root cause: the
-ip_discovery_header pointer itself is constructed from a firmware-
-controlled offset with no validation before the cast.
 
-  ihdr = (struct ip_discovery_header *)(discovery_bin +
-                    le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
+> From: "Jiri Slaby"<jirislaby@kernel.org>
+> Date:=C2=A0 Wed, Jul 8, 2026, 2:03 PM
+> Subject:=C2=A0 Re: [PATCH v2] serial: 8250: fix shared IRQ startup race c=
+ausing IRQ warning
+> To: "Wang Zhaolong"<wangzhaolong@fnnas.com>, <gregkh@linuxfoundation.org>
+> Cc: <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <stab=
+le@vger.kernel.org>, <andriy.shevchenko@linux.intel.com>, <albanhuang@tence=
+nt.com>, <tombinfan@tencent.com>, <jackzxcui1989@163.com>, <kees@kernel.org=
+>, <osama.abdelkader@gmail.com>, <realwujing@gmail.com>
+> Ah, you are fixing the same thing as:
+> https://lore.kernel.org/all/20260707-bug-221579-8250-shared-irq-race-v6-1=
+-f8c499a90bdd@gmail.com/
+>=C2=A0
+> I did not look up who of you was first.
+>=C2=A0
+> Note the above contains you in the commit log:
+> Reported-by: Wang Zhaolong <wangzhaolong@fnnas.com>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221579
+>=C2=A0
+> You both CCed each other, so you know the other's submission. I don't=C2=
+=A0
+> understand why you both send the patch? Anyway, you guys speak to each=C2=
+=A0
+> other and decide who sends the (fixed) patch.
+>=C2=A0
+> On 08. 07. 26, 5:11, Wang Zhaolong wrote:
+> ...
+> > --- a/drivers/tty/serial/8250/8250_core.c
+> > +++ b/drivers/tty/serial/8250/8250_core.c
+> > @@ -154,10 +152,18 @@ static struct irq_info *serial_get_or_create_irq_=
+info(const struct uart_8250_por
+> > =C2=A0 static int serial_link_irq_chain(struct uart_8250_port *up)
+> > =C2=A0 {
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct irq_info *i;
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int ret;
+> > =C2=A0=C2=A0
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0/*
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Keep the hash lock held until the first=
+ request_irq() completes.
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * The first port publishes i->head before=
+ request_irq() starts the IRQ;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * a second port sharing the IRQ must not =
+join the chain and run the
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * THRE test while the IRQ core is still b=
+ringing the line up.
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 */
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0guard(mutex)(&hash_mutex);
+>=C2=A0
+> The same as in the other patch:
+> hash_mutex is no longer an appropriate name for this lock.
+>=C2=A0
+> > +
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 i =3D serial_get_or_create_irq_info(=
+up);
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (IS_ERR(i))
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return P=
+TR_ERR(i);
+> > =C2=A0=C2=A0
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 scoped_guard(spinlock_irq, &i->lock)=
+ {
+>=C2=A0
+> thanks,
+> --=C2=A0
+> js
+> suse labs
+>=C2=A0
 
-This offset is a firmware-controlled u16 read directly from the
-discovery blob's table_list, with no bounds check against
-adev->discovery.size before being used to construct ihdr. Every
-subsequent read from ihdr, including num_dies and die_info[], is
-downstream of this unchecked pointer.
+Hi Jiri,
 
-The other two items in that review (unbounded ip_offset advancement
-via num_base_address, and num_dies exceeding die_info[]'s capacity)
-were already addressed in the previous fix.
+Thanks for looking.
 
-Fix by validating the table offset in amdgpu_discovery_get_table_info(),
-which is the common path used by all callers except
-amdgpu_discovery_read_harvest_bit_per_ip() (which reads
-table_list[IP_DISCOVERY].offset directly rather than going through
-get_table_info()). Add the equivalent check at that direct access site
-as well, so all paths that construct an ip_discovery_header pointer
-from a table offset are covered.
+Just to clarify the timeline: I reported this issue and posted the original
+minimal fix on May 27:
 
-The check validates the offset itself against adev->discovery.size,
-independent of any specific downstream struct size, since
-get_table_info() is shared across ten different table types
-(IP_DISCOVERY, HARVEST_INFO, GC, MALL_INFO, VCN_INFO, NPS_INFO, and
-others) each with differently-sized table structures.
+=C2=A0 https://lore.kernel.org/r/20260527092052.2086342-1-wangzhaolong@fnna=
+s.com
 
-Fixes: d0c647a6aae2 ("drm/amdgpu/discovery: support new discovery binary header")
-Cc: stable@vger.kernel.org
-Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+I also pinged it on Jun 24:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index b4ee5fc8e..9b55c56cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -564,6 +564,12 @@ static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
- 		return -EINVAL;
- 	}
- 
-+	if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
-+		dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
-+			le16_to_cpu((*info)->offset), table_id);
-+		return -EINVAL;
-+	}
-+
- 	return 0;
- }
- 
-@@ -766,6 +772,14 @@ static void amdgpu_discovery_read_harvest_bit_per_ip(struct amdgpu_device *adev,
- 	int i, j;
- 
- 	bhdr = (struct binary_header *)discovery_bin;
-+
-+	if (le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset) >=
-+	    adev->discovery.size) {
-+		dev_err(adev->dev, "invalid IP_DISCOVERY table offset %u\n",
-+			le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
-+		return;
-+	}
-+
- 	ihdr = (struct ip_discovery_header
- 			*)(discovery_bin +
- 			   le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
--- 
-2.53.0
+=C2=A0 https://lore.kernel.org/r/ajtFoTHUQHJGYV5Q@MiniServer/
 
+The other series was posted after my original submission and eventually
+converged on the same core locking change.=C2=A0 I had also commented on th=
+at
+series around v2/v3, pointing out the same startup race and the need to cov=
+er
+the first request_irq() completion, so I was aware of that thread.
+
+I sent v2 to refresh my earlier minimal fix with a clearer subject and comm=
+it
+message, since the original patch had not received review.=C2=A0 My intent =
+was not
+to create two competing fixes for the same issue.
+
+I agree with your comment that hash_mutex is no longer a great name once it
+also serializes the first request_irq() completion.=C2=A0 I can send a v3 w=
+hich
+renames it and keeps the patch focused on the required locking change.
+
+Thanks,
+Wang Zhaolong
