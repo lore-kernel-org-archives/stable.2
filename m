@@ -1,145 +1,102 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCEAD434405
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 18:12:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7399E4C955F
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 18:35:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783534380; cv=none; b=A6ORfxqW9D2hnEabyqWXyUr6AiLGgY5/YLlLEGPXLd4TT4EyHY4QM8eGUkiMQCMy4J6fZd13bM3sksLnx970z2/6FZCxN2zP7sbhuI56gsHnNyMoHaHvbnb+hihkkygLusYdk8ssxJKm5bKiD6Ztf1qF+r2zvDDbJ/69BevgYjM=
+	t=1783535738; cv=none; b=PMcegWCEUGhnen7k9+fNlq7YrFXManid5dHxRSOFdELeLmJBSIKYR9IYTe3OFNcArR1YV4JttyE5Pfl7u/hCUFj/U4JmRX/bZvoTIpinLPNPaHUNHYYoXymPg2/AYm7jwBoWRVQY/0y44kaPV1on9y8ufwnO5m1ASBmPo+qfegI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783534380; c=relaxed/simple;
-	bh=y1Zkb/qQ7tH76c5nw0yWw9pfRRFL5z9KF7XJjkvkH3c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T2fzq97WiLPfBuxnphAvHRreRjby/SrYRbpGkeWa6xq6em1UkiZ5Q6HiyNgp0q887BPX+MLPWKUTBTF9Ziy45KHwOL64OnPS9mL1VM5lXZn1F+7AnaI6N2qm+Lhby0bKvl+2DLVZKbElnExOLPYLusOy/AOvuWJEsmt46DwT2+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mq0EXNbU; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783535738; c=relaxed/simple;
+	bh=cR0sI4JX7X5rTmm87aZaAf6gDZhWgglYVWhHlvHHkbQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=avXX/+kJoz72X03VyafNm1acjkJ0VwG+g2f5nWCzf1xhGeMDINosdqsxQNTTAwBDrClwMKLSgWH7EpaczdXc+PflUqkDbdy1E8PNAznqZ/FhKER3xFJSm09oLp4k7XhuRSOEzkWA0KEXz8acxMY0a/2QKQD+pMy2loiiuo+184k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DP/abv3r; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mq0EXNbU"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c96bfabc8d4so607794a12.3
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 11:12:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783534376; x=1784139176; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E7M+3gHwLkUuZk+ZzB1+zc6TOfv5YYqtskQPl4nbwro=;
-        b=Mq0EXNbUIosTjJuWW4QPPcinw+8f1KwIFogYqknNG1BHNHRcHc4AI0cM74ZNGnVw0X
-         /sJT2yWSOK6vpAeZqYf1sVtckf8nKm7FYE+0P/mE3uplWFMRB5QmZT4jBujOp/h8t65L
-         ssR+6QUak/UhAm4sfKaRmjhcO1NlQTbx+isi7E9otGXGdrQKnNFMeANe4+e07K4rsXHG
-         3lVOvz3ovx6Quy6TIsSBOKMG0XevjQ8sHSlQ8ol6GOlx+xe0a3BoPx1naTg0mWRTbCHc
-         nzD80MmUvSbnsIIgfSYX35Z4XwIe190dDpLmOTdY0rCz1g6tyNwGpL2JmJOJr4XLKtbZ
-         yVbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783534376; x=1784139176;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E7M+3gHwLkUuZk+ZzB1+zc6TOfv5YYqtskQPl4nbwro=;
-        b=tVD3uGnAlXfTZHSIztq/yYI4KNAaZofn40tduQxh3M4xy2aF4PvcTPxVjSpPR4tC+V
-         EjiXa/PheW5MsjU0TUpBlT3gCvreClvb3z5+2kqDkjEkTCCIQDJiP9hliTXoa8uHd43l
-         oBrA8+bXkcf5hGDUTNwWqFerFWukvsmmK31ilyN92UJ8yQCTq7ctc2QyQYmdjbHLtmsN
-         tXZtyRvZVa5+3DuqYUeasTRjX5z3/0qcnNhoUJEL+soNoOsXvMC1xv2gjTa5yq0TbtCh
-         VCqOtua5K0anZUWbC8Pk6bKmw0e8KyoNjbE3DnIuf4X72+b6uqMqEWJkr+SEpFmUthpz
-         Dsig==
-X-Forwarded-Encrypted: i=1; AHgh+RrpFp3ci8tWyaIDiE4NcZVUNV0thEfPFnvgv8pPWnvn4kxLxFlGSuwR2KXWwuGvn3LQPxc6jbc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YygxMYRc2j23Jgf3VeGnf0f1//Utu1PT5ldNGYeoCKro1luFwgT
-	gXxoVQpQ49OYCkrG1joikXNArOkGgssKsLudj71Gj9EO6JkznxYqG3mV
-X-Gm-Gg: AfdE7cnREiWYjBsQHSTBlFKxxagm5GKIY9ZVb82JxWWd1bqroNLDFbw0uIDHl/hm9Oj
-	P20hFzkGQO0zclUn8c228ycQOudg4inFLTqzQzX0wUnvEpKP9PjL+Sd8hOS06oXUu6imzaihwGi
-	MuTpCOzC13iBhzfRTvROHIJ1bc+gl/fcqgIxiPqaJWvU0Zw1YCPEbhg+QCCly2TUE8clcEpmbjE
-	0MbgIvNuQIE+KstJeycZR/u2g3TZs/VbOAhC95+x778RwNv6YGrVlBS9RPi8T9pQfHqEAlNdCVh
-	6Yt1i2Y5NCa1zAcotoJg+1jiLprOKGzer/Jvs9HJtYcYiimr90HtVUgskk0j0qj2JJXErNuMJei
-	ZtJN6wFvp0+c+nMXjaT5ysrWRgdaSgrN8KzDwzAhmZVdrxgPQti+X7zoL6qxOkSU2BLI11ty3Lh
-	+0pJo5v9WtJ+VyQRvlqXLxOcP1vThx7tdEyvAdZL46Nh3VlqnpbYA6Kg==
-X-Received: by 2002:a05:6a21:7d02:b0:3c0:9c1a:894e with SMTP id adf61e73a8af0-3c0bd312f81mr3943968637.70.1783534376489;
-        Wed, 08 Jul 2026 11:12:56 -0700 (PDT)
-Received: from localhost.localdomain ([49.207.223.101])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b659c8572sm22368639c88.9.2026.07.08.11.12.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 08 Jul 2026 11:12:56 -0700 (PDT)
-From: Biren Pandya <birenpandya@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	andriy.shevchenko@linux.intel.com,
-	dongchun.zhu@mediatek.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Biren Pandya <birenpandya@gmail.com>,
-	stable@vger.kernel.org,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Subject: [PATCH v4] media: i2c: ov02a10: fix endpoint parsing use-after-free
-Date: Wed,  8 Jul 2026 23:42:48 +0530
-Message-ID: <20260708181248.57758-2-birenpandya@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260613083235.57363-1-birenpandya@gmail.com>
-References: <20260613083235.57363-1-birenpandya@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DP/abv3r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783535736;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cR0sI4JX7X5rTmm87aZaAf6gDZhWgglYVWhHlvHHkbQ=;
+	b=DP/abv3rCS3+JCsNGy2haQWMuz0ZL79HvWgBK0fwd2HfzFh8FGO3MXzV+ELD24rVTNZNFb
+	5tjhfTo+4u3fzZeVunm6c1aETjESqnlkJmPHUsuonHqjJe3qwgn56LtqjxJMdpe5ukhSou
+	TC8uOnlmadzIakpMdYYXE968zporl+4=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-326-KxgXL-nBPMuHfofScI0D1g-1; Wed,
+ 08 Jul 2026 14:35:33 -0400
+X-MC-Unique: KxgXL-nBPMuHfofScI0D1g-1
+X-Mimecast-MFC-AGG-ID: KxgXL-nBPMuHfofScI0D1g_1783535731
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9CAD91800609;
+	Wed,  8 Jul 2026 18:35:31 +0000 (UTC)
+Received: from fedora (unknown [10.44.33.83])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id A151B1800370;
+	Wed,  8 Jul 2026 18:35:28 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Wed,  8 Jul 2026 20:35:31 +0200 (CEST)
+Date: Wed, 8 Jul 2026 20:35:26 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-tip-commits@vger.kernel.org, Wongi Lee <qw3rtyp0@gmail.com>,
+	Jungwoo Lee <jwlee2217@gmail.com>, stable@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [tip: timers/urgent] posix-cpu-timers: Prevent UAF caused by
+ non-leader exec() race
+Message-ID: <ak6YbiubLDabNCyT@redhat.com>
+References: <178324479651.744054.11944477307374142373.tip-bot2@tip-bot2>
+ <ak51mpHPzsQrGFmv@localhost.localdomain>
+ <ak5-L-1SzGPEc0_i@redhat.com>
+ <87v7apqrx8.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87v7apqrx8.ffs@fw13>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-The ov02a10_check_hwcfg() function calls fwnode_handle_put(ep)
-immediately after allocating and parsing the endpoint. However, it
-subsequently calls fwnode_property_read_u32() using the same 'ep'
-handle, leading to a potential use-after-free.
+On 07/08, Thomas Gleixner wrote:
+>
+> On Wed, Jul 08 2026 at 18:43, Oleg Nesterov wrote:
+>
+> > On 07/08, Frederic Weisbecker wrote:
+> >>
+> >> > There is a similar problem vs. posix_cpu_timer_set(). For regular posix
+> >> > timers it just transiently returns -ESRCH to user space, but for the use
+> >> > case in do_cpu_nanosleep() it's the same UAF just that the k_itimer is
+> >> > allocated on the stack.
+> >>
+> >> do_cpu_nanosleep() only targets current and since it's on the stack, no
+> >> other task can access it. And the current task can't be exiting/exec'ing
+> >> while calling posix_cpu_timer_set() on that stack timer.
+> >
+> > I thought the same initially, but it seems that this is not true...
+>
+> Indeed.
 
-Additionally, reading the optional 'ovti,mipi-clock-voltage' property
-used to overwrite the 'ret' variable. If the property was missing,
-'ret' would become negative, and this failure code would be incorrectly
-returned at the end of the function, causing probe to fail entirely.
+OK,
 
-Fix the use-after-free by moving fwnode_property_read_u32() before
-the endpoint is parsed and freed. Avoid the error leak by not
-assigning the result of fwnode_property_read_u32() to 'ret'.
+> > Or why else we have clock_getcpuclockid() ?
+>
+> To express which thread or thread group the sleep should be on. It's
+> exactly the same as timer_create() + timer_set(). It sleeps until that
+> clock accumulated enough runtime, while regular posix-timers either wait
+> for a signal or handle it async.
 
-Fixes: 91807efbe8ec ("media: i2c: add OV02A10 image sensor driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Biren Pandya <birenpandya@gmail.com>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
----
-Changes in v4:
-- Collapsed fwnode_property_read_u32() into a single line per Vladimir's review.
+This is what I tried to say, sorry for possible confusion.
 
-Changes in v3:
-- Moved property reads before parse to avoid UAF.
-- Fixed error leak by dropping assignment to ret.
-- Added Fixes/Cc stable.
-- Picked up Reviewed-by.
----
- drivers/media/i2c/ov02a10.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/media/i2c/ov02a10.c b/drivers/media/i2c/ov02a10.c
-index 143dcfe104456..98f8fc5b6a5ae 100644
---- a/drivers/media/i2c/ov02a10.c
-+++ b/drivers/media/i2c/ov02a10.c
-@@ -820,18 +820,15 @@ static int ov02a10_check_hwcfg(struct device *dev, struct ov02a10 *ov02a10)
- 	if (!ep)
- 		return -ENXIO;
- 
-+	/* Optional indication of MIPI clock voltage unit */
-+	if (!fwnode_property_read_u32(ep, "ovti,mipi-clock-voltage", &clk_volt))
-+		ov02a10->mipi_clock_voltage = clk_volt;
-+
- 	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
- 	fwnode_handle_put(ep);
- 	if (ret)
- 		return ret;
- 
--	/* Optional indication of MIPI clock voltage unit */
--	ret = fwnode_property_read_u32(ep, "ovti,mipi-clock-voltage",
--				       &clk_volt);
--
--	if (!ret)
--		ov02a10->mipi_clock_voltage = clk_volt;
--
- 	for (i = 0; i < ARRAY_SIZE(link_freq_menu_items); i++) {
- 		for (j = 0; j < bus_cfg.nr_of_link_frequencies; j++) {
- 			if (link_freq_menu_items[i] ==
--- 
-2.50.1 (Apple Git-155)
+Oleg.
 
