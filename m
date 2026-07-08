@@ -1,118 +1,152 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93533E4506;
-	Wed,  8 Jul 2026 21:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4389F3A6B81
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 21:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783547254; cv=none; b=SvhtRJMgRQ6u9Wo8m1GTQEpWL7kcWCawy154TYsLSw9WUXDdUnQqz2WcQzuXyL9UDvtPR2L/q1ifeZFXyHRFJNpqpnAlRkE1knY9Ln5E9pfOtL1he9mkRS9wgYKAvWGE4QfDYdl1lZNkpmuuIeksUTPVQT4nCgDRsFrE2SytYpA=
+	t=1783547637; cv=none; b=cu+gtAegtcxY3vIb6RPePK0m9tuHMDQyKsW+g2UXzIGGN+qRrIlpiwhraijL3lyZqUkPA7+svmeR0JD3x4dvvPuWqj26uD/H+EGHGbKj9als7UP/i7YnI/h/BOcEZGLKqTehfw1ZVBEPZGKvrVLHhZcbVq79BYmJ5GveW9OX8cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783547254; c=relaxed/simple;
-	bh=cLbYfj0ix0uweAgXGMGt8iFFBLz5yorNVz94Azlcj2c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bQ6s6EvLiBHZmSbk87pdH7YR0oyu5ajZUnrttf2KFc4JFH3WJfFpuBpHXoE0hePFTGuDTyjovxGvKTSPrloGNKKoFjSzzWIbLPcgQH61sJxfG/cHGEKXzCR+nWFR5gTbiULxRgfqEzgsqB2DRg3E4fcEJpW/uYN2EJX2p8/10aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=K1LJCbEG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Dr/bbDL+; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	s=arc-20240116; t=1783547637; c=relaxed/simple;
+	bh=6Ybfx0lFdICtzKlrOMUeIb8C42jMZMhMcXq2Ao+QSu8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qEnkUAhCL+ZywSo71x0Pu80FrBfMomDraHmNiZO6+CiPacQ2/Sc9kn2EAS9aCD4q0LaPVSowDo3/mRMZ5AL+1U8VgHXqVOXQ1SLJC07qncEgK3K5rhWmELfaLI1roLTKZ+CaxFhAfq05bsOmnBCL5EPSri8I1rnleUb3MGkTdHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q35hGRKq; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="K1LJCbEG";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Dr/bbDL+"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id B7E431D000F9;
-	Wed,  8 Jul 2026 17:47:29 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Wed, 08 Jul 2026 17:47:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1783547249; x=
-	1783633649; bh=SkhMzosNQBmymgj3p2xy58uHyxhr2icAp5O0RittQsM=; b=K
-	1LJCbEG1PWvnlad0u6OH2lgDk3yullbaD90XoQNGzNXFKuHumqCs0p4SStp2ZbU1
-	5IfaiOLrNHuxQjWuYw/uYx8TU1VfUbck9B3aqjNPgof4VlBz71RSUDPatFvJCEGE
-	ZiLlfD19rZSMHMw7ZJF27N20uSu6wU9UpNTdPM9o6POy6ovNuOYBcwmeVlQn3Not
-	LSy1BPV+L9KrSzeFV7QC65A1wrD+ANAGXHIboi4T17ihg9hvBUmahLWoI1LsH2Zu
-	VOYnx/W71yT4CoAXL8PSRIFiDe3FVJeC4dGYmk6NLLLo3cF5hj/rVINZvfkdTF5+
-	oRJ2sdEo9IxBg9CuCQxsA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1783547249; x=1783633649; bh=SkhMzosNQBmymgj3p2xy58uHyxhr2icAp5O
-	0RittQsM=; b=Dr/bbDL+Nfj24xMuamJn3n5991rsaof8f5Okxgwm5a1z8USunaE
-	PYxgDAlF/VoehPlipTgjEHwPWTiyL3OMlrzViy8PteArxpDDVAcidaAefy40F78+
-	L/LYuUKq0GGSVVogKwGjByp1IIbclBvBA4GUTdL6AGKBipOCAtx+gpDONIPpBtTE
-	4NTwopLbmCJxfTSVnBNpwy4ox/YjPB9NlUVjNaVHR0NhzvcLe5fH955hQSQjRWTR
-	LLFkAk1olQGdg81Eq2hfJn81XyAY00+BTPzGH+uUMagvPXvWFrGu25+RXh5H+Ygu
-	dJKw6kaCeyt/akaC88ICPrhnrFjJ8gKlgWA==
-X-ME-Sender: <xms:cMVOaj6wnGviWtpneh4TyA3-RsuMSiXfYDXkyoLjo2Hnx75Pmt9o-Q>
-    <xme:cMVOau41Oa6Y46-tyuXsYRHpZQrIsJvT0pNWDqtu1ItRjWcd9DNKsCqcfzkBSFii7
-    MC3dpaPbLrqe3l9i8bkjF6KdYNokxUYbFaNDfPEzbNiAuZG7M-aB9c>
-X-ME-Received: <xmr:cMVOalQz-ENSktFUZSIKYA-Sv4BXNLZraxiKaWXKjpdTirNxYabj5ZGTuvY>
-X-ME-Proxy-Cause: dmFkZTEonscYrV8b2DWfVXUlBrm8n8hor4M9W55tDzUSmnxl25KP1CDRJTK8KTUJgx0v8Y
-    gx9DrSnOE1G5w2YDc92fzt/3txvP0t10I/emDODh1kwAOEc/4ftn0/IZmO9iIxfsJMn3VK
-    nESCEsib6vJR/x7xMXWiWu+E+h8zCso7JZy7DXlfQaEnQNC1/7whC7ynogs4MH7KtQkFEz
-    PD21nDRC7d0oKKHiOoXAg4z8HLsu/KZQGV0kXec00bBGJ1Xgo4Pe0vmufmgX3hO/JptI/Y
-    yX/oUFENX2HOeSzvRCO4ZZWqHdzbXqAEs8zJiizPgc7ra5P6LD6FuHiQtOXM2wUlDdnIP4
-    92DAvQWPAVArDoZu5DDIg4XcvX43AYnNI5uISxV7xrZO68/fnk7NL5xA1cZNToAsiUVhre
-    VWWw9lmSlnz9SV7sXBNt70L9TpFT0UfECute6TcbTFlUzZ2Wslbz5E44yL0zUvBHUVV9xU
-    Lw8vw/66ub9cSuJck0L3ntiOQyoePK5gJwFJ+5r3FARajElxlTRBAxpu3zdGBk7rCoYrNM
-    FTiVtPVXyWw3ztPZKUZMP01KleNtxHbbLq9ZrG49zm0XhhB2/+RG9z3hv9IAjBNPeGKExD
-    ZfIdm3cq0f0RaiiitqobDCJActJCIxUv6/bjUJrkz7CB31vwlzMoJoWmeCwQ
-X-ME-Proxy: <xmx:cMVOam9jrdq3MkSHaaFvjqv2zsH_4YZO332ctRHBePbb_k9HdYo2Gg>
-    <xmx:ccVOambS91hN9Q_eoThVoHfeEh6pLS0q_mTcyR5Z3dMRlQl4Qi_V2A>
-    <xmx:ccVOanq_DFVRO71aiEPeO1OD0oDwd4HW4sSI5-N-pdmRYXIvs9IzWg>
-    <xmx:ccVOaqRmO_LXfL4aGODNXAy7zr3shu6kXmFCKm1ObDPRLJYJ03BEWg>
-    <xmx:ccVOavSNQ7VVDKEgK15wj9ua9xPvHF6PkWSJ2gYTE0cnijdK1MxZWm1f>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 8 Jul 2026 17:47:28 -0400 (EDT)
-Date: Wed, 8 Jul 2026 23:47:26 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: James Raphael Tiovalen <jamestiotio@gmail.com>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Antoine Tenart <atenart@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] macsec: fix promiscuity refcount leak in
- macsec_dev_open()
-Message-ID: <ak7FbqzijszPeyni@krikkit>
-References: <20260705113629.187490-1-jamestiotio@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q35hGRKq"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4758bd3731bso182666f8f.0
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 14:53:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783547634; x=1784152434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IIMECz0v1f4LVIdLn0HTlLUSx/SJvMxrwrh19eAWfPY=;
+        b=Q35hGRKqsmeseGbLCPSZpxptC2838DtDhPn6pMmBW+qfyIyiaj/LEKXWP+nIYF0g3b
+         46CLh4n2zcgCqhA4gq1GtVVvaT4SffCtqWb3ERoOIc0D7baK4JPPt+tJ2tRBmsOUb8a8
+         8c9N/+O3KSxZibGTXSfDoBcS4fTrtDTcEvVMO84BQ5F7JJ3uD+TkURGef9eyeAL9XlcP
+         nh6sDNEw7+p333Gp7lLJgNlE0bod24lNXLMKgjvIZ2TCwsgnw/W4or7VYjfynb1y2Ghb
+         QrYqOaYyeWgVsKu8oYHlH8Xidf+bMiTaWXGXbVAZralerx4Yk7szQLBbix9THgAWgVv5
+         gfeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783547634; x=1784152434;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IIMECz0v1f4LVIdLn0HTlLUSx/SJvMxrwrh19eAWfPY=;
+        b=rXf1bKMuG3UW9qkRhy5lxiq+JFz94fkHeRr0yQApptSDGDpTm+WOIupmCPlB4nJKGE
+         d9QbV7vUEsjaPjK4k3jAaH78bqzizrjAKoG0vI8kx/d1ST13SZClGmaKEgj73S001P6U
+         VukwxperPa3sk2ygDz+wsGSf2Uz3LN6cj+hrOs3w5T9TCPKWXynCNVkvUdGw19GQ77Hh
+         vhskBaxvex0SbnxlRKCfaJKkofXAhGQY66m0zd6AEISaJ4QXJB64QiGzYb7lXYtM0/eI
+         kitRipyOpTz/MHmgIl+r3oJZeqA+NS01dJz2ytt+KNXbVDSK6xRlHp0Rg+BRCVRpH8vk
+         7iNw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1ky83f4iDFTDpfmNK1TqM3P+MOwU0MchOdNUdFFx2XmlGjf7QgpagYTruniodEvMo+8nmDYA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz3B2Y65MqNTBpd2dxpG8ytXiZbkp2uOOXPy6BnH+pS/XpsiKci
+	6AKuspoNIVDVFRUkaGDrb0YfBsyqkT+M6MDPGbfhle1EZXbK4NHT0k8z
+X-Gm-Gg: AfdE7clbt7vL6iSJ9HF8Xq1sc4KRNy7aM+I+m1RL2r182lj0ZjG0L6eTt3hpCvWgQxU
+	TFhdPDIORG1q6Jss51L75Nq1pWjxlM4oVOyDF19zX5U5s7MV9H8/L2bHX0VtbRCROvzmLXtKZQC
+	FtHRXzyAM58H7Ov9RSQ2LdNrKJCPVX87sR5P3skiFLm/tnC0Zc6mHbWIkN6WRp0v7eCuq+fC51r
+	1AfXs+6O5jlXPu4CeC8qYHv7/TMjRUih2yJ1GGSItjjhKdFTSNCcIU+jJrxfG9U0jtN8t3z1ir0
+	jdwx2oPQybd8oHQWqSjINIcqKwbCy2vsL3ROU/5QQz6igOQz/ShgwVPX458rhVatLMlDPwNeaNd
+	ev/5R83L/TaP7JBWW0fhVpFN3y5Vxzxg18KRLPTqkZBqS5LBvenH3I5Gw+3BsSX6UsXaIkoZB/R
+	MkHjKyx8iHiozTrk5ZmQq+yA4wAYMnmBLtVZB63jQSuJiHLrrPHw==
+X-Received: by 2002:a05:6000:4602:b0:47d:f6a5:1fd6 with SMTP id ffacd0b85a97d-47df7561c98mr84937f8f.26.1783547634411;
+        Wed, 08 Jul 2026 14:53:54 -0700 (PDT)
+Received: from osama.. ([2a02:908:1b8:2060:7550:b182:7bdf:fbd0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d8410sm46622289f8f.15.2026.07.08.14.53.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 14:53:53 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	dri-devel@lists.freedesktop.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] drm/imx: ipuv3: account for active PREs in atomic check
+Date: Wed,  8 Jul 2026 23:53:38 +0200
+Message-ID: <20260708215338.147145-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260705113629.187490-1-jamestiotio@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-2026-07-05, 19:36:29 +0800, James Raphael Tiovalen wrote:
-> When a MACsec interface with IFF_PROMISC set is brought up on top of a
-> device that has hardware offload enabled, macsec_dev_open() first calls
-> dev_set_promiscuity(real_dev, 1) and then propagates the open to the
-> offload device. If that propagation fails, the error path jumps to the
-> clear_allmulti label, which only reverts allmulti and the unicast
-> address. The promiscuity taken on the lower device is never dropped, so
-> real_dev is left permanently stuck in promiscuous mode. Its promiscuity
-> count can no longer be balanced from software.
-> 
-> Add a clear_promisc label that drops the promiscuity reference and
-> route the two offload failure paths to it. The dev_set_promiscuity()
-> failure itself still jumps to clear_allmulti, since on that failure the
-> count was not incremented.
-> 
-> Fixes: 3cf3227a21d1 ("net: macsec: hardware offloading infrastructure")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: James Raphael Tiovalen <jamestiotio@gmail.com>
-> ---
->  drivers/net/macsec.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+ipu_planes_assign_pre() starts each atomic check with the number of
+registered PRE blocks, but that value does not account for PREs that are
+already used by planes outside the current atomic state.
 
-Reviewed-by: Sabrina Dubroca <sd@queasysnail.net>
+This can happen when CRTCs are updated independently: the current commit
+only adds planes from the affected CRTCs, while PREs used by other active
+CRTCs are ignored. As a result, atomic check can approve more PRE users
+than the hardware can provide.
 
+Subtract already-active PRE users that are not part of the current atomic
+state before assigning PREs to the planes in the commit.
+
+Fixes: 00514e859335 ("drm/imx: use PRG/PRE when possible")
+Cc: stable@vger.kernel.org
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+ drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c b/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
+index 67f2da7f2b65..d6806d1ae6e1 100644
+--- a/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
++++ b/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
+@@ -822,6 +822,19 @@ int ipu_planes_assign_pre(struct drm_device *dev,
+ 			return ret;
+ 	}
+ 
++	list_for_each_entry(plane, &dev->mode_config.plane_list, head) {
++		if (drm_atomic_get_new_plane_state(state, plane))
++			continue;
++
++		plane_state = plane->state;
++		if (!plane_state || !plane_state->crtc || !plane_state->fb)
++			continue;
++
++		ipu_state = to_ipu_plane_state(plane_state);
++		if (ipu_state->use_pre)
++			available_pres--;
++	}
++
+ 	/*
+ 	 * We are going over the planes in 2 passes: first we assign PREs to
+ 	 * planes with a tiling modifier, which need the PREs to resolve into
+@@ -843,7 +856,7 @@ int ipu_planes_assign_pre(struct drm_device *dev,
+ 		    plane_state->fb->modifier == DRM_FORMAT_MOD_LINEAR)
+ 			continue;
+ 
+-		if (!ipu_prg_present(ipu_plane->ipu) || !available_pres)
++		if (!ipu_prg_present(ipu_plane->ipu) || available_pres <= 0)
+ 			return -EINVAL;
+ 
+ 		if (!ipu_prg_format_supported(ipu_plane->ipu,
+@@ -871,7 +884,7 @@ int ipu_planes_assign_pre(struct drm_device *dev,
+ 		/* make sure that modifier is initialized */
+ 		plane_state->fb->modifier = DRM_FORMAT_MOD_LINEAR;
+ 
+-		if (ipu_prg_present(ipu_plane->ipu) && available_pres &&
++		if (ipu_prg_present(ipu_plane->ipu) && available_pres > 0 &&
+ 		    ipu_prg_format_supported(ipu_plane->ipu,
+ 					     plane_state->fb->format->format,
+ 					     plane_state->fb->modifier)) {
 -- 
-Sabrina
+2.43.0
+
