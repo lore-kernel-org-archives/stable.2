@@ -1,115 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0FB388384;
-	Wed,  8 Jul 2026 20:56:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969C93AB29E;
+	Wed,  8 Jul 2026 21:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783544214; cv=none; b=pgQhKkyKKGY3S6uFu53A5sxU5kWjRiVYsjzv7fPtujo0bNJnYwre4V5Jw2AUY3V4hZBfKinjQg0UpHACO32KgPPbv0ieRgrKm52LwhQG8SVdB/8o40lwHXVqn4jHpNph3l6XYtLQs9rFvsu35ouSE4hebvKQj1RsrrbQIVZ26LI=
+	t=1783546831; cv=none; b=o8f0ez3hrMDN5TPGVDTEGZ0sGlNNBpzaqLD064gOw+L7EkpG+Rzek0i6gtNmpp8IbAMuigiqohz+dYFED2yU45Jsq9WEDoKXWVHaMb3DlHXuA9HiVB/NgJ4QjBNIQdPFdyo+G0i9mRcu7E9triNhl1mtszCdt1phlHkii4pKaFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783544214; c=relaxed/simple;
-	bh=AbdalWzSajbTiT3GlhffFkC1RcoNyGlVoOsmo4IXP+0=;
-	h=Date:To:From:Subject:Message-Id; b=LcrjFNqLdVMUTdvF16iRhDLd3P3ItkkvAuG5Ia9KyY6m9H/ogka/80k6ZCegMzlXU8nYsicSteQQmQrFcMgZi42ZQZ2LKvx1uP2OsLoV0imqwrNlUDWO4ZIVtn9AHMABxwll+m/FzMhBJ4AcjYg0CRgR9RIcANItFCcRpUF3Hk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=0tN24C7r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783546831; c=relaxed/simple;
+	bh=7wZx8W2Sv3cy4CnMWXvjGDb632ddGXU+BRwNqDWCGXg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PKa8Dh2uzNWop/LutKH6uB5BWt/eiHDmujxEvRhJ23sr5HI5uk/kdU4Lcf5TKlIaNOadzUNmFqucEaUD0xZNMPUA8M44llqTjkplgGe1RWUaMue/73sLORSlwEonpf9kVFbFKCQRLGNV/wy2CWZsF2B/BFT7drGrIDRBNBVSzys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YP7XSUcb; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="0tN24C7r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14D251F000E9;
-	Wed,  8 Jul 2026 20:56:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1783544213;
-	bh=fgrYjzFer9MqviyykFSXWs4MqjCUh0pLU0rA7aXkkmQ=;
-	h=Date:To:From:Subject;
-	b=0tN24C7rkSXR9B0aKNhz9/VRBvfl7H9TwlT7wLW2PrQULv57dQ4alsL2UrAyikpC5
-	 y9xyjQMrfjQs6dkZ6bnK0o/9y1+Bwd49DHJF2xKscoDEH7sed54azDN1P6WiFvbfo7
-	 7+gLqbxLO19XtxYvFOpgR5EMaQRvaLJZ2n3aw/U0=
-Date: Wed, 08 Jul 2026 13:56:52 -0700
-To: mm-commits@vger.kernel.org,willy@infradead.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,sourabhjain@linux.ibm.com,rppt@kernel.org,ritesh.list@gmail.com,mhocko@suse.com,luizcap@redhat.com,ljs@kernel.org,liam@infradead.org,david@kernel.org,aboorvad@linux.ibm.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-util-dont-read-__page_2-for-order-1-folios-in-snapshot_page.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260708205653.14D251F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YP7XSUcb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783546830; x=1815082830;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=7wZx8W2Sv3cy4CnMWXvjGDb632ddGXU+BRwNqDWCGXg=;
+  b=YP7XSUcbIwOy+CkEnlaGfSDR728ArV1JNBsP9GcuFogutX5pfKooO8Hz
+   QFCwDxzXacXx/JM2coQr0t775ct2LIY04+wd4MZveN+Ddypee6sDym1td
+   bdboEbDFCY5nY15fx33koRQq9lT1TLEcF45FiU7BYkFOtdkYn5abvPqHw
+   jIeMdD1h6jW1rdtWTtQm0f29jYIDyIvOdyCrqQ6j4Q4eQ9zxXjfxAst3C
+   x60BvNI7vTCPTOgA7aRCfTaM72+KtZXW8ed1Pull4DVkIlftxKJ4t8+AQ
+   KpbGNJxAsR4/RrLq2UtSHRdsTFH/4W400Xw2S80b2i3Q5oNJBnf17Qv9j
+   A==;
+X-CSE-ConnectionGUID: 0kGSJDBrQPy1XNyBH1Mxvw==
+X-CSE-MsgGUID: Atgzsri6RqKMq/SjUR0hZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84414860"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="84414860"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 14:40:29 -0700
+X-CSE-ConnectionGUID: vb1/VhgBSOil9werL224tQ==
+X-CSE-MsgGUID: UPpyXBVySSOvQSxMBCGrDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="277629872"
+Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
+  by fmviesa002.fm.intel.com with ESMTP; 08 Jul 2026 14:40:28 -0700
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+To: linux-kernel@vger.kernel.org
+Cc: x86@kernel.org,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	chang.seok.bae@intel.com,
+	Omar Avelar <omar.avelar@intel.com>,
+	stable@vger.kernel.org,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>
+Subject: [PATCH] x86/build/64: Prevent native builds from generating APX instructions
+Date: Wed,  8 Jul 2026 21:14:35 +0000
+Message-ID: <20260708211435.402426-1-chang.seok.bae@intel.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Omar reported this broad concern to me, when resolving a separate issue
+with his custom module. CONFIG_X86_NATIVE_CPU=y allows builds to
+opportunistically emit APX instructions when the build host supports APX
+since commit:
 
-The patch titled
-     Subject: mm/util: don't read __page_2 for order-1 folios in snapshot_page()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-util-dont-read-__page_2-for-order-1-folios-in-snapshot_page.patch
+  ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-util-dont-read-__page_2-for-order-1-folios-in-snapshot_page.patch
+The kernel is not yet prepared to use APX internally. For example, there
+is no context-switch support for general in-kernel use of the extended
+GPRs.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Explicitly disable APX when building with `-march=native`.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Since GCC 14 and LLVM 18, both compilers support APX. LLVM 19 is already
+the minimum version to support native builds from:
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+  ad9b861824ac ("x86/kbuild/64: Restrict clang versions that can use '-march=native'")
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+RUST supports APX detection via XCR0 since v1.91 release. While the
+support is not official yet, conservatively set that version as the
+minimum.
 
-------------------------------------------------------
-From: Aboorva Devarajan <aboorvad@linux.ibm.com>
-Subject: mm/util: don't read __page_2 for order-1 folios in snapshot_page()
-Date: Thu, 9 Jul 2026 01:49:54 +0530
-
-snapshot_page() currently reads __page_2 after checking nr_pages > 1, but
-it should only do so when nr_pages > 2.
-
-If an order-1 folio is allocated at the end of a vmemmap section,
-__page_2 will not exist and reading it will cause a fault.
-
-During DLPAR memory remove on a 22 TB ppc64le LPAR, snapshot_page() oopsed
-on the page isolation path while reading an order-1 folio's __page_2 from
-an adjacent absent section (unmapped vmemmap).
-
-Fix this to avoid reading memmap that doesn't exist (e.g., a vmemmap
-hole).
-
-Link: https://lore.kernel.org/20260708201954.686111-1-aboorvad@linux.ibm.com
-Fixes: 31a31da8a618 ("mm: move _pincount in folio to page[2] on 32bit")
-Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
-Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
-Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Luiz Capitulino <luizcap@redhat.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org> # v6.15+
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Omar Avelar <omar.avelar@intel.com>
+Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+Cc: <stable@vger.kernel.org> # v6.16+
+Cc: Miguel Ojeda <ojeda@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>
 ---
+I don't think it is fair to point out that commit to fix here. The issue
+looks to be just in a hindsight. It was also merged at the same cycle
+when APX userspace enabling was picked up.
 
- mm/util.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Fortunately no APX systems are publicly available yet, but guard against
+this before such hardware becomes generally available.
+---
+ arch/x86/Makefile | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
---- a/mm/util.c~mm-util-dont-read-__page_2-for-order-1-folios-in-snapshot_page
-+++ a/mm/util.c
-@@ -1353,7 +1353,7 @@ again:
- 	if (ps->idx < MAX_FOLIO_NR_PAGES) {
- 		memcpy(&ps->folio_snapshot, foliop, 2 * sizeof(struct page));
- 		nr_pages = folio_nr_pages(&ps->folio_snapshot);
--		if (nr_pages > 1)
-+		if (nr_pages > 2)
- 			memcpy(&ps->folio_snapshot.__page_2, &foliop->__page_2,
- 			       sizeof(struct page));
- 		set_ps_flags(ps, foliop, page);
-_
-
-Patches currently in -mm which might be from aboorvad@linux.ibm.com are
-
-mm-util-dont-read-__page_2-for-order-1-folios-in-snapshot_page.patch
+diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+index 598f178102ee..256948e65073 100644
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -161,7 +161,15 @@ else
+ 
+ ifdef CONFIG_X86_NATIVE_CPU
+         KBUILD_CFLAGS += -march=native
+-        KBUILD_RUSTFLAGS += -Ctarget-cpu=native
++        # Do not generate APX instructions as in-kernel use isn't ready
++  ifdef CONFIG_CC_IS_GCC
++        KBUILD_CFLAGS += $(if $(call gcc-min-version,140000),-mno-apxf,)
++  endif
++  ifdef CONFIG_CC_IS_CLANG
++        # The minimum version for native build already supports the option
++        KBUILD_CFLAGS += -mno-apxf
++  endif
++        KBUILD_RUSTFLAGS += -Ctarget-cpu=native $(if $(call rust-min-version,109100),-Ctarget-feature=-apxf,)
+ else
+         KBUILD_CFLAGS += -march=x86-64 -mtune=generic
+         KBUILD_RUSTFLAGS += -Ctarget-cpu=x86-64 -Ztune-cpu=generic
+-- 
+2.51.0
 
