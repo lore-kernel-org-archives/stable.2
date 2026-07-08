@@ -1,187 +1,158 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C1C7346E70;
-	Wed,  8 Jul 2026 06:11:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C03367B98
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 06:18:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783491112; cv=none; b=lc6WRIYua8GSWvLFo3BUhswEtLLsSm1rBcsg4PhQQ1EthsnIsJ9nD3Hge8avdlOwHZGLORHHexXLLBAGYy2knCWUaW5hjdIDYWbZP+nPD2wGIfV/jfJ66rtW7QcqRhS6KJmlMiaRfTthNIYLUaLMd5U6p0s06pez3BpzR+oRJQE=
+	t=1783491536; cv=none; b=ERkaIMutY6c7x6MdmT/LzcHB3BGxKKRpn/fDHsAvU9fFpjssdwZrKDAWJZ0O5bHGl6Y/jc0zOy+aiPx5WXlL9fLGEvk8iyRs2Si1i9FhagI+fKGqJ/PnPzOXKUvioTrN145dlNoFpb2l2PnX78SxOpF7KFnlaVexMkJS1yLg1qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783491112; c=relaxed/simple;
-	bh=NCDSq0bVfwbwV1n+rWGUYBeBmBz37eP6OqsknRr0HPo=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=mjBDd3uW/ND5ULtA/nAbDrul4SuAMWh/cLgo2A2PHUp0i7FSNKdTL0hz9X1PBiXjTCYugCCikBkdUrfbBA6cZbcoI3O78f4mijEAQwxA4/RDDzi6iZFa9jziQCcyokBcj+5XiaL/xbp9IWzo+HpyE0UzJ1HNKDl8EqHMrgvOJJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=lG/5n0MP; arc=none smtp.client-ip=206.189.21.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1783491536; c=relaxed/simple;
+	bh=DDVqik3g024djbtq8wKsjUTyoUV/gR/76I31qdIO8Gs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=s7hS5J4cg5DJM4kE9/5rxMxEXTfpwMe6EyEs7QgV3UFBEgByxHLZlOOpGMrv6uUKgzIId2458iU7XlVJ80HA7XPSvZHs5MLXGY5cj3zIYyd4heXm4pEM4Y13r08C2Sics9xYoOJevQQ5dwAoCgsrHLR25ymkjhZOAVApKg7TCaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ncm56dnO; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="lG/5n0MP"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ncm56dnO"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38096590070so27433a91.3
+        for <stable@vger.kernel.org>; Tue, 07 Jul 2026 23:18:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:Content-Type:
-	Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	Content-Transfer-Encoding:Message-Id:References:To; bh=xY7vm8/nb
-	YuNfFUTtT+pfhWgkWxH7nBjPPBDaOT7fcE=; b=lG/5n0MPPBzKoEiu8BMWR5Z5z
-	qkVLYzxcafDUoTdqexCS3EKJ5//4GaAslhjFpeQU3a25V7sJvI2DrHZfVo42VtLR
-	tmhccIbAT+55MEFq3bt8M2B9rFZmN3a0rZqGLzQDfl0+CK5uBNf5wZhe3ZBYfYuj
-	PXMC6eJiY0NYPzOqIA=
-Received: from smtpclient.apple (unknown [211.102.241.101])
-	by web3 (Coremail) with SMTP id ygQGZQAndZIC6k1q6sUIAw--.47788S2;
-	Wed, 08 Jul 2026 14:11:14 +0800 (CST)
-Content-Type: text/plain;
-	charset=us-ascii
+        d=gmail.com; s=20251104; t=1783491534; x=1784096334; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IeKjljjW0rbzKqDo5+JHTj1l65dd8fRajYjS5rdVpUg=;
+        b=Ncm56dnOmxWEZqFw+UiCfm7QHIwmrAZCmFkSHZE1YNvpuwT9phCGNFjyjicDT7SiSf
+         iEaw1X0RC8vlGdq7QqVr6mWOZNRfDUaGF2nzwq5EOchTcE5NY0o/3J2PRDWA4NJxj6yP
+         8w/ZvoercZ7Wb8crVq9pLG/eFT5LiYwYrEU1He7L+0rGeeLnIV2zQ+d4BOggVJIfGSM1
+         h7dqWB5168hFOTHBuAMhnZ7hhV3DGCuGoWJb6Tg9Nc9BkLx5bGFv/Ey7dYGjTZhZZ+B4
+         wok78O9Q6IrrDMbaFs9xZLc/+U832lB9c/vghiQlSWx4wQNFbqQ2kDQaBY8UVy+1vVzV
+         RsNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783491534; x=1784096334;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IeKjljjW0rbzKqDo5+JHTj1l65dd8fRajYjS5rdVpUg=;
+        b=fFZnX86uG3neztjwjBXy0E9ZOgFEYdqZh3o3tM/sE8pcj9mbvl8ZomRs6VVL0cAkYJ
+         b4qTCWrKAaDDAMGRj+PfrC5CRjLhqk5e0CD2b6UZRAD7taS48e8v4MIXeBfUiljlW9zQ
+         frv8M80NpAfBypXs3tXgmCVDUH28BPGs0fTc3KRE4WElKb0Z8T0q7H8rXx/lMjyFZfEe
+         lhrVeWbrkbAE8bYrL5OWTqhI4PQffTypJsy5piDCBbVB5soCycLZRrO4wL1fnNoQR8wn
+         I6qutlgvgsIkUPv6qQ5OyZVRIOIjZeopsbHyZ07r/ZJmdysEXSRJZMZrA9IXYgkul+n3
+         UYaQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqeJ/hkpjAlmCJecLR7BEuij0kDUU9JRkICI7KcVlguu/ePKCwEbcbtOW+89rTjULLUv1yK9uE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNkT5sRPoxAtdNVz7UAZjaUhVso9zmCP/LX6Dik7qvNeKTzCQD
+	YfsgCfCtTsWZHRfRnHzVkFFWbaIX6w2kMeFmWgmfkVi9fQelf/Yo2Rng
+X-Gm-Gg: AfdE7cnS7wcc0+rEgFDccN3/GVWnxsCZMhrZqJaTPa6gx/BaI90fAg6HbDjQiZFVHmE
+	Yauw003ukAKP2wEdCxQ1lYqpzTMdw5JEbpwPOZOl4rBcyw7iScTo+P7i76eGYtDFeW2+y/mzd5a
+	H4Cu6+Jh/MSeESR9V+8Kr2Nc2n98Q1UuKnftLRp+RDN9t39I5wonKuqHLeBilQh72zVqClrMAVG
+	l5GFzTB//DhrMLqb4TOxToOpi8p2nk78KZi5EjMhIxFwOXPjxch96TjDM9W7VX9k7jeR4pTasGI
+	mNQyS/wKrhm8UsT+E2zREstYnI/sj96uG3E7HojcqAe201sK3EBK4Si6xk5p5Qh5unhyINQCiWK
+	Ja/p+NhesEneFY7y+tQtQe7nvkhfGdMWOKw07qw94POu6h6rDd6lBKp22vj3atb+nqpJHHStnfI
+	IHw3Uk3gSu5winhefZdg==
+X-Received: by 2002:a17:90b:57cd:b0:381:77cd:38ca with SMTP id 98e67ed59e1d1-389417e432fmr977538a91.4.1783491534182;
+        Tue, 07 Jul 2026 23:18:54 -0700 (PDT)
+Received: from kali ([122.162.146.188])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3117d847e17sm12888463eec.18.2026.07.07.23.18.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 23:18:53 -0700 (PDT)
+From: Pavitra Jha <jhapavitra98@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Pavitra Jha <jhapavitra98@gmail.com>
+Subject: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP discovery header cast
+Date: Wed,  8 Jul 2026 02:18:34 -0400
+Message-ID: <20260708061835.111986-1-jhapavitra98@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260624184444.D4A401F000E9@smtp.kernel.org>
+References: <20260624184444.D4A401F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH nf] ipvs: make destination flags atomic
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-In-Reply-To: <41c3d792-af7d-5582-5057-ac3df5f7bfd6@ssi.bg>
-Date: Wed, 8 Jul 2026 14:11:04 +0800
-Cc: Simon Horman <horms@verge.net.au>,
- David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Pablo Neira Ayuso <pablo@netfilter.org>,
- Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>,
- Alexander Frolkin <avf@eldamar.org.uk>,
- netdev@vger.kernel.org,
- lvs-devel@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org,
- stable@vger.kernel.org,
- Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
- Ao Wang <wangao@seu.edu.cn>,
- Xuewei Feng <fengxw06@126.com>,
- Qi Li <qli01@tsinghua.edu.cn>,
- Ke Xu <xuke@tsinghua.edu.cn>,
- zhaoyz24@mails.tsinghua.edu.cn
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <91509A0C-9E4A-4F0E-A45C-ABD29396067E@mails.tsinghua.edu.cn>
-References: <20260707085706.96322-1-zhaoyz24@mails.tsinghua.edu.cn>
- <41c3d792-af7d-5582-5057-ac3df5f7bfd6@ssi.bg>
-To: Julian Anastasov <ja@ssi.bg>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
-X-CM-TRANSID:ygQGZQAndZIC6k1q6sUIAw--.47788S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCw45KFykZF18uFyUtry8uFg_yoW5Ww1Up3
-	y7KFZ5KayDKr9a9r12yw4aqFW8C3WkGa4jyr1Dtw17Z3s0vr1Yqr93tFW5CFy7ZFZ3Z3WI
-	vFWjq3srAasFyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
-	648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK67
-	AK6r47MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
-	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc4
-	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
-	xVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
-	1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRETKZJUU
-	UUU==
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgACAWpNfR6iqQAAsO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Julian,
+Sashiko AI review of the previous fix flagged three remaining gaps in
+the discovery blob parser, all stemming from the same root cause: the
+ip_discovery_header pointer itself is constructed from a firmware-
+controlled offset with no validation before the cast.
 
+  ihdr = (struct ip_discovery_header *)(discovery_bin +
+                    le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
 
-> On Jul 8, 2026, at 03:18, Julian Anastasov <ja@ssi.bg> wrote:
->=20
->=20
-> Hello,
->=20
-> On Tue, 7 Jul 2026, Yizhou Zhao wrote:
->=20
->> is_unavailable() in the SH scheduler reads dest->flags from the =
-packet
->> scheduling path while holding only the RCU read lock.  The same word =
-is
->> updated by read-modify-write operations from connection accounting =
-and
->> destination update paths, for example ip_vs_bind_dest(),
->> ip_vs_unbind_dest(), and __ip_vs_update_dest().
->>=20
->> The RCU read lock only protects the destination lifetime; it does not
->> serialize accesses to dest->flags.  A racing plain load or RMW update =
-can
->> therefore observe stale state or lose an AVAILABLE/OVERLOAD bit =
-update,
->> which can make the scheduler choose an overloaded destination or =
-report no
->> available destination even though one should be usable.
->=20
-> While the patch correctly serializes the concurrent
-> modifications for the flags, we can not claim that the scheduler
-> will not choose an overloaded or unavailable destination.
-> The patch does not change the fact that we can work with
-> stale data.
->=20
-> We can compare 3 solutions, from fast to slow:
->=20
-> 1. atomic_read or test_bit
-> - no memory barriers for the readers
-> - no memory ordering (=3D> stale data)
->=20
-> PRO:
-> - serializes RMW operations
->=20
-> CON:
-> - readers can use old values
-> - writers may need to synchronize while changing
-> the flags, eg. to check the thresholds and update the
-> flags in atomic way. We do not do this.
->=20
-> 2. Use refcount_inc_not_zero(&dest->available) from readers
->=20
-> - and put the ref immediately or later:
->=20
-> smp_mb__before_atomic();
-> refcount_dec(&dest->available);
->=20
-> - alternative: RMW such as atomic_fetch_add
->=20
-> - writers can synchronize by using the IP_VS_DEST_F_AVAILABLE
-> flag and then to inc/dec &dest->available when the
-> flag changes
-> - the same can be done for &dest->not_overloaded and
-> IP_VS_DEST_F_OVERLOAD
-> - PRO: readers are serialized perfectly with the
-> changed value, new packets will detect the changes
-> immediately
-> - CON:
-> - 2 full memory barriers for the readers
-> - writers may need to synchronize while changing
-> the flags
->=20
-> 3. read_lock/write_lock
-> - PRO: can modify more things under write lock
-> - CON: full memory barriers
->=20
-> With this patch you choose solution 1.
-> The other solutions can be expensive for the fast path.
-> Lets fix the commit message. Also, it is better to fix the
-> scripts/checkpatch.pl warnings about the 'if' conditions,
-> even if they are not introduced now.
->=20
-> Regards
->=20
-> --
-> Julian Anastasov <ja@ssi.bg>
+This offset is a firmware-controlled u16 read directly from the
+discovery blob's table_list, with no bounds check against
+adev->discovery.size before being used to construct ihdr. Every
+subsequent read from ihdr, including num_dies and die_info[], is
+downstream of this unchecked pointer.
 
-Thank you for your suggestions.
+The other two items in that review (unbounded ip_offset advancement
+via num_base_address, and num_dies exceeding die_info[]'s capacity)
+were already addressed in the previous fix.
 
-We have posted a v2 patch at:
-=
-https://lore.kernel.org/netfilter-devel/20260708060454.20534-1-zhaoyz24@ma=
-ils.tsinghua.edu.cn/
+Fix by validating the table offset in amdgpu_discovery_get_table_info(),
+which is the common path used by all callers except
+amdgpu_discovery_read_harvest_bit_per_ip() (which reads
+table_list[IP_DISCOVERY].offset directly rather than going through
+get_table_info()). Add the equivalent check at that direct access site
+as well, so all paths that construct an ip_discovery_header pointer
+from a table offset are covered.
 
-The v2 patch updates the commit message with more conservative
-wording, and fixes the checkpatch logical-continuation warnings.
+The check validates the offset itself against adev->discovery.size,
+independent of any specific downstream struct size, since
+get_table_info() is shared across ten different table types
+(IP_DISCOVERY, HARVEST_INFO, GC, MALL_INFO, VCN_INFO, NPS_INFO, and
+others) each with differently-sized table structures.
 
-Regards,
-Yizhou=
+Fixes: d0c647a6aae2 ("drm/amdgpu/discovery: support new discovery binary header")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index b4ee5fc8e..9b55c56cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -564,6 +564,12 @@ static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
+ 		return -EINVAL;
+ 	}
+ 
++	if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
++		dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
++			le16_to_cpu((*info)->offset), table_id);
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -766,6 +772,14 @@ static void amdgpu_discovery_read_harvest_bit_per_ip(struct amdgpu_device *adev,
+ 	int i, j;
+ 
+ 	bhdr = (struct binary_header *)discovery_bin;
++
++	if (le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset) >=
++	    adev->discovery.size) {
++		dev_err(adev->dev, "invalid IP_DISCOVERY table offset %u\n",
++			le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
++		return;
++	}
++
+ 	ihdr = (struct ip_discovery_header
+ 			*)(discovery_bin +
+ 			   le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
+-- 
+2.53.0
 
