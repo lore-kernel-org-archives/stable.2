@@ -1,90 +1,87 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739823AA4FA
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 20:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E016A29A32D
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 20:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783540828; cv=none; b=Se+YWm+hM61Ivwgq/+FrFwRLB/yyE6dWitPhVT3WdeRCuJPYA66dbNFMpYR6rHv6P7p9RHb2t3eliScJxNrz2zRKcf1g8oGlbC6q6GnMaBk+LnHwiSFGPEA6J/zPjYuhUKjj3MgpQi05D0g6QaQ06aSekGlRriMMAp0GmNzJgLI=
+	t=1783542091; cv=none; b=shhHT1wRL8DjX6+2mkZUtGju7FNystxsvtuQZmsFZG3st8ZVazpw5NLQcXglB08vqsAumOstsXWeSStcMaeV3aHMxvASSqVsrxGsMfUpOG9iMX8+MSjnrGJgOeO3ZzW9PelZJci/bRnkRgfb7IHKqIVgjfdlaU9cXlNz7hZe7iE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783540828; c=relaxed/simple;
-	bh=/SAxxMsThDq0O9UGIQ5XY3LxNEdloDeHiKs04VUJlxY=;
+	s=arc-20240116; t=1783542091; c=relaxed/simple;
+	bh=Xa6BF4P0OpiaSuiLW+xRdnqpjJkGE7kzujlfd60Km5I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r2XqK8zdgslyl/BKoZw0arhy6qu1LoNpRpI285tRY5R7KNEsPZZtv17rtc7KhINQgNBFX7sY0KKGFN2hFopwXSM1plhMgosWtU6ZWVZ62ue00Ilwev4bQG/xdPI4UU4liVd0AWJ4RKDO1+j17oupkxkm/ZBuWIZH/PDUCScVOW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JjL0JHQk; arc=none smtp.client-ip=209.85.216.44
+	 MIME-Version; b=i1ht3eQriBgm59YQ3Sn2GGbDfC+GQ/xeSUmAqOElAeCjG+opXEvr9MLztIj4OmJ8L2THB4ue/99CJdBEsfLwAbcdKf7y6krpGlO/cDQwVl3WxjR504Im7wRfolAq9MkhBXeF8x8X/Tl1BF3BymXFZqCA7eem7aTHkZ4CCWvY2pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IM9BEvzE; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JjL0JHQk"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-37e0a189b0bso950303a91.1
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 13:00:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IM9BEvzE"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493c19bad03so10769185e9.2
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 13:21:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783540822; x=1784145622; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783542088; x=1784146888; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=A/bLDuoO7MLFyiV+1ELXwNRC5hxUInQv9JgucXzus9M=;
-        b=JjL0JHQkr6ZSgGezlP/uJApZSanXGuYHGZR9v92JeaJvRma9PSPeLwlRgiolyvAqIa
-         guGTG2kcSii5X8nFQdyynEkTk0KNwNzs9XcUJHgP0CmKr+tEPKrAIbYbn97jC7E1/Dw9
-         Z1T3snpXPJ6Rf65hRnWrAgyAFZw/mz3RblGS5FjDrDutuTlkerehtkxnuPO9PNPEUljb
-         mBaNR6Bw7fOmmsIYFw1z9lg4vv1KExsmG18g2GYoT3aZazQoCwZT1Sry9rpCyaNn3ooM
-         +Yyb11J0YG5hbQdJy3N4XOqbgtBtlzHsdq/cXiaspv3h5PlNSm229vWVEsxGGzomrzZZ
-         LomA==
+        bh=lPC/fPRplTXrPRJP9WPEDmAAHY+62t7UA57bz5CaOyI=;
+        b=IM9BEvzE0+2iSziOqJdddwoVKbfaDEqg5/ggR+r80Lyu7G8a1VBWxjGuYtAJksZTyq
+         9jpNjUsMEpXAZ749RqDp46DU2MCUtQAdQruAN8ZtiAFav00L9kmgHAapHm5kBwxNxbRC
+         PfJemKLLIqkCSlrJhEweorfKtx0v1jMX15zqUciBOkE2LEZVaXg8E6d7H+s3VnwI/8BD
+         4tw0se0TDO8OG0ulX4KkUENZpQmfs9mYB1xJs33wCnjEslV/arFHtP5YgYDqAEnXF+n+
+         minojyYrsWPZ8uh7jq1J366oUA9AdNNECVdpnQU5YU9a1x5gywCnn2/t1xT3Bc42J1Gh
+         RJJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783540822; x=1784145622;
+        d=1e100.net; s=20251104; t=1783542088; x=1784146888;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A/bLDuoO7MLFyiV+1ELXwNRC5hxUInQv9JgucXzus9M=;
-        b=BeeCWxIaAhrb+bdpx8eZrvOBFORzUz5ZU8A1kEWJJ6+oeyqqDWhOg0wYxLNdcHUf79
-         UJ36x0UJDu+ugvtaNJB1jACtsIBPLUHqBd/sAms5EKhuWe+jepyFYPcoX5ZU5cxtFfDj
-         v2C6/BpP4z2DKiGo689iVwAWFTdMtUc5/gE4LZMj6N/By1ASHbMJZuU8zOHB4PyvEPAK
-         QZk0Clxg4vFkQVdCa7cOo/ZbBaX9+wdFysC9Q6cjtt5PEVpqZOpjAPvLTysbGLfM6MEd
-         o3xGd+WynqmGIz2IUNZ1EycaqAao/7iU57LmM9SxHY24T+qDtPAbI+7JlSZKFXv9Vucq
-         A2rA==
-X-Forwarded-Encrypted: i=1; AHgh+RpvYLVxQ3K68AHxaoZsFbmLFFMd+qYN1tbGOg+o+KBl//xhkgrjF9fpn0Uni/PUJxyHPIrxhMU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxaJYFijhCuBQWqQwp1xEUMZy6N/jUg/j8cpVrBirfRqm0iWujP
-	6RWddDnCz28tpHD79ZvJGQHxQzLDaNYg7rlyoZg2dvUV1h9fTKUEBwod
-X-Gm-Gg: AfdE7cn8vG3xaiQCaguShawsKJzE5VtCsTHUtmPkFJrVDWdtdl9HDZSHkcxjA8LMD1f
-	Oz0XShLEoPZi0QrBuTPkmjROEvAO1fx9e9WA+iqwoTbu8NMk1mXHkLiR4+o9CTKja4kXhZ49rdI
-	QiEjzHIqexbTRSPJupKwO/6aftF03IZZ+EbLKOCTP8Js9VgCZonG/TZu5TQxal/APWH88sSdM+F
-	HgyfKitShaxbp/0e1woPT1wOfy7Z0NAKjwMF78G0LywrSyt3GkFDHJqLZe+YjJRzPq2Z92YYEmq
-	8VAeRzeON7JXdQq568BfD4D0ksqV8zF2qbzMW7WH8oSqHMXTgakPy0kfk7Ji6loMOoK4+WUf2hd
-	OtGXdbtZ8UrJE1oL8bCDlunRhsTlxmpQpyPiJxO/7oeNgWz0Q4S9MRw6K5rWHPelM4j1TdWk/pA
-	peCPtpsTaaLczscMptM3OPhTVebzXmKRM/u8SctU0jPoRmoQsJaIRR
-X-Received: by 2002:a05:6a21:6e43:b0:3c0:adec:b3bd with SMTP id adf61e73a8af0-3c0bd19ef91mr4672746637.49.1783540822437;
-        Wed, 08 Jul 2026 13:00:22 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.228])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174a8f521sm22585395eec.22.2026.07.08.13.00.14
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 08 Jul 2026 13:00:21 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Brian Norris <briannorris@chromium.org>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jaewan Kim <jaewan@google.com>,
-	Daniel Gabay <daniel.gabay@intel.com>,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Benjamin Berg <benjamin.berg@intel.com>,
-	Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>,
-	Peddolla Harshavardhan Reddy <peddolla.reddy@oss.qualcomm.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	John Crispin <john@phrozen.org>,
-	Avinash Patil <patila@marvell.com>,
-	Cathy Luo <cluo@marvell.com>,
-	"John W. Linville" <linville@tuxdriver.com>,
-	Aloka Dixit <quic_alokad@quicinc.com>,
-	Zhao Li <enderaoelyther@gmail.com>,
+        bh=lPC/fPRplTXrPRJP9WPEDmAAHY+62t7UA57bz5CaOyI=;
+        b=sLWXOgU28s0c1BOyNcviy5bs5LYv0puRNJ5ih2i3zEb6G0nGIYzONDIbHaQkmYmKEP
+         hevyO/2z2WbhuG2gNZPSghSRC5Y+RhGEUjS/KHKctzVRiHtlzMJMZWxqFl4COc1ofs+g
+         HmYiy2y1Mqn/dB2tTBA76DmDmxGL/5Bh2LJ3xqalqrXOr2wd3xNcdoeS+InndeWiVU92
+         o7ENhXhp0wabTB82gDtWG3aSMVwe0uQWYmEvXlFHeasrZJZ5wKd3brNaiufexQzJe8sV
+         kVegQ5HruCzEOrESy9BrsQXG4F3OJfnT84ZuevGc+lhKKwmk2HhgtGp0crCaAfLBz/9e
+         fEHg==
+X-Forwarded-Encrypted: i=1; AHgh+RrA3F8iH0tHeWSTTJTQQxmljYQD6e2+cs6l7vaEKvetKlhgchQy3U2H6458/1A3yeKAtFonlMY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwJnNeopMqTrWK1kVYjWv6iyCp6QDHs3F5l8QADJLoIY0YqeOY
+	eZAWezwPWR1huXE0N1z3GClSdW9naeTmHgg0Ku4G9dNrhxTkGwxscSpq
+X-Gm-Gg: AfdE7cnfq4Ihz9Dm4oQyDOz14jb6o8v0s3Jj6BBwnmHNhugPqH1lfZU3bn2+Nl2Qoxz
+	OyJJbljjTsnjyGTEC8MWnFHcF9RIImKQY8qrnGzBDlMgtfrrjh4qLEPAd35nyn4J+31xTkF/3HR
+	Ktp8EErPWIchmGjx4N8YOY8nrSjsyvEVyXaNMoBsZDm70DKB/zDmOHNLSUWk6+ifSl+PSdhV8qf
+	5xKD0GF02rQvlgv0oppAW5Jw7fggEtLRbyRRW8gDhfxSx0QYITV90GnxIZdfH9kCXgj2PivSEch
+	qlq2C00BfMGVpqC8N1bJLZPL1UfPDZJVk65Ci36gf5rRXnW0QPol8OH5iQw6BGl9ZZuGf9l4Stb
+	tGzRdF6+ZNQrrAhNYOWyUkRd0xUAnu0NFA8OyoL8JflvkJ3nU6UXgJkHB+e9DckRUGvmJs78oWl
+	wtikKrslGNLMka+liqFxSFH43ZPaDzd04onBBGqP58T+U5WFZJUA==
+X-Received: by 2002:a05:600c:3e07:b0:493:de89:61b with SMTP id 5b1f17b1804b1-493e6868766mr42351155e9.26.1783542088002;
+        Wed, 08 Jul 2026 13:21:28 -0700 (PDT)
+Received: from osama.. ([2a02:908:1b8:2060:2b86:7192:b44e:9f03])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e54a25cfsm97381485e9.0.2026.07.08.13.21.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 13:21:27 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	dri-devel@lists.freedesktop.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 7/8] wifi: mwifiex: validate action frame fixed fields
-Date: Thu,  9 Jul 2026 03:59:10 +0800
-Message-ID: <20260708195911.84365-8-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260708195911.84365-1-enderaoelyther@gmail.com>
-References: <20260708195911.84365-1-enderaoelyther@gmail.com>
+Subject: [PATCH v2] drm/imx: Fix ipu_plane_duplicate_state() OOM handling
+Date: Wed,  8 Jul 2026 22:21:23 +0200
+Message-ID: <20260708202124.12560-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260706140246.41506-1-osama.abdelkader@gmail.com>
+References: <20260706140246.41506-1-osama.abdelkader@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,58 +90,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mwifiex_process_mgmt_packet() accepts an rx_pkt_length as small as a
-4-address struct ieee80211_hdr plus the 2-byte firmware length prefix.
-After the prefix is stripped, mwifiex_parse_mgmt_packet() can be called
-with len equal to sizeof(struct ieee80211_hdr).
+ipu_plane_duplicate_state() could dereference NULL when kmalloc() fails
+by returning &state->base unconditionally.
 
-For an action frame the parser then reads the category byte just past
-that header, and for a public action frame the action code at the next
-byte, without checking that len covers them. A minimal-length action
-frame therefore causes a one- or two-byte read past the end of the RX
-buffer.
+Return NULL on allocation failure, as the CRTC duplicate helper does.
 
-Reject frames shorter than the header, and require the category and
-(for public action frames) action-code bytes to be present before
-reading them.
-
-Suggested-by: Johannes Berg <johannes@sipsolutions.net>
-Fixes: 72e5aa8d2a6d ("mwifiex: support for parsing TDLS discovery frames")
+Fixes: 00514e859335 ("drm/imx: use PRG/PRE when possible")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/66f148d83eb9f0970b9abbccc85d1b61244e54ad.camel@sipsolutions.net/
-Assisted-by: Codex:gpt-5
-Assisted-by: Claude:opus-4.8
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 ---
- drivers/net/wireless/marvell/mwifiex/util.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+v2:
+- add Fixes and Cc tags
+---
+ drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/marvell/mwifiex/util.c b/drivers/net/wireless/marvell/mwifiex/util.c
-index 7d3631d212236..e2d76c2d9b05b 100644
---- a/drivers/net/wireless/marvell/mwifiex/util.c
-+++ b/drivers/net/wireless/marvell/mwifiex/util.c
-@@ -313,13 +313,22 @@ mwifiex_parse_mgmt_packet(struct mwifiex_private *priv, u8 *payload, u16 len,
- 	u8 category, action_code, *addr2;
- 	struct ieee80211_hdr *ieee_hdr = (void *)payload;
+diff --git a/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c b/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
+index c7ec09e557c1..67f2da7f2b65 100644
+--- a/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
++++ b/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
+@@ -323,9 +323,10 @@ ipu_plane_duplicate_state(struct drm_plane *plane)
+ 		return NULL;
  
-+	if (len < sizeof(*ieee_hdr))
-+		return -1;
-+
- 	stype = (le16_to_cpu(ieee_hdr->frame_control) & IEEE80211_FCTL_STYPE);
+ 	state = kmalloc_obj(*state);
+-	if (state)
+-		__drm_atomic_helper_plane_duplicate_state(plane, &state->base);
++	if (!state)
++		return NULL;
  
- 	switch (stype) {
- 	case IEEE80211_STYPE_ACTION:
-+		if (len < sizeof(*ieee_hdr) + 1)
-+			return -1;
-+
- 		category = *(payload + sizeof(struct ieee80211_hdr));
- 		switch (category) {
- 		case WLAN_CATEGORY_PUBLIC:
-+			if (len < sizeof(*ieee_hdr) + 2)
-+				return -1;
-+
- 			action_code = *(payload + sizeof(struct ieee80211_hdr)
- 					+ 1);
- 			if (action_code == WLAN_PUB_ACTION_TDLS_DISCOVER_RES) {
++	__drm_atomic_helper_plane_duplicate_state(plane, &state->base);
+ 	return &state->base;
+ }
+ 
 -- 
-2.50.1 (Apple Git-155)
+2.43.0
+
