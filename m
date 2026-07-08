@@ -1,143 +1,185 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE2140927B
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 16:29:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE743806DC
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 16:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783528176; cv=none; b=YhXYwvdayFIHLpeFukMb/yqv/gYwTHLtU5XxiU+dTIfnFnZNazT0t7zf3Erbg5pd1rgQpe95uWM6RORKovV8csRpRRW1d4D6FQHWIHFAISnsqHb1FEYV16rcIpDz9V3Gl80mbGsSa5Ir/sfI81LbWvOQksOm5lAJuOdnNeo4nL8=
+	t=1783528289; cv=none; b=otzPNjvAK8sMUeaxWvNveiDQ29usPAkceN4+wHdxT8FvNALPMWirsUS6b/nxahUelvLmqDYqFAvie/3TdooNYwPgQgwF6q6g31qXhJ8vygSTgLZRTEaYWw1zUXeLzp22ZRJMMMQHWN6RPHMNc6tSxPkj+GeNey8PHNeue8Z1/vA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783528176; c=relaxed/simple;
-	bh=3lSdyCLeUGu19piqkuUHLgWw74UGkM3eShfZ48QoXxs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kZ5I/vISHGuqS9dYR2fyNbKQnI78V3+zBlj9+WIO1W+wZOBQidJMIXqaLhlVJBEvdlIqPZQ7kuMv2tuQ6tXlUohVDbUiVCVEtI+7fnSPT4mmAmStDbRyNDRR5UqwYyVbFsg5LXhIizI2RWKuQYXCGiSoA2zIKVF/9YNJnSvHAUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=EaOYvba+; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YMvQUPMc; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=EaOYvba+; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YMvQUPMc; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1783528289; c=relaxed/simple;
+	bh=2oTpyWeskGpXq/wN3vNikWSGczHOV9cBOa2zqvCVMn8=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KKDGWtw+XMme29ofijSZFDfPfGWciY3heFFgmVwBwIRtiGGYtqO1eOpseq6q3PhkddMBxOyAqDKB/81ZyXpumH9Ghu6Xpt4f0da4JvwN+kMEKK4t6gME76BtdMAeyQ4dyw8C84gfHbC0rP63cHXPZoIfb+7CQIIkajrk4ZCcy0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=AG16EtNA; arc=none smtp.client-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EaOYvba+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YMvQUPMc";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EaOYvba+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YMvQUPMc"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9207C75E8A;
-	Wed,  8 Jul 2026 16:29:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783528173; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j/5vL0gtxnVlH2N135h4PQDZCX0YmGfUctk3tp3zRJI=;
-	b=EaOYvba+ARiTsxtWUrYDBPR91BTRtXJsdTCLw0wNxhImLHwujj3dJv3h6cCGHlzp977dwE
-	dIFixPE0pstyi4E9xED3cWLPtkgkfPJlBRlLF7KoOoeIks09dRwL71VB5xwNHvOu19Ks7M
-	f6YOoObWR6FseQ6/IWOt8xy1k9VtSCA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783528173;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j/5vL0gtxnVlH2N135h4PQDZCX0YmGfUctk3tp3zRJI=;
-	b=YMvQUPMc+wnAmpwZbJQ/e5jUHFTTPHF8iv6B8qO+/rMFuQCGHrdiC6JQ6JXIlbiMj+vuvf
-	ZWYh9doHo6nNVsDA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783528173; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j/5vL0gtxnVlH2N135h4PQDZCX0YmGfUctk3tp3zRJI=;
-	b=EaOYvba+ARiTsxtWUrYDBPR91BTRtXJsdTCLw0wNxhImLHwujj3dJv3h6cCGHlzp977dwE
-	dIFixPE0pstyi4E9xED3cWLPtkgkfPJlBRlLF7KoOoeIks09dRwL71VB5xwNHvOu19Ks7M
-	f6YOoObWR6FseQ6/IWOt8xy1k9VtSCA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783528173;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j/5vL0gtxnVlH2N135h4PQDZCX0YmGfUctk3tp3zRJI=;
-	b=YMvQUPMc+wnAmpwZbJQ/e5jUHFTTPHF8iv6B8qO+/rMFuQCGHrdiC6JQ6JXIlbiMj+vuvf
-	ZWYh9doHo6nNVsDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8B315779AE;
-	Wed,  8 Jul 2026 16:29:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id r222Hux6TmpHdwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 08 Jul 2026 16:29:32 +0000
-Date: Wed, 8 Jul 2026 17:29:30 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, stable@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Song Liu <song@kernel.org>, Eric Hagberg <ehagberg@janestreet.com>, Zi Yan <ziy@nvidia.com>, 
-	Gregg Leventhal <gleventhal@janestreet.com>, Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH stable v2] mm/khugepaged: write all dirty file folios
- when collapsing
-Message-ID: <ak56uatKoDR-TAIn@pedro-suse.lan>
-References: <20260708151357.353173-1-pfalcato@suse.de>
- <ak5tKPfX99kdkhIG@casper.infradead.org>
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="AG16EtNA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1783528288; x=1815064288;
+  h=from:to:subject:date:message-id:in-reply-to:references:
+   mime-version:content-transfer-encoding;
+  bh=/tVbVknmZq3z1jX+TgoNJZb0ixIXK6YZKf7h4+crJac=;
+  b=AG16EtNAo+S6SItyyvpoDWsMIPhCm4m/cVJThJgHTk0FFlI7T3AA8ZWw
+   OmFC2creTxHpwrQmlgOpu32LGhhQr5pR4RzXZ/ux3oC2j5dNyiep8Oii4
+   rePuHiPKFIXHELB/SoWVTZX3f5c0ixb4M/UEf+9HANCRbAb+3tB6kfKoH
+   1fmpDsAVsBSZJ6Vtx7oOFGW7vmdo5tLy9x/p17uqnpQlP9ILJtt/OqpT0
+   hF/X5nSXrQfcXLNsnA/R4m+4CbZUX7V1w50w0p9Phh9sa2x/O2OuV6oPe
+   S3BiJBM/j8maAnimsKGfkoUm/y76iJLbPCruSB03W5P6zq+8mp0uOoQxK
+   A==;
+X-CSE-ConnectionGUID: Y5Ogm4inSwaG/5s4U6mi0A==
+X-CSE-MsgGUID: 82aQF3quSNa47FxBni2EJw==
+X-IronPort-AV: E=Sophos;i="6.25,153,1779148800"; 
+   d="scan'208";a="23311101"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 16:31:25 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:14988]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.243:2525] with esmtp (Farcaster)
+ id 786bfc86-d629-44bd-b9f3-5786c929945b; Wed, 8 Jul 2026 16:31:25 +0000 (UTC)
+X-Farcaster-Flow-ID: 786bfc86-d629-44bd-b9f3-5786c929945b
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Wed, 8 Jul 2026 16:31:25 +0000
+Received: from dev-dsk-darnshah-1c-a4c7d5e9.eu-west-1.amazon.com (172.19.90.4)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Wed, 8 Jul 2026 16:31:24 +0000
+From: Darshit Shah <darnshah@amazon.de>
+To: <stable@vger.kernel.org>
+Subject: [PATCH RESEND 5.10.y 5.15.y 6.1.y] KVM: Replace guest-triggerable BUG_ON() in ioeventfd datamatch with get_unaligned()
+Date: Wed, 8 Jul 2026 16:30:49 +0000
+Message-ID: <20260708163100.92583-1-darnshah@amazon.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <ak2B3ewAu6g7hShc@dev-dsk-darnshah-1a-8576ca1e.eu-west-1.amazon.com>
+References: <ak2B3ewAu6g7hShc@dev-dsk-darnshah-1a-8576ca1e.eu-west-1.amazon.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ak5tKPfX99kdkhIG@casper.infradead.org>
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:email,pedro-suse.lan:mid,suse.cz:email,janestreet.com:email,nvidia.com:email,linux.dev:email,suse.de:email,linux.org.uk:email]
-X-Spam-Level: 
-X-Spam-Score: -4.30
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D042UWA004.ant.amazon.com (10.13.139.16) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Wed, Jul 08, 2026 at 04:30:48PM +0100, Matthew Wilcox wrote:
-> On Wed, Jul 08, 2026 at 04:13:57PM +0100, Pedro Falcato wrote:
-> > [There is no upstream commit, as this code was removed by upstream
-> >  commit 044925f9b565 ("mm: fs: remove filemap_nr_thps*() functions and their users")]
-> > 
-> > Cc: stable@vger.kernel.org
-> > Cc: Alexander Viro <viro@zeniv.linux.org.uk>
-> > Cc: Christian Brauner <brauner@kernel.org>
-> > Cc: Jan Kara <jack@suse.cz>
-> > Cc: Matthew Wilcox <willy@infradead.org>
-> > Cc: Song Liu <song@kernel.org>
-> > Cc: Eric Hagberg <ehagberg@janestreet.com>
-> > Cc: Zi Yan <ziy@nvidia.com>
-> > Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> > Reported-by: Gregg Leventhal <gleventhal@janestreet.com>
-> > Closes: https://lore.kernel.org/linux-mm/CAFN_u7H_0ECF3jixP=T=U7AH5=Q3wQNvJMo8an3VqUDMerQfUw@mail.gmail.com/
-> > Tested-by: Zi Yan <ziy@nvidia.com>
-> > Tested-by: Lance Yang <lance.yang@linux.dev>
-> > Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-> 
-> Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+From: Sean Christopherson <seanjc@google.com>
 
-Thanks!
+commit f1edbed787ba67988ed34e0132ca128b052b6ce8 upstream.
 
+Drop a BUG_ON() that has been reachable since it was first added, way back
+in 2009, and instead use get_unaligned() to perform potentially-unaligned
+accesses.
+
+For a given store, KVM x86's emulator tracks the entire value in the
+destination operand, x86_emulate_ctxt.dst.  If the destination is memory,
+and the target splits multiple pages and/or is emulated MMIO, then KVM
+handles each fragment independently.  E.g. on a page split starting at page
+offset 0xffc, KVM writes 4 bytes to the first page, then the remaining
+bytes to the second page, using ctxt->dst as the source for both (with
+appropriate offsets).
+
+If the destination splits a page *and* hits emulated MMIO on the second
+page, then KVM will complete the write to the first page, then emulate the
+MMIO access to the second page.  If there is a datamatch-enabled ioeventfd
+at offset 0 of the second page, then KVM will process the remainder of the
+store as a potential ioeventfd signal.
+
+Putting it all together, if the guest emits a store that splits a page
+starting at page offset N, and the second page has a datamatch-enabled
+ioeventfd at offset 0, then KVM will check for datamatch using
+&dst.valptr[N] as the source.  Due to dst (and thus dst.valptr) being
+32-byte aligned, if N is not aligned to @len, the BUG_ON() fires.
+
+E.g. with a 16-byte store at page offset 0xffc, to an ioeventfd of len 8,
+all initial checks in ioeventfd_in_range() will succeed, and the BUG_ON()
+fires due to @val being 4-byte aligned, but not 8-byte aligned.
+
+  ------------[ cut here ]------------
+  kernel BUG at arch/x86/kvm/../../../virt/kvm/eventfd.c:783!
+  Oops: invalid opcode: 0000 [#1] SMP
+  CPU: 0 UID: 1000 PID: 615 Comm: repro Not tainted 7.1.0-rc2-ff238429d1ea #365 PREEMPT
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
+  RIP: 0010:ioeventfd_write+0x6c/0x70 [kvm]
+  Call Trace:
+   <TASK>
+   __kvm_io_bus_write+0x85/0xb0 [kvm]
+   kvm_io_bus_write+0x53/0x80 [kvm]
+   vcpu_mmio_write+0x66/0xf0 [kvm]
+   emulator_read_write_onepage+0x12a/0x540 [kvm]
+   emulator_read_write+0x109/0x2b0 [kvm]
+   x86_emulate_insn+0x4f8/0xfb0 [kvm]
+   x86_emulate_instruction+0x181/0x790 [kvm]
+   kvm_mmu_page_fault+0x313/0x630 [kvm]
+   vmx_handle_exit+0x18a/0x590 [kvm_intel]
+   kvm_arch_vcpu_ioctl_run+0xc81/0x1c90 [kvm]
+   kvm_vcpu_ioctl+0x2d5/0x970 [kvm]
+   __x64_sys_ioctl+0x8a/0xd0
+   do_syscall_64+0xb7/0x890
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+  RIP: 0033:0x7f19c931a9bf
+   </TASK>
+  Modules linked in: kvm_intel kvm irqbypass
+  ---[ end trace 0000000000000000 ]---
+
+In a perfect world, the fix would be to simply delete the BUG_ON(), as KVM
+x86 doesn't perform alignment checks on "normal" memory accesses at CPL0.
+Sadly, C99 ruins all the fun; while the x86 architecture plays nice,
+dereferencing an unaligned pointer directly is undefined behavior in C,
+e.g. triggers splats when running with CONFIG_UBSAN_ALIGNMENT=y.
+
+Fixes: d34e6b175e61 ("KVM: add ioeventfd support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260612225241.678509-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ Use the old <asm/unaligned.h> header instead ]
+Signed-off-by: Darshit Shah <darnshah@amazon.de>
+---
+ virt/kvm/eventfd.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/virt/kvm/eventfd.c b/virt/kvm/eventfd.c
+index 4702b71aad08..ff0ef5f7246e 100644
+--- a/virt/kvm/eventfd.c
++++ b/virt/kvm/eventfd.c
+@@ -24,6 +24,7 @@
+ #include <linux/slab.h>
+ #include <linux/seqlock.h>
+ #include <linux/irqbypass.h>
++#include <asm/unaligned.h>
+ #include <trace/events/kvm.h>
+ 
+ #include <kvm/iodev.h>
+@@ -695,21 +696,18 @@ ioeventfd_in_range(struct _ioeventfd *p, gpa_t addr, int len, const void *val)
+ 		return true;
+ 
+ 	/* otherwise, we have to actually compare the data */
+-
+-	BUG_ON(!IS_ALIGNED((unsigned long)val, len));
+-
+ 	switch (len) {
+ 	case 1:
+-		_val = *(u8 *)val;
++		_val = get_unaligned((u8 *)val);
+ 		break;
+ 	case 2:
+-		_val = *(u16 *)val;
++		_val = get_unaligned((u16 *)val);
+ 		break;
+ 	case 4:
+-		_val = *(u32 *)val;
++		_val = get_unaligned((u32 *)val);
+ 		break;
+ 	case 8:
+-		_val = *(u64 *)val;
++		_val = get_unaligned((u64 *)val);
+ 		break;
+ 	default:
+ 		return false;
 -- 
-Pedro
+2.54.0
+
