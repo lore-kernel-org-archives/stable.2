@@ -1,48 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CF342DA43;
-	Wed,  8 Jul 2026 16:18:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0693042DA48
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 16:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783527494; cv=none; b=nn3VymO4OQGR1Zo6FHdiRVsptXXSiAWqXbpsWUIK9+WwYPecZQ1uLaoep/VVHUYBuZlRp19Ycym6C4JGoUpNzTqVhM1cHzmD+M3daJcFAqCqXceJVhTzolgHbb5e5N0QgwW++A2cwwSNE+jMOzQ5VA5lCfE9ZsRNEdtMf+IWpko=
+	t=1783527494; cv=none; b=Jqx4qfb6leYL7v1stdbt5kwN4UEOXZuM9QXE/JoSRN7JINb1nA9dlRhMI0Bz2TlbdCubT35Hz86lh95Zkm8jvGXgVS0pTrkDJHiyCjssLN5rXE3ejwDMrgau7PRH7y6K4ZTy6ulhZrgmxyOQlo6b2H5UPTv7ULKovHSJbV2oDqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783527494; c=relaxed/simple;
-	bh=jNsVCa9sTInE6can+kIbi2s5bzi8FEA3QkWcregF/jo=;
+	bh=I9ecD7oTEnIAJL0N+kY/POoX4ghv4WJW9JQDHx2+I9c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FJ9D2SbB7sy+8BPHfv1+7LYczTqM+G2gaD1dPS0215aDxKLfRgQTszs89agvkkRS9xmlN5rCNb80uohSo85OP7aSgorKVIiyAvVSrkKUEvj6P2D3HdMrTh38e7K7sArnXnhvXmfFqsAxFep1Jir7VkZ4cgbz+Wi+FJFJpvYHgfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j5Y/+nm7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KfRLGwg9LzocVHGMMeXtojOhySNK20NeDmco4v6bPFDAhtg6nzSZD4AZTUEJ5xlf8Wghw/pYyDfIEG8nx4slMDjdE6+CSYDUNd2iW9p3cf2ZceKW9VggAdgbCnUiWfKThPJ08aZyz+hy3fcyMg2m9tS1v1f1OLFscwYZxOF/5J0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CLn6gDMd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j5Y/+nm7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D25E1F00A3A;
-	Wed,  8 Jul 2026 16:18:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CLn6gDMd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B0F1F00A3D;
+	Wed,  8 Jul 2026 16:18:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1783527492;
-	bh=y752DrbBFFJ8XerVisGtOLzv8nsy5PhYRKi3Iy7oc5I=;
+	bh=5HJScMeCJe2V3I6wp4M5Sd/8j1OXpe/dWR29Mr/0ajI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j5Y/+nm76DxQqxVQ2O+uA2O29guRVqRiECEnMndzrX6O1QnnGoIxp2bjapqLS2BHu
-	 jVJFtqTe3UugvZNfBbhiRRNC2C5dzNv78ys6CYuC1x7c3La4ymr/QOU9C1SC/ELw9C
-	 UtxVp80PMuvpJqW6zgM8iKoa0pRA8QDTVTmAmj4MuUy9sbe6S0HRJapHaQq1eCSqkQ
-	 vITo2wO/XYgiIIlxI3nq5Q/sKSYW/K7QydMN4dv/+K9ad5hrS2QHakeJLErVlgknES
-	 fagUYCD9M7NlJr1Cdn2xNEudUV4lb+ZY7JRq5CF2pLt/IRAMNRAagZOz01v0W0Jr2A
-	 N7vZ4ppo4339g==
+	b=CLn6gDMdQ3ze4VISZjYydhAXRj/cWGBDmqp2qx0QKe6ev95D36RasrQy6Z2zWcvwk
+	 0STT8vn2ditcQ/DYbXQybO3Ql67RCFSFtc9Alr1DrSPpeGFxWkMXZokI7mTIblsZXS
+	 RcSgZF9vrf3sqRuwVHwnUSOR0fHN7tfz2SVzRbK3L2bppt52rshY49wRRedd+mzdUQ
+	 ynQN7tsWXLT0fSwPD8J1J8EItiUmvADQMJeYrHd/+O9ZoKN8f4DW9A0btO3OAUDQwV
+	 jKh42ITy2IkldTfKBzWXEeZop4mBdThJqpV+roaVbvQ/a1Ww1YvKP+g6ETQjU6RWYk
+	 c9dfX1Zcsc5sg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	linux-mm@kvack.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	jiayuan.chen@shopee.com,
-	jiayuan.chen@linux.dev,
-	yingfu.zhou@shopee.com,
-	willy@infradead.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Huang Ying <ying.huang@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5.15.y 6.1.y 6.6.y 1/1] mm/vmscan: flush deferred TLB before freeing large folios
-Date: Wed,  8 Jul 2026 12:18:00 -0400
-Message-ID: <20260708120502.agent5-0002@kernel.org>
+	Darshit Shah <darnshah@amazon.de>
+Subject: Re: [PATCH 5.10.y 5.15.y 6.1.y 6.6.y] KVM: Replace guest-triggerable BUG_ON() in ioeventfd datamatch with get_unaligned()
+Date: Wed,  8 Jul 2026 12:18:01 -0400
+Message-ID: <20260708120503.agent5-0003@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260708041237.289026-2-jiayuan.chen@linux.dev>
-References: <20260708041237.289026-2-jiayuan.chen@linux.dev>
+In-Reply-To: <ak2B3ewAu6g7hShc@dev-dsk-darnshah-1a-8576ca1e.eu-west-1.amazon.com>
+References: <ak2B3ewAu6g7hShc@dev-dsk-darnshah-1a-8576ca1e.eu-west-1.amazon.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,21 +44,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 08, 2026 at 12:12:36PM +0800, Jiayuan Chen wrote:
-> Flush the deferred batch before freeing a large folio inline, the same way
-> the order-0 path already waits for the flush.
+On Tue, Jul 07, 2026 at 10:47:42PM +0000, Darshit Shah wrote:
+> commit f1edbed787ba67988ed34e0132ca128b052b6ce8 upstream.
 
-Queued for 6.6 and 6.1 with Matthew's Reviewed-by added, thanks.
+The backport content itself looks good (the asm/unaligned.h swap is the
+right adaptation for these trees), but the mail is missing an in-body
+"From:" line, so applying it records you as the commit author instead
+of the upstream author. Could you resend with
 
-> destroy_compound_page was recently renamed to destroy_large_folio.
-> So it would be conflict when this patch was applied to 5.15/6.1
+  From: Sean Christopherson <seanjc@google.com>
 
-It actually applied cleanly to the current 6.1.y (that tree already
-uses folio_test_large()/destroy_large_folio() there), but it does not
-apply to 5.15.y, which is still page-based
-(PageTransHuge()/destroy_compound_page()). Could you send a tested
-per-branch version for 5.15.y? 5.10.y has the identical vulnerable code
-shape, so a 5.10.y version would be welcome as well.
+as the first line of the body so authorship is preserved?
+
+Also note that 6.6.y already has this fix queued up, so the resend only
+needs to target 6.1.y, 5.15.y, and 5.10.y.
 
 -- 
 Thanks,
