@@ -1,293 +1,141 @@
-Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com [209.85.210.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CD23FE35D
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 22:22:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783549343; cv=none; b=kBspecaoHgNIfXJNjxQj01B60s5h9g8/TWYAH9FFHmbM2VY/4S9PiNqbATAd6E6Kz68QzykSp7Bw0VMC7ADVkAvM0f6nL+QpSvaOf47wJK5MkWrOkJwOS0RcDJDM9sA3H210G9eRSwaPyovod7pIdGIj2T6FFvwYto1c1CMd9FI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783549343; c=relaxed/simple;
-	bh=OWZNdt/msw1cs9NmTrXei0B1emw1QU53uVXCW2J8f8Y=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=uI4Ev/KDgaOaF1B4kepVuWVgU6H8OmsjkML4uPmwl8K/OXVYYvqaJP5377IKyxEM3JLzdPuUgA9sw7VTZtUE39kFQQpXoxsvplcMAv6JYNLchaeDWDlDhHggW84D1yqsozezN66T+afOqZtc/K7wrx5N+Agup4NNJ04qQVeLO4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ackerleytng.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uByKXTfD; arc=none smtp.client-ip=209.85.210.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ackerleytng.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE37831F99D;
+	Wed,  8 Jul 2026 22:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783550370; cv=pass; b=mBEXux+VNaq8Ukr7uU3b+QZIPxuN/GIPDaTc4zPmtnBioos4tND3Cg0tcc9Lxc0DEiQfTskn/2IkZnHjNo3A0YyWASs7oPHiycx02usYBux1c0a7L/W+HWfd7Yjq0wOI3r49+atoh2faEkgQzxnqlOMVQUzT1jLy0AERuPNaGZ0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783550370; c=relaxed/simple;
+	bh=id2LVrgB3XdholmWTTMhQw8tjgBW2MwTGja3f0pHQ+M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=joiTKhGFAAQw5WBDpOYMucfMNy8+25f9XAea3FKARJCoNXPPPYgOD+ILFEFFyGVMjztH159c+HT1Fsuw30H//lVJ9oe91Hf3U5zDE3t1b4sFLMHytvtXrWtMzoY6reQRakSa7u5Vgrws+al4S4t6f17bI9yCV7g8sdUJmZ2R8dI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=kOdI55fx; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uByKXTfD"
-Received: by mail-pf1-f201.google.com with SMTP id d2e1a72fcca58-8478d2bea7cso199744b3a.1
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 15:22:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783549341; x=1784154141; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ez2sGXr0ImIl6qeGIDRJYiog01DgnPS7oVjoUBzVAs4=;
-        b=uByKXTfDfrgLxE+NsidZVd6kG4NQ1Uh+oOO8pMx2TKGBSDhd7UZlgFv3UenusakRM4
-         V3lOEix4Imn35X+9W/1dooC5f4asLC1/IM8RwGw4h9+HOVYFg+xt3SAhzp+A6lPn41u3
-         f7g5FbvJm/5dHZ1qwAMIjuitXr8BxfkZSaJPs9mlSzv5O8WK03O/vvJQl8qB1AJe8uCJ
-         NXMaGzrEytxfoXaT5FfR6Eo35bBT5jltQxCFkJ3NwMRmTj8+A+ylg4+w8rl0WzzYS9Qz
-         Y5Qa16OJmkYZrXN4gZfblM0uZgXzGmegxuvTx8boe1MWzrkpn3to0yYJ5pxbnWZykzOk
-         YZUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783549341; x=1784154141;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ez2sGXr0ImIl6qeGIDRJYiog01DgnPS7oVjoUBzVAs4=;
-        b=pZcU+SYaCHrDT1Vj6BLLrG6Qkg18YIqP9qdT8ShF+PKBRBP8jbum4CjeSjRhdGjC2G
-         FIAi2UcaUf1nyeUVD1LlRBPOKrFZwabNZ4E0cV7jFErIlSvaSzRdsquTncVFl2TBO93g
-         y0cwduZXSlSeRBzdHynI1z9eMxpL5U5jANQIMvy+ouqYq97PQXZhVNB2KwOHSlEoBL28
-         CRy7fA3rqHIjSMVhNuROWx8sDD17tTCq7YrBKw2AxchxjlzTAwc7m2EgPsLKlfrI1jt0
-         gJ2VsOERM2w3ez2y3F6sFmAduljxbov0obLgltAD7QEwQGm+fkE5Ou2034Vr6Po8GEQX
-         YzGQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrUHAqBNMzIhuuH/gFGC0lYLPNWbqpEasMsR1BBXI1B3Ticx7JNiW7XiWBfehuwPHXyC+ztpPA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4PTwB+EGW+aI0kXYAnbwwS147XmwW8UK242wZ5o3mvGQuSaHE
-	82Do7XdGjlzh7VEDeWWU+ZWZN/jVqZ6sBZGzouPzfCWQ8c/33K5z6SdihXTx1PrRl8729sOzE+T
-	XB0aXIPG8iqw4h59cwTDVYv8bJA==
-X-Received: from pfbna42.prod.google.com ([2002:a05:6a00:3e2a:b0:848:4809:51c6])
- (user=ackerleytng job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:2e28:b0:847:8791:f54f with SMTP id d2e1a72fcca58-8485ab7c6d2mr193415b3a.29.1783549341021;
- Wed, 08 Jul 2026 15:22:21 -0700 (PDT)
-Date: Wed,  8 Jul 2026 15:22:13 -0700
-In-Reply-To: <cover.1783549129.git.ackerleytng@google.com>
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="kOdI55fx"
+ARC-Seal: i=1; a=rsa-sha256; t=1783550334; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=Xpp7dn8rogtUf3NY3U8CqN6MNf/irzgh1unRn+KuBK1BQ3gzED/U5CgXyQIe/LVWjs1Nh4qeQa7Y678nArcMjVhE2mJbdAgS43S6rddXRxneMgqnJJ11rnkDwaQjum5EjoO8L3TztE3Gq+9wx0RLIjC068oe7jhp5vpT1KMD3Fw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1783550334; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=KD+78gqKitQWJexdyygyJauU64BB4Fr2VXjIRjjGnW8=; 
+	b=f/Diar+WoSKuiW4XrjC4tYE97V8+3g6+PJKbjGvtxjWoqRBCx58Qlne7UKVPn0VGICSUhZUuJKJ4QW7Y+n9X232aATT1ZiPZvdogNrobVnD2FIqdLJhyd9OP5MsiO2tCFH3Qk1u79t9xoqhinHJaYjjGkLz9/A++QtMwID40+bc=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783550334;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=KD+78gqKitQWJexdyygyJauU64BB4Fr2VXjIRjjGnW8=;
+	b=kOdI55fx6lR8T1hz5wNJyOjjXF+3jT5uxsxHzvVjnUR0iLZupf/hfmeYF9dFi5r5
+	xC8BMM0JL+XFDqNNbW7ADmei7R65k6H7u5j9fU7hJWNXHLPuNXnyienVeD0MxgL4cUH
+	5TcXqHiOge45t+Az5myKv7kZA4qAGma55LPTMIyo=
+Received: by mx.zoho.eu with SMTPS id 1783550330792672.1750921891683;
+	Thu, 9 Jul 2026 00:38:50 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: Louis Chauvet <louis.chauvet@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Melissa Wen <melissa.srw@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/vkms: fix vertical stride miscalculation in get_block_step_bytes()
+Date: Thu,  9 Jul 2026 00:38:40 +0200
+Message-ID: <20260708223840.973-1-security@auditcode.ai>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260708-hugetlb-alloc-failure-fixes-v2-0-c7f27cbb462b@google.com>
- <cover.1783549129.git.ackerleytng@google.com>
-X-Mailer: git-send-email 2.55.0.795.g602f6c329a-goog
-Message-ID: <946c52b1d2bf058d8a61128a1490cbeab56b20a6.1783549129.git.ackerleytng@google.com>
-Subject: [POC PATCH 3/3] Reproducer for allocation failure due to cgroup v2
- memory limits
-From: Ackerley Tng <ackerleytng@google.com>
-To: devnull+ackerleytng.google.com@kernel.org
-Cc: ackerleytng@google.com, akpm@linux-foundation.org, david@kernel.org, 
-	erdemaktas@google.com, fvdl@google.com, joshua.hahnjy@gmail.com, 
-	jthoughton@google.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	mawupeng1@huawei.com, muchun.song@linux.dev, nphamcs@gmail.com, 
-	osalvador@suse.de, peterx@redhat.com, rientjes@google.com, 
-	shakeel.butt@linux.dev, stable@vger.kernel.org, vannapurve@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-(This reproducer was hacked up and not meant to be merged.)
+get_block_step_bytes() computes the byte distance between two
+vertically adjacent pixel blocks for the READ_TOP_TO_BOTTOM and
+READ_BOTTOM_TO_TOP directions as:
 
-cgroup_v2_allocation_failure.c triggers HugeTLB allocation failure by exploiting
-cgroup v2 memory limits. This allows testing the error paths in the kernel when
-memory control charging fails, even when physical huge pages are available.
+	pitch * drm_format_info_block_width(fb->format, plane_index)
 
-The program performs the following steps to trigger the failure:
+This is wrong: the vertical distance between two rows of blocks is
+the block *pitch*, i.e. pitch multiplied by the block *height*, not
+the block width. This is exactly how packed_pixels_offset() computes
+it a few lines above in the same file:
 
-1. Enable hugetlb accounting in cgroup v2.
-     + The program checks if memory_hugetlb_accounting is enabled in the cgroup2
-       mount options. If not, it remounts /sys/fs/cgroup with this option
-       enabled. This ensures that HugeTLB allocations are charged against the
-       cgroup memory limits.
+	int block_pitch = fb->pitches[plane_index] *
+			   drm_format_info_block_height(format, plane_index);
 
-2. Create a test cgroup and set limits.
-     + The program creates a new cgroup subdirectory named test_reproducer under
-       /sys/fs/cgroup.
-     + It sets the memory.max limit of this cgroup to 1MB (which is less than
-       the 2MB huge page size).
+For 1x1-block formats (block_width == block_height == 1) the two
+expressions happen to coincide, which is why the bug went unnoticed
+for regular formats. Packed sub-byte formats break the assumption:
+DRM_FORMAT_R1 has block_width == 8 and block_height == 1, so the
+vertical step computed by get_block_step_bytes() is 8x too large.
 
-3. Fork a child process and move it to the test cgroup.
-     + The program forks a child process.
-     + The child process moves itself into the test_reproducer cgroup by writing
-       its PID (using 0 for current process) to cgroup.procs in the test cgroup
-       directory.
+This over-large step is consumed verbatim by Rx_read_line(), which
+advances src_pixels by `step` once per output row without ever
+re-validating the result against the framebuffer object bounds
+(those bounds were only checked assuming a correct, 1x, step):
 
-4. Attempt to allocate and touch a 2MB huge page.
-     + The child process maps a 2MB anonymous huge page using mmap with
-       MAP_PRIVATE, MAP_ANONYMOUS, and MAP_HUGETLB.
-     + The child process writes to the mapped address, triggering a page fault.
+	src_pixels += step;
 
-5. Triggering the kernel bugs.
-     + The page fault handler calls alloc_hugetlb_folio to allocate the huge
-       page.
-     + The allocation of the physical page from buddy allocator succeeds
-       (assuming nr_hugepages is sufficient).
-     + The kernel then attempts to charge this allocation to the child process's
-       cgroup by calling mem_cgroup_charge_hugetlb.
-     + Since the child's cgroup memory limit is 1MB and the page is 2MB, the
-       charge fails and mem_cgroup_charge_hugetlb returns -ENOMEM.
-     + This triggers the error path in alloc_hugetlb_folio where the bugs (folio
-       refcount mismatch, infinite loop on ENOMEM, and reservation leaks) are
-       handled.
+so reading a plane in the vertical direction (READ_TOP_TO_BOTTOM /
+READ_BOTTOM_TO_TOP, reached via a plane rotation of 90 or 270
+degrees) walks off the end of the source buffer object after very
+few rows and over-reads adjacent kernel memory (an
+out-of-bounds read, not a write). With DRM_FORMAT_R1 and a
+writeback connector attached, this is reachable by a local process
+that holds DRM master on a loaded vkms device (composition happens
+synchronously in vkms_composer_worker()).
+
+Fix get_block_step_bytes() to use drm_format_info_block_height()
+for the vertical directions, which matches packed_pixels_offset()
+and restores the invariant that the vertical step is exactly one
+row of blocks.
+
+Runtime-verified on a v6.19 KASAN (KASAN_VMALLOC) stand: before
+this fix, a writeback commit on a rotated DRM_FORMAT_R1 plane
+reliably tripped a KASAN-attributed out-of-bounds-read page fault
+in Rx_read_line() during vkms_composer_worker(); with this fix
+applied, the identical reproducer completes cleanly with no fault
+and no KASAN report.
+
+Fixes: b52fd27356af ("drm/vkms: Introduce pixel_read_direction enum")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
 ---
- cgroup_v2_allocation_failure.c | 160 +++++++++++++++++++++++++++++++++
- 1 file changed, 160 insertions(+)
- create mode 100644 cgroup_v2_allocation_failure.c
+ drivers/gpu/drm/vkms/vkms_formats.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/cgroup_v2_allocation_failure.c b/cgroup_v2_allocation_failure.c
-new file mode 100644
-index 0000000000000..938cbf02ae6f7
---- /dev/null
-+++ b/cgroup_v2_allocation_failure.c
-@@ -0,0 +1,160 @@
-+#define _GNU_SOURCE
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <unistd.h>
-+#include <fcntl.h>
-+#include <sys/mman.h>
-+#include <sys/stat.h>
-+#include <sys/types.h>
-+#include <sys/wait.h>
-+#include <string.h>
-+#include <errno.h>
-+
-+#define CGROUP_PATH "/sys/fs/cgroup"
-+#define TEST_CGROUP "test_reproducer"
-+#define TEST_CGROUP_PATH CGROUP_PATH "/" TEST_CGROUP
-+
-+void write_file(const char *path, const char *val) {
-+    int fd = open(path, O_WRONLY);
-+    if (fd < 0) {
-+        fprintf(stderr, "Failed to open %s: %s\n", path, strerror(errno));
-+        exit(1);
-+    }
-+    if (write(fd, val, strlen(val)) < 0) {
-+        fprintf(stderr, "Failed to write %s to %s: %s\n", val, path, strerror(errno));
-+        close(fd);
-+        exit(1);
-+    }
-+    close(fd);
-+}
-+
-+int is_hugetlb_accounting_enabled() {
-+    FILE *fp = fopen("/proc/mounts", "r");
-+    if (!fp) {
-+        perror("fopen /proc/mounts");
-+        return -1;
-+    }
-+
-+    char line[1024];
-+    int enabled = 0;
-+    while (fgets(line, sizeof(line), fp)) {
-+        char spec[256], file[256], type[256], opts[512];
-+        if (sscanf(line, "%255s %255s %255s %511s", spec, file, type, opts) == 4) {
-+            if (strcmp(file, CGROUP_PATH) == 0 && strcmp(type, "cgroup2") == 0) {
-+                if (strstr(opts, "memory_hugetlb_accounting") != NULL) {
-+                    enabled = 1;
-+                }
-+                break;
-+            }
-+        }
-+    }
-+    fclose(fp);
-+    return enabled;
-+}
-+
-+int enable_hugetlb_accounting() {
-+    printf("Attempting to remount cgroup2 with memory_hugetlb_accounting...\n");
-+    int ret = system("mount -o remount,memory_hugetlb_accounting " CGROUP_PATH);
-+    if (ret != 0) {
-+        fprintf(stderr, "Failed to remount: system() returned %d\n", ret);
-+        return -1;
-+    }
-+    return 0;
-+}
-+
-+int main() {
-+    struct stat st;
-+    if (stat(CGROUP_PATH, &st) != 0 || !S_ISDIR(st.st_mode)) {
-+        fprintf(stderr, "cgroup v2 not mounted at %s\n", CGROUP_PATH);
-+        return 1;
-+    }
-+
-+    int enabled = is_hugetlb_accounting_enabled();
-+    if (enabled < 0) {
-+        return 1;
-+    }
-+    if (!enabled) {
-+        if (enable_hugetlb_accounting() != 0) {
-+            fprintf(stderr, "Could not enable memory_hugetlb_accounting\n");
-+            return 1;
-+        }
-+        // Re-check
-+        enabled = is_hugetlb_accounting_enabled();
-+        if (enabled <= 0) {
-+            fprintf(stderr, "Failed to enable memory_hugetlb_accounting (re-check failed)\n");
-+            return 1;
-+        }
-+        printf("Successfully enabled memory_hugetlb_accounting\n");
-+    } else {
-+        printf("memory_hugetlb_accounting is already enabled\n");
-+    }
-+
-+    // Enable memory controller in subtree
-+    int fd = open(CGROUP_PATH "/cgroup.subtree_control", O_WRONLY);
-+    if (fd >= 0) {
-+        if (write(fd, "+memory", 7) < 0) {
-+            // Might fail if already enabled or not supported, ignore for now
-+        }
-+        close(fd);
-+    }
-+
-+    if (mkdir(TEST_CGROUP_PATH, 0755) != 0) {
-+        if (errno != EEXIST) {
-+            perror("mkdir test_reproducer");
-+            return 1;
-+        }
-+    }
-+
-+    // Set memory limit to 1MB (less than 2MB hugepage)
-+    write_file(TEST_CGROUP_PATH "/memory.max", "1M");
-+
-+    pid_t pid = fork();
-+    if (pid < 0) {
-+        perror("fork");
-+        return 1;
-+    }
-+
-+    if (pid == 0) {
-+        // Child
-+        // Move to cgroup
-+        write_file(TEST_CGROUP_PATH "/cgroup.procs", "0");
-+
-+        printf("Child: Attempting to allocate and touch 2MB hugepage...\n");
-+        // Allocate 2MB hugepage
-+        size_t size = 2 * 1024 * 1024;
-+        void *addr = mmap(NULL, size, PROT_READ | PROT_WRITE,
-+                          MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
-+        if (addr == MAP_FAILED) {
-+            perror("Child: mmap MAP_HUGETLB");
-+            exit(1);
-+        }
-+
-+        printf("Child: mmap succeeded at %p, touching it now (should trigger fault)...\n", addr);
-+        // This should trigger the fault and call alloc_hugetlb_folio -> mem_cgroup_charge_hugetlb
-+        // which should fail and trigger the bug.
-+        *(volatile char *)addr = 1;
-+
-+        printf("Child: Successfully touched page (bug not triggered?).\n");
-+        munmap(addr, size);
-+        exit(0);
-+    }
-+
-+    // Parent
-+    int status;
-+    waitpid(pid, &status, 0);
-+
-+    printf("Parent: Child exited. Cleaning up.\n");
-+    rmdir(TEST_CGROUP_PATH);
-+
-+    if (WIFSIGNALED(status)) {
-+        printf("Parent: Child killed by signal %d (%s)\n",
-+               WTERMSIG(status), strsignal(WTERMSIG(status)));
-+        if (WTERMSIG(status) == SIGBUS) {
-+            printf("Parent: Child got SIGBUS as expected (if kernel didn't crash).\n");
-+        }
-+    } else if (WIFEXITED(status)) {
-+        printf("Parent: Child exited with status %d\n", WEXITSTATUS(status));
-+    }
-+
-+    return 0;
-+}
+diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
+index dfb8e13cba87..1e3a6af9cea5 100644
+--- a/drivers/gpu/drm/vkms/vkms_formats.c
++++ b/drivers/gpu/drm/vkms/vkms_formats.c
+@@ -103,11 +103,11 @@ static int get_block_step_bytes(struct drm_framebuffer *fb, enum pixel_read_dire
+ 	case READ_RIGHT_TO_LEFT:
+ 		return -fb->format->char_per_block[plane_index];
+ 	case READ_TOP_TO_BOTTOM:
+-		return (int)fb->pitches[plane_index] * drm_format_info_block_width(fb->format,
+-										   plane_index);
+-	case READ_BOTTOM_TO_TOP:
+-		return -(int)fb->pitches[plane_index] * drm_format_info_block_width(fb->format,
++		return (int)fb->pitches[plane_index] * drm_format_info_block_height(fb->format,
+ 										    plane_index);
++	case READ_BOTTOM_TO_TOP:
++		return -(int)fb->pitches[plane_index] * drm_format_info_block_height(fb->format,
++										     plane_index);
+ 	}
+ 
+ 	return 0;
 -- 
-2.55.0.795.g602f6c329a-goog
+2.50.1 (Apple Git-155)
 
