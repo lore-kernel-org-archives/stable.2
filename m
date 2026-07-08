@@ -1,41 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0693042DA48
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 16:18:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A5E42DA44;
+	Wed,  8 Jul 2026 16:18:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783527494; cv=none; b=Jqx4qfb6leYL7v1stdbt5kwN4UEOXZuM9QXE/JoSRN7JINb1nA9dlRhMI0Bz2TlbdCubT35Hz86lh95Zkm8jvGXgVS0pTrkDJHiyCjssLN5rXE3ejwDMrgau7PRH7y6K4ZTy6ulhZrgmxyOQlo6b2H5UPTv7ULKovHSJbV2oDqw=
+	t=1783527496; cv=none; b=IN2dVvybIrWRhyQsaCI18coa7R6veaHwd1A7Yl62gS3J6wHl23P+c/MfMinkw0qR+QUT2avCIS+94Mhy5NuwOutUU4ZaTqVIPioTQBgid0ygJ1GTsw3ggh3t6+xYQYZ4ZR7Tw8Pi4QJRnSKZThJaghJlxdugswOSu1O5KafwEnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783527494; c=relaxed/simple;
-	bh=I9ecD7oTEnIAJL0N+kY/POoX4ghv4WJW9JQDHx2+I9c=;
+	s=arc-20240116; t=1783527496; c=relaxed/simple;
+	bh=g6M3lGbwNCXgQ5KgLhh/+rShX5VadDF7bwG1iRenO6U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KfRLGwg9LzocVHGMMeXtojOhySNK20NeDmco4v6bPFDAhtg6nzSZD4AZTUEJ5xlf8Wghw/pYyDfIEG8nx4slMDjdE6+CSYDUNd2iW9p3cf2ZceKW9VggAdgbCnUiWfKThPJ08aZyz+hy3fcyMg2m9tS1v1f1OLFscwYZxOF/5J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CLn6gDMd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kZ9pgXySuHXYuITmJYsY6WRnH592IDlqx0Stfi9FbyOKnjRTZC6+aum/gKp91wuVupktUmk7BP2S+EuTt+6Imx8nXUTXGJ8Ov8xWJ9H9ZyPDKC6ALHSa3HGHpWVFthNkRinAaVqcy3WNIDkNVucz0nW9pMYBY5xQDRIkzfDY0xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bb2Ji3MM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CLn6gDMd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B0F1F00A3D;
-	Wed,  8 Jul 2026 16:18:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bb2Ji3MM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9511F00A3E;
+	Wed,  8 Jul 2026 16:18:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783527492;
-	bh=5HJScMeCJe2V3I6wp4M5Sd/8j1OXpe/dWR29Mr/0ajI=;
+	s=k20260515; t=1783527494;
+	bh=jKssdYZiy6udKlNV01GqsnyHLqSFgLJHIAJ0O3hJg4s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CLn6gDMdQ3ze4VISZjYydhAXRj/cWGBDmqp2qx0QKe6ev95D36RasrQy6Z2zWcvwk
-	 0STT8vn2ditcQ/DYbXQybO3Ql67RCFSFtc9Alr1DrSPpeGFxWkMXZokI7mTIblsZXS
-	 RcSgZF9vrf3sqRuwVHwnUSOR0fHN7tfz2SVzRbK3L2bppt52rshY49wRRedd+mzdUQ
-	 ynQN7tsWXLT0fSwPD8J1J8EItiUmvADQMJeYrHd/+O9ZoKN8f4DW9A0btO3OAUDQwV
-	 jKh42ITy2IkldTfKBzWXEeZop4mBdThJqpV+roaVbvQ/a1Ww1YvKP+g6ETQjU6RWYk
-	 c9dfX1Zcsc5sg==
+	b=bb2Ji3MMofOwrfCPD9WmYbHt/0TR4qmaPEKm6cLd+lywOAsljbIVW2WYfgLAH12Qy
+	 XOmcU4Sd3HHKftB30QlTctZkh7oLs9EP9UTuNWHpI9cmChLobCrdipI4vfip1Vv/ZU
+	 EAVkMmiBOhZpOvi3Fks7c5LDd83Ju/EVCO2GyWxO/4PgdlqE/4cusG6iuIUeWfI+3f
+	 9tA5RRPZgsdPhQENMGCgsoTWFH1L6wFu2yr9e5dKY+gLjhOWpvM48QXoXQDpSaFnlP
+	 Ags4V9BPmjPqRqkZ9ivxVPKDqL2Mat7nCugMCT6hOqvABBNnZzogMSllbBSu2Z8ztf
+	 PBd35A9rA9JsQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Darshit Shah <darnshah@amazon.de>
-Subject: Re: [PATCH 5.10.y 5.15.y 6.1.y 6.6.y] KVM: Replace guest-triggerable BUG_ON() in ioeventfd datamatch with get_unaligned()
-Date: Wed,  8 Jul 2026 12:18:01 -0400
-Message-ID: <20260708120503.agent5-0003@kernel.org>
+	Carlos Maiolino <cem@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Fedor Pchelkin <pchelkin@ispras.ru>,
+	stable@vger.kernel.org,
+	xfs-stable@lists.linux.dev,
+	Christoph Hellwig <hch@lst.de>,
+	Catherine Hoang <catherine.hoang@oracle.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	lvc-project@linuxtesting.org,
+	linux-xfs@vger.kernel.org,
+	Leah Rumancik <leah.rumancik@gmail.com>,
+	Theodore Ts'o <tytso@mit.edu>,
+	"Darrick J. Wong" <djwong@kernel.org>
+Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
+Date: Wed,  8 Jul 2026 12:18:02 -0400
+Message-ID: <20260708120504.agent5-0004@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ak2B3ewAu6g7hShc@dev-dsk-darnshah-1a-8576ca1e.eu-west-1.amazon.com>
-References: <ak2B3ewAu6g7hShc@dev-dsk-darnshah-1a-8576ca1e.eu-west-1.amazon.com>
+In-Reply-To: <ak2bBIGLumgLD4nd@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <ak2bBIGLumgLD4nd@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,20 +56,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 07, 2026 at 10:47:42PM +0000, Darshit Shah wrote:
-> commit f1edbed787ba67988ed34e0132ca128b052b6ce8 upstream.
+On Tue, Jul 07, 2026 at 08:34:12PM -0400, Hamza Mahfooz wrote:
+> I ran fstests both before and after applying the series with "-g auto"
+> as Amir suggested and the only meaningful difference between the two is
+> that all of the tests after xfs/234 refuse to run on the unpatched
+> kernel (presumably because of the kernel panic). I have also attached
+> both runs if you're interested in having a look for yourself.
 
-The backport content itself looks good (the asm/unaligned.h swap is the
-right adaptation for these trees), but the mail is missing an in-body
-"From:" line, so applying it records you as the commit author instead
-of the upstream author. Could you resend with
-
-  From: Sean Christopherson <seanjc@google.com>
-
-as the first line of the body so authorship is preserved?
-
-Also note that 6.6.y already has this fix queued up, so the resend only
-needs to target 6.1.y, 5.15.y, and 5.10.y.
+Thanks for running these! Queued the series for 6.6.
 
 -- 
 Thanks,
