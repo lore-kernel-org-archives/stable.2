@@ -1,158 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153AA1632DD;
-	Wed,  8 Jul 2026 14:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3344437B021
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 14:32:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783521146; cv=none; b=XAiEt5mQKfTPJ8+WPVc2j9vlK6oLvwk3zIbOelaFkbuxSE0iIUPNYgogNoQmMqzDcDpyJLlp6TBEO8YpByQ8t2l/m7JF4kcyyUf/m4zw6UUPsJlPw/BykW+us/KNNrKJ0iTYhk5rWUCpdx8aSg9xeliiJPdwO3MT+lnaGb0wHUc=
+	t=1783521150; cv=none; b=U4UZ+SA4na9GEZzROBfdBnn8WSdWJEvYoRyXU/PswQCCkDxU/qRXUKS6XoSzluAKJKakBnb3KKXksTBNVuEYyP1OpT4R/G6ZCQ8ZwqM5mxATwWQyj83nNRGJjn9WqrIfxJxkPI6ysiFHrKlOVvDevudAQ+WJU03/1WLER9jp+x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783521146; c=relaxed/simple;
-	bh=U9w3vBbUFtCRr7V74TjBeG0Ub0+BiHRRY3xEHPSW6Gc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Uxg9G9EQBIeUrZFRfZZSKvWYMd8mbEHavvSRJPefIBKnzu3GGj5YhyT7IGWKWeH1zFsP/rMfdRMrhb4glahho2QuU6Bi9MNjFYgBc1ko6remJYebhRdiTnBgIwLq3odrunzJvgl4hSFoI7JjR1AkE+rjcaPu9xK2ohV9l20p4C8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VLXWU18v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783521150; c=relaxed/simple;
+	bh=pQrUttJSAzZqd4+9dPhp4xkow1n/EuQGnd/1zwIBjYc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QKR/utMqtjGuoLjwsqNdsI55WxRo4P5rgYwth7vYeZzLLZBRTGoOp+tIo22UZKg1Q1BmDku9eZJgZ4HOLz7wtKCqoTWqZxk3G+IvF1GQEYBA4wqR06bnvhiECAOOHPkCqQ8BPOfyet4RIbSLvuB9/W5AXPWR4KOs4YW2JzvNdhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CUc7ZbFC; arc=none smtp.client-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VLXWU18v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B741F000E9;
-	Wed,  8 Jul 2026 14:32:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783521144;
-	bh=AcGbi6GcbL2Ly4SptMLqyaUlu9is1dK/XOQRRPvfuiw=;
-	h=From:To:Cc:Subject:Date;
-	b=VLXWU18vLVxb9NdenyOP9B3ro6bILYXuZF4ps9Sdp9fV4AYWb2I6Rr9x5jPrsjE6S
-	 FDQ4BNwnFWOgAlJX6GrjU7YVZ1HoXuB+nwBybG9cOcRfYAb4f9KocxhztU3t1hDiJM
-	 0nCrZ+cBCYmKZPLNlBFPriSmIipgvCKcXLn9ljC2xuT3tjAD9uJHVvFvdJZczWUf8+
-	 2yueX95IDJD0WGr2llm6MxvlLdWIuNNmyP4XSFbHV+L+NBUS/zb3GCRNIzG6T84pUs
-	 svRbC/EWxTKTFQEdtRk+cSTzf0Rq/UaqIQDcy31x67pj/B2bMAeVKYhakd8eI7NMEN
-	 sSVlIUBoJcTNw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1whTK2-000000036EZ-1uZR;
-	Wed, 08 Jul 2026 16:32:22 +0200
-From: Johan Hovold <johan@kernel.org>
-To: linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] USB: serial: keyspan_pda: fix data loss on receive throttling
-Date: Wed,  8 Jul 2026 16:31:35 +0200
-Message-ID: <20260708143135.738899-1-johan@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CUc7ZbFC"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7eb1dc6bd53so456701a34.2
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 07:32:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783521146; x=1784125946; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L59QY/LIozXECDQitmWoZ1ce6y53FVzUgHLAEXFNOTA=;
+        b=CUc7ZbFCE9XtyQYOPVu+rLbs1QWKw5kpy72zxRHNdte9zIHUkW3q3uvwx8NSgpIbre
+         ry+lOx70ibV26ojhAYvXYuLTvW8FizuQQQBVmRrUtKMS68CSHzTjqM/6exoctjcbiksA
+         jRfnpfR3xM0X353Ii+MY4i2+fHCBI502TRN+Pxr2YBL150AXGY3Cmskcs2w61l8UtZ1d
+         qrc7W4frnopwt6W+xjrXbREgoO/5aKQTMM347hA/McpWc+U+Bb38cuC8H8GMEd/9mxHU
+         H+wFbqCo/2KaIk4loL1TPKakjiHcZtrQQf4C+TLr2a+tbHLsDrQ5CFR1+Ilkzh7aeenA
+         p18Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783521146; x=1784125946;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=L59QY/LIozXECDQitmWoZ1ce6y53FVzUgHLAEXFNOTA=;
+        b=YCt5laP5pwtHPITUUHJ/3mJzJGOXq8VE9IRSnf8K2TmmyaRoXCzvujaHXaRUMJt85/
+         uh4xHTkK0kSOTO88sj3SkwruJwinlP9mK4/Rlyu2VpTBj9HbQ1EXD3Z1HnYv1Q/QHdYB
+         kBQwlkB0Y/GvNBpnO7b5ofVxNJY2fdc3LUrdFG8PveGepK+YeFNA0N6mIu8VLT7WL5y6
+         sD4L4qP+XivVVTbJ91qEUJHBFyRLdiG3YBMi85qIkfRr5ya8mQWEXFIbrWnDKvlI/hqp
+         qmtJ7rdWtFxMYytx9BDGnj6Hss6hbJru9xm4PXlDVgLQJDcqAmpo5YpRtrxSZPrN5W5f
+         AvPw==
+X-Forwarded-Encrypted: i=1; AFNElJ+9cl/WMp+d8l/uOuNo1rs5d+wAwzZ0EVaEZIyxuhaZWDCUMRHm/J5+tskrmEXj877EpD+4lIo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrqRIihV9kzIU4jG8YALyozI3YomYc2RyM0AO/FoKSofCnyMFp
+	Qq1tY5ICSZHdVPfeGLlSdME5mJc7hb42ayhiyJtz91i/zM5xI4+N13tuK2dY+6zADTU=
+X-Gm-Gg: AfdE7ckZH++507ZKw776xDmlk7POL6Rq+kC3sgxQz/uYT7lIoj79VMG2IZAHTYRzm2S
+	a7L9JX7UxaPiSYWuax/cSGleXU0I4tAvK2Oq5s2HyvEwvt4nngXRkNxeQHCSgUmIqnWGCxbfNeU
+	fqfnVLs+6X73XHsl6wqR1bupT69bKgXPniDe9JtGQSDgJ884RMwKJFYqZE4W1dUPCf7UlsKcl1L
+	MhV/d3Ud0HBrx6lVvRk09PFioij01xS53Iigt2DXBzxca04wL0qtxdstnH6naffbN3SSCvXDcQ9
+	Zn9gbVbEc/JcGGfUFBGoEeEGfEPAHPMpvozSKFhB7oi2+WrXIaf2SNSebQnXzv4upQdWbrMv8pu
+	QpwGoT9bQakU9/kEmWTNfPPK1UdhyubiCVW3mHvZVfE80x3ohNsU3bq43u6wR/BEMpw8G/6+hWF
+	2IKk0814emrQFwfU4yrW03q3waO+pRGln1hrY+rszd81qenv32ks20XgHfkcCyAgY=
+X-Received: by 2002:a05:6830:6f45:b0:7dc:e090:68a with SMTP id 46e09a7af769-7ebcfed3e61mr1718859a34.0.1783521146173;
+        Wed, 08 Jul 2026 07:32:26 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:19a8:8ead:9ca9:cb30? ([2600:8803:e7e4:500:19a8:8ead:9ca9:cb30])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb2b79c9sm1900838a34.22.2026.07.08.07.32.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Jul 2026 07:32:25 -0700 (PDT)
+Message-ID: <6d8c6b4b-89b3-431b-a31a-11de654c2901@baylibre.com>
+Date: Wed, 8 Jul 2026 09:32:24 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] iio: adc: ad7380: add missing 'select REGMAP' to
+ Kconfig
+To: Joshua Crofts <joshua.crofts1@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Stefan Popa <stefan.popa@analog.com>, Julien Stephan
+ <jstephan@baylibre.com>, Ivan Mikhaylov <fr0st61te@gmail.com>,
+ Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+ Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
+ Kim Seer Paller <kimseer.paller@analog.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260708-add-missing-regmap-v1-0-6d424322e3d4@gmail.com>
+ <20260708-add-missing-regmap-v1-1-6d424322e3d4@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260708-add-missing-regmap-v1-1-6d424322e3d4@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Killing the interrupt-in urb when the line disciple requests throttling
-may lead to data loss if an ongoing transfer is cancelled.
+On 7/8/26 12:34 AM, Joshua Crofts wrote:
+> The Kconfig entry for the AD7380 is missing a 'select REGMAP'
+> parameter, causing build failures.
 
-Instead set a flag to prevent the completion handler from resubmitting
-the urb until the port is unthrottled.
+This one has already been fixed.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/usb/serial/keyspan_pda.c | 44 +++++++++++++++++++++++++-------
- 1 file changed, 35 insertions(+), 9 deletions(-)
+https://lore.kernel.org/linux-iio/20260603134955.2f1d5ede@jic23-huawei/
 
-diff --git a/drivers/usb/serial/keyspan_pda.c b/drivers/usb/serial/keyspan_pda.c
-index f05bcce60600..dd4cfd17f7ad 100644
---- a/drivers/usb/serial/keyspan_pda.c
-+++ b/drivers/usb/serial/keyspan_pda.c
-@@ -33,6 +33,8 @@ struct keyspan_pda_private {
- 	struct work_struct	unthrottle_work;
- 	struct usb_serial	*serial;
- 	struct usb_serial_port	*port;
-+	bool			throttled;
-+	bool			throttle_req;
- };
- 
- static int keyspan_pda_write_start(struct usb_serial_port *port);
-@@ -148,6 +150,7 @@ static void keyspan_pda_rx_interrupt(struct urb *urb)
- 	int retval;
- 	int status = urb->status;
- 	struct keyspan_pda_private *priv;
-+	bool throttled = false;
- 	unsigned long flags;
- 
- 	priv = usb_get_serial_port_data(port);
-@@ -209,16 +212,24 @@ static void keyspan_pda_rx_interrupt(struct urb *urb)
- 	}
- 
- exit:
--	retval = usb_submit_urb(urb, GFP_ATOMIC);
--	if (retval)
--		dev_err(&port->dev,
--			"%s - usb_submit_urb failed with result %d\n",
--			__func__, retval);
-+	spin_lock_irqsave(&port->lock, flags);
-+	if (priv->throttle_req) {
-+		priv->throttled = true;
-+		throttled = true;
-+	}
-+	spin_unlock_irqrestore(&port->lock, flags);
-+
-+	if (!throttled) {
-+		retval = usb_submit_urb(urb, GFP_ATOMIC);
-+		if (retval)
-+			dev_err(&port->dev, "failed to resubmit in urb: %d\n", retval);
-+	}
- }
- 
- static void keyspan_pda_rx_throttle(struct tty_struct *tty)
- {
- 	struct usb_serial_port *port = tty->driver_data;
-+	struct keyspan_pda_private *priv = usb_get_serial_port_data(port);
- 
- 	/*
- 	 * Stop receiving characters. We just turn off the URB request, and
-@@ -228,16 +239,29 @@ static void keyspan_pda_rx_throttle(struct tty_struct *tty)
- 	 * send an XOFF, although it might make sense to foist that off upon
- 	 * the device too.
- 	 */
--	usb_kill_urb(port->interrupt_in_urb);
-+	spin_lock_irq(&port->lock);
-+	priv->throttle_req = true;
-+	spin_unlock_irq(&port->lock);
- }
- 
- static void keyspan_pda_rx_unthrottle(struct tty_struct *tty)
- {
- 	struct usb_serial_port *port = tty->driver_data;
-+	struct keyspan_pda_private *priv = usb_get_serial_port_data(port);
-+	bool throttled;
-+	int ret;
- 
--	/* just restart the receive interrupt URB */
--	if (usb_submit_urb(port->interrupt_in_urb, GFP_KERNEL))
--		dev_dbg(&port->dev, "usb_submit_urb(read urb) failed\n");
-+	spin_lock_irq(&port->lock);
-+	throttled = priv->throttled;
-+	priv->throttled = false;
-+	priv->throttle_req = false;
-+	spin_unlock_irq(&port->lock);
-+
-+	if (throttled) {
-+		ret = usb_submit_urb(port->interrupt_in_urb, GFP_KERNEL);
-+		if (ret)
-+			dev_err(&port->dev, "failed to submit in urb: %d\n", ret);
-+	}
- }
- 
- static speed_t keyspan_pda_setbaud(struct usb_serial *serial, speed_t baud)
-@@ -577,6 +601,8 @@ static int keyspan_pda_open(struct tty_struct *tty,
- 
- 	spin_lock_irq(&port->lock);
- 	priv->tx_room = rc;
-+	priv->throttled = false;
-+	priv->throttle_req = false;
- 	spin_unlock_irq(&port->lock);
- 
- 	rc = usb_submit_urb(port->interrupt_in_urb, GFP_KERNEL);
--- 
-2.54.0
+Suggest to use linux-next for development so you get both the fixes-togreg
+branch and the regular togreg branch.
+
+> 
+> Fixes: b095217c104b ("iio: adc: ad7380: new driver for AD7380 ADCs")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> ---
+>  drivers/iio/adc/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> index d1b198cb8a80..6d1170bc4c7c 100644
+> --- a/drivers/iio/adc/Kconfig
+> +++ b/drivers/iio/adc/Kconfig
+> @@ -330,6 +330,7 @@ config AD7380
+>  	tristate "Analog Devices AD7380 ADC driver"
+>  	depends on SPI_MASTER
+>  	select SPI_OFFLOAD
+> +	select REGMAP
+>  	select IIO_BUFFER
+>  	select IIO_BUFFER_DMAENGINE
+>  	select IIO_TRIGGER
+> 
 
