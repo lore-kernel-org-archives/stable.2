@@ -1,51 +1,49 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F18C2EDD70
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 09:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7321292B54
+	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 09:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783504165; cv=none; b=enA0EqGbto9S0dNzbH2yR7eK6RDTJLxi495idBNNdRtHMv9BrTiG7K/AkPVdBExb8TWrpFR6NFmHWxZ9zPVzsoKpsaSbPJHKadwmS6/j/Jg2DEcLr9JV4jb6VDOXvVhAOYklD5iHssTih1V4sYzV4g5jqgKBNQ6Nk+vtuvummlo=
+	t=1783504171; cv=none; b=J+uk7ua1vr95/REQ/hpeyNZpMQJ7v8M9BfF3kMVm/aaqRZXJZajA/zFpQfbA/ArfvSKnaPBH2BlxONO9s5UPzkkRF7+rUqe1sE5Ej1V9JBCJfDj2DYxXkWqXniqEZi4bNWPICsGaSfB1hNiiwnYzeCtcCYz1tyOwCHDrG35qjIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783504165; c=relaxed/simple;
-	bh=68V5rOqPNK3FVglsigFb/BFRax3Z0p2704n/K6dXm2k=;
+	s=arc-20240116; t=1783504171; c=relaxed/simple;
+	bh=kuFxI6zCr4dVGnzCYou53VWrkVBAA208Iv+yWiSAhc4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=g5QEDdIQh71VJV06OjHb79gz/wnizav8qfGJfbhxMJkjnzBOvef3uGKX+NQcF+7ItHQy/c8p9RpgwaXyuhXgkQ+Di8+KLic9g4pWAIj0BPUKtDVsIbl0V0lJmX9EFE4sJHGm/Ydztxo8bETQ+b9czgwVBDuK0OGRdZ0xgWGWCTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=LeCjvNrh; arc=none smtp.client-ip=54.204.34.130
+	 MIME-Version; b=Wzj4aj6012aBLe6zz5LZategY1qX8mvni+wbHEsJ1KeoYz1G2A4sCSxbimrhDYic/GxRwBqWTEb5Tg4dPj307ot9q5EyL88/LHkTWR8STRgGdfdoIl8KQe6FryZT/etb069mOZFlatRF9P78t03vsPdmddRAlE8D9Qla2WVJMZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=PKV7H0qD; arc=none smtp.client-ip=54.206.16.166
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="LeCjvNrh"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="PKV7H0qD"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1783504103;
-	bh=OFcL2qU1SwskXFKzrfd2h3zC4Kiqeut2hQ5lpB57irE=;
+	s=onoh2408; t=1783504131;
+	bh=/ddKzM3gMm80IOv2mlqZS7PwC2cFb2QASKOWts7w2TI=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=LeCjvNrhZpi6dvHrrGBxEyTxUXoMFFzhOqNnG5maVoYcp7JEpoalGwag2h9RHwspJ
-	 0CZ1Zbu69wCMNXu3gUNldL4lt/gliu+0XkwTX7MtAggDm2qgDLJb1SnPtKHTVYYCQu
-	 tC9knZekU9QRd6V427k82hLAzBO8wvWiKn94rJaw=
-X-QQ-mid: zesmtpgz3t1783504097ta09c7de5
-X-QQ-Originating-IP: vACJNgUoWWkdWhtSp+Sdhnf+wI82HAqynSl6LwuPhzg=
+	b=PKV7H0qDZRllCF2EhOE7/L7cyTiXaaQ1TxeA8dEcKqvrnBabSMdnWNzMwiprDRL1m
+	 W5XTo24Lp51wZRZaNE7gc1q3eVO/uWneJQjxNG3u8LXyqO0/6JqZ5mb613rtazMneV
+	 NNhMumET6xaSzDUIvzklwMGS/4slDCgwUl/S7aNw=
+X-QQ-mid: zesmtpgz3t1783504112td99ea5de
+X-QQ-Originating-IP: Yx/VzgTY33xSfla6hLCeVqqRMqX3fielqx8gwo+la2o=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 08 Jul 2026 17:48:03 +0800 (CST)
+	id ; Wed, 08 Jul 2026 17:48:20 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2046046456992337298
-EX-QQ-RecipientCnt: 10
+X-BIZMAIL-ID: 4816621095025621651
+EX-QQ-RecipientCnt: 8
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org
 Cc: stable@vger.kernel.org,
 	gregkh@linuxfoundation.org,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Ido Schimmel <idosch@idosch.org>,
-	Jiri Pirko <jiri@nvidia.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+	Jianbo Liu <jianbol@nvidia.com>,
+	Boris Pismenny <borisp@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH 6.6.y 03/11] bonding: Fix initial {vlan,mpls}_feature set in bond_compute_features
-Date: Wed,  8 Jul 2026 17:47:06 +0800
-Message-Id: <20260708094710.27047-4-guanwentao@uniontech.com>
+Subject: [PATCH 6.6.y 04/11] bonding: add ESP offload features when slaves support
+Date: Wed,  8 Jul 2026 17:47:08 +0800
+Message-Id: <20260708094710.27047-5-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260708094710.27047-1-guanwentao@uniontech.com>
 References: <20260708094710.27047-1-guanwentao@uniontech.com>
@@ -58,73 +56,81 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NbAqzpwV8myl6G0oQv4muJvlNtzQlkm7ofF0KSWKLMcIMgQCQ0ef9Ju5
-	VYqoGE8L1f6kpCtq4MQ1oSn86jhGVsmvXFnFvh9JQSe9zcxWXBVi8vtL/L8WiPwMrFfYxWu
-	lEAEK/XBsrK6mHnDDwcaJyNrEZX4QppBrLmz4JC5+fwY+Ri7Nb1FPpDuSrUC6WxOIoXQnhj
-	Mx9MvBvfCLTzy7uvstU56bxjfS87Rs8BX+TajaYJG8EjInLIWlaQy+5Ve2lmDC9GYeI0/Tu
-	WJQ5+imXuM305W1tau0lWP2xgTtPIx6qR9bxJiNGx01/O3JEMnJ61tWtduW2SgaEWLXLuMv
-	j3yPGO2pO8SNsKp5C3AriWjAcWNIkspdVFLXECR/90GOqzialjc0lHUIu7zUwfFmtG22Fir
-	KjrTwdex8cLE5hvkMUV5zehtVW75Rf6swcm//XpMAElLGCRIWZYfE9OrhWaWHF/C1BENJtb
-	c5hZXiu9DuZGXYeja1O0nOVr4Hm/df1b/zCkoXANVYCx5yWtBDn8U0MXowaZGtcIJ6j08Kp
-	cs0Qj39ThlYr1ERWeYVjbTFFkddU8wtDvTTrhmeh4koPxd88+PoprvvGBng9JSzR6cI4g1O
-	amjAvHECimVNfhDR+kS0qjacbSNS05SY5Z5PgqwpjQDrH5YBSwPwYWThg4Ef9AUuTnwYfLd
-	dvUoY3p14YR0emLlvqap1WgdbdY0A0I8IqUQHNhCIKS0UIlOKB9QZtlCqSqk7qTfYljaJiU
-	lnOaMXuEjF1s/bVnosTCX2SpbpyQCw87+4nkdQmFdeXM5qokYzg0qCBsVcdrgyWyM+kQ8Uo
-	0zdqDu+NXPbB27OqVpS/eonxbBoPTpS4j6tTEHQ+Apl6ETXu7Mlj+/8KSmUuvgEwEjZgSWJ
-	LwNQ1CZR9e8YgfO8VwTt29STRQzqrR/+vowbZjY5/bTYyDTzH4Qg3DMDcVxqMjzJ8KOqcF+
-	faD5CXdG1M3tTrW8OOE+Y2RChXjhSrHVtQA3VOD+0dKWIM7psJjJWdjttxDQ5KYB7TtkMQC
-	fsHv0mraFUI7GPo6cMaYXtctSHBRkxZTi1hwCm1YCVlZo8odPUpEladbmOHaNjnnzalPSRG
-	BULabFeDgLNoQtO3N/kQPg=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-XMAILINFO: MdW1uYX7ZYF9ZaFC4EFdwcmYMjGOu/G9pykAOJxn/SepUOAsYO9i5NuR
+	axFeLZA1HBc6mAyYKHe+6bs/HBPDXVVy3JzPmoh8pQmsFVT1u16fJclKkfF1rXOrina0yMe
+	Gy7Gr9S1ZSN42sfKjMY0AScmHm4t0ozKhsCFsP358ipD5sz/uGdc2gHs58S1QeoNsKh3gR3
+	c2w+HGy+dq6k8zFcRzHboJN2qk8xMRcB61b144f/GAWLxLxkw9oUmdTfFZMMwcgkaaQyuzd
+	SSEEEhNEvKfDz5ksnRYFARhq3y/+mqPNtvryzeB5hwhxWGNP3zjeYOGK+c1LicQfzu2bEpQ
+	KBhp3HnVMxvqPbr4QX37sSzRnOBfRiTtJOAZjzLoVaFVg61tDFN+GwTTHUxR5/NA6DRMWEp
+	ASWBlrNSbPS6ZN/+8y9Q6Nfrf3X2eETFW/+/NCmHcDNPkSyRVTfKL3dA2pNNmFMEstdSldp
+	JTbJ6tCEtgxI7MDOcjZPrA/TW1hEST8xRXS9YSrC8RqXiMzlqJtG277H/6zdQqYgsAOFVBq
+	1+SJksh1S0PIiaEbA8JYIImtPJ2VfqCyMOrBG6gLzrTdf4LlWTC9V0Lu2GngyNOE7j71Q+M
+	oCsbH28x6W1esECO8XKz5OyfVT4qFMT4wY4MmmPQ+pl/xB8tR2WJj0M7K2mjbRf3e7jJ6T3
+	AJYuI3CMY3SszC30hCF9doaCz7FrPGelrxD1V9O6nNeR/b4A9FF6PJvSC1u2ZewRx8mNiLR
+	u3cfISU5LSviudjlcnE2Q8pXar8nuPD+bcZlpCj8+7sU9dI9zFUcs2ULp3anvhhgtQekpsh
+	S64V+PDOHH+roufMVvwpPTfUk42TSD/XShOml9Rf710ums3bSyJNr3xb6vP2CA+zJgjRQXe
+	gkhokcjY0CtSlJzaye53qR60m0DM8StJTteDHmyp/ctxDAwUM4Pg+5uQGSBjDJ99t+eeLqj
+	pBfE8KeYFhlBAgBuf6/kQ3DrqOsWJBNVPLEvhdEy8hZco4AlL6Anhxt6fTGlfS6zyQBjb4B
+	oil8bFHavMvhaGjL7bnjuka2CV4QLTMv5uWzE4iLBxqDkxDr/UJBlclDJPg7odTtOVWAXJS
+	yCAUkdzrC+IOy8nlUOi+59+dGp1zbsoJRhyFW0qgV1bvSHHZaj+cU/5uGAUToy37LGUNY6E
+	WaAd
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 X-QQ-RECHKSPAM: 0
 
-From: Daniel Borkmann <daniel@iogearbox.net>
+From: Jianbo Liu <jianbol@nvidia.com>
 
-[ Upstream commit d064ea7fe2a24938997b5e88e6b61cbb0a4bb906 ]
+[ Upstream commit 4861333b42178fa3d8fd1bb4e2cfb2fedc968dba ]
 
-If a bonding device has slave devices, then the current logic to derive
-the feature set for the master bond device is limited in that flags which
-are fully supported by the underlying slave devices cannot be propagated
-up to vlan devices which sit on top of bond devices. Instead, these get
-blindly masked out via current NETIF_F_ALL_FOR_ALL logic.
+Add NETIF_F_GSO_ESP bit to bond's gso_partial_features if all slaves
+support it, such that ESP segmentation is handled by hardware if possible.
 
-vlan_features and mpls_features should reuse netdev_base_features() in
-order derive the set in the same way as ndo_fix_features before iterating
-through the slave devices to refine the feature set.
-
-Fixes: a9b3ace44c7d ("bonding: fix vlan_features computing")
-Fixes: 2e770b507ccd ("net: bonding: Inherit MPLS features from slave devices")
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Cc: Nikolay Aleksandrov <razor@blackwall.org>
-Cc: Ido Schimmel <idosch@idosch.org>
-Cc: Jiri Pirko <jiri@nvidia.com>
-Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
-Reviewed-by: Hangbin Liu <liuhangbin@gmail.com>
-Link: https://patch.msgid.link/20241210141245.327886-2-daniel@iogearbox.net
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Jianbo Liu <jianbol@nvidia.com>
+Reviewed-by: Boris Pismenny <borisp@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Link: https://patch.msgid.link/20241105192721.584822-1-tariqt@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 950803f72547 ("bonding: fix type confusion in bond_setup_by_slave()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-(cherry picked from commit 6069914e0f42c7783863577328b92a7de0bedc6b)
+(cherry picked from commit 999fed0236754ea6efbaa1b5304373e7761c8322)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- drivers/net/bonding/bond_main.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/net/bonding/bond_main.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index 36277bcefe290..d200909a75cfe 100644
+index d200909a75cfe..ec21958babe7d 100644
 --- a/drivers/net/bonding/bond_main.c
 +++ b/drivers/net/bonding/bond_main.c
-@@ -1499,8 +1499,9 @@ static void bond_compute_features(struct bonding *bond)
+@@ -1484,6 +1484,7 @@ static void bond_compute_features(struct bonding *bond)
+ {
+ 	unsigned int dst_release_flag = IFF_XMIT_DST_RELEASE |
+ 					IFF_XMIT_DST_RELEASE_PERM;
++	netdev_features_t gso_partial_features = NETIF_F_GSO_ESP;
+ 	netdev_features_t vlan_features = BOND_VLAN_FEATURES;
+ 	netdev_features_t enc_features  = BOND_ENC_FEATURES;
+ #ifdef CONFIG_XFRM_OFFLOAD
+@@ -1517,6 +1518,9 @@ static void bond_compute_features(struct bonding *bond)
+ 							  BOND_XFRM_FEATURES);
+ #endif /* CONFIG_XFRM_OFFLOAD */
  
- 	if (!bond_has_slaves(bond))
- 		goto done;
--	vlan_features &= NETIF_F_ALL_FOR_ALL;
--	mpls_features &= NETIF_F_ALL_FOR_ALL;
++		if (slave->dev->hw_enc_features & NETIF_F_GSO_PARTIAL)
++			gso_partial_features &= slave->dev->gso_partial_features;
 +
-+	vlan_features = netdev_base_features(vlan_features);
-+	mpls_features = netdev_base_features(mpls_features);
+ 		mpls_features = netdev_increment_features(mpls_features,
+ 							  slave->dev->mpls_features,
+ 							  BOND_MPLS_FEATURES);
+@@ -1530,6 +1534,11 @@ static void bond_compute_features(struct bonding *bond)
+ 	}
+ 	bond_dev->hard_header_len = max_hard_header_len;
  
- 	bond_for_each_slave(bond, slave, iter) {
- 		vlan_features = netdev_increment_features(vlan_features,
++	if (gso_partial_features & NETIF_F_GSO_ESP)
++		bond_dev->gso_partial_features |= NETIF_F_GSO_ESP;
++	else
++		bond_dev->gso_partial_features &= ~NETIF_F_GSO_ESP;
++
+ done:
+ 	bond_dev->vlan_features = vlan_features;
+ 	bond_dev->hw_enc_features = enc_features | NETIF_F_GSO_ENCAP_ALL |
 -- 
 2.30.2
 
