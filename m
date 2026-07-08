@@ -1,32 +1,51 @@
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3DA6644BC92;
-	Wed,  8 Jul 2026 14:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
+Received: from forward203d.mail.yandex.net (forward203d.mail.yandex.net [178.154.239.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F9548033E;
+	Wed,  8 Jul 2026 14:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783520256; cv=none; b=Y4OsmAshwl5N3VAjodC1vgpqQxpxZFSKa/sJtCfEW8fXgmmCgnc9JlFEv1Zqp9JNJu3fOjpA81yROpVebPdwB6n/JKlKTJdADdHyM7Vcvrq5nUx33fBTj4aEYt5VEKjmtvCBUG9MEO/8gSTd33aHBKLN9mUO73a/NW3E+QAn1O4=
+	t=1783520408; cv=none; b=KWD0JujyeicbBv7WtYkqjmhvWv2uOLnxVv2FI73mmnPUb4wVk9A+mcnJyttJrEt40xce3iqf+2/Qu+QlLXxUDHLhoELqJ0s4fEqay7EZ4m8G84vIyX+vyFa9wE26u5JHRLr0xz4948y3EV6a45hvwnrGiSTq3h00ijLHkIcrxHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783520256; c=relaxed/simple;
-	bh=nmLFcrmIJBCQo0MYGrdfkiIK6Al0g/cT/7J2OLj2+EE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TLFJGknm/3du7FeBYd3sIo3O27j1EfU6TgU1W+tjJzeRWeYLP1HIno+xhUdpRea0U3p72iWNPhSjxaIyb0nadeEvJa4/9Ka80zRVOtDI+MJtoDuJPW8r97bjFAa3Rd/XqDOl+2TLnt0DooDs+BoK/ebgGl9Aqfoo/mCfg956474=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=209.97.182.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wD3oBTuW05qgJsjAA--.14020S3;
-	Wed, 08 Jul 2026 22:17:19 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgDH+TDuW05qzMApAg--.39271S2;
-	Wed, 08 Jul 2026 22:17:18 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
+	s=arc-20240116; t=1783520408; c=relaxed/simple;
+	bh=IGaJkHpQuPjMeqZ96N2urPwytfUmszyiSFdkyGUAIok=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Az95Mdf+m/n9wAUMZVF2mYX3w5jEEZRc55ubCgwQEWFah31FHo5NUmXkkHYOFchop+hekQ10mFB6kwal18XNoOlHJerEjNf55EGA/TUn2QTUMth5Pr/9BFLyfqeTkkt1wD9xVsa3pinZxedJ6XJeiOuN6oMoYJn/ePmL6YWu2gA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=fdpQEf+f; arc=none smtp.client-ip=178.154.239.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="fdpQEf+f"
+Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net [IPv6:2a02:6b8:c41:1300:1:45:d181:d102])
+	by forward203d.mail.yandex.net (postfix) with ESMTPS id D39518783C;
+	Wed, 08 Jul 2026 17:13:18 +0300 (MSK)
+Received: from mail-nwsmtp-smtp-production-main-72.klg.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-72.klg.yp-c.yandex.net [IPv6:2a02:6b8:c43:20:0:640:25ef:0])
+	by forward102d.mail.yandex.net (postfix) with ESMTPS id 83785C0458;
+	Wed, 08 Jul 2026 17:13:10 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-72.klg.yp-c.yandex.net (smtp) with ESMTPSA id cCKwa9LfB4Y0-2aR2CPl9;
+	Wed, 08 Jul 2026 17:13:09 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1783519989; bh=08hl6ivCVHD7yM4ehDDkN/Lp6od+e04MxBxkOp4utlI=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=fdpQEf+fa8mZxXNeTkv0HfljgYOmvJOQPdgndc3Prt0Gc3dHmFgtm5MjWVwFyT7SX
+	 YDRhiCntU7z9dL5+RWASs7bkV+sgtEDRyC3dxXa/e9juLX+K5ramQbcbwO9btvO1on
+	 L3u5eF9KRFv6DLAw7T8Igg1n0mO1pxHubH1F0dEw=
+Authentication-Results: mail-nwsmtp-smtp-production-main-72.klg.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Evgenii Burenchev <evg28bur@yandex.ru>,
+	perex@perex.cz,
+	tiwai@suse.com,
+	kees@kernel.org,
+	eblennerhassett@audioscience.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] media: cx231xx-audio: gate wq_trigger on an audio-local teardown flag
-Date: Wed,  8 Jul 2026 14:16:22 +0000
-Message-Id: <20260708141622.3936490-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	lvc-project@linuxtesting.org
+Subject: [PATCH v2] ALSA: hpi: Check transport errors during HPI6000 adapter initialization
+Date: Wed,  8 Jul 2026 17:11:44 +0300
+Message-ID: <20260708141147.18253-1-evg28bur@yandex.ru>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -34,196 +53,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgDH+TDuW05qzMApAg--.39271S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?+7646wXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZzo5cbFrir2M8XDhP8w/SFwD5FlG7u2q/6dT3oGcduNxjlG
-	stkPrON9NZL78exfTAXN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxKr1UKF15JFyDAFWkXF43Jwc_yoWxJry7pa
-	4kKa4rKFW7Ja4UZrsrXw1rWF13Cws7ta1DG3y7u3Wqqwn5tr1rGF43AryxuryruF97ua17
-	ur4UX3yjvws2vagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
 
-audio_trigger() is deferred work (dev->wq_trigger) armed from
-snd_cx231xx_capture_trigger() on every PCM START/STOP; it dereferences
-dev->adev state and may free the URBs via cx231xx_isoc_audio_deinit().
-cx231xx_audio_fini() tore down that state (snd_card_free_when_closed,
-alt_max_pkt_size) without draining wq_trigger, so work armed before or
-racing fini ran against freed state.
+create_adapter_obj() retrieves adapter information by calling
+hpi6000_message_response_sequence(). This function reports transport-level
+errors through its return value and DSP-reported errors via hr0.error.
 
-Adding cancel_work_sync() alone is insufficient: in capture_trigger() the
-DEV_DISCONNECTED test and schedule_work() were not atomic, and
-DEV_DISCONNECTED is only set on USB disconnect, but fini also runs on
-cx231xx-alsa module unload (cx231xx_unregister_extension()), which never
-sets it.  A trigger that passed the check could still queue work after
-fini's cancel returned an empty queue.
+The current code only checks hr0.error, causing transport-level errors to
+be ignored. As a result, adapter initialization may continue with an
+invalid response.
 
-Add an audio-local teardown gate (dev->adev.teardown): fini raises it under
-adev.slock, releases the lock, then calls cancel_work_sync() outside the
-spinlock.  Both arm sites perform the teardown check and schedule_work()
-inside one adev.slock section, so once the gate is visible no new work can
-arm after cancel returns.  Initialize the lock, work and gate at the top of
-cx231xx_audio_init(), before any fallible allocation, and clear the
-partially-built audio state on its error path, so fini is safe even if a
-later step fails.
+Check the return value of hpi6000_message_response_sequence() before
+examining hr0.error.
 
-This issue was found by an in-house static analysis tool.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Fixes: 61b04cb24a12 ("[media] cx231xx-audio: fix some locking issues")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Fixes: 719f82d3987a ("ALSA: Add support of AudioScience ASI boards")
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
 ---
- drivers/media/usb/cx231xx/cx231xx-audio.c | 42 +++++++++++++++++++----
- drivers/media/usb/cx231xx/cx231xx.h       |  1 +
- 2 files changed, 36 insertions(+), 7 deletions(-)
+Changes in v2:
+- Fix the Fixes tag to point to the commit that originally added the code
+  (suggested by Takashi Iwai)
+---
+ sound/pci/asihpi/hpi6000.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/media/usb/cx231xx/cx231xx-audio.c b/drivers/media/usb/cx231xx/cx231xx-audio.c
-index 9c71b32552df..44ca75b18a5d 100644
---- a/drivers/media/usb/cx231xx/cx231xx-audio.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-audio.c
-@@ -441,6 +441,7 @@ static int snd_cx231xx_capture_open(struct snd_pcm_substream *substream)
- static int snd_cx231xx_pcm_close(struct snd_pcm_substream *substream)
- {
- 	int ret;
-+	unsigned long flags;
- 	struct cx231xx *dev = snd_pcm_substream_chip(substream);
+diff --git a/sound/pci/asihpi/hpi6000.c b/sound/pci/asihpi/hpi6000.c
+index c8d1518ee3e7..fd7fe9dba0b8 100644
+--- a/sound/pci/asihpi/hpi6000.c
++++ b/sound/pci/asihpi/hpi6000.c
+@@ -537,6 +537,11 @@ static short create_adapter_obj(struct hpi_adapter_obj *pao,
+ 		hr1.size = sizeof(hr1);
  
- 	dev_dbg(dev->dev, "closing device\n");
-@@ -470,7 +471,11 @@ static int snd_cx231xx_pcm_close(struct snd_pcm_substream *substream)
- 		dev_dbg(dev->dev, "released lock\n");
- 		if (atomic_read(&dev->stream_started) > 0) {
- 			atomic_set(&dev->stream_started, 0);
--			schedule_work(&dev->wq_trigger);
-+
-+			spin_lock_irqsave(&dev->adev.slock, flags);
-+			if (!dev->adev.teardown)
-+				schedule_work(&dev->wq_trigger);
-+			spin_unlock_irqrestore(&dev->adev.slock, flags);
- 		}
- 	}
- 	return 0;
-@@ -509,11 +514,14 @@ static int snd_cx231xx_capture_trigger(struct snd_pcm_substream *substream,
- {
- 	struct cx231xx *dev = snd_pcm_substream_chip(substream);
- 	int retval = 0;
-+	unsigned long flags;
- 
--	if (dev->state & DEV_DISCONNECTED)
-+	spin_lock_irqsave(&dev->adev.slock, flags);
-+	if (dev->adev.teardown || (dev->state & DEV_DISCONNECTED)) {
-+		spin_unlock_irqrestore(&dev->adev.slock, flags);
- 		return -ENODEV;
-+	}
- 
--	spin_lock(&dev->adev.slock);
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
- 		atomic_set(&dev->stream_started, 1);
-@@ -525,10 +533,10 @@ static int snd_cx231xx_capture_trigger(struct snd_pcm_substream *substream,
- 		retval = -EINVAL;
- 		break;
- 	}
--	spin_unlock(&dev->adev.slock);
- 
- 	schedule_work(&dev->wq_trigger);
- 
-+	spin_unlock_irqrestore(&dev->adev.slock, flags);
- 	return retval;
- }
- 
-@@ -576,12 +584,20 @@ static int cx231xx_audio_init(struct cx231xx *dev)
- 	dev_dbg(dev->dev,
- 		"probing for cx231xx non standard usbaudio\n");
- 
-+	/*
-+	 * Extension init errors are ignored by the cx231xx core, so fini()
-+	 * must be safe even if initialization fails part way through.
-+	 */
-+	spin_lock_init(&adev->slock);
-+	INIT_WORK(&dev->wq_trigger, audio_trigger);
-+	adev->teardown = false;
-+	atomic_set(&dev->stream_started, 0);
-+
- 	err = snd_card_new(dev->dev, index[devnr], "Cx231xx Audio",
- 			   THIS_MODULE, 0, &card);
- 	if (err < 0)
- 		return err;
- 
--	spin_lock_init(&adev->slock);
- 	err = snd_pcm_new(card, "Cx231xx Audio", 0, 0, 1, &pcm);
- 	if (err < 0)
- 		goto err_free_card;
-@@ -596,8 +612,6 @@ static int cx231xx_audio_init(struct cx231xx *dev)
- 	strscpy(card->shortname, "Cx231xx Audio", sizeof(card->shortname));
- 	strscpy(card->longname, "Conexant cx231xx Audio", sizeof(card->longname));
- 
--	INIT_WORK(&dev->wq_trigger, audio_trigger);
--
- 	err = snd_card_register(card);
- 	if (err < 0)
- 		goto err_free_card;
-@@ -651,14 +665,18 @@ static int cx231xx_audio_init(struct cx231xx *dev)
- 
- err_free_pkt_size:
- 	kfree(adev->alt_max_pkt_size);
-+	adev->alt_max_pkt_size = NULL;
- err_free_card:
- 	snd_card_free(card);
-+	adev->sndcard = NULL;
- 
- 	return err;
- }
- 
- static int cx231xx_audio_fini(struct cx231xx *dev)
- {
-+	unsigned long flags;
-+
- 	if (dev == NULL)
- 		return 0;
- 
-@@ -669,6 +687,16 @@ static int cx231xx_audio_fini(struct cx231xx *dev)
- 		return 0;
- 	}
- 
-+	/*
-+	 * Block new trigger work before draining already queued work.
-+	 * cancel_work_sync() may sleep, so it must run after dropping slock.
-+	 */
-+	spin_lock_irqsave(&dev->adev.slock, flags);
-+	dev->adev.teardown = true;
-+	spin_unlock_irqrestore(&dev->adev.slock, flags);
-+
-+	cancel_work_sync(&dev->wq_trigger);
-+
- 	if (dev->adev.sndcard) {
- 		snd_card_free_when_closed(dev->adev.sndcard);
- 		kfree(dev->adev.alt_max_pkt_size);
-diff --git a/drivers/media/usb/cx231xx/cx231xx.h b/drivers/media/usb/cx231xx/cx231xx.h
-index 19f5036a78d7..99c6a279944f 100644
---- a/drivers/media/usb/cx231xx/cx231xx.h
-+++ b/drivers/media/usb/cx231xx/cx231xx.h
-@@ -418,6 +418,7 @@ struct cx231xx_audio {
- 	struct snd_card *sndcard;
- 
- 	int users, shutdown;
-+	bool teardown;		/* audio fini in progress; set under slock */
- 	/* locks */
- 	spinlock_t slock;
- 
+ 		error = hpi6000_message_response_sequence(pao, 0, &hm, &hr0);
++		if (error) {
++			HPI_DEBUG_LOG(ERROR, "message transport error %d\n",
++						  error);
++			return error;
++		}
+ 		if (hr0.error) {
+ 			HPI_DEBUG_LOG(DEBUG, "message error %d\n", hr0.error);
+ 			return hr0.error;
 -- 
-2.34.1
+2.43.0
 
