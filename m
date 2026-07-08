@@ -1,175 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73673B9952;
-	Wed,  8 Jul 2026 05:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A78DA3BB138;
+	Wed,  8 Jul 2026 05:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783488538; cv=none; b=Jt5/ROz5CDwbzYbClNvKuqY7HPMWpSWdLVrWkPpbM8Fc+aJfa8tN4onpN5CcA1XEBXG4Vvk/hKngsJFVpc89dY3geZ+eSq5RHMthnb7pi25+Tg2d3DgaOi3lCY+KVxOcJHm7aosiM2xAnjBEFeRWkyVfZw+wuMGMaYQ3DSuCYM8=
+	t=1783488665; cv=none; b=ZrqRLynNmsc06UQZBWPv7P5/WqhlCTZ1A0lAABOoSkhAMRQGhrYmtYPs81NEM5vDDBv2XPkCzPLdRcAejVJNctyP/yrrXGPoIEv6NkfSQcsld2t1OjhBjL7kWijLdPiG23FmVqxRzqFZ+QVmD7PO/Fn8kE7dt5IYWbWQgByxBA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783488538; c=relaxed/simple;
-	bh=1oH3zdJRT67+Fd7BkVParF0bxNkAG1VvaFthl+K2Ykk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lKeDHGDhUkFxFfcAGj/5dpSPDzW2N6DrZoUqKf7wAv8PeprsSken0BDkq/9m47Yo2fmeeeYIiDaQn5hZwfvOkM380DujptTA8Xp095nQUox2s20sP99CiTaiMe7qq/4QeJTu2v2AToaJgYJI96g9BYf5TQQdFnhttSga3lknJE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DLXPtPj/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783488665; c=relaxed/simple;
+	bh=GUjit2YTzZhJozwftDn8U/tKWzvCKxfMqtwIw36YdDE=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=J3hAxU05N2sjEEv7Z2tU1deA9pJtr/+2gyxuo8I00sXd7tRQv8LOt10xxvEv/8N3yB3qJYingaO5mpc4O1Ih/SL2hCkBF/KMMm5PlGNxlbTh434qkw5Jh1BPS5bk77PT+KOrhs4IrFxuYKzICT4UQLnG00jaq23sbXQ0xyNxOgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=JKFLS0Fv; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DLXPtPj/"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6C1D51F000E9;
-	Wed,  8 Jul 2026 05:28:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783488536;
-	bh=yO8w3gRLyiBN35u0scI5CxYggr9jPH3LU8Xm8lIQNmY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DLXPtPj/dnX/EdA7F7vCe+VdDGZiaKccx1olOQ9BAMxRO0/LN4C8uAonp4KKof0Tn
-	 QXg4XuVephySKTJ/ZlSorS+bPrq7RjcthvRx0G7H4fEUovVKeiVa1LdsKFS5dMIIt8
-	 LZJa+cOZJ8jkjA4ejyzIW9spXgLYAiQduVzI8lG9rzUgSCJjfo1EJCg/BwWafdkrY2
-	 oYOfynC+HJ3q6jgwHlnk94IaAhzIG8gT6AAvLgFUrquvk+aoRKihznDSR4+SvrHmPZ
-	 Q+5yhPcwu4Zu6NmzCxTm24+LfheBnm3nvJNQHSWnZs77Y5xUOb5nPoIQsTgD61jZPh
-	 z2T4cSDglLmYA==
-Date: Tue, 7 Jul 2026 22:28:55 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
-	Brian Foster <bfoster@redhat.com>, Xiang Mei <xmei5@asu.edu>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] xfs: reject attr leaf blocks with inconsistent
- usedbytes
-Message-ID: <20260708052855.GF9392@frogsfrogsfrogs>
-References: <20260707180235.1142581-4-bestswngs@gmail.com>
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="JKFLS0Fv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:Content-Type:
+	Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	Content-Transfer-Encoding:Message-Id:References:To; bh=zS/AaYZRL
+	DGNhDHjzwOvNEYFJ4rEMVLDHc6bZcDTxTA=; b=JKFLS0FvyGh1EZ+C7JhjhuVgN
+	T/4NXo62934pRkCPPjVp8Rm8JFVFjyGi4Q96DaQj7jT7oVSK2uMRQzdjpUP+LvHT
+	wBj2aSkpFEOOR9GbCHBDgAzlAhFyOf+wW4Bz91H29ewtnzhYb9T68wI85kDTvH/i
+	lZerMk/7AAPELFfbvI=
+Received: from smtpclient.apple (unknown [211.102.241.101])
+	by web4 (Coremail) with SMTP id ywQGZQB3i6CB4E1qZLnSAg--.41268S2;
+	Wed, 08 Jul 2026 13:30:41 +0800 (CST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260707180235.1142581-4-bestswngs@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH nf] netfilter: nf_conncount: fix zone comparison in tuple
+ dedup
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+In-Reply-To: <ak0UDVc4gZbfzrtM@strlen.de>
+Date: Wed, 8 Jul 2026 13:30:31 +0800
+Cc: netfilter-devel@vger.kernel.org,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ Phil Sutter <phil@nwl.cc>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ coreteam@netfilter.org,
+ netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+ Ao Wang <wangao@seu.edu.cn>,
+ Xuewei Feng <fengxw06@126.com>,
+ Qi Li <qli01@tsinghua.edu.cn>,
+ Ke Xu <xuke@tsinghua.edu.cn>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <E7AB1D22-A7EF-4401-A2E7-08C97D9868E6@mails.tsinghua.edu.cn>
+References: <20260706114820.74006-1-zhaoyz24@mails.tsinghua.edu.cn>
+ <ak0UDVc4gZbfzrtM@strlen.de>
+To: Florian Westphal <fw@strlen.de>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
+X-CM-TRANSID:ywQGZQB3i6CB4E1qZLnSAg--.41268S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw4xXrWUCF4rWry3Ww45Wrg_yoW8AryDpw
+	4Fg3ySyF4kJrnIyF97ZrnrA3W8trsrtF1fJr1UA3y7C3Z0vF93t3yxG3W3CayDuFyDJF1S
+	qFy5XF95u3Z09rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUP014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
+	648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK67
+	AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
+	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc4
+	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
+	xVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
+	1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRRnNVPUU
+	UUU==
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgECAWpNfR6UyQABsY
 
-On Tue, Jul 07, 2026 at 11:02:38AM -0700, Weiming Shi wrote:
-> xfs_attr3_leaf_verify() checks each attr leaf entry on its own, but never
-> checks that the entries' nameval regions are disjoint. A crafted leaf can
-> point several entries at overlapping offsets: every entry passes the
-> per-entry check, yet the summed entry sizes far exceed the nameval region.
-> 
-> ichdr.usedbytes is kept as the exact sum of the entries'
-> xfs_attr_leaf_entsize() (see xfs_attr3_leaf_add()), so for such a leaf the
-> real sum no longer matches usedbytes. When the leaf is later repacked,
-> xfs_attr3_leaf_compact() resets firstused to blksize and calls
-> xfs_attr3_leaf_moveents(), which subtracts each entry size from firstused;
-> the oversized sum underflows the 32-bit firstused and the following memmove
-> writes out of bounds. The same repack runs from xfs_attr3_leaf_rebalance()
-> and xfs_attr3_leaf_unbalance(). The only guard is an ASSERT, which is
-> compiled out on production kernels.
-> 
-> A single setxattr() on a file with such a leaf, after mounting a crafted
-> image, triggers the write:
-> 
->   BUG: KASAN: use-after-free in xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
->   Write of size 400 at addr ffff88802b187f98 by task exploit
->    xfs_attr3_leaf_moveents (fs/xfs/libxfs/xfs_attr_leaf.c:2788)
->    xfs_attr3_leaf_compact (fs/xfs/libxfs/xfs_attr_leaf.c:1790)
->    xfs_attr3_leaf_add (fs/xfs/libxfs/xfs_attr_leaf.c:1563)
->    xfs_attr_set_iter (fs/xfs/libxfs/xfs_attr.c:556)
->    xfs_attr_set (fs/xfs/libxfs/xfs_attr.c:1244)
->    xfs_xattr_set (fs/xfs/xfs_xattr.c:186)
->    __vfs_setxattr (fs/xattr.c:218)
->    vfs_setxattr (fs/xattr.c:339)
->    __x64_sys_fsetxattr (fs/xattr.c:774)
-> 
-> Sum the entry sizes while verifying and reject the leaf unless the sum
-> equals usedbytes (so the on-disk usedbytes can be trusted) and that
-> usedbytes fits in the nameval region [firstused, blksize) (so the trusted
-> value cannot drive firstused below zero).  Both checks are required: the
-> first alone can be bypassed by forging usedbytes to equal the real sum, and
-> the second alone by forging a small usedbytes, so only together do they
-> bound the actual summed entry size against the nameval region and prevent
-> the underflow.
-> 
-> Fixes: c84760659dcf ("xfs: check attribute leaf block structure")
-> Reported-by: Xiang Mei <xmei5@asu.edu>
-> Assisted-by: Claude:claude-opus-4-8
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> ---
-> v2: drop the inaccurate scrubber reference; explain why both checks are
->     needed. No code change.
-> 
->  fs/xfs/libxfs/xfs_attr_leaf.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
-> index 86c5c09a5db4..9814dcfbd7ac 100644
-> --- a/fs/xfs/libxfs/xfs_attr_leaf.c
-> +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
-> @@ -300,7 +300,8 @@ xfs_attr3_leaf_verify_entry(
->  	struct xfs_attr3_icleaf_hdr		*leafhdr,
->  	struct xfs_attr_leaf_entry		*ent,
->  	int					idx,
-> -	__u32					*last_hashval)
-> +	__u32					*last_hashval,
-> +	unsigned int				*usedbytes)
->  {
->  	struct xfs_attr_leaf_name_local		*lentry;
->  	struct xfs_attr_leaf_name_remote	*rentry;
-> @@ -344,6 +345,7 @@ xfs_attr3_leaf_verify_entry(
->  	if (name_end > buf_end)
->  		return __this_address;
->  
-> +	*usedbytes += namesize;
->  	return NULL;
->  }
->  
-> @@ -376,6 +378,7 @@ xfs_attr3_leaf_verify(
->  	char				*buf_end;
->  	uint32_t			end;	/* must be 32bit - see below */
->  	__u32				last_hashval = 0;
-> +	unsigned int			usedbytes = 0;
->  	int				i;
->  	xfs_failaddr_t			fa;
->  
-> @@ -410,11 +413,21 @@ xfs_attr3_leaf_verify(
->  	buf_end = (char *)bp->b_addr + mp->m_attr_geo->blksize;
->  	for (i = 0, ent = entries; i < ichdr.count; ent++, i++) {
->  		fa = xfs_attr3_leaf_verify_entry(mp, buf_end, leaf, &ichdr,
-> -				ent, i, &last_hashval);
-> +				ent, i, &last_hashval, &usedbytes);
->  		if (fa)
->  			return fa;
->  	}
->  
-> +	/*
-> +	 * usedbytes must equal the summed entry sizes and fit in the
-> +	 * nameval region; otherwise a later repack underflows firstused
-> +	 * in xfs_attr3_leaf_moveents().
-> +	 */
-> +	if (usedbytes != ichdr.usedbytes)
-> +		return __this_address;
+Hi Florian,
 
-This part is clearly correct.
+> On Jul 7, 2026, at 22:58, Florian Westphal <fw@strlen.de> wrote:
+>=20
+> Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn> wrote:
+>> The "already exists" dedup logic in __nf_conncount_add() decides
+>> whether a connection has already been counted and can be skipped =
+instead
+>> of incrementing the connlimit count.  It compares the conntrack zone =
+of a
+>> list entry with the zone of the connection being added using
+>> nf_ct_zone_id() and nf_ct_zone_equal(), passing conn->zone.dir or
+>> zone->dir as the direction argument.
+>=20
+> Right, thats bogus.
+>=20
+>> @@ -211,8 +220,10 @@ static int __nf_conncount_add(struct net *net,
+>> /* Not found, but might be about to be confirmed */
+>> if (PTR_ERR(found) =3D=3D -EAGAIN) {
+>> if (nf_ct_tuple_equal(&conn->tuple, &tuple) &&
+>> -    nf_ct_zone_id(&conn->zone, conn->zone.dir) =3D=3D
+>> -    nf_ct_zone_id(zone, zone->dir))
+>> +    nf_ct_zone_id(&conn->zone,
+>> +  nf_conncount_zone_dir(&conn->zone)) =3D=3D
+>> +    nf_ct_zone_id(zone,
+>> +  nf_conncount_zone_dir(zone)))
+>=20
+> Should this be a simpler:
+>=20
+>                                if (nf_ct_tuple_equal(&conn->tuple, =
+&tuple) &&
+> -                                   nf_ct_zone_id(&conn->zone, =
+conn->zone.dir) =3D=3D
+> -                                   nf_ct_zone_id(zone, zone->dir))
+> +                                   nf_ct_zone_equal(&conn->zone, =
+&zone), IP_CT_DIR_ORIGINAL)
+>=20
+> ?
+>=20
+> The tuple is always the 'original' direction, so it would follow that
+> we should not care about reply zone dir.
+>=20
+> Also see:
+> =
+https://sashiko.dev/#/patchset/20260706114820.74006-1-zhaoyz24%40mails.tsi=
+nghua.edu.cn
 
-> +	if (ichdr.usedbytes > mp->m_attr_geo->blksize - ichdr.firstused)
+Thank you for pointing out this.
 
-This check is still novel to me -- neither online fsck nor xfs_repair
-check this explicitly.  It makes sense to me that usedbytes can't exceed
-the number of bytes between the start of the nameval data and the end of
-the block (the entries array grows up from zero; namevals grow down from
-$blocksize).
+We have published a v2 patch following your suggestions:
 
-I wonder, will this make it harder to salvage xattrs from a broken leaf
-block since the verifier won't work?  I think it won't because the
-salvage operation does an xfs_buf read with null ops, but I wonder if
-you've considered this point?  Or run this through the xattr stress
-tests?
+=
+https://lore.kernel.org/netfilter-devel/20260708052730.18354-1-zhaoyz24@ma=
+ils.tsinghua.edu.cn/
 
---D
 
-> +		return __this_address;
-> +
->  	/*
->  	 * Quickly check the freemap information.  Attribute data has to be
->  	 * aligned to 4-byte boundaries, and likewise for the free space.
-> -- 
-> 2.43.0
-> 
-> 
+Thanks,
+Yizhou=
+
