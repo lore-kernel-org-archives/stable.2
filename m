@@ -1,79 +1,63 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0175745104C
-	for <stable@vger.kernel.org>; Wed,  8 Jul 2026 12:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1811D44A730;
+	Wed,  8 Jul 2026 12:57:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783515459; cv=none; b=QXhYQUYCJOHEPKULGiCZXZwqXd/P82+9iVJkTZnFUrHBiX6w/m/dJm4s35d6qHLDer1dF0YYaYdC3+AZREAhUqTTiiswU72z+WmRf8GaEbCjw3Fwr8Fhpn4CA/um+7qhdQuaPoKFwWqiprtEWCjjF8qPZbn6vMR73vBuI3Yd3F8=
+	t=1783515473; cv=none; b=OS7qSHxeztliCJFP7lXX8Mse2EInjYAhjB8ky0sPSx+lUjzbWnp8KBgXN3wIc5fPencwBaAbI0qJwdd1sbVDTSQbtXFAVx0kPePxuhHLfJJw1XGNNt1wWzF2HqFVLJI71R26wA5uzB0VBALN5p5L9pU8KQ2A6RRkJyvqHw/M2Mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783515459; c=relaxed/simple;
-	bh=UrE93zXjZyxA/Ev+jUp9i7tYXbt2bq4qQ3/zk7AAZ7I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VghC6VOv/MPMxdpDEftiA9lyx+4Jr/yEUmfP8trd4tn5+R79whX+eObG+qMdLsyr6QdEl/J8s2mKoEASQbwg/w9JHwBuxbfj2/3A27wYVKDHyhn2tWa08C6P9JAI5jtl3v7+tuMrdR/uBroT7Vq4qr+czjA3P5jDyVznv7TNa1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F2Rt2U9X; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783515473; c=relaxed/simple;
+	bh=TiKzRJ8RNRuRP+na3GAk3iRiue5Rtif3hPJhjgyhPKY=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=QmWIi5q1U6zZdL5Xp9SAD2Se3E0w8/qCM6LBpSsQ0uXax3yPLFaHrBm1pDnCbi8AtwSVA+v7FV2/pBHiciYTP4kMCNLhcpY6PQOgvHWF6IVGUakZdoz9V290DpMV97xCp4fspHzJG4osIBq5c8gHvSeyOlalS0EwF8KPsc2gG1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=rnZLsPSf; arc=none smtp.client-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F2Rt2U9X"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2caea3f742bso11113025ad.0
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 05:57:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783515457; x=1784120257; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PTfotfcn9VWnxLom7GLVbOHjhNjkRdM3f9UH7tzHbYQ=;
-        b=F2Rt2U9XKAM3hMRLQF1GisrFP/4fiMdN+hbpU5NLCFLKPoFuZzggqgzoKuTS601P0u
-         uU8EdD4s6328oWb7byNj+Jmh5dKxZrtGPG0/5XSt1unRkTILF9jvumzLJdWzTCC7hYY8
-         VsT0y+fK1jsVUcIgMYCZGVSQGrQ9TB0Bl9gd4x28K7pz7aZ7SsJDEbOVNcjfYhTeKDp4
-         5FikvAYQNslmcrGFKHHynUxhlHyZKFo/OGGD+wZ7EgDKox5IpfnaKlBmFppFoUhHS69f
-         q6WQhrbcvMD2VxC7B666Eqr1ONp8UaDvto+y1BoGbwhnkpcBNjDLVVcXbjorKe948xXc
-         3AgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783515457; x=1784120257;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PTfotfcn9VWnxLom7GLVbOHjhNjkRdM3f9UH7tzHbYQ=;
-        b=DS/eTIaajOrANSuyEXzAXBOwaFCIKtPPKVxYsbmNGy4XlXlA4rYGOSpWzdyuedSkjd
-         MSzVguTkq2le4XmCT2yVGZyT+rP/CNd9RplrM2SBajqa6W4YdnM0CqJCw4G9wWUe/+BG
-         XjrT+on7hUFFpcYv5ullOOePOmZxNH6tkrHm6w7aIBPDbOqMYNtzmkk34vNQnNqRAIB1
-         Jw/5dy0RHesUXUBGlEg6DwYiQRZkCi/FyFru5o0xVm5vsvGv+RIK1vgYyZk7eBFsqaXU
-         iSYZuKcJ4rujHWmPbpX7zchx83S2a5WmogfF7p11NaeJU/4EQF5wgu984POfY4gwlsAv
-         1UFw==
-X-Forwarded-Encrypted: i=1; AHgh+RqPIayYFWPXwxepUF2lCnvg/afNMhbmrdnHD8lh/o3vAbxqNKn5mIhv6ys37BgmtnEgM2uWm6k=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfRkAmQadcP3qIQSwIE1DclIH9PhB09RMBrY8hNhLgwkhbYFVT
-	6KK84BtXUXwuvQXP74pVyU+KouLzQ+IdOlgpnHGbdx/B5lhN/vGX5G1p7R9+XYY1
-X-Gm-Gg: AfdE7cnM2wBjLvWtMKmXELkWtQ56ZKzzHVkQhckxpTEYSm8HecaDCNGm+snKolD/F3M
-	tekCpnMxFZ4vk16YwIX7Troy3mGXu86+oFa+X7T5xVJQowfMt5WB/u+6g4GRnjF5zpMoL2vVzoO
-	O6e4uJ9wZhmQcV+K07IebKLBEZFfOfWDBfY/L8YOh4Ipsfv2+FjbeGy51B5Sdr7QfqSb4vpHkhl
-	CCjTn1jIzUEZxYdBdqVJyrPaymWSxgqx+Cs7rZZ5Lt1TIfl1PbF1kpsPaUAZBG9DPCY8uZfnAtR
-	NGCcBRTTH5O6KVctJcobyyJm1ToQZS7P0TlC41WWHQYlcVI/tUQ4kPViPYMHkij52L9Ak5nJjaa
-	IAHkVddQ+U8Hzi2E2cCtdG84svy+dp0F1UMAby6HZGTZ8A09o/dLxHuXRkp7/vw8GxspuVKmn0i
-	em/+8k6PJeRq2xmh0bQJH/87cTMnxhqYh82Y4rOXVGnkI=
-X-Received: by 2002:a05:6a21:3383:b0:3bf:b960:6fc4 with SMTP id adf61e73a8af0-3c0bccd3a30mr3293274637.30.1783515457214;
-        Wed, 08 Jul 2026 05:57:37 -0700 (PDT)
-Received: from localhost.localdomain ([49.207.223.101])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174accae5sm30299087eec.29.2026.07.08.05.57.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 08 Jul 2026 05:57:36 -0700 (PDT)
-From: Biren Pandya <birenpandya@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	songjun.wu@microchip.com,
-	wenyou.yang@microchip.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Biren Pandya <birenpandya@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] media: i2c: ov7740: fix use-after-destroy in remove
-Date: Wed,  8 Jul 2026 18:27:23 +0530
-Message-ID: <20260708125720.27156-6-birenpandya@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260708125720.27156-4-birenpandya@gmail.com>
-References: <20260615210412.34567-1-birenpandya@gmail.com>
- <20260708125720.27156-4-birenpandya@gmail.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="rnZLsPSf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1783515459; bh=cz/Y3hOKbAXkKO1xXEKWfY4bB5PM8G0cZD2p9trRJgU=;
+	h=From:To:Cc:Subject:Date;
+	b=rnZLsPSfD/SyNFsC0mXGJ2upvic7IInyczFTrExkAorhx3L73mns7u9uaN7OK0Un8
+	 hK3YhQj3XFwDeLFAA5THJ/Drjv8M+4VUukxNCs1kq0LaMYPDADH2Pyzx61xCpJ9mle
+	 6ltOqEKZeXHPmeUzHbOzaTlFNu3f4InsF0ukE7BM=
+Received: from ubuntu.. ([218.196.207.7])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id E59B867B; Wed, 08 Jul 2026 20:57:25 +0800
+X-QQ-mid: xmsmtpt1783515445t88dlaecy
+Message-ID: <tencent_192F8A699EFD21126E02101131C9546F3C08@qq.com>
+X-QQ-XMAILINFO: M1rD3f8svNzn6R6CDNdZdzVbn6TP/hxkd1QIZrpTUUw304PbR8N7CQOZbtWIFQ
+	 S5wYVoURJ52hTUJ2qjFWdVlR2P9UKqBkA0WAIaoD06fXlsvhqmC30Pbm216egpoEx4ll9h7kHUH9
+	 gtLG0HJV9bXZUODahrB2htWM2FPEsOksFKsZj2SxbFoC4Cja5UDRkXaaC2dJEu3OX5T8WH1MjldQ
+	 QDqNQcEGP1xGId6NZzfQaia0X+c5iinw492ROWmHHBEY49Oj7PfXggXVHqmHwn8ygJEuZRQ/sINg
+	 PVlApL1G8cHjWhbytKpUNBdK3nberlVi2XSwoBIT9RUMZvDvAkeyURudlQ+Ekt4BItGA8IzJfv8r
+	 RG4f72ZEXS3TgbT2fIKf1lvvEYYEDokhlrd4WByUCPtv4dno4AAlPkuXHKnsDgd4wscMmPQx9Av4
+	 7YMOpUI1lgWcBfGQPmwXJk9BJbP5aoICetqIxpWJ7sYc10eudljueE5dIbAQoabLYCdQmHj+BpiO
+	 doh3aMzuzc3LBWTM7LSmd3sxbwxLaOG8DaXtCPNVREkGumpS/tE9NhT5x2NoQ9TvhjIB0trEVsXL
+	 TWnZFLvs4yuWBVwanmmgkH+bD1fjHH4M6SwNKHRgV4FRgMn6RZDzdFpzeHREg2dJZPlwmKogoCZ3
+	 9Z7YzRuvyRcHAFHfE1e7UFLba15hs0Xno+wxZKNQ1fbVFRisWcPRPViPdPPgVImUGtyPVQfTkyef
+	 klKzIsES+C9XJGiFoMxDqKJXALMw7JZhth5uZnTBlzBM4Jr2/njYocN56OxiP/Pwe+iSzL/CxZvz
+	 iDVZLBmex0pAUujzf7Jfra6rTmb4L/HK67AOcf9cpEpYpMrcgx0VGY52KGJy3maydyV/sS6RFUMt
+	 3OHutJ0yH8+H++aY98UJmi//kecU9VBiRe3kYIoZnWE6b+BDjCB73+LwZdiqQEZSlWvVyOsM1zKe
+	 4hTj9f9VhCHFUVZFimOObhidhuU8aT37YjqmkKU3XAtBOKu7yrmz7syE2OdKu6cJj4+bTL3cO2/g
+	 QV2GdlyZhd3OU8OtHs6ltzR6iL04JEvYbjeQ+Wv7t/e1KSW4hZc6bAlKb/HgNcim/zK1Z4Dg==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Guanghui Yang <3497809730@qq.com>
+To: Theodore Ts'o <tytso@mit.edu>
+Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Guanghui Yang <3497809730@qq.com>
+Subject: [PATCH] ext4: clear error before retrying inode xattr space fallback
+Date: Wed,  8 Jul 2026 12:57:19 +0000
+X-OQ-MSGID: <20260708125719.1031857-1-3497809730@qq.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,42 +66,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ov7740_remove() function had a severe teardown order bug where it
-destroyed the driver's mutex before freeing the V4L2 control handler
-which relies on that mutex, leading to a use-after-destroy kernel panic.
-Furthermore, the driver explicitly called v4l2_ctrl_handler_free() and
-mutex_destroy() sequentially, but then called ov7740_free_controls()
-which invokes both of them a second time, resulting in a double-free.
+When ext4_xattr_make_inode_space() returns -ENOSPC,
+ext4_expand_extra_isize_ea() can retry the expansion with
+s_min_extra_isize.  If that retry succeeds by finding enough ibody free
+space, control jumps directly to the shift label.
 
-This patch fixes the issue by unregistering the subdevice first, and
-relying exclusively on ov7740_free_controls() to safely tear down the
-mutex and control handler in the correct order.
+The previous -ENOSPC is still stored in error in that path, so the
+function can update i_extra_isize but still return -ENOSPC to the
+caller.  Clear error before retrying so a successful fallback expansion
+returns success.
 
-Fixes: 39c5c4471b8d ("media: i2c: Add the ov7740 image sensor driver")
+Reproduced with an ext4 image using 1 KiB blocks, project quota support,
+256-byte inodes, and min_extra_isize/want_extra_isize set to 32.
+FS_IOC_FSSETXATTR failures dropped from 802 to 86 after the fix.
+
+Fixes: 69f3a3039b0d ("ext4: introduce ITAIL helper")
 Cc: stable@vger.kernel.org
-Signed-off-by: Biren Pandya <birenpandya@gmail.com>
+Signed-off-by: Guanghui Yang <3497809730@qq.com>
 ---
- v2: added Fixes and Cc stable tags.
----
- drivers/media/i2c/ov7740.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ fs/ext4/xattr.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/i2c/ov7740.c b/drivers/media/i2c/ov7740.c
-index 2d29147c0f647..b4e14171556f9 100644
---- a/drivers/media/i2c/ov7740.c
-+++ b/drivers/media/i2c/ov7740.c
-@@ -1116,10 +1116,8 @@ static void ov7740_remove(struct i2c_client *client)
- 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
- 	struct ov7740 *ov7740 = container_of(sd, struct ov7740, subdev);
- 
--	mutex_destroy(&ov7740->mutex);
--	v4l2_ctrl_handler_free(ov7740->subdev.ctrl_handler);
--	media_entity_cleanup(&ov7740->subdev.entity);
- 	v4l2_async_unregister_subdev(sd);
-+	media_entity_cleanup(&ov7740->subdev.entity);
- 	ov7740_free_controls(ov7740);
- 
- 	pm_runtime_disable(&client->dev);
+diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
+index 982a1f831e22..9da5dfcea7b8 100644
+--- a/fs/ext4/xattr.c
++++ b/fs/ext4/xattr.c
+@@ -2839,6 +2839,7 @@ int ext4_expand_extra_isize_ea(struct inode *inode, int new_extra_isize,
+ 		    s_min_extra_isize) {
+ 			tried_min_extra_isize++;
+ 			new_extra_isize = s_min_extra_isize;
++			error = 0;
+ 			goto retry;
+ 		}
+ 		goto cleanup;
 -- 
-2.50.1 (Apple Git-155)
+2.34.1
 
