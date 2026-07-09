@@ -1,216 +1,273 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010062.outbound.protection.outlook.com [52.101.61.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5622727FD
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783603157; cv=none; b=KfnRBPRvqMbocfTYlioKAelLXYKMYOI31rFS2Zb18l72YJCkG5p8kY9MZF1lRJJjVc7n5VpNgET2lRbyIlVlIWz+ii5sWHpr0kpLBN20wrvjEQIMCLcjLWlm5mHiH9J/zTku1U0PPwveBBSD7VfryQ0Ntdl4uEPv7A1Y5SgpvTQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783603157; c=relaxed/simple;
-	bh=T2u541qQ+z0RnOgRw7bMFV+eieAFDFj+xTZQdyN6NUA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rvH0kPej4bd0WBm2im5X2trg2/mpqEkJ49chpY/4vJ6k4gXTG1KQfs86GEH9L2dWOV8JQytjreBzjQvVGau1uCBtSJg5xmYAsknWHHL638XvjP+/fDqYXHX4j73nU4/s47+yvCiYaZWGGr3qqKLhmvzB70Gnx7BebR2USY0UemU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l6/Mznt+; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AA327EFF7
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783603527; cv=fail; b=n9vam5MM/W6wJaU2ux5/lZHtDyf8uqzZxoasIfVyrFjG6lCaHob4AqDayvxRJ+sUrCmDpdZICgWmhNvVrwrMqTAsv+IfWBEkYdDWYZALnOh0zSSLkaLGG9wevaK6TWfiUhm2NZBwYW0S01wr/LWkj2sLxX4uZloHqznd2+dRr0U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783603527; c=relaxed/simple;
+	bh=ixZI3sfo5SEzOLzGgNAD3u/fQ6EPAZRtRlTetQQBdY0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Uood6WvAWxy0tMjZAV0Yb/OzKXMKTXPeHZ+7pMY5ttESLk5jxmMKOQ8KvG0+hR8hbeVQy/sL/74WD8eT9US5rGrRxKzbdtjQhLq0R98sucDnE25BtOODbBhS2jq6yZMIbnrOeaNROMSJiX3yKXtT2qGtuxx2lnpCDqYNuqO73/Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Vzc+wHVN; arc=fail smtp.client-ip=52.101.61.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l6/Mznt+"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c96cb024ee0so570084a12.1
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 06:19:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783603155; x=1784207955; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m7teN60MU+Gp3txyOBv3fyoxyVU/6erlMzYso9Y2plQ=;
-        b=l6/Mznt+FGL/bWtEUKO3r2NizjJJevQ9Gq1H+lIT6FNmQnaeu2CWVEkqlBjNwuvtRR
-         WLR177Hmquwc/TxwcEPyetBSK0LW6CECzJns0Esh6bKEKmjXYOFjAzG8IQ9PDASO/vrE
-         TScS64zKMi7ulSP3SKjQ2AddN1vkvFvQzJwbSZwPsvN4HaBVl4KxubwaVeiBCSd+hgKM
-         SFYKssapZldO4tXcsvNaUl6UTb/phZwv147+ZtfvGGsPtgYttBR46uB/yBleqs48gwl2
-         haPdH2SdVbly/aFPdvHW7Boojp2itGJwpFb+dZb5QaPsy4jLqOUnb6RU8OKzrXN3YQ/B
-         k4Zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783603155; x=1784207955;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m7teN60MU+Gp3txyOBv3fyoxyVU/6erlMzYso9Y2plQ=;
-        b=eZEY9VNdlwykNew/PYAKGOt7CcG9gCMcKDRXKmgrN1HKEP16kpOgXCNutIYEJxmItQ
-         hlRvb2GqvVHVepVGEvf9mcz8aVCI4qGmUOE1DTu420LfazyR3WPYsSjsz3bOZdDKo/h8
-         O0H2OCEw1FRn0aG2E7ehMM6g6rletYbMIP8QX9Di9L0J6zE5DkMNuo0anjgb7Xh/nhgx
-         MRKj5hTWGA9IpEf6Z6z9BVjR247pPAVCbtegHPgBJ5DZZmtVD1ZIHykyAbnAuWnOWZVf
-         0QI2ydYhLhpEnP/Vk1r5ZxYKhrS7P0WtEWuO8ySV0ARMe+yuuSuZiHML4c3Zd3r2ehY6
-         lTPA==
-X-Forwarded-Encrypted: i=1; AHgh+RqZlnokCNSDghUjQb7zB2lcYpY5GOUFbR62p0bgUxRcU0SAof2TAukTy642g99QZ7/WC0f0sZU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/UPjWX0sQIflcmeDFYe8zG6GfjIpuu5to9heUusyeptWJpnAy
-	KnDcRoSZR92oAs+8JrOfUCreX/oYzqmuXmcDUKzghcZAbjrSCLlxX9ixZ3/4qpr/hQ==
-X-Gm-Gg: AfdE7cmSE4ewtvRioIaf0Bnjl80mXdXEQ8FOh8f4uOUTKkzuJ1Q1P0ApdM9Pz5/1/Jc
-	EQrIsTvx62MuF8Aeg5kiD2mAOrbiBCSJbmM17XcPywCYLnxHj9lEMDskWVs5p/+5c8p57fre1av
-	3aihcleSn2iTtDJbu0bIe4eZ51SztXLqyGasUZSS+WhGy1ZerYa8QJCQR8ggkfREPCypDIeVWMT
-	nk3MFcP8725At/T6ggTnKOQmmna5x/1QIC3aNZywpjtMZjueQicvn6ENEvluclqpAv6jW0j5fpI
-	2kdI69TNRaSSW0vhit7i8AEOSW/wBExvOb3AvtatrXwdPjmbwhX9cljGyH/pb9SXbrHfTIgq1zi
-	bTTzBP9NqCgGeOWjG3Vl+Xy89oFJCBhKr6VqFnY/n+A53Cci7F3/VzC9EwcwVxe16mOaq+6SLH0
-	imqaYx1iUCgUd5rqqeC7Z85NgoSST/HeC5//se577Ykbzjn8mWb23xrlvXMbCDCbJo
-X-Received: by 2002:a05:6a21:3a85:b0:3c0:9c18:d5ae with SMTP id adf61e73a8af0-3c0bd23f657mr8729454637.75.1783603155192;
-        Thu, 09 Jul 2026 06:19:15 -0700 (PDT)
-Received: from coe.tail83f5bd.ts.net ([58.146.106.120])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174ae6cd9sm33960852eec.31.2026.07.09.06.19.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 06:19:14 -0700 (PDT)
-From: Ramesh Adhikari <adhikari.resume@gmail.com>
-To: colyli@fygo.io,
-	axboe@kernel.dk
-Cc: gregkh@linuxfoundation.org,
-	linux-block@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ramesh Adhikari <adhikari.resume@gmail.com>
-Subject: [PATCH v6 2/2] badblocks: validate sector range and shift before rounding
-Date: Thu,  9 Jul 2026 18:49:04 +0530
-Message-ID: <20260709131904.596684-3-adhikari.resume@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260709131904.596684-1-adhikari.resume@gmail.com>
-References: <ak9CC591ivuQ4BP1@studio.local>
- <20260709131904.596684-1-adhikari.resume@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Vzc+wHVN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Lx4f3R0lTjYrkpAhOVQfd9BqsisUrQkZr3sooGVQtXf6UkaRQ5EDJi4QxIb5YI2TgBX8YaEIvX1xcLBgrtoAKgNGtCWbvJDovtdKh+YABUlP5FPBTrEUFqWbEA/A+7b7LHonQ8O/vKrBK4i+eeC2qOPc8CJ/sJJffkDWcjc1yuU82AQ/QDBIGf0nYnM55EKw5jHb0qaTpA5ymo7BHG8qSi58gXTnH3UzYDF67cdxLvHUq/GVCWugykxc1xGSB7O0HmBFzjRNS2nKTDb1Sohy53nPmOkHcskXtF6IV+9PmFYeSwcZrzMyeknlAB1UKJ32BHxVlqu8UNf7YkfNjpbJLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b/5mbhNJY2R9wCWXsaNZtVfd9KVVyDCznpKfy0iPt0M=;
+ b=VgX4i76q/nilX9VK5053skI/u4m3+xzMheaey8AJsdPMdFxU8fPm5HS7sUkqQeZmiKdl1hpgxdoVZuH4ck9xDgN6dAJfClD8TMdYJAFv57b3LW1sbqItoZJ1pLrte7R5UmXcWgfnGzDGZ3wEFFhYeZPyRgapa+jvh99J2ECje+NIq7npQUH9uM8Qh9kbFNO/3MWM6DZmQSL1ymSWn+Xcu4WYtgOBt4AiC8BNU80Cmg4L1ZcBfy1VJZNcq4NxJWeXkerfzucEsbamurdv0Ql/b7vaGxo747Mxc5KrW3p2aqNrWqOjZcUDenf56eCh3OeQMmQUQLVtWOh6NG9doMY8kw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b/5mbhNJY2R9wCWXsaNZtVfd9KVVyDCznpKfy0iPt0M=;
+ b=Vzc+wHVNJ1L8hIY8ZF80eZFGKgBc0k+jNNxLNDdmoikuzpmpJbepuk4oLtM7hNPyewsbnqwzO7VZRYdLQN0pIvOVet7eiXw5hk0uHi/l5qF15eRnajCIpzLcHQ3K8Wm8jhKoLq4C8KmLZc0ZJzxzRVNKbrkwu2IMzxi9SAIOqmc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH0PR12MB5026.namprd12.prod.outlook.com (2603:10b6:610:e1::14)
+ by CY8PR12MB7561.namprd12.prod.outlook.com (2603:10b6:930:94::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.16; Thu, 9 Jul
+ 2026 13:25:18 +0000
+Received: from CH0PR12MB5026.namprd12.prod.outlook.com
+ ([fe80::a495:f203:dd7a:3e25]) by CH0PR12MB5026.namprd12.prod.outlook.com
+ ([fe80::a495:f203:dd7a:3e25%4]) with mapi id 15.21.0159.016; Thu, 9 Jul 2026
+ 13:25:17 +0000
+Message-ID: <2b749a44-d8e1-4faa-a249-3859e51c6056@amd.com>
+Date: Thu, 9 Jul 2026 18:55:10 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] gpu/buddy: bail out of try_harder when alignment
+ cannot be honoured
+To: John Olender <john.olender@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, stable@vger.kernel.org
+References: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
+ <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
+ <edcfd337-2cba-49da-a77e-3a2f8aa67e4c@gmail.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <edcfd337-2cba-49da-a77e-3a2f8aa67e4c@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0245.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:223::8) To CH0PR12MB5026.namprd12.prod.outlook.com
+ (2603:10b6:610:e1::14)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5026:EE_|CY8PR12MB7561:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8d4e1ef-f0bc-4298-2cd9-08deddbd8442
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|4143699003|56012099006|11063799006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	0UGt6rvtkGBffiTIOi/s0Az+Q3KyGMgjmOramdbrzgSmC8jvPgfV2imuoxEXrJ7Nr+EPC+DaTn+OMnYbjKkwpLAts5B+eTp75mh3FWrPLq8umngy+TfC6Gwxc1qy7dnj6rQc6Pxzj9G8HSOig+s3be5R7SgAinRAMfvx/lAkQKSBpFlIENV0dHuQUuHOgodP8W/DjtblEVhkK8JCkD5wcYT3bAOZ2200yTJWnKfQh43Ixn/dCMOA/dsUHjaH7nFFXM6ohcu4Og6ZShxN5KplKwXgtXX9XnzSG35KayRfcCwcadLM/po31UDyjYnJaNh+Z2WvrsXDAzy8DR9hmV+MPq+OwowTVxKoEI2qEXPubDfKnzVFqeWDhTsoeBqiEfJN5u7hhlh3WyZzaRSAluK9zXPalqZc6iSX0rTYD5RdseMMSrpTysAkoozPwSRlC38lprQbarouEZqQAa9eF9mugvbASsA32LlXXbzfeksq+Ilw2uv5yIj3lAPQzcGfTXiuRKtkx7NH+IZcX8kCsWdJ7LetjduX3kcoK7VDkiavx8hnM0hXVprv8iYzJm+P27JXTR+1BiupLU/jFHOMaEf5uaDrNfi7NCTfeLzcJCUDbSUoeUe/TTW54smpCwY6ytg5UfY2bPgI9/P5fl3ynmsqDMic4YAmJ3rmILLYzJczbjk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR12MB5026.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(4143699003)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S3E3Y2QrcDk2K1kwSVdkQzBZVG1OYVVuZmxadVhNT09DQS9hZWVvRSsvL3FR?=
+ =?utf-8?B?UnR5MFVBemdxQWtsR1VaUHdaVXZPYytyVzlQL0lyNHJpOHd5cU42VjFtQUZn?=
+ =?utf-8?B?UFlUOGNIWG1QOUZ6aDQ2VExiYnNWc1JGQ1ErTXhhbnZwam1XZTFLa0dJS2o4?=
+ =?utf-8?B?OHJQVzFFWmZsMlJibTlwU0hFWllhWDRqU0JIVWhKSEhBb0NoOGRKOGRCdi8y?=
+ =?utf-8?B?UFNrSTBMY3ZkdUVtQTBuQXk4cUlzcVoxTm9BMElRT2NrTTIvNk93TlUrR0ZX?=
+ =?utf-8?B?enFMYTRYcVQ1aHp0NXRITVpUS1ZzNTllbis5dUtPQnY1dW04M3dEaGhsV1pw?=
+ =?utf-8?B?S0pFNm44TktLeUZoekk0R3NCNk1sTFBjUWZzZThOQzNMbngwS2wzTVlOc2Rt?=
+ =?utf-8?B?ZjZZdWsvcUh2K25hTHN4V2NzeS9Db0lEOHpKQS8rVnV6ZG9BbzRHTFQ0UmE4?=
+ =?utf-8?B?UURlWHIydFl6VjViMUQxVGlPMWZuSjdTMTZjSWN4dmNraklnV3RwWmZYYnAy?=
+ =?utf-8?B?Wm5YNktEeXdCMDRnVGVaSHlqK1hkSHFBc2FoTitVK0c0OGZzbXJzNEVoRnA1?=
+ =?utf-8?B?bkFGc1RJMUpnT2YvQm4vVCtRNHBXY0lLZkEzL2dkTzM2SWxIQVk5eXJOSnds?=
+ =?utf-8?B?ZDgyU3VTbzJJdmwrcjBSNjlaeno1enVBUHVkMDJqT09YSDVIYUE2SWRqaE0r?=
+ =?utf-8?B?M3NCMy9TWEU2NnNlMnpoR0loZURBbXNyTVI5a29rMThxelJIcG9KQ0dhdkV4?=
+ =?utf-8?B?OTR1OE9UVFJMY28xc2VQSi83ekpSRmIwTmUxZ0pKL1V3amRSelh6TDZ1bTFv?=
+ =?utf-8?B?NndISzNjZERsekQ5Y2lnM0NSMXJDV0JvbzMrV2VpUGRhZTZKbzQ1TFZBcWJG?=
+ =?utf-8?B?ZFdibGhaMFFlWVd2UGJwdURGWm43YitJNHlHOENycmZGckRzTVpHZXUwT0Jl?=
+ =?utf-8?B?UkVRdEEwcFdZYnFhN0M0R085SzZiOENKWFMvSll3YlhvYnRWUnRqcDVxckoz?=
+ =?utf-8?B?OTdoV0Z6NURyU2QvVVRQKzgrbnRSUEI0cDZ0MjdKUkJ5UUFzY25pTzlHeEZV?=
+ =?utf-8?B?OXVvVENYVlhHRThrV1ozYXJ3QnowQzVBQVJ1UjFTTy9Ub3pUdjVMSGxxKzlk?=
+ =?utf-8?B?empSWVVUcC9zUEdzMUdLYXB4VlF1RXFKRlhpUUQzd3E0U0FFcDBtbzAwK2tK?=
+ =?utf-8?B?Z0lnd3AxeG93VnIyTWtQck93OVhDWVZBNXpyMU45QnFzL2RBcSs4ekk2VU81?=
+ =?utf-8?B?VDQ1bjZUWkZWM3BBbm1GNHpWZGhXYzZLbEh4L0Myc0dZRDB1NE9lRTdvemFN?=
+ =?utf-8?B?ZlBFQ3Q1RC9jL0xnbnN5aGkzenZ5eDdJU3hxd25LYnJZdklYMHpkVHczM1JC?=
+ =?utf-8?B?R1FWampWb09pWHE4YndSR3BLdm5TL3p3T3BPRTRqQzR3L0lSKzdCVE1DUTlB?=
+ =?utf-8?B?djQ4MDJpdVNrVnB3OWdRTVJ0eEp6bkUrRTZJQjFBZ2lUVzBhQmtBTk11SWR0?=
+ =?utf-8?B?VTJhUElUaG1HOXo0YVVkbmxpVkZjTkx3T1dJV2tVckZKWkdIR2VxdmNQeTJK?=
+ =?utf-8?B?T090TU9vYlowRU9YcGtLdEpNbmJwV1dDZ0hzWUQvWG1uOVNGblk0Uy91RHEv?=
+ =?utf-8?B?MmcwSHBQZE1SSlRUbzFuVFFJQ0xtdmZYUXZ1RTZJM1draHFldnlTeTQzN2Jk?=
+ =?utf-8?B?ZGQyUkFnRUMrR200WlJFTE0wQng2Z20zdm1NMkxSMHBZelR5QkJQZG1Kc0tN?=
+ =?utf-8?B?Wml3R3dwdE5OdmZ5bEU1TzFocGZmd1VIcThJV2lIZFlsb2JKd0xob0ptazVL?=
+ =?utf-8?B?YWZ1N2tzd2E5UzFwcmFwa05EYkhndW5EcDBBelBjNGhVeStMaGtsOGNsTFlP?=
+ =?utf-8?B?VHdjbDlaODJpVm44a0QzQVNCQVFIRXptTTA5aTMzWjN4WGhoRGNmRmF0TEt2?=
+ =?utf-8?B?TCtCZFBTc0hIQi9OaEhnMXk2U29xYll5VXM5Y2l1ZkhjZDFrT2xxVGdPd2px?=
+ =?utf-8?B?RThiQ2diSEhkWThCRmxoY3lDSFFQa0gvSEJ6U1UxN0ZMVnkvQjFUMklyMTZq?=
+ =?utf-8?B?TlFnem1UU0JFem5zMUFGSUxxYmEweFpDcmZ6cEV1MHlNMmdPVldNOER3RUlh?=
+ =?utf-8?B?V0U2amZLbDNXWTlUS3RuNkRlNUkzZjl5TjY2cUVaZnJFMXdJbzVYSlhUZitF?=
+ =?utf-8?B?eUV4dTN3VUEzL2NmaHg4THBhUnRoQkVSUlF1emFlakpSbHNXUE5hQmxsKzBX?=
+ =?utf-8?B?SEhOVndPQURoeityYm84MWFHWXppK2NhN1BuWHdUOFFEY0pZR09zZm9tQW5k?=
+ =?utf-8?B?Zmx3NFVuTWk4NENab1Bva1FTQlM2Vmt0bWZWbS9qVUZNRGpDbURBdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8d4e1ef-f0bc-4298-2cd9-08deddbd8442
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5026.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 13:25:17.5141
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ce0/jJeuiVKEMX/CgrN1EOoyEoJvnX8/epXplaGiXkSdRZEHqEyfY1Z48QN8HGrhTS3UbooggqkWvVLV96IpHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7561
 
-_badblocks_set(), _badblocks_clear() and badblocks_check() round
-the caller-supplied [s, s+sectors) range to the current bb->shift
-block size before touching the bad block table. That rounding
-was not defensive against a few cases:
 
-- s + sectors can overflow sector_t (u64), wrapping the range
-  end before it is ever compared against s.
 
-- bb->shift is a plain 'int' field, populated in one case
-  (drivers/md/md.c, from the on-disk superblock's bblog_shift)
-  straight from an unvalidated byte with no upper bound. Shifting
-  by an amount >= the width of the shifted type is undefined
-  behaviour in C; "1 << bb->shift" was shifting an int literal,
-  so this was already undefined for bb->shift >= 32, let alone
-  the full 0-255 range bblog_shift allows.
+On 7/3/2026 6:05 AM, John Olender wrote:
+> On 7/2/26 6:48 AM, Matthew Auld wrote:
+>> On 29/06/2026 08:43, Arunpravin Paneer Selvam wrote:
+>>> The try_harder contiguous fallback could return a range whose start
+>>> offset did not match the caller's min_block_size. When a candidate's
+>>> start is misaligned, realign it: free the misaligned run and reallocate
+>>> exactly @size at the next lower min_block_size boundary. This keeps the
+>>> returned size unchanged with no surplus to trim, and rejects the request
+>>> only when no aligned candidate fits.
+>>>
+>>> v2: align misaligned candidates down to min_block_size instead of
+>>>       bailing out, for both the RHS and LHS paths (Matthew).
+>>>
+>>> Suggested-by: Christian König <christian.koenig@amd.com>
+>>> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: Timur Kristóf <timur.kristof@gmail.com>
+>>> Cc: John Olender <john.olender@gmail.com>
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Merged upstream into drm-misc-fixes.
 
-- round_up()/round_down() rounding a value near ULLONG_MAX can
-  itself wrap back to a small value, so even with a valid shift
-  the rounded end of the range could end up smaller than the
-  rounded start, silently turning a small range into a huge one
-  (in _badblocks_clear()/badblocks_check(), which round the end
-  up) or losing the range entirely.
-
-Add an explicit s+sectors overflow check, reject any bb->shift
-that is too large to shift a sector_t by, cast the shift operand
-to sector_t so the shift itself is never performed on a 32-bit
-int, and detect post-rounding wrap by comparing the rounded
-result back against the pre-rounding value.
-
-Suggested-by: Coly Li <colyli@fygo.io>
-Fixes: aa511ff8218b ("badblocks: switch to the improved badblock handling code")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ramesh Adhikari <adhikari.resume@gmail.com>
----
- block/badblocks.c | 52 ++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 45 insertions(+), 7 deletions(-)
-
-diff --git a/block/badblocks.c b/block/badblocks.c
-index 1f786b193fb..00a59729600 100644
---- a/block/badblocks.c
-+++ b/block/badblocks.c
-@@ -853,12 +853,23 @@ static bool _badblocks_set(struct badblocks *bb, sector_t s, sector_t sectors,
- 		/* Invalid sectors number */
- 		return false;
- 
-+	if (s > ULLONG_MAX - sectors)
-+		/* Range wraps past the end of sector_t */
-+		return false;
-+
- 	if (bb->shift) {
- 		/* round the start down, and the end up */
- 		sector_t next = s + sectors;
- 
--		s = round_down(s, 1 << bb->shift);
--		next = round_up(next, 1 << bb->shift);
-+		if (bb->shift >= BITS_PER_LONG_LONG)
-+			/* Corrupt/unsanitised shift value */
-+			return false;
-+
-+		s = round_down(s, (sector_t)1 << bb->shift);
-+		next = round_up(next, (sector_t)1 << bb->shift);
-+		if (next <= s)
-+			/* Rounding wrapped past the end of sector_t */
-+			return false;
- 		sectors = next - s;
- 	}
- 
-@@ -1061,7 +1072,12 @@ static bool _badblocks_clear(struct badblocks *bb, sector_t s, sector_t sectors)
- 		/* Invalid sectors number */
- 		return false;
- 
-+	if (s > ULLONG_MAX - sectors)
-+		/* Range wraps past the end of sector_t */
-+		return false;
-+
- 	if (bb->shift) {
-+		sector_t orig_s = s;
- 		sector_t target;
- 
- 		/* When clearing we round the start up and the end down.
-@@ -1070,10 +1086,21 @@ static bool _badblocks_clear(struct badblocks *bb, sector_t s, sector_t sectors)
- 		 * However it is better the think a block is bad when it
- 		 * isn't than to think a block is not bad when it is.
- 		 */
-+		if (bb->shift >= BITS_PER_LONG_LONG)
-+			/* Corrupt/unsanitised shift value */
-+			return false;
-+
- 		target = s + sectors;
--		s = round_up(s, 1 << bb->shift);
--		target = round_down(target, 1 << bb->shift);
--		sectors = target - s;
-+		s = round_up(s, (sector_t)1 << bb->shift);
-+		target = round_down(target, (sector_t)1 << bb->shift);
-+		if (s < orig_s || target < s)
-+			/* Rounding wrapped, or range collapsed */
-+			sectors = 0;
-+		else
-+			sectors = target - s;
-+
-+		if (sectors == 0)
-+			return false;
- 	}
- 
- 	write_seqlock_irq(&bb->lock);
-@@ -1303,12 +1330,23 @@ int badblocks_check(struct badblocks *bb, sector_t s, sector_t sectors,
- 
- 	WARN_ON(bb->shift < 0 || sectors == 0);
- 
-+	if (s > ULLONG_MAX - sectors)
-+		/* Range wraps past the end of sector_t */
-+		return -EINVAL;
-+
- 	if (bb->shift > 0) {
- 		/* round the start down, and the end up */
- 		sector_t target = s + sectors;
- 
--		s = round_down(s, 1 << bb->shift);
--		target = round_up(target, 1 << bb->shift);
-+		if (bb->shift >= BITS_PER_LONG_LONG)
-+			/* Corrupt/unsanitised shift value */
-+			return -EINVAL;
-+
-+		s = round_down(s, (sector_t)1 << bb->shift);
-+		target = round_up(target, (sector_t)1 << bb->shift);
-+		if (target <= s)
-+			/* Rounding wrapped past the end of sector_t */
-+			return 0;
- 		sectors = target - s;
- 	}
- 
--- 
-2.43.0
+Regards,
+Arun.
+>>
+> I haven't hit any issues with this revision during testing.
+>
+> Thanks,
+> John
+>
+>>> ---
+>>>    drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
+>>>    1 file changed, 44 insertions(+), 19 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+>>> index dc81fe0301ce..3c73ae87f3c5 100644
+>>> --- a/drivers/gpu/buddy.c
+>>> +++ b/drivers/gpu/buddy.c
+>>> @@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+>>>                     blocks, total_allocated_on_err);
+>>>    }
+>>>    +static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
+>>> +                    u64 unaligned_offset,
+>>> +                    u64 size,
+>>> +                    u64 min_block_size,
+>>> +                    struct list_head *blocks)
+>>> +{
+>>> +    u64 aligned_offset = round_down(unaligned_offset, min_block_size);
+>>> +
+>>> +    return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
+>>> +}
+>>> +
+>>>    static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>>>                         u64 size,
+>>>                         u64 min_block_size,
+>>>                         struct list_head *blocks)
+>>>    {
+>>> -    u64 rhs_offset, lhs_offset, lhs_size, filled;
+>>> +    u64 rhs_offset, lhs_offset, filled;
+>>>        struct gpu_buddy_block *block;
+>>>        unsigned int tree, order;
+>>> -    LIST_HEAD(blocks_lhs);
+>>> -    unsigned long pages;
+>>>        u64 modify_size;
+>>>        int err;
+>>>          modify_size = rounddown_pow_of_two(size);
+>>> -    pages = modify_size >> ilog2(mm->chunk_size);
+>>> -    order = fls(pages) - 1;
+>>> +    order = ilog2(modify_size) - ilog2(mm->chunk_size);
+>>>        if (order == 0)
+>>>            return -ENOSPC;
+>>>    @@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>>>            while (iter) {
+>>>                block = rbtree_get_free_block(iter);
+>>>    -            /* Allocate blocks traversing RHS */
+>>>                rhs_offset = gpu_buddy_block_offset(block);
+>>> +
+>>> +            /* Allocate blocks traversing RHS */
+>>>                err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+>>>                                   &filled, blocks);
+>>> -            if (!err || err != -ENOSPC)
+>>> +            if (err && err != -ENOSPC)
+>>>                    return err;
+>>> +            if (!err && IS_ALIGNED(rhs_offset, min_block_size))
+>>> +                return 0;
+>>> +            if (!err) {
+>>> +                /* Allocate the unaligned RHS offset using round_down */
+>>> +                gpu_buddy_free_list_internal(mm, blocks);
+>>> +                err = __alloc_contig_aligned_retry(mm, rhs_offset,
+>>> +                                   size,
+>>> +                                   min_block_size,
+>>> +                                   blocks);
+>>> +                if (!err)
+>>> +                    return 0;
+>>> +                if (err != -ENOSPC) {
+>>> +                    gpu_buddy_free_list_internal(mm, blocks);
+>>> +                    return err;
+>>> +                }
+>>> +                goto next;
+>>> +            }
+>>>    -            lhs_size = max((size - filled), min_block_size);
+>>> -            if (!IS_ALIGNED(lhs_size, min_block_size))
+>>> -                lhs_size = round_up(lhs_size, min_block_size);
+>>> +            if (size - filled > rhs_offset)
+>>> +                goto next;
+>>>    -            /* Allocate blocks traversing LHS */
+>>> -            lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+>>> -            err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+>>> -                               NULL, &blocks_lhs);
+>>> -            if (!err) {
+>>> -                list_splice(&blocks_lhs, blocks);
+>>> +            lhs_offset = rhs_offset - (size - filled);
+>>> +
+>>> +            /* Allocate the unaligned LHS offset using round_down */
+>>> +            gpu_buddy_free_list_internal(mm, blocks);
+>>> +            err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
+>>> +                               min_block_size, blocks);
+>>> +            if (!err)
+>>>                    return 0;
+>>> -            } else if (err != -ENOSPC) {
+>>> +            if (err != -ENOSPC) {
+>>>                    gpu_buddy_free_list_internal(mm, blocks);
+>>>                    return err;
+>>>                }
+>>> -            /* Free blocks for the next iteration */
+>>> +next:
+>>>                gpu_buddy_free_list_internal(mm, blocks);
+>>> -
+>>>                iter = rb_prev(iter);
+>>>            }
+>>>        }
+>>>
+>>> base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
 
