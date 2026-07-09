@@ -1,132 +1,125 @@
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9DB19AD5C
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 05:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783573273; cv=pass; b=aX/48ld1imTfjhIZGvxkWuxSh3457giUFpvACsqumG24iW7f04NxAJ0ObfK/l6yJbmmxn614C1bCFI7V+8NKtTgxcQSMcfQYfJSGGVs8Pw4cD32R3jgMyfrRGbgGuHgC/5gBI0otXxipqsD35NkDu4IGBpyo7FO9lBb8TuZY4HE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783573273; c=relaxed/simple;
-	bh=PE2w4MndJBd7nMcxqSOA8zuq4uvBlrhJX9KZ4PJ6jyE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YKTd8PTDYq+Pdax27WavO3vkbbrDMBavtQouwEXX2sZ4IJkBH3Fzp3lF8BrtDM2CsIyFnQFJFmnCs8cFhcJWUWWBbZaCGF5yhYNSlf/YnKYakNqHolp4ooNhpmvJ9KZDPg0FwiY89QV3DJjr+WrmMI+Ty93YAhBhmQeqBMHw8Ds=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FlnkIQXv; arc=pass smtp.client-ip=209.85.160.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16737335BA;
+	Thu,  9 Jul 2026 05:10:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783573840; cv=none; b=hH4tRaNg8rgVEc4R0JaluteB9CQDt9OmA6o52qdga1EecWz4gr1txF6oty8Lgy9ckhKQkg2Va2QHadXji7AuVG2nBzHL14NT10RO4j33Fc0qmqYWBiIOt0BwwXvMAzAOhs14XQOVUd+moiQvQ6iRLXi5WgfiRlFd8YVOWoeYgZE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783573840; c=relaxed/simple;
+	bh=bArJglugTDLUlyd3Jz+IwTeXArCFn6FuYJvM3Mnzbw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NSfMUoSv4yldz0b+YFXXWBWyOp15tLwULqXVLcmh7/i0ohiPCsTuYKJvjlJVNsm7eKmzCaNlHvYHYIkuYZXrHpD0l8VPgOFk0B78Fe+vbT2ipqyVdK3OaDvRY7ikhg9JX9JcrafmMIkSRXiALN6ZFeTss0EIut81h8ekAp13zns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=rAleO5IA; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FlnkIQXv"
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-448b89f700fso715006fac.2
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 22:01:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783573271; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f4PFt3mFErGM7092ZWZW3BptE4PhCDoF9ra23S3/BJsBowk6PklMS1PoWsWJLlDIsQ
-         FnA/emzCfzDTIxkuwkr9vbCaeeAlkcPTu+RnTSh6F7i7yGOmTK3IUKk8R3Y4iZcWbm/R
-         29l+WzGpAkKHghyBqWIhZM2mfYpyvi3BR4QNwvznKrdgf3h3W3lCWqkaClkb53B5CGJf
-         n4F009O1MT9TKVa2LScDrYEloLlx5qNBxlynehvtOHX2jp/UhV5Mvs6bUZdQrgnEnBr6
-         XlpgP6uFKufdMSM8RggEkSmkzXKN3SFiEwNvrKSZPJVVI89ukkOQXSwLcnlUsde81Tjz
-         uSCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=I+YN7IrDVlSPz87t4MbjMgkDzmRT5Xlf/Rvnd4pOdf0=;
-        fh=dXxqX59BUfmpx8yn2NPsIwXQdlMreKUpqDvAen7GCtk=;
-        b=BBADKT/mirwhtlBkQazboSpG+NaT2hrBx8QfnQks2nBKCP9wMMyC/Qma05KG9cSgjs
-         9oqhlvCPMUdre1FHLeUMj3jsIT9CBZMfiImXafCWWbAhTR4EOnFCPFH/sR8kW7PD4XzB
-         CGGYSyxisuY2FrDx/jUonevcRAj3/jW1rwUOXEjxWGc5VxZup5227YwBuAuXe5C2fM8Y
-         3kYxl+VmYxljb5RzB1T4Urlr6LyacyipWoOHnhkyu9LW7miNp5srMkTR4YGFN7eB8AWj
-         /i7rCxj9t0MQNBwMVcuC6tkq+xMe+LiKM85iqJUsJQ5lubF8G+kN/oG+bRV9M6m4+wFq
-         P00g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783573271; x=1784178071; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I+YN7IrDVlSPz87t4MbjMgkDzmRT5Xlf/Rvnd4pOdf0=;
-        b=FlnkIQXv2zp8O9EKxby1oS64M5Caio34pn/cHYf2a40i8cVxdEjwO+Cxvpx67HrU4E
-         63bAdIkGXuhE5wWSSYMMUZqGDXpFJuNXX96zm4GIReQzszzgiMT5u69KZS76ARAGye9U
-         8b3PwjXzC49JyOPhUGcuOEQFaTRryof9hx2Fv1/gbyY01ykkqLGnTPCbTGXF38nQEWIq
-         O+YDaZwbrBEb6X9LGAp3YVUG1d0/E7+ViDzoLaKZ4ZYkJ5npkxjhCJ5UwfQRHvOhjFZO
-         V/xDXYdWRknT7vQCJsrp2EDBDKYnmmsyKFuAKnoQfJsLyBudyMq3vl/8LjpqPIsmpFlm
-         ydSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783573271; x=1784178071;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=I+YN7IrDVlSPz87t4MbjMgkDzmRT5Xlf/Rvnd4pOdf0=;
-        b=CsvwaLESewargrR/36/ngLZokvFWaz+y6gKx9icFFDo9fQFMg2qik+frSxNEyHPqE6
-         iK8oj4uVCYvKll773VaiETKN4koDE7z5qGHIhnRLlRqZAR+qgbzymLZkr7appgP+mkdS
-         tXayBPyLFXG+Flu/cyLJBC7lyW0pB1hlBGp4a9+lypLgtZ+1lx70+1QqMYrhutUtc+15
-         fSD4hsa6mzptCzMcw9zHtGhgbWDo/yd+2MMtkLj8P43O8EluPc8npnK78KOKRGz2qFSG
-         /1MScHpqSV/nGVbCQISHuTNXKeDtcPBnhs9UUTvG2akxJskfM3Ycw2K2jxb+6d1KR56d
-         kSiQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/ZL2+1pLdinhTUYTY6bmHIjJKMTC+3DSNxlxH50IHsWTPkynCkH53owIrJQcIQjpYmBWdufTI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGrEqXPp0+cmdghzbZwUX6ZY+9+fpqW49N9UZf3hdl4pZ/1E0/
-	v6cI7xs/MBCTgZUMYaYI1SYidHl7HrCacu1AHgM+HFYCClPvxEyis2bh1XxedTU16IvwQM5RckL
-	HPOhdY58fbi3VgA6MjHnl5crANr2bk5zmsBVr
-X-Gm-Gg: AfdE7ck3/LH2dntlWE3r8b8v1Wo7nEf+DVanJdzCrY6ic9aiV5y0AJQORD+7vnyzfUJ
-	JCjWHpvD44B/Ak0cWaalVmpI3KZNKcfAvqxARsoKeEM3yojJE9mtlTwPp4QpqlkLfU392kMrbUF
-	i+WtuoCK8H0eoKkk8dQxINXt/mauvnC5xSmrKljGqnLQw61A/tf4t5k75pnZsGZJCqurWKrIzsW
-	7KcOwLfqmJLg3bolayJUwKPF1UpU3zbJPMQfq21B/JwpGiNFJTGwuJhwlEveAYwL3nNRKK89Qr0
-	e/FtnPT+A+tgfeIQqmUjqv0vuQA=
-X-Received: by 2002:a05:6870:224e:b0:447:7ad3:329b with SMTP id
- 586e51a60fabf-451637acc50mr3647116fac.6.1783573270844; Wed, 08 Jul 2026
- 22:01:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="rAleO5IA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1783573766;
+	bh=b28BuLuWzZmVa3dZHeQAGfeKAnuThtv1IUJ4ATrUWZo=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=rAleO5IAF6tZ4gLZQlcdVjenXRWm9zNUEzymH+6rb7kljWNtoqFYq6Fnzh007UQrD
+	 WOTBoiYVeEeGV8Jq1bsGbhneP2mtfj0S527mumecUdoDxT1//V4dRBMC/mf/fjQ/hw
+	 OEOM0bGCG5nkj/xD1dyfLq3hFLPEGuvP01cNON6M=
+X-QQ-mid: zesmtpsz9t1783573764te49ad84c
+X-QQ-Originating-IP: Z8/nptW7vbCW2LYigMLkSc4KBAdczReFyJFdB950gjY=
+Received: from hepeiyang-vm.wu.lxd ( [218.94.142.195])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 09 Jul 2026 13:09:22 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 4659233235440531068
+EX-QQ-RecipientCnt: 10
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+To: jgg@ziepe.ca,
+	kevin.tian@intel.com
+Cc: joro@8bytes.org,
+	will@kernel.org,
+	iommu@lists.linux.dev,
+	robin.murphy@arm.com,
+	linux-kernel@vger.kernel.org,
+	syzkaller@googlegroups.com,
+	stable@vger.kernel.org,
+	Peiyang He <peiyang_he@smail.nju.edu.cn>
+Subject: [PATCH] iommufd: Reject DMABUF pages from the access pin path
+Date: Thu,  9 Jul 2026 13:08:00 +0800
+Message-ID: <CD68F549BF3761B7+20260709050800.520607-1-peiyang_he@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <E8540D7D05768C91+8b2ef227-3368-494e-909d-7b28e1489dfb@smail.nju.edu.cn>
+References: <E8540D7D05768C91+8b2ef227-3368-494e-909d-7b28e1489dfb@smail.nju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702103453.348056-1-devnexen@gmail.com> <akd8E5jr722oTm49@zed>
- <20260703221651.41669d55@pumpkin> <aks7usxfDajS-W_5@zed> <20260706104652.GB66892@killaraus.ideasonboard.com>
- <20260706133956.39a11738@pumpkin> <aku6R_EI0kLUqD8e@zed>
-In-Reply-To: <aku6R_EI0kLUqD8e@zed>
-From: David CARLIER <devnexen@gmail.com>
-Date: Thu, 9 Jul 2026 06:00:58 +0100
-X-Gm-Features: AVVi8Ceqropzkzn8RnLbgejAAhagC1QQAIVbnG6fcB1AFDIdAI6RGSiuDbLVYQM
-Message-ID: <CA+XhMqz2oTTy2kY_4uqvJRnoXb0am5h6hXnLFM4EPQ7Yb6N-pw@mail.gmail.com>
-Subject: Re: [PATCH] media: mali-c55: Fix unaligned access of AEC histogram
- zone weights
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: David Laight <david.laight.linux@gmail.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, dan.scally@ideasonboard.com, 
-	mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: MC1aAhoHww3U1Oo0dThj6QvC7Pgx/yty65IzW1uSnl0RGl99PdDy/hIb
+	ChF4UKlGfaudeiwO36o77ZX3NMDbR0kG7hJlsbdMeSOxRUwJFox8u/nGU/LFpJ1mjS3pucM
+	O8H7U1zh2MOf7pgfCvdqr4tRi6MEl+5k6+FExSpJyUoSVctQDVhGbWPmDkmHvd0OyFNRlZ4
+	nKmKb7Sp6cdYOLAD1nuOX4Zj/HVBgqh0rWTnpVnBEwlaEznhnd5GPtmnFERWQXclMx2eBU9
+	C4ufGN+67HI/dWlzrbUetlkh6PgjaY8Cl8TBcitJtiV7gSmOrgu0I4chb5ABpm1Zkle3IWF
+	PYB7mScebjGTi/5fLcN7LaZqxo3bOFu1O7yyaycBY7u4Bg9dttQFcUdUphmwZJVMxTaTw0o
+	KxwWoYZRyjLdRfgSodXab/hwigl6Kvlhr6DYmmM30ovwAocpYz1PyQ6UEac5asCv6NQFZBO
+	QDMJKqWbZX1k95A9vEWzI8HsmWoY5E472wkUBv6cr0NJGhJdTFKTPiIQHc/iVPQezuKHEOW
+	gktNj+oDx+07oXQ6O3f2PsMhS7eDC+YF8L2mDTnxJ2Qf8ER5/eJVJyce46Zi4URidufQL1z
+	LP0k/sR8+Hj/RvLzzhcBWE3eMw8Pbn7qhIlTj3kE0fNeLXxhoFL8B82FkRAi1aAAM6PcoFQ
+	VV1azxxdgRc7eMy/UkWCAYVfXkAUYY7SrGVJQj28CoxbzKuSXwLM5kGBVE8drztG+4IY8op
+	PteDGBiPuJAG/EDOM9WZPjYmy2dApnb2Uai7BtrZSx9lVwZwteyttu/Nc61Pdv/2tgS06WZ
+	EH1j7B+1QkLeomBjKheTw1RZunB5az7o4jfNqwf+ccvc8ajtWtCGAbP6w8v0ZTk/kpTnDLU
+	q51J+tfatj0UtF3yLywK30IsBX7KF2BO67kD7EbciK/ppRiT6JRdwxjRdc9J1SAWKVDfzqR
+	cbsFFkwm9Ocft5hzVdinwjNad+AKQIUMuTjVU9VIDvu/PF3u75eSugerZb3qWgypHVxi9IY
+	e4BH+3xPEvXq0ZX6faWWulCliqZVvjURHOkEsH2YzqyIsxRaLl+z+yrvS3qEeVcKXeiF1nJ
+	mreXEShLtWDZBtNa7a73RA=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-> Does it ?
-[...]
-> seems to clarify this is a non-issue ?
+DMABUF pages are not supported for iommufd access pinning.
+iommufd_access_pin_pages() returns struct page pointers for
+in-kernel CPU access, but DMABUF-backed iopt_pages do not carry
+a userspace address that can be passed to the GUP path.
 
-I think you're right that there's no runtime fault: arm64 has
-HAVE_EFFICIENT_UNALIGNED_ACCESS and runs with SCTLR.A off, so the
-unaligned load doesn't trap. It's really just a C-level thing - the
-(u32 *) cast is UB and -fsanitize=alignment would moan - rather than a
-real bug, which is why v2 already dropped Fixes:/stable.
+iopt_pages_rw_access() already rejects IOPT_ADDRESS_DMABUF before doing
+CPU access. Apply the same rejection to iopt_area_add_access() before it
+takes pages->mutex and calls iopt_pages_fill_xarray().
+Otherwise a DMABUF-backed iopt_pages can reach the hole-fill path, where
+pfn_reader_user_pin() interprets the union as uptr and
+calls pin_user_pages_fast()/pin_user_pages_remote().
 
-> I still see zone_weights[] at offset 10 which is not 4 bytes aligned.
-> What have I missed ?
+This fix also avoids the lockdep warning reported from that path, where
+pages_dmabuf_mutex_key is held while gup_fast_fallback() may acquire
+mmap_lock.
 
-I don't think you missed anything - the union isn't trying to move the
-array, offset 10 has to stay. The idea is just the __packed member: it
-makes zone_weights_32[i] an alignment-1 read, so the compiler does the
-right thing (a plain LDR on arm64) with no cast, no get_unaligned() and
-no memcpy(). Same 240-byte layout, and it also avoids David's KASAN
-concern about memcpy().
+Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Closes: https://lore.kernel.org/all/E8540D7D05768C91+8b2ef227-3368-494e-909d-7b28e1489dfb@smail.nju.edu.cn/
+Fixes: 71db84a092c3 ("iommufd: Add DMABUF to iopt_pages")
+Cc: stable@vger.kernel.org
+Tested-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+---
+ drivers/iommu/iommufd/pages.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-So if you'd like it cleaned up, in mali-c55-config.h:
+diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+index 03c8379bbc34..404f31d8f729 100644
+--- a/drivers/iommu/iommufd/pages.c
++++ b/drivers/iommu/iommufd/pages.c
+@@ -2451,6 +2451,9 @@ int iopt_area_add_access(struct iopt_area *area, unsigned long start_index,
+ 	if ((flags & IOMMUFD_ACCESS_RW_WRITE) && !pages->writable)
+ 		return -EPERM;
+ 
++	if (iopt_is_dmabuf(pages))
++		return -EINVAL;
++
+ 	mutex_lock(&pages->mutex);
+ 	access = iopt_pages_get_exact_access(pages, start_index, last_index);
+ 	if (access) {
 
-      union {
-              __u32 zone_weights_32[56] __attribute__((__packed__));
-              __u8  zone_weights[MALI_C55_MAX_ZONES];
-      };
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+-- 
+2.43.0
 
-and index zone_weights_32[i] in the driver. And if you'd rather not
-carry the uapi churn for something that isn't a fault, I'm equally happy
-to just drop it - whichever you prefer.
-
-Cheers
