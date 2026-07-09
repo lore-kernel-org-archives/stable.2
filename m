@@ -1,81 +1,55 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1871E3C10A8
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 19:41:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783626064; cv=none; b=kZbaxyP94PmF4F0tIBELu/xbtevgcM3jpc9+XSL2iQhMC+Z7CCsjs4hANYisF2LFsB/Bb5BPxcZfqT4RmRPZMNtd2A2RGnAJJ4UxAvHLzsO66wME0tKDm3jlE848HM04mejPVGvDqNA7BttJ149u2+gDx4/mmzD/cPhnvIixdq0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783626064; c=relaxed/simple;
-	bh=+FeyHYR66Z7bpjGuT2x9pHj5osVMZL/wGBE8dzFYWsQ=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137C521CC58;
+	Thu,  9 Jul 2026 19:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783626525; cv=pass; b=cou0GoF8M8i4S4clEr4fye4+pP3zQ2hzRw+DVvQD4VNur/NVIAAojXnsGvz8lKQfWFmdhCp8nYrIXniW7ee7TdQD1hOA+Xt3meavG4YZTkziT/MKnYMv9UIkavali6gI2ykgzv91uZ5VCnvCMEKYKU9EkDkcqzMR7P2WWf0P4CM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783626525; c=relaxed/simple;
+	bh=dDjjvt+WNwBkHfdPdkwDuLBSLtinU9dJAE6dohogZ20=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JddpfGuv0/mtF/4PEqSiuOqTc3ykl6VdURbc4ZmGjOxd6v/uClvvw41foIZrH1hRx+U3bAhXaj5Pgmo60MQfZzwfpjLC+S/gax9Ca/Ym43m39zkWu7Yw9HPwsmHhgL/QFc7KIGZSY6F2VdXqUkHnAoCitf2ry6pfcGuDv0lFQig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rOa+OVl9; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=lfZ0VzFkcIURpzoh8gfkt5jkZ9ecAKmnk15sN1IRnKQpNpVx9ZCCfE3wRy4Cq7o8HKpwepP5MyM0HJW7ep2N/JJ2A3LZoyVaXtLzQB3+MJIrAfYAU243jMeUEUjO/oFFoyYs2j+T7qO3Nm4idyKBHn4Jetpz7NYB+bZ9PB+95zs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=U6e+0uOh; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rOa+OVl9"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47df6a5202bso133568f8f.0
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 12:41:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783626059; x=1784230859; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ztg01EFixW/WryuPANCROuvgYOhU1yIL8O6c48zLGQc=;
-        b=rOa+OVl9X8d8aNCgy+YgTp9OnA+yb1Fltk0G8+dJALC0+MD9RYoJmjl7WtPr1x8e8c
-         R1F9AV6tS6mZ9bHCiLm+Iby/dTELB7MCx/Yj1grM6MVTgfwYenbaiFFk5n9IKLqvAxvp
-         UqOX+YqJB7n3jQHzdZXL3FxTmHIqUEYFC+wL+QcTIhWCFZHGGLCypNgmdtIVEb6Aomkw
-         iBMnY3+6UigzC9Y+9aI4KXsc5KoQGYtUaS4+SraPUA9oJORlZS8E6zC0SAhHxPY3eStZ
-         dYbf5LR3HXppueF7hCHH/1lHaAPqof6w4ou3Uc2x9l7e3j6+8RecA7RRB0umZiY7MGuT
-         SkZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783626059; x=1784230859;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ztg01EFixW/WryuPANCROuvgYOhU1yIL8O6c48zLGQc=;
-        b=q8eROOvpU9W7wwWjCL2QO68ZM864RNWvhRMdf8914G5o0zp1canpNG4ue6QMoFtogO
-         d+ilMXhYriNRymWbMmBM6W/vnoBO1UQZpb5JheCA0FcZsG6hdCDKG+59sT1QUkQVRqV/
-         frYFODnOE/z2hs6pb/adoHCdqFdNmvKvmOuX3Cgu4sdtKR+x18MZ504OIND5UXR+FYt2
-         KLM81p4LfW2lsS/dQTc69huNlGsMJiF1AiXV4cd2WSetRJExQBCNNqAcCp60GU9BKMDD
-         Woi7oGQ7F9gHLe/g8wCG6Gab6e+DYOUfWA0CxBqXtVsfDQdT00OM4YZgvvUs5d0EZu5F
-         L/8Q==
-X-Forwarded-Encrypted: i=1; AHgh+Ro6tVugy80LBALjMw+g80rkQ2oo8H0GiOCzSKfJQhTlFfGzSdsn5JOFglucy69l/hY2imuAQMQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxxHrDwi/GQjfbxHlCsLo8uRWWsoOkGkIPtWZ8j8vP09cm7ZksR
-	RGwSUF3bOF2T0l0eKaVZtV/76WbvPiQdPNi17cny5lF6MGmXNHmcmu44
-X-Gm-Gg: AfdE7cmogBEoTvz0Yp80d36Lbt7FL6j9/s3FnR4TF5D2NU4Dxj1lOKYQJOaICV9WLqr
-	l8btlYPRKaiN7192qJRW2IOW07bZEWJLriZWD2J6cPcplhEaPLbysHaos8/R3vKHjJmc92yCTzb
-	roztx5QvVzrGTajzQy7xvkEgy+hoZ8+mGHFr14NGpnB50UHqcXk9Q2NilhBb/F7FAq0fOEYgfzY
-	pbvTCly8pIYI5EuIhmV+IlIEckwq05XWjCEZQc3uvTWE3hEaqSR5q6H3BUSXl6sPTyWMnTXvBp2
-	eHXprL9Newp3QtiCpLGFpxj2Mypef3hwiKXYMjGsce214BvpQ/Fh7/T6zxneDeLl9qwfRKluCRD
-	QRAloqI183sll7B8qo35PVCVw4tPVZHOnQO5pineazeODiuNT6nCq5G50dJjvaDNN2ASQSa+/NQ
-	scRXeQ5lGcpByiucItZrvHH+2d
-X-Received: by 2002:a05:6000:1ac7:b0:46f:ce0c:f1f3 with SMTP id ffacd0b85a97d-47df07a9916mr9190183f8f.6.1783626059411;
-        Thu, 09 Jul 2026 12:40:59 -0700 (PDT)
-Received: from mini.main.internal ([2a02:908:c211:cd18:d9f3:ab2b:ac6e:fc84])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0a558easm53986441f8f.27.2026.07.09.12.40.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 12:40:58 -0700 (PDT)
-From: Goetz Goerisch <ggoerisch@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: ggoerisch@gmail.com,
-	herbert@gondor.apana.org.au,
-	herve.codina@bootlin.com,
-	linux-crypto@vger.kernel.org,
-	miquel.raynal@bootlin.com,
-	paul.louvel@bootlin.com,
-	sashal@kernel.org,
-	stable@vger.kernel.org,
-	thomas.petazzoni@bootlin.com
-Subject: [PATCH 4/5] crypto: talitos - fix SEC1 32k ahash request limitation
-Date: Thu,  9 Jul 2026 21:39:55 +0200
-Message-ID: <20260709193956.15619-5-ggoerisch@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260709193956.15619-1-ggoerisch@gmail.com>
-References: <2026070912-pluck-bagful-2a71@gregkh>
- <20260709193956.15619-1-ggoerisch@gmail.com>
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="U6e+0uOh"
+ARC-Seal: i=1; a=rsa-sha256; t=1783626509; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=TS2jbqFZ+lb4+VfgDaGIDiefHqMjc9smCWdoOvDipM7ak55Z1lzaNl6SPKgERH51O1HF9TdNhji7GcKD30304Fa91ZhgLvvgONEz4bHoUDM1i6C81CEfQVka0RQYxq0JG2nly0HkOCSvdXyuNtvD3I72KJTxwkjOSEdd6zII4sw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1783626509; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Gk3XmXycZs1HvmQ6VNzfMD4HnSIDWANgBlFIkYgCNJY=; 
+	b=KUXh8/Bq9xYOholbyqF9kqxmEv4mxwTOAenlSrKL6qZSLOqe9aLzSEWWMWM/yBUO5IxZ4CkZCvfMuILBnsyt0/8E96fP/z7N+SrRLr4P0GdWQz/RTNZ5dr6en0DV/GMQyR8OKbPHa5VxlG7Ec93Sn6Pg+5zrNJoC1xK1KUBv5Ds=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783626509;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Gk3XmXycZs1HvmQ6VNzfMD4HnSIDWANgBlFIkYgCNJY=;
+	b=U6e+0uOh3R7fYTBAHIWnwYMnjaZVrzZBIVnv+t7HoVU29k7GJDhaySyIWQ0w0g+t
+	NQPWHPCdIAIPY/EQ0oNXe8sPokgpgxB8b0355wbA+vmPf+N0myRtG2eQPXDGZUXGl1v
+	OUD8Peny/1k3ZmAxyosHHzBJSqzsGHD7dAYwoDeM=
+Received: by mx.zoho.eu with SMTPS id 1783626507485699.487861191679;
+	Thu, 9 Jul 2026 21:48:27 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: martin.petersen@oracle.com,
+	James.Bottomley@HansenPartnership.com
+Cc: shinichiro.kawasaki@wdc.com,
+	damien.lemoal@opensource.wdc.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] scsi: scsi_debug: fix REPORT ZONES alloc_len underflow OOB write
+Date: Thu,  9 Jul 2026 21:48:24 +0200
+Message-ID: <20260709194824.50777-1-security@auditcode.ai>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260709150631.45018-1-security@auditcode.ai>
+References: <20260709150631.45018-1-security@auditcode.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,360 +57,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-From: Paul Louvel <paul.louvel@bootlin.com>
+resp_report_zones() reads the REPORT ZONES(16) ALLOCATION LENGTH field
+(cmd[10..13]) into the unsigned alloc_len and, apart from the
+alloc_len == 0 fast path, uses it without flooring it against the
+64-byte report header:
 
-commit 655ef638a2bc3cd0a9eff99a02f83cab94a3a917 upstream.
+	rep_max_zones = (alloc_len - 64) >> ilog2(RZONES_DESC_HD);
+	arr = kzalloc(alloc_len, GFP_ATOMIC | __GFP_NOWARN);
+	...
+	desc = arr + 64;
 
-Since commit c662b043cdca ("crypto: af_alg/hash: Support
-MSG_SPLICE_PAGES"), the crypto core may pass large scatterlists spanning
-multiple pages to drivers supporting ahash operations. As a result, a
-driver can now receive large ahash requests.
+For any alloc_len in the range 1..63, alloc_len - 64 wraps around
+(alloc_len and rep_max_zones are unsigned), so rep_max_zones becomes a
+huge value instead of zero. At the same time arr is allocated with the
+raw alloc_len, which is smaller than the 64-byte header the function
+always builds, and desc is set to arr + 64, already past the end of the
+allocation. The report header stores (put_unaligned_be32 at arr+0,
+put_unaligned_be64 at arr+8 and arr+16) can then run past a sub-24-byte
+buffer, and the per-zone descriptor loop, no longer bounded by the
+inflated rep_max_zones, writes 64-byte descriptors from desc onward,
+producing a slab out-of-bounds write.
 
-The SEC1 engine has a limitation where a single descriptor cannot
-process more than 32k of data. The current implementation attempts to
-handle the entire request within a single descriptor, which leads to
-failures raised by the driver:
+Fix it the way ZBC and SPC require: allocation length truncation is not
+an error, and a small alloc_len is a legitimate probe a host uses to
+read the zone list length before allocating a full buffer. Clamp
+rep_max_zones to zero when alloc_len is below the header size so no
+descriptor is emitted, and size the allocation to at least the header
+so the unconditional 64-byte header build cannot overflow. The existing
+copy-out already truncates the result with
+fill_from_dev_buffer(scp, arr, min_t(u32, alloc_len, rep_len)), so the
+host still receives exactly the alloc_len bytes it asked for. There is
+no functional change for alloc_len >= 64.
 
-  "length exceeds h/w max limit"
+This supersedes the previous approach of rejecting a sub-header
+allocation length with a check condition, which would have broken those
+legitimate small-alloc_len probes.
 
-Address this limitation by splitting large ahash requests into multiple
-descriptors, each respecting the 32k hardware limit. This allows
-processing arbitrarily large requests.
+Verified on a v6.19 KASAN build: with scsi_debug loaded as
+zbc=host-managed, issuing REPORT ZONES(16) via SG_IO with alloc_len=32
+triggers a KASAN slab-out-of-bounds write in resp_report_zones()
+before this change, and the same command produces no report once the
+clamp and allocation floor are applied. Reproduction requires
+CAP_SYS_RAWIO to submit the raw CDB.
 
+Fixes: 7db0e0c8190a ("scsi: scsi_debug: Fix buffer size of REPORT ZONES command")
 Cc: stable@vger.kernel.org
-Fixes: c662b043cdca ("crypto: af_alg/hash: Support MSG_SPLICE_PAGES")
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
 ---
- drivers/crypto/talitos.c | 216 ++++++++++++++++++++++++++-------------
- 1 file changed, 147 insertions(+), 69 deletions(-)
+v2: address sashiko-bot review of v1
+(https://lore.kernel.org/linux-scsi/20260709150631.45018-1-security@auditcode.ai/):
+rejecting a sub-header allocation length with a check condition violates the
+ZBC/SPC rule that allocation-length truncation is not an error and breaks
+legitimate small-alloc_len zone-list-length probes. Instead clamp rep_max_zones
+to zero and floor the allocation at the 64-byte header, letting the existing
+min(alloc_len, rep_len) copy-out return the truncated header. No functional
+change for alloc_len >= 64.
+ drivers/scsi/scsi_debug.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/crypto/talitos.c b/drivers/crypto/talitos.c
-index a941ec08817e..ea6ae72c71ad 100644
---- a/drivers/crypto/talitos.c
-+++ b/drivers/crypto/talitos.c
-@@ -12,6 +12,7 @@
-  * All rights reserved.
-  */
+diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
+index 9d1c9c41d0f9..a21d76fe35f6 100644
+--- a/drivers/scsi/scsi_debug.c
++++ b/drivers/scsi/scsi_debug.c
+@@ -5911,9 +5911,11 @@ static int resp_report_zones(struct scsi_cmnd *scp,
+ 		return check_condition_result;
+ 	}
  
-+#include <linux/workqueue.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/mod_devicetable.h>
-@@ -870,10 +871,18 @@ struct talitos_ahash_req_ctx {
- 	unsigned int swinit;
- 	unsigned int first;
- 	unsigned int last;
-+	unsigned int last_request;
- 	unsigned int to_hash_later;
- 	unsigned int nbuf;
- 	struct scatterlist bufsl[2];
- 	struct scatterlist *psrc;
-+
-+	struct scatterlist request_bufsl[2];
-+	struct ahash_request *areq;
-+	struct scatterlist *request_sl;
-+	unsigned int remaining_ahash_request_bytes;
-+	unsigned int current_ahash_request_bytes;
-+	struct work_struct sec1_ahash_process_remaining;
- };
+-	rep_max_zones = (alloc_len - 64) >> ilog2(RZONES_DESC_HD);
++	rep_max_zones = (alloc_len < RZONES_DESC_HD) ? 0 :
++			(alloc_len - RZONES_DESC_HD) >> ilog2(RZONES_DESC_HD);
  
- struct talitos_export_state {
-@@ -1759,7 +1768,20 @@ static void ahash_done(struct device *dev,
- 
- 	kfree(edesc);
- 
--	ahash_request_complete(areq, err);
-+	if (err) {
-+		ahash_request_complete(areq, err);
-+		return;
-+	}
-+
-+	req_ctx->remaining_ahash_request_bytes -=
-+		req_ctx->current_ahash_request_bytes;
-+
-+	if (!req_ctx->remaining_ahash_request_bytes) {
-+		ahash_request_complete(areq, 0);
-+		return;
-+	}
-+
-+	schedule_work(&req_ctx->sec1_ahash_process_remaining);
- }
- 
- /*
-@@ -1925,60 +1947,7 @@ static struct talitos_edesc *ahash_edesc_alloc(struct ahash_request *areq,
- 				   nbytes, 0, 0, 0, areq->base.flags, false);
- }
- 
--static int ahash_init(struct ahash_request *areq)
--{
--	struct crypto_ahash *tfm = crypto_ahash_reqtfm(areq);
--	struct talitos_ctx *ctx = crypto_ahash_ctx(tfm);
--	struct device *dev = ctx->dev;
--	struct talitos_ahash_req_ctx *req_ctx = ahash_request_ctx(areq);
--	unsigned int size;
--	dma_addr_t dma;
--
--	/* Initialize the context */
--	req_ctx->buf_idx = 0;
--	req_ctx->nbuf = 0;
--	req_ctx->first = 1; /* first indicates h/w must init its context */
--	req_ctx->swinit = 0; /* assume h/w init of context */
--	size =	(crypto_ahash_digestsize(tfm) <= SHA256_DIGEST_SIZE)
--			? TALITOS_MDEU_CONTEXT_SIZE_MD5_SHA1_SHA256
--			: TALITOS_MDEU_CONTEXT_SIZE_SHA384_SHA512;
--	req_ctx->hw_context_size = size;
--
--	dma = dma_map_single(dev, req_ctx->hw_context, req_ctx->hw_context_size,
--			     DMA_TO_DEVICE);
--	dma_unmap_single(dev, dma, req_ctx->hw_context_size, DMA_TO_DEVICE);
--
--	return 0;
--}
--
--/*
-- * on h/w without explicit sha224 support, we initialize h/w context
-- * manually with sha224 constants, and tell it to run sha256.
-- */
--static int ahash_init_sha224_swinit(struct ahash_request *areq)
--{
--	struct talitos_ahash_req_ctx *req_ctx = ahash_request_ctx(areq);
--
--	req_ctx->hw_context[0] = SHA224_H0;
--	req_ctx->hw_context[1] = SHA224_H1;
--	req_ctx->hw_context[2] = SHA224_H2;
--	req_ctx->hw_context[3] = SHA224_H3;
--	req_ctx->hw_context[4] = SHA224_H4;
--	req_ctx->hw_context[5] = SHA224_H5;
--	req_ctx->hw_context[6] = SHA224_H6;
--	req_ctx->hw_context[7] = SHA224_H7;
--
--	/* init 64-bit count */
--	req_ctx->hw_context[8] = 0;
--	req_ctx->hw_context[9] = 0;
--
--	ahash_init(areq);
--	req_ctx->swinit = 1;/* prevent h/w initting context with sha256 values*/
--
--	return 0;
--}
--
--static int ahash_process_req(struct ahash_request *areq, unsigned int nbytes)
-+static int ahash_process_req_one(struct ahash_request *areq, unsigned int nbytes)
- {
- 	struct crypto_ahash *tfm = crypto_ahash_reqtfm(areq);
- 	struct talitos_ctx *ctx = crypto_ahash_ctx(tfm);
-@@ -1997,12 +1966,12 @@ static int ahash_process_req(struct ahash_request *areq, unsigned int nbytes)
- 
- 	if (!req_ctx->last && (nbytes + req_ctx->nbuf <= blocksize)) {
- 		/* Buffer up to one whole block */
--		nents = sg_nents_for_len(areq->src, nbytes);
-+		nents = sg_nents_for_len(req_ctx->request_sl, nbytes);
- 		if (nents < 0) {
- 			dev_err(dev, "Invalid number of src SG.\n");
- 			return nents;
- 		}
--		sg_copy_to_buffer(areq->src, nents,
-+		sg_copy_to_buffer(req_ctx->request_sl, nents,
- 				  ctx_buf + req_ctx->nbuf, nbytes);
- 		req_ctx->nbuf += nbytes;
- 		return 0;
-@@ -2029,7 +1998,7 @@ static int ahash_process_req(struct ahash_request *areq, unsigned int nbytes)
- 		sg_init_table(req_ctx->bufsl, nsg);
- 		sg_set_buf(req_ctx->bufsl, ctx_buf, req_ctx->nbuf);
- 		if (nsg > 1)
--			sg_chain(req_ctx->bufsl, 2, areq->src);
-+			sg_chain(req_ctx->bufsl, 2, req_ctx->request_sl);
- 		req_ctx->psrc = req_ctx->bufsl;
- 	} else if (is_sec1 && req_ctx->nbuf && req_ctx->nbuf < blocksize) {
- 		int offset;
-@@ -2038,26 +2007,26 @@ static int ahash_process_req(struct ahash_request *areq, unsigned int nbytes)
- 			offset = blocksize - req_ctx->nbuf;
- 		else
- 			offset = nbytes_to_hash - req_ctx->nbuf;
--		nents = sg_nents_for_len(areq->src, offset);
-+		nents = sg_nents_for_len(req_ctx->request_sl, offset);
- 		if (nents < 0) {
- 			dev_err(dev, "Invalid number of src SG.\n");
- 			return nents;
- 		}
--		sg_copy_to_buffer(areq->src, nents,
-+		sg_copy_to_buffer(req_ctx->request_sl, nents,
- 				  ctx_buf + req_ctx->nbuf, offset);
- 		req_ctx->nbuf += offset;
--		req_ctx->psrc = scatterwalk_ffwd(req_ctx->bufsl, areq->src,
-+		req_ctx->psrc = scatterwalk_ffwd(req_ctx->bufsl, req_ctx->request_sl,
- 						 offset);
- 	} else
--		req_ctx->psrc = areq->src;
-+		req_ctx->psrc = req_ctx->request_sl;
- 
- 	if (to_hash_later) {
--		nents = sg_nents_for_len(areq->src, nbytes);
-+		nents = sg_nents_for_len(req_ctx->request_sl, nbytes);
- 		if (nents < 0) {
- 			dev_err(dev, "Invalid number of src SG.\n");
- 			return nents;
- 		}
--		sg_pcopy_to_buffer(areq->src, nents,
-+		sg_pcopy_to_buffer(req_ctx->request_sl, nents,
- 				   req_ctx->buf[(req_ctx->buf_idx + 1) & 1],
- 				      to_hash_later,
- 				      nbytes - to_hash_later);
-@@ -2065,7 +2034,7 @@ static int ahash_process_req(struct ahash_request *areq, unsigned int nbytes)
- 	req_ctx->to_hash_later = to_hash_later;
- 
- 	/* Allocate extended descriptor */
--	edesc = ahash_edesc_alloc(areq, nbytes_to_hash);
-+	edesc = ahash_edesc_alloc(req_ctx->areq, nbytes_to_hash);
- 	if (IS_ERR(edesc))
- 		return PTR_ERR(edesc);
- 
-@@ -2087,14 +2056,123 @@ static int ahash_process_req(struct ahash_request *areq, unsigned int nbytes)
- 	if (ctx->keylen && (req_ctx->first || req_ctx->last))
- 		edesc->desc.hdr |= DESC_HDR_MODE0_MDEU_HMAC;
- 
--	return common_nonsnoop_hash(edesc, areq, nbytes_to_hash, ahash_done);
-+	return common_nonsnoop_hash(edesc, req_ctx->areq, nbytes_to_hash, ahash_done);
- }
- 
--static int ahash_update(struct ahash_request *areq)
-+static void sec1_ahash_process_remaining(struct work_struct *work)
-+{
-+	struct talitos_ahash_req_ctx *req_ctx =
-+		container_of(work, struct talitos_ahash_req_ctx,
-+			     sec1_ahash_process_remaining);
-+	int err = 0;
-+
-+	req_ctx->request_sl = scatterwalk_ffwd(req_ctx->request_bufsl,
-+					       req_ctx->request_sl, TALITOS1_MAX_DATA_LEN);
-+
-+	if (req_ctx->remaining_ahash_request_bytes > TALITOS1_MAX_DATA_LEN)
-+		req_ctx->current_ahash_request_bytes = TALITOS1_MAX_DATA_LEN;
-+	else {
-+		req_ctx->current_ahash_request_bytes =
-+			req_ctx->remaining_ahash_request_bytes;
-+
-+		if (req_ctx->last_request)
-+			req_ctx->last = 1;
-+	}
-+
-+	err = ahash_process_req_one(req_ctx->areq,
-+				    req_ctx->current_ahash_request_bytes);
-+
-+	if (err != -EINPROGRESS)
-+		ahash_request_complete(req_ctx->areq, err);
-+}
-+
-+static int ahash_process_req(struct ahash_request *areq, unsigned int nbytes)
-+{
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(areq);
-+	struct talitos_ctx *ctx = crypto_ahash_ctx(tfm);
-+	struct device *dev = ctx->dev;
-+	struct talitos_ahash_req_ctx *req_ctx = ahash_request_ctx(areq);
-+	struct talitos_private *priv = dev_get_drvdata(dev);
-+	bool is_sec1 = has_ftr_sec1(priv);
-+
-+	req_ctx->areq = areq;
-+	req_ctx->request_sl = areq->src;
-+	req_ctx->remaining_ahash_request_bytes = nbytes;
-+
-+	if (is_sec1) {
-+		if (nbytes > TALITOS1_MAX_DATA_LEN)
-+			nbytes = TALITOS1_MAX_DATA_LEN;
-+		else if (req_ctx->last_request)
-+			req_ctx->last = 1;
-+	}
-+
-+	req_ctx->current_ahash_request_bytes = nbytes;
-+
-+	return ahash_process_req_one(req_ctx->areq,
-+				     req_ctx->current_ahash_request_bytes);
-+}
-+
-+static int ahash_init(struct ahash_request *areq)
- {
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(areq);
-+	struct talitos_ctx *ctx = crypto_ahash_ctx(tfm);
-+	struct device *dev = ctx->dev;
- 	struct talitos_ahash_req_ctx *req_ctx = ahash_request_ctx(areq);
-+	unsigned int size;
-+	dma_addr_t dma;
- 
-+	/* Initialize the context */
-+	req_ctx->buf_idx = 0;
-+	req_ctx->nbuf = 0;
-+	req_ctx->first = 1; /* first indicates h/w must init its context */
-+	req_ctx->swinit = 0; /* assume h/w init of context */
-+	size =	(crypto_ahash_digestsize(tfm) <= SHA256_DIGEST_SIZE)
-+			? TALITOS_MDEU_CONTEXT_SIZE_MD5_SHA1_SHA256
-+			: TALITOS_MDEU_CONTEXT_SIZE_SHA384_SHA512;
-+	req_ctx->hw_context_size = size;
-+	req_ctx->last_request = 0;
- 	req_ctx->last = 0;
-+	INIT_WORK(&req_ctx->sec1_ahash_process_remaining, sec1_ahash_process_remaining);
-+
-+	dma = dma_map_single(dev, req_ctx->hw_context, req_ctx->hw_context_size,
-+			     DMA_TO_DEVICE);
-+	dma_unmap_single(dev, dma, req_ctx->hw_context_size, DMA_TO_DEVICE);
-+
-+	return 0;
-+}
-+
-+/*
-+ * on h/w without explicit sha224 support, we initialize h/w context
-+ * manually with sha224 constants, and tell it to run sha256.
-+ */
-+static int ahash_init_sha224_swinit(struct ahash_request *areq)
-+{
-+	struct talitos_ahash_req_ctx *req_ctx = ahash_request_ctx(areq);
-+
-+	req_ctx->hw_context[0] = SHA224_H0;
-+	req_ctx->hw_context[1] = SHA224_H1;
-+	req_ctx->hw_context[2] = SHA224_H2;
-+	req_ctx->hw_context[3] = SHA224_H3;
-+	req_ctx->hw_context[4] = SHA224_H4;
-+	req_ctx->hw_context[5] = SHA224_H5;
-+	req_ctx->hw_context[6] = SHA224_H6;
-+	req_ctx->hw_context[7] = SHA224_H7;
-+
-+	/* init 64-bit count */
-+	req_ctx->hw_context[8] = 0;
-+	req_ctx->hw_context[9] = 0;
-+
-+	ahash_init(areq);
-+	req_ctx->swinit = 1;/* prevent h/w initting context with sha256 values*/
-+
-+	return 0;
-+}
-+
-+static int ahash_update(struct ahash_request *areq)
-+{
-+	struct talitos_ahash_req_ctx *req_ctx = ahash_request_ctx(areq);
-+
-+	req_ctx->last_request = 0;
- 
- 	return ahash_process_req(areq, areq->nbytes);
- }
-@@ -2103,7 +2181,7 @@ static int ahash_final(struct ahash_request *areq)
- {
- 	struct talitos_ahash_req_ctx *req_ctx = ahash_request_ctx(areq);
- 
--	req_ctx->last = 1;
-+	req_ctx->last_request = 1;
- 
- 	return ahash_process_req(areq, 0);
- }
-@@ -2112,7 +2190,7 @@ static int ahash_finup(struct ahash_request *areq)
- {
- 	struct talitos_ahash_req_ctx *req_ctx = ahash_request_ctx(areq);
- 
--	req_ctx->last = 1;
-+	req_ctx->last_request = 1;
- 
- 	return ahash_process_req(areq, areq->nbytes);
- }
+-	arr = kzalloc(alloc_len, GFP_ATOMIC | __GFP_NOWARN);
++	arr = kzalloc(max_t(u32, alloc_len, RZONES_DESC_HD),
++		      GFP_ATOMIC | __GFP_NOWARN);
+ 	if (!arr) {
+ 		mk_sense_buffer(scp, ILLEGAL_REQUEST, INSUFF_RES_ASC,
+ 				INSUFF_RES_ASCQ);
 -- 
-2.55.0
+2.50.1 (Apple Git-155)
 
