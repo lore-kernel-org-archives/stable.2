@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9263A381C
-	for <Stable@vger.kernel.org>; Thu,  9 Jul 2026 05:45:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E046A1F91E3
+	for <Stable@vger.kernel.org>; Thu,  9 Jul 2026 05:45:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783575951; cv=none; b=Y1WROftXXGaRDQwgCfCAzkyjbFDTWfYur1ddxkYrLm8X93/TgF4kvYBBvEbYIvxcJD6eyyP8TN2eoArprP7BMcXLhSTEFEQW29EDBOturttIFLYBrm2cjmZZqHGQaltBJW98Lzk5hhNhtT7jsY+m/mQsFS2vGFYii85IwE6s3S8=
+	t=1783575957; cv=none; b=LKah7gCr3gsKk9a67xxnYH/oPLa34ijwBrvJGhZvf+u4drcE+KjQ/6b+FAg3SJ2k9M620L8eVmzluGX5kBWCYpX8kzHdUi+TfSnYCVzvXePin1AIUMSvXzMTM053cScvL3QYqdvG8223EtKUwnrmK4Mhf+NtaMuycoargYPHdMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783575951; c=relaxed/simple;
-	bh=5QBSUym2p8qcEu81J5k1JeIc2teFNnhOKNTpTEZupck=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=WDbi4ilHVA7WmpfuZr6pcz0El/Lt8Cq95hdKSjVAhPJiKvcrCOW9L1WkaHqX27xKk7yBKLFme9zW3FaFFM3ZmDREa8hERt46/EDkSRrrOepgiZgvRctQY1xMrTWWLBqZnT4S8O6S4DNrnCa1q+jD6vOp3xfSFTIAs54miUrz9JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DMy1uVZB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783575957; c=relaxed/simple;
+	bh=moMKVVgilhfhH+qu3+IlWvBgLhSwF7mmJx7fRoFPPc0=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=V5Y47BndwTfHzmOoL4vhMSleP2BVq26DojKtG3ncUVExiSKt6awW2dGxrfe5SKJVwUC7ghj1sA12n1fwOsS2lg4ZM7AHuG2PefDWTI978y649/dd2q+8CIFZWe7pI2xdib9hbdDY8JhyUepMIKF0xqkGFn6civ+n3kBwobZ2t3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dpR6Bmvb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DMy1uVZB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB0401F000E9;
-	Thu,  9 Jul 2026 05:45:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dpR6Bmvb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F20F41F000E9;
+	Thu,  9 Jul 2026 05:45:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783575950;
-	bh=bFNBB9Z5GaA982HtmnfTOQJoOKbY0EYAPaSOJCrdFpg=;
+	s=korg; t=1783575955;
+	bh=mbqbCjf5KSi9Hs4Ix2qu5tlPs6hI3k3SiYF2r4lLU2Y=;
 	h=Subject:To:From:Date;
-	b=DMy1uVZB8o5OG/Bd/jvbTbB6tj3v4jlVtv23RioFo+qVB7gzJxNCJw3yuWw63Hvvw
-	 +0QNFhXp4Q5fy/esCTj3CwR8LfVLyHQf1kqfZQrP1THN3gJkwIrMxHDCDttwFVBYo2
-	 u3RLY+Bvl8NSrZ5t7F7U+5bheL/g/LIx/hZEQ9RA=
-Subject: patch "iio: adc: nxp-sar-adc: Fix the delay calculation in" added to char-misc-linus
-To: andriy.shevchenko@linux.intel.com,Stable@vger.kernel.org,daniel.lezcano@oss.qualcomm.com,jic23@kernel.org,sashiko-bot@kernel.org,sozdayvek@gmail.com
+	b=dpR6Bmvbt6c5yCsjBSzcI2hi1/0fdUCumGUzaBd/HfW2cbKazn1dNbU8GAJUZ1O5R
+	 z6JHVx/vKMwyJenQnB67dIu5miCM4xVv5RwUTifLZ9VXMAq4+SvDj06xQDiY54sp53
+	 GtEOsqZuLKvvIF3s+YbqgzM9Fbb6PpMCUOnQJ2OY=
+Subject: patch "iio: imu: st_lsm6dsx: deselect shub page before reading whoami" added to char-misc-linus
+To: andreas.kempe@actia.se,Stable@vger.kernel.org,jic23@kernel.org,lorenzo@kernel.org
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 09 Jul 2026 07:44:52 +0200
-Message-ID: <2026070952-campsite-diffusive-0ba9@gregkh>
+Message-ID: <2026070952-choosy-charting-23ae@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: adc: nxp-sar-adc: Fix the delay calculation in
+    iio: imu: st_lsm6dsx: deselect shub page before reading whoami
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,53 +54,88 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From a9f41809bf1bd8e5c1bc4b6a1052adac58eb7ab6 Mon Sep 17 00:00:00 2001
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Date: Tue, 19 May 2026 23:56:06 +0200
-Subject: iio: adc: nxp-sar-adc: Fix the delay calculation in
- nxp_sar_adc_wait_for()
+From aede83625ff5d9539508582036df30c809d51058 Mon Sep 17 00:00:00 2001
+From: Andreas Kempe <andreas.kempe@actia.se>
+Date: Thu, 2 Jul 2026 10:41:23 +0000
+Subject: iio: imu: st_lsm6dsx: deselect shub page before reading whoami
 
-The original code was using ndelay() twice. In one case the delay
-is calculated as 1/3 of ADC clock and in the other as 80 ADC clocks.
-But according to the comments in all cases it should be a multiplier
-of the ADC clock, and not a fraction of it. Inadvertently
-nxp_sar_adc_wait_for() takes the wrong case and spread it over
-the code make it wrong in all places. Fix this by modifying a helper
-to correctly use the multiplier.
+As part of driver initialization, e.g. st_lsm6dsx_init_shub() selects
+the shub register page using st_lsm6dsx_set_page(). Selecting the shub
+register page shadows the regular register space so whoami, among other
+registers, is no longer accessible.
 
-Fixes: 7e5c0f97c66a ("iio: adc: nxp-sar-adc: Avoid division by zero")
-Fixes: 4434072a893e ("iio: adc: Add the NXP SAR ADC support for the s32g2/3 platforms")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260416090122.758990-1-andriy.shevchenko%40linux.intel.com
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Stepan Ionichev <sozdayvek@gmail.com>
-Acked-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In applications where the IMU is permanently powered separately from the
+processor, there is a window where a reset of the CPU leaves the IMU in
+the shub register page. Once this occurs, any subsequent probe attempt
+fails because of the register shadowing.
+
+Using the ism330dlc, the error typically looks like
+
+    st_lsm6dsx_i2c 3-006a: unsupported whoami [10]
+
+with the unknown whoami read from a reserved register in the shub page.
+
+The reset register is also shadowed by the page select, preventing a
+reset from recovering the chip.
+
+Unconditionally clear the shub page before the whoami readout to ensure
+normal register access and allow the initialization to proceed.
+
+Place the fix in st_lsm6dsx_check_whoami() before the whoami check
+because hw->settings, which st_lsm6dsx_set_page() relies on, is first
+assigned in that function.
+
+Placing the fix in a more logical place than the whoami check would
+require a bigger restructuring of the code.
+
+Fixes: c91c1c844ebd ("iio: imu: st_lsm6dsx: add i2c embedded controller support")
+Signed-off-by: Andreas Kempe <andreas.kempe@actia.se>
+Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 ---
- drivers/iio/adc/nxp-sar-adc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 21 +++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/adc/nxp-sar-adc.c b/drivers/iio/adc/nxp-sar-adc.c
-index 15c7432808f4..6bf896915788 100644
---- a/drivers/iio/adc/nxp-sar-adc.c
-+++ b/drivers/iio/adc/nxp-sar-adc.c
-@@ -198,13 +198,13 @@ static void nxp_sar_adc_irq_cfg(struct nxp_sar_adc *info, bool enable)
- 		writel(0, NXP_SAR_ADC_IMR(info->regs));
+diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+index 630e2cae6f19..f4edcb73ec8c 100644
+--- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
++++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+@@ -1712,6 +1712,26 @@ static int st_lsm6dsx_check_whoami(struct st_lsm6dsx_hw *hw, int id,
+ 		return -ENODEV;
+ 	}
+ 
++	hw->settings = &st_lsm6dsx_sensor_settings[i];
++
++	if (hw->settings->shub_settings.page_mux.addr) {
++		/*
++		 * If the IMU has the shub page selected on init, for example
++		 * after a CPU watchdog reset while the page is selected, the
++		 * regular register space is shadowed. While the regular
++		 * register space is shadowed, the registers needed for
++		 * initializing the IMU are not available.
++		 *
++		 * Unconditionally clear the shub page selection to ensure
++		 * normal register access.
++		 */
++		err = st_lsm6dsx_set_page(hw, false);
++		if (err < 0) {
++			dev_err(hw->dev, "failed to clear shub page\n");
++			return err;
++		}
++	}
++
+ 	err = regmap_read(hw->regmap, ST_LSM6DSX_REG_WHOAMI_ADDR, &data);
+ 	if (err < 0) {
+ 		dev_err(hw->dev, "failed to read whoami register\n");
+@@ -1724,7 +1744,6 @@ static int st_lsm6dsx_check_whoami(struct st_lsm6dsx_hw *hw, int id,
+ 	}
+ 
+ 	*name = st_lsm6dsx_sensor_settings[i].id[j].name;
+-	hw->settings = &st_lsm6dsx_sensor_settings[i];
+ 
+ 	return 0;
  }
- 
--static void nxp_sar_adc_wait_for(struct nxp_sar_adc *info, unsigned int cycles)
-+static void nxp_sar_adc_wait_for(struct nxp_sar_adc *info, u64 cycles)
- {
- 	u64 rate;
- 
- 	rate = clk_get_rate(info->clk);
- 	if (rate)
--		ndelay(div64_u64(NSEC_PER_SEC, rate * cycles));
-+		ndelay(div64_u64(NSEC_PER_SEC * cycles, rate));
- }
- 
- static bool nxp_sar_adc_set_enabled(struct nxp_sar_adc *info, bool enable)
 -- 
 2.55.0
 
