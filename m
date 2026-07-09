@@ -1,138 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9372221E098;
-	Thu,  9 Jul 2026 14:22:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088741A6805;
+	Thu,  9 Jul 2026 14:23:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783606947; cv=none; b=G3TcFU1Osv+KJs6twasILJhXc10im7p99+1DPaaSj1VqIScpKEzOrdbLFXHsxi3TFs0Ebxo2O7KAYFBLnnYxTafi/QrZSVMl7WvHxLnCV/GrLi2RhdaDi7SlHeiFJ6bCWNmSS+pAfY+9i2I4GV/BXDY3yEgVaBBx0dz9/fihTGM=
+	t=1783607003; cv=none; b=J+rQqi9Gs563b2/+9uK3zaW5fbZbMbogmsFvlRXJs0X0dQyFzmTJ1N0bRVt6eF/kC5/eYlMi8Uyj2xVOWzI3VUyyZ9gpTMwP4rv39GIPwnrLwqgCJLgoZ+H5kvYnHz02tmb7zLGVPriXm1LUfsnIkTc4zJixeZjBRV3mdpHRG9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783606947; c=relaxed/simple;
-	bh=s5381n1trsYscNMAirkC5WSZZqb4jbYbyDzi7jZd+i0=;
+	s=arc-20240116; t=1783607003; c=relaxed/simple;
+	bh=MR5y0K4Xo9/ik81BBpZJrfjRic531n+UEElKNd100Ss=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JK9eRW9u8fGNwJNenAALNVwYXaIQhy7cgBI8IDNhC04SqXerNsUnMWpJrkDpmjnNyQtJ72uer9PvbBBPnJcpV+Sz0yjHN9CzzCAK6lK1Z/TxARj37S2lTcT0nbC/tIiu5yer/7fyiLK4EK4pm+rGfxHk3N77E7QYxgOkYPu976I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pFzKKCK5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=n+agbod6YgJOLBuKuMvKUtiAxsF19ID/va4LFXD02ZnCmNKxINXrsVsRv+EhMu/jmytERPH3iCrLoAQ3P69pz8Y9eYL5DFtA/k3nOpugGwHStPENMrlxAqx/EhknngeFIoNJ08/2mDSGC+RWuORnleCXBZD8ABNQH6MdiUaA6Bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JV8r1WV9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pFzKKCK5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BD191F000E9;
-	Thu,  9 Jul 2026 14:22:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JV8r1WV9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 092971F000E9;
+	Thu,  9 Jul 2026 14:23:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783606946;
-	bh=sgXrUQkmCDVtsWqbs4V36y920B23PeNjLAPQUUnUwSo=;
+	s=korg; t=1783607001;
+	bh=K/oiXgCiEcBjsEwFTwNVfNijYv5O4s+DuURcquYpUeY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=pFzKKCK50fniSEB/52TnzsE7Y/2SpWWP6em9d3vP2BEHEmEj3+MV3JwnxQf/HEW7+
-	 U/WJYzKqpGVDIM/X54k4uzuKgKhdOM4e9u7NyRsQZenH99C8Ubob7KbEubRB6VBuEQ
-	 3jHXrHn5955OALFjxDieS0cZ/g+fednSXu/4O/J0=
-Date: Thu, 9 Jul 2026 16:22:22 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Ujjal Roy <royujjal@gmail.com>
-Cc: Linux Stable <stable@vger.kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Ido Schimmel <idosch@nvidia.com>, David Ahern <dsahern@kernel.org>,
-	Shuah Khan <shuah@kernel.org>, Andy Roulin <aroulin@nvidia.com>,
-	Yong Wang <yongwang@nvidia.com>, Petr Machata <petrm@nvidia.com>,
-	Ujjal Roy <ujjal@alumnux.com>, bridge@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: Please backport bridge multicast exponential field encoding fix
- series to 6.1.y/6.6.y/6.12.y/6.18.y/7.0.y
-Message-ID: <2026070948-lively-exchange-a458@gregkh>
-References: <20260709101327.9508-1-royujjal@gmail.com>
- <2026070925-delay-gauntlet-bc7c@gregkh>
- <CAE2MWk=mm8_bkd54Gv1mdox6rfvx85Dd3AjOCxPz0fPAfyuWYA@mail.gmail.com>
- <2026070954-activist-left-8303@gregkh>
- <CAE2MWkmcQdhGp3LTMtpgAse3AFcfKcAcpQe89+iijfP5e0w_QQ@mail.gmail.com>
+	b=JV8r1WV9Vo4ZfTV4gjt9Q4eE5HAKeZMoefAOYrJvJwXXMfFKk664sp9Q4xVhPAB/M
+	 EaZK54SFWRtHz6+D6/ImlgTr/RN50FhISwYVFBFPkh2ZLM8OxbbiUtXc5/E8nfUKL0
+	 +j54awIIAjA78GmtM1tMumdTx4XgO0PM/ZvCqQsY=
+Date: Thu, 9 Jul 2026 16:23:18 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.1 000/121] 7.1.3-rc2 review
+Message-ID: <2026070912-cold-overvalue-a5ce@gregkh>
+References: <20260703072822.817328079@linuxfoundation.org>
+ <b885d245-bf13-45e3-8c60-28417a63fd91@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAE2MWkmcQdhGp3LTMtpgAse3AFcfKcAcpQe89+iijfP5e0w_QQ@mail.gmail.com>
+In-Reply-To: <b885d245-bf13-45e3-8c60-28417a63fd91@gmail.com>
 
-On Thu, Jul 09, 2026 at 06:35:04PM +0530, Ujjal Roy wrote:
-> On Thu, Jul 9, 2026 at 6:23 PM Greg KH <gregkh@linuxfoundation.org> wrote:
-> >
-> > On Thu, Jul 09, 2026 at 06:12:40PM +0530, Ujjal Roy wrote:
-> > > On Thu, Jul 9, 2026 at 4:34 PM Greg KH <gregkh@linuxfoundation.org> wrote:
-> > > >
-> > > > On Thu, Jul 09, 2026 at 10:13:27AM +0000, Ujjal Roy wrote:
-> > > > > Hi Greg,
-> > > > >
-> > > > > Please consider backporting the following bridge multicast fix series to 6.1.y, 6.6.y, 6.12.y, 6.18.y and 7.0.y.
-> > > > >
-> > > > > 726fa7da2d8c ("ipv4: igmp: get rid of IGMPV3_{QQIC,MRC} and simplify calculation")
-> > > > > 12cfb4ecc471 ("ipv6: mld: rename mldv2_mrc() and add mldv2_qqi()")
-> > > > > 95bfd196f0dc ("ipv4: igmp: encode multicast exponential fields")
-> > > > > e51560f4220a ("ipv6: mld: encode multicast exponential fields")
-> > > > > 529dbe762de0 ("selftests: net: bridge: add MRC and QQIC field encoding tests")
-> > > >
-> > > > Why is any of this needed in older kernels?
-> > > >
-> > > > And 7.0.y is long end-of-life.
-> > > >
-> > > > And why, if this does fix issues, was it not tagged for stable to start
-> > > > with?
-> > > >
-> > > > thanks,
-> > > >
-> > > > greg k-h
-> > >
-> > > I already explained this in the email thread, "Please backport bridge
-> > > multicast exponential field encoding fix series to stable kernels".
-> >
-> > Sorry, but that's not here (remember, some of us get 1000+ emails a
-> > day.)
-> >
-> > Please explain why patches need to be backported when asking for them to
-> > be backported.
-> >
+On Thu, Jul 09, 2026 at 03:51:12PM +0200, Florian Fainelli wrote:
+> 
+> 
+> On 7/3/2026 9:35 AM, Greg Kroah-Hartman wrote:
+> > This is the start of the stable review cycle for the 7.1.3 release.
+> > There are 121 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+> > 
+> > Responses should be made by Sun, 05 Jul 2026 07:28:08 +0000.
+> > Anything received after that time might be too late.
+> > 
+> > The whole patch series can be found in one patch at:
+> > 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.3-rc2.gz
+> > or in the git tree and branch at:
+> > 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> > and the diffstat can be found below.
+> > 
 > > thanks,
-> >
+> > 
 > > greg k-h
 > 
-> Sorry for breaking the thread. I understand your point, I will
-> maintain this in the future.
-> How should I send the patchset that addresses the conflicts on 5.10.y
-> and 7.1.y? Shall I send the conflicts patchset as a series via a
-> different thread or how? I've never done this before, so I'm asking.
+> On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, please backport
+> 7ee7f48413c42b90230de4a8e40898b757bc8e82 ("perf trace beauty fcntl: Fix
+> build with older kernel headers") fo the MIPS build of "perf" to pass:
 > 
-> Here is the explanation for why the patches need to be backported:
+> Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> -- 
+> Florian
 > 
-> History: The multicast stack currently supports decoding of IGMPv3 and
-> MLDv2 exponential timer field encodings, but lacks the corresponding
-> encoding logic when generating multicast query packets. As a result,
-> query intervals and response codes exceeding the linear encoding range
-> can be transmitted incorrectly. This can cause multicast queriers and
-> listeners to interpret different timing values, resulting in protocol
-> interoperability issues, membership timeouts, and premature multicast
-> group expiration.
-> 
-> Testing: The series adds the missing encoding support for both IGMPv3
-> and MLDv2 and includes selftests that validate the behavior.
-> I backported the series to v6.6.123.2 and verified the accompanying
-> selftests. The selftests fail on the unpatched kernel and pass after
-> applying the series, demonstrating both the bug and the effectiveness
-> of the fix.
-> 
-> Given that this is a protocol correctness issue affecting multicast
-> query generation, please consider backporting the complete series to
-> all applicable stable kernels.
 > 
 
-But this really seems like a new feature being added, it's not fixing a
-regression of something that previously worked, right?
-
-WHy can't people just update to the latest kernel release to get this if
-they need it for their environments?
-
-thanks,
+All now queued up, thanks.
 
 greg k-h
