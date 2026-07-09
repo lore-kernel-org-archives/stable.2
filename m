@@ -1,246 +1,157 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EADC43C9437
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 22:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783635354; cv=pass; b=dj4oDefK9igvHmGPy859g4Isi77WnuXUkX+wBjLR6bwqwErxhIMZ2CmblfWsWKbFeHVgY1TQVY7f4uB8+Ruy2bCEQO9bogJYjntHUU5RPFbPBjADp8IwsDPz5d0y6EUz4HiVGWjyoCMN3nUcZAuu4GmUkvtpalYe3ezeSuO4OEw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783635354; c=relaxed/simple;
-	bh=ci/J+gaTFmWCkCHGqDb6lW58XZZcFPNtF7bz+f8Zy4A=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FDYjMsgyWd29ZSmrnauqNvuVNpOMSBDDOA6UWEl5X+fzDog5Y+qnOvKTYaJfzvzqvZngTWSnhMCtoZ/VYUBA+yq5DFanfxAjyeV94GT8fYXx2s9jaIvLtQ9X+Rps0+VF+e5Q/Ab0bZRy0GXCBKfSPFt2ZsNYX/0dPWUFupXl6no=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wiV9nnDj; arc=pass smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D45E3DE429
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 22:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783635546; cv=none; b=OEw33NKdDmrtAT0oP3x0A7MoVN76bCvy+UsEF08aU47GiQTLXvRl1r6wg+vliSv/+JCNN24ef4EYNAlhYRZ/lwaNj9iXFt4AlaE5uUppa2NqUBpLtf9EGY7+PII65zrF9QbwvtGIad4utbmZgDHazvooLtZ82lF3wtPrOOQZV0M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783635546; c=relaxed/simple;
+	bh=Z8Zh1AJp/esp9tFm2eyTQefg9Fl7D1o7AgqFROZ1ab8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dj0G5BZcvlJznzAx5Z5xKAdeRziSV7kS6uEH2W/hjyIOLXAF5FbgWGPttRrwjMxDwLCT69AXrgEPt1k2XJ7h0dUrSEu0PKy2gVbBoqL4DaM3rM9drkrFBZp71LwGdfDeRma+JmwDAWG0Y6XBVL8R36yIEdcJlgCCKK0HedbUbSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cc1B51YO; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wiV9nnDj"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ca88130e09aso178544a12.3
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 15:15:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783635352; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jN4VM9OZX+zcpMru7cC4jcqaa2V0+aMF8SCae24djHNTVHO7sbF9LJTdxy4SyxjVJR
-         giBg5SnF4cwIy0ZdxoJO+7qkorbXWWcM2kLg9iFMNEJHTczXuk9YCuR0qa89d8+wJIXN
-         YKhLjsIbM+5ewLnjLuqqVt+e1zvU6cu5ZZ36QHaCZPFYZXdQKj186brvpkxYDmS31JFU
-         x/25GysAZ7W/Ix3CdyUJPjZnKdhS2qx0UK/n+uSkjQgC7kQ/CznNS/tLWvbQVDpwWkQC
-         yWQzSTP2azF8xhCZ+9EYrtu096SJBYzPfy2AvEsyg9RogyN6gBXeTtrT85R8SCYmGn/e
-         qy9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=mEwVlE35yinwK/CaZ7UcUKT4GdRsANBC6/sIz3zUbfo=;
-        fh=9dcXwQje+jiZ7B8QSIvU3qjAGyXsdB5c7IYQDe+mOgQ=;
-        b=fjJW/RGz6r+c5tgbRldWtcSjp60NA+KuCeeZKCRApXG8A47+5opzRGWDFoAC8bBDOg
-         e7GD4oFLdv/G0vd9G1pSBfR+xgST3Ye3p784NAYRZISVy8yUt/j18Rg4T85c6hVrkub1
-         t7WT8T7pf6j7kUQxDJAEnYNOGXOHI76nNFBsRKXEjD5z/17gCJzVYD5xIrG1PXicJT57
-         2t5zn8C2YLpsJl4LJUSr1WMWD18JzpvB8BxofT7B0C6dGEHBNNBmXlZm1l1kjifinh3P
-         LZLRsUf8Pzx2kPF7B0ok8im2mA89Ae+XMkw82/kICfk82CI+2usblLlaTVDb7BhFdUq5
-         o1+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cc1B51YO"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493ece78b0cso2320315e9.0
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 15:19:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783635352; x=1784240152; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mEwVlE35yinwK/CaZ7UcUKT4GdRsANBC6/sIz3zUbfo=;
-        b=wiV9nnDjwWyvbkJMZPdtcZipjwqDmNsF1QRYhYBAwpIjd71mtENaL7NQnQYwnOxW8r
-         u0KR8EnsfD5SBWI5ABxYhlXKJHf4DErVufTFaxEVOs1D1wASKF/+b2onQVorNur/btd4
-         or3/QB+pjSx25R4EXu5CuVHZXRu0RLktA/cBA26hYdeF/j5/T3IUk3S6vH7j6s1htFc5
-         uJQ1rfuLSfCPfHHJikTMchweDsoEJ8elE/4uRJOipfqO9qILJOPwu+Gd3ISOVl8qcX52
-         zInLlIQpqy1Bk6mrIdSngy+F09Un1skuk4DW6Q1DD9g9Beh2r2JE/LNYIhfdcFUoL2d6
-         hZQQ==
+        d=gmail.com; s=20251104; t=1783635543; x=1784240343; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BqQgw4jCCe/BvKpqMgYyZ70b1id8WmzXWyq/OSrYdlk=;
+        b=cc1B51YOtA/6A1kmzmBig9+12v9yAztZhxpH3H685lT903ZqlkL2wm+Z+wm8vttkNz
+         lKgMwnobY/phweGr4fHRs3TCP7u/azwuLQKW9j6RVCIAdpb/B+4KCLFGi7eYUWwyheeZ
+         kCJvPXXEXeKY1dNFWGsgriCdwpRga/x143RZZyYpSE8TtbNnTHsfir8emVgSpy0itoRj
+         rTUOM3248rbSnl1CdISiqEGI5QPVkI6886LwIDY6pBeBfmelDt3wl/g7Hn8gAITPi8E5
+         Evy5a50r9+WdNzdetE6fAp/LgF08xbgfvu/RL+uaZOXXc1GKv4CP53bNqr+psE/IvXDZ
+         JsHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783635352; x=1784240152;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1783635543; x=1784240343;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mEwVlE35yinwK/CaZ7UcUKT4GdRsANBC6/sIz3zUbfo=;
-        b=EzCHDvmCWs2vO3j65fEwhsVbYDM5Hu9dzsY6djKqtQ1ma+HpgHHyMEqOWYoiZxctSN
-         X13jcspGKw2UeGyd30XVNhKltJF3a/lQf6uWwMgsF3lzqYvW+BFssTMv/XPH36EHUY45
-         Bnn5uH3E09zmMgYwkwSJx5Op3HdOSzSWSu9fbPO42uycDEk90wUiEsVLrjJ/mO0SxsAV
-         zE/ARmsKFtFyDz21l2asEdPkBB2Aqo3zGGfololkLJ4hGRJYD33/mJyQ7AlBgafrcjE9
-         6BSdLkIWy2hnyZN3e5yZ+KO8gHsUcEdQ2LLSxVYBlg+1DvrqWxi8y2iBmvzRjBXZQVPU
-         UdLw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr6PMSjNo0CRE8B5bd+W4zH5z2gscL/ovKA8R6v1XNryvINnoBFaoMdHe6hwDaYn2UAzuAAgek=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzlr2e457b7wnytGElvLc/GpEY5tyonN0fYtmjmNeGzb8oOzjzk
-	DaM5uQ1wFIBZTLTOMRvpGNm8t6ceuqURy9pANWQWE25KdnXw+OzeOkJqtL4kRp9V6BLDrcVJ4Na
-	Qng+xvONAdsfbFqXZkVn1h+bzGIa/Vs0s3uz04p3/
-X-Gm-Gg: AfdE7clTA0CvcAZjhbDhiJCUKn8Rfm9Vxa1WX6iu2gSYDXn2o1+U0sASU0v+SVzpbzw
-	+EArAqeD9ZJVKPM4ga9i45xdfr3NWFpmg2N1QuvoaXbzDtmY7fPvIgCm8vmIGdSISenJjdE9Ar1
-	ET9TNTvb7fspAUGZvGIgubW8uc1bx2uhjIkhleyavm+QTxk6Yxpq2tYdTnqlZBbzkO4w6RpV35F
-	njeD5YnSY60QhgfpQbIsn9XFwhJFdxJyXU5kft6oGDxXrk0SX/I2AX+JHZSAL3tvv/qButq6we4
-	m002CwOJ1d8rkbhVEPnDz8WmxBYP7jcjJnxx3RAgb5MnmfVoRTMd79Vfs1QqmjO9WerFJA==
-X-Received: by 2002:a05:6a21:3086:b0:3bf:b705:4b9d with SMTP id
- adf61e73a8af0-3c0bceca396mr10973890637.28.1783635351656; Thu, 09 Jul 2026
- 15:15:51 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 9 Jul 2026 15:15:50 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 9 Jul 2026 15:15:50 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <CAEvNRgH9WSF64eKardR9M9VeRiN85UkS=Zsje9H8mqjQQychmw@mail.gmail.com>
-References: <20260709153409.2091070-1-joshua.hahnjy@gmail.com> <CAEvNRgH9WSF64eKardR9M9VeRiN85UkS=Zsje9H8mqjQQychmw@mail.gmail.com>
+        bh=BqQgw4jCCe/BvKpqMgYyZ70b1id8WmzXWyq/OSrYdlk=;
+        b=i6vroESe/LeIdLLZVm8N939Ti85GGfNTAPSdPp8nH19az4OcTR3+D22xhq9TL5501c
+         SZJdefEvflcjMnAZa9Ko+fERs+gIlRGTdtQCSYd5Ewa1SQ7CK/H0jL1Ln70lMhu3ZQUh
+         QJ+iCP0Pmjxur+Dp2ewT0Gd55Um5fCZxvQYRv/XSsAaTxK7tH4mnlSCiUkjNKB+zIilI
+         LRyN52Vw7Er5XedtcKp40S4eK0vT4IvZqLd+YANDjsvQJUWWV9x5WxRBUke0hzDzAQ7r
+         DcdPSIsPVFl2wW/UxoeYksCQOSa643MqQTPC4lgpyGTvqcwg/axm3EnMII6ucQJeJgj+
+         xFfg==
+X-Gm-Message-State: AOJu0Yz0pQfM8h1tKM/xbVQwFWwzbl1C+/+qsmsg14GxpwG9FYE/Ohrk
+	WTIQC0+bQnsLWpe7miqUmLStdzMMBzfZhoorOq0+bZ0VyWvtrzFE49Zh
+X-Gm-Gg: AfdE7clLdqIFhlBoK9Xfnc9dfxFD+rp8Qan6xeK2VEaynw+wo19x11dp/Gw4199/P7R
+	BIZ9wTEsnixndBGOm24VdOSI1PwjkCJ94k2Y9KVArGwtSwDlJZ3rRpdU6ff9Rly6naIRXKdDtgf
+	m1RnIR+PP/gjOK9s8RspzuSw3R6+xeWLVkta8qucp8rdnF0awvkT/e67Rlhc/C8dPDpqUne2qhj
+	HPpz1qM3qZWxlSBKc/NeUfRHy+TTL3jcdAFkXATJ7s9d+Se9Hjm+sOCE+vByCsJ7qpK7GMzMlqm
+	5v+5jx5nYy3SYAOFwok76qgnankBbkcYlBhzUxrGzEjLCZmDHjR3/Yeyh9JALpyni7C5SfX1u8C
+	oYLRBXKZKdp6wJpimvRnBVaGkaunkamKy4/yoamv7DLTmBCCtJ+DQCv6w0AsCtSKpUo/iKt9mFl
+	IZ3Aj1P5QCOG5hvUO0Tme50WGXuNZhYz1m09MGaCD1DVxkJNW+GNSi2z3VrIodaSdgtMUWtWS3
+X-Received: by 2002:a05:600c:6211:b0:493:dcad:84da with SMTP id 5b1f17b1804b1-493e683c3b2mr83501675e9.1.1783635542767;
+        Thu, 09 Jul 2026 15:19:02 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6e8844sm102269415e9.10.2026.07.09.15.19.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 15:19:01 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: alex.aring@gmail.com
+Cc: stable@vger.kernel.org,
+	syzbot+60332fd095f8bb2946ad@syzkaller.appspotmail.com,
+	David Carlier <devnexen@gmail.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ieee802154: hwsim: serialize pib updates to fix double-free
+Date: Thu,  9 Jul 2026 23:18:58 +0100
+Message-ID: <20260709221858.158063-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 9 Jul 2026 15:15:50 -0700
-X-Gm-Features: AVVi8CdvfF-IT3gKBuhe9TeVC3ZAyxvU-Wq7nKHZoFIvtZtPczQqgh73rAYctlA
-Message-ID: <CAEvNRgGN0HSJ2iLSDD2haSKOxifa-uhkO9Hwossh0+Q_d9fzOw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/5] mm: hugetlb: Fix subpool usage leak on allocation failure
-To: Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>, 
-	Wupeng Ma <mawupeng1@huawei.com>, fvdl@google.com, rientjes@google.com, 
-	jthoughton@google.com, vannapurve@google.com, erdemaktas@google.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	David Carlier <devnexen@gmail.com>, Zhao Li <enderaoelyther@gmail.com>, lance.yang@linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Ackerley Tng <ackerleytng@google.com> writes:
+hwsim_update_pib() does an unserialized read-swap-free of phy->pib:
 
-> Joshua Hahn <joshua.hahnjy@gmail.com> writes:
->
->> Hi Ackerley,
->>
->> Thank you for this series. I really wanted to work on hugeTLB accounting
->> fixes but never got the time to get to it. I'm very grateful that you
->> are taking a look!!
->>
->>> From: Ackerley Tng <ackerleytng@google.com>
->>>
->>> When alloc_hugetlb_folio() fails early (e.g. buddy allocation failure or
->>> hugetlb cgroup charging failure) and gbl_chg == 1 (meaning a reservation
->>> was not used, but a global page was allocated instead), the subpool page
->>> acquired via hugepage_subpool_get_pages() must still be returned.
->>>
->>> Currently, the error path out_subpool_put: only calls
->>> hugepage_subpool_put_pages() if !gbl_chg is true. If gbl_chg is 1, it
->>> skips it, permanently leaking the subpool's used_hpages counter.
->>>
->>> With the earlier patch to always track used_hpages in the subpool, always
->>> call hugepage_subpool_put_pages() if map_chg is true to consistently
->>> restore the page to the subpool. Only call hugetlb_acct_memory() to adjust
->>> global reservations if gbl_chg == 0 since gbl_chg == 0 indicates a
->>> subpool (and global) reservation was used.
->>
->> So I think that I've seen that this part of the accounting specifically
->> is a bit suspicious. There have been two attempts in the past to fix
->> this area [1] [2]. I think functionally they are quite similar to this
->> fix, they just open-code the contents of the put_pages function inside
->> the condition. I've Cc-ed the authors of those two patches in case
->> they wanted to chime in.
->>
->
-> Thanks for connecting us! I didn't realize this was already being worked
-> on. Also adding Lance, who commented at [3].
->
->> I reference these fixes because I think they handle the minimum
->> subpage case a bit differently. To be honest, I recall reading those
->> fixes a while back and getting a bit confused on what exactly happens
->> when the page is absorbed to fulfill the minimum size...
->>
->> It does seem like Sashiko also notes this as a possible concern.
->> WDYT? Does your reproducer for this issue also work when a minimum
->> size is set (let's say, to 1?)
->>
->
-> Let me look into this more!
->
+	pib_old = rtnl_dereference(phy->pib);
+	...
+	rcu_assign_pointer(phy->pib, pib);
+	kfree_rcu(pib_old, rcu);
 
-I was looking at Sashiko's comment [4] and Sashiko is right that there
-could be a race. Specifically, at the time of
-hugepage_subpool_get_page(), I might be using a reservation, hence
-returning 1 (thread A), but at the time of hugepage_subpool_put_page(),
-some other thread (B) might already have restored a reservation to the
-subpool.
+It assumes the RTNL is held, but ->set_channel is not always called
+under it: the mac802154 scan worker changes channels via
+drv_set_channel() without the RTNL. Such an update can race an
+RTNL-held one on the same phy; both read the same pib_old and both
+kfree_rcu() it, double-freeing the object. With SLUB percpu sheaves
+batching kfree_rcu(), this surfaces as a KASAN invalid-free in
+rcu_free_sheaf().
 
-With used_hpages tracking within the subpool, we can rely on the return value of
-hugepage_subpool_put_page():
+struct hwsim_phy has no lock for pib. Add one and make the swap atomic
+with rcu_replace_pointer() under it, dropping the misleading
+rtnl_dereference().
 
-+ Return 1: Reservation should be returned elsewhere (pool has enough pages to
-  satisfy minimum, or doesn't track minimums)
-+ Return 0: Reservation does not need to be returned elsewhere
+Reported-by: syzbot+60332fd095f8bb2946ad@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=60332fd095f8bb2946ad
+Fixes: f25da51fdc38 ("ieee802154: hwsim: add replacement for fakelb")
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+ drivers/net/ieee802154/mac802154_hwsim.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-But calling hugepage_subpool_put_pages(1) doesn't say anything about whether the
-1 (in this case, 1 doesn't always represent a page, since specifically on the
-error cases, the page wasn't allocated) consumed a reservation or not.
+diff --git a/drivers/net/ieee802154/mac802154_hwsim.c b/drivers/net/ieee802154/mac802154_hwsim.c
+index 6daa0f198b9f..a9bd1555d2dc 100644
+--- a/drivers/net/ieee802154/mac802154_hwsim.c
++++ b/drivers/net/ieee802154/mac802154_hwsim.c
+@@ -72,6 +72,8 @@ struct hwsim_phy {
+ 	struct ieee802154_hw *hw;
+ 	u32 idx;
+ 
++	/* Serializes phy->pib_updates. */
++	spinlock_t pib_lock;
+ 	struct hwsim_pib __rcu *pib;
+ 
+ 	bool suspended;
+@@ -102,8 +104,6 @@ static int hwsim_update_pib(struct ieee802154_hw *hw, u8 page, u8 channel,
+ 	if (!pib)
+ 		return -ENOMEM;
+ 
+-	pib_old = rtnl_dereference(phy->pib);
+-
+ 	pib->page = page;
+ 	pib->channel = channel;
+ 	pib->filt.short_addr = filt->short_addr;
+@@ -112,7 +112,10 @@ static int hwsim_update_pib(struct ieee802154_hw *hw, u8 page, u8 channel,
+ 	pib->filt.pan_coord = filt->pan_coord;
+ 	pib->filt_level = filt_level;
+ 
+-	rcu_assign_pointer(phy->pib, pib);
++	spin_lock_bh(&phy->pib_lock);
++	pib_old = rcu_replace_pointer(phy->pib, pib,
++				      lockdep_is_held(&phy->pib_lock));
++	spin_unlock_bh(&phy->pib_lock);
+ 	kfree_rcu(pib_old, rcu);
+ 	return 0;
+ }
+@@ -952,6 +955,7 @@ static int hwsim_add_one(struct genl_info *info, struct device *dev,
+ 		goto err_pib;
+ 	}
+ 
++	spin_lock_init(&phy->pib_lock);
+ 	pib->channel = 13;
+ 	pib->filt.short_addr = cpu_to_le16(IEEE802154_ADDR_BROADCAST);
+ 	pib->filt.pan_id = cpu_to_le16(IEEE802154_PANID_BROADCAST);
+-- 
+2.53.0
 
-+ gbl_chg == 0 means a reservation was used, and
-+ gbl_chg == 1 means a reservation *should be used*, but
-+ gbl_chg == 1 does not necessarily mean a reservation should be used, since
-  h->resv_huge_pages may not have been decremented yet. (See goto
-  out_subpool_put and goto out_uncharge_cgroup_reservation in
-  alloc_hugetlb_folio())
-
-So, we need to track if h->resv_huge_pages-- happened (with some local variable
-like reservation_consumed)
-
-| reservation_consumed | hugepage_subpool_put_pages() return value |
-h->resv_huge_pages++ |
-|----------------------|-------------------------------------------|----------------------|
-| 1                    | 1                                         |
-Yes                  |
-| 1                    | 0                                         |
-No                   |
-| 0                    | 1                                         |
-No                   |
-| 0                    | 0                                         |
-No                   |
-
-TLDR: replace !gbl_chg with reservation_consumed?
-
-    <<== reservation_consumed = true
-
-	if (!gbl_chg) {
-		folio_set_hugetlb_restore_reserve(folio);
-		h->resv_huge_pages--;
-        <<== reservation_consumed = true
-	}
-
-	if (map_chg) {
-		long gbl_reserve = hugepage_subpool_put_pages(spool, 1);
-
-		if (!gbl_chg)  <<== this should be reservation_consumed
-			hugetlb_acct_memory(h, -gbl_reserve);
-	}
-
-I believe this depends on always tracking used_hpages in subpools, in order to
-know for sure, just based on a number (with no page information), if the page is
-supposed to use a reservation.
-
-
-Perhaps related: does it make sense to flipping the reservation tracking
-to instead track an "available" page count? This is basically the
-mathematical opposite of rsvd_huge_pages, as in,
-
-  available_pages = free_huge_pages - resv_huge_pages
-
-This way, there's no need to synchronize the number of reserved pages in
-both the subpool and global hstate.
-
-It's quite confusing now, that reserved_pages-- can be either "used a
-reservation" or "unreserve". If we track the opposite, available_pages--
-will definitely mean the page's availability is removed from the global
-hstate and transferred to the subpool, and allocating page doesn't
-involve updating both the subpool and hstate.
-
-One downside I can think of is that creating hugepages (surplus, or
-promote/demote, or hotplug, or runtime echo 1 > nr_hugepages) would need
-to update the global hstate's available_pages count, but I imagine that
-would be less frequent than allocating huge pages?
-
->>
->> [...snip...]
->>
->>
->> [1] https://lore.kernel.org/linux-mm/20260428113037.88766-2-enderaoelyther@gmail.com/
->> [2] https://lore.kernel.org/linux-mm/20260515202902.461539-1-devnexen@gmail.com/
-> [3] https://lore.kernel.org/linux-mm/20260428113059.79001-1-lance.yang@linux.dev/
-[4] https://sashiko.dev/#/patchset/20260708-hugetlb-alloc-failure-fixes-v2-0-c7f27cbb462b%40google.com?part=2,
