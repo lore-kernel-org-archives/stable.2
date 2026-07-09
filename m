@@ -1,129 +1,143 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B843273D8F
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B062673AA
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783603151; cv=none; b=Yc+sOG4g5ohyC0dUloBtjBzOXsYPvBTxemoVIXQmBHEl2I1Lif5sAIFexPIIFD6FeTAqOcnLKqppFCmfFD8hAy7gn01CytoMsLRYw5CTD8gnjfeTEmxHCRq87qqJQpuMpq63fnSylhVdC22I8kXtLoQJ/RIMpXGKz9zQQRD49F8=
+	t=1783603151; cv=none; b=s3lr07rTOqp0rYSs51JOIYxEe4xfzRihI1Wc4zYZ5YFssto9/NOaGOd10CSJjuZz6REDI22kHtcDgFxWxyU8esqJO8yzTtZlbwqDFabTycyPUrnQYia1r0RqEZIv5ix5QxaD4jc1fYD8ernRGg9hoJzIFjaasN6viu0YtsSdXJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783603151; c=relaxed/simple;
-	bh=F9vDf47ixbnznasLGKzTkoh3Mf021Menp2X4kQr5Gw4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dtls8sBOQflPiJcQp9GhuHLjHOfgGz8gjKaJp+a9xCbFSeuHqgc5KLBgaZfFgLBaNHbjIrnopNZkbhkMtjkS11/uoYuqtMsbSHNIpCWIlsdah82hNITaVOTNHf+L5C8izCkpu+mnI5KcbTohU1zJNFhYF+dGfVHnMznsRo1NGgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gPidSYWT; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=pyU260pXhJJC8YkHlsSC0yA64y49tWjKJthbuClAm64=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ByCgPwkVcwV/Gx02zhWhIZ4heK8PumRKU2K+B1pFSvqGDiUt1hNTc20jqsM3nwSMti11v8Reb6TN2qkTLmQ7VCdGtPSPRxq3ueimIhPgQ7ijC799CMxFfbj8MLRSwl+inYp0GL74xjTDDgo3gdx+dnkhj4DOPeRFEbcKjiSWABc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=5O5fmDEa; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gPidSYWT"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38511175ad3so793642a91.2
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 06:19:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783603150; x=1784207950; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UcJGxgmDnR38OVaHjck8+5Pv/cW2l1vuCnw3aV8D/74=;
-        b=gPidSYWTZv0yEdN1qbgWka+yzjA3twD9jqvHxJWoutL6wP3NZTZxdELEbFMDyh4poc
-         Lq6zDpB2oKLX3m5Z2OwAB5vJhZgz7hFx/VHZpx85ywIwVfsSMIHvXskm1KmHjsDeckdA
-         1hLQyFPoRKXZjuBRwQm0MEu1t3Zrs278VMIRcTBhpR4A+A2HM0zq4DSnrGkw85CFdqCe
-         kcpZxQVrJNofBQQWnMLocS9B566B7Tzf3vh0nLeVAVRyp1bPhMJ4dgTg2vyASelmJTwo
-         pBHtVtaez63TpgY6pxhD9sf0XQgtBzUm2apvAyW0/5645yakWALro1rRbC80P4m80Tfm
-         SMuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783603150; x=1784207950;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UcJGxgmDnR38OVaHjck8+5Pv/cW2l1vuCnw3aV8D/74=;
-        b=m7NYBRpKwB//AU2cJHxP1wqfuuH/4+07pNZeKcZrEwuq/Ef5A/xH4JHi/m0zBBDOlq
-         q0Iroiy1UokWr/+tzlYGwN4fFLYqtP7tdZJbbNwyC4K80jWWst8MqnxML24hj+tHVQLm
-         2eqwSGbJjVtmICA7idvIMHtboTMDrXAU7p+stC+wUgEdnGgiviYSpRZnlL4Qzd+yhPqS
-         1ULfXMtH2+laH24rv3M1HdQJWgB/uxlygoyQNVjlUIJryDRGXmndIHmVaZcQoojmV/C5
-         kzlDdIVe3QGXKMK8wCY8S4hnJr/3K9AhkcISjwbg+TmStOcQGkszAyZZ8i9Rm83Jkb6B
-         JAkw==
-X-Forwarded-Encrypted: i=1; AHgh+RpTIYhvlP9scbiEE4W5LysP8Jgbaj96ZES/SEi2590j2Mtn/xX6n/rn9QQ8I/kIwMIVMtXn3uQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+Vx9gmPhIE4B8+LYeQekegAWOMNXFzGfk5KJhdJWQp30EqIhg
-	U+NHPMV0JXZcepl2qxfDsItSayr2qKTDc9cth33zD8Mv2XN07odoizPint3E4M23Gw==
-X-Gm-Gg: AfdE7cmIs95N8e9C67b9RPzpaZddcOHqeD2JY9gid/TUdO/26DWSeJrgVtpT2BXL+kB
-	Uyu16g0toFfWfg4QCrKzp7WAHlV6YAaOvqX77Vx18xRuIZORRfiMlS5oxmxqpidLQH2+dz+LYv9
-	785OgCaTZqhJVUEg7Ehbw2C6Nd/nNg27nqxhvUyXQiheJx6SCtFXOA/PiVAUQzbeMzOKeRAouy1
-	0w4KAPBYwnUPYINLM3hnmuGCrZ/ugh6vHS9StpMc3BaxhfS2tJgeCVV1beS4R10hn+1UAvU2SrE
-	1ZoR8ae1K3h0AY64jabMkBvpYLYOU/UcjCtdrPVMBmkTpWylIwjspRKMQoCcfhPeyrVqY7LJ2O2
-	Gh2ExfvvAJyaDP4swOtlNtOZIdjG0R3+bhIr9D48R1QAWr9X3heuBuuH5vCIlb/rht4s/8r/Vfa
-	saqv6hyCDpLYVUJA1v5pG5UCf9y6bk0vdjgTVVVXu/iz85cTA2KA84p9hqSw6KKhG0
-X-Received: by 2002:a17:90b:510b:b0:381:b1ad:c9e4 with SMTP id 98e67ed59e1d1-389416e7d75mr7203452a91.26.1783603149803;
-        Thu, 09 Jul 2026 06:19:09 -0700 (PDT)
-Received: from coe.tail83f5bd.ts.net ([58.146.106.120])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174ae6cd9sm33960852eec.31.2026.07.09.06.19.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 06:19:09 -0700 (PDT)
-From: Ramesh Adhikari <adhikari.resume@gmail.com>
-To: colyli@fygo.io,
-	axboe@kernel.dk
-Cc: gregkh@linuxfoundation.org,
-	linux-block@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ramesh Adhikari <adhikari.resume@gmail.com>
-Subject: [PATCH v6 0/2] badblocks: fix infinite loop and validate sector range/shift
-Date: Thu,  9 Jul 2026 18:49:02 +0530
-Message-ID: <20260709131904.596684-1-adhikari.resume@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <ak9CC591ivuQ4BP1@studio.local>
-References: <ak9CC591ivuQ4BP1@studio.local>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="5O5fmDEa"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=01sbm6fVaYiiHHkJ7k1n3+ePoevqsPaJoT53HbHV54E=;
+	b=5O5fmDEaomiQ+EJyla6QRBz082huhFYV38AWcOlauQHnWVZ38T+ZKsG6w2AGgt351KjsgboqZ
+	rmGqSNFzo/mdm+rEeQ2TFQsNyyKQj+o5ClBb8Ndrk0lKbWo3MP0yFZjdnHRRLfKq9cJaIbpwt12
+	Ixu2nf+1848XJ4bO1htVDD4=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4gwwKm6L2kz1prLD;
+	Thu,  9 Jul 2026 21:09:48 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 9AF3240561;
+	Thu,  9 Jul 2026 21:19:05 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 9 Jul 2026 21:19:04 +0800
+Message-ID: <cd801ce1-7326-49c2-a6d2-218f9e3bd670@huawei.com>
+Date: Thu, 9 Jul 2026 21:19:03 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 03/36] arm64: hibernate: mask DAIF before restoring
+ hibernated kernel
+To: Vladimir Murzin <vladimir.murzin@arm.com>,
+	<linux-arm-kernel@lists.infradead.org>
+CC: <mark.rutland@arm.com>, <maz@kernel.org>, <will@kernel.org>,
+	<catalin.marinas@arm.com>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	<stable@vger.kernel.org>
+References: <20260709121333.23507-1-vladimir.murzin@arm.com>
+ <20260709121333.23507-4-vladimir.murzin@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260709121333.23507-4-vladimir.murzin@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-This replaces the single-patch v5 with a two-patch series, per Coly's
-review.
 
-v1-v4 chased symptoms of the same underlying bug (an RCU stall found
-by syzkaller through the nvdimm ioctl path, in _badblocks_check() /
-badblocks_check() looping with a non-advancing range) before landing
-on the root cause in v4: rounddown()/roundup() don't modify their
-argument in place, so 's'/'next'/'target' were never actually
-rounded.
 
-v5 folded the round_down()/round_up() fix together with overflow and
-zero-length guards into one patch. Coly's review on v5 pointed out
-that:
+On 7/9/2026 8:13 PM, Vladimir Murzin wrote:
+> From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> 
+> The arm64 hibernate code manages the exception masking in an unsound
+> way, leading to potential crashes and/or warnings during resume.
+> 
+> When a hibernation image is saved in `swsusp_arch_suspend()`, all DAIF
+> exceptions are masked (by virtue of `local_daif_save()`), and the
+> suspended image is saved assuming that all DAIF exceptions will remain
+> masked when the image is restored.
+> 
+> When a hibernation image is resumed by `swsusp_arch_resume()`, only
+> interrupts are masked (by virtue of `local_irq_save()` in
 
-  - the overflow check that was there wasn't sufficient on its own
-    (only one of several range-validity conditions), and
-  - the round fix and the validation should be separate patches,
-    since they're independently useful and one is safe to backport
-    on its own.
+local_irq_disable()?
 
-This series:
-
-  1/2 is exactly the round_down()/round_up() fix, nothing else. This
-      is what actually stops the infinite loop and also fixes the
-      32-bit build breakage kernel test robot reported on v1
-      (rounddown()/roundup() do 64-bit division/modulo on sector_t,
-      requiring libgcc helpers not linked into the kernel).
-
-  2/2 adds the range/shift validation Coly asked for: s+sectors
-      overflow, bb->shift too large to shift a sector_t by (bb->shift
-      is populated in drivers/md/md.c straight from an unvalidated
-      on-disk superblock byte), and detecting when round_up()/
-      round_down() themselves wrap near ULLONG_MAX.
-
-Both are tagged Fixes: aa511ff8218b ("badblocks: switch to the
-improved badblock handling code") and Cc: stable, since that's the
-commit that introduced this code path.
-
-Ramesh Adhikari (2):
-  badblocks: fix in-place round_up/round_down usage bug
-  badblocks: validate sector range and shift before rounding
-
- block/badblocks.c | 52 ++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 45 insertions(+), 7 deletions(-)
-
---
-2.43.0
+> `resume_target_kernel()`). When pseudo-NMI is enabled the DAIF.IF bits
+> will be clear, and regardless of pseudo-NMI the DAIF.DA bits will be
+> clear.
+> 
+> This means that there are two problems:
+> 
+> (1) It is possible to take Debug, SError, or pseudo-NMI exceptions
+>     during the resume process. This is unsafe, as during the resume
+>     process both the old ane new kernels will tranisently be in an
+>     inconsistent state, and swsusp_arch_suspend_exit() won't retain
+>     an executable mapping of any exception vectors.
+> 
+>     Any exception taken here will be fatal and silent.
+> 
+> (2) When re-entering the resumed kernel, some DAIF bits will be clear
+>     unexpectedly. This permits Debug, SError, or pseudo-NMI exceptions
+>     to be taken for a short period while the resumed kernel is not yet
+>     in a consistent state.
+> 
+>     This is detected by CONFIG_ARM64_DEBUG_PRIORITY_MASKING.
+> 
+> Avoid these issues by masking all DAIF exceptions during resume.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
+> ---
+>  arch/arm64/kernel/hibernate.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/arch/arm64/kernel/hibernate.c b/arch/arm64/kernel/hibernate.c
+> index 9717568518ba..d0d9bd91e639 100644
+> --- a/arch/arm64/kernel/hibernate.c
+> +++ b/arch/arm64/kernel/hibernate.c
+> @@ -405,6 +405,7 @@ int swsusp_arch_suspend(void)
+>  int __nocfi swsusp_arch_resume(void)
+>  {
+>  	int rc;
+> +	unsigned long flags;
+>  	void *zero_page;
+>  	size_t exit_size;
+>  	pgd_t *tmp_pg_dir;
+> @@ -465,9 +466,21 @@ int __nocfi swsusp_arch_resume(void)
+>  	if (el2_reset_needed())
+>  		__hyp_set_vectors(el2_vectors);
+>  
+> +	/*
+> +	 * It is necessary to mask all DAIF exceptions here as:
+> +	 *
+> +	 * - The copy of swsusp_arch_suspend_exit() in the hibernation
+> +	 *   text cannot handle taking any exceptions.
+> +	 *
+> +	 * - The suspended kernel masked all DAIF exceptions in
+> +	 *   swsusp_arch_resume(), and expects to be re-entered in the
+> +	 *   same state : with all DAIF exceptions masked.
+> +	 */
+> +	flags = local_daif_save();
+>  	hibernate_exit(virt_to_phys(tmp_pg_dir), resume_hdr.ttbr1_el1,
+>  		       resume_hdr.reenter_kernel, restore_pblist,
+>  		       resume_hdr.__hyp_stub_vectors, virt_to_phys(zero_page));
+> +	local_daif_restore(flags);
+>  
+>  	return 0;
+>  }
 
