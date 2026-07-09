@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7FB34BA42
-	for <Stable@vger.kernel.org>; Thu,  9 Jul 2026 05:45:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E123AA9CA
+	for <Stable@vger.kernel.org>; Thu,  9 Jul 2026 05:45:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783575929; cv=none; b=bpgPxpJShu5nZh3dbea4tVFMjm9TYMBAkEsSeRjnFgS1Z2SK2Hi31PDh9PvegprHX6DFKV/6TrSA+QOYu0x8xmyWYMqH/qtXdGOaD3enp6iHDYgkqca14XONIhUdgVZsxgOONdNsbh0DOtx2ubXSsm+6aziMclxNMYDEu1OtPRA=
+	t=1783575930; cv=none; b=nG2fVFTj2T2Fl5hdznF+Mq7jaZL0Byi1PIHMRcYdd4jTdwuf6/ylw2ydclVUZuWYXgyM3Xli0n7VMz0CxNz2DGaJyJxwZklRfncWW7W8QMP+zBHhHb0coDnBTzXKljumSVFRTHa08Zgll0sfkh7EYyb0mJIzpyLi0zuP0ql14mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783575929; c=relaxed/simple;
-	bh=C0PyFjWu2UKO/6mbVosbR/83jMhSxWQN7Lx9WuDHgmI=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=l+jJuqKr2RhJ6GYS1ZVOva79SahOE+XIVcOFF9cH40U6iqm2le7Pip0EEdD7D2kvMcPC/jgbp9EVa0PDmlIT5K96JmSBEMeK6Cnv+RmBcdg+o0FWWmy7uKJoqtD3NxbSasbB7H5vCW5wB6RK2ZiAaTORqy3pOPj6kMELFDXb7WA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ffto+uRS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783575930; c=relaxed/simple;
+	bh=3EFBZBk5WoCzwyemq6c5RgtxwguDDhrMMWn7FICgoR8=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=Bjeh6y3ncFv+yvKfd3GiYGNQcPgEhzmwxj/vZqleWbl6YMV009B8DzVYdG80UW7IVkDFKKv6wl3hpe3H8L1TOkKCAg1C1mZYLX5UB3I4pILNKo/Kc2uXO87WQ5F2tQHyvQK1lo30k0SyWRNt3zi/UZq8xmLhF0Bw5kf1dS1qpPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UtW7t2cQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ffto+uRS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF9E41F00A3A;
-	Thu,  9 Jul 2026 05:45:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UtW7t2cQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99FC01F00A3F;
+	Thu,  9 Jul 2026 05:45:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783575926;
-	bh=jtFi65l+XI1816Kqfq+LtVfO8Dno/qQfuQBsHuyehzs=;
+	s=korg; t=1783575929;
+	bh=HUDERsjh8Sw/pApF13BmAqbyh0bnv+n98kt35pxkmxY=;
 	h=Subject:To:From:Date;
-	b=Ffto+uRS0f3//SL8z7WaKuMaEkkcJqPjYTxz5xPaShyuBnhmq4zfkH1MkA3VFZfEx
-	 Xo0tQu5ytPJM26MERcIgXKfYRyGb+3AohqRsZCDs4f7wDk0BjBTgk8IaVULOy3kMp7
-	 x1bxNx96IMdGUbUgeum0Rs27nUPfi8lKlYa0UXhA=
-Subject: patch "iio: light: al3010: add missing REGMAP_I2C to Kconfig" added to char-misc-linus
+	b=UtW7t2cQtd7z6uG+SjbcTgwkFBc/j+iFjzYfXNgV0Z1igrdSsTaGJGoSxt5maK4t0
+	 U3sZriLVveNuZ2bKumqFcx01dDuBrNmMe06zmC5T/ocyuvwlqtqEUB80JHxf/DEAi7
+	 sSvcfzlgWI6c814BEZ5MrjTtPbZ9umdH71jeVvXw=
+Subject: patch "iio: light: al3320a: add missing REGMAP_I2C to Kconfig" added to char-misc-linus
 To: joshua.crofts1@gmail.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,david@ixit.cz,jic23@kernel.org
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 09 Jul 2026 07:44:50 +0200
-Message-ID: <2026070950-steadier-oxygen-3d12@gregkh>
+Message-ID: <2026070950-kindred-commode-10eb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: light: al3010: add missing REGMAP_I2C to Kconfig
+    iio: light: al3320a: add missing REGMAP_I2C to Kconfig
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,15 +54,15 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From 84486e3bbda18a2df1ed74ca78e1e14bde9a941b Mon Sep 17 00:00:00 2001
+From 9efcc9ba9b2e940cc01e63d132ae741e4c5d09c7 Mon Sep 17 00:00:00 2001
 From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Thu, 25 Jun 2026 21:38:09 +0200
-Subject: iio: light: al3010: add missing REGMAP_I2C to Kconfig
+Date: Thu, 25 Jun 2026 21:38:10 +0200
+Subject: iio: light: al3320a: add missing REGMAP_I2C to Kconfig
 
-The KConfig entry for the AL3010 is missing a `select REGMAP_I2C`,
+The Kconfig entry for the al3320a is missing a `select REGMAP_I2C`,
 causing build failures.
 
-Fixes: 0e5e21e23dd6 ("iio: light: al3010: Implement regmap support")
+Fixes: 1850e6ae7f91 ("iio: light: al3320a: Implement regmap support")
 Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Reviewed-by: David Heidelberg <david@ixit.cz>
@@ -73,17 +73,17 @@ Signed-off-by: Jonathan Cameron <jic23@kernel.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-index a33920568904..4ba3151ebea7 100644
+index 4ba3151ebea7..f23bbce12c72 100644
 --- a/drivers/iio/light/Kconfig
 +++ b/drivers/iio/light/Kconfig
-@@ -56,6 +56,7 @@ config AL3000A
+@@ -67,6 +67,7 @@ config AL3010
  
- config AL3010
- 	tristate "AL3010 ambient light sensor"
+ config AL3320A
+ 	tristate "AL3320A ambient light sensor"
 +	select REGMAP_I2C
  	depends on I2C
  	help
- 	  Say Y here if you want to build a driver for the Dyna Image AL3010
+ 	  Say Y here if you want to build a driver for the Dyna Image AL3320A
 -- 
 2.55.0
 
