@@ -1,167 +1,186 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B624DB546;
-	Thu,  9 Jul 2026 18:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90BAB4DC531
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 18:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783621473; cv=none; b=T1kMWuXVQiCqiaX8nu9Vpn35h1i2U9hn4VtZL8JE7X+gihmaf7GUZlHcitrrgavXBrV0JyX+Or3PcbDm9J7yfySi3qg6UguZlJY2RyOGxyDfYCn1n8dkzb4+8Nur+md31nMTxFdVix7lRJLwiEtM3NX/HgAQTJFOgDM12aV4dbs=
+	t=1783621492; cv=none; b=fssxs360v6s1jmE9p/eUDQfU2jCMKVcVz455HWW3pfDY5z/rrjdgHb+5ObN2v7zS09B3nL56/vFuNuSbz3Jg+aLKzEmKqeqrH0bxmLQuR2oB9QekYYjMcjrkECH6+/OPggtMaO4w6d4wHu6qA/JY7c4cuRFpRAsFcBesp+dFU+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783621473; c=relaxed/simple;
-	bh=RZuEVF3rOBFmmVy3QJeWbG99EhjesbP20IjwAIOYuUM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Oor8blM8eppWx9iXPgYaw/ZnhXptDFsx9gYnJtmRw14DsuvgtVMpv8iJsPdR0pdYB2DnbQz5sN5MBP5NQInaYJRbevdNuLR268fZWc9K1eIYmMqHQYfjVO9zVKWzBgnpTqND9+5SJJJuoT+N6x+e1Mnt70mhnNzORs+FDbqxlwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fluxnic.net; spf=pass smtp.mailfrom=fluxnic.net; dkim=pass (2048-bit key) header.d=fluxnic.net header.i=@fluxnic.net header.b=pdDqmS1D; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OLEuGeDO; arc=none smtp.client-ip=202.12.124.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fluxnic.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fluxnic.net
+	s=arc-20240116; t=1783621492; c=relaxed/simple;
+	bh=Y7wRC87fXpoR4wkA3OpfTWZDKusrqy03psARRSRx5XI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PXLRxS9rhkXEmE7AvjGCad3Qis2zuo4ZNo35zFxXC/LhqJRl9DFU7lmvTCyYNQ8dgsmGn2ByBju+2no9or2RdRqx3K/sC2XK9AjkD+FHcbeqFfhSJ3NBhnHSK4xNXn37Jn/M6xZZ43OU53vM+IMcLfGWKkM2XtsudbHrUKCp4vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MuY/Pz9N; arc=none smtp.client-ip=91.218.175.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fluxnic.net header.i=@fluxnic.net header.b="pdDqmS1D";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OLEuGeDO"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 41C0F7A0065;
-	Thu,  9 Jul 2026 14:24:31 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-04.internal (MEProxy); Thu, 09 Jul 2026 14:24:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fluxnic.net; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1783621471; x=1783707871; bh=rdKAgsnqRu
-	FEUZ24WOR22k/vyl0AlnXcVRldF7qQol8=; b=pdDqmS1DtFxeRt7WQtpH31iLqP
-	f3lD9ZZ5s8ACBhf37eHKogldg6bqm4UNjbUbbX0MfaIWRJSfyFE7+81+q61PjC7a
-	qZ4NOq3kTrKWTV4wT4BWyKDcwICTwKDhw/ePKmwXMhEtNDo6j2yAKY3hcHBLOflE
-	seWvRa2z+n2yBKQibH5CrTGHO5WCP8rUW5iE517+FItUvVrHC1VP9vkBoRu0zLrT
-	TByPo38a/kOwp+HWqE749JsWxFruw/h0egZgeM2U+pI1ZnQrPRhO6T/F2EeCoI6k
-	PwpK8qVVJr2QlnMwyR5yDYbm+FkuYNaa3NEa4b7lLxuAcXM3K/szJcJ0MwYw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1783621471; x=1783707871; bh=rdKAgsnqRuFEUZ24WOR22k/vyl0AlnXcVRl
-	dF7qQol8=; b=OLEuGeDO+np9rtPsgTpDqTH2XRr3GLQtoy7Lh6anQ21mPgMphFZ
-	TajNN7j758uI0fGLCoq+cYFspO5xLW3SreWGZCfyg3klvueuNJojOEUKj9gVCuoI
-	wLGKGLKnduOvj2p+NuVTifBdb1fgyEjjOEVQFSJRnmc0MLs+y3rDbYp4DeVUahFe
-	3msK1UHl3YzlCcnDGlUIoGgH//JJlb0LgoXadCn5ZHnl00t0V6uh6Hr/4fyWKTjV
-	B9+FTMnVmKQDQ6k3U3FJYAcsAljn9J5LmdzXE+GrsnfnMVehL/3iUiPfHA+grRCs
-	XndG7wz4bIyrhMzrXhpJUxwxXklQtUd5jNA==
-X-ME-Sender: <xms:XudPariH_458YgD4noIezIlmSveWsS7sFmj5US5IIxnqB3hc6DLRlw>
-    <xme:XudPanEUxbJz1w8LI_qzsWsJ1ClhS3B3w732Xw4kJTgIWqLUnqPjSFmcDT9PED75k
-    C-MDtz_RvA0bhUeWpleibJpSaUvDDWT6rhs_Kncd6CPC2Njw38mIWA>
-X-ME-Received: <xmr:XudPahT4_5drGjjvQv1niDmnJYf1fRAAhiWngdDpu2fsALkA4MEOdOjAaeI4fuaiD9XsFfF1EIUJBSpTtcVV_wFLVjFLUnSLCBMRMdSBcXNxFg4>
-X-ME-Proxy-Cause: dmFkZTGhb4zd4dCmOsyP3vEQaE5cokq/UZiR2tM9QWwyqyIdA/1M6z2/iBUu0X0iYU9j1g
-    6ifwS00D13nYbpBr6Ml0R3NrsCtRtFzQGDPRsp1K+H1CfyKq7yxgzibfBaCVppI9NEGj5D
-    JihF2iMQ9dL33/4gUoMSG8ouWUmnezHH114a7OApU+N9NguaWY3WbqAvuh8UUQU6DIannV
-    blYSSitjaacSB4DNiRkgThCs/4gib7i3nc1yePyA+s+CNsl7+WPqAwz6aPxt5e8psfaszu
-    P+2Ajy6stMkAzst+odIUZ43klIU34q7HQusx9u4u+0niQpxWmR/q2qOHbwmmkjI1a3LdUN
-    sYwmtU8QnsyHEFWVjNQhYGeO3g7lf9fNgTAYI6vM63tmXkXEjqXYwVyayBYpt2f2qLzcIB
-    RoNmOGTRkkRwRkaimJ/OvRXpgCozKpqkASUA77tfq1lv6YxMr0eiaNAUWCNtRAydS6dHmX
-    NWMJUqYP3JeaDuZX5rXp7xgq2AR/f0SHLycUcpSpK0Y71fdiQz/ApNrZ/BzCp2Vp6WOOd6
-    TT9wrrYakpb6VORD0ifSh0/m8+kog2WF74U35xX3xEdf7fBGG4wRIsmPY6EWo2/spekEd3
-    X+pOUPG6LhEPDToSJlQIFBVZ+drH55dpDMl+fQEPYtoNU+NibsLHI3k5qDmQ
-X-ME-Proxy: <xmx:XudPaky2NzD-i9d5Pa9KmNIdbU89bNC6lpQR68tz2eIOqpMTxRgunw>
-    <xmx:XudPatd0z7NbMkuHdDrhElATgmod4VKFGyYMV40K0h6gQcilp9c_kg>
-    <xmx:XudPanPnOftU5P1q4UnGndyb976AyquK6-u2GnlEVTDoGV6_6Rs_iA>
-    <xmx:XudPaosuYJjGE2N8Db4triB44bp4m85cYm8_tsqQQcgrYdyhw0Dv0w>
-    <xmx:X-dPakcSOrdNXxPMBp4fvp32l7l8i6U_G_bgTy90dupK8U5Uw_N-dy_6>
-Feedback-ID: i58514971:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 9 Jul 2026 14:24:30 -0400 (EDT)
-Received: from xanadu (xanadu.lan [192.168.1.120])
-	by yoda.fluxnic.net (Postfix) with ESMTPSA id E7FAC16BAFF7;
-	Thu, 09 Jul 2026 14:24:29 -0400 (EDT)
-Date: Thu, 9 Jul 2026 14:24:29 -0400 (EDT)
-From: Nicolas Pitre <nico@fluxnic.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>
-cc: Alexey Gladkov <legion@kernel.org>, linux-serial@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org, kbd@lists.linux.dev
-Subject: Re: [PATCH] vt: fix spurious modifier in CSI/cursor key sequences
-In-Reply-To: <20260626024833.3419086-1-nico@fluxnic.net>
-Message-ID: <4ro94n6o-r585-9693-07op-6p196oo273no@syhkavp.arg>
-References: <20260626024833.3419086-1-nico@fluxnic.net>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MuY/Pz9N"
+Message-ID: <821c7993-b99d-42eb-be3f-0c2b9ac33340@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1783621477;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UwM1Ks6XenPps+xT4ZqnKVM4XFvYTspyLoyGWV812TU=;
+	b=MuY/Pz9N8ZZK16f0PAWJCBXTOtojy2uva/CDnGqFH6f2lJjFh/kGhEHDbQKJNaRXFinUjU
+	u4CWlK9f1d/PWyZ6kEGO433gQ/z9LuDpmVa+Z2uNP+eXlrrF1ldlDE5Gq5GAe2M1zBCXJ0
+	IfhRTfNvb0vR8U9VIiRs4WDU+bqXpuo=
+Date: Thu, 9 Jul 2026 11:24:32 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: Re: [PATCH v2] RDMA/rxe: fix responder UAF on
+ IB_QP_MAX_DEST_RD_ATOMIC modify_qp
+To: Ibrahim Hashimov <security@auditcode.ai>, zyjzyj2000@gmail.com,
+ jgg@ziepe.ca, leon@kernel.org, Zhu Yanjun <yanjun.zhu@linux.dev>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260708224550.1281-1-security@auditcode.ai>
+ <20260709072651.9040-1-security@auditcode.ai>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "yanjun.zhu" <yanjun.zhu@linux.dev>
+In-Reply-To: <20260709072651.9040-1-security@auditcode.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-
-Ping.
-
-On Thu, 25 Jun 2026, Nicolas Pitre wrote:
-
-> From: Nicolas Pitre <npitre@baylibre.com>
+On 7/9/26 12:26 AM, Ibrahim Hashimov wrote:
+> rxe_qp_from_attr()'s IB_QP_MAX_DEST_RD_ATOMIC branch frees and
+> reallocates qp->resp.resources[] (the rd_atomic resource array used by
+> the responder to track in-flight RDMA READ/ATOMIC/FLUSH requests)
+> completely outside of the IB_QP_STATE handling above it. Unlike every
+> other place that tears this array down -- rxe_qp_reset(), reached only
+> under IB_QP_STATE, always calls rxe_disable_task(&qp->recv_task) /
+> rxe_disable_task(&qp->send_task) to drain the responder and requester
+> tasks before touching per-QP state, then re-enables them -- this branch
+> runs with the responder task (rxe_receiver(), scheduled as recv_task on
+> the rxe_wq workqueue) fully live and unlocked. A userspace modify_qp()
+> that sets only IB_QP_MAX_DEST_RD_ATOMIC (no state change, so
+> __qp_chk_state()/ib_modify_qp_is_ok() never runs and qp->state_lock is
+> never taken here) can therefore race the responder in two ways:
 > 
-> csi_modifier_param() builds the xterm modifier parameter from
-> shift_state, counting KG_SHIFTL/KG_SHIFTR as Shift, KG_ALTGR as Alt
-> and KG_CTRLL/KG_CTRLR as Ctrl in addition to the canonical KG_SHIFT,
-> KG_ALT and KG_CTRL.
+>   1. free_rd_atomic_resources() calls kfree(qp->resp.resources) and
+>      alloc_rd_atomic_resources() kzalloc_objs()'s a new array while
+>      rxe_prepare_res()/find_resource() in rxe_resp.c are concurrently
+>      walking &qp->resp.resources[i] with no lock held -- a straight
+>      free-vs-read race on the array itself.
 > 
-> That is wrong when those weights are not plain modifiers. Keymaps
-> derived from XKB layouts (by kbd's xkbsupport, and by the
-> console-setup used in Debian, Ubuntu and others) encode the active
-> layout group using KG_SHIFTL/KG_SHIFTR:
+>   2. free_rd_atomic_resources() only NULLs qp->resp.resources; it never
+>      clears qp->resp.res, the raw pointer *into* that array that
+>      rxe_resp.c caches across a multi-packet RDMA READ/ATOMIC/FLUSH
+>      reply (set at rxe_resp.c read/atomic/flush-reply sites, cleared
+>      only on the normal completion paths). If a modify_qp() races a
+>      resource still referenced by qp->resp.res, the array is freed out
+>      from under the cached pointer and the next reply packet dereferences
+>      it -- independent of the kfree/kzalloc_objs() window in (1).
 > 
-> 	group 1: -
-> 	group 2: shiftl
-> 	group 3: shiftr
-> 	group 4: shiftl | shiftr
+> Reproduced with KASAN: a single process driving one RC QP pair in rxe
+> loopback, one thread pumping large multi-packet IBV_WR_RDMA_READs
+> against qpB while a second thread hammers
+> ibv_modify_qp(qpB, IB_QP_MAX_DEST_RD_ATOMIC), reliably (~11s) produces
 > 
-> So while a non-default layout group is selected, KG_SHIFTL and/or
-> KG_SHIFTR are set in shift_state with no Shift key held.
-> csi_modifier_param() then adds a spurious Shift to every cursor and
-> CSI key: pressing Up while group 2 is active emits ESC[1;2A (Shift+Up)
-> instead of ESC[A. KG_ALTGR has the same problem since it is the
-> standard third-level selector.
+>    BUG: KASAN: slab-use-after-free in rxe_receiver+0x4f78/0x89e0 [rdma_rxe]
+>    Workqueue: rxe_wq do_work [rdma_rxe]
 > 
-> Normal keymaps bind the physical Shift/Ctrl/Alt keys to KG_SHIFT,
-> KG_CTRL and KG_ALT, leaving the left/right and AltGr weights free for
-> layout and level selection. Count only those canonical weights, so
-> genuine modifiers are still encoded while layout/level selectors are
-> not.
+> with the freed kmalloc-1k object being the rd_atomic resource array
+> freed by the modify_qp() thread while the recv_task kworker reads it.
+> An identical run modifying only IB_QP_MIN_RNR_TIMER (no resource free)
+> is clean.
 > 
-> Fixes: 4af70f151671 ("vt: add modifier support to cursor keys")
-> Reported-by: Alexey Gladkov <legion@kernel.org>
-> Closes: https://lore.kernel.org/kbd/aj2gR0Y7sM6i9s2G@example.org/
+> Fix both races the same way rxe_qp_reset() already handles tearing down
+> this exact array: quiesce the responder task around the free/realloc by
+> calling rxe_disable_task(&qp->recv_task) before free_rd_atomic_resources()
+> and rxe_enable_task(&qp->recv_task) only after alloc_rd_atomic_resources()
+> has succeeded, so rxe_receiver() cannot observe the array mid-free/
+> mid-realloc. On the alloc-failure path the responder is deliberately
+> left quiesced: qp->resp.resources is NULL at that point and
+> rxe_prepare_res()/find_resource() would dereference it, so recv_task
+> must not be re-enabled until a fresh array has been installed. And
+> close the still-open window for (2) at the source: have
+> free_rd_atomic_resources() clear qp->resp.res along with
+> qp->resp.resources, exactly like the existing completion paths in
+> rxe_resp.c (check_rkey()/duplicate_request()/RESPST_CLEANUP) already do
+> when a resource's lifetime ends, so a drained-and-resumed responder
+> restarts at RESPST_CHK_PSN against the fresh array instead of replaying
+> a stale reference into the old one.
+> 
+> Only qp->recv_task is drained: qp->resp.resources / qp->resp.res are
+> touched exclusively by the responder (rxe_resp.c); the requester
+> (send_task / rxe_sender()) never reads them, so there is no need to
+> widen this beyond what rxe_qp_reset() would drain for the equivalent
+> state.
+> 
+> Verified on the same v6.19 KASAN stand: with this fix applied, the
+> identical differential reproducer drives sustained MAX_DEST_RD_ATOMIC
+> storms against qpB well past the ~11s pre-fix time-to-first-splat with
+> zero KASAN reports, versus reliably tripping the slab-use-after-free in
+> rxe_receiver() described above before the fix.
+> 
+> Fixes: 8700e3e7c485 ("Soft RoCE driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Nicolas Pitre <npitre@baylibre.com>
+> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+> Assisted-by: AuditCode-AI:2026.07
 > ---
->  drivers/tty/vt/keyboard.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
+> v2: address Zhu Yanjun's review of v1
+>      (https://lore.kernel.org/linux-rdma/20260708224550.1281-1-security@auditcode.ai/):
+>      only re-enable recv_task after alloc_rd_atomic_resources() succeeds, so
+>      the responder is not resumed against a NULL qp->resp.resources on the
+>      ENOMEM path (rxe_prepare_res()/find_resource() would dereference it).
+>      No change to the successful path; fix description updated accordingly.
 > 
-> diff --git a/drivers/tty/vt/keyboard.c b/drivers/tty/vt/keyboard.c
-> index dfdea0842149..763a3f1b7be0 100644
-> --- a/drivers/tty/vt/keyboard.c
-> +++ b/drivers/tty/vt/keyboard.c
-> @@ -765,16 +765,22 @@ static void k_fn(struct vc_data *vc, unsigned char value, char up_flag)
->  /*
->   * Compute xterm-style modifier parameter for CSI sequences.
->   * Returns 1 + (shift ? 1 : 0) + (alt ? 2 : 0) + (ctrl ? 4 : 0)
-> + *
-> + * Only the canonical modifier weights are counted. The left/right variants
-> + * (KG_SHIFTL, KG_SHIFTR, KG_CTRLL, KG_CTRLR) and KG_ALTGR are commonly
-> + * repurposed as keymap layout-group or level selectors rather than as plain
-> + * modifiers (for instance XKB-derived keymaps select the layout group with
-> + * KG_SHIFTL/KG_SHIFTR), so counting them would encode a spurious modifier.
->   */
->  static int csi_modifier_param(void)
->  {
->  	int mod = 1;
->  
-> -	if (shift_state & (BIT(KG_SHIFT) | BIT(KG_SHIFTL) | BIT(KG_SHIFTR)))
-> +	if (shift_state & BIT(KG_SHIFT))
->  		mod += 1;
-> -	if (shift_state & (BIT(KG_ALT) | BIT(KG_ALTGR)))
-> +	if (shift_state & BIT(KG_ALT))
->  		mod += 2;
-> -	if (shift_state & (BIT(KG_CTRL) | BIT(KG_CTRLL) | BIT(KG_CTRLR)))
-> +	if (shift_state & BIT(KG_CTRL))
->  		mod += 4;
->  	return mod;
->  }
-> -- 
-> 2.54.0
+>   drivers/infiniband/sw/rxe/rxe_qp.c | 16 +++++++++++++++-
+>   1 file changed, 15 insertions(+), 1 deletion(-)
 > 
-> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+> index f3dff1aea96a..e39fb144cbbb 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_qp.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+> @@ -172,6 +172,7 @@ static void free_rd_atomic_resources(struct rxe_qp *qp)
+>   		}
+>   		kfree(qp->resp.resources);
+>   		qp->resp.resources = NULL;
+> +		qp->resp.res = NULL;
+>   	}
+>   }
+>   
+> @@ -709,11 +710,24 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
+>   
+>   		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+>   
+> +		/*
+> +		 * This branch is not gated by IB_QP_STATE, so the responder
+> +		 * task is live here. Quiesce it the way rxe_qp_reset() does
+> +		 * before swapping the rd_atomic resource array, so
+> +		 * rxe_receiver() cannot race the free/realloc.
+> +		 */
+> +		rxe_disable_task(&qp->recv_task);
+>   		free_rd_atomic_resources(qp);
+> -
+>   		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
+> +		/*
+> +		 * On failure the responder stays quiesced: qp->resp.resources
+> +		 * is NULL now, and rxe_prepare_res()/find_resource() would
+> +		 * dereference it, so do not re-enable recv_task until a fresh
+> +		 * array has been installed.
+> +		 */
+>   		if (err)
+>   			return err;
+> +		rxe_enable_task(&qp->recv_task);
+
+Thanks a lot. I am fine with this commit. Please Leon and Jason comment 
+on this commit.
+
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+
+Zhu Yanjun
+
+>   	}
+>   
+>   	if (mask & IB_QP_EN_SQD_ASYNC_NOTIFY)
+
