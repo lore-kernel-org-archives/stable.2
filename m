@@ -1,135 +1,160 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8A1EEBA
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 01:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783561996; cv=pass; b=L5ZExg29AmWoNXMA6E/Ds215buA9+TfKyT//q6DqO9a74gVOeIH+B7CVilGoZNceHR+Mqn4NFzVeqkpnJtcU1QJ0oMDIr/PAzlR4P4ZVc0vov1R8xrDPkpWQjlNEJSsBQcHVUr2NFXAUrXzPVBbf7s75zFek2luSDRfpd8rRo50=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783561996; c=relaxed/simple;
-	bh=PG4hFnmpqMvqWJbXz0n9H84WUl84ksuC5zjG4yT665c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OXrYr7xpBgviMEbMmZ7mo325utR55wmTxILdb5XOW6fOoKKahSytZj9MCd7meT8KK+n1UsZlkxAtzpSTQ/QAjzSCqjQO1jEm49fzEIISiCLx85SrZo3UD7sVfjju6VJVF8hNmgmZQwhhEt3XbHDYvTCpIL2MvR/y/uIl/t2yWWg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s0/ICsQh; arc=pass smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC4630F7FF
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 02:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783562841; cv=none; b=kDggt85lKCUwhhjJ2KOaCkbToFqILCUrOa0woa7vglIBzTkTYSlceEGVq0fqJbRe9W43WcH/JSORAUlaCKacX6+FBNiatnzhBrzEDy7OnfaGViVUhpj+dqC5j4mYG0GNFjP56A1tYx93WfvhbbfmDU+hNmd9x74qpDDANtmu9M8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783562841; c=relaxed/simple;
+	bh=PoPEUr6KS0Je/aVdiGP+sFxqtUXWh++lbWgpLTbivR8=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 Mime-Version:Content-Type; b=XD3JvOlbLzPayRTAsTclziYyF4eVB7W79GQOeUrsuomXSEW9tRTrFo5r+KJyFRF/K2AIRWu7iMLJ/okNiGqMcW+1gA8U5sxQkiYixBUv6Rp6LGd72rYQ9vhYhUq9TAEoL3lTXvQXK5cV32GfsxS4g0KgegNLKYArQAM7LocAdI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ma4wp730; arc=none smtp.client-ip=209.85.128.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s0/ICsQh"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c96d7933910so103872a12.0
-        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 18:53:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783561994; cv=none;
-        d=google.com; s=arc-20260327;
-        b=be1Q5fZwi/LwxxiJnHg9un5B6rjcCxB0sqaIYlG0XNq8Cy3UizfW+02n9KrByAzLQw
-         bZgog8k+SKmIiAQb4JmV635jfH3wbykeg0uipDO+FqziNRtpg+xxBE28xBxNG0sVHZ5p
-         jh1dWZtM3amLyfzUGBq5v8JsL0jArSkoGlNZZbUujrjjwOVppgG58r9P2lA1QSw00F0J
-         c8kXDEh4WApxdEDrPW45b7VpKyQz1gKFxJDu7LkiYAFVqi5cbEoGMPi1OH38pYOLaYkx
-         LTt62fyIx5xRwpC7BFWd/FcnUb50Fm1Ymvjk4fhAfjrMIDhCXIRjsBW/W+PkAm/RF4fO
-         zLeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dPLjwZvp4TlefGbzSxmbvq8s8H5xbEym4izUi26G7xg=;
-        fh=jzD62sr308iAT5QHYYvoTmV+fT28zg5eCmYmUVtXvxg=;
-        b=EFR+rvPXCvOR/OxworYcxb6aR3D2e9HWwby+ufgns0KZJDqwTejrMi61cFIuXFEObx
-         cHE5i7W0q38QSao82MzH3rEkrajqalWVzBAjVp+fY92Y2q3kxIsImwBt4Tc3iFM6PfRx
-         7YdeOBIudZFwEgBjwoyK3TfMrJOYNe44WjX2PJ6/BMsECj2fFFqOFsHrVL0wx4NUgJgW
-         Nyui6H7QAGNIZvrKUc4IPnlUmN1tfD33PY/fzDFnUabJOLz860jU8UWK1toSP7P9RFBR
-         n1lQ0gM5psivyfjKVT/vbWH6iaH2joYdZ1mapv1j/JaztVpcOVMr9Pqc8xF57jeeNBEd
-         rcIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ma4wp730"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-80cbb0688c8so21107497b3.1
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 19:07:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783561994; x=1784166794; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dPLjwZvp4TlefGbzSxmbvq8s8H5xbEym4izUi26G7xg=;
-        b=s0/ICsQhjDbYctnPE4SWgFk6+WMuOgQ3Dz+JObCCYdnUFJWXGBdAUuLRU16QqNiN1S
-         XqImgBchEsQYjgarUCH7AOod+Zyz/X8SK4oHQ1ExkmWeuLbRJGbxZOLKU+xAsj9DZNeY
-         lx5mC/L9BOcgcXzJNn+jIsiDrEAXsg3qv2cZPMjQtqh3FN6xeS3t8wirH8DZmyXyvIBH
-         G7DCnYZ+cFX5BRwzU4JzUXZVLR8WZB9FBeHi2g9oVUX8aQedHmOPKX6NdL/oPcrq5Enx
-         zw1z3TfGpktzhCd0Ea0V6qhdpXBJF7gTExSdBG27bUWcD8ZbNIV6q9A10QzE62LDInLX
-         UCVA==
+        d=gmail.com; s=20251104; t=1783562839; x=1784167639; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DiPeyVYQaEiVqx7WKQEaIVABISxwCwD67P0r37Z1zdw=;
+        b=Ma4wp730Sv4nNZnOHmCCC5/vyV55tWljs0zgQoSeoykBlsnAflLTdnjsTTDuGU2Wnf
+         CQs0kQSNDkM042f9UhB3aPhz+i9u6QV5+Zxfm4hWJAfwhNpr2wjbWo2C/jlW9OeQ+VBx
+         7pzOfEYDvgpN3PJ3vPPK6j2yXNx8JiD1io3b18sTdsoAr0w0IJegiKmPXdNSOOyfnw95
+         Ck+wyXHkH8jP7lP9CaDWkwH7xU6T0Ss6CmlHXzDKvgYtyLs0imYvY/BKEsHdzQgsDXT4
+         O8GnH1tn/cnijR8c9ypE/5pHaq6badb5OxaW5oR8dZsaQECB3zGSjJ+n/F5cI9FVunJe
+         osmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783561994; x=1784166794;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1783562839; x=1784167639;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dPLjwZvp4TlefGbzSxmbvq8s8H5xbEym4izUi26G7xg=;
-        b=TfeLdNCByrCh7YROq5uGOe277pmQI0nnZUojtcgM+J9qFoh/ZVGEbVvdcsfFljYSp2
-         fJhTaJpDg283O1BOPYKIL/P7wK7A44IMmcIaOcXz25nKkbWTIk29q+VeaZtT5VKz0ou0
-         3DXo2SH6S9kKXId8o2vUd/hjUmbFnTjkcNKfaaQeBXLGso/BuLRkxUNCZ6JiKmU+GSTv
-         UUemlSKDqZ5UXsfL1vz9MxsXBLlaDfadiX/A98J21t4UAMNCyIPdUq6Cd2rjCD/LCMXN
-         swJvVqTIumX0gagaKZ/ueoFZ2Go8tgVoIYReXVktwhFPHFVcY5cLg0wry0AyhmXLansI
-         nzZw==
-X-Gm-Message-State: AOJu0YzjP/jZSXp5aLN5WWOJMWfs3+gspYhFaLHiN7rUWbdVWo9pkehX
-	PdkS+lzUOBBuPbi5lntp6Um1zH6L7gCvxxJ/N3TboJtNq1uz61aGbZPYFSP/5f3iDC/IIJzu+2u
-	UIuzqplRNEBWR2wj/rwCtvvOndwZfUwA=
-X-Gm-Gg: AfdE7cltrneomcmZY/YsmN/OjVOx6TWCgc66hio80VNKfJg05wc7le52aBimzyiW/+q
-	mIeruPiG5bikbhV5/xvCv2NP3ZNtSsqbecN/7H9ztX94eMQsI1Dr+QqUVpJcXhRXuzWJbIR+Nbk
-	HKhStd9dl1+72S3HtSxHEePWxH9JOJHVPKF0DJmVAjdtMjN5Je5LQ7vzQm0v7Rq44KwT1mUZBf9
-	QAL82yjbvI9umafU5/JyK4QIo6bAaD59SHcuk6Mi5JdTGlhuV5gZjyAGV6njKQtftlMPIGP
-X-Received: by 2002:a17:90b:3502:b0:380:7688:fc06 with SMTP id
- 98e67ed59e1d1-38a21af6569mr1485773a91.8.1783561994547; Wed, 08 Jul 2026
- 18:53:14 -0700 (PDT)
+        bh=DiPeyVYQaEiVqx7WKQEaIVABISxwCwD67P0r37Z1zdw=;
+        b=phJCcd8Y44DnK3BzQoYFVp9aTIgcJOQtYx93v78E0bC6iTkAsNkaxd6Ctx58eIkeo6
+         XFqQ4bjHVbeQdEPg9zg07gvhTE58YkAlmyRGvulUrZY6yzUxWa/iFPSPg1teUk45F2fy
+         nI9plLfkHycCGTFVMdudqFWgvvqYuTfa6dvUGFCtU455W5Lau3pBLpeZuFCkPe+0ttEa
+         S86M+/9JVJu/AHEMEe1KVigNXka3rYxQEQcmYWnQhsf7hnS2jpXlHadQ3PhzKGfwXODL
+         v2//lC3ndhDqGgY+nrq8hi9769M6kXoTmOSKhJVjx4/KiDpTuXzjgN55d99onM1U1H+N
+         oREQ==
+X-Gm-Message-State: AOJu0Yx1eRhZmErGRiwJ3uo+Ryl/JkeK7Vt3fag6bN4r/JP5zB+JAjMF
+	47CsCk8tfoxhwDoyJRLmFBSuiElnNkJbJxvf7N0KakRNVZneVIrRUDUv
+X-Gm-Gg: AfdE7clW3MLRp+aDvW5vVFj1pwXwwwFhM9ipJ8ikqTYFU/f3HVW73URjm2ui8akxNP4
+	zLSO8dNC8nGnjW336jSTKNTYIs1JxEVqDNYakbarNjHXoLmjyuOj26bKJNHoIoV8ADRompb5Uia
+	UX+YIqh7fQGPyxWDGEoFuFTbMTD/jiAbZSGoTyq1ONVDoHF2fd1pWC4+abwRGr7uEZtk8rUDpLe
+	LB0GgffuucKZvvqOtHb7Oz7u8GlPXYsyPEMqCaczwQZLjM74jNeqs3BwKYgA+guIhmUt7R/MIVo
+	hOsQyOyQFRG/st6H6SB7YF26AmPvJlY2lsejYttlP1SMyGU+Cg7Af1aAAbMGIOSBZLSJ+kMQFbT
+	2Xj8VKN/WFyCW8vBlNig3x2EQdJ97VHR5wvkanbUAJ1tgBeuqDDO9D1GDYMaslWHpmHwR4UDOLO
+	sAYoeSsiQRB6xiBVt1VHSIrvtbBWjwhSkqiRMobng4ZBkKikyCwZSUA+/2K295PWDU0Q==
+X-Received: by 2002:a05:690c:4b90:b0:814:608a:acb4 with SMTP id 00721157ae682-81dbeb5f73emr38829227b3.27.1783562838726;
+        Wed, 08 Jul 2026 19:07:18 -0700 (PDT)
+Received: from gmail.com (172.235.85.34.bc.googleusercontent.com. [34.85.235.172])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81e6be904a4sm6869687b3.7.2026.07.08.19.07.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 19:07:18 -0700 (PDT)
+Date: Wed, 08 Jul 2026 22:07:17 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Shiming Cheng <shiming.cheng@mediatek.com>, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ matthias.bgg@gmail.com, 
+ angelogioacchino.delregno@collabora.com, 
+ willemb@google.com, 
+ daniel.zahka@gmail.com, 
+ alice@isovalent.com, 
+ sd@queasysnail.net, 
+ eilaimemedsnaimel@gmail.com, 
+ imv4bel@gmail.com, 
+ nbd@nbd.name, 
+ dsahern@kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org, 
+ steffen.klassert@secunet.com, 
+ lena.wang@mediatek.com, 
+ shiming.cheng@mediatek.com
+Message-ID: <willemdebruijn.kernel.2801a1401793d@gmail.com>
+In-Reply-To: <20260709014704.3625-1-shiming.cheng@mediatek.com>
+References: <20260709014704.3625-1-shiming.cheng@mediatek.com>
+Subject: Re: [PATCH v7] net: gro: fix double aggregation of flush-marked skbs
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260708150527.3212183-1-sidkumar1@gmail.com> <20260708194323.agent5-0004@kernel.org>
-In-Reply-To: <20260708194323.agent5-0004@kernel.org>
-From: Wu Frank <yifanwucs@gmail.com>
-Date: Wed, 8 Jul 2026 18:53:03 -0700
-X-Gm-Features: AVVi8CeEaa-5KAjlmQtSl9i5_8CTGyXAR2_zQzwPctghpHS7EC4glwzfeAqn6Po
-Message-ID: <CAPw-QwdiQnbxiwrivx8HthquyQef4herojq15ozy2JgWa8sAAA@mail.gmail.com>
-Subject: Re: [PATCH 5.15.y] rtmutex: Use waiter::task instead of current in remove_waiter()
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Keenan Dong <keenanat2000@gmail.com>, 
-	Yuan Tan <yuantan098@gmail.com>, Juefei Pu <tomapufckgml@gmail.com>, Xin Liu <bird@lzu.edu.cn>, 
-	Thomas Gleixner <tglx@kernel.org>, Sid Kumar <sidkumar1@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 8, 2026 at 6:04=E2=80=AFPM Sasha Levin <sashal@kernel.org> wrot=
-e:
->
-> > Use waiter::task instead of current in all related operations in
-> > remove_waiter() to cure those problems.
-> >
-> > [ tglx: Fixup rt_mutex_adjust_prio_chain(), add a comment and amend the
-> >       changelog ]
-> >
-> > [ sidk: Replace scoped_guard() macro with raw spinlock operations for
-> >       5.15]
->
-> The backport itself looks correct, but I can't take it alone: upstream
-> this commit has a Cc: stable follow-up fix, 40a25d59e85b3c
-> ("locking/rtmutex: Skip remove_waiter() when waiter is not enqueued").
->
-> Could you resend this as a two-patch series: this patch plus a 5.15.y
-> adaptation of 40a25d59e85b3c? Also worth considering as a third patch is
-> 74e144274af399 ("futex/requeue: Prevent NULL pointer dereference in
-> remove_waiter() on self-deadlock").
+Reminder to mark patches [PATCH net v7]
 
-For completeness, we also reviewed the related patches yesterday.
+(or PATCH net-next when targeting that tree)
 
-Our understanding is that the correct backport set is this patch plus
-40a25d59e85b3c. This patch fixes the original issue, while
-40a25d59e85b3c fixes the NULL-pointer dereference. We also noticed
-that 40a25d59e85b3c appears to cover a separate
-use-before-initialization case, although that case is not relevant to
-this backport.
+Shiming Cheng wrote:
+> Commit 0ab03f353d36 ("net-gro: Fix GRO flush when receiving a GSO
+> packet.") added a flush check to skb_gro_receive(), but
+> skb_gro_receive_list() lacks the same validation.
+> 
+> As a result, packets marked with NAPI_GRO_CB(skb)->flush may still be
+> re-aggregated.
+> 
+> This allows already-GRO'd packets with existing frag_list to be
+> re-aggregated into a new GRO session, corrupting the frag_list chain
+> structure. When skb_segment() attempts to unpack these malformed packets,
+> it encounters invalid state and triggers a kernel panic.
+> 
+> Scenario (Tethering/Device forwarding):
+>   1. Driver: Generated aggregated packet P1 via LRO with frag_list
+>   2. Dev A: Receives aggregated fraglist packet and flush flag set
+>   3. Dev A: Re-enters GRO, skb_gro_receive_list() is called
+>   4. Missing flush check allows re-aggregation despite flush flag
+>   5. Frag_list chain becomes corrupted (loops or dangling refs)
+>   6. Dev B: TX path calls skb_segment(), crashes on corrupted frag_list
+> 
+> Root cause in skb_segment():
+>   The check at line ~4891:
+>     if (hsize <= 0 && i >= nfrags && skb_headlen(list_skb) &&
+>         (skb_headlen(list_skb) == len || sg)) {
+> 
+>   When frag_list is corrupted by double aggregation, when list_skb is
+>   a NULL pointer from skb->next, skb_headlen(list_skb) dereference
+>   NULL/corrupted pointers occurs.
+> 
+> Call Trace:
+>  skb_headlen(NULL skb)
+>  skb_segment
+>  tcp_gso_segment
+>  tcp4_gso_segment
+>  inet_gso_segment
+>  skb_mac_gso_segment
+>  __skb_gso_segment
+>  skb_gso_segment
+>  validate_xmit_skb
+>  validate_xmit_skb_list
+>  sch_direct_xmit
+>  qdisc_restart
+>  __qdisc_run
+>  qdisc_run
+>  net_tx_action
+> 
+> Fix: Add NAPI_GRO_CB(skb)->flush validation to the early-return check in
+> skb_gro_receive_list(), matching the defensive programming pattern of
+> skb_gro_receive().
+> 
+> Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
 
-I do not think 74e144274af399 should be included. It was later
-reverted by 39def6d250d3, and the revert changelog says that the issue
-was already handled by 40a25d59e85b3c. It also notes that
-74e144274af399 introduced new problems.
-
->
-> --
-> Thanks,
-> Sasha
+Reviewed-by: Willem de Bruijn <willemb@google.com>
