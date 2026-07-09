@@ -1,136 +1,159 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A208A3E0749
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 20:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E433E024E
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 20:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783630526; cv=none; b=ZSUxZI8+5lc4nmDQ37iLdaVe9b51fh0ooNrcIuJLdR0PBin2DjCbxsmcsuXgQMLCMMiyGp5tYE7x5ic1nZYhpxk6ol0ECeuFhJQrqNpneWvK2Ka15h9r0y6HUlo1/KhyuHYKnx+55sMeAijlN6JK5gBIzv6fhiW0RDSoqGIH+Eo=
+	t=1783630589; cv=none; b=b3XdYPrzp8OmzMzQJedtJOjUC0lHbY61/ZHaibKOjDCgixgVHhjrI3Cdlze8kck6Uk3u0lULyfaipZWQWBNJ2tMVMBkban6eS4+5AyX6EtkSoAKYE7NfToOXEB7pZ4dK47Yesybs5qadYDMFGsiRHjuW8g5cxacvapHkJkWUTPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783630526; c=relaxed/simple;
-	bh=f4hfh0jLqJeN/mvaGdYufitz68MPvAO1xG5xJREjh7U=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NNWY5ehy4SsNlUWO4WmRxRZXiDR6zAdyvYVh47mrKU520W2VV6Fbt8AVtAAtxjcMKdiYr4lCZm1lFwzsVkj1PUp7TMD9e5ka25fZdnO/wjMW9tYPgI9sTtNnjud30deSzWGmneR4Ri2I6wkj5AYLX1eChoeGMR4W5ThMijZPePQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aKIa4FxV; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1783630589; c=relaxed/simple;
+	bh=3j4syLrTH3ss+LT1uFL+xIlIo+tKkPs2LMGlAzDqXgU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=scuxxaxNr5seJDXy94lnqDEVQIbgb7i+HJp7vE7HUhBN1Me0fpH1b341ryV3SNCgGU9901YmftaFXSA6v9EAouLtYkG6QgFl991/Wz8I/pECxSLR834sJN0z43Wtdtht+AgK3lvilbHMN2ZMlid5NSWV2wgXj22yobGGidjmZV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ECXp4Z38; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aKIa4FxV"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493ce08a75bso719725e9.1
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 13:55:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ECXp4Z38"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47d6c634f45so194173f8f.3
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 13:56:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783630523; x=1784235323; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=V5lZsyucCptJ6ljiEKFYc5mmPt/Mk/DxPPJ2gV8LavY=;
-        b=aKIa4FxVTfSpzUXFk2MyKWwClLFrKyyXn5QDsmFlL8XZqxRGhoo2A3XC/qvsQBbdHq
-         wkzz32VbLQ2jhvT0LnucU/7bvzylWHZthjzdziHNfriGKd8V+gB4qmmxzOBtrcx+7pI2
-         VRuGUQzf5ufG5oITJ5jzNrQ4a7q0hrj1QES6h4r0Z5B9zo1pGllx9+Q1ft88lbylZpcd
-         5QRj7y0EbBiihzg4XtF3dBNvg3TYS1H3chDcgLDLKbPqzw88/kKREzt+Nl7bvQGJzX2t
-         SSlvAjHvQAMuAAQy0dcVkB6mobCjDF1HX6fHJFJqXCkdy3bYljowwiqSbCCCdiDTxbMz
-         CFrQ==
+        d=gmail.com; s=20251104; t=1783630586; x=1784235386; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FyQ2SYryPffIKXgX/hPe6feFKCE/nZgCPpWlF8Eq6IM=;
+        b=ECXp4Z38357s8n3YE3StUPVwlIm8EOi8+0zbJD2MCl4ucPQpK0bdeUpYOYUSn1y5FW
+         xy5/XsNWdXVvElOKSoAMZJ9AZmV0meLuQfm9b2NJWbxelCaXs/8VcsiXalU/XbqjmbTJ
+         sgsthA0PS3lw8VkRnG8LHZ0toWj1VW/G1h+q/TEDeH2w2LfUgF8OIJQwQyMaaDajg27N
+         pMQXvjxF9E6OQKGm+GH1nIdHNyI9HEyWJ8X5//YoP1dGbruz4S1KDG0Qb3u9/KdBdyIP
+         Vh8cxJhEMRFl1GFLIhXcuN44SB8RuiKt8xwLEkeb6KXZ+O0ArDiiROMCs5sXh8oF7+7G
+         V1SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783630523; x=1784235323;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V5lZsyucCptJ6ljiEKFYc5mmPt/Mk/DxPPJ2gV8LavY=;
-        b=gf14fCP2KzxSsEM0feMO5CBeZlTlTnW8J/ydvxaFvnll82mqIWf+y2PY5vaWa95T9J
-         cO/IDw1H5BdKSseBCXIaiW8RwDDmwUenodwUuFzij0oH39OUsa26lMeI711JEC10xH1b
-         pRxPao1R7o2gHltpv52EPBDLAcxjMmrSPIbhP4kzN37AeApoc2cv7HqfnbfhpeR1GQ6A
-         CrEGJs3KSsFpUHpbTHeXxpoZhx83RARYZn1lkRKAqW9lT60+evzxpJcDjSuQwNfnzo8p
-         L/xrIFHjF8mWqjkfggWFcWSDtz+KsH4q4ACHdIHaAtN4A89F1ecOXpTkEr94Ofc8yMQ+
-         p9Kg==
-X-Forwarded-Encrypted: i=1; AHgh+RrqFgkwoCKTiuI6358Tln1FrgV711R1Ki+Zwl3oseraKxw8vfi1KgXjp0KuTCiTXlQlF9HStfM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyACKtjbOgSX88UnMA/RaqxO/AU8L0AIAW3MJ3sOJNbLVKh7eSH
-	CPD/nF/r3wYPOw6QVPN4ZpcZEPEre1HAlcDyZy3F7fgLqPxmRkIsMv6g
-X-Gm-Gg: AfdE7cnWKiI/4375CauduC4+71+0BK+jz+CeEkk9kahlLZnOVsVw0hfzMEjpJSb4j10
-	/uQDdG/ZSRg56QxFjXMBM9EmM2ClOP8HvXssTDnyQDC4w+exSESTpPCTeMujhDMYs9RqR6GPpuR
-	1wYP9sXnssS4fk8kC+9Hrzth0vwZr90O7NkBCUAjLPnTAzPTE6U5EnCnp1m4yOQLoSp7xzRtY5/
-	3riFFq2ogzYrO4cRQtFLQ8ObJoCyxyTDIXf518OVBiYInmbFkzSa/LEbR8TvwLhBVJKp262odq6
-	sQOlSpoMpWbuWwtrPbX6MTkRy2hsXh7zkbWE7h3i14sS1GE5Y/2NVR9kLIXw99wrPxiJPhcAK+u
-	SuIeNYfXxlk2psI6I1BZTIiz9R5n+o94BJRqvZk91e56BnH0hmtgcGCOzyrgonC+douOCeXzVQk
-	fb2xSS09cwmr2haug8+twMrv148GCG+KHS33NWK0qCGN8sIA==
-X-Received: by 2002:a05:600c:1d08:b0:493:d2b1:48d2 with SMTP id 5b1f17b1804b1-493e683c717mr83993565e9.2.1783630522756;
-        Thu, 09 Jul 2026 13:55:22 -0700 (PDT)
-Received: from pumpkin (host-92-21-50-228.as13285.net. [92.21.50.228])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6f3c42sm87895385e9.1.2026.07.09.13.55.21
+        d=1e100.net; s=20251104; t=1783630586; x=1784235386;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FyQ2SYryPffIKXgX/hPe6feFKCE/nZgCPpWlF8Eq6IM=;
+        b=Wcyfd6M/gBlLxI7YiUxqwL7rRxEGT3YLvaoyTsZXaCiN/ZsmX/i1YT4x5NfP7j3ikl
+         8yMDLDRb7dnvHpvZ/WjD1mDLAZyI2t3lL6HNopUzPDIJLInZvUmqrkngWml/8Ts40/Qv
+         6VIgGp241wnmeuLMXxRtom9Ap/MfdEGWox7vCXPk1pPIEnnM4XqsWINjPWjHiJMArfwZ
+         W+hLy7Lv5fSphpoOVzodF3FH/YF7Wa3ZjIpOnrlPUHaglFbvOPcuyYcSZ1Wg1jhT6L96
+         23JPfVaU8sg6/y5ekK9JioF5JmiYE/H6KL4IxiCWV/xouS5e1rGg1pQHzLLiBt+8pqx9
+         MXHw==
+X-Forwarded-Encrypted: i=1; AHgh+RpRQL3/MwoSoJ4gca9Laombucf+rRrR4tQ8JUicrmOi7+nOMg+zW5Wus0pcNLxB139mPBW2FeE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwUD0FZGyJCGeE4TngoB4fWiVZzBUcbLG5opVqr+Py0Ik8m4q+P
+	/n/SUP2xFIQN0yvx7/Mer8R0uornzTD0P+eX44HlCj6bb1FHWKwhwB3a
+X-Gm-Gg: AfdE7clAaQ7Ys2ht3/j0N2lyIbbxbhd337oNSpbOPtKCM5A9l5prn1vlllgW4GcgDCU
+	S2tt3FYNTManVPA+BdXan+50ojyJdrhestzk/jW/eMqoG3YsJNPxmpmSi57J8GRRTVNzq9xweB+
+	82DujmvxZ5dMHOfJyhfEl5tUCOJCgqwN2Lj9h8dSaZ4iceIpGsWGSFOaYPWeYI7P5cVKKl1r/GP
+	G9ptIjHmygXTxSELyYlYp4jrcweDO8EPPNYmEADsZwX5mWsCjll073p8pOs0ETeMDJOj+5UsQHn
+	Xe/OaUjFw9IWWFVMO+1dieejYCz16D/DZM+zu45wnQbG2vxIdjeeQB6kpGtkaLIgrzFq2iFTrXk
+	5Smz2VXA3dv8gigrxC9J3OCh8fOs+YJwQYKQKPteFjeKVyb0qWD1bq9Tr4XWcL2eDVJ3XiwyfM2
+	zAZJTVcPEglRbgpMjSB85A9HGfWt/DBZHOzvsovFfe4KR21dvbvBM06RwQPKuHBTEvey0TNzi7K
+	JLcjfvzCgar3lDYdbYx++u/r+FsOIEIx9Uyf4wy
+X-Received: by 2002:a05:6000:24c5:b0:46e:8f0e:2f02 with SMTP id ffacd0b85a97d-47df075e410mr9661610f8f.33.1783630585822;
+        Thu, 09 Jul 2026 13:56:25 -0700 (PDT)
+Received: from DESKTOP-O40ECIK (108.228-30-62.static.virginmediabusiness.co.uk. [62.30.228.108])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039b0cesm55210785f8f.22.2026.07.09.13.56.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 13:55:22 -0700 (PDT)
-Date: Thu, 9 Jul 2026 21:55:20 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: David CARLIER <devnexen@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, dan.scally@ideasonboard.com,
- mchehab@kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: mali-c55: Fix unaligned access of AEC histogram
- zone weights
-Message-ID: <20260709215520.521f114f@pumpkin>
-In-Reply-To: <CA+XhMqzXMMDmtMyev_UuGpn0sU6TKNBDBzO1H-wN96no5h-yXg@mail.gmail.com>
-References: <20260702103453.348056-1-devnexen@gmail.com>
-	<akd8E5jr722oTm49@zed>
-	<20260703221651.41669d55@pumpkin>
-	<aks7usxfDajS-W_5@zed>
-	<20260706104652.GB66892@killaraus.ideasonboard.com>
-	<20260706133956.39a11738@pumpkin>
-	<aku6R_EI0kLUqD8e@zed>
-	<CA+XhMqz2oTTy2kY_4uqvJRnoXb0am5h6hXnLFM4EPQ7Yb6N-pw@mail.gmail.com>
-	<ak9UGtj7-qOvjRmr@zed>
-	<CA+XhMqzXMMDmtMyev_UuGpn0sU6TKNBDBzO1H-wN96no5h-yXg@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Thu, 09 Jul 2026 13:56:25 -0700 (PDT)
+From: Melbin K Mathew <mlbnkm1@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Peter Chen <peter.chen@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] usb: gadget: printer: fix infinite loop in printer_read()
+Date: Thu,  9 Jul 2026 21:56:22 +0100
+Message-ID: <20260709205622.55700-1-mlbnkm1@gmail.com>
+X-Mailer: git-send-email 2.52.0.windows.1
+In-Reply-To: <20260703075429.302687-1-mlbnkm1@gmail.com>
+References: <20260703075429.302687-1-mlbnkm1@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 9 Jul 2026 20:16:51 +0100
-David CARLIER <devnexen@gmail.com> wrote:
+printer_read() uses the same variable for the requested copy size and
+the number of bytes actually copied to user space. copy_to_user()
+returns the number of bytes not copied, so when it fails to copy
+anything, the computed copied length becomes zero.
 
-> > Out of curiosity: why is (u32 *) case a UB ?  
-> 
-> Alignment, not aliasing. zone_weights is a u8[] at offset 10, so it's
-> only 2-byte aligned, and casting that to a u32* (which wants 4) is
-> already UB - 6.3.2.3p7 - before you even load through it.
-> 
-> > the usage of __packed triggers the compiler to emit an 'LDUR'
-> > ... implications of using LDUR vs LDR on "unaligned access" ... not
-> > 100% clear to me.  
-> 
-> LDUR vs LDR is only about how the offset is encoded, it's got nothing to
-> do with alignment safety. LDR's scaled form needs the immediate to be a
-> multiple of the access size, +10 isn't, so gcc can't use it and drops to
-> LDUR (unscaled offset). Both happily load from an unaligned address on
-> arm64 with SCTLR.A off - LDUR isn't "the unaligned one". The multiple-of-4
-> you found is about the immediate field, not the address.
-> 
-> So on arm64 __packed doesn't buy you a safer load, the plain cast already
-> worked.
+In that case len, buf, current_rx_bytes and current_rx_buf are left
+unchanged. If RX data is available and the user buffer remains
+unwritable, the read loop can repeat indefinitely.
 
-It stops the compiler using 'ldp' (to load two values) which IIRC will trap.
-Although the function call following probably ensures that never happens
-in this particular case.
+Track the copied length separately and return -EFAULT, or the number of
+bytes already copied, if an iteration makes no progress.
 
-	David
+Fixes: b185f01a9ab7 ("usb: gadget: printer: factor out f_printer")
+Cc: stable@vger.kernel.org
+Reviewed-by: Peter Chen <peter.chen@kernel.org>
+Signed-off-by: Melbin K Mathew <mlbnkm1@gmail.com>
+---
+Changes in v3:
+- Regenerate the patch to fix the corrupted v2 diff.
 
-> What it buys you is not lying to the compiler about the alignment
-> (so the UB is gone), plus correct codegen on the arches that do trap -
-> which is David's point.
-> 
-> > I would be a bit hesitant in changing the uAPI if there is actually
-> > nothing broken ... happy to defer  
-> 
-> Fair enough, and you're right that nothing's actually broken - it's arm64
-> only so it never faults, this is tidy-up not a fix. I don't feel strongly
-> either way. Leave the uAPI as is and I'll drop it, or if you'd rather have
-> it cleaned up I'll send the packed union (with MALI_C55_MAX_ZONES / 4 like
-> David said). Whatever you prefer.
-> 
-> Cheers
+Changes in v2:
+- Drop unrelated comment wording change.
+- Add Reviewed-by tag from Peter Chen.
+
+ drivers/usb/gadget/function/f_printer.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
+index e4f7828ae75d..a22e2a6ea14b 100644
+--- a/drivers/usb/gadget/function/f_printer.c
++++ b/drivers/usb/gadget/function/f_printer.c
+@@ -432,7 +432,7 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+ {
+ 	struct printer_dev		*dev = fd->private_data;
+ 	unsigned long			flags;
+-	size_t				size;
++	size_t				size, not_copied, copied;
+ 	size_t				bytes_copied;
+ 	struct usb_request		*req;
+ 	/* This is a pointer to the current USB rx request. */
+@@ -525,10 +525,12 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+ 		else
+ 			size = len;
+ 
+-		size -= copy_to_user(buf, current_rx_buf, size);
+-		bytes_copied += size;
+-		len -= size;
+-		buf += size;
++		not_copied = copy_to_user(buf, current_rx_buf, size);
++		copied = size - not_copied;
++
++		bytes_copied += copied;
++		len -= copied;
++		buf += copied;
+ 
+ 		spin_lock_irqsave(&dev->lock, flags);
+ 
+@@ -543,6 +545,17 @@ printer_read(struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+ 		if (dev->interface < 0)
+ 			goto out_disabled;
+ 
++		if (!copied) {
++			dev->current_rx_req = current_rx_req;
++			dev->current_rx_bytes = current_rx_bytes;
++			dev->current_rx_buf = current_rx_buf;
++			spin_unlock_irqrestore(&dev->lock, flags);
++			mutex_unlock(&dev->lock_printer_io);
++			return bytes_copied ? bytes_copied : -EFAULT;
++		}
++
++		size = copied;
++
+ 		/* If we not returning all the data left in this RX request
+ 		 * buffer then adjust the amount of data left in the buffer.
+ 		 * Othewise if we are done with this RX request buffer then
+-- 
+2.43.0
 
