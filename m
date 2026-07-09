@@ -1,53 +1,44 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EC23B7A8;
-	Thu,  9 Jul 2026 20:08:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4E93806DD;
+	Thu,  9 Jul 2026 20:09:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783627737; cv=none; b=E1+ynN1eV7/Bqb7isGR8wzo6sJpCISUzQWCElxTKKbszPdf2pf1kg3ttDmsi+Y2DEhlVKoZMZxMxrXR/jPZgdvC0sfCJlRorHqS6o2eR0O3Nbp96A8FZ7CM5tJevEZ4L2otRExFebFVo1mENojiS8axZsIsCrakiL8Ellhw0Gxk=
+	t=1783627760; cv=none; b=Hx6LANwcQuwpnSjCdMbyDGA38sgqFV5Ls4nP4u/xWcp2Na7InHh5+M2lEqodq1QWNd9qR3t2A7DCmReqqahH0jBuSHQw7i2NPFFOTbmC6pzgR58E2c2PB+2tXbEjXmA/g2G5Sgu8AyAXTpC0PFN4HEQSaS+M1lK8E64EimU+cik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783627737; c=relaxed/simple;
-	bh=EfYOK7Sy1TgfQBQOKyfNPQB6LLiUoztQ+EFhabf7mKw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tB0oLg+C+ULaQ57YXqvev/7Gmi7DK9/rWqRxwrxQZPOwyXLSY81ttfbSuJLjJUzT0sJMO8I1OyBaFPhARf5+EJRLfIagsmndk4huJWILWgBTvi33Ixj8T1mhBGaQwaeqwAn4D4rXTt39NfPyggi+kjZp4CP4wrO/QVfGAuj2xi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=BPBUyPJc; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1783627760; c=relaxed/simple;
+	bh=qb3Va2EWJCuabDmEu+LVOT/opeHpRCxCAUvcS18R9VU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=IznmrdzzYpd6d++pH7DEw47RacE2J8Ej9TjJiVNxME0TFj15Z88ahEa5XPjwf1EBbHq4+p0iVQ/2bg5LVz1jlG+oYacj+JzGc8L5mGVpwsfgJqM4moK4ZLR9YPOOhHuA1yxitb9JeeUaty+RSitLcdC2l8fBM8vZrM62kp/H/8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKBvQLIB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="BPBUyPJc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=vS8Z4iMknQQExwiIiHNFXxXzKHQSZuZ7acuTsu1JCFA=; b=BPBUyPJcudTGV4mZa7f7OvJW5N
-	rUjF2AjpzMv0iT6UX/ejEh/bSC/tVmehBddlXaFPTETqjtp1BtDg2Hf81zJbcSvLJUBDuok59jiJg
-	8jDOhYsciQJEaKcYcbYa9ELhnphPEEcVTVVAPWa2WtmGnZaejIomqbn5zAtGXlw8hV2obiwYftY0a
-	/JuPHJnTXnCNfQIQ0TVWbWJnKohXahX4UaHrj9urMo32EKSHx44/HA74mnR9CCpZrrvbU/r4/IpB2
-	P+7xRG9uJKgtGB21dVyZyqjer9G+hSfa2MJ74NainssunPiEFyPk0prFKfSlCi/tSzUu3GFCvMr6i
-	Xfv8kCqA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <carnil@debian.org>)
-	id 1whv35-003xSm-0S;
-	Thu, 09 Jul 2026 20:08:43 +0000
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id 1136DBE2DE0; Thu, 09 Jul 2026 22:08:42 +0200 (CEST)
-Date: Thu, 9 Jul 2026 22:08:41 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: Ponali <ponali2k@gmail.com>, Denis Benato <denis.benato@linux.dev>,
-	Luke Jones <luke@ljones.dev>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Corentin Chary <corentin.chary@gmail.com>,
-	Hans de Goede <hansg@kernel.org>
-Cc: 1141604@bugs.debian.org, platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: Bug#1141604: linux-image-6.12.94+deb13-amd64: does not detect
- ScreenPad on ASUS VivoBook
-Message-ID: <178362762638.911488.8564892548331679884@eldamar.lan>
-References: <178340264407.17924.10135409461303815312.reportbug@ananaspc>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKBvQLIB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CD391F00A3A;
+	Thu,  9 Jul 2026 20:09:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783627758;
+	bh=GQuKYkV+RrdDaj2kuGPtykS0VuTmijFhckMfHg5Fm6E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=hKBvQLIBI2Et62EU1THz3bg3Q+4e00bwkTJvLNGtXuDsckSdhXqWsv7Mi0StVbOTY
+	 aoKWr89W7DmkAC1ibeGSvrcyWaMmf8YOcLHa1nK+AGeMLKt9IGsQh0WEg6DgF4cV7w
+	 Z6Ln79/0ijRDOhdCXsGIoMExZKegHGM7qmyf4JjTrZ9F3tkLlR5FXj5cHr/ZG3u3IX
+	 wKl+5k+yFa3luBLvZ+0Ov5hUUh7znY5Zt57xoIgJSJ2zKa03kyIRJBRpiQLMC4nlP+
+	 6laPzpGq4y6TbF/cySM+OuW/dIHMrtg+dIu5YS2PZMZlkhG6gE9fzA+yPHNWre/R4E
+	 X4KUFOL2QJaSg==
+Date: Thu, 9 Jul 2026 15:09:17 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Steffen Persvold <spersvold@gmail.com>
+Cc: Will Deacon <will@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Rob Herring <robh@kernel.org>,
+	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] PCI: host-generic: Fix NULL pointer dereference on
+ 32-bit CAM systems
+Message-ID: <20260709200917.GA875728@bhelgaas>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,74 +47,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178340264407.17924.10135409461303815312.reportbug@ananaspc>
-X-Debian-User: carnil
+In-Reply-To: <20260709122446.3151899-1-spersvold@gmail.com>
 
-Control: forwarded -1 https://lore.kernel.org/regressions/178362762638.911488.8564892548331679884@eldamar.lan
-Control: tags -1 + upstream
+On Thu, Jul 09, 2026 at 02:24:46PM +0200, Steffen Persvold wrote:
+> On 32-bit systems the config space is too large to ioremap in one go, so
+> pci_ecam_create() maps each bus segment separately and relies on the
+> ->add_bus callback (pci_ecam_add_bus) to populate the per-bus mapping in
+> cfg->winp[]. pci_ecam_map_bus() then uses that mapping as the base for
+> every config access.
+> 
+> The generic ECAM ops (pci_generic_ecam_ops) already provide the ->add_bus
+> and ->remove_bus callbacks, but the CAM (legacy) ops in pci-host-generic.c
+> do not. As a result, on a 32-bit host using "pci-host-cam-generic" the
+> per-bus mapping is never set up and the first config read dereferences a
+> NULL base, crashing during bus enumeration:
+> 
+> [    1.430647] Unable to handle kernel NULL pointer dereference at virtual address 00000800
+> [    1.439441] Oops [#1]
+> [    1.442152] CPU: 0 PID: 1 Comm: swapper Not tainted 6.9.7+ #43
+> [    1.448753] Hardware name: Digilent Nexys-Video-A7 RV32 (DT)
+> [    1.454968] epc : pci_generic_config_read+0x40/0xb0
+> [    1.460652]  ra : pci_generic_config_read+0x2c/0xb0
+> [    1.534729] [<c038db9c>] pci_generic_config_read+0x40/0xb0
+> [    1.541096] [<c038da04>] pci_bus_read_config_dword+0x50/0xb0
+> [    1.547623] [<c0391e94>] pci_bus_generic_read_dev_vendor_id+0x3c/0x1ec
+> [    1.555010] [<c039245c>] pci_scan_single_device+0xa4/0x11c
+> [    1.561273] [<c0392570>] pci_scan_slot+0x9c/0x23c
+> [    1.566716] [<c039388c>] pci_scan_child_bus_extend+0x58/0x2f4
+> [    1.573275] [<c0393db0>] pci_scan_root_bus_bridge+0x64/0xe8
+> [    1.579650] [<c0393e54>] pci_host_probe+0x20/0xc8
+> [    1.591396] [<c03bc6f4>] pci_host_common_probe+0x144/0x1e4
 
-Hi,
+Remove timestamps, since they don't contribute to understanding the
+problem, and indent the quoted material two spaces.
 
-Ponali reported in Debian (https://bugs.debian.org/1141604) the
-following issue after updating from 6.12.90 to 6.12.94. First quoting
-the report:
+If there's no other reason for a v2, we can do this while merging.
 
-On Tue, Jul 07, 2026 at 07:37:24AM +0200, Ponali wrote:
-> Package: src:linux
-> Version: 6.12.94-1
-> Severity: normal
-> Tags: upstream, regression
-> X-Debbugs-Cc: ponali2k@gmail.com
+> Fix this by giving the CAM ops the same ->add_bus/->remove_bus callbacks.
+> Since pci_ecam_add_bus() and pci_ecam_remove_bus() are static to ecam.c,
+> move the CAM ops definition there as pci_generic_cam_ops (mirroring
+> pci_generic_ecam_ops) and export it for pci-host-generic.c to reference.
 > 
-> Last known working kernel: 6.12.90-1
-> First known broken kernel: 6.12.94-1
+> Fixes: 8fe55ef23387 ("PCI: Dynamically map ECAM regions")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Steffen Persvold <spersvold@gmail.com>
+> ---
+>  drivers/pci/controller/pci-host-generic.c | 11 +----------
+>  drivers/pci/ecam.c                        | 13 +++++++++++++
+>  include/linux/pci-ecam.h                  |  3 +++
+>  3 files changed, 17 insertions(+), 10 deletions(-)
 > 
+> diff --git a/drivers/pci/controller/pci-host-generic.c b/drivers/pci/controller/pci-host-generic.c
+> index c1bc0d34..9e85c6e9 100644
+> --- a/drivers/pci/controller/pci-host-generic.c
+> +++ b/drivers/pci/controller/pci-host-generic.c
+> @@ -16,15 +16,6 @@
+>  
+>  #include "pci-host-common.h"
+>  
+> -static const struct pci_ecam_ops gen_pci_cfg_cam_bus_ops = {
+> -	.bus_shift	= 16,
+> -	.pci_ops	= {
+> -		.map_bus	= pci_ecam_map_bus,
+> -		.read		= pci_generic_config_read,
+> -		.write		= pci_generic_config_write,
+> -	}
+> -};
+> -
+>  static bool pci_dw_valid_device(struct pci_bus *bus, unsigned int devfn)
+>  {
+>  	struct pci_config_window *cfg = bus->sysdata;
+> @@ -60,7 +51,7 @@ static const struct pci_ecam_ops pci_dw_ecam_bus_ops = {
+>  
+>  static const struct of_device_id gen_pci_of_match[] = {
+>  	{ .compatible = "pci-host-cam-generic",
+> -	  .data = &gen_pci_cfg_cam_bus_ops },
+> +	  .data = &pci_generic_cam_ops },
+>  
+>  	{ .compatible = "pci-host-ecam-generic",
+>  	  .data = &pci_generic_ecam_ops },
+> diff --git a/drivers/pci/ecam.c b/drivers/pci/ecam.c
+> index 119de32f..a9b3bce2 100644
+> --- a/drivers/pci/ecam.c
+> +++ b/drivers/pci/ecam.c
+> @@ -208,6 +208,19 @@ const struct pci_ecam_ops pci_generic_ecam_ops = {
+>  };
+>  EXPORT_SYMBOL_GPL(pci_generic_ecam_ops);
+>  
+> +/* CAM ops */
+> +const struct pci_ecam_ops pci_generic_cam_ops = {
+> +	.bus_shift	= 16,
+> +	.pci_ops	= {
+> +		.add_bus	= pci_ecam_add_bus,
+> +		.remove_bus	= pci_ecam_remove_bus,
+> +		.map_bus	= pci_ecam_map_bus,
+> +		.read		= pci_generic_config_read,
+> +		.write		= pci_generic_config_write,
+> +	}
+> +};
+> +EXPORT_SYMBOL_GPL(pci_generic_cam_ops);
+> +
+>  #if defined(CONFIG_ACPI) && defined(CONFIG_PCI_QUIRKS)
+>  /* ECAM ops for 32-bit access only (non-compliant) */
+>  const struct pci_ecam_ops pci_32b_ops = {
+> diff --git a/include/linux/pci-ecam.h b/include/linux/pci-ecam.h
+> index d9306514..044f67ce 100644
+> --- a/include/linux/pci-ecam.h
+> +++ b/include/linux/pci-ecam.h
+> @@ -81,6 +81,9 @@ void __iomem *pci_ecam_map_bus(struct pci_bus *bus, unsigned int devfn,
+>  /* default ECAM ops */
+>  extern const struct pci_ecam_ops pci_generic_ecam_ops;
+>  
+> +/* default CAM ops */
+> +extern const struct pci_ecam_ops pci_generic_cam_ops;
+> +
+>  #if defined(CONFIG_ACPI) && defined(CONFIG_PCI_QUIRKS)
+>  extern const struct pci_ecam_ops pci_32b_ops;	/* 32-bit accesses only */
+>  extern const struct pci_ecam_ops pci_32b_read_ops; /* 32-bit read only */
 > 
-> Dear Maintainer,
+> base-commit: 53bf92818a8362815708fc7b18e6d2c6a5fc665b
+> -- 
+> 2.40.1
 > 
-> I upgraded all my packages through apt, which also upgraded the linux image
-> from 6.12.90 to 6.12.94.
-> 
-> I expected the ScreenPad display to continue to be detected and exposed as a
-> DRM output, like on 6.12.90. The ScreenPad being the trackpad with a screen,
-> which came with my computer (ASUS VivoBook X532FA_S532FA).
-> 
-> After upgrading and rebooting, the new kernel caused a regression where the
-> display of the ScreenPad fails to get recognized by the kernel. The touchpad
-> functionality still works. Usually, the ScreenPad would appear as "HDMI-A-1".
-> The DRM connector for it still exists (/sys/class/drm/card0-HDMI-A-1), but
-> "status" reports "disabled"
-> 
-> I could not get the ScreenPad display to be recognized again on the new kernel,
-> so I configured GRUB to automatically boot to the 6.12.90 kernel through the
-> "Advanced Options". The ScreenPad is recognized on older kernel versions, so I
-> am still able to use it (until a new LPE comes around).
-> 
-> To replicate:
-> 1. Boot with 6.12.90. The ScreenPad display is detected as HDMI-A-1.
-> 2. Boot with 6.12.94 with the exact same hardware.
-> 3. The ScreenPad display is no longer usable.
-> 
-> 
-> My main display is eDP-1 (1920x1080), though it isn't essential. My GPU is an
-> integrated Intel iGPU, and the driver used for both screens is i915. I have
-> booted to the new kernel for reportbug to get all the information
-> automatically, but i will continue to use the old one until the appropriate
-> time.
-
-Now, Ponali did bisect the changes between 6.12.90 and 6.12.94 and
-found that the backport of the commit 8d95d1f4aa5c ("platform/x86:
-asus-wmi: fix screenpad brightness range") changed the behaviour.
-Bisect log is at: https://bugs.debian.org/1141604#22
-
-As this change was backported to other stable series as well I asked
-Ponali to please test 7.0.y and 7.1.y and confirmed that both 7.0.13
-and as well 7.1.3 show the hehaviour.
-
-#regzbot introduced: 8d95d1f4aa5c76202b0833a70998769384612488
-#regzbot link: https://bugs.debian.org/1141604
-
-Is there anything Ponali can report back to further debug the issue?
-
-Regards,
-Salvatore
