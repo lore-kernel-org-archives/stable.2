@@ -1,113 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DCA1A9F83;
-	Thu,  9 Jul 2026 02:30:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62C230FC1A
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 02:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783564213; cv=none; b=oT2iXsz5bSDp28Ci1bv6kXIw6j4Iq8pfnKAjUclpdkCx14pdY1eAPgFRBjB1ffYBZf9Bh9e55A7Q0nJR6033WnGdL16vvDAu3Q1wVQZVP9CcCn2tORJnKijuFdqyKFDklkP5ANUPlvH4LYkYWcJ9iz2lUM09SR8cjvlqHLE3lo0=
+	t=1783564731; cv=none; b=Tui7OSlvFanQEeLJuiLsVDhLh78LSIKxAvBPHxOdfAZTNgYHPphiis+SgOuF1UKsovjs+IA8ESM7ZncZaLtRHJ6kAbiC9T0FWjHLC5MdS0MIcugUNMP7TnH1QGF6djkuY1iPKrMDHc7ujyVfRXsAOLnakHooPB9zCKyKUkH4iho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783564213; c=relaxed/simple;
-	bh=5s3+b0OPj0QT8LLuYKahd5FUmo2fDiDuNCUZMKplh1k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qxU7bgwqiJvPn5NOKwKwaEWh4LbBMnGkOmL4a82Pad2mrZVFXGfHQmCCdf+YKuhU6ttaTMiIe+ddVwEC+asB7BYAEBiCVaITmZdc0Da0AnoAOIvUTRj9C6jZpv9YMOO0nEPVbqEzFUz6uHyCAZvU0XLHJk4rsgYW/J0NYlErC8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbnAqlDQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783564731; c=relaxed/simple;
+	bh=nM17uBlBSO29jd8iHKvxiWBZrvZetvXLELJUHMhKuGo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O8FAGy04NCC/QUZG5Kcro18wlJAhFot2DeT4Ao6Mb4I/KVGMPtz18qx9AKDc6duJW+o3a+Vba6NViX91IiqxSIwOWiTpqxfyzlkcMnRQp+ywOaBbc4VEeSMv/qR4lPH/elq3VfomHV77u4fO2hyXiw6vo58BFA2xUBtjqSJM0Hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Z0ZrtqzD; arc=none smtp.client-ip=91.218.175.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbnAqlDQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 343F01F000E9;
-	Thu,  9 Jul 2026 02:30:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783564211;
-	bh=4JCf6/UCFQuTBqxcZ0SaqkiNjUZ2DK9Onba0ROtqu/Y=;
-	h=From:To:Cc:Subject:Date;
-	b=WbnAqlDQuANiwAouiUHwXF8oVxnznnINRTDbCR0wLDk8O2I5ikYCp78mnDLFjFSs1
-	 V+HFUXe1qMphqKfxbSCTmUGkISDMYW2t7uNDT8EgeUehn1icuyHDfIkDYXdzaaHlI8
-	 ZSiXnKWjtyFz5wczqtqIllqdPGkmyE0GWbFTprL8hSlSkZxRWtVQDG0hEOyOoH/9vf
-	 L8q44p/jBDCKWFzvlsFwJWBv8jMqaCxxqUr1QK2N8M0PSChcB9vfQALwwkDnQeNNGz
-	 mfJpt4ngQ82po8UlPB9dOzwGknnRSa8l0/yZdCucuk2QIRHdn4bUmUvcDbg3Y2YzWV
-	 OM7NkNiLNLt6w==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Eric Biggers <ebiggers@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] crypto: aes - Fix conditions for selecting MAC dependencies
-Date: Wed,  8 Jul 2026 22:29:54 -0400
-Message-ID: <20260709022954.45113-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Z0ZrtqzD"
+Message-ID: <71562c7f-183c-40e4-bb90-84b078cf079d@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1783564726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v8G90Uh25zbPhM1ZwNcOXV6L2AePEvbAedmTn3KSKo4=;
+	b=Z0ZrtqzD64f7oznKtYfv04nNzXaeOiDaILKKTBuu2f59uiUEmVXWxqpjq3EbNV/hldPiEF
+	F+CCkC73X0p5PpHCx/OzpbahTkvqfhipveA8trjVY+xypt8Jo97hskmPlhrh1MJ+VwCEr0
+	8K6rYXRjrdlu+EveCf5M3UTlgtTPRtM=
+Date: Wed, 8 Jul 2026 19:38:40 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] RDMA/rxe: validate num_sge/cur_sge before indexing
+ wqe->dma.sge[]
+To: Ibrahim Hashimov <security@auditcode.ai>,
+ Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Zhu Yanjun <yanjun.zhu@linux.dev>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260708224534.1206-1-security@auditcode.ai>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "yanjun.zhu" <yanjun.zhu@linux.dev>
+In-Reply-To: <20260708224534.1206-1-security@auditcode.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-Starting in commit 7137cbf2b5c9 ("crypto: aes - Add cmac, xcbc, and
-cbcmac algorithms using library"), the aes module (CRYPTO_AES) supports
-CBC based MACs using the corresponding library functions.
+On 7/8/26 3:45 PM, Ibrahim Hashimov wrote:
+> A user QP's send queue (qp->sq.queue) is a shared ring the userspace
+> application writes to directly via mmap (vmalloc_user(), see
+> rxe_queue.c). For such a QP, rxe_post_send() takes the qp->is_user
+> branch and only schedules the requester task -- it never validates or
+> copies the posted WQE:
+> 
+> 	drivers/infiniband/sw/rxe/rxe_verbs.c:
+> 		if (qp->is_user) {
+> 			rxe_sched_task(&qp->send_task);
+> 			...
+> 		}
+> 
+> The requester then consumes the WQE in place straight out of that
+> mmap'd ring:
+> 
+> 	rxe_req.c:	wqe = req_next_wqe(qp);
+> 	rxe_req.c:	err = copy_data(qp->pd, 0, &wqe->dma,
+> 					payload_addr(pkt), payload,
+> 					RXE_FROM_MR_OBJ);
+> 
+> copy_data() immediately indexes the per-WQE sge array with the
+> attacker-controlled cur_sge field, before any bound is checked:
+> 
+> 	rxe_mr.c:	struct rxe_sge *sge = &dma->sge[dma->cur_sge];
+> 	rxe_mr.c:	...
+> 	rxe_mr.c:	if (sge->length && (offset < sge->length)) {
+> 
+> dma->sge[] is a flex array whose real backing storage is exactly
+> qp->sq.max_sge entries per WQE slot (see rxe_qp.c, wqe_size computed
+> from max_sge at QP create time). Since a user QP's WQE bytes are
+> entirely attacker-supplied, both wqe->dma.num_sge and wqe->dma.cur_sge
+> can be set to arbitrary values independent of each other and of
+> max_sge. Only the *kernel*-QP post path bounds num_sge:
+> 
+> 	rxe_verbs.c: validate_send_wr()
+> 		if (num_sge > sq->max_sge) {
+> 			rxe_err_qp(qp, "num_sge > max_sge\n");
+> 
+> but that function is only reachable from rxe_post_one_send() for
+> kernel-owned QPs; it is never consulted for a user QP's raw WQE.
+> 
+> The sibling receive path already has the equivalent guard, with the
+> literal comment documenting exactly why it is required:
+> 
+> 	rxe_resp.c: get_srq_wqe()
+> 		/* don't trust user space data */
+> 		if (unlikely(wqe->dma.num_sge > srq->rq.max_sge)) {
+> 			...
+> 			rxe_dbg_qp(qp, "invalid num_sge in SRQ entry\n");
+> 			return RESPST_ERR_MALFORMED_WQE;
+> 		}
+> 
+> The send/requester path has no analogous check, so a local,
+> unprivileged user who can open /dev/infiniband/uverbs* and create a
+> user QP on a soft-RoCE (rxe) link can hand-craft a WQE in the shared
+> send queue with an out-of-range wqe->dma.cur_sge (or an oversized
+> wqe->dma.num_sge) and ring the send doorbell. rxe_requester() then
+> calls copy_data(), which dereferences &dma->sge[cur_sge] out of the
+> bounds of the per-WQE sge array -- a vmalloc out-of-bounds *read*
+> (confirmed via KASAN: "KASAN: vmalloc-out-of-bounds in copy_data"),
+> reliably panicking the kernel (local DoS). sge->addr itself is still
+> bounds-checked later by lookup_mr()/rxe_mr_copy(), so the primitive is
+> an OOB read of sge metadata, not an arbitrary read/write primitive.
+> 
+> Fix this the same way get_srq_wqe() already does for SRQ entries:
+> bound both fields pulled from the (possibly user-mapped) send queue
+> entry before they are ever used to index wqe->dma.sge[], right where
+> the requester fetches the next WQE off the ring in rxe_requester().
+> num_sge is capped at qp->sq.max_sge (matching the sibling SRQ check
+> and the kernel-QP validate_send_wr() check), and cur_sge is capped at
+> qp->sq.max_sge directly, since that is the true per-WQE array capacity
+> that copy_data() indexes into -- this also covers num_sge == 0 /
+> cur_sge == 0 local-op and zero-payload WQEs, which remain valid.
+> 
+> This is a long-standing bug in the rxe (soft-RoCE) driver: the
+> qp->is_user bypass in rxe_post_send() and the unbounded
+> &dma->sge[dma->cur_sge] indexing in copy_data() have been present
+> since the driver was introduced.
+> 
+> Runtime-verified on a v6.19 KASAN (CONFIG_KASAN_VMALLOC=y) stand: a
+> reproducer that posts a user QP send WQE with an out-of-range
+> cur_sge reliably tripped "KASAN: vmalloc-out-of-bounds in
+> copy_data" (an out-of-bounds read) before this patch, and no longer
+> triggers that report with the patch applied.
+> 
+> Fixes: 8700e3e7c485 ("Soft RoCE driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+> Assisted-by: AuditCode-AI:2026.07
+> ---
+>   drivers/infiniband/sw/rxe/rxe_req.c | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+> index 12d03f390b09..9fb2c49fb503 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_req.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_req.c
+> @@ -701,6 +701,22 @@ int rxe_requester(struct rxe_qp *qp)
+>   	if (unlikely(!wqe))
+>   		goto exit;
+>   
+> +	/*
+> +	 * Don't trust user space data: qp->sq.queue is a raw ring the
+> +	 * application writes directly for a user QP, so wqe->dma.num_sge
+> +	 * and wqe->dma.cur_sge must be bounds-checked the same way
+> +	 * get_srq_wqe() checks an SRQ entry's num_sge before it is used.
+> +	 * Otherwise copy_data() indexes wqe->dma.sge[wqe->dma.cur_sge]
+> +	 * with an unvalidated, attacker-controlled index/count and reads
+> +	 * out of bounds of the per-wqe sge array.
+> +	 */
+> +	if (unlikely(wqe->dma.num_sge > qp->sq.max_sge ||
 
-To avoid including unneeded functionality, that support honors the
-existing CRYPTO_CMAC, CRYPTO_XCBC, and CRYPTO_CCM kconfig options.  The
-dependencies are selected if at least one of those is enabled.
+ From this function,
 
-However, the select statements don't correctly handle the case where
-CRYPTO_AES=y and (for example) CRYPTO_CMAC=m.  In that case the
-dependencies get selected at level 'm', due to how the kconfig language
-works.  That causes a linker error.
+static int rxe_init_sq(struct rxe_qp *qp, struct ibv_qp_init_attr 
+*init_attr)
+{
+     ...
+     qp->sq.max_sge = init_attr->cap.max_send_sge;
+     ...
+}
 
-Fix this by changing the selection conditions to use '!= n'.
+qp->sq.max_sge is also from the user space application. It is possible 
+that qp->sq.max_sge is 0.
 
-A similar issue also exists for CRYPTO_LIB_AES's conditional selection
-of CRYPTO_LIB_UTILS.  The same '!= n' would work, but instead just make
-CRYPTO_LIB_AES always select CRYPTO_LIB_UTILS.  CRYPTO_LIB_UTILS is
-lightweight, and it's needed by most AES modes and many other things.
+Then this makes rxe_requester will return error and exit.
 
-Fixes: 7137cbf2b5c9 ("crypto: aes - Add cmac, xcbc, and cbcmac algorithms using library")
-Fixes: 309a7e514da7 ("lib/crypto: aes: Add support for CBC-based MACs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
+Zhu Yanjun
 
-I'm planning to take this patch through libcrypto-fixes.
-
- crypto/Kconfig     | 4 ++--
- lib/crypto/Kconfig | 3 +--
- 2 files changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/crypto/Kconfig b/crypto/Kconfig
-index f1e372195273..b61401bd3ef6 100644
---- a/crypto/Kconfig
-+++ b/crypto/Kconfig
-@@ -358,8 +358,8 @@ config CRYPTO_AES
- 	tristate "AES (Advanced Encryption Standard)"
- 	select CRYPTO_ALGAPI
- 	select CRYPTO_LIB_AES
--	select CRYPTO_LIB_AES_CBC_MACS if CRYPTO_CMAC || CRYPTO_XCBC || CRYPTO_CCM
--	select CRYPTO_HASH if CRYPTO_CMAC || CRYPTO_XCBC || CRYPTO_CCM
-+	select CRYPTO_LIB_AES_CBC_MACS if CRYPTO_CMAC != n || CRYPTO_XCBC != n || CRYPTO_CCM != n
-+	select CRYPTO_HASH if CRYPTO_CMAC != n || CRYPTO_XCBC != n || CRYPTO_CCM != n
- 	help
- 	  AES cipher algorithms (Rijndael)(FIPS-197, ISO/IEC 18033-3)
- 
-diff --git a/lib/crypto/Kconfig b/lib/crypto/Kconfig
-index 591c1c2a7fb3..83d4c95e079e 100644
---- a/lib/crypto/Kconfig
-+++ b/lib/crypto/Kconfig
-@@ -8,8 +8,7 @@ config CRYPTO_LIB_UTILS
- 
- config CRYPTO_LIB_AES
- 	tristate
--	# Select dependencies of modes that are part of libaes.
--	select CRYPTO_LIB_UTILS if CRYPTO_LIB_AES_CBC_MACS
-+	select CRYPTO_LIB_UTILS
- 
- config CRYPTO_LIB_AES_ARCH
- 	bool
-
-base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
--- 
-2.55.0
+> +		     wqe->dma.cur_sge >= qp->sq.max_sge)) {
+> +		rxe_dbg_qp(qp, "invalid num_sge/cur_sge in send wqe\n");
+> +		wqe->status = IB_WC_LOC_QP_OP_ERR;
+> +		goto err;
+> +	}
+> +
+>   	if (rxe_wqe_is_fenced(qp, wqe)) {
+>   		qp->req.wait_fence = 1;
+>   		goto exit;
 
