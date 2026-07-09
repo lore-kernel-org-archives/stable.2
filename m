@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E046A1F91E3
-	for <Stable@vger.kernel.org>; Thu,  9 Jul 2026 05:45:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0162E11C7
+	for <Stable@vger.kernel.org>; Thu,  9 Jul 2026 05:46:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783575957; cv=none; b=LKah7gCr3gsKk9a67xxnYH/oPLa34ijwBrvJGhZvf+u4drcE+KjQ/6b+FAg3SJ2k9M620L8eVmzluGX5kBWCYpX8kzHdUi+TfSnYCVzvXePin1AIUMSvXzMTM053cScvL3QYqdvG8223EtKUwnrmK4Mhf+NtaMuycoargYPHdMM=
+	t=1783575961; cv=none; b=Putub+wqzoc6s3J5TWYxNLsoBvs6NsAA/xKs/EITt+na5pIgA2c7PS9ThdWY7uT8BTSX1Z9/sPCiz/582KoyXIfzC54abtH8giQkmK3FobkGIbyfrfQekl8RmlD80JVDoLDW8swVmzha0tkl7MviDPrWyHxop+z480XfZVdUiA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783575957; c=relaxed/simple;
-	bh=moMKVVgilhfhH+qu3+IlWvBgLhSwF7mmJx7fRoFPPc0=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=V5Y47BndwTfHzmOoL4vhMSleP2BVq26DojKtG3ncUVExiSKt6awW2dGxrfe5SKJVwUC7ghj1sA12n1fwOsS2lg4ZM7AHuG2PefDWTI978y649/dd2q+8CIFZWe7pI2xdib9hbdDY8JhyUepMIKF0xqkGFn6civ+n3kBwobZ2t3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dpR6Bmvb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783575961; c=relaxed/simple;
+	bh=8X7/3MejPNIQw3K2vYW/4916/Adqd5gm3gAI+KRKLbM=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=hPbZz1IDQRmnm0djpmu8sNw1kjUjpuCWN2TK8Fh2DVr6TaPVbbsff5nrQrCGQ3VvwCJVYOVNBpBp2C+mJlCKPWCOqD3EHM8LeCAo5aY2Rgk8FZx4i44ZQh5Rx8R5+XU1OshVbk72rE4FJ1t+dgHscX/+qkoNdacwvv2U4PU+eJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eVN08M7y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dpR6Bmvb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F20F41F000E9;
-	Thu,  9 Jul 2026 05:45:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eVN08M7y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB381F000E9;
+	Thu,  9 Jul 2026 05:46:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783575955;
-	bh=mbqbCjf5KSi9Hs4Ix2qu5tlPs6hI3k3SiYF2r4lLU2Y=;
+	s=korg; t=1783575960;
+	bh=Ku2nKr8yHEh459UCw54HoRXeHAtlkAIab6SQ85CIQt0=;
 	h=Subject:To:From:Date;
-	b=dpR6Bmvbt6c5yCsjBSzcI2hi1/0fdUCumGUzaBd/HfW2cbKazn1dNbU8GAJUZ1O5R
-	 z6JHVx/vKMwyJenQnB67dIu5miCM4xVv5RwUTifLZ9VXMAq4+SvDj06xQDiY54sp53
-	 GtEOsqZuLKvvIF3s+YbqgzM9Fbb6PpMCUOnQJ2OY=
-Subject: patch "iio: imu: st_lsm6dsx: deselect shub page before reading whoami" added to char-misc-linus
-To: andreas.kempe@actia.se,Stable@vger.kernel.org,jic23@kernel.org,lorenzo@kernel.org
+	b=eVN08M7yf8RJLWq2SlBxxr8J7IvmG/QL6Y9rc78IcVRet/65Hrv3ToKr6DN6OxP4j
+	 pyLHV5HOB58R8A6ZOS9epNjEAKZUTC0UdIeGm2vNTLv31DXE6CLNUbhj3qfEzN4bGO
+	 hqvZZ4a3P2vZBCvcyZ5c8yALQLNlYzjYqzcuq9ps=
+Subject: patch "iio: event: Fix event FIFO reset race" added to char-misc-linus
+To: lars@metafoo.de,Stable@vger.kernel.org,jic23@kernel.org,nuno.sa@analog.com
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 09 Jul 2026 07:44:52 +0200
-Message-ID: <2026070952-choosy-charting-23ae@gregkh>
+Date: Thu, 09 Jul 2026 07:44:53 +0200
+Message-ID: <2026070953-sloping-unmanaged-f842@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: imu: st_lsm6dsx: deselect shub page before reading whoami
+    iio: event: Fix event FIFO reset race
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,88 +54,79 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From aede83625ff5d9539508582036df30c809d51058 Mon Sep 17 00:00:00 2001
-From: Andreas Kempe <andreas.kempe@actia.se>
-Date: Thu, 2 Jul 2026 10:41:23 +0000
-Subject: iio: imu: st_lsm6dsx: deselect shub page before reading whoami
+From af791d295737ea6b6ff2c8d8488462a49c14af01 Mon Sep 17 00:00:00 2001
+From: Lars-Peter Clausen <lars@metafoo.de>
+Date: Mon, 6 Jul 2026 21:48:26 -0700
+Subject: iio: event: Fix event FIFO reset race
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-As part of driver initialization, e.g. st_lsm6dsx_init_shub() selects
-the shub register page using st_lsm6dsx_set_page(). Selecting the shub
-register page shadows the regular register space so whoami, among other
-registers, is no longer accessible.
+`iio_event_getfd()` creates the event file descriptor with
+`anon_inode_getfd()`, which allocates a new fd, creates the anonymous
+file and installs it in the process fd table before returning to the
+caller.
 
-In applications where the IMU is permanently powered separately from the
-processor, there is a window where a reset of the CPU leaves the IMU in
-the shub register page. Once this occurs, any subsequent probe attempt
-fails because of the register shadowing.
+The IIO code resets the event FIFO after `anon_inode_getfd()` has returned,
+but before `IIO_GET_EVENT_FD_IOCTL` has copied the fd number to userspace.
+But since fd tables are shared between threads, another thread can guess
+the newly allocated fd number and issue a `read()` on it as soon as the fd
+has been installed.
 
-Using the ism330dlc, the error typically looks like
+This means the `kfifo_to_user()` in `iio_event_chrdev_read()` can run in
+parallel with the `kfifo_reset_out()` in `iio_event_getfd()`.
 
-    st_lsm6dsx_i2c 3-006a: unsupported whoami [10]
+The kfifo documentation says that `kfifo_reset_out()` is only safe when it
+is called from the reader thread and there is only one concurrent reader.
+Otherwise it is dangerous and must be handled in the same way as
+`kfifo_reset()`.
 
-with the unknown whoami read from a reserved register in the shub page.
+If that happens, `kfifo_to_user()` can advance the FIFO `out` index based
+on state from before the reset, after the reset has already moved the `out`
+index to the current `in` index. That can leave the FIFO with an `out`
+index past the `in` index. A later `read()` can then see an underflowed
+FIFO length and copy more data than the event FIFO buffer contains. This
+can result in an out-of-bounds read and leak adjacent kernel memory to
+userspace.
 
-The reset register is also shadowed by the page select, preventing a
-reset from recovering the chip.
+Move the FIFO reset before `anon_inode_getfd()`. At that point the event fd is
+marked busy, but the new fd has not been installed yet, so userspace cannot
+access it while the FIFO is reset.
 
-Unconditionally clear the shub page before the whoami readout to ensure
-normal register access and allow the initialization to proceed.
-
-Place the fix in st_lsm6dsx_check_whoami() before the whoami check
-because hw->settings, which st_lsm6dsx_set_page() relies on, is first
-assigned in that function.
-
-Placing the fix in a more logical place than the whoami check would
-require a bigger restructuring of the code.
-
-Fixes: c91c1c844ebd ("iio: imu: st_lsm6dsx: add i2c embedded controller support")
-Signed-off-by: Andreas Kempe <andreas.kempe@actia.se>
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+Fixes: b91accafbb10 ("iio:event: Fix and cleanup locking")
+Reported-by: Codex:gpt-5.5
+Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 ---
- drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 21 +++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ drivers/iio/industrialio-event.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-index 630e2cae6f19..f4edcb73ec8c 100644
---- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-+++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-@@ -1712,6 +1712,26 @@ static int st_lsm6dsx_check_whoami(struct st_lsm6dsx_hw *hw, int id,
- 		return -ENODEV;
+diff --git a/drivers/iio/industrialio-event.c b/drivers/iio/industrialio-event.c
+index a0d6fcf2a9c9..e6730f52262a 100644
+--- a/drivers/iio/industrialio-event.c
++++ b/drivers/iio/industrialio-event.c
+@@ -207,6 +207,8 @@ static int iio_event_getfd(struct iio_dev *indio_dev)
+ 		goto unlock;
  	}
  
-+	hw->settings = &st_lsm6dsx_sensor_settings[i];
++	kfifo_reset_out(&ev_int->det_events);
 +
-+	if (hw->settings->shub_settings.page_mux.addr) {
-+		/*
-+		 * If the IMU has the shub page selected on init, for example
-+		 * after a CPU watchdog reset while the page is selected, the
-+		 * regular register space is shadowed. While the regular
-+		 * register space is shadowed, the registers needed for
-+		 * initializing the IMU are not available.
-+		 *
-+		 * Unconditionally clear the shub page selection to ensure
-+		 * normal register access.
-+		 */
-+		err = st_lsm6dsx_set_page(hw, false);
-+		if (err < 0) {
-+			dev_err(hw->dev, "failed to clear shub page\n");
-+			return err;
-+		}
-+	}
-+
- 	err = regmap_read(hw->regmap, ST_LSM6DSX_REG_WHOAMI_ADDR, &data);
- 	if (err < 0) {
- 		dev_err(hw->dev, "failed to read whoami register\n");
-@@ -1724,7 +1744,6 @@ static int st_lsm6dsx_check_whoami(struct st_lsm6dsx_hw *hw, int id,
+ 	iio_device_get(indio_dev);
+ 
+ 	fd = anon_inode_getfd("iio:event", &iio_event_chrdev_fileops,
+@@ -214,10 +216,7 @@ static int iio_event_getfd(struct iio_dev *indio_dev)
+ 	if (fd < 0) {
+ 		clear_bit(IIO_BUSY_BIT_POS, &ev_int->flags);
+ 		iio_device_put(indio_dev);
+-	} else {
+-		kfifo_reset_out(&ev_int->det_events);
  	}
- 
- 	*name = st_lsm6dsx_sensor_settings[i].id[j].name;
--	hw->settings = &st_lsm6dsx_sensor_settings[i];
- 
- 	return 0;
- }
+-
+ unlock:
+ 	mutex_unlock(&iio_dev_opaque->mlock);
+ 	return fd;
 -- 
 2.55.0
 
