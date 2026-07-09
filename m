@@ -1,108 +1,148 @@
-Received: from mail-oi1-f202.google.com (mail-oi1-f202.google.com [209.85.167.202])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCFB3C09FF
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 20:30:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.202
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783629013; cv=none; b=T1wcd52clKhBKP5zabQiOOOmnLcoB6ze+zJKBJqruAulYXwPyCJsGZw3vQkgY44SfFVFhY0lgLhUxIK0NLdB7ip9OpXnmgPOxTk8QLlEIgQj0Tybgnlg8buj8LsmK7ut6OKIloXNTE+0gUwlFsxF1LDPYHBCq0j47M/T/zLbul4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783629013; c=relaxed/simple;
-	bh=Hh90mVt6XcR3iqrqcDw0knKu1XwU2GWLwg4NQnXR5F0=;
-	h=Date:In-Reply-To:Mime-Version:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=lLEUuUGptIjLvmdQ7qtiKxlprhAsIH6C85VME4A14dCcgtDPpvY5s47dY6ElZQGjX78vdjMOc6hdsAR/Z5grtAek67jUBZxPzQZSJu4s5xc90zftWAsLzsGUJEUrm9wa8ddW2cSK5QOEUXPRjF0G/tA7otRl68t0a9AyYlGgh0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JpSoI2Of; arc=none smtp.client-ip=209.85.167.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2254499AF
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 20:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783630447; cv=pass; b=eQYFNM6MHjyxkSvnqoc7AA7fLJmF6TArmlXGm9rPD4p42TRltOYToBqOSby6olhL1gNdffoF7ZYJ5BET1kuSW7c4f80dUNsXFj3gr3IcK2tPFleVuvuItVlVUBLQPkc5rXkU7i8oKM+5GEqFEzhb++HbghJcVnNN9WojzgSTYj8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783630447; c=relaxed/simple;
+	bh=6CpaLGU5EUy0vMVHx3KnNb4rh6my4kZN9Yxb54V1PDI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ko2lxx3RjNeLu4giNJnWGBLtgd/arnK2fU+c+/TdZjk4BdDQT/KLIXYr8ieqsv7PV7F+1z3zzkYBNkcI9toEGXm5mancXzWOyFo7BQFpdh/GxRihoSl6Dc68s+U6oj0paCKIJV6vHQK/DXNg0STKzblbzhN7ZU05GMbVay3MgCw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rZtxIq3u; arc=pass smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JpSoI2Of"
-Received: by mail-oi1-f202.google.com with SMTP id 5614622812f47-4909b046dabso270577b6e.0
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 13:30:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rZtxIq3u"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-51c2a449c57so1361691cf.1
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 13:54:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783630445; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aTNS7gxmQhikOwCI0aH7lxHkG2gvmpomxOnxykTyoGu1Y2KF1Hw2JS/naOP8eG6jSv
+         Sijt45+000fC/CSarP7c24j/ApwJOfI+vdWhoUuGx0hlSwG4leZ/4sq1LnG66kbWuX8C
+         AffeFAotgwJmz6grukudisKCr4nUAGj6LvMYAMXQyQMxWCS18ybuF0gRvqyeZFqRTLXF
+         PRth5zZWfdse4hzXubjh7wWB9gjZJihSN6AsVORtnXuCdCy/2f5aHmfODmiJSktkxHwo
+         K/f97mSmDZYj4LRbrvCZfDN0H8Yajo3Qnzg87lIOJvWtrE04ablhVTjBEia325j24ohD
+         MzRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=x5evxCKgLnEs0QTFditB/MvAAlaTMW3SCAomkp6FBCA=;
+        fh=qkhYLtT70AvcSAx3d5nOE221/2mXz+ZeAoRBU3MdIDQ=;
+        b=W+I75SqV1AvEnBmLEqF5qb+wgvfDKLVAYPcbqOtw+c6E5r6glSOotWNMZVtf851k6h
+         t1ov93HpvV1J1TN/NMs5zvkeTQ3FRG1LUHq+76tu6bpr2iPIkn9amQWXYsCcG1OTH9zR
+         p62bmjFlKbPTpxQ+EkSZtKnsTSMpE30l5zgiqFqb2uzbMf+BtEYFpFVeX9ktl1PwHQ0v
+         DHn5IIclDPDY0kmdG3YCimvzmZLftamto+I3Kbn4dmn7IBiFXvNIE7zggeA1OJd44Alr
+         yiaOfFc6PFSCETIHaGGzlX4OWP1i8jXqzjxTYOgTrFZhKpcBsdFWns5BxrOOym91pb9b
+         FWVA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783629008; x=1784233808; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PzslN++gvwF111Oxj75aJ3QDVnvg6D0q7xeFijnE/DM=;
-        b=JpSoI2Of0uH/DQ2oFiL8Rc8Sk/60qO9R/psr4pVf0SqiO9y5CRJvh25xNwnieAftbi
-         9CRNo5zfXvOzImFTVimsNDEnzMV2hrQL3Rrug5NtL88NKJU1WUqyirPa/U+ePJOj+xuT
-         xxvbfxo4f5HZ4M0QfUJPVQ//CgyViOt7o6NKaEaj1dehPMjDEQrQ8hGubQVdugIy075H
-         GJhNR5uI9IkS2J3wh5+cPjkD8WpwryAqnm4AXL35UPcK+lWwr96wPHxnyuIbsmv4mr+x
-         TtrvTQCa+ud4RMg2Rb4G32jPIMYbJNdVWneiKNbA3LiAqnM9DBuRl7Lg2RdN78m8Amaq
-         aJeQ==
+        d=gmail.com; s=20251104; t=1783630445; x=1784235245; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x5evxCKgLnEs0QTFditB/MvAAlaTMW3SCAomkp6FBCA=;
+        b=rZtxIq3ucANik3O6tyHtVpY3ik9fVH0fvBT4g2sfeKyXnH5FGpn/CZAtH8O6wU9ywk
+         E5742fXSo0Zr+VEiqyPWRTUkujF4/hK/Rg2/FJi/GD9hPiHLuTp0Ede1OoWculBEsUtG
+         Z/OBROWxtThsbwncLzq9OEUGI3aqHMySO+gbup0foDTiHAHcG4hxKldx8/q/Gq1BMAyb
+         E4wBO5hQJxIVCyYfxP9sFWZwEQiirKMq0f2dL5gN0T+y6LOvmlaeAMxLe/9MSEPH0aSH
+         8eW7deSw2st2Xf3KXHRKSOapxDaQZHN1sqQ3utQlozkQsZUSzf1MzWIP8LZKI/RuePtD
+         yelg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783629008; x=1784233808;
-        h=content-type:cc:to:from:subject:message-id:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20251104; t=1783630445; x=1784235245;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PzslN++gvwF111Oxj75aJ3QDVnvg6D0q7xeFijnE/DM=;
-        b=AhAWRayLYfF5RrNN0BYLyrifTEQgLGuKeim7ME5cHvsyI2Iv3+JqNlSVKckKqhgbQ0
-         h8IN/KobCsRhdHZuj3LOCOhCcXp9itzFX9vI5GbMQCp7j9w2GFNd75FbgzRGlK7PJ/AO
-         Vye6jakVdmL9o6xEtBlDi5I8IqzMtaNZj3wRS4mE1CZzVJfVa3hNfoiDvSpbsHUHtn7y
-         5RXwlw3Vc3lyqwkLFRO4SLLjlfff5+VYde0mpyt9DwvsA/gLJ/myALWP2UWqZGQ4XFbn
-         OERBaMtZ9obvdmc/am8SOG/QOKSWNhAFuB5RUL0eyGcXOOsB48RqfW1NSm+xC/7fZtwu
-         0OVQ==
-X-Gm-Message-State: AOJu0Yy5M5wGn4J11SmcaccImqFJ1+C5CPu9rhSA63XMmvVwRUI93KRB
-	mw4O+3Rb2wtDkRc9DT+7sv64Gi17hTx+S1Jd+vxPZb3iJ+xu0tvRvACV0APu6mF4yUkWWINg3Yg
-	2z7RNeftzn/aR6Uid4sAaWIE1mQ==
-X-Received: from jaaf25.prod.google.com ([2002:a05:6638:c7d9:b0:5e9:4c3:fe2b])
- (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:1a1a:b0:495:f85b:d08f with SMTP id 5614622812f47-4a20241e89cmr7170981b6e.18.1783629008168;
- Thu, 09 Jul 2026 13:30:08 -0700 (PDT)
-Date: Thu, 09 Jul 2026 20:30:07 +0000
-In-Reply-To: <87y0fk5uyi.wl-maz@kernel.org> (message from Marc Zyngier on Thu,
- 09 Jul 2026 11:16:37 +0100)
+        bh=x5evxCKgLnEs0QTFditB/MvAAlaTMW3SCAomkp6FBCA=;
+        b=Vnmqpxo0eenZ0Gm8xhTPdpI7cPCecjdUNriUbCJO5fYyq3u9EcQY9ylfqhk7M/Mevs
+         om+otQ06xZbeyBiQkToozX5kefaTwRFYvJcqYqf6SzQvqXgC3+Ys86+cICsOFSvXv7YB
+         mxP1Ss5ZBBmgjazoEhHSHb3qSe0GB6mg3nv/o7npJ8ddIJtdtE7OgmD0SQGI4bnY9BPI
+         H8PoFMi4Tnh//Ov5LL3Qr1Ye1r0R1zvt2fGJ+wJ+aj70l2lN+mu8jNvQmzkVnXnop6Qp
+         lR4TGYqWTZuLXOv0kGLC3E6aj0PMlDKMSOm2qlxbakSIbJo6WgfJ6VRr1xxHG3v/2QU2
+         7VHw==
+X-Forwarded-Encrypted: i=1; AHgh+RrUiDJnwh314JuLrUR3UaSobmmu4Zg/bC50zW8aUEiA6BFrlYLWz7fcw8OCGIum7gG0Rp3dosw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzF9cbzVRrVk0ZbaYvCWrYRRnMFrHhq5xHeD6dX+hZp7QeP59NF
+	DRJUX9ZEifMz77WOzoOCNLG1rNmY/UN59zY+vzGljoNrp6x+VKRGw63k9Q7tfCTUDyWoqzTUKjh
+	w+kSp0gsoRKJC3T6PTnHJ+lyzfZCPMZw=
+X-Gm-Gg: AfdE7cnpfVOaQidxdOjTBw1DAwPYOQVedRSxF0d0R6IxEPUSfaj+tj5yRLkH8Cbc/im
+	VtfyHalKSOyM6+HQttdNb6xRjA6TcPDTC37dqqyU4ll069FQTIbmVigPGi+KjuWSPku4UDDMEwk
+	flDcCSIkl0kgfGXS49dRT0fgOd4hdEoZtuBMURss+7Px1LYnLYezPQf7L+n6hl7YKElqcDtBNBs
+	dbdAqaklBfec6y+WfmEPEOvK1DSnxT/Mfx/9s6r36ytlqw4HHte+co6vBv7eer3JN3m0QHFVYMw
+	0LpnRYW6J1tuegvPZaQ0xe1FQqKq1qIbo9GAeL0Xm1SkM/dvhPZc/czSLwXc92xzjGFho7SOsS6
+	Ryh6uy/u97J5Qcl1vRj7kRHci96kt/+gRhQfMsJxMVKwD2iRVdIN2g5GS0ImO9daa6mR3x3xnlh
+	FSzAmSpF8J52Q=
+X-Received: by 2002:a05:622a:4d86:b0:517:906b:c043 with SMTP id
+ d75a77b69052e-51c8b30194dmr112033741cf.36.1783630444769; Thu, 09 Jul 2026
+ 13:54:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Message-ID: <gsntjyr36h4g.fsf@coltonlewis-kvm.c.googlers.com>
-Subject: Re: [PATCH 6.6 v2 1/6] arm64: sysreg: Add layout for ID_AA64MMFR4_EL1
-From: Colton Lewis <coltonlewis@google.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: stable@vger.kernel.org, oliver.upton@linux.dev, sashal@kernel.org, 
-	gregkh@linuxfoundation.org, mizhang@google.com, catalin.marinas@arm.com, 
-	will@kernel.org, james.morse@arm.com, suzuki.poulose@arm.com, 
-	yuzenghui@huawei.com, mark.rutland@arm.com, ahmed.genidi@arm.com, 
-	leo.yan@arm.com, miguel.luis@oracle.com, dbrazdil@google.com, 
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+MIME-Version: 1.0
+References: <20260709155440.2132459-2-doebel@amazon.de>
+In-Reply-To: <20260709155440.2132459-2-doebel@amazon.de>
+From: Steve French <smfrench@gmail.com>
+Date: Thu, 9 Jul 2026 15:53:51 -0500
+X-Gm-Features: AUfX_mywyJw7Jb2CzVjlGHcEYnBTz-s8FGewaFQhIIMmJBSp0jiEvTm8UOBbBuo
+Message-ID: <CAH2r5mtg=Ko8FMO0dkTw72wu8rVJuC312bQ9QKUyNaL3gf_wbA@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: mask server-provided mode to 07777 in modefromsid
+To: Bjoern Doebel <doebel@amazon.de>
+Cc: Paulo Alcantara <pc@manguebit.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
+	Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, samba-technical@lists.samba.org, 
+	stable@vger.kernel.org, nmanthey@amazon.de
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Marc,
+merged into cifs-2.6.git for-next
 
-Marc Zyngier <maz@kernel.org> writes:
-
-> On Wed, 08 Jul 2026 23:51:19 +0100,
-> Colton Lewis <coltonlewis@google.com> wrote:
-
->> From: Marc Zyngier <maz@kernel.org>
-
->> [ Upstream commit cfc680bb04c54e61faa51a34d8383a0aa25b583f ]
-
->> ARMv9.5 has infroduced ID_AA64MMFR4_EL1 with a bunch of new features.
->> Add the corresponding layout.
-
->> This is extracted from the public ARM SysReg_xml_A_profile-2023-09
->> delivery, timestamped d55f5af8e09052abe92a02adf820deea2eaed717.
-
->> Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> Signed-off-by: Marc Zyngier <maz@kernel.org>
->> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
->> Reviewed-by: Miguel Luis <miguel.luis@oracle.com>
->> Link: https://lore.kernel.org/r/20240122181344.258974-5-maz@kernel.org
->> Signed-off-by: Oliver Upton <oliver.upton@linux.dev>
-
-> Please read Documentation/process/backporting.rst, and in particular
-> the section indicating the requirement for your own SoB.
-
-> None of these patches can be merged if this is missing.
-
-That taught me a few tricks. Thanks. And I'll make sure to include my
-SoB.
-
-> 	M.
-
+On Thu, Jul 9, 2026 at 10:55=E2=80=AFAM Bjoern Doebel <doebel@amazon.de> wr=
+ote:
+>
+> From: Norbert Manthey <nmanthey@amazon.de>
+>
+> When modefromsid is active, parse_dacl() applies the server-provided
+> sub_auth[2] value from the NFS mode SID to cf_mode without masking to
+> 07777. Apply the correct masking, same as in the read path.
+>
+> Fixes: e2f8fbfb8d09c ("cifs: get mode bits from special sid on stat")
+> Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+> Assisted-by: Kiro:claude-opus-4.6
+> Cc: stable@vger.kernel.org
+> ---
+>  fs/smb/client/cifsacl.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+> index 6d572dd995d79..a0a68404fbff7 100644
+> --- a/fs/smb/client/cifsacl.c
+> +++ b/fs/smb/client/cifsacl.c
+> @@ -962,7 +962,7 @@ static void parse_dacl(struct smb_acl *pdacl, char *e=
+nd_of_acl,
+>                                  */
+>                                 fattr->cf_mode &=3D ~07777;
+>                                 fattr->cf_mode |=3D
+> -                                       le32_to_cpu(ppace[i]->sid.sub_aut=
+h[2]);
+> +                                       le32_to_cpu(ppace[i]->sid.sub_aut=
+h[2]) & 07777;
+>                                 break;
+>                         } else {
+>                                 if (compare_sids(&(ppace[i]->sid), powner=
+sid) =3D=3D 0) {
 > --
-> Jazz isn't dead. It just smells funny.
+> 2.50.1
+>
+>
+
+
+--=20
+Thanks,
+
+Steve
