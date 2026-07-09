@@ -1,90 +1,150 @@
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F5AF18C008;
-	Thu,  9 Jul 2026 11:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6714B3F8233;
+	Thu,  9 Jul 2026 11:48:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783597599; cv=none; b=g21eSbd40AJwLihlDYuriau2LkbngWvWnrSw8RVQg8q3XZQQtUUXkyKmBMTQaaOX7bkMD2Dys9gfwr2DpWq4Ej485SxlMowuJUGyC39ZFXf8Xaw1DGzghI72IjkvwdLgdBl2+IRCIt1ZVNS4fyn/tiBjQnXg+GF1sGOL2zpciUU=
+	t=1783597697; cv=none; b=XBaZ6LUryOxsZ12HswtvM1Jjma+yQWL1ZpwG5hA2GDlCI60/JLHPvKh8CbuAyBc8uns0G7nC9bhVltMiW0Ok4jFl2nAOzeXr3hQr/bNMFS/lbw1grvNLgW4dOueVNZ8FCYjdCjI86UR7NTmA1y0ZzwT17iAuID9TYo1MXdAiK9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783597599; c=relaxed/simple;
-	bh=twmEzHea4QAYe+6lVhj7Zqe+nc0w7Ixcq9xJL1Mm1WI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bE4l8EVOhtds8cZLkMfbU3g3dOAwYK8P72wVLhR0/XH+OEv1nEYl47Zo+mNtLU8RxWP2l3o6I++0WZvH0tFLDqD+PEnyFT+JMkZAjy0yy0tQfwEclD0//EJJ9JQQf0Vlj8J2KP7UrRwBOI8/1R3eXNU6oVacLOdJwLKbpz1Eszo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id 0F4F260293; Thu, 09 Jul 2026 13:46:27 +0200 (CEST)
-Date: Thu, 9 Jul 2026 13:46:26 +0200
-From: Florian Westphal <fw@strlen.de>
-To: Julian Anastasov <ja@ssi.bg>
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Simon Horman <horms@verge.net.au>, David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>,
-	Alexander Frolkin <avf@eldamar.org.uk>, netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	stable@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
-Subject: Re: [PATCH nf] ipvs: make destination flags atomic
-Message-ID: <ak-KErd1a0NHGN-D@strlen.de>
-References: <20260707085706.96322-1-zhaoyz24@mails.tsinghua.edu.cn>
- <41c3d792-af7d-5582-5057-ac3df5f7bfd6@ssi.bg>
- <91509A0C-9E4A-4F0E-A45C-ABD29396067E@mails.tsinghua.edu.cn>
- <afcdb34c-ec10-de8e-083c-624bcedca90e@ssi.bg>
+	s=arc-20240116; t=1783597697; c=relaxed/simple;
+	bh=3GHVytqAiXztOpvo3irA/vj2g4iFfeqJ9bonYBsjPOY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eCw0uXUKyIXNLa7/2RV3SnjOPfIBLjM7A2IROdrl77wJ2KcGWt0bZ/gzz52jOSr3PPVbYp4NjwQmdC9SdF4/PSSzET8kuXRfy22BBFhDjDxSy9hrX/iFI2zgp9AQ+nufJ3eIyXGejJzzefhhxd7zB82uTSruyGFPL5ZmXTBhSJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jqWYavq4; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jqWYavq4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=TQ
+	2dgI13JWSwktDEmuOJMUNjWbExU+eiPgxf6tnfoW8=; b=jqWYavq4f045OAUzlJ
+	Wqgm2eBhuNfeNeIsU8fONZtNpzBVFYn9huJy92i7dfQgH6NbDkivi5U9oRuBKp4d
+	oY505kINaHjREeaR1qzL8d9A7JpT/iA0YUoAOLTDa2zCWd8H1S0LjNQYZnbA2Dod
+	2LJxSQd8JVPuk9S/tLXNP2beo=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wAHRqBiik9q5_JKIw--.24489S2;
+	Thu, 09 Jul 2026 19:47:48 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	yangyingliang@huawei.com,
+	error27@gmail.com,
+	mst@redhat.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] Bluetooth: virtio: Fix virtbt_probe() init and cleanup
+Date: Thu,  9 Jul 2026 19:47:45 +0800
+Message-Id: <20260709114745.4030794-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <afcdb34c-ec10-de8e-083c-624bcedca90e@ssi.bg>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAHRqBiik9q5_JKIw--.24489S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxArWxAF1DXF13XFWUXF48Crg_yoW5WrW5pF
+	sxWF98AFy0gFW3Can8Xa18ua4xCFs7C3yIgrWaq3s0grZ0yrWUAryjy34UKa4UZrZ8Zay8
+	JF4kJ34kZrWDuFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUUfQiUUUUU=
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7QQqmGpPimRsSgAA32
 
-Julian Anastasov <ja@ssi.bg> wrote:
-> 	After looking again at the code, I think we can
-> do it in different way:
-> 
-> - IP_VS_DEST_F_AVAILABLE and IP_VS_DEST_F_OVERLOAD are defined
-> in include/uapi/linux/ip_vs.h but we never export them to user
-> space. So, we are free to change them. We can move them to 
-> include/net/ip_vs.h, see below...
-> 
-> - IP_VS_DEST_F_AVAILABLE is changed only under service_mutex,
-> so we can keep its usage
-> 
-> - IP_VS_DEST_F_OVERLOAD needs different access methods.
-> We can add 'unsigned long flags2;', may be after l_threshold.
-> And to switch to such usage (F_OVERLOAD -> FL_OVERLOAD):
-> 
-> 	- test_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
-> 	- set_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
-> 
-> 		Sometimes if (test_bit()) clear_bit() can avoid
-> 		full memory barrier in ip_vs_dest_update_overload()
-> 
-> 	- clear_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
-> 		test_bit() guard can help here too
-> 
-> 	As there are other races involved, something like
-> this can be a starting point for such change. It tries harder
-> to update the overload flag on dest edit/add but it does not
-> include the proposed bitops:
->
-> diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-> index 49297fec448a..b34631270e24 100644
+virtbt_probe() allocates vbt before setting up the virtqueues, but some
+failure paths return without freeing it.
 
-Who is supposed to do what?
+The probe path also registers the HCI device before the virtio transport
+is opened. Since hci_register_dev() makes the HCI device visible and queues
+power_on work, move it after virtio_device_ready() and virtbt_open_vdev()
+so the transport is ready before the HCI core can use it.
 
-I.e., are you going to submit this officially as replacement
-for the v2 of this patch or do you expect the sumbitters of
-this patch to rework their v2 along these lines?
+On failures after DRIVER_OK, reset and close the virtio device before
+deleting the virtqueues and freeing vbt. This also cancels pending rx work
+before vbt is freed.
+
+Fixes: afd2daa26c7a ("Bluetooth: Add support for virtio transport driver")
+Fixes: dc65b4b0f90a ("Bluetooth: virtio_bt: fix device removal")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+Changes in v2:
+ - Rework virtbt_probe() error paths into an unwind ladder.
+ - Free vbt on probe failures.
+ - Reset the virtio device and unregister the HCI device before freeing it
+   when virtbt_open_vdev() fails.
+ - Close the virtio device before unregistering the HCI device in remove().
+
+   Thanks Dan for the suggestions. The blog is very helpful.
+
+Changes in v3:
+ - Remove virtio_reset_device() from the virtbt_open_vdev() failure path.
+
+Changes in v4:
+ - Move hci_register_dev() after virtio_device_ready() and virtbt_open_vdev().
+ - Reset and close the virtio device on probe failures after DRIVER_OK. Thanks, Luiz!
+---
+ drivers/bluetooth/virtio_bt.c | 27 ++++++++++++++++-----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/bluetooth/virtio_bt.c b/drivers/bluetooth/virtio_bt.c
+index 140ab55c9fc5..e7e79ba3c1f7 100644
+--- a/drivers/bluetooth/virtio_bt.c
++++ b/drivers/bluetooth/virtio_bt.c
+@@ -311,12 +311,12 @@ static int virtbt_probe(struct virtio_device *vdev)
+ 
+ 	err = virtio_find_vqs(vdev, VIRTBT_NUM_VQS, vbt->vqs, vqs_info, NULL);
+ 	if (err)
+-		return err;
++		goto err_free_vbt;
+ 
+ 	hdev = hci_alloc_dev();
+ 	if (!hdev) {
+ 		err = -ENOMEM;
+-		goto failed;
++		goto err_del_vqs;
+ 	}
+ 
+ 	vbt->hdev = hdev;
+@@ -383,23 +383,28 @@ static int virtbt_probe(struct virtio_device *vdev)
+ 	if (virtio_has_feature(vdev, VIRTIO_BT_F_AOSP_EXT))
+ 		hci_set_aosp_capable(hdev);
+ 
+-	if (hci_register_dev(hdev) < 0) {
+-		hci_free_dev(hdev);
+-		err = -EBUSY;
+-		goto failed;
+-	}
+-
+ 	virtio_device_ready(vdev);
+ 	err = virtbt_open_vdev(vbt);
+ 	if (err)
+-		goto open_failed;
++		goto err_close_vdev;
++
++	err = hci_register_dev(hdev);
++	if (err < 0) {
++		err = -EBUSY;
++		goto err_close_vdev;
++	}
+ 
+ 	return 0;
+ 
+-open_failed:
++err_close_vdev:
++	virtio_reset_device(vdev);
++	virtbt_close_vdev(vbt);
+ 	hci_free_dev(hdev);
+-failed:
++err_del_vqs:
+ 	vdev->config->del_vqs(vdev);
++err_free_vbt:
++	vdev->priv = NULL;
++	kfree(vbt);
+ 	return err;
+ }
+ 
+-- 
+2.25.1
+
