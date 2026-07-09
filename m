@@ -1,63 +1,63 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24703B9D99
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 19:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373693C063F
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 19:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783626057; cv=none; b=LYcpCaLnI8YwLy7nDhvTQ41O05RdYStB6ls9QM+5O/7SZzsWSWsb3PRuMVlhhePYZHRCkmMqAldgmXws7UiAPeSSMEh5TO/lgqPOrUfvq8XVn6kb+YZS3O1xqZDGXLkOBFXIlI6ipkeNx4U7O4INl4H6Nk5XNRHcl6UB9Af6J78=
+	t=1783626059; cv=none; b=A9PwKLiggV4yA66PyU7uzXLJ0Ktw/ZbOWvozapkww/TaWVbaj2CD97uKYjDfigSEBANaVZG5bap9U1C0dF6rzvngY25qda85DQOBreDnMfWCFqXb+UMXbtVGbsttRU4uuIl3/wsPmRIAkxcXDBYtBaA8ze2+YDI6d/7Ia+CeJyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783626057; c=relaxed/simple;
-	bh=sjHPNudmGjASxiXnhJxMGLO0lZ1OTxOJvgPfI5PJdRs=;
+	s=arc-20240116; t=1783626059; c=relaxed/simple;
+	bh=8CINdofIA6WE5cj1rtAL6a/+dI4Px+62KyCuRUTf+80=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MF4IHwcj5XPgx6DWSA1KhhkOGtLjaxJ+RvKSn/CzId/XlTlLD/L4RAexaVJOizcTk7GilHQq+M/QGUJAB1x4njYgt8Zb2k8f9qVueGIoSVAgHAqUKfyh8flSCcOjKATosnFbRWdlqqfLFGxZ3wcwXB9prmxE62mp1QsOdahHJZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M2NjRLW1; arc=none smtp.client-ip=209.85.221.51
+	 MIME-Version; b=Gbhha6A1X4D/ba4y3GFn9y4LdNBPgA35Xd5t+C5gGsRoGVDQcdy4w9OZwzIT9LdtC9zQMWxmRPRwRhZFqijWkg9gpEel/e3O9lFXEAvaQPUQpXQAHkkFl3OVYJPEXZ1FgRSkz7y0SfCAliYOBbyd3GlEWwnZco0k+r0ziVXdq0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YtZPlHex; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M2NjRLW1"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47ddf7b09aaso156982f8f.3
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 12:40:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YtZPlHex"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4720f3bf164so679949f8f.1
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 12:40:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783626054; x=1784230854; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783626055; x=1784230855; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dAikG/7yEzn2lu5SwT7tE+7mn1kX8UbVHrrg9LrEUCE=;
-        b=M2NjRLW1tM5q/NKxW/02B9Rv8uuGnauSDSF3yhACVnQXTakBQQAhzTg5/39tx1Ij/O
-         Sw4k/dHVnuPtSNsiXO8v9+SilnehyrzNhmyfHeS0LSGWquWnwKlIlxDlk2/gaZz09TEf
-         QtGX7X1SDdnXXozGLeOOkF1AFzRet1yv+o/X0JS6H05ZXXZRN7yF7z130SoTgD5WDdac
-         XolrpOz/TpIZArrOdKo23gUSR84ABkBFCoTW0sarzTGEC1Lj5xdDZnylkHGjqboFXFs1
-         0zn1vR+i/r9mKvNO4V/qqVB/jRVtXYBh77w6VCRgoIQPrFQecwyCfLMlQhXo4Sz48lx7
-         GWMQ==
+        bh=1YacVE+BA5d5QexCiPtNOZRpKuoVcEgD7sO34ZxrOrc=;
+        b=YtZPlHexX5evfWpytyKiMJM2aJ4qfJOmsAnAqc2YmyzJzgO4dFVGeo/7y49FT8/z2l
+         AflKcgzkkWV4RABckXXuDgmWCYrevfif49Yqv6wlQZ/RmYwdHQLL9Od06c/xHPvk0Lq+
+         3PnhaHsHD5eo2QKPDrkOiu5nfy5aooXnj0txODKCtgJboEZjgJM2MpjV3oB/jdjVg5ev
+         k7PUtspXyQ6jxjZRr2WaO1aDDor9y/7qT25xAaCCbfFhOOqZVb8JjycjwfcVkICigHWz
+         vi6JEzy76DhSdRMXgLMMFeEnoWh4wAH5pmC/CR6h18b0dPep8BxB5xErJj6o4nETtWoO
+         4BSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783626054; x=1784230854;
+        d=1e100.net; s=20251104; t=1783626055; x=1784230855;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dAikG/7yEzn2lu5SwT7tE+7mn1kX8UbVHrrg9LrEUCE=;
-        b=psMNVdZkmAvoh3D3nka3fIeVjJnnrQV4MCDHCZfAm0gx4/kp/actvY1p4fPDkFzU53
-         y3teTuqbMEvBbg+B/j5SXUPxmonl9J8Bmg5Ln045ak+2rb3buTlzGU+AxgljbG9Q4dMr
-         p781xLbIVATmLn3ECFTyXLSZ4lpdSScd1MPvhkKAwd7hHEP80sTr4ZGhQXrLBD9QjBk1
-         W1s/cI8AnE+CVhlqdKoGe6C/jDp5xtMGuag5qESaJnzFl57PV6OFLGEat4Cc7Fbv6rJv
-         kaIk0DSUfowhluRsne04iogrGx7Wx3EENvOofjnoZwjUkqkgRHu9ccP0VwKpiIEIhFB6
-         5uTA==
-X-Forwarded-Encrypted: i=1; AHgh+RpsKsmKpcszfGtu8EZhY8TWQydniNlWgtI05U5eh5xrY27uLbtQGPV6DniO1ADPaFQKjJ96eK0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHC81qQLtxXKvOOy5ykZvjWpQqvreEVeyXmQCj4CEBDk754W8g
-	QtWvjikGxMOH1hUOwOXKLH33YwxMrzTIX01b3LetDyNxeG8+dzS7LZMl
-X-Gm-Gg: AfdE7clMXwT+/sl/oTAUT6m9oIwyZ65YNZMnVMbvYaETcn7euRX9dk2hFSsIRdfeJwb
-	DUcn4v+VLLqJ/zvn/QDE03caRNjPL8WfaKfPUajbpjIq1k+Ky8gqIfQqJ2ucuNN6eSl06XwoT0n
-	2m7gYbsiCqubZSqNiZFtk7P0ryePuxCLujatxbU4Qm0xxkzX7nHj1yRAc5WUYGWsaEAWUWMSKoe
-	UxNoS3dBq99CNP7p4fUJ06QaJAEtm24V6IQNiSDew2bIpTpEF2VEuLQWpyB3mS4P5WEsLg18BUX
-	qYvuGiCLOktBxvvdurewT+PaKr0L0gtvZNFb9yixX4C5ud0HYoawOxS384/QKQCMCXhy49b7D1A
-	mYvbIQ4kHfI1zWtw5wjs97PJbTnT/8Y1rOHl3z1SHiB3D8ZAIrHvQFkUb9S89oDXDsiTAdTjkVg
-	Dl0t5gq05A6+ecXGUYhqkXVrwV
-X-Received: by 2002:a05:6000:4010:b0:475:e015:c2f with SMTP id ffacd0b85a97d-47df071e23bmr9168721f8f.1.1783626054110;
-        Thu, 09 Jul 2026 12:40:54 -0700 (PDT)
+        bh=1YacVE+BA5d5QexCiPtNOZRpKuoVcEgD7sO34ZxrOrc=;
+        b=RP4eWl3hvHfu6DuT9Y0CEvTV1skyfI6HzjNLtHh4z4idnUEGrNN83mA1oz5kgCFpmV
+         Lbqe9CZ8hdqS7CIRYvgihCMpAXNS5uT+/K6lRLyQWurNAFHaNkyiTKz1peC0SalINvwh
+         CtHShrDTbaUX+kxcInZX0j8W1CP2xBDkI8A1HZ9FFkGRVSlhJMwtT3e+gVgjkKCvfH86
+         MJA4OI2NJY5JAiu1MxZVOhzQbUhiBYfNlnImJapjLDNYswFHRttiTxZnI/YklHiieNXk
+         ckZ4utoftt9fgfwImZuvOfvMpniaAI4/Mmmkat8wEpZCxFOze3kydJrUGNdhE5vCw2yN
+         4dIw==
+X-Forwarded-Encrypted: i=1; AHgh+RrfVbUI4zThwP3gSikmxblPb+hdoqBxEsXeXtElm5fd04uwQQUjvamofnUcho1pywKBxI0Bbjw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwZbdDYUCR2IrsytPLB0vJ5lS0csr9iqxHUDuyyTkWg+JyhNGm
+	4IO8HBGXw2JfLFPNXOgUYQOo3RfHx8r9hEMNmJg8lvXjEcURaziMGWp4
+X-Gm-Gg: AfdE7cluvy3zi/i7y9/cC+aFhY73ibDxCWUoVK5HW+eVV7ULlZASv1hejnL/jQ/fGhr
+	g5sHylFfrW//Erk/q9D0seylyJodm/2tZFIR9IXryiWkSkeUhz+OlXtIu9DImNtIuPz0V56rWaY
+	1zCyeDmmaDK+n2NY/y50b73xRwQxWH+t9ehdqN3E+fGFkQj1n+X7bJVPGi+gnjR39V46Xzs3P8a
+	77rvF3XFYAl/zIIIPlgap6u/F+K+9Z/Gw1BR86v5PMbJFRiJkhGeHYKZEGE2MVmr3MVoJ+oBb+h
+	H7tOrCFlGydAnT9KeXrl48+ZUSwUtv5U9KWwmmU9yB9fKq46H29GWtDK/XYXloW++Tdh0BE5J+i
+	uVK/rUJIXWnrP3tPE9pXcFeYRbAZP1TicH3s3NZ4TyDEQeL/dOaB/exfMzPzNJ0tAxDvDztuB+Z
+	nAjHcpyklCUJwUI7lVZMx9V+SPYHFBKMwgeyA=
+X-Received: by 2002:a05:6000:1866:b0:478:7019:e5ef with SMTP id ffacd0b85a97d-47ef6986d21mr718378f8f.21.1783626055234;
+        Thu, 09 Jul 2026 12:40:55 -0700 (PDT)
 Received: from mini.main.internal ([2a02:908:c211:cd18:d9f3:ab2b:ac6e:fc84])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0a558easm53986441f8f.27.2026.07.09.12.40.52
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0a558easm53986441f8f.27.2026.07.09.12.40.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 12:40:53 -0700 (PDT)
+        Thu, 09 Jul 2026 12:40:54 -0700 (PDT)
 From: Goetz Goerisch <ggoerisch@gmail.com>
 To: gregkh@linuxfoundation.org
 Cc: ggoerisch@gmail.com,
@@ -69,12 +69,13 @@ Cc: ggoerisch@gmail.com,
 	sashal@kernel.org,
 	stable@vger.kernel.org,
 	thomas.petazzoni@bootlin.com
-Subject: [PATCH 6.6.y v3 0/5] crypto: talitos - fix rename first/last to first_desc/last_desc
-Date: Thu,  9 Jul 2026 21:39:51 +0200
-Message-ID: <20260709193956.15619-1-ggoerisch@gmail.com>
+Subject: [PATCH 1/5] Revert "crypto: talitos - rename first/last to first_desc/last_desc"
+Date: Thu,  9 Jul 2026 21:39:52 +0200
+Message-ID: <20260709193956.15619-2-ggoerisch@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026070912-pluck-bagful-2a71@gregkh>
+In-Reply-To: <20260709193956.15619-1-ggoerisch@gmail.com>
 References: <2026070912-pluck-bagful-2a71@gregkh>
+ <20260709193956.15619-1-ggoerisch@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,6 +83,11 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+
+This reverts commit a866e2b1c65edaee2e1bb1024ee2c761ced335f8.
+
+Which was backported without applying upstream
+commit 9826d1d6ed5f86cb3d61610b3b1fe31e96a40418 first.
 
 Commit a1b80018b8cec27fc06a8b04a7f8b5f6cfe86eae
 was backported to 6.6.y with a866e2b1c65edaee2e1bb1024ee2c761ced335f8
@@ -97,40 +103,193 @@ using crypto_ahash::init") should be applied.
 Ideally before commit 00463d5f864a ("crypto: talitos - fix SEC1 32k ahash
 request limitation") to avoid any compilation breakage and ensure correctness of
 the code.
+
+Reverting and applying in correct order.
+
+Link: https://lore.kernel.org/all/DIOA24QU02W5.2RSVK05RE7BJK@bootlin.com/
+Signed-off-by: Goetz Goerisch <ggoerisch@gmail.com>
+---
+ drivers/crypto/talitos.c | 46 ++++++++++++++++++++--------------------
+ 1 file changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/crypto/talitos.c b/drivers/crypto/talitos.c
+index 347483f6fc5d..f78a44f99101 100644
+--- a/drivers/crypto/talitos.c
++++ b/drivers/crypto/talitos.c
+@@ -869,8 +869,8 @@ struct talitos_ahash_req_ctx {
+ 	u8 buf[2][HASH_MAX_BLOCK_SIZE];
+ 	int buf_idx;
+ 	unsigned int swinit;
+-	unsigned int first_desc;
+-	unsigned int last_desc;
++	unsigned int first;
++	unsigned int last;
+ 	unsigned int last_request;
+ 	unsigned int to_hash_later;
+ 	unsigned int nbuf;
+@@ -889,8 +889,8 @@ struct talitos_export_state {
+ 	u32 hw_context[TALITOS_MDEU_MAX_CONTEXT_SIZE / sizeof(u32)];
+ 	u8 buf[HASH_MAX_BLOCK_SIZE];
+ 	unsigned int swinit;
+-	unsigned int first_desc;
+-	unsigned int last_desc;
++	unsigned int first;
++	unsigned int last;
+ 	unsigned int to_hash_later;
+ 	unsigned int nbuf;
+ };
+@@ -1722,7 +1722,7 @@ static void common_nonsnoop_hash_unmap(struct device *dev,
+ 	if (desc->next_desc &&
+ 	    desc->ptr[5].ptr != desc2->ptr[5].ptr)
+ 		unmap_single_talitos_ptr(dev, &desc2->ptr[5], DMA_FROM_DEVICE);
+-	if (req_ctx->last_desc)
++	if (req_ctx->last)
+ 		memcpy(areq->result, req_ctx->hw_context,
+ 		       crypto_ahash_digestsize(tfm));
  
-> > Greg could you please backport the mentioned commit to 6.6.y in the correct order for the next update?
-
-> Can you send a series of backported patches in the correct order for us
-> to apply, so we know to get them correct?  Trying to dig out from an
-> email like this is usually quite easy to get wrong :)
-
-> > We need a reason for a revert, AND a signed off-by line :(
-> > Please fix that up for the other revert in this series and resend.
-
-Thank you Greg for this feedback.
-
-v2: add reason and SoB to revert commit which was missing.
-v3: send correct patch set
-
-Hope this is correct.
-Goetz
-
-Eric Biggers (1):
-  crypto: talitos - stop using crypto_ahash::init
-
-Goetz Goerisch (2):
-  Revert "crypto: talitos - rename first/last to first_desc/last_desc"
-  Revert "crypto: talitos - fix SEC1 32k ahash request limitation"
-
-Paul Louvel (2):
-  crypto: talitos - fix SEC1 32k ahash request limitation
-  crypto: talitos - rename first/last to first_desc/last_desc
-
- drivers/crypto/talitos.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
-
-
-base-commit: da47cbc254661aa66d61ef061485a7080305c4be
+@@ -1759,7 +1759,7 @@ static void ahash_done(struct device *dev,
+ 		 container_of(desc, struct talitos_edesc, desc);
+ 	struct talitos_ahash_req_ctx *req_ctx = ahash_request_ctx(areq);
+ 
+-	if (!req_ctx->last_desc && req_ctx->to_hash_later) {
++	if (!req_ctx->last && req_ctx->to_hash_later) {
+ 		/* Position any partial block for next update/final/finup */
+ 		req_ctx->buf_idx = (req_ctx->buf_idx + 1) & 1;
+ 		req_ctx->nbuf = req_ctx->to_hash_later;
+@@ -1825,7 +1825,7 @@ static int common_nonsnoop_hash(struct talitos_edesc *edesc,
+ 	/* first DWORD empty */
+ 
+ 	/* hash context in */
+-	if (!req_ctx->first_desc || req_ctx->swinit) {
++	if (!req_ctx->first || req_ctx->swinit) {
+ 		map_single_talitos_ptr_nosync(dev, &desc->ptr[1],
+ 					      req_ctx->hw_context_size,
+ 					      req_ctx->hw_context,
+@@ -1833,7 +1833,7 @@ static int common_nonsnoop_hash(struct talitos_edesc *edesc,
+ 		req_ctx->swinit = 0;
+ 	}
+ 	/* Indicate next op is not the first. */
+-	req_ctx->first_desc = 0;
++	req_ctx->first = 0;
+ 
+ 	/* HMAC key */
+ 	if (ctx->keylen)
+@@ -1866,7 +1866,7 @@ static int common_nonsnoop_hash(struct talitos_edesc *edesc,
+ 	/* fifth DWORD empty */
+ 
+ 	/* hash/HMAC out -or- hash context out */
+-	if (req_ctx->last_desc)
++	if (req_ctx->last)
+ 		map_single_talitos_ptr(dev, &desc->ptr[5],
+ 				       crypto_ahash_digestsize(tfm),
+ 				       req_ctx->hw_context, DMA_FROM_DEVICE);
+@@ -1908,7 +1908,7 @@ static int common_nonsnoop_hash(struct talitos_edesc *edesc,
+ 		if (sg_count > 1)
+ 			sync_needed = true;
+ 		copy_talitos_ptr(&desc2->ptr[5], &desc->ptr[5], is_sec1);
+-		if (req_ctx->last_desc)
++		if (req_ctx->last)
+ 			map_single_talitos_ptr_nosync(dev, &desc->ptr[5],
+ 						      req_ctx->hw_context_size,
+ 						      req_ctx->hw_context,
+@@ -1964,7 +1964,7 @@ static int ahash_process_req_one(struct ahash_request *areq, unsigned int nbytes
+ 	bool is_sec1 = has_ftr_sec1(priv);
+ 	u8 *ctx_buf = req_ctx->buf[req_ctx->buf_idx];
+ 
+-	if (!req_ctx->last_desc && (nbytes + req_ctx->nbuf <= blocksize)) {
++	if (!req_ctx->last && (nbytes + req_ctx->nbuf <= blocksize)) {
+ 		/* Buffer up to one whole block */
+ 		nents = sg_nents_for_len(req_ctx->request_sl, nbytes);
+ 		if (nents < 0) {
+@@ -1981,7 +1981,7 @@ static int ahash_process_req_one(struct ahash_request *areq, unsigned int nbytes
+ 	nbytes_to_hash = nbytes + req_ctx->nbuf;
+ 	to_hash_later = nbytes_to_hash & (blocksize - 1);
+ 
+-	if (req_ctx->last_desc)
++	if (req_ctx->last)
+ 		to_hash_later = 0;
+ 	else if (to_hash_later)
+ 		/* There is a partial block. Hash the full block(s) now */
+@@ -2041,19 +2041,19 @@ static int ahash_process_req_one(struct ahash_request *areq, unsigned int nbytes
+ 	edesc->desc.hdr = ctx->desc_hdr_template;
+ 
+ 	/* On last one, request SEC to pad; otherwise continue */
+-	if (req_ctx->last_desc)
++	if (req_ctx->last)
+ 		edesc->desc.hdr |= DESC_HDR_MODE0_MDEU_PAD;
+ 	else
+ 		edesc->desc.hdr |= DESC_HDR_MODE0_MDEU_CONT;
+ 
+ 	/* request SEC to INIT hash. */
+-	if (req_ctx->first_desc && !req_ctx->swinit)
++	if (req_ctx->first && !req_ctx->swinit)
+ 		edesc->desc.hdr |= DESC_HDR_MODE0_MDEU_INIT;
+ 
+ 	/* When the tfm context has a keylen, it's an HMAC.
+ 	 * A first or last (ie. not middle) descriptor must request HMAC.
+ 	 */
+-	if (ctx->keylen && (req_ctx->first_desc || req_ctx->last_desc))
++	if (ctx->keylen && (req_ctx->first || req_ctx->last))
+ 		edesc->desc.hdr |= DESC_HDR_MODE0_MDEU_HMAC;
+ 
+ 	return common_nonsnoop_hash(edesc, req_ctx->areq, nbytes_to_hash, ahash_done);
+@@ -2076,7 +2076,7 @@ static void sec1_ahash_process_remaining(struct work_struct *work)
+ 			req_ctx->remaining_ahash_request_bytes;
+ 
+ 		if (req_ctx->last_request)
+-			req_ctx->last_desc = 1;
++			req_ctx->last = 1;
+ 	}
+ 
+ 	err = ahash_process_req_one(req_ctx->areq,
+@@ -2103,7 +2103,7 @@ static int ahash_process_req(struct ahash_request *areq, unsigned int nbytes)
+ 		if (nbytes > TALITOS1_MAX_DATA_LEN)
+ 			nbytes = TALITOS1_MAX_DATA_LEN;
+ 		else if (req_ctx->last_request)
+-			req_ctx->last_desc = 1;
++			req_ctx->last = 1;
+ 	}
+ 
+ 	req_ctx->current_ahash_request_bytes = nbytes;
+@@ -2124,14 +2124,14 @@ static int ahash_init(struct ahash_request *areq)
+ 	/* Initialize the context */
+ 	req_ctx->buf_idx = 0;
+ 	req_ctx->nbuf = 0;
+-	req_ctx->first_desc = 1; /* first_desc indicates h/w must init its context */
++	req_ctx->first = 1; /* first indicates h/w must init its context */
+ 	req_ctx->swinit = 0; /* assume h/w init of context */
+ 	size =	(crypto_ahash_digestsize(tfm) <= SHA256_DIGEST_SIZE)
+ 			? TALITOS_MDEU_CONTEXT_SIZE_MD5_SHA1_SHA256
+ 			: TALITOS_MDEU_CONTEXT_SIZE_SHA384_SHA512;
+ 	req_ctx->hw_context_size = size;
+ 	req_ctx->last_request = 0;
+-	req_ctx->last_desc = 0;
++	req_ctx->last = 0;
+ 	INIT_WORK(&req_ctx->sec1_ahash_process_remaining, sec1_ahash_process_remaining);
+ 
+ 	dma = dma_map_single(dev, req_ctx->hw_context, req_ctx->hw_context_size,
+@@ -2223,8 +2223,8 @@ static int ahash_export(struct ahash_request *areq, void *out)
+ 	       req_ctx->hw_context_size);
+ 	memcpy(export->buf, req_ctx->buf[req_ctx->buf_idx], req_ctx->nbuf);
+ 	export->swinit = req_ctx->swinit;
+-	export->first_desc = req_ctx->first_desc;
+-	export->last_desc = req_ctx->last_desc;
++	export->first = req_ctx->first;
++	export->last = req_ctx->last;
+ 	export->to_hash_later = req_ctx->to_hash_later;
+ 	export->nbuf = req_ctx->nbuf;
+ 
+@@ -2249,8 +2249,8 @@ static int ahash_import(struct ahash_request *areq, const void *in)
+ 	memcpy(req_ctx->hw_context, export->hw_context, size);
+ 	memcpy(req_ctx->buf[0], export->buf, export->nbuf);
+ 	req_ctx->swinit = export->swinit;
+-	req_ctx->first_desc = export->first_desc;
+-	req_ctx->last_desc = export->last_desc;
++	req_ctx->first = export->first;
++	req_ctx->last = export->last;
+ 	req_ctx->to_hash_later = export->to_hash_later;
+ 	req_ctx->nbuf = export->nbuf;
+ 
 -- 
 2.55.0
 
