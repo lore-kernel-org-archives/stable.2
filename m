@@ -1,101 +1,106 @@
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE38642F6FF;
-	Thu,  9 Jul 2026 15:55:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F2142CB12
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 16:04:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783612506; cv=none; b=irjTaoZPNw4577aa1xLCovBn69Vd8+5/foe/YHW0EuL74zkkJ540xLGGtDT2Q8BnVrFlsegWnC0YGOYZaRXv9rs7BKcxxoKawCVBB3KlLXaTg92cCMPsgHCwxAJ4yf9QQXvlrThx/RtrSsq5ieewpDN+ktTodhKCCapV+BfWkDY=
+	t=1783613084; cv=none; b=sJLUamsaTFKZCtTf7RfkqBB4EyjuAEDZ+A+C4Gsa6vKrKe0CvsyArgkOpFSLC5R941uWd0SyUifoAdwJAlQaU2syfcR6bgVDAMrixG7cwsFcPioOMeAq7T1PiOHUWcvw1th3GsNeFbSUhD+Pi0ZYGUlBvmgHqDeiadtnu5+FIAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783612506; c=relaxed/simple;
-	bh=UQMNLf5pUz+gEnbUY8PbpD7gCW8qa0clJYZeKo4VVOs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ly31vLqFcDPPTDuvNPg/m2nPesJLCI5ei0hYNjgUU9uncLN6nRILUk/RtGHAD/qdptanUe8rRRaYDHqDz4b7vv3C53hdwIWpCh6JqeRR/FV2SHjbp4IAlKtkmKa1mcGLS9WbXeBQRh2bFJj2f+TLXRAtFBW8KYiMl24ievRLcts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=kiysJFvo; arc=none smtp.client-ip=52.13.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1783613084; c=relaxed/simple;
+	bh=u7N2Wz8N3g79uBYieYx5umiLmofN8vzB4vLH6EOh0wc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qubx6N7byJ6glnDpmM3zJSHijorajR7TxttviVeXpB7u8MEtQ4DTi/q1rnZ1Y3qAZFwClEia+UB7d1cpJwEulONYx8cn14pjs7Q1/a07NJvl8XOdi7tPWPK/cfZNrfe0TPdMHFgxtoPVWO0mN8JyNXN7oF2gzT5skPmCe9a52/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=gKq1+/Y7; arc=none smtp.client-ip=209.85.217.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="kiysJFvo"
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="gKq1+/Y7"
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-73770fd1b65so9492137.0
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 09:04:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1783612505; x=1815148505;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=KpsSYm0NQHbrBccVG4kK8wVYLPm1aRgnUuanForo09Q=;
-  b=kiysJFvouRnRT+Urmr/GDXGxqLpskwCvawHqmdH/ThYJIouNpQnq13Xr
-   cMZUKK+NxCL0Ob16Y+jPyH1pDOkiQ+UPGv2p+653OFaXU67mH56riB1aS
-   uAR64ax2kR9VzlxWzNecFJ9JOAaSV6QkMgC0Y5ScuCGr9VfbL8JGr6a/b
-   EYIZ7zDyG3/C4ezdHWGS3oPf6FZ2hDLvm+lIqv295iyJLHnHj30VjLszJ
-   3g5cpNnYUIXmj2Q9s7xQzuvWrOEfSVUq8rfzvgeQtClNHtMapiRmLEer5
-   NLfO+pF1SBdsP7WYqRkrFeQCh+x/MTLWA5jUvbO2oRm9ZpWgFMzar9sCC
-   w==;
-X-CSE-ConnectionGUID: 3Ffw+E5gTEWk6CuCwrbLeQ==
-X-CSE-MsgGUID: 2lrhdtYDQS67dp4iaqAZPg==
-X-IronPort-AV: E=Sophos;i="6.25,154,1779148800"; 
-   d="scan'208";a="23358795"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 15:55:01 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:17990]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.58.33:2525] with esmtp (Farcaster)
- id 846c0b8b-2925-4351-abfa-2f765fd40457; Thu, 9 Jul 2026 15:55:01 +0000 (UTC)
-X-Farcaster-Flow-ID: 846c0b8b-2925-4351-abfa-2f765fd40457
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Thu, 9 Jul 2026 15:55:00 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Thu, 9 Jul 2026 15:54:59 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: Steve French <sfrench@samba.org>, Paulo Alcantara <pc@manguebit.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N
-	<sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
-	<bharathsm@microsoft.com>, <linux-cifs@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <samba-technical@lists.samba.org>
-CC: <stable@vger.kernel.org>, <doebel@amazon.de>, <nmanthey@amazon.de>
-Subject: [PATCH] smb: client: set SB_I_NODEV to prevent device node injection
-Date: Thu, 9 Jul 2026 15:54:40 +0000
-Message-ID: <20260709155440.2132459-3-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
+        d=ziepe.ca; s=google; t=1783613082; x=1784217882; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u7N2Wz8N3g79uBYieYx5umiLmofN8vzB4vLH6EOh0wc=;
+        b=gKq1+/Y7bdxNHcppQwyf8F1erVay9/bAsWWmtx9IMqTbXHDjNcy+Y8gfMbnHwWYIhq
+         85+Gpq1VE7tWlGbjuN+GQOHOk0td63TsoZbTSKJffSlvvHhc+tQwKvVcjpj5qgh0b+J1
+         3k+lU/bEzsiPI7PfAS16LVcVAfboe/4CEtGgt0kxxO0OILRNa7LHd95yJKxhw57RyUt0
+         F24S+OfMgo9BIcUtUoB3DVmijM6HmBzdmcnrd+g+9zDSfMsBVhIaO74+DgqN8rEGW05C
+         EoWnQON4WDjrDG72bJIEp7z2HEUNH6mSthX3e68CJ+gvfU3n7U2uZf/jItDThM2sswPR
+         QUYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783613082; x=1784217882;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u7N2Wz8N3g79uBYieYx5umiLmofN8vzB4vLH6EOh0wc=;
+        b=gPwqwoIMhMbj8e+jC7UjumW3ictmab9hNEOtpudA07CFmKJPKRTbJv/efLx7RJcLxp
+         MFi5xiEKrDd77MtcDq/CX1iC6RJfEPlvcENd9fFmjE/+1zw6jeRyD9DHjcCK+5VXRM1a
+         AHiWgMkPK4MqNbOUOkitQ2T/3R9OQfMZRewnn3uOk1wgi04zzG6Lk1chbBYEPIcaELy/
+         BZM6o8eMVHV6ERm51l7ccM9BJaH0IOVsRySCtvQ/Up/oftIwAmfVLZkm/02ZCt81nYtE
+         oTyneNNrqbSovXj3mI346nhADWU/XyrJBpkkMcbwR6/UV7qJ4DOg2QvjexHVExsOf8y7
+         DMOg==
+X-Forwarded-Encrypted: i=1; AHgh+RpkvPVyV0T6hw9b4t5iEjRCeSwfTJiNAMw2Lm0+KZBwfEGBTlRsCkbHInLi+8hYeK25u8T84bs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/aHMfT7VZ6T20Iskkq94M9zVq6wPKZpUO0vkIQbW960oQ+3Hb
+	WNNDI3Up/TWmAR3c3MML4ysMvPQRIuROX5hFyJYuN0fFuO+K99YEY4jNA1CTL5Ybnf8=
+X-Gm-Gg: AfdE7cmhkVlYf7373Nz5+yiqQsGc+1nbx6evgfCann7TroH234/ubCR+UwbrRYef6by
+	uXem5O3jGjYa/CFFyLKC5RipdHtJrweXLzgIEGEtwxUitG9snl0zmIO40SpIysYWghUmSmMDqQs
+	OlBzbS7jsmKvOddOrcY0oJmQG+usaE3HUWYk7wX3uBpTA14NxB3wr9aywA4XG5Y731AEVvmORwT
+	Bx87+WtdGVxg03GMDCgJUJ6l4p2LNJsm6o3sgx1BJV3uXMbGT+mATnrAdzyYwVKi3wlajyRhQCW
+	VdLIZHTIs4wkCKsk9ZYPvvQkrldXn+tEayg2jGzqFlC8OosxKWjtN3iDf6uq3iZsShLcSZdNqnQ
+	wag4llFKnu0lAOnbLkFowdTe4T+v+XpJ/2AQ8bYZzTYD3Ln7v4gZVAz1M0DZ9
+X-Received: by 2002:a05:6102:f9c:b0:737:ba2e:8a29 with SMTP id ada2fe7eead31-744e0306830mr5071060137.27.1783613081904;
+        Thu, 09 Jul 2026 09:04:41 -0700 (PDT)
+Received: from ziepe.ca ([159.2.72.92])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd7c1d9f6sm20470796d6.23.2026.07.09.09.04.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 09:04:41 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1whrEu-000000058g9-24As;
+	Thu, 09 Jul 2026 13:04:40 -0300
+Date: Thu, 9 Jul 2026 13:04:40 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: will@kernel.org, joro@8bytes.org, jpb@kernel.org,
+	catalin.marinas@arm.com, linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] iommu/arm-smmu-v3: Add HAFT support for SVA
+Message-ID: <20260709160440.GL118978@ziepe.ca>
+References: <878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com>
+ <20260703164914.GY7525@ziepe.ca>
+ <6465c885-3a9d-4c0b-ab74-7665e274ae72@arm.com>
+ <20260703192459.GB1978949@ziepe.ca>
+ <f13b30cf-e885-44c6-8e61-7924937eb8ac@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D033UWA002.ant.amazon.com (10.13.139.10) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f13b30cf-e885-44c6-8e61-7924937eb8ac@arm.com>
 
-From: Norbert Manthey <nmanthey@amazon.de>
+On Mon, Jul 06, 2026 at 03:13:01PM +0100, Robin Murphy wrote:
 
-Set SB_I_NODEV on the superblock by default for CIFS mounts. This is
-consistent with how other filesystems handle untrusted remote content
-and prevents the server side from injecting device nodes on the client.
+> Indeed if anyone does want to use SVA on such mismatched hardware and are
+> happy to use a custom kernel with CONFIG_ARM64_HAFT disabled then they can
+> and will continue to be able to do so.
 
-Fixes: 2e4564b31b645 ("smb3: add support for stat of WSL reparse points for special file types")
-Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
-Assisted-by: Kiro:claude-opus-4.6
-Cc: stable@vger.kernel.org
----
- fs/smb/client/cifsfs.c | 3 +++
- 1 file changed, 3 insertions(+)
+It seems like we have a chip that is impacted by this. I'm being told
+that the necessary ARM IP is not available in time to properly match
+SMMU and CPU for its particular application.d
 
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index ea4fc0fa68cac..35eee2f9899d5 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -208,6 +208,9 @@ cifs_read_super(struct super_block *sb)
- 	if (sbflags & CIFS_MOUNT_POSIXACL)
- 		sb->s_flags |= SB_POSIXACL;
- 
-+	/* Prevent device node opens from remote filesystem by default */
-+	sb->s_iflags |= SB_I_NODEV;
-+
- 	if (tcon->snapshot_time)
- 		sb->s_flags |= SB_RDONLY;
- 
--- 
-2.50.1
+The chip is embedded so those work arounds are possibly OK - but I
+think this issue keeps coming up and ARM should have a better overall
+solution for CPU/SMMU mismatch in the ecosystem since it seems like
+this is going to keep happening..
 
+Even if Linux could automatically limit the CPU features to the SMMU
+it would be a big help.
+
+Jason
