@@ -1,82 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE05D3E6DF4
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 08:02:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64DA3E8343;
+	Thu,  9 Jul 2026 08:28:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783584164; cv=none; b=aFYErn5HqHbV8S/P1GXp6xJMaXqCAkdQfWYsLj5Uf8M6c29Hsy06ZRdiNfT13BHwAg9S5Q0hywCLzSyXHWI1XMOeAnmioz2GhA5N3Y7m6UkglNKwzJ0mY3vx2X1BYb6D+40LmuCC1JDy9A065MAO6eqSqj27uLNnyP403AL0sNc=
+	t=1783585702; cv=none; b=AFwYxOdBeqgZPC8E8Sebpx1FsT1IewIWSw7Oujw5ebm++EQU/IT2jWJ8arjAtiIwx8YnRHdtRx/TBcQxZaCKpGj+LWw7ex5R3WreSzHNzLgIaxZovIuI64ik4DSwCuTOkzTDDzQcCJombZkax3eELx4Q8sc9OkOjrdySNO1J5k0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783584164; c=relaxed/simple;
-	bh=40uSKZxzTsP/abeQJAQ2ZfI2elUt9yomdEcYr6QRnGw=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SW3ZOlB5wNlRfxndEIUcWkqN4zAr1VgcdWT9TxbcOd7uK+nrGpwjMqcvWf7/81LlU2MoSe9S575pDhvKj7XxgRWBFm3M8wQgybx09Lgq+nC1aEGl71px8zKFT9CiUA667WNR/mArLFayfOl7LF3TSNYeyQ6ny8K8qy5xFgCTP6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zdg8l+IB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783585702; c=relaxed/simple;
+	bh=W8aJmWsDCYzrglo4hW4OCZU5ACiR5TWfwBS1+eul67Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FlsRFIMKN/mLrMGdUwDUS0Lg+dQFDctAetWZtLEODlhSJUFrvQ3gxZFEts9bbJ6hHtIBSUoMRdL/vRbj/3pbtYfZ3yfl6/DGylBav8JXE3C8NwCi3VHN/4W/Eyi3YLuTZ2iTi0E3yX0N0/IRgCAo3CJKkLXBwosnPxqlIc9JH5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NbR8fW/U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zdg8l+IB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5DB91F000E9
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 08:02:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NbR8fW/U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 639181F000E9;
+	Thu,  9 Jul 2026 08:28:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783584163;
-	bh=40uSKZxzTsP/abeQJAQ2ZfI2elUt9yomdEcYr6QRnGw=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Zdg8l+IBbL6jySI1wdH2gjYLk/ruZhiixoPZf8KkB0Q9C9uyVifVjNthO/EhvbbDF
-	 V/6nb9Kqljb1CoGmKV8Zm851+wPUewwvtHO6yCus4l88vBeFw3Lpm7cpd/pksT/dEv
-	 sgWVC+DdsWFPeRbakct/1WIiBf1Fa1QSRr7sb9O/k7pyXLMX/jsJHYIGWlO7hDuOGN
-	 etLfWJUx7UcEL9CraxIVJtJqUhRzDaFEwV9t3VvFD0BvGan4tVh3LT6m9uP2uYgRwH
-	 MD8EafYsvIIzpv6MPU0V4IKjqugqk3gNRL/d2y1evfzUuusLOYbNe2dvSz9cxXCC34
-	 TYsTJWzUGRk+g==
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39c7050a48fso5327781fa.2
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 01:02:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Ro/L4dnc8eW2A1n5rGZ/mpsTEKRpoDwWNx29F/wFhOInagzoJjLXVbMyObPRMQ/lxXFBQGhE3Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzpoy81OyUE52K8L20tMmDdi+nmLd8nDx1B0+bAI/MMILpGe6cc
-	hQFIyOTTdVdoh7kFjYYy3uI8434ZmGaOW16sXtOExwRHZ5ZngZvOjMmuQfhcUFJHCIqV7rb0fP9
-	GPL3HfyMTCJK3fukWUY5vL94TTFshrkhdDeCuLiPtQQ==
-X-Received: by 2002:a05:6512:1417:b0:5ae:b861:ac27 with SMTP id
- 2adb3069b0e04-5b01147ae74mr1441708e87.18.1783584160896; Thu, 09 Jul 2026
- 01:02:40 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 9 Jul 2026 04:02:39 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 9 Jul 2026 04:02:39 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260709045116.2304246-1-mark.tomlinson@alliedtelesis.co.nz>
+	s=k20260515; t=1783585701;
+	bh=Cmoq6VMbPVy85en+8zJIIsm8Vs79+cKUgRAaAO2MN30=;
+	h=From:To:Cc:Subject:Date;
+	b=NbR8fW/UUNrdd+NqJi7VrAoPQap66t0KZK3vCV0OP8i/q06gq1TEOYXqXpUjUw7ja
+	 t8IKu9tnGZyrfS/gg5YMHntuh9poH1gG1xtg4igjyqVKe73FPQ/Pz3PRhVUQ43fyog
+	 V0vsmMt/10CKSf4aX5ojVmlZ4k6QCpra0zsSexK9YUqDAvCX+hDvY9h99Rxluj8Gvx
+	 Vmn3Om7ga7t2nrE5KHD9PDv2H2BOVS56kxh8qDe9dkGONfX+aJfVSz3NVHe9Qhh+bM
+	 6E8D+zauIZ8U4NomtuQYd+cVyWm+kSAE4ZuwuHRpB3MPSNcFUAgoJcDe+UO17u2L0/
+	 QAnoFxY+Rtlmg==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1whk7G-00000003TnL-3esa;
+	Thu, 09 Jul 2026 10:28:18 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	David S Miller <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Gregory CLEMENT <gregory.clement@bootlin.com>,
+	netdev@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: mvneta: bm: fix device reference leak on failed lookup
+Date: Thu,  9 Jul 2026 10:27:13 +0200
+Message-ID: <20260709082713.829446-1-johan@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709045116.2304246-1-mark.tomlinson@alliedtelesis.co.nz>
-Date: Thu, 9 Jul 2026 04:02:39 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MewrdyKNGrFSjJksphdA9_2sNb8cZk39Doionfoj_nS+w@mail.gmail.com>
-X-Gm-Features: AVVi8CeNk0PxdnG2tC1ocjzjgysi2rL_eYaPnfyOmR1fxSCOy93U7-hk8Cm0LQE
-Message-ID: <CAMRc=MewrdyKNGrFSjJksphdA9_2sNb8cZk39Doionfoj_nS+w@mail.gmail.com>
-Subject: Re: [PATCH v2] gpio: pca953x: fix pca953x_irq_bus_sync_unlock regmap lock
-To: Mark Tomlinson <mark.tomlinson@alliedtelesis.co.nz>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, brgl@kernel.org, ian.ray@gehealthcare.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, 9 Jul 2026 06:51:16 +0200, Mark Tomlinson
-<mark.tomlinson@alliedtelesis.co.nz> said:
-> Locking is disabled in the regmap config as this driver uses its own
-> lock. This means that all calls to regmap functions (read or write) must
-> hold the i2c_lock. The function pca953x_irq_bus_sync_unlock() did not do
-> this, and it was therefore possible that multiple threads could cause an
-> incorrect register to be read/written.
->
-> A previous patch partly fixed this, but only protected the write to the
-> interrupt mask register, and not the read from the direction register.
->
-> Fixes: bfc6444b57dc ("gpio: pca953x: fix pca953x_irq_bus_sync_unlock race")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mark Tomlinson <mark.tomlinson@alliedtelesis.co.nz>
-> ---
+Make sure to drop the reference taken to the buffer manager device when
+attempting to look up its driver data before the driver has been bound.
 
-Please always include the entire changelog for the series, I don't know what
-changed since v1 (no need to resend, just explain here).
+Note that holding a reference to a device does not prevent its driver
+data from going away.
 
-Preferably use b4 for managing patch series.
+Fixes: 965cbbec7f20 ("net: mvneta: remove data pointer usage from device_node structure")
+Cc: stable@vger.kernel.org	# 4.19
+Cc: Gregory CLEMENT <gregory.clement@bootlin.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/net/ethernet/marvell/mvneta_bm.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-Bart
+diff --git a/drivers/net/ethernet/marvell/mvneta_bm.c b/drivers/net/ethernet/marvell/mvneta_bm.c
+index 6bb380494919..128fe1f512b4 100644
+--- a/drivers/net/ethernet/marvell/mvneta_bm.c
++++ b/drivers/net/ethernet/marvell/mvneta_bm.c
+@@ -395,9 +395,20 @@ static void mvneta_bm_put_sram(struct mvneta_bm *priv)
+ 
+ struct mvneta_bm *mvneta_bm_get(struct device_node *node)
+ {
+-	struct platform_device *pdev = of_find_device_by_node(node);
++	struct platform_device *pdev;
++	struct mvneta_bm *priv;
++
++	pdev = of_find_device_by_node(node);
++	if (!pdev)
++		return NULL;
++
++	priv = platform_get_drvdata(pdev);
++	if (!priv) {
++		platform_device_put(pdev);
++		return NULL;
++	}
+ 
+-	return pdev ? platform_get_drvdata(pdev) : NULL;
++	return priv;
+ }
+ EXPORT_SYMBOL_GPL(mvneta_bm_get);
+ 
+-- 
+2.54.0
+
