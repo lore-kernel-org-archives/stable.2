@@ -1,109 +1,154 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75404263F34;
-	Thu,  9 Jul 2026 14:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36E233260E
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 14:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783606457; cv=none; b=A+QlZDj0Ro4y39qYI/3eJzLrQdRLTixaAXbRfgqnDkzXlCA+TdcDDz7uttAqt63LC9ORVxs48lJtRgWSXMkT2fR1CNYFE9P9c3C/VhzmQFw3/+jEgeE7jUnLjw83P7EPx1yPepv5eKYMJiY3og8/J3qz1c3XEWN07TmLWJ9ZIIQ=
+	t=1783606873; cv=none; b=CUKepMu/V0K1PbSazcFgE4AQpjwgbFTZ5A1XggWBAWCxBjx/GCi13JYyZjEXa+4BF7/Iqq9nhMu/Jn590ml1SyrJFPRz4VKnUrb179+zdDTsaprNjL94clB5rqjxvxHzBT1h8kPLNBPYdEF32Z/JHdsexZxH0MmSS8d5YE3Ii1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783606457; c=relaxed/simple;
-	bh=I52ImPDwotV3lAE6iIDhlpsBHviI17iV3O/aXFZazOc=;
-	h=From:To:CC:In-Reply-To:References:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=DH5FXyvGrOu9oA1TRq/TlRSZFWYYuAadKzsbGuf/dAw/JelSpkhA6xPvHCfPIpl5K4diZOZW4tT4kz2+lrxx82UZlsBv6ONsrLD8xC1TsJ/KtOyUITmq2WFaAh4e639DulGstfWLoyrZmYTkbOhz2mSjuq++aEm4rpu40FzKdy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=fMYV+uDb; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1783606873; c=relaxed/simple;
+	bh=tZELtjKJqBuV9EVwMW9I8r+Zfo5ceXTDE5jeQ+a8vOU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S8oKCHMW79fkZop7FTGsO3pu6/ahM+uOzPpPEGfPRiUT+elw50a/n9NCNNGBuK+f+yp9q+KVN78k0oKhX5CeG+ctZAE1UuNOm4+NcX0bpUgLueiuVi/U7ItxtIf7TauSBA0qaWvZJUCdmUz/51KKM0wApFVc5cTjRNv7PerZlg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VKVZQ/2F; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=FNX6rtba; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="fMYV+uDb"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669DtODG3995896;
-	Thu, 9 Jul 2026 15:13:44 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=4
-	DMPu7bsQhaRQ5xbamWnmir1UiGaKK5kRlbLZmQ1vjs=; b=fMYV+uDbjzhZPDos1
-	ILiHBY4143J9SwQxmyZf5yHxylo0pCMsvZBLZtcMnMSa4j8HeJ0ycAQ92NfsWwB3
-	413hZVQgcuwBvYScKRdvEo7w5d0DzGweh2DfZhd1Pb9JsxvkaFjluPfY8FL6zWLo
-	QpWc2PsvOmE87PODS5Z8Ew26r2rZuJFZXA39lqX9oYlvlEGXcupEDbykKUw15AgA
-	Qb9Fvf3XtfAFc6MfkrToVeCcIbiO7Vh8pAXAv/6g8cdrDwzbz4z8YkgSnOexZnMC
-	/cUL8h1WplBrTvcvVdMNS8uFHe8Rpp7vRItmTgRlYeuMS+8CdbFi9Gh5WTQM4pYL
-	Fi+Rg==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4fa1dw0jmk-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Jul 2026 15:13:44 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.9) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 9 Jul
- 2026 15:13:43 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Boris Brezillon
-	<boris.brezillon@collabora.com>,
-        Brajesh Gupta <brajesh.gupta@imgtec.com>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-In-Reply-To: <20260707-staging-ddkopsrc-2435-v1-1-24e160d44476@imgtec.com>
-References: <20260707-staging-ddkopsrc-2435-v1-1-24e160d44476@imgtec.com>
-Subject: Re: [PATCH] drm/imagination: fix error checking of
- pvr_vm_context_lookup()
-Message-ID: <178360642391.200091.11012166992253124321.b4-ty@imgtec.com>
-Date: Thu, 9 Jul 2026 15:13:43 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VKVZQ/2F";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="FNX6rtba"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783606870;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4EU8eRYY65P/bki26bW15zZV0Wc6U0922CjckSToFo=;
+	b=VKVZQ/2FPFXNGMBLm1goKnd5iZExhjIO0GxYjckJuF4mU9tz2CqeMis0JjT4abhq8OVSkb
+	pb7/rZ9odIAyJZeMNhVJDAK3CF9s33DOlFD/PFdQc763BpPYojbRh89vLT2Iul8agQ09sS
+	M7/6KefVfP9Yxs14G79dBVbhsO4LSbM=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-610-0Men0OcvNwGe9rjVlia8-w-1; Thu, 09 Jul 2026 10:21:09 -0400
+X-MC-Unique: 0Men0OcvNwGe9rjVlia8-w-1
+X-Mimecast-MFC-AGG-ID: 0Men0OcvNwGe9rjVlia8-w_1783606868
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-493dc8408fdso19296685e9.1
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 07:21:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1783606868; x=1784211668; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=b4EU8eRYY65P/bki26bW15zZV0Wc6U0922CjckSToFo=;
+        b=FNX6rtbaycqa+upmuph4EPhdjnj/paeoV6HQ987AP/1taZfqD/IcxtZj0bRuctb7kB
+         liXAvC7D/Ugz9TEcEWmU42S76taYXAFgrIuW4K8kBPxWmt9KifT6GpIHgFGldJ8zcIJj
+         91PuVthg4iwsivZOBK0dDyIdrYKqFwW6EdbBri77vY6futdnfWttH1oil6ZHW7vAg6ty
+         LutK/7EE+9/CmkQ6xybaSDJNtjik3STZP1WIhkFLXJnj93iKoeIq0rhSk3iICRNauJqi
+         FgYBQfyHlm2Nye1Zc7LfBi26Sl/Sc9o7AgYNrMQQUfuEZ3vzHjsq8kGCYVtAovTjdjSB
+         R1+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783606868; x=1784211668;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b4EU8eRYY65P/bki26bW15zZV0Wc6U0922CjckSToFo=;
+        b=Hxi7fjOLpYEPPknAK0IpOqY94m4OaRuIgWfk4lo0l+4jIc3gFX3AByCqYyXLRZsbqA
+         L1La3ppi9WiIkX7Ah6DXtUBoYinFx8fmJP8+q/87f1fiLvscVRv2U26dlNEPx+IszXaQ
+         1njNMIDHBv4nYK3z3ydvB+sPrWpUY1zLIeCIlQN3gYU1JdIz+ogcQpoQVYXkUW4v02qH
+         IWY2oJ9fCbeTykN2rpD6eNmltC0ICL4p0B8TFvNLZWpms226mc2l0nBM/iUk0C6azM6c
+         YBfM3Dq8ak0X/GrDTim0z16bNvthjYUIi5hY2uAf0axG5h2GVj2ColzcgntM3Tc1SQnL
+         1ECg==
+X-Forwarded-Encrypted: i=1; AHgh+RpQA+dksymXxENKiSh8THYNRBvoCMMyphUMgImhAdHarPXlfI7AlAKQN0UuMoYiqNd0bVa5/gY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxz9x2Ll0gA8kcph+SA3Oaa/OYFixgfqUyxtVUZhEMEaoF1RJki
+	QwnLCz4PLUYVpGWug2bFvEgsGdkDVy0lvex8ATLTztolJS9dOkVfgcU8opkjTsR1GxMEEHazHID
+	dDXaCKtcGqGWpKCyU2yi1A4UjCN+vagxiIsxu6cW088AktxH8oz0DtWJHrg==
+X-Gm-Gg: AfdE7ckHZQ+JsmlItMB/PvbvQE5ymkV4Yr85xsk/YoEimMp1mp/jbKpIq1FCduu35C4
+	NsCSMXIeETOhIeVHpY0os0wniSAyUiyufLmqRhvDloHmUwJagZnLKtBBS4x716NIvMsRWCVDrGc
+	lgUSevu8bOff5V5qhQLTdKSVln910PJm6lGpcF7ZtOBC+d0UB3bJjXyO5DowcJClz/dRwINKcUg
+	f5xwxn1nYBDr3JrtBgdyQI+EzOkh140Het1xgDBMaPsrWr11jXUtElOLpyclH56YXNuqtWbC0TO
+	1+n2YZr60K955Kxt4YctHA9NLyk5e7f6qC297B459Ty/sgxEPNCWktpHcmkovH5o3QbkaaNmFfd
+	TZ4Ceex7ncfOg6ZmLXmjgR+il60BtMtx7
+X-Received: by 2002:a05:600c:3f0a:b0:490:e974:e006 with SMTP id 5b1f17b1804b1-493e68e8195mr71460455e9.29.1783606868081;
+        Thu, 09 Jul 2026 07:21:08 -0700 (PDT)
+X-Received: by 2002:a05:600c:3f0a:b0:490:e974:e006 with SMTP id 5b1f17b1804b1-493e68e8195mr71459835e9.29.1783606867530;
+        Thu, 09 Jul 2026 07:21:07 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-68-31.inter.net.il. [80.230.68.31])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e5a5d174sm165949165e9.2.2026.07.09.07.21.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 07:21:07 -0700 (PDT)
+Date: Thu, 9 Jul 2026 10:21:04 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Dan Carpenter <error27@gmail.com>
+Cc: Haoxiang Li <haoxiang_li2024@163.com>, marcel@holtmann.org,
+	luiz.dentz@gmail.com, yangyingliang@huawei.com,
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4] Bluetooth: virtio: Fix virtbt_probe() init and cleanup
+Message-ID: <20260709101904-mutt-send-email-mst@kernel.org>
+References: <20260709114745.4030794-1-haoxiang_li2024@163.com>
+ <ak-T4SMxr4rw10jP@stanley.mountain>
+ <20260709083606-mutt-send-email-mst@kernel.org>
+ <ak-lvwzHUfuFcRRa@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
-X-Proofpoint-GUID: -A4jlCwss52uKQx3m8xs49RiKy4FZJIH
-X-Authority-Analysis: v=2.4 cv=IM8yzAvG c=1 sm=1 tr=0 ts=6a4fac98 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=rvaOABGgyOwA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=XkSmYTrN71B21MVVzw8A:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: -A4jlCwss52uKQx3m8xs49RiKy4FZJIH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDEzOSBTYWx0ZWRfX7kVtO4pgsNgF
- gS3YimicG82iAk7jPvc35haNDKfzcli8Xxj8pkuHNbIEVny28X3xSlIh3Qu2XJo5r+2Qmyk3Uds
- axUyzJ/nlS41cDk1+HPIG7PEJ9zmEEA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDEzOSBTYWx0ZWRfX4z7gG+jN0Zdj
- H2yzuJOtN1JOz01rx3ZLgear7zfNbFFEaALNV5Wxdlg31M4Y1g51h0EKKiQJ2o0jlLpDxWzvIvs
- izG0jwfBiYqHh+p7qT3H0mmZ3LXnwExbma+A8DEwDGLNK4ZJIQtvgu0XdQGxNSbGwILSuYkIKsL
- ITh6vq/tgyzls0SuwiOEQcrUbKwnE1svoo4vLPiC5FHhKHQ/98hxOPaNEDAX3a/+xiLuy+WTZeu
- lX4XwGCKumeJY6jmR0013bAfzwWZT+YEc7imJMq13NQoaGY28jtERus7yL48htQdSjpBPJdIbOa
- MdqS5+NyQ5GRzr2mtTEyEblmTtvQQNp111wDWy9pBtMgwOpeTkkL9FWU5EBz2Aezz0hiKIoNBZe
- 3z6yQe3sk/vAk6dK+DNoS/XVdi7Bnpr05BYABTP2jTStabmS1dG1PfoWAs7BFiVT7ppB2ATaiUy
- +nmPiVa/uiPKN91H1Vw==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ak-lvwzHUfuFcRRa@stanley.mountain>
 
-
-On Tue, 07 Jul 2026 16:17:16 +0100, Luigi Santivetti wrote:
-> Since pvr_vm_context_lookup() returns either NULL or a pointer, then stop
-> using IS_ERR() for checking the return value.
+On Thu, Jul 09, 2026 at 04:44:31PM +0300, Dan Carpenter wrote:
+> On Thu, Jul 09, 2026 at 08:36:32AM -0400, Michael S. Tsirkin wrote:
+> > 
+> > why make changes at all if no one can test. in fact, why have a driver
+> > then.
 > 
-> Using IS_ERR() leads to the kernel oops reported below. It can be
-> reproduced by passing an invalid VM context handle from userspace to the
-> DRM_IOCTL_PVR_CREATE_CONTEXT ioctl.
+> It would be interesting to see what proportion of kernel patches are
+> actually tested...  Testing the code is often impossible because you
+> need the hardware.
+
+Sure I agree - if I am refactoring kernel APIs I would often
+compile the driver and that is it.
+But that is different from poking at a driver specifically.
+If I do that then yes I expect the patch to be tested.
+
+
+
+> In drivers/staging probably very few patches are tested.  Every couple
+> years I look at the data from where the problems come from and it's
+> normally from complicated changes from the driver maintainer.  The
+> number of bugs introduced by checkpatch and static checker fixes is
+> really tiny.
 > 
-> [...]
+> It's about risk vs reward.  Fixing a security issue is a huge reward.
+> Cleaning up the code.  Fixing obvious leaks and static checker issues.
+> Those things are all valuable because they raise the standards and
+> they prevent copy and paste bugs.
+> 
+> I consider a few things:
+> 
+> 1. Is it a security fix?  I recently fixed some memory corruption and
+>    broke a driver.  I tried to be careful, I wrote a long commit message
+>    describing my thinking, but I still messed up.  And that's okay
+>    because fixing security bugs is important.
+> 2. Is the code new?  If it is then there are probably very few users,
+>    and the original developer is still around so it's pretty safe to
+>    change.
+> 3. Is it an error path?  Code on error paths is hard to test in the
+>    best of times.  The risk is very low.
+> 4. Is the change small and obvious?
+> 
+> On the other hand, I often leave known bugs.  In this case, we're talking
+> about a use after free if the driver fails to probe.  That's not a
+> security thing.  It's unlikely to ever affect anyone in real life.  The
+> fix affects the success path so it could easily cause the driver to stop
+> working.
 
-Applied, thanks!
+Exactly, agree on all points.
 
-[1/1] drm/imagination: fix error checking of pvr_vm_context_lookup()
-      commit: cf385cf6e713eba0720651174dac0b2d2f5bb8f8
-
-Best regards,
--- 
-Alessio Belle <alessio.belle@imgtec.com>
+> regards,
+> dan carpenter
 
