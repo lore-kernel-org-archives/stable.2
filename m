@@ -1,157 +1,128 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D45E3DE429
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 22:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D1C3AEF3E;
+	Thu,  9 Jul 2026 22:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783635546; cv=none; b=OEw33NKdDmrtAT0oP3x0A7MoVN76bCvy+UsEF08aU47GiQTLXvRl1r6wg+vliSv/+JCNN24ef4EYNAlhYRZ/lwaNj9iXFt4AlaE5uUppa2NqUBpLtf9EGY7+PII65zrF9QbwvtGIad4utbmZgDHazvooLtZ82lF3wtPrOOQZV0M=
+	t=1783635777; cv=none; b=FWhAZYsfdaRGnxV2rphf39SAvGnqrdKzLDb3xuO071o/kN/ip7/tV6tfif4YvRKO4dcjiS6Q/ntuuuZYWCJtJ/uBxFv/KMdoD5gY218RS8STm+JrKxIGkGaWbitmTAAjrw01P+rvTT4eymGDWk8YP5cIDcpPbWgOJ7PEjv0H4wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783635546; c=relaxed/simple;
-	bh=Z8Zh1AJp/esp9tFm2eyTQefg9Fl7D1o7AgqFROZ1ab8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dj0G5BZcvlJznzAx5Z5xKAdeRziSV7kS6uEH2W/hjyIOLXAF5FbgWGPttRrwjMxDwLCT69AXrgEPt1k2XJ7h0dUrSEu0PKy2gVbBoqL4DaM3rM9drkrFBZp71LwGdfDeRma+JmwDAWG0Y6XBVL8R36yIEdcJlgCCKK0HedbUbSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cc1B51YO; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783635777; c=relaxed/simple;
+	bh=x97uFTIjXkGA6Az31J4eQq5SV3sdoZkgFYZLe5sZj3o=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=IMo/l18PbE4yCJUu2lt/UQDZL+jdgw3LqEzEgEnmRzZ7MPQZ/MBRuMZxWk15CVDXPS+pOzzBGvgpu5BfngbLyuAYJEfpxs+um8WZzGCaSFPR0dGxtIlaZhRfiso5fRoB7qBOtT7PLHdQe0LhOinl4G6RmZBDyfoqPSWsbOy3crk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RGKl2dGd; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cc1B51YO"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493ece78b0cso2320315e9.0
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 15:19:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783635543; x=1784240343; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BqQgw4jCCe/BvKpqMgYyZ70b1id8WmzXWyq/OSrYdlk=;
-        b=cc1B51YOtA/6A1kmzmBig9+12v9yAztZhxpH3H685lT903ZqlkL2wm+Z+wm8vttkNz
-         lKgMwnobY/phweGr4fHRs3TCP7u/azwuLQKW9j6RVCIAdpb/B+4KCLFGi7eYUWwyheeZ
-         kCJvPXXEXeKY1dNFWGsgriCdwpRga/x143RZZyYpSE8TtbNnTHsfir8emVgSpy0itoRj
-         rTUOM3248rbSnl1CdISiqEGI5QPVkI6886LwIDY6pBeBfmelDt3wl/g7Hn8gAITPi8E5
-         Evy5a50r9+WdNzdetE6fAp/LgF08xbgfvu/RL+uaZOXXc1GKv4CP53bNqr+psE/IvXDZ
-         JsHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783635543; x=1784240343;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BqQgw4jCCe/BvKpqMgYyZ70b1id8WmzXWyq/OSrYdlk=;
-        b=i6vroESe/LeIdLLZVm8N939Ti85GGfNTAPSdPp8nH19az4OcTR3+D22xhq9TL5501c
-         SZJdefEvflcjMnAZa9Ko+fERs+gIlRGTdtQCSYd5Ewa1SQ7CK/H0jL1Ln70lMhu3ZQUh
-         QJ+iCP0Pmjxur+Dp2ewT0Gd55Um5fCZxvQYRv/XSsAaTxK7tH4mnlSCiUkjNKB+zIilI
-         LRyN52Vw7Er5XedtcKp40S4eK0vT4IvZqLd+YANDjsvQJUWWV9x5WxRBUke0hzDzAQ7r
-         DcdPSIsPVFl2wW/UxoeYksCQOSa643MqQTPC4lgpyGTvqcwg/axm3EnMII6ucQJeJgj+
-         xFfg==
-X-Gm-Message-State: AOJu0Yz0pQfM8h1tKM/xbVQwFWwzbl1C+/+qsmsg14GxpwG9FYE/Ohrk
-	WTIQC0+bQnsLWpe7miqUmLStdzMMBzfZhoorOq0+bZ0VyWvtrzFE49Zh
-X-Gm-Gg: AfdE7clLdqIFhlBoK9Xfnc9dfxFD+rp8Qan6xeK2VEaynw+wo19x11dp/Gw4199/P7R
-	BIZ9wTEsnixndBGOm24VdOSI1PwjkCJ94k2Y9KVArGwtSwDlJZ3rRpdU6ff9Rly6naIRXKdDtgf
-	m1RnIR+PP/gjOK9s8RspzuSw3R6+xeWLVkta8qucp8rdnF0awvkT/e67Rlhc/C8dPDpqUne2qhj
-	HPpz1qM3qZWxlSBKc/NeUfRHy+TTL3jcdAFkXATJ7s9d+Se9Hjm+sOCE+vByCsJ7qpK7GMzMlqm
-	5v+5jx5nYy3SYAOFwok76qgnankBbkcYlBhzUxrGzEjLCZmDHjR3/Yeyh9JALpyni7C5SfX1u8C
-	oYLRBXKZKdp6wJpimvRnBVaGkaunkamKy4/yoamv7DLTmBCCtJ+DQCv6w0AsCtSKpUo/iKt9mFl
-	IZ3Aj1P5QCOG5hvUO0Tme50WGXuNZhYz1m09MGaCD1DVxkJNW+GNSi2z3VrIodaSdgtMUWtWS3
-X-Received: by 2002:a05:600c:6211:b0:493:dcad:84da with SMTP id 5b1f17b1804b1-493e683c3b2mr83501675e9.1.1783635542767;
-        Thu, 09 Jul 2026 15:19:02 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6e8844sm102269415e9.10.2026.07.09.15.19.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 15:19:01 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: alex.aring@gmail.com
-Cc: stable@vger.kernel.org,
-	syzbot+60332fd095f8bb2946ad@syzkaller.appspotmail.com,
-	David Carlier <devnexen@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ieee802154: hwsim: serialize pib updates to fix double-free
-Date: Thu,  9 Jul 2026 23:18:58 +0100
-Message-ID: <20260709221858.158063-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RGKl2dGd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783635776; x=1815171776;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=x97uFTIjXkGA6Az31J4eQq5SV3sdoZkgFYZLe5sZj3o=;
+  b=RGKl2dGdyr3REkNeEOIXabHBTZWt5cYg8vG+L/xfyE01v8sGtPGa6eEI
+   qlw0ofUyZvPPQUd/TMw/0Izs2NAzPdzr14AAfjxVoYeJBz9lfTth+o3Ih
+   fqh65RGPlJh/YP/DngxfvNGpd7b7qHlea7z/g2+UcwCtZ1gZh3qzvws/Z
+   YrRVsnJeEG4uT97+6qbYAjqaxrqL5eIdSYacsWnytZE0n8K31kwu45KH1
+   7wrFf8WnfzLh3XWeEUmWO54S7MXG4U6VSDT5i4Z+CElb57AEbe6CW2sfW
+   PxBiN1uwohhwsFLI9Wr4niUwTl2igPaNonuY1iPtIX4jNNoS4/jO/cVJ+
+   w==;
+X-CSE-ConnectionGUID: 6zK3tL4xTEiT2hydJBov9Q==
+X-CSE-MsgGUID: +JtAOfYIQsSHqZWPVqzuZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="109881425"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="109881425"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 15:22:55 -0700
+X-CSE-ConnectionGUID: wvvVwSEEQaq78hYluA9Epg==
+X-CSE-MsgGUID: iOtP4/thR++qD9bVJxDDWg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="256638305"
+Received: from guptapa-desk.jf.intel.com (HELO desk) ([10.165.239.46])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 15:22:55 -0700
+Date: Thu, 9 Jul 2026 15:22:54 -0700
+From: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
+To: stable@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>
+Cc: bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+	x86@kernel.org, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Dave Hansen <dave.hansen@linux.intel.com>
+Subject: [PATCH 7.1.y 0/6] cBPF JIT spray hardening
+Message-ID: <20260709-cbpf-jit-spray-hardening-7-1-y-v1-0-5ac5a2d6797f@linux.intel.com>
+X-B4-Tracking: v=1; b=H4sIADQeUGoC/yWNsQ6CMBRFf4W82Udaaqy4ERdHBzfj0JZXeAyVt
+ GgkhH+36HjuTc5ZIFFkSnAqFoj05sTPkEHuCnC9CR0ht5mhEtVBaFGjs6PHgSdMYzQz9ia2FDh
+ 0qFHijFYpu1de1pqOkCVjJM+fX+AO1+Z2vmyrLmU5w+P/p5cdyE1bBdb1CwOyz3GSAAAA
+X-Change-ID: 20260709-cbpf-jit-spray-hardening-7-1-y-b33b43f197e8
+X-Mailer: b4 0.16-dev
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-hwsim_update_pib() does an unserialized read-swap-free of phy->pib:
+Hi,
 
-	pib_old = rtnl_dereference(phy->pib);
-	...
-	rcu_assign_pointer(phy->pib, pib);
-	kfree_rcu(pib_old, rcu);
+These backports harden BPF JIT against spectre-v2 class of attacks. Without
+a predictor flush, execution of new BPF program may use stale prediction
+left behind by the freed one.
 
-It assumes the RTNL is held, but ->set_channel is not always called
-under it: the mac802154 scan worker changes channels via
-drv_set_channel() without the RTNL. Such an update can race an
-RTNL-held one on the same phy; both read the same pib_old and both
-kfree_rcu() it, double-freeing the object. With SLUB percpu sheaves
-batching kfree_rcu(), this surfaces as a KASAN invalid-free in
-rcu_free_sheaf().
+To avoid this, issue an IBPB flush on all CPUs on JIT program allocation.
+The flush is conditional to spectre-v2 mitigation applied.
 
-struct hwsim_phy has no lock for pib. Add one and make the swap atomic
-with rcu_replace_pointer() under it, dropping the misleading
-rtnl_dereference().
+Patch 1-2: Adds the predictor flush hook and enables it on x86 via IBPB.
 
-Reported-by: syzbot+60332fd095f8bb2946ad@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=60332fd095f8bb2946ad
-Fixes: f25da51fdc38 ("ieee802154: hwsim: add replacement for fakelb")
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Cc: <stable@vger.kernel.org>
+	  bpf: Support for hardening against JIT spraying
+	  x86/bugs: Enable IBPB flush on BPF JIT allocation
+
+Patch 3-6: Narrow the flush to only unprivileged JIT allocations
+	   to avoid redundant flushes. Also adds pack-selection changes
+	   that minimizes flushes.
+
+	  bpf: Restrict JIT predictor flush to cBPF
+	  bpf: Skip redundant IBPB in pack allocator
+	  bpf: Prefer packs that won't trigger an IBPB flush on allocation
+	  bpf: Prefer dirty packs for eBPF allocations
+
+Note: Patches were only build tested on x86 (they applied smoothly without
+any conflict).
+
+Thanks,
+Pawan
+
 ---
- drivers/net/ieee802154/mac802154_hwsim.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Pawan Gupta (6):
+      bpf: Support for hardening against JIT spraying
+      x86/bugs: Enable IBPB flush on BPF JIT allocation
+      bpf: Restrict JIT predictor flush to cBPF
+      bpf: Skip redundant IBPB in pack allocator
+      bpf: Prefer packs that won't trigger an IBPB flush on allocation
+      bpf: Prefer dirty packs for eBPF allocations
 
-diff --git a/drivers/net/ieee802154/mac802154_hwsim.c b/drivers/net/ieee802154/mac802154_hwsim.c
-index 6daa0f198b9f..a9bd1555d2dc 100644
---- a/drivers/net/ieee802154/mac802154_hwsim.c
-+++ b/drivers/net/ieee802154/mac802154_hwsim.c
-@@ -72,6 +72,8 @@ struct hwsim_phy {
- 	struct ieee802154_hw *hw;
- 	u32 idx;
- 
-+	/* Serializes phy->pib_updates. */
-+	spinlock_t pib_lock;
- 	struct hwsim_pib __rcu *pib;
- 
- 	bool suspended;
-@@ -102,8 +104,6 @@ static int hwsim_update_pib(struct ieee802154_hw *hw, u8 page, u8 channel,
- 	if (!pib)
- 		return -ENOMEM;
- 
--	pib_old = rtnl_dereference(phy->pib);
--
- 	pib->page = page;
- 	pib->channel = channel;
- 	pib->filt.short_addr = filt->short_addr;
-@@ -112,7 +112,10 @@ static int hwsim_update_pib(struct ieee802154_hw *hw, u8 page, u8 channel,
- 	pib->filt.pan_coord = filt->pan_coord;
- 	pib->filt_level = filt_level;
- 
--	rcu_assign_pointer(phy->pib, pib);
-+	spin_lock_bh(&phy->pib_lock);
-+	pib_old = rcu_replace_pointer(phy->pib, pib,
-+				      lockdep_is_held(&phy->pib_lock));
-+	spin_unlock_bh(&phy->pib_lock);
- 	kfree_rcu(pib_old, rcu);
- 	return 0;
- }
-@@ -952,6 +955,7 @@ static int hwsim_add_one(struct genl_info *info, struct device *dev,
- 		goto err_pib;
- 	}
- 
-+	spin_lock_init(&phy->pib_lock);
- 	pib->channel = 13;
- 	pib->filt.short_addr = cpu_to_le16(IEEE802154_ADDR_BROADCAST);
- 	pib->filt.pan_id = cpu_to_le16(IEEE802154_PANID_BROADCAST);
--- 
-2.53.0
+ arch/arm64/net/bpf_jit_comp.c        |  4 +--
+ arch/loongarch/net/bpf_jit.c         |  5 +--
+ arch/powerpc/net/bpf_jit_comp.c      |  4 +--
+ arch/riscv/net/bpf_jit_comp64.c      |  2 +-
+ arch/riscv/net/bpf_jit_core.c        |  3 +-
+ arch/x86/include/asm/nospec-branch.h |  4 +++
+ arch/x86/kernel/cpu/bugs.c           | 50 +++++++++++++++++++++++---
+ arch/x86/net/bpf_jit_comp.c          |  5 +--
+ include/linux/filter.h               | 15 ++++++--
+ kernel/bpf/core.c                    | 68 ++++++++++++++++++++++++++++++++----
+ kernel/bpf/dispatcher.c              |  2 +-
+ 11 files changed, 138 insertions(+), 24 deletions(-)
+---
+base-commit: 199c9959d3a9b53f346c221757fc7ac507fbac50
+change-id: 20260709-cbpf-jit-spray-hardening-7-1-y-b33b43f197e8
+
+Best regards,
+--  
+Thanks,
+Pawan
+
 
