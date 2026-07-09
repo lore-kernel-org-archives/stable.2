@@ -1,119 +1,97 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7DF7271443;
-	Thu,  9 Jul 2026 16:43:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2F5036CDF3
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 16:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783615389; cv=none; b=qV9mX2XCRsDIM55BfCinkr6yyEjAvjU+wHU1UBidJPnMe2018KqH/We2YH1n6Zoz2iuMxUo53kI8EVph2Q6uoOoGi+/fEX+ORvx7BP95Z/UZiVjmtwDL8coxm2zuUfkre5CAFOyWG4nnOgNNnNRqeXxyqmb+XqvAfjCidoNBLnM=
+	t=1783615467; cv=none; b=Lev1mdm0YvgvM6L+UHtEjPyBPk90Bbq4CeNx5s3m4DRs1OUJYsrERcx7S11S5s0McwNoPkojT6VlWQGFk7NHwi/xgRi0FjAlFcHJXk+fj5Dg0pXTgicABIaiwOxVneXjxb4UgdRLV/XVmvpw7dIY5KzwWcCZcHijHR1jt6t4/fY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783615389; c=relaxed/simple;
-	bh=YquYgiHz27cAYahxa2jasOBSEGSj+59543goIaQFJiw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=i/A/tDHgznuI0M4tWNUEmBgX54F2J5BxnECSKJLtxadyD3VeSOm94QvMC2XUvQiJLzZcKNA35rKTZtq1SUjuain9FGwtXNv2k8y7wUgkVZ61z0oGoHVnNOdZ1keUpTnvEpBVL+fKfCtYXkzstqFHeM+qspgmM9MKVeSjy2tSKK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.175.55.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wB3YReQz09qdzosAA--.3625S3;
-	Fri, 10 Jul 2026 00:42:57 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgDHcHOOz09qb4ACAw--.4426S2;
-	Fri, 10 Jul 2026 00:42:54 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-can@vger.kernel.org
-Cc: frank.jungclaus@esd.eu,
-	socketcan@esd.eu,
-	mkl@pengutronix.de,
-	mailhol@kernel.org,
-	jedrzej.jagielski@intel.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] can: esd_usb: kill anchored URBs before freeing netdevs
-Date: Thu,  9 Jul 2026 16:41:59 +0000
-Message-Id: <20260709164159.497640-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260709104620.133765-1-fanwu01@zju.edu.cn>
-References: <20260709104620.133765-1-fanwu01@zju.edu.cn>
+	s=arc-20240116; t=1783615467; c=relaxed/simple;
+	bh=Y7wfNC1739zey9eUhGqmGlRu8bQ7jbWzrvClfA89rHo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ItMA197cQmBNC/boOW/Vdg/Cggu4GrZ1aXSrHRIDRU9BFJ8/JQJ5MqdKh3eH093ICThFEyva0b7tXfSLJCrVBqbz8lAKc6tjikdS4DRICioYuvkp8kfqIGgqrRV8mpHllyAExlSy5DWh8imBrwEKB7AhrN3R9wgffuj4dRicU3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DN+r+cux; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DN+r+cux"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C8E951570;
+	Thu,  9 Jul 2026 09:44:20 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F21283F66F;
+	Thu,  9 Jul 2026 09:44:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1783615465; bh=Y7wfNC1739zey9eUhGqmGlRu8bQ7jbWzrvClfA89rHo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DN+r+cuxUlrZjcbko1hTwCogobshJCrtb8sXIvzM/p9XKxBe8egqdqv5O5PF3I6sH
+	 xoRxu6PUOAdPdDHaXXvUtsPK+yGzlsMvV1QN7SI18foO0kdVrhSjq8gCo26OFvXaN/
+	 /VsicGHlgNTtPIxsnfe12LtOj99s3oZv5nsoq6uo=
+Message-ID: <f344dd12-6b68-4d3e-bf66-f84fdf748b44@arm.com>
+Date: Thu, 9 Jul 2026 17:44:22 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgDHcHOOz09qb4ACAw--.4426S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?MGOOSgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WMgQP3E+hpoHT8pUffByOwzd1S5MrBh9WwXO8UubmxgkkDg
-	kpY8W4eVWYkcJbwBZSAB5rM+H8XhqwExY4Cjs2QP
-X-Coremail-Antispam: 1Uk129KBj93XoW7CFW8Xw1fZFyfAr1fJryrGrX_yoW8ur13p3
-	yFyF1ftFykWrn3AwsrA3ZrJFyUC3ZrA34UWry7W345Zrs3ZFy0g3W8KrWj9r1kurZYkFyF
-	vwnrA3yUKa95urgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aVCY1x0267AK
-	xVWUJVW8JwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu/arm-smmu-v3: Add HAFT support for SVA
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: will@kernel.org, joro@8bytes.org, jpb@kernel.org,
+ catalin.marinas@arm.com, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, stable@vger.kernel.org
+References: <878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com>
+ <20260703164914.GY7525@ziepe.ca>
+ <6465c885-3a9d-4c0b-ab74-7665e274ae72@arm.com>
+ <20260703192459.GB1978949@ziepe.ca>
+ <f13b30cf-e885-44c6-8e61-7924937eb8ac@arm.com>
+ <20260709160440.GL118978@ziepe.ca>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260709160440.GL118978@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-esd_usb_disconnect() frees each CAN netdev with free_candev() inside
-its per-netdev loop and only calls unlink_all_urbs(dev) afterwards.
-The per-netdev private data (struct esd_usb_net_priv) is embedded in
-the net_device allocation returned by alloc_candev(), so once
-free_candev() has run, dev->nets[i] points to freed memory.
-unlink_all_urbs() then dereferences the freed dev->nets[i] to kill the
-per-netdev TX anchor (usb_kill_anchored_urbs(&priv->tx_submitted)),
-clear active_tx_jobs, and reset priv->tx_contexts[].
+On 09/07/2026 5:04 pm, Jason Gunthorpe wrote:
+> On Mon, Jul 06, 2026 at 03:13:01PM +0100, Robin Murphy wrote:
+> 
+>> Indeed if anyone does want to use SVA on such mismatched hardware and are
+>> happy to use a custom kernel with CONFIG_ARM64_HAFT disabled then they can
+>> and will continue to be able to do so.
+> 
+> It seems like we have a chip that is impacted by this. I'm being told
+> that the necessary ARM IP is not available in time to properly match
+> SMMU and CPU for its particular application.d
+> 
+> The chip is embedded so those work arounds are possibly OK - but I
+> think this issue keeps coming up and ARM should have a better overall
+> solution for CPU/SMMU mismatch in the ecosystem since it seems like
+> this is going to keep happening..
 
-Reorder the teardown so the anchored URBs are killed before the netdevs
-are freed, matching other CAN/USB drivers in the same directory such as
-ems_usb, usb_8dev and mcba_usb, which unregister, then unlink, then
-free: unregister the netdevs first (which stops their TX queues), call
-unlink_all_urbs(dev) once, then free the netdevs.
+To be fair, even if new VMSA features were added to the SMMU 
+architecture in lockstep with the CPU architecture (which historically 
+they haven't been since the SMMU version often needs additional 
+consideration - oh, the fun we had with HDBSS...), and the SMMU products 
+were developed and released in sync with CPU products (which again they 
+have not been, for more than just architecture reasons), then at the end 
+of the day from the Linux perspective we'd still have to deal with 
+licensees having the freedom to play mix-and-match, so I don't see 
+there's much that Arm could really do.
 
-This issue was found by an in-house static analysis tool.
+The CPU architecture does now provide FEAT_IDTE3, which platform 
+firmware can use to hide visibility of features from an OS/hypervisor, 
+so if you did ask, I suspect you'd get the answer that beyond that it's 
+up to the OS to decide what it wants to do with what it's given.
 
-Fixes: 96d8e90382dc ("can: Add driver for esd CAN-USB/2 device")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
-Changes in v2: shorten the Fixes: tag to the abbreviated 12-char SHA
-per Jedrzej Jagielski ("no need to put whole SHA, 12 first chars is
-enough").
+> Even if Linux could automatically limit the CPU features to the SMMU
+> it would be a big help.
 
-v1: https://lore.kernel.org/netdev/20260709104620.133765-1-fanwu01@zju.edu.cn/
- drivers/net/can/usb/esd_usb.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Feel free to propose patches, but given that SMMU details may not be 
+known until after userspace is up (since the driver can be a module), 
+unless features can safely be toggled on and off entirely dynamically, 
+for many cases I don't see that we could ever do much more than letting 
+the user pick their preferred policy at boot time via config or command 
+line.
 
-diff --git a/drivers/net/can/usb/esd_usb.c b/drivers/net/can/usb/esd_usb.c
-index d257440fa..f41d4a0d1 100644
---- a/drivers/net/can/usb/esd_usb.c
-+++ b/drivers/net/can/usb/esd_usb.c
-@@ -1390,10 +1390,13 @@ static void esd_usb_disconnect(struct usb_interface *intf)
- 				netdev = dev->nets[i]->netdev;
- 				netdev_info(netdev, "unregister\n");
- 				unregister_netdev(netdev);
--				free_candev(netdev);
- 			}
- 		}
- 		unlink_all_urbs(dev);
-+		for (i = 0; i < dev->net_count; i++) {
-+			if (dev->nets[i])
-+				free_candev(dev->nets[i]->netdev);
-+		}
- 		kfree(dev);
- 	}
- }
--- 
-2.34.1
-
+Thanks,
+Robin.
