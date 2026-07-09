@@ -1,229 +1,188 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0133C9ED8
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 07:25:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783581915; cv=none; b=bsiOASP8F+wbjMWV0A8/aognK56xUnEzZIKRI+BicfMp9zPQI7ixTKdsT+NpVoCBxQ1YwcqpX1S27tkTxrQ7ol8m6tbKE1djBzYsdz7ncOjAtfwKYSBH+9LYb8cLGTda7ifwG1c4f3gCfh36seMw0lBaDgn5svXDFTJrjLuNH84=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783581915; c=relaxed/simple;
-	bh=KOD7UqK/Gsr1GMCwAWBoxxhsx3YxU1A3/+K+YYfTR78=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D4B1B7910;
+	Thu,  9 Jul 2026 07:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783582027; cv=pass; b=b3ab4sYvlpLgt9+EXdr26QicOXw+C0sCYHgVmyoWmAcJaIt1oHygjlowF8JdCHzl4ZEZ2IpjuX0+h1QCmBKcZY6J3jpCY7Zzy15RBnKBvIwlNeDCMoNGyWhVechHkKANfAhFwJlqBLMAHjGzoH+LROM7Zhq8nxz17ReKbezDnqs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783582027; c=relaxed/simple;
+	bh=At2fRYQ89R/VEPqOutyv6KBQ7UlhYGN71Gj3tBf2glk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EMsZndpp1LoGBQ2RjVv64tQVyA9fAa3Q/DvAGLGzImg86Wph7ThB35Asj54q5DDQqNC2ce+mqCLB7ogTimZvA5Bh3BnOB7qHhQQOV6GlMWeCWE+9msC0SbdFSdPkbkgixVFXBGvNz2K4bOTmZd0wsm+aj0PRNTUG1Wvca/zFh3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=AIu4eMbk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bblYPBg4; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=AIu4eMbk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bblYPBg4; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 MIME-Version; b=ZoNgxjCM+CtkUQ9XnjZV7aDHMKQiX0BR2znq7mYK9qNErAattSvXq/z3mTQplGye251i8ojx9JbizLqn3ZDG4HoWNT7UYguypU/AiZDUIU9IrP7Gth/F4UgPaqFbHuQDx+AxjxmKVbo9/MenIUG3bG752CSf0VIybbaJu/uVQbY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=R0CwPgLL; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="AIu4eMbk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bblYPBg4";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="AIu4eMbk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bblYPBg4"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B4AF975EDB;
-	Thu,  9 Jul 2026 07:25:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783581900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9fOZKDGk+S46/+SCiwB50GnE9K+E/ngWl9K/xtzn9FQ=;
-	b=AIu4eMbkyrgyrrMltON14KJyw345nscJVkUAdeQy3ZfltSoJsOIBdwYvzt1pELC/er+dDt
-	8Iks/bhE/5K/NRRQeGM8wc5JYNj5qy7NL4EMwMoPjUHUZbxyB20DSLACkCZbGcTuvpjYIE
-	wWZzaiVVEbljC9Lcsn9SHeABiu+Kxrw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783581900;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9fOZKDGk+S46/+SCiwB50GnE9K+E/ngWl9K/xtzn9FQ=;
-	b=bblYPBg4fupOtI5orqLiRLRx9pm8VUahqpe13HzGPpJA+hW6nVuIZm+eyD1rG2AZF1FqMy
-	Qeyb4lBZ817vlaDA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783581900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9fOZKDGk+S46/+SCiwB50GnE9K+E/ngWl9K/xtzn9FQ=;
-	b=AIu4eMbkyrgyrrMltON14KJyw345nscJVkUAdeQy3ZfltSoJsOIBdwYvzt1pELC/er+dDt
-	8Iks/bhE/5K/NRRQeGM8wc5JYNj5qy7NL4EMwMoPjUHUZbxyB20DSLACkCZbGcTuvpjYIE
-	wWZzaiVVEbljC9Lcsn9SHeABiu+Kxrw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783581900;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9fOZKDGk+S46/+SCiwB50GnE9K+E/ngWl9K/xtzn9FQ=;
-	b=bblYPBg4fupOtI5orqLiRLRx9pm8VUahqpe13HzGPpJA+hW6nVuIZm+eyD1rG2AZF1FqMy
-	Qeyb4lBZ817vlaDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DDED1779AA;
-	Thu,  9 Jul 2026 07:24:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id gLVGM8tMT2rTRQAAD6G6ig
-	(envelope-from <clopez@suse.de>); Thu, 09 Jul 2026 07:24:59 +0000
-From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
-To: stable@vger.kernel.org
-Cc: kvm@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="R0CwPgLL"
+ARC-Seal: i=1; a=rsa-sha256; t=1783582015; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=JNIo0v0Bgm1K37gnuH/8H2eeUwHPyLzgYaNS+Fmh7ywE9lJO1F0Q9+7qSrowslA4J1Tgmf52feY5Ccq7AHXGrRBv4Ed//D1kbvwxyZtcG6B3t4fa5QXrQzQ0a/EdAKGPgqu3K8rLs6X7UpDzAqnu4X9KwTuHbwJj+Wb8UazPLLI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1783582015; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=cGdYyHdF4eooldaXFoLH1BUNBeRF8jbgPm0566Cjifs=; 
+	b=JpdBl6swA6KQwD1GztQnNyTqUN2aEcMfS2ObbLTqjYMDTIiS/zh4zfzgfy1kAJ5favuJltb/60Lf79EAnyjvlN3pdGpdeTVjZteUElLzE2g9LyteJaFlL8xmqFtF1yeQh5ZsP4LXpHZuZVWBR7UWN6W+1kB/GYZc4/dgzBms4nE=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783582015;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=cGdYyHdF4eooldaXFoLH1BUNBeRF8jbgPm0566Cjifs=;
+	b=R0CwPgLLsq86BNm0GQjH3KkZLY5M6TxNAotPWRqkuJZuVr2k//CI582sNfJ3qsSh
+	BE6zO/oLIc5e6QVQjpzhE1/BEA+gZe+3b2IT2HQSP3//MRhyy5THlxS2riwmwdE8IVl
+	jZUHnINJszqQ37SEc9GmtqNqtkFA7iPGHIc25My0=
+Received: by mx.zoho.eu with SMTPS id 1783582013693679.3330432379032;
+	Thu, 9 Jul 2026 09:26:53 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: yanjun.zhu@linux.dev,
+	zyjzyj2000@gmail.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Roman Kagan <rkagan@virtuozzo.com>
-Subject: [PATCH RESEND 6.18.y 3/3] KVM: x86: Unconditionally recompute CR8 intercept on PPR update
-Date: Thu,  9 Jul 2026 09:22:47 +0200
-Message-ID: <20260709072247.3305784-5-clopez@suse.de>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260709072247.3305784-2-clopez@suse.de>
-References: <20260709072247.3305784-2-clopez@suse.de>
+	stable@vger.kernel.org
+Subject: [PATCH v2] RDMA/rxe: fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp
+Date: Thu,  9 Jul 2026 09:26:51 +0200
+Message-ID: <20260709072651.9040-1-security@auditcode.ai>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260708224550.1281-1-security@auditcode.ai>
+References: <20260708224550.1281-1-security@auditcode.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -7.30
-X-Spamd-Result: default: False [-7.30 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLtm3bmjtwwfkzb5ddzerbmdsq)];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Level: 
+X-ZohoMailClient: External
 
-[ Upstream commit bb365a506b1e6fb050c0fceaad354fe395385ef0 ]
+rxe_qp_from_attr()'s IB_QP_MAX_DEST_RD_ATOMIC branch frees and
+reallocates qp->resp.resources[] (the rd_atomic resource array used by
+the responder to track in-flight RDMA READ/ATOMIC/FLUSH requests)
+completely outside of the IB_QP_STATE handling above it. Unlike every
+other place that tears this array down -- rxe_qp_reset(), reached only
+under IB_QP_STATE, always calls rxe_disable_task(&qp->recv_task) /
+rxe_disable_task(&qp->send_task) to drain the responder and requester
+tasks before touching per-QP state, then re-enables them -- this branch
+runs with the responder task (rxe_receiver(), scheduled as recv_task on
+the rxe_wq workqueue) fully live and unlocked. A userspace modify_qp()
+that sets only IB_QP_MAX_DEST_RD_ATOMIC (no state change, so
+__qp_chk_state()/ib_modify_qp_is_ok() never runs and qp->state_lock is
+never taken here) can therefore race the responder in two ways:
 
-The TPR_THRESHOLD field in the VMCS is used by VMX to induce VM exits
-when the guest's virtual TPR falls under the specified threshold,
-allowing KVM to inject previously masked interrupts.
+ 1. free_rd_atomic_resources() calls kfree(qp->resp.resources) and
+    alloc_rd_atomic_resources() kzalloc_objs()'s a new array while
+    rxe_prepare_res()/find_resource() in rxe_resp.c are concurrently
+    walking &qp->resp.resources[i] with no lock held -- a straight
+    free-vs-read race on the array itself.
 
-KVM handles these VM exits in handle_tpr_below_threshold().
-Commit eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
-optimized this function by calling apic_update_ppr() instead of raising
-KVM_REQ_EVENT. apic_update_ppr() then raises KVM_REQ_EVENT if there is
-a pending, deliverable interrupt.
+ 2. free_rd_atomic_resources() only NULLs qp->resp.resources; it never
+    clears qp->resp.res, the raw pointer *into* that array that
+    rxe_resp.c caches across a multi-packet RDMA READ/ATOMIC/FLUSH
+    reply (set at rxe_resp.c read/atomic/flush-reply sites, cleared
+    only on the normal completion paths). If a modify_qp() races a
+    resource still referenced by qp->resp.res, the array is freed out
+    from under the cached pointer and the next reply packet dereferences
+    it -- independent of the kfree/kzalloc_objs() window in (1).
 
-However, if there are no new interrupts pending, apic_update_ppr() does
-not issue the request. Thus, kvm_lapic_update_cr8_intercept() and
-vmx_update_cr8_intercept() are not called before VM entry, which results
-in a high, stale TPR_THRESHOLD. This is problematic due to the following
-sentence in 28.2.1.1 "VM-Execution Control Fields" in the SDM:
+Reproduced with KASAN: a single process driving one RC QP pair in rxe
+loopback, one thread pumping large multi-packet IBV_WR_RDMA_READs
+against qpB while a second thread hammers
+ibv_modify_qp(qpB, IB_QP_MAX_DEST_RD_ATOMIC), reliably (~11s) produces
 
-  The following check is performed if the “use TPR shadow” VM-execution
-  control is 1 and the “virtualize APIC accesses” and “virtual-interrupt
-  delivery” VM-execution controls are both 0: the value of bits 3:0 of
-  the TPR threshold VM-execution control field should not be greater
-  than the value of bits 7:4 of VTPR.
+  BUG: KASAN: slab-use-after-free in rxe_receiver+0x4f78/0x89e0 [rdma_rxe]
+  Workqueue: rxe_wq do_work [rdma_rxe]
 
-This error condition is typically not observed when KVM runs on a bare
-metal system because modern processors support APICv, which enables
-virtual-interrupt delivery, and which KVM uses when possible. This
-causes the processor to no longer generate TPR-below-threshold exits
-and to no longer check TPR_THRESHOLD on entry. However, when running
-on older platforms, or under nested virtualization on a hypervisor that
-does not support virtual-interrupt delivery and enforces this check
-(like Hyper-V) this can cause a VM entry failure with hardware error
-0x7, as seen in [1].
+with the freed kmalloc-1k object being the rd_atomic resource array
+freed by the modify_qp() thread while the recv_task kworker reads it.
+An identical run modifying only IB_QP_MIN_RNR_TIMER (no resource free)
+is clean.
 
-Call kvm_lapic_update_cr8_intercept() if apic_update_ppr() does not
-find a deliverable interrupt (and thus does not raise KVM_REQ_EVENT).
-Remove calls to kvm_lapic_update_cr8_intercept() on paths that end up in
-apic_update_ppr(), as they now become redundant. This ensures that any
-path that updates the guest's PPR also figures out if KVM needs to wait
-for a TPR change (using TPR_THRESHOLD on VMX or CR8 intercepts on SVM).
+Fix both races the same way rxe_qp_reset() already handles tearing down
+this exact array: quiesce the responder task around the free/realloc by
+calling rxe_disable_task(&qp->recv_task) before free_rd_atomic_resources()
+and rxe_enable_task(&qp->recv_task) only after alloc_rd_atomic_resources()
+has succeeded, so rxe_receiver() cannot observe the array mid-free/
+mid-realloc. On the alloc-failure path the responder is deliberately
+left quiesced: qp->resp.resources is NULL at that point and
+rxe_prepare_res()/find_resource() would dereference it, so recv_task
+must not be re-enabled until a fresh array has been installed. And
+close the still-open window for (2) at the source: have
+free_rd_atomic_resources() clear qp->resp.res along with
+qp->resp.resources, exactly like the existing completion paths in
+rxe_resp.c (check_rkey()/duplicate_request()/RESPST_CLEANUP) already do
+when a resource's lifetime ends, so a drained-and-resumed responder
+restarts at RESPST_CHK_PSN against the fresh array instead of replaying
+a stale reference into the old one.
 
-Link: https://github.com/coconut-svsm/svsm/issues/1081 [1]
-Tested-by: Stefano Garzarella <sgarzare@redhat.com>
+Only qp->recv_task is drained: qp->resp.resources / qp->resp.res are
+touched exclusively by the responder (rxe_resp.c); the requester
+(send_task / rxe_sender()) never reads them, so there is no need to
+widen this beyond what rxe_qp_reset() would drain for the equivalent
+state.
+
+Verified on the same v6.19 KASAN stand: with this fix applied, the
+identical differential reproducer drives sustained MAX_DEST_RD_ATOMIC
+storms against qpB well past the ~11s pre-fix time-to-first-splat with
+zero KASAN reports, versus reliably tripping the slab-use-after-free in
+rxe_receiver() described above before the fix.
+
+Fixes: 8700e3e7c485 ("Soft RoCE driver")
 Cc: stable@vger.kernel.org
-Fixes: eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
-Signed-off-by: Carlos López <clopez@suse.de>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260618174347.1981064-3-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
 ---
- arch/x86/kvm/lapic.c | 2 ++
- arch/x86/kvm/x86.c   | 5 +----
- 2 files changed, 3 insertions(+), 4 deletions(-)
+v2: address Zhu Yanjun's review of v1
+    (https://lore.kernel.org/linux-rdma/20260708224550.1281-1-security@auditcode.ai/):
+    only re-enable recv_task after alloc_rd_atomic_resources() succeeds, so
+    the responder is not resumed against a NULL qp->resp.resources on the
+    ENOMEM path (rxe_prepare_res()/find_resource() would dereference it).
+    No change to the successful path; fix description updated accordingly.
 
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index 4a6a8d8c7626..fe2806348c94 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -1001,6 +1001,8 @@ static void apic_update_ppr(struct kvm_lapic *apic)
- 	if (__apic_update_ppr(apic, &ppr) &&
- 	    apic_has_interrupt_for_ppr(apic, ppr) != -1)
- 		kvm_make_request(KVM_REQ_EVENT, apic->vcpu);
-+	else
-+		kvm_lapic_update_cr8_intercept(apic->vcpu);
+ drivers/infiniband/sw/rxe/rxe_qp.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+index f3dff1aea96a..e39fb144cbbb 100644
+--- a/drivers/infiniband/sw/rxe/rxe_qp.c
++++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+@@ -172,6 +172,7 @@ static void free_rd_atomic_resources(struct rxe_qp *qp)
+ 		}
+ 		kfree(qp->resp.resources);
+ 		qp->resp.resources = NULL;
++		qp->resp.res = NULL;
+ 	}
  }
  
- void kvm_apic_update_ppr(struct kvm_vcpu *vcpu)
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 28771be285a1..7be3ed9e2c7d 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -5356,7 +5356,6 @@ static int kvm_vcpu_ioctl_set_lapic(struct kvm_vcpu *vcpu,
- 	r = kvm_apic_set_state(vcpu, s);
- 	if (r)
- 		return r;
--	kvm_lapic_update_cr8_intercept(vcpu);
+@@ -709,11 +710,24 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
  
- 	return 0;
- }
-@@ -12366,8 +12365,6 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
- 	kvm_register_mark_dirty(vcpu, VCPU_EXREG_CR3);
- 	kvm_x86_call(post_set_cr3)(vcpu, sregs->cr3);
+ 		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
  
--	kvm_set_cr8(vcpu, sregs->cr8);
++		/*
++		 * This branch is not gated by IB_QP_STATE, so the responder
++		 * task is live here. Quiesce it the way rxe_qp_reset() does
++		 * before swapping the rd_atomic resource array, so
++		 * rxe_receiver() cannot race the free/realloc.
++		 */
++		rxe_disable_task(&qp->recv_task);
+ 		free_rd_atomic_resources(qp);
 -
- 	*mmu_reset_needed |= vcpu->arch.efer != sregs->efer;
- 	kvm_x86_call(set_efer)(vcpu, sregs->efer);
+ 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
++		/*
++		 * On failure the responder stays quiesced: qp->resp.resources
++		 * is NULL now, and rxe_prepare_res()/find_resource() would
++		 * dereference it, so do not re-enable recv_task until a fresh
++		 * array has been installed.
++		 */
+ 		if (err)
+ 			return err;
++		rxe_enable_task(&qp->recv_task);
+ 	}
  
-@@ -12396,7 +12393,7 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
- 	kvm_set_segment(vcpu, &sregs->tr, VCPU_SREG_TR);
- 	kvm_set_segment(vcpu, &sregs->ldt, VCPU_SREG_LDTR);
- 
--	kvm_lapic_update_cr8_intercept(vcpu);
-+	kvm_set_cr8(vcpu, sregs->cr8);
- 
- 	/* Older userspace won't unhalt the vcpu on reset. */
- 	if (kvm_vcpu_is_bsp(vcpu) && kvm_rip_read(vcpu) == 0xfff0 &&
+ 	if (mask & IB_QP_EN_SQD_ASYNC_NOTIFY)
 -- 
-2.51.0
+2.50.1 (Apple Git-155)
 
