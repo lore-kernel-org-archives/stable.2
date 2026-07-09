@@ -1,171 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f202.google.com (mail-oi1-f202.google.com [209.85.167.202])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4E93806DD;
-	Thu,  9 Jul 2026 20:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCFB3C09FF
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 20:30:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783627760; cv=none; b=Hx6LANwcQuwpnSjCdMbyDGA38sgqFV5Ls4nP4u/xWcp2Na7InHh5+M2lEqodq1QWNd9qR3t2A7DCmReqqahH0jBuSHQw7i2NPFFOTbmC6pzgR58E2c2PB+2tXbEjXmA/g2G5Sgu8AyAXTpC0PFN4HEQSaS+M1lK8E64EimU+cik=
+	t=1783629013; cv=none; b=T1wcd52clKhBKP5zabQiOOOmnLcoB6ze+zJKBJqruAulYXwPyCJsGZw3vQkgY44SfFVFhY0lgLhUxIK0NLdB7ip9OpXnmgPOxTk8QLlEIgQj0Tybgnlg8buj8LsmK7ut6OKIloXNTE+0gUwlFsxF1LDPYHBCq0j47M/T/zLbul4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783627760; c=relaxed/simple;
-	bh=qb3Va2EWJCuabDmEu+LVOT/opeHpRCxCAUvcS18R9VU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=IznmrdzzYpd6d++pH7DEw47RacE2J8Ej9TjJiVNxME0TFj15Z88ahEa5XPjwf1EBbHq4+p0iVQ/2bg5LVz1jlG+oYacj+JzGc8L5mGVpwsfgJqM4moK4ZLR9YPOOhHuA1yxitb9JeeUaty+RSitLcdC2l8fBM8vZrM62kp/H/8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKBvQLIB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783629013; c=relaxed/simple;
+	bh=Hh90mVt6XcR3iqrqcDw0knKu1XwU2GWLwg4NQnXR5F0=;
+	h=Date:In-Reply-To:Mime-Version:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=lLEUuUGptIjLvmdQ7qtiKxlprhAsIH6C85VME4A14dCcgtDPpvY5s47dY6ElZQGjX78vdjMOc6hdsAR/Z5grtAek67jUBZxPzQZSJu4s5xc90zftWAsLzsGUJEUrm9wa8ddW2cSK5QOEUXPRjF0G/tA7otRl68t0a9AyYlGgh0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JpSoI2Of; arc=none smtp.client-ip=209.85.167.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKBvQLIB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CD391F00A3A;
-	Thu,  9 Jul 2026 20:09:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783627758;
-	bh=GQuKYkV+RrdDaj2kuGPtykS0VuTmijFhckMfHg5Fm6E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=hKBvQLIBI2Et62EU1THz3bg3Q+4e00bwkTJvLNGtXuDsckSdhXqWsv7Mi0StVbOTY
-	 aoKWr89W7DmkAC1ibeGSvrcyWaMmf8YOcLHa1nK+AGeMLKt9IGsQh0WEg6DgF4cV7w
-	 Z6Ln79/0ijRDOhdCXsGIoMExZKegHGM7qmyf4JjTrZ9F3tkLlR5FXj5cHr/ZG3u3IX
-	 wKl+5k+yFa3luBLvZ+0Ov5hUUh7znY5Zt57xoIgJSJ2zKa03kyIRJBRpiQLMC4nlP+
-	 6laPzpGq4y6TbF/cySM+OuW/dIHMrtg+dIu5YS2PZMZlkhG6gE9fzA+yPHNWre/R4E
-	 X4KUFOL2QJaSg==
-Date: Thu, 9 Jul 2026 15:09:17 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Steffen Persvold <spersvold@gmail.com>
-Cc: Will Deacon <will@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Rob Herring <robh@kernel.org>,
-	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] PCI: host-generic: Fix NULL pointer dereference on
- 32-bit CAM systems
-Message-ID: <20260709200917.GA875728@bhelgaas>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JpSoI2Of"
+Received: by mail-oi1-f202.google.com with SMTP id 5614622812f47-4909b046dabso270577b6e.0
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 13:30:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1783629008; x=1784233808; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PzslN++gvwF111Oxj75aJ3QDVnvg6D0q7xeFijnE/DM=;
+        b=JpSoI2Of0uH/DQ2oFiL8Rc8Sk/60qO9R/psr4pVf0SqiO9y5CRJvh25xNwnieAftbi
+         9CRNo5zfXvOzImFTVimsNDEnzMV2hrQL3Rrug5NtL88NKJU1WUqyirPa/U+ePJOj+xuT
+         xxvbfxo4f5HZ4M0QfUJPVQ//CgyViOt7o6NKaEaj1dehPMjDEQrQ8hGubQVdugIy075H
+         GJhNR5uI9IkS2J3wh5+cPjkD8WpwryAqnm4AXL35UPcK+lWwr96wPHxnyuIbsmv4mr+x
+         TtrvTQCa+ud4RMg2Rb4G32jPIMYbJNdVWneiKNbA3LiAqnM9DBuRl7Lg2RdN78m8Amaq
+         aJeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783629008; x=1784233808;
+        h=content-type:cc:to:from:subject:message-id:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PzslN++gvwF111Oxj75aJ3QDVnvg6D0q7xeFijnE/DM=;
+        b=AhAWRayLYfF5RrNN0BYLyrifTEQgLGuKeim7ME5cHvsyI2Iv3+JqNlSVKckKqhgbQ0
+         h8IN/KobCsRhdHZuj3LOCOhCcXp9itzFX9vI5GbMQCp7j9w2GFNd75FbgzRGlK7PJ/AO
+         Vye6jakVdmL9o6xEtBlDi5I8IqzMtaNZj3wRS4mE1CZzVJfVa3hNfoiDvSpbsHUHtn7y
+         5RXwlw3Vc3lyqwkLFRO4SLLjlfff5+VYde0mpyt9DwvsA/gLJ/myALWP2UWqZGQ4XFbn
+         OERBaMtZ9obvdmc/am8SOG/QOKSWNhAFuB5RUL0eyGcXOOsB48RqfW1NSm+xC/7fZtwu
+         0OVQ==
+X-Gm-Message-State: AOJu0Yy5M5wGn4J11SmcaccImqFJ1+C5CPu9rhSA63XMmvVwRUI93KRB
+	mw4O+3Rb2wtDkRc9DT+7sv64Gi17hTx+S1Jd+vxPZb3iJ+xu0tvRvACV0APu6mF4yUkWWINg3Yg
+	2z7RNeftzn/aR6Uid4sAaWIE1mQ==
+X-Received: from jaaf25.prod.google.com ([2002:a05:6638:c7d9:b0:5e9:4c3:fe2b])
+ (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:1a1a:b0:495:f85b:d08f with SMTP id 5614622812f47-4a20241e89cmr7170981b6e.18.1783629008168;
+ Thu, 09 Jul 2026 13:30:08 -0700 (PDT)
+Date: Thu, 09 Jul 2026 20:30:07 +0000
+In-Reply-To: <87y0fk5uyi.wl-maz@kernel.org> (message from Marc Zyngier on Thu,
+ 09 Jul 2026 11:16:37 +0100)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260709122446.3151899-1-spersvold@gmail.com>
+Mime-Version: 1.0
+Message-ID: <gsntjyr36h4g.fsf@coltonlewis-kvm.c.googlers.com>
+Subject: Re: [PATCH 6.6 v2 1/6] arm64: sysreg: Add layout for ID_AA64MMFR4_EL1
+From: Colton Lewis <coltonlewis@google.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: stable@vger.kernel.org, oliver.upton@linux.dev, sashal@kernel.org, 
+	gregkh@linuxfoundation.org, mizhang@google.com, catalin.marinas@arm.com, 
+	will@kernel.org, james.morse@arm.com, suzuki.poulose@arm.com, 
+	yuzenghui@huawei.com, mark.rutland@arm.com, ahmed.genidi@arm.com, 
+	leo.yan@arm.com, miguel.luis@oracle.com, dbrazdil@google.com, 
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 
-On Thu, Jul 09, 2026 at 02:24:46PM +0200, Steffen Persvold wrote:
-> On 32-bit systems the config space is too large to ioremap in one go, so
-> pci_ecam_create() maps each bus segment separately and relies on the
-> ->add_bus callback (pci_ecam_add_bus) to populate the per-bus mapping in
-> cfg->winp[]. pci_ecam_map_bus() then uses that mapping as the base for
-> every config access.
-> 
-> The generic ECAM ops (pci_generic_ecam_ops) already provide the ->add_bus
-> and ->remove_bus callbacks, but the CAM (legacy) ops in pci-host-generic.c
-> do not. As a result, on a 32-bit host using "pci-host-cam-generic" the
-> per-bus mapping is never set up and the first config read dereferences a
-> NULL base, crashing during bus enumeration:
-> 
-> [    1.430647] Unable to handle kernel NULL pointer dereference at virtual address 00000800
-> [    1.439441] Oops [#1]
-> [    1.442152] CPU: 0 PID: 1 Comm: swapper Not tainted 6.9.7+ #43
-> [    1.448753] Hardware name: Digilent Nexys-Video-A7 RV32 (DT)
-> [    1.454968] epc : pci_generic_config_read+0x40/0xb0
-> [    1.460652]  ra : pci_generic_config_read+0x2c/0xb0
-> [    1.534729] [<c038db9c>] pci_generic_config_read+0x40/0xb0
-> [    1.541096] [<c038da04>] pci_bus_read_config_dword+0x50/0xb0
-> [    1.547623] [<c0391e94>] pci_bus_generic_read_dev_vendor_id+0x3c/0x1ec
-> [    1.555010] [<c039245c>] pci_scan_single_device+0xa4/0x11c
-> [    1.561273] [<c0392570>] pci_scan_slot+0x9c/0x23c
-> [    1.566716] [<c039388c>] pci_scan_child_bus_extend+0x58/0x2f4
-> [    1.573275] [<c0393db0>] pci_scan_root_bus_bridge+0x64/0xe8
-> [    1.579650] [<c0393e54>] pci_host_probe+0x20/0xc8
-> [    1.591396] [<c03bc6f4>] pci_host_common_probe+0x144/0x1e4
+Hi Marc,
 
-Remove timestamps, since they don't contribute to understanding the
-problem, and indent the quoted material two spaces.
+Marc Zyngier <maz@kernel.org> writes:
 
-If there's no other reason for a v2, we can do this while merging.
+> On Wed, 08 Jul 2026 23:51:19 +0100,
+> Colton Lewis <coltonlewis@google.com> wrote:
 
-> Fix this by giving the CAM ops the same ->add_bus/->remove_bus callbacks.
-> Since pci_ecam_add_bus() and pci_ecam_remove_bus() are static to ecam.c,
-> move the CAM ops definition there as pci_generic_cam_ops (mirroring
-> pci_generic_ecam_ops) and export it for pci-host-generic.c to reference.
-> 
-> Fixes: 8fe55ef23387 ("PCI: Dynamically map ECAM regions")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Steffen Persvold <spersvold@gmail.com>
-> ---
->  drivers/pci/controller/pci-host-generic.c | 11 +----------
->  drivers/pci/ecam.c                        | 13 +++++++++++++
->  include/linux/pci-ecam.h                  |  3 +++
->  3 files changed, 17 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/pci-host-generic.c b/drivers/pci/controller/pci-host-generic.c
-> index c1bc0d34..9e85c6e9 100644
-> --- a/drivers/pci/controller/pci-host-generic.c
-> +++ b/drivers/pci/controller/pci-host-generic.c
-> @@ -16,15 +16,6 @@
->  
->  #include "pci-host-common.h"
->  
-> -static const struct pci_ecam_ops gen_pci_cfg_cam_bus_ops = {
-> -	.bus_shift	= 16,
-> -	.pci_ops	= {
-> -		.map_bus	= pci_ecam_map_bus,
-> -		.read		= pci_generic_config_read,
-> -		.write		= pci_generic_config_write,
-> -	}
-> -};
-> -
->  static bool pci_dw_valid_device(struct pci_bus *bus, unsigned int devfn)
->  {
->  	struct pci_config_window *cfg = bus->sysdata;
-> @@ -60,7 +51,7 @@ static const struct pci_ecam_ops pci_dw_ecam_bus_ops = {
->  
->  static const struct of_device_id gen_pci_of_match[] = {
->  	{ .compatible = "pci-host-cam-generic",
-> -	  .data = &gen_pci_cfg_cam_bus_ops },
-> +	  .data = &pci_generic_cam_ops },
->  
->  	{ .compatible = "pci-host-ecam-generic",
->  	  .data = &pci_generic_ecam_ops },
-> diff --git a/drivers/pci/ecam.c b/drivers/pci/ecam.c
-> index 119de32f..a9b3bce2 100644
-> --- a/drivers/pci/ecam.c
-> +++ b/drivers/pci/ecam.c
-> @@ -208,6 +208,19 @@ const struct pci_ecam_ops pci_generic_ecam_ops = {
->  };
->  EXPORT_SYMBOL_GPL(pci_generic_ecam_ops);
->  
-> +/* CAM ops */
-> +const struct pci_ecam_ops pci_generic_cam_ops = {
-> +	.bus_shift	= 16,
-> +	.pci_ops	= {
-> +		.add_bus	= pci_ecam_add_bus,
-> +		.remove_bus	= pci_ecam_remove_bus,
-> +		.map_bus	= pci_ecam_map_bus,
-> +		.read		= pci_generic_config_read,
-> +		.write		= pci_generic_config_write,
-> +	}
-> +};
-> +EXPORT_SYMBOL_GPL(pci_generic_cam_ops);
-> +
->  #if defined(CONFIG_ACPI) && defined(CONFIG_PCI_QUIRKS)
->  /* ECAM ops for 32-bit access only (non-compliant) */
->  const struct pci_ecam_ops pci_32b_ops = {
-> diff --git a/include/linux/pci-ecam.h b/include/linux/pci-ecam.h
-> index d9306514..044f67ce 100644
-> --- a/include/linux/pci-ecam.h
-> +++ b/include/linux/pci-ecam.h
-> @@ -81,6 +81,9 @@ void __iomem *pci_ecam_map_bus(struct pci_bus *bus, unsigned int devfn,
->  /* default ECAM ops */
->  extern const struct pci_ecam_ops pci_generic_ecam_ops;
->  
-> +/* default CAM ops */
-> +extern const struct pci_ecam_ops pci_generic_cam_ops;
-> +
->  #if defined(CONFIG_ACPI) && defined(CONFIG_PCI_QUIRKS)
->  extern const struct pci_ecam_ops pci_32b_ops;	/* 32-bit accesses only */
->  extern const struct pci_ecam_ops pci_32b_read_ops; /* 32-bit read only */
-> 
-> base-commit: 53bf92818a8362815708fc7b18e6d2c6a5fc665b
-> -- 
-> 2.40.1
-> 
+>> From: Marc Zyngier <maz@kernel.org>
+
+>> [ Upstream commit cfc680bb04c54e61faa51a34d8383a0aa25b583f ]
+
+>> ARMv9.5 has infroduced ID_AA64MMFR4_EL1 with a bunch of new features.
+>> Add the corresponding layout.
+
+>> This is extracted from the public ARM SysReg_xml_A_profile-2023-09
+>> delivery, timestamped d55f5af8e09052abe92a02adf820deea2eaed717.
+
+>> Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> Signed-off-by: Marc Zyngier <maz@kernel.org>
+>> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+>> Reviewed-by: Miguel Luis <miguel.luis@oracle.com>
+>> Link: https://lore.kernel.org/r/20240122181344.258974-5-maz@kernel.org
+>> Signed-off-by: Oliver Upton <oliver.upton@linux.dev>
+
+> Please read Documentation/process/backporting.rst, and in particular
+> the section indicating the requirement for your own SoB.
+
+> None of these patches can be merged if this is missing.
+
+That taught me a few tricks. Thanks. And I'll make sure to include my
+SoB.
+
+> 	M.
+
+> --
+> Jazz isn't dead. It just smells funny.
