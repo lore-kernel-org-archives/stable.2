@@ -1,177 +1,257 @@
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DCE426D09
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 15:34:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7807735C19F;
+	Thu,  9 Jul 2026 15:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783611255; cv=none; b=Ta7BzncZLJQj4+uinF/w1LCERwZFZejUksOVeckEgtLv4y+SQz7pgO0QR5zFHbl3ZZOUFnX0SADqzo5x0SMnbUHQsGB1q6wh/wpu0ECICdLXBTVyjHFi46EU+A8/BTNQehkx8ioG23Z7aNNe5vcBnyGWP7EDxuUDc+C1bcoRzIg=
+	t=1783611854; cv=none; b=nldKc0MGuZDYOZ3TmWVGBznT7dxWQWzNywYH7xt8BT6Is24O/Hl/kfl8U0CXw01Ci3qmI1NgWL/SUzkJZ6pVRoziQE6PFhY/re/t9cdAknYVtcdz7j5tlPgZwwbOeegTMOwcktSgAAz5/WpN5vq6pt6PuHdjpWlPr3fdBFtJy4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783611255; c=relaxed/simple;
-	bh=bjqSzoVbjCAxz3GwJk9SF12ou1PtxIHctuFwhL/oV8Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PYcqXugA6UR6YArruWeP+UFTQivFEONqfYbeQPXlpnl2SpfnpWmeWe33a8k9N7JC4lZ45pYjcmapmlMcssMYEh4s5+iVaAECJUurvUQUoUaDOQIv78OBz8/WK17D/ZaYb2ET2OOTWRxgQ/VWpS9W1qkrTQg9PlGbKMpNwrBRLAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WSf3Zdyw; arc=none smtp.client-ip=209.85.210.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783611854; c=relaxed/simple;
+	bh=5ihj3jc7CuunbXVvjwb3Muc/bkt6kYgmHKeORiD7Vss=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e1sKjmfu93Uy8qX7zXqlqSEoRvniOtgqEfvo+o6D6sk4znQp5EPM/2wa3gr45bBYMP5TfPC1errPjpB8+UmPkI9kDYy7gZqLdOcxyAeUQhmt/m1gZHXJI3rAoyMfkSpO8Gogi8ph3xNADCktjgdmtcMJL45LRTfGGRT65UY2tQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwliaWv9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WSf3Zdyw"
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7e9f829d75aso25797a34.0
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 08:34:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783611252; x=1784216052; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wgZAKDefd+qsWOygAjWV/OqF2VHOBPEQz/tYDmXsGXA=;
-        b=WSf3ZdywglgQF+IuwUCdUrWzgrTNihJBzt0+DeTBpqJG7x8+AsoLug0q5sbObjiyq8
-         skEkzAqkejpSkHtqYOQwreT4TYJDS0VjYYk7/0X1HYBT/7lyBT+0YNLxHxIZL62nVEPW
-         BaF6vvNx5gmEyV0SXHpkXWo8h5s5o/Mc85GeEQHl7v2SuFVGY9jXQr67aAv+cgSUkjSt
-         4Xer17iTbnQHc3MAii+RNmKSc+friWwx9sLdXpPlJpQJir6LK9Diq+8ajkI1g7GEluJ1
-         mH6PkKvF6A80oRSO3zvwnWaWrgeEPWLliMIe1ndvSXKWbeHNV6MOZG5eKxubwwYDoN5W
-         qGuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783611252; x=1784216052;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wgZAKDefd+qsWOygAjWV/OqF2VHOBPEQz/tYDmXsGXA=;
-        b=sX6TqODQhFW7VEJZWVqSxsdyXO/A0JeYJSGkEu9rv7Casm7/vWPOXFgfNrDYYxVuoF
-         NNr1Ljm7sfC2cEYGQA6bHPmSV0myUYiv+Mfe7S0tS4TDogZGPk2TrdViSDwfEJ5a1LPD
-         CNhVcj4JxpWax65nqrcMjp/kozMolKW29uA6KQycxZhBE7zwx6U1K7WoTVCaBKS15PcW
-         HzOy3TIyW9z6BjMAhRkQDY1LNBgb1UvmC5w7xLViwH1rV5FiW4glwl6H24R5acXuJXWL
-         iF+zkN/Q7/D3qMt7IobEL6mrNIWlX/4t6B4XMLgm4KZ1L8MninxDpODEZSCUmEiMT61Q
-         Fa3A==
-X-Forwarded-Encrypted: i=1; AFNElJ/nbHyix5EDm/hoqMRih+hWOMV/nTXkJWiCiOArWNLElY7Pi3/HY7EFi7nrilNjfZoFqSgGRS0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YykkkN8BS+DPSDzZ8tqdXWqpmltguLFT3RhPdeDSorPW1qOE3ZX
-	qv3GaVd9CVCMgEYnuGI135cbb9QKMJhdmT5rpl/9jlYVMXTHGQVwVqdV
-X-Gm-Gg: AfdE7ck0a2htT1yUrAMYVJ5in3eGZmNzOw/g1eMd/khke0XSBKeBHOploKCXZXsbMJS
-	I5qr7jcKnyB+SYaHRkAXImv+2S3emjSrR55Pw5PpRyqME7a0slT6PdXPcU9OWt4FY/sFkLkm/9j
-	oz1uNAoUsWq/k5De0OTAwXv9OK2Jn26Ta72vXg8+8oIHDs6mQ3P5LxHFI8Z96L1nrvs+b0KX9CM
-	Zy0ZKycFfL1XRwkNLsmeZ3hsJfxyITCzP1IpnG5KUJ4S2aoFxbq1LWhrpcOlxnflccN+tUQD+55
-	Eim/HFZy4sKQq0AxZ11immwY8hKUTstRgDPwpTKIwcksMa9TczXLDIQ01gDC7qf/bEZzzVp/syE
-	qaS945eGQ/6wM+BNdAbn5FPLbm0DvCywnDMD8vLvZS01gQjZxgx2UP1T2530VReRYJd/IBLyuah
-	JvlpSc+0v2pADGdBQrLxiXQrXoYVSTs3fM4ZTWfDJBHo8=
-X-Received: by 2002:a05:6808:f88:b0:496:7ba:89b9 with SMTP id 5614622812f47-4a204ffb038mr5628776b6e.32.1783611251981;
-        Thu, 09 Jul 2026 08:34:11 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:10::])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4a1acc83099sm3948634b6e.2.2026.07.09.08.34.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 08:34:11 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Peter Xu <peterx@redhat.com>,
-	Wupeng Ma <mawupeng1@huawei.com>,
-	fvdl@google.com,
-	rientjes@google.com,
-	jthoughton@google.com,
-	vannapurve@google.com,
-	erdemaktas@google.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Ackerley Tng <ackerleytng@google.com>,
-	stable@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	Zhao Li <enderaoelyther@gmail.com>
-Subject: Re: [PATCH v2 2/5] mm: hugetlb: Fix subpool usage leak on allocation failure
-Date: Thu,  9 Jul 2026 08:34:09 -0700
-Message-ID: <20260709153409.2091070-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260708-hugetlb-alloc-failure-fixes-v2-2-c7f27cbb462b@google.com>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwliaWv9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A861F00A3A;
+	Thu,  9 Jul 2026 15:44:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783611853;
+	bh=285LaEGh3A0QFIVOYPOsW/0/c98eMaQwDcpzh7ozqYc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KwliaWv9bxV0Nv7YosIm0mo6z799KEvSo/GZ7t//Ow7EyigBPfVX1n90yTa8hhrbt
+	 Kc29sHuXjnIFYPBHPPaQ+RLeYsmx81DkS6cv4rY6WW1+jMdtMug7C+cyz5tvuCtW2v
+	 eD7W1nhMTYogk9MFDautO55WmQLHocTlSIZ/cWsZBf0t874xH2kHaB4ajls8U9bYzu
+	 lVpiE3fB+UrAlfB0ipJ8vXO+p5IIdwqJfBYdEgVfxTjJrtSag+MVIQhrcPg9Lz5n7s
+	 F0JCXQUGThw6Wuryol7BRZUk143S3jmt9JlSMPs6KxnRaFKT1xH/wQfNLFQQVzPwAX
+	 luIMAxhslJUQw==
+Date: Thu, 9 Jul 2026 16:44:01 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: "Gupta, Pankaj" <pankaj.gupta@amd.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, seanjc@google.com, 
+	pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com, 
+	bp@alien8.de, x86@kernel.org, thomas.lendacky@amd.com, hpa@zytor.com, 
+	yangge1116@126.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
+ registration
+Message-ID: <ak_A6Yc5mBXCrtXr@lucifer>
+References: <20260701144543.39582-1-pankaj.gupta@amd.com>
+ <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
+ <db303a0c-98e3-4967-9b61-ccb711b776c8@amd.com>
+ <46f19bd8-0d43-4b0e-a8ab-0ef9d3b8bd1a@kernel.org>
+ <2bd89e95-9c15-4a3a-916d-0d71a92d8b02@amd.com>
+ <27ebe8f0-78b6-402a-a2e7-4e807251d20a@kernel.org>
+ <ak-uER-RndpksnhR@lucifer>
+ <58c4326d-b10d-42dc-af5d-3a5ff16c7e3e@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <58c4326d-b10d-42dc-af5d-3a5ff16c7e3e@amd.com>
 
-Hi Ackerley,
+On Thu, Jul 09, 2026 at 05:19:10PM +0200, Gupta, Pankaj wrote:
+> Hi Lorenzo,
+>
+> > > > > > Hi David,
+> > > > > >
+> > > > > > Yes, it fails in this path but for file backed mapping, vma_is_fsdax() returns
+> > > > > > false because
+> > > > > >
+> > > > > > vma_is_dax() returns false:
+> > > > > Ah, okay, so fsdax is not involved and we really only fail because of the
+> > > > > writable_file_mapping_allowed() check.
+> > > > >
+> > > > > I was for a second thinking in terms of nested virt :)
+> > > > >
+> > > > > > Host side backend is regular file backed memory (no fsdax).
+> > > > > Okay, so we'll end up mapping an ordinary file into VM memory, and expose that
+> > > > > to the VM as part of virtio-pmem device.
+> > > > >
+> > > > > That also means that vfio etc. won't be able to longterm-pin such device memory.
+> > > > > So this is not a problem isolated to SEV.
+> > > > >
+> > > > > Forbidding to longterm pin is actually the right thing to do if the filesystem
+> > > > > relies on writenotify, as spelled out by Lorenzo's commit:
+> > > > >
+> > > > > "
+> > > > >       Writing to file-backed mappings which require folio dirty tracking using
+> > > > >       GUP is a fundamentally broken operation, as kernel write access to GUP
+> > > > >       mappings do not adhere to the semantics expected by a file system.
+> > > > >
+> > > > >       A GUP caller uses the direct mapping to access the folio, which does not
+> > > > >       cause write notify to trigger, nor does it enforce that the caller marks
+> > > > >       the folio dirty.
+> > > > >
+> > > > >       The problem arises when, after an initial write to the folio, writeback
+> > > > >       results in the folio being cleaned and then the caller, via the GUP
+> > > > >       interface, writes to the folio again.
+> > > > > "
+> > > > >
+> > > > > Hmmm
+> > > > Yes. For file based mapping we don't allow long term pinning.
+> > > >
+> > > > If we take into account the fragmentation concerns for MIGRATE_CMA and
+> > > > ZONE_MOVABLE allocations
+> > > >
+> > > > solvable with FOLL_LONGTERM, I can think of two options(tested) to allow file
+> > > > based mappings as well:
+> > > >
+> > > > 1. Fallback on FOLL_WRITE when FOLL_LONGTERM fails as suggested by Sean.
+> > > That is just not acceptable, as it breaks random other stuff (MIGRATE_CMA, as
+> > > one example) besides the file-pinning problems that Lorenzo added.
+> > >
+> > > If we're going to hack something in, then that we bypass the file writeback check.
+> > > Not that we don't use FOLL_LONGTERM.
+> > >
+> > > I'd hate to use a GUP flag to indicate "this is a legacy hack", but it clearly isolates the
+> > > issue (needs a better name obviously):
+> > So under what circumstances are we happy with totally breaking dirty tracking?
+> > :/ seems iffy, and exposing this to drivers generally is a bit worrysome.
+>
+> The intention is to allow long-term pinning of file-backed mappings only for
+> migration avoidance,
+>
+> without kernel GUP writes, and therefore not impacting dirty tracking.
 
-Thank you for this series. I really wanted to work on hugeTLB accounting
-fixes but never got the time to get to it. I'm very grateful that you
-are taking a look!!
+OK as long as that's made clear in the patch, commit message, comments etc. :)
 
-> From: Ackerley Tng <ackerleytng@google.com>
-> 
-> When alloc_hugetlb_folio() fails early (e.g. buddy allocation failure or
-> hugetlb cgroup charging failure) and gbl_chg == 1 (meaning a reservation
-> was not used, but a global page was allocated instead), the subpool page
-> acquired via hugepage_subpool_get_pages() must still be returned.
-> 
-> Currently, the error path out_subpool_put: only calls
-> hugepage_subpool_put_pages() if !gbl_chg is true. If gbl_chg is 1, it
-> skips it, permanently leaking the subpool's used_hpages counter.
-> 
-> With the earlier patch to always track used_hpages in the subpool, always
-> call hugepage_subpool_put_pages() if map_chg is true to consistently
-> restore the page to the subpool. Only call hugetlb_acct_memory() to adjust
-> global reservations if gbl_chg == 0 since gbl_chg == 0 indicates a
-> subpool (and global) reservation was used.
+>
+> > >
+> > > diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> > > index ae9bca4eda5ca..e2c531f914d44 100644
+> > > --- a/include/linux/mm_types.h
+> > > +++ b/include/linux/mm_types.h
+> > > @@ -1912,6 +1912,9 @@ enum {
+> > >           */
+> > >          FOLL_HONOR_NUMA_FAULT = 1 << 12,
+> > >
+> > > +       /* TODO */
+> > > +       FOLL_LONGTERM = 1 << 13,
+> > > +
+> > >          /* See also internal only FOLL flags in mm/internal.h */
+> > >   };
+> > >
+> > > diff --git a/mm/gup.c b/mm/gup.c
+> > > index 0692119b79043..1fa0aa0cdc99d 100644
+> > > --- a/mm/gup.c
+> > > +++ b/mm/gup.c
+> > > @@ -1186,8 +1186,8 @@ static bool writable_file_mapping_allowed(struct vm_area_struct *vma,
+> > >           * If we aren't pinning then no problematic write can occur. A long term
+> > >           * pin is the most egregious case so this is the case we disallow.
+> > >           */
+> > > -       if ((gup_flags & (FOLL_PIN | FOLL_LONGTERM)) !=
+> > > -           (FOLL_PIN | FOLL_LONGTERM))
+> > > +       if ((gup_flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK)) !=
+> > > +           (FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK))
+> > >                  return true;
+> > Hmm I'm confused, you're then allowing FOLL_PIN | FOLL_LONGTERM, but disallowing
+> > FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK?
+>
+> Yes, I addressed this in my reply, but it wasn't a clean inline response.
 
-So I think that I've seen that this part of the accounting specifically
-is a bit suspicious. There have been two attempts in the past to fix
-this area [1] [2]. I think functionally they are quite similar to this
-fix, they just open-code the contents of the put_pages function inside
-the condition. I've Cc-ed the authors of those two patches in case
-they wanted to chime in.
+Ack yeah I assumed it was a quick proof of concept and just overlooked it :P
 
-I reference these fixes because I think they handle the minimum
-subpage case a bit differently. To be honest, I recall reading those
-fixes a while back and getting a bit confused on what exactly happens
-when the page is absorbed to fulfill the minimum size...
+>
+> >
+> > By the way I think this should be expressed better if I criticise myself here :)
+> >
+> > So like:
+> >
+> > 	if ((gup_flags & FOLL_PIN) && (gup_flags & FOLL_LONGTERM))
+> >
+> > Or even:
+> >
+> > 	/* Only an issue if we pin... */
+> > 	if (!(gup_flags & FOLL_PIN))
+> > 		return false;
+> > 	/* ...and that pin is longterm... */
+> > 	if (!(gup_flags & FOLL_LONGTERM))
+> > 		return false;
+> >
+> > But I'm confused as to why we are suddenly allowing something broken and what
+> > this hack flag is supposed to achieve?
+> >
+> > Shouldn't this rather be:
+> >
+> > 	/* Only an issue if we pin... */
+> > 	if (!(gup_flags & FOLL_PIN))
+> > 		return true;
+> > 	/* ...and that pin is longterm... */
+> > 	if (!(gup_flags & FOLL_LONGTERM))
+> > 		return true;
+> > 	/* ...and not overridden... */
+> > 	if (gup_flags & FOLL_LONGTERM_HACK)
+> > 		return true;
+> > 	/* ...and dirty tracking is required. */
+> > 	return !vma_needs_dirty_tracking(vma);
+> > }
+>
+> Yes, this looks much better. Will incorporate this.
 
-It does seem like Sashiko also notes this as a possible concern.
-WDYT? Does your reproducer for this issue also work when a minimum
-size is set (let's say, to 1?)
+Thanks!
 
-Thanks again. I hope you have a great day!!!
-Joshua
+>
+> >
+> > >          /*
+> > > @@ -2746,7 +2746,7 @@ static bool gup_fast_folio_allowed(struct folio *folio, unsigned int flags)
+> > >           * If we aren't pinning then no problematic write can occur. A long term
+> > >           * pin is the most egregious case so this is the one we disallow.
+> > >           */
+> > > -       if ((flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE)) ==
+> > > +       if ((flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE | FOLL_LONGTERM_HACK)) ==
+> > >              (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE))
+> > Yeah this is just a bit horrid having to stare at a this a while... So
+> > FOLL_LONGTERM_HACK would enable here.
+> >
+> > Be nice to avoid this form of it as it's difficult to understand, do something
+> > like above or a clearer version anyway (probably best abstracted to a small
+> > function).
+>
+> Sure.
+>
+> Also, I am also planning to rename (FOLL_LONGTERM_HACK ->
+> FOLL_PIN_NO_GUP_WRITE) in v2.
 
-> Fixes: a833a693a490e ("mm: hugetlb: fix incorrect fallback for subpool")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-> ---
->  mm/hugetlb.c | 14 ++++++--------
->  1 file changed, 6 insertions(+), 8 deletions(-)
-> 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index ee5e99c1894b9..4093c1c0a4a1d 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -2852,7 +2852,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
->  	struct hugepage_subpool *spool = subpool_vma(vma);
->  	struct hstate *h = hstate_vma(vma);
->  	struct folio *folio;
-> -	long retval, gbl_chg, gbl_reserve;
-> +	long retval, gbl_chg;
->  	map_chg_state map_chg;
->  	int ret, idx;
->  	struct hugetlb_cgroup *h_cg = NULL;
-> @@ -3003,13 +3003,11 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
->  		hugetlb_cgroup_uncharge_cgroup_rsvd(idx, pages_per_huge_page(h),
->  						    h_cg_rsvd);
->  out_subpool_put:
-> -	/*
-> -	 * put page to subpool iff the quota of subpool's rsv_hpages is used
-> -	 * during hugepage_subpool_get_pages.
-> -	 */
-> -	if (map_chg && !gbl_chg) {
-> -		gbl_reserve = hugepage_subpool_put_pages(spool, 1);
-> -		hugetlb_acct_memory(h, -gbl_reserve);
-> +	if (map_chg) {
-> +		long gbl_reserve = hugepage_subpool_put_pages(spool, 1);
-> +
-> +		if (!gbl_chg)
-> +			hugetlb_acct_memory(h, -gbl_reserve);
->  	}
+hmm but we have FOLL_LONGTERM as an adjunct to FOLL_PIN (doesn't make sense
+without - any checks that exist for that btw should be extended to this noew
+flag).
 
-[1] https://lore.kernel.org/linux-mm/20260428113037.88766-2-enderaoelyther@gmail.com/
-[2] https://lore.kernel.org/linux-mm/20260515202902.461539-1-devnexen@gmail.com/
+Also don't we want to encode the legacy aspect here?
+
+Maybe FOLL_LONGTERM_LEGACY_READONLY? Naming is hard :)
+
+>
+> Please let me know if you have a preference.
+>
+> Thanks,
+>
+> Pankaj
+>
+> >
+> > >                  reject_file_backed = true;
+> > >
+> > > @@ -3180,7 +3180,7 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
+> > >          int locked = 0;
+> > >          int ret;
+> > >
+> > > -       if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM |
+> > > +       if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM | FOLL_LONGTERM_HACK |
+> > >                                         FOLL_FORCE | FOLL_PIN | FOLL_GET |
+> > >                                         FOLL_FAST_ONLY | FOLL_NOFAULT |
+> > >                                         FOLL_PCI_P2PDMA | FOLL_HONOR_NUMA_FAULT)))
+> > >
+> > >
+> > > --
+> > > Cheers,
+> > >
+> > > David
+> > Thanks, Lorenzo
+
+Cheers, Lorenzo
