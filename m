@@ -1,185 +1,309 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C3728000F;
-	Thu,  9 Jul 2026 13:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783603599; cv=pass; b=B3n83tUP5P1C7LNqgnSGCwBcKUr4+7Z/iXjRmM2CY414VUuXYViuiDgdoDYuxZaukXdqPsRoDjiXsPX5pjBt5s10t9n8HuqDUcI/8vksiCd3njmk0wynbs++2UQkxQsqBpGSuxaU35XvK2cguJ1UVxuyfEEAEeAYgj5FWRbk+LM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783603599; c=relaxed/simple;
-	bh=w/d/dfi1uYU2FljV31b0JYK0IRKR5t87+DRqt1LBkec=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GUtFy7NjMhgvvBBOSE10uRhwjXm0i+4pcfxyoBfbPf8hsMdct54T0hGn194CcYAtpjfKtySgbZ47ykUm/01ky2VPJLImQZx+eGJPrV8iRlGXiir061ginJ9/ZO47/+xU9RZsYVA4m6ehUWwsCIW5bYw8TA9UIToXm/RYv9VWxKM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=r9LC+etG; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2C61632E7;
+	Thu,  9 Jul 2026 13:27:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783603630; cv=none; b=DLno7LYIs1GmzW1WizhRx1q+4Qe2sSaOOkJFAPxohbNc18/npQ7wPvPhK2A3wg9yw3SW669cvQUXjZ096Kl7b5ZHjAnSlQw//XHuSLjgLC4geXTaU0iNMo+xQhh8oDlCv28hU9oxJjrxHdYQqRarnNlUvEdZVXNUzoRLcFoPxeE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783603630; c=relaxed/simple;
+	bh=w1AKMnCZmfIovGPU8ll58ncQX65Yf3H6jFamLyJqkXY=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=NLxzuMXbsQiNTHTpbDs4IVFE+nEils4vjUBjEHTVJWt2L0BR5/GmQl8UJXbIUOjn3ntodWacVJ5ChSCTTXnGBWsmCah55ogDI5aiX9/BEvBHMOH5YfBUuBQbvahCuuhQFPVdom4x1bw0fiY8LwuEn1DGrd9TzTwMgmqzRfwqmhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hyslBQ3t; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="r9LC+etG"
-ARC-Seal: i=1; a=rsa-sha256; t=1783603576; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=kTIV2mfjg9J+7cPZPIsq8zhrO62Ulvj7aOq7QDKbAGvblHyoheKu+ZfVC3Tt4sC/IsgxazQZOGugNcPqlX4OSl9Uz1Ugf7MBg5N5uIc6w7J3HsZ7uf4D6lbST09HpJyVdbQ5pH8rdcgiicwZeRWq3m8ih7e/jaC4HwN/vqLxizA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1783603576; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=CJ/OdBFNwMigPP4T1S8vhOUX8dCMJZ3B9cVRxR+1zdI=; 
-	b=H0Be4M70YhhjZPF41bcgfNUJ04BaLXqDHhg6Tj9MIW0hQdzfXUxr8+FhpHe5dV9iupw5fYK9R4nAuOLaG8nW0PtC9bxsQUhgN27VOEHLyUR6cJblv7n9obNxG+0EP8q3fAXLhctTVciNwtqoIBZKLx+dGBEW2sStmoUforYWiX4=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=auditcode.ai;
-	spf=pass  smtp.mailfrom=security@auditcode.ai;
-	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783603576;
-	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=CJ/OdBFNwMigPP4T1S8vhOUX8dCMJZ3B9cVRxR+1zdI=;
-	b=r9LC+etGWO6cyD3rrD15263csHyfMFMXSULYf6DJGv2MQEWygV3UAaUSCOUk5BA5
-	HPI5AJWDwL3dvRWexf2RJ9JliIm016N6+IoJSQ4dUaFNEN1qkVx7AMnPUXL4n0bOsQe
-	QpP+JP00tNxUV4/cmJHpBS+MLRwqY8VGE5sYUjUA=
-Received: by mx.zoho.eu with SMTPS id 1783603575137934.2333414984581;
-	Thu, 9 Jul 2026 15:26:15 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ocfs2: validate rl_used against rl_count in refcount block validator
-Date: Thu,  9 Jul 2026 15:26:09 +0200
-Message-ID: <20260709132609.44233-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hyslBQ3t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783603628; x=1815139628;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=w1AKMnCZmfIovGPU8ll58ncQX65Yf3H6jFamLyJqkXY=;
+  b=hyslBQ3tc5978Eb2qW+9nHh863jtF4cIIdg/RPeBsF29z53QE0kKXtOn
+   /gwBlACbEikzPsiIMFooC/eaU4yZjGnesFpk52yDddd0UtLH0F+uULeAE
+   4iToLc+q/8D6YD/1JDnryKoAmSDSUfE1blIy1BfkxviYvFbS3oi8wH0BS
+   azVImyTX4PaMEjwgQEhZ0phhPx617FBWA37lfgmRR08H3Lp05LcLrYObM
+   Y8v0nvwKlcBCXT867pUx1XebudjsuV4WImSA4xmyLb5NV7LvvfRS/Zo0W
+   SdKgfyMmcNFLwbuEyo7sL1ldf/qhIfKEJElrURvUsf3OSbSHomaoOW3Zn
+   A==;
+X-CSE-ConnectionGUID: wYDGCkBmS36Vw34RAKzOGw==
+X-CSE-MsgGUID: EUrEJmy0ThmDa7cJMB0Z7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88198496"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="88198496"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 06:27:07 -0700
+X-CSE-ConnectionGUID: vedWGonaRqaqrniQ7Y0Rqw==
+X-CSE-MsgGUID: ICyy2fGKSbe7LP8MHbtmaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="258192336"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.36])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 06:27:03 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 9 Jul 2026 16:26:59 +0300 (EEST)
+To: Muhammad Bilal <meatuni001@gmail.com>
+cc: hansg@kernel.org, ilpo.jarvinen@linux.intel.com, jorge.lopez2@hp.com, 
+    linux@weissschuh.net, platform-driver-x86@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+    Mario Limonciello <superm1@kernel.org>, Armin Wolf <W_Armin@gmx.de>
+Subject: Re: [PATCH v4 1/4] platform/x86: hp-bioscfg: pass validated element
+ count to package parsers
+In-Reply-To: <20260708154846.12356-2-meatuni001@gmail.com>
+Message-ID: <86309036-a9b3-fa41-0abd-f4eaad6b53fa@linux.intel.com>
+References: <20260708154846.12356-1-meatuni001@gmail.com> <20260708154846.12356-2-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
 
-ocfs2_find_refcount_rec_in_rl() walks the on-disk refcount record
-array with:
+On Wed, 8 Jul 2026, Muhammad Bilal wrote:
 
-	for (; i < le16_to_cpu(rb->rf_records.rl_used); i++) {
-		rec = &rb->rf_records.rl_recs[i];
-		...
+> The per-type package parsers are handed the wrong element count.
+> 
+> hp_init_bios_package_attribute() validates obj->package.count and then
+> calls one of the five hp_populate_*_package_data() wrappers (string,
+> integer, enumeration, ordered list, password). Each wrapper forwards a
+> count to its hp_populate_*_elements_from_package() parser, but instead
+> of forwarding the validated obj->package.count it derives the count
+> from elements[0]. elements[0] is the NAME field and is always an
+> ACPI_TYPE_STRING, so reading ->package.count from it in fact reads
+> ->string.length through the union acpi_object. The parsers thus bound
+> themselves against the length of the name string rather than against
+> the real number of elements in the package.
+> 
+> This is safe today because hp_init_bios_package_attribute() refuses any
+> package that has fewer than the type's element count, so a parser only
+> ever runs on a full package and never reads past it regardless of the
+> bogus bound.
+> 
+> An upcoming change relaxes that check to accept shorter packages. Once
+> a parser can receive fewer elements than its per-type count, a bound
+> taken from the name length no longer reflects the array size, and the
+> "elem < count" loop conditions and "elem + n >= count" sub-loop guards
+> read past the end of elements[] - an out-of-bounds heap read.
+> 
+> Forward the validated obj->package.count to every *_package_data()
+> wrapper so the parsers bound themselves against the real package size.
+> This does not change behaviour for the packages that enumerate
+> correctly today and is a prerequisite for accepting shorter packages
+> safely.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> ---
+>  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c               | 5 +++++
+>  drivers/platform/x86/hp/hp-bioscfg/bioscfg.h               | 5 +++++
+>  drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c       | 3 ++-
+>  drivers/platform/x86/hp/hp-bioscfg/int-attributes.c        | 3 ++-
+>  drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c | 5 +++--
+>  drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c  | 5 +++--
+>  drivers/platform/x86/hp/hp-bioscfg/string-attributes.c     | 3 ++-
+>  7 files changed, 22 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> index 27fd6cd215290..768330d291da8 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> @@ -731,26 +731,31 @@ static int hp_init_bios_package_attribute(enum hp_wmi_data_type attr_type,
+>  	switch (attr_type) {
+>  	case HPWMI_STRING_TYPE:
+>  		ret = hp_populate_string_package_data(elements,
+> +						      obj->package.count,
+>  						      instance_id,
+>  						      attr_name_kobj);
+>  		break;
+>  	case HPWMI_INTEGER_TYPE:
+>  		ret = hp_populate_integer_package_data(elements,
+> +						       obj->package.count,
+>  						       instance_id,
+>  						       attr_name_kobj);
+>  		break;
+>  	case HPWMI_ENUMERATION_TYPE:
+>  		ret = hp_populate_enumeration_package_data(elements,
+> +							   obj->package.count,
+>  							   instance_id,
+>  							   attr_name_kobj);
+>  		break;
+>  	case HPWMI_ORDERED_LIST_TYPE:
+>  		ret = hp_populate_ordered_list_package_data(elements,
+> +							    obj->package.count,
+>  							    instance_id,
+>  							    attr_name_kobj);
+>  		break;
+>  	case HPWMI_PASSWORD_TYPE:
+>  		ret = hp_populate_password_package_data(elements,
+> +							obj->package.count,
+>  							instance_id,
+>  							attr_name_kobj);
+>  		break;
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h
+> index f1eec0e4ba075..416d7e7aaaae3 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h
+> @@ -401,6 +401,7 @@ int hp_populate_string_buffer_data(u8 *buffer_ptr, u32 *buffer_size,
+>  int hp_alloc_string_data(void);
+>  void hp_exit_string_attributes(void);
+>  int hp_populate_string_package_data(union acpi_object *str_obj,
+> +				    int str_obj_count,
+>  				    int instance_id,
+>  				    struct kobject *attr_name_kobj);
+>  
+> @@ -411,6 +412,7 @@ int hp_populate_integer_buffer_data(u8 *buffer_ptr, u32 *buffer_size,
+>  int hp_alloc_integer_data(void);
+>  void hp_exit_integer_attributes(void);
+>  int hp_populate_integer_package_data(union acpi_object *integer_obj,
+> +				     int integer_obj_count,
+>  				     int instance_id,
+>  				     struct kobject *attr_name_kobj);
+>  
+> @@ -421,6 +423,7 @@ int hp_populate_enumeration_buffer_data(u8 *buffer_ptr, u32 *buffer_size,
+>  int hp_alloc_enumeration_data(void);
+>  void hp_exit_enumeration_attributes(void);
+>  int hp_populate_enumeration_package_data(union acpi_object *enum_obj,
+> +					 int enum_obj_count,
+>  					 int instance_id,
+>  					 struct kobject *attr_name_kobj);
+>  
+> @@ -432,6 +435,7 @@ int hp_populate_ordered_list_buffer_data(u8 *buffer_ptr,
+>  int hp_alloc_ordered_list_data(void);
+>  void hp_exit_ordered_list_attributes(void);
+>  int hp_populate_ordered_list_package_data(union acpi_object *order_obj,
+> +					  int order_obj_count,
+>  					  int instance_id,
+>  					  struct kobject *attr_name_kobj);
+>  
+> @@ -440,6 +444,7 @@ int hp_populate_password_buffer_data(u8 *buffer_ptr, u32 *buffer_size,
+>  				     int instance_id,
+>  				     struct kobject *attr_name_kobj);
+>  int hp_populate_password_package_data(union acpi_object *password_obj,
+> +				      int password_obj_count,
+>  				      int instance_id,
+>  				      struct kobject *attr_name_kobj);
+>  int hp_alloc_password_data(void);
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
+> index af4d1920d4880..3aa2c440e0528 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
+> @@ -304,6 +304,7 @@ static int hp_populate_enumeration_elements_from_package(union acpi_object *enum
+>   * @attr_name_kobj: The parent kernel object
+>   */
+>  int hp_populate_enumeration_package_data(union acpi_object *enum_obj,
+> +					 int enum_obj_count,
+>  					 int instance_id,
+>  					 struct kobject *attr_name_kobj)
+>  {
+> @@ -312,7 +313,7 @@ int hp_populate_enumeration_package_data(union acpi_object *enum_obj,
+>  	enum_data->attr_name_kobj = attr_name_kobj;
+>  
+>  	hp_populate_enumeration_elements_from_package(enum_obj,
+> -						      enum_obj->package.count,
+> +						      enum_obj_count,
+>  						      instance_id);
+>  	hp_update_attribute_permissions(enum_data->common.is_readonly,
+>  					&enumeration_current_val);
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
+> index d96e160953e39..107e4cf1efb8a 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
+> @@ -279,6 +279,7 @@ static int hp_populate_integer_elements_from_package(union acpi_object *integer_
+>   * @attr_name_kobj: The parent kernel object
+>   */
+>  int hp_populate_integer_package_data(union acpi_object *integer_obj,
+> +				     int integer_obj_count,
+>  				     int instance_id,
+>  				     struct kobject *attr_name_kobj)
+>  {
+> @@ -286,7 +287,7 @@ int hp_populate_integer_package_data(union acpi_object *integer_obj,
+>  
+>  	integer_data->attr_name_kobj = attr_name_kobj;
+>  	hp_populate_integer_elements_from_package(integer_obj,
+> -						  integer_obj->package.count,
+> +						  integer_obj_count,
+>  						  instance_id);
+>  	hp_update_attribute_permissions(integer_data->common.is_readonly,
+>  					&integer_current_val);
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
+> index f09489a085c86..83ddf99f93954 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
+> @@ -301,7 +301,8 @@ static int hp_populate_ordered_list_elements_from_package(union acpi_object *ord
+>   * @instance_id: The instance to enumerate
+>   * @attr_name_kobj: The parent kernel object
+>   */
+> -int hp_populate_ordered_list_package_data(union acpi_object *order_obj, int instance_id,
+> +int hp_populate_ordered_list_package_data(union acpi_object *order_obj, int order_obj_count,
+> +					  int instance_id,
 
-rl_recs[] lives in a single metadata block (4096 bytes on the common
-configuration), so its real capacity is fixed by
-ocfs2_refcount_recs_per_rb(sb) (247 records for a 4K block with the
-16-byte ocfs2_refcount_rec). rl_used and rl_count are both read
-directly off disk by ocfs2_validate_refcount_block() and are never
-checked against that capacity, nor against each other, before any
-refcount/reflink/CoW operation walks the array.
+These new arguments trigger warnings for missing kerneldoc each.
 
-A crafted (or corrupted) refcount block with rl_used == 0xffff makes
-the loop above walk far past the end of the block, dereferencing
-rl_recs[i] for i up to 65534. The resulting index is then handed to
-the sibling ocfs2_insert_refcount_rec(), whose insert-shift does:
+--
+ i.
 
-	if (index < le16_to_cpu(rf_list->rl_used))
-		memmove(&rf_list->rl_recs[index + 1],
-			&rf_list->rl_recs[index],
-			(le16_to_cpu(rf_list->rl_used) - index) *
-			 sizeof(struct ocfs2_refcount_rec));
+>  					  struct kobject *attr_name_kobj)
+>  {
+>  	struct ordered_list_data *ordered_list_data = &bioscfg_drv.ordered_list_data[instance_id];
+> @@ -309,7 +310,7 @@ int hp_populate_ordered_list_package_data(union acpi_object *order_obj, int inst
+>  	ordered_list_data->attr_name_kobj = attr_name_kobj;
+>  
+>  	hp_populate_ordered_list_elements_from_package(order_obj,
+> -						       order_obj->package.count,
+> +						       order_obj_count,
+>  						       instance_id);
+>  	hp_update_attribute_permissions(ordered_list_data->common.is_readonly,
+>  					&ordered_list_current_val);
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
+> index 4d79eb8056a5d..89316d90454d2 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
+> @@ -388,7 +388,8 @@ static int hp_populate_password_elements_from_package(union acpi_object *passwor
+>   * @instance_id: The instance to enumerate
+>   * @attr_name_kobj: The parent kernel object
+>   */
+> -int hp_populate_password_package_data(union acpi_object *password_obj, int instance_id,
+> +int hp_populate_password_package_data(union acpi_object *password_obj, int password_obj_count,
+> +				      int instance_id,
+>  				      struct kobject *attr_name_kobj)
+>  {
+>  	struct password_data *password_data = &bioscfg_drv.password_data[instance_id];
+> @@ -396,7 +397,7 @@ int hp_populate_password_package_data(union acpi_object *password_obj, int insta
+>  	password_data->attr_name_kobj = attr_name_kobj;
+>  
+>  	hp_populate_password_elements_from_package(password_obj,
+> -						   password_obj->package.count,
+> +						   password_obj_count,
+>  						   instance_id);
+>  
+>  	hp_friendly_user_name_update(password_data->common.path,
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
+> index fe5a9a3a4ef17..da5e81f1d188f 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
+> @@ -267,6 +267,7 @@ static int hp_populate_string_elements_from_package(union acpi_object *string_ob
+>   * @attr_name_kobj: The parent kernel object
+>   */
+>  int hp_populate_string_package_data(union acpi_object *string_obj,
+> +				    int string_obj_count,
+>  				    int instance_id,
+>  				    struct kobject *attr_name_kobj)
+>  {
+> @@ -275,7 +276,7 @@ int hp_populate_string_package_data(union acpi_object *string_obj,
+>  	string_data->attr_name_kobj = attr_name_kobj;
+>  
+>  	hp_populate_string_elements_from_package(string_obj,
+> -						 string_obj->package.count,
+> +						 string_obj_count,
+>  						 instance_id);
+>  
+>  	hp_update_attribute_permissions(string_data->common.is_readonly,
+> 
 
-i.e. a memmove() of up to (0xffff - index) * 16 bytes (~1 MiB) from an
-offset already past the block. This is reachable from an ordinary
-reflink (FICLONE) against a crafted/corrupted ocfs2 image: attaching
-an extent whose cpos sorts past every real record in the leaf forces
-the lookup to run off the end instead of returning early on a match.
-The attacker model is local: CAP_SYS_ADMIN mounting a crafted or
-corrupted ocfs2 image, or a raw write to the block device backing an
-already-mounted ocfs2 filesystem.
-
-ocfs2_validate_refcount_block() already validates the block's ECC,
-signature, rf_blkno and rf_fs_generation, but never rl_count/rl_used
-against the block's actual on-disk capacity. This is the same class
-of gap that ocfs2_validate_extent_block() (fs/ocfs2/alloc.c) already
-closes for the sibling extent-list header, which checks both the
-record capacity and the "used" bound before any code walks
-h_list.l_recs[]:
-
-	if (le16_to_cpu(eb->h_list.l_count) != ocfs2_extent_recs_per_eb(sb)) {
-		rc = ocfs2_error(...);
-		goto bail;
-	}
-
-	if (le16_to_cpu(eb->h_list.l_next_free_rec) >
-	    le16_to_cpu(eb->h_list.l_count)) {
-		rc = ocfs2_error(...);
-		goto bail;
-	}
-
-Add the equivalent pair of checks to ocfs2_validate_refcount_block():
-reject a refcount block whose rl_count does not match the fixed
-per-block capacity returned by ocfs2_refcount_recs_per_rb(), and
-reject rl_used > rl_count. Both checks are skipped when
-OCFS2_REFCOUNT_TREE_FL is set, because in that case the same union
-bytes hold an ocfs2_extent_list (rf_list), not the refcount record
-list (rf_records) -- that layout is already validated separately by
-ocfs2_validate_extent_block() when the referenced extent block is
-read. This mirrors the existing
-"!(rb->rf_flags & OCFS2_REFCOUNT_TREE_FL)" guard used elsewhere in
-this file (e.g. ocfs2_get_refcount_rec()) to decide whether
-rf_records or rf_list is the live member of the union.
-
-With this in place, a forged rl_used/rl_count is caught at block
-validation time (ocfs2_error()), consistent with every other
-corruption check in this function, instead of driving an
-out-of-bounds read in ocfs2_find_refcount_rec_in_rl() and a
-subsequent out-of-bounds memmove() in ocfs2_insert_refcount_rec().
-
-Verified against a crafted image on a v6.19 KASAN (KASAN_GENERIC)
-build: replaying the same reflink (FICLONE) reliably hit a KASAN
-report in __ocfs2_increase_refcount()/ocfs2_insert_refcount_rec()
-before this patch, and triggers no report once
-ocfs2_validate_refcount_block() rejects the forged rl_used/rl_count.
-
-Fixes: f2c870e3b12e ("ocfs2: Add ocfs2_read_refcount_block.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
----
- fs/ocfs2/refcounttree.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
-
-diff --git a/fs/ocfs2/refcounttree.c b/fs/ocfs2/refcounttree.c
-index 7323bde70caa..63d6cb326e30 100644
---- a/fs/ocfs2/refcounttree.c
-+++ b/fs/ocfs2/refcounttree.c
-@@ -116,6 +116,33 @@ static int ocfs2_validate_refcount_block(struct super_block *sb,
- 				 le32_to_cpu(rb->rf_fs_generation));
- 		goto out;
- 	}
-+
-+	/*
-+	 * rf_records (rl_count/rl_used/rl_recs[]) is only meaningful when
-+	 * this block is not an interior tree block (OCFS2_REFCOUNT_TREE_FL);
-+	 * in that case the same union bytes hold an extent list (rf_list)
-+	 * instead, which is validated by ocfs2_validate_extent_block().
-+	 */
-+	if (!(le32_to_cpu(rb->rf_flags) & OCFS2_REFCOUNT_TREE_FL)) {
-+		if (le16_to_cpu(rb->rf_records.rl_count) !=
-+		    ocfs2_refcount_recs_per_rb(sb)) {
-+			rc = ocfs2_error(sb,
-+					 "Refcount block #%llu has an invalid rl_count of %u\n",
-+					 (unsigned long long)bh->b_blocknr,
-+					 le16_to_cpu(rb->rf_records.rl_count));
-+			goto out;
-+		}
-+
-+		if (le16_to_cpu(rb->rf_records.rl_used) >
-+		    le16_to_cpu(rb->rf_records.rl_count)) {
-+			rc = ocfs2_error(sb,
-+					 "Refcount block #%llu has an invalid rl_used of %u (rl_count %u)\n",
-+					 (unsigned long long)bh->b_blocknr,
-+					 le16_to_cpu(rb->rf_records.rl_used),
-+					 le16_to_cpu(rb->rf_records.rl_count));
-+			goto out;
-+		}
-+	}
- out:
- 	return rc;
- }
 -- 
-2.50.1 (Apple Git-155)
+ i.
 
