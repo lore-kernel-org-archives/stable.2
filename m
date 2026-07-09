@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D4531F99A;
-	Thu,  9 Jul 2026 22:49:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277EF385D71;
+	Thu,  9 Jul 2026 22:49:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783637394; cv=none; b=Zst8QyoiCeUryXJ4WvYB0dNMntYnTcR3zUO8yMo5c+ZoE/ruRb478qI610EwXQfhAEV8++E5H/NVt457HZErjafFpnI+xkB8iWZvlYLP3KDCZlygjm+ycyJZTCE/Wl/0EgNEQDxA3du4KOeJgzdMNPHdEDAVu63qmcE/eJvF74U=
+	t=1783637396; cv=none; b=VhkZxpkUbYlkswywQRUtNQo3mHyh+VzKTjq+ZUDi0AQDQ+r8+S2ScCQNAj9EU1PKE/w6+eOmgTJDjoO2HVklHg1qqCGO4ERngJhZ2nRUcCDRDcL9mUFwR8un8H/4In4k6pqKEhbKx41ObQPzK4uwBb/xTn0eDIV5nQ9bLM1jgsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783637394; c=relaxed/simple;
-	bh=Okqp7MLfijeHbLRmU4RLIPd328cKzS9iZVT5PGhMZE4=;
-	h=Date:To:From:Subject:Message-Id; b=p874YptvTT9rx8OagFyUVZxq29qOw+Y2scIS9KrYGcLhNZjqiKPzmg7loQ8w2f8oVRdzi4WcqVJWjVyQ33HkIsQ2BikaxRJPJ3RMtxenL73zft348RSXF8mfYKrLrD9Zh+Vsbf3aPTs4bUFedAnuV1MasYNULgwx0ZWFephzu4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=CMJW5v9Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783637396; c=relaxed/simple;
+	bh=5yknw9e9aQ6pLOFteDO8pasGmD5vSTpAWoZl+pj8kUA=;
+	h=Date:To:From:Subject:Message-Id; b=ClIrfMcuvSiVOuW+6uCbzXotoiHBIu93sfJAqb5YIVctr4h+4cApCz7iA+WQa59HXBY5ELf8bVkdA1GTIqwr+yOLiCfCXHdKMH8RZZuca0yWdxZZtAMWqH0n+D0mcSbn/4aNUzGsbx6rxEXzW8Wv1GZRHWOQ+fm/lde3JYh+fKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=cMsqjdiq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="CMJW5v9Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 556241F00A3A;
-	Thu,  9 Jul 2026 22:49:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="cMsqjdiq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3F41F000E9;
+	Thu,  9 Jul 2026 22:49:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1783637392;
-	bh=0Lo1AHINaaeIUQHLTwQMOvobS1f/aUGZxPodZlyVvU4=;
+	d=linux-foundation.org; s=korg; t=1783637394;
+	bh=zZeANOfNamqNh/8IHZcgS5mxJmoi6gOCUziTKaJq5RQ=;
 	h=Date:To:From:Subject;
-	b=CMJW5v9YqhldQcYr35/PgaaX3oHYUr2UH3EBL+C80vpTC2sersOC0+gYLWyA3vJqM
-	 gCxsn4t28PhfRmiiwm6VwfQfs/NkLzEuwK6Ast/934Eb2Y7vSHj3xX9DNqUFrY4i3L
-	 5aVVZWlqH3c1cgIxO6v4brW5SQHv2XzhWt2493hk=
-Date: Thu, 09 Jul 2026 15:49:51 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,stable@vger.kernel.org,sj@kernel.org,ljs@kernel.org,lance.yang@linux.dev,klarasmodin@gmail.com,david@kernel.org,balbirs@nvidia.com,richard.weiyang@gmail.com,akpm@linux-foundation.org
+	b=cMsqjdiqW5IFVx3TccIp4GtsEmV8e0yXwb7ujbTr6snw+Cy2nGnzlhWBMHC2GShqZ
+	 AcjVBiWQs4HCSF2Y340rRskM0YsuDTt0Z9/y7mEFUiRCE+N9r0N7hCfUdphsore4HZ
+	 l7nhqjP0IBj3+fHnWQwnjYmE5BCWz19CiPdYCGCc=
+Date: Thu, 09 Jul 2026 15:49:54 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,yang@os.amperecomputing.com,stable@vger.kernel.org,ryan.roberts@arm.com,npache@redhat.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,dev.jain@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,baohua@kernel.org,riel@surriel.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-page_vma_mapped-fix-device-private-pmd-handling.patch removed from -mm tree
-Message-Id: <20260709224952.556241F00A3A@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-huge_memory-set-pg_has_hwpoisoned-only-after-new-folio-head-is-established.patch removed from -mm tree
+Message-Id: <20260709224954.BA3F41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,129 +35,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/page_vma_mapped: fix device-private PMD handling
+     Subject: mm/huge_memory: set PG_has_hwpoisoned only after new folio head is established
 has been removed from the -mm tree.  Its filename was
-     mm-page_vma_mapped-fix-device-private-pmd-handling.patch
+     mm-huge_memory-set-pg_has_hwpoisoned-only-after-new-folio-head-is-established.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Wei Yang <richard.weiyang@gmail.com>
-Subject: mm/page_vma_mapped: fix device-private PMD handling
-Date: Tue, 30 Jun 2026 02:15:40 +0000
+From: Rik van Riel <riel@surriel.com>
+Subject: mm/huge_memory: set PG_has_hwpoisoned only after new folio head is established
+Date: Wed, 1 Jul 2026 13:42:34 -0400
 
-Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
-device-private entries") introduced the concept of device-private PMD
-entries, but did not correctly update the rmap walk code to account for
-them.
+__split_folio_to_order() copies the hwpoison state onto each new sub-folio
+while splitting a folio to a non-zero order.  It does so via
 
-As a result, when page_vma_mapped_walk() encounters device-private PMD
-entries, it takes no action other than to acquire the PMD lock and exit.
+	if (handle_hwpoison && page_range_has_hwpoisoned(new_head, new_nr_pages))
+		folio_set_has_hwpoisoned(new_folio);
 
-However this is highly problematic for two reasons - firstly, device
-private entries possess a PFN so check_pmd() needs to be called to ensure
-an overlapping PFN range.
+*before* clear_compound_head(new_head)/prep_compound_page(new_head, ...)
+turns @new_head from a tail page into a proper folio head.
 
-Secondly, and more importantly, if PVMW_MIGRATION is set the caller
-assumes the returned entry is a migration entry, resulting in memory
-corruption when the caller tries to interpret the device private entry as
-such.
+PG_has_hwpoisoned is a FOLIO_SECOND_PAGE flag, so
+folio_set_has_hwpoisoned() resolves to folio_flags(folio, 1).  With the
+new compound_info-based page-flags layout, folio_flags() asserts the page
+is not a tail:
 
-In addition, commit 146287290023 ("mm/huge_memory: implement
-device-private THP splitting") allowed device private PMDs to be split
-like THP mappings, but again did not update this code path.
+	VM_BUG_ON_PGFLAGS(page->compound_info & 1, page);
+	VM_BUG_ON_PGFLAGS(n > 0 && !test_bit(PG_head, &page->flags.f), page);
 
-As a result, we might race a PMD split prior to acquiring the PMD lock.
+At the current call site @new_head still has the tail marker
+(compound_info bit 0 set, PG_head clear), so on CONFIG_DEBUG_VM kernels
+this hits:
 
-This patch addresses all of these issues by invoking check_pmd(), ensuring
-PMVW_MIGRATION is not set and checks whether a split raced us we do for
-PMD THP and migration entries.
+  kernel BUG at include/linux/page-flags.h:354
+  folio_flags+0x82
+  folio_set_has_hwpoisoned
+  __split_folio_to_order
+  __split_unmapped_folio
+  __folio_split
+  truncate_inode_partial_folio  (shmem hole-punch / MADV_REMOVE)
 
-Instead of checking for a subset of the cases after taking the pmd_lock(),
-put device-private along with pmd_trans_huge() and
-pmd_is_migration_entry().  Also remove thp_migration_supported() as it is
-already guarded by pmd_is_migration_entry().
+Reproduced by syzkaller: hwpoison-inject a few subpages of a large shmem
+folio, then MADV_REMOVE (fallocate punch hole) on the same range, which
+splits the partial folio to a non-zero order.
 
-[akpm@linux-foundation.org: fix Raspberry Pi 1 build, per David]
-Link: https://lore.kernel.org/20260630021540.17297-1-richard.weiyang@gmail.com
-Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
-Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
-Suggested-by: David Hildenbrand <david@kernel.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Tested-by: Klara Modin <klarasmodin@gmail.com>
-Cc: SeongJae Park <sj@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: <stable@vger.kernel.org>q
+memory_failure() tries to split the poisoned folio to order 0 first, but
+that split is best-effort; when it fails the folio is left large with
+PG_has_hwpoisoned set, the case fa5a06170036 added this hwpoison copying
+for.
+
+Move the folio_set_has_hwpoisoned() call to after
+clear_compound_head()/prep_compound_page(), where @new_folio is a real
+order-new_order head folio (handle_hwpoison implies new_order != 0, so a
+second page always exists).  The flag still lands on the same struct page
+(page[1] of the new folio); only the ordering relative to compound-head
+setup changes, satisfying the FOLIO_SECOND_PAGE precondition.
+
+Link: https://lore.kernel.org/20260701174235.3173401-1-riel@surriel.com
+Fixes: fa5a06170036 ("mm/huge_memory: preserve PG_has_hwpoisoned if a folio is split to >0 order")
+Signed-off-by: Rik van Riel <riel@surriel.com>
+Assisted-by: Claude:claude-opus-4-8
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Yang Shi <yang@os.amperecomputing.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/page_vma_mapped.c |   31 +++++++++++++++++--------------
- 1 file changed, 17 insertions(+), 14 deletions(-)
+ mm/huge_memory.c |   12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
---- a/mm/page_vma_mapped.c~mm-page_vma_mapped-fix-device-private-pmd-handling
-+++ a/mm/page_vma_mapped.c
-@@ -243,21 +243,31 @@ restart:
- 		 */
- 		pmde = pmdp_get_lockless(pvmw->pmd);
+--- a/mm/huge_memory.c~mm-huge_memory-set-pg_has_hwpoisoned-only-after-new-folio-head-is-established
++++ a/mm/huge_memory.c
+@@ -3587,10 +3587,6 @@ static void __split_folio_to_order(struc
+ 				 (1L << PG_dropbehind) |
+ 				 LRU_GEN_MASK | LRU_REFS_MASK));
  
--		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
-+		if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
-+		    (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde) ||
-+		    pmd_is_device_private_entry(pmde))) {
- 			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
- 			pmde = *pvmw->pmd;
--			if (!pmd_present(pmde)) {
-+			if (pmd_is_migration_entry(pmde)) {
- 				softleaf_t entry;
- 
--				if (!thp_migration_supported() ||
--				    !(pvmw->flags & PVMW_MIGRATION))
-+				if (!(pvmw->flags & PVMW_MIGRATION))
- 					return not_found(pvmw);
- 				entry = softleaf_from_pmd(pmde);
-+				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
-+					return not_found(pvmw);
-+				return true;
-+			} else if (pmd_is_device_private_entry(pmde)) {
-+				softleaf_t entry;
- 
--				if (!softleaf_is_migration(entry) ||
--				    !check_pmd(softleaf_to_pfn(entry), pvmw))
-+				if (pvmw->flags & PVMW_MIGRATION)
-+					return not_found(pvmw);
-+				entry = softleaf_from_pmd(pmde);
-+				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
- 					return not_found(pvmw);
- 				return true;
-+			} else if (!pmd_present(pmde)) {
-+				return not_found(pvmw);
- 			}
- 			if (likely(pmd_trans_huge(pmde))) {
- 				if (pvmw->flags & PVMW_MIGRATION)
-@@ -266,17 +276,10 @@ restart:
- 					return not_found(pvmw);
- 				return true;
- 			}
--			/* THP pmd was split under us: handle on pte level */
-+			/* THP/device-private pmd was split under us: handle on pte level */
- 			spin_unlock(pvmw->ptl);
- 			pvmw->ptl = NULL;
- 		} else if (!pmd_present(pmde)) {
--			const softleaf_t entry = softleaf_from_pmd(pmde);
+-		if (handle_hwpoison &&
+-		    page_range_has_hwpoisoned(new_head, new_nr_pages))
+-			folio_set_has_hwpoisoned(new_folio);
 -
--			if (softleaf_is_device_private(entry)) {
--				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
--				return true;
--			}
--
- 			if ((pvmw->flags & PVMW_SYNC) &&
- 			    thp_vma_suitable_order(vma, pvmw->address,
- 						   PMD_ORDER) &&
+ 		new_folio->mapping = folio->mapping;
+ 		new_folio->index = folio->index + i;
+ 
+@@ -3612,6 +3608,14 @@ static void __split_folio_to_order(struc
+ 			folio_set_large_rmappable(new_folio);
+ 		}
+ 
++		/*
++		 * PG_has_hwpoisoned is on the 2nd page, so set it after
++		 * the compound head is prepped.
++		 */
++		if (handle_hwpoison &&
++		    page_range_has_hwpoisoned(new_head, new_nr_pages))
++			folio_set_has_hwpoisoned(new_folio);
++
+ 		if (folio_test_young(folio))
+ 			folio_set_young(new_folio);
+ 		if (folio_test_idle(folio))
 _
 
-Patches currently in -mm which might be from richard.weiyang@gmail.com are
+Patches currently in -mm which might be from riel@surriel.com are
 
 
