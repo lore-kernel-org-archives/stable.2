@@ -1,205 +1,163 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0E33CB911;
-	Thu,  9 Jul 2026 07:27:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783582031; cv=pass; b=K7GUQHVQ7ZeycBdj7Shv0b7cPFGRPfTTykkvCXxGC1kJtzFDxtDB2lzuf7yWUuHaIbkHn+KagIt7fVlo3I6/scnnjmUBgicPbF83uqM8XCUkawg9As2jMvqq+ilGTru7kG6KZAgZbiQLQSlx0hBnTRD8jbNwCgp2IB1P+YP7e0o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783582031; c=relaxed/simple;
-	bh=2VOZ1Q8y/ld42IHfECDvgAv3CXosyg8FYfrklNHRoFQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IzCuST5S4u2x5m0sHT5afTqGm73mjh+6KdxvR91E5i5RbpqWgqqMLBVpXrd/0sEFC2Q1QpaPf4M2d746JX9UKGx2fTxP7P7zzemKLH+2Q+KZ1ws+ZV2+kM9TRS6QDRSBYXXaoqcIZFJjmoad1o+mAcXriS74erNTBuNDFjh6xwU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=GSvt0m0p; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBF91E4AF;
+	Thu,  9 Jul 2026 07:40:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783582821; cv=none; b=NvfS6GRmYb3YwB6R000nWi7C93RglRl/jidkgiX9wj9VYmnn5Ql4Sz7Icbvo+VQb4LvYeVMFMOc7WzmsyXSWHPWqx3J8h7zYyuwLV/4OASzwrF16m/KWSAMz/+MHaQMggmVWGGpagkgABx21WgtoZQjzsARv4/ZbF336wdZv9dU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783582821; c=relaxed/simple;
+	bh=HM/gYrLEvZR09F5qsvVfKg5T9K5VZ6UmwBphz7bqJac=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=dI+1R8bCVsfZWsy3Qv/YjIgZUXSUPaFhSSqWc5mVi1IX4CB338z35Qr4CZSrnG4lM3QJW8KKmu9O30qeXcrxy3F81gOz38u4fz706+y8grVLWF1ZFIewUFP/rKNew3fe074iD4lr4x4iNePXX9TDHIKfQMgF1PU6+gCGZyEukEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=V+WFQLCO; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="GSvt0m0p"
-ARC-Seal: i=1; a=rsa-sha256; t=1783582020; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=e7FoGYGNK+9V3G703i9kktpYiQj5LzOBQHhcG5sZbTls3dgVJQ/hHf7JEG3XLFnPXM1IPPAHAaCD7ins4InBy5wPOAAnJfx+j7vcdJIbX73eHq0hyWzd6fWWHF4Qy3l0XJcSWB8XsF+u6Yl1Wb+I0KiAjEXMXJtYfZtPcdwUhe8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1783582020; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=1RdpyygBue2iLcmMr8lORAPhAaCxeQESuFVtpwaibxI=; 
-	b=QwXVJ08y7SSJ7ty+G8Tq511ss78TsHcx4vPuAd67PZgNhKOEqWl++9rGfmg6mXgML10Hi6Y32i+bNDum3K5qpXrOvDTJ4fZolvC1ddrEQTOPg1Yp5oU7P9NMIumi6YdTZQ46loECzUfz2Bz3zTgY02cnjpNxKuxuzWnGZE1hccM=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=auditcode.ai;
-	spf=pass  smtp.mailfrom=security@auditcode.ai;
-	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783582020;
-	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=1RdpyygBue2iLcmMr8lORAPhAaCxeQESuFVtpwaibxI=;
-	b=GSvt0m0pfZoI3DD43Ev6WEx5/+RRtn4HtyuYLSYfzBy6WRmxtvwdRpUKLrYRkw0P
-	w83RQV2auPY9uorsAvuFIa7fFYWTzjvsvFE/EyJW+1NC+MNtqS3BQGM1YrnLuBWL9SI
-	gcCj32Lv6y4niVPZ/m+kVuRw/91PuUbPd7I0hJxY=
-Received: by mx.zoho.eu with SMTPS id 1783582018762841.0455827055187;
-	Thu, 9 Jul 2026 09:26:58 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: yanjun.zhu@linux.dev,
-	zyjzyj2000@gmail.com,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] RDMA/rxe: validate num_sge/cur_sge before indexing wqe->dma.sge[]
-Date: Thu,  9 Jul 2026 09:26:56 +0200
-Message-ID: <20260709072656.9074-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260708224534.1206-1-security@auditcode.ai>
-References: <20260708224534.1206-1-security@auditcode.ai>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="V+WFQLCO"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6696IN31754028;
+	Thu, 9 Jul 2026 07:39:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=SKVKVa0lRnKWGdo4kIHa4TdLC2a7l9
+	Ow3eiebFE2rTU=; b=V+WFQLCONHlM1SuT/c0N5l76Nf3JxFVcIkDkuSWXkFCazo
+	8Nnhgs/4mLtFcNkEa0VV669zYJBWzWc7ArZboRaSx1ydPCDFRy6FcW8AL2tLxBxe
+	X82rSTLb1M30/i0BSU6QrF3OIkyaH5oifczKesmnA6liiqPBXNQFo1eicjoFmliO
+	+V8Du25n20/3y9sZj+CxJwh1LY9JX+W3Z0U7WPpPwmWS22E3Cj5rLWFodoSj7gKD
+	0LexEdMYRy87BbCMW2EcNxK5QyugRjAZ46LFGtRZ+R1xO+D0RjUGhCF7G05ANika
+	XFpbtPeOZ8NBedSefvlcaqzC/Uu+TlXauoFxeErA==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4f6rke0ye9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 07:39:50 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6697YdDS004527;
+	Thu, 9 Jul 2026 07:39:50 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4f7e0hm0s5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 07:39:50 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6697dnAN28705294
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 9 Jul 2026 07:39:49 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8430658061;
+	Thu,  9 Jul 2026 07:39:49 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1F19E5803F;
+	Thu,  9 Jul 2026 07:39:44 +0000 (GMT)
+Received: from vaibhav?linux.ibm.com (unknown [9.43.124.196])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with SMTP;
+	Thu,  9 Jul 2026 07:39:43 +0000 (GMT)
+Received: by vaibhav@linux.ibm.com (sSMTP sendmail emulation); Thu, 09 Jul 2026 13:09:42 +0530
+From: Vaibhav Jain <vaibhav@linux.ibm.com>
+To: leixiang <leixiang@kylinos.cn>
+Cc: seanjc@google.com, pbonzini@redhat.com, stable@vger.kernel.org,
+        leixiang
+ <leixiang@kylinos.cn>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Nicholas
+ Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Suresh Warrier
+ <warrier@linux.vnet.ibm.com>,
+        Paul Mackerras <paulus@ozlabs.org>, linuxppc-dev@lists.ozlabs.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: PPC: Book3S HV: Set irqfd->producer only on success
+In-Reply-To: <20260709055755.31297-1-leixiang@kylinos.cn>
+References: <ak59frQUBl9Gs3Qn@google.com>
+ <20260709055755.31297-1-leixiang@kylinos.cn>
+Date: Thu, 09 Jul 2026 13:09:42 +0530
+Message-ID: <87se5stxvl.fsf@vajain21.in.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=M7J97Sws c=1 sm=1 tr=0 ts=6a4f5047 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=1XWaLZrsAAAA:8 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=OpZPvQM_6S_00z3mgO4A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA2OCBTYWx0ZWRfX2S+vkU4q0Hf/
+ aCFFljFfrrXJmGt0HedXJVKHOkT8yQ7NKjqrB/iOu/tO6iC/ULguI7EPXitP0R+6+bSQO0TL9Yw
+ kV+En1mz4Z7MxSAOiyaeL5bVmc56gd9Shkmv16MwBJA4QIR5Fj2zeoe5YR+DkF71/LvXV3xYYIR
+ hLHhWesBka+oMsTo//uT0rDH9iFl1dwzS4EjiJF537myYmKSYOpr0b0fRZGEMZgqB8r2p/YzRll
+ XCJMcU1dnbzexeovYmdPEvPTMn2mgxB+Xd9WyQbG+sZE3CxWDgB05DipSNA9L0onzq8mtWSxQWi
+ TFqm3WB3UyD56+u6x/JOeakN9Z5A3EGHgNpjLjmqSmW6HNOlNeXG1THMDKFiobuCAiRoTrJEnYA
+ GuI/JcNhAyZ2hP62255iUxpGV/ZOFb5fgIaktv5h7Zlb/JVKWx7Dsor3cGQYlDjOAl/FLIy8qYe
+ +oiZx5CHJ4GtsGcoXQg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA2OCBTYWx0ZWRfX8ocAnjptmL7i
+ Ob7uKmtiOSnGch16ORflXtCaxBaXI79cbCn4/x+H1+SuiI2Go8Vt85877fztFRyYuQF7bFGZRAj
+ RwVZ4ugnHFPvRqpYInCVEyE/yaFUW4M=
+X-Proofpoint-GUID: 2mGopxkw-TgwJnY9_JQU-7s-auhOmslQ
+X-Proofpoint-ORIG-GUID: IF47d6jbO94cYnx2KYd2-EkhmqVRbTrw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1011 adultscore=0
+ priorityscore=1501 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090068
 
-A user QP's send queue (qp->sq.queue) is a shared ring the userspace
-application writes to directly via mmap (vmalloc_user(), see
-rxe_queue.c). For such a QP, rxe_post_send() takes the qp->is_user
-branch and only schedules the requester task -- it never validates or
-copies the posted WQE:
+Hi leixiang,
 
-	drivers/infiniband/sw/rxe/rxe_verbs.c:
-		if (qp->is_user) {
-			rxe_sched_task(&qp->send_task);
-			...
-		}
+Thanks for catching and fixing this for kvm-hv:
 
-The requester then consumes the WQE in place straight out of that
-mmap'd ring:
+leixiang <leixiang@kylinos.cn> writes:
 
-	rxe_req.c:	wqe = req_next_wqe(qp);
-	rxe_req.c:	err = copy_data(qp->pd, 0, &wqe->dma,
-					payload_addr(pkt), payload,
-					RXE_FROM_MR_OBJ);
+> Set irqfd->producer only after kvmppc_set_passthru_irq() succeeds to
+> avoid leaving a dangling pointer on failure. The bypass manager does
+> not register a failed producer, so the pointer is never cleared.
+>
+> Fixes: c57875f5f9be ("KVM: PPC: Book3S HV: Enable IRQ bypass")
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: leixiang <leixiang@kylinos.cn>
+> ---
+>  arch/powerpc/kvm/book3s_hv.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+> index 61dbeea317f3..ff7b25629125 100644
+> --- a/arch/powerpc/kvm/book3s_hv.c
+> +++ b/arch/powerpc/kvm/book3s_hv.c
+> @@ -6111,12 +6111,12 @@ static int kvmppc_irq_bypass_add_producer_hv(struct irq_bypass_consumer *cons,
+>  	struct kvm_kernel_irqfd *irqfd =
+>  		container_of(cons, struct kvm_kernel_irqfd, consumer);
+>  
+> -	irqfd->producer = prod;
+> -
+>  	ret = kvmppc_set_passthru_irq(irqfd->kvm, prod->irq, irqfd->gsi);
+>  	if (ret)
+>  		pr_info("kvmppc_set_passthru_irq (irq %d, gsi %d) fails: %d\n",
+>  			prod->irq, irqfd->gsi, ret);
+> +	else
+> +		irqfd->producer = prod;
+>  
+>  	return ret;
+>  }
+> -- 
+> 2.45.0
+>
 
-copy_data() indexes the per-WQE sge array with the attacker-controlled
-cur_sge field and dereferences it (once there is payload to copy):
+Proposed new error handling path looks better compared to v1 of the
+patch. Also agree to the changes made.
 
-	rxe_mr.c:	struct rxe_sge *sge = &dma->sge[dma->cur_sge];
-	rxe_mr.c:	...
-	rxe_mr.c:	if (sge->length && (offset < sge->length)) {
 
-dma->sge[] is a flex array whose real backing storage is exactly
-qp->sq.max_sge entries per WQE slot (see rxe_qp.c, wqe_size computed
-from max_sge at QP create time). Since a user QP's WQE bytes are
-entirely attacker-supplied, both wqe->dma.num_sge and wqe->dma.cur_sge
-can be set to arbitrary values independent of each other and of
-max_sge. Only the *kernel*-QP post path bounds num_sge:
+Hence,
 
-	rxe_verbs.c: validate_send_wr()
-		if (num_sge > sq->max_sge) {
-			rxe_err_qp(qp, "num_sge > max_sge\n");
+Reviewed-by: Vaibhav Jain <vaibhav@linux.ibm.com>
 
-but that function is only reachable from rxe_post_one_send() for
-kernel-owned QPs; it is never consulted for a user QP's raw WQE.
-
-The sibling receive path already has the equivalent guard, with the
-literal comment documenting exactly why it is required:
-
-	rxe_resp.c: get_srq_wqe()
-		/* don't trust user space data */
-		if (unlikely(wqe->dma.num_sge > srq->rq.max_sge)) {
-			...
-			rxe_dbg_qp(qp, "invalid num_sge in SRQ entry\n");
-			return RESPST_ERR_MALFORMED_WQE;
-		}
-
-The send/requester path has no analogous check, so a local,
-unprivileged user who can open /dev/infiniband/uverbs* and create a
-user QP on a soft-RoCE (rxe) link can hand-craft a WQE in the shared
-send queue with an out-of-range wqe->dma.cur_sge (or an oversized
-wqe->dma.num_sge) and ring the send doorbell. rxe_requester() then
-calls copy_data(), which dereferences &dma->sge[cur_sge] out of the
-bounds of the per-WQE sge array -- a vmalloc out-of-bounds *read*
-(confirmed via KASAN: "KASAN: vmalloc-out-of-bounds in copy_data"),
-reliably panicking the kernel (local DoS). sge->addr itself is still
-bounds-checked later by lookup_mr()/rxe_mr_copy(), so the primitive is
-an OOB read of sge metadata, not an arbitrary read/write primitive.
-
-Fix this the same way get_srq_wqe() already does for SRQ entries:
-bound the fields pulled from the (possibly user-mapped) send queue
-entry before they are used to index wqe->dma.sge[], right where the
-requester fetches the next WQE off the ring in rxe_requester(). num_sge
-is capped at qp->sq.max_sge (matching the sibling SRQ check and the
-kernel-QP validate_send_wr() check). cur_sge is bounded only when the
-WQE actually carries payload (wqe->dma.resid): copy_data() dereferences
-dma->sge[cur_sge] only after its own length == 0 early return, so a
-zero-payload WQE never touches the sge array and must not be rejected
--- notably that is the only kind of WQE a max_sge == 0 QP can post
-(qp->sq.max_sge is itself derived from user-supplied max_send_sge /
-max_inline_data and may be 0). Gating on resid rather than num_sge is
-deliberate: payload is wqe->dma.resid, which is independent of num_sge,
-so a WQE with num_sge == 0 but a large resid and an out-of-range
-cur_sge would still reach the sge dereference.
-
-This is a long-standing bug in the rxe (soft-RoCE) driver: the
-qp->is_user bypass in rxe_post_send() and the unbounded
-&dma->sge[dma->cur_sge] indexing in copy_data() have been present
-since the driver was introduced.
-
-Runtime-verified on a v6.19 KASAN (CONFIG_KASAN_VMALLOC=y) stand: a
-reproducer that posts a user QP send WQE with an out-of-range cur_sge
-reliably tripped "KASAN: vmalloc-out-of-bounds in copy_data" (an
-out-of-bounds read) before this patch, and no longer triggers that
-report with the patch applied.
-
-Fixes: 8700e3e7c485 ("Soft RoCE driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
----
-v2: address Zhu Yanjun's review of v1
-    (https://lore.kernel.org/linux-rdma/20260708224534.1206-1-security@auditcode.ai/):
-    qp->sq.max_sge can legitimately be 0, and v1's unconditional
-    "cur_sge >= max_sge" check then wrongly rejected a valid zero-payload
-    WQE. Gate the cur_sge bound on wqe->dma.resid instead (copy_data()
-    dereferences dma->sge[] only when there is payload), so zero-payload
-    WQEs -- the only kind a max_sge == 0 QP can post -- are accepted while
-    the out-of-range cur_sge OOB is still rejected. Commit message fixed.
-
- drivers/infiniband/sw/rxe/rxe_req.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
-index 12d03f390b09..363c56a1edbb 100644
---- a/drivers/infiniband/sw/rxe/rxe_req.c
-+++ b/drivers/infiniband/sw/rxe/rxe_req.c
-@@ -701,6 +701,28 @@ int rxe_requester(struct rxe_qp *qp)
- 	if (unlikely(!wqe))
- 		goto exit;
- 
-+	/*
-+	 * Don't trust user space data: for a user QP, qp->sq.queue is a
-+	 * raw ring the application writes directly, so this WQE's num_sge
-+	 * and cur_sge are attacker-controlled. copy_data() dereferences
-+	 * dma->sge[cur_sge] without bounding the initial cur_sge against
-+	 * the per-WQE sge array, whose capacity is qp->sq.max_sge (the
-+	 * loop there only bounds subsequent increments, against num_sge).
-+	 * Bound num_sge to that capacity, the way get_srq_wqe() and
-+	 * validate_send_wr() already do, and bound cur_sge only when the
-+	 * WQE actually carries payload (dma.resid): copy_data() returns
-+	 * early on a zero-length copy before it ever touches dma->sge[],
-+	 * so a zero-payload WQE -- the only valid WQE on a max_sge == 0
-+	 * QP -- must not be rejected here.
-+	 */
-+	if (unlikely(wqe->dma.num_sge > qp->sq.max_sge ||
-+		     (wqe->dma.resid &&
-+		      wqe->dma.cur_sge >= qp->sq.max_sge))) {
-+		rxe_dbg_qp(qp, "invalid num_sge/cur_sge in send wqe\n");
-+		wqe->status = IB_WC_LOC_QP_OP_ERR;
-+		goto err;
-+	}
-+
- 	if (rxe_wqe_is_fenced(qp, wqe)) {
- 		qp->req.wait_fence = 1;
- 		goto exit;
 -- 
-2.50.1 (Apple Git-155)
-
+Cheers
+~ Vaibhav
