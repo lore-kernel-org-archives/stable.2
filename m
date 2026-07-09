@@ -1,223 +1,120 @@
-Received: from mail-pg1-f202.google.com (mail-pg1-f202.google.com [209.85.215.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622873B19AC
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 21:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A524499AB;
+	Thu,  9 Jul 2026 21:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783631950; cv=none; b=jMfQi7UA8Gmzy+4ipkB559YkTXAPQTc8sNa4J7Gkds+S7jPtZlzvakV4DeuhboIzP6R13axgoYOCkowiqiZga17Ok8CtMhXM4nu5fko6pK6SpafQ28pOxintRHW847btaa+qa0UmYLc/hXWUjU2B6yhjiSDLB5etxA5T7lmhzyw=
+	t=1783633025; cv=none; b=tfJF8pG/NrKF+3gm9F6uZEUsl4Q+u3d2m00QX2sxDS0L/6kcQM/EevO5Ply/f+DpL8rtiLlo84/UKfSu9yVT21EjVTjhY8P6QCmAGVmBYM3wQPLen5TqTBOZDVxRoeDtvrJaGHjLi///5BdJJOjFoF9BwTyevJQtkUBQdBWW5CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783631950; c=relaxed/simple;
-	bh=0g/6zbiEcbIQq0OxAyV2Q08ui9MvxNfKFpl/ZYmlVHA=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Hjp3KAzz6obsRBU2IUqKnnousa2tVAZ11r8Vn1EnO/WnC5picpAGILYajyBqFO0zmFR/ZuXMeCy7qQV8Tqpqfffb1Tj3dXjejaChVi67IlsV2vWDDbHDwX++4TzYjg9BNWfsQfPPfASY3wbWAPLL1G8tbH0keLMqVzThes/6RxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ODdPRmOo; arc=none smtp.client-ip=209.85.215.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
+	s=arc-20240116; t=1783633025; c=relaxed/simple;
+	bh=RhgYNwi3nu2DKCYq9fwdnfknrJJ8lS+kAuuxezYJpHw=;
+	h=Date:To:From:Subject:Message-Id; b=U9gGL/x782tOJ3f12EO02/gTv64EypvLCcM9UnnLKKoXADJZEntLV9A54quROTSiaAv5HAhSLlr9FrxwHhEi4b5PxXFvyvgntO+O2MORwEdQBlR3WHW+yRO2JxnRKOZlMvvz/0vPxnmxfgudg+/j3Ts+OZzlruhoYILemzgqt7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=fpHNkJDW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ODdPRmOo"
-Received: by mail-pg1-f202.google.com with SMTP id 41be03b00d2f7-c88aab7c1d4so210000a12.3
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 14:19:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="fpHNkJDW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FDD91F00A3A;
+	Thu,  9 Jul 2026 21:37:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783631949; x=1784236749; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+T7RxQXDP6VavQCmW76B4jR7UdEawZb+uP1OIxEgxgI=;
-        b=ODdPRmOoRHCUiHwdDtWxbYWnZUMqWLK5coW6GCfL0yIdF67yqIvMC7G9tSzqLUTGdn
-         eW57+JoOBnMcj13mM0D1AaZL/Z4wskrVCvv2XMy38tpsoS7ryyG0Qi03h0PBHxCDqYYL
-         16cWwY8cQSza0sYmNNDQou39Xr56dlKUaN+yW2MjyZ4R2umlrW67ltkFzv8ONQJQkmKQ
-         RuYfv0mDFxbIsx8KQnzRaef0e1KcrlqRG7Qf4ohdIES33jJFc9ssREA0MZ54hYATdBhl
-         ZOzm1fBvVdLU/JiGrRO0X3LQr7ohgaZW//UwZnTBAl2YbU/FkJ+qFtxPc6E7KMKClzgX
-         1UPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783631949; x=1784236749;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+T7RxQXDP6VavQCmW76B4jR7UdEawZb+uP1OIxEgxgI=;
-        b=ELM/mbaS+bIF4qnQ9iH32qL2cr/IkUiRQIw4CKQxDnZn/N2EeOL8WYB+Fr7YX/wxzx
-         L86B6GqLIxFUJtnS5Vd0+FUPSkc1+rI8RWZqYEuyYXJgbXBVlO/zXznt5/sBsgVktoTc
-         KMOGT/9AcAI4xLgJNJJLxxomyFebWzADhcLK2MAK06f5E7oquX9jz5sJn3gH2VT7Zuzj
-         0PWwB0GsfZ9AdhIObZA2BrQS2QJheA5aSl4RYCVSXOKbclaNne7iagzxwbW3ehRfyLhY
-         AyosdHLz/XBgISfA0bQxBu3GcvCsSprO+mR2ezaE1oXsdrUnIxmW/z34fjCyadqMnoT3
-         aixA==
-X-Forwarded-Encrypted: i=1; AHgh+RqwgeCg7c4aHHjbEh7JuxcJLDGKGV0VwI1jiPZ0OUPdBCEOQ1nDvEbLy/FK8xk80t58F2ksUGE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx25wpeIA/2OPFIqW6r2kT0P7y+Ywkn0lcGTQEflN+5H+RpujOa
-	bpdqmoyv/zPAbKsR0k8cxsbgs5K6rXjQR335Ze4CMwHidcW87LEAoM2QUw5mPGyK/dvgU17yNRS
-	Al0krFClS6zm0Qs6+2J4EQqwm3w==
-X-Received: from pgmj15.prod.google.com ([2002:a63:594f:0:b0:c96:9e6a:6261])
- (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:918c:b0:3bf:63af:859 with SMTP id adf61e73a8af0-3c0bd0f8fd3mr10854302637.45.1783631948380;
- Thu, 09 Jul 2026 14:19:08 -0700 (PDT)
-Date: Thu,  9 Jul 2026 21:19:06 +0000
+	d=linux-foundation.org; s=korg; t=1783633023;
+	bh=nCWVjzIEzU9eOYfm2dNBWZa14PTVFafJPf5PNE2ocdQ=;
+	h=Date:To:From:Subject;
+	b=fpHNkJDWXf2pJKQLSJNWCXUuDo7lMtaSWvECXBC5pYndfM0IWLEH4jLX9CEQPXwRN
+	 0ShzKzKJwhMXCZUVq3Wl3aK2e4P2hwnDQXF3zxVj0VjuGYjpFIPyS/dRdZltd22pIv
+	 hhPpVOIPqTsql3Rvt6UQJz0tn2oa8d0P0O/R+qSo=
+Date: Thu, 09 Jul 2026 14:37:02 -0700
+To: mm-commits@vger.kernel.org,tj@kernel.org,stable@vger.kernel.org,sashiko-bot@kernel.org,dennis@kernel.org,cl@linux.com,ziy@nvidia.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-percpu-km-fix-bitmap-overflow-and-accounting-in-pcpu_create_chunk.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260709213703.7FDD91F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.795.g602f6c329a-goog
-Message-ID: <20260709211906.3322883-1-hramamurthy@google.com>
-Subject: [PATCH net v2] gve: fix Rx queue stall on alloc failure
-From: Harshitha Ramamurthy <hramamurthy@google.com>
-To: netdev@vger.kernel.org
-Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	willemb@google.com, jordanrhee@google.com, nktgrg@google.com, 
-	maolson@google.com, thostet@google.com, csully@google.com, bcf@google.com, 
-	maciej.fijalkowski@intel.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Eddie Phillips <eddiephillips@google.com>
-Content-Type: text/plain; charset="UTF-8"
 
-From: Eddie Phillips <eddiephillips@google.com>
 
-When the system is under extreme memory pressure, page allocations can
-fail during the Rx buffer refill loop. If the number of buffers posted
-to hardware falls below a critical low threshold and the refill loop
-exits due to allocation failures, the queue can stall:
+The patch titled
+     Subject: mm/percpu-km: fix bitmap overflow and accounting in pcpu_create_chunk()
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-percpu-km-fix-bitmap-overflow-and-accounting-in-pcpu_create_chunk.patch
 
-1. The device drops incoming packets because there are no descriptors.
-2. Since no packets are processed, no Rx completions are generated.
-3. Because no completions occur, NAPI is never scheduled, preventing
-   the refill loop from running again even after memory is freed.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-percpu-km-fix-bitmap-overflow-and-accounting-in-pcpu_create_chunk.patch
 
-This results in a permanent queue stall.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Resolve this by introducing a starvation recovery timer for each Rx queue.
-If the number of buffers posted to hardware falls below a critical low
-threshold, start a timer to periodically reschedule NAPI. Once NAPI runs
-and successfully refills the queue above the threshold, the timer is
-not rescheduled.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-The threshold is set to 32 because a single maximum-sized Receive Segment
-Coalescing (RSC) packet can consume up to 19 descriptors in the Rx path.
-Lower thresholds (such as 8 or 16) would be insufficient to process a
-complete maximum-sized RSC packet, risking packet drops or unexpected
-hardware behavior under memory pressure. Setting the threshold to 32
-guarantees a safe margin to handle at least one full RSC packet.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Cc: stable@vger.kernel.org
-Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
-Reviewed-by: Jordan Rhee <jordanrhee@google.com>
-Signed-off-by: Eddie Phillips <eddiephillips@google.com>
-Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Zi Yan <ziy@nvidia.com>
+Subject: mm/percpu-km: fix bitmap overflow and accounting in pcpu_create_chunk()
+Date: Thu, 09 Jul 2026 15:12:01 -0400
+
+In pcpu_create_chunk(), nr_pages is the total contiguous backing
+allocation, i.e., nr_units * pcpu_unit_pages, but pcpu_chunk_populated()
+uses it to set chunk->populated, whose size is pcpu_unit_pages, bitmap. 
+Since bit N in chunk->populated means page offset N inside every unit is
+backed.  When nr_units > 1, the function writes beyond chunk->populated. 
+Fix it by using chunk->nr_pages.
+
+It also fixes the global pcpu_nr_empty_pop_pages accounting, since
+pcpu_balance_free() only iterates up to chunk->nr_pages.
+
+Commit a63d4ac4ab609 ("percpu: make percpu-km set chunk->populated bitmap
+properly") introduced the bitmap overflow issue.  Later, commit
+b539b87fed37f ("percpu: implmeent pcpu_nr_empty_pop_pages and
+chunk->nr_populated") added pcpu_nr_empty_pop_pages and caused the
+accounting issue.
+
+Link: https://lore.kernel.org/20260709-fix-pcpu_create_chunk-in-percpu-km-v1-1-1f64745a84cc@nvidia.com
+Fixes: a63d4ac4ab609 ("percpu: make percpu-km set chunk->populated bitmap properly")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260703-keep-subpage-private-zero-at-free-v2-0-2970fe777dd6%40nvidia.com?part=1
+Assisted-by: Codex:GPT-5
+Signed-off-by: Zi Yan <ziy@nvidia.com>
+Cc: Christoph Lameter <cl@linux.com>
+Cc: Dennis Zhou <dennis@kernel.org>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
-Changes in v2:
-- Link to v1: https://lore.kernel.org/netdev/20260701005341.3699161-1-hramamurthy@google.com/
-- Relocated the starvation timer to the end of gve_rx_ring to avoid polluting
-hotpath cachelines
-- Decoupled timer lifecycle from allocation cycles by moving initialization
-and shutdown to start/stop pathways instead of setup/remove pathways.
-- Added explicit rationale for the 32-descriptor threshold
-(GVE_RX_BUF_THRESH_DQO) ensuring it is safe for maximum-sized RSC packets.
-- Removed addition of a stat tracking critical low buffer events
 
- drivers/net/ethernet/google/gve/gve.h        |  3 +++
- drivers/net/ethernet/google/gve/gve_rx_dqo.c | 34 ++++++++++++++++++++++++++++++++++
- 2 files changed, 37 insertions(+)
+ mm/percpu-km.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index 2f7bd330..bdd53d08 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -13,6 +13,7 @@
- #include <linux/netdevice.h>
- #include <linux/net_tstamp.h>
- #include <linux/pci.h>
-+#include <linux/timer.h>
- #include <linux/ptp_clock_kernel.h>
- #include <linux/u64_stats_sync.h>
- #include <net/page_pool/helpers.h>
-@@ -41,6 +42,7 @@
+--- a/mm/percpu-km.c~mm-percpu-km-fix-bitmap-overflow-and-accounting-in-pcpu_create_chunk
++++ a/mm/percpu-km.c
+@@ -75,7 +75,7 @@ static struct pcpu_chunk *pcpu_create_ch
+ 	chunk->base_addr = page_address(pages);
  
- /* Interval to schedule a stats report update, 20000ms. */
- #define GVE_STATS_REPORT_TIMER_PERIOD	20000
-+#define GVE_RX_NAPI_RESCHED_MS 20 /* msecs */
+ 	spin_lock_irqsave(&pcpu_lock, flags);
+-	pcpu_chunk_populated(chunk, 0, nr_pages);
++	pcpu_chunk_populated(chunk, 0, chunk->nr_pages);
+ 	spin_unlock_irqrestore(&pcpu_lock, flags);
  
- /* Numbers of NIC tx/rx stats in stats report. */
- #define NIC_TX_STATS_REPORT_NUM	0
-@@ -341,6 +343,7 @@ struct gve_rx_ring {
- 	struct xdp_rxq_info xdp_rxq;
- 	struct xsk_buff_pool *xsk_pool;
- 	struct page_frag_cache page_cache; /* Page cache to allocate XDP frames */
-+	struct timer_list starvation_timer; /* for queue starvation recovery */
- };
- 
- /* A TX desc ring entry */
-diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-index 02cba280..8271f731 100644
---- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-+++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-@@ -18,6 +18,16 @@
- #include <net/tcp.h>
- #include <net/xdp_sock_drv.h>
- 
-+static void gve_rx_starvation_timer(struct timer_list *t)
-+{
-+	struct gve_rx_ring *rx = timer_container_of(rx, t, starvation_timer);
-+	struct gve_priv *priv = rx->gve;
-+	struct gve_notify_block *block;
-+
-+	block = &priv->ntfy_blocks[rx->ntfy_id];
-+	napi_schedule(&block->napi);
-+}
-+
- static void gve_rx_free_hdr_bufs(struct gve_priv *priv, struct gve_rx_ring *rx)
- {
- 	struct device *hdev = &priv->pdev->dev;
-@@ -120,6 +130,7 @@ void gve_rx_stop_ring_dqo(struct gve_priv *priv, int idx)
- 
- 	if (rx->dqo.page_pool)
- 		page_pool_disable_direct_recycling(rx->dqo.page_pool);
-+	timer_shutdown_sync(&rx->starvation_timer);
- 	gve_remove_napi(priv, ntfy_idx);
- 	gve_rx_remove_from_block(priv, idx);
- 	gve_rx_reset_ring_dqo(priv, idx);
-@@ -208,8 +219,10 @@ static int gve_rx_alloc_hdr_bufs(struct gve_priv *priv, struct gve_rx_ring *rx,
- void gve_rx_start_ring_dqo(struct gve_priv *priv, int idx)
- {
- 	int ntfy_idx = gve_rx_idx_to_ntfy(priv, idx);
-+	struct gve_rx_ring *rx = &priv->rx[idx];
- 
- 	gve_rx_add_to_block(priv, idx);
-+	timer_setup(&rx->starvation_timer, gve_rx_starvation_timer, 0);
- 	gve_add_napi(priv, ntfy_idx, gve_napi_poll_dqo);
- }
- 
-@@ -365,6 +378,7 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
- 	struct gve_rx_compl_queue_dqo *complq = &rx->dqo.complq;
- 	struct gve_rx_buf_queue_dqo *bufq = &rx->dqo.bufq;
- 	struct gve_priv *priv = rx->gve;
-+	u32 num_bufs_avail_to_hw;
- 	u32 num_avail_slots;
- 	u32 num_full_slots;
- 	u32 num_posted = 0;
-@@ -400,6 +414,26 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
- 	}
- 
- 	rx->fill_cnt += num_posted;
-+
-+	/* If the queue has fewer than GVE_RX_BUF_THRESH_DQO descriptors
-+	 * visible to the hardware, the hardware is in danger of starving
-+	 * and cannot trigger interrupts.
-+	 *
-+	 * We use a threshold of 32 because a single maximum-sized RSC
-+	 * packet can consume up to 19 descriptors in the Rx path. Lower
-+	 * thresholds (e.g., 8 or 16) would be unsafe as they could cause
-+	 * the device to drop/stall on a maximum-sized RSC packet.
-+	 *
-+	 * Start the timer to periodically reschedule NAPI and recover.
-+	 */
-+	num_bufs_avail_to_hw =
-+		((bufq->tail & ~(GVE_RX_BUF_THRESH_DQO - 1)) -
-+		 bufq->head) & bufq->mask;
-+
-+	if (num_bufs_avail_to_hw < GVE_RX_BUF_THRESH_DQO) {
-+		mod_timer(&rx->starvation_timer,
-+			  jiffies + msecs_to_jiffies(GVE_RX_NAPI_RESCHED_MS));
-+	}
- }
- 
- static void gve_rx_skb_csum(struct sk_buff *skb,
--- 
-2.55.0.795.g602f6c329a-goog
+ 	pcpu_stats_chunk_alloc();
+_
+
+Patches currently in -mm which might be from ziy@nvidia.com are
+
+mm-percpu-km-fix-bitmap-overflow-and-accounting-in-pcpu_create_chunk.patch
+mm-page_owner-add-numa-node-filter-fix.patch
+mm-percpu-km-clear-page-private-before-free-them.patch
+mm-compaction-stop-recording-free-page-order-in-page-private.patch
+mm-huge_memory-add-page-private-check-back-in-__split_folio_to_order.patch
+mm-page_alloc-make-sure-tail_page-private-is-zero-at-page-free-time.patch
+mm-page_alloc-remove-set_page_private-in-prep_compound_tail.patch
 
