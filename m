@@ -1,175 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B453ED5C3
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 09:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336643E47B;
+	Thu,  9 Jul 2026 09:39:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783589775; cv=none; b=P8UV54wo4BwHEMMWJb4qUE7eLr3Nb8GJgk/zKnbKuhfhgknw5SnhA+TZFo2S9ixw8uPOz9nAd+VQ8RXCrWFrUwXfoD/7XzBYg8L+ceJXwbLLFqvbJXDEYTBYUUKLA9RuLYbj/rDHIMcDH3n/8/7yL1/k6fKyJ5WtvA1VX/x36uI=
+	t=1783589983; cv=none; b=uFGKEYXI4PUd/YuuRggL3nLjbwk/+WOJORJ9l+OQx1GuwchhgziGRn7AMRQ/3QPPnxWNbt/sXsjLNx1x+stnpBPQRzTRRO/1FzTpY0o8Ytgase2+2Z+zxU0/wnG0dhIC7ffBqoT8FRGYUcdJdNjp9IY2VmYXe57LwHIzzeiT00o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783589775; c=relaxed/simple;
-	bh=wDy+3fAYCxEsDxFN71Hv76FVce7eoNDaDJCEtljHw2E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uhs7TiH5z0Ptdb9xmAyzTVOIQol2O2kPeDy054ayK86f54zntPK6ikCOJ4fPDEBaRcHv4vvBMHpBEK6+V9Vj7Yp0PNlYG7srqbT4P/f/TWaraB5fPHZ1lapwp/f42k9df5FIPzzgLldH4GNeWGXKBgw46f9V0hpzpjb96YuzEhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FmwIRd3P; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783589983; c=relaxed/simple;
+	bh=7GA2pZHLuihFzNC5suVPNdeb2rgyYNSlTVmoPdc1Jnc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NV2fzTbzrkAri85ewPbLmOIkdrth7VdCYOLkPE4tdfyqi6xwJAfP26+eOClmP57brkVM8rZoih6g6yvCg9EMDt7PxhIcBzibmTDoyHIaa39Ai6V0kzJng3Tfbf6bxbPXuGmZDQ8mSRPEz+tY35NuCnHhfPK9gs2OvN9B6wNw7Iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=eIRongIA; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FmwIRd3P"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 03C9AC2BCC7;
-	Thu,  9 Jul 2026 09:36:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783589775;
-	bh=wDy+3fAYCxEsDxFN71Hv76FVce7eoNDaDJCEtljHw2E=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=FmwIRd3P429mgtiml7IVks/hGap/7lUE+1x5fv1kF9E3tDbs8WAtMdzqjkBiNwC9X
-	 9115rRksT8p/7PK4uZusN7lXjRKFYTYRWN+LqCezZxNvlAEVdlqgOE/lZtqOBPPZJf
-	 8n3mm2CWn8zHDzwm/jpRwqAR3XC/RKglmV5C6aWPdNdXG6S+41/uW1hmyNt9SQ7Xis
-	 YvufSonJBgvhIQas6s3rTZZiFkqCYVx2PYoGVr3h2Dq4vrJ7mWSIKUWdnXwGiSWSXD
-	 VeREcGNibapszxYY6gLeI74hjdqY4BhlF4hHp/Ko669LB2FB9LU59/apY6MMlhifvw
-	 WLyo4lffR+DXw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D61A1C43458;
-	Thu,  9 Jul 2026 09:36:14 +0000 (UTC)
-From: Jiucheng Xu via B4 Relay <devnull+jiucheng.xu.amlogic.com@kernel.org>
-Date: Thu, 09 Jul 2026 17:35:40 +0800
-Subject: [PATCH] f2fs: fix UAF issue in f2fs_merge_page_bio()
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="eIRongIA"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6696IWr21897392;
+	Thu, 9 Jul 2026 09:39:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=M05QQu
+	2AhxhlfwVGw0snPzMy6XvSIYRk6m4W88pP9io=; b=eIRongIAq53MmskZdIMHqN
+	VE37M89HblCDzG+p6Ccgmmmed6tnA8+VCmvn+X0nean+8csGmJcftc1tJzT29Yzq
+	6Z4y/I1aQnvWbIxaC2NHaixr+wKOaRrf1thIqBMg8Q69MRKKwYvVcT6Va9GjWId6
+	NmDqI24kOfkBKP8+BI9WHwhyUCeaN3whHV+6AJG6afkWTITqge4Q4mVE88UB1fO9
+	bUMnqbf9ZLPiLAEHZZL48xnoUz9jhknBEOP0pZiSiNGAUgrpyuT4DDGKC1RRK/KD
+	JcotwNWYjvyHfqHFPHcN6lFJEqEOij9EIhjaM+aHYgz7L6NRSV0vPPs9vPqlYHEw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4f6sur0rfp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 09:39:16 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6699YfLV020115;
+	Thu, 9 Jul 2026 09:39:15 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4f7dgkch4j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 09:39:15 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6699dD3S52953366
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 9 Jul 2026 09:39:13 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 09E302004F;
+	Thu,  9 Jul 2026 09:39:13 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 817442004B;
+	Thu,  9 Jul 2026 09:39:10 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu,  9 Jul 2026 09:39:10 +0000 (GMT)
+Date: Thu, 9 Jul 2026 15:09:33 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: leixiang <leixiang@kylinos.cn>
+Cc: seanjc@google.com, pbonzini@redhat.com, stable@vger.kernel.org,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Suresh Warrier <warrier@linux.vnet.ibm.com>,
+        Paul Mackerras <paulus@ozlabs.org>, linuxppc-dev@lists.ozlabs.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: PPC: Book3S HV: Set irqfd->producer only on success
+Message-ID: <20260709150215.e5b5af63-43-amachhiw@linux.ibm.com>
+Mail-Followup-To: leixiang <leixiang@kylinos.cn>, seanjc@google.com, 
+	pbonzini@redhat.com, stable@vger.kernel.org, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Suresh Warrier <warrier@linux.vnet.ibm.com>, Paul Mackerras <paulus@ozlabs.org>, 
+	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <ak59frQUBl9Gs3Qn@google.com>
+ <20260709055755.31297-1-leixiang@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-origin-5-15-y-v1-1-5ac64636d2e8@amlogic.com>
-X-B4-Tracking: v=1; b=H4sIAGtrT2oC/x3MQQqAIBBA0avIrBtQQcOuEi2sJpuNhkIU4t2Tl
- m/xf4VCmanAJCpkurlwih1qELCdPgZC3rtBS23lKB2mzIEjGlQGXySy3mqrV+UIenNlOvj5f/P
- S2gcg4q7wXwAAAA==
-X-Change-ID: 20260709-origin-5-15-y-ee6a6262b19e
-To: stable@vger.kernel.org
-Cc: jianxin.pan@amlogic.com, tuan.zhang@amlogic.com, 
- JY <JY.Ho@mediatek.com>, Chao Yu <chao@kernel.org>, 
- Jaegeuk Kim <jaegeuk@kernel.org>, Jiucheng Xu <jiucheng.xu@amlogic.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783589773; l=3685;
- i=jiucheng.xu@amlogic.com; s=20250821; h=from:subject:message-id;
- bh=Y80knOMzKeNW/PZLEEe8ghYSmyQKS+tfEks+gc7lvw8=;
- b=c7O5W41FDmUw/QsZgV+syBCuS9tdz4/xL5rMVkbfm+heESkcgywsZPNhGp58lOj7lCv5gzCMR
- /hn8hXpHR+DBia54Uj3zgDViEhtdGkFSpSW8vjsY/t3edrF+RBx2HER
-X-Developer-Key: i=jiucheng.xu@amlogic.com; a=ed25519;
- pk=Q18IjkdWCCuncSplyu+dYqIrm+n42glvoLFJTQqpb2o=
-X-Endpoint-Received: by B4 Relay for jiucheng.xu@amlogic.com/20250821 with
- auth_id=498
-X-Original-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
-Reply-To: jiucheng.xu@amlogic.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260709055755.31297-1-leixiang@kylinos.cn>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA4OSBTYWx0ZWRfX0J8Kx25YbE25
+ gEKF/7pooXdZT5w2Ana836uEphAVHc51zuQyuiCckgLkullwvVqhD27s5+O3jxr7yjsLJ1qEWto
+ M/TFd5KcrnU6ZCNi6yjlkXo/uY2KLdo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA4OSBTYWx0ZWRfX/tF6QwN3C+Hu
+ ELnzvTFlZW8BmZAF6YGV1s97Nt8NYWU12kEb39Q9ZeR6FCKPMw2XJINZ14fht5Xkv1+9oiLe7zN
+ RXNuCfQ+1XidblYy5gwGTZVwGIydiMcPu/HW3uWcHiMdP0svvYUk9WmtCy82fRCJAliLMuNCS98
+ nxkk5ZNwf1/OpwollX5I3+eFdtYGKyUDzZtukCUpTZ7xxYU8G82Fpwq6j6aZIjkYpAbVxaA5zKT
+ u6L/CZ/1aourPoRhz8Qd5Jt4WOYJRhBdLIR/fGzFKuzv/n4fXMDedCznPte2bzqcX5YlYAQjBru
+ NOpqgLVbKMact4TdZaBOrq4ZyAOeLd2rjWz8qEI8MAh0iR+GUqjP0WDVzYYQIaCxagYHh75ZEu/
+ UXDi37wkNFQBEv6yKJIkm/ODzINhu63c7ICiZuBB9kuZ0pg6IxgMyYKqtIvoOM5myqRCf2iu7OC
+ NIklSjUVC1BR1Z1HvQA==
+X-Proofpoint-GUID: ZJlaxRQCVLZf1W0xgI-7SUYf5knbDxjI
+X-Authority-Analysis: v=2.4 cv=Oot/DS/t c=1 sm=1 tr=0 ts=6a4f6c44 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=1XWaLZrsAAAA:8
+ a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=aQTDHXOw4a3q5qQiMUEA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: 3PrTwKRV1brcDspQTSDzvnlPTg6EvwHR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0 phishscore=0
+ malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090089
 
-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+On 2026/07/09 01:57 PM, leixiang wrote:
+> Set irqfd->producer only after kvmppc_set_passthru_irq() succeeds to
+> avoid leaving a dangling pointer on failure. The bypass manager does
+> not register a failed producer, so the pointer is never cleared.
+> 
+> Fixes: c57875f5f9be ("KVM: PPC: Book3S HV: Enable IRQ bypass")
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: leixiang <leixiang@kylinos.cn>
+> ---
+>  arch/powerpc/kvm/book3s_hv.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+> index 61dbeea317f3..ff7b25629125 100644
+> --- a/arch/powerpc/kvm/book3s_hv.c
+> +++ b/arch/powerpc/kvm/book3s_hv.c
+> @@ -6111,12 +6111,12 @@ static int kvmppc_irq_bypass_add_producer_hv(struct irq_bypass_consumer *cons,
+>  	struct kvm_kernel_irqfd *irqfd =
+>  		container_of(cons, struct kvm_kernel_irqfd, consumer);
+>  
+> -	irqfd->producer = prod;
+> -
+>  	ret = kvmppc_set_passthru_irq(irqfd->kvm, prod->irq, irqfd->gsi);
+>  	if (ret)
+>  		pr_info("kvmppc_set_passthru_irq (irq %d, gsi %d) fails: %d\n",
+>  			prod->irq, irqfd->gsi, ret);
+> +	else
+> +		irqfd->producer = prod;
 
-commit edf7e9040fc52c922db947f9c6c36f07377c52ea upstream.
+cons->add_producer is invoked by __connect() in virt/lib/irqbypass.c,
+which itself is called from either irq_bypass_register_consumer() or
+irq_bypass_register_producer(). __connect() only records the pairing —
+setting cons->producer and prod->consumer — if add_producer returns 0.
 
-As JY reported in bugzilla [1],
+  static int __connect(struct irq_bypass_producer *prod,
+  		     struct irq_bypass_consumer *cons)
+  {
+  	[...]
+  
+  	if (!ret) {
+  		prod->consumer = cons;
+  		cons->producer = prod;
+  	}
 
-Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-pc : [0xffffffe51d249484] f2fs_is_cp_guaranteed+0x70/0x98
-lr : [0xffffffe51d24adbc] f2fs_merge_page_bio+0x520/0x6d4
-CPU: 3 UID: 0 PID: 6790 Comm: kworker/u16:3 Tainted: P    B   W  OE      6.12.30-android16-5-maybe-dirty-4k #1 5f7701c9cbf727d1eebe77c89bbbeb3371e895e5
-Tainted: [P]=PROPRIETARY_MODULE, [B]=BAD_PAGE, [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-Workqueue: writeback wb_workfn (flush-254:49)
-Call trace:
- f2fs_is_cp_guaranteed+0x70/0x98
- f2fs_inplace_write_data+0x174/0x2f4
- f2fs_do_write_data_page+0x214/0x81c
- f2fs_write_single_data_page+0x28c/0x764
- f2fs_write_data_pages+0x78c/0xce4
- do_writepages+0xe8/0x2fc
- __writeback_single_inode+0x4c/0x4b4
- writeback_sb_inodes+0x314/0x540
- __writeback_inodes_wb+0xa4/0xf4
- wb_writeback+0x160/0x448
- wb_workfn+0x2f0/0x5dc
- process_scheduled_works+0x1c8/0x458
- worker_thread+0x334/0x3f0
- kthread+0x118/0x1ac
- ret_from_fork+0x10/0x20
+On failure, no pairing is recorded, so __disconnect() is never called,
+and del_producer is never invoked to clear irqfd->producer. The old
+unconditional assignment indeed left a dangling pointer on any
+kvmppc_set_passthru_irq() failure.
 
-[1] https://bugzilla.kernel.org/show_bug.cgi?id=220575
+Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 
-The panic was caused by UAF issue w/ below race condition:
+~Amit
 
-kworker
-- writepages
- - f2fs_write_cache_pages
-  - f2fs_write_single_data_page
-   - f2fs_do_write_data_page
-    - f2fs_inplace_write_data
-     - f2fs_merge_page_bio
-      - add_inu_page
-      : cache page #1 into bio & cache bio in
-        io->bio_list
-  - f2fs_write_single_data_page
-   - f2fs_do_write_data_page
-    - f2fs_inplace_write_data
-     - f2fs_merge_page_bio
-      - add_inu_page
-      : cache page #2 into bio which is linked
-        in io->bio_list
-						write
-						- f2fs_write_begin
-						: write page #1
-						 - f2fs_folio_wait_writeback
-						  - f2fs_submit_merged_ipu_write
-						   - f2fs_submit_write_bio
-						   : submit bio which inclues page #1 and #2
-
-						software IRQ
-						- f2fs_write_end_io
-						 - fscrypt_free_bounce_page
-						 : freed bounced page which belongs to page #2
-      - inc_page_count( , WB_DATA_TYPE(data_folio), false)
-      : data_folio points to fio->encrypted_page
-        the bounced page can be freed before
-        accessing it in f2fs_is_cp_guarantee()
-
-It can reproduce w/ below testcase:
-Run below script in shell #1:
-for ((i=1;i>0;i++)) do xfs_io -f /mnt/f2fs/enc/file \
--c "pwrite 0 32k" -c "fdatasync"
-
-Run below script in shell #2:
-for ((i=1;i>0;i++)) do xfs_io -f /mnt/f2fs/enc/file \
--c "pwrite 0 32k" -c "fdatasync"
-
-So, in f2fs_merge_page_bio(), let's avoid using fio->encrypted_page after
-commit page into internal ipu cache.
-
-Fixes: 0b20fcec8651 ("f2fs: cache global IPU bio")
-Reported-by: JY <JY.Ho@mediatek.com>
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[Mark: backport to v5.15.y]
-Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
----
- fs/f2fs/data.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 9d1d0c9d924c0cf3831b383f272309c093bcd354..b35886e9b9948ca9889798fac1388e2abdeb003d 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -897,7 +897,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
- 	if (fio->io_wbc)
- 		wbc_account_cgroup_owner(fio->io_wbc, fio->page, PAGE_SIZE);
- 
--	inc_page_count(fio->sbi, WB_DATA_TYPE(page));
-+	inc_page_count(fio->sbi, WB_DATA_TYPE(fio->page));
- 
- 	*fio->last_block = fio->new_blkaddr;
- 	*fio->bio = bio;
-
----
-base-commit: c86c4726e7f044ab73b493c6f00527aafef640cd
-change-id: 20260709-origin-5-15-y-ee6a6262b19e
-
-Best regards,
--- 
-Jiucheng Xu <jiucheng.xu@amlogic.com>
-
-
+>  
+>  	return ret;
+>  }
+> -- 
+> 2.45.0
