@@ -1,94 +1,77 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF15420E87;
-	Thu,  9 Jul 2026 12:16:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DF9413254
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 12:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783599394; cv=none; b=aOd2E7nIGrf1Ru6se15buq2NTlGHt3jO3lk9vQ384Bcd4cS65/YJzkGhxYmV5Tgw0spTvaOS6YoqIB0tVHylLSqzdbXZ116ctKqhS4/Lv3LkX9z6yWwqSWpzo2+b3QVI7PFprlgVyV2Xog7zTZP4SeHSV792Ry8TIDew7/h88hk=
+	t=1783599914; cv=none; b=ZfczTAoRKWfL3oXJ1VXfpJ6jyiJU99fqza1HD/IE/7ixvjFp/T3CBqhCNUtpLLh7CzRSvGHgnd9Ki0BKoWARuaNaoucHI+pIdYhCZigOVWPeoiAS4kZQba2xQWBwOCmbnItFJt/7GbQkOgiOpcQDPjb0ep7uIvk+PGTnbgTGbyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783599394; c=relaxed/simple;
-	bh=WIrDpyLWtrRY1e0Ac94I6P88L8bda7EJhq15cqc+dNI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b6EwwiLldgA4/YB+QXZhcaY4WcBYT4/8N6Jfe3GBWyiitRWfVpLWRcyeNATcLnu5uffl4pQZa+8/RGAiI0v1oQSEtdjuBaFgJ0VRuzHg54JBgvJ9fUJe3zm614kqeWWaAv5Ay4X+9woMKorC7U7SndxTJp7MO/9y1SYmMmxahyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=RaOb4PrC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VawiVj7X; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1783599914; c=relaxed/simple;
+	bh=y9cAnsHqNIYb0P++QnO5XIYO7nF4SS978HjjVVaE8xE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nDFfADJWMBW1w9tiCHfu/nEde9GcJsJjtsHdc8NAuAf1DBH0vOMV3Xhp5l4I9bux7AaqWyOxhACZler/E3zglloeChGofYQGfr95eAmDiXE20OsxSsvPfG4+E7fC+AjCL2nivvupEx7hEPod7zYeHe2nOXSVY5bkn6XlZQ2iUy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L9q6o9zt; arc=none smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="RaOb4PrC";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VawiVj7X"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 68A607A00AE;
-	Thu,  9 Jul 2026 08:16:31 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 09 Jul 2026 08:16:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1783599391; x=1783685791; bh=hEK13WQWeA
-	5ZwXQid57FnwbvuSZ4wKnTcJfZBsCwn1g=; b=RaOb4PrCyjy7SpIM8G6dbPD1su
-	cWCIM58P9O1ioUagMnuYs0qg6dOaO2ORYxlDcXyBQH1g+cXH6KDuc3ifwhq/UdcL
-	4vHix+g3h692IXoYv4FHNcgcwccN5O6s+j9gnwfwRFxMmGFRnGr4pDrcgVc39iuU
-	jmH+yaDh8iXUqg1bqsOySZeCnKpUrkTwK7s+aF362URcIJk0aORpeOhl08FxkCBf
-	4dvCcgF7FnxP+bSE794OV6l8cDNF6lftJ/jl/tCmxuqqL+CMskWVRb1r1a7Cgyi0
-	ATdafHZFGperFQPd8jfyC5Qhn3HLJqZx1+/wGEClG4Ut8oR9eMJaoK4DRaLA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1783599391; x=1783685791; bh=hEK13WQWeA5ZwXQid57FnwbvuSZ4wKnTcJf
-	ZBsCwn1g=; b=VawiVj7X0FHuqwIxai9RfnMk/O3DyvqxhrWY6R4UENVayH+fNPk
-	fgTCjdpvm3SWSVxAyTp4F84zCAkC9nfeM9YsNXzNg30jbQyFVSnl+yFha2l0EIqI
-	reIijW1qd1PjyuAUUkmg8XkKDARvPqv6BFEg18qKsnDZamBBPZ4dRIFEPcXncfuC
-	OYuHV4m+GZNwkNBnftuF1bHgXyfSDj17H2+F5nIDtCG6MjRIeXdKbdT584NOU7/o
-	MXWNUV3g7CwuIzUsPD5pxDaAXBpqARzIp66tsL/pRrL5+AhE+lQjGSgejp+uXAc5
-	FMCtUwhP4b5dDm0u45d54c9pEpoj0QVqRKg==
-X-ME-Sender: <xms:HpFPalSZp4DLZjZjLmlfXGrkWJK7Wd-E5Oy9BXhPTzNs4DfcY1Cd6w>
-    <xme:HpFPalsecaEyh2ctWJ8mv1Rd1msg98gC6GyM7AU0sTfUov3NJhK_Uux47-LbA0nkB
-    G_jsaCKWEJ06rcs6agcIpVWfrnpABEfhBkdDR90p3HLY2H67ECVyNg>
-X-ME-Received: <xmr:HpFPav4AQ_ZGamdCHcGkU5a13wd1pX4aW1oxuD_jp38sUl3ppatNeHTGfRhcBw>
-X-ME-Proxy-Cause: dmFkZTFnh0a4DmHDBAHfJT6epMK+/J3A1HQhCntMiAF0QwbbbcPW8f71gxvjyIJwQP37pS
-    BFvjCsK8ULXrO/FtdkuprFHp6cb/XCg6cydWcltNhUI6oLT1nd2AnziV90SYwWxfExly52
-    wu+542vsAzOeVeCwMVs0nV4CNiTBAI3kRd4E/9ansCVIoDeuwGDBipM1I16+p2LN82OKzR
-    MjqUSVS71MKxK3REj3IRTT1t6VBtI7aoyg8AJcY0O30w7nZw28IQ1+dBAmKWL8L3jk8mi4
-    ggx0Q4e0IErxk7B8EQ7SgXToF7hYnedW4eyCUhnwTn4k15B3wV7imE3v6WKbBMVPvAlxS6
-    al6t/Ic676gaa77h5ZWvWF0OTBcMogaNAntC6DA0j4QBsvxVYZ3tlMPGT6eXpOHB2B1nR2
-    ynYRL5hWTE13VlxYs08fQDwrBRGXaZ1flgEVeSPkXq5tJ9a3iyDriFH1ULsx31xgcXv7E4
-    M64kp/pcsHk3XRJLOc1UXw4jP9roszvlwxMHT0vCCqVZbu5dBSnb5Lw4hgiS+1zUCeWtor
-    JgkuCjKP1yvvSv/l9kMPEU+Mq3UzHuuXxiVT7HBXY6LUwrSW+OI2UhLFZAUP49YB4/Jizo
-    ykA2JQVnbzhA432Jf7C8FSnSx4A/wfMJ9Wi7Cs7zwe13128zOvSyF2qol78A
-X-ME-Proxy: <xmx:HpFPakLYSWA-AEiCX1d0jVBSy3t1bqwKtvpdBKgGGwPoVpep3EQJWg>
-    <xmx:HpFPapRU8wru2OGFck22y3HgF2Pyr6mg8m5wFKeC_FjWBdc-527z_g>
-    <xmx:HpFPanrS2RRG_c-JUNdpU9WHBxrulLSM_0JBKHMxjyA4wGI-pQhl6w>
-    <xmx:HpFPanaCnJukfanbmjKE1ulX8D92nMRuXxKihUMpXI-WW29pwCCwJw>
-    <xmx:H5FPahHxQFXpYdU1Be5xkso9GDOU9C5OHT7pWy1-taaO8E3tBXi36_Uc>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 9 Jul 2026 08:16:30 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: akpm@linux-foundation.org
-Cc: usama.anjum@collabora.com,
-	peterx@redhat.com,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	david@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L9q6o9zt"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b015b2d792so951296e87.3
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 05:25:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783599911; x=1784204711; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vu/X/SkKCf8BDgHCKFoN7Pak7eOCPEtAIjSdYOyjR7k=;
+        b=L9q6o9ztCekmPSt8fmsF9PoiTQPD5RVZXoKzbNRaDc6VENSNqt22iJojfsvxQRoYsV
+         2M8RmBSWbvXQG0ObRiG2wovGENL67NqRI+PpjW7ggOJWFEFGQS4fFcCjP6F2/ZJI7Bp2
+         3dolaU2g/kZU+RRieN4/8IqbPgF75JRqP0KGQsKuOmicu35WNG6wdnL2NL8UBHiOVWqb
+         0FP+NFAheqNpGGxd0sF7fCBDbD2W+lJ/DSF0uISK9bii+dHaiKZzcAFj/OL1Zkj49F7m
+         u6DfEE3KbVd2HOamYD7H6XJsJcrKJ648fptuJpBw44B4mD04OnqA7ZtfYgaNJGou+IQq
+         P7Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783599911; x=1784204711;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vu/X/SkKCf8BDgHCKFoN7Pak7eOCPEtAIjSdYOyjR7k=;
+        b=ETLtlJ+l5FRalss8YmsQAeRLC1Fd2nep1c5ed+DLPJXV9cR+3VFhhlSxFLcH4azdnL
+         9nY1BoUkKi4ORmWPygyd5+Hz1zLoyR7bIYGhxho3s2MkDiaDdo8IWH/d4x0y8dMQ/37O
+         CMriwkAwP6fs70FdvLPfbLbh/vTpw5XomwTZ4Qu729ZwpPFFyoEpFKJixzdRNHKnjJqE
+         y9uTNYhDFutHlIuBDMPsMdCyrmr0JPqgSlZHBwrGMZCHIJaaoqMGiQTsSO6qRepSxise
+         /5Yrdl0UmDuCo7s1dZqUj5QZY3Hh+AjgH8qnKXAP6pr4g2O+vpibh+sYItMu9EP4SaWj
+         pMBg==
+X-Forwarded-Encrypted: i=1; AHgh+RqcrZ5+a1w8TVCv8HAhdZ68KhiE2QYDP7KjF6K2CXJ2JNMii8cZoKOuD42HV+JCu+IA0CYfyaM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyE/YAMqzkoZSAXWABS3e8YhaiecAKm9j1PnBrgF1WOjc348cov
+	LZ9at4EWNIgr8t9oEBcHyNXzCeCwj4DF4ahWI6nuPtSQCVmEJxhvIiFL
+X-Gm-Gg: AfdE7cnzR1yXl80NZN5Wi9mVpM/fThQve2I/Xxccm4dNQ06g6aIW2ymmeLeqyc+r2M/
+	AdTSlGyon3NALLIZo5ND60MlmwPUTO83n6Mjw1NydMPpDBqN/fko8QO/GXyynMCKi1lkJVs6p33
+	qcOgyAc0qpTD7OoI3oJnFLM9ivFL04YPV16R8iweRkGfr67BJvimiCWqSHUnimF4yMQxhWMENRd
+	cl5OWXkckwecJsYMLxgPYR/2Sf73qsAmJRfHz+M5wYDW8LgjlWf9BdDEfQnGR6tHm/M8LScKX4v
+	+ZiDRl0lFRQl4P5dlGozTHZkFxvYSNE9f3jVb+yo9C97JcQbzGGcxODFioWKqkntv1QMoiFGdkO
+	v6IuGVFc4QVQNVMpH0pNH0wH5XP3oabIY+fvw7Kh32cZ7TVu2UHp1U4Vgk6lO7X2YTSBMBkBRAN
+	x9KwmCPckeVPC4zBBzmc8XDEGbKTV6SE/B3BsEjizUorwPMfJZBcqQGbxha4p/C6kBgzJzJ7kE
+X-Received: by 2002:a05:6512:2c93:b0:5b0:197b:9829 with SMTP id 2adb3069b0e04-5b0197b99b7mr332166e87.41.1783599910888;
+        Thu, 09 Jul 2026 05:25:10 -0700 (PDT)
+Received: from maverickamd.dyn.int.numascale.com (fwa5d93-21.bb.online.no. [88.93.147.21])
+        by smtp.googlemail.com with ESMTPSA id 2adb3069b0e04-5aed13c3bf2sm5277697e87.69.2026.07.09.05.25.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 05:25:10 -0700 (PDT)
+From: Steffen Persvold <spersvold@gmail.com>
+To: Will Deacon <will@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: Rob Herring <robh@kernel.org>,
+	linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH v3] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for PMD holes
-Date: Thu,  9 Jul 2026 13:16:29 +0100
-Message-ID: <20260709121629.205562-1-kirill@shutemov.name>
-X-Mailer: git-send-email 2.54.0
+	Steffen Persvold <spersvold@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] PCI: host-generic: Fix NULL pointer dereference on 32-bit CAM systems
+Date: Thu,  9 Jul 2026 14:24:46 +0200
+Message-Id: <20260709122446.3151899-1-spersvold@gmail.com>
+X-Mailer: git-send-email 2.40.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -97,189 +80,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On 32-bit systems the config space is too large to ioremap in one go, so
+pci_ecam_create() maps each bus segment separately and relies on the
+->add_bus callback (pci_ecam_add_bus) to populate the per-bus mapping in
+cfg->winp[]. pci_ecam_map_bus() then uses that mapping as the base for
+every config access.
 
-PAGEMAP_SCAN reports an unpopulated PTE in a uffd-wp VMA as written, but
-a range with no page table at all -- a PMD hole -- is skipped:
-pagemap_scan_pte_hole() tests p->cur_vma_category, which never carries
-PAGE_IS_WRITTEN, so the hole is neither reported nor (under
-PM_SCAN_WP_MATCHING) armed.
+The generic ECAM ops (pci_generic_ecam_ops) already provide the ->add_bus
+and ->remove_bus callbacks, but the CAM (legacy) ops in pci-host-generic.c
+do not. As a result, on a 32-bit host using "pci-host-cam-generic" the
+per-bus mapping is never set up and the first config read dereferences a
+NULL base, crashing during bus enumeration:
 
-MADV_DONTNEED has fill-with-zeros semantics: it changes the contents of
-the range to zeroes (a subsequent read maps the zero page), which write
-tracking must report as written. An anonymous THP is write-protected in
-place as a huge PMD, so a full-PMD MADV_DONTNEED clears it to pmd_none --
-a hole -- and the zeroing goes unreported. A write-tracking
-checkpoint/migration tool (e.g. CRIU) then treats the range as unchanged
-and keeps its previous contents, so after restore or live migration the
-process reads stale data instead of zeroes -- data corruption.
+[    1.430647] Unable to handle kernel NULL pointer dereference at virtual address 00000800
+[    1.439441] Oops [#1]
+[    1.442152] CPU: 0 PID: 1 Comm: swapper Not tainted 6.9.7+ #43
+[    1.448753] Hardware name: Digilent Nexys-Video-A7 RV32 (DT)
+[    1.454968] epc : pci_generic_config_read+0x40/0xb0
+[    1.460652]  ra : pci_generic_config_read+0x2c/0xb0
+[    1.534729] [<c038db9c>] pci_generic_config_read+0x40/0xb0
+[    1.541096] [<c038da04>] pci_bus_read_config_dword+0x50/0xb0
+[    1.547623] [<c0391e94>] pci_bus_generic_read_dev_vendor_id+0x3c/0x1ec
+[    1.555010] [<c039245c>] pci_scan_single_device+0xa4/0x11c
+[    1.561273] [<c0392570>] pci_scan_slot+0x9c/0x23c
+[    1.566716] [<c039388c>] pci_scan_child_bus_extend+0x58/0x2f4
+[    1.573275] [<c0393db0>] pci_scan_root_bus_bridge+0x64/0xe8
+[    1.579650] [<c0393e54>] pci_host_probe+0x20/0xc8
+[    1.591396] [<c03bc6f4>] pci_host_common_probe+0x144/0x1e4
 
-Report a hole in a non-hugetlb uffd-wp VMA as written, matching the
-pte_none handling in pagemap_page_category(); the existing
-PM_SCAN_WP_MATCHING path then arms it via uffd_wp_range().
+Fix this by giving the CAM ops the same ->add_bus/->remove_bus callbacks.
+Since pci_ecam_add_bus() and pci_ecam_remove_bus() are static to ecam.c,
+move the CAM ops definition there as pci_generic_cam_ops (mirroring
+pci_generic_ecam_ops) and export it for pci-host-generic.c to reference.
 
-hugetlb is excluded: pagemap_hugetlb_category() reports an empty hugetlb
-entry (huge_pte_none) as not-written, unlike pagemap_page_category(),
-which reports pte_none as written. pagemap_scan_pte_hole() fires for a
-hugetlb slot only when it has no page table; keeping that not-written
-matches how an allocated-but-empty hugetlb entry reads, so the hole and
-the empty-entry cases agree within the VMA.
-
-Add a pagemap_ioctl selftest covering the anon-THP PMD-hole case.
-
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260707151349.92143-1-kirill@shutemov.name
-Fixes: 2bad466cc9d9 ("mm/uffd: UFFD_FEATURE_WP_UNPOPULATED")
-Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-Cc: Peter Xu <peterx@redhat.com>
+Fixes: 8fe55ef23387 ("PCI: Dynamically map ECAM regions")
 Cc: stable@vger.kernel.org
-Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Assisted-by: Claude:claude-fable-5
+Signed-off-by: Steffen Persvold <spersvold@gmail.com>
 ---
+ drivers/pci/controller/pci-host-generic.c | 11 +----------
+ drivers/pci/ecam.c                        | 13 +++++++++++++
+ include/linux/pci-ecam.h                  |  3 +++
+ 3 files changed, 17 insertions(+), 10 deletions(-)
 
-Changes since v2 [1], addressing Andrew's review:
-  - Describe the user-visible effect: MADV_DONTNEED has fill-with-zeros
-    semantics, so the range must be reported written; otherwise a
-    checkpoint/migration tool (CRIU) keeps stale data and the process
-    reads corrupted contents after restore. Add Reported-by/Closes.
-  - Reword the hugetlb carve-out to rest on the category functions:
-    pagemap_hugetlb_category() reads an empty hugetlb entry as
-    not-written, unlike pagemap_page_category().
-  - Drop the redundant MADV_COLLAPSE fallback #define; it is in
-    <asm-generic/mman-common.h> and used directly by other mm selftests.
-
-No functional change to the fix itself since v2.
-
-[1] https://lore.kernel.org/all/20260708103429.150655-1-kirill@shutemov.name/
- fs/proc/task_mmu.c                         | 27 ++++++++++-
- tools/testing/selftests/mm/pagemap_ioctl.c | 56 +++++++++++++++++++++-
- 2 files changed, 80 insertions(+), 3 deletions(-)
-
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index d45c729ab6bb..03ead4184546 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -3049,12 +3049,35 @@ static int pagemap_scan_pte_hole(unsigned long addr, unsigned long end,
+diff --git a/drivers/pci/controller/pci-host-generic.c b/drivers/pci/controller/pci-host-generic.c
+index c1bc0d34..9e85c6e9 100644
+--- a/drivers/pci/controller/pci-host-generic.c
++++ b/drivers/pci/controller/pci-host-generic.c
+@@ -16,15 +16,6 @@
+ 
+ #include "pci-host-common.h"
+ 
+-static const struct pci_ecam_ops gen_pci_cfg_cam_bus_ops = {
+-	.bus_shift	= 16,
+-	.pci_ops	= {
+-		.map_bus	= pci_ecam_map_bus,
+-		.read		= pci_generic_config_read,
+-		.write		= pci_generic_config_write,
+-	}
+-};
+-
+ static bool pci_dw_valid_device(struct pci_bus *bus, unsigned int devfn)
  {
- 	struct pagemap_scan_private *p = walk->private;
- 	struct vm_area_struct *vma = walk->vma;
-+	unsigned long categories;
- 	int ret, err;
+ 	struct pci_config_window *cfg = bus->sysdata;
+@@ -60,7 +51,7 @@ static const struct pci_ecam_ops pci_dw_ecam_bus_ops = {
  
--	if (!vma || !pagemap_scan_is_interesting_page(p->cur_vma_category, p))
-+	if (!vma)
- 		return 0;
+ static const struct of_device_id gen_pci_of_match[] = {
+ 	{ .compatible = "pci-host-cam-generic",
+-	  .data = &gen_pci_cfg_cam_bus_ops },
++	  .data = &pci_generic_cam_ops },
  
--	ret = pagemap_scan_output(p->cur_vma_category, p, addr, &end);
-+	/*
-+	 * An unpopulated range with no page table -- e.g. a 2MB anon THP
-+	 * dropped via MADV_DONTNEED, which pagemap_page_category() never sees
-+	 * -- reads as written on a uffd-wp VMA, matching the pte_none case
-+	 * there. Reporting it also lets the PM_SCAN_WP_MATCHING arming below
-+	 * install markers (uffd_wp_range() allocates the page table under
-+	 * WP_UNPOPULATED), so the next scan sees it clean until re-written.
-+	 *
-+	 * hugetlb is excluded: pagemap_hugetlb_category() reports an empty
-+	 * hugetlb entry (huge_pte_none) as not-written, unlike
-+	 * pagemap_page_category(), which reports pte_none as written. This
-+	 * path fires for a hugetlb slot only when it has no page table;
-+	 * keeping that not-written matches how an allocated-but-empty
-+	 * hugetlb entry reads, so the two agree within the VMA.
-+	 */
-+	categories = p->cur_vma_category;
-+	if (userfaultfd_wp(vma) && !is_vm_hugetlb_page(vma))
-+		categories |= PAGE_IS_WRITTEN;
-+
-+	if (!pagemap_scan_is_interesting_page(categories, p))
-+		return 0;
-+
-+	ret = pagemap_scan_output(categories, p, addr, &end);
- 	if (addr == end)
- 		return ret;
+ 	{ .compatible = "pci-host-ecam-generic",
+ 	  .data = &pci_generic_ecam_ops },
+diff --git a/drivers/pci/ecam.c b/drivers/pci/ecam.c
+index 119de32f..a9b3bce2 100644
+--- a/drivers/pci/ecam.c
++++ b/drivers/pci/ecam.c
+@@ -208,6 +208,19 @@ const struct pci_ecam_ops pci_generic_ecam_ops = {
+ };
+ EXPORT_SYMBOL_GPL(pci_generic_ecam_ops);
  
-diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
-index 550d1f2c059b..560499eb4737 100644
---- a/tools/testing/selftests/mm/pagemap_ioctl.c
-+++ b/tools/testing/selftests/mm/pagemap_ioctl.c
-@@ -1102,6 +1102,59 @@ static void unpopulated_scan_test(void)
- 	munmap(mem, mem_size);
- }
- 
-+/*
-+ * A 2MB anon THP dropped with MADV_DONTNEED leaves a pmd_none hole with no
-+ * page table, which pagemap_page_category() never sees. PAGEMAP_SCAN must
-+ * still report it as written on a uffd-wp VMA, via pagemap_scan_pte_hole().
-+ */
-+static void unpopulated_thp_hole_test(void)
-+{
-+	long npages, written = 0, ret, i;
-+	struct page_region regions[16];
-+	char *area, *mem;
-+
-+	if (!hpage_size) {
-+		ksft_test_result_skip("%s THP not supported\n", __func__);
-+		return;
++/* CAM ops */
++const struct pci_ecam_ops pci_generic_cam_ops = {
++	.bus_shift	= 16,
++	.pci_ops	= {
++		.add_bus	= pci_ecam_add_bus,
++		.remove_bus	= pci_ecam_remove_bus,
++		.map_bus	= pci_ecam_map_bus,
++		.read		= pci_generic_config_read,
++		.write		= pci_generic_config_write,
 +	}
-+	npages = hpage_size / page_size;
++};
++EXPORT_SYMBOL_GPL(pci_generic_cam_ops);
 +
-+	/* Get a PMD-aligned range so the range can be a single THP. */
-+	area = mmap(NULL, 2 * hpage_size, PROT_READ | PROT_WRITE,
-+		    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (area == MAP_FAILED)
-+		ksft_exit_fail_msg("%s mmap failed\n", __func__);
-+	mem = (char *)(((unsigned long)area + hpage_size - 1) & ~(hpage_size - 1));
-+
-+	memset(mem, 1, hpage_size);
-+	if (madvise(mem, hpage_size, MADV_COLLAPSE) ||
-+	    !check_huge_anon(mem, 1, hpage_size)) {
-+		ksft_test_result_skip("%s could not form a THP\n", __func__);
-+		munmap(area, 2 * hpage_size);
-+		return;
-+	}
-+
-+	wp_init(mem, hpage_size);
-+
-+	/* Drop the whole PMD: it is cleared to a pmd_none hole. */
-+	if (madvise(mem, hpage_size, MADV_DONTNEED))
-+		ksft_exit_fail_msg("%s MADV_DONTNEED failed\n", __func__);
-+
-+	ret = pagemap_ioctl(mem, hpage_size, regions, 16, 0, 0,
-+			    PAGE_IS_WRITTEN, 0, 0, PAGE_IS_WRITTEN);
-+	if (ret < 0)
-+		ksft_exit_fail_msg("%s scan failed\n", __func__);
-+	for (i = 0; i < ret; i++)
-+		written += LEN(regions[i]);
-+
-+	ksft_test_result(written == npages,
-+			 "%s pmd-hole reported written (%ld of %ld)\n",
-+			 __func__, written, npages);
-+
-+	wp_free(mem, hpage_size);
-+	munmap(area, 2 * hpage_size);
-+}
-+
- int sanity_tests(void)
- {
- 	unsigned long long mem_size, vec_size;
-@@ -1610,7 +1663,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
- 	if (!hugetlb_setup_default(4))
- 		ksft_print_msg("HugeTLB test will be skipped\n");
+ #if defined(CONFIG_ACPI) && defined(CONFIG_PCI_QUIRKS)
+ /* ECAM ops for 32-bit access only (non-compliant) */
+ const struct pci_ecam_ops pci_32b_ops = {
+diff --git a/include/linux/pci-ecam.h b/include/linux/pci-ecam.h
+index d9306514..044f67ce 100644
+--- a/include/linux/pci-ecam.h
++++ b/include/linux/pci-ecam.h
+@@ -81,6 +81,9 @@ void __iomem *pci_ecam_map_bus(struct pci_bus *bus, unsigned int devfn,
+ /* default ECAM ops */
+ extern const struct pci_ecam_ops pci_generic_ecam_ops;
  
--	ksft_set_plan(118);
-+	ksft_set_plan(119);
- 
- 	page_size = getpagesize();
- 	hpage_size = read_pmd_pagesize();
-@@ -1790,6 +1843,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
- 
- 	/* 18. Unpopulated pte scan-path consistency */
- 	unpopulated_scan_test();
-+	unpopulated_thp_hole_test();
- 
- 	close(pagemap_fd);
- 	ksft_finished();
++/* default CAM ops */
++extern const struct pci_ecam_ops pci_generic_cam_ops;
++
+ #if defined(CONFIG_ACPI) && defined(CONFIG_PCI_QUIRKS)
+ extern const struct pci_ecam_ops pci_32b_ops;	/* 32-bit accesses only */
+ extern const struct pci_ecam_ops pci_32b_read_ops; /* 32-bit read only */
 
-base-commit: 9795ad96d277c4af049fe30de1cebd4e39d7bcbe
+base-commit: 53bf92818a8362815708fc7b18e6d2c6a5fc665b
 -- 
-2.54.0
+2.40.1
 
