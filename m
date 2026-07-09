@@ -1,123 +1,175 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBE73EF643
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 09:36:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B453ED5C3
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 09:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783589767; cv=none; b=bTJN8bBKyuuMKGlyQ8DwZGlXX8qqxNiR2IEya3L252wuZwGGBBJozuSebJnrAsJV6c3hGe3OP8CclyIWxuM+364h4VeLnTcbTvWuof6Df5URHOjeSaOy9JaCnejtdviFsMvrmDhmsGgX+zwx6clzD4YEK6Ur36Ed4ncDbE0C6Vg=
+	t=1783589775; cv=none; b=P8UV54wo4BwHEMMWJb4qUE7eLr3Nb8GJgk/zKnbKuhfhgknw5SnhA+TZFo2S9ixw8uPOz9nAd+VQ8RXCrWFrUwXfoD/7XzBYg8L+ceJXwbLLFqvbJXDEYTBYUUKLA9RuLYbj/rDHIMcDH3n/8/7yL1/k6fKyJ5WtvA1VX/x36uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783589767; c=relaxed/simple;
-	bh=dwacK58PZYD/fisEELQvD1XNGY/AUHVcRTeEXysE7x4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=V+PfngMnBALApqh+6R+0xFgto/gpLTwSwvGQVEzalOlyuwVRynEEamXBEhp+wvpGWqu1Eb5ba/ZAFAKzEtMQf6XP26Bik8+AK3enpYAoiokK0aC1aa7PUUGyIx6J9zn3POcnLFoTeyj+UlYcbtcBDQQyevBKPUX4Qm6dEYRB3yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YhVa7mxM; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783589775; c=relaxed/simple;
+	bh=wDy+3fAYCxEsDxFN71Hv76FVce7eoNDaDJCEtljHw2E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uhs7TiH5z0Ptdb9xmAyzTVOIQol2O2kPeDy054ayK86f54zntPK6ikCOJ4fPDEBaRcHv4vvBMHpBEK6+V9Vj7Yp0PNlYG7srqbT4P/f/TWaraB5fPHZ1lapwp/f42k9df5FIPzzgLldH4GNeWGXKBgw46f9V0hpzpjb96YuzEhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FmwIRd3P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YhVa7mxM"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47d70879764so1144713f8f.2
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 02:36:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783589764; x=1784194564; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GvQrm5Ns49lCPx3T22+ey6qMomLJzKoL27egFokIkhY=;
-        b=YhVa7mxMlmUJVYRO87a8r+q2cIkPAHW5k9AQRPLy0HMuoUDdzIWQy5KPOrImJbDhsM
-         mtO8ddVMN9MlakHcVIBN6P4eS0Ru/l/lywKp+cJH0VWlAv72+EiP6eAY5xNspw/EGQbi
-         IQHkM2iWmiNjoSEMpT//Y/HS05ZBamd854l+0iSU8j2MD5mW2daByB/+FxIZccBaup0c
-         fReeWXmwfpsCaj6Yw9VO43jqU9PF2L5unba6p6FA5nY/Sn1ONsQpo7zOzYEtnoLwP7TU
-         U9nyOmvtKCxfRMppKzhiAE+wbRm2lJnqDMXjKh+FioJV8D0FOttkeyP+rEh0cPEXDU5q
-         2Ynw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783589764; x=1784194564;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GvQrm5Ns49lCPx3T22+ey6qMomLJzKoL27egFokIkhY=;
-        b=Pv82uyqLFWqwqTPknjLdkVDiZfqktI6C5RMR2QQRh8NySLQFdJ1VdsGaLg4UJqEZdj
-         3C/4dGFbntY7SFTKCO80/P0yyOfQp3WbGO2ErYw3cqnfFlXQS4GBTo/dJMcXbG1kpgWu
-         2MmhDxNFHdrLi6Z/ODKdy4fEyTOK4TGAokIQifhJnaqBixRTRCOqW2SaRhV4n2h0dQxI
-         KBEDhUomdnglVkrQuNbPt+oOjAPTlX2h+zXW2PwdOGGXjN6IeU7ZjaK0s0+AFa+/FCE9
-         wl3X6d/LRDc5x3/o+5HUrAqllp95E6P2y5KTquvWE8edDkFEtjM4nUc0mfZ74ksUgogK
-         ThnQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqPhld1JFeG5kQZZylpIxEkX9XpFC/drz2Q6rYMmNU57sW4fkN8vMo4S4gETkDCbMjZV2Hhg0Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yym0OnKvB+jElFDTftybNu1Y4EIY2HySfCVbinjc4ANlHBuhBuh
-	15xvYAJO+uNZT+N4GPHD3z7Lmt8tjpPpuH/p3frXPIVUFXeBk2xQxyyi
-X-Gm-Gg: AfdE7cm627VE9ck3dzvah/EBD5vJKj6aSAaaYDHyxbmL43nBx53Ty1Pw/6FmXj0MfTL
-	Com9+bKC8bCvfEh8Rw2ib43fKXokD/JijwPTz3Eiv4Nj2N0CRCugV8UZWs/CuijODyQZBj30n7w
-	OkKA7e6wWlGb3HeZRjoQrlE12iahsGhtWti7XzCjklksUzu9g419xYMfNi+4JZOQcQMqr2/bLYB
-	+9gbu2sVJ67dAmp+0zA/QZz1IPg3LTJ3EDO3Kmz6VttBOrRLg0Djn87+1eucZVRTTpE6J8h4q/+
-	nqnM24MfljRND+vtsF3YQjw7Ck5sGzT3DXTPNcVMfauMxfNThWS68dklH1VtTJBGP8QYyptyxmI
-	49xZRkD6fMjs0cV2dFV2smMPQv6y704EyjfOL0NT/+RnTbfcjY8VQkIAIbF93FKt6J5HkY4pvJ3
-	9k/FH3HcLTneMSAR4IsT8G8u2lVeyL8xWS+WyJWr+J4VeUUW/4DgJmTGVkixOsPylU/zNcNLf/
-X-Received: by 2002:a5d:6f0d:0:b0:475:3a97:8e47 with SMTP id ffacd0b85a97d-47df07f5453mr7632216f8f.29.1783589763769;
-        Thu, 09 Jul 2026 02:36:03 -0700 (PDT)
-Received: from [192.168.0.105] (88-187-52-200.subs.proxad.net. [88.187.52.200])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039bcdasm51655410f8f.21.2026.07.09.02.36.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 02:36:01 -0700 (PDT)
-Message-ID: <a8f8eac0-2332-4f8d-8b4a-c13570fa5a0e@gmail.com>
-Date: Thu, 9 Jul 2026 11:35:56 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FmwIRd3P"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 03C9AC2BCC7;
+	Thu,  9 Jul 2026 09:36:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783589775;
+	bh=wDy+3fAYCxEsDxFN71Hv76FVce7eoNDaDJCEtljHw2E=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=FmwIRd3P429mgtiml7IVks/hGap/7lUE+1x5fv1kF9E3tDbs8WAtMdzqjkBiNwC9X
+	 9115rRksT8p/7PK4uZusN7lXjRKFYTYRWN+LqCezZxNvlAEVdlqgOE/lZtqOBPPZJf
+	 8n3mm2CWn8zHDzwm/jpRwqAR3XC/RKglmV5C6aWPdNdXG6S+41/uW1hmyNt9SQ7Xis
+	 YvufSonJBgvhIQas6s3rTZZiFkqCYVx2PYoGVr3h2Dq4vrJ7mWSIKUWdnXwGiSWSXD
+	 VeREcGNibapszxYY6gLeI74hjdqY4BhlF4hHp/Ko669LB2FB9LU59/apY6MMlhifvw
+	 WLyo4lffR+DXw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D61A1C43458;
+	Thu,  9 Jul 2026 09:36:14 +0000 (UTC)
+From: Jiucheng Xu via B4 Relay <devnull+jiucheng.xu.amlogic.com@kernel.org>
+Date: Thu, 09 Jul 2026 17:35:40 +0800
+Subject: [PATCH] f2fs: fix UAF issue in f2fs_merge_page_bio()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Florian Fainelli <f.fainelli@gmail.com>
-Subject: Re: [PATCH 6.1 000/129] 6.1.177-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260702155112.163984240@linuxfoundation.org>
-Content-Language: en-US
-In-Reply-To: <20260702155112.163984240@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260709-origin-5-15-y-v1-1-5ac64636d2e8@amlogic.com>
+X-B4-Tracking: v=1; b=H4sIAGtrT2oC/x3MQQqAIBBA0avIrBtQQcOuEi2sJpuNhkIU4t2Tl
+ m/xf4VCmanAJCpkurlwih1qELCdPgZC3rtBS23lKB2mzIEjGlQGXySy3mqrV+UIenNlOvj5f/P
+ S2gcg4q7wXwAAAA==
+X-Change-ID: 20260709-origin-5-15-y-ee6a6262b19e
+To: stable@vger.kernel.org
+Cc: jianxin.pan@amlogic.com, tuan.zhang@amlogic.com, 
+ JY <JY.Ho@mediatek.com>, Chao Yu <chao@kernel.org>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, Jiucheng Xu <jiucheng.xu@amlogic.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783589773; l=3685;
+ i=jiucheng.xu@amlogic.com; s=20250821; h=from:subject:message-id;
+ bh=Y80knOMzKeNW/PZLEEe8ghYSmyQKS+tfEks+gc7lvw8=;
+ b=c7O5W41FDmUw/QsZgV+syBCuS9tdz4/xL5rMVkbfm+heESkcgywsZPNhGp58lOj7lCv5gzCMR
+ /hn8hXpHR+DBia54Uj3zgDViEhtdGkFSpSW8vjsY/t3edrF+RBx2HER
+X-Developer-Key: i=jiucheng.xu@amlogic.com; a=ed25519;
+ pk=Q18IjkdWCCuncSplyu+dYqIrm+n42glvoLFJTQqpb2o=
+X-Endpoint-Received: by B4 Relay for jiucheng.xu@amlogic.com/20250821 with
+ auth_id=498
+X-Original-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Reply-To: jiucheng.xu@amlogic.com
 
+From: Jiucheng Xu <jiucheng.xu@amlogic.com>
 
+commit edf7e9040fc52c922db947f9c6c36f07377c52ea upstream.
 
-On 7/2/2026 6:18 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.177 release.
-> There are 129 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 04 Jul 2026 15:50:58 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.177-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+As JY reported in bugzilla [1],
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build fails on MIPS 
-with:
+Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+pc : [0xffffffe51d249484] f2fs_is_cp_guaranteed+0x70/0x98
+lr : [0xffffffe51d24adbc] f2fs_merge_page_bio+0x520/0x6d4
+CPU: 3 UID: 0 PID: 6790 Comm: kworker/u16:3 Tainted: P    B   W  OE      6.12.30-android16-5-maybe-dirty-4k #1 5f7701c9cbf727d1eebe77c89bbbeb3371e895e5
+Tainted: [P]=PROPRIETARY_MODULE, [B]=BAD_PAGE, [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+Workqueue: writeback wb_workfn (flush-254:49)
+Call trace:
+ f2fs_is_cp_guaranteed+0x70/0x98
+ f2fs_inplace_write_data+0x174/0x2f4
+ f2fs_do_write_data_page+0x214/0x81c
+ f2fs_write_single_data_page+0x28c/0x764
+ f2fs_write_data_pages+0x78c/0xce4
+ do_writepages+0xe8/0x2fc
+ __writeback_single_inode+0x4c/0x4b4
+ writeback_sb_inodes+0x314/0x540
+ __writeback_inodes_wb+0xa4/0xf4
+ wb_writeback+0x160/0x448
+ wb_workfn+0x2f0/0x5dc
+ process_scheduled_works+0x1c8/0x458
+ worker_thread+0x334/0x3f0
+ kthread+0x118/0x1ac
+ ret_from_fork+0x10/0x20
 
-arch/mips/kernel/smp.c: In function 'stop_this_cpu':
-arch/mips/kernel/smp.c:396:2: error: implicit declaration of function 
-'rcutree_report_cpu_dead'; did you mean 'rcutree_prepare_cpu'? 
-[-Werror=implicit-function-declaration]
-   rcutree_report_cpu_dead();
-   ^~~~~~~~~~~~~~~~~~~~~~~
-   rcutree_prepare_cpu
+[1] https://bugzilla.kernel.org/show_bug.cgi?id=220575
 
+The panic was caused by UAF issue w/ below race condition:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+kworker
+- writepages
+ - f2fs_write_cache_pages
+  - f2fs_write_single_data_page
+   - f2fs_do_write_data_page
+    - f2fs_inplace_write_data
+     - f2fs_merge_page_bio
+      - add_inu_page
+      : cache page #1 into bio & cache bio in
+        io->bio_list
+  - f2fs_write_single_data_page
+   - f2fs_do_write_data_page
+    - f2fs_inplace_write_data
+     - f2fs_merge_page_bio
+      - add_inu_page
+      : cache page #2 into bio which is linked
+        in io->bio_list
+						write
+						- f2fs_write_begin
+						: write page #1
+						 - f2fs_folio_wait_writeback
+						  - f2fs_submit_merged_ipu_write
+						   - f2fs_submit_write_bio
+						   : submit bio which inclues page #1 and #2
+
+						software IRQ
+						- f2fs_write_end_io
+						 - fscrypt_free_bounce_page
+						 : freed bounced page which belongs to page #2
+      - inc_page_count( , WB_DATA_TYPE(data_folio), false)
+      : data_folio points to fio->encrypted_page
+        the bounced page can be freed before
+        accessing it in f2fs_is_cp_guarantee()
+
+It can reproduce w/ below testcase:
+Run below script in shell #1:
+for ((i=1;i>0;i++)) do xfs_io -f /mnt/f2fs/enc/file \
+-c "pwrite 0 32k" -c "fdatasync"
+
+Run below script in shell #2:
+for ((i=1;i>0;i++)) do xfs_io -f /mnt/f2fs/enc/file \
+-c "pwrite 0 32k" -c "fdatasync"
+
+So, in f2fs_merge_page_bio(), let's avoid using fio->encrypted_page after
+commit page into internal ipu cache.
+
+Fixes: 0b20fcec8651 ("f2fs: cache global IPU bio")
+Reported-by: JY <JY.Ho@mediatek.com>
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[Mark: backport to v5.15.y]
+Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
+---
+ fs/f2fs/data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 9d1d0c9d924c0cf3831b383f272309c093bcd354..b35886e9b9948ca9889798fac1388e2abdeb003d 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -897,7 +897,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+ 	if (fio->io_wbc)
+ 		wbc_account_cgroup_owner(fio->io_wbc, fio->page, PAGE_SIZE);
+ 
+-	inc_page_count(fio->sbi, WB_DATA_TYPE(page));
++	inc_page_count(fio->sbi, WB_DATA_TYPE(fio->page));
+ 
+ 	*fio->last_block = fio->new_blkaddr;
+ 	*fio->bio = bio;
+
+---
+base-commit: c86c4726e7f044ab73b493c6f00527aafef640cd
+change-id: 20260709-origin-5-15-y-ee6a6262b19e
+
+Best regards,
 -- 
-Florian
+Jiucheng Xu <jiucheng.xu@amlogic.com>
+
 
