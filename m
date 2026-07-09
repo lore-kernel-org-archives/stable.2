@@ -1,128 +1,95 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6573EFD00;
-	Thu,  9 Jul 2026 09:19:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDD3401A3B;
+	Thu,  9 Jul 2026 09:20:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783588764; cv=none; b=jPvAURElufPYKTE19ZZonOh9CwXB+Fa9CelKGf0/WTHekUJGWfrXL9G7DVQeZZnhsodWB8H+w0Ltuod9QkriJ1VawcF6R0IYUS1jgGsJCk+DYIAvU9MincrQvlDVo+vsARdMXTxQxI4z8c02a50gUxGSxM6GdwGc/25RMi5RkJI=
+	t=1783588844; cv=none; b=EyDeA6b7q8/VMSuKw5w8bCGxz/8FGDWSXrZwWGzDFBgqifyslgSjwLI1PMJ3Hjru0EFnKGhuWHFS1to9okM69cwfzfZDtSbJoPTRy+pkDIfUNOKNGJhTbSlPsd9G1Zm6LNiSUUOQf7E2OrQRrfdNt6kWdOhFh2lAqbj5OCQZTTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783588764; c=relaxed/simple;
-	bh=ObYn3QHNk0BaSBgjNqJ4Ke8AwT1WjdDdSK5Cm7ewbMk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=digSwj2mOc0X7QzI3x9WW15F7qKZqznUfqJH3L+324CwQwBIqmJ24Ib9D0XjFK6T8n1COQsUMIe1RmeIOUaWAIXw1ODkRLme1CAwVgbL29+uZFM1Z33esRsj8RGcaDCnmUdVnCoMVkgWtFTGU8y2hDwwikSZN2jg9LsD5hNn5Wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=TWXZTFYP; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1783588844; c=relaxed/simple;
+	bh=FrzLWWdqcRrv5gVMZcsezR+LdPa7lbMl3s5asLemMQI=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=ZsPw4SYgxiMO4Utb4foPQlngVjU9tB85UzUZRTdj2i0ySl8jWdYKQTn3nux02hcVy9LUnuL+kLuqngG4vxBNvDZv+YMeWc4uPCoyCYzRX25N7PVC3qvDBZwhuXTp80FEclQrOq8HACNWNKHt7O83VYXb84X5nCN3wnzezzKOSmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCNUL24U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="TWXZTFYP"
-Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 44D62448;
-	Thu,  9 Jul 2026 11:18:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1783588710;
-	bh=ObYn3QHNk0BaSBgjNqJ4Ke8AwT1WjdDdSK5Cm7ewbMk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TWXZTFYPaBXjQhPavjeqnF9OsD7IM88r6HZmdfWhXZUTIa0+/eD8tYqMnTe+j6Ajq
-	 oaxyI+p0ZksndRta+8EAcojz7V9bYCraCxPKXQxBwVQa/fThhKKemaN402ty5JoyxT
-	 MAaiM+/H64K2W+3lqIj0AUuIpoHfGuKCjoK7XRcg=
-Date: Thu, 9 Jul 2026 11:19:17 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org, 
-	biju.das.jz@bp.renesas.com, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mehdi Djait <mehdi.djait@linux.intel.com>, Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Isaac Scott <isaac.scott@ideasonboard.com>, 
-	Paul Cercueil <paul@crapouillou.net>, Daniel Scally <dan.scally+renesas@ideasonboard.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] media: rzg2l-cru: Align bytesperline to hardware
- DMA stride requirement
-Message-ID: <ak9l33lrocjxj1Gd@zed>
-References: <20260708161406.396183-1-tommaso.merciai.xr@bp.renesas.com>
- <20260708161406.396183-5-tommaso.merciai.xr@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCNUL24U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADA661F000E9;
+	Thu,  9 Jul 2026 09:20:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783588842;
+	bh=K3oDSCq0e8fq1E3kfwxiBNJ3XGysx97IQDwhOEiZyFI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kCNUL24UMlODqSOgMyE/UcsKJA04LYuGHy1ArpYvMMQFDRq5lvSjSBuxc4UpvEw3B
+	 dY0G0nqr9bdQa/rEkWk5tYJmsAx+qJbjg/nL9efqMP7CHYfwu+ESyos8IShg66DLjr
+	 osoXJeAgcI54NaSBfBFLpLvCX4SPgTpD1D822y0o4OA3HPKfnPHtpb3eO77RVAeqG3
+	 DKK97htGTLU3wnQ0+AH/baFwbrIeFo+1+CyhbcuoQJthICjM2F6Gap4/Em1P7JJx3g
+	 VXqGU1buhU4uU9eKJzdLRG6Q+UX/oIS+jCTQmb5JYsloojheoLkcaANuKUsjGSudFv
+	 2YlbQDWKo+RRg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939F3393A564;
+	Thu,  9 Jul 2026 09:20:22 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260708161406.396183-5-tommaso.merciai.xr@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net 1/9] batman-adv: ensure minimal ethernet header on TX
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178358882114.3359576.16875111531041578494.git-patchwork-notify@kernel.org>
+Date: Thu, 09 Jul 2026 09:20:21 +0000
+References: <20260708091821.314516-2-sw@simonwunderlich.de>
+In-Reply-To: <20260708091821.314516-2-sw@simonwunderlich.de>
+To: Simon Wunderlich <sw@simonwunderlich.de>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ b.a.t.m.a.n@lists.open-mesh.org, sven@narfation.org, stable@vger.kernel.org,
+ sashiko-bot@kernel.org
 
-Hi Tommaso
+Hello:
 
-On Wed, Jul 08, 2026 at 06:14:05PM +0200, Tommaso Merciai wrote:
-> The RZ/G3E CRU programs the line stride via the AMnIS register, whose
-> IS field encodes the value in units of 128 bytes. If bytesperline is
+This series was applied to netdev/net.git (main)
+by Sven Eckelmann <sven@narfation.org>:
 
-Unrelated, it seems for RGB888 the alignemtn requirement is 384 bytes,
-something that doesn't seem handled at the moment ?
+On Wed,  8 Jul 2026 11:18:13 +0200 you wrote:
+> From: Sven Eckelmann <sven@narfation.org>
+> 
+> As documented in commit 8bd67ebb50c0 ("net: bridge: xmit: make sure we have
+> at least eth header len bytes"), it is possible by for a local user with
+> eBPF TC hook access to attach a tc filter which truncates the packet and
+> redirects to an batadv interface. But the code assumes that at least
+> ETH_HLEN bytes are available and thus might read outside of the available
+> buffer.
+> 
+> [...]
 
-> not a multiple of 128, the division truncates and the hardware uses a
-> wrong stride, causing horizontal banding.
->
-> Commit ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
-> replaced the open-coded aligned calculation with v4l2_fill_pixfmt(),
-> which sets no alignment, reintroducing the issue.
->
-> Switch to v4l2_fill_pixfmt_aligned() with RZG2L_CRU_STRIDE_ALIGN when
-> info->has_stride is set. RZ/G2L has no AMnIS register and keeps using
-> v4l2_fill_pixfmt() unchanged.
->
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Cc: stable@vger.kernel.org
-> Fixes: ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> ---
-> v2->v3:
->  - No changes.
->
-> v1->v2:
->  - Collected tag
->  - Add missing Cc stable
->  - Fix s/commit/Commit/ into commit body
->
->  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> index 69346a585f9f..478264f26466 100644
-> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> @@ -860,7 +860,8 @@ static void rzg2l_cru_format_align(struct rzg2l_cru_dev *cru,
->  	v4l_bound_align_image(&pix->width, 320, info->max_width, 1,
->  			      &pix->height, 240, info->max_height, 0, 0);
+Here is the summary with links:
+  - [net,1/9] batman-adv: ensure minimal ethernet header on TX
+    https://git.kernel.org/netdev/net/c/49df66b7993c
+  - [net,2/9] batman-adv: fix VLAN priority offset
+    https://git.kernel.org/netdev/net/c/fdb3be00ba4d
+  - [net,3/9] batman-adv: clean untagged VLAN on netdev registration failure
+    https://git.kernel.org/netdev/net/c/8669a550c752
+  - [net,4/9] batman-adv: tt: avoid request storms during pending request
+    https://git.kernel.org/netdev/net/c/27c7d4000823
+  - [net,5/9] batman-adv: tt: prevent TVLV OOB check overflow
+    https://git.kernel.org/netdev/net/c/7a581d9aaba8
+  - [net,6/9] batman-adv: frag: free unfragmentable packet
+    https://git.kernel.org/netdev/net/c/6b628425aed4
+  - [net,7/9] batman-adv: frag: fix primary_if leak on failed linearization
+    https://git.kernel.org/netdev/net/c/353d2c1d5492
+  - [net,8/9] batman-adv: mcast: avoid OOB read of num_dests header
+    https://git.kernel.org/netdev/net/c/38eaed28e250
+  - [net,9/9] batman-adv: dat: fix tie-break for candidate selection
+    https://git.kernel.org/netdev/net/c/98052bdaf6ac
 
-This doesn't apply on media-committers/next which has
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-	v4l_bound_align_image(&pix->width, 320, info->max_width, 1,
-			      &pix->height, 240, info->max_height, 2, 0);
 
-in this line.
-
-What have I missed ?
-
->
-> -	v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
-> +	v4l2_fill_pixfmt_aligned(pix, pix->pixelformat, pix->width, pix->height,
-> +				 info->has_stride ? RZG2L_CRU_STRIDE_ALIGN : 1);
-
-Rebasing apart, this seems correct
-
-Reviewed-by: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
-
-Thanks
-  j
-
->
->  	dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
->  		pix->width, pix->height, pix->bytesperline, pix->sizeimage);
-> --
-> 2.54.0
->
->
