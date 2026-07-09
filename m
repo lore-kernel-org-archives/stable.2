@@ -1,176 +1,130 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9691325A2A2
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:05:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783602320; cv=pass; b=uNIQgrU1z4poYXYKSe/LwIXYpDaHABbSJbCeNKGsWLb8SfpxJ4DoYmNMq8xszxU1X9DhNcfzwYl8l9/yMR4DOUvrkri8uEJFoxlwTbJI4asxGtAU/RYQTdc+YCWS6+AmqCjH8I2/QwWyU7ap30nlzTI64ubGZ8nUe5qArVWfGNI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783602320; c=relaxed/simple;
-	bh=w2zFUzgmtAuk8hs2S7KZhdwkyppPnKoB5X6Mdgo9p/8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SvbDI8aSKyR7rehoGopsAFB3/Mgdg0XIjqh5+ixHOcd7O/3Z7qFkblWXhwKOoumjgEL4DkLxY7BXVDj2b7n/WCVTF0E4UdgsiWZ5si4/CZ0ocUoKyE/D1YAJo12m4iBRdEkqh2JV0V21Z4VumPPbAZbg1blMCjek5DsPsPI/fk0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IShI0upr; arc=pass smtp.client-ip=209.85.208.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7714265606;
+	Thu,  9 Jul 2026 13:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783602440; cv=none; b=CCMPPtkXAFAzRSQpC6ljKwr2Cfx9mPbKGfo0i9T3NhQzyE0cu3p70B2uecGNAKb9aY7dNnSmPV12yrPqT9lv+u8sbi5VDMhJgMvgafrZLXSCnKp08GDVpFra+1wy+uDf3nniEgG9yk3eSz7xr8ihY1ylycrUDf1xDCZ9wTESaYs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783602440; c=relaxed/simple;
+	bh=DcdpUurs4X8fkh8egxmf/0LLXh7nERi0BsvIcoCPM3I=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=pABc4zpKPWwI4bWZFxUDMb84woZ+oe6tcQF3k81fpmE77yxu68YUh3sFvvlFSEaW6dPkju1gaXn2VW2uKiTZhVLj1bEKr5hwaYuFbvUn7csdD4o0oc3nOhXA9/twq6J9tRte/qfRlz49XqoPI2sEjtRxM8vJOz+VXwe9oPa+gMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=uFb5HTcL; arc=none smtp.client-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IShI0upr"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6983d3dae7aso1471014a12.0
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 06:05:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783602317; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OPNdXTo4OTjg3wLbhzGG6LXaF/j33qFFFdUTnRG4mu6XwheFixrWo4Su9KYxpv8c7M
-         ggu3nj7ufPpIgsmj+3RKxW7Bq+UTAZkduNVv6yW3HecEB2bLsYgFJMQUF6lkJrxJPeRo
-         3S0SulEDClp2DQx2mTX9alrRiDWmVmMIMYI4TR/n+Ir6/XEDqVdewTbaDOZu6OH2YLnM
-         7c4bWbgNOuroyQQxUCPIOwtCXNkZGrYfJ5OYQqhXyu6n0rgd8pre6nJQSwzDTgA8UyWm
-         qi6Q2i3p0cada46bGeGMEpui/EVMX7iGFvpWXVrHWi6yOZz4XbtTpbbYLBIt+YGSFBJf
-         8Fcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w2zFUzgmtAuk8hs2S7KZhdwkyppPnKoB5X6Mdgo9p/8=;
-        fh=fQRXEMMXK9syHaI7XZpYyZ+gATnHf8+lrZZRihwJzbA=;
-        b=ccdtXWn4sHqSQQ9/Nc+vnB5E+S4xPUcLwvb2F1iRI4sAv8o80MdpHQF4UisrhiYK1D
-         aUJDB5HDZISWs3F75Gq+rGz0RwX776WrghhfebIqhC68VE0/a/atjnmTtW52z6Krx+0x
-         KamtmKSRUWYlh1l+gxNnPMsiRQGjJhAg7fQmvKbgPwuWSSk7DRhWxNt5uULOYeEnrehc
-         4BBwJlCGai9tWmZP3T+UvKz1CzOB3BmUUaUYpjBzXEbkqVuusBEtMf/kDi3kIdlgljMZ
-         2oNj5xCIyjkARg5oNnfa4ypxN8JphYmUhpPAXfIZo3Ec8L0U8nev3ga2VftIw5U7OG9O
-         A7pg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783602317; x=1784207117; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w2zFUzgmtAuk8hs2S7KZhdwkyppPnKoB5X6Mdgo9p/8=;
-        b=IShI0uprFbe7kJ58S81204LrdNUpadM0QEWf1oeBRHmDRrOGgLGbwPYNyepVlqGj0C
-         c2dj/56IBfIXJBT0rX2e9WU7UH4o9HgjJGVMavhDlm9//zxswr0RKAGKSI+v9KOK7q1F
-         dTvMZlgag8NhcTlobH2veQ4PLjFEbjcZIKETddW1SmAT1DHj8jiuZI3cQ2qcPtd0QLWd
-         ks5i6CRCdVbSUJcLbdd6hweDcrjbIzmEKq15ecTDW+ZGfLbZ1YgYMAJQMoFYOIzdzx2C
-         XlIpTKvv9zVv7hbbFZqX8He2BZp3J3Vcodj8r9XtjIZtTsaNlHgTbufJCPX81YIdnpzk
-         OMnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783602317; x=1784207117;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w2zFUzgmtAuk8hs2S7KZhdwkyppPnKoB5X6Mdgo9p/8=;
-        b=jhDOqU4OQXrOeJwvHtDfUz/9iyUslv5Pd1cYoanwCN/yPrOpbffznFzNrx3FCUVDhz
-         12go3RcYIyssJgwxrrDCV+KgVZezkyvVgYuf6Y1G3yYySFtN5JzbQVGSKy1u+LkszV5T
-         gRmLKXAdBizjWOaPpctcJCa7rX/pY3AeEl6Nh3Lh+I4fMnX+O01HQYeDcNlJnlRZlCEq
-         vUiJ0SIVkIqiAeb9FtHrB9ItUIwE+TgXI+V1NvZVyy3WEHf3UtaZH7hEL8wIbVEYTfG8
-         BfCrrBSCETyMqiwuFM5RDBJxFh+lN7ce86jjuG5pdABxLjG5E3GltFWMzt8oCVh2qjH7
-         EXCg==
-X-Gm-Message-State: AOJu0Yw8KsqnM5FHQQIXRRt2Xk/+braVoS5nZUDieQ5bDp2/xUp5cjiA
-	RFkGmolg48LWedjAaIvscVh2VFTVy3pr9um9BLzfaWbcn2qEWGihUeqB1iILrGuivzIJ/5xYvs1
-	szi+OGGS+tb5oKRUpmyhS6RO4x+2uI3M=
-X-Gm-Gg: AfdE7cn0trqPKlBqVR0SKQmGBYaIPrlC9Zpsv27lFJWwpjTeCl96AU7jEwOsu9AGDWu
-	CCsWpNJMER2GKkr11+OtjsXGjfB2v/gd2yH9c13EY/J811jVltPBy33G8OQJ2NtVQJkert0olRu
-	dKN8+VapdTEJZz7C61DqGUrkOztJKKpe1+N9vBNp5nzWeetNx+m9zLhsD4E8EectXabiIMx3c6q
-	AWPFglFhrl0Csx0zp833+TPl+qqmy4A0VjuPY04Ag20i8Ykc82dX9cmmxbZnUcHTFDr547on/1R
-	hhH21g==
-X-Received: by 2002:a17:907:268e:b0:c12:4b0f:5d12 with SMTP id
- a640c23a62f3a-c15e77d185cmr145016966b.23.1783602316748; Thu, 09 Jul 2026
- 06:05:16 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="uFb5HTcL"
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 2D3CE20256;
+	Thu, 09 Jul 2026 16:07:04 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=AEgbb6Kf815spH1aL9lrNyIHslNsEIK4qHsUXkhzeJU=; b=uFb5HTcLHVoJ
+	oImjwRXaq0xujvzQZP74dRX2QNjyvYrRdfKaga8E2K8nvbaHCeKjK9hphE7stcre
+	y3sJNu7+KId6DD06WEEHCVv9EUcWy+PpP7bSE543BaFS09NuJGSZIRvOQm78wo34
+	5WKSWleqX1FP5DCK5G4OsgHdHj+/UCDfLfYcv05W/9U9SeD8xLJ2KOoIPByBI2X0
+	EbBUmALzcd8Z2mGoPzsdv4DxeWRJ94QU4IJY4f/YJrBBzJ9lmLB/Lrf7OUEEzB7c
+	ZTWbTas95RQo6ACvyDVM7TvXFDub4eK4kbP0m2Xd1O+Hq7q3ZAt/051xysWKxFRE
+	nn6Bfcgq2T++WTrH1t8Atk+uUzMZKnll6sgacOmPHSkJ4TSl7cFdqZ2d76JHV9id
+	K7O9xjKipyKQmvFg9dJm3qUOKhrx+oFfT8kWipPkhCU72SSL3dNCosCYGN2i4XbD
+	VZBLMSuGRIRocTF8ooz3BIQFuTJ7o/UHASsXmxLQybtDfU5nlamiM+IIP5+d0XAy
+	4Ipe+4qIJoGzWNRO6OzpyVktgLHEDVsOCcYocM4Jv0C4he4S/I9F2IIMZW13n+tK
+	pjuUKVEmLCRy1Wh2XXVgvFWllrIjb0rbmMDLcXVbW6xtqIiTmsdzUaB24EZzouC6
+	GiMrTmbFJw7RSg42yWBcPfteoUDv7VI=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Thu, 09 Jul 2026 16:07:04 +0300 (EEST)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 3AA376090B;
+	Thu,  9 Jul 2026 16:06:53 +0300 (EEST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 669D6jCw052928;
+	Thu, 9 Jul 2026 16:06:45 +0300
+Date: Thu, 9 Jul 2026 16:06:45 +0300 (EEST)
+From: Julian Anastasov <ja@ssi.bg>
+To: Florian Westphal <fw@strlen.de>
+cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+        Simon Horman <horms@verge.net.au>, David Ahern <dsahern@kernel.org>,
+        Ido Schimmel <idosch@nvidia.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>,
+        Alexander Frolkin <avf@eldamar.org.uk>, netdev@vger.kernel.org,
+        lvs-devel@vger.kernel.org, linux-kernel <linux-kernel@vger.kernel.org>,
+        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+        stable@vger.kernel.org, Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+        Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+        Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
+Subject: Re: [PATCH nf] ipvs: make destination flags atomic
+In-Reply-To: <ak-KErd1a0NHGN-D@strlen.de>
+Message-ID: <8913381c-1e02-35c7-0ec4-61de5a12fd35@ssi.bg>
+References: <20260707085706.96322-1-zhaoyz24@mails.tsinghua.edu.cn> <41c3d792-af7d-5582-5057-ac3df5f7bfd6@ssi.bg> <91509A0C-9E4A-4F0E-A45C-ABD29396067E@mails.tsinghua.edu.cn> <afcdb34c-ec10-de8e-083c-624bcedca90e@ssi.bg> <ak-KErd1a0NHGN-D@strlen.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709101327.9508-1-royujjal@gmail.com> <2026070925-delay-gauntlet-bc7c@gregkh>
- <CAE2MWk=mm8_bkd54Gv1mdox6rfvx85Dd3AjOCxPz0fPAfyuWYA@mail.gmail.com> <2026070954-activist-left-8303@gregkh>
-In-Reply-To: <2026070954-activist-left-8303@gregkh>
-From: Ujjal Roy <royujjal@gmail.com>
-Date: Thu, 9 Jul 2026 18:35:04 +0530
-X-Gm-Features: AVVi8Cf41M_ijpHkKYz8M_XktE0qZUV9t_0z2x75RapbDuAjnTo52sPGA365USE
-Message-ID: <CAE2MWkmcQdhGp3LTMtpgAse3AFcfKcAcpQe89+iijfP5e0w_QQ@mail.gmail.com>
-Subject: Re: Please backport bridge multicast exponential field encoding fix
- series to 6.1.y/6.6.y/6.12.y/6.18.y/7.0.y
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Linux Stable <stable@vger.kernel.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>, 
-	David Ahern <dsahern@kernel.org>, Shuah Khan <shuah@kernel.org>, Andy Roulin <aroulin@nvidia.com>, 
-	Yong Wang <yongwang@nvidia.com>, Petr Machata <petrm@nvidia.com>, Ujjal Roy <ujjal@alumnux.com>, 
-	bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, Jul 9, 2026 at 6:23=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org>=
- wrote:
->
-> On Thu, Jul 09, 2026 at 06:12:40PM +0530, Ujjal Roy wrote:
-> > On Thu, Jul 9, 2026 at 4:34=E2=80=AFPM Greg KH <gregkh@linuxfoundation.=
-org> wrote:
-> > >
-> > > On Thu, Jul 09, 2026 at 10:13:27AM +0000, Ujjal Roy wrote:
-> > > > Hi Greg,
-> > > >
-> > > > Please consider backporting the following bridge multicast fix seri=
-es to 6.1.y, 6.6.y, 6.12.y, 6.18.y and 7.0.y.
-> > > >
-> > > > 726fa7da2d8c ("ipv4: igmp: get rid of IGMPV3_{QQIC,MRC} and simplif=
-y calculation")
-> > > > 12cfb4ecc471 ("ipv6: mld: rename mldv2_mrc() and add mldv2_qqi()")
-> > > > 95bfd196f0dc ("ipv4: igmp: encode multicast exponential fields")
-> > > > e51560f4220a ("ipv6: mld: encode multicast exponential fields")
-> > > > 529dbe762de0 ("selftests: net: bridge: add MRC and QQIC field encod=
-ing tests")
-> > >
-> > > Why is any of this needed in older kernels?
-> > >
-> > > And 7.0.y is long end-of-life.
-> > >
-> > > And why, if this does fix issues, was it not tagged for stable to sta=
-rt
-> > > with?
-> > >
-> > > thanks,
-> > >
-> > > greg k-h
+
+	Hello,
+
+On Thu, 9 Jul 2026, Florian Westphal wrote:
+
+> Julian Anastasov <ja@ssi.bg> wrote:
+> > 	After looking again at the code, I think we can
+> > do it in different way:
+> > 
+> > - IP_VS_DEST_F_AVAILABLE and IP_VS_DEST_F_OVERLOAD are defined
+> > in include/uapi/linux/ip_vs.h but we never export them to user
+> > space. So, we are free to change them. We can move them to 
+> > include/net/ip_vs.h, see below...
+> > 
+> > - IP_VS_DEST_F_AVAILABLE is changed only under service_mutex,
+> > so we can keep its usage
+> > 
+> > - IP_VS_DEST_F_OVERLOAD needs different access methods.
+> > We can add 'unsigned long flags2;', may be after l_threshold.
+> > And to switch to such usage (F_OVERLOAD -> FL_OVERLOAD):
+> > 
+> > 	- test_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
+> > 	- set_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
+> > 
+> > 		Sometimes if (test_bit()) clear_bit() can avoid
+> > 		full memory barrier in ip_vs_dest_update_overload()
+> > 
+> > 	- clear_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
+> > 		test_bit() guard can help here too
+> > 
+> > 	As there are other races involved, something like
+> > this can be a starting point for such change. It tries harder
+> > to update the overload flag on dest edit/add but it does not
+> > include the proposed bitops:
 > >
-> > I already explained this in the email thread, "Please backport bridge
-> > multicast exponential field encoding fix series to stable kernels".
->
-> Sorry, but that's not here (remember, some of us get 1000+ emails a
-> day.)
->
-> Please explain why patches need to be backported when asking for them to
-> be backported.
->
-> thanks,
->
-> greg k-h
+> > diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
+> > index 49297fec448a..b34631270e24 100644
+> 
+> Who is supposed to do what?
+> 
+> I.e., are you going to submit this officially as replacement
+> for the v2 of this patch or do you expect the sumbitters of
+> this patch to rework their v2 along these lines?
 
-Sorry for breaking the thread. I understand your point, I will
-maintain this in the future.
-How should I send the patchset that addresses the conflicts on 5.10.y
-and 7.1.y? Shall I send the conflicts patchset as a series via a
-different thread or how? I've never done this before, so I'm asking.
+	I can sumbit the ip_vs_dest_update_overload()
+part as separate patch which can be followed by patch(es)
+that convert the overload flag to bitops.
 
-Here is the explanation for why the patches need to be backported:
+	I'll wait for comments from Yizhou Zhao, he should
+tell me if he is willing to convert the overload flag as
+additional patch.
 
-History: The multicast stack currently supports decoding of IGMPv3 and
-MLDv2 exponential timer field encodings, but lacks the corresponding
-encoding logic when generating multicast query packets. As a result,
-query intervals and response codes exceeding the linear encoding range
-can be transmitted incorrectly. This can cause multicast queriers and
-listeners to interpret different timing values, resulting in protocol
-interoperability issues, membership timeouts, and premature multicast
-group expiration.
+Regards
 
-Testing: The series adds the missing encoding support for both IGMPv3
-and MLDv2 and includes selftests that validate the behavior.
-I backported the series to v6.6.123.2 and verified the accompanying
-selftests. The selftests fail on the unpatched kernel and pass after
-applying the series, demonstrating both the bug and the effectiveness
-of the fix.
+--
+Julian Anastasov <ja@ssi.bg>
 
-Given that this is a protocol correctness issue affecting multicast
-query generation, please consider backporting the complete series to
-all applicable stable kernels.
