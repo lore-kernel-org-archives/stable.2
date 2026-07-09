@@ -1,97 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f202.google.com (mail-pf1-f202.google.com [209.85.210.202])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50822E5B29;
-	Thu,  9 Jul 2026 13:40:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123212E7388
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:41:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783604431; cv=none; b=lNuVnuxxA8Hu1+60p6FlxGvfwA2b1s06Gt/cc/z+whfOnNV9YcWn9Zi7ifuOfqzSB927qAr0Ja6P7L1ZuL0Z06KfLoeN8FJq7X7P7GtcgscOXcmSa2AlHySmbbB9FeiuiUzZGPjyOAtCmnR9eZ9PKldFPcJNf7SPK+hZ7JABdg4=
+	t=1783604512; cv=none; b=NX0WiuAyrlG9JFAr54DtrsUEPB9Ta1KOb5vHDUaTVaaone3A8Mo1sMrGJ3JblCuyBBZVBwkW7j1LiBBT3R0GnlFZFKkZCQZZx4IWBo7+cl8qNe6DMjmyrkDsUnvseVPO9IkMU4pxhJkN9wI2MbOUogpk3VJ6Lc1xq4F56OIsnNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783604431; c=relaxed/simple;
-	bh=jpefKvU0o97D+6rCm0jc5GzsU6oTwcJQuPrlRAo/6Mo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Bg12xODBXsQxUPoP0eWDbQmQJazVdSKhO67XcRxkoBYw7wFUlBX4aBF5DvzRFfPKe5Kq1PCx1l0nLs/T7ODdmr/8YVzpK8n+mxZYICyoZhWNNBempCts4goyUoP3kvXTbJwOEFOZPTGTNRiSgPKcAX+fSUBkV/sWytKgA/gc4sQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nqQtquNf; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1783604512; c=relaxed/simple;
+	bh=fXsjiN6eTN+wejpC+aES5Y9JD9oLQdMfLq0AYbS4o3A=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=A56R4NmTuut8cEwzxy6veaMudUO4JW2bcs9nOOcmJKIxjuHEx04YJaEmy7BBTs/1GHXhY2JhV/3FR227aOhGEW+K9EDBZtppEuaRBRoq2brr6r7KAoFaSEgeBxrEkV54pK+rlqyCt1NfuNOtlM6kOM0clQllGAXkx0oN3IeMSZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZdaLUyP3; arc=none smtp.client-ip=209.85.210.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nqQtquNf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783604431; x=1815140431;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=jpefKvU0o97D+6rCm0jc5GzsU6oTwcJQuPrlRAo/6Mo=;
-  b=nqQtquNflnHdvAARjnTOk5wIW/rPYPHhYTz1y+TNT2s9do/QvMVp6HsG
-   66LSlfAzaVENGhI30gXoy3XRPKsvWmQFeq2PyaKolcc5sjezsNE+PYffX
-   poAKnKoRrGHg1a/XF1yFOHfvuSTc4DhgqOdFHeufY7Rsp6+0UYpGIzHIz
-   LVNgDz1XX2FTGppakeWIseLqH2Q+ZyuWF5jWCDY3Nh4hRnSl3aGDrz5OT
-   R6o2WbQY/8Nrnbu1ysyVgKGzmWk/5BZwGZAlrWJNIodyI4E/gKrOGmB6G
-   SjBAZ7Y5OVJp3uUAWL2vpJC/BvCabcvUYgV2KMAqYUGBrQJvzC2rbN/nm
-   Q==;
-X-CSE-ConnectionGUID: IId8Z0fvQtideNiT/KcZgw==
-X-CSE-MsgGUID: Y5leJyPXRk2xWpXjaNB8MA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88199819"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="88199819"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 06:40:31 -0700
-X-CSE-ConnectionGUID: m3gMdyMjQV+Npm09YUIV3g==
-X-CSE-MsgGUID: UtZc74/3R8C/6cQiIwKdaA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="258195457"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.36])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 06:40:28 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: srinivas.pandruvada@linux.intel.com, hansg@kernel.org, 
- mgross@linux.intel.com, sumesh.k.naduvalath@intel.com, 
- Ma Ke <make_ruc2021@163.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- akpm@linux-foundation.org, stable@vger.kernel.org
-In-Reply-To: <20260624014910.1226446-1-make_ruc2021@163.com>
-References: <20260624014910.1226446-1-make_ruc2021@163.com>
-Subject: Re: [PATCH v3] platform/x86: ishtp_eclite: Fix ACPI device
- reference leak in probe error path
-Message-Id: <178360442228.12613.11058614783929144446.b4-ty@b4>
-Date: Thu, 09 Jul 2026 16:40:22 +0300
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZdaLUyP3"
+Received: by mail-pf1-f202.google.com with SMTP id d2e1a72fcca58-8478ff5d801so3654393b3a.2
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 06:41:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1783604510; x=1784209310; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TqZ6gSD5FKoEf+kRjMwloxjdQe2NH3vzfgHgIMmv9+Q=;
+        b=ZdaLUyP3F7jnnDJe7b5JCvFsgs83DVmWAG8S6Y84TGqNRkI8qFDSy3CQvn8wEoEQhO
+         naRwbC+2fZJ2UWrcsnUpfh0jTG22ZR4CwH4nU2DhRnTYLiiPNh2NURnxKW5sNGe2zPLB
+         lOvxU6/7hg8IHrOVorC26InJ17jVstdt5oqTKYUpaGr2jBI/KQU3UDwjdiF7VQ39Hcul
+         AXb58vUJ/eGKpRATbDelAgiD+qInek21/fps6lr1CIFl6DMMPaTAIxsBC/+tyeOGGQT5
+         bzm48xKCApPM48kCUEfcogOFylLXbnp4WJsaEPyUU6gyvRTA7qeJLLAoNX9cM81/GF41
+         /kCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783604510; x=1784209310;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TqZ6gSD5FKoEf+kRjMwloxjdQe2NH3vzfgHgIMmv9+Q=;
+        b=erJydZedLzuhvV4PgKABk8T26sBNITqBPFoSi0AkfOzUGcnvk/zC6NzRMR17DP3k8/
+         qq9PGdN2/hjWNuSY1Oglh8d+rcZTMCAFbkEHtXWMQ83hIotB4kbQZiNpN1cN0VAtNyXs
+         zZbgd0TtVZH2cIHHkOJDw0arWca6Tgolud46BHJ9waCK3n6yOf4RxiuC2w8zOgBeIXfj
+         quT4mACPRPhj7db0HngRp8mCR6Vbjg3ZpuiMIz7uGRIVpweIjq4rdEU8PQYmI+wgfLyj
+         qlnwVCrmQjrK025PsGWCSRjms6OvmUh8khmzjk+to7e5x/zheWbodGiiidEgQIocLKpI
+         MNuA==
+X-Forwarded-Encrypted: i=1; AHgh+Roq3QBZAXrbsclKese/zeWZsLUnMBDFQD3vr6rOizMCA+Oj3Uq+RBs5jcZ0dnqL4S3zF8FCC/I=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyapI6hJhfLcpXMs71Bvh6Q4Jwa8vD7dRSz6TY/po5dJfH1PX6A
+	qySr4UDgVX+iSgDg3ihaL4BZpcynrE8GWZA6lrAKsMu2ptKvWk6Zn2Jmm5Dt5uOtJO+ojOEk1Oy
+	MIti47w==
+X-Received: from pfud15.prod.google.com ([2002:a05:6a00:10cf:b0:847:9be8:84d5])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:148f:b0:847:1d73:f753
+ with SMTP id d2e1a72fcca58-84843410e48mr7508657b3a.45.1783604510194; Thu, 09
+ Jul 2026 06:41:50 -0700 (PDT)
+Date: Thu, 9 Jul 2026 06:41:49 -0700
+In-Reply-To: <9d376736-4879-42f2-b798-56fd2d1ab05a@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20260708022937.2465796-1-binbin.wu@linux.intel.com>
+ <ak4NdJSK60zKD8Uy@linux.dev> <315e969a-4ab1-433e-91c5-2308f1975281@linux.intel.com>
+ <28ec0a5ac5c46448df5983cc7f9cbc71f6014e8a.camel@intel.com> <9d376736-4879-42f2-b798-56fd2d1ab05a@linux.intel.com>
+Message-ID: <ak-lHS2edzxcmT1j@google.com>
+Subject: Re: [PATCH] KVM: x86: TDX: Use validated CPUID entry count for TD init
+From: Sean Christopherson <seanjc@google.com>
+To: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: Rick P Edgecombe <rick.p.edgecombe@intel.com>, 
+	"thorsten.blum@linux.dev" <thorsten.blum@linux.dev>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "kas@kernel.org" <kas@kernel.org>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 24 Jun 2026 09:49:09 +0800, Ma Ke wrote:
+On Thu, Jul 09, 2026, Binbin Wu wrote:
+> On 7/9/2026 12:20 AM, Edgecombe, Rick P wrote:
+> > On Wed, 2026-07-08 at 17:04 +0800, Binbin Wu wrote:
+> >>> Maybe it would be better to check for a mismatch and return -EINVAL?
+> >>>
+> >>> =C2=A0	if (init_vm->cpuid.nent !=3D nr_user_entries) {
+> >>> =C2=A0		ret =3D -EINVAL;
+> >>> =C2=A0		goto out;
+> >>> =C2=A0	}
+> >>>
+> >>> That would make the mismatch explicit instead of silently accepting a=
+n
+> >>> inconsistent userspace snapshot.
+> >>
+> >> I chose to use the snapshot value to follow KVM_SET_CPUID2's style.
+> >> KVM_SET_CPUID2 kind of uses the snapshot value of entry count.
+> >>
+> >> But returning a error code is OK for me.
+> >> Let's wait and see what others prefer.
+> >=20
+> > It does seem safer to reject input than have some implicit behavior.
+>=20
+> Yea, had a second thought.
+> If there is a mismatch, the userspace is probably malicious.
+> It's safer to reject the request when the userspace is suspicious.
+>=20
+> Will send v2 to reject the request for the case.
 
-> ecl_ishtp_cl_probe() acquires a reference to an ACPI device via
-> acpi_find_eclite_device() but fails to release it in the error path
-> when acpi_opregion_init() fails. This results in a reference count
-> leak, preventing proper cleanup of the ACPI device.
-> 
-> Calling path: acpi_find_eclite_device() ->
-> acpi_dev_get_first_match_dev() -> acpi_dev_get_next_match_dev() ->
-> bus_find_device() -> get_device().
-> 
-> [...]
+Rather than add a separate if-statement, I saw lump it into the existing sa=
+nity
+check on the cpuid field:
 
-Thank you for your contribution, it has been applied to my local
-review-ilpo-next branch. Note it will show up in the public
-platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-local branch there, which might take a while.
-
-FYI [if applicable to your patch], as per Linus' policy change, also
-fixes are mostly routed through for-next unless the fix is for a
-commit introduced in the most recent cycle or is clearly a regression
-fix.
-
-The list of commits applied:
-[1/1] platform/x86: ishtp_eclite: Fix ACPI device reference leak in probe error path
-      commit: e65e4242cd8babee019e575d85dd21261a68e4e2
-
---
- i.
-
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index 6ff1469e91cc..10b4db17fbd5 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -2797,7 +2797,7 @@ static int tdx_td_init(struct kvm *kvm, struct kvm_td=
+x_cmd *cmd)
+                goto out;
+        }
+=20
+-       if (init_vm->cpuid.padding) {
++       if (init_vm->cpuid.padding || init_vm->cpuid.nent !=3D nr_user_entr=
+ies) {
+                ret =3D -EINVAL;
+                goto out;
+        }
