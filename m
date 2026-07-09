@@ -1,81 +1,76 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F442270ED7
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:12:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B843273D8F
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:19:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783602773; cv=none; b=X9DBxs8shFIG+I1fT1/MN7OB0H82rteGybMThfNUexpNDD4er7xP3HWJK3dhusfrLXJX/1ija0R4Y0JbyyY9u0ItbNkwndhKfNc6/ooDDvn3fSMbHhwfMOhjqwDLi1GXlqcrFkFblwe5BzUbivDFLo7FUmrf6BhxJ/8GyqNWSdw=
+	t=1783603151; cv=none; b=Yc+sOG4g5ohyC0dUloBtjBzOXsYPvBTxemoVIXQmBHEl2I1Lif5sAIFexPIIFD6FeTAqOcnLKqppFCmfFD8hAy7gn01CytoMsLRYw5CTD8gnjfeTEmxHCRq87qqJQpuMpq63fnSylhVdC22I8kXtLoQJ/RIMpXGKz9zQQRD49F8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783602773; c=relaxed/simple;
-	bh=eXV85UOU1zgi6P7JVWPpQKScckIM/nj9u0XFq3b/aw4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ix4fFq/AFmMrYzmpFLWeMt7C6KhFPSR7NdYBggdJYat9Bd6czdqkamqwHiToxkZgFl8/06pHTtOkfM1OkR0Ss0Zcf0mWFio5/69fnHLW16nShZc9F6bTmR4+lMTU1BFzHkA+oR2/ILAdbXhT1Gu3Xv6bzX+g9zbJ+QUmBoKchNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=l9Q8teU+; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1783603151; c=relaxed/simple;
+	bh=F9vDf47ixbnznasLGKzTkoh3Mf021Menp2X4kQr5Gw4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Dtls8sBOQflPiJcQp9GhuHLjHOfgGz8gjKaJp+a9xCbFSeuHqgc5KLBgaZfFgLBaNHbjIrnopNZkbhkMtjkS11/uoYuqtMsbSHNIpCWIlsdah82hNITaVOTNHf+L5C8izCkpu+mnI5KcbTohU1zJNFhYF+dGfVHnMznsRo1NGgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gPidSYWT; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="l9Q8teU+"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47defd0c1c5so964073f8f.3
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 06:12:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gPidSYWT"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38511175ad3so793642a91.2
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 06:19:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1783602770; x=1784207570; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+okqiPy692T/LbXtU2xfepsNS8cELhNO3bJ/OMjed78=;
-        b=l9Q8teU+3ECZbFPdCVmRdNVCRddRzcmdJsUavDS6pylE+0jI6TAUd28Ugd5B8uh4e7
-         XlpZe+oauY+WqhhnWHe/3Hv/AHUSVYyyVazzBaA2E5V9LZLdirBcK4xIrDtPavAJPJer
-         19mf/2S42of0sq9AcsD0YfPVseRBFp+Lx8ijoFbr+9P74h96dmW8EHZPJ447/s9lHo2e
-         zkBeSs4qybOIuhDZSus1bYzRz+0eVd+fYFD/LpUgZnaoHZ2oDCTEvbDbq5oKvMAapESy
-         AkHJs4CBZZMqHRqL3d7fKDMKUzzs09JPrK/e9Ln9i6lRoDYvb0BnsM5MKfZRsI4B6SZf
-         oKzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783602770; x=1784207570;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1783603150; x=1784207950; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+okqiPy692T/LbXtU2xfepsNS8cELhNO3bJ/OMjed78=;
-        b=VBJWetdTN92ZuWeexwYBDN+eHMz0yRXvKxH6FYCilkePcTsTnyz3pqzT8sQ44lGYAa
-         63f4aZDSOr7YuSnwZDPQYx3SFxbP4V6HqHTNbYqJFojvXn/NF5eCqiVifHILdi+ExIwY
-         eDNpFBVjAPlC5EdVJdQgIIdT/tKMaJNTYLZhr6nUcVrPplqVYIF8b5MOuxGqF2ZQa2kZ
-         kiUgVQa4nMaV2wBwDxRgnpx7VjogGjuxXBPXVWE+jHprEFAkLpJrOcY03ZTuV2dWCbpb
-         6CvoY01jplK9QZ8jbaPokQwbaKJMgTm0NGj1Caj75ou1/gCwGjejuiaNIJs7SfTn0GfA
-         ZFYQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rowuw1skvjjAnXSRs4fGKj0WuqMNk0V6MZWYGtk6Z3Q6loLjVzJflch3NNXke/A4zV77ZhGWb8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxy0uMU7flrmwdttPRLzAnZJ21P2+ZjsMN9OwbS8dv/E3Ws17uU
-	3cprl3sud2c/GqkZAIADHq3ReVt4eu1hwJdk61Axw6FBRsKKmqHHFz3QpY88Bf966wfi
-X-Gm-Gg: AfdE7cngRN8UyMzHKY3OtIX9XB2xA9+HON/2G6RmxYywnCbgD/1vK4sTaxJo1pSD1uv
-	wKXEROyubriq+8QyNbZpraDDxwgafH2poGcv7NFAkCYJbUf/QlpkHOvIch6KCTBhi5nHYUWX7/u
-	l4MCiOSLi0yOkADpRcvFZMjsf8u4wfO0tbmIFPPl1dSlRAjFcTDpdIfeo6jkPCk1L7m6xAkCn5I
-	xiP8QLQHTPTbLWBCLfZj+07wCijA/a0t0uPvPJuc1lzxRF4gfjhzXoGO34wBwYb/9ugB1m8YbFV
-	fEJ5+zb6DdBloxgIo5npNdfoAvnDTkDGZOxaonzkOl/7OZgda/Txl5xCxJFgc4wNjslf/jPxDZe
-	lYI5BtllTXsmozemGUz9vz563iLf+/MyUtz1HXZjQzaX0cxNWcv3MOiFauo5bhm4B4flN6g5+DX
-	gazjszZVcElXAxmq6Y5hOPG0O+oXYxOU3TxmJhoOL1sMy5z4SxRUzxRz0UUTzzDaDHwLqGLEPuG
-	b7r5vZ6PMSpkuz/14CkvxvdfVtCPSlQhv0=
-X-Received: by 2002:a05:6000:430e:b0:476:d13f:bb74 with SMTP id ffacd0b85a97d-47df07ae2e6mr7871263f8f.15.1783602769947;
-        Thu, 09 Jul 2026 06:12:49 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039ad21sm50243405f8f.20.2026.07.09.06.12.47
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 09 Jul 2026 06:12:49 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: alex.aring@gmail.com,
-	stefan@datenfreihafen.org,
-	miquel.raynal@bootlin.com
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	phoebe.buckheister@itwm.fraunhofer.de,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        bh=UcJGxgmDnR38OVaHjck8+5Pv/cW2l1vuCnw3aV8D/74=;
+        b=gPidSYWTZv0yEdN1qbgWka+yzjA3twD9jqvHxJWoutL6wP3NZTZxdELEbFMDyh4poc
+         Lq6zDpB2oKLX3m5Z2OwAB5vJhZgz7hFx/VHZpx85ywIwVfsSMIHvXskm1KmHjsDeckdA
+         1hLQyFPoRKXZjuBRwQm0MEu1t3Zrs278VMIRcTBhpR4A+A2HM0zq4DSnrGkw85CFdqCe
+         kcpZxQVrJNofBQQWnMLocS9B566B7Tzf3vh0nLeVAVRyp1bPhMJ4dgTg2vyASelmJTwo
+         pBHtVtaez63TpgY6pxhD9sf0XQgtBzUm2apvAyW0/5645yakWALro1rRbC80P4m80Tfm
+         SMuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783603150; x=1784207950;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UcJGxgmDnR38OVaHjck8+5Pv/cW2l1vuCnw3aV8D/74=;
+        b=m7NYBRpKwB//AU2cJHxP1wqfuuH/4+07pNZeKcZrEwuq/Ef5A/xH4JHi/m0zBBDOlq
+         q0Iroiy1UokWr/+tzlYGwN4fFLYqtP7tdZJbbNwyC4K80jWWst8MqnxML24hj+tHVQLm
+         2eqwSGbJjVtmICA7idvIMHtboTMDrXAU7p+stC+wUgEdnGgiviYSpRZnlL4Qzd+yhPqS
+         1ULfXMtH2+laH24rv3M1HdQJWgB/uxlygoyQNVjlUIJryDRGXmndIHmVaZcQoojmV/C5
+         kzlDdIVe3QGXKMK8wCY8S4hnJr/3K9AhkcISjwbg+TmStOcQGkszAyZZ8i9Rm83Jkb6B
+         JAkw==
+X-Forwarded-Encrypted: i=1; AHgh+RpTIYhvlP9scbiEE4W5LysP8Jgbaj96ZES/SEi2590j2Mtn/xX6n/rn9QQ8I/kIwMIVMtXn3uQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+Vx9gmPhIE4B8+LYeQekegAWOMNXFzGfk5KJhdJWQp30EqIhg
+	U+NHPMV0JXZcepl2qxfDsItSayr2qKTDc9cth33zD8Mv2XN07odoizPint3E4M23Gw==
+X-Gm-Gg: AfdE7cmIs95N8e9C67b9RPzpaZddcOHqeD2JY9gid/TUdO/26DWSeJrgVtpT2BXL+kB
+	Uyu16g0toFfWfg4QCrKzp7WAHlV6YAaOvqX77Vx18xRuIZORRfiMlS5oxmxqpidLQH2+dz+LYv9
+	785OgCaTZqhJVUEg7Ehbw2C6Nd/nNg27nqxhvUyXQiheJx6SCtFXOA/PiVAUQzbeMzOKeRAouy1
+	0w4KAPBYwnUPYINLM3hnmuGCrZ/ugh6vHS9StpMc3BaxhfS2tJgeCVV1beS4R10hn+1UAvU2SrE
+	1ZoR8ae1K3h0AY64jabMkBvpYLYOU/UcjCtdrPVMBmkTpWylIwjspRKMQoCcfhPeyrVqY7LJ2O2
+	Gh2ExfvvAJyaDP4swOtlNtOZIdjG0R3+bhIr9D48R1QAWr9X3heuBuuH5vCIlb/rht4s/8r/Vfa
+	saqv6hyCDpLYVUJA1v5pG5UCf9y6bk0vdjgTVVVXu/iz85cTA2KA84p9hqSw6KKhG0
+X-Received: by 2002:a17:90b:510b:b0:381:b1ad:c9e4 with SMTP id 98e67ed59e1d1-389416e7d75mr7203452a91.26.1783603149803;
+        Thu, 09 Jul 2026 06:19:09 -0700 (PDT)
+Received: from coe.tail83f5bd.ts.net ([58.146.106.120])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174ae6cd9sm33960852eec.31.2026.07.09.06.19.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 06:19:09 -0700 (PDT)
+From: Ramesh Adhikari <adhikari.resume@gmail.com>
+To: colyli@fygo.io,
+	axboe@kernel.dk
+Cc: gregkh@linuxfoundation.org,
+	linux-block@vger.kernel.org,
 	stable@vger.kernel.org,
-	Doruk Tan Ozturk <doruk@0sec.ai>
-Subject: [PATCH net] mac802154: llsec: reject frames shorter than the authentication tag
-Date: Thu,  9 Jul 2026 15:12:46 +0200
-Message-ID: <20260709131246.44517-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+	Ramesh Adhikari <adhikari.resume@gmail.com>
+Subject: [PATCH v6 0/2] badblocks: fix infinite loop and validate sector range/shift
+Date: Thu,  9 Jul 2026 18:49:02 +0530
+Message-ID: <20260709131904.596684-1-adhikari.resume@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <ak9CC591ivuQ4BP1@studio.local>
+References: <ak9CC591ivuQ4BP1@studio.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,52 +79,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-llsec_do_decrypt_auth() computes the associated-data length for the
-AEAD request as
+This replaces the single-patch v5 with a two-patch series, per Coly's
+review.
 
-	assoclen += datalen - authlen;
+v1-v4 chased symptoms of the same underlying bug (an RCU stall found
+by syzkaller through the nvdimm ioctl path, in _badblocks_check() /
+badblocks_check() looping with a non-advancing range) before landing
+on the root cause in v4: rounddown()/roundup() don't modify their
+argument in place, so 's'/'next'/'target' were never actually
+rounded.
 
-where datalen is the number of bytes after the MAC header and authlen
-(4, 8 or 16) is the length of the authentication tag. Nothing verifies
-that the frame actually carries at least authlen payload bytes. A
-secured frame whose payload is shorter than the tag makes
-datalen - authlen negative; assoclen is then passed to
-aead_request_set_ad() as an unsigned value close to 4 GiB, so
-crypto_aead_decrypt() walks far off the end of the scatterlist that
-only spans the real frame.
+v5 folded the round_down()/round_up() fix together with overflow and
+zero-length guards into one patch. Coly's review on v5 pointed out
+that:
 
-The frame is fully attacker-controlled and reaches this path from any
-IEEE 802.15.4 peer in radio range. Reject frames whose payload is
-shorter than the authentication tag before the subtraction.
+  - the overflow check that was there wasn't sufficient on its own
+    (only one of several range-validity conditions), and
+  - the round fix and the validation should be separate patches,
+    since they're independently useful and one is safe to backport
+    on its own.
 
-Dynamically reproduced on a KASAN kernel as a general-protection-fault
-in the AEAD scatterwalk, and the fix confirmed.
+This series:
 
-Fixes: 4c14a2fb5d14 ("mac802154: add llsec decryption method")
-Cc: stable@vger.kernel.org
-Reported-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
----
- net/mac802154/llsec.c | 5 +++++
- 1 file changed, 5 insertions(+)
+  1/2 is exactly the round_down()/round_up() fix, nothing else. This
+      is what actually stops the infinite loop and also fixes the
+      32-bit build breakage kernel test robot reported on v1
+      (rounddown()/roundup() do 64-bit division/modulo on sector_t,
+      requiring libgcc helpers not linked into the kernel).
 
-diff --git a/net/mac802154/llsec.c b/net/mac802154/llsec.c
-index 5e7cc11fab3a..364a1ac1d771 100644
---- a/net/mac802154/llsec.c
-+++ b/net/mac802154/llsec.c
-@@ -893,6 +893,11 @@ llsec_do_decrypt_auth(struct sk_buff *skb, const struct mac802154_llsec *sec,
- 
- 	sg_init_one(&sg, skb_mac_header(skb), assoclen + datalen);
- 
-+	if (datalen < authlen) {
-+		kfree_sensitive(req);
-+		return -EBADMSG;
-+	}
-+
- 	if (!(hdr->sec.level & IEEE802154_SCF_SECLEVEL_ENC)) {
- 		assoclen += datalen - authlen;
- 		datalen = authlen;
--- 
+  2/2 adds the range/shift validation Coly asked for: s+sectors
+      overflow, bb->shift too large to shift a sector_t by (bb->shift
+      is populated in drivers/md/md.c straight from an unvalidated
+      on-disk superblock byte), and detecting when round_up()/
+      round_down() themselves wrap near ULLONG_MAX.
+
+Both are tagged Fixes: aa511ff8218b ("badblocks: switch to the
+improved badblock handling code") and Cc: stable, since that's the
+commit that introduced this code path.
+
+Ramesh Adhikari (2):
+  badblocks: fix in-place round_up/round_down usage bug
+  badblocks: validate sector range and shift before rounding
+
+ block/badblocks.c | 52 ++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 45 insertions(+), 7 deletions(-)
+
+--
 2.43.0
 
