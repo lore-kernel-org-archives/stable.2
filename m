@@ -1,55 +1,46 @@
-Received: from forward200b.mail.yandex.net (forward200b.mail.yandex.net [178.154.239.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1456A318EC4;
-	Thu,  9 Jul 2026 12:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.157
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 895DD3EDE76
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 12:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783598890; cv=none; b=PxdCMEvVAs1FdS7WtBJGwF8QHDT6oUNiJRT1J7j3Vrz7pMQGlfqSs44zq/h+wm6WTs8z6ARAR4Uxm96XaB57nnXwCI8TaO/feJCg65Ku7v2fNyRh8GVfc+4l7XaAZWbwczeAljZ1fv2nmfw3rmNnM7LuMDs6tnJlw+OrhkrX8UU=
+	t=1783599241; cv=none; b=C8P0MbiMzSKvK2sMAWJ/Kj5VFS9M8rilpSR820431gInKnDjt3cqF8j2u9e8HB9TC8csY5vREOzs0G8UvnKrnGWen4axQHX3IlE+8Z3QxiOzoWAKu31rPv/i5Ociu8nL83Lv8yeeOHXIzHejaU6ICpo/dS2wnQqOUlx6cclWI00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783598890; c=relaxed/simple;
-	bh=5vU4BuFEmhYgmqBpPIlL0IFB6p1lp0aJ2lPZMH+4lGI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d44DnkwdHEm2uRKPfp7guXUw1UduzzBGLtbP00mG/3ptaeACUbUYzeZS5W/QMFtOQ6YhXr1zpTbpJBqrRGGgLm+dOwb9ehd/sgfAFfg9n9ksEB441ye3YIYh4/AmjmBcg/3HMKfgr6O/lz8i0375u9e5KjqvY2/mXsk8SxWXQ8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=L0VCLLRO; arc=none smtp.client-ip=178.154.239.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	s=arc-20240116; t=1783599241; c=relaxed/simple;
+	bh=A0HThDhV2EiHgkmjSvC1XV12EMUkekerQnoQu3QMhzs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=bCL7G/Ge1OcT/6grloaukgAbyH2Un8xIBe9K3AXc2d8Qql4hxU/w7hCSIGGHh1NSDqqbXPCt1Ic3Oh3yMpj/hhlLbQsD0LZuk3109OxUGkPinfSRYjAmICfhQ8g8bbUeaWQxuhUDZc3ir66O+cRh8kFeEWNwDWMC7ZKvxeqniMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kTTNyZow; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="L0VCLLRO"
-Received: from forward101b.mail.yandex.net (forward101b.mail.yandex.net [IPv6:2a02:6b8:c02:900:1:45:d181:d101])
-	by forward200b.mail.yandex.net (postfix) with ESMTPS id E3E6881F56;
-	Thu, 09 Jul 2026 15:01:39 +0300 (MSK)
-Received: from mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net [IPv6:2a02:6b8:c11:2281:0:640:870e:0])
-	by forward101b.mail.yandex.net (postfix) with ESMTPS id 586B3C1CA3;
-	Thu, 09 Jul 2026 15:01:31 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net (smtp) with ESMTPSA id Q1JKHN8fGeA0-E1hKzfgN;
-	Thu, 09 Jul 2026 15:01:30 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1783598490; bh=Q2IgRKlmontnVqFHpJDdJWiJuotI3IXzRQ02ZlLmDjI=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=L0VCLLROIzZFaC5zfeth9mIK/TI1XS7pKiEvUY64D2lmaM5am/z++wB14/L0Uh9Gb
-	 MJtYbRXUndoJ2Hmoz4f8QoV3nSSOsOqdjuuPHnvt6TB+eMx2oSZuIzxqlhLXzYQLAH
-	 iv/N+BfIvBkTBO4cpIt7FSZZQbyLwy+KzBKF1Xpc=
-Authentication-Results: mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-From: Evgenii Burenchev <evg28bur@yandex.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Evgenii Burenchev <evg28bur@yandex.ru>,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	Xinhui.Pan@amd.com,
-	airlied@gmail.com,
-	daniel@ffwll.ch,
-	Jack.Xiao@amd.com,
-	Hawking.Zhang@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 6.6] drm/amdgpu: Use scnprintf() in amdgpu_mes_add_ring()
-Date: Thu,  9 Jul 2026 15:00:48 +0300
-Message-ID: <20260709120049.42048-1-evg28bur@yandex.ru>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kTTNyZow"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 880643569;
+	Thu,  9 Jul 2026 05:13:54 -0700 (PDT)
+Received: from login2.euhpc2.arm.com (login2.euhpc2.arm.com [10.58.100.22])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 98B663F66F;
+	Thu,  9 Jul 2026 05:13:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1783599238; bh=A0HThDhV2EiHgkmjSvC1XV12EMUkekerQnoQu3QMhzs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=kTTNyZowsGIdS5pykPgtJf7DxIDrQ79kMNcRJqRqZyy0Mr/a5+fYqNSHYFj1oj7mF
+	 Ml8YVblaTdInjf5iwukEa4ygrpXEo/CdLJ81EbZ4nN5D3t5Gh6yzBU4mNyoCub9MXM
+	 xcWp1/7ys/ooIn5DzyPdK6WT/hgTIdsPHWhS+p6E=
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: mark.rutland@arm.com,
+	maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	ruanjinjie@huawei.com,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	stable@vger.kernel.org
+Subject: [RFC PATCH 03/36] arm64: hibernate: mask DAIF before restoring hibernated kernel
+Date: Thu,  9 Jul 2026 13:13:00 +0100
+Message-Id: <20260709121333.23507-4-vladimir.murzin@arm.com>
+X-Mailer: git-send-email 2.24.0
+In-Reply-To: <20260709121333.23507-1-vladimir.murzin@arm.com>
+References: <20260709121333.23507-1-vladimir.murzin@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,52 +49,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace sprintf() with scnprintf() to prevent a potential buffer overflow
-when writing to ring->name. The buffer size is 16 bytes. For compute rings,
-the string format "compute_%d.%d.%d" can exceed this limit when the total
-number of digits in the three numbers is greater than 5 (e.g., pasid=1234,
-gang_id=0, queue_id=0). This can lead to memory corruption.
+From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 
-Using scnprintf() guarantees that the buffer is not overflowed, even if the
-string is truncated. This is a minimal fix for the issue; the BUG() for
-unknown queue types is left unchanged to avoid additional risk.
+The arm64 hibernate code manages the exception masking in an unsound
+way, leading to potential crashes and/or warnings during resume.
 
-This code is only present in LTS kernels v6.12, v6.6, and v6.1, as it was
-completely refactored in upstream. Therefore, this patch is specifically
-intended for stable trees.
+When a hibernation image is saved in `swsusp_arch_suspend()`, all DAIF
+exceptions are masked (by virtue of `local_daif_save()`), and the
+suspended image is saved assuming that all DAIF exceptions will remain
+masked when the image is restored.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+When a hibernation image is resumed by `swsusp_arch_resume()`, only
+interrupts are masked (by virtue of `local_irq_save()` in
+`resume_target_kernel()`). When pseudo-NMI is enabled the DAIF.IF bits
+will be clear, and regardless of pseudo-NMI the DAIF.DA bits will be
+clear.
 
-Fixes: d0c423b64765 ("drm/amdgpu/mes: use ring for kernel queue submission")
-Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
+This means that there are two problems:
+
+(1) It is possible to take Debug, SError, or pseudo-NMI exceptions
+    during the resume process. This is unsafe, as during the resume
+    process both the old ane new kernels will tranisently be in an
+    inconsistent state, and swsusp_arch_suspend_exit() won't retain
+    an executable mapping of any exception vectors.
+
+    Any exception taken here will be fatal and silent.
+
+(2) When re-entering the resumed kernel, some DAIF bits will be clear
+    unexpectedly. This permits Debug, SError, or pseudo-NMI exceptions
+    to be taken for a short period while the resumed kernel is not yet
+    in a consistent state.
+
+    This is detected by CONFIG_ARM64_DEBUG_PRIORITY_MASKING.
+
+Avoid these issues by masking all DAIF exceptions during resume.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ arch/arm64/kernel/hibernate.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 5e3abdd0805b..076d9069aa30 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -1072,13 +1072,14 @@ int amdgpu_mes_add_ring(struct amdgpu_device *adev, int gang_id,
- 	ring->doorbell_index = qprops.doorbell_off;
+diff --git a/arch/arm64/kernel/hibernate.c b/arch/arm64/kernel/hibernate.c
+index 9717568518ba..d0d9bd91e639 100644
+--- a/arch/arm64/kernel/hibernate.c
++++ b/arch/arm64/kernel/hibernate.c
+@@ -405,6 +405,7 @@ int swsusp_arch_suspend(void)
+ int __nocfi swsusp_arch_resume(void)
+ {
+ 	int rc;
++	unsigned long flags;
+ 	void *zero_page;
+ 	size_t exit_size;
+ 	pgd_t *tmp_pg_dir;
+@@ -465,9 +466,21 @@ int __nocfi swsusp_arch_resume(void)
+ 	if (el2_reset_needed())
+ 		__hyp_set_vectors(el2_vectors);
  
- 	if (queue_type == AMDGPU_RING_TYPE_GFX)
--		sprintf(ring->name, "gfx_%d.%d.%d", pasid, gang_id, queue_id);
-+		scnprintf(ring->name, sizeof(ring->name), "gfx_%d.%d.%d",
-+			pasid, gang_id, queue_id);
- 	else if (queue_type == AMDGPU_RING_TYPE_COMPUTE)
--		sprintf(ring->name, "compute_%d.%d.%d", pasid, gang_id,
--			queue_id);
-+		scnprintf(ring->name, sizeof(ring->name), "compute_%d.%d.%d",
-+			pasid, gang_id, queue_id);
- 	else if (queue_type == AMDGPU_RING_TYPE_SDMA)
--		sprintf(ring->name, "sdma_%d.%d.%d", pasid, gang_id,
--			queue_id);
-+		scnprintf(ring->name, sizeof(ring->name), "sdma_%d.%d.%d",
-+			pasid, gang_id, queue_id);
- 	else
- 		BUG();
++	/*
++	 * It is necessary to mask all DAIF exceptions here as:
++	 *
++	 * - The copy of swsusp_arch_suspend_exit() in the hibernation
++	 *   text cannot handle taking any exceptions.
++	 *
++	 * - The suspended kernel masked all DAIF exceptions in
++	 *   swsusp_arch_resume(), and expects to be re-entered in the
++	 *   same state : with all DAIF exceptions masked.
++	 */
++	flags = local_daif_save();
+ 	hibernate_exit(virt_to_phys(tmp_pg_dir), resume_hdr.ttbr1_el1,
+ 		       resume_hdr.reenter_kernel, restore_pblist,
+ 		       resume_hdr.__hyp_stub_vectors, virt_to_phys(zero_page));
++	local_daif_restore(flags);
  
+ 	return 0;
+ }
 -- 
-2.43.0
+2.34.1
 
