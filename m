@@ -1,233 +1,324 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011032.outbound.protection.outlook.com [52.101.125.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A043F660B;
-	Thu,  9 Jul 2026 10:17:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783592227; cv=fail; b=EqXy3KrfrxNxoGZPi39Q3HpbmBVAWyAiD4W3/47ePBdRHtNbpTAxc3L124oTw4L+3ncxUREQV5jLWqzqiyxisoitVGO7FIMczGW6Um4fLiselv6ohyHvwxyMr7UNSD7GHmxqL13uhdTiijM40O4dTolhDUmqY2H8/m25AtC5qXE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783592227; c=relaxed/simple;
-	bh=JpG9Et5e8+PxquqxhBOzX7dDnlFEs1pIGhcFn76VanI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=IYaKe5x/z41IzR2LVGkUAbtdulEAL+o64U4U5IwWTpZWI7ryvrM5MYMuHN/AFHphlYs63E25jRXq8AMnG5e0NcKODVbbwFvUSyRCLEx+TS2D2DdTOIIY5uFWU7HxWFs2wqn6VVKnJPWhA7A5Qeta7M5n32+D9TkhGisT5CCXezc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=GmB6TYLs; arc=fail smtp.client-ip=52.101.125.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="GmB6TYLs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F7t+jjHi++9kKnyK0E9HX0cEKG7Kg0elDhEyIsw/GDiLBN/+/Rsjb3W7qAki2wXIlYWAWPhgyQeYtR6KAm0SWF0tCAjHy++XSizivuJBIZTrxzTpEgr+1QVHL3HqQDGPYHMVN0hdLiRwY3HJa5aNkzQBB9CZa8M9FUl2AoVMaxmSKLl872DzoSb0MDFLigigoI5W/97EhZlskYEmDTV1C8PMhEMi6bOGzG1dMyPDMZX0RD+l2UdqMygfeFk34Ov+epBm4YJAC/CzS3Hkz1tSRL7ePXgkcGhvJKJuHk7xQrDLzUerd4Ckkh7gWOKxFi/K6IISyebvDkAa0FOpqTcjBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mZ0enGGORT3XbehuXWxphE6BoCqQZBGg5G9vm4QrS8U=;
- b=DPx5jZotCk5+G7POKgYnw6rFxccDx9SHM9Qsr4Quc0e6wJiKgDrbnkF+JyXWAmTyBcBTmTWR2K+fqcpTvnBZt9ldukygcFA+1RUVXnk7zvkoFZ6p4bHZtHIWiWnerpspPwgrQVShy+M6B9Wp0dkG8CNYJuCA51wFdvEGRr2ElHr3XfLKXlbPQvIHI5/ekKN8ukARF4+ccIGwXGiGbS3VGxsIL8cljF/IoSuoT/Mg4uCQx9PprI4cwRVO4HmeYz5iYbWULnF7x805TeGSpherj7I2mwPW3OZbAcoEaVg6vcw4B4y4bYB0RarSOvu0YbYnrnD7UClDs5/ZbLu8ikxGvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mZ0enGGORT3XbehuXWxphE6BoCqQZBGg5G9vm4QrS8U=;
- b=GmB6TYLstCawub3DbXOiAYx+qLUHdO1il3IynhTmmT3CQPXEYT8FI1brjFs00mG87k6cvxKR/ArT3kEiYKcTx25MnvNcjKFLhaIHn9DE8WnUxmVbEay7Ps3X6n1rkBgrxVwajJ5gN7SCMlHfgmN1mjkuL96T5EKwGIPfEIU9+I0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by OS9PR01MB16121.jpnprd01.prod.outlook.com (2603:1096:604:3d9::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
- 2026 10:16:57 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
- 10:16:57 +0000
-Date: Thu, 9 Jul 2026 12:16:37 +0200
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Sven =?iso-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Isaac Scott <isaac.scott@ideasonboard.com>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Daniel Scally <dan.scally+renesas@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 952A33F99E3;
+	Thu,  9 Jul 2026 10:18:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783592315; cv=none; b=XqvKnXGFvrgcVSRiCRNAT+yw9CUH+fbtVDZBk8zc4NVj/HmF6yHgpZb+23+7OZe1a1G//EQOYYmRZj4/ubpWn+rkdCGbKhvsthSLk2XJ6jr/ljFlhKUQxczy/db3Z9IaMGjIe847dP/x1W25hCgk8fewp8lUW9H9nQVplbb9owU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783592315; c=relaxed/simple;
+	bh=uCuhHfZBxiN0soi6S7QTgQIUY9DdAGWqtwjhhyFCM/Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CPV96E1Kaz9o19hqSiQHl20qwCDw3mu/I2sWIJJ2WzjkxVZzE6nOdvgkJbAXb5aZrUnPMEVRl6sFyz5t+sEon67BGbz5EqTNpDQPM9u+vK/AX4Fg7D7gTxF6Gtp/E6kX52cEgHvlquwLf9rKZK1cjFSvueBd/W9bmy7vtmJdJjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBHWVxndU9q0iEqAA--.7412S3;
+	Thu, 09 Jul 2026 18:18:16 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgCHiaNndU9q7zqyAg--.958S2;
+	Thu, 09 Jul 2026 18:18:15 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: Arend van Spriel <aspriel@gmail.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Franky Lin <franky.lin@broadcom.com>,
+	Hante Meuleman <hante.meuleman@broadcom.com>,
+	Chi-Hsien Lin <chi-hsien.lin@infineon.com>,
+	Wright Feng <wright.feng@infineon.com>,
+	Chung-Hsien Hsu <chung-hsien.hsu@infineon.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	linux-wireless@vger.kernel.org,
+	brcm80211-dev-list.pdl@broadcom.com,
+	SHA-cyfmac-dev-list@infineon.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] media: rzg2l-cru: Align bytesperline to hardware
- DMA stride requirement
-Message-ID: <ak91BYMOgqJZoCSm@tom-desktop>
-References: <20260708161406.396183-1-tommaso.merciai.xr@bp.renesas.com>
- <20260708161406.396183-5-tommaso.merciai.xr@bp.renesas.com>
- <ak9l33lrocjxj1Gd@zed>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ak9l33lrocjxj1Gd@zed>
-X-ClientProxiedBy: FR3P281CA0048.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::20) To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+Subject: [PATCH] wifi: brcmfmac: drain bus_reset work on device removal
+Date: Thu,  9 Jul 2026 10:16:35 +0000
+Message-Id: <20260709101635.103005-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS9PR01MB16121:EE_
-X-MS-Office365-Filtering-Correlation-Id: f231c559-0c64-4d02-7a2b-08dedda33523
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|52116014|23010399003|1800799024|366016|38350700014|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
- Dk5B7d+fiXBydqoovO3GEuSFabGjY6U85jm/eiCIBLckVi5XdJ/GeZ1L4vIwgGojC4BQzw/uDqJ3IzRt5bzwpD9GTuQ6ypeBxrcCtBtB4yaThoyd5y1DGaO8kVfXGUwwzAbdwd9zVJTD+S5r2cXWvrO3dy5HFx7AAiHKm+972Mu2OVdLx19V3rvN+aKRJfVjG44s+XUDRHnat6TAzTQQAuzO7KAG1tety5JoxL/NB6ESbXtb1kS+WerjwyKkolDv4abPmgEacYoZbMnc2gh3ZRRcrVd93gTqhfqsATkZ1nrEkwn8zEunFiTX0ceh6ka7tJjDfvVcHBt+0DjZWUjKJ2KwS57KdYbW5AC+1ZFQpxRw0FkSWjcCgOLHmaVxiQ3i8+gj4RtOgilJVMYCKEwwXRI5vp5KX3ZRj1UVS7njOcaORRtTZKCrJyBsqHXwzwzd4RQKBzsdfS0huVo47QvVjMBs5G2KdDSnrk3Z76ZvYzBM98R9A8nLKLUMQcpFmZp+BDxTvfbaNPEU/0q6wDN/0PZ1L3yMPixHzxHstLWhbHrjBCTpMQaxOWWGHK6GNGkMsXFduopjCRVDZclsJqLRK1XJMAeGiZMjb4oOPWj+zkNHjz500Mvx7Fkkp83D1QEV0fojYQ1GPRNntZQ5tWgE+n+rOAnsnuB50grgDqEcE+ys+CU28nEosFEuPGf/X6YnIXAHJwmRSi7VyEgKQ5/vwIB6pYocZe+CpPIF/2nEsEU=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(23010399003)(1800799024)(366016)(38350700014)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?YfPa/7NISvAxa2RioBq5kWKEc8ogyHMz3B154vZisC8YDEeUnMuMqBZ0iFag?=
- =?us-ascii?Q?obijc+OV5u2eIHP5XiioEH7e1zcSP+g8SjTjumRthbR71QSIj++/7p+t5E8P?=
- =?us-ascii?Q?NIccfLA2mEkNiJ1IMF521D6us3sHhpeWLak4CsJChTjdbRMIZD+/pBpLKbde?=
- =?us-ascii?Q?BbXXl4E5HHUV1Idz/xxqrfptmpFqWtlJjn0ttSDnHiPLqWh8XNzzBi+bvOkP?=
- =?us-ascii?Q?mYqoJDzWqknwiyTBVf0xsghVEByWfEL7KHqfHekl9e40CnBr0Jn4B4Hi5XSv?=
- =?us-ascii?Q?TU4wGniWdIz9dxT/XtNaClvqrSJZBtCMkW3xdPPoh8o+izYjQNz77d0ECQw8?=
- =?us-ascii?Q?4HprUbDlHe2ci71NlLn1Yk/9TUME8QBW8zvqI3g9OM50j2940SG32T3r/3Ws?=
- =?us-ascii?Q?AKitrF2ykwttVnF2TbvgKOlRHS5AkW3kRGCDB8jcM2DTMQEKpfKb8iSvSuVX?=
- =?us-ascii?Q?kWtVevZwMMRthgs8je/8cwPKrVInf/r7bsSaCHMM85g8fOxGFMZiWd9I0t44?=
- =?us-ascii?Q?/4P1nBXzKthCt1BFq3aIj4yXaHC98Up8M47vh5SY1bg3J9pxiXKS0Iy64KDi?=
- =?us-ascii?Q?81be7g0QNtsGcB0uM2O6m9vUHxcu27RDwEWb49xvaMmAhYNmr+Em1c6ecUYe?=
- =?us-ascii?Q?uQp4KD72n9FoufINgQJDrGHhVD9nbqfhjzuyHOXwy3agUsL7Jah17TBhHQCx?=
- =?us-ascii?Q?BMpmLOSTWY3uX7bZi2VTdy1df1+yhzhpdvKGKfIsp52G1uDOICsEll2bE4Sw?=
- =?us-ascii?Q?mryWhkUyknGEvp72NoEh+WpTX3NzS3hH8bwGiNk+uUEt8QX1rE8AkA/Vlxj3?=
- =?us-ascii?Q?QMsF8yExdf0L8dW640RVRzCVlQ9PgOYPmMNYgTRg5OmKhRffNBlk6NS2nhsz?=
- =?us-ascii?Q?7utmGrTXzbKx/sbNwlgQVi22WMVmwDYxEW/Tv4zBNA0BNWeIy1LMXMbluCbz?=
- =?us-ascii?Q?FLaRLSh/S1dWzJfz+UTkvi8M4T5XiN7BBwwyfbcmTa3m10G2BSQknF4yiVfL?=
- =?us-ascii?Q?SQ9UBzCm8woCCgDUaOzIlhrsMP4zImXUbahKuhPF60JWLtfwJuFucX6H2j6/?=
- =?us-ascii?Q?eXtT4rcmMVHit0NepxVu21noarCtyksRQUuPbttqn/ndxN7+7jIMH3k8qB3U?=
- =?us-ascii?Q?ZiQN06IG7+RtfnWL2DTo94b7eHsmllQjsb1KfW1Zq61zIxRFOSeB1t+nKjC6?=
- =?us-ascii?Q?J+1I5ue6xEdTmvwYg0vdapTITLgQol2bhdyok/thqsFBdaNS76ZZ5L14KecE?=
- =?us-ascii?Q?UiAE37drqX7KWTZdnoG5MAokfi6W+iMXNvsn6QHkE7J9kE/DBKMMOKzJD+dy?=
- =?us-ascii?Q?/tjsVPoVq+Y5ApUBWHU22ngvswLZAEZvnsfCLwqr/5KwblQdaAMgyDVXNdOx?=
- =?us-ascii?Q?q3VhISlpfQQWQ/Z7m/3eJPS3Zr78pixPE1kZNkHpqQW+pJf2K1h7100YHQI0?=
- =?us-ascii?Q?jUVwnYQCxIw1kDXda3wXevZ5L8KT0QTUuuclLwGZCvU9qxZ8VZCYpJSAgkQN?=
- =?us-ascii?Q?jy+wwB0MPRIH1GOIHkm/8GaAt3r+lGr90Q0ddO1ai1ADJGGwKo5lNr6vvXc3?=
- =?us-ascii?Q?BLh2koDCBPGJFg/uqKv3G6qF+tSfNEJnn1oGJVC6/fxuMjYusGH9+jncKgG/?=
- =?us-ascii?Q?77h4ubLJKo8wcM6HFEvB41BL65qBNVuDUT++ESSSwBeQGyi3M92JBflwysnD?=
- =?us-ascii?Q?sxK/Kq0Ame+LwQx0+bt9ixqTBI3NJyGIPKtjfkVUp4mBmqSxz3gXLQ77NmeN?=
- =?us-ascii?Q?r/A0SYn03Bo7kBhscbO2s0Vy/yf5gjq1fvzjFaTb1dD0qD5D90GJ?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f231c559-0c64-4d02-7a2b-08dedda33523
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 10:16:57.7547
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: adUI2LO2vPpNEj0mh5qsixWtOhJMhE35s5+IIpY9tGsfOUSJsgzf6VPZu62Rd1lKrX3VNgdMR8+H9HEyh4yzrHiiI4BT5np0U0RtJRPM8yOZ7QjzkOOBdmiHPFddjgAg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB16121
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgCHiaNndU9q7zqyAg--.958S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?2VMtqwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBECu7aQQqNhWPu7yRhNpfaEhQhY+bOXTJCZJ1JY7NVcchYo
+	X+tmSIyvnSLs03o56fA=
+X-Coremail-Antispam: 1Uk129KBj93XoW3uw48WF4fWrW3CF1fKF13Jrc_yoWDZF4rp3
+	y3XFy2yr4UWrW3Krs3JFZrAF1rKanak34DKrWUZ3s3uan8Ar1rJrW0kFy7ur1DCrWIka42
+	vF4jqw13XrsrKFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-Hi Jacopo,
-Thanks for your review.
+brcmf_fw_crashed() and the debugfs "reset" entry both schedule
+drvr->bus_reset, whose callback recovers drvr through container_of()
+and dereferences it.  The teardown paths free drvr (brcmf_free ->
+wiphy_free) without draining the work, so a bus_reset callback pending
+or running during removal can outlive drvr.
 
-On Thu, Jul 09, 2026 at 11:19:17AM +0200, Jacopo Mondi wrote:
-> Hi Tommaso
-> 
-> On Wed, Jul 08, 2026 at 06:14:05PM +0200, Tommaso Merciai wrote:
-> > The RZ/G3E CRU programs the line stride via the AMnIS register, whose
-> > IS field encodes the value in units of 128 bytes. If bytesperline is
-> 
-> Unrelated, it seems for RGB888 the alignemtn requirement is 384 bytes,
-> something that doesn't seem handled at the moment ?
+Cancellation cannot live in brcmf_detach() or brcmf_free(): the work
+callback reaches teardown through the bus .reset op (PCIe
+brcmf_pcie_reset -> brcmf_detach; SDIO brcmf_sdio_bus_reset ->
+brcmf_sdiod_remove -> brcmf_free), so cancelling there would wait for
+the running work and deadlock.  Arming and the drain must also be
+mutually exclusive: a debugfs writer can otherwise schedule bus_reset
+after the drain and before the debugfs file is removed in
+brcmf_cfg80211_detach(), re-opening the window.
 
-Yes, I had a similar discussion with Laurent at [1]
+Add a per-bus mutex and route all arming through
+brcmf_bus_schedule_reset(), which under the lock skips when the bus is
+marked removing.  Each bus remove entry calls
+brcmf_bus_cancel_reset_work(), which under the same lock sets removing
+and cancels the work.  Where applicable the remove entry first stops
+the firmware-crash producer: on PCIe mask the mailbox and
+synchronize_irq; on SDIO unregister the bus interrupt and cancel the
+data worker, which also reports firmware halts through
+brcmf_fw_crashed().  The mutex is initialized at bus allocation so it
+is ready before any firmware-probe or removal path can reach it.  The
+SDIO suspend power-off path frees drvr through the same
+brcmf_sdiod_remove() and takes the same lock; resume re-allows the work
+only on a successful re-probe.
 
-Currently neither RGB888 nor semi-planar YUV 4:2:0 are supported.
-I will handle this once the support for those formats will be added
-if for you is ok.
+This issue was found by an in-house static analysis tool.
 
-> 
-> > not a multiple of 128, the division truncates and the hardware uses a
-> > wrong stride, causing horizontal banding.
-> >
-> > Commit ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
-> > replaced the open-coded aligned calculation with v4l2_fill_pixfmt(),
-> > which sets no alignment, reintroducing the issue.
-> >
-> > Switch to v4l2_fill_pixfmt_aligned() with RZG2L_CRU_STRIDE_ALIGN when
-> > info->has_stride is set. RZ/G2L has no AMnIS register and keeps using
-> > v4l2_fill_pixfmt() unchanged.
-> >
-> > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> > Cc: stable@vger.kernel.org
-> > Fixes: ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
-> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > ---
-> > v2->v3:
-> >  - No changes.
-> >
-> > v1->v2:
-> >  - Collected tag
-> >  - Add missing Cc stable
-> >  - Fix s/commit/Commit/ into commit body
-> >
-> >  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> > index 69346a585f9f..478264f26466 100644
-> > --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> > +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> > @@ -860,7 +860,8 @@ static void rzg2l_cru_format_align(struct rzg2l_cru_dev *cru,
-> >  	v4l_bound_align_image(&pix->width, 320, info->max_width, 1,
-> >  			      &pix->height, 240, info->max_height, 0, 0);
-> 
-> This doesn't apply on media-committers/next which has
-> 
-> 	v4l_bound_align_image(&pix->width, 320, info->max_width, 1,
-> 			      &pix->height, 240, info->max_height, 2, 0);
-> 
-> in this line.
-> 
-> What have I missed ?
+Fixes: 4684997d9eea ("brcmfmac: reset PCIe bus on a firmware crash")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Assisted-by: Codex:gpt-5.5
+---
+ .../broadcom/brcm80211/brcmfmac/bcmsdh.c      | 13 ++++++++
+ .../broadcom/brcm80211/brcmfmac/bus.h         |  6 ++++
+ .../broadcom/brcm80211/brcmfmac/core.c        | 33 +++++++++++++++++--
+ .../broadcom/brcm80211/brcmfmac/pcie.c        |  6 ++++
+ .../broadcom/brcm80211/brcmfmac/sdio.c        |  6 ++++
+ .../broadcom/brcm80211/brcmfmac/sdio.h        |  1 +
+ .../broadcom/brcm80211/brcmfmac/usb.c         |  3 ++
+ 7 files changed, 66 insertions(+), 2 deletions(-)
 
-Mmmm my fault I errenously have [2]
-on top of my local media-committers/next tree.
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
+index ac02244a6..c4bb32aec 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
+@@ -1043,6 +1043,7 @@ static int brcmf_ops_sdio_probe(struct sdio_func *func,
+ 	bus_if = kzalloc(sizeof(struct brcmf_bus), GFP_KERNEL);
+ 	if (!bus_if)
+ 		return -ENOMEM;
++	mutex_init(&bus_if->bus_reset_lock);
+ 	sdiodev = kzalloc(sizeof(struct brcmf_sdio_dev), GFP_KERNEL);
+ 	if (!sdiodev) {
+ 		kfree(bus_if);
+@@ -1102,6 +1103,14 @@ static void brcmf_ops_sdio_remove(struct sdio_func *func)
+ 		if (func->num != 1)
+ 			return;
+ 
++		/* Drain bus_reset before the shared brcmf_sdiod_remove()
++		 * teardown, which the SDIO reset callback also reaches.  The
++		 * data worker can arm bus_reset via brcmf_fw_crashed(); cancel
++		 * it first.
++		 */
++		brcmf_sdio_cancel_datawork(sdiodev->bus);
++		brcmf_bus_cancel_reset_work(bus_if);
++
+ 		/* only proceed with rest of cleanup if func 1 */
+ 		brcmf_sdiod_remove(sdiodev);
+ 
+@@ -1163,6 +1172,8 @@ static int brcmf_ops_sdio_suspend(struct device *dev)
+ 	} else {
+ 		/* power will be cut so remove device, probe again in resume */
+ 		brcmf_sdiod_intr_unregister(sdiodev);
++		brcmf_sdio_cancel_datawork(sdiodev->bus);
++		brcmf_bus_cancel_reset_work(bus_if);
+ 		ret = brcmf_sdiod_remove(sdiodev);
+ 		if (ret)
+ 			brcmf_err("Failed to remove device on suspend\n");
+@@ -1188,6 +1199,8 @@ static int brcmf_ops_sdio_resume(struct device *dev)
+ 		ret = brcmf_sdiod_probe(sdiodev);
+ 		if (ret)
+ 			brcmf_err("Failed to probe device on resume\n");
++		else
++			brcmf_bus_allow_reset_work(bus_if);
+ 	} else {
+ 		if (sdiodev->wowl_enabled &&
+ 		    sdiodev->settings->bus.sdio.oob_irq_supported)
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
+index 3f5da3bb6..b606094af 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
+@@ -6,6 +6,7 @@
+ #ifndef BRCMFMAC_BUS_H
+ #define BRCMFMAC_BUS_H
+ 
++#include <linux/mutex.h>
+ #include "debug.h"
+ 
+ /* IDs of the 6 default common rings of msgbuf protocol */
+@@ -149,11 +150,16 @@ struct brcmf_bus {
+ 	u32 chiprev;
+ 	bool always_use_fws_queue;
+ 	bool wowl_supported;
++	bool removing;		/* device removal in progress; quiesce async work */
++	struct mutex bus_reset_lock;
+ 
+ 	const struct brcmf_bus_ops *ops;
+ 	struct brcmf_bus_msgbuf *msgbuf;
+ };
+ 
++void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if);
++void brcmf_bus_allow_reset_work(struct brcmf_bus *bus_if);
++
+ /*
+  * callback wrappers
+  */
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+index fed9cd5f2..b934feb9b 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+@@ -1164,6 +1164,35 @@ static int brcmf_revinfo_read(struct seq_file *s, void *data)
+ 	return 0;
+ }
+ 
++/* Serialize bus_reset arming (debugfs reset write, brcmf_fw_crashed) against the
++ * teardown drain: the remove path takes bus_reset_lock, sets ->removing and cancels
++ * the work under it, so a racing armer either schedules before the cancel (and is
++ * drained) or observes ->removing and desists.
++ */
++static void brcmf_bus_schedule_reset(struct brcmf_bus *bus_if)
++{
++	mutex_lock(&bus_if->bus_reset_lock);
++	if (bus_if->drvr && bus_if->drvr->bus_reset.func && !bus_if->removing)
++		schedule_work(&bus_if->drvr->bus_reset);
++	mutex_unlock(&bus_if->bus_reset_lock);
++}
++
++void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if)
++{
++	mutex_lock(&bus_if->bus_reset_lock);
++	bus_if->removing = true;
++	if (bus_if->drvr)
++		cancel_work_sync(&bus_if->drvr->bus_reset);
++	mutex_unlock(&bus_if->bus_reset_lock);
++}
++
++void brcmf_bus_allow_reset_work(struct brcmf_bus *bus_if)
++{
++	mutex_lock(&bus_if->bus_reset_lock);
++	bus_if->removing = false;
++	mutex_unlock(&bus_if->bus_reset_lock);
++}
++
+ static void brcmf_core_bus_reset(struct work_struct *work)
+ {
+ 	struct brcmf_pub *drvr = container_of(work, struct brcmf_pub,
+@@ -1184,7 +1213,7 @@ static ssize_t bus_reset_write(struct file *file, const char __user *user_buf,
+ 	if (value != 1)
+ 		return -EINVAL;
+ 
+-	schedule_work(&drvr->bus_reset);
++	brcmf_bus_schedule_reset(drvr->bus_if);
+ 
+ 	return count;
+ }
+@@ -1408,7 +1437,7 @@ void brcmf_fw_crashed(struct device *dev)
+ 
+ 	brcmf_dev_coredump(dev);
+ 
+-	schedule_work(&drvr->bus_reset);
++	brcmf_bus_schedule_reset(bus_if);
+ }
+ 
+ void brcmf_detach(struct device *dev)
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+index 8b149996f..3c6775166 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+@@ -1914,6 +1914,7 @@ brcmf_pcie_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		ret = -ENOMEM;
+ 		goto fail;
+ 	}
++	mutex_init(&bus->bus_reset_lock);
+ 	bus->msgbuf = kzalloc(sizeof(*bus->msgbuf), GFP_KERNEL);
+ 	if (!bus->msgbuf) {
+ 		ret = -ENOMEM;
+@@ -1985,6 +1986,11 @@ brcmf_pcie_remove(struct pci_dev *pdev)
+ 	if (devinfo->ci)
+ 		brcmf_pcie_intr_disable(devinfo);
+ 
++	if (devinfo->irq_allocated)
++		synchronize_irq(pdev->irq);
++
++	brcmf_bus_cancel_reset_work(bus);
++
+ 	brcmf_detach(&pdev->dev);
+ 	brcmf_free(&pdev->dev);
+ 
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+index 8effeb7a7..31e37b0d4 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+@@ -4541,6 +4541,12 @@ struct brcmf_sdio *brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev)
+ 	return NULL;
+ }
+ 
++void brcmf_sdio_cancel_datawork(struct brcmf_sdio *bus)
++{
++	if (bus)
++		cancel_work_sync(&bus->datawork);
++}
++
+ /* Detach and free everything */
+ void brcmf_sdio_remove(struct brcmf_sdio *bus)
+ {
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
+index 15d2c02fa..3c68ebf8e 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
+@@ -373,6 +373,7 @@ int brcmf_sdiod_remove(struct brcmf_sdio_dev *sdiodev);
+ struct brcmf_sdio *brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev);
+ void brcmf_sdio_remove(struct brcmf_sdio *bus);
+ void brcmf_sdio_isr(struct brcmf_sdio *bus, bool in_isr);
++void brcmf_sdio_cancel_datawork(struct brcmf_sdio *bus);
+ 
+ void brcmf_sdio_wd_timer(struct brcmf_sdio *bus, bool active);
+ void brcmf_sdio_wowl_config(struct device *dev, bool enabled);
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
+index 9fb68c2dc..97d65ba36 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
+@@ -1271,6 +1271,7 @@ static int brcmf_usb_probe_cb(struct brcmf_usbdev_info *devinfo)
+ 		ret = -ENOMEM;
+ 		goto fail;
+ 	}
++	mutex_init(&bus->bus_reset_lock);
+ 
+ 	bus->dev = dev;
+ 	bus_pub->bus = bus;
+@@ -1336,6 +1337,8 @@ brcmf_usb_disconnect_cb(struct brcmf_usbdev_info *devinfo)
+ 		return;
+ 	brcmf_dbg(USB, "Enter, bus_pub %p\n", devinfo);
+ 
++	brcmf_bus_cancel_reset_work(devinfo->bus_pub.bus);
++
+ 	brcmf_detach(devinfo->dev);
+ 	brcmf_free(devinfo->dev);
+ 	kfree(devinfo->bus_pub.bus);
+-- 
+2.34.1
 
-Will fix that in v4
-
-[1] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20260624104153.798953-3-tommaso.merciai.xr@bp.renesas.com/
-[2] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20260521131911.92845-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-
-Kind Regards,
-Tommaso
-
-> 
-> >
-> > -	v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
-> > +	v4l2_fill_pixfmt_aligned(pix, pix->pixelformat, pix->width, pix->height,
-> > +				 info->has_stride ? RZG2L_CRU_STRIDE_ALIGN : 1);
-> 
-> Rebasing apart, this seems correct
-> 
-> Reviewed-by: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
-> 
-> Thanks
->   j
-> 
-> >
-> >  	dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
-> >  		pix->width, pix->height, pix->bytesperline, pix->sizeimage);
-> > --
-> > 2.54.0
-> >
-> >
