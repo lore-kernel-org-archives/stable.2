@@ -1,239 +1,157 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011042.outbound.protection.outlook.com [52.101.62.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DEFF2727E2
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:11:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783602718; cv=fail; b=hF8LQlkgJYQvhlFBYSX6YheiZz3UoEcPQXhwaCiOtGnVbPwkQ9yl/hUK3sWiAltHBdH3+kZq4rBvv2X1oMHI+r18RZxmuLYLS9jVY0PVuRl2iyC3ZPbfHHnP1fica925wYDplUdZNtODtdq+fWBVJVzHf1Hdph14q1nBa/kSWqM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783602718; c=relaxed/simple;
-	bh=H9DeLwBTIVB6oLDnyfdYTVwxxw1UwhnPaRpoBylgOdM=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EXy518vmPsiHquTXehW0rSIAjrUOf5PQT/ipP5uc2zzowL+102A57Shh8KFFgZB2tDyyHU0x9CgdgxgRnvSKkMdybV3Vxhcl/yz9K6mo9EQDPx2OQEh3wen9/WJrldk1nWbBz30Nbiv66ZhnYs5ZkEW3JNaMli2WFbB/sqK4q08=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=T4EHr/St; arc=fail smtp.client-ip=52.101.62.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F2C243956
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:12:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783602755; cv=none; b=ryGhYYcVq1La6DlFUmOGU5YwrgqTaauNVHT8Kw73rrkTwlClDIbfis8jnItTFWifo0O1HFSH6Yg+OUhzs7srMSynQ3JRB6yW05GM8IdnF1p02X4hazQkaGy+yH8fEj5vnVyVdSGOLL1/waLifjTyy1WZeFp5nIR2Ocepj9hUX2Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783602755; c=relaxed/simple;
+	bh=iAyyFv/AQxA40DSCOj6cGXn3go3IfDOrY7GY4Sy9UyA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XPUpT8+2qgOq3dQ/LzGuc0daD9kijNOnXy4uXiTwZWZQ8YFsQp8bnIPcsYqpYOEXKBKYxYZJpT5ZHqOxtG6CB6piYLIRup57oFHkIhD2+HiOxdzSRQifQqNNJ5R9DAp5iHkVZUX6Qtn6dcdphIUbEVvyTCldKw/Ba+1QaYjOLbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=0HUpb3ZZ; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="T4EHr/St"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i/HFr50xoAQOtjFF0mpOkZwH3PIB28rFtReGREcVWIcPbN5KYYptzd26DjFn1FOBxZzY9oqQChp0msk06SyGY7UukX+aLG2TS63V2kjFMevk1GLKsL/EqtLxr5P37AqT1OyFCsVNBAhTrbZp14Rbu70WVTO7WJX/Qxc+WOxhjF8EUp7V8kuxCvT1dmzIUDt1Woguk/J16+8vx7i+AuqqTuYCw3tI/7otDVdhUSftXgmat7YNsu8xBQui4xKZtWft8+fhUbJkf0rTJRuY7E/Fg2/yHILFYMxKPb2sb70lrL/nKzy4M0W4fhxHHh+DsGDuhcsHyPwe4gsuKQoxE7xewg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H6XBTH+cLgG6VtDeHNZYCQYGBwiZdE7d+6kkXhwcMls=;
- b=MlxGPs8C8fZINiF0jg08Uu9vfK7MXDHwphlgEfOaHMHpY4z38jvN9QZHE5i8sn2caVnU36draFlIY0rt5yIMjCGylJ565Nhe5WE1TYHzpHrAGOfvfs0ZtSzlycPctDVLn8piSNXxM7N3FpEsWYf+bl1gcvgcLbmSr5RZF7Ladpb2IcMu8TcjV0SxqlizfATpV6dhX606G8g7q35RMalFUr+iu0EH4AC1LdV7CvMlS/3FJW4iwaGZpqCNVOS7vDVaaGGdjftDSDFgT8nqxF+NSPhPEKF2PQwL8IYMitaX6PoTXokVRbaksuO4yffI+SDtxMOpWECINiW7zZZCwoxOQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H6XBTH+cLgG6VtDeHNZYCQYGBwiZdE7d+6kkXhwcMls=;
- b=T4EHr/StT9RSOF32G6F3/Pw0roROyDZ47VMIyrniica85iLfqj+0MaPqxVqscGy7USoHB37r9GQL4kXTJcpOVjHFylb2d5KXVT757BYXT8HBkGBqVeQgQfvosAdM/dcIheSo8RkeM/tprqY8GfmkdOz/yKMNAGoLr3fwDvbTwrA=
-Received: from DS7PR05CA0062.namprd05.prod.outlook.com (2603:10b6:8:57::8) by
- CYXPR12MB9426.namprd12.prod.outlook.com (2603:10b6:930:e3::10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.15; Thu, 9 Jul 2026 13:11:48 +0000
-Received: from DS2PEPF000061C7.namprd02.prod.outlook.com
- (2603:10b6:8:57:cafe::9e) by DS7PR05CA0062.outlook.office365.com
- (2603:10b6:8:57::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.5 via Frontend
- Transport; Thu, 9 Jul 2026 13:11:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF000061C7.mail.protection.outlook.com (10.167.23.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 13:11:47 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 08:11:34 -0500
-Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 06:11:05 -0700
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
-	<dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
-	<intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
-	<Arunpravin.PaneerSelvam@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
-	<timur.kristof@gmail.com>, <stable@vger.kernel.org>, John Olender
-	<john.olender@gmail.com>
-Subject: [PATCH v2] gpu/buddy: bail out of try_harder when alignment cannot be honoured
-Date: Thu, 9 Jul 2026 18:40:50 +0530
-Message-ID: <20260709131050.1022759-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="0HUpb3ZZ"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47de0093c42so1760847f8f.3
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 06:12:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1783602752; x=1784207552; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H9Bxn/o6bHrATO0mn2uaPiWaqZWNuvOxb6ptBdz4eyg=;
+        b=0HUpb3ZZrqe6jNid3T41CKaPgavGJH2XFVDZpU4OlrkemmGqXwgJg3skM+++7PbJoz
+         lM/OTM5QiCBi7AkhWrErNjiarEbpLIoOl2TPEoy+r24R7peg4IVt39gNKvrY1i/fUO2s
+         zHYhmDod8lllMEPZp7x+E9/yUUr7CqutmJtEW7PzEQejJcDiSDtm/cvnwv2I4B7hSiHw
+         Dj1uGvCdOEqlEdcJnMDrHkyPUE1QXT24Ep8GvRUkfBlhVqoqH3EjJYF/b/ZDGK1FBv2U
+         WQnUgusisLYMbaAqYvcFqtjMnZNp8v0G8nSsm2p8ZkIApxVhGnDmNg6/ytZN1XQeXVNn
+         oUPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783602752; x=1784207552;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H9Bxn/o6bHrATO0mn2uaPiWaqZWNuvOxb6ptBdz4eyg=;
+        b=A3Z/POg3Y8YjWIoiktomhPX5uMVYcsZzUX7bm5BtbqM3ZYuFWwHubpSyNpqoWuBi4w
+         PV6P2mN6rrLDFruIKQb3A+qOcFN9/yb3oPfbR3oYbS5GnAFBdyrS5wvUf1XxTdF2e8zT
+         1hLE+6IN0+B1UF28rX1BeGd/BNffRuTE/fxCvYIvsaZVdEiE3bM4tCjavVJItnPvbdIR
+         KLe8bogo8WhW9BRPskgN5m7KU4NAqXyZqRZgqEaIWGYplzvAatGIGDEFfIGerx0mk33Z
+         cSu5V0bLvSIESEb6aqH5bbiVEQqC3TrCkrbnwhn4Q83bmI9vCJ6BnMeQ2K4Rjitn0S59
+         7/FA==
+X-Forwarded-Encrypted: i=1; AHgh+RqrMWrnPoAi2C6W8x79Dd7kxPk1v5SXPeOcgQjRKgt1AXtHRyqtRzM865FuU4sOVhABGGGtEmY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBz5OikhLaf0S4OmUmP4BAhK/SB3WPxPgWcKMNaQi/Q+kQHbXD
+	HS7hInnKZZwqOOsD3RSR1fnYemI/PiD1MqG7fOqB7b3kC6jkenZxkWCoUaoOz4f7hGuT
+X-Gm-Gg: AfdE7ckJr0QKF/T5rL07jci9AanZpilOfuYSF1E9ov0Ju6gRmrLClCCR7sogqr/OCk5
+	ktMgSoOOyqbId3yioCchf9Uwy1SxsFORo0ZvSFoLb/B/GKumLVVqg48vbxhgBm6LX9k8l/LHVWN
+	mgoK+Y56aRDtQ/QGsEBnU+E9f1yxlmp/tlJQNQKOjXXOR1KM/9BJkw9UMr1TsL5t3SovFCIiiOc
+	IWX5ShuwASSbm/f2jG77kR/RS/BW6xCEM6hK/TqHpqM1MofooFtbtg6/KJRi0tlsWniGLun5FnY
+	zrFoArbYkgtdZIPsJBsUJvw354polcttGuRPpNon3CZAntePCNfFT8DbKEQmlzMJI5N4Ly3s3p1
+	aAAZFOzi9XYySwH0yuVHeETWHqPdqW5g7Pq5nla6AYfyjMdeQUlib4us7TDF1jM3WajbBCI3Q/U
+	hdMOp86r6gv2QE/XYVN7Ep4b7UWob8FgTzLbI2eDnGcQgx7rGcI0ZMaId8n0yAFuNKnmielrvh1
+	nX8UXEkX85vOAQkJJY83CZOjj5yhdvUpDs=
+X-Received: by 2002:a05:6000:290b:b0:476:e67a:dfa7 with SMTP id ffacd0b85a97d-47df073b100mr7611503f8f.7.1783602751497;
+        Thu, 09 Jul 2026 06:12:31 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d6da9sm50439168f8f.12.2026.07.09.06.12.30
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 09 Jul 2026 06:12:31 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: david@ixit.cz,
+	oe-linux-nfc@lists.linux.dev
+Cc: horms@kernel.org,
+	david.laight.linux@gmail.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Doruk Tan Ozturk <doruk@0sec.ai>
+Subject: [PATCH net v2] nfc: llcp: bound the connect_sn TLV walk to the skb
+Date: Thu,  9 Jul 2026 15:12:29 +0200
+Message-ID: <20260709131229.44477-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C7:EE_|CYXPR12MB9426:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d8bc565-ec70-4667-8b95-08deddbba1eb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18002099003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	Cp4iNvSis4Muq3iCBY3d8s8EY6p96LCrLaunge3xAbioICdyD2vHN5gamygwe050Wb4z7Jql7YlQEEAQ/XXUlupfA96UYX8PRSBU42QMZdQArKdIQyv3b7v3wSZZP6izn8hcZqnHMFMU+JLI0O9ZjcgE7s/G974CdGP15qxD45WJ1wMK/GqlbvgCO6BSEA4Y68FetXxjEGTKHQ7EyckeH8XwREWijpFd22AWulGJaqqzR0NKbNE+v3k3mleVmwAOkrYYgurMaF6qDQiFJUnc9Ek9wIuVdd6xO5TRffeSI8d4Ki//dTlYs06xf+Bn2UdBLYDUFEYan3wxwS/RMeDHcVEDD+cfeaX21pHdNUhfWOn2lz2t5OfYYqdHWDgvkyafLXda8PjYF4N1xfXwpwNhKg1TWb0T7P6PDJbW+uIH17LodiTinf2CHvXgiirbzqt+a6UF1dDvoR018yYL2mPiA+SKc6lbErY3gwTau2CfIySQagWHpTThO/mSgOvf2/xld1lEBJ9r2mAJoeB+XNHRXdQT2+8pia7ikXf/Z3mqAmIlIW6qJxKpqmUyTOWJ/Njr64OfKcJMKA+z5oDnMIpTECq8FKCVGSAHd3Z8hNjsLjNlwx3hGMw00M5mptu2jjOylosH1Zvl09SDv3kcLnPCrbQ3B0RsTIpm1SXiu1v+VlT1s2roW5espZUmexWicUk0v8SZCf8E/M9JGLw9xnw6tw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NvNPCTPXbYarHpW0Kf2oUK98IDY7Rw/4YD4vQLXtxsodtujPg1aoIRGKuhj+0uGnMT33gkVwg53ZOZcgDPP0xSqsjwGtNTuOdDRYcCohcgnq4SO+4t+e2WtnYxyvLKiAE/pJpBS6s1TzNbluUmMKBx0DdlLlaAicfLueGWHaWlJGOsvrPEUE+1VJmUNv6LiP79ysmXUDzhDoIUnaFG6VSHabRpGoT6vB+0dCxZYYMhbHwUEjftjc/KHBFzoSvLXM+JggqLrQCM1jtSVrrLOhOPbEiUtPXCUP4lc3xr7aI/q29fmEkZR3sVk2jJPdrcVPgKax5OVo3dnCnacZsdBzeI57f4by5PM4Y3FTB5F3k2jM2KAjvSZ3TPoVi0xmzliM6g1i1e3FPG4RtCK+TZ1dDEY/U5HzYBOqn6yK8w2Icm59IVraze4B9iWdNaqXIl5y
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 13:11:47.7915
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d8bc565-ec70-4667-8b95-08deddbba1eb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF000061C7.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9426
 
-The try_harder contiguous fallback could return a range whose start
-offset did not match the caller's min_block_size. When a candidate's
-start is misaligned, realign it: free the misaligned run and reallocate
-exactly @size at the next lower min_block_size boundary. This keeps the
-returned size unchanged with no surplus to trim, and rejects the request
-only when no aligned candidate fits.
+Commit 27256cdb290e ("nfc: llcp: bound SNL TLV parsing to the skb and
+add length checks") fixed the unbounded TLV walk in nfc_llcp_recv_snl(),
+and commit d8bd2dedbde5 ("nfc: llcp: fix OOB read and u8 offset wrap in
+TLV parsers") subsequently bounded nfc_llcp_parse_gb_tlv() and
+nfc_llcp_parse_connection_tlv(). One sibling parser sharing the same
+pattern remains unbounded: nfc_llcp_connect_sn().
 
-v2: align misaligned candidates down to min_block_size instead of
-    bailing out, for both the RHS and LHS paths (Matthew).
+nfc_llcp_connect_sn() walks a TLV list, reading a two-byte header
+(type, length) followed by length bytes of value, without checking that
+the two header bytes or the declared length stay within the buffer. It
+returns a pointer to a service name of up to 255 bytes that may point
+past the end of the skb; it is subsequently consumed by memcmp() in
+nfc_llcp_sock_from_sn(). In addition tlv_array_len was computed as
+"skb->len - LLCP_HEADER_SIZE" in size_t, so a CONNECT/CC frame shorter
+than the LLCP header underflows to a huge length and the walk runs far
+past the buffer.
 
-Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Timur Kristóf <timur.kristof@gmail.com>
+nfc_llcp_connect_sn() is reachable from nfc_llcp_recv_connect() and
+nfc_llcp_recv_cc(), i.e. from received CONNECT and CC PDUs. A nearby
+NFC device can reach this without authentication; LLCP link activation
+happens automatically after NFC-DEP, and the nfc_llcp_rx_skb()
+dispatcher applies no minimum-length guard.
+
+Walk the TLV list by pointer, bounded by skb_tail_pointer(skb), and
+validate each declared length before use, matching the approach already
+used for nfc_llcp_recv_snl(). Starting the walk at
+&skb->data[LLCP_HEADER_SIZE] against the tail pointer also removes the
+size_t underflow for short frames.
+
+Found by 0sec automated security-research tooling (https://0sec.ai).
+
+Fixes: d646960f7986 ("NFC: Initial LLCP support")
 Cc: stable@vger.kernel.org
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Tested-by: John Olender <john.olender@gmail.com>
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Assisted-by: 0sec:claude-opus-4-8
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
- drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
- 1 file changed, 44 insertions(+), 19 deletions(-)
+v2: drop the nfc_llcp_parse_gb_tlv() and nfc_llcp_parse_connection_tlv()
+    hunks - fixed independently by d8bd2dedbde5. This resend covers only
+    the still-unbounded nfc_llcp_connect_sn().
+v1: https://lore.kernel.org/netdev/20260705113505 net/nfc/llcp_core.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index dc81fe0301ce..3c73ae87f3c5 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
- 			     blocks, total_allocated_on_err);
- }
- 
-+static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
-+					u64 unaligned_offset,
-+					u64 size,
-+					u64 min_block_size,
-+					struct list_head *blocks)
-+{
-+	u64 aligned_offset = round_down(unaligned_offset, min_block_size);
-+
-+	return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
-+}
-+
- static int __alloc_contig_try_harder(struct gpu_buddy *mm,
- 				     u64 size,
- 				     u64 min_block_size,
- 				     struct list_head *blocks)
+diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+index aed5fe1afef0..0de20279e046 100644
+--- a/net/nfc/llcp_core.c
++++ b/net/nfc/llcp_core.c
+@@ -849,13 +849,16 @@ static struct nfc_llcp_sock *nfc_llcp_sock_get_sn(struct nfc_llcp_local *local,
+ static const u8 *nfc_llcp_connect_sn(const struct sk_buff *skb, size_t *sn_len)
  {
--	u64 rhs_offset, lhs_offset, lhs_size, filled;
-+	u64 rhs_offset, lhs_offset, filled;
- 	struct gpu_buddy_block *block;
- 	unsigned int tree, order;
--	LIST_HEAD(blocks_lhs);
--	unsigned long pages;
- 	u64 modify_size;
- 	int err;
+ 	u8 type, length;
+-	const u8 *tlv = &skb->data[2];
+-	size_t tlv_array_len = skb->len - LLCP_HEADER_SIZE, offset = 0;
++	const u8 *tlv = &skb->data[LLCP_HEADER_SIZE];
++	const u8 *tlv_end = skb_tail_pointer(skb);
  
- 	modify_size = rounddown_pow_of_two(size);
--	pages = modify_size >> ilog2(mm->chunk_size);
--	order = fls(pages) - 1;
-+	order = ilog2(modify_size) - ilog2(mm->chunk_size);
- 	if (order == 0)
- 		return -ENOSPC;
+-	while (offset < tlv_array_len) {
++	while (tlv + 2 < tlv_end) {
+ 		type = tlv[0];
+ 		length = tlv[1];
  
-@@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
- 		while (iter) {
- 			block = rbtree_get_free_block(iter);
- 
--			/* Allocate blocks traversing RHS */
- 			rhs_offset = gpu_buddy_block_offset(block);
++		if (tlv + 2 + length > tlv_end)
++			break;
 +
-+			/* Allocate blocks traversing RHS */
- 			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
- 						       &filled, blocks);
--			if (!err || err != -ENOSPC)
-+			if (err && err != -ENOSPC)
- 				return err;
-+			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
-+				return 0;
-+			if (!err) {
-+				/* Allocate the unaligned RHS offset using round_down */
-+				gpu_buddy_free_list_internal(mm, blocks);
-+				err = __alloc_contig_aligned_retry(mm, rhs_offset,
-+								   size,
-+								   min_block_size,
-+								   blocks);
-+				if (!err)
-+					return 0;
-+				if (err != -ENOSPC) {
-+					gpu_buddy_free_list_internal(mm, blocks);
-+					return err;
-+				}
-+				goto next;
-+			}
+ 		pr_debug("type 0x%x length %d\n", type, length);
  
--			lhs_size = max((size - filled), min_block_size);
--			if (!IS_ALIGNED(lhs_size, min_block_size))
--				lhs_size = round_up(lhs_size, min_block_size);
-+			if (size - filled > rhs_offset)
-+				goto next;
- 
--			/* Allocate blocks traversing LHS */
--			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
--			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
--						       NULL, &blocks_lhs);
--			if (!err) {
--				list_splice(&blocks_lhs, blocks);
-+			lhs_offset = rhs_offset - (size - filled);
-+
-+			/* Allocate the unaligned LHS offset using round_down */
-+			gpu_buddy_free_list_internal(mm, blocks);
-+			err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
-+							   min_block_size, blocks);
-+			if (!err)
- 				return 0;
--			} else if (err != -ENOSPC) {
-+			if (err != -ENOSPC) {
- 				gpu_buddy_free_list_internal(mm, blocks);
- 				return err;
- 			}
--			/* Free blocks for the next iteration */
-+next:
- 			gpu_buddy_free_list_internal(mm, blocks);
--
- 			iter = rb_prev(iter);
+ 		if (type == LLCP_TLV_SN) {
+@@ -863,7 +866,6 @@ static const u8 *nfc_llcp_connect_sn(const struct sk_buff *skb, size_t *sn_len)
+ 			return &tlv[2];
  		}
+ 
+-		offset += length + 2;
+ 		tlv += length + 2;
  	}
-
-base-commit: 104c00917264c5b9571072471e3a8689cd1a2c4d
+ 
 -- 
-2.34.1
+2.43.0
 
