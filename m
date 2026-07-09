@@ -1,231 +1,154 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5AD2D3A60
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 16:56:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DCBD3126BF
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 16:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783616184; cv=none; b=LqrgNiQchkxDXEghKms6JaRA6BBlKzwQ3HL0P3AOoVlPlUSlxtQqazz6lDC3+976/RKsWomiIo5VOSEfz4zkb561+g96ZU7lk4aLfxiZ3HGWu2vP8bbbTD7N/Bma9qikrQ8dtBVYCff+rOYHlRKo8o90BygwuBCJcLdSUMj1mC0=
+	t=1783616349; cv=none; b=jj6K53trkmgBlzYLJnVRLgZr7NN+kjywCD09JcVgz6BKdN9Di9Re3ORGJRf80IcXZ+NlDSMbsfJ8GdldpLYJHy3TreCtEICdsqlfq32eeY1RRWSeAihouUe4gO/clKP5Rbtzc3KjYR+ckwYBg/+LF1weQjPfXfof1qQvLQL/rU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783616184; c=relaxed/simple;
-	bh=mJENbzgctRGn35af/XgacrGkfki9wBVujHBixMSaqf8=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=gsOfIa9cilCv7VAkso87vBCsA3KevdYVzZUImgCtU86NpY6GZgEuWwkjh7AQ8+hsBWfoiwmTkkn0esoF7xQJZnD4DBAJeIQjvvwTE5JjKOGA73T77SgEAHXDAHw98FuXGOF52T1gNaAFN6bC6onF3h6ieikkvZcwG389n3jv1gM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TLSwpJU/; arc=none smtp.client-ip=209.85.214.175
+	s=arc-20240116; t=1783616349; c=relaxed/simple;
+	bh=k53K0dGYW6Pb3pIUktGIXVCEU3Cc2tu3h7vVqnQbdyE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aFHOO3psR/9tn72pCIb3ssrrUYtxW717/8KvKk4yzmVAWd4iu57/ujcnTjFz3F8WwZyHU86UofaZr3/R9VORuZ3W9GF5dFr5dBffymx8HeO3MbpMmSCatSvBNc/K7y9tMvz0YB4HoH1IElbPf/pqbiitPhnyU74HeqMa0FGuTsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iqxWw0x0; arc=none smtp.client-ip=209.85.208.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TLSwpJU/"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2c7c61b5292so38435815ad.0
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 09:56:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iqxWw0x0"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69c20ba892eso228036a12.1
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 09:59:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783616182; x=1784220982; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=LxRJKp6D1ptC4y5YnQZ3DSiE42VBKKscZdC4o85YzcU=;
-        b=TLSwpJU/7gh7MtgxFW9FKC937zHoma/csrV6QsxDMm00B5Wvo+6ad9jMR435hzeYyz
-         cv5wdYNZ8E3YztLNT4JY6EIwzoTkvoBXTZ1U0A7Ar2nQBmijXPsJe6+rvRdOp/RjYoKs
-         AkQvIQwL0AUgzAI/iUGxNc5SeIsDTTPRStznKvfOvI+04uZobebgf44v8hzMf3MvJEwt
-         nfLwuG3I9WiVD/4JCrwqVgR1uHeWSO0iWaPaxW1XEFlZwGTnAfQdHdSe8VoYhZOlF8a8
-         DEfJ3Cf8xx/UiUYnChnha4r2zBQ43m/evMw6M6LHu5JLR7SbeNbVy9SFdwG5knfd7FM+
-         bKDg==
+        d=gmail.com; s=20251104; t=1783616347; x=1784221147; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xt6DhrngYbZFM9YuEunJlGx98mys1Ug0XoEi11S0kAY=;
+        b=iqxWw0x0SByY/UqbtUPlG59WUICweiV27gkzyryhIEmgLPYCIDvS8lTRqcfK4xF5Qp
+         Vs/krr/RaSunLICmnxic9kfS/PHIGeh87YdgifoyVFpyTOmAK+TI5lxVxVbcGfrcGvXX
+         2cGDCWZBxLsj8Smp1TIV869K1O2Tqwt0dTPMUALxexIH5LIWNfbM2cHBIkZZbg2vw26L
+         eR8irfGGcnaIVMKq4kMV3XDd5VXiyOZk7QSfkqi3813kP7zqzxz9TRBOEAWNrz2qqjXk
+         0Knj/HTRjB8ys2o1k3L2Fknd/1uirldZDtcoiTL1anXCy4bX9O+/natzFBMuLH5wz5qK
+         i4bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783616182; x=1784220982;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LxRJKp6D1ptC4y5YnQZ3DSiE42VBKKscZdC4o85YzcU=;
-        b=Sbz+ef31y4/fOQ3oGWzbwYJHwY8bjyWUP64kwLdS0r62Mm2MArLPNYmeKD7S0yHEcE
-         20W4CiZ/ySAt15tI/HK4QDFTd3qPzFQg4YpFyKd7e+Hqq96r+UrPRg9fA9A42vt44NHU
-         Fo1xUiqXZg2N5Ldh5o/RX7H0toZOoTZDnK53az/N5jdV46OJYT/VB2KWE3R9tPIV273E
-         pOk1K2oaH1dYPBHWDm6ZAb5fTIr3ulCaeVqgTSgmXEcp5li1ttYw7bW7PlhazWRgudKE
-         JOzsRCzxmaVOEJIzKHiyw3R6beEvRm2q9a8yFu0yurMEyT7IitRyqSwTSE4d5H2pcrJU
-         AgcQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqZs9w6RT3LUX2AhE9Vn/zlk9FTfbd6dM2366jv8aOU9RHyHzX3kEKqYVEqtogCygK3foeX/Eg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0vjugf5SR4SZ+ef/G+6/njxLGlVoPSQTWKnFMRF1htkCBwk/e
-	HTAThKK+8q1Ge3P3TnrY4F6gsVUHSc6xQik0puDkEMr+c3Hr+CEuUAda
-X-Gm-Gg: AfdE7ckhgaREqdfAJEWgIKqOcj230wiP/I92yZ0NVf3J+TOZmE6sBCgb8pf281Gwn3/
-	1K/IMVZYWJm3H0O7XBogIkRMX9+H7S8aUr5m6/2Tw1cnkCM6LgnfUkfSLGxK9DavS2sEEUQ3Hi1
-	1Y+TKXYLdQiIigpcsYhGF3jmCgtjRwey2cNJQNDBjJjVQP6BHCwAOlodEOaAKo3PMLQma7YKBLa
-	4QjiRfmOqVwJUQ8fKOcmWAg/bIQqov4RMzXN4kIH1VsZjURBQpLCsimny5S8aOeix4Imyc8mcNv
-	R6JgPHLTAM/77lfa1oXh1x6LXk/oQWWZR8HEBjng4ewggoMGJicylrlsQXuYf7o2n4pwa9T5jxX
-	QD0k18rKni/VQkV7sxhc83xTM6nFwZqRmylo8EoN14fBpOAGw1jKlH5Cl3LP0ltTX9MVrYVVaOL
-	XPHP7aIBn6IPI=
-X-Received: by 2002:a05:6a21:512:b0:39c:126c:93b5 with SMTP id adf61e73a8af0-3c0bcfea433mr9860874637.21.1783616181907;
-        Thu, 09 Jul 2026 09:56:21 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b658a99afsm32344548c88.0.2026.07.09.09.56.16
+        d=1e100.net; s=20251104; t=1783616347; x=1784221147;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xt6DhrngYbZFM9YuEunJlGx98mys1Ug0XoEi11S0kAY=;
+        b=G7GM1dzy8tE6vG6XLbb2re0NlzUj6Z3J7iiJ7oRDclo0ecypQtFZvmbjQqXPQFnrBQ
+         ZNZiKn2K8NwAzDvaYgGEdWmUnYAH92N5EFLTUa93INCqixiDkN/w3i9UHDrt7wIsp8ZR
+         pbd/gcvxx6mr0qHiOARvwl/iUDdz/sfZLgV31yQaPGNJyaT4d5qKixN8r0IptOEbF9cg
+         Rth1h+M9NaNrs8Qb+hKW2TOGzDXez5xoUhnx5z2CKChbo0fAdbEf5i+KjM8jq7WRmaCJ
+         cpbT9RWV0kJqE4MW2+8pVp6w/oqmkv/wpI5gdbA6dyI0Orzq1auPqmsILafA4pykPVHt
+         2Wgg==
+X-Gm-Message-State: AOJu0Yxh35xDuzYDXk8DEea3RUU8qkhVSCZQXm+RhjSSKDaeLg93VTkz
+	aAMrd/Ez/uqx7vnlHAO8hXYK5CBmhOzrKVNkCMZ5zkOCB2dnyGph24oG
+X-Gm-Gg: AfdE7ckGyU77+GOJDTCkgoi3PWCXdTgNRlU+vprd7+FkPasOjf41KYfIOZZSuJDlSTk
+	/MKWSzKO/jwTsF0YEBvsNmxGcex8wL9jpvkMCvEYWZhMHkFrJ4KmBG0j62gPDqSypf+SmOsBsyX
+	JLIUT5kkxH/Cka5Ox+vu8bI6erPV+sj5AjsI7NLS+wG00n9qqJeywjt8hKLKZ6FLFEleGWxxV2k
+	Z2CBQOOj/eYIoariGrwE3mPTBFsF/dhPOkE+sDpr66jqecYFhtsueSZ7sk0nMNOfnpzTk++OvKK
+	x3m9tjRawdPdjxUR023FCdBLmlpB4vm4GpJ2EbGiTPCQn3VQ7IFRvPwApzICKKFwNMJvg6FlxFj
+	Cbp9kPLSVpCKy6ILw7GpWkAMI4wpU2/mfAuzspgHekY1tAdDW+KAfpsabnWbrdwCCLXrwywaEX8
+	9MncLgUjbIROi62KEPuaH+vDgjzWU6ZoqhIsaKV5+q2fx2SRCydTv4NQwJPoCPBK8=
+X-Received: by 2002:a17:907:a2cd:b0:c12:6280:33c9 with SMTP id a640c23a62f3a-c15fe8eba70mr3124066b.28.1783616346420;
+        Thu, 09 Jul 2026 09:59:06 -0700 (PDT)
+Received: from node ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15c79f2a3fsm329902666b.49.2026.07.09.09.59.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 09:56:21 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Sourabh Jain <sourabhjain@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au
-Cc: npiggin@gmail.com, chleroy@kernel.org, shivangu@linux.ibm.com, hbathini@linux.ibm.com, mahesh@linux.ibm.com, adityag@linux.ibm.com, venkat88@linux.ibm.com, sourabhjain@linux.ibm.com, stable@vger.kernel.org, Mahesh Kumar G <mahe657@linux.ibm.com>
-Subject: Re: [PATCH 1/1] powerpc/crash: stop watchdogs before booting kdump kernel
-In-Reply-To: <20260603070217.483696-2-sourabhjain@linux.ibm.com>
-Date: Thu, 09 Jul 2026 22:01:02 +0530
-Message-ID: <4ii8w2ex.ritesh.list@gmail.com>
-References: <20260603070217.483696-1-sourabhjain@linux.ibm.com> <20260603070217.483696-2-sourabhjain@linux.ibm.com>
+        Thu, 09 Jul 2026 09:59:06 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Jorge Lopez <jorge.lopez2@hp.com>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Mario Limonciello <superm1@kernel.org>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH v5 0/4] platform/x86: hp-bioscfg: fix ACPI package handling on HP EliteBook 840 G2
+Date: Thu,  9 Jul 2026 21:58:55 +0500
+Message-ID: <20260709165900.30615-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Sourabh Jain <sourabhjain@linux.ibm.com> writes:
+This series fixes attribute enumeration failures on the HP EliteBook 840
+G2 (BIOS M71 Ver. 01.31), whose BIOS returns shorter ACPI WMI packages
+than hp_init_bios_package_attribute() currently accepts, plus occasional
+type-mismatched elements after a failed WMI query.
 
-> On pseries LPAR systems, watchdog timers configured from userspace
-> can remain active after a kernel panic. During panic triggered crash
-> dump capture, the crashing kernel jumps directly to the kdump kernel
-> without shutting down userspace services. As a result, active
-> watchdogs are not stopped before entering the kdump kernel.
->
-> If dump capture takes longer than the watchdog timeout, PHYP resets
-> the LPAR before dump collection completes, resulting in dump capture
-> failure.
->
-> Fix this by issuing the H_WATCHDOG hcall on the crash shutdown path
-> to stop all active watchdogs before booting the kdump kernel.
->
+Patches 1 and 2 are prerequisites: they make each per-type parser bound
+itself on the real, validated package count instead of an incorrect value
+derived from the NAME string's length. Both are no-ops today, since
+every package the driver currently handles already meets the old
+minimum size. They matter because patch 3 depends on them: once the
+minimum size check is relaxed, the elements array can genuinely be
+smaller than a parser's fixed per-type count, and without patches 1 and
+2 this would result in an out-of-bounds heap read.
 
-Nice catch!
+Patch 3 relaxes that minimum size check to accept packages missing
+optional type-specific fields, as long as the common fields (NAME
+through SECURITY_LEVEL) are present.
 
-> Fixes: 69472ffa6575 ("watchdog/pseries-wdt: initial support for H_WATCHDOG-based watchdog timers")
-> Reported-by: Mahesh Kumar G <mahe657@linux.ibm.com>
-> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> ---
->  arch/powerpc/kexec/crash.c | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
->
-> diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
-> index e6539f213b3d..5651523e3a70 100644
-> --- a/arch/powerpc/kexec/crash.c
-> +++ b/arch/powerpc/kexec/crash.c
-> @@ -28,6 +28,7 @@
->  #include <asm/interrupt.h>
->  #include <asm/kexec_ranges.h>
->  #include <asm/crashdump-ppc64.h>
-> +#include <asm/hvcall.h>
->  
+Patch 4 changes a type mismatch on one element from aborting the whole
+attribute to warning and skipping the offending element, matching the
+existing handling of unsupported element types.
 
-would be nice, if we could avoid papr specific header into common crash.c
+Patches 1 through 3 are intended to be applied together, as patch 3
+depends on the preparatory fixes in patches 1 and 2.
 
->  /*
->   * The primary CPU waits a while for all secondary CPUs to enter. This is to
-> @@ -352,6 +353,28 @@ int crash_shutdown_unregister(crash_shutdown_t handler)
->  }
->  EXPORT_SYMBOL(crash_shutdown_unregister);
->  
-> +/**
-> + * stop_watchdogs - Stop active watchdogs before entering kdump kernel
-> + * On pseries LPAR systems, watchdogs configured from userspace remain
-> + * active after a kernel panic because userspace services are not shut
-> + * down on the kdump crash path. If a watchdog expires while the kdump
-> + * kernel is collecting the dump, PHYP resets the LPAR and dump capture
-> + * fails
-> + *
-> + *   0x200UL : watchdog stop operation
-> + *   -1      : watchdog number, disable all watchdogs
-> + */
-> +static void stop_watchdogs(void)
-> +{
-> +	if (firmware_has_feature(FW_FEATURE_LPAR)) {
-> +		int rc;
+v4: https://lore.kernel.org/all/20260708154846.12356-1-meatuni001@gmail.com/
 
-ditto.
-Also I guess this could be FW_FEATURE_WATCHDOG
+Changes since v4:
+- Patch 1: added missing kerneldoc @foo_count entries for the five new
+  parameters. (Ilpo)
+- No other code changes.
 
-> +
-> +		rc = plpar_hcall_norets_notrace(H_WATCHDOG, 0x200UL, -1);
+Changes since v3:
+- Patch 1: dropped the Fixes: tag (the patch does not fix anything on
+  its own; Cc: stable is enough for stable to pull it in as a series
+  dependency) and reworded the forward reference from "a later patch"
+  to "an upcoming change". (Ilpo)
+- Patch 2: dropped the Fixes: tag and reworded the forward reference as
+  in patch 1, plus dropped the redundant sentence describing the
+  out-of-bounds read. (Ilpo)
+- No code changes; commit-message wording only.
 
-- 0x200 is hardcoded.
-- -1 is hardcoded.
-- I think it's return value is long.
+Changes since v2:
+- Split the single "pass validated count and bound ordered list
+  parsing" patch into two: patch 1 fixes the count value passed to
+  each wrapper, patch 2 adds the missing elem < count bound to the
+  ordered list parser. (Ilpo)
+- Rewrote patch 1's commit message to lead with the bug instead of
+  quoting code, and to state up front that a later patch depends on
+  it. (Ilpo)
+- Reworded "thread the count down" and "guess at it" phrasing. (Ilpo)
 
-> +		if (rc != H_SUCCESS && rc != H_NOOP)
-> +			pr_warn("crash: failed to stop watchdogs\n");
+Muhammad Bilal (4):
+  platform/x86: hp-bioscfg: pass validated element count to package
+    parsers
+  platform/x86: hp-bioscfg: bound ordered-list parsing by the package
+    count
+  platform/x86: hp-bioscfg: accept reduced ACPI packages from older HP
+    BIOS
+  platform/x86: hp-bioscfg: warn on element type mismatch instead of
+    failing
 
-Let's print rc as well.
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c     | 16 +++++++++++++---
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.h     |  8 ++++++++
+ .../platform/x86/hp/hp-bioscfg/enum-attributes.c | 11 +++++++----
+ .../platform/x86/hp/hp-bioscfg/int-attributes.c  |  4 +++-
+ .../x86/hp/hp-bioscfg/order-list-attributes.c    |  8 +++++---
+ .../x86/hp/hp-bioscfg/passwdobj-attributes.c     |  6 ++++--
+ .../x86/hp/hp-bioscfg/string-attributes.c        |  4 +++-
+ 7 files changed, 43 insertions(+), 14 deletions(-)
 
-> +	}
-> +}
-> +
+-- 
+2.55.0
 
-Looking at the code, we already have a mechanism to register a crash
-shutdown handler which anyways is getting called from
-default_machine_crash_shutdown(). So, I think we could use this generic
-crash handler register mechanism and keep the wdt specific calls within
-pseries/setup.c file...
-
-...How about something like this? 
-
-diff --git a/arch/powerpc/platforms/pseries/setup.c b/arch/powerpc/platforms/pseries/setup.c
-index 50b26ed8432d..4e557694d724 100644
---- a/arch/powerpc/platforms/pseries/setup.c
-+++ b/arch/powerpc/platforms/pseries/setup.c
-@@ -59,6 +59,7 @@
- #include <asm/xics.h>
- #include <asm/xive.h>
- #include <asm/papr-sysparm.h>
-+#include <asm/papr-watchdog.h>
- #include <asm/ppc-pci.h>
- #include <asm/i8259.h>
- #include <asm/udbg.h>
-@@ -185,14 +186,42 @@ static void __init fwnmi_init(void)
- #endif
- }
-
-<...>
-
-+static void pseries_crash_stop_watchdogs(void)
-+{
-+       long rc;
-+
-+       rc = plpar_hcall_norets_notrace(H_WATCHDOG, PSERIES_WDTF_OP_STOP,
-+                                       PSERIES_WDT_NUM_ALL);
-+       if (rc != H_SUCCESS && rc != H_NOOP)
-+               pr_warn("Could not stop watchdogs before kdump rc=%ld\n", rc);
-+}
-+
- /*
-  * Affix a device for the first timer to the platform bus if
-  * we have firmware support for the H_WATCHDOG hypercall.
-  */
- static __init int pseries_wdt_init(void)
- {
--       if (firmware_has_feature(FW_FEATURE_WATCHDOG))
--               platform_device_register_simple("pseries-wdt", 0, NULL, 0);
-+       if (!firmware_has_feature(FW_FEATURE_WATCHDOG))
-+               return 0;
-+
-+       platform_device_register_simple("pseries-wdt", 0, NULL, 0);
-+
-+       if (crash_shutdown_register(pseries_crash_stop_watchdogs))
-+               pr_warn("Could not register watchdog crash shutdown handler\n");
-+
-        return 0;
- }
- machine_subsys_initcall(pseries, pseries_wdt_init);
-
-
-Note that I added papr-watchdog.h header file in above. I am guessing we
-can move some definitions from drivers/watchdog/pseries-wdt.c to
-arch/powerpc/include/asm/papr-watchdog.h in a separate patch before this
-change.
-
-I think you get the idea. Can you try this way and let me know if this works?
-
--ritesh
-
->  void default_machine_crash_shutdown(struct pt_regs *regs)
->  {
->  	volatile unsigned int i;
-> @@ -360,6 +383,8 @@ void default_machine_crash_shutdown(struct pt_regs *regs)
->  	if (TRAP(regs) == INTERRUPT_SYSTEM_RESET)
->  		is_via_system_reset = 1;
->  
-> +	stop_watchdogs();
-> +
->  	if (IS_ENABLED(CONFIG_SMP))
->  		crash_smp_send_stop();
->  	else
-> -- 
-> 2.52.0
