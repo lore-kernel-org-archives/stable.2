@@ -1,196 +1,123 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DF9413254
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 12:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586623932F7
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 12:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783599914; cv=none; b=ZfczTAoRKWfL3oXJ1VXfpJ6jyiJU99fqza1HD/IE/7ixvjFp/T3CBqhCNUtpLLh7CzRSvGHgnd9Ki0BKoWARuaNaoucHI+pIdYhCZigOVWPeoiAS4kZQba2xQWBwOCmbnItFJt/7GbQkOgiOpcQDPjb0ep7uIvk+PGTnbgTGbyE=
+	t=1783600106; cv=none; b=sZ445STmRxb8znGWd8G6OiWuKHMZcVGhSDk2bA04JkgECvnHrQGhUEgdQXO3bHe5tdu+zA9gsjoSzoEO+0rlL0rC1f7d7ceufkdeQqpGn9vVIvePIZPBEpvruU0Fcic6vaREfz8Sa2zgGHKVbSpJjk5bYOWo2OPsafhsiZIhwHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783599914; c=relaxed/simple;
-	bh=y9cAnsHqNIYb0P++QnO5XIYO7nF4SS978HjjVVaE8xE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nDFfADJWMBW1w9tiCHfu/nEde9GcJsJjtsHdc8NAuAf1DBH0vOMV3Xhp5l4I9bux7AaqWyOxhACZler/E3zglloeChGofYQGfr95eAmDiXE20OsxSsvPfG4+E7fC+AjCL2nivvupEx7hEPod7zYeHe2nOXSVY5bkn6XlZQ2iUy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L9q6o9zt; arc=none smtp.client-ip=209.85.167.50
+	s=arc-20240116; t=1783600106; c=relaxed/simple;
+	bh=uYQf5c0BQoHX6DBg7Groisb/ulKzUj3hF4pVgEjeWTE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ci8LwsattD+w21hpwLFfsAWrk4SZ5FKNgenJot5obV6aWnZAxRAEqhbLNWEyWAtLXPLmLeIGmfFfROK1tcbXuiBfn9l9wdFbnKhiBRnlVPTMfZNHnQY+jxmS6QDgEsctm9qePL8/QnJ03YR8LLjRL55niHYKPjaKpovpcVcVYos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X8CIlOSR; arc=none smtp.client-ip=209.85.210.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L9q6o9zt"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b015b2d792so951296e87.3
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 05:25:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X8CIlOSR"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7eb545db3afso1033661a34.0
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 05:28:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783599911; x=1784204711; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vu/X/SkKCf8BDgHCKFoN7Pak7eOCPEtAIjSdYOyjR7k=;
-        b=L9q6o9ztCekmPSt8fmsF9PoiTQPD5RVZXoKzbNRaDc6VENSNqt22iJojfsvxQRoYsV
-         2M8RmBSWbvXQG0ObRiG2wovGENL67NqRI+PpjW7ggOJWFEFGQS4fFcCjP6F2/ZJI7Bp2
-         3dolaU2g/kZU+RRieN4/8IqbPgF75JRqP0KGQsKuOmicu35WNG6wdnL2NL8UBHiOVWqb
-         0FP+NFAheqNpGGxd0sF7fCBDbD2W+lJ/DSF0uISK9bii+dHaiKZzcAFj/OL1Zkj49F7m
-         u6DfEE3KbVd2HOamYD7H6XJsJcrKJ648fptuJpBw44B4mD04OnqA7ZtfYgaNJGou+IQq
-         P7Jg==
+        d=gmail.com; s=20251104; t=1783600104; x=1784204904; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+0scXORZJfAFimY9Y8Fd7n7er05lMNqpmWecxRPQPtE=;
+        b=X8CIlOSRLa6f4ggbAwCIBRx6HmtuVgrCH4kEB2QhQxOtjKwhbaYUpzcQ9050o0avOh
+         9+RNaLb+b7dp5QyJ7pb7OCI43fp1kni7zSsOP00UAa8iMkEKed8O5g+SFm7eRQCWi69F
+         9T70JIROMHaV/gukhp3Y223UBnNFw7XAL9RNyz8oXKl8TrxlUg8k2PNk1OwoLsGn96pQ
+         /XmIadXLS4lOcKhwQP+d0quc4f60FMm1HNx3BiwINTdXGUDrYnkwoHl/kS8sCJeDU/h4
+         daoRtk+mV8LdKLBJnj44VtvO0X0Zjj6Q0KHjDHkLDVKtgXSwXlJmO9P2udzyGysldOmO
+         AQKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783599911; x=1784204711;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vu/X/SkKCf8BDgHCKFoN7Pak7eOCPEtAIjSdYOyjR7k=;
-        b=ETLtlJ+l5FRalss8YmsQAeRLC1Fd2nep1c5ed+DLPJXV9cR+3VFhhlSxFLcH4azdnL
-         9nY1BoUkKi4ORmWPygyd5+Hz1zLoyR7bIYGhxho3s2MkDiaDdo8IWH/d4x0y8dMQ/37O
-         CMriwkAwP6fs70FdvLPfbLbh/vTpw5XomwTZ4Qu729ZwpPFFyoEpFKJixzdRNHKnjJqE
-         y9uTNYhDFutHlIuBDMPsMdCyrmr0JPqgSlZHBwrGMZCHIJaaoqMGiQTsSO6qRepSxise
-         /5Yrdl0UmDuCo7s1dZqUj5QZY3Hh+AjgH8qnKXAP6pr4g2O+vpibh+sYItMu9EP4SaWj
-         pMBg==
-X-Forwarded-Encrypted: i=1; AHgh+RqcrZ5+a1w8TVCv8HAhdZ68KhiE2QYDP7KjF6K2CXJ2JNMii8cZoKOuD42HV+JCu+IA0CYfyaM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyE/YAMqzkoZSAXWABS3e8YhaiecAKm9j1PnBrgF1WOjc348cov
-	LZ9at4EWNIgr8t9oEBcHyNXzCeCwj4DF4ahWI6nuPtSQCVmEJxhvIiFL
-X-Gm-Gg: AfdE7cnzR1yXl80NZN5Wi9mVpM/fThQve2I/Xxccm4dNQ06g6aIW2ymmeLeqyc+r2M/
-	AdTSlGyon3NALLIZo5ND60MlmwPUTO83n6Mjw1NydMPpDBqN/fko8QO/GXyynMCKi1lkJVs6p33
-	qcOgyAc0qpTD7OoI3oJnFLM9ivFL04YPV16R8iweRkGfr67BJvimiCWqSHUnimF4yMQxhWMENRd
-	cl5OWXkckwecJsYMLxgPYR/2Sf73qsAmJRfHz+M5wYDW8LgjlWf9BdDEfQnGR6tHm/M8LScKX4v
-	+ZiDRl0lFRQl4P5dlGozTHZkFxvYSNE9f3jVb+yo9C97JcQbzGGcxODFioWKqkntv1QMoiFGdkO
-	v6IuGVFc4QVQNVMpH0pNH0wH5XP3oabIY+fvw7Kh32cZ7TVu2UHp1U4Vgk6lO7X2YTSBMBkBRAN
-	x9KwmCPckeVPC4zBBzmc8XDEGbKTV6SE/B3BsEjizUorwPMfJZBcqQGbxha4p/C6kBgzJzJ7kE
-X-Received: by 2002:a05:6512:2c93:b0:5b0:197b:9829 with SMTP id 2adb3069b0e04-5b0197b99b7mr332166e87.41.1783599910888;
-        Thu, 09 Jul 2026 05:25:10 -0700 (PDT)
-Received: from maverickamd.dyn.int.numascale.com (fwa5d93-21.bb.online.no. [88.93.147.21])
-        by smtp.googlemail.com with ESMTPSA id 2adb3069b0e04-5aed13c3bf2sm5277697e87.69.2026.07.09.05.25.09
+        d=1e100.net; s=20251104; t=1783600104; x=1784204904;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+0scXORZJfAFimY9Y8Fd7n7er05lMNqpmWecxRPQPtE=;
+        b=jb1wyS+DEoQ94YTj+g4YCsn5YhPleoRvMtGSuMMPaqXOY+nxi/wTpmsghdguiMckgC
+         S6K6d3/jgSp3x9dqqE0jhhiaieJ6OoHIHR+BdPasBUmj2cvHg9SIEftCC9SIA0LR5wkS
+         6Zqi86POK9ywjRgEDdm4n4L8xGBOU/kmAEVUTJXl0sVzfZ/0+m8ZQFNqVLQymUgsh6AH
+         tdyIrvP/Pxb+jceV+Yz9L3rWTOowfIO1PVzcsqBmnTF2ClCwewbWBiYQqBh/jYKSbuqY
+         yNYi4LQauSFA6+suRbYR7YGYdAkFwWKjfgv3J9LJiC+pPqvTEejkWqPZN16bDjMBqm4A
+         KWAA==
+X-Forwarded-Encrypted: i=1; AFNElJ+X/m87s2c8ZYZsgaxq1TRcu4SeXuy2qleDBWPQqKeYQbjK0//1nvpRELN2kTpyaOKy8MIc3BE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz3c9bQqiURi4a6Vkww9SCUlcG7K1wk3acQBbOs7jw/AeF+XlY2
+	P6i7jeRSmlhMDOaCEKEP9764Bz0vciImrf/3a71GZhPuJJcdkc3FE074
+X-Gm-Gg: AfdE7cmJWD10B93kXRAx4g+MJ/aaKCKXZlkaOAd/g1cM0AsG49MG3+IN6/hrBvegNDQ
+	gf4Q+ZRPz4tK4B7ttKgBgdGhQsiphTcTx47SkQ1GcxBwUWkqF5n4WUFPOYwdILDWfYzAVD//Kep
+	AD7W8CBgNTTAubbJ+3t8ZQAs9n3dnKv8cbN8GE1UE7kKpXUHiF+UW2tlyr7XArTlJPwpXEo6SVw
+	LuhmhDHJbx+VgvCufJLfRSm8qx/r0HH6p5+r5nQrZLc1teQhxaAz+SWaw3sJkhdnI4rDbYu0uSp
+	z3yyHOOfJZaKuge1Tlp8iF7BXmK6FEH6eQpyNjqsn/Yj0AVE5AmTqjqY8iB9nKFeaeihnO4eArI
+	ekMUBCeDifSvQGoDclawSUHJouOzPm2Jjx7N0zZJSoFeY+0VwCm4o086QhP0tFlYNTTh02opv+8
+	6GVpaD
+X-Received: by 2002:a05:6830:6aae:b0:7dc:d0e3:5bc1 with SMTP id 46e09a7af769-7ebcfe7da83mr5106525a34.13.1783600104075;
+        Thu, 09 Jul 2026 05:28:24 -0700 (PDT)
+Received: from localhost ([74.80.182.70])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb2631dfsm3947846a34.13.2026.07.09.05.28.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 05:25:10 -0700 (PDT)
-From: Steffen Persvold <spersvold@gmail.com>
-To: Will Deacon <will@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: Rob Herring <robh@kernel.org>,
-	linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Steffen Persvold <spersvold@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] PCI: host-generic: Fix NULL pointer dereference on 32-bit CAM systems
-Date: Thu,  9 Jul 2026 14:24:46 +0200
-Message-Id: <20260709122446.3151899-1-spersvold@gmail.com>
-X-Mailer: git-send-email 2.40.1
+        Thu, 09 Jul 2026 05:28:23 -0700 (PDT)
+Date: Thu, 9 Jul 2026 15:28:17 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Haoxiang Li <haoxiang_li2024@163.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, yangyingliang@huawei.com,
+	mst@redhat.com, linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4] Bluetooth: virtio: Fix virtbt_probe() init and cleanup
+Message-ID: <ak-T4SMxr4rw10jP@stanley.mountain>
+References: <20260709114745.4030794-1-haoxiang_li2024@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260709114745.4030794-1-haoxiang_li2024@163.com>
 
-On 32-bit systems the config space is too large to ioremap in one go, so
-pci_ecam_create() maps each bus segment separately and relies on the
-->add_bus callback (pci_ecam_add_bus) to populate the per-bus mapping in
-cfg->winp[]. pci_ecam_map_bus() then uses that mapping as the base for
-every config access.
+On Thu, Jul 09, 2026 at 07:47:45PM +0800, Haoxiang Li wrote:
+> virtbt_probe() allocates vbt before setting up the virtqueues, but some
+> failure paths return without freeing it.
+> 
+> The probe path also registers the HCI device before the virtio transport
+> is opened. Since hci_register_dev() makes the HCI device visible and queues
+> power_on work, move it after virtio_device_ready() and virtbt_open_vdev()
+> so the transport is ready before the HCI core can use it.
+> 
+> On failures after DRIVER_OK, reset and close the virtio device before
+> deleting the virtqueues and freeing vbt. This also cancels pending rx work
+> before vbt is freed.
+> 
+> Fixes: afd2daa26c7a ("Bluetooth: Add support for virtio transport driver")
+> Fixes: dc65b4b0f90a ("Bluetooth: virtio_bt: fix device removal")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+> ---
+> Changes in v2:
+>  - Rework virtbt_probe() error paths into an unwind ladder.
+>  - Free vbt on probe failures.
+>  - Reset the virtio device and unregister the HCI device before freeing it
+>    when virtbt_open_vdev() fails.
+>  - Close the virtio device before unregistering the HCI device in remove().
+> 
+>    Thanks Dan for the suggestions. The blog is very helpful.
+> 
+> Changes in v3:
+>  - Remove virtio_reset_device() from the virtbt_open_vdev() failure path.
+> 
+> Changes in v4:
+>  - Move hci_register_dev() after virtio_device_ready() and virtbt_open_vdev().
+>  - Reset and close the virtio device on probe failures after DRIVER_OK. Thanks, Luiz!
 
-The generic ECAM ops (pci_generic_ecam_ops) already provide the ->add_bus
-and ->remove_bus callbacks, but the CAM (legacy) ops in pci-host-generic.c
-do not. As a result, on a 32-bit host using "pci-host-cam-generic" the
-per-bus mapping is never set up and the first config read dereferences a
-NULL base, crashing during bus enumeration:
+These are Sashiko warnings.  To be honest, I would feel really
+uncomfortable blindly applying them without testing.  If someone
+can test, then great.  Otherwise, I would probably apply v3.  The
+stuff that Sashiko complained about was all pre-existing issues
+even though for the last one it said it wasn't but it was.
 
-[    1.430647] Unable to handle kernel NULL pointer dereference at virtual address 00000800
-[    1.439441] Oops [#1]
-[    1.442152] CPU: 0 PID: 1 Comm: swapper Not tainted 6.9.7+ #43
-[    1.448753] Hardware name: Digilent Nexys-Video-A7 RV32 (DT)
-[    1.454968] epc : pci_generic_config_read+0x40/0xb0
-[    1.460652]  ra : pci_generic_config_read+0x2c/0xb0
-[    1.534729] [<c038db9c>] pci_generic_config_read+0x40/0xb0
-[    1.541096] [<c038da04>] pci_bus_read_config_dword+0x50/0xb0
-[    1.547623] [<c0391e94>] pci_bus_generic_read_dev_vendor_id+0x3c/0x1ec
-[    1.555010] [<c039245c>] pci_scan_single_device+0xa4/0x11c
-[    1.561273] [<c0392570>] pci_scan_slot+0x9c/0x23c
-[    1.566716] [<c039388c>] pci_scan_child_bus_extend+0x58/0x2f4
-[    1.573275] [<c0393db0>] pci_scan_root_bus_bridge+0x64/0xe8
-[    1.579650] [<c0393e54>] pci_host_probe+0x20/0xc8
-[    1.591396] [<c03bc6f4>] pci_host_common_probe+0x144/0x1e4
-
-Fix this by giving the CAM ops the same ->add_bus/->remove_bus callbacks.
-Since pci_ecam_add_bus() and pci_ecam_remove_bus() are static to ecam.c,
-move the CAM ops definition there as pci_generic_cam_ops (mirroring
-pci_generic_ecam_ops) and export it for pci-host-generic.c to reference.
-
-Fixes: 8fe55ef23387 ("PCI: Dynamically map ECAM regions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Steffen Persvold <spersvold@gmail.com>
----
- drivers/pci/controller/pci-host-generic.c | 11 +----------
- drivers/pci/ecam.c                        | 13 +++++++++++++
- include/linux/pci-ecam.h                  |  3 +++
- 3 files changed, 17 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/pci/controller/pci-host-generic.c b/drivers/pci/controller/pci-host-generic.c
-index c1bc0d34..9e85c6e9 100644
---- a/drivers/pci/controller/pci-host-generic.c
-+++ b/drivers/pci/controller/pci-host-generic.c
-@@ -16,15 +16,6 @@
- 
- #include "pci-host-common.h"
- 
--static const struct pci_ecam_ops gen_pci_cfg_cam_bus_ops = {
--	.bus_shift	= 16,
--	.pci_ops	= {
--		.map_bus	= pci_ecam_map_bus,
--		.read		= pci_generic_config_read,
--		.write		= pci_generic_config_write,
--	}
--};
--
- static bool pci_dw_valid_device(struct pci_bus *bus, unsigned int devfn)
- {
- 	struct pci_config_window *cfg = bus->sysdata;
-@@ -60,7 +51,7 @@ static const struct pci_ecam_ops pci_dw_ecam_bus_ops = {
- 
- static const struct of_device_id gen_pci_of_match[] = {
- 	{ .compatible = "pci-host-cam-generic",
--	  .data = &gen_pci_cfg_cam_bus_ops },
-+	  .data = &pci_generic_cam_ops },
- 
- 	{ .compatible = "pci-host-ecam-generic",
- 	  .data = &pci_generic_ecam_ops },
-diff --git a/drivers/pci/ecam.c b/drivers/pci/ecam.c
-index 119de32f..a9b3bce2 100644
---- a/drivers/pci/ecam.c
-+++ b/drivers/pci/ecam.c
-@@ -208,6 +208,19 @@ const struct pci_ecam_ops pci_generic_ecam_ops = {
- };
- EXPORT_SYMBOL_GPL(pci_generic_ecam_ops);
- 
-+/* CAM ops */
-+const struct pci_ecam_ops pci_generic_cam_ops = {
-+	.bus_shift	= 16,
-+	.pci_ops	= {
-+		.add_bus	= pci_ecam_add_bus,
-+		.remove_bus	= pci_ecam_remove_bus,
-+		.map_bus	= pci_ecam_map_bus,
-+		.read		= pci_generic_config_read,
-+		.write		= pci_generic_config_write,
-+	}
-+};
-+EXPORT_SYMBOL_GPL(pci_generic_cam_ops);
-+
- #if defined(CONFIG_ACPI) && defined(CONFIG_PCI_QUIRKS)
- /* ECAM ops for 32-bit access only (non-compliant) */
- const struct pci_ecam_ops pci_32b_ops = {
-diff --git a/include/linux/pci-ecam.h b/include/linux/pci-ecam.h
-index d9306514..044f67ce 100644
---- a/include/linux/pci-ecam.h
-+++ b/include/linux/pci-ecam.h
-@@ -81,6 +81,9 @@ void __iomem *pci_ecam_map_bus(struct pci_bus *bus, unsigned int devfn,
- /* default ECAM ops */
- extern const struct pci_ecam_ops pci_generic_ecam_ops;
- 
-+/* default CAM ops */
-+extern const struct pci_ecam_ops pci_generic_cam_ops;
-+
- #if defined(CONFIG_ACPI) && defined(CONFIG_PCI_QUIRKS)
- extern const struct pci_ecam_ops pci_32b_ops;	/* 32-bit accesses only */
- extern const struct pci_ecam_ops pci_32b_read_ops; /* 32-bit read only */
-
-base-commit: 53bf92818a8362815708fc7b18e6d2c6a5fc665b
--- 
-2.40.1
+regards,
+dan carpenter
 
