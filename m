@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786D738758E;
-	Thu,  9 Jul 2026 22:49:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D1838758E;
+	Thu,  9 Jul 2026 22:50:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783637398; cv=none; b=XILpGT1BajZKK9ZREz5wHdC5bf1YKm5H6YbaA5cmHCH0/aoCDJRyx5FXgMvJ6avuXJGogOGbb15Nlp2AwUglandWAbTIbyKkHT0J+MBd56rMXgBUUIKfW4BQ9i4R1maL0IpJHFGf+rYPTsDVhonkLSs5u0XQc6ajeIqoa0VzSeo=
+	t=1783637402; cv=none; b=BlIhqGm9QDbBn4cchx+Fn6WHvnoumQ41xEBOcIqmwJFCVto6rpvGclYN6AuQhQslK9EYhbVeZJ4Okl35vndN9+Y5iQM/MCCkH4L+uqIq6ns8MXuhjOYP5CvuqfTwNfdS19vRITaZbBeXrmXXJqB65BO03+KXAvg+m1Mq9lFzXVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783637398; c=relaxed/simple;
-	bh=JoVQ7Kow+wk72dpGNwcw/iGnG0W9jLJmgIXaW2MmWrA=;
-	h=Date:To:From:Subject:Message-Id; b=D0rh5zaciVX1/DCOoFFKU0/f8SN0PGXVD0Qb3TBoeuX973WV6S4Rnm8wwVuUVeTPh8d7cqHx4QafEFcswIRRs1QT2UpLDwkDRTLl57/CR/ZQp9dCdxCTZ3e9ZBmlxszRIpJDXWBi421TqCfbfFKT4+yTGstu5TI5Fn57fxPx0jU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=rU/r9Xzs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783637402; c=relaxed/simple;
+	bh=q4zHfxqdYz8nMmjhWgvEjUVPdnhDAsf/E0pzf+hIAnE=;
+	h=Date:To:From:Subject:Message-Id; b=RBLJKBM/m+I4pj7cPf+WE26N6JfF1JRqO9f6w34AwZ/PzLVMDig5f0biJqL9eyE7Tzngf6MtUo82/wHHDtuAL2pOMwuiIbZfvNFZQCN8BXs3oSHGmoFMO61EcR+xeWJRunE2eOiegmT7DtSba7YCHomQu5iMtzWSxMk7TXrdtiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=I7tapnvU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="rU/r9Xzs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E36E1F000E9;
-	Thu,  9 Jul 2026 22:49:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="I7tapnvU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909C91F00A3A;
+	Thu,  9 Jul 2026 22:50:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1783637397;
-	bh=lVIhSC5kA3v1i5qRHu8SHB+ymvz32vCjIilyXpsBQ54=;
+	d=linux-foundation.org; s=korg; t=1783637400;
+	bh=f+t9BrulyRDCMgaJKURkjKAo6aWIB8yIrpVj3h/DrOQ=;
 	h=Date:To:From:Subject;
-	b=rU/r9XzsROxY4zfH8ZJOIwwzs18F/SOn0qTsXrM3a+ll3+BUHlXnE7Uc9sxgXL6uG
-	 Kt225aIKjcQRtyhlCF2HLnOAcX9Im8AEzi28iB//585ReIrxc7zbzoVUJnkHpqSRBR
-	 bRQ+YnLux+g3vYfY4MxTtWMCDHgcVamsB1IyChI4=
-Date: Thu, 09 Jul 2026 15:49:56 -0700
-To: mm-commits@vger.kernel.org,yangyingliang@huawei.com,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+	b=I7tapnvU/G1i0g3WdhpQQucQWsJsQVgMdBIiRG2Xwd/niy8WzmbhoZPTa0KPpxbxl
+	 ZPQ7yf4ULneYcHDXBDkEYUczPAzTEeRU4ZhfEPzAv+pGXWuDruntCiH2zBY2geucPj
+	 /CnOs3OMvocIYiEr+lvO9KAzA/+K9bnBGbiFhrOY=
+Date: Thu, 09 Jul 2026 15:50:00 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-damon-core-validate-ranges-in-damon_set_regions.patch removed from -mm tree
-Message-Id: <20260709224957.0E36E1F000E9@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-damon-core-disallow-overlapping-input-ranges-for-damon_set_regions.patch removed from -mm tree
+Message-Id: <20260709225000.909C91F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,69 +35,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/damon/core: validate ranges in damon_set_regions()
+     Subject: mm/damon/core: disallow overlapping input ranges for damon_set_regions()
 has been removed from the -mm tree.  Its filename was
-     mm-damon-core-validate-ranges-in-damon_set_regions.patch
+     mm-damon-core-disallow-overlapping-input-ranges-for-damon_set_regions.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core: validate ranges in damon_set_regions()
-Date: Mon, 29 Jun 2026 20:52:19 -0700
+Subject: mm/damon/core: disallow overlapping input ranges for damon_set_regions()
+Date: Fri, 3 Jul 2026 09:56:08 -0700
 
-DAMON core logic assumes zero length regions don't exist.  However, a few
-DAMON API callers including DAMON_SYSFS, DAMON_RECLAIM and DAMON_LRU_SORT
-allow users to set empty monitoring target regions.  This could result in
-WARN_ONCE() on CONFIG_DAMON_DEBUG_SANITY enabled kernel, and
-divide-by-zero from damon_merge_two_regions().
+damon_set_regions() assumes the input ranges are sorted by the address and
+don't overlap each other.  Hence the assumption was initially to be
+explicitly validated.  But commit 97d482f4592f ("mm/damon/sysfs: reuse
+damon_set_regions() for regions setting") has mistakenly removed the
+validation.
 
-For example, the WANR_ONCE() can be triggered like below.
+This can make DAMON behave in unexpected ways.  At the best, the
+monitoring results snapshot will just look weird since there will be
+overlapping regions.  DAMOS will also work weirdly, applying the same
+action multiple times for overlapping regions, and make DAMOS quota weird.
+More seriously, depending on the setup and regions updates sequence,
+negative size regions can be made.  It will trigger WARN_ONCE() if the
+kernel is built with CONFIG_DAMON_DEBUG_SANITY=y.  Depending on the
+monitoring results, the negative size region can further trigger division
+by zero in damon_merge_two_regions().
 
-    # grep DAMON_DEBUG_SANITY /boot/config-$(uname -r)
-    # CONFIG_DAMON_DEBUG_SANITY=y
-    # damo start
-    # cd /sys/kernel/mm/damon/admin/kdamonds/0
-    # echo 0 > contexts/0/targets/0/regions/0/start
-    # echo 0 > contexts/0/targets/0/regions/0/end
-    # echo commit > state
-    # dmesg
-    [....]
-    [   73.705780] ------------[ cut here ]------------
-    [   73.707552] start 0 >= end 0
-    [   73.708452] WARNING: mm/damon/core.c:359 at damon_new_region+0x6e/0x80, CPU#1: kdamond.0/758
-    [...]
+Note that some of the consequences including the WARN_ONCE() and the
+divide by zero depend on commits that were introduced after the root cause
+commit 97d482f4592f ("mm/damon/sysfs: reuse damon_set_regions() for
+regions setting").
 
-All DAMON API callers eventually use damon_set_regions() to setup the
-regions.  Add the validation logic in the function.
+Fix the problems by checking the assumption and returning an error if
+the input ranges don't meet the assumption.
 
-Link: https://lore.kernel.org/20260630035221.146458-1-sj@kernel.org
-Fixes: 43b0536cb471 ("mm/damon: introduce DAMON-based Reclamation (DAMON_RECLAIM)")
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260703165610.92894-1-sj@kernel.org
+Link: https://lore.kernel.org/20260630041806.151124-1-sj@kernel.org [1]
+Fixes: 97d482f4592f ("mm/damon/sysfs: reuse damon_set_regions() for regions setting")
 Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Yang yingliang <yangyingliang@huawei.com>
-Cc: <stable@vger.kernel.org> # 5.16.x
+Cc: <stable@vger.kernel.org> # 5.19.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/damon/core.c |    6 ++++++
- 1 file changed, 6 insertions(+)
+ mm/damon/core.c |   11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
---- a/mm/damon/core.c~mm-damon-core-validate-ranges-in-damon_set_regions
+--- a/mm/damon/core.c~mm-damon-core-disallow-overlapping-input-ranges-for-damon_set_regions
 +++ a/mm/damon/core.c
-@@ -356,6 +356,12 @@ int damon_set_regions(struct damon_targe
+@@ -354,12 +354,19 @@ int damon_set_regions(struct damon_targe
+ {
+ 	struct damon_region *r, *next;
  	unsigned int i;
++	unsigned long last_end;
  	int err;
  
-+	for (i = 0; i < nr_ranges; i++) {
-+		if (ALIGN_DOWN(ranges[i].start, min_region_sz) >=
-+				ALIGN(ranges[i].end, min_region_sz))
-+			return -EINVAL;
-+	}
+ 	for (i = 0; i < nr_ranges; i++) {
+-		if (ALIGN_DOWN(ranges[i].start, min_region_sz) >=
+-				ALIGN(ranges[i].end, min_region_sz))
++		unsigned long start, end;
 +
++		start = ALIGN_DOWN(ranges[i].start, min_region_sz);
++		end = ALIGN(ranges[i].end, min_region_sz);
++		if (start >= end)
++			return -EINVAL;
++		if (i > 0 && last_end > start)
+ 			return -EINVAL;
++		last_end = end;
+ 	}
+ 
  	/* Remove regions which are not in the new ranges */
- 	damon_for_each_region_safe(r, next, t) {
- 		for (i = 0; i < nr_ranges; i++) {
 _
 
 Patches currently in -mm which might be from sj@kernel.org are
