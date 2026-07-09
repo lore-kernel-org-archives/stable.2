@@ -1,189 +1,316 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012051.outbound.protection.outlook.com [40.107.200.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9364E2DECCB;
-	Thu,  9 Jul 2026 15:17:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5125D3358C4;
+	Thu,  9 Jul 2026 15:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783610233; cv=fail; b=EUNoHEme+m1gmKgu7/eTZmAM3l5SJ0jNAgAyQCCMNTK3rwOFTZgYioNRFJDgxiStOuYdIHWdS4SVe98WIy2cDIgIqJDAq0l1WoG1d0MG6kzjk7taYuqwD958ZaPMpPGyu/EpR1aKYiidhcyI2Y4ftc0n6A9fGU1/Lnltxqberys=
+	t=1783610364; cv=fail; b=BDMwq5G3xno4aNymuM1ZwyxtNgS/UTPdb3tyveIddMKZoK+KkG+L7b+yI+fqgY9J1UZW+qrJCjhascy21wLLuRadFGvQ6713PIkXQ4Uo8nPcw/s6dxnauxv9BQgglZnP2FKZOewqc9E63NI3xtugOPO0e5XknkxwctAMFg9GIWQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783610233; c=relaxed/simple;
-	bh=3tw2KVNhyKmH3OAGkPkjxU9Z2dWqo8/TPRRdGF0TE/w=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=jdwlBzPmsqqWVa58ASBatgGJHz7NWWuatekQ4dtsIBri8c7qtHqEMNI0IU2h+67WMFPeEyR/Z/wMVECcV7bm2rHK8QfKkFcqaLFgzATMM54cT0sGPLjCpO2Q7u30oopIQyNbS+lyDa7BmO5/nGKrKYbv5Uwf5EACtxF/DSRosO0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MlHCNP0Y; arc=fail smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783610364; c=relaxed/simple;
+	bh=oBWHYrDQ88t6X0Wkz/K9iJVb26mlHvEN2b1RzA/OM4A=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=f2vYl7hcZHqlnDQBTitrDmpgMZn48UoXG7d1eIJ9PsF6J6qAS6DU51wZkhKv5U1A5M5Mrlr+SdyBv1ZpDJMabY6LXOv9rde5Qn+vZgauPxkzY6s14fXiP8dG7aWUj4FTg7X7MrM2VVfAQqQvmnld8zxhUiz7pwT9riHO7q4q+GM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=l1wg51gB; arc=fail smtp.client-ip=40.107.200.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MlHCNP0Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783610230; x=1815146230;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=3tw2KVNhyKmH3OAGkPkjxU9Z2dWqo8/TPRRdGF0TE/w=;
-  b=MlHCNP0YvuvrjhZbJBTqsvD5lccExlj1DV4DyiHtkqbi+dz950VEhV3V
-   +tmTZ0+/htwxwyHuNZJHCsS9oWvWnwKgB9lHOP1d/fU24Sk2L3666fdEi
-   DrBPtSKYxBV/oRvPSTYlQ2mO1p1/iJ+Glyku6OGFvlU+3ZEc/mrf/32ET
-   nUhQelZQdejgxLNVmVjS9+w3Le+zg0hDjbD+1RXqh1hZSZvs18V1l3RDm
-   NVNJh36+tEV34JahBCqBKjHoBGyAMpqOvLXbK8uA/CkZIsEY1mWCV4rd2
-   DX+MlA0zrzOwm8uhGdGt6LrhdOS4s37fstcGvISjvJS23Dhgb7DbVoKqE
-   Q==;
-X-CSE-ConnectionGUID: HVXD+HWtSNCYy5a/l+yQ3A==
-X-CSE-MsgGUID: ZA416RwkR4W1rCEdmqHx7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="107092160"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="107092160"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 08:17:10 -0700
-X-CSE-ConnectionGUID: 6zI5ammERbm7vvCHa4npjw==
-X-CSE-MsgGUID: QkDb+q1wT/+jJTWDGsIH4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="253516376"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 08:17:10 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 9 Jul 2026 08:17:09 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 9 Jul 2026 08:17:09 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.42) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 9 Jul 2026 08:17:09 -0700
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="l1wg51gB"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rD0ecy/hUSM9ojsay9ZzoCeS6pgQykUbeG4GKKPcLGRyFCAhNgWOAfQSw709XTmljekmp2aJMh6fga+oBYMfJCDigaktPQ/oPvXvg+byeQHKodZ2iZMQyF0C50nqOJ74gUU+NMlCQ/LgJbtvlU6HbZZ5t4zTLCNrH/uSn+4njHqdcwgXu4dH34YQdttR0lY4PFzX0CEj+loeWgweF8TFTbhuBDcoLOb72qJiojpF1ydNjBjY9+hpE/1oLoCyeWymcNoEh16GKJXz1TeIC2l2XP2x/dGhkBKhE0LOPU8oRQ8w6eUaXMBi/P3+aWbB27VZOTUtbyT+6zwOQc+JzGdOLg==
+ b=gqg23Sf2qdAefVttRZsnjGEbFeWg3LFAgeu8Aj67+JQEOVd3nfu/fO7mA0gnTBFNihyIujXsv+4keMuXn4xHUx8JQhWG440x11HSSfbRjfMcX1msnntOxkJXKC5NNXtp8iaFfGD3ixS7/UhOH7pnVsDLogMD+ZsG9bHith98Q+ig0vI0/ShlHUKOSyqb8e4yy+mSgQTzCOHheV63I/uet8bZu7XEIWV/FJ8MwJTSsdfunv3KSCUq/qUdKq8AINxIkLBtbYi+/6EQlROSOExwZLmZb24vzC2fQaBWxG5YeKUxQC/LSYBzI5VtHqriopL+6fHE800qkx3yAySeA1+kgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3tw2KVNhyKmH3OAGkPkjxU9Z2dWqo8/TPRRdGF0TE/w=;
- b=wxvk2rgc8obA055rR5EGBC02eHrFjnWz8bt/x/KnXymG+D4lbkPEPuQlPMPCPxuCHbN+bFhaXZln/BH+yn4RsZjikcbKNlDfJ5pf+nWoBgpNF99mP8tmY5CJwekT9rNJET1FAflR+DgG0DVF0ZmM+pX46s0GOWWx+lu/+FzOKirMexBKq6XlAt4qwbPxF4jiijNu3TP8f+8WUgMy+9/0+u6L/K1L+Oa8NKBuF5r9h2Bu9zfT+eJo9yg93VQQFbBoGlR3+1p0ys5sM86ljIgxU4r8nP+EBqC7sl6P8rSJ6DsHmuJbSzKWzJzFbXLJw8Mqv7AFDYoH5Hijf/Uz0ANK0w==
+ bh=BhaeECYSfJotN2g2VyeWVX131kD9ynllgAEh5qDnx4s=;
+ b=O5VBvWWL+Y0zIWCj4bo0m00DvlC/18cIZXK0QhMUEbKLTpqVkD2dKORNfUNKeujhJp1S80Qvg66oPOhc6FW0p/QVGf8jZo3ZppT+ofKoY/4MUer28e4vPL97rauzrQLYeE0y2SGKahaW2hkKu7o9VMHkjuYHDAnmQXjqI9R19xRF/fslFpS76kZZimMA83uWvNLFLl5XypwvJCcZgRlHq/zZqNvtDlFfYFJuiX/f+MLRDIL6znURwHHHWY+3ntdI1E5mif1sklgOVWMrlk65uH6HoDvK9Lsm4Q1C2yxDp3mISn9ykwfs0YdAkgAS9qCZVOoljgjQMjPZHlOIHw9c/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH0PR11MB5902.namprd11.prod.outlook.com (2603:10b6:510:14d::19)
- by SJ5PPF2FCF00E1F.namprd11.prod.outlook.com (2603:10b6:a0f:fc02::81e) with
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BhaeECYSfJotN2g2VyeWVX131kD9ynllgAEh5qDnx4s=;
+ b=l1wg51gBaGrd6cfEb3LE1nfje5hNugLZBwglCjiGrTFVMncoHOiv26W5VlxRD8HzNLw3rQBt77hVK6MrV7+iE09wQtS8CYHFcWb2SN4PiAC3Z5kJUOBwQuIFK6ZJinAjTHLd8fo1gNZ3PsCln3neMJrZuLqmjlRrRUFM7ZqB1tw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7433.namprd12.prod.outlook.com (2603:10b6:930:53::22)
+ by MW5PR12MB5622.namprd12.prod.outlook.com (2603:10b6:303:198::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.14; Thu, 9 Jul
- 2026 15:17:04 +0000
-Received: from PH0PR11MB5902.namprd11.prod.outlook.com
- ([fe80::f95a:602a:34d3:5d37]) by PH0PR11MB5902.namprd11.prod.outlook.com
- ([fe80::f95a:602a:34d3:5d37%5]) with mapi id 15.21.0181.009; Thu, 9 Jul 2026
- 15:17:04 +0000
-From: "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>
-To: Fan Wu <fanwu01@zju.edu.cn>, "linux-can@vger.kernel.org"
-	<linux-can@vger.kernel.org>
-CC: "frank.jungclaus@esd.eu" <frank.jungclaus@esd.eu>, "socketcan@esd.eu"
-	<socketcan@esd.eu>, "mkl@pengutronix.de" <mkl@pengutronix.de>,
-	"mailhol@kernel.org" <mailhol@kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH net] can: esd_usb: kill anchored URBs before freeing
- netdevs
-Thread-Topic: [PATCH net] can: esd_usb: kill anchored URBs before freeing
- netdevs
-Thread-Index: AQHdD5EDl+AnSuMIMUmH9Pp9JqYiDrZlS6hQ
-Date: Thu, 9 Jul 2026 15:17:03 +0000
-Message-ID: <PH0PR11MB59027A39F4CACEA80F8E8755F0FE2@PH0PR11MB5902.namprd11.prod.outlook.com>
-References: <20260709104620.133765-1-fanwu01@zju.edu.cn>
-In-Reply-To: <20260709104620.133765-1-fanwu01@zju.edu.cn>
-Accept-Language: pl-PL, en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 15:19:18 +0000
+Received: from CY8PR12MB7433.namprd12.prod.outlook.com
+ ([fe80::faae:d638:bdc9:4bf6]) by CY8PR12MB7433.namprd12.prod.outlook.com
+ ([fe80::faae:d638:bdc9:4bf6%4]) with mapi id 15.21.0159.018; Thu, 9 Jul 2026
+ 15:19:18 +0000
+Message-ID: <58c4326d-b10d-42dc-af5d-3a5ff16c7e3e@amd.com>
+Date: Thu, 9 Jul 2026 17:19:10 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
+ registration
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: seanjc@google.com, pbonzini@redhat.com, tglx@kernel.org,
+ mingo@redhat.com, dave.hansen@linux.intel.com, bp@alien8.de, x86@kernel.org,
+ thomas.lendacky@amd.com, hpa@zytor.com, yangge1116@126.com,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260701144543.39582-1-pankaj.gupta@amd.com>
+ <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
+ <db303a0c-98e3-4967-9b61-ccb711b776c8@amd.com>
+ <46f19bd8-0d43-4b0e-a8ab-0ef9d3b8bd1a@kernel.org>
+ <2bd89e95-9c15-4a3a-916d-0d71a92d8b02@amd.com>
+ <27ebe8f0-78b6-402a-a2e7-4e807251d20a@kernel.org> <ak-uER-RndpksnhR@lucifer>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR11MB5902:EE_|SJ5PPF2FCF00E1F:EE_
-x-ms-office365-filtering-correlation-id: c0bcddcf-5113-4040-4a8b-08deddcd21ea
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|38070700021|56012099006|11063799006|18002099003|22082099003;
-x-microsoft-antispam-message-info: uuuA9BK7pIrvv082BRPSXyg5nbE61563nBuKGmT0wh0S4SENYG8+0dj8KVzcDhDYPwiBxJlyuL23QxmC4blyd3B7kN2CcdABfiLxa2BG84otHowLo5UD99JZR1j4neeHV5C1W4Bg/+RNIo7cZ2pc0My5FEbWB0qRXR8ZqBG2ZNPAM6ivMwJwxKQYv+m8eafCjScTY7KaIjON8aSubBEbHQZCVcMvX3POBx6bfghYhu5LxrlQJ1ThwFBT5UojvdMMKkUh1YonZvx4EeLrKmWdkLvg+VRPQjnbVKLSCDwJYd3rPdAS9wYaEhd1TcfIkph8raNR8c6fVuAjMwjlFbcQYlWPt35fO94dA0Fp82M+e294u82CcahHkSeKtitwJDueDPnz1E/zKUzHfbVDSL1V5nH27oEcRtMySI006n/K2MW7vhtR08+9Fx8B7DNdkmOltRrBhxrGSpFy1HM9WlTXyGP/2QpPI7hvxGFfga3RI9M47wFEcyFyLXgX67ojAWnFTZgU5PNWl/Sx9ObSyuRzWvWHwStVf/w8JSjt6KCWJNbtVWxgJew8RE4x/vW/2XgRifAIrvZ6PzO2XPV5K4QVjjLxZBUXnL2wplb09KYoWLAuihl/ZXguUfwCEO4MIXpvEoOglZPCa0bJwSiSVBqSF3Q8rK2Cd1hFSUkd65sYF6suEQ73RgMLI9Suf4mKA9Siq6xibTGoAoZT+S5De2A6Q6c3NZvDzGnxRZt8zfcViYI=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR11MB5902.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?FdiALF87iRNBqXnthXmvqYs7junW/zCaxVtjNx+gN3hb1EVyk1+kSx/wUnwt?=
- =?us-ascii?Q?FYCuWJ1Q6lrNmglb8TSORme1bE46UouyEk/pSZktMXHnyM8GzqZup0a3WY8j?=
- =?us-ascii?Q?/c/f9hcIa6XUlNgnajwnOa3DoJIt2nlmrcAhxmnQUwJn0OnZcwiZslJ8hOeK?=
- =?us-ascii?Q?9Hc5SyVdb+BOh7ofz3rr2oNWvRCtWYcE46wUrCNdzLKFgjwfw9ibsZuvNSuq?=
- =?us-ascii?Q?wXtXN4DnLma08aK7Y2B6KKsTta+BrbPvsNCVeQnv+XmWYsNTGkPpS0Wxpqto?=
- =?us-ascii?Q?Uy+TyZjT8sY3f8CeTv2iEKxjMQ5/+BI/7HfGwiG4OmKbWo6PqTOMQc971+GA?=
- =?us-ascii?Q?gijntY8O8qgKcEEhjicVBW3tEXIiYllJUBmTAuNu4Ah4r2pcOnok/yW+niol?=
- =?us-ascii?Q?KnVAa1Xx+MA9oJbdv1CBMbc6X0PN2n+eO3uz6QcAdH6BInIiRFcjMMAnJxiL?=
- =?us-ascii?Q?jAzVQTtG6j3BIMw6hhZi4NPFLo00r3DES9Hp438oOibcIZ505/vd7CtVr4C0?=
- =?us-ascii?Q?/T/CqaA6p1GbAgeerI1itrBZ5Ruxv9BCW/r7lJq+yrtSHhLMKHkw6UBnymTY?=
- =?us-ascii?Q?ZDsI3waSirZzqwc3uUzi7xPpkYkbCF6lTnQEFtSoL+c4iY5PylBawXsNczq1?=
- =?us-ascii?Q?wFHJBiCJQJlMjqWyFcq0ZV8Td8WQzQS/Qj1x3qKHSNbYA3GIPeo1/kmeykxz?=
- =?us-ascii?Q?3fGA2ICFIpXK1w8i5+lf16iFNFt58qYojmnSVKkLI+PqfctEXnciPT3dTsSU?=
- =?us-ascii?Q?s43wT+e1h5NvqqPQ4zZ+PLCRB2/vODyRzfw2z+rMwLBaJYnb5pe0MCeJgG+c?=
- =?us-ascii?Q?HTXls5ASXlFNyRZjW8cNIvxE1TAJVNVAppdlVojE+7bpqo96dp/D+xP/VKOv?=
- =?us-ascii?Q?yaN9I7PdXWD5+thHPWqLrswumJ2HdKHjZ6dFjmhrQSrg7MnqI4VzDnuqEchT?=
- =?us-ascii?Q?DrmL/GDPPKtQan78jhBHAWvxsra/9l1WT0kYZiRn4Ubt78XskmsFPMR4iR7E?=
- =?us-ascii?Q?97lKBJnoFZRrqqqVj5keyXsEitanS0kG1uLFccnMvzwhNd//r27zyg1PRUiO?=
- =?us-ascii?Q?ZgkEA0jSoPs10jQq6P8wQ0v8jrcEaV8XdoYiknqL5JJCzhxP07HDmxZUqoI5?=
- =?us-ascii?Q?TDO01CaxLR+ZHH29KnAenDAYw4RPpF25W5+gFFg2VrLJdDP6+TUcwA4OVFqK?=
- =?us-ascii?Q?5Lcc060GJO5Mpv4zk1l3Fel9dYh/IZV0BUF0SHe0Pex5KJSaWJGkVaRITg0j?=
- =?us-ascii?Q?2Ni6OHTyjqC6Am5I+eL/rqrL8YrTNNo47oZJAtUNuZr2bNEWSvHrvnJmt5df?=
- =?us-ascii?Q?ZJeTFfPDWdFNzqX9lPc8WX6deeaZS8Y75yDZt2Oy9PUibffaqNXR8sSfdfar?=
- =?us-ascii?Q?K06bl6IlHItMgsK+fhO+/A5RQ0LpiDqKIbo6LxwxExSRGHbZ9JNw+WMOOWaC?=
- =?us-ascii?Q?3w0vgyA7Xy5cx0k9TvugXLPwKMYQlSe5uptvJbOOrSSGOcyMNoUpoN8cRHuz?=
- =?us-ascii?Q?i9GiV1NoUmK1zkqWEBMVq9Yl3y80LhrGEAiCisEb9Qtvpt0rPQGUKq/6Q4LB?=
- =?us-ascii?Q?+g7I8fcssOEnvkL5zTxObVkzaBw15GZ3NqUUnn4/UfvXuMGCs0gnleZcsAH7?=
- =?us-ascii?Q?jRd4coW4ZCrW6QRwCdPWWyq6+PTVrPmxoqiyGF3Uc52liSoYawRtAsbFEkVl?=
- =?us-ascii?Q?BW+DTM/dpKe0EKRztyaPXf07dc6UjyMdfU4J1dZph0uLuiw6jQW9a6cQmJpw?=
- =?us-ascii?Q?6uhguuaBvQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: "Gupta, Pankaj" <pankaj.gupta@amd.com>
+In-Reply-To: <ak-uER-RndpksnhR@lucifer>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0207.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ad::12) To CY8PR12MB7433.namprd12.prod.outlook.com
+ (2603:10b6:930:53::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: V54VmXCueJzNndvoZIIZW+Wmy5y/wqcEHbLE876HrHA6NdxsZah1I4cpGqkc4OxZ2jxAiM9qxnPL8h9oUvDioAScdavbL3SCgNqDVVdpGoqRTfGLib3MexBeToJ4v+IEf0jA+DQJ+hQsTUudg3Njrf7arxwfi6rNIbFoSr6CW24fhpSRWKcgWZ4ocAonYHbKtyHl/U1NVY+eolF12SVLnBpbTJnsgJr5I/Q//oasCUOG/4QRvjwfBwB3gXMRMf0hzNBPBYAQI9JpTlxOhiHgXfQ/9IZx6Ku8cdmfTROsYhpF11AXlRzPTBi5PJoucNtS5TkJr7Brj7EO5p+vacn3LQ==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7433:EE_|MW5PR12MB5622:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e4604b1-8fa3-4cf9-4080-08deddcd71ab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|22082099003|18002099003|3023799007|4143699003|6133799003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	Ea2Fh8/5bfnHOm0rBozhasQRxloYJE4JYQ1cvQt9fWAE8jW8gwRilZ1+60lz8H8Pixu2dxk7ZuAR/1FjbuehNhbvVIa45CTWRNNA2MHpPBYiGXiVt3GULGrNVyF16wGmszo7cc8tpiLnatcEszYH/VJ81oa8pZVZBxIBUfFO/50hpXuWVb7pVZcit61mPTHIMkYMJ9HF3lwrOuf6P/YdbE9VgfFIpPzmC2lCq+a5oBlOkHpE37e/fphI0uFQr3cpEu/0nhM/IDFafvjW0IEIJhRZ15ehnC81u2Nl2Tzqjj7yTqRvqi1Ou3+Vptlj9zp6u3Gu0VEqhan+/6oB7xn0VTFVcIGHc0y0jxnxhlqai4BeB603Qrwc8FqjHuFnIAxnIUgiSWMJ7sF6S25FtZAbr/G1+0XTuDaLH5aJhN7pcUfwnK1H5aa+j0DjQktylcRr3zFULRV+R73Fzzw0HINtTaC5iBSXpNfxCWsntcYnAHCVmWT2P6mfY/0wlMrQPeznT79OwTFOjKP+iWaRQoLIx+e9+PgsUnFCRCgigNUNpOv13mQ5deRgeUEoMWfpVWRzVY6xKDRKcfuH8GHStqPgnLsZN3aGi3s5aGthIHdbV5L4mU6Kq/fVjX+VuPq/afjyFyxhdltQ1x5Y7mk60wc4NZBL9lkVQ8iAgLAr+eeNp90=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7433.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(22082099003)(18002099003)(3023799007)(4143699003)(6133799003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cVQxRTN0L2NOdlVvUGRmQSs4V3FBY1VLVEg2U3dhcnlsTzROQlJUSE13RGd1?=
+ =?utf-8?B?eDY1Q0VYUDVTMDFPcm8xZ1RydHVLSFhQUGNWNW5OVG91dHRaNmVRTjdQRTBZ?=
+ =?utf-8?B?QlFyV3kvdzRFVFhadHp2YjRsQmVMWUpKZWZmR1dSVWVzOGhxak00dTd2cEd2?=
+ =?utf-8?B?Mkc0ZGI3ZThKK2RsTkMvemJNTHh2R2NOemF4cHJ2bUpRYTIvZXNCdjlBd3Fs?=
+ =?utf-8?B?NG52RSs5ckltUXM5anhDQ0VwMzBtblJKQkoxRVR0MFBSR0hkVnBjTUZOd0VG?=
+ =?utf-8?B?Z09Rb3RFYVZwVlZBaGdmejVLU2RtZDlCajlGcElUaVQzQWtuUy9PTWFsSWdh?=
+ =?utf-8?B?cG9vWUVkVVRGWnI3Ym1pN3VBV1pqNWNnN0ZkeGZYQmJVc29aOGVQa3JydTd2?=
+ =?utf-8?B?QmhoNU1Ra2JEeVVpVUNaNDg4alAwMGZKMjlsbHFTS0N5YzZyQVFQUlVGNkhC?=
+ =?utf-8?B?NnpESWZ4M2lINXRyOU5PYUpBUEhOQVlDQlJkOGJzOVhMUVFLd0FkSjViTEIr?=
+ =?utf-8?B?b0cydnNmL0RVaUJzbk9TZ2l5YXNySm83RUtGR1krN3J4VHo3RG9Ud2tkSlZZ?=
+ =?utf-8?B?ME5wV0dIOEpxK1V5SjJhTUwyay9pVUpGQ1NmQXNJWjZtbHZGVGQ5enh4OHBC?=
+ =?utf-8?B?MDkrd2lSWExkdDRSV3RrVFlMdExvcVBUb2Z5OWJ1UmNqTU9wQnRMQkF6NGdS?=
+ =?utf-8?B?eXZ0WnhiaUpoQ2szcFYyYjJzbmlraGsvZjVjNStUdHdBSityd21reit2bnd6?=
+ =?utf-8?B?K3NoVjZ0Wjg3MStuRkN1bUpxb2ZxWUZ2dDJ1eUJveXQvWStTNFNxR1pmL213?=
+ =?utf-8?B?SEQ5Z0cyNTFEOW0xTlVOS1pMRnRSWHZRM3VIUWg3ZXU3VzBBQnZ3aS9kWmFD?=
+ =?utf-8?B?aDlVb1UwSTFnUDhWeHVmQXUrQ2daZU40UjFFdnQ1RUlkeS96empIbno2K21D?=
+ =?utf-8?B?ZHV0RTlGVktoc0FMalA2UEl4bGhxZ3NKcFh4TE9BRUc4K0tybEtRaUhJa29U?=
+ =?utf-8?B?ZlFISm1DMTRlRzM4eDF5SzRGS0RsSUZ0RjF0dkdiY2dtT084QUxWY3VPTXNm?=
+ =?utf-8?B?VnB2MnIyOWdWRU40VGwxZVdwQ1l1VUFUUmN0ZG5vQ0U3WkMzbEFSdDZBZTlO?=
+ =?utf-8?B?dFZUTXhIdlFPK0w5Qm5JT1JuL0xhYjdFZlVlNUlodDE4M1lxNlRkQTZEbUc4?=
+ =?utf-8?B?MjdTUW9oYlhhVEZ5ay9va2c2SFVkL2hiQmx1aTdLamRKSUlIYVlzSDlINFhF?=
+ =?utf-8?B?cTQ0STNaM1pSaTcrV0dOU2Y0ZllkM3lEOCs3eW9QNHhGVEN6eTh0SGdNU2x2?=
+ =?utf-8?B?b0lKcmhraXBpcXhPR1B1b2hZK054L3EzNnFHVTYvOENvR2E2M1daVTJsbVAx?=
+ =?utf-8?B?UjRUREZWb0lwcUkvbjk5czRmbTlVZzF1akpLQzhzWWJ4UHpKMXFLVmZzTTA3?=
+ =?utf-8?B?TExyZ3d2S284dUk1NERhNkpRa2hwQjBiV2k3K3YrRFlXNWlvamdwaldpOEtr?=
+ =?utf-8?B?Z2JuZ0tSSWdTVGxhWGJRNjNSTXdLclZUS0ZvREdHYlFSdElMWXJ4Nkc1WUU1?=
+ =?utf-8?B?V1lZT0g1dlVobUdwSEdvNGRMejRrVnVuR01iV3REY1VHVVpIRmZUUlAzTUhJ?=
+ =?utf-8?B?by9sVXg1UzUzTFdiM3p5VjFHRklkMzlJdkVuNzBLNENNRUQ0RDdCZG5la0Vl?=
+ =?utf-8?B?bkpMSHNQZEtCcVVEbVcrVGRUSzc2VDVuUkIrMWV6R1F3dEQ3aG1idHBzNW95?=
+ =?utf-8?B?QXpFSGZWRktrQjNVS21xeWVQUjRCNlYxMWpSbmJKN3Y1cWEvRmxsa25iVjlN?=
+ =?utf-8?B?d0FwU0o5M1RLem9UaEFEbkl5cmJ5NEdid3BFU3BBU2tRd1c2NGc5ZWNaUVZ5?=
+ =?utf-8?B?bzYzOERDa0d1QjBYVjdLMjJCMmJ6dEJvM0RxKzZzb3NZMjdTUTZzVmcxNTA2?=
+ =?utf-8?B?YllMeGVqbVByNHY5dU5qejRnRHhRdzRJVVlUTGVSNGtZOEVuVDhhd2FkYWcx?=
+ =?utf-8?B?NTY0RlpaeXFUbCtOQnlQVjh3ZWtYNmdDdWR4K2pKbU93aFpvUXJaMERXMmda?=
+ =?utf-8?B?Z0RIWjVTeERiWldaTEJPS094ejYyWkU1eWpEV1lURW9uL0xOd3BuTXY4SG9L?=
+ =?utf-8?B?cDczbUtzVlI3Q0R1c25HdFdsd045SktkQ0c2dkVxOVpkUGVDRzJrK09jSXZy?=
+ =?utf-8?B?OGVDczJKWmlyTzZ2a1FFeXdQdU8vUmdkd2NGVkhSWGMzalExV29Ic1FHaGg1?=
+ =?utf-8?B?Mmw3ZkVnM0I3K1Rucjd6eWsweFB4ZkdZcHg4Z29LNGF1Z0I0MEcwTWhEMHRU?=
+ =?utf-8?Q?j2cZt2BERFaMp1jQQS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e4604b1-8fa3-4cf9-4080-08deddcd71ab
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7433.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5902.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0bcddcf-5113-4040-4a8b-08deddcd21ea
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2026 15:17:03.9821
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 15:19:18.1654
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uzlh4BcpEB3RU0je67ZWUevzc8I+EegECfCgO+l8ffz2vQSBYDPWife7madTwGnbulAr4lfJdhiaZhMeMgf5RJok+bfiIqpndKPQAMEYp+M=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF2FCF00E1F
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ibrswqR4TjFAjwjm9Bcytu4LnfnRQLh+96HK503AKJu13dW6IKn0/1Zj+t+svz7bCaZEOmz4uW6XnYTBuvR+Rg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5622
 
-From: Fan Wu <fanwu01@zju.edu.cn>=20
-Sent: Thursday, July 9, 2026 12:46 PM
+Hi Lorenzo,
 
->esd_usb_disconnect() frees each CAN netdev with free_candev() inside
->its per-netdev loop and only calls unlink_all_urbs(dev) afterwards.
->The per-netdev private data (struct esd_usb_net_priv) is embedded in
->the net_device allocation returned by alloc_candev(), so once
->free_candev() has run, dev->nets[i] points to freed memory.
->unlink_all_urbs() then dereferences the freed dev->nets[i] to kill the
->per-netdev TX anchor (usb_kill_anchored_urbs(&priv->tx_submitted)),
->clear active_tx_jobs, and reset priv->tx_contexts[].
+>>>>> Hi David,
+>>>>>
+>>>>> Yes, it fails in this path but for file backed mapping, vma_is_fsdax() returns
+>>>>> false because
+>>>>>
+>>>>> vma_is_dax() returns false:
+>>>> Ah, okay, so fsdax is not involved and we really only fail because of the
+>>>> writable_file_mapping_allowed() check.
+>>>>
+>>>> I was for a second thinking in terms of nested virt :)
+>>>>
+>>>>> Host side backend is regular file backed memory (no fsdax).
+>>>> Okay, so we'll end up mapping an ordinary file into VM memory, and expose that
+>>>> to the VM as part of virtio-pmem device.
+>>>>
+>>>> That also means that vfio etc. won't be able to longterm-pin such device memory.
+>>>> So this is not a problem isolated to SEV.
+>>>>
+>>>> Forbidding to longterm pin is actually the right thing to do if the filesystem
+>>>> relies on writenotify, as spelled out by Lorenzo's commit:
+>>>>
+>>>> "
+>>>>       Writing to file-backed mappings which require folio dirty tracking using
+>>>>       GUP is a fundamentally broken operation, as kernel write access to GUP
+>>>>       mappings do not adhere to the semantics expected by a file system.
+>>>>
+>>>>       A GUP caller uses the direct mapping to access the folio, which does not
+>>>>       cause write notify to trigger, nor does it enforce that the caller marks
+>>>>       the folio dirty.
+>>>>
+>>>>       The problem arises when, after an initial write to the folio, writeback
+>>>>       results in the folio being cleaned and then the caller, via the GUP
+>>>>       interface, writes to the folio again.
+>>>> "
+>>>>
+>>>> Hmmm
+>>> Yes. For file based mapping we don't allow long term pinning.
+>>>
+>>> If we take into account the fragmentation concerns for MIGRATE_CMA and
+>>> ZONE_MOVABLE allocations
+>>>
+>>> solvable with FOLL_LONGTERM, I can think of two options(tested) to allow file
+>>> based mappings as well:
+>>>
+>>> 1. Fallback on FOLL_WRITE when FOLL_LONGTERM fails as suggested by Sean.
+>> That is just not acceptable, as it breaks random other stuff (MIGRATE_CMA, as
+>> one example) besides the file-pinning problems that Lorenzo added.
+>>
+>> If we're going to hack something in, then that we bypass the file writeback check.
+>> Not that we don't use FOLL_LONGTERM.
+>>
+>> I'd hate to use a GUP flag to indicate "this is a legacy hack", but it clearly isolates the
+>> issue (needs a better name obviously):
+> So under what circumstances are we happy with totally breaking dirty tracking?
+> :/ seems iffy, and exposing this to drivers generally is a bit worrysome.
+
+The intention is to allow long-term pinning of file-backed mappings only 
+for migration avoidance,
+
+without kernel GUP writes, and therefore not impacting dirty tracking.
+
+>>
+>> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+>> index ae9bca4eda5ca..e2c531f914d44 100644
+>> --- a/include/linux/mm_types.h
+>> +++ b/include/linux/mm_types.h
+>> @@ -1912,6 +1912,9 @@ enum {
+>>           */
+>>          FOLL_HONOR_NUMA_FAULT = 1 << 12,
+>>
+>> +       /* TODO */
+>> +       FOLL_LONGTERM = 1 << 13,
+>> +
+>>          /* See also internal only FOLL flags in mm/internal.h */
+>>   };
+>>
+>> diff --git a/mm/gup.c b/mm/gup.c
+>> index 0692119b79043..1fa0aa0cdc99d 100644
+>> --- a/mm/gup.c
+>> +++ b/mm/gup.c
+>> @@ -1186,8 +1186,8 @@ static bool writable_file_mapping_allowed(struct vm_area_struct *vma,
+>>           * If we aren't pinning then no problematic write can occur. A long term
+>>           * pin is the most egregious case so this is the case we disallow.
+>>           */
+>> -       if ((gup_flags & (FOLL_PIN | FOLL_LONGTERM)) !=
+>> -           (FOLL_PIN | FOLL_LONGTERM))
+>> +       if ((gup_flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK)) !=
+>> +           (FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK))
+>>                  return true;
+> Hmm I'm confused, you're then allowing FOLL_PIN | FOLL_LONGTERM, but disallowing
+> FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK?
+
+Yes, I addressed this in my reply, but it wasn't a clean inline response.
+
 >
->Reorder the teardown so the anchored URBs are killed before the netdevs
->are freed, matching other CAN/USB drivers in the same directory such as
->ems_usb, usb_8dev and mcba_usb, which unregister, then unlink, then
->free: unregister the netdevs first (which stops their TX queues), call
->unlink_all_urbs(dev) once, then free the netdevs.
+> By the way I think this should be expressed better if I criticise myself here :)
 >
->This issue was found by an in-house static analysis tool.
+> So like:
 >
->Fixes: 96d8e90382dc336b5de401164597edfdc2e8d9f1 ("can: Add driver for esd =
-CAN-USB/2 device")
+> 	if ((gup_flags & FOLL_PIN) && (gup_flags & FOLL_LONGTERM))
+>
+> Or even:
+>
+> 	/* Only an issue if we pin... */
+> 	if (!(gup_flags & FOLL_PIN))
+> 		return false;
+> 	/* ...and that pin is longterm... */
+> 	if (!(gup_flags & FOLL_LONGTERM))
+> 		return false;
+>
+> But I'm confused as to why we are suddenly allowing something broken and what
+> this hack flag is supposed to achieve?
+>
+> Shouldn't this rather be:
+>
+> 	/* Only an issue if we pin... */
+> 	if (!(gup_flags & FOLL_PIN))
+> 		return true;
+> 	/* ...and that pin is longterm... */
+> 	if (!(gup_flags & FOLL_LONGTERM))
+> 		return true;
+> 	/* ...and not overridden... */
+> 	if (gup_flags & FOLL_LONGTERM_HACK)
+> 		return true;
+> 	/* ...and dirty tracking is required. */
+> 	return !vma_needs_dirty_tracking(vma);
+> }
 
-Hi Fan,
+Yes, this looks much better. Will incorporate this.
 
-no need to put whole SHA, 12 first chars is enough
+>
+>>          /*
+>> @@ -2746,7 +2746,7 @@ static bool gup_fast_folio_allowed(struct folio *folio, unsigned int flags)
+>>           * If we aren't pinning then no problematic write can occur. A long term
+>>           * pin is the most egregious case so this is the one we disallow.
+>>           */
+>> -       if ((flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE)) ==
+>> +       if ((flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE | FOLL_LONGTERM_HACK)) ==
+>>              (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE))
+> Yeah this is just a bit horrid having to stare at a this a while... So
+> FOLL_LONGTERM_HACK would enable here.
+>
+> Be nice to avoid this form of it as it's difficult to understand, do something
+> like above or a clearer version anyway (probably best abstracted to a small
+> function).
 
+Sure.
 
+Also, I am also planning to rename (FOLL_LONGTERM_HACK -> 
+FOLL_PIN_NO_GUP_WRITE) in v2.
 
+Please let me know if you have a preference.
+
+Thanks,
+
+Pankaj
+
+>
+>>                  reject_file_backed = true;
+>>
+>> @@ -3180,7 +3180,7 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
+>>          int locked = 0;
+>>          int ret;
+>>
+>> -       if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM |
+>> +       if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM | FOLL_LONGTERM_HACK |
+>>                                         FOLL_FORCE | FOLL_PIN | FOLL_GET |
+>>                                         FOLL_FAST_ONLY | FOLL_NOFAULT |
+>>                                         FOLL_PCI_P2PDMA | FOLL_HONOR_NUMA_FAULT)))
+>>
+>>
+>> --
+>> Cheers,
+>>
+>> David
+> Thanks, Lorenzo
