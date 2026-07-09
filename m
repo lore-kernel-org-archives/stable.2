@@ -1,260 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552893B14D0;
-	Thu,  9 Jul 2026 21:59:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4C3449997;
+	Thu,  9 Jul 2026 22:12:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783634378; cv=none; b=hYC6rO8pzcnoGmEe8AliDwqzpuO4gr8kpX+e8FJWmBvn3kQ8Rbv4TOpEmy4CCLq45POmm+grrbc9aO2YzJoVTu/XZHl7+3o92wWoK5J1zO+a6Gn1kueu7jygGf2uEwTNs7pdlhdDVdyRrQ/ks+tMP2kmNeifWNtE93CnV3HdwIE=
+	t=1783635181; cv=none; b=UB5pE1xiMdiR1Ljy46UnKe2tsIoq2i02pIxV70z6ylTEiqq9HG8LBj7Bn8pLcptI1+18PIsjpelmJ4PsHwqswg3kIKHV/yydIroZA6+HSIONxy7rIRlVN+lXvGuow7kZUq0BWkzAVLWwAYV/C84gBgx+ueyd614t+ARW4zRf6aU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783634378; c=relaxed/simple;
-	bh=nZEfOqakGhrPhkXxd8r6kHvrN4AfqAqTnSXyBK6zciY=;
-	h=Date:To:From:Subject:Message-Id; b=Rdzl3Ae6vtahpVuNY8jFl7HilXuP4Dludh+6NP8f2awnsLkUICkQU+IEIZCewbxLqgtvO+ADMRwh4KZybpxN0M4YjYWR5ocQxydQgCd2dQXicgHwWfdPJO7GiI0uvWp7AlIGYGIi9ry0o/62b64WDjdQPm7WLCV9GU3ExEgHESM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=uxN3wKaK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783635181; c=relaxed/simple;
+	bh=5/rCRI3UZ45EfEwK6TTp7JRSRgCGf2m9q/mNeRMDj1o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SHyLVemS1eTsirf4NwHpKqS+0xXv3TbEH53W+noq176vgorVRYT1pcnVe4qj89G6MED1UYwR2/U5TtiJLDekkS0dnq7+SRBs2PKlrVRrmWCQ+yznLjHZKpwPshz6HIDafAT3rhv7XBY1gLqy7u/ZeZ59003ZGBA7JmLl2crq1bA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=OqvJPZhI; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=DHl5iHBZ; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="uxN3wKaK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8BA41F000E9;
-	Thu,  9 Jul 2026 21:59:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1783634376;
-	bh=5tK1sldEP4KMoyI7+NHCua1UXH3emOrx5R2z7xRRzu8=;
-	h=Date:To:From:Subject;
-	b=uxN3wKaKMrR0KGa0XZ2GPrd2BL5eOKWdDDDhTHjx8GhVkUzfuBplJnk7bHmCQ/GBX
-	 LE6svK/3J187X3hRiInLvpjG5QqDuXgtxFEivr0EmLaAGiUgw9AdeV4ZSYkrCi+haY
-	 /F9SsaZaM2jK5aC/QaNGM+XmWBnJIF1Pl1yPUW7E=
-Date: Thu, 09 Jul 2026 14:59:36 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,usama.anjum@collabora.com,surenb@google.com,stable@vger.kernel.org,shuah@kernel.org,sashiko-bot@kernel.org,rppt@kernel.org,pfalcato@suse.de,peterx@redhat.com,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,jannh@google.com,david@kernel.org,kas@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260709215936.C8BA41F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="OqvJPZhI";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="DHl5iHBZ"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gx8NS4jDdzKnR7;
+	Fri, 10 Jul 2026 00:12:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783635176;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=laLRk3O1bPDNGHI/gc/k6EDjwMB+P9jDPSaWLIRQBbw=;
+	b=OqvJPZhIiakwtCop6MXeEMt/soVSIahHllBwACDTaxN+2QwcFt2Wh6NafVwkj6QxTTdFR7
+	uq7ex/AKbTFMye2Le8u31XmMtt+l5pWdWILFQoaWhCD3FL3Ss4hovXj5VQCoCaL5CorxVj
+	r51VM2FT52f59V/54rYVwWFpJzRLPnWutP1RHAyPxMKQWEW1eZXcHN41uOs1xePiEXAcOa
+	xsYjXNCPoA6wzO90KsSiulqw4YqGWKChGUyKe3rxgKPM34IzEQBqw2frKjpgxXMxdrFupO
+	J0WSHSTGO53Ka7sL1IgbTVnLUlbXb7F7dzboWyXCvlBzRdfe3jWsuuRIZSYloQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=DHl5iHBZ;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783635175;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=laLRk3O1bPDNGHI/gc/k6EDjwMB+P9jDPSaWLIRQBbw=;
+	b=DHl5iHBZuPMJ33GHGleJrtpeJzBwFkFvJztFvwlkPGoyPQpEE9E4SLab+fzrQVyd0MDknn
+	4gsxYj2Zudf1S+pprtoDwjKNjUJvsjfLETZclIk3CJlev33PclRiWsjVybn0tJsQMl83Cc
+	nj3zxRLIKrJjMlF8Jqv9XfhoyxrOBZxvGZcnSLV9c6QqB5FIhPA0/kpHuPgZ91GIvtzywB
+	mLEOhbvwUt6LJ670o5Ro+hEkTwGmelvoJ15dg9ChTK7HgTR4pDyjjR3p6ObVXWFS4oH2pM
+	hxr5BjymqQpGtehVhnCC/p0M5QQG9HsihuUaUOSbyWQgxHOzopooOpI4PHs9NA==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	stable@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] arm64: dts: renesas: ironhide: Describe inline ECC carveouts
+Date: Fri, 10 Jul 2026 00:12:16 +0200
+Message-ID: <20260709221245.146406-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 64a105b4cf20af77a8f
+X-MBO-RS-META: gte15z866jw5dyzru7hp41k38a9ssom7
+X-Rspamd-Queue-Id: 4gx8NS4jDdzKnR7
 
+The DBSC5 DRAM controller protects DRAM content using inline ECC.
+The inline ECC utilizes areas of DRAM for its operation, which are
+in the DRAM address range, but must not be accessed or modified.
+Describe the inline ECC carveout areas used by the DBSC5 controller
+on this hardware as reserved-memory, which must not be accessed.
 
-The patch titled
-     Subject: fs/proc/task_mmu: fix PAGEMAP_SCAN written state for PMD holes
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes.patch
+In case of high DRAM utilization, unless the inline ECC carveouts
+are properly reserved, Linux may use and corrupt the memory used
+by the DBSC5 DRAM controller for inline ECC, which would lead to
+the system becoming unstable.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes.patch
-
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: fs/proc/task_mmu: fix PAGEMAP_SCAN written state for PMD holes
-Date: Thu, 9 Jul 2026 13:16:29 +0100
-
-PAGEMAP_SCAN reports an unpopulated PTE in a uffd-wp VMA as written, but a
-range with no page table at all -- a PMD hole -- is skipped:
-pagemap_scan_pte_hole() tests p->cur_vma_category, which never carries
-PAGE_IS_WRITTEN, so the hole is neither reported nor (under
-PM_SCAN_WP_MATCHING) armed.
-
-MADV_DONTNEED has fill-with-zeros semantics: it changes the contents of
-the range to zeroes (a subsequent read maps the zero page), which write
-tracking must report as written.  An anonymous THP is write-protected in
-place as a huge PMD, so a full-PMD MADV_DONTNEED clears it to pmd_none --
-a hole -- and the zeroing goes unreported.  A write-tracking
-checkpoint/migration tool (e.g.  CRIU) then treats the range as unchanged
-and keeps its previous contents, so after restore or live migration the
-process reads stale data instead of zeroes -- data corruption.
-
-Report a hole in a non-hugetlb uffd-wp VMA as written, matching the
-pte_none handling in pagemap_page_category(); the existing
-PM_SCAN_WP_MATCHING path then arms it via uffd_wp_range().
-
-hugetlb is excluded: pagemap_hugetlb_category() reports an empty hugetlb
-entry (huge_pte_none) as not-written, unlike pagemap_page_category(),
-which reports pte_none as written.  pagemap_scan_pte_hole() fires for a
-hugetlb slot only when it has no page table; keeping that not-written
-matches how an allocated-but-empty hugetlb entry reads, so the hole and
-the empty-entry cases agree within the VMA.
-
-Add a pagemap_ioctl selftest covering the anon-THP PMD-hole case.
-
-Link: https://lore.kernel.org/20260709121629.205562-1-kirill@shutemov.name
-Fixes: 2bad466cc9d9 ("mm/uffd: UFFD_FEATURE_WP_UNPOPULATED")
-Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260707151349.92143-1-kirill@shutemov.name
-Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-Cc: Peter Xu <peterx@redhat.com>
-Assisted-by: Claude:claude-fable-5
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: ad142a4ef710 ("arm64: dts: renesas: r8a78000: Add initial Ironhide board support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 ---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ .../boot/dts/renesas/r8a78000-ironhide.dts    | 41 +++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
- fs/proc/task_mmu.c                         |   27 ++++++++-
- tools/testing/selftests/mm/pagemap_ioctl.c |   56 ++++++++++++++++++-
- 2 files changed, 80 insertions(+), 3 deletions(-)
-
---- a/fs/proc/task_mmu.c~fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes
-+++ a/fs/proc/task_mmu.c
-@@ -3049,12 +3049,35 @@ static int pagemap_scan_pte_hole(unsigne
- {
- 	struct pagemap_scan_private *p = walk->private;
- 	struct vm_area_struct *vma = walk->vma;
-+	unsigned long categories;
- 	int ret, err;
+diff --git a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+index d2b3fc08954a1..f073145a682bf 100644
+--- a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
++++ b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+@@ -107,6 +107,47 @@ tee@8c400000 {
+ 			reg = <0x0 0x8c400000 0x0 0x02000000>;
+ 			no-map;
+ 		};
++
++		/* DRAM controller inline ECC areas */
++		ecc@10cccd0000 {
++			reg = <0x10 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@12cccd0000 {
++			reg = <0x12 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@14cccd0000 {
++			reg = <0x14 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@16cccd0000 {
++			reg = <0x16 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@18cccd0000 {
++			reg = <0x18 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@1acccd0000 {
++			reg = <0x1a 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@1ccccd0000 {
++			reg = <0x1c 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@1ecccd0000 {
++			reg = <0x1e 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
+ 	};
+ };
  
--	if (!vma || !pagemap_scan_is_interesting_page(p->cur_vma_category, p))
-+	if (!vma)
- 		return 0;
- 
--	ret = pagemap_scan_output(p->cur_vma_category, p, addr, &end);
-+	/*
-+	 * An unpopulated range with no page table -- e.g. a 2MB anon THP
-+	 * dropped via MADV_DONTNEED, which pagemap_page_category() never sees
-+	 * -- reads as written on a uffd-wp VMA, matching the pte_none case
-+	 * there. Reporting it also lets the PM_SCAN_WP_MATCHING arming below
-+	 * install markers (uffd_wp_range() allocates the page table under
-+	 * WP_UNPOPULATED), so the next scan sees it clean until re-written.
-+	 *
-+	 * hugetlb is excluded: pagemap_hugetlb_category() reports an empty
-+	 * hugetlb entry (huge_pte_none) as not-written, unlike
-+	 * pagemap_page_category(), which reports pte_none as written. This
-+	 * path fires for a hugetlb slot only when it has no page table;
-+	 * keeping that not-written matches how an allocated-but-empty
-+	 * hugetlb entry reads, so the two agree within the VMA.
-+	 */
-+	categories = p->cur_vma_category;
-+	if (userfaultfd_wp(vma) && !is_vm_hugetlb_page(vma))
-+		categories |= PAGE_IS_WRITTEN;
-+
-+	if (!pagemap_scan_is_interesting_page(categories, p))
-+		return 0;
-+
-+	ret = pagemap_scan_output(categories, p, addr, &end);
- 	if (addr == end)
- 		return ret;
- 
---- a/tools/testing/selftests/mm/pagemap_ioctl.c~fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes
-+++ a/tools/testing/selftests/mm/pagemap_ioctl.c
-@@ -1102,6 +1102,59 @@ static void unpopulated_scan_test(void)
- 	munmap(mem, mem_size);
- }
- 
-+/*
-+ * A 2MB anon THP dropped with MADV_DONTNEED leaves a pmd_none hole with no
-+ * page table, which pagemap_page_category() never sees. PAGEMAP_SCAN must
-+ * still report it as written on a uffd-wp VMA, via pagemap_scan_pte_hole().
-+ */
-+static void unpopulated_thp_hole_test(void)
-+{
-+	long npages, written = 0, ret, i;
-+	struct page_region regions[16];
-+	char *area, *mem;
-+
-+	if (!hpage_size) {
-+		ksft_test_result_skip("%s THP not supported\n", __func__);
-+		return;
-+	}
-+	npages = hpage_size / page_size;
-+
-+	/* Get a PMD-aligned range so the range can be a single THP. */
-+	area = mmap(NULL, 2 * hpage_size, PROT_READ | PROT_WRITE,
-+		    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (area == MAP_FAILED)
-+		ksft_exit_fail_msg("%s mmap failed\n", __func__);
-+	mem = (char *)(((unsigned long)area + hpage_size - 1) & ~(hpage_size - 1));
-+
-+	memset(mem, 1, hpage_size);
-+	if (madvise(mem, hpage_size, MADV_COLLAPSE) ||
-+	    !check_huge_anon(mem, 1, hpage_size)) {
-+		ksft_test_result_skip("%s could not form a THP\n", __func__);
-+		munmap(area, 2 * hpage_size);
-+		return;
-+	}
-+
-+	wp_init(mem, hpage_size);
-+
-+	/* Drop the whole PMD: it is cleared to a pmd_none hole. */
-+	if (madvise(mem, hpage_size, MADV_DONTNEED))
-+		ksft_exit_fail_msg("%s MADV_DONTNEED failed\n", __func__);
-+
-+	ret = pagemap_ioctl(mem, hpage_size, regions, 16, 0, 0,
-+			    PAGE_IS_WRITTEN, 0, 0, PAGE_IS_WRITTEN);
-+	if (ret < 0)
-+		ksft_exit_fail_msg("%s scan failed\n", __func__);
-+	for (i = 0; i < ret; i++)
-+		written += LEN(regions[i]);
-+
-+	ksft_test_result(written == npages,
-+			 "%s pmd-hole reported written (%ld of %ld)\n",
-+			 __func__, written, npages);
-+
-+	wp_free(mem, hpage_size);
-+	munmap(area, 2 * hpage_size);
-+}
-+
- int sanity_tests(void)
- {
- 	unsigned long long mem_size, vec_size;
-@@ -1610,7 +1663,7 @@ int main(int __attribute__((unused)) arg
- 	if (!hugetlb_setup_default(4))
- 		ksft_print_msg("HugeTLB test will be skipped\n");
- 
--	ksft_set_plan(118);
-+	ksft_set_plan(119);
- 
- 	page_size = getpagesize();
- 	hpage_size = read_pmd_pagesize();
-@@ -1790,6 +1843,7 @@ int main(int __attribute__((unused)) arg
- 
- 	/* 18. Unpopulated pte scan-path consistency */
- 	unpopulated_scan_test();
-+	unpopulated_thp_hole_test();
- 
- 	close(pagemap_fd);
- 	ksft_finished();
-_
-
-Patches currently in -mm which might be from kas@kernel.org are
-
-fs-proc-task_mmu-fix-pagemap_scan-written-state-for-unpopulated-ptes.patch
-mm-hugetlb-fix-swap-entry-corruption-when-clearing-uffd-wp-at-fork.patch
-fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes.patch
-mm-decouple-protnone-helpers-from-config_numa_balancing.patch
-mm-rename-uffd-wp-pte-bit-macros-to-uffd.patch
-mm-rename-uffd-wp-pte-accessors-to-uffd.patch
-userfaultfd-test-uffd-vma-flags-through-the-vma_flags_t-api.patch
-mm-add-vm_uffd_rwp-vma-flag.patch
-mm-add-mm_cp_uffd_rwp-change_protection-flag.patch
-mm-preserve-rwp-marker-across-pte-rewrites.patch
-mm-handle-vm_uffd_rwp-in-khugepaged-rmap-and-gup.patch
-userfaultfd-add-uffdio_register_mode_rwp-and-uffdio_rwprotect-plumbing.patch
-mm-userfaultfd-add-rwp-fault-delivery-and-expose-uffdio_register_mode_rwp.patch
-mm-pagemap-add-page_is_accessed-for-rwp-tracking.patch
-userfaultfd-add-uffd_feature_rwp_async-for-async-fault-resolution.patch
-userfaultfd-add-uffdio_set_mode-for-runtime-sync-async-toggle.patch
-documentation-userfaultfd-document-rwp-working-set-tracking.patch
+-- 
+2.53.0
 
