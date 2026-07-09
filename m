@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91EFE43932C
-	for <Stable@vger.kernel.org>; Thu,  9 Jul 2026 05:44:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DB443932C
+	for <Stable@vger.kernel.org>; Thu,  9 Jul 2026 05:44:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783575898; cv=none; b=I/oCAjoNl2z4Do7nEWfT58bXJbS4V9z5yLoZx92047cPw/7RDTrji6ojtpgan6WDCWbPBULVlxN/ir2ZO+IAkp6IphT+RieJk1KThIZdDdohNnuQbyxLidsik8ve0HYWlkIoUNtjuphR9qnyYSpgaZWgumOAlL8t74EHDM4e75s=
+	t=1783575901; cv=none; b=sutpAwrbcyJ8YrTXph+kxtCycvx4+XU7ghRlcqQRpG2EW1TRwiJlL6PzgFDkAfci7ytz0lcdkxYgRGmtpQ3VOUdDK6520lz+Dx6b+XwF+FWd4ttQ/VlLAIE8LUi/NpMzUyqU28tNXRbsG8t50gdU0rOK8VIG7oNmroGLpL6Ydqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783575898; c=relaxed/simple;
-	bh=Pk6XNHtwuU5N8PIMACjSVKWcDMMG2g2ztckdWrYaO7o=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=BpxHL8/PcfpgpsnB6rnV025Mx2DTWRpoewXqhFiJrhRuXZnnMrw/g804H0Bsp2pYKff+YFoYdMGQKhw9e4Cj2MDGCtMhTm8lzixD+lzM212xXUgTGrTx52FpbJtcYIRV3Hiqh6orlf48aMHEqaKy41kyeM2yjMUHnv7YPH0vMRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wbSUK6KP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783575901; c=relaxed/simple;
+	bh=dlw/ZFzYtGKHZ28FEFSJNRw28M+u6Rmc5OO106sTr2E=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=CTl3Ed4tiCWkqx00ps6L9o5bCd1mUW9Tohacj10I5LvfhC+HRsIJ+V7ha/ZR0Z813Gh8KzwHGiId389lHPo0dq7HAVI8iYtaowMe6cbIwoywvAUC77/tbYjVeFJUos3A23dxLPXsqATZpq0qeEVwgzNSmWMorBo7DaEgFJyCd/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zx2K+kjr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wbSUK6KP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83A31F000E9;
-	Thu,  9 Jul 2026 05:44:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zx2K+kjr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CA0D1F000E9;
+	Thu,  9 Jul 2026 05:44:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783575897;
-	bh=UCKH4De1xcvch6IKGpLdRSe2n8vLUJBi1E4cm/sAP8w=;
+	s=korg; t=1783575899;
+	bh=S4mSWXkVYTNDZJGpzQmMtpOGkwbWC1hATW0bYNCzhNc=;
 	h=Subject:To:From:Date;
-	b=wbSUK6KPksAm9hbtoPtePIF/6YXpkUKWr839bG2VHk3maHNA9nk+wdtwBhVOrbifW
-	 WXBVu6zftRDHXZNIGoNwpJ0ZA3//FDEQFolupF5sij1u4VoXufcCUgdY8CpVm4V7BG
-	 Uv7QqnpMO+mF5sHKNp45WRDGppvYsbqm/rAs+qCA=
-Subject: patch "iio: adc: ti-ads1119: fix PM reference leak in buffer preenable" added to char-misc-linus
-To: lgs201920130244@gmail.com,Stable@vger.kernel.org,jic23@kernel.org
+	b=zx2K+kjrHA/3Vu3TyE1z/dOx9DxdSKQ86sVwxqs1chu+2l8q5BWcuIzujM/W+gNu1
+	 Wldr9y2ZmXydm/00VLHNuxQsCeJ4pM42w2dSw6GRXiCHySB1HcJaLtie3YgTT2uXPn
+	 FDxYmYaNfqMqWr7andwsV0ODeCorFGPvonXo+7ew=
+Subject: patch "iio: pressure: mpl115: fix runtime PM leak on read error" added to char-misc-linus
+To: birenpandya@gmail.com,Stable@vger.kernel.org,jic23@kernel.org
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 09 Jul 2026 07:44:46 +0200
-Message-ID: <2026070946-unfazed-squeak-0fe3@gregkh>
+Date: Thu, 09 Jul 2026 07:44:47 +0200
+Message-ID: <2026070947-reward-sandpaper-9bac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: adc: ti-ads1119: fix PM reference leak in buffer preenable
+    iio: pressure: mpl115: fix runtime PM leak on read error
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,47 +54,54 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From adf4bc07f814da8329278d32600147f5a150938c Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 3 Jun 2026 20:16:40 +0800
-Subject: iio: adc: ti-ads1119: fix PM reference leak in buffer preenable
+From fbe67ff37a6fd855a6c097f84f3738bd13d0a898 Mon Sep 17 00:00:00 2001
+From: Biren Pandya <birenpandya@gmail.com>
+Date: Sun, 14 Jun 2026 12:45:48 +0530
+Subject: iio: pressure: mpl115: fix runtime PM leak on read error
 
-ads1119_triggered_buffer_preenable() resumes the device with
-pm_runtime_resume_and_get() before starting a conversion.
+mpl115_read_raw() takes a runtime PM reference with pm_runtime_get_sync()
+before reading the processed pressure or raw temperature, but on the read
+error path it returns without calling pm_runtime_put_autosuspend(). Each
+failed read therefore leaks a runtime PM reference and prevents the device
+from autosuspending.
 
-If i2c_smbus_write_byte() fails, the function returns the error directly
-and leaves the runtime PM usage counter elevated. The matching
-postdisable callback is not called when preenable fails, so the reference
-is leaked and the device may remain runtime-active indefinitely.
+Drop the reference before checking the return value so both the success
+and error paths are balanced.
 
-Store the I2C transfer result in ret and drop the runtime PM reference on
-failure before returning the error.
-
-Fixes: a9306887eba41 ("iio: adc: ti-ads1119: Add driver")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Fixes: 0c3a333524a3 ("iio: pressure: mpl115: Implementing low power mode by shutdown gpio")
+Signed-off-by: Biren Pandya <birenpandya@gmail.com>
+Assisted-by: Claude:claude-opus-4-8 coccinelle
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 ---
- drivers/iio/adc/ti-ads1119.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/iio/pressure/mpl115.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/adc/ti-ads1119.c b/drivers/iio/adc/ti-ads1119.c
-index d31f3d6eb781..b0f04741ddc6 100644
---- a/drivers/iio/adc/ti-ads1119.c
-+++ b/drivers/iio/adc/ti-ads1119.c
-@@ -459,7 +459,11 @@ static int ads1119_triggered_buffer_preenable(struct iio_dev *indio_dev)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/iio/pressure/mpl115.c b/drivers/iio/pressure/mpl115.c
+index 830a5065c008..16e112b796ba 100644
+--- a/drivers/iio/pressure/mpl115.c
++++ b/drivers/iio/pressure/mpl115.c
+@@ -106,18 +106,18 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
+ 	case IIO_CHAN_INFO_PROCESSED:
+ 		pm_runtime_get_sync(data->dev);
+ 		ret = mpl115_comp_pressure(data, val, val2);
++		pm_runtime_put_autosuspend(data->dev);
+ 		if (ret < 0)
+ 			return ret;
+-		pm_runtime_put_autosuspend(data->dev);
  
--	return i2c_smbus_write_byte(st->client, ADS1119_CMD_START_SYNC);
-+	ret = i2c_smbus_write_byte(st->client, ADS1119_CMD_START_SYNC);
-+	if (ret)
-+		pm_runtime_put_autosuspend(dev);
-+
-+	return ret;
- }
+ 		return IIO_VAL_INT_PLUS_MICRO;
+ 	case IIO_CHAN_INFO_RAW:
+ 		pm_runtime_get_sync(data->dev);
+ 		/* temperature -5.35 C / LSB, 472 LSB is 25 C */
+ 		ret = mpl115_read_temp(data);
++		pm_runtime_put_autosuspend(data->dev);
+ 		if (ret < 0)
+ 			return ret;
+-		pm_runtime_put_autosuspend(data->dev);
+ 		*val = ret >> 6;
  
- static int ads1119_triggered_buffer_postdisable(struct iio_dev *indio_dev)
+ 		return IIO_VAL_INT;
 -- 
 2.55.0
 
