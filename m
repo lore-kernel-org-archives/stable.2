@@ -1,166 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DEA3A451D;
-	Thu,  9 Jul 2026 03:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3F8393DC8;
+	Thu,  9 Jul 2026 03:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783568260; cv=none; b=lp1eYrQHx7A3lFH/SQxg/1QHRT+vDApn0ebTcHYy1XZslcGOWOR2YTzWrVEwUDonG98COFksUFjkBH0Dr1DxdjP+08wEA7IJCtkN+EOZbt0y1vn6tMmPc1k6SUklV2VOGqF2O8uFPO4PwvYMiUWVTrPIiU6257FTWp9CDXJiAP8=
+	t=1783568280; cv=none; b=WdsyiNpc31QaBbrGi+PZp2d1o8SJg5B/HxF7f6b80U/h+kogcjiNjLOk9GfSTvNhosWXkI/C1dgc4JuJ0XFHO/ziIEYo0hKUrQkuPZ61Ks3+8jGT09Tmi4SQ3EzPMrh7/aYIb/e6s46wswwRwR1hjT43SpqnXAlUw2Z6llhs4Z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783568260; c=relaxed/simple;
-	bh=ulJaWT+5oJhNMhEGMOGXbRD7JkIgCS52zawAbmsyQC0=;
-	h=Date:To:From:Subject:Message-Id; b=YJNMhDzougRYx+WsRp9GBMOQF4WoC340OjWmEPctw5p7nyqrfXIuBF5sHJLZa6iCORo4UsrNV3EedXT7mTKsw1uipxbox+AZq+BmbDCbb/AKqL11lSPxXIw+gMZGoxluET709XbAa82ky6Cc7ReZmt2QEgpSl+gctRoTlU2UKmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=yni3jNOI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783568280; c=relaxed/simple;
+	bh=eunZhR6efw09yHGWlxpUw7s7IHYXvw3HFUp4g/Sqfs4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=uj2EqetNrmJ8eIvR6v3JNA8fWOet2s5PoHZtvrUprDSYZslw+dL5cE5Z5JJw4ooIr1IkP6oVCxYafEy6xj6mwTs0TTi+SadEU5jkidLQlWq+j9/+UJnOS1PzmrNNfzzKBdUrwsEW1VgELhEIJf7xjCPkBzW7hIe8//2JN7jJqCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=P0QpaQ35; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="yni3jNOI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 730E11F000E9;
-	Thu,  9 Jul 2026 03:37:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1783568258;
-	bh=WZ0AsjbPVZUXfBnoQrNoZ516yTkW8VzLOQlKGSOrlno=;
-	h=Date:To:From:Subject;
-	b=yni3jNOIp0wx3VNgyfuiiGnlqvqEIzUiUAwm0XrDVvzv6NloD5VeWHlwezjeKqsvH
-	 Trwd4JLszz5wCARS5SxaJP86LqDSu5xhG2Sw5ii4Co48GfzWfGdH5elNm5eqAEmkSv
-	 mW0MIiIH8g5Wdq2p1SngOokEGHBOAOxxFPwITif4=
-Date: Wed, 08 Jul 2026 20:37:38 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sashiko-bot@kernel.org,peterx@redhat.com,osalvador@suse.de,muchun.song@linux.dev,david@kernel.org,kas@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-hugetlb-fix-swap-entry-corruption-when-clearing-uffd-wp-at-fork.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260709033738.730E11F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="P0QpaQ35"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=3usAFxvBnQSrtlEyPuj8Dfm5zlE7XgPSwefjV7zsIHk=;
+	b=P0QpaQ35sARZ3tjtHh2+/C0+cZwFEP9O++LrQqS1Nvbi9nMy1XmkemJnC0ckQq4rPbU9BHqOV
+	XNi3BJ05OTYdVS7mw3Q+yBCzBWLSSfMFoPuV4ltvpcBKw91KHT9uJC9ZJljV5IutgJjmHpfr/Lp
+	Mc/xEYsBUMKLHB0fDzMRXuI=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4gwgRD3n0Vz1K9Ck;
+	Thu,  9 Jul 2026 11:28:40 +0800 (CST)
+Received: from kwepemr100001.china.huawei.com (unknown [7.202.195.168])
+	by mail.maildlp.com (Postfix) with ESMTPS id C2ED840578;
+	Thu,  9 Jul 2026 11:37:53 +0800 (CST)
+Received: from [10.136.112.147] (10.136.112.147) by
+ kwepemr100001.china.huawei.com (7.202.195.168) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Thu, 9 Jul 2026 11:37:52 +0800
+Message-ID: <e55d6327-78a9-41dc-9627-4414f408774b@h-partners.com>
+Date: Thu, 9 Jul 2026 11:37:51 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] netfilter: nf_nat_masquerade: recalculate TCP TS
+ offset when port is randomized
+To: Florian Westphal <fw@strlen.de>
+CC: Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>, "David
+ S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, gaoxingwang <gaoxingwang1@huawei.com>, huyizhen
+	<huyizhen2@huawei.com>, <netfilter-devel@vger.kernel.org>,
+	<coreteam@netfilter.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20260629093408.3927103-1-xietangxin@h-partners.com>
+ <akKN4cywAsFRdefX@strlen.de>
+ <0ad60f06-387e-49bc-9e26-3dcebf182cb4@h-partners.com>
+ <akUhid7_3iHovivd@strlen.de>
+ <3620a5a9-9ced-4825-9bc4-6950be205749@h-partners.com>
+ <ak5riPx5d3rSG6MG@strlen.de>
+Content-Language: en-US
+From: xietangxin <xietangxin@h-partners.com>
+In-Reply-To: <ak5riPx5d3rSG6MG@strlen.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemr100001.china.huawei.com (7.202.195.168)
 
 
-The patch titled
-     Subject: mm/hugetlb: fix swap entry corruption when clearing uffd-wp at fork()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-hugetlb-fix-swap-entry-corruption-when-clearing-uffd-wp-at-fork.patch
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb-fix-swap-entry-corruption-when-clearing-uffd-wp-at-fork.patch
+On 7/8/2026 11:23 PM, Florian Westphal wrote:
+> xietangxin <xietangxin@h-partners.com> wrote:
+>> Thanks for your guidance. I’ve successfully fix the helper location
+>> as you suggested, and it works fine for local traffic.
+>>
+>> However, I realized that I had completely overlooked the forwarding scenario
+>> (where SNAT acts as a middlebox gateway, e.g. Host A -> Gateway B -> Server C).
+>> In this gateway scenario, when random-fully is enabled, the test results show
+>> a massive performance degradation: the QPS drops from ~19000 down to ~10000.
+> 
+> I don't think the forwarding case is fixable.
+> 
+> Host S could be another NAT gateway, so it could be possible that
+> the connections originate from different physical machines and
+> timestamps differ due to different clocks, not per-connection
+> randomisation.
+> 
+>> Since skb->sk is NULL on the forwarding gateway, my current approach of
+>> updating tp->tsoffset in struct tcp_sock cannot be applied here.
+> 
+> Yes. I think the tp->tsoffset recalc is fine to handle local case.
+> 
+> For local case we do know that we're the end host and ts recalc is fine.
+> 
+>> To be honest, I am currently stuck on how to handle this forwarding scenario
+>> within the netfilter architecture without adding redundant overhead to the fast path.
+>>
+>> Could you please give some advice on how the community would prefer to resolve this?
+>> For instance, should we look into extending the Conntrack NAT extension to
+>> track and adjust the TCP timestamps?
+> 
+> If we have some guarantee that internal network isn't doing any
+> snat at all, then yes, one could implement some TS adjustment
+> scheme similar to seqadj extension we already have to deal with
+> tcp sequence number adjustments.
+> 
+> We'd have to keep state and subtract the offset to get back the
+> right tsecr again on reverse direction.
+> 
+> I'm not keen to have something like this, it would breaks PAWS
+> as soon as the originating host is itself a nat gateway.
+> 
+> Is this really a problem to begin with?
+Hi Florian,
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Thanks for your precise analysis. I completely agree with you that
+the forwarding case is theoretically unfixable due to the multi-tier NAT risks.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+This is a real and severe problem for us, but the actual issue we encountered
+is in the local case, not the forwarding case:
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+1.Laboratory Test Case Failure:
+We noticed a severe HTTP performance regression in our automated Kubernetes testing,
+where wrk was used to benchmark Pod client http performance. Through git bisect,
+we successfully pinned the commit 165573e41f2f ("tcp: secure_seq: add back ports to TS offset").
+The trigger was the default MASQUERADE --random-fully rule configured by kube-proxy on the k8s node.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+2.Downstream Production Impact (AI Inference Cluster on Kubernetes):
+Shortly after, one of our major downstream product teams reported a massive performance degradation.
+After they upgraded their kernel to a version containing commit 165573e41f2f,
+they suffered a 40% AI inference performance drop. They confirmed that simply
+removing the random-fully flag instantly restored the performance back to normal.
 
-------------------------------------------------------
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: mm/hugetlb: fix swap entry corruption when clearing uffd-wp at fork()
-Date: Wed, 8 Jul 2026 10:01:10 +0100
+Would it be acceptable to a V2 patch that targets the local case?
 
-copy_hugetlb_page_range() clears the uffd-wp bit of migration and hwpoison
-entries with huge_pte_clear_uffd_wp(), which operates on the present-PTE
-bit position.  Swap entries keep the uffd-wp state elsewhere -- the
-migration branch reads and sets it with pte_swp_uffd_wp() and
-pte_swp_mkuffd_wp() -- and the present-PTE position falls into the swap
-payload.  On x86-64 it lands in the inverted swap offset, where a
-naturally-aligned hugetlb PFN always has the affected bit set, so the
-clear advances the encoded PFN by two pages.
-
-No userfaultfd needs to be involved: the clear is guarded only by the
-child VMA not being uffd-wp registered, so a plain fork() with an
-in-flight hugetlb migration entry (or a poisoned hugetlb page) corrupts
-the entry copied into the child.  Instrumenting the clear and forking
-after MADV_HWPOISON on a 2MB anon hugetlb page shows:
-
-  offset before=120e00
-  offset after =120e02
-
-The fallout is mostly latent: rmap walks match migration entries by folio
-range and remove_migration_pte() rebuilds the PTE from the folio, so a
-within-folio PFN skew heals once migration completes.  But any path that
-re-encodes the corrupted offset -- e.g.  hugetlb_change_protection()
-rewriting a writable migration entry via
-make_readable_migration_entry(swp_offset(entry)) -- propagates it.
-
-Migration entries legitimately carry uffd-wp, so clear it with
-pte_swp_clear_uffd_wp(), matching copy_nonpresent_pte() and
-move_huge_pte().
-
-A hwpoison entry, on the other hand, never carries the uffd-wp bit: it is
-installed fresh by make_hwpoison_entry() (try_to_unmap_one() does not
-preserve uffd-wp on the hwpoison path) and hugetlb_change_protection()
-leaves hwpoison entries untouched.  There was nothing to clear there, only
-the corruption, so drop the clear entirely.
-
-Link: https://lore.kernel.org/20260708090110.136162-1-kirill@shutemov.name
-Fixes: bc70fbf269fd ("mm/hugetlb: handle uffd-wp during fork()")
-Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260703140011.99E601F000E9@smtp.kernel.org/
-Suggested-by: David Hildenbrand <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: Claude:claude-fable-5
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/hugetlb.c |   10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
---- a/mm/hugetlb.c~mm-hugetlb-fix-swap-entry-corruption-when-clearing-uffd-wp-at-fork
-+++ a/mm/hugetlb.c
-@@ -4929,8 +4929,12 @@ again:
- 
- 		softleaf = softleaf_from_pte(entry);
- 		if (unlikely(softleaf_is_hwpoison(softleaf))) {
--			if (!userfaultfd_wp(dst_vma))
--				entry = huge_pte_clear_uffd_wp(entry);
-+			/*
-+			 * A hwpoison entry never carries the uffd-wp bit: it is
-+			 * installed fresh by make_hwpoison_entry() and
-+			 * hugetlb_change_protection() leaves it untouched, so
-+			 * there is nothing to clear for the child.
-+			 */
- 			set_huge_pte_at(dst, addr, dst_pte, entry, sz);
- 		} else if (unlikely(softleaf_is_migration(softleaf))) {
- 			bool uffd_wp = pte_swp_uffd_wp(entry);
-@@ -4948,7 +4952,7 @@ again:
- 				set_huge_pte_at(src, addr, src_pte, entry, sz);
- 			}
- 			if (!userfaultfd_wp(dst_vma))
--				entry = huge_pte_clear_uffd_wp(entry);
-+				entry = pte_swp_clear_uffd_wp(entry);
- 			set_huge_pte_at(dst, addr, dst_pte, entry, sz);
- 		} else if (unlikely(pte_is_marker(entry))) {
- 			const pte_marker marker = copy_pte_marker(softleaf, dst_vma);
-_
-
-Patches currently in -mm which might be from kas@kernel.org are
-
-fs-proc-task_mmu-fix-pagemap_scan-written-state-for-unpopulated-ptes.patch
-fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes.patch
-mm-hugetlb-fix-swap-entry-corruption-when-clearing-uffd-wp-at-fork.patch
-mm-decouple-protnone-helpers-from-config_numa_balancing.patch
-mm-rename-uffd-wp-pte-bit-macros-to-uffd.patch
-mm-rename-uffd-wp-pte-accessors-to-uffd.patch
-userfaultfd-test-uffd-vma-flags-through-the-vma_flags_t-api.patch
-mm-add-vm_uffd_rwp-vma-flag.patch
-mm-add-mm_cp_uffd_rwp-change_protection-flag.patch
-mm-preserve-rwp-marker-across-pte-rewrites.patch
-mm-handle-vm_uffd_rwp-in-khugepaged-rmap-and-gup.patch
-userfaultfd-add-uffdio_register_mode_rwp-and-uffdio_rwprotect-plumbing.patch
-mm-userfaultfd-add-rwp-fault-delivery-and-expose-uffdio_register_mode_rwp.patch
-mm-pagemap-add-page_is_accessed-for-rwp-tracking.patch
-userfaultfd-add-uffd_feature_rwp_async-for-async-fault-resolution.patch
-userfaultfd-add-uffdio_set_mode-for-runtime-sync-async-toggle.patch
-selftests-mm-add-userfaultfd-rwp-tests.patch
-documentation-userfaultfd-document-rwp-working-set-tracking.patch
+-- 
+Best regards,
+Tangxin Xie
 
