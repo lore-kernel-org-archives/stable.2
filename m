@@ -1,45 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7049276049;
-	Thu,  9 Jul 2026 04:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0BD2701D9
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 04:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783571636; cv=none; b=aqn7ljjUparEYbi/WPn6JqPXS8VDZl9iQTpIQDQthWNOilCQBgjQMkNce5FUEo9iijz5IETNJK3dPKBUXzRQb+8feC3gPYwMP8aojaPilsm5Vqsbv3ATJkNMJ0stNkz3uDIc21DTrcBRRQXPs4bqryLq327+RIcSHIz3SNZguAQ=
+	t=1783572432; cv=none; b=MLxXvNY6HspaHMArPLESs9fl69/AG+wBfFzl8F5HTrzCz5JmLjdrxUHyJYfJZ04P53RsDmw/ZXvxV7hCtjf3zYNPiT9ojw4K/iDVxjG7lT7r+usjBrhFXWHOzZb9/BMaMaPXEA6hV2jdVccIFOzPkC3YCfXINpfBVPOOhmw54e0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783571636; c=relaxed/simple;
-	bh=eNqPIs12EdriTq4almq2Yg+Aa3TgvUL56esI9T5WPAE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aWuNO+dzWPsgwNeRl4ntXQ71WPpkMyAnoloKAmD1zXDIoUuN/JAPpMRcqE9skZcTFlmqMh9DQTrkxjZg7aebCQF+ZFkvMCm6CqQh/P7JwtYeX9GvldiYKla0mGnN68B6yiedNtCPdXQ1fRM0xsjQxsOoT5sLq5tRz9UpLirCJ1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f8zVwvpt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783572432; c=relaxed/simple;
+	bh=PRroqpoyMJg/+rYrFJe4O8BKnUwWTSzH2NWue6bkJJU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oNPhyGqSIaXXfWRte739JBYHPo0Rcfstx9q6MhSqfQa0loCLXSDydj8By0z3Jp2aKbKQ2VqfDau91szfS8MtbHujYK+8z99gcLxH6lCKTpcAy6lBf9waBKvfWtc3eqd5iWrcL3EJ6YlaFCGGkHcIG7w99nRAiDaUMXE9EkyLtDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n4RIc+R2; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f8zVwvpt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11F521F00A3D;
-	Thu,  9 Jul 2026 04:33:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783571635;
-	bh=Js3NGQVx1KADZnJZvetknE5nLYp1IGOPnigBp3atZ94=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f8zVwvptMpk9i+/Dpd7J4bpmuwVNaIB7EwG573FjQCYLYi/johTd67PCKp8/ElV3S
-	 ze03u6735P/PvuBKLQv83KIjvJhfMx3BqjIa25LkytYEZ/QC3O64Z6aeHTveLdb/gc
-	 vkRfhsBVUpOHwVANZ6jacEaPemss2ryZEMFBlODLPnDlAzDUp6nUAzF6O8ghErbBib
-	 EJ9RzoZD1bCItXBZpYGOswfa6BGAc+J0sykYfJurHD3esf/u/p4Y1I4us7cou6MEdB
-	 9lCf8VbuTYIm2m+tD2R6hcxmYZpegeJNHFEMACjSCYSwQcjYpXB/IoKoFuCxNSqCpW
-	 fsf0sJ5fquFsQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-hardening@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Harry Yoo (Oracle)" <harry@kernel.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH 6.18 4/4] slab: recognize @GFP parameter as optional in kernel-doc
-Date: Thu,  9 Jul 2026 00:33:01 -0400
-Message-ID: <20260709043301.142931-5-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260709043301.142931-1-ebiggers@kernel.org>
-References: <20260709043301.142931-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n4RIc+R2"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2c6b67d5fa1so5221435ad.2
+        for <stable@vger.kernel.org>; Wed, 08 Jul 2026 21:47:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783572430; x=1784177230; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZGemzx+pMunN1tP8jAT+YOako4z0+tHzoNO2IOm+UVk=;
+        b=n4RIc+R2Jp4fvqXccV0SRDYpftkct4bxvjoLSvrXWnpE5gFZuRdumdh3moejftvrto
+         pB2UYCktHz/+oqhfptL3ZtCU0SYDPdkV8PT7Kh5mv8jbBG/2YGXgZo+QVm96xug+/sbR
+         cZF6b1ch0aSyMPblNHgZVX+GHbMC8e3jbBlM40qWaUpagKRivqQjRwlw1bI51QujQulc
+         1denembbw0phiJHLz2Z4xskUCGtUmoAZ/aO9xdTThoTRspINzpyCqktTBbWIMj5oZV6z
+         VXp+g6xiZqWvVBYKYrYOD1Tv3I6rRRNj54ElIEQfIxR1rm/1Ls4K9dEUAUyUgrg11Vcb
+         yiVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783572430; x=1784177230;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZGemzx+pMunN1tP8jAT+YOako4z0+tHzoNO2IOm+UVk=;
+        b=LdhDsZWf40Gzf4iMraqhQut+N6B5YIA4Co6OYJE0jr5rSWk5HPjxT/v5afIrareY0p
+         dAAqNo1QydqY7gRd5kuys7dagR9uhr5O4310EB5SM8ZTDWOTv06eqWqChT0sc7JqFiAe
+         Tm1p3urTFlEtKKix9dL19kzhpIsI8FprEMlGPKHRudL5VEeZLHyoxG2zhcMXsoFHXLLh
+         TKeH3u3fWuCmbnUu062LJqdzDK8oQCW/YrEcRK+Mkrlm0RK5O5tzBcJXliFejov7u6zf
+         pIq8oFbGlHc9HHgcdrXVLh4wOO1R8Vsr1NSPkm/w/SUYuTldkqZx0/1pwgehkD62/r5C
+         XuvQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqK+18qIic0S6JpcuJHkr/TYz5Y9Y/0/YsEtocMSXMRJKLt2qUllxUV7dhD0A1YaVD5apHPJ7w=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFiuTxuMiS8OkT3ChoB96KMPJdGXBJyAerCRvxIZGz7KmTWF7s
+	GqAAhF9HrLJfXSMaDzVKRKUrE60nPVo9SXEUNSyM81EZbV0otU1SfGzR
+X-Gm-Gg: AfdE7cnvjKOpfcvw0/GIGPg8ocrEq7sptxTj3FoEM55pCDOLjm21NOnS7jBls12IPFY
+	A05NI2Cb+bzay9xP4RhkKdNVHCrF12qXVTlOaOeUvbFoDq+8IYoJ9rT8UiRlltxNKrWQPvZ4A+P
+	LKDEo3XITvWH+Xwf6a9AvFB2mNulU2Z8fCMkYDmGyb3pJLHBEGmKbH3zUpEL+++x+E6cdqMhaWB
+	oJol/9oOuYKOtcdMFQFLJlssIUIwlQ54YkrFaYDwxYWHcdz3gU5tYtLEfTsjsKDpRa2A4h8XwFl
+	axz3x2NcCHbKsGWHZSV+ffmrw2sI/P5g7qCFHie/UqkffkKdTi7ofWQ4ebq75rivHsod8rbz2mR
+	1qJruyq6qjWR25V3hhK17tUAYN7TQRDyzTl+itGo6vTrS2QT7XW+q8Q6CkklgKWA+UmUrlIUYaP
+	4adckh2twRVdVQAxbMtw==
+X-Received: by 2002:a17:903:3c67:b0:2ca:9d5a:8b6c with SMTP id d9443c01a7336-2ccea37d246mr55009625ad.5.1783572429827;
+        Wed, 08 Jul 2026 21:47:09 -0700 (PDT)
+Received: from localhost ([2402:e280:3e0d:544:91b3:77c4:f31d:d706])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb76asm38436785ad.12.2026.07.08.21.47.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 21:47:09 -0700 (PDT)
+From: Vaibhav Nagare <nagarevaibhav@gmail.com>
+X-Google-Original-From: Vaibhav Nagare <vnagare@redhat.com>
+To: davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch
+Cc: matvey.kovalev@ispras.ru,
+	Pavel.Zhigulin@kaspersky.com,
+	aelior@marvell.com,
+	manishc@marvell.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vaibhav Nagare <vnagare@redhat.com>
+Subject: [PATCH net] qede: Fix NULL pointer dereference in TPA fragment processing
+Date: Thu,  9 Jul 2026 10:17:04 +0530
+Message-ID: <20260709044704.141507-1-vnagare@redhat.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,59 +83,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Randy Dunlap <rdunlap@infradead.org>
+  Under memory pressure, the qede driver encounters NULL pointer
+  dereferences when processing TPA continuation fragments because:
+  1. qede_fill_frag_skb() does not validate the page pointer before use
+  2. qede_tpa_end() checks error state AFTER calling qede_fill_frag_skb()
 
-commit 7b5f5865fb11e60edd03c5e063e2d228b7062317 upstream.
+  The crash occurs when:
+  1. System experiences memory pressure (GFP_ATOMIC allocations fail)
+  2. qede_alloc_rx_buffer() returns -ENOMEM, leaving sw_rx_data->data NULL
+  3. qede_tpa_start() sets QEDE_AGG_STATE_ERROR on SKB allocation failure
+  4. Hardware delivers TPA_CONT and TPA_END events for this aggregation
+  5. qede_tpa_end() calls qede_fill_frag_skb() before checking error state
+  6. qede_fill_frag_skb() accesses NULL pointer in skb_fill_page_desc()
+  7. Kernel panics with NULL pointer dereference
 
-Since the @GFP parameter in kmalloc_obj() etc. is now optional, change
-the kernel-doc to indicate that it is optional. This avoids kernel-doc
-warnings:
+Example crash from production system:
+  BUG: unable to handle kernel NULL pointer dereference at 0x8
+  RIP: qede_fill_frag_skb+0x96/0x430 [qede]
+  Call Trace:
+    qede_rx_int+0xb06/0x1de0
+    qede_poll+0x2f4/0x6c0
+    __napi_poll+0x2d/0x130
 
-WARNING: include/linux/slab.h:1101 Excess function parameter 'GFP' description in 'kmalloc_obj'
-WARNING: include/linux/slab.h:1113 Excess function parameter 'GFP' description in 'kmalloc_objs'
-WARNING: include/linux/slab.h:1128 Excess function parameter 'GFP' description in 'kmalloc_flex'
+Observed on HPE Synergy 480 Gen11 running RHEL 8.10
+(4.18.0-553.134.1.el8_10.x86_64), but the vulnerable code path
+exists in mainline.
 
-Fixes: e19e1b480ac7 ("add default_gfp() helper macro and use it in the new *alloc_obj() helpers")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Acked-by: Harry Yoo (Oracle) <harry@kernel.org>
-Link: https://patch.msgid.link/20260617163125.2716279-1-rdunlap@infradead.org
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Fix by:
+1. Adding NULL page validation in qede_fill_frag_skb() before dereferencing
+2. Checking error state EARLY in qede_tpa_end() before processing fragments
+3. Checking error state in qede_tpa_cont() to skip fragment processing
+
+This allows the system to survive memory pressure by dropping packets
+instead of crashing.
+
+Fixes: 55482edc25f0 ("qede: Add slowpath/fastpath support and enable hardware GRO")
+Cc: stable@vger.kernel.org
+
+Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
 ---
- include/linux/slab.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/qlogic/qede/qede_fp.c | 25 ++++++++++++++++++++--
+ 1 file changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/slab.h b/include/linux/slab.h
-index 976c781a7842..22daf3f34a76 100644
---- a/include/linux/slab.h
-+++ b/include/linux/slab.h
-@@ -1006,7 +1006,7 @@ void *kmalloc_nolock_noprof(size_t size, gfp_t gfp_flags, int node);
- /**
-  * kmalloc_obj - Allocate a single instance of the given type
-  * @VAR_OR_TYPE: Variable or type to allocate.
-- * @GFP: GFP flags for the allocation.
-+ * @...: optional GFP flags for the allocation (GFP_KERNEL when not specified).
-  *
-  * Returns: newly allocated pointer to a @VAR_OR_TYPE on success, or NULL
-  * on failure.
-@@ -1018,7 +1018,7 @@ void *kmalloc_nolock_noprof(size_t size, gfp_t gfp_flags, int node);
-  * kmalloc_objs - Allocate an array of the given type
-  * @VAR_OR_TYPE: Variable or type to allocate an array of.
-  * @COUNT: How many elements in the array.
-- * @GFP: GFP flags for the allocation.
-+ * @...: optional GFP flags for the allocation (GFP_KERNEL when not specified).
-  *
-  * Returns: newly allocated pointer to array of @VAR_OR_TYPE on success,
-  * or NULL on failure.
-@@ -1031,7 +1031,7 @@ void *kmalloc_nolock_noprof(size_t size, gfp_t gfp_flags, int node);
-  * @VAR_OR_TYPE: Variable or type to allocate (with its flex array).
-  * @FAM: The name of the flexible array member of the structure.
-  * @COUNT: How many flexible array member elements are desired.
-- * @GFP: GFP flags for the allocation.
-+ * @...: optional GFP flags for the allocation (GFP_KERNEL when not specified).
-  *
-  * Returns: newly allocated pointer to @VAR_OR_TYPE on success, NULL on
-  * failure. If @FAM has been annotated with __counted_by(), the allocation
+diff --git a/drivers/net/ethernet/qlogic/qede/qede_fp.c b/drivers/net/ethernet/qlogic/qede/qede_fp.c
+index 33e18bb69774..95b5cfcc43c2 100644
+--- a/drivers/net/ethernet/qlogic/qede/qede_fp.c
++++ b/drivers/net/ethernet/qlogic/qede/qede_fp.c
+@@ -670,13 +670,22 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
+ 							 NUM_RX_BDS_MAX];
+ 	struct qede_agg_info *tpa_info = &rxq->tpa_info[tpa_agg_index];
+ 	struct sk_buff *skb = tpa_info->skb;
++	struct page *page = current_bd->data;
+ 
+ 	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START))
+ 		goto out;
+ 
++	/* Avoid NULL pointer dereference when under severe memory pressure */
++	if (unlikely(!page)) {
++		DP_NOTICE(edev,
++			  "Failed to allocate RX buffer for TPA agg %u\n",
++			  tpa_agg_index);
++		goto out;
++	}
++
+ 	/* Add one frag and update the appropriate fields in the skb */
+ 	skb_fill_page_desc(skb, tpa_info->frag_id++,
+-			   current_bd->data,
++			   page,
+ 			   current_bd->page_offset + rxq->rx_headroom,
+ 			   len_on_bd);
+ 
+@@ -684,7 +693,7 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
+ 		/* Incr page ref count to reuse on allocation failure
+ 		 * so that it doesn't get freed while freeing SKB.
+ 		 */
+-		page_ref_inc(current_bd->data);
++		page_ref_inc(page);
+ 		goto out;
+ 	}
+ 
+@@ -959,8 +968,16 @@ static inline void qede_tpa_cont(struct qede_dev *edev,
+ 				 struct qede_rx_queue *rxq,
+ 				 struct eth_fast_path_rx_tpa_cont_cqe *cqe)
+ {
++	struct qede_agg_info *tpa_info = &rxq->tpa_info[cqe->tpa_agg_index];
+ 	int i;
+ 
++	/* Don't process fragments if TPA start failed */
++	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START)) {
++		for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
++			qede_recycle_rx_bd_ring(rxq, 1);
++		return;
++	}
++
+ 	for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
+ 		qede_fill_frag_skb(edev, rxq, cqe->tpa_agg_index,
+ 				   le16_to_cpu(cqe->len_list[i]));
+@@ -982,6 +999,10 @@ static int qede_tpa_end(struct qede_dev *edev,
+ 	tpa_info = &rxq->tpa_info[cqe->tpa_agg_index];
+ 	skb = tpa_info->skb;
+ 
++	/* Drop the packet if TPA start failed */
++	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START || !skb))
++		goto err;
++
+ 	if (tpa_info->buffer.page_offset == PAGE_SIZE)
+ 		dma_unmap_page(rxq->dev, tpa_info->buffer.mapping,
+ 			       PAGE_SIZE, rxq->data_direction);
 -- 
-2.55.0
+2.54.0
 
