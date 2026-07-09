@@ -1,187 +1,242 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878453AE1AD
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 21:11:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134843ADBAD
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 21:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783631504; cv=none; b=iefYMdChWWus7gNejFej50sRJpfK0oYxJmkokqq59dColtkHSTj1o7i2KnyR/2Cxu2YC4WPav/Aa8ywiHEU80qosgFTiy/nEb8oEF5ebog00kckkKPURpeQuyEoP21D2xTjx5UerHMjCMZQZinXJD28tfXCdtPaKna5rtfafvOE=
+	t=1783631682; cv=none; b=qkrhCWjlPcd9nq+4tDYxnioldavq/zdbqrpV8SLsRxSwazVm4z/RsxS9vjS9PYYdOLza88QOygCdVPfr04dheUlx02zfcTG15G88cHprt6UG54QImaZevt9pfI7rg1kyPItP/iFQ9rV32FWfARn4TkYK3Nd9WRzdvyoUxlBbjWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783631504; c=relaxed/simple;
-	bh=cQ7SfsCPBk6po4hsOzuVpl5ch8aa2mbSnyBmfFdzkF8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gVdqgtltQ1YJA9lKUG42UgyKkMWGmJ47Ld9rns7jse76t0fIsfy9U2YWHfsy2wAvpVIM7Boh1f9s2SnDpnPLDhAZsDQg9W9vBn19GxkGPQOWCgRi9I3vQ2eJyAmdQ4w+0n2heIs3VFjZNyBgzdANhzsIlRVTcvse60dGhoJsK4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=Ly9YZz1w; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1783631682; c=relaxed/simple;
+	bh=TgAUPn2EMqUFveuWFTQTLqIVvFUHjF9Sk4VUkbkTxWs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rbXxSNNFAYKBLbAyRBUgoHjqUEOSCNtRDaOoiUTF4x7dfjh97rovnowpg3b0wxB0obqgRxWFvFsUgTFfJsrsyrPd9q+Nq5l5tZfxeTAWQFLM0IDqxD00OEcWZyvw4cGt/3ICZ/j0tKedwsRw+Mk7uOokBE5vkBApu2T0J1r1TZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IH/Ms7M2; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="Ly9YZz1w"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2caf4496889so2062755ad.1
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 14:11:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1783631502; x=1784236302; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zuZ6nx+Txu/mNC6yFRWP8UoCFiju+bZ/Q1rNWL00OYI=;
-        b=Ly9YZz1w1E7rN+P25qUcYG0GytoXPbex606SGW6dUAbzOJgXZgaXcTnwgjcaSdeNSz
-         m5K+STheH/8MSRuZN7wMv6/EI5E7xhRhPU5ef40g4Hdmd2S6s55pZpDbbOzlzEjzJYWm
-         5fn9ipZj/Ob0TzCUTiY7hcEM7NyPQdxG8iH28vDHqckifqtfm5kWK7qMnKaXO6sVPZNl
-         E3jRA2IsK9retn2duMGlWvFW6jcsFUaXSfcH3dK1XmTcS4+zb7KXWK2ycLKh3ye2FKUd
-         Ll6eis26KQW840ymEx0N8R1S18DZwJ1Zbn4Uhi9y/mmIizB4eb1uzWMlyidXxBsw2poX
-         /tYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783631502; x=1784236302;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zuZ6nx+Txu/mNC6yFRWP8UoCFiju+bZ/Q1rNWL00OYI=;
-        b=rMEEWUtnURAy0JhwXS2EzN3SP4K05atzi76ZU8ZsK0pGlHfZbmMbwDG+MiTUs6Pyf8
-         rEHlXP/BF12WJfaknNn79vNlK09zC2yQKJjiNcdYOCAaw4bP5Kl4b39bUAxcTTjeVnY1
-         um78KxcncEAsSBiwaMlr7qrnkurcLZqbkVv7CQ9cSCXSqobz1sv3dA2nkuIgIT5PqGYb
-         rpZT8F1SYF75aEdZCZzJye5ZB859g/AaXiWv6aIhXAxLW8bBwd56sckM7xGPR+1/J3Jj
-         pvaJKbMthjui8FFK9PrylFUyYUSk8Pr67ORRq4aIuRU1glJDjNAFCmSNxvIsaS1RS2N0
-         WeAA==
-X-Forwarded-Encrypted: i=1; AHgh+RqWNIQgEVmFMlfUqSz1lFE0WgqOCXly5JCLdh4WIpyLDkTXblU4Ny5ZQi7Ql4hyEZylJ10/nqM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx5glW6oLMIrcOS7gf7gWKjNpn/O2dEZonE3U3O5n5IG0o7GD+u
-	bttFN1HQ0jFhPqPlj0LnOo3k4CMf221m0xHGyigIiS9FjMJbxol8H99K9RUeYz4PWg==
-X-Gm-Gg: AfdE7cnZaxFxkW9sFGtRARE5Ru2agTeTp5t+xzKwIB1QUEYVsgO+2wce6G17Il1rLHP
-	XWrD/6JZzl1aJuYMTKuicGz+hdSC3qGwAPkoBMGKzmBiJpVViNSJrQxIHkZigaOBrPv7ulBtErT
-	69tTkZCWnaYANqF1Z6XvFSLzJrwcazBHIECUUMd9RI5kVfB/3UCB2me/EiIgATo6e71pHNJ7Uwg
-	5EVICK+TlR8PmcWVz9bwPC2lhgGqCnWKY1Oa4vAHIg32TMkn95oXN+3Y+71z6NIiEbr9ObUIed+
-	WAulAmvgx5wheG6NiGZP/4J3pLGjciJgcVnxmXY4QccD1XapyxLXhiafojhjOK8AFr9JJkqkg54
-	scz8fTj5gAPg6s3AnLR9BYFE4rnYvBNqhtcZKqV7VJKWrjCVCzaB8fIvJEcnGE+DaJodEj9VX
-X-Received: by 2002:a17:903:22c5:b0:2cc:ac15:ff4c with SMTP id d9443c01a7336-2ce82879e00mr8739265ad.8.1783631501746;
-        Thu, 09 Jul 2026 14:11:41 -0700 (PDT)
-Received: from p1.. ([2607:fb91:150f:dd4:6d78:821f:ff11:b509])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d5bd2fsm49742475ad.78.2026.07.09.14.11.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 14:11:41 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: Joanne Koong <joannelkoong@gmail.com>,
-	Bernd Schubert <bernd@bsbernd.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>
-Cc: fuse-devel@lists.linux.dev,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Luis Henriques <luis@igalia.com>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	bestswngs@gmail.com,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH v3 2/2] fuse: bound io-uring payload copies to the registered buffer size
-Date: Thu,  9 Jul 2026 14:11:30 -0700
-Message-ID: <20260709211130.543773-2-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260709211130.543773-1-xmei5@asu.edu>
-References: <20260709211130.543773-1-xmei5@asu.edu>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IH/Ms7M2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783631681; x=1815167681;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=TgAUPn2EMqUFveuWFTQTLqIVvFUHjF9Sk4VUkbkTxWs=;
+  b=IH/Ms7M2GpbMnzrCV4KF/Ld4KTFzX3uWkOsiQscXldoe0lnShNu4fzSY
+   KGhPulxZLWf9vf9iGbtDq6XsKP4y3oHKzrtfVH/ltnRbL5hsnUYoLzEQM
+   6txmNNI2B2VO4bHXAwpKcNCZbZyj7kdo1++PgDq1+gmh3kBPVWMIsuufj
+   VhPIPZCw4dp+zura8/BVg5JdCai5mikhhZ2jzU/5y+JTe7NYUiWvGpa0v
+   3jto8dpcZzvnZ+S4bLDuzbZVa115muoUxaniYowVTBmHvZDWl+SyqP+pd
+   QnSANnk+orVpHdDilg64JayETS/BOEh2/uqZaMSq0rZvpmrPx6IJdRBLj
+   Q==;
+X-CSE-ConnectionGUID: n0rKgc28SMqy8sDOg11Lzw==
+X-CSE-MsgGUID: nTxPlzXPTDKtguG+305K+g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84445355"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="84445355"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 14:14:40 -0700
+X-CSE-ConnectionGUID: K1oOety/TiSbzR+X3BGMuA==
+X-CSE-MsgGUID: CUtBrINLRZWvzeIrf197GA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="250282231"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.244.93]) ([10.245.244.93])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 14:14:39 -0700
+Message-ID: <7c426a289b766e2ca8f8ec4e3d00370cb0748c0e.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/xe: Wait on external BO kernel fences in exec IOCTL
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org, 
+	stable@vger.kernel.org
+Date: Thu, 09 Jul 2026 23:14:36 +0200
+In-Reply-To: <ak/wRrF9DWBdykiP@gsse-cloud1.jf.intel.com>
+References: <20260702215805.4011228-1-matthew.brost@intel.com>
+	 <d5c3258a-04d1-42d6-9d74-cdd9a1172d97@intel.com>
+	 <42f4a99a3b572f7141ff1a2d7db2854d457300c4.camel@linux.intel.com>
+	 <ak/wRrF9DWBdykiP@gsse-cloud1.jf.intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The fuse-io-uring transport imports each ring entry's payload buffer at
-ring->max_payload_sz and bounds both copy directions against that value,
-ignoring the buffer length the server actually registered.  Both the
-server-supplied reply payload_sz (fuse_uring_copy_from_ring) and an
-oversized request payload such as a large FUSE_SETXATTR value
-(fuse_uring_args_to_ring) can then overrun the imported iterator and hit
-fuse_copy_fill()'s BUG_ON(!err):
+On Thu, 2026-07-09 at 12:02 -0700, Matthew Brost wrote:
+> On Thu, Jul 09, 2026 at 01:01:07PM +0200, Thomas Hellstr=C3=B6m wrote:
+> > On Fri, 2026-07-03 at 09:45 +0100, Matthew Auld wrote:
+> > > On 02/07/2026 22:58, Matthew Brost wrote:
+> > > > Before arming a user job, xe_exec_ioctl() only added the VM's
+> > > > dma-resv KERNEL slot as a dependency. That slot covers rebinds
+> > > > and
+> > > > the kernel operations of the VM's private BOs, but not external
+> > > > BOs
+> > > > (bo->vm =3D=3D NULL), which carry their kernel operations
+> > > > (evictions,
+> > > > moves, ...) in their own dma-resv KERNEL slot.
+> > > >=20
+> > > > The DMA_RESV_USAGE_KERNEL slot is the cross-driver contract for
+> > > > memory management operations that must complete before the BO
+> > > > or
+> > > > its
+> > > > backing store may be used: any accessor is required to wait on
+> > > > the
+> > > > KERNEL fences before touching the resv. By skipping the
+> > > > external
+> > > > BOs'
+> > > > KERNEL slots, the exec path violated that contract and could
+> > > > schedule
+> > > > a user job while a kernel operation on an external BO mapped by
+> > > > the
+> > > > VM
+> > > > was still in flight, racing against it and potentially reading
+> > > > or
+> > > > writing memory that was being moved.
+> > > >=20
+> > > > Replace the VM-only dependency with an iteration over every
+> > > > object
+> > > > locked by the exec, adding each object's KERNEL slot as a job
+> > > > dependency. This covers the VM resv (rebinds and private BOs)
+> > > > as
+> > > > well
+> > > > as every external BO, mirroring the drm_gpuvm_resv_add_fence()
+> > > > call
+> > > > that later publishes the job fence to the same set of objects.
+> > > > Long-running mode continues to skip this, as before.
+> > > >=20
+> > > > Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for
+> > > > Intel
+> > > > GPUs")
+> > > > Cc: stable@vger.kernel.org
+> > > > Assisted-by: GitHub_Copilot:claude-opus-4.8
+> > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > >=20
+> > > Wow, kind of surprised we missed this.
+> >=20
+> > Hm. Does this actually add any additional kernel fences to the exec
+> > dep?
+> >=20
+> > Isn't the safety mechanism we have that no valid GPU PTEs are
+> > allowed
+> > to be set up with active kernel fences, and in the cases (rebinds,
+> > munmap split) we generate a VM kernel fence.=C2=A0
+>=20
+> I think that is an arbitrary Xe-enforced rule that just happens to be
+> true today. A different driver could install a KERNEL fence on a
+> shared
+> BO that effectively says, "don't touch this until I'm done," without
+> triggering any rebind flows, and we'd break.
 
-  kernel BUG at fs/fuse/dev.c:1053!
-  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:fuse_copy_fill (fs/fuse/dev.c:1022)
-  Call Trace:
-   fuse_copy_args (fs/fuse/dev.c:1329 fs/fuse/dev.c:1351)
-   fuse_uring_copy_from_ring (fs/fuse/dev_uring.c:686)
-   fuse_uring_cmd (fs/fuse/dev_uring.c:1226)
-   io_uring_cmd (io_uring/uring_cmd.c:271)
-   __io_issue_sqe (io_uring/io_uring.c:1395)
-   io_issue_sqe (io_uring/io_uring.c:1418)
-   io_submit_sqes (io_uring/io_uring.c:1649 io_uring/io_uring.c:1934 io_uring/io_uring.c:2057)
-   __do_sys_io_uring_enter (io_uring/io_uring.c:2646)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
 
-The request path overruns the same way, via fuse_copy_args() ->
-fuse_uring_args_to_ring().
+That is true, but I guess this use-case is new as well. Are you still
+issuing a move_notify to block faulting jobs and cpu-faults, force new
+dma-buf maps if exported?
 
-Store the registered payload length (payload->iov_len) in the ring entry
-and use it for the import and both bounds checks, so the buffer the
-server provided is honoured and an oversized reply/request is rejected
-(-EINVAL for a reply, and -E2BIG/-EIO for a request, matching
-fuse_dev_do_read()) instead of panicking.
+>=20
+> What actually exposed this issue is some local WIP where I use the
+> `dma_iova_*` functions to manage TT mappings. In that model, when
+> memory
+> moves, a rebind does not need to be triggered because the IOVA
+> remains
+> the same. What does change is the IOVA linkage, which is protected by
+> a
+> KERNEL fence. The exec IOCTL did not detect that fence and
+> subsequently
+> hit a CAT[33] error.
+>=20
+> So, in my opinion, this is fixing a clear violation of the semantics
+> of
+> a KERNEL fence.
+>=20
+> Per the doc:
+>=20
+> =C2=A079=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Drivers =
+*always* must wait for those fences before
+> accessing the
+> =C2=A080=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * resource=
+ protected by the dma_resv object. The only
+> exception for
+> =C2=A081=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * that is =
+when the resource is known to be locked down
+> in place by
+> =C2=A082=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * pinning =
+it previously.
 
-Fixes: c090c8abae4b ("fuse: Add io-uring sqe commit and fetch support")
-Cc: stable@vger.kernel.org
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
-v3: propose the patch fixing another issue found by Bernd by Joanne suggested way
+That is true. If xe doesn't have to rebind it makes sense to ensure
+execs wait for kernel fences.
 
- fs/fuse/dev_uring.c   | 9 ++++++++-
- fs/fuse/dev_uring_i.h | 1 +
- 2 files changed, 9 insertions(+), 1 deletion(-)
+/Thomas
 
-diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-index 0814681eb04b..248e5a3e340e 100644
---- a/fs/fuse/dev_uring.c
-+++ b/fs/fuse/dev_uring.c
-@@ -650,7 +650,7 @@ static int setup_fuse_copy_state(struct fuse_copy_state *cs,
- {
- 	int err;
- 
--	err = import_ubuf(dir, ent->payload, ring->max_payload_sz, iter);
-+	err = import_ubuf(dir, ent->payload, ent->payload_sz, iter);
- 	if (err) {
- 		pr_info_ratelimited("fuse: Import of user buffer failed\n");
- 		return err;
-@@ -679,6 +679,9 @@ static int fuse_uring_copy_from_ring(struct fuse_ring *ring,
- 	if (err)
- 		return err;
- 
-+	if (ring_in_out.payload_sz > ent->payload_sz)
-+		return -EINVAL;
-+
- 	err = setup_fuse_copy_state(&cs, ring, req, ent, ITER_SOURCE, &iter);
- 	if (err)
- 		return err;
-@@ -725,6 +728,9 @@ static int fuse_uring_args_to_ring(struct fuse_ring *ring, struct fuse_req *req,
- 		num_args--;
- 	}
- 
-+	if (fuse_len_args(num_args, (struct fuse_arg *)in_args) > ent->payload_sz)
-+		return args->opcode == FUSE_SETXATTR ? -E2BIG : -EIO;
-+
- 	/* copy the payload */
- 	err = fuse_copy_args(&cs, num_args, args->in_pages,
- 			     (struct fuse_arg *)in_args, 0);
-@@ -1163,6 +1169,7 @@ fuse_uring_create_ring_ent(struct io_uring_cmd *cmd,
- 	ent->queue = queue;
- 	ent->headers = headers->iov_base;
- 	ent->payload = payload->iov_base;
-+	ent->payload_sz = payload->iov_len;
- 
- 	atomic_inc(&ring->queue_refs);
- 	return ent;
-diff --git a/fs/fuse/dev_uring_i.h b/fs/fuse/dev_uring_i.h
-index 55f8d04e4b0b..efa7f034496a 100644
---- a/fs/fuse/dev_uring_i.h
-+++ b/fs/fuse/dev_uring_i.h
-@@ -41,6 +41,7 @@ struct fuse_ring_ent {
- 	/* userspace buffer */
- 	struct fuse_uring_req_header __user *headers;
- 	void __user *payload;
-+	size_t payload_sz;
- 
- 	/* the ring queue that owns the request */
- 	struct fuse_ring_queue *queue;
--- 
-2.43.0
 
+>=20
+> Matt
+>=20
+> >=20
+> > So if an exec runs trying to access such a bo with an active clear,
+> > for
+> > example, it would typically generate a pagefault?
+> >=20
+> > Thomas
+> >=20
+> >=20
+> >=20
+> >=20
+> >=20
+> > >=20
+> > > Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> > >=20
+> > > > ---
+> > > > =C2=A0 drivers/gpu/drm/xe/xe_exec.c | 22 ++++++++++++++++------
+> > > > =C2=A0 1 file changed, 16 insertions(+), 6 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/xe/xe_exec.c
+> > > > b/drivers/gpu/drm/xe/xe_exec.c
+> > > > index e05dabfcd43c..d5293bc33a67 100644
+> > > > --- a/drivers/gpu/drm/xe/xe_exec.c
+> > > > +++ b/drivers/gpu/drm/xe/xe_exec.c
+> > > > @@ -292,13 +292,23 @@ int xe_exec_ioctl(struct drm_device *dev,
+> > > > void *data, struct drm_file *file)
+> > > > =C2=A0=C2=A0		goto err_exec;
+> > > > =C2=A0=C2=A0	}
+> > > > =C2=A0=20
+> > > > -	/* Wait behind rebinds */
+> > > > +	/*
+> > > > +	 * Wait behind rebinds and any kernel operations
+> > > > (evictions, defrag
+> > > > +	 * moves, ...) on the VM and all external BOs. The
+> > > > VM's
+> > > > private BOs
+> > > > +	 * carry their kernel ops in the VM dma-resv KERNEL
+> > > > slot,
+> > > > while each
+> > > > +	 * external BO carries them in its own dma-resv KERNEL
+> > > > slot; both are
+> > > > +	 * covered by iterating every object locked by the
+> > > > exec,
+> > > > mirroring the
+> > > > +	 * drm_gpuvm_resv_add_fence() below.
+> > > > +	 */
+> > > > =C2=A0=C2=A0	if (!xe_vm_in_lr_mode(vm)) {
+> > > > -		err =3D xe_sched_job_add_deps(job,
+> > > > -					=C2=A0=C2=A0=C2=A0 xe_vm_resv(vm),
+> > > > -					=C2=A0=C2=A0=C2=A0
+> > > > DMA_RESV_USAGE_KERNEL);
+> > > > -		if (err)
+> > > > -			goto err_put_job;
+> > > > +		struct drm_gem_object *obj;
+> > > > +
+> > > > +		drm_exec_for_each_locked_object(exec, obj) {
+> > > > +			err =3D xe_sched_job_add_deps(job, obj-
+> > > > > resv,
+> > > > +						=C2=A0=C2=A0=C2=A0
+> > > > DMA_RESV_USAGE_KERNEL);
+> > > > +			if (err)
+> > > > +				goto err_put_job;
+> > > > +		}
+> > > > =C2=A0=C2=A0	}
+> > > > =C2=A0=20
+> > > > =C2=A0=C2=A0	for (i =3D 0; i < num_syncs && !err; i++)
