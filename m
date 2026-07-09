@@ -1,121 +1,208 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 355E936BCC4;
-	Thu,  9 Jul 2026 15:11:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783609874; cv=none; b=RzRv0ppw74TmxbOCAf0ypowD5GK92J7wtj3vVEtHwBwgStl+CY/pmUgSAjHqAM5uUaw0tRSp1mMuK982FPC6lLMZdMNDEanVFsM7nxx2ozuBnH5zAvXapUsy7unOZazFgi/KdSfFipokKo2VROY27kEfdCk0wAQ5k1sQ3WlYu40=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783609874; c=relaxed/simple;
-	bh=+1Mqk6HFOX91dWo/g2o1OID8xOAt1QPrkSdFHEIktfQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V7KcZPXMlxazv80CKmF4JPL9Ly0bJSLUTtsVDel0kTneG0gIn8vQf1ucRWAS3c8L7rJk6kdnpIeHnUcQfeOM2mVHLjCBQj9MR1dmO70E3ctiAwLgZ0x7pwlALrfdzYf7bibf2x7i+K24sPScJv0FaRBhRr9ojyOhBJEYSd9TM3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=4.193.249.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCnoCcGuk9q+r4rAA--.13424S3;
-	Thu, 09 Jul 2026 23:11:03 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgA3cXQFuk9qcukBAw--.41317S2;
-	Thu, 09 Jul 2026 23:11:01 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-usb@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: gadget: f_midi: cancel pending IN work before freeing the midi object
-Date: Thu,  9 Jul 2026 15:07:17 +0000
-Message-Id: <20260709150717.399083-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9353793CA
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 15:13:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783610033; cv=pass; b=DASrQk1KV89Mjy5wFB9E/s3TDCClRJXHMvLOJBi8j8Dmwfdjo0bqK4HMFtfc8HHizYvYsslQzVxxQR6BlzX1Tgsy8s3ZpUV3Ft3zCKOD2E4IwJt76jCQ4X2vUCY2mif4pKo3wQ2+NKweWCMoUGgsI6/OuJMEaYYXseMdVnoEias=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783610033; c=relaxed/simple;
+	bh=lm+iwZuldvNfgm8Lzbku/fwQXnHvxwIB+0za3JCHtHk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Dt0vpwVjQUBijgtE/TUQoXMUE+BLSaztMDYZmWIoiDNRo1vab61YwDuXyCOVkb/8RrxfMUCDv7zd0+M7WuT2pJLOMABsLkuI7OWHcO1D+bldSu8qXZpB8SLRde4tJkW2VhEGs/cMGN6zj9hrygr3+eUGC4ynwg+Sw1BKUm1K1h4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cZShSS8r; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cZShSS8r"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15d47266baso245526966b.3
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 08:13:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783610030; cv=none;
+        d=google.com; s=arc-20260327;
+        b=n+GTHqpvp9brflCVyQ1Jy4Xs4LdBr3NtpAFk/JaZHRZS9GXl06SElLe/TbqoQkzRPV
+         MWyvsjY60qtldsshcwgf/8fCFf/SJVXBbLazco2J57pT4d9WNdCOIK8cDFwgTmF6b13o
+         YEq6il/0MLiDGRVcY2dwCu8SXpizh0CyT7uM8/g9HMSlyc7nrPCrmbJvM1atb6M0V04A
+         U7zJjtSzo/3U19uLx+8puKgAQMx5SA2LG/nQczMltQ4qxSYsJEg4FInYCPiZO1c1n+Zx
+         pY1XnWY1573UgQR9jGkDEwfyFSoJgcNa4covSliCj967mBfZ9zdOm0N9V4hZhU+G8t4h
+         1ZrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lm+iwZuldvNfgm8Lzbku/fwQXnHvxwIB+0za3JCHtHk=;
+        fh=fQRXEMMXK9syHaI7XZpYyZ+gATnHf8+lrZZRihwJzbA=;
+        b=lTSi+GtjFfzfxs2CZIOITdczVx5OHBQNUCDhL0LiHaIoGoMaVNWsFb5K4OczBoKVB1
+         uB2SIGRc/OghwkQgDo+fy0BnWn8AIyckl6dn9BBzNLMEBPZHlUNuAc9dsCRBdRTN/KZ2
+         lLssC1CczAFcAlxKFCztNYVuuWoZfbSPFL7J992/JB13WgvL/+xbDzyr+s6tjETW3Vj9
+         Fpuh6b0y0B2jemEDo+Hy4/XR16V/xOp9bd1VCUow0NYHFDpuiSyaUQcxLj58Ypx0llcN
+         3VUUa8WH0+fRySGaXNhqNqYSvlFGWr9BfOwxKOQwgB1qbtlV/JdzCkqUW99K8xDF7U77
+         1LRg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783610030; x=1784214830; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lm+iwZuldvNfgm8Lzbku/fwQXnHvxwIB+0za3JCHtHk=;
+        b=cZShSS8ro0THpxKUvnqocyUpAo9soBXcXvDp47ckLhenrBhPQ4tyd8EgkuJyqEpedz
+         Oqy8pQnBufM2azAaXoVITXgjgXjm5gIRGUUctc3JpFFFt4lxLafzDe/H/TZPlx9P/9f5
+         MKacuUcSnVUzfgRrbScM/zrSNXAw+G0+JCAwxID5SKn47zNpFcuB5R67QtMe6fugaxjW
+         vzNrVUyE3/O4N/f4kQA/I3Aw3sm5YnTU4tWoHydMSFE/7T1ngHtUncDPtlvYVaz5oIq/
+         XaiqR3rdwn7uMOTnzFX1ba4h+KnthRIOTFc+jdn4avr8ApxEuTrBZrt1XzHuYprYhRjU
+         z5WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783610030; x=1784214830;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lm+iwZuldvNfgm8Lzbku/fwQXnHvxwIB+0za3JCHtHk=;
+        b=iZsCV0aWgg/JthAFjs5KcslUos1koiCx3bUhrrnLUBNA0d43VD4nN228Vu/479KbHb
+         aRCFH8HAg91iSNE+V4W403r04K4o27Bd7/FViDFhMirgexIBytceIc8oebkyTSqLiYwZ
+         pgpsmkpQDMU69+Df4n8ep6jHtZhIHT28js8o9/DNt3RJt2JptSkjHdKSZCrB/8gJRfkZ
+         0SqaMHzRjNTrIWj9PUjZHF0zpEM9tM2BpLi8eyi9+Oav9Bt6IZ+tL46h94j0VBV7kmcy
+         BvcWOUi6U3Ftbl84jBC6WnOL2u2GE/KLxPNMtqHzVJX8hzlpOkpnpqUFTyeR/3KF+FbP
+         D3HQ==
+X-Gm-Message-State: AOJu0YwmtKUPM6wiOUX2r9XRegSJ0mo2PSAR/Wg5l9UIXVK/XqPpKqS9
+	vh7Wk3w1GnO8hEw+oU8owUCpSz6q/Kdpd6SWJFgsQwrN5CMYRwawEt8myU3uYatbi9ZARUzNV9D
+	AcUAMeIggh2ptsqXXkReuGn8T8ns6E3c=
+X-Gm-Gg: AfdE7cnMOOs1YyKBS8aS7eyYitv/MvgDFrEsxRTvVfJQHggN0Yh2YyrO5SLZQ/3RABp
+	mSGspYEFUZznvlsV+yOhoV2eV19+3jw13TyzD6pI5vxJFQxepHOAAs85OeEEQ6rK8f9lvvKGVm7
+	IvCD6rYDCyN85IyrD3ZQsTrA9pG4V3Ze0kDfmUPDBI5sT8U/cqUViqHb4J7H8a3TYB4quu5waG1
+	yJ1hgMCYzskplnQ+lwlGaHqd0T7khjVYeOHDR+OrsguzYQRsOcpvMz1i3pPoErgjbgank0=
+X-Received: by 2002:a17:907:1b1c:b0:bed:19af:f89a with SMTP id
+ a640c23a62f3a-c15cde8c84dmr329373166b.7.1783610029787; Thu, 09 Jul 2026
+ 08:13:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgA3cXQFuk9qcukBAw--.41317S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?AjXjigXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WNseJI10KMl+AYWHQh9KPBOOoRdUgq00KihadkEtnLD2cdR
-	VkhCMNMOCdsHvzZL4Eqp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxWr4ruFW3CrWUKFy7KrykJFc_yoW5CrWDpF
-	4fGrWUJF4DZrs0vF4DXF4FqF1rZa13t34kKryUG3yIq3Waqry8tFy8KF4v93W7CF97Zr42
-	qF4DWry5urW8CrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
+References: <20260709101327.9508-1-royujjal@gmail.com> <2026070925-delay-gauntlet-bc7c@gregkh>
+ <CAE2MWk=mm8_bkd54Gv1mdox6rfvx85Dd3AjOCxPz0fPAfyuWYA@mail.gmail.com>
+ <2026070954-activist-left-8303@gregkh> <CAE2MWkmcQdhGp3LTMtpgAse3AFcfKcAcpQe89+iijfP5e0w_QQ@mail.gmail.com>
+ <2026070948-lively-exchange-a458@gregkh>
+In-Reply-To: <2026070948-lively-exchange-a458@gregkh>
+From: Ujjal Roy <royujjal@gmail.com>
+Date: Thu, 9 Jul 2026 20:43:37 +0530
+X-Gm-Features: AVVi8CfKbtzcJnRxXIx3ULOTra4r8qYMzKp7zTKSzETyFRYKJOujtPr221wvxYo
+Message-ID: <CAE2MWkn3L7V3x8i0F-soGLxsBBo_Umgs1pJ3FwCw1OW7=U55zg@mail.gmail.com>
+Subject: Re: Please backport bridge multicast exponential field encoding fix
+ series to 6.1.y/6.6.y/6.12.y/6.18.y/7.0.y
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Linux Stable <stable@vger.kernel.org>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>, 
+	David Ahern <dsahern@kernel.org>, Shuah Khan <shuah@kernel.org>, Andy Roulin <aroulin@nvidia.com>, 
+	Yong Wang <yongwang@nvidia.com>, Petr Machata <petrm@nvidia.com>, Ujjal Roy <ujjal@alumnux.com>, 
+	bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The f_midi driver embeds a work item (midi->work) whose handler,
-f_midi_in_work(), dereferences the enclosing struct f_midi through
-container_of().  This work is armed from two sites: f_midi_complete(),
-on a normal IN-endpoint completion, and f_midi_in_trigger(), on an ALSA
-rawmidi output-stream start.
+On Thu, Jul 9, 2026 at 7:52=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org>=
+ wrote:
+>
+> On Thu, Jul 09, 2026 at 06:35:04PM +0530, Ujjal Roy wrote:
+> > On Thu, Jul 9, 2026 at 6:23=E2=80=AFPM Greg KH <gregkh@linuxfoundation.=
+org> wrote:
+> > >
+> > > On Thu, Jul 09, 2026 at 06:12:40PM +0530, Ujjal Roy wrote:
+> > > > On Thu, Jul 9, 2026 at 4:34=E2=80=AFPM Greg KH <gregkh@linuxfoundat=
+ion.org> wrote:
+> > > > >
+> > > > > On Thu, Jul 09, 2026 at 10:13:27AM +0000, Ujjal Roy wrote:
+> > > > > > Hi Greg,
+> > > > > >
+> > > > > > Please consider backporting the following bridge multicast fix =
+series to 6.1.y, 6.6.y, 6.12.y, 6.18.y and 7.0.y.
+> > > > > >
+> > > > > > 726fa7da2d8c ("ipv4: igmp: get rid of IGMPV3_{QQIC,MRC} and sim=
+plify calculation")
+> > > > > > 12cfb4ecc471 ("ipv6: mld: rename mldv2_mrc() and add mldv2_qqi(=
+)")
+> > > > > > 95bfd196f0dc ("ipv4: igmp: encode multicast exponential fields"=
+)
+> > > > > > e51560f4220a ("ipv6: mld: encode multicast exponential fields")
+> > > > > > 529dbe762de0 ("selftests: net: bridge: add MRC and QQIC field e=
+ncoding tests")
+> > > > >
+> > > > > Why is any of this needed in older kernels?
+> > > > >
+> > > > > And 7.0.y is long end-of-life.
+> > > > >
+> > > > > And why, if this does fix issues, was it not tagged for stable to=
+ start
+> > > > > with?
+> > > > >
+> > > > > thanks,
+> > > > >
+> > > > > greg k-h
+> > > >
+> > > > I already explained this in the email thread, "Please backport brid=
+ge
+> > > > multicast exponential field encoding fix series to stable kernels".
+> > >
+> > > Sorry, but that's not here (remember, some of us get 1000+ emails a
+> > > day.)
+> > >
+> > > Please explain why patches need to be backported when asking for them=
+ to
+> > > be backported.
+> > >
+> > > thanks,
+> > >
+> > > greg k-h
+> >
+> > Sorry for breaking the thread. I understand your point, I will
+> > maintain this in the future.
+> > How should I send the patchset that addresses the conflicts on 5.10.y
+> > and 7.1.y? Shall I send the conflicts patchset as a series via a
+> > different thread or how? I've never done this before, so I'm asking.
+> >
+> > Here is the explanation for why the patches need to be backported:
+> >
+> > History: The multicast stack currently supports decoding of IGMPv3 and
+> > MLDv2 exponential timer field encodings, but lacks the corresponding
+> > encoding logic when generating multicast query packets. As a result,
+> > query intervals and response codes exceeding the linear encoding range
+> > can be transmitted incorrectly. This can cause multicast queriers and
+> > listeners to interpret different timing values, resulting in protocol
+> > interoperability issues, membership timeouts, and premature multicast
+> > group expiration.
+> >
+> > Testing: The series adds the missing encoding support for both IGMPv3
+> > and MLDv2 and includes selftests that validate the behavior.
+> > I backported the series to v6.6.123.2 and verified the accompanying
+> > selftests. The selftests fail on the unpatched kernel and pass after
+> > applying the series, demonstrating both the bug and the effectiveness
+> > of the fix.
+> >
+> > Given that this is a protocol correctness issue affecting multicast
+> > query generation, please consider backporting the complete series to
+> > all applicable stable kernels.
+> >
+>
+> But this really seems like a new feature being added, it's not fixing a
+> regression of something that previously worked, right?
+>
+> WHy can't people just update to the latest kernel release to get this if
+> they need it for their environments?
+>
+> thanks,
+>
+> greg k-h
 
-Neither f_midi_disable() nor f_midi_unbind() cancels midi->work.
-f_midi_disable() only disables the endpoints and drains the in_req_fifo;
-it does not synchronize the work item, and the sound card is released
-asynchronously to the final free of the midi object.
+This is a corner case when people set the query timer value higher
+than 128. People usually use the default value and don't change it, so
+they may not encounter this issue. But I found it when I changed the
+value during some extensive validation of protocol timeouts.
 
-The midi object is reference-counted (midi->free_ref) and is freed in
-f_midi_free() only once both the usb_function reference and the rawmidi
-private_data reference have been dropped.  In f_midi_unbind(),
-f_midi_disable() runs before the sound card is released, so while the
-USB endpoints are already disabled the rawmidi device is still usable by
-an open substream.  A concurrent userspace write on such a substream can
-reach f_midi_in_trigger() and queue midi->work again after
-f_midi_disable() has returned.  A work item armed this way may still be
-pending when the last reference drops and f_midi_free() proceeds to
-kfree(midi), letting f_midi_in_work() dereference the struct after it
-has been freed, a use-after-free.
+If one host doesn't have this fix, clients will observe premature
+multicast group expiration. For example, a set-top box channel might
+disconnect early.
 
-For this reason cancelling midi->work in f_midi_disable() would not be
-sufficient: the ALSA trigger path can rearm the work after disable()
-returns.  Cancelling at the refcount-zero free site is the boundary
-after which neither arming source can survive, because by then both
-references that keep the midi object alive have been dropped: the USB
-endpoints are already disabled and the rawmidi device has been released.
-
-Fix this by calling cancel_work_sync(&midi->work) in the refcount-zero
-block of f_midi_free(), before the embedded work_struct is freed along
-with the rest of the structure.  opts->lock is a sleeping mutex, so
-calling cancel_work_sync() under it is permitted, and the handler takes
-midi->transmit_lock rather than opts->lock, so no self-deadlock can
-occur while it waits for a running instance of the work to finish.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 8653d71ce3763 ("usb/gadget: f_midi: Replace tasklet with work")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/usb/gadget/function/f_midi.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
-index 4d9e4bd70..fba8cf787 100644
---- a/drivers/usb/gadget/function/f_midi.c
-+++ b/drivers/usb/gadget/function/f_midi.c
-@@ -1309,6 +1309,7 @@ static void f_midi_free(struct usb_function *f)
- 	opts = container_of(f->fi, struct f_midi_opts, func_inst);
- 	mutex_lock(&opts->lock);
- 	if (!--midi->free_ref) {
-+		cancel_work_sync(&midi->work);
- 		kfree(midi->id);
- 		kfifo_free(&midi->in_req_fifo);
- 		kfree(midi);
-
+But we can ignore this until few more people request this fix for older ker=
+nels.
