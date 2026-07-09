@@ -1,257 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7807735C19F;
-	Thu,  9 Jul 2026 15:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AB8274FD1
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 15:46:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783611854; cv=none; b=nldKc0MGuZDYOZ3TmWVGBznT7dxWQWzNywYH7xt8BT6Is24O/Hl/kfl8U0CXw01Ci3qmI1NgWL/SUzkJZ6pVRoziQE6PFhY/re/t9cdAknYVtcdz7j5tlPgZwwbOeegTMOwcktSgAAz5/WpN5vq6pt6PuHdjpWlPr3fdBFtJy4k=
+	t=1783612007; cv=none; b=gzK1uwQMQ5X5eTy7vwnSsxRJxHmp9J8zrNbLRfjn41FvGNzE7zwny3WcCNTQUSdSe2AxA7EM52XydkmFmOfmnENlj/DCrBSzbenSV2erji3hrZEmT5ISWdxhLY1W4I0WJdHqn5AJ7Ob4hf5qHrGlADB+TL+UAmXGCXyFVeWwepI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783611854; c=relaxed/simple;
-	bh=5ihj3jc7CuunbXVvjwb3Muc/bkt6kYgmHKeORiD7Vss=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e1sKjmfu93Uy8qX7zXqlqSEoRvniOtgqEfvo+o6D6sk4znQp5EPM/2wa3gr45bBYMP5TfPC1errPjpB8+UmPkI9kDYy7gZqLdOcxyAeUQhmt/m1gZHXJI3rAoyMfkSpO8Gogi8ph3xNADCktjgdmtcMJL45LRTfGGRT65UY2tQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwliaWv9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783612007; c=relaxed/simple;
+	bh=YWBKUDKRZRPtU+PtzWhqbylWfF/NGc3GC8ecVfV7g+s=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=m4TqvNvGW/a2Td22o/SIDgJsp2hNTwv0HUuEwka7Nl2zkDy6uIxzfaeZdl4eKs7wWNrgeMmrJPtchQ4NMbQnVcrQbumENwSKD+bB8E+374vYbCrvzKmlzFpMtfaS67EcnKaSf6JVlbk3DGwvgTjZ2bRsQZZGNu6xLK+hpdUzYXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hmA0qLCc; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwliaWv9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A861F00A3A;
-	Thu,  9 Jul 2026 15:44:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783611853;
-	bh=285LaEGh3A0QFIVOYPOsW/0/c98eMaQwDcpzh7ozqYc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KwliaWv9bxV0Nv7YosIm0mo6z799KEvSo/GZ7t//Ow7EyigBPfVX1n90yTa8hhrbt
-	 Kc29sHuXjnIFYPBHPPaQ+RLeYsmx81DkS6cv4rY6WW1+jMdtMug7C+cyz5tvuCtW2v
-	 eD7W1nhMTYogk9MFDautO55WmQLHocTlSIZ/cWsZBf0t874xH2kHaB4ajls8U9bYzu
-	 lVpiE3fB+UrAlfB0ipJ8vXO+p5IIdwqJfBYdEgVfxTjJrtSag+MVIQhrcPg9Lz5n7s
-	 F0JCXQUGThw6Wuryol7BRZUk143S3jmt9JlSMPs6KxnRaFKT1xH/wQfNLFQQVzPwAX
-	 luIMAxhslJUQw==
-Date: Thu, 9 Jul 2026 16:44:01 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: "Gupta, Pankaj" <pankaj.gupta@amd.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, seanjc@google.com, 
-	pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com, 
-	bp@alien8.de, x86@kernel.org, thomas.lendacky@amd.com, hpa@zytor.com, 
-	yangge1116@126.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
- registration
-Message-ID: <ak_A6Yc5mBXCrtXr@lucifer>
-References: <20260701144543.39582-1-pankaj.gupta@amd.com>
- <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
- <db303a0c-98e3-4967-9b61-ccb711b776c8@amd.com>
- <46f19bd8-0d43-4b0e-a8ab-0ef9d3b8bd1a@kernel.org>
- <2bd89e95-9c15-4a3a-916d-0d71a92d8b02@amd.com>
- <27ebe8f0-78b6-402a-a2e7-4e807251d20a@kernel.org>
- <ak-uER-RndpksnhR@lucifer>
- <58c4326d-b10d-42dc-af5d-3a5ff16c7e3e@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hmA0qLCc"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493bb510ce4so8933685e9.1
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 08:46:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783612003; x=1784216803; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=26eVrUBn/cVkx7Rxtr9TR48JaobyoAImvrhEAkxHe1E=;
+        b=hmA0qLCcaQ4vAVGLb6e+Vf5CmWDwbjipK7ZBbQLjcXKSH5lF9ODPkBn5BbjeL/U/ed
+         m2oIjZtgxDH6+4T8IVIuu3GMDhWFW1OXYvlEBsG2HCl0JWMNg8akuBKPMFXAzULb6Jk1
+         igTLMl4QS5v4IjKbDETn3cEjbekir67GOYMYYb7dnA2nle1BkwPNfWG/aboOGwgQa93B
+         0zdW1YUU9Mn4yxYxqD+rV8W+DXpKUsEUm00z5rQLnwfZnfWtzdbkK9OCoYhTT+dfz4u+
+         2gutfZblAFaSvi3KBUMNAeOPULQaf8BRrI3wzcjO5Bhujb/NBUCuv4IghpmLCuv9Fyc6
+         NjPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783612003; x=1784216803;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=26eVrUBn/cVkx7Rxtr9TR48JaobyoAImvrhEAkxHe1E=;
+        b=lILCGjEm90cilTIkhPsnVvYfJL8LEQ+Ue/9Q/DSU9XXGpd6ygULvzAYvh+b7yJgvcf
+         X+itjAWB83/diyn2rNq7BwTN7nrq4goIwHB5i1B0AcCNnac6dz68WU/cN4s6yMHzr1So
+         0dwLUK55mzWTSz6sH3LPtgQGAtCW4Dp6jz4TckYQzAivycg06cDDjKgqbE3LslNgqlv9
+         oyhoheq+H0By1R8Qy+o7cQ4+erR1zT6QcN1A0q5APHJiHO0b772h6iKkVwfVaBQ6zx5x
+         11traS34pJ7JLyzfhCbovmZShkb2EvKQvE1sezJZfZN4Nm0bLIUeGhDNUwKtyoWq1gEl
+         EHRg==
+X-Forwarded-Encrypted: i=1; AHgh+RqZzAJXe4Wqm+/n/dTlvoVam1LscFksDjDs5tKGvhbVgsMZJj356KgJT6cosdwOSWrngoG41NM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVmnNJlFRBkxmwtiUxilAqK+ysbkxEor4zqqlJrhSBzDwdC4HC
+	p7SuPtSsZwssv7F5YqJ233bB0JE2j05Lg5Q8cNiCdC7j08w2qwKc98Pg
+X-Gm-Gg: AfdE7cmWhvfhGxiuGBkdNwg+3G/229auxkdP3CnR/oj7wGXT6H6LiRZnwxi/HsMUGXD
+	3shY25Z0r3lHC6FMvynTcWDfFzJiOEDkRoD0am/xLSjHK5O/O3q7G8eK437kagAJLXAcVJGlzwE
+	yKZTUaej46xAbQCeVgc5clH5j441azSooVjC3S2+w0iIWWRqXMtjk1x4wYoMmHRBVcRUm4E0w+M
+	vf1r8ofc5AH82jLmtcURfrv4LN1lzn9FhFEgf+9YlkvesfVUw2LItxFxV9dbEO1N3LIJrGk6qd3
+	C8tuI/k832I3tprmqwOgY8fifKVzqfW2J3Zzqf49GWx7P0nmzFFbo0KX3iwm6/ql/EREHOmV4f7
+	z3QS2wN/NWMsaJQ++8MyKQvZ2nLOwuTPYEjFSpP7PTA8WIllEFKCdKGyNGeNLlfA50KctVY4leV
+	eJlnUIW3UK/LPrWXBCrFR6ClVEL13S0EScZPK9w1gKzrKh6g==
+X-Received: by 2002:a05:600c:6286:b0:493:b7a6:3dac with SMTP id 5b1f17b1804b1-493e68f0746mr70686575e9.33.1783612002553;
+        Thu, 09 Jul 2026 08:46:42 -0700 (PDT)
+Received: from pumpkin (host-92-21-50-228.as13285.net. [92.21.50.228])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039afacsm50085771f8f.19.2026.07.09.08.46.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 08:46:42 -0700 (PDT)
+Date: Thu, 9 Jul 2026 16:46:40 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: David CARLIER <devnexen@gmail.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, dan.scally@ideasonboard.com,
+ mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: mali-c55: Fix unaligned access of AEC histogram
+ zone weights
+Message-ID: <20260709164640.1dba64bf@pumpkin>
+In-Reply-To: <CA+XhMqz2oTTy2kY_4uqvJRnoXb0am5h6hXnLFM4EPQ7Yb6N-pw@mail.gmail.com>
+References: <20260702103453.348056-1-devnexen@gmail.com>
+	<akd8E5jr722oTm49@zed>
+	<20260703221651.41669d55@pumpkin>
+	<aks7usxfDajS-W_5@zed>
+	<20260706104652.GB66892@killaraus.ideasonboard.com>
+	<20260706133956.39a11738@pumpkin>
+	<aku6R_EI0kLUqD8e@zed>
+	<CA+XhMqz2oTTy2kY_4uqvJRnoXb0am5h6hXnLFM4EPQ7Yb6N-pw@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <58c4326d-b10d-42dc-af5d-3a5ff16c7e3e@amd.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 09, 2026 at 05:19:10PM +0200, Gupta, Pankaj wrote:
-> Hi Lorenzo,
->
-> > > > > > Hi David,
-> > > > > >
-> > > > > > Yes, it fails in this path but for file backed mapping, vma_is_fsdax() returns
-> > > > > > false because
-> > > > > >
-> > > > > > vma_is_dax() returns false:
-> > > > > Ah, okay, so fsdax is not involved and we really only fail because of the
-> > > > > writable_file_mapping_allowed() check.
-> > > > >
-> > > > > I was for a second thinking in terms of nested virt :)
-> > > > >
-> > > > > > Host side backend is regular file backed memory (no fsdax).
-> > > > > Okay, so we'll end up mapping an ordinary file into VM memory, and expose that
-> > > > > to the VM as part of virtio-pmem device.
-> > > > >
-> > > > > That also means that vfio etc. won't be able to longterm-pin such device memory.
-> > > > > So this is not a problem isolated to SEV.
-> > > > >
-> > > > > Forbidding to longterm pin is actually the right thing to do if the filesystem
-> > > > > relies on writenotify, as spelled out by Lorenzo's commit:
-> > > > >
-> > > > > "
-> > > > >       Writing to file-backed mappings which require folio dirty tracking using
-> > > > >       GUP is a fundamentally broken operation, as kernel write access to GUP
-> > > > >       mappings do not adhere to the semantics expected by a file system.
-> > > > >
-> > > > >       A GUP caller uses the direct mapping to access the folio, which does not
-> > > > >       cause write notify to trigger, nor does it enforce that the caller marks
-> > > > >       the folio dirty.
-> > > > >
-> > > > >       The problem arises when, after an initial write to the folio, writeback
-> > > > >       results in the folio being cleaned and then the caller, via the GUP
-> > > > >       interface, writes to the folio again.
-> > > > > "
-> > > > >
-> > > > > Hmmm
-> > > > Yes. For file based mapping we don't allow long term pinning.
-> > > >
-> > > > If we take into account the fragmentation concerns for MIGRATE_CMA and
-> > > > ZONE_MOVABLE allocations
-> > > >
-> > > > solvable with FOLL_LONGTERM, I can think of two options(tested) to allow file
-> > > > based mappings as well:
-> > > >
-> > > > 1. Fallback on FOLL_WRITE when FOLL_LONGTERM fails as suggested by Sean.
-> > > That is just not acceptable, as it breaks random other stuff (MIGRATE_CMA, as
-> > > one example) besides the file-pinning problems that Lorenzo added.
-> > >
-> > > If we're going to hack something in, then that we bypass the file writeback check.
-> > > Not that we don't use FOLL_LONGTERM.
-> > >
-> > > I'd hate to use a GUP flag to indicate "this is a legacy hack", but it clearly isolates the
-> > > issue (needs a better name obviously):
-> > So under what circumstances are we happy with totally breaking dirty tracking?
-> > :/ seems iffy, and exposing this to drivers generally is a bit worrysome.
->
-> The intention is to allow long-term pinning of file-backed mappings only for
-> migration avoidance,
->
-> without kernel GUP writes, and therefore not impacting dirty tracking.
+On Thu, 9 Jul 2026 06:00:58 +0100
+David CARLIER <devnexen@gmail.com> wrote:
 
-OK as long as that's made clear in the patch, commit message, comments etc. :)
+> > Does it ?  
+> [...]
+> > seems to clarify this is a non-issue ?  
+> 
+> I think you're right that there's no runtime fault: arm64 has
+> HAVE_EFFICIENT_UNALIGNED_ACCESS and runs with SCTLR.A off, so the
+> unaligned load doesn't trap. It's really just a C-level thing - the
+> (u32 *) cast is UB and -fsanitize=alignment would moan - rather than a
+> real bug, which is why v2 already dropped Fixes:/stable.
+> 
+> > I still see zone_weights[] at offset 10 which is not 4 bytes aligned.
+> > What have I missed ?  
+> 
+> I don't think you missed anything - the union isn't trying to move the
+> array, offset 10 has to stay. The idea is just the __packed member: it
+> makes zone_weights_32[i] an alignment-1 read, so the compiler does the
+> right thing (a plain LDR on arm64) with no cast, no get_unaligned() and
+> no memcpy(). Same 240-byte layout, and it also avoids David's KASAN
+> concern about memcpy().
 
->
-> > >
-> > > diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> > > index ae9bca4eda5ca..e2c531f914d44 100644
-> > > --- a/include/linux/mm_types.h
-> > > +++ b/include/linux/mm_types.h
-> > > @@ -1912,6 +1912,9 @@ enum {
-> > >           */
-> > >          FOLL_HONOR_NUMA_FAULT = 1 << 12,
-> > >
-> > > +       /* TODO */
-> > > +       FOLL_LONGTERM = 1 << 13,
-> > > +
-> > >          /* See also internal only FOLL flags in mm/internal.h */
-> > >   };
-> > >
-> > > diff --git a/mm/gup.c b/mm/gup.c
-> > > index 0692119b79043..1fa0aa0cdc99d 100644
-> > > --- a/mm/gup.c
-> > > +++ b/mm/gup.c
-> > > @@ -1186,8 +1186,8 @@ static bool writable_file_mapping_allowed(struct vm_area_struct *vma,
-> > >           * If we aren't pinning then no problematic write can occur. A long term
-> > >           * pin is the most egregious case so this is the case we disallow.
-> > >           */
-> > > -       if ((gup_flags & (FOLL_PIN | FOLL_LONGTERM)) !=
-> > > -           (FOLL_PIN | FOLL_LONGTERM))
-> > > +       if ((gup_flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK)) !=
-> > > +           (FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK))
-> > >                  return true;
-> > Hmm I'm confused, you're then allowing FOLL_PIN | FOLL_LONGTERM, but disallowing
-> > FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK?
->
-> Yes, I addressed this in my reply, but it wasn't a clean inline response.
+I think you'll also find that gcc will generate a real call to memcpy()
+on both sparc64 and riscv64 (and possibly all architectures that fault
+misaligned accesses) even if the char[] is at an aligned structure offset.
+Either that or, if you include the (u32) cast, it will assume the pointer
+is a valid 'u32' pointer and generate faulting misaligned access. 
+So while this is arm64 specific code it is a bad idea in general.
 
-Ack yeah I assumed it was a quick proof of concept and just overlooked it :P
+> 
+> So if you'd like it cleaned up, in mali-c55-config.h:
+> 
+>       union {
+>               __u32 zone_weights_32[56] __attribute__((__packed__));
 
->
-> >
-> > By the way I think this should be expressed better if I criticise myself here :)
-> >
-> > So like:
-> >
-> > 	if ((gup_flags & FOLL_PIN) && (gup_flags & FOLL_LONGTERM))
-> >
-> > Or even:
-> >
-> > 	/* Only an issue if we pin... */
-> > 	if (!(gup_flags & FOLL_PIN))
-> > 		return false;
-> > 	/* ...and that pin is longterm... */
-> > 	if (!(gup_flags & FOLL_LONGTERM))
-> > 		return false;
-> >
-> > But I'm confused as to why we are suddenly allowing something broken and what
-> > this hack flag is supposed to achieve?
-> >
-> > Shouldn't this rather be:
-> >
-> > 	/* Only an issue if we pin... */
-> > 	if (!(gup_flags & FOLL_PIN))
-> > 		return true;
-> > 	/* ...and that pin is longterm... */
-> > 	if (!(gup_flags & FOLL_LONGTERM))
-> > 		return true;
-> > 	/* ...and not overridden... */
-> > 	if (gup_flags & FOLL_LONGTERM_HACK)
-> > 		return true;
-> > 	/* ...and dirty tracking is required. */
-> > 	return !vma_needs_dirty_tracking(vma);
-> > }
->
-> Yes, this looks much better. Will incorporate this.
+Should be MALI_C55_MAX_ZONES/4.
 
-Thanks!
+>               __u8  zone_weights[MALI_C55_MAX_ZONES];
+>       };
+> 
+> and index zone_weights_32[i] in the driver.
 
->
-> >
-> > >          /*
-> > > @@ -2746,7 +2746,7 @@ static bool gup_fast_folio_allowed(struct folio *folio, unsigned int flags)
-> > >           * If we aren't pinning then no problematic write can occur. A long term
-> > >           * pin is the most egregious case so this is the one we disallow.
-> > >           */
-> > > -       if ((flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE)) ==
-> > > +       if ((flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE | FOLL_LONGTERM_HACK)) ==
-> > >              (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE))
-> > Yeah this is just a bit horrid having to stare at a this a while... So
-> > FOLL_LONGTERM_HACK would enable here.
-> >
-> > Be nice to avoid this form of it as it's difficult to understand, do something
-> > like above or a clearer version anyway (probably best abstracted to a small
-> > function).
->
-> Sure.
->
-> Also, I am also planning to rename (FOLL_LONGTERM_HACK ->
-> FOLL_PIN_NO_GUP_WRITE) in v2.
+That is the safe way to do it.
 
-hmm but we have FOLL_LONGTERM as an adjunct to FOLL_PIN (doesn't make sense
-without - any checks that exist for that btw should be extended to this noew
-flag).
+Even on x86 I've fallen foul of misaligned data traps when gcc has
+used simd instructions to unroll a loop.
+I knew the buffer could be unaligned, but needed a sum of all the
+32bit words (to set a checksum). Worked find until it didn't...
 
-Also don't we want to encode the legacy aspect here?
+	David
 
-Maybe FOLL_LONGTERM_LEGACY_READONLY? Naming is hard :)
 
->
-> Please let me know if you have a preference.
->
-> Thanks,
->
-> Pankaj
->
-> >
-> > >                  reject_file_backed = true;
-> > >
-> > > @@ -3180,7 +3180,7 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
-> > >          int locked = 0;
-> > >          int ret;
-> > >
-> > > -       if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM |
-> > > +       if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM | FOLL_LONGTERM_HACK |
-> > >                                         FOLL_FORCE | FOLL_PIN | FOLL_GET |
-> > >                                         FOLL_FAST_ONLY | FOLL_NOFAULT |
-> > >                                         FOLL_PCI_P2PDMA | FOLL_HONOR_NUMA_FAULT)))
-> > >
-> > >
-> > > --
-> > > Cheers,
-> > >
-> > > David
-> > Thanks, Lorenzo
+> And if you'd rather not
+> carry the uapi churn for something that isn't a fault, I'm equally happy
+> to just drop it - whichever you prefer.
+> 
+> Cheers
 
-Cheers, Lorenzo
