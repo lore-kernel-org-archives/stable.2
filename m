@@ -1,66 +1,66 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9289131715B
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 14:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DC5386C39
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 14:31:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783607406; cv=none; b=JuQcdKsJ7byVeF+1Auv7tuqrDsBqp27Javl8hNA9/BkK0bztNv1a9jwQ3X/i0tBlCbGtvcb2nQtLbIPut1NbL52YfYZyPQDLJvkCtJhrRgQtKmd69D8VpNb85mpyF2Pv2m4HIMrxHpr2VnFy2TjJ7SFmk0FvM36DbWCLTHDyngQ=
+	t=1783607463; cv=none; b=s2KTFlb7vsvRzGKndbPXQqXTCUpV+AXSOpRLI2jE8/GzHswD9NGu6DmU74PADFXPu/QntID/AZ8w/b7JXGMulxdSpsvg/vqHGxGkxC9TmnWC564iMpOUEOR/qqVkGAHj5DWVbmq3JAh0epTh731OzDZdwEvJyId01P/amFIhQXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783607406; c=relaxed/simple;
-	bh=EX96KbAAlvGiO07dFoY1eGvM813//hjk3jOsJGyQMy8=;
+	s=arc-20240116; t=1783607463; c=relaxed/simple;
+	bh=D1fvNbWJq1nLxdtzh96UTvXxrstj/gniXjlroYPkK4c=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=dsWJ5pw5WlzW3/aiVcBdyIW+6Mjnm1BHBc1vlk1nVmpzgLHnN3d2PZxnZNsBavM9+NNix7hKSad66cz9xDLruCiml6A6xcVe7dinS7v0WiG7Re3fIdlqbx3QgSVXiniJhRmDC7l+r592GJjE3xndhdRXQGB+uzp4/YNXcZ+n9hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=theori.io; spf=pass smtp.mailfrom=theori.io; dkim=pass (1024-bit key) header.d=theori.io header.i=@theori.io header.b=BZDSTi6W; arc=none smtp.client-ip=209.85.214.175
+	 Content-Disposition; b=HPcyDOUIEBbvrRved59gTTtyqTIrbywzKcJjdfFaZRUrHd3shOHQJdPtHpWkba8uAydgarxuI+H0GhVFO8HPwoxN7scW5CkLlCVFytXPfqdy80JdW9Jwfy6+xVZ4MDpdfh/LfhrK4MUa+8MMikTm5x43cThbYXTXYNgiL/FGFHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=theori.io; spf=pass smtp.mailfrom=theori.io; dkim=pass (1024-bit key) header.d=theori.io header.i=@theori.io header.b=Q374bovC; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=theori.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=theori.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=theori.io header.i=@theori.io header.b="BZDSTi6W"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ca70925c25so26821415ad.1
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 07:30:04 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=theori.io header.i=@theori.io header.b="Q374bovC"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-37ff8e0ad0fso2315844a91.2
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 07:31:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=theori.io; s=google; t=1783607404; x=1784212204; darn=vger.kernel.org;
+        d=theori.io; s=google; t=1783607462; x=1784212262; darn=vger.kernel.org;
         h=content-disposition:content-type:mime-version:message-id:subject:cc
          :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=N2EVzBOjNg/Bnd68FOAqniWlfmqjL7EQnrstt79DR3M=;
-        b=BZDSTi6WjHx3FcEPeTIR9Ap/ej2EeiqP0ktYlE3EvsfMel7dCXLtUX8/vniG5Qvypk
-         CoK3xgR6dL6JnZTbaSSYJZ5fwj5m7ipR7YM14FKoy0vDUlEJGuTLaa5gVUH9YjeRnQV2
-         hkqotgDUlf5JvUQFjaq3F8fqA8J0nVIKQgKp0=
+        bh=p+ei05RjfHBetZdQUsfTUdmM59Mc8F5BV6C3xY70MZE=;
+        b=Q374bovComolrT+JFvGtYGlpI7gdOhgMRxEIVizwng4E6umksEcY4OUZhcdx911PHz
+         DqT4QtD3V0MxTUUaAFjotn7tuZlcu7aF7iJI52DN6wlgFDLh/EEgZnzmRHwqLDk+OPIj
+         dVSUFdMpXM+k77U9FqF+oOxmwVRqDewommNfw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783607404; x=1784212204;
+        d=1e100.net; s=20251104; t=1783607462; x=1784212262;
         h=content-disposition:content-type:mime-version:message-id:subject:cc
          :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=N2EVzBOjNg/Bnd68FOAqniWlfmqjL7EQnrstt79DR3M=;
-        b=FfBhbaZTEyX3rT7CS7pfmvponqOsdoLTYmsvYpbZLn8nE8OnpaHJWO9nf4Smy1URb4
-         RQlnF6EzEG7Go1YeGbKM9sz5+7s2r0yU2rcMXXKQ4k3uhIJKx9GPJHNH4MDmnZKUp+hw
-         uMZVC0F3U9L+cDdTRMq2BCMhartistIdCUBizUET0CviyXPFUtusRygSt5ZQa2d7wxAQ
-         j32yUBQ2xyd5nO3JYeroyfhR4duu2X6MJdMBqJ70v3v588Ov5Fpr6uHJ3CFd9C1B1f4d
-         cLWXJkCuImjaJH4RUYGamdfkwx2Gm4dpryzBdXyzTNoQiyuoTkxxv5gPnXrJ9oc5kyri
-         v3lA==
-X-Gm-Message-State: AOJu0YzSUfYnzauqJwT5BveQJf34OhglSblsPg2tAR7TIPLfNOYrMudR
-	dcaFat+yfnoGFJ6EG5yrSTTfWuvsMj79/oEe2AYg4FcGwVdkntOM2xML0v40oTryvpI24Qet1IP
-	Z+A22
-X-Gm-Gg: AfdE7cnt/Ci6e/vfGEujArq+0hkj1NQkZGcKP9nyezsUUn7hwqJrlWsTSFSriWn3dvr
-	JBeBXSgYYOz0lkA/6hmc3H1Cv2NpeHx7pXl7bbpFlbW3bB1/Tu8LCstz06h2cTNE5/+mIsgE73x
-	jHItRwqGFpdAqxmyp8GVeUVpCzapTVzC+q/MrEdT3QuFlEL2/iAl/+LHBHlUVeqGQkHJI7p7R7U
-	Ud77HeNUP9DdnC/sPNeSjE7ai70ruIRY203WEwMvMSGx2XsZ/qf+x1qv5TGQ89D2CpY6WeLqUuN
-	E9FIFTJ6p9Gd443smblXmiq/WXMtsKoYHp7d4JD2pmV3fwUWe0E5qEsSWgFrS3/WeEmh5g2B9m8
-	W/9/AM/9DsxRgDA1J6vvJ10CL7A568WUl/8N6S6hjLAr0vbT7WDHWVGfCn/PNderRcFk2+gMEwu
-	EJMgBadYX01f3CR5Y+YaCC1qhkQ4OL4WJE4Tr7dKNHwrSweZLjI7d3xAPMTw8Ea4LHV8I=
-X-Received: by 2002:a17:903:3c30:b0:2c9:e9c4:82c1 with SMTP id d9443c01a7336-2ccea348b05mr80555255ad.26.1783607403713;
-        Thu, 09 Jul 2026 07:30:03 -0700 (PDT)
+        bh=p+ei05RjfHBetZdQUsfTUdmM59Mc8F5BV6C3xY70MZE=;
+        b=lcza5Cxij5RV4sC0KqSpbksGoUlIMCKvKmu80cfCbPi06LUeear3Gl3yc8NuX39bYM
+         NG4WvCzoarUPti+8M1Vad5s5YlOkfTrDRNvAh+aI3AzyuLue28FqfZrDsBY3DJ6fcrsa
+         3mlO4hUVYnqoAyrUQuknwaIv8HNbwqLjsATrc6rhw76SreCWBHhflL2Zf/1odE8Q/3WF
+         DjqrdEtuwCSllzplEbft00Nvwew1p68JKMhCjCs/lqb0LuzHQ2PWFo2uwyjaS23vZohp
+         eORLi0uKPSiAjFrpTw4cPL+iDgijYrKXgLGoB2cPFzSRTDx15yYs1km99tNpVuPbxID1
+         2agw==
+X-Gm-Message-State: AOJu0YzfFCSHDenhNZFy7aF/BXOO4GLSfUzTqgXaumyZxoYTUcHLyah3
+	xbbfLP1gYigS6VDDL6cprAdVAhaQo3kbz+sYmRWIkEfzY/R7ad95A89gPHzo/xBdlZ+W3VxBHa8
+	LVI5L
+X-Gm-Gg: AfdE7cnGGEKogZUI10VthrWIRlMf/uWRswVOK14TKIVlYvCOn5kMuL3HyVYnyPtT3CP
+	PVFsZNKiQ7CatclfNAkJx+cll9GAO59JPkVwyez1K1vgwBQgnQ9VtV7hemDF3UnyIDh77Hl/LDi
+	vZWvqT8IcRCL7hcTSfc/xmqgcuJZ/s178L+fdUHpupkGKnCyP3Bn3ztyHpf3zLyLoCEWPqEPBA0
+	4ZbPnOwfLsItZOncO5kQQfdJi9+OrbQh3f4r+kDhsr6lRXzGWlERyzmCfOKp8YUEnBlLZW0HxHZ
+	8q57Tcen/usWo97Ss6ECtR0qk1E2KkZhfJFKLe+u/eyjIsmA52FjvQiRmhHZFpAyFW9fYuAn47q
+	7yb9HTwIe5O+ZxUmWw7wWaYyihiRUdKOgPnHAtsuHXMTgedDNKpMFSpgkYF5Lt8C0RZGFfYf+9h
+	dsMF4D07GPQNmpQRx7Q46aiVa5WSP0WQd+trFVVywsBhZ2N0ZlYatmr04kfo4qwBkR6VU=
+X-Received: by 2002:a17:90b:4d8d:b0:381:85c0:1d9d with SMTP id 98e67ed59e1d1-38942f7356emr7821127a91.27.1783607461693;
+        Thu, 09 Jul 2026 07:31:01 -0700 (PDT)
 Received: from Taeyangs-MacBook-Pro.local ([59.6.107.15])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccf797ebc4sm19121075ad.83.2026.07.09.07.30.02
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-388fe18189dsm1578223a91.2.2026.07.09.07.31.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 07:30:03 -0700 (PDT)
-Date: Thu, 9 Jul 2026 23:29:58 +0900
+        Thu, 09 Jul 2026 07:31:01 -0700 (PDT)
+Date: Thu, 9 Jul 2026 23:30:55 +0900
 From: Taeyang Lee <0wn@theori.io>
 To: stable@vger.kernel.org
 Cc: Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH 6.6.y] perf/core: Detach event groups during remove_on_exec
-Message-ID: <ak-wZqvIG4SxKA_2@Taeyangs-MacBook-Pro.local>
+Subject: [PATCH 6.1.y] perf/core: Detach event groups during remove_on_exec
+Message-ID: <ak-wn3UG8TES8Lrq@Taeyangs-MacBook-Pro.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -104,10 +104,10 @@ Link: https://patch.msgid.link/ai65GgZcC0LAlWLG@Taeyangs-MacBook-Pro.local
  1 file changed, 8 insertions(+), 6 deletions(-)
 
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index a4187dea6402..d1f6f37ce0ec 100644
+index 146b37e97832..1478bad56e40 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -4450,7 +4450,8 @@ static void perf_event_enable_on_exec(struct perf_event_context *ctx)
+@@ -4334,7 +4334,8 @@ static void perf_event_enable_on_exec(int ctxn)
  
  static void perf_remove_from_owner(struct perf_event *event);
  static void perf_event_exit_event(struct perf_event *event,
@@ -117,7 +117,7 @@ index a4187dea6402..d1f6f37ce0ec 100644
  
  /*
   * Removes all events from the current task that have been marked
-@@ -4477,7 +4478,7 @@ static void perf_event_remove_on_exec(struct perf_event_context *ctx)
+@@ -4365,7 +4366,7 @@ static void perf_event_remove_on_exec(int ctxn)
  
  		modified = true;
  
@@ -126,7 +126,7 @@ index a4187dea6402..d1f6f37ce0ec 100644
  	}
  
  	raw_spin_lock_irqsave(&ctx->lock, flags);
-@@ -13231,10 +13232,11 @@ static void sync_child_event(struct perf_event *child_event)
+@@ -13055,10 +13056,11 @@ static void sync_child_event(struct perf_event *child_event)
  }
  
  static void
@@ -140,7 +140,7 @@ index a4187dea6402..d1f6f37ce0ec 100644
  
  	if (parent_event) {
  		/*
-@@ -13249,7 +13251,7 @@ perf_event_exit_event(struct perf_event *event, struct perf_event_context *ctx)
+@@ -13073,7 +13075,7 @@ perf_event_exit_event(struct perf_event *event, struct perf_event_context *ctx)
  		 * Do destroy all inherited groups, we don't care about those
  		 * and being thorough is better.
  		 */
@@ -149,7 +149,7 @@ index a4187dea6402..d1f6f37ce0ec 100644
  		mutex_lock(&parent_event->child_mutex);
  	}
  
-@@ -13329,7 +13331,7 @@ static void perf_event_exit_task_context(struct task_struct *child)
+@@ -13158,7 +13160,7 @@ static void perf_event_exit_task_context(struct task_struct *child, int ctxn)
  	perf_event_task(child, child_ctx, 0);
  
  	list_for_each_entry_safe(child_event, next, &child_ctx->event_list, event_entry)
