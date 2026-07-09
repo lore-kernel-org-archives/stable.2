@@ -1,124 +1,116 @@
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB642F7462
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD1842E8E6
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783604681; cv=none; b=ZMEYfXxzECxKVDq/5gzSCtvymP1VXznVu2mu/8rAfRFinHp5ejCVmePFdkeyDBuiXwO39sej40NfMzlmh6ursSo7rf8n9qctTT+bJA8F3/6zJnJOa/MHZnuTtmMQmirMfSgN2TdNXKlLKNy/ALfjGL2xgi1qOwGe6607UaNrPvk=
+	t=1783605081; cv=none; b=LL1zODaIjgPMfU74DRBUruc9RvdbYmswDGccN/lExNIcABUEsB1NLVc6Ca5P69Oh9SNgFmL1fuu1U85ylYH6NoaNiTJWnSA3QXWxw+cWHO6purt28djFRm3Q5EhIFtki0Ug6O13MvxzIHAQw9au157alcrZxIkZJmp3wR5yo0R4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783604681; c=relaxed/simple;
-	bh=+e3rLnCPnclexU/TGq7To9ayodC+7dNeuVtCBIYlwpI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xech44cSPF4Qgs+7TkC6oZ4A5Z6LQmEmLpgdId6io4zJ0qcOkjJ7EWSM0pmj3vfLXWRXpzUxYBuu1/BQiswvH0iqqoANxVK35c7i9xswswRzFmFnbL2qkE05OPfPzks/rAyVvjo50iTJFTBFq1OhFPDvZZHAro3Xf+MTJJJUP8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dPpD5sMT; arc=none smtp.client-ip=209.85.167.173
+	s=arc-20240116; t=1783605081; c=relaxed/simple;
+	bh=qpSIGxXePD5q+WNHiKXJBHgaLMuHvc3z0oUjbEqV+LY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ReXNnVWvIXSgQ2+nBYZdshiOg3buTVypXbJUUSdGyc2XmILXfgAixLX4TcUEdVWhll896fzIWuWnLZY2z6Y9FcUdjMUeddIxZzTbV0tTuaZJ/agbqWXzcJ69PLN9fsgeBhYSN1y0D3vA41MK0Vf6X5uIL3aIJhPl7TKIzkrP+1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=de7IzDi/; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dPpD5sMT"
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-497d3e4460aso1174991b6e.1
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 06:44:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="de7IzDi/"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4798bea72f9so454892f8f.1
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 06:51:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783604678; x=1784209478; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7dGLWuFqFGELNIvjyOuEZBSnAuzpWLyUsbUpEnwxx1M=;
-        b=dPpD5sMT4Uhem8FljfUpzaVxwWwcyJx4IU2C0jYPgDcK0NUcmwvVC30xi7VQ/eBLzB
-         +ijSx//CSzntCqJGmSON5MhvF1c7EipZsLfNKyCEBTir94UL1PS9cTlthw6wUE8VilqG
-         Zo8jXjNDrRgFQcZV5CLZfVOHgpL0czm6iVChspTdlV2J3Toc/EK8LX446b3r+7uE00ed
-         vcDEZ07bp+NHGUz9OjJqYJ/OUepiM8ygg0g25WnH/YA76ooWCvGseyEAlLW6ag5SZucQ
-         usQHX1W0dIbUBceFeN+pqkYdPwnWMF7wME/IgNl8UXIBxzXB2gsc90DfU3KuyOlrY/ZL
-         Z0qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783604678; x=1784209478;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1783605078; x=1784209878; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7dGLWuFqFGELNIvjyOuEZBSnAuzpWLyUsbUpEnwxx1M=;
-        b=W+UQnhSscwoC5N5gIhZOajqfEiZDrYkGLT6JX/XxtZBWlKAeACwFUMBBSTiFcb9CfT
-         JWg/HvptDYaeT7+thECf+qx+YMnw8t+uMkpUus4hGwqh6DX5joche9Uwtuuf7R8lWsBR
-         v7d8exm5/NFJZ4nkxO920A0FNx2THhfcAZKgau5R7XUgLYDbE7kuLMMK5Qx/7UDOHOXR
-         GtESVAlx6LGTeCuImfuiD/FzM6Hccik8mU2Er3fdXRqDd/JMT0tE1/tyR93+BNZroElI
-         362usnyZAEadCevT8E5W1fLB3FADUIJTAXjy3XMD/gsoNS2Bdr2rv6L9RIpygeXcVWuQ
-         kHGQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8IXBrgV7LHMj7LntSY+fjF1wRDi0XwoHbSntWgxhKsRlmVvykfYEtmQckL8yltm2gmPR0kP6U=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzeIRWPoNXKhNUoK8aVEiv2xxh4QSroSP6tPqGtO5M+RBTzIxDc
-	IFp0C0/qqg6C8ONNs3hzJWVpEjO4wzBoanU6fepKNNCn58Ne2ix0Mv7g
-X-Gm-Gg: AfdE7cmXrCxnydiKhBI8Df78fKfp/JqNmm7vyJgR8ITGWi1FsGLC5dIybpXJIzMymNn
-	0ZZDz5zp6ahXv6g+c0sFQWR3MGT5yX+lG2s5nyC6X+P1+iDN14xjZrVtEIb1907Rk77mIjMfIiX
-	EeLs93SRO/kmTN+DuBuGdhX2hAgrq5uIlltKCXl/24pEJKTK+PDeZxJBuRIFRib+KP+HofifrHc
-	mX41dBPt3vXwLeN0YS+P53C6T3sRrje9kyRT3VlN3eeyGv3vbRXc5Jgfbm4yyJTGsguwVVb+Gqf
-	dUpijrrekO3b5s8aeNswppqLLTFHLlM0AL3iOshYSmFpz14ZLH2DuqYUDXS0vhWSbBnTeW5xEks
-	A/PmFLIcjatJ/ScOGonE9NxEd+Pt7+Z9LzQUoi0hbqWRT8IcNZyVMqAEK2PzPpaetprbD7wTnwL
-	IiKEg4EveRzGqdR8Y=
-X-Received: by 2002:a05:6808:4f0e:b0:495:ca1b:7865 with SMTP id 5614622812f47-4a34d9c8f64mr3213817b6e.11.1783604678277;
-        Thu, 09 Jul 2026 06:44:38 -0700 (PDT)
-Received: from localhost ([74.80.182.70])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4a1adca6bedsm3836998b6e.8.2026.07.09.06.44.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 06:44:37 -0700 (PDT)
-Date: Thu, 9 Jul 2026 16:44:31 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Haoxiang Li <haoxiang_li2024@163.com>, marcel@holtmann.org,
-	luiz.dentz@gmail.com, yangyingliang@huawei.com,
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4] Bluetooth: virtio: Fix virtbt_probe() init and cleanup
-Message-ID: <ak-lvwzHUfuFcRRa@stanley.mountain>
-References: <20260709114745.4030794-1-haoxiang_li2024@163.com>
- <ak-T4SMxr4rw10jP@stanley.mountain>
- <20260709083606-mutt-send-email-mst@kernel.org>
+        bh=1i15TENNOeFnpEjkQ9JLbwEKpF9zI2nmRMO6KesUt6A=;
+        b=de7IzDi/LPu9NBVfqrLISb9trDGs6yHqjCReBYHYYiBLoHaJZY2Vz/xmIytuSKyg1i
+         g4/5CDBJiscEOatiYTrd3dfSDjEGAnyexBLj/gCV0OA+RKw8FRd7e4yyV5U9Ph/sDZQy
+         pxkqXKgrK6m+mFmE7uH9GPjcjxo+xlLktAqyzhWp1GJp/MrHkaqoIz8zd2oLYq1T0pKE
+         9hBn30AKiBtXnCkyMXLkqcFb2E9yeoQnxH7A/Dst50acyK2yitNOklIfvEKD/RN7OoVo
+         E7WF5A72njk+9hVP40gy9wOlD57zOYIhEELO2WbYj8HVbE0IQOBVpyqssuU8VA7AhdwO
+         D90g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783605078; x=1784209878;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1i15TENNOeFnpEjkQ9JLbwEKpF9zI2nmRMO6KesUt6A=;
+        b=qdp3UXTEtnHF/dmz0CioglPnlm0UoyzKX4RgfC5363h+lPzSyzHEcJ0i0rb5wV0q49
+         +YEAE6Mxh0tuUWdG6XZSp1ouvgd0MuzbdLirhJimkwbYxy6FPrWmNWoNVx/MR961XZmV
+         uFba6hk1auJ509AKl0/3Wk6PDrgDBp+JPxR1UiB5/KDj1rKulNMe+MrZ167TXQQD6dVM
+         RehZ20bQv4QL0qkcOs7whbxZYeBbRHXdwVm6JFvMYi+5KG1vVJFXn43L1q5BUcFcw1X6
+         COb65xdeTPXkTqxOs6q8u29TrILUElD8RjI++JY2PzClbwLC9oV7jRyb+dDoX8UBkL3S
+         DtAg==
+X-Forwarded-Encrypted: i=1; AHgh+RpHDPT1FwooxUm37XlgDWT3chfvQwKXfn63lRiMJbl0P7SsUeLvVIWqlISWnLOO5d79wOV++tI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzmsm3bKxgaKl4le3hk/9QBElBOpnjT7RE4dPvplkH/PmQ9NPke
+	G1GY7XXNYLphC6FCwFKSuL5agApkwoDtpepAS6wGTMX2BVlwdUBqLYV0
+X-Gm-Gg: AfdE7cmpQKqv033SpSFXW7R0agDSkrhd0jo6Ug5R1uFMEZxNWXrw7cov4YYHagcnXzN
+	eiOV9dvjdwf8Y7IEm2CdgtX0aNJPoWWbbwV0/5WUhvqLctanw1L0nE/EEctXYlgzKwRQbdcDF2q
+	+weUXe9LQmbr9/Af1BbKHneYBNQPGbGi+4hR0sw4T9jhOToTOiAkog1Zkk+4Ve10RVSlNiX2tK8
+	epptYVTTZ/uEtJlJpE9MJiPeazgaJWovzqHT8kJMVQsFKi+OYsKKbRXw8COgNBYmHtqykvVozqU
+	javPAvAkq+y+5qoctJNxr4XMt1yLg6COFQNNQSpwsLk/eN7ek2yDgaItrK7ANn+0NpWewp5ccyK
+	GXr084cb49dz9ELQWwNxrWx2/5p0Cn5C/2kGqWzj+Hpua5tnZr9Cm5jIl91Ujq3+F84hYFDANHS
+	1/XVIgoZi9r6ruJ0aI1QhjKAXVAQ1rbbGO3M01wbRRY6juIWPFbBTE1sqhF+H17Q==
+X-Received: by 2002:a05:6000:46d0:b0:47e:5c6c:5129 with SMTP id ffacd0b85a97d-47e5c6c51b1mr270729f8f.27.1783605078517;
+        Thu, 09 Jul 2026 06:51:18 -0700 (PDT)
+Received: from [192.168.0.105] (88-187-52-200.subs.proxad.net. [88.187.52.200])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm51644657f8f.13.2026.07.09.06.51.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Jul 2026 06:51:17 -0700 (PDT)
+Message-ID: <b885d245-bf13-45e3-8c60-28417a63fd91@gmail.com>
+Date: Thu, 9 Jul 2026 15:51:12 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260709083606-mutt-send-email-mst@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 000/121] 7.1.3-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260703072822.817328079@linuxfoundation.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260703072822.817328079@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 09, 2026 at 08:36:32AM -0400, Michael S. Tsirkin wrote:
+
+
+On 7/3/2026 9:35 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.3 release.
+> There are 121 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> why make changes at all if no one can test. in fact, why have a driver
-> then.
+> Responses should be made by Sun, 05 Jul 2026 07:28:08 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.3-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-It would be interesting to see what proportion of kernel patches are
-actually tested...  Testing the code is often impossible because you
-need the hardware.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, please backport 
+7ee7f48413c42b90230de4a8e40898b757bc8e82 ("perf trace beauty fcntl: Fix 
+build with older kernel headers") fo the MIPS build of "perf" to pass:
 
-In drivers/staging probably very few patches are tested.  Every couple
-years I look at the data from where the problems come from and it's
-normally from complicated changes from the driver maintainer.  The
-number of bugs introduced by checkpatch and static checker fixes is
-really tiny.
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
 
-It's about risk vs reward.  Fixing a security issue is a huge reward.
-Cleaning up the code.  Fixing obvious leaks and static checker issues.
-Those things are all valuable because they raise the standards and
-they prevent copy and paste bugs.
-
-I consider a few things:
-
-1. Is it a security fix?  I recently fixed some memory corruption and
-   broke a driver.  I tried to be careful, I wrote a long commit message
-   describing my thinking, but I still messed up.  And that's okay
-   because fixing security bugs is important.
-2. Is the code new?  If it is then there are probably very few users,
-   and the original developer is still around so it's pretty safe to
-   change.
-3. Is it an error path?  Code on error paths is hard to test in the
-   best of times.  The risk is very low.
-4. Is the change small and obvious?
-
-On the other hand, I often leave known bugs.  In this case, we're talking
-about a use after free if the driver fails to probe.  That's not a
-security thing.  It's unlikely to ever affect anyone in real life.  The
-fix affects the success path so it could easily cause the driver to stop
-working.
-
-regards,
-dan carpenter
