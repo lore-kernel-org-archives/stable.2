@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BC93A381C
-	for <Stable@vger.kernel.org>; Thu,  9 Jul 2026 05:45:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D8E2E11C7
+	for <Stable@vger.kernel.org>; Thu,  9 Jul 2026 05:45:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783575923; cv=none; b=WYwlLUeXL/g4qcDAykCeKJ5jvHo4UOtWvHkSelkAMK5JjS7VGzB3hNidSlt4LNQX/NOQTt2YdVUySlpjvaJWHqhgMBebPaY7ijKJecYCINUW9x64x/+BbmjMCFIpS8bliMEXpVvY0tLQguS1luXnqOQyoP3lfWxAvdftNIqJVJ8=
+	t=1783575929; cv=none; b=MgYxCLZRfAtzrI+JXDo9sS3oVRu62hBGRiOBRjYoMerTFHs5ltEu0Oli9q+X2PmLeIKD2X+rITYAtcqBaKHc/JLqxVX2q8JIcKe7qhRIK/aBrkOvPbg4Jg9sMMGyC8gJwPIE0YE0kA+/7LaEuY3x/wPaAR+VRkPV7YMbKyhTC0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783575923; c=relaxed/simple;
-	bh=3YjcLweqzuROw8Bk70foUh5et1CNeIM/AZcUY+RtQpo=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=qhDnEAEpjw4rmtGrrVSZfzOAR3Rs6IQMiFScxRoWFiJIC7lLKGhLw101KdOQb31s7SDmwp4/ok7V2c0MYz9rLbCNLGfbv3ab6HbmuIqV71ELpvNBV1CYj7tKXmsGW8ICB3kpZ63WeTrwRjpG8mq3WbpDFaeIFdBpxhbXm3fhJPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NqeQGq4a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783575929; c=relaxed/simple;
+	bh=lGMFswBLA1qhMvuh57iKSPZ5pL1akH1pzwuudxesldk=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=Wb8uv2DW/EJ4ii9X/K+IZEdbhMnX9PvJ/IvYGvbS8y/QrSZoyjMnKhw/aeeeVSfcJw3D66K6VAy3/MAbwDO9Wn99JfWKPe3tE8Xj0Cg9n4axNHDFSK8Eubu1WGskXqApXl8d1E3aiJDpgq9ybjOLGt9p/8WgClckNhYwhpglq6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mg/ddUhQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NqeQGq4a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2541F000E9;
-	Thu,  9 Jul 2026 05:45:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mg/ddUhQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554431F000E9;
+	Thu,  9 Jul 2026 05:45:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783575921;
-	bh=q4le1iYbJPbL2wjjnratag7QnfCh5DE0ez5KBl4HPaw=;
+	s=korg; t=1783575923;
+	bh=BTJrqdcwYEJw1kPqQzZ864f5ggUS+IbKj8oYOUdYM6k=;
 	h=Subject:To:From:Date;
-	b=NqeQGq4adV7y1OvuLHB11RUPpucs3Jwjb2kNBk9SQ9etVzU38rcXJ43Zy5v5iS9at
-	 e7TnF9AzS6/SKWl3ttIrF3YQcWDgO7Q0d1QXNQxxHVedwrBsb+p0sCvCnd5Dc5NF4t
-	 qldaw0y5tM2dmFJZ225q7d1a0fR+XRkbe1WP4B5g=
-Subject: patch "iio: hid-sensor-rotation: Fix stale or zero output when reading raw" added to char-misc-linus
-To: lixu.zhang@intel.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jic23@kernel.org
+	b=mg/ddUhQ1c+DggXRLqK/PMIFYbKKksfgZtMiwRkbH/b46xc6gzkXXlX0Bpd9BUygk
+	 7ktCSwq0jo71LxMrLfc/d1yRTZyGWgR4zuBKuTYtNjBuz7MbXnlm0qhQ5LOMAKvh33
+	 omxgJeAAuU0Clg30tiUMkU4j5xZ7npwA9JWheUjU=
+Subject: patch "iio: light: al3000a: add missing REGMAP_I2C to Kconfig" added to char-misc-linus
+To: joshua.crofts1@gmail.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,david@ixit.cz,jic23@kernel.org
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 09 Jul 2026 07:44:49 +0200
-Message-ID: <2026070949-cornea-taps-7774@gregkh>
+Date: Thu, 09 Jul 2026 07:44:50 +0200
+Message-ID: <2026070950-reptile-elephant-a3c4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: hid-sensor-rotation: Fix stale or zero output when reading raw
+    iio: light: al3000a: add missing REGMAP_I2C to Kconfig
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,89 +54,36 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From 3ce8d099e0afc5a7da75a2007a67f67c4f5a4af1 Mon Sep 17 00:00:00 2001
-From: Zhang Lixu <lixu.zhang@intel.com>
-Date: Wed, 10 Jun 2026 16:29:10 +0800
-Subject: iio: hid-sensor-rotation: Fix stale or zero output when reading raw
- values
+From a2d30022b7c316ad845d1b696e724058b88e5a4e Mon Sep 17 00:00:00 2001
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Date: Thu, 25 Jun 2026 21:38:08 +0200
+Subject: iio: light: al3000a: add missing REGMAP_I2C to Kconfig
 
-When reading the raw quaternion attribute (in_rot_quaternion_raw), the
-driver currently returns either all zeros (if the sensor was never enabled)
-or stale data (if the sensor was previously enabled) because it reads from
-the internal buffer without explicitly requesting a new sample from the
-sensor.
+The KConfig entry for the al3000a is missing a `select REGMAP_I2C`,
+causing build failures.
 
-To fix this, power up the sensor, call sensor_hub_input_attr_read_values()
-to issue a synchronous GET_REPORT and receive the full quaternion data
-directly into a local buffer, then decode the four components.
-
-Fixes: fc18dddc0625 ("iio: hid-sensors: Added device rotation support")
-Signed-off-by: Zhang Lixu <lixu.zhang@intel.com>
+Fixes: d531b9f78949 ("iio: light: Add support for AL3000a illuminance sensor")
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: David Heidelberg <david@ixit.cz>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 ---
- drivers/iio/orientation/hid-sensor-rotation.c | 40 ++++++++++++++++++-
- 1 file changed, 38 insertions(+), 2 deletions(-)
+ drivers/iio/light/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/iio/orientation/hid-sensor-rotation.c b/drivers/iio/orientation/hid-sensor-rotation.c
-index 4a11e4555099..1c6f02374f3c 100644
---- a/drivers/iio/orientation/hid-sensor-rotation.c
-+++ b/drivers/iio/orientation/hid-sensor-rotation.c
-@@ -86,6 +86,13 @@ static int dev_rot_read_raw(struct iio_dev *indio_dev,
- 				long mask)
- {
- 	struct dev_rot_state *rot_state = iio_priv(indio_dev);
-+	struct hid_sensor_hub_device *hsdev = rot_state->common_attributes.hsdev;
-+	struct hid_sensor_hub_attribute_info *info = &rot_state->quaternion;
-+	u32 usage_id = HID_USAGE_SENSOR_ORIENT_QUATERNION;
-+	union {
-+		s16 val16[4];
-+		s32 val32[4];
-+	} raw_buf;
- 	int ret_type;
- 	int i;
+diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
+index ef36824f312f..a33920568904 100644
+--- a/drivers/iio/light/Kconfig
++++ b/drivers/iio/light/Kconfig
+@@ -45,6 +45,7 @@ config ADUX1020
  
-@@ -95,8 +102,37 @@ static int dev_rot_read_raw(struct iio_dev *indio_dev,
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
- 		if (size >= 4) {
--			for (i = 0; i < 4; ++i)
--				vals[i] = rot_state->scan.sampled_vals[i];
-+			if (info->size <= 0 || info->size > sizeof(raw_buf))
-+				return -EINVAL;
-+
-+			hid_sensor_power_state(&rot_state->common_attributes, true);
-+
-+			ret_type = sensor_hub_input_attr_read_values(hsdev,
-+								     hsdev->usage,
-+								     usage_id,
-+								     info->report_id,
-+								     SENSOR_HUB_SYNC,
-+								     info->size,
-+								     (u8 *)&raw_buf);
-+
-+			hid_sensor_power_state(&rot_state->common_attributes, false);
-+
-+			if (ret_type < 0)
-+				return ret_type;
-+
-+			switch (info->size) {
-+			case sizeof(raw_buf.val16):
-+				for (i = 0; i < ARRAY_SIZE(raw_buf.val16); i++)
-+					vals[i] = raw_buf.val16[i];
-+				break;
-+			case sizeof(raw_buf.val32):
-+				for (i = 0; i < ARRAY_SIZE(raw_buf.val32); i++)
-+					vals[i] = raw_buf.val32[i];
-+				break;
-+			default:
-+				return -EINVAL;
-+			}
-+
- 			ret_type = IIO_VAL_INT_MULTIPLE;
- 			*val_len =  4;
- 		} else
+ config AL3000A
+ 	tristate "AL3000a ambient light sensor"
++	select REGMAP_I2C
+ 	depends on I2C
+ 	help
+ 	  Say Y here if you want to build a driver for the Dyna Image AL3000a
 -- 
 2.55.0
 
