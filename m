@@ -1,140 +1,168 @@
-Received: from mxout1.mail.janestreet.com (mxout1.mail.janestreet.com [38.105.200.78])
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86E02248A0
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 12:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=38.105.200.78
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783601608; cv=fail; b=SfoauxCz3JlTVQoXFeb6yRl9H5FrZnTy36ZiX3KqW55tVHMp8icQ/QnYODVehA8e5av414DFXZU0kfUySZBjUep97afct4DiDfQs5SifBRpJMDM6+kaET59ItrvIrvrmUFlyFTSjDFXz4GhmAS/RJJeTOdgbtJocWH3FQatZ080=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783601608; c=relaxed/simple;
-	bh=CZoKSxbcJVeP9SlvTpbB1P+sU86PjyJO8+MnplbnKPs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D+prpsowyax5qcrWAZqQqgMLvhHAenWw1Edow3qrFaGII2al+j2MREbfqBpk/kwDEQRTeCpvF71Rc9HM7olq/iMLGMJ2e3VKpE7MYRDvzsO5xfSHLj36ftqdc0PeNornLaoeES//XVGOAZj4TAe5Kq3djC1/1AoJM+liI3oxwtI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=janestreet.com; spf=pass smtp.mailfrom=janestreet.com; dkim=pass (1024-bit key) header.d=janestreet.com header.i=@janestreet.com header.b=kyCh0JXP; dkim=pass (2048-bit key) header.d=janestreet.com header.i=@janestreet.com header.b=L8B4qYgx; arc=fail smtp.client-ip=38.105.200.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=janestreet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=janestreet.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89BE1A9FAB;
+	Thu,  9 Jul 2026 12:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783601903; cv=none; b=DTlQqb48ewP2v6Yx9UzLOwsW4+R0nrlPB74EgZ+r06zk8WUCUPKDEYC7LMhOIVMogvIA71vL5iWPTIyTJhf9+ElIs5vEZZN6Z04QzOffQjo0NhwryLntn0EwCUXyfdoOzUcd7HYchzZEcapOMGONyFil7bxpT9B4YI8o0CMXX+U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783601903; c=relaxed/simple;
+	bh=Zh4R3yWJH807apFQ9uM2oEfV+8R4oL3tieXTel/20Wg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Al32Dd5rlB6W47at/z+uncq7gpU/QHkvMMqEvhtmqbps37U2ebdU9dchcSFGlnPcMLpkTpnWH0vaLMKZCyA060GZg3sSEJNmpzepSUIDoNt/Zwua4xtWTtira/DYoRwzHjB+Vm7Q//nJ9WicnfXDRhS92NTXxP6YY5icOXX3W/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=w7h4aSts; arc=none smtp.client-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=janestreet.com header.i=@janestreet.com header.b="kyCh0JXP";
-	dkim=pass (2048-bit key) header.d=janestreet.com header.i=@janestreet.com header.b="L8B4qYgx"
-Received: from mail-lf1-f71.google.com ([209.85.167.71])
- 	by mxgoog2.mail.janestreet.com with esmtps (TLS1.3:TLS_AES_128_GCM_SHA256:128)
- 	(Exim 4.99.4)
- 	id 1whoFp-0000000BVfx-2GcA
- 	for stable@vger.kernel.org;
- 	Thu, 09 Jul 2026 08:53:26 -0400
-Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-5b015ed1b78so442990e87.3
-         for <stable@vger.kernel.org>; Thu, 09 Jul 2026 05:53:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783601605; cv=none;
-         d=google.com; s=arc-20260327;
-         b=jTofCkkB0XhC3n/SyM+D7JNI3ozuOPRFqjSLk75Z7djpDXGKetnS3iUMyc4rZqaQvI
-          bY1uEfEh1CW3tzbrDcPiYPVh0sdTgWm8SkgH1bktuMCVFU/tte6LuZtPcTsJ3D1VKAti
-          c4GK/mPxZ1/IYKU50ET5I5i1lsseHtfFOM/1EKPzIPS2UdgoM6X5Pk3EtZGlHLDVE5NT
-          Qj1MOxytS8jBs+f+9a4Y++AKzbWDz1Ib1DvWMF5ZPQ8kiUXlkDIJyZxCm9hUlpiQfFB+
-          rOsVXKE7zr4OuYlk5pFW5OAWTudmDZaDde0teZIp6VNqKSof7Ppe5Pf2TaO/tr3NjPGo
-          cWtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-          :in-reply-to:references:mime-version:dkim-signature;
-         bh=CZoKSxbcJVeP9SlvTpbB1P+sU86PjyJO8+MnplbnKPs=;
-         fh=BeSPVBQTQBOrRNXvVn4ihR37apMnd11Ns++hyZbaFkk=;
-         b=noc58yATbWSIpWsu5loJuafYQQPSJyT3on+RSjTrl5mF1Xo2ky2y3ntNgK+3UYl+6L
-          L32U0RVu7L7NpTFBasNYlVVi+re1QfucyjyQnrsoAiy15UgskDCBYbKkBos+q0YMV6fn
-          UUEtxZS7r0OmLdmaIZc5tuk1awBCwAikhO/yX8+vNMKsB9qrSohED+QGrpgUHYNkcX/J
-          0zFRTno9AW1Zjf9YAsNv/OVQ6I6Yu8Di7wwowAHXasolvjC4ZYllpFJKd0SeSWyfJOnz
-          j7P6jlQFo3yaDEKqMxSeElzHSxuxxcRff+zMy7GUv/Rmtxnsd/oTBXGK0En6rlBKqGiA
-          Lndw==;
-         darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-         d=janestreet.com; s=google; t=1783601605; x=1784206405; darn=vger.kernel.org;
-         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-          :date:message-id:reply-to:content-type;
-         bh=CZoKSxbcJVeP9SlvTpbB1P+sU86PjyJO8+MnplbnKPs=;
-         b=kyCh0JXPnAHGu/jzJbtCSxwBz7DTlc45gQiBL49XjCVFn2rlrR1lQd5FzoP0b4BMeB
-          SXyeQNW91DvTi9b+IHvf1a/SPJ7n4X0m+k2IC/tx1GlLXtg9WO2Si1sSpwVM0pBEc1IW
-          q/DbGxZHIWXWkHAHcmJucuKdSBEUVEfCLQVI4=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=janestreet.com;
-  s=waixah; t=1783601606;
-  bh=CZoKSxbcJVeP9SlvTpbB1P+sU86PjyJO8+MnplbnKPs=;
-  h=References:In-Reply-To:From:Date:Subject:To:Cc;
-  b=L8B4qYgx/650Ad0m94x+Rcj2z/H2Kfyj6P2kl+b6SzjNWCtK2t+pDTKCgWwChdb/H
-  RV4QL3tWySnXSUzw/Ehox9UQ0jbf4zHzCtPz+KP4zJpqSA2ecPTJBqzE17/mrwGK7v
-  VHfHpIBGSmEX8DNOVAQMzVX0aQmqlwLw+ONA6TcQUK9M06tOq4I7Iq6WUMLRjgXJxF
-  TjZboAl0DlkQxSVjH169u3unDoqYycPFzW7CPrSLKdvZ7wTLZAxJWyjEHo4ZF4XIgc
-  OCueJ2rMrvDdEArS+rzbLeGR62n7vE+9bpdYMV9A970qq8kF6Q6XPaBTunxjvYuQWw
-  fqKcG9JEIFDrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-         d=1e100.net; s=20251104; t=1783601605; x=1784206405;
-         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-          :date:from:in-reply-to:references:mime-version:x-gm-gg
-          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-          :content-type;
-         bh=CZoKSxbcJVeP9SlvTpbB1P+sU86PjyJO8+MnplbnKPs=;
-         b=qEVb3Wdola/XPgfl9ri7kjCizUArvGASaKduEXQ9OMedUgBKHVwmH759eVHgZPsK+X
-          T4KYF249DonPAThUYFBPe6VxbDvna5J2tHN07MI+3ilomQWBbSiUBifvPWrsKSjpDaDD
-          70lBGCCRfooFiWt6Uensjru48xETFL/8jFsU1ys08qshFdpK+2ZUoz/dvjVeGf0udqn2
-          fnH7Wg8e4pqUGLdFhWZDzrZ2T5brRCyu10o6xSp7LeUsNFO6j0RVsE2qNfJI08x9/fZ8
-          fStJ+832ljK3HGUV3Q1anx28AcQOnY5yJv+n5gzzhlKPoZORLdYGo8jk2gK1L3/szZHu
-          V8xQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rri/kHA4x0Fv0rUNNjHZMgFe+tVApjWVjp2EBXNN8QJC9IM1vrk2YGwPHk8BU6HMRwMAlp2LGM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRPovajQASlgL0pHLx+BulK0Ffu05GyMKtXamTxg1fr+CbZLAF
- 	XJeiDuwBpKJMs9q2dMiEKn30TO95uN464uMGCqfM2NaN9jESaevEaBJWqgjG5dnn438CUYQ8bYr
- 	uoDdDEdDfG242LOwjO1WsZiA7MT2dcuyubwMShzua2Pk7EWhe2rcsdmv+S5XeyZskjTBgFaVF6j
- 	8uZINSBt/RuMMfTYszsA1R4/S2XV0j8ag=
-X-Gm-Gg: AfdE7ckzOFewghbzMmd0QaoQi25A7K8l8E8j2Ovhb6d8QnM0LfB5yq3GYWiDo4IGpbI
- 	nzB+alvp1RwfpiCIGmS32smG8jywHATMrEwUFVjAp9t7kOpmZJmkPc4JUtNzPPSOkKMKU1ASJ6M
- 	Y37MyNokmyg9NyqK13r1vOPVY7QQkCLAFjt+RIQQeSPekLnmR8istNLe2iRL+iJoSW9kY=
-X-Received: by 2002:a05:6512:4384:b0:5b0:14a5:372e with SMTP id 2adb3069b0e04-5b014a53b08mr833268e87.27.1783601604993;
-         Thu, 09 Jul 2026 05:53:24 -0700 (PDT)
-X-Received: by 2002:a05:6512:4384:b0:5b0:14a5:372e with SMTP id
-  2adb3069b0e04-5b014a53b08mr833263e87.27.1783601604634; Thu, 09 Jul 2026
-  05:53:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="w7h4aSts"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1783601897; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=GORAQ+6aUKZ7q2GoegDwlPQMfphbTVbJV2PH9DeStr8=;
+	b=w7h4aSts0e8gB8olA9I7DJUtCCFmIVth6cJTL5BqxxdzunDvqRxB6rSzVuKk4LZdwnjW910+nbYtUJfeMcjQLEDvRSLXtU/btBPrc5N7yqgm1ebeWsq54PYDCjCY0YgIy5HAniRJt+6g58aRajgJHXXlrJTX7w9DG/oEFTig7c0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=lulie@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0X6kzzBo_1783601896;
+Received: from localhost(mailfrom:lulie@linux.alibaba.com fp:SMTPD_---0X6kzzBo_1783601896 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 09 Jul 2026 20:58:17 +0800
+From: Philo Lu <lulie@linux.alibaba.com>
+To: stable@vger.kernel.org
+Cc: bigeasy@linutronix.de,
+	willemb@google.com,
+	kerneljasonxing@gmail.com,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	lulie@linux.alibaba.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dust.li@linux.alibaba.com,
+	heiko.stuebner@cherry.de
+Subject: [PATCH 6.6.y] net: Drop the lock in skb_may_tx_timestamp()
+Date: Thu,  9 Jul 2026 20:58:16 +0800
+Message-Id: <20260709125816.86769-1-lulie@linux.alibaba.com>
+X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702165409.164568-1-pfalcato@suse.de> <akhYu66GmjyM8l6a@casper.infradead.org>
-  <CAFN_u7HkJry=iFLbZ2vjzv5C=HnrptHfFJBLOqRq2m4LyhqV_w@mail.gmail.com> <ak5g9h3FuVn3bZ1G@pedro-suse>
-In-Reply-To: <ak5g9h3FuVn3bZ1G@pedro-suse>
-From: Gregg Leventhal <gleventhal@janestreet.com>
-Date: Thu, 9 Jul 2026 08:52:47 -0400
-X-Gm-Features: AUfX_myfsaz2CNj6SYVdToPKTm3sV3q-2qQKmWB5EgGOqp9HxGlKza-X6yxVsEA
-Message-ID: <CAFN_u7ExSnVo=QQBuZvRJkLR3rHo8qN96rDKYu+KNiSjk0FCHQ@mail.gmail.com>
-Subject: Re: [PATCH stable] mm/khugepaged: write all dirty file folios when collapsing
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Matthew Wilcox <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
- 	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- 	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
- 	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- 	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org, 
- 	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- 	stable@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
- 	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Song Liu <song@kernel.org>, 
- 	Eric Hagberg <ehagberg@janestreet.com>, Zi Yan <ziy@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Ack thanks for the update and all of your help with this!
-Obrigado pra vc (Meu esposa e Brasileira e achei que vc estava
-Portugues da sua nome/sobrenome)!
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-On Wed, Jul 8, 2026 at 10:40=E2=80=AFAM Pedro Falcato <pfalcato@suse.de> wr=
-ote:
->
-> On Wed, Jul 08, 2026 at 10:05:43AM -0400, Gregg Leventhal wrote:
-> > Hi there, just checking on the next steps here.
-> >
-> > @Pedro Falcato Are you currently working on this patch (mentioned
-> > above, re: holding invalidate lock), or are we perhaps stalled on
-> > something?
->
-> I was waiting for some actual tags from people, but given the comments an=
-d
-> no tags, I'll respin a v2 before sending to Greg KH.
->
-> --
-> Pedro
+commit 983512f3a87fd8dc4c94dfa6b596b6e57df5aad7 upstream.
+
+skb_may_tx_timestamp() may acquire sock::sk_callback_lock. The lock must
+not be taken in IRQ context, only softirq is okay. A few drivers receive
+the timestamp via a dedicated interrupt and complete the TX timestamp
+from that handler. This will lead to a deadlock if the lock is already
+write-locked on the same CPU.
+
+Taking the lock can be avoided. The socket (pointed by the skb) will
+remain valid until the skb is released. The ->sk_socket and ->file
+member will be set to NULL once the user closes the socket which may
+happen before the timestamp arrives.
+If we happen to observe the pointer while the socket is closing but
+before the pointer is set to NULL then we may use it because both
+pointer (and the file's cred member) are RCU freed.
+
+Drop the lock. Use READ_ONCE() to obtain the individual pointer. Add a
+matching WRITE_ONCE() where the pointer are cleared.
+
+Link: https://lore.kernel.org/all/20260205145104.iWinkXHv@linutronix.de
+Fixes: b245be1f4db1a ("net-timestamp: no-payload only sysctl")
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260220183858.N4ERjFW6@linutronix.de
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ adapted sk_set_socket() in include/net/sock.h to fix the conflict from
+ not having commit 5d6b58c932ec ("net: lockless sock_i_ino()") and the
+ additional previous changes required by it.
+ It comes down to just now having the lines of
+    if (sock) {
+            WRITE_ONCE(sk->sk_uid, SOCK_INODE(sock)->i_uid);
+            WRITE_ONCE(sk->sk_ino, SOCK_INODE(sock)->i_ino);
+    }
+ below the changed line. ]
+Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
+---
+This patch is same as that in 6.12 (c770217044d9), and it can be also applied
+to 6.1/5.15/5.10 except for line number differences. I'll send patches for the
+other versions if this one looks good.
+---
+ include/net/sock.h |  2 +-
+ net/core/skbuff.c  | 23 ++++++++++++++++++-----
+ net/socket.c       |  2 +-
+ 3 files changed, 20 insertions(+), 7 deletions(-)
+
+diff --git a/include/net/sock.h b/include/net/sock.h
+index a6944844553af..c1f129a532b20 100644
+--- a/include/net/sock.h
++++ b/include/net/sock.h
+@@ -2155,7 +2155,7 @@ static inline int sk_rx_queue_get(const struct sock *sk)
+
+ static inline void sk_set_socket(struct sock *sk, struct socket *sock)
+ {
+-	sk->sk_socket = sock;
++	WRITE_ONCE(sk->sk_socket, sock);
+ }
+
+ static inline wait_queue_head_t *sk_sleep(struct sock *sk)
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index c5e2ae6d0406b..732204d99822a 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -5258,15 +5258,28 @@ static void __skb_complete_tx_timestamp(struct sk_buff *skb,
+
+ static bool skb_may_tx_timestamp(struct sock *sk, bool tsonly)
+ {
+-	bool ret;
++	struct socket *sock;
++	struct file *file;
++	bool ret = false;
+
+ 	if (likely(READ_ONCE(sysctl_tstamp_allow_data) || tsonly))
+ 		return true;
+
+-	read_lock_bh(&sk->sk_callback_lock);
+-	ret = sk->sk_socket && sk->sk_socket->file &&
+-	      file_ns_capable(sk->sk_socket->file, &init_user_ns, CAP_NET_RAW);
+-	read_unlock_bh(&sk->sk_callback_lock);
++	/* The sk pointer remains valid as long as the skb is. The sk_socket and
++	 * file pointer may become NULL if the socket is closed. Both structures
++	 * (including file->cred) are RCU freed which means they can be accessed
++	 * within a RCU read section.
++	 */
++	rcu_read_lock();
++	sock = READ_ONCE(sk->sk_socket);
++	if (!sock)
++		goto out;
++	file = READ_ONCE(sock->file);
++	if (!file)
++		goto out;
++	ret = file_ns_capable(file, &init_user_ns, CAP_NET_RAW);
++out:
++	rcu_read_unlock();
+ 	return ret;
+ }
+
+diff --git a/net/socket.c b/net/socket.c
+index fa242d7e51c79..ae31c54664632 100644
+--- a/net/socket.c
++++ b/net/socket.c
+@@ -671,7 +671,7 @@ static void __sock_release(struct socket *sock, struct inode *inode)
+ 		iput(SOCK_INODE(sock));
+ 		return;
+ 	}
+-	sock->file = NULL;
++	WRITE_ONCE(sock->file, NULL);
+ }
+
+ /**
+--
+2.47.3
+
