@@ -1,123 +1,149 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012038.outbound.protection.outlook.com [40.107.200.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FD2391E4E
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 09:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783590325; cv=none; b=IS171sreIVSIykPM1f/5H/SigxcUBEEP0obnAxphb3wNVfIbG9aog0NOwKgOES7AVaZcv0fxY7QDUJfzTv3Mtc7bTM7mSAi9Pqa4fU//bX8the4fGwQZBEl5plE5zdLuU64A823y7k9STOEI8ErncVY6pq7emkbpRaG/VF4opkE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783590325; c=relaxed/simple;
-	bh=DSolsTJGzHgc/OGPLnKXWHYDHDOGwzlUJFKfR8ob8ns=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=e8y28nEb1+HJFQpgXu2fEGbemvVup8BtNgPRdtFmxZhkCA5MBgbS9jRGkSOHkRHMiOB52muH/2EF4b5fl8t6xJGPgIcIX1nGbGIqTX2QNhwBB1oiYt1uJ0YlZxZ3WFsiW08u35Pwd7YKtpry+j3Y0NMIpyJiSEIWwgp3a46gxc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qcm/KU9U; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC7330DECB;
+	Thu,  9 Jul 2026 09:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783590645; cv=fail; b=CkOgAG9WgSFELMlvC6ekf+0XmGCLA2dbY3qzwz5TiCA5oZihBviX+ZfYHXzlEV9bmBdRw50Jye5vCR/MLzf+rKNd/NjDWVlLUpcpPuociKutrcjHhJnG7OigsQ8wN1ZOKCthAkOQrFEpSrC8++0qTWOaYJC2Qig13L1QWFGsZ5Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783590645; c=relaxed/simple;
+	bh=F+RWTw1VJCTaYwXOHQd3982oNXLENfo+5LHl+V5Q6kw=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NPruLC9OuC9Brs+nmjU6plUStqXKv97pgscoEhNTNt/Bpw7b9rx6qiBhsGJaOMaY5D0wXAqKOrGFo1RghC/ATenfV6tDM5KJb1V4ohPwGqmDYdREjtEr4Qw333jAf8kzdCdt1iv01beL9FktjyE0TTlbp4GSCj6s2vqinr20n0w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=hHW9cVPy; arc=fail smtp.client-ip=40.107.200.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qcm/KU9U"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493b7612475so14273265e9.3
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 02:45:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783590321; x=1784195121; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tFZF/5PoasW+xKTZ1VUPfW3HZ74KzO/QxbfEs8dmJ+k=;
-        b=qcm/KU9UE+VOTOcF7wvldStiEGVtg9x/CX4MhNRhwv4MI2TfvHKcL7d0fC5sSW0s84
-         ho6opbIYA3I1w6z5c3Xfgw5e4e545uM8PIB+hUhYmxYRDZ1AKaX2nOuSqIi+mQE5uOjk
-         4vwf66JaWcz1AQocC1OmRsQ68LzXwsXWgD8s+cfv9wYicou0v6LVftV0nHnzDxGl/Vk5
-         0jUGZQtEBtmM+6zNdaLETWz/aUcQbttZJwMYgxRlYIrUR3zC0ixJd+V2EB5qyOEP7m7K
-         xtw9BIGPzXP5jFSX0iVV/JvuGlyD6qB6ROCiEi5xY+pKVgpyPB1yPidseMQFFSbUQwuw
-         M4Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783590321; x=1784195121;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tFZF/5PoasW+xKTZ1VUPfW3HZ74KzO/QxbfEs8dmJ+k=;
-        b=RRWkvWttcVB5x6TWUci5Ezg3bcmB9IlBcLjhRn8tGrJpeR0O9ZXRHl0ljN1J41aEdG
-         sc2d2rpAomyfFclZbVWmqCDeQvBbHpfJZLNFSXDFDhNZW3u0b6ceaHYiXALJ8dK47PE1
-         LKoqzx9NbUxGlaG1o/7Fv1sLlGhI7dRX9emAzFLOMIIK37tz2jRwPAm6BPmYq0dtnI4p
-         8uFykh1dyAEkEpCm4VBoSk3XNRgXsXTQQJ1CqYs/2HkRUu7YOPMqCM0uIjzu8KAoeHyv
-         Z4fQJIEH3VnS6KF4bfe+MI0wpkvSCLTO69iI8K4S9HRMGj/lKGNEzXUDuQqmsUMpt7/G
-         z5rA==
-X-Forwarded-Encrypted: i=1; AHgh+RpBlXAvSJCQS7A/DsDSHobNm/AD2H/VfEt51i8duzbkJALDveXe8IYIuOsEoH4LWzpJ0JNIBy0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyeEot1xS1yLy37WhRirTMBxWHzUSo8Prp9RFjES9v9vgk8AoqQ
-	Nz8jYQBXYrWg7OTIVmf0PNrHhvZ7YI6dM0VxMrePUYe+86fjMsRh1Bgd
-X-Gm-Gg: AfdE7cmq0VMfRZLHHmY4uP8uBuv2qN7GlN+Jukw/f5/zdB5wwMN/u+n2Khek07+7p5E
-	8tJBQRwsqXxroiRFXUbb5UqlKtKN85EErhOiovcTrHE/JJjmd+c6z4X/kqV/x2AFPkbG/veIQe4
-	pnO3AEDJ5pEtofeOt/TzdD8EgOD6jk5xI1+FJ/2XMx48u5V25WbfqGu5P4kUtLS7/DLhQ+VxUp4
-	HAb5oG/nfMg5yry1w6ozRuxU34PgpuAf7ukfa3w+Ox33TgzDKm7l2WRJRoFJKqWcWh5GZ+Hl6XY
-	ICI1ZDuNceWTM1xAuzx/EpsUC8jmAZyngrKDvJlGi/dEpijtvq/F9pxl4/YzRmSXbErf1Jk9Uq5
-	s/vD2vSR4j4GqewlKuoF3biPvzk+eDXPqH17sEtKmAeeSvipYXg2hULG31L0lquAj3GObzl+4To
-	buIXTFLArFqlf1WCRJV6/Z/SE+j2LY7/ULVa8vAAbXhX7HA0iQW4Yrsvy0++ulDhlCjLbyGDVP
-X-Received: by 2002:a05:600d:6454:20b0:493:cc01:807b with SMTP id 5b1f17b1804b1-493e68815cbmr47157235e9.38.1783590321156;
-        Thu, 09 Jul 2026 02:45:21 -0700 (PDT)
-Received: from [192.168.0.105] (88-187-52-200.subs.proxad.net. [88.187.52.200])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e89eac4csm50367185e9.0.2026.07.09.02.45.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 02:45:19 -0700 (PDT)
-Message-ID: <34b7e26f-df63-4523-b4d2-5de13c192a8c@gmail.com>
-Date: Thu, 9 Jul 2026 11:45:14 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="hHW9cVPy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dX7IeP5f9Ro+UbtdKG4v8uZ1hfB5WjqtNGtH1noa/Zcw4d4j0mVkQ931mol5CXWRRlNkT5Uf0ZqrC9Syjm4jNRwlFu7s+Oj0FQwp8bnOaMGdZTEEdtaE6A/RVs5sAMykraY24BLpxMcYF2nTcxPlI0x8lbZPxHV9xyBoOx6zIzAB7XMUgofNOJG1V7O2olhcPsEDTxUFF7am9G6Iz/9Twv6U/XoARjN9wnrv/kzSC2h08QJg80Hscs8PH+YiQ/j43JkGSHpGcrsP8CvGvGSYvb5bNO87bqFr9srwP8SSlJ6Rxy86ZA68VAoiu8xKWOKhhtsGJAZmV2A/UztyNrkRYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nSc3wQj2/msW31q2W3GqYS9i4t1ZLOKilbTIuskZrRo=;
+ b=TZyqiX4ap66rpoGg8hAnalaeSF9vbZpz4O17MPIqrtyBbJB+ojztiSyh6EFmvrsSuCNeQmbntL/lvwb6NI8qVEpKrWeIsaJqWQKR+9hOuuYDSHt2fx9RJ+ET53tmUZBVN9qP7nxUgI5acPsCNowpBCY8ceDn5Vy7hjlBVmiz8W8Y3b3kTtr5HLuHAVD+fqWw81EZZnFQJeM+R9Lq6ttiwgMK+QoQR/omRVYzRd1uyxNuE6ebqsp9DCasklCW6K8wvt4drKcYr/s0GrJTSKuTQ4T+z+1EpsuhpC+cVf8RhZSx8KoHAO8eKNu91UuJiIvrrwIMte0kltioDExg7AqkoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lunn.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nSc3wQj2/msW31q2W3GqYS9i4t1ZLOKilbTIuskZrRo=;
+ b=hHW9cVPybkq32xgl23nMlTAg24ZhZ8x8EDG1Uv/8+Ono/vpCDzfIcU2qRrV8z/g4biiHPASvcXxfv/RlxQKkJhsX2aSFrnRuw692yEIWZpegfUCTQAQFFo8TeslYDBYO8UW5t1DD+3UvavCaodAEFNlH20VKpPB30Q7Ip7rPSu0=
+Received: from BLAPR03CA0014.namprd03.prod.outlook.com (2603:10b6:208:32b::19)
+ by CY5PR12MB6034.namprd12.prod.outlook.com (2603:10b6:930:2e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 9 Jul
+ 2026 09:50:37 +0000
+Received: from BL02EPF0002992E.namprd02.prod.outlook.com
+ (2603:10b6:208:32b:cafe::80) by BLAPR03CA0014.outlook.office365.com
+ (2603:10b6:208:32b::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.9 via Frontend Transport; Thu, 9
+ Jul 2026 09:50:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0002992E.mail.protection.outlook.com (10.167.249.59) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 09:50:37 +0000
+Received: from airavat.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
+ 2026 04:50:33 -0500
+From: Prashanth Kumar KR <prashanthkumar.k.r@amd.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Shyam Sundar S K
+	<Shyam-sundar.S-k@amd.com>
+CC: Patrick Oppenlander <patrick.oppenlander@gmail.com>, Thorsten Leemhuis
+	<regressions@leemhuis.info>, Prashanth Kumar KR <PrashanthKumar.K.R@amd.com>
+Subject: [PATCH net] amd-xgbe: fix MAC_AUTO_SW handling in CL37 AN
+Date: Thu, 9 Jul 2026 15:20:06 +0530
+Message-ID: <20260709095006.3683940-1-prashanthkumar.k.r@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Florian Fainelli <f.fainelli@gmail.com>
-Subject: Re: [PATCH 6.6 000/175] 6.6.144-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260702155115.766838875@linuxfoundation.org>
-Content-Language: en-US
-In-Reply-To: <20260702155115.766838875@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992E:EE_|CY5PR12MB6034:EE_
+X-MS-Office365-Filtering-Correlation-Id: deacffe7-f3a9-4f2f-9754-08dedd9f875d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|36860700016|7416014|376014|4133799003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	2kOvgSQbFT5hNVGTA0tPfxTU+4OiHJ+h9zurwXnxeycrkL0k/FJZOGlPezMZSj7SCdB7llLZllodF0CAuseKDomqP/Mjrb71vEbtEf6R341hjBvB2XpjVtKkkp+etPPVBC1cPkuduPGNT6jAkoZMhot2F6dyJZYbSetpValhIt1oVG14FHrhREtBHbJnV/Kc+HLjgyCDu0+1DXsGNvQjvh9MlFkvYv8Akc2dT616XL75LrxPgvpgjeScnYy4ZyiobZnpBWxbge92xnE2q73+tlh0g+yDjul14ybd7bVu9Cxar/CHLuCH3fhJcJx5dMt/rnRxFB7LR/odkDMUBwSQaaTCw4u029E3WjeqZAEiZIWbgXdF0Wk5ldqPGVhc6JVbsi+hZ8/uVyzkXZzk0N6yQ5yaq+KtIswEejcW65MigG+txdY3TMlL0Fjcq2oj6ig5cLmCv38vST+r0bvMgTHHpc1ocmF4+Sl//YEYdwKNqmXeEi8c15JizUXZOXgk4HyPBtbyZyrt7yUEhgutB0xrxh3lLfCN6uOsNinmOtBRAlr8XO18pfPB9O6Psyytx1YR75L1BAnn/dmlzxSKboXaGdS9bTeixGRk35ajelAq1nGEz2WAEwOwpgL9/SsvDxpZtx2Pcx0bm5XUx+gBDhC/C9wDFTrEryl0RQMDGETWzkvWlICEaZgqEHrwMnHdeBFPu6DWYLaIN1vTA9D5Ffcelw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(7416014)(376014)(4133799003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	87phniZ3Uszu2WdP0Dwu5Tsmdvjd/nnuujSxWeLA9jS1wmjIll6XkkCVnys/tQ8LH5MbUqGyAcjOkN14a5Dq2ht6P3uBK8a5nLEZggbix8/wsxt6BZolBVrHqGEF66bV8VPkocR2tuEcJ2K81Zm3WbY08CkLbhD5etZEvCUqSifCUQQH+Tyef2nopG1P36Gbtjw096U00py0fvkyr/5yPxOEXu5MYtsUQVmzdcb6OItGDPVxbDqVVMtdIBVY037fwMWLo1sqbMUuinaLAMBsve7CRo/SvFmM/Sd+JV3Y1Sk6XSceTxkyE4LJajBrg4NYr+wjclJyZbM9VFGCx9iQpzAyeYrV+QswFcGPifT5bys0+3Gam8yCAxfzeHbqE5tx1BASYNQS6d3GhFFLjVoc8BfI/3F76qgUVrGH8WRvzGMk8/28SCBwWsu5C6cgm5b4
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 09:50:37.3361
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: deacffe7-f3a9-4f2f-9754-08dedd9f875d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0002992E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6034
 
+From: Prashanth Kumar KR <PrashanthKumar.K.R@amd.com>
 
+MAC_AUTO_SW (VR_MII_DIG_CTRL1 bit 9) enables automatic XPCS speed
+mode switching after CL37 auto-negotiation and is only meaningful in
+SGMII MAC mode. The original code unconditionally set this bit on
+every call to xgbe_an37_set(), including when called from
+xgbe_an37_disable() with enable=false. This left MAC_AUTO_SW=1 after
+AN was disabled, causing the XPCS to autonomously switch speed from
+stale AN state during subsequent mode changes, breaking SGMII speed
+negotiation on 1G copper SFP modules.
 
-On 7/2/2026 6:18 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.144 release.
-> There are 175 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 04 Jul 2026 15:50:58 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.144-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Fixes: 42fd432fe6d3 ("amd-xgbe: align CL37 AN sequence as per databook")
+Reported-by: Patrick Oppenlander <patrick.oppenlander@gmail.com>
+Link: https://lore.kernel.org/netdev/CAEg67GmFS0Q4oSZkz8zWdOzckSth9_vBPiOy6a7-d697C2w2Xg@mail.gmail.com
+Signed-off-by: Prashanth Kumar KR <PrashanthKumar.K.R@amd.com>
+---
+ drivers/net/ethernet/amd/xgbe/xgbe-mdio.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, same build failure 
-as 6.1 for MIPS:
-
-arch/mips/kernel/smp.c: In function 'stop_this_cpu':
-arch/mips/kernel/smp.c:396:2: error: implicit declaration of function 
-'rcutree_report_cpu_dead'; did you mean 'rcutree_prepare_cpu'? 
-[-Werror=implicit-function-declaration]
-   rcutree_report_cpu_dead();
-   ^~~~~~~~~~~~~~~~~~~~~~~
-   rcutree_prepare_cpu
-
-
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+diff --git a/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c b/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c
+index fa0df6181207..12770af031eb 100644
+--- a/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c
++++ b/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c
+@@ -267,9 +267,14 @@ static void xgbe_an37_set(struct xgbe_prv_data *pdata, bool enable,
+ 
+ 	XMDIO_WRITE(pdata, MDIO_MMD_VEND2, MDIO_CTRL1, reg);
+ 
+-	reg = XMDIO_READ(pdata, MDIO_MMD_VEND2, MDIO_PCS_DIG_CTRL);
+-	reg |= XGBE_VEND2_MAC_AUTO_SW;
+-	XMDIO_WRITE(pdata, MDIO_MMD_VEND2, MDIO_PCS_DIG_CTRL, reg);
++	if (pdata->an_mode == XGBE_AN_MODE_CL37_SGMII) {
++		reg = XMDIO_READ(pdata, MDIO_MMD_VEND2, MDIO_PCS_DIG_CTRL);
++		if (enable)
++			reg |= XGBE_VEND2_MAC_AUTO_SW;
++		else
++			reg &= ~XGBE_VEND2_MAC_AUTO_SW;
++		XMDIO_WRITE(pdata, MDIO_MMD_VEND2, MDIO_PCS_DIG_CTRL, reg);
++	}
+ }
+ 
+ static void xgbe_an37_restart(struct xgbe_prv_data *pdata)
 -- 
-Florian
+2.34.1
 
