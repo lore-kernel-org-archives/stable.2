@@ -1,179 +1,133 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB4F2EBB84
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:29:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE91283CB5;
+	Thu,  9 Jul 2026 13:31:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783603749; cv=none; b=ClteC/To8pewPCCA8+O5x5TbF7WtUreKn+pu6pIh9tELq0dG3JNZ9XazqMjG9Q5vZKIukOKU/9HJ4/lRYcVP3T2MQxd0YqJ9aWnRxGiFjLK4BRWlVoF3pY4i5J9q2lrOKzmTznb3sw8VVniHFAPsIDUrwFNVUHsT6fTcFBbuIP0=
+	t=1783603891; cv=none; b=QUGwY5iPwrzdA7eiHN2Zt/pCMhiKbteQmTrGeWeen7m0CJ/yrUxj/qOe8gkb+g7znHckh5zZ2SN1ePQilIpfkxBdnJU8Y0LjfVklF5cCOjoDH/g0db2Mr9gJXJyHdrKnHpXnJqW9viOf0yUqhDwTz8M5X0WL8RZgb2CD0rhu5P8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783603749; c=relaxed/simple;
-	bh=oNzXJuJRAi+R6GGtNU3V99GzZcQYWM4B7LZUXn2//Z8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m9FwQvtnx6t4xnwgfx1PcTKnP/0uXb5TB9QNE4z+6iswuVtjmcsN3EgDYpT6mswEpm94Ao/d5f/+9azYYlcsRDAPrQfYVmWcqzMdVrK6bxpMkcwmpPB/6jAF9AXGukavOUQF3Pc0/m0hx7cchSDusSH4cvitDtEhceBEQYaBMt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 57B6976210;
-	Thu,  9 Jul 2026 13:28:57 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 89D69779AA;
-	Thu,  9 Jul 2026 13:28:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0ED4HhiiT2qaMQAAD6G6ig
-	(envelope-from <clopez@suse.de>); Thu, 09 Jul 2026 13:28:56 +0000
-From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
-To: stable@vger.kernel.org
-Cc: kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Roman Kagan <rkagan@virtuozzo.com>
-Subject: [PATCH 7.1.y 3/3] KVM: x86: Unconditionally recompute CR8 intercept on PPR update
-Date: Thu,  9 Jul 2026 15:21:09 +0200
-Message-ID: <20260709132109.3423488-5-clopez@suse.de>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260709132109.3423488-2-clopez@suse.de>
-References: <20260709132109.3423488-2-clopez@suse.de>
+	s=arc-20240116; t=1783603891; c=relaxed/simple;
+	bh=28FI2HV+RQto7uL7vOBZUQ3tD2S865OcagwBjanwseE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nIc8uX3z6o8pDkkXSp3dHqWVCvOoSRwQ/rDu2etWKUL3MEyc15witbRqZRF25bAZKrNvHBVjBxDP0YBAaNEEUT6VHaxRxgdedZvXlv373UkGVzSdXml8nvDcMpfQ7A3rW3Fyt6L17X3W9FWBZiBXZ8sh5gCbgyd/jlhiy6bmams=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vcf2M8yn; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vcf2M8yn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DC8FDC2BCB7;
+	Thu,  9 Jul 2026 13:31:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783603890;
+	bh=28FI2HV+RQto7uL7vOBZUQ3tD2S865OcagwBjanwseE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Vcf2M8ynpe3cb+4GqG9PhCk8FBZz8xsKHdrgyyV3RTw/BFvxJgd0KF9O8MLB3QcJA
+	 IqDMBoCXOST783QPl3xEV1ZIZLfGKnSb8csbKj2I0AXVfhvfRRlYs/XRrHBTu+mvxj
+	 UNlX7xeowNdrJwYZuXCWK74Lzavk2dxBRvcIQIMlJjtjkFT2A2GQP52FESMPdUaxha
+	 fzuD7ZPhGzrJ7yrDiM9NumS46gfI2WDkfcLIgy/eup7LOESIULgo7cj8xEIdyN90+6
+	 EETEduw+J+/8NKR+mvwFnMk4xZh553+kSulxDFuEltfHxXkT3fdCKRjcI893IyOcxl
+	 vN6Ffv4IutBhg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8CF9C43458;
+	Thu,  9 Jul 2026 13:31:30 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Thu, 09 Jul 2026 16:31:29 +0300
+Subject: [PATCH v2] i2c: mediatek: fix WRRD for SoCs without auto_restart
+ option
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Rspamd-Queue-Id: 57B6976210
-X-Spam-Flag: NO
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260709-6572-6595-i2c-v2-1-b2fb8510d1d3@protonmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12N0QqCQBBFf0XmuQ13cjfsyf8IH9Zpyol0ZdekE
+ P+91eglBi4cuPfMDJGDcIRTNkPgSaL4PgHuMqDW9TdWckkMmKPNLR6UNUdMURolSMoylVSwdek
+ gbYbAV3ltvnP95fhs7kzjKlkbrcTRh/f2cNJr7+cu/tyTVlqV2hjixjnGvBqCH33fOXnsyXdQL
+ 8vyAXrC7/bBAAAA
+X-Change-ID: 20260623-6572-6595-i2c-6ec9c4e6a6a6
+To: Qii Wang <qii.wang@mediatek.com>, Andi Shyti <andi.shyti@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ stable@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783603888; l=2133;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=5I4uNLRRu2akfikPizlAwyA4WFLdXzLI6g0+07ulnqg=;
+ b=knMH5OtWF4DJGyJyp/5TwXppDN/rEXeTi+WquMx+mWXenqL3U45hmu6DwLPj1jf6sZkwwXkMG
+ 41rs/GAxG3jDmbD3MVx/NKtXxKLTrR01TvdgYiQGk3Zrgt8YKihoscR
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-[ Upstream commit bb365a506b1e6fb050c0fceaad354fe395385ef0 ]
+From: Roman Vivchar <rva333@protonmail.com>
 
-The TPR_THRESHOLD field in the VMCS is used by VMX to induce VM exits
-when the guest's virtual TPR falls under the specified threshold,
-allowing KVM to inject previously masked interrupts.
+MediaTek mt65xx family SoCs have no auto restart, however, they still
+support the WRRD mode in the hardware. Because auto_restart is set to 0,
+the WRRD mode will be never enabled, leading to read errors.
 
-KVM handles these VM exits in handle_tpr_below_threshold().
-Commit eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
-optimized this function by calling apic_update_ppr() instead of raising
-KVM_REQ_EVENT. apic_update_ppr() then raises KVM_REQ_EVENT if there is
-a pending, deliverable interrupt.
+Fix this by removing auto_restart check from the WRRD enable path.
 
-However, if there are no new interrupts pending, apic_update_ppr() does
-not issue the request. Thus, kvm_lapic_update_cr8_intercept() and
-vmx_update_cr8_intercept() are not called before VM entry, which results
-in a high, stale TPR_THRESHOLD. This is problematic due to the following
-sentence in 28.2.1.1 "VM-Execution Control Fields" in the SDM:
-
-  The following check is performed if the “use TPR shadow” VM-execution
-  control is 1 and the “virtualize APIC accesses” and “virtual-interrupt
-  delivery” VM-execution controls are both 0: the value of bits 3:0 of
-  the TPR threshold VM-execution control field should not be greater
-  than the value of bits 7:4 of VTPR.
-
-This error condition is typically not observed when KVM runs on a bare
-metal system because modern processors support APICv, which enables
-virtual-interrupt delivery, and which KVM uses when possible. This
-causes the processor to no longer generate TPR-below-threshold exits
-and to no longer check TPR_THRESHOLD on entry. However, when running
-on older platforms, or under nested virtualization on a hypervisor that
-does not support virtual-interrupt delivery and enforces this check
-(like Hyper-V) this can cause a VM entry failure with hardware error
-0x7, as seen in [1].
-
-Call kvm_lapic_update_cr8_intercept() if apic_update_ppr() does not
-find a deliverable interrupt (and thus does not raise KVM_REQ_EVENT).
-Remove calls to kvm_lapic_update_cr8_intercept() on paths that end up in
-apic_update_ppr(), as they now become redundant. This ensures that any
-path that updates the guest's PPR also figures out if KVM needs to wait
-for a TPR change (using TPR_THRESHOLD on VMX or CR8 intercepts on SVM).
-
-Link: https://github.com/coconut-svsm/svsm/issues/1081 [1]
-Tested-by: Stefano Garzarella <sgarzare@redhat.com>
+Fixes: b49218365280 ("i2c: mediatek: fix potential incorrect use of I2C_MASTER_WRRD")
 Cc: stable@vger.kernel.org
-Fixes: eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
-Signed-off-by: Carlos López <clopez@suse.de>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260618174347.1981064-3-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 ---
- arch/x86/kvm/lapic.c | 2 ++
- arch/x86/kvm/x86.c   | 5 +----
- 2 files changed, 3 insertions(+), 4 deletions(-)
+This is a preparation for the mt6572/6595 upstreaming.
 
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index f4574b5a16d8..63e068ae2982 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -980,6 +980,8 @@ static void apic_update_ppr(struct kvm_lapic *apic)
- 	if (__apic_update_ppr(apic, &ppr) &&
- 	    apic_has_interrupt_for_ppr(apic, ppr) != -1)
- 		kvm_make_request(KVM_REQ_EVENT, apic->vcpu);
-+	else
-+		kvm_lapic_update_cr8_intercept(apic->vcpu);
- }
+mt65xx family SoCs don't have auto restart, but vendor kernels keep using
+WRRD mode. Lack of the WRRD mode makes i2c reads impossible from both
+userspace and kernel drivers.
+
+Without patch (mt6595, da9210 buck at 0x68):
+~ # i2cget -y 1 0x68 0x00
+Error: Read failed
+~ # i2cget -y 1 0x68 0x01
+Error: Read failed
+
+With patch:
+~ # i2cget -y 1 0x68 0x00
+0x80
+~ # i2cget -y 1 0x68 0x01
+0x00
+
+Same behavior observed on mt6572 devices.
+
+This change doesn't affect SoCs with auto restart option.
+---
+Changes in v2:
+- Add Fixes and Reviewed-by tags
+- Add Cc stable
+- Link to v1: https://patch.msgid.link/20260624-6572-6595-i2c-v1-1-9155cebaae20@protonmail.com
+---
+ drivers/i2c/busses/i2c-mt65xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/busses/i2c-mt65xx.c b/drivers/i2c/busses/i2c-mt65xx.c
+index 126040ca05f1..307925fb78e3 100644
+--- a/drivers/i2c/busses/i2c-mt65xx.c
++++ b/drivers/i2c/busses/i2c-mt65xx.c
+@@ -1258,7 +1258,7 @@ static int mtk_i2c_transfer(struct i2c_adapter *adap,
+ 	i2c->auto_restart = i2c->dev_comp->auto_restart;
  
- void kvm_apic_update_ppr(struct kvm_vcpu *vcpu)
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 2c5bc03292e3..485df779ae67 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -5339,7 +5339,6 @@ static int kvm_vcpu_ioctl_set_lapic(struct kvm_vcpu *vcpu,
- 	r = kvm_apic_set_state(vcpu, s);
- 	if (r)
- 		return r;
--	kvm_lapic_update_cr8_intercept(vcpu);
- 
- 	return 0;
- }
-@@ -12453,8 +12452,6 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
- 	kvm_register_mark_dirty(vcpu, VCPU_EXREG_CR3);
- 	kvm_x86_call(post_set_cr3)(vcpu, sregs->cr3);
- 
--	kvm_set_cr8(vcpu, sregs->cr8);
--
- 	*mmu_reset_needed |= vcpu->arch.efer != sregs->efer;
- 	kvm_x86_call(set_efer)(vcpu, sregs->efer);
- 
-@@ -12483,7 +12480,7 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
- 	kvm_set_segment(vcpu, &sregs->tr, VCPU_SREG_TR);
- 	kvm_set_segment(vcpu, &sregs->ldt, VCPU_SREG_LDTR);
- 
--	kvm_lapic_update_cr8_intercept(vcpu);
-+	kvm_set_cr8(vcpu, sregs->cr8);
- 
- 	/* Older userspace won't unhalt the vcpu on reset. */
- 	if (kvm_vcpu_is_bsp(vcpu) && kvm_rip_read(vcpu) == 0xfff0 &&
--- 
-2.51.0
+ 	/* checking if we can skip restart and optimize using WRRD mode */
+-	if (i2c->auto_restart && num == 2) {
++	if (num == 2) {
+ 		if (!(msgs[0].flags & I2C_M_RD) && (msgs[1].flags & I2C_M_RD) &&
+ 		    msgs[0].addr == msgs[1].addr) {
+ 			i2c->auto_restart = 0;
+
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260623-6572-6595-i2c-6ec9c4e6a6a6
+
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
+
 
