@@ -1,134 +1,197 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9844343E0
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 16:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DAC742B316
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 16:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783613955; cv=pass; b=GGC0LSc3W2c0r3ZZqLdta6rfw3iNxLxuhcycVXU0MPhIUedcU7RXRlEQ7+N0Qbs37A/R7jvohXTgE+QnmhhDVBb1kDKjYDa8IMar5icqS0egciCroRdvj1GojVdHALu6GVyvYGEZ8lWnVp6vkXqYVcr9nnO3ITxU+JuSz10O3Wk=
+	t=1783614202; cv=pass; b=tOWN5UrI+iH8qhGTieL1HHD2T4muYYQDEkGBNjIUNsVAYhxzIh5uizcLq4yaqyqgKwiViclCWw/NVwOYzA8p2sEtPTXIt5hQPM4aRcwdR9RDf1SnoNtcJVCCW56OdMnPhOaQqvs0paPCH6abvRI1vb4/8Z8euEf24KQGB+pENL4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783613955; c=relaxed/simple;
-	bh=gQxGM2eu5u2Vm8H9Ywp6lE94Xvf3IuH3yqG9rxlZuY0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YcewEn2PrYNTgnvTTezYhjAkGonBJ5/9h4Xdvh9grgiBrUONytARHKgEjY4cwlXxrevEYqnzuQB4kTwaJxc/QYi/vPifw7Zd93fLt/1tTFxFlly/g51IPTcNGlZPMagBTG2Sx3c0b2fqBeHdegexOwXarIPYe+uPrzVMgxWalpU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wnB6nh1Q; arc=pass smtp.client-ip=209.85.210.174
+	s=arc-20240116; t=1783614202; c=relaxed/simple;
+	bh=AVh0ZhnxfKkObuncY/WYjL9wbU3bZMEhiAJjqdd/5UI=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ay1ZxS70TeZ475A81B7WZlLLiH8Mq4xt1zOLs8+dV5TKE3cA9ZUceJh5zJ0JbAlZTMC9MZFF5V6yWA4SuqY2jw2EG9pDY+x73H85cKgyMI6jiFxMyL3gSEIbael5PsWd/7MLn6FnDxkNDjoVmDbi+FoKxGAxgCW/uTZhlyLdEDI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nEQ6udyI; arc=pass smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wnB6nh1Q"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8484a0b998fso2255189b3a.2
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 09:19:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783613951; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nEQ6udyI"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cc7e86e7aeso21089395ad.2
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 09:23:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783614195; cv=none;
         d=google.com; s=arc-20260327;
-        b=F8qaZBf+v4BKtaBhm3wRFLllIIMGtjs32o4DLoKZBe2oTnV9e7Fgfh8fylRzr9gBht
-         2VIPydwPIbp0y0RZhUykGUpJjoMtwqS+coY8wPCIuFzilDnvg1/L3Mwu1oZE+OaO2c3l
-         vKyu0YB5GPdOpX9oEJp5RU22fJYKz4uL569RqLwoeB60dlRlB/jvGGqDzIA1CSPFknZt
-         taKIxTXs7htFSXUEJiEYCbNleP0qa8ja9JiRkkrJd08gEsDo09ZrKL/5SFMouzMZ2HBQ
-         w8oUUJ/ST2JceESDTGyu6pgLXFlJy0TxpWqqktIuaIsFQPmN54p8xoWNqWjmqVJ1zaOO
-         1VTg==
+        b=gMLui/WOeoffmhDxDd4Cp7QulS3a8Eco3wg5lmulU+k6YV/3oom1wRNiF4gkaY0CyK
+         HmQFCe0qgnhrsAp4oxUNPLlri4TL6dfZpVdJ1qbQi5DQfK2QjYGpmCqIQiVEGfTxEY6f
+         eLQ0Ym0O4fH/zzLzOS2Ov2kn2DrYsPz9RBa1PkaQ5fIUNAXhlGi9LaXaLQ8JCRi3Bo1y
+         GIkhiVOd2GsEItFza9wr8D/1EpqBADqw/OBbFJk0lNbYBwQ0xrRmFbr3KnXa+yAKIrEJ
+         K3bfogDR1kHFuVSzwsqi+qPLZWlrdxqtqQyXOJgCylWhNOtI1swb2DeU7xH8+twg4FJf
+         TJOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gQxGM2eu5u2Vm8H9Ywp6lE94Xvf3IuH3yqG9rxlZuY0=;
-        fh=L6Uc7U8zcjl6FG7DToUUgn4C77sI26ZxgsNgZ6JnKSg=;
-        b=sptStNthoWTJ0SYJHKqn6NL9urgSj/TUp5GAEhbUQ/jUfRkjud49oqlWkk/HWWyjIC
-         DKM3xEkOT9VWewv7EYZo9rHVQqrwaR4dxvQjufDdFsT61bAfsYULosPrbr/Ss0BHB/G0
-         OYaJfcJBaeE0uH0rI5CeUpsChw5qh9Ets4vZKBiZUgpYDVhX5WGb5uwTl8hiDeopKepS
-         NYlkW3AA5pJ0eekCazYBEUWdtvU4rMXYQOOjEgjuF9lVusYg8Mr4rTtIkU/8Vq3aTlvY
-         eDlokexaEIMcWU/ekDv96XOAI0AHeRBWdZpONAuZbGEMPU7LnlqA9K65DdnooeVE98Ap
-         odHw==;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=yXLUlDscKdqaFtWa6gdX4peXTtyRH3C0w3/WMXcttMw=;
+        fh=SU3/4NwtM8bWTXj/YeVBDTSKg46CJpcM4KUQm8kwNxQ=;
+        b=CGLXLSpSxyGsalc3H6Fhw1dFvRu+pmq6JAqP94aPLsuzT0x/WL19eBL0EEfpRXoY1g
+         sxZn3S8d21zNPMuq3VgabzZ80s6EkT9AzTMfse+9/9aeStNCnO1tcNds6N2LeAhDvrTE
+         6SMuh5OMxRAa9uD6d7fvFbX8C0tOsxT8PkVD90zJpUSVCAfA5QTleNnrHM6WZiIcT3WI
+         RoCdhXiH+pEtfngvbe6W/5UpwVUZW6tC2LPT0nNqdWeqG2AaC6pOh+AnL1FfL+sX2vXp
+         lHSCoNvsPA8y9p12vZUZXI4bRcld3GoJT7DiEjy1yDWcC6zTOfhZj/YbhAEBWBiZzhij
+         mygQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783613951; x=1784218751; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gQxGM2eu5u2Vm8H9Ywp6lE94Xvf3IuH3yqG9rxlZuY0=;
-        b=wnB6nh1Qh8DREGyiH/uQvoaatPVZf6PA+eqqcViY5Gb0PYpjxcjZZ9+Jry7Z0DugGD
-         muEgATZXsFapR6LhJR+cn7mjd7jNzCoDi/liIbSLSWFV6qaKFByHC9wOeHml5WY3vJOZ
-         6KG3O2uaJ9l114O/kDeDivyQDekIVjyDPhmQn4Slt50XNL+TkmnAKzqlcvNxUpnj2yMF
-         OVuiXoK8dCnZGmYS1dlKiyae+k6paxDlNs7JMXOoeVgbHqmB+cb4hV6OPpF5l/O9xjYv
-         4ky63tQ3LRvEQMOIiw+mIEAro/KtcbZS2QGLDzhEJ3sjR0FafoO8xmuuyCiEUIIu2v+3
-         SDuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783613951; x=1784218751;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1783614195; x=1784218995; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gQxGM2eu5u2Vm8H9Ywp6lE94Xvf3IuH3yqG9rxlZuY0=;
-        b=nzJlLKXIxhIYeOvxFH68sz7+E+ASHgXgqEwFtjwrGJV5xOW+toDhCJJNx+zpi1uZDX
-         H06HUGAYfRNJdiWI5jl65ccDxR4wEpHlAFAhVBBAoYF12HY2rm7vKZPTE9hYLMHxQCS/
-         P8ILjEGhsDfzbnFXMG76a/R7K+UqOnJ4TE85iI52EQBCgUDv7rOIeRuQwZJDWXVManen
-         9yB5pBjwlcr0JkKPjQyN1zDDlPhSKo1owDWE2+AIEGp+mYg5kNM6FJrNHvIl2QIoQStd
-         C8d2INAkru6qrLu4s3nfKSd+OFxCOpdBjedfqYWPjZ/r5vvWiF9BLNR5Yyh3JSZlTRCG
-         53Ig==
-X-Forwarded-Encrypted: i=1; AHgh+RrCKc9vAOtP/r26lU1KOxBf3iz8BYWD/N6zlJ1vd4jpTK0TXL9H/p00yng1vEHldQK6QuRIr+Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyAk8HPc/7Mi8PIWfKL3bhrtULLGxmZSRtIHyX6sCiKgb9tLCgO
-	K5WLvuOCTVBq75Uu5AAfH0XGln+fk/5FUdjpwO4GSbVOTHCndffYFiTI+WfUaSq8yqCqM6I1WmL
-	dRbmUzIXlz1bAXn+I6zlYjeO7ikviAT0x+U1VaHg6
-X-Gm-Gg: AfdE7cnNjidyciQr5zC0RBLY9EeIEMlfSMcV3uU4//QggNyRFGjWarW5LyZ5kquPoUI
-	2VdsuGxqmOM/vVPPpt+XADe1FBZp16VY3iMgnX3S/uPv6rH5yqE4b18UE4AZATS1PavZCzUXNUx
-	mcxPtspJSckf6NEvdEJ2/TQqbloyrU9OGzE8FXaDTIGApJF9OkCRVi04MbPr3pV6Jk9OKkUTosb
-	NdkkU3jGH98F3TLll7RfRxll6HMjQoEqGxI1EQa/nMVqUbefiTgJKocXIyMeOzAEKosWufc9fjL
-	qTHRqy34kFI2nY75DGg4eo/CVTdg+PwFmdBpVb2sUeeTcPmC/V3yqsC7aswhpnNuUFjbhkCxtYT
-	J9unEXXQDrV+dI07aj6CGs6Sye9O+wZnlJ6rMarKvEA==
-X-Received: by 2002:a05:6a21:681:b0:3c0:9c1b:d0bb with SMTP id
- adf61e73a8af0-3c0bd31f12amr9478849637.70.1783613950892; Thu, 09 Jul 2026
- 09:19:10 -0700 (PDT)
+        bh=yXLUlDscKdqaFtWa6gdX4peXTtyRH3C0w3/WMXcttMw=;
+        b=nEQ6udyIjyst2rDviYUNfJeywvPt2TkFOAqIAJfCd4d4WcDTQqEKVLCs2ygrX+N3yk
+         GaFx7+4bvSX6vuKLIl/KKW19uO8yrtwITwBUwpm4DfiIAEjxouI6+MRMYiP1AHBQm2ti
+         wXPkgk+dknKQ8bqSgvyJySzVmDmumYM+SGIPd0RXUN4MA3umPzf+i5MoioLQrQZXiLeq
+         Xl4QfFczwiaQvNJDydEtFuCeDajyOuLAtwoFsdbddd1AXy1HWzswoH7f1/SqWJp0uWru
+         /KXBGQZw2yQvj7HxOKq7ej8S2CnfIh6gUOyB2+O8bTqEmQ0sz1QpG4zpqCPPUAnkmYzp
+         uLtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783614195; x=1784218995;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yXLUlDscKdqaFtWa6gdX4peXTtyRH3C0w3/WMXcttMw=;
+        b=ZZQTF2xpRReaxgl6Wkh60iyBevZL8hLP1fNiQJ8XfonyeHvj4QDt1dp5KekuzrWyoH
+         79t+efKoMJbaJ86EhdXizpgnPyc3pyuBaAKPxKuyPaZNeflnYrDZg+Hmu9dHSRUFLpme
+         JWaA9nsXotOCgUhPFzKHBfEO3hME6tqJTfpeXbfuv4MShJ+sJAGJy8KHXQJr+VQqAx5w
+         cYfGZIzFUkM+LP23NFVuuYoAVHlxKVg7bZr6ukiCLSumgxOqUsPMQJ5IXnnMdXX1Q1iq
+         cRrqVM6n33rp8UM1QdRG4RO2K0xBUu/AUDfVZ8wr6fh6/WxrGoj/bNEH1/t6VpUI4BfD
+         CdKA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqr+pkzFQ1ZUVWlAPcMvDQjQuYsxTN+2WfhF1cMJ+pt6NWZUdxxwaSI1vb7qKuZMj4ObEynSO0=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1J+P5B0c242I8Wmn6XI4Ap04hP6lheqmy21Kw4EmiUVBa1ECu
+	eyzI7qXyeh2Kwu0Dhis0pUi8lIL1YJ0rzCRnWZhVpsiInjI/y0vqesZCZlsuEDJuDDL31ugcOE/
+	Iv5TqHYdqZCFI0VhmOF7xkBW7Zl8sODB5xI3+4fa2
+X-Gm-Gg: AfdE7cnxLsnKpoRqb2tmq1Q6jdQeIb8PbNgKcFYf7LAVLJw3nYnLErnCELgQYbwAQ3j
+	gGgzuIMZDf6vOGQ7gDAlQh7nuKW18gY/naAq6+rYM+xJpCll1mHhHPsALHb50l/lo9fYyfS3gSp
+	f39/IGp+cF1lUjazD4zNmwHtYJomdUER3DxWTlZXwIRS6imKltTMAkdT0PfAvr2P+8VW5GS1e4+
+	sSvuI1GeuxtfRmWdAXuQMkS91DT3xWWsq4I+wTDS9fNNchdiQTqQ8Jf9IJC+dL2wf7bREHJ184C
+	NVJg8S70fn/NbjG2pcXsrBv9X9RXgecXJe4fbI7y/CLTWLtY6YXSIhexb1k=
+X-Received: by 2002:a05:6a20:d507:b0:39b:d5f1:4ff with SMTP id
+ adf61e73a8af0-3c0bc902b0dmr9484766637.20.1783614194738; Thu, 09 Jul 2026
+ 09:23:14 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 9 Jul 2026 09:23:13 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 9 Jul 2026 09:23:13 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260709153409.2091070-1-joshua.hahnjy@gmail.com>
+References: <20260709153409.2091070-1-joshua.hahnjy@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709025316.999913-1-mattbobrowski@google.com> <e30f1c25-bc81-4a2a-a997-9b7007890b03@iogearbox.net>
-In-Reply-To: <e30f1c25-bc81-4a2a-a997-9b7007890b03@iogearbox.net>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Thu, 9 Jul 2026 09:18:59 -0700
-X-Gm-Features: AVVi8Cdf2N_xKO2DUBcyOo5bx6SqShDIF7paay7Ksht1saLiq2ja-PfJ_1i66nU
-Message-ID: <CAAVpQUDh7bNkLyQWzXmu-=V4KEV_t9-9ubaj3AjjYwJFivbNLA@mail.gmail.com>
-Subject: Re: [PATCH bpf] bpf: fix UAF in sock clone early bailouts
-To: Daniel Borkmann <daniel@iogearbox.net>
-Cc: Matt Bobrowski <mattbobrowski@google.com>, bpf@vger.kernel.org, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, jannh@google.com, 
-	stable@vger.kernel.org
+Date: Thu, 9 Jul 2026 09:23:13 -0700
+X-Gm-Features: AVVi8Cch-3WqSt7i_HowDJvLyFz1SAr8FV9RFaDIKKJW4K9V-dKOUNAs9cFlW40
+Message-ID: <CAEvNRgH9WSF64eKardR9M9VeRiN85UkS=Zsje9H8mqjQQychmw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/5] mm: hugetlb: Fix subpool usage leak on allocation failure
+To: Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>, 
+	Wupeng Ma <mawupeng1@huawei.com>, fvdl@google.com, rientjes@google.com, 
+	jthoughton@google.com, vannapurve@google.com, erdemaktas@google.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	David Carlier <devnexen@gmail.com>, Zhao Li <enderaoelyther@gmail.com>, lance.yang@linux.dev
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 9, 2026 at 4:53=E2=80=AFAM Daniel Borkmann <daniel@iogearbox.ne=
-t> wrote:
->
-> [ +Kuniyuki ]
->
-> On 7/9/26 4:53 AM, Matt Bobrowski wrote:
-> > Similar to recent commit 9b51a6155d14 ("bpf,fork: wipe ->bpf_storage
-> > before bailouts that access it"), sk_clone() performs an initial
-> > shallow copy of the socket field ->sk_bpf_storage via sock_copy() for
-> > the cloned socket newsk.
-> >
-> > If sk_clone() bails out early (e.g. if sk_filter_charge() fails) prior
-> > to calling bpf_sk_storage_clone(), newsk->sk_bpf_storage still points
-> > to the parent socket's BPF local storage. When newsk is subsequently
-> > freed via sk_free(), the deallocation path (__sk_destruct() ->
-> > bpf_sk_storage_free()) destroys the parent socket's BPF local storage,
-> > leading to a use-after-free (UAF) on the parent socket.
-> >
-> > Fix this by resetting newsk->sk_bpf_storage to NULL immediately after
-> > sock_copy() in sk_clone(), and remove the now redundant initialization
-> > from bpf_sk_storage_clone().
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: 6ac99e8f23d4 ("bpf: Introduce bpf sk local storage")
-> > Fixes: f12dd75959b0 ("bpf: net: Set sk_bpf_storage back to NULL for clo=
-ned sk")
-> > Signed-off-by: Matt Bobrowski <mattbobrowski@google.com>
->
-> LGTM, thanks!
->
-> Acked-by: Daniel Borkmann <daniel@iogearbox.net>
+Joshua Hahn <joshua.hahnjy@gmail.com> writes:
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+> Hi Ackerley,
+>
+> Thank you for this series. I really wanted to work on hugeTLB accounting
+> fixes but never got the time to get to it. I'm very grateful that you
+> are taking a look!!
+>
+>> From: Ackerley Tng <ackerleytng@google.com>
+>>
+>> When alloc_hugetlb_folio() fails early (e.g. buddy allocation failure or
+>> hugetlb cgroup charging failure) and gbl_chg == 1 (meaning a reservation
+>> was not used, but a global page was allocated instead), the subpool page
+>> acquired via hugepage_subpool_get_pages() must still be returned.
+>>
+>> Currently, the error path out_subpool_put: only calls
+>> hugepage_subpool_put_pages() if !gbl_chg is true. If gbl_chg is 1, it
+>> skips it, permanently leaking the subpool's used_hpages counter.
+>>
+>> With the earlier patch to always track used_hpages in the subpool, always
+>> call hugepage_subpool_put_pages() if map_chg is true to consistently
+>> restore the page to the subpool. Only call hugetlb_acct_memory() to adjust
+>> global reservations if gbl_chg == 0 since gbl_chg == 0 indicates a
+>> subpool (and global) reservation was used.
+>
+> So I think that I've seen that this part of the accounting specifically
+> is a bit suspicious. There have been two attempts in the past to fix
+> this area [1] [2]. I think functionally they are quite similar to this
+> fix, they just open-code the contents of the put_pages function inside
+> the condition. I've Cc-ed the authors of those two patches in case
+> they wanted to chime in.
+>
+
+Thanks for connecting us! I didn't realize this was already being worked
+on. Also adding Lance, who commented at [3].
+
+> I reference these fixes because I think they handle the minimum
+> subpage case a bit differently. To be honest, I recall reading those
+> fixes a while back and getting a bit confused on what exactly happens
+> when the page is absorbed to fulfill the minimum size...
+>
+> It does seem like Sashiko also notes this as a possible concern.
+> WDYT? Does your reproducer for this issue also work when a minimum
+> size is set (let's say, to 1?)
+>
+
+Let me look into this more!
+
+> Thanks again. I hope you have a great day!!!
+> Joshua
+>
+>> Fixes: a833a693a490e ("mm: hugetlb: fix incorrect fallback for subpool")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+>> ---
+>>  mm/hugetlb.c | 14 ++++++--------
+>>  1 file changed, 6 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>> index ee5e99c1894b9..4093c1c0a4a1d 100644
+>> --- a/mm/hugetlb.c
+>> +++ b/mm/hugetlb.c
+>> @@ -2852,7 +2852,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+>>  	struct hugepage_subpool *spool = subpool_vma(vma);
+>>  	struct hstate *h = hstate_vma(vma);
+>>  	struct folio *folio;
+>> -	long retval, gbl_chg, gbl_reserve;
+>> +	long retval, gbl_chg;
+>>  	map_chg_state map_chg;
+>>  	int ret, idx;
+>>  	struct hugetlb_cgroup *h_cg = NULL;
+>> @@ -3003,13 +3003,11 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+>>  		hugetlb_cgroup_uncharge_cgroup_rsvd(idx, pages_per_huge_page(h),
+>>  						    h_cg_rsvd);
+>>  out_subpool_put:
+>> -	/*
+>> -	 * put page to subpool iff the quota of subpool's rsv_hpages is used
+>> -	 * during hugepage_subpool_get_pages.
+>> -	 */
+>> -	if (map_chg && !gbl_chg) {
+>> -		gbl_reserve = hugepage_subpool_put_pages(spool, 1);
+>> -		hugetlb_acct_memory(h, -gbl_reserve);
+>> +	if (map_chg) {
+>> +		long gbl_reserve = hugepage_subpool_put_pages(spool, 1);
+>> +
+>> +		if (!gbl_chg)
+>> +			hugetlb_acct_memory(h, -gbl_reserve);
+>>  	}
+>
+> [1] https://lore.kernel.org/linux-mm/20260428113037.88766-2-enderaoelyther@gmail.com/
+> [2] https://lore.kernel.org/linux-mm/20260515202902.461539-1-devnexen@gmail.com/
+[3] https://lore.kernel.org/linux-mm/20260428113059.79001-1-lance.yang@linux.dev/
