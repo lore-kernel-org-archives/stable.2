@@ -1,116 +1,136 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD1842E8E6
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58D9331EDC;
+	Thu,  9 Jul 2026 13:54:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783605081; cv=none; b=LL1zODaIjgPMfU74DRBUruc9RvdbYmswDGccN/lExNIcABUEsB1NLVc6Ca5P69Oh9SNgFmL1fuu1U85ylYH6NoaNiTJWnSA3QXWxw+cWHO6purt28djFRm3Q5EhIFtki0Ug6O13MvxzIHAQw9au157alcrZxIkZJmp3wR5yo0R4=
+	t=1783605253; cv=none; b=n6Yk2jrj2rXLhDSx8p40yNivEWaXcXLu2AU87OahevkhvFtIV2j9Uj7Xddcc9uPOC3zSaSNUzrvEFwp0w9ksuguaEDQ4McEPVQzkKq+9U3Xu+cWUbTrcvUSRqcS5v6s4qe5z+6nTWK110YrAzb8e9Mfgw2YLlqx7X8pnqgE89DA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783605081; c=relaxed/simple;
-	bh=qpSIGxXePD5q+WNHiKXJBHgaLMuHvc3z0oUjbEqV+LY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ReXNnVWvIXSgQ2+nBYZdshiOg3buTVypXbJUUSdGyc2XmILXfgAixLX4TcUEdVWhll896fzIWuWnLZY2z6Y9FcUdjMUeddIxZzTbV0tTuaZJ/agbqWXzcJ69PLN9fsgeBhYSN1y0D3vA41MK0Vf6X5uIL3aIJhPl7TKIzkrP+1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=de7IzDi/; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783605253; c=relaxed/simple;
+	bh=N/FVJoLGchO37FNS19p+JzA0T8fcwmsQE/YKK1R72tU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dbp809YamQrtrI8ian/7u70VnU5HqA1VMh+nut+6XLp3adC8jC3PovnbSQqyxuTkoLPPRueLxlSVYjykoPDKGItRZ+QyQj8J78Vu/jfvpXe/hwP/kbH7DW7Au0wZJuwzyuSS+DYXUUqvulCWtHjdtwrWgUcVtIvsg6LMZdilFGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rmbmNdu3; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="de7IzDi/"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4798bea72f9so454892f8f.1
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 06:51:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783605078; x=1784209878; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1i15TENNOeFnpEjkQ9JLbwEKpF9zI2nmRMO6KesUt6A=;
-        b=de7IzDi/LPu9NBVfqrLISb9trDGs6yHqjCReBYHYYiBLoHaJZY2Vz/xmIytuSKyg1i
-         g4/5CDBJiscEOatiYTrd3dfSDjEGAnyexBLj/gCV0OA+RKw8FRd7e4yyV5U9Ph/sDZQy
-         pxkqXKgrK6m+mFmE7uH9GPjcjxo+xlLktAqyzhWp1GJp/MrHkaqoIz8zd2oLYq1T0pKE
-         9hBn30AKiBtXnCkyMXLkqcFb2E9yeoQnxH7A/Dst50acyK2yitNOklIfvEKD/RN7OoVo
-         E7WF5A72njk+9hVP40gy9wOlD57zOYIhEELO2WbYj8HVbE0IQOBVpyqssuU8VA7AhdwO
-         D90g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783605078; x=1784209878;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1i15TENNOeFnpEjkQ9JLbwEKpF9zI2nmRMO6KesUt6A=;
-        b=qdp3UXTEtnHF/dmz0CioglPnlm0UoyzKX4RgfC5363h+lPzSyzHEcJ0i0rb5wV0q49
-         +YEAE6Mxh0tuUWdG6XZSp1ouvgd0MuzbdLirhJimkwbYxy6FPrWmNWoNVx/MR961XZmV
-         uFba6hk1auJ509AKl0/3Wk6PDrgDBp+JPxR1UiB5/KDj1rKulNMe+MrZ167TXQQD6dVM
-         RehZ20bQv4QL0qkcOs7whbxZYeBbRHXdwVm6JFvMYi+5KG1vVJFXn43L1q5BUcFcw1X6
-         COb65xdeTPXkTqxOs6q8u29TrILUElD8RjI++JY2PzClbwLC9oV7jRyb+dDoX8UBkL3S
-         DtAg==
-X-Forwarded-Encrypted: i=1; AHgh+RpHDPT1FwooxUm37XlgDWT3chfvQwKXfn63lRiMJbl0P7SsUeLvVIWqlISWnLOO5d79wOV++tI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzmsm3bKxgaKl4le3hk/9QBElBOpnjT7RE4dPvplkH/PmQ9NPke
-	G1GY7XXNYLphC6FCwFKSuL5agApkwoDtpepAS6wGTMX2BVlwdUBqLYV0
-X-Gm-Gg: AfdE7cmpQKqv033SpSFXW7R0agDSkrhd0jo6Ug5R1uFMEZxNWXrw7cov4YYHagcnXzN
-	eiOV9dvjdwf8Y7IEm2CdgtX0aNJPoWWbbwV0/5WUhvqLctanw1L0nE/EEctXYlgzKwRQbdcDF2q
-	+weUXe9LQmbr9/Af1BbKHneYBNQPGbGi+4hR0sw4T9jhOToTOiAkog1Zkk+4Ve10RVSlNiX2tK8
-	epptYVTTZ/uEtJlJpE9MJiPeazgaJWovzqHT8kJMVQsFKi+OYsKKbRXw8COgNBYmHtqykvVozqU
-	javPAvAkq+y+5qoctJNxr4XMt1yLg6COFQNNQSpwsLk/eN7ek2yDgaItrK7ANn+0NpWewp5ccyK
-	GXr084cb49dz9ELQWwNxrWx2/5p0Cn5C/2kGqWzj+Hpua5tnZr9Cm5jIl91Ujq3+F84hYFDANHS
-	1/XVIgoZi9r6ruJ0aI1QhjKAXVAQ1rbbGO3M01wbRRY6juIWPFbBTE1sqhF+H17Q==
-X-Received: by 2002:a05:6000:46d0:b0:47e:5c6c:5129 with SMTP id ffacd0b85a97d-47e5c6c51b1mr270729f8f.27.1783605078517;
-        Thu, 09 Jul 2026 06:51:18 -0700 (PDT)
-Received: from [192.168.0.105] (88-187-52-200.subs.proxad.net. [88.187.52.200])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm51644657f8f.13.2026.07.09.06.51.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 06:51:17 -0700 (PDT)
-Message-ID: <b885d245-bf13-45e3-8c60-28417a63fd91@gmail.com>
-Date: Thu, 9 Jul 2026 15:51:12 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rmbmNdu3"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669BmnhH2227120;
+	Thu, 9 Jul 2026 13:54:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=rGOOVeLA20x0QPPK3WXVNgBbJLjJxEmrpOrL3YTRh
+	zs=; b=rmbmNdu3zZjhOsUB1fci3+/jwEvdrPEjtgWpY0ZCnMlHgtymHEMczGQye
+	++ONjy6r0Eh3YsoyQNxhjo9YxgDNyKz+Nkexjqdbt7WonJm331ybFBPpyqIDnHFT
+	P5ASwMeFurEiCJ9jz5tOXRZQl9+jFcMnle7e6rqdkgi6sbkK+M30PjKrGbE++0Y4
+	gF0wGc+TdbP5oXWACpcyyT0NA7RGtfjyjS2/ew0466cXYljQFQFuFvfPz8qjVfqy
+	Sz9xUotQygBzc8U7cWgSAyEkyvEOfiJLpjuxCXYw6affEAgFzUbeM1maZuKnIap5
+	frdwjh199FL9jwSN3ZjsCHBwxJTXA==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4f6qknsejg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 13:54:08 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 669DnbtR009769;
+	Thu, 9 Jul 2026 13:54:08 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4f7e0hn9f6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 13:54:08 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 669Ds69l18547344
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 9 Jul 2026 13:54:06 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C454058045;
+	Thu,  9 Jul 2026 13:54:06 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3A9925805F;
+	Thu,  9 Jul 2026 13:54:05 +0000 (GMT)
+Received: from li-2311da4c-2e09-11b2-a85c-c003041e9174.ibm.com.com (unknown [9.61.74.132])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  9 Jul 2026 13:54:05 +0000 (GMT)
+From: Matthew Rosato <mjrosato@linux.ibm.com>
+To: linux-s390@vger.kernel.org
+Cc: alifm@linux.ibm.com, farman@linux.ibm.com, borntraeger@linux.ibm.com,
+        frankja@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org,
+        hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        svens@linux.ibm.com, schnelle@linux.ibm.com, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] KVM: s390: pci: Fix handling of AIF enable without AISB
+Date: Thu,  9 Jul 2026 09:54:04 -0400
+Message-ID: <20260709135404.2255136-1-mjrosato@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 000/121] 7.1.3-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260703072822.817328079@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260703072822.817328079@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=Q/XiJY2a c=1 sm=1 tr=0 ts=6a4fa800 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=rbFSK_jk36QTBQMObJwA:9
+X-Proofpoint-GUID: NhFBMyCD1wyjfu55y7Ayc5Z7iAQwlMmM
+X-Proofpoint-ORIG-GUID: NhFBMyCD1wyjfu55y7Ayc5Z7iAQwlMmM
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDEzNiBTYWx0ZWRfX2ByoNDUUmO7J
+ aBD8MdU+BxMWMuYdI6yLdhcjuWWwJXc7mDuhgqYGGe92XOQwXxeFX3+P1C+b7MPAbMbS223RKnT
+ hi0r6TTqEesjuq7lAKEalDGdyEoJ3/Q=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDEzNiBTYWx0ZWRfX3i7GFpHGf/OM
+ iDSng6t2vsr+obnfjamI0C2ANIwvbPfOWuA75DJ/fFPRaIDPSjrH7fREKpOgbrpsZReCLjCyrEF
+ uxjJuRZWDvFMjhJZId2CMlAgRackoutVVSF6n6nYW226e2CVbehO/bEBpTmpRw3HYDqbzWaZ1Y7
+ L3PvMBCzurLPN+sd0cA86QArH4Ju7mulNMqXNYM7ix9n3/HU8Y9ao+JSLmSR61EeFvi19n/eN8T
+ T2tqtdz7j+DSc/9/AiTzg7MnCxYIHvgJqhxTcISUaudl64+ombI+0O/n//HrRNsjFZI+N5HAwJH
+ Xbyrm0igzpEFD+r+cYnmnqdKwNc5zru0q9i7/frDER+ndT31yAbc2udhNDC91nVbeBQsh1WyO0/
+ 4PYLV5/HH2JIJz4dpaC+rB/Fp+/XT5nFPZ8Ns1+cGBlMU9OC8kWrhqkL390FCrsYd9+8l5i+vhw
+ RlgiBCHDY2hP2Y617dQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_02,2026-07-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090136
 
+When a guest seeks to register IRQs without a summary bit specified,
+ensure that the associated GAITE then stores 0 for the guest AISB
+location instead of virt_to_phys(page_address(NULL)).
 
+Fixes: 3c5a1b6f0a18 ("KVM: s390: pci: provide routines for enabling/disabling interrupt forwarding")
+Cc: stable@vger.kernel.org
+Reviewed-by: Farhan Ali <alifm@linux.ibm.com>
+Signed-off-by: Matthew Rosato <mjrosato@linux.ibm.com>
+---
+ arch/s390/kvm/pci.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-On 7/3/2026 9:35 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.3 release.
-> There are 121 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 05 Jul 2026 07:28:08 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.3-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, please backport 
-7ee7f48413c42b90230de4a8e40898b757bc8e82 ("perf trace beauty fcntl: Fix 
-build with older kernel headers") fo the MIPS build of "perf" to pass:
-
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+diff --git a/arch/s390/kvm/pci.c b/arch/s390/kvm/pci.c
+index 5b075c38998e..dc748cde4703 100644
+--- a/arch/s390/kvm/pci.c
++++ b/arch/s390/kvm/pci.c
+@@ -300,9 +300,14 @@ static int kvm_s390_pci_aif_enable(struct zpci_dev *zdev, struct zpci_fib *fib,
+ 
+ 	gaite->gisc = fib->fmt0.isc;
+ 	gaite->count++;
+-	gaite->aisbo = fib->fmt0.aisbo;
+-	gaite->aisb = virt_to_phys(page_address(aisb_page) + (fib->fmt0.aisb &
+-							      ~PAGE_MASK));
++	if (fib->fmt0.sum == 1) {
++		gaite->aisbo = fib->fmt0.aisbo;
++		gaite->aisb = virt_to_phys(page_address(aisb_page) +
++					   (fib->fmt0.aisb & ~PAGE_MASK));
++	} else {
++		gaite->aisbo = 0;
++		gaite->aisb = 0;
++	}
+ 	aift->kzdev[zdev->aisb] = zdev->kzdev;
+ 	spin_unlock_irq(&aift->gait_lock);
+ 
 -- 
-Florian
+2.54.0
 
