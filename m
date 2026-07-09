@@ -1,118 +1,86 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f202.google.com (mail-pg1-f202.google.com [209.85.215.202])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD43032E126;
-	Thu,  9 Jul 2026 14:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEF33358C4
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 14:26:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783607048; cv=none; b=uOXQISzXLg0DDTNRTCKCOyS4PcdyDvPrBjsF4vzrkj/TLB/6lLFXDaNKLJI+WRTHQS4KUTDPys0bolGtDkc51/vycaE+fb03Icv6i+jFSIoXv8WNJkHZRBK9difRZm3/zClOoARjdrlvkVWf6Ak1b7c6gEz7XKqFCybOs5YfiOU=
+	t=1783607202; cv=none; b=W1Fg5l862HFcpcr76Dq4TV87BhAYxIPZVVZZO+yWRLDehDWukqGmhvwIC0iWbnuJdzKiogfxD+Af9+Vel3CHt+0VnQCXTFAg5Kjny1aKHdSBBt9QwzpCx50Wke/LZXfJihT4s6VYfwZqVrWgCpkcw3kzvXx2JGkPuFfxPZaMsOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783607048; c=relaxed/simple;
-	bh=dDKsjE3RVjCKGokvF66LLzqTtaVf3fa5Sz41h206St8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I+yaHvStFoE0dWv6vsxFxLk2qJVBS2hFikoUW1RHXjC95WFZ00six4Oxg382CxTlg4LqfPk7XYyCP75pLUjWtsesNVRx0EoEyNX+qf8O2D8LrZNK0ktv1czxVhfGAcInK/Y9lRXNHcrhi5qcAlgsJnMxoLv2Rwrs08FEk86OxgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=AdbMNwpr; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1783607202; c=relaxed/simple;
+	bh=AvDGGIFdvfyG48a0v2fwoMwweojtQzzrwLe+oLl7Eo4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=khit2MleCEo/7OlPgX7cMGXsSe19AFPqGLpQp96OX1XhAvVlFcdR399KTwM6yCVTUTufIl/m+kmEt4pd+UJ+vfTIQHLAHENqzdslL4cnC2NTmEbzdc2yy6n6pwGCPyvynaf1PoHrj+y6ICnLzNCcnNWdKa2pcc7eV64CzCUM1zU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gwfqtdxV; arc=none smtp.client-ip=209.85.215.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="AdbMNwpr"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669EJ60R1771144;
-	Thu, 9 Jul 2026 14:24:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=mQkrOb
-	J2v8zQSd9F7DLB1UOYyBJtCnKpr8TxmNP5rKM=; b=AdbMNwpr5mKkCFgD9fTsym
-	zEuqAesgQA2KzI0sqZ0wxa9COC0CB4DdBoMMRUeDVJSf5Ah0QuIiw9rj6qZdiaff
-	7IqGPMyQokGIX+Y50E0Ai3aK7BH5CYzqjBK977yNKoaPERGe38OfTBx5bA0WPZ4H
-	dbPTwxI5VUyiAb5PaMem0bnkVPpeu6kN2NfK7PAQDt3E1crIwM8qrjNWg5kUMTxW
-	y6YbXTw3RVK+z1AnuPZB9CRcojCyW6kr/Yzld9DnrXun8bR6jd4E7yl/c82CxAzl
-	GdUZeOQr84LgyOGiWfUvEiMor+ni6IDNGg6m4mZhqMfoHRfBEVOd6UDp54/QDH5A
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4f6rke2fs9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Jul 2026 14:24:03 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 669EJdcQ029834;
-	Thu, 9 Jul 2026 14:24:03 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4f7cgqdq4y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Jul 2026 14:24:02 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 669ENxA752101514
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 9 Jul 2026 14:23:59 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 443A020043;
-	Thu,  9 Jul 2026 14:23:59 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F073720040;
-	Thu,  9 Jul 2026 14:23:58 +0000 (GMT)
-Received: from [9.224.77.173] (unknown [9.224.77.173])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  9 Jul 2026 14:23:58 +0000 (GMT)
-Message-ID: <49866675-0dea-4980-af50-f085baf77e1d@linux.ibm.com>
-Date: Thu, 9 Jul 2026 16:23:58 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gwfqtdxV"
+Received: by mail-pg1-f202.google.com with SMTP id 41be03b00d2f7-c89956023dbso3023037a12.0
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 07:26:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1783607200; x=1784212000; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Hrl+gJrrAEntwoqn7ozuJTPwa0HC/rx+mLWUc50gGHs=;
+        b=gwfqtdxVb8/nuFkd12pVFB6KdmBx+KBLM34ItGOclL2m+hCycU0IDobHjPzrRkIor6
+         4gwxA8V0MsUvuiJhzKMgQb5KQHeGz4Qyzl6YYpeTmRe3rusNwsds88RoxSLpodvKlAJ0
+         5qVb4v4mNi0upUIQE7hAIZmFiMUZ2TinsIeKkptCAVCLP09adXQokQbtgT4/ZwaiNkmN
+         44VPpKeb+sBe9ETYG27gpMASQHq1gtzIPn+1kwROcYq0BG+D0Ae8TfGg3NR5BIkaHGYa
+         gKlW31NvogoIa9FnlPfSfRdWRLgkoOhj5C/LWMO2i6QR5wHGXp3P5+0v975mYYHPwr2l
+         TL/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783607200; x=1784212000;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hrl+gJrrAEntwoqn7ozuJTPwa0HC/rx+mLWUc50gGHs=;
+        b=potMkX+ilv1r1+vKyJnMfxJpC67jEta0XeRLH9Qg8KzUwbx9rl6r/jud9c44CKhlXK
+         cBucNZjRxpNFSnPxJGemvGmjBLOnCcEZYRkEqSlc7w+tLFyG350quchjYu25uZnUP3xG
+         c1onFwuOowBqEfwVeMz1fqcmcl1kakmKXNXFg90/3Y+LPBZBq36ubIy1mARxUwOQcZhy
+         DFvN7SwKkACv6yP1kdHrdW42jkcq2/VF8jN3EYIj5zXydlyZsvbnfY/QHDV50dE8YcDc
+         G3VeLQ3KN0iWNfMoMOl9qXHiJ6geNxajevccNKTDl5bZavDoqCL9Kk42rXNR+xwp9EZr
+         Fx1Q==
+X-Gm-Message-State: AOJu0YzH9e6D3K85pULi7t3lBVLWSwNkAEhekUljkGYWvPavjgmoRlP0
+	W5clyDsMgH2Z8IEuihSjJuZ9hm/OqqK9JEmeojP6WATDls9Febz4A5aB30k/xo9b6lu0WBoD1Oe
+	aVlG2HQ==
+X-Received: from pgjm22.prod.google.com ([2002:a63:fd56:0:b0:c9e:1b4c:6a93])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6300:6d8b:10b0:3c0:bfd6:965c
+ with SMTP id adf61e73a8af0-3c0bfd6a519mr5310537637.10.1783607199901; Thu, 09
+ Jul 2026 07:26:39 -0700 (PDT)
+Date: Thu, 9 Jul 2026 07:26:39 -0700
+In-Reply-To: <20260709132109.3423488-2-clopez@suse.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: s390: pci: Fix handling of AIF enable without AISB
-To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org
-Cc: alifm@linux.ibm.com, farman@linux.ibm.com, frankja@linux.ibm.com,
-        imbrenda@linux.ibm.com, david@kernel.org, hca@linux.ibm.com,
-        gor@linux.ibm.com, agordeev@linux.ibm.com, svens@linux.ibm.com,
-        schnelle@linux.ibm.com, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260709135404.2255136-1-mjrosato@linux.ibm.com>
-Content-Language: en-US
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-In-Reply-To: <20260709135404.2255136-1-mjrosato@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=M7J97Sws c=1 sm=1 tr=0 ts=6a4faf03 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=ZzQCogtDLUch3_FqSnQA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDE0MSBTYWx0ZWRfX24+YS9bkLchL
- tQC4kBFEZ9WhzYSh30MTbciKvcf1P+rG+AGEybioU3J1ijLaKeJKkMP7uVUD3r4/4JOxoD7lNEx
- sZcxcr8jVNLVUdrg9CnmH2vGtPw+OlnrnnpR3GABEjMpNSFR/l88/ZV5l2CSvUW9rxi5nzgAmPB
- GoP5pWZxEH79cuWXe9P6vYNE0yM3Qv7Dq1XJe0o66SXZYKFaOutxhZtAuV8yRKIx8nLVkNtZ7C9
- xqAWBKB2S+tkCPiCoe6e4rrrwz6+REI+oKqRSSYFHV70Fg4tPaNVQjVtWLK9VYAQz+mgVwxQz0r
- A+zUyjcYP3vqUxZ5ZUoWqGEjz8nNZhfEQ/wqClDcuukd5z+dPsFvdAitY5kFwTx4xNgUhVhSydq
- czlNahh8lqA50Cv0WF0xoftPwA2VnFnJ3j7L8yZ4jLlJ2mOJXHDCifE13ou+YEri8uTDz3mP3OA
- CWJDU5P9dwB4eXZmoAQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDE0MSBTYWx0ZWRfX9ZQebgoj1EQ9
- MNPdm8chQHSWUMn3e9ZPP9roBEefjj2IU/kYSQLz8zmqjb1eVmU4rNAqhWAgP9bilxuhAWqjWgo
- mxG2LkxV3u2xPf/wwAlbt9d8N2R82yE=
-X-Proofpoint-GUID: C4MDguPGkiwHef7-Y8OTAhioIWEUN-Hw
-X-Proofpoint-ORIG-GUID: C4MDguPGkiwHef7-Y8OTAhioIWEUN-Hw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_03,2026-07-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015 adultscore=0
- priorityscore=1501 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090141
+Mime-Version: 1.0
+References: <20260709132109.3423488-2-clopez@suse.de>
+Message-ID: <ak-vn-wFtHZW3PBd@google.com>
+Subject: Re: [PATCH 7.1.y 0/3] KVM: x86: Backports for VM entry failure due to
+ stale CR8 intercept
+From: Sean Christopherson <seanjc@google.com>
+To: "Carlos =?utf-8?B?TMOzcGV6?=" <clopez@suse.de>
+Cc: stable@vger.kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	gregkh@linuxfoundation.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Am 09.07.26 um 15:54 schrieb Matthew Rosato:
-> When a guest seeks to register IRQs without a summary bit specified,
-> ensure that the associated GAITE then stores 0 for the guest AISB
-> location instead of virt_to_phys(page_address(NULL)).
-> 
-> Fixes: 3c5a1b6f0a18 ("KVM: s390: pci: provide routines for enabling/disabling interrupt forwarding")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Farhan Ali <alifm@linux.ibm.com>
-> Signed-off-by: Matthew Rosato <mjrosato@linux.ibm.com>
+On Thu, Jul 09, 2026, Carlos L=C3=B3pez wrote:
+> Backport for bb365a506b1e ("KVM: x86: Unconditionally recompute CR8
+> intercept on PPR update") with two prerequisite patches.
+>=20
+> Carlos L=C3=B3pez (1):
+>   KVM: x86: Unconditionally recompute CR8 intercept on PPR update
+>=20
+> Sean Christopherson (2):
+>   KVM: x86: Move update_cr8_intercept() to lapic.c
+>   KVM: VMX: Grab vmcs12 on CR8 interception update iff vCPU is in guest
+>     mode
 
-applied and queued for master.
-Thank you
+For the series,
 
+Acked-by: Sean Christopherson <seanjc@google.com>
