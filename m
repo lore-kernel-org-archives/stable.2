@@ -1,88 +1,85 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14308292B2E
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:34:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FC528C86C
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 13:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783604053; cv=none; b=Ak1dc4/8g5lbghQuGb1Vw1HtzbnjhBRAb6oNTKr5O0/DzEDThmwznQru6pUl7EkeI7XaExx1OfqeCAfDcBUiK+k23zhbAbYuZ7uo4Qu8sUPh5vLC25kVjdE2c9yiFACkPmLJ2RVv35EYU7jPeJKl7n9jlFv7I57sDoWmbQOK8AE=
+	t=1783604251; cv=none; b=J8jcHzAieluKqqPH4bSeK2Q1MmlzdsfxZW84dJMUa76E+niHMfwwm9gpfWEkq85UKVMt/dq7s9fEG9jQxT0mbCVmG/Xul9CYoNeekZPjwySmz1bksEe4VCC29G+vZ/R3V6eAn2xrN1XG+50ir8ZW3FjNFx4S6GP7JCN3CT1lsUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783604053; c=relaxed/simple;
-	bh=FOVocem26volhUw/xQd0rQdWKak4frEjmSSDaUnue3c=;
+	s=arc-20240116; t=1783604251; c=relaxed/simple;
+	bh=ncWhm7gJeQ93T7p82XT3/t2TFTc0Ic618PHop9W5wbU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FHr9H+cPHZJdCQvGjYXgUAnIggTYMX7UovL7PXHXAMbfHW/p2ll3XkAoo4ys9gRHdNoTBxENCSccC3is2q6Ey3AyABPwziUiesJURtSAV2DhBFlT8uFXXN7FjXDBNh7NOUwvSu/+L7cuJqhFOmtWVlCBjjg5HraWE9Co5URgqxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Gt8hAhG4; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=uMacfiTg; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Gt8hAhG4; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=uMacfiTg; arc=none smtp.client-ip=195.135.223.130
+	 Content-Type:Content-Disposition:In-Reply-To; b=kbKZMDM/lrO+KIifR80/Z2UTJb7QC0hYAq3Fj1EihX5r4lxNiw9P/1tDt4TiC2qur5DSkXKx95yBzGSA6fqGNHUeq/IsYXvV13LbsEiczAQ/aR3b2rGra5+8ie55KxftYJbEfNL0oM51PTbgjjJawGP8M0j8AmU+80t9hZqIWBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=QQvobcGu; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=x4D/Fufd; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=QQvobcGu; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=x4D/Fufd; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Gt8hAhG4";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="uMacfiTg";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Gt8hAhG4";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="uMacfiTg"
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="QQvobcGu";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="x4D/Fufd";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="QQvobcGu";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="x4D/Fufd"
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2807376217;
-	Thu,  9 Jul 2026 13:34:10 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7F20875C06;
+	Thu,  9 Jul 2026 13:37:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1783604050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1783604248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iFNxf5m7YMuDO/IyYdV/vAHX6m8ysI7NHGcCx7xYyRo=;
-	b=Gt8hAhG4KiR9wHyeAQa/rRLvs6jySQT2HBFPyxTZaG3l65QX2sixfAUumblmOfDBfa/xmX
-	cbWxbzgc4ONkGVZ+E8VqORVm3fx12p3uq6MVsaPsWprhE3Zrz3FmEgn6y/bqQfZvpaIKPJ
-	YY/6/p0rMyic73SxF8FWnRaI57Xzjuc=
+	bh=auksEXEKhj1V7KzR+yrL3ymH3SJtGHXdgrlGLgP3TN0=;
+	b=QQvobcGuljNc0jqIvZlDA+x/1N9P2XD4XulQc9NrS7RiACV2jr1J/40uwWKHSlyWNi/Boz
+	1EIZhAjc88J4EHrXoh4rALgVYUD+87TlMNs+hb4u40z/wASgXn1hb+ZtuIuVCZHHaQ7oG/
+	0/6y1qK1r2QQqTuTJyMf67ek7FtChnM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1783604050;
+	s=susede2_ed25519; t=1783604248;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iFNxf5m7YMuDO/IyYdV/vAHX6m8ysI7NHGcCx7xYyRo=;
-	b=uMacfiTgd4jCNytnhnO2jPgT/+e0PzmWksDoP2QwizMgfyyc0r8107xBDRZkwZWZcb92SN
-	o9DiIAm7H6nD60AQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Gt8hAhG4;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=uMacfiTg
+	bh=auksEXEKhj1V7KzR+yrL3ymH3SJtGHXdgrlGLgP3TN0=;
+	b=x4D/FufdY1sBNtJ9KLDlwi2Ub6NZb5jPm8LezDSEdJxUoy7vhckwA67x/8VOVZS7l+BZL1
+	KG0MgBTKA2YC2/AA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=QQvobcGu;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="x4D/Fufd"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1783604050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1783604248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iFNxf5m7YMuDO/IyYdV/vAHX6m8ysI7NHGcCx7xYyRo=;
-	b=Gt8hAhG4KiR9wHyeAQa/rRLvs6jySQT2HBFPyxTZaG3l65QX2sixfAUumblmOfDBfa/xmX
-	cbWxbzgc4ONkGVZ+E8VqORVm3fx12p3uq6MVsaPsWprhE3Zrz3FmEgn6y/bqQfZvpaIKPJ
-	YY/6/p0rMyic73SxF8FWnRaI57Xzjuc=
+	bh=auksEXEKhj1V7KzR+yrL3ymH3SJtGHXdgrlGLgP3TN0=;
+	b=QQvobcGuljNc0jqIvZlDA+x/1N9P2XD4XulQc9NrS7RiACV2jr1J/40uwWKHSlyWNi/Boz
+	1EIZhAjc88J4EHrXoh4rALgVYUD+87TlMNs+hb4u40z/wASgXn1hb+ZtuIuVCZHHaQ7oG/
+	0/6y1qK1r2QQqTuTJyMf67ek7FtChnM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1783604050;
+	s=susede2_ed25519; t=1783604248;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iFNxf5m7YMuDO/IyYdV/vAHX6m8ysI7NHGcCx7xYyRo=;
-	b=uMacfiTgd4jCNytnhnO2jPgT/+e0PzmWksDoP2QwizMgfyyc0r8107xBDRZkwZWZcb92SN
-	o9DiIAm7H6nD60AQ==
+	bh=auksEXEKhj1V7KzR+yrL3ymH3SJtGHXdgrlGLgP3TN0=;
+	b=x4D/FufdY1sBNtJ9KLDlwi2Ub6NZb5jPm8LezDSEdJxUoy7vhckwA67x/8VOVZS7l+BZL1
+	KG0MgBTKA2YC2/AA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F0AD2779AA;
-	Thu,  9 Jul 2026 13:34:09 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 75724779AA;
+	Thu,  9 Jul 2026 13:37:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id PUzAOlGjT2qNNgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 09 Jul 2026 13:34:09 +0000
+	id jQCgHBikT2qNOQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 09 Jul 2026 13:37:28 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 9D9FDA12D7; Thu, 09 Jul 2026 15:34:05 +0200 (CEST)
-Date: Thu, 9 Jul 2026 15:34:05 +0200
+	id 22B64A12D7; Thu, 09 Jul 2026 15:37:24 +0200 (CEST)
+Date: Thu, 9 Jul 2026 15:37:24 +0200
 From: Jan Kara <jack@suse.cz>
-To: Guanghui Yang <3497809730@qq.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, Harshad Shirwadkar <harshadshirwadkar@gmail.com>, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: propagate errors from fast commit range replay
-Message-ID: <jonvdfonxtxglhvygdcrwuqznlgqeuc6ymrwdsymkm6kvkwdho@rxtdidtkswpi>
-References: <tencent_E3622146846A84C75C31C7D32AC4D5AD0605@qq.com>
+To: David Lee <david.lee@trailofbits.com>
+Cc: Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org, 
+	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] udf: reject VAT indexes equal to the entry count
+Message-ID: <ic5yl6efm77r2tajqeizeljokkpkqe2vvh3eww54apuu7e2pof@yomiowfjhwjx>
+References: <20260708101712.1706564-1-david.lee@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -91,139 +88,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <tencent_E3622146846A84C75C31C7D32AC4D5AD0605@qq.com>
+In-Reply-To: <20260708101712.1706564-1-david.lee@trailofbits.com>
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 2807376217
+X-Rspamd-Queue-Id: 7F20875C06
 X-Spam-Flag: NO
-X-Spam-Score: -2.51
+X-Spam-Score: -4.01
 X-Spam-Level: 
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_RHS_NOT_FQDN(0.50)[];
 	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
 	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[qq.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[12];
 	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	MISSING_XM_UA(0.00)[];
 	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
 	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_LAST(0.00)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,qq.com:email]
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.cz:+]
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 
-On Wed 08-07-26 08:12:04, Guanghui Yang wrote:
-> ext4_fc_replay() stops replaying fast commit tags only when a tag
-> handler returns a negative error. However, ext4_fc_replay_add_range()
-> and ext4_fc_replay_del_range() currently return 0 from their common
-> exit paths even after internal failures.
+On Wed 08-07-26 10:17:09, David Lee wrote:
+> UDF 1.50 virtual partition mapping uses the VAT as an array of physical
+> block mappings. s_num_entries stores the number of entries in that array,
+> not the highest valid index. The valid VAT indexes are therefore below
+> s_num_entries.
 > 
-> This hides errors from ext4_fc_record_modified_inode(),
-> ext4_map_blocks(), ext4_find_extent(), ext4_ext_insert_extent(),
-> ext4_ext_replay_update_ex(), and ext4_ext_remove_space(). As a result,
-> a failed ADD_RANGE or DEL_RANGE replay can be treated as successful and
-> the replay code may continue with subsequent fast commit tags.
+> udf_get_pblock_virt15() currently rejects only indexes greater than
+> s_num_entries. A crafted image can request index s_num_entries, pass the
+> bounds check, and make the kernel read one entry past the allocated VAT table.
 > 
-> This is particularly problematic for DEL_RANGE because it may already
-> have marked blocks as free before ext4_ext_remove_space() fails. If the
-> error is swallowed, replay may continue from a partially applied range
-> operation.
+> Change the check to reject block >= s_num_entries, so the count is handled as
+> an exclusive upper bound.
 > 
-> Return the saved error from the common exit paths and make the
-> ERR_PTR() cases in ADD_RANGE store PTR_ERR() before jumping to out.
+> A crafted UDF image reproduced this on origin/master commit
+> 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53 with a KASAN slab-out-of-bounds
+> report in udf_get_pblock_virt15().
 > 
-> Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+> Trail of Bits has a reproducer that triggers kernel panic demonstrating the bug, and can share it if needed.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guanghui Yang <3497809730@qq.com>
+> Signed-off-by: David Lee <david.lee@trailofbits.com>
+> Assisted-by: Codex:gpt-5.5
 
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
+Thanks! I've added the patch to my tree.
 
 								Honza
 
 > ---
->  fs/ext4/fast_commit.c | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
+> fs/udf/partition.c |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-> index 8e2259799614..fbb486d917b0 100644
-> --- a/fs/ext4/fast_commit.c
-> +++ b/fs/ext4/fast_commit.c
-> @@ -2196,8 +2196,11 @@ static int ext4_fc_replay_add_range(struct super_block *sb, u8 *val)
->  		if (ret == 0) {
->  			/* Range is not mapped */
->  			path = ext4_find_extent(inode, cur, path, 0);
-> -			if (IS_ERR(path))
-> +			if (IS_ERR(path)) {
-> +				ret = PTR_ERR(path);
-> +				path = NULL;
->  				goto out;
-> +			}
->  			memset(&newex, 0, sizeof(newex));
->  			newex.ee_block = cpu_to_le32(cur);
->  			ext4_ext_store_pblock(
-> @@ -2209,8 +2212,11 @@ static int ext4_fc_replay_add_range(struct super_block *sb, u8 *val)
->  			path = ext4_ext_insert_extent(NULL, inode,
->  						      path, &newex, 0);
->  			up_write((&EXT4_I(inode)->i_data_sem));
-> -			if (IS_ERR(path))
-> +			if (IS_ERR(path)) {
-> +				ret = PTR_ERR(path);
-> +				path = NULL;
->  				goto out;
-> +			}
->  			goto next;
->  		}
+> diff --git a/fs/udf/partition.c b/fs/udf/partition.c
+> index 2b85c95..ad8dced 100644
+> --- a/fs/udf/partition.c
+> +++ b/fs/udf/partition.c
+> @@ -55,7 +55,7 @@ uint32_t udf_get_pblock_virt15(struct super_block *sb, uint32_t block,
+>  	map = &sbi->s_partmaps[partition];
+>  	vdata = &map->s_type_specific.s_virtual;
 >  
-> @@ -2257,10 +2263,11 @@ static int ext4_fc_replay_add_range(struct super_block *sb, u8 *val)
->  	}
->  	ext4_ext_replay_shrink_inode(inode, i_size_read(inode) >>
->  					sb->s_blocksize_bits);
-> +	ret = 0;
->  out:
->  	ext4_free_ext_path(path);
->  	iput(inode);
-> -	return 0;
-> +	return ret;
->  }
->  
->  /* Replay DEL_RANGE tag */
-> @@ -2320,9 +2327,10 @@ ext4_fc_replay_del_range(struct super_block *sb, u8 *val)
->  	ext4_ext_replay_shrink_inode(inode,
->  		i_size_read(inode) >> sb->s_blocksize_bits);
->  	ext4_mark_inode_dirty(NULL, inode);
-> +	ret = 0;
->  out:
->  	iput(inode);
-> -	return 0;
-> +	return ret;
->  }
->  
->  static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
-> 
-> base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
-> -- 
-> 2.34.1
-> 
+> -	if (block > vdata->s_num_entries) {
+> +	if (block >= vdata->s_num_entries) {
+>  		udf_debug("Trying to access block beyond end of VAT (%u max %u)\n",
+>  			  block, vdata->s_num_entries);
+>  		return 0xFFFFFFFF;
 -- 
 Jan Kara <jack@suse.com>
 SUSE Labs, CR
