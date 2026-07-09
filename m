@@ -1,220 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B971F33067F;
-	Thu,  9 Jul 2026 14:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52CA2C237E
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 14:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783607345; cv=none; b=QMvvbsQdAw7yZwidcf4yaQxgzKJiQ7Xcy36VvPqbIoRTWn/NoR2m6HMljRZbnG3WRQ0hR6AfLr4Y3ZfymdxVcodiR+2pcxiOmvzSSA4gW26+YfEDPE53ETmIcumnn30wWJ9hFH2JhVrqGdl8RevpLmKYfbxlziwDYaKG0FLx+/4=
+	t=1783607357; cv=none; b=jbgHQxBPRo6fumfaewHEem/sdHMhwLOu365N9Rguj+2A2pM1Tl240idXTq6YSTVIN/c5gUlt5XghdfbzXUV6ZTZBIUr6sWf1Ukp6AjLzxzaLSKVI+kosSZv2iax8AjXk4sa+1cvW68p2KBDEL0wT7RwN/+2VVMC1ai27lBD+XNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783607345; c=relaxed/simple;
-	bh=Qa6XvdJy4RYyLyva7is9k/EpxSz+QC7auucxvL6CKgU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vr3HqVu7No/NZeBorcRJhWXBAaFLU2NN+qb6em/wUoTScV7VyLYGx/D8RcPjxtZujoSpciS19u+ZSaW6vZ9ZIFXHPm7Y8vxqGh4fPjIZmV7QTD0MXtS51FEKwirSoEkxe91i9zy4w1MdRRCde8Xc/2SU58x5/8lNnuWRHF32bcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbI2aYWl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783607357; c=relaxed/simple;
+	bh=Iu4eOmW5OFTlfmcZ4j5QOVxyD0LZCCHmxCVEYvjFGS8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Ig5p/eQPhJzvPhJS+RCb2RACJ8BHSRParnawK07rBJbbicyn2C/tFFdMyQvGXEDCgV9KUnMgMVB8pSt9zTzYQbz0oD90nOo8nsjxct6+6o/opm6TraM02NajrEjYhlJGmP2NbVSq30mVw/8gvuoGP+Yu69utwL+yU3JXq/Xo27A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=theori.io; spf=pass smtp.mailfrom=theori.io; dkim=pass (1024-bit key) header.d=theori.io header.i=@theori.io header.b=AYXGiFum; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=theori.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=theori.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbI2aYWl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E6B1F000E9;
-	Thu,  9 Jul 2026 14:28:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783607342;
-	bh=DZOt/KMB6Z3oOVzvvL5XZpd9gC6mwYec1Ed3vbdl3V4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bbI2aYWl3gmAuRWAgdimVVvKoYrMi42iZW1Erb5lB6o6hxukCboS62J5DWPvgLRFu
-	 4myWIHXBZkbD36W8D7ZYgHcnq909pF1cVEkf3hg9dEPDhmAF7xYCpNMQ+lktrls4Gp
-	 9P35hMTkzdgt1vFAxqhONHUr3Qkqpjq41kQFZE/UJX2a/qZeltFW8aoOCc8Rkcll7O
-	 OdDz3nmG0YQv2c+ah5uiIx3O+cgNAL1RVXwaR5pmj4twesQiQcX5Tyag8VUD9MM58p
-	 IYugtpMHpRDRqTv3Pg0C07S/yhjkipMEcBd3ako38o9bev1xsz7vrnJAC+KITVrDcz
-	 JnOfNLd/sjhPA==
-Date: Thu, 9 Jul 2026 15:28:50 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Gupta, Pankaj" <pankaj.gupta@amd.com>, seanjc@google.com, 
-	pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com, 
-	bp@alien8.de, x86@kernel.org, thomas.lendacky@amd.com, hpa@zytor.com, 
-	yangge1116@126.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
- registration
-Message-ID: <ak-uER-RndpksnhR@lucifer>
-References: <20260701144543.39582-1-pankaj.gupta@amd.com>
- <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
- <db303a0c-98e3-4967-9b61-ccb711b776c8@amd.com>
- <46f19bd8-0d43-4b0e-a8ab-0ef9d3b8bd1a@kernel.org>
- <2bd89e95-9c15-4a3a-916d-0d71a92d8b02@amd.com>
- <27ebe8f0-78b6-402a-a2e7-4e807251d20a@kernel.org>
+	dkim=pass (1024-bit key) header.d=theori.io header.i=@theori.io header.b="AYXGiFum"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38175907a56so846272a91.0
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 07:29:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=theori.io; s=google; t=1783607355; x=1784212155; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aJ0aTaxiRIikqsBWv5Uf4B9z1s0BEHGFjpFfafk8OH8=;
+        b=AYXGiFumVXgLvxcYYC/to/K77os7YsmNwyXvt1DW460h83ZOZ8Qfiy8HCM3Q6V4TM4
+         HeACubI7TRG/nPILczU1+foNiYJRqiS4urDu3DVir3OUf5mj6Mfu2YJdyT9n9xzyXVJq
+         Pc4qPG/ax8L+IR2HF53iGz53RwjhHqUCR3NgI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783607355; x=1784212155;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aJ0aTaxiRIikqsBWv5Uf4B9z1s0BEHGFjpFfafk8OH8=;
+        b=pyfiWIeQvAk+ZRMrgJ4uzm8RULZ2aHFy0rzPZ9L3A8lioBdnMAl2Dyna0eZq1I8iiP
+         6+1bSrTuTkjntmNqbtDu9KXXsxW/TGzZDdGLvvkECyRTKtS2A6uT46dAZ/BY7j+ESsoy
+         bCNo8Ets72aOOy8zTZYzE7LLzofoDHcG4BxUynPClJKA+lUzczemPDJGAofK2eeZYXJq
+         qW4lzEkpUyL9Plml/TC95kMjttX3OHtpypTOUqT0tVcOxjNSsmAQIWYSq121seg1vUEI
+         ENihGxUs6lV5KK6gnNK3smgeIyWWEjzNEOV4m5DWjbXZF3pnKXVuU7gBDe6+PrXcopZV
+         OAIg==
+X-Gm-Message-State: AOJu0YwIV8DLsWoKmQtL1/8RfaGh7yGa8wS1jjK0HH8UQWouYokodivY
+	6jR4+VUtwC6DG9jHgcjyU4VtR7QGwGtkJXGGvwJ8Is/8ckZwuxbRByE7BAwyaO3mfyazWLtRBuv
+	9oqDa
+X-Gm-Gg: AfdE7cknjih61kiBPM0oC8b6dgwtogw13lN1YMzxqFHt6/IhnsKoMaImPynEdilXOaj
+	H5v8DtdgypuA6zPe3YFBJ69zC4R8SrAFFzDoyokrU3PSaSOocC9F7YyjDzhEdkxjAYtiOO090pF
+	dH7MVHlKM5h1P+yxD+nZCBXuhDjLD74s0LJQo2C5PVeUybs03r7UKrStWk3oCLERW99ZzGdfAeh
+	9DHuLphTsiUP8NoW3cCA95WMAcvf+filWfEH6ULbiapqp/HkBq/6/SrnM9vZChoUOcMgu74Wbxe
+	SlKs5EK0loVvnM0nVmMk0vPl3hS62GiZlREukwKAcFNWVM6x49ckdmEBHYpGgqy4Y9OmHGhj6YK
+	AzXLpo4zf+gFeXCkQkhBs/IcSrB0GqsPT3dbD8fsSIn23rWbTUu1QbHA9J/VE/7lYaYJG2cKuK0
+	UNrHxs0im+fh6hX0owUAajWzmJ77ihe4ikOH37n/pjN3FsBvffDEyQM05x1XYmkmhiwv8=
+X-Received: by 2002:a17:90b:384b:b0:387:d5bd:622f with SMTP id 98e67ed59e1d1-38b74d2dcd9mr2733193a91.18.1783607355053;
+        Thu, 09 Jul 2026 07:29:15 -0700 (PDT)
+Received: from Taeyangs-MacBook-Pro.local ([59.6.107.15])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38a5213f28csm1313907a91.0.2026.07.09.07.29.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 07:29:14 -0700 (PDT)
+Date: Thu, 9 Jul 2026 23:29:08 +0900
+From: Taeyang Lee <0wn@theori.io>
+To: stable@vger.kernel.org
+Cc: Peter Zijlstra <peterz@infradead.org>
+Subject: [PATCH 6.12.y] perf/core: Detach event groups during remove_on_exec
+Message-ID: <ak-wNFDs7hzmggnp@Taeyangs-MacBook-Pro.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <27ebe8f0-78b6-402a-a2e7-4e807251d20a@kernel.org>
 
-On Tue, Jul 07, 2026 at 04:58:39PM +0200, David Hildenbrand (Arm) wrote:
-> On 7/7/26 15:45, Gupta, Pankaj wrote:
-> >
-> >>> Hi David,
-> >>>
-> >>> Yes, it fails in this path but for file backed mapping, vma_is_fsdax() returns
-> >>> false because
-> >>>
-> >>> vma_is_dax() returns false:
-> >> Ah, okay, so fsdax is not involved and we really only fail because of the
-> >> writable_file_mapping_allowed() check.
-> >>
-> >> I was for a second thinking in terms of nested virt :)
-> >>
-> >>> Host side backend is regular file backed memory (no fsdax).
-> >> Okay, so we'll end up mapping an ordinary file into VM memory, and expose that
-> >> to the VM as part of virtio-pmem device.
-> >>
-> >> That also means that vfio etc. won't be able to longterm-pin such device memory.
-> >> So this is not a problem isolated to SEV.
-> >>
-> >> Forbidding to longterm pin is actually the right thing to do if the filesystem
-> >> relies on writenotify, as spelled out by Lorenzo's commit:
-> >>
-> >> "
-> >>      Writing to file-backed mappings which require folio dirty tracking using
-> >>      GUP is a fundamentally broken operation, as kernel write access to GUP
-> >>      mappings do not adhere to the semantics expected by a file system.
-> >>
-> >>      A GUP caller uses the direct mapping to access the folio, which does not
-> >>      cause write notify to trigger, nor does it enforce that the caller marks
-> >>      the folio dirty.
-> >>
-> >>      The problem arises when, after an initial write to the folio, writeback
-> >>      results in the folio being cleaned and then the caller, via the GUP
-> >>      interface, writes to the folio again.
-> >> "
-> >>
-> >> Hmmm
-> >
-> > Yes. For file based mapping we don't allow long term pinning.
-> >
-> > If we take into account the fragmentation concerns for MIGRATE_CMA and
-> > ZONE_MOVABLE allocations
-> >
-> > solvable with FOLL_LONGTERM, I can think of two options(tested) to allow file
-> > based mappings as well:
-> >
-> > 1. Fallback on FOLL_WRITE when FOLL_LONGTERM fails as suggested by Sean.
->
-> That is just not acceptable, as it breaks random other stuff (MIGRATE_CMA, as
-> one example) besides the file-pinning problems that Lorenzo added.
->
-> If we're going to hack something in, then that we bypass the file writeback check.
-> Not that we don't use FOLL_LONGTERM.
->
-> I'd hate to use a GUP flag to indicate "this is a legacy hack", but it clearly isolates the
-> issue (needs a better name obviously):
+[ Upstream commit 037a3c43edfb597665dd34457cd22b14692f2ba3 ]
 
-So under what circumstances are we happy with totally breaking dirty tracking?
-:/ seems iffy, and exposing this to drivers generally is a bit worrysome.
+perf_event_remove_on_exec() removes events by calling
+perf_event_exit_event(). For top-level events, this removes the event from
+the context with DETACH_EXIT only.
 
->
->
-> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> index ae9bca4eda5ca..e2c531f914d44 100644
-> --- a/include/linux/mm_types.h
-> +++ b/include/linux/mm_types.h
-> @@ -1912,6 +1912,9 @@ enum {
->          */
->         FOLL_HONOR_NUMA_FAULT = 1 << 12,
->
-> +       /* TODO */
-> +       FOLL_LONGTERM = 1 << 13,
-> +
->         /* See also internal only FOLL flags in mm/internal.h */
->  };
->
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 0692119b79043..1fa0aa0cdc99d 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -1186,8 +1186,8 @@ static bool writable_file_mapping_allowed(struct vm_area_struct *vma,
->          * If we aren't pinning then no problematic write can occur. A long term
->          * pin is the most egregious case so this is the case we disallow.
->          */
-> -       if ((gup_flags & (FOLL_PIN | FOLL_LONGTERM)) !=
-> -           (FOLL_PIN | FOLL_LONGTERM))
-> +       if ((gup_flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK)) !=
-> +           (FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK))
->                 return true;
+This can leave inconsistent group state when a removed event is a group
+leader and the group contains siblings without remove_on_exec. If the group
+was active, the surviving siblings can remain active and attached to the
+removed leader's sibling list, but are no longer represented by a valid
+group leader on the PMU context active lists.
 
-Hmm I'm confused, you're then allowing FOLL_PIN | FOLL_LONGTERM, but disallowing
-FOLL_PIN | FOLL_LONGTERM | FOLL_LONGTERM_HACK?
+A later close of the removed leader uses DETACH_GROUP and can promote the
+still-active siblings from this stale group state. The next schedule-in can
+then add an already-linked active_list entry again, corrupting the PMU
+context active list.
 
-By the way I think this should be expressed better if I criticise myself here :)
+With DEBUG_LIST enabled, this is caught as a list_add double-add in
+merge_sched_in().
 
-So like:
+Fix this by detaching group relationships when remove_on_exec removes an
+event. This preserves the existing task-exit and revoke behavior, while
+ensuring surviving siblings are ungrouped before the removed event leaves
+the context.
 
-	if ((gup_flags & FOLL_PIN) && (gup_flags & FOLL_LONGTERM))
+Fixes: 2e498d0a74e5 ("perf: Add support for event removal on exec")
+Signed-off-by: Taeyang Lee <0wn@theori.io>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/ai65GgZcC0LAlWLG@Taeyangs-MacBook-Pro.local
+---
+ kernel/events/core.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-Or even:
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 9099c0cc933b..482ac3f636fb 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -4537,7 +4537,8 @@ static void perf_event_enable_on_exec(struct perf_event_context *ctx)
+ 
+ static void perf_remove_from_owner(struct perf_event *event);
+ static void perf_event_exit_event(struct perf_event *event,
+-				  struct perf_event_context *ctx);
++				  struct perf_event_context *ctx,
++				  unsigned long detach_flags);
+ 
+ /*
+  * Removes all events from the current task that have been marked
+@@ -4564,7 +4565,7 @@ static void perf_event_remove_on_exec(struct perf_event_context *ctx)
+ 
+ 		modified = true;
+ 
+-		perf_event_exit_event(event, ctx);
++		perf_event_exit_event(event, ctx, DETACH_GROUP);
+ 	}
+ 
+ 	raw_spin_lock_irqsave(&ctx->lock, flags);
+@@ -13478,10 +13479,11 @@ static void sync_child_event(struct perf_event *child_event)
+ }
+ 
+ static void
+-perf_event_exit_event(struct perf_event *event, struct perf_event_context *ctx)
++perf_event_exit_event(struct perf_event *event,
++		      struct perf_event_context *ctx,
++		      unsigned long detach_flags)
+ {
+ 	struct perf_event *parent_event = event->parent;
+-	unsigned long detach_flags = 0;
+ 
+ 	if (parent_event) {
+ 		/*
+@@ -13496,7 +13498,7 @@ perf_event_exit_event(struct perf_event *event, struct perf_event_context *ctx)
+ 		 * Do destroy all inherited groups, we don't care about those
+ 		 * and being thorough is better.
+ 		 */
+-		detach_flags = DETACH_GROUP | DETACH_CHILD;
++		detach_flags |= DETACH_GROUP | DETACH_CHILD;
+ 		mutex_lock(&parent_event->child_mutex);
+ 	}
+ 
+@@ -13575,7 +13577,7 @@ static void perf_event_exit_task_context(struct task_struct *child)
+ 	perf_event_task(child, child_ctx, 0);
+ 
+ 	list_for_each_entry_safe(child_event, next, &child_ctx->event_list, event_entry)
+-		perf_event_exit_event(child_event, child_ctx);
++		perf_event_exit_event(child_event, child_ctx, 0);
+ 
+ 	mutex_unlock(&child_ctx->mutex);
+ 
+-- 
+2.50.1 (Apple Git-155)
 
-	/* Only an issue if we pin... */
-	if (!(gup_flags & FOLL_PIN))
-		return false;
-	/* ...and that pin is longterm... */
-	if (!(gup_flags & FOLL_LONGTERM))
-		return false;
-
-But I'm confused as to why we are suddenly allowing something broken and what
-this hack flag is supposed to achieve?
-
-Shouldn't this rather be:
-
-	/* Only an issue if we pin... */
-	if (!(gup_flags & FOLL_PIN))
-		return true;
-	/* ...and that pin is longterm... */
-	if (!(gup_flags & FOLL_LONGTERM))
-		return true;
-	/* ...and not overridden... */
-	if (gup_flags & FOLL_LONGTERM_HACK)
-		return true;
-	/* ...and dirty tracking is required. */
-	return !vma_needs_dirty_tracking(vma);
-}
-
->
->         /*
-> @@ -2746,7 +2746,7 @@ static bool gup_fast_folio_allowed(struct folio *folio, unsigned int flags)
->          * If we aren't pinning then no problematic write can occur. A long term
->          * pin is the most egregious case so this is the one we disallow.
->          */
-> -       if ((flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE)) ==
-> +       if ((flags & (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE | FOLL_LONGTERM_HACK)) ==
->             (FOLL_PIN | FOLL_LONGTERM | FOLL_WRITE))
-
-Yeah this is just a bit horrid having to stare at a this a while... So
-FOLL_LONGTERM_HACK would enable here.
-
-Be nice to avoid this form of it as it's difficult to understand, do something
-like above or a clearer version anyway (probably best abstracted to a small
-function).
-
->                 reject_file_backed = true;
->
-> @@ -3180,7 +3180,7 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
->         int locked = 0;
->         int ret;
->
-> -       if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM |
-> +       if (WARN_ON_ONCE(gup_flags & ~(FOLL_WRITE | FOLL_LONGTERM | FOLL_LONGTERM_HACK |
->                                        FOLL_FORCE | FOLL_PIN | FOLL_GET |
->                                        FOLL_FAST_ONLY | FOLL_NOFAULT |
->                                        FOLL_PCI_P2PDMA | FOLL_HONOR_NUMA_FAULT)))
->
->
-> --
-> Cheers,
->
-> David
-
-Thanks, Lorenzo
