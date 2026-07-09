@@ -1,242 +1,318 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134843ADBAD
-	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 21:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783631682; cv=none; b=qkrhCWjlPcd9nq+4tDYxnioldavq/zdbqrpV8SLsRxSwazVm4z/RsxS9vjS9PYYdOLza88QOygCdVPfr04dheUlx02zfcTG15G88cHprt6UG54QImaZevt9pfI7rg1kyPItP/iFQ9rV32FWfARn4TkYK3Nd9WRzdvyoUxlBbjWk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783631682; c=relaxed/simple;
-	bh=TgAUPn2EMqUFveuWFTQTLqIVvFUHjF9Sk4VUkbkTxWs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rbXxSNNFAYKBLbAyRBUgoHjqUEOSCNtRDaOoiUTF4x7dfjh97rovnowpg3b0wxB0obqgRxWFvFsUgTFfJsrsyrPd9q+Nq5l5tZfxeTAWQFLM0IDqxD00OEcWZyvw4cGt/3ICZ/j0tKedwsRw+Mk7uOokBE5vkBApu2T0J1r1TZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IH/Ms7M2; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4862417BB21
+	for <stable@vger.kernel.org>; Thu,  9 Jul 2026 21:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783631783; cv=pass; b=vFUzBiuepAMuf1wTampFGPmVCI45+IGNP1rQwkjurrkZwmqisBx7mWSyKG6I9zui86GlaIttXoT6r9QOPLL+T98Q9NmHRO61WCSKmwJME8yxl9LqV5DRJj1BS5mK15F3MaSkh+ybmufAx0kXg0TyBWyIZndMhMtqPTlnsR6vG5s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783631783; c=relaxed/simple;
+	bh=jea2pkAA6ea7ThGIL5ZY5V0mW7MFcoJRXwU1VdT3S6A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eAcb4bknbz8d+ibG54d31c0vQFflEBBgA9/7cYbdRQs6RRQkSpzX+7PW1rViMslY2qMrwwEZzCpwex2qgN2+NCDLKIF4tqNGLjpC0U8x1TSexod9biQX6ZD7HPkvYXCNU8uxNkQtoI34sEoNGATG1JlArkdNN1S7+yjEpBG1yYk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=C18R02Fb; arc=pass smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IH/Ms7M2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783631681; x=1815167681;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=TgAUPn2EMqUFveuWFTQTLqIVvFUHjF9Sk4VUkbkTxWs=;
-  b=IH/Ms7M2GpbMnzrCV4KF/Ld4KTFzX3uWkOsiQscXldoe0lnShNu4fzSY
-   KGhPulxZLWf9vf9iGbtDq6XsKP4y3oHKzrtfVH/ltnRbL5hsnUYoLzEQM
-   6txmNNI2B2VO4bHXAwpKcNCZbZyj7kdo1++PgDq1+gmh3kBPVWMIsuufj
-   VhPIPZCw4dp+zura8/BVg5JdCai5mikhhZ2jzU/5y+JTe7NYUiWvGpa0v
-   3jto8dpcZzvnZ+S4bLDuzbZVa115muoUxaniYowVTBmHvZDWl+SyqP+pd
-   QnSANnk+orVpHdDilg64JayETS/BOEh2/uqZaMSq0rZvpmrPx6IJdRBLj
-   Q==;
-X-CSE-ConnectionGUID: n0rKgc28SMqy8sDOg11Lzw==
-X-CSE-MsgGUID: nTxPlzXPTDKtguG+305K+g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84445355"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="84445355"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 14:14:40 -0700
-X-CSE-ConnectionGUID: K1oOety/TiSbzR+X3BGMuA==
-X-CSE-MsgGUID: CUtBrINLRZWvzeIrf197GA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="250282231"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.244.93]) ([10.245.244.93])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 14:14:39 -0700
-Message-ID: <7c426a289b766e2ca8f8ec4e3d00370cb0748c0e.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/xe: Wait on external BO kernel fences in exec IOCTL
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org, 
-	stable@vger.kernel.org
-Date: Thu, 09 Jul 2026 23:14:36 +0200
-In-Reply-To: <ak/wRrF9DWBdykiP@gsse-cloud1.jf.intel.com>
-References: <20260702215805.4011228-1-matthew.brost@intel.com>
-	 <d5c3258a-04d1-42d6-9d74-cdd9a1172d97@intel.com>
-	 <42f4a99a3b572f7141ff1a2d7db2854d457300c4.camel@linux.intel.com>
-	 <ak/wRrF9DWBdykiP@gsse-cloud1.jf.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="C18R02Fb"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-8f1e274ccb9so2140436d6.2
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 14:16:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783631779; cv=none;
+        d=google.com; s=arc-20260327;
+        b=M6P+Tz0wTuwcWHTZlERjdaSkjj9BhLZq3A916QabupPxNgDYKVgp8Xw215PNUE358z
+         6JFdvLvfrr9czMLJArn3UfxUggNz+yIMU1fviVCcqzOAa54DTAiXN0y0AbwQp8WjQrJw
+         RrZ8ZrGh/vazXoq6oD8FerQE4ikROJNGaEqS7rB6/a0kTSIN93dSRNTtsECu99BdWlmL
+         ip7oEn8ppiT8/KVI8bXTjMtQJl2jqfsXl/c8c7qrhwBovz6ph4d2vbJ8bmWHx3T9aXZQ
+         QYyVdmFoth23SRedxAl+i6nl86Fh5DMBI/Cp+CpWuufHNKymn7nn6TVnZ3cMGF7u6clt
+         Zk5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=f/eyQ3BGdkreyE1jriesgVUy/TQf36x8ArcgwmCBFp0=;
+        fh=ORDij5FV5B3nK1pvpap19Sdbi0P3ne65QN6LGdGck4s=;
+        b=GKS90CDld3NGqltcWo0UCxa3cZ029J/D5poZ7JOK5cKItXKE1P1CliDJS/3uyIDN5R
+         zj4H8rkf4TTxsifLs9zaGQGKFJNSQrd4+JIpbLIGUZB7yUEXjwsr3cFO9Rwu6QowTRlQ
+         +GMAz5MIHudl2q2OS4RqXR0bNyoey3NTl8bLOyLBkycA1mYDXVV9/jry/11wSYZOsMFi
+         SbhucBVMJGTZ+2XbgmZ5pqh+oUQHbG8+wD2pXG82rTlDVHN/rM6HCZsUUBiexXZaNYik
+         61YmD64A0ebDpJvRXBnt/X+hN23meAlcHs7RIWTK9Advrlpdzu9sIhwk1eYYiTKRsxhc
+         HXAA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1783631779; x=1784236579; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f/eyQ3BGdkreyE1jriesgVUy/TQf36x8ArcgwmCBFp0=;
+        b=C18R02Fb3BUQufj9wwmkHoSTUK0o3UsG29MfuB+6PPzh2JnMMqoNSmhdFQR79B8vH2
+         bzQS/LX+xR52c2R+in9Xf4Ru6JayqONrLBsRj3zapgzkofJXmDwXntbbnMd3Ao1eRCma
+         IkWhv0va2MRcLadCB9ANU0cVRb+/0xji+fT6GgmPFSq+yWFmqtiUbt6o3fpimGtgi9es
+         pbfZtmqQGSs94Dj+IgHVL+upqrrcI94Rrcy7o8a8IXgP0T7UvmQca1JA725QNF8R3AnY
+         ZFC0tyMulL9pa5s2eIsClmjumUqOz0ssti5W7fy3VZzbRUlMXF0QS47O0LW1rYVmqTZv
+         y7ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783631779; x=1784236579;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f/eyQ3BGdkreyE1jriesgVUy/TQf36x8ArcgwmCBFp0=;
+        b=i4p/K3iFCnK09cXDQbuheNieLM+Zq5RnwXkPicyD6I17/VpgOGG7OWojdV3+S54k2k
+         oThWkIXNe/saZ1PYEZdaeLRxkcGedBvNtiR+PhtKIcAK6Rz0cNGYt259KkpFZHyba33e
+         NfNioOwgJbUUjQrz74VIucROcJ151/AagPnW7wjXV4Pqge9lAxYMuAxxM4ga95KBxdoR
+         N/F9QizLS2RuGrXOPO+wYdqzz2xr67g+Aq/4pLXPAyTkfsG3pocmS4TnP7cCphGwSOmb
+         NJuGtx9QO/tsqzwFd1AjXGmkFWD5XPlr48bT1XD5NTglul1wMdy3i74qzkC7d4d4Pv2e
+         LQYw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7BeYyXmSQ3BX57e0b18Hvuwf+FRy9s16sguK/ILOf+RzoOPaU+jiiaXvr/a8iZVjQPQhEZsQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMdRKHKNRVRm/Ri5JVv6OOAknwnxvpZqZffPaY6APkNku7J4zn
+	tfmWl6lwXxHgrri+0aKQEBHPNpfnzS+wnElXJAV3Qm/aVUxFULT+BO9whVNCmHf0/LBO+PwyHP9
+	685W0Fcg9JtK7j2KaclUf95XOsrnY/zZRRzLFy9ys
+X-Gm-Gg: AfdE7cmrUxzosjJUbszpsg4JYrvbwl2dJbMiKHbSLXgC5N/NAqIZk3ivMKpJIB2oI1X
+	QvzFKkmThQ97Q3JQiBSO2ZNTMLC/THzheswkSijAWVopss6W/d0r8DYkrd0uD5hjTOw22LJZZge
+	ZGoLUeWrjdw7A+cGnXVuNUwcB5ePawUttlJlPGGBiIqylUh8qprINRFUnKPFeN/SpmzYIymMHka
+	QnBmQnFnJAZMpXiUyvNvQBiBhTYa+K3qffOWbULrW6gsPtqRr8WDjeqg71GEOpaPLhHmizw0uqo
+	y/TLApbBLuEepXMcZKNfdTzPXarVVg==
+X-Received: by 2002:a05:6214:5005:b0:8fd:6df3:b37b with SMTP id
+ 6a1803df08f44-8fec361d007mr104036666d6.63.1783631779176; Thu, 09 Jul 2026
+ 14:16:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260707184417.3682270-1-xmei5@asu.edu> <20260707184417.3682270-2-xmei5@asu.edu>
+ <cf0574fc-03d8-4b0b-b1f4-bbca59e31686@bsbernd.com> <CAJnrk1Y3bkDtztsXdF-3JL0tqxhaarriKCvO4-N3-QrL6X_4oQ@mail.gmail.com>
+In-Reply-To: <CAJnrk1Y3bkDtztsXdF-3JL0tqxhaarriKCvO4-N3-QrL6X_4oQ@mail.gmail.com>
+From: Xiang Mei <xmei5@asu.edu>
+Date: Thu, 9 Jul 2026 14:16:07 -0700
+X-Gm-Features: AUfX_mx0e1ETlf8p_BtjrszUwOqDI7hMyfYya_SnA8ZWgjMZgNXtAJ8aT5FjZN0
+Message-ID: <CAPpSM+TXbaA0YfaxoKjNhxxA3V4oqY3KYJuJpqDr4rSo+z8W4g@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] fuse: reject oversized payload_sz in fuse_uring_copy_from_ring()
+To: Joanne Koong <joannelkoong@gmail.com>
+Cc: Bernd Schubert <bernd@bsbernd.com>, djwong@kernel.org, 
+	Miklos Szeredi <miklos@szeredi.hu>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>, stable@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Pavel Begunkov <asml.silence@gmail.com>, 
+	Luis Henriques <luis@igalia.com>, Weiming Shi <bestswngs@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2026-07-09 at 12:02 -0700, Matthew Brost wrote:
-> On Thu, Jul 09, 2026 at 01:01:07PM +0200, Thomas Hellstr=C3=B6m wrote:
-> > On Fri, 2026-07-03 at 09:45 +0100, Matthew Auld wrote:
-> > > On 02/07/2026 22:58, Matthew Brost wrote:
-> > > > Before arming a user job, xe_exec_ioctl() only added the VM's
-> > > > dma-resv KERNEL slot as a dependency. That slot covers rebinds
-> > > > and
-> > > > the kernel operations of the VM's private BOs, but not external
-> > > > BOs
-> > > > (bo->vm =3D=3D NULL), which carry their kernel operations
-> > > > (evictions,
-> > > > moves, ...) in their own dma-resv KERNEL slot.
-> > > >=20
-> > > > The DMA_RESV_USAGE_KERNEL slot is the cross-driver contract for
-> > > > memory management operations that must complete before the BO
-> > > > or
-> > > > its
-> > > > backing store may be used: any accessor is required to wait on
-> > > > the
-> > > > KERNEL fences before touching the resv. By skipping the
-> > > > external
-> > > > BOs'
-> > > > KERNEL slots, the exec path violated that contract and could
-> > > > schedule
-> > > > a user job while a kernel operation on an external BO mapped by
-> > > > the
-> > > > VM
-> > > > was still in flight, racing against it and potentially reading
-> > > > or
-> > > > writing memory that was being moved.
-> > > >=20
-> > > > Replace the VM-only dependency with an iteration over every
-> > > > object
-> > > > locked by the exec, adding each object's KERNEL slot as a job
-> > > > dependency. This covers the VM resv (rebinds and private BOs)
-> > > > as
-> > > > well
-> > > > as every external BO, mirroring the drm_gpuvm_resv_add_fence()
-> > > > call
-> > > > that later publishes the job fence to the same set of objects.
-> > > > Long-running mode continues to skip this, as before.
-> > > >=20
-> > > > Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for
-> > > > Intel
-> > > > GPUs")
-> > > > Cc: stable@vger.kernel.org
-> > > > Assisted-by: GitHub_Copilot:claude-opus-4.8
-> > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > >=20
-> > > Wow, kind of surprised we missed this.
-> >=20
-> > Hm. Does this actually add any additional kernel fences to the exec
-> > dep?
-> >=20
-> > Isn't the safety mechanism we have that no valid GPU PTEs are
-> > allowed
-> > to be set up with active kernel fences, and in the cases (rebinds,
-> > munmap split) we generate a VM kernel fence.=C2=A0
->=20
-> I think that is an arbitrary Xe-enforced rule that just happens to be
-> true today. A different driver could install a KERNEL fence on a
-> shared
-> BO that effectively says, "don't touch this until I'm done," without
-> triggering any rebind flows, and we'd break.
+On Wed, Jul 8, 2026 at 4:08=E2=80=AFPM Joanne Koong <joannelkoong@gmail.com=
+> wrote:
+>
+> On Wed, Jul 8, 2026 at 12:22=E2=80=AFPM Bernd Schubert <bernd@bsbernd.com=
+> wrote:
+> >
+> > Hi Xiang,
+> >
+> > On 7/7/26 20:44, Xiang Mei wrote:
+> > > fuse_uring_copy_from_ring() imports the payload buffer with length
+> > > ring->max_payload_sz but passes the server-controlled payload_sz to
+> > > fuse_copy_out_args() unchecked.  A larger payload_sz drains the itera=
+tor
+> > > to exhaustion and fuse_copy_fill() hits BUG_ON(!err), panicking the
+> > > kernel.  Reject replies whose payload_sz exceeds the imported buffer.
+> > >
+> > >   kernel BUG at fs/fuse/dev.c:1053!
+> > >   RIP: 0010:fuse_copy_fill+0x6c6/0x7e0
+> > >   Call Trace:
+> > >    fuse_copy_args
+> > >    fuse_uring_copy_from_ring     fs/fuse/dev_uring.c:686
+> > >    fuse_uring_cmd
+> > >    io_uring_cmd
+> > >    __io_issue_sqe
+> > >    io_submit_sqes
+> > >    __do_sys_io_uring_enter
+> > >    entry_SYSCALL_64_after_hwframe
+> > >
+> > > Fixes: c090c8abae4b ("fuse: Add io-uring sqe commit and fetch support=
+")
+> > > Cc: stable@vger.kernel.org
+> > > Reported-by: Weiming Shi <bestswngs@gmail.com>
+> > > Assisted-by: Claude:claude-opus-4-8
+> > > Signed-off-by: Xiang Mei <xmei5@asu.edu>
+> > > Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+> > > ---
+> > > v2: add: Cc stable and Reviewed-by tags
+> > >
+> > >  fs/fuse/dev_uring.c | 3 +++
+> > >  1 file changed, 3 insertions(+)
+> > >
+> > > diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+> > > index 0814681eb04b..f6127c230dd9 100644
+> > > --- a/fs/fuse/dev_uring.c
+> > > +++ b/fs/fuse/dev_uring.c
+> > > @@ -679,6 +679,9 @@ static int fuse_uring_copy_from_ring(struct fuse_=
+ring *ring,
+> > >       if (err)
+> > >               return err;
+> > >
+> > > +     if (ring_in_out.payload_sz > ring->max_payload_sz)
+> > > +             return -EINVAL;
+> > > +
+> > >       err =3D setup_fuse_copy_state(&cs, ring, req, ent, ITER_SOURCE,=
+ &iter);
+> > >       if (err)
+> > >               return err;
+> >
+> > Good catch and sorry for lare review! Hrmm, it just gives me a bit head=
+ache,
+> > because idea for max_payload_size in fuse_uring_create() that it preven=
+ts
+> > exactly that.
+>
+> I don't think this is related to fuse_uring_create()'s
+> max_payload_size. The problem this fix addresses is that the
+> ring_ent_in_out.payload_sz header value returned by userspace can be
+> whatever arbitrary big value userspace wants to set.
+>
+> Maybe I'm misunderstanding what you're saying, but i think this fix is
+> orthogonal to the setxattr issue you mention below? afaict, that one
+> has a different root cause (unbounded in_args copy coming from the
+> kernel side when sending requests vs. trying to copy in an unbounded
+> server-set payload size when handling a server's reply).
+>
+> >
+> > After tracing through the code, I think we have two cases where max_pay=
+load calculation
+> > in fuse_uring_create() is not enough for xattr and ioctl
+> >
+> > For xattr we have an additional in addition to the patch above - it sen=
+ds unchecked
+> > against max_pages and  fuse_dev_do_read() has an additional op code pro=
+tection
+> > that I had missed
+>
+> Nice find, I didn't realize setxattr had a special error value either
+>
+Good catch, that's a real issue, and we triggered that by modifying our PoC=
+.
+> >
+> >        /* If request is too large, reply with an error and restart the =
+read */
+> >         if (nbytes < reqsize) {
+> >                 req->out.h.error =3D -EIO;
+> >                 /* SETXATTR is special, since it may contain too large =
+data */
+> >                 if (args->opcode =3D=3D FUSE_SETXATTR)
+> >                         req->out.h.error =3D -E2BIG;
+> >                 fuse_request_end(req);
+> >                 goto restart;
+> >         }
+> >
+> >
+> >
+> > And I think with the current patch is incomplete and missing something =
+like this
+> >
+> > diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+> > index 77c8cec43d9c..449b84ac24e7 100644
+> > --- a/fs/fuse/dev_uring.c
+> > +++ b/fs/fuse/dev_uring.c
+> > @@ -725,6 +725,14 @@ static int fuse_uring_args_to_ring(struct fuse_rin=
+g *ring, struct fuse_req *req,
+> >                 num_args--;
+> >         }
+> >
+> > +       /*
+> > +        * A FUSE_SETXATTR value may exceed the ring buffer; match
+> > +        * fuse_dev_do_read() instead of overrunning the payload iterat=
+or.
+> > +        */
+> > +       if (fuse_len_args(num_args, (struct fuse_arg *)in_args) >
+> > +           ring->max_payload_sz)
+> > +               return args->opcode =3D=3D FUSE_SETXATTR ? -E2BIG : -EI=
+O;
+> > +
+> >         /* copy the payload */
+> >         err =3D fuse_copy_args(&cs, num_args, args->in_pages,
+> >                              (struct fuse_arg *)in_args, 0);
+> >
+> >
+> >
+> > And a generic patch, but that has the potential to break existing users=
+pace is
+> >
+> > diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+> > index 449b84ac24e7..d25d7922bbdd 100644
+> > --- a/fs/fuse/dev_uring.c
+> > +++ b/fs/fuse/dev_uring.c
+> > @@ -251,7 +251,14 @@ static struct fuse_ring *fuse_uring_create(struct =
+fuse_chan *fch)
+> >                 goto out_err;
+> >
+> >         max_payload_size =3D max(FUSE_MIN_READ_BUFFER, fch->max_write);
+> > -       max_payload_size =3D max(max_payload_size, fch->max_pages * PAG=
+E_SIZE);
+> > +       /*
+> > +        * A max_pages-sized paged reply may be preceded by a fixed op =
+reply
+> > +        * header (e.g. FUSE_IOCTL); reserve a page of header room gene=
+rically.
+> > +        */
+> > +       max_payload_size =3D max(max_payload_size,
+> > +                              fch->max_pages * PAGE_SIZE + PAGE_SIZE);
+>
+> I hope we don't have to do this because imo even with a feature flag,
+> it gets confusing/cluttered. What about just having it be the
+> responsibility of userspace/libfuse to allocate a big enough buffer to
+> hold ioctl reply headers if they want to handle ioctls that have
+> max_payload_size amount of data? On the kernel side we'd just need to
+> store the buf_size value the user already passes in at registration
+> time and use that value for the import and payload-size bounds check
+> instead of max_payload_size which seems like a pretty minimal change.
+> If the kernel insists on the + PAGE_SIZE headroom, across lots of
+> queues that have lots of buffers each, I think that memory waste may
+> add up as well :(
+>
+> I think with bufferpools being the primary interface going forward
+> (not sure if you agree with this, but with zero-copy and other
+> optimizations being gated on it, I view it as that in my mind), the
+> ioctl issue won't be a problem since the kernel can allocate more
+> memory than max_payload_size to that particular request from the pool.
+>
+> Since they have alternative solutions (libfuse or buffer pools), maybe
+> we don't need to bake this in here?
+>
+>
+> > +       /* getxattr/listxattr values are bounded only by XATTR_SIZE_MAX=
+ */
+> > +       max_payload_size =3D max(max_payload_size, (size_t)XATTR_SIZE_M=
+AX);
+>
+> afaict XATTR_SIZE_MAX is 64k, so if a server deliberately sets max
+> pages to a very small value because they don't have enough memory, it
+> seems counter-intuitive to force all their buffers to be >=3D 64k. As I
+> understand it, the vast majority of xattrs are small (tens of bytes),
+> so maybe better to just let them proceed and return an error on an
+> oversized xattr than pay 64k/entry in every queue? If they really want
+> to support 64k xattrs, then imo it should be their responsibility to
+> allocate a big enough buffer size for that.
+>
+> Thanks,
+> Joanne
 
+This seems a good way to patch both paths. We have sent a v3 based on this.
 
-That is true, but I guess this use-case is new as well. Are you still
-issuing a move_notify to block faulting jobs and cpu-faults, force new
-dma-buf maps if exported?
+v3-0001 keeps the same as v2.
+v3-0002 patches both paths based on your proposal.
 
->=20
-> What actually exposed this issue is some local WIP where I use the
-> `dma_iova_*` functions to manage TT mappings. In that model, when
-> memory
-> moves, a rebind does not need to be triggered because the IOVA
-> remains
-> the same. What does change is the IOVA linkage, which is protected by
-> a
-> KERNEL fence. The exec IOCTL did not detect that fence and
-> subsequently
-> hit a CAT[33] error.
->=20
-> So, in my opinion, this is fixing a clear violation of the semantics
-> of
-> a KERNEL fence.
->=20
-> Per the doc:
->=20
-> =C2=A079=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Drivers =
-*always* must wait for those fences before
-> accessing the
-> =C2=A080=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * resource=
- protected by the dma_resv object. The only
-> exception for
-> =C2=A081=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * that is =
-when the resource is known to be locked down
-> in place by
-> =C2=A082=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * pinning =
-it previously.
+Please check, and we'd like to hear your feedback:
+https://lore.kernel.org/fuse-devel/20260709211130.543773-2-xmei5@asu.edu/T/=
+#u
 
-That is true. If xe doesn't have to rebind it makes sense to ensure
-execs wait for kernel fences.
-
-/Thomas
-
-
->=20
-> Matt
->=20
-> >=20
-> > So if an exec runs trying to access such a bo with an active clear,
-> > for
-> > example, it would typically generate a pagefault?
-> >=20
-> > Thomas
-> >=20
-> >=20
-> >=20
-> >=20
-> >=20
-> > >=20
-> > > Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> > >=20
-> > > > ---
-> > > > =C2=A0 drivers/gpu/drm/xe/xe_exec.c | 22 ++++++++++++++++------
-> > > > =C2=A0 1 file changed, 16 insertions(+), 6 deletions(-)
-> > > >=20
-> > > > diff --git a/drivers/gpu/drm/xe/xe_exec.c
-> > > > b/drivers/gpu/drm/xe/xe_exec.c
-> > > > index e05dabfcd43c..d5293bc33a67 100644
-> > > > --- a/drivers/gpu/drm/xe/xe_exec.c
-> > > > +++ b/drivers/gpu/drm/xe/xe_exec.c
-> > > > @@ -292,13 +292,23 @@ int xe_exec_ioctl(struct drm_device *dev,
-> > > > void *data, struct drm_file *file)
-> > > > =C2=A0=C2=A0		goto err_exec;
-> > > > =C2=A0=C2=A0	}
-> > > > =C2=A0=20
-> > > > -	/* Wait behind rebinds */
-> > > > +	/*
-> > > > +	 * Wait behind rebinds and any kernel operations
-> > > > (evictions, defrag
-> > > > +	 * moves, ...) on the VM and all external BOs. The
-> > > > VM's
-> > > > private BOs
-> > > > +	 * carry their kernel ops in the VM dma-resv KERNEL
-> > > > slot,
-> > > > while each
-> > > > +	 * external BO carries them in its own dma-resv KERNEL
-> > > > slot; both are
-> > > > +	 * covered by iterating every object locked by the
-> > > > exec,
-> > > > mirroring the
-> > > > +	 * drm_gpuvm_resv_add_fence() below.
-> > > > +	 */
-> > > > =C2=A0=C2=A0	if (!xe_vm_in_lr_mode(vm)) {
-> > > > -		err =3D xe_sched_job_add_deps(job,
-> > > > -					=C2=A0=C2=A0=C2=A0 xe_vm_resv(vm),
-> > > > -					=C2=A0=C2=A0=C2=A0
-> > > > DMA_RESV_USAGE_KERNEL);
-> > > > -		if (err)
-> > > > -			goto err_put_job;
-> > > > +		struct drm_gem_object *obj;
-> > > > +
-> > > > +		drm_exec_for_each_locked_object(exec, obj) {
-> > > > +			err =3D xe_sched_job_add_deps(job, obj-
-> > > > > resv,
-> > > > +						=C2=A0=C2=A0=C2=A0
-> > > > DMA_RESV_USAGE_KERNEL);
-> > > > +			if (err)
-> > > > +				goto err_put_job;
-> > > > +		}
-> > > > =C2=A0=C2=A0	}
-> > > > =C2=A0=20
-> > > > =C2=A0=C2=A0	for (i =3D 0; i < num_syncs && !err; i++)
+Thanks,
+Xiang
+>
+> >
+> >         spin_lock(&fch->lock);
+> >         if (!fch->connected) {
+> >
+> >
+> > Question is how we could add it in, maybe with a feature flag?
+> >
+> >
+> > Thanks,
+> > Bernd
