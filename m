@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C04C2D3A7C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C05743801A
 	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 16:14:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783700088; cv=none; b=bIutYQD/yql6JQx+/IF9at3M/2DpUWoyv+ss1uocaOIbw2I9X+LpRxDKe+Xx9hP1gMN4/tVVykviEGb5WZhAUL5RlWN62oAqRlgHgl1eSElAIARdMbopqYOPz1KYESVurDIkrODUtkhy6Oa4rC4k+l4q+/OobbLCPqZzYL4ZptY=
+	t=1783700090; cv=none; b=thA1n8H0nJ13uPZddXLvesOSxK9ySMzWwZlJk7fdOXJF/XHdnU+CIgv2eP6sa2lgjUifWtuvLsOhlcGzPNsB2ipz2ojvTrVwuYrAzkfH+Lv0NT/FG6Oq0ATBwuy+edTH+CK9zT9WKaNlz4Zv4YfALbCO4iBfyqM70W/eB/uT6dM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783700088; c=relaxed/simple;
-	bh=NeBg2VvmXgixgYRuexqKOnA5X/542EqwWrWqFoofkmg=;
+	s=arc-20240116; t=1783700090; c=relaxed/simple;
+	bh=+T5M86XLLVkzu4gUwDiiitrwAZBuEcwZ8H2RDpTQIQs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KiGflZz0g+G2uOb9pRI5pFkLPmpOlp2vOiYEzLtuo1gH0HxKaikeYWwkIuehLrp1OKmLDSIx7GbhEi6m7lYHqtY8ZhzrrJEX2XtKVaRhjxp3ufyDwwA4evV6EwuOHckW1pCxJLiBd3dQxVbg79CTd5a6268LKM6cdidGrw9Bd+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KgQ09nXG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RoYaDTLcVpH8cHwpOEg5yHr3znHRgUnfO+JvWE8Aht6RLL19f9aivkg2cwtPeAyNE5CMR//af93cf4pZafqTHFRQJtZAFGngKcpm5TPNVSedhJ+ugu+E2JY3iNg94ZRyFbqBeB71YMC18mUccfmHxAFBUKZF+4CNxU9DOhiNbkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gi4l9BpE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KgQ09nXG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91BC91F00A3E;
-	Fri, 10 Jul 2026 16:14:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gi4l9BpE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA921F00A3F;
+	Fri, 10 Jul 2026 16:14:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1783700086;
-	bh=qa4LELX69F4XtF93RPNd7sbtcTAq0uhF9aJUFjQZtc0=;
+	bh=EDB1mFFFdN1GyDLiqN4AUUMVYQA/5zE51b5wEkk5Is8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KgQ09nXGyBB1NkZRIg6syTEDWV9C72zyFWIvfX7Tu1dIIoQPKlm1b7jAsT0K6ZC6W
-	 /QFT6gtAmgHhRq/5CkXPdudZPfiVxRzNk+cXSiCte2xHH8IVoN3YvMiWO4bBrPxhqp
-	 R1QNrEJ565NTyzF0BJH4xIQxcIlLXvuD90WShoM4wx7ccbTsnlflsIkaTflD6wZLA8
-	 8j7Xt7h3btHTZHIJt5sWCvumVF4HmTRlf8m0D3/8YJxdTmjlCtmMMWOUJnfSkKncDd
-	 n7V74Sy6RF6H4a41exSSVzic/Qx7mqsJaWfX8l6RXFzpt05BrE07QsGfA7o03T+9Mg
-	 kfceiqUJqLFRQ==
+	b=gi4l9BpEscCHMp/dA2fHQMgb6YzZJKYjHBI+lnwDi5mez2rlWLL66gx5GSloE+gp7
+	 FNSwBgP98KIl6rMsQLzUOlOjdfR5UTGWdU8EANibxDn/3Y2FFIorVqBBM13kDgaYIV
+	 JIHTMzoeqp59hz/vGtim5MWV9botLZr6gwmKxNpjnMRI0Va2UHeA7gyMVapW4Ud2SX
+	 GVTWF/HQm9qI5t5b+cOwODu+h3Le67IvP34hhTfE2VghnviEBtEkmrp5tDVqbkkm1e
+	 6qKRMTISg1LpiIrYkLfc07quSoue85Dm8ZTpYRkXBpUQqJizJLjVgF2ClsxK8WL+2S
+	 V/T8J2ELuE6mw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/5] ACPI: NFIT: core: Use devm_acpi_install_notify_handler()
-Date: Fri, 10 Jul 2026 12:14:40 -0400
-Message-ID: <20260710161442.293558-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/5] ACPI: NFIT: core: Fix acpi_nfit_init() error cleanup
+Date: Fri, 10 Jul 2026 12:14:41 -0400
+Message-ID: <20260710161442.293558-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260710161442.293558-1-sashal@kernel.org>
 References: <2026070931-shakily-implicit-64be@gregkh>
@@ -47,79 +48,107 @@ Content-Transfer-Encoding: 8bit
 
 From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-[ Upstream commit 198541ad53c0d0d891fedea4098f9953a0f566c0 ]
+[ Upstream commit 38bf27511ef41bffebd157ec3eba41fc89ba59cd ]
 
-Now that devm_acpi_install_notify_handler() is available, use it in
-acpi_nfit_probe() instead of a custom devm action removing an ACPI
-notify handler installed via acpi_dev_install_notify_handler().
+If acpi_nfit_init() fails after adding the acpi_desc object to the
+acpi_descs list, that object is never removed from that list because
+the acpi_nfit_shutdown() devm action is not added for the NFIT device
+in that case.  Next, the acpi_nfit_init() failure causes
+acpi_nfit_probe() to fail, the acpi_desc object is freed, and a
+dangling pointer is left behind in the acpi_descs.  Any subsequent
+ACPI Machine Check Exception will trigger nfit_handle_mce() which
+iterates over acpi_descs and so a use-after-free will occur.
 
-Also drop the explicit ACPI_COMPANION() check against NULL that is
-not necessary any more becuase devm_acpi_install_notify_handler()
-carries out an equivalent check internally and use ACPI_HANDLE() to
-retrieve the platform device's ACPI handle.
+Moreover, if acpi_nfit_probe() returns 0 after installing a notify
+handler for the NFIT device and without allocating the acpi_desc
+object and setting the NFIT device's driver data pointer, the
+acpi_desc object will be allocated by acpi_nfit_update_notify()
+and acpi_nfit_init() will be called to initialize it.  Regardless
+of whether or not acpi_nfit_init() fails in that case, the
+acpi_nfit_shutdown() devm action is not added for the NFIT device
+and acpi_desc is never removed from the acpi_descs list.  If the
+acpi_desc object is freed subsequently on driver removal, any
+subsequent ACPI MCE will lead to a use-after-free like in the
+previous case.
 
-No intentional functional impact.
+To address the first issue mentioned above, make acpi_nfit_probe()
+call acpi_nfit_shutdown() directly on acpi_nfit_init() failures and
+to address the other one, add a remove callback to the driver and
+make it call acpi_nfit_shutdown().  Also, since it is now possible to
+pass NULL to acpi_nfit_shutdown() or the acpi_desc object passed to it
+may not have been initialized, add checks against NULL for acpi_desc and
+its nvdimm_bus field to that function and make acpi_nfit_unregister()
+clear the latter after unregistering the NVDIMM bus.
 
+Fixes: a61fe6f7902e ("nfit, tools/testing/nvdimm: unify common init for acpi_nfit_desc")
+Fixes: fbabd829fe76 ("acpi, nfit: fix module unload vs workqueue shutdown race")
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/3048737.e9J7NaK4W3@rafael.j.wysocki
+Cc: All applicable <stable@vger.kernel.org>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Link: https://patch.msgid.link/1963615.tdWV9SEqCh@rafael.j.wysocki
 Stable-dep-of: 18a00ed0e718 ("ACPI: NFIT: core: Fix possible deadlock and missing notifications")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/acpi/nfit/core.c | 27 +++++++--------------------
- 1 file changed, 7 insertions(+), 20 deletions(-)
+ drivers/acpi/nfit/core.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/acpi/nfit/core.c b/drivers/acpi/nfit/core.c
-index 3eb56b77cb6d93..c00cb8661b0b52 100644
+index c00cb8661b0b52..dd7cd4b2152a57 100644
 --- a/drivers/acpi/nfit/core.c
 +++ b/drivers/acpi/nfit/core.c
-@@ -3283,19 +3283,11 @@ static void acpi_nfit_put_table(void *table)
+@@ -3061,6 +3061,8 @@ static void acpi_nfit_unregister(void *data)
+ 	struct acpi_nfit_desc *acpi_desc = data;
  
- static void acpi_nfit_notify(acpi_handle handle, u32 event, void *data)
- {
--	struct acpi_device *adev = data;
--
--	device_lock(&adev->dev);
--	__acpi_nfit_notify(&adev->dev, handle, event);
--	device_unlock(&adev->dev);
--}
--
--static void acpi_nfit_remove_notify_handler(void *data)
--{
--	struct acpi_device *adev = data;
-+	struct device *dev = data;
- 
--	acpi_dev_remove_notify_handler(adev, ACPI_DEVICE_NOTIFY,
--				       acpi_nfit_notify);
-+	device_lock(dev);
-+	__acpi_nfit_notify(dev, handle, event);
-+	device_unlock(dev);
+ 	nvdimm_bus_unregister(acpi_desc->nvdimm_bus);
++	/* The nvdimm_bus object may have been freed, so clear the pointer. */
++	acpi_desc->nvdimm_bus = NULL;
  }
  
+ int acpi_nfit_init(struct acpi_nfit_desc *acpi_desc, void *data, acpi_size sz)
+@@ -3293,7 +3295,10 @@ static void acpi_nfit_notify(acpi_handle handle, u32 event, void *data)
  void acpi_nfit_shutdown(void *data)
-@@ -3338,13 +3330,8 @@ static int acpi_nfit_add(struct acpi_device *adev)
- 	acpi_size sz;
- 	int rc = 0;
+ {
+ 	struct acpi_nfit_desc *acpi_desc = data;
+-	struct device *bus_dev = to_nvdimm_bus_dev(acpi_desc->nvdimm_bus);
++	struct device *bus_dev;
++
++	if (!acpi_desc || !acpi_desc->nvdimm_bus)
++		return;
  
--	rc = acpi_dev_install_notify_handler(adev, ACPI_DEVICE_NOTIFY,
--					     acpi_nfit_notify, adev);
--	if (rc)
--		return rc;
--
--	rc = devm_add_action_or_reset(dev, acpi_nfit_remove_notify_handler,
--					adev);
-+	rc = devm_acpi_install_notify_handler(dev, ACPI_DEVICE_NOTIFY,
-+					      acpi_nfit_notify, dev);
+ 	/*
+ 	 * Destruct under acpi_desc_lock so that nfit_handle_mce does not
+@@ -3308,6 +3313,7 @@ void acpi_nfit_shutdown(void *data)
+ 	mutex_unlock(&acpi_desc->init_mutex);
+ 	cancel_delayed_work_sync(&acpi_desc->dwork);
+ 
++	bus_dev = to_nvdimm_bus_dev(acpi_desc->nvdimm_bus);
+ 	/*
+ 	 * Bounce the nvdimm bus lock to make sure any in-flight
+ 	 * acpi_nfit_ars_rescan() submissions have had a chance to
+@@ -3380,9 +3386,14 @@ static int acpi_nfit_add(struct acpi_device *adev)
+ 				sz - sizeof(struct acpi_table_nfit));
+ 
  	if (rc)
- 		return rc;
+-		return rc;
++		acpi_nfit_shutdown(acpi_desc);
  
-@@ -3375,7 +3362,7 @@ static int acpi_nfit_add(struct acpi_device *adev)
- 	acpi_desc->acpi_header = *tbl;
+-	return devm_add_action_or_reset(dev, acpi_nfit_shutdown, acpi_desc);
++	return rc;
++}
++
++static void acpi_nfit_remove(struct acpi_device *adev)
++{
++	acpi_nfit_shutdown(dev_get_drvdata(&adev->dev));
+ }
  
- 	/* Evaluate _FIT and override with that if present */
--	status = acpi_evaluate_object(adev->handle, "_FIT", NULL, &buf);
-+	status = acpi_evaluate_object(ACPI_HANDLE(dev), "_FIT", NULL, &buf);
- 	if (ACPI_SUCCESS(status) && buf.length > 0) {
- 		union acpi_object *obj = buf.pointer;
+ static void acpi_nfit_update_notify(struct device *dev, acpi_handle handle)
+@@ -3466,6 +3477,7 @@ static struct acpi_driver acpi_nfit_driver = {
+ 	.ids = acpi_nfit_ids,
+ 	.ops = {
+ 		.add = acpi_nfit_add,
++		.remove = acpi_nfit_remove,
+ 	},
+ };
  
 -- 
 2.53.0
