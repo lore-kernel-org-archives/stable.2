@@ -1,147 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66ED21B191
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 02:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26ECD7E792;
+	Fri, 10 Jul 2026 02:22:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783649837; cv=none; b=ZZklk1Lzutb5eaNji/5esFoDjZBFUeD33HKJkayfD/tdqiRiAunRG3N+62NWqk1uS+FZNkU+5OWs8jVWw+JPqs9qZvGFVvL975gvb4FgO7MznI1H6Ub2CIEkYsGYLSeb7PDtRKCScsn4O+nOfDIWUyWvbEkN8+J3Gep9wIM8SCY=
+	t=1783650135; cv=none; b=Gd/yu3VKxcDvA4QALQi6lsOS113FlCFmVap+rK2f4LxCp2e3SE+VAtVsEigqcSigepnKip91W4SxiELzoS4Pa4Np6NHivOZnD1/MTVWw3xMMk54p+xBN+LfNOC0rvAnme1nDhujzydprWu1jXwgbAV/EktW1c+yCzzX3JF6nFZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783649837; c=relaxed/simple;
-	bh=uv8d1TMBC+ZVQf88DxS2mqMPDYx3jXWrpDqSm/tuHcE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZGNT0wCNJ1hOyvX9M6qIpvJstsvhTvBRejv7Ziwo/bPWFBd/GSOccO2WW6zNBc8BFIBQeWMooRlJLq0CugIFMaO5qkR4cHXuYhZQkDnN/0RAja+WZPxd3bufdXsu26YWiSh3qCjLG3cPtd9kMfLt9/P8JTGkGccr6dmFw11OPls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UcMitfl3; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UcMitfl3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783649835; x=1815185835;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=uv8d1TMBC+ZVQf88DxS2mqMPDYx3jXWrpDqSm/tuHcE=;
-  b=UcMitfl3rUw4SczCz2euaifheGfkfomwBB1SwcH+6eKAyQBleUb/h/7/
-   eKuhrzvpryj6pkyOIALA0LVpyokwF4mXxueTlFjPF7vGF1K7ml6i6q8Xx
-   UEfXjH3uLZYHtlWoP+oF3joPRzEHfkLjAhDj8XhoN4hO6gYzJjxYMalJl
-   XHfUGfl9SUKYTfhkDGz0M5l0SqVRHUWIfTGgeC3mM0FEwV6pSAAywvnEb
-   vkWuSmq8SbDX8Pvnf9pmku35ODMRh03fS4ycqfUng5QxcfXLs/uKa4CN1
-   +4mX0a4slRJUdbsCKX1G4twl1KFTikVB/XfRPd8r0YaN2JMF/CPgyndDp
-   Q==;
-X-CSE-ConnectionGUID: AMnBmtDCTbm9ujqnx/Y9Iw==
-X-CSE-MsgGUID: EyBeN6Y+StyVoIc+gZqIgQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="107146194"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="107146194"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 19:17:14 -0700
-X-CSE-ConnectionGUID: qoBkzzXgRTu9Fg1VF3lQ6g==
-X-CSE-MsgGUID: 6oIJe+y3SRKFCqop2Rjhpg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="253647476"
-Received: from osgcshtiger.sh.intel.com ([10.239.81.49])
-  by orviesa010.jf.intel.com with ESMTP; 09 Jul 2026 19:17:13 -0700
-From: Shuicheng Lin <shuicheng.lin@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Shuicheng Lin <shuicheng.lin@intel.com>,
-	Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/xe/vm: Reject invalid prefetch region for non-SVM VMA
-Date: Fri, 10 Jul 2026 02:17:00 +0000
-Message-Id: <20260710021700.3611909-1-shuicheng.lin@intel.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1783650135; c=relaxed/simple;
+	bh=vDmmFMtTx0g6s6h5HhJRmiH/58fftU5/U/sMtTERGOo=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=DrD8LEv5RSfMVX2BPziiS7Fy51ajE8xXm5JPCdgLM8EaBwzbrSdhNO+A7dNB/NNtCAFR592uQy5JPwrNN68dKN7TpPlTPefbv9DQAJHfXppJMuXM+5YsJmlDUmLxTfFBHU0pAFDvT4wEVS3QaRUj92Mqq78f2yzIPaMTutkmCK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.97.40.56])
+	by mtasvr (Coremail) with SMTP id _____wDX9RRKV1BqSewuAA--.35S3;
+	Fri, 10 Jul 2026 10:22:03 +0800 (CST)
+Received: from smtpclient.apple (unknown [10.97.40.56])
+	by mail-app3 (Coremail) with SMTP id zS_KCgBXb3FJV1BqVVoGAw--.13159S2;
+	Fri, 10 Jul 2026 10:22:02 +0800 (CST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [PATCH] wifi: brcmfmac: drain bus_reset work on device removal
+From: Fan Wu <12321260@zju.edu.cn>
+In-Reply-To: <20260710002451.500112-1-eddiephillips@google.com>
+Date: Fri, 10 Jul 2026 10:21:51 +0800
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+ Arend van Spriel <aspriel@gmail.com>,
+ Kalle Valo <kvalo@kernel.org>,
+ Franky Lin <franky.lin@broadcom.com>,
+ Hante Meuleman <hante.meuleman@broadcom.com>,
+ Chi-Hsien Lin <chi-hsien.lin@infineon.com>,
+ Wright Feng <wright.feng@infineon.com>,
+ Chung-Hsien Hsu <chung-hsien.hsu@infineon.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>,
+ linux-wireless@vger.kernel.org,
+ brcm80211-dev-list.pdl@broadcom.com,
+ SHA-cyfmac-dev-list@infineon.com,
+ netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <47D1D7A8-65F4-4EBE-ABD8-5CDBA5A5CDAC@zju.edu.cn>
+References: <20260709101635.103005-1-fanwu01@zju.edu.cn>
+ <20260710002451.500112-1-eddiephillips@google.com>
+To: Eddie Phillips <eddiephillips@google.com>
+X-Mailer: Apple Mail (2.3774.600.62)
+X-CM-TRANSID:zS_KCgBXb3FJV1BqVVoGAw--.13159S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?gXApPgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WM8Dms9pSd1duk7P2JRh5+sy7aOgo1D8mBVqMLc1ZNCvnaO
+	PAtn46iPjtACMN8bHkqp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7uFyfZrWxuF1DGFyfGryUArc_yoW8GrWUpr
+	W3JrW5tF4qqa45KF4DZF12qa40gryS9FWDJr18Gry5tr98Jr12grW2yFyjgFWUurs5Aaya
+	vr43uw45Zan09agCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8ructUUUUU==
 
-DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC (-1) is only valid on a
-CPU-address-mirror (SVM) VMA. On a regular VMA the value is used as
-an index into region_to_mem_type[], causing an out-of-bounds access:
+On Thu, Jul 09, 2026 at 05:23:37PM -0700, Eddie Phillips wrote:
+> Is this safe in a softIRQ context?
+> mutex_lock() sleeps until it can get the lock.
 
-  UBSAN: array-index-out-of-bounds in drivers/gpu/drm/xe/xe_vm.c:3260:28
-  index 4294967295 is out of range for type 'u32 [3]'
-  Call Trace:
-   __ubsan_handle_out_of_bounds+0xa7/0xf0
-   vm_bind_ioctl_ops_execute+0x9b0/0x9d0 [xe]
-   xe_vm_bind_ioctl+0x19f1/0x1b10 [xe]
+Thanks for taking a look. I agree this is not the right interface shape.
 
-Three related changes:
+The current call sites I traced reach brcmf_fw_crashed() from the PCIe
+threaded IRQ path or from SDIO workqueue context, but brcmf_fw_crashed()
+is a core helper and the reset scheduling path should not grow a hidden
+sleepable-context requirement. I will respin this part so the arming gate
+does not use a mutex.
 
-- vm_bind_ioctl_ops_create(): For a non-CPU-address-mirror VMA, reject
-  both DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC and out-of-range prefetch
-  regions with -EINVAL. This is the primary fix for the OOB.
+> How about if brcmf_pcie_remove() calls brcmf_bus_cancel_reset_work(),
+> takes the lock and calls cancel_work_sync(), sleeps. If debugfs
+> path is already running, it can invoke the worker thread. Is there
+> potential that both try to reset?
 
-- op_lock_and_prep(): Tighten the xe_assert() to
-  'region < ARRAY_SIZE(region_to_mem_type)'. The
-  DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC exemption is no longer needed
-  since the value is rejected earlier, and '<=' was an off-by-one
-  bound (valid indices are 0..ARRAY_SIZE-1).
+Yes, that is a real issue with this version. The lock only serializes
+scheduling against the cancel point. If the reset work has already started,
+cancel_work_sync() waits for it, but the worker may already be executing the
+bus reset teardown path; remove can then continue and run its own teardown
+afterwards.
 
-- xe_drm.h: Document the CPU-address-mirror constraint on the
-  DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC UAPI value.
+So the patch needs a stronger state/ownership model than just
+schedule-vs-cancel serialization. I will rework it so reset and remove cannot
+both own the same teardown sequence, and will send a v2 after auditing the
+PCIe/SDIO/USB paths again.
 
-Fixes: c1bb69a2e8e2 ("drm/xe/svm: Consult madvise preferred location in prefetch")
-Assisted-by: Claude:claude-opus-4.7
-Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
----
- drivers/gpu/drm/xe/xe_vm.c | 12 ++++++++++--
- include/uapi/drm/xe_drm.h  |  4 +++-
- 2 files changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 080c2fff0e95..9430b2be18e4 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -2495,6 +2495,15 @@ vm_bind_ioctl_ops_create(struct xe_vm *vm, struct xe_vma_ops *vops,
- 			u32 i;
- 
- 			if (!xe_vma_is_cpu_addr_mirror(vma)) {
-+				if (XE_IOCTL_DBG(vm->xe,
-+						 prefetch_region ==
-+						 DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC) ||
-+				    XE_IOCTL_DBG(vm->xe,
-+						 prefetch_region >=
-+						 ARRAY_SIZE(region_to_mem_type))) {
-+					err = -EINVAL;
-+					goto unwind_prefetch_ops;
-+				}
- 				op->prefetch.region = prefetch_region;
- 				break;
- 			}
-@@ -3236,8 +3245,7 @@ static int op_lock_and_prep(struct drm_exec *exec, struct xe_vm *vm,
- 
- 		if (!xe_vma_is_cpu_addr_mirror(vma)) {
- 			region = op->prefetch.region;
--			xe_assert(vm->xe, region == DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC ||
--				  region <= ARRAY_SIZE(region_to_mem_type));
-+			xe_assert(vm->xe, region < ARRAY_SIZE(region_to_mem_type));
- 		}
- 
- 		/*
-diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
-index 509202a7b13e..e159c44e380a 100644
---- a/include/uapi/drm/xe_drm.h
-+++ b/include/uapi/drm/xe_drm.h
-@@ -1075,7 +1075,9 @@ struct drm_xe_vm_destroy {
-  *
-  * The @prefetch_mem_region_instance for %DRM_XE_VM_BIND_OP_PREFETCH can also be:
-  *  - %DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC, which ensures prefetching occurs in
-- *    the memory region advised by madvise.
-+ *    the memory region advised by madvise. Only valid when the target VMA
-+ *    was created with %DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR; rejected with
-+ *    -EINVAL otherwise.
-  */
- struct drm_xe_vm_bind_op {
- 	/** @extensions: Pointer to the first extension struct, if any */
--- 
-2.43.0
+Thanks,
+Fan
 
