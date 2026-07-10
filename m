@@ -1,182 +1,168 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+Received: from mout.web.de (mout.web.de [212.227.15.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35AC374735;
-	Fri, 10 Jul 2026 17:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56C225B09D;
+	Fri, 10 Jul 2026 18:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783706222; cv=none; b=NeuHHgCiSLnn3wUx98BuNllBJNFAkrrtGTdYCi4/cxC8ng/BdtH9G9oTmQ56iSmJ92etuGPpubJssDj6OX3d9pLF7yLuMhzdKeMmPig13hN1xqMa+vgXztgvL3G17ZpXBz31pFRB45XMnvayWc2uEazocl7C+IBw4L2BiKm4h1w=
+	t=1783706436; cv=none; b=EQeqJx6DX1kwUTyyk5lqVNXbnikg1eTdyGKYEw0BbFQVOiV2DTGEWcHAeEQ//MNvqJi89D3J2z2ZNhqQcwl/jevcu3qGnGL3/qJYMgZC6OVE9Hep33fxDoy3OXMoknw31lo7X8v+7WC8WZGNZLyO+kA+way8NZYtHCvWyOJtTLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783706222; c=relaxed/simple;
-	bh=xwxQdZfxFYULS/iu9BnSGTxA8o4jcnIHlt6iMGCXCCE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hCn925v/TrVP+G3co2u423hf4tFCwwEwnr4FJL/naYWNMfi1m5jC/Q1RB3NSlQHZpwoGflGWrlz6p99eBX1MLOxEwSF15q1CikBt5timxVrwm6cYFgm3/KmlU/4d+oDiQzFDwXCk0EjVaO0CCC0TRrOrs2KHoCIXIj9Wykszo3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=xgLp0G6K; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	s=arc-20240116; t=1783706436; c=relaxed/simple;
+	bh=X8MoT2l8Nsuba6Q+qZ/vp3bRgt0zWyj8n8NBTZvy2yI=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=XMIHc6LrWfMh9jPN/b6mXyRmrySz3B49TmfG2rkWCldi9jjZDCK7dKYpndyjQZnfiPFEON5/YkJqaPZG6BJ7D/hFzbezcY5SCYfkVJ5asjyE01TOpV8K7EvjaybNuGJjoWhpj9cfHh4NF1LQHKn7oavmrWNxbdcF9z2+o/oea1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=T1kZ0kLj; arc=none smtp.client-ip=212.227.15.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="xgLp0G6K"
-Received: by dvalin.narfation.org (Postfix) id E8B941FEF7;
-	Fri, 10 Jul 2026 17:56:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1783706212;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ritIdVLzbj6jGCexJmHL4fv3M9Of1DhbmY1pu2yQQGU=;
-	b=xgLp0G6KISG8/9EskNJLZ6u7J+8YiO7e0cS7QaHyewhvJ5GQT0BVQhdS0+NVqkQ6/OqDlt
-	cUR2MAcCgtsoNx12pHk23L3op/TycLPuS3kIhl5F8iTYx8/o91mhROYZqFZPRJKdfXuglv
-	W4sklEtt6OWJyHfS1/Vd5FxhBPJ7N04=
-From: Sven Eckelmann <sven@narfation.org>
-To: Marek Lindner <marek.lindner@mailbox.org>,
- Simon Wunderlich <sw@simonwunderlich.de>,
- Antonio Quartulli <antonio@mandelbit.com>,
- Ibrahim Hashimov <security@auditcode.ai>
-Cc: b.a.t.m.a.n@lists.open-mesh.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject:
- Re: [PATCH net] batman-adv: bound BLA claim and backbone gateway table growth
-Date: Fri, 10 Jul 2026 19:56:41 +0200
-Message-ID: <9098133.T7Z3S40VBb@sven-desktop>
-In-Reply-To: <20260710165224.39411-1-security@auditcode.ai>
-References: <20260710165224.39411-1-security@auditcode.ai>
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="T1kZ0kLj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1783706421; x=1784311221; i=markus.elfring@web.de;
+	bh=7Wrb4+TQ9BMKTwTeWMYP9Y+NAxhxyHNn2bZG60kFM1E=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=T1kZ0kLj4jigwncfxtn0mIvXKGQBBT8/1onoTBYz69hyLnfJwSiZ07UziKMbwCbS
+	 DUqrrbAN16UYHiVfcaKxcPw+P6oxRm/10GD2QH2w48cMCPk4N5qNm9Yr2U3ZJnNtO
+	 wrsoDHCLW2G3UGvcuxn7+8ar6CAiA/vshYx61kbHqqHBj5nPSIb+CBKgmZg1Qy3II
+	 SeLgfq4ZgjHLL7JCuGIjeQWqOnDX9xEDNSPfyv3O61GvS3q6UMY2FIRtDUTcd4/MZ
+	 +vfRAlF1hkLAwwpUO9WPiFaZ4xC2Qt4m5CYEsn6C9lDaigAYqse61ieVT71h3IDiB
+	 NtsibIRZKhvsou11FQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1McIki-1xKtj72EUW-00fA6B; Fri, 10
+ Jul 2026 20:00:21 +0200
+Message-ID: <e9ecb5d3-cb77-43b0-ae75-f15a28bc86c6@web.de>
+Date: Fri, 10 Jul 2026 20:00:16 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart11273385.nUPlyArG6x";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
+User-Agent: Mozilla Thunderbird
+To: Abdun Nihaal <nihaal@cse.iitm.ac.in>, linux-scsi@vger.kernel.org,
+ Justin Tee <justin.tee@broadcom.com>
+Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ James Bottomley <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Paul Ely <paul.ely@broadcom.com>
+References: <20260707065304.949135-1-nihaal@cse.iitm.ac.in>
+Subject: Re: [PATCH] scsi: lpfc: Fix memory leak in
+ lpfc_sli4_driver_resource_setup()
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20260707065304.949135-1-nihaal@cse.iitm.ac.in>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:14GMndEIsGNEAvNTIUmT7ePgkRDg3GhXYRoj04nnlqo3SXzHCtd
+ up7lMF7sS1G/Sjg/1Avi389Fttjz/55nBW2tLLx+JaZFwdyetCJee2sr0baaLLmEtdbGldS
+ j2taE5ZtIQtTab2sxx8OnfluuUn4mp/2fFUrv5Ntw1iVJVEXYnn0srGO/TJQ33+OxNQrvsD
+ fc4NXk531ngsYTpzDkmFg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:xq1iVVYnmAo=;G12U0/r9qZaXLa3tW0RY+LuUJzx
+ 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
+ BgScooIIj1g4wq17HaNPG4TIWWg+zp
 
---nextPart11273385.nUPlyArG6x
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Sven Eckelmann <sven@narfation.org>
-Date: Fri, 10 Jul 2026 19:56:41 +0200
-Message-ID: <9098133.T7Z3S40VBb@sven-desktop>
-In-Reply-To: <20260710165224.39411-1-security@auditcode.ai>
-References: <20260710165224.39411-1-security@auditcode.ai>
-MIME-Version: 1.0
+> The memory allocated for mboxq using mempool_alloc() is not freed in
+> some of the early exit error paths. Fix that by moving the
+> mempool_free() call to an earlier point after last use.
+=E2=80=A6
+> +++ b/drivers/scsi/lpfc/lpfc_init.c
+> @@ -8189,6 +8189,7 @@ lpfc_sli4_driver_resource_setup(struct lpfc_hba *p=
+hba)
+>  		mempool_free(mboxq, phba->mbox_mem_pool);
+>  		goto out_free_bsmbx;
+>  	}
+> +	mempool_free(mboxq, phba->mbox_mem_pool);
+> =20
+>  	/*
+>  	 * 1 for cmd, 1 for rsp, NVME adds an extra one
 
-On Friday, 10 July 2026 18:52:24 CEST Ibrahim Hashimov wrote:
-> batadv_bla_add_claim() and batadv_bla_get_backbone_gw() each kzalloc a
-> new hash entry (struct batadv_bla_claim / struct batadv_bla_backbone_gw)
-> for every distinct (mac, vid) / (orig, vid) pair carried in a
-> BLA-group-conforming CLAIM frame, and insert it into
-> bat_priv->bla.claim_hash / backbone_hash. There is no maximum-entry
-> cap on either table -- entries are only ever removed by the
-> timeout-driven periodic purge (batadv_bla_purge_claims() /
-> batadv_bla_purge_backbone_gw(), BATADV_BLA_CLAIM_TIMEOUT /
-> BATADV_BLA_BACKBONE_TIMEOUT, on the order of 100 s).
-> 
-> The BLA group a frame must carry is htons(crc16(primary_hardif_mac)),
-> which is trivially observable/derivable by any node already on the
-> mesh soft-interface (batadv_check_claim_group()). A single on-mesh
-> sender can therefore emit CLAIM frames with an incrementing source MAC
-> and force one kzalloc(GFP_ATOMIC) per frame on both hot paths, growing
-> kernel memory without bound for as long as the attacker keeps sending
-> -- uncontrolled resource allocation. Both allocations are
-> GFP_ATOMIC with a NULL check, so this is a graceful memory-pressure
-> DoS, not a crash: there is no OOB access.
-> 
-> batman-adv already has an established pattern for capping an
-> attacker-/peer-influenced, unbounded-growth per-mesh-interface
-> resource: the TP-meter session list bounds concurrent sessions with a
-> fixed ceiling and an atomic_add_unless() admission check that rejects
-> new allocations once the cap is hit, logging and freeing/decrementing
-> on the abort path (net/batman-adv/tp_meter.c, BATADV_TP_MAX_NUM,
-> bat_priv->tp_num, "Meter: too many ongoing sessions, aborting").
-> 
-> Apply the same pattern to BLA: add two atomic_t counters,
-> bat_priv->bla.num_claims and bat_priv->bla.num_backbone_gws, each
-> capped at a new BATADV_BLA_MAX_CLAIMS / BATADV_BLA_MAX_BACKBONE_GW
-> limit (4096 / 256 -- generous for any real bridged LAN/VLAN
-> population, several orders of magnitude below what would need to be
-> sprayed to threaten memory availability). batadv_bla_add_claim() and
-> batadv_bla_get_backbone_gw() reserve a slot with atomic_add_unless()
-> before allocating; on cap-hit the frame is dropped (matching existing
-> "drop silently, let the sender resync/backoff" BLA behaviour) instead
-> of allocating. The reservation is released on every existing early-out
-> (kzalloc failure, hash_add failure) and in the kref release paths
-> (batadv_claim_release(), batadv_backbone_gw_release()), where the
-> counters are decremented right before the objects are freed. No
-> locking changes are needed: the counters are only ever touched via
-> atomic ops, mirroring tp_num.
-> 
-> This does not change on-the-wire behaviour, hash table sizing, or
-> timeout-based purging; it only stops a single on-mesh peer from
-> growing the tables past a bounded ceiling.
-> 
-> Verified by code review rather than by driving either counter to its
-> cap at runtime: the atomic_add_unless()/atomic_dec() pairing was
-> checked against every existing early-out (kzalloc failure, hash_add
-> failure) and against both kref release callbacks, confirming exactly
-> one reservation and one release per entry, mirroring the same
-> tp_num accounting in tp_meter.c. A loopback CLAIM-frame reproducer
-> was used earlier to confirm the pre-fix unbounded growth itself
-> (distinct claim_hash/backbone_hash entries scale linearly with the
-> number of distinct (mac, vid) pairs sent), but reaching the new
-> 4096 / 256 caps with that same reproducer is impractical: entries
-> age out via the existing timeout-driven purge faster than a
-> single-host reproducer can accumulate enough distinct pairs to hit
-> the ceiling, so the cap-hit and slot-release paths were exercised
-> by inspection, not by a live saturation run.
-> 
-> Fixes: 23721387c409 ("batman-adv: add basic bridge loop avoidance code")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> Assisted-by: AuditCode-AI:2026.07
-> ---
->  net/batman-adv/bridge_loop_avoidance.c | 38 ++++++++++++++++++++++++--
->  net/batman-adv/main.h                  |  3 ++
->  net/batman-adv/types.h                 |  6 ++++
->  3 files changed, 45 insertions(+), 2 deletions(-)
-
-
-Consider this rejected:
-
-* the target tree should be batadv and not "net"
-* patch doesn't even apply to batadv.git
-
-  $ git am 20260710165224.39411-1-security@auditcode.ai.mbx
-  Applying: batman-adv: bound BLA claim and backbone gateway table growth
-  error: patch failed: net/batman-adv/bridge_loop_avoidance.c:179
-  error: net/batman-adv/bridge_loop_avoidance.c: patch does not apply
-  Patch failed at 0001 batman-adv: bound BLA claim and backbone gateway table growth
-  hint: Use 'git am --show-current-patch=diff' to see the failed patch
-  hint: When you have resolved this problem, run "git am --continue".
-  hint: If you prefer to skip this patch, run "git am --skip" instead.
-  hint: To restore the original branch and stop patching, run "git am --abort".
-  hint: Disable this message with "git config advice.mergeConflict false"
-
-* there are already patches for these for review [1]
-* breaks existing setups and doesn't allow users to adjust limits according to 
-  their requirements
-* own backbones must never be prevented
-* I start to get tired by all these overlong AI generated patch summaries 
-  which meander around completely irrelevant detail information - or 
-  information which are not even relevant here
+How do you think about to move the mempool_free() call directly behind
+the statement =E2=80=9Crc =3D lpfc_get_sli4_parameters(phba, mboxq);=E2=80=
+=9D?
+https://elixir.bootlin.com/linux/v7.2-rc2/source/drivers/scsi/lpfc/lpfc_in=
+it.c#L8180-L8191
 
 Regards,
-	Sven
-
-[1] https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/?series=726
-    https://git.open-mesh.org/pub/ecsv/batman-adv.git/log/?h=b4/resource-limit
---nextPart11273385.nUPlyArG6x
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQS81G/PswftH/OW8cVND3cr0xT1ywUCalEyWQAKCRBND3cr0xT1
-yzCaAP9HyxUvpnN5Dwp5ZjnKHA/sfcJNIx4NLUj6XfqoSrg8QwD+J/iCM0F11StK
-uhvihT1OUCtBXnK6/uWK8K+TVALj1w0=
-=MqzO
------END PGP SIGNATURE-----
-
---nextPart11273385.nUPlyArG6x--
-
-
-
+Markus
