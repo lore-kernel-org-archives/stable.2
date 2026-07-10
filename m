@@ -1,235 +1,148 @@
-Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12083563FA;
-	Fri, 10 Jul 2026 06:38:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.77.92
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783665486; cv=none; b=Ev1f2wDxXDwT1zJTr5On+f12vP3VncQTexgo4JyZbwWnEh1aVNTeFIRMM3+AOwn1f4hjpP6jB2hStSPZMkIewyFB/R0BdQ4kIoykkJNb210HY4Xhry0ar0pNKCcwr0BcMYnzed+LnO4Z9MgtOs5AoMSu4XOhRffqYcHKY2rISnE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783665486; c=relaxed/simple;
-	bh=G6YBgkf/OjFwI9g6J1WS3lFkm934uamQ2YTL6p75Oa4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=TDgeVFMT/MMJr2b7xe6T6wXjiBnNDL+nbzcyoy6EGIw/igkpJifpSa9NT9Jn8S0UZPZW63YUNOWrqpu9mCd8lzmIfwJJ5QWL0Q4XVQlHv8pQOFYwuH6Z6QLkXOOhc77xcL9K3dq4q6OsvaADjXexAp1LJzvbJ5iMttubWN5B4rU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=GHV2VaM0; arc=none smtp.client-ip=44.246.77.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638363B27CD;
+	Fri, 10 Jul 2026 06:58:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783666753; cv=pass; b=JMnouIYOjZDUjpLprRxTBsQLrpreqGUR9n/ZJx+iuInqmvA5VrFLZhkIrfFx4MlcSx701GhULOJVtFO9t7p8t0aUhIGJLigSYS5s3jb69Vl8kgH8ziDvoF7eTQ7xgkb8w6t5wa5WyodU5r8HIpTmXk7CsAIQhO/X15b68B2s9SY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783666753; c=relaxed/simple;
+	bh=+8rfACDwqf1QFdMyzbhy+IhnEZnk+S/atr7RJjW37KE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SLtZnbe3mHwz/MBXBhl9FVRl05jwo4UwYWopXv5wIKHYuE6fXG6zVXmmB9okBFqg5jM6YkbiYh9t5pCzHoC9dtwRam0rzEdLQKGLnVqiGaR0LY7aZOMAz2o2dmO1aKvHs7ax+HfH5v9YMG13YPhVkAHa592PKyFlbgNvrFcLj08=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=KnFZztif; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=QNALVMlk; arc=pass smtp.client-ip=85.215.255.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="GHV2VaM0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1783665484; x=1815201484;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=/DPbmXITuRdtx072EpffQzv0HolMLLquvaHLTCO+MTI=;
-  b=GHV2VaM0OZs1MqRLa6BPlpPhiK3ozqvJB8wFb54pCmJimg0x0w4xLqVo
-   ywEcKZjL6uG4aenXiGfSQNiDqKJSF1heg+e/ZqmX6N3pHsZ4zbz5z9xKO
-   g5K6megteY4JACeP57dgp94IoSCyC4e2E8WctWGL4K0/jsed+0UD7lpFN
-   /WVQI83JY+9P0ercWKFemXr/CIKjnUSNQDp518JQ7Ocmu9x1zNaCif2Nz
-   0TTue3NinJ+r1DVPDmhWnTdXQdzpu0jdqrh4nqdqESuovsY+Mt36wsSsJ
-   Ye6sNEPncy+La8B33wiYxedaLvl5LhUYCePtyTvTS2mfJZ0hN3lQ9t7p+
-   w==;
-X-CSE-ConnectionGUID: /Ijrhp5DQjy0lcZ4yz/uvA==
-X-CSE-MsgGUID: dGgxVo62TkiaoqtTTPvOBQ==
-X-IronPort-AV: E=Sophos;i="6.25,154,1779148800"; 
-   d="scan'208";a="23413452"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 06:38:01 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:3924]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.123:2525] with esmtp (Farcaster)
- id 7024ac17-63e0-45e8-8037-22a220e8fc24; Fri, 10 Jul 2026 06:38:01 +0000 (UTC)
-X-Farcaster-Flow-ID: 7024ac17-63e0-45e8-8037-22a220e8fc24
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Fri, 10 Jul 2026 06:38:00 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Fri, 10 Jul 2026 06:37:59 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: Steve French <smfrench@gmail.com>
-CC: Bjoern Doebel <doebel@amazon.de>, Steve French <sfrench@samba.org>, "Paulo
- Alcantara" <pc@manguebit.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, "Bharath
- SM" <bharathsm@microsoft.com>, <linux-cifs@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <samba-technical@lists.samba.org>,
-	<stable@vger.kernel.org>, <nmanthey@amazon.de>
-Subject: Re: [PATCH] smb: client: fix DACL-rewrite heap overflow in id_mode_to_cifs_acl()
-Date: Fri, 10 Jul 2026 06:37:41 +0000
-Message-ID: <alCTJpbV46sPiYLT@amazon.de>
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="KnFZztif";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="QNALVMlk"
+ARC-Seal: i=1; a=rsa-sha256; t=1783666717; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=EWTDxA/9Qy/GrKlHDp9zdZpzv0IzOsDBvK5Ot0ABLEUt5LnBAwPkSFM8qQm5v4dMAu
+    sq1wC8CpV/CXzGLC48OHP1dyKOBZRNJxPD3UX1Zrmzvx3ts33/ZGTAL2cYSevlA+NycJ
+    jrTFt0bSJ8cbujE3ebtGHPCrliszeyCohGSj3FLgA0Tu6jTvq50ZjLODvg1xaSk8NAqS
+    Q5LDF0sdzrVhAz8An82OP+Nqc+g5CWt3MGFNKZ+pTmmY5h8KQagbAM0il8CLvVBG9Day
+    Ld2WeCXvw4EqP9r8jQ/XPKZFkV6wKt11OWdvVRGfHX67oZjKw/JNRhYdpvkGu63HDOjP
+    dnQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783666717;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=oNO20A98MQL4gy0CXjphwlY7xBkkuVdv5tUxEB2ykF0=;
+    b=s0P5/twWw+7mqcIOdiHOapnaVB5H0FUDZNYcxcFaKDW57hL6S8ee3b1qfsJPpMSHGb
+    +4nuPgDw60L6BxU89m8Sq3zcWoVRTvbR/MmKUm5d5HML7i2OIYUDG8RN2B0JxJcNYIva
+    caTT+KEFezP9zMUPM0yYOJMbbOzFfAvkUPyP/+ZZwcbSTw1jCHmy7tuwH1uiLQ9ixhFl
+    pLf9Ya7WgwndKzCmRAPpwMwy/iWVSDuw4zapb0RiNP+haqGh9Kq03SvkoPrtmUS/RCdM
+    EE41t3kn1QSgqAl44QMe8QpzlRgtnqiaPKTYmTA2dKJG2MZyCd0xlFkmBCqRvgU8Prq9
+    FPTw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783666717;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=oNO20A98MQL4gy0CXjphwlY7xBkkuVdv5tUxEB2ykF0=;
+    b=KnFZztifA7UujJwnpvJ+J16YijfTiUSghz9Kpf0cQ7Ex26oMlLPxxCEUbyunWIkrmD
+    GrTePAXR7M8FZYyJMEa3/EUoZ6WEkRr0GVyWIDG0f5rwG4qYTs8wDTWuScS/oI6IpISs
+    vbgvXMevITHdjJWJu4/oAFzz0W876bcC+EMskAQzw/EfftD/TSSQ5k/GHZe7scbMF6qt
+    k0iM0lTkq7xka2zvFM4LhCO/CeJDks9gk2mZZm64mDp0NDxZBP9rY/zHvHz28JOKyn1B
+    gO1poVcbCEtAILLoUAtWI/5RIoNI/6kS0Xzb+RI7k4lVl2WORdheovHe6de91o80Da/5
+    hetg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783666717;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=oNO20A98MQL4gy0CXjphwlY7xBkkuVdv5tUxEB2ykF0=;
+    b=QNALVMlk57qXpRHDuWJfOuSB7cim1EjTYZyBRqvwe92vSX4g4rm0W2MN3Jp1rIU+7z
+    29OlLbGAU8wZwDW4APAg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrSipoMnMiNyg00cKH7E+fgnZCGa9pyCzl5Kpca"
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.5.6 AUTH)
+    with ESMTPSA id Q4b76426A6waAAM
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 10 Jul 2026 08:58:36 +0200 (CEST)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Paul Cercueil <paul@crapouillou.net>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-mips@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] i2c: jz4780: Cache clock rate at probe to prevent CCF prepare_lock deadlock
+Date: Fri, 10 Jul 2026 08:58:35 +0200
+Message-ID: <c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <CAH2r5mt_Pd=wd-pXdaYkNpWE9NfeM0bhnEy-LKuhgOZchVPTJA@mail.gmail.com>
-References: <20260709155440.2132459-1-doebel@amazon.de> <CAH2r5mt_Pd=wd-pXdaYkNpWE9NfeM0bhnEy-LKuhgOZchVPTJA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: EX19D033UWA003.ant.amazon.com (10.13.139.42) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
 
-Hi Steve,
+Fix a severe AB/BA deadlock between the Common Clock Framework (CCF)
+and the I2C adapter lock, which triggers when an I2C-controlled clock
+generator (like the Si5351) is registered or modified under the CCF.
 
-On Thu, Jul 09, 2026 at 05:15:40PM -0500, Steve French wrote:
-> When I tried this it changed the length used (for chown with cifsacl
-> mount option) from 88 bytes to 236 bytes
-> which seems suspicious.  Have you been able to reproduce the bug this
-> patch is supposed to fix?
+During a clock frequency change, the CCF acquires its global 'prepare_lock'
+mutex and calls i2c_transfer() to update the chip registers, stalling
+for the adapter's I2C bus lock.
 
-I shared my reproducer script via PM.
+Concurrently, a parallel transfer on the same bus (e.g., a GPIO expander
+handling LEDs) can hold the I2C adapter lock. Inside the transfer path,
+jz4780_i2c_set_speed() calls clk_get_rate() to dynamically calculate
+timings. This call attempts to acquire the blocked CCF 'prepare_lock',
+creating a circular dependency that freezes the system or at least
+the involved processes and workers.
 
-This triggered the following KASAN splat in testing (and no longer does
-with the patch applied):
+Eliminate the synchronous clk_get_rate() call from the active transfer
+path by caching the peripheral clock rate once - inside the private
+jz4780_i2c structure during jz4780_i2c_probe(). Update
+jz4780_i2c_set_speed() to use this cached value, decoupling active I2C
+transactions from the CCF internal locks.
 
-[   46.251162] ==================================================================
-[   46.278880] BUG: KASAN: slab-out-of-bounds in build_sec_desc.constprop.0+0x3010/0x3a70 [cifs]
-[   46.319912] Write of size 4 at addr ffff888155556374 by task chown/3439
-[   46.351546]
-[   46.358846] CPU: 4 UID: 0 PID: 3439 Comm: chown Not tainted 7.1.0-rc6+ #35 PREEMPT(full)
-[   46.358850] Hardware name: Amazon EC2 c6i.4xlarge/, BIOS 1.0 10/16/2017
-[   46.358853] Call Trace:
-[   46.358856]  <TASK>
-[   46.358859]  dump_stack_lvl+0x51/0x70
-[   46.358866]  print_address_description.constprop.0+0x2c/0x3a0
-[   46.358871]  ? build_sec_desc.constprop.0+0x3010/0x3a70 [cifs]
-[   46.358941]  print_report+0xb4/0x270
-[   46.358944]  ? kasan_addr_to_slab+0x9/0x70
-[   46.358948]  kasan_report+0xb4/0xe0
-[   46.358951]  ? build_sec_desc.constprop.0+0x3010/0x3a70 [cifs]
-[   46.359015]  build_sec_desc.constprop.0+0x3010/0x3a70 [cifs]
-[   46.359077]  ? queue_folios_pte_range+0x45c/0x7a0
-[   46.359082]  ? __pfx_build_sec_desc.constprop.0+0x10/0x10 [cifs]
-[   46.359143]  ? __find_readable_file+0x310/0x540 [cifs]
-[   46.359220]  ? kasan_save_track+0x10/0x30
-[   46.359222]  ? __kasan_kmalloc+0x7b/0x90
-[   46.359226]  id_mode_to_cifs_acl+0x31c/0x760 [cifs]
-[   46.359295]  ? __pfx_id_mode_to_cifs_acl+0x10/0x10 [cifs]
-[   46.359356]  ? __build_path_from_dentry_optional_prefix+0x176/0x620 [cifs]
-[   46.359432]  cifs_setattr_nounix+0xc5b/0x1860 [cifs]
-[   46.359505]  ? __pfx_cifs_setattr_nounix+0x10/0x10 [cifs]
-[   46.359573]  ? __pfx___vfs_getxattr+0x10/0x10
-[   46.359577]  ? __pfx_current_time+0x10/0x10
-[   46.359580]  cifs_setattr+0x173/0x2b0 [cifs]
-[   46.359648]  notify_change+0x832/0xf20
-[   46.359651]  ? __pfx_from_vfsuid+0x10/0x10
-[   46.359655]  ? chown_common+0x422/0x5e0
-[   46.359658]  chown_common+0x422/0x5e0
-[   46.359662]  ? __pfx_chown_common+0x10/0x10
-[   46.359665]  ? check_heap_object+0x6f/0x490
-[   46.359669]  ? strncpy_from_user+0x3b/0x1f0
-[   46.359673]  do_fchownat+0x124/0x160
-[   46.359677]  ? __pfx_do_fchownat+0x10/0x10
-[   46.359680]  __x64_sys_fchownat+0xb9/0x150
-[   46.359684]  ? arch_exit_to_user_mode_prepare.constprop.0+0x95/0xc0
-[   46.359688]  do_syscall_64+0xaf/0x550
-[   46.359693]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[   46.359695] RIP: 0033:0x7fd413b00b0e
-[   46.359709] Code: 48 8b 0d ed b2 0f 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 04 01 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d ba b2 0f 00 f7 d8 64 89 01 48
-[   46.359712] RSP: 002b:00007ffc3eb973d8 EFLAGS: 00000246 ORIG_RAX: 0000000000000104
-[   46.359715] RAX: ffffffffffffffda RBX: 00007ffc3eb97700 RCX: 00007fd413b00b0e
-[   46.359717] RDX: 0000000000001770 RSI: 000055e6afa81740 RDI: 00000000ffffff9c
-[   46.359719] RBP: 000055e6afa7fb70 R08: 0000000000000000 R09: 0000000000000000
-[   46.359720] R10: 00000000ffffffff R11: 0000000000000246 R12: 000055e6afa81740
-[   46.359722] R13: 0000000000000001 R14: 00000000ffffff9c R15: 000055e6afa7fb00
-[   46.359725]  </TASK>
-[   46.359726]
-[   47.532861] Allocated by task 3439:
-[   47.549557]  kasan_save_stack+0x20/0x40
-[   47.567957]  kasan_save_track+0x10/0x30
-[   47.586353]  __kasan_kmalloc+0x7b/0x90
-[   47.604316]  __kmalloc_noprof+0x1c1/0x530
-[   47.623566]  id_mode_to_cifs_acl+0x2d0/0x760 [cifs]
-[   47.646748]  cifs_setattr_nounix+0xc5b/0x1860 [cifs]
-[   47.670768]  cifs_setattr+0x173/0x2b0 [cifs]
-[   47.690945]  notify_change+0x832/0xf20
-[   47.708918]  chown_common+0x422/0x5e0
-[   47.726468]  do_fchownat+0x124/0x160
-[   47.743582]  __x64_sys_fchownat+0xb9/0x150
-[   47.763261]  do_syscall_64+0xaf/0x550
-[   47.780816]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[   47.804785]
-[   47.812163] The buggy address belongs to the object at ffff888155556000
-[   47.812163]  which belongs to the cache kmalloc-1k of size 1024
-[   47.872006] The buggy address is located 0 bytes to the right of
-[   47.872006]  allocated 884-byte region [ffff888155556000, ffff888155556374)
-[   47.934359]
-[   47.941237] The buggy address belongs to the physical page:
-[   47.967735] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x155550
-[   48.006191] head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-[   48.042968] flags: 0x17ffffc0000040(head|node=0|zone=2|lastcpupid=0x1fffff)
-[   48.076404] page_type: f5(slab)
-[   48.091399] raw: 0017ffffc0000040 ffff888100042dc0 dead000000000100 dead000000000122
-[   48.128595] raw: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
-[   48.165814] head: 0017ffffc0000040 ffff888100042dc0 dead000000000100 dead000000000122
-[   48.203005] head: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
-[   48.240615] head: 0017ffffc0000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-[   48.278257] head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-[   48.315854] page dumped because: kasan: bad access detected
-[   48.342361]
-[   48.349658] Memory state around the buggy address:
-[   48.372332]  ffff888155556200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   48.407026]  ffff888155556280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   48.441656] >ffff888155556300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 04 fc
-[   48.476272]                                                              ^
-[   48.509238]  ffff888155556380: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[   48.543873]  ffff888155556400: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[   48.578508] ==================================================================
+Assisted-by web based Google AI.
 
+Fixes: ba92222ed63a12 ("i2c: jz4780: Add i2c bus controller driver for Ingenic JZ4780")
+Cc: stable@vger.kernel.org
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+---
+ drivers/i2c/busses/i2c-jz4780.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Bjoern
-
-> On Thu, Jul 9, 2026 at 10:55 AM Bjoern Doebel <doebel@amazon.de> wrote:
-> >
-> > Budget the destination buffer for the worst case in both branches:
-> > every rewritten ACE may take sizeof(struct smb_ace) bytes (which
-> > already accounts for an smb_sid with SID_MAX_SUB_AUTHORITIES
-> > sub-authorities), plus the smb_acl header that
-> > replace_sids_and_copy_aces() emits.
-> >
-> > Fixes: bc3e9dd9d104 ("cifs: Change SIDs in ACEs while transferring file ownership.")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-> > Assisted-by: Kiro:claude-opus-4.6
-> > ---
-> >  fs/smb/client/cifsacl.c | 12 +++++++-----
-> >  1 file changed, 7 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
-> > index 07cf0e5782337..6d572dd995d79 100644
-> > --- a/fs/smb/client/cifsacl.c
-> > +++ b/fs/smb/client/cifsacl.c
-> > @@ -1812,11 +1812,13 @@ id_mode_to_cifs_acl(struct inode *inode, const char *path, __u64 *pnmode,
-> >                                 cifs_put_tlink(tlink);
-> >                                 return rc;
-> >                         }
-> > -                       if (mode_from_sid)
-> > -                               nsecdesclen +=
-> > -                                       le16_to_cpu(dacl_ptr->num_aces) * sizeof(struct smb_ace);
-> > -                       else /* cifsacl */
-> > -                               nsecdesclen += le16_to_cpu(dacl_ptr->size);
-> > +                       /*
-> > +                        * Worst case: every ACE is rewritten with a new SID of
-> > +                        * SID_MAX_SUB_AUTHORITIES sub-auths -> sizeof(smb_ace) each,
-> > +                        * plus the smb_acl header replace_sids_and_copy_aces() emits.
-> > +                        */
-> > +                       nsecdesclen += sizeof(struct smb_acl) +
-> > +                               le16_to_cpu(dacl_ptr->num_aces) * sizeof(struct smb_ace);
-> >                 }
-> >         }
-> >
-> > --
-> > 2.50.1
-> >
-> >
-> 
-> 
-> -- 
-> Thanks,
-> 
-> Steve
+diff --git a/drivers/i2c/busses/i2c-jz4780.c b/drivers/i2c/busses/i2c-jz4780.c
+index 664a5471d9335..d729cec9cdf2c 100644
+--- a/drivers/i2c/busses/i2c-jz4780.c
++++ b/drivers/i2c/busses/i2c-jz4780.c
+@@ -141,6 +141,7 @@ struct jz4780_i2c {
+ 	void __iomem		*iomem;
+ 	int			 irq;
+ 	struct clk		*clk;
++	unsigned		long clk_rate;
+ 	struct i2c_adapter	 adap;
+ 	const struct ingenic_i2c_config *cdata;
+ 
+@@ -246,7 +247,7 @@ static int jz4780_i2c_set_target(struct jz4780_i2c *i2c, unsigned char address)
+ 
+ static int jz4780_i2c_set_speed(struct jz4780_i2c *i2c)
+ {
+-	int dev_clk_khz = clk_get_rate(i2c->clk) / 1000;
++	int dev_clk_khz = i2c->clk_rate / 1000;
+ 	int cnt_high = 0;	/* HIGH period count of the SCL clock */
+ 	int cnt_low = 0;	/* LOW period count of the SCL clock */
+ 	int cnt_period = 0;	/* period count of the SCL clock */
+@@ -796,6 +797,8 @@ static int jz4780_i2c_probe(struct platform_device *pdev)
+ 	if (IS_ERR(i2c->clk))
+ 		return PTR_ERR(i2c->clk);
+ 
++	i2c->clk_rate = clk_get_rate(i2c->clk);
++
+ 	ret = of_property_read_u32(pdev->dev.of_node, "clock-frequency",
+ 				   &clk_freq);
+ 	if (ret) {
+-- 
+2.50.1 (Apple Git-155)
 
