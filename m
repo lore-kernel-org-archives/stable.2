@@ -1,324 +1,182 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011006.outbound.protection.outlook.com [52.101.57.6])
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A392E413;
-	Fri, 10 Jul 2026 17:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783705608; cv=fail; b=W8NmlLW5cXfCrDdNQf21BA9t09W6iv1d4rnnKVXAYSoPn2LFnU4gQlQSpvcvA51XWPV/KspH+/ciYLh38GzdXzzovX4czo4Si8I9aB25C9+TzJNk7SiHJDuLBmv0zv2nAqaVoU6mlToorG3Lt3o+B+lv1IKRGQtskRM6qtu4wvk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783705608; c=relaxed/simple;
-	bh=eLVs1337HDjGm6oJ3JDP5Wv7pYs2t2qkYmkRdosmfT4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=aTGWXVSt6zKAClKHh8FPNSPPgGidUvAHjWF6pLvIcBi5ImZGrFKGAbfIyNFj1ut+SsCSSdsTxlyQB5LZL1g2gPo6hXB4dKg9wUmZexS5km/6T8AJ/yhQHci1JhkbALgBOdLf1k5SMUQ7xHv8Sh/zAVsxWsFfhRggLrhEwN/jXyU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oMc2V4Ug; arc=fail smtp.client-ip=52.101.57.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35AC374735;
+	Fri, 10 Jul 2026 17:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783706222; cv=none; b=NeuHHgCiSLnn3wUx98BuNllBJNFAkrrtGTdYCi4/cxC8ng/BdtH9G9oTmQ56iSmJ92etuGPpubJssDj6OX3d9pLF7yLuMhzdKeMmPig13hN1xqMa+vgXztgvL3G17ZpXBz31pFRB45XMnvayWc2uEazocl7C+IBw4L2BiKm4h1w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783706222; c=relaxed/simple;
+	bh=xwxQdZfxFYULS/iu9BnSGTxA8o4jcnIHlt6iMGCXCCE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hCn925v/TrVP+G3co2u423hf4tFCwwEwnr4FJL/naYWNMfi1m5jC/Q1RB3NSlQHZpwoGflGWrlz6p99eBX1MLOxEwSF15q1CikBt5timxVrwm6cYFgm3/KmlU/4d+oDiQzFDwXCk0EjVaO0CCC0TRrOrs2KHoCIXIj9Wykszo3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=xgLp0G6K; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oMc2V4Ug"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=axneNyV0C4u9iyBPFgRcFzr1HIefzYclZZao9whgKHd3BdBUAb1Y7o74xGFjLxTvZr0J30MqnT1KtDnWCCqcTs7JMcTCUD6q7Yp5DSuSB17YVAN2rTYcoXLWe6j0aLSmB6yIBhQy59s3I82h2KOB/gx11OJAun3bic5AyqE8WAMWs/EMYhyzDlYOUHTl0QipDdcKcXhPrlHkCl1e0TDxzKwJGGnuXeNCrhjlhvXW6DJ0cWr0w7+VxlIkPPwXTe3BXrvXWSG7di77uSYgbUYgr1qjkgJq28WvLmTSfqo0HmfNCFp/FMlI4SMLRnOrbeZqqN8nIw+rD0WqOTP1Ll+UVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bi2hPtnkdBg8FgK570WBYwNL6h/WgzNbKeJeXT+MmYE=;
- b=X/lwVtpDA/W2jEWeeU3BxLxrGeEMjByzd+PpHl5cQWwTyXMsDnpj2xz6hzHcI7hgxgMX9TKJRVXw+hemTXnnZAFNG6p6dwJzbXrEIwyctShV49Tj8p+d+oKL/CUMH7G4TpCpJJEELKM7yJVP4Qo4Kwyj0IRkA8ueGR5O2D9CtNmtT6zB4ywSfEjgTiUGHmwI60CKdGGZI3ai0gmgsnsv4F1Ya370bOtSQxQ5CN8NeidL1wsheISneg/FSrAs6Ueq3K/IwFyRBqqICKCQGPtNvTGlsfDPM25cqiFn2vs43pM2GEE/h/0b2FT5cpZTiCRtjNOlyf3bxogyeozJaELLqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bi2hPtnkdBg8FgK570WBYwNL6h/WgzNbKeJeXT+MmYE=;
- b=oMc2V4Ug4aUGqreo/RNuJs4fRh+sIa+HKeePDho+l0BROoZiSpuyv71B0htWnM73iNvD1XJ5gzd2IENq0oEo3hPP/XIxX0/vyWopP0kXcFf9IAMnX7+hHrpZcwNzCNuG3i9B17cv3UT83jg1jD0b51rjyykBMp0tHTjdwDumwFJRz0FhVGqWg3oa0amdBOfHUhpYMlGVDXbimbc6hQ+XU2A68B3C6VzTsQGiW04fgU/YCj5Fo0gEImAgYu7RmVmagIKrdZP/28l1qM0RGkUTFHcSL2NhnhZtV+szsci/F1uvWxdshcgR4JTIqUNRfqZ+q+d4DS8yGG5NJ/sP7zliKA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by CH3PR12MB7499.namprd12.prod.outlook.com (2603:10b6:610:142::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Fri, 10 Jul
- 2026 17:46:38 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%3]) with mapi id 15.21.0181.014; Fri, 10 Jul 2026
- 17:46:38 +0000
-Date: Fri, 10 Jul 2026 19:46:25 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Matt Fleming <matt@readmodwrite.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Edward Adam Davis <eadavis@qq.com>,
-	Chen Ridong <chenridong@huaweicloud.com>, sched-ext@lists.linux.dev,
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, kernel-team@cloudflare.com,
-	Matt Fleming <mfleming@cloudflare.com>
-Subject: Re: [PATCH] sched_ext: Fix deadlock with PSI trigger creation
-Message-ID: <alEv8QosliGUfUNZ@gpd4>
-References: <20260710100441.2653477-1-matt@readmodwrite.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710100441.2653477-1-matt@readmodwrite.com>
-X-ClientProxiedBy: MI0P293CA0014.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:290:44::14) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="xgLp0G6K"
+Received: by dvalin.narfation.org (Postfix) id E8B941FEF7;
+	Fri, 10 Jul 2026 17:56:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1783706212;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ritIdVLzbj6jGCexJmHL4fv3M9Of1DhbmY1pu2yQQGU=;
+	b=xgLp0G6KISG8/9EskNJLZ6u7J+8YiO7e0cS7QaHyewhvJ5GQT0BVQhdS0+NVqkQ6/OqDlt
+	cUR2MAcCgtsoNx12pHk23L3op/TycLPuS3kIhl5F8iTYx8/o91mhROYZqFZPRJKdfXuglv
+	W4sklEtt6OWJyHfS1/Vd5FxhBPJ7N04=
+From: Sven Eckelmann <sven@narfation.org>
+To: Marek Lindner <marek.lindner@mailbox.org>,
+ Simon Wunderlich <sw@simonwunderlich.de>,
+ Antonio Quartulli <antonio@mandelbit.com>,
+ Ibrahim Hashimov <security@auditcode.ai>
+Cc: b.a.t.m.a.n@lists.open-mesh.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject:
+ Re: [PATCH net] batman-adv: bound BLA claim and backbone gateway table growth
+Date: Fri, 10 Jul 2026 19:56:41 +0200
+Message-ID: <9098133.T7Z3S40VBb@sven-desktop>
+In-Reply-To: <20260710165224.39411-1-security@auditcode.ai>
+References: <20260710165224.39411-1-security@auditcode.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH3PR12MB7499:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab7b5851-1bfa-49da-5c4a-08dedeab3101
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|6133799003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	daqPq6gEYpWjhtjXXt+ky6wBCzs7hwAJis7iv7QFyhsUMpjmgr27fOL+gkGtabnIKD/MHz0y/5EuxJMuyOrXD6eH31n7UuYPDFBOjflQzUfQRDaPVh+uWM+PP33Wc+bLzno4No4zjNKWsMLqf4p6UN9O0psOYtSlYlVDclc2oMc7E0xxnotOwCwk+FcXVqz5As7iziKN8P21Ut1z1KOaW9L5i1w3NovgZzKzAVSgKBaAGagm6+1LKfFLsKS58bLUZhZBAlfB7zp//yB+tk0QeB9emib4c83oAXV+8fnlcQ6F3uGzAswGzfuNlYbMaeK8QPZXmErlvXv0yFuPn5/mIBRF+vzyp+64GPGUUxIavYnZcjJjLQ4vnqo6EVoSS+aK3BINOoDDaCQDxfVryWFSdZaskZlXwaQq2248gR06L+YcFZBXSWMfMTSrWNpgWPECiMamslcP++PiVqibCAwTQoVeFwfBcLMrSQ+by5bRGQ/6t8ImuO6kPY94QL+PCDn/tD8bAhT/pZEFNLTThptcwoCaY5gtGL96WYKtDuv20xBQbfG2k8rorrvPvf+RAHjG3KuK56Ppk+EFeAMwpApBzPrGs5BWeI9nrvxOKgf6fNkPRSDxaRN7ujMx47S18qSxarJu7UESkZUf47SB/q6qIC4+uKHF4qwDqOSR3ZqbNFQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(6133799003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RVYvwFAUIQ85mX95ywrM4VfbNNo6uLKiuZVAwJDU1crWpGiU03cLs9kJaXWB?=
- =?us-ascii?Q?89SrPgukjbXVzRuvld5skwFcM4sWzEeqtqYuYzmjugRWyljLneHg0fcrv/t5?=
- =?us-ascii?Q?ryNJGI9Ci0p4nGp9pqRYhtsdFJuGIA8AJPjyFaRhlAX6xOPQUYp8PozXkgTQ?=
- =?us-ascii?Q?Z2SsUgjQRFchW2+Rpt7sElkvOZiAgbUhy1cnnVjPBiyjj+6hpMuAoAXjKnuq?=
- =?us-ascii?Q?H52PgNOjO19mMzko0ykn/9kwr3bN3gEtGESmfCPIUWn1wCsnadkcG1uq0KIC?=
- =?us-ascii?Q?xTnK9L97gKVqDwXhEAypGakmit53OJQGNCNLxp6ZnAM+qgkDVfNutMAVUvR4?=
- =?us-ascii?Q?8Ds7NG+iJEUxskEW1lRs8eH53o/U6NtDDZssf42QNq2L81a6OUiP92k9vq26?=
- =?us-ascii?Q?Ul9Qbd7VuVQV33LK3woLg9h1kp3fZWfEBiWGRz3zh1SgmWUVTBUhhkGT0Idk?=
- =?us-ascii?Q?Ig1Oqv323fuKBfdBGyFHWvdi2+azQZ7+UgrTKZNDSy7Z13L2XEjlxKu6cNUs?=
- =?us-ascii?Q?mNyAQ1Pej76xmBi2+K12xpNiPP09DcRsx23OCaOCfTyhAf/bvPCXZnvL02qv?=
- =?us-ascii?Q?755moZO2fYT0ADbVtQAM36oKGtsiyub4U/GQyg5TCXCJb+SEEqJ+jYiEec1R?=
- =?us-ascii?Q?3fPhTG5pb8QZ+k21JkLRs+i4JkM48ERfyk0dK0a910fD/Nd7qqrnfsrT8PCT?=
- =?us-ascii?Q?7KiqN+Aem/QiijYGEc/gEAzlvhMijznzz9sUVXhOI5q1C9ZR+1tZT4Wp35SZ?=
- =?us-ascii?Q?wdB4NCxzXKAQwpWTxbEX1dXatavfDsy+RKKeAjV3STVQ0F91wOtbevC0Lw1D?=
- =?us-ascii?Q?bd/oH++5NPgZBzVldgsCWCxrdtsoSDl/UNlX23m/E/JjH0B4dK+a/lonZIpb?=
- =?us-ascii?Q?R6D4xULXP4xVWt67OAw9f2ESaNJS0VfNyDryoenX85OMFTo+lWExRYWTKCFP?=
- =?us-ascii?Q?7ij4GkkG0kqhsXv3ehmhUT/S7W4jf8mUv7PsK0lfRLKjQGIpXBdint/FzwJF?=
- =?us-ascii?Q?Uv++fl86sYPNen9X7fGiLgsOJIdoNLXa3Cz22qqS0se6Hg7NzXKEXBMTq0sw?=
- =?us-ascii?Q?lCgYuHJNy7dVkryA3BaA9knEaFKqmQRLngz5urq9bFjmcs4Q6Kw8aTBQIDwC?=
- =?us-ascii?Q?zNu8mLfpyKgcxtrRtKVHffMAozsemoYU7aWumafj+9z7t/6h+N04r75UH76q?=
- =?us-ascii?Q?eA+DTaplkLshb0hL6GFyFhuuUGIw8ggCL6Gs0CB6z5HGiaDdHwLzqZopOcS3?=
- =?us-ascii?Q?sMsZUzlQzl1y3aOhZfOYvssT0pmfURRn8abM66ZVOQFJb5i86iSpWp663wyx?=
- =?us-ascii?Q?1J9bcH6qK711rRbPVk5zkGOQf/dxm7qz4UWqzjbw90rtJQI2mMayG58uKQkj?=
- =?us-ascii?Q?eMi86oivyV2il2q7pHDI/wRQIP5qFtXU+Bjvc/TAk0L4CdASkBW46KixF1J3?=
- =?us-ascii?Q?LoJssGT7XCHJw/koh69+J+4/EYff3CEo9EgqSwjJJ4VSoDtO65YfUDsct2DP?=
- =?us-ascii?Q?d7+BYgmXY49ZKqTHp+840kXnMdtsvwKmiryt2XQhO1O541dP5xalFEBUuS3w?=
- =?us-ascii?Q?WXKP3hPuVG3C9HAbr8omFJl3yDix/5iS9t4/y7cjOIIZgXQVnd4IVeG4vRHO?=
- =?us-ascii?Q?Sna2i80GUOdgvWZ7Mtwu8Kui8lx4cwzOW7uPOBRdg/uRZeTvXiqnYuIWHKCE?=
- =?us-ascii?Q?+kVsmS1cQnvSnMZHaF+29xf0sQqReIfAvoo4jottbTJ4UG6eIw34cv4DKNmV?=
- =?us-ascii?Q?PEctjM02gQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab7b5851-1bfa-49da-5c4a-08dedeab3101
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 17:46:38.4213
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9/24JfLgnzIYo29/cGIa/8aiuykkh33jinea+ngJA9Qkr3jOloxmwch2I4v/pBt0kC17ux135pZna0+B0HIWBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7499
+Content-Type: multipart/signed; boundary="nextPart11273385.nUPlyArG6x";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
 
-Hi Matt,
+--nextPart11273385.nUPlyArG6x
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Sven Eckelmann <sven@narfation.org>
+Date: Fri, 10 Jul 2026 19:56:41 +0200
+Message-ID: <9098133.T7Z3S40VBb@sven-desktop>
+In-Reply-To: <20260710165224.39411-1-security@auditcode.ai>
+References: <20260710165224.39411-1-security@auditcode.ai>
+MIME-Version: 1.0
 
-On Fri, Jul 10, 2026 at 11:04:41AM +0100, Matt Fleming wrote:
-> From: Matt Fleming <mfleming@cloudflare.com>
+On Friday, 10 July 2026 18:52:24 CEST Ibrahim Hashimov wrote:
+> batadv_bla_add_claim() and batadv_bla_get_backbone_gw() each kzalloc a
+> new hash entry (struct batadv_bla_claim / struct batadv_bla_backbone_gw)
+> for every distinct (mac, vid) / (orig, vid) pair carried in a
+> BLA-group-conforming CLAIM frame, and insert it into
+> bat_priv->bla.claim_hash / backbone_hash. There is no maximum-entry
+> cap on either table -- entries are only ever removed by the
+> timeout-driven periodic purge (batadv_bla_purge_claims() /
+> batadv_bla_purge_backbone_gw(), BATADV_BLA_CLAIM_TIMEOUT /
+> BATADV_BLA_BACKBONE_TIMEOUT, on the order of 100 s).
 > 
-> scx_root_enable_workfn() currently takes scx_fork_rwsem for writing
-> before acquiring cgroup_mutex. Since commit a5b98009f16d ("sched/psi:
-> fix race between file release and pressure write"), pressure_write()
-> holds cgroup_mutex across psi_trigger_create(), which may call
-> kthread_create() for the psimon kthread. kthreadd's fork then enters
-> scx_pre_fork() and waits for the read side of scx_fork_rwsem.
+> The BLA group a frame must carry is htons(crc16(primary_hardif_mac)),
+> which is trivially observable/derivable by any node already on the
+> mesh soft-interface (batadv_check_claim_group()). A single on-mesh
+> sender can therefore emit CLAIM frames with an incrementing source MAC
+> and force one kzalloc(GFP_ATOMIC) per frame on both hot paths, growing
+> kernel memory without bound for as long as the attacker keeps sending
+> -- uncontrolled resource allocation. Both allocations are
+> GFP_ATOMIC with a NULL check, so this is a graceful memory-pressure
+> DoS, not a crash: there is no OOB access.
 > 
-> This results in a deadlock. The enable worker holds scx_fork_rwsem and
-> waits for cgroup_mutex, while the PSI writer holds cgroup_mutex and
-> waits for psimon creation to complete. Any concurrent fork blocks on
-> scx_pre_fork() behind the enable worker.
+> batman-adv already has an established pattern for capping an
+> attacker-/peer-influenced, unbounded-growth per-mesh-interface
+> resource: the TP-meter session list bounds concurrent sessions with a
+> fixed ceiling and an atomic_add_unless() admission check that rejects
+> new allocations once the cap is hit, logging and freeing/decrementing
+> on the abort path (net/batman-adv/tp_meter.c, BATADV_TP_MAX_NUM,
+> bat_priv->tp_num, "Meter: too many ongoing sessions, aborting").
 > 
-> The hung-task detector captured all three sides of the deadlock:
+> Apply the same pattern to BLA: add two atomic_t counters,
+> bat_priv->bla.num_claims and bat_priv->bla.num_backbone_gws, each
+> capped at a new BATADV_BLA_MAX_CLAIMS / BATADV_BLA_MAX_BACKBONE_GW
+> limit (4096 / 256 -- generous for any real bridged LAN/VLAN
+> population, several orders of magnitude below what would need to be
+> sprayed to threaten memory availability). batadv_bla_add_claim() and
+> batadv_bla_get_backbone_gw() reserve a slot with atomic_add_unless()
+> before allocating; on cap-hit the frame is dropped (matching existing
+> "drop silently, let the sender resync/backoff" BLA behaviour) instead
+> of allocating. The reservation is released on every existing early-out
+> (kzalloc failure, hash_add failure) and in the kref release paths
+> (batadv_claim_release(), batadv_backbone_gw_release()), where the
+> counters are decremented right before the objects are freed. No
+> locking changes are needed: the counters are only ever touched via
+> atomic ops, mirroring tp_num.
 > 
->   scx_enable_help:
->     __mutex_lock
->     scx_enable_workfn
->     kthread_worker_fn
+> This does not change on-the-wire behaviour, hash table sizing, or
+> timeout-based purging; it only stops a single on-mesh peer from
+> growing the tables past a bounded ceiling.
 > 
->   systemd:
->     wait_for_completion_killable
->     __kthread_create_on_node
->     kthread_create_on_node
->     psi_trigger_create
->     pressure_write
->     kernfs_fop_write_iter
+> Verified by code review rather than by driving either counter to its
+> cap at runtime: the atomic_add_unless()/atomic_dec() pairing was
+> checked against every existing early-out (kzalloc failure, hash_add
+> failure) and against both kref release callbacks, confirming exactly
+> one reservation and one release per entry, mirroring the same
+> tp_num accounting in tp_meter.c. A loopback CLAIM-frame reproducer
+> was used earlier to confirm the pre-fix unbounded growth itself
+> (distinct claim_hash/backbone_hash entries scale linearly with the
+> number of distinct (mac, vid) pairs sent), but reaching the new
+> 4096 / 256 caps with that same reproducer is impractical: entries
+> age out via the existing timeout-driven purge faster than a
+> single-host reproducer can accumulate enough distinct pairs to hit
+> the ceiling, so the cap-hit and slot-release paths were exercised
+> by inspection, not by a live saturation run.
 > 
->   python3:
->     percpu_rwsem_wait
->     __percpu_down_read
->     scx_pre_fork
->     sched_fork
->     copy_process
->     kernel_clone
-> 
-> It also identified systemd as the likely owner of the mutex on which
-> scx_enable_help was blocked.
-> 
-> We reproduced this on a 128-CPU AMD EPYC 7713 by enabling scx_lavd
-> concurrently with writes to cgroup PSI trigger files. Unrelated tasks
-> piled up in scx_pre_fork() and process creation on the box stopped.
-> 
-> Fix the inversion by acquiring cgroup_mutex before scx_fork_rwsem in
-> scx_root_enable_workfn() and releasing them in reverse order, while
-> preserving the existing exclusion around cgroup and task initialisation.
-> 
-> Fixes: a5b98009f16d ("sched/psi: fix race between file release and pressure write")
+> Fixes: 23721387c409 ("batman-adv: add basic bridge loop avoidance code")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
-
-This seems to introduce the following (running the sched_ext kselftests):
-
-[   28.963575] ======================================================
-[   28.963670] WARNING: possible circular locking dependency detected
-[   28.963752] 7.1.0-virtme #1 Not tainted
-[   28.963804] ------------------------------------------------------
-[   28.963887] sched_ext_helpe/2619 is trying to acquire lock:
-[   28.963954] ffffffff83685240 (scx_cgroup_ops_rwsem){+.+.}-{0:0}, at: scx_root_disable+0x45d/0x840
-[   28.964071]
-[   28.964071] but task is already holding lock:
-[   28.964151] ffffffff83682910 (scx_fork_rwsem){++++}-{0:0}, at: scx_root_disable+0x160/0x840
-[   28.964260]
-[   28.964260] which lock already depends on the new lock.
-[   28.964260]
-[   28.964355]
-[   28.964355] the existing dependency chain (in reverse order) is:
-[   28.964455]
-[   28.964455] -> #2 (scx_fork_rwsem){++++}-{0:0}:
-[   28.964539]        percpu_down_write+0x49/0x150
-[   28.964610]        scx_root_enable_workfn+0x5d0/0xd30
-[   28.964679]        kthread_worker_fn+0x121/0x360
-[   28.964749]        kthread+0x10c/0x140
-[   28.964802]        ret_from_fork+0x189/0x330
-[   28.964872]        ret_from_fork_asm+0x1a/0x30
-[   28.964941]
-[   28.964941] -> #1 (cgroup_mutex){+.+.}-{4:4}:
-[   28.965025]        __mutex_lock+0xbe/0xd80
-[   28.965070]        scx_root_enable_workfn+0x5c4/0xd30
-[   28.965138]        kthread_worker_fn+0x121/0x360
-[   28.965210]        kthread+0x10c/0x140
-[   28.965263]        ret_from_fork+0x189/0x330
-[   28.965331]        ret_from_fork_asm+0x1a/0x30
-[   28.965402]
-[   28.965402] -> #0 (scx_cgroup_ops_rwsem){+.+.}-{0:0}:
-[   28.965485]        __lock_acquire+0x14c5/0x2a40
-[   28.965554]        lock_acquire+0xd3/0x280
-[   28.965608]        percpu_down_write+0x49/0x150
-[   28.965677]        scx_root_disable+0x45d/0x840
-[   28.965745]        kthread_worker_fn+0x121/0x360
-[   28.965815]        kthread+0x10c/0x140
-[   28.965867]        ret_from_fork+0x189/0x330
-[   28.965935]        ret_from_fork_asm+0x1a/0x30
-[   28.966002]
-[   28.966002] other info that might help us debug this:
-[   28.966002]
-[   28.966097] Chain exists of:
-[   28.966097]   scx_cgroup_ops_rwsem --> cgroup_mutex --> scx_fork_rwsem
-[   28.966097]
-[   28.966233]  Possible unsafe locking scenario:
-[   28.966233]
-[   28.966314]        CPU0                    CPU1
-[   28.966379]        ----                    ----
-[   28.966444]   lock(scx_fork_rwsem);
-[   28.966496]                                lock(cgroup_mutex);
-[   28.966579]                                lock(scx_fork_rwsem);
-[   28.966661]   lock(scx_cgroup_ops_rwsem);
-[   28.966713]
-[   28.966713]  *** DEADLOCK ***
-[   28.966713]
-[   28.966794] 2 locks held by sched_ext_helpe/2619:
-[   28.966861]  #0: ffffffff83682818 (scx_enable_mutex){+.+.}-{4:4}, at: scx_root_disable+0xba/0x840
-[   28.966974]  #1: ffffffff83682910 (scx_fork_rwsem){++++}-{0:0}, at: scx_root_disable+0x160/0x840
-[   28.967090]
-[   28.967090] stack backtrace:
-[   28.967158] CPU: 8 UID: 0 PID: 2619 Comm: sched_ext_helpe Not tainted 7.1.0-virtme #1 PREEMPT(full)
-[   28.967164] Hardware name: Bochs Bochs, BIOS Bochs 01/01/2011
-[   28.967166] Call Trace:
-[   28.967169]  <TASK>
-[   28.967172]  dump_stack_lvl+0x6d/0xa0
-[   28.967175]  print_circular_bug+0x2e1/0x300
-[   28.967179]  check_noncircular+0x144/0x170
-[   28.967182]  __lock_acquire+0x14c5/0x2a40
-[   28.967202]  ? scx_root_disable+0x45d/0x840
-[   28.967204]  lock_acquire+0xd3/0x280
-[   28.967207]  ? scx_root_disable+0x45d/0x840
-[   28.967209]  percpu_down_write+0x49/0x150
-[   28.967212]  ? scx_root_disable+0x45d/0x840
-[   28.967213]  scx_root_disable+0x45d/0x840
-[   28.967219]  ? kthread_worker_fn+0x51/0x360
-[   28.967221]  kthread_worker_fn+0x121/0x360
-[   28.967223]  ? __pfx_scx_disable_workfn+0x10/0x10
-[   28.967224]  ? __pfx_kthread_worker_fn+0x10/0x10
-[   28.967227]  kthread+0x10c/0x140
-[   28.967228]  ? __pfx_kthread+0x10/0x10
-[   28.967229]  ret_from_fork+0x189/0x330
-[   28.967231]  ? __pfx_kthread+0x10/0x10
-[   28.967232]  ret_from_fork_asm+0x1a/0x30
-[   28.967235]  </TASK>
-
-Thanks,
--Andrea
-
+> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+> Assisted-by: AuditCode-AI:2026.07
 > ---
->  kernel/sched/ext/ext.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-> index 691d53fe0f64..ba89eafe7964 100644
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
-> @@ -7193,7 +7193,10 @@ static void scx_root_enable_workfn(struct kthread_work *work)
->  	/*
->  	 * Lock out forks, cgroup on/offlining and moves before opening the
->  	 * floodgate so that they don't wander into the operations prematurely.
-> +	 * cgroup_mutex must nest outside scx_fork_rwsem because cgroup file
-> +	 * operations may create kthreads while holding cgroup_mutex.
->  	 */
-> +	scx_cgroup_lock();
->  	percpu_down_write(&scx_fork_rwsem);
->  
->  	WARN_ON_ONCE(scx_init_task_enabled);
-> @@ -7216,7 +7219,6 @@ static void scx_root_enable_workfn(struct kthread_work *work)
->  	 * while tasks are being initialized so that scx_cgroup_can_attach()
->  	 * never sees uninitialized tasks.
->  	 */
-> -	scx_cgroup_lock();
->  	set_cgroup_sched(sch_cgroup(sch), sch);
->  	ret = scx_cgroup_init(sch);
->  	if (ret)
-> @@ -7283,8 +7285,8 @@ static void scx_root_enable_workfn(struct kthread_work *work)
->  		put_task_struct(p);
->  	}
->  	scx_task_iter_stop(&sti);
-> -	scx_cgroup_unlock();
->  	percpu_up_write(&scx_fork_rwsem);
-> +	scx_cgroup_unlock();
->  
->  	/*
->  	 * All tasks are READY. It's safe to turn on scx_enabled() and switch
-> @@ -7369,8 +7371,8 @@ static void scx_root_enable_workfn(struct kthread_work *work)
->  	return;
->  
->  err_disable_unlock_all:
-> -	scx_cgroup_unlock();
->  	percpu_up_write(&scx_fork_rwsem);
-> +	scx_cgroup_unlock();
->  	/* we'll soon enter disable path, keep bypass on */
->  err_disable:
->  	mutex_unlock(&scx_enable_mutex);
-> -- 
-> 2.43.0
-> 
+>  net/batman-adv/bridge_loop_avoidance.c | 38 ++++++++++++++++++++++++--
+>  net/batman-adv/main.h                  |  3 ++
+>  net/batman-adv/types.h                 |  6 ++++
+>  3 files changed, 45 insertions(+), 2 deletions(-)
+
+
+Consider this rejected:
+
+* the target tree should be batadv and not "net"
+* patch doesn't even apply to batadv.git
+
+  $ git am 20260710165224.39411-1-security@auditcode.ai.mbx
+  Applying: batman-adv: bound BLA claim and backbone gateway table growth
+  error: patch failed: net/batman-adv/bridge_loop_avoidance.c:179
+  error: net/batman-adv/bridge_loop_avoidance.c: patch does not apply
+  Patch failed at 0001 batman-adv: bound BLA claim and backbone gateway table growth
+  hint: Use 'git am --show-current-patch=diff' to see the failed patch
+  hint: When you have resolved this problem, run "git am --continue".
+  hint: If you prefer to skip this patch, run "git am --skip" instead.
+  hint: To restore the original branch and stop patching, run "git am --abort".
+  hint: Disable this message with "git config advice.mergeConflict false"
+
+* there are already patches for these for review [1]
+* breaks existing setups and doesn't allow users to adjust limits according to 
+  their requirements
+* own backbones must never be prevented
+* I start to get tired by all these overlong AI generated patch summaries 
+  which meander around completely irrelevant detail information - or 
+  information which are not even relevant here
+
+Regards,
+	Sven
+
+[1] https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/?series=726
+    https://git.open-mesh.org/pub/ecsv/batman-adv.git/log/?h=b4/resource-limit
+--nextPart11273385.nUPlyArG6x
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQS81G/PswftH/OW8cVND3cr0xT1ywUCalEyWQAKCRBND3cr0xT1
+yzCaAP9HyxUvpnN5Dwp5ZjnKHA/sfcJNIx4NLUj6XfqoSrg8QwD+J/iCM0F11StK
+uhvihT1OUCtBXnK6/uWK8K+TVALj1w0=
+=MqzO
+-----END PGP SIGNATURE-----
+
+--nextPart11273385.nUPlyArG6x--
+
+
+
