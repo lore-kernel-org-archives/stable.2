@@ -1,208 +1,139 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10643F871A
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 13:37:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089363CBE97;
+	Fri, 10 Jul 2026 13:38:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783690676; cv=none; b=VrA35Ds9kEZ40y3jQEMTMR3FwhQ7C+q24GYdSxtHct0ZiEu3E+d+3MrLPF2aaDY3V3JV8fTyaSmPVvZ/oiJOfqKM0A0ECZjkSnEi4Dcll3b01Rdt3wefYhwBFiyUHy2BeAmIRm4QA69PnAd1wU9r9Z6b43p/wErJXFkERsAZraU=
+	t=1783690720; cv=none; b=HYx7VY42jqAa+LBq+OrFDknPupt3z6qrpGuz81w2KSz2XSlbmjmYiRykTCprafGlioG+txgU6Pmi/6B4VV3K1rxmvoSn0DB0+8LaeDO+4jE5SQZH6lMTZsfNUf8CYZ8UGW4FEHJUTNaSrobrIbnlf01Kn0Z/tjQCDfZXEhocbd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783690676; c=relaxed/simple;
-	bh=AYwL4x85KBfBnJQXr4uZFfgLpw+1sPN3KOzzjaCdiIs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cFPb3hgjoMg66v5OFH+bt4sEcSa7xE1J92KN/MH5afjijZzE8nqee1bqFR46oS8t+dlkj/g8+X0ezJvmpXLKKVKRBbIuK3M9vrviedBwlUd1yne9X+Gn6+nTNMAft9RTXccMxBIFMac01F2tDKOtYDFsokqAjFGjGNGiy7s8lec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=nHpz+Bwt; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Tsn9rKas; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=g2r0T7Sa; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FZrrm9w6; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1783690720; c=relaxed/simple;
+	bh=p/pSWXkPajt4W/HhkIRl8Muz2waGLdsiCEbj8UA7lUA=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=KkgfON+pulbqOt+KhpPI8tAU/gCZbzQZeuSymTxpBHB9sNS51JcPcKVQvcx6ITPqzrHUcGWX9l+UeMDt2O8HJoQvWhT9AYzBhJWxt80wWw9++5uUAlKvBYnl3mwujhbhlxyXO4+4j4SOZZ1QbGo+zE2QFQ53K+LuWfpjehsOFZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=oTdTng3B; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=wS/lSW+h; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nHpz+Bwt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Tsn9rKas";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="g2r0T7Sa";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FZrrm9w6"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id DB6EB764BA;
-	Fri, 10 Jul 2026 13:37:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783690671; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oTdTng3B";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="wS/lSW+h"
+Date: Fri, 10 Jul 2026 13:38:34 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1783690716;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=C8NszUrF+11F6wgI8xRukhU0/iZ4lQg7H8KugXg4ZdQ=;
-	b=nHpz+BwturNMp8LGsL6y61NS1niOzIbo+g31aDgnWlbaM0LzUx+TXPzqdjy9DlXLFPzhVf
-	rAyW4D4BIHRX5Nz4BHgqbRGhXe9tCNM9C8MLGZ3EqYt4k0VF68MG6sqRTRUdSg2Vb6HZBo
-	GtoRZivcOwrZtqKVkjVgkhwPKz3b2Co=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783690671;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	bh=qPDL/peFF0h77rFGOflU7cgVbSdnIBgE0Q8pHOrPHwg=;
+	b=oTdTng3BL2cCXLem514vSsqqX+7hOfXFphJweQbcpWxvuTf6xnVWUuqcHA7+TFyzeunor+
+	SG2bYDDiJPIodifFDUKRiZzW0h2/84sNu5hmiJnCtFPzep1QU93Y0AhoCsmI1KinyuitZb
+	dsqNOAUzi6cRgz6rfAje1r1W+enbqXXH49i4VkQ8mkCJBMNVHuaW3gdbb4BbCKewbdVulh
+	d6W6gYZBckuNmrBuk8LdW/XdGEYVxAajr5TWYDySzKQnjalJFbXpz6bSVggxMAOLQnAWPe
+	of6Jh5P26PEieh1x8DQ/uXQjxZxUDrkD2AJ688Ghn/Q88HbqjHctr/JbWF1guA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1783690716;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=C8NszUrF+11F6wgI8xRukhU0/iZ4lQg7H8KugXg4ZdQ=;
-	b=Tsn9rKas66xINKIMrac9JYFqkezyzU+Bob+CfaNu2G8oYns5Ad0WEgpEXXVhF7U+UkLjSA
-	pDZz2YLAO/CouKBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783690669; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C8NszUrF+11F6wgI8xRukhU0/iZ4lQg7H8KugXg4ZdQ=;
-	b=g2r0T7Saz4CT+dfYqhKpqlXLM8PzyAg7oUjWaylnlzeV3ynoruNY7r5Ju0cTtit2tJAK3d
-	R1OMnLb2bfbUR1cug8Oo77PCpgXqtRsNUMsmwJUZnMN5Xy2lPeI0XWg7lGth9tfLg0hmTq
-	T7LQkhoo3iQ47+n64la6pvRNbXx7mMg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783690669;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C8NszUrF+11F6wgI8xRukhU0/iZ4lQg7H8KugXg4ZdQ=;
-	b=FZrrm9w66zcgF7FdQ/V5TgCkopRnGpoaS7of7tAltX6aEvil10lwDSuUZkStLMEJOF1l5Q
-	l96xYwnRx6xffvDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 63A42779BD;
-	Fri, 10 Jul 2026 13:37:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oHGQCq31UGo0FQAAD6G6ig
-	(envelope-from <ematsumiya@suse.de>); Fri, 10 Jul 2026 13:37:49 +0000
-Date: Fri, 10 Jul 2026 10:37:39 -0300
-From: Enzo Matsumiya <ematsumiya@suse.de>
-To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Cc: Steve French <sfrench@samba.org>, Namjae Jeon <linkinjeon@kernel.org>, 
-	Steve French <smfrench@gmail.com>, Namjae Jeon <linkinjeon@samba.org>, linux-cifs@vger.kernel.org, 
-	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] smb: common: fix undefined shifts in LZ77 flag encoding
-Message-ID: <alDzjYsJpxPPNXVr@suse.de>
-References: <20260709173019.36808-1-acharyalaxman8848@gmail.com>
+	bh=qPDL/peFF0h77rFGOflU7cgVbSdnIBgE0Q8pHOrPHwg=;
+	b=wS/lSW+hRLHKr4+gGankcObxruPqLLq/Ly8r6BYYDs39Sl9o+Bdg55G3M1uFkBkA94TkNJ
+	NAo4niEZj27i88BA==
+From: "tip-bot2 for Sandipan Das" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: perf/urgent] perf/x86/amd/lbr: Fix kernel address leakage
+Cc: Ian Rogers <irogers@google.com>, Sandipan Das <sandipan.das@amd.com>,
+ Ingo Molnar <mingo@kernel.org>, stable@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: =?utf-8?q?=3Ca898a29725f6b2f30518354cdc2e432db66c43cf=2E1783680?=
+ =?utf-8?q?119=2Egit=2Esandipan=2Edas=40amd=2Ecom=3E?=
+References: =?utf-8?q?=3Ca898a29725f6b2f30518354cdc2e432db66c43cf=2E17836801?=
+ =?utf-8?q?19=2Egit=2Esandipan=2Edas=40amd=2Ecom=3E?=
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260709173019.36808-1-acharyalaxman8848@gmail.com>
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[samba.org,kernel.org,gmail.com,vger.kernel.org,lists.samba.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Level: 
-X-Spam-Score: -4.30
+Message-ID: <178369071458.744054.8995849321113951897.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+The following commit has been merged into the perf/urgent branch of tip:
 
-Thanks for the patch.
+Commit-ID:     2a892294b83f541115c94b0bb637f39bef187657
+Gitweb:        https://git.kernel.org/tip/2a892294b83f541115c94b0bb637f39bef1=
+87657
+Author:        Sandipan Das <sandipan.das@amd.com>
+AuthorDate:    Fri, 10 Jul 2026 16:15:27 +05:30
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Fri, 10 Jul 2026 15:37:53 +02:00
 
-On 07/09, Laxman Acharya Padhya wrote:
->The LZ77 encoder emits flags in 32-bit words, but keeps the
->accumulator in a long and can shift it by 32 bits.
->
->This happens when lz77_encode_literals() emits a full all-literal flag
->word, and again when smb_lz77_compress() pads an empty final flag word.
->On 32-bit builds
+perf/x86/amd/lbr: Fix kernel address leakage
 
-SMB2 compression code is supposed to be supported on 64-bit (and
-little endian) architectures only.
+A user-only branch stack can contain branches that originate from
+the kernel. As a result, kernel addresses are exposed to user space
+even when PERF_SAMPLE_BRANCH_USER is requested. On AMD processors
+supporting X86_FEATURE_AMD_LBR_V2, perf can still report SYSRET/ERET
+entries for which the branch-from addresses are in the kernel.
 
-I was going to send a patch to make such checks at build-time (to make
-that an explicit "statement"), but I'm waiting for Steve's input on it.
+E.g.
 
+  $ perf record -e cycles -o - -j any,save_type,u -- \
+        perf bench syscall basic --loop 1000 | \
+        perf script -i - -F brstack|tr ' ' '\n'| \
+        grep -E '0x[89a-f][0-9a-f]{15}'
 
-Cheers,
+  ...
+  0xffffffff81001268/0x717a90a38f1a/M/-/-/0/ERET/NON_SPEC_CORRECT_PATH
+  0xffffffff81001268/0x717a90a39157/M/-/-/0/ERET/NON_SPEC_CORRECT_PATH
+  0xffffffff81001268/0x717a90a2c628/M/-/-/0/ERET/NON_SPEC_CORRECT_PATH
+  0xffffffff81001268/0x717a90a41b60/M/-/-/0/ERET/NON_SPEC_CORRECT_PATH
+  0xffffffff81001268/0x717a90a260db/M/-/-/0/ERET/NON_SPEC_CORRECT_PATH
+  0xffffffff81001268/0x717a90a260db/M/-/-/0/ERET/NON_SPEC_CORRECT_PATH
+  0xffffffff81001268/0x717a8bef1c30/M/-/-/0/ERET/NON_SPEC_CORRECT_PATH
+  0xffffffff81001268/0x717a8e4d3c90/M/-/-/0/ERET/NON_SPEC_CORRECT_PATH
+  ...
 
-Enzo
+The reason is that the hardware filter only considers the privilege
+level applicable to the branch target. Extend software filtering to
+also validate the branch-from addresses against br_sel, so that any
+branch record whose branch-from address is in the kernel is dropped
+when PERF_SAMPLE_BRANCH_USER is requested.
 
->these shift counts are equal to the width of the
->shifted type, so UBSAN can report a runtime error and the encoded flag
->word is undefined.
->
->Use a u32 accumulator and special-case the full-word states so the same
->flag words are emitted without issuing 32-bit shifts.
->
->Fixes: d14bbfff259c ("smb3: mark compression as CONFIG_EXPERIMENTAL and fix missing compression operation")
->Cc: stable@vger.kernel.org
->Assisted-by: Codex:gpt-5
->Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
->---
-> fs/smb/common/compress/lz77.c | 19 +++++++++++++------
-> 1 file changed, 13 insertions(+), 6 deletions(-)
->
->diff --git a/fs/smb/common/compress/lz77.c b/fs/smb/common/compress/lz77.c
->index 9216d973d87..be6853ad576 100644
->--- a/fs/smb/common/compress/lz77.c
->+++ b/fs/smb/common/compress/lz77.c
->@@ -188,7 +188,7 @@ static __always_inline void *lz77_encode_match(void *dst, void **nib, u16 dist,
->  * MS-XCA 2.3.4 "Plain LZ77 Compression Algorithm Details" - "Processing"
->  */
-> static __always_inline void *lz77_encode_literals(const void *start, const void *end, void *dst,
->-						  long *f, u32 *fc, void **fp)
->+						  u32 *f, u32 *fc, void **fp)
-> {
-> 	if (start >= end)
-> 		return dst;
->@@ -201,7 +201,10 @@ static __always_inline void *lz77_encode_literals(const void *start, const void
-> 		dst += len;
-> 		start += len;
->
->-		*f <<= len;
->+		if (len == LZ77_FLAG_MAX)
->+			*f = 0;
->+		else
->+			*f <<= len;
-> 		*fc += len;
-> 		if (*fc == LZ77_FLAG_MAX) {
-> 			lz77_write32(*fp, *f);
->@@ -225,7 +228,7 @@ noinline int smb_lz77_compress(const void *src, const u32 slen,
-> 	const void *srcp, *rlim, *end, *anchor;
-> 	u32 *htable, hash, flag_count = 0;
-> 	void *dstp, *nib, *flag_pos;
->-	long flag = 0;
->+	u32 flag = 0;
->
-> 	/* This is probably a bug, so throw a warning. */
-> 	if (WARN_ON_ONCE(*dlen < smb_lz77_compressed_alloc_size(slen)))
->@@ -327,9 +330,13 @@ noinline int smb_lz77_compress(const void *src, const u32 slen,
-> out:
-> 	dstp = lz77_encode_literals(anchor, end, dstp, &flag, &flag_count, &flag_pos);
->
->-	flag_count = LZ77_FLAG_MAX - flag_count;
->-	flag <<= flag_count;
->-	flag |= (1UL << flag_count) - 1;
->+	if (flag_count) {
->+		flag_count = LZ77_FLAG_MAX - flag_count;
->+		flag <<= flag_count;
->+		flag |= (1U << flag_count) - 1;
->+	} else {
->+		flag = ~0U;
->+	}
-> 	lz77_write32(flag_pos, flag);
->
-> 	*dlen = dstp - dst;
->-- 
->2.53.0
->
+Fixes: f4f925dae741 ("perf/x86/amd/lbr: Add LbrExtV2 hardware branch filter s=
+upport")
+Reported-by: Ian Rogers <irogers@google.com>
+Signed-off-by: Sandipan Das <sandipan.das@amd.com>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Cc: stable@vger.kernel.org
+Cc: Peter Zijlstra <peterz@infradead.org>
+Link: https://patch.msgid.link/a898a29725f6b2f30518354cdc2e432db66c43cf.17836=
+80119.git.sandipan.das@amd.com
+---
+ arch/x86/events/amd/lbr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
+index 5b437dc..9d9c961 100644
+--- a/arch/x86/events/amd/lbr.c
++++ b/arch/x86/events/amd/lbr.c
+@@ -127,7 +127,8 @@ static void amd_pmu_lbr_filter(void)
+ 		}
+=20
+ 		/* If type does not correspond, then discard */
+-		if (type =3D=3D X86_BR_NONE || (br_sel & type) !=3D type) {
++		if (type =3D=3D X86_BR_NONE || (br_sel & type) !=3D type ||
++		    (!(br_sel & X86_BR_KERNEL) && kernel_ip(cpuc->lbr_entries[i].from))) {
+ 			cpuc->lbr_entries[i].from =3D 0;	/* mark invalid */
+ 			compress =3D true;
+ 		}
