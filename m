@@ -1,161 +1,117 @@
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3787122097
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 03:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.190
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B081A6838;
+	Fri, 10 Jul 2026 03:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783654858; cv=none; b=eRxV1Wc1ODzmrdUpo3/St/S5VLksB5mt36XaWuku+SHGk+RJb47qowx9QTVLsKryUArASc8QcWawXYovEL1A2iTfz03agKxRPTWeU5JIKUsVMj8MWHiG7pagvZRF7YEeY1u5YcJLXZ3T+YYWxKCRgOxnmDWvZOnD/WNI838f6xg=
+	t=1783655337; cv=none; b=lgA59zBDzxQM6vSUI2q3/F0TKp4ZApEt97MPnsH/AwmIORi0MskJOrWNTMhDHNMiiuYpGpTaHct4oNdq+W2uhFNqtsvflaKB9+1ZB5raGHWqLH04267o5UguyXvCoccM1SjQbDB+UPqqCOp2cHd1a8M65TiYDl+74atmgKjK8SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783654858; c=relaxed/simple;
-	bh=N8Ql/R2KyV13fTGjhJAlvYvaMr0kaRtJZ+kgkyK80QU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Sx8enNsn6KDbgu7HLe0iaKtpP9oOeKJxG7bxb+FAwFpIj/3tP7hI+SYzoBlEr01uP8sYeaSLDwx0BWnDB4vBK2KuuhsmBfipfF2LLIfaa7WEH+3eOzUs9H4xI1WEdpf41/ABjCL58kSbOjwigwyLPUdayj0SDdRNZ29UArNYPQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=glSw8Dx9; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=glSw8Dx9; arc=none smtp.client-ip=45.249.212.190
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1783655337; c=relaxed/simple;
+	bh=IC1suyjmt5b8DyR8pK6rxRhMkrtUSvZA/TDabVoUMEE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UwXyFWGNPC+7ifUXJkWWK3eBjwalrhu2GBcT414+h13h77pd+pfu9w/KDMHlN1TzJVg5lLLtQupavMGU7F6PnZ15leir9g7bPgXmhDd6k0FyreLMYQhPB8+hV0q2fGMxDHtrmFbp+/Nj5OIv06UQFpilQtR4zD3MDWPgAKNeOOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=crz1i8AA; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="glSw8Dx9";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="glSw8Dx9"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=iTljOFKYJBI33ZEI0JX671u45JXFShPIM4aeNDpDwv0=;
-	b=glSw8Dx9Mzy1CL32Fk+FBH40Il6zPAuD1Q137P883L3KsqBedtUB5HPKpNDKcuua5jfShM1jF
-	Ncgz0lq6wkOMr2Ez7I/Mgtx0Q6ZrVMvw47Hh/GkzSvfcmTHTHMM+wW2xeKuBzUrO/8lBvYVhEkX
-	BvFMKYabhqI25nUDMEp6TI4=
-Received: from canpmsgout04.his.huawei.com (unknown [172.19.92.133])
-	by szxga04-in.huawei.com (SkyGuard) with ESMTPS id 4gxHfC696dz126Lt5
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 11:40:19 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=iTljOFKYJBI33ZEI0JX671u45JXFShPIM4aeNDpDwv0=;
-	b=glSw8Dx9Mzy1CL32Fk+FBH40Il6zPAuD1Q137P883L3KsqBedtUB5HPKpNDKcuua5jfShM1jF
-	Ncgz0lq6wkOMr2Ez7I/Mgtx0Q6ZrVMvw47Hh/GkzSvfcmTHTHMM+wW2xeKuBzUrO/8lBvYVhEkX
-	BvFMKYabhqI25nUDMEp6TI4=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4gxHRx09Gpz1prKZ;
-	Fri, 10 Jul 2026 11:31:25 +0800 (CST)
-Received: from dggemv705-chm.china.huawei.com (unknown [10.3.19.32])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2532340537;
-	Fri, 10 Jul 2026 11:40:42 +0800 (CST)
-Received: from kwepemq200011.china.huawei.com (7.202.195.155) by
- dggemv705-chm.china.huawei.com (10.3.19.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Fri, 10 Jul 2026 11:40:41 +0800
-Received: from [10.67.110.108] (10.67.110.108) by
- kwepemq200011.china.huawei.com (7.202.195.155) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Fri, 10 Jul 2026 11:40:41 +0800
-Message-ID: <2410686c-bc58-44a0-9f71-ec79791daaa6@huawei.com>
-Date: Fri, 10 Jul 2026 11:40:40 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="crz1i8AA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783655334; x=1815191334;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=IC1suyjmt5b8DyR8pK6rxRhMkrtUSvZA/TDabVoUMEE=;
+  b=crz1i8AA5IqIcmTaoCzx86+CDpCKfq8TVW5SDlyTDn0awZRPIf/pbvyG
+   8Y8Sc5sT35TO9sEM0nhx/47oeZ1NtSzbFUkVtnYkHt6vK2ylRhLNjSQ9E
+   hQwIcfcAURJuB09yc/6K7Ex/T4DHSS+7OffQSY4FbkYljAK3ToT9m0cSJ
+   YEkASujNddx4z+eQjcnbm4DW01xIZtsFTmzMVxOj2Lam3/yEWd9lUkylL
+   SX2cEXzeGUqT6LfApKWIKkgs60qhlsSGVOeZ2WqYckj7FLaNXqB2A7HTk
+   zzTDFd8zkaLj7jHR8hqRSzbAegq/IkVSbuXdjGVHXxzb6Z7HpfBBNW2yd
+   A==;
+X-CSE-ConnectionGUID: GH3l/dSyTgCq0IF3nHWT/Q==
+X-CSE-MsgGUID: 4uzS+Cn1TnW4sZ0rg6+jlA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="94956800"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="94956800"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 20:48:53 -0700
+X-CSE-ConnectionGUID: haCtSX8mQB+zOM0BN10Btw==
+X-CSE-MsgGUID: DbRQTrCUT2Kz1KkMstE/OA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="255433185"
+Received: from litbin-desktop.sh.intel.com ([10.239.159.62])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 20:48:50 -0700
+From: Binbin Wu <binbin.wu@linux.intel.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	seanjc@google.com,
+	pbonzini@redhat.com,
+	kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	thorsten.blum@linux.dev,
+	binbin.wu@linux.intel.com
+Subject: [PATCH v2] KVM: TDX: Reject concurrent change to CPUID entry count
+Date: Fri, 10 Jul 2026 11:53:23 +0800
+Message-ID: <20260710035324.3170534-1-binbin.wu@linux.intel.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 03/36] arm64: hibernate: mask DAIF before restoring
- hibernated kernel
-To: Vladimir Murzin <vladimir.murzin@arm.com>,
-	<linux-arm-kernel@lists.infradead.org>
-CC: <mark.rutland@arm.com>, <maz@kernel.org>, <ruanjinjie@huawei.com>,
-	<stable@vger.kernel.org>, <catalin.marinas@arm.com>, <will@kernel.org>
-References: <20260709121333.23507-1-vladimir.murzin@arm.com>
- <20260709121333.23507-4-vladimir.murzin@arm.com>
-From: "Liao, Chang" <liaochang1@huawei.com>
-In-Reply-To: <20260709121333.23507-4-vladimir.murzin@arm.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemq200011.china.huawei.com (7.202.195.155)
 
-在 2026/7/9 20:13, Vladimir Murzin 写道:
-> From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> 
-> The arm64 hibernate code manages the exception masking in an unsound
-> way, leading to potential crashes and/or warnings during resume.
-> 
-> When a hibernation image is saved in `swsusp_arch_suspend()`, all DAIF
-> exceptions are masked (by virtue of `local_daif_save()`), and the
-> suspended image is saved assuming that all DAIF exceptions will remain
-> masked when the image is restored.
-> 
-> When a hibernation image is resumed by `swsusp_arch_resume()`, only
-> interrupts are masked (by virtue of `local_irq_save()` in
-> `resume_target_kernel()`). When pseudo-NMI is enabled the DAIF.IF bits
-> will be clear, and regardless of pseudo-NMI the DAIF.DA bits will be
-> clear.
-> 
-> This means that there are two problems:
-> 
-> (1) It is possible to take Debug, SError, or pseudo-NMI exceptions
->     during the resume process. This is unsafe, as during the resume
->     process both the old ane new kernels will tranisently be in an
->     inconsistent state, and swsusp_arch_suspend_exit() won't retain
->     an executable mapping of any exception vectors.
-> 
->     Any exception taken here will be fatal and silent.
-> 
-> (2) When re-entering the resumed kernel, some DAIF bits will be clear
->     unexpectedly. This permits Debug, SError, or pseudo-NMI exceptions
->     to be taken for a short period while the resumed kernel is not yet
->     in a consistent state.
-> 
->     This is detected by CONFIG_ARM64_DEBUG_PRIORITY_MASKING.
-> 
-> Avoid these issues by masking all DAIF exceptions during resume.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
-> ---
->  arch/arm64/kernel/hibernate.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/arch/arm64/kernel/hibernate.c b/arch/arm64/kernel/hibernate.c
-> index 9717568518ba..d0d9bd91e639 100644
-> --- a/arch/arm64/kernel/hibernate.c
-> +++ b/arch/arm64/kernel/hibernate.c
-> @@ -405,6 +405,7 @@ int swsusp_arch_suspend(void)
->  int __nocfi swsusp_arch_resume(void)
->  {
->  	int rc;
-> +	unsigned long flags;
->  	void *zero_page;
->  	size_t exit_size;
->  	pgd_t *tmp_pg_dir;
-> @@ -465,9 +466,21 @@ int __nocfi swsusp_arch_resume(void)
->  	if (el2_reset_needed())
->  		__hyp_set_vectors(el2_vectors);
->  
-> +	/*
-> +	 * It is necessary to mask all DAIF exceptions here as:
-> +	 *
-> +	 * - The copy of swsusp_arch_suspend_exit() in the hibernation
-> +	 *   text cannot handle taking any exceptions.
-> +	 *
-> +	 * - The suspended kernel masked all DAIF exceptions in
-> +	 *   swsusp_arch_resume(), and expects to be re-entered in the
-> +	 *   same state : with all DAIF exceptions masked.
-> +	 */
-> +	flags = local_daif_save();
->  	hibernate_exit(virt_to_phys(tmp_pg_dir), resume_hdr.ttbr1_el1,
->  		       resume_hdr.reenter_kernel, restore_pblist,
->  		       resume_hdr.__hyp_stub_vectors, virt_to_phys(zero_page));
-> +	local_daif_restore(flags);
+Reject KVM_TDX_INIT_VM if userspace changes cpuid.nent between the
+initial read and the subsequent copy of the initialization data.
 
-As Jinjie said, the resumed kernel never return from hibernate_exit(). If that's
-the case, it seems better to place unreachable() rather than local_daif_restore(),
-would you agree?
+tdx_td_init() first reads user_data->cpuid.nent to size the flexible
+kvm_tdx_init_vm copy.  The copied structure also contains cpuid.nent,
+and that field can differ from the value used to size the allocation if
+userspace modifies the input concurrently.  setup_tdparams_cpuids() later
+passes init_vm->cpuid.nent to kvm_find_cpuid_entry2(), which uses it as
+the array bound for the copied entries.
 
->  
->  	return 0;
->  }
+Require the copied count to match the value used to size the allocation
+so that CPUID parsing cannot access beyond the entries actually copied.
 
+Fixes: 0bd0a4a1428b ("KVM: TDX: Replace kmalloc + copy_from_user with memdup_user in tdx_td_init()")
+Reported-by: Sashiko:gemini-3.1-pro-preview
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
+---
+v2:
+- Reject the request if mismatch instead overwriting the value. (Thorsten, Rick)
+- Lump the check into the existing sanity check on the cpuid field. (Sean)
+- "KVM: x86: TDX:" -> "KVM: TDX:" in the shortlog.
 
+v1:
+- https://lore.kernel.org/kvm/20260708022937.2465796-1-binbin.wu@linux.intel.com/
+---
+ arch/x86/kvm/vmx/tdx.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index 6ff1469e91cc..d1af0a752e97 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -2797,7 +2797,11 @@ static int tdx_td_init(struct kvm *kvm, struct kvm_tdx_cmd *cmd)
+ 		goto out;
+ 	}
+ 
+-	if (init_vm->cpuid.padding) {
++	/*
++	 * Reject the request if userspace changes cpuid.nent between the
++	 * initial read and the subsequent copy.
++	 */
++	if (init_vm->cpuid.padding || init_vm->cpuid.nent != nr_user_entries) {
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
+
+base-commit: f1e5ada5ab62dbe32350bc161771c9afc6a896de
 -- 
-BR
-Liao, Chang
+2.46.0
+
