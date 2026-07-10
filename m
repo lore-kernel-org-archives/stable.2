@@ -1,57 +1,42 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1BA7E0FF;
-	Fri, 10 Jul 2026 14:09:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783692602; cv=pass; b=pvGSZvRb6bZqKrdr7VyS8jbQV5uG5nmFJT5YPLyATfpXuIsIbJH+zUFCTmgyN6Ja+lfQhv8A+yahY635qrZjbASgNsRHCc+KOYjQ5n9ks3RkC8f4tuqb12TaH/yIa6S5X5DKe/ptvXG/wmWCuQ0mIZjguT9N4ajDk4zv7LdvB4U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783692602; c=relaxed/simple;
-	bh=ljlWwhl4MSRmsGSt3hHwCd+GEOrvQNMsv6KnBv/Gqrg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e64X0EI+Un0th5yX3nv0JdH80LkwuN+P7lB7naqLgP3XqYogmT1bKoDySUwONA2kzsVxR6gAZTPMVJ5wLGEXrGWbfQIYJI0dMXbjUiVsxhMNjw5EARXMXSD6VG2dMMhYQ6//yHh42GTB/1aanY9sHowalh2iHHO5bveZWJlxxGM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=L42I8ROO; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005E73438A4
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 14:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783693065; cv=none; b=BuDced3zFr4ZgRhG6kqeOoZ4286sk5u5hNtmATOs926imA3FFJufBjkILu2rPpIEdoNKjw8r7OjdUdPZx3uCSjATzYRtr/Az3f0LyVhtH5ejM5c8r/RSLAggTiAxLQTfdCUzw09MQZXkS5gKI0SFrc0lIYucWOffPFT4S0L4acE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783693065; c=relaxed/simple;
+	bh=6j8m1zf3l4l83MH/oU0DAkvX/b/3nk7E9r/s6qz2zAU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uWvWdKc2eOCobWTHrJ7ztZBON+qA1pVtuhm1SsFguwFijZI5W36tSQuBybHndrO1EZoikQ6TEcnRARdYcY8Hb3iCTv3ehVFuXMrY2TCcs4gsmv8x3lwRHK40BzarvcxyECrsTaS6LcEam+wF7vRwurJ9CXGGO1IidcsYH7JLFFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtYCmUXy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="L42I8ROO"
-ARC-Seal: i=1; a=rsa-sha256; t=1783692572; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=hZt1XXdWXnyF+M0kkOS36AutrormeCoalrRP4+WUfesRkZkJBvFbd/vXqEkwkFe+oUi3TcWm4dwN+5KcpzGzgKsX9rRn3GSy9Sa6iJKoaTzw92xMBGMfuuScxbgkZV5N6dUtMR7ggHtcCrNwu/JRZtBPMOagR6NFSdU6ziG++Ls=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1783692572; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QCpA9hNQb2+dY/GdVuoFivLwBHgPhQwaGW2XRacNqTc=; 
-	b=RGajrwKgKArpL0HaMw7yGQKsgxmzXauSIWadw6Lrc2k8gSCgirh7iiYirX7a+7MQ6T2NlbbfB/3F4GjcoJo1UYmcj63BlNkN4mumegs1/Yo4xGm0EEP96rKXEBJcNf9x8kxbNSiQBRvhW4xyuptpzu0Azb3YeJ51XxkA/2UlqOk=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=auditcode.ai;
-	spf=pass  smtp.mailfrom=security@auditcode.ai;
-	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783692572;
-	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=QCpA9hNQb2+dY/GdVuoFivLwBHgPhQwaGW2XRacNqTc=;
-	b=L42I8ROOJ/E7fJRbD4nEJ3eBzHmAOh1hFq+cD4Ez//jO+f4RFM6hzy5JpM/IfT33
-	5SA/1z5SWRmAGHbTTvZ9D6OTgUQyRUWw9Ia/uRt0yWsZd/x6uS00snNDpNPRjL+iWLO
-	wG7yNPh99CWhiiwIys/3/iGnKwHHgxsJ9hQR2lfU=
-Received: by mx.zoho.eu with SMTPS id 178369256977454.46577705906941;
-	Fri, 10 Jul 2026 16:09:29 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] mac802154: hold an interface reference across the scan worker
-Date: Fri, 10 Jul 2026 16:09:27 +0200
-Message-ID: <20260710140927.13228-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtYCmUXy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 181FF1F000E9;
+	Fri, 10 Jul 2026 14:17:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783693063;
+	bh=fXqxRWaoKCw7zMK1LQpjbtDehpIxVKaXBRTIyoFVLRI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gtYCmUXyClcpck/tCdR9xQ4VYvoOwCDvLuB1FgzvNPykoGuEN4iW930hI8NMoiVaz
+	 D4Hs4Sr2G7yAjn9FfGrZ5+awXn3MHRH1WDZaUEmBC+83pRfANS1RKaKYVNmOl7tG0c
+	 4z2CvHoGR9xZP5zlgy58EHs+y2I+LgMjjQgbRObsgg/F3poALcfvHqC3B3AYR/du2B
+	 Rzn1Z2vnxB0lulGq19R36e3X8ognRsW5gizCCsGhFiPYU+O8ZmuGaxCq3CYQbYORpe
+	 MugiWDQc/xmlGr2PpBu5a2xN48S28GG7hnHb0OG9jS1fPCzBuk/9AoXmZPnKjAnX16
+	 2oO9NBx1M0O1A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] ACPI: NFIT: core: Fix acpi_nfit_init() error cleanup
+Date: Fri, 10 Jul 2026 10:17:40 -0400
+Message-ID: <20260710141740.132102-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070917-boring-spirited-9fa8@gregkh>
+References: <2026070917-boring-spirited-9fa8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,130 +44,103 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-mac802154_scan_worker() captures the scanning sub-interface once under
-RCU:
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-	sdata = IEEE802154_WPAN_DEV_TO_SUB_IF(scan_req->wpan_dev);
+[ Upstream commit 38bf27511ef41bffebd157ec3eba41fc89ba59cd ]
 
-and then, after rcu_read_unlock() and outside the rtnl, keeps
-dereferencing sdata->dev: in the channel-change and restart failure
-traces, in mac802154_transmit_beacon_req() (skb->dev = sdata->dev) for
-active scans, in the final dev_dbg(), and in the end_scan
-mac802154_scan_cleanup_locked() path. Nothing keeps that netdev alive
-for the duration of the worker iteration.
+If acpi_nfit_init() fails after adding the acpi_desc object to the
+acpi_descs list, that object is never removed from that list because
+the acpi_nfit_shutdown() devm action is not added for the NFIT device
+in that case.  Next, the acpi_nfit_init() failure causes
+acpi_nfit_probe() to fail, the acpi_desc object is freed, and a
+dangling pointer is left behind in the acpi_descs.  Any subsequent
+ACPI Machine Check Exception will trigger nfit_handle_mce() which
+iterates over acpi_descs and so a use-after-free will occur.
 
-A concurrent teardown of the scanning interface -- userspace issuing
-NL802154_CMD_DEL_INTERFACE (ieee802154_if_remove() ->
-unregister_netdevice()), or a full PHY removal via
-ieee802154_unregister_hw() -> ieee802154_remove_interfaces() -- can run
-as soon as the worker drops the rtnl between its two short
-drv_set_channel()/drv_start() sections. The netdev is not freed
-synchronously by unregister_netdevice(): it is queued to net_todo_list
-and freed later from netdev_run_todo(), which drops the rtnl mutex
-(__rtnl_unlock()) *before* netdev_wait_allrefs_any()/free_netdev(). The
-freeing therefore runs with the rtnl not held, on whichever task next
-drains net_todo_list. Holding the rtnl in the worker does not prevent
-it, and the per-PHY IEEE802154_IS_SCANNING flag does not identify the
-specific interface: a subsequent NEW_INTERFACE + TRIGGER_SCAN re-arms
-the flag, so a stale worker iteration sails past an is-scanning recheck
-and dereferences the already-freed netdev.
+Moreover, if acpi_nfit_probe() returns 0 after installing a notify
+handler for the NFIT device and without allocating the acpi_desc
+object and setting the NFIT device's driver data pointer, the
+acpi_desc object will be allocated by acpi_nfit_update_notify()
+and acpi_nfit_init() will be called to initialize it.  Regardless
+of whether or not acpi_nfit_init() fails in that case, the
+acpi_nfit_shutdown() devm action is not added for the NFIT device
+and acpi_desc is never removed from the acpi_descs list.  If the
+acpi_desc object is freed subsequently on driver removal, any
+subsequent ACPI MCE will lead to a use-after-free like in the
+previous case.
 
-Triggering the race requires CAP_NET_ADMIN: both
-NL802154_CMD_TRIGGER_SCAN and NL802154_CMD_DEL_INTERFACE are
-GENL_ADMIN_PERM, reachable only from the initial user namespace, so
-the attacker is a locally privileged (CAP_NET_ADMIN) user, not an
-unprivileged local user or a remote peer.
+To address the first issue mentioned above, make acpi_nfit_probe()
+call acpi_nfit_shutdown() directly on acpi_nfit_init() failures and
+to address the other one, add a remove callback to the driver and
+make it call acpi_nfit_shutdown().  Also, since it is now possible to
+pass NULL to acpi_nfit_shutdown() or the acpi_desc object passed to it
+may not have been initialized, add checks against NULL for acpi_desc and
+its nvdimm_bus field to that function and make acpi_nfit_unregister()
+clear the latter after unregistering the NVDIMM bus.
 
-KASAN slab-use-after-free, kworker reading the freed
-net_device/ieee802154_sub_if_data (kmalloc-cg-4k) allocated and freed by
-the racing NEW_INTERFACE/DEL_INTERFACE task:
-
-  BUG: KASAN: slab-use-after-free in mac802154_scan_worker+0x... [mac802154]
-  Read of size 8 ... by task kworker/u8:N
-  Workqueue: phy0-mac-cmds mac802154_scan_worker [mac802154]
-   mac802154_scan_worker
-   process_one_work
-  (also hit via ieee802154_mlme_tx_locked() from the beacon-request path
-   and via _dev_err()/__dev_printk() formatting sdata->dev->dev)
-
-Fix it by taking a reference on the interface while the RCU read lock is
-still held -- so the netdev cannot be freed before the refcount is
-raised -- and releasing it at every exit of the worker past that point.
-This keeps sdata->dev valid for the whole iteration.
-
-The reference does not defer the free indefinitely and does not
-deadlock the single-threaded mac_wq. Each worker iteration drops the
-reference before it requeues itself, and a teardown started while the
-reference is held simply blocks in netdev_run_todo() until the current
-iteration returns. It cannot be the worker's own rtnl_unlock() that
-blocks on the reference either: the unregistering task removes the
-netdev from net_todo_list under the rtnl (list_replace_init() in
-netdev_run_todo() runs before __rtnl_unlock()), so it always owns the
-todo entry, and the worker acquires the rtnl only afterwards -- the
-blocking netdev_wait_allrefs_any() therefore always runs on the
-teardown task, never on the worker.
-
-Verified on a v6.19 KASAN build: racing DEL_INTERFACE against an
-in-flight TRIGGER_SCAN reliably tripped a slab-use-after-free KASAN
-report inside mac802154_scan_worker() before this patch, and the
-same reproducer no longer triggers it with the fix applied.
-
-Fixes: 57588c71177f ("mac802154: Handle passive scanning")
-Cc: stable@vger.kernel.org
-Assisted-by: AuditCode-AI:2026.07
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Fixes: a61fe6f7902e ("nfit, tools/testing/nvdimm: unify common init for acpi_nfit_desc")
+Fixes: fbabd829fe76 ("acpi, nfit: fix module unload vs workqueue shutdown race")
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Cc: All applicable <stable@vger.kernel.org>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Link: https://patch.msgid.link/1963615.tdWV9SEqCh@rafael.j.wysocki
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac802154/scan.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/acpi/nfit/core.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/net/mac802154/scan.c b/net/mac802154/scan.c
-index 0a31ac8d8415..48e661031cc0 100644
---- a/net/mac802154/scan.c
-+++ b/net/mac802154/scan.c
-@@ -209,6 +209,26 @@ void mac802154_scan_worker(struct work_struct *work)
- 		return;
- 	}
+diff --git a/drivers/acpi/nfit/core.c b/drivers/acpi/nfit/core.c
+index 78c9f56b4ba341..00490c2e4d08c4 100644
+--- a/drivers/acpi/nfit/core.c
++++ b/drivers/acpi/nfit/core.c
+@@ -3067,6 +3067,8 @@ static void acpi_nfit_unregister(void *data)
+ 	struct acpi_nfit_desc *acpi_desc = data;
  
-+	/* From here on sdata->dev is dereferenced after rcu_read_unlock() and
-+	 * outside the rtnl: in the dev_err()/dev_dbg() traces below, in
-+	 * mac802154_transmit_beacon_req() (skb->dev = sdata->dev) and in the
-+	 * end_scan mac802154_scan_cleanup_locked() call. A concurrent teardown
-+	 * of that interface (NL802154_CMD_DEL_INTERFACE ->
-+	 * ieee802154_if_remove(), or a full PHY removal via
-+	 * ieee802154_unregister_hw()) can unregister the netdev; the actual
-+	 * free then runs asynchronously from netdev_run_todo() with the rtnl
-+	 * already dropped, so neither holding the rtnl nor the per-PHY
-+	 * IEEE802154_IS_SCANNING flag keeps sdata->dev alive here. Pin it with
-+	 * a reference taken while we still hold the RCU read lock (so the
-+	 * netdev cannot be freed before we bump the refcount) and drop it at
-+	 * every exit below. This blocks the teardown's netdev_run_todo() until
-+	 * this worker iteration is done; it cannot self-deadlock because the
-+	 * unregistering task claims the net_todo_list entry under the rtnl, so
-+	 * the blocking netdev_wait_allrefs_any() always runs on that task, not
-+	 * on this single-threaded worker.
-+	 */
-+	dev_hold(sdata->dev);
-+
- 	wpan_phy = scan_req->wpan_phy;
- 	scan_req_type = scan_req->type;
- 	scan_req_duration = scan_req->duration;
-@@ -262,12 +282,14 @@ void mac802154_scan_worker(struct work_struct *work)
- 		"Scan page %u channel %u for %ums\n",
- 		page, channel, jiffies_to_msecs(scan_duration));
- 	queue_delayed_work(local->mac_wq, &local->scan_work, scan_duration);
-+	dev_put(sdata->dev);
- 	return;
- 
- end_scan:
- 	rtnl_lock();
- 	mac802154_scan_cleanup_locked(local, sdata, false);
- 	rtnl_unlock();
-+	dev_put(sdata->dev);
+ 	nvdimm_bus_unregister(acpi_desc->nvdimm_bus);
++	/* The nvdimm_bus object may have been freed, so clear the pointer. */
++	acpi_desc->nvdimm_bus = NULL;
  }
  
- int mac802154_trigger_scan_locked(struct ieee802154_sub_if_data *sdata,
+ int acpi_nfit_init(struct acpi_nfit_desc *acpi_desc, void *data, acpi_size sz)
+@@ -3290,7 +3292,10 @@ static void acpi_nfit_put_table(void *table)
+ void acpi_nfit_shutdown(void *data)
+ {
+ 	struct acpi_nfit_desc *acpi_desc = data;
+-	struct device *bus_dev = to_nvdimm_bus_dev(acpi_desc->nvdimm_bus);
++	struct device *bus_dev;
++
++	if (!acpi_desc || !acpi_desc->nvdimm_bus)
++		return;
+ 
+ 	/*
+ 	 * Destruct under acpi_desc_lock so that nfit_handle_mce does not
+@@ -3305,6 +3310,7 @@ void acpi_nfit_shutdown(void *data)
+ 	mutex_unlock(&acpi_desc->init_mutex);
+ 	cancel_delayed_work_sync(&acpi_desc->dwork);
+ 
++	bus_dev = to_nvdimm_bus_dev(acpi_desc->nvdimm_bus);
+ 	/*
+ 	 * Bounce the nvdimm bus lock to make sure any in-flight
+ 	 * acpi_nfit_ars_rescan() submissions have had a chance to
+@@ -3372,13 +3378,14 @@ static int acpi_nfit_add(struct acpi_device *adev)
+ 				sz - sizeof(struct acpi_table_nfit));
+ 
+ 	if (rc)
+-		return rc;
+-	return devm_add_action_or_reset(dev, acpi_nfit_shutdown, acpi_desc);
++		acpi_nfit_shutdown(acpi_desc);
++
++	return rc;
+ }
+ 
+ static int acpi_nfit_remove(struct acpi_device *adev)
+ {
+-	/* see acpi_nfit_unregister */
++	acpi_nfit_shutdown(dev_get_drvdata(&adev->dev));
+ 	return 0;
+ }
+ 
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
