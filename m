@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F67313E1B
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 13:32:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A1E314A83
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 13:34:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783690359; cv=none; b=tSTqO8aFkqLcvD2W0G/PNM33VYKleeX+x41n7Suvmror0V9HEEzlIH95EuG20cUjhuWWWOP6g6MryT89FjlNb7LD9AsDsAKGUxsU71YIA+0ryZ0kNF89oav4bbIJyydD310UxFAsrMSvb2NqGgtrO0ADCmyrT7PvYjIiObqowCs=
+	t=1783690480; cv=none; b=BAhZgbAkVhHRLvtzsKdcdb8wNC71EiM1uin09vjkmfDDl6ATGcDrfIpzJ97ngfj+w0sXZ3NgzZNWIKebufg+nOkM2GkDwsw9hdGmq4e9g2l1r7ubi1fQ6LkuiERWnTXxo1ybOt3rFy6zCn/ZtvnOAH4qp+Yo9IN6bTagFSCOHkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783690359; c=relaxed/simple;
-	bh=Pzj3KLRrOnB+BZJJdaobgFPSgFN/oYJnjqO5Kc3uCm4=;
+	s=arc-20240116; t=1783690480; c=relaxed/simple;
+	bh=CmM9v96osf/ERQ3Rjd73mar/R1vPs0q/ZM1EB31QTCg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DRTc3nN8ZlZd2LVo67FWvFtrtwWzJBNL/FUF14SnjlB6NnFKDlDqgWR/3UBnJ6h1pV32JlLd8o3B5JNim5bC1UG92OZMO3ujueOoJEhwx6bVqxO1FflIYr6cb/5UHAvGK2iRipNEhyDn+sSl0Ypm18IUEtyS5QIScFm2Y1Xsdl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=My0G3ZOT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hlXAgfmIfOmmRiXrA0FKB7eb/c6ksMfHFE0vDWxc5EOWesRSbQqmCnSzLSoPAG3aYKN3HmwsA8csd1xAc7XjUnxmd+6JS4JZ6GL5pUawQEASLHkKxBecPM5Gwfp40dcoapvJJ4ENbQlVUaO4WN1WPVzdK45lphZI4WwAOI/SnLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W0SRhNcZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="My0G3ZOT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C73E61F00A3A;
-	Fri, 10 Jul 2026 13:32:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W0SRhNcZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E34A41F000E9;
+	Fri, 10 Jul 2026 13:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783690357;
-	bh=Po5sowEd2D40BtIqb0Dg9RezSmU/uI7W63PWfQNiqjM=;
+	s=k20260515; t=1783690478;
+	bh=FfJVZ7e6aoiGjTzLwsnXTzhDXEJ5e76XzGJULiwrVbE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=My0G3ZOTiKOzlAWJwgeiRVWtMK08hCMelfESM/xFaMhJpn39aRA7+Gd1rE9zqDO/T
-	 +rGYFyDLiD7cFTyafr46KsVmtKdTMK79lT9cGR91KNPMYxOeDAtcU7fjkNnzVH8U9W
-	 TtO7XAiHVgNnQAKK7ej6/nXza1WB0yZd9F9irIe9WgYXIMxJjpp0iarXELtxsdpHG8
-	 U++bvs/2o59vRf4sOKXNuDQn1GHnxdr4m4HR7VDp8ljHeh2eUGf3f5B0NZwFmeEtQG
-	 XcPUsjfPsHBhDqnqvV48/FG9CHiCrmLZiKjvxj75PTQHrWyco30z641UKKFczQGvvJ
-	 KKUep6lIJYTvA==
+	b=W0SRhNcZiH7NrTml2LWwkmXNBq9fpkWhQhJMRG0lIJMXSsG9y4VkGMCtDhxRd0S7r
+	 Oz/0595zafjxXBN8zVpG+taiVLI/b1fLze7fdr6bFxUtWN6z9yX3ZSCK6iHqo2kU1h
+	 f4b3OdBWvEwwIR1j6UFDs9DZpEJ2llzzgfOfmogyPaxmXaZO/iE3x7JXpm5nltrf8M
+	 khvATcDBOUjDQX+JETSJT0yxK2Rq11gQKtb+AtCOBDiXdLBe+Z9vh/gAkHE0EP3gqk
+	 qUsskuVjHj/mdWtCi3SzQc+O70L83VptJek2ocBNPK2GBcA0oZbZVdtWd49LFZsHVz
+	 MxorAPknGdEZg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
+Cc: Haoze Xie <royenheart@gmail.com>,
+	stable@kernel.org,
+	Yuan Tan <yuantan098@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Ren Wei <n05ec@lzu.edu.cn>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ACPI: NFIT: core: Fix acpi_nfit_init() error cleanup
-Date: Fri, 10 Jul 2026 09:32:35 -0400
-Message-ID: <20260710133235.81141-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] rust: block: fix GenDisk cleanup paths
+Date: Fri, 10 Jul 2026 09:34:36 -0400
+Message-ID: <20260710133436.82387-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026070915-atop-schematic-75ab@gregkh>
-References: <2026070915-atop-schematic-75ab@gregkh>
+In-Reply-To: <2026070953-laurel-zeppelin-239b@gregkh>
+References: <2026070953-laurel-zeppelin-239b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,109 +50,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+From: Haoze Xie <royenheart@gmail.com>
 
-[ Upstream commit 38bf27511ef41bffebd157ec3eba41fc89ba59cd ]
+[ Upstream commit 2957771379fa335103a4b539db57bb2271e12142 ]
 
-If acpi_nfit_init() fails after adding the acpi_desc object to the
-acpi_descs list, that object is never removed from that list because
-the acpi_nfit_shutdown() devm action is not added for the NFIT device
-in that case.  Next, the acpi_nfit_init() failure causes
-acpi_nfit_probe() to fail, the acpi_desc object is freed, and a
-dangling pointer is left behind in the acpi_descs.  Any subsequent
-ACPI Machine Check Exception will trigger nfit_handle_mce() which
-iterates over acpi_descs and so a use-after-free will occur.
+GenDiskBuilder::build() still has fallible work after
+__blk_mq_alloc_disk(), but its error path only recovers the
+foreign queue data. That leaks the temporary gendisk and
+request_queue until later teardown. If the caller moved the last
+Arc<TagSet<T>> into build(), the leaked queue can retain blk-mq
+state after the tag set is dropped.
 
-Moreover, if acpi_nfit_probe() returns 0 after installing a notify
-handler for the NFIT device and without allocating the acpi_desc
-object and setting the NFIT device's driver data pointer, the
-acpi_desc object will be allocated by acpi_nfit_update_notify()
-and acpi_nfit_init() will be called to initialize it.  Regardless
-of whether or not acpi_nfit_init() fails in that case, the
-acpi_nfit_shutdown() devm action is not added for the NFIT device
-and acpi_desc is never removed from the acpi_descs list.  If the
-acpi_desc object is freed subsequently on driver removal, any
-subsequent ACPI MCE will lead to a use-after-free like in the
-previous case.
+Fix the pre-registration failure path by dropping the temporary
+gendisk reference with put_disk() before recovering queue_data,
+so disk_release() can tear down the owned queue.
 
-To address the first issue mentioned above, make acpi_nfit_probe()
-call acpi_nfit_shutdown() directly on acpi_nfit_init() failures and
-to address the other one, add a remove callback to the driver and
-make it call acpi_nfit_shutdown().  Also, since it is now possible to
-pass NULL to acpi_nfit_shutdown() or the acpi_desc object passed to it
-may not have been initialized, add checks against NULL for acpi_desc and
-its nvdimm_bus field to that function and make acpi_nfit_unregister()
-clear the latter after unregistering the NVDIMM bus.
+Also pair GenDisk::drop() with put_disk() after del_gendisk().
+Once a Rust GenDisk has been added with device_add_disk(),
+del_gendisk() only unregisters it; the final gendisk reference
+still has to be dropped to complete the release path.
 
-Fixes: a61fe6f7902e ("nfit, tools/testing/nvdimm: unify common init for acpi_nfit_desc")
-Fixes: fbabd829fe76 ("acpi, nfit: fix module unload vs workqueue shutdown race")
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Cc: All applicable <stable@vger.kernel.org>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Link: https://patch.msgid.link/1963615.tdWV9SEqCh@rafael.j.wysocki
+Fixes: 3253aba3408a ("rust: block: introduce `kernel::block::mq` module")
+Cc: stable@kernel.org
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Signed-off-by: Haoze Xie <royenheart@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Link: https://patch.msgid.link/b70aff9a920cc42110fe5cf454c3099561863519.1780063368.git.royenheart@gmail.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ no queue-data recovery or recover_data.dismiss() in 6.12 ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/acpi/nfit/core.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ rust/kernel/block/mq/gen_disk.rs | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/nfit/core.c b/drivers/acpi/nfit/core.c
-index 3eb56b77cb6d93..30b5d30bbd44a1 100644
---- a/drivers/acpi/nfit/core.c
-+++ b/drivers/acpi/nfit/core.c
-@@ -3061,6 +3061,8 @@ static void acpi_nfit_unregister(void *data)
- 	struct acpi_nfit_desc *acpi_desc = data;
+diff --git a/rust/kernel/block/mq/gen_disk.rs b/rust/kernel/block/mq/gen_disk.rs
+index 8cd47ddd1dbb5f..c4095984444057 100644
+--- a/rust/kernel/block/mq/gen_disk.rs
++++ b/rust/kernel/block/mq/gen_disk.rs
+@@ -6,7 +6,7 @@
+ //! C header: [`include/linux/blk-mq.h`](srctree/include/linux/blk-mq.h)
  
- 	nvdimm_bus_unregister(acpi_desc->nvdimm_bus);
-+	/* The nvdimm_bus object may have been freed, so clear the pointer. */
-+	acpi_desc->nvdimm_bus = NULL;
- }
+ use crate::block::mq::{raw_writer::RawWriter, Operations, TagSet};
+-use crate::{bindings, error::from_err_ptr, error::Result, sync::Arc};
++use crate::{bindings, error::from_err_ptr, error::Result, sync::Arc, types::ScopeGuard};
+ use crate::{error, static_lock_class};
+ use core::fmt::{self, Write};
  
- int acpi_nfit_init(struct acpi_nfit_desc *acpi_desc, void *data, acpi_size sz)
-@@ -3301,7 +3303,10 @@ static void acpi_nfit_remove_notify_handler(void *data)
- void acpi_nfit_shutdown(void *data)
- {
- 	struct acpi_nfit_desc *acpi_desc = data;
--	struct device *bus_dev = to_nvdimm_bus_dev(acpi_desc->nvdimm_bus);
-+	struct device *bus_dev;
+@@ -139,6 +139,12 @@ pub fn build<T: Operations>(
+         // SAFETY: `gendisk` is a valid pointer as we initialized it above
+         unsafe { (*gendisk).fops = &TABLE };
+ 
++        let cleanup_failure = ScopeGuard::new_with_data(gendisk, |gendisk| {
++            // SAFETY: `gendisk` came from `__blk_mq_alloc_disk()` above and
++            // has not been added to the VFS on this cleanup path.
++            unsafe { bindings::put_disk(gendisk) };
++        });
 +
-+	if (!acpi_desc || !acpi_desc->nvdimm_bus)
-+		return;
+         let mut raw_writer = RawWriter::from_array(
+             // SAFETY: `gendisk` points to a valid and initialized instance. We
+             // have exclusive access, since the disk is not added to the VFS
+@@ -161,6 +167,8 @@ pub fn build<T: Operations>(
+             },
+         )?;
  
- 	/*
- 	 * Destruct under acpi_desc_lock so that nfit_handle_mce does not
-@@ -3316,6 +3321,7 @@ void acpi_nfit_shutdown(void *data)
- 	mutex_unlock(&acpi_desc->init_mutex);
- 	cancel_delayed_work_sync(&acpi_desc->dwork);
- 
-+	bus_dev = to_nvdimm_bus_dev(acpi_desc->nvdimm_bus);
- 	/*
- 	 * Bounce the nvdimm bus lock to make sure any in-flight
- 	 * acpi_nfit_ars_rescan() submissions have had a chance to
-@@ -3393,9 +3399,14 @@ static int acpi_nfit_add(struct acpi_device *adev)
- 				sz - sizeof(struct acpi_table_nfit));
- 
- 	if (rc)
--		return rc;
-+		acpi_nfit_shutdown(acpi_desc);
- 
--	return devm_add_action_or_reset(dev, acpi_nfit_shutdown, acpi_desc);
-+	return rc;
-+}
++        cleanup_failure.dismiss();
 +
-+static void acpi_nfit_remove(struct acpi_device *adev)
-+{
-+	acpi_nfit_shutdown(dev_get_drvdata(&adev->dev));
+         // INVARIANT: `gendisk` was initialized above.
+         // INVARIANT: `gendisk` was added to the VFS via `device_add_disk` above.
+         Ok(GenDisk {
+@@ -192,5 +200,10 @@ fn drop(&mut self) {
+         // initialized instance of `struct gendisk`, and it was previously added
+         // to the VFS.
+         unsafe { bindings::del_gendisk(self.gendisk) };
++
++        // SAFETY: By type invariant, `self.gendisk` was added to the VFS, so
++        // `put_disk()` must follow `del_gendisk()` to drop the final gendisk
++        // reference and trigger the remaining release path.
++        unsafe { bindings::put_disk(self.gendisk) };
+     }
  }
- 
- static void acpi_nfit_update_notify(struct device *dev, acpi_handle handle)
-@@ -3479,6 +3490,7 @@ static struct acpi_driver acpi_nfit_driver = {
- 	.ids = acpi_nfit_ids,
- 	.ops = {
- 		.add = acpi_nfit_add,
-+		.remove = acpi_nfit_remove,
- 	},
- };
- 
 -- 
 2.53.0
 
