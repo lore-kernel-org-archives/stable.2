@@ -1,41 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F59913DDAE
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 21:03:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C92225A38
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 21:03:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783717404; cv=none; b=ltuwRFlHtYA1UYqZZFf6jAp7uklDiTEq9aYegFD7kA6vmod9VrjDLtCei5U7ZnND5UER81SGON356YWOoLLEtp56LZ76V3vXgm6yqertD+yR0xanvIcHlFU7nu4tGlceI6BqTud6rNiXX/0ciU7yxC+zrJ634lFG/PVlDFovzy0=
+	t=1783717405; cv=none; b=PpRdyozdiATE4w7GjzvhrO8g1zpdBpg+j0P4KmODwxHN/4yB8PdfaiFjYXX83OIZmsrY4nzrs7hOu7/1vXifRZrIFX8QP5+MOtRLo0YG6bRqWmmEdp12ghhcYfz2z4PzDEdJ3i1BB6ppEzo3irAkHSqIPtebpB69pGqnXx1kFMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783717404; c=relaxed/simple;
-	bh=lIJnxvlIwgA6sqRomiMmwK8h8P780UosP8RqSpcBBWg=;
+	s=arc-20240116; t=1783717405; c=relaxed/simple;
+	bh=ZhhNa0t/7wxhfaXMOZH0053tyQZ7otJJGKLCILUg/DE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GDQH9iOouLZiEHDMzIDNZBRGvZ9HD9I9ztahVqOYLjaJ34LGF/yglXdyqQGI/X0H/loYGzR8BQA520udyfsCDwMpIHZTjUNzvryuNB9JhZK6C2O8ZcmYsvYmsDHAm6/T6G4NcQWqziMUkn1fw9naLv+b/KZaafskgifUHeWdaMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7DTBjDq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cLLgz1d/sltQCZ4TD9f0SesQ6Eeigh2HgoFxpAatUMG8kXPbaBC8CioziNnFd1rrnN92KkBNvaJCTpJqa4O8DKzJBxSfRGWCAFSmG0ycfQ2qsXd4nFwG5VnR3luDiTXY//0CveNftuWWPt2MeyumFTRsRX404raGhjy36KbShSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ARKJwzRF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7DTBjDq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5080B1F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ARKJwzRF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E141F00A3D;
 	Fri, 10 Jul 2026 21:03:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783717402;
-	bh=axEB03ikE3WNOka1h6u7EXJ7M1J/GFCH9nwucBuKQwQ=;
+	s=k20260515; t=1783717404;
+	bh=TRbIXopC9vYVCcxu0eGR6GlAGJwY9ROYRhRW9oGYgpE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E7DTBjDqyTDPoSydQO666jxqcCZgb6W9T63RlG+QUEdq6RST3yTBG6RnzaRa0KWdP
-	 ElrzYWLXdthcxhKyN00x8DiWtcavLG17vrUd3fW26c0dNnSzBQ2doegBhq6Q2kzHKj
-	 HxDuYVO0aomipl/uV8Z6l/FX4d1dtTH7WIbRv4d93axBUsd6usfb3CHfPj/FAcSPtr
-	 tqEw1dwV+7FZn9+JSeXAp/INZrHnsMwRCRctvRMg5ifaGkKWTAV2pb7aStogHic2sU
-	 ZCX5p7csCFrfO33dGs2054r3p9Z+GbSFY0/Tt3//oeF1mGMXV8DQCnP4bn77s9lbTJ
-	 xP9qaG+u3JXjg==
+	b=ARKJwzRFeGfs+8vC6W/rQEAL0/H+mWGiKoCI3I0QlOOjY46KynYNW6MtcB40CI1SW
+	 H/4jErQzc7HfRZ9QUPgSrqf66CsQyw2Zqlk/9+tseYd6iny6zOQHgNW0r7gIfj+u3y
+	 CBiGVit5kZA9aUk5QswPv175quQlcakTKtivuPZGW1CFUDJr6oCxjIu2f7v/AgDEr7
+	 /BNdymS8lWoogBSYLylt3CBED9q/JThoY/siHeJ4U0ixYNttXwWx013uyfV+dwvfYK
+	 HkbCngv9C4doIXfZmHBEnVx6SGSGS5OycKxeJb8HL0M4GHhpV0tu/CPRKcTCdhgBPM
+	 eWjaSzMuh+ynw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Taeyang Lee <0wn@theori.io>
-Subject: Re: [stable] Please apply 037a3c43edfb: perf/core: Detach event groups during remove_on_exec
-Date: Fri, 10 Jul 2026 17:02:57 -0400
-Message-ID: <20260710163023.agent5-0001@kernel.org>
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Keenan Dong <keenanat2000@gmail.com>,
+	Yuan Tan <yuantan098@gmail.com>,
+	Yifan Wu <yifanwucs@gmail.com>,
+	Juefei Pu <tomapufckgml@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sid Kumar <sidkumar1@gmail.com>
+Subject: Re: [PATCH 5.15.y v2 1/2] rtmutex: Use waiter::task instead of current in remove_waiter()
+Date: Fri, 10 Jul 2026 17:02:58 -0400
+Message-ID: <20260710163023.agent5-0002@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAH-2Xv+SPOO=O1kiBzra1_+KD9snB6eEUCHkhROMN+Txco5S4g@mail.gmail.com>
-References: <CAH-2Xv+SPOO=O1kiBzra1_+KD9snB6eEUCHkhROMN+Txco5S4g@mail.gmail.com>
+In-Reply-To: <20260709145949.3640783-1-sidkumar1@gmail.com>
+References: <20260709145949.3640783-1-sidkumar1@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,21 +51,16 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 09, 2026 at 11:40:03PM +0900, Taeyang Lee wrote:
-> Please apply the following upstream commit to the supported stable trees:
+On Thu, Jul 09, 2026 at 10:59:48AM -0400, Sid Kumar wrote:
+> remove_waiter() is used by the slowlock paths, but it is also used for
+> proxy-lock rollback in rt_mutex_start_proxy_lock() when invoked from
+> futex_requeue().
 >
-> 037a3c43edfb597665dd34457cd22b14692f2ba3
-> ("perf/core: Detach event groups during remove_on_exec")
->
-> I checked that the upstream commit cherry-picks cleanly onto the following
-> stable branches:
->
-> linux-7.1.y
-> linux-6.18.y
->
-> For older supported branches, I sent adjusted backports separately.
+> In the latter case waiter::task is not current, but remove_waiter()
+> operates on current for the dequeue operation. That results in several
+> problems:
 
-Queued for 7.1, 6.18, 6.12, 6.6, 6.1, and 5.15, thanks.
+Queued the series for 5.15, thanks.
 
 -- 
 Thanks,
