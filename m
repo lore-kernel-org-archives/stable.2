@@ -1,57 +1,79 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED12413245;
-	Fri, 10 Jul 2026 11:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783682089; cv=pass; b=oMnMHucRoZTFBRV+uvr86qsyH2S3sWF82K8TOco27NO2pNb0fFhg2QIf6vAtA1WHi+Ch8LD2x6UDAAzAEarPWC7rj3nVKJqkeSb0C5O4vL/JMm28lx1kZAzbnSsvud8DGQ6tkivYdYmb2pNkNAbTxROR4Co3kZuAPoeofSNHl8Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783682089; c=relaxed/simple;
-	bh=F1KTYWnq+9g4j5MHk+R0ILEhmbsbyeXojT5qMs9y8d0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qoAmLSE9ORrH0Ri8EWjxyM+KAt94flR0A3TcR8D1tG/VS4XSfpACOYSn6I9lWE+7O08HE4FyyuW0ZvCIgXe6FWhmRjPihKZs9UMiUq/vVGTj5ocno74pJYTMP8Df8ZEr01AHjYOb26h2BhMRMWYcEL5F8Dkb5tjdwsr8u4wP6kk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=laKUEiYk; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E0641B35C
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 11:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783682618; cv=none; b=mPuyfwrvKh5xwaws/iFva8eACLD+fvz6aRtnZD9XpDiNUZwx3PD8n0DPCeLEKwcqryYamnWfMtekVXIqXGbcecYRsMJi0CbT5f1TyQl0Ted4XPOfqr1q3fRCs5DkdVAFj25mUK1FzPM9qd8V8iCnSneL+5PDUSRAeUM7d5R+UVk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783682618; c=relaxed/simple;
+	bh=29xiFC1J6wo7zb8FK6bJ1+y5GotjoNBoErEWl56Gtzc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YiOEQDqiDEesnsM7xHWYdrtIBgxIlWTP3spa3cnOEvMOUWQqZtXwDx/N9Bq0bHr7LZtotV+Jc49eg6UPhiiou5LNrqWKFESzK7alAZ8ccWnE7CGjf2md2gQTzS1z79aHO0Ze5KQWtMU6ceOCCDCnAWYZVR7qlJBvdWN4WrE/tpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SOPwjSqS; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="laKUEiYk"
-ARC-Seal: i=1; a=rsa-sha256; t=1783682040; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=cC/ICZXfF1PPaasz/E3BNaljaXN+qnBbr8t0aYdAVdPzQQ3aXMlUSNFjgIpF+Z20jl9E1IDeU7jcX/IUBC+3ujOt07VwRF42Rx8aDZlR2SbuR1wS8IX62zAvyVCBIJmplwwL/uJurHzzQtam8MR7759N3/HqeS+UtO5A9vrmXgY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1783682040; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=n2VrqkVnW4B7S1gpVF6wwy16uSMDtNg0d+SAjOSYJeg=; 
-	b=GjLHlQ+UiIysAtM4njkWSwm9tnItYHjUy+NXbcJMO33KRJEVxMhf1ugUB9ju8Ebpuu3AwMwznr3nOjYC76fF7QZ1Y4fChrOHneY0x6pc//uYCDItXwdeOrt9uj4EbkxVkOtnT0eU0VwVaPnAi5YHSnu44IdCNpyaaDuhmy9+c6M=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=auditcode.ai;
-	spf=pass  smtp.mailfrom=security@auditcode.ai;
-	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783682040;
-	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=n2VrqkVnW4B7S1gpVF6wwy16uSMDtNg0d+SAjOSYJeg=;
-	b=laKUEiYkT5R79MzktC+t7ZYJtdMShEpX7mz1OyZO73MP2eQ9B9tTGGVF2m5I3pwk
-	RRYwoCBaJsTD1M8nUsjbaseGjLQXuDiV8NRj1wp2CLoorN4p8AJvEjODsPYkB6MunsJ
-	NFr6KSTO76R3uxB6ssrBkikSfwwNt93sxX0CcoyQ=
-Received: by mx.zoho.eu with SMTPS id 1783682036480683.9563439480606;
-	Fri, 10 Jul 2026 13:13:56 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] mac802154: flush rx_mac_cmd_list before freeing sdata
-Date: Fri, 10 Jul 2026 13:13:53 +0200
-Message-ID: <20260710111353.12138-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SOPwjSqS"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cacd69a9c0so7563765ad.1
+        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 04:23:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783682614; x=1784287414; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lesz3zvgc+1C6E8BACW+YNJxKt7pdV6bHtGUVcqgJuk=;
+        b=SOPwjSqSKl4bCd9M9OFFeXZT6whoR4t2xgaesaksVcO+Elqx0mXsGUoMjCq28RxEMB
+         5H+eMkecxKXJGFOk1c0tZ19c0R6uCrJJ04tWSky8UCZowIrGmqWPCJZPW5en2gewVEfP
+         h1EtsdSgY3xy1b4qMrbVEyAPFuUfRD+aAR9nEuh4IkOXLDg0CPBgbLeXnmtTD1BhpvC+
+         iBOknSOrbKz2egq4ahcbeDPolL7/+xbKJxGa8sdZhKCSTHhiDnXJzr0FPCLztNqk8mQi
+         jfh/PmYWYs8sp82trP/8rsoP+Dh/+7cidODrCYR5Ew9b748M1nvZwLOvj0hHd1vPBv7p
+         c/tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783682614; x=1784287414;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lesz3zvgc+1C6E8BACW+YNJxKt7pdV6bHtGUVcqgJuk=;
+        b=b3tROWHgvAr16ERPMyRsqUTTknNQPgdyN1vvu+cS+c2zSWrk/eROppO68b0RjiBWcH
+         WQ/beIS4IiYdErJDzJaZnQamgdM3fJnuPFlJz3XN4pKaXjCxYun9NS0jXFcssCWO13cZ
+         3mfSq+h6ZxjAOTRAlgOLZJjvydYMj/q31uRTuGhdpCEHERfqyOqLrLck3d6wFkOPVq8w
+         Chbces1dBPZj7fxMG0yveB6+A8OaBUqwDA73L8yI5cg2AKdJNpm29bcO2Orc8vi6SaO3
+         l+x9R6Lf3aDv7Y8d7QOi21dfpiNnwzRARjuHHCZSOvH/DSqBZ1NUdwc7uJ3dyL3pGlCm
+         QCvA==
+X-Gm-Message-State: AOJu0Yx8Uf8aBI258whkz71glB+lswKF/SIDT8ThdfLFj+ayDTKCeeot
+	UeXQRBrEa+JbY3zp68tFiX8fechc3U8BEhsAU4Slog8zk83b7uX0pEbtUez3pFBl
+X-Gm-Gg: AfdE7cnoFADKfa3ASKV05Faws6oQGBva6gqRn2QmcI2Dj2KQiBw6VA6gNsxJWrv0cuo
+	h1wHYYPiq82DM1rJCZxs8+0RSH/KY82p62H24W8wAluhW42B2l9EVZ7UQ2UJiI1yKZTHhC860V8
+	OJ45jwij808jDZdgTlkL7xA2mhY7SGEBiSw8VUlyyqkjsRiKiHKM3YN+9RkzSyu7zqZyhxs5a8g
+	88/NZXkgpDyarOfoGfYggPn1wu58Xrl4mn+KX8rvLObbKol2gIcUIEtyF7cR7fVaiSvw9g6Tai3
+	MkgKFE7e2wcDulOODAzS3ao8BtKW8dsqdrDOBbDyhBxTemWUkQ/GlJX2+0fYK2q4yludzb90sgF
+	26JrD2jfJwncymCAuWLVbi3B2MbSW7Kues6Tqx1x42CzD6+oSfSN0PHdS0WIFjWXHw6b4gP++P5
+	CMlkOcucHJXHpBzUr2fuUDvPeygrUPb6ySXmuakklEE6myiD/1gJ0n+kyA/rHjT0lVceeMdBW0D
+	RVjruOnm8xQo6PPrqyCqRH4zB1HQdDDKokK0tLjN3mQC85X6IQ=
+X-Received: by 2002:a17:902:f60b:b0:2c9:97a7:f540 with SMTP id d9443c01a7336-2ccea433949mr121433875ad.38.1783682613643;
+        Fri, 10 Jul 2026 04:23:33 -0700 (PDT)
+Received: from ip-172-31-54-240.ap-northeast-2.compute.internal (ec2-43-203-160-83.ap-northeast-2.compute.amazonaws.com. [43.203.160.83])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d3bd33sm58745315ad.58.2026.07.10.04.23.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Jul 2026 04:23:33 -0700 (PDT)
+From: Hyokyung Kim <pulpannie@gmail.com>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Philo Lu <lulie@linux.alibaba.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Joe Damato <jdamato@fastly.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Hyokyung Kim <pulpannie@gmail.com>
+Subject: [PATCH 6.6.y] virtio_net: Support dynamic rss indirection table size
+Date: Fri, 10 Jul 2026 11:19:54 +0000
+Message-ID: <20260710111954.234758-1-pulpannie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAGJdW3H0Bv31W5DNaHstXyYxMcVFUnOmzAJ9LAjZOANk1y67OQ@mail.gmail.com>
+References: <CAGJdW3H0Bv31W5DNaHstXyYxMcVFUnOmzAJ9LAjZOANk1y67OQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,206 +81,152 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-mac802154_rx_mac_cmd_worker() (net/mac802154/rx.c) is queued on
-local->mac_wq every time a MAC-command frame (assoc req/resp, disassoc
-notify, beacon req) is received on any interface of a given phy. Each
-queued struct cfg802154_mac_pkt stashes a *raw* pointer to the
-receiving interface's ieee802154_sub_if_data (sdata) in
-ieee802154_subif_frame():
+From: Philo Lu <lulie@linux.alibaba.com>
 
-	mac_pkt->sdata = sdata;
-	list_add_tail(&mac_pkt->node, &sdata->local->rx_mac_cmd_list);
-	queue_work(sdata->local->mac_wq, &sdata->local->rx_mac_cmd_work);
+commit 86a48a00efdf61197b6658e52c6140463eb313dc upstream.
 
-and the worker later dereferences it with no liveness check at all,
-e.g. for IEEE802154_CMD_ASSOCIATION_REQ:
+When reading/writing virtio_net_ctrl_rss, the indirection table size is
+obtained from vi->rss_indir_table_size, initialized during virtnet_probe().
+However, the indirection_table was statically sized as
+VIRTIO_NET_RSS_MAX_TABLE_LEN=128, potentially causing issues when
+vi->rss_indir_table_size exceeds this limit.
 
-	if (mac_pkt->sdata->wpan_dev.iftype != NL802154_IFTYPE_COORD)
+This patch implements dynamic allocation for the indirection table,
+allocated alongside vi->rss after vi->rss_indir_table_size is initialized,
+and freed in virtnet_remove().
 
-Neither teardown path drains this queue before the sdata it points to
-is freed:
+In virtnet_commit_rss_command(), scatter-gather lists for RSS are
+initialized differently based on hash_report presence, so indirection_table
+is unused when !vi->has_rss. Therefore, allocation is unnecessary for
+hash_report-only scenarios.
 
- * ieee802154_if_remove() (net/mac802154/iface.c), reached from the
-   nl802154 NL802154_CMD_DEL_INTERFACE handler, does list_del_rcu() +
-   synchronize_rcu() + unregister_netdevice(sdata->dev) -- which frees
-   sdata via priv_destructor/needs_free_netdev -- without touching
-   local->mac_wq or local->rx_mac_cmd_list at all.
-
- * ieee802154_unregister_hw() (net/mac802154/main.c) only flushes
-   local->workqueue (the DATA-path queue) before calling
-   ieee802154_remove_interfaces(), which frees every sdata on the
-   phy; local->mac_wq is drained only via destroy_workqueue() much
-   later, after the interfaces (and their sdata) are already gone.
-
-Either way, if mac802154_rx_mac_cmd_worker() is already queued (or
-races back in from a frame received just before teardown), it runs
-after the free and dereferences freed memory -- confirmed under
-KASAN: flooding a victim NODE interface with MAC_CMD frames from a
-MONITOR interface on a sibling phy, then deleting the victim via
-NL802154_CMD_DEL_INTERFACE, reliably produces:
-
-  BUG: KASAN: use-after-free in mac802154_rx_mac_cmd_worker+0x463/0x630 [mac802154]
-  Read of size 4 at addr ffff888004b22a18 by task kworker/u8:1/31
-  Workqueue: phy0-mac-cmds mac802154_rx_mac_cmd_worker [mac802154]
-  Freed by task 498: ... (the DEL_INTERFACE task, ieee802154_if_remove)
-
-Verified on the same v6.19 KASAN stand with this patch applied: the
-identical MONITOR-flood-then-DEL_INTERFACE reproducer no longer trips
-the use-after-free report in mac802154_rx_mac_cmd_worker().
-
-Fix it the same way mac802154_flush_queued_beacons() (net/mac802154/scan.c)
-already flushes local->rx_beacon_list on scan cleanup, plus a
-cancel_work_sync() step: rx_beacon_work's worker never dereferences
-sdata, so the existing sibling doesn't need it, but rx_mac_cmd_work's
-does. Add mac802154_flush_queued_mac_cmds(local, sdata):
-
- - cancel_work_sync(&local->rx_mac_cmd_work) waits out a run already
-   in flight (still safe -- nothing has been freed yet) and blocks any
-   new run from starting while we hold the RTNL;
- - every rx_mac_cmd_list entry whose ->sdata matches (or every entry,
-   when called with sdata == NULL for full-teardown) is then dropped,
-   so no future run of the worker can see it;
- - if entries belonging to *other*, still-live interfaces on the same
-   local remain, the work is re-queued so they still get processed.
-
-Call it from both teardown paths:
-
- - ieee802154_if_remove(), before unregister_netdevice(sdata->dev),
-   filtered to the sdata being removed (other interfaces on the same
-   phy may have legitimate entries in flight);
- - ieee802154_unregister_hw(), before ieee802154_remove_interfaces(),
-   with sdata == NULL since every interface on the local is going
-   away and local->workqueue's flush_workqueue() does not cover
-   local->mac_wq.
-
-This mirrors how mac80211 drains per-interface work (e.g. the
-analogous per-sdata work items cancelled from ieee80211_do_stop()
-before an interface is torn down) and the existing mac802154 scan.c
-list-flush idiom, applied to the one rx_mac_cmd_list consumer that
-actually dereferences the freed interface.
-
-Fixes: d021d218f6d9 ("mac802154: Handle received BEACON_REQ")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
+Fixes: c7114b1249fa ("drivers/net/virtio_net: Added basic RSS support.")
+Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
+Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Acked-by: Joe Damato <jdamato@fastly.com>
+Acked-by: Michael S. Tsirkin <mst@redhat.com>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ Hyokyung Kim: 6.6.y predates the refactor that moved the RSS config into
+  struct virtnet_info, so struct virtio_net_ctrl_rss is still embedded in
+  struct control_buf and reached through the heap-allocated vi->ctrl. Every
+  adaptation below follows from that single difference:
+  - the new allocation and all indirection_table accesses use vi->ctrl->rss
+    in place of upstream's vi->rss;
+  - because vi->ctrl is allocated in virtnet_alloc_queues() (via init_vqs())
+    and freed in virtnet_free_queues(), the table is allocated and freed there
+    too, not in virtnet_probe()/virtnet_remove(), so its lifetime tracks
+    vi->ctrl across the probe error-unwind and freeze/restore paths;
+  - since freeing the table now dereferences vi->ctrl, vi->ctrl is set to NULL
+    after each kfree so a re-entered virtnet_free_queues() cannot dereference
+    or free a stale pointer;
+  - the table is allocated with kcalloc() so it is zero-filled when
+    reallocated on the restore path (upstream never reallocates it). ]
+Signed-off-by: Hyokyung Kim <pulpannie@gmail.com>
 ---
- net/mac802154/ieee802154_i.h |  2 ++
- net/mac802154/iface.c        | 10 +++++++++
- net/mac802154/main.c         | 11 ++++++++++
- net/mac802154/rx.c           | 42 ++++++++++++++++++++++++++++++++++++
- 4 files changed, 65 insertions(+)
+ drivers/net/virtio_net.c | 43 +++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 38 insertions(+), 5 deletions(-)
 
-diff --git a/net/mac802154/ieee802154_i.h b/net/mac802154/ieee802154_i.h
-index 8f2bff268392..e3c5c8d5b5d0 100644
---- a/net/mac802154/ieee802154_i.h
-+++ b/net/mac802154/ieee802154_i.h
-@@ -300,6 +300,8 @@ static inline bool mac802154_is_beaconing(struct ieee802154_local *local)
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index 33f61922c1..5bcd129685 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -208,15 +208,16 @@ struct receive_queue {
+  * because table sizes may be differ according to the device configuration.
+  */
+ #define VIRTIO_NET_RSS_MAX_KEY_SIZE     40
+-#define VIRTIO_NET_RSS_MAX_TABLE_LEN    128
+ struct virtio_net_ctrl_rss {
+ 	u32 hash_types;
+ 	u16 indirection_table_mask;
+ 	u16 unclassified_queue;
+-	u16 indirection_table[VIRTIO_NET_RSS_MAX_TABLE_LEN];
++	u16 hash_cfg_reserved; /* for HASH_CONFIG (see virtio_net_hash_config for details) */
+ 	u16 max_tx_vq;
+ 	u8 hash_key_length;
+ 	u8 key[VIRTIO_NET_RSS_MAX_KEY_SIZE];
++
++	u16 *indirection_table;
+ };
+ 
+ /* Control VQ buffers: protected by the rtnl lock */
+@@ -3011,6 +3012,25 @@ static int virtnet_set_ringparam(struct net_device *dev,
+ 	return 0;
  }
  
- void mac802154_rx_mac_cmd_worker(struct work_struct *work);
-+void mac802154_flush_queued_mac_cmds(struct ieee802154_local *local,
-+				     struct ieee802154_sub_if_data *sdata);
- 
- int mac802154_perform_association(struct ieee802154_sub_if_data *sdata,
- 				  struct ieee802154_pan_device *coord,
-diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
-index 000be60d9580..a5aa213e25a2 100644
---- a/net/mac802154/iface.c
-+++ b/net/mac802154/iface.c
-@@ -694,6 +694,16 @@ void ieee802154_if_remove(struct ieee802154_sub_if_data *sdata)
- 	mutex_unlock(&sdata->local->iflist_mtx);
- 
- 	synchronize_rcu();
-+
-+	/*
-+	 * Drop any rx_mac_cmd_list entry still pointing at this sdata
-+	 * before it is freed below: mac802154_rx_mac_cmd_worker() runs
-+	 * asynchronously on local->mac_wq and derefs mac_pkt->sdata with
-+	 * no liveness check of its own (see mac802154_flush_queued_mac_cmds()
-+	 * for details).
-+	 */
-+	mac802154_flush_queued_mac_cmds(sdata->local, sdata);
-+
- 	unregister_netdevice(sdata->dev);
- }
- 
-diff --git a/net/mac802154/main.c b/net/mac802154/main.c
-index ea1efef3572a..2f8c57e78db1 100644
---- a/net/mac802154/main.c
-+++ b/net/mac802154/main.c
-@@ -277,6 +277,17 @@ void ieee802154_unregister_hw(struct ieee802154_hw *hw)
- 	tasklet_kill(&local->tasklet);
- 	flush_workqueue(local->workqueue);
- 
-+	/*
-+	 * tasklet_kill() above stops any further frame reaching
-+	 * ieee802154_subif_frame(), but mac802154_rx_mac_cmd_worker() may
-+	 * still be queued/running on local->mac_wq and derefs the sdata of
-+	 * every interface ieee802154_remove_interfaces() is about to free
-+	 * below. flush_workqueue(local->workqueue) does not cover it --
-+	 * that is the DATA workqueue, not local->mac_wq -- so drain it
-+	 * explicitly first.
-+	 */
-+	mac802154_flush_queued_mac_cmds(local, NULL);
-+
- 	rtnl_lock();
- 
- 	ieee802154_remove_interfaces(local);
-diff --git a/net/mac802154/rx.c b/net/mac802154/rx.c
-index cd8f2a11920d..0b167f76cb23 100644
---- a/net/mac802154/rx.c
-+++ b/net/mac802154/rx.c
-@@ -128,6 +128,48 @@ out:
- 	kfree(mac_pkt);
- }
- 
-+/**
-+ * mac802154_flush_queued_mac_cmds - drop pending rx_mac_cmd_list work
-+ * @local: the mac802154 device the queue belongs to
-+ * @sdata: interface being torn down, or %NULL to flush unconditionally
-+ *
-+ * Every queued &struct cfg802154_mac_pkt stashes a raw pointer to the
-+ * interface it was received on (see ieee802154_subif_frame() below) which
-+ * mac802154_rx_mac_cmd_worker() dereferences without ever checking whether
-+ * that interface is still alive. Callers must invoke this before freeing
-+ * @sdata -- or every interface on @local, when @sdata is %NULL -- so the
-+ * worker can never run against freed memory:
-+ *
-+ *  - cancel_work_sync() waits out a run already in flight. That is still
-+ *    safe to let finish because nothing has been freed yet, and it blocks
-+ *    any new run from starting for as long as we hold the RTNL.
-+ *  - every list entry pointing at @sdata (all of them, if @sdata is NULL)
-+ *    is then dropped so no future run of the worker can see it.
-+ *
-+ * Mirrors mac802154_flush_queued_beacons() in scan.c, which does not need
-+ * the cancel_work_sync() step because its worker never dereferences sdata.
-+ */
-+void mac802154_flush_queued_mac_cmds(struct ieee802154_local *local,
-+				     struct ieee802154_sub_if_data *sdata)
++static int rss_indirection_table_alloc(struct virtio_net_ctrl_rss *rss, u16 indir_table_size)
 +{
-+	struct cfg802154_mac_pkt *mac_pkt, *tmp;
-+
-+	cancel_work_sync(&local->rx_mac_cmd_work);
-+
-+	list_for_each_entry_safe(mac_pkt, tmp, &local->rx_mac_cmd_list, node) {
-+		if (sdata && mac_pkt->sdata != sdata)
-+			continue;
-+
-+		list_del(&mac_pkt->node);
-+		kfree_skb(mac_pkt->skb);
-+		kfree(mac_pkt);
++	if (!indir_table_size) {
++		rss->indirection_table = NULL;
++		return 0;
 +	}
 +
-+	/* Other interfaces on @local may still have entries pending. */
-+	if (!list_empty(&local->rx_mac_cmd_list))
-+		queue_work(local->mac_wq, &local->rx_mac_cmd_work);
++	rss->indirection_table = kcalloc(indir_table_size, sizeof(u16), GFP_KERNEL);
++	if (!rss->indirection_table)
++		return -ENOMEM;
++
++	return 0;
 +}
 +
- static int
- ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
- 		       struct sk_buff *skb, const struct ieee802154_hdr *hdr)
++static void rss_indirection_table_free(struct virtio_net_ctrl_rss *rss)
++{
++	kfree(rss->indirection_table);
++}
++
+ static bool virtnet_commit_rss_command(struct virtnet_info *vi)
+ {
+ 	struct net_device *dev = vi->dev;
+@@ -3020,11 +3040,15 @@ static bool virtnet_commit_rss_command(struct virtnet_info *vi)
+ 	/* prepare sgs */
+ 	sg_init_table(sgs, 4);
+ 
+-	sg_buf_size = offsetof(struct virtio_net_ctrl_rss, indirection_table);
++	sg_buf_size = offsetof(struct virtio_net_ctrl_rss, hash_cfg_reserved);
+ 	sg_set_buf(&sgs[0], &vi->ctrl->rss, sg_buf_size);
+ 
+-	sg_buf_size = sizeof(uint16_t) * (vi->ctrl->rss.indirection_table_mask + 1);
+-	sg_set_buf(&sgs[1], vi->ctrl->rss.indirection_table, sg_buf_size);
++	if (vi->has_rss) {
++		sg_buf_size = sizeof(uint16_t) * vi->rss_indir_table_size;
++		sg_set_buf(&sgs[1], vi->ctrl->rss.indirection_table, sg_buf_size);
++	} else {
++		sg_set_buf(&sgs[1], &vi->ctrl->rss.hash_cfg_reserved, sizeof(uint16_t));
++	}
+ 
+ 	sg_buf_size = offsetof(struct virtio_net_ctrl_rss, key)
+ 			- offsetof(struct virtio_net_ctrl_rss, max_tx_vq);
+@@ -4080,7 +4104,10 @@ static void virtnet_free_queues(struct virtnet_info *vi)
+ 
+ 	kfree(vi->rq);
+ 	kfree(vi->sq);
++	if (vi->ctrl)
++		rss_indirection_table_free(&vi->ctrl->rss);
+ 	kfree(vi->ctrl);
++	vi->ctrl = NULL;
+ }
+ 
+ static void _free_receive_bufs(struct virtnet_info *vi)
+@@ -4266,6 +4293,9 @@ static int virtnet_alloc_queues(struct virtnet_info *vi)
+ 		vi->ctrl = kzalloc(sizeof(*vi->ctrl), GFP_KERNEL);
+ 		if (!vi->ctrl)
+ 			goto err_ctrl;
++		if ((vi->has_rss || vi->has_rss_hash_report) &&
++		    rss_indirection_table_alloc(&vi->ctrl->rss, vi->rss_indir_table_size))
++			goto err_sq;
+ 	} else {
+ 		vi->ctrl = NULL;
+ 	}
+@@ -4298,7 +4328,10 @@ static int virtnet_alloc_queues(struct virtnet_info *vi)
+ err_rq:
+ 	kfree(vi->sq);
+ err_sq:
++	if (vi->ctrl)
++		rss_indirection_table_free(&vi->ctrl->rss);
+ 	kfree(vi->ctrl);
++	vi->ctrl = NULL;
+ err_ctrl:
+ 	return -ENOMEM;
+ }
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
