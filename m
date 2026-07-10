@@ -1,121 +1,136 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C07811CA9;
-	Fri, 10 Jul 2026 00:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357038F49;
+	Fri, 10 Jul 2026 00:22:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783642371; cv=none; b=QjKTZEavgoxWqANyc+L0dkIHRjBo5HD+oVUBiFOL2WcAGqWVMAeBNrrbosNFR9qVK6GItDaGU6FqxWLohE/8mhk2PI2zrI8Yaf5Jci0MuXxL26t19PU2TsQbiS3C/I+WZXUuyslxCntSrAzx+s+x4rDZpb8UlTUseEfjYUckEVU=
+	t=1783642928; cv=none; b=MZP1RjqltR50W3MGpcXzMdo2pbq3TmTLe892MhutrEkgBM74j8rvwvpRMNR2REg1nFNLao4GDAwuVZTWiO8YN2eD47Cwp20FrSYZrW5kXBqwt5cBvsFLx+L6lhjDGDrJ4V5RMCpHdHndvvgj21cZPa1ohEx9Y7xlSp0MuRoQCSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783642371; c=relaxed/simple;
-	bh=BdMrIlsnyf3bd76KcFcNhZf3eYEWTHY7rvlxtWL2mvQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ApfH+L2T1/T2ltzlHxOFfD9zj9aaLJGF7mxT/eOMxOdLQSgmCprzadB+9ccimaxtc25JKOnMb3zeyBocm4ngmftvuy1yEVupOhJvbojY2dE0DcXNmmQzseV/yhSgLlBGslUvwsnlzP8x1V3gCckULWxMTR3OTznUkzEWmBttt4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Yg+5MszE; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1783642928; c=relaxed/simple;
+	bh=opgJIFordh+M/pxvBiI4T1kMfINnO9SjvLQvned9g8k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C2sP3ZrPS/WBsYPLu98iv/hyxvDgnpopnHnjdu/OL9Y86Bg1LBQmSKPm/NfY1haGrLFYLTUcYaWH7V7paO0LsteLqSw3G7X75pKXRtg3mHQIUqHZPILulBP6Oj18URiLG7YeCIzfjC+OhV/7kBgbMZcAlip86WMC5LELpy7kja4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DtOeDckx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Yg+5MszE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783642369; x=1815178369;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=BdMrIlsnyf3bd76KcFcNhZf3eYEWTHY7rvlxtWL2mvQ=;
-  b=Yg+5MszEz/CQq0Oc5wpVBKml+xy0tQFQ96b+MvHMeBUcPARJyXME9/Ss
-   +mpInsjtxUskUFQSoGkhwg1wySEg/3QAYv3gnFMzMNF4cQ+1nGX6kNDJt
-   EizRmu1HICuiWnCcu1/E846uVjp7CvZxzrfXriuK1zxjQ2zAw3PfFdx2C
-   5qHggnMVncMTUhbkhOEY4JlK+nRqaHVZSEobs6ZAoTOQY4y0hdDjNDKuZ
-   KuGlxifCdskt8E6rGAaMNybQ1EP7nXQ3KdPSte1LzPb0AW7o3UN1e/qhj
-   3qo8HQz+MdUd5ZmQccfHyDluF7i3MxRL4rNvchLOayXMH1nCEblmssy/B
-   A==;
-X-CSE-ConnectionGUID: 7ZSTWsXiTZOGQIJFlFb5Fg==
-X-CSE-MsgGUID: atSQ1O3qQ1CawlZR5+8FAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="109887112"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="109887112"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 17:12:48 -0700
-X-CSE-ConnectionGUID: u7FKyjn1QEuFpWAnyH0ZVw==
-X-CSE-MsgGUID: E221UA5cRqWNMMADiVVBMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="258345788"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.241.120]) ([10.124.241.120])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 17:12:45 -0700
-Message-ID: <64baf955-76e2-4b03-b2f9-29b9830acc01@linux.intel.com>
-Date: Fri, 10 Jul 2026 08:12:42 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DtOeDckx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC35F1F000E9;
+	Fri, 10 Jul 2026 00:22:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783642926;
+	bh=lmQWlN7Kz5M6UY5FUGwu6NbTNS6eWxT2irEIyuN7w+w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DtOeDckxRN2LfawyPY4MdU4i1CMLbaSt7Ou0Z+fB4aFnCdhghlxlyeY9LWMhxWMb4
+	 rszXpag/6Ww3QsUXWZWFR8mJnhw0DvZGRD5KyjU/GFXE3eO5/vrxpGWwrZk726islP
+	 iBZqpn7X2N2gOCcSxOjBZAyHb9vX1/Lw6OI5ZoEe0RG2JuKQCsmsUtd4GUhCdilnpC
+	 uTgYaB33Zcyn0/3kX+bpaiCbEqxfbKwQQ2M1sOURVWiXd8ut7kXCuUco1YeFAKMKlz
+	 cDI8gAkKBonFZuMD1uiaZ4zbzs5vSi2PrZInK36yu1PVelvTa9Acgkqwui9wTMJcbM
+	 yHuYpkZvKQDiw==
+Date: Thu, 9 Jul 2026 17:22:02 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Dakkshesh <beakthoven@gmail.com>
+Cc: gregkh@linuxfoundation.org, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] scripts/sorttable: guard long_size under
+ MCOUNT_SORT_ENABLED
+Message-ID: <20260710002202.GA1577616@ax162>
+References: <20260603191708.27241-1-beakthoven@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: x86: TDX: Use validated CPUID entry count for TD
- init
-To: Sean Christopherson <seanjc@google.com>
-Cc: Rick P Edgecombe <rick.p.edgecombe@intel.com>,
- "thorsten.blum@linux.dev" <thorsten.blum@linux.dev>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "kas@kernel.org" <kas@kernel.org>
-References: <20260708022937.2465796-1-binbin.wu@linux.intel.com>
- <ak4NdJSK60zKD8Uy@linux.dev>
- <315e969a-4ab1-433e-91c5-2308f1975281@linux.intel.com>
- <28ec0a5ac5c46448df5983cc7f9cbc71f6014e8a.camel@intel.com>
- <9d376736-4879-42f2-b798-56fd2d1ab05a@linux.intel.com>
- <ak-lHS2edzxcmT1j@google.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <ak-lHS2edzxcmT1j@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260603191708.27241-1-beakthoven@gmail.com>
 
-On 7/9/2026 9:41 PM, Sean Christopherson wrote:
-> On Thu, Jul 09, 2026, Binbin Wu wrote:
->> On 7/9/2026 12:20 AM, Edgecombe, Rick P wrote:
->>> On Wed, 2026-07-08 at 17:04 +0800, Binbin Wu wrote:
->>>>> Maybe it would be better to check for a mismatch and return -EINVAL?
->>>>>
->>>>>  	if (init_vm->cpuid.nent != nr_user_entries) {
->>>>>  		ret = -EINVAL;
->>>>>  		goto out;
->>>>>  	}
->>>>>
->>>>> That would make the mismatch explicit instead of silently accepting an
->>>>> inconsistent userspace snapshot.
->>>>
->>>> I chose to use the snapshot value to follow KVM_SET_CPUID2's style.
->>>> KVM_SET_CPUID2 kind of uses the snapshot value of entry count.
->>>>
->>>> But returning a error code is OK for me.
->>>> Let's wait and see what others prefer.
->>>
->>> It does seem safer to reject input than have some implicit behavior.
->>
->> Yea, had a second thought.
->> If there is a mismatch, the userspace is probably malicious.
->> It's safer to reject the request when the userspace is suspicious.
->>
->> Will send v2 to reject the request for the case.
+Hi Dakkshesh,
+
+Thanks for the patch!
+
+On Thu, Jun 04, 2026 at 12:47:08AM +0530, Dakkshesh wrote:
+> clang's -Wunused-but-set-global (a sub-warning of
+> -Wunused-but-set-variable, enabled via -Wall), points out an
+> unused static global variable in scripts/sorttable.c:
 > 
-> Rather than add a separate if-statement, I saw lump it into the existing sanity
-> check on the cpuid field:
+> scripts/sorttable.c:452:12: error: variable 'long_size' set but not
+>   used [-Werror,-Wunused-but-set-variable]
+
+Our CI also notices this in stable kernels, breaking our build due to
+-Werror in at least 6.18 and newer.
+
+  https://github.com/ClangBuiltLinux/continuous-integration2/actions/runs/28937469245
+
+> long_size is only read inside MCOUNT_SORT_ENABLED blocks. In upstream,
+> it is implicitly resolved by commit b055f4c431e3 ("sorttable: Move ELF
+> parsing into scripts/elf-parse.[ch]") which refactors the file entirely.
+
+FWIW, I am a little confused how b055f4c431e3 avoids this issue (even
+though I confirmed that it did by a reverse bisect). If I preprocess
+scripts/sorttable.c before and after that change, long_size is still
+only set but not used. I think that this change (or a different version
+of it, see below) is probably still relevant to upstream, rather than
+just stable, even if the warning is not currently visible there. If
+folks disagree with that assessment, the commit message should make it
+more clear that this fix is intended for stable only.
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dakkshesh <beakthoven@gmail.com>
+> ---
+>  scripts/sorttable.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-> index 6ff1469e91cc..10b4db17fbd5 100644
-> --- a/arch/x86/kvm/vmx/tdx.c
-> +++ b/arch/x86/kvm/vmx/tdx.c
-> @@ -2797,7 +2797,7 @@ static int tdx_td_init(struct kvm *kvm, struct kvm_tdx_cmd *cmd)
->                 goto out;
->         }
+> diff --git a/scripts/sorttable.c b/scripts/sorttable.c
+> index deed676bf..674b24a97 100644
+> --- a/scripts/sorttable.c
+> +++ b/scripts/sorttable.c
+> @@ -449,7 +449,9 @@ static inline void *get_index(void *start, int entsize, int index)
+>  }
 >  
-> -       if (init_vm->cpuid.padding) {
-> +       if (init_vm->cpuid.padding || init_vm->cpuid.nent != nr_user_entries) {
->                 ret = -EINVAL;
->                 goto out;
->         }
-Yeah, thanks for the suggestion.
+>  static int extable_ent_size;
+> +#ifdef MCOUNT_SORT_ENABLED
+
+These ifdefs are pretty ugly and Linus did not love them for a different
+patch upstream:
+
+  https://lore.kernel.org/CAHk-=wh9eUk9+BOGwP7ni4OZPZSCfgZQ43n53XWuh3rHhMxwfA@mail.gmail.com/
+
+>  static int long_size;
+
+I think it would be better to drop the ifdefs and just mark this as
+__maybe_unused to be done with it. It should make the diff more
+stomachable for silencing a warning like this.
+
+> +#endif
+>  
+>  #define ERRSTR_MAXSZ	256
+>  
+> @@ -1311,7 +1313,9 @@ static int do_file(char const *const fname, void *addr)
+>  		};
+>  
+>  		e = efuncs;
+> +#ifdef MCOUNT_SORT_ENABLED
+>  		long_size		= 4;
+> +#endif
+>  		extable_ent_size	= 8;
+>  
+>  		if (r2(&ehdr->e32.e_ehsize) != sizeof(Elf32_Ehdr) ||
+> @@ -1348,7 +1352,9 @@ static int do_file(char const *const fname, void *addr)
+>  		};
+>  
+>  		e = efuncs;
+> +#ifdef MCOUNT_SORT_ENABLED
+>  		long_size		= 8;
+> +#endif
+>  		extable_ent_size	= 16;
+>  
+>  		if (r2(&ehdr->e64.e_ehsize) != sizeof(Elf64_Ehdr) ||
+> -- 
+> 2.54.0
+> 
+> 
+
+-- 
+Cheers,
+Nathan
