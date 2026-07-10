@@ -1,333 +1,134 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A487F426693;
-	Fri, 10 Jul 2026 12:33:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783686841; cv=fail; b=I5B2sdRoz/yMplfUkpv6JmZjav/wSomoYMwQ2CtlSuJIG2PuasOUddWzDCIteCTl9n7I021V+uP12Yl2CP8GVF0483ZOj+ina33n3vVrvlzq58DRiIB2o56RLS7c4tcNsCwbXFeBtjNc4CWVGrPPReOBjpTc1+lRJzPJzbi+0X0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783686841; c=relaxed/simple;
-	bh=JcWNzlm92HYuZD+5fE+pAyGwNNVein6glAt2sFGJgeE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=o/yoOItc+ZgbPoaIJFOtb5WyeCYUAcB8LD3TgXA7lA4DxFhvRe57ZCG+VyyDKI4WKzNnceHznkxa6HRxGI/m9Py2lzhwsPUhJMKItD1LkbDJfm7VlGDOXaHjp81LW+RH6698OSl2xVpsTw7piSijNDyEE78bOiuZBjcgaAKKuR8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=E7PjSRYM; arc=fail smtp.client-ip=52.101.48.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5F8408626;
+	Fri, 10 Jul 2026 12:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783687317; cv=none; b=S8P2HLApPiYL/ecYLDYZuR8UP84knYdmsEK8iShwLEmWGS8ojk6qDls45y5tUT40Eh0RhpwnTkWqlvooDEfGDinDcC/E9HY8g3kVeGXKjqQ92Yh7P4YF0DQo+fnxScFq9M5HF+t6bJ8oyakxXguPW4yWcyeEMdmpuQiFoQcGk2k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783687317; c=relaxed/simple;
+	bh=S2IeHExeWGCelQ6yRVBVZdCGRMLLewZl+jKUKSaK+X0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VaIQMT6CAIFpmlTpx5wAdYCq7sEWmoVKeQmuRXyLpc4UYaeyRGRJdgNQh++ouSG5p1KBL962uIad5BrmECnvikc1Yr2XVLPwSI/tBgJ6UngnuibS0i1hbPHE/j2BAazw/B/FUV9Gy06JglXX9EfPQaW+pwAy7rnMtQBnCC8SUi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fCVFfO9m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="E7PjSRYM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V1mhNoS002StjmPlaGrpNYIlD5qe2RO+5FueH4ZV39+kYYgeJOjZ1iOSofeuiiOw20rgziZOYrBsBCHTCoudZhP6zLbTPVPjUDmWEqwan58oHCBi1WxtkXxGeutDA3BTLULZ+fvGanv5q+qQx6d8ieyK4ZYjIW9p1ZwE+LMzSRCpMNm6qU5Ns/no2TBikMF9LSaV1uHLXe9lh+hODxVlvMJ2EfXXIpU8XJQcnl9oq6UFtYETHdJQjfBKW9P0iVTZm0RJ0ufJ+maT25gSU3wambewB/wJkmRXEPk6fHSAXz5YfsGY2e56NwLlTGEtX5zUP2eSeL9L3kgqNArd1kwy6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4fJc2XVqGPSsolcEvXw6vulA0PYq460fs5OE7e+JzSg=;
- b=N0+NfiX6h83hT2ofpgKTBSn7fbQTF6y4NhPLtxtSkt4NldUvTcNbFQDG41qfvilP85kWvM+pnD6fYcREXSFFk8WRo0IQSAT8fb1fC5JAQrieXlQCvlKevf+m6nlAQPkBTPSAfgy33A9sjormOXeWaDuZEWWpG4lK7ZOKSZYVg6mylUD1auI+iG2uterUWyvw+5tHnp5BHA+ioO3VTKCJQ0vBXp3FTi/s4BzLpzgrux3EcX9iqTGZOyTQSsaaHKRCMN+TCN8EK58efqijY8Sl4RMf9EdqYJmFQl6XXhlNu/lvPttv8MCoolmEnIjCRy79xczvxcO1JrvffF9lQz8f9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4fJc2XVqGPSsolcEvXw6vulA0PYq460fs5OE7e+JzSg=;
- b=E7PjSRYMPC2RxuxXUO39HO0+0KzS0UTl+4b0sKAIc9dn1eTlP0ArvqiCAshl0MKG8M/3WvfFzmNIHBhgyoYxhgw+J48+JubjrKDQKxF2vBwYy37H69vWqo0ucHI5a5ItoutDYKfxWqg4qM3Ah+vcwcoBHNT7x8OIYTKZFhZ0iD0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB5807.namprd12.prod.outlook.com (2603:10b6:510:1d3::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Fri, 10 Jul
- 2026 12:33:53 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Fri, 10 Jul 2026
- 12:33:53 +0000
-Message-ID: <99679491-8dae-460b-b662-81b130829956@amd.com>
-Date: Fri, 10 Jul 2026 14:33:43 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dma-buf: dma-heap: don't publish fd before
- copy_to_user() succeeds
-To: Baineng Shou <shoubaineng@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T . J . Mercier" <tjmercier@google.com>, Sandeep Patil
- <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>
-Cc: stable@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20260703080922.1838362-1-shoubaineng@gmail.com>
- <20260710105740.3080070-1-shoubaineng@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260710105740.3080070-1-shoubaineng@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0271.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e6::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fCVFfO9m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530D21F000E9;
+	Fri, 10 Jul 2026 12:41:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783687316;
+	bh=Ul3sRLhwjrxQoJQnvumZ0PUhmDQ8XYv0aOjCqcjQNpM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fCVFfO9m4IzAP/wLQyhgQloMt80bQ5IwGpNIuTW9LwD9oZ/XvQAcTOdJGAM/c7dJE
+	 r9Yk5/nzIgBnh1LNVNhCLeoKT26eV18U8A9jSCt0j0pLm/rdT1CNRPYczRHWWE1cQO
+	 XLBswv9UmPxB0abMYjaKn2EyKBUvcG9DL04WZ9jEOqnQG1c+D5vdeBK4X9KBOnhOdE
+	 XUfM0AMy1Lh4Xh+hTvqWoh0ICLqxxg9a/jf5K+uizSCB/32YFTH45pnS7L+qZVduIc
+	 Y2P7dZTpm7THC3xWck3OwjF7SLg3wluXoKTppqOOvGN2RfOT8qJEa5vxM2ieFTU1fj
+	 Y8mvSwMOrzgQQ==
+Message-ID: <a160217b-c0aa-4ef8-bbf6-e75a8ff25cea@kernel.org>
+Date: Fri, 10 Jul 2026 14:41:48 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5807:EE_
-X-MS-Office365-Filtering-Correlation-Id: cda1c5e9-33a2-4a13-828a-08dede7f808d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|18002099003|22082099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	lSpjfg3siqAMVAqRhwSH+QXiGJRX+N4fpvTrJY63SrgV6INrdP9SJqlcTTW0O5bBToIzeBUc8RjKgcyCY16wfoqk5EmHWM6KLpvpfmDH02XLPeU2lHMVwu0ywMqkiJCxxk0L7pJykR94qShFbE74xQy0ktJTpZ/F5AFwGhHNc5paocRWS5Ui5/cmNTz6/j2vpVDqMCNt82KbOB84iSm7K8V8xYUq2wg7CnvziCpH66Irjh6vlZZ8NOAYZDon0QgFlLBC3csPGBowGwUBuFpn4bP505OJBTR+z/qps0QTx47tjgWXVClxTLG61x851QmkM0AYIEwWBXHu7l/sRUuBppJodCgfdLzrrpyzFEbvkfBPln2N7RqHFJ8u4Pqw4EIP6goE5pIc1RNxGxm1NwQqjRYHPsJRYJ3W7cYCDIoY4D0AgH0Mg6b0ow1aSSrICzQSbtc2G7s9XufHUU7SKe6wLoilEhPrl140geTa9wGixKml5MpSegXjCuo0Aj+jlp4+L5dNKRi/pAlde5UDhtYtP1fIFLaIx6W9djfy3BG+FsElBPGj3zuVKjashpnhmnpAwgzmL77TDkDX1gs25rULQQh9ATjYtXYwzCH+MNVNrXcAP+QHxptYQtZUTr3EimVDz+YOK+76Sz5Yiy3i53tGy0bn9vNllfjZYixg9CI8XV4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cXF4dkk0R0RSemRYejVoZGlqODRNZ2V6MzBIRHYzLzhFSXpkNCtoL1ZoYkow?=
- =?utf-8?B?bXlqSkdYMlhFenFHMTV5Y3hGNENMSXpFN2xNSkZhaXpvb3BGbG1qcUxmV3JV?=
- =?utf-8?B?Slk0NG9FV1dvVmMyNUJFUGlrWWgyLy8xQklZblI4cHJicGpkajhUWUFSY0JH?=
- =?utf-8?B?OHFFZXFsNDZlU0ZYQnZQdXFTWkgvdVlUUmptQURIT2hiVFJDdW9LaUg4eFlE?=
- =?utf-8?B?NTJFTHI4Sno5UGVKTXNPdFhoanoxUlpaK1JvTFZsYU1RdkpseUN2Q1RZYkFz?=
- =?utf-8?B?THJNbVBSQ1V2Y0pQRkxFMTZYTUdqYkRZS1hTYUVkR0JXbWRKREVvcW5tWk5H?=
- =?utf-8?B?bW1KZ1Z3VkVNODdGRnUwNE1adDVmdTh5eWxvNkFYamZ4cnc3Qi9qQ0hNNmNM?=
- =?utf-8?B?c2EyVTVOUlJzcDZpWWxvbjZoTmxWSkpZdTMvZHRsLytHYStVQjB3ekl0T05l?=
- =?utf-8?B?YzRYT21JVHZwYkJob2ttd0lxWlNhTjdhR00yMlphK2hBTHJKMGtyclJUMjdB?=
- =?utf-8?B?N0FOc21oVUFhUFhkalRzdklDYllEQ1Q0MXB0SFZmcWloT3V0WHZ3d1hLU0F0?=
- =?utf-8?B?ZHJJK0ZzZWpuNVBaZGcyU3d0NkYxZ0RxQVdXc2tyYnBmZ0tsRnZVMEtpY3gv?=
- =?utf-8?B?VkRDK0FRd3k5K0tpZnpEYmc1UGRXVjNiZUF3K0JacFhmYkp1Y2dneGxJY3BM?=
- =?utf-8?B?ekNpTVoxVGltOS9EZkZzQktXaW80Q0J4N3FKNzFzWkh6SExKSHF1USsvWGRF?=
- =?utf-8?B?ZzZPMGJ5dXE0Ny9QazkzUFRGZ1ZadE16dHdoVng2NmJRcVRqV25TdU9nV2Uw?=
- =?utf-8?B?cncvUjdEblN0K2ZyaWVFek10NFZpYlN5ZkNTSG5sWkdQSm9oL1prRVIzTHEx?=
- =?utf-8?B?SUFYS1psVWhqYjZ1RUpMOWVQbXNWckkxeUxqRDRTNkg3Y0s3dy8zWW50dFBz?=
- =?utf-8?B?TzBIS1NyZ0xCSmJQZ3BpK05ML29oM1M0UWhYcmxtUWJBRU5BMmdjZm1MbU1u?=
- =?utf-8?B?S01pT2UvQyt1YWlvM1JNUVE0YWp2aEpSSkpnOUhQSVczeU1YdUxDK0RjcnpH?=
- =?utf-8?B?cldCdTE0ZHdtWkVFRXRMeDNDVEZEcW9wWXNLVzVxZTZKZTV2SE81eU96YUFQ?=
- =?utf-8?B?WVdjdzUzelMyVnNNWm04b2NUU1hOM1VjdmdZMjRHai9uVElDZVJrUFdnNWZ2?=
- =?utf-8?B?akNjU3RkMnpNa202Z1RqZ2ZKUlNTNzRaVktndWRQeVg1MFFFQnlwYlA2a21Q?=
- =?utf-8?B?TkcvcVRtOXdNcm5XSDJwaTFYR2ZyUXRmemhsN0Z5ekZOMzNhWDluUkxLNEVv?=
- =?utf-8?B?K2dIY3Bia1Z6eGNGVVJxMVRCMkNnRWR5dG9SZDh6a0JYRWVxTHZyT1BENUFq?=
- =?utf-8?B?SmE4RVFKTmtZaHNpRnJmcGlhR1lsRzJReko0OWtOSzFnQVNXT2Myb0k0c2lt?=
- =?utf-8?B?T29UUEJiZVFKS0FUOS9pbFZYMWZ0U2lWRkNPTit5cVB0N1hXM3FnYllxZ3FH?=
- =?utf-8?B?VXBVekhIbDVBRm9xZy9FbVN0aUlTdzJkTHVDNXpHZG5CRm1na2tyMW9wZ1NS?=
- =?utf-8?B?R1RJcXpNei96aHRYdkQ1dXBLQnlzNm4xZU9hMXNvV3laUjRDbUVvcGFKeEQy?=
- =?utf-8?B?b1BKVnJRNlBFSDRWSlo1b2ZQMTZMTzdpR0VkM25NSVNmWFE1aDliOGxnd0h1?=
- =?utf-8?B?VmNRWjBXWmkveVRsdFRhUUlOc1NFYk10dWlRNWdEYzVlVTJreExYNXo4LzVN?=
- =?utf-8?B?Smp6V1V5dUVHZFVEOTIzbTdyWjRaNkpiVVdENG9oTytaSGJhNFNxSVpJa1pw?=
- =?utf-8?B?M2JCNytDT2tYMnJjeDlpQUxUcGg2TVZWeTUxRCtyWUYzNWc2TjdRUWQ3Y3dP?=
- =?utf-8?B?R0dYd3RPUjMwUG9EMTJ1K21keVYzbFlXbEdqNlNGaEJVaWZnelVYanB4RGg2?=
- =?utf-8?B?MzMzRVN4L2tkSEhJeXJEVWhRSlBScVNIVWFHb3BsSTlNaU1JMldUb3YwNDU2?=
- =?utf-8?B?bFdtd1UranhCM3ErSCtneTNuTXlweitrUUFrNXF0a05aRW5mR3BZMXdEVE84?=
- =?utf-8?B?NlFiUUg4bEpwRCt0VmJGMUkvUklteXRmYWtPWEJEdlZBUVhyWnh1Y2JPMDQ0?=
- =?utf-8?B?T1ZGeUFXdkJrL1hac0hneGhsRUhvY1c2c3JWbnZzakp0NDNSUWEycHFLa0lm?=
- =?utf-8?B?QkdicElYZlY1OFNYcHVOdXRpeUpieno3ZndzUVFYVHA5eFI0MFlnN0tSWUVC?=
- =?utf-8?B?OXJmc1lDYVpNYXhKbE1DZnFkQmp3Snc4TGJtQ2FGbFBpTTVIZmlQYmJLSGpW?=
- =?utf-8?Q?Xaxau7IaGEwN1pxUZe?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cda1c5e9-33a2-4a13-828a-08dede7f808d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 12:33:53.6700
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I1+7sFmQT0YwDru0A1ovKAYpiI8/6/xuGbRRAlM+hu6eQp8VZQPPkz+pKht5hp9h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5807
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] mm/huge_memory: skip device-private PMDs in
+ madvise_free_huge_pmd
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
+ balbirs@nvidia.com, baohua@kernel.org, baolin.wang@linux.alibaba.com,
+ byungchul@sk.com, dev.jain@arm.com, gourry@gourry.net, jannh@google.com,
+ joshua.hahnjy@gmail.com, lance.yang@linux.dev, liam@infradead.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
+ matthew.brost@intel.com, npache@redhat.com, rakie.kim@sk.com,
+ ryan.roberts@arm.com, vbabka@kernel.org, ying.huang@linux.alibaba.com,
+ ziy@nvidia.com, shakeel.butt@linux.dev, hannes@cmpxchg.org
+Cc: stable@vger.kernel.org
+References: <20260710105557.1987433-1-usama.arif@linux.dev>
+ <20260710105557.1987433-4-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260710105557.1987433-4-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 7/10/26 12:57, Baineng Shou wrote:
-> DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-> caller's fd table via dma_buf_fd() -> fd_install() before
-> dma_heap_ioctl() copies the result back to userspace.  If the trailing
-> copy_to_user() fails, userspace never learns the fd number, but the
-> fd (and the underlying dma-buf reference) are already visible to
-> other threads in the same process and are leaked for the lifetime of
-> the process.
+On 7/10/26 12:55, Usama Arif wrote:
+> madvise_free_pte_range() checks pmd_trans_huge(*pmd) unlocked, then
+> madvise_free_huge_pmd() takes pmd_trans_huge_lock(). pmd_is_huge()
+> returns true for a device-private PMD, so orig_pmd can be device-private
+> and enter the !pmd_present() branch.
 > 
-> The obvious "close it on the failure path" fix is unsafe: once
-> fd_install() has run, another thread can already dup() the fd, send
-> it via SCM_RIGHTS, or close() it and let its number be reused, so a
-> subsequent close_fd() from the ioctl path can operate on an unrelated
-> file.  This was pointed out by Christian König on v1 [1].
-
-IIRC it was Greg who pointed that out numerous times, I'm just repeating what I was told.
-
+> Skip device-private PMDs in that non-present branch and continue to out
+> before calling pmd_folio(). Downgrade the check to VM_WARN_ON_ONCE() so
+> an unexpected PMD softleaf logs a warning rather than panicking. Drop
+> the thp_migration_supported() guard: it expands to
+> IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_SOFTLEAF), and both
+> pmd_is_migration_entry() and pmd_is_device_private_entry() already
+> return false when that config is not selected, so the guard suppresses
+> only the case where the warning would already be silent.
 > 
-> Restructure the allocation path so that fd_install() is the last,
-> unfailable step of a successful ioctl:
+> Potential trigger: an HMM-based GPU driver races with madvise(MADV_FREE):
+> migrate_vma_pages() flips the PMD to a device-private entry between the
+> caller's pmd_trans_huge() check and the callee's pmd_trans_huge_lock().
 > 
->   1. heap->ops->allocate()      creates the dma_buf.
->   2. get_unused_fd_flags()      reserves an fd number in the caller's
->                                 fd table without publishing it, so
->                                 no other thread can observe it.
->   3. copy_to_user()             delivers the fd number to userspace;
->                                 on failure the fd is returned with
->                                 put_unused_fd() and the dma_buf
->                                 reference is dropped with
->                                 dma_buf_put(), leaving no user-
->                                 visible state behind.
->   4. fd_install()               publishes the fd -- from here on the
->                                 ioctl cannot fail.
-> 
-> To make this possible, dma_heap_ioctl_allocate() is refactored to
-> return the struct dma_buf * directly (returning ERR_PTR on failure)
-> so the caller holds the dmabuf reference across steps 3 and 4.
-> The fd is written into the kdata buffer before copy_to_user() so
-> the reserved fd number reaches userspace atomically with the install.
-> 
-> The failure at step 3 is easily reachable from userspace: pass a
-> struct dma_heap_allocation_data that lives in a page whose protection
-> is flipped to PROT_READ between copy_from_user() and copy_to_user()
-> (e.g. via mprotect()).  Before this change each such ioctl leaks one
-> dmabuf fd; after it, the fd table is unchanged on failure and only
-> /dev/dma_heap/<name> remains open.
-> 
-> No UAPI or heap-driver interface change.
-> 
-> [1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
-> 
-> Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-
-Patch looks sane to me, but somebody with more background in DMA-buf heaps should probably take a look as well.
-
-Acked-by: Christian König <christian.koenig@amd.com>
-
+> Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to PMD operations")
+> Cc: <stable@vger.kernel.org>
+> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Balbir Singh <balbirs@nvidia.com>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > ---
->  drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
->  1 file changed, 40 insertions(+), 40 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-> index a76bf3f8b071..0a9bf62eb06c 100644
-> --- a/drivers/dma-buf/dma-heap.c
-> +++ b/drivers/dma-buf/dma-heap.c
-> @@ -55,33 +55,6 @@ MODULE_PARM_DESC(mem_accounting,
->  		 "Enable cgroup-based memory accounting for dma-buf heap allocations (default=false).");
->  EXPORT_SYMBOL_NS_GPL(mem_accounting, "DMA_BUF_HEAP");
->  
-> -static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
-> -				 u32 fd_flags,
-> -				 u64 heap_flags)
-> -{
-> -	struct dma_buf *dmabuf;
-> -	int fd;
-> -
-> -	/*
-> -	 * Allocations from all heaps have to begin
-> -	 * and end on page boundaries.
-> -	 */
-> -	len = PAGE_ALIGN(len);
-> -	if (!len)
-> -		return -EINVAL;
-> -
-> -	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
-> -	if (IS_ERR(dmabuf))
-> -		return PTR_ERR(dmabuf);
-> -
-> -	fd = dma_buf_fd(dmabuf, fd_flags);
-> -	if (fd < 0) {
-> -		dma_buf_put(dmabuf);
-> -		/* just return, as put will call release and that will free */
-> -	}
-> -	return fd;
-> -}
-> -
->  static int dma_heap_open(struct inode *inode, struct file *file)
->  {
->  	struct dma_heap *heap;
-> @@ -99,30 +72,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
->  	return 0;
->  }
->  
-> -static long dma_heap_ioctl_allocate(struct file *file, void *data)
-> +static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
->  {
->  	struct dma_heap_allocation_data *heap_allocation = data;
->  	struct dma_heap *heap = file->private_data;
-> +	struct dma_buf *dmabuf;
->  	int fd;
-> +	size_t len;
->  
->  	if (heap_allocation->fd)
-> -		return -EINVAL;
-> +		return ERR_PTR(-EINVAL);
->  
->  	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
-> -		return -EINVAL;
-> +		return ERR_PTR(-EINVAL);
->  
->  	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
-> -		return -EINVAL;
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	len = PAGE_ALIGN(heap_allocation->len);
-> +	if (!len)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
-> +				     heap_allocation->heap_flags);
->  
-> -	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
-> -				   heap_allocation->fd_flags,
-> -				   heap_allocation->heap_flags);
-> -	if (fd < 0)
-> -		return fd;
-> +	if (IS_ERR(dmabuf))
-> +		return dmabuf;
-> +
-> +	fd = get_unused_fd_flags(heap_allocation->fd_flags);
-> +	if (fd < 0) {
-> +		dma_buf_put(dmabuf);
-> +		return ERR_PTR(fd);
-> +	}
->  
->  	heap_allocation->fd = fd;
->  
-> -	return 0;
-> +	return dmabuf;
->  }
->  
->  static unsigned int dma_heap_ioctl_cmds[] = {
-> @@ -138,6 +123,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
->  	unsigned int in_size, out_size, drv_size, ksize;
->  	int nr = _IOC_NR(ucmd);
->  	int ret = 0;
-> +	int fd;
-> +	struct dma_buf *dmabuf;
->  
->  	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
->  		return -EINVAL;
-> @@ -174,15 +161,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
->  
->  	switch (kcmd) {
->  	case DMA_HEAP_IOCTL_ALLOC:
-> -		ret = dma_heap_ioctl_allocate(file, kdata);
-> +		dmabuf = dma_heap_ioctl_allocate(file, kdata);
-> +
-> +		if (IS_ERR(dmabuf)) {
-> +			ret = PTR_ERR(dmabuf);
-> +			break;
-> +		}
-> +
-> +		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
-> +		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
-> +			put_unused_fd(fd);
-> +			dma_buf_put(dmabuf);
-> +			ret = -EFAULT;
-> +		} else {
-> +			fd_install(fd, dmabuf->file);
-> +		}
-> +
->  		break;
->  	default:
->  		ret = -ENOTTY;
->  		goto err;
->  	}
->  
-> -	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
-> -		ret = -EFAULT;
->  err:
->  	if (kdata != stack_kdata)
->  		kfree(kdata);
 
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
