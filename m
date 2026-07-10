@@ -1,162 +1,106 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4113806CD
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 08:50:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72243BBFCC
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 08:58:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783673453; cv=none; b=D7TsRCMuuszlBucco4KgdG+q6j/0R/FRtDahhZtAjD67IFYplT9L0tzk09LvTjOr+xnTZcMVHA3mBzTXQkroPn5mEp1eD/HpfuPrC8zTA51GP2mTVPwKHJ8hDP/ULxZO6gjCq3wXouzQW1v+5DMIcty6rFXrkFoLUxf2UfLsAS8=
+	t=1783673884; cv=none; b=G6gq751ED6+3tN48O6bBspArQOJhiEkXFAyZcmVKEBJmtJOSX7Oxydqn53CT54im6GabAAPpm8t0vtJPUX9Ctl37eMAELAd2HS2hFz6gOrzJUx8OkurO7vhlDLTndsi9up4WKRZWadmkVnaMS/WISBSxzWvlT0B6AdWt5xIWm1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783673453; c=relaxed/simple;
-	bh=5dM8YSKtmX3/xzYsXF2HVvat7PXeJQXKl8GCaYw+DbY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oiDIz0UAYYsZ9625dxS1/6OjKl/CN2eewdi6UzH/oCSXCSSnnRJsoFRByT7p41QVf/9pfTynCjX1ngRgCmF+swAJuIPnKna+aQBqfCZg/ko/O08x8AmUenb0ahYUwJw83EiOFztSUC9mxtXfu/8AtcvLM+ArycV2ROnuzemvI18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QvDbu4xd; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783673884; c=relaxed/simple;
+	bh=8H/HsdoetcAOJZVv1k4ryiuDTR/E+4atDCtXI+XvUoA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nyvF29wcKoTBUqOe7WnurNX7IjgwpXuitMZeNBYQPnoqXKG6KP2DJtU33rHQYXV32z1zJbAgz3QmW6J8Lc99l+Bei6AQtmZhBbdjdOb2DpwN4PIUXrVrYcZ8pTL8a8QzA5pI+L8aYTFFlusXB/v9HyhALOct+qN3faOVpaDrwCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BwL1XnJb; arc=none smtp.client-ip=95.215.58.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QvDbu4xd"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C7FB61A0F33;
-	Fri, 10 Jul 2026 08:50:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 99F5160341;
-	Fri, 10 Jul 2026 08:50:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A80CA11BD078C;
-	Fri, 10 Jul 2026 10:50:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783673447; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=v8gCKgh20t8MVOv0EHjwCoe6FndkvE+YsFdQeIoFVXA=;
-	b=QvDbu4xd9VUwS6f51YRS1nAGHH8rlW2aIXNMDiswlHyDKQpIORB2QT3Mf2cSiNG7xDdgAJ
-	45lg6jPfoUHnJ3Rn1PbARjw2c39aolsHHPwYeZfIydCN9L5jljHfX9XmHekcohFhQGmBaY
-	C4+azk7xUepCDtSv8hLurWbdcl5yBNjSxh/MorILuigz+8Jr32l/PzFATweAX3RSv6HN3a
-	LW7AK+w3i0GHLCO1mB1V6XxtH4g8diBZ20obAe6id2CcJr8m3hDDG6QgLt6F/ZnWaW/lSF
-	Qfyx3WctLi5y+f8wxT6Q9xtUTS+gsHeIgnwPDT303oPSBnLMZKl6uWSHAOVkzQ==
-Message-ID: <a95aab9e-24ad-4d9e-a9b4-2464431f4ec5@bootlin.com>
-Date: Fri, 10 Jul 2026 10:50:41 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BwL1XnJb"
+Date: Fri, 10 Jul 2026 10:57:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1783673881;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=V4lipBWZFiKZbcBCGrGNqJAdNSbDlvvBaJ40rsLV1ys=;
+	b=BwL1XnJbI6qMhQVrMX9TiyLufLQn86s9X6401ev1gDRrnnT06dyPVqMOb73oRKpqsVGKrZ
+	h43+rJY1hNASuum6AxXyJc4SokOths6/y9N+J9ohWW19GL8EARMDr5s6KJX1QKXEN07avc
+	E3qc6rLE77JlG1smqFQ1NzElKY8jqEo=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+	stable@vger.kernel.org, seanjc@google.com, pbonzini@redhat.com,
+	kas@kernel.org, rick.p.edgecombe@intel.com
+Subject: Re: [PATCH v2] KVM: TDX: Reject concurrent change to CPUID entry
+ count
+Message-ID: <alC0DpNDh7SrPc9E@linux.dev>
+References: <20260710035324.3170534-1-binbin.wu@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: stmmac: intel: gate SerDes reconfig on rate
-To: Markus Breitenberger <bre@breiti.cc>, netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Markus Breitenberger <bre@keba.com>, stable@vger.kernel.org
-References: <20260709190329.124432-1-bre@breiti.cc>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260709190329.124432-1-bre@breiti.cc>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260710035324.3170534-1-binbin.wu@linux.intel.com>
+X-Migadu-Flow: FLOW_OUT
 
-Hi Markus,
+On Fri, Jul 10, 2026 at 11:53:23AM +0800, Binbin Wu wrote:
+> Reject KVM_TDX_INIT_VM if userspace changes cpuid.nent between the
+> initial read and the subsequent copy of the initialization data.
+> 
+> tdx_td_init() first reads user_data->cpuid.nent to size the flexible
+> kvm_tdx_init_vm copy.  The copied structure also contains cpuid.nent,
+> and that field can differ from the value used to size the allocation if
+> userspace modifies the input concurrently.  setup_tdparams_cpuids() later
+> passes init_vm->cpuid.nent to kvm_find_cpuid_entry2(), which uses it as
+> the array bound for the copied entries.
+> 
+> Require the copied count to match the value used to size the allocation
+> so that CPUID parsing cannot access beyond the entries actually copied.
+> 
+> Fixes: 0bd0a4a1428b ("KVM: TDX: Replace kmalloc + copy_from_user with memdup_user in tdx_td_init()")
+> Reported-by: Sashiko:gemini-3.1-pro-preview
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
 
-On 7/9/26 21:03, Markus Breitenberger wrote:
-> From: Markus Breitenberger <bre@keba.com>
-> 
-> intel_mac_finish() is registered as the phylink mac_finish()
-> callback for the Elkhart Lake SGMII ports. phylink calls it at
-> the end of every major link reconfiguration, including the
-> initial one during probe.
-> 
-> The callback selects the PMC ModPHY LCPLL programming for the
-> requested MAC-side interface and then power-cycles the SerDes.
-> On Elkhart Lake that ModPHY is also used by the on-die AHCI
-> SATA PHY. Reapplying the programming during the initial
-> boot-time link-up disturbs the shared analog block while it is
-> still driving SATA, so the SATA link fails to train:
-> 
->   ata1: SATA link down (SStatus 1 SControl 300)
-> 
-> The disk carrying the root filesystem is never detected and the
-> system hangs at rootwait. Ethernet itself comes up normally,
-> which makes the failure look unrelated to the network driver.
-> 
-> Before mac_finish() runs, the legacy SerDes power-up path has
-> already programmed SERDES_GCR0 for the current interface. The
-> 1G and 2.5G ModPHY tables selected by mac_finish() correspond
-> to the SerDes lane rate, so read that rate back from SERDES_GCR0
-> and skip the PMC reprogramming and SerDes power-cycle when it
-> already matches the selected interface.
-> 
-> This keeps the disruptive reprogramming out of the boot path
-> when the SerDes is configured correctly, while preserving the
-> previous behavior when a real SGMII/1000BASE-X to 2500BASE-X
-> rate change is needed. If the register read fails, reconfigure
-> as before.
-> 
-> Fixes: a42f6b3f1cc1 ("net: stmmac: configure SerDes according to the interface mode")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GitHub-Copilot:claude-opus-4.8
-> Signed-off-by: Markus Breitenberger <bre@keba.com>
+LGTM, and thanks for fixing this!
+
+Reviewed-by: Thorsten Blum <thorsten.blum@linux.dev>
+
 > ---
 > v2:
->   - Read the current SerDes lane rate from SERDES_GCR0 instead of
->     comparing against cached phy_interface state.
->   - Rework the commit message to clarify the SerDes power-up path and
->     the rate readback check.
->   - Keep the previous reconfiguration behavior if the SERDES_GCR0 read
->     fails.
+> - Reject the request if mismatch instead overwriting the value. (Thorsten, Rick)
+> - Lump the check into the existing sanity check on the cpuid field. (Sean)
+> - "KVM: x86: TDX:" -> "KVM: TDX:" in the shortlog.
 > 
-> v1: https://lore.kernel.org/netdev/20260706061954.94842-1-bre@breiti.cc/
+> v1:
+> - https://lore.kernel.org/kvm/20260708022937.2465796-1-binbin.wu@linux.intel.com/
+> ---
+>  arch/x86/kvm/vmx/tdx.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 > 
->  .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 28 +++++++++++++++++++
->  1 file changed, 28 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> index b8d467ba6d72..fa0113597c97 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> @@ -525,6 +525,31 @@ static int intel_set_reg_access(const struct pmc_serdes_regs *regs, int max_regs
->  	return ret;
->  }
+> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+> index 6ff1469e91cc..d1af0a752e97 100644
+> --- a/arch/x86/kvm/vmx/tdx.c
+> +++ b/arch/x86/kvm/vmx/tdx.c
+> @@ -2797,7 +2797,11 @@ static int tdx_td_init(struct kvm *kvm, struct kvm_tdx_cmd *cmd)
+>  		goto out;
+>  	}
 >  
-> +/* Return true if the SerDes lane rate must change to serve @interface.
-> + * If the current rate cannot be determined, reconfigure as before.
-> + */
-> +static bool intel_serdes_needs_reconfig(struct stmmac_priv *priv,
-> +					struct intel_priv_data *intel_priv,
-> +					phy_interface_t interface)
-> +{
-> +	u32 cur_rate, want_rate;
-> +	int data;
-> +
-> +	if (!intel_priv->mdio_adhoc_addr)
-> +		return true;
-> +
-> +	data = mdiobus_read(priv->mii, intel_priv->mdio_adhoc_addr,
-> +			    SERDES_GCR0);
-> +	if (data < 0)
-> +		return true;
-> +
-> +	cur_rate = (data & SERDES_RATE_MASK) >> SERDES_RATE_PCIE_SHIFT;
-> +	want_rate = interface == PHY_INTERFACE_MODE_2500BASEX ?
-> +			SERDES_RATE_PCIE_GEN2 : SERDES_RATE_PCIE_GEN1;
-> +
-> +	return cur_rate != want_rate;
-> +}
-> +
->  static int intel_mac_finish(struct net_device *ndev,
->  			    void *intel_data,
->  			    unsigned int mode,
-> @@ -536,6 +561,9 @@ static int intel_mac_finish(struct net_device *ndev,
->  	int max_regs = 0;
->  	int ret = 0;
->  
-> +	if (!intel_serdes_needs_reconfig(priv, intel_priv, interface))
-> +		return 0;
-
-You're returning a bit too early, make sure that you still update
-priv->plat->phy_interface as you may be switching between 1000BaseX and
-SGMII, so no rate change needed, but an interface change still :)
-
-Maxime
-
+> -	if (init_vm->cpuid.padding) {
+> +	/*
+> +	 * Reject the request if userspace changes cpuid.nent between the
+> +	 * initial read and the subsequent copy.
+> +	 */
+> +	if (init_vm->cpuid.padding || init_vm->cpuid.nent != nr_user_entries) {
+>  		ret = -EINVAL;
+>  		goto out;
+>  	}
+> 
+> base-commit: f1e5ada5ab62dbe32350bc161771c9afc6a896de
+> -- 
+> 2.46.0
+> 
