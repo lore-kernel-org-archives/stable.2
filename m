@@ -1,32 +1,32 @@
-Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com [95.215.58.182])
+Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9B0404BF7
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 10:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDD2410D1B
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 10:56:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783680993; cv=none; b=MF8jDvxKWv1zrWc/B9FCQHqBWgTNXcK3T18vsrQQjVkmcgA+KKnfjPBzAIl0cuLOoyOi16OmbNkhDQA1bpI3MVKvC1wpqisCi+z8wK/LKvKW3NTZcJH9yBKW5neHsoGBbLDm1R7C79V7xcGGxQ/lWx0Kf6tnQRSNuskJ9TCrIT4=
+	t=1783681000; cv=none; b=a5RxE2hzjVsE+gEYM+lhnSo1KYznWXeAHsbTZYAvBWtdZhkigHOL7Sx2PMcCiTZPAbQYrub4zMmbhUwY8ZhVqAm+nDYXQhbRt5a2238wNGeD72UeSxN2zDuXUC/tRj6fpDTR3gXqXe+oaddVzGC2jidSprPTiFcpL1P7ERflaNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783680993; c=relaxed/simple;
-	bh=vYqCA5l4YYyso/Zv6g8ueWerNWkYhpLDNjGM/O+OJQE=;
+	s=arc-20240116; t=1783681000; c=relaxed/simple;
+	bh=LQDcjo4puHASaMWvmWKlMKWUn+DHMhyXa6SkGs/PyzE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=heiVy5yM3TpGpL0/a2AeuGzpiF+Kmm2cpVTVYGzPJPaObcYQ52eRZTZJB8byEdDZsgKYyHVC3ozACnFLnhmGmzur96WLO5RDIqA/VmPRjU9NKGxhpd/YO8c+csdArPoD38FqqahLrpHhB17IbYuBNz48KtahJHaVAUorQG0SDZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bmuMWEqB; arc=none smtp.client-ip=95.215.58.182
+	 MIME-Version; b=Ujw7ORxLKJJvg8Mj03PLJdWxniIystqThH50sWkElwS83fwdra2+jnbZCFh7iA7jMnIMqI40lYXQ+SqKe/UAmWvZtt2xY1rlBa401fm2ZEKWn8rbpcCpu7dttxQDBNbEmPyLlhOBKJWRMf+TFLHGywR2kisGxGWHELwHeaud+jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ON5e/gYP; arc=none smtp.client-ip=95.215.58.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bmuMWEqB"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ON5e/gYP"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783680989;
+	t=1783680996;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wJFhjNRrGWhFd4/UKA3CK1oa3jEQdlfP2tw+6VJV9xw=;
-	b=bmuMWEqByFKDrkHgq9LDQ6o45YZlph9ybTzEW8i06SsYucuVvujsPEGBhDUpbjqtdhsKfL
-	jhwH5WR8sqYPFgztSmKHzp0vKZBjKMZpxrZHRBlZp3njKcJL/ax8+eKpsEOYAEIe0qumbn
-	AFi3rsYxug8QgbCe+Ffc0PToTIGkSeM=
+	bh=t/976mRd2cZjP/VBKknODLU4xXVA+kkf4lFHLX7WcpM=;
+	b=ON5e/gYPsrMuRZSzRp8rV82PX86lwCFqokmnB0Fb/eRWDcDOdHDA7Byw3uDGk8Qdb7SQeu
+	GdbJtqhtHLnndIcI9s/sPXUo81ZvaKgj5rPpt4Apj4mDdRDXl182WUzkxklAZ4ewoNgWyX
+	37P62V9h9hG+gdAkOCdsEDWluabss4I=
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	apopple@nvidia.com,
@@ -56,9 +56,9 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	hannes@cmpxchg.org
 Cc: sashiko-bot <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 1/3] mm/mempolicy: skip non-present PMDs when queueing folios
-Date: Fri, 10 Jul 2026 03:55:21 -0700
-Message-ID: <20260710105557.1987433-2-usama.arif@linux.dev>
+Subject: [PATCH v3 2/3] mm/madvise: skip device-private PMDs in cold and pageout walks
+Date: Fri, 10 Jul 2026 03:55:22 -0700
+Message-ID: <20260710105557.1987433-3-usama.arif@linux.dev>
 In-Reply-To: <20260710105557.1987433-1-usama.arif@linux.dev>
 References: <20260710105557.1987433-1-usama.arif@linux.dev>
 Precedence: bulk
@@ -70,19 +70,24 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
 
-queue_folios_pmd() is called under pmd_trans_huge_lock(), whose
-pmd_is_huge() check returns true for any non-present, non-none PMD
-softleaf. Passing such a PMD to pmd_folio() treats the softleaf encoding
-as a hardware PFN and can return a bogus folio pointer.
+madvise_cold_or_pageout_pte_range() takes pmd_trans_huge_lock(), whose
+pmd_is_huge() check returns true for a device-private PMD. The subsequent
+!pmd_present() branch has a VM_BUG_ON() asserting migration is the only
+allowed non-present case; a device-private PMD trips it.
 
-Mirror queue_folios_pte_range(): handle non-present entries before
-looking up a folio. Keep migration entries counted as failures, but skip
-other non-present PMDs such as device-private entries.
+Skip device-private PMDs in that non-present branch and continue to
+huge_unlock before calling pmd_folio(). Downgrade the check to
+VM_WARN_ON_ONCE() so an unexpected PMD softleaf logs a warning rather
+than panicking. Drop the thp_migration_supported() guard: it expands to
+IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_SOFTLEAF), and both
+pmd_is_migration_entry() and pmd_is_device_private_entry() already
+return false when that config is not selected, so the guard suppresses
+only the case where the warning would already be silent.
 
-Potential trigger: an HMM-based GPU driver migrates an anonymous THP
-folio to device memory via migrate_vma_pages(), leaving a device-private
-PMD. Userspace then calls mbind(), migrate_pages() or
-set_mempolicy_home_node() on that range.
+Potential trigger: an HMM-based GPU driver races with
+madvise(MADV_COLD)/MADV_PAGEOUT: pmd_trans_huge(*pmd) reads true, then
+migrate_vma_pages() flips the PMD to a device-private entry before the
+PMD lock is acquired.
 
 Reported-by: sashiko-bot <sashiko-bot@kernel.org>
 Link: https://sashiko.dev/#/patchset/20260703173903.3789516-1-usama.arif%40linux.dev?part=6
@@ -90,34 +95,27 @@ Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to PMD oper
 Cc: <stable@vger.kernel.org>
 Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Balbir Singh <balbirs@nvidia.com>
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- mm/mempolicy.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ mm/madvise.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 914f81863db5..69a00a324ef5 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -654,12 +654,14 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
- {
- 	struct folio *folio;
- 	struct queue_pages *qp = walk->private;
-+	pmd_t pmdval = pmdp_get(pmd);
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 9292f60b19aa..c557023c3fad 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -388,8 +388,8 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 			goto huge_unlock;
  
--	if (unlikely(pmd_is_migration_entry(*pmd))) {
--		qp->nr_failed++;
-+	if (unlikely(!pmd_present(pmdval))) {
-+		if (pmd_is_migration_entry(pmdval))
-+			qp->nr_failed++;
- 		return;
- 	}
--	folio = pmd_folio(*pmd);
-+	folio = pmd_folio(pmdval);
- 	if (is_huge_zero_folio(folio)) {
- 		walk->action = ACTION_CONTINUE;
- 		return;
+ 		if (unlikely(!pmd_present(orig_pmd))) {
+-			VM_BUG_ON(thp_migration_supported() &&
+-					!pmd_is_migration_entry(orig_pmd));
++			VM_WARN_ON_ONCE(!pmd_is_migration_entry(orig_pmd) &&
++					!pmd_is_device_private_entry(orig_pmd));
+ 			goto huge_unlock;
+ 		}
+ 
 -- 
 2.53.0-Meta
 
