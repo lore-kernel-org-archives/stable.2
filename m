@@ -1,121 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95469301474
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 01:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77963495E5
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 01:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783646730; cv=none; b=dwJI29lyOHeChaSPVYp0uF6ESwifiX9BIP/qp2irPyElhJ4Yye4gjTG9HfQfo0yWcprZUI1LxlUMIojob1lj5d8JaaDAE104+UZayw2oV7XA0nMk+OvOpeAr6BEsKeCIarNeTmaEGTUkzMo/h2kkrcqHd3haV2dke8VaChE/C+M=
+	t=1783647899; cv=none; b=A6VPUOC6I1161rtNwL5Y/zPnBGynm7+CyDoJ6duJdsech0x+D+OV8ZDmnNDekoDIf+zNukEkzcKGOJ9ruH+ncQpwZTHD905h6Zx0reGObh7ZVVQkaf4FyEsPtDIrx5GznHdPPwneUmiYjKpnrtPBYKkZNGd94tYXeUJZBezOV7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783646730; c=relaxed/simple;
-	bh=qMBivMREQjhPQ3B7sx+aiurFP+n7rpwyV2x0WkUvBU8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JOTe+xhduyhF93owxmHForsORbhYf8ijaZ47qBz9jNcts457kY0QPzUpxJT9azWVNFuVSzFZOnWZI5vbeDpCW9LEfuJFfROS4uigfWCiqLcX7QaU2AjJCATp573/AwQiQdq7z0kv6SInO0fgmu7YOmTaKKP8nCxsWxdlERXqf2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ob0mqx8z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783647899; c=relaxed/simple;
+	bh=fddwZMEJzG3D8cZDEDw7rYgZv9IFMpJGUX4crZ0R5Go=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ShfIX0U5OugC4jbWWsvoUO4EvrChIn06X5oYZiA9AnWKQf4ydos3bq8Lg7JHiLKzaJ0wZlDwBrNztqmiSx7UOdUZS+S3dWyUxJX4KOs59Vy3nQjT8NtHisdE7fH4mk2Lxp0omPw4ZIK4xmTiKpdncRV7SLMqq+UBqqHsvaZZGB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kCSihxFT; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ob0mqx8z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 259491F00A3F
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 01:25:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783646729;
-	bh=z2cNnAN4KbK7zBOfepREjqZR8cR+UmFF3nm/CmcThQc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ob0mqx8zoXTJylisNiY8V5ywpivV7nKtqnDUXH2dn6oc0xH3Ae0x5sv2al2f2dBeu
-	 I7CmNGxKVjhWgsDUJnjDG+DN7k1TRlpXuh3QB9bldxEee7wY0dANy3ekZ99FSxuUxl
-	 CfRfZfvNionAxHcrAc/L5V0efPDeB70MNGqK/0M8B4lj9GpDkDUWMcS5y1yw97Y3Ai
-	 Ift3m1i40ziBUjpJNsEZh26MyhF3UU3ccKaGN0SEKhwWWe7RozWQq7CAjpw06kGlJu
-	 NvaDGr6UzL3Mz1k7FtPXW29h18IOSM9yxhUR+IyxYN/+Tl9D8qrg4zzB2QsJMKg9gH
-	 +rL9RTZidjFDQ==
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-697564cb69eso802720a12.0
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 18:25:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rr4opw8k1FIK6v4QvOs7crbXBO7VJOAvqQjuTBXj/I7I62slxHhYXDdiYbEDAIE+AuL+MIGrQo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxySigNXCn+DSWqhm9/EZis6W/kGE7z35iWPGdqbsebvGYOC6YB
-	0pOf630sjes2gWVE4nExMINkVxynIhZswroTHVB4De2/siZ+P71tt/pPmjIkDIvt9ezbvJ3BgK1
-	ecb03G4kicT6qf7OIKMOG1mfXHRqxCX8=
-X-Received: by 2002:a17:907:928b:b0:c12:7b3f:6c15 with SMTP id
- a640c23a62f3a-c15ce164235mr472749266b.62.1783646727764; Thu, 09 Jul 2026
- 18:25:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kCSihxFT"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8453427d3f4so314850b3a.3
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 18:44:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783647898; x=1784252698; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3UTPv+hJX2QLGxws8LgGW5Meix2PpanRSv1dLaDtFYQ=;
+        b=kCSihxFT3uw/+JOBONin1YIfwPhRdYIJkc5FqsEmPSVdAaJ4bF3OKDmMvYgZa1qcXL
+         ufNGDUB4oqNgYZ3YFQr4MblenAVDPVB+kTlG3buPOvQfP2k36zkn5UTR3KeqOyrnbkNj
+         UKrY4qwkvCLzIOjp8o+Wcl6pHEMFzGzbN7yrX1I/xJQRZboOGruy9B6Z4RdSJbfIzuMN
+         w27nwEKjpCKAUSqPp5VJqQ8lSshO5voOg+bUDi4o9e7JxPI4TE3eahZkNr7GqN9rWqQq
+         eChQVh/8pfVdzqwUvVkf1jKdAN2oIHAliIXXncZHntl1rJdxDtG03Pp0wHRbLGbRqTbd
+         mgaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783647898; x=1784252698;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3UTPv+hJX2QLGxws8LgGW5Meix2PpanRSv1dLaDtFYQ=;
+        b=e20MytWaBK0Hod0pZcj+WaMQUZ/NxzvKFJFuSPib5YvJLRrR8W4bQ0w6LvbGuLB5yo
+         J2TXOn7qqoNXT2UNALMZF/rGT2+NQLWYtGVRWbFXGLZ/a85Ead8LajtleOazbFYZdsuI
+         5upekukuGm+L6VsNG5XP19/NwF6HswJl1qjCUwePELWHVAjb+H80EHQ3bpXIQqkfvKtf
+         9dwbpWDcGpfj+/djQ4KHxgmP8fG3UquyeMVlJbBij+pgqB/lPFtapSsVQGI0zGlrE8Ff
+         Kjx3MMmWalTR6NigoM2TivCoETAP0qUSm9bOddNir64c0LSEBaCThpI5DjvuumEJ2Fuf
+         rOUw==
+X-Forwarded-Encrypted: i=1; AHgh+RrN5fnspRzhv0qcRnJrUyCA3AXDO3UGEQrIKI4Gqg4Gk4lKCypP96tDIzvPZItyoPyacEn/my0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNIBXvBImSMYO0YqKPwOuQfRdgK97XODW/1FKYYE1NlFTKingZ
+	370b50BhmCfNLGLBrgJTrIhQOvbAJOIwF/WGjoE+1f0FsMhqgK+4s8wI
+X-Gm-Gg: AfdE7cnHSRYzhRiWglu9sdrLySq5CjjvZYl3cI20xGmgF1h5rAW1A3cHHzlUkNc4F5b
+	bF4vueqln8Ot5QKhy6/OMNZUzq2DBphxxRvlXGYnidthU9sqy/wWhXjk1BW7Jb4PdAE9x+K1i+K
+	u8p8OjIE84WlFkueOpADuz8LJQn90omSvMQtEdRWDA4H9TtKljAtBelTCodQcEEubStI9+9oDQK
+	Rqjp3H+txLINiNVodMGmaHXbWJUAMrLmtMKIWo38ASTfUyjyxuweduoozWFX7Pjtbq0grgNyVlY
+	1I62K+f88tLe+GfAgA/LSTibsK4tIIiwkJ9ZOsR2w4SiLz+crM8ZDfjMvyZfJpozj7xhcMGyuV3
+	hjIMpVBFYEg901hC0NNcE3ozXng351DQWCrN/Xk5Ulh2ZFAV/5P+ygomaaMjjIwF3YkZVnosC6x
+	zMhmjF3qFIseulzPhjAEXhLBQP
+X-Received: by 2002:a05:6a00:2e24:b0:847:b16b:46d9 with SMTP id d2e1a72fcca58-84843248513mr8521769b3a.34.1783647897749;
+        Thu, 09 Jul 2026 18:44:57 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84856d5d661sm2055607b3a.35.2026.07.09.18.44.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 18:44:57 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Jon Maloy <jmaloy@redhat.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Daehyeon Ko <4ncienth@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] tipc: clear sock->sk on the failed-insert path in tipc_sk_create()
+Date: Fri, 10 Jul 2026 10:44:40 +0900
+Message-ID: <20260710014440.2055584-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709150530.44979-1-security@auditcode.ai>
-In-Reply-To: <20260709150530.44979-1-security@auditcode.ai>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 10 Jul 2026 10:25:15 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9SuA0BcYd=m_FN4sN_ByE7knmkh7Qbsd4Y5Wt6hY0Dgg@mail.gmail.com>
-X-Gm-Features: AUfX_mzQVfkdSQVVnX10DOM3kbVHxuUICZhLzLvRFLgZ9GB-pYfcXumn8RGmNdg
-Message-ID: <CAKYAXd9SuA0BcYd=m_FN4sN_ByE7knmkh7Qbsd4Y5Wt6hY0Dgg@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: fix integer overflow in set_file_allocation_info()
-To: security@auditcode.ai
-Cc: Steve French <smfrench@gmail.com>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Tom Talpey <tom@talpey.com>, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 10, 2026 at 9:32=E2=80=AFAM Ibrahim Hashimov <security@auditcod=
-e.ai> wrote:
->
-> set_file_allocation_info() converts the client-supplied
-> FILE_ALLOCATION_INFORMATION::AllocationSize into a 512-byte block
-> count with:
->
->         alloc_blks =3D (le64_to_cpu(file_alloc_info->AllocationSize) + 51=
-1) >> 9;
->
-> AllocationSize is a fully client-controlled __le64 field; the only
-> validation performed by the caller (smb2_set_info_file(), case
-> FILE_ALLOCATION_INFORMATION) is that the fixed buffer is at least
-> sizeof(struct smb2_file_alloc_info) =3D=3D 8 bytes. The value itself is
-> never range-checked before this arithmetic.
->
-> When AllocationSize is close to U64_MAX (e.g. 0xffffffffffffffff),
-> "AllocationSize + 511" wraps around mod 2^64 to a small number
-> (0xffffffffffffffff + 511 =3D 510), so alloc_blks becomes 0. Since any
-> existing regular file has stat.blocks > 0, the function then takes
-> the "shrink" branch and calls:
->
->         ksmbd_vfs_truncate(work, fp, alloc_blks * 512);   /* =3D=3D 0 */
->
-> silently truncating the file to size 0, even though the client asked
-> to grow the allocation to (what looks like) the maximum possible
-> size. The trailing "if (size < alloc_blks * 512) i_size_write(inode,
-> size);" restore is guarded by a comparison that is never true once
-> alloc_blks =3D=3D 0, so the truncation is not undone. This lets an
-> authenticated SMB client that already holds an open handle with
-> FILE_WRITE_DATA on a file silently truncate that same file to size 0
-> via a single crafted SET_INFO(FILE_ALLOCATION_INFORMATION) request
-> advertising a near-U64_MAX AllocationSize, even though the request
-> asks to grow the file's allocation rather than shrink it. This is a
-> functional/data-loss bug, not a privilege-boundary
-> violation: the same client could already truncate the file via
-> FILE_END_OF_FILE_INFORMATION or a plain write.
->
-> Fix it by validating AllocationSize against MAX_LFS_FILESIZE, the
-> same upper bound the VFS itself uses to reject unrepresentable file
-> sizes, before doing the "+511" rounding, and rejecting oversized
-> values with -EINVAL. Bounding AllocationSize to
-> MAX_LFS_FILESIZE - 511 guarantees the "+511" addition cannot wrap,
-> and that the subsequent "alloc_blks * 512" values passed to
-> vfs_fallocate() and ksmbd_vfs_truncate() stay within a representable
-> loff_t as well.
->
-> No legitimate SMB client asks for an allocation size anywhere near
-> 2^64 bytes, so this only rejects a value that was previously
-> silently misinterpreted as zero.
->
-> Runtime-verified on a v6.19 KASAN test stand: sending SET_INFO
-> (FILE_ALLOCATION_INFORMATION) with AllocationSize =3D 0xffffffffffffffff
-> against ksmbd now returns -EINVAL and leaves the target file's size
-> unchanged, where the unpatched kernel truncated it from 4096 to 0
-> bytes.
->
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> Assisted-by: AuditCode-AI:2026.07
-Applied it to #ksmbd-for-next-next.
-Thanks!
+When tipc_sk_create() fails to insert the new socket (tipc_sk_insert()
+returns non-zero), its error path frees the sk with sk_free() but leaves
+sock->sk pointing at the freed object:
+
+	if (tipc_sk_insert(tsk)) {
+		sk_free(sk);
+		pr_warn("Socket create failed; port number exhausted\n");
+		return -EINVAL;
+	}
+
+This is harmless for plain socket(): the syscall layer clears sock->ops
+before releasing, so tipc_release() is never called. It is not harmless
+on the accept() path. tipc_accept() creates the pre-allocated child
+socket with tipc_sk_create(net, new_sock, 0, kern); on failure it leaves
+new_sock->sk dangling and new_sock->ops non-NULL, and do_accept() then
+fput()s the new file, so __sock_release() -> tipc_release() runs
+lock_sock(new_sock->sk) on the freed sk -- a use-after-free write of the
+sk_lock spinlock.
+
+tipc_release() already guards this exact "failed accept() releases a
+pre-allocated child" case with "if (sk == NULL) return 0;", but the
+guard is bypassed because tipc_sk_create() left sock->sk non-NULL
+(dangling) rather than NULL.
+
+Clear sock->sk on the failed-insert path so the existing tipc_release()
+NULL check fires and the use-after-free is avoided.
+
+The tipc_sk_insert() failure is reached when the per-netns socket
+rhashtable hits its max_size (tsk_rht_params.max_size = 1048576, ~2M
+elements) -- i.e. once a netns holds ~2M TIPC sockets every insert
+returns -E2BIG.
+
+  BUG: KASAN: slab-use-after-free in lock_sock_nested+0x98/0x150
+  Write of size 8 at addr ffff8880047cdc38 by task init/1
+   lock_sock_nested+0x98/0x150
+   tipc_release+0xa4/0x7a0
+   __sock_release+0x61/0x120
+   sock_close+0x10/0x20
+   __fput+0x1d6/0x490
+  Allocated by task 1:
+   sk_alloc+0x2b/0x380
+   tipc_sk_create+0x82/0xb90
+   tipc_accept+0x14c/0x650
+  Freed by task 1:
+   __sk_destruct+0x22d/0x2d0
+   tipc_sk_create+0x7b8/0xb90
+   tipc_accept+0x14c/0x650
+   do_accept+0x1d2/0x2a0
+
+Fixes: 07f6c4bc048a ("tipc: convert tipc reference table to use generic rhashtable")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+This was reported to security@kernel.org (Cc: the TIPC maintainer) with no
+response; posting the fix directly to netdev as it is a straightforward
+one-line fix. Full C reproducer available on request.
+
+ net/tipc/socket.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/tipc/socket.c b/net/tipc/socket.c
+index e564341e0216..55e695748332 100644
+--- a/net/tipc/socket.c
++++ b/net/tipc/socket.c
+@@ -502,6 +502,7 @@ static int tipc_sk_create(struct net *net, struct socket *sock,
+ 	tipc_set_sk_state(sk, TIPC_OPEN);
+ 	if (tipc_sk_insert(tsk)) {
+ 		sk_free(sk);
++		sock->sk = NULL;
+ 		pr_warn("Socket create failed; port number exhausted\n");
+ 		return -EINVAL;
+ 	}
+-- 
+2.54.0
+
