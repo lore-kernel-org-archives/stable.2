@@ -1,123 +1,214 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D870409108
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 22:53:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D863360EF7;
+	Fri, 10 Jul 2026 23:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783724014; cv=none; b=SA22ttWICcX+TIT4lKt8RhkDqa4sCMmUC+8Pjs9qD+3nmtW7hE1gD3pkOSTWN8E5WWc0ipU+Dyj39z/jq9IpAXADi4i8hmXtVBGWP1UtEjmCyACfOIL5Vmatd3snJ8ydOyZs4mZl1nA81LFfpIS4ZJKhzeJjMkTHrR5zToFNP18=
+	t=1783725553; cv=none; b=ELi9GDN6EfRZ8WU7ulvoWY4V5VLIEtB+6+rvlZqkuaAOV9AYQCJfQ5eGBDTEnoACLyeA74LNTIJWKJ1aDlr/BNfL5YME9qo0tag2GAKxxpOYSGfRRFfzAmHKYm9XtxrfH3/j49inuermHVGlMK/hcQwihbGh2dkLOIPuL+Celoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783724014; c=relaxed/simple;
-	bh=XWDly2bshxB9+r2/vatmL2lJD5sH3CtBSsQ7Czp2trA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oGSjJmDlUDEchaka6rgU1+GZW8Wqqm+GNUbnz38Gk9y80fdNxnVccf21Jw6O0DcibD/A6h3RB0ZA0tEgmftV7MGn9lQgN5D5tKw23H+x68NN1A55GCRTDwoNt1iDoR2WUIg6pvLUtGFcZIZvruxxqq1lMrmcoXn85c4oZWmHMDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YmNWm/uX; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783725553; c=relaxed/simple;
+	bh=mTaVaa98Af/nTI2ctXWuLJoCcQ2V1no+7UyZJEu8x4o=;
+	h=Date:To:From:Subject:Message-Id; b=ZpV8+AgQ/DDAWcYH0vjwcYf9L6pWtVqQDBaF949n2Hgi2ARt+lBVsn64eavc/H0nde7cSo+Iv9ENPomtJgeYlxAnyOOEtNYeK1TE2slRI87S/0xFKU71ymzFufHiuTuIP5Q7AFSXwG1RFKpgmoFFaM/duwtrk01zI10zRbxYMs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xF91JRt2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YmNWm/uX"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47df6a5202bso843050f8f.0
-        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 15:53:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xF91JRt2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD8F1F00A3A;
+	Fri, 10 Jul 2026 23:19:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783724012; x=1784328812; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bZMuJmOMRKFkwmQjMCN1ntzaT1XaecLSvQONyrn+oG4=;
-        b=YmNWm/uXDQQBet5OrbduqQirrK/7duWy2BKXHTGYyKoHhcnPTb9HaHt29eW9OvfKwj
-         8qDcQ2mn5sxUWRWPGiwPkzvVO4L/jldp7jV42Sse8cywZ5IG8FnXMSiJ1/9j1cEO9674
-         wJuQqcEDNpB+VnauoG8ETxR0IA9ZB97m611QYh0VtTM0FhlT7tZWquraZb8oy5bAk5Jb
-         v6iqPJvs1eWJB5sZ1bkWaQd8UT6jGDyHyiJGR0++MIh8YPnrnBTJl+ANdgafMcwTfQOv
-         7IyhD0dFcKppC+R6nRfN67mFEg0BRAc/ZMwQBZMnLvK/vJGylxb5VDMV1SL/WW2HVEC1
-         166A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783724012; x=1784328812;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bZMuJmOMRKFkwmQjMCN1ntzaT1XaecLSvQONyrn+oG4=;
-        b=pb5pyfr8bJqEaxFyGHtLvFV5AzjtGHR1NyG77qEoXQNMyRMtQSej7QKw3nlH/n0LkZ
-         BzzaTh7miAMrxF35DT8rY9MUigzxfz5FQuFuhwpZeHnuSaMOqZnd97PSDBM7S255Ibba
-         lygd99puzvsd1+YO5dUk8IZaRoN3g6gK2t8cJcVMlXnLa9yMaA35WezXWSIOsvQ55KtA
-         WMgjO1Rf1PfaW2gXAgvC+F8jQ+C8DVk+vGwxOCrdg6gNOGUwds1qZwtxsUk2M0ctXVmg
-         TAirDM6FlGox0JKfTVzssJti9pImtJWIRgWNzzFECW7CVpMiUPlP4u43WosDSf6tXXvb
-         vCfg==
-X-Forwarded-Encrypted: i=1; AHgh+RonfQNQOka+InBxLMQHRBqSZ2rxvxpC4Carfk2rKUnCARX0oEm/fnXvFiqF8O/H6otXKdmohIg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLDAtaf+iru+UjYMeKR6Hl6MRq/yt2RJF0Kg9haOqN0cIDAj8Z
-	SwKvQULwrA8KzW0SrQ9ZA5rB/qpFqbmJaKd2Sdl0lS1+o4gvWLVFfxeX
-X-Gm-Gg: AfdE7cn+MlPp2nZTrTxN1SseoE8t8I3X95CdlzNU5E0i/2f+lrIwlsNzDUGK3dQzWhj
-	U93HwpZpjhk0DqIXCphYhjguvbczdDkEZJla1I2zKFAGjMbn+yHBF+84Kl85fXatg82lhL3gC+K
-	VjRj5d+RQhVgPm3ta6IRMHBgrF2SFhfMimDrcW9yO22586Cv5En5TX/9+287m7gwXrB9lg7vWWX
-	d3wZ/6zTX7wPwzz7U1HYuPYl5HDCPt/T33CvG4+4p/U5Z3cqPYRS+Ln5DLAY38cLglfZF+CFJ6C
-	3HYanBVkvhdL+9jHDXX5iZ2lp5qNDDOLrZaVGumLwVGZ5Jcla/MT5CwKOcKb6EDmfFpbqj6JXGP
-	K6JZB/293zRxiDGEXjXo/CJQPHpx5ZI1fG5TKi87yTr08gizkXMYBCWaXrNFK18nLsU5ZP9RfcN
-	RbzXh9YcuvGBn7GvuGyz1I0P9L9eYaeOjdMlol+eFjyYoDe0bsO3Tt6FJZ7CNtsOdY8RX0Os+2t
-	kF9Y0rczysZ0YM=
-X-Received: by 2002:a05:6000:4010:b0:47f:2baf:5e31 with SMTP id ffacd0b85a97d-47f2dca845cmr596773f8f.1.1783724011546;
-        Fri, 10 Jul 2026 15:53:31 -0700 (PDT)
-Received: from ?IPV6:2001:9e8:f113:9101:fced:7ed3:a061:c995? ([2001:9e8:f113:9101:fced:7ed3:a061:c995])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9b4d850dsm64826572f8f.0.2026.07.10.15.53.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 15:53:31 -0700 (PDT)
-Message-ID: <84daa623-6767-437e-915b-933dbebd2e8a@gmail.com>
-Date: Sat, 11 Jul 2026 00:53:30 +0200
+	d=linux-foundation.org; s=korg; t=1783725551;
+	bh=af2EvGil4zboyjZrY02ZrkCnxx57MEHgkJTbMIU/LJE=;
+	h=Date:To:From:Subject;
+	b=xF91JRt2M+0jVsKmpAxdc5zDRU5yLHahbsrT6ViIy8Pfe6Ql2z0MJ1DOa+GXbuA6g
+	 LCHlwAaOVXAexmaSip8wAKeMgQLYvQEy4w4geu+LQFnpWdDlImcpj/J6ilpLhUjYT8
+	 N7qSrJNLJRfKena99tpyqp65fddyFKofJR1F9qPA=
+Date: Fri, 10 Jul 2026 16:19:11 -0700
+To: mm-commits@vger.kernel.org,yuanchu@google.com,weixugc@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,peiyang_he@smail.nju.edu.cn,muchun.song@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,harry@kernel.org,hannes@cmpxchg.org,david@kernel.org,baohua@kernel.org,axelrasmussen@google.com,zhengqi.arch@bytedance.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-mglru-fix-stale-batch-updates-after-memcg-reparenting.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260710231911.CFD8F1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 000/175] 6.6.144-rc1 review
-Content-Language: en-US
-To: Sasha Levin <sashal@kernel.org>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com, Florian Fainelli <f.fainelli@gmail.com>,
- linux-mips@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- stable@vger.kernel.org
-References: <20260702155115.766838875@linuxfoundation.org>
- <34b7e26f-df63-4523-b4d2-5de13c192a8c@gmail.com>
- <20260710163023.agent5-0013@kernel.org>
-From: Jonas Jelonek <jelonek.jonas@gmail.com>
-In-Reply-To: <20260710163023.agent5-0013@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Sasha,
 
-On 10.07.26 23:03, Sasha Levin wrote:
-> On Thu, Jul 09, 2026 at 11:45:14AM +0200, Florian Fainelli wrote:
->> On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, same build failure
->> as 6.1 for MIPS:
->>
->> arch/mips/kernel/smp.c: In function 'stop_this_cpu':
->> arch/mips/kernel/smp.c:396:2: error: implicit declaration of function
->> 'rcutree_report_cpu_dead'; did you mean 'rcutree_prepare_cpu'?
->> [-Werror=implicit-function-declaration]
->>    rcutree_report_cpu_dead();
->>    ^~~~~~~~~~~~~~~~~~~~~~~
->>    rcutree_prepare_cpu
-> The offending backport was dropped before 6.6.144 was released, so the
-> build failure itself is gone.
->
-> That still leaves 6.6.y and 6.1.y without 9f3f3bdc6d9d ("MIPS: smp:
-> report dying CPU to RCU in stop_this_cpu()") while both trees already
-> ship 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single()
-> on PREEMPT_RT"), which is what exposes the MIPS reboot hang that
-> 9f3f3bdc6d9d fixes.
->
-> Jonas, could you send backports of 9f3f3bdc6d9d for 6.6.y and 6.1.y
-> with that adaptation? I'd rather take the author's version than adapt
-> it here.
->
+The patch titled
+     Subject: mm: mglru: fix stale batch updates after memcg reparenting
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-mglru-fix-stale-batch-updates-after-memcg-reparenting.patch
 
-Sure, I adopted it accordingly and sent patches for 6.6.y and 6.1.y.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mglru-fix-stale-batch-updates-after-memcg-reparenting.patch
 
-Best regards,
-Jonas
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+Subject: mm: mglru: fix stale batch updates after memcg reparenting
+Date: Fri, 10 Jul 2026 23:43:18 +0800
+
+The mglru page table walker batches per-generation size deltas in
+walk->nr_pages while walking page tables without holding the lruvec lock. 
+The reset_batch_size() later folds those deltas into walk->lruvec under
+the lruvec lock.
+
+The page table walker can run concurrently with the memcg reparenting path
+as follows:
+
+CPU0                           CPU1
+====                           ====
+
+walk_mm
+--> walk_page_range
+    --> update_batch_size
+        --> walk->nr_pages += delta
+
+                              mem_cgroup_css_offline
+                              --> memcg_reparent_objcgs
+                                  --> lock lruvec
+                                      lru_gen_reparent_memcg
+                                      --> reparent child folios to parent
+                                      unlock lruvec
+
+    lock lruvec
+    reset_batch_size
+    --> child lrugen->nr_pages += delta
+
+This will trigger the following warning in lru_gen_exit_memcg():
+
+	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+				   sizeof(lruvec->lrugen.nr_pages)));
+
+And the user-visible impact of underestimated nr_pages in MGLRU was
+premature OOMs because MGLRU does not try to reclaim memory when nr_pages
+reaches zero, but there are still more pages.
+
+To fix it, make reset_batch_size() check CSS_DYING under RCU before
+flushing the pending batch.  A non-dying memcg keeps the original lruvec
+stable against RCU-delayed offlining; a dying memcg redirects the deltas
+to the first non-dying ancestor.
+
+Link: https://lore.kernel.org/20260710154318.75388-1-qi.zheng@linux.dev
+Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn
+Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ include/linux/memcontrol.h |   25 +++++++++++++++++++++++++
+ mm/vmscan.c                |   11 ++++-------
+ 2 files changed, 29 insertions(+), 7 deletions(-)
+
+--- a/include/linux/memcontrol.h~mm-mglru-fix-stale-batch-updates-after-memcg-reparenting
++++ a/include/linux/memcontrol.h
+@@ -1472,6 +1472,31 @@ static inline void lruvec_lock_irq(struc
+ 	spin_lock_irq(&lruvec->lru_lock);
+ }
+ 
++static inline struct lruvec *lruvec_live_lock_irq(struct lruvec *lruvec)
++{
++#ifdef CONFIG_MEMCG
++	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
++	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
++
++	rcu_read_lock();
++
++	/*
++	 * The memcg can be NULL when the memory controller is disabled.
++	 * Otherwise, the caller keeps the memcg owning @lruvec alive.
++	 */
++	while (unlikely(memcg && css_is_dying(&memcg->css))) {
++		memcg = parent_mem_cgroup(memcg);
++		lruvec = mem_cgroup_lruvec(memcg, pgdat);
++	}
++
++	spin_lock_irq(&lruvec->lru_lock);
++#else
++	lruvec_lock_irq(lruvec);
++#endif
++
++	return lruvec;
++}
++
+ static inline void lruvec_unlock(struct lruvec *lruvec)
+ {
+ 	spin_unlock(&lruvec->lru_lock);
+--- a/mm/vmscan.c~mm-mglru-fix-stale-batch-updates-after-memcg-reparenting
++++ a/mm/vmscan.c
+@@ -3265,7 +3265,7 @@ static void update_batch_size(struct lru
+ static void reset_batch_size(struct lru_gen_mm_walk *walk)
+ {
+ 	int gen, type, zone;
+-	struct lruvec *lruvec = walk->lruvec;
++	struct lruvec *lruvec = lruvec_live_lock_irq(walk->lruvec);
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 
+ 	walk->batched = 0;
+@@ -3285,6 +3285,8 @@ static void reset_batch_size(struct lru_
+ 			lru += LRU_ACTIVE;
+ 		__update_lru_size(lruvec, lru, zone, delta);
+ 	}
++
++	lruvec_unlock_irq(lruvec);
+ }
+ 
+ static int should_skip_vma(unsigned long start, unsigned long end, struct mm_walk *args)
+@@ -3779,11 +3781,8 @@ static void walk_mm(struct mm_struct *mm
+ 			mmap_read_unlock(mm);
+ 		}
+ 
+-		if (walk->batched) {
+-			lruvec_lock_irq(lruvec);
++		if (walk->batched)
+ 			reset_batch_size(walk);
+-			lruvec_unlock_irq(lruvec);
+-		}
+ 
+ 		cond_resched();
+ 	} while (err == -EAGAIN);
+@@ -4867,9 +4866,7 @@ retry:
+ 	walk = current->reclaim_state->mm_walk;
+ 	if (walk && walk->batched) {
+ 		walk->lruvec = lruvec;
+-		lruvec_lock_irq(lruvec);
+ 		reset_batch_size(walk);
+-		lruvec_unlock_irq(lruvec);
+ 	}
+ 
+ 	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
+_
+
+Patches currently in -mm which might be from zhengqi.arch@bytedance.com are
+
+mm-mglru-fix-stale-batch-updates-after-memcg-reparenting.patch
+
