@@ -1,130 +1,199 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7EC3F4DE0
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 09:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CD73DCD85;
+	Fri, 10 Jul 2026 09:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783676077; cv=none; b=cUViDKgTZhc3s8Diy1ErVvdkUyH5V8Q8bS02zQpF18ohyF95QpwXeP9A83kJWsPJ/OLXEZQ4Hv5UUFzu7QCtd5byHrUHX+DRbia9diyfcMtmfzzbBwFc0QKkY32mb/TJQEUTJgUu0FYr2so8c/jm1h4zr5t813IxksYc3rG61DM=
+	t=1783676441; cv=none; b=Y0AotF1snHlgM0jU9UxYRKP1W3J3eUaOyc3VzW2TK0yUmdLWy2UBXTh03jqiP9q0CpjyaSIZ0z699iF/B77yY7tOWmKU2lT4SADfwF6wQQTBJHQZz14gMlOhfw8Y19/0UAEFrMJjgB6zLToAtOxBsy50icWtA+hR8Gj/CEo9uQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783676077; c=relaxed/simple;
-	bh=gk/Ly+VOdTlozILkyIXx25UNv6a0Ie7o/tS0LPDPWYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UiW9ED9vrM6xtodoSIvqShgnMUvFAgKuDNmQezvyRExY067J17nphEuWuWyyKTwXj0Qk21+Y0eaCZ5VsX0+kxKINK5hJjfvrb2a0Gos5yKT3yDb8pHfPvjE2/b1milJrW3WtnUs4A+re7o2Sk+gaI/wgkTU/gyjjzWeHJEpX4sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.sg; spf=pass smtp.mailfrom=starlabs.sg; dkim=pass (2048-bit key) header.d=starlabs-sg.20251104.gappssmtp.com header.i=@starlabs-sg.20251104.gappssmtp.com header.b=r0BRXBuG; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.sg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.sg
+	s=arc-20240116; t=1783676441; c=relaxed/simple;
+	bh=Bco30pkmBJ3vHbq74KBJPgFzC6EKt2iNizjU2jr6nII=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=VCXTaR/fhyWUc59n5NJTh24vn0xohKiiKHRnNXIv/qagiA2E/DD7DLdZFict5x+RKyWbfHiicJt8S8G1O1vA4g8DrF/Zc1Il7KvRsEhFnmZYga4eluk/Sl7xDLHtzcEAXWxyp8de+u8ooQ8Li9B1xeWfgqNln6Et476jxfxXMKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Byla+G3R; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=starlabs-sg.20251104.gappssmtp.com header.i=@starlabs-sg.20251104.gappssmtp.com header.b="r0BRXBuG"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8478fe07f0fso739167b3a.0
-        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 02:34:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=starlabs-sg.20251104.gappssmtp.com; s=20251104; t=1783676073; x=1784280873; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xrSY6cgMwW3xQnZDAd/GUTYiSszR+F3mzsF9ozQGQpA=;
-        b=r0BRXBuGtIYnqP4QnskYJv82g49+PywpV7xsqL8WQ1V/8A/SgFUK7K012Wfr/w7J3D
-         zADB9pT3Y9i+IPb6tLhApnKxZM2HOXFfWl6YPf8Zm/4RV3F/kiXSZv+SFjsqww/J6mah
-         xUGwrUNIkkiNx6j2zzSR8ixswy8m4wfQBZx1CFhf4BUiWRlnVIiP9wIHSVKZpb1xmVBs
-         BIzYUabR0A7V2Uuovy/gyvoCbfYJhKfaFkObDvBzIb0uscQA1zvtzK7NPVGQnoIQlQQB
-         h5RGkXyB2XidVOo+SIVRpI41fjpdjFz9N+vmsHNN7ZLlDXESjwneqgR4P4s48W+zODg6
-         HlYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783676073; x=1784280873;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xrSY6cgMwW3xQnZDAd/GUTYiSszR+F3mzsF9ozQGQpA=;
-        b=W3LYXWjL642hJW3dQ9RIP2KHSlGlztQul+ZdWzJynRBSlsSGdRsmxH07lHzV9yEwvK
-         hPUNw+rTHC6FfoTcqIlJkJWn7qTKaIKCNl3TsOTMAUO+yTXes8H/VbvekXNk4gNxgU5U
-         vShiT+3JgGK/7P5iSrIBOjfBJfEzA5i5keFWju/xc54/ebhOS6MU1Jb9JK7hj3iRq/WJ
-         mrLGEPV8bI6d1d4VygnTtkd02EaQ4RC/M14fRLpytRvbSN5949zsiirkz5Y/eRhDqAOJ
-         Znwht4n0g4eAo2CuHk3zQg1gmL4F33rbecVKcQ4Bwo01yQR80YREuA4MevSjif/SDo/y
-         L8Ew==
-X-Forwarded-Encrypted: i=1; AHgh+RpVCKNs/6FSAghgYPjvBsrtCXFNk4/3NQDVjnZMPpm4fz1ir/pE0W3vRgneU+hyKdo3DIEUaq0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrELGo8YMZTNAot6/WEvw8ZAnpekvXHkHwI/CN5Mcc0RtZj79Z
-	ASGATYBgYb4F1zKr8tk204liZ1S0jCAJPUKCRIBTgooi20q7HmNJa2QACl2BNj7ioew=
-X-Gm-Gg: AfdE7cl4GQfpJHhiXMoDQVYVpk5ndOzdooGitPIeFKGux1Ff0KN5hurkRETpBP1IWUC
-	zofA2DyxXzqgSr3AxbohG2eMroYGAE9amxrBswCT6l+f1XbdDMH+SGRWPwWof8DMP5SQXeosUHO
-	A+vS5yWuIDacM+wrIXYLq3ERDZHmJoq1DMw4UDeLQcevzJVF9MvXlvDw5z9dndcGieBemYVO/zP
-	nI+QpYMyXXwWpiF15tZm64kQe2GHpkpGSTpR0h9GU1HpOtor1PclfwQfKdHUfR0SgX6iT18tLah
-	KxGGSiASNTNQ0FfoCgCVzsrH9mNr4LLrz02WuAF3Qy3nlrUyEM0v1er/dVfuL7OKOrW5O/vQmeI
-	9Vjp8uQTKLvj+8J0XU/i8B4anQedTukMz01HbrVj06xQ3LTWbKf90ePWM/7RBbpUNse0y1iP176
-	f/EMaaNmp34Tll
-X-Received: by 2002:a05:6a00:3988:b0:848:2f84:732 with SMTP id d2e1a72fcca58-8484303d498mr9875898b3a.69.1783676073080;
-        Fri, 10 Jul 2026 02:34:33 -0700 (PDT)
-Received: from localhost ([49.245.21.137])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84880a44feasm134544b3a.20.2026.07.10.02.34.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 02:34:32 -0700 (PDT)
-From: Lee Jia Jie <jiajie.lee@starlabs.sg>
-To: w@1wt.eu
-Cc: info@starlabs.sg,
-	security@kernel.org,
-	acme@kernel.org,
-	mingo@redhat.com,
-	namhyung@kernel.org,
-	peterz@infradead.org,
-	Lee Jia Jie <jiajie.lee@starlabs.sg>,
-	stable@vger.kernel.org
-Subject: [PATCH] perf/aux: Fix page UAF in map_range()
-Date: Fri, 10 Jul 2026 17:33:21 +0800
-Message-ID: <20260710093321.14764-1-jiajie.lee@starlabs.sg>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <alBkCyY6VCbtWW0z@1wt.eu>
-References: <alBkCyY6VCbtWW0z@1wt.eu>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Byla+G3R"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783676440; x=1815212440;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=Bco30pkmBJ3vHbq74KBJPgFzC6EKt2iNizjU2jr6nII=;
+  b=Byla+G3RtlMf6UqHUHTl3Nseg/0RpaozCVhixUY7Yb9qlCROMQlngKoY
+   nYIUTvOSy4H4Q2XApSJv+nE0nVSJpHIi/0Ip0oRVsaMtGllRSOr1qmRfJ
+   tRA0GhcIzE63i+Lx4KjPqAEBrVl9inqMINHjHyd+7zn5BId01rkzZNxZe
+   qokoOhfkPpeux20NU5plCn9HXGf0CXI5In6oh8LtAFA8ZLWPd/iNleOVT
+   cJ4olBngV4/KGWO5QjKWXJFEf/7KPfvEMVy7lT+XjuqfDGpcJTYTppWe2
+   wpROBzNO6KmdcHNJyjDlcjx1fA4OXRgijT9e4Z9JoQHNa8ldPtpEDGmyz
+   A==;
+X-CSE-ConnectionGUID: 8FCqRLecRTizNz8rIJAyKQ==
+X-CSE-MsgGUID: dpQDdMxZTX2XODDE111Jsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101799407"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="101799407"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 02:40:39 -0700
+X-CSE-ConnectionGUID: jhSTWVnWSIuYaigQ1B9dMQ==
+X-CSE-MsgGUID: /8RuRA+qT929N+IA37LA5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="250431205"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.169])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 02:40:37 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 10 Jul 2026 12:40:32 +0300 (EEST)
+To: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+cc: s.shravan@intel.com, Hans de Goede <hansg@kernel.org>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH v2] platform/x86: int1092: Fix potential memory leak in
+ sar_probe()
+In-Reply-To: <20260710052806.100107-1-nihaal@cse.iitm.ac.in>
+Message-ID: <a83ad3d5-107c-0a24-93f6-44fe64405b02@linux.intel.com>
+References: <20260710052806.100107-1-nihaal@cse.iitm.ac.in>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323328-628998968-1783676432=:1178"
 
-map_range() reads rb->aux_pages[], rb->aux_nr_pages and rb->aux_pgoff via
-perf_mmap_to_page() while holding only event->mmap_mutex. Those fields are
-serialized by rb->aux_mutex, and mmap_mutex is per event.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Thus, two events sharing one rb via PERF_EVENT_IOC_SET_OUTPUT can race
-rb_alloc_aux() with map_range(), leading to a page-UAF scenario as follows:
+--8323328-628998968-1783676432=:1178
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-CPU 0                           CPU 1
-===============================================================
-rb_alloc_aux()                  map_range()
-[1]: allocate rb->aux_pages[0]
-[2]: rb->aux_nr_pages++
-                                [3]: perf_mmap_to_page()
-                                       returns rb->aux_pages[0]
-                                [4]: map it as VM_PFNMAP
-[5]: rb->aux_pgoff = 1
+On Fri, 10 Jul 2026, Abdun Nihaal wrote:
 
-munmap the page
-[6]: free rb->aux_pages[0]
-===============================================================
+> The memory allocated for device_mode_info in parse_package() called by
+> sar_get_data() is not freed in some of the error paths in sar_probe().
+> Fix that by converting to use device managed allocations.
+>=20
+> Fixes: dcfbd31ef4bc ("platform/x86: BIOS SAR driver for Intel M.2 Modem")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+> ---
+> Compile tested only. Issue found using static analysis.
+>=20
+> v1->v2:
+> - Changed the patch to instead use device managed allocations for both
+>   the device_mode_info and the context structure, as suggested by Ilpo
+>   J=C3=A4rvinen.
+>=20
+> Link to v1: https://patchwork.kernel.org/project/platform-driver-x86/patc=
+h/20260707070524.953741-1-nihaal@cse.iitm.ac.in/
+>=20
+>  .../platform/x86/intel/int1092/intel_sar.c    | 30 +++++--------------
+>  1 file changed, 8 insertions(+), 22 deletions(-)
+>=20
+> diff --git a/drivers/platform/x86/intel/int1092/intel_sar.c b/drivers/pla=
+tform/x86/intel/int1092/intel_sar.c
+> index 849f7b415c1e..f234e1f55aec 100644
+> --- a/drivers/platform/x86/intel/int1092/intel_sar.c
+> +++ b/drivers/platform/x86/intel/int1092/intel_sar.c
+> @@ -91,8 +91,8 @@ static acpi_status parse_package(struct wwan_sar_contex=
+t *context, union acpi_ob
+>  =09    item->package.count <=3D data->total_dev_mode)
+>  =09=09return AE_ERROR;
+> =20
+> -=09data->device_mode_info =3D kmalloc_objs(struct wwan_device_mode_info,
+> -=09=09=09=09=09      data->total_dev_mode);
+> +=09data->device_mode_info =3D devm_kmalloc_array(&context->sar_device->d=
+ev,
+> +=09=09=09data->total_dev_mode, sizeof(*data->device_mode_info), GFP_KERN=
+EL);
 
-Pages mapped as VM_PFNMAP have no refcount protection, so CPU 1 holds a
-mapping to a freed physical frame.
+Hi,
 
-Fix this by taking rb->aux_mutex across the page walk in map_range().
+You could add second patch to this series to convert it into=20
+devm_kcalloc() to have the memory zeroed. In that patch, please align=20
+the parameters to (.
 
-Fixes: b709eb872e19 ("perf: map pages in advance")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jia Jie <jiajie.lee@starlabs.sg>
----
- kernel/events/core.c | 2 ++
- 1 file changed, 2 insertions(+)
+sashiko seemed to even find a way to expose the uninitialized memory into=
+=20
+userspace (Reported-by: sashiko.dev + Closes: https://sashiko.dev/#/patchse=
+t/20260710052806.100107-1-nihaal%40cse.iitm.ac.in)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index d7f3e2c2ecb1..ba5bd6a78fe7 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7150,6 +7150,8 @@ static int map_range(struct perf_buffer *rb, struct vm_area_struct *vma)
- 	int err = 0;
- 	unsigned long pagenum;
+>  =09if (!data->device_mode_info)
+>  =09=09return AE_ERROR;
+> =20
+> @@ -253,7 +253,7 @@ static int sar_probe(struct platform_device *device)
+>  =09if (!handle)
+>  =09=09return -ENODEV;
+> =20
+> -=09context =3D kzalloc_obj(*context);
+> +=09context =3D devm_kzalloc(&device->dev, sizeof(*context), GFP_KERNEL);
+>  =09if (!context)
+>  =09=09return -ENOMEM;
+> =20
+> @@ -264,7 +264,7 @@ static int sar_probe(struct platform_device *device)
+>  =09result =3D guid_parse(SAR_DSM_UUID, &context->guid);
+>  =09if (result) {
+>  =09=09dev_err(&device->dev, "SAR UUID parse error: %d\n", result);
+> -=09=09goto r_free;
+> +=09=09return result;
+>  =09}
+> =20
+>  =09for (reg =3D 0; reg < MAX_REGULATORY; reg++)
+> @@ -272,43 +272,29 @@ static int sar_probe(struct platform_device *device=
+)
+> =20
+>  =09if (sar_get_device_mode(device) !=3D AE_OK) {
+>  =09=09dev_err(&device->dev, "Failed to get device mode\n");
+> -=09=09result =3D -EIO;
+> -=09=09goto r_free;
+> +=09=09return -EIO;
+>  =09}
+> =20
+>  =09result =3D sysfs_create_group(&device->dev.kobj, &intcsar_group);
+>  =09if (result) {
+>  =09=09dev_err(&device->dev, "sysfs creation failed\n");
+> -=09=09goto r_free;
+> +=09=09return result;
+>  =09}
+> =20
+>  =09if (acpi_install_notify_handler(ACPI_HANDLE(&device->dev), ACPI_DEVIC=
+E_NOTIFY,
+>  =09=09=09=09=09sar_notify, (void *)device) !=3D AE_OK) {
+>  =09=09dev_err(&device->dev, "Failed acpi_install_notify_handler\n");
+> -=09=09result =3D -EIO;
+> -=09=09goto r_sys;
+> +=09=09sysfs_remove_group(&device->dev.kobj, &intcsar_group);
+> +=09=09return -EIO;
+>  =09}
+>  =09return 0;
+> -
+> -r_sys:
+> -=09sysfs_remove_group(&device->dev.kobj, &intcsar_group);
+> -r_free:
+> -=09kfree(context);
+> -=09return result;
+>  }
+> =20
+>  static void sar_remove(struct platform_device *device)
+>  {
+> -=09struct wwan_sar_context *context =3D dev_get_drvdata(&device->dev);
+> -=09int reg;
+> -
+>  =09acpi_remove_notify_handler(ACPI_HANDLE(&device->dev),
+>  =09=09=09=09   ACPI_DEVICE_NOTIFY, sar_notify);
+>  =09sysfs_remove_group(&device->dev.kobj, &intcsar_group);
+> -=09for (reg =3D 0; reg < MAX_REGULATORY; reg++)
+> -=09=09kfree(context->config_data[reg].device_mode_info);
+> -
+> -=09kfree(context);
+>  }
+> =20
+>  static struct platform_driver sar_driver =3D {
+>=20
 
-+	guard(mutex)(&rb->aux_mutex);
-+
- 	/*
- 	 * We map this as a VM_PFNMAP VMA.
- 	 *
+--=20
+ i.
+
+--8323328-628998968-1783676432=:1178--
