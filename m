@@ -1,108 +1,167 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26ECD7E792;
-	Fri, 10 Jul 2026 02:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429071DC98F
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 02:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783650135; cv=none; b=Gd/yu3VKxcDvA4QALQi6lsOS113FlCFmVap+rK2f4LxCp2e3SE+VAtVsEigqcSigepnKip91W4SxiELzoS4Pa4Np6NHivOZnD1/MTVWw3xMMk54p+xBN+LfNOC0rvAnme1nDhujzydprWu1jXwgbAV/EktW1c+yCzzX3JF6nFZM=
+	t=1783650508; cv=none; b=bGhN+ggwz04ZRIPPoZMDbxM0xdEkb9CdieGATBW0rAmpzx64Ra8BIXHkgXbT+moThzBP8gkNQ9lOvMhWsILuaaWOJqpebnSDKTR+W3djR3+fbtW4iLOaWVv126QTms+8FaZNrjHfkNkVhnk4rLnui1jWAACyP/yJhYapULdt5qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783650135; c=relaxed/simple;
-	bh=vDmmFMtTx0g6s6h5HhJRmiH/58fftU5/U/sMtTERGOo=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=DrD8LEv5RSfMVX2BPziiS7Fy51ajE8xXm5JPCdgLM8EaBwzbrSdhNO+A7dNB/NNtCAFR592uQy5JPwrNN68dKN7TpPlTPefbv9DQAJHfXppJMuXM+5YsJmlDUmLxTfFBHU0pAFDvT4wEVS3QaRUj92Mqq78f2yzIPaMTutkmCK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.97.40.56])
-	by mtasvr (Coremail) with SMTP id _____wDX9RRKV1BqSewuAA--.35S3;
-	Fri, 10 Jul 2026 10:22:03 +0800 (CST)
-Received: from smtpclient.apple (unknown [10.97.40.56])
-	by mail-app3 (Coremail) with SMTP id zS_KCgBXb3FJV1BqVVoGAw--.13159S2;
-	Fri, 10 Jul 2026 10:22:02 +0800 (CST)
-Content-Type: text/plain;
-	charset=us-ascii
+	s=arc-20240116; t=1783650508; c=relaxed/simple;
+	bh=43wHOTc08YfWIcTRc39Ez/9eOUd5SRAE4DdCdfQEn2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uNB5sOvbL4th19xKDDcUS2wlYP8WV6d8o8nl08KnxghPdNF46lBPNe2PqyxBoQUmyvw07dWZrMZzYUoo6S7KAA6yna8zNUoOYZgEeoG+GkPPy9qGAkeGjREj+/riqjJc9fjbrewNpbJ5U/ipF6HmBujSUJi47zWUGqFsOcqZVTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MzZot6bC; arc=none smtp.client-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MzZot6bC"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e5d50b0dbso24345585a.1
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 19:28:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783650505; x=1784255305; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/pFsjGiVutin/IDvHuVn+jLiTyGk8WNjtGFyhaDb1J4=;
+        b=MzZot6bC4O9tZY9W1Ynqb168hVlthigBKyhDDPBTpmW1NBijsohmRYoydualDWulKH
+         PiY6+6J5A/TS+5P9448ckMOnvM3sU+WvGIjmmt0PBME4LIj/Y3phhbfTrQPQ2JC+2zqX
+         HV2F5MUTF7xGGLfqjCd1aKg6GPqTCdwlwUpKen1O75lVxXqBYwuJo1D/w+fTVvIaT/8j
+         acq+XsReS2NOVBowXWQ/8G4rwOlaXDgn0ScrnXerJw4EPk5LLwCrWOOiKohz4U755DCx
+         bH1r6ZHyDZMd02yRGDf98JpXKnb+BAeascnroIpqBag+ulGB4011D367WAVWgIQdL1SO
+         EvXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783650505; x=1784255305;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/pFsjGiVutin/IDvHuVn+jLiTyGk8WNjtGFyhaDb1J4=;
+        b=Rn6hVBpd98je7TMnTJ2Bs2HNie9cCtRIadEcbdsNrDkbDp5t42/QUSko98CKYf/Db9
+         +yiegEAiPCMjqLVncqzlQvTVTtWg3Jgkv8SFIMt/MT4Hoo2M6KVxS5QUVRJX2JRQtOO8
+         ldApPfxvMc5pnJxxp3D/U+DeKj29XyX1iO+csOP3FGshcnIsMcSx6pHZpMPS/P6/Foqd
+         gg80ZUa4VCXxxupeihc/lU6WVksRm0JhE4cf861Z4ro4muVQUB2EpgBtdDjhr5qPmBW6
+         BuvRRz4f9AM06JMtc5VO2b+kHg8AuiMub5xs8luBhPznVzFyYzpaVXGZuFqj8Gk6LZBz
+         VawQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1rRA5kO22We4BrhKfgF3oOCLElnD6/OSzeAa7o284yDHjLu9ytcvPfFhByjhmmYgwQCCymls=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2gj48IBXAYUCAEIjmBLRaSpagF/BcPOej13A92YCb2UIvE2r6
+	iNbPHpx8tljgP/7QI6H0tAFN7+qQWjm4AojBdM1RumBdWAO8fVOZR3cb
+X-Gm-Gg: AfdE7ckkgcvmk9LkX1gcUcZaFgQRHuH5wFmKYRsicEsUXuZfLRylhO6B7J4z2mXbzIG
+	oNB4CF6pVJGzONh4ul29aA3dt91dXW36phYIfCUL9wLIEabwBuDJrRbW9+qNlaSPswvy6Voq+Dx
+	h364QQk/spazsr0xQMMIcLnLDGG1ZO1V7fLno/023t6Nx6wTL2doOnKw3G018w4K4RssHRTSH9D
+	C7MA/0jE7nygt/Ivk+BlnzwJVakykRvn7zdNkDMFPQC8nHmo56h3ozL6gepPvUWNuPvEpRrQmcJ
+	liKHs7EKst/aXdPzAP4mCmhfti69MrW6ppmiPHvwvNCWvfyPT/pOYkxAw2BFY6hdaFGjGcZ8HFs
+	w1FUGN07pFfIqRsgjrgo7lcLEva2/QdaehKyf73CeBeOseEMGTr33LY5XYEMBoPQ9AfBseOF6Sy
+	M4zKu5lBUjfoW/Eak+L8UlLjpwBrmJj7UTcfsYn7qEk67yWZY3WQs66T408EsxMla8eY/5f0fvN
+	woIGRQL5v5x6wJxZy+DyEGuiqgBCpsIeutv0Qk+Dj8=
+X-Received: by 2002:a05:620a:2a14:b0:92e:4799:a808 with SMTP id af79cd13be357-92ecf65d81bmr951657285a.40.1783650505239;
+        Thu, 09 Jul 2026 19:28:25 -0700 (PDT)
+Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5cf78a5sm90864485a.31.2026.07.09.19.28.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 19:28:24 -0700 (PDT)
+From: Michael Bommarito <michael.bommarito@gmail.com>
+To: Ilya Dryomov <idryomov@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: Milind Changire <mchangir@redhat.com>,
+	Xiubo Li <xiubli@redhat.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] libceph: validate OSD extent maps before cursor advance
+Date: Thu,  9 Jul 2026 22:28:18 -0400
+Message-ID: <20260710022818.3737468-1-michael.bommarito@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH] wifi: brcmfmac: drain bus_reset work on device removal
-From: Fan Wu <12321260@zju.edu.cn>
-In-Reply-To: <20260710002451.500112-1-eddiephillips@google.com>
-Date: Fri, 10 Jul 2026 10:21:51 +0800
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
- Arend van Spriel <aspriel@gmail.com>,
- Kalle Valo <kvalo@kernel.org>,
- Franky Lin <franky.lin@broadcom.com>,
- Hante Meuleman <hante.meuleman@broadcom.com>,
- Chi-Hsien Lin <chi-hsien.lin@infineon.com>,
- Wright Feng <wright.feng@infineon.com>,
- Chung-Hsien Hsu <chung-hsien.hsu@infineon.com>,
- "David S . Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>,
- linux-wireless@vger.kernel.org,
- brcm80211-dev-list.pdl@broadcom.com,
- SHA-cyfmac-dev-list@infineon.com,
- netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <47D1D7A8-65F4-4EBE-ABD8-5CDBA5A5CDAC@zju.edu.cn>
-References: <20260709101635.103005-1-fanwu01@zju.edu.cn>
- <20260710002451.500112-1-eddiephillips@google.com>
-To: Eddie Phillips <eddiephillips@google.com>
-X-Mailer: Apple Mail (2.3774.600.62)
-X-CM-TRANSID:zS_KCgBXb3FJV1BqVVoGAw--.13159S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?gXApPgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WM8Dms9pSd1duk7P2JRh5+sy7aOgo1D8mBVqMLc1ZNCvnaO
-	PAtn46iPjtACMN8bHkqp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7uFyfZrWxuF1DGFyfGryUArc_yoW8GrWUpr
-	W3JrW5tF4qqa45KF4DZF12qa40gryS9FWDJr18Gry5tr98Jr12grW2yFyjgFWUurs5Aaya
-	vr43uw45Zan09agCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8ructUUUUU==
 
-On Thu, Jul 09, 2026 at 05:23:37PM -0700, Eddie Phillips wrote:
-> Is this safe in a softIRQ context?
-> mutex_lock() sleeps until it can get the lock.
+net/ceph/osd_client.c:osd_sparse_read() validates that the sparse-read
+data length matches the summed extent lengths, but it does not validate
+that each OSD-supplied extent is monotonic and lies inside the original
+request range. A malformed authenticated OSD reply can advertise a
+far-forward nonzero extent offset with a matching data length and make
+the client advance the message-data cursor beyond the request buffer.
+This reaches the BUG_ON(!*length) assertion in ceph_msg_data_next() from
+the client receive path.
 
-Thanks for taking a look. I agree this is not the right interface shape.
+Impact: A malicious or compromised authenticated Ceph OSD peer can crash
+a kernel Ceph client via a malformed sparse-read reply.
 
-The current call sites I traced reach brcmf_fw_crashed() from the PCIe
-threaded IRQ path or from SDIO workqueue context, but brcmf_fw_crashed()
-is a core helper and the reset scheduling path should not grow a hidden
-sleepable-context requirement. I will respin this part so the arming gate
-does not use a mutex.
+Reject sparse extent maps that overflow, move backwards, overlap, or
+extend outside the original sparse-read request before advancing the
+cursor.
 
-> How about if brcmf_pcie_remove() calls brcmf_bus_cancel_reset_work(),
-> takes the lock and calls cancel_work_sync(), sleeps. If debugfs
-> path is already running, it can invoke the worker thread. Is there
-> potential that both try to reset?
+Fixes: f628d7999727 ("libceph: add sparse read support to OSD client")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5-5-xhigh
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+---
 
-Yes, that is a real issue with this version. The lock only serializes
-scheduling against the cancel point. If the reset work has already started,
-cancel_work_sync() waits for it, but the worker may already be executing the
-bus reset teardown path; remove can then continue and run its own teardown
-afterwards.
+I reproduced this with a same-translation-unit KUnit test on
+f5459048c38a, x86_64 with panic_on_oops=1. Without the patch, the
+malformed extent triggers kernel BUG at net/ceph/messenger.c:1117 after
+the benign in-range control passes. With the patch, the malformed map
+returns -EREMOTEIO and both KUnit cases pass; net/ceph/osd_client.o
+builds cleanly with W=1.
+ net/ceph/osd_client.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-So the patch needs a stronger state/ownership model than just
-schedule-vs-cancel serialization. I will rework it so reset and remove cannot
-both own the same teardown sequence, and will send a v2 after auditing the
-PCIe/SDIO/USB paths again.
-
-Thanks,
-Fan
-
+diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
+index 2ff00070c1810..76ba3abdad9b1 100644
+--- a/net/ceph/osd_client.c
++++ b/net/ceph/osd_client.c
+@@ -6,6 +6,7 @@
+ #include <linux/err.h>
+ #include <linux/highmem.h>
+ #include <linux/mm.h>
++#include <linux/overflow.h>
+ #include <linux/pagemap.h>
+ #include <linux/slab.h>
+ #include <linux/uaccess.h>
+@@ -5799,6 +5800,31 @@ static inline void convert_extent_map(struct ceph_sparse_read *sr)
+ }
+ #endif
+ 
++static bool sparse_extent_map_valid(struct ceph_sparse_read *sr)
++{
++	u64 req_end, pos;
++	int i;
++
++	if (check_add_overflow(sr->sr_req_off, sr->sr_req_len, &req_end))
++		return false;
++
++	pos = sr->sr_req_off;
++	for (i = 0; i < sr->sr_count; i++) {
++		struct ceph_sparse_extent *ext = &sr->sr_extent[i];
++		u64 end;
++
++		if (ext->off < pos)
++			return false;
++		if (check_add_overflow(ext->off, ext->len, &end))
++			return false;
++		if (end > req_end)
++			return false;
++		pos = end;
++	}
++
++	return true;
++}
++
+ static int osd_sparse_read(struct ceph_connection *con,
+ 			   struct ceph_msg_data_cursor *cursor,
+ 			   char **pbuf)
+@@ -5856,6 +5882,10 @@ static int osd_sparse_read(struct ceph_connection *con,
+ 	case CEPH_SPARSE_READ_DATA_PRE:
+ 		/* Convert sr_datalen to host-endian */
+ 		sr->sr_datalen = le32_to_cpu((__force __le32)sr->sr_datalen);
++		if (!sparse_extent_map_valid(sr)) {
++			pr_warn_ratelimited("invalid sparse extent map\n");
++			return -EREMOTEIO;
++		}
+ 		for (i = 0; i < count; i++)
+ 			len += sr->sr_extent[i].len;
+ 		if (sr->sr_datalen != len) {
