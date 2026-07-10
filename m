@@ -1,232 +1,129 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29BBC4195C3
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 11:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D490419313
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 11:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783682748; cv=none; b=t0fc1iihO6ce218+BzuogPkO7NymucVv5KAOyhSykvvKJeneAkzB2tIw9feS9vKZTcVFB2ZO9NHofnzGJPvvAiH0mw5+aLm9N6748EszOwgkBKasgpv6C+UVfV0gp8VxWASPbkkfbBRubJNxXopBSdybH5R722rwNuU9hGdXf3o=
+	t=1783682759; cv=none; b=AnLJJC87UuaaJDLF50BtD2+yxpjsS9XejKuBiWRhcKROniRNExb6zlf8t2UPnvP0eJ3UEB4f4DmEYeUPvLGwxcnS8+rh3uy9yMs8BcZ1YDfAS5oLE4Mm/i5OcFugUYas3m+NtKyCtolIQkqp70IRVxOmTA4XQ1BDDdaeRkvbTs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783682748; c=relaxed/simple;
-	bh=NmZAtAimMAcYEGU7PVxmVYliOIv6/UMM3TlVMC/v1cI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X1ktMSwVh5GT+2/hfBha4o+dLiUeYWi8e9g/JKJYGJ80X1P6SnPCcq3vmQDNlrAiMD/R8XJivasgzHLs/HMJAwSUAcxWGVROFG4BFuVQd2lKfGxwEdXEtjcfP1LkaeWtbjfPNS4Y2Nlq6lt/Oy3izTVsnD329aYh4EY9mKHuEPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RVinBMdu; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783682759; c=relaxed/simple;
+	bh=+O+11YFkdR9m/DePEM0XGB3bOHAzHPG87B7si8jQV+w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JQUo5B/znPb3Ad5y4OnXF+3aF9CjfegpHuMO3WTBjvqJQbhwl+wv80npNkPAM4Zt3qnkQv/k6qFEbJgpV0tVdWAdaBX8o1NYlTv56PG8QSQ+oHcvjkDmPIZn/X5/bbX1m8woGtBnjhM68dsAi4iTM+0yd32A7RKWwq/QgSsQvwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GzcaPLYd; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=U/KvVqan; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RVinBMdu"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-848595b338cso860598b3a.0
-        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 04:25:41 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GzcaPLYd";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="U/KvVqan"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783682750;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GnpNr4qDyHoNfCA9ul8yyjujzs6stkD93LOWV1wBtX4=;
+	b=GzcaPLYdk8gWU6NHu4Ga3NABE6sGenZl+2wRYIXJK4mUrDlxcrS+wOyWWLagycwQnxzEPQ
+	dMr5s1rBx5Q1Uz5e1KjTNASaWPihY+shC9l0t8uFrMd4tzjdE/2hjYEZgBmRik80jF0Rzz
+	AEtBhagqXwpoEZatLUOort3pHcCrBy0=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-359-0xnAWNcZPEOcmKUoDsUtsQ-1; Fri, 10 Jul 2026 07:25:49 -0400
+X-MC-Unique: 0xnAWNcZPEOcmKUoDsUtsQ-1
+X-Mimecast-MFC-AGG-ID: 0xnAWNcZPEOcmKUoDsUtsQ_1783682748
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4926fa2cb17so7518825e9.1
+        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 04:25:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783682739; x=1784287539; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E4KxEecbJeAnfoH/HFfiLTjt47ShuOirRWvUozKk93M=;
-        b=RVinBMduarf+vUQz9N/ioFeP+j2c1auzHLzCS+0ULJvPTUK+MezaT02dU62NEvBfid
-         XzFQZSkBCUmjt9pUUhOXnRWExl1jmRGIs5GTxtOjMvg63/dOh4GPx85vUOSPFkkMBClT
-         qEslnNj+CLPRDYErBNBUfCeqnTbwSp3PP3AEQanEkW2xAmrzmgOjGCHSgeS7vbeZtJql
-         LVY40Vk+J15S3FD5NchF5INcZ7sDAipxj3/0rxh4O3s0new0PtxZ+M9fmxHNRMKl7KRG
-         dRS4sgop5erIXMGdgUDZMJ8yxxfsdi6SLdKtemNtJQBEYNCG/bZTy9ceYX+TCKn4OOGI
-         Y4kA==
+        d=redhat.com; s=google; t=1783682748; x=1784287548; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GnpNr4qDyHoNfCA9ul8yyjujzs6stkD93LOWV1wBtX4=;
+        b=U/KvVqanNrJvUDoGPkv6jPbxvd9cenAPVqwmR41CQlt1xPFWD6t22GK6q7mA2fC2zz
+         wkT7CMlIrjsDgQj9jqnIXgtDGD1XbG9hXWzmfL7zyu/DaX0fYCi2WWa1Oi+AFT0aNyi3
+         CKb0sxctn+8K3mUILhDuoAv8xvOFq3Z8wD8NWC+k4sYZB3EnC/kdxQ5S3Feo7lqoCc/N
+         U2V+dJrcSxuYQ2womTf4h2b/GAoGd7Ryga/lsqs1IDxkztE1h8yeGz4Lh/xaJNAgYnuM
+         MfGWDlYapVbpIixP6VTYD1hnO5x+QPnFAKrWAoJjl1pBlBo2YqR43hh5d8IvNHqRAR5g
+         F7Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783682739; x=1784287539;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E4KxEecbJeAnfoH/HFfiLTjt47ShuOirRWvUozKk93M=;
-        b=JoLbpT8VxVL4rspMJJonSERjFTvYOaCfOGSD6AzRWCExLszpkGwFrdIzXaYLFXP5AW
-         ki/G43/NFU5nc1xpP7RglvDTJGPZEeZe4Jl30tpEUG/nI7nSMFp/Sq0gkQ6XC39fiX6c
-         aZrrUt7ATmO6uiNO307jLHQzond3jvjzlhIncqGYOoMR29WQ0rVpwU8E+PNvJDXQr5dH
-         V5j2Hw5km0pM6ep0ExetPJTu0eL+o4a34v7A1CbORaAC10KBQrtKys+6VLtJdDU5GD27
-         A7wRyqOVkTk+MQCsy8gS9f9C3Zz8ffjKEij6J9Xau10kUQMrCYx50jh2rhfl7DDkIoK2
-         B3gw==
-X-Gm-Message-State: AOJu0YzNst+/GkPJSC7aiNHCN8NGkNO6sSzEN7YvSu2icTwD5x8adlB+
-	xYxGPcYLNJ+pjRVeMyTj1p5K0AerjltsKYQwqehY9wXpCWJVu7zVxDMUaGwfQuAA
-X-Gm-Gg: AfdE7cn1U9CaxHd0eMOLqTZkgG6evIkDXGyO8eyc4PvRy6OsdFzh/+LHHEedPymUgnC
-	9OQu98tSackjuu8pDxGcMSb7lxmS9r5c7328OXi66pdxoG8M6WlKw6dJw2rqvN4yTdJ9yKNnI47
-	QQmjwWhOnxOa19MHuHH9Vb8hkLtrJgQzGmKBCN6Ow608oTO0SEWhVvVJhLiibTqp7kYlpUgtWm7
-	q4fsde699T2QUv4HuoIqxciNudRjmcVchgF72zB3Xw6AaUClhnbscUQv9O+XLCX6v/3xVmJ0wyX
-	1aISc5oQCYpbYUVPSCpLRWGH2G5ZHi+6NZXY8Mv2EIQ1hQi3tifFQB1i60kusNx01R4Hedk6Y3w
-	BbV2OS9pX2XGiVn9+OMEZulEYSzNaJfSwKxpXSdVAir8KSnLL0twH7yyxnGlwtUBAQdNCOZOH8I
-	yBxdYtQf/vi7HDcWYErCKnG1uLpHX0DhXMxjYk7V61ntV8JO24MZAjKb5oxI+OsRxPTvJapbCsp
-	MJRQpSqZmRIjIVmnB+jgDSPqwZMhT1XKphZRb+zM/LFL4m6dLY=
-X-Received: by 2002:a05:6a00:12c6:b0:848:3fe2:c88b with SMTP id d2e1a72fcca58-84842ed26a7mr10863271b3a.6.1783682739009;
-        Fri, 10 Jul 2026 04:25:39 -0700 (PDT)
-Received: from ip-172-31-54-240.ap-northeast-2.compute.internal (ec2-43-203-160-83.ap-northeast-2.compute.amazonaws.com. [43.203.160.83])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8485ff27e24sm2336997b3a.11.2026.07.10.04.25.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 04:25:38 -0700 (PDT)
-From: Hyokyung Kim <pulpannie@gmail.com>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Philo Lu <lulie@linux.alibaba.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Joe Damato <jdamato@fastly.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Hyokyung Kim <pulpannie@gmail.com>
-Subject: [PATCH 6.1.y] virtio_net: Support dynamic rss indirection table size
-Date: Fri, 10 Jul 2026 11:25:21 +0000
-Message-ID: <20260710112521.234909-1-pulpannie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAGJdW3H0Bv31W5DNaHstXyYxMcVFUnOmzAJ9LAjZOANk1y67OQ@mail.gmail.com>
-References: <CAGJdW3H0Bv31W5DNaHstXyYxMcVFUnOmzAJ9LAjZOANk1y67OQ@mail.gmail.com>
+        d=1e100.net; s=20251104; t=1783682748; x=1784287548;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GnpNr4qDyHoNfCA9ul8yyjujzs6stkD93LOWV1wBtX4=;
+        b=RAQTUcsXTX2T2Xd+NNK2/MixdlDTaSuhFeh7wgNyC1+xQ8srIERUzrSoOMpgVoMlab
+         Wa9FovK/g2az0d6GEFAUT2ReXu8HxCM3tZ8S07pfdce88BQNcmDyD0EHFN7pQe1XsEle
+         0DEpeCnpZPIE6SPwIPH5iyXuFePwS376+zsOwQB7Ml0o/ereTdg8XnRU7WmWj8k6JbV6
+         1pgYe7a0M+DNiH1a/hBwWYWOxNs6/JSvAzHC/5/WrUMFcZPNIqaBT//gD43EGGQ0lKy+
+         CoLeMwM3OkFt3P8NJOteNhoNjXW1GP8y1CoJNCXOFFaoubjwUSpR0re1TUhaqO83L0kV
+         wBDw==
+X-Forwarded-Encrypted: i=1; AHgh+RpkZ1vjxulUtyz0OfiEzYi9djwV2gVZGYhVrf9Vm2TF8lyLtGERLvObZ7AkH9JjUZyFQfXWXPQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEy1yuETNx9L/WahukSMmHJtq0e+A3sWVfnGYllTPL1AGBwsS4
+	ttVsv69HlcdCV/VbZxN/FEm78HJUSYFlumzuKnTfx5I6rALaDMIBPwmL9outers6jFD1/dFWkl/
+	0ic/qMhMJvKCE2t2H8L4DR5Dy4apN3upqZXTyVV3xxJpA1D2wM2PLbHQwCQ==
+X-Gm-Gg: AfdE7cm5tSAIuapSQxeXTpbwJW8SvfLQCmrDXgkT7R4IE5kD5PkmR7KWbDUAR195M+W
+	bgSo9wiQmeQIIqPTscRNDITR1Uuhe5Y3U3pI1HqGQ59uWQ+9SuKrnZA4xuRar1HxF+z1UyXgwtk
+	nI7uLjTEcsyq5bIMh8H2VLoim5DKu6LzY7tlUxL0VlFMEt9cIFRZ3WmJFovibLiggdETqSUo2xQ
+	tdaioLt55VBrvT54LUicZZW3HaqkrycMv90ewLAfcjOro+lbj155gJCK/xjwuivW5Ltte5mSWnl
+	XgLrEDUN3x3ePtpg6LPYo87A2pc5OvNopTxTSyPOI7zdQ5BtsWkmjTb9aILTxR8kraEISAU0XEb
+	T22ggiEaoHoT4tQCpAGCeoj8XzB1HVCPkCNw2mXKamMl10wuEfP9KK0nIBXw1/es4Hez/AQNL6C
+	dnqqvwssb6G4Go
+X-Received: by 2002:a05:600c:3115:b0:493:b4a3:5ab0 with SMTP id 5b1f17b1804b1-493f2b3fe2amr28786165e9.13.1783682747871;
+        Fri, 10 Jul 2026 04:25:47 -0700 (PDT)
+X-Received: by 2002:a05:600c:3115:b0:493:b4a3:5ab0 with SMTP id 5b1f17b1804b1-493f2b3fe2amr28785735e9.13.1783682747323;
+        Fri, 10 Jul 2026 04:25:47 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d? ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6d4f9fsm131494035e9.4.2026.07.10.04.25.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jul 2026 04:25:46 -0700 (PDT)
+Message-ID: <9e4e455b-c10b-447e-9fe6-80672f26fd8a@redhat.com>
+Date: Fri, 10 Jul 2026 13:25:45 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net/mlx5: free mlx5_st_idx_data on final dealloc
+To: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Saeed Mahameed Michael
+ <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Mark Bloch <mbloch@nvidia.com>
+Cc: Michael Guralnik <michaelgur@nvidia.com>, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260702222507.1234467-1-zhipingz@meta.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260702222507.1234467-1-zhipingz@meta.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Philo Lu <lulie@linux.alibaba.com>
+On 7/3/26 12:24 AM, Zhiping Zhang wrote:
+> Workloads that repeatedly allocate and release mkeys carrying TPH
+> steering-tag hints (e.g. churning RDMA MRs) leak one
+> struct mlx5_st_idx_data per cycle; kmemleak flags it as unreferenced
+> and the kmalloc slab grows over time.
+> 
+> When the last reference to an ST table entry is dropped,
+> mlx5_st_dealloc_index() removed the entry from idx_xa but the backing
+> mlx5_st_idx_data allocation was never freed.
+> 
+> Free idx_data after the xa_erase() so the lifetime of the bookkeeping
+> struct matches the lifetime of the ST entry it tracks.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 888a7776f4fb ("net/mlx5: Add support for device steering tag")
+> Reviewed-by: Michael Gur <michaelgur@nvidia.com>
+> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+@Leon, @Saeed, @Tariq: just in case this fell under the radar, it's
+waiting for your ack.
 
-commit 86a48a00efdf61197b6658e52c6140463eb313dc upstream.
+Thanks,
 
-When reading/writing virtio_net_ctrl_rss, the indirection table size is
-obtained from vi->rss_indir_table_size, initialized during virtnet_probe().
-However, the indirection_table was statically sized as
-VIRTIO_NET_RSS_MAX_TABLE_LEN=128, potentially causing issues when
-vi->rss_indir_table_size exceeds this limit.
-
-This patch implements dynamic allocation for the indirection table,
-allocated alongside vi->rss after vi->rss_indir_table_size is initialized,
-and freed in virtnet_remove().
-
-In virtnet_commit_rss_command(), scatter-gather lists for RSS are
-initialized differently based on hash_report presence, so indirection_table
-is unused when !vi->has_rss. Therefore, allocation is unnecessary for
-hash_report-only scenarios.
-
-Fixes: c7114b1249fa ("drivers/net/virtio_net: Added basic RSS support.")
-Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
-Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Acked-by: Joe Damato <jdamato@fastly.com>
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ Hyokyung Kim: 6.1.y predates the refactor that moved the RSS config into
-  struct virtnet_info, so struct virtio_net_ctrl_rss is still embedded in
-  struct control_buf and reached through the heap-allocated vi->ctrl. Every
-  adaptation below follows from that single difference:
-  - the new allocation and all indirection_table accesses use vi->ctrl->rss
-    in place of upstream's vi->rss;
-  - because vi->ctrl is allocated in virtnet_alloc_queues() (via init_vqs())
-    and freed in virtnet_free_queues(), the table is allocated and freed there
-    too, not in virtnet_probe()/virtnet_remove(), so its lifetime tracks
-    vi->ctrl across the probe error-unwind and freeze/restore paths;
-  - since freeing the table now dereferences vi->ctrl, vi->ctrl is set to NULL
-    after each kfree so a re-entered virtnet_free_queues() cannot dereference
-    or free a stale pointer;
-  - the table is allocated with kcalloc() so it is zero-filled when
-    reallocated on the restore path (upstream never reallocates it). ]
-Signed-off-by: Hyokyung Kim <pulpannie@gmail.com>
----
- drivers/net/virtio_net.c | 43 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 38 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index b62b769631..2fb00df795 100644
---- a/drivers/net/virtio_net.c
-+++ b/drivers/net/virtio_net.c
-@@ -179,15 +179,16 @@ struct receive_queue {
-  * because table sizes may be differ according to the device configuration.
-  */
- #define VIRTIO_NET_RSS_MAX_KEY_SIZE     40
--#define VIRTIO_NET_RSS_MAX_TABLE_LEN    128
- struct virtio_net_ctrl_rss {
- 	u32 hash_types;
- 	u16 indirection_table_mask;
- 	u16 unclassified_queue;
--	u16 indirection_table[VIRTIO_NET_RSS_MAX_TABLE_LEN];
-+	u16 hash_cfg_reserved; /* for HASH_CONFIG (see virtio_net_hash_config for details) */
- 	u16 max_tx_vq;
- 	u8 hash_key_length;
- 	u8 key[VIRTIO_NET_RSS_MAX_KEY_SIZE];
-+
-+	u16 *indirection_table;
- };
- 
- /* Control VQ buffers: protected by the rtnl lock */
-@@ -2488,6 +2489,25 @@ static int virtnet_set_ringparam(struct net_device *dev,
- 	return 0;
- }
- 
-+static int rss_indirection_table_alloc(struct virtio_net_ctrl_rss *rss, u16 indir_table_size)
-+{
-+	if (!indir_table_size) {
-+		rss->indirection_table = NULL;
-+		return 0;
-+	}
-+
-+	rss->indirection_table = kcalloc(indir_table_size, sizeof(u16), GFP_KERNEL);
-+	if (!rss->indirection_table)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
-+static void rss_indirection_table_free(struct virtio_net_ctrl_rss *rss)
-+{
-+	kfree(rss->indirection_table);
-+}
-+
- static bool virtnet_commit_rss_command(struct virtnet_info *vi)
- {
- 	struct net_device *dev = vi->dev;
-@@ -2497,11 +2517,15 @@ static bool virtnet_commit_rss_command(struct virtnet_info *vi)
- 	/* prepare sgs */
- 	sg_init_table(sgs, 4);
- 
--	sg_buf_size = offsetof(struct virtio_net_ctrl_rss, indirection_table);
-+	sg_buf_size = offsetof(struct virtio_net_ctrl_rss, hash_cfg_reserved);
- 	sg_set_buf(&sgs[0], &vi->ctrl->rss, sg_buf_size);
- 
--	sg_buf_size = sizeof(uint16_t) * (vi->ctrl->rss.indirection_table_mask + 1);
--	sg_set_buf(&sgs[1], vi->ctrl->rss.indirection_table, sg_buf_size);
-+	if (vi->has_rss) {
-+		sg_buf_size = sizeof(uint16_t) * vi->rss_indir_table_size;
-+		sg_set_buf(&sgs[1], vi->ctrl->rss.indirection_table, sg_buf_size);
-+	} else {
-+		sg_set_buf(&sgs[1], &vi->ctrl->rss.hash_cfg_reserved, sizeof(uint16_t));
-+	}
- 
- 	sg_buf_size = offsetof(struct virtio_net_ctrl_rss, key)
- 			- offsetof(struct virtio_net_ctrl_rss, max_tx_vq);
-@@ -3415,7 +3439,10 @@ static void virtnet_free_queues(struct virtnet_info *vi)
- 
- 	kfree(vi->rq);
- 	kfree(vi->sq);
-+	if (vi->ctrl)
-+		rss_indirection_table_free(&vi->ctrl->rss);
- 	kfree(vi->ctrl);
-+	vi->ctrl = NULL;
- }
- 
- static void _free_receive_bufs(struct virtnet_info *vi)
-@@ -3610,6 +3637,9 @@ static int virtnet_alloc_queues(struct virtnet_info *vi)
- 		vi->ctrl = kzalloc(sizeof(*vi->ctrl), GFP_KERNEL);
- 		if (!vi->ctrl)
- 			goto err_ctrl;
-+		if ((vi->has_rss || vi->has_rss_hash_report) &&
-+		    rss_indirection_table_alloc(&vi->ctrl->rss, vi->rss_indir_table_size))
-+			goto err_sq;
- 	} else {
- 		vi->ctrl = NULL;
- 	}
-@@ -3642,7 +3672,10 @@ static int virtnet_alloc_queues(struct virtnet_info *vi)
- err_rq:
- 	kfree(vi->sq);
- err_sq:
-+	if (vi->ctrl)
-+		rss_indirection_table_free(&vi->ctrl->rss);
- 	kfree(vi->ctrl);
-+	vi->ctrl = NULL;
- err_ctrl:
- 	return -ENOMEM;
- }
--- 
-2.53.0
+Paolo
 
