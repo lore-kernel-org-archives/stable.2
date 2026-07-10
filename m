@@ -1,324 +1,219 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1171C3242B0;
-	Fri, 10 Jul 2026 10:50:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CBF410D37;
+	Fri, 10 Jul 2026 10:52:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783680633; cv=none; b=cf66VwCIdnJPVBqwGijrwHIPhMKIdtsKRJgdp2Aj/zFo1n4ApzfcAbNr8Ml+uGr75nX7f2sBhBLquveBkHmvR0m5tZfQUAavFVtH367COtoUyjbWqyxRfd7Lur/o3kYtX3AuppcpjD1Tbw3r7Q558oJOaD/j31+XpaajgzsBM/8=
+	t=1783680724; cv=none; b=c6MWI3iwuiTwWIBAFsMjHK8CmUSjtXYr0d63iZRhMoHKLDS+phbWoB25R6UqaWYCsvf9t8k0roymzWAxuXeKlB34EJgRBBGbl+YarEl6W7+rDy8JZMDL+2gJsNkg5uHUSvPtPHDAxZW3pXM6B1uTeyqUdTgY2PcYTZOsMZ+k5VI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783680633; c=relaxed/simple;
-	bh=pMaPtDJt0ShPbK+WGVtxo1vXVrnpLL6Uol/iznePM7Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FqJ6NaeeesSJx+7FD/4UTWsJichGpQQaTKRHtV+gYKF4qtNmrkfEQ6Osfg9Xa5G20kOdRnCzWF0DYKk3wxaom7nmERuPZ69lTzky+d5LjNLMp3/VDsMz2qARgCvCfFu5tDbNEvaMgMj25wlhNiq67ToZ/awSMkiUOmwyFS9uifc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nEwjQS/V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783680724; c=relaxed/simple;
+	bh=Eh8Jr/bt1zOt2HZr7M1nIEJDT7mOtZL5uRRxBHnXp08=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=CiHp7HzCgtgLcb991B66mRvwLR5IGpW7x87oxbqvV803aXKiQNOtzmWAgAhl1QTQ3UUequBvPgdQG92YZraarVIbKwVsqc/9I6mICUIiznXh6JdBQlOrsQd2ADALOCwA9pENBfjWSOj1EvbdWzXYbwmhrtvwZAxLrdz1R9ZW4ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L22NAzx0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nEwjQS/V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99D7F1F000E9;
-	Fri, 10 Jul 2026 10:50:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L22NAzx0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1FA51F000E9;
+	Fri, 10 Jul 2026 10:51:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783680631;
-	bh=aRHoo+mgtB+E/3rZwAPhfiNBBrkoBFkoDllGXhiaJEo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=nEwjQS/VZOhUggte99drcvVPcMEQN9te5OG6eie9RrKCigSlYWF1MtJD9xfosdKRj
-	 6f3oEbix/q3rRdqam/cKBHLSitJkMKx74m7vw086xz64HpmFkdRf8d1md72mJ4IvQI
-	 VKCbPehC+lC2v/GQr5uhJmx6FU7q9DMHFxKRpdVsniJHkqZIJctUhH8NM39KnW3IFT
-	 m6AAxTwIWfs82mecH2bNyIA4WOrsHCoNY96BvEtptShh0demCBL4JckCWyGd1SImjX
-	 Kys90TLBrmIrKbr7/jmiP9IVrmd2iP9trQ2F41+Rzp/nAHM4YZoMESJ3rqrzUDGaAU
-	 4yJcY/SLc77Zw==
-From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Fri, 10 Jul 2026 11:49:18 +0100
-Subject: [PATCH 1/2] mm/vmalloc: acquire init_mm read lock on huge vmap
- promotion
+	s=k20260515; t=1783680722;
+	bh=BaH7g5yuPZ2RiR84qm+ckDuciPNtOqn5l+saj85/HzM=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=L22NAzx0fKerAZ8K4VJbMUiT9bJM/fAygqwS/NbAzL+lB4nTb98q4lLfzUMFhyTGr
+	 4KC7UXtt+XPDQHusE5JJXmUrqAkiSpTjghelEaoTMvkFprk5lgc+PY+dVl4271OltU
+	 0kyY+X6KWUl9PTOcb+8XMLBSlbveJfMFlzJZkGV4G+psc1RPxOoJq2TIVoK/rkzDHg
+	 GVgXul98+yXn4EUZtmN0FhDQPW2JP7qg08PFsXJ9Odld72akvsjWQW4IH2S5yryckn
+	 mJaG/q7+7lIXISN+bigGlz6v8gP+fiJ5ZyyJ762CgZERnipv/AARB+4MYHKKkx/Ggw
+	 WZvduL/35S+Jg==
+Message-ID: <66d59de8-7fe8-4e8b-834c-9f0ed51ca5e0@kernel.org>
+Date: Fri, 10 Jul 2026 11:51:56 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-series-vmap-race-fix-v1-1-5b3794c113fe@kernel.org>
-References: <20260710-series-vmap-race-fix-v1-0-5b3794c113fe@kernel.org>
-In-Reply-To: <20260710-series-vmap-race-fix-v1-0-5b3794c113fe@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
- Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: David Carlier <devnexen@gmail.com>, Dev Jain <dev.jain@arm.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Lorenzo Stoakes <ljs@kernel.org>, stable@vger.kernel.org, 
- syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10155; i=ljs@kernel.org;
- h=from:subject:message-id; bh=pMaPtDJt0ShPbK+WGVtxo1vXVrnpLL6Uol/iznePM7Q=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICzqUrv5jM8jT78ork/V/eip3mOnc61eNPZ/Ctg8m3D
- Fb59Pmqd5SyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiq00Y/oeLWb3pmqH+Vi36
- r/YaY4XvLkGiWqdm9oYYfvJ99an3iA3Df0/RoP3y92+uV52YoPtfya26v4VHqyzmzfayXy47fxy
- 6xw0A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+From: Bryan O'Donoghue <bod@kernel.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Daniel J Blueman <daniel@quora.org>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260601041336.9497-1-daniel@quora.org>
+ <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
+ <20260601041336.9497-2-daniel@quora.org>
+ <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
+ <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
+ <h8UvMzNq5TseF22NyjmyrC5yZkO_5JsVGMVaIdLfdpMyfxxemlp0xulRAiylGHWdrq5D4NM1oUk9Jzyhj_UAsw==@protonmail.internalid>
+ <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
+ <ccf4d126-c523-4ae4-8b17-a4cafab79b33@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <ccf4d126-c523-4ae4-8b17-a4cafab79b33@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Currently there is a nasty race between ptdump and vmap when attempting to
-map a huge P4D, PMD or PUD entry.
+On 09/06/2026 14:01, Bryan O'Donoghue wrote:
+> On 04/06/2026 07:38, Vikash Garodia wrote:
+>>
+>>
+>> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
+>>> On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
+>>>>
+>>>> On 01/06/2026 05:13, Daniel J Blueman wrote:
+>>>>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
+>>>>> triggers unhandled SMMU page faults
+>>>>
+>>>> How do we know that is a correct address - does it come from qcom
+>>>> documentation or trial and error ?
+>>>
+>>> @Vikash, beyond your comment I linked in the patch [1] kindly cite a
+>>> source for the different stream-ID <600MB behaviour, and share
+>>> specifics, eg if silicon, firmware, or driver and constraint, defect
+>>> or otherwise, so I can include a definitive description.
+>>>
+>>> Also good to know if my workaround is good for long-term, or on the
+>>> other hand handling streams <600MB is important/useful.
+>>>
+>>
+>> Thanks Daniel for raising this patch. Did you also try the memory fix i
+>> mentioned in the bug [1] discussion ?
+>>
+>> Coming to 600MB, this have been the VPU hardware restriction all the
+>> while since venus days, and since address could not go deeper all the
+>> way lower than 600MB, the issue never popped up earlier.
+>>
+>> Consider the memory layout split as below (Iris device range is capped
+>> to 0xe0000000)
+>>
+>> |-----600MB-----|-----(0xe0000000 - 600MB)-----|----IO reg--|
+>>
+>> 0-600MB range, VPU hardware would reserve this to generate different
+>> stream-IDs primarily for internal (non-pixel) buffers.
+>>
+>> 0-600 --> VPU would generate *secure* stream ID for non-pixel buffers
+>> 601 - 0xe0000000 --> VPU would generate non-secure stream ID for
+>> non-pixel buffers.
+>>
+>> When many concurrent sessions were tried, non-pixel buffers were mapped
+>> into 0-600MB range, and VPU generated secure ID for those. Since those
+>> were not associated with the iommus configured for iris node, it led to
+>> USF (un-identified stream fault) and device would crash.
+>>
+>> Keeping the region reserved, makes the non-pixel buffer always in the
+>> non secure range (601-..) and avoids the crash.
+>>
+>> Downside of this design - It would eventually reserve 0-600MB un-map
+>> 'able for all buffer types, like pixel as well which do not have any
+>> such restriction.
+>>
+>> Forward looking design - create devices dynamically and set reserve
+>> regions for those specific device using the api [1], instead of applying
+>> one reserve for all.
+>>
+>> [1]
+>> https://lore.kernel.org/all/20260119054936.3350128-1- 
+>> busanna.reddy@oss.qualcomm.com/
+> The problem here is in the reponse to the email you linked:
+> 
+> https://lore.kernel.org/all/cfd23f75-8952-4463-abd5-815b995031b0@arm.com/
+> 
+> - Inheriting the parent's properties is wrong
+> - We should just have a bus
+> 
+> But that leads us to churning DT and we'd have to figure out how/why to 
+> do it purely for the purpose of differentiating SIDs within Iris. There 
+> is no separate hardware - its one VPU which needs to figure out its IOVA 
+> for different SIDs.
+> 
+> Krzysztof would rightly say no - again - to putting collateral into DT 
+> to differentiate pixel streams based on SID, because that's not a 
+> hardware property.
+> 
+> - You have pixel and non-pixel SIDs that have to hit Linux
+> - You have to keep non-pixel allocations >= 600 MB
+> - You can allow pixel < 600mb =>
+>    Daniel's patch is too restrictive
+> 
+> But what we can do is add information to the iris platform descriptors 
+> to enumerate what are the valid IOVA ranges for pixel and non-pixel data 
+> and then change the allocation code to operate from those platform-code 
+> described IOVAs.
+> 
+> No new iommu properties, not arguing about plonking SID/pixel-path data 
+> into DT.
+> 
+> Just teach the driver what the valid ranges are and allocate IOVAs based 
+> on those ranges.
+> 
+> I think Daniel's patch should be taken as it fixes a real bug for users 
+> right now but, I equally think its a NAK for any new SoC.
+> 
+> This IOVA allocation needs to be tackled correctly and IMO that needs to 
+> be and should be done via platform descriptors for valid ranges of IOVA.
+> 
+> No mad stuff about SIDs in DT, no lengthy arguments about adding strange 
+> iommu properties.
+> 
+> ---
+> bod
 
-ptdump is invoked by arch code to walk kernel or EFI page tables, either to
-output it for debugging purposes, or to assert that there are no
-W+X (i.e. executable writable pages) exposed in these ranges.
+Please pause merging this patch until this thread bottoms out
 
-The feature is enabled generally via CONFIG_PTDUMP (whose implementation is
-in mm/ptdump.c), and expose a debugfs interface for it if
-CONFIG_PTDUMP_DEBUGFS is defined.
+https://lore.kernel.org/all/20260709-vpu_iommu_iova_handling-v1-7-72bb62cb2dfd@oss.qualcomm.com
 
-If CONFIG_PTDUMP is enabled, then /sys/kernel/debug/check_wx_pages is
-enabled which checks kernel ranges to perform the W+X check. If
-CONFIG_DEBUG_WX is enabled, this is done on boot.
-
-(Note that arm32 implements its own page table walker and uses
-CONFIG_ARM_DEBUG_WX and CONFIG_ARM_PTDUMP_DEBUGFS for this.)
-
-The EFI implementations vary by architecture, but are not relevant to the
-bug, as the issue is when kernel page ranges are walked.
-
-ptdump_walk_pgd() holds both the mem hotplug lock and the mmap write lock
-before invoking walk_page_range_debug(), however this runs into an issue
-with vmalloc ranges.
-
-When vmap maps a P4D, PUD or a PMD sized range and encounters an existing
-P4d/PUD/PMD entry pointing to a PUD/PMD/PTE page table, it invokes
-vmap_try_huge_[p4d,pud,pmd]() to try to convert it to a huge page table
-mapping if possible.
-
-However, when it does this, it holds no meaningful locks against other
-kernel page table walkers, invoking [p4d,pud,pmd]_free_[pud,pmd,pte]_page()
-which calls pagetable_free() and pagetable_free_kernel() in
-turn (pte_fragment_free() for powerpc).
-
-This means that a use-after-free becomes possible if the ptdump page table
-walker happens to be walking a PUD, PMD or PTE page table after it has been
-freed.
-
-Since commit 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page
-tables"), if CONFIG_ASYNC_KERNEL_PGTABLE_FREE is set,
-pagetable_free_kernel() will batch the page table freeing operation,
-otherwise it frees the page table directly.
-
-While the KASAN report that syzbot highlighted indicated that the issue
-arose in a workqueue introduced by this change, this is coincidental and
-the commit did not alter the race which has existed for quite some time.
-
-This patch resolves the issue by simply having
-vmap_try_huge_[p4d,pud,pmd]() hold the mmap read lock on init_mm while
-invoking [p4d,pud,pmd]_free_[pud,pmd,pte]_page() and
-[p4d,pud,pmd]_set_huge().
-
-This way, page table walkers either observe a newly promoted huge
-P4D/PUD/PMD leaf entry or the prior PUD/PMD/PTE entry and never get passed
-a dangling pointer, whether the page is freed asynchronously or not.
-
-All other kernel page table walkers that touch vmalloc ranges either
-exclusively own the memory walked or acquire the mmap lock, so this
-correctly excludes those walkers.
-
-We acquire the mmap read lock as a trylock, as this is an optimisation that
-is permitted not to succeed, a race is very unlikely, and doing so
-eliminates latency sleeping on the lock would have otherwise caused.
-
-We also define a guard class for mmap_read_trylock() so we can use
-cleanup.h to make the scope handling cleaner in the implementation.
-
-One wrinkle here is commit fa93b45fd397 ("arm64: Enable vmalloc-huge with
-ptdump"), which addresses the issue for arm64 only by explicitly acquiring
-the mmap read lock on kernel page table freeing should a concurrent ptdump
-be in progress.
-
-This is problematic as vmap may acquire the mmap read lock prior to ptdump
-attempting to acquire an mmap write lock, leading to a deadlock when the
-mmap read lock is slept upon on page table freeing due to rwsem
-anti-starvation.
-
-We work around this by predicating the mmap lock being taken on
-!CONFIG_ARM64 for the time being.
-
-With this patch applied, a follow up will partially revert commit
-fa93b45fd397 ("arm64: Enable vmalloc-huge with ptdump") and at that stage
-remove the arm64 ifdeffery.
-
-We also update walk_page_range_debug() to assert the mmap write lock
-unconditionally and update the comment here to reflect this change.
-
-The issue has existed as long as ptdump was available and vmap freed page
-tables when promoting to a huge leaf entry, that is, since commit
-b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table") for
-huge ioremap, and commit 121e6f3258fe ("mm/vmalloc: hugepage vmalloc
-mappings") for huge vmalloc.
-
-Since the former is the earlier of the two we choose that for our Fixes
-tag.
-
-This patch is based on work by David Carlier (linked), with gratitude!
-
-Fixes: b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
-Cc: <stable@vger.kernel.org>
-Reported-by: syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a287988.39669fcc.33b062.00a0.GAE@google.com/T/
-Link: https://lore.kernel.org/linux-mm/20260706203128.162335-1-devnexen@gmail.com/
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- include/linux/mmap_lock.h |  1 +
- mm/pagewalk.c             | 22 +++++++++++----------
- mm/vmalloc.c              | 50 ++++++++++++++++++++++++++++++++++++++---------
- 3 files changed, 54 insertions(+), 19 deletions(-)
-
-diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-index 04b8f61ece5d..6b5c2390cc30 100644
---- a/include/linux/mmap_lock.h
-+++ b/include/linux/mmap_lock.h
-@@ -621,6 +621,7 @@ static inline void mmap_read_unlock(struct mm_struct *mm)
- 
- DEFINE_GUARD(mmap_read_lock, struct mm_struct *,
- 	     mmap_read_lock(_T), mmap_read_unlock(_T))
-+DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
- 
- static inline void mmap_read_unlock_non_owner(struct mm_struct *mm)
- {
-diff --git a/mm/pagewalk.c b/mm/pagewalk.c
-index 3ae2586ff45b..bbcfd68d0907 100644
---- a/mm/pagewalk.c
-+++ b/mm/pagewalk.c
-@@ -678,6 +678,8 @@ int walk_kernel_page_table_range_lockless(unsigned long start, unsigned long end
-  * will also not lock the PTEs for the pte_entry() callback.
-  *
-  * This is for debugging purposes ONLY.
-+ *
-+ * The mmap write lock must be held.
-  */
- int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
- 			  unsigned long end, const struct mm_walk_ops *ops,
-@@ -691,6 +693,16 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
- 		.no_vma		= true
- 	};
- 
-+	/*
-+	 * When walking userland page tables, an mmap write lock must be held to
-+	 * account for munmap() downgrading to an mmap read lock when tearing
-+	 * down page tables.
-+	 *
-+	 * When walking kernel page tables, an mmap write lock must also be held
-+	 * to account for page table freeing on vmap huge page mapping.
-+	 */
-+	mmap_assert_write_locked(mm);
-+
- 	/* For convenience, we allow traversal of kernel mappings. */
- 	if (mm == &init_mm)
- 		return walk_kernel_page_table_range(start, end, ops,
-@@ -700,16 +712,6 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
- 	if (!check_ops_safe(ops))
- 		return -EINVAL;
- 
--	/*
--	 * The mmap lock protects the page walker from changes to the page
--	 * tables during the walk.  However a read lock is insufficient to
--	 * protect those areas which don't have a VMA as munmap() detaches
--	 * the VMAs before downgrading to a read lock and actually tearing
--	 * down PTEs/page tables. In which case, the mmap write lock should
--	 * be held.
--	 */
--	mmap_assert_write_locked(mm);
--
- 	return walk_pgd_range(start, end, &walk);
- }
- 
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 1afca3568b9b..9d0f1fdd6af3 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -43,6 +43,7 @@
- #include <asm/tlbflush.h>
- #include <asm/shmparam.h>
- #include <linux/page_owner.h>
-+#include <linux/cleanup.h>
- 
- #define CREATE_TRACE_POINTS
- #include <trace/events/vmalloc.h>
-@@ -158,10 +159,25 @@ static int vmap_try_huge_pmd(pmd_t *pmd, unsigned long addr, unsigned long end,
- 	if (!IS_ALIGNED(phys_addr, PMD_SIZE))
- 		return 0;
- 
--	if (pmd_present(*pmd) && !pmd_free_pte_page(pmd, addr))
--		return 0;
-+	if (!pmd_present(*pmd))
-+		return pmd_set_huge(pmd, phys_addr, prot);
- 
--	return pmd_set_huge(pmd, phys_addr, prot);
-+	/*
-+	 * Kernel page table walkers either walk ranges they own exclusively
-+	 * using the mmap lock for mutual exclusion, or hold the mmap write lock
-+	 * on init_mm (ptdump being the motivating case).
-+	 *
-+	 * Therefore, acquire the mmap read lock to prevent use-after-free when
-+	 * freeing page tables.
-+	 */
-+#ifndef CONFIG_ARM64
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
-+#endif
-+	{
-+		if (!pmd_free_pte_page(pmd, addr))
-+			return 0;
-+		return pmd_set_huge(pmd, phys_addr, prot);
-+	}
- }
- 
- static int vmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
-@@ -210,10 +226,18 @@ static int vmap_try_huge_pud(pud_t *pud, unsigned long addr, unsigned long end,
- 	if (!IS_ALIGNED(phys_addr, PUD_SIZE))
- 		return 0;
- 
--	if (pud_present(*pud) && !pud_free_pmd_page(pud, addr))
--		return 0;
-+	if (!pud_present(*pud))
-+		return pud_set_huge(pud, phys_addr, prot);
- 
--	return pud_set_huge(pud, phys_addr, prot);
-+	/* See comment in vmap_try_huge_pmd(). */
-+#ifndef CONFIG_ARM64
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
-+#endif
-+	{
-+		if (!pud_free_pmd_page(pud, addr))
-+			return 0;
-+		return pud_set_huge(pud, phys_addr, prot);
-+	}
- }
- 
- static int vmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
-@@ -262,10 +286,18 @@ static int vmap_try_huge_p4d(p4d_t *p4d, unsigned long addr, unsigned long end,
- 	if (!IS_ALIGNED(phys_addr, P4D_SIZE))
- 		return 0;
- 
--	if (p4d_present(*p4d) && !p4d_free_pud_page(p4d, addr))
--		return 0;
-+	if (!p4d_present(*p4d))
-+		return p4d_set_huge(p4d, phys_addr, prot);
- 
--	return p4d_set_huge(p4d, phys_addr, prot);
-+	/* See comment in vmap_try_huge_pmd(). */
-+#ifndef CONFIG_ARM64
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
-+#endif
-+	{
-+		if (!p4d_free_pud_page(p4d, addr))
-+			return 0;
-+		return p4d_set_huge(p4d, phys_addr, prot);
-+	}
- }
- 
- static int vmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
-
--- 
-2.55.0
-
+bod
