@@ -1,124 +1,146 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6AF11CA9;
-	Fri, 10 Jul 2026 04:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE682673B0;
+	Fri, 10 Jul 2026 05:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783658888; cv=none; b=PSmwo0oXM8oo9EBnf3uJ9rfP2U+0uZknHzSgw2hroSDWAUXKeF1zEFEwujLAErOHRTeYWhd+Nx3e0VQSRAlwvMntGa0Fkmuqva4KCuBpnVOx0DhgnSeotW8QCwrZIgKyf9K69HZrGxpSJ/ETmJWiaRUInB+9PKRHviF3I7iCOcA=
+	t=1783659866; cv=none; b=s/4o/JfE8F9SCwYFylKy3xIObdFKnHCr7N0oY1GKn2SPrGett6I6HDUTFCMhE8DpcYUL4yNXHtjn01Yk7ryP3CercGM+eu4KDz5ozG7S3smPjjRDc/IGUA2yt/9xAxSdZoD9R+fZR0Dbe4vf7JcKyCtDfAS8n3fviPb0pMwQ5WU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783658888; c=relaxed/simple;
-	bh=5C5GTG7c+Uy05ZHxhziOxWTUA/qRLmUnU8IWy7/whu0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VKiJKqSPrD2fYgHGP/KsLUxXgtRlzPizIJyuxjxWd2OgJTSa14LPdnAVGGnBuHpBGpaP4vgEWr1HpEZHYHCjL3/yf6fcQagkW8yu8xrXcgzHvuqidp6VhZ4tUpI17C7rsHduESXNBZBlwgbVHoV9QvvG5t6D4xUEI+jux+EupKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 845d487e7c1a11f1aa26b74ffac11d73-20260710
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_EXISTED
-	SN_UNTRUSTED, SN_UNFAMILIAR, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
-	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
-	AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:9e76af51-41de-4cfc-aed2-34454bb41822,IP:20,
-	URL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
-	ION:release,TS:20
-X-CID-INFO: VERSION:1.3.12,REQID:9e76af51-41de-4cfc-aed2-34454bb41822,IP:20,UR
-	L:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:e7bac3a,CLOUDID:819c28c2fb3c78a1d9ad3cdf9a1536f3,BulkI
-	D:260710124757WD3NRJHV,BulkQuantity:0,Recheck:0,SF:17|19|66|78|81|82|102|1
-	27|865|898,TC:nil,Content:0|15|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:n
-	il,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BR
-	E:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 845d487e7c1a11f1aa26b74ffac11d73-20260710
-X-User: husong@kylinos.cn
-Received: from ctao-book.. [(223.70.159.239)] by mailgw.kylinos.cn
-	(envelope-from <husong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1617764414; Fri, 10 Jul 2026 12:47:55 +0800
-From: Song Hu <husong@kylinos.cn>
-To: sj@kernel.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Song Hu <husong@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/4] Docs/ABI/damon: fix typo in intervals_goal sysfs path
-Date: Fri, 10 Jul 2026 12:47:34 +0800
-Message-ID: <20260710044737.561102-2-husong@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260710044737.561102-1-husong@kylinos.cn>
-References: <20260710044737.561102-1-husong@kylinos.cn>
+	s=arc-20240116; t=1783659866; c=relaxed/simple;
+	bh=4GCZTsjsHYacD5mHqMa7Rj3px0ezGyg3rrTqHoUWDv8=;
+	h=Date:To:From:Subject:Message-Id; b=LlS8clza1koBr+2Jl7TFK6IImdS8JrxMJjDX0SZkWKcPv7XzDYPa+cEhgaR3CEEjrxMTTvzfoYhY1Y94n2eMUIi4BYgn/egtdxvoeN/imn6CD1Ryniio8OKpEXaa04CX1xpJoCtRYOrSouHew5dnCerM84EQikch6qsL9DyxErc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=q/94u1uU; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="q/94u1uU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB9641F000E9;
+	Fri, 10 Jul 2026 05:04:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1783659865;
+	bh=1Pk/1QQfoSsadFi9xLmIrV+XNF/Vnm3t2DspH1CXKiA=;
+	h=Date:To:From:Subject;
+	b=q/94u1uUpPVOyWy/s+wEbu7sJyTQK4Dsqz3l+R9q2NLrx+NMBJu1uIHbn0mwdk58c
+	 XEe/KUWJHOAtaQKTsDcU5wIvrWcuH5Ht/ikz6b5wM8+S4IpIUbm7iqUUzL9w8vYdmB
+	 UcuL3N1RyGEDPlAxeZXx6BKmaryK/Knf51vwXfLI=
+Date: Thu, 09 Jul 2026 22:04:24 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-fix-boundary-check-in-ocfs2_check_dir_entry-to-use-buffer-offset.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260710050424.DB9641F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The ABI document spells the DAMON sysfs directory as "intrvals_goal"
-(missing 'e') in four What: entries, but the kernel creates it as
-"intervals_goal" (mm/damon/sysfs.c).  Following the documented path
-therefore yields a non-existent directory.
 
-Fixes: e2b23dc62369 ("Docs/ABI/damon: document intervals auto-tuning ABI")
-Cc: stable@vger.kernel.org
-Signed-off-by: Song Hu <husong@kylinos.cn>
+The patch titled
+     Subject: ocfs2: fix boundary check in ocfs2_check_dir_entry() to use buffer offset
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     ocfs2-fix-boundary-check-in-ocfs2_check_dir_entry-to-use-buffer-offset.patch
+
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-fix-boundary-check-in-ocfs2_check_dir_entry-to-use-buffer-offset.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: ocfs2: fix boundary check in ocfs2_check_dir_entry() to use buffer offset
+Date: Fri, 10 Jul 2026 12:05:12 +0800
+
+Commit 390ac56cf0f6 ("ocfs2: add boundary check to
+ocfs2_check_dir_entry()") added an out-of-bounds guard using the
+caller-supplied 'offset' argument:
+
+	if (offset > size - OCFS2_DIR_REC_LEN(1))
+		return 0;
+
+However, 'offset' and 'size' are not measured against the same base for
+all callers.  In the block-based lookup path, ocfs2_find_entry_el() passes
+'offset' as an absolute offset into the whole directory:
+
+	i = ocfs2_search_dirblock(bh, dir, name, namelen,
+				  block << sb->s_blocksize_bits,
+				  bh->b_data, sb->s_blocksize, res_dir);
+
+while 'size' is a single block size (sb->s_blocksize).  For any directory
+entry located in the second or later block, 'offset' is >=
+sb->s_blocksize, so the guard rejects every such entry even though it is
+perfectly valid and lies entirely within its block buffer.
+
+This makes mounting fail for filesystems whose system directory spans more
+than one block, e.g.  a volume formatted with a small block size:
+
+  mkfs.ocfs2 -b 512 -C 4096 -N 2 -T datafiles --fs-features=usrquota,grpquota
+
+  ocfs2_check_dir_entry:314 ERROR: directory entry (#18: offset=512) too close to end or out-of-bounds
+  ocfs2_init_local_system_inodes:496 ERROR: status=-22, sysfile=12, slot=0
+  ocfs2_mount_volume:1757 ERROR: status = -22
+
+The dirent's position within the buffer being validated is ((char *)de -
+buf), which is what the rest of the function already uses (via
+next_offset) and what must be bounds-checked against 'size'.  Compute that
+buffer-relative offset and use it for the guard.  The subtraction is
+reordered to size - buf_offset < OCFS2_DIR_REC_LEN(1) to avoid an unsigned
+underflow when size is smaller than the minimal record length.
+
+Link: https://lore.kernel.org/20260710040512.3310736-1-joseph.qi@linux.alibaba.com
+Fixes: 390ac56cf0f6 ("ocfs2: add boundary check to ocfs2_check_dir_entry()")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- Documentation/ABI/testing/sysfs-kernel-mm-damon | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-kernel-mm-damon b/Documentation/ABI/testing/sysfs-kernel-mm-damon
-index dd6b5bd76e11..885409a26786 100644
---- a/Documentation/ABI/testing/sysfs-kernel-mm-damon
-+++ b/Documentation/ABI/testing/sysfs-kernel-mm-damon
-@@ -112,7 +112,7 @@ Description:	Writing a value to this file sets the update interval of the
- 		DAMON context in microseconds as the value.  Reading this file
- 		returns the value.
+ fs/ocfs2/dir.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+--- a/fs/ocfs2/dir.c~ocfs2-fix-boundary-check-in-ocfs2_check_dir_entry-to-use-buffer-offset
++++ a/fs/ocfs2/dir.c
+@@ -302,10 +302,11 @@ static int ocfs2_check_dir_entry(struct
+ 				 unsigned long offset)
+ {
+ 	const char *error_msg = NULL;
++	unsigned long buf_offset = (char *)de - buf;
+ 	unsigned long next_offset;
+ 	int rlen;
  
--What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/access_bp
-+What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/access_bp
- Date:		Feb 2025
- Contact:	SJ Park <sj@kernel.org>
- Description:	Writing a value to this file sets the monitoring intervals
-@@ -120,7 +120,7 @@ Description:	Writing a value to this file sets the monitoring intervals
- 		the given time interval (aggrs in same directory), in bp
- 		(1/10,000).  Reading this file returns the value.
+-	if (offset > size - OCFS2_DIR_REC_LEN(1)) {
++	if (buf_offset > size || size - buf_offset < OCFS2_DIR_REC_LEN(1)) {
+ 		/* Dirent is (maybe partially) beyond the buffer
+ 		 * boundaries so touching 'de' members is unsafe.
+ 		 */
+@@ -316,7 +317,7 @@ static int ocfs2_check_dir_entry(struct
+ 	}
  
--What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/aggrs
-+What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/aggrs
- Date:		Feb 2025
- Contact:	SJ Park <sj@kernel.org>
- Description:	Writing a value to this file sets the time interval to achieve
-@@ -128,14 +128,14 @@ Description:	Writing a value to this file sets the time interval to achieve
- 		access events ratio (access_bp in same directory) within.
- 		Reading this file returns the value.
+ 	rlen = le16_to_cpu(de->rec_len);
+-	next_offset = ((char *) de - buf) + rlen;
++	next_offset = buf_offset + rlen;
  
--What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/min_sample_us
-+What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/min_sample_us
- Date:		Feb 2025
- Contact:	SJ Park <sj@kernel.org>
- Description:	Writing a value to this file sets the minimum value of
- 		auto-tuned sampling interval in microseconds.  Reading this
- 		file returns the value.
- 
--What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/max_sample_us
-+What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/max_sample_us
- Date:		Feb 2025
- Contact:	SJ Park <sj@kernel.org>
- Description:	Writing a value to this file sets the maximum value of
--- 
-2.43.0
+ 	if (unlikely(rlen < OCFS2_DIR_REC_LEN(1)))
+ 		error_msg = "rec_len is smaller than minimal";
+_
+
+Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
+
+ocfs2-fix-boundary-check-in-ocfs2_check_dir_entry-to-use-buffer-offset.patch
 
