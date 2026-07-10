@@ -1,63 +1,63 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E0641B35C
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 11:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29BBC4195C3
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 11:25:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783682618; cv=none; b=mPuyfwrvKh5xwaws/iFva8eACLD+fvz6aRtnZD9XpDiNUZwx3PD8n0DPCeLEKwcqryYamnWfMtekVXIqXGbcecYRsMJi0CbT5f1TyQl0Ted4XPOfqr1q3fRCs5DkdVAFj25mUK1FzPM9qd8V8iCnSneL+5PDUSRAeUM7d5R+UVk=
+	t=1783682748; cv=none; b=t0fc1iihO6ce218+BzuogPkO7NymucVv5KAOyhSykvvKJeneAkzB2tIw9feS9vKZTcVFB2ZO9NHofnzGJPvvAiH0mw5+aLm9N6748EszOwgkBKasgpv6C+UVfV0gp8VxWASPbkkfbBRubJNxXopBSdybH5R722rwNuU9hGdXf3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783682618; c=relaxed/simple;
-	bh=29xiFC1J6wo7zb8FK6bJ1+y5GotjoNBoErEWl56Gtzc=;
+	s=arc-20240116; t=1783682748; c=relaxed/simple;
+	bh=NmZAtAimMAcYEGU7PVxmVYliOIv6/UMM3TlVMC/v1cI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YiOEQDqiDEesnsM7xHWYdrtIBgxIlWTP3spa3cnOEvMOUWQqZtXwDx/N9Bq0bHr7LZtotV+Jc49eg6UPhiiou5LNrqWKFESzK7alAZ8ccWnE7CGjf2md2gQTzS1z79aHO0Ze5KQWtMU6ceOCCDCnAWYZVR7qlJBvdWN4WrE/tpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SOPwjSqS; arc=none smtp.client-ip=209.85.214.179
+	 MIME-Version; b=X1ktMSwVh5GT+2/hfBha4o+dLiUeYWi8e9g/JKJYGJ80X1P6SnPCcq3vmQDNlrAiMD/R8XJivasgzHLs/HMJAwSUAcxWGVROFG4BFuVQd2lKfGxwEdXEtjcfP1LkaeWtbjfPNS4Y2Nlq6lt/Oy3izTVsnD329aYh4EY9mKHuEPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RVinBMdu; arc=none smtp.client-ip=209.85.210.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SOPwjSqS"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cacd69a9c0so7563765ad.1
-        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 04:23:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RVinBMdu"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-848595b338cso860598b3a.0
+        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 04:25:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783682614; x=1784287414; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783682739; x=1784287539; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Lesz3zvgc+1C6E8BACW+YNJxKt7pdV6bHtGUVcqgJuk=;
-        b=SOPwjSqSKl4bCd9M9OFFeXZT6whoR4t2xgaesaksVcO+Elqx0mXsGUoMjCq28RxEMB
-         5H+eMkecxKXJGFOk1c0tZ19c0R6uCrJJ04tWSky8UCZowIrGmqWPCJZPW5en2gewVEfP
-         h1EtsdSgY3xy1b4qMrbVEyAPFuUfRD+aAR9nEuh4IkOXLDg0CPBgbLeXnmtTD1BhpvC+
-         iBOknSOrbKz2egq4ahcbeDPolL7/+xbKJxGa8sdZhKCSTHhiDnXJzr0FPCLztNqk8mQi
-         jfh/PmYWYs8sp82trP/8rsoP+Dh/+7cidODrCYR5Ew9b748M1nvZwLOvj0hHd1vPBv7p
-         c/tg==
+        bh=E4KxEecbJeAnfoH/HFfiLTjt47ShuOirRWvUozKk93M=;
+        b=RVinBMduarf+vUQz9N/ioFeP+j2c1auzHLzCS+0ULJvPTUK+MezaT02dU62NEvBfid
+         XzFQZSkBCUmjt9pUUhOXnRWExl1jmRGIs5GTxtOjMvg63/dOh4GPx85vUOSPFkkMBClT
+         qEslnNj+CLPRDYErBNBUfCeqnTbwSp3PP3AEQanEkW2xAmrzmgOjGCHSgeS7vbeZtJql
+         LVY40Vk+J15S3FD5NchF5INcZ7sDAipxj3/0rxh4O3s0new0PtxZ+M9fmxHNRMKl7KRG
+         dRS4sgop5erIXMGdgUDZMJ8yxxfsdi6SLdKtemNtJQBEYNCG/bZTy9ceYX+TCKn4OOGI
+         Y4kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783682614; x=1784287414;
+        d=1e100.net; s=20251104; t=1783682739; x=1784287539;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Lesz3zvgc+1C6E8BACW+YNJxKt7pdV6bHtGUVcqgJuk=;
-        b=b3tROWHgvAr16ERPMyRsqUTTknNQPgdyN1vvu+cS+c2zSWrk/eROppO68b0RjiBWcH
-         WQ/beIS4IiYdErJDzJaZnQamgdM3fJnuPFlJz3XN4pKaXjCxYun9NS0jXFcssCWO13cZ
-         3mfSq+h6ZxjAOTRAlgOLZJjvydYMj/q31uRTuGhdpCEHERfqyOqLrLck3d6wFkOPVq8w
-         Chbces1dBPZj7fxMG0yveB6+A8OaBUqwDA73L8yI5cg2AKdJNpm29bcO2Orc8vi6SaO3
-         l+x9R6Lf3aDv7Y8d7QOi21dfpiNnwzRARjuHHCZSOvH/DSqBZ1NUdwc7uJ3dyL3pGlCm
-         QCvA==
-X-Gm-Message-State: AOJu0Yx8Uf8aBI258whkz71glB+lswKF/SIDT8ThdfLFj+ayDTKCeeot
-	UeXQRBrEa+JbY3zp68tFiX8fechc3U8BEhsAU4Slog8zk83b7uX0pEbtUez3pFBl
-X-Gm-Gg: AfdE7cnoFADKfa3ASKV05Faws6oQGBva6gqRn2QmcI2Dj2KQiBw6VA6gNsxJWrv0cuo
-	h1wHYYPiq82DM1rJCZxs8+0RSH/KY82p62H24W8wAluhW42B2l9EVZ7UQ2UJiI1yKZTHhC860V8
-	OJ45jwij808jDZdgTlkL7xA2mhY7SGEBiSw8VUlyyqkjsRiKiHKM3YN+9RkzSyu7zqZyhxs5a8g
-	88/NZXkgpDyarOfoGfYggPn1wu58Xrl4mn+KX8rvLObbKol2gIcUIEtyF7cR7fVaiSvw9g6Tai3
-	MkgKFE7e2wcDulOODAzS3ao8BtKW8dsqdrDOBbDyhBxTemWUkQ/GlJX2+0fYK2q4yludzb90sgF
-	26JrD2jfJwncymCAuWLVbi3B2MbSW7Kues6Tqx1x42CzD6+oSfSN0PHdS0WIFjWXHw6b4gP++P5
-	CMlkOcucHJXHpBzUr2fuUDvPeygrUPb6ySXmuakklEE6myiD/1gJ0n+kyA/rHjT0lVceeMdBW0D
-	RVjruOnm8xQo6PPrqyCqRH4zB1HQdDDKokK0tLjN3mQC85X6IQ=
-X-Received: by 2002:a17:902:f60b:b0:2c9:97a7:f540 with SMTP id d9443c01a7336-2ccea433949mr121433875ad.38.1783682613643;
-        Fri, 10 Jul 2026 04:23:33 -0700 (PDT)
+        bh=E4KxEecbJeAnfoH/HFfiLTjt47ShuOirRWvUozKk93M=;
+        b=JoLbpT8VxVL4rspMJJonSERjFTvYOaCfOGSD6AzRWCExLszpkGwFrdIzXaYLFXP5AW
+         ki/G43/NFU5nc1xpP7RglvDTJGPZEeZe4Jl30tpEUG/nI7nSMFp/Sq0gkQ6XC39fiX6c
+         aZrrUt7ATmO6uiNO307jLHQzond3jvjzlhIncqGYOoMR29WQ0rVpwU8E+PNvJDXQr5dH
+         V5j2Hw5km0pM6ep0ExetPJTu0eL+o4a34v7A1CbORaAC10KBQrtKys+6VLtJdDU5GD27
+         A7wRyqOVkTk+MQCsy8gS9f9C3Zz8ffjKEij6J9Xau10kUQMrCYx50jh2rhfl7DDkIoK2
+         B3gw==
+X-Gm-Message-State: AOJu0YzNst+/GkPJSC7aiNHCN8NGkNO6sSzEN7YvSu2icTwD5x8adlB+
+	xYxGPcYLNJ+pjRVeMyTj1p5K0AerjltsKYQwqehY9wXpCWJVu7zVxDMUaGwfQuAA
+X-Gm-Gg: AfdE7cn1U9CaxHd0eMOLqTZkgG6evIkDXGyO8eyc4PvRy6OsdFzh/+LHHEedPymUgnC
+	9OQu98tSackjuu8pDxGcMSb7lxmS9r5c7328OXi66pdxoG8M6WlKw6dJw2rqvN4yTdJ9yKNnI47
+	QQmjwWhOnxOa19MHuHH9Vb8hkLtrJgQzGmKBCN6Ow608oTO0SEWhVvVJhLiibTqp7kYlpUgtWm7
+	q4fsde699T2QUv4HuoIqxciNudRjmcVchgF72zB3Xw6AaUClhnbscUQv9O+XLCX6v/3xVmJ0wyX
+	1aISc5oQCYpbYUVPSCpLRWGH2G5ZHi+6NZXY8Mv2EIQ1hQi3tifFQB1i60kusNx01R4Hedk6Y3w
+	BbV2OS9pX2XGiVn9+OMEZulEYSzNaJfSwKxpXSdVAir8KSnLL0twH7yyxnGlwtUBAQdNCOZOH8I
+	yBxdYtQf/vi7HDcWYErCKnG1uLpHX0DhXMxjYk7V61ntV8JO24MZAjKb5oxI+OsRxPTvJapbCsp
+	MJRQpSqZmRIjIVmnB+jgDSPqwZMhT1XKphZRb+zM/LFL4m6dLY=
+X-Received: by 2002:a05:6a00:12c6:b0:848:3fe2:c88b with SMTP id d2e1a72fcca58-84842ed26a7mr10863271b3a.6.1783682739009;
+        Fri, 10 Jul 2026 04:25:39 -0700 (PDT)
 Received: from ip-172-31-54-240.ap-northeast-2.compute.internal (ec2-43-203-160-83.ap-northeast-2.compute.amazonaws.com. [43.203.160.83])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d3bd33sm58745315ad.58.2026.07.10.04.23.31
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8485ff27e24sm2336997b3a.11.2026.07.10.04.25.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 04:23:33 -0700 (PDT)
+        Fri, 10 Jul 2026 04:25:38 -0700 (PDT)
 From: Hyokyung Kim <pulpannie@gmail.com>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
@@ -68,9 +68,9 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	Joe Damato <jdamato@fastly.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Hyokyung Kim <pulpannie@gmail.com>
-Subject: [PATCH 6.6.y] virtio_net: Support dynamic rss indirection table size
-Date: Fri, 10 Jul 2026 11:19:54 +0000
-Message-ID: <20260710111954.234758-1-pulpannie@gmail.com>
+Subject: [PATCH 6.1.y] virtio_net: Support dynamic rss indirection table size
+Date: Fri, 10 Jul 2026 11:25:21 +0000
+Message-ID: <20260710112521.234909-1-pulpannie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <CAGJdW3H0Bv31W5DNaHstXyYxMcVFUnOmzAJ9LAjZOANk1y67OQ@mail.gmail.com>
 References: <CAGJdW3H0Bv31W5DNaHstXyYxMcVFUnOmzAJ9LAjZOANk1y67OQ@mail.gmail.com>
@@ -107,7 +107,7 @@ Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 Acked-by: Joe Damato <jdamato@fastly.com>
 Acked-by: Michael S. Tsirkin <mst@redhat.com>
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ Hyokyung Kim: 6.6.y predates the refactor that moved the RSS config into
+[ Hyokyung Kim: 6.1.y predates the refactor that moved the RSS config into
   struct virtnet_info, so struct virtio_net_ctrl_rss is still embedded in
   struct control_buf and reached through the heap-allocated vi->ctrl. Every
   adaptation below follows from that single difference:
@@ -128,10 +128,10 @@ Signed-off-by: Hyokyung Kim <pulpannie@gmail.com>
  1 file changed, 38 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index 33f61922c1..5bcd129685 100644
+index b62b769631..2fb00df795 100644
 --- a/drivers/net/virtio_net.c
 +++ b/drivers/net/virtio_net.c
-@@ -208,15 +208,16 @@ struct receive_queue {
+@@ -179,15 +179,16 @@ struct receive_queue {
   * because table sizes may be differ according to the device configuration.
   */
  #define VIRTIO_NET_RSS_MAX_KEY_SIZE     40
@@ -150,7 +150,7 @@ index 33f61922c1..5bcd129685 100644
  };
  
  /* Control VQ buffers: protected by the rtnl lock */
-@@ -3011,6 +3012,25 @@ static int virtnet_set_ringparam(struct net_device *dev,
+@@ -2488,6 +2489,25 @@ static int virtnet_set_ringparam(struct net_device *dev,
  	return 0;
  }
  
@@ -176,7 +176,7 @@ index 33f61922c1..5bcd129685 100644
  static bool virtnet_commit_rss_command(struct virtnet_info *vi)
  {
  	struct net_device *dev = vi->dev;
-@@ -3020,11 +3040,15 @@ static bool virtnet_commit_rss_command(struct virtnet_info *vi)
+@@ -2497,11 +2517,15 @@ static bool virtnet_commit_rss_command(struct virtnet_info *vi)
  	/* prepare sgs */
  	sg_init_table(sgs, 4);
  
@@ -195,7 +195,7 @@ index 33f61922c1..5bcd129685 100644
  
  	sg_buf_size = offsetof(struct virtio_net_ctrl_rss, key)
  			- offsetof(struct virtio_net_ctrl_rss, max_tx_vq);
-@@ -4080,7 +4104,10 @@ static void virtnet_free_queues(struct virtnet_info *vi)
+@@ -3415,7 +3439,10 @@ static void virtnet_free_queues(struct virtnet_info *vi)
  
  	kfree(vi->rq);
  	kfree(vi->sq);
@@ -206,7 +206,7 @@ index 33f61922c1..5bcd129685 100644
  }
  
  static void _free_receive_bufs(struct virtnet_info *vi)
-@@ -4266,6 +4293,9 @@ static int virtnet_alloc_queues(struct virtnet_info *vi)
+@@ -3610,6 +3637,9 @@ static int virtnet_alloc_queues(struct virtnet_info *vi)
  		vi->ctrl = kzalloc(sizeof(*vi->ctrl), GFP_KERNEL);
  		if (!vi->ctrl)
  			goto err_ctrl;
@@ -216,7 +216,7 @@ index 33f61922c1..5bcd129685 100644
  	} else {
  		vi->ctrl = NULL;
  	}
-@@ -4298,7 +4328,10 @@ static int virtnet_alloc_queues(struct virtnet_info *vi)
+@@ -3642,7 +3672,10 @@ static int virtnet_alloc_queues(struct virtnet_info *vi)
  err_rq:
  	kfree(vi->sq);
  err_sq:
