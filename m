@@ -1,102 +1,156 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86C538AC99;
-	Fri, 10 Jul 2026 20:03:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8C4225775
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 20:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783713842; cv=none; b=CrtRZ3lch+5lQCfocDCIXB+AbfHrZW8EHJC88txyCe2OOE2ZC7rupP2tWLPqj6kAnHR2ozNsOQmRy/rwIYqRvKEHmY38AFxG3PV9Mu+JiXt99Oo0NisXBetMKx8i5Z9XktPNzJJc2TpjVCKx4vmbPq/QrSXs7euZOC1w9eYShrc=
+	t=1783713999; cv=none; b=fmrQq3BeTstRIS4Bs+UwtU76jZ0N5hr77f2b1yZ3DOCpX6fxdAme2vfS+EUY1I+4QaEHRGX70jd9Q+GZyi1/r/aAo+cpfH11fyI7ryteN7vUKCviigG3P9h+ljO4ZMcvYMtKoRxBUnZMPQwUFlGYAmCRLTZ1cnX3Yv1lMFiyFVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783713842; c=relaxed/simple;
-	bh=XFM0uN4lOBfRtc8OOeAVzmLTA151f3cIc+2Hot55yGU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mf15Kt/AmjYXEJVLX6yQAXoGcDV+7wrT7ZpvcvrIsCMRkLQUh7ssb3GUxagIl4BFo0fARFC/Q2WyJG7lvXWcDZ2ihcOU5QnPbbbP2kVe4xL2cPPmIBvu+n7ChMZpmmTPjz0QcIrViB08Rt4DFfDTXKJbhQ4eQRMeOXhAp7No0fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=CYM3qxSX; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1783713999; c=relaxed/simple;
+	bh=G4/8VZ8H6nVZaFvjqmRc3r57Hq3SXKFV07fwRWha9UM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CtoUgqAmaoa8EIihJ4DxANqF2WGlT/Nh5HsrkZnyceg3CDe1vpCXHiAhG+dtFNwbBWLJbNGWIBhgIbtWGYaCSskoBtXKAdPxdnX2JyGprdm+z7VFQg1GCRXiJgCM32DqEOfAUFIeqyov8fYP2Nbw85ShrAtapIDlTmsEqRePUSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ch3Db0Tj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="CYM3qxSX"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5211540E02B4;
-	Fri, 10 Jul 2026 20:03:51 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id flS1tjuJZTcn; Fri, 10 Jul 2026 20:03:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1783713820; bh=UjDR/MBglSWbFFeWuS1NtIkTEWkAyJ6FFviuRnSvs/4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CYM3qxSXgkD2iCQ1LCN80m8rObcqrdjZU/NELyH0BMNAHZEqE8YD0NmnXM4DYuz3P
-	 fkeUuJhfZ1PvuCvJu5/5Gu76Sl35yydZhr48jvSdTL+xQfPnOdPbbbzpJheRdEkQeg
-	 +76N4GMxsbm8Ea21heW0bHbF2fSjlT4Z9tAN0nud7PQ4JyXGTnVudgA9r/BlfR1CXd
-	 FqzXTbXUgaxgZ9XLtS5Z46esoS2m/j4MV5s2onZNe8dV0gXvZpDVg8Whnb82GOfjYd
-	 M9bsYO30JYt00egSo7zMeOT1yyQwcGDTrgG+upCJb5JO2HLoo34bfRUhm0N4EplB03
-	 9KF9YCEl5DLZ41JNbDCDjuooByneDgXaPvT3ej112VGAn2pqruICO0Cp+Tq9zHX8ds
-	 M5aSTP9JgIKPm8Q3Zp8MANj6ZNlefZRriHntcMyIZmoq3oDzkLqtTER4y3UQnHf/hi
-	 r6ioYF4osiMIxFCpRu98TCJaJehsrRrO78SorA9VicedDJnML4egGViGANYH6xaokK
-	 0HkOLqKojw+fEGNM4823GWQ2nwG3yOZyfgDDWTC78fbn7pKPpAshAQA9JmpVvC6vOJ
-	 U7Mt2lDMtpWLBfXLhJKcG2ETtigxMmjUtCtjPogGWqvhPWkYtkM+IvA+1id7dK6wO5
-	 Z4ZgXWAPrfsPhgD1v5BBQm+E=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2DE9C40E00C0;
-	Fri, 10 Jul 2026 20:03:34 +0000 (UTC)
-Date: Fri, 10 Jul 2026 13:03:30 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Cc: tony.luck@intel.com, dbgh9129@gmail.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] EDAC/altera: Use parent device for devres in
- altr_portb_setup()
-Message-ID: <20260710200330.GBalFQEugXQ9nJyzGa@fat_crate.local>
-References: <20260617164303.585555-1-dinguyen@kernel.org>
- <20260617221834.GAajMdOocCPq39b-s0@fat_crate.local>
- <f693b112-3473-424d-be33-d18310825004@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ch3Db0Tj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEF6E1F00A3A;
+	Fri, 10 Jul 2026 20:06:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783713997;
+	bh=5FfxVOefdCXJVIKPFbp/kWsCRP4MdKm1ro17fY+aK6E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ch3Db0TjyOLygM0l1Vpg1x/g1A4xKJ1yjBncSdX+pWQkqke4pyLjOSIArxB6oE7o+
+	 dcf5YhFSmzi4z+gOXGHFdhfuUqu6201A/PDuYAgIIIKqDkBcF8+a2xf95/Y88H+4rf
+	 oJKnJ9qCc+laEeaUXQw1T6x3jtWfKO3tHeTHkAePiKTAm+BH3bMNbbey5aCxkkJnfz
+	 3XOLRpNom7KqdRLDCF50g52EADsGUUIosPE17TKr4IDHNf/yQg0yirWEFkmcB225i6
+	 NDngegFIDVjeuiILlJ4W5fPXaS0V6bjRYZF4u5H9X4SJZ0F3NJNIMFq1Wn1U9QfGFq
+	 RM8buW8QdrMQA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/5] ACPI: driver: Check ACPI_COMPANION() against NULL during probe
+Date: Fri, 10 Jul 2026 16:06:31 -0400
+Message-ID: <20260710200635.395836-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070932-overdress-unsaved-5212@gregkh>
+References: <2026070932-overdress-unsaved-5212@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f693b112-3473-424d-be33-d18310825004@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 10, 2026 at 10:03:28AM -0500, Dinh Nguyen wrote:
-> 
-> 
-> On 6/17/26 17:18, Borislav Petkov wrote:
-> > On Wed, Jun 17, 2026 at 11:43:03AM -0500, Dinh Nguyen wrote:
-> > > Anchor the devres group and the devm-managed IRQ requests in
-> > > altr_portb_setup() to the actual parent device (device->edac->dev)
-> > > instead of the embedded struct device inside the copied per-port
-> > > altr_edac_device_dev. This keeps devres_open_group(),
-> > > devm_request_irq(), devres_remove_group() and devres_release_group()
-> > > all referring to the same long-lived device so the group and the
-> > > resources allocated inside it are torn down together.
-> > > 
-> > > Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
-> > > Cc: stable@vger.kernel.org
-> > > Closes: https://sashiko.dev/#/patchset/20260503212558.2811480-1-dbgh9129%40gmail.com
-> > > Assisted-by: Claude:claude-opus-4-7
-> > > Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
-> > > ---
-> > >   drivers/edac/altera_edac.c | 10 +++++-----
-> > >   1 file changed, 5 insertions(+), 5 deletions(-)
-> > 
-> > How urgent is this? Can it wait until the merge window is over?
-> > 
-> 
-> Can you please pick this up for v7.2?
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-Applied, thanks.
+[ Upstream commit e4865a56d013e86e46ea6acea15bb6eae01898ff ]
 
+Since every platform driver can be forced to match a device that doesn't
+match its list of device IDs because of device_match_driver_override(),
+platform drivers that rely on the existence of a device's ACPI companion
+object should verify its presence.
+
+Accordingly, add requisite ACPI_COMPANION() or ACPI_HANDLE() checks
+against NULL to 13 platform drivers handling core ACPI devices.
+
+Also change the value returned by the ACPI thermal zone driver when
+the device's ACPI companion is not present to -ENODEV for consistency
+with the other drivers.
+
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Link: https://patch.msgid.link/4516068.ejJDZkT8p0@rafael.j.wysocki
+Cc: 7.0+ <stable@vger.kernel.org> # 7.0+
+Stable-dep-of: 18a00ed0e718 ("ACPI: NFIT: core: Fix possible deadlock and missing notifications")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/acpi/acpi_tad.c      | 6 +++++-
+ drivers/acpi/pfr_telemetry.c | 6 +++++-
+ drivers/acpi/pfr_update.c    | 6 +++++-
+ drivers/acpi/thermal.c       | 2 +-
+ 4 files changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/acpi/acpi_tad.c b/drivers/acpi/acpi_tad.c
+index ecba82ac7cd5f9..542e16c3ab9f6f 100644
+--- a/drivers/acpi/acpi_tad.c
++++ b/drivers/acpi/acpi_tad.c
+@@ -588,12 +588,16 @@ static int acpi_tad_remove(struct platform_device *pdev)
+ static int acpi_tad_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+-	acpi_handle handle = ACPI_HANDLE(dev);
+ 	struct acpi_tad_driver_data *dd;
++	acpi_handle handle;
+ 	acpi_status status;
+ 	unsigned long long caps;
+ 	int ret;
+ 
++	handle = ACPI_HANDLE(dev);
++	if (!handle)
++		return -ENODEV;
++
+ 	ret = acpi_install_cmos_rtc_space_handler(handle);
+ 	if (ret < 0) {
+ 		dev_info(dev, "Unable to install space handler\n");
+diff --git a/drivers/acpi/pfr_telemetry.c b/drivers/acpi/pfr_telemetry.c
+index 843f678ade0c22..d423c6608f7d3a 100644
+--- a/drivers/acpi/pfr_telemetry.c
++++ b/drivers/acpi/pfr_telemetry.c
+@@ -365,10 +365,14 @@ static void pfrt_log_put_idx(void *data)
+ 
+ static int acpi_pfrt_log_probe(struct platform_device *pdev)
+ {
+-	acpi_handle handle = ACPI_HANDLE(&pdev->dev);
+ 	struct pfrt_log_device *pfrt_log_dev;
++	acpi_handle handle;
+ 	int ret;
+ 
++	handle = ACPI_HANDLE(&pdev->dev);
++	if (!handle)
++		return -ENODEV;
++
+ 	if (!acpi_has_method(handle, "_DSM")) {
+ 		dev_dbg(&pdev->dev, "Missing _DSM\n");
+ 		return -ENODEV;
+diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
+index aedf7e40145e06..fb93d5401d89d6 100644
+--- a/drivers/acpi/pfr_update.c
++++ b/drivers/acpi/pfr_update.c
+@@ -507,10 +507,14 @@ static void pfru_put_idx(void *data)
+ 
+ static int acpi_pfru_probe(struct platform_device *pdev)
+ {
+-	acpi_handle handle = ACPI_HANDLE(&pdev->dev);
+ 	struct pfru_device *pfru_dev;
++	acpi_handle handle;
+ 	int ret;
+ 
++	handle = ACPI_HANDLE(&pdev->dev);
++	if (!handle)
++		return -ENODEV;
++
+ 	if (!acpi_has_method(handle, "_DSM")) {
+ 		dev_dbg(&pdev->dev, "Missing _DSM\n");
+ 		return -ENODEV;
+diff --git a/drivers/acpi/thermal.c b/drivers/acpi/thermal.c
+index 8263508415a8d0..2c656699a83cc0 100644
+--- a/drivers/acpi/thermal.c
++++ b/drivers/acpi/thermal.c
+@@ -926,7 +926,7 @@ static int acpi_thermal_add(struct acpi_device *device)
+ 	int result;
+ 
+ 	if (!device)
+-		return -EINVAL;
++		return -ENODEV;
+ 
+ 	tz = kzalloc(sizeof(struct acpi_thermal), GFP_KERNEL);
+ 	if (!tz)
 -- 
-Regards/Gruss,
-    Boris.
+2.53.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
