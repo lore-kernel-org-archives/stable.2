@@ -1,137 +1,156 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65AA1405C47
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 11:50:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6919D426EAA;
+	Fri, 10 Jul 2026 11:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783684220; cv=none; b=DCvIVMVmv14XIFjQUeh22m4Lf7AnV7N180OzbJakZ7EVs3Zn6Scj2xc9RyGwEzQOEbtdHc7G0+T/Y7FDn8p1Y2l4vWDIfvdPg+e0ABI9KrwXXNF9psbfgZMT3J8afig3FNfDRD1KTmdI4W1wZ79w+6fyRPfa051exQys4GN521Y=
+	t=1783684656; cv=none; b=Nj/geA4TQPbzToDuMYOAvtKqbh1qJFxpLN+vsGMQN9yfCdWd1BU83ODR/FbFMDHXdbnV3V/JPMdTVbudmXtIpgJ/URuzQR/2NJp1vu9Ebp/FmZj0JTJbM8NSX4LEY2S9/7Ek+Z//gNobA4yMKYEiNtkClUT3QaOX+w4M0pzSi5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783684220; c=relaxed/simple;
-	bh=VTQ5/pM0OAZjucDkuAXhdWo24CpuZaBSbKTGjrZXldo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P6FGeViOOKvSbGfQzneb9OEMMB5BSsr+cMv8LgeFUDLasMDp17aqH+s95c3E/KrFTvgvZB2lIYMuqC2KApFL1PNMLfMfcFNsifaYxwnQ8PiC1aMh1CdVULBHBw/0Dy2kV6IwXKvOh9G4iXYnHKRdx2CPtqABkVFwH5WltWmUmKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=bvWwRRF+; arc=none smtp.client-ip=209.85.222.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1783684656; c=relaxed/simple;
+	bh=gx21zkGMFU8tNTBc3mSAQnclVYeMYuGYggt/VeL9ls8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fDvDg5NSQhMaTe5lWayzG4HdAWY32qTkIwI04HW2LUM1b+O/TCCBhSDxKConosC5tmV30P4ddHCJmyp2VZurPuAr8+M87vnELhQ/xTNMlzPJVwKKobt1pf6Rx8buamnFmZluOCGkNnuMey3JapZqPmH8jvgAQGkn/kJfA/dESgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fUW7DbAD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="bvWwRRF+"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-92ea24a2dbfso61029985a.0
-        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 04:50:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1783684211; x=1784289011; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O1cv839pt6gMzmGWDQWXXSzIxfFZGm2rebUfeK7nSPU=;
-        b=bvWwRRF+PuNpa131cg97MZ1Ahv6x6iPA+32rduWdSbj0OTipCKHeLxLLJqoCJ8LDRK
-         UOPBHy0PLdH5e7t8COeSBdvR3N0vOdgmOU/0WOEh/svWjBg3CyPtWVDUCLe54xxxuRJz
-         1wm/AG0sxCH5KY1lxBOZSyn+mvaBfGzFaU49/PBRO6Ptx3UfTfAFD6L19nNL05AscDjk
-         B67rS2m9dRVmpxEq5WAKd5Ln0yGST96lMUHEpztocGGSAeusYlnHtyAnt8cBYzSqYOkL
-         h6QZ2WKt/Sr4CQkjtnIyxuBCidLxKsGkFcMUOhKYaqP24eYSu9gzpFymewX0/SY+j/kx
-         lCZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783684211; x=1784289011;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O1cv839pt6gMzmGWDQWXXSzIxfFZGm2rebUfeK7nSPU=;
-        b=oJdaLHZdG7b//i3dubvRaVo7Aqtqi9aZw772BsEMCGiIH/m6zmqldNN4S4wSwABIjv
-         cX+hXLC4rwRNFFfhPNrtzsQcJR3GrQyf3y41w/jZIXoc0+g4Ij2bqBU1c9M2+Y0O+B41
-         zmRzzn3wnFXoxHw8No95x5DCYAznNKbp7xjsF4NNRm+HJrwk0IAFgmgIT7kQgAVssEpT
-         0Gpp2hb4lktvvMv6YG0bDaNufY9w0urgO9jtNXv/3jfUtIxaLQpd8k+Jx9poRulSp5Op
-         FbEc9Za5OY0MXEnyFRfauuJ8u64Ds0EWg/YgH5Rvch6Nany1LNzW41WcYmx6Q2p9ROVh
-         VPSw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0XOhxKOpchzATzeTmdykO3lEbu2MbDfnTPdsEPsMfU6iYV7X70cDph6AwVTJftWxBVkgOhdQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2gRgQNYNwJtulsBuGk21P68rPaY6HKYRHfXlMKsx5JcnGT/z1
-	VISJjnjw39MRzeZvBeszSBs2qtvfav2D5Tlf/fr7rSkJd/kRAVzjJzL5dASbipjMqD4=
-X-Gm-Gg: AfdE7cltDQlXmtg9i3rj222z6e3Do7hN+4/Okkwxnqfrq09u52HSIVJRIhDfsXVIRt0
-	2oqruGvy84wc2OPAqezM4MVcShQ204o9MR3GsONLNnlStmb83dniuzX7sfPzZiLKMYHUY2hdmdy
-	TxDU3UcFIIU/WxEirqLcQWr8EIeNYh18yE2gZ7eOIJV3Z1fZ4tQnek3FidpaDF4E++Vd14i9yMp
-	LG6aidyppQsecjgS9xUJPAQ2SWQXZ3Vgax2ChI21FdkGmkHu92lxpTUyPWdXuC5XD5m/aUF6cOU
-	AaM8WUSPJlEe/ol5X81aonTzAhiJdH3o5TOhq+StwTJdSjwQXMpBZQ8ADNRJrR7yjkKnpIj9icC
-	G1afyEgwyAIS/48UDz7J6FOXEzrpjmn/caC1ZKqIHPQu429kvRyR+gSVJePC4FCvpSqMRKelfMV
-	dpYtq+tiC8FTU=
-X-Received: by 2002:a05:620a:8082:b0:92e:c117:9eaa with SMTP id af79cd13be357-92ecf908aadmr1243149185a.88.1783684211285;
-        Fri, 10 Jul 2026 04:50:11 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5b4a0cbsm176929585a.5.2026.07.10.04.50.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 04:50:10 -0700 (PDT)
-Date: Fri, 10 Jul 2026 07:50:09 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Qi Zheng <qi.zheng@linux.dev>
-Cc: Harry Yoo <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>,
-	akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com,
-	shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
-	yuanchu@google.com, weixugc@google.com, muchun.song@linux.dev,
-	peiyang_he@smail.nju.edu.cn, mhocko@kernel.org,
-	roman.gushchin@linux.dev, ljs@kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4] mm: mglru: fix stale batch updates after memcg
- reparenting
-Message-ID: <alDccVjPeCi_PN-9@cmpxchg.org>
-References: <20260701145736.3785016-1-usama.arif@linux.dev>
- <2fb5ce53-666b-4b0a-a4ad-2b3a28c54768@kernel.org>
- <akU5VdOBkLGInh_t@cmpxchg.org>
- <cbba6349-55a1-416d-a686-d03ff72cc211@linux.dev>
- <alBQBRWDrVoh9P-a@cmpxchg.org>
- <843f6d0d-e893-43ef-9cb3-1df21fb64b8d@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fUW7DbAD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7C941F000E9;
+	Fri, 10 Jul 2026 11:57:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783684644;
+	bh=dieG9UC8DK2iL6zyM2fmkYyIvNrYkz6CFno/58d7W3A=;
+	h=From:Date:Subject:To:Cc;
+	b=fUW7DbAD/dY8hB9yFnkwjt6yegf5eXnziSTbsCo38yx3/RGgx1ak9f53gyoCTBGvR
+	 Y2wxHx17jBby3rdzhh6EKjQ7RscPtUoOlVijTZox7msbOvRRw8EUlB5wOfOID7L+gh
+	 NKM4TAbfk0J69ZsxdT0fNBg5+nOOZGUnTPTen4FMeCgT+i4CEPWDu9LxbSj23jQs8D
+	 1op0Cltv1ZGANowhSOVcXV6i63vZUVgTt/ITmJ3R3vTW6bgv+h+jVlUOJuO0R+aKlW
+	 EFcjW7QxIr/ac/1ZVS71VpsRdUy+ldc66MwWG3bfXJHfO6gf5aYbukAnVaEDOwBrhb
+	 djsvRIt4EJUnQ==
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Fri, 10 Jul 2026 12:56:40 +0100
+Subject: [PATCH] x86/mm/pat: acquire mmap lock on page table free to avoid
+ ptdump UAF
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <843f6d0d-e893-43ef-9cb3-1df21fb64b8d@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260710-fix-cpa-ptdump-race-v1-1-d898699a7417@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAPfdUGoC/yXM3QpAQBCG4VvRHJta5Ce3IgdjdzAK2y5Scu8Wh
+ 09933uBZyfsoY4ucHyIl3UJSOII9EjLwCgmGFKVFqpMFPZyoraEdjP7bNGRZlREWVfkpiorA+F
+ pHYfZV23a337vJtbbm4L7fgC3dRCWdwAAAA==
+X-Change-ID: 20260710-fix-cpa-ptdump-race-0aa3b65d878d
+To: Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, 
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+ Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Carlier <devnexen@gmail.com>, Vlastimil Babka <vbabka@kernel.org>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, ljs@kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3019; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=gx21zkGMFU8tNTBc3mSAQnclVYeMYuGYggt/VeL9ls8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIC7omVvl7usurgiVWfZc1kfKO31EoF39WPyOiY7r/np
+ MdlbtM7HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIoxzDX8G8nrkMc3UN4+t4
+ Ksyso1Q4+8U1Auf/XLiR3Tbo09wrLxgZJpfp3T2z7OV1XzbV/k93mD3mZWw6kOOnrH0iqkZCsaq
+ KFQA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Fri, Jul 10, 2026 at 02:19:15PM +0800, Qi Zheng wrote:
-> On 7/10/26 9:51 AM, Johannes Weiner wrote:
-> > On Thu, Jul 02, 2026 at 09:38:41AM +0800, Qi Zheng wrote:
-> >> On 7/1/26 11:59 PM, Johannes Weiner wrote:
-> >>> lruvec_live_lock_irq()?
-> >>
-> >> But lruvec_lock_irq() grabs the rcu lock too. :(
-> > 
-> > Yes, but it's self-explanatory if you put it with those definitions:
-> > 
-> > static inline void lruvec_lock_irq(struct lruvec *lruvec)
-> > {
-> >          rcu_read_lock();
-> >          spin_lock_irq(&lruvec->lru_lock);
-> > }
-> > 
-> > static struct lruvec *lruvec_live_lock_irq(struct lruvec *lruvec)
-> > {
-> > 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-> > 
-> > 	rcu_read_lock();
-> > 	while (unlikely(memcg && css_is_dying(&memcg->css))) {
-> > 		memcg = parent_mem_cgroup(memcg);
-> > 		lruvec = mem_cgroup_lruvec(memcg, lruvec_pgdat(lruvec));
-> > 	}
-> > 	spin_lock_irq(&lruvec->lru_lock);
-> > }
-> 
-> All right, should the implementation for !CONFIG_MEMCG be placed here
-> too?
+x86 implements page attribute modification using its Change Page
+Attributes (CPA) mechanism.
 
-Yes. You can just #ifdef, #else the function body itself.
+This tracks properties of ranges such as cache mode through x86 page
+attributes, and as part of that logic manipulates kernel page tables.
 
-static struct lruvec *lruvec_live_lock_irq()
-{
-#ifdef CONFIG_MEMCG
-	...
-#else
-	lruvec_lock_irq(lruvec);
-	return lruvec;
-#endif
-}
+Since commit 41d88484c71c ("x86/mm/pat: restore large ROX pages after
+fragmentation") ranges of kernel page table entries can be collapsed into
+huge page table entries as part of this logic.
 
-> Will send the v5.
+As part of this collapse, it frees the page tables which the collapsed
+entries previously pointed to, and it does so without any relevant locks
+being held to preclude concurrent kernel page table walkers.
 
-Thanks.
+The only way this code can be reached is if CPA_COLLAPSE is specified, and
+this is only set in set_memory_rox() via:
+
+set_memory_rox()
+-> change_page_attr_set_clr()
+-> cpa_flush()
+-> cpa_collapse_large_pages()
+
+Notable users of this are execmem and bpf when manipulating executable
+mappings.
+
+However, this is problematic for ptdump, as it walks ranges it does not own
+and thus runs the risk of a use-after-free on page tables freed underneath
+it.
+
+This patch resolves the issue by acquiring the mmap read lock on init_mm to
+provide mutual exclusion against ptdump, which acquires the init_mm write
+lock.
+
+It is safe to acquire a sleeping lock as all the callers invoke
+set_memory_rox() from process context and in any case,
+change_page_attr_set_clr() calls vm_unmap_alias() which ultimately takes a
+mutex, disallowing atomic context here.
+
+We also include cleanup.h in order to use a scoped_guard() to implement
+this cleanly.
+
+Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+---
+ arch/x86/mm/pat/set_memory.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index d023a40a1e03..4c4b8244502f 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -22,6 +22,7 @@
+ #include <linux/cc_platform.h>
+ #include <linux/set_memory.h>
+ #include <linux/memregion.h>
++#include <linux/cleanup.h>
+ 
+ #include <asm/e820/api.h>
+ #include <asm/processor.h>
+@@ -436,9 +437,16 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
+ 
+ 	flush_tlb_all();
+ 
+-	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+-		list_del(&ptdesc->pt_list);
+-		pagetable_free(ptdesc);
++	/*
++	 * ptdump might read these page tables, so avoid a use-after-free by
++	 * acquiring the mmap read lock on init_mm (ptdump acquires the mmap
++	 * write lock).
++	 */
++	scoped_guard(mmap_read_lock, &init_mm) {
++		list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
++			list_del(&ptdesc->pt_list);
++			pagetable_free(ptdesc);
++		}
+ 	}
+ }
+ 
+
+---
+base-commit: a635d6748234582ea287c5ffeae28b9b23f91c7e
+change-id: 20260710-fix-cpa-ptdump-race-0aa3b65d878d
+
+Cheers,
+-- 
+Lorenzo Stoakes <ljs@kernel.org>
+
