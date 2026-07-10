@@ -1,62 +1,57 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D02218DB1F;
-	Fri, 10 Jul 2026 02:16:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66ED21B191
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 02:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783649793; cv=none; b=p1pcXvIEBIWMADHyOYdt8pMsG3EEKpQXgW65ZqfYCGsHjiBpkYcwKkb46XUWj+6ACdyrcJ97BgDRmebO/yXjZ1V7tDDU6718Ik3zyG2xVG9R8qf7QWiBv/5ym5MC8JyCVbmjSuSH7lmdbm77E1fjHypKXmgxP6CE9pcVRcqvhOo=
+	t=1783649837; cv=none; b=ZZklk1Lzutb5eaNji/5esFoDjZBFUeD33HKJkayfD/tdqiRiAunRG3N+62NWqk1uS+FZNkU+5OWs8jVWw+JPqs9qZvGFVvL975gvb4FgO7MznI1H6Ub2CIEkYsGYLSeb7PDtRKCScsn4O+nOfDIWUyWvbEkN8+J3Gep9wIM8SCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783649793; c=relaxed/simple;
-	bh=KldnIJzxwL5T5pYMNoSQZM+2y8T4U6TiFm6hAdsZCi8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mhat5HcRb0dyg3fvgod5vweyUykrZpbybeVMZ/dCMfONZ8qy8r2mKMD6RNnkZG+j5r9+BcSmCEJ9qoaE4E652HTk4xvWlKT5p6qERZtKjao9CwM0DjXZMHVovO+SltkX5XsgmgmyKRUd4OxdH8pNwB5kX5qnj5Ry72VeKe/o+HM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 5864fae27c0511f1aa26b74ffac11d73-20260710
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_EXISTED
-	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD
-	CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
-	ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:25006c85-7c24-48a6-9d7e-4c3a866fb2bd,IP:10,
-	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-15
-X-CID-INFO: VERSION:1.3.12,REQID:25006c85-7c24-48a6-9d7e-4c3a866fb2bd,IP:10,UR
-	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-15
-X-CID-META: VersionHash:e7bac3a,CLOUDID:2429cd1f8d4a075bfa61a2a91ef3cb40,BulkI
-	D:260710101625J7Z3KJ6P,BulkQuantity:0,Recheck:0,SF:10|38|66|78|102|127|865
-	|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS
-	:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,A
-	RC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5864fae27c0511f1aa26b74ffac11d73-20260710
-X-User: tanze@kylinos.cn
-Received: from desktop-od00ebi.localdomain [(116.128.244.169)] by mailgw.kylinos.cn
-	(envelope-from <tanze@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 984822242; Fri, 10 Jul 2026 10:16:22 +0800
-From: tanze <tanze@kylinos.cn>
-To: ericvh@kernel.org,
-	lucho@ionkov.net,
-	asmadeus@codewreck.org
-Cc: v9fs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Ze Tan <tanze@kylinos.cn>,
+	s=arc-20240116; t=1783649837; c=relaxed/simple;
+	bh=uv8d1TMBC+ZVQf88DxS2mqMPDYx3jXWrpDqSm/tuHcE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZGNT0wCNJ1hOyvX9M6qIpvJstsvhTvBRejv7Ziwo/bPWFBd/GSOccO2WW6zNBc8BFIBQeWMooRlJLq0CugIFMaO5qkR4cHXuYhZQkDnN/0RAja+WZPxd3bufdXsu26YWiSh3qCjLG3cPtd9kMfLt9/P8JTGkGccr6dmFw11OPls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UcMitfl3; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UcMitfl3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783649835; x=1815185835;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=uv8d1TMBC+ZVQf88DxS2mqMPDYx3jXWrpDqSm/tuHcE=;
+  b=UcMitfl3rUw4SczCz2euaifheGfkfomwBB1SwcH+6eKAyQBleUb/h/7/
+   eKuhrzvpryj6pkyOIALA0LVpyokwF4mXxueTlFjPF7vGF1K7ml6i6q8Xx
+   UEfXjH3uLZYHtlWoP+oF3joPRzEHfkLjAhDj8XhoN4hO6gYzJjxYMalJl
+   XHfUGfl9SUKYTfhkDGz0M5l0SqVRHUWIfTGgeC3mM0FEwV6pSAAywvnEb
+   vkWuSmq8SbDX8Pvnf9pmku35ODMRh03fS4ycqfUng5QxcfXLs/uKa4CN1
+   +4mX0a4slRJUdbsCKX1G4twl1KFTikVB/XfRPd8r0YaN2JMF/CPgyndDp
+   Q==;
+X-CSE-ConnectionGUID: AMnBmtDCTbm9ujqnx/Y9Iw==
+X-CSE-MsgGUID: EyBeN6Y+StyVoIc+gZqIgQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="107146194"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="107146194"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 19:17:14 -0700
+X-CSE-ConnectionGUID: qoBkzzXgRTu9Fg1VF3lQ6g==
+X-CSE-MsgGUID: 6oIJe+y3SRKFCqop2Rjhpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="253647476"
+Received: from osgcshtiger.sh.intel.com ([10.239.81.49])
+  by orviesa010.jf.intel.com with ESMTP; 09 Jul 2026 19:17:13 -0700
+From: Shuicheng Lin <shuicheng.lin@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Shuicheng Lin <shuicheng.lin@intel.com>,
+	Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v1] net/9p: abort interrupted RPCs on fatal signals
-Date: Fri, 10 Jul 2026 10:15:51 +0800
-Message-ID: <20260710021602.15241-1-tanze@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] drm/xe/vm: Reject invalid prefetch region for non-SVM VMA
+Date: Fri, 10 Jul 2026 02:17:00 +0000
+Message-Id: <20260710021700.3611909-1-shuicheng.lin@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,226 +60,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ze Tan <tanze@kylinos.cn>
+DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC (-1) is only valid on a
+CPU-address-mirror (SVM) VMA. On a regular VMA the value is used as
+an index into region_to_mem_type[], causing an out-of-bounds access:
 
-Syzkaller reported a hung task while a thread group was dumping core:
+  UBSAN: array-index-out-of-bounds in drivers/gpu/drm/xe/xe_vm.c:3260:28
+  index 4294967295 is out of range for type 'u32 [3]'
+  Call Trace:
+   __ubsan_handle_out_of_bounds+0xa7/0xf0
+   vm_bind_ioctl_ops_execute+0x9b0/0x9d0 [xe]
+   xe_vm_bind_ioctl+0x19f1/0x1b10 [xe]
 
-  INFO: task syz.1.4497:22259 blocked for more than 143 seconds.
-  Call trace:
-   __switch_to
-   __schedule
-   schedule
-   schedule_timeout
-   __wait_for_common
-   wait_for_completion_state
-   vfs_coredump
-   get_signal
-   do_notify_resume
+Three related changes:
 
-In current mainline this is get_signal() -> vfs_coredump() ->
-coredump_wait(), where coredump_wait() waits for the other threads in the
-thread group to enter the core-dump rendezvous.
+- vm_bind_ioctl_ops_create(): For a non-CPU-address-mirror VMA, reject
+  both DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC and out-of-range prefetch
+  regions with -EINVAL. This is the primary fix for the OOB.
 
-The workload also creates 9p fd mounts backed by pipes. One thread may be
-blocked in p9_client_rpc() waiting for a reply from the 9p server, while
-another thread in the same thread group enters the coredump path. The
-coredump code sends a fatal signal to the blocked thread and waits for it
-to exit, but the 9p client handles the interruption like a normal signal:
-it sends TFLUSH and waits for the flush reply. If the 9p server is not
-replying, the blocked thread cannot exit and vfs_coredump() remains stuck
-in coredump_wait().
+- op_lock_and_prep(): Tighten the xe_assert() to
+  'region < ARRAY_SIZE(region_to_mem_type)'. The
+  DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC exemption is no longer needed
+  since the value is rejected earlier, and '<=' was an off-by-one
+  bound (valid indices are 0..ARRAY_SIZE-1).
 
-Commit 6b4f48728faa ("net/9p: fix infinite loop in p9_client_rpc on fatal
-signal") made the P9_TFLUSH wait itself stop retrying on a fatal signal.
-That still leaves the caller's original non-flush RPC entering the flush
-path after a fatal signal. A fatal signal is not a recoverable
-interruption; the task needs to return to signal handling rather than
-trying to synchronously cancel the 9p request.
+- xe_drm.h: Document the CPU-address-mirror constraint on the
+  DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC UAPI value.
 
-Skip the TFLUSH path on fatal signals. Let the transport cancel unsent
-requests as before. If the request has already been sent, mark it
-REQ_STATUS_ABORTED and return to the caller while keeping the tag and
-request object alive until a late reply arrives or the transport is torn
-down. Teach reply paths that match requests by status to accept aborted
-requests and consume their replies without waking a waiter.
-
-This lets the fatal-signal path reach thread exit/coredump completion
-while still preventing tag reuse and late-reply misdelivery.
-
-Fixes: 91b8534fa8f5 ("9p: make rpc code common and rework flush code")
+Fixes: c1bb69a2e8e2 ("drm/xe/svm: Consult madvise preferred location in prefetch")
+Assisted-by: Claude:claude-opus-4.7
+Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Ze Tan <tanze@kylinos.cn>
+Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
 ---
- include/net/9p/client.h |  3 +++
- net/9p/client.c         | 37 +++++++++++++++++++++++++++++++++++++
- net/9p/trans_fd.c       |  7 ++++++-
- net/9p/trans_usbg.c     |  7 ++++++-
- net/9p/trans_xen.c      | 12 +++++++++---
- 5 files changed, 61 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/xe/xe_vm.c | 12 ++++++++++--
+ include/uapi/drm/xe_drm.h  |  4 +++-
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/include/net/9p/client.h b/include/net/9p/client.h
-index 55c6cb54bd25..700dcb37c1dc 100644
---- a/include/net/9p/client.h
-+++ b/include/net/9p/client.h
-@@ -58,6 +58,8 @@ enum p9_trans_status {
-  * @REQ_STATUS_UNSENT: request waiting to be sent
-  * @REQ_STATUS_SENT: request sent to server
-  * @REQ_STATUS_RCVD: response received from server
-+ * @REQ_STATUS_ABORTED: caller stopped waiting, but the request keeps its tag
-+ *                      reserved until a reply arrives or the transport closes
-  * @REQ_STATUS_FLSHD: request has been flushed
-  * @REQ_STATUS_ERROR: request encountered an error on the client side
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 080c2fff0e95..9430b2be18e4 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -2495,6 +2495,15 @@ vm_bind_ioctl_ops_create(struct xe_vm *vm, struct xe_vma_ops *vops,
+ 			u32 i;
+ 
+ 			if (!xe_vma_is_cpu_addr_mirror(vma)) {
++				if (XE_IOCTL_DBG(vm->xe,
++						 prefetch_region ==
++						 DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC) ||
++				    XE_IOCTL_DBG(vm->xe,
++						 prefetch_region >=
++						 ARRAY_SIZE(region_to_mem_type))) {
++					err = -EINVAL;
++					goto unwind_prefetch_ops;
++				}
+ 				op->prefetch.region = prefetch_region;
+ 				break;
+ 			}
+@@ -3236,8 +3245,7 @@ static int op_lock_and_prep(struct drm_exec *exec, struct xe_vm *vm,
+ 
+ 		if (!xe_vma_is_cpu_addr_mirror(vma)) {
+ 			region = op->prefetch.region;
+-			xe_assert(vm->xe, region == DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC ||
+-				  region <= ARRAY_SIZE(region_to_mem_type));
++			xe_assert(vm->xe, region < ARRAY_SIZE(region_to_mem_type));
+ 		}
+ 
+ 		/*
+diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
+index 509202a7b13e..e159c44e380a 100644
+--- a/include/uapi/drm/xe_drm.h
++++ b/include/uapi/drm/xe_drm.h
+@@ -1075,7 +1075,9 @@ struct drm_xe_vm_destroy {
+  *
+  * The @prefetch_mem_region_instance for %DRM_XE_VM_BIND_OP_PREFETCH can also be:
+  *  - %DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC, which ensures prefetching occurs in
+- *    the memory region advised by madvise.
++ *    the memory region advised by madvise. Only valid when the target VMA
++ *    was created with %DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR; rejected with
++ *    -EINVAL otherwise.
   */
-@@ -67,6 +69,7 @@ enum p9_req_status_t {
- 	REQ_STATUS_UNSENT,
- 	REQ_STATUS_SENT,
- 	REQ_STATUS_RCVD,
-+	REQ_STATUS_ABORTED,
- 	REQ_STATUS_FLSHD,
- 	REQ_STATUS_ERROR,
- };
-diff --git a/net/9p/client.c b/net/9p/client.c
-index ef64546c6d52..3ad2fc0f415a 100644
---- a/net/9p/client.c
-+++ b/net/9p/client.c
-@@ -538,6 +538,21 @@ static struct p9_req_t *p9_client_prepare_req(struct p9_client *c,
- 	return ERR_PTR(err);
- }
- 
-+static void p9_client_abort(struct p9_client *c, struct p9_req_t *req)
-+{
-+	/*
-+	 * A fatal signal cannot wait for TFLUSH, but a sent request must keep
-+	 * its tag until a late reply arrives or the transport is torn down.
-+	 */
-+	if (READ_ONCE(req->status) >= REQ_STATUS_RCVD)
-+		return;
-+
-+	if (!c->trans_mod->cancel(c, req))
-+		return;
-+
-+	cmpxchg(&req->status, REQ_STATUS_SENT, REQ_STATUS_ABORTED);
-+}
-+
- /**
-  * p9_client_rpc - issue a request and wait for a response
-  * @c: client session
-@@ -612,6 +627,17 @@ p9_client_rpc(struct p9_client *c, int8_t type, const char *fmt, ...)
- 		err = req->t_err;
- 	}
- 	if (err == -ERESTARTSYS && c->status == Connected) {
-+		if (READ_ONCE(req->status) == REQ_STATUS_RCVD) {
-+			err = 0;
-+			goto recalc_sigpending;
-+		}
-+
-+		if (fatal_signal_pending(current)) {
-+			p9_debug(P9_DEBUG_MUX, "fatal signal: skip flush\n");
-+			p9_client_abort(c, req);
-+			goto recalc_sigpending;
-+		}
-+
- 		p9_debug(P9_DEBUG_MUX, "flushing\n");
- 		sigpending = 1;
- 		clear_thread_flag(TIF_SIGPENDING);
-@@ -697,6 +723,17 @@ static struct p9_req_t *p9_client_zc_rpc(struct p9_client *c, int8_t type,
- 		err = req->t_err;
- 	}
- 	if (err == -ERESTARTSYS && c->status == Connected) {
-+		if (READ_ONCE(req->status) == REQ_STATUS_RCVD) {
-+			err = 0;
-+			goto recalc_sigpending;
-+		}
-+
-+		if (fatal_signal_pending(current)) {
-+			p9_debug(P9_DEBUG_MUX, "fatal signal: skip flush\n");
-+			p9_client_abort(c, req);
-+			goto recalc_sigpending;
-+		}
-+
- 		p9_debug(P9_DEBUG_MUX, "flushing\n");
- 		sigpending = 1;
- 		clear_thread_flag(TIF_SIGPENDING);
-diff --git a/net/9p/trans_fd.c b/net/9p/trans_fd.c
-index eb685b52aeb2..1ceb6192ece6 100644
---- a/net/9p/trans_fd.c
-+++ b/net/9p/trans_fd.c
-@@ -293,7 +293,9 @@ static void p9_read_work(struct work_struct *work)
- 			 m, m->rc.size, m->rc.tag);
- 
- 		m->rreq = p9_tag_lookup(m->client, m->rc.tag);
--		if (!m->rreq || (m->rreq->status != REQ_STATUS_SENT)) {
-+		if (!m->rreq ||
-+		    (m->rreq->status != REQ_STATUS_SENT &&
-+		     m->rreq->status != REQ_STATUS_ABORTED)) {
- 			p9_debug(P9_DEBUG_ERROR, "Unexpected packet tag %d\n",
- 				 m->rc.tag);
- 			err = -EIO;
-@@ -332,6 +334,9 @@ static void p9_read_work(struct work_struct *work)
- 		if (m->rreq->status == REQ_STATUS_SENT) {
- 			list_del(&m->rreq->req_list);
- 			p9_client_cb(m->client, m->rreq, REQ_STATUS_RCVD);
-+		} else if (m->rreq->status == REQ_STATUS_ABORTED) {
-+			list_del(&m->rreq->req_list);
-+			p9_client_cb(m->client, m->rreq, REQ_STATUS_ABORTED);
- 		} else if (m->rreq->status == REQ_STATUS_FLSHD) {
- 			/* Ignore replies associated with a cancelled request. */
- 			p9_debug(P9_DEBUG_TRANS,
-diff --git a/net/9p/trans_usbg.c b/net/9p/trans_usbg.c
-index 419cda13a7b5..c2b4cf839829 100644
---- a/net/9p/trans_usbg.c
-+++ b/net/9p/trans_usbg.c
-@@ -203,7 +203,9 @@ static struct p9_req_t *usb9pfs_rx_header(struct f_usb9pfs *usb9pfs, void *buf)
- 		 usb9pfs, rc.size, rc.tag);
- 
- 	p9_rx_req = p9_tag_lookup(usb9pfs->client, rc.tag);
--	if (!p9_rx_req || p9_rx_req->status != REQ_STATUS_SENT) {
-+	if (!p9_rx_req ||
-+	    (p9_rx_req->status != REQ_STATUS_SENT &&
-+	     p9_rx_req->status != REQ_STATUS_ABORTED)) {
- 		p9_debug(P9_DEBUG_ERROR, "Unexpected packet tag %d\n", rc.tag);
- 		return NULL;
- 	}
-@@ -245,6 +247,9 @@ static void usb9pfs_rx_complete(struct usb_ep *ep, struct usb_request *req)
- 	if (!p9_rx_req)
- 		return;
- 
-+	if (p9_rx_req->status == REQ_STATUS_ABORTED)
-+		status = REQ_STATUS_ABORTED;
-+
- 	if (req_size > p9_rx_req->rc.capacity) {
- 		dev_err(&cdev->gadget->dev,
- 			"%s received data size %u exceeds buffer capacity %zu\n",
-diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-index f9fb2db7a066..e15d56f8add3 100644
---- a/net/9p/trans_xen.c
-+++ b/net/9p/trans_xen.c
-@@ -201,7 +201,9 @@ static void p9_xen_response(struct work_struct *work)
- 				     XEN_9PFS_RING_SIZE(ring));
- 
- 		req = p9_tag_lookup(priv->client, h.tag);
--		if (!req || req->status != REQ_STATUS_SENT) {
-+		if (!req ||
-+		    (req->status != REQ_STATUS_SENT &&
-+		     req->status != REQ_STATUS_ABORTED)) {
- 			dev_warn(&priv->dev->dev, "Wrong req tag=%x\n", h.tag);
- 			cons += h.size;
- 			virt_mb();
-@@ -233,8 +235,12 @@ static void p9_xen_response(struct work_struct *work)
- 		cons += h.size;
- 		ring->intf->in_cons = cons;
- 
--		status = (req->status != REQ_STATUS_ERROR) ?
--			REQ_STATUS_RCVD : REQ_STATUS_ERROR;
-+		if (req->status == REQ_STATUS_ERROR)
-+			status = REQ_STATUS_ERROR;
-+		else if (req->status == REQ_STATUS_ABORTED)
-+			status = REQ_STATUS_ABORTED;
-+		else
-+			status = REQ_STATUS_RCVD;
- 
- 		p9_client_cb(priv->client, req, status);
- 	}
+ struct drm_xe_vm_bind_op {
+ 	/** @extensions: Pointer to the first extension struct, if any */
 -- 
 2.43.0
 
