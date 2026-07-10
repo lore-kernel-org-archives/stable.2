@@ -1,185 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f225.google.com (mail-qt1-f225.google.com [209.85.160.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0050380FD9;
-	Fri, 10 Jul 2026 18:53:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F678379C36
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 19:18:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783709612; cv=none; b=YPf0tXNl9Cwn8/r9L/1StKSgOWYtqESQuOp7x/S72mjogEZsY4F32Gy7BhXv3vINWjgRnIOms6BrPDy1BBB7iXjxwi8I6miKdYSTQrlCcXf6UYtD3Xw31Qnua3RK1Aqvc0gUzUBpQivFsJx5AncAOh7qOvicHuNnB/YuDfX2lJc=
+	t=1783711114; cv=none; b=IZ2+VC03HZs0A3x843VB+Q7MXKjdeRteEYpXz9Gp2oxlR6Q8nW2TjDzRIyvE/xTcy+tbU71znvFb7a/WS9PAh/5+iwVBesRC6woevgQ0n0WbmwfQbgf+ILrBr0ubHFnMo+sOQ9theUGjrR32Zjfn41ckpVWF8CbOMrwDvrQwX+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783709612; c=relaxed/simple;
-	bh=QxUh8qX+2oRHGwcCLulJdwboWU2o16Zfn7rqZOdpTXM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iTj1QQGeR8Nbao6v8UbRE7meygSHD7egJ3wZJ+TluJD3rqYulDeXonfKFH5ciJvHz4+5UeEGSpYBWz/kLjAhXQDcQV5B16s/6vysurjFLyxPYyOhNSmISQXe2kXJxYYH1lBIHifcHb3AzshvJGuPDMwpliocxgXKZ4lGHBI8row=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nDhZgh/3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783711114; c=relaxed/simple;
+	bh=Pkzq93VysouvMV4sOok85BWiz22/o2bRhcPNPa9P+iM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=keNl9NmF3nisDIU4e/FTSbpHmZ5TjttZKEZlMe2bBhe501CKAwJ7tAqzq+02zUz90HXepcO7NgqUlWyiNINBaIDTWy4I4EflDVaGA2wi4OkVT9yYOcftDZ4xS0TGJi6xWk4o4t4/AO4xLw/GjRTqbRuDkksQ7dNaLzwkVfvI1gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=e8qdxb7d; arc=none smtp.client-ip=209.85.160.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nDhZgh/3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F03D1F000E9;
-	Fri, 10 Jul 2026 18:53:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783709611;
-	bh=FWuowyvRtMvxp1pzf+XL1dPHmwjcwsc8o84lhpxUjy8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nDhZgh/30Is3FEvL9cBN4+RE07BsiX5vquCpx0YGR4R77YJwGw3V6vuu+e3KDwjkY
-	 xE1KdGXHs8//VoP4+HeSYghjkWrTfj3sAIm9JCtQgyDY3teYqnzpEyIJNHaSF0oIap
-	 wvN5ncJ+wLhH9wkOKDRjcxv7PYE2iB5UFe8d50zc6h7h1nKgGMIQ+7+fcdsx4R97uc
-	 NqFcnFGQ75mp7gAitC3ITJDH/vBS/4Cwt8nq2HWkSUqk+7xDybMaCPv7LxzG+Almxt
-	 Yg7Ld21F69mTc3CmDydEZ3eyW6TKnoAtL7DRpmU7B85oPUytWzAruhS3LDhFge+1Pk
-	 YnLMjKx8pf/0w==
-Date: Fri, 10 Jul 2026 19:53:17 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
-	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Carlier <devnexen@gmail.com>, 
-	Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/mm/pat: acquire mmap lock on page table free to
- avoid ptdump UAF
-Message-ID: <alE6fUJZzELlUfxP@lucifer>
-References: <20260710-fix-cpa-ptdump-race-v1-1-d898699a7417@kernel.org>
- <529e37eb-ad4c-4b0f-8ba3-c5608aa7a893@intel.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="e8qdxb7d"
+Received: by mail-qt1-f225.google.com with SMTP id d75a77b69052e-51bfbe05683so7687721cf.2
+        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 12:18:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783711110; x=1784315910;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ivQlEJtZ0zxa8yf3dIj+FATasL8wavCjCs0e2VSoqvc=;
+        b=S1LmmC+DXgxiAoG2i3MPHVRETJJIDrG3BRGbVfMs1xNgPycrtDaUOVUVT9oyvleJqx
+         4q6tC4ddOM2foJLvSAmiZvQ7dhtoa6Dou0FS9HpDjj7bqSpMKdymN+jE1ifiVPdnoue4
+         rE7AwrhQGImr2RiZn+SqF3VsXRWv/o7e3pc960TLQbdU1MAdyGUyfC+YF714P95S+t3n
+         bYiMwuL91Rtgj4Ww2TC3zMNiMGd89mLZIJASWiOVWU+tHPM2JO2HJj+pUJssgcNh6XN4
+         z/nfwfRCV86oy8ijQwQmH0YCukf1kXpM42vJMUov0BZVkCKNaJK8TnArzHjelG/WnoDd
+         fqpA==
+X-Forwarded-Encrypted: i=1; AHgh+RoJaEVWfs7XeNirTDzp9o4lvO6+OUPU5miS+BkTEH5HoHf8Rm7gcj+hiICuAdp2bv1UjUKSxgc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzDnCyBfuGkHVhrwpCQMqpL784FxGKvutOUnEzs05RuVIuKW+U6
+	6hb+wJCHyb7tGiEiO7WuMN3z1yAWBUXRnyN726OD+28p+VHCnFU9tsKg4BoL7KrReMoMzVKB9d6
+	5YKuaLjha08wJy0hEDQBbpn/v91Md0RPzKz50pOTlc+bnVNwN3O4pHI4M7LMDx5g1xYmLQ8Br4F
+	WasKaLNte52xj2LwQNF2kInHkcXEByqLC/FmefUYMeOEeyzVeFULMHHakWK/viwjfSqLI9G0OGn
+	yYGYJP8ErMcZLgdRg==
+X-Gm-Gg: AfdE7cmOFCLwP9XksHthjq6jr/+920o8Iz6F8iBMzdlzp7n8lLiZ/DI8R8JIunyuxIf
+	IDSu+WPQX4c5XERZCwQIOrFT6RzN/QDqvhdAb3SgNkXGPX09x2RnFpao40HR7/2KMr57gY5eNlk
+	/s6dFU+z7y9XLMsTTJbCnCZ8zm9blMUT7nqnx1R+Spl2hHsq7grCTYyP0A3FIdg13aPrv7TRLYN
+	6/Fto/tXlrxnM3PrUz5Ws0BVy6ZSdXUrUAbJQTeGL0AlHP3FMTeNpi/pbw7/I6Fd7J9OZJUagXu
+	o6BqsRVyLTCIT7E4dFiBus7bgP80mffPHwEJMrWbS1bdZ74tZ7i36Q1I7M5SL86fFWmYfeZdvSE
+	OXP6iv0NCySEiR1jDMIYdWDSVa0UBgG0WDhIgC/OJThf9qWm8u5PpdRkr9tIN6kWlekKRQsZVla
+	IYw9jJmS04Nvn9nY4ehHm+omFkzDe3oS28iWBTbYUMV84qrbvOeQ==
+X-Received: by 2002:a05:622a:1b1d:b0:517:6d6c:187f with SMTP id d75a77b69052e-51cbf0df52amr2793211cf.14.1783711110039;
+        Fri, 10 Jul 2026 12:18:30 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-11.dlp.protect.broadcom.com. [144.49.247.11])
+        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-8ffd2c76d91sm3438756d6.0.2026.07.10.12.18.29
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 10 Jul 2026 12:18:30 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38001e788d6so2250572a91.3
+        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 12:18:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1783711109; x=1784315909; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ivQlEJtZ0zxa8yf3dIj+FATasL8wavCjCs0e2VSoqvc=;
+        b=e8qdxb7dumpMHLgGKMHeJYR5u6Ap4uMlT9MNmButbEK7YUz+ompB2Y6ZW43NcqZFdi
+         WIbhKhAO+rjkJk5rrL8OaTqRW0YxOYRTbAPfCKbdWyc2vg1HXX4d9BPUUAGrJmz9uZCK
+         TrIR+xMEInce6m4NkWY/V/43rWnAaabg83Cl4=
+X-Forwarded-Encrypted: i=1; AHgh+RpCFKaAHf+9XWIeIGlSDOURU1f4ztBhTXYnGCk1OEjygwxOgm2A8Wx/snrQqSfGn4drgOzNhbg=@vger.kernel.org
+X-Received: by 2002:a17:90b:3805:b0:380:83fc:4315 with SMTP id 98e67ed59e1d1-38dc77ee67cmr215920a91.21.1783711108640;
+        Fri, 10 Jul 2026 12:18:28 -0700 (PDT)
+X-Received: by 2002:a17:90b:3805:b0:380:83fc:4315 with SMTP id 98e67ed59e1d1-38dc77ee67cmr215891a91.21.1783711108045;
+        Fri, 10 Jul 2026 12:18:28 -0700 (PDT)
+Received: from [192.168.178.26] (f215227.upc-f.chello.nl. [80.56.215.227])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311838c9235sm39074609eec.21.2026.07.10.12.18.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jul 2026 12:18:27 -0700 (PDT)
+Message-ID: <caae46b1-50c6-495d-94fe-c95229d489ce@broadcom.com>
+Date: Fri, 10 Jul 2026 21:18:21 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <529e37eb-ad4c-4b0f-8ba3-c5608aa7a893@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: brcmfmac: drain bus_reset work on device removal
+To: Eddie Phillips <eddiephillips@google.com>, Fan Wu <fanwu01@zju.edu.cn>
+Cc: Arend van Spriel <aspriel@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+ Franky Lin <franky.lin@broadcom.com>,
+ Hante Meuleman <hante.meuleman@broadcom.com>,
+ Chi-Hsien Lin <chi-hsien.lin@infineon.com>,
+ Wright Feng <wright.feng@infineon.com>,
+ Chung-Hsien Hsu <chung-hsien.hsu@infineon.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ linux-wireless@vger.kernel.org, brcm80211-dev-list.pdl@broadcom.com,
+ SHA-cyfmac-dev-list@infineon.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260709101635.103005-1-fanwu01@zju.edu.cn>
+ <20260710002451.500112-1-eddiephillips@google.com>
+Content-Language: en-US
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+In-Reply-To: <20260710002451.500112-1-eddiephillips@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Fri, Jul 10, 2026 at 09:26:48AM -0700, Dave Hansen wrote:
-> On 7/10/26 04:56, Lorenzo Stoakes wrote:
-> > This patch resolves the issue by acquiring the mmap read lock on init_mm to
-> > provide mutual exclusion against ptdump, which acquires the init_mm write
-> > lock.
->
-> Hey Lorenzo,
->
-> Thanks for looking at this!
->
-> This isn't wrong per-se. ptdump does _sometimes_ acquire the init_mm
-> write lock.
->
-> But the fun comes when ptdump_curknl_show() passes current->mm in to the
-> ptdump code. In that case, there's no init_mm locking. I think the
-> 'efi_mm' code has the same issue since it shares some of the kernel page
-> tables.
->
-> Is that your read on it too?
+On 10/07/2026 02:23, Eddie Phillips wrote:
+> On Thu,  9 Jul 2026 10:16:35 +0000 Fan Wu <fanwu01@zju.edu.cn> wrote:
+> 
+>> brcmf_fw_crashed() and the debugfs "reset" entry both schedule
+>> drvr->bus_reset, whose callback recovers drvr through container_of()
+>> and dereferences it.  The teardown paths free drvr (brcmf_free ->
+>> wiphy_free) without draining the work, so a bus_reset callback pending
+>> or running during removal can outlive drvr.
+>>
 
-Yeah sashiko reminded me of this, I had glossed over it :)
+[...]
 
-I already came up with a fix at [0], I think it's fine to just take the init_mm
-lock in this case.
+>>
+>> This issue was found by an in-house static analysis tool.
+>>
+>> Fixes: 4684997d9eea ("brcmfmac: reset PCIe bus on a firmware crash")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+>> Assisted-by: Codex:gpt-5.5
+>> ---
+>>   .../broadcom/brcm80211/brcmfmac/bcmsdh.c      | 13 ++++++++
+>>   .../broadcom/brcm80211/brcmfmac/bus.h         |  6 ++++
+>>   .../broadcom/brcm80211/brcmfmac/core.c        | 33 +++++++++++++++++--
+>>   .../broadcom/brcm80211/brcmfmac/pcie.c        |  6 ++++
+>>   .../broadcom/brcm80211/brcmfmac/sdio.c        |  6 ++++
+>>   .../broadcom/brcm80211/brcmfmac/sdio.h        |  1 +
+>>   .../broadcom/brcm80211/brcmfmac/usb.c         |  3 ++
+>>   7 files changed, 66 insertions(+), 2 deletions(-)
 
-x86 is the only case in which an arbitrary process mm is read (fun!) arm64 does
-the efi_mm thing too.
+[...]
 
->
-> In the end, I think the issue is that there's not even *a* correct mmap
-> lock to take. The userspace half of the address space needs the
-> current->mm mmap lock and the kernel half needs the init_mm mmap lock.
+>> diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+>> index fed9cd5f2..b934feb9b 100644
+>> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+>> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+>> @@ -1164,6 +1164,35 @@ static int brcmf_revinfo_read(struct seq_file *s, void *data)
+>>   	return 0;
+>>   }
+>>   
+>> +/* Serialize bus_reset arming (debugfs reset write, brcmf_fw_crashed) against the
+>> + * teardown drain: the remove path takes bus_reset_lock, sets ->removing and cancels
+>> + * the work under it, so a racing armer either schedules before the cancel (and is
+>> + * drained) or observes ->removing and desists.
+>> + */
+>> +static void brcmf_bus_schedule_reset(struct brcmf_bus *bus_if)
+>> +{
+>> +	mutex_lock(&bus_if->bus_reset_lock);
+>> +	if (bus_if->drvr && bus_if->drvr->bus_reset.func && !bus_if->removing)
+>> +		schedule_work(&bus_if->drvr->bus_reset);
+>> +	mutex_unlock(&bus_if->bus_reset_lock);
+>> +}
+> 
+> Is this safe in a softIRQ context?
+> mutex_lock() sleeps until it can get the lock.
 
-Well there's 2 that are correct because you are actually traversing both
-ranges...
+What softIRQ context? brcmf_fw_crashed() is called by PCIe (thread) and 
+SDIO (worker).
+>> +
+>> +void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if)
+>> +{
+>> +	mutex_lock(&bus_if->bus_reset_lock);
+>> +	bus_if->removing = true;
+>> +	if (bus_if->drvr)
+>> +		cancel_work_sync(&bus_if->drvr->bus_reset);
+>> +	mutex_unlock(&bus_if->bus_reset_lock);
+>> +}
+> 
+> How about if brcmf_pcie_remove() calls brcmf_bus_cancel_reset_work(),
+> takes the lock and calls cancel_work_sync(), sleeps. If debugfs
+> path is already running, it can invoke the worker thread. Is there
+> potential that both try to reset?
 
->
-> The naming here doesn't help because the "current_kernel" file doesn't
-> dump the current kernel page tables, it dumps the whole kernel *copy*
-> (the only copy with PTI off) which includes userspace.
-
-Yeah this is misleading, and I misunderstood on assumption x86 wouldn't and
- be so silly to... and didn't read the code too closely assuming you did
- this PAGE_OFFSET split and... yeah :)) guys :)
-
->
-> (Note: maybe we should hide "current_user" when PTI is off at runtime)
->
-> So what do we do?
->
-> 1. We could just bite the bullet and have separate ptdump files for the
->    top and bottom of the address space:
-> 	current_kernel_top
-> 	current_kernel_bottom
-> 	current_user_top
-> 	current_user_bottom
-> 	etc..
->    Then the lock you take is dictated by the file.
-
-I mean that'd break userspace though wouldn't it?
-
-> 2. We could always take both init_mm and current->mm locks. That seems
->    icky.
-
-It's actually the least awful of all of these I think :) and the one I
-implemented ([0]).
-
-It logically makes sense because there's nothing that relies on an
-arbitrary mm in order to acquire an mmap lock around the init_mm. None of
-the mitigation relies on that.
-
-Also the user mappings (modulo PTI obv) share kernel mappings, so it's
-actually logical and reasonable to hold both.
-
-> 3. We could have ptdump_walk_pgd() take a different lock for each
->    'range'. Logically:
->
-> 	if (range->start < PAGE_OFFSET)
-> 		mmap_write_lock(mm);
-> 	else
-> 		mmap_write_lock(&init_mm);
-
-I don't love this. It feels a hack for x86 that's put in the wrong place,
-i.e. core code.
-
-And can you can make this assumption for efi_mm for all arches? Could other
-arches might be weird about this?
-
->
->    That's icky too and it means a range can't cross PAGE_OFFSET, but
->    that doesn't seem too bad (it could also WARN() if it sees bad
->    ranges).
-> 4. We do something fancier with the free like RCU (I think this may have
->    been discussed already).
-
-No :) please no.
-
- Implementing a crazy RCU scheme just for ptdump was already mad enough,
-but this is begging for an RCU stall. It's just not the right tool for
-this.
-
-Literally the issue is vmap (and CPA it turns out) not properly locking
-when freeing page tables.
-
-The convention already exists that the mmap lock on init_mm is how we
-handle this kind of thing and everything fits except vmap, CPA which I've
-now fixed.
-
-And with [0] I fix this too :)
-
-It's icky but the least bad IMO.
-
->
-> I'm kinda leaning toward #3.
-
-Another way forwards might be simply have the caller _call
-ptdump_walk_pgd() twice_ once with the range set to [0, PAGE_OFFSET) passing whatever mm
-!= init_mm, and again for [PAGE_OFFSET, ~0) passing init_mm?
-
-Are there cases where you expect to see a delta in the kernel range in x86
-for an arbitrary mm?
-
-And would this work for efi_mm and also for arm64?
-
-So far I think the 2 locks thing, as horrid as it is is the least fraught
-way. And we have a live UAF here so good to get a fix in ASAP.
-
-Thanks, Lorenzo
-
-[0]:https://lore.kernel.org/linux-mm/20260710-b4-fix-non-init_mm-ptdump-v1-1-2d40982c98ec@kernel.org/
+What is "both" here?
+Regards,
+Arend
