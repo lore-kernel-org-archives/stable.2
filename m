@@ -1,126 +1,333 @@
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62AF3FE37C;
-	Fri, 10 Jul 2026 12:31:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783686712; cv=none; b=Ne1/g++FHZ3m+lSBGYGj0dDQJiWv3hN7b9NsO55QTyS10vv+SYfOEYretwH+5IzGHT5hytlAhFITEfiDmsC2VtUaiMb67743/HbTvI6RrW9uKwSWrywiruJE0iCp2rviSGEku4dxYmFgqHNaCAfyPJAkaWLW8CpsdMEBCkitroM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783686712; c=relaxed/simple;
-	bh=ZGn51/2KJMOlLQyHgSlaaORnnCNkoqbmH/lcwzFF+fM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FYLU9cfY0rlRpPTeYpYn9RS6J40N4moQcRPBs+kOsyNCLBJbbJeFvCXOXC6xZZh8GsIaJQPcfwDWwL2Er6uIO47uoWd506z0CBMqh2fzvck5awH3fCtyMc24hjuNKJIoiDtXzEYjrTeL9toFbYjp03bWRe+v1+1fRxqsSLml7Kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=EGq9rTf6; arc=none smtp.client-ip=18.132.163.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A487F426693;
+	Fri, 10 Jul 2026 12:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783686841; cv=fail; b=I5B2sdRoz/yMplfUkpv6JmZjav/wSomoYMwQ2CtlSuJIG2PuasOUddWzDCIteCTl9n7I021V+uP12Yl2CP8GVF0483ZOj+ina33n3vVrvlzq58DRiIB2o56RLS7c4tcNsCwbXFeBtjNc4CWVGrPPReOBjpTc1+lRJzPJzbi+0X0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783686841; c=relaxed/simple;
+	bh=JcWNzlm92HYuZD+5fE+pAyGwNNVein6glAt2sFGJgeE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=o/yoOItc+ZgbPoaIJFOtb5WyeCYUAcB8LD3TgXA7lA4DxFhvRe57ZCG+VyyDKI4WKzNnceHznkxa6HRxGI/m9Py2lzhwsPUhJMKItD1LkbDJfm7VlGDOXaHjp81LW+RH6698OSl2xVpsTw7piSijNDyEE78bOiuZBjcgaAKKuR8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=E7PjSRYM; arc=fail smtp.client-ip=52.101.48.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="EGq9rTf6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1783686642;
-	bh=UrM/L6cbWjMus7RDeF7oMlzJ9Ll1lnZu/w1HVGR/Pv8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=EGq9rTf6dsPmvl4gUlbV+kzrqQgZgf2zJpEb5iyWub3rkAK0IDaTilWvmsuI+rXve
-	 eC8Y13k5FN4RRK/P4oXTEb8brEQh+OQk2+O8AzLx84kLlxoip96alIea8CmWAmlej1
-	 jZcNYXnUqHJpmhJSNjBwBzJz9SoK2rEjFUGLonnI=
-X-QQ-mid: esmtpsz18t1783686634tdb7a833a
-X-QQ-Originating-IP: 2CsnxbqJsp3mSW5RGrvs0lhDp/q8qqtL/6Dh5MXpzk8=
-Received: from hepeiyang-vm.wu.lxd ( [218.94.142.195])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 10 Jul 2026 20:30:32 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10002618754095322046
-EX-QQ-RecipientCnt: 10
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: jgg@ziepe.ca,
-	kevin.tian@intel.com
-Cc: joro@8bytes.org,
-	will@kernel.org,
-	iommu@lists.linux.dev,
-	robin.murphy@arm.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	nicolinc@nvidia.com,
-	Peiyang He <peiyang_he@smail.nju.edu.cn>
-Subject: [PATCH] iommufd: Fix wrong hwpt passed to iommufd_auto_response_faults on replace
-Date: Fri, 10 Jul 2026 20:29:52 +0800
-Message-ID: <9D652384339C69D5+20260710122952.885325-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="E7PjSRYM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V1mhNoS002StjmPlaGrpNYIlD5qe2RO+5FueH4ZV39+kYYgeJOjZ1iOSofeuiiOw20rgziZOYrBsBCHTCoudZhP6zLbTPVPjUDmWEqwan58oHCBi1WxtkXxGeutDA3BTLULZ+fvGanv5q+qQx6d8ieyK4ZYjIW9p1ZwE+LMzSRCpMNm6qU5Ns/no2TBikMF9LSaV1uHLXe9lh+hODxVlvMJ2EfXXIpU8XJQcnl9oq6UFtYETHdJQjfBKW9P0iVTZm0RJ0ufJ+maT25gSU3wambewB/wJkmRXEPk6fHSAXz5YfsGY2e56NwLlTGEtX5zUP2eSeL9L3kgqNArd1kwy6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4fJc2XVqGPSsolcEvXw6vulA0PYq460fs5OE7e+JzSg=;
+ b=N0+NfiX6h83hT2ofpgKTBSn7fbQTF6y4NhPLtxtSkt4NldUvTcNbFQDG41qfvilP85kWvM+pnD6fYcREXSFFk8WRo0IQSAT8fb1fC5JAQrieXlQCvlKevf+m6nlAQPkBTPSAfgy33A9sjormOXeWaDuZEWWpG4lK7ZOKSZYVg6mylUD1auI+iG2uterUWyvw+5tHnp5BHA+ioO3VTKCJQ0vBXp3FTi/s4BzLpzgrux3EcX9iqTGZOyTQSsaaHKRCMN+TCN8EK58efqijY8Sl4RMf9EdqYJmFQl6XXhlNu/lvPttv8MCoolmEnIjCRy79xczvxcO1JrvffF9lQz8f9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4fJc2XVqGPSsolcEvXw6vulA0PYq460fs5OE7e+JzSg=;
+ b=E7PjSRYMPC2RxuxXUO39HO0+0KzS0UTl+4b0sKAIc9dn1eTlP0ArvqiCAshl0MKG8M/3WvfFzmNIHBhgyoYxhgw+J48+JubjrKDQKxF2vBwYy37H69vWqo0ucHI5a5ItoutDYKfxWqg4qM3Ah+vcwcoBHNT7x8OIYTKZFhZ0iD0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB5807.namprd12.prod.outlook.com (2603:10b6:510:1d3::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Fri, 10 Jul
+ 2026 12:33:53 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Fri, 10 Jul 2026
+ 12:33:53 +0000
+Message-ID: <99679491-8dae-460b-b662-81b130829956@amd.com>
+Date: Fri, 10 Jul 2026 14:33:43 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dma-buf: dma-heap: don't publish fd before
+ copy_to_user() succeeds
+To: Baineng Shou <shoubaineng@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T . J . Mercier" <tjmercier@google.com>, Sandeep Patil
+ <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>
+Cc: stable@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+References: <20260703080922.1838362-1-shoubaineng@gmail.com>
+ <20260710105740.3080070-1-shoubaineng@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260710105740.3080070-1-shoubaineng@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0271.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e6::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NPN5fA0Ilhx2xIhTq0JlD9TOnz+3tNhnLO26c7YGXvxWP2AW7Ia+460S
-	TTVmmVZMdkMNHrPsmWAVWXTmzn4mycvojt6XiOmhntl1MzyAkkpxv6v+mbV6AmZp8OgcKmU
-	4XP1a5BR2zpjS+r3++9yax7BMW+qANOg5R/w/8Ux+sHgEN1p+Lcpa/1DGQvr++smHMVhrHs
-	VaT4N4Hm5r/ahIebWNX3nkuA46/OgiHmFQhcBUTsDp2AGJZrH3ZVDeKUQN5L3RjFP0yQfZZ
-	6nhNHlTOMHbR3rBUMdsKUPJTJnAxmfsd8V0AkqKvOXUVbZHJzMkwifeJBDH+WDQkrcBRf7R
-	JPs/KL1D8Rfk0pCU8dgo3TsNeU+kadXX2Nyh+pVgCZ/mVc7xJsG5xt38cvK4sIU+c5qWGvg
-	UbsE7WAIR11fRspiVXCe93heiq1SGCt8WU/WY8yNVVCZVJh436JJjIX55O/pEh+P9AN2P0K
-	YX8CBIYXvUEHL6pOAzFj1sPLnQ8y9vMFhEL4ScSYa6d5Ti3VtPdu2HBIk6ng5QiE0+1WJcO
-	kVLoCVXY7p5HT+qR0xNLEe4p819c+xtsQhxZhrl7L+BBHIj7oNjQ8QHimeH8R09Acj2rxsT
-	QU/DbQOpG3CYbCgtbblZAbJ4xLwtIHwinOdeQtLbPwBtXzEC6vyhKsmjxUX71FGoyFFCW21
-	GLuLlvE8rjwjSCjUgN+h0U+TQii7SRng/JsPa7Dx3VWJdJ3GsCRXVWynWXc3lkIix8bZy1u
-	gPhVXW28ArYZolZT9FHgYlQB427wd93GmspJPKDGgWaCJFoJw6TEDhEP5NRuuVoH7b48qar
-	JoLpMKp5A/5oiAtIdnWP+r3qgMhFEUYvtmGQ1whY4BfdWyZqpWtK22inWih4SfbHcn+aTzX
-	tCMaa/igJG1ci1vjVUYCfuMXSsvAzXnq+OtpZ/A9SAivWGjqH+URg4EOGp5THvJ/E4Z13QD
-	gjp2RrzPxlzsXtZ66R24jplr5tkxc0vIHn6RzjeGJGCUE+ON9thWxJJFv+q2uvY/BFhSkZ8
-	7dcytkmxQDb2xvSm+pXgBxPGV8n7dGRqKOoY6U2YBiCLiIEiSE
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5807:EE_
+X-MS-Office365-Filtering-Correlation-Id: cda1c5e9-33a2-4a13-828a-08dede7f808d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|18002099003|22082099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	lSpjfg3siqAMVAqRhwSH+QXiGJRX+N4fpvTrJY63SrgV6INrdP9SJqlcTTW0O5bBToIzeBUc8RjKgcyCY16wfoqk5EmHWM6KLpvpfmDH02XLPeU2lHMVwu0ywMqkiJCxxk0L7pJykR94qShFbE74xQy0ktJTpZ/F5AFwGhHNc5paocRWS5Ui5/cmNTz6/j2vpVDqMCNt82KbOB84iSm7K8V8xYUq2wg7CnvziCpH66Irjh6vlZZ8NOAYZDon0QgFlLBC3csPGBowGwUBuFpn4bP505OJBTR+z/qps0QTx47tjgWXVClxTLG61x851QmkM0AYIEwWBXHu7l/sRUuBppJodCgfdLzrrpyzFEbvkfBPln2N7RqHFJ8u4Pqw4EIP6goE5pIc1RNxGxm1NwQqjRYHPsJRYJ3W7cYCDIoY4D0AgH0Mg6b0ow1aSSrICzQSbtc2G7s9XufHUU7SKe6wLoilEhPrl140geTa9wGixKml5MpSegXjCuo0Aj+jlp4+L5dNKRi/pAlde5UDhtYtP1fIFLaIx6W9djfy3BG+FsElBPGj3zuVKjashpnhmnpAwgzmL77TDkDX1gs25rULQQh9ATjYtXYwzCH+MNVNrXcAP+QHxptYQtZUTr3EimVDz+YOK+76Sz5Yiy3i53tGy0bn9vNllfjZYixg9CI8XV4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cXF4dkk0R0RSemRYejVoZGlqODRNZ2V6MzBIRHYzLzhFSXpkNCtoL1ZoYkow?=
+ =?utf-8?B?bXlqSkdYMlhFenFHMTV5Y3hGNENMSXpFN2xNSkZhaXpvb3BGbG1qcUxmV3JV?=
+ =?utf-8?B?Slk0NG9FV1dvVmMyNUJFUGlrWWgyLy8xQklZblI4cHJicGpkajhUWUFSY0JH?=
+ =?utf-8?B?OHFFZXFsNDZlU0ZYQnZQdXFTWkgvdVlUUmptQURIT2hiVFJDdW9LaUg4eFlE?=
+ =?utf-8?B?NTJFTHI4Sno5UGVKTXNPdFhoanoxUlpaK1JvTFZsYU1RdkpseUN2Q1RZYkFz?=
+ =?utf-8?B?THJNbVBSQ1V2Y0pQRkxFMTZYTUdqYkRZS1hTYUVkR0JXbWRKREVvcW5tWk5H?=
+ =?utf-8?B?bW1KZ1Z3VkVNODdGRnUwNE1adDVmdTh5eWxvNkFYamZ4cnc3Qi9qQ0hNNmNM?=
+ =?utf-8?B?c2EyVTVOUlJzcDZpWWxvbjZoTmxWSkpZdTMvZHRsLytHYStVQjB3ekl0T05l?=
+ =?utf-8?B?YzRYT21JVHZwYkJob2ttd0lxWlNhTjdhR00yMlphK2hBTHJKMGtyclJUMjdB?=
+ =?utf-8?B?N0FOc21oVUFhUFhkalRzdklDYllEQ1Q0MXB0SFZmcWloT3V0WHZ3d1hLU0F0?=
+ =?utf-8?B?ZHJJK0ZzZWpuNVBaZGcyU3d0NkYxZ0RxQVdXc2tyYnBmZ0tsRnZVMEtpY3gv?=
+ =?utf-8?B?VkRDK0FRd3k5K0tpZnpEYmc1UGRXVjNiZUF3K0JacFhmYkp1Y2dneGxJY3BM?=
+ =?utf-8?B?ekNpTVoxVGltOS9EZkZzQktXaW80Q0J4N3FKNzFzWkh6SExKSHF1USsvWGRF?=
+ =?utf-8?B?ZzZPMGJ5dXE0Ny9QazkzUFRGZ1ZadE16dHdoVng2NmJRcVRqV25TdU9nV2Uw?=
+ =?utf-8?B?cncvUjdEblN0K2ZyaWVFek10NFZpYlN5ZkNTSG5sWkdQSm9oL1prRVIzTHEx?=
+ =?utf-8?B?SUFYS1psVWhqYjZ1RUpMOWVQbXNWckkxeUxqRDRTNkg3Y0s3dy8zWW50dFBz?=
+ =?utf-8?B?TzBIS1NyZ0xCSmJQZ3BpK05ML29oM1M0UWhYcmxtUWJBRU5BMmdjZm1MbU1u?=
+ =?utf-8?B?S01pT2UvQyt1YWlvM1JNUVE0YWp2aEpSSkpnOUhQSVczeU1YdUxDK0RjcnpH?=
+ =?utf-8?B?cldCdTE0ZHdtWkVFRXRMeDNDVEZEcW9wWXNLVzVxZTZKZTV2SE81eU96YUFQ?=
+ =?utf-8?B?WVdjdzUzelMyVnNNWm04b2NUU1hOM1VjdmdZMjRHai9uVElDZVJrUFdnNWZ2?=
+ =?utf-8?B?akNjU3RkMnpNa202Z1RqZ2ZKUlNTNzRaVktndWRQeVg1MFFFQnlwYlA2a21Q?=
+ =?utf-8?B?TkcvcVRtOXdNcm5XSDJwaTFYR2ZyUXRmemhsN0Z5ekZOMzNhWDluUkxLNEVv?=
+ =?utf-8?B?K2dIY3Bia1Z6eGNGVVJxMVRCMkNnRWR5dG9SZDh6a0JYRWVxTHZyT1BENUFq?=
+ =?utf-8?B?SmE4RVFKTmtZaHNpRnJmcGlhR1lsRzJReko0OWtOSzFnQVNXT2Myb0k0c2lt?=
+ =?utf-8?B?T29UUEJiZVFKS0FUOS9pbFZYMWZ0U2lWRkNPTit5cVB0N1hXM3FnYllxZ3FH?=
+ =?utf-8?B?VXBVekhIbDVBRm9xZy9FbVN0aUlTdzJkTHVDNXpHZG5CRm1na2tyMW9wZ1NS?=
+ =?utf-8?B?R1RJcXpNei96aHRYdkQ1dXBLQnlzNm4xZU9hMXNvV3laUjRDbUVvcGFKeEQy?=
+ =?utf-8?B?b1BKVnJRNlBFSDRWSlo1b2ZQMTZMTzdpR0VkM25NSVNmWFE1aDliOGxnd0h1?=
+ =?utf-8?B?VmNRWjBXWmkveVRsdFRhUUlOc1NFYk10dWlRNWdEYzVlVTJreExYNXo4LzVN?=
+ =?utf-8?B?Smp6V1V5dUVHZFVEOTIzbTdyWjRaNkpiVVdENG9oTytaSGJhNFNxSVpJa1pw?=
+ =?utf-8?B?M2JCNytDT2tYMnJjeDlpQUxUcGg2TVZWeTUxRCtyWUYzNWc2TjdRUWQ3Y3dP?=
+ =?utf-8?B?R0dYd3RPUjMwUG9EMTJ1K21keVYzbFlXbEdqNlNGaEJVaWZnelVYanB4RGg2?=
+ =?utf-8?B?MzMzRVN4L2tkSEhJeXJEVWhRSlBScVNIVWFHb3BsSTlNaU1JMldUb3YwNDU2?=
+ =?utf-8?B?bFdtd1UranhCM3ErSCtneTNuTXlweitrUUFrNXF0a05aRW5mR3BZMXdEVE84?=
+ =?utf-8?B?NlFiUUg4bEpwRCt0VmJGMUkvUklteXRmYWtPWEJEdlZBUVhyWnh1Y2JPMDQ0?=
+ =?utf-8?B?T1ZGeUFXdkJrL1hac0hneGhsRUhvY1c2c3JWbnZzakp0NDNSUWEycHFLa0lm?=
+ =?utf-8?B?QkdicElYZlY1OFNYcHVOdXRpeUpieno3ZndzUVFYVHA5eFI0MFlnN0tSWUVC?=
+ =?utf-8?B?OXJmc1lDYVpNYXhKbE1DZnFkQmp3Snc4TGJtQ2FGbFBpTTVIZmlQYmJLSGpW?=
+ =?utf-8?Q?Xaxau7IaGEwN1pxUZe?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cda1c5e9-33a2-4a13-828a-08dede7f808d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 12:33:53.6700
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I1+7sFmQT0YwDru0A1ovKAYpiI8/6/xuGbRRAlM+hu6eQp8VZQPPkz+pKht5hp9h
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5807
 
-iommufd_hwpt_replace_device() calls:
+On 7/10/26 12:57, Baineng Shou wrote:
+> DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+> caller's fd table via dma_buf_fd() -> fd_install() before
+> dma_heap_ioctl() copies the result back to userspace.  If the trailing
+> copy_to_user() fails, userspace never learns the fd number, but the
+> fd (and the underlying dma-buf reference) are already visible to
+> other threads in the same process and are leaked for the lifetime of
+> the process.
+> 
+> The obvious "close it on the failure path" fix is unsafe: once
+> fd_install() has run, another thread can already dup() the fd, send
+> it via SCM_RIGHTS, or close() it and let its number be reused, so a
+> subsequent close_fd() from the ioctl path can operate on an unrelated
+> file.  This was pointed out by Christian König on v1 [1].
 
-	iommufd_auto_response_faults(hwpt, old_handle);
+IIRC it was Greg who pointed that out numerous times, I'm just repeating what I was told.
 
-passing the *new* hwpt together with the handle of
-the device's *old* domain. This should be a parameter mismatch:
+> 
+> Restructure the allocation path so that fd_install() is the last,
+> unfailable step of a successful ioctl:
+> 
+>   1. heap->ops->allocate()      creates the dma_buf.
+>   2. get_unused_fd_flags()      reserves an fd number in the caller's
+>                                 fd table without publishing it, so
+>                                 no other thread can observe it.
+>   3. copy_to_user()             delivers the fd number to userspace;
+>                                 on failure the fd is returned with
+>                                 put_unused_fd() and the dma_buf
+>                                 reference is dropped with
+>                                 dma_buf_put(), leaving no user-
+>                                 visible state behind.
+>   4. fd_install()               publishes the fd -- from here on the
+>                                 ioctl cannot fail.
+> 
+> To make this possible, dma_heap_ioctl_allocate() is refactored to
+> return the struct dma_buf * directly (returning ERR_PTR on failure)
+> so the caller holds the dmabuf reference across steps 3 and 4.
+> The fd is written into the kdata buffer before copy_to_user() so
+> the reserved fd number reaches userspace atomically with the install.
+> 
+> The failure at step 3 is easily reachable from userspace: pass a
+> struct dma_heap_allocation_data that lives in a page whose protection
+> is flipped to PROT_READ between copy_from_user() and copy_to_user()
+> (e.g. via mprotect()).  Before this change each such ioctl leaks one
+> dmabuf fd; after it, the fd table is unchanged on failure and only
+> /dev/dma_heap/<name> remains open.
+> 
+> No UAPI or heap-driver interface change.
+> 
+> [1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
+> 
+> Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 
-1. Semantically, iommufd_auto_response_faults(x, handle) scans
-   x->fault's deliver list and response xarray for groups matching
-   "handle". A group is queued under the hwpt that was attached at
-   fault-delivery time. old_handle is fetched *before* the domain switch,
-   so its group lives on old->fault, not on the new hwpt->fault.
+Patch looks sane to me, but somebody with more background in DMA-buf heaps should probably take a look as well.
 
-2. Historically, the first argument was "old". The routine was
-   introduced by commit b7d8833677ba ("iommufd: Fault-capable hwpt
-   attach/detach/replace") as __fault_domain_replace_dev() in
-   fault.c, correctly calling iommufd_auto_response_faults(old, curr).
-   Commit fb21b1568ada ("iommufd: Make attach_handle generic than
-   fault specific") moved this into iommufd_hwpt_replace_device() in
-   device.c and swapped it to "hwpt". This should be a refactor regression,
-   not an intentional change.
+Acked-by: Christian König <christian.koenig@amd.com>
 
-Fix this by passing "old" instead.
-
-Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Fixes: fb21b1568ada ("iommufd: Make attach_handle generic than fault specific")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
----
- drivers/iommu/iommufd/device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
-index 170a7005f0bc..2895e5370910 100644
---- a/drivers/iommu/iommufd/device.c
-+++ b/drivers/iommu/iommufd/device.c
-@@ -589,7 +589,7 @@ static int iommufd_hwpt_replace_device(struct iommufd_device *idev,
- 	if (rc)
- 		goto out_free_handle;
- 
--	iommufd_auto_response_faults(hwpt, old_handle);
-+	iommufd_auto_response_faults(old, old_handle);
- 	kfree(old_handle);
- 
- 	return 0;
-
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
--- 
-2.43.0
+> ---
+>  drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
+>  1 file changed, 40 insertions(+), 40 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+> index a76bf3f8b071..0a9bf62eb06c 100644
+> --- a/drivers/dma-buf/dma-heap.c
+> +++ b/drivers/dma-buf/dma-heap.c
+> @@ -55,33 +55,6 @@ MODULE_PARM_DESC(mem_accounting,
+>  		 "Enable cgroup-based memory accounting for dma-buf heap allocations (default=false).");
+>  EXPORT_SYMBOL_NS_GPL(mem_accounting, "DMA_BUF_HEAP");
+>  
+> -static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+> -				 u32 fd_flags,
+> -				 u64 heap_flags)
+> -{
+> -	struct dma_buf *dmabuf;
+> -	int fd;
+> -
+> -	/*
+> -	 * Allocations from all heaps have to begin
+> -	 * and end on page boundaries.
+> -	 */
+> -	len = PAGE_ALIGN(len);
+> -	if (!len)
+> -		return -EINVAL;
+> -
+> -	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
+> -	if (IS_ERR(dmabuf))
+> -		return PTR_ERR(dmabuf);
+> -
+> -	fd = dma_buf_fd(dmabuf, fd_flags);
+> -	if (fd < 0) {
+> -		dma_buf_put(dmabuf);
+> -		/* just return, as put will call release and that will free */
+> -	}
+> -	return fd;
+> -}
+> -
+>  static int dma_heap_open(struct inode *inode, struct file *file)
+>  {
+>  	struct dma_heap *heap;
+> @@ -99,30 +72,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
+>  	return 0;
+>  }
+>  
+> -static long dma_heap_ioctl_allocate(struct file *file, void *data)
+> +static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+>  {
+>  	struct dma_heap_allocation_data *heap_allocation = data;
+>  	struct dma_heap *heap = file->private_data;
+> +	struct dma_buf *dmabuf;
+>  	int fd;
+> +	size_t len;
+>  
+>  	if (heap_allocation->fd)
+> -		return -EINVAL;
+> +		return ERR_PTR(-EINVAL);
+>  
+>  	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
+> -		return -EINVAL;
+> +		return ERR_PTR(-EINVAL);
+>  
+>  	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+> -		return -EINVAL;
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	len = PAGE_ALIGN(heap_allocation->len);
+> +	if (!len)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
+> +				     heap_allocation->heap_flags);
+>  
+> -	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
+> -				   heap_allocation->fd_flags,
+> -				   heap_allocation->heap_flags);
+> -	if (fd < 0)
+> -		return fd;
+> +	if (IS_ERR(dmabuf))
+> +		return dmabuf;
+> +
+> +	fd = get_unused_fd_flags(heap_allocation->fd_flags);
+> +	if (fd < 0) {
+> +		dma_buf_put(dmabuf);
+> +		return ERR_PTR(fd);
+> +	}
+>  
+>  	heap_allocation->fd = fd;
+>  
+> -	return 0;
+> +	return dmabuf;
+>  }
+>  
+>  static unsigned int dma_heap_ioctl_cmds[] = {
+> @@ -138,6 +123,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+>  	unsigned int in_size, out_size, drv_size, ksize;
+>  	int nr = _IOC_NR(ucmd);
+>  	int ret = 0;
+> +	int fd;
+> +	struct dma_buf *dmabuf;
+>  
+>  	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
+>  		return -EINVAL;
+> @@ -174,15 +161,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+>  
+>  	switch (kcmd) {
+>  	case DMA_HEAP_IOCTL_ALLOC:
+> -		ret = dma_heap_ioctl_allocate(file, kdata);
+> +		dmabuf = dma_heap_ioctl_allocate(file, kdata);
+> +
+> +		if (IS_ERR(dmabuf)) {
+> +			ret = PTR_ERR(dmabuf);
+> +			break;
+> +		}
+> +
+> +		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
+> +		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
+> +			put_unused_fd(fd);
+> +			dma_buf_put(dmabuf);
+> +			ret = -EFAULT;
+> +		} else {
+> +			fd_install(fd, dmabuf->file);
+> +		}
+> +
+>  		break;
+>  	default:
+>  		ret = -ENOTTY;
+>  		goto err;
+>  	}
+>  
+> -	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+> -		ret = -EFAULT;
+>  err:
+>  	if (kdata != stack_kdata)
+>  		kfree(kdata);
 
