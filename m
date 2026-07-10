@@ -1,148 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0519C426D29;
-	Fri, 10 Jul 2026 11:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783684693; cv=none; b=iNAa3py5ckp5GZrnHAuXn2V/vWBoqDqhnLaQ69Iw3FykoRDJ/idA7zNGz5dV6u+Ig+YovkveMpkUKW905OyO1bevcJV6r5MaqKC8UeTRQ3ZU0Fohmc22R+AwLWH9qQLHckUY3BCS5f75ps3j/iIC2BPt9ZD8uoVxkWLWiS11lZ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783684693; c=relaxed/simple;
-	bh=hKciZm915bJYzdl/DFU0eneGXBw6w/af0wOeuPei2iI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=egy3Ccy3lCenbquazmAgF7OXJ9ADKDttgARKNN++OYMBwgjlZZLVy2K/yFJA4FO9xot6vP0ZNFqdBKnd/LCHoJLGOXkB3l23lE7T2390FaE1cX85gSIiejMxMVdFaXoxvNVeI4A448VhIt55yLSzLYW+f3iv8dBtSUmrrFz0v7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dAkxgwXT; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367A2413249
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 12:04:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783685067; cv=pass; b=SeDnHB/aWWIZNcJQ07Q0vylWd1qTCkKjd0Er7HUt1FQVNUHTy03wwraFwjfveBI5AzKpAXSIEWS9Vtd0UK8qfPANtKZ751o3mqa8XbNaMj9EHQQ9FYqA1fCSvYRyH8b9gTFHwmDUIJNCGvbqvilUElcqIG1KyKnQmaNVOr3kuf8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783685067; c=relaxed/simple;
+	bh=n6yMtU5a9xI+ekMnhRgl8xfMzS3v7/anO/PeMGwUz3g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nCInZ5B3BZvV8j2/IZUqWnHy4aQNN+l9PDZteJ4zMQDLiD94iXfqezYF1zx63YoV8PPiTuvOZNhs7gp/T8KIK3paUeFnAr1z/jwsjs3vmJm9TAvVB1HNCRRYk3H+72O29xD4VzgWu3TMP4+B0YWi4oFMxY2GhNiPbzBYn0pOw1g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZCyZQILs; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=g4K1185w; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dAkxgwXT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFF991F000E9;
-	Fri, 10 Jul 2026 11:58:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783684690;
-	bh=kDw4uHkrjrH2i/wDdxHnoRQvhH62dpRg5r0nrYMHl8k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dAkxgwXT/R1DI7L+qLyNgdOAeakrAm08Pe6X6aqix0XakuDCSCOZnAqHQ2gRE0t9F
-	 h3ZdKHfNDjgo97EBH/Aqec4PzZNwGJAd3zSq1wv6qKfoBcrGvys9ohsuamv/yuQqtL
-	 IHh+n7NktbReynKyVPSjKL7zpmcAmDyw3Vf6MtiYXyeievv5tNFZ1ESTOMO9THH8mq
-	 bs9g9tjQUWl554Yh5sw1nzgLe/RZ8R/BLPik3sr+gTdFfU/iUatq8IkUVk6xz7c95S
-	 U7/08M6TK1ft8TrJ3DhiH4nyvc/SsXkVo/NzMdILO0bGEILpZKpcB4RJSfIJZox+Co
-	 auVbqGEDaiSRw==
-Date: Fri, 10 Jul 2026 12:57:56 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: David CARLIER <devnexen@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
-	syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-Subject: Re: [PATCH 0/2] mm: fix UAF caused by race between ptdump and vmap
- pgtable freeing
-Message-ID: <alDeMJZdhbKfS023@lucifer>
-References: <20260710-series-vmap-race-fix-v1-0-5b3794c113fe@kernel.org>
- <CA+XhMqwpDGYSQvDKrFz9XuQFiaz8_rgW0LupEzFhehSrFvUZaw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZCyZQILs";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="g4K1185w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783685065;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n6yMtU5a9xI+ekMnhRgl8xfMzS3v7/anO/PeMGwUz3g=;
+	b=ZCyZQILsXTMqcz8z4boE6dk2LDtw6V0LGWHFhb1MUe6H+M1ANABrulHaZoNXDfMojbi8M1
+	EPrkGlVYH7awXp6lJNn/bNHst47ZinTgr9Po81O5JBCuW8rZ78uAbIuGGTeVsxQSFor33Y
+	vEKyZtTp8uqu2gub6FgYsz26Fo5Bf58=
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-101--8Uoz_t8MhiEQXVqvCOGyw-1; Fri, 10 Jul 2026 08:04:23 -0400
+X-MC-Unique: -8Uoz_t8MhiEQXVqvCOGyw-1
+X-Mimecast-MFC-AGG-ID: -8Uoz_t8MhiEQXVqvCOGyw_1783685063
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4893fc86bebso957303b6e.0
+        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 05:04:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783685063; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dstz3o9M57jEhMiLLl6dNgWjfwtSpeTJfp1nnxy8iSpHJkmsBkHSY63nYweIBSEHZc
+         TvlsCNBi1JfNQioWc0TevFP6SH0W5SKkrqWOFxRlqQ4GTTwcHjW0GyQE6HW4YRJjzp/m
+         JuHKzkGLb3S9A3+JbbRkReN1Kk1zP9meJV0T82aAgklyPIH8wgF4c8CXOKV+BGGu5/Wu
+         XtUksZ6s4qRBCEARQ1zIIVR5M6oD/BTwA3UtyOoePIaGbeMXnJb1YN17DrkpnpbAC+LL
+         FLReb8Ri/99Ux0P6TB5trljbqjFWOmyDaLa1/vzcCu6gbVuW3u6WOSjXx2aH+Ccss5Pg
+         ImlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=n6yMtU5a9xI+ekMnhRgl8xfMzS3v7/anO/PeMGwUz3g=;
+        fh=XtCpDRGs/YCGvV8L9JKc84fyjxBwsCPzddTj7H7nIrU=;
+        b=PmAYsGMapgl2Mc27asJXfRJByrPvUEfhra4mMW9K/QR4zK1cDAPDLAiWsbxuf+UBeD
+         umoZWyDVimqH89NthwKI/PnINo3rQrPgHPl5I48KdOoe0vZsWC/gj0pd40s4DVvzsraG
+         Tnk99qlcsgqWGzJzP+vYo0cMQShPEILDizFk05l3PS7QxEzMmlppfXfwGRvbhabt+7Du
+         yaM8XOCFt3VsNJn9UHULXgjRgrVhMmUK6u+LfKDC+z+kN9m2T2jvDxe0wUL264OwSlZc
+         idtDktjinrjcCe8h0VGKjz8OtHPonOSaFOi7qW800o+ExqqM+EjvRA7Hb+yEXbwZuVI/
+         fZpg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1783685063; x=1784289863; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n6yMtU5a9xI+ekMnhRgl8xfMzS3v7/anO/PeMGwUz3g=;
+        b=g4K1185wKQPGbtQaXuCtJME3ZTSzVSnMAsWX7pZ09qNbujrNdfFPMqfwZfsCaTAmJz
+         Vo2pNXwXnyQkshULbZqrAsriULqXKx7Gjgg6+GZ4nSEGPk1IuSM09tqA4fF0LrIsO92/
+         lFPAVzw/PyamZMuJyEs1QxLngSd795t8wB4CWf7QnvLX3tKseQhzZhHKtjldzKsdPW7A
+         h4n4Ufsixhw+Z5AjuIj9cITudAta3MJl54w3QvWNO+SPx6bv0asCuj3cB0TLVsb4NUG2
+         H1PoY31UkyPWBVo2eolbBIwbqGU0lOtQ9vFmfO4jiF4GJ0IqMoRDQXCJGla2/TNOQvCa
+         gkbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783685063; x=1784289863;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n6yMtU5a9xI+ekMnhRgl8xfMzS3v7/anO/PeMGwUz3g=;
+        b=RnFY7VbSMwLbLlGTTScJGGOFUrC3rPN7CLCbipbrLn3b5uVnp+RvivR3P3QMyQavZ6
+         H3H85NdjA4xtNM5iYyapFngkQ4qmfLWmfKVSx/1U4hVrWITnF3B7GNTrh/VMa5d1I084
+         LnhrIv0AFTkd8O9K4+99jQMpaBajg6j8zrfpM6L7cOCDRlSBSAZOopKlSyVguF35Q7WW
+         9mJFA2d8+DjWAsTXHXr33El7WuuhcVX4OOOhmR7WwsVQqdE4I1za0lD3yRZypJh9Z8Uw
+         DtNH99T6tfbekL+zN/in3qMIgEF7TFjN6B9ik0OAWX4Azpdk2EjFEkgHz8lVlSVyBDQx
+         Fgdg==
+X-Forwarded-Encrypted: i=1; AFNElJ9zAMixLJ11MnmrHG7E0HZTIMZy1dAMDdT/jESB5mG8I8O9hUbVZdkIGGlx2lSkqNxKt0/NqGk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyAxAqlhn3Ilz6Cn67TPtwBy9vpMn+sWWXnEYJgIu7k5hU7nE+Y
+	0n+SAsmh39bS6LTPO/XxziNbIh2+Bri4g1N5yvkLL8p98TQH1VMg9wLFw/2X90EU9Vlw/dOthOJ
+	o5+8UHbCGsdd3MuoOJ5VtBJDfMIiKPP8qPZDgEUnT8B+/lD8SvROF3jgi0OLrPamJHflcNK13as
+	lbL1ZAOJT4Ocqh27cJYLZ5yP9YpmOwz8EX
+X-Gm-Gg: AfdE7cnAeDc2IlJByVEG+UwpvjWXLCivZDDBTpd/sQc8ch4t6BInZVDmoC8wh2vjDY3
+	vT8PSROFsmW+B00da8ovtyOtDcGGR+PtxUABq4RiqZ00sICxKdBbTW+RV8qJETy2XnUek4YzvE4
+	L85LSAEKR3PBNIaILiUeRhJj3qBSnvlQS94HAN9OnYuggty4K9lZw6TXV+EBluom98keR+4IeER
+	+AJC4Oe6FfKaflGDirVTa3V5nM=
+X-Received: by 2002:a05:6808:4495:b0:495:d6b7:6004 with SMTP id 5614622812f47-4a2045e17aemr8153644b6e.26.1783685063072;
+        Fri, 10 Jul 2026 05:04:23 -0700 (PDT)
+X-Received: by 2002:a05:6808:4495:b0:495:d6b7:6004 with SMTP id
+ 5614622812f47-4a2045e17aemr8153631b6e.26.1783685062691; Fri, 10 Jul 2026
+ 05:04:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+XhMqwpDGYSQvDKrFz9XuQFiaz8_rgW0LupEzFhehSrFvUZaw@mail.gmail.com>
+References: <20260629144837.3244851-1-desnesn@redhat.com> <akRTVinqeeZnVARD@localhost.localdomain>
+In-Reply-To: <akRTVinqeeZnVARD@localhost.localdomain>
+From: Desnes Nunes <desnesn@redhat.com>
+Date: Fri, 10 Jul 2026 09:04:11 -0300
+X-Gm-Features: AUfX_mzVC853Yhxe5IzKb6IGxVPhPJKkZ0EBhVqEVYwZEn7zq3i4mNWDrdm-aj8
+Message-ID: <CACaw+exCLSLRUNU38uorD9r+fk4AjD-Oe+RZNzFXzjwE2q9rsQ@mail.gmail.com>
+Subject: Re: [PATCH v2] iommu/vt-d: Fix UCTP context table slot when copying
+ root entries
+To: Tao Liu <ltao@redhat.com>
+Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	iommu@lists.linux.dev, stable@vger.kernel.org, baolu.lu@linux.intel.com, 
+	dwmw2@infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 10, 2026 at 12:44:20PM +0100, David CARLIER wrote:
-> Hi Lorenzo,
+Greetings Tao,
+
+On Tue, Jun 30, 2026 at 8:38=E2=80=AFPM Tao Liu <ltao@redhat.com> wrote:
+> Thanks for attaching the kernel stack trace, which is similar to the one =
+I have
+> encountered recently. And I have applied & tested the patch, works good f=
+or me.
 >
-> On Fri, 10 Jul 2026 at 11:50, Lorenzo Stoakes <ljs@kernel.org> wrote:
-> >
-> > Kernel page table walkers fall into two broad categories - those ranges
-> > where no exclusion is required via walk_kernel_page_table_range_lockless()
-> > and those where exclusion is required via walk_kernel_page_table_range()
-> > or walk_page_range_debug().
-> >
-> > The former category is used only by arm64 arch code operating on ranges it
-> > both wholly owns and does not concurrently write.
-> >
-> > The latter category consists of kernel page table walkers operating on
-> > ranges that are wholly owned (but which need exclusion against concurrent
-> > writers).
-> >
-> > The lock used for exclusion is the mmap lock, and for kernel ranges this
-> > the mmap lock on init_mm.
-> >
-> > ptdump is a special case being both the only user of
-> > walk_page_range_debug(), and the only case in which it walks ranges it does
-> > not own.
-> >
-> > This presents a problem, as page tables may be freed under ptdump. And
-> > indeed there is a use-after-free bug in the kernel as a result, which this
-> > series addresses.
-> >
-> > vmap promotes page tables to huge leaf entries where possible, freeing the
-> > lower leaf page table when it does. It does this with no meaningful locks
-> > held against concurrent ptdump walks.
-> >
-> > As a result, use-after-free can currently occur. This series addresses the
-> > issue by having the vmap huge promotion logic acquire the mmap read lock
-> > while both setting the huge page table entry and freeing the prior leaf
-> > page table.
-> >
-> > The ptdump code already acquires the mmap write lock, so by doing so we
-> > ensure that the ptdump walker only ever observes either the huge page table
-> > entry or the existing page table entry, and nothing is freed underneath it.
-> >
-> > A mitigation for this issue was already applied for arm64 in commit
-> > a93b45fd397 ("arm64: Enable vmalloc-huge with ptdump"), which this series
->
-> seems it should be fa93b45fd397.
+> Tested-by: Tao Liu <ltao@redhat.com>
 
-Yeah oops, I typo'd that.
+Thanks for testing it on another system and confirming the fix.
 
-Andrew - could you fix that up for me? Thanks!
+Best regards,
 
->
-> Cheers.
-> > has to deal with carefully.
-> >
-> > This mitigation resolves the issue by acquiring the mmap read lock on
-> > init_mm on vmap page table free if a ptdump is in progress.
-> >
-> > However the fix in this series would cause a deadlock if we were to simply
-> > apply it for arm64 without also reverting the change.
-> >
-> > This is because vmap may acquire the read lock before ptdump attempts to
-> > acquire the write lock, which then gets queued, and rwsem starvation rules
-> > mean that the (unacknowledged) nested mmap read lock in the arm64 code
-> > would also block, meaning the original read lock is never released and thus
-> > deadlock.
-> >
-> > This series works around this by #ifndef CONFIG_ARM64'ing the mmap read
-> > lock in vmap logic, then partially reverting commit
-> > a93b45fd397 ("arm64: Enable vmalloc-huge with ptdump"), keeping the
-> > enablement of huge vmap support, and removing the ifdeffery with the
-> > partial revert patch.
-> >
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> > ---
-> > Lorenzo Stoakes (2):
-> >       mm/vmalloc: acquire init_mm read lock on huge vmap promotion
-> >       Revert "arm64: Enable vmalloc-huge with ptdump"
-> >
-> >  arch/arm64/include/asm/ptdump.h |  2 --
-> >  arch/arm64/mm/mmu.c             | 43 ++++-------------------------------------
-> >  arch/arm64/mm/ptdump.c          | 11 ++---------
-> >  include/linux/mmap_lock.h       |  1 +
-> >  mm/pagewalk.c                   | 22 +++++++++++----------
-> >  mm/vmalloc.c                    | 41 ++++++++++++++++++++++++++++++---------
-> >  6 files changed, 51 insertions(+), 69 deletions(-)
-> > ---
-> > base-commit: a635d6748234582ea287c5ffeae28b9b23f91c7e
-> > change-id: 20260710-series-vmap-race-fix-2a4cac988938
-> >
-> > Cheers,
-> > --
-> > Lorenzo Stoakes <ljs@kernel.org>
-> >
+Desnes
+
