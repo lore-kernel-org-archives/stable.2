@@ -1,125 +1,153 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDB2245005;
-	Fri, 10 Jul 2026 13:56:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441E8310645
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 14:00:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783691804; cv=none; b=GipXXnX5belmdu9bH7cdUsjhE03FZCVZLFBkCsdoITFhxC0BNxp0hQ2SoosOEj9wVDzfOG2mDsruCrYtIxJEpDb+I/2bNJuJ9spI8qosayHwqcNML15OC4gpZwccxabbM9joMaOCn/agjp6NlEwWcDRsJYhxpIh94bWQ+6+dV7A=
+	t=1783692027; cv=none; b=AgW4HTZz/Qh83sCvdv5KaQJAH8wXXtFG9D11WyYdAx+FsrMI7/WXosrHNpvjlUGKCotvg58oA5IZhZzDgBYM249D8JKNN50LCPMeT2zmWc2djB9zmlFYEuUGwjdWLpxA0IeD7NAcPl0D9KfFDmmUAPu7N400Ts/vpq/aMnV1JNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783691804; c=relaxed/simple;
-	bh=y1CsSYxn7k8Sym/SqxZiv9G+Dx1evFl+iOAQWnylrJc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=VsFMSZyMLHmR1t0EUmLDN1ZGDnJuOSp1TPNC3jbOuoPLfw//2WUUuFfaoX2unOv/F9qziQxsP5MWOLnhys+Kf+Xb+cZ9zW+OINieAR0fjIscs4tf1VXp7JDGDpeJc5j7YJKPe55IziC5Iu07DLNcPTY8NwNjOXR9UuNDQPUz21M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lYSfWl18; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783692027; c=relaxed/simple;
+	bh=0htVyoAYexKEIHFaePjlGenvBwaFicJhDvlsgKKEzdI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nFo7GcRvKv6sA2mUHeOfuU709C0SP6dcViz4Yx/azcHvASTbDXwsC8bpmu8kUzZwH0cXgFcoSepVwfPRzZymOdVZFzR7MwgwWrybjAG2MpjSUgxOQci1mHYvcPus0cE/FAl2VbVH+VJn2CugM9QckcLWH0dD9sGvPQjLVo7e/HI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XdEnUUoc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lYSfWl18"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B9D404E40D46;
-	Fri, 10 Jul 2026 13:56:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 64E5760342;
-	Fri, 10 Jul 2026 13:56:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8854411BD0D31;
-	Fri, 10 Jul 2026 15:56:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783691799; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=2OSTNQqfELNvmzMkFQM5JXNMKTpBUTAoxKAHE2qMMVA=;
-	b=lYSfWl18zW98syJyEZSj2Iq3gvp2ffBcTEnxk8tqULho9A02U4iNcaFidhErCHWcWtTzkF
-	dY+jGxB6eyw9cV6fKtDcwAGeO8hk/i2lprLOBDDtVpBFgYcsmWW+3mtdHaKaRFnUv531Mu
-	zPjjS4yRphMyR0y5aPOhiPrZHMPA/u9vpGIEp19Rr78NbT9iGKf8BpeZd6yb6UH8Yfv3uT
-	lKJVWFNC1FeVmrTH9Tm0jkOhfRWq3rBx+LE8rw8qIZTQ+UgA7/5RDjFVQDNNMmOpD7iBJF
-	bGZVhHG1hHkY68QdwfgbKeMKzqJv7/G42EoQOXLINfdRYBGLwtXeyQtHuU5huw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XdEnUUoc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE0551F00A3D;
+	Fri, 10 Jul 2026 14:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783692026;
+	bh=f8vcqLb/jCPMg7lcVLaoUN1C2jLqpFDm8nR01WFIwwc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XdEnUUoclMBEBonYmBYz/R4Rk/Hp7fFwE43oa7iaS/9uX1ZL56e9lfAV8HaHiIpzA
+	 iDAxm+qmXFlSqY/n2wDvA4Xd3M4ebeMx8cTvXetNCEnrsgzeQzNYi/pxHBGUdo1y6T
+	 UNbckYsgORLOrazgAR930viu2/S45grWCzo4Otew1wH7268I+F1Qth4kNd77SwHIjr
+	 l+H3TOHyrlHceMRqw9wafLy9KEAEtjgMT60ib2J7qQyJjso9HEHfpQug8zzg8nUc6k
+	 Qkn1upcBEpBAH0JiPB9nbqiJ2uOEm26LUaQju06n8xbUgqgf0YEgn2m/Cei28LlhlK
+	 xP1AgT7FXTjBg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] ACPI: NFIT: core: Fix acpi_nfit_init() error cleanup
+Date: Fri, 10 Jul 2026 10:00:24 -0400
+Message-ID: <20260710140024.103597-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070916-rerun-roundness-78d4@gregkh>
+References: <2026070916-rerun-roundness-78d4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 10 Jul 2026 15:56:32 +0200
-Message-Id: <DJUXYXEQMUJ4.31H82KQMG29UC@bootlin.com>
-Subject: Re: [PATCH net 1/2] net: macb: reprogram TBQP after shuffling the
- TX ring on link-up
-Cc: <christian.taedcke@weidmueller.com>, "Conor Dooley"
- <conor.dooley@microchip.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>,
- "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
- "Simon Horman" <horms@kernel.org>, "Sebastian Andrzej Siewior"
- <bigeasy@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Robert Hancock"
- <robert.hancock@calian.com>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-rt-devel@lists.linux.dev>,
- <stable@vger.kernel.org>
-To: "Kevin Hao" <haokexin@gmail.com>, "Taedcke, Christian"
- <christian.taedcke-oss@weidmueller.com>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260706-upstreaming-macb-irq-storm-v1-0-ab3115b5a13a@weidmueller.com> <20260706-upstreaming-macb-irq-storm-v1-1-ab3115b5a13a@weidmueller.com> <akzDQrmdYwHAMMmw@xiaowei> <8d53c3d9-7918-456c-8c27-e9d73c896452@weidmueller.com> <ak2-XJHVc3Cg6ZEk@xiaowei>
-In-Reply-To: <ak2-XJHVc3Cg6ZEk@xiaowei>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello Kevin & Christian,
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-On Wed Jul 8, 2026 at 5:05 AM CEST, Kevin Hao wrote:
->> I agree that the TRM says the transmit pointer is reset while TE is low.=
- My
->> question is whether this describes an internal pointer being reloaded fr=
-om TBQP,
->> or whether TBQP itself is restored to the original ring base.
->
-> The Zynq UltraScale TRM [1] describes the receive-buffer queue pointer as=
- follows:
->
->   An internal counter represents the receive-buffer queue pointer and it =
-is not
->   visible through the CPU interface.
->
-> I could not find a similar description for the transmit-buffer queue poin=
-ter,
-> but I believe it behaves the same way. From a software perspective, it sh=
-ould
-> be safe to assume that the TBQP is reset to point to the start of the tra=
-nsmit
-> descriptor list upon reset. This assumption is supported by the descripti=
-on
-> of the transmit_q_ptr (GEM) Register [2]:
->
->   Reading this register returns the location of the descriptor currently =
-being accessed.
->   Since the DMA handles two frames at once, this may not necessarily be p=
-ointing to the
->   current frame being transmitted.
->
-> [1] https://docs.amd.com/v/u/en-US/ug1085-zynq-ultrascale-trm
-> [2] https://docs.amd.com/r/en-US/ug1087-zynq-ultrascale-registers/transmi=
-t_q_ptr-GEM-Register
+[ Upstream commit 38bf27511ef41bffebd157ec3eba41fc89ba59cd ]
 
-For what it's worth, I agree with Kevin.
+If acpi_nfit_init() fails after adding the acpi_desc object to the
+acpi_descs list, that object is never removed from that list because
+the acpi_nfit_shutdown() devm action is not added for the NFIT device
+in that case.  Next, the acpi_nfit_init() failure causes
+acpi_nfit_probe() to fail, the acpi_desc object is freed, and a
+dangling pointer is left behind in the acpi_descs.  Any subsequent
+ACPI Machine Check Exception will trigger nfit_handle_mce() which
+iterates over acpi_descs and so a use-after-free will occur.
 
-It should be rather easy to detect if the patch is needed, with more
-logging. Dump TBQP before link-down & dump it at link-up. The code
-expects TBQP to reset to the ring start automatically whereas this
-commit message says the TBQP after link-up is some offset into the ring.
+Moreover, if acpi_nfit_probe() returns 0 after installing a notify
+handler for the NFIT device and without allocating the acpi_desc
+object and setting the NFIT device's driver data pointer, the
+acpi_desc object will be allocated by acpi_nfit_update_notify()
+and acpi_nfit_init() will be called to initialize it.  Regardless
+of whether or not acpi_nfit_init() fails in that case, the
+acpi_nfit_shutdown() devm action is not added for the NFIT device
+and acpi_desc is never removed from the acpi_descs list.  If the
+acpi_desc object is freed subsequently on driver removal, any
+subsequent ACPI MCE will lead to a use-after-free like in the
+previous case.
 
-Lastly, the cover letter mentions that [PATCH 1/2] alone isn't enough.
-But it doesn't mention that [PATCH 2/2] alone doesn't solve the issue.
-This would be a useful test as well.
+To address the first issue mentioned above, make acpi_nfit_probe()
+call acpi_nfit_shutdown() directly on acpi_nfit_init() failures and
+to address the other one, add a remove callback to the driver and
+make it call acpi_nfit_shutdown().  Also, since it is now possible to
+pass NULL to acpi_nfit_shutdown() or the acpi_desc object passed to it
+may not have been initialized, add checks against NULL for acpi_desc and
+its nvdimm_bus field to that function and make acpi_nfit_unregister()
+clear the latter after unregistering the NVDIMM bus.
 
-On Tue Jul 7, 2026 at 3:36 PM CEST, Taedcke, Christian wrote:
-> Thank you for the quick review! This is my first Linux kernel
-> contribution, so I appreciate your feedback here.
+Fixes: a61fe6f7902e ("nfit, tools/testing/nvdimm: unify common init for acpi_nfit_desc")
+Fixes: fbabd829fe76 ("acpi, nfit: fix module unload vs workqueue shutdown race")
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Cc: All applicable <stable@vger.kernel.org>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Link: https://patch.msgid.link/1963615.tdWV9SEqCh@rafael.j.wysocki
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/acpi/nfit/core.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-Welcome!
-
-Thanks,
-
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+diff --git a/drivers/acpi/nfit/core.c b/drivers/acpi/nfit/core.c
+index 5a1ced5bf7f6fa..60c4d390e44dad 100644
+--- a/drivers/acpi/nfit/core.c
++++ b/drivers/acpi/nfit/core.c
+@@ -3067,6 +3067,8 @@ static void acpi_nfit_unregister(void *data)
+ 	struct acpi_nfit_desc *acpi_desc = data;
+ 
+ 	nvdimm_bus_unregister(acpi_desc->nvdimm_bus);
++	/* The nvdimm_bus object may have been freed, so clear the pointer. */
++	acpi_desc->nvdimm_bus = NULL;
+ }
+ 
+ int acpi_nfit_init(struct acpi_nfit_desc *acpi_desc, void *data, acpi_size sz)
+@@ -3307,7 +3309,10 @@ static void acpi_nfit_remove_notify_handler(void *data)
+ void acpi_nfit_shutdown(void *data)
+ {
+ 	struct acpi_nfit_desc *acpi_desc = data;
+-	struct device *bus_dev = to_nvdimm_bus_dev(acpi_desc->nvdimm_bus);
++	struct device *bus_dev;
++
++	if (!acpi_desc || !acpi_desc->nvdimm_bus)
++		return;
+ 
+ 	/*
+ 	 * Destruct under acpi_desc_lock so that nfit_handle_mce does not
+@@ -3322,6 +3327,7 @@ void acpi_nfit_shutdown(void *data)
+ 	mutex_unlock(&acpi_desc->init_mutex);
+ 	cancel_delayed_work_sync(&acpi_desc->dwork);
+ 
++	bus_dev = to_nvdimm_bus_dev(acpi_desc->nvdimm_bus);
+ 	/*
+ 	 * Bounce the nvdimm bus lock to make sure any in-flight
+ 	 * acpi_nfit_ars_rescan() submissions have had a chance to
+@@ -3399,9 +3405,14 @@ static int acpi_nfit_add(struct acpi_device *adev)
+ 				sz - sizeof(struct acpi_table_nfit));
+ 
+ 	if (rc)
+-		return rc;
++		acpi_nfit_shutdown(acpi_desc);
+ 
+-	return devm_add_action_or_reset(dev, acpi_nfit_shutdown, acpi_desc);
++	return rc;
++}
++
++static void acpi_nfit_remove(struct acpi_device *adev)
++{
++	acpi_nfit_shutdown(dev_get_drvdata(&adev->dev));
+ }
+ 
+ static void acpi_nfit_update_notify(struct device *dev, acpi_handle handle)
+@@ -3485,6 +3496,7 @@ static struct acpi_driver acpi_nfit_driver = {
+ 	.ids = acpi_nfit_ids,
+ 	.ops = {
+ 		.add = acpi_nfit_add,
++		.remove = acpi_nfit_remove,
+ 	},
+ };
+ 
+-- 
+2.53.0
 
