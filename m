@@ -1,131 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C349221D3E4;
-	Fri, 10 Jul 2026 14:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783692595; cv=none; b=rArj6CV8zmGKEd2KEMM3QjBXRXRz48DKrJ5LQPT+K2oAJVNoCWATGUzox2l54Bq/RwEZiXAVRSJgRY6aXrWgg6nYfCNtdZ+6Y9HHVZbRtnL6JKjeSut+iJHmU3AxqrT+9psMipjXaSioywBwPCn5LMQJeiQ49/ONpGUxkavFgHM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783692595; c=relaxed/simple;
-	bh=JMhdtMOLaUHWXqPIXTzBNMeZuvaIhZXyYL/o5sxmfz4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ET7QZ2lPgo2Irw7+T/cf+sarPdA+1JVvm1kSlqHZpXOxHYZdeJM0fLrb3B6jf/9IkEAc/28VaBeynhgy2Z9NsVx/7HoZGr6y+ZcarB+p8MLOeaV5svY1SQ2qQE86VhlWiYXqj4+EwGy5Us9aMHcEnZ0qXmixTUNDRkGYp4Sq0Ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kgmiif0J; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1BA7E0FF;
+	Fri, 10 Jul 2026 14:09:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783692602; cv=pass; b=pvGSZvRb6bZqKrdr7VyS8jbQV5uG5nmFJT5YPLyATfpXuIsIbJH+zUFCTmgyN6Ja+lfQhv8A+yahY635qrZjbASgNsRHCc+KOYjQ5n9ks3RkC8f4tuqb12TaH/yIa6S5X5DKe/ptvXG/wmWCuQ0mIZjguT9N4ajDk4zv7LdvB4U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783692602; c=relaxed/simple;
+	bh=ljlWwhl4MSRmsGSt3hHwCd+GEOrvQNMsv6KnBv/Gqrg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e64X0EI+Un0th5yX3nv0JdH80LkwuN+P7lB7naqLgP3XqYogmT1bKoDySUwONA2kzsVxR6gAZTPMVJ5wLGEXrGWbfQIYJI0dMXbjUiVsxhMNjw5EARXMXSD6VG2dMMhYQ6//yHh42GTB/1aanY9sHowalh2iHHO5bveZWJlxxGM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=L42I8ROO; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kgmiif0J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7411F000E9;
-	Fri, 10 Jul 2026 14:09:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783692593;
-	bh=h1xi3IKQjbdJ53JCv2L+jzRlcSu7ApiSTvfpodjcvtk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kgmiif0JKq2HSeSzJ7OofwRSlUD94iS3uEV1tKQ943E0Dw5HJBa/NodJ+UjhAlKNH
-	 FGbXFGZ+JEAXY3Dr+tF4ssnWwH8WP2JApHQJxCeAynEVTGBtdWPwSFCDmJ7/fOYkFW
-	 Kncg2+p1T/D/wvPa/3glV7KVkw5wq6sn17XSngyM=
-Date: Fri, 10 Jul 2026 16:09:16 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>,
-	Mark Brown <broonie@opensource.wolfsonmicro.com>,
-	Thierry Reding <thierry.reding@avionic-design.de>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="L42I8ROO"
+ARC-Seal: i=1; a=rsa-sha256; t=1783692572; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=hZt1XXdWXnyF+M0kkOS36AutrormeCoalrRP4+WUfesRkZkJBvFbd/vXqEkwkFe+oUi3TcWm4dwN+5KcpzGzgKsX9rRn3GSy9Sa6iJKoaTzw92xMBGMfuuScxbgkZV5N6dUtMR7ggHtcCrNwu/JRZtBPMOagR6NFSdU6ziG++Ls=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1783692572; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=QCpA9hNQb2+dY/GdVuoFivLwBHgPhQwaGW2XRacNqTc=; 
+	b=RGajrwKgKArpL0HaMw7yGQKsgxmzXauSIWadw6Lrc2k8gSCgirh7iiYirX7a+7MQ6T2NlbbfB/3F4GjcoJo1UYmcj63BlNkN4mumegs1/Yo4xGm0EEP96rKXEBJcNf9x8kxbNSiQBRvhW4xyuptpzu0Azb3YeJ51XxkA/2UlqOk=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783692572;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=QCpA9hNQb2+dY/GdVuoFivLwBHgPhQwaGW2XRacNqTc=;
+	b=L42I8ROOJ/E7fJRbD4nEJ3eBzHmAOh1hFq+cD4Ez//jO+f4RFM6hzy5JpM/IfT33
+	5SA/1z5SWRmAGHbTTvZ9D6OTgUQyRUWw9Ia/uRt0yWsZd/x6uS00snNDpNPRjL+iWLO
+	wG7yNPh99CWhiiwIys/3/iGnKwHHgxsJ9hQR2lfU=
+Received: by mx.zoho.eu with SMTPS id 178369256977454.46577705906941;
+	Fri, 10 Jul 2026 16:09:29 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: Alexander Aring <alex.aring@gmail.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Doug Berger <opendmb@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Peter Chen <peter.chen@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maximilian Luz <luzmaximilian@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	driver-core@lists.linux.dev, devicetree@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
-	iommu@lists.linux.dev, linux-pm@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org, mfd@lists.linux.dev,
-	stable@vger.kernel.org, Manuel Ebner <manuelebner@mailbox.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH v3 00/20] driver core: count references of the platform
- device's fwnode, not OF node
-Message-ID: <2026071001-limelight-stoppable-d7cb@gregkh>
-References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net] mac802154: hold an interface reference across the scan worker
+Date: Fri, 10 Jul 2026 16:09:27 +0200
+Message-ID: <20260710140927.13228-1-security@auditcode.ai>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Mon, Jul 06, 2026 at 02:44:12PM +0200, Bartosz Golaszewski wrote:
-> Platform device core provides helper interfaces for dealing with
-> dynamically created platform devices. Most users should use
-> platform_device_register_full() which encapsulates most of the
-> operations but some modules will want to use the split approach of
-> calling platform_device_alloc() + platform_device_add() separately for
-> various reasons.
-> 
-> With many platform devices now using dynamic software nodes as their
-> primary firmware nodes and with the platform device interface being
-> extended to also better cover the use-cases of secondary software nodes,
-> I believe it makes sense to switch to counting the references of all
-> kinds of firmware nodes.
-> 
-> To that end, I identified all users of platform_device_alloc() that also
-> assign dev.of_node or dev.fwnode manually. I noticed five cases where
-> the references are not increased as they should (patches 1-5 fix these
-> users) and provided three new functions in platform_device.h that now
-> become the preferred interfaces for assigning firmware nodes to dynamic
-> platform devices (in line with platform_device_add_data(),
-> platform_device_add_resources(), etc.). The bulk of the patches in this
-> series are small driver conversions to port all users to going through
-> the new functions that now encapsulate the refcount logic. With that
-> done, the final patch seamlessly switches to counting the references of
-> all firmware node types.
-> 
-> This effort is prerequisite of removing platform_device_release_full()
-> and unifying the release path for dynamic platform devices using
-> unmanaged software nodes.
-> 
-> Merging strategy: The entire series should go through the driver core
-> tree, possibly with an immutable branch provided to solve any potential
-> conflicts though these are rather unlikely.
+mac802154_scan_worker() captures the scanning sub-interface once under
+RCU:
 
-I've added this to the driver-core-testing branch now, thanks!
+	sdata = IEEE802154_WPAN_DEV_TO_SUB_IF(scan_req->wpan_dev);
 
-greg k-h
+and then, after rcu_read_unlock() and outside the rtnl, keeps
+dereferencing sdata->dev: in the channel-change and restart failure
+traces, in mac802154_transmit_beacon_req() (skb->dev = sdata->dev) for
+active scans, in the final dev_dbg(), and in the end_scan
+mac802154_scan_cleanup_locked() path. Nothing keeps that netdev alive
+for the duration of the worker iteration.
+
+A concurrent teardown of the scanning interface -- userspace issuing
+NL802154_CMD_DEL_INTERFACE (ieee802154_if_remove() ->
+unregister_netdevice()), or a full PHY removal via
+ieee802154_unregister_hw() -> ieee802154_remove_interfaces() -- can run
+as soon as the worker drops the rtnl between its two short
+drv_set_channel()/drv_start() sections. The netdev is not freed
+synchronously by unregister_netdevice(): it is queued to net_todo_list
+and freed later from netdev_run_todo(), which drops the rtnl mutex
+(__rtnl_unlock()) *before* netdev_wait_allrefs_any()/free_netdev(). The
+freeing therefore runs with the rtnl not held, on whichever task next
+drains net_todo_list. Holding the rtnl in the worker does not prevent
+it, and the per-PHY IEEE802154_IS_SCANNING flag does not identify the
+specific interface: a subsequent NEW_INTERFACE + TRIGGER_SCAN re-arms
+the flag, so a stale worker iteration sails past an is-scanning recheck
+and dereferences the already-freed netdev.
+
+Triggering the race requires CAP_NET_ADMIN: both
+NL802154_CMD_TRIGGER_SCAN and NL802154_CMD_DEL_INTERFACE are
+GENL_ADMIN_PERM, reachable only from the initial user namespace, so
+the attacker is a locally privileged (CAP_NET_ADMIN) user, not an
+unprivileged local user or a remote peer.
+
+KASAN slab-use-after-free, kworker reading the freed
+net_device/ieee802154_sub_if_data (kmalloc-cg-4k) allocated and freed by
+the racing NEW_INTERFACE/DEL_INTERFACE task:
+
+  BUG: KASAN: slab-use-after-free in mac802154_scan_worker+0x... [mac802154]
+  Read of size 8 ... by task kworker/u8:N
+  Workqueue: phy0-mac-cmds mac802154_scan_worker [mac802154]
+   mac802154_scan_worker
+   process_one_work
+  (also hit via ieee802154_mlme_tx_locked() from the beacon-request path
+   and via _dev_err()/__dev_printk() formatting sdata->dev->dev)
+
+Fix it by taking a reference on the interface while the RCU read lock is
+still held -- so the netdev cannot be freed before the refcount is
+raised -- and releasing it at every exit of the worker past that point.
+This keeps sdata->dev valid for the whole iteration.
+
+The reference does not defer the free indefinitely and does not
+deadlock the single-threaded mac_wq. Each worker iteration drops the
+reference before it requeues itself, and a teardown started while the
+reference is held simply blocks in netdev_run_todo() until the current
+iteration returns. It cannot be the worker's own rtnl_unlock() that
+blocks on the reference either: the unregistering task removes the
+netdev from net_todo_list under the rtnl (list_replace_init() in
+netdev_run_todo() runs before __rtnl_unlock()), so it always owns the
+todo entry, and the worker acquires the rtnl only afterwards -- the
+blocking netdev_wait_allrefs_any() therefore always runs on the
+teardown task, never on the worker.
+
+Verified on a v6.19 KASAN build: racing DEL_INTERFACE against an
+in-flight TRIGGER_SCAN reliably tripped a slab-use-after-free KASAN
+report inside mac802154_scan_worker() before this patch, and the
+same reproducer no longer triggers it with the fix applied.
+
+Fixes: 57588c71177f ("mac802154: Handle passive scanning")
+Cc: stable@vger.kernel.org
+Assisted-by: AuditCode-AI:2026.07
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+---
+ net/mac802154/scan.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/net/mac802154/scan.c b/net/mac802154/scan.c
+index 0a31ac8d8415..48e661031cc0 100644
+--- a/net/mac802154/scan.c
++++ b/net/mac802154/scan.c
+@@ -209,6 +209,26 @@ void mac802154_scan_worker(struct work_struct *work)
+ 		return;
+ 	}
+ 
++	/* From here on sdata->dev is dereferenced after rcu_read_unlock() and
++	 * outside the rtnl: in the dev_err()/dev_dbg() traces below, in
++	 * mac802154_transmit_beacon_req() (skb->dev = sdata->dev) and in the
++	 * end_scan mac802154_scan_cleanup_locked() call. A concurrent teardown
++	 * of that interface (NL802154_CMD_DEL_INTERFACE ->
++	 * ieee802154_if_remove(), or a full PHY removal via
++	 * ieee802154_unregister_hw()) can unregister the netdev; the actual
++	 * free then runs asynchronously from netdev_run_todo() with the rtnl
++	 * already dropped, so neither holding the rtnl nor the per-PHY
++	 * IEEE802154_IS_SCANNING flag keeps sdata->dev alive here. Pin it with
++	 * a reference taken while we still hold the RCU read lock (so the
++	 * netdev cannot be freed before we bump the refcount) and drop it at
++	 * every exit below. This blocks the teardown's netdev_run_todo() until
++	 * this worker iteration is done; it cannot self-deadlock because the
++	 * unregistering task claims the net_todo_list entry under the rtnl, so
++	 * the blocking netdev_wait_allrefs_any() always runs on that task, not
++	 * on this single-threaded worker.
++	 */
++	dev_hold(sdata->dev);
++
+ 	wpan_phy = scan_req->wpan_phy;
+ 	scan_req_type = scan_req->type;
+ 	scan_req_duration = scan_req->duration;
+@@ -262,12 +282,14 @@ void mac802154_scan_worker(struct work_struct *work)
+ 		"Scan page %u channel %u for %ums\n",
+ 		page, channel, jiffies_to_msecs(scan_duration));
+ 	queue_delayed_work(local->mac_wq, &local->scan_work, scan_duration);
++	dev_put(sdata->dev);
+ 	return;
+ 
+ end_scan:
+ 	rtnl_lock();
+ 	mac802154_scan_cleanup_locked(local, sdata, false);
+ 	rtnl_unlock();
++	dev_put(sdata->dev);
+ }
+ 
+ int mac802154_trigger_scan_locked(struct ieee802154_sub_if_data *sdata,
+-- 
+2.50.1 (Apple Git-155)
+
