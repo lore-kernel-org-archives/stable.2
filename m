@@ -1,271 +1,174 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF39345740
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 18:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFF727727;
+	Fri, 10 Jul 2026 18:45:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783708416; cv=none; b=FhHtGC7jOUi1dHhDSqrNXwPkjRYUERvcMTSioZ3lbfZtvOJ93czNb42CrNefk5zYca9bBPOnJKPeaE3DNn/OLSNtRkuuT1hQZOhYVegZkrp2WlPhOYZ+NaY2RiwhMgEFtSl5ioKLszMtNlSfibyTdq56+PtSAOfDWXOxff7p5zQ=
+	t=1783709161; cv=none; b=Cr58zz4kTweFa8zSjdgpvrIsMz3watGSqhDXXVd2Ry06fUUc5dQqu1sNDTdY1PfgepIj9kP38oZPSUf3ziGoLZvZwpHqhUschtO5TaebYXmrk+PF0NIbwrY7iRKoxyWbVQlur0CjscdijRGfl7qcO/Ah/ErqQa9mgBoCtxuuOI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783708416; c=relaxed/simple;
-	bh=Rfy4qwT8r08woMWfxAU9OUwsLgNLjNW69XqNPLK5ykk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ossqrsa0tAaLYxp1uHm9lzWY7qiDHG+n5AcAlB5m4pRnpA+b/fSKnlEQ3I5b59fztrnh30tUDPiYh/32T6LjcZqeL2oHesP8wDQq9V1t6v856B+iOWz8+Sd6N5J72KlIoadCeku1zQQjyKUbgcOxC55kG4MoDntgFru+lUzyM9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AsM6Onxc; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783709161; c=relaxed/simple;
+	bh=z/PAgDsGv3sHVcaDpjNcWANCT+tvjsUNAbpH7k7Psi0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EYh6mRJ7ANtb6MBgYhydijus0DbkWmuU5UyRB9Dqs/GUNo0tfrlbFXpkE+pzdkl2b1+zVx4CyEuLJz3xlkm01fhmNcxs5xeo3TxKuepkCQcLsE9l4itTqaWE8gvTJRPx9ulVqg/ktFuLq0iXDzyjWP4uNYk56dRPTNbRY4Ti+p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=m+Pb0Y3k; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AsM6Onxc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783708414; x=1815244414;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Rfy4qwT8r08woMWfxAU9OUwsLgNLjNW69XqNPLK5ykk=;
-  b=AsM6OnxcNp2tezRQMl+wWM7zApMb7AsoQ2xkA3CbxTU7Q0ZQwlugJUaQ
-   6JN2lCd64d278IgDS1XYsFH2KB5m02HQBcZOVoNRJhvPjlp4M02V+3M+w
-   aytMoPh3vQDHxWr5OacySD/nKrkzeFBW6zDd9jOfZo8dnB+aweTdlOFOs
-   /8AbYbFw7ndENrHK5P7o98zLkfWf2UYuHaLQHm85xn1OB6mIrlb/2hdQ1
-   oNiax38f7LFJRR/QTrD4XexpsiSPKQJVSLkuk1FPdySwLtjKQAkBmx1Dg
-   8sGl5YmSOvjNRog97srfJHjAJs2CPIEtapcKUrClS3uIj82pw82BG5vbq
-   A==;
-X-CSE-ConnectionGUID: 6Pa1dbmWTeCu5mgZalgb8Q==
-X-CSE-MsgGUID: Z7jXGgM2QkGu9sviZbS49Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83390836"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="83390836"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 11:33:33 -0700
-X-CSE-ConnectionGUID: iPIysde9QoyxRRaB9uBk5A==
-X-CSE-MsgGUID: UenBA1pwQ2q/81VOwNTX5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="254453107"
-Received: from nitin-super-server.iind.intel.com ([10.190.238.72])
-  by orviesa008.jf.intel.com with ESMTP; 10 Jul 2026 11:33:31 -0700
-From: Nitin Gote <nitin.r.gote@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Nitin Gote <nitin.r.gote@intel.com>,
-	stable@vger.kernel.org,
-	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
-	Christian Konig <christian.koenig@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>
-Subject: [PATCH] drm/xe: Hold a dma-buf reference for imported BOs
-Date: Sat, 11 Jul 2026 00:40:28 +0530
-Message-ID: <20260710191027.260160-2-nitin.r.gote@intel.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="m+Pb0Y3k"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Reply-To:Content-ID:Content-Description;
+	bh=nCtzuEwPT34MKTvCPVuZBQgIMot0RWS9od/hRanH/WM=; b=m+Pb0Y3koF99BXJURgDkAOKWKu
+	HBm/TufqtxA+v4Thb6ojwwTE0B0QCe9r01FZwGMSR5Hyy4c5YnBfLb89unScByHHMw1S3wXb0efF0
+	/A5DoE4QMRk7hbzL3xptAUnif2AGH6Du3itdR8rea7N4Xz5w9ZUqhmHWDn8G1zpXu+i0rDIodXkYM
+	Y9kz22aUUyltXz/kaEA1gu/l2d+0ElHVl6cUDGj+Fy0wrQhI/Gg7mvfd84GDO5wMYLXqt24EcUnay
+	3ufozMmSn7pbvunFXi+PKntMVekykjSTTyRUBfi5k+8oJcD2rE+JTSdjZH9rIJsxibVcX1grVuchS
+	ViUDMhaA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <carnil@debian.org>)
+	id 1wiGEM-004gRe-0a;
+	Fri, 10 Jul 2026 18:45:46 +0000
+Received: by eldamar.lan (Postfix, from userid 1000)
+	id 7EFFDBE2DE0; Fri, 10 Jul 2026 20:45:45 +0200 (CEST)
+Date: Fri, 10 Jul 2026 20:45:45 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Denis Benato <denis.benato@linux.dev>, Ponali <ponali2k@gmail.com>,
+	Luke Jones <luke@ljones.dev>,
+	Corentin Chary <corentin.chary@gmail.com>,
+	Hans de Goede <hansg@kernel.org>, 1141604@bugs.debian.org,
+	platform-driver-x86@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>, regressions@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: Bug#1141604: linux-image-6.12.94+deb13-amd64: does not detect
+ ScreenPad on ASUS VivoBook
+Message-ID: <alE92R40JwcluApW@eldamar.lan>
+References: <178340264407.17924.10135409461303815312.reportbug@ananaspc>
+ <178362762638.911488.8564892548331679884@eldamar.lan>
+ <98dc115b-1dec-4fbb-bab7-2588e8b74bf8@linux.dev>
+ <0ff0385e-50b0-bfae-cedc-05cfe9c6cbc7@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <0ff0385e-50b0-bfae-cedc-05cfe9c6cbc7@linux.intel.com>
+X-Debian-User: carnil
 
-An imported dma-buf BO is created as a ttm_bo_type_sg BO whose
-reservation object is the exporter's dma_buf->resv. The importer,
-however, only takes a dma-buf reference after a successful
-dma_buf_dynamic_attach(). Until then nothing keeps the exporter alive,
-so if the exporter is freed while the BO still references its resv, a
-later access to that resv is a use-after-free:
+Hi all,
 
-  Oops: general protection fault, probably for non-canonical address
-        0x6b6b6b6b6b6b6b9c
-  Workqueue: ttm ttm_bo_delayed_delete [ttm]
-  RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
+On Fri, Jul 10, 2026 at 03:31:08PM +0300, Ilpo J‰rvinen wrote:
+> On Fri, 10 Jul 2026, Denis Benato wrote:
+> > On 7/9/26 22:08, Salvatore Bonaccorso wrote:
+> > > Control: forwarded -1 https://lore.kernel.org/regressions/178362762638.911488.8564892548331679884@eldamar.lan
+> > > Control: tags -1 + upstream
+> > >
+> > > Hi,
+> > >
+> > > Ponali reported in Debian (https://bugs.debian.org/1141604) the
+> > > following issue after updating from 6.12.90 to 6.12.94. First quoting
+> > > the report:
+> > >
+> > > On Tue, Jul 07, 2026 at 07:37:24AM +0200, Ponali wrote:
+> > >> Package: src:linux
+> > >> Version: 6.12.94-1
+> > >> Severity: normal
+> > >> Tags: upstream, regression
+> > >> X-Debbugs-Cc: ponali2k@gmail.com
+> > >>
+> > >> Last known working kernel: 6.12.90-1
+> > >> First known broken kernel: 6.12.94-1
+> > >>
+> > >>
+> > >> Dear Maintainer,
+> > >>
+> > >> I upgraded all my packages through apt, which also upgraded the linux image
+> > >> from 6.12.90 to 6.12.94.
+> > >>
+> > >> I expected the ScreenPad display to continue to be detected and exposed as a
+> > >> DRM output, like on 6.12.90. The ScreenPad being the trackpad with a screen,
+> > >> which came with my computer (ASUS VivoBook X532FA_S532FA).
+> > >>
+> > >> After upgrading and rebooting, the new kernel caused a regression where the
+> > >> display of the ScreenPad fails to get recognized by the kernel. The touchpad
+> > >> functionality still works. Usually, the ScreenPad would appear as "HDMI-A-1".
+> > >> The DRM connector for it still exists (/sys/class/drm/card0-HDMI-A-1), but
+> > >> "status" reports "disabled"
+> > >>
+> > >> I could not get the ScreenPad display to be recognized again on the new kernel,
+> > >> so I configured GRUB to automatically boot to the 6.12.90 kernel through the
+> > >> "Advanced Options". The ScreenPad is recognized on older kernel versions, so I
+> > >> am still able to use it (until a new LPE comes around).
+> > >>
+> > >> To replicate:
+> > >> 1. Boot with 6.12.90. The ScreenPad display is detected as HDMI-A-1.
+> > >> 2. Boot with 6.12.94 with the exact same hardware.
+> > >> 3. The ScreenPad display is no longer usable.
+> > >>
+> > >>
+> > >> My main display is eDP-1 (1920x1080), though it isn't essential. My GPU is an
+> > >> integrated Intel iGPU, and the driver used for both screens is i915. I have
+> > >> booted to the new kernel for reportbug to get all the information
+> > >> automatically, but i will continue to use the old one until the appropriate
+> > >> time.
+> > > Now, Ponali did bisect the changes between 6.12.90 and 6.12.94 and
+> > > found that the backport of the commit 8d95d1f4aa5c ("platform/x86:
+> > > asus-wmi: fix screenpad brightness range") changed the behaviour.
+> > > Bisect log is at: https://bugs.debian.org/1141604#22
+> > >
+> > > As this change was backported to other stable series as well I asked
+> > > Ponali to please test 7.0.y and 7.1.y and confirmed that both 7.0.13
+> > > and as well 7.1.3 show the hehaviour.
+> > >
+> > > #regzbot introduced: 8d95d1f4aa5c76202b0833a70998769384612488
+> > > #regzbot link: https://bugs.debian.org/1141604
+> > >
+> > > Is there anything Ponali can report back to further debug the issue?
+> > Hi Salvatore,
+> > 
+> > The commit incriminated is this one: https://lore.kernel.org/all/20260302174431.349816-3-denis.benato@linux.dev/
+> > 
+> > As you can see that commit changes min/max of the brightness range, but 
+> > does not touch the detection at all, 
+> 
+> To be more precise, it DOES change read_screenpad_backlight_power() -> 
+> asus_wmi_get_devstate_simple() but AFAICT that cannot make things worse 
+> because asus_wmi_get_devstate_simple() used in both cases, so I was 
+> left to wonder the same thing as you.
+> 
+> That being said, it's hard to see how bisect could point this to a wrong 
+> commit either because good/bad should be pretty obvious.
+> 
+> Did reverting the suspect commit on top of 6.12.94 result in a working 
+> system?
 
-This can be reached on two paths:
+Ponali did test, and reported back in the Debian bug at
+https://bugs.debian.org/1141604#60, quoting:
 
- - dma_buf_dynamic_attach() fails, or
- - ttm_bo_init_reserved() fails during BO creation.
+> I have found the sysfs attribute for brightness control to be in
+> /sys/class/backlight/asus_screenpad, and it appears on both 6.12.90 and
+> 6.12.94.
+> 
+> On 6.12.90, max_brightness reports 235.
+> 
+> On 6.12.94, max_brightness reports 255.
+> 
+> 
+> I have checked out to v6.12.94, reverted the suspect commit, and found
+> the ScreenPad to be working as intended.
+> 
+> 
+> Regards,
+> 
+> Ponali
 
-In both cases the BO already has bo->base.resv pointing at the exporter
-resv, and sg BOs are always torn down via ttm_bo_delayed_delete(), which
-locks bo->base.resv asynchronously - potentially after the exporter has
-been freed.
-
-Take the dma-buf reference in xe_bo_init_locked(), before
-ttm_bo_init_reserved(), so it also covers a creation failure there, and
-release it in xe_ttm_bo_destroy(). The reference is held for the whole
-BO lifetime, keeping the shared resv alive on every path.
-
-v2:
-  - Reworked the fix to avoid creating the imported sg BO before
-    dma_buf_dynamic_attach() succeeds.
-  - Attach with importer_priv == NULL and make invalidate_mappings ignore
-    incomplete imports.
-
-v3:
-  - Dropped the xe-side reordering approach since importer_priv must be
-    valid when dma_buf_dynamic_attach() publishes the attachment.
-  - Per Christian's suggestion on the v1 thread, keyed the check on
-    import_attach rather than removing the sg guard entirely.
-  - Fixes both xe and amdgpu in a single TTM patch.
-
-v4:
-  - Moved import_attach check to after dma_resv_copy_fences() so fences
-    are copied before returning for successful imports (Thomas).
-  - Removed exporter-alive claim from commit message (Thomas).
-
-v5:
-  - Add drm/xe patch to keep imported sg BOs off the LRU before attach
-    succeeds; the TTM fix alone is not sufficient for xe if the BO is
-    already LRU-visible. (Thomas)
-    v4 patch:
-    https://patchwork.freedesktop.org/patch/736663/?series=169129&rev=2
-  - Patch 1 (drm/ttm) carries Christian's Reviewed-by from v4.
-
-v6:
-  - Reworked the fix based on Thomas' suggestion. Instead of the TTM resv
-    individualization (v1-v5) plus the xe off-LRU/placement handling (v5),
-    just hold a dma-buf reference for the imported BO lifetime so the
-    shared resv can never be freed while the BO still references it.
-    Single xe patch, no TTM change. (Thomas)
-  - Take the reference in xe_bo_init_locked() before ttm_bo_init_reserved()
-    so a TTM creation failure is covered too (Thomas).
-  - Dropped the v5 series (drm/ttm + drm/xe off-LRU); the off-LRU approach
-    also regressed in CI BAT via ttm_bo_pipeline_gutting() creating a ghost
-    BO that outlived the exporter.
-    Link to v5: https://patchwork.freedesktop.org/series/169984/
-
-v7:
-  - Move changelog above --- so it stays in the commit message.
-  - Reorder changelog entries oldest-to-newest. (Thomas)
-
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
-Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-Cc: stable@vger.kernel.org
-Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-Cc: Christian Konig <christian.koenig@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Suggested-by: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Reviewed-by: Thomas Hellstr√∂m <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
----
- drivers/gpu/drm/xe/xe_bo.c       | 24 ++++++++++++++++++++----
- drivers/gpu/drm/xe/xe_bo.h       |  3 ++-
- drivers/gpu/drm/xe/xe_bo_types.h |  2 ++
- drivers/gpu/drm/xe/xe_dma_buf.c  |  2 +-
- 4 files changed, 25 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 85e6d9a0f575..ae730bd6f4b2 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -1349,7 +1349,7 @@ int xe_bo_notifier_prepare_pinned(struct xe_bo *bo)
- 		backup = xe_bo_init_locked(xe, NULL, NULL, bo->ttm.base.resv, NULL, xe_bo_size(bo),
- 					   DRM_XE_GEM_CPU_CACHING_WB, ttm_bo_type_kernel,
- 					   XE_BO_FLAG_SYSTEM | XE_BO_FLAG_NEEDS_CPU_ACCESS |
--					   XE_BO_FLAG_PINNED, &exec);
-+					   XE_BO_FLAG_PINNED, NULL, &exec);
- 		if (IS_ERR(backup)) {
- 			drm_exec_retry_on_contention(&exec);
- 			ret = PTR_ERR(backup);
-@@ -1490,7 +1490,7 @@ int xe_bo_evict_pinned(struct xe_bo *bo)
- 						   xe_bo_size(bo),
- 						   DRM_XE_GEM_CPU_CACHING_WB, ttm_bo_type_kernel,
- 						   XE_BO_FLAG_SYSTEM | XE_BO_FLAG_NEEDS_CPU_ACCESS |
--						   XE_BO_FLAG_PINNED, &exec);
-+						   XE_BO_FLAG_PINNED, NULL, &exec);
- 			if (IS_ERR(backup)) {
- 				drm_exec_retry_on_contention(&exec);
- 				ret = PTR_ERR(backup);
-@@ -1826,6 +1826,8 @@ static void xe_ttm_bo_destroy(struct ttm_buffer_object *ttm_bo)
- 
- 	if (bo->ttm.base.import_attach)
- 		drm_prime_gem_destroy(&bo->ttm.base, NULL);
-+	if (bo->dma_buf)
-+		dma_buf_put(bo->dma_buf);
- 	drm_gem_object_release(&bo->ttm.base);
- 
- 	xe_assert(xe, list_empty(&ttm_bo->base.gpuva.list));
-@@ -2283,6 +2285,8 @@ void xe_bo_free(struct xe_bo *bo)
-  * @cpu_caching: The cpu caching used for system memory backing store.
-  * @type: The TTM buffer object type.
-  * @flags: XE_BO_FLAG_ flags.
-+ * @dma_buf: The dma-buf to reference for the BO lifetime (imported BOs),
-+ * or NULL.
-  * @exec: The drm_exec transaction to use for exhaustive eviction.
-  *
-  * Initialize or create an xe buffer object. On failure, any allocated buffer
-@@ -2294,7 +2298,8 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 				struct xe_tile *tile, struct dma_resv *resv,
- 				struct ttm_lru_bulk_move *bulk, size_t size,
- 				u16 cpu_caching, enum ttm_bo_type type,
--				u32 flags, struct drm_exec *exec)
-+				u32 flags, struct dma_buf *dma_buf,
-+				struct drm_exec *exec)
- {
- 	struct ttm_operation_ctx ctx = {
- 		.interruptible = true,
-@@ -2383,6 +2388,17 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 	placement = (type == ttm_bo_type_sg ||
- 		     bo->flags & XE_BO_FLAG_DEFER_BACKING) ? &sys_placement :
- 		&bo->placement;
-+
-+	/*
-+	 * For imported BOs, keep the exporter dma-buf alive for the BO
-+	 * lifetime. Taken before ttm_bo_init_reserved() to also cover a
-+	 * creation failure there. Released in xe_ttm_bo_destroy().
-+	 */
-+	if (dma_buf) {
-+		get_dma_buf(dma_buf);
-+		bo->dma_buf = dma_buf;
-+	}
-+
- 	err = ttm_bo_init_reserved(&xe->ttm, &bo->ttm, type,
- 				   placement, alignment,
- 				   &ctx, NULL, resv, xe_ttm_bo_destroy);
-@@ -2500,7 +2516,7 @@ __xe_bo_create_locked(struct xe_device *xe,
- 			       vm && !xe_vm_in_fault_mode(vm) &&
- 			       flags & XE_BO_FLAG_USER ?
- 			       &vm->lru_bulk_move : NULL, size,
--			       cpu_caching, type, flags, exec);
-+			       cpu_caching, type, flags, NULL, exec);
- 	if (IS_ERR(bo))
- 		return bo;
- 
-diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-index 6340317f7d2e..7ae1d9ac0574 100644
---- a/drivers/gpu/drm/xe/xe_bo.h
-+++ b/drivers/gpu/drm/xe/xe_bo.h
-@@ -118,7 +118,8 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 				struct xe_tile *tile, struct dma_resv *resv,
- 				struct ttm_lru_bulk_move *bulk, size_t size,
- 				u16 cpu_caching, enum ttm_bo_type type,
--				u32 flags, struct drm_exec *exec);
-+				u32 flags, struct dma_buf *dma_buf,
-+				struct drm_exec *exec);
- struct xe_bo *xe_bo_create_locked(struct xe_device *xe, struct xe_tile *tile,
- 				  struct xe_vm *vm, size_t size,
- 				  enum ttm_bo_type type, u32 flags,
-diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
-index fcc63ae3f455..e45f24301050 100644
---- a/drivers/gpu/drm/xe/xe_bo_types.h
-+++ b/drivers/gpu/drm/xe/xe_bo_types.h
-@@ -36,6 +36,8 @@ struct xe_bo {
- 	struct xe_bo *backup_obj;
- 	/** @parent_obj: Ref to parent bo if this a backup_obj */
- 	struct xe_bo *parent_obj;
-+	/** @dma_buf: Imported dma-buf ref to keep its resv alive. */
-+	struct dma_buf *dma_buf;
- 	/** @flags: flags for this buffer object */
- 	u32 flags;
- 	/** @vm: VM this BO is attached to, for extobj this will be NULL */
-diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
-index 8a920e58245c..bf0728838ead 100644
---- a/drivers/gpu/drm/xe/xe_dma_buf.c
-+++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-@@ -302,7 +302,7 @@ xe_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
- 
- 		bo = xe_bo_init_locked(xe, NULL, NULL, resv, NULL, dma_buf->size,
- 				       0, /* Will require 1way or 2way for vm_bind */
--				       ttm_bo_type_sg, XE_BO_FLAG_SYSTEM, &exec);
-+				       ttm_bo_type_sg, XE_BO_FLAG_SYSTEM, dma_buf, &exec);
- 		drm_exec_retry_on_contention(&exec);
- 		if (IS_ERR(bo)) {
- 			ret = PTR_ERR(bo);
--- 
-2.50.1
-
+Regards,
+Salvatore
