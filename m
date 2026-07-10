@@ -1,52 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3452D274FD1;
-	Fri, 10 Jul 2026 16:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D75236F8F2;
+	Fri, 10 Jul 2026 17:00:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783702695; cv=none; b=CnHpIztZ58Q4+n+y4FxCDYVkPzXY0Ju7wpvJnYGZjUYf4vahQprxNEfdo9YMKgwL1uYr7PjECw9nEk5G8ke0reMGeH7WqAxtzfwTphAVWssQvkAM6YE7OlF/ry2v59CFzAasPSNB9so/KDrTZxnCPhFyNaCJ3dJK4XDV2I45fXo=
+	t=1783702860; cv=none; b=bhP9mXlaCdl3VifelartX3ajfsTfdF1WbDjBzpQhICJVp49iiuhCbsd/sPgI3RlDXWYPkfhXOvVJCi8vXl+hfrGwOY+bXxK1Jht5CNC9TrWSGDKf2DP5IITc7Vb/LMVVamyvPS53A8gs6SlJFKB2GCKHbweodnebJ4bPjcKB8ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783702695; c=relaxed/simple;
-	bh=fC12MveZRpBCrndepPmQnNSNipsjXEfj0RsLjRllTXo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JfCBPDy6WTIreqSq2kxlgbJvrikOwKhXPp0+n1vBdVq05ULy5GLihqRalo8kuCSB8A6KjaFo0BgdteoGRtCjTe4xnw/kUSZLSEeyi0yCCCqVjrP75VfSwwc+ybN1My/J47KUSd24TyhDo232AXQYCtoYCLRRV0KzATQMLjyXr8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B2ul+ago; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783702860; c=relaxed/simple;
+	bh=ta9uReoNXM9E734F2OwI73vRjMhKCSjm5wGsTTpGPys=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=JJHmG0uoX8WUmAUx9gszNaS+PnEqm6ru4LfyfwLEbtzP6LveEO8JtYYJCC36pUOstIW1X0N7gyg59UbcbyM62JqD0LWACfx56kbW0hu/8MlRElXgzDXWE6aBRnPI46SuKeX/TViOTaiYNTp3qGhZCoVfthIfGBmTzzw2x+ao2G8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dTyat+rN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B2ul+ago"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEE5E1F000E9;
-	Fri, 10 Jul 2026 16:58:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dTyat+rN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D521F000E9;
+	Fri, 10 Jul 2026 17:00:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783702694;
-	bh=NIl7I7T4x7rHAN+aBlxi7ud/jgmJeseYicOc7Rt0810=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B2ul+agoG+ka7LaVnYvEHPSk5fqo/8j/wU27lKTM2vL7LUabq5zLjVtO6EzMlHGJS
-	 LrFi3z8TJupAK8Yzr7rQGHDv5UpGO8ijEkVq8ubjyDRKLgnZoEVh4Pm05bqdYQMxGE
-	 2tmMcvvw2D4W6Le+w61PvCtWu7+v8jDM6psZ9sI0y8/Pf+4ynlAJIUCoPRvv0qXl82
-	 0lOAWJxF38KqE8Va6Eg83j0YoRj0zyZfFRaYzwQPSr4lqFXfOaR1ZxY0UccgrPwat1
-	 bOyRFMiUZoZ8SRTc0Hzk8ZQfp922i8rD3FTOQ5EfiW2TrvEkr1HTQxL7U19At03brz
-	 0fqmDhHBK3d1w==
-Date: Fri, 10 Jul 2026 17:58:01 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, 
-	Pankaj Gupta <pankaj.gupta@amd.com>, pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, 
-	dave.hansen@linux.intel.com, bp@alien8.de, x86@kernel.org, thomas.lendacky@amd.com, 
-	hpa@zytor.com, yangge1116@126.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
- registration
-Message-ID: <alEgyNCMizer6uzB@lucifer>
-References: <ak-uER-RndpksnhR@lucifer>
- <58c4326d-b10d-42dc-af5d-3a5ff16c7e3e@amd.com>
- <ak_A6Yc5mBXCrtXr@lucifer>
- <adf66571-4ef4-4f8a-824f-fdd5ab5099ab@kernel.org>
- <alDtzM28CgZJn6FF@lucifer>
- <62ccb0f7-a619-41b8-944e-11ae2d0ce70c@kernel.org>
- <alEUBzV1cevuPYeD@google.com>
- <alEZIuJhv5ZXGQac@lucifer>
- <alEc0I0VysX1p5Nk@google.com>
- <ad784f05-b36c-4e91-9f17-4c5b826735d0@kernel.org>
+	s=k20260515; t=1783702859;
+	bh=xqw4aGbDBOtI5MtPNh2QLLbi+BenkFQpG/ie+v9l16I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=dTyat+rNiQ239nx104E1HxCOu6LvX3TPqwso3sIGO+HtjSiY7Cti4V5AmwOjRANDm
+	 l/nT8Lj2FkTnVkiT55T1PFFlrDVkvqWglTv4Ah7lBX5FaQvYKB37ujL0mTsYiPPH83
+	 2w9D+IW3CVTA/JMwrwE8Rmb9aVfqwRrTvEroweOaaq0lQo9uX/Qyh7mDYfgTWv4jxI
+	 C9rrz3UnYjsh+A7rGlLOoXomy65N2GQ2UHmWFyIQAzwDkUFtnzpsyViRzcmHKxbHeM
+	 8CfTT+D5LXcmiEY4N4/1oBbIaPYfHgIr5KbB/0zM2U+ThlIrg+1Iz4udE1vJV/rhk0
+	 f2physgXCpJdA==
+Date: Fri, 10 Jul 2026 12:00:57 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Darshit Shah <darnshah@amazon.de>
+Cc: lukas@wunner.de, Jonthan.Cameron@huawei.com, bhelgaas@google.com,
+	darnir@gnu.org, feng.tang@linux.alibaba.com, kbusch@kernel.org,
+	kwilczynski@kernel.org, linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org, nh-open-source@amazon.com,
+	olof@lixom.net, sathyanarayanan.kuppuswamy@linux.intel.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] drivers/pci: Decouple DPC from AER service
+Message-ID: <20260710170057.GA960077@bhelgaas>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,41 +45,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ad784f05-b36c-4e91-9f17-4c5b826735d0@kernel.org>
+In-Reply-To: <20251211164257.81655-1-darnshah@amazon.de>
 
-On Fri, Jul 10, 2026 at 06:38:23PM +0200, David Hildenbrand (Arm) wrote:
-> >>
-> >> How long ago did I break this though? Why has it taken until now for this to be
-> >> reported? :) commit 8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast
-> >> writing to file-backed mappings") is from May 2023 :)
-> >
-> > The break didn't come from your changes, it came from commit 7e066cb9b71a ("KVM:
-> > SEV: Use long-term pin when registering encrypted memory regions").  I suggested
-> > falling back to a non-longterm pin, but David didn't like that idea :-)
->
-> Yes, a longterm pin is a longterm pin.
+On Thu, Dec 11, 2025 at 04:42:53PM +0000, Darshit Shah wrote:
+> According to PCIe r7.0, sec. 6.2.11, "Implementation Note: Determination
+> of DPC Control", it is recommended that the Operating System link the
+> enablement of Downstream Port Containment (DPC) to the enablement of
+> Advanced Error Reporting (AER).
+> 
+> However, AER is advertised only on Root Port (RP) or Root Complex Event
+> Collector (RCEC) devices. On the other hand, DPC may be advertised on
+> any PCIe device in the hierarchy. In fact, since the main usecase of DPC
+> is for the switch upstream of an endpoint device to trigger a signal to
+> the host-bridge, it is imperative that it be supported on non-RP,
+> non-RCEC devices.
+> 
+> Previously portdrv has interpreted the spec to mean that the AER service
+> must be available on the same device in order for DPC to be available.
+> This is not what the implementation note meant to imply. If the firmware
+> hands Linux control of AER via _OSC on the host bridge upstream of the
+> device, then Linux should be allowed to assume control of DPC on the device.
+> 
+> The comment above this check alludes to this, by saying:
+>   > With dpc-native, allow Linux to use DPC even if it doesn't have
+>   > permission to use AER.
+> 
+> However, permission to use AER is negotiated at the host bridge, not
+> per-device. So we should not link DPC to enabling AER at the device.
+> Instead, DPC should be enabled if the OS has control of AER for the
+> host bridge that is upstream of the device in question, or if dpc-native
+> was set on the command line.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Darshit Shah <darnshah@amazon.de>
+> Reviewed-by: Lukas Wunner <lukas@wunner.de>
+> Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
 
-Yes it'd be very unwise to not use a longterm pin here!
+Sorry for the delay in picking this up.  Thanks for doing this; I
+think it's the right thing.  I think the commit log is not completely
+accurate in terms on which devices advertise AER and DPC, so I propose
+the following.  I also reordered the || operands to make the patch
+easier to read.  Your thoughts?
 
->
-> If we don't write to the memory, why do we need a write pin? To make sure that
-> what we pin was actually unshared?
->
-> Well, FOLL_LONGTERM does that nowadays.
->
->
-> ... so is maybe dropping the FOLL_WRITE sufficient?
 
-That solves the whole thing, as the check is gated on FOLL_WRITE anyway.
+commit 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER")
+Author: Darshit Shah <darnshah@amazon.de>
+Date:   Thu Dec 11 16:42:53 2025 +0000
 
-I hadn't dug into the code enough there, been scanning.
+    PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER
+    
+    PCIe r7.0, sec 6.2.11, "Implementation Note: Determination of DPC Control",
+    recommends that "... operating systems always link control of DPC to the
+    control of Advanced Error Reporting."
+    
+    Any PCIe device may advertise AER, but only Root Ports and Root Complex
+    Event Collectors can generate AER interrupts, so the AER driver only binds
+    to RPs and RCECs.
+    
+    Any Root Port or Switch Downstream Port may advertise Downstream Port
+    Containment (DPC), but previously the DPC driver was limited to devices the
+    AER driver could bind to, i.e., only RPs that advertised AER.
+    
+    Since any Port with DPC can generate DPC interrupts, allow the DPC driver
+    to bind to such a Port as long as the OS controls AER, regardless of
+    whether the AER driver binds to it.
+    
+    Signed-off-by: Darshit Shah <darnshah@amazon.de>
+    [bhelgaas: commit log, reorder || operands to simplify patch]
+    Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+    Reviewed-by: Lukas Wunner <lukas@wunner.de>
+    Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+    Cc: stable@vger.kernel.org
+    Link: https://patch.msgid.link/20251211164257.81655-1-darnshah@amazon.de
 
-So that's a simple fix then? :)
 
->
-> --
-> Cheers,
->
-> David
-
-Cheers, Lorenzo
+diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
+index 2d6aa488fe7b..65f502602dee 100644
+--- a/drivers/pci/pcie/portdrv.c
++++ b/drivers/pci/pcie/portdrv.c
+@@ -264,7 +264,7 @@ static int get_port_device_capability(struct pci_dev *dev)
+ 	 */
+ 	if (pci_find_ext_capability(dev, PCI_EXT_CAP_ID_DPC) &&
+ 	    pci_aer_available() &&
+-	    (pcie_ports_dpc_native || (services & PCIE_PORT_SERVICE_AER)))
++	    (pcie_ports_dpc_native || host->native_aer))
+ 		services |= PCIE_PORT_SERVICE_DPC;
+ 
+ 	/* Enable bandwidth control if more than one speed is supported. */
