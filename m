@@ -1,50 +1,33 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB65735CBCB;
-	Fri, 10 Jul 2026 16:26:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7285526F293;
+	Fri, 10 Jul 2026 16:38:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783700814; cv=none; b=F/zDcdRGHuOGn9wYBtHwvGCjCdp1o1PvMCr/ECoGCNqeE2D2+viHj+UZ6g2QZJUQGOWGdzEGn5Z9rtgd0q4PqQsVvx6U2KIyVlA07Dw+9oQ9Dic6DawIBK9zEUEB/XsOxJjVnNs3AknmHgWlZC6VXz4z/JXAa7NFUi0BMgD8ctk=
+	t=1783701510; cv=none; b=dhUR3DHuJNPzKESei1Ci5lIen6BD/wqZfM52brS96P1UTboDGcfDLahCxsRv8JTcegVcNyhD8SYP89ZQr3088dSUnEltaNU6jZIWtVwqt/uYNayGUVyk8BcS16f5XwzR0X0J8oSQ0Y677Ff8qp8+pmQR3fj9SZ/LHgZyyeA9icI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783700814; c=relaxed/simple;
-	bh=+s0ZPcndBl+o2igU7pe64a8opX6QJ32QnPIg93N/eb4=;
+	s=arc-20240116; t=1783701510; c=relaxed/simple;
+	bh=+55tpInWLF3iXuWfOsnYCH3Ov2dJSpdIaegBh+7BARk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nfwhTOs0px77dC2dawmf2+PgpBhPFCfb3BKPTd5Kbrx9FiehLYAdgTWrw5UjXo+zYYnCjGREVFCrXJWRC7n1soOvOz/vcAFvfU201838hMvBSVLkbw2jYlS+X19ETHrQuNx6coAe6n37y1Zsi0zSwYbtnqj0CD1GPKoLlPBsoOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LT7bnw8j; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 In-Reply-To:Content-Type; b=inw2NMEnJ3MLgotE1W6gtigJLrbY2jzWAxKmqJjIoMf3szwTfMDNhKoleVStCLB2auaiCV3kHeNm9aQbKdATdfkUbcnII8Vw5i9qiEv1bugcSODohV6hFYLMXVExn+C4TqJf/jBpV7aTdkIfT2irQamaxl5HxHaRe90OtkIoH6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ilBvWkHl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LT7bnw8j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783700811; x=1815236811;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=+s0ZPcndBl+o2igU7pe64a8opX6QJ32QnPIg93N/eb4=;
-  b=LT7bnw8jpvfZQ0uyXliXeEcHeF3HhrSp1bij5iBwhJXcypjBgGJgV81O
-   PqFC11WPlimbhi4NTZlvndxfDrJQ+PCfqJFEASjAaXgvgtr9rftX9paew
-   WVpKwbrecpJGdHaC1gd9IXwEoSVGFuxEMet2KIoVVipl67CPjxxyphYJ/
-   TEfyopmL7yCa4VRL+rFLikDjwg16bwhN/nLrhfftqnvzGy58lulsWoA6D
-   he/WsChooW1RoRHD4+YIqQNut3klfk1aHHKOqXsSP7xtJFItVzPu5ae95
-   e11tLdRlUOZ6alq8JgYko8smJONbUyOipfOU9F4077+usSGKnGASyY25/
-   w==;
-X-CSE-ConnectionGUID: dem7cgcnS7OPSCl9IknWiw==
-X-CSE-MsgGUID: Ihr0Y8uCQ9CS2ririytLQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84281219"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="84281219"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 09:26:49 -0700
-X-CSE-ConnectionGUID: CkOkBgw8ReKAnD3cCXISxQ==
-X-CSE-MsgGUID: tBS2iAC0RLmjQqQ6q1/k5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="250937338"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.199]) ([10.125.111.199])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 09:26:49 -0700
-Message-ID: <529e37eb-ad4c-4b0f-8ba3-c5608aa7a893@intel.com>
-Date: Fri, 10 Jul 2026 09:26:48 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ilBvWkHl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706BB1F000E9;
+	Fri, 10 Jul 2026 16:38:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783701509;
+	bh=JYdMfMD7Tja8nnc5gtWV5oQmPwOpB4S2xiek2pk7d1I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ilBvWkHlJ2xK6TFoOiwHejEmyKBUaPv/1JHY0IvmEBbIKgpskh10AuqeenZ4xUzu3
+	 EYJWLgGyV/YEA/sJ7G35+8jYZUI5R8Y+Mp5AXokYmNXeAFfD8kWXu/seeIIZ7FOhKB
+	 LuNVmVuKYEmAWSoUNDzSRoAttm7YpQLSn7OlNzu8lo1hXgxRvsB3shzeK1A8giDgE0
+	 IHnBvhjVwMU4lbzRWjYP+QoGuKtsgkvkK6drM0Kx2idWsRo4cVeteAFf3+PJzx7Llu
+	 vEbzLGiwX1wuV7iIusCfwGU1aSIVpJZwFFie/mzAymmZ8ZiQxlw0GCN/Ggyqc24ClI
+	 lWlJv6DmsRqYw==
+Message-ID: <ad784f05-b36c-4e91-9f17-4c5b826735d0@kernel.org>
+Date: Fri, 10 Jul 2026 18:38:23 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,123 +35,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm/pat: acquire mmap lock on page table free to avoid
- ptdump UAF
-To: Lorenzo Stoakes <ljs@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, "Mike Rapoport (Microsoft)"
- <rppt@kernel.org>, Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Carlier <devnexen@gmail.com>, Vlastimil Babka <vbabka@kernel.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, stable@vger.kernel.org
-References: <20260710-fix-cpa-ptdump-race-v1-1-d898699a7417@kernel.org>
+Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
+ registration
+To: Sean Christopherson <seanjc@google.com>, Lorenzo Stoakes <ljs@kernel.org>
+Cc: Pankaj Gupta <pankaj.gupta@amd.com>, pbonzini@redhat.com,
+ tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+ bp@alien8.de, x86@kernel.org, thomas.lendacky@amd.com, hpa@zytor.com,
+ yangge1116@126.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <2bd89e95-9c15-4a3a-916d-0d71a92d8b02@amd.com>
+ <27ebe8f0-78b6-402a-a2e7-4e807251d20a@kernel.org> <ak-uER-RndpksnhR@lucifer>
+ <58c4326d-b10d-42dc-af5d-3a5ff16c7e3e@amd.com> <ak_A6Yc5mBXCrtXr@lucifer>
+ <adf66571-4ef4-4f8a-824f-fdd5ab5099ab@kernel.org> <alDtzM28CgZJn6FF@lucifer>
+ <62ccb0f7-a619-41b8-944e-11ae2d0ce70c@kernel.org>
+ <alEUBzV1cevuPYeD@google.com> <alEZIuJhv5ZXGQac@lucifer>
+ <alEc0I0VysX1p5Nk@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Dave Hansen <dave.hansen@intel.com>
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260710-fix-cpa-ptdump-race-v1-1-d898699a7417@kernel.org>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <alEc0I0VysX1p5Nk@google.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 7/10/26 04:56, Lorenzo Stoakes wrote:
-> This patch resolves the issue by acquiring the mmap read lock on init_mm to
-> provide mutual exclusion against ptdump, which acquires the init_mm write
-> lock.
+>>
+>> How long ago did I break this though? Why has it taken until now for this to be
+>> reported? :) commit 8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast
+>> writing to file-backed mappings") is from May 2023 :)
+> 
+> The break didn't come from your changes, it came from commit 7e066cb9b71a ("KVM:
+> SEV: Use long-term pin when registering encrypted memory regions").  I suggested
+> falling back to a non-longterm pin, but David didn't like that idea :-)
 
-Hey Lorenzo,
+Yes, a longterm pin is a longterm pin.
 
-Thanks for looking at this!
+If we don't write to the memory, why do we need a write pin? To make sure that
+what we pin was actually unshared?
 
-This isn't wrong per-se. ptdump does _sometimes_ acquire the init_mm
-write lock.
+Well, FOLL_LONGTERM does that nowadays.
 
-But the fun comes when ptdump_curknl_show() passes current->mm in to the
-ptdump code. In that case, there's no init_mm locking. I think the
-'efi_mm' code has the same issue since it shares some of the kernel page
-tables.
 
-Is that your read on it too?
+... so is maybe dropping the FOLL_WRITE sufficient?
 
-In the end, I think the issue is that there's not even *a* correct mmap
-lock to take. The userspace half of the address space needs the
-current->mm mmap lock and the kernel half needs the init_mm mmap lock.
+-- 
+Cheers,
 
-The naming here doesn't help because the "current_kernel" file doesn't
-dump the current kernel page tables, it dumps the whole kernel *copy*
-(the only copy with PTI off) which includes userspace.
-
-(Note: maybe we should hide "current_user" when PTI is off at runtime)
-
-So what do we do?
-
-1. We could just bite the bullet and have separate ptdump files for the
-   top and bottom of the address space:
-	current_kernel_top
-	current_kernel_bottom
-	current_user_top
-	current_user_bottom
-	etc..
-   Then the lock you take is dictated by the file.
-2. We could always take both init_mm and current->mm locks. That seems
-   icky.
-3. We could have ptdump_walk_pgd() take a different lock for each
-   'range'. Logically:
-
-	if (range->start < PAGE_OFFSET)
-		mmap_write_lock(mm);
-	else
-		mmap_write_lock(&init_mm);
-
-   That's icky too and it means a range can't cross PAGE_OFFSET, but
-   that doesn't seem too bad (it could also WARN() if it sees bad
-   ranges).
-4. We do something fancier with the free like RCU (I think this may have
-   been discussed already).
-
-I'm kinda leaning toward #3.
+David
