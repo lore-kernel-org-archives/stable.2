@@ -1,212 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45EB2AD3F;
-	Fri, 10 Jul 2026 00:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783643170; cv=none; b=oBQlZcRZLrpY7jBLVHjZfTXFgG0HBYUP5LbCgWpTo8KY6SqYPVqKuZYrSijmqSopHpfaDui1WZzSQuSDYzHr23mpT62UwTdUaGEbuLAqWQW2/JQJTWioXrIVVehQAoQN2raTywyIP+QUqgL1f4ew529WDMQlaLFTNjsum1PL4OU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783643170; c=relaxed/simple;
-	bh=wvvZkSkaiKIF0iKkSuuwEEITrxUkRIkPCwvPrPMBs0c=;
-	h=Date:To:From:Subject:Message-Id; b=lKlZkEYD0B78xBlUBBCzeqdyV2eRhizjhOjrgi+W74HG0YDUt350+VOwziPgF3SBTelqMqaOhWzp3G8+oNEUj1CtJJyqOjBAcc8DNCVuxy5qe3OiVg9UYlDXsUlf/kvHu7/bQsd6yLcIF3lCsSUCXUDGqgpD2+Sor6DMSFIljb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RHI7Iusz; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748553597B
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 00:45:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783644346; cv=pass; b=MKjct13GV0SlycQD7dL2FFyLf+TN/eed/VVHOvGSzRDwu6cQ6T7noy6SAsZqu73YArNF9b1e2zwLbrLzPMAGY9CUkYcFChyxGvfPlOBkEM3RGAp6u7/0kATNQn+bV7+Nwq1sJ7lMxVFKJB0o25fAU/ELeGvXSBSdTpXM+5l5t+8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783644346; c=relaxed/simple;
+	bh=cEFXJr+q+9MWtcGTtdT+TqhJ4Ycq1/vL6B3e3GzFB1I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D4AOHSDy2oXCykfZ6mrDL4hKcgIqhqOHmQfo7P7GJ8GsSq0fMkJguMMtD1Tyidf+kM63j6EBWn51k/Zf9RUbdA2/0FUupNDdcUkuF3Ywgc0MgtuOcW53vaagH2Vxb/9Sx4T3XHve4DeMUfj8tWfklIdv62Mwp9EObqt3JCpHBh8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fbAPyET+; arc=pass smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RHI7Iusz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C041F00A3A;
-	Fri, 10 Jul 2026 00:26:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fbAPyET+"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51c10e86e52so81011cf.1
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 17:45:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783644344; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Djw+wP/jq/3AX7yfDZhMERi1eICaJWfNUC9RoSoRnJEdrHkXZaDH+iHfxSsz8GaalD
+         i+//M5MuykwrywzJmkfCBCj2hR7LdlFVVJu1mviOyzyCU4Sbz9Zqv7h4DVZ/h5OLKoEp
+         v1+ZX179txBj2aeFOJiAtfUE9PtesmS3Gc3X2kldHIzCFxGjMMSwsJu0y5BTHdkddBkI
+         yO/MMdDDCp3X67406mpSCtlzhcgCnxpdhK1uhnGklEMlZRd+TpSDglXtzcIAKdHhVTEP
+         xcNOZHAaKGdBV8AB5Aj8e8dNkQRjkdWIDQGbF/asy1oPW8UBfg6E04xp27EAZ42b7XKQ
+         wDMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4NDxZOCfeqZWYG26A8bUT8OjQGBJjjUiBg2MLvfAqRA=;
+        fh=eReSlhDXvuO+ksANufpUBMAw+nuInSX0eqD77sw96WI=;
+        b=dt+GWvQS602RhwnZo8PlLVFxcgb52rQ6J6JcZgk7wWnT18rQGUbQY7jNNDLHceh9y3
+         tJv+2RGcT8guI7/kf0UJHvZPkiNAHANTTRGv9lYJ+CVtatIFrLJNVBlNYqDURFtTkN1V
+         vtY+j96Rxh33jP3CAaMIKvUzdlgwpBvUHiVLQlzSFJBWfnpdyEAlGe+WH36FyHFTZlCF
+         VVf8cjUk+Y2kr3LT4Vzyv2yUXhP0mWsWMiuAttnW04kX5kt7k0wSNTukaIoY3NyX+qp6
+         FV2OjJ+H5BiEjH2tpdGt+QiamHOwREVmu1DX59dFxu4LgBvcqExmLfLZsP+MzteSToQf
+         f+MQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1783643168;
-	bh=tTBt36v8/0MHc8cFNJYfzuJVRais6cCjAMmr5shCErg=;
-	h=Date:To:From:Subject;
-	b=RHI7IuszWoPirEGfAitLaSd6Omd9652/NCw8pTR7o5Mnk6u/Opd05pNsqhNfWtN6t
-	 1vKWUQReCw7+8Qe4NrkuRWo1JMNwaCq6SMUBcKW4VKJIENv2jwsf82+4dm5cuzL9Y4
-	 STLBdNcNiKZZyzNTLpe8TMHHMsx/KFuGQpmwZaKk=
-Date: Thu, 09 Jul 2026 17:26:07 -0700
-To: mm-commits@vger.kernel.org,yuanchu@google.com,weixugc@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,peiyang_he@smail.nju.edu.cn,muchun.song@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,harry@kernel.org,hannes@cmpxchg.org,david@kernel.org,baohua@kernel.org,axelrasmussen@google.com,zhengqi.arch@bytedance.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-mglru-fix-stale-batch-updates-after-memcg-reparenting.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260710002608.44C041F00A3A@smtp.kernel.org>
+        d=google.com; s=20251104; t=1783644344; x=1784249144; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4NDxZOCfeqZWYG26A8bUT8OjQGBJjjUiBg2MLvfAqRA=;
+        b=fbAPyET+PtpwEEMaPxt4ABk+7aQHBJmphNZil6X/P+j/HGpyN0MMJxDAnLMWol7DpW
+         KtkWGWX0vBaD93IwDhzV0s9TphrbjSBkY5cjpTYMhm9nAM9dkWwU1bCa+2gcaG73LfDq
+         /Zu/zTurim1JTuo26Gdg9R2VsZInQ2N6rvR1rSy+AM5P/5QFy0xxIlnwi1mX3kpwMX5h
+         uXdg16WIBX9W/NajtHTP6shqwZlZhCBdE8hHb0pL+ZVHoOCazW6TlkL4xWhQ/xmHbBva
+         O5p8gE6OpeTdo3S0QTu1RPRprw2pvG++RDT1iQ4gIkkMQUWSV/JFRjgmL8RQinBjYf8M
+         HBwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783644344; x=1784249144;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4NDxZOCfeqZWYG26A8bUT8OjQGBJjjUiBg2MLvfAqRA=;
+        b=PBzzR+5V0QcpFfRmIY7FKJOMXRJPEQodAzUAoPiztkrSSPWm5rIyIDP8NN6CFAhgwV
+         ke5+iykrzZq+J2blgLrqwaj2D+QXPmWygUzdj9LyuzYdsq8lGgRnmIQ/+9CHPL7nfsPV
+         aW/67gxn+oG8vEk2gWYI02Scjc00YQvIFbw+dVpKh5oRu2FmS9r0qlR/wDkDrH1BnGZN
+         npketTHm0uaYWsZXrtuckMgor839gVdodapWDvr5s06iydfL87KdOJu0oHJWjwUAo3Pe
+         IBCo5lGUXHJ3j8dZnk8GTYT4u7+iyto+HFKTX3Fi5kTJAXa2lb0nn2uJTAtSV7yCE4Zu
+         1tbw==
+X-Forwarded-Encrypted: i=1; AHgh+RrkOumLDwkwvyNJFFE9CB2WbbpiMIDRughazegZpmapBnJuLBs1FDBqMfPWa1o2X76Gu7Qr7Zo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yya4EPq3R/NfOgTF61+2jV3qFADwBXl6VJL+CP5Xiz7UMeT8SZ4
+	msC0Wy2tCMr2HcT8HBuTRRfAKYOZreR2321PPHLQhrPt0fn9nT/1prc6yl+dvrZB4uPOaO3XYfZ
+	0ZbgODW7YIwcZHtHcP3fDpYAwLf6n8ywan7YMVBNb
+X-Gm-Gg: AfdE7cl7GI/I304ALPmSwul5JVarIQjTzQqyBwx96gLZsFRPY6VYf9JV3rosPXL1Rgn
+	Keed1y8WlbapRqgdiOjFjW392FHyopMc3nSiDNA4iwGNN7eyElhSc/PndR/oub75TTM1zejsqIC
+	8oMDKw40DXrcivkypyTQWIpztDG9T7sRXbIJlRlMbK5U6n0BB5eNUnv6+TIBskRf2zfDmOJya7a
+	keFiJvjJvVGC6FttcpRU+V+HKnZ57AVcjLo3CwaZFwLb+6HY0jLg9C4CPBeuW8WDU01SMR1tp/b
+	egHuFxFaDYxani649IPpr3Ej8g==
+X-Received: by 2002:a05:622a:1f09:b0:516:d570:82c0 with SMTP id
+ d75a77b69052e-51cac54df32mr2758731cf.15.1783644343839; Thu, 09 Jul 2026
+ 17:45:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260709224330.946683-1-linkl@google.com> <20260709161253.6b5e9ba349f70a3ebfb8180f@linux-foundation.org>
+In-Reply-To: <20260709161253.6b5e9ba349f70a3ebfb8180f@linux-foundation.org>
+From: Link Lin <linkl@google.com>
+Date: Thu, 9 Jul 2026 17:45:32 -0700
+X-Gm-Features: AUfX_mzRlthWGS4tvguyuxlqGde2yyyYF501igG6ylQK6FfQ-MElEO9rT5w6uEI
+Message-ID: <CALUx4KQ=bYTpDoDAZ+iVb7Ehaa0LmyPDsEWk3xFFmTVYKrpAUA@mail.gmail.com>
+Subject: Re: [RFC] virtio_balloon: fix Use-After-Free in page reporting during
+ PM freeze
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, "Michael S . Tsirkin" <mst@redhat.com>, 
+	David Hildenbrand <david@kernel.org>, virtualization@lists.linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, prasin@google.com, rientjes@google.com, 
+	duenwen@google.com, jasowang@redhat.com, xuanzhuo@linux.alibaba.com, 
+	Ammar Faizi <ammarfaizi2@openresty.com>, jiaqiyan@google.com, ahwilkins@google.com, 
+	Greg Thelen <gthelen@google.com>, Alexander Duyck <alexander.duyck@gmail.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Thu, 9 Jul 2026 at 16:12, Andrew Morton <akpm@linux-foundation.org> wrote:
+>
+> On Thu,  9 Jul 2026 22:43:30 +0000 Link Lin <linkl@google.com> wrote:
+>
+> > Fix this by:
+> > 1. Unregistering page reporting in virtballoon_freeze() prior to calling
+> >    remove_common(). This clears the RCU pr_dev_info pointer and flushes/
+> >    cancels prdev->work on system_wq via cancel_delayed_work_sync().
+> > 2. Re-registering page reporting in virtballoon_restore() after the
+> >    virtqueues are re-initialized and virtio_device_ready() has been called.
+> > 3. Unwinding virtqueue initialization via remove_common() in
+> >    virtballoon_restore() if page_reporting_register() fails.
+>
+> AI review thinks the patch didn't do the above:
+>         https://sashiko.dev/#/patchset/20260709224330.946683-1-linkl@google.com
 
-The patch titled
-     Subject: mm: mglru: fix stale batch updates after memcg reparenting
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-mglru-fix-stale-batch-updates-after-memcg-reparenting.patch
+The AI reviewer might not have parsed the entirety of the fix I proposed.
+The patch submitted definitely includes the changes to virtballoon_restore()
+for steps 2 and 3 (re-registering page reporting and unwinding init_vqs
+on failure). It seems the AI failed to parse the diff correctly. See:
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mglru-fix-stale-batch-updates-after-memcg-reparenting.patch
-
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-Subject: mm: mglru: fix stale batch updates after memcg reparenting
-Date: Wed, 1 Jul 2026 15:52:51 +0800
-
-The mglru page table walker batches per-generation size deltas in
-walk->nr_pages while walking page tables without holding the lruvec lock. 
-The reset_batch_size() later folds those deltas into walk->lruvec under
-the lruvec lock.
-
-The page table walker can run concurrently with the memcg reparenting path
-as follows:
-
-CPU0                           CPU1
-====                           ====
-
-walk_mm
---> walk_page_range
-    --> update_batch_size
-        --> walk->nr_pages += delta
-
-                              mem_cgroup_css_offline
-                              --> memcg_reparent_objcgs
-                                  --> lock lruvec
-                                      lru_gen_reparent_memcg
-                                      --> reparent child folios to parent
-                                      unlock lruvec
-
-    lock lruvec
-    reset_batch_size
-    --> child lrugen->nr_pages += delta
-
-This will trigger the following warning in lru_gen_exit_memcg():
-
-	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
-				   sizeof(lruvec->lrugen.nr_pages)));
-
-And the user-visible impact of underestimated nr_pages in MGLRU was
-premature OOMs because MGLRU does not try to reclaim memory when nr_pages
-reaches zero, but there are still more pages.
-
-To fix it, make reset_batch_size() check CSS_DYING under RCU before
-flushing the pending batch.  A non-dying memcg keeps the original lruvec
-stable against RCU-delayed offlining; a dying memcg redirects the deltas
-to the first non-dying ancestor.
-
-Link: https://lore.kernel.org/20260701075251.56413-1-qi.zheng@linux.dev
-Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn
-Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/vmscan.c |   41 ++++++++++++++++++++++++++++++++++-------
- 1 file changed, 34 insertions(+), 7 deletions(-)
-
---- a/mm/vmscan.c~mm-mglru-fix-stale-batch-updates-after-memcg-reparenting
-+++ a/mm/vmscan.c
-@@ -3262,10 +3262,40 @@ static void update_batch_size(struct lru
- 	walk->nr_pages[new_gen][type][zone] += delta;
++       if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING)) {
++               ret = page_reporting_register(&vb->pr_dev_info);
++               if (ret)
++                       goto out_remove_vqs;
++       }
++
+        if (towards_target(vb))
+                virtballoon_changed(vdev);
+        update_balloon_size(vb);
+        return 0;
++
++out_remove_vqs:
++       remove_common(vb);
++       return ret;
  }
- 
-+#ifdef CONFIG_MEMCG
-+static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
-+{
-+	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-+
-+	rcu_read_lock();
-+
-+	/*
-+	 * The memcg can be NULL when the memory controller is disabled.
-+	 * Otherwise, the caller keeps the memcg owning @lruvec alive.
-+	 */
-+	while (unlikely(memcg && css_is_dying(&memcg->css))) {
-+		memcg = parent_mem_cgroup(memcg);
-+		lruvec = mem_cgroup_lruvec(memcg, pgdat);
-+	}
-+
-+	spin_lock_irq(&lruvec->lru_lock);
-+
-+	return lruvec;
-+}
-+#else
-+static struct lruvec *lock_batch_lruvec(struct lruvec *lruvec)
-+{
-+	lruvec_lock_irq(lruvec);
-+
-+	return lruvec;
-+}
-+#endif
-+
- static void reset_batch_size(struct lru_gen_mm_walk *walk)
- {
- 	int gen, type, zone;
--	struct lruvec *lruvec = walk->lruvec;
-+	struct lruvec *lruvec = lock_batch_lruvec(walk->lruvec);
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 
- 	walk->batched = 0;
-@@ -3285,6 +3315,8 @@ static void reset_batch_size(struct lru_
- 			lru += LRU_ACTIVE;
- 		__update_lru_size(lruvec, lru, zone, delta);
- 	}
-+
-+	lruvec_unlock_irq(lruvec);
- }
- 
- static int should_skip_vma(unsigned long start, unsigned long end, struct mm_walk *args)
-@@ -3779,11 +3811,8 @@ static void walk_mm(struct mm_struct *mm
- 			mmap_read_unlock(mm);
- 		}
- 
--		if (walk->batched) {
--			lruvec_lock_irq(lruvec);
-+		if (walk->batched)
- 			reset_batch_size(walk);
--			lruvec_unlock_irq(lruvec);
--		}
- 
- 		cond_resched();
- 	} while (err == -EAGAIN);
-@@ -4867,9 +4896,7 @@ retry:
- 	walk = current->reclaim_state->mm_walk;
- 	if (walk && walk->batched) {
- 		walk->lruvec = lruvec;
--		lruvec_lock_irq(lruvec);
- 		reset_batch_size(walk);
--		lruvec_unlock_irq(lruvec);
- 	}
- 
- 	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
-_
 
-Patches currently in -mm which might be from zhengqi.arch@bytedance.com are
+> It also might have found a couple of pre-existing bugs in there.
 
-mm-mglru-fix-stale-batch-updates-after-memcg-reparenting.patch
+Indeed. Regarding the first pre-existing bug found by the AI (leaving the
+OOM notifier registered during suspend, leading to a UAF if memory pressure
+spikes during S4 hibernation):
 
+I actually addressed this in the commit message:
+
+  "(Note: The OOM Notifier and Shrinker/Free Page Hinting features suffer
+  from an identical lifecycle flaw and are also vulnerable to UAFs during
+  S4 hibernation when memory pressure spikes. This patch focuses on Free
+  Page Reporting, which runs periodically, to ensure clean backports to
+  stable kernels)."
+
+Regarding the second pre-existing bug the AI flagged (leaving uncancelled
+works on system_freezable_wq if virtballoon_restore fails on the cold path):
+the AI is correct that this asynchronous work cancellation failure exists.
+
+Since these are separate, pre-existing lifecycle bugs, would you prefer I
+roll fixes for the OOM notifier, shrinker/free page hinting, and work
+cancellations into a v2 of this patch, or submit them as a separate patch
+series to keep the stable backports clean?
+
+Thanks,
+Link
