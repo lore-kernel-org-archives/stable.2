@@ -1,268 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com [209.85.210.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE894437123
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 15:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A74743803A
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 15:47:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783698438; cv=none; b=MkxWWc2fdtQPkvNN9WTN+/gd0UmAh2AM5Vc6vIUK6SJhFWViLTJeoft8Mg6qYzRzV/V8bDY3sObhqxaQmggpRX/xwNHHjfoNgGeYyC7OBY91xQsDOQnHz+U90BUtT2VvCuTPFz61IeqC8uOBJv/yWZpbBehBUCnJtfQEQFZqzKM=
+	t=1783698444; cv=none; b=fnURYyLtwQTX1PsmxOpNwYpVQ4V1qEtyxLZdHY9t2tXjf2pAcQBVgcX8uT67cNEQI5kH3kA+nnTYVxq+EKWqKi/z5Lyum5bw546fJvGy2joWiAmSoMphzIgQtVHR7P9DLRHNT9GTyVbJo7dtT3N2iy+6oy33V78N50aYAv9pNGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783698438; c=relaxed/simple;
-	bh=W1Qjrt486oqRqvuYmJD0/5etREugBmO4YdRAVfYHF9g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aDcHL80rWBOqQEf0giot4CVznHSjS7b6mpOj8cBJ6utPvi3FnyzfL+l7NdB41Xlbz/kOjDoJWev7Ymaya+im6NK31nxdDTWRTGMa8lJtfNC+KoYOoixsXa5shjA5SneuolGYsghg6Eo4JJoZCVTeLnQJ4jAHKN/3HUMRJCi+J9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q6WSEIjZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783698444; c=relaxed/simple;
+	bh=ePCbnM94woPFBEAhYEbp+ydZtO5vCzsjSDw668DqpUw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=R1P9u68WPdwSuMzE0KN6S2fVUKBDd9R2Y+W/tLQRA4OtgrAnYtLyWIyQeepCyOQqUUYbyfp2iB4VcKzgSzq7xL5krei/CMAaDIdzohE4EldQryFlNg5Ahy/lO2Vji6/iTvacWPp3x+r3NR5W/9VdjYgTs+ihDCyRHPYtLH3LOUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=b8yN4/jV; arc=none smtp.client-ip=209.85.210.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q6WSEIjZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7381F000E9;
-	Fri, 10 Jul 2026 15:47:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783698435;
-	bh=W7ZXbIsduj7KyOz6gMhAM0rq2hVlKgKVu6/+1D1F6nM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q6WSEIjZzlXs/0U9GLV5hZ4iY9d0y2ykz2SEaKA6XMjChDbcDtTEHT1TjOw4t+i3E
-	 kXG51ioeATrY9hzOTJD3LLk6PQgy4iPg5/agLf3+Z6TTEvPekE7ys3N5B738Drii+/
-	 jIz4ezc4OiUFCoC4DDzdtUItEuvsy2ZX3QOU8X3P+W9RdnSIQm97CkXWeEQSrKC8Qm
-	 kveB9zPIfsJIoP7YyD2NLjHXf7xEpXIrgNjyhUCOsKhzbU3kRPlMQU2/V246Pmp6j2
-	 zaQw5aM3sFijNfEGdtRv9kJngCB5ehi9PCGFIvynspNdcWJem7lzQpgoOf/NP4HTTm
-	 T0YFCKDsWrhcg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 5/5] ACPI: NFIT: core: Fix possible deadlock and missing notifications
-Date: Fri, 10 Jul 2026 11:47:10 -0400
-Message-ID: <20260710154710.286956-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260710154710.286956-1-sashal@kernel.org>
-References: <2026070931-earmuff-spirits-26aa@gregkh>
- <20260710154710.286956-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="b8yN4/jV"
+Received: by mail-pf1-f201.google.com with SMTP id d2e1a72fcca58-8487eb67173so925350b3a.2
+        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 08:47:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1783698440; x=1784303240; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a2o8RM3DU4+oABpSO+Km7GLJNJZxTuit0tDVpvpEDVU=;
+        b=b8yN4/jV8HG3QOyiLb4aQsENJTNwsWLPk7u0juNOzGwIYAutypT65rXKcTqcoJuBkv
+         zKt822gTLXc7Gp9eJLyd3zndeff7GtEBpGmnIIPqKhd1gXBY2rxsjYNn8uE76ANnDX6R
+         XuE4BDIgUWON8onqZ5XLvD2qP67XytbixbTHYvMKDLBTw4lgNVYO4Of+Th4qSnp8ggIW
+         Xt2S2gtUcGOyYULOQDv/iiOj6A0lTCYNuj+FtPPN7ueylOt6HDJBGT2mCdA3wImNLKBF
+         GYaBmGqTuho7xzWYcBjKzWjfKmV5L4ByWdjqmITSxu8yX31U7Nxd5P5M7x0knroEnDLm
+         wY0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783698440; x=1784303240;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a2o8RM3DU4+oABpSO+Km7GLJNJZxTuit0tDVpvpEDVU=;
+        b=fUkfnmxAXNBkhBwxEPA9eWs42Or+ex+5mo0fv1pDLgyKr3Rq2QEM0BmFlNz0cfrfgi
+         TpBcuMWIF8uSZkB1PxGeLvv8H9HOI9ZaX/cPMQQIefza/uFloWHMNfBLgPalRT5foaFd
+         zoFjAz6cvDKkArcLkFgb5tNHKdK6GF2OmDDiQ8rDO6boqjtPUkRg+DJEGON+uapGd7ij
+         QCK92qT89VCpO120izjYBLQAM2UuLzTXG9Sg8HrB3QR3RXkCi06o7VmTijdHcssJQ+o6
+         cwNaiXRWtQOpTWGJhh9kFoTn9te8yl1227e2ghuCPlEDyA/imIzS+4F85F6b0Ls7XF8j
+         9PBg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro2iJuc+ZV8tn7UI6I1fzP6gksSrYVcPRZb5RbESdhbmpIpnoSxlieT7k6mqHv55hyBRo61UTg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxnQWgc0JAn3GhnRh3ob+Z81GqBshGbl80UsOcHNdv8yuFTW8Cb
+	7W9m6hNGsEeE/Q+ET7xjV2f/LQGB5lQwJpMwawcqZZ/nypiKGvozFXYJfpPSLbf/N3XxJNbQebv
+	sEdqSNQ==
+X-Received: from pfnn21.prod.google.com ([2002:a05:6a00:2b95:b0:848:3d5d:8106])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:aa7:9067:0:b0:846:1b9:cb63
+ with SMTP id d2e1a72fcca58-8484356de46mr12723650b3a.62.1783698440079; Fri, 10
+ Jul 2026 08:47:20 -0700 (PDT)
+Date: Fri, 10 Jul 2026 08:47:19 -0700
+In-Reply-To: <62ccb0f7-a619-41b8-944e-11ae2d0ce70c@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <db303a0c-98e3-4967-9b61-ccb711b776c8@amd.com> <46f19bd8-0d43-4b0e-a8ab-0ef9d3b8bd1a@kernel.org>
+ <2bd89e95-9c15-4a3a-916d-0d71a92d8b02@amd.com> <27ebe8f0-78b6-402a-a2e7-4e807251d20a@kernel.org>
+ <ak-uER-RndpksnhR@lucifer> <58c4326d-b10d-42dc-af5d-3a5ff16c7e3e@amd.com>
+ <ak_A6Yc5mBXCrtXr@lucifer> <adf66571-4ef4-4f8a-824f-fdd5ab5099ab@kernel.org>
+ <alDtzM28CgZJn6FF@lucifer> <62ccb0f7-a619-41b8-944e-11ae2d0ce70c@kernel.org>
+Message-ID: <alEUBzV1cevuPYeD@google.com>
+Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region registration
+From: Sean Christopherson <seanjc@google.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, Pankaj Gupta <pankaj.gupta@amd.com>, pbonzini@redhat.com, 
+	tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com, bp@alien8.de, 
+	x86@kernel.org, thomas.lendacky@amd.com, hpa@zytor.com, yangge1116@126.com, 
+	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+On Fri, Jul 10, 2026, David Hildenbrand (Arm) wrote:
+> On 7/10/26 15:05, Lorenzo Stoakes wrote:
+> > On Fri, Jul 10, 2026 at 02:57:55PM +0200, David Hildenbrand (Arm) wrote:
+> >> On 7/9/26 17:44, Lorenzo Stoakes wrote:
+> >>>
+> >>> OK as long as that's made clear in the patch, commit message, comments etc. :)
+> >>>
+> >>>
+> >>> Ack yeah I assumed it was a quick proof of concept and just overlooked it :P
+> >>>
+> >>>
+> >>> Thanks!
+> >>>
+> >>>
+> >>> hmm but we have FOLL_LONGTERM as an adjunct to FOLL_PIN (doesn't make sense
+> >>> without - any checks that exist for that btw should be extended to this noew
+> >>> flag).
+> >>>
+> >>> Also don't we want to encode the legacy aspect here?
+> >>>
+> >>> Maybe FOLL_LONGTERM_LEGACY_READONLY? Naming is hard :)
+> >>
+> >> I'm confused about the _READONLY, well. and the FOLL_PIN_NO_GUP_WRITE.
+> >>
+> >> We want to longterm write-pin.
+> >>
+> >> @Pankaj, how come you would call this "FOLL_PIN_NO_GUP_WRITE" -- why "no GUP
+> >> write" ?
+> >>
+> >> I agree that someting like FOLL_LONGTERM_LEGACY_* is the right thing to do, but
+> >> I don't see where this is "no write" or "readonly" ?
+> > 
+> > I based it on Gupta saying 'without kernel GUP writes, and therefore not
+> > impacting dirty tracking'
+> > 
+> > I mean I think we definitely need some clarification here yes :)
+> > 
+> > Not really got the bandwidth to dig deep into GUP again :P
+> 
+> I think the KVM gueest *will* write to these pages.
 
-[ Upstream commit 18a00ed0e718473f5c3fcfa49df46c944575e60c ]
+Yes, the guest will write these pages, but through KVM's normal mechanism for
+mapping memory into guests.  The host will NOT write this memory via the GUP
+pins though.  KVM needs to pin the pages because the memory is (well, technically
+may be) encrypted (by the CPU) with a key that is only used/accessible when the
+guest is active, and the encryption is salted with the system physical address of
+the page.  E.g. attempting to migrate the page would corrupt guest memory due to
+copying ciphertext that would decrypt different at the new PA.
 
-After commit 9b311b7313d6 ("ACPI: NFIT: Install Notify() handler before
-getting NFIT table"), ACPI NFIT driver removal may deadlock if an ACPI
-notify on the NFIT device is triggered concurrently.  A similar deadlock
-may occur if an ACPI notify on the NFIT device is triggered during a
-failing driver probe.
-
-The deadlock is possible because acpi_dev_remove_notify_handler() calls
-acpi_os_wait_events_complete() after removing the notify handler and the
-driver core invokes it under the NFIT platform device lock which is also
-acquired by acpi_nfit_notify().  Thus acpi_os_wait_events_complete() may
-be waiting for acpi_nfit_notify() to complete, but the latter may not be
-able to acquire the device lock which is being held by the driver core
-while the former is being executed.
-
-Moreover, after commit 03667e146f81 ("ACPI: NFIT: core: Convert the
-driver to a platform one"), there are no sysfs notifications regarding
-NVDIMM devices because __acpi_nvdimm_notify() always bails out after
-checking the driver data pointer of the device's parent.  That parent
-is the ACPI companion of the platform device used for driver binding,
-so its driver data pointer is always NULL after the commit in question
-which was overlooked by it.
-
-A remedy for the deadlock is to use a special separate lock for ACPI
-notify synchronization with driver probe and removal instead of the
-device lock of the NFIT device, while a remedy for the second issue
-is to populate the driver data pointer of the NFIT device's ACPI
-companion when the driver is ready to operate, so do both these things.
-However, since the new lock is not held across the entire teardown and
-acpi_nfit_notify() should do nothing when teardown is in progress, make
-it check the driver data pointer of the NFIT device's ACPI companion, in
-analogy with the existing check in __acpi_nvdimm_notify(), and bail out
-if that pointer is NULL.
-
-Fixes: 9b311b7313d6 ("ACPI: NFIT: Install Notify() handler before getting NFIT table")
-Fixes: 03667e146f81 ("ACPI: NFIT: core: Convert the driver to a platform one")
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Cc: All applicable <stable@vger.kernel.org> # 9995e4404ea4: ACPI: NFIT: core: Eliminate redundant local variable
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Link: https://patch.msgid.link/3420096.aeNJFYEL58@rafael.j.wysocki
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/acpi/bus.c       |  6 +++-
- drivers/acpi/nfit/core.c | 62 +++++++++++++++++++++++++++++++---------
- 2 files changed, 54 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
-index c2ea10e6a26648..222a6bc6164489 100644
---- a/drivers/acpi/bus.c
-+++ b/drivers/acpi/bus.c
-@@ -623,6 +623,7 @@ void acpi_dev_remove_notify_handler(struct acpi_device *adev,
- EXPORT_SYMBOL_GPL(acpi_dev_remove_notify_handler);
- 
- struct acpi_notify_handler_devres {
-+	struct acpi_device *adev;
- 	acpi_notify_handler handler;
- 	u32 handler_type;
- };
-@@ -631,7 +632,7 @@ static void devm_acpi_notify_handler_release(struct device *dev, void *res)
- {
- 	struct acpi_notify_handler_devres *dr = res;
- 
--	acpi_dev_remove_notify_handler(ACPI_COMPANION(dev), dr->handler_type,
-+	acpi_dev_remove_notify_handler(dr->adev, dr->handler_type,
- 				       dr->handler);
- }
- 
-@@ -667,6 +668,8 @@ int devm_acpi_install_notify_handler(struct device *dev, u32 handler_type,
- 	int ret;
- 
- 	adev = ACPI_COMPANION(dev);
-+	if (!adev && dev->bus == &acpi_bus_type)
-+		adev = to_acpi_device(dev);
- 	if (!adev)
- 		return dev_err_probe(dev, -ENODEV, "No ACPI companion in %s()\n", __func__);
- 
-@@ -680,6 +683,7 @@ int devm_acpi_install_notify_handler(struct device *dev, u32 handler_type,
- 		return dev_err_probe(dev, ret, "Failed to install an ACPI notify handler\n");
- 	}
- 
-+	dr->adev = adev;
- 	dr->handler = handler;
- 	dr->handler_type = handler_type;
- 	devres_add(dev, dr);
-diff --git a/drivers/acpi/nfit/core.c b/drivers/acpi/nfit/core.c
-index dd7cd4b2152a57..c1727c5a8aaf61 100644
---- a/drivers/acpi/nfit/core.c
-+++ b/drivers/acpi/nfit/core.c
-@@ -55,6 +55,8 @@ MODULE_PARM_DESC(force_labels, "Opt-in to labels despite missing methods");
- LIST_HEAD(acpi_descs);
- DEFINE_MUTEX(acpi_desc_lock);
- 
-+DEFINE_MUTEX(acpi_notify_lock);
-+
- static struct workqueue_struct *nfit_wq;
- 
- struct nfit_table_prev {
-@@ -1702,9 +1704,15 @@ static void acpi_nvdimm_notify(acpi_handle handle, u32 event, void *data)
- 	struct acpi_device *adev = data;
- 	struct device *dev = &adev->dev;
- 
--	device_lock(dev->parent);
--	__acpi_nvdimm_notify(dev, event);
--	device_unlock(dev->parent);
-+	/*
-+	 * Locking is needed here for synchronization with driver probe and
-+	 * removal and the parent NFIT device's ACPI driver data pointer is
-+	 * NULL when teardown is in progress.
-+	 */
-+	guard(mutex)(&acpi_notify_lock);
-+
-+	if (acpi_driver_data(to_acpi_device(dev->parent)))
-+		__acpi_nvdimm_notify(dev, event);
- }
- 
- static bool acpi_nvdimm_has_method(struct acpi_device *adev, char *method)
-@@ -3150,11 +3158,10 @@ EXPORT_SYMBOL_GPL(acpi_nfit_init);
- static int acpi_nfit_flush_probe(struct nvdimm_bus_descriptor *nd_desc)
- {
- 	struct acpi_nfit_desc *acpi_desc = to_acpi_desc(nd_desc);
--	struct device *dev = acpi_desc->dev;
- 
--	/* Bounce the device lock to flush acpi_nfit_add / acpi_nfit_notify */
--	device_lock(dev);
--	device_unlock(dev);
-+	/* Bounce the notify lock to flush acpi_nfit_add / acpi_nfit_notify */
-+	mutex_lock(&acpi_notify_lock);
-+	mutex_unlock(&acpi_notify_lock);
- 
- 	/* Bounce the init_mutex to complete initial registration */
- 	mutex_lock(&acpi_desc->init_mutex);
-@@ -3286,10 +3293,17 @@ static void acpi_nfit_put_table(void *table)
- static void acpi_nfit_notify(acpi_handle handle, u32 event, void *data)
- {
- 	struct device *dev = data;
-+	struct acpi_device *adev = to_acpi_device(dev);
- 
--	device_lock(dev);
--	__acpi_nfit_notify(dev, handle, event);
--	device_unlock(dev);
-+	/*
-+	 * Locking is needed here for synchronization with driver probe and
-+	 * removal and the ACPI driver data pointer is NULL when teardown
-+	 * is in progress.
-+	 */
-+	guard(mutex)(&acpi_notify_lock);
-+
-+	if (acpi_driver_data(adev))
-+		__acpi_nfit_notify(dev, handle, event);
- }
- 
- void acpi_nfit_shutdown(void *data)
-@@ -3336,6 +3350,12 @@ static int acpi_nfit_add(struct acpi_device *adev)
- 	acpi_size sz;
- 	int rc = 0;
- 
-+	/*
-+	 * Prevent acpi_nfit_notify() from progressing until the probe is
-+	 * complete in case there is a concurrent event to process.
-+	 */
-+	guard(mutex)(&acpi_notify_lock);
-+
- 	rc = devm_acpi_install_notify_handler(dev, ACPI_DEVICE_NOTIFY,
- 					      acpi_nfit_notify, dev);
- 	if (rc)
-@@ -3351,6 +3371,11 @@ static int acpi_nfit_add(struct acpi_device *adev)
- 		 * data in the format of a series of NFIT Structures.
- 		 */
- 		dev_dbg(dev, "failed to find NFIT at startup\n");
-+		/*
-+		 * Let acpi_nfit_update_notify() run in case it will need to
-+		 * allocate the acpi_desc object.
-+		 */
-+		adev->driver_data = dev;
- 		return 0;
- 	}
- 
-@@ -3368,7 +3393,7 @@ static int acpi_nfit_add(struct acpi_device *adev)
- 	acpi_desc->acpi_header = *tbl;
- 
- 	/* Evaluate _FIT and override with that if present */
--	status = acpi_evaluate_object(ACPI_HANDLE(dev), "_FIT", NULL, &buf);
-+	status = acpi_evaluate_object(adev->handle, "_FIT", NULL, &buf);
- 	if (ACPI_SUCCESS(status) && buf.length > 0) {
- 		union acpi_object *obj = buf.pointer;
- 
-@@ -3385,14 +3410,25 @@ static int acpi_nfit_add(struct acpi_device *adev)
- 				+ sizeof(struct acpi_table_nfit),
- 				sz - sizeof(struct acpi_table_nfit));
- 
--	if (rc)
-+	if (rc) {
- 		acpi_nfit_shutdown(acpi_desc);
-+		return rc;
-+	}
- 
--	return rc;
-+	/*
-+	 * Let notify handlers operate (the actual value of the ACPI driver
-+	 * data pointer does not matter here so long as it is not NULL).
-+	 */
-+	adev->driver_data = dev;
-+	return 0;
- }
- 
- static void acpi_nfit_remove(struct acpi_device *adev)
- {
-+	guard(mutex)(&acpi_notify_lock);
-+
-+	/* Make notify handlers bail out early going forward. */
-+	adev->driver_data = NULL;
- 	acpi_nfit_shutdown(dev_get_drvdata(&adev->dev));
- }
- 
--- 
-2.53.0
-
+> By disallowing writable LONGTERM pins on FSes we broke one existing use case
+> that was relying on that to work.
