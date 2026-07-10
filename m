@@ -1,154 +1,199 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBBD34DB72
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 19:47:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14A73890F8;
+	Fri, 10 Jul 2026 19:50:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783712829; cv=none; b=QT55CAy4PzXpBcRrYDLSd8FSB/aVBYndDMeUqjvHT7aeBvtmVilIdxVycbQH7i23ycPmGTyVXagydgaX7oWvf5Z3KuKqAupAkp55O1ePgh+zrB41AKhvzfrl3Fm7T1z0jpHvOKjChCsUmA5vZDJ8FPVb0GGxm+YMFWR8dHlGENE=
+	t=1783713030; cv=none; b=qJIwtxAsw8OKkVkn9E8xrfMw23bvMLWD/xXCblj+Q4QHi7knoXi6qHontlRRAVnQN5xDwnoODftlqdsRjO17PJ0QfCOLcD9ND3IjspmNt6Pk4dbiXj1BsPbrWEnpGihlfldh74S6h0XZCYMtsz1+oCzI/Mf7mMSNIikWi3RwUis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783712829; c=relaxed/simple;
-	bh=Mm8vmAyeqbEmk4lfT/fA/O5FmMAxOPU4AKwyS6lFPR0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TrHjkHFCy0z6cEv0LIPRP+7G1+XTTV4HkccG3FgTuGCQUnZj4bJZqoCMpabou1Xnvu3EAXsRoltDfPcj/0LLwfsf8w6LXMQWM0ZgIrrz8/icKK5bBLHrwAtx4zlQDNOMZpu07eEuTurxBBndIidTvhamBVPC1THSiZcuccuRrvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L0GLydS5; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783713030; c=relaxed/simple;
+	bh=wstU32o1ukGNF/Xb2VDHeQ+rDnkS5bjwvJsCoMlMLLU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gU0rYMsscdH1DzrbAQKZYr/ZWpjVrr+d1IrKmSld7MMreEiQEWIM+U9vNlOij0+wuwAOw6VUJlw4UMUeyAXlMKoJ3wl/okthAu+7u6FkuEBoPU+N8EYxrGdzRNOMq3lw6sgc78xTxOCgfRlCs9eK6hdSTL2CgJ6u/0cJMy3NBqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mONjBnMh; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L0GLydS5"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-385b78b4f9bso117404a91.2
-        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 12:47:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783712827; x=1784317627; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ix8W+jjo7ckHJm6uTAC69TwW0JFsA0cAa6gGpTMsiag=;
-        b=L0GLydS5q2IHCh38Y6jFbrtMBTl4H3Cb8puJeJEKsgQtaiQdJXtGm1+J8Ta2rfVt6r
-         YzzIIm6GNeKzTdme3lgvbI6TMiTgP0FQSUkoIHaFGHKO2ot/zWDblpZNmwmjCp8DbhAp
-         Pj5UY/tIjXowC/aFm1l+G8IL7nj3vIw100IzEfxdBW9pNG6pe27pn4gB8lrhX7KXDI7o
-         ndDQJJQ9zFvg5dxc8cKmYY2gx4rHsg9nRyUcjpE+Fci3DylLsZh41rt8fn5VzXuvu6uO
-         dAJxIvb/U9e01VbOMefKj680NrMT8HMhLzXn2lmkgzGwCb9GOI/why/dVY67HU6+E3ys
-         kQWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783712827; x=1784317627;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ix8W+jjo7ckHJm6uTAC69TwW0JFsA0cAa6gGpTMsiag=;
-        b=GgsZe4hlfZgmnkvuafmygKOKt8RZgvhLjrEujlonPfeXOO6Vt3XkCJKcPwg9TBYm4b
-         FheuHLcZ3/NOOu9Upw6mrf31zJN2qplFMoI32S8XL3B4V5EGk1/3kyrHDdWaYRZf/eta
-         3DBBXwda+sPQVtUPcgjD9UMLouXULXjlHl8PpPCOfIfQoD6bZF8kAkJKk/QxhtXAqkeS
-         f3Kqmf+mAK4l+Lj/fy74JaIyltIon7DZC+z2nI7X8NcVOWJM8ncvKXIJEI4MuMaEDtL8
-         j1Tei473k9Vm42y0UIFIS3NrvO5Unr9yRsbBcZctkG0YmON6VQS6uNh1spqOl2sW5GLS
-         IRXg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3LKh5QmgglXpU9kjzBpKW2HhTn5N2z7RgcmfxnDqz9ABBRbKPkCq5V9yQ2mTXULmCo1+yIbU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIsvsNpZcIbmOt6/aOZ/5nxPrztgbFDAWo9HdXNQm3WpPpf6ZL
-	QtJHGyNVWJv+iYym9OcgnHH9BVqSBazvVXqfqxZSvEc4dzG+sLlophek
-X-Gm-Gg: AfdE7cnleTrsvlQ1aa9FbUL8J57ws4XgZC0Zj1DlNP9AoP+3C7gNszAtu4aEwEwAI1/
-	Px0thvzKsYjsmQ0IkzjNV95ZSaDGRgPeObJkJNel52n5Gftf4vlLvYbWgRaJQa394g3x+kRBtZd
-	yOi1Er79opJ+3sVQPK145PTuDhAZO18ooizUd7eunvi35gDYi9mH3Iu7ZrPdLDn+l3xsqSCBnG/
-	DOS4fQEp5YxKyh0e97aPPnKMCY5i8iwMZXfyR8xlozxxXMIbbe9yDWJHQTqm/v642QS/qJxtpQw
-	nOus9Vf0bPiR+w+y4yRd9IaptVZcuT2bdatjdjqUi0cV7mm/OWcZkNmzR2/Ghc0gwiLogmIEN0K
-	WjEr9miV1Hx3IbMotUKwYngyv4QwJ90vUIa7I6UGqiDjvTWWA4aMr9Q+64U7LRNT+M38nU+5qVg
-	mNQFZHg342YXuGLQ+xwXQAuXqu+X277+HoC2gkji8=
-X-Received: by 2002:a17:90b:3bd0:b0:36b:9323:c726 with SMTP id 98e67ed59e1d1-38dc77ec3f6mr243899a91.4.1783712827167;
-        Fri, 10 Jul 2026 12:47:07 -0700 (PDT)
-Received: from localhost.localdomain ([202.164.135.140])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311b00048a3sm13699031eec.5.2026.07.10.12.47.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 12:47:06 -0700 (PDT)
-From: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>
-To: andersson@kernel.org,
-	mathieu.poirier@linaro.org
-Cc: quic_akdwived@quicinc.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sailesh Nandanavanam <saileshnandanavanam@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] remoteproc: qcom_q6v5_mss: Fix off-by-one error in regulator error cleanup
-Date: Sat, 11 Jul 2026 01:16:38 +0530
-Message-Id: <20260710194638.1502-1-saileshnandanavanam@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mONjBnMh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783713029; x=1815249029;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=wstU32o1ukGNF/Xb2VDHeQ+rDnkS5bjwvJsCoMlMLLU=;
+  b=mONjBnMhzr6LGc0OIsHgyXQ7UuBcOmdOviGkT0HCKW6cjv7usCU1jNFJ
+   wufw44VOMTv3JYz2SKLXqtQJNLTS9yE9vb2KGkkJtDPL6uJCak32IRNSb
+   LkTmx/O44cg6p4W98TucbIy8vuc1L4iwGFnIgxaUK6aBCz/be+l1NhyuT
+   ng78RK3nY3AbRfx+BZWoIbqqjC+BdrOUZGmB6fhpsL5YJ6KoIksqx9mTo
+   EHbbxZRU7gcTEoDuE6UYRklDJqtTwHNHy6NymIkabBcdBnvCLppgnnuky
+   s4bGGeYXjhFgW45/E+BZV+L51Jc3N4FTpG97COuLTu4SWfY0YFdNKgWaj
+   Q==;
+X-CSE-ConnectionGUID: Cx/X+wH+QqSx5RRbpliQKg==
+X-CSE-MsgGUID: wUVQmEq5Slms/Urn1aiTiA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101842533"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="101842533"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 12:50:28 -0700
+X-CSE-ConnectionGUID: 5POQ9fgNQHacP2lc78bxaw==
+X-CSE-MsgGUID: GFXUrvZlRjSSulHJ6FdmBg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="255063240"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.199]) ([10.125.111.199])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 12:50:27 -0700
+Message-ID: <f2af8fae-62b8-4c5a-8f8d-594b93912dc0@intel.com>
+Date: Fri, 10 Jul 2026 12:50:26 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/mm/pat: acquire mmap lock on page table free to avoid
+ ptdump UAF
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, "Mike Rapoport (Microsoft)"
+ <rppt@kernel.org>, Kiryl Shutsemau <kas@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, David Carlier
+ <devnexen@gmail.com>, Vlastimil Babka <vbabka@kernel.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, stable@vger.kernel.org
+References: <20260710-fix-cpa-ptdump-race-v1-1-d898699a7417@kernel.org>
+ <529e37eb-ad4c-4b0f-8ba3-c5608aa7a893@intel.com> <alE6fUJZzELlUfxP@lucifer>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <alE6fUJZzELlUfxP@lucifer>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-In q6v5_regulator_enable(), when any operation fails for regulator at
-index 'i', the error cleanup path unconditionally calls
-regulator_disable() starting from index 'i'. However, regulator 'i'
-was never successfully enabled at this point, resulting in an
-unbalanced disable.
+On 7/10/26 11:53, Lorenzo Stoakes wrote:
+> On Fri, Jul 10, 2026 at 09:26:48AM -0700, Dave Hansen wrote:
+>> 1. We could just bite the bullet and have separate ptdump files for the
+>>    top and bottom of the address space:
+>> 	current_kernel_top
+>> 	current_kernel_bottom
+>> 	current_user_top
+>> 	current_user_bottom
+>> 	etc..
+>>    Then the lock you take is dictated by the file.
+> 
+> I mean that'd break userspace though wouldn't it?
 
-There are three distinct failure points:
-- regulator_set_voltage() failure: voltage was never set, load was
-never set, regulator was never enabled.
-- regulator_set_load() failure: voltage was set, but regulator was
-never enabled.
-- regulator_enable() failure: voltage and load were set, but
-regulator was never enabled.
+It's debugfs. So, yeah, I can see it breaking things, but it's also way
+less of a concern. Nobody ever complained about the new PTI file getting
+added in there.
 
-Fix this by introducing three separate error labels to handle each
-failure point correctly. For the failing regulator at index 'i',
-only reset the resources that were actually configured, without
-calling regulator_disable(). Then roll back all previously enabled
-regulators using 'i--' in the for loop initializer to skip the
-never-enabled regulator.
+>> 2. We could always take both init_mm and current->mm locks. That seems
+>>    icky.
+> 
+> It's actually the least awful of all of these I think :) and the one I
+> implemented ([0]).
 
-Fixes: 19f902b53b47 ("remoteproc: qcom: Initialize and enable proxy and active regulators.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>
----
- drivers/remoteproc/qcom_q6v5_mss.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+Oh, cool, I missed that. That's a good pairing with this one!
 
-diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-index ae78f5c7c1b6..9a17aa065f50 100644
---- a/drivers/remoteproc/qcom_q6v5_mss.c
-+++ b/drivers/remoteproc/qcom_q6v5_mss.c
-@@ -311,7 +311,7 @@ static int q6v5_regulator_enable(struct q6v5 *qproc,
- 				dev_err(qproc->dev,
- 					"Failed to request voltage for %d.\n",
- 						i);
--				goto err;
-+				goto err_set_voltage;
- 			}
- 		}
- 
-@@ -321,20 +321,26 @@ static int q6v5_regulator_enable(struct q6v5 *qproc,
- 			if (ret < 0) {
- 				dev_err(qproc->dev,
- 					"Failed to set regulator mode\n");
--				goto err;
-+				goto err_set_load;
- 			}
- 		}
- 
- 		ret = regulator_enable(regs[i].reg);
- 		if (ret) {
- 			dev_err(qproc->dev, "Regulator enable failed\n");
--			goto err;
-+			goto err_enable;
- 		}
- 	}
- 
- 	return 0;
--err:
--	for (; i >= 0; i--) {
-+err_enable:
-+	if (regs[i].uA > 0)
-+		regulator_set_load(regs[i].reg, 0);
-+err_set_load:
-+	if (regs[i].uV > 0)
-+		regulator_set_voltage(regs[i].reg, 0, INT_MAX);
-+err_set_voltage:
-+	for (i--; i >= 0; i--) {
- 		if (regs[i].uV > 0)
- 			regulator_set_voltage(regs[i].reg, 0, INT_MAX);
- 
--- 
-2.34.1
+>> 3. We could have ptdump_walk_pgd() take a different lock for each
+>>    'range'. Logically:
+>>
+>> 	if (range->start < PAGE_OFFSET)
+>> 		mmap_write_lock(mm);
+>> 	else
+>> 		mmap_write_lock(&init_mm);
+> 
+> I don't love this. It feels a hack for x86 that's put in the wrong place,
+> i.e. core code.
+> 
+> And can you can make this assumption for efi_mm for all arches? Could other
+> arches might be weird about this?
 
+Yeah, it's possible they're weird. But I thought the whole idea of
+efi_mm was to reuse the non-kernel part of the address space. So oddly
+enough it kinda makes sense.
+
+But, yeah, I totally get the reluctance to do this.
+
+>> I'm kinda leaning toward #3.
+> 
+> Another way forwards might be simply have the caller _call
+> ptdump_walk_pgd() twice_ once with the range set to [0, PAGE_OFFSET) passing whatever mm
+> != init_mm, and again for [PAGE_OFFSET, ~0) passing init_mm?
+
+Ahh, yeah, that's a good point. It could be done a layer up too.
+
+> Are there cases where you expect to see a delta in the kernel range in x86
+> for an arbitrary mm?
+
+Are you asking if current->mm->pgd[255->511] is always the same as
+init_mm->pgd[255->511]?
+
+I think so, except for the LDT PGD when PTI is on. That can be different
+between mms, and it's a single pgd_t entry. I think Brendan had some
+grand plans to use this PGD for other things for ASI as well.
+
+So, yeah, the upper half of the address space is *normally* identical.
+But PTI plus set_ldt() is abnormal and we have to deal with it. The only
+times that code frees page tables is at exit time and in an error path.
+
+So, how does this interact with mmap_lock? Surely, someone looked at
+this recently because the comment says:
+
+ * Lock order:
+ *      context.ldt_usr_sem
+ *        mmap_lock
+ *          context.lock
+
+and not mmap_sem. But, alas, I don't see any mmap_lock anywhere. Someone
+changed the comment and didn't look at the code.
+
+Is there some mmap_lock interaction that I'm missing? I don't see it
+_anywhere_ in the ldt code.
