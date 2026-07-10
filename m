@@ -1,72 +1,67 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2BA2D3A7C
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 02:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3042D5432
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 02:31:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783650662; cv=none; b=mtXhq0f4RYLHuMRopbKmeD09qczdxWYoQWQhQDkgZVfnYh285LmmQCDKp8D8/d0/AhoGrF2LeCShtRniC98oIpbWjzKqhh+vsiVXH656I9uATO0IBtp52FgDK+9k4lb0k0QmSIK+d9XvF5q8wS/tyEBgFVoEGDAC4W5b0Vc4dCc=
+	t=1783650687; cv=none; b=svFkodnbZVobHeX4x/5E/VUm7VcJFUs/3g7XeMoe7Dk0u6jSamCjD9HBiKujMT+JGlzVOYqMil753Von8WEYO8V5FgIWEiJ9jjxkIh+zvMsjom6qLXrGec69AzMXfmJzE9PJiITvLrwZ+42mMcHkb4GKKuGAPOVHjFVNqac1k60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783650662; c=relaxed/simple;
-	bh=46IHW5kOXqyiB5yT1qHGgFEZCMXtxEsKIeHLPwqmOc0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XJ7obIYysm6HPJG9YdoRuu0GCMNrt0CxsfBYW+uAqyvfcJ9bz7iFx4nwwjf8cUt0/Soz1GQLmf8ufi8dZPO4fJSjaY/xSZ5voRWq1rqV7LU4zOwPkbf1DaWIG9Kvx5ZAorWF285bDsh0PTw1xwNZ7JcJvnLm19+0eXcKHODtwWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i9juJ7yr; arc=none smtp.client-ip=209.85.160.177
+	s=arc-20240116; t=1783650687; c=relaxed/simple;
+	bh=HiyZ/mRGbDtTQ4KM/8YUsOii48kY/vlJSMg+C6ZlMpU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rag+jmygTB4NbJOGGkK/DFnmq4N32Iq800pY7pcSieDIj+rkrOBdVIAATjW7vulkfAkgXRNxab4js/y7T2SbUpi0YNMgZPnq3jg8/FTE4fX7Kf9CCzBr/vz0Kin4jzqeWABnc/18XIxfIE3M3CBuCBzSChdS+bsrnYW3XWm/qPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XMI+3FPd; arc=none smtp.client-ip=209.85.219.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i9juJ7yr"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c0c45c580so2812821cf.0
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 19:31:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XMI+3FPd"
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8ee88fce572so5241006d6.1
+        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 19:31:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783650660; x=1784255460; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783650685; x=1784255485; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jcg048O+IxpZhUZpV0edccOsRb7Kf/SXUV8o+WElGKg=;
-        b=i9juJ7yrepmXC2+dyK/HuF9eVv0NwtMHpIkrK01Tkdv67LsGOkY0JM4ifCDLmGvUiG
-         jkl5SG1riO+MaBDJN8rYWynQY1KxEMbu9e6T/nBfB8cEzdpmddDR9Rah88xSE73aTwcM
-         UO+R5AvZKi+jDMNqY9LA/BjYup4SQDRHnRtAth4dDm6HYcBvBZTwJ5S2zC/mvQIE1mJO
-         cmnpdO8gUSJK/O/SMV5QwZ8qWwefoLv2U0r2Fl33k880iy3fHluxhN6+D4LBAIxRF5gz
-         BcGsyvAPQWlwcxUoxF2uvXPEt6YvNaVDkQeih34sYM7ktVpnI089cgSyDt84CSwoglJj
-         zzbQ==
+        bh=jkeC7bWqSkFNiKhrvAzXsbJK3S43VOw0XA5kqChV70M=;
+        b=XMI+3FPdhSfIqINUPkr0pZN+lPKeL42DfwPpKFt6fixKZOy1ziY2t2KLbyhkQLEBEC
+         +UVaPKuYcCAwdlD9uXcu6LEE5GMH9S334+ZojQITGxuc9uaJ6kuaMAuCXwThRK630HRk
+         i3mheq6bVvEqb244eNQZr7+el2VagCGH6gu7r1Ifm03k/nDmibb3T5cLt2a+AxJMfhUg
+         Rfp/kB6eygjhHdmTHOKZZ0a2RBtMgDL1J6J7OFDFeFxeMN60/Ok+e0u3/QYkGUhRyJRO
+         pgKns9DGwzxMm6ay8F7nqqL4Ma8fsSILrTCE5YW6oizu+KjQ9BU+1swwnPDZthuCwZE7
+         WGCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783650660; x=1784255460;
+        d=1e100.net; s=20251104; t=1783650685; x=1784255485;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jcg048O+IxpZhUZpV0edccOsRb7Kf/SXUV8o+WElGKg=;
-        b=gij61IGJPcZUYi0gSI/eNe5ogr0wF8cvGhoosnilSjHZPBbNegBTy5aWuWOZkIDt3G
-         x6LuJLm8ZCoeAFxmmFu8lAB+ZCdcenQRhCuiPV/0DcLvQISv6Fy1/Ffx4yGG+j1PtGuq
-         msHYqnOd2hTrAUat8XITEiputfWSI/MP374cm5saS3NCK5zMtZeU5xylkgQfVQ2E4tz7
-         e086UqCVqnDr5JWQyVNV3WdMLi8RHfNtuzFTKvhbgnddd+gc7J/lUi68OtYtKuvWHNqD
-         wbBOe8dAw7fZ2ziU/sjOMQ3rx+l7Yor0CvuMn0YR7FRK6RNDKBWds7rc2xI9yAc7XTTv
-         9yHQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrvL47bbbj2sjtbqslO9BKU1FzTm9l6/+y7N+8WFxHH6R/AQSsYllP8Tq889UN3Cu981Z+ZbCE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxX6dwDHI0EKo0JwhJ3brD7so7aB5QiqVVomu1U1HDI7rL7eXNa
-	7Lgir6+32jXYMhun/lb0wNVj14OgADRrwhrMmidMZfpXSV5l4239XgSf
-X-Gm-Gg: AfdE7cmV9I5RuTWnr4OyoMCEa7pqFcweRUIMZvcEgDpkNY7S4JyPMkBt/2t4cliXZB+
-	mfDLloIU4UK2vWd5ti5mFUxz+MdqF+J+H6BIhzIPuA6KD1D91inVymXwq8Vb5vT+UinvE0ixwrt
-	4P9rl7DTvGCdENTpAkGNUbO3cjvfnLEJbLWjv3QJJdhxOwWIdTxqGrgraCF+wGoxgJwvVyxjdzK
-	bnL8gC3w+tjGymuJXcoIqnnpYtcfTag5uYVE/v57jXflfPyDna7dvHA8E6Zj9Zkpf8+c13Cz1Fv
-	grlivKR0F+WcKFBJdflVLFM4MmOs11SK9izvtXizb2ZTpjOeubW1kMPVBPu2XzOWMm5QXMoQKny
-	mZsBz8lWLY/s9iBXu5Omx9sm/V6U1kZQD2PUwym/l7AWFOEkl33Y7SfMxj3nj0o1xUFd2yWUACS
-	Y/M7erUN3dkCIgQstG0oUCoJRwfoBpIk1ph3pHtBMRtgsEBPcjKYfcXWmFRQ6aRYZmDF72a7IrD
-	DDOAZIYzd/NDKo1FPFYG0HyLWRLg20R0OB4ZPz+Ss4=
-X-Received: by 2002:a05:622a:a591:b0:509:3cd:b22f with SMTP id d75a77b69052e-51c8b2e2428mr106477241cf.23.1783650659833;
-        Thu, 09 Jul 2026 19:30:59 -0700 (PDT)
+        bh=jkeC7bWqSkFNiKhrvAzXsbJK3S43VOw0XA5kqChV70M=;
+        b=Aqt9Fbjj0tYzoBf8DTchI5m5vDld1c+6LhlpQBbIIY2OLOxGtFOnGnelvXkqPC5NwP
+         Kp85EDpdFnVYzu/Tgk7VGwhtPrlxt6HTO+yiTqwP6b76fvThhIE/MTHpnZihJiSfPM+D
+         dL2kFkHgXL8CmhR7HZqRyvucD4z13UdBNW0wCgCB86eW1KMJboK1a7y5BAIV9Dmvfy7l
+         JPpVt6EHsjNsFiIda1dn6fOJXjedZWtcfFhs2XclJtajQ6fl2WncExZE7c2FIBv3B1RP
+         phNL10R9iNRfhchPx7ojBVl4GIHRKCubS8Dzf5ztMbSTnycp9DplUotgK3WVuoJKbisy
+         bv5g==
+X-Gm-Message-State: AOJu0YxcDwmqXzgdqHaxRlxGfSlwbUQ657HlHN+fIuuvh7kVR9GWTeTv
+	jHaoIC1qZBUSbgpCTZzKAazVBH/Ky/PEy9v4R57PGa/eP9sRH1SmwpLruzx386fRFDs=
+X-Gm-Gg: AfdE7clXw/hLhyH16Gs4o3wNi1sbt+dd4LyYHNxtfa89q6EoNgUP07l9MakyZhpU6eu
+	71nnwct3Y6WoUcv5nucHBUAYPkny/HWL3vwmGE+uTBDwMsK6Lb0yYvGuCe6VZKRzA4+zty4R0f8
+	hrZxO8/GMEqukwCEqfgS9K+WeQ0fbEFmvfF9W77TVD5V0BzBEcq+PUy0C4L1hkVGZC9HNJ+uluS
+	csbmJIRMRLp3PbvmvcBfBFk/eAvU5q468LDjjal1Xt1421l0bzXO6g5KP8eLBBAHD4D2UEhLRBA
+	4x1XSHpIuP2b5q29bE+xkiw6XeMDSMjt0R1XznQS3NMAnSs/6b/yMQ1rUVl5K1ucf5RQG8kDhWD
+	Gh0WqnbuJMjp+vhJXDFUrXNDERfinl2Dakj9QE/da1xXuIa1sqBYlE5ZVyXr+9EV8QwKByURZcU
+	y3b0XrsMAxFphYolsWWjIPkvClg51NFzvewblVs8jkBSun7wps0lIPwMF2DyMxJ8Bdw41+J/C+S
+	5kBc2cwnccY42ic2Xxft59no7BaRNQY
+X-Received: by 2002:a05:6214:3d8a:b0:8f3:7d39:90f1 with SMTP id 6a1803df08f44-8fec2275179mr115256856d6.37.1783650685212;
+        Thu, 09 Jul 2026 19:31:25 -0700 (PDT)
 Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caae24d04sm6804331cf.18.2026.07.09.19.30.58
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd7c1ec84sm31121066d6.29.2026.07.09.19.31.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 19:30:59 -0700 (PDT)
+        Thu, 09 Jul 2026 19:31:24 -0700 (PDT)
 From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	ntfs3@lists.linux.dev
-Cc: Mihai Brodschi <m.brodschi@gmail.com>,
-	linux-fsdevel@vger.kernel.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] fs/ntfs3: reject an oversized resident attribute on the inline iomap path
-Date: Thu,  9 Jul 2026 22:30:54 -0400
-Message-ID: <20260710023055.3746252-1-michael.bommarito@gmail.com>
+To: stable@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: Please consider fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless") for 5.10.y, 5.15.y, 6.1.y, 6.6.y, and 6.12.y
+Date: Thu,  9 Jul 2026 22:31:20 -0400
+Message-ID: <20260710023120.3747693-1-michael.bommarito@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -76,76 +71,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-attr_data_get_block_locked() maps a resident attribute as an IOMAP_INLINE
-extent using the resident value length taken straight from the on-disk
-attribute, without checking that it fits within the single page that backs
-an inline extent.  mi_enum_attr() only bounds that length against the MFT
-record size, so a corrupted volume with MFT records larger than a page can
-present a resident $DATA whose length exceeds PAGE_SIZE; on a buffered
-write the inline extent then fails the page-fit invariant and
-iomap_write_end_inline() trips BUG_ON(!iomap_inline_data_valid()).
+Please consider the following already-mainlined fix for the stable
+series listed below.
 
-Impact: writing to a resident file on a mounted crafted NTFS volume whose
-MFT records are larger than a page oopses the kernel at
-fs/iomap/buffered-io.c:1061.
+Upstream commit: fb3bbcfe344e64a46574a638b051ffd78762c12d
+Subject: exit: change the release_task() paths to call flush_sigqueue() lockless
 
-Reject such an attribute in attr_data_get_block_locked(), before the inline
-buffer is allocated and the size reaches the iomap core.
+This is a stable option-2 request for an already-mainlined fix. The
+patch fixes a security-relevant bug pattern that remains present in the
+listed stable branches in my current review.
 
-Fixes: 099ef9ab9203 ("fs/ntfs3: implement iomap-based file operations")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
----
+Why this belongs in stable:
+__exit_signal() calls flush_sigqueue(&tsk->pending) (and shared_pending)
+under siglock with irqs disabled. A local unprivileged task can block an
+RT signal, queue signal instances to itself up to its inherited hard
+RLIMIT_SIGPENDING, and then exit, making the kernel drain the queue with
+interrupts disabled. Raising the hard limit requires CAP_SYS_RESOURCE,
+so the highest-impact case depends on a high inherited/system-managed
+limit rather than arbitrary unprivileged limit raising.
 
-The oops on current mainline (the inline buffer is kmemdup()ed), reproduced
-on 7.1.0-rc4 with KASAN by writing to a resident file on a crafted volume
-whose resident $DATA value length exceeds PAGE_SIZE (reachable only with MFT
-records >= 8 KiB):
+Requested stable series:
+- 5.10.y
+- 5.15.y
+- 6.1.y
+- 6.6.y
+- 6.12.y
 
-  kernel BUG at fs/iomap/buffered-io.c:1061!
-  RIP: 0010:iomap_write_end+0x48e/0x5c0
-   iomap_file_buffered_write
-   ntfs_file_write_iter
-   vfs_write
+Fresh stable check (2026-07-08):
+- 5.10.y: 738ac465e4e9
+  fix shape: absent; upstream diff: applies-cleanly
+- 5.15.y: c86c4726e7f0
+  fix shape: absent; upstream diff: applies-cleanly
+- 6.1.y: 090666d3cc90
+  fix shape: absent; upstream diff: applies-cleanly
+- 6.6.y: da47cbc25466
+  fix shape: absent; upstream diff: applies-cleanly
+- 6.12.y: 296aabce4594
+  fix shape: absent; upstream diff: applies-cleanly
+- 6.15.y and newer checked branches already have the fixed shape
 
-This also matters for the queued "ntfs3: Allocate iomap inline_data using
-alloc_page" change: there the same oversized data_size makes
-memcpy(page_address(page), resident_data(attr_b), data_size) write past the
-single alloc_page() page.  Bounding data_size here prevents both.
+Backport note:
+The mechanical check above reports whether the upstream diff applies to
+each listed branch as-is. In this refresh, the upstream diff applies
+cleanly to the file snapshots for all requested series.
 
-With this patch the offending write returns -EINVAL; normal resident and
-non-resident writes are unaffected.
+Impact context:
+- current CVSS estimate: 4.7
+- vector: CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H
+- direct-tracking exposure: Debian 11/12/13 and Android 13/14/15/16 GKI
+- primary touched file: kernel/exit.c
 
- fs/ntfs3/attrib.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Impact: local availability only. My saved v6.1.173 test at this host's
+normal pending-signal hard limit (450505) produced a 1.035s clocksource
+long-readout gap. With a high inherited hard limit, a v6.1.173/QEMU run
+that queued 6M RT signals hit a softlockup watchdog panic in
+release_task() at _raw_write_unlock_irq(); the same 6M target on
+v6.1.173 plus fb3bbcfe completed with no lockup signal. The fatal case
+therefore remains AC:H because it depends on a high inherited or
+system-managed hard limit rather than arbitrary unprivileged limit
+raising. I do not have evidence for privilege escalation, code
+execution, confidentiality impact, integrity impact, NMI-hardlockup
+proof, or a default-limit fatal panic.
 
-diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
-index e61c5bf7e27e4..d41ca930daebc 100644
---- a/fs/ntfs3/attrib.c
-+++ b/fs/ntfs3/attrib.c
-@@ -1039,6 +1039,21 @@ int attr_data_get_block_locked(struct ntfs_inode *ni, CLST vcn, CLST clen,
- 
- 	if (!attr_b->non_res) {
- 		u32 data_size = le32_to_cpu(attr_b->res.data_size);
-+
-+		/*
-+		 * A resident attribute is mapped as an IOMAP_INLINE extent,
-+		 * which must fit within a single page: iomap_write_end_inline()
-+		 * asserts iomap_inline_data_valid(), and the inline buffer is a
-+		 * single page.  mi_enum_attr() only bounds the resident value
-+		 * length against the MFT record size, so a corrupted volume with
-+		 * records larger than a page can report data_size > PAGE_SIZE.
-+		 * Reject it here, before it overflows the inline page or trips
-+		 * the iomap BUG_ON.
-+		 */
-+		if (data_size > PAGE_SIZE) {
-+			err = -EINVAL;
-+			goto out;
-+		}
- 		*lcn = RESIDENT_LCN;
- 		*len = data_size;
- 		if (res && data_size) {
--- 
-2.53.0
-
+No reproducer is included in this public stable request. I can provide
+additional details privately if needed.
