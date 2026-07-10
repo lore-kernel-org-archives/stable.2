@@ -1,133 +1,125 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92D538DD3
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 02:31:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C23224B04;
+	Fri, 10 Jul 2026 02:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783650708; cv=none; b=W2HO4lsjqj3wELoXLiop9cEf+Xq0coMvcXF48/59S5Xb4ybbOpxQ3XWwswsTAHsk/kaRX+O+BaBcyl3nggH6rINlErE6he6fT+bVwzXOsiUZJgCVvf0hJjBKW58w3b8ciJcQjtIlc8/DxDESEd6aWcXpSmN+EwRl2wvFhX0Uuq0=
+	t=1783650717; cv=none; b=tyE272IAVJQgMgqOJ6ifXZagpWD1c+QKylhxZHekUOgmO0bV/2BXAfTYBQaEs4kkLOdVy/EZ0gK9nPf//xOI7Q2jDDs9TfUnmDQ5MvSRPpV7NHtaLmC1CEjt1EwrV92DdSeVPgVovToWX/H/06MKzaUrrYxCtT7DveYlUNiYyLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783650708; c=relaxed/simple;
-	bh=DLEOYtg6pX0wN99muAS2Kb4y9kiaFJu7o0A8KQC2IM8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mb2x3zZcDdavvC71+iTqKyXbX5KAyIErGmPZkusCzWBdYvAX/e3JFFXIP7DC0FzTtuayodDnHaAyE+tKdgW+hYPUWK9RvWU56MokfwFUyy1kFkSj91yxa0ZvDiKsXQsnK7251rU+XsI2StvHlrIV9qSBoW4GKUUmzvUVf6QGBLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LjCNbVuP; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783650717; c=relaxed/simple;
+	bh=OZl/pOxovyRa8FYhD4CGWyx4UocLjGqfpDIJbizbRwA=;
+	h=Date:To:From:Subject:Message-Id; b=LTnTD/sWnUrYMqA1ga00sgQBNp44Nfzflz4LkupL+TkocUxUGlQiuWHPjQ3Wl5JZgPwl6RrTdsG+ohUaeGA63wdZYb1cP2sA/+8iJhZ2RPK2HqdCNNV9UyJyOt+4gcYf6IEO7ur5vElmBRZRvInr/CiazlqSxLwesCQnV3NnoFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Yk2R5VlR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LjCNbVuP"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-8f29ec73064so3747826d6.1
-        for <stable@vger.kernel.org>; Thu, 09 Jul 2026 19:31:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Yk2R5VlR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328021F000E9;
+	Fri, 10 Jul 2026 02:31:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783650707; x=1784255507; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RkQ/1bstQnfaorhe+sz7JlhppZT7UEc9rxWGwXZ/Tpk=;
-        b=LjCNbVuPjiXQke3mtFvy4TMIbYZgebAqzUvCQ0lGh66lLV7NXvdew2XEqsyIHg14zk
-         qBPgwMUSOIPH6GHXqMczzaD+RznCRWrt2fsnkDgNrYma8T7pqzta0dYg4Ku7hLX1TeaE
-         9dwiVY4ujKeRdHDLndPLL/mBO2pjGM6cAV4BSo2Ffkp5nq4VzTG+c35ueZAFtrBHq3UK
-         guTtmgcW7ntPuRc84RyNtjxPY5ilu91cwclTE5pzS04819cjToYt/GZX0ymHJjJEaIBC
-         7io/NBd9pImKdHVUooZUqpWU6lZ4DW/wflP9zpka7gRJj90G/qGPQna/fkKXOyC+pZZx
-         kCyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783650707; x=1784255507;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RkQ/1bstQnfaorhe+sz7JlhppZT7UEc9rxWGwXZ/Tpk=;
-        b=J1rdj8AMThoJLP3e+ICD33paW9OwhmmkK2FzZDGJ+379N2mqdaEakeR5Wl8uNJSOBk
-         Q1LNFNbUKLEUXKltFx3eknxBAIZIswClUlsO489/a3b2RIyqEKTX050rI4K2LuLjwiNR
-         4Zg+sAlobzH/1vXeV3+YovOPhh7jp2LP3GqlaywXdDJ18DqLvKfurfmvSqdjbJUbye5I
-         DyRnc2YcJlE1kS2nfslfq3niBALoB1J5BLL/upiKwjtT1/1LeMKO38tN+HnE+j3owplL
-         3fWUOKRXr8Sto9v3qtvES9FJkgckJGD9RsRPBs9xjlcAvgh8OM+HdFVGoGGT1nwweCjc
-         gVPg==
-X-Gm-Message-State: AOJu0YxM3qf8cof/Cd8KoSM5vCmhk9+bJxaVmq+kpaDAH1H+GumrlXoA
-	Vjfvd+ouy4p0DZ7EZucWLby95eARTkXELsOC9d+k3vYnm7rdAU6ITHuDLY3Y8zhlJtc=
-X-Gm-Gg: AfdE7cnSxqtBoG9kTmaLc5WOovAfHx11iS2rlJ7eZ7gQ4dFosYImkTK38HOTK0IJRpa
-	LF90TSlo5uiPGwcawtKyIx+SR/W6uqwhSYi0AYzWlcoLIi0v3uixGPgK5Xd3rG6LGyHovkQKqIg
-	LneFjSXOK1lYC1rzYMG0JiDqMhRP5piQZQK1SCoxqAV9wZL+Jt5XS/hQZQQghFAvgLv/GgcrQop
-	G2naCSIjQshJjUpGHmguTqhzNnSHU4aSRumuNLqHjTTDARY/BAdoMuKA2AbuHSCP7y+k1hlDmTt
-	dvRlEt771sEZmm7Q24zqj6jJD5+0sKuvncM5MtDBJ6scECLOy8S0rnIpLlqsBjYBY1u0RcMIDuD
-	NmS+aRfMTFk/92Lpad4uTxnsVe7EckSIObFiQ44jmPhJAFgUbI9B+4CZQzi2CxC/G/3/C37wU4R
-	WU4zt6Fw/bZo0zIRt0YoGGW6pOIy41guCQk4R0UotAe+oN+aNvnO5aqb+DaKyQGgkHv87LEUNOb
-	iYg9gPmgJwOuW5dBwJ8kva+oWQsE0T6dS8gBrBpDuc=
-X-Received: by 2002:a05:620a:4614:b0:92b:67e6:4b6b with SMTP id af79cd13be357-92ecf6114e1mr1024252085a.66.1783650706639;
-        Thu, 09 Jul 2026 19:31:46 -0700 (PDT)
-Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5d5fc4dsm89983185a.40.2026.07.09.19.31.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 19:31:45 -0700 (PDT)
-From: Michael Bommarito <michael.bommarito@gmail.com>
-To: stable@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: Please consider 83f99de1b7c0 ("ext2: fix race between setxattr and write back") for 5.10.y, 5.15.y, and 6.1.y
-Date: Thu,  9 Jul 2026 22:31:42 -0400
-Message-ID: <20260710023142.3748810-1-michael.bommarito@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	d=linux-foundation.org; s=korg; t=1783650715;
+	bh=14ZvpJishve1TB2QfFEw/MzMNEN7+RrHDWhnVlZEg0s=;
+	h=Date:To:From:Subject;
+	b=Yk2R5VlRlfvRIqxuyQy+Y2vDzPoVYYNiGKEO49W4czZSjaxJmIvOiyHmSMaEuI7ja
+	 0pKVWH1xF1G4JUQCMwqHHPongab3bwgSrRd41RX7BYCru+BXpDsuiJhC9QMDVWWvBM
+	 VWvovmey9tySV/Luw0TJi+OxF7rR2BOnZ312t0KU=
+Date: Thu, 09 Jul 2026 19:31:54 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,stable@vger.kernel.org,rakie.kim@sk.com,matthew.brost@intel.com,joshua.hahnjy@gmail.com,gourry@gourry.net,david@kernel.org,byungchul@sk.com,balbirs@nvidia.com,apopple@nvidia.com,wangkefeng.wang@huawei.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-migrate_device-fix-pte_pfn-pte_dirty-called-on-non-present-pte.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260710023155.328021F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 
-Please consider the following already-mainlined fix for the stable
-series listed below.
 
-Upstream commit: 83f99de1b7c0dcfa42b211e5e40334b7ad786b36
-Subject: ext2: fix race between setxattr and write back
+The patch titled
+     Subject: mm: migrate_device: fix pte_pfn/pte_dirty called on non-present PTE
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-migrate_device-fix-pte_pfn-pte_dirty-called-on-non-present-pte.patch
 
-This is a stable option-2 request for an already-mainlined fix. The
-patch fixes a security-relevant bug pattern that remains present in the
-listed stable branches in my current review.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-migrate_device-fix-pte_pfn-pte_dirty-called-on-non-present-pte.patch
 
-Why this belongs in stable:
-ext2_xattr_set2 allocates a block via the reservation window
-concurrently with writeback (ext2_get_blocks), tripping rsv_window_dump
-BUG() in ext2_try_to_allocate_with_rsv (panic/DoS); fix absent in the
-checked stable branches and the unguarded reservation path plus
-reservation-using xattr allocation are still present there.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Requested stable series:
-- 5.10.y
-- 5.15.y
-- 6.1.y
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Fresh stable check (2026-07-08):
-- 5.10.y: 738ac465e4e9
-  fix shape: absent; upstream diff: needs-adjustment
-- 5.15.y: c86c4726e7f0
-  fix shape: absent; upstream diff: needs-adjustment
-- 6.1.y: 090666d3cc90
-  fix shape: absent; upstream diff: needs-adjustment
-- 6.6.y and newer checked longterms already have the fixed shape
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-The source-shape check looked for both the EXT2_ALLOC_NORESERVE xattr
-allocation call and the matching reservation guard in fs/ext2/balloc.c.
-Those are absent in the requested branches and present in the checked
-6.6.y, 6.12.y, and 6.18.y branches.
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-Backport note:
-The mechanical check above reports whether the upstream diff applies to
-each listed branch as-is. Branches marked needs-adjustment may need an
-equivalent stable backport rather than a straight cherry-pick.
-The current upstream diff fails in fs/ext2/xattr.c at the same hunk on
-5.10.y, 5.15.y, and 6.1.y, so an adjusted backport is expected for all
-three requested series.
+------------------------------------------------------
+From: Kefeng Wang <wangkefeng.wang@huawei.com>
+Subject: mm: migrate_device: fix pte_pfn/pte_dirty called on non-present PTE
+Date: Mon, 6 Jul 2026 19:19:58 +0800
 
-Impact: a local user with write access to an already-mounted writable
-ext2 filesystem with user xattrs enabled can trigger a kernel BUG/oops
-through user.* xattr churn and writeback pressure. I do not have evidence
-for privilege escalation, code execution, or confidentiality/integrity
-impact; this is an availability issue. My current CVSS 3.1 estimate for
-that mounted-ext2 scope is 5.5.
+pte_pfn() and pte_dirty() have undefined behaviour when called on a
+non-present PTE. In migrate_vma_collect_pmd(), these functions may be
+invoked on non-present entries (e.g., device-private entries), leading
+to potential crashes from pte_pfn() or incorrect dirty folio accounting
+from pte_dirty(). Fix both by guarding with pte_present() checks.
 
-Direct-tracking exposure in my current review includes Debian 11,
-Debian 12, Amazon Linux 2023, and Android 13/14/15 GKI. Vendor trees
-that do not directly track the above stable branches need separate
-per-tree checks.
+Link: https://lore.kernel.org/20260708003955.4024340-1-wangkefeng.wang@huawei.com
+Link: https://lore.kernel.org/20260706111958.3649651-1-wangkefeng.wang@huawei.com
+Fixes: fd35ca3d12cc ("mm/migrate_device.c: copy pte dirty bit to page")
+Fixes: 6c287605fd56 ("mm: remember exclusively mapped anonymous pages with PG_anon_exclusive")
+Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+Reviewed-by: Balbir Singh <balbirs@nvidia.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
 
-Primary touched files: fs/ext2/balloc.c, fs/ext2/xattr.c
+ mm/migrate_device.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-No reproducer is included in this public stable request. I can provide
-additional details privately if needed.
+--- a/mm/migrate_device.c~mm-migrate_device-fix-pte_pfn-pte_dirty-called-on-non-present-pte
++++ a/mm/migrate_device.c
+@@ -401,7 +401,8 @@ again:
+ 			bool anon_exclusive;
+ 			pte_t swp_pte;
+ 
+-			flush_cache_page(vma, addr, pte_pfn(pte));
++			if (pte_present(pte))
++				flush_cache_page(vma, addr, pte_pfn(pte));
+ 			anon_exclusive = folio_test_anon(folio) &&
+ 					  PageAnonExclusive(page);
+ 			if (anon_exclusive) {
+@@ -422,7 +423,7 @@ again:
+ 			migrate->cpages++;
+ 
+ 			/* Set the dirty flag on the folio now the pte is gone. */
+-			if (pte_dirty(pte))
++			if (pte_present(pte) && pte_dirty(pte))
+ 				folio_mark_dirty(folio);
+ 
+ 			/* Setup special migration page table entry */
+_
+
+Patches currently in -mm which might be from wangkefeng.wang@huawei.com are
+
+mm-migrate_device-fix-pte_pfn-pte_dirty-called-on-non-present-pte.patch
+mm-remove-pagetranscompound.patch
+mm-mincore-use-walk_page_range_vma-in-do_mincore.patch
+mm-mprotect-use-walk_page_range_vma-in-mprotect_fixup.patch
+mm-mlock-use-walk_page_range_vma-in-mlock_vma_pages_range.patch
+mm-migrate_device-use-walk_page_range_vma-in-migrate_vma_collect.patch
+
