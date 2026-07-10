@@ -1,148 +1,162 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.50])
+Received: from SHSQR01.spreadtrum.com (mx1.unisoc.com [222.66.158.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638363B27CD;
-	Fri, 10 Jul 2026 06:58:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783666753; cv=pass; b=JMnouIYOjZDUjpLprRxTBsQLrpreqGUR9n/ZJx+iuInqmvA5VrFLZhkIrfFx4MlcSx701GhULOJVtFO9t7p8t0aUhIGJLigSYS5s3jb69Vl8kgH8ziDvoF7eTQ7xgkb8w6t5wa5WyodU5r8HIpTmXk7CsAIQhO/X15b68B2s9SY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783666753; c=relaxed/simple;
-	bh=+8rfACDwqf1QFdMyzbhy+IhnEZnk+S/atr7RJjW37KE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SLtZnbe3mHwz/MBXBhl9FVRl05jwo4UwYWopXv5wIKHYuE6fXG6zVXmmB9okBFqg5jM6YkbiYh9t5pCzHoC9dtwRam0rzEdLQKGLnVqiGaR0LY7aZOMAz2o2dmO1aKvHs7ax+HfH5v9YMG13YPhVkAHa592PKyFlbgNvrFcLj08=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=KnFZztif; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=QNALVMlk; arc=pass smtp.client-ip=85.215.255.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E5D3C81B5;
+	Fri, 10 Jul 2026 07:19:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=222.66.158.135
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783667967; cv=none; b=hjwmV7G+rYVPi5k6zpNiTEYkC7uMCDOGiYZXv03oMsll1gebnOxb1gJzBWhXqbY0rZnmevsXnlwJ8/EDoj2mwsV1Y2+avF7U/apTOARAiTefiY5lyjARyk1+lxPED8/8WG/bKiA9TSp4MgHAjA7wORdQRejinkKlxrVmtKGwC9k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783667967; c=relaxed/simple;
+	bh=aj+YhqhvAVDzbO/TXfxyrU3L93cMoH8Vbqhkw68VZIQ=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=avdYL8Pl2e0AdZGKJ3a3NChTXSvJR/Y0FOyM9zA7xzQ81GVTNUREkjcqjRfah47WC8AMX7Y+JpC0YSs4QPCeeVDZPfXP0GD/rfv3L0ISfd7VFE/17jNjJqWcl+YwWC0ByNBBDnaELaofLgHhx5aEab03ftfZ3VyW+G4nd/N3R3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=unisoc.com; spf=pass smtp.mailfrom=unisoc.com; dkim=pass (2048-bit key) header.d=unisoc.com header.i=@unisoc.com header.b=scKGTpym; arc=none smtp.client-ip=222.66.158.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=unisoc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unisoc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="KnFZztif";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="QNALVMlk"
-ARC-Seal: i=1; a=rsa-sha256; t=1783666717; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=EWTDxA/9Qy/GrKlHDp9zdZpzv0IzOsDBvK5Ot0ABLEUt5LnBAwPkSFM8qQm5v4dMAu
-    sq1wC8CpV/CXzGLC48OHP1dyKOBZRNJxPD3UX1Zrmzvx3ts33/ZGTAL2cYSevlA+NycJ
-    jrTFt0bSJ8cbujE3ebtGHPCrliszeyCohGSj3FLgA0Tu6jTvq50ZjLODvg1xaSk8NAqS
-    Q5LDF0sdzrVhAz8An82OP+Nqc+g5CWt3MGFNKZ+pTmmY5h8KQagbAM0il8CLvVBG9Day
-    Ld2WeCXvw4EqP9r8jQ/XPKZFkV6wKt11OWdvVRGfHX67oZjKw/JNRhYdpvkGu63HDOjP
-    dnQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783666717;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=oNO20A98MQL4gy0CXjphwlY7xBkkuVdv5tUxEB2ykF0=;
-    b=s0P5/twWw+7mqcIOdiHOapnaVB5H0FUDZNYcxcFaKDW57hL6S8ee3b1qfsJPpMSHGb
-    +4nuPgDw60L6BxU89m8Sq3zcWoVRTvbR/MmKUm5d5HML7i2OIYUDG8RN2B0JxJcNYIva
-    caTT+KEFezP9zMUPM0yYOJMbbOzFfAvkUPyP/+ZZwcbSTw1jCHmy7tuwH1uiLQ9ixhFl
-    pLf9Ya7WgwndKzCmRAPpwMwy/iWVSDuw4zapb0RiNP+haqGh9Kq03SvkoPrtmUS/RCdM
-    EE41t3kn1QSgqAl44QMe8QpzlRgtnqiaPKTYmTA2dKJG2MZyCd0xlFkmBCqRvgU8Prq9
-    FPTw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783666717;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=oNO20A98MQL4gy0CXjphwlY7xBkkuVdv5tUxEB2ykF0=;
-    b=KnFZztifA7UujJwnpvJ+J16YijfTiUSghz9Kpf0cQ7Ex26oMlLPxxCEUbyunWIkrmD
-    GrTePAXR7M8FZYyJMEa3/EUoZ6WEkRr0GVyWIDG0f5rwG4qYTs8wDTWuScS/oI6IpISs
-    vbgvXMevITHdjJWJu4/oAFzz0W876bcC+EMskAQzw/EfftD/TSSQ5k/GHZe7scbMF6qt
-    k0iM0lTkq7xka2zvFM4LhCO/CeJDks9gk2mZZm64mDp0NDxZBP9rY/zHvHz28JOKyn1B
-    gO1poVcbCEtAILLoUAtWI/5RIoNI/6kS0Xzb+RI7k4lVl2WORdheovHe6de91o80Da/5
-    hetg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783666717;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=oNO20A98MQL4gy0CXjphwlY7xBkkuVdv5tUxEB2ykF0=;
-    b=QNALVMlk57qXpRHDuWJfOuSB7cim1EjTYZyBRqvwe92vSX4g4rm0W2MN3Jp1rIU+7z
-    29OlLbGAU8wZwDW4APAg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrSipoMnMiNyg00cKH7E+fgnZCGa9pyCzl5Kpca"
-Received: from iMac.fritz.box
-    by smtp.strato.de (RZmta 55.5.6 AUTH)
-    with ESMTPSA id Q4b76426A6waAAM
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 10 Jul 2026 08:58:36 +0200 (CEST)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Paul Cercueil <paul@crapouillou.net>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-mips@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	letux-kernel@openphoenux.org,
-	"H. Nikolaus Schaller" <hns@goldelico.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] i2c: jz4780: Cache clock rate at probe to prevent CCF prepare_lock deadlock
-Date: Fri, 10 Jul 2026 08:58:35 +0200
-Message-ID: <c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=unisoc.com header.i=@unisoc.com header.b="scKGTpym"
+Received: from dlp.unisoc.com ([10.29.3.86])
+	by SHSQR01.spreadtrum.com with ESMTPS id 66A7HltP096563
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Fri, 10 Jul 2026 15:17:47 +0800 (+08)
+	(envelope-from kui.sun@unisoc.com)
+Received: from SHDLP.spreadtrum.com (shmbx06.spreadtrum.com [10.0.1.11])
+	by dlp.unisoc.com (SkyGuard) with ESMTPS id 4gxNSh1gx2z2RsTBD;
+	Fri, 10 Jul 2026 15:17:24 +0800 (CST)
+Received: from zeshmbx08.spreadtrum.com (10.29.3.106) by
+ shmbx06.spreadtrum.com (10.0.1.11) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.48; Fri, 10 Jul 2026 15:17:46 +0800
+Received: from zeshmbx08.spreadtrum.com ([fe80::e01e:2441:3a50:dadb]) by
+ zeshmbx08.spreadtrum.com ([fe80::e01e:2441:3a50:dadb%17]) with mapi id
+ 15.00.1497.048; Fri, 10 Jul 2026 15:17:46 +0800
+From: =?gb2312?B?y++//SAoS3VpIFN1bik=?= <kui.sun@unisoc.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+        Bart Van Assche
+	<bvanassche@acm.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman
+	<avri.altman@wdc.com>,
+        "James E.J. Bottomley"
+	<James.Bottomley@HansenPartnership.com>,
+        "\"Martin K. Petersen\""
+	<martin.petersen@oracle.com>,
+        "andre.draszik@linaro.org"
+	<andre.draszik@linaro.org>
+CC: Peter Griffin <peter.griffin@linaro.org>,
+        Tudor Ambarus
+	<tudor.ambarus@linaro.org>,
+        Will McVicker <willmcvicker@google.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "kernel-team@android.com"
+	<kernel-team@android.com>,
+        "linux-samsung-soc@vger.kernel.org"
+	<linux-samsung-soc@vger.kernel.org>,
+        "linux-scsi@vger.kernel.org"
+	<linux-scsi@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "stable@vger.kernel.org"
+	<stable@vger.kernel.org>,
+        "linux-arm-msm@vger.kernel.org"
+	<linux-arm-msm@vger.kernel.org>,
+        =?gb2312?B?1cXI58iqIChSYWluIFpoYW5nKQ==?=
+	<Rain.Zhang@unisoc.com>,
+        "cixi.geng@linux.dev" <cixi.geng@linux.dev>,
+        =?gb2312?B?zMbUwsHWIChZdWVsaW4gVGFuZyk=?= <yuelin.tang@unisoc.com>,
+        =?gb2312?B?s8LOxLOsIChXZW5jaGFvIENoZW4p?= <Wenchao.Chen@unisoc.com>
+Subject: [RFC] Significant Random I/O Performance Regression in Linux Kernel
+ 6.18 (Up to 27.7%) Likely Caused by Commit 3c7ac40d7322
+Thread-Topic: [RFC] Significant Random I/O Performance Regression in Linux
+ Kernel 6.18 (Up to 27.7%) Likely Caused by Commit 3c7ac40d7322
+Thread-Index: Ad0PYz14eL5yCSXkTdewaVgxWTlWPg==
+Date: Fri, 10 Jul 2026 07:17:45 +0000
+Message-ID: <12a8417dc8644a71b9cb25c53c93805a@zeshmbx08.spreadtrum.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+X-MAIL:SHSQR01.spreadtrum.com 66A7HltP096563
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=unisoc.com;
+	s=default; t=1783667888;
+	bh=aj+YhqhvAVDzbO/TXfxyrU3L93cMoH8Vbqhkw68VZIQ=;
+	h=From:To:CC:Subject:Date;
+	b=scKGTpymxuuIT9wVstpWw7R/fTHsMpLVRjg5/J/r3Jwg2FrGV8BKxFCionqkMiUsi
+	 Q8huleQlx11NAicH6pbDJEqKbo+fqYaEHSI2Zgrku8Bw6VfK7S7kN3kdbAUNILiazG
+	 /rk/m99XS8LoE1ZE6nu0JGhiBBnBV+wKuU14Zbc7EOZv2sVh41Y/fLDcGhsdgTwI8H
+	 d+bIGk89GXxqmHJkWmaqUsKvhaZaiOAExaQ/wzQxO++vwG8wOOOUc/jVeLOzfNa7VJ
+	 8ihw9jDQa6qQFJQIJP87jEiG4QQ5mFrPDN4HZe9U0j507+nzF55USIK0APHdZNkLkP
+	 VcqdK9SxXxf/Q==
 
-Fix a severe AB/BA deadlock between the Common Clock Framework (CCF)
-and the I2C adapter lock, which triggers when an I2C-controlled clock
-generator (like the Si5351) is registered or modified under the CCF.
-
-During a clock frequency change, the CCF acquires its global 'prepare_lock'
-mutex and calls i2c_transfer() to update the chip registers, stalling
-for the adapter's I2C bus lock.
-
-Concurrently, a parallel transfer on the same bus (e.g., a GPIO expander
-handling LEDs) can hold the I2C adapter lock. Inside the transfer path,
-jz4780_i2c_set_speed() calls clk_get_rate() to dynamically calculate
-timings. This call attempts to acquire the blocked CCF 'prepare_lock',
-creating a circular dependency that freezes the system or at least
-the involved processes and workers.
-
-Eliminate the synchronous clk_get_rate() call from the active transfer
-path by caching the peripheral clock rate once - inside the private
-jz4780_i2c structure during jz4780_i2c_probe(). Update
-jz4780_i2c_set_speed() to use this cached value, decoupling active I2C
-transactions from the CCF internal locks.
-
-Assisted-by web based Google AI.
-
-Fixes: ba92222ed63a12 ("i2c: jz4780: Add i2c bus controller driver for Ingenic JZ4780")
-Cc: stable@vger.kernel.org
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
----
- drivers/i2c/busses/i2c-jz4780.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/i2c/busses/i2c-jz4780.c b/drivers/i2c/busses/i2c-jz4780.c
-index 664a5471d9335..d729cec9cdf2c 100644
---- a/drivers/i2c/busses/i2c-jz4780.c
-+++ b/drivers/i2c/busses/i2c-jz4780.c
-@@ -141,6 +141,7 @@ struct jz4780_i2c {
- 	void __iomem		*iomem;
- 	int			 irq;
- 	struct clk		*clk;
-+	unsigned		long clk_rate;
- 	struct i2c_adapter	 adap;
- 	const struct ingenic_i2c_config *cdata;
- 
-@@ -246,7 +247,7 @@ static int jz4780_i2c_set_target(struct jz4780_i2c *i2c, unsigned char address)
- 
- static int jz4780_i2c_set_speed(struct jz4780_i2c *i2c)
- {
--	int dev_clk_khz = clk_get_rate(i2c->clk) / 1000;
-+	int dev_clk_khz = i2c->clk_rate / 1000;
- 	int cnt_high = 0;	/* HIGH period count of the SCL clock */
- 	int cnt_low = 0;	/* LOW period count of the SCL clock */
- 	int cnt_period = 0;	/* period count of the SCL clock */
-@@ -796,6 +797,8 @@ static int jz4780_i2c_probe(struct platform_device *pdev)
- 	if (IS_ERR(i2c->clk))
- 		return PTR_ERR(i2c->clk);
- 
-+	i2c->clk_rate = clk_get_rate(i2c->clk);
-+
- 	ret = of_property_read_u32(pdev->dev.of_node, "clock-frequency",
- 				   &clk_freq);
- 	if (ret) {
--- 
-2.50.1 (Apple Git-155)
-
+RGVhciBLZXJuZWwgTWFpbnRhaW5lcnMsDQoNCkR1cmluZyBvdXIgdXBncmFkZSBmcm9tIExpbnV4
+IGtlcm5lbCA1LjE1IHRvIExpbnV4IGtlcm5lbCA2LjE4LCB3ZSBvYnNlcnZlZCBhIHNpZ25pZmlj
+YW50IHBlcmZvcm1hbmNlIHJlZ3Jlc3Npb24gaW4gcmFuZG9tIEkvTyB3b3JrbG9hZHOhqndpdGgg
+YSBtYXhpbXVtIGRlZ3JhZGF0aW9uIG9mIDI3LjclLg0KVGhpcyBpc3N1ZSBpcyBwYXJ0aWN1bGFy
+bHkgcHJvbm91bmNlZCBpbiBzaW5nbGUtdGhyZWFkZWQsIHNtYWxsLWJsb2NrIEkvTyBzY2VuYXJp
+b3Ohow0KDQpUbyBpbGx1c3RyYXRlIHRoZSBpbXBhY3QsIHdlIGNvbmR1Y3RlZCBiZW5jaG1hcmsg
+dGVzdHMgdXNpbmcgQW5UdVR1IG9uIFVuaXNvYyBUNjE1IGRldmljZXMuDQpUaGUgcmVzdWx0cyBh
+cmUgc3VtbWFyaXplZCBiZWxvdzoNCg0KVGFibGUgIDGjulJhbmRvbSBSZWFkL1dyaXRlIFNwZWVk
+IFNjb3Jlcw0KRGV2aWNlICBLZXJuZWwgVmVyc2lvbiAgVGVzdCAxICBUZXN0IDIgIFRlc3QgMyAg
+QXZlcmFnZQ0KVDYxNSAgICA1LjE1ICAgICAgICAgICAgMjA5MDYgICAyMDUwOCAgIDIxMzYyICAg
+MjA5MjUuMzMNClQ2MTUgICAgNi4xOCAgICAgICAgICAgIDIwMTY0ICAgMjExMDcgICAyMTA3NyAg
+IDIwNzgyLjY3DQoNClRhYmxlICAyo7pNdWx0aS10aHJlYWRlZCBNaXhlZCBSYW5kb20gUmVhZC9X
+cml0ZSBTY29yZXMNCkRldmljZSAgS2VybmVsIFZlcnNpb24gIFRlc3QgMSAgVGVzdCAyICBUZXN0
+IDMgIEF2ZXJhZ2UNClQ2MTUgICAgNS4xNSAgICAgICAgICAgIDQ2NzAgICAgNDcwMSAgICA0NDU3
+ICAgIDQ2MDkuMzMNClQ2MTUgICAgNi4xOCAgICAgICAgICAgIDQzMTEgICAgNDY5NyAgICA0NDcx
+ICAgIDQ0OTMuMDANCg0KVGFibGUgICAzo7pNaXhlZCBSYW5kb20gUmVhZC9Xcml0ZSBTcGVlZCBT
+Y29yZXOjqFNpbmdsZS10aHJlYWRlZKOpDQpEZXZpY2UgIEtlcm5lbCBWZXJzaW9uICBUZXN0IDEg
+IFRlc3QgMiAgVGVzdCAzICBBdmVyYWdlDQpUNjE1ICAgIDUuMTUgICAgICAgICAgICAxODYwNCAg
+IDE4MzE0ICAgMTc3MzIgICAxODIxNi42Nw0KVDYxNSAgICA2LjE4ICAgICAgICAgICAgMTMzNzIg
+ICAxMzA4MSAgIDEzMDgxICAgMTMxNzguMDCjqKH9MjcuNjYlo6kNCg0KTm90YWJseSwgb25seSB0
+aGUgc2luZ2xlLXRocmVhZGVkIHRlc3QgKFRhYmxlIDMpIHNob3dzIHNldmVyZSBkZWdyYWRhdGlv
+biwgd2hpbGUgbXVsdGktdGhyZWFkZWQgdGVzdHMgZXhoaWJpdCBtaW5pbWFsIGNoYW5nZSAoPDMl
+KS4NClRoaXMgc3Ryb25nbHkgc3VnZ2VzdHMgdGhlIHJlZ3Jlc3Npb24gaXMgdGllZCB0byBpbmNy
+ZWFzZWQgcGVyLXJlcXVlc3Qgc2NoZWR1bGluZyBvciBpbnRlcnJ1cHQgb3ZlcmhlYWQgaW4gbG93
+LWNvbmN1cnJlbmN5LCBzbWFsbC1ibG9jayAoZS5nLiwgNEtCKSBJL08gcGF0aHMuDQoNClJvb3Qg
+Q2F1c2UgSWRlbnRpZmljYXRpb24NCg0KVGhyb3VnaCBpbnZlc3RpZ2F0aW9uLCB3ZSBpZGVudGlm
+aWVkIHRoYXQgdXBzdHJlYW0gY29tbWl0IDNjN2FjNDBkNzMyMjMyZmVjMGJhMzFkMGE1ZTNjYzlj
+MTEyZmMyZTcsIG1lcmdlZCBpbiBBcHJpbCAyMDI1LCBpcyBsaWtlbHkgcmVzcG9uc2libGUgZm9y
+IHRoaXMgcGVyZm9ybWFuY2UgZHJvcC4NCkFmdGVyIGxvY2FsbHkgcmV2ZXJ0aW5nIHRoaXMgY29t
+bWl0IG9uIGtlcm5lbCA2LjE4LCBwZXJmb3JtYW5jZSBmdWxseSByZWNvdmVyZWQ6DQoNClRhYmxl
+IDSjuk1peGVkIFJhbmRvbSBSZWFkL1dyaXRlIFNwZWVkIFNjb3Jlc6OoQWZ0ZXIgUmV2ZXJ0o6kN
+CkRldmljZSAgS2VybmVsIFZlcnNpb24gICAgICAgICAgICAgICAgICBUZXN0MSAgIFRlc3QyICAg
+VGVzdDMgICBBdmVyYWdlDQpUNjE1ICAgIDUuMTUgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAxODYwNCAgIDE4MzE0ICAgMTc3MzIgICAxODIxNi42Nw0KVDYxNSAgICA2LjE4ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDEzMzcyICAgMTMwODEgICAxMzA4MSAgIDEzMTc4LjAw
+o6ih/TI3LjY2JaOpDQpUNjE1ICAgIDYuMTijqHJldmVydGVkIDNjN2FjNDApICAxODMxNCAgIDE4
+NjA0ICAgMTg2MDQgICAxODUwNy4zMw0KDQpUZWNobmljYWwgQW5hbHlzaXMNCg0KV2UgYmVsaWV2
+ZSB0aGUgY2hhbmdlIGludHJvZHVjZWQgYWRkaXRpb25hbCBpbnRlcnJ1cHQgb3Igc2NoZWR1bGlu
+ZyBsYXRlbmN5Lg0KSW4gbXVsdGktdGhyZWFkZWQgd29ya2xvYWRzLCBhIHNpbmdsZSBpbnRlcnJ1
+cHQgY2FuIHByb2Nlc3MgbXVsdGlwbGUgNEtCIHJlcXVlc3RzIChlLmcuLCA4IHJlcXVlc3RzKSwg
+YW1vcnRpemluZyB0aGUgc2NoZWR1bGluZyBjb3N0IHRvIE0vOCBwZXIgcmVxdWVzdCAod2hlcmUg
+TSBpcyB0aGUgdG90YWwgb3ZlcmhlYWQpLg0KSW4gY29udHJhc3QsIHNpbmdsZS10aHJlYWRlZCBJ
+L08gaGFuZGxlcyBvbmx5IG9uZSByZXF1ZXN0IHBlciBpbnRlcnJ1cHQsIGluY3VycmluZyB0aGUg
+ZnVsbCBjb3N0IE0gcGVyIG9wZXJhdGlvbi4NCkNvbnNlcXVlbnRseSwgc2luZ2xlLXRocmVhZGVk
+IHNtYWxsIEkvTyBpcyBoaWdobHkgc2Vuc2l0aXZlIHRvIHN1Y2ggbGF0ZW5jeSBpbmNyZWFzZXMs
+IGV4cGxhaW5pbmcgdGhlIGRpc3Byb3BvcnRpb25hdGUgaW1wYWN0IG9ic2VydmVkIGluIFRhYmxl
+IDMuDQoNClJlcXVlc3QgYW5kIFJlY29tbWVuZGF0aW9ucw0KDQpHaXZlbiB0aGUgdGFuZ2libGUg
+aW1wYWN0IG9uIG1vYmlsZSB1c2VyIGV4cGVyaWVuY2UsIHdlIGtpbmRseSByZXF1ZXN0IHRoZSBj
+b21tdW5pdHkgdG86DQoxLiAgICAgIENvbnNpZGVyIHJldmVydGluZyBjb21taXQgM2M3YWM0MGQ3
+MzIyMzJmZWMwYmEzMWQwYTVlM2NjOWMxMTJmYzJlNywgb3INCjIuICAgICAgUmUtZXZhbHVhdGUg
+dGhlIHByb3Bvc2VkIGNoYW5nZSBpbiBsaWdodCBvZiBpdHMgZWZmZWN0IG9uIGxvdy1jb25jdXJy
+ZW5jeSBJL08gcGF0aHMsIGFzIGRpc2N1c3NlZCBoZXJlOg0KaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
+cmcvbGttbC84OGQzMWEyNThmZWIzNjQyNWFkNzNkMDMyMzA3Nzk3MmY4NWY4MzQxLmNhbWVsQGxp
+bmFyby5vcmcvDQozLCAgICAgIENvdWxkIHdlIGFkZCBhIGZsYWcgdG8gYWxsb3cgb3VyIFVGUyBk
+cml2ZXIgdG8gY2hvb3NlIGJldHdlZW4gdXNpbmcgYW4gaW50ZXJydXB0IG9yIGFuIGludGVycnVw
+dCB0aHJlYWQ/IFsxXQ0KDQpGdXJ0aGVybW9yZSwgd2UgcmVjb21tZW5kIHRoYXQgZnV0dXJlIGV2
+YWx1YXRpb25zIG9mIHNpbWlsYXIgY2hhbmdlcyBpbmNsdWRlOg0KKiAgICAgICBTbWFsbC1ibG9j
+ayAoZS5nLiwgNEtCIG9yIDhLQikgcmFuZG9tIHJlYWQvd3JpdGUgYmVuY2htYXJrcywgYW5kDQoq
+ICAgICAgIFNpbmdsZS10aHJlYWRlZCB3b3JrbG9hZHMsDQphcyB0aGVzZSBhcmUgY3JpdGljYWwg
+Zm9yIG1vYmlsZSBhbmQgZW1iZWRkZWQgc3lzdGVtcy4NCg0KV2UgYXBwcmVjaWF0ZSB5b3VyIGF0
+dGVudGlvbiBhbmQgYXJlIGhhcHB5IHRvIHByb3ZpZGUgYWRkaXRpb25hbCBkYXRhIG9yIGFzc2lz
+dCBpbiB2YWxpZGF0aW5nIHBvdGVudGlhbCBmaXhlcy4NCg0KWzFdOiBodHRwczovL2xvcmUua2Vy
+bmVsLm9yZy9saW51eC1zY3NpLzIwMjYwNzEwMDY1OTQ4LjQ2NzUxNC0xLWt1aS5zdW5AdW5pc29j
+LmNvbS9ULyN1DQo=
