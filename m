@@ -1,150 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BCA432BE7;
-	Fri, 10 Jul 2026 15:37:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142F6422545
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 15:42:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783697835; cv=none; b=DsPSITtkj4ti+aOpO46bcsal+mE9Rq5YtWwvDyXzjQku4P4uooOyjqY0uSQHo92YpbjZzfU6mpWPpmWiPgWVEMgTmrnFeFPYtzb6NH5xoFXm2U9vToxZWhufWIMMjoMSnKIhQy1eabGqyFQc2IB6hs0UoiwOjcT9Ef5n0a40F+A=
+	t=1783698129; cv=none; b=KB+/yXs0p+OBmN34UkyUKWqfTyENxjeTwvJllGLjBBQ6rCzT2rpF7AVFOJCO3eRwoVwE3x/W5RU6MoJkOmD4ZAXj1ytFIBpIll6yLxDed3u+xOYZuzoHL6/V2TxlD1pHN3NhogbqXCX9cLHOKuLNYBOBsVrG32GP/X+oxIdXikE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783697835; c=relaxed/simple;
-	bh=EmQ7+h+prGU3DRftvDRQKfPZOGXZR1nWcv4czpwxaQo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KAEO5PTQsLYU0dDxxEmo7yc0K9M/WSTUYPnhHI9/zJproUHu7FBm1PyaHcjRqy+Ao/S1znqt564X85KwfWumxwC+5R1+INJsVBEX3p2FmTfPoXD2eGdb+TnMRr45eymlzO4sme34nHHmOrElwkiTPEmnyMzw2BSLWUvOny7hJkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ivf4m5vv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783698129; c=relaxed/simple;
+	bh=aei2onBR7qVkRapoYecGP3RzJKz3LJ/iRZKZH6ZJqQA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MhSx2Kj6oACgTfXmlaa9x9cGifGP3phfcS9HRIMrCwZ2/VkmWU5mAzttq+4qlKLf2upYQoZC/aNYl7f5JRX7oueu608RcT305xxyqOUPs3TYYyeJiV7gWy98jZC7cF7R2lZvLXrBdNH/7IrEM1NLez/HO5svR/YRWb+1uJL/In8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cYyPhFpF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ivf4m5vv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB691F000E9;
-	Fri, 10 Jul 2026 15:37:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cYyPhFpF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C021F000E9;
+	Fri, 10 Jul 2026 15:42:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783697826;
-	bh=uHMOBRio+zwcgdJ4h+lXgOEUz1Hkz0fl7vBNq5yda0Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ivf4m5vv7igvZZhV83qetmzKvie37bG2aC+7ICtpeZaZQHxZM6w+qKGFxJd4VTjVW
-	 Gh5IkcoRr8GUXHR5gZGUN0DyejNdEZ2Y9qQ3qJXaNgHi0hED6hVrDGW5cGiK2SEp7q
-	 xf8/7nbfjchfNWxVyoB/JhwRcvxw3m3N+kdq54zdF5eqJM4aOalwJJKPHcgYNNif5S
-	 0Vu/ZICwNB8F0qXM9dU1STcPfaZatvJQ8tx4DtpJ8BiKU9BhZpL0zpAhO/3jGi96pp
-	 mlIrgIPahHd8PDoWFhv9ABagje/WnwznFWvt1TeG33k5z+u/jUNZ95qnDJQ3nVc1sT
-	 AtwKqRgzpX0Qg==
-Message-ID: <62ccb0f7-a619-41b8-944e-11ae2d0ce70c@kernel.org>
-Date: Fri, 10 Jul 2026 17:37:01 +0200
+	s=k20260515; t=1783698127;
+	bh=PkCjRwkf0ZdJlqvq+TP6DWUbyip5WHEYyXEKa0IeTwQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cYyPhFpFdXOLQzYJCO7I+DFD+x+gxz9xWEB5OxVXyH6uvC6xdBZJCYu1YzNkCNq4V
+	 Ki7RKHW96nHTS9HzKSD2hJMI6qR8NQsjFphNH1D98bRgA6PB58hvKmmRO3Onyp4afI
+	 aKeUejSebWJUumLpqek76MKm8tKfz0JWkfNV2SL+OlF93R4tmPCFybP9Wc409vlbOa
+	 0tNJwsyVS74jVLRIrGDeFczD5ebHv12DseePe3jDzVyZdh9GsaLTm7QlQMRk5Xt7oh
+	 BLyEzIQLWtrIGuX523Da8ZbPD17AeKCBSTujC4u8XFYgApuievMFqaxRdE8of3f90K
+	 vWjIEArdZjdUg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] ACPI: NFIT: core: Fix acpi_nfit_init() error cleanup
+Date: Fri, 10 Jul 2026 11:42:05 -0400
+Message-ID: <20260710154205.284338-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026070918-reply-wimp-b2c4@gregkh>
+References: <2026070918-reply-wimp-b2c4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
- registration
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: "Gupta, Pankaj" <pankaj.gupta@amd.com>, seanjc@google.com,
- pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com,
- dave.hansen@linux.intel.com, bp@alien8.de, x86@kernel.org,
- thomas.lendacky@amd.com, hpa@zytor.com, yangge1116@126.com,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260701144543.39582-1-pankaj.gupta@amd.com>
- <1cc159b9-5f94-4524-8e03-efe91601ccfc@kernel.org>
- <db303a0c-98e3-4967-9b61-ccb711b776c8@amd.com>
- <46f19bd8-0d43-4b0e-a8ab-0ef9d3b8bd1a@kernel.org>
- <2bd89e95-9c15-4a3a-916d-0d71a92d8b02@amd.com>
- <27ebe8f0-78b6-402a-a2e7-4e807251d20a@kernel.org> <ak-uER-RndpksnhR@lucifer>
- <58c4326d-b10d-42dc-af5d-3a5ff16c7e3e@amd.com> <ak_A6Yc5mBXCrtXr@lucifer>
- <adf66571-4ef4-4f8a-824f-fdd5ab5099ab@kernel.org> <alDtzM28CgZJn6FF@lucifer>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <alDtzM28CgZJn6FF@lucifer>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/10/26 15:05, Lorenzo Stoakes wrote:
-> On Fri, Jul 10, 2026 at 02:57:55PM +0200, David Hildenbrand (Arm) wrote:
->> On 7/9/26 17:44, Lorenzo Stoakes wrote:
->>>
->>> OK as long as that's made clear in the patch, commit message, comments etc. :)
->>>
->>>
->>> Ack yeah I assumed it was a quick proof of concept and just overlooked it :P
->>>
->>>
->>> Thanks!
->>>
->>>
->>> hmm but we have FOLL_LONGTERM as an adjunct to FOLL_PIN (doesn't make sense
->>> without - any checks that exist for that btw should be extended to this noew
->>> flag).
->>>
->>> Also don't we want to encode the legacy aspect here?
->>>
->>> Maybe FOLL_LONGTERM_LEGACY_READONLY? Naming is hard :)
->>
->> I'm confused about the _READONLY, well. and the FOLL_PIN_NO_GUP_WRITE.
->>
->> We want to longterm write-pin.
->>
->> @Pankaj, how come you would call this "FOLL_PIN_NO_GUP_WRITE" -- why "no GUP
->> write" ?
->>
->> I agree that someting like FOLL_LONGTERM_LEGACY_* is the right thing to do, but
->> I don't see where this is "no write" or "readonly" ?
-> 
-> I based it on Gupta saying 'without kernel GUP writes, and therefore not
-> impacting dirty tracking'
-> 
-> I mean I think we definitely need some clarification here yes :)
-> 
-> Not really got the bandwidth to dig deep into GUP again :P
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-I think the KVM gueest *will* write to these pages.
+[ Upstream commit 38bf27511ef41bffebd157ec3eba41fc89ba59cd ]
 
-By disallowing writable LONGTERM pins on FSes we broke one existing use case
-that was relying on that to work.
+If acpi_nfit_init() fails after adding the acpi_desc object to the
+acpi_descs list, that object is never removed from that list because
+the acpi_nfit_shutdown() devm action is not added for the NFIT device
+in that case.  Next, the acpi_nfit_init() failure causes
+acpi_nfit_probe() to fail, the acpi_desc object is freed, and a
+dangling pointer is left behind in the acpi_descs.  Any subsequent
+ACPI Machine Check Exception will trigger nfit_handle_mce() which
+iterates over acpi_descs and so a use-after-free will occur.
 
+Moreover, if acpi_nfit_probe() returns 0 after installing a notify
+handler for the NFIT device and without allocating the acpi_desc
+object and setting the NFIT device's driver data pointer, the
+acpi_desc object will be allocated by acpi_nfit_update_notify()
+and acpi_nfit_init() will be called to initialize it.  Regardless
+of whether or not acpi_nfit_init() fails in that case, the
+acpi_nfit_shutdown() devm action is not added for the NFIT device
+and acpi_desc is never removed from the acpi_descs list.  If the
+acpi_desc object is freed subsequently on driver removal, any
+subsequent ACPI MCE will lead to a use-after-free like in the
+previous case.
+
+To address the first issue mentioned above, make acpi_nfit_probe()
+call acpi_nfit_shutdown() directly on acpi_nfit_init() failures and
+to address the other one, add a remove callback to the driver and
+make it call acpi_nfit_shutdown().  Also, since it is now possible to
+pass NULL to acpi_nfit_shutdown() or the acpi_desc object passed to it
+may not have been initialized, add checks against NULL for acpi_desc and
+its nvdimm_bus field to that function and make acpi_nfit_unregister()
+clear the latter after unregistering the NVDIMM bus.
+
+Fixes: a61fe6f7902e ("nfit, tools/testing/nvdimm: unify common init for acpi_nfit_desc")
+Fixes: fbabd829fe76 ("acpi, nfit: fix module unload vs workqueue shutdown race")
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Cc: All applicable <stable@vger.kernel.org>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Link: https://patch.msgid.link/1963615.tdWV9SEqCh@rafael.j.wysocki
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/acpi/nfit/core.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/acpi/nfit/core.c b/drivers/acpi/nfit/core.c
+index d314afec44b56d..3fbb892972a927 100644
+--- a/drivers/acpi/nfit/core.c
++++ b/drivers/acpi/nfit/core.c
+@@ -3456,6 +3456,8 @@ static void acpi_nfit_unregister(void *data)
+ 	struct acpi_nfit_desc *acpi_desc = data;
+ 
+ 	nvdimm_bus_unregister(acpi_desc->nvdimm_bus);
++	/* The nvdimm_bus object may have been freed, so clear the pointer. */
++	acpi_desc->nvdimm_bus = NULL;
+ }
+ 
+ int acpi_nfit_init(struct acpi_nfit_desc *acpi_desc, void *data, acpi_size sz)
+@@ -3680,7 +3682,10 @@ static void acpi_nfit_put_table(void *table)
+ void acpi_nfit_shutdown(void *data)
+ {
+ 	struct acpi_nfit_desc *acpi_desc = data;
+-	struct device *bus_dev = to_nvdimm_bus_dev(acpi_desc->nvdimm_bus);
++	struct device *bus_dev;
++
++	if (!acpi_desc || !acpi_desc->nvdimm_bus)
++		return;
+ 
+ 	/*
+ 	 * Destruct under acpi_desc_lock so that nfit_handle_mce does not
+@@ -3695,6 +3700,7 @@ void acpi_nfit_shutdown(void *data)
+ 	mutex_unlock(&acpi_desc->init_mutex);
+ 	cancel_delayed_work_sync(&acpi_desc->dwork);
+ 
++	bus_dev = to_nvdimm_bus_dev(acpi_desc->nvdimm_bus);
+ 	/*
+ 	 * Bounce the nvdimm bus lock to make sure any in-flight
+ 	 * acpi_nfit_ars_rescan() submissions have had a chance to
+@@ -3762,13 +3768,14 @@ static int acpi_nfit_add(struct acpi_device *adev)
+ 				sz - sizeof(struct acpi_table_nfit));
+ 
+ 	if (rc)
+-		return rc;
+-	return devm_add_action_or_reset(dev, acpi_nfit_shutdown, acpi_desc);
++		acpi_nfit_shutdown(acpi_desc);
++
++	return rc;
+ }
+ 
+ static int acpi_nfit_remove(struct acpi_device *adev)
+ {
+-	/* see acpi_nfit_unregister */
++	acpi_nfit_shutdown(dev_get_drvdata(&adev->dev));
+ 	return 0;
+ }
+ 
 -- 
-Cheers,
+2.53.0
 
-David
