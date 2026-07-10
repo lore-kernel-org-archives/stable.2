@@ -1,107 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6863B14D0;
-	Fri, 10 Jul 2026 11:50:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65AA1405C47
+	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 11:50:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783684205; cv=none; b=QpH3zHQF43tiejAhDGGZUtiX+sDbDyQO944Zxt5i4M8W3qRJOnaDofA9bk+QkKFt9IyfH3MS3AxAEKv5r4oI30bhy79qKjdXV5E7bxP0VUSjNf/zzpgq2JzV7Wa60aMgT2To2G5TUkbL/HatsESv4bPy5iwTrbvuEcg9jV05cS8=
+	t=1783684220; cv=none; b=DCvIVMVmv14XIFjQUeh22m4Lf7AnV7N180OzbJakZ7EVs3Zn6Scj2xc9RyGwEzQOEbtdHc7G0+T/Y7FDn8p1Y2l4vWDIfvdPg+e0ABI9KrwXXNF9psbfgZMT3J8afig3FNfDRD1KTmdI4W1wZ79w+6fyRPfa051exQys4GN521Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783684205; c=relaxed/simple;
-	bh=0zdUmkAYIu7TQbO2qzGSlCDJ1NiHeK0hsVM5PwrAi6M=;
+	s=arc-20240116; t=1783684220; c=relaxed/simple;
+	bh=VTQ5/pM0OAZjucDkuAXhdWo24CpuZaBSbKTGjrZXldo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H2vZNe9h+t2KDbQgf9wZZfkzcXo7fdNbEv+eeZr0GwWFd5xT5ADwqz4VdEiWagjGJ7tbQw9797fXYXLdw4yvgWZ3gLy32cuAnbtr0f02Wj7ol/x4sPwNUGknu/3SKRolTy5yMOdY9M52oN3ph6q7IA2eyO1GSHOuvpGHa89OVy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EKqurUcQ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=P6FGeViOOKvSbGfQzneb9OEMMB5BSsr+cMv8LgeFUDLasMDp17aqH+s95c3E/KrFTvgvZB2lIYMuqC2KApFL1PNMLfMfcFNsifaYxwnQ8PiC1aMh1CdVULBHBw/0Dy2kV6IwXKvOh9G4iXYnHKRdx2CPtqABkVFwH5WltWmUmKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=bvWwRRF+; arc=none smtp.client-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EKqurUcQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D4241F000E9;
-	Fri, 10 Jul 2026 11:49:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783684198;
-	bh=2ECyTCPkkExKTnkYMGZphcdxdGDUw94pbpd/km7z2oo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EKqurUcQTSjci0lkPk6+JLcBJkSr7HjUNiblOcgJuoTh2XO5ODX0QrhqfC2slDQHn
-	 cZhN4lB8D+283fL3m8CQL+d+6bxMU+iebQxBN5TAwgPKdP70ybiqd/nDMn3yfyAE8Z
-	 I/PDCEw03rgzlN2zVeCsSBOQC+HmeR1ZtWGMAexM=
-Date: Fri, 10 Jul 2026 13:49:54 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Dominik =?utf-8?Q?Wo=C5=BAniak?= <stalion@gmail.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>
-Subject: Re: [PATCH 6.12 187/204] nfsd: check get_user() return when reading
- princhashlen
-Message-ID: <2026071043-dicing-arousal-ae51@gregkh>
-References: <20260702155118.667618796@linuxfoundation.org>
- <20260702155122.580017616@linuxfoundation.org>
- <17cce379-76ca-49fd-91e7-1a486de62d2a@oracle.com>
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="bvWwRRF+"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-92ea24a2dbfso61029985a.0
+        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 04:50:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1783684211; x=1784289011; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=O1cv839pt6gMzmGWDQWXXSzIxfFZGm2rebUfeK7nSPU=;
+        b=bvWwRRF+PuNpa131cg97MZ1Ahv6x6iPA+32rduWdSbj0OTipCKHeLxLLJqoCJ8LDRK
+         UOPBHy0PLdH5e7t8COeSBdvR3N0vOdgmOU/0WOEh/svWjBg3CyPtWVDUCLe54xxxuRJz
+         1wm/AG0sxCH5KY1lxBOZSyn+mvaBfGzFaU49/PBRO6Ptx3UfTfAFD6L19nNL05AscDjk
+         B67rS2m9dRVmpxEq5WAKd5Ln0yGST96lMUHEpztocGGSAeusYlnHtyAnt8cBYzSqYOkL
+         h6QZ2WKt/Sr4CQkjtnIyxuBCidLxKsGkFcMUOhKYaqP24eYSu9gzpFymewX0/SY+j/kx
+         lCZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783684211; x=1784289011;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O1cv839pt6gMzmGWDQWXXSzIxfFZGm2rebUfeK7nSPU=;
+        b=oJdaLHZdG7b//i3dubvRaVo7Aqtqi9aZw772BsEMCGiIH/m6zmqldNN4S4wSwABIjv
+         cX+hXLC4rwRNFFfhPNrtzsQcJR3GrQyf3y41w/jZIXoc0+g4Ij2bqBU1c9M2+Y0O+B41
+         zmRzzn3wnFXoxHw8No95x5DCYAznNKbp7xjsF4NNRm+HJrwk0IAFgmgIT7kQgAVssEpT
+         0Gpp2hb4lktvvMv6YG0bDaNufY9w0urgO9jtNXv/3jfUtIxaLQpd8k+Jx9poRulSp5Op
+         FbEc9Za5OY0MXEnyFRfauuJ8u64Ds0EWg/YgH5Rvch6Nany1LNzW41WcYmx6Q2p9ROVh
+         VPSw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro0XOhxKOpchzATzeTmdykO3lEbu2MbDfnTPdsEPsMfU6iYV7X70cDph6AwVTJftWxBVkgOhdQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2gRgQNYNwJtulsBuGk21P68rPaY6HKYRHfXlMKsx5JcnGT/z1
+	VISJjnjw39MRzeZvBeszSBs2qtvfav2D5Tlf/fr7rSkJd/kRAVzjJzL5dASbipjMqD4=
+X-Gm-Gg: AfdE7cltDQlXmtg9i3rj222z6e3Do7hN+4/Okkwxnqfrq09u52HSIVJRIhDfsXVIRt0
+	2oqruGvy84wc2OPAqezM4MVcShQ204o9MR3GsONLNnlStmb83dniuzX7sfPzZiLKMYHUY2hdmdy
+	TxDU3UcFIIU/WxEirqLcQWr8EIeNYh18yE2gZ7eOIJV3Z1fZ4tQnek3FidpaDF4E++Vd14i9yMp
+	LG6aidyppQsecjgS9xUJPAQ2SWQXZ3Vgax2ChI21FdkGmkHu92lxpTUyPWdXuC5XD5m/aUF6cOU
+	AaM8WUSPJlEe/ol5X81aonTzAhiJdH3o5TOhq+StwTJdSjwQXMpBZQ8ADNRJrR7yjkKnpIj9icC
+	G1afyEgwyAIS/48UDz7J6FOXEzrpjmn/caC1ZKqIHPQu429kvRyR+gSVJePC4FCvpSqMRKelfMV
+	dpYtq+tiC8FTU=
+X-Received: by 2002:a05:620a:8082:b0:92e:c117:9eaa with SMTP id af79cd13be357-92ecf908aadmr1243149185a.88.1783684211285;
+        Fri, 10 Jul 2026 04:50:11 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5b4a0cbsm176929585a.5.2026.07.10.04.50.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Jul 2026 04:50:10 -0700 (PDT)
+Date: Fri, 10 Jul 2026 07:50:09 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Qi Zheng <qi.zheng@linux.dev>
+Cc: Harry Yoo <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>,
+	akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com,
+	shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
+	yuanchu@google.com, weixugc@google.com, muchun.song@linux.dev,
+	peiyang_he@smail.nju.edu.cn, mhocko@kernel.org,
+	roman.gushchin@linux.dev, ljs@kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4] mm: mglru: fix stale batch updates after memcg
+ reparenting
+Message-ID: <alDccVjPeCi_PN-9@cmpxchg.org>
+References: <20260701145736.3785016-1-usama.arif@linux.dev>
+ <2fb5ce53-666b-4b0a-a4ad-2b3a28c54768@kernel.org>
+ <akU5VdOBkLGInh_t@cmpxchg.org>
+ <cbba6349-55a1-416d-a686-d03ff72cc211@linux.dev>
+ <alBQBRWDrVoh9P-a@cmpxchg.org>
+ <843f6d0d-e893-43ef-9cb3-1df21fb64b8d@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <17cce379-76ca-49fd-91e7-1a486de62d2a@oracle.com>
+In-Reply-To: <843f6d0d-e893-43ef-9cb3-1df21fb64b8d@linux.dev>
 
-On Fri, Jul 10, 2026 at 04:58:41PM +0530, Harshit Mogalapalli wrote:
-> Hi Greg,
-> 
-> 
-> Sorry, I couldn't send this in 48 hrs of testing timeline.
-> 
-> On 02/07/26 9:50 pm, Greg Kroah-Hartman wrote:
-> > 6.12-stable review patch.  If anyone has any objections, please let me know.
+On Fri, Jul 10, 2026 at 02:19:15PM +0800, Qi Zheng wrote:
+> On 7/10/26 9:51 AM, Johannes Weiner wrote:
+> > On Thu, Jul 02, 2026 at 09:38:41AM +0800, Qi Zheng wrote:
+> >> On 7/1/26 11:59 PM, Johannes Weiner wrote:
+> >>> lruvec_live_lock_irq()?
+> >>
+> >> But lruvec_lock_irq() grabs the rcu lock too. :(
 > > 
-> > ------------------
+> > Yes, but it's self-explanatory if you put it with those definitions:
 > > 
-> > From: Dominik Woźniak <stalion@gmail.com>
+> > static inline void lruvec_lock_irq(struct lruvec *lruvec)
+> > {
+> >          rcu_read_lock();
+> >          spin_lock_irq(&lruvec->lru_lock);
+> > }
 > > 
-> > commit e186fa1c057f5eccb22afb1e83e34c0627085868 upstream.
+> > static struct lruvec *lruvec_live_lock_irq(struct lruvec *lruvec)
+> > {
+> > 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
 > > 
-> > In __cld_pipe_inprogress_downcall(), the get_user() that reads
-> > princhashlen from the userspace cld_msg_v2 buffer does not check its
-> > return value. A failing copy leaves princhashlen with uninitialised
-> > stack contents, which are then used to drive memdup_user() and stored
-> > as princhash.len on the resulting reclaim record. The other get_user()
-> > calls in this function all check the return; only this one is missed,
-> > which is most likely a copy-paste oversight from when v2 upcalls were
-> > introduced.
-> > 
+> > 	rcu_read_lock();
+> > 	while (unlikely(memcg && css_is_dying(&memcg->css))) {
+> > 		memcg = parent_mem_cgroup(memcg);
+> > 		lruvec = mem_cgroup_lruvec(memcg, lruvec_pgdat(lruvec));
+> > 	}
+> > 	spin_lock_irq(&lruvec->lru_lock);
+> > }
 > 
-> I ran an AI-assisted backport review and verified a leak in the released
-> 6.12.95 equivalent of this patch, 0ec4aaa488ff (“nfsd: check get_user()
-> return when reading princhashlen”), this is only in 6.19-rc1+
-> 
-> Upstream e186fa1c057f uses an automatically cleaned-up temporary:
-> 
->   	char *namecopy __free(kfree) = NULL;
->   	...
->   	namecopy = memdup_user(...);
->   	...
->   	if (get_user(princhashlen, ...))
->   		return -EFAULT;
-> 
->   But 6.12 retains the older manual ownership model:
-> 
->   	name.data = memdup_user(...);
->   	...
->   	if (get_user(princhashlen, ...))
->   		return -EFAULT;
-> 
-> Thus a fault while reading cp_len after the name copy succeeds leaks
-> name.data. The upstream early return relies on 4552f4e3f2c9 ("nfsd:
-> change nfs4_client_to_reclaim() to allocate data"), which introduced the
-> scoped cleanup, but that commit is not present in 6.12.y.
-> 
-> Maybe we should fix this up with a downstream backport ? That looks like a
-> simple approach to me.
+> All right, should the implementation for !CONFIG_MEMCG be placed here
+> too?
 
-Yes, that would be good, can you send a fix for it?
+Yes. You can just #ifdef, #else the function body itself.
 
-thanks,
+static struct lruvec *lruvec_live_lock_irq()
+{
+#ifdef CONFIG_MEMCG
+	...
+#else
+	lruvec_lock_irq(lruvec);
+	return lruvec;
+#endif
+}
 
-greg k-h
+> Will send the v5.
+
+Thanks.
