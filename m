@@ -1,126 +1,184 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0280436C9E5
-	for <stable@vger.kernel.org>; Fri, 10 Jul 2026 09:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E8E3F58CE;
+	Fri, 10 Jul 2026 09:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783675437; cv=none; b=fRFdlLNxOeMu2m0cUpWhDt6hFiueLSr3FjA64qRBiKoWDVwEBA3/Wj4z9vFwon9T6e5aoXAXjOrgz+cd+TFDXyRrlNhdUkZUIRSBTpRxwTVxikUNRELdvnxJ5XncDeQHj2rtc8p/ua6gAXuJTnltDE0BVrbIOl535huhz9nlgok=
+	t=1783676003; cv=none; b=gyJT5/wzdWVy/qB9WvhLqatlVbJNzCHBo/PlSUFiQAwh1ImeLMtquc8hzeX2JhZwjF1GGBUQ1slQpog/g3//IVy5hlvSmo5VIfhPOQj8R9ZwsxD9Oh//DGdW7Dv/MokmSHxcZx0Kn/0mzPntscU8ZQHQGhMJA49NaAauFRUhZk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783675437; c=relaxed/simple;
-	bh=gk/Ly+VOdTlozILkyIXx25UNv6a0Ie7o/tS0LPDPWYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O736/mcEudRfEkVcFxMt5dgvlgVBnHDOs+HFqVgnS7AAvC1TWnOVVc65XV5QgjnxQm2PXgOkHxikMrpvtL4FiHpIXn9dwImBjhIvmilD4jFX8PtozOnkRSuMxHfvs2VjPwA/wE4raK3e6yL6xzlX+3nF3IOuH1PoD0wvmFDVD/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.sg; spf=pass smtp.mailfrom=starlabs.sg; dkim=pass (2048-bit key) header.d=starlabs-sg.20251104.gappssmtp.com header.i=@starlabs-sg.20251104.gappssmtp.com header.b=U35mSrTJ; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.sg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.sg
+	s=arc-20240116; t=1783676003; c=relaxed/simple;
+	bh=SJzYgy+FDiwAvoKv4ayMdK66KOsj8R4Za9eWqpZz9zY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=P07TEPD1SoK6g0mpdJSlvPS4bYrsJAZngHaoOShYslAv4tWMMYvHaipWzVxE1+LVPMdHmfY/btTOdPkJmhiG7LTda9F6DJC6R6JhOa1ILiqdPBlJY5PQiZa53TIvxpCDlWhBf/S0AsgUKIaYYtX5KT3fobFkZg5A8qXpJt+bJYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TpncGmf3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=starlabs-sg.20251104.gappssmtp.com header.i=@starlabs-sg.20251104.gappssmtp.com header.b="U35mSrTJ"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-37fc02e660bso964149a91.0
-        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 02:23:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=starlabs-sg.20251104.gappssmtp.com; s=20251104; t=1783675435; x=1784280235; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xrSY6cgMwW3xQnZDAd/GUTYiSszR+F3mzsF9ozQGQpA=;
-        b=U35mSrTJnAN3Un34g45ykzyzVKilPVOFcJDJ7MzgCwpLdfxx00LgVoQPhx9cdl6u4t
-         rqAiZwEsgxp2l6GIrfCQwlg7Wikkw30rlazn9QJehaNOMr+nqJpPSaolOEk2LYHQHLX8
-         oI3J88DkeY/eLfOYWKPOLSOb7kE4vR53fgSLS0zW9n6Cy3TmkCUa38pdhsE8OYLBO28A
-         nHl3b7bvS6OlRIy1E+pqoHZaZpYzCumVE3kwZfsX5ppbgHPFit4gzuq51oUR9mmkdU/N
-         hsf04xfYnvij9C71xoy0MjBbIW8GfqIQlaWrD+3sr0eb/MPzm7VcGb8w9XbAZEQPH6i9
-         YrMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783675435; x=1784280235;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xrSY6cgMwW3xQnZDAd/GUTYiSszR+F3mzsF9ozQGQpA=;
-        b=FxM9Dm9Y8eZhX2l1KIjkGXqdDeaIyFvnydzMv97ouNHhXtpRUtec97eUFJwr/I2b43
-         GiqaPU1cNbmmGRtgeS3BXYJqMRa7CiRoXkkVejohcHPX4P4bg9RQW5kgctIkjJP6HiZk
-         NMUScab0mEWXY+xQkD3PMzyGUTXNIAyNAAwhBhhfnkLQr0SqdmZO4bhkxKt1bZ3KbnxF
-         uZapvMhebjCnUAVLfvPj09FcNdad2AnVuyujknAMJYpmKxAri4MUHiHkCxNFlKrtvOfX
-         WgF5ZhmmvKPfd6Q1hDTk2Q+tEqHZxduDHS4jXg4N+HjHeBu9AjgJ4uIf1lQ5tvy4oMV5
-         gebA==
-X-Forwarded-Encrypted: i=1; AHgh+RpJ7FhKLnyhwRRX3csJ77ni+/EDxAMtl7oA5E9vQ9qMrAPFmeTyrNV4sejGfKlb4zgFzDyHWO0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yye5BUAzeaGQcMpQv1S8ji4zhZLWZr7J7Pm8fFefLpoE1SZOLdt
-	Pvt3EPLkKK7KoUJ1kiY3LZmIi9hxjJCYoD84sWtJpmNJ0wdPYHQx6zGwPCN33gnBLBzmsW796i9
-	s30GW
-X-Gm-Gg: AfdE7cldAoJqqVNrg++Yl+dotAUHJ9iUXNTKIRba8625q5kAduxCm63288GUmDSk6Y7
-	+PwKNm2FlzVfgkzXlob3x1vCikGLq8bimbhKxijqRMZpaw3TcgZI/CTJCKD4evJxPLFu+iwB9su
-	AGKyKk2vNcXiCkM0hxTXRXh6mrRo6a1c76vKzKYCKuPspCNtC/wtohhCB6al+9tdt5Iq7LMxeR5
-	iR0Eda7QgPJX1mxbz+UY+A8Q1tBw0TiyCypgXkCySalyPaosBf+eJKi7FLLnfH+aNFVShhK7hR/
-	8bYtJiuEf554ShMZLMdCKGqskAZHPJwF3+ugauZgDm/6uSF2y2u/fzAkPA2Ho53rvRDQfBKJdlo
-	kMWjEkeDbGZPxo8K1e7FZgz1WnyA05tfSPqCdibR+wAyTZx9cnpqLqNAUE9Hj7WXqQu/9XHaN3M
-	1ThCR73kUgMcPg
-X-Received: by 2002:a17:90b:2f83:b0:37f:9ce3:ca97 with SMTP id 98e67ed59e1d1-38941cc858cmr9978425a91.32.1783675435286;
-        Fri, 10 Jul 2026 02:23:55 -0700 (PDT)
-Received: from localhost ([49.245.21.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31198cb2b99sm19826783eec.26.2026.07.10.02.23.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 02:23:54 -0700 (PDT)
-From: Lee Jia Jie <jiajie.lee@starlabs.sg>
-To: jiajie.lee@starlabs.sg
-Cc: mkofdwu@gmail.com,
-	mkofp.tfaw@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] perf/aux: Fix page UAF in map_range()
-Date: Fri, 10 Jul 2026 17:23:48 +0800
-Message-ID: <20260710092348.13207-1-jiajie.lee@starlabs.sg>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260710091136.12003-1-jiajie.lee@starlabs.sg>
-References: <20260710091136.12003-1-jiajie.lee@starlabs.sg>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TpncGmf3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC1111F000E9;
+	Fri, 10 Jul 2026 09:33:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783676001;
+	bh=Cupg3BA8kLDD00ofoemHrt7+K30GSRvx4gIS1hIu6mE=;
+	h=From:Subject:Date:To:Cc;
+	b=TpncGmf3QumrUV4gQ+24YgqSHQLUNXGZMPJ4tgFmQtrckM4rovPoltNHcLFgkMRGe
+	 LzYGGP3b5ZYAIgK5CS92v0xOOSYexd7gkyT/gpmaoRkJugyQT17HpF8PPQbh75rQo3
+	 rNeIFmi5wAYZE8PDBuhbi0iTg2oQlR6hynZYCuML5bF3Rm0SGpDtnSn63CW9kB6Eq3
+	 r8O2QDzWV85HWuERrXiJa1W1TGpmfY8io6xeRrBv0OHOLp0+P3hg9q/XkXw2CXoYTY
+	 hIP8rV8z0fKDo7ty0RyFzVbK4d6CvrX0+WocIWK1YiCi+smcqp6GHIcBkQEy1Rd9mq
+	 ep+7fufYJI3mA==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH v3 00/24] binfmt_misc: write access fixes, RCU handler
+ lookup and cleanups
+Date: Fri, 10 Jul 2026 11:33:01 +0200
+Message-Id: <20260710-work-binfmt_misc-locking-v3-0-a162f7cb58d6@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAE28UGoC/43OTU7DMBAF4KtUXjOR7TRJ6Yp7IIT8M0mGNDYaB
+ 0NV5e6N203ZIJZv9ObTu4iETJjEcXcRjJkSxbCF+mkn3GjCgEB+y0JL3cpOHuA78gSWQj8v7zM
+ lB6foJgoDqKbed75XGt1BbO+fjD393OjXt3tOX/YD3VK80rAmIVg2wY3lNJu0IFe5qzSwU6UxU
+ loin2/rsirSP4ZkBRKMlM/eN7ZpvX2ZkAOeqsiDKEuyfpCU/EPSm6SNcrXfK92a7pe0rusVXam
+ PpD8BAAA=
+X-Change-ID: 20260708-work-binfmt_misc-locking-15347df12ec8
+To: linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ linux-mm@kvack.org, Farid Zakaria <farid.m.zakaria@gmail.com>, 
+ jannh@google.com, stable@vger.kernel.org
+X-Mailer: b4 0.16-dev-4217c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6522; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=SJzYgy+FDiwAvoKv4ayMdK66KOsj8R4Za9eWqpZz9zY=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQF7Iktmj6Br106fGn0NSm1/DmTHrHMYun4tjRsC2tSm
+ X5Kq5JNRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwEQU9Rn+ma1LkL6U/Ud1noaa
+ 2D7b9/tLuj4/5l/mcuv6kcv7N3+/msLIsHCn1J/lO6vuL9dYf3mX+8nyuSa75TMFXm54vKLgQCi
+ /LDsA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-map_range() reads rb->aux_pages[], rb->aux_nr_pages and rb->aux_pgoff via
-perf_mmap_to_page() while holding only event->mmap_mutex. Those fields are
-serialized by rb->aux_mutex, and mmap_mutex is per event.
+The first two patches fix two i_writecount imbalances on
+MISC_FMT_OPEN_FILE interpreter files that turned up while auditing
+the file for the rework below and are marked for stable: removing an
+entry never restored the write access denied by open_exec() at
+registration, leaving the interpreter unwritable until its inode gets
+evicted, and the write denial taken on the interpreter clone during
+exec is not paired with the FMODE_FSNOTIFY_HSM aware release the exec
+machinery uses, so pre-content watches make execs leak write denials.
 
-Thus, two events sharing one rb via PERF_EVENT_IOC_SET_OUTPUT can race
-rb_alloc_aux() with map_range(), leading to a page-UAF scenario as follows:
+Also, a register string whose delimiter is one of the flag characters
+('P', 'O', 'C', 'F') makes the flag scan in create_entry() run past the
+end of the register buffer. Reject such a delimiter up front.
 
-CPU 0                           CPU 1
-===============================================================
-rb_alloc_aux()                  map_range()
-[1]: allocate rb->aux_pages[0]
-[2]: rb->aux_nr_pages++
-                                [3]: perf_mmap_to_page()
-                                       returns rb->aux_pages[0]
-                                [4]: map it as VM_PFNMAP
-[5]: rb->aux_pgoff = 1
+The rest reworks the locking and tidies the file up.
 
-munmap the page
-[6]: free rb->aux_pages[0]
-===============================================================
+The current rwlock protects very little. Entries are immutable after
+publication except for the Enabled bit which is already toggled
+locklessly via set_bit()/clear_bit() and entry lifetime is already
+handled by the users refcount. The read lock's only remaining job is to
+make "the entry is still linked" and "take a reference" atomic with
+respect to the unlink sites.
 
-Pages mapped as VM_PFNMAP have no refcount protection, so CPU 1 holds a
-mapping to a freed physical frame.
+So make the lookup an RCU walk that acquires a reference via
+refcount_inc_not_zero() and free entries via kfree_rcu(). The removal
+paths need to detect whether an entry has already been unlinked and
+rely on list_del_init() reinitialization for that today, but
+reinitializing the forward pointer of a removed entry would make a
+concurrent lockless walker standing on it loop indefinitely. hlists
+support exactly this pattern: hlist_del_init_rcu() keeps the forward
+pointer of a removed entry intact for concurrent walkers and only
+zeroes ->pprev with hlist_unhashed() serving as the linked test. Hence
+the third patch converts the entry list to an hlist so the RCU
+conversion in the fourth is a pure locking change.
 
-Fix this by taking rb->aux_mutex across the page walk in map_range().
+Writers remain serialized by the inode lock of the root dentry with
+one exception. Handler removal semantics are unchanged. An exec that
+acquired a reference just before its handler was unregistered already
+completes with the removed handler today. The read lock never protected
+against that, it only made the window smaller.
 
-Fixes: b709eb872e19 ("perf: map pages in advance")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jia Jie <jiajie.lee@starlabs.sg>
+With this an exec that matches no binfmt_misc entry no longer writes
+to any shared cacheline at all.
+
+The fifth patch annotates the long-standing lockless ->enabled accesses
+for KCSAN and the three patches after it make the entry flags proper
+enums and give struct binfmt_misc_entry a name that isn't Node.
+
+The remaining patches are a cleanup pass over the whole file: remove
+the VERBOSE_STATUS and USE_DEBUG compile-time toggles, convert the
+entry file to seq_file, factor out entry matching, entry removal and
+the register string field parsing, make the entry/register string
+allocation a flexible array member, give the parse_command() results
+names, let cleanup.h unwind the entry registration and exec error paths
+and prune the include list down to what is used. Aside from
+seq_lseek() now bounding seeks on entry files and the ETXTBSY
+propagation in the second patch the cleanups have no user-visible
+effect.
+
+The penultimate patch adds what the comment in remove_binfmt_handler()
+had been suggesting for years: entries can now be removed via unlink(2)
+in addition to the -1 write. The status and register control files
+refuse removal.
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- kernel/events/core.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v3:
+- Reject a register string delimiter that is also a flag character.
+  A flag-char delimiter made the create_entry() flag scan read past
+  the end of the register buffer. Stable-marked, added as the last
+  patch.
+- Link to v2: https://patch.msgid.link/20260710-work-binfmt_misc-locking-v2-0-2a1c3d4126a7@kernel.org
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index d7f3e2c2ecb1..ba5bd6a78fe7 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7150,6 +7150,8 @@ static int map_range(struct perf_buffer *rb, struct vm_area_struct *vma)
- 	int err = 0;
- 	unsigned long pagenum;
+Changes in v2:
+- Allow removing entries via unlink(2).
+- Add two stable-marked fixes restoring i_writecount balance for
+  MISC_FMT_OPEN_FILE interpreter files, first so they apply to
+  mainline directly.
+- Turn the entry bit numbers and behavior flags into proper enums and
+  rename Node to struct binfmt_misc_entry.
+- Add a cleanup pass over the whole file: remove the VERBOSE_STATUS
+  and USE_DEBUG toggles, convert the entry file to seq_file, factor
+  out entry matching, entry removal and register string parsing, use
+  a flexible array member for the register string, name the
+  parse_command() results, use cleanup.h for the entry error
+  unwinding in registration and exec and prune the include list.
+- Link to v1: https://patch.msgid.link/20260708-work-binfmt_misc-locking-v1-0-a009dd5b56db@kernel.org
 
-+	guard(mutex)(&rb->aux_mutex);
-+
- 	/*
- 	 * We map this as a VM_PFNMAP VMA.
- 	 *
+---
+Christian Brauner (24):
+      binfmt_misc: restore write access when removing an entry
+      binfmt_misc: use exe_file_deny_write_access() for the interpreter clone
+      binfmt_misc: reject a flag character as the field delimiter
+      binfmt_misc: convert entry list to an hlist
+      binfmt_misc: use RCU for the handler lookup
+      binfmt_misc: annotate racy accesses to ->enabled
+      binfmt_misc: turn the entry bit numbers into a proper enum
+      binfmt_misc: turn the entry behavior flags into an enum
+      binfmt_misc: rename Node to struct binfmt_misc_entry
+      binfmt_misc: remove the VERBOSE_STATUS toggle
+      binfmt_misc: use print_hex_dump_debug() for the register debug output
+      binfmt_misc: convert the entry file to seq_file
+      binfmt_misc: factor out the entry matching
+      binfmt_misc: rename load_binfmt_misc() to current_binfmt_misc()
+      binfmt_misc: return errors directly in load_misc_binary()
+      binfmt_misc: give the parse_command() results names
+      binfmt_misc: factor out the entry removal
+      binfmt_misc: simplify check_special_flags()
+      binfmt_misc: use a flexible array member for the register string
+      binfmt_misc: split the field parsing out of create_entry()
+      binfmt_misc: use __free(kfree) in bm_register_write()
+      binfmt_misc: assorted small cleanups
+      binfmt_misc: include what is used
+      binfmt_misc: allow removing entries via unlink(2)
+
+ Documentation/admin-guide/binfmt-misc.rst |   3 +-
+ fs/binfmt_misc.c                          | 839 +++++++++++++++---------------
+ include/linux/binfmts.h                   |   4 +-
+ kernel/user.c                             |   4 +-
+ 4 files changed, 433 insertions(+), 417 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260708-work-binfmt_misc-locking-15347df12ec8
+
