@@ -1,71 +1,76 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662C6374E59
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 07:13:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACDF37756A
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 07:13:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783754022; cv=none; b=hGlPxwTFOH05iiRSh1BMWVyIcG7DtfNZp6jzmjIfcYks9V5RbOK39elW0YA80z3OjggAddGDvx/VD8W0yay2Lm37W04XwD8+GNvsa4yA0Ivv7YL11K/KqESkP2FvtFUcCFyEFiDOjBW0EKuDVu6p6IdTJJ9LIiApfsxPJ4FxNts=
+	t=1783754024; cv=none; b=dg3LEDkDK+X9JS06iIMJsLyz1Ucxt76TlZj9y1k1PQE/tJrqBdzLJ46TbkTyBxkHeeVvo3Qy8HvEjzfcrBeAXN+5xvVhPQiW/VG4WVq/wkyAocT+1pS9lSzLRfkQRlAH6WV42vG6xUwPBBEpA5qb+vROUtV4kwUHCkaMl4PNwC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783754022; c=relaxed/simple;
-	bh=nJ93PuRgfvyXeSbj+HoOEf3Bf82IWNnh7L9snO3pg2w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mQKvRyso72UeKnPGgCrWwkL1olI1lPIK6sh1xafOpVX95mOTUVcL85pgTCpo0+w/gj0H5TSrDgo7yd+1vNGdFhFaTtXtbvQ1K41VwGsNHZN8lf1D2EUY6lGa2//ALL+HYmEBqLn2VtR/K15JwJGQYc9MUjqnvzYzNV4m+3QNoO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=jR9qGL0c; arc=none smtp.client-ip=209.85.221.51
+	s=arc-20240116; t=1783754024; c=relaxed/simple;
+	bh=+/tkY4Q2PIoNmSY1FcLszemDBSTTa8pciPDIAh6Unuc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gtgP9JiAVgQ27w5Sj6qAEFtdZ5tHlwsYPmpkc0qsyhyrWtc3QzyGC661XBwDd8By9J05FLC3/j9zDq3Ave0NplhSoxLqxzTCCq32IzG0m0JYs//04NX5ncCzcmqjxY1HOLDI6uiA8eVeNJl/O2NXpZE+piFL7FyRw4c7HJKeoQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=zZjQOj4+; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="jR9qGL0c"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4720d22c94aso1394555f8f.1
-        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 00:13:40 -0700 (PDT)
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="zZjQOj4+"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493ae59eca6so7850905e9.1
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 00:13:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1783754019; x=1784358819; darn=vger.kernel.org;
+        d=0sec.ai; s=google; t=1783754022; x=1784358822; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SNHJSSzRo5FI9vf+enTbdejiXKeJlyuLQfvo17oWJAQ=;
-        b=jR9qGL0cLL9OH8fZxX0l0ahGUrNlXFSzyPUN7DEBq2Tq42sRjZ+Ssf+tRy4SoxE09I
-         1lipBfJEfCizwGIOQCdXBfCGWtg2x2NX4iGCgFsxYj1eqnDl3/kPqHqSG26Vlzi2AjFc
-         PVKQJ7JUULXgOWxcBlix09KC/BQ3zTX1ww5x9fmdWQEXmfC1XvghCyOJlADQbJx3x2P0
-         4FIILW8gLT6Bl5vFpwEukXZlCZzGzQ8LGT1R8A7R5LUXRF+eouCL7ykzNHUN8lfLyesm
-         2VGPTDsk/v7YTyK0vlEi1XQ6UKVG13o9d88YEpxsEZUXuMfHqxIbmAv0ItaN8u2+6RGF
-         K4tw==
+        bh=dEi1m+eaAK5Iu/90PGDOyH4Bqqrw8wWIiPdDe9qpKnE=;
+        b=zZjQOj4+N+RwhF0Ipc/kaaFTRi7StYKtnHdJCdkr4ph+4ukZdRREQRCBZOtS+d78ha
+         FLmcKcv/gtsxk6vt4Hl2J5DK7mxymy4XDHvcZ1bSv3tUZ9XQ7mhTtLRP7RwzEWsXINo4
+         176V/NzegZdQkRZTvYJLjEZDr9EBtFYMYtTg03xoc3KZWq4zAnNK/telHlXCRh9O6QWC
+         pCRoEaB/UyRjqiOszlSz/6r2qYUq2BXp2442N6CxP+Ggbks1TjVntRAtsMkjr3JG33Ur
+         ZqDIp7/H9P3jWyFGwYjXtNpEd0UzrVhd0QcAI8h5fU15y2uWADj48x0AI+fnA2oluDEQ
+         WAbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783754019; x=1784358819;
+        d=1e100.net; s=20251104; t=1783754022; x=1784358822;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SNHJSSzRo5FI9vf+enTbdejiXKeJlyuLQfvo17oWJAQ=;
-        b=SGkkCX3WdLThAczU7cPOdvxFCPaXLOpKIai55L6mAuHJW4kkV4YVAs3FJWKgVda3F4
-         QiMz/AqVSyKA4hOYH0TMDBq7PbwNs0/L8S/+oIzjyVpCKBq7/HvyVh1V8goTxLwMhTpL
-         HswMY0T5MExDqdjkoVtWgf/01/GkBKVkrRJZzVlFnT9iDahwss8sB3d7G2f8Z3Qa92RE
-         dD5PWkzS5pGzNWx2hwJAqdkz4JpIuNdCidersNqR6ObOijJIm0N8lpJGgNbVzxCCABi4
-         HyiuAM8Jr2MufO0yO5sWN5+btXaRI0MNx5jjpRjbso8xdA7ElAB/zM9HhU71byitmLY2
-         dWQQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpjYiIHKRo56yoAs+BjlTXQst73y8ZjsbLaBi2LErbEhYDZtFbA/PhezO26qVg7gG8cHcoTfUU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzTPC69CzDHJxMVq8ijs6/VK8BQgbS59LdV/2PaDMLpaZMcCQ7J
-	SjmBtBDqfl8J5ml+TljL9X1ur14unTzivL0yHGDdb/3EmyDrk5oDKpDcj298//YAzE/X
-X-Gm-Gg: AfdE7cm2DT8csN0iqtcrH4RCyfwjRwY7FHf+iwIdrkU2bOgM43uia0B0w94j1ihlazy
-	+WXxA6EEP41mRQVF10zNzw3+xEmjP4GvmtY4YRG1fkJy2I4dQ9u5MLzUPpt4UmFFBUCUYCFu352
-	UECux+WQxjGA22gQx4VipBm/obB9VAXSn1VZcySqizz1P3lSjWHXUZAjEivxteRjRRqdHwyxiWq
-	knh3kkJoqhK52EUXboVVgNs83WjBDYpqFOr/Bk0u8Do1TENZfNdNk0FUlISpgrYZzpwLB2/yyqs
-	sQv7JLs7KEl2/ZOSNh+/CJel1QJaxuNkDLN6qeEG2P9z8D1WyANC0LL07XHfRZLSWIDCzD7Q/Ep
-	kj4od0w7/8Pn6ktWMzvKs/srd03L+k66fKmEPvu0cO4qgwh/L+HPmqPlzCchAUYCH7iBaLzBWan
-	BoxmminZfioFOK29MCA8VylVWljWOM3qzN+kEwgCGiz8URIQdnRz2+vjavGZZpnc5S5PEtPA6sW
-	DYb1ohmSuJTcfzSLz/oZX6zkRyIvcZjF2w=
-X-Received: by 2002:a5d:5c84:0:b0:474:9991:60d0 with SMTP id ffacd0b85a97d-47f2dcb60d3mr1985178f8f.12.1783754018793;
-        Sat, 11 Jul 2026 00:13:38 -0700 (PDT)
+        bh=dEi1m+eaAK5Iu/90PGDOyH4Bqqrw8wWIiPdDe9qpKnE=;
+        b=eHudHLPAtLL8hnRwdn1ahuz/14etf5JV7tUfiRIDUs35Uary5Ps/jb3DtKsLJBo3ec
+         FkPubyDSNsMoE27u9gn+qz1nD3ve0s2F29B4RA0PLAQkXZyamEbIy4g2EeUECkba3e2J
+         qxv/LmX+apOcAYxQ2GDDIAXG42He7u7PQHj3D7x2Msjg88xXOYNGzX+7baQV01qfnosz
+         IuJO8s3fKLNYRl6qxrPIh36WZoBzfiU1ueHpZOD/z9VQwaMsq16kYsr9l3jFYg+p7Ri1
+         YxP3a/2Dbg7gL2bmYV3+mjhVEpScFA9z5JLDofS3rNm8SWQquhDONkKDZXQ+NtT9CCn3
+         zH3g==
+X-Forwarded-Encrypted: i=1; AHgh+Rp3Y+QRMaFbHFyCloTn/nIWpyU1f9U4r3tK9uoOd9bWkR3cD8qzyJhXXLv9L8Gb+ouaorgxlDo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyqVfaly1nu+SGJJh6Ln/obCEp/de+G28DHzxK3+VBzHAUAGJDW
+	sgIDZbhs6aiI/Nt7bv2T9qXtsV+Xr/N/Sa6OiEvZXWR+YvP9SjZ8oIMaDtOEOS3jjYhA7EBg1oX
+	12TnmQcQN
+X-Gm-Gg: AfdE7cmIlJ8ZwOloAeylX2lbZuXq9dyVmC8PMp3BvtcoiFcaUvL0Ka5Dr5EgMKcG7I3
+	p2KsjY66k2c4eZVf4yW++gfj9nsfi3niqNqpA06JBgSr3KzgHWQ12GKfnEGfKwK2HbjmHxlo905
+	/jakk1oM/iDG+L0vpkEPUk/blav+FzP554BYUQOP8KWajqPIRf5tyF3OmN5oEUXNWY0bvoR+/wO
+	xnT5tPPn4qrqPTdSTM16SbOiz2hSuFosr+WfkyXil5KV/uj7txDRLTxbeurMaaXtjHSGww2Fo4z
+	Hu72IiYZrwMJJT87hbOxAChGkZ/Rl6ynE05X28bbbc9FTMg0IFJsqnv7R9kYIOyx/PZ30v02PTf
+	3pNh2VYYJt1C4wHtyGrSTxfJvrrTj5RnraAOB2v40ipABiO/E/4NOtjkFqf3to45V+H0V7yVChO
+	ox1h0lUWzX0yfNq+ejOuv/GaRjDmJekFiQC1sezzXr1HUJTdwJH2KZyv5qrIN9DHZaFywiJnoLS
+	JLpyjwFgr9CLf6OvHiGJBZtwRgIxO9CMrk=
+X-Received: by 2002:a05:600c:5395:b0:493:df5d:6ca6 with SMTP id 5b1f17b1804b1-493f881de70mr14942685e9.25.1783754021017;
+        Sat, 11 Jul 2026 00:13:41 -0700 (PDT)
 Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f21543sm61990120f8f.35.2026.07.11.00.13.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb742a49sm185161215e9.12.2026.07.11.00.13.39
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 11 Jul 2026 00:13:38 -0700 (PDT)
+        Sat, 11 Jul 2026 00:13:40 -0700 (PDT)
 From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: linux-wireless@vger.kernel.org
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Peddolla Harshavardhan Reddy <peddolla.reddy@oss.qualcomm.com>,
+To: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+	Ricardo Martinez <ricardo.martinez@linux.intel.com>
+Cc: Liu Haijun <haijun.liu@mediatek.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] wifi: ath6kl: validate assoc info lengths in the WMI connect event
-Date: Sat, 11 Jul 2026 09:13:36 +0200
-Message-ID: <20260711071336.58324-1-doruk@0sec.ai>
+Subject: [PATCH] net: wwan: t7xx: validate control-message data_length against the skb
+Date: Sat, 11 Jul 2026 09:13:38 +0200
+Message-ID: <20260711071338.58345-1-doruk@0sec.ai>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -75,95 +80,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ath6kl_wmi_connect_event_rx() only checks that the received event is at
-least sizeof(struct wmi_connect_event); it never checks that the trailing
-beacon_ie_len + assoc_req_len + assoc_resp_len fields fit within the
-received buffer. Those attacker/AP-influenced lengths then drive two
-out-of-bounds accesses:
+control_msg_handler() handles a CTL_ID_HS2_MSG control message by pulling
+the ctrl_msg_header and passing the modem-supplied data_length as the
+length of the handshake-2 payload to t7xx_fsm_append_event():
 
-  - The WMM information-element scan builds
-    peie = assoc_info + beacon_ie_len + assoc_req_len + assoc_resp_len
-    and walks up to it, reading past the end of the event buffer when the
-    declared lengths exceed the buffer. The walk also dereferences
-    pie[1..6] and pie[1] (for the advance) without checking they stay
-    within peie.
+	ret = t7xx_fsm_append_event(ctl, event, skb->data,
+				    le32_to_cpu(ctrl_msg_h->data_length));
 
-  - ath6kl_cfg80211_connect_event() subtracts fixed offsets from
-    assoc_req_len (-= 4) and assoc_resp_len (-= 6), both u8, with no lower
-    bound. A short assoc request/response underflows the length to ~250,
-    which cfg80211_connect_result() / cfg80211_roamed() then treat as the
-    IE length and copy out of bounds from the small assoc_info buffer,
-    disclosing adjacent slab memory to user space via nl80211.
+data_length is a device-controlled __le32 that is never bounded against
+the actual received payload (skb->len after the pull).
+t7xx_fsm_append_event() then does memcpy(event->data, data, length) with
+skb->data as the source, so a data_length larger than the payload reads
+out of bounds past the control skb (the destination is sized to length,
+so only the source over-reads). A compromised or malfunctioning modem can
+trigger it during the bring-up handshake; both the modem and AP control
+ports reach the same call site.
 
-Bound the declared IE lengths against the received buffer, bound the WMM
-element reads against peie, and clamp the assoc request/response lengths
-before the subtraction. The sibling wil6210 driver already performs the
-equivalent length check for the same WMI connect event.
+Reject a data_length that exceeds the received payload.
 
 Found by 0sec (https://0sec.ai) using automated source analysis; the
-missing bounds are evident from source and cross-checked against the
-sibling wil6210 driver. Compile-tested.
+missing bound is evident from source. Compile-tested.
 
-Fixes: bdcd81707973 ("Add ath6kl cleaned up driver")
+Fixes: da45d2566a1d ("net: wwan: t7xx: Add control port")
 Cc: stable@vger.kernel.org
 Assisted-by: 0sec:claude-opus-4-8
 Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
- drivers/net/wireless/ath/ath6kl/cfg80211.c |  5 +++++
- drivers/net/wireless/ath/ath6kl/wmi.c      | 10 +++++++++-
- 2 files changed, 14 insertions(+), 1 deletion(-)
+ drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath6kl/cfg80211.c b/drivers/net/wireless/ath/ath6kl/cfg80211.c
-index cc0f2c45fc3a..62f663c0daa2 100644
---- a/drivers/net/wireless/ath/ath6kl/cfg80211.c
-+++ b/drivers/net/wireless/ath/ath6kl/cfg80211.c
-@@ -754,6 +754,11 @@ void ath6kl_cfg80211_connect_event(struct ath6kl_vif *vif, u16 channel,
- 	u8 *assoc_resp_ie = assoc_info + beacon_ie_len + assoc_req_len +
- 	    assoc_resp_ie_offset;
+diff --git a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
+index f869e4ed9ee9..871ed63d3c4d 100644
+--- a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
++++ b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
+@@ -186,10 +186,15 @@ static int control_msg_handler(struct t7xx_port *port, struct sk_buff *skb)
+ 			int event = port_conf->rx_ch == PORT_CH_CONTROL_RX ?
+ 				    FSM_EVENT_MD_HS2 : FSM_EVENT_AP_HS2;
  
-+	if (assoc_req_len < assoc_req_ie_offset)
-+		assoc_req_len = assoc_req_ie_offset;
-+	if (assoc_resp_len < assoc_resp_ie_offset)
-+		assoc_resp_len = assoc_resp_ie_offset;
-+
- 	assoc_req_len -= assoc_req_ie_offset;
- 	assoc_resp_len -= assoc_resp_ie_offset;
+-			ret = t7xx_fsm_append_event(ctl, event, skb->data,
+-						    le32_to_cpu(ctrl_msg_h->data_length));
+-			if (ret)
+-				dev_err(port->dev, "Failed to append Handshake 2 event");
++			if (le32_to_cpu(ctrl_msg_h->data_length) > skb->len) {
++				dev_err(port->dev, "Invalid Handshake 2 data length\n");
++				ret = -EINVAL;
++			} else {
++				ret = t7xx_fsm_append_event(ctl, event, skb->data,
++							    le32_to_cpu(ctrl_msg_h->data_length));
++				if (ret)
++					dev_err(port->dev, "Failed to append Handshake 2 event");
++			}
+ 		}
  
-diff --git a/drivers/net/wireless/ath/ath6kl/wmi.c b/drivers/net/wireless/ath/ath6kl/wmi.c
-index 72611a2ceb9d..fbfd74154d12 100644
---- a/drivers/net/wireless/ath/ath6kl/wmi.c
-+++ b/drivers/net/wireless/ath/ath6kl/wmi.c
-@@ -862,6 +862,10 @@ static int ath6kl_wmi_connect_event_rx(struct wmi *wmi, u8 *datap, int len,
- 
- 	ev = (struct wmi_connect_event *) datap;
- 
-+	if (len < sizeof(*ev) + ev->beacon_ie_len + ev->assoc_req_len +
-+	    ev->assoc_resp_len)
-+		return -EINVAL;
-+
- 	if (vif->nw_type == AP_NETWORK) {
- 		/* AP mode start/STA connected event */
- 		struct net_device *dev = vif->ndev;
-@@ -913,7 +917,8 @@ static int ath6kl_wmi_connect_event_rx(struct wmi *wmi, u8 *datap, int len,
- 	while (pie < peie) {
- 		switch (*pie) {
- 		case WLAN_EID_VENDOR_SPECIFIC:
--			if (pie[1] > 3 && pie[2] == 0x00 && pie[3] == 0x50 &&
-+			if (pie + 7 <= peie && pie[1] > 3 &&
-+			    pie[2] == 0x00 && pie[3] == 0x50 &&
- 			    pie[4] == 0xf2 && pie[5] == WMM_OUI_TYPE) {
- 				/* WMM OUT (00:50:F2) */
- 				if (pie[1] > 5 &&
-@@ -926,6 +931,9 @@ static int ath6kl_wmi_connect_event_rx(struct wmi *wmi, u8 *datap, int len,
- 		if (wmi->is_wmm_enabled)
- 			break;
- 
-+		if (pie + 1 >= peie)
-+			break;
-+
- 		pie += pie[1] + 2;
- 	}
- 
+ 		dev_kfree_skb_any(skb);
 -- 
 2.43.0
 
