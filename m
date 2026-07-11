@@ -1,117 +1,116 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazolkn19012021.outbound.protection.outlook.com [52.103.11.21])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazolkn19012077.outbound.protection.outlook.com [52.103.11.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B11A3CD8A9;
-	Sat, 11 Jul 2026 18:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.11.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07AD270545;
+	Sat, 11 Jul 2026 18:09:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.11.77
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783793205; cv=fail; b=OgeE6AW/lecMeF1rdxqJ/Kr5XnkMCePQ6sjJE+yH9fwu8C1BK1G8IayQ35OnIdWEq/4cVt/iox3R4UHczP/MKULy/wYsSFS1M3KhPhqQYqNUP+ZUK3OKxy40TPBGioHR18KKz3J7rjkVz0l5xtriiDaAKjbrHCWjVlndYz+3/og=
+	t=1783793397; cv=fail; b=LbEf6PTq2t9SUdhSZiPZ9hdIf8daBntzV1UAaBepItJhoF5OZd2bGEvKqYo4pABWQFhZ0/On5kG1MRekZWv/dt6kP+eevvmnCTu42Jg/lBZVPS4BZmnU6sLjY4XaHrQNGvG9tft+ViMECdxel7t+vmH50sWHLUDv7idDBVem81g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783793205; c=relaxed/simple;
-	bh=eDmstlaEUh2PxcCp0UVGsnrJ9ND/kkLvpNdJ1yBTauE=;
+	s=arc-20240116; t=1783793397; c=relaxed/simple;
+	bh=UHGuqXFsN36Oh2sgjQY/WJufzn4+FGFaqGDvEfkxC9g=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=udoq8Ka70iNCwRgLVwQ+wtsw8T5KL5R+ivkE10bhdIZD/8Fw4HUd47wak9gfSsHhbAGl7XA8wMcBejYeEIYtgcgimeP1HuerYdM1Los0L6AV1W2zuKdQycRuXJPSm0/Q7zg5uwUcpKp9VhGxJnmUogac7VLFpeodWC3AcrSa+u0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=Jmtje7SW; arc=fail smtp.client-ip=52.103.11.21
+	 Content-Type:MIME-Version; b=aDmYnQNc/r06KWiZ3KnD+uBjslckrynmFGWMlP4jCv6smINo4hhQlJn9zElMTD/QO1TcFVt64hHee/0J+VpFSQslhs9mrXbCHUEG9qonuHW/B3reSKWZXZHinwx1C7Vn56jA73r1kCr8eyJHiGOPyRcuR0r+uEQu+JnhyLWzeNE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=h9FU2Zj0; arc=fail smtp.client-ip=52.103.11.77
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="Jmtje7SW"
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="h9FU2Zj0"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xbB2jaWKLgzZtq7nSHB8aap9VCmZOD8EWSjl0Jf+wUnSSiyIe4KYEOr3e3ODihDaqo8nYcZABdIWp17D52fY+h6gtvdPE7ol1/F/H4E4yU4UfA+S+Gyb4QNja1XdSh1Ct3mFmcKtnL607O4dISHFVmal9ZQxdt4TNfT2kknk58TM0bcAEmhT9X+yRKpO6icqKfSCZZpSb1iCfShbZWnOwwpulnvTi9ya51xnUIr9+NHdY49+KKq6Do+wxp5vyv7D4PNytERjWVRviqA/TsGmHVtNodWr/nVvRWDX7AsKm7dNwxYnKKCe4XzfzSq/Jgzla9NPkhQfuwSI66XRvcaR5Q==
+ b=eJuMHHESshL3BRpxsF5CuQgeaLdAp4JD2nzUuQs18OythGdLSsMgrhZE/+KYDwiKuEO5M4Ww5F1NgjCObKIW5KmCs6cr2W+z8RgNpn2QcYTTlhQ0kX7VhrLUy8pk7AYx7V50ayw3ZK4p/N99ixI9yxi+qvE41ISnEkTAPIxoq6bL6IQsHdCEXHMb9QYWBICQN+/svRc6nKkB01BPogV+IVjjHLQtilKTWhq66stWmhxUIObrq+WbkmGvDAsHX9eWCKCLq2IoQjimFUjQH1cR1glbWdUhbqmLFkh3QR7GP1N8G7efC1cfD5pu1nvVGdogPIdPG3No0/alzKMkQ03kMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i79v9JQlGkJDc2S74npd6rnvyQ8CfAa7STSWGJKtY/g=;
- b=O/NsRFDVcXk5a6n3/Nh2oXMV3Txq4+eVS9kWWDyAV7i762YWw6P6e75ZR86ewWwNqQprUduUPpUTuPsiFPjoGqyiZDZBllpBpQc2CIt47qxcUeGGzScFpWQrcCjvfVzCM98LF98LB21twWyNxrfyurj5Rb/Rx6nhPIXqEU69lpP7qitF/6ADrdgCdWDbUHt6k+VFOtM7dmDVraV71QfSDX7UdOryO/oOffAaaIEBAOwUPU/oNnqW1xzqXXYU3oDELlMHWOjHFOB5RSGErj7WyPfke9CeGBhUOTmHUw+dw7IhmUUA2ebd/w8ML8spq2iVt3pqe/iaYcLMHtz/dHFaqg==
+ bh=y86NpvNnCW6YE8XiYPmkfMP/1MEWZ0CIAbhuqguUDCs=;
+ b=jPPtm3SIg8Wpp5KBDY/Z5U14egRNTkWqoE4LvFljGrjr8o8UXlD72blCmianli+e92yBSdY3s8u1p1foa6NIR8o4Tz66uhbL2GpOMAxXg7HFvvMt16/WQxFx0YVa6FcyRn3VOVD9zEH27MGrc0dC92bMR+s3qs74C4zMm4bUtR0tuXLz5Uiz1FyJy2oldHenf/Fs0OV1uhMmCGFoga8gbXVgRk+QhnSZBNfWzEPuEcvYHrR9rzzigfbgHe/Gphh3dykyLxLMM7DJgDHkikFFrekgZQoVyqm6kQG0ZxtnRDUht2qmrrP5HlqJMLWfjeOtjS0jIp/9IL+vuWa5kkaFGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i79v9JQlGkJDc2S74npd6rnvyQ8CfAa7STSWGJKtY/g=;
- b=Jmtje7SWYXTFyRuYI69m8CSJoAnWDGQ6sXm668ETwchIvYwekWGMTsM3G8QD74AdI6vaZcOEd0kRDOzFuQQw/mNQV/HmYq09+1hv+fKpQigVIlOFD3s5pYqZO6yQpCAD6vGZfgGB56Z4aYsRfrQtRa/lOC7QMivVSIJewmnU2CsLzfhy8OttUjGi1FTV0DWKY08r2zuWvZKvbNoGFGUghgG/uPSgBzP4kjkoPRfzBb2EjKLNZwmWjShjtap6+bvCCBT2D0d5WaG4xQGFHRaoHOuODcS2pcpI6X2FBinrBZ46fDhK9n2gW9T5XipG2kaFbvnsPZNDpVnCk3TDRt9saA==
+ bh=y86NpvNnCW6YE8XiYPmkfMP/1MEWZ0CIAbhuqguUDCs=;
+ b=h9FU2Zj0zTqyp7jVDhhMLoczg+0H4Y+1TJlbWcMuAp5OuprrnNEEabUAzwX5jab4CFbBrauey3tmn3kq68mA0Ol8FlN9daFpV1yePvrp6Q2shsM3cG0tRcHVDdD+uh+fyhPOCYY1jAMkjaQKEkqeZ8NmYpy7xKvRDHo8V3pdB7f4wuMfCwGNYdXAyKNl56RB2Tqm61cYTl665kAyTEjMRO339g/MIitQuxEGb6aFHpK3wBjSUOA5pM4yNQy2rmqps8AKYyuOuJw6A9eoEsjKt5YRMQdTIrz23fM8BIEyPrzfX0P1Zjp9QjKcFd90t5ZtZ4jOfjas0I+9c0D1cS+MuQ==
 Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
  by SAWPR02MB11439.namprd02.prod.outlook.com (2603:10b6:806:4c8::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.22; Sat, 11 Jul
- 2026 18:06:42 +0000
+ 2026 18:09:53 +0000
 Received: from SN6PR02MB4157.namprd02.prod.outlook.com
  ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
  ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0181.017; Sat, 11 Jul 2026
- 18:06:42 +0000
+ 18:09:53 +0000
 From: Michael Kelley <mhklinux@outlook.com>
-To: Michael Bommarito <michael.bommarito@gmail.com>, Jiri Kosina
-	<jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
-	"kys@microsoft.com" <kys@microsoft.com>, Haiyang Zhang
-	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>
-CC: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
-	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
+To: Michael Bommarito <michael.bommarito@gmail.com>, "kys@microsoft.com"
+	<kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
+	<wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
+	<longli@microsoft.com>
+CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
 	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH 0/2] HID: hyperv: bound initial device info descriptor
-Thread-Topic: [PATCH 0/2] HID: hyperv: bound initial device info descriptor
-Thread-Index: AQHqIQBWpWEJ7wPGIDK8IqS/5c/pZLZOecHw
-Date: Sat, 11 Jul 2026 18:06:41 +0000
+Subject: RE: [PATCH] hv: hv_balloon: validate unballoon range count
+Thread-Topic: [PATCH] hv: hv_balloon: validate unballoon range count
+Thread-Index: AQJeSRpY6Zp0LnMXzvgY0v8L+2C2mbVmLdQA
+Date: Sat, 11 Jul 2026 18:09:53 +0000
 Message-ID:
- <SN6PR02MB4157EEE7437300BE9443AF84D4FC2@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20260710022854.3739558-1-michael.bommarito@gmail.com>
-In-Reply-To: <20260710022854.3739558-1-michael.bommarito@gmail.com>
+ <SN6PR02MB4157893628C03F09EB14697BD4FC2@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20260710022914.3740453-1-michael.bommarito@gmail.com>
+In-Reply-To: <20260710022914.3740453-1-michael.bommarito@gmail.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|SAWPR02MB11439:EE_
-x-ms-office365-filtering-correlation-id: 5c3693c6-142a-44ce-aca4-08dedf772932
+x-ms-office365-filtering-correlation-id: 3c0450cb-3e83-419f-19cc-08dedf779b69
 x-microsoft-antispam:
- BCL:0;ARA:14566002|25010399006|37011999003|8022599003|15080799012|31061999003|8060799015|13091999003|19110799012|24021099003|8062599012|3412199025|440099028|4302099013|102099032|10035399007|1602099012;
+ BCL:0;ARA:14566002|25010399006|51005399006|37011999003|15080799012|31061999003|8060799015|13091999003|19110799012|24021099003|8062599012|41001999006|12091999003|18061999006|3412199025|440099028|102099032|40105399003;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?aaFbWFpgxRS2TVpeC7WMMv/mcFRKndZwZ03PEbCMuHkc6+taKmwh7mPQLqGd?=
- =?us-ascii?Q?jKP3lboW2goQzyYkZSII+cN06HP3j9iBSkuQUNSA2QUAUhwJY3ciIUydjyah?=
- =?us-ascii?Q?g8eccOPxJRNhStRZ8LW3RdhujihCj5PSRuUG4vSq6YaCVYM68I7lg+PT4B6a?=
- =?us-ascii?Q?jP4Z8wJ8u5Z3JocI8UV3mlHhELbYRdn8pQBaJPczfHaHqwtZrsTaHeL3Ra4j?=
- =?us-ascii?Q?TZ0F/LapHv4Gt+vgLlTKU+eay77rM0SLjQuLRKTSPwHa5f8s3VMNcUeY5t59?=
- =?us-ascii?Q?3A+CD6Xmy6ZhtkWz3i5KRmHEKjwOL0yghVRiw7BI8x4brexXugx0OHvRTeA9?=
- =?us-ascii?Q?5jUBgNTB5YXO3T2ygMn3Lo1AGzepzV/1+5fU34+Yh1/ePt+EpZCnzV6t6R7O?=
- =?us-ascii?Q?bUtke7oGHPuFiLBtdr07A6+uQQQX770+Om+nAsRhSg2eohvHei0sV/2R9T2w?=
- =?us-ascii?Q?Gj7qU4bftzXTbdna2Kouw7GsZwKfpgfQt4qn9sSjptJ3stwzNwyqJsQ4ghgo?=
- =?us-ascii?Q?4WnxwnPSqVlUP7YvKocvYhOiq/jzXHrL/cfAXhklbhIAnkuSsauu5rSUmgx2?=
- =?us-ascii?Q?DeFRCjDh6LFMAer6BNAImLdt1uDtmGTBcHAwclrrWQv1dswnutlnAFSspnu9?=
- =?us-ascii?Q?5WP1HgX0g2KbDkoZi11RVG2hpEo4AG3or160X0p34FVTXorRoPpmnU4F1Qji?=
- =?us-ascii?Q?PoSEDm/favzF7ccyPUI1b0KGl5SRFHNejrXT8A1JHUcISp27VZuRZN2P6GNq?=
- =?us-ascii?Q?bROHRG9lmRNlumXgqW/RThDcxr7dUQYlCaLdNqG4v0NuDJJfZe130zjD/7yK?=
- =?us-ascii?Q?n51NbXNadDqzj7mfdh0QI3u9eAKOv2ULlVi5aeyyeyZKvWsFYNsWOk80prXA?=
- =?us-ascii?Q?u7KlG+dYLrFLgVqKP8pb06EqVc4A19RzRcbYjZtBW7Qns1itO2ShRVpEmTdU?=
- =?us-ascii?Q?w/+RUdcIrvFDvkIk1t9XELWj3Ai+LeJTESJLklLio/85wo4vhalndM6m20oU?=
- =?us-ascii?Q?t5vmJbiBZuU+0eVGcvRkrQvYssbv6jh0vFzkcFnWXYJw+CetT2laNqN7aCAv?=
- =?us-ascii?Q?XiVlNObr?=
+ =?us-ascii?Q?1s8LnYdYOaGJ2Sagt4rQOj1SjsW+yFAsq3xqTMoOE0hvt32YfLYyv2e0zB3G?=
+ =?us-ascii?Q?tKFndKe6aF7c5gh8nEa5LYU+x+xl+pvisa/HmVehblHl71s2tgPPpJ2LHgSv?=
+ =?us-ascii?Q?DSneAj/acTUgTIWogHAgwSUMxxFeZsH79fR8FhbBPMAgwmrXTcI3dgCQ84+O?=
+ =?us-ascii?Q?ciw0OOFsMZIYJI8OG3LmBEB4QvsrlBHAKMwV0hwLi9inZb9q9llYnXH/kSwI?=
+ =?us-ascii?Q?KD6Z6E8WhOX6PeEG+yyLUd7KL5uFodxB35wLsOrhNhn8ElUdjm0QlMbOLgWH?=
+ =?us-ascii?Q?etQgAKCwqvkzoHqz2VLcceWEtMirfjFSBhZp6xDcNAzraJcXKXl4VHPFeeO8?=
+ =?us-ascii?Q?cM+WbQ/IQXc3HKu+a54r4WcSg/tyrzQwgNoXUQwHx0AKCXOH8X1fTu297J0F?=
+ =?us-ascii?Q?h52ZeB68IC9rF4bdCzFsdGlN5Vv++gmr6xE5eBuZmdgSSkt9vnB3MJaKI/R3?=
+ =?us-ascii?Q?irJ40QLTm5K36oBakcEDXcVvaqY0TKqGRcpySa9hnw/uf0ProrzBLwvf6PCH?=
+ =?us-ascii?Q?8oSAwQ8QxXSHzCnMbEp/XAm4wj/GAMkrQsdXKljCT4Ar5ceI18rtp+gtEmQt?=
+ =?us-ascii?Q?ridGaL8aoIAL9SqwBVdsUnYUvVwJviq4yT90RilCZua+v6fQzew1+C1vIeI4?=
+ =?us-ascii?Q?e3nSw46HeSlOYnSRqYZlqbzcPlWJtUkeST4bzvKf2jEztTpg6xUAEqi3HArE?=
+ =?us-ascii?Q?TZao6dmQzW6n23yd91x28Ya+yKnUw+lKlq/ikT1DyNr8DuqvrZUv1wkm5FdB?=
+ =?us-ascii?Q?yWOcwWGxkAY/eo0mybGObk8as9QXUzsFStkbBPisoTDU9LVd57nAZiZ0VT8y?=
+ =?us-ascii?Q?sZlGpX+2KLxFGtXQ5Oz51/LDyevZylLxDbNz5HXeDCHB3KeEjqG45XEshe4E?=
+ =?us-ascii?Q?s2kE9/92aBu86Rs54jDbhizSqg81WkSH6KlT1gHtMt26PivFjT2WSkwQ881J?=
+ =?us-ascii?Q?sF6ID1kcy+AT0n11i9MFUuVO89CiepD838mST+kQTAw7wBGugyslwM96XjEi?=
+ =?us-ascii?Q?S7Oge+enYW2J0EJrE67+iJSjUUznXVb/hbIgNZmXfEczXlXrgcrkRO8hrNB0?=
+ =?us-ascii?Q?1YbTb+aN/Xe5aWut37Q9ymhIhQwUgJPHEahL9nr9XaIB92yUKoA=3D?=
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ozx1Op/DsHliNbgfU/1v8wadJ5FWSRnrg8KFRrdnYa2gt3VuApmBypxOwlO+?=
- =?us-ascii?Q?xqQyTUIoHhftIrT3ScRK+PYkvu2vUfzR0/TxF9NNKhZ1boYPj7LYw4fbViPn?=
- =?us-ascii?Q?bx2dDzoVgshy3Rjgajb5KWZpODpUlbM7szn+U71uPBG48cddhBb7ueZU5wxc?=
- =?us-ascii?Q?79FE/bHE11L2RTNfQ97V1jbCUTc5sdgtBCWi9ZCCx4GZaUJhi0qytv0WZiX3?=
- =?us-ascii?Q?yewb9Aw9JU3dO6jhQa+gmW+sKJDSmept9tuB9UWBQ+QeHFDfsQQu6tN9VD5k?=
- =?us-ascii?Q?Wnf/NP8upNqoEAdXIefkFUr+8CzaIb/QcM1gK1mop/ivkrZoG+crlGZpNlAu?=
- =?us-ascii?Q?k6EPFKFRvdI59KNrdDqRdYxtOywaux1lFReaAunS5VWxZNVhXsDEbdcn2ieo?=
- =?us-ascii?Q?Q+J9CLjlIIgsz5Nr+OqR8vApXlhNGzdEVmwmBr2L8FQzquLAYwYQbFXd4bya?=
- =?us-ascii?Q?IL+DZljzeQXG6tlgjBLvGuS9tGphR1aC15xceu/v9L0IOnOxeZjeiU2NWWAv?=
- =?us-ascii?Q?rxQmFH/Fmb6XduUzRrlgzTxFn/wuuHbJXQkA4Trs+lfbXQ3iAeX/sOQcZgn5?=
- =?us-ascii?Q?aKCzKNDIByWqR/yRODrJwvnUGNccOeIY1Ze3SUlI9XUE59rTgMUV9Qz+G0na?=
- =?us-ascii?Q?gkxf/3EJU6ZAtIYD6+sptnYFdxn+yqB8x33GysvpdtHViK3DTYcN5KbFaQmq?=
- =?us-ascii?Q?RlfsUDet9uSRMcrCBgy1p6775EFgB+nUg12QC7q0hrNVY+3leCaiL1UGhqrM?=
- =?us-ascii?Q?/hlQ8RpAJVoFArMVXaZgfl2QXxtSsmGznWAXILVfC+78Y4APV4EGbyqNN+Qv?=
- =?us-ascii?Q?WYbj9xt3l/Z2zLdXHyesQS7r6+XdIc7f6mhii3kLS05Cage/T1L6M35P1Der?=
- =?us-ascii?Q?vpJu1ekuYrn+SlIcuYJppmTKQSHKbXViVS+c/SZ7UbC1kbazVdPHWAw3DvXI?=
- =?us-ascii?Q?KjoFHCoxtM3b3lMglDalqZCkV6tZfUte/8K+HgP/LduInVHbwBEaaoWP7LW8?=
- =?us-ascii?Q?s8LuvumGglzBMygTjdLC6Ti4/U/wG+Py94aFidBfwiKRqnVxMfAeZstO27iz?=
- =?us-ascii?Q?OVS8MfkOBxac/BHos/fd+OIyd6d3DyZDgYvFxmemmbjLTK/4D+p7a9DePwu1?=
- =?us-ascii?Q?WhqEM3gCN8YiyW1JNqpbQrqzQNYMpV8T0q4qogUnOR/9tTfHGVWWkmasG61w?=
- =?us-ascii?Q?mAahiG4kwWS5m2fuczcaI7qJ0ii3Uz8rtPMr6D9agzdHdmhE4v2teQGbx43S?=
- =?us-ascii?Q?vWX+3qe+t7+a8Q3qS36rvBzYNVHTfVxkj0Y0X2gJU6aPN+qvpal9OO3gHsnD?=
- =?us-ascii?Q?YgHPA9ITHvLCGo5u1OzB9Y6vBWW6mbbO5XH0uz4rbPGfBXiV1nz527a/n4vJ?=
- =?us-ascii?Q?CxUPMks=3D?=
+ =?us-ascii?Q?aObex6lWcDG3LVP8GLOX3MvY2n5sRTXd/Rpmmu/pemJk/H6k/nGQwabRpiqz?=
+ =?us-ascii?Q?fIIH+HhaK4+h8eHhCAt6wefDnvLl6LgFL3wwtFgBJRr1YVe1K7i7ojU1MZih?=
+ =?us-ascii?Q?TGNLk5nc7uqj/T3FdHOhYbvVf8TAdlXvBf5Ur9bYQkYjZf1YwbOqRPr/JfY3?=
+ =?us-ascii?Q?qiZJhQKob1tPkKdbLbmYenJ8ufbwZM/2fGIErpR9H/L3/wCSY71MaF7QCpyB?=
+ =?us-ascii?Q?x5g3UhNji1nAUcbqwCRwDzN5SYTUCzUkLy44jhWw+XAQzdCfikfLS1jWSsmu?=
+ =?us-ascii?Q?NsqX3tM8wBxykMepcqYsipOqXuOV99nSU8X6M9xloFGObbjI4qJTEGDEJZ+H?=
+ =?us-ascii?Q?71hFSWBe0n9kWiIATlAUNCxSYeOUQuGao9A7pyFBVU3NaKBNRqPbTjJBSEn1?=
+ =?us-ascii?Q?TFFSLR2zlOZqB5gdUnqlFMjSYqjaRTYwQMo84XTu9QCBlySN7a5Pc7GusSfR?=
+ =?us-ascii?Q?THdhhwNBGOlADNfxuyffdmRjry7icBAI+t3JE+7gb+jpq7CXGtiIzhMoDSIu?=
+ =?us-ascii?Q?67aKnJGT4jNIZGZxvNTpczy7jJNGuXrlOqYwI1n6lykrr+RGkvwCCf7eWUIG?=
+ =?us-ascii?Q?aOEXcXqJN02YhXdhNQvBBBP6h35m/WGYvFPzU5GKE4xXjaw9g1Ndb7fdupiz?=
+ =?us-ascii?Q?hCi5XsCCQYo8WbKNGe5S4jnFVaMBZdKaJ/YI+O2izsLb4vt8Kmv0lN4SsGB2?=
+ =?us-ascii?Q?JFxpALpPuN8uSe8rWy9Q7XIDbuxiU0UThh9PSmpCLEXYPexgMy6QAhY7vt0w?=
+ =?us-ascii?Q?UTECD8guDY6SjmgDAJc8LM/HzzzbIY5ywWMGuQ9pUE7a7oJivEtcXpiw11ik?=
+ =?us-ascii?Q?kgJDxByybey9UZGbcdEr84D6Rnw+sLgoolabwxmPA1wGommHv8Sd2HG7W4cr?=
+ =?us-ascii?Q?Awc3vvi7euGCq4Q6auHxSJwMexNMKiXF6Y7yxRz+ERSTb4zVXJaQ6/3cPR/1?=
+ =?us-ascii?Q?H0VT8QHb1rB2yfqExgmKsNTDEvDyyknYRJNH3Tm2PI/pRY2caDtmDvHLY98+?=
+ =?us-ascii?Q?jhZupUPfUIsZR2U/JWYsIOdg7WXYkMag0rW6nKhB51PboCtLOpY/TzQJWbUU?=
+ =?us-ascii?Q?xLXIeNXl/0ct9WUVaY/MPbpJ2oxSmcrgipPw5gDbvughxgvPLZLDQs/5PjDX?=
+ =?us-ascii?Q?DQRkEfgu6u4zrUOQVaKd8lE4ZMMRh1vIpcl/hcoD2UbZ2UIdnMdonMVAJHt/?=
+ =?us-ascii?Q?bEcjGtoJBsXfjrw+F/WBcJW56JySN/lZB2nL9mTJ3gLbFcr0/dHkjI0q9mGS?=
+ =?us-ascii?Q?uS7VxSRv/LNxBsWUSQF9R53S36D7d1NIhhwGsqcP1LMgpQkdzlJd5cjx5GNC?=
+ =?us-ascii?Q?vNUoYLZPetCWCJ4vwB73g5lTfZ8+GjKE/0ZdH4/aAg11I53xWkD4WHTs/4gV?=
+ =?us-ascii?Q?AP22Gr8=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -124,8 +123,8 @@ X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c3693c6-142a-44ce-aca4-08dedf772932
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2026 18:06:41.7588
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c0450cb-3e83-419f-19cc-08dedf779b69
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2026 18:09:53.4564
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
@@ -135,59 +134,90 @@ X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR02MB11439
 From: Michael Bommarito <michael.bommarito@gmail.com> Sent: Thursday, July =
 9, 2026 7:29 PM
 >=20
-> A malicious Hyper-V host or backend can crash a guest with a short
-> SYNTH_HID_INITIAL_DEVICE_INFO message. mousevsc_on_receive_device_info()
-> trusts the HID descriptor bLength and wDescriptorLength without checking
-> that the received VMBus packet actually contains both byte ranges, so a
-> truncated packet with an oversized report-descriptor length makes the
-> guest read past the received packet while copying the descriptor. This
-> matters most for a confidential guest, where the host is outside the trus=
-t
-> boundary.
+> The Hyper-V dynamic memory host supplies DM_UNBALLOON_REQUEST messages
+> with a header size and a range_count field. balloon_down() trusts
+> range_count and walks req->range_array without checking that the received
+> message contains that many ranges.
+>=20
+> A malformed host or backend message can therefore make the guest read
+> past the received VMBus packet while freeing balloon ranges. Validate the
+> received message size and reject range_count values that exceed the
+> present range array before walking it.
 
-For some additional background on the assumed threat model that
-underlies this kind of validation (and lack thereof), see [1]. This Hyper-V
-mouse driver has .allowed_in_isolated set to "false", so it is never loaded
-in a CoCo VM. In normal VMs, the threat model says that we trust the
-Hyper-V host not to provide bad values.
-
-But as I said in [1], I'm good with taking additional validations. But Wei
-Liu as the maintainer for the Hyper-V drivers is the person who should
-decide whether we want to take additional validations.
-
-If we take these additional validations, there's a separate question of
-whether to backport them to stable kernels. I'm inclined to *not*
-backport to avoid introducing churn (and the risk of breaking something)
-when it isn't fixing an observed or likely-to-happen problem. But Wei Liu
-should probably weigh in on that as well.
-
-[1] https://lore.kernel.org/linux-hyperv/SN6PR02MB4157D595B990A321BFA85B40D=
-4002@SN6PR02MB4157.namprd02.prod.outlook.com/
+Same comment applies here as I wrote for your proposed validations for
+the Hyper-V mouse driver. The balloon driver also has .allowed_in_isolated
+set to false, so it isn't loaded in a CoCo VM and it hasn't been hardened
+for the "untrusted host" threat model.
 
 Michael
 
 >=20
-> Patch 1 passes the received initial-device-info size into the parser and
-> rejects descriptor lengths that exceed the packet. Patch 2 adds
-> same-translation-unit KUnit coverage: a well-formed message that must
-> still parse and the truncated/oversized message that must now be rejected=
-.
+> Impact: A malicious Hyper-V host or backend can crash a guest by sending
+> a short unballoon request with an oversized range_count.
 >=20
-> Reproduced with the KUnit/KASAN test: stock reads past the packet on the
-> short message after the benign control passes; patched rejects it and bot=
-h
-> cases pass.
->=20
+> Fixes: 9aa8b50b2b3d ("Drivers: hv: Add Hyper-V balloon driver")
 > Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5-5-xhigh
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+> ---
+>  drivers/hv/hv_balloon.c | 26 ++++++++++++++++++++++++--
+>  1 file changed, 24 insertions(+), 2 deletions(-)
 >=20
-> Michael Bommarito (2):
->   HID: hyperv: validate initial device info bounds
->   HID: hyperv: add KUnit coverage for device info bounds
+> diff --git a/drivers/hv/hv_balloon.c b/drivers/hv/hv_balloon.c
+> index a848400a59a2d..f5bc8c9fea7b9 100644
+> --- a/drivers/hv/hv_balloon.c
+> +++ b/drivers/hv/hv_balloon.c
+> @@ -1337,8 +1337,23 @@ static void balloon_up(struct work_struct *dummy)
+>  	}
+>  }
 >=20
->  drivers/hid/Kconfig      |  10 +++
->  drivers/hid/hid-hyperv.c | 144 ++++++++++++++++++++++++++++++++++++---
->  2 files changed, 144 insertions(+), 10 deletions(-)
+> +static bool unballoon_request_valid(struct dm_unballoon_request *req,
+> +				    u32 msg_size)
+> +{
+> +	u32 max_ranges;
+> +
+> +	if (msg_size < sizeof(*req) || req->hdr.size < sizeof(*req) ||
+> +	    req->hdr.size > msg_size)
+> +		return false;
+> +
+> +	max_ranges =3D (req->hdr.size - sizeof(*req)) /
+> +		     sizeof(req->range_array[0]);
+> +
+> +	return req->range_count <=3D max_ranges;
+> +}
+> +
+>  static void balloon_down(struct hv_dynmem_device *dm,
+> -			 struct dm_unballoon_request *req)
+> +			 struct dm_unballoon_request *req, u32 msg_size)
+>  {
+>  	union dm_mem_page_range *range_array =3D req->range_array;
+>  	int range_count =3D req->range_count;
+> @@ -1346,6 +1361,12 @@ static void balloon_down(struct hv_dynmem_device *=
+dm,
+>  	int i;
+>  	unsigned int prev_pages_ballooned =3D dm->num_pages_ballooned;
 >=20
+> +	if (!unballoon_request_valid(req, msg_size)) {
+> +		pr_warn_ratelimited("Invalid unballoon request: size %u, header size
+> %u, range count %u\n",
+> +				    msg_size, req->hdr.size, req->range_count);
+> +		return;
+> +	}
+> +
+>  	for (i =3D 0; i < range_count; i++) {
+>  		free_balloon_pages(dm, &range_array[i]);
+>  		complete(&dm_device.config_event);
+> @@ -1527,7 +1548,8 @@ static void balloon_onchannelcallback(void *context=
+)
+>=20
+>  			dm->state =3D DM_BALLOON_DOWN;
+>  			balloon_down(dm,
+> -				     (struct dm_unballoon_request *)recv_buffer);
+> +				     (struct dm_unballoon_request *)recv_buffer,
+> +				     recvlen);
+>  			break;
+>=20
+>  		case DM_MEM_HOT_ADD_REQUEST:
 > --
 > 2.53.0
 
