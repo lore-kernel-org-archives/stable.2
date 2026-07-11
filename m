@@ -1,133 +1,97 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com [209.85.221.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187323C3443
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 11:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783770704; cv=pass; b=jLq0comfm8SiQt6XQdIRTY10Z3JJI5HbzfUrGgjRyC1Zgm4SdJ9+dFvh281Otd3HrHrBjHJg0NN3Vca+ZHzQUeUH0GyAUtilBakTSgTBk6PK9d//ycjYcFtTljvhCATnpuSdIltJK4sSgufoZWPSkW247BUtuAEcMO59wmpSfd8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783770704; c=relaxed/simple;
-	bh=32RtRzJ7crDmrcnf8nK4Ny6k5rIl6i+EKv0kmdGD3Bg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Yrn2ID7X/5/vUwTS61Ni9uYKG//QkiegGEcr5bWyr+pX+MoXAxNrKO5iOQkQFEn6f8Obb0hF6IEwvIJdez6UTc/ks3iF/XQw99277KaQcNLV63nf3cApyDDTPfhQC2lLfwFscHrQnnXapo5JYAiEIYHRKYquHO70K2XkE2Gk7wk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YFt8VCoY; arc=pass smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B47C25B0B6
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 12:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.73
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783771758; cv=none; b=PNOgpcay9RDBAbJek8hstIMp9kJfVl+WpUY9lr+XUObi9vSeFVtgTurfQtmpsIddmFD2H8dJ0me6MRaYLpgmGIFjGceOjMveI7sJEMV+fswV301Fc5m1KxaHhgbENblecRokjrHinmt09M1z6M3B9yh+kyPAM82SJLsfoczi8j0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783771758; c=relaxed/simple;
+	bh=NTQUTiOY6fWGJY+qqToUuWf4suAV/H32seKG+A+pnBk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=F0TLpt2JIH582+0Jr7nqiL2RC51d4kzqjeyhmEZZQSbhVVDwPMwqdECBzQG+L5WzTybJfyoiBs/+GjmxP0U0C58Nco5SrltGupxGg3Ohdx6dKNn5rsJw7TABDjnLk0ChHBuiupaRcK+cDF5/8wuc1rHWN7/AE1ptw6pgAaKAVjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=o2Q4KDTp; arc=none smtp.client-ip=209.85.221.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YFt8VCoY"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cad85b7b5aso1760665ad.1
-        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 04:51:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783770695; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mZerM8hnAWiuOSvLWREfyJislvwH4riGuVqOnGU4ZtbToIi/lFg/4Hkqb5mAy3TYJU
-         E1B33md9CtQkoUUWd0FRWTi2PN4YsM9qGw5NGILNoArbnEGTC6NRZoqapjaW0xDDPl1I
-         nufzRyBI2l+KtptYHm0rFpS4lep7QepMn3qJOD5884uD0g/o72Z5mdE1h03px8rFNKff
-         bOHyV1+1ZehQDzwgjlV/7Qs+XIUhGbQ7r5oGUzS1AWSpQJOLDb2kCslDN42luXrUF4px
-         p9oFEl8ZLJ9bP7UrIBoCvPQAJQJ4sP7swyt8W3q76l4xq+N3y6m3Qgx1w60aaHzUKL1+
-         XaBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+UMGE819wkdK2DVLaPYqRBNsu1W7eq8gbWnBfh/WA5A=;
-        fh=NVjgPsVbZDntEU46CaoAT7QqFpGYgB79RA+kw2vHe+o=;
-        b=qCCNvFV3+PCwPYn5Hj9BUi41Je+tF9gOYVGZ/SBYGcwyJa2/kPjLQwqYD/FKyGcRDe
-         gSnT4ofGY1VQ2LTcJNPYLm6Xb0PPNmw4V5sh8s9iTP+ZDmjzdEysKe797ce5LZm8uMNP
-         W5FpD8IwwCG3YBCU3tcrSGf36hYw7+/3MhvTPnBQ0mcWwWj31wqqEvQu0yogKd03OMYv
-         ow9Os9O9oGcR6w2pOhhwALVTNzMA3nXzHOE+JCZOvzMFT9lOTpp3PUCWkqYjhwVG47J8
-         BRTgKY8yze/TO10/5JjE+Qqh46KDLURpzM95xpwsYeeHH8vIX1WKy71EqWT2ZhJy27r9
-         QoxQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="o2Q4KDTp"
+Received: by mail-wr1-f73.google.com with SMTP id ffacd0b85a97d-473e18559b2so971107f8f.0
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 05:09:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783770695; x=1784375495; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+UMGE819wkdK2DVLaPYqRBNsu1W7eq8gbWnBfh/WA5A=;
-        b=YFt8VCoY66Mo5Vua5AKiHUBhXhy157WmYWTk4MpHA64g8/XgsINCiD2lS0j1cGFUl4
-         EJWH73p5xs67rnvNQAg+BVx3jKbn6H7GE2rQc64USKYQP0Nll0z+dWCwv0DgC4Az6HSV
-         LD3aEDNY4GiO6azuozWqBAUrRCxG5RJxyFsVSGLlP7F47UIU0/eBJ47Qo+AW0pWdjJ9y
-         zpXM+TetBcQ9IFCCjyCt7DzRO7ITq3EaAkswYeUOAHlF+VvxJ78IDImQOp0durjb5Hip
-         vTYJP872Ej2VrkHdyvei+un4ZMg0QBI2FW3pPqa0omss473f8rFIRU1Mtppg+t4iLqUj
-         G6zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783770695; x=1784375495;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1783771755; x=1784376555; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+UMGE819wkdK2DVLaPYqRBNsu1W7eq8gbWnBfh/WA5A=;
-        b=T4Lwre2IGBfK2mJoOYFqKhjExnvkWMhuQ8wnVvP7xAgJDCcxmBfGbixYSqNgw/hT6A
-         KPjQai66NrT4Q81yqb8Ye1dpMAOS5kAA4FoM630SEfQQoulefgVirsRKwPVliN7veSwD
-         W8gImdrt1Vbke92UlxUpnRAdEek0NOm9gOr2oidmTRyR8sKsclhGZ7FojiLUT3KsCXnN
-         2tIdEjlujqgfOTDSAIeEXmiPJN51ieZWO909KZtkdDamVtdGyFzhRgxR6781aX6oTTVc
-         zRW1w6D1T+tIlXDaNAQy7RHbfdy4FYe8FYHti2dB0/YiCK6JoRLxv1+O6MiZAl09aCTc
-         3NMA==
-X-Forwarded-Encrypted: i=1; AHgh+RrEzpNVNyPeMLgKb3MeOC4Si3GkZLeBvcCpJAalHqqmEoZ85hxJORh8mNuO9AotpNpXzU8/SHQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YypRI0sxGzOYKjckyDb7bB6i81SH24gqA/TDTVDuWX/SH6dIUTm
-	yzkO7bYHSopt5RWfzQAijsCq+98qwBtoDM+GvLsdOeNs7xus4Df9B9Jl21sqrQ8hJmc+WPhvWwi
-	oHMxZ34o2MEzfJM3UVNIX4yTIJIDowms=
-X-Gm-Gg: AfdE7cldCso1XGv02onEtrtTf0so2eve+l9vfGxMYe1Y7t6alUL23JEK3aVbG2McuQG
-	dvv3oJEUuJCTE7EyR+AcdvpbireTf/ctaVaGLBivexk9tAWyjzYPYO89u0YxbjdvalfMmyvvBrj
-	eqS62mJZGZymdoK83h/oI4aJ1xH6CYGNb6PlCxAeDdgXP1e7GRK9zBvG6QPkpVO7gaJ+TMrKkgX
-	nQrsSz+KBYpeyPX1/nGaDFD2Dc7Barl7pXyFDNbkd8m6aQ1dwBSc0UynjjP80VZJegBsJ+sbkr4
-	pXQwDfaplAfGitJIPe3BeoKqhvg/x+cu/RjVL46RZVgSCrOkTNUrrgT3eGUPp7ugFXuBCNGhI2i
-	jwLx+kB1iUEIAXdYFdeGpR7A=
-X-Received: by 2002:a17:90b:2e0b:b0:38d:90c1:2400 with SMTP id
- 98e67ed59e1d1-38dc74c8082mr2087131a91.2.1783770695310; Sat, 11 Jul 2026
- 04:51:35 -0700 (PDT)
+        bh=rZECiUz8iXrro/+1KsBtJNmjhFi5kdYHy3t1PHyk/II=;
+        b=o2Q4KDTpENi27OJyUXz76+iAkjyePGLqWtRfSeYbujgi4tC0dYixHvcNwY6aI0dh/R
+         P3KpHuNzOgT5au/9VLQawB8WxNA2xIqXGzGqpnVew9P1Dl+sZ904l3dJKPPiwUuABVYW
+         uMZ8bclaG9bWCXfV//+EKw983xCvg4yZWlCBXGtLmI3IYP+2zQnQHiEDNjGKd0XeGJVl
+         4DkXnNK9g4qQi+E/1ZAwuAcJkvSH8B5hKNpxSgEm03C5qoWmap/gUmtw64/SRyU4qxrL
+         Xjctgu5Zw+/nRPiTidPt3jiVkWlo09Cms8Jh45Gmp+jg+ihhan6O/nkjf+ebV62fOx3U
+         RXiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783771755; x=1784376555;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rZECiUz8iXrro/+1KsBtJNmjhFi5kdYHy3t1PHyk/II=;
+        b=YbjYUbJIwF8Q3rSWPi1xHvGWxz5eNQ7bfHCXCB3vh0B/SbqiwgLInXULsEL+dID7qa
+         046/xI9nFqgkCLIynTmO29iCp2riKLL9+hGbHM5JR5UmI4ksg5HpaUCBOyk/HyUSXHB1
+         aviu0Q64mwfdzgSSNl5H/bBAUkvof0HZFTfoDqaoLgn3YAhGtH2oeLeLVSThOLVCjN+F
+         gt+O+CiHZJ8MbwwVWv7HDCsBV9XnfRoMAR1cIXAVeoHLZLn6PJw+6jPhja7EyItxFkXw
+         QbdtXY3oBbU5ZHIm5CWdgJX4f7eRKiamewghRQrZE06AMRj8QY9QfheG5DxbJaZC4BF6
+         jUtw==
+X-Forwarded-Encrypted: i=1; AHgh+RrQUAEOOv53jgDP1Nk+EPBdRSLaCcKLLukLPCwa5i9Lb0bTeU8L1uRYzNQTFlwgaelmEPXDwdo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkNn+5aCQT/eqravrCo1AI/BMb692Npcwb0wYAOgiznrJdwqfD
+	LpaVNZ/3fwGWakoQBzOQrZnXyhI35OZuVCirJlvz7U3x9e3gAJz7rvqwdZpGPWXEXVhDm/wAc9A
+	G9pjbI17R0la2TGakKg==
+X-Received: from wrwq13.prod.google.com ([2002:a5d:574d:0:b0:472:3bc6:772d])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a5d:588e:0:b0:47d:ee7d:c125 with SMTP id ffacd0b85a97d-47f2dce2cc2mr2261213f8f.40.1783771755149;
+ Sat, 11 Jul 2026 05:09:15 -0700 (PDT)
+Date: Sat, 11 Jul 2026 12:09:13 +0000
+In-Reply-To: <20260710173252.191781-1-ojeda@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 References: <20260710173252.191781-1-ojeda@kernel.org>
-In-Reply-To: <20260710173252.191781-1-ojeda@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 11 Jul 2026 13:51:22 +0200
-X-Gm-Features: AUfX_mwoKjXTHcjSODaSdur4011uhKST8J0DfGvxttGWqmvWIQB4Nfm07D_RmM4
-Message-ID: <CANiq72keASONEFeLQivMaSnpio3zVgSGCAsTcxjevizdBcZ+Mg@mail.gmail.com>
+Message-ID: <alIyaWz_32wZc2rK@google.com>
 Subject: Re: [PATCH] objtool/rust: add one more `noreturn` Rust function for
  Rust 1.99.0
+From: Alice Ryhl <aliceryhl@google.com>
 To: Miguel Ojeda <ojeda@kernel.org>
 Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
 	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
 	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
 	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	rust-for-linux@vger.kernel.org, stable@vger.kernel.org, 
+	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, stable@vger.kernel.org, 
 	Petr Pavlu <petr.pavlu@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, Jul 10, 2026 at 7:33=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
-te:
->
+On Fri, Jul 10, 2026 at 07:32:52PM +0200, Miguel Ojeda wrote:
 > Starting with Rust 1.99.0 (expected 2026-10-01), under
-> `CONFIG_RUST_DEBUG_ASSERTIONS=3Dy`, `objtool` may report:
->
->     rust/kernel.o: warning: objtool: _R..._6kernel12module_param9set_para=
-maEB4_()
->     falls through to next function _R..._6kernel12module_param9set_paramh=
-EB4_()
->
+> `CONFIG_RUST_DEBUG_ASSERTIONS=y`, `objtool` may report:
+> 
+>     rust/kernel.o: warning: objtool: _R..._6kernel12module_param9set_paramaEB4_()
+>     falls through to next function _R..._6kernel12module_param9set_paramhEB4_()
+> 
 > (and many others) due to calls to the `noreturn` symbol [1]:
->
+> 
 >     core::panicking::panic_null_reference_constructed
->
+> 
 > Thus add the mangled one to the list so that `objtool` knows it is
 > actually `noreturn`.
->
+> 
 > See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
 > for more details.
->
-> Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned i=
-n older LTSs).
+> 
+> Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
 > Cc: Josh Poimboeuf <jpoimboe@kernel.org>
 > Cc: Peter Zijlstra <peterz@infradead.org>
 > Cc: Petr Pavlu <petr.pavlu@suse.com>
@@ -136,11 +100,5 @@ n older LTSs).
 > Link: https://lore.kernel.org/rust-for-linux/alEBInX9gD1M5NAr@google.com/
 > Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 
-Applied to `rust-fixes` -- thanks!
-
-I changed a Link: to Closes:
-
-Tags still welcome for a day or so.
-
-Cheers,
-Miguel
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Tested-by: Alice Ryhl <aliceryhl@google.com>
