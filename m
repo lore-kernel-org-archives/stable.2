@@ -1,171 +1,119 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F64227816C
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 14:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C21D280CE5
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 15:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783780767; cv=none; b=E328LeNU6Ku7uptSv32rS0CbM2LeVDZasYEXcC3vJACFz3qQ5YrAg9/7JC1QKfWuGxopTW3jDjecJdQ/5ylm7/gBGkKn0GFiYY/xZ7UjK5NlDfHrZiYjnbs8APyz2m27ekPr/rnaai/dzINKaXZ051t10IZdakZbvgz0BrAa8EM=
+	t=1783782361; cv=none; b=OKlti2d/AklPaE1R+5Q1itjGm1mnrYKqOEgvl5gnbZHZ8I3Z4Hmg+oKnVYlLIFt4HT05Hj115HpUhSNG9rFOj6AhCs6uZKMXiaAvrWRRveTLQl8nbQT5IkUPtrtuRGmkdSTOLKloPrtyMYmS3IatPUDUPdmIICn3k9c/HbWOkxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783780767; c=relaxed/simple;
-	bh=bHJSREHLOyeJy4p6jBRHOGdQGuFnsieQsfyomvA9tug=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DBpZxxIfoD+wUhSlyjEutPkTRTJB/JSUhePake/9iVx1lwoS8M6F3/a60yE6Ut+PIPwoRWeXblwxla+ksswSYDiSvU94v+qLs24flplTTJmUBNLUxUVqPd5UdQFy4fGq74mj3ryRoPtIgekY9CLHQ36d9UHXdTqnDv7PXWJwH9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kZm3DDMD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZXVE6Dke; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783782361; c=relaxed/simple;
+	bh=k+E/AHBP+Zx+ARWbImRQV03XJYhigmgrMOmIGmqx1Hs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BsKwjNyv6k/jzN7kV15j+QwjKf+0FYxJFMmUQhAMwGJfaNthr6D48BLvx3nXRYnWwaEUHCz9mxKVQEqfb0s9eB6Up0FJ3p4F0xw/HS6s/0ZanaRknmzHsbf2ER+e260nDQhlhbGgeyX7vHiN5GaAf/ptDC+jssPWKDHFUKy2TYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yu2cwe9C; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kZm3DDMD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZXVE6Dke"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66BEOAqg4163126
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 14:39:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JFcBrz+ATTEO32h1LBnAmASwgy9v0i/Zqwdy0coRdUs=; b=kZm3DDMDw6zlPf8G
-	+52iH2A4kfZ+Y20FnRemYz572E319RGziefo+z9NRV2jvM/1Y7t49jOOuUM30GXn
-	g/4lL/p/wLMgP3/PJRxCxIjq+rsCNNcyHTzjsnrSuoi7pAZIz5tbbHY8+s1H7yg9
-	1E1aQgKcMy0TtL/va+D/DTEHro8vXnm+3l63vQ8SizjjNXJFV3jE8o4EkcTVV1xJ
-	oRvxEYwx/n8mh2lSBhsEEdm1ZByHCj+UlW8fpADqE9S3znKr5Ps8bQcCGDA+941y
-	8LdnEJHH0EDfAtQl4ju+Nkwt/U4irjVBi0roGJync+yehisIkGNrftdJbWzOjPuv
-	kZgp6Q==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbeaf8yrg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 14:39:25 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c890bac374eso3736188a12.1
-        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 07:39:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yu2cwe9C"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-9030f8ea3b3so14479456d6.1
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 08:06:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783780762; x=1784385562; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JFcBrz+ATTEO32h1LBnAmASwgy9v0i/Zqwdy0coRdUs=;
-        b=ZXVE6DkeX6ARqvfuPqiP0M5tT78+SkSCvzNWOLnMO4810cKdowqZz4FQ37x3+3lWzd
-         uWetNk2tzi+x7FPe0uwHR2vGVh37KLf33o2TXYamsuS891ftDynHTQm4AflIt+FJi28q
-         VjTXp3LqcN3BHqe3Mxuh6/SvSzvSEUK4IFOrGcmTiKIVgjYEyYHXUBOeDYndPe8YrB3T
-         lS+oFPOMjfFLz2oj04DvtWZi+KJe0KmnhRuDNrB6WNmwNbp1DTHaUHWfijnHRBey9nnB
-         N/cLWvLaJxjoGBXGC5JsyhZVoQmlyGQcwTpIor9xhdoKh3jtcYGNAEzwayfrHVF5GRe3
-         Zt3w==
+        d=gmail.com; s=20251104; t=1783782359; x=1784387159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EAx8OQB6mwEunipzmDLE3fqBbjdRzmKEhIwMzOXLjyg=;
+        b=Yu2cwe9CgjNJcezcO2S9Wp5HtW7MDg72sEj4Fvk+AsL9oB97DPCJpfmq2URFboPnSZ
+         VEA2bYF2qE9Nd5BIkLWYfJkvI5zVrkfG9mOCJeoSBeR2oYpQF4U/R3wnbEPVksDSMnZE
+         yZ5IY4wr9KtDgZMTJpkd3h9zWBML/YyLAKc8dALb14kI/6ie4SJGcIgQdYW95atC3ZFS
+         Qxd4RsGd6AubRgrYec8uJrnPjyraw9mG+eemTI0G/rvIXlh9MEZk4XQrJVg1VrZt09Ec
+         rLj8NDwJtpm7OIvMMPEijdMRK273/sEkVdGnFBsCluS+TBOyDpCj/Q5PgZSnjDtMEQFr
+         1xCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783780762; x=1784385562;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1783782359; x=1784387159;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JFcBrz+ATTEO32h1LBnAmASwgy9v0i/Zqwdy0coRdUs=;
-        b=C3JAJXt+idfJuxa9/WfhZfi412LquiglELkoNBV4HYGrkKgIuWzYQ1f4yG4xKQ5FSy
-         p8V9JmY4neIzAQ7B+S7J+9tyVyxkAeZvK0ln7EiV9AMgKEpiPfYDIiyTltvHwYoj3DBT
-         2JOxnJT6TsOk7yLrjbVc6KD3+JWPuMhz4itbZQ+2Yd+ZVPodyGNuEhTF7lSEZgxfr5xt
-         Zqz/tbp7RvvKnyW0wIMwI8mIA9XOnCiT1nFWc6uIr2XPB7FSP+UivLRst19qcg0dyabd
-         f6w/AfHOFIKwCyfKD5yJYEQIXUCBDXMwKwPYJlWYNQPk+Wv2zT2p/6/yIFk6eNypAjeO
-         6vaw==
-X-Forwarded-Encrypted: i=1; AHgh+RqRmtwTYA3DGqCkezrZFrv6ookXvCtehRj5TifwW/2BRVwDJup5TdJsnU+lRP46NaXTM9SIT/Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxW8A41t/bra/A+MujDqsqDsZln6k1hhFG+YTSW7z9OKymswggg
-	ue4uAkDRnA0ptM4oDo4kTTxgmNkYyhcfN/ZCZMpzGS2HyFsgGGi0/bdk4VtOzhjH2xFDzh/8Idu
-	jL0TR3PRPnZhLpy7aE/OWd2l708fTqbd7gJTNMmo6KupByxMdxXug++ZJhAk=
-X-Gm-Gg: AfdE7cmHNrgo+0bmsVaK4wsGK7++aSLCBxk+5CgPAdiecTjNHYMEA3orQiC93jmZziz
-	ajaIzuIy8yXoFdtz2hFpqncTH37L8JxhAPE6mJ9XE7j5MfDYoBKQRq/4me5dVr2rvbMdZ7KceSQ
-	Rf2uXP70ggC0/0ZFcoVcwG9v/Us6F0+ktDKFrs64lMsKLxhcb3kRCDLeN6b1g+IVBzKeQP5kN2t
-	2U0VgrBGejRtkP7ubHuUahqyoqEUoo+Qbd9stBxbU8yffa6+zbUJykLfKwcbj6pxtg14vk94WrL
-	cRbNNbMrR1p8E5WSGIWw/XDUeipYZQb7VvlKm+wxErXOcTPZBnb68OoIVZ78S0COihEpBSeA2xQ
-	Ez61v2aaxGBF2em2IKsKGHzbjuOz6+22W6XbLxZhdf4YkAwg2+x+RFg7aixSEcCICUei3
-X-Received: by 2002:a05:6a21:d83:b0:3bf:6c08:fb97 with SMTP id adf61e73a8af0-3c110a1b5b6mr3074871637.57.1783780761695;
-        Sat, 11 Jul 2026 07:39:21 -0700 (PDT)
-X-Received: by 2002:a05:6a21:d83:b0:3bf:6c08:fb97 with SMTP id adf61e73a8af0-3c110a1b5b6mr3074849637.57.1783780761218;
-        Sat, 11 Jul 2026 07:39:21 -0700 (PDT)
-Received: from [192.168.1.11] (15.sub-75-218-246.myvzw.com. [75.218.246.15])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b8a5992c9sm11166393c88.4.2026.07.11.07.39.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Jul 2026 07:39:20 -0700 (PDT)
-Message-ID: <779ee099-5132-4752-bdb8-354dfdc53926@oss.qualcomm.com>
-Date: Sat, 11 Jul 2026 07:39:19 -0700
+        bh=EAx8OQB6mwEunipzmDLE3fqBbjdRzmKEhIwMzOXLjyg=;
+        b=OHKAEMzzKAZD/nqXtI+rSIDSvSS8lYmeiViNBrxgfuziuKtd8fANqTnxZyJ8+ix8cU
+         NprCkkzSLUx7vKtW2NujZcYPo/qlpEkh7Y/9uFxIFzVq+OVzDJWJcWI1ejNfUQixDLCM
+         i54r2/sS4hsi4JC6eR4YcKFDELau/lkU4wXvpZ+Yc1vONa3w9Cf1bmdEnmyqhsA4w5V1
+         i5L1rZdlWHkNZVA0LalaubZnKQJEBdgbHTgbzhbOMB35O6wB6RC67EMwPszu6UeKvAU2
+         0F+1Gyyoz5NunqlaBRReT2+BO3FveJXnWxz6+JbDA3ufyuyUf43lLL+nZcfDDzYSVrnC
+         cxxg==
+X-Forwarded-Encrypted: i=1; AHgh+RqCj+H8MRaWy6EA2abEmgaJ80O7kcGHjTs9C1qBtnMdnRw7cR22O06njepCGuwVZN6hZOJuM0k=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOZIRhxP85GRjKWpP3AkyR+8RvThD6OldZVFGjt8HU5L+uqOk4
+	vKrbVbb1D5GXoUIiW7alU04in3OomU7YRg/W8MZ6Y1qVVPU87kfk0fZi
+X-Gm-Gg: AfdE7cnS9odvpGwP/BJUzq8I5s1jRD2iYj1PGdpL7nXOJjud9ECwuSvAb5aYFA4l2eZ
+	jRrkuV8ondh+jAyaiFZ1kA5ZbNVN+Egzgx18jEzxMEJtYfYKOJn0V29wk+8WS/Ypwvv5f4E/NFD
+	cWRMrp62S1dlEw2SMf1HnoV6L+b71BFQ0rBw+GLRtBZnBtcmQwzPQ+8kmEu5gzQEwvFC7XPivqC
+	maiapF+/fBA5ETqxB+w4P0Zzcli3jl/gQ38CJZNqEYJkiAOkdWOHn6rExQdyEqlee8XXbUcaY3+
+	hb3u+tKVYPQoEvtMbOQPLAUHp3ovi/vfMlSZDPrW0DbEt1FZDs5jSKLA4pkbnwNzb+zBOovGEbm
+	xHT/66Dxz/shzJIIUE1XiW9YTx6EFuTw7DVwsbqbm4m7awc8XcuFIJBcdfXvKHb+9u1jZqMvMyE
+	4S7qoC9v+USwEVIAf/DSrVd4rH7Rq9Rf03TPvPd4hIhpL0RzOBRe52XY+i9n/p7tKJcXDyxxkrB
+	xGj1Z0X6w==
+X-Received: by 2002:a05:6214:509a:b0:8fd:6e22:c7ee with SMTP id 6a1803df08f44-90402e69077mr35450716d6.63.1783782358994;
+        Sat, 11 Jul 2026 08:05:58 -0700 (PDT)
+Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd56c4b91sm68559686d6.19.2026.07.11.08.05.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Jul 2026 08:05:58 -0700 (PDT)
+From: Michael Bommarito <michael.bommarito@gmail.com>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] pnfs/blocklayout: reject zero chunk_size and volumes_count in GETDEVICEINFO
+Date: Sat, 11 Jul 2026 11:05:47 -0400
+Message-ID: <20260711150547.2912006-1-michael.bommarito@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: ath6kl: validate assoc info lengths in the WMI
- connect event
-To: Doruk Tan Ozturk <doruk@0sec.ai>, linux-wireless@vger.kernel.org
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-        Peddolla Harshavardhan Reddy <peddolla.reddy@oss.qualcomm.com>,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260711071336.58324-1-doruk@0sec.ai>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260711071336.58324-1-doruk@0sec.ai>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: FtBSrl5q7eWo4P1gy7P9PEukpKLpC5zl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzExMDE0NiBTYWx0ZWRfX2FjXgqq0xOFt
- eeY9JYEmj6A58Xa5UeLCX4mNj46QwCjmum1jr2Wr/VNH1dPK7AJIODnoJcW6/WezUigWR8JY2Wk
- tXTWy2jJAcV0hDziaAoK62Pp5c15QtRm4+wybUyf2i+XlA5Dlpgz5kaJdAue1DHFEJvcHzHGOuD
- SpmCfS88v+WI65YToaKDIwh+tIh3NGqMLD0fhlvDCCgpTcHqKdVYCYCD9CNcaCRnDDNQ6FSR0zi
- /fyPH9EJkFQMHGW3kxlqn3zMtHPM61spoMzfAqJikDfwbI/gW7KkmblxW3OT7QBYUl8pdondWkS
- REiom5lAiiBpki13dToIaJ1oaeY4ED+6mY6w6xlFPeUJdAZCqxHrN5ofJTb6OwKKz+pSShT1WXi
- yMQbPioaF8DJtYDwQsrsyS9/OEIfcKBdjJObw5/UEpDhcWuForQeYWc7lp8XL9cLY7fLLA+DlC6
- xbP64/1++qDOqYLrKcQ==
-X-Authority-Analysis: v=2.4 cv=O5MJeh9W c=1 sm=1 tr=0 ts=6a52559d cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=6VQYfvmiyQ8t40WkS/mQdw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=skqKI5o7AAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=XR8jsSC4JSa_CXHFb9AA:9
- a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22 a=Cs8KYam2t1nZR3VcZU7f:22
-X-Proofpoint-GUID: FtBSrl5q7eWo4P1gy7P9PEukpKLpC5zl
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzExMDE0NiBTYWx0ZWRfXzSJXHy3l1q9W
- nR5blNlpb9rcfo0z/U6dPHEvznmogppl+VLIq8Pq4+i77AJT0/a94Ro1BofoF1hvuWXt8tUsW6u
- li8BEDmCtOAF4BB/kAlo9L5N8H4ujyo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-11_04,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607110146
 
-On 7/11/2026 12:13 AM, Doruk Tan Ozturk wrote:
-> ath6kl_wmi_connect_event_rx() only checks that the received event is at
-> least sizeof(struct wmi_connect_event); it never checks that the trailing
-> beacon_ie_len + assoc_req_len + assoc_resp_len fields fit within the
-> received buffer. Those attacker/AP-influenced lengths then drive two
-> out-of-bounds accesses:
-> 
->   - The WMM information-element scan builds
->     peie = assoc_info + beacon_ie_len + assoc_req_len + assoc_resp_len
->     and walks up to it, reading past the end of the event buffer when the
->     declared lengths exceed the buffer. The walk also dereferences
->     pie[1..6] and pie[1] (for the advance) without checking they stay
->     within peie.
-> 
->   - ath6kl_cfg80211_connect_event() subtracts fixed offsets from
->     assoc_req_len (-= 4) and assoc_resp_len (-= 6), both u8, with no lower
->     bound. A short assoc request/response underflows the length to ~250,
->     which cfg80211_connect_result() / cfg80211_roamed() then treat as the
->     IE length and copy out of bounds from the small assoc_info buffer,
->     disclosing adjacent slab memory to user space via nl80211.
-> 
-> Bound the declared IE lengths against the received buffer, bound the WMM
-> element reads against peie, and clamp the assoc request/response lengths
-> before the subtraction. The sibling wil6210 driver already performs the
-> equivalent length check for the same WMI connect event.
-> 
-> Found by 0sec (https://0sec.ai) using automated source analysis; the
-> missing bounds are evident from source and cross-checked against the
-> sibling wil6210 driver. Compile-tested.
-> 
-> Fixes: bdcd81707973 ("Add ath6kl cleaned up driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: 0sec:claude-opus-4-8
-> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+nfs4_block_decode_volume() in fs/nfs/blocklayout/dev.c decodes stripe
+parameters from GETDEVICEINFO XDR without checking for zero values.
+A malicious pNFS server returning chunk_size=0 causes a division-by-
+zero panic in bl_map_stripe() via div_u64(offset, dev->chunk_size).
+Separately, volumes_count=0 passes the existing upper-bound check
+and causes a second division-by-zero via div_u64_rem(chunk,
+dev->nr_children=0).
 
-Some aspects of your patch are already addressed by:
-https://lore.kernel.org/all/20260421135009.348084-3-tristmd@gmail.com
+Impact: a malicious or compromised pNFS blocklayout server can panic an
+affected Linux NFS client after the client mounts/uses the server and maps
+I/O through the poisoned blocklayout. An in-kernel parser/mapper KUnit
+reproducer is available privately.
 
-So you will need to rebase once that lands.
+Reject both zero values at decode time with -EIO.
 
-/jeff
+Fixes: 5c83746a0cf2 ("pnfs/blocklayout: in-kernel GETDEVICEINFO XDR parsing")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+---
+ fs/nfs/blocklayout/dev.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/fs/nfs/blocklayout/dev.c b/fs/nfs/blocklayout/dev.c
+index cc6327d97a91a..fc60669db3ec4 100644
+--- a/fs/nfs/blocklayout/dev.c
++++ b/fs/nfs/blocklayout/dev.c
+@@ -183,8 +183,11 @@ nfs4_block_decode_volume(struct xdr_stream *xdr, struct pnfs_block_volume *b)
+ 			return -EIO;
+ 
+ 		p = xdr_decode_hyper(p, &b->stripe.chunk_size);
++		if (!b->stripe.chunk_size)
++			return -EIO;
+ 		b->stripe.volumes_count = be32_to_cpup(p++);
+-		if (b->stripe.volumes_count > PNFS_BLOCK_MAX_DEVICES) {
++		if (!b->stripe.volumes_count ||
++		    b->stripe.volumes_count > PNFS_BLOCK_MAX_DEVICES) {
+ 			dprintk("Too many volumes: %d\n", b->stripe.volumes_count);
+ 			return -EIO;
+ 		}
+-- 
+2.53.0
