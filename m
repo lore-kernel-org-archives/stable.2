@@ -1,109 +1,120 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC89913C9C4;
-	Sat, 11 Jul 2026 04:20:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA8614EC73;
+	Sat, 11 Jul 2026 05:04:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783743606; cv=none; b=KcLAB1y2Zn5apUP5dvgOPK6NMkaK8d3h1oOOLdUpml/v9KhroL5hypePa4aNRLFTCbc97Sp6KJPLh69vejxTc4x1C9gt3ziOBMNobAzAPnCPfgXScI9HKx0e4VnSfjPEeo5DKxTVw2CVY/EzlXVe1OW8seLWSWGQfo5sg/C8SRI=
+	t=1783746270; cv=none; b=AF+mFbRfT2CYahX7/vleMbicZXb6Lyrr4GLHgLAqClLiV0NXv6GCH6ACCbOaheGbJpgecexH4a1wN9g0vsCQtfdrEGH8RPeERFJ8Mt90Di0K4wE7L7NwWuX1V26gKlUfePso5h+ZBPq8iF/vx35RGPJHJJHeCf6QPB48dhDBRGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783743606; c=relaxed/simple;
-	bh=wL/rTiue4eDZMYo1E6xOL0tZBPsxYjpn9iZ320TLD/I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bJJmiv2q/imP24oZU30okDztFk79jP7KwWJvwLIdFTCEOUGpZotcvcmPoOS12zrwtn9G/f+CAjy6/Qf/SpBMVoVGs61JhSTgcGju0Ms8HfEIiKkGwQNTUF/Om+JvVGdDNTo+hNykGRTIjXtpuG1fPcBiR+osEirNxtEoQZtQZ0A=
+	s=arc-20240116; t=1783746270; c=relaxed/simple;
+	bh=sMujRkzP+0svfJnmRczxcQ7AePeemebynXdWZ0h9VGE=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=KVhC9Agh5btIIduBqBcyYBr0LkreeISB5odDr5I3VnOaLeeauI+uwxYt1tyV2uDuHYP57w+M/sR9WocKd9y6YK6Yqux+nyYvUaXw5iCcaNovZ0ja7zvl8PvHl6FMozGmPsxvMkPWwBKFT/BDQlYqhoK4VF99ymhnh5zY5KA8XNg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: c742c4a07cdf11f1aa26b74ffac11d73-20260711
+X-UUID: f88789647ce511f1aa26b74ffac11d73-20260711
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_QP, HR_CTT_TXT
+	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_MAILER_MTBG
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_PRE_RE, HR_SJ_WS, HR_TO_COUNT
+	HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR
+	SRC_UNFAMILIAR, DN_TRUSTED, SRC_TRUSTED, SA_EXISTED, SN_UNTRUSTED
+	SN_UNFAMILIAR, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD_SPF
+	CIE_UNKNOWN, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
+	ABX_MISS_RDNS
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:8f0cc9af-a872-43b3-8a0c-47185e98c887,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:d01a9fcadf696ed342315feaf3c2f80d,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.12,REQID:1281cd33-2b67-4854-bbd9-17ee00ce8ccf,IP:10,
+	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:5
+X-CID-INFO: VERSION:1.3.12,REQID:1281cd33-2b67-4854-bbd9-17ee00ce8ccf,IP:10,UR
+	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:5
+X-CID-META: VersionHash:e7bac3a,CLOUDID:2c71dac5849ae06242c1f1c11ef34077,BulkI
+	D:260710221752NO56G64A,BulkQuantity:4,Recheck:0,SF:17|19|64|66|78|80|81|82
+	|83|102|127|841|865|898,TC:nil,Content:0|15|52,EDM:-3,IP:-2,URL:0,File:nil
+	,RT:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,D
+	KP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c742c4a07cdf11f1aa26b74ffac11d73-20260711
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1833275747; Sat, 11 Jul 2026 12:19:58 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: akpm@linux-foundation.org,
-	david@fromorbit.com,
-	qi.zheng@linux.dev,
-	roman.gushchin@linux.dev,
-	muchun.song@linux.dev
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm: shrinker: Fix double-free in alloc_shrinker_info error path
-Date: Sat, 11 Jul 2026 12:19:54 +0800
-Message-Id: <20260711041954.95749-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+X-UUID: f88789647ce511f1aa26b74ffac11d73-20260711
+X-User: husong@kylinos.cn
+Received: from ehlo.thunderbird.net [(223.160.130.75)] by mailgw.kylinos.cn
+	(envelope-from <husong@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1252713203; Sat, 11 Jul 2026 13:04:18 +0800
+Date: Sat, 11 Jul 2026 13:04:12 +0800
+From: Song Hu <husong@kylinos.cn>
+To: SJ Park <sj@kernel.org>
+CC: damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] Docs/ABI/damon: fix typo in intervals_goal sysfs path
+User-Agent: Thunderbird for Android
+In-Reply-To: <20260711002127.32005-1-sj@kernel.org>
+References:  <20260711002127.32005-1-sj@kernel.org>
+Message-ID: <C8C472D0-9818-4569-87EC-1B95BE9667F2@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-In alloc_shrinker_info(), when shrinker_unit_alloc() fails for a node,
-the error handler calls free_shrinker_info() which iterates over ALL
-nodes and tries to free their shrinker_info. For the failed node,
-rcu_assign_pointer() was skipped, so its shrinker_info still points
-to old data. This causes double-free of valid shrinker_info structures.
 
-Fix by tracking which node failed and only freeing shrinker_info
-structures that were successfully assigned via rcu_assign_pointer()
-in this call. Failed/unhandled nodes are left untouched.
 
-Fixes: 15e8156713cc ("mm: shrinker: avoid memleak in alloc_shrinker_info")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- mm/shrinker.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+=E4=BA=8E 2026=E5=B9=B47=E6=9C=8811=E6=97=A5 GMT+08:00 08:21:25=EF=BC=8CSJ=
+ Park <sj@kernel=2Eorg> =E5=86=99=E9=81=93=EF=BC=9A
+>On Fri, 10 Jul 2026 07:17:37 -0700 SJ Park <sj@kernel=2Eorg> wrote:
+>
+>> On Fri, 10 Jul 2026 12:47:34 +0800 Song Hu <husong@kylinos=2Ecn> wrote:
+>>=20
+>> > The ABI document spells the DAMON sysfs directory as "intrvals_goal"
+>> > (missing 'e') in four What: entries, but the kernel creates it as
+>> > "intervals_goal" (mm/damon/sysfs=2Ec)=2E  Following the documented pa=
+th
+>> > therefore yields a non-existent directory=2E
+>>=20
+>> Nice catch!
+>>=20
+>> >=20
+>> > Fixes: e2b23dc62369 ("Docs/ABI/damon: document intervals auto-tuning =
+ABI")
+>> > Cc: stable@vger=2Ekernel=2Eorg
+>
+Hi SJ,
 
-diff --git a/mm/shrinker.c b/mm/shrinker.c
-index 7082d01c8c9d..92c6cb455fc9 100644
---- a/mm/shrinker.c
-+++ b/mm/shrinker.c
-@@ -78,6 +78,7 @@ int alloc_shrinker_info(struct mem_cgroup *memcg)
- {
- 	int nid, ret = 0;
- 	int array_size = 0;
-+	int failed_nid;
- 
- 	mutex_lock(&shrinker_mutex);
- 	array_size = shrinker_unit_size(shrinker_nr_max);
-@@ -98,8 +99,18 @@ int alloc_shrinker_info(struct mem_cgroup *memcg)
- 	return ret;
- 
- err:
-+	failed_nid = nid;
-+	for_each_node(nid) {
-+		struct shrinker_info *info;
-+
-+		if (nid >= failed_nid)
-+			break;
-+		info = shrinker_info_protected(memcg, nid);
-+		rcu_assign_pointer(memcg->nodeinfo[nid]->shrinker_info, NULL);
-+		shrinker_unit_free(info, 0);
-+		kvfree(info);
-+	}
- 	mutex_unlock(&shrinker_mutex);
--	free_shrinker_info(memcg);
- 	return -ENOMEM;
- }
- 
--- 
-2.25.1
+Thanks a lot for your thorough reviews and ongoing support=2E
 
+I will strictly check the complete recipient list generated by =C2=A0get_m=
+aintainer=2Epl=C2=A0 for all future patch submissions=2E
+
+>By the way, hotfixes and non-hotfixes usually take different trains to th=
+e
+>mainline=2E  Having those in single series therefore makes maintainer wor=
+ks
+>difficult=2E  I understand this is not a hotfix but just somewhat worthy =
+to
+>eventually be backported to stable kernels=2E  So no problem for this=2E
+>
+>But, from the next time, please clarify or use different series for Cc: s=
+table@
+>patches=2E
+>
+As I=E2=80=99m still figuring out the correct timing for =C2=A0Cc: stable@=
+=C2=A0, I will consult with you prior to adding this tag next time and sepa=
+rate stable-bound patches into an independent series=2E
+
+Thanks,
+Song
+>
+>Thanks,
+>SJ
+>
+>[=2E=2E=2E]
