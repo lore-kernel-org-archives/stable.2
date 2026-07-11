@@ -1,145 +1,146 @@
-Received: from SHSQR01.spreadtrum.com (unknown [222.66.158.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4CC30F938;
-	Sat, 11 Jul 2026 11:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=222.66.158.135
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783768975; cv=none; b=VtyMrh0cXCGFaLTSVjUkRSChiwqzFOGj+QfIDRIaFhRNO+th9cXj+cFm/XaCxOBs1voSzORMG6FpFRk9MXNakElNa0NnLj1+ii6JDM735VLkBFem/PP2i8CHwSozvSAh5UZKuZfaBBJPd9XBBfglLzwT1yEMdI7iePv1crEXqVY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783768975; c=relaxed/simple;
-	bh=D0dwrnSmOBKFI/0heE7SKN6tSLsYQ71yibQoUv3B/yM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=M4ilcS2GTvNP3Aje/2s4Rhf0OHCTnCqPkYDydlLxiK0KwGCkVhaglyQo6rgwuDxbk2JKH5ydd/fwr3vbwrEzORteuEv0XO7m1kcThwWxPGbCgXFRYUVPev0EuSlSRPEqm+lFRPeyrIcnrKUSAA/vNdaZDA+h41itPrXtJrRsdLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=unisoc.com; spf=pass smtp.mailfrom=unisoc.com; dkim=pass (2048-bit key) header.d=unisoc.com header.i=@unisoc.com header.b=Tsud9637; arc=none smtp.client-ip=222.66.158.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=unisoc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unisoc.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187323C3443
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 11:51:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783770704; cv=pass; b=jLq0comfm8SiQt6XQdIRTY10Z3JJI5HbzfUrGgjRyC1Zgm4SdJ9+dFvh281Otd3HrHrBjHJg0NN3Vca+ZHzQUeUH0GyAUtilBakTSgTBk6PK9d//ycjYcFtTljvhCATnpuSdIltJK4sSgufoZWPSkW247BUtuAEcMO59wmpSfd8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783770704; c=relaxed/simple;
+	bh=32RtRzJ7crDmrcnf8nK4Ny6k5rIl6i+EKv0kmdGD3Bg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Yrn2ID7X/5/vUwTS61Ni9uYKG//QkiegGEcr5bWyr+pX+MoXAxNrKO5iOQkQFEn6f8Obb0hF6IEwvIJdez6UTc/ks3iF/XQw99277KaQcNLV63nf3cApyDDTPfhQC2lLfwFscHrQnnXapo5JYAiEIYHRKYquHO70K2XkE2Gk7wk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YFt8VCoY; arc=pass smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=unisoc.com header.i=@unisoc.com header.b="Tsud9637"
-Received: from dlp.unisoc.com ([10.29.3.86])
-	by SHSQR01.spreadtrum.com with ESMTPS id 66BBLSuf006507
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Sat, 11 Jul 2026 19:21:28 +0800 (+08)
-	(envelope-from kui.sun@unisoc.com)
-Received: from SHDLP.spreadtrum.com (zeshmbx09.spreadtrum.com [10.29.3.107])
-	by dlp.unisoc.com (SkyGuard) with ESMTPS id 4gy5qL5npcz2PXf5R;
-	Sat, 11 Jul 2026 19:21:02 +0800 (CST)
-Received: from zeshmbx08.spreadtrum.com (10.29.3.106) by
- zeshmbx09.spreadtrum.com (10.29.3.107) with Microsoft SMTP Server (TLS) id
- 15.0.1497.48; Sat, 11 Jul 2026 19:21:26 +0800
-Received: from zeshmbx08.spreadtrum.com ([fe80::e01e:2441:3a50:dadb]) by
- zeshmbx08.spreadtrum.com ([fe80::e01e:2441:3a50:dadb%17]) with mapi id
- 15.00.1497.048; Sat, 11 Jul 2026 19:21:26 +0800
-From: =?utf-8?B?5a2Z6a2BIChLdWkgU3VuKQ==?= <kui.sun@unisoc.com>
-To: "'Bart Van Assche'" <bvanassche@acm.org>,
-        Neil Armstrong
-	<neil.armstrong@linaro.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        "Avri
- Altman" <avri.altman@wdc.com>,
-        "James E.J. Bottomley"
-	<James.Bottomley@HansenPartnership.com>,
-        "Martin K. Petersen"
-	<martin.petersen@oracle.com>,
-        "andre.draszik@linaro.org"
-	<andre.draszik@linaro.org>
-CC: Peter Griffin <peter.griffin@linaro.org>,
-        Tudor Ambarus
-	<tudor.ambarus@linaro.org>,
-        Will McVicker <willmcvicker@google.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "kernel-team@android.com"
-	<kernel-team@android.com>,
-        "linux-samsung-soc@vger.kernel.org"
-	<linux-samsung-soc@vger.kernel.org>,
-        "linux-scsi@vger.kernel.org"
-	<linux-scsi@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "stable@vger.kernel.org"
-	<stable@vger.kernel.org>,
-        "linux-arm-msm@vger.kernel.org"
-	<linux-arm-msm@vger.kernel.org>,
-        =?utf-8?B?5byg5aaC5rOJIChSYWluIFpoYW5nKQ==?=
-	<Rain.Zhang@unisoc.com>,
-        "cixi.geng@linux.dev" <cixi.geng@linux.dev>,
-        =?utf-8?B?5ZSQ5pyI5p6XIChZdWVsaW4gVGFuZyk=?= <yuelin.tang@unisoc.com>,
-        =?utf-8?B?6ZmI5paH6LaFIChXZW5jaGFvIENoZW4p?= <Wenchao.Chen@unisoc.com>,
-        =?utf-8?B?QW5kcsOpIERyYXN6aWs=?= <andre.draszik@linaro.org>
-Subject: =?utf-8?B?562U5aSNOiBbUkZDXSBTaWduaWZpY2FudCBSYW5kb20gSS9PIFBlcmZvcm1h?=
- =?utf-8?B?bmNlIFJlZ3Jlc3Npb24gaW4gTGludXggS2VybmVsIDYuMTggKFVwIHRvIDI3?=
- =?utf-8?Q?.7%)_Likely_Caused_by_Commit_3c7ac40d7322?=
-Thread-Topic: [RFC] Significant Random I/O Performance Regression in Linux
- Kernel 6.18 (Up to 27.7%) Likely Caused by Commit 3c7ac40d7322
-Thread-Index: Ad0PYz14eL5yCSXkTdewaVgxWTlWPgA1fqOAADuDkfA=
-Date: Sat, 11 Jul 2026 11:21:26 +0000
-Message-ID: <7863f3e51a8e4d52acdd24a6aea9cf5f@zeshmbx08.spreadtrum.com>
-References: <12a8417dc8644a71b9cb25c53c93805a@zeshmbx08.spreadtrum.com>
- <d426b4d5-cdf5-4090-8e94-62e652f712dc@acm.org>
-In-Reply-To: <d426b4d5-cdf5-4090-8e94-62e652f712dc@acm.org>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YFt8VCoY"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cad85b7b5aso1760665ad.1
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 04:51:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783770695; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mZerM8hnAWiuOSvLWREfyJislvwH4riGuVqOnGU4ZtbToIi/lFg/4Hkqb5mAy3TYJU
+         E1B33md9CtQkoUUWd0FRWTi2PN4YsM9qGw5NGILNoArbnEGTC6NRZoqapjaW0xDDPl1I
+         nufzRyBI2l+KtptYHm0rFpS4lep7QepMn3qJOD5884uD0g/o72Z5mdE1h03px8rFNKff
+         bOHyV1+1ZehQDzwgjlV/7Qs+XIUhGbQ7r5oGUzS1AWSpQJOLDb2kCslDN42luXrUF4px
+         p9oFEl8ZLJ9bP7UrIBoCvPQAJQJ4sP7swyt8W3q76l4xq+N3y6m3Qgx1w60aaHzUKL1+
+         XaBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+UMGE819wkdK2DVLaPYqRBNsu1W7eq8gbWnBfh/WA5A=;
+        fh=NVjgPsVbZDntEU46CaoAT7QqFpGYgB79RA+kw2vHe+o=;
+        b=qCCNvFV3+PCwPYn5Hj9BUi41Je+tF9gOYVGZ/SBYGcwyJa2/kPjLQwqYD/FKyGcRDe
+         gSnT4ofGY1VQ2LTcJNPYLm6Xb0PPNmw4V5sh8s9iTP+ZDmjzdEysKe797ce5LZm8uMNP
+         W5FpD8IwwCG3YBCU3tcrSGf36hYw7+/3MhvTPnBQ0mcWwWj31wqqEvQu0yogKd03OMYv
+         ow9Os9O9oGcR6w2pOhhwALVTNzMA3nXzHOE+JCZOvzMFT9lOTpp3PUCWkqYjhwVG47J8
+         BRTgKY8yze/TO10/5JjE+Qqh46KDLURpzM95xpwsYeeHH8vIX1WKy71EqWT2ZhJy27r9
+         QoxQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783770695; x=1784375495; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+UMGE819wkdK2DVLaPYqRBNsu1W7eq8gbWnBfh/WA5A=;
+        b=YFt8VCoY66Mo5Vua5AKiHUBhXhy157WmYWTk4MpHA64g8/XgsINCiD2lS0j1cGFUl4
+         EJWH73p5xs67rnvNQAg+BVx3jKbn6H7GE2rQc64USKYQP0Nll0z+dWCwv0DgC4Az6HSV
+         LD3aEDNY4GiO6azuozWqBAUrRCxG5RJxyFsVSGLlP7F47UIU0/eBJ47Qo+AW0pWdjJ9y
+         zpXM+TetBcQ9IFCCjyCt7DzRO7ITq3EaAkswYeUOAHlF+VvxJ78IDImQOp0durjb5Hip
+         vTYJP872Ej2VrkHdyvei+un4ZMg0QBI2FW3pPqa0omss473f8rFIRU1Mtppg+t4iLqUj
+         G6zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783770695; x=1784375495;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+UMGE819wkdK2DVLaPYqRBNsu1W7eq8gbWnBfh/WA5A=;
+        b=T4Lwre2IGBfK2mJoOYFqKhjExnvkWMhuQ8wnVvP7xAgJDCcxmBfGbixYSqNgw/hT6A
+         KPjQai66NrT4Q81yqb8Ye1dpMAOS5kAA4FoM630SEfQQoulefgVirsRKwPVliN7veSwD
+         W8gImdrt1Vbke92UlxUpnRAdEek0NOm9gOr2oidmTRyR8sKsclhGZ7FojiLUT3KsCXnN
+         2tIdEjlujqgfOTDSAIeEXmiPJN51ieZWO909KZtkdDamVtdGyFzhRgxR6781aX6oTTVc
+         zRW1w6D1T+tIlXDaNAQy7RHbfdy4FYe8FYHti2dB0/YiCK6JoRLxv1+O6MiZAl09aCTc
+         3NMA==
+X-Forwarded-Encrypted: i=1; AHgh+RrEzpNVNyPeMLgKb3MeOC4Si3GkZLeBvcCpJAalHqqmEoZ85hxJORh8mNuO9AotpNpXzU8/SHQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YypRI0sxGzOYKjckyDb7bB6i81SH24gqA/TDTVDuWX/SH6dIUTm
+	yzkO7bYHSopt5RWfzQAijsCq+98qwBtoDM+GvLsdOeNs7xus4Df9B9Jl21sqrQ8hJmc+WPhvWwi
+	oHMxZ34o2MEzfJM3UVNIX4yTIJIDowms=
+X-Gm-Gg: AfdE7cldCso1XGv02onEtrtTf0so2eve+l9vfGxMYe1Y7t6alUL23JEK3aVbG2McuQG
+	dvv3oJEUuJCTE7EyR+AcdvpbireTf/ctaVaGLBivexk9tAWyjzYPYO89u0YxbjdvalfMmyvvBrj
+	eqS62mJZGZymdoK83h/oI4aJ1xH6CYGNb6PlCxAeDdgXP1e7GRK9zBvG6QPkpVO7gaJ+TMrKkgX
+	nQrsSz+KBYpeyPX1/nGaDFD2Dc7Barl7pXyFDNbkd8m6aQ1dwBSc0UynjjP80VZJegBsJ+sbkr4
+	pXQwDfaplAfGitJIPe3BeoKqhvg/x+cu/RjVL46RZVgSCrOkTNUrrgT3eGUPp7ugFXuBCNGhI2i
+	jwLx+kB1iUEIAXdYFdeGpR7A=
+X-Received: by 2002:a17:90b:2e0b:b0:38d:90c1:2400 with SMTP id
+ 98e67ed59e1d1-38dc74c8082mr2087131a91.2.1783770695310; Sat, 11 Jul 2026
+ 04:51:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MAIL:SHSQR01.spreadtrum.com 66BBLSuf006507
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=unisoc.com;
-	s=default; t=1783768894;
-	bh=D0dwrnSmOBKFI/0heE7SKN6tSLsYQ71yibQoUv3B/yM=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To;
-	b=Tsud9637hXldYBRVZtnzlyGuVje6EnMmzmwqtyW7eCY6iunWo1/QpxhyzuQed7c+b
-	 1MzD23C+0iLNeYPkYCe2N1UUwN+Z/FIhtj5+L9TWsIk55hpvrPC/eK1c7H/SQK8ZFk
-	 nAsPiQwC45ojsp6vF6zE0wtCI6riMkbKzrIenthuGwFpxq5jgNkP0Y3fDVEx6RO+aA
-	 NiDXZNzCPoyCATMvnD3lfeIEcEgxvJfh1L2qr/EPHGSqj+xQCs0OFMMn6Gko0Ehmtw
-	 PWYn5wOuSSl+l7QLVRpc1UfY1wmMSxPvlyo19cMHPe78kD98U+CrAtmqYYCoJ1ce4Q
-	 oC+xUX/dakAuw==
+References: <20260710173252.191781-1-ojeda@kernel.org>
+In-Reply-To: <20260710173252.191781-1-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sat, 11 Jul 2026 13:51:22 +0200
+X-Gm-Features: AUfX_mwoKjXTHcjSODaSdur4011uhKST8J0DfGvxttGWqmvWIQB4Nfm07D_RmM4
+Message-ID: <CANiq72keASONEFeLQivMaSnpio3zVgSGCAsTcxjevizdBcZ+Mg@mail.gmail.com>
+Subject: Re: [PATCH] objtool/rust: add one more `noreturn` Rust function for
+ Rust 1.99.0
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, stable@vger.kernel.org, 
+	Petr Pavlu <petr.pavlu@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-V2UgaGF2ZSBhbHJlYWR5IGluY2x1ZGVkIHRoZXNlIHR3byBmaXhlcywgd2hpY2ggYXJlIHJlbGF0
-ZWQgdG8gc3RhYmlsaXR5LiBUaGUgaXNzdWUgd2UncmUgZW5jb3VudGVyaW5nIGlzIHBlcmZvcm1h
-bmNlLXJlbGF0ZWQNCg0KVGhhbmsgWW91Lg0KDQotLS0tLemCruS7tuWOn+S7ti0tLS0tDQrlj5Hk
-u7bkuro6IEJhcnQgVmFuIEFzc2NoZSA8YnZhbmFzc2NoZUBhY20ub3JnPiANCuWPkemAgeaXtumX
-tDogMjAyNuW5tDfmnIgxMOaXpSAyMjo1Ng0K5pS25Lu25Lq6OiDlrZnprYEgKEt1aSBTdW4pIDxr
-dWkuc3VuQHVuaXNvYy5jb20+OyBOZWlsIEFybXN0cm9uZyA8bmVpbC5hcm1zdHJvbmdAbGluYXJv
-Lm9yZz47IEFsaW0gQWtodGFyIDxhbGltLmFraHRhckBzYW1zdW5nLmNvbT47IEF2cmkgQWx0bWFu
-IDxhdnJpLmFsdG1hbkB3ZGMuY29tPjsgSmFtZXMgRS5KLiBCb3R0b21sZXkgPEphbWVzLkJvdHRv
-bWxleUBIYW5zZW5QYXJ0bmVyc2hpcC5jb20+OyBNYXJ0aW4gSy4gUGV0ZXJzZW4gPG1hcnRpbi5w
-ZXRlcnNlbkBvcmFjbGUuY29tPjsgYW5kcmUuZHJhc3ppa0BsaW5hcm8ub3JnDQrmioTpgIE6IFBl
-dGVyIEdyaWZmaW4gPHBldGVyLmdyaWZmaW5AbGluYXJvLm9yZz47IFR1ZG9yIEFtYmFydXMgPHR1
-ZG9yLmFtYmFydXNAbGluYXJvLm9yZz47IFdpbGwgTWNWaWNrZXIgPHdpbGxtY3ZpY2tlckBnb29n
-bGUuY29tPjsgTWFuaXZhbm5hbiBTYWRoYXNpdmFtIDxtYW5pQGtlcm5lbC5vcmc+OyBrZXJuZWwt
-dGVhbUBhbmRyb2lkLmNvbTsgbGludXgtc2Ftc3VuZy1zb2NAdmdlci5rZXJuZWwub3JnOyBsaW51
-eC1zY3NpQHZnZXIua2VybmVsLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZzsgc3Rh
-YmxlQHZnZXIua2VybmVsLm9yZzsgbGludXgtYXJtLW1zbUB2Z2VyLmtlcm5lbC5vcmc7IOW8oOWm
-guaziSAoUmFpbiBaaGFuZykgPFJhaW4uWmhhbmdAdW5pc29jLmNvbT47IGNpeGkuZ2VuZ0BsaW51
-eC5kZXY7IOWUkOaciOaelyAoWXVlbGluIFRhbmcpIDx5dWVsaW4udGFuZ0B1bmlzb2MuY29tPjsg
-6ZmI5paH6LaFIChXZW5jaGFvIENoZW4pIDxXZW5jaGFvLkNoZW5AdW5pc29jLmNvbT47IEFuZHLD
-qSBEcmFzemlrIDxhbmRyZS5kcmFzemlrQGxpbmFyby5vcmc+DQrkuLvpopg6IFJlOiBbUkZDXSBT
-aWduaWZpY2FudCBSYW5kb20gSS9PIFBlcmZvcm1hbmNlIFJlZ3Jlc3Npb24gaW4gTGludXggS2Vy
-bmVsIDYuMTggKFVwIHRvIDI3LjclKSBMaWtlbHkgQ2F1c2VkIGJ5IENvbW1pdCAzYzdhYzQwZDcz
-MjINCg0KDQrms6jmhI86IOi/meWwgemCruS7tuadpeiHquS6juWklumDqOOAgumZpOmdnuS9oOeh
-ruWumumCruS7tuWGheWuueWuieWFqO+8jOWQpuWImeS4jeimgeeCueWHu+S7u+S9lemTvuaOpeWS
-jOmZhOS7tuOAgg0KQ0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0c2lkZSBv
-ZiB0aGUgb3JnYW5pemF0aW9uLiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50
-cyB1bmxlc3MgeW91IHJlY29nbml6ZSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlz
-IHNhZmUuDQoNCg0KDQpPbiA3LzEwLzI2IDEyOjE3IEFNLCDlrZnprYEgKEt1aSBTdW4pIHdyb3Rl
-Og0KPiBUaHJvdWdoIGludmVzdGlnYXRpb24sIHdlIGlkZW50aWZpZWQgdGhhdCB1cHN0cmVhbSBj
-b21taXQgDQo+IDNjN2FjNDBkNzMyMjMyZmVjMGJhMzFkMGE1ZTNjYzljMTEyZmMyZTcsIG1lcmdl
-ZCBpbiBBcHJpbCAyMDI1LCBpcyANCj4gbGlrZWx5IHJlc3BvbnNpYmxlIGZvciB0aGlzIHBlcmZv
-cm1hbmNlIGRyb3AuDQpUd28gZml4ZXMgZm9yIHRoYXQgY29tbWl0IGFyZSBwcmVzZW50IGluIHRo
-ZSB1cHN0cmVhbSBrZXJuZWwuIEFyZSB0aGVzZSBmaXhlcyBwcmVzZW50IGluIHlvdXIga2VybmVs
-IHRyZWU/DQoNCmNvbW1pdCBlYWJjYWM4MDhjYTNlZTk4NzgyMjNkNGI0OWI3NTA5NzkwMjkwMTZi
-DQpBdXRob3I6IEJhcnQgVmFuIEFzc2NoZSA8YnZhbmFzc2NoZUBhY20ub3JnPg0KRGF0ZTogICBG
-cmkgQXVnIDE1IDA4OjU4OjIzIDIwMjUgLTA3MDANCg0KICAgICBzY3NpOiB1ZnM6IGNvcmU6IEZp
-eCBJUlEgbG9jayBpbnZlcnNpb24gZm9yIHRoZSBTQ1NJIGhvc3QgbG9jaw0KDQpjb21taXQgMDM0
-ZDMxOWM4ODk5ZThjNWMwYTM1YzY2OTJjN2ZjN2U4YzEyYzM3NA0KQXV0aG9yOiBOaXRpbiBSYXdh
-dCA8cXVpY19uaXRpcmF3YUBxdWljaW5jLmNvbT4NCkRhdGU6ICAgVHVlIEp1bCAyOSAwNDoyNzox
-MSAyMDI1ICswNTMwDQoNCiAgICAgc2NzaTogdWZzOiBjb3JlOiBGaXggaW50ZXJydXB0IGhhbmRs
-aW5nIGZvciBNQ1EgTW9kZQ0KDQpUaGFua3MsDQoNCkJhcnQuDQo=
+On Fri, Jul 10, 2026 at 7:33=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
+te:
+>
+> Starting with Rust 1.99.0 (expected 2026-10-01), under
+> `CONFIG_RUST_DEBUG_ASSERTIONS=3Dy`, `objtool` may report:
+>
+>     rust/kernel.o: warning: objtool: _R..._6kernel12module_param9set_para=
+maEB4_()
+>     falls through to next function _R..._6kernel12module_param9set_paramh=
+EB4_()
+>
+> (and many others) due to calls to the `noreturn` symbol [1]:
+>
+>     core::panicking::panic_null_reference_constructed
+>
+> Thus add the mangled one to the list so that `objtool` knows it is
+> actually `noreturn`.
+>
+> See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
+> for more details.
+>
+> Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned i=
+n older LTSs).
+> Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Petr Pavlu <petr.pavlu@suse.com>
+> Link: https://github.com/rust-lang/rust/pull/158796 [1]
+> Reported-by: Alice Ryhl <aliceryhl@google.com>
+> Link: https://lore.kernel.org/rust-for-linux/alEBInX9gD1M5NAr@google.com/
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+
+Applied to `rust-fixes` -- thanks!
+
+I changed a Link: to Closes:
+
+Tags still welcome for a day or so.
+
+Cheers,
+Miguel
