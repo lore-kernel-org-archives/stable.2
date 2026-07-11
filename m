@@ -1,78 +1,79 @@
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF1A2C21E6
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 15:06:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4E8285068
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 15:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783782378; cv=none; b=KUWTOEmXrWMy8qD8KR0tq+rzY7oL1GCyuuHebW1WSfqrG4lLDdkt2V1HVINAj+kS6yYAFF82FF5UoNtji0117c5k5XR7OMZj4mz8Wz69XaRbuGm03Ajgm5gWT8cF4IgQ5RV5V/sYYQLv+x3D5+Rc0WhegEXRN93NiKpwC3Q8EtM=
+	t=1783782396; cv=none; b=qSHKgqO/UPH1CqJcJw7B9toMuB9PUAtrQAGoTSgnKAHpGgYl5JtHdhXa+Na/uPmRzuZ1iChCFIN8HcU6fK7AVop+O0F0BISpaLEx9q3n8Re4k7mDzv+8sh7K7Wjier8QKl/koylDXsOhnRrKyoVXZCFwpc1x/VOCbFZ1PX4BxqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783782378; c=relaxed/simple;
-	bh=b0Csvthvox+ZikmYZaH+PCSy1gktpVVyy/GCAs1XN5o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mxfoeUXjlgiDVYzypff0jOpgMeG2KceTNFEKFLs3tLXRsoqLnLKzm8rOVE9t1Bs+eRkOoVk7ctN8lGXDs3RIU3zlJShM1gpBAbADIob3rq3f/nxWgeszse//LRNcJkvMFp/dTWUicp1JKur5YiKZ8zyXK+A8P9rcXeLMYmhu2Z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KBxwkMw9; arc=none smtp.client-ip=209.85.222.169
+	s=arc-20240116; t=1783782396; c=relaxed/simple;
+	bh=xfd1Qij55WSKgMYmH/iULiROavfzelZy0Gq6Ktbvt4s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BopV2P3/HCL6SZJcT6pAeSx+FBM67KQwYZDv/OriYBIYxPLRb9lI1uMIbxZfBHOx4CM5hpWdK3znr0qLzk+GBfuY/9+oxisevafEVemfE15fF8OIbAPhfxESl3bgNXi7DkGN9pvCAqmqjQQtXTtcbvGo/IbwpnUjeSVcKGmTYG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RdER+N6g; arc=none smtp.client-ip=209.85.160.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KBxwkMw9"
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-92e85499ffbso152190285a.0
-        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 08:06:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RdER+N6g"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-51c22c61795so12471601cf.0
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 08:06:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783782375; x=1784387175; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gg+ng2VSqRvXrUN5u/dXzTCEv77wgL5YHqysVwmsFOE=;
-        b=KBxwkMw94dijwIu7KeD0+36XbwQhET1hFLojN7VaPTWFLs1/l2g9gGRVX4e5bTTvhj
-         fxfbXO2We+eT1/sQPC0LnW7DKsmT+P9NfO4fgBVmBlzftcab4a898a813DUecYViNCTI
-         ZFwxwecQfdWJnfJDxwjHu7fnBvedDK5vZXBngJeTeDzLG2O1sHJXHnMi9IlLdtWmOTNW
-         cLJDLa6qe/zFhJ9Yg0VeKenfyL/e7dGuEokGAPTofvM/AobDktwSt1iC45GSFkoLGN7f
-         +aNNuJWzWW82h7EtO8UPdERB5dtHPs9GxkJbuKvEh05T+ecDMvh/J3M/EgIFPrYEqdPP
-         dimQ==
+        d=gmail.com; s=20251104; t=1783782392; x=1784387192; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XSPQ4s327xjju3OZzaMxfnUi+7xam88AtuluAZAKUPI=;
+        b=RdER+N6ghm5RpSKKvj+gqtJxRBfPmMkBL8fMv4K6APpV1kKcCcxbKfb5/4cKDFpTtg
+         FwCU4a/ts9PUK1uxOiASMqHWAPZBj7oCY5/VG2TDLeMgcFI0F3pmM6OehTWfJxlWvWmA
+         ah3CqWm3AK/jmu2R6lJVPtlaj0PmN8hka8eK+DXUa/pVcf1fygS69HwuV4pENMFmziC/
+         xROgyWzftvniM5Q86qCuKbjsmDvx6lx9HgEXP8eicWeLYRGBw3muIhXTNrn1ja2P5Q29
+         q7vDzGqm5U8rmfAtaCRZJOwQdyAKP+Mx1n2TTczKw2aLxJHKKOem+CC31ZLhAyYd/enM
+         slUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783782375; x=1784387175;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gg+ng2VSqRvXrUN5u/dXzTCEv77wgL5YHqysVwmsFOE=;
-        b=OPkTXyiJwtPVM9fYNeY8zlPDfIVfDR0imnlP9XtZ7r8y6A8+guBShHZlwBvBYVvCKc
-         n6fMykSmreYryQja8AaxZciaUSGDg1bUHgSOJZU6Ed8hJEoWJNQEa1/nvSNdGA5atye2
-         gHCGQ7N/oj10ESvMa4Ikc08OEdDEAE8P+f5/Ss736Ph0Ptf9FgJvHmhDRkAGDWu/Vabr
-         YCGCcArlHq+5+G2YAzPhrVT+mVFnHO8n7lAVr3Y9MeT80dimIeBWazg0zvu6MTyRQczT
-         XLDmM0VO6OISQ78aKYk4MAtscYTPdGwZa1ZBkI8USSTsyjzfUCJR5CTiA5LTlAktGxUs
-         J/Eg==
-X-Forwarded-Encrypted: i=1; AHgh+RqNaPpNW8n8zWCohKdE+TTYjcW8dlocuFT69eBJ7Dzpaszzy76wcBsAskg0bjEOiUEYpT6Rfhk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YynM2RtnnIfJ9eMbaTAZo7llQ0bepvVZal/Tfgc7fkPq8mA9sg1
-	NCd/ISxZVm9SiZ1RxXVIJU3D0rvPskFq48diIxwQwMSMqG8wRsMXZoy4
-X-Gm-Gg: AfdE7ckglP/3eXdU55fkxzab8ZwdHkp1A85cyOIFerxHD89T+iSSOCVhG8v4XK9/EwU
-	J8TWOZKtHvBK1fyDB/SJgvKG0ATFVMTb6QRuo706/yMLbjHg1liRLkIm98jVwS5GacWqIG+FHan
-	5luCc2rYDyqEofLo3rBjzcssBbtETdfWiIQ3FoC6rPnCGKnW8rqsnOu3twiISoZqL4spFt6zhR3
-	SS2WuVQrcwIUu3PzAFWhuO/ogdGGDgznfKupX2PRh3fOmyW0Nv73r8/2k+Yf92YmziyGPY5HTCz
-	8afIpeLIrxI22gIDRfDrAxWQz3ULY0HXDD3TXg4MfvvXIHlZIkvpYQfL7+428JNXEtuz9s6KMD2
-	YGYWCBM7D9InoQaFK2TTHOE4yoJ2PcHQ6LbgmCRoiE6PO5cp0+RJLTMf0QQIZcvfrmONP08dxuM
-	7OxCyLqsjCvD8U8+gXt2l6EvYGBEvPw5KI8qZXxGlaGuN/kp6Dryse5LZcoYLWa+tRIE3y8tA0X
-	47ZFj9CgQ==
-X-Received: by 2002:a05:620a:d8e:b0:92b:6805:917a with SMTP id af79cd13be357-92ef2c135d5mr363868585a.66.1783782375630;
-        Sat, 11 Jul 2026 08:06:15 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783782392; x=1784387192;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XSPQ4s327xjju3OZzaMxfnUi+7xam88AtuluAZAKUPI=;
+        b=i6zkgQR7YU1UImmqQOwFAe+KWcvtYLuSsG0GvcaQFvumPHiWJwZWtlIvj1EQgB/y89
+         OT3BjFpctw+rC9nnjQq++/yYMiTpiRyzERk8cFFsCFhGBWSv4bIuWhSTbtUlg+eyKUrA
+         kTN+A1IExFEjjeeYKadxLKKUyqYbQnZD1IqEBFuZ/ZmrW+gwudXapA/okKYKYlZYqGLa
+         09X/r5tMXe8ScirtBBNLc/AwLKnmK1Xzv+Vx0/QcBl+k73QpBC65Gt95CCG7Q8InuCHE
+         Y5TC/vxLhqK92qljbEDxO4TLK19sBB97Ptvi3wfAHHvJ6e2KSbylu5iXC2xfYVpuos99
+         q9Aw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqqf3HmxvYpIL8WvNvsAaFi05aOf0fU1s59v1YOXdAVO0mISiL7xOM0jAFeLXEyv+NZEd3xfLU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIm0w57MQCzdsl0fgS23wBMp0wVSJqYiGNbCwdwPluzGRevSUi
+	m0hmtR/8OB3XJF4YNzdX+HwGCKpgXI0euKtS7kUSyWa+Akk43qwjEW29
+X-Gm-Gg: AfdE7cnvkLMFk6HswgQZQJCitYX5QcUhTnBMSncTkko4arQ31BJf01VSx8SzwW0RJnE
+	m3URJYUuSCZGa7qQyNerBunNXzZdTw86iHBf2oIJQqw2IN08gRpmCfiYgNsGomwi8OuK9Ou2rxP
+	1fWGA/uDXOOplJM/Sz1xdBJss61X90IbNdX18f8/KjqNkrLDpqFA8A2mrDfnusRUAQZVRM/wqve
+	tjNY6GJZrIGvXKzY3fuZTRFMahFOg3a7NxKs9loEXKrqxUb8Hd5yo9N4cziOjEnk1vrgadQ11aA
+	9nF75MzV3w/sqb++KxYh8YDtCc5aIxDMWx0H8u2Q6zqjBhr7t+2AtIc8ZMFg4cRpr0pgyyE0aHF
+	9B90Hl+oftrNdgobhC9088LqFPQD5X8gJZ7TFSsv1Ghd8tkZ7Byj6b4UzojqKEVNf6HFUp5ALBp
+	e+T8mEjaIXSBVXmSHbRjwfT46PlYGbXhgxTGD/dx7/WZDizICZdGm7ANfd4meGE1RTMWZKvEXoC
+	JS19RgnuA==
+X-Received: by 2002:a05:620a:28c9:b0:92e:8e36:32a7 with SMTP id af79cd13be357-92ef2c7289amr321690985a.68.1783782392025;
+        Sat, 11 Jul 2026 08:06:32 -0700 (PDT)
 Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5d68e5fsm464578285a.43.2026.07.11.08.06.14
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5b88a38sm465793285a.12.2026.07.11.08.06.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Jul 2026 08:06:14 -0700 (PDT)
+        Sat, 11 Jul 2026 08:06:31 -0700 (PDT)
 From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Johannes Berg <johannes.berg@intel.com>
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Benjamin Berg <benjamin.berg@intel.com>,
-	linux-wireless@vger.kernel.org,
+To: Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>
+Cc: "K . Y . Srinivasan" <kys@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] wifi: iwlwifi: mvm: add KUnit coverage for BA-window station ID bounds
-Date: Sat, 11 Jul 2026 11:06:11 -0400
-Message-ID: <20260711150611.2913332-3-michael.bommarito@gmail.com>
+Subject: [PATCH] net: mana: cap HWC init max message size to HW_CHANNEL_MAX_REQUEST_SIZE
+Date: Sat, 11 Jul 2026 11:06:28 -0400
+Message-ID: <20260711150628.2914205-1-michael.bommarito@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260711150611.2913332-1-michael.bommarito@gmail.com>
-References: <20260711150611.2913332-1-michael.bommarito@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,112 +82,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-Add KUnit coverage for a malformed BA-window notification carrying an
-out-of-range station ID, plus a valid-ID/null-station path to exercise the
-adjacent non-bug branch. With UBSAN bounds enabled, the malformed case
-reports an array-index-out-of-bounds splat before the fix and passes after
-it.
+mana_hwc_init_event_handler() in hw_channel.c stores device-advertised
+HWC_INIT_DATA_MAX_REQUEST and HWC_INIT_DATA_MAX_RESPONSE values
+without bounds checking. mana_hwc_alloc_dma_buf() later computes the
+DMA buffer size as MANA_PAGE_ALIGN(q_depth * max_msg_size) in 32-bit
+arithmetic. A malicious device returning a large max_msg_size causes
+the product to wrap, allocating a small buffer while laying out
+q_depth request slots at the unwrapped stride, placing slots outside
+the allocation.
 
-Assisted-by: Claude:claude-opus-4-8
+Impact: a compromised hypervisor device model or malicious MANA PCI
+device can cause out-of-bounds DMA buffer writes during HWC channel
+initialization. A reproducer is available on request.
+
+Clamp both values to HW_CHANNEL_MAX_REQUEST_SIZE (4096), consistent
+with the cap already applied at the channel-create callsite.
+
+Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-7
 Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 ---
- .../wireless/intel/iwlwifi/mvm/tests/Makefile |  2 +-
- .../intel/iwlwifi/mvm/tests/window-status.c   | 77 +++++++++++++++++++
- 2 files changed, 78 insertions(+), 1 deletion(-)
- create mode 100644 drivers/net/wireless/intel/iwlwifi/mvm/tests/window-status.c
+ drivers/net/ethernet/microsoft/mana/hw_channel.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/tests/Makefile b/drivers/net/wireless/intel/iwlwifi/mvm/tests/Makefile
-index 2267be4cfb441..bf22750fceafc 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/tests/Makefile
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/tests/Makefile
-@@ -1,3 +1,3 @@
--iwlmvm-tests-y += module.o hcmd.o
-+iwlmvm-tests-y += module.o hcmd.o window-status.o
+diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+index 48a9acea4ab6c..a0916b50cffce 100644
+--- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
++++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+@@ -152,10 +152,14 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
+ 			break;
  
- obj-$(CONFIG_IWLWIFI_KUNIT_TESTS) += iwlmvm-tests.o
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/tests/window-status.c b/drivers/net/wireless/intel/iwlwifi/mvm/tests/window-status.c
-new file mode 100644
-index 0000000000000..06807e2bdbc12
---- /dev/null
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/tests/window-status.c
-@@ -0,0 +1,77 @@
-+// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+/*
-+ * KUnit tests for MVM BA window status notification handling
-+ */
-+#include <kunit/test.h>
-+#include <linux/mm.h>
-+
-+#include <iwl-trans.h>
-+#include "../fw-api.h"
-+#include "../mvm.h"
-+
-+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
-+
-+static void iwl_mvm_test_window_status(struct kunit *test, u8 sta_id)
-+{
-+	struct iwl_ba_window_status_notif notif = {};
-+	struct iwl_rx_cmd_buffer rxb = {
-+		._offset = 0,
-+		._rx_page_order = 0,
-+	};
-+	struct iwl_rx_packet *pkt;
-+	struct iwl_fw *fw;
-+	struct iwl_mvm *mvm;
-+	u16 ratid;
-+
-+	BUILD_BUG_ON((IWL_STATION_COUNT_MAX + 1) >
-+		     (BA_WINDOW_STATUS_STA_ID_MSK >>
-+		      BA_WINDOW_STATUS_STA_ID_POS));
-+
-+	mvm = kunit_kzalloc(test, sizeof(*mvm), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, mvm);
-+
-+	fw = kunit_kzalloc(test, sizeof(*fw), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, fw);
-+	fw->ucode_capa.num_stations = IWL_STATION_COUNT_MAX;
-+	mvm->fw = fw;
-+
-+	rxb._page = alloc_page(GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, rxb._page);
-+
-+	ratid = BA_WINDOW_STATUS_VALID_MSK |
-+		(sta_id << BA_WINDOW_STATUS_STA_ID_POS);
-+	notif.ra_tid[0] = cpu_to_le16(ratid);
-+	notif.mpdu_rx_count[0] = cpu_to_le16(1);
-+
-+	pkt = rxb_addr(&rxb);
-+	memset(pkt, 0, PAGE_SIZE);
-+	pkt->len_n_flags = cpu_to_le32(sizeof(pkt->hdr) + sizeof(notif));
-+	memcpy(pkt->data, &notif, sizeof(notif));
-+
-+	iwl_mvm_window_status_notif(mvm, &rxb);
-+
-+	__free_page(rxb._page);
-+}
-+
-+static void test_ba_window_status_station_id_bounds(struct kunit *test)
-+{
-+	iwl_mvm_test_window_status(test, IWL_STATION_COUNT_MAX + 1);
-+}
-+
-+static void test_ba_window_status_valid_empty_station(struct kunit *test)
-+{
-+	iwl_mvm_test_window_status(test, 0);
-+}
-+
-+static struct kunit_case window_status_cases[] = {
-+	KUNIT_CASE(test_ba_window_status_station_id_bounds),
-+	KUNIT_CASE(test_ba_window_status_valid_empty_station),
-+	{},
-+};
-+
-+static struct kunit_suite window_status = {
-+	.name = "iwlmvm-window-status",
-+	.test_cases = window_status_cases,
-+};
-+
-+kunit_test_suite(window_status);
+ 		case HWC_INIT_DATA_MAX_REQUEST:
++			if (val == 0 || val > HW_CHANNEL_MAX_REQUEST_SIZE)
++				val = HW_CHANNEL_MAX_REQUEST_SIZE;
+ 			hwc->hwc_init_max_req_msg_size = val;
+ 			break;
+ 
+ 		case HWC_INIT_DATA_MAX_RESPONSE:
++			if (val == 0 || val > HW_CHANNEL_MAX_REQUEST_SIZE)
++				val = HW_CHANNEL_MAX_REQUEST_SIZE;
+ 			hwc->hwc_init_max_resp_msg_size = val;
+ 			break;
+ 
 -- 
 2.53.0
 
