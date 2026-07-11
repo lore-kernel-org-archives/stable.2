@@ -1,78 +1,82 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474D42FBE1F
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 05:54:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350C1286A7
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 05:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783749271; cv=none; b=DSNjWDzeUO9YhS1xoB/GINsREhs4+wPgIsl71Uhwi1MRrraVH/8HOwSNkQBvsMhTomXzhIY5fC2/3yiEjqvofVLmCmpFfMJOJ+mvLsGXYyysbSFxnhmzgzEt0U2XJdQpB0jAjo3fkP7QIwXHBg14QEqwDEnI27QYndw8bEeCaCY=
+	t=1783749382; cv=none; b=jDxIR4ecfqJZO3E/74adj1sRaG0QUtIaHJeLBs0DnepNl9M9MrPehDdMKXmjO5mOmIM9MkDeAu8mVmtsJDIUlsP0J7z5esEtL8rdOJQYx8LZAWztWnATLRHtTh+NybW7oEk0677fR+43kIJ7oJe87WMRSe6JPUNb+iPunkkZNhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783749271; c=relaxed/simple;
-	bh=s8jLFIScodMQ29MEof5LclbjYvJlO2j6tbNbsN+hPN8=;
+	s=arc-20240116; t=1783749382; c=relaxed/simple;
+	bh=malqePsjYETlp6YRyNOGcOnY/0Qdf0rdTDZd6rzljMk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FdoQAaEWsZ8oDVnEzeOzsHexrfmUAbvNlNT0OaGlqgfmL/seTyh/aBZAC9kGVIQY+Di3gCpjPNbyI+HokjHsACV0T9YMF5C+ZS2FwcYgVbusuduAZbFsSxr6ZViRhPaOmIVZC5OqoQq+GJAo1DqdivpHRPk+mXBjs7/2FTWH9Bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=dLtyv4E0; arc=none smtp.client-ip=209.85.221.53
+	 Content-Type:Content-Disposition:In-Reply-To; b=k+so5MS+S1+ouDzoiX8FviOe16bQF3lCU7nCOT/osXaE6lSGM0iNhmYQHQstoLWe0z2CF0ZUBzA8WcuDXtRulYEahiO/biQbue4PRGbbGdQ3qtLR9FKElQSyFBjadyL+ToOSONZ0RY0dtPM2NpkF+JPdT0y7oQshGlhBoopdlLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=FCif4/8E; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="dLtyv4E0"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47d70879764so1003797f8f.2
-        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 22:54:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="FCif4/8E"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-475881b9a4bso1487141f8f.3
+        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 22:56:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1783749268; x=1784354068; darn=vger.kernel.org;
+        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1783749380; x=1784354180; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=s8jLFIScodMQ29MEof5LclbjYvJlO2j6tbNbsN+hPN8=;
-        b=dLtyv4E0xctcWwWXqtndK1SrCB8Ft/7IgzU1pDkgC7pETdYQSn1WZMd/JA2WIEAHyr
-         9tZrC4D+IXEnk0FGjPL0etK3ZtFd3UDqbpGDracN0gyGDlaejjVYleRsKnU9QvmrK35C
-         j1rJYZeoj2JPRCE4PX9TUu7Ef7wMTunBwhSE1isd5gGxY0yePa68fotLyh6Jzvsti5B9
-         T3iRqH3M1ojqJlQdcTH9a+szjBrHIWtHqVReebSoE1eouszLRjFgoForA/A+yQLvCyHb
-         D/ZVLTEAdMeEyi/To+xIS0r4EaOySIXA75yZCO6kvgXfIFtUAO+jFSe5FAcViy2Vxr5K
-         aDSw==
+        bh=JXWYlcHV8kyBocpQgRM3YOKQ4YhOMcY53dOQDtkUlDg=;
+        b=FCif4/8EfHYX/HpTsHnAQEKzqbWqPB30b12/ayje7FwtEZAYmhV19kqdLsTGNYV/ls
+         444eE3zKR3xtkih4J2+dcIi4DPZPlv+pB9fzBSZaXSt7Vzb9tuhwGw78EK2XkuQDueIZ
+         wodkL0N5ORCtXqS6ZAkJe6eBJq+CidrUq58Ps3HsPDchpu/NeGoHxnxEqoSADPO+uBdd
+         K9fJL/uVGlClgI0cNLWWHczT+WKF9D570oWq4fysGRwwJDdGoWOKv3ZMHL79rgDdFBvn
+         Rc+5Ut2h9KiWE15n8I1pGcd1artIgTcxJwyhzL69w/0FKhTY8lV9dDAz0BH+xKqZeFXi
+         lYDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783749268; x=1784354068;
+        d=1e100.net; s=20251104; t=1783749380; x=1784354180;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=s8jLFIScodMQ29MEof5LclbjYvJlO2j6tbNbsN+hPN8=;
-        b=aocyNLOi5s3W7LoYFiPEAtxYHicEeegKyV9mcsr7jhx1nvoAJg+Uqmc3ePbJRmW6Bj
-         ezLCNjkojnNhjHJUXZg1LJ1MiRqpexepMZy9RO5M5m3PGjLIpgJ3aOP2hUb/DTUYHJE8
-         SXG5KDTV5wTvNi/XZv3tQIW6QwSvCTxAiQJLcuZW757vsIVlHQVNN79cdLe2EosgzHmL
-         iLiL4YqW2z9hsEKX3mRsgSG1ESnjTebp+xXK3Wl5E8xe0dq8b+NXUFZN4OaSusH8RTi8
-         PLxCN8fTpAPU3xyUATtFSQ4LyqhssZ/bbWqHGQefnXcDWuSIElRKjOG0oaHt/M46URro
-         pkqg==
-X-Forwarded-Encrypted: i=1; AHgh+RqZHxhfxnwihtWdNrjH+wgi4wpGwcbLHebS/Xk5+HY5Mmzp4pKBZ/0FxPTgi4pijpo+1K3SJfU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2e0oJ1YpCdlnQUOMOOw4xycH6An3miMS83N0ZWcg4deQ9z/qG
-	kGiV0VUcvfcDUvPI75Ui3ll0MWMlG6+06sV4BlRKWN4Pjp00N56ZriUE1PJHfEYxMho=
-X-Gm-Gg: AfdE7clwmwRuGcpWogQIEWFTwEUqawo1wQWav5Rv5gjWtM+CHHTEBYEmHklFSC72Z36
-	z1HthKZxSsLIGAbpPup9YDd21ZIQKUAtBKi0ZFU+usauMMJgyxPBG4VfsI8yaIsgzPWlmgE7X6p
-	jFL1wYz9Nl6gj6+TYw45/5b9g/iA/iK+U7ha3NbD/yXIWlvjxz6q4EK9F3iFGy1rMo8TXQ3+Fnq
-	6fVqBK5869DOZ27d61oaTvQWmLrl/axCcsuTgt5uZ/oIwlNmdi5/twMCtUOrC+7LAJdVXytNkt3
-	u3F68Z/Xi3ak4+g0trVy9AgwL80JSO4BTXdp0yty0iNQOmaY6HcpS9wmml2niv/IThU4uxT5jVX
-	gvNXVvVf+vzU2Ldd+D4wUN9VDqgMIwU7u5VM2ZE8sPwKnjYtC43IQdHi1zXJ+KoslVXuUgAVMEn
+        bh=JXWYlcHV8kyBocpQgRM3YOKQ4YhOMcY53dOQDtkUlDg=;
+        b=UsHmSyTM9s7vmsVy34ozl23tcrEU0wLckjYfiem8AQO56opPMK/Uxjs5Y4UQZFsUqj
+         bd0CNVn0k70KdiAUQITTJgvvWcHo7NfSaz7QC0JzfNFN4qKeamEm951LRND5efUIc4U4
+         h8ZJXn0abepvEjjM0HIK05j5gXOsAsWbU+b6QijbVVKhRlVYkE1gysyO7WT3xx1r3wAu
+         Zl5m3rdjns5C4zvEf7kyjsfppO3iuCV+tAs4QLk7VuES3gC6AJ7Pb2BV3FHI/Aqa3TXf
+         t+TZDRnCXHMLTV3VMZHAone6aCnddLPUdeHwH+Ykp33P9yAW6Qrx6gC4mtb/SN8B3jbU
+         ZkKw==
+X-Forwarded-Encrypted: i=1; AHgh+RpvuuxTnJYkpYXbb4b9cJX5XJGn8z4+YVB2oi5+d3eFnaQkjTkfbIxf4YGiUMoCGOifqqW0XaM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzFMJY6PEyS4hj1POZpoOJeSulPfsYZdHFyi4uFSG69fCh2+60
+	PX02k7HxkVDRA1VVSpiwBRODClVJGX5eV8vYfFLTtO/xa2RLbgVNa9dP7wizfmH5OauwJbBOVCm
+	56ouJ1Wc=
+X-Gm-Gg: AfdE7clNnKP4tU9JVpTpxe6V5nuF9zBIilvsiNP4uhCrWXuwHaqtRNgwyt+Or0ppaLX
+	eU9ryDQ+bcxsfmiIIqkMi6yg0iSKKSgsDLRPrAV0hj+yezC8l1/veo+09OwG1kVTJlJOJrXFS+J
+	XPgX9JPpNjrtPokPQluGAtZUiVemt4gea4EOouQX2NoYUQz8f3WYCAP9adnXsTxiZuY0gnhczRY
+	cq9cR9SvZ/jxLvof5GYUZ2z+z9eTPCIoCKwE2/Xwe6ymigDO38I2YkhkidnCZHbI9zczs97lKGb
+	QJ4E2RyCJz4bmk0lJy1p79kc8BkukTjsDHXzeTuzBWpleFLvQ5XxSNRbvd1GgZOUA4Id/N6aX3E
+	RoyAGGIHDaySrwSE4VUXFxy4lPozF7DJZJHSa0HVfOhhR4hHe0mHTj+569B1FbTl7g+ZaPhpV9v
 	U=
-X-Received: by 2002:a5d:5f42:0:b0:475:5454:49f2 with SMTP id ffacd0b85a97d-47f2dcbffd3mr1436432f8f.24.1783749267440;
-        Fri, 10 Jul 2026 22:54:27 -0700 (PDT)
+X-Received: by 2002:a05:6000:4a05:b0:47f:2906:b551 with SMTP id ffacd0b85a97d-47f2dd2113dmr1544164f8f.32.1783749379539;
+        Fri, 10 Jul 2026 22:56:19 -0700 (PDT)
 Received: from localhost ([2a09:bac6:37a8:26dc::3df:54])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f21328sm67191335f8f.32.2026.07.10.22.54.25
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm65233731f8f.13.2026.07.10.22.56.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 22:54:25 -0700 (PDT)
-Date: Sat, 11 Jul 2026 06:54:25 +0100
+        Fri, 10 Jul 2026 22:56:18 -0700 (PDT)
+Date: Sat, 11 Jul 2026 06:56:18 +0100
 From: Matt Fleming <matt@readmodwrite.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
-	Changwoo Min <changwoo@igalia.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Edward Adam Davis <eadavis@qq.com>, Chen Ridong <chenridong@huaweicloud.com>, 
-	Matt Fleming <mfleming@cloudflare.com>, sched-ext@lists.linux.dev, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, kernel-team@cloudflare.com
-Subject: Re: [PATCH cgroup/for-7.2-fixes] cgroup: Create the psimon kthread
- outside of cgroup_mutex
-Message-ID: <alHaU4MhWzq9kA1i@matt-Precision-5490>
-References: <20260710100441.2653477-1-matt@readmodwrite.com>
- <20260710134945-psimon-fix-tj@kernel.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>, 
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
+	Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Zqiang <qiang.zhang@linux.dev>, Tejun Heo <tj@kernel.org>, Andrea Righi <arighi@nvidia.com>, 
+	rcu@vger.kernel.org, linux-kernel@vger.kernel.org, sched-ext@lists.linux.dev, 
+	stable@vger.kernel.org, kernel-team@cloudflare.com, 
+	Matt Fleming <mfleming@cloudflare.com>
+Subject: Re: [PATCH 6.18.y] rcu-tasks: Defer IRQ-disabled callback enqueue to
+ irq_work
+Message-ID: <alHapJgHNRea7eZz@matt-Precision-5490>
+References: <20260710095359.2643791-1-matt@readmodwrite.com>
+ <886c23ff-7dca-4679-9d2b-ca499523853c@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,13 +85,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260710134945-psimon-fix-tj@kernel.org>
+In-Reply-To: <886c23ff-7dca-4679-9d2b-ca499523853c@paulmck-laptop>
 
-On Fri, Jul 10, 2026 at 01:49:45PM -1000, Tejun Heo wrote:
-> Matt, your reordering trades one deadlock for another: CLONE_INTO_CGROUP
-> forks grab cgroup_mutex inside the scx_fork_rwsem read section, so an
-> enable racing such a clone deadlocks the other way around. The fork has to
-> move out of the locked sections instead. Can you verify this fixes the
-> deadlock in your setup?
+On Fri, Jul 10, 2026 at 11:16:27AM -0700, Paul E. McKenney wrote:
+> 
+> This does look plausible, thank you!  However, it does not apply cleanly
+> to either current mainline or my -rcu tree.
+> 
+> Judging from the subject line, this is against v6.18 rather than current
+> mainline, correct?  If so, would you be willing to forward-port it?
 
-Thanks for fixing this. I'll test this out ASAP and report back.
+Yeah, my bad. Since the SRCU code in mainline fixed the original
+deadlock I reported I kept this to 6.18. But I'm happy to forward port
+this patch too.
+
+Thanks,
+Matt
