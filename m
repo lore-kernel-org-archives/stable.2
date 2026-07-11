@@ -1,21 +1,22 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB502848AA;
-	Sat, 11 Jul 2026 04:15:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34B113C9C4;
+	Sat, 11 Jul 2026 04:18:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783743332; cv=none; b=O5duOg6OxAvX4Dv6l4U+b5APvwNbZQ4OuaTFG/HFkeyI0+06Mx4LEwk/e5zaK2g3goNz4HaYkZdL/aAI6yarN/c+SSp1LxVDq4cMLAkQG4tL12hC+6Ln6tgGhPwJkgFRSCK96wZdeGa+PNqzrYujjg7cyMP2gSgcw5svoR9O0Y0=
+	t=1783743517; cv=none; b=E7jG3L1spOiTZk3vwoYR78Jl2lmKXaJHcNAOWItmV5QJ3e7UPUMx/AI7axNRICxEcGR48pmjLJv6MY0JoYcYUwqd/vrl6znL8X/MhtLZ8afad32xFuUXdUryxYgikRKwgmEhqqk/OsO6U3HjRtHnhxdoWdgFi+wmPYnmxHoJGps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783743332; c=relaxed/simple;
+	s=arc-20240116; t=1783743517; c=relaxed/simple;
 	bh=aYoHk4YQVXxmU/xmSrjEqH+A43AOxzh0WAhAWrrngA0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UN3OUk0hSAMvVAS/tne4g2rB2zlJpTnMl+xMxbhy0Aa1CAS9yS58Jjd5aJ6dH0TqlJ/c/RLN5u9g6RT5mNhklkRVywqkV/0Ioyb8GgccQmI1O5cSYnPr6k1FiQBV9KKymo2NZ6eJBB8H8hcQGtRVg01zuEd49Ggv2Qwmz0l1LgQ=
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=G5wDK7e0XJy0IBuE+X/bmHQX6JkXifByB2HJU8+XZwoSqm2qT4NmRGJG4YHKybVp+v/XsYyYP8R9AnH1rwxdnWcVkXn9X+QFZ4JAGBIJFBeTTvXcH73mRbcYufOGr5AddqJAglcAiKm22Q7g/BFJ6R4sfjdaYL9iwHegz6CicsU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 1d77ca247cdf11f1aa26b74ffac11d73-20260711
+X-UUID: 910a68ca7cdf11f1aa26b74ffac11d73-20260711
+X-CID-CACHE: Type:Local,Time:202607111215+08,HitQuantity:1
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:ac1c0899-ffc9-44ec-bd45-f07c830aca9e,IP:0,U
+X-CID-O-INFO: VERSION:1.3.12,REQID:41b0a526-72cd-46ae-bb86-3fd3d12447a7,IP:0,U
 	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
 	ON:release,TS:0
 X-CID-META: VersionHash:e7bac3a,CLOUDID:4d2b7686572bcb2e9fb89b31bab63187,BulkI
@@ -26,12 +27,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1d77ca247cdf11f1aa26b74ffac11d73-20260711
+X-UUID: 910a68ca7cdf11f1aa26b74ffac11d73-20260711
 X-User: zenghongling@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <zenghongling@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1745808913; Sat, 11 Jul 2026 12:15:13 +0800
+	with ESMTP id 236819042; Sat, 11 Jul 2026 12:18:27 +0800
 From: Hongling Zeng <zenghongling@kylinos.cn>
 To: akpm@linux-foundation.org,
 	david@fromorbit.com,
@@ -44,8 +45,8 @@ Cc: linux-mm@kvack.org,
 	Hongling Zeng <zenghongling@kylinos.cn>,
 	stable@vger.kernel.org
 Subject: [PATCH] mm: shrinker: fix double-free in alloc_shrinker_info error path
-Date: Sat, 11 Jul 2026 12:15:09 +0800
-Message-Id: <20260711041509.92926-1-zenghongling@kylinos.cn>
+Date: Sat, 11 Jul 2026 12:18:23 +0800
+Message-Id: <20260711041823.95135-1-zenghongling@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
