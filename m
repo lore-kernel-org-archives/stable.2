@@ -1,76 +1,145 @@
-Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C9B2367B8;
-	Sat, 11 Jul 2026 15:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DCB3446C9
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 15:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783784315; cv=none; b=Fs9g68LnILGiqT1bFWKntuCGaf1e+jTeCNuIN4PPsaM5nI1l0dJQYnqF8XL4ca4UWd/iGCV4ncs8adSBpbskaJTWT9yMASdnw+94OS1zFNx2laZUdpPrZ1qsyHBuexuDZAzxxt/Zw6THyyHWZKIWGYD0zhjyQOFuYbgRvv9M3pw=
+	t=1783785144; cv=none; b=CmJtL0gqxFA4mZAVJ1PIKEK4w2ot/n7GpJLreGY8sMuvAker1mxfM72KwlsxriHWhYLIPTMlPhAR0HVHj/MwD3fmPmqMTODztNWKxpYaA6sAVVgwrJjgnCKrEgLGKfPeiBXfZ2RHG+tEJx+nKK/VQed5DUDBwAcT8NqJpo9QZVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783784315; c=relaxed/simple;
-	bh=bbBIiwFThx9XkwFxXmOkVe/Qm4aPnYZ0aF+UyXH/QX8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gisnOEXbPJtcqtCZFSSc1pRjnXOdG0t7PwpwJrR0KEYe9L+FxmYgBx7jRZXBX7HkPO4bPviKBqYhzV37hbOkd7tnCegkxzcsOqZCASormfZTrYNlJvD2ZGaWjS+bY4MdaXVbwVXFkUZGDmpgUcYqFf1QUq+q99IUOSWSu63V6cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=FvJJdf5j; arc=none smtp.client-ip=198.37.111.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
+	s=arc-20240116; t=1783785144; c=relaxed/simple;
+	bh=lCnQkqEcnAuVhVKI8VK8T1Nky8MXYsIIAssTgtxhdA0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bJm/AO/u8qX5ZB9ok7CXvPIAkwKQXmUTlQffU2i7LFuUZTUJn2f+jCLY5QZbzxjN6qvyjvvwvrePwGZD3w5sYEgI8LyFTS0HGh4/b0JTCiOK5d1OrTZtxxmUQ8OakjaUKTLz2nNsrKJQKb0Jqk1DB0W09HNf/rWWu6UWoh6A3HA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HT35FGNM; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qrlfyFNT; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="FvJJdf5j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1783784312;
-	bh=bbBIiwFThx9XkwFxXmOkVe/Qm4aPnYZ0aF+UyXH/QX8=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=FvJJdf5jouKPAZQ/Yv0zL951h/96Bi0vyfaXUr4VeCT2d8quCCskHngTmBtBJFuZZ
-	 +b3XcVE6fSddfgO++6r2ViY8qWoqZPzD/iOMHB8c9B4Nu7bMuF+0XCrk19UbYgWf9L
-	 8Qqm2qO+K7Tco+tEpxF0vfBLX8a1hpnRQDQ5IHNY=
-Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8c71])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 438941C0260;
-	Sat, 11 Jul 2026 11:38:32 -0400 (EDT)
-Message-ID: <d561134dc7da37554f276f8ebb1aaa721956ce45.camel@HansenPartnership.com>
-Subject: Re: [PATCH] scsi: core: bound the VPD page 0x83 designator walk
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Michael Bommarito <michael.bommarito@gmail.com>, "Martin K. Petersen"
-	 <martin.petersen@oracle.com>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Sat, 11 Jul 2026 11:38:31 -0400
-In-Reply-To: <20260711150718.2916641-1-michael.bommarito@gmail.com>
-References: <20260711150718.2916641-1-michael.bommarito@gmail.com>
-Autocrypt: addr=James.Bottomley@HansenPartnership.com;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.3 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HT35FGNM";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qrlfyFNT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783785141;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8GQsJAkqOxpmPMDLvAmr6k9Ihtgwa7qxpwDTrH4YfZ0=;
+	b=HT35FGNMhLLxx2tRhBsITrCo5/zjuED4XwrVet8L6a3Y3ZDOY0OFqiggik1f9eO6JK9ufH
+	IDz5gfHF4WBSa9Xfm/QHxLXy32+k52pWK7Wkl1aJ1lKTAD05B8KKGAJc6JNgkAlq54L/Rv
+	l7y0kPe6Hpl7FOvXdDFzdLvirYpEjUo=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-7-HdURchCbM0ag6uqvyeR4Hg-1; Sat, 11 Jul 2026 11:52:20 -0400
+X-MC-Unique: HdURchCbM0ag6uqvyeR4Hg-1
+X-Mimecast-MFC-AGG-ID: HdURchCbM0ag6uqvyeR4Hg_1783785139
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-493bdf90adaso14168655e9.2
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 08:52:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1783785139; x=1784389939; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8GQsJAkqOxpmPMDLvAmr6k9Ihtgwa7qxpwDTrH4YfZ0=;
+        b=qrlfyFNTmk6Vht4B+tULJd0k1c1zHpEkKIuWjHFoZnXTcy05azR54+ANowGwVFz1Y4
+         Sf9jdPsjvdKaPgkKkLFoLTXLfe3HxA+E/G1z4BbESxEi7968PVmWYvmDkZzNgUH/ZO7i
+         Pq1PP6nyv4uthMA21HdQTUKNHKsgKpE1v3f4LTSY2l79V4Fwv8eNvAkXjJ80IDRh0F7V
+         tOId22j8+FX9jJD2P6xy2G9Dr0lPx/39A4KoH2PT/4FzAO+h4XmQysWE0Ckiz2QrwDKV
+         ejg10aHlMfIiDToB0yVwJEi5YjC4U7jZAHe1O2teA3ASpQ/45slictiq+Rckl86Rj8Tx
+         WPYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783785139; x=1784389939;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8GQsJAkqOxpmPMDLvAmr6k9Ihtgwa7qxpwDTrH4YfZ0=;
+        b=KDb7sGeF0cwIgSfZbl9P4GVCUDQUYV1QNUC0x8hwgdnJTt/4tKUySjFNP/DBv9J3fb
+         a5990PMXGsgn+5CCczXmbJMi2VAK8A1fUf279V9lnNz4wh3nyUMeGHUfxkbDMPERGTK+
+         XlId6rDOSM+i+Ly4gOXuU7FlqOW80EH7W2Y84w9XzLwEZAmDRkUZ87aNbklp/Ws7P47r
+         +ohy/Ts1fGqhZIakXbGWwOwuRdVeUXY4fVT63jZggg0LX9FLvRRJ7TsZYihsr7kOZz//
+         P95rXSizpuoSam9EmPzfeoO0MHs3Ml/22lHVOYSO8mIgLSZh6Oz9nRWvilADh4vc1jYY
+         /UBA==
+X-Forwarded-Encrypted: i=1; AHgh+RpCJwOzr+UOWQSHN1T/NviHuXRKQWtEkaSX7uT2hxcAkT5U9VE9jwBumKGcMnrGzwEdUVH+Uvo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxA2ZH5jGgp+oRQ2N49ZjdwRLKpgO/Foj2x5ohRVlBNtZdPpU7S
+	bByxZbsTSjkvtRXYnKViG2cTVY9LMB3qYhPZ6fAY2gbVAORBoaaZ5DebIBffMEcId0ewNSUk/+w
+	Wbdxy3wVjfAmTovWI1CeUTVQOVJgpzR9kDnzsqcd+j1UGJRuEUWrRD3P4Pg==
+X-Gm-Gg: AfdE7cmNgLoabdyy1jxYfvM90rdkIX/kAryl7JiamQLIMcEHpYSF0npYGFkI6mmQX5E
+	rytgUqK0dOh2oACP8Pk9Onb6vwRXK1JDdhNwsg5FMrqj+QmUzLmkmjtlfeQDyMXeFwLPrb/rGwO
+	aMm0lbCCN1L3kbA63NN3UKGr/ZsNvc2Y7bqKGHRjU+l7iUIcvPBO90owV9HRjOSf+VKuDjQC7sr
+	gJ9b60VS8V4HQhNBb1ObiXULsF3gXYC7u+icsyFjRAcS7VNHtZ7Yw1crb6JQlGEAVLBNuYRsFRi
+	9iMPkg10sneC8rnOmzfPkUW5lH2sPH7e1DrEC36AZlpm8yyVX2M65StU8nhA7yGl+Bhs1bVQLNs
+	iwCfNn5Gy9vNIGQUu8FDTay45b4+9pECEpwM80Ggu3g==
+X-Received: by 2002:a05:600c:310f:b0:493:d115:d835 with SMTP id 5b1f17b1804b1-493f87d5800mr26790745e9.8.1783785138879;
+        Sat, 11 Jul 2026 08:52:18 -0700 (PDT)
+X-Received: by 2002:a05:600c:310f:b0:493:d115:d835 with SMTP id 5b1f17b1804b1-493f87d5800mr26790445e9.8.1783785138430;
+        Sat, 11 Jul 2026 08:52:18 -0700 (PDT)
+Received: from redhat.com (bzq-79-177-145-168.red.bezeqint.net. [79.177.145.168])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6f373csm375363835e9.14.2026.07.11.08.52.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Jul 2026 08:52:17 -0700 (PDT)
+Date: Sat, 11 Jul 2026 11:52:13 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	virtualization@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] virtio_net: validate device stats reply records before
+ use
+Message-ID: <20260711114248-mutt-send-email-mst@kernel.org>
+References: <20260711150754.2918392-1-michael.bommarito@gmail.com>
+ <20260711111503-mutt-send-email-mst@kernel.org>
+ <CAJJ9bXwUtQ3pHqZ=AMuwaNLs16pmujiMdeBQtB5kFc6JjM-Pug@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJJ9bXwUtQ3pHqZ=AMuwaNLs16pmujiMdeBQtB5kFc6JjM-Pug@mail.gmail.com>
 
-On Sat, 2026-07-11 at 11:07 -0400, Michael Bommarito wrote:
-[...]
-> Impact: a malicious or malfunctioning SCSI device, or a compromised
-> hypervisor block backend, drives an out-of-bounds read of the cached
-> VPD page 0x83 buffer (KASAN) during LUN-id, target-port-group, or
-> unique-id computation.
+On Sat, Jul 11, 2026 at 11:29:56AM -0400, Michael Bommarito wrote:
+> On Sat, Jul 11, 2026 at 11:20 AM Michael S. Tsirkin <mst@redhat.com> wrote:
+> > Why does it "matter most", or at all, there?
+> > Host can always deny guest service. In fact, this is how cloud vendors
+> > charge their clients, by denying service to whoever did not pay them.
+> ...
+> > I'm all for making things easier to debug even when the device is buggy.
+> > But I'm not inclined to add tons of hard to maintain code to
+> > that end, and I would be worried broken hosts will come to
+> > rely on drivers working around them.
+> 
+> I am always confused by the CoCo threat model to be honest,
 
-This is not a threat model we have for the kernel.  The reason has been
-much debated but it boils down to the fact that if we do this somewhere
-we likely have to do it everywhere and the cost of checking every
-return from a device is huge in terms of performance.  Thus we assume
-devices (and hypervisors) behave correctly until someone finds a buggy
-device and only then do we do a workaround.
+Confidential computing? It's vague at points, given the term covers a
+lot of different hardware. But one thing is clear - it's about
+confidentiality.  DoS by host is empathically outside the threat model.
+On any virtualization platform I know without exception,
+host can just exit the VM, done, service denied.
 
-Regards,
+> since it
+> seems like some people care a lot about maximalist reliance on the
+> contract and other people are more practical about how many other
+> vectors exist anyway.
 
-James
+I don't really know what "vectors" or "the contract" are here.
+
+Making a guest recover from a misbehaving device has as much a chance
+to reduce security as increase it. So the only benefit is
+robustness for users/developers, not security. And that
+has to be weighted against the maintainance cost of the change.
+This one is too costly, I judge.
+
+>  No hard feelings if you want to NACK, but at
+> least it's documented publicly now for people to consider.
+> 
+> Thanks,
+> Mike
 
