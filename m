@@ -1,200 +1,352 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40B8209F43
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 05:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783747417; cv=pass; b=t9iT+87pubnWdlswwL916pl0XN29iEmWt6NEf4JxRxbhPPXPh3XcE5YoEy0VosDk1fqzpDKjii9/Qxdf6MCJ+FSrA5idGI61QwqsIDU0meRgPy/wkg+Xskfxu5bsKmd4BH5T00D1Z98tBpWifMWIB9IG5p8jeiiv6MvKvraU3x0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783747417; c=relaxed/simple;
-	bh=Vbir7G5U1uaNCQUvONVRUrXkoAxD/zZpwy+1cUqwLTo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Zf71/8uKcUxBlRL/Ci76Ck7VX53zHS+MjuYaUNX5G1b3pB9cQ3YKclTCYvlcMLk810au6+rECSUbbDTMQ3j8NETTyP9zEhE6CF5J90Q3aqljiJcB2SKYUXDDi20EPvJMXWg14h4cq8bdnJNp2EBgv3Zp1ziX4QXB/v5Oqkb1Va0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uMLMV+aT; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uMLMV+aT"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-698411099d6so5940a12.0
-        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 22:23:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783747413; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ANTXUxHHraA1xx/okAqvbMWoetyp1684C6XhywOgNtRFFRcXspn1X3JASFwclbI716
-         mDaDA/dK3XQNnuZizy/EvQBp2HE63G86dulGMBGLL5Dxd7ynxTFq2eW82s5Kww0Y6UKw
-         6SRhPMKjJYv4NHaXxQ2sSV1Jwg1643mc4ach6SPfi+e0uXvEzbIMp4fc0b9NpojN0vq+
-         +VX+uNOELjd5BFPhwVh6i1tbi3inuH/QsZ8jqEe7rGDgIovZqCuCqRGqSurhdoP7mfy1
-         P/6Isr4S1z9Wq7K8kzUbb3o/+lEPGe2sTKnzVccPhVjwjbTjPiFkLPd2PgyyZQxTzyus
-         Ecmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bAo1f14O296ecX5TWVkmIDxkDvBZ9MYtp70xyOPU0PI=;
-        fh=X9Xijh2E2XA4A8ulbszRMzVmg9O8+Uypf/Ro7Qthobk=;
-        b=aJpXlrPx0mYeH6X0w4gL855NL5M3241HMV9pZUK9Sr9A6sOqKpePwCEEL/bKgXfYaE
-         kU2maCvWItTBS1Rlxw/QYtOvWZWVyuLXTUoKY7UPq07fJgSPT3BB5/Q27Afy5A6JYwft
-         pZlVrKVRrUzVr9/W9OO4PK0meZf2zJsyX8Qbs9Bvc9G3WbjMOCXN7PyAjGbmeAAuWe5/
-         afdefrvAiiyH+gwhtJzy4VIUhPtIRCUwVXx8jF7jKzin7Rh3cPf4jU4f1AGBYwrVF1ZE
-         FWuqE3PCnucyIdm5MtfXTxHvZlz3s6Va/7PH2usIIveC7xpfAlQHeVEOEIUnSSL/IB6p
-         9I4A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783747413; x=1784352213; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bAo1f14O296ecX5TWVkmIDxkDvBZ9MYtp70xyOPU0PI=;
-        b=uMLMV+aTWkeWUHipxJyPqLC2MpcMozM30UZCy1jb/ql60bX0tr/2iJAjWKGcYTeWuc
-         rBvOBOQF04AjwvOFVSbWvnC8Z5C6zl4df/hbZ1Cyjtczz8dweZCty07TJrb9BqClY1WP
-         vnrwQmeH73mLEYg3cnRyrsPLJwnkYIev6mVnyj8de83Ze80EKQThAVSuMYf8012osHe0
-         gW8trad3BobyZ4nw3geWCwmmkVGBYrOzKZpywbyj+M/iQ7uSVR2Pajfafm/L+cYkEAts
-         vZgYDJbIstw8naA+B1eR7wKyz2hAFz9CshKi2s2lP9+uIXNSqxxy0F6ebq9zlDvZGW0A
-         sA7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783747413; x=1784352213;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bAo1f14O296ecX5TWVkmIDxkDvBZ9MYtp70xyOPU0PI=;
-        b=BmftI6u1eI0kmDtydGjWqzqQulgib7K/jDvT+/DAZpPjXkaySft9MdqTbI8SRZUWLg
-         aUXUZkvc/OE63uTUeHtXQ415h5eCJedZtt/HgRTppviLbqUO6cpmJ+OxWYYWCT7nva9i
-         kCA5qnt+mbUQ6rZnQEELpBiyN2Lbt5mQFq44SuHhrsIpGFAL+cc4Kht9uB5eq38v7EeA
-         HakVR1WHzESzkc/PsNZ1a+kTEkNqyG5My8txnUJkxw3HDyAcA9tu85LuYVlmScdlTx44
-         hKKFoFx163WGeOW2DBBeeMozTjpTTzJAOIK+XjfoFYugGdEgc1/KXYj225W1YpwL8IqL
-         LcVA==
-X-Forwarded-Encrypted: i=1; AHgh+RqYrH/YtQVpd0FSN05gctKUQuevkzHy+HMtjhgrPHcGOCpwqPKnc9t2I0nNz55hkpN1O/lEhAI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yya0Jyvor1htcOayrRU7s51UOE7QNb8iA8KrpuDIFOtJv2y8caT
-	ySi78xXmXehPDhxWYlRioK6T22K1j1XJGuzSAzMlxjettZH81cHpUycAErugYPC4yIVesRZqBSq
-	pIUviqDyK+WOgtSmJAsfUa7Ytxb7zHyUmBrJ/LOVr
-X-Gm-Gg: AfdE7cnM2ziGKzoVCi62Frw56DUzavRAI0nd87EDU6zXeqEoRB/0G7LiWNpF4dIojx/
-	eefiW+TRq7ntNxP9fNmIStukmUFhQt8xE7LNCBZFJZEZVb+qaHKqdrx0tUseLdvPRooNq89lij4
-	ev872siehy3ejjoPAFdtS2c3dNkCD3msgahFx7t8syC82PNeIL70BCrM0b97n48K+CsEoGOSK3w
-	iVMmeaL6qqXJAUZR/M6SeMsjEG7PmWj2fz7xv/AOgmMAN7Ax8/xLK023d89SPVF+hmSUDMjkCGv
-	x2dl9c3TzCixhEDFXgmKRpI0r7g6ZjsAh/ZKTBmDJIpVMPLLye9Bo/F5403Dk7A=
-X-Received: by 2002:a05:6402:564b:b0:697:9254:a66b with SMTP id
- 4fb4d7f45d1cf-69c5f806bbdmr32702a12.6.1783747412689; Fri, 10 Jul 2026
- 22:23:32 -0700 (PDT)
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 243BA3770B;
+	Sat, 11 Jul 2026 05:30:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783747843; cv=none; b=bp5yoNDUBPGPn3oWgcoXZusw4U7eQoOE8DGTOjWrw9+Fm0NyU9nX4bB2OYP2qcYSes0eiKCXKDGRfbcp02LdFSwzv0fvDHSqVjjqWBGaFsEtfGB8I5UKQw8D6ONm9gTQqN+dFUUFMvuc9jLRvFGganHjaZt2SrAlQiJZV75myPo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783747843; c=relaxed/simple;
+	bh=G0IMDCsHZn9637YiSTEfdtPOSOs5FpHbF3Ab1eAvPZ0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QEpwOx00oaevuF7vgJ4va81mm+/5+WS/T9rC4VqSHLM9aV799yPpSE/H2KMgye4drFrjfsuOiUo5mdQ/xtD/bOLhdlFxPh3tEbS4naHRNaaHXzhvOpWZZmIPlMwfCOSLdU3mcfnRmfEkiZIqs43wQYlIuZB2cjcc3MKQ6aNzmUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAHKV3r1FFqrKw3AA--.20663S3;
+	Sat, 11 Jul 2026 13:30:20 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgB3kHLp1FFq38APAw--.24487S2;
+	Sat, 11 Jul 2026 13:30:17 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: netdev@vger.kernel.org
+Cc: shenjian15@huawei.com,
+	salil.mehta@huawei.com,
+	dingtianhong@huawei.com,
+	przemyslaw.kitszel@intel.com,
+	horms@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH net v3] net: hip04: fix tx coalesce timer and IRQ teardown races
+Date: Sat, 11 Jul 2026 05:29:22 +0000
+Message-Id: <20260711052922.1634837-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709101635.103005-1-fanwu01@zju.edu.cn> <20260710002451.500112-1-eddiephillips@google.com>
- <caae46b1-50c6-495d-94fe-c95229d489ce@broadcom.com>
-In-Reply-To: <caae46b1-50c6-495d-94fe-c95229d489ce@broadcom.com>
-From: Eddie Phillips <eddiephillips@google.com>
-Date: Fri, 10 Jul 2026 22:23:20 -0700
-X-Gm-Features: AUfX_mwj7DPyIzPgMc2aLdczV-n7IZVIQgU2ji0mGrRtnih3_s-rWd9eqlLTuGM
-Message-ID: <CAPBb8HnN2Q2_aMRQ5Tv=pbi6Mz=Qe3CJkAucUx858_+_AW4efA@mail.gmail.com>
-Subject: Re: [PATCH] wifi: brcmfmac: drain bus_reset work on device removal
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Fan Wu <fanwu01@zju.edu.cn>, Arend van Spriel <aspriel@gmail.com>, Kalle Valo <kvalo@kernel.org>, 
-	Franky Lin <franky.lin@broadcom.com>, Hante Meuleman <hante.meuleman@broadcom.com>, 
-	Chi-Hsien Lin <chi-hsien.lin@infineon.com>, Wright Feng <wright.feng@infineon.com>, 
-	Chung-Hsien Hsu <chung-hsien.hsu@infineon.com>, "David S . Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, linux-wireless@vger.kernel.org, 
-	brcm80211-dev-list.pdl@broadcom.com, SHA-cyfmac-dev-list@infineon.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgB3kHLp1FFq38APAw--.24487S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?uCrOiAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WPsNDoajOlnwjpY/9ehveo+tEDJ4fpDi5AaZmM1fFJgL7+Q
+	GOwuDsm6pLLZHigh1nSp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW3Zr1fGFyftFWDKFWxGw17Arc_yoWkWw4xpa
+	yrKaykJrWvy3ySgrZrtF40qryIya1xJa9rGw18G3s5u3ZIyr10qr4kKryjvF4UJFWvkrn3
+	Xr4FvFWUuw4DJ3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-On Fri, Jul 10, 2026 at 12:18=E2=80=AFPM Arend van Spriel
-<arend.vanspriel@broadcom.com> wrote:
->
-> On 10/07/2026 02:23, Eddie Phillips wrote:
-> > On Thu,  9 Jul 2026 10:16:35 +0000 Fan Wu <fanwu01@zju.edu.cn> wrote:
-> >
-> >> brcmf_fw_crashed() and the debugfs "reset" entry both schedule
-> >> drvr->bus_reset, whose callback recovers drvr through container_of()
-> >> and dereferences it.  The teardown paths free drvr (brcmf_free ->
-> >> wiphy_free) without draining the work, so a bus_reset callback pending
-> >> or running during removal can outlive drvr.
-> >>
->
-> [...]
->
-> >>
-> >> This issue was found by an in-house static analysis tool.
-> >>
-> >> Fixes: 4684997d9eea ("brcmfmac: reset PCIe bus on a firmware crash")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-> >> Assisted-by: Codex:gpt-5.5
-> >> ---
-> >>   .../broadcom/brcm80211/brcmfmac/bcmsdh.c      | 13 ++++++++
-> >>   .../broadcom/brcm80211/brcmfmac/bus.h         |  6 ++++
-> >>   .../broadcom/brcm80211/brcmfmac/core.c        | 33 +++++++++++++++++=
---
-> >>   .../broadcom/brcm80211/brcmfmac/pcie.c        |  6 ++++
-> >>   .../broadcom/brcm80211/brcmfmac/sdio.c        |  6 ++++
-> >>   .../broadcom/brcm80211/brcmfmac/sdio.h        |  1 +
-> >>   .../broadcom/brcm80211/brcmfmac/usb.c         |  3 ++
-> >>   7 files changed, 66 insertions(+), 2 deletions(-)
->
-> [...]
->
-> >> diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b=
-/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-> >> index fed9cd5f2..b934feb9b 100644
-> >> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-> >> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-> >> @@ -1164,6 +1164,35 @@ static int brcmf_revinfo_read(struct seq_file *=
-s, void *data)
-> >>      return 0;
-> >>   }
-> >>
-> >> +/* Serialize bus_reset arming (debugfs reset write, brcmf_fw_crashed)=
- against the
-> >> + * teardown drain: the remove path takes bus_reset_lock, sets ->remov=
-ing and cancels
-> >> + * the work under it, so a racing armer either schedules before the c=
-ancel (and is
-> >> + * drained) or observes ->removing and desists.
-> >> + */
-> >> +static void brcmf_bus_schedule_reset(struct brcmf_bus *bus_if)
-> >> +{
-> >> +    mutex_lock(&bus_if->bus_reset_lock);
-> >> +    if (bus_if->drvr && bus_if->drvr->bus_reset.func && !bus_if->remo=
-ving)
-> >> +            schedule_work(&bus_if->drvr->bus_reset);
-> >> +    mutex_unlock(&bus_if->bus_reset_lock);
-> >> +}
-> >
-> > Is this safe in a softIRQ context?
-> > mutex_lock() sleeps until it can get the lock.
->
-> What softIRQ context? brcmf_fw_crashed() is called by PCIe (thread) and
-> SDIO (worker).
+The hip04 remove path frees the TX/RX rings before unregistering the
+netdev. If the interface is still up, unregister_netdev() then runs
+.ndo_stop, whose TX reclaim and NAPI poll touch the already-freed DMA
+ring memory. The TX coalesce timer and the platform IRQ also outlive the
+netdev private data they dereference.
 
-Yes, you're right. Since it's thread/worker context, sleeping is fine here.
+Reorder hip04_remove() so the netdev is unregistered (which runs .ndo_stop
+synchronously, stopping NAPI and the TX queue) before the rings are freed.
+Free the devm-managed IRQ explicitly before free_netdev(), so
+hip04_mac_interrupt() (whose dev_id is the netdev) cannot fire against
+freed memory: devm would otherwise release it only after .remove returns.
 
-> >> +
-> >> +void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if)
-> >> +{
-> >> +    mutex_lock(&bus_if->bus_reset_lock);
-> >> +    bus_if->removing =3D true;
-> >> +    if (bus_if->drvr)
-> >> +            cancel_work_sync(&bus_if->drvr->bus_reset);
-> >> +    mutex_unlock(&bus_if->bus_reset_lock);
-> >> +}
-> >
-> > How about if brcmf_pcie_remove() calls brcmf_bus_cancel_reset_work(),
-> > takes the lock and calls cancel_work_sync(), sleeps. If debugfs
-> > path is already running, it can invoke the worker thread. Is there
-> > potential that both try to reset?
->
-> What is "both" here?
+hip04_mac_stop() must quiesce both arming sites of the coalesce timer.
+The NAPI poll arms it, and napi_disable() returns once the poll calls
+napi_complete_done(), not when the poll function returns, so move that
+arm before napi_complete_done().  The early-exit paths in hip04_rx_poll()
+do not call napi_complete_done(); NAPI stays scheduled and will be polled
+again, so there is no need to arm the coalesce timer on that pass.  The
+Tx path also arms it, and mac_stop() is reached directly from
+hip04_tx_timeout_task() as well as via .ndo_stop, so use netif_tx_disable()
+rather than netif_stop_queue() to wait for an in-flight
+hip04_mac_start_xmit() to finish.  The timer is then drained with
+hrtimer_cancel().  A "closing" flag, checked at the single arming site,
+guards against a later arm.
 
-It may be possible that the worker thread is running and then the device is
-unplugged, causing a deadlock.
+hip04_tx_timeout_task() restarts the device with mac_stop() + mac_open().
+Serialize that restart against .ndo_open/.ndo_stop with a driver-private
+state_lock instead of rtnl_lock(): mac_open()/mac_stop() are split into
+internal __hip04_mac_open()/__hip04_mac_stop() helpers, and the
+.ndo_open/.ndo_stop wrappers as well as the timeout worker take the lock.
+This avoids extending RTNL usage; netdev_lock() is not sufficient here, as
+hip04 does not opt into netdev-ops locking.  If timeout recovery is in
+progress when a close begins, .ndo_stop waits on the lock and performs the
+final MAC stop; if .ndo_stop acquires the lock first, the worker sees the
+device is no longer running and returns.  Either way, recovery cannot
+re-enable the MAC
+during teardown.
 
-Another possibility here would be to just lock the state change, but both
-implementations should are fine.
+This issue was found by an in-house static analysis tool.
 
-Best, Eddie
+Fixes: a41ea46a9a12 ("net: hisilicon: new hip04 ethernet driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
 
-> Regards,
-> Arend
+v3: address review from Przemek Kitszel.
+
+- Drop the rtnl_lock()/rtnl_unlock() and the #include <linux/rtnetlink.h>
+  added to hip04_tx_timeout_task() in v2. Serialize the tx-timeout restart
+  against .ndo_open/.ndo_stop with a driver-private state_lock instead:
+  mac_open()/mac_stop() are split into __hip04_mac_open()/__hip04_mac_stop()
+  helpers, and the .ndo_open/.ndo_stop wrappers and the timeout worker all
+  take the lock. This avoids new RTNL usage. netdev_lock() was considered
+  but does not help: hip04 does not opt into netdev-ops locking, so its
+  .ndo_open/.ndo_stop run under RTNL and the netdev instance lock does not
+  protect them.
+
+- Rephrase the sentence about napi_complete_done() / early-exit paths that
+  was hard to read.
+
+- s/Tx xmit/Tx/.
+
+v2: Address review comments from Simon Horman. Use netif_tx_disable() rather
+   than netif_stop_queue() in hip04_mac_stop() so that an in-flight
+   hip04_mac_start_xmit() finishes before the TX ring is reclaimed;
+   mac_stop() is also called directly from the tx-timeout work, not only
+   via .ndo_stop. Arm the coalesce timer in hip04_rx_poll() before
+   napi_complete_done(), so that napi_disable() observes the final arm and
+   the subsequent cancel cannot miss it. Free the devm-managed IRQ
+   explicitly in hip04_remove() before free_netdev() so that
+   hip04_mac_interrupt() cannot run against freed memory, placing it after
+   unregister_netdev() so that the device is stopped first. Reorder
+   hip04_remove() so that the netdev is unregistered (running .ndo_stop)
+   before the PHY is disconnected and the TX/RX rings are freed. Check the
+   return value of hip04_mac_open() in the tx-timeout restart path.
+
+v2: https://lore.kernel.org/netdev/20260710015730.630775-1-fanwu01@zju.edu.cn/
+v1: https://lore.kernel.org/netdev/20260703050133.2445155-1-fanwu01@zju.edu.cn/
+
+ drivers/net/ethernet/hisilicon/hip04_eth.c | 107 ++++++++++++++++++++++++++----
+ 1 file changed, 96 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/net/ethernet/hisilicon/hip04_eth.c b/drivers/net/ethernet/hisilicon/hip04_eth.c
+index 18376bcc7..4bd192094 100644
+--- a/drivers/net/ethernet/hisilicon/hip04_eth.c
++++ b/drivers/net/ethernet/hisilicon/hip04_eth.c
+@@ -15,6 +15,7 @@
+ #include <linux/of_net.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/regmap.h>
++#include <linux/mutex.h>
+ 
+ #define SC_PPE_RESET_DREQ		0x026C
+ 
+@@ -232,6 +233,8 @@ struct hip04_priv {
+ 	int tx_coalesce_frames;
+ 	int tx_coalesce_usecs;
+ 	struct hrtimer tx_coalesce_timer;
++	bool closing;
++	struct mutex state_lock; /* Serializes MAC open/stop and timeout recovery. */
+ 
+ 	unsigned char *rx_buf[RX_DESC_NUM];
+ 	dma_addr_t rx_phys[RX_DESC_NUM];
+@@ -497,6 +500,12 @@ static void hip04_start_tx_timer(struct hip04_priv *priv)
+ {
+ 	unsigned long ns = priv->tx_coalesce_usecs * NSEC_PER_USEC / 2;
+ 
++	/* Do not (re-)arm the Tx coalesce timer once teardown has begun.
++	 * Both arming sites (Tx and NAPI Rx poll) go through here.
++	 */
++	if (smp_load_acquire(&priv->closing))
++		return;
++
+ 	/* allow timer to fire after half the time at the earliest */
+ 	hrtimer_start_range_ns(&priv->tx_coalesce_timer, ns_to_ktime(ns),
+ 			       ns, HRTIMER_MODE_REL);
+@@ -649,12 +658,15 @@ static int hip04_rx_poll(struct napi_struct *napi, int budget)
+ 		priv->reg_inten |= RCV_INT;
+ 		writel_relaxed(priv->reg_inten, priv->base + PPE_INTEN);
+ 	}
++	/* Arm the coalesce timer BEFORE napi_complete_done(): napi_disable()
++	 * in hip04_mac_stop() returns once SCHED is cleared here, not when
++	 * the poll function returns, so arming afterwards can slip past the
++	 * stop path's hrtimer_cancel().
++	 */
++	if (tx_remaining)
++		hip04_start_tx_timer(priv);
+ 	napi_complete_done(napi, rx);
+ done:
+-	/* start a new timer if necessary */
+-	if (rx < budget && tx_remaining)
+-		hip04_start_tx_timer(priv);
+-
+ 	return rx;
+ }
+ 
+@@ -720,7 +732,7 @@ static void hip04_adjust_link(struct net_device *ndev)
+ 	}
+ }
+ 
+-static int hip04_mac_open(struct net_device *ndev)
++static int __hip04_mac_open(struct net_device *ndev)
+ {
+ 	struct hip04_priv *priv = netdev_priv(ndev);
+ 	int i;
+@@ -743,6 +755,13 @@ static int hip04_mac_open(struct net_device *ndev)
+ 		hip04_set_recv_desc(priv, phys);
+ 	}
+ 
++	/* RX mappings are established; clear the closing flag before
++	 * re-enabling traffic.  The store-release pairs with the load-acquire
++	 * in hip04_start_tx_timer(); state_lock serializes this against
++	 * mac_stop()'s store-release.
++	 */
++	smp_store_release(&priv->closing, false);
++
+ 	if (priv->phy)
+ 		phy_start(priv->phy);
+ 
+@@ -754,13 +773,42 @@ static int hip04_mac_open(struct net_device *ndev)
+ 	return 0;
+ }
+ 
+-static int hip04_mac_stop(struct net_device *ndev)
++static int hip04_mac_open(struct net_device *ndev)
++{
++	struct hip04_priv *priv = netdev_priv(ndev);
++	int ret;
++
++	mutex_lock(&priv->state_lock);
++	ret = __hip04_mac_open(ndev);
++	mutex_unlock(&priv->state_lock);
++	return ret;
++}
++
++static int __hip04_mac_stop(struct net_device *ndev)
+ {
+ 	struct hip04_priv *priv = netdev_priv(ndev);
+ 	int i;
+ 
++	/* Stop new timer arms before draining: set the closing flag (checked
++	 * at the single arming site), wait for the NAPI poll and any in-flight
++	 * TX to finish, then cancel the timer.
++	 *
++	 * netif_tx_disable() (not netif_stop_queue()) is required because this
++	 * function is also called directly from hip04_tx_timeout_task(), not
++	 * only via .ndo_stop where the core has already deactivated TX;
++	 * netif_tx_disable() waits for an in-flight hip04_mac_start_xmit(),
++	 * which arms the timer, to finish.
++	 *
++	 * Because hip04_rx_poll() arms the timer before napi_complete_done(),
++	 * napi_disable() returning means that arm has happened, so the
++	 * hrtimer_cancel() below cannot miss it.  The store-release pairs
++	 * with the load in hip04_start_tx_timer().
++	 */
++	smp_store_release(&priv->closing, true);
++
+ 	napi_disable(&priv->napi);
+-	netif_stop_queue(ndev);
++	netif_tx_disable(ndev);
++	hrtimer_cancel(&priv->tx_coalesce_timer);
+ 	hip04_mac_disable(ndev);
+ 	hip04_tx_reclaim(ndev, true);
+ 	hip04_reset_ppe(priv);
+@@ -779,6 +827,16 @@ static int hip04_mac_stop(struct net_device *ndev)
+ 	return 0;
+ }
+ 
++static int hip04_mac_stop(struct net_device *ndev)
++{
++	struct hip04_priv *priv = netdev_priv(ndev);
++
++	mutex_lock(&priv->state_lock);
++	__hip04_mac_stop(ndev);
++	mutex_unlock(&priv->state_lock);
++	return 0;
++}
++
+ static void hip04_timeout(struct net_device *ndev, unsigned int txqueue)
+ {
+ 	struct hip04_priv *priv = netdev_priv(ndev);
+@@ -791,8 +849,23 @@ static void hip04_tx_timeout_task(struct work_struct *work)
+ 	struct hip04_priv *priv;
+ 
+ 	priv = container_of(work, struct hip04_priv, tx_timeout_task);
+-	hip04_mac_stop(priv->ndev);
+-	hip04_mac_open(priv->ndev);
++
++	/* Serialize the restart with .ndo_open/.ndo_stop, which take the
++	 * same lock.  If a close has completed or is in progress the
++	 * netif_running() check bails; if that check races the core's
++	 * running-state clear, .ndo_stop still runs under state_lock
++	 * afterwards and stops the device, so this worker cannot leave the
++	 * MAC re-enabled against a teardown.
++	 */
++	mutex_lock(&priv->state_lock);
++	if (!netif_running(priv->ndev))
++		goto out;
++
++	__hip04_mac_stop(priv->ndev);
++	if (__hip04_mac_open(priv->ndev))
++		netdev_err(priv->ndev, "restart after tx timeout failed\n");
++out:
++	mutex_unlock(&priv->state_lock);
+ }
+ 
+ static int hip04_get_coalesce(struct net_device *netdev,
+@@ -983,6 +1056,7 @@ static int hip04_mac_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	INIT_WORK(&priv->tx_timeout_task, hip04_tx_timeout_task);
++	mutex_init(&priv->state_lock);
+ 
+ 	ndev->netdev_ops = &hip04_netdev_ops;
+ 	ndev->ethtool_ops = &hip04_ethtool_ops;
+@@ -1026,13 +1100,24 @@ static void hip04_remove(struct platform_device *pdev)
+ 	struct hip04_priv *priv = netdev_priv(ndev);
+ 	struct device *d = &pdev->dev;
+ 
++	unregister_netdev(ndev);
++
++	/* The IRQ is devm-managed and would otherwise be freed only after
++	 * this function returns.  Free it now, after unregister_netdev() has
++	 * run .ndo_stop to stop the device and mask its interrupt source, but
++	 * before the manual free_netdev() below, so that hip04_mac_interrupt()
++	 * (dev_id == ndev) cannot fire against freed memory.  free_irq() also
++	 * drains any in-flight handler.
++	 */
++	devm_free_irq(d, ndev->irq, ndev);
++	cancel_work_sync(&priv->tx_timeout_task);
++	hrtimer_cancel(&priv->tx_coalesce_timer);
++
+ 	if (priv->phy)
+ 		phy_disconnect(priv->phy);
+ 
+ 	hip04_free_ring(ndev, d);
+-	unregister_netdev(ndev);
+ 	of_node_put(priv->phy_node);
+-	cancel_work_sync(&priv->tx_timeout_task);
+ 	free_netdev(ndev);
+ }
+ 
+
