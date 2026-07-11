@@ -1,139 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E0A2C21E6;
-	Sat, 11 Jul 2026 16:08:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48783CAE75
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 16:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783786114; cv=none; b=uwL27z2wTkrLMPOPtC5TZ0B2vPv0tdOLJXuF1Rv16fDGFivVofhKY4p9UEdMiXZAo6K5CwpsMsNaLUaRHnEVwwlw9yiN+7QxovhZquMi+4yypz/KLQmnFzor9IN3yyn3tQbL/IIde1N3W5GVHqM9CG9R3VykwSRuuo06FZii/l0=
+	t=1783788417; cv=none; b=kDG4pfZ0BN/7Hw/nq1nvSxy/zgbVYfTBhFwboinuO1XLpo1Ln+XSNGht/hjmee3w8unUyfl3G5EuZL9TtYxjOLVVtuCicQOR9I5/iDp/zlqJriI/Ky7c6iPuW83eED2NlYTeR+uT7bQLkCfLPStyFkNOUzJETx/pLLo5NZSb06g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783786114; c=relaxed/simple;
-	bh=aJbuPjyRpjc36PC/A4LIO9alsbLAU1c4RukZqjuqX8E=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=gXTPVLTsQ4fhPmDrplJCOuBh/VZZsxhp7S0S1bzan5cBulmSHDTco6XU46dox+RL4XbZ5Y3p0SgEMWI7ZxDEBEC39DzKbbZhxXu4xJkQN+W3ZbSOHy5n6I2v9ojlxcaveYfnKMPDt/HgKcFGjuaMRPxOgJi3jJfJBzJ1xZXXe0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ExIGC3g/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783788417; c=relaxed/simple;
+	bh=vOIyXFFZ7MUpU45xMYEk4ckdQRPhmCb+opV2ITDgs8c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jmcJ6ZjuMH7WLbpB+SHeIi8Pfn8nIiPNIPZig4EOS2o90hV0YMFdVk2j8Z1cS2OpdcDaFOS1UM0UyaGFsXXQP6dj3c6BkgYUc8PvNKSxDI5NKSsAni8Z+O1efvX4zVPeXKwIgeln3Lz8G7QD7rcceRnDcPDSTv5yt+uQF8VZFdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FOTnwdLw; arc=none smtp.client-ip=95.215.58.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ExIGC3g/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4C61F000E9;
-	Sat, 11 Jul 2026 16:08:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783786113;
-	bh=1a6TrSrUODvTgz6nkNSC5mFKMqJ+6PJ8Uo5YoxndzSA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=ExIGC3g/uu8AYYEm7OCs7Al08Sn5duw6NEZGMp1Rl22zSI6zD+jIR2Ge3h+R5WuSy
-	 OA6Pz6/GUyhB6U+pjjkfjcRzxd6kDQaaD9WUaSR00sLd8t6TYR2krUdkWtgqIG0m1P
-	 hvcg2/jimLhCWZcoMF+kjPvlrGc+9V1wePiATGjNnTm7aBN4qAw7IYz5XMopIYwGt0
-	 DaKVKgd8n87w2olZO0nOVsC1Zl19jHZxM0FmT8cnw2gIIZvvPChWw15XSw4cZK5zVP
-	 pxeRriY1bqVZ+3WLJfK5j4FvDm2o2aSVsI79fs++BOvXoucRr53NcVgLqFhWtVLE8r
-	 dlh66wVETZkEA==
-Date: Sat, 11 Jul 2026 11:08:31 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Darshit Shah <darnshah@amazon.de>
-Cc: lukas@wunner.de, Jonthan.Cameron@huawei.com, bhelgaas@google.com,
-	darnir@gnu.org, feng.tang@linux.alibaba.com, kbusch@kernel.org,
-	kwilczynski@kernel.org, linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org, nh-open-source@amazon.com,
-	olof@lixom.net, sathyanarayanan.kuppuswamy@linux.intel.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3] drivers/pci: Decouple DPC from AER service
-Message-ID: <20260711160831.GA1041396@bhelgaas>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FOTnwdLw"
+Message-ID: <a7b0db75-439f-4ae8-8721-da1d5fe86123@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1783788400;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1/pvJPtukmUQ63EL9+PIQ+yeMrrp61W/YU2BycuLANQ=;
+	b=FOTnwdLwTPd7pzjtwfopqHKTpcDJvx37GCOQfJZI9VusltF+qYTRqsIRiLpLVfTbSuiIYI
+	cQNn3eKvCayRy86mYgijmMZ7MNO/e90a0a3iKDC8QI9voAfzBZW0iOACqWHF7IoC2zGyzn
+	k5yxYjQm6wslooU3ZyFDh2tlYs30aX0=
+Date: Sat, 11 Jul 2026 18:46:25 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710170057.GA960077@bhelgaas>
+Subject: Re: Bug#1141604: linux-image-6.12.94+deb13-amd64: does not detect
+ ScreenPad on ASUS VivoBook
+To: Salvatore Bonaccorso <carnil@debian.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Ponali <ponali2k@gmail.com>, Luke Jones <luke@ljones.dev>,
+ Corentin Chary <corentin.chary@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ 1141604@bugs.debian.org, platform-driver-x86@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, regressions@lists.linux.dev,
+ stable@vger.kernel.org
+References: <178340264407.17924.10135409461303815312.reportbug@ananaspc>
+ <178362762638.911488.8564892548331679884@eldamar.lan>
+ <98dc115b-1dec-4fbb-bab7-2588e8b74bf8@linux.dev>
+ <0ff0385e-50b0-bfae-cedc-05cfe9c6cbc7@linux.intel.com>
+ <alE92R40JwcluApW@eldamar.lan>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <alE92R40JwcluApW@eldamar.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Fri, Jul 10, 2026 at 12:00:57PM -0500, Bjorn Helgaas wrote:
-> On Thu, Dec 11, 2025 at 04:42:53PM +0000, Darshit Shah wrote:
-> > According to PCIe r7.0, sec. 6.2.11, "Implementation Note: Determination
-> > of DPC Control", it is recommended that the Operating System link the
-> > enablement of Downstream Port Containment (DPC) to the enablement of
-> > Advanced Error Reporting (AER).
-> > 
-> > However, AER is advertised only on Root Port (RP) or Root Complex Event
-> > Collector (RCEC) devices. On the other hand, DPC may be advertised on
-> > any PCIe device in the hierarchy. In fact, since the main usecase of DPC
-> > is for the switch upstream of an endpoint device to trigger a signal to
-> > the host-bridge, it is imperative that it be supported on non-RP,
-> > non-RCEC devices.
-> > 
-> > Previously portdrv has interpreted the spec to mean that the AER service
-> > must be available on the same device in order for DPC to be available.
-> > This is not what the implementation note meant to imply. If the firmware
-> > hands Linux control of AER via _OSC on the host bridge upstream of the
-> > device, then Linux should be allowed to assume control of DPC on the device.
-> > 
-> > The comment above this check alludes to this, by saying:
-> >   > With dpc-native, allow Linux to use DPC even if it doesn't have
-> >   > permission to use AER.
-> > 
-> > However, permission to use AER is negotiated at the host bridge, not
-> > per-device. So we should not link DPC to enabling AER at the device.
-> > Instead, DPC should be enabled if the OS has control of AER for the
-> > host bridge that is upstream of the device in question, or if dpc-native
-> > was set on the command line.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Darshit Shah <darnshah@amazon.de>
-> > Reviewed-by: Lukas Wunner <lukas@wunner.de>
-> > Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-> 
-> Sorry for the delay in picking this up.  Thanks for doing this; I
-> think it's the right thing.  I think the commit log is not completely
-> accurate in terms on which devices advertise AER and DPC, so I propose
-> the following.  I also reordered the || operands to make the patch
-> easier to read.  Your thoughts?
 
-Path below applied to pci/dpc for v7.3, thanks, Darshit!
+On 7/10/26 20:45, Salvatore Bonaccorso wrote:
+> Hi all,
+>
+> On Fri, Jul 10, 2026 at 03:31:08PM +0300, Ilpo Järvinen wrote:
+>> On Fri, 10 Jul 2026, Denis Benato wrote:
+>>> On 7/9/26 22:08, Salvatore Bonaccorso wrote:
+>>>> Control: forwarded -1 https://lore.kernel.org/regressions/178362762638.911488.8564892548331679884@eldamar.lan
+>>>> Control: tags -1 + upstream
+>>>>
+>>>> Hi,
+>>>>
+>>>> Ponali reported in Debian (https://bugs.debian.org/1141604) the
+>>>> following issue after updating from 6.12.90 to 6.12.94. First quoting
+>>>> the report:
+>>>>
+>>>> On Tue, Jul 07, 2026 at 07:37:24AM +0200, Ponali wrote:
+>>>>> Package: src:linux
+>>>>> Version: 6.12.94-1
+>>>>> Severity: normal
+>>>>> Tags: upstream, regression
+>>>>> X-Debbugs-Cc: ponali2k@gmail.com
+>>>>>
+>>>>> Last known working kernel: 6.12.90-1
+>>>>> First known broken kernel: 6.12.94-1
+>>>>>
+>>>>>
+>>>>> Dear Maintainer,
+>>>>>
+>>>>> I upgraded all my packages through apt, which also upgraded the linux image
+>>>>> from 6.12.90 to 6.12.94.
+>>>>>
+>>>>> I expected the ScreenPad display to continue to be detected and exposed as a
+>>>>> DRM output, like on 6.12.90. The ScreenPad being the trackpad with a screen,
+>>>>> which came with my computer (ASUS VivoBook X532FA_S532FA).
+>>>>>
+>>>>> After upgrading and rebooting, the new kernel caused a regression where the
+>>>>> display of the ScreenPad fails to get recognized by the kernel. The touchpad
+>>>>> functionality still works. Usually, the ScreenPad would appear as "HDMI-A-1".
+>>>>> The DRM connector for it still exists (/sys/class/drm/card0-HDMI-A-1), but
+>>>>> "status" reports "disabled"
+>>>>>
+>>>>> I could not get the ScreenPad display to be recognized again on the new kernel,
+>>>>> so I configured GRUB to automatically boot to the 6.12.90 kernel through the
+>>>>> "Advanced Options". The ScreenPad is recognized on older kernel versions, so I
+>>>>> am still able to use it (until a new LPE comes around).
+>>>>>
+>>>>> To replicate:
+>>>>> 1. Boot with 6.12.90. The ScreenPad display is detected as HDMI-A-1.
+>>>>> 2. Boot with 6.12.94 with the exact same hardware.
+>>>>> 3. The ScreenPad display is no longer usable.
+>>>>>
+>>>>>
+>>>>> My main display is eDP-1 (1920x1080), though it isn't essential. My GPU is an
+>>>>> integrated Intel iGPU, and the driver used for both screens is i915. I have
+>>>>> booted to the new kernel for reportbug to get all the information
+>>>>> automatically, but i will continue to use the old one until the appropriate
+>>>>> time.
+>>>> Now, Ponali did bisect the changes between 6.12.90 and 6.12.94 and
+>>>> found that the backport of the commit 8d95d1f4aa5c ("platform/x86:
+>>>> asus-wmi: fix screenpad brightness range") changed the behaviour.
+>>>> Bisect log is at: https://bugs.debian.org/1141604#22
+>>>>
+>>>> As this change was backported to other stable series as well I asked
+>>>> Ponali to please test 7.0.y and 7.1.y and confirmed that both 7.0.13
+>>>> and as well 7.1.3 show the hehaviour.
+>>>>
+>>>> #regzbot introduced: 8d95d1f4aa5c76202b0833a70998769384612488
+>>>> #regzbot link: https://bugs.debian.org/1141604
+>>>>
+>>>> Is there anything Ponali can report back to further debug the issue?
+>>> Hi Salvatore,
+>>>
+>>> The commit incriminated is this one: https://lore.kernel.org/all/20260302174431.349816-3-denis.benato@linux.dev/
+>>>
+>>> As you can see that commit changes min/max of the brightness range, but 
+>>> does not touch the detection at all, 
+>> To be more precise, it DOES change read_screenpad_backlight_power() -> 
+>> asus_wmi_get_devstate_simple() but AFAICT that cannot make things worse 
+>> because asus_wmi_get_devstate_simple() used in both cases, so I was 
+>> left to wonder the same thing as you.
+>>
+>> That being said, it's hard to see how bisect could point this to a wrong 
+>> commit either because good/bad should be pretty obvious.
+>>
+>> Did reverting the suspect commit on top of 6.12.94 result in a working 
+>> system?
+> Ponali did test, and reported back in the Debian bug at
+> https://bugs.debian.org/1141604#60, quoting:
+>
+>> I have found the sysfs attribute for brightness control to be in
+>> /sys/class/backlight/asus_screenpad, and it appears on both 6.12.90 and
+>> 6.12.94.
+>>
+>> On 6.12.90, max_brightness reports 235.
+>>
+>> On 6.12.94, max_brightness reports 255.
+>>
+>>
+>> I have checked out to v6.12.94, reverted the suspect commit, and found
+>> the ScreenPad to be working as intended.
+>>
+The only reason I see is the the minimum might be greater than the maximum
+or negative and the kernel is rejecting it.
 
-I'm actually a little surprised that this wasn't an issue earlier.  I
-guess DPC hasn't really been exercised on switches.
+Can you also report back on the minimum?
 
-> commit 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER")
-> Author: Darshit Shah <darnshah@amazon.de>
-> Date:   Thu Dec 11 16:42:53 2025 +0000
-> 
->     PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER
->     
->     PCIe r7.0, sec 6.2.11, "Implementation Note: Determination of DPC Control",
->     recommends that "... operating systems always link control of DPC to the
->     control of Advanced Error Reporting."
->     
->     Any PCIe device may advertise AER, but only Root Ports and Root Complex
->     Event Collectors can generate AER interrupts, so the AER driver only binds
->     to RPs and RCECs.
->     
->     Any Root Port or Switch Downstream Port may advertise Downstream Port
->     Containment (DPC), but previously the DPC driver was limited to devices the
->     AER driver could bind to, i.e., only RPs that advertised AER.
->     
->     Since any Port with DPC can generate DPC interrupts, allow the DPC driver
->     to bind to such a Port as long as the OS controls AER, regardless of
->     whether the AER driver binds to it.
->     
->     Signed-off-by: Darshit Shah <darnshah@amazon.de>
->     [bhelgaas: commit log, reorder || operands to simplify patch]
->     Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
->     Reviewed-by: Lukas Wunner <lukas@wunner.de>
->     Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
->     Cc: stable@vger.kernel.org
->     Link: https://patch.msgid.link/20251211164257.81655-1-darnshah@amazon.de
-> 
-> 
-> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-> index 2d6aa488fe7b..65f502602dee 100644
-> --- a/drivers/pci/pcie/portdrv.c
-> +++ b/drivers/pci/pcie/portdrv.c
-> @@ -264,7 +264,7 @@ static int get_port_device_capability(struct pci_dev *dev)
->  	 */
->  	if (pci_find_ext_capability(dev, PCI_EXT_CAP_ID_DPC) &&
->  	    pci_aer_available() &&
-> -	    (pcie_ports_dpc_native || (services & PCIE_PORT_SERVICE_AER)))
-> +	    (pcie_ports_dpc_native || host->native_aer))
->  		services |= PCIE_PORT_SERVICE_DPC;
->  
->  	/* Enable bandwidth control if more than one speed is supported. */
+Also if you could print a few values that would be helpful since I am not really seeing much here.
+>> Regards,
+>>
+>> Ponali
+> Regards,
+> Salvatore
