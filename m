@@ -1,222 +1,274 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC50C1F3BAC;
-	Sat, 11 Jul 2026 22:50:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F06A2C1594
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 22:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783810220; cv=none; b=JgYyjrTnnWaFwRUaHkPR0NfBn/0kO/wFdQ5B3OvsU3ZzR3NYNqKocAd25bGlU8njdJFSjqI281bpiA7q5fvzwqdNfKlgXC+y/itKLtQs1MiAi7nm3Mx5+IgvK/FuBQ87clSUweT9S2SJS5nATZqSFKU84PgqQ7SPKNNWX/2nNXM=
+	t=1783810301; cv=none; b=tRbLZFgCgf/qJ1p1jVYzzcvIbB+F5rAaMKzx4B+BX5k9tpiqlGLb0Bgm+W21lDcWsCRofBPW9ynwFkzRdxzNHCJ7Wqc8pONvcAPCCjilFa3iXA6kk7+wYTJpXHYtEw1NjP4H/2rYmrczP0lZVMx7g4ioIKIgyUa8wYBzgfh2u6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783810220; c=relaxed/simple;
-	bh=9hEttOjxUo4x8VZA0u6Zh8it9IZ1e1B/QRSppPFee94=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LxYlKvy0nfiMrNkOhBhNOavO/Cb16gSlzq2Yrhni2WN1+9OXsCJmEIn0ZC8UHsGUVDwYPgSxitiKtbjb4FKFAlBBMOK8B3H97TxCixMvgFkDO2Yy7NCMVPLPd5CAh7qPN4rsXxf4+9RwCgKZ0dQbJLIbF2oK3LkJrQg2W0wwyzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=T3xlR045; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1783810301; c=relaxed/simple;
+	bh=ZTp2cUUkkT21/rpxRKLxJRm5cuRD3FvaDw6wOAPKY7E=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lfGQrz3FGoVnpS/feYF3c6/a5Ccu49nZuIy3Fj/GWLeGXNOH94Wrb5m20ktUoPJRGNAcrMo/wwThJVC5P5ZzgcuzsAGGmFQAd2aXh1GDxoFpJf52yEX8urW6L+y1P6+bn8Cgl8IbHcnpdpVnSgM0oibi6V3BxXxfn82Q7ld1YCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fhrPGq/L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kqabrFUg; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="T3xlR045"
-Received: by chaosmail.tech (Postfix) id 2256B1C8673;
-	Sat, 11 Jul 2026 22:50:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1783810207;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=BqTPpzuvZrixISR9QYSmrDSTNk2cgTef1nAy5K2DnE4=;
-	b=T3xlR0454W0UcaNa9HsYGVt63N1K7Vvfn2XsjjAWPW9fTA2Bz4vtxrWWCPBArqroirWByc
-	w6PDEYFcp4SMFyebriPEtY7G7y7NHwSqmIOWB/onHKNjWjcMVA/39mAbIBlCmID5QTZlbX
-	bC72qJ9MPc1pMJlmXyGANLEZeyMinaw=
-From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Sun, 12 Jul 2026 00:48:56 +0200
-Subject: [PATCH v4] power: supply: macsmc: Support macOS 27 SMC firmware
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fhrPGq/L";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kqabrFUg"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66BKx2hO666331
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 22:51:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	L3oThxMyizgDkEn3KJey6UQ6i6siohpG1Fw7YPZTbPA=; b=fhrPGq/LHGRtI0cd
+	Y9wQgX2hnhDCQsgGHFuExqaBn34VtcxlVXUcQZwdVteBder4S23GqJIOaV5cVZTs
+	p0uwIUGI2XJUvYMndv8icTKx9vrMgMf6ymeA31/xpzm2Mych8Zp2C4E6FtKdqIwT
+	JbzifziEvdDI9i8dj3ZLUNFKlZsnxpyC7/3jMXUaA+L5gmDywp7vOEvNEq7KaHro
+	4AiXwrGyo+Lcn/WMRLT4timR3Qn8lq/pZxj9dSf8MUsRHeYdRsJvKMgK6VKzZJiK
+	f4kyjDAjyQo6Bi5e9X+9GD3MXanp195/927Sp8h7m5b2MamOCViLPbYPRbP0RTAn
+	bvqCzQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbeamss01-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 22:51:38 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cacd6d37edso28182815ad.0
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 15:51:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783810297; x=1784415097; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=L3oThxMyizgDkEn3KJey6UQ6i6siohpG1Fw7YPZTbPA=;
+        b=kqabrFUgMuZ0eK+S2tCtRO09bQfTqB2As6NZP5oNr6V4/H9kgPARMIUWCLMgELtZRX
+         Uh8kf6/VWaCG/Rw66twkX12bjFkZ31IkyBW72XO0LHYKswJl8jGUUPLhdPO7dTp6zEaq
+         5icExhk0oeHR1foVyjMP1cuUXfk1oanr415v21ge6nv6O1JdWGevuWTzz97/mPmcHy78
+         fLtYkmgTgEaITqbVFzlACszXWfg1P5OoYbiCY966/njLzCmVMv1fLLZSqWSUFJ9NX+b+
+         eOxFngqhnbtX0686wyqqAuFOK2NDZKrC8VYrSU0VD+UsJyoHrvLVdH7mBctQpcdOiA0g
+         GC2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783810297; x=1784415097;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L3oThxMyizgDkEn3KJey6UQ6i6siohpG1Fw7YPZTbPA=;
+        b=rjd6bRH/cagZISOyF9RBLV+hVIeaILd5xGzyc+Aajff3FCy7kWthCQBzOnJIXnnyLV
+         RPuP0Yr1ncKIgC+3tA0sIERAKAGcD/igJD9A9azRyUND25EW3LLGAynqdN43mkcP3I73
+         Oe1Dzdpn5yyTkhuUS0GusbalLNNH7ViRtb+tOaaSUg0NS51MGUmIEyvIjNxPK0NrXS5b
+         ltrPBA/6uIdEZaguJ8wCox/iU+IK5B8EecFcT+L8V6WJacH6ZaGMX1wU++3lNKd60UHO
+         jLwYtFTBMNk5VsaYKR9IPd6PCABk9stEfz2zzctKtwJWUL2rfO8nTyUR7NiqRKxWjCLZ
+         v8Gw==
+X-Forwarded-Encrypted: i=1; AHgh+RovAe1+WT2z9tcPGHtx4o4bxHsR+M8q0NV8egRROLQQjkAph3FKRUu8Jgo4qG7JcuUOBUo6AhI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHV1nZbH9/NsBjGLT5CyXuUkbichELzdGVVkidO0LRIq0TUIXm
+	k5ZCgE5nsaWojXIrpTIgoJVeLz1eDNtM2Ar11sy+CbwDDGY7t1xiajpn4uLli2WFO/CT+JH0N/3
+	l2C/MOjTzTMxMGeKQqOW8y9NgS5u5DopHX5Qq1VZ+srzBkjnyj8xL0AXj1ng=
+X-Gm-Gg: AfdE7cnI3BAg/y0WY4GSmE68dmgAH17IiFeXpjI5zdADkRepvYZA9oWf2Vsn7FRtrOt
+	t91lUgjGblu0ehU16DXN6eHB3uzkekWiMM6mLT+J4jQMSDH4JFiMXjh9LT2ycFbTb+2vXjxGhtd
+	Q9eRvp8YQGRRD9XLfyfSM7wSfKwDkB1J4ky/LyO+/IyyCFvqRY8xN/JbX67WzCYqod2h6lZsU78
+	wSIJ73xyoCEeGCizKqUkojVIuv5m8dCtqEQqa4fTdo8D6rM7VtduFWZC77GFyg0KNTwd9RUznWS
+	5UD8AQEE/Vd0c+mOnNfXTSqfArDO8JAPYEvQ/CzsEN47CCg/OMG1Pp23w0wJUwyIJkqr83pGQ/0
+	3N7WoRgtO0AfLq6JdO/h3zynqIFg=
+X-Received: by 2002:a17:903:3c0c:b0:2c9:e69f:edce with SMTP id d9443c01a7336-2ce9f39973bmr40429315ad.44.1783810297123;
+        Sat, 11 Jul 2026 15:51:37 -0700 (PDT)
+X-Received: by 2002:a17:903:3c0c:b0:2c9:e69f:edce with SMTP id d9443c01a7336-2ce9f39973bmr40429195ad.44.1783810296625;
+        Sat, 11 Jul 2026 15:51:36 -0700 (PDT)
+Received: from jic23-huawei ([50.35.46.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d59e33sm76365505ad.74.2026.07.11.15.51.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Jul 2026 15:51:36 -0700 (PDT)
+Date: Sat, 11 Jul 2026 23:51:32 +0100
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Jean-Baptiste Maneyrol <Jean-Baptiste.Maneyrol@tdk.com>
+Cc: Jean-Baptiste Maneyrol via B4 Relay
+ <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>,
+        David Lechner
+ <dlechner@baylibre.com>,
+        Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+        Andy
+ Shevchenko <andy@kernel.org>,
+        "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>,
+        "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH] iio: imu: inv_icm42600: fix timestamp clock period by
+ using lower value
+Message-ID: <20260711235132.1568bd75@jic23-huawei>
+In-Reply-To: <BE1P281MB1426AC573E4DFA75DE2D522FCEF12@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
+References: <20260623-inv-icm42600-fix-timestamp-clock-period-v1-1-82184d2429f4@tdk.com>
+	<20260703200224.69d60475@jic23-huawei>
+	<BE1P281MB1426AC573E4DFA75DE2D522FCEF12@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260712-gate-power-v4-1-aa59c6583247@chaosmail.tech>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OOw7CMBAE0Ksg1xjFG+QPFfdAFP6sEyMgyA4BF
- OXu2KEBkXKkfTM7koQxYCK71UgiDiGF7prDdr0ittXXBmlwOROogFecMdroHumte2Ck1jsB3Nn
- KCU8yuEX04TmXHY6fnO7mhLYvDeWiDanv4mteG1i5WyweGGVUag4CWCW5Ffv8S5cuOpw3PdqWl
- PYBvj38eMjeoeDWKGME+kVff3lQP74u+1uQ2qja11L9+Wma3teBhBI7AQAA
-X-Change-ID: 20260611-gate-power-cfd726dc0d7f
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Sebastian Reichel <sre@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Peisach <jpeisach@ubuntu.com>, stable@vger.kernel.org, 
- Sasha Finkelstein <k@chaosmail.tech>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783810207; l=6328;
- i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=9hEttOjxUo4x8VZA0u6Zh8it9IZ1e1B/QRSppPFee94=;
- b=7RHM7NDNYULbELZ142reJuoDQRRO402Ewn+zyEZnHcC7TyyVJz9M7AfU8S7PqkuPAeVuvmB+s
- n9R19EQxBTyC/6f4EFmEQIRIqTJkdvjL0/9ivANdcprnByU9Kcme7hx
-X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
- pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzExMDIzMyBTYWx0ZWRfX+g6/zg45ht9h
+ RwQRbZKh49BrpfA1chZe16H8dN+2e30eNV6hiZ/Pr/0v+rOvMeCV+t6f/anKlAiIer8AMhAVirP
+ L8nPHMq+MUk4ezJG/bNflfH6Kn8c9sE=
+X-Proofpoint-GUID: 3g_axelRTivapKXk308duaDNNyySvFL4
+X-Proofpoint-ORIG-GUID: 3g_axelRTivapKXk308duaDNNyySvFL4
+X-Authority-Analysis: v=2.4 cv=dJSWXuZb c=1 sm=1 tr=0 ts=6a52c8fa cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=In8RU02eAAAA:8 a=VwQbUJbxAAAA:8 a=tpoKPDdqsMjE0q__xjQA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzExMDIzMyBTYWx0ZWRfX9Z4hKnPuE3mX
+ wK9C80tbDZgqSM427HZcLPaMw9NL4ppQgkKw1+WXPDcvDN/UG+CCR90hsFNbLcPzKyJmK6Y8y1A
+ zHfudETO/y3nAno5lP1wpYvhzGdZYzxOmhtDjYrbPoAR/wFQN8UEgWv1evvWq6tIFpVPKdtSDL9
+ DQjMIx3q4wrq5vZxz7RaOvTrWCrxhFS0fDpWX9v3QGAlyZj41lcjx5ZlyC04nkUWnux3Yc1ByDM
+ s2bE+RF58STfZLpFEU6kUhGYYvmgEh9X9wxcqkAO97WtAXuQVaUblNlajcMnpoaD5idJBcoApqS
+ g/397N15Cx9xanXgjZFOAG/+fcVf3E9PAeNpfPKeO58ImwomSnndx/yO77TlyFlg/f3v2/9ZL2d
+ OdppIQCsynGXQab+UP/dJ5MzsQu2ZNd19dDMWxUyUAa9CFjpZGAkBGy6RNKJrKiNva8vLZt1vr5
+ TQEjamT4VGGD5vocVQQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-11_06,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607110233
 
-The SMC firmware included in macOS 27 changed the size of BCF0 key from
-4 to 1 bytes. This key is used for indicating that battery state is
-critically low. In addition, B0RM key has changed endianness.
+On Mon, 6 Jul 2026 08:00:43 +0000
+Jean-Baptiste Maneyrol <Jean-Baptiste.Maneyrol@tdk.com> wrote:
 
-Reviewed-by: Sven Peter <sven@kernel.org>
-Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-Reviewed-by: Janne Grunau <j@jannau.net>
-Cc: stable@vger.kernel.org
-Fixes: 0ebf821cf6c7 ("power: supply: Add macsmc-power driver for Apple Silicon")
-Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
----
-Changes in v4:
-- Also fix B0RM endianness
-- Link to v3: https://patch.msgid.link/20260629-gate-power-v3-1-8428ab93f389@chaosmail.tech
+> >From: Jonathan Cameron <jic23@kernel.org>
+> >Sent: Friday, July 3, 2026 21:02
+> >To: Jean-Baptiste Maneyrol via B4 Relay
+> >Cc: Jean-Baptiste Maneyrol; David Lechner; Nuno S=C3=A1; Andy Shevchenko=
+; linux-iio@vger.kernel.org; linux-kernel@vger.kernel.org; stable@vger.kern=
+el.org
+> >Subject: Re: [PATCH] iio: imu: inv_icm42600: fix timestamp clock period =
+by using lower value
+> >
+> >On Tue, 23 Jun 2026 16:=E2=80=8A22:=E2=80=8A15 +0200 Jean-Baptiste Maney=
+rol via B4 Relay <devnull+jean-baptiste.=E2=80=8Amaneyrol.=E2=80=8Atdk.=E2=
+=80=8Acom@=E2=80=8Akernel.=E2=80=8Aorg> wrote: > From: Jean-Baptiste Maneyr=
+ol <jean-baptiste.=E2=80=8Amaneyrol@=E2=80=8Atdk.=E2=80=8Acom> > Sorry for =
+delay - I'm finally
+> >ZjQcmQRYFpfptBannerStart
+> >This Message Is From an External Sender
+> >This message came from outside your organization.
+> >
+> >ZjQcmQRYFpfptBannerEnd
+> >
+> >On Tue, 23 Jun 2026 16:22:15 +0200
+> >Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.=
+com@kernel.org> wrote:
+> > =20
+> >> From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+> >> =20
+> >Sorry for delay - I'm finally getting back on top of my emails (for IIO =
+anyway!)
+> > =20
+> >> Clock period value is used for computing periods of sampling. There is
+> >> no need for it to be higher than the maximum odr, otherwise we are
+> >> losing precision in the computation for nothing. =20
+> >
+> >Silly question - what are the user visible results of that precision los=
+s?
+> >
+> >Less accurate time stamp estimates, or something else?
+> >
+> >Jonathan
+> > =20
+> Hello Jonathan,
+>=20
+> that's not a silly question, it will effectively lead to less accurate ti=
+mestamps.
+>=20
+> We are measuring the delta time between 2 interrupts, and for abstracting=
+ the ODR
+> we divide this measurement to go to the configured clock period. Then we =
+compute timestamps by multiplying back this measured clock period. If we di=
+vide
+> too much, we are losing precision. Since maximum ODR is 8kHz, there is no
+> need to go further than this value. Internal chip clock is 32kHz, but max=
+imum
+> ODR is 8kHz.
+>=20
+Seems I applied this and forgot to say so.  Anyhow, now upstream.
 
-Changes in v3:
-- Minor style fixes
-- R-b tags and Cc stable
-- Rebase on 7.2
-- Link to v2: https://patch.msgid.link/20260612-gate-power-v2-1-de76cb9bb7ef@chaosmail.tech
+Jonathan
 
-Changes in v2:
-- Addressing review feedback
-- Link to v1: https://patch.msgid.link/20260611-gate-power-v1-1-8a62721086c7@chaosmail.tech
----
- drivers/power/supply/macsmc-power.c | 52 +++++++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 45 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/power/supply/macsmc-power.c b/drivers/power/supply/macsmc-power.c
-index ced07f71e0a8..ef735f86394e 100644
---- a/drivers/power/supply/macsmc-power.c
-+++ b/drivers/power/supply/macsmc-power.c
-@@ -86,6 +86,11 @@ struct macsmc_power {
- 	bool has_ch0i; /* Force discharge (Older firmware) */
- 	bool has_ch0c; /* Inhibit charge (Older firmware) */
- 	bool has_chte; /* Inhibit charge (Modern firmware) */
-+	/*
-+	 * Battery critical key is 1 byte and charge key is little endian
-+	 * (Modern firmware)
-+	 */
-+	bool fw_ge_27;
- 
- 	u8 num_cells;
- 	int nominal_voltage_mv;
-@@ -273,6 +278,20 @@ static int macsmc_battery_get_date(const char *s, int *out)
- 	return 0;
- }
- 
-+static int macsmc_battery_read_bcf0(struct macsmc_power *power, u32 *val)
-+{
-+	u8 tval = 0;
-+	int ret;
-+
-+	if (power->fw_ge_27) {
-+		ret = apple_smc_read_u8(power->smc, SMC_KEY(BCF0), &tval);
-+		*val = tval;
-+		return ret;
-+	}
-+
-+	return apple_smc_read_u32(power->smc, SMC_KEY(BCF0), val);
-+}
-+
- static int macsmc_battery_get_capacity_level(struct macsmc_power *power)
- {
- 	bool flag;
-@@ -280,7 +299,7 @@ static int macsmc_battery_get_capacity_level(struct macsmc_power *power)
- 	int ret;
- 
- 	/* Check for emergency shutdown condition */
--	if (apple_smc_read_u32(power->smc, SMC_KEY(BCF0), &val) >= 0 && val)
-+	if (macsmc_battery_read_bcf0(power, &val) >= 0 && val)
- 		return POWER_SUPPLY_CAPACITY_LEVEL_CRITICAL;
- 
- 	/* Check AC status for whether we could boot in this state */
-@@ -303,6 +322,12 @@ static int macsmc_battery_get_capacity_level(struct macsmc_power *power)
- 		return POWER_SUPPLY_CAPACITY_LEVEL_NORMAL;
- }
- 
-+static s16 macsmc_swap_b0rm(struct macsmc_power *power, s16 b0rm)
-+{
-+	/* B0RM was Big Endian, likely pass through from TI gas gauge */
-+	return power->fw_ge_27 ? b0rm : (s16)swab16(b0rm);
-+}
-+
- static int macsmc_battery_get_property(struct power_supply *psy,
- 				       enum power_supply_property psp,
- 				       union power_supply_propval *val)
-@@ -397,8 +422,7 @@ static int macsmc_battery_get_property(struct power_supply *psy,
- 		break;
- 	case POWER_SUPPLY_PROP_CHARGE_NOW:
- 		ret = apple_smc_read_u16(power->smc, SMC_KEY(B0RM), &vu16);
--		/* B0RM is Big Endian, likely pass through from TI gas gauge */
--		val->intval = (s16)swab16(vu16) * 1000;
-+		val->intval = macsmc_swap_b0rm(power, vu16) * 1000;
- 		break;
- 	case POWER_SUPPLY_PROP_ENERGY_FULL_DESIGN:
- 		ret = apple_smc_read_u16(power->smc, SMC_KEY(B0DC), &vu16);
-@@ -410,8 +434,7 @@ static int macsmc_battery_get_property(struct power_supply *psy,
- 		break;
- 	case POWER_SUPPLY_PROP_ENERGY_NOW:
- 		ret = apple_smc_read_u16(power->smc, SMC_KEY(B0RM), &vu16);
--		/* B0RM is Big Endian, likely pass through from TI gas gauge */
--		val->intval = (s16)swab16(vu16) * power->nominal_voltage_mv;
-+		val->intval = macsmc_swap_b0rm(power, vu16) * power->nominal_voltage_mv;
- 		break;
- 	case POWER_SUPPLY_PROP_TEMP:
- 		ret = apple_smc_read_u16(power->smc, SMC_KEY(B0AT), &vu16);
-@@ -577,7 +600,7 @@ static void macsmc_power_critical_work(struct work_struct *wrk)
- 	 * Check if SMC flagged the battery as empty.
- 	 * We trigger a graceful shutdown to let the OS save data.
- 	 */
--	if (apple_smc_read_u32(power->smc, SMC_KEY(BCF0), &bcf0) == 0 && bcf0 != 0) {
-+	if (macsmc_battery_read_bcf0(power, &bcf0) == 0 && bcf0 != 0) {
- 		power->orderly_shutdown_triggered = true;
- 		dev_crit(power->dev, "Battery critical (empty flag set). Triggering orderly shutdown.\n");
- 		orderly_poweroff(true);
-@@ -616,6 +639,7 @@ static int macsmc_power_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct apple_smc *smc = dev_get_drvdata(pdev->dev.parent);
- 	struct power_supply_config psy_cfg = {};
-+	struct apple_smc_key_info info;
- 	struct macsmc_power *power;
- 	bool has_battery = false;
- 	bool has_ac_adapter = false;
-@@ -714,6 +738,20 @@ static int macsmc_power_probe(struct platform_device *pdev)
- 		if (apple_smc_key_exists(smc, SMC_KEY(CH0I)))
- 			power->has_ch0i = true;
- 
-+		ret = apple_smc_get_key_info(power->smc, SMC_KEY(BCF0), &info);
-+		if (ret) {
-+			dev_err(&pdev->dev, "Failed to determine BCF0 key size\n");
-+			return ret;
-+		}
-+		if (info.size == 1)
-+			power->fw_ge_27 = true;
-+		else if (info.size == 4)
-+			power->fw_ge_27 = false;
-+		else {
-+			dev_err(&pdev->dev, "Unexpected BCF0 key size %d\n", info.size);
-+			return -EIO;
-+		}
-+
- 		/* Reset "Optimised Battery Charging" flags to default state */
- 		if (power->has_chte)
- 			apple_smc_write_u32(smc, SMC_KEY(CHTE), 0);
-@@ -766,7 +804,7 @@ static int macsmc_power_probe(struct platform_device *pdev)
- 		power->nominal_voltage_mv = MACSMC_NOMINAL_CELL_VOLTAGE_MV * power->num_cells;
- 
- 		/* Enable critical shutdown notifications by reading status once */
--		apple_smc_read_u32(power->smc, SMC_KEY(BCF0), &val32);
-+		macsmc_battery_read_bcf0(power, &val32);
- 
- 		psy_cfg.drv_data = power;
- 		power->batt = devm_power_supply_register(dev, &power->batt_desc, &psy_cfg);
-
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260611-gate-power-cfd726dc0d7f
-
-Best regards,
---  
-Sasha Finkelstein <k@chaosmail.tech>
+> Thanks,
+> JB
+>=20
+> > =20
+> >>
+> >> Switch clock period value to maximum odr period (8kHz).
+> >>
+> >> Fixes: 0ecc363ccea7 ("iio: make invensense timestamp module generic")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>=
+ =20
+> >
+> > =20
+> >> ---
+> >>  drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c | 4 ++--
+> >>  drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c  | 4 ++--
+> >>  2 files changed, 4 insertions(+), 4 deletions(-)
+> >>
+> >> diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c b/drive=
+rs/iio/imu/inv_icm42600/inv_icm42600_accel.c
+> >> index 532d5fdffaf8..7df920ef3cf0 100644
+> >> --- a/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
+> >> +++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
+> >> @@ -1170,10 +1170,10 @@ struct iio_dev *inv_icm42600_accel_init(struct=
+ inv_icm42600_state *st)
+> >>       accel_st->filter =3D INV_ICM42600_FILTER_AVG_16X;
+> >>
+> >>       /*
+> >> -      * clock period is 32kHz (31250ns)
+> >> +      * clock period is 8kHz (125000ns)
+> >>        * jitter is +/- 2% (20 per mille)
+> >>        */
+> >> -     ts_chip.clock_period =3D 31250;
+> >> +     ts_chip.clock_period =3D 125000;
+> >>       ts_chip.jitter =3D 20;
+> >>       ts_chip.init_period =3D inv_icm42600_odr_to_period(st->conf.acce=
+l.odr);
+> >>       inv_sensors_timestamp_init(&accel_st->ts, &ts_chip);
+> >> diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c b/driver=
+s/iio/imu/inv_icm42600/inv_icm42600_gyro.c
+> >> index 11339ddf1da3..a18dcac93929 100644
+> >> --- a/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c
+> >> +++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c
+> >> @@ -755,10 +755,10 @@ struct iio_dev *inv_icm42600_gyro_init(struct in=
+v_icm42600_state *st)
+> >>       }
+> >>
+> >>       /*
+> >> -      * clock period is 32kHz (31250ns)
+> >> +      * clock period is 8kHz (125000ns)
+> >>        * jitter is +/- 2% (20 per mille)
+> >>        */
+> >> -     ts_chip.clock_period =3D 31250;
+> >> +     ts_chip.clock_period =3D 125000;
+> >>       ts_chip.jitter =3D 20;
+> >>       ts_chip.init_period =3D inv_icm42600_odr_to_period(st->conf.acce=
+l.odr);
+> >>       inv_sensors_timestamp_init(&gyro_st->ts, &ts_chip);
+> >>
+> >> ---
+> >> base-commit: cc746297b23e89bd5df9f91f3a0ca209e8991763
+> >> change-id: 20260623-inv-icm42600-fix-timestamp-clock-period-931338a848=
+c3
+> >>
+> >> Best regards,
+> >> --
+> >> Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+> >>
+> > =20
 
