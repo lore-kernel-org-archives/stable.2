@@ -1,165 +1,194 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A9F391836;
-	Sat, 11 Jul 2026 13:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58933231A3B
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 13:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783776438; cv=none; b=VvDHwc1eH8NsirUuVMR45Gs45wLhhuAfZXOUspvxI2te5RcIDjABoJBvkMGhOA+M1XL6S/xLpvWVwIkDESOpxEp3Aog8yf5/GcPWuVIl7roXT1Hob1+YY7pBUOMPqNkn1xBO47T8wzpvgwF7T94N0e9ZCU2D0aWBkcHDuw8pb4w=
+	t=1783776829; cv=none; b=Bw9pDbZ0Bm7qJ99V2VSHCV0YnGlV7PgMLaiJvhb+tzOxSUNzMzmL3mCJLix7jvxGEHdJASh7BLJaIDR1vP16Ocz/4nIL5DdB3i/2GyMTu3mVQDxmpUgUDGx1sjlU2xjay4kvn90Ps4FfFabZhRDtBgifE4pNule53eJd+p8TEpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783776438; c=relaxed/simple;
-	bh=QMRwmmcabKQsDt2EYSGPCKTrdu5/Efzn6kpB0nGGT5U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AJLNt5e2bWSWyBEg8AtNKnSRHE9JX/o0dfgm+J2aV/hYoWC39czGQGd/Kyz1i79Ei7RVn8a9TnETB6udFYQxnJ5dnm47HCMZFPixqEp40MyRUiSg+jxV0MhOOcjNjnaZkuwxIwfdPFPL2bZfy6x61N4qTlXT8UNY0+1e+oHW4Z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=djXpW8DF; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783776829; c=relaxed/simple;
+	bh=ZnX556/SgTs5R4D8I5uTvWRq0Qb0EKx6Zma/xbvdxNU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IPidVgfK16Amb5MHBO/ERm2NHRr4HTk2F33gphkMIPzy/W5SVFLnaAogjeAk+sQ8FUHV2S2C1sV41wweoPaKa40yRS2fSMcYW1LI8vm6ItRdpnl7/RsUIwaQRiw8jyQWJs6xpvybijNr0/3tZKPZQCtTSVuhVlYEcCmW8waYkd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dclwXbuf; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="djXpW8DF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783776436; x=1815312436;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QMRwmmcabKQsDt2EYSGPCKTrdu5/Efzn6kpB0nGGT5U=;
-  b=djXpW8DFMmytLvE1Cx8JRGjkJNqI+wiQpFIdY3cG8EKt05qqArilIeCo
-   FNNHV1NyX22lJkrJxU+u/aIFYWuxolBg2PZoE43bgrXN0ZS/gBavJDq3S
-   ESDXUXlFgB1A287pafKKoYlLIfcBAtjLJTpxCK+pP+0EXBW1KXh65DRHr
-   yCexhtb7boIkS7aYr0McrQIJhPi2NPpbi8XaUcPgR4jkey1H30pvgJTYG
-   IWfoFLxHShzVacVLH3UfTIi4Su9btUz/YVrSISVaNkQ+CMttilBu+zzZQ
-   w8jWXbd0Tr5K0PuQUWVdNePP/X2Y2Tyh5/4Y+HWBCYg39RB5a5RMinBNf
-   w==;
-X-CSE-ConnectionGUID: cvtnhsEtSumsSnUzwNSymw==
-X-CSE-MsgGUID: tUe4TjNyTLiv6RzcUQlD/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84649717"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="84649717"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jul 2026 06:27:16 -0700
-X-CSE-ConnectionGUID: km0FdE8EQwS8E6vFC4DnIw==
-X-CSE-MsgGUID: AFD9okqYQpmb3ZBBQN83ew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="250711149"
-Received: from igk-lkp-server01.igk.intel.com (HELO e5a8ed462067) ([10.211.93.152])
-  by fmviesa006.fm.intel.com with ESMTP; 11 Jul 2026 06:27:13 -0700
-Received: from kbuild by e5a8ed462067 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wiXja-000000003M9-3DKs;
-	Sat, 11 Jul 2026 13:27:10 +0000
-Date: Sat, 11 Jul 2026 15:27:06 +0200
-From: kernel test robot <lkp@intel.com>
-To: Hongling Zeng <zenghongling@kylinos.cn>, akpm@linux-foundation.org,
-	david@fromorbit.com, qi.zheng@linux.dev, roman.gushchin@linux.dev,
-	muchun.song@linux.dev
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm: shrinker: fix double-free in alloc_shrinker_info
- error path
-Message-ID: <202607111559.uTGMAUhC-lkp@intel.com>
-References: <20260711041823.95135-1-zenghongling@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dclwXbuf"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cce6a0c9c3so16712195ad.1
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 06:33:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783776828; x=1784381628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6KR19s9LTdwg8fzyf+W0+BdWpTP82F88oIsv5vsjL+8=;
+        b=dclwXbufeOSPF4/r2U3MIOJbsVJlatFu0NI2xfyMpRoyUk1GPZoLcwcXgxkaLoJVTr
+         OY2nnzJMk6xYysLf31jGPDXzFozFmJyqn+/TNfoGd4Yo151JxdYF9Bm28Ta+XYUfuFn6
+         KepQRmiBwxd1EZrZVmigE9IkNEb10Vptbx4HyxyITdFQQ0W9epUVN3g5AdV9liOCvDYb
+         85INCZyOAs6ZK2TfMiJMSq3R1mfq5q416HlGtRTcMT5TYnXFFcXsq6yhv/bsDVv6QLog
+         HVy5V6waSsBxjpLcr9hgdYoFqBbOGitYzYI+aiIrqUSaSWV8x2bXxApuKVjop5k+HQq9
+         tMFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783776828; x=1784381628;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6KR19s9LTdwg8fzyf+W0+BdWpTP82F88oIsv5vsjL+8=;
+        b=Sq8mdgbw6C0Ym7uA7gdyWHrYF3+hqY9AUp7crb02FVGHBjdt0/hl49BHWHDimO7jhy
+         S+ac9eXN+dyD/a+SQTX/4WZDuwmf2+x7GaydxEqzTNACzAdpIzREtdfhf1vQQyPTReC3
+         lyZEqG3/b18ay9UiUrV+iHD0+rAxpl/4R18GybHLY7LanWVWJV6/FW90NRSh6+IE1zf9
+         EFTrjZe/5jFEiWatD21IsOjmrFNsfhVliuuz7+J2UF0Wha25oCrq1HhBsfcdZOeKjw9j
+         1E8exwtIHGS8x342nuwncBlc9dY0nNThCmBHB3UkK6GOSedElN4yNxotTYYnFG8nyD04
+         O4Yg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3zRbRogeUxwL0HgX1Xcr0Lsj9MaDHVzRhjH/5zOyocM4CDSQJheBXEzOufaUtg9MCE2fYQt0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwrlhPy1gujSjdQeAJf3VPHSV0Afu4fqQDcjLfAkZy20/08zGVn
+	KMJnMccrikYpO21qfQQMS5ir8FqscD3JYBZmp9QX1oXzQUxyyNZkvTAV
+X-Gm-Gg: AfdE7cma0SL37pOfvjQ4KgmPo5RFDc3ZAUZzB8DBMPQ345SNnhal/7XMkAJ6HUsmxlj
+	XQtY+DHDN+wm2aNjv0lk5NIVR5QwUVxt5brkEQPxz3o4uS3YIQG4WyAMy2kiYd/EWUHagP5o624
+	NFlUCBwWsEo34g5Th7vxx8yDqtAfkQjkquho18J3ec6L8qEtGu9BsCGMHvSt439zNFxxNYTVtKD
+	4pDUqre5RJ3c1xlBWdEZ5uk2DJ52DaIYUN5OSeJXlsm0MQCjXwxu+4Ut5aZrWjNnh858TGYllWS
+	ulUcK8o/wso7nyWRoEIEFe5vpAa5ORkClIUhVwKZ1AZBc3SFGZMIKr35V+99dr/TC4r/M3Y4HRv
+	kZS2WOmzUTYV6lEOGuDmOKutE7SO9tqeCOKqgb1FPNXN8SfTaxPsCYEVtyKPjow+3eliGp/4OX4
+	4zDB5Eem7ITkMGpf8EntUCVVDDzqaN/QreXjew5RFE3wSHhs9yOKtXcJwyJgzIFSE4l6+PfBe3e
+	yKUd0xLMK/IIt9y
+X-Received: by 2002:a17:903:292:b0:2c9:97a8:8c17 with SMTP id d9443c01a7336-2ce9f28802fmr29334865ad.42.1783776827559;
+        Sat, 11 Jul 2026 06:33:47 -0700 (PDT)
+Received: from localhost.localdomain (116-91-131-11.east.dxpn.ucom.ne.jp. [116.91.131.11])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb76asm76179555ad.12.2026.07.11.06.33.43
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 11 Jul 2026 06:33:46 -0700 (PDT)
+From: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
+To: Steve French <sfrench@samba.org>,
+	linux-cifs@vger.kernel.org
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Steve French <stfrench@microsoft.com>,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
+Subject: [PATCH] smb: client: reject overlapping data areas in SMB2 responses
+Date: Sat, 11 Jul 2026 22:33:26 +0900
+Message-ID: <20260711133326.94832-1-shoichiro.miyamoto@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260711041823.95135-1-zenghongling@kylinos.cn>
+Content-Transfer-Encoding: 8bit
 
-Hi Hongling,
+Commit 53b7c271f06b ("smb: client: restrict implied bcc[0] exemption to
+responses without data area") restricted the implied bcc[0] length
+exception to responses without a data area. However, the overlap
+handling in __smb2_calc_size() clears data_length, which can make an
+invalid response appear to have no data area and so qualify for the
+exception.
 
-kernel test robot noticed the following build errors:
+Track data area overlap separately and reject such responses before
+applying the length compatibility exceptions.
 
-[auto build test ERROR on v7.2-rc2]
-[cannot apply to akpm-mm/mm-everything linus/master next-20260710]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Fixes: 53b7c271f06b ("smb: client: restrict implied bcc[0] exemption to responses without data area")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
+---
+ fs/smb/client/smb2misc.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Hongling-Zeng/mm-shrinker-fix-double-free-in-alloc_shrinker_info-error-path/20260711-122040
-base:   v7.2-rc2
-patch link:    https://lore.kernel.org/r/20260711041823.95135-1-zenghongling%40kylinos.cn
-patch subject: [PATCH] mm: shrinker: fix double-free in alloc_shrinker_info error path
-config: x86_64-kexec (https://download.01.org/0day-ci/archive/20260711/202607111559.uTGMAUhC-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260711/202607111559.uTGMAUhC-lkp@intel.com/reproduce)
+diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
+index 6270b33147d2..9068175e57cd 100644
+--- a/fs/smb/client/smb2misc.c
++++ b/fs/smb/client/smb2misc.c
+@@ -19,7 +19,8 @@
+ #include "nterr.h"
+ #include "cached_dir.h"
+ 
+-static unsigned int __smb2_calc_size(void *buf, bool *have_data);
++static unsigned int __smb2_calc_size(void *buf, bool *have_data,
++				     bool *data_area_overlap);
+ 
+ static int
+ check_smb2_hdr(struct smb2_hdr *shdr, __u64 mid)
+@@ -148,6 +149,7 @@ smb2_check_message(char *buf, unsigned int pdu_len, unsigned int len,
+ 	__u32 calc_len; /* calculated length */
+ 	__u64 mid;
+ 	bool have_data;
++	bool data_area_overlap;
+ 
+ 	/* If server is a channel, select the primary channel */
+ 	pserver = SERVER_IS_CHAN(server) ? server->primary_server : server;
+@@ -232,7 +234,12 @@ smb2_check_message(char *buf, unsigned int pdu_len, unsigned int len,
+ 	}
+ 
+ 	have_data = false;
+-	calc_len = __smb2_calc_size(buf, &have_data);
++	data_area_overlap = false;
++	calc_len = __smb2_calc_size(buf, &have_data, &data_area_overlap);
++
++	/* Reject responses whose data area overlaps the fixed area. */
++	if (data_area_overlap)
++		return 1;
+ 
+ 	/* For SMB2_IOCTL, OutputOffset and OutputLength are optional, so might
+ 	 * be 0, and not a real miscalculation */
+@@ -416,14 +423,15 @@ smb2_get_data_area_len(int *off, int *len, struct smb2_hdr *shdr)
+ }
+ 
+ /*
+- * Calculate the size of the SMB message based on the fixed header
+- * portion, the number of word parameters and the data portion of the message.
+- * If have_data is non-NULL, it is set to true when a non-empty data area was
+- * found (data_length > 0), allowing callers to distinguish the implied bcc[0]
+- * case (no data area) from an overreported data length.
++ * Calculate the size of the SMB message based on the fixed header, fixed
++ * parameter area, and variable data area.
++ *
++ * If have_data is not NULL, it is set when a non-empty data area is found.
++ * If data_area_overlap is not NULL, it is set when the data area overlaps
++ * the fixed area.
+  */
+ static unsigned int
+-__smb2_calc_size(void *buf, bool *have_data)
++__smb2_calc_size(void *buf, bool *have_data, bool *data_area_overlap)
+ {
+ 	struct smb2_pdu *pdu = buf;
+ 	struct smb2_hdr *shdr = &pdu->hdr;
+@@ -432,6 +440,11 @@ __smb2_calc_size(void *buf, bool *have_data)
+ 	/* Structure Size has already been checked to make sure it is 64 */
+ 	int len = le16_to_cpu(shdr->StructureSize);
+ 
++	if (have_data)
++		*have_data = false;
++	if (data_area_overlap)
++		*data_area_overlap = false;
++
+ 	/*
+ 	 * StructureSize2, ie length of fixed parameter area has already
+ 	 * been checked to make sure it is the correct length.
+@@ -454,7 +467,10 @@ __smb2_calc_size(void *buf, bool *have_data)
+ 		if (offset + 1 < len) {
+ 			cifs_dbg(VFS, "data area offset %d overlaps SMB2 header %d\n",
+ 				 offset + 1, len);
++			if (data_area_overlap)
++				*data_area_overlap = true;
+ 			data_length = 0;
++			goto calc_size_exit;
+ 		} else {
+ 			len = offset + data_length;
+ 		}
+@@ -469,7 +485,7 @@ __smb2_calc_size(void *buf, bool *have_data)
+ unsigned int
+ smb2_calc_size(void *buf)
+ {
+-	return __smb2_calc_size(buf, NULL);
++	return __smb2_calc_size(buf, NULL, NULL);
+ }
+ 
+ /* Note: caller must free return buffer */
+-- 
+2.50.1 (Apple Git-155)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202607111559.uTGMAUhC-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> mm/shrinker.c:108:10: error: call to undeclared function 'shrinker_info_protected'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     108 |                 info = shrinker_info_protected(memcg, nid);
-         |                        ^
->> mm/shrinker.c:108:8: error: incompatible integer to pointer conversion assigning to 'struct shrinker_info *' from 'int' [-Wint-conversion]
-     108 |                 info = shrinker_info_protected(memcg, nid);
-         |                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> mm/shrinker.c:117:30: error: conflicting types for 'shrinker_info_protected'
-     117 | static struct shrinker_info *shrinker_info_protected(struct mem_cgroup *memcg,
-         |                              ^
-   mm/shrinker.c:108:10: note: previous implicit declaration is here
-     108 |                 info = shrinker_info_protected(memcg, nid);
-         |                        ^
-   3 errors generated.
-
-
-vim +/shrinker_info_protected +108 mm/shrinker.c
-
-    76	
-    77	int alloc_shrinker_info(struct mem_cgroup *memcg)
-    78	{
-    79		int nid, ret = 0;
-    80		int array_size = 0;
-    81		int failed_nid;
-    82	
-    83		mutex_lock(&shrinker_mutex);
-    84		array_size = shrinker_unit_size(shrinker_nr_max);
-    85		for_each_node(nid) {
-    86			struct shrinker_info *info = kvzalloc_node(sizeof(*info) + array_size,
-    87								   GFP_KERNEL, nid);
-    88			if (!info)
-    89				goto err;
-    90			info->map_nr_max = shrinker_nr_max;
-    91			if (shrinker_unit_alloc(info, NULL, nid)) {
-    92				kvfree(info);
-    93				goto err;
-    94			}
-    95			rcu_assign_pointer(memcg->nodeinfo[nid]->shrinker_info, info);
-    96		}
-    97		mutex_unlock(&shrinker_mutex);
-    98	
-    99		return ret;
-   100	
-   101	err:
-   102		failed_nid = nid;
-   103		for_each_node(nid) {
-   104			struct shrinker_info *info;
-   105	
-   106			if (nid >= failed_nid)
-   107				break;
- > 108			info = shrinker_info_protected(memcg, nid);
-   109			rcu_assign_pointer(memcg->nodeinfo[nid]->shrinker_info, NULL);
-   110			shrinker_unit_free(info, 0);
-   111			kvfree(info);
-   112		}
-   113		mutex_unlock(&shrinker_mutex);
-   114		return -ENOMEM;
-   115	}
-   116	
- > 117	static struct shrinker_info *shrinker_info_protected(struct mem_cgroup *memcg,
-   118							     int nid)
-   119	{
-   120		return rcu_dereference_protected(memcg->nodeinfo[nid]->shrinker_info,
-   121						 lockdep_is_held(&shrinker_mutex));
-   122	}
-   123	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
