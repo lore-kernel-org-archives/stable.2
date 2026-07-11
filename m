@@ -1,173 +1,161 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A086628F5
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 13:47:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B47015E5DC;
+	Sat, 11 Jul 2026 13:54:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783777659; cv=none; b=kAV/MIJM3/ZiowqdtzidZoh8VZvDjG3SIZ4h1Aace/G7yVReLC3SUDy7ixrqVRJwgix22rz4/m1fcVjrxZHo9EDkSTAutRkHPFMLn9FcUeW1SeApy4g4aE/9NCajrBsfTEkAoYxytKyc4XyOvpNedDDjpJpgXwYABScOtKAHGqQ=
+	t=1783778075; cv=none; b=Al+xDGSx7apM/IIO2mLQrjiY9YN5MhBzcHECyl96c1mjtP1fU68XP6Q8QlMpkboF7qNkfayBhcrXhzH+/Dcmrai+yMFgeERpsFAln4BbjAaRDOxianzWgnb4DW96CHdg3m385FtlsYJxFXvwhyUJJ1+TIqyhPxjqKkf3dNLy8ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783777659; c=relaxed/simple;
-	bh=dI5sz4efJ/IwhuA+ar8TvJxJWTOdMJOvEDrJnVCWieo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HK+XrpZvQVqGEX+kncLxfsfSFMfOvcLpd7QJRJ82Agt0RoIcJTVqYH5ZTWXqOCqSYmOowVJtivT2Bqo1SRsTdstchruUeQ22cZ74IYTBYwF20pVOVli/eeIgeBwbtehkCZMAqQa64pK5gUtxnvTj8TuXjtHzeR2PfsvRCMNV14A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a6bFz5ps; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783778075; c=relaxed/simple;
+	bh=IyJkGHn8BNCIq4ysDChVnCKN8b4hhg33eCDIwMAfzB8=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XT+pg6tWiVgNz2IFh8FxqaHUHqriui/dJtwahsyYOmDnxtQ/2JA/luUmcGN0zk5NFdZ6i9e9j8mCGExkmjKiekRUcMbgu3arYFKgFFiQi/OYcd/aa76pnjV9yncH23BIFN/1w6uF81+n/FE4M8oXrq/wRP70JgF0Hb9sH6bPNGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=ZJSTX1T7; arc=none smtp.client-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a6bFz5ps"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493d92b7db3so18388245e9.2
-        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 06:47:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="ZJSTX1T7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783777656; x=1784382456; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vRsWWJteHWK3O+2yvFE1KJZgJEYSIpWRCnEwdBb+TyM=;
-        b=a6bFz5ps6z1NUfNjeqAYN68pJE3TX42OTyBdHbRt4NgLTGEbOkstyQ7Du3zrO1ATev
-         dxf5+yfMN2/CufYQROXsCVgeXHee2hXiPnJfMaYdIVQ93K1Zhe1QdLt3u/gQBMaG+/EB
-         iJGc/ZWRbxht7gmh1hH6bYOXuTgWfTBfTQBquiVTUNTB3ZWg4uRntyvKY40Dnu0ucNsd
-         8/wuHQ3QDO9MD9Z0UO27JK/W5ttcI2sLpEAIMT3XRlL+/4HGOhpJbji7Ul82i+wQ4kdI
-         KhCHeJg+koy75AkIxH8B4lxsNs5sJDEiJyju3WoESSO034Yfp3/r+u0s7Sjjc6dNGmxS
-         sIhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783777656; x=1784382456;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vRsWWJteHWK3O+2yvFE1KJZgJEYSIpWRCnEwdBb+TyM=;
-        b=MDfg6fzvU/DWIrvSDxcd++hiw9Ggpj1kdRex0PiXiP0cjsnKRz2MlCFq1umqHINmNR
-         PaXEgPqMdE1zo1sHXdJgDK/BiUeD0rdVzeMJFqLgA227f/TiQ63x4RGgd+HMgLbCwl0l
-         2LucDl9N0A5tSiYu+klRBwEdFpd4LMXeWkw9xmGHo2mO//qh68eBkqHEnm+EOvtJX+OI
-         KmylvDryKmia1n1PKEf6oyXecz0MC3p6l9xLfwNUSO3hvXYjXRvwVbFnCfaKZbLAkxkV
-         nLmWnNLrKXqNrhKCx+jbmhbDUsHLrzTYAvltyokAACfCyygDSgvtUlITNKsNavp9CGlI
-         MqfA==
-X-Forwarded-Encrypted: i=1; AHgh+RpinDCfOub2EsIfmJ+vAmWQi2ep5FWWOzdR0irVg6WVPfI0FOoFKqrxE+YhS7fddMYImWqahqg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywa7ynha6xXxEjqK1FufRi6/3p2tWDbVCvCO5rQfK7x+TDr9ajP
-	KG2+PNXVbHTxF3d49fZP2TrtiyN5JQxQIMwXZJxmAoYFjXBeA5m7aow=
-X-Gm-Gg: AfdE7cnug1VviLmSPHueUfRKcugQEAnv7BuJNDuKhNalBIeMDWMo42kBcRaR5D7X4P8
-	d+IG7rmaWhIN7s2Q8U1Y0YsCHz8y+9cBAX9NjHIniSxruZo+51bo0/Jts26Nxzxm0KI5oZuE7Qs
-	VtJI1WacjHYEgr1P0dRvbPjzFqyboVgMLd7C1h9Z698ZhiQUNAPMS7uDZdBkt2R4RtV+UAkq1xe
-	9e7CmUkXcV6078l5HHG7bmhqfMrin6dtJbK05BDbX/eLrz0V4HK33MSyduSC13vTCWl0CqDmTmG
-	kmOwGbdt9VyWhMcPhM5CcoOnwLJj30nVwbUGKX/2MQHn8cUisyMpO9/QGYMpkLubIn7Ul8RUHQ7
-	+XlHpH0nBgf3AwwNX8RzFbJPC/YkFZ9KbDlJuoP4aGuR+EG2582Rw5D8U+A==
-X-Received: by 2002:a05:600c:6304:b0:493:bb2e:11a5 with SMTP id 5b1f17b1804b1-493f87e4a48mr27240475e9.15.1783777655987;
-        Sat, 11 Jul 2026 06:47:35 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493f2e77c2esm104406305e9.2.2026.07.11.06.47.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Jul 2026 06:47:34 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Mahesh Bandewar <maheshb@google.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH net] ipvlan: add xmit recursion protection
-Date: Sat, 11 Jul 2026 13:47:32 +0000
-Message-ID: <20260711134732.1385563-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1783778074; x=1815314074;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OjcFJ6UCGNLlUKthY71D30gqh+ZGS3IPq879UM/GKa0=;
+  b=ZJSTX1T7mQ/UqpUfPhJJTOobA9IdpHwgP1SQfRoy78+oB6mZGhjzCrMA
+   uNdbmDe3pfbX6i40Q0UO8JrYMzKSQNyScC3NqpF1LmcktZ+RuPCpGvLo5
+   ckobStmbbrqc1i7VuDlbGHVEI7jJnkSSxUATzDyb7vbW5uPJh5lOYBPop
+   dnY0su6ED/sPWFTxZdjbOrjtze4RB57wrBLyG/eICJ2dJV5BoUJJR27OR
+   5bEKjbxv4YjNS7NxTy2m5fu5WnX6EDTmY0J1jg1vmLbGgzzf5GKMEhAPp
+   9dZk6eE/UeCr742hteCXDOPFwIpElqeFxZUdRmukGz8Z+czp/1g3qRh+k
+   g==;
+X-CSE-ConnectionGUID: MvLBC9XPRjm1fDLcfYC3Dw==
+X-CSE-MsgGUID: hhPwLb/oT1u3WzMimVLiBA==
+X-IronPort-AV: E=Sophos;i="6.25,154,1779148800"; 
+   d="scan'208";a="23472283"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jul 2026 13:54:31 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:30377]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.47.135:2525] with esmtp (Farcaster)
+ id 98ec0c57-0cfc-4116-9382-e668306ac0be; Sat, 11 Jul 2026 13:54:31 +0000 (UTC)
+X-Farcaster-Flow-ID: 98ec0c57-0cfc-4116-9382-e668306ac0be
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Sat, 11 Jul 2026 13:54:30 +0000
+Received: from dev-dsk-darnshah-1a-8576ca1e.eu-west-1.amazon.com (10.1.57.121)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Sat, 11 Jul 2026 13:54:28 +0000
+Date: Sat, 11 Jul 2026 13:54:26 +0000
+From: Darshit Shah <darnshah@amazon.de>
+To: Bjorn Helgaas <helgaas@kernel.org>
+CC: <lukas@wunner.de>, <Jonthan.Cameron@huawei.com>, <bhelgaas@google.com>,
+	<darnir@gnu.org>, <feng.tang@linux.alibaba.com>, <kbusch@kernel.org>,
+	<kwilczynski@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-pci@vger.kernel.org>, <nh-open-source@amazon.com>, <olof@lixom.net>,
+	<sathyanarayanan.kuppuswamy@linux.intel.com>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v3] drivers/pci: Decouple DPC from AER service
+Message-ID: <alJKZaVJWhBmPe8S@dev-dsk-darnshah-1a-8576ca1e.eu-west-1.amazon.com>
+References: <20251211164257.81655-1-darnshah@amazon.de>
+ <20260710170057.GA960077@bhelgaas>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20260710170057.GA960077@bhelgaas>
+X-ClientProxiedBy: EX19D032UWA001.ant.amazon.com (10.13.139.62) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Tristan Madani <tristan@talencesecurity.com>
+* Bjorn Helgaas <helgaas@kernel.org> [260710 17:00]:
+> On Thu, Dec 11, 2025 at 04:42:53PM +0000, Darshit Shah wrote:
+> > According to PCIe r7.0, sec. 6.2.11, "Implementation Note: Determination
+> > of DPC Control", it is recommended that the Operating System link the
+> > enablement of Downstream Port Containment (DPC) to the enablement of
+> > Advanced Error Reporting (AER).
+> > 
+> > However, AER is advertised only on Root Port (RP) or Root Complex Event
+> > Collector (RCEC) devices. On the other hand, DPC may be advertised on
+> > any PCIe device in the hierarchy. In fact, since the main usecase of DPC
+> > is for the switch upstream of an endpoint device to trigger a signal to
+> > the host-bridge, it is imperative that it be supported on non-RP,
+> > non-RCEC devices.
+> > 
+> > Previously portdrv has interpreted the spec to mean that the AER service
+> > must be available on the same device in order for DPC to be available.
+> > This is not what the implementation note meant to imply. If the firmware
+> > hands Linux control of AER via _OSC on the host bridge upstream of the
+> > device, then Linux should be allowed to assume control of DPC on the device.
+> > 
+> > The comment above this check alludes to this, by saying:
+> >   > With dpc-native, allow Linux to use DPC even if it doesn't have
+> >   > permission to use AER.
+> > 
+> > However, permission to use AER is negotiated at the host bridge, not
+> > per-device. So we should not link DPC to enabling AER at the device.
+> > Instead, DPC should be enabled if the OS has control of AER for the
+> > host bridge that is upstream of the device in question, or if dpc-native
+> > was set on the command line.
+> > 
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Darshit Shah <darnshah@amazon.de>
+> > Reviewed-by: Lukas Wunner <lukas@wunner.de>
+> > Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+> 
+> Sorry for the delay in picking this up.  Thanks for doing this; I
+> think it's the right thing.  I think the commit log is not completely
+> accurate in terms on which devices advertise AER and DPC, so I propose
+> the following.  I also reordered the || operands to make the patch
+> easier to read.  Your thoughts?
+> 
+Thanks. I think the commit log is more succint and accurate now. I'm okay with it.
 
-ipvlan devices can enter infinite transmit recursion when combined with
-packet forwarding configurations (such as IPVS) that route traffic back
-through the same ipvlan interface.
-
-The recursion path is:
-
-  ipvlan_start_xmit -> ipvlan_queue_xmit -> ipvlan_xmit_mode_l3
-  -> ipvlan_process_outbound -> ip_local_out -> netfilter hooks
-  -> dev_queue_xmit -> ipvlan_start_xmit (recurse)
-
-The existing per-CPU xmit recursion counter in __dev_queue_xmit()
-(XMIT_RECURSION_LIMIT = 8) does detect the loop, but fires too late:
-each recursion level consumes roughly 2KB of stack space through
-ip_local_out and netfilter, and at 8 levels the cumulative usage
-exceeds the 16KB kernel stack on x86_64. The resulting stack overflow
-hits the VMAP_STACK guard page and causes a kernel panic.
-
-Add a per-CPU counter that prevents any re-entry into
-ipvlan_queue_xmit() while it is already executing on the same CPU.
-This mirrors the approach used by tunnel devices (see
-IP_TUNNEL_RECURSION_LIMIT in ip_tunnels.h) but with a stricter limit
-appropriate for ipvlan.
-
-Fixes: 2ad7bf363841 ("ipvlan: Initial check-in of the IPVLAN driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- drivers/net/ipvlan/ipvlan_core.c | 25 +++++++++++++++++++++----
- 1 file changed, 21 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ipvlan/ipvlan_core.c b/drivers/net/ipvlan/ipvlan_core.c
-index 835e04835..ab99eb624 100644
---- a/drivers/net/ipvlan/ipvlan_core.c
-+++ b/drivers/net/ipvlan/ipvlan_core.c
-@@ -9,6 +9,8 @@
- 
- static u32 ipvlan_jhash_secret __read_mostly;
- 
-+static DEFINE_PER_CPU(int, ipvlan_xmit_depth);
-+
- void ipvlan_init_secret(void)
- {
- 	net_get_random_once(&ipvlan_jhash_secret, sizeof(ipvlan_jhash_secret));
-@@ -676,6 +678,7 @@ int ipvlan_queue_xmit(struct sk_buff *skb, struct net_device *dev)
- {
- 	struct ipvl_dev *ipvlan = netdev_priv(dev);
- 	struct ipvl_port *port = ipvlan_port_get_rcu_bh(ipvlan->phy_dev);
-+	int ret = NET_XMIT_DROP;
- 
- 	if (!port)
- 		goto out;
-@@ -683,18 +686,32 @@ int ipvlan_queue_xmit(struct sk_buff *skb, struct net_device *dev)
- 	if (unlikely(!pskb_may_pull(skb, sizeof(struct ethhdr))))
- 		goto out;
- 
-+	if (this_cpu_read(ipvlan_xmit_depth)) {
-+		net_crit_ratelimited("ipvlan: xmit recursion detected on dev %s\n",
-+				     dev->name);
-+		goto out;
-+	}
-+
-+	this_cpu_inc(ipvlan_xmit_depth);
- 	switch(port->mode) {
- 	case IPVLAN_MODE_L2:
--		return ipvlan_xmit_mode_l2(skb, dev);
-+		ret = ipvlan_xmit_mode_l2(skb, dev);
-+		break;
- 	case IPVLAN_MODE_L3:
- #ifdef CONFIG_IPVLAN_L3S
- 	case IPVLAN_MODE_L3S:
- #endif
--		return ipvlan_xmit_mode_l3(skb, dev);
-+		ret = ipvlan_xmit_mode_l3(skb, dev);
-+		break;
-+	default:
-+		WARN_ONCE(true, "%s called for mode = [%x]\n",
-+			  __func__, port->mode);
-+		kfree_skb(skb);
-+		break;
- 	}
-+	this_cpu_dec(ipvlan_xmit_depth);
-+	return ret;
- 
--	/* Should not reach here */
--	WARN_ONCE(true, "%s called for mode = [%x]\n", __func__, port->mode);
- out:
- 	kfree_skb(skb);
- 	return NET_XMIT_DROP;
--- 
-2.47.3
-
+> 
+> commit 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER")
+> Author: Darshit Shah <darnshah@amazon.de>
+> Date:   Thu Dec 11 16:42:53 2025 +0000
+> 
+>     PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER
+>     
+>     PCIe r7.0, sec 6.2.11, "Implementation Note: Determination of DPC Control",
+>     recommends that "... operating systems always link control of DPC to the
+>     control of Advanced Error Reporting."
+>     
+>     Any PCIe device may advertise AER, but only Root Ports and Root Complex
+>     Event Collectors can generate AER interrupts, so the AER driver only binds
+>     to RPs and RCECs.
+>     
+>     Any Root Port or Switch Downstream Port may advertise Downstream Port
+>     Containment (DPC), but previously the DPC driver was limited to devices the
+>     AER driver could bind to, i.e., only RPs that advertised AER.
+>     
+>     Since any Port with DPC can generate DPC interrupts, allow the DPC driver
+>     to bind to such a Port as long as the OS controls AER, regardless of
+>     whether the AER driver binds to it.
+>     
+>     Signed-off-by: Darshit Shah <darnshah@amazon.de>
+>     [bhelgaas: commit log, reorder || operands to simplify patch]
+>     Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+>     Reviewed-by: Lukas Wunner <lukas@wunner.de>
+>     Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+>     Cc: stable@vger.kernel.org
+>     Link: https://patch.msgid.link/20251211164257.81655-1-darnshah@amazon.de
+> 
+> 
+> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
+> index 2d6aa488fe7b..65f502602dee 100644
+> --- a/drivers/pci/pcie/portdrv.c
+> +++ b/drivers/pci/pcie/portdrv.c
+> @@ -264,7 +264,7 @@ static int get_port_device_capability(struct pci_dev *dev)
+>  	 */
+>  	if (pci_find_ext_capability(dev, PCI_EXT_CAP_ID_DPC) &&
+>  	    pci_aer_available() &&
+> -	    (pcie_ports_dpc_native || (services & PCIE_PORT_SERVICE_AER)))
+> +	    (pcie_ports_dpc_native || host->native_aer))
+>  		services |= PCIE_PORT_SERVICE_DPC;
+>  
+>  	/* Enable bandwidth control if more than one speed is supported. */
