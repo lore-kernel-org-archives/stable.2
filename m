@@ -1,168 +1,173 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4213F253B58
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 08:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2571B24336D;
+	Sat, 11 Jul 2026 08:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783757037; cv=none; b=mUmFjQn5x3apJ4/AwvLepdZd60BG41NbAoqV/2pF5yPT8jmrYCCieu5i3HYP5r7JhhJU/nKDtaMYDnlokDXtxF3vXIwSEjtgwAw0eA1vlNVZinxlomFLlzOhZKkH/hJOchGc74FddJRW5MopOzsdSR+9kypqvdTqVgEC2G9lnmg=
+	t=1783758467; cv=none; b=sEyvisr1+i4d41OpVkGA4hyjQZ7Rgx4bJkGc7Y73QY1X01CeuEm2u1N8D/0e3QZ1h0Zq6oJB3WdlcyScjmF7Ar3vE5j6CFHCbV4BeAy+eMIqZZ0EEY6I41o9fOJp4x36q0zYeeOhQDd3clwIj1XB/A9BdAHDEjzxh1R1BPP8Wb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783757037; c=relaxed/simple;
-	bh=ql13UOHrnBdmGaJDsZKTfQSxuOew+yEFAJD0Ih34BZA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DL/+rKVhutg7oy7rBwUG2XtLEjMc6UO3vPYm7vvKGyKlmSVpvgUZlNwCGUoY+l093NPuTUiKkXO3C1uz9VqR1YaoEWHCT7nKYYvec7FuFMwNMYyf+G+sXC3eVAUX3yp+kWhUlpXbSVph2MUJVH9qt03dqlaLai5EZ1NIxGoUvKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=dnJ3cZrM; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1783758467; c=relaxed/simple;
+	bh=Sh0BG3OaVGa+q2GPtfq3zxIc9aKKQrT95SBJzzgDxaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EIsE05BSWKzkG1j/7SOlj9sDBHy5bX+g4OoaETirANzdjbNbfat40EMvqgrHQeJpk+bmFoLARzUoixO52CjniInn0PSTxEODRzcRhX+FEJbK3NBesMgrfoKRwUb22k23sJAApAefCczJztZTkX0z/Yi/5kWTu+Fw1oiq0qcz+Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZmJcywno; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="dnJ3cZrM"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493bc8fda98so9872035e9.0
-        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 01:03:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1783757033; x=1784361833; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HKkmmaE0aEFKxqkQuCsGPJUCathBrKzfhSwzLLCu+L0=;
-        b=dnJ3cZrMCfUxwAA0AUveedMgxugJVSx4g+CaJfdzEOKelok+f7f0PwaBnGj5jqIIQo
-         OdbJIu2QgqixLWSAYeju4svEsWeSHXC1oCgIC7a87fsyFsCrJBfsnEfyamCgYGOkEDqV
-         4XSthPfzNwX8sgCCmBYNUJgWge5ZtLHqgLg0RHHiLChdt4lLoN38iUnQshGd+y7+3Rzl
-         nJYasqwoqlhs7Bz9YuiRwbultSZpAauQceSvKyZYKlNOXb/jHwfPBW2Hpjc7qdlb69bQ
-         X7vRgk3PRJLDZujIhFSdHiXqYsXNs52WpjJzYdz4VcD1c1NaKRsOMTcTtooxbhx02/PY
-         5GWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783757033; x=1784361833;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HKkmmaE0aEFKxqkQuCsGPJUCathBrKzfhSwzLLCu+L0=;
-        b=VYWQBy6IRiYmYCD8shkUWA2d7tFPS1fNZ+0nd6znZ3VCBAKH7z9qVJTW99QQQtL6oY
-         qSM1PJ7RLC+WVvcQE3r/9H1hhPDwuT0lmdxWV/5d8zNd3yFv3AXer7AcLNBtQdosjrUD
-         hKs52Khk000h2g4lFQAivVGcVNkauC2403lI3BWhcpuKzbvvfwJsqTcjOBNrCYL1fojl
-         AEIMoXMtZK0R4ic2sEnzy9Nx6c0FyNwt5Hvcbw7ozheTcuekIGNKPBGKyFrD8Tep3zpM
-         vhhE/vddP07qe72Oy5tyl0KAo6wKboTrGJTQLbsbiWHBNA6v+j3J4UrtjUrveLRRH+uS
-         /hrw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9onOWDlCdEVkpHpgXshQEqeEAtpdFDF30vdSFi8XEzKFmYs+zpgwYWdAtLz1Au+nDYAJKrbw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDoPHn/+I1Xjksow+VB9egEXY9KVKhEU+Sc/OV3tSYPT8J592G
-	5j2dSvPT2nhKZC3b6/VITnyHdUsgLteAdflfHTG4dUeK3ETExzJtZxddyoh3KIEcY+cg
-X-Gm-Gg: AfdE7cnV4nhzdjKezDnP09fBSHeubja1jQnCB1k6lZFNZ1R3KyparoArsHTIYBNPPgF
-	sB3jP2yeQ1wG4ENyT2c50XkVM6Y/Mxo/h2XrZSMP2/VHG3+GqPlLKOwjLWQxJvCGZeB4Le5rEWL
-	W6gA2nJszv2sio5HIOLiH0RV4oNVf2knlgUuRsh9TCT88hBtR1eZIoRxyDgiqCmawzqJYnrXWw4
-	UVF+imoJzXDhq/ju2cp1UA5w+Y8x/leDCFVxWfdpuGekAuvNz0SAxZiTvYADfZx4SdFriRCIjfX
-	mlPJux35Bd53ox27qJ8kt3NZnM66GthLsbNoUBHNQQz4yrmn99Ifavw0o0plDKWdQ/xZqDYHFb9
-	a0m4NeZvSIQEvmjqPrq+4zE7LRMZaZhLzKWOE7S0+KK+RlgiJ6oVvJwTWP/TEWfha8LRRL1ocDQ
-	jb5MasF9tBesr+yLXg5s1pnoZD1Zm4IXMRDNTM28nEoq2knHFtcbEghv2cfloAOlyafw396RNQX
-	onW+9CeX8SMVkP+ma1YuHo2g4oepr6LwoE=
-X-Received: by 2002:a05:600d:8444:10b0:493:e46a:ab with SMTP id 5b1f17b1804b1-493f8837638mr12182095e9.34.1783757033565;
-        Sat, 11 Jul 2026 01:03:53 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493f2dad65fsm77881195e9.1.2026.07.11.01.03.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 11 Jul 2026 01:03:52 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: spbnick@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Doruk Tan Ozturk <doruk@0sec.ai>
-Subject: [PATCH v2] HID: uclogic: fix UAF on inrange_timer at teardown and probe error
-Date: Sat, 11 Jul 2026 10:03:50 +0200
-Message-ID: <20260711080350.81108-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260711073003.71012-1-doruk@0sec.ai>
-References: <20260711073003.71012-1-doruk@0sec.ai>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZmJcywno"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72AA81F00A3D;
+	Sat, 11 Jul 2026 08:27:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783758465;
+	bh=o+9YUEALLTL+0259dlnNxroPvNI9JdmPox5B/61vnaM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZmJcywnoP8pPUDaImC5Qgcr5kg1sl/cTQdYsbPJKkAaHXp6XTAodQLk25zI+RO+E6
+	 vlVmvzA8B51o5fWTM6JdeeUL+Xfa/Pzo8JNGor0Rtswishsat7zGPuRwOM8FBSzsiw
+	 JlqJRXxL6R/nzkixHrrVUf7/Uzkc2Xjw+6JIp7obqP9nVuhOnjahos/YYoSJc6EgU1
+	 k1x1QFlXGk4pOumZZpLv/4Tql4QK4/6sN5TJcXixaLH+zP/PKTf8vKR8bTq2jUU/s9
+	 C5y2Xkvg1AQdWKQLXYIFaHwKaPOFVU8foh2ckIST4j6o+HWI2vh5P/wM+2vdKMVsr7
+	 ToCVy8ckpgvFQ==
+Date: Sat, 11 Jul 2026 09:27:32 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
+	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Kiryl Shutsemau <kas@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Carlier <devnexen@gmail.com>, 
+	Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, stable@vger.kernel.org, Brendan Jackman <jackmanb@google.com>
+Subject: Re: [PATCH] x86/mm/pat: acquire mmap lock on page table free to
+ avoid ptdump UAF
+Message-ID: <alH8fAnP1JlevCPU@lucifer>
+References: <20260710-fix-cpa-ptdump-race-v1-1-d898699a7417@kernel.org>
+ <529e37eb-ad4c-4b0f-8ba3-c5608aa7a893@intel.com>
+ <alE6fUJZzELlUfxP@lucifer>
+ <f2af8fae-62b8-4c5a-8f8d-594b93912dc0@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f2af8fae-62b8-4c5a-8f8d-594b93912dc0@intel.com>
 
-uclogic_probe() arms a per-device timer whose callback
-uclogic_inrange_timeout() dereferences drvdata->pen_input, and
-uclogic_raw_event_pen() re-arms it with a 100 ms timeout on every
-in-range pen report.
++cc Brendan for fun's sake ;)
 
-uclogic_remove() drained the timer with timer_delete_sync() before
-hid_hw_stop().  timer_delete_sync() does not block re-arming: a pen
-report delivered before hid_hw_stop() kills the URBs can re-arm the timer
-after it was drained.  hid_hw_stop() then frees the hidinput pen_input
-(via hidinput_disconnect() -> input_unregister_device()), and the pending
-timer fires on freed memory.
+On Fri, Jul 10, 2026 at 12:50:26PM -0700, Dave Hansen wrote:
+> On 7/10/26 11:53, Lorenzo Stoakes wrote:
+> > On Fri, Jul 10, 2026 at 09:26:48AM -0700, Dave Hansen wrote:
+> >> 1. We could just bite the bullet and have separate ptdump files for the
+> >>    top and bottom of the address space:
+> >> 	current_kernel_top
+> >> 	current_kernel_bottom
+> >> 	current_user_top
+> >> 	current_user_bottom
+> >> 	etc..
+> >>    Then the lock you take is dictated by the file.
+> >
+> > I mean that'd break userspace though wouldn't it?
+>
+> It's debugfs. So, yeah, I can see it breaking things, but it's also way
+> less of a concern. Nobody ever complained about the new PTI file getting
+> added in there.
 
-Use timer_shutdown_sync() instead, still before hid_hw_stop().  It drains
-the callback while pen_input is still valid and permanently blocks
-re-arming, so an in-flight raw_event cannot revive the timer; hid_hw_stop()
-then frees pen_input with the timer already dead.
+I wonder how many people use this :P but I expect some do and would moan about a
+_removal_.
 
-The probe error path had the same exposure: if hid_hw_start() started I/O
-and then failed, raw_event may have armed the timer, which would fire on
-the devm-freed drvdata after probe returns.  Shut the timer down there too.
+I guess we could have a warning if somebody used it.
 
-Unlike letsketch, whose input devices are devm-allocated and outlive
-hid_hw_stop(), uclogic's pen_input is freed inside hid_hw_stop(), so the
-timer must be shut down before it rather than after.
+>
+> >> 2. We could always take both init_mm and current->mm locks. That seems
+> >>    icky.
+> >
+> > It's actually the least awful of all of these I think :) and the one I
+> > implemented ([0]).
+>
+> Oh, cool, I missed that. That's a good pairing with this one!
 
-Found by 0sec (https://0sec.ai) using automated source analysis; not
-runtime-reproduced.
+Yeah, sent it separately as they stand separately and this already addresses the
+init_mm side of it anyway.
 
-Fixes: 01309e29eb95 ("HID: uclogic: Support in-range reporting emulation")
-Cc: stable@vger.kernel.org
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
----
-v2:
- - Shut the timer down *before* hid_hw_stop() rather than after.  v1
-   mirrored the letsketch ordering (hid_hw_stop() first), but uclogic's
-   pen_input is the hidinput device freed inside hid_hw_stop(), not a
-   devm device that outlives it as in letsketch.  A timer armed just
-   before the URBs are killed could still fire on the freed pen_input in
-   the window before timer_shutdown_sync() drained it.  Running
-   timer_shutdown_sync() before hid_hw_stop() drains the callback while
-   pen_input is still valid and blocks re-arming, closing that window.
- - Also shut the timer down on the probe error path.
+>
+> >> 3. We could have ptdump_walk_pgd() take a different lock for each
+> >>    'range'. Logically:
+> >>
+> >> 	if (range->start < PAGE_OFFSET)
+> >> 		mmap_write_lock(mm);
+> >> 	else
+> >> 		mmap_write_lock(&init_mm);
+> >
+> > I don't love this. It feels a hack for x86 that's put in the wrong place,
+> > i.e. core code.
+> >
+> > And can you can make this assumption for efi_mm for all arches? Could other
+> > arches might be weird about this?
+>
+> Yeah, it's possible they're weird. But I thought the whole idea of
+> efi_mm was to reuse the non-kernel part of the address space. So oddly
+> enough it kinda makes sense.
+>
+> But, yeah, I totally get the reluctance to do this.
 
- drivers/hid/hid-uclogic-core.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+Yeah it's all a bit sucky this :(
 
-diff --git a/drivers/hid/hid-uclogic-core.c b/drivers/hid/hid-uclogic-core.c
-index b73f09d26688..d74f98efa879 100644
---- a/drivers/hid/hid-uclogic-core.c
-+++ b/drivers/hid/hid-uclogic-core.c
-@@ -267,6 +267,13 @@ static int uclogic_probe(struct hid_device *hdev,
- 	/* Assume "remove" might not be called if "probe" failed */
- 	if (params_initialized)
- 		uclogic_params_cleanup(&drvdata->params);
-+	/*
-+	 * If hid_hw_start() started I/O and then failed, raw_event may have
-+	 * armed the timer; shut it down so it cannot fire on the devm-freed
-+	 * drvdata after probe returns.
-+	 */
-+	if (drvdata)
-+		timer_shutdown_sync(&drvdata->inrange_timer);
- 	return rc;
- }
- 
-@@ -548,7 +555,15 @@ static void uclogic_remove(struct hid_device *hdev)
- {
- 	struct uclogic_drvdata *drvdata = hid_get_drvdata(hdev);
- 
--	timer_delete_sync(&drvdata->inrange_timer);
-+	/*
-+	 * timer_delete_sync() does not prevent re-arming, so a pen report
-+	 * delivered before hid_hw_stop() kills the URBs could re-arm the
-+	 * timer; hid_hw_stop() then frees the hidinput pen_input and the
-+	 * pending timer fires on freed memory.  timer_shutdown_sync() drains
-+	 * the callback while pen_input is still valid and permanently blocks
-+	 * re-arming, so an in-flight raw_event cannot revive it.
-+	 */
-+	timer_shutdown_sync(&drvdata->inrange_timer);
- 	hid_hw_stop(hdev);
- 	kfree(drvdata->desc_ptr);
- 	uclogic_params_cleanup(&drvdata->params);
--- 
-2.43.0
+>
+> >> I'm kinda leaning toward #3.
+> >
+> > Another way forwards might be simply have the caller _call
+> > ptdump_walk_pgd() twice_ once with the range set to [0, PAGE_OFFSET) passing whatever mm
+> > != init_mm, and again for [PAGE_OFFSET, ~0) passing init_mm?
+>
+> Ahh, yeah, that's a good point. It could be done a layer up too.
+>
+> > Are there cases where you expect to see a delta in the kernel range in x86
+> > for an arbitrary mm?
+>
+> Are you asking if current->mm->pgd[255->511] is always the same as
+> init_mm->pgd[255->511]?
 
+Yes :)
+
+>
+> I think so, except for the LDT PGD when PTI is on. That can be different
+> between mms, and it's a single pgd_t entry. I think Brendan had some
+> grand plans to use this PGD for other things for ASI as well.
+
+Yeah I wondered if PTI or something else funky (Brendan's mermap?) might have
+changed this.
+
+But whether that'd actually be accessible from the debugfs "this mm's "?
+
+>
+> So, yeah, the upper half of the address space is *normally* identical.
+> But PTI plus set_ldt() is abnormal and we have to deal with it. The only
+> times that code frees page tables is at exit time and in an error path.
+>
+> So, how does this interact with mmap_lock? Surely, someone looked at
+> this recently because the comment says:
+>
+>  * Lock order:
+>  *      context.ldt_usr_sem
+>  *        mmap_lock
+>  *          context.lock
+>
+> and not mmap_sem. But, alas, I don't see any mmap_lock anywhere. Someone
+> changed the comment and didn't look at the code.
+
+Was a simple mmap_sem -> mmap_lock change since we renamed the lock right?
+
+>
+> Is there some mmap_lock interaction that I'm missing? I don't see it
+> _anywhere_ in the ldt code.
+
+Presumably dup_mmap() -> arch_dup_mmap() -> ldt_dup_context()?
+
+But I don't think that interacts with the init_mm nested lock stuff we're
+looking at here, as it's not touching init_mm and in any case ptdump is
+unconditionally taking the mm's mmap write lock as-is without issue.
+
+Cheers, Lorenzo
