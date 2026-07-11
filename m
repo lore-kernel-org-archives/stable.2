@@ -1,43 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF133A9D90
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 10:21:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D80439EF25;
+	Sat, 11 Jul 2026 10:21:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783765262; cv=none; b=h8R04C4TY54w4f6LRhwvLX3zjY8g4z9FV7fgZnjTRK9wJZCbFTg2rLqbb5xuZhYru1V9+v97It1qg++qjeXFXnkB5hqW8Md5urDTVFtoAdQiJi/5Hs+aCC+TH45qt2ydV9sKPoPOB+Af3Q+grgHZz6pKjvDcr0PRSiCRpC3Uu9o=
+	t=1783765264; cv=none; b=Sq6U2fl5o99oH27NxGk8g7nbbYNTci0s3N4lxAheTLMH6pvw02DmIqKfiWEBaU61bHGXMJ/mxlkwLD4w9Sz4BJsJfkRRLQ/gloYKMIXLOCU0v8uVL8NJkSWtrkFcU/HbSQ7FLQKSheWzAiMPJSp0JTYb7bbljsziOzyxg+7bLzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783765262; c=relaxed/simple;
-	bh=xR8ynoCxEWhOAOUflzBK1B0mn6ud3lqJ2p7N81/a23E=;
+	s=arc-20240116; t=1783765264; c=relaxed/simple;
+	bh=dEHl9N2W+Y3yvK+K2EyyGXc4h70OKQlEhr0rRbekom0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fHP2DQrsJ/FFCQdh6hrKNn96Iefr9rFWnmSsEMf8fh9O901HaIn5LAyflng9bMEbpE6Wa35SE1N7eIrOQ3Fa8o8fU3POZAcqPGdAzy3HIwzuvR86XyiYhkeJEvHLtyo0sg4CDHtsioppWhp1uZC65OIDLIHEMArqpxAaJMepO5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qg4UaXiL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PI10IuMfj/P9SBG3CAOo0uUT+dlgnDBfn7h0WhpMlck+U/Qg4LuUlJKcEVOUen4tg8kZdLHQqgLbJHStLmXBDBwQGquqzEDROofKRS5LGIElSZfwudoEStM/frxhgkVW65fhIoVL7oooxIOeXXBYU8bKyS1qeOYHLJb4J4PQGdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=llwCZDfR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qg4UaXiL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8591F000E9;
-	Sat, 11 Jul 2026 10:20:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="llwCZDfR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4457E1F00A3D;
+	Sat, 11 Jul 2026 10:21:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783765260;
-	bh=90bufOZJD2eNeipq2T0CjdC+A8+i9udmsuErCstDj/8=;
+	s=k20260515; t=1783765261;
+	bh=Y5aJ+Qm0JJUYPvStiI2zNIiRrGLRCpzpQqL3fvDD7L4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qg4UaXiLZ6lrlPt5/ZTWj0osKvAuzkAXODn9hUUCBY5rUmTmdCnQlCn84SSze8+zO
-	 0MjWQ0Zk9zQa9FIU0E0gmrNcIRTi8uZrMPdkfdwy3D+V/34meJM/ejy1nSQglQal1E
-	 qm+ZnmFMFKRJdeAU0Ws6JK3EGo+WVu0wjaRNX1WfaapO8GCRasQa9SY+G0rgXfCLDi
-	 bOHbJlAdOGU4Ni0glLJI3EL01TVwJa2GXFytQvxd7wuU0TuDH92JczK9NXBuc6hy+B
-	 OLcbD6NUlImNoKxLHUdghr2VH4Do4tHIommMqX/rzuzeyICuf7rttpQo+C4ZiHGjNN
-	 vSCCeY9CZ6qOw==
+	b=llwCZDfRI6L9DGkjO/QyBPXsnvmdDJGsDFjTZaXpX6jyKl86ER65OqWneo1Gq5Xno
+	 lEKBIImLJWRUm/rh5toWqMGBpGkPNak38Of5ABK8L4kR8R76mjmMIVvZ7IuLhbkMw6
+	 n5Amf1F3WKYQ8LG6wPIqHhqgx7YmmEQ0ky0od75QmGD/MWyrJD8tedkxyhyWfr1nZl
+	 O0kOcppziScsm9UnpdqXtmCNhZ8CtUgERReRJUDdizgIEfj5JL5t9WRnDeTJhLU2jm
+	 7V7CZzXeBNyiqPB9gyUYFijl+BHrO1/Iflwp5NTQ/kLIFfSz3glSkGvZi7cznOUSY9
+	 q9M2YDcXUBa6A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Michal Kosiorek <mkosiorek121@gmail.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Mark Bundschuh <mkbund@amazon.com>
-Subject: Re: [PATCH 5.10.y] xfrm: defensively unhash xfrm_state lists in __xfrm_state_delete
-Date: Sat, 11 Jul 2026 06:20:55 -0400
-Message-ID: <20260711061631.agent5-0001@kernel.org>
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonas Jelonek <jelonek.jonas@gmail.com>
+Subject: Re: [PATCH 6.6.y] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
+Date: Sat, 11 Jul 2026 06:20:56 -0400
+Message-ID: <20260711061631.agent5-0002@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260710223015.3831465-1-mkbund@amazon.com>
-References: <20260710223015.3831465-1-mkbund@amazon.com>
+In-Reply-To: <20260710223627.5860-1-jelonek.jonas@gmail.com>
+References: <20260710223627.5860-1-jelonek.jonas@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,14 +51,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> From: Michal Kosiorek <mkosiorek121@gmail.com>
+> commit 9f3f3bdc6d9dac1a5a8262ee7ad0f2ff1527a7e7 upstream.
 >
-> [ Upstream commit 14acf9652e5690de3c7486c6db5fb8dafd0a32a3 ]
->
-> KASAN reproduces a slab-use-after-free in __xfrm_state_delete()'s
-> hlist_del_rcu calls under syzkaller load on linux-6.12.y stable
+> smp_send_stop() parks all secondary CPUs in stop_this_cpu(). The function
+> marks the CPU offline for the scheduler via set_cpu_online(false) but
+> never informs RCU, so RCU keeps expecting a quiescent state from CPUs
+> that are now spinning forever with interrupts disabled.
 
-Queued for 5.10, thanks.
+Queued for 6.6, thanks.
 
 -- 
 Thanks,
