@@ -1,130 +1,319 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642392DCC1F
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 14:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783778419; cv=pass; b=LvmO5orjl9uYL9lhkHUgCclC+37gJhnj8YWMg/ZuJhtZn7j44NO1deHgCZqAw92UVmFxGMZKchQwjxNHiGCJ21mC6EIizXePys7LKrinLiPHMQFcbV/XsYKiTGJpl8xjw9EJdZb/QfIlUyxn8QejHmi9g6ePC/dzypg/n9hroIw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783778419; c=relaxed/simple;
-	bh=2x8s2hRIzfzcX6kMgVsDG2qEJDcy4Ak63lIwgjF35zY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mlzajNq0yBZL8K/dEpq25cynPY640hq5ATw8C0d5OGvCXZq4pmEDj6luZMc05ZGrrvGTXEgJKKR2NMz5G3LzGmt8HO6R23Zv1y/BvDOs8cR4V6H9cIH4G93A+WssnPnznApXpi+hQs3Y5yWHbDxJgDWEzwk1FDAZTsu63WKbx9c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=auJzsx57; arc=pass smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E343E28FFF6;
+	Sat, 11 Jul 2026 14:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783779049; cv=none; b=nD2WwFfaZ+8LbH3y+i8pdjBldAwDe2jbiUiArPRf5fj+WUPkLg/f9m+vh5KkTQwozdOkW+aT3TZMw2ud2DnuY9uNsxkOHfMOCpJpADRhLtIJI66CFKeOKd8r3bYsHAuBxVdqY4tEPVwUG1I3wneh64mkXm7SKsenWndAAtvtr3A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783779049; c=relaxed/simple;
+	bh=iZrV/G6W2EBYy/GOZ2MrGZG+vuXDtEmGSA/u5BOK/jE=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=k5OMQ9XBpK6OCJffjC+vMjRVcs55vg3Dm6RfZAtY3IpGAbXF2vm+Pevw5Yv/KMxLer7pm0Tbdu75Gt2rhdyD+8Ld2I6wyBtvH4sHKvUVQVOAwmjypX88e+PNIFHGw6s+YG8eF5podf09Q4szwoabZDC62h8nC56yDgV+gueXcTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=BtZFF6a5; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="auJzsx57"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-51c2a76536bso17563441cf.1
-        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 07:00:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783778416; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kDhaRcNDxFkEII9Sq1iGLe3U0H9cxpvCk58Hb9HADZ/aSQr5b9Q7i53YZ5sO40QmNI
-         eVhcBYB1ZmnIXa6asQb3YH6xlK8sY7r/lao2eK0rMKlGt4qlVzQtNdZHFP03SNwgn8bt
-         e9QCMHVheiKyFZphkCpWPlQzfwfmebgbAjkcgXGwVyeZ0GAz5SJ8Jl/5QnQXsvwYlxWi
-         6d+iwNPSTyN1vZQgac2KZzUYmVEr0KQ1lIzZkrxAv/zPMTupvxOQm5eZzEV4KSwKpJrn
-         u/+vTFt2bC6DGHPKWJvU1ZRi+x1DBXT5iIRBD8E36ZG/U6PtNtKY8dq4/43Oj4OXvtQh
-         YY+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GqDR0IptsjWrOWRZQ2Jyt0YxUIjEB4dj30T2XPWVZdY=;
-        fh=BuLuYr00gL7hH+GEQMFTaLGQSRJshcQNEoGUtObXsjM=;
-        b=L2mSEiVEJX2VQGNM60SPd0Vs+zWiaTuFdxz24Zc8AlOQ1mX35laPkgxsZclcKCi089
-         GDlNWJ+aObxEhNP8ZDiFGkC1WHO0aDqi0W7XTy+fx3FlV9DqeA9iWJWtbLqaoc/ZqgvC
-         3gL7uohOj5k4KLfVsJHxWDVIIjOOXFdhgOPX4Bli7BumuBr5trcE7m+sJzCxoMeUPDWN
-         H4JI17UUxFk37EbZUNCVHP9suU4PK6FUwZEQgdLDccTGARBWduuOR/5g4H20q20iS5Mg
-         AG93NGZBe7rbATxKZiJGjEEtg42jUkrq7D9sAzfHMwsB612g/kUQBgLvGasi20rX130X
-         9ljg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="BtZFF6a5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783778416; x=1784383216; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GqDR0IptsjWrOWRZQ2Jyt0YxUIjEB4dj30T2XPWVZdY=;
-        b=auJzsx57xi10LJGLIaOVxsXhfVM0fjiBx2oR6Y2FSzzlA3J5s/0CtG+K6p/ImEN6Pq
-         Q4JDugXNtrSC30C3c8oD8QT18rckS8QA3Tnkh/DKmdo/imspPHiENW7SxRc7bGzjFftK
-         KfqqJAj3hPCeO1oaE0ut7s+gLFJ4qfHRrVMfCopt85k4OXpJ7urYArr+JuNW6FyXxlv1
-         HUXaA7nIwdLbik4Rh5zlZulLgDMAKQAlUam7CndKegMSvViKmwPFW1hquVvBcGP8/DuV
-         5ggKoF3C3f7jDNeDGOCCZ+0vCCc8erQEAGbeuKfpwbCY/+4ZZTa1twjZDEf/NIbqV5vJ
-         q0jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783778416; x=1784383216;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GqDR0IptsjWrOWRZQ2Jyt0YxUIjEB4dj30T2XPWVZdY=;
-        b=drpSdg1x6siGLpV4VX4rnchgrjsXQNYWusR/VbzJjG2f9fgNJp3Io9+n+4mAcE/mqs
-         welHNFRKeY5seS1tzA5q1PKc5Iqzv/Uat5kBfra5EcROzUgfNHZCAC5SS1N4e2oxrozk
-         7CW1nEu9yyNDe9ZNl13c1+/H4ASe61iPgI0m2OOlNWYMJSMTUPgstxGjjjR///zLPz8q
-         vB1yvs2q/PgKLOJ3GhufB4iMZEZRJgHqmI7JbAyt1A69H4ImJuEiZkDy3VKCy8IK5Zto
-         Z5ZSa34qlTAwUbpxJmCWCo/eU/CNXKejZRoA6n4KOqX9TPFzWDSPWuOJgCDWUfz+lrhD
-         LU4g==
-X-Forwarded-Encrypted: i=1; AHgh+RqzEa5BE+FCU0IEXTB7FSa5mTt5mornoZiA56EnWYcnyEYmBYm5ckpPYhgpRRGQw0zjug8BlT8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRG4MQsv6QTQhmmDZOXlIRJcZoGI5EXUgBvukd3S/VwErUpQrA
-	xC+pCuHij9RPPQIv5MsSuLjkB3G1cTNHJl175Wt+YSUOv1PecR2iKZivuGVHjzNaeobTpVVHtKA
-	/FTTrnHCiZxwoJHsjprGzWdsXG/v4+frXH2rkEEe6
-X-Gm-Gg: AfdE7ckv5uxzgEYkYoq69ChKOwSpYW36QJ2ciTSIil47sjAUF6tzGHsmI8PnaE9csp9
-	VEhBRlnIweH9VMisyPsYlY3CGe/W+UkFOkx2t20xBWlbBJWCBSG0vGsReB2I6bgDz8MBMTZ7jG6
-	EP6AqQBbc2qcwyg/ZlNkka/KNykQahbO8AaI3Eg5sKo32I3IKutWgzVJ04FlxHfrpO1VPD4BUqw
-	/ee7fGa3wF/tTqePzzJu8nryvCEqXVfmY67Frzt19Br0MDFSQnQlgoVcddIx7b1LJuWi4hwyh6p
-	FuriHGMxROeiCqT8HZsS04sdeec8lfmtBw07J+HOsj73NfqszR1pW6Rbe7zrOZi94jrQcKi4CkP
-	UbtumNC5D
-X-Received: by 2002:a05:622a:4885:b0:51b:f0ab:2b1b with SMTP id
- d75a77b69052e-51cbf26daddmr29126701cf.49.1783778415594; Sat, 11 Jul 2026
- 07:00:15 -0700 (PDT)
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:Content-Type:
+	Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	Content-Transfer-Encoding:Message-Id:References:To; bh=Atq63KY0v
+	n5TLHmiu/IOKgqIrZXoAVWMmb1SR6++EHo=; b=BtZFF6a5iiI2iKEvmvYgt/tMi
+	ECQiU1oh9gcF4W+jfHvN+kMdbkYRFsF5HGsAiENHHqsJ0Rgs8lKW2BZfdIqEjqHZ
+	wVhHLxfCQ3OmiO1In795vNCABLiDo/xJlLFu9gC4Ms26qOg71SczP8YW/yRUCOuo
+	j97GlazvAk+9szIJK8=
+Received: from smtpclient.apple (unknown [121.229.84.237])
+	by web2 (Coremail) with SMTP id yQQGZQAnA5utTlJqBuXeAg--.58248S2;
+	Sat, 11 Jul 2026 22:09:50 +0800 (CST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260711134732.1385563-1-tristmd@gmail.com>
-In-Reply-To: <20260711134732.1385563-1-tristmd@gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Sat, 11 Jul 2026 16:00:03 +0200
-X-Gm-Features: AVVi8CcY5CaPIMoOd8xuDL4_gMxfAA225TDZjOSaO1YM-5oHGXW8erun50xkGWY
-Message-ID: <CANn89iJo1HFtp6EoUmwo7KJ9LRsq_iQqhGV4Eco-7Szw5oN92Q@mail.gmail.com>
-Subject: Re: [PATCH net] ipvlan: add xmit recursion protection
-To: Tristan Madani <tristmd@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Mahesh Bandewar <maheshb@google.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Tristan Madani <tristan@talencesecurity.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH nf] ipvs: make destination flags atomic
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+In-Reply-To: <afcdb34c-ec10-de8e-083c-624bcedca90e@ssi.bg>
+Date: Sat, 11 Jul 2026 22:09:39 +0800
+Cc: Simon Horman <horms@verge.net.au>,
+ David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ Florian Westphal <fw@strlen.de>,
+ Phil Sutter <phil@nwl.cc>,
+ Alexander Frolkin <avf@eldamar.org.uk>,
+ netdev@vger.kernel.org,
+ lvs-devel@vger.kernel.org,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org,
+ stable@vger.kernel.org,
+ Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+ Ao Wang <wangao@seu.edu.cn>,
+ Xuewei Feng <fengxw06@126.com>,
+ Qi Li <qli01@tsinghua.edu.cn>,
+ Ke Xu <xuke@tsinghua.edu.cn>
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <F48F3350-4E00-46F0-BD11-AECB45AD8722@mails.tsinghua.edu.cn>
+References: <20260707085706.96322-1-zhaoyz24@mails.tsinghua.edu.cn>
+ <41c3d792-af7d-5582-5057-ac3df5f7bfd6@ssi.bg>
+ <91509A0C-9E4A-4F0E-A45C-ABD29396067E@mails.tsinghua.edu.cn>
+ <afcdb34c-ec10-de8e-083c-624bcedca90e@ssi.bg>
+To: Julian Anastasov <ja@ssi.bg>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
+X-CM-TRANSID:yQQGZQAnA5utTlJqBuXeAg--.58248S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3AF45tFWDWF18WFW5Kw18uFg_yoW3Wr4fpr
+	W8JF929rWUWa1UGFs8tF13ZrWFkF18JFyUWFn8Ka43J3WDArn0qFnYkFWDCFs7CFs7Cr1f
+	CFW5t34qka4kXFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9v1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
+	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4
+	x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2
+	z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4
+	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E74AGY7Cv6cx26r4r
+	Kr1UJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc
+	8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Av
+	z4vE14v_Xryl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8Ww4UJr1UMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1m9aPUUUUU==
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQMFAWpRcLLNAQABsy
 
-On Sat, Jul 11, 2026 at 3:47=E2=80=AFPM Tristan Madani <tristmd@gmail.com> =
-wrote:
->
-> From: Tristan Madani <tristan@talencesecurity.com>
->
-> ipvlan devices can enter infinite transmit recursion when combined with
-> packet forwarding configurations (such as IPVS) that route traffic back
-> through the same ipvlan interface.
->
-> The recursion path is:
->
->   ipvlan_start_xmit -> ipvlan_queue_xmit -> ipvlan_xmit_mode_l3
->   -> ipvlan_process_outbound -> ip_local_out -> netfilter hooks
->   -> dev_queue_xmit -> ipvlan_start_xmit (recurse)
->
-> The existing per-CPU xmit recursion counter in __dev_queue_xmit()
-> (XMIT_RECURSION_LIMIT =3D 8) does detect the loop, but fires too late:
-> each recursion level consumes roughly 2KB of stack space through
-> ip_local_out and netfilter, and at 8 levels the cumulative usage
-> exceeds the 16KB kernel stack on x86_64. The resulting stack overflow
-> hits the VMAP_STACK guard page and causes a kernel panic.
->
+Hello Julian,
 
-Please fix the existing mechanism. 2KB of stack space seems excessive.
+Thank you for the detailed proposal. Yes, I am happy to handle the
+follow-up conversion of the overload flag to bitops.
 
-If this is caused by some DEBUG option, it will be just fine to limit
-XMIT_RECURSION_LIMIT to 3 for such debug kernels.
 
-Adding a workaround in every virtual driver is not an option.
+> On Jul 8, 2026, at 23:53, Julian Anastasov <ja@ssi.bg> wrote:
+>=20
+>=20
+> Hello,
+>=20
+> On Wed, 8 Jul 2026, Yizhou Zhao wrote:
+>=20
+>>> On Jul 8, 2026, at 03:18, Julian Anastasov <ja@ssi.bg> wrote:
+>>>=20
+>>> On Tue, 7 Jul 2026, Yizhou Zhao wrote:
+>>>=20
+>>=20
+>> We have posted a v2 patch at:
+>> =
+https://lore.kernel.org/netfilter-devel/20260708060454.20534-1-zhaoyz24@ma=
+ils.tsinghua.edu.cn/
+>>=20
+>> The v2 patch updates the commit message with more conservative
+>> wording, and fixes the checkpatch logical-continuation warnings.
+>=20
+> After looking again at the code, I think we can
+> do it in different way:
+>=20
+> - IP_VS_DEST_F_AVAILABLE and IP_VS_DEST_F_OVERLOAD are defined
+> in include/uapi/linux/ip_vs.h but we never export them to user
+> space. So, we are free to change them. We can move them to=20
+> include/net/ip_vs.h, see below...
+>=20
+> - IP_VS_DEST_F_AVAILABLE is changed only under service_mutex,
+> so we can keep its usage
+>=20
+> - IP_VS_DEST_F_OVERLOAD needs different access methods.
+> We can add 'unsigned long flags2;', may be after l_threshold.
+> And to switch to such usage (F_OVERLOAD -> FL_OVERLOAD):
+>=20
+> - test_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
+> - set_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
+>=20
+> Sometimes if (test_bit()) clear_bit() can avoid
+> full memory barrier in ip_vs_dest_update_overload()
+>=20
+> - clear_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2)
+> test_bit() guard can help here too
+>=20
+> As there are other races involved, something like
+> this can be a starting point for such change. It tries harder
+> to update the overload flag on dest edit/add but it does not
+> include the proposed bitops:
+>=20
+> diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
+> index 49297fec448a..b34631270e24 100644
+> --- a/include/net/ip_vs.h
+> +++ b/include/net/ip_vs.h
+> @@ -1906,6 +1906,8 @@ static inline void =
+ip_vs_dest_put_and_free(struct ip_vs_dest *dest)
+> kfree(dest);
+> }
+>=20
+> +void ip_vs_dest_update_overload(struct ip_vs_dest *dest);
+> +
+> /* IPVS sync daemon data and function prototypes
+>  * (from ip_vs_sync.c)
+>  */
+> diff --git a/net/netfilter/ipvs/ip_vs_conn.c =
+b/net/netfilter/ipvs/ip_vs_conn.c
+> index d19caf66afeb..3fd221996e6e 100644
+> --- a/net/netfilter/ipvs/ip_vs_conn.c
+> +++ b/net/netfilter/ipvs/ip_vs_conn.c
+> @@ -1087,6 +1087,26 @@ static inline int ip_vs_dest_totalconns(struct =
+ip_vs_dest *dest)
+> + atomic_read(&dest->inactconns);
+> }
+>=20
+> +__always_inline void ip_vs_dest_update_overload(struct ip_vs_dest =
+*dest)
+> +{
+> + int conns, l, u;
+> +
+> + u =3D READ_ONCE(dest->u_threshold);
+> + if (!u)
+> + goto unset;
+> + conns =3D ip_vs_dest_totalconns(dest);
+> + if (conns >=3D u) {
+> + dest->flags |=3D IP_VS_DEST_F_OVERLOAD;
+> + return;
+> + }
+> + l =3D READ_ONCE(dest->l_threshold) ? : (u * 3 / 4);
+> + if (conns >=3D l && l)
+> + return;
+> +
+
+I noticed one integer-rounding detail in the proposed helper. The
+existing default lower-threshold check:
+
+ip_vs_dest_totalconns(dest) * 4 < dest->u_threshold * 3
+
+clears OVERLOAD when conns is below ceil(3 * u / 4), assuming the
+multiplications do not overflow. In the proposed helper:
+
+l =3D u * 3 / 4;
+if (conns >=3D l && l)
+return;
+
+the division rounds down, so the boundary is different when u is not a
+multiple of four. For example, with u =3D=3D 2 and conns =3D=3D 1, the =
+existing
+code clears OVERLOAD while the helper keeps it set. Would using
+
+l =3D u - u / 4;
+
+for the default lower threshold preserve the existing behavior while
+also avoiding the multiplication overflow?
+
+> +unset:
+> + dest->flags &=3D ~IP_VS_DEST_F_OVERLOAD;
+> +}
+> +
+> /*
+>  * Bind a connection entry with a virtual service destination
+>  * Called just after a new connection entry is created.
+> @@ -1161,9 +1181,7 @@ ip_vs_bind_dest(struct ip_vs_conn *cp, struct =
+ip_vs_dest *dest)
+> atomic_inc(&dest->persistconns);
+> }
+>=20
+> - if (dest->u_threshold !=3D 0 &&
+> -    ip_vs_dest_totalconns(dest) >=3D dest->u_threshold)
+> - dest->flags |=3D IP_VS_DEST_F_OVERLOAD;
+> + ip_vs_dest_update_overload(dest);
+> }
+>=20
+>=20
+> @@ -1257,16 +1275,8 @@ static inline void ip_vs_unbind_dest(struct =
+ip_vs_conn *cp)
+> atomic_dec(&dest->persistconns);
+> }
+>=20
+> - if (dest->l_threshold !=3D 0) {
+> - if (ip_vs_dest_totalconns(dest) < dest->l_threshold)
+> - dest->flags &=3D ~IP_VS_DEST_F_OVERLOAD;
+> - } else if (dest->u_threshold !=3D 0) {
+> - if (ip_vs_dest_totalconns(dest) * 4 < dest->u_threshold * 3)
+> - dest->flags &=3D ~IP_VS_DEST_F_OVERLOAD;
+> - } else {
+> - if (dest->flags & IP_VS_DEST_F_OVERLOAD)
+> - dest->flags &=3D ~IP_VS_DEST_F_OVERLOAD;
+> - }
+> + if (dest->flags & IP_VS_DEST_F_OVERLOAD)
+> + ip_vs_dest_update_overload(dest);
+>=20
+> ip_vs_dest_put(dest);
+> }
+> diff --git a/net/netfilter/ipvs/ip_vs_ctl.c =
+b/net/netfilter/ipvs/ip_vs_ctl.c
+> index bcf40b8c41cf..2871116e46ec 100644
+> --- a/net/netfilter/ipvs/ip_vs_ctl.c
+> +++ b/net/netfilter/ipvs/ip_vs_ctl.c
+> @@ -1315,6 +1315,7 @@ __ip_vs_update_dest(struct ip_vs_service *svc, =
+struct ip_vs_dest *dest,
+> struct ip_vs_service *old_svc;
+> struct ip_vs_scheduler *sched;
+> int conn_flags;
+> + bool upd_thresh;
+>=20
+> /* We cannot modify an address and change the address family */
+> BUG_ON(!add && udest->af !=3D dest->af);
+> @@ -1370,10 +1371,12 @@ __ip_vs_update_dest(struct ip_vs_service *svc, =
+struct ip_vs_dest *dest,
+> /* set the dest status flags */
+> dest->flags |=3D IP_VS_DEST_F_AVAILABLE;
+>=20
+> - if (udest->u_threshold =3D=3D 0 || udest->u_threshold > =
+dest->u_threshold)
+> - dest->flags &=3D ~IP_VS_DEST_F_OVERLOAD;
+> - dest->u_threshold =3D udest->u_threshold;
+> - dest->l_threshold =3D udest->l_threshold;
+> + upd_thresh =3D READ_ONCE(dest->u_threshold) !=3D udest->u_threshold =
+||
+> +     READ_ONCE(dest->l_threshold) !=3D udest->l_threshold;
+> + WRITE_ONCE(dest->u_threshold, udest->u_threshold);
+> + WRITE_ONCE(dest->l_threshold, udest->l_threshold);
+> + if (upd_thresh)
+> + ip_vs_dest_update_overload(dest);
+>=20
+> dest->af =3D udest->af;
+>=20
+> @@ -3667,8 +3670,8 @@ __ip_vs_get_dest_entries(struct netns_ipvs =
+*ipvs, const struct ip_vs_get_dests *
+> entry.port =3D dest->port;
+> entry.conn_flags =3D atomic_read(&dest->conn_flags);
+> entry.weight =3D atomic_read(&dest->weight);
+> - entry.u_threshold =3D dest->u_threshold;
+> - entry.l_threshold =3D dest->l_threshold;
+> + entry.u_threshold =3D READ_ONCE(dest->u_threshold);
+> + entry.l_threshold =3D READ_ONCE(dest->l_threshold);
+> entry.activeconns =3D atomic_read(&dest->activeconns);
+> entry.inactconns =3D atomic_read(&dest->inactconns);
+> entry.persistconns =3D atomic_read(&dest->persistconns);
+> @@ -4277,8 +4280,10 @@ static int ip_vs_genl_fill_dest(struct sk_buff =
+*skb, struct ip_vs_dest *dest)
+> dest->tun_port) ||
+>    nla_put_u16(skb, IPVS_DEST_ATTR_TUN_FLAGS,
+> dest->tun_flags) ||
+> -    nla_put_u32(skb, IPVS_DEST_ATTR_U_THRESH, dest->u_threshold) ||
+> -    nla_put_u32(skb, IPVS_DEST_ATTR_L_THRESH, dest->l_threshold) ||
+> +    nla_put_u32(skb, IPVS_DEST_ATTR_U_THRESH,
+> + READ_ONCE(dest->u_threshold)) ||
+> +    nla_put_u32(skb, IPVS_DEST_ATTR_L_THRESH,
+> + READ_ONCE(dest->l_threshold)) ||
+>    nla_put_u32(skb, IPVS_DEST_ATTR_ACTIVE_CONNS,
+> atomic_read(&dest->activeconns)) ||
+>    nla_put_u32(skb, IPVS_DEST_ATTR_INACT_CONNS,
+>=20
+> Regards
+>=20
+> --
+> Julian Anastasov <ja@ssi.bg>
+
+Please go ahead with the ip_vs_dest_update_overload() patch. I will base
+the follow-up on the posted version and check the resulting struct
+ip_vs_dest layout as Vadim suggested.
+
+Regards,
+Yizhou
+
