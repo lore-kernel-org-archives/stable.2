@@ -1,79 +1,75 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58933231A3B
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 13:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A086628F5
+	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 13:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783776829; cv=none; b=Bw9pDbZ0Bm7qJ99V2VSHCV0YnGlV7PgMLaiJvhb+tzOxSUNzMzmL3mCJLix7jvxGEHdJASh7BLJaIDR1vP16Ocz/4nIL5DdB3i/2GyMTu3mVQDxmpUgUDGx1sjlU2xjay4kvn90Ps4FfFabZhRDtBgifE4pNule53eJd+p8TEpI=
+	t=1783777659; cv=none; b=kAV/MIJM3/ZiowqdtzidZoh8VZvDjG3SIZ4h1Aace/G7yVReLC3SUDy7ixrqVRJwgix22rz4/m1fcVjrxZHo9EDkSTAutRkHPFMLn9FcUeW1SeApy4g4aE/9NCajrBsfTEkAoYxytKyc4XyOvpNedDDjpJpgXwYABScOtKAHGqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783776829; c=relaxed/simple;
-	bh=ZnX556/SgTs5R4D8I5uTvWRq0Qb0EKx6Zma/xbvdxNU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IPidVgfK16Amb5MHBO/ERm2NHRr4HTk2F33gphkMIPzy/W5SVFLnaAogjeAk+sQ8FUHV2S2C1sV41wweoPaKa40yRS2fSMcYW1LI8vm6ItRdpnl7/RsUIwaQRiw8jyQWJs6xpvybijNr0/3tZKPZQCtTSVuhVlYEcCmW8waYkd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dclwXbuf; arc=none smtp.client-ip=209.85.214.179
+	s=arc-20240116; t=1783777659; c=relaxed/simple;
+	bh=dI5sz4efJ/IwhuA+ar8TvJxJWTOdMJOvEDrJnVCWieo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HK+XrpZvQVqGEX+kncLxfsfSFMfOvcLpd7QJRJ82Agt0RoIcJTVqYH5ZTWXqOCqSYmOowVJtivT2Bqo1SRsTdstchruUeQ22cZ74IYTBYwF20pVOVli/eeIgeBwbtehkCZMAqQa64pK5gUtxnvTj8TuXjtHzeR2PfsvRCMNV14A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a6bFz5ps; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dclwXbuf"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cce6a0c9c3so16712195ad.1
-        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 06:33:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a6bFz5ps"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493d92b7db3so18388245e9.2
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 06:47:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783776828; x=1784381628; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783777656; x=1784382456; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6KR19s9LTdwg8fzyf+W0+BdWpTP82F88oIsv5vsjL+8=;
-        b=dclwXbufeOSPF4/r2U3MIOJbsVJlatFu0NI2xfyMpRoyUk1GPZoLcwcXgxkaLoJVTr
-         OY2nnzJMk6xYysLf31jGPDXzFozFmJyqn+/TNfoGd4Yo151JxdYF9Bm28Ta+XYUfuFn6
-         KepQRmiBwxd1EZrZVmigE9IkNEb10Vptbx4HyxyITdFQQ0W9epUVN3g5AdV9liOCvDYb
-         85INCZyOAs6ZK2TfMiJMSq3R1mfq5q416HlGtRTcMT5TYnXFFcXsq6yhv/bsDVv6QLog
-         HVy5V6waSsBxjpLcr9hgdYoFqBbOGitYzYI+aiIrqUSaSWV8x2bXxApuKVjop5k+HQq9
-         tMFw==
+        bh=vRsWWJteHWK3O+2yvFE1KJZgJEYSIpWRCnEwdBb+TyM=;
+        b=a6bFz5ps6z1NUfNjeqAYN68pJE3TX42OTyBdHbRt4NgLTGEbOkstyQ7Du3zrO1ATev
+         dxf5+yfMN2/CufYQROXsCVgeXHee2hXiPnJfMaYdIVQ93K1Zhe1QdLt3u/gQBMaG+/EB
+         iJGc/ZWRbxht7gmh1hH6bYOXuTgWfTBfTQBquiVTUNTB3ZWg4uRntyvKY40Dnu0ucNsd
+         8/wuHQ3QDO9MD9Z0UO27JK/W5ttcI2sLpEAIMT3XRlL+/4HGOhpJbji7Ul82i+wQ4kdI
+         KhCHeJg+koy75AkIxH8B4lxsNs5sJDEiJyju3WoESSO034Yfp3/r+u0s7Sjjc6dNGmxS
+         sIhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783776828; x=1784381628;
+        d=1e100.net; s=20251104; t=1783777656; x=1784382456;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6KR19s9LTdwg8fzyf+W0+BdWpTP82F88oIsv5vsjL+8=;
-        b=Sq8mdgbw6C0Ym7uA7gdyWHrYF3+hqY9AUp7crb02FVGHBjdt0/hl49BHWHDimO7jhy
-         S+ac9eXN+dyD/a+SQTX/4WZDuwmf2+x7GaydxEqzTNACzAdpIzREtdfhf1vQQyPTReC3
-         lyZEqG3/b18ay9UiUrV+iHD0+rAxpl/4R18GybHLY7LanWVWJV6/FW90NRSh6+IE1zf9
-         EFTrjZe/5jFEiWatD21IsOjmrFNsfhVliuuz7+J2UF0Wha25oCrq1HhBsfcdZOeKjw9j
-         1E8exwtIHGS8x342nuwncBlc9dY0nNThCmBHB3UkK6GOSedElN4yNxotTYYnFG8nyD04
-         O4Yg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr3zRbRogeUxwL0HgX1Xcr0Lsj9MaDHVzRhjH/5zOyocM4CDSQJheBXEzOufaUtg9MCE2fYQt0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrlhPy1gujSjdQeAJf3VPHSV0Afu4fqQDcjLfAkZy20/08zGVn
-	KMJnMccrikYpO21qfQQMS5ir8FqscD3JYBZmp9QX1oXzQUxyyNZkvTAV
-X-Gm-Gg: AfdE7cma0SL37pOfvjQ4KgmPo5RFDc3ZAUZzB8DBMPQ345SNnhal/7XMkAJ6HUsmxlj
-	XQtY+DHDN+wm2aNjv0lk5NIVR5QwUVxt5brkEQPxz3o4uS3YIQG4WyAMy2kiYd/EWUHagP5o624
-	NFlUCBwWsEo34g5Th7vxx8yDqtAfkQjkquho18J3ec6L8qEtGu9BsCGMHvSt439zNFxxNYTVtKD
-	4pDUqre5RJ3c1xlBWdEZ5uk2DJ52DaIYUN5OSeJXlsm0MQCjXwxu+4Ut5aZrWjNnh858TGYllWS
-	ulUcK8o/wso7nyWRoEIEFe5vpAa5ORkClIUhVwKZ1AZBc3SFGZMIKr35V+99dr/TC4r/M3Y4HRv
-	kZS2WOmzUTYV6lEOGuDmOKutE7SO9tqeCOKqgb1FPNXN8SfTaxPsCYEVtyKPjow+3eliGp/4OX4
-	4zDB5Eem7ITkMGpf8EntUCVVDDzqaN/QreXjew5RFE3wSHhs9yOKtXcJwyJgzIFSE4l6+PfBe3e
-	yKUd0xLMK/IIt9y
-X-Received: by 2002:a17:903:292:b0:2c9:97a8:8c17 with SMTP id d9443c01a7336-2ce9f28802fmr29334865ad.42.1783776827559;
-        Sat, 11 Jul 2026 06:33:47 -0700 (PDT)
-Received: from localhost.localdomain (116-91-131-11.east.dxpn.ucom.ne.jp. [116.91.131.11])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb76asm76179555ad.12.2026.07.11.06.33.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 11 Jul 2026 06:33:46 -0700 (PDT)
-From: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
-To: Steve French <sfrench@samba.org>,
-	linux-cifs@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Steve French <stfrench@microsoft.com>,
-	samba-technical@lists.samba.org,
+        bh=vRsWWJteHWK3O+2yvFE1KJZgJEYSIpWRCnEwdBb+TyM=;
+        b=MDfg6fzvU/DWIrvSDxcd++hiw9Ggpj1kdRex0PiXiP0cjsnKRz2MlCFq1umqHINmNR
+         PaXEgPqMdE1zo1sHXdJgDK/BiUeD0rdVzeMJFqLgA227f/TiQ63x4RGgd+HMgLbCwl0l
+         2LucDl9N0A5tSiYu+klRBwEdFpd4LMXeWkw9xmGHo2mO//qh68eBkqHEnm+EOvtJX+OI
+         KmylvDryKmia1n1PKEf6oyXecz0MC3p6l9xLfwNUSO3hvXYjXRvwVbFnCfaKZbLAkxkV
+         nLmWnNLrKXqNrhKCx+jbmhbDUsHLrzTYAvltyokAACfCyygDSgvtUlITNKsNavp9CGlI
+         MqfA==
+X-Forwarded-Encrypted: i=1; AHgh+RpinDCfOub2EsIfmJ+vAmWQi2ep5FWWOzdR0irVg6WVPfI0FOoFKqrxE+YhS7fddMYImWqahqg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywa7ynha6xXxEjqK1FufRi6/3p2tWDbVCvCO5rQfK7x+TDr9ajP
+	KG2+PNXVbHTxF3d49fZP2TrtiyN5JQxQIMwXZJxmAoYFjXBeA5m7aow=
+X-Gm-Gg: AfdE7cnug1VviLmSPHueUfRKcugQEAnv7BuJNDuKhNalBIeMDWMo42kBcRaR5D7X4P8
+	d+IG7rmaWhIN7s2Q8U1Y0YsCHz8y+9cBAX9NjHIniSxruZo+51bo0/Jts26Nxzxm0KI5oZuE7Qs
+	VtJI1WacjHYEgr1P0dRvbPjzFqyboVgMLd7C1h9Z698ZhiQUNAPMS7uDZdBkt2R4RtV+UAkq1xe
+	9e7CmUkXcV6078l5HHG7bmhqfMrin6dtJbK05BDbX/eLrz0V4HK33MSyduSC13vTCWl0CqDmTmG
+	kmOwGbdt9VyWhMcPhM5CcoOnwLJj30nVwbUGKX/2MQHn8cUisyMpO9/QGYMpkLubIn7Ul8RUHQ7
+	+XlHpH0nBgf3AwwNX8RzFbJPC/YkFZ9KbDlJuoP4aGuR+EG2582Rw5D8U+A==
+X-Received: by 2002:a05:600c:6304:b0:493:bb2e:11a5 with SMTP id 5b1f17b1804b1-493f87e4a48mr27240475e9.15.1783777655987;
+        Sat, 11 Jul 2026 06:47:35 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493f2e77c2esm104406305e9.2.2026.07.11.06.47.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Jul 2026 06:47:34 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Mahesh Bandewar <maheshb@google.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
-Subject: [PATCH] smb: client: reject overlapping data areas in SMB2 responses
-Date: Sat, 11 Jul 2026 22:33:26 +0900
-Message-ID: <20260711133326.94832-1-shoichiro.miyamoto@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH net] ipvlan: add xmit recursion protection
+Date: Sat, 11 Jul 2026 13:47:32 +0000
+Message-ID: <20260711134732.1385563-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,113 +78,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 53b7c271f06b ("smb: client: restrict implied bcc[0] exemption to
-responses without data area") restricted the implied bcc[0] length
-exception to responses without a data area. However, the overlap
-handling in __smb2_calc_size() clears data_length, which can make an
-invalid response appear to have no data area and so qualify for the
-exception.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Track data area overlap separately and reject such responses before
-applying the length compatibility exceptions.
+ipvlan devices can enter infinite transmit recursion when combined with
+packet forwarding configurations (such as IPVS) that route traffic back
+through the same ipvlan interface.
 
-Fixes: 53b7c271f06b ("smb: client: restrict implied bcc[0] exemption to responses without data area")
+The recursion path is:
+
+  ipvlan_start_xmit -> ipvlan_queue_xmit -> ipvlan_xmit_mode_l3
+  -> ipvlan_process_outbound -> ip_local_out -> netfilter hooks
+  -> dev_queue_xmit -> ipvlan_start_xmit (recurse)
+
+The existing per-CPU xmit recursion counter in __dev_queue_xmit()
+(XMIT_RECURSION_LIMIT = 8) does detect the loop, but fires too late:
+each recursion level consumes roughly 2KB of stack space through
+ip_local_out and netfilter, and at 8 levels the cumulative usage
+exceeds the 16KB kernel stack on x86_64. The resulting stack overflow
+hits the VMAP_STACK guard page and causes a kernel panic.
+
+Add a per-CPU counter that prevents any re-entry into
+ipvlan_queue_xmit() while it is already executing on the same CPU.
+This mirrors the approach used by tunnel devices (see
+IP_TUNNEL_RECURSION_LIMIT in ip_tunnels.h) but with a stricter limit
+appropriate for ipvlan.
+
+Fixes: 2ad7bf363841 ("ipvlan: Initial check-in of the IPVLAN driver.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- fs/smb/client/smb2misc.c | 34 +++++++++++++++++++++++++---------
- 1 file changed, 25 insertions(+), 9 deletions(-)
+ drivers/net/ipvlan/ipvlan_core.c | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
 
-diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
-index 6270b33147d2..9068175e57cd 100644
---- a/fs/smb/client/smb2misc.c
-+++ b/fs/smb/client/smb2misc.c
-@@ -19,7 +19,8 @@
- #include "nterr.h"
- #include "cached_dir.h"
+diff --git a/drivers/net/ipvlan/ipvlan_core.c b/drivers/net/ipvlan/ipvlan_core.c
+index 835e04835..ab99eb624 100644
+--- a/drivers/net/ipvlan/ipvlan_core.c
++++ b/drivers/net/ipvlan/ipvlan_core.c
+@@ -9,6 +9,8 @@
  
--static unsigned int __smb2_calc_size(void *buf, bool *have_data);
-+static unsigned int __smb2_calc_size(void *buf, bool *have_data,
-+				     bool *data_area_overlap);
+ static u32 ipvlan_jhash_secret __read_mostly;
  
- static int
- check_smb2_hdr(struct smb2_hdr *shdr, __u64 mid)
-@@ -148,6 +149,7 @@ smb2_check_message(char *buf, unsigned int pdu_len, unsigned int len,
- 	__u32 calc_len; /* calculated length */
- 	__u64 mid;
- 	bool have_data;
-+	bool data_area_overlap;
++static DEFINE_PER_CPU(int, ipvlan_xmit_depth);
++
+ void ipvlan_init_secret(void)
+ {
+ 	net_get_random_once(&ipvlan_jhash_secret, sizeof(ipvlan_jhash_secret));
+@@ -676,6 +678,7 @@ int ipvlan_queue_xmit(struct sk_buff *skb, struct net_device *dev)
+ {
+ 	struct ipvl_dev *ipvlan = netdev_priv(dev);
+ 	struct ipvl_port *port = ipvlan_port_get_rcu_bh(ipvlan->phy_dev);
++	int ret = NET_XMIT_DROP;
  
- 	/* If server is a channel, select the primary channel */
- 	pserver = SERVER_IS_CHAN(server) ? server->primary_server : server;
-@@ -232,7 +234,12 @@ smb2_check_message(char *buf, unsigned int pdu_len, unsigned int len,
+ 	if (!port)
+ 		goto out;
+@@ -683,18 +686,32 @@ int ipvlan_queue_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	if (unlikely(!pskb_may_pull(skb, sizeof(struct ethhdr))))
+ 		goto out;
+ 
++	if (this_cpu_read(ipvlan_xmit_depth)) {
++		net_crit_ratelimited("ipvlan: xmit recursion detected on dev %s\n",
++				     dev->name);
++		goto out;
++	}
++
++	this_cpu_inc(ipvlan_xmit_depth);
+ 	switch(port->mode) {
+ 	case IPVLAN_MODE_L2:
+-		return ipvlan_xmit_mode_l2(skb, dev);
++		ret = ipvlan_xmit_mode_l2(skb, dev);
++		break;
+ 	case IPVLAN_MODE_L3:
+ #ifdef CONFIG_IPVLAN_L3S
+ 	case IPVLAN_MODE_L3S:
+ #endif
+-		return ipvlan_xmit_mode_l3(skb, dev);
++		ret = ipvlan_xmit_mode_l3(skb, dev);
++		break;
++	default:
++		WARN_ONCE(true, "%s called for mode = [%x]\n",
++			  __func__, port->mode);
++		kfree_skb(skb);
++		break;
  	}
++	this_cpu_dec(ipvlan_xmit_depth);
++	return ret;
  
- 	have_data = false;
--	calc_len = __smb2_calc_size(buf, &have_data);
-+	data_area_overlap = false;
-+	calc_len = __smb2_calc_size(buf, &have_data, &data_area_overlap);
-+
-+	/* Reject responses whose data area overlaps the fixed area. */
-+	if (data_area_overlap)
-+		return 1;
- 
- 	/* For SMB2_IOCTL, OutputOffset and OutputLength are optional, so might
- 	 * be 0, and not a real miscalculation */
-@@ -416,14 +423,15 @@ smb2_get_data_area_len(int *off, int *len, struct smb2_hdr *shdr)
- }
- 
- /*
-- * Calculate the size of the SMB message based on the fixed header
-- * portion, the number of word parameters and the data portion of the message.
-- * If have_data is non-NULL, it is set to true when a non-empty data area was
-- * found (data_length > 0), allowing callers to distinguish the implied bcc[0]
-- * case (no data area) from an overreported data length.
-+ * Calculate the size of the SMB message based on the fixed header, fixed
-+ * parameter area, and variable data area.
-+ *
-+ * If have_data is not NULL, it is set when a non-empty data area is found.
-+ * If data_area_overlap is not NULL, it is set when the data area overlaps
-+ * the fixed area.
-  */
- static unsigned int
--__smb2_calc_size(void *buf, bool *have_data)
-+__smb2_calc_size(void *buf, bool *have_data, bool *data_area_overlap)
- {
- 	struct smb2_pdu *pdu = buf;
- 	struct smb2_hdr *shdr = &pdu->hdr;
-@@ -432,6 +440,11 @@ __smb2_calc_size(void *buf, bool *have_data)
- 	/* Structure Size has already been checked to make sure it is 64 */
- 	int len = le16_to_cpu(shdr->StructureSize);
- 
-+	if (have_data)
-+		*have_data = false;
-+	if (data_area_overlap)
-+		*data_area_overlap = false;
-+
- 	/*
- 	 * StructureSize2, ie length of fixed parameter area has already
- 	 * been checked to make sure it is the correct length.
-@@ -454,7 +467,10 @@ __smb2_calc_size(void *buf, bool *have_data)
- 		if (offset + 1 < len) {
- 			cifs_dbg(VFS, "data area offset %d overlaps SMB2 header %d\n",
- 				 offset + 1, len);
-+			if (data_area_overlap)
-+				*data_area_overlap = true;
- 			data_length = 0;
-+			goto calc_size_exit;
- 		} else {
- 			len = offset + data_length;
- 		}
-@@ -469,7 +485,7 @@ __smb2_calc_size(void *buf, bool *have_data)
- unsigned int
- smb2_calc_size(void *buf)
- {
--	return __smb2_calc_size(buf, NULL);
-+	return __smb2_calc_size(buf, NULL, NULL);
- }
- 
- /* Note: caller must free return buffer */
+-	/* Should not reach here */
+-	WARN_ONCE(true, "%s called for mode = [%x]\n", __func__, port->mode);
+ out:
+ 	kfree_skb(skb);
+ 	return NET_XMIT_DROP;
 -- 
-2.50.1 (Apple Git-155)
+2.47.3
 
