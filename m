@@ -1,103 +1,185 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SY2PR01CU004.outbound.protection.outlook.com (mail-australiaeastazolkn19011062.outbound.protection.outlook.com [52.103.72.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350C1286A7
-	for <stable@vger.kernel.org>; Sat, 11 Jul 2026 05:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783749382; cv=none; b=jDxIR4ecfqJZO3E/74adj1sRaG0QUtIaHJeLBs0DnepNl9M9MrPehDdMKXmjO5mOmIM9MkDeAu8mVmtsJDIUlsP0J7z5esEtL8rdOJQYx8LZAWztWnATLRHtTh+NybW7oEk0677fR+43kIJ7oJe87WMRSe6JPUNb+iPunkkZNhM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783749382; c=relaxed/simple;
-	bh=malqePsjYETlp6YRyNOGcOnY/0Qdf0rdTDZd6rzljMk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k+so5MS+S1+ouDzoiX8FviOe16bQF3lCU7nCOT/osXaE6lSGM0iNhmYQHQstoLWe0z2CF0ZUBzA8WcuDXtRulYEahiO/biQbue4PRGbbGdQ3qtLR9FKElQSyFBjadyL+ToOSONZ0RY0dtPM2NpkF+JPdT0y7oQshGlhBoopdlLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=FCif4/8E; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996552F39C7;
+	Sat, 11 Jul 2026 06:29:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783751364; cv=fail; b=l+ewsHkezSllY7vE0YouHJRaz0FYTHZAGkXM+TPFPOPA+/RAZNdW1rThNpwxxURE345hIMTPd3EPeah+dAmBFtQvgHlbOaEJpKIsZTyhlJJ3Wj7i5H4DpD6XGz2Z4rq8B2WcWRehNNXUYKsj6O6j4lJr6u4+N/s1e+rdwSDIsM8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783751364; c=relaxed/simple;
+	bh=+rFPgefqZqjZZIZquL2KFjYCRzqu9PQdGYhQYyHFKrg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ii2PMKMcwF8lb++vWNBXJbMAny/iDxt6Cxx/Jt+7stSrXFqHbYacGx60vGxRcgGLGXAmfswXS6cSbGe+9QlJiKV4AMQlFOTHt+Rz86jBwuGFjKhwD9EAX9zHaST90lD2F9gaEjiZckzjsYYUgpHor+w9K1A5S9YTSV900Q79NCA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=DdgMwrui; arc=fail smtp.client-ip=52.103.72.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="FCif4/8E"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-475881b9a4bso1487141f8f.3
-        for <stable@vger.kernel.org>; Fri, 10 Jul 2026 22:56:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1783749380; x=1784354180; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JXWYlcHV8kyBocpQgRM3YOKQ4YhOMcY53dOQDtkUlDg=;
-        b=FCif4/8EfHYX/HpTsHnAQEKzqbWqPB30b12/ayje7FwtEZAYmhV19kqdLsTGNYV/ls
-         444eE3zKR3xtkih4J2+dcIi4DPZPlv+pB9fzBSZaXSt7Vzb9tuhwGw78EK2XkuQDueIZ
-         wodkL0N5ORCtXqS6ZAkJe6eBJq+CidrUq58Ps3HsPDchpu/NeGoHxnxEqoSADPO+uBdd
-         K9fJL/uVGlClgI0cNLWWHczT+WKF9D570oWq4fysGRwwJDdGoWOKv3ZMHL79rgDdFBvn
-         Rc+5Ut2h9KiWE15n8I1pGcd1artIgTcxJwyhzL69w/0FKhTY8lV9dDAz0BH+xKqZeFXi
-         lYDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783749380; x=1784354180;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JXWYlcHV8kyBocpQgRM3YOKQ4YhOMcY53dOQDtkUlDg=;
-        b=UsHmSyTM9s7vmsVy34ozl23tcrEU0wLckjYfiem8AQO56opPMK/Uxjs5Y4UQZFsUqj
-         bd0CNVn0k70KdiAUQITTJgvvWcHo7NfSaz7QC0JzfNFN4qKeamEm951LRND5efUIc4U4
-         h8ZJXn0abepvEjjM0HIK05j5gXOsAsWbU+b6QijbVVKhRlVYkE1gysyO7WT3xx1r3wAu
-         Zl5m3rdjns5C4zvEf7kyjsfppO3iuCV+tAs4QLk7VuES3gC6AJ7Pb2BV3FHI/Aqa3TXf
-         t+TZDRnCXHMLTV3VMZHAone6aCnddLPUdeHwH+Ykp33P9yAW6Qrx6gC4mtb/SN8B3jbU
-         ZkKw==
-X-Forwarded-Encrypted: i=1; AHgh+RpvuuxTnJYkpYXbb4b9cJX5XJGn8z4+YVB2oi5+d3eFnaQkjTkfbIxf4YGiUMoCGOifqqW0XaM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwzFMJY6PEyS4hj1POZpoOJeSulPfsYZdHFyi4uFSG69fCh2+60
-	PX02k7HxkVDRA1VVSpiwBRODClVJGX5eV8vYfFLTtO/xa2RLbgVNa9dP7wizfmH5OauwJbBOVCm
-	56ouJ1Wc=
-X-Gm-Gg: AfdE7clNnKP4tU9JVpTpxe6V5nuF9zBIilvsiNP4uhCrWXuwHaqtRNgwyt+Or0ppaLX
-	eU9ryDQ+bcxsfmiIIqkMi6yg0iSKKSgsDLRPrAV0hj+yezC8l1/veo+09OwG1kVTJlJOJrXFS+J
-	XPgX9JPpNjrtPokPQluGAtZUiVemt4gea4EOouQX2NoYUQz8f3WYCAP9adnXsTxiZuY0gnhczRY
-	cq9cR9SvZ/jxLvof5GYUZ2z+z9eTPCIoCKwE2/Xwe6ymigDO38I2YkhkidnCZHbI9zczs97lKGb
-	QJ4E2RyCJz4bmk0lJy1p79kc8BkukTjsDHXzeTuzBWpleFLvQ5XxSNRbvd1GgZOUA4Id/N6aX3E
-	RoyAGGIHDaySrwSE4VUXFxy4lPozF7DJZJHSa0HVfOhhR4hHe0mHTj+569B1FbTl7g+ZaPhpV9v
-	U=
-X-Received: by 2002:a05:6000:4a05:b0:47f:2906:b551 with SMTP id ffacd0b85a97d-47f2dd2113dmr1544164f8f.32.1783749379539;
-        Fri, 10 Jul 2026 22:56:19 -0700 (PDT)
-Received: from localhost ([2a09:bac6:37a8:26dc::3df:54])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm65233731f8f.13.2026.07.10.22.56.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 22:56:18 -0700 (PDT)
-Date: Sat, 11 Jul 2026 06:56:18 +0100
-From: Matt Fleming <matt@readmodwrite.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>, 
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>, 
-	Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Zqiang <qiang.zhang@linux.dev>, Tejun Heo <tj@kernel.org>, Andrea Righi <arighi@nvidia.com>, 
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org, sched-ext@lists.linux.dev, 
-	stable@vger.kernel.org, kernel-team@cloudflare.com, 
-	Matt Fleming <mfleming@cloudflare.com>
-Subject: Re: [PATCH 6.18.y] rcu-tasks: Defer IRQ-disabled callback enqueue to
- irq_work
-Message-ID: <alHapJgHNRea7eZz@matt-Precision-5490>
-References: <20260710095359.2643791-1-matt@readmodwrite.com>
- <886c23ff-7dca-4679-9d2b-ca499523853c@paulmck-laptop>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="DdgMwrui"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t2lm5CvzVFrQwSJuFaxSMe5eRyAxCqpQMSsCslWNHatVCch4I9xDZNSNBkt6uU4vpIU68EYd9mbI8q+oFhtzI9yCoakozTbHrNto+Fn5qu6DQ0KbuUOwAPo8w6T1uOU1LNTjH4Snm4ZBRL1ywj+TG8j2HWRjSywBhEJS0xxrlNXZoesuB0EWLlcSatVejTSg73FBnwZZgFOP4R6rA2QFExeENFZ89jB+8CV71LISgVN5Zu2M0/n64zu0kI1yorVZCpjyPLg0oyyEIw+HrmGyV+TYjWC/icH2kxXbHWAXODr4/EZFCenQM61e8WNVL3yh2EQ6JG6F3GQBws6hpYpGhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZRCsYe1vHKL0HGwEPqPJ/5qLCeiJW3oeXAnmtnjWLHI=;
+ b=rxhpI7gWK48P/0Lqdc4eLT0GN+bcRoAkFLSntqCzVH9vkXmSKQlvNZZqKMwF5WLZ2wlJYzA1Qxpn5a327D7m1L9VGhlc+NgQ26tN0EhmVYBa06rKDaYOCxPYrhOIZ63gkcTu3VQalkAXTQi7SY4ucaz12xX9qWym9XQr4JE+giBXEJFQtRQj0yDubWHR7P7dXK50nj8/36f0o+hVtka99+1V4FLN21y0HFzikVAxpXvZF37wNZqwUSqJnuVQrlvr1VG6Bxjk0y5uoKsOBuidoXKFmNOaGmYfApr9/Y38SGEVDbQR7CC0NL2trq/O/4RxK4Ch5E5Nd6l+XFdH3q/nOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZRCsYe1vHKL0HGwEPqPJ/5qLCeiJW3oeXAnmtnjWLHI=;
+ b=DdgMwruij5AWBBNYfAZaU0gqjMj1Wb3Sc8OJob4adTIPZB6FxY280k/lfGsWmy/Lh3CVy9PiPS07R7KQdAX0eVtNggCPJvQffF0lKR9F4ZvXmeSG2GmHsB0ugURJKWrD87sw2rekSjkOhdj1Bw0NXM19tRk6xvozLJ8WQBRjmZg6lN4AeOs2swNNnINHCsDr04l4ARYTJL8QiVNuFDx1v1kcbtCVCvusww6oEBY4jbHR7U5V0Vf1Yq3Rnlr56usIZ7W4QO5iuZXBYJbUGXG4D4g5nNFCLNSu6CWIYcsKwI3VXveeRl/Y2TC9ff6wT1gvtcVOsnIWnPlWeTLILmAPjQ==
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
+ by SY1PR01MB11232.ausprd01.prod.outlook.com (2603:10c6:10:369::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.18; Sat, 11 Jul
+ 2026 06:29:18 +0000
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c%3]) with mapi id 15.21.0181.017; Sat, 11 Jul 2026
+ 06:29:18 +0000
+From: Junrui Luo <moonafterrain@outlook.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+CC: Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Yuhao Jiang
+	<danisjiang@gmail.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH] media: vicodec: fix out-of-bounds write in FWHT encoder
+Thread-Topic: [PATCH] media: vicodec: fix out-of-bounds write in FWHT encoder
+Thread-Index: AQHc8ddPVnZTWJelNUKn769iCwnTPLZmqYOAgAFsmQA=
+Date: Sat, 11 Jul 2026 06:29:18 +0000
+Message-ID: <E129DFAD-D5CC-45BC-BD87-0544A5A4C2C7@outlook.com>
+References:
+ <SYBPR01MB7881C44480F77338B6A93C61AF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
+ <7519968d-920e-455b-a27d-97a2f1d0615a@kernel.org>
+In-Reply-To: <7519968d-920e-455b-a27d-97a2f1d0615a@kernel.org>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SYBPR01MB7881:EE_|SY1PR01MB11232:EE_
+x-ms-office365-filtering-correlation-id: 8a3dcf4a-8a70-42c4-47b6-08dedf15bc8f
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|24121999003|22091999003|25010399006|15080799012|8022599003|31061999003|24021099003|8060799015|19110799012|8062599012|3412199025|440099028|102099032|26121999007;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?TWOQF1nIt8So8uDFlBDUBiejXZcG8wxUcaHeitLw3TTjIfmzrmcITAm5coi0?=
+ =?us-ascii?Q?6WP4IZ7fqcXO/6kIOpKFAgQCA409KhmqeUesUIs/fe5EW9nBihuMzvAnLNgs?=
+ =?us-ascii?Q?mXoo2hlx0+W1i9/8lvF//HFkuNQIzyZ6+RU9a9F8nfuOJ5WtwXfvJWgiGx64?=
+ =?us-ascii?Q?PEiE6wib9nZtX9VWIGX8ENwF7T6jXQUhV9VbsgjWOM62xs+pqf1gXOwrvI49?=
+ =?us-ascii?Q?xInAUfXCE40kaLyMdVanPR/rQ5OpxnbJYFKL5nCG9XFqitEEgzbLavOaDv8F?=
+ =?us-ascii?Q?PPksF2sV4EYW7NZ9fj3M5p4PO13Vysf29sXgCPu5gS0uMb/fCSS/kC2pvGrJ?=
+ =?us-ascii?Q?YXRXcdA3LCqUR1qGXqb5JTf/40VRQquLPqPV5JicPplSrkFTdrmIzMopsLs1?=
+ =?us-ascii?Q?xF0hWaYDl3ty6Lu9GAOXYUk2fZe0ripe/5aym+zx3eSx4dJRx413VEajWjeh?=
+ =?us-ascii?Q?/ZOzqZteYxA/PvgRrt63JERv9Tb6LzZR2WfuNXC9TfcFbog4gorLLxAhzsuq?=
+ =?us-ascii?Q?W1Yf3bdLDQuwFbHkPaBIQiPEOI7yQwtC4tQ67ruSEqMrZRSJdHPN1bvBYtnr?=
+ =?us-ascii?Q?IN4YWN630tD5VnB2HYI4X+ufgQ/8h6ap7Q2L6bR0/H0FYIh8+UD0lW03tzR8?=
+ =?us-ascii?Q?7Ngdlxw2FDq9FOauh0c0bkL3t8uNDJtXmrU5nPcnpfvbhQPmmHlZ9ycBsYKs?=
+ =?us-ascii?Q?nsEhGHI4UIU/YX44DenGD7oF6A9naSP9O8ljYQEA98tdmJcL9pGIAzTr4tCg?=
+ =?us-ascii?Q?+cZEr1vLwYKHDDHIZ6FNLx+MR+tXl7H1+KRcQFJhpgrE0g0JegVN2h3F5eVE?=
+ =?us-ascii?Q?SMqisiTmPY8aPNInUDQVY2brIE/CPysM8O64pLOiLasiY5HFRUMQg6mV8795?=
+ =?us-ascii?Q?Xgc7S/CeswVyW6JhcuqeDnXuNjJ1pw70apzOorx7ynko0lx134q3y8erl9Db?=
+ =?us-ascii?Q?e0ZkljtSQGHqasWrzCxsjpXpyDxJFwGh6m/fzWcFUm9bRaHW2KHfpBiam3lP?=
+ =?us-ascii?Q?h/1U?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?g3QIhLf+2TvXdsBKBk3tgjxVsb28VhW5rDRMyVGGDzUTdYnxCexa/lyuygVq?=
+ =?us-ascii?Q?HF61sXX+9Wl1cc6kvw5frGIiMyqxKU7WHCNiCmGdvH3SsF3apvN7wqnUIsLE?=
+ =?us-ascii?Q?UmEZvBVqLMF4lReEn4QYWnDKeL8CxlO8GxC40ch6ZBdQNzLjmGNEbAcELOPz?=
+ =?us-ascii?Q?lRtd2kVYCyFvDE2HTWsT+ZYhftjgEIDoa58PIVl2hta+vfAYl+jpi4W4mujj?=
+ =?us-ascii?Q?isw2yRdh2Eu0Vf1W+wvXI+ivA3fn9Ej42jp5MdAwVIHOEGqoxR+HXYg45tCM?=
+ =?us-ascii?Q?MEgz0EoHSnXIIwVsWexGlG1aj5B3PhkozPdJdo1sIivM6v73tqCb/NLmzLf2?=
+ =?us-ascii?Q?9LbqAzqes5uB7mOBDTXxAI/JqUU4vNXsyPaYopWr96IhTiR5wyaGrbMyI/UD?=
+ =?us-ascii?Q?YZaEu23OdlHRW1Ej1pIlsPJnjeCHDGL7MYQEHnOewqQTuB8Fp/qNfEOqe5D4?=
+ =?us-ascii?Q?tV66dvrsCotQ3bUaAuHBbTkTthNzcjXEUHu2ECOjPBux7gjddBXshrbAVp+q?=
+ =?us-ascii?Q?GnivlWLv4IWMP+RXx1EnhkB/tuc8KzgxXvUZwr4fRoZDnUp9StbUmL1uuqzG?=
+ =?us-ascii?Q?ZJ+m5QM7zo0w5mkfHIVM6en7oKBmhDejhpAFBs8bcGcbRmgBBGrZhqQvdrH/?=
+ =?us-ascii?Q?k307cNmRRCUETlb2L3rNQGSJhxt/d203GbwkFiwP1YezWnYbVIvrkEpvWt0k?=
+ =?us-ascii?Q?xJ5ufX4NtDW1HkXj5DnFA9aJKLl9iVelIicsKgM4lZRH+2dhQmz/LqjkX8w5?=
+ =?us-ascii?Q?AAEuVqc7YTU/25EJWzRPYgS6CTkQGJw8vlE8XzLBNt83Hkr/G6MEyZHl1FrX?=
+ =?us-ascii?Q?j4kogZdtDKqnKDCtpIPPAEvaX/sGDdsieYaLsUgE/mkHTfq+auTSednUPfqq?=
+ =?us-ascii?Q?/K18KeumUuG8BCQX1AABBJ5swqf9s05lpvWqPQ91MA6tcPT7jVuLRpgpkO/F?=
+ =?us-ascii?Q?cCyUL9BkgJGAfVl8zeHEJp74cssZ4Qn7RmZkKyVA60W1Ssl7oRsPrYq6EAA0?=
+ =?us-ascii?Q?hXtTw2Czc4LrGf6CrYfI/QD0/Q4ofrAk6G1eCh0cWOw290yyY7algNnoNJtc?=
+ =?us-ascii?Q?1E+RcajiTclVi8aelsEGyu34AmHYeeooFc5zSC5443QtrdIdVRXs+M0tI4Xj?=
+ =?us-ascii?Q?i6n2gGIo4wggZXUIVsuuzGNxMAASQnHpcU4F2flHPGq0MElQsxYq00mmnz7z?=
+ =?us-ascii?Q?WFPylBhJLxs8byJNuWBM6sPIAW3GTdn9Zf0gMCB3Vnwlpf+7X6dlY9nh/b3C?=
+ =?us-ascii?Q?j2892PkcVm3bkZhC5OxB/uwuND9FTPsZ879Rg1uglb05S8HMk4lrfzrbzCoI?=
+ =?us-ascii?Q?EF8GgHwdZ9dG2XXWPZfQSFQ8iQjEYMjMqyZveBX9CA3g8q5oMsvwEY55ntn8?=
+ =?us-ascii?Q?m/9AAiSUVD0VbfAz5NpXD9/seRArXgcB/vqnSh4FLKjotdP3IA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <4BA2A2C40363474196EE8E49B4DE54BE@ausprd01.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <886c23ff-7dca-4679-9d2b-ca499523853c@paulmck-laptop>
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a3dcf4a-8a70-42c4-47b6-08dedf15bc8f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2026 06:29:18.3614
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY1PR01MB11232
 
-On Fri, Jul 10, 2026 at 11:16:27AM -0700, Paul E. McKenney wrote:
-> 
-> This does look plausible, thank you!  However, it does not apply cleanly
-> to either current mainline or my -rcu tree.
-> 
-> Judging from the subject line, this is against v6.18 rather than current
-> mainline, correct?  If so, would you be willing to forward-port it?
+Hi Hans,
 
-Yeah, my bad. Since the SRCU code in mainline fixed the original
-deadlock I reported I kept this to 6.18. But I'm happy to forward port
-this patch too.
+Thanks for the review.
+
+On Fri, Jul 10, 2026 at 10:32:09AM +0200, Hans Verkuil wrote:
+> Actually, it's commit b40dc2bf3581 ("media: vicodec: add support for 4 ne=
+w
+> RGB32 pixelformats") that introduced this.
+>=20
+> Please update the Fixes tag.
+
+I traced this back a bit further. Commit 16ecf6dff97c ("media:
+vicodec: Add support for 4 planes formats") already added ARGB32 and
+ABGR32 as four-component formats. Would this be more appropriate?
+
+>=20
+> > Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+>=20
+> Where was that reported? Is there a URL to the that report?
+
+It was reported to me privately by Yuhao, so there is no public URL.
+
+>=20
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+> > ---
+> >  drivers/media/test-drivers/vicodec/vicodec-core.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/driver=
+s/media/test-drivers/vicodec/vicodec-core.c
+> > index 318e8330f16a..3ff2d06742c2 100644
+> > --- a/drivers/media/test-drivers/vicodec/vicodec-core.c
+> > +++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
+> > @@ -63,7 +63,7 @@ struct pixfmt_info {
+> >  };
+> > =20
+> >  static const struct v4l2_fwht_pixfmt_info pixfmt_fwht =3D {
+> > -	V4L2_PIX_FMT_FWHT, 0, 3, 1, 1, 1, 1, 1, 0, 1
+> > +	V4L2_PIX_FMT_FWHT, 0, 4, 1, 1, 1, 1, 1, 0, 1
+> >  };
+> > =20
+> >  static const struct v4l2_fwht_pixfmt_info pixfmt_stateless_fwht =3D {
+>=20
+> It should be changed here as well, otherwise the test-media regression sc=
+ript
+> in v4l-utils will fail.
+
+I will update in v2.
 
 Thanks,
-Matt
+Junrui Luo=
