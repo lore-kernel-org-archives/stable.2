@@ -1,139 +1,153 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E63367F4A
-	for <stable@vger.kernel.org>; Sun, 12 Jul 2026 02:44:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783824253; cv=pass; b=LrPX6G9dmrr44W/h1I1KDnyPMKcN0AqtDwy/YF/5gjrBV0eCfhuCV2YihNmRFY0XE23Ji0ksThbVOk0hsiCYhTd3fa5n2yamponfvIWc2AdUW/0WPRiTTXmCUk2eMtUiHABAKnVCvsqaBU7VYDVaYDE6VHMiQDh5ScrPsxEnUPo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783824253; c=relaxed/simple;
-	bh=VpNyuXu6TnU4VubVPyoSf475P8tqAr0gyIf4yhpsNF0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S79R3HO2JddYpe60sc4uRh7qRPFB+i5L0INOkZ8ghQXd5zzvrfm7Q7omT/bAB/5AIDxSTawRgmmJGVotb97WvPuMfGoKRUuD2QW7j+5oX8XkzVa4g2HAIuAdf1Tl2tZJ9+jn4GfuwG5U+it8bKCyX6UfMlesorWJq6gFGxirz5g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hfRWUlvg; arc=pass smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E8328504D
+	for <stable@vger.kernel.org>; Sun, 12 Jul 2026 02:55:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783824923; cv=none; b=kgIjhpFD/CBgg6+Wwd9+THGv1E0n/FJVszNW5mPNj68VVuXY7tcDWw3quGyFRGvWQvecb6cekEnYxYN4Mh5liNlcVk6F5uaMXAF4owJaXoG8gZHM1EZXPauF885i8vnZiOE0sbHW7SncaqMyhQWryZQcOobcV6oidHgXYPlGSMQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783824923; c=relaxed/simple;
+	bh=COjfZ2lSHPonCdOxldVPyvI4eQWZhDbzsLF0mrGtwU0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WkKdDV+P2nPkxFXhtLKDDXnoL9IIstvMECRu36zH1V+MDzGW5wllGq3jUocrRpbH6VnXHFPLBstsbA/TP+06Kxvb5kIvzmuCv2URjcl/EPH/+GK3VBYdAe5U0ZeJXc7kqssbSwHoLC+OgE2IP15vJs/rnpSNTwvOslD/Z38TqvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i7CbJi5A; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hfRWUlvg"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-8eefd4a8057so25081166d6.0
-        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 19:44:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783824251; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IMaxQJrrEGEg0DRF9W3QWA1IXAXZ0hp3duTShvWMirP8blAY7/EG9wIjoYHgxbZtzA
-         rtyUvnv8lXTO/12rWXQEjG5kif+Zzq0Z/Uca3fSK2CAa4yaNQOnhFpw0QszqrTnuSLtk
-         uHOeS+0GFwerBG/2d2eay3mwwfkt0myhSQBgLPbw9IkFp6qY/iIuTk1yIcY27+T2dilC
-         BNbpBoX1BIpDKqnJnyJg4mjZR4dIMgwf70PPc/gRWlbaxGTw/fAc5IJxOiIo5OSLxr1+
-         WLdn5y9O4nPzDjhYDvXO41WsDC8BE9oWoPPXisIGseduNpxZEIqYaDcFfyU1qC7vmpD2
-         9opA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uSPbXXuWQiFm+lkWUPjIwu/3EBZIFqc/5MozDdOJ2rc=;
-        fh=VeyWvsWMW4UGVtkkMoC1CGb5j0bp/HvAYivj7MDkuVU=;
-        b=mNpCB6xzAGoZO5nXFicYjUym7f3MwBqYvXlw6q2Y0eIvoIolXPx9GgTJZv/jGill9S
-         Ukuw8i3D1+YAvi7HF0MPWlupo0XGabyB1TZFqLRtn8TUkm7ehB3O0RRVUKS1aoBkeThJ
-         7swihrfaNGMKo0fLu1NdzwlrvNm5LmVSGfMqeYsgudMfTBF4a36l62w9IiaI7YzBSZmg
-         ar7euj4b5AZB+zF0py+N5ad4Dp+oRTgJoT9Nmo8sHL9gukLz5attOIJqRs+Rv/aNVmaz
-         0vsY+arH/RFuKPmZ2H34z5h3hPH3OWneFGf9Aoq9Z3iyrH5n6Gc7QaJdyUQODG+kKbO7
-         gdlg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i7CbJi5A"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-383cb94f742so1789154a91.3
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 19:55:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783824251; x=1784429051; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uSPbXXuWQiFm+lkWUPjIwu/3EBZIFqc/5MozDdOJ2rc=;
-        b=hfRWUlvgWVxBd36vJCJ3nPy23IDhuPwZmv8saHCytcRj8gDHvG1RhAiZlrE4TyBFUv
-         w5S4YzLQEJ/nbrrA05BjoK3bTLKfYyf8Wc7fhU0hJjKpjn4aqLaGUwZiyRqew0N6DGIy
-         PeMBEdbbzDpG3871PtHZljpdNazbQrY1HMJnXWAKsTmmxm4qtd2YV3dkg+oR3qcAgLBT
-         h3VSpRDWjMDfnuDBQ5NsOADkL0hT+LaNR4HE9hKEsLVlT4/WawUTFIlyViiYCDGGFHHr
-         509ZQKZeIfOFs8EGujHecoylLykD1raEGtuRYnLrZxC2wSpKlDnPv8UnTSpekJwZOSxg
-         MQxg==
+        d=gmail.com; s=20251104; t=1783824922; x=1784429722; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k7LgNwxuoWBLJ8SbEmrF+q/5b6oVtW1AjKvLyEOzJLc=;
+        b=i7CbJi5AxoAFkvDytRR/rMxCufz6MGvx4U+M7UpdYNziclXEI+HsxW3vTXkWhhw/ly
+         d7uEVii8WqQV1fxyLodsvGcePaKhcrvzFWtKL0rAvLourkuDXCHrLM5+DZF1zF3tqUUs
+         Kc3tcDF6HYabLOeuDFq+PNR7m9eHlwJuLD6nFGSfv82JjVqd8aNiuVn2EpA94zI1a4Yk
+         KxBrhZcjbLID1M3cfnQ/bO4NG4pVgNXYN7C4/OZsIMhTtR0UGpNWyaJ6LoKmHAPA58/F
+         2f7GgSekwsK65X6H+nN4nH2METvjikU0IdAz+970pXuwyoHhCR1u5kUzvNZ0MhOGNLwH
+         VrMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783824251; x=1784429051;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uSPbXXuWQiFm+lkWUPjIwu/3EBZIFqc/5MozDdOJ2rc=;
-        b=lbfVzrQsCwd36t0x63Y6vvgzdopJsJ8qFPzGxbWPcljh7vWv5e6RgaZ5FPt0V0ttiP
-         gp3yuJacOE3GnY86txYnQ6bvl3xiCpgYlBaehEmBuWtnqe7GMQ75G+Tp2kDZ7cO8OGrc
-         3qeoIbJwGgziDw++oZAqNSqe8q+Bd2vUdaUEvKWMMPkB+3ZAWiG/wpHD3j4qUrrgJhde
-         nJJSOIaOhmIeRiiOZtaEo97Wh+bk4Yc7FLkPdd6IzO6n93YaZ/Jkk5xGqVOgTeipknTN
-         rblCNEjm7fQPEZ6zNVI1dPDyt8MjwAqT/Qapo243gzMUD6LN0Fj6C+2gjGLKrfaTWyVb
-         Exfw==
-X-Forwarded-Encrypted: i=1; AHgh+RpWS6IHE9GZD9+U2sWLk/U08iPc26/+bOpzhbfdW+dWiyjX/aXWk2GOQtAHLxEWLnwRvedBmF4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoeoLrhtZFtVkM1F0YwtcXoF4CtHr8/ga5XLZLJAS4Q3XuB4j/
-	z/7hs166s3p5cKADN/W53awJCh/jwG0V83AYSjkfOoBb2IRBigar0G/EzwR1ig9PHG8bC2mkOVr
-	S5rAFkzqy1q+gEFLi7srOLu0sG3q7M+Y=
-X-Gm-Gg: AfdE7ckYiK8ppOxNbNZCaX9Ufykcn7juYNXhTmgnblW+FEOLvFmPwUnE2JgH9cz/Sgj
-	pIMCgo/9Nt3ae3e0Li+UfzapdRdLfgntqzhx6l1Ub0XQuYLpvDbVwi5qDZPfIQ2oDWir+ime1/O
-	rfAhMpCayn9HbOOxAvKGoCDwmPkNCLzcaN7m238H6ZMCFMZmVOA/SYA7a7uS6WOcoPcqq05/7/F
-	C2U9vD+Dvi3n2C79lmzlggGNflA6AJzmJ0NRy1P9gqj6EyAcEikOl21VwxSFzHF6YOt9/1pSQSQ
-	Lsfb4w==
-X-Received: by 2002:a05:6214:459f:b0:8ee:88fc:e0ba with SMTP id
- 6a1803df08f44-90400b8395dmr63724626d6.6.1783824251374; Sat, 11 Jul 2026
- 19:44:11 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783824922; x=1784429722;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k7LgNwxuoWBLJ8SbEmrF+q/5b6oVtW1AjKvLyEOzJLc=;
+        b=knClhnyicTbC/blJTy/B1TVIDMhR38KQmzxgWZTauEjh+WlZ/6v2nkS7uWpLqXfgJq
+         JCiNuGQ9Ta5CtA3dCYC0THi3DoWBbL+Fq0k8L5SQTq3tj9oNuWXn7ozySnVfGWKSm7vF
+         dsIQWH5eA+NLzvnPQVtbYX/VFTXmEKLIjIqNE3SlGsn+6K9aPAKN6lKlxCchw/L9lTZ7
+         S3QRyHpJmH+qc+xWaohCqV3x/jJlLW9zvLuQEh5qgC/xp+q07JizICUTKNUFIIuyBWyD
+         NQMHNe2X6mH0eU3pTokUt52xdYhGofho+RMbimcduPfrUqfEviZTjdBPdqz2edpUDDG9
+         EvTw==
+X-Forwarded-Encrypted: i=1; AHgh+RplAca++zY8xEw9fmAbivTEUiABR8c66OjtryeLuH2pdCtJPbBNLnLpBS570siiczt6iWxYAAY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwyP2oBvLNEyi/3ggrzS76YmsZUikZ/NYrZdBP5UqRFPhIQzTrT
+	lZG+GdcdC3uEMTSzWMREWacsApJ/2FTdw59TZ0gj13I3LhWPxm0QHIcK6Hzqqw==
+X-Gm-Gg: AfdE7cmdr58XRCUX9hXuGwDleVmO154YX1nWUCHhBLnN3h4xryv8x96drT+H7Yw13J7
+	BDTQ9Rp5GUozfFyZbYqnytnxrt3stvX3J63k0cvDBw3/F0xsnaJ4ksFqY8xxeGYRwzhdEEm95Xy
+	3SXGOuocR7aIP+cDjvUA3Cs/9kkqQgw59J/ob5htZw5iey4CP64k/b02taXmTQxlQY8uzsIDSle
+	Tn2rh2/ug25IlnNTJssLJnqZuYRVL3EMEqNjaput7DZnmO/jRrYyas1rantaCXdN8SJYilPMUaS
+	hT5j+nCKNCo2Z/E5nhx83c/vJLAe1/J1DO8abCB0G6EYZ5o2l/ofCnCHA9lGbuuZWhz1Q2JZoGH
+	ug4duaMIVvAoYYk9TgNTK0bZMUp+/mbJuZiuPTO2VSphJDxXVNSoxc+8lnh8tLM1UTpzpiz40HL
+	VC5I4iZ/tXfffZzKCyTBFNww==
+X-Received: by 2002:a17:90b:2783:b0:387:e0bb:5802 with SMTP id 98e67ed59e1d1-38dc7bad0aamr4405786a91.41.1783824921873;
+        Sat, 11 Jul 2026 19:55:21 -0700 (PDT)
+Received: from FredPC ([2600:380:805f:5cb5:2256:566b:b74d:6f4e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311a6115e61sm36804748eec.22.2026.07.11.19.55.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Jul 2026 19:55:21 -0700 (PDT)
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
+X-Google-Original-From: Fredric Cover <FredTheDude@proton.me>
+To: sfrench@samba.org
+Cc: pc@manguebit.org,
+	ronniesahlberg@gmail.com,
+	sprasad@microsoft.com,
+	tom@talpey.com,
+	bharathsm@microsoft.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fredric Cover <fredric.cover.lkernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] smb: client: use kvzalloc() for megabyte buffer in simple fallocate
+Date: Sat, 11 Jul 2026 19:54:02 -0700
+Message-ID: <20260712025402.1804211-1-FredTheDude@proton.me>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260705220112.2522-2-muhammetkaankilinc@gmail.com> <20260706135124.draft-0003@kernel.org>
-In-Reply-To: <20260706135124.draft-0003@kernel.org>
-From: =?UTF-8?B?TXVoYW1tZXQgS2FhbiBLxLFsxLFuw6c=?= <muhammetkaankilinc@gmail.com>
-Date: Sun, 12 Jul 2026 05:43:59 +0300
-X-Gm-Features: AUfX_mwsFjJKYmNHgJtNJGbvZnqB1zcgYKZqP7pXckm3QbfUyRNP4WT7_Ct4gZ8
-Message-ID: <CAAGBmJG-bt2vrKKArWKbGAe7G9U4etkaKnUgV50UTVB-To0bXA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] crypto: algif_skcipher - snapshot IV for async
- skcipher requests
-To: Sasha Levin <sashal@kernel.org>
-Cc: herbert@gondor.apana.org.au, ebiggers@kernel.org, 
-	linux-crypto@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Thanks for the review, Sasha.
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
 
-v2 addresses both points:
+Currently in smb3_simple_fallocate_range(), a 1 MB buffer is allocated
+using kzalloc(). Under heavy memory fragmentation, a contiguous 1 MB block
+of physical memory (an order-8 allocation) may not be available,
+causing the allocation to fail.
 
-- The snapshot is now limited to the AIO branch; the sync path passes
-  ctx->iv directly.
+This failure was observed during xfstests generic/013 on a 4GB RAM
+test machine running fsstress:
 
-- On the writeback: I initially implemented it in the completion
-  callback, but that requires lock_sock() there, and the callback can
-  run in softirq/atomic context on hardware skcipher backends -- a
-  sleeping-in-atomic bug. Rather than convert the ctx->iv serialization
-  to a spinlock (too invasive for stable), v2 follows the aead sibling
-  5aa58c3a572b and drops the writeback entirely. Implicit back-to-back
-  AIO IV chaining is therefore not preserved; callers set the IV
-  explicitly per request. MSG_MORE chaining is unaffected (carried by
-  ctx->state, untouched).
+fsstress: page allocation failure: order:8,
+mode:0x40dc0(GFP_KERNEL|__GFP_ZERO|__GFP_COMP),
+nodemask=(null),cpuset=/,mems_allowed=0
 
-v2: https://lore.kernel.org/linux-crypto/20260712022618.1665-2-muhammetkaan=
-kilinc@gmail.com
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x5d/0x80
+ warn_alloc+0x163/0x190
+ __alloc_pages_slowpath.constprop.0+0x71b/0x12f0
+ __alloc_frozen_pages_noprof+0x2f6/0x340
+ alloc_pages_mpol+0xb6/0x170
+ ___kmalloc_large_node+0xb3/0xd0
+ __kmalloc_large_noprof+0x1e/0xc0
+ smb3_simple_falloc.isra.0+0x62b/0x960
+ cifs_fallocate+0xed/0x180
+ vfs_fallocate+0x165/0x3c0
+ __x64_sys_fallocate+0x48/0xa0
+ do_syscall_64+0xe1/0x640
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+ </TASK>
 
-Thanks,
-Kaan
+Node 0 Normal: 3375*4kB ... 7*128kB 0*256kB 0*512kB 0*1024kB 0*2048kB 0*4096kB
 
+Since this scratch buffer does not require physically contiguous memory,
+switch the allocation to kvzalloc(). This retains the performance
+benefits of kmalloc() under normal conditions, while gracefully falling
+back to virtually contiguous memory when physical allocation fails.
 
-On Mon, Jul 6, 2026 at 5:08=E2=80=AFPM Sasha Levin <sashal@kernel.org> wrot=
-e:
->
-> > The AIO/async path in skcipher_recvmsg() passes the socket-wide
-> > ctx->iv directly into the skcipher request. After io_submit() the
-> > socket lock is dropped and the request is processed asynchronously
-> > by a worker (e.g. cryptd), which dereferences ctx->iv only later.
->
-> The race looks real, but the snapshot here is taken for synchronous
-> requests too, and the updated IV is never written back to ctx->iv.
-> That breaks implicit IV chaining across MSG_MORE fragments and
-> back-to-back operations for cbc/ctr on a path that has no race to
-> begin with.
->
-> --
-> Thanks,
-> Sasha
+Fixes: 966a3cb7c7db ("cifs: improve fallocate emulation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Tested-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+---
+ fs/smb/client/smb2ops.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index d4875f9532b4..55b53bb9e3fd 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3595,7 +3595,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 	if (rc)
+ 		goto out;
+ 
+-	buf = kzalloc(1024 * 1024, GFP_KERNEL);
++	buf = kvzalloc(1024 * 1024, GFP_KERNEL);
+ 	if (buf == NULL) {
+ 		rc = -ENOMEM;
+ 		goto out;
+@@ -3652,7 +3652,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 
+  out:
+ 	kfree(out_data);
+-	kfree(buf);
++	kvfree(buf);
+ 	return rc;
+ }
+ 
+-- 
+2.53.0
+
