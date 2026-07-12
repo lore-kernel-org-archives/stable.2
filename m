@@ -1,132 +1,137 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CAE2F532F;
-	Sun, 12 Jul 2026 18:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783881485; cv=pass; b=ugYSdfy/YtvlVeZgSnSPGK5SkEMP/uQLNr7nJGaUEpzsdIWgBf2hBi2mi4EcHIl0cM8hva5pwkR3qAKiT3Y34c3B2pcmK4loQ6xI+J3kKT56CzjdKBh3CXLHwe02ConfXfABYLedNDTvPHk+ufQv7AwJvejg/SyL0jJTvuXNsmw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783881485; c=relaxed/simple;
-	bh=lQ/iHNm6s1AoaaXVaFlISU78dFYq/QWF11TXBNqayoc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MIv7WhAEDkYoSF0BgMZeKKnm/6XWWMmFUHAF096VAHv3/8NvIKyjVQEcQNFH95ULwQPB6Trpb804MetdoPm84qPElv94ssEXIV8j7zmGy8wRadNLVswdX1DD1cNsPMDP27xNoj1boTWxRKrdlWy6B72YiZKNk5S9nxuTsng468o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=SFG7KXJq; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B113B2FF7;
+	Sun, 12 Jul 2026 20:25:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783887945; cv=none; b=jlAxu55ICr4ep3tCGE6eJLwkUbzcjoifm3o3pCpFQwHu6caCf22lkxRKAo95ezA8aUg6UUlD8c2KzUC64VyaQDfQNspnYHHOL2O/2eFWkyU985Io08RVoTKeuz6zLk0IIDe3T/t77eZac7EsfocNzkoM5OoqNxWL2UXhlhZVN8o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783887945; c=relaxed/simple;
+	bh=w58RJbTM/XNuR7OJ1o1B9jjHItSmJL04yohbEsOHz1k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ti5LLi/c75YVdVjfqN2sIZFBHQEE+yzJ7PLcQEOfIDZWsFKCiSoGxL6RFsRhdFSGndomga4/7JsLWG63D/MPnGlXke8Noq0fckeeK+czrOqS08ahs63n3bNEL8pjVQ2yjnD1/+oDdhjQP06Y4mCyYkTQ5eZgz4xjzur1J99KYNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EeH8981M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="SFG7KXJq"
-ARC-Seal: i=1; a=rsa-sha256; t=1783881465; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=ZY/0s3gfC3DTXrdqqQxxmyvjbwYQlY/TLce2+O1navfromjWcVM4MbFI7SEGyLbcS+OVRiwN0FrZ6qXVSYXVR7KB5AA6i45GoOx8kVmHanv6JIkFhVNWu72IraJQhwO7Bj5YVj/9iJWcuN7gLxjy6eRvRtNmz419TwOI0hRjW+c=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1783881465; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=AfuDLYhZuyEhsh0ZD2c1HoKY5yxT51SVPoxqz9SOCA4=; 
-	b=VEFfBX8uCPL8MA8yxaxr/t0p44hzT+cshzpxgguIOZvEXUpfllRAN5PX7/Z0bFWbOfxlgECikXZIlTgVnKQ3mjpRUFj1GSlns2bnwAhUSamI1Tf8khLWvNmtVVC3c0UVsdQgrPvns/6bCeHP76twEk39/5wqb9HCoKm6Il/nUs8=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=auditcode.ai;
-	spf=pass  smtp.mailfrom=security@auditcode.ai;
-	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783881465;
-	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=AfuDLYhZuyEhsh0ZD2c1HoKY5yxT51SVPoxqz9SOCA4=;
-	b=SFG7KXJqkpGyGjxdgxu8n7Iv7TmG0S+YR3k1e9FEVEzUz9r4rDXKx6eHOX7i4dRB
-	1Quqq/g2QO7mVCMIQ14ndGzLjPsrcB168Ok2gNPQvv8BjbqCbSkKn+lz95HfYJi+RSU
-	mfayO8T0UMyE+mNAOj1T9aeBmKshkM6kJVLY9RPI=
-Received: by mx.zoho.eu with SMTPS id 1783881463576303.5017438322558;
-	Sun, 12 Jul 2026 20:37:43 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: martin.petersen@oracle.com,
-	James.Bottomley@HansenPartnership.com,
-	dlemoal@kernel.org
-Cc: bvanassche@acm.org,
-	shinichiro.kawasaki@wdc.com,
-	damien.lemoal@opensource.wdc.com,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4] scsi: scsi_debug: fix REPORT ZONES alloc_len underflow OOB write
-Date: Sun, 12 Jul 2026 20:37:39 +0200
-Message-ID: <20260712183739.83915-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260710055755.53830-1-security@auditcode.ai>
-References: <20260710055755.53830-1-security@auditcode.ai>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EeH8981M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87DCB1F000E9;
+	Sun, 12 Jul 2026 20:25:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783887943;
+	bh=fipz/1od8xfNsKCg/Ibc/FXmlJLUhV1vPNi1hbt9yNQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EeH8981Mu2ZyWhFUea/KnxXkTzCwhvb3hkHfdImgDhZcb3+HVLnmg1nNfnS5ik+05
+	 OzOZbVYT0FR0cEOK1O2zbYoFlceLiVaTx/+Okrp6nV0hshA/qylcmSZ8CdF5L2jIga
+	 VC12M367CuANZ0hOcmEbLvov4PdTZiPRDjyLSl8p8PB60saYktN09wA03OT52qjYH0
+	 FciXcet8XNJxLsR6obarGp1kxr6Yx/HNY8Qvjp7fkRwS3vQS5S2tkDZ1JSPlG3IMnX
+	 nCuTkFZiZDhFJE87e1hnu6J+6fQJsh+h7WGfQUVTzvBDAnh4KCWzhrod8XnVs9ydFV
+	 HUNupbsezIRog==
+Date: Sun, 12 Jul 2026 16:25:38 -0400
+From: Nathan Chancellor <nathan@kernel.org>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	hpa@zytor.com, Omar Avelar <omar.avelar@intel.com>,
+	stable@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH] x86/build/64: Prevent native builds from generating APX
+ instructions
+Message-ID: <20260712202538.GA1697833@ax162>
+References: <20260708211435.402426-1-chang.seok.bae@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708211435.402426-1-chang.seok.bae@intel.com>
 
-resp_report_zones() sizes the reply buffer from the CDB allocation
-length. The v3 fix rounds alloc_len up with ALIGN() before deriving the
-descriptor count:
+On Wed, Jul 08, 2026 at 09:14:35PM +0000, Chang S. Bae wrote:
+> Omar reported this broad concern to me, when resolving a separate issue
+> with his custom module. CONFIG_X86_NATIVE_CPU=y allows builds to
+> opportunistically emit APX instructions when the build host supports APX
+> since commit:
+> 
+>   ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
+> 
+> The kernel is not yet prepared to use APX internally. For example, there
+> is no context-switch support for general in-kernel use of the extended
+> GPRs.
+> 
+> Explicitly disable APX when building with `-march=native`.
+> 
+> Since GCC 14 and LLVM 18, both compilers support APX. LLVM 19 is already
+> the minimum version to support native builds from:
+> 
+>   ad9b861824ac ("x86/kbuild/64: Restrict clang versions that can use '-march=native'")
+> 
+> RUST supports APX detection via XCR0 since v1.91 release. While the
+> support is not official yet, conservatively set that version as the
+> minimum.
+> 
+> Reported-by: Omar Avelar <omar.avelar@intel.com>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+> Cc: <stable@vger.kernel.org> # v6.16+
+> Cc: Miguel Ojeda <ojeda@kernel.org>
+> Cc: Nathan Chancellor <nathan@kernel.org>
+> ---
 
-	rep_max_zones = (ALIGN((u64)alloc_len, RZONES_DESC_HD) -
-			 RZONES_DESC_HD) >> ilog2(RZONES_DESC_HD);
-	arr_len = (u64)RZONES_DESC_HD * (rep_max_zones + 1);
+Miguel's comment aside:
 
-For alloc_len in 0xFFFFFFC1..0xFFFFFFFF, ALIGN() rounds up to
-0x100000000, so arr_len is 4 GB. On 32-bit, kzalloc()'s size_t is
-32-bit and truncates 0x100000000 to 0; kzalloc(0) returns
-ZERO_SIZE_PTR, which passes the !arr check, and desc = arr + 64 is then
-dereferenced in the loop -> out-of-bounds write / panic.
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
 
-Clamp rep_max_zones to devip->nr_zones. The loop already stops at
-sdebug_capacity (after nr_zones zones), so a report can never hold more
-than nr_zones descriptors; the clamp does not change the report, it
-only bounds arr_len to (nr_zones + 1) * RZONES_DESC_HD, a real device
-property that can never reach 0x100000000.
+Some style feedback below.
 
-Fixes: 7db0e0c8190a ("scsi: scsi_debug: Fix buffer size of REPORT ZONES command")
-Suggested-by: Damien Le Moal <dlemoal@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
----
-v4: clamp rep_max_zones to the device zone count (devip->nr_zones) so arr_len
-cannot reach 0x100000000 and be truncated by kzalloc()'s 32-bit size_t on
-32-bit platforms (which returns ZERO_SIZE_PTR and bypasses the NULL check),
-as reported by sashiko-bot / Bart Van Assche on v3. This restores a bound
-that pre-dated the loop refactor: the original REPORT ZONES code already
-capped rep_max_zones at the device zone count. The clamp is additive and does
-not change any report (the loop already stops at sdebug_capacity), so it only
-bounds the allocation. Dropped Damien's v3 Reviewed-by since v4 adds a
-functional line he has not reviewed; his ALIGN sizing is otherwise unchanged.
-v3: https://lore.kernel.org/linux-scsi/20260710055755.53830-1-security@auditcode.ai/
- drivers/scsi/scsi_debug.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+> ---
+>  arch/x86/Makefile | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+> index 598f178102ee..256948e65073 100644
+> --- a/arch/x86/Makefile
+> +++ b/arch/x86/Makefile
+> @@ -161,7 +161,15 @@ else
+>  
+>  ifdef CONFIG_X86_NATIVE_CPU
+>          KBUILD_CFLAGS += -march=native
+> -        KBUILD_RUSTFLAGS += -Ctarget-cpu=native
+> +        # Do not generate APX instructions as in-kernel use isn't ready
+> +  ifdef CONFIG_CC_IS_GCC
+> +        KBUILD_CFLAGS += $(if $(call gcc-min-version,140000),-mno-apxf,)
+> +  endif
+> +  ifdef CONFIG_CC_IS_CLANG
+> +        # The minimum version for native build already supports the option
+> +        KBUILD_CFLAGS += -mno-apxf
+> +  endif
 
-diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
-index 9d1c9c41d0f9..643051332132 100644
---- a/drivers/scsi/scsi_debug.c
-+++ b/drivers/scsi/scsi_debug.c
-@@ -5890,6 +5890,7 @@ static int resp_report_zones(struct scsi_cmnd *scp,
- 	u32 alloc_len, rep_opts, rep_len;
- 	bool partial;
- 	u64 lba, zs_lba;
-+	u64 arr_len;
- 	u8 *arr = NULL, *desc;
- 	u8 *cmd = scp->cmnd;
- 	struct sdeb_zone_state *zsp = NULL;
-@@ -5911,9 +5912,12 @@ static int resp_report_zones(struct scsi_cmnd *scp,
- 		return check_condition_result;
- 	}
- 
--	rep_max_zones = (alloc_len - 64) >> ilog2(RZONES_DESC_HD);
-+	rep_max_zones = (ALIGN((u64)alloc_len, RZONES_DESC_HD) - RZONES_DESC_HD) >>
-+			ilog2(RZONES_DESC_HD);
-+	rep_max_zones = min_t(unsigned int, rep_max_zones, devip->nr_zones);
-+	arr_len = (u64)RZONES_DESC_HD * (rep_max_zones + 1);
- 
--	arr = kzalloc(alloc_len, GFP_ATOMIC | __GFP_NOWARN);
-+	arr = kzalloc(arr_len, GFP_ATOMIC | __GFP_NOWARN);
- 	if (!arr) {
- 		mk_sense_buffer(scp, ILLEGAL_REQUEST, INSUFF_RES_ASC,
- 				INSUFF_RES_ASCQ);
+As the flag is the same between the two compilers, I think it would be
+more readable to do something like:
+
+  # Do not generate APX instructions as in-kernel use isn't ready
+  # Supported by GCC 14+ and LLVM 18+
+  KBUILD_CFLAGS += $(call cc-option,-mno-apxf)
+
+I realize this was probably written to intentionally avoid calling
+cc-option but I am not sure it is worth micro-optimizing the build like
+this. Another option that avoids the separate blocks and cc-option would
+be something like:
+
+  KBUILD_CFLAGS += $(if $(call gcc-min-version,140000)$(CONFIG_CC_IS_CLANG),-mno-apxf)
+
+That said, it is ultimately up to the -tip folks.
+
+> +        KBUILD_RUSTFLAGS += -Ctarget-cpu=native $(if $(call rust-min-version,109100),-Ctarget-feature=-apxf,)
+
+The trailing comma is not necessary for this if, it is implicit.
+
+>  else
+>          KBUILD_CFLAGS += -march=x86-64 -mtune=generic
+>          KBUILD_RUSTFLAGS += -Ctarget-cpu=x86-64 -Ztune-cpu=generic
+> -- 
+> 2.51.0
+> 
+
 -- 
-2.50.1 (Apple Git-155)
-
+Cheers,
+Nathan
