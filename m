@@ -1,196 +1,188 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F58534107F
-	for <stable@vger.kernel.org>; Sun, 12 Jul 2026 16:02:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9967F343890
+	for <stable@vger.kernel.org>; Sun, 12 Jul 2026 16:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783872162; cv=pass; b=VZTrlrs3YWNWVVZ19V0LyaqB46beg9ivo+s5vEdcgfs8lVzodfEdRDtTcv03ri4DZIRnSO6KR/UUgKLTE5dD8w+1ueTs8CU619A/VsTHJwuLbtL+6CpJV0l2RVCmHDH5HzJuJJ6r9gr11UddeavbCUnAnC8CzRUf/eNu9GokgSc=
+	t=1783872181; cv=pass; b=mZ9cmnNM86biGC/7Waf5vmjo/K6PkUpSmAgaQXWIWFaYkzsPK9phtjTglpBMSXsozbCqup8NuZgPZb4srlkWVUw3oOg9zjOPS5jqmPgv6+kTeVC+gYvJKnoBh/dbzTU0y7zhDwTTKp8aBFbYuIqtcAyFq60pXGHQgKIg+059jLM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783872162; c=relaxed/simple;
-	bh=lEN1RDO1utLqCuN68G05+ujxtG3nu9JpSH8sV9ic7Ow=;
+	s=arc-20240116; t=1783872181; c=relaxed/simple;
+	bh=NV2pzC7VYZUgEjsdZ1i1bIgl/fP0YBsfxQ2Ky/GbfuI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r9vWRMHQGTt8qQXa8vEzh0jxbkErVRHmkBcjY09VgfrB01elHM78MB1gEzoegxAX+kHSFszXIs7sSzEX7Ki1ONtUrYKbD62Cn4iL7HFMnnprE3gh6s/imI1sjg+a/6UverQeeESD4EJF4556VuA+PaHZiHf/0A2Zv57p9AggQ4w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=UyzSvgh1; arc=pass smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	 To:Cc:Content-Type; b=Lu8JgIgIGux6/C7BT6EpA70JUbYqiNate7mQaFVkme4OPXRuYs7IENbbS18TJUghtnjBNJoZGd6qDZMkRszb05wCILYW5DxKLzGWtNMMXu66tnNp7RwL0/1dEPS2S03ITeffe64TQRZBqsEUnb6zSE98zvZpNq6MOWMQlREQgm8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=agttTwXk; arc=pass smtp.client-ip=209.85.219.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="UyzSvgh1"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2c7cfa17fedso33953235ad.3
-        for <stable@vger.kernel.org>; Sun, 12 Jul 2026 09:02:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783872158; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="agttTwXk"
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-8eeadbc5e21so17002196d6.3
+        for <stable@vger.kernel.org>; Sun, 12 Jul 2026 09:02:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783872177; cv=none;
         d=google.com; s=arc-20260327;
-        b=UniSJuzK0p/96sfNUWFG4st5kYLleJvyr37uGVMS7u07xXh2LJgI6Q3g66JMOrLfuk
-         ISB6yKs1dlXPCB0zPVpnXvF4TcMOic9MtCcb0nlhI5/wM/opZF5uFG2X0GUBDrGz2HdK
-         OdzesHHAd/8okT4iMpzFvCJkIZjkZM2qk0zYMOD3eipVP2qI8JBH2J+XnZalef6m8mwR
-         eZw5F06v1W0WcXbQwxYxjH1kS49USNqOFupNm0U2UFivdXqpTm+fuXXrPVKgdr8D+qHz
-         r9LfhfBW8752PVBP1Vg9pDRQT/Q8Lc10bD3O0EWTTCLxVadx+yWa8/5FqCHShYkPAdtu
-         2LFg==
+        b=XTy7LiGKB00+u5ZqtQHxJjjz+9MRKV7FH7gi/6hVjx319Qm5k1sN7X4AyUmviyTzfx
+         hhja1yBvEICWfKi/r4QFZrkJsrxvzLLazA1rfgrPZrYbX9bJQ1TQlox3e6V3EIVLgsEu
+         3bI+1hhe9iMhEdYiqt9r2/m15NR+MuNZobtGcEdaEU+aTgD9pJAK2rJoOmDZh3ZHUI05
+         mYluP/83AQHZm2IIvb5X1eUZEyFCT1o/GcSZq07M9YQfC4OzYZffR57xphRCMt8z6AXu
+         XSyzquvmC5s8LUHG8oRgpiV+F4Ei4Os1tXMnq/LtfLNR6QUN7roshBFtSRxqzil8BaNT
+         fOBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=y8gOd+Q3z89xRep8w0XzdPaSt7VIYP9aT1DEEYw2ULY=;
-        fh=KUY7ky+KryiNix62+IAwahdYl/bM9Q9www7meNg3tAE=;
-        b=Dw6iVuxkpalSYQA0ON2pc5hiKdmcNXrbJRKUOr7/x0PjbTaxzQIj/deUurQOOxTvol
-         hdDaelX5C36etmSvRubuqNDflr04yD56cOAkLS5aDJxYjTGWU6a9xxaLqn+FjK8voMK5
-         I6jnwFxNgjkx62d7i5GN1j+KiWyINahZrvVqfFsAZhYmBPkbZ2bzQHt6FucQrfSTdFj4
-         OT8DBD0BPVNYt7bh9WZjkxCsqrHf5hmXLMLqmNmXnFSuQyKjl7N/iZxOjdlquHRSNWmQ
-         nJHowFFelqJYbUWTesYOki0pQLTWSR/VXwfMhPYSdzIRYOlj9Qpi7gjZ6fQV/dT14FTi
-         yAxw==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tr/vLvyJLyQATf1/0yNI+vtyxOEwCi4r/Ln8QC3scXw=;
+        fh=AaFGW8D/fDoQg6GxEuCvdJZn0kfSKXKI5lZfRCyuxD4=;
+        b=LOrHpgkZUo2VSSzKGo7dm90KF24j1xgIb3M90YGtOfnC7rxA5sRNfnC2NqyaHU1M8f
+         +eWDvSagUX/rKXje2YO8leth262SDgd2vZjOFge9vbZlNs3RTIeK6Ndazz0z54qguH9I
+         OszkHa1j2UqBJLzCmNF5tp7do+GSIpFg54BRTCgZDp2yrf3R3k/4e68QqN2OrAtyhrnk
+         q/FS7Fsgw+AFTsquuzcBXYjBFT00AYbz08gY1uA6hdh/8s+f5p1h/bMrza17tqbzi2Gp
+         evmvKxxe1nNsKJThpWuV1yIxPTfCKl8mQACkOfg9fDkQdWVe19rgCTtROdlMGKuE5oW8
+         xIpA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1783872158; x=1784476958; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y8gOd+Q3z89xRep8w0XzdPaSt7VIYP9aT1DEEYw2ULY=;
-        b=UyzSvgh1DSo25sz9JUH7LAEQYx9BMF+mB73o0GzGMxtQ378cZRnGojCu+dD/ic7RZn
-         6JceGpLBw/0SgcsKVCR52kBm4F2Du2aMyjgISzHNdB812vaSwkx424f+2H+xfE+P4T6r
-         H965lm/wzQ3xU25gEcc+fevOrV+JU8g1qMjYVrF7wCzMqmljJGxeWMwUw4hahRRtNawr
-         zOt9Gd4SYOmRZdenLeLc7078SdrBqOXqedNdY/MXPKE+WK409Nc5pa+aEJju/ctXTUbB
-         eQgTYSY0c/dVfA/ortM1UDNfYh0S3opSb2paDzLnuTy3S01Gb3UtHf6RfTf0Yde5pumL
-         m6rg==
+        d=gmail.com; s=20251104; t=1783872177; x=1784476977; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tr/vLvyJLyQATf1/0yNI+vtyxOEwCi4r/Ln8QC3scXw=;
+        b=agttTwXk+CHWnQKEX6BVK0gbbZkeJxlXcywn04KcO8meHz47gEHyuFfyizieKdRdJB
+         53ZbSaVGdkU16tIylTDm2adgigbEjpkRaoGNAhyyHKv4YVb3DSMeuJZXps6iaj1fXydL
+         176B5ZipaGUTfE22NNkZpco5+TUe0YKI+6sCwRV24BNIpp3jA/qGZv2ST270AYDiVAA5
+         XuMifUqMCF+lhwQamTmIfG6oRiLmnniFsog4tSDXTOv24izVUZI9Siq5FGl6Mfsu4DZa
+         6o7o+SxbhVYPsBG2+kcJgzcv61Yfm0uvZcvg7iEKfgC/VVpgtKFEO0C2W+ln1KBAFeQm
+         e9CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783872158; x=1784476958;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y8gOd+Q3z89xRep8w0XzdPaSt7VIYP9aT1DEEYw2ULY=;
-        b=HKRIPWS1kwB8SwCJgA8BwMFYpXY6TOhuwOjW38OyhTH7r+CueSh3g/usU1q/zo/Obc
-         TE8vaqhalctO6xgmzDrNfXInIk26jtTPNvNLmw9E+RuzTenmjVYWfq7Z8BkBLkEds2bi
-         dzi/ZZ0dwoAgKmUYz4oFWLlvHAi+XR8z+pSubJQwXPtTMT9y79Wyq/ei7s08sh7rhdP3
-         Lvulg21/H1nVonRRejgfQ72sIBL0VKkFZ3hFQzjZHlomwFRag5C8+69SzzIeIRAiTwZh
-         SXvGnby23LkLVog39nbFSOuzZw1TBYzsjm2wi/eD15kXNs9fuI8UjnJrYP5v7HQ+6/8j
-         xwGQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq8vHmFSHDEuveCtDLiphcZQtQGaO/Oy4LbTvW30is3ZK8pdDnZF4DcBJOCKWL0yPvAlJg5Pmc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YylO4QGwM5LGaJwIfNbADKfrAsuFh2XE0rYZF6xF6xI73Vuu8pT
-	hXvLjzSigjY4KpK5oL9TC4c65g2RZjbex+MtNyoi/s6zTm5enNEvE5ENutgYIRWTbF+qho3F9NX
-	bkk1o+7pQt/qM7vTOc76Hd/pdtO7OQR9A/+gtgPPadY0=
-X-Gm-Gg: AfdE7cnd6F3Td55tpL5J1qJF99xmgB1aVl5mVba6yQm90lq6lMpERu8Cs6btWULpUd5
-	10/qUAj3NPSqzBQFUBd3q4JQLlz3vp6nQlHddDNa9ddgDR62sb/Q7IcxaYcR0JSRgqa8dmQB+q/
-	hG0mfvp/XuZBUNsx7htIVYWaABgzEbJcWvqofSotHT/Faggr44yn3GjtmZYyhRWa09R/yucSxsQ
-	Dp6occhslkJ61Ve3EmURmBmTPxujb5IngXfYsPLZQm1MnYl7dhheDeinEK4sV/vLsgGEScpC1GN
-	8PHUvyMvNuhtF/6KA1E3elhKW2yqwGwqD0fjCLk6YDcM174V5avOMbLqKwVu
-X-Received: by 2002:a17:903:2444:b0:2ca:c4a5:84bb with SMTP id
- d9443c01a7336-2ce9f27e6f1mr63459385ad.38.1783872157981; Sun, 12 Jul 2026
- 09:02:37 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783872177; x=1784476977;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tr/vLvyJLyQATf1/0yNI+vtyxOEwCi4r/Ln8QC3scXw=;
+        b=sxBwb6kiML7q1uPQyKycsMOgS8jPYj+aWDBzWISdyR4lidzpe41aAPIUE+QiWMu7hz
+         jk9OLZRRuQAm0ILY0rGqml/P7m4MkapipzsuXXS+6XUhkfJtCoioUxvQRUb8eYk4RviN
+         LAej19cZmHmXwJlsbN9i8BTjFZDP43ukixm9WotaoF2wYZG98BNJn0Dd4wl1NNozeHEo
+         JFaOv0OgqBhmcoxutt6M9ES72l63KAX9KpufG11gSBcW3E1+Dx/k8plqHWOrxnJpT9Pu
+         5O+KmVMtHKvArH3WKeVSJEmTHmyJ8aQ2cnyAxRYm5Ee8M44mkoXl4bISb5aMF4C6w8Ug
+         91QQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp18k8gisFyd0Nbs7Zyrf1LaP/noWH0azuJgqOoGWEMAhw+usD2bp0eHg0phrWuHqWBXHF4yeU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzt1Di0MbBxfZIsjvDwQtzW3yn8yejGlxODHrXsuN0BtvCTFBmA
+	qieQ/wyfRx+8ETlSJRV7MIMvu8pd73HkLRPrnliF78UDP6cBqh0etXuXJLAJKW+3wqHx5ilecxx
+	D2btPsqt8iASaJxFuVSkWWBEeSAfz+2c=
+X-Gm-Gg: AfdE7cn6ug2hWSr5R0sSc4B/Cge3ui2BFnV5FKpVwncRVaLa3F34Iy3oasXbI1I1c0i
+	PRu/UfLXE0393aVnudr/wkViP01Qcm9XTBRYSJn/tWewvYO/e1gk1EP5C7WOvDbzcc8l1H/GMzF
+	J5L7dSyYKnYt0Dez3lar+6PLTK2IL0vRBgwedi0t4qYTRochNjXKi6CylEPC20rYkxw+LHRG60i
+	Mv9NIEPrxKJfGLCZasOWJ7zcIYz5v3pRSK9YQQeY6X1mZy2j4wf8SBl+nSCfNX14CfvGv394I+G
+	3IbUAV5Hs8x1m05JHV94zI1ow48bdXWomxd10hut7kJjHAd5uW9zxEd+gcwzqENGRPGpWpDlkSL
+	yWvWfyLowlTW2hrgpZodqtYu40uY+9xdQ1oJGTNs7RY6RbO3i2F+dLYCjH58parl1DHvP2+gdbw
+	swnVm9qRo3KWY=
+X-Received: by 2002:ad4:5764:0:b0:8ee:871e:f2e0 with SMTP id
+ 6a1803df08f44-903ffc6a7e0mr71122216d6.27.1783872177202; Sun, 12 Jul 2026
+ 09:02:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260711072702.70231-1-doruk@0sec.ai> <be1731eb-e6ec-4015-92e4-c09fd88019e6@linux.dev>
-In-Reply-To: <be1731eb-e6ec-4015-92e4-c09fd88019e6@linux.dev>
-From: "Doruk (0sec)" <doruk@0sec.ai>
-Date: Sun, 12 Jul 2026 18:02:26 +0200
-X-Gm-Features: AVVi8Cfuvaa8c4Hm1hNjjBfiFUfKj_52zwFcdM42IhGHFkrP4Lc2eV58kzfpMGc
-Message-ID: <CAPdMp1p=72WXe-8w5Y9viBuB6YvZWZomNc9xQzXEg-qe1WVN0A@mail.gmail.com>
-Subject: Re: [PATCH net] nfc: llcp: reject PDUs shorter than the LLCP header
-To: vadim.fedorenko@linux.dev
-Cc: david@ixit.cz, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260712025402.1804211-1-FredTheDude@proton.me>
+In-Reply-To: <20260712025402.1804211-1-FredTheDude@proton.me>
+From: Steve French <smfrench@gmail.com>
+Date: Sun, 12 Jul 2026 11:02:45 -0500
+X-Gm-Features: AUfX_mzobQXfLo_VGS-zoz-RhoQokIm1L5z1GziczB8gCLVn9ev0yz2U2TLZTFQ
+Message-ID: <CAH2r5muSdTqXznPiv4iZbVBbWvGP6+TW5V76k8yCpef1biS68g@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: use kvzalloc() for megabyte buffer in simple fallocate
+To: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Cc: sfrench@samba.org, pc@manguebit.org, ronniesahlberg@gmail.com, 
+	sprasad@microsoft.com, tom@talpey.com, bharathsm@microsoft.com, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Vadim
+merged into cifs-2.6.git for-next
 
-this was reproduced from userspace on unmodified
-linux-next (bee763d5f341) without RF hardware.
-
-It's the peer-RX path, not a local command skb:
-
-virtual_ncidev_write (peer NCI DATA) -> nci_rx_data_packet
--> nfc_tm_data_received -> nfc_llcp_data_received
--> rx_work -> nfc_llcp_rx_skb -> nfc_llcp_recv_connect
-
-Bring the LLCP link up via a normal NFC-DEP activation, then send
-one NCI DATA packet with a 1-byte CONNECT PDU. skb->len - 2 wraps
-to 0xffffffff and the TLV walk runs off the end:
-
-BUG: KFENCE: out-of-bounds read in nfc_llcp_recv_connect+0x9f6/0xf80
-nfc_llcp_recv_connect+0x9f6 -> nfc_llcp_rx_work -> process_one_work
-read 4219B past a 704B skbuff_small_head from virtual_ncidev_write
-R14: 00000000ffffffff (wrapped tlv_array_len)
-
-With the guard: rx_skb runs for all 600 short PDUs, recv_connect
-reached 0 times, 0 reports.
-
-The bound stays "<", not "<=" -- a header-only SYMM/DISC/DM is
-exactly 2 bytes and must still dispatch; AGF uses "<=" only
-because an AGF frame must also carry a sub-PDU. I'll drop the
-"same guard as AGF" line from the commit message.
-
-Instantiating /dev/virtual_nci needs privilege, but that's just
-the syzbot transport; the 1-byte CONNECT is what a remote NFC-DEP
-peer emits, and the DEP layer imposes no minimum LLCP length.
-Impact is a proximity OOB read (DoS).
-
-I can send the full reproducer if you'd like.
-
-best
-Doruk
-
-On Sun, Jul 12, 2026 02:01 PM, Vadim Fedorenko
-<vadim.fedorenko@linux.dev> wrote:
+On Sat, Jul 11, 2026 at 9:55=E2=80=AFPM Fredric Cover
+<fredric.cover.lkernel@gmail.com> wrote:
 >
-> On 11/07/2026 08:27, Doruk Tan Ozturk wrote:
-> > nfc_llcp_rx_skb() reads the two-byte LLCP header (DSAP/SSAP/PTYPE) and
-> > dispatches by PDU type; several handlers then derive a TLV-array length as
-> > skb->len - LLCP_HEADER_SIZE. Neither nfc_llcp_rx_skb() nor its callers
-> > guarantee the frame is at least LLCP_HEADER_SIZE bytes, and a sub-header
+> From: Fredric Cover <fredric.cover.lkernel@gmail.com>
 >
-> that's not correct. there are 2 ways to get to nfc_llcp_rx_skb() - via
-> nfc_llcp_recv_agf() or through commands/locally generated skbs. The
-> first one checks against LLCP_HEADER_SIZE, while latter one creates skb
-> payload with correct LLCP header size. Do you have a reproducer to
-> trigger the issue?
+> Currently in smb3_simple_fallocate_range(), a 1 MB buffer is allocated
+> using kzalloc(). Under heavy memory fragmentation, a contiguous 1 MB bloc=
+k
+> of physical memory (an order-8 allocation) may not be available,
+> causing the allocation to fail.
+>
+> This failure was observed during xfstests generic/013 on a 4GB RAM
+> test machine running fsstress:
+>
+> fsstress: page allocation failure: order:8,
+> mode:0x40dc0(GFP_KERNEL|__GFP_ZERO|__GFP_COMP),
+> nodemask=3D(null),cpuset=3D/,mems_allowed=3D0
+>
+> Call Trace:
+>  <TASK>
+>  dump_stack_lvl+0x5d/0x80
+>  warn_alloc+0x163/0x190
+>  __alloc_pages_slowpath.constprop.0+0x71b/0x12f0
+>  __alloc_frozen_pages_noprof+0x2f6/0x340
+>  alloc_pages_mpol+0xb6/0x170
+>  ___kmalloc_large_node+0xb3/0xd0
+>  __kmalloc_large_noprof+0x1e/0xc0
+>  smb3_simple_falloc.isra.0+0x62b/0x960
+>  cifs_fallocate+0xed/0x180
+>  vfs_fallocate+0x165/0x3c0
+>  __x64_sys_fallocate+0x48/0xa0
+>  do_syscall_64+0xe1/0x640
+>  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>  </TASK>
+>
+> Node 0 Normal: 3375*4kB ... 7*128kB 0*256kB 0*512kB 0*1024kB 0*2048kB 0*4=
+096kB
+>
+> Since this scratch buffer does not require physically contiguous memory,
+> switch the allocation to kvzalloc(). This retains the performance
+> benefits of kmalloc() under normal conditions, while gracefully falling
+> back to virtually contiguous memory when physical allocation fails.
+>
+> Fixes: 966a3cb7c7db ("cifs: improve fallocate emulation")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+> Tested-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+> ---
+>  fs/smb/client/smb2ops.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+> index d4875f9532b4..55b53bb9e3fd 100644
+> --- a/fs/smb/client/smb2ops.c
+> +++ b/fs/smb/client/smb2ops.c
+> @@ -3595,7 +3595,7 @@ static int smb3_simple_fallocate_range(unsigned int=
+ xid,
+>         if (rc)
+>                 goto out;
+>
+> -       buf =3D kzalloc(1024 * 1024, GFP_KERNEL);
+> +       buf =3D kvzalloc(1024 * 1024, GFP_KERNEL);
+>         if (buf =3D=3D NULL) {
+>                 rc =3D -ENOMEM;
+>                 goto out;
+> @@ -3652,7 +3652,7 @@ static int smb3_simple_fallocate_range(unsigned int=
+ xid,
+>
+>   out:
+>         kfree(out_data);
+> -       kfree(buf);
+> +       kvfree(buf);
+>         return rc;
+>  }
+>
+> --
+> 2.53.0
 >
 >
-> > PDU does reach it: digital_in_recv_dep_res() and digital_tg_recv_dep_req()
-> > strip the DEP header with skb_pull() after only checking the DEP header
-> > size, so a DEP I-PDU carrying a 0- or 1-byte LLCP payload is handed up as
-> > a sub-2-byte skb.
-> >
-> > For a CONNECT or CC PDU, nfc_llcp_recv_connect() and nfc_llcp_recv_cc()
-> > then pass skb->len - LLCP_HEADER_SIZE to nfc_llcp_parse_connection_tlv().
-> > For skb->len < 2 that subtraction underflows: truncated into the u16
-> > tlv_array_len parameter it becomes ~0xFFFE, and for a CONNECT to the SDP
-> > SAP, nfc_llcp_connect_sn() uses a size_t and underflows to SIZE_MAX. The
-> > TLV parsers bound their walk relative to that length, so they read far
-> > past the end of the skb.
-> >
-> > The aggregated-frame path (nfc_llcp_recv_agf()) already drops sub-PDUs
-> > shorter than the header. Apply the same guard once, in the dispatcher, so
->
-> that not exactly correct, it drops skbs which are shorter or equal to
-> the header, the check added in this patch is not correct then.
->
-> > every PDU type is covered.
-> >
-> > Found by 0sec (https://0sec.ai) using automated source analysis; the
-> > missing guard is evident from source. Compile-tested.
-> >
-> > Fixes: d646960f7986 ("NFC: Initial LLCP support")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: 0sec:claude-opus-4-8
-> > Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-> > ---
-> >   net/nfc/llcp_core.c | 3 +++
-> >   1 file changed, 3 insertions(+)
-> >
-> > diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-> > index aed5fe1afef0..e3b3077e0e83 100644
-> > --- a/net/nfc/llcp_core.c
-> > +++ b/net/nfc/llcp_core.c
-> > @@ -1481,6 +1481,9 @@ static void nfc_llcp_rx_skb(struct nfc_llcp_local *local, struct sk_buff *skb)
-> >   {
-> >       u8 dsap, ssap, ptype;
-> >
-> > +     if (skb->len < LLCP_HEADER_SIZE)
-> > +             return;
-> > +
-> >       ptype = nfc_llcp_ptype(skb);
-> >       dsap = nfc_llcp_dsap(skb);
-> >       ssap = nfc_llcp_ssap(skb);
->
+
+
+--=20
+Thanks,
+
+Steve
