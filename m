@@ -1,96 +1,204 @@
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8168A23393B;
-	Sun, 12 Jul 2026 21:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09F623393B;
+	Sun, 12 Jul 2026 21:49:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783892827; cv=none; b=YZ4e23jOBYOYAtrYX6zdZNyH3xLGKYiLX1xP7mD3N8Fp+zzZDE3GJw3jm+4Wp32EGMG8zKkc1NUlsnkkHm73U6zos57PbOpmzZyTGulYLchqRP7iYNIEhNTOz40ygw2f7K8/mTqkCFLy0UP5DTHr3ji5C8sUNdgOAIq3laeckq0=
+	t=1783892993; cv=none; b=o5N58GG6KsymVnw6C0Sxj+mrDs0rSgQXKtsrlnZD8ZtokNzY+MdLmt3Vg/ylzM6VLKHnJN3W67pvRZmTimhR8Sk6VTZ6gj7t3P8aGDXetVOr4bisqlndnYRJ7dw6QvKc2+QLrUApfhv/F1ZQD6DiLR4PSbfFK9A1bc6CJZWun0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783892827; c=relaxed/simple;
-	bh=DZyAZSW0M1Jb4tky+YqpCy22LbXPgZrCd3S2OOGG1OI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=doQVk/v4iWh/h9vVT0Vde2ylZmLyim7wf9d/NhkJSd5hbTIKYIezFLlWb0xXQIs/mIiDLcI+n5mNnKPDHDVmH6wyxnSlpK6cNVrjvGCMFFpxJz7gSvC6N/z8jrfWAFtCvTpa/GXm/U5GEKLIWAJXAcGf0yXpqfR2bK1ByGWP7Zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; arc=none smtp.client-ip=141.14.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
-Received: from [192.168.2.225] (p5b13aff1.dip0.t-ipconnect.de [91.19.175.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 0B60D4C2C37F00;
-	Sun, 12 Jul 2026 23:46:50 +0200 (CEST)
-Message-ID: <b4a2c370-382d-432b-ab00-b9a198288345@molgen.mpg.de>
-Date: Sun, 12 Jul 2026 23:46:48 +0200
+	s=arc-20240116; t=1783892993; c=relaxed/simple;
+	bh=8yi6L47DUqwP0koj4WCyLUvHsfQeIY6bTQhI1L+9lOY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HQzr3ptisL5qbh8VzXDQi5pu8Th7et9RgSEwwJMoUOWLahKSfzu7nAgczXxS+AtYUhzRQXbr+F8SQH8ATtIlYR2DOR9FlMSG1nTIC+4ARJD6oJTHf4LMo9JxDjHV8zsPHdsQSAsHRONNCfF1R3d15yp4EX20N0AGc5m/fq9aDMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iHd/WqL4; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iHd/WqL4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B536C2BCB7;
+	Sun, 12 Jul 2026 21:49:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783892993;
+	bh=8yi6L47DUqwP0koj4WCyLUvHsfQeIY6bTQhI1L+9lOY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=iHd/WqL4DAzFm4aCDIdIYpBDIx325w5h89Ve1dhLUCs2N2T4v8qvkItSmgmxvI446
+	 fZIg11S2ebSjdUveQSnDJvSjgj+vrfmH+CYiydVhhWVN8eyysGOWMWd7dy5Zbv1CYr
+	 GPLeNX3otNU4kdeV+tHYKVxaAdI8Yaf6WXC5vTrACCCP+qSt7KFBAXDKJjqBQV+F5H
+	 VwHQP1aCLV0/dRxFXJG5ncgsQKgBG34yQyr7jh5kcr4nME0UHizm8K4ro5xlGqWakX
+	 r9FeelKElJQBUiyrHtZWQX1SGDati569iY/LM9ZSoYRwh37852SpVBa0/m8BIfDQ/Q
+	 PSIoq+4ltAMIw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68EDAC43458;
+	Sun, 12 Jul 2026 21:49:53 +0000 (UTC)
+From: Liz Fong-Jones via B4 Relay <devnull+lizf.honeycomb.io@kernel.org>
+Date: Sun, 12 Jul 2026 14:49:43 -0700
+Subject: [PATCH v2] PCI: Fix BAR resize for devices on a root bus
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Bluetooth: btrtl: validate firmware patch bounds
-To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260710172503.64964-1-acharyalaxman8848@gmail.com>
-Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20260710172503.64964-1-acharyalaxman8848@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260712-pci-rebar-root-bus-v2-1-a1b9107a82dc@honeycomb.io>
+X-B4-Tracking: v=1; b=H4sIAPcLVGoC/22NQQ6CMBBFr0K6dkxbRIwr72FY0HYqYyJDpkAkh
+ LsLGHcuX/L/e7NKKIRJXbNZCY6UiNsV7CFTvqnbBwKFlZXV9qxLfYLOEwi6WkCYe3BDgpgbm0c
+ 0OvpSrcdOMNJ7l96rL6fBPdH3m2lbNJR6lmmvjmbb/QLFv8BowEBRhFhq70K4XG4Ntzh5frkjs
+ aqWZfkAikjFPckAAAA=
+X-Change-ID: 20260704-pci-rebar-root-bus-f3123fe10fc7
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
+ Jon Nettleton <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, 
+ stable@vger.kernel.org, Liz Fong-Jones <lizf@honeycomb.io>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5205; i=lizf@honeycomb.io;
+ s=gpg; h=from:subject:message-id;
+ bh=vBrFJX+DbiBY8ecJBWODKdSvo4Ut8q4cPC9VjlwNcjc=;
+ b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqVAwB7q+gSFs3pjbJ2WCjri1eHLPsZId7kMQ1J
+ p1bjXQXYTaJATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCalQMAQAKCRClztTjl62v
+ wskVCACGL5RiL2Qa8kFTuvYchIfyxr/n5SDdn9pybXUvVdvn0iRsV96Pvpz/XrLRYFi+Nh5VmgA
+ acSW3KZLMCZV7LKMz4FWo9H5rDFvBNTER0XSsWDIf6XJoaPkGLvKrgNSZhmUL8X4L02qovZzsXf
+ x687vJ7gI5tjXEaTx3FC4ynpeUOTqgNcREE+5SIU5CpdNETIcgulHRHbtDz26T53AntzCBNr3co
+ KNg+vfs2qIkLbNuQk9sReNI4A055VddZE+b6ozKWQWM72iYXgweVG91Xz8No7Bxojx5L17z0Nl9
+ 42h6lV7TFjRRGp1/BissKIF+YYRYoxa2UpBgDVgNA+NX7sIo
+X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
+ fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
+X-Endpoint-Received: by B4 Relay for lizf@honeycomb.io/gpg with auth_id=854
+X-Original-From: Liz Fong-Jones <lizf@honeycomb.io>
+Reply-To: lizf@honeycomb.io
 
-Dear Laxman,
+From: Liz Fong-Jones <lizf@honeycomb.io>
+
+pci_do_resource_release_and_resize() releases the device BARs that
+share a bridge window with the BAR being resized, but when the device
+sits directly on a root bus (pdev->bus->self == NULL) it then skips
+resource assignment entirely and returns success, leaving the BARs it
+just released unassigned (IORESOURCE_UNSET).
+
+Skipping pbus_reassign_bridge_resources() is correct in that case --
+there is no bridge window to adjust -- but the device BARs still have
+to be reassigned. Before the BAR release was consolidated into the PCI
+core, this case worked for amdgpu because the driver released the BARs
+itself and then called pci_assign_unassigned_bus_resources()
+unconditionally after the resize, which assigns unassigned device BARs
+also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+side BAR release before resize") removed that call, so nothing assigns
+the released BARs anymore.
+
+This breaks amdgpu completely on the SolidRun HoneyComb LX2 (NXP
+LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+on the root bus of its segment (there is no root port device, so
+pdev->bus->self is NULL):
+
+  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+  amdgpu 0004:01:00.0: Fatal error during GPU init
+
+No error is logged because the resize path reports success; amdgpu
+then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+
+Assign the released BARs directly from the root bus windows when there
+is no upstream bridge. On failure, roll back through the existing
+restore path exactly as in the bridged case.
+
+The root bus path also had a locking bug that any fix here necessarily
+touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+matching down_read() (as does the "goto restore" taken when
+pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+before the BAR release loop so every path through the function holds
+it exactly once.
+
+Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+Cc: stable@vger.kernel.org
+Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
+Assisted-by: Claude:claude-fable-5 checkpatch
+Assisted-by: Claude:claude-sonnet-5
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+---
+#regzbot introduced: 337b1b566db0
+
+Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
+linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
+carries this code unmodified, and the affected function is identical
+to current mainline. By source inspection the regression window is
+v6.18 (old code paths) to v6.19 (consolidation). Workaround for
+affected users: amdgpu.rebar=0.
+---
+Changes in v2:
+- Add Assisted-by tags (missing from v1; required per
+  Documentation/process/coding-assistants.rst)
+- Add Link: to the corresponding Ubuntu bug report
+- Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
+  given the Fixes: tag already lets the stable team derive applicable
+  versions (per stable-kernel-rules.rst)
+- Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-55df70cbdd88@honeycomb.io
+
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: regressions@lists.linux.dev
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Jon Nettleton <jon@solid-run.com>
+Cc: Jon Nettleton <jon.nettleton@gmail.com>
+---
+ drivers/pci/setup-bus.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index c0a949f2c995..9db1951f6e5c 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2397,6 +2397,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	if (ret)
+ 		return ret;
+ 
++	down_read(&pci_bus_sem);
++
+ 	pci_dev_for_each_resource(pdev, r, i) {
+ 		if (i >= PCI_BRIDGE_RESOURCES)
+ 			break;
+@@ -2415,13 +2417,24 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 
+ 	pci_resize_resource_set_size(pdev, resno, size);
+ 
+-	if (!bus->self)
+-		goto out;
++	if (bus->self) {
++		ret = pbus_reassign_bridge_resources(bus, res, &saved);
++		if (ret)
++			goto restore;
++	} else {
++		/*
++		 * A device on a root bus has no bridge windows to adjust.
++		 * Assign the BARs released above directly from the root bus
++		 * windows.
++		 */
++		list_for_each_entry(dev_res, &saved, list) {
++			i = pci_resource_num(pdev, dev_res->res);
+ 
+-	down_read(&pci_bus_sem);
+-	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+-	if (ret)
+-		goto restore;
++			ret = pci_assign_resource(pdev, i);
++			if (ret)
++				goto restore;
++		}
++	}
+ 
+ out:
+ 	up_read(&pci_bus_sem);
+
+---
+base-commit: 7404ce51637231382873d0b55edabc2f3b841a9d
+change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
+
+Best regards,
+--  
+Liz Fong-Jones <lizf@honeycomb.io>
 
 
-Thank you for your patch.
-
-Am 10.07.26 um 19:25 schrieb Laxman Acharya Padhya:
-> rtlbt_parse_firmware() copies patch_length - 4 bytes before appending the
-> firmware version. A malformed firmware patch shorter than the version field
-> can make this subtraction underflow and turn the copy into an oversized
-> read and write during Bluetooth setup.
-> 
-> The existing patch_offset + patch_length check can also wrap on 32-bit
-> architectures. Validate the patch length and range without arithmetic
-> overflow before allocating or copying the patch.
-
-This improvement (second paragraph) is not part of the summary/title. 
-Maybe two commits would help.
-
-> Fixes: db33c77dddc2 ("Bluetooth: btrtl: Create separate module for Realtek BT driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-> ---
->   drivers/bluetooth/btrtl.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/bluetooth/btrtl.c b/drivers/bluetooth/btrtl.c
-> index 49ecb18fea45..7f54d2d2d13a 100644
-> --- a/drivers/bluetooth/btrtl.c
-> +++ b/drivers/bluetooth/btrtl.c
-> @@ -797,8 +797,9 @@ static int rtlbt_parse_firmware(struct hci_dev *hdev,
->   	}
->   
->   	BT_DBG("length=%x offset=%x index %d", patch_length, patch_offset, i);
-
-Unrelated, but btrtl_dev->fw_len should probably also be logged above.
-
-> -	min_size = patch_offset + patch_length;
-> -	if (btrtl_dev->fw_len < min_size)
-> +	if (patch_length < sizeof(epatch_info->fw_version) ||
-> +	    patch_offset > btrtl_dev->fw_len ||
-> +	    patch_length > btrtl_dev->fw_len - patch_offset)
->   		return -EINVAL;
->   
->   	/* Copy the firmware into a new buffer and write the version at
-
-Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
-
-
-Kind regards,
-
-Paul
