@@ -1,59 +1,67 @@
-Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77ED2BD5B9;
-	Sun, 12 Jul 2026 03:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.236
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FAAB274FE3
+	for <stable@vger.kernel.org>; Sun, 12 Jul 2026 04:08:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783827795; cv=none; b=Cq9//oB5yRJvb6WBQVLDOZBsF5jAcEooGL2A07t/D6Xm+/3J/kX/TEYUBz6dEukhHwDS27QfM3QKEbSHiC4hufi6yGOh0t2nwpze0/4Pg0BeEpGYAbvk1A4D4BUwUkh8GwsNA0jlhrDs7K7Fk1TeGqH0zOh87l51IKGNMG1fB9I=
+	t=1783829320; cv=none; b=lC6fZCVitS84prF5JNEEQqZpkO9m8gN2NA8uG5Xt8W7yBlv9FNs1X/B1wQqqDzPq6WotKxipK8+K5L8JHSWdWgPtCFxcQByNfzM7v7qi85abuXQeM9kL6F+iqvmz/NDNaI780Z1w/BAMzRph7fhuQyQCOgQO5t0ywNg/gbqpi3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783827795; c=relaxed/simple;
-	bh=ieZGQpzAl7ZkRjjBSOv5eE37RVyMQFxLduBwLkMwokI=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=XNIiGma5oOdcloKL0yC2ZWw8eb6pEuTb+8lbY2Mc+JA5bUNhgBGad71xMdpRphZi2+hLvvYeVS9q4C5oyB0EgKv9v1fVpAgbs/g87U1uDQxUGLM8prd1UHFODrkddEaK/AYE4A408ikYPv40q3brbKMqxfJkc0PQ//pyOxnaafM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=oNA2LhDn; arc=none smtp.client-ip=203.205.221.236
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1783829320; c=relaxed/simple;
+	bh=nwZTpXgP8MVi00sG8x1sckv5BNqKE1ZEPgFs58b94wQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EobEKYgsTiiCYU8LWytKFeCf/hgbKKbZhQdQEdw8h/owX3KYeBH8s+3L5JRVkBU81p7xMctzbmhn7djXwAtwVY/W03JcPg1lB2LLiqjT1ht5IbaJnqvpEKqabWwUO/KR9pS+ijFwmvZ+CLHrZIOH47AbKa6bdvV9RJWQ9EdUn1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pa7hTDh5; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="oNA2LhDn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1783827783; bh=1jt5f7gn0PgrU+QrmBPvl4Z/Eul/vK8t5Mvlq46/TjQ=;
-	h=From:To:Cc:Subject:Date;
-	b=oNA2LhDncmWM74ZVkBgH87e0oWgv9dURDqnp0J+jXzbM99LvZO5m6F7tFW40qCGyz
-	 2c+oFxohCkSskFZXAcXZLBzonFU79Mijtwf8JcNu+mfYeJv0C/xGq99hQ/eFHcruvs
-	 pBT/8Hd/og/7RD1emY37T/rGOSC7gElnbp5QL0vM=
-Received: from ubuntu.. ([218.196.207.7])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id AC09C290; Sun, 12 Jul 2026 11:43:00 +0800
-X-QQ-mid: xmsmtpt1783827780t6v69yj7d
-Message-ID: <tencent_542687AA9C474951C4132E84DAED17622105@qq.com>
-X-QQ-XMAILINFO: NmhoXJR/eu5x3cfTIJojw6goN4j77+ZTDryok1QZb3HuoFDn/cVP6ZDiQWBCYe
-	 IeeNDdIjD6ZnxpQlPIMlZiDhOSj7VZwpHZD1E+QPjiwq/IG9/uY4+JaKGHv+8RHAtJVPAFgOEJ41
-	 kKlF8ZSFVuObQ0AdunMVgsI+u/4MknPe3U2k9cO050rXDPV3ehAlnyIFGuVzzymGoaf2SV1U4Ae6
-	 4haIUsJk04xLew63/0+YdvFYl8t2wWVLE2P8jKoURWky9CghLDtYJ5aKpmrc3ZQSOvXt1LEIkBMN
-	 g1Qk/U/TCYt8B93Wx2BkhZzqALm8cChlsFc3bKP5KpSPwlcm9SeRmADM/aepDKEbnzvbTyZg+XLu
-	 dIbkc6F+g713wYIbwfEd1dIH9Uk6oxy5iR9Ku3q2Q/yjhB+2RcmJFN2pmqu7VdaFlGEtw2BbfZ5M
-	 J0aK0/xOu9vFUOIM36TLuE6dAIe1y3IiokDe7cXGeCVA3ecRDTtGQvku7VjRVkjI5wvfg4yCaY7V
-	 m+NPNELmqjKVk9l8z9e/0okYWqvWm1X9FOwHDKkC4PIzJT14KTGB4rzf1jStsCrhHq8uG8+UrNw6
-	 BHkplN/XDBgJQOYOMkyg4EdEJAHBQwGLO7n5EtH8r31rtMJdAldojjaTlYxhbH7aamGmMHLYHA7c
-	 grSVr14VJBHe03ijDl2qo40NxC6RTaTYtFgfKLMF9XdkZqVGhvtmJf1rTZPpizkjlzkE+F+vz7q2
-	 1+b0B/fAZXR3aby0hdjK2KDDE3FvvlstVy4oig4Ndad3DssaXK9XvwJX8odtlV9w+9TdTR4ofI1Z
-	 Pmy7FNloX7kuonqaU7GTUBEfKI+/nOmhb4Oy+dtJh9GLmVXy4ClOCYqzyTkbntg3RCHXVK+55JNU
-	 uP/g1kYs6P5wX57dZaWaup3OnAUaTmXJ+BZKZKnu5WThgzQEayOs2drUoyzRjQM+Bc2SIhOekiGL
-	 h7MXdoPN/9cvVUWGpLF9XdXwI3s0apN6oceOaop0FXqUUt2wb69ICdyoun1D6fuOkUyvIYkONcQ0
-	 O1cRN8BOnqsQ147jz/ogzkqWxIgZEtuwJzppYP3Rl13umGfvk+C/PJNf8wbak=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Guanghui Yang <3497809730@qq.com>
-To: linux-xfs@vger.kernel.org
-Cc: Carlos Maiolino <cem@kernel.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Guanghui Yang <3497809730@qq.com>
-Subject: [PATCH] xfs: propagate errors from xfs_rtginode_load
-Date: Sun, 12 Jul 2026 03:42:56 +0000
-X-OQ-MSGID: <20260712034256.1700970-1-3497809730@qq.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pa7hTDh5"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c99eaa1f020so2091999a12.2
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 21:08:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783829318; x=1784434118; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7Ua0X8FikfiEo6q6nozi853UqZXRTepXxqADI3wGhfM=;
+        b=pa7hTDh5iyiORp5QVCC4H4E5TxuGAwxGTUR4Z5p1AevOhBOYBZY2I6sfGire7pAuTf
+         28KDsJfcMToOu9hQgMvHSl2wbJhNkLmMpAUxSNbYTfieVb7KQTetNjoNXk2XU0KRBHhz
+         wxt7iPlhTa34JauVWbKohoTdeMheMQodQSXehltD+GTTJsshefkUMAo7m9BQFeycP1ke
+         timVOczagZm4yeuMUPzLf1d1iwxH5Cg+LFL4JpgYKmU4dNRS0tuCCS+SzgRxFhMtPc2G
+         jMV17nNZBmzFKp1Jn+nh8EAYSpn+KkCMqymUNsRFRkFxE1Kr1OAyhsqIziG2WPO40THt
+         /O5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783829318; x=1784434118;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7Ua0X8FikfiEo6q6nozi853UqZXRTepXxqADI3wGhfM=;
+        b=ltytRK7XhV7dVjylU0cRP0aAjK6wGtcldsjCjKEhtGBF4bIiToR54QBDIPxL/MX6I2
+         4GhfSIbX6xR3CrIgiWaA5NVAjxa7o4b8DTO2jHzxt9SLwSm9ob2cgVPCE8XbEB1Asw/R
+         /2vPihaqFcq/roVGDzoLsf4EFFOZVge6o8uchR7XIrWtDC9ydcXt1YW5uxAcU5XLpmZo
+         GIM82Vi/Pp6f6dDhvENeuckO7HZFwA7BtGdPjnLQq+ls5LygvQKghuTPGX+Nx15Bokdg
+         jpwSjIteu3jka7Qsg7Cl6JWg0bXiV2RvYDPlT2Z75G1/FlWaNjmzLQPzp/M+5dmi7kFk
+         j+YQ==
+X-Gm-Message-State: AOJu0Yw16fL64AofrIrbHHNLbNb/3+rHLuf6E/Bh5r39rcZUd7hEW+Wb
+	w023X3oCcCW9fmhXJ4vEptD9FcCjeVqv/+8XU+xX/Q5/u1O3jtB5A1ujbn2eL3Orhj4=
+X-Gm-Gg: AfdE7cnZqzDMZAfETUK+ciEUayOVXPVbo/v5JQhbicPaao3TOWj4ENEV0Sa8LpvAoA4
+	V5sPZt9z5sP0HXudK74uD17fmq2//y0dyvMrRVtuPydw8Ypdf7gTxKA+SNRSp5YgA58l//3kz/d
+	Bk8nAg3ep44Ti7kkaDOL5HmQu5Xv48tD3SMtZYP64RWYiD/J5K7LpElwE+G/O3tslkKzVheOiXk
+	9vwEhTnsC8LkMnoAS+psXo5+gkU0KFW70GgtzkgNRgeGr6QyjkNUCNm1aTusP1LVH3q/qG3Glol
+	ipmLzZCwVvWS9r5bwpdMz0PaoWPEp0l/TYp7qkezQOw0gAWwRSA0PN9qk3d9zqJjjCAcP0r0/tk
+	6ToWQmij5vKUS0gyw49HNKTdrZMNWjEK+GJP8gQvr3Y0kI1/J45fr0X4MyIZXtyHuG1lvA0FYem
+	lrSRHePAP8hsutOWdFjtyMiLRHxW2UMrtc
+X-Received: by 2002:a05:6a20:430b:b0:3bf:c07b:a9a4 with SMTP id adf61e73a8af0-3c1108c219dmr4988308637.59.1783829318393;
+        Sat, 11 Jul 2026 21:08:38 -0700 (PDT)
+Received: from ChatreeyT9-N100.localdomain ([122.35.120.240])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-ca7d74f05acsm4799387a12.11.2026.07.11.21.08.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Jul 2026 21:08:38 -0700 (PDT)
+From: teirua <qndkdrnl@gmail.com>
+To: qndkdrnl@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH] staging: rtl8723bs: fix inverted HT40 secondary channel offset
+Date: Sun, 12 Jul 2026 13:08:15 +0900
+Message-ID: <20260712040815.11011-1-qndkdrnl@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,34 +70,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xfs_rtginode_ensure() treats every xfs_rtginode_load() error other than
--ENOENT as success.  This can leave the realtime group inode unset after an
-I/O, allocation, or corruption error.  Growfs then continues as though the
-inode had been loaded.
+From: MinJea Kim <qndkdrnl@gmail.com>
 
-Only -ENOENT means that the inode needs to be created.  Return all other
-errors to the growfs caller.
+rtw_get_chan_type() maps the driver's channel offset to nl80211 channel
+types the wrong way around.
 
-Fixes: ae897e0bed0f ("xfs: support creating per-RTG files in growfs")
+In this driver HAL_PRIME_CHNL_OFFSET_LOWER means the primary channel is
+the lower 20 MHz half of the 40 MHz pair, i.e. the secondary channel is
+above the primary one: rtw_get_center_ch() computes the center channel
+as "channel + 2" for OFFSET_LOWER, and bwmode_update_check() sets
+OFFSET_LOWER when the AP's HT operation IE announces SCA (secondary
+channel above). In nl80211 terms that is NL80211_CHAN_HT40PLUS, not
+HT40MINUS.
+
+Because of the inversion, cfg80211_rtw_get_channel() reports an HT40+
+association as HT40-. For an HT40+ AP on a low channel (e.g. channel 3)
+the resulting chandef spans below the 2.4 GHz band edge and is invalid,
+so the regulatory core tears the connection down 60 seconds
+(REG_ENFORCE_GRACE_MS) after the AP's country IE triggers a regdomain
+change: reg_check_chans_work() considers the reported chandef unusable
+and calls cfg80211_leave(). The supplicant then reconnects, the country
+IE changes the regdomain again, and the cycle repeats, causing a
+disconnect/reconnect loop every ~65 seconds for as long as the link is
+up.
+
+Observed on a TECLAST X80 Power tablet (RTL8723BS) associated to an
+HT40+ AP on channel 3 with a KR country IE; a kprobe trace showed
+cfg80211_disconnect() being invoked from reg_check_chans_work(). With
+the mapping fixed, "iw dev wlan0 info" reports the correct
+"width: 40 MHz, center1: 2432 MHz" and the periodic disconnects stop.
+
+Fixes: 5402cc178c5d ("staging: rtl8723bs: add get_channel cfg80211 implementation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guanghui Yang <3497809730@qq.com>
+Assisted-by: Claude-Code:claude-fable-5 bpftrace
+Signed-off-by: MinJea Kim <qndkdrnl@gmail.com>
 ---
- fs/xfs/xfs_rtalloc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/fs/xfs/xfs_rtalloc.c b/fs/xfs/xfs_rtalloc.c
-index 7a3f97686989..84efe5a8fb11 100644
---- a/fs/xfs/xfs_rtalloc.c
-+++ b/fs/xfs/xfs_rtalloc.c
-@@ -737,7 +737,7 @@ xfs_rtginode_ensure(
- 	xfs_trans_cancel(tp);
- 
- 	if (error != -ENOENT)
--		return 0;
-+		return error;
- 	return xfs_rtginode_create(rtg, type, true);
- }
- 
+diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+index 1484336..e472687 100644
+--- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
++++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+@@ -1949,7 +1949,12 @@ static u8 rtw_get_chan_type(struct adapter *adapter)
+ 		else
+ 			return NL80211_CHAN_NO_HT;
+ 	case CHANNEL_WIDTH_40:
+-		if (mlme_ext->cur_ch_offset == HAL_PRIME_CHNL_OFFSET_UPPER)
++		/*
++		 * HAL_PRIME_CHNL_OFFSET_LOWER means the primary channel is
++		 * the lower 20 MHz half, i.e. the secondary channel sits
++		 * above it (SCA), which is NL80211_CHAN_HT40PLUS.
++		 */
++		if (mlme_ext->cur_ch_offset == HAL_PRIME_CHNL_OFFSET_LOWER)
+ 			return NL80211_CHAN_HT40PLUS;
+ 		else
+ 			return NL80211_CHAN_HT40MINUS;
 -- 
-2.34.1
+2.43.0
 
