@@ -1,108 +1,146 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FF8364EAF;
-	Sun, 12 Jul 2026 16:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696C7343D9D;
+	Sun, 12 Jul 2026 16:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783875271; cv=none; b=ct5CQFU145RMR3Ffw0nlGpkeKZqXqhx/I/nPewEvRVNB16n1J00YvH4q0MbXzG5Zh7MMhYAx+pMSZzojwSUvwO0t9MxTfkeXXCC28JgCivE27uiBwJwET5xf1BxPjHblBDkv6f5z3w5ySF1afh/jYI8C0eb2srmFjXM10xRvq5I=
+	t=1783875284; cv=none; b=r4fSD7yX6EVMANC59ujxpxYu4aOxhSuD1peAhWuFnsavLzUS2I9WScAPda+KCndIs7jyW3Cf83KlocSNyqiceb1oiwc3kEvcpOievR799KC9m53wR8XsvFkMHJBiOlRtMtgvzarfmKkRMgwRQcvFwuX4m1tt5LJwszrxXPSTEdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783875271; c=relaxed/simple;
-	bh=3t/8oLbvVkCPegE8QAQn71oA+Q4HfSxM+oHBOvO26rY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jtd2LG/LTLXyRnjevNQqSCwHgd2XcfMRNvK0p3gwdXxozxW/rR7huxNrgW+ufduJw9kLfDYJ4K92FF+fAvg8wqDByfXALmH9/yxTgO0Txw7ShcwVnUS/ttV7LrD8PsdPVuhabm1UyVsTTQkhhWW7mC2he5uOxLVj0WipM1PuY6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hZd3B02y; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1783875284; c=relaxed/simple;
+	bh=WbRrUwXHOSUNJ6AcjpSUXWxrRu5t9s1NmUpcg93yiDM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UeUBV8hTpisQc7Oejc6NVmWnWiMAEtuJySDDMu7PTuGyQUFck2FyZQdgaRPBXTMry9+Florjvifr+S8QAo+BeTGTScc/eV1qyymah8+4nG2D7EMs2a+xv1WpUDg8D7sO8xrR/apWVyZgkcrISzjm2Ms0+uL+aJF970V3e9QAcl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YA5LLlgi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hZd3B02y"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0C99240E029F;
-	Sun, 12 Jul 2026 16:54:25 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id srior6ed563w; Sun, 12 Jul 2026 16:54:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1783875255; bh=y0mSGKSljGbp3wm1OkPuo0d6XMXK1FIsRCwQHXpgKVI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hZd3B02yURgxnaN2bOuG5eS5BGaZkYAs2AweWjgF8MPvxxPq1Pt2vhEEqnCqz6wWA
-	 8dNkaOdtd19u+IcSBM/HjAx7JcHZLN7A5upeotFOjvVZJuJPXZ2xLlJORfsSwePPkj
-	 s2QScnUZnorDzAAJHT7r+lAsUwSUICK0TK1gzPA+4BNove0iPem796CCGh6+vQ2uTF
-	 IaaWP96Soy2OIRtZQ4wj3sYYMzUU7eb9vJwS5dkoeTmPjJv/vViw09zNDbqo+F8B9q
-	 AyltvY6d3w6OaBCUM9eOqQsnsnrBBcZmFjmra1vn3CEnFOv/wKIU6VNf/oyr4hwPGu
-	 7M7+2UxNFU+pg0Lto33EIt9lKX7i+Z29412SELwxHS1ldaxuC8r38fIiiBJ/60gssa
-	 pi0hvyvsYutR7Ji2QjYroHz3Tz4NoMG/Ar3Egs6W/tT79qOi1QngXwmUMBYQyqPoUH
-	 Ruz1xqCCFqxR3bLPqeiF9m4mB9wan85MmnjIRAYyecU6ELmJSYolJcfG5wxdEz+Bdf
-	 GsCumXAiqGmZg2okklasr3ESHBzuoOl7c9q1iHAJ7QaMfNvEci61R9mQ2/96kYvjQ6
-	 X2EbOcc7yHrtpWfN6qHdZShRWsJAMFRBQB9QrCT/E+9KlUi/jyYAcpQpaMbn/8DBjw
-	 Da+sRgL8/If7qfYW8RZJTeHc=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 22D5740E00C3;
-	Sun, 12 Jul 2026 16:53:45 +0000 (UTC)
-Date: Sun, 12 Jul 2026 09:53:41 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Toshi Kani <toshi.kani@hpe.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH mm-hotfixes v2 2/4] x86/mm/pat: acquire mmap lock on page
- table free to avoid ptdump UAF
-Message-ID: <20260712165341.GAalPGldsKpBs5treJ@fat_crate.local>
-References: <20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org>
- <20260712-series-vmap-race-fix-v2-2-ad134cc3a12a@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YA5LLlgi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC8AB1F000E9;
+	Sun, 12 Jul 2026 16:54:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783875283;
+	bh=8xnGzHVEhJzHmaj8zqg2Ec1CH067snxS1T5Ejp1k8Wo=;
+	h=From:To:Cc:Subject:Date;
+	b=YA5LLlgiAG2b39oDhfv1a+J8X+VkVbiTa/cHAGwNCuP2QLWhqnoop/z6ghtSG9Iug
+	 p0tu/I0XAT1DnC8BV1uj0hNiQSTnsBqBrZaIR2cqNUlovy/+IiPEEa1866YGFLjTpo
+	 51e8GWlPN5qoaKG4edMAxodxPgM6j7khzSwQpoHq80WbKxItFMVEpY3JA+bIFM2wJh
+	 bKG0N9r8y7IeQNfwjHTDjZr1x9YsPxjJznBRzOPThBmUfHI4hroqMrIaZECwuMJLKr
+	 em3Wd5vANQku8XZ2qCVcJp6OaXMD3qqxxRJoorDmHZGQ4zhEt4brhTSzbXC3uSrXyc
+	 7etC0DI8d4l6Q==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH] mm/damon/core: skip aging from repeated aggressive merging
+Date: Sun, 12 Jul 2026 09:54:30 -0700
+Message-ID: <20260712165432.87609-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260712-series-vmap-race-fix-v2-2-ad134cc3a12a@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Jul 12, 2026 at 11:42:25AM +0100, Lorenzo Stoakes wrote:
-> This patch resolves the issue by acquiring the mmap read lock on init_mm to
+The number of DAMON regions could temporarily exceed the user-defined
+maximum number of regions limit for corner cases.  For example, users
+could lower the limit via runtime parameters update.  For such a case,
+kdamond_merge_regions() repeats merging regions in the case doubling the
+merge threshold.  The repeated merge operation could update the age of
+regions multiple times.  This corrupts the monitoring results.  Fix the
+issue by asking the merge operation to skip aging for the corner case.
 
-s/This patch resolves/Resolve/
+The user impact is degradation of the monitoring quality.  The impact
+should be mild, since the degradation is only temporal, and it is not
+common to happen in realistic setups.
 
-> provide mutual exclusion against ptdump, which acquires the init_mm write
-> lock.
+The issue was discovered [1,2] by Sashiko.
 
-...
+[1] https://lore.kernel.org/20260621203548.10718-1-sj@kernel.org
+[2] https://lore.kernel.org/20260709145425.96247-1-sj@kernel.org
 
-> We also include cleanup.h in order to use a scoped_guard() to implement
-> this cleanly.
+Fixes: 310d6c15e910 ("mm/damon/core: merge regions aggressively when max_nr_regions is unmet")
+Cc: <stable@vger.kernel.org> # 6.10
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+Changes from RFC
+- RFC: https://lore.kernel.org/20260711171537.75278-1-sj@kernel.org
+- Drop RFC tag.
 
-You don't need to explain that.
+ mm/damon/core.c             | 21 +++++++++++++--------
+ mm/damon/tests/core-kunit.h |  2 +-
+ 2 files changed, 14 insertions(+), 9 deletions(-)
 
-Thx.
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 806a67d02a6e9..6c4215cc809ec 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3308,7 +3308,7 @@ static unsigned int damon_merge_score(struct damon_region *r, bool last,
+  * sz_limit	size upper limit of each region
+  */
+ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
+-		unsigned long sz_limit, struct damon_ctx *ctx)
++		unsigned long sz_limit, struct damon_ctx *ctx, bool count_age)
+ {
+ 	struct damon_region *r, *prev = NULL, *next;
+ 	bool use_probe_hits = damon_has_probe_weights(ctx);
+@@ -3319,12 +3319,14 @@ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
+ 		score = damon_merge_score(r, false, ctx, use_probe_hits);
+ 		last_score = damon_merge_score(r, true, ctx, use_probe_hits);
+ 
+-		if (abs_diff(score, last_score) > thres)
+-			r->age = 0;
+-		else if ((score == 0) != (last_score == 0))
+-			r->age = 0;
+-		else
+-			r->age++;
++		if (count_age) {
++			if (abs_diff(score, last_score) > thres)
++				r->age = 0;
++			else if ((score == 0) != (last_score == 0))
++				r->age = 0;
++			else
++				r->age++;
++		}
+ 
+ 		if (!prev)
+ 			goto set_prev_continue;
+@@ -3366,15 +3368,18 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+ 	struct damon_target *t;
+ 	unsigned int nr_regions;
+ 	unsigned int max_thres;
++	bool count_age = true;
+ 
+ 	max_thres = c->attrs.aggr_interval /
+ 		(c->attrs.sample_interval ?  c->attrs.sample_interval : 1);
+ 	do {
+ 		nr_regions = 0;
+ 		damon_for_each_target(t, c) {
+-			damon_merge_regions_of(t, threshold, sz_limit, c);
++			damon_merge_regions_of(t, threshold, sz_limit, c,
++					count_age);
+ 			nr_regions += damon_nr_regions(t);
+ 		}
++		count_age = false;
+ 		threshold = max(1, threshold * 2);
+ 	} while (nr_regions > c->attrs.max_nr_regions &&
+ 			threshold / 2 < max_thres);
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 6ad73559dd8ea..68d30648c612e 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -257,7 +257,7 @@ static void damon_test_merge_regions_of(struct kunit *test)
+ 		damon_add_region(r, t);
+ 	}
+ 
+-	damon_merge_regions_of(t, 9, 9999, ctx);
++	damon_merge_regions_of(t, 9, 9999, ctx, true);
+ 	/* 0-112, 114-130, 130-156, 156-170, 170-230, 230-10170 */
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 6u);
+ 	for (i = 0; i < 6; i++) {
 
+base-commit: 96e4e82548418bcd5b3518d3b4efed1f5631772e
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+2.47.3
