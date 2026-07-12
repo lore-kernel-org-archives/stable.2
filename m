@@ -1,240 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BD830568B;
-	Sun, 12 Jul 2026 08:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BEA2F363F
+	for <stable@vger.kernel.org>; Sun, 12 Jul 2026 08:31:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783844579; cv=none; b=KZ32p8MlwAxUx07JcTHPQV+mDLnEYdl+WtonQvd90QwV0Zb5sZBQWQ9wDC7dsYDxeNLWbXSt9ukeoH8AZOluHpQFb1l6o43LOr4CCRsF/auURlCP6avFsXBg2nshmYOejoZtyHyCCJB0Lm0yVCXms9U3dMvkDZmsuBmybtHEVqU=
+	t=1783845078; cv=none; b=OeYAIf1SoEsNiYsOv0HUlat7J/simmBwVmxTEtPsTSqZxZblKerd3zYW8UDUhkoio6TdMxHKljoomw8tPVYOjbLv+yZ+xqNx7HpfPbIIFCDnWFV8pipGJmnRbJswoPXg0KXamL5wvZvVBBF5/Oq21gNZO0gsvEWk3Mrc1nB0qnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783844579; c=relaxed/simple;
-	bh=RPk4yWV+8ERDUBGX8Oy7NsAdunCsMmqwN+K6korSLUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DP+HI0gJ74EdCpnWZgmwAxY2nH39haWRufivAap1q6BE94tA+efWhVE/ioKPBVy5tK+sXuaXMfQCNGA+93UIML4SPUuZyeSd3i6rVnumdNscCY6tU6HRXT4+RjfTD5//Ixbpz/tR9ZosEo2CEVfpv2el2qaKPwfTxHB/jGKPOwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V/6fldgy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783845078; c=relaxed/simple;
+	bh=qZZDoRccRriO9uv7+G0TDUWo85TZUmIAExHMsIW0gvQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CdhCOTOniu1e7kxOstIJlr+2JS//fAYiVWSiev/4ex+ysDJVVp9Qr6Y28WmEifYqL2KtRU7ObZPj4FSaBUH1HMXBfrEao4zSGNljuGJmu7oPaXMfGmZkwO0FpIJGux8S5fjviJc8/KFAAv3kOgWNbuwZNJhOPUuucjl3nebWgc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LqpFkF3p; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V/6fldgy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01DBF1F000E9;
-	Sun, 12 Jul 2026 08:22:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783844577;
-	bh=OLk/y8B3jkUZeJ2X+bXdA1Q0foPidFq8qmGJRfb7iKg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V/6fldgyaCao4wFwvO4Zk3ZaURqqabllVwfzl6WAdo1GWpXOO3Elt2D91McU9TNJ/
-	 HpASwPOXLu2LhMp/Aodz/6nEjVKn+a6qVc1b2zqMrLNSx/cFZyBi8O0TgIbUWtiS2x
-	 tkHGmIzN2+1r4kSaXUnJc3f38PSUiUp7NvKNEhqGCmQwfvXHR9jDaSMzhD4ejP/MD2
-	 F0tedNd3mC3fz8QMOA4HzTYeDk1eeWNRosTq1v5E2ts7pCI3gPyHpq1X5jUwqcCozf
-	 P70Q0CuqEppPof5WQ+J0YgbB4iTVfZBvm2Xz8n8sM+6yAQYfSVyi5jY7eVWPBk6O7/
-	 cUkFoADJyXsYg==
-Date: Sun, 12 Jul 2026 09:22:42 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Dev Jain <dev.jain@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	David Carlier <devnexen@gmail.com>, Ryan Roberts <ryan.roberts@arm.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
-	syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-Subject: Re: [PATCH 1/2] mm/vmalloc: acquire init_mm read lock on huge vmap
- promotion
-Message-ID: <alNM8tIxep2-PHAM@lucifer>
-References: <20260710-series-vmap-race-fix-v1-0-5b3794c113fe@kernel.org>
- <20260710-series-vmap-race-fix-v1-1-5b3794c113fe@kernel.org>
- <d47ac961-4767-4ce4-9c75-f281beb24e42@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LqpFkF3p"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ceaf8a1265so7005555ad.2
+        for <stable@vger.kernel.org>; Sun, 12 Jul 2026 01:31:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783845077; x=1784449877; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qwVPE/TFDEf5PRXk0sV1x1p53OMgZZvm6Y22zC3WyOg=;
+        b=LqpFkF3pExO/2x5sP0tVFVuqoApHQEeARbW2B8W9auWXMHQy7CytKG7wVvSqBvOcUU
+         aDX7VGJpha0+lqdIoQNDLNh3Pw//tKVz2evwPLVZmp8icA0D0ZQSL9b73kNmy/2nrswl
+         paG3wKdA1Q/lvbT2bwqHGw2fRsIiK5HYJabpzWpipLFOp6pyhT2Us2Sfr9XuftjrEHOB
+         XUv655SL+EfNC9zpKVwJVt+/PQJJRYl7OERhorCIz/5nAyXxP+7wd1KaiCiFwZcv1Hns
+         zjy9QFfV1Siv9uup7PVjqPEiZQAm4tbMWFmK8EN2KW0qa4WueDqF6J4eWy7A2VSduIW8
+         UHeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783845077; x=1784449877;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qwVPE/TFDEf5PRXk0sV1x1p53OMgZZvm6Y22zC3WyOg=;
+        b=Z9Psr5YYTHH/Pr8ZMm4tsc4UC7bM9YtThlGLrgQHCvXl59hv5FtHHe13/7gywW7Xp8
+         braFsKUc2tjO3cnmHfocYRWrb0OLSOnSzppJ30lWi22bKRIcb3AVBlXDC206qeTFWpZL
+         Uvnn3KPMlNljjjrWlkE2VP44ffjc9uwokOZ+jD/GKcEOMoeCooLq5yWhJE8wJz58jr5z
+         a87z4SZWb76awikWOzGqVBhnVjlLfrzSpCA7PKv1c9eCU0CLgMlRK9d+FhvqwyqxwE6a
+         4/21x25E6/WUUuPeFjgkujITzl4eJHT/xa4YULTTuqJGsSOGJ4O8arjHYnpX1jWIzlS+
+         lpaw==
+X-Forwarded-Encrypted: i=1; AHgh+RouHthWekrA77rkkkLhQMgHgmO+FswgOG9wbbKaYHLkXgmHtwilr0Ob/a2deGfUxbkKrWm71t4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy9B2arnsNVxwx65FE4Kq5akLKVKzICTUvSgE/3JJLgXruKBcfO
+	JC76pvUX1xwNnUIQsaAcEIDaJlfIn8mLmTQ6wMp7oKxiw8qjEPYEtaxO
+X-Gm-Gg: AfdE7cntkqDF7PxjhVPG/+TmVGQy4Y+5ujp8Hr96aeX3ssNn8/0cTh/7/vJOu5BQN1m
+	cQUHaGQpKFGNN+D8KKUtj0frJm2AVQxne5ZUGJdL5iOnnMpioI98FkvTHJKV8jspJhydWUxNSUi
+	gC6kEIjvbJTaUUYNmfxcuB2r1GDpGL1HswuSV0eAq0EFX6wk7P5aX4JAjgtpV/5NqToTZctsVGh
+	pBBhfRpYKIpU/h2Dc7835mJFvSYehmnDEc2sCUs2SUis5z+xptcCm81gSabWJJGyxUIXaMCKWqa
+	+t6z/s3wYlc5VnDNBOdZ4vJXz69viuJ93gCRVgIdCWFSQHwYpX32zmAbhoM/gWTHHmAdinK+2LD
+	aYQlEs8jFTF2O9Dp2H5296Cw5vs1/8wiiTmGLCAPmd4siAxHnCdwFZn9rozS+lppPl9bC1Zk/9e
+	Sc+QEACPT+bRsET+NpfAj6ydnf7HkDjDfxuXpIDMqorTY=
+X-Received: by 2002:a05:6a20:12cf:b0:3bf:6c08:fb9d with SMTP id adf61e73a8af0-3c110b4561amr5540581637.49.1783845076933;
+        Sun, 12 Jul 2026 01:31:16 -0700 (PDT)
+Received: from localhost.localdomain ([49.207.223.101])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b659d8da9sm100968646c88.14.2026.07.12.01.31.13
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 12 Jul 2026 01:31:16 -0700 (PDT)
+From: Biren Pandya <birenpandya@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-kernel@vger.kernel.org,
+	Biren Pandya <birenpandya@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] iio: accel: kxsd9: fix runtime PM leak in write_raw
+Date: Sun, 12 Jul 2026 14:01:06 +0530
+Message-ID: <20260712083106.97429-2-birenpandya@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d47ac961-4767-4ce4-9c75-f281beb24e42@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Jul 12, 2026 at 01:13:12PM +0530, Dev Jain wrote:
->
->
-> [-----]
->
-> > We also define a guard class for mmap_read_trylock() so we can use
-> > cleanup.h to make the scope handling cleaner in the implementation.
-> >
->
-> Will this cause backport problems, I think this scoped guard thingy is
-> not that old?
+The kxsd9 driver previously used manual pm_runtime_get_sync() and
+pm_runtime_put_autosuspend() calls around the entire kxsd9_write_raw()
+function. If the user provides a non-zero integer component for scale,
+the function returned -EINVAL directly, leaking the runtime PM usage
+counter.
 
-I intentionally used it because it's the best way to solve this problem.
+Move the mask and value validation checks before pm_runtime_get_sync()
+to ensure the early -EINVAL returns do not leak the usage counter.
 
-If there's any issue I'll fix them up in the stable backports myself.
+Fixes: 9a9a369d6178 ("iio: accel: kxsd9: Deploy system and runtime PM")
+Cc: stable@vger.kernel.org
+Signed-off-by: Biren Pandya <birenpandya@gmail.com>
+---
+Changes since the reviewed version:
+- Reduced to the minimal write_raw() leak fix. Dropped the remove()
+  rework (no underflow is possible — pm_runtime_put_noidle() floors at 0)
+  and deferred the PM-macro conversion and style cleanup to a follow-up
+  series, per Jonathan Cameron and Andy Shevchenko.
+ drivers/iio/accel/kxsd9.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-I will likely resend this as a 4 patch series and just do the stable
-backports manually anyway.
+diff --git a/drivers/iio/accel/kxsd9.c b/drivers/iio/accel/kxsd9.c
+index 4717d80fc24af..1af04cb4bf86a 100644
+--- a/drivers/iio/accel/kxsd9.c
++++ b/drivers/iio/accel/kxsd9.c
+@@ -139,18 +139,18 @@ static int kxsd9_write_raw(struct iio_dev *indio_dev,
+ 			   int val2,
+ 			   long mask)
+ {
+-	int ret = -EINVAL;
+ 	struct kxsd9_state *st = iio_priv(indio_dev);
++	int ret;
+ 
+-	pm_runtime_get_sync(st->dev);
++	if (mask != IIO_CHAN_INFO_SCALE)
++		return -EINVAL;
+ 
+-	if (mask == IIO_CHAN_INFO_SCALE) {
+-		/* Check no integer component */
+-		if (val)
+-			return -EINVAL;
+-		ret = kxsd9_write_scale(indio_dev, val2);
+-	}
++	/* Check no integer component */
++	if (val)
++		return -EINVAL;
+ 
++	pm_runtime_get_sync(st->dev);
++	ret = kxsd9_write_scale(indio_dev, val2);
+ 	pm_runtime_put_autosuspend(st->dev);
+ 
+ 	return ret;
+-- 
+2.50.1 (Apple Git-155)
 
->
->
-> > One wrinkle here is commit fa93b45fd397 ("arm64: Enable vmalloc-huge with
-> > ptdump"), which addresses the issue for arm64 only by explicitly acquiring
-> > the mmap read lock on kernel page table freeing should a concurrent ptdump
-> > be in progress.
-> >
-> > This is problematic as vmap may acquire the mmap read lock prior to ptdump
-> > attempting to acquire an mmap write lock, leading to a deadlock when the
-> > mmap read lock is slept upon on page table freeing due to rwsem
-> > anti-starvation.
-> >
-> > We work around this by predicating the mmap lock being taken on
-> > !CONFIG_ARM64 for the time being.
-> >
-> > With this patch applied, a follow up will partially revert commit
-> > fa93b45fd397 ("arm64: Enable vmalloc-huge with ptdump") and at that stage
-> > remove the arm64 ifdeffery.
-> >
-> > We also update walk_page_range_debug() to assert the mmap write lock
-> > unconditionally and update the comment here to reflect this change.
-> >
-> > The issue has existed as long as ptdump was available and vmap freed page
-> > tables when promoting to a huge leaf entry, that is, since commit
-> > b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table") for
-> > huge ioremap, and commit 121e6f3258fe ("mm/vmalloc: hugepage vmalloc
-> > mappings") for huge vmalloc.
-> >
-> > Since the former is the earlier of the two we choose that for our Fixes
-> > tag.
-> >
-> > This patch is based on work by David Carlier (linked), with gratitude!
-> >
-> > Fixes: b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
-> > Cc: <stable@vger.kernel.org>
-> > Reported-by: syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-> > Closes: https://lore.kernel.org/all/6a287988.39669fcc.33b062.00a0.GAE@google.com/T/
-> > Link: https://lore.kernel.org/linux-mm/20260706203128.162335-1-devnexen@gmail.com/
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> > ---
-> >  include/linux/mmap_lock.h |  1 +
-> >  mm/pagewalk.c             | 22 +++++++++++----------
-> >  mm/vmalloc.c              | 50 ++++++++++++++++++++++++++++++++++++++---------
-> >  3 files changed, 54 insertions(+), 19 deletions(-)
-> >
-> > diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-> > index 04b8f61ece5d..6b5c2390cc30 100644
-> > --- a/include/linux/mmap_lock.h
-> > +++ b/include/linux/mmap_lock.h
-> > @@ -621,6 +621,7 @@ static inline void mmap_read_unlock(struct mm_struct *mm)
-> >
-> >  DEFINE_GUARD(mmap_read_lock, struct mm_struct *,
-> >  	     mmap_read_lock(_T), mmap_read_unlock(_T))
-> > +DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
-> >
-> >  static inline void mmap_read_unlock_non_owner(struct mm_struct *mm)
-> >  {
-> > diff --git a/mm/pagewalk.c b/mm/pagewalk.c
-> > index 3ae2586ff45b..bbcfd68d0907 100644
-> > --- a/mm/pagewalk.c
-> > +++ b/mm/pagewalk.c
-> > @@ -678,6 +678,8 @@ int walk_kernel_page_table_range_lockless(unsigned long start, unsigned long end
-> >   * will also not lock the PTEs for the pte_entry() callback.
-> >   *
-> >   * This is for debugging purposes ONLY.
-> > + *
-> > + * The mmap write lock must be held.
-> >   */
-> >  int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
-> >  			  unsigned long end, const struct mm_walk_ops *ops,
-> > @@ -691,6 +693,16 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
-> >  		.no_vma		= true
-> >  	};
-> >
-> > +	/*
-> > +	 * When walking userland page tables, an mmap write lock must be held to
-> > +	 * account for munmap() downgrading to an mmap read lock when tearing
-> > +	 * down page tables.
-> > +	 *
-> > +	 * When walking kernel page tables, an mmap write lock must also be held
-> > +	 * to account for page table freeing on vmap huge page mapping.
-> > +	 */
-> > +	mmap_assert_write_locked(mm);
-> > +
-> >  	/* For convenience, we allow traversal of kernel mappings. */
-> >  	if (mm == &init_mm)
-> >  		return walk_kernel_page_table_range(start, end, ops,
-> > @@ -700,16 +712,6 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
-> >  	if (!check_ops_safe(ops))
-> >  		return -EINVAL;
-> >
-> > -	/*
-> > -	 * The mmap lock protects the page walker from changes to the page
-> > -	 * tables during the walk.  However a read lock is insufficient to
-> > -	 * protect those areas which don't have a VMA as munmap() detaches
-> > -	 * the VMAs before downgrading to a read lock and actually tearing
-> > -	 * down PTEs/page tables. In which case, the mmap write lock should
-> > -	 * be held.
-> > -	 */
-> > -	mmap_assert_write_locked(mm);
-> > -
-> >  	return walk_pgd_range(start, end, &walk);
-> >  }
-> >
-> > diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> > index 1afca3568b9b..9d0f1fdd6af3 100644
-> > --- a/mm/vmalloc.c
-> > +++ b/mm/vmalloc.c
-> > @@ -43,6 +43,7 @@
-> >  #include <asm/tlbflush.h>
-> >  #include <asm/shmparam.h>
-> >  #include <linux/page_owner.h>
-> > +#include <linux/cleanup.h>
-> >
-> >  #define CREATE_TRACE_POINTS
-> >  #include <trace/events/vmalloc.h>
-> > @@ -158,10 +159,25 @@ static int vmap_try_huge_pmd(pmd_t *pmd, unsigned long addr, unsigned long end,
-> >  	if (!IS_ALIGNED(phys_addr, PMD_SIZE))
-> >  		return 0;
-> >
-> > -	if (pmd_present(*pmd) && !pmd_free_pte_page(pmd, addr))
-> > -		return 0;
-> > +	if (!pmd_present(*pmd))
-> > +		return pmd_set_huge(pmd, phys_addr, prot);
-> >
-> > -	return pmd_set_huge(pmd, phys_addr, prot);
-> > +	/*
-> > +	 * Kernel page table walkers either walk ranges they own exclusively
-> > +	 * using the mmap lock for mutual exclusion, or hold the mmap write lock
-> > +	 * on init_mm (ptdump being the motivating case).
-> > +	 *
-> > +	 * Therefore, acquire the mmap read lock to prevent use-after-free when
-> > +	 * freeing page tables.
-> > +	 */
-> > +#ifndef CONFIG_ARM64
-> > +	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
-> > +#endif
-> > +	{
-> > +		if (!pmd_free_pte_page(pmd, addr))
-> > +			return 0;
-> > +		return pmd_set_huge(pmd, phys_addr, prot);
-> > +	}
-> >  }
-> >
-> Note that we do not need to take the lock around pmd_set_huge - we don't
-> care if ptdump observes a temporarily cleared pmd entry. So how about keeping
-> this outside the guard block. Otherwise right now we have an inconsistency:
-> for !pmd_present() we do pmd_set_huge() without locking, but for pmd_present()
-> we do pmd_set_huge() with locking.
-
-As I said in the commit message I'm intentionally taking the lock around all of
-it so a concurrent ptdump sees either the leaf entry or the non-leaf entry.
-
-By doing that we can easiliy avoid the situation where a ptdump gives you
-inconsistent output and it makes more sense logically.
-
-So this is the opposite of inconsistent - if !pmd_present() the ptdump may
-observe the _genuine_ state of there not being an entry before. With
-pmd_present() it either observes what was or what became, not something
-inbetween :)
-
->
->
-
-Thanks, Lorenzo
