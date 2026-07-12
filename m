@@ -1,125 +1,160 @@
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D627B1D416C
-	for <stable@vger.kernel.org>; Sun, 12 Jul 2026 01:14:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDC8367B68
+	for <stable@vger.kernel.org>; Sun, 12 Jul 2026 02:28:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783818879; cv=none; b=oVoDgvbTF4Aw3ZLkMqVHzf46x9n6+/KLlVH0uT4FN+vwUcOFXcwVlOTIXlthQ3YtKUlO6dferonD1b8tfO1OWMjx0XaE98yABIAWzaOqrOvnXg7jy1tPLVwOdu33hG9NJeFATQfmdjq3pottCTCop38v4FTXEazZCqbfko09f1Q=
+	t=1783823302; cv=none; b=tODbFWaKzt+rIRg3tmbygAqgYlcx7/b4T/99P7GFTDbbg3YWx1fuLhUOQaTcHl4kp+3E2n98Pg2u123ticHucANqFD392TxYe1tpyitZuPC2CEo56HHxwDjp9P34mkBOAU4RtF8E+3Ha2BlO3wMQecG4PZ0MRVpsT9AxFBuFy2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783818879; c=relaxed/simple;
-	bh=GLdRNrfBScn58W+OaBAZaSME4KiOO6jA15XhdGdqKdU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TXhk3FWigQvn7B3VtYKIEuvbRECr+SE6gVBNWZIGlSfUNqrkx4wK0H5glnB5GFtdmTJ1JOiYfwNXIqkpJpR5XnXkLPy3J7GsmZIPQU8UuQ+4L8ZTPRhKP6kC435zLinftdKM3lp3TK4xXOOwAYkewyjqMDd6X7DzGpAQaVL1tjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hEVOCcC5; arc=none smtp.client-ip=91.218.175.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1783823302; c=relaxed/simple;
+	bh=/XXi4/Iro3IimjfiTkhAtvZ2AEOIhA7z95+0uqEhaZM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Kghy7KbnYdE1KS4SF00C6Jy6XwB3l/rmC5tVKldviysYxHdfHB9VVHz9/f+7VWGPdC1k2ib3XjOEnBy53WTsP7hDWIEGkhzA2SBjzL+gYyxLrWqNbTJNEEOba9nbv3ntK7A05ru9Yc6VW+aTfFlkOUpGOlU/PCok8RYFX8KS3MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ADve2VIA; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hEVOCcC5"
-Message-ID: <88169a4d-157a-4307-8e21-554b122fb411@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783818865;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xAdjGXolE8bZ9ddc0fiq07hvqt0bNR4iJP1GyPcJcxw=;
-	b=hEVOCcC5p/m7fKRTTlL+957hsqizSlFDzP0U7kz0kjxO2y6Vkr1espBueyl+xR6rd4ZKxj
-	+G+rnXvSaRl0IeWXg76dM1iONq3w5TwjRVeMLSUjwEHWkfdKRTtdg2fm7qT4opDapYquP0
-	V2jHXAvWyeqWQKdWd18SQtEK3qW/QOU=
-Date: Sun, 12 Jul 2026 09:14:12 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ADve2VIA"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493ae59eca6so9829735e9.1
+        for <stable@vger.kernel.org>; Sat, 11 Jul 2026 19:28:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783823299; x=1784428099; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9v2xjaJT4SDDaxVyK0ICK4aUWCNaYWLWaDqH0+d+J7M=;
+        b=ADve2VIABaerRPVpR2MQFEe1rDzOsMNkOH26YZbKNkU4XzhvqCU1jPD7dzxqITGhp+
+         acRAqbsjTU6ehYv1xtp+GugBqVBv3So4HpIkkx6vsCzql/AsZ4bosynnIU3c8Qly6b4K
+         jb9Vyq4gkxyMiYfqGdVpUGgqiPhvoMLyD14YUHio49RGcUVbI/I7xYkYWekhIk0KHI/T
+         XWvlmzVM5RkIxgsSTtl39kKhJYh2pclbAyTKcpkhUwG60sNKK8n0xZ+RTudVfgA/o6/R
+         +HcaBhJ7C/hGjUeTIEPUC9TmgHCAmOyZ9MSD8AgGnkHcdwM1FnbY4LgbBra7/2UG8W4t
+         7x9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783823299; x=1784428099;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9v2xjaJT4SDDaxVyK0ICK4aUWCNaYWLWaDqH0+d+J7M=;
+        b=PzQDF5ossPKn+05btpvT5HP1Vi3V/HMUHY5RTlz53ByG7s7lsQhjYaSrFBA4C1dohH
+         m2DTxohcAMHytPJjWXrLRxJp3LGu9c7wa72ERZGgBv2rHK63okCmNfd1kDv+efq2lw6/
+         eut3sPMJB1wEh5qB09rJoVei0N95tIN2f7f/JvORcJCY7Ol/g4cgmsk37ESNPVB96epw
+         gvk90Ahwqm2VUIItcMiyoe/8/i+UCcO9etynGaS4U/vTHVA4xDTkWxx4suqhrXQ9ExQQ
+         2EFyHjiQs3DGSrKqe2ApzGe4SbT1sSenAeCDV27hRf2l/gMYnn2ZzGqOiBHljNhkJaJX
+         83lw==
+X-Forwarded-Encrypted: i=1; AHgh+RpzsmmhCrgRFnljFSU0te291jwbFBvvNk/NgVNk0RW5Wpbz8Usk+R4JpG6pm0cPkcNFbl4+NJI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzw/Nz3mxTTlpjpMCmO+zuoD32JS+bYmINyWlhPI7Qon3Xkej6A
+	Pt4SFqx/kMWxtj5uI+PTmRBiG9hF1FUGdPZH02TZmLc6H0R28hlhrk78
+X-Gm-Gg: AfdE7cm0zQRDwgNsPLf7DCmvJ8GnFhFcH0HwJVR97S0kyjGOliVSMmgdOXEUBjx3v44
+	1SVuOZFLVK+w9crdWWKil+Z9X/shcxak2c6aPwocMmyeYY5uaRBl7hx0Hlu1TewqVfaV4fkn8Lg
+	eEInS9D4/jIOzdj+ckcncOKq/sv/Q8wQEZHtP0ZrNs5QR2Zq+REh3AmSl1JPkRyOcw+Kkk0qALz
+	xYv0yWxJ4EoshGvQ7DDArYlNtvXFug6rXgs5FLZEqwblnL+/HHib3H4JR4kQP+9FYRJxhIAys8b
+	Jxe6LaePdtISBtCTw9TwD9qbiveBnZulIGX5XvgVni1jn0GVv0/v1ue3EBsI0gphpBaPDLECk28
+	Lr4uyckhCCf2LkGHE6PcrzNtPGI887+bRpPOzG1PictHVKmRLXSJZdqtM3V66zx1a72ZyY4s1wY
+	whXm3JNVp9vUGxNctAbfRIMrZq/w==
+X-Received: by 2002:a05:600c:4e48:b0:490:bbc4:76a6 with SMTP id 5b1f17b1804b1-493f881ddedmr43809845e9.21.1783823298830;
+        Sat, 11 Jul 2026 19:28:18 -0700 (PDT)
+Received: from tt.. ([31.223.44.89])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6d5055sm252027875e9.5.2026.07.11.19.28.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Jul 2026 19:28:18 -0700 (PDT)
+From: =?UTF-8?q?Muhammet=20Kaan=20KILIN=C3=87?= <muhammetkaankilinc@gmail.com>
+To: sashal@kernel.org,
+	herbert@gondor.apana.org.au,
+	ebiggers@kernel.org
+Cc: linux-crypto@vger.kernel.org,
+	stable@vger.kernel.org,
+	=?UTF-8?q?Muhammet=20Kaan=20KILIN=C3=87?= <muhammetkaankilinc@gmail.com>
+Subject: [PATCH v2 0/2] crypto: algif_skcipher - fix AIO IV race in stable trees
+Date: Sun, 12 Jul 2026 02:26:15 +0000
+Message-ID: <20260712022618.1665-1-muhammetkaankilinc@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260705220112.2522-1-muhammetkaankilinc@gmail.com>
+References: <20260705220112.2522-1-muhammetkaankilinc@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v3] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for
- PMD holes
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: akpm@linux-foundation.org, usama.anjum@collabora.com, peterx@redhat.com,
- liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, jannh@google.com,
- pfalcato@suse.de, david@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, shuah@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, stable@vger.kernel.org, kernel-team@meta.com
-References: <20260709121629.205562-1-kirill@shutemov.name>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Zenghui Yu <zenghui.yu@linux.dev>
-In-Reply-To: <20260709121629.205562-1-kirill@shutemov.name>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 
-Hi Kiryl,
+The AF_ALG skcipher AIO path passes the socket-wide ctx->iv as a raw
+pointer into the async request. After io_submit() the socket lock is
+dropped and the request is processed by a worker, which dereferences
+ctx->iv only later. A concurrent sendmsg(ALG_SET_IV) on the same socket
+can overwrite ctx->iv inside this window, so the in-flight request runs
+under an attacker-controlled IV. For CTR and other stream modes this is
+IV/keystream reuse and lets an unprivileged user recover the plaintext
+of a concurrent operation.
 
-On 7/9/26 8:16 PM, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> PAGEMAP_SCAN reports an unpopulated PTE in a uffd-wp VMA as written, but
-> a range with no page table at all -- a PMD hole -- is skipped:
-> pagemap_scan_pte_hole() tests p->cur_vma_category, which never carries
-> PAGE_IS_WRITTEN, so the hole is neither reported nor (under
-> PM_SCAN_WP_MATCHING) armed.
-> 
-> MADV_DONTNEED has fill-with-zeros semantics: it changes the contents of
-> the range to zeroes (a subsequent read maps the zero page), which write
-> tracking must report as written. An anonymous THP is write-protected in
-> place as a huge PMD, so a full-PMD MADV_DONTNEED clears it to pmd_none --
-> a hole -- and the zeroing goes unreported. A write-tracking
-> checkpoint/migration tool (e.g. CRIU) then treats the range as unchanged
-> and keeps its previous contents, so after restore or live migration the
-> process reads stale data instead of zeroes -- data corruption.
-> 
-> Report a hole in a non-hugetlb uffd-wp VMA as written, matching the
-> pte_none handling in pagemap_page_category(); the existing
-> PM_SCAN_WP_MATCHING path then arms it via uffd_wp_range().
-> 
-> hugetlb is excluded: pagemap_hugetlb_category() reports an empty hugetlb
-> entry (huge_pte_none) as not-written, unlike pagemap_page_category(),
-> which reports pte_none as written. pagemap_scan_pte_hole() fires for a
-> hugetlb slot only when it has no page table; keeping that not-written
-> matches how an allocated-but-empty hugetlb entry reads, so the hole and
-> the empty-entry cases agree within the VMA.
-> 
-> Add a pagemap_ioctl selftest covering the anon-THP PMD-hole case.
-> 
-> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260707151349.92143-1-kirill@shutemov.name
-> Fixes: 2bad466cc9d9 ("mm/uffd: UFFD_FEATURE_WP_UNPOPULATED")
-> Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-> Cc: Peter Xu <peterx@redhat.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-> Assisted-by: Claude:claude-fable-5
-> ---
-> 
-> Changes since v2 [1], addressing Andrew's review:
->   - Describe the user-visible effect: MADV_DONTNEED has fill-with-zeros
->     semantics, so the range must be reported written; otherwise a
->     checkpoint/migration tool (CRIU) keeps stale data and the process
->     reads corrupted contents after restore. Add Reported-by/Closes.
->   - Reword the hugetlb carve-out to rest on the category functions:
->     pagemap_hugetlb_category() reads an empty hugetlb entry as
->     not-written, unlike pagemap_page_category().
->   - Drop the redundant MADV_COLLAPSE fallback #define; it is in
->     <asm-generic/mman-common.h> and used directly by other mm selftests.
+This is the skcipher counterpart of commit 5aa58c3a572b ("crypto:
+algif_aead - snapshot IV for async AEAD requests"), which fixed the
+identical race in algif_aead. The fix here uses the same approach:
+operate on a per-request snapshot of ctx->iv instead of the shared
+pointer, for the AIO branch only.
 
-I hit the following compilation error on mm-new:
+Like the aead fix, the updated IV is deliberately not written back to
+ctx->iv. Writing it back from the async completion callback would
+require lock_sock() there, but that callback can run in softirq/atomic
+context (a hardware skcipher driver may complete from a tasklet), so it
+must not sleep. Back-to-back AIO operations that relied on the implicit
+IV carry must instead set the IV explicitly per request (ALG_SET_IV),
+which is the documented usage. MSG_MORE chunked chaining is unaffected:
+it is carried by ctx->state via crypto_skcipher_export()/import(),
+independent of the IV snapshot.
 
-[root@localhost mm]# make
-  CC       pagemap_ioctl
-pagemap_ioctl.c: In function 'unpopulated_thp_hole_test':
-pagemap_ioctl.c:1130:31: error: 'MADV_COLLAPSE' undeclared (first use in this function); did you mean 'MADV_COLD'?
- 1130 |  if (madvise(mem, hpage_size, MADV_COLLAPSE) ||
-      |                               ^~~~~~~~~~~~~
-      |                               MADV_COLD
-pagemap_ioctl.c:1130:31: note: each undeclared identifier is reported only once for each function it appears in
-make: *** [../lib.mk:225: /root/code/mm/tools/testing/selftests/mm/pagemap_ioctl] Error 1
+Mainline removed the AIO socket path entirely in commit fcc77d33a34c
+("net: Remove support for AIO on sockets"), a broad net/ cleanup. There
+is therefore no mainline commit to backport: the sync/async split that
+creates this race was eliminated upstream along with the path, so
+mainline and its replacement are not affected by this bug class. This is
+submitted directly to stable under the documented exception in
+stable-kernel-rules.rst for fixes with no equivalent upstream commit.
 
-Could you consider addressing it like fd5295afae91 ("selftests/mm:
-hmm-tests: include linux/mman.h to access MADV_COLLAPSE")?
+The supported stable trees split into two cases:
 
-Thanks,
-Zenghui
+  - 6.12.y and 6.19.y carry ctx->state, so a per-request IV snapshot is
+    sufficient (patch 1).
+  - 6.1.y and 6.6.y lack ctx->state and chain the IV in-place; there a
+    snapshot alone would break MSG_MORE chaining, so the AIO path is
+    made synchronous, matching the upstream removal (patch 2). Patch 2
+    applies to both 6.1.y and 6.6.y.
+
+This is distinct from CVE-2026-31677 (a skcipher receive-accounting
+fix); it is an IV-handling race, not a receive-space guardrail.
+
+Reported to security@kernel.org on 2026-06-07 (follow-up 2026-06-19, no
+response). As the mainline removal is independent of that report and is
+not backportable, I am sending the stable fix here.
+
+Verified on 6.19.14 (patch 1):
+  - Race: with a concurrent sendmsg(ALG_SET_IV) hammer against 200000
+    AIO ops, the attacker IV is injected 0 times on the patched kernel
+    (v1 baseline reproduced plaintext recovery on 2857/200000 ops).
+  - Correct usage still works: a known-answer AIO test (raw io_submit,
+    AES-128-CTR) with an explicit per-request IV passes on both
+    ctr(aes) inline completion and cryptd(ctr(aes-generic)) deferred
+    completion.
+  - As expected, relying on the implicit ctx->iv carry between two
+    separate AIO ops no longer chains (this is the intentional
+    behaviour change, matching aead); a negative control confirms the
+    test is not vacuous.
+
+This supersedes v1:
+  https://lore.kernel.org/linux-crypto/20260705220112.2522-1-muhammetkaankilinc@gmail.com
+Changes in v2 address Sasha Levin's review of patch 1: the IV snapshot
+is now limited to the AIO branch, and rather than writing the IV back
+under lock_sock() in the completion callback (which can run in atomic
+context), the fix follows the aead sibling and does not write back.
+Full per-patch changelog is below each patch's --- line.
+
+A working PoC is available to maintainers on request; it will be
+published after the fix is picked up by the stable trees.
+
+Muhammet Kaan KILINÇ (2):
+  crypto: algif_skcipher - snapshot IV for async skcipher requests
+  crypto: algif_skcipher - force synchronous processing on trees without
+    ctx->state
