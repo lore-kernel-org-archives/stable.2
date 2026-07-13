@@ -1,158 +1,234 @@
-Received: from flow-b4-smtp.messagingengine.com (flow-b4-smtp.messagingengine.com [202.12.124.139])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF6D4314A4;
-	Mon, 13 Jul 2026 13:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB9F25B0B8
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783949887; cv=none; b=qy4Aes3VK1WIX07lFa/4hW6uw9FMB4rKPPa8R0WVdptDM4VgltpE6ctyPU8ryEWUpiDb9SkcZeOFEMI4CZL5u1mI8ayOtXCwy00x84ub3oHORR/sKgabF7K5tHe7igcfQgz3YAxIoSFLOXbK1K8WI8R+Ti2NMF4X3bDIUMzKsGA=
+	t=1783949934; cv=none; b=q/JQOzqTxxPN/HD3bar2lPRdiiAOfIyV2q6uNGVhqqIc9W1QhRlYSc3Z/Yg6JthbqPmxTDIY1WcrQSM8rT0tICIG3V8q+6RrT07k/ZM9X6w/Xp8LykUiPfv37SwfwbxXRhW2uu7QE3kHp9S4Tl1Fwk1+GV0ZJVhqfAEhTve4eZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783949887; c=relaxed/simple;
-	bh=zbfTA2VJjWQfugM0y3HKDpUMdj5msjiIH2TZdK1WrjI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ie9frmCWcQgmKY75xMnwUdEl5Bnw2U8nDZm3dhjjwcG38eZ30rJCb2RcPtQFLWlETUuc5Yb91osb9KbIClsApeCTRZduGYaz+Frg8OQOPvNhFWEjcFtymCgfEVrPL0d12QLlYI+wAPTr4MoSS5wegwB+Q5i4XRLKPVZHAjHwHbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=SnxlMej2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KVZ4xmzq; arc=none smtp.client-ip=202.12.124.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1783949934; c=relaxed/simple;
+	bh=VNJ+aQGkfU0BlfZtvrfPEZeQ86VyfkR7rVu407KYYqo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eHorF9r2+TRUO33GzZRw/k5X0ZQz+EahSKkk/8dYVznOlazI6NR8GX/CH+lWa55qzqBHjgT8jsD/oQnOZjYRTEXpmcuxz2X1ME3nh9nqpL9k2BlrYruMgQtRCqxt5Pbmm8HtuvHp8qc/3w0Zn9mms6hq/dYhSoGeyPgKE9pttpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=osqxt6al; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="SnxlMej2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KVZ4xmzq"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailflow.stl.internal (Postfix) with ESMTP id D5F5813000C4;
-	Mon, 13 Jul 2026 09:38:04 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Mon, 13 Jul 2026 09:38:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1783949884; x=
-	1783957084; bh=112Yvu8MDmd9GxnWgYRo8OOQeNBIsEEGqTciWSFqlIs=; b=S
-	nxlMej2TTJEJdZQwyjy/QgeFh9+k1ounA0jahS6aksRxAnCMkuwOn6chkBxI6WzQ
-	5BhoUBci/xVzsuMMCCMnLzhikutgaZV+tMBfhRDgmXzFwJ5mwRpzwpgl90jAAUNT
-	aR1vH3HbN9gmbrmatrNiWHd51a43tLLdrMDqgD67/VkwA6Xz0lyP+1a68jDJgec5
-	vi6ViS1aNO8WV2sXi5I9xE+8/EyIf1RNE0aV4oEeTFzRHSCerA09CJeuejAcmBcW
-	XM7JoZt+b4jcYsA1nWCsvHdk/OxrbpHMZBqoj3kiu4y8WRHJCRrY0AdGm134J5o1
-	YxeqRTtozOZ6I2k25i9HQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1783949884; x=1783957084; bh=1
-	12Yvu8MDmd9GxnWgYRo8OOQeNBIsEEGqTciWSFqlIs=; b=KVZ4xmzq8D226ZBsQ
-	4asGgbRqztjojoG9K+Ptvr2ESLfysvQV6Kx7pCaZL2e3+M96I6rCsX3b11vBTtQO
-	hdCtdaqg0RUj5uHD+CTmT2h9fwNDA8kYSz16RjdlxKUtvERTpIl0Bpp6APD/Jt4x
-	Mxf2+aKek2okYGMXzlkKQUmwJa+8cjJYsWyZWYKbnNKEX6VU7nKoUfdk4iplvCdP
-	jqoGS4vl0PIhd+1HvOstCbN17CwMm6TnIhk6ET+IcXz2pgBIqLXE0zH91BfEOWWN
-	y5m0cJ6PEsNNoaTdCoFAZIDJO+t0m+n0mdCGlXoVkTMsyDJ3Nh7yodX1RUwczJqj
-	rI6Nw==
-X-ME-Sender: <xms:POpUasU3WfQ8J9utIdv7h02WxmF7UFzfBh0w1S95h3nAhlEIcLcjzA>
-    <xme:POpUatwT7Ic0t1evl1iauSQcPG93VK1WXlJInLwd96rx-H_ndpa3zNtIbOWx8WRhk
-    fCzem0pMURg-amNBIrmTyy8lfSZUPyj1LE4a3K8-I2kvvy9jOwDLMTN>
-X-ME-Received: <xmr:POpUak6V4wf0DWDLByovSxtF0ZeaZqI1OguWuXp1GK23K1XnONjDDjqbqXZ_Vg>
-X-ME-Proxy-Cause: dmFkZTEW6S1SvXSlZs4OOnc4VahxjW69aaGDPVJd2EBjsmGIohL3aDaqbSu+8YkVanPFjR
-    tgfQDCCpmX969bn/U9UO+n3QFXz0q323naPF4jWiHMmRntzGcQhp3Vx2KAhMBucKBrMoVj
-    X5CwYvbDFJlTUkQTRAgKvI65LvTaLY14waW97LrBigSnkpE1VVt9mBrvLTUpmoEfS6d4eG
-    NKQd5S3QFjNq4Gy3l1vDGekWs+36+zmLytr+byevjqc4klRvGFU3gjURfoh9Tfq4eVG+a+
-    Cgqgl3n6aDHjUo+YCrNUfd8of0qgvvgGYEP4z2EH+IhHTWSStBT7XqcjOnyMOC1DkjQYMX
-    vH8zgGWR2ixyB/rEh8253RHKpjrS43SzwQtSH3LB3AZh6xNQY5gfxF4nBCzMk/8YR8HSoQ
-    fwW7D76ifB2ndnjsAGRCAZ6Xb26kxKS/6hOm30U77TwPv2NTc95nQQU2lzlkuW2z3qpd+I
-    JK3yXRpiyOtPFeS7RQ8K9pipl7bQDoiWczd/zPW2ao1maFXFG6lOiFrufnMqsxrBrskx95
-    CLTU1eJgfYwkBemJ6Sotnv+ZipxtQr5KLX9BjGTWdCKjL/ZLyGzzsGfObNSLwQhoByAGRq
-    82aKz2LNjMrhaG687s+bRC42Voc4QEgx3DqvsxcPq1HB2QzMN8ZZahDWNQhQ
-X-ME-Proxy: <xmx:POpUanituzHeGoASJzvZGmbF1FDFL8eayck3XMFWWm4HmaYHbCGjYQ>
-    <xmx:POpUaniRJCzRSBf63msiFbFX6_Bv4TlBbdLeSHf9EIekOk245ne_kA>
-    <xmx:POpUavlm9ZY5usq_RsqUkfFB8FhIZZ2CDwrtH_tcia48nEK3grP-2Q>
-    <xmx:POpUanEqh2oW6gQ6C8y_yzJ2TOTOZ6eCyXN4EOrze4C-FKriq0SnqA>
-    <xmx:POpUakt10YhM7s9lJZuMNT-i_znUd-TPIXPdsWCpCL48SSHrLRezflge>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 13 Jul 2026 09:38:03 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Dave Hansen <dave.hansen@linux.intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Kai Huang <kai.huang@intel.com>,
-	Xiaoyao Li <xiaoyao.li@intel.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Binbin Wu <binbin.wu@linux.intel.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Borys Tsyrulnikov <tsyrulnikov.borys@gmail.com>,
-	kvm@vger.kernel.org,
-	linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [PATCH v6 3/3] x86/tdx: Fix zero-extension for 32-bit port I/O
-Date: Mon, 13 Jul 2026 14:37:53 +0100
-Message-ID: <20260713133753.223947-4-kirill@shutemov.name>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260713133753.223947-1-kirill@shutemov.name>
-References: <20260713133753.223947-1-kirill@shutemov.name>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="osqxt6al"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66DCDH4j2437906;
+	Mon, 13 Jul 2026 13:38:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=QDT6Nx
+	UXtQ0d7xpPP4Zq7vIAgPv2bMd/AWmrj8RSsp0=; b=osqxt6al24b5Ab5z3NPTRc
+	sQUUDJIpfcrYtMYlCXYdx6gBifAx0jP9f3UEn7c7Mk+Tt8NK4mrCrsn8NUVjSgWA
+	+GScONzIT7Ta0DRYcC34/XDLdff4CvNgRg5p+OPWFDtfcJwFTKtczOnmpfINuvl7
+	qiQZzerr8e1PzWIOf1on5oG+NshlNOJ+1BINMXl1sxbGcvLR1HaaxOXMpxWCO0T7
+	Jaxec/QAySgbvbWlrg4KZmqheQ2mGAq3eueRNB6BGb7RKSZwlBdniLnYb9O37OdF
+	A49xN6BrypyhHJWHy+YgkitdNvOaj9OQzp+VbQPhwfIhzY9m2cGp/EtIg7PYKIQg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fbepx8v75-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Jul 2026 13:38:41 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66DDYlq8024929;
+	Mon, 13 Jul 2026 13:38:40 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fc2uxwjud-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Jul 2026 13:38:40 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66DDcaLe30736916
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 13 Jul 2026 13:38:36 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B212420043;
+	Mon, 13 Jul 2026 13:38:36 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D16C820040;
+	Mon, 13 Jul 2026 13:38:33 +0000 (GMT)
+Received: from [9.123.14.142] (unknown [9.123.14.142])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 13 Jul 2026 13:38:33 +0000 (GMT)
+Message-ID: <eaf57ed1-216c-4ccf-9418-d3ac3e32f078@linux.ibm.com>
+Date: Mon, 13 Jul 2026 19:07:51 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] powerpc/crash: stop watchdogs before booting kdump
+ kernel
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au
+Cc: npiggin@gmail.com, chleroy@kernel.org, shivangu@linux.ibm.com,
+        hbathini@linux.ibm.com, mahesh@linux.ibm.com, adityag@linux.ibm.com,
+        venkat88@linux.ibm.com, stable@vger.kernel.org,
+        Mahesh Kumar G <mahe657@linux.ibm.com>
+References: <20260713035954.1559605-1-sourabhjain@linux.ibm.com>
+ <20260713035954.1559605-4-sourabhjain@linux.ibm.com>
+ <o6gbv5jl.ritesh.list@gmail.com>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <o6gbv5jl.ritesh.list@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: cwabT_ne3oPpz8luNwdtUvsIYdM6W-bT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDEzOCBTYWx0ZWRfX3gaKfNxfCtpE
+ hKki+iv+VDoZPT7LSnfYQ+ch4liiXbB+k3SxuMspwTbG4SqzZgxrAH5vtqakxzEfG4yJwLxtqm2
+ +JHLm1HJ/4r3QDTnlxQ7UfItDsy4L+M=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDEzOCBTYWx0ZWRfXwITQfhe7hiGP
+ CKcdJuOP4h+FVNPU+M2Kjs+nffiRVKRK/cO3M7kTpdaWTXmml9YNnsMusJ1iLDlUKAma3Yr4vFW
+ izEKwnoUE1+PwRdDpDR6k/NionnitXOU7EZslMME4VAZM3gMfn98arEcFymY2ABagYqdF2Z6bJo
+ OfN41XlcCKUrN42KkFcE2bmt2akGlOVDgqCJUcj7fkNjxlplClL7XkTd7RX0xQDWxcYi5FsfJoM
+ Aq6aWff3FJDrjwbYF4qWvo0oKpAOptmyqBtT/7AB6qvrqQladuJn1IZwhv290TwAwo0F7LnrOjv
+ y7nu6yZGrgSLPROwxM8ALEMIn2Gq9A/NbsffLUltDLMulP09jM83B5YzjZVKM0pXIzsXg6/tLK4
+ aUl+UEOFHTyTp5Acx4BtgNkw/ZNAbzQOXTRGkR57M0vzQ1gBTIvBbHKpJq85CeBzgODbQA/j3Vz
+ JCSidm851+98zKdP41g==
+X-Authority-Analysis: v=2.4 cv=XbS5Co55 c=1 sm=1 tr=0 ts=6a54ea62 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=pGLkceISAAAA:8 a=D1YSW_bcgk-0_7OrHpMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: XlhPyuiRcGrhvbLG99jKz4skMF3Aw6eA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_03,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 spamscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130138
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-According to x86 architecture rules, 32-bit operations zero-extend the
-result to 64 bits. The current implementation of handle_in() only masks
-the lower 32 bits, which preserves the upper 32 bits of RAX when a
-32-bit port IN instruction is emulated.
 
-Use insn_assign_reg() to write the result back into RAX with proper
-partial-register-write semantics: 1- and 2-byte forms leave the upper
-bits untouched, the 4-byte form zero-extends to the full register.
+On 13/07/26 10:40, Ritesh Harjani (IBM) wrote:
+> Sourabh Jain <sourabhjain@linux.ibm.com> writes:
+>
+>> On pseries LPAR systems, watchdog timers configured from userspace can
+>> remain active after a kernel panic. When a panic triggers kdump, the
+>> crashing kernel jumps directly to the kdump kernel without stopping
+>> active watchdogs. As a result, the watchdogs remain active after the
+>> kdump kernel starts.
+>>
+>> If dump capture takes longer than the watchdog timeout, PHYP resets the
+>> LPAR before the dump is fully captured, causing dump capture to fail.
+>>
+>> Fix this by issuing the `H_WATCHDOG` hcall during the crash shutdown
+>> sequence to stop all active watchdogs before booting the kdump kernel.
+>>
+>> Fixes: 69472ffa6575 ("watchdog/pseries-wdt: initial support for H_WATCHDOG-based watchdog timers")
+>> Reported-by: Mahesh Kumar G <mahe657@linux.ibm.com>
+>> Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+>> ---
+>>   arch/powerpc/include/asm/papr-watchdog.h |  2 ++
+>>   arch/powerpc/platforms/pseries/setup.c   | 18 ++++++++++++++++++
+>>   2 files changed, 20 insertions(+)
+>>
+>> diff --git a/arch/powerpc/include/asm/papr-watchdog.h b/arch/powerpc/include/asm/papr-watchdog.h
+>> index fb3a511aa861..84bbe1ddd56f 100644
+>> --- a/arch/powerpc/include/asm/papr-watchdog.h
+>> +++ b/arch/powerpc/include/asm/papr-watchdog.h
+>> @@ -55,4 +55,6 @@
+>>   #define PSERIES_WDTQ_MIN_TIMEOUT(cap)	(((cap) >> 48) & 0xffff)
+>>   #define PSERIES_WDTQ_MAX_NUMBER(cap)	(((cap) >> 32) & 0xffff)
+>>   
+>> +#define PSERIES_WDT_NUM_ALL	((unsigned long)-1)
+>> +
+> minor nit:
+>
+> This should be defined at the end of the H_WATCHDOG Input section.
+> /*
+>   * H_WATCHDOG Input
+>   *
+>
+> <...>
+>
+> Something like this maybe?
+>
+> /*
+>   * R5: "watchdogNumber":
 
-Fixes: 03149948832a ("x86/tdx: Port I/O: Add runtime hypercalls")
-Reported-by: Borys Tsyrulnikov <tsyrulnikov.borys@gmail.com>
-Link: https://lore.kernel.org/all/CAKw_Dz96rfSQc6Rn+9QBcUFHhmkK+9zu+P=bxowfZwxrATCBRg@mail.gmail.com/
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Cc: stable@vger.kernel.org
----
- arch/x86/coco/tdx/tdx.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+Makes sense. Since this is the third argument to the hypercall,
+R5 is the correct register to use in the comment.
 
-diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
-index b8bbd715fb62..f904a636d449 100644
---- a/arch/x86/coco/tdx/tdx.c
-+++ b/arch/x86/coco/tdx/tdx.c
-@@ -694,8 +694,8 @@ static bool handle_in(struct pt_regs *regs, int size, int port)
- 		.r13 = PORT_READ,
- 		.r14 = port,
- 	};
--	u64 mask = GENMASK(BITS_PER_BYTE * size - 1, 0);
- 	bool success;
-+	u64 val;
- 
- 	/*
- 	 * Emulate the I/O read via hypercall. More info about ABI can be found
-@@ -703,11 +703,9 @@ static bool handle_in(struct pt_regs *regs, int size, int port)
- 	 * "TDG.VP.VMCALL<Instruction.IO>".
- 	 */
- 	success = !__tdx_hypercall(&args);
-+	val = success ? args.r11 : 0;
- 
--	/* Update part of the register affected by the emulated instruction */
--	regs->ax &= ~mask;
--	if (success)
--		regs->ax |= args.r11 & mask;
-+	insn_assign_reg(&regs->ax, val, size);
- 
- 	return success;
- }
--- 
-2.54.0
+>   *       PAPR says use -1 (all ones) to stop all watchdogs.
+>   */
+> #define PSERIES_WDT_NUM_ALL	((unsigned long)-1)
+>
+> /*
+>   * H_WATCHDOG Output
+>   *
+>   * R3: Return code
+>   *
+>   <...>
+>
+>>   #endif /* _ASM_POWERPC_CRASHDUMP_PPC64_H */
+>> diff --git a/arch/powerpc/platforms/pseries/setup.c b/arch/powerpc/platforms/pseries/setup.c
+>> index bbb2813f8ede..2e40a9dba637 100644
+>> --- a/arch/powerpc/platforms/pseries/setup.c
+>> +++ b/arch/powerpc/platforms/pseries/setup.c
+>> @@ -77,6 +77,7 @@
+>>   #include <asm/dtl.h>
+>>   #include <asm/hvconsole.h>
+>>   #include <asm/setup.h>
+>> +#include <asm/papr-watchdog.h>
+>>   
+>>   #include "pseries.h"
+>>   
+>> @@ -185,6 +186,18 @@ static void __init fwnmi_init(void)
+>>   #endif
+>>   }
+>>   
+>> +#ifdef CONFIG_CRASH_DUMP
+>> +static void pseries_crash_stop_watchdogs(void)
+>> +{
+>> +	long rc;
+>> +
+>> +	rc = plpar_hcall_norets_notrace(H_WATCHDOG, PSERIES_WDTF_OP_STOP,
+>> +					PSERIES_WDT_NUM_ALL);
+>> +	if (rc != H_SUCCESS && rc != H_NOOP)
+>> +		pr_warn("Could not stop watchdogs before kdump rc=%ld\n", rc);
+>> +}
+>> +#endif /* CONFIG_CRASH_DUMP */
+>> +
+>>   /*
+>>    * Affix a device for the first timer to the platform bus if
+>>    * we have firmware support for the H_WATCHDOG hypercall.
+>> @@ -203,6 +216,11 @@ static __init int pseries_wdt_init(void)
+>>   		return PTR_ERR(pseries_wdt_dev);
+>>   	}
+>>   
+>> +#ifdef CONFIG_CRASH_DUMP
+>> +	if (crash_shutdown_register(pseries_crash_stop_watchdogs))
+>> +		pr_warn("Could not register watchdog crash shutdown handler\n");
+>> +#endif
+>> +
+> minor nit:
+> I don't think we need any of the #ifdef. All definitions used inside
+> pseries_crash_stop_watchdogs are already available and
+> crash_shutdown_register() already exists for !CONFIG_CRASH_DUMP, so we
+> may as well drop all of the ifdefs.
+
+Yes, the #ifdef is not really needed  because crash_shutdown_register() is
+always available.
+
+I removed the #ifdef blocks and built the kernel both with and without
+CONFIG_CRASH_DUMP. The kernel built successfully in both cases.
+
+>
+>
+> Otherwise LGTM, so feel free to add:
+> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Thanks for the review.
+
+- Sourabh Jain
 
