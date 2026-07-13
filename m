@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F4719F121
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 12:49:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0387321773D
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 12:49:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783946952; cv=none; b=oJRo1E2kcpPjeJBKHdFLyg2G4gTpuqJsMrhlZOAgMjMyk+F+W99nPaFMG23OtaPlvMzN/N06A7lbaVK2mfqeFcdaAL/bDkRmNWlwN+JmOktnlsvPgnWZemn0Rll9cW0XB2Aw0Aptpio3WhdAJ36XGomzV1pvFHr1H5G5FW/ptr4=
+	t=1783946964; cv=none; b=o3v0UbVPd7mnTgTP6p5Bjo38b62OHClawVeDelulimFTs+jIA7sBS9JfqQ2o6zJTuPvOWC2ygodLM6D7+BEpne7GBpLjs4f+VkG66QatrRbUXbbksiQfQrorZpLLMMvkAqpuQpniOYUPIPj7d213bClfwPJxHBj7BZP9+EEQYQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783946952; c=relaxed/simple;
-	bh=FAGdPy+lsZRuRfEPFQJAZ8cjKo8xI0mRZoZZp54rw98=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FR6m45fTuVhSGdQJTAPkiuk2li6eczCwIqkwQrh/mE1fOYuwoCBg2iLyhV+UstPTk15UVHEKKdEuCX8FNhprvsHB+0DpeHl65DH7thUMeHJSXmWyhtPNkhWWVXoflwLhEzbvDJp86LJangI7ThWPLaa5E7D6xs2TqSwvGLeTSEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=F7aLObn0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783946964; c=relaxed/simple;
+	bh=7PvpU6ZCtmKaE35IEJuqgUOZnw1nHxD1i+WiFUla+6E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oZk9VBgGDJLFGkGQaAV+WeP12Zm0wqyHUveJJij3ncPI4JWniNNJROuDx9OEN6piYiv6G4Hi/iT4js9cQCgMvpqvQHkd3w2XKmobotBv4VcvmFwHZfH2szQtxWwZ0AxN99bUXa64RKdRw+vmE+uMQpuD+aTWgKA1B/VUPYWntTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FTwD0wS5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="F7aLObn0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ED381F000E9;
-	Mon, 13 Jul 2026 12:49:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FTwD0wS5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13BF11F000E9;
+	Mon, 13 Jul 2026 12:49:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783946951;
-	bh=0Ak1ajwie8eglaW2AxOcuwQNdQgUjCCEa0HpSReX+oI=;
+	s=korg; t=1783946962;
+	bh=b26JQAdp+q6Gx2hZpTdQsU0YXM7gVWdUfcVIlSL104I=;
 	h=Subject:To:Cc:From:Date;
-	b=F7aLObn0xsoUmgnz0OUhecMCcFxygGKbVCLyKqGarEwMX6eBn/7n37J+XAq9DQZLe
-	 Tkt8rUHF+4Vffne4d1G2vwplH2mnC+M5hqarMQGsawL5Jk7UJ0bQcGlKgzYLUpiYBH
-	 4UpFIHQvZ3TrzT+VO14HJ2KYKDtzFHrWzJbME76E=
-Subject: FAILED: patch "[PATCH] iio: imu: adis: add IRQF_NO_THREAD to non-FIFO trigger IRQ" failed to apply to 5.10-stable tree
-To: runyu.xiao@seu.edu.cn,jic23@kernel.org
+	b=FTwD0wS5A9cndsLzZU9YVc2lrCzcGd+bA7O8Q3fB7/vrDaoNsCLa7bmuztqEt4NUW
+	 s3f7hvvFbJ6u+11OrHY/BoJWG0K/NetVm/ai7yqDLZYakcokzdjb4fNtrNfowWl0Zh
+	 u3PjCG6K2aL0RWYcnpTlxdIObivS+1t1rdYHli6g=
+Subject: FAILED: patch "[PATCH] iio: imu: inv_icm42600: fix timestamping by limiting FIFO" failed to apply to 6.6-stable tree
+To: jean-baptiste.maneyrol@tdk.com,jic23@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 14:48:53 +0200
-Message-ID: <2026071353-jackpot-overcrowd-9420@gregkh>
+Date: Mon, 13 Jul 2026 14:49:17 +0200
+Message-ID: <2026071317-seventeen-sedate-4f50@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6e1b9bff1202da55c464e36bd34a2b6863d7fe30
+git cherry-pick -x affe3f077d7a4eeb25937f5323ff059a54b4712c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071353-jackpot-overcrowd-9420@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071317-seventeen-sedate-4f50@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,43 +62,68 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6e1b9bff1202da55c464e36bd34a2b6863d7fe30 Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Thu, 4 Jun 2026 09:42:46 +0800
-Subject: [PATCH] iio: imu: adis: add IRQF_NO_THREAD to non-FIFO trigger IRQ
+From affe3f077d7a4eeb25937f5323ff059a54b4712c Mon Sep 17 00:00:00 2001
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Date: Mon, 29 Jun 2026 21:51:55 +0200
+Subject: [PATCH] iio: imu: inv_icm42600: fix timestamping by limiting FIFO
+ reading
 
-devm_adis_probe_trigger() registers iio_trigger_generic_data_rdy_poll()
-through devm_request_irq() on the non-FIFO path, but it does not add
-IRQF_NO_THREAD to the IRQ flags.
+Timestamps are made by measuring the chip clock using the watermark
+interrupts. If we read more than watermark samples as done today, we
+are reducing the period between interrupts and distort the time
+measurement. Fix that by reading only watermark samples in the
+interrupt case.
 
-When the kernel is booted with forced IRQ threading, the parent IRQ can
-otherwise be threaded by the IRQ core and the subsequent IIO trigger
-child IRQ is then dispatched from irq/... thread context instead of
-hardirq context. Because iio_trigger_generic_data_rdy_poll()
-immediately drives iio_trigger_poll(), this violates the hardirq-only
-IIO trigger helper contract and can push downstream trigger consumers
-through the wrong execution context.
-
-Add IRQF_NO_THREAD on top of the existing adis->irq_flag value for the
-non-FIFO request_irq() path, while preserving the current trigger
-polarity and IRQF_NO_AUTOEN behavior.
-
-Fixes: fec86c6b8369 ("iio: imu: adis: Add Managed device functions")
+Fixes: 7f85e42a6c54 ("iio: imu: inv_icm42600: add buffer support in iio devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 
-diff --git a/drivers/iio/imu/adis_trigger.c b/drivers/iio/imu/adis_trigger.c
-index d76e13cbac68..3e6a7af6ab01 100644
---- a/drivers/iio/imu/adis_trigger.c
-+++ b/drivers/iio/imu/adis_trigger.c
-@@ -94,7 +94,7 @@ int devm_adis_probe_trigger(struct adis *adis, struct iio_dev *indio_dev)
- 	else
- 		ret = devm_request_irq(&adis->spi->dev, adis->spi->irq,
- 				       &iio_trigger_generic_data_rdy_poll,
--				       adis->irq_flag,
-+				       adis->irq_flag | IRQF_NO_THREAD,
- 				       indio_dev->name,
- 				       adis->trig);
- 	if (ret)
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
+index 68a395758031..5c3840acf085 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
+@@ -248,6 +248,7 @@ int inv_icm42600_buffer_update_watermark(struct inv_icm42600_state *st)
+ 
+ 	/* compute watermark value in bytes */
+ 	wm_size = watermark * packet_size;
++	st->fifo.watermark.value = watermark;
+ 
+ 	/* changing FIFO watermark requires to turn off watermark interrupt */
+ 	ret = regmap_update_bits_check(st->map, INV_ICM42600_REG_INT_SOURCE0,
+@@ -454,11 +455,10 @@ int inv_icm42600_buffer_fifo_read(struct inv_icm42600_state *st,
+ 	st->fifo.nb.accel = 0;
+ 	st->fifo.nb.total = 0;
+ 
+-	/* compute maximum FIFO read size */
++	/* compute maximum FIFO read size (watermark for max = 0 interrupt case) */
+ 	if (max == 0)
+-		max_count = sizeof(st->fifo.data);
+-	else
+-		max_count = max * inv_icm42600_get_packet_size(st->fifo.en);
++		max = st->fifo.watermark.value;
++	max_count = max * inv_icm42600_get_packet_size(st->fifo.en);
+ 
+ 	/* read FIFO count value */
+ 	raw_fifo_count = (__be16 *)st->buffer;
+@@ -574,6 +574,7 @@ int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
+ 
+ 	st->fifo.watermark.eff_gyro = 1;
+ 	st->fifo.watermark.eff_accel = 1;
++	st->fifo.watermark.value = 1;
+ 
+ 	/*
+ 	 * Default FIFO configuration (bits 7 to 5)
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
+index ffca4da1e249..88b8b9f780af 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
+@@ -34,6 +34,7 @@ struct inv_icm42600_fifo {
+ 		unsigned int accel;
+ 		unsigned int eff_gyro;
+ 		unsigned int eff_accel;
++		unsigned int value;
+ 	} watermark;
+ 	size_t count;
+ 	struct {
 
