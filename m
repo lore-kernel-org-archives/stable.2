@@ -1,143 +1,124 @@
-Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com [207.226.244.123])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E170A13B584;
-	Mon, 13 Jul 2026 11:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.226.244.123
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8AC381EBE
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 12:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783943798; cv=none; b=tnYG65yHy5uO/f8c2mkHgPHWoXRVxmGtWTaiblqmNSyaTISxviMU+z4yVahx6uToyX10PnA3Mpq7pmmVV30tFZcLoeRTgUltYHDRbqvwc4AQnbByTrc67dQOs8C0S4qaSTnIJHyfNxCPPmdHstGtdaNE4zUuhIbSmu3C9gSXhtE=
+	t=1783944260; cv=none; b=cl2Tcmfba8qm8NeQ5r7ceuoyF67lZqk1p4JJQc4YoaXaRzCInBIoW24DV7Ac/P7PWRKFUYICaxN55d9mVvgHlO0wgPd5z1+HBZBotP2qYFurN95IJvj+352tPUkbMRIAu/Z5IHHomieiMDbAXNRcE3rrw71EHTGiEgfZtVjvEBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783943798; c=relaxed/simple;
-	bh=xtymU8NG0eH+GCXITTY2h0ndNB4TG5LSUGP+14PbmRc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=iLQyXuL7HpXCg1rwV/kF68lqDFuHQqNrAHYK4u88YGIGrgPHtqSwzjhiDL11bOjiQ4IgxhF/Cpxx1SXRbGArkwTh6vyV2HpDI+YyIulR+vSYcp1+usqArmoEsrCvtS/g2bCDwLQXo+wP9hm3PbYGI/AMqCIKmn+4706Yx4N7QEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=xiaomi.com; arc=none smtp.client-ip=207.226.244.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaomi.com
-X-CSE-ConnectionGUID: k57qhnG0TPi1BsHXpg8drg==
-X-CSE-MsgGUID: sRJmSz8LS+WD8X26Nu4CRg==
-X-IronPort-AV: E=Sophos;i="6.25,154,1779120000"; 
-   d="scan'208";a="182163904"
-From: =?gb2312?B?wu2zrA==?= <machao26@xiaomi.com>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>, "akpm@linux-foundation.org"
-	<akpm@linux-foundation.org>, "hughd@google.com" <hughd@google.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-CC: "kasong@tencent.com" <kasong@tencent.com>, "baohua@kernel.org"
-	<baohua@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	=?gb2312?B?zO/QorHz?= <tianxiaobin@xiaomi.com>, =?gb2312?B?0+G2q7Hz?=
-	<yudongbin@xiaomi.com>, =?gb2312?B?wO7F9LPM?= <xiaoyaoli@xiaomi.com>
-Subject: =?gb2312?B?u9i4tDogW0V4dGVybmFsIE1haWxdW1BBVENIIDYuMTgueSB2Ml0gbW06IHNo?=
- =?gb2312?B?bWVtOiBmaXggcG90ZW50aWFsIGxpdmVsb2NrIGlzc3VlIGZvciBzaG1lbSBk?=
- =?gb2312?Q?irect_swapin?=
-Thread-Topic: [External Mail][PATCH 6.18.y v2] mm: shmem: fix potential
- livelock issue for shmem direct swapin
-Thread-Index: AQHdEBErMsmrE+zz7EKRA3z2tbO3PLZrXI5Q
-Date: Mon, 13 Jul 2026 11:55:24 +0000
-Message-ID: <636829064b674f71a11095603edcb20a@xiaomi.com>
-References: <c0b158fe3f25709543b48a9d81b1933120a9e2ba.1783648317.git.baolin.wang@linux.alibaba.com>
-In-Reply-To: <c0b158fe3f25709543b48a9d81b1933120a9e2ba.1783648317.git.baolin.wang@linux.alibaba.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1783944260; c=relaxed/simple;
+	bh=vV1VhIAuONEmnbG4Bp5VF4zsUQEK2yLhV+oC4X2dBtY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wt8rVK1cfATFxP+3PHwNynKLUWRyCO0uSAS9hE9Alkj+pyTbIbvZ273ClgoFC1a3w2W09lLe/G+Azdjxk7LB8lVH1rD1jfYc6SOdfu19l1nr58o15Qq3dEiM7HJMQ94kMz1QO2zwcCNe8G1PKLyfa04pK8hzW2CD2JKnaoONYaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VWgPC3zO; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VWgPC3zO"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3810c5d691bso2384478a91.1
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 05:04:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783944259; x=1784549059; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xbBLBFXxW/JBreBI2+xziQALRD5/GvPJ/LzRgunvQI0=;
+        b=VWgPC3zOx4E3aE7XEowf+iWjq6l3HEyXwciNqSLMRUOJh0/cxBCPxspWeeMRb3ean6
+         yQJk8YzHrs+FCDC2KAHsoSXwscJFNUmP7xsclCG1/+KVFBlaAX68HgaNINeUUBQa/Y3p
+         5Zrbery222htoJ5Kb6HlhKW3rR0XBj1IW60W/nueUzBpwd7Q7qxQn9TqQn43NkqKHuOl
+         0YgufI7CmWSw4vHF7pHlDp4AojN65MUaLZMaKPGMbmNzj7pG3TsRm6Ef8qvkKEztVtaf
+         5STvKhmjYHU8Bpgllrxd0TnbeFkB6j2XBiWGDcgMc50t5p4j8IhHvVnci1IZbcWrM+dt
+         zWkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783944259; x=1784549059;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xbBLBFXxW/JBreBI2+xziQALRD5/GvPJ/LzRgunvQI0=;
+        b=qhwomH8D4F376zFv7L2FtCwOD7vP/YW1EJvc8Xsp3XKkazAJ8yKovgnFl6D5GfQac/
+         N6Ys/c3V8Sx4OKJaZbOKoUJRxOrjUjVlHxCjpOLNVnCe1ObcjM+d38zorb6gnpYUrve8
+         QVOU5paAW29sFwShosjtB+4UChjvpElLv+ETcYHbmmpcB0es4e/+htbNcOK9d+WWzg54
+         Wzgr6vzF4JmYnzB66LzsGuUXW5QMs++pWyJpHsTUOjljOIasb2VLnyHkvL7+QE4lmaob
+         k0UHNbuEaiEurxV8JBRmP1aB3RP3aJWJZhiaJWkXur4a1qCTXtZRI0AnaCha0anKWHkE
+         ip1Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rqn491O1KyUO1h5Ki2zZcrYcnkpRt37/a5zZJ3n3IdnpvgHBzIc5BG2GDEvkknyaW1aV5jqnwE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCZBdd57SMZ9b9cmNcgMG0h0i4w0nTHk02tFn7hWYGvtgduSA8
+	9hBF48bsJ5x4UjiZMQYs0SjjgtTKDQCQMlkdvq0MmDfPXfIw3HSgmMEw
+X-Gm-Gg: AfdE7cnyNzOTUa9KM9S9DyWdbZEg1xvOVwtLYUUcnSOPqLwKm4KkIHwcDWGPW+1DJ2K
+	v0N10URtvDUYKTuVOtnGHXVSluhkkiHt+NLqAbUKGoCibrfYpvR2mFWOG4bWcWUWzvwBtHbl77q
+	hym7JlYo2VoZm/6Zx3zTSaiKoGFzjpZ4cepf+VeTaR9907VobU2RVzVK+ADRAu6cU0L0lep3USv
+	ffN9FgytGvvhSXkuE1B/Ha9ZwqWJiGL9PscvwaM25Sdv1dWvz8dlDdJnutAetXfIsMyLOP6PSxe
+	gMgb7WBI2eA2SCkjSNIpgEKKTdvwCttdqywIfAeq9hukS48aGyrujmJEMFyoAbE5J6mqBwv96As
+	BKXkXfXH6PE3vIriECnyOC0toOUS/LFbJD/Iv8/cZ9i845MIsxXGgE4JhCmAehiMVq1ELI0ieN6
+	hMHHr2Jw==
+X-Received: by 2002:a17:90b:3d48:b0:380:7d9f:81f1 with SMTP id 98e67ed59e1d1-38dc74c49acmr8119797a91.3.1783944258918;
+        Mon, 13 Jul 2026 05:04:18 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::f280])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38a5506b48bsm6419887a91.1.2026.07.13.05.04.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 05:04:18 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] intel_th: Fix MSC output device reference leak
+Date: Mon, 13 Jul 2026 20:02:05 +0800
+Message-ID: <20260713120205.1003691-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-PldoZW4gc2tpcHBpbmcgc3dhcGNhY2hlIGZvciBzeW5jaHJvbm91cyBJTyBzd2FwIGRldmljZXMs
-IHN3YXBjYWNoZV9wcmVwYXJlKCkgaXMgdXNlZCB0byBwcmV2ZW50IHBhcmFsbGVsIHN3YXBpbiBm
-cm9tIHByb2NlZWRpbmcgd2l0aCB0aGUgc3dhcCBjYWNoZSBmbGFnLg0KPkhvd2V2ZXIsIG9uIFBS
-RUVNUFQga2VybmVscyB0aGlzIGNhbiBsZWFkIHRvIGEgbGl2ZWxvY2ssIGFzIHJlcG9ydGVkIGJ5
-IENoYW9bMV06DQo+DQo+VGhyZWFkIEEgc3RhcnRzIGRpcmVjdCBzd2FwaW4gb2YgYSBzaG1lbSBm
-b2xpbyBhbmQgY2FsbHMgc3dhcGNhY2hlX3ByZXBhcmUoKSB0byBzZXQgU1dBUF9IQVNfQ0FDSEUu
-IEl0IG1heSB0aGVuIGJlIHByZWVtcHRlZCBpbnNpZGUgd29ya2luZ3NldF9yZWZhdWx0KCkuDQo+
-TWVhbndoaWxlLCBhIGhpZ2hlciBwcmlvcml0eSB0aHJlYWQgQiBhbHNvIGF0dGVtcHRzIGRpcmVj
-dCBzd2FwaW4gb2YgdGhlIHNhbWUgc2htZW0gc3dhcCBlbnRyeS4gU2luY2Ugc3dhcGNhY2hlX3By
-ZXBhcmUoKSBhbHJlYWR5IG1hcmtzIHRoZSBlbnRyeSwgdGhyZWFkIEIgcmVwZWF0ZWRseSBnZXRz
-IC1FRVhJU1QgYW5kIGJ1c3ktbG9vcHMgd2FpdGluZyBmb3IgdGhyZWFkIEEgdG8gZmluaXNoLiBC
-dXQgYXMgdGhyZWFkIEIgcnVucyBhdCBoaWdoZXIgcHJpb3JpdHksIHRocmVhZCBBIGNhbm5vdCBw
-cmVlbXB0IGl0LCByZXN1bHRpbmcgaW4gc3RhcnZhdGlvbiBhbmQgYSBsaXZlbG9jay4NCj4NCj5G
-aXggaXQgYnkgeWllbGRpbmcgdGhlIENQVSB3aXRoIHNjaGVkdWxlX3RpbWVvdXRfdW5pbnRlcnJ1
-cHRpYmxlKDEpIHdoZW4NCj5zd2FwY2FjaGVfcHJlcGFyZSgpIGZhaWxzLCBmb2xsb3dpbmcgdGhl
-IHNhbWUgYXBwcm9hY2ggdXNlZCBpbiBjb21taXQgMDI5YzQ2MjhiMmViICgibW06IHN3YXA6IGdl
-dCByaWQgb2YgbGl2ZWxvY2sgaW4gc3dhcGluIHJlYWRhaGVhZCIpIGFuZCBjb21taXQgMTNkZGFm
-MjZiZTMyICgibW0vc3dhcDogZml4IHJhY2Ugd2hlbiBza2lwcGluZyBzd2FwY2FjaGUiKS4NCj4N
-Cj5Ib3dldmVyLCBjb21taXQgMDE2MjZhMTgyMyAoIm1tOiBhdm9pZCB1bmNvbmRpdGlvbmFsIG9u
-ZS10aWNrIHNsZWVwIHdoZW4gc3dhcGNhY2hlX3ByZXBhcmUgZmFpbHMiKSBmb3VuZCB0aGF0IHRo
-ZSB1bmNvbmRpdGlvbmFsIG9uZS10aWNrIHNsZWVwIGNhbiBjYXVzZSBVSSBzdHV0dGVyaW5nIG9u
-IGxhdGVuY3ktc2Vuc2l0aXZlIEFuZHJvaWQgZGV2aWNlcy4gU28gd2UgY2FuIGZvbGxvdyB0aGUg
-c2FtZSBhcHByb2FjaCBieSBhZGRpbmcgYSB3YWl0cXVldWUgdG8gd2FrZSB1cCB0YXNrcyB3aGVu
-IG5lZWRlZCwgaW5zdGVhZCBvZiBhbHdheXMgc2xlZXBpbmcgZm9yIGEgZnVsbCB0aWNrLg0KPg0K
-Pk5vdGUgdGhhdCBtYWlubGluZSBkb2VzIG5vdCBoYXZlIHRoaXMgcG90ZW50aWFsIGlzc3VlLCB3
-aGljaCBoYXMgYWxyZWFkeSBiZWVuIHJlc29sdmVkIGJ5IEthaXJ1aSdzIHN3YXAgcmVmYWN0b3Jp
-bmcgd29ya1syXS4NCj4NCj5bMV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzcwMGEyY2Jm
-OTBhMjQ4NGY5NzlhYWM4NThmMDhmNWQ0QHhpYW9taS5jb20vDQo+WzJdIGh0dHBzOi8vbG9yZS5r
-ZXJuZWwub3JnL2FsbC8yMDI2MDUxNy1zd2FwLXRhYmxlLXA0LXY1LTAtODhhZTQzZTA2NGM3QHRl
-bmNlbnQuY29tLw0KPkZpeGVzOiAxZGQ0NGMwYWY0ZmEgKCJtbTogc2htZW06IHNraXAgc3dhcGNh
-Y2hlIGZvciBzd2FwaW4gb2Ygc3luY2hyb25vdXMgc3dhcCBkZXZpY2UiKQ0KPlJlcG9ydGVkLWJ5
-OiBNYSBDaGFvIDxtYWNoYW8yNkB4aWFvbWkuY29tPg0KPkNsb3NlczogaHR0cHM6Ly9sb3JlLmtl
-cm5lbC5vcmcvYWxsLzcwMGEyY2JmOTBhMjQ4NGY5NzlhYWM4NThmMDhmNWQ0QHhpYW9taS5jb20v
-DQo+U2lnbmVkLW9mZi1ieTogQmFvbGluIFdhbmcgPGJhb2xpbi53YW5nQGxpbnV4LmFsaWJhYmEu
-Y29tPg0KPi0tLQ0KPkNoYW5nZXMgZnJvbSB2MToNCj4gLSBBZGQgYSB3YWl0cXVldWUgdG8gd2Fr
-ZSB1cCB0YXNrcyB3aGVuIG5lZWRlZC4NCj4NCj5IaSBDaGFvLCBjb3VsZCB5b3UgdHJ5IHRoaXMg
-cGF0Y2ggdG8gY2hlY2sgaWYgZml4IHlvdXIgaXNzdWU/IFRoYW5rcy4NCj4tLS0NCj4gbW0vc2ht
-ZW0uYyB8IDE0ICsrKysrKysrKysrKystDQo+IDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25z
-KCspLCAxIGRlbGV0aW9uKC0pDQo+DQo+ZGlmZiAtLWdpdCBhL21tL3NobWVtLmMgYi9tbS9zaG1l
-bS5jDQo+aW5kZXggOTRjNWIwZDc4YWMzLi4zYzMyOWI3OTRhZTQgMTAwNjQ0DQo+LS0tIGEvbW0v
-c2htZW0uYw0KPisrKyBiL21tL3NobWVtLmMNCj5AQCAtMjAwNSwxMSArMjAwNSwxNCBAQCBzdGF0
-aWMgc3RydWN0IGZvbGlvICpzaG1lbV9hbGxvY19hbmRfYWRkX2ZvbGlvKHN0cnVjdCB2bV9mYXVs
-dCAqdm1mLA0KPiAgICAgICAgcmV0dXJuIEVSUl9QVFIoZXJyb3IpOw0KPiB9DQo+DQo+K3N0YXRp
-YyBERUNMQVJFX1dBSVRfUVVFVUVfSEVBRChzaG1lbV9zd2FwY2FjaGVfd3EpOw0KPisNCj4gc3Rh
-dGljIHN0cnVjdCBmb2xpbyAqc2htZW1fc3dhcF9hbGxvY19mb2xpbyhzdHJ1Y3QgaW5vZGUgKmlu
-b2RlLA0KPiAgICAgICAgICAgICAgICBzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3QgKnZtYSwgcGdvZmZf
-dCBpbmRleCwNCj4gICAgICAgICAgICAgICAgc3dwX2VudHJ5X3QgZW50cnksIGludCBvcmRlciwg
-Z2ZwX3QgZ2ZwKSAgew0KPiAgICAgICAgc3RydWN0IHNobWVtX2lub2RlX2luZm8gKmluZm8gPSBT
-SE1FTV9JKGlub2RlKTsNCj4rICAgICAgIERFQ0xBUkVfV0FJVFFVRVVFKHdhaXQsIGN1cnJlbnQp
-Ow0KPiAgICAgICAgaW50IG5yX3BhZ2VzID0gMSA8PCBvcmRlcjsNCj4gICAgICAgIHN0cnVjdCBm
-b2xpbyAqbmV3Ow0KPiAgICAgICAgZ2ZwX3QgYWxsb2NfZ2ZwOw0KPkBAIC0yMDY2LDYgKzIwNjks
-MTAgQEAgc3RhdGljIHN0cnVjdCBmb2xpbyAqc2htZW1fc3dhcF9hbGxvY19mb2xpbyhzdHJ1Y3Qg
-aW5vZGUgKmlub2RlLA0KPiAgICAgICAgaWYgKHN3YXBjYWNoZV9wcmVwYXJlKGVudHJ5LCBucl9w
-YWdlcykpIHsNCj4gICAgICAgICAgICAgICAgZm9saW9fcHV0KG5ldyk7DQo+ICAgICAgICAgICAg
-ICAgIG5ldyA9IEVSUl9QVFIoLUVFWElTVCk7DQo+KyAgICAgICAgICAgICAgIC8qIFJlbGF4IGEg
-Yml0IHRvIHByZXZlbnQgcmFwaWQgcmVwZWF0ZWQgcGFnZSBmYXVsdHMgKi8NCj4rICAgICAgICAg
-ICAgICAgYWRkX3dhaXRfcXVldWUoJnNobWVtX3N3YXBjYWNoZV93cSwgJndhaXQpOw0KPisgICAg
-ICAgICAgICAgICBzY2hlZHVsZV90aW1lb3V0X3VuaW50ZXJydXB0aWJsZSgxKTsNCj4rICAgICAg
-ICAgICAgICAgcmVtb3ZlX3dhaXRfcXVldWUoJnNobWVtX3N3YXBjYWNoZV93cSwgJndhaXQpOw0K
-PiAgICAgICAgICAgICAgICAvKiBUcnkgc21hbGxlciBmb2xpbyB0byBhdm9pZCBjYWNoZSBjb25m
-bGljdCAqLw0KPiAgICAgICAgICAgICAgICBnb3RvIGZhbGxiYWNrOw0KPiAgICAgICAgfQ0KPkBA
-IC0yNDIzLDYgKzI0MzAsOCBAQCBzdGF0aWMgaW50IHNobWVtX3N3YXBpbl9mb2xpbyhzdHJ1Y3Qg
-aW5vZGUgKmlub2RlLCBwZ29mZl90IGluZGV4LA0KPiAgICAgICAgaWYgKHNraXBfc3dhcGNhY2hl
-KSB7DQo+ICAgICAgICAgICAgICAgIGZvbGlvLT5zd2FwLnZhbCA9IDA7DQo+ICAgICAgICAgICAg
-ICAgIHN3YXBjYWNoZV9jbGVhcihzaSwgc3dhcCwgbnJfcGFnZXMpOw0KPisgICAgICAgICAgICAg
-ICBpZiAod2FpdHF1ZXVlX2FjdGl2ZSgmc2htZW1fc3dhcGNhY2hlX3dxKSkNCj4rICAgICAgICAg
-ICAgICAgICAgICAgICB3YWtlX3VwKCZzaG1lbV9zd2FwY2FjaGVfd3EpOw0KPiAgICAgICAgfSBl
-bHNlIHsNCj4gICAgICAgICAgICAgICAgc3dhcF9jYWNoZV9kZWxfZm9saW8oZm9saW8pOw0KPiAg
-ICAgICAgfQ0KPkBAIC0yNDQyLDggKzI0NTEsMTEgQEAgc3RhdGljIGludCBzaG1lbV9zd2FwaW5f
-Zm9saW8oc3RydWN0IGlub2RlICppbm9kZSwgcGdvZmZfdCBpbmRleCwNCj4gICAgICAgIGlmIChm
-b2xpbykNCj4gICAgICAgICAgICAgICAgZm9saW9fdW5sb2NrKGZvbGlvKTsNCj4gZmFpbGVkX25v
-bG9jazoNCj4tICAgICAgIGlmIChza2lwX3N3YXBjYWNoZSkNCj4rICAgICAgIGlmIChza2lwX3N3
-YXBjYWNoZSkgew0KPiAgICAgICAgICAgICAgICBzd2FwY2FjaGVfY2xlYXIoc2ksIGZvbGlvLT5z
-d2FwLCBmb2xpb19ucl9wYWdlcyhmb2xpbykpOw0KPisgICAgICAgICAgICAgICBpZiAod2FpdHF1
-ZXVlX2FjdGl2ZSgmc2htZW1fc3dhcGNhY2hlX3dxKSkNCj4rICAgICAgICAgICAgICAgICAgICAg
-ICB3YWtlX3VwKCZzaG1lbV9zd2FwY2FjaGVfd3EpOw0KPisgICAgICAgfQ0KPiAgICAgICAgaWYg
-KGZvbGlvKQ0KPiAgICAgICAgICAgICAgICBmb2xpb19wdXQoZm9saW8pOw0KPiAgICAgICAgcHV0
-X3N3YXBfZGV2aWNlKHNpKTsNCj4tLQ0KPjIuNDcuMw0KDQpXZSBoYXZlIGNvbmR1Y3RlZCBzdHJl
-c3MgdGVzdHMgb24gb3ZlciAxMCBwY3MgZm9yIDQwIGhvdXJzIGVhY2gsIGFuZCBubyByZWxldmFu
-dCBpc3N1ZXMgaGF2ZSBiZWVuIHJlcHJvZHVjZWQuDQojLyoqKioqKrG+08q8/rywxuS4vbz+uqzT
-0NChw9e5q8u+tcSxo8Pc0MXPoqOsvfbP3tPat6LLzbj4yc/D5rXY1rfW0MHQs/a1xLj2yMu78si6
-1+mho7371rnIzrrOxuTL+8jL0tTIzrrO0M7Kvcq508OjqLD8wKi1q7K7z97T2sirsr+78rK/t9a1
-2NC5wrahori01sahorvyyaK3oqOpsb7Tyrz+1tC1xNDFz6Kho8jnufvE+rTtytXBy7G+08q8/qOs
-x+vE+sGivLS157uwu/LTyrz+zajWqreivP7Iy7Kiyb6z/bG+08q8/qOhIFRoaXMgZS1tYWlsIGFu
-ZCBpdHMgYXR0YWNobWVudHMgY29udGFpbiBjb25maWRlbnRpYWwgaW5mb3JtYXRpb24gZnJvbSBY
-SUFPTUksIHdoaWNoIGlzIGludGVuZGVkIG9ubHkgZm9yIHRoZSBwZXJzb24gb3IgZW50aXR5IHdo
-b3NlIGFkZHJlc3MgaXMgbGlzdGVkIGFib3ZlLiBBbnkgdXNlIG9mIHRoZSBpbmZvcm1hdGlvbiBj
-b250YWluZWQgaGVyZWluIGluIGFueSB3YXkgKGluY2x1ZGluZywgYnV0IG5vdCBsaW1pdGVkIHRv
-LCB0b3RhbCBvciBwYXJ0aWFsIGRpc2Nsb3N1cmUsIHJlcHJvZHVjdGlvbiwgb3IgZGlzc2VtaW5h
-dGlvbikgYnkgcGVyc29ucyBvdGhlciB0aGFuIHRoZSBpbnRlbmRlZCByZWNpcGllbnQocykgaXMg
-cHJvaGliaXRlZC4gSWYgeW91IHJlY2VpdmUgdGhpcyBlLW1haWwgaW4gZXJyb3IsIHBsZWFzZSBu
-b3RpZnkgdGhlIHNlbmRlciBieSBwaG9uZSBvciBlbWFpbCBpbW1lZGlhdGVseSBhbmQgZGVsZXRl
-IGl0ISoqKioqKi8jDQo=
+intel_th_output_open() looks up the output device with
+bus_find_device_by_devt(), which returns the device with a reference that
+must be dropped after use.
+
+The reference is currently intended to be dropped from
+intel_th_output_release(). However, a successful open replaces
+file->f_op with the output driver's file operations before returning, so
+close runs the output driver's release method rather than
+intel_th_output_release().
+
+For MSC outputs, close runs intel_th_msc_release(). That release path
+only removes the per-file iterator and does not drop the device
+reference taken by intel_th_output_open(), so every successful MSC open
+leaks one device reference.
+
+Drop the device reference from intel_th_msc_release(), which is the
+release path that is actually used for MSC output files.
+
+Fixes: 95fc36a234da ("intel_th: fix device leak on output open()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Add Cc stable.
+  - No code changes.
+
+ drivers/hwtracing/intel_th/msu.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/hwtracing/intel_th/msu.c b/drivers/hwtracing/intel_th/msu.c
+index a82cf74f39ad..84d99d7b1d20 100644
+--- a/drivers/hwtracing/intel_th/msu.c
++++ b/drivers/hwtracing/intel_th/msu.c
+@@ -1490,8 +1490,10 @@ static int intel_th_msc_release(struct inode *inode, struct file *file)
+ {
+ 	struct msc_iter *iter = file->private_data;
+ 	struct msc *msc = iter->msc;
++	struct intel_th_device *thdev = msc->thdev;
+ 
+ 	msc_iter_remove(iter, msc);
++	put_device(&thdev->dev);
+ 
+ 	return 0;
+ }
+-- 
+2.43.0
+
