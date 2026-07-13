@@ -1,114 +1,198 @@
-Received: from smtpfb1-g21.free.fr (smtpfb1-g21.free.fr [212.27.42.9])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0460A34A3BF;
-	Mon, 13 Jul 2026 18:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.9
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783966724; cv=none; b=G+EsNslmPbTfUSP19auUJAThSdcHE9dQYzmNkM+SFq0nWnNLH8fm1fFDB+oLr3/0QQSXThfYrZbbNoFPe69Naeq/P++gJof8pb95fcVm42Z7e3a2vuhMb6YTFzvoAIaEzO7a120jBsLdHMlLeNECHWtZwHXV/HpejAGWvKBU1OY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783966724; c=relaxed/simple;
-	bh=MW0fHm4TEwvAk5mUjhZ7QSZSJF8LLYeJTbTRWroVGJI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dcM58BzIxCTKgYx7iUFPT90ZHDCfh5F6ytnBwUr9QlcHUeV3c1uaq7SWGNvJvTfHtG1zXXIcgJnYC6Bs1lDf+tRlrOORLr+oBTwBbmciNfDMWhGCL3OhhpbBaRUKdAYfZxpodwUd23RUWWEg5dg1JA/S+/Ab1i2rNtDGkGoGiPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=HP9/4s5G; arc=none smtp.client-ip=212.27.42.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178033090C4
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 18:19:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783966754; cv=pass; b=WwTFPJ1g+XIQuy3HDlvD5ASplvXjRoRfoS9BzHCuK3/CZNuK/PBnciJ8luk001EzuNo2qeGL925WesFvV6+1OEFP5OmZwPguNzl6AAlHLgWXVqCw1r0lgGdKfrpc1f/AyQaiIf5GlAwgq8Ye+f2pj462uRNqG50CxlXnwRLu9nY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783966754; c=relaxed/simple;
+	bh=a7J2o/Uawyqjxcq822ubh31HNGfGy3Dyi9p/J54OSA4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GscpQkQS1XT5lWspMn4wtyOiafFRcrbjOB/QRrcVDo6MQTIyI7SMhW+Q/qrAZfF0Ug9JVT88OOZwRZGffP2CGSIep0LMbfabl6uNBH9CDvkSvUKlULRd7dCA1pJcd3nX+OWHNDNBPc4iG/nwMY8jHfzTUs/LYB/QEI4qLYdj6xc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=akfdfwC1; arc=pass smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="HP9/4s5G"
-Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
-	by smtpfb1-g21.free.fr (Postfix) with ESMTP id 3D2728346D6;
-	Mon, 13 Jul 2026 20:12:33 +0200 (CEST)
-Received: from [127.0.1.1] (unknown [91.160.0.144])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp1-g21.free.fr (Postfix) with ESMTPSA id 009BAB0055A;
-	Mon, 13 Jul 2026 20:12:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1783966345;
-	bh=MW0fHm4TEwvAk5mUjhZ7QSZSJF8LLYeJTbTRWroVGJI=;
-	h=From:Subject:Date:To:Cc:From;
-	b=HP9/4s5GL7nJJXLSYkAF+NqAQsUFE9JtmkJnD8cU4E0lmuJT2TZTQiygCb+inNRRZ
-	 Z2WTVMEI2JpxTwiI2gTOo3k8Z+mkGkLH9ZNwIZOzbqXm8xdh/RVktt9ZH5GTBNKH3k
-	 NBehoNisOosZP2h0hHq4oLvPWFbpMTM+gq2pO3mtYi4Thz8Juvgh3dn3D6wzpV79z/
-	 Uc4YzUjDsztG80b5lgGRL2g6M51MwmwcVjgSmK/gaEnPEt/gUqDnQwUqxDnyt+OUrd
-	 EVn7K/rpxEpFr7YRTWomdJnsP9EE2ItGY4Kp+vkX4GCF5pUTGq1f4C8K9BIGwyrvbh
-	 pUvnksAgC3i3w==
-From: Vincent Jardin <vjardin@free.fr>
-Subject: [PATCH v3 0/2] i2c: imx: fix SMBus block-read of 0 locking the bus
-Date: Mon, 13 Jul 2026 20:11:58 +0200
-Message-Id: <20260713-for-upstream-i2c-lx2160-fix-v1-v3-0-073ac9e103a5@free.fr>
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="akfdfwC1"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cc73e322dbso39396055ad.1
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 11:19:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783966751; cv=none;
+        d=google.com; s=arc-20260327;
+        b=D1GQuJA4hRgj8fRfTDYW2oWIN0ktyfGoVzfAoYxXFhWw4VZzOCmWiosiPaWb7cTns/
+         HgZsWuaZ7i57hlc0kSSLuuIcEIybnwUQ+zvApHhjcC+nOml4naewNeRDpHWRwqRUZd0S
+         sL36vn+z6JE5MlFH6qUovyw67cP5WY/deEY1gjQDTGKZv8glplxDEpcMEAT5wsJd9glZ
+         GwYyYZ1+EwT7w9URdDXOihXtGvODgYM/D2ityBB09Orw5aeWQblHXebHmINV8ZV85H/v
+         FN9+OHSajlgTlnT5cMOC8fG47ylLa2a5p/TBlbbcjNyahDuBowBT0Z0lmQP6lvXVaM6u
+         rRwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oMyPiF7lny3DatTRlbMwq40lHfzP3eH6xTvYxwG42rU=;
+        fh=CPc9RWFT0ec6lEmFHXRWzCpaWu7wKRhRHIyRo9TlCzg=;
+        b=JMmJrLDWQQfcSbWxEM3rp3zVegevVJngnJUjFXSX4Fpo1Npka3JoH3uG5qq0KXvj/Q
+         4JqiXUWXvaD47kTWp7aVcBWoT8drTma4/8nPv7A89/DbXPfy833/Rq13oUtoQSPwObz3
+         2ieiTVEzavxYr/qoMCZX7x8CeTTRnVpg1TcrVTIdjlwniOr6nCZzYHs8ZCmVXv+XwtKo
+         hvBxeeNpoQsR/8QEAcLR2yMcHafQQ5wsV2HCAPlF16zgNgvfK1cBNqYt3Sbi1iZ4umpC
+         VbIKwZh+Mr1GxqeiJ2uXK7DLHaFRFvuwCBvSRb7Q5ROO8vgq7/8T8m5GInzxxlrA1HbZ
+         WFDQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1783966751; x=1784571551; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oMyPiF7lny3DatTRlbMwq40lHfzP3eH6xTvYxwG42rU=;
+        b=akfdfwC1gWKnXlOaKIrr36v1gDkMDXb3e66zZbNTLs8iYvzO5smFEeG/755bf3KEPS
+         zDONj3HwK8nJC84vUIXOObk1HYVdSXnbGCZjI0FaOCcJuroaV3/9+18hGC2kfaAuZ3mk
+         eZWNxSXk8/q1lWnf5CBggcdOUSzBRgNzuZaCqg4qUl3vVxQNm+0v8X0x1vI3tnT05NI+
+         jG405xgRp2dcJUEIFjNw9c+MQLq46HAgq6KZ7qas+PpVnsfvARuFH7r7kcBQaIl7XWua
+         yo5fnimRe06QyVVY5DqTdjW1skDNLgIKCNir6aVSGxii2vkAmmf+SVEgB/Ez3kZI5VyM
+         toRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783966751; x=1784571551;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oMyPiF7lny3DatTRlbMwq40lHfzP3eH6xTvYxwG42rU=;
+        b=Ml8CAucn+JigC8mfPYg5gih/5L9nciEu2vyejJ1M0GcL+4Co8B/FGRjOMarKbVxJUr
+         ta7k7kZr+mK9LS9CiBRy2sibmLK93m1GkFnF2vMXUkytHh/aWpSiBtn0nzXmJ+7lxeDO
+         3ag0h5x2SCCETDASOEefiY3qvZiB2hQpb64BZGYKM4443nxaJswBiVmaFQGuCfBrG/TA
+         3dvKFhGS9DB/X15zPaqBv/101txPUFfk7lrhCg0Y/a5huBaOk0XQ4vKyAdXXkadd4/mU
+         9MEZxnidWEvfPa9eeoiAPbZnAO04w3rh/2coZsLHpYkGRM4T4izSGtZCsFGFN6Hba0bX
+         M8QQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrr7wDxreV4rcRM3vTMu/CIkVfT41HmOq5cudrFGP7Ewt8a9D9n7inJabAr8O4z/oH87vY4ybU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfdVtx4AW5HRsOpU4D6AdKuTE42kMeh2QDXFjGXVOgiP+DmBmH
+	Nb6O9rNinz1m3vfvKv73Lw1ofrvXLtOFSIE53LPMcOaRbbUN9rdHf5MYHH03ISZAcAwUzpEw5pC
+	GUBm3/H7EriaIheuNifbL5RQAmPqNbnVFQ0rkjEvW/J0=
+X-Gm-Gg: AfdE7cnQ2Zi25/+tbMJgcSjEopDgphcbnozyR/TfwQfIA3jIQu/tm1Ehbeq8fnjL2fs
+	423bv8+4huxcHa59wLans80ursDEH9dFy8C5OJOZYt1PLLITd7pvtB+3TRFefrcm9yvgaPu4AV1
+	yhVfCFMAc4Be/Is3tLEHTnrPBqH3KpN1k/YO4jKpmJn+sGh0H9NI5sEiAFm2rWSZJPqV0KkPrCw
+	FIJPwnAhhy44OfjAu06BtI6z74ao4fUsxwtrXML5Y00zmHOnwYtBiwwsTTpWKhWtdGJBvdwMgW/
+	+/pfByqSMpzLMLH5btkfPE2FA8sHUp91+1E4atgJzNaNtUmPtmegFmEHJ9XFHgOQZcRRWd0=
+X-Received: by 2002:a17:902:d546:b0:2c9:cf62:6f61 with SMTP id
+ d9443c01a7336-2ce9eac212bmr103069735ad.17.1783966750843; Mon, 13 Jul 2026
+ 11:19:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAG4qVWoC/5XNwQ6CMAzG8VchO1tTugzFk+9hPIzRyRIV0uGCI
- by7g4tXPf7b5PfNKrIEjupUzEo4hRj6Zw69K5Tr7PPGENrcipAqNGTA9wKvIY7C9gGBHNwnKis
- EHyZIJaBrLFrEWrNRGRmE82cbuFxzdyGOvby3vVSu15/pVQev0TZGt219cGcvzHsvaoUT/YdRx
- qiy2rmja9GYL7YsyweAWWSWFwEAAA==
-To: Oleksij Rempel <o.rempel@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Andi Shyti <andi.shyti@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
- Wolfram Sang <wsa@kernel.org>, 
- Kaushal Butala <kaushalkernelmailinglist@gmail.com>, 
- Shawn Guo <shawn.guo@freescale.com>, 
- Stefan Eichenberger <stefan.eichenberger@toradex.com>
-Cc: linux-i2c@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Vincent Jardin <vjardin@free.fr>, stable@vger.kernel.org, 
- Carlos Song <carlos.song@nxp.com>, Stefan Eichenberger <eichest@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783966324; l=1860;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=MW0fHm4TEwvAk5mUjhZ7QSZSJF8LLYeJTbTRWroVGJI=;
- b=HB4/D489cBV9RGeIlXnJ5L0Cx4Oci/dGh9tVchNtz7Ut6n2ixBh23Cwbk1Xta51rz/iUbqwun
- XJ6O0CjdUAgD9GB9UUz9/kcWL1vmAwrDWZ2G2qkSXTeEdIDKXhaN4Oo
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+References: <20260711071336.58324-1-doruk@0sec.ai> <779ee099-5132-4752-bdb8-354dfdc53926@oss.qualcomm.com>
+In-Reply-To: <779ee099-5132-4752-bdb8-354dfdc53926@oss.qualcomm.com>
+From: "Doruk (0sec)" <doruk@0sec.ai>
+Date: Mon, 13 Jul 2026 20:18:59 +0200
+X-Gm-Features: AVVi8CenKr8Md-_ghFq-SY_VTIPefNoGzVmvVLnHgY8iSBM67OYes4dP0hXi20g
+Message-ID: <CAPdMp1okStu9UiWn-Kb4xrTEdGj1POT4t+moh77JHpLSzD-pZQ@mail.gmail.com>
+Subject: Re: [PATCH] wifi: ath6kl: validate assoc info lengths in the WMI
+ connect event
+To: jeff.johnson@oss.qualcomm.com, linux-wireless@vger.kernel.org
+Cc: tristmd@gmail.com, johannes@sipsolutions.net, 
+	peddolla.reddy@oss.qualcomm.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-i2c-imx rejects an SMBus Block Read byte count of 0 (valid per SMBus 3.1
-6.5.7) as -EPROTO and returns without emitting a NACK + STOP, leaving the
-target holding SDA so the bus stays stuck until a power cycle.
+On 7/11/2026, Jeff Johnson wrote:
+> Some aspects of your patch are already addressed by:
+> https://lore.kernel.org/all/20260421135009.348084-3-tristmd@gmail.com
+> So you will need to rebase once that lands.
 
-It was triggered by an MPQ8785 PMBus regulator on a LX2160A i2c
-bus: when the kernel binds it using the pmbus/hwmon framework, the bus
-locks up and it does never recovers. It was confirmed with a scope, with
-and without the fix.
+Thanks for the heads up! One thing that looks like it may remain after
+Tristan's patch, in case it's useful: the aggregate check bounds the case
+where the declared lengths are too large, but ath6kl_cfg80211_connect_event=
+()
+still underflows when a length is too small. It does, on u8 values
+with no lower bound:
 
-The same bug is occuring with two independently introduced spots, so the
-fix is two patches with their respective Fixes: tags and backport ranges
+assoc_req_len -=3D assoc_req_ie_offset; /* -=3D 4 */
+assoc_resp_len -=3D assoc_resp_ie_offset; /* -=3D 6 */
 
-  1/2  atomic/polling path       Fixes: 8e8782c71595   v3.16+
-  2/2  IRQ-driven state machine  Fixes: 5f5c2d4579ca   v6.13+
+so an assoc request/response shorter than the fixed offset wraps to ~250, a=
+nd
+cfg80211_connect_result()/cfg80211_roamed() then treat that as the IE lengt=
+h and
+copy that many bytes out of the small assoc_info buffer to user space. That=
+ path
+is separate from the aggregate over-read Tristan's check covers.
 
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
-Changes in v3:
-- no functional change; collected the review tags received on v2:
-  Acked-by Oleksij Rempel, Acked-by Carlos Song, Reviewed-by Stefan
-  Eichenberger (both patches)
-- cover letter: add the real-world trigger (MPQ8785 PMBus regulator
-  on the LX2160A) and how the fix was validated, asked by Carlos Song
-- resend as a new thread, per Andi Shyti's request
-- Link to v2: https://lore.kernel.org/r/20260525-for-upstream-i2c-lx2160-fix-v1-v2-0-26a3cc8cd055@free.fr
+Happy to send a small follow-on clamping those two subtractions on top of
+Tristan's series once it lands -- or Tristan, please feel free to fold it i=
+nto
+your series if you'd rather keep it together. Whatever's easiest for you bo=
+th.
 
-Changes in v2:
-- Handle when count > I2C_SMBUS_BLOCK_MAX the same way as count == 0
-  Reported by the Sashiko AI review on v1.
+Best
+Doruk
 
----
-Vincent Jardin (2):
-      i2c: imx: fix locked bus on SMBus block-read of 0 (atomic)
-      i2c: imx: fix locked bus on SMBus block-read of 0 (IRQ)
+DORUK TAN =C3=96ZT=C3=9CRK
 
- drivers/i2c/busses/i2c-imx.c | 36 +++++++++++++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 3 deletions(-)
----
-base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-change-id: 20260525-for-upstream-i2c-lx2160-fix-v1-0cba0a0093e5
+Co-Founder
 
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
 
+0sec
+
+Universit=C3=A4tstrasse 33
+
+8006 Z=C3=BCrich, Switzerland
+
+www.0sec.ai | doruk@0sec.ai | Linkedin
+
+
+
+On Sat, 11 Jul 2026 at 16:39, Jeff Johnson
+<jeff.johnson@oss.qualcomm.com> wrote:
+>
+> On 7/11/2026 12:13 AM, Doruk Tan Ozturk wrote:
+> > ath6kl_wmi_connect_event_rx() only checks that the received event is at
+> > least sizeof(struct wmi_connect_event); it never checks that the traili=
+ng
+> > beacon_ie_len + assoc_req_len + assoc_resp_len fields fit within the
+> > received buffer. Those attacker/AP-influenced lengths then drive two
+> > out-of-bounds accesses:
+> >
+> >   - The WMM information-element scan builds
+> >     peie =3D assoc_info + beacon_ie_len + assoc_req_len + assoc_resp_le=
+n
+> >     and walks up to it, reading past the end of the event buffer when t=
+he
+> >     declared lengths exceed the buffer. The walk also dereferences
+> >     pie[1..6] and pie[1] (for the advance) without checking they stay
+> >     within peie.
+> >
+> >   - ath6kl_cfg80211_connect_event() subtracts fixed offsets from
+> >     assoc_req_len (-=3D 4) and assoc_resp_len (-=3D 6), both u8, with n=
+o lower
+> >     bound. A short assoc request/response underflows the length to ~250=
+,
+> >     which cfg80211_connect_result() / cfg80211_roamed() then treat as t=
+he
+> >     IE length and copy out of bounds from the small assoc_info buffer,
+> >     disclosing adjacent slab memory to user space via nl80211.
+> >
+> > Bound the declared IE lengths against the received buffer, bound the WM=
+M
+> > element reads against peie, and clamp the assoc request/response length=
+s
+> > before the subtraction. The sibling wil6210 driver already performs the
+> > equivalent length check for the same WMI connect event.
+> >
+> > Found by 0sec (https://0sec.ai) using automated source analysis; the
+> > missing bounds are evident from source and cross-checked against the
+> > sibling wil6210 driver. Compile-tested.
+> >
+> > Fixes: bdcd81707973 ("Add ath6kl cleaned up driver")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: 0sec:claude-opus-4-8
+> > Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+>
+> Some aspects of your patch are already addressed by:
+> https://lore.kernel.org/all/20260421135009.348084-3-tristmd@gmail.com
+>
+> So you will need to rebase once that lands.
+>
+> /jeff
