@@ -1,111 +1,146 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from devianza.investici.org (devianza.investici.org [198.167.222.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BED361DDA;
-	Mon, 13 Jul 2026 05:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E801E29992A;
+	Mon, 13 Jul 2026 05:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.167.222.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783922156; cv=none; b=TNyVjRMRqbtWACckJD1vNnNhpzV4G7HEFhhDNIPK0xnnkZjjqkMcX3wSBlE7JshBkGKWJq3AYW2EAbEcWndE+9ya6FKx4NbEe+MaY+I8eVQRHJxaXXFvJg40h5ZRjrSzno2EMXBPxXH0Evl+g7sOyHwTYC3LphYKT7BuF81ExbE=
+	t=1783922261; cv=none; b=rYSgMIVqPc2oCyvq9QRxCCZYQkETkzR/jdw425B/TpQv2V6hwskaSWAAgO2K4cYYVwoHHxk2SwBfkHtyx3N3JLRP+uzUEvZTGopcSEEs2b51csNMaeX0a50Vxl2+7pU81y2LiCkSUHFcPSjB8BPaJIJASQ2z7qGjNPMjZH5vDKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783922156; c=relaxed/simple;
-	bh=W+uO+BeXlGEbXx++cjoVrg+u5K5U1ePX4rMgEgua4Y4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TWyJO2LO9kjtHUf2DiHx7bQPknIwfvHOzjCJtNZ+placcrYpd+AtcRadtqTpx1LzxQmOVScEMoP1Cq/GQtYGr+w3zOk8onuxPcs7RKymBotcf7VI8/9kcuV4p3W2L6COXJBocwPEGTS5nI67ZXPl3sIgy8r4gYZ6jnKqLvQzR1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=RSqe5ROu; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1783922261; c=relaxed/simple;
+	bh=ghvSR731ywixyygr0RBmBJDrkYSzfu1orlQs9/ElasQ=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=PsL7ZkHXe8q/Jw5ZhdhZC8WV5QaZ1azWrZQgXlIZGPgKWF7/foTJzZDF38is7lbF0BYAVKJZApKf+4aVK7zsIA27hY8WmHY8slpmKsFxwO3uV92Pbu9Hd20rA/rheEW8Cs86dnE3gufdOGQecIFXxOS4oZLDViejjt9evn+QB64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=RWnnLw0J; arc=none smtp.client-ip=198.167.222.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="RSqe5ROu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1783922131;
-	bh=1I8RIag1StWJA8yxAS+rI9yR/F9Rj/KnLWzNPNLLQYA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=RSqe5ROuNHw5jFyblUdqiAtUBUJBG7nzzwBVT3g1z5dykHoJ6BhAQvLDBOePZ9mv+
-	 B8G9lUMNcw5TVF57naDnBo6ZYGh1PgMzPoxcJEI70LFLP0B/8wu4mzUj06k0nJJGb/
-	 IbKKNLYh6pafUgiqml5cMdmQGhK07e1BtCoJAzwE=
-X-QQ-mid: zesmtpsz2t1783922126t4e8b0388
-X-QQ-Originating-IP: kzoVtfEwWoCIEDsQ9cZjeUlLE2EQ/vg/V1LPtyvLWys=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 13 Jul 2026 13:55:25 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 13683492954811134723
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: graf@amazon.com
-Cc: arnd@arndb.de,
-	gregkh@linuxfoundation.org,
-	aws-nitro-enclaves-devel@amazon.com,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] misc: nsm: pin the module while the device is open
-Date: Mon, 13 Jul 2026 13:55:23 +0800
-Message-ID: <BE6951D13B5E5513+20260713055523.3193089-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="RWnnLw0J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
+	s=stigmate; t=1783922248;
+	bh=wK3teu60zqHskTeqI3g1BIktGR91ceQ9tifigFTSbCA=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=RWnnLw0Js5i2tQ1+hSp7VlLF5KsXgbTkxtdEc10ZK3qX5A9bYJZ1DdkdTVYXdn8L2
+	 5+4Q7JgRrqoXiMSaWAbvndDRoMNXnFSGhpsGBQ98MxY6YjOXcfS8gudhSjV9V0Qj1w
+	 ITKPWvOmQMuGH/4+Kx51Z0GA5a4MWqX6symL9QLI=
+Received: from mx2.investici.org (unknown [127.0.0.1])
+	by devianza.investici.org (Postfix) with ESMTP id 4gzBY45KJwz6vQ5;
+	Mon, 13 Jul 2026 05:57:28 +0000 (UTC)
+Received: by mx2.investici.org (Postfix) id 4gzBY32j1Hz4vyJ;
+	Mon, 13 Jul 2026 05:57:27 +0000 (UTC)
+Date: Mon, 13 Jul 2026 06:57:26 +0100
+From: Bradley Morgan <include@grrlz.net>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+CC: akpm@linux-foundation.org, brauner@kernel.org, peterz@infradead.org,
+ oleg@redhat.com, tglx@kernel.org, npiggin@gmail.com,
+ pasha.tatashin@soleen.com, kees@kernel.org, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_reboot=3A_enable_IRQs_before_d?=
+ =?US-ASCII?Q?o=5Fexit_in_the_halt_and_power_off_fallback?=
+In-Reply-To: <87tsq3vbtf.fsf@email.froward.int.ebiederm.org>
+References: <20260712125300.31501-1-include@grrlz.net> <87tsq3vbtf.fsf@email.froward.int.ebiederm.org>
+Message-ID: <0F13AE9B-5C0C-4327-AA36-C1EB2413EA9F@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: OfjuGSsnNogoZIWzjbKCu2ekkPZi1AVKWg7qJmrqTJAGbVQrpcmoN3S0
-	8VQBtQsIXjCC5xc46WjMdEvnLinHxhd46KISgOlW2uhtBKZw5348GgirqgTpQWx3CSIr/3g
-	UYu6XfBJdHY5ZFyy7I34TpbYUWFsSoF9icde8FbYhXkbWohUfLGU2ILBPDSEPGc2NYDcw/7
-	JM2VIuKduTUuvp1PPw0kDtXiCwrqOYiIF94qupIhLOB0BnEunPavaJAxxQQ0EQ7TMlKfqF/
-	y8zIEImOaLRzlfuhLMwN1kfJTlUMiU2NuHiHdbY5wiAexfs/Iias6PaOTJ3bEAFbW1XLuyN
-	YEEgjkc4wfugH37XmNJS7pWkv22b4xCtddho7J+3IBrlqDi4s8mbfo6IAkqPs5wGwIhBCGO
-	EQfo96gfy9Ummuwugho7ynh6XyVAO73K0crc+DLOOL0Ygk/Z1fr4BR0sg/6JkbgYMnp/5Yx
-	ngST4QKfwyE6a7/kYw0D4u4/LLSEKsCPMf01jaB5SfrjMIYoYEX6um/YX8XmkgpWhEtTeU6
-	Y+KFTkG8fFBlX34HT5HcIDKIOgHORGwWfPNN2XTDUJ2wjT6o7j6IgkRbFiYAwMRhkTNp/Fz
-	4NMUZLvnTBm3hJwE/dZfMqdxzZ/vD2Zn7lFlfvGvvAkfOyARQHxTPcpes2/jiJVdpgoluzv
-	uR3K0EMkFDGiMyolJCnH4frll+JAiOJrYDiIR85N4CB1Ax5Rg5p4zyjndXnoBxdmJCnTX2q
-	L/VJQg2+iW8p98x/K/yAsWaug4p8j1wUHrKelqGt+8NomwDA/hrfPs6oLNsxluYxZkslhQa
-	kbVhCOKea0htM3i1WyMOd6C7OXO+w0myvEZn+ApOqhvXrscl/MUJKS+i7iT6hLF9l3bB797
-	xQlzsK4L43e01/VQK6XOD4MtPSKNxzV7NyIZPuQ85nHrhSt9zZTT+FtVOyj1gukqz0C0M3g
-	s3ZOpQyunfY9+0UgycbkGR70qqtU9UVtU21BiYcq0VUUscEAeRRbAB7nujOg4Vydd6Iz6/W
-	tpwff1Rba+x+ymrBsiW955tkmQsuUx/dN17drpTf7e9WLRWqy4DbFuL4SgfgYuUEdI14YE9
-	g==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+On July 13, 2026 3:54:36 AM GMT+01:00, "Eric W. Biederman"
+<ebiederm@xmission.com> wrote:
+>Bradley Morgan <include@grrlz.net> writes:
+>
+>> The reboot syscall calls do_exit(0) after kernel_halt() or
+>> kernel_power_off().  Those are expected to stop the machine and not
+>> return.  When they do return (no PM info, power off failed), the
+>> shutdown path has already disabled interrupts: native_machine_shutdown()
+>> calls local_irq_disable() on x86, and do_exit() then hits its
+>> WARN_ON(irqs_disabled()) at kernel/exit.c:930.
+>>
+>> do_exit only warns by design; make_task_dead() is the path that fixes
+>> the IRQs disabled state (commit 001c28e57187 ("exit: Detect and fix irq
+>> disabled state in oops")).  The reboot fallback is not an oops and wants
+>> a clean do_exit, so enable IRQs at the two call sites instead, matching
+>> the make_task_dead pattern.
+>
+>I think this is fixing symptoms not the actual cause.
+>
+>How does kernel_halt or kernel_power_off manage to return?
+>
+>If they aren't supposed to return changing the code to call
+>make_task_dead to indicate you are on an error path is probably
+>the better fix.
+>
+>Eric
 
-misc_open() installs a misc driver's file operations with fops_get(),
-which pins file_operations::owner before replacing the file's f_op.  The
-NSM misc device leaves nsm_dev_fops.owner unset, so opening /dev/nsm does
-not take a module reference on the nsm driver.
+Doh! Nice catch!
 
-If the driver is built as a module, an open file descriptor can therefore
-survive rmmod of the module that provides its ioctl callbacks.  A later
-ioctl through that descriptor can call into unloaded module text.
+I'll do a V2 with some other things I needed to address too, e.g:
 
-Set nsm_dev_fops.owner to THIS_MODULE so the misc core holds the module
-while any /dev/nsm file descriptor is open, matching the lifetime
-expectation for the installed file operations.
 
-Fixes: b9873755a6c8 ("misc: Add Nitro Secure Module driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/misc/nsm.c | 1 +
- 1 file changed, 1 insertion(+)
+>> Splat from syzbot:
+>>
+>>   ACPI: PM: Preparing to enter system sleep state S5
+>>   kvm: exiting hardware virtualization
+>>   reboot: Power down
+>>   ------------[ cut here ]------------
+>>   irqs_disabled()
+>>   WARNING: kernel/exit.c:930 at do_exit+0x1cf7/0x2ae0 kernel/exit.c:930,
+>CPU#0: init/6193
+>>   CPU: 0 UID: 0 PID: 6193 Comm: init Tainted: G             L     
+>syzkaller #0 PREEMPT(full)
+>>   Tainted: [L]=SOFTLOCKUP
+>>   Call Trace:
+>>    <TASK>
+>>    __do_sys_reboot+0x36e/0x400 kernel/reboot.c:784
+>>    do_syscall_64+0x115/0x840 arch/x86/entry/syscall_64.c:94
+>>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>>    </TASK>
+>>
+>> Fixes: 001c28e57187 ("exit: Detect and fix irq disabled state in oops")
+>> Reported-by: syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=8fdf0d8e10bdde1c2e88
+>> Closes:
+>https://lore.kernel.org/all/69f5ec0c.050a0220.312cd3.0023.GAE@google.com/T/
 
-diff --git a/drivers/misc/nsm.c b/drivers/misc/nsm.c
-index ef7b32742340..e7b63a358df5 100644
---- a/drivers/misc/nsm.c
-+++ b/drivers/misc/nsm.c
-@@ -413,6 +413,7 @@ static int nsm_device_init_vq(struct virtio_device *vdev)
- }
+The lore links wrong, I'll fix that bug later.
 
- static const struct file_operations nsm_dev_fops = {
-+	.owner = THIS_MODULE,
- 	.unlocked_ioctl = nsm_dev_ioctl,
- 	.compat_ioctl = compat_ptr_ioctl,
- };
---
-2.50.1
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Bradley Morgan <include@grrlz.net>
+>> ---
+>>  kernel/reboot.c | 10 ++++++++++
+>>  1 file changed, 10 insertions(+)
+>>
+>> diff --git a/kernel/reboot.c b/kernel/reboot.c
+>> index bed6967bfa96..7e8ebb470721 100644
+>> --- a/kernel/reboot.c
+>> +++ b/kernel/reboot.c
+>> @@ -777,10 +777,20 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2,
+>unsigned int, cmd,
+>>  
+>>  	case LINUX_REBOOT_CMD_HALT:
+>>  		kernel_halt();
+>> +		/* kernel_halt() was expected to not return. */
+>> +		if (irqs_disabled()) {
+>> +			pr_info("reboot: halt returned with irqs disabled\n");
+>> +			local_irq_enable();
+>> +		}
+>>  		do_exit(0);
+>>  
+>>  	case LINUX_REBOOT_CMD_POWER_OFF:
+>>  		kernel_power_off();
+>> +		/* kernel_power_off() was expected to not return. */
+>> +		if (irqs_disabled()) {
+>> +			pr_info("reboot: power off returned with irqs disabled\n");
+>> +			local_irq_enable();
+>> +		}
+>>  		do_exit(0);
+>>  		break;
+>
 
+Thanks!
