@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB81023BD02
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:45:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F209142DFF3
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:45:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950332; cv=none; b=rpxWMWiSsJUMjxapOz+PjnBeU7rP4S96LOcRlwm2KAGqU6iNjlzxY9Fxm1J7jvuxSpt1hWwLy/LOqAfTh8BmX0/TrfZ2/YFjCYl2olF3GAoWC1F7W6Ouo9+NvXuqyp6LsEQ+/8+ziAOVUXsdfG/ihByE8Xxqqz/OEUhVHwPVw8o=
+	t=1783950335; cv=none; b=QzmbVPlGFGnartTCGk96n8CttzWr4Lz4cuK+pCEHVoqToypbOYr7PH1sSwKcLqTT/pXni2yEdJI0k9eXx9M1ZZkoMJY1Oxhj97cuKXSNWxI21SxdGswkQdrhyiiu0fDdou2JqVl5W3TYmadBUeiys2d/UFP3DgQKkFi8w1J/iZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950332; c=relaxed/simple;
-	bh=5tLiPov1HCCIGrYqYoa08ONutcS5YhpkhwzWgAPvOik=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JPJ5D3NH49V1BtCYdbMWAU/SsUAeEOQKW8kh7YHjj+xSDDCxE+VoXpoZvM55DvK2+XLhUH+g2bfC+3PX3jtYfOXD4EHIPHW9VXN72HpbMDWhZ0jrpruaMGqkuOkJG8Aswo31PClAs4blhQVc9yIZEgiugTLV72UOM4oiD58PaaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Tr4Yp8iB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950335; c=relaxed/simple;
+	bh=yoChBmRTqtmPY34HIxi9sI3rBwNedJGvGxYRLAaeCIQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dYma/mgHk+TlTJrktfFsTK7ng7pJbfI692EEVIf1ejYXpl4ftMlNlOFJUTGpc8C844XFQEW/h3Mu2mdDSSUU7R1PHLOfDoYdcwR9GEt5Wznx+0psZxlo0puvPDDjF822x7eBS3rRdFH6VfWjJ9CfSeY3kg5qOvlUE34Us+H6xX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=skVNruRP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Tr4Yp8iB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0631F000E9;
-	Mon, 13 Jul 2026 13:45:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="skVNruRP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629681F000E9;
+	Mon, 13 Jul 2026 13:45:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783950331;
-	bh=iDo8XllljzvPMD/shpbJKpuziMwavqgIRY3/pieCRt8=;
+	s=korg; t=1783950333;
+	bh=+FR3pAIVwmMRf0YeeEuwVlssUmAK/+7oc2x4y20l8Sg=;
 	h=Subject:To:Cc:From:Date;
-	b=Tr4Yp8iBaZVE0AAfKy97BRUWjQYbyegUPfCehq1+1p3gQ5eOI0TpWe72KxIFqv+RR
-	 o0jE+CZs/Dt3/QZoW8AUiNl6sk22XrPpT7xTMKk2rrmJwhrvB7o1m1VS3pFPq8dChf
-	 AqNUJHTyy43ltODcxNMtav3Ovs+ZgGvE9N58MMCU=
-Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix OOB reads in rtw_get_sec_ie()," failed to apply to 5.10-stable tree
-To: hossu.alexandru@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
+	b=skVNruRP5DPA6TVemseRfhqQ01yw6dFGNJNEo2OJ58hOXRSP8v2YWNP9FmICfwNc1
+	 AvNnijUBelWioUNQEkZRohPRvK5Vzccvb1CclCpntx+ozUdVYpvjmKKrNPVO8Xn2gJ
+	 Ofybr3rRKH/ETN+CrTcqIa74/W11vuTzG8TQIByA=
+Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix OOB write in HT_caps_handler()" failed to apply to 5.10-stable tree
+To: hossu.alexandru@gmail.com,gregkh@linuxfoundation.org,luka.gejak@linux.dev,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:34:00 +0200
-Message-ID: <2026071300-length-drainable-3f8e@gregkh>
+Date: Mon, 13 Jul 2026 15:34:15 +0200
+Message-ID: <2026071315-imagines-cytoplasm-6bd4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1463ca3ec6601cbb097d8d87dbf5dcf1cb86a344
+git cherry-pick -x f8001e1a516ba3b495728c65b61f799cbfad6bd0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071300-length-drainable-3f8e@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071315-imagines-cytoplasm-6bd4@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,89 +62,45 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1463ca3ec6601cbb097d8d87dbf5dcf1cb86a344 Mon Sep 17 00:00:00 2001
+From f8001e1a516ba3b495728c65b61f799cbfad6bd0 Mon Sep 17 00:00:00 2001
 From: Alexandru Hossu <hossu.alexandru@gmail.com>
-Date: Fri, 22 May 2026 02:45:31 +0200
-Subject: [PATCH] staging: rtl8723bs: fix OOB reads in rtw_get_sec_ie(),
- rtw_get_wapi_ie(), and rtw_get_wps_attr()
+Date: Fri, 22 May 2026 02:45:28 +0200
+Subject: [PATCH] staging: rtl8723bs: fix OOB write in HT_caps_handler()
 
-Three IE/attribute parsing functions have missing bounds checks.
+HT_caps_handler() iterates pIE->length bytes and writes into
+HT_caps.u.HT_cap[], which is a fixed 26-byte array (sizeof struct
+HT_caps_element). Because pIE->length is a raw u8 from an over-the-air
+802.11 AssocResponse frame and is never validated, a malicious AP can
+set it up to 255, causing up to 229 bytes of out-of-bounds writes into
+adjacent fields of struct mlme_ext_info.
 
-rtw_get_sec_ie() and rtw_get_wapi_ie() iterate over a raw IE buffer
-without verifying that the header bytes (tag + length) are within the
-remaining buffer before reading them.  Additionally, rtw_get_sec_ie()
-compares the 4-byte WPA OUI at cnt+2 without checking that at least
-6 bytes remain, and rtw_get_wapi_ie() compares a 4-byte WAPI OUI at
-cnt+6 without checking that at least 10 bytes remain.
-
-rtw_get_wps_attr() reads wps_ie[0] and wps_ie+2 unconditionally at
-entry, before verifying that wps_ielen is large enough to contain
-the 6-byte WPS IE header (element_id + length + 4-byte OUI).  Inside
-the attribute loop, get_unaligned_be16() is called on attr_ptr and
-attr_ptr+2 without checking that 4 bytes remain in the buffer.
-
-Add a cnt+2 bounds check before each loop body in rtw_get_sec_ie()
-and rtw_get_wapi_ie(), guard each multi-byte comparison with a minimum
-IE length requirement, add a wps_ielen < 6 early return in
-rtw_get_wps_attr(), and add a 4-byte bounds check in its inner loop.
+Truncate the iteration count to the size of HT_caps.u.HT_cap using
+umin() so that data from a longer-than-expected IE is silently ignored
+rather than written out of bounds, preserving interoperability with APs
+that pad the element. An early return on oversized IEs was considered
+but rejected: it would bypass the pmlmeinfo->HT_caps_enable = 1
+assignment that precedes the loop, silently disabling HT mode for APs
+that append extra bytes to the HT Capabilities IE.
 
 Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
 Cc: stable <stable@kernel.org>
 Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
-Link: https://patch.msgid.link/20260522004531.1038924-8-hossu.alexandru@gmail.com
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Link: https://patch.msgid.link/20260522004531.1038924-5-hossu.alexandru@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
-index d0bbe1bb979c..54f805a6b5ce 100644
---- a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
-@@ -583,9 +583,14 @@ int rtw_get_wapi_ie(u8 *in_ie, uint in_len, u8 *wapi_ie, u16 *wapi_len)
- 	cnt = (_TIMESTAMP_ + _BEACON_ITERVAL_ + _CAPABILITY_);
+diff --git a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
+index b355d8a3ceab..4c0eb93f412e 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
++++ b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
+@@ -909,7 +909,8 @@ void HT_caps_handler(struct adapter *padapter, struct ndis_80211_var_ie *pIE)
  
- 	while (cnt < in_len) {
-+		if (cnt + 2 > in_len)
-+			break;
-+		if (cnt + 2 + in_ie[cnt + 1] > in_len)
-+			break;
- 		authmode = in_ie[cnt];
+ 	pmlmeinfo->HT_caps_enable = 1;
  
- 		if (authmode == WLAN_EID_BSS_AC_ACCESS_DELAY &&
-+		    in_ie[cnt + 1] >= 8 &&
- 		    (!memcmp(&in_ie[cnt + 6], wapi_oui1, 4) ||
- 		     !memcmp(&in_ie[cnt + 6], wapi_oui2, 4))) {
- 			if (wapi_ie)
-@@ -615,9 +620,14 @@ void rtw_get_sec_ie(u8 *in_ie, uint in_len, u8 *rsn_ie, u16 *rsn_len, u8 *wpa_ie
- 	cnt = (_TIMESTAMP_ + _BEACON_ITERVAL_ + _CAPABILITY_);
- 
- 	while (cnt < in_len) {
-+		if (cnt + 2 > in_len)
-+			break;
-+		if (cnt + 2 + in_ie[cnt + 1] > in_len)
-+			break;
- 		authmode = in_ie[cnt];
- 
- 		if ((authmode == WLAN_EID_VENDOR_SPECIFIC) &&
-+		    in_ie[cnt + 1] >= 4 &&
- 		    (!memcmp(&in_ie[cnt + 2], &wpa_oui[0], 4))) {
- 			if (wpa_ie)
- 				memcpy(wpa_ie, &in_ie[cnt], in_ie[cnt + 1] + 2);
-@@ -698,6 +708,9 @@ u8 *rtw_get_wps_attr(u8 *wps_ie, uint wps_ielen, u16 target_attr_id, u8 *buf_att
- 	if (len_attr)
- 		*len_attr = 0;
- 
-+	if (wps_ielen < 6)
-+		return attr_ptr;
-+
- 	if ((wps_ie[0] != WLAN_EID_VENDOR_SPECIFIC) ||
- 		(memcmp(wps_ie + 2, wps_oui, 4))) {
- 		return attr_ptr;
-@@ -708,6 +721,8 @@ u8 *rtw_get_wps_attr(u8 *wps_ie, uint wps_ielen, u16 target_attr_id, u8 *buf_att
- 
- 	while (attr_ptr - wps_ie < wps_ielen) {
- 		/*  4 = 2(Attribute ID) + 2(Length) */
-+		if (attr_ptr + 4 > wps_ie + wps_ielen)
-+			break;
- 		u16 attr_id = get_unaligned_be16(attr_ptr);
- 		u16 attr_data_len = get_unaligned_be16(attr_ptr + 2);
- 		u16 attr_len = attr_data_len + 4;
+-	for (i = 0; i < (pIE->length); i++) {
++	for (i = 0; i < umin(pIE->length,
++			     sizeof(pmlmeinfo->HT_caps.u.HT_cap)); i++) {
+ 		if (i != 2) {
+ 			/* Commented by Albert 2010/07/12 */
+ 			/* Got the endian issue here. */
 
