@@ -1,29 +1,29 @@
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A323164D8;
-	Mon, 13 Jul 2026 02:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918F51D89EF;
+	Mon, 13 Jul 2026 02:49:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783910965; cv=none; b=a8KFHMG/5b5191tl/us/rm7XuI/3ilEuyzpOSVcdcHno8LqNof9TC1Rt5i4hQGtP4eVoL+yYRX/ly0K/ZEZwNblXro9M4vifwDZqfsNFdvA7vCje1j7ZJ8zeRg2dpDbc9aXNyqhI4HX9FaJoRMYqRrRONN8NqW5Tkk3Zq5Smxqc=
+	t=1783910989; cv=none; b=OtIVOYA5f7InF0PFgJCHXPoxGGrO7z44ZHKHKriAdyDXjDfor4SiPjLKoeYr6ThQZE14gji0V81kM97o5l9Wh2wCoAEdEIKaAz5K1G65NkxpuCBFPSfhbrhICN8ORvkzgsmjeE4XXTPfcwTHTQQ3kxlcuaR5nokKTwVKT7ZkD84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783910965; c=relaxed/simple;
-	bh=VAZoRxPSYfk8gAKWaxC8EYdBMTrC1+1jGrsyn+Jo2lY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cpW68lx6XdZmwi0/zVWttnjbofbUa790vHFAfyA5kqHTHhiw3xdQoAktjFIiLTlNPpmkAsATOfZZWgwrKyM1Rez7hc3ZxMcnw9iYFQ4nLJ2ejOtcef2cm1WJI9ffMe5XBHd1N4eEwSIZMdHQwyXx5ae2X/EgSlfW/0W0EOvozC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ODhvo5Y+; arc=none smtp.client-ip=115.124.30.130
+	s=arc-20240116; t=1783910989; c=relaxed/simple;
+	bh=exov6w/JYjYnxQFvfzOsMWQ9mTPE9necjMzUpF0SeSw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MtV/ulAC2aTj8JEPVaO9UfPs2D4BgmF71VZ7kI5o75A0Uu6eMcBVVSpqUWeoP3tZvvPsX9Js/2RrrbsiDUgjd8v28sZMqrpqA7TKumxGmWrolooIHO/gdXx1meohPwHbSLBDTKuiFuLhAOzBVAZmgFex4PUnPDZEpwgu46X+H2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=oiYI7Hdj; arc=none smtp.client-ip=115.124.30.119
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ODhvo5Y+"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="oiYI7Hdj"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1783910954; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=05yePzfKJumy9hVGqULpfJ2/gstIRsXkfmnj+SFp9bs=;
-	b=ODhvo5Y+1GWWSI4VAaXQ5hKMTmZYE92C7u+d06aByETRk9DsShDdHuRVvjyk441/X43ztwpXxvWY06Fuxbo82/K1S08CFM0PRKbuAXvKhIKLyhwb0UE3blrm4mYZOl4UvnUh7y+WKwxTU6k1zJq9CFa3fbJmKlW3nPUE24x30YU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R561e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=lulie@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0X6tGtlB_1783910952;
-Received: from localhost(mailfrom:lulie@linux.alibaba.com fp:SMTPD_---0X6tGtlB_1783910952 cluster:ay36)
+	t=1783910984; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=OwWxKX/4HN2T8iSLIQT89EWurBHk/cFFwF70LuglvzI=;
+	b=oiYI7HdjipGC6w/BX1N3ZpKy3fhxoUiVV+nkZJlkWb5UpPwtWLxdA8nd18NzbyWUo4pSoWjaj0rxtpsBiGcQl1w1j3fqVByZDvIkTBMdsAN/yTK+viCPxTIEVOZDU9UaZy5ogUs/imX+Y4uBRyvbbp51ZUI8r3aIzsSYGxEdt28=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=lulie@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0X6tLMe._1783910983;
+Received: from localhost(mailfrom:lulie@linux.alibaba.com fp:SMTPD_---0X6tLMe._1783910983 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Mon, 13 Jul 2026 10:49:13 +0800
+          Mon, 13 Jul 2026 10:49:43 +0800
 From: Philo Lu <lulie@linux.alibaba.com>
 To: stable@vger.kernel.org
 Cc: bigeasy@linutronix.de,
@@ -38,9 +38,9 @@ Cc: bigeasy@linutronix.de,
 	linux-kernel@vger.kernel.org,
 	dust.li@linux.alibaba.com,
 	heiko.stuebner@cherry.de
-Subject: [PATCH 6.1.y] net: Drop the lock in skb_may_tx_timestamp()
-Date: Mon, 13 Jul 2026 10:49:12 +0800
-Message-Id: <20260713024912.36991-1-lulie@linux.alibaba.com>
+Subject: [PATCH 5.15.y] net: Drop the lock in skb_may_tx_timestamp()
+Date: Mon, 13 Jul 2026 10:49:43 +0800
+Message-Id: <20260713024943.37452-1-lulie@linux.alibaba.com>
 X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -98,10 +98,10 @@ This patch is same as that in 6.12 (c770217044d9)
  3 files changed, 20 insertions(+), 7 deletions(-)
 
 diff --git a/include/net/sock.h b/include/net/sock.h
-index 1e7096e9bc484..9fe621f985740 100644
+index 962acf4a644da..2b13a41cd99a9 100644
 --- a/include/net/sock.h
 +++ b/include/net/sock.h
-@@ -2181,7 +2181,7 @@ static inline int sk_rx_queue_get(const struct sock *sk)
+@@ -2070,7 +2070,7 @@ static inline int sk_rx_queue_get(const struct sock *sk)
  
  static inline void sk_set_socket(struct sock *sk, struct socket *sock)
  {
@@ -111,10 +111,10 @@ index 1e7096e9bc484..9fe621f985740 100644
  
  static inline wait_queue_head_t *sk_sleep(struct sock *sk)
 diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index f41dd20991c3d..6575a76a312e1 100644
+index 82add06ca935f..6281cfed03bb2 100644
 --- a/net/core/skbuff.c
 +++ b/net/core/skbuff.c
-@@ -4948,15 +4948,28 @@ static void __skb_complete_tx_timestamp(struct sk_buff *skb,
+@@ -4953,15 +4953,28 @@ static void __skb_complete_tx_timestamp(struct sk_buff *skb,
  
  static bool skb_may_tx_timestamp(struct sock *sk, bool tsonly)
  {
@@ -149,10 +149,10 @@ index f41dd20991c3d..6575a76a312e1 100644
  }
  
 diff --git a/net/socket.c b/net/socket.c
-index f2b4cf9b09a32..8bf415a59e55c 100644
+index 24dd5f26585aa..0c87e99c8e69a 100644
 --- a/net/socket.c
 +++ b/net/socket.c
-@@ -666,7 +666,7 @@ static void __sock_release(struct socket *sock, struct inode *inode)
+@@ -663,7 +663,7 @@ static void __sock_release(struct socket *sock, struct inode *inode)
  		iput(SOCK_INODE(sock));
  		return;
  	}
