@@ -1,122 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EAC3E3C53;
-	Mon, 13 Jul 2026 09:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5529C3DD500;
+	Mon, 13 Jul 2026 09:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783935898; cv=none; b=LyRT9NEU8WRtdtQshm0LFSzWUJphXiS0GKDo+j0lsrfWmsb44QejNDLHCoxBcrokyLdVmUktodtuWW7qIhOv6uB0sx3TAu91XS1tlWHHq2OY1V9nG5HSZcpJXOei/pmz3DLgqjPCXF7YjL4ZQb+5O4bv7zxD8C68GdoWS8s5LYE=
+	t=1783936152; cv=none; b=sWK6u0HAHo0hgy17UUydmzuXm9mS6wAp0ADyXGNf2K39v6aZf6lmbtDleyRyXzsF+T9YX9lnkHQPT9vQbhGSc9gwHHMeeioJKz6GhQi/NJ/hktWalZFxd05IEtVnzS0TakRE3gMXsakx+Kn36eJ3luZwpMzNW2Sqi2fOWFzaR0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783935898; c=relaxed/simple;
-	bh=JoBaVgEhbHTYLsmEt/80aTNQLnhmaFaNf1/ZXkIF8M4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ft7syMcQ6NKVd94MqvZaNMffdU6gfq2x4zNn76YA+eww89nCHp8ayThYWxD5DYRKpyK/vopeTNpy2g+aP/PP3u6B/CDLL+YFqfAs2REbE4Ezxkpqzgp4S4Mq90yEUcOxAUkFJkYNCcn/K/bYaZjSHvSnc68OvHm3j337y5QRalI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMh6KG/D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783936152; c=relaxed/simple;
+	bh=jtphKuvg7p9PEOep/6FkHrLO6n3TFt4uD55iIYPmFnQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dW/YKFGMhwoRUBUL+fkkgZWpFJDcUH/irpFqEuzH7O41eOhkw76Y2OG0seDAhyIUzKgBR+ZwconLixwx1te6BwY4JOeiYFL6VGCWYR5oUF2gjZaIQixCkcdflZ4s89bxREE0GEnaFRsTikyZxnej5YgTXQ73CxoJYPFewqHqWIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=KY6ELS50; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMh6KG/D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6207D1F00A3A;
-	Mon, 13 Jul 2026 09:44:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783935886;
-	bh=RK8kQ9CKwTFyOXiGePEatq3ie69rBMzdv1AFmy3Ehmc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EMh6KG/DgpH04Bn/MwaxmQyidzQ3IuUp308au4kfCvZaUZS8T/UJAGBnzGARzLTa5
-	 A5RqsxHTNhPJh20+Gh7+VrFzic0/rn5Lx+k8ZtfsalosdF2WY0zdMP6VVoaverKO+d
-	 Q8GwU76C2XaSuI7xkQeuha1OXwUYCw1W8pw+xIOB9Pj1jl2z11hpLdh0k+iaJ0qlXN
-	 0a8ienc+RA3PqoroojBmtHM1mZ9eSiyLGgqXPsXFZOouhtR6Pv1Q6HUBmLnXk70p98
-	 LU6VJRadk86eut4THrs1JdvPsZ3G3da3PwmY8gdCf6fE2X9FYPu6E9+HUXs1kl5eGL
-	 pF+hBCoZOvnWg==
-Date: Mon, 13 Jul 2026 11:44:43 +0200
-From: Antoine Tenart <atenart@kernel.org>
-To: Michael Bommarito <michael.bommarito@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] ila: reload IPv6 header after pskb_may_pull in
- checksum adjust
-Message-ID: <alSzDJLwroWRoeB8@kwain>
-References: <20260711150648.2915106-1-michael.bommarito@gmail.com>
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="KY6ELS50"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
+	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=pf85c
+	2T2s+M6exqfybXObAef4n1XG3jCnvRQx6BAosk=; b=KY6ELS50/wuPCl2pviWfZ
+	XP0tfCx5Fii9MZZDJNu94rPVKS3upWmcttERA56PiaTMZcn3IzQe4/wCQMTIbE7p
+	pdbhsDDhbKqBBmV7JKBNOIyXt/lmDUW2Jc6fVEQ+DqE7TRx14DMnB67WDCzyg50O
+	tiIc5gkctOjuE/WLvsk3lc=
+Received: from localhost.localdomain (unknown [121.229.84.192])
+	by web5 (Coremail) with SMTP id zAQGZQCXT79htFRqkRUmAw--.5011S2;
+	Mon, 13 Jul 2026 17:48:18 +0800 (CST)
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Simon Horman <horms@verge.net.au>,
+	Julian Anastasov <ja@ssi.bg>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>
+Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	netdev@vger.kernel.org,
+	lvs-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	stable@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>
+Subject: [PATCH nf v3 0/2] ipvs: fix destination overload state updates
+Date: Mon, 13 Jul 2026 17:48:00 +0800
+Message-ID: <cover.1783931964.git.zhaoyz24@mails.tsinghua.edu.cn>
+X-Mailer: git-send-email 2.46.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260711150648.2915106-1-michael.bommarito@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zAQGZQCXT79htFRqkRUmAw--.5011S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1Utw4fWFWDWr45Gr4fuFg_yoW5Jryrpa
+	4Sya4ft34UJr9xKanxGF1xCryrCr1kury7ur9xJ34rJ34jqr15Kw4SkrWjk3W8Zr9Igry5
+	tF1Ygw42kFn8Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9v1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
+	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4
+	x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2
+	z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4
+	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E74AGY7Cv6cx26r4r
+	Kr1UJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc
+	8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Av
+	z4vE14v_GFWl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8Ww4UJr1UMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1U73PUUUUU==
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgAHAWpUphggPAAAsY
 
-Hi Michael,
+IPVS updates a destination's overload status from connection accounting
+and destination configuration paths, while schedulers read it from packet
+processing paths.
 
-On Sat, Jul 11, 2026 at 11:06:48AM -0400, Michael Bommarito wrote:
-> ila_csum_adjust_transport() caches ip6h = ipv6_hdr(skb) before calling
-> pskb_may_pull(). On a non-linear skb whose transport header sits in a page
-> fragment, pskb_may_pull() can call __pskb_pull_tail() / pskb_expand_head()
-> and free the old skb head, leaving ip6h dangling; the following
-> get_csum_diff(ip6h, p) then reads freed memory. ila_update_ipv6_locator()
-> has the same pattern and additionally writes the new locator through the
-> stale destination-address pointer.
-> 
-> Impact: a remote IPv6 packet routed through a configured ILA
-> csum-adjust-transport route or receive-side mapping triggers a
-> slab-use-after-free in ila_update_ipv6_locator() (KASAN). The route or
-> mapping requires CAP_NET_ADMIN to configure, but trigger packets are
-> unauthenticated once it exists.
-> 
-> Reload ip6h (and the derived iaddr) after each pskb_may_pull() before use,
-> matching the transport-header reload the code already performs.
-> 
-> Fixes: 33f11d16142b ("ila: Create net/ipv6/ila directory")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-> ---
->  net/ipv6/ila/ila_common.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/net/ipv6/ila/ila_common.c b/net/ipv6/ila/ila_common.c
-> index e71571455c8a0..acedc5a84e4d7 100644
-> --- a/net/ipv6/ila/ila_common.c
-> +++ b/net/ipv6/ila/ila_common.c
-> @@ -85,6 +85,7 @@ static void ila_csum_adjust_transport(struct sk_buff *skb,
->  			struct tcphdr *th = (struct tcphdr *)
->  					(skb_network_header(skb) + nhoff);
->  
-> +			ip6h = ipv6_hdr(skb);
->  			diff = get_csum_diff(ip6h, p);
->  			inet_proto_csum_replace_by_diff(&th->check, skb,
->  							diff, true, true);
-> @@ -96,6 +97,7 @@ static void ila_csum_adjust_transport(struct sk_buff *skb,
->  					(skb_network_header(skb) + nhoff);
->  
->  			if (uh->check || skb->ip_summed == CHECKSUM_PARTIAL) {
-> +				ip6h = ipv6_hdr(skb);
->  				diff = get_csum_diff(ip6h, p);
->  				inet_proto_csum_replace_by_diff(&uh->check, skb,
->  								diff, true, true);
-> @@ -110,6 +112,7 @@ static void ila_csum_adjust_transport(struct sk_buff *skb,
->  			struct icmp6hdr *ih = (struct icmp6hdr *)
->  					(skb_network_header(skb) + nhoff);
->  
-> +			ip6h = ipv6_hdr(skb);
->  			diff = get_csum_diff(ip6h, p);
->  			inet_proto_csum_replace_by_diff(&ih->icmp6_cksum, skb,
->  							diff, true, true);
-> @@ -151,6 +154,9 @@ void ila_update_ipv6_locator(struct sk_buff *skb, struct ila_params *p,
->  		break;
->  	}
->  
-> +	ip6h = ipv6_hdr(skb);
-> +	iaddr = ila_a2i(&ip6h->daddr);
+Patch 1, authored by Julian, updates the overload state whenever a
+destination's connection thresholds change. It also limits the upper
+threshold to the range that can be compared safely with the connection
+counter.
 
-You should be able to reload the pointers only in the
-ILA_CSUM_ADJUST_TRANSPORT case.
+Patch 2 moves overload state out of dest->flags, which it previously
+shared with the independent availability state. It uses a separate bitset
+and bitops so updates to the two states cannot clobber each other. KCSAN
+reports the original race between __ip_vs_update_dest() and
+ip_vs_sh_schedule(), as well as between ip_vs_bind_dest() and the SH
+scheduler.
 
-> +
->  	/* Now change destination address */
->  	iaddr->loc = p->locator;
->  }
-> -- 
-> 2.53.0
-> 
+The series keeps reader-side synchronization lightweight. test_bit() does
+not provide a fresh cross-field snapshot, so schedulers may still observe
+stale destination state as they could before this change.
+
+Changes in v3:
+- Add Julian's fix to properly refresh OVERLOAD on destination edit and 
+reject upper thresholds above INT_MAX before comparing them with the signed
+connection counter as patch 1/2.
+- Keep AVAILABLE in dest->flags and move OVERLOAD to a separate bitset.
+- Link to v2: https://lore.kernel.org/netfilter-devel/20260708060454.20534-1-zhaoyz24@mails.tsinghua.edu.cn/
+
+Julian Anastasov (1):
+  ipvs: properly update the overload flag on dest edit
+
+Yizhou Zhao (1):
+  ipvs: use bitops for destination overload state
+
+ include/net/ip_vs.h              | 10 ++++++++
+ include/uapi/linux/ip_vs.h       |  6 -----
+ net/netfilter/ipvs/ip_vs_conn.c  | 44 ++++++++++++++++++++++----------
+ net/netfilter/ipvs/ip_vs_ctl.c   | 26 +++++++++++++------
+ net/netfilter/ipvs/ip_vs_dh.c    |  4 +--
+ net/netfilter/ipvs/ip_vs_fo.c    |  2 +-
+ net/netfilter/ipvs/ip_vs_lblc.c  |  4 +--
+ net/netfilter/ipvs/ip_vs_lblcr.c |  8 +++---
+ net/netfilter/ipvs/ip_vs_lc.c    |  2 +-
+ net/netfilter/ipvs/ip_vs_mh.c    |  2 +-
+ net/netfilter/ipvs/ip_vs_nq.c    |  2 +-
+ net/netfilter/ipvs/ip_vs_ovf.c   |  2 +-
+ net/netfilter/ipvs/ip_vs_rr.c    |  2 +-
+ net/netfilter/ipvs/ip_vs_sed.c   |  4 +--
+ net/netfilter/ipvs/ip_vs_sh.c    |  2 +-
+ net/netfilter/ipvs/ip_vs_twos.c  |  4 +--
+ net/netfilter/ipvs/ip_vs_wlc.c   |  4 +--
+ net/netfilter/ipvs/ip_vs_wrr.c   |  2 +-
+ 18 files changed, 81 insertions(+), 49 deletions(-)
+
+
+base-commit: 2c7c88a412aa6d09cd04b414211b4ef8553b5309
+-- 
+2.34.1
+
