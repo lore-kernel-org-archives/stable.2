@@ -1,121 +1,110 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61142DA74A
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 12:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4A040D56A
+	for <Stable@vger.kernel.org>; Mon, 13 Jul 2026 12:51:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783947016; cv=none; b=rtjWg5qNLZlotYKIUvwU57UvECKBwqeYFyoyxeIC8UTlk3Zk31dr+5ENjWOqwvrSFz22CM3vzyUuxwrexri1cxpdvcQHfEP4ufCXZdKGapM6useaYy0jWrRo6JJ1f0NXLUJbUWlViAbS5qAPxGb6PV6dBPTwW1RpvRGVH/XXpRQ=
+	t=1783947084; cv=none; b=BG1XIuwN+dIdDAJuCwDR06bH3uF6ObJ73LOP+XbaaiG8NR1rH8uCioesU8cTp0bWVDFLlOu7eUwmEO+XG0chS7/KOV8Da/sE6WRbwwwiTfr4U/rlp+MZ9+nPCr7Jo9lV0blRWCvcGHBcR/CG6epgGR0XJ9AiP37mA7zVaChys2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783947016; c=relaxed/simple;
-	bh=S92pQ2C0qUV/KBqi32UApWFOvWJs4dXNLhZODPKvz9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=INVgvf2Ev1vs56gQk4s1gBZ+gJt8YgJl4Jx4dqRJ3Pt0wkZI7rbMDKSAcDTKcEdPiWeDNG/47HtOlsMh+OuDhZT1VmKYlFRhpLALEgYE6eVgXKRvekmWUnkoUzzDlr3MuGZhJQVHB3x9ud9mu6lNibfqjYPdiCDsJcceDb4CDCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S3LyF4yF; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783947084; c=relaxed/simple;
+	bh=LqAv7VKnMzvRvZh7OI0eA9TVacHRhT78EzGhvLCroWg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uHq97XnhAI3hsdNgmFfAlJzWAmdCyfav49KrhFXAxIm4cNOcp+h9KpERmuzLb2BsQdsJmE7WTgWJ9AapJ5qVCmRNCUfec6Gs+YCqtIb73742fmnyM+N3KZB7dkiuiV5sv+lLvHVhSZy6Kr+1q1n7WESXwOANQF0WpFmvrayfQik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZM6w7gS1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S3LyF4yF"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ccf2360620so26050965ad.3
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 05:50:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783947015; x=1784551815; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TvooeHfwR2QntnuwEEpfCHr1XrT9fgk2dlfW1+7scHw=;
-        b=S3LyF4yFCL8Rb/DLclSRrX8LAud28j1tN9zG8au2ig8qIULMOML73cVJ+9ZeQqazhQ
-         sqV28oVOALOyyGqBIaVS3Q7TNcO9yKtf4iOcEqhzJVBPcGt6/j1XR93sYo2zCHeBjJqx
-         jLrjp+PC9M9AEc3OMM24Xt3dBdgziXgOXIG3OIfaXbMVScJoJnIm0ntvklxUJs/skj4t
-         kxt+Gb2DpLnVyrh9tgkJCWhSGTWFfzpXKzQJcQp7faDf6GiSioQ+JdxbQeMMR+igbq7R
-         3YkyZmq0vi5ml9owV+R4O6pIX77dcEmyv23/EKjoDMj73pwCR7pJ2/+py2VzmeN35HDs
-         NXNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783947015; x=1784551815;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TvooeHfwR2QntnuwEEpfCHr1XrT9fgk2dlfW1+7scHw=;
-        b=b4DhO+bJwjuM3tyZ1uzshH1ijg2WuHr5/TahMF426b9OwX9Q6gxxiGzRzJh3DgODgP
-         /aYFgnMn9tZrXz0qUIECCfEK+tEiXztY91F33zKufLSdNtdL4+4jloGx1nQEvoI4WXxh
-         RTeHMl1xtGVzJ4MlwBiuKI5HdFETice0Ih1FUu8z3/+ny1d333llSlDoqJzTzSUprskl
-         +dbMMNzOjmxmcopsU/PrqkGBlw/KobNJAKk5Otsjo6o1jyLrXiv5Q9OizaemP/KsIa/b
-         Q8qUE/bKFwbGUM4EBV+IRtGqbqRGti1JRgJlC4ZHTnsWvo0WDRsCgIIaogShwqHRzIEw
-         V+qQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpYmhisNwvvDaL8AHivU1EqKT+RNA0y+TcD/mGtten1axgUS+6/k2mNxjMwODbdAY8TgMI+02Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMYpwh/AfDYG7kCNHSFywRD3H2yrQMDZwy4TS6Q56/09E1/m6W
-	qDle6T38uwsx+QCvoPxS2+nNlZdrHeR6o4ygTVgE0CEbYcEETEEUzB9gJ5Q+YmJS+Mk=
-X-Gm-Gg: AfdE7clvj3/PN2EH4GXJJ0SEOMUEAdTLtiI/KqYQBO1hHx8OdWW6MWUMvC6nc01e9m/
-	WLgkwxx9vmNPKFW/3ch00bF5mECR6cIwLqUfkLTlq1KNPcfZCe8ByoFPIpn3/Q29pbCxira4u1G
-	+nXTV2NzLYe0ZtA6RC40rwTW3dSmaudnxcQDxtnuaO271CxV9V+JZIkwJoXJ0OQD/4DegXsTlJu
-	D8q309KxplxFezDWtLLy94okeImcHVzPi3byI3m78RCsGcmeDKkiLHhnX7E/XU7X5mvuzEH3+mI
-	R5epdhhIlDjCxEcpcaJ9J2aQ3SV3qqmSijAfEraoTbGxqq1cHg5Vgg9CkKn1XBcsXS3Ed4F2sVU
-	eQK3Xzac7Kz1+5Bm1jGFF5I6i3mZR83tcer4MiKjSMEw6oF9GjYykLZItTY64xKpgcNeDxv81AP
-	Xxf0/RnxLheE63ECFA6O8+amgIUHTv7T4ujpsuMykYdyj+uL5mpsTcqLqzRpOu2mc2ZIlUxGIXH
-	dDFm+VI/8MlmRqo4r0utgPcYrAd8H8dkA==
-X-Received: by 2002:a17:903:3904:b0:2c9:c517:d078 with SMTP id d9443c01a7336-2ce9f038f6amr81245505ad.36.1783947014974;
-        Mon, 13 Jul 2026 05:50:14 -0700 (PDT)
-Received: from localhost.localdomain ([101.251.7.10])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb76asm101815485ad.12.2026.07.13.05.50.12
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 13 Jul 2026 05:50:14 -0700 (PDT)
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: btbcm: bound local name logging
-Date: Mon, 13 Jul 2026 18:35:08 +0545
-Message-ID: <20260713125008.75358-1-acharyalaxman8848@gmail.com>
-X-Mailer: git-send-email 2.51.2
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZM6w7gS1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E8A21F000E9;
+	Mon, 13 Jul 2026 12:51:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1783947080;
+	bh=K4hb0Z64Z+xGJklQazrXduEkj4LDbRe3DTDmouLRYi0=;
+	h=Subject:To:Cc:From:Date;
+	b=ZM6w7gS1YIYzTn0YVNCINJPNgxoM1HVVC2JWkaVCh8VdaauAonMN/YIBHG/7pUv1X
+	 0880uRMVoKHp3cUxGeuwNE5zuU/udPfgxLRwmNcz+WDpSU4M7GNwZ2uGMEnhYksgpB
+	 ZtfptwviWRnJ5f3eKx4st0VXDVVMDYTDI+Nskhe0=
+Subject: FAILED: patch "[PATCH] iio: pressure: mpl115: fix runtime PM leak on read error" failed to apply to 6.12-stable tree
+To: birenpandya@gmail.com,Stable@vger.kernel.org,jic23@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 13 Jul 2026 14:51:15 +0200
+Message-ID: <2026071315-trespass-legible-97d4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-The HCI Read Local Name response contains a fixed 248-byte name. A NUL
-terminator is supplied only when the name is shorter than the maximum
-length.
 
-btbcm prints the returned name using %s, so a maximum-length controller
-name lets the log formatting read past the HCI response buffer.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Use a precision of HCI_MAX_NAME_LENGTH when logging the name.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: 9bc63ca0904d ("Bluetooth: btbcm: Read the local name in setup stage")
-Fixes: 2fcdd562b91b ("Bluetooth: btbcm: Make btbcm_initialize() print local-name on re-init too")
-Cc: stable@vger.kernel.org
-Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
----
- drivers/bluetooth/btbcm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x fbe67ff37a6fd855a6c097f84f3738bd13d0a898
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071315-trespass-legible-97d4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
-index 463d59890bef..499e12169ca3 100644
---- a/drivers/bluetooth/btbcm.c
-+++ b/drivers/bluetooth/btbcm.c
-@@ -479,7 +479,8 @@ static int btbcm_print_local_name(struct hci_dev *hdev)
- 	if (IS_ERR(skb))
- 		return PTR_ERR(skb);
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From fbe67ff37a6fd855a6c097f84f3738bd13d0a898 Mon Sep 17 00:00:00 2001
+From: Biren Pandya <birenpandya@gmail.com>
+Date: Sun, 14 Jun 2026 12:45:48 +0530
+Subject: [PATCH] iio: pressure: mpl115: fix runtime PM leak on read error
+
+mpl115_read_raw() takes a runtime PM reference with pm_runtime_get_sync()
+before reading the processed pressure or raw temperature, but on the read
+error path it returns without calling pm_runtime_put_autosuspend(). Each
+failed read therefore leaks a runtime PM reference and prevents the device
+from autosuspending.
+
+Drop the reference before checking the return value so both the success
+and error paths are balanced.
+
+Fixes: 0c3a333524a3 ("iio: pressure: mpl115: Implementing low power mode by shutdown gpio")
+Signed-off-by: Biren Pandya <birenpandya@gmail.com>
+Assisted-by: Claude:claude-opus-4-8 coccinelle
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+
+diff --git a/drivers/iio/pressure/mpl115.c b/drivers/iio/pressure/mpl115.c
+index 830a5065c008..16e112b796ba 100644
+--- a/drivers/iio/pressure/mpl115.c
++++ b/drivers/iio/pressure/mpl115.c
+@@ -106,18 +106,18 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
+ 	case IIO_CHAN_INFO_PROCESSED:
+ 		pm_runtime_get_sync(data->dev);
+ 		ret = mpl115_comp_pressure(data, val, val2);
++		pm_runtime_put_autosuspend(data->dev);
+ 		if (ret < 0)
+ 			return ret;
+-		pm_runtime_put_autosuspend(data->dev);
  
--	bt_dev_info(hdev, "%s", (char *)(skb->data + 1));
-+	bt_dev_info(hdev, "%.*s", HCI_MAX_NAME_LENGTH,
-+		    (char *)(skb->data + 1));
- 	kfree_skb(skb);
+ 		return IIO_VAL_INT_PLUS_MICRO;
+ 	case IIO_CHAN_INFO_RAW:
+ 		pm_runtime_get_sync(data->dev);
+ 		/* temperature -5.35 C / LSB, 472 LSB is 25 C */
+ 		ret = mpl115_read_temp(data);
++		pm_runtime_put_autosuspend(data->dev);
+ 		if (ret < 0)
+ 			return ret;
+-		pm_runtime_put_autosuspend(data->dev);
+ 		*val = ret >> 6;
  
- 	return 0;
-@@ -766,7 +767,8 @@ int btbcm_setup_apple(struct hci_dev *hdev)
- 	/* Read Local Name */
- 	skb = btbcm_read_local_name(hdev);
- 	if (!IS_ERR(skb)) {
--		bt_dev_info(hdev, "%s", (char *)(skb->data + 1));
-+		bt_dev_info(hdev, "%.*s", HCI_MAX_NAME_LENGTH,
-+			    (char *)(skb->data + 1));
- 		kfree_skb(skb);
- 	}
- 
--- 
-2.51.2
+ 		return IIO_VAL_INT;
 
