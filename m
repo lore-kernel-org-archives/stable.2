@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C0B346A14
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 18:33:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35FF335BB4
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 18:33:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783967629; cv=none; b=WGmTxEsZqngHKxEP8fUU5FaAdbR8+lMge4KcLtfq6IlIbhdhnf+gNjfY1grzvww8ed3V+nNlnIwDcS30DQHXQ0lPWKQpw+R2kFQqa96t8bZ3uVHMolov53301rE0ly3t9yacsCsHu2O8nMH04WWaWn2nZP9H44ZTpfPosGascfU=
+	t=1783967631; cv=none; b=Te4FgWhDMmJzdCRFaKJP+kPmA8+/yXFCL3PNXxwOHXfa2zixzSOm9f0BjRac2j9CKrOjSusx15UahFlCOhnK6PqfRuwUkGmUx6b99oiq5TKKDiJtpO7Lh4bvu13CNhlC7A3qclLg3YB2hhOw7qOQ9fvC+nRwS/2oRx7Ck3zl+cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783967629; c=relaxed/simple;
-	bh=lLzB0eq5CNByclgtn9/5K4V0FpLS5sGQoaP/z+F1zSs=;
+	s=arc-20240116; t=1783967631; c=relaxed/simple;
+	bh=5y2SKtZnnT8/O8JUZQDjrAm77pL4DwNo5+Kqr0YdSo0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NAqY5I8dwam2DelqIk2DRrVRjkiTfxk9Y9XXDQWumTqmvH6xmt4KnHkcyDN2bwoq6FET7jipl7/zDTTUkxf0eXTQ1KZS5vI500Uob3Dx+NKzoJekiVlWIsJXpkMuqnVDJmF88t/2RtlhoXxzy+CGA++nR0gg5p1SeR04HrJPFNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oD8dtyH0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AJWu2M32JUTAN6BRX4SgC1cgFzOmtN/TcI/LqdXQ95nB16Lhpuq+ulr0PA/qN9uJlBdlFQh9c7Kn7LWIE9uN6vq3SM9Y4aWl/nOoqy+auPoYeb15HzJAjuq2ySCLQv/0YI60DhbFiEaUCg9U4a7AIojTW3pX/rN80GZA/sMhB7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+dBFzp4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oD8dtyH0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 032781F00A3E;
-	Mon, 13 Jul 2026 18:33:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+dBFzp4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22FF21F000E9;
+	Mon, 13 Jul 2026 18:33:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783967627;
-	bh=kfNjCDYAjwKuir62IW0z5/IhyDJmQx9M2zH1rf9AYh8=;
+	s=k20260515; t=1783967630;
+	bh=StSp0Fh3i1fsb+9RKFDqqzUv/DBtftlsJd57gXOkeWw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oD8dtyH0cC79YNGtcZuSvT5tYWhthvXLyUAKPF1Pv++sidcTCtpsmjbD114QcwPdT
-	 2Al68xIcjJ059Zs+g57Mdf6kzuAkO1VAS6zoHvxqoO4C/tGkLtfokp8+QWrZWdd91k
-	 IQfpol1MXfa6MZnI9KJZx5a234pug2JP3OF/LJQ0eInXRWg3hOD0vd9+WSyay5KlAs
-	 U2Oei0PmLvopHwpUVkwvihS50V4t2bEAwQp3GY0LX4Oh2CcciKsP4O3/XdNHyofmu8
-	 whoNyPcB1oSDly6vjL0ZfahaE9i6TZ35aqeXeBjt6TvxqR/hlvBXL+Jg+gyWfZ8Q/7
-	 pPfraHEqUqStA==
+	b=B+dBFzp4fDgqspwLCz1B52GXRo5hc/mSF7v7yFWIOiCi4iblWSgJOq2SUHsH4gwvC
+	 BQ60X2bkb0Bj9qVsnfHOMAmIC90ShHmBV+LnCAQDvyHuI1MON5EWZHzy7/unbakw65
+	 gYzjkf7rgeokLu+aX6VR060C4bF0fYknkuZHq4tMUBz458ysJNzp+O0EUeVtl7hxgA
+	 YLfmF9oHkPhkXLw5ZKe42CkcW0arWL1LGU8IVx97LBZwEVZm5NsOwi5GTSV4LXawXy
+	 d03W3Hog5dZOi16HY3pFCv5zMePUgH1LVLukqS/ltprh12RnqGazQXeNJ6diXHIoxF
+	 qt9VFeONxYrQA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhang Lixu <lixu.zhang@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
+Cc: Colin Ian King <colin.i.king@gmail.com>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] iio: hid-sensor-rotation: Fix stale or zero output when reading raw values
-Date: Mon, 13 Jul 2026 14:33:44 -0400
-Message-ID: <20260713183344.1950826-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] iio: invensense: remove redundant initialization of variable period
+Date: Mon, 13 Jul 2026 14:33:45 -0400
+Message-ID: <20260713183348.1951183-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260713183344.1950826-1-sashal@kernel.org>
-References: <2026071307-subtitle-peroxide-64d1@gregkh>
- <20260713183344.1950826-1-sashal@kernel.org>
+In-Reply-To: <2026071317-seventeen-sedate-4f50@gregkh>
+References: <2026071317-seventeen-sedate-4f50@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,88 +46,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhang Lixu <lixu.zhang@intel.com>
+From: Colin Ian King <colin.i.king@gmail.com>
 
-[ Upstream commit 3ce8d099e0afc5a7da75a2007a67f67c4f5a4af1 ]
+[ Upstream commit b58b13f156c00c2457035b7071eaaac105fe6836 ]
 
-When reading the raw quaternion attribute (in_rot_quaternion_raw), the
-driver currently returns either all zeros (if the sensor was never enabled)
-or stale data (if the sensor was previously enabled) because it reads from
-the internal buffer without explicitly requesting a new sample from the
-sensor.
+The variable period is being initialized with a value that is never
+read, it is being re-assigned a new value later on before it is read.
+The initialization is redundant and can be removed.
 
-To fix this, power up the sensor, call sensor_hub_input_attr_read_values()
-to issue a synchronous GET_REPORT and receive the full quaternion data
-directly into a local buffer, then decode the four components.
+Cleans up clang scan build warning:
+Value stored to 'period' during its initialization is never
+read [deadcode.DeadStores]
 
-Fixes: fc18dddc0625 ("iio: hid-sensors: Added device rotation support")
-Signed-off-by: Zhang Lixu <lixu.zhang@intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+Acked-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Link: https://lore.kernel.org/r/20240106153202.54861-1-colin.i.king@gmail.com
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: affe3f077d7a ("iio: imu: inv_icm42600: fix timestamping by limiting FIFO reading")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/orientation/hid-sensor-rotation.c | 40 ++++++++++++++++++-
- 1 file changed, 38 insertions(+), 2 deletions(-)
+ drivers/iio/common/inv_sensors/inv_sensors_timestamp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/orientation/hid-sensor-rotation.c b/drivers/iio/orientation/hid-sensor-rotation.c
-index a033699910e8e0..f124062af383b2 100644
---- a/drivers/iio/orientation/hid-sensor-rotation.c
-+++ b/drivers/iio/orientation/hid-sensor-rotation.c
-@@ -69,6 +69,13 @@ static int dev_rot_read_raw(struct iio_dev *indio_dev,
- 				long mask)
- {
- 	struct dev_rot_state *rot_state = iio_priv(indio_dev);
-+	struct hid_sensor_hub_device *hsdev = rot_state->common_attributes.hsdev;
-+	struct hid_sensor_hub_attribute_info *info = &rot_state->quaternion;
-+	u32 usage_id = HID_USAGE_SENSOR_ORIENT_QUATERNION;
-+	union {
-+		s16 val16[4];
-+		s32 val32[4];
-+	} raw_buf;
- 	int ret_type;
- 	int i;
+diff --git a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
+index e85be46e48d304..5985c99cc0b60a 100644
+--- a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
++++ b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
+@@ -139,7 +139,7 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
+ 	struct inv_sensors_timestamp_interval *it;
+ 	int64_t delta, interval;
+ 	const uint32_t fifo_mult = fifo_period / ts->chip.clock_period;
+-	uint32_t period = ts->period;
++	uint32_t period;
+ 	bool valid = false;
  
-@@ -78,8 +85,37 @@ static int dev_rot_read_raw(struct iio_dev *indio_dev,
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
- 		if (size >= 4) {
--			for (i = 0; i < 4; ++i)
--				vals[i] = rot_state->scan.sampled_vals[i];
-+			if (info->size <= 0 || info->size > sizeof(raw_buf))
-+				return -EINVAL;
-+
-+			hid_sensor_power_state(&rot_state->common_attributes, true);
-+
-+			ret_type = sensor_hub_input_attr_read_values(hsdev,
-+								     hsdev->usage,
-+								     usage_id,
-+								     info->report_id,
-+								     SENSOR_HUB_SYNC,
-+								     info->size,
-+								     (u8 *)&raw_buf);
-+
-+			hid_sensor_power_state(&rot_state->common_attributes, false);
-+
-+			if (ret_type < 0)
-+				return ret_type;
-+
-+			switch (info->size) {
-+			case sizeof(raw_buf.val16):
-+				for (i = 0; i < ARRAY_SIZE(raw_buf.val16); i++)
-+					vals[i] = raw_buf.val16[i];
-+				break;
-+			case sizeof(raw_buf.val32):
-+				for (i = 0; i < ARRAY_SIZE(raw_buf.val32); i++)
-+					vals[i] = raw_buf.val32[i];
-+				break;
-+			default:
-+				return -EINVAL;
-+			}
-+
- 			ret_type = IIO_VAL_INT_MULTIPLE;
- 			*val_len =  4;
- 		} else
+ 	if (fifo_nb == 0)
 -- 
 2.53.0
 
