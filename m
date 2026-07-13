@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74FF3F1AD5
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:45:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80AF542A7AA
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:45:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950351; cv=none; b=H4OLYxfHKR3IAfmcXg6ztGpd8GRhpIzHIYkalZwCxaIBvf1ZYLy2gZZ7koZ7MCab/gHZjPo+SnIcLSDcy9Es1R3dWpxNyEtYzOC4V2a7KF7usxZKH/VzQj9uPPhtgAOPS8eXumNu9uhmJbYnNJSrfnZE92yrGBy7pYyn/Wenafc=
+	t=1783950353; cv=none; b=dyLYpaOkMnsUQTZc2FnJUH2YLTWv64og18LBk0aNU9qg0rLNuwsXY6Xdukeb6rsgqOZ3Xik0olSXNSU4SS1M/o9Doh57evEy61HXIViNPf8wGTp6Fghh064NZg+FCZzQZ4CRVpsWTJ9kUkFcZQ7KG48FulYewN7i9Xz7pvi0Yls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950351; c=relaxed/simple;
-	bh=qkSLLddZVZDa3xowLOaJ0VkRcqpgyhclnfSGKk+sF5Q=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C6cU+wBw8Lanwhposi0j+o7JavzcdFvNV1PJ5mx9uQBu9lCpgJeBrQnheB95KDb7j2aVBoRMi+LgzBc8O90Dy4j0bGwiUdekuSPCj7uawTvu6OBmFWTLED2kILK5elCm6bdAwNMHrOUSLaBA4vRWEEEwMJ7Kvx8IgITInJQqIWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IIoJ2qsC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950353; c=relaxed/simple;
+	bh=cR8ejeHOS1DZxO9FXonnuaN2iSPZkHpYOrQdJIm01b4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=penNT52V78n5Ta7MVpC8eJAlF/uS1CYbe+DeNHodBbPEGFIhhZiOACkKgY0VxjcuK9UOtTZy75j+HbVi9BKmvQOCMsmzcLtOSsJ/VPD2wwuC4ppo59BlIzwPCdkEZWaYhZY/P2fane19deaC8vqlFkruFVQYtFDhzGF5A1YCHGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Lk8zYkOp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IIoJ2qsC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE201F00A3A;
-	Mon, 13 Jul 2026 13:45:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Lk8zYkOp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D61B31F000E9;
+	Mon, 13 Jul 2026 13:45:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783950349;
-	bh=TioJ2dfm480eHRBbjjn0z/nqSYfrfiLrBqjSMJv6JbQ=;
+	s=korg; t=1783950352;
+	bh=FmyVqM4hdDqFGa8v32sFPDx9bs5KY8goE1y+WHZhOk8=;
 	h=Subject:To:Cc:From:Date;
-	b=IIoJ2qsCJVkyoYZPQaf9XsoYlsm+Kkgqjk7+jr0oYHx44FU8OF9uuceTrZeXp75AL
-	 i9DNxH09NsxN9Gj4oXri1Q0KKs+coBVFf16TJ04OfriGMpiVLj0eVAeZjeaaaieh5Q
-	 CJAR7N1JXr4Gt7HS0eQv5hQXfiOGImZyG42PVjb4=
-Subject: FAILED: patch "[PATCH] crypto: qat - fix VF2PF work teardown race in" failed to apply to 5.10-stable tree
-To: giovanni.cabiddu@intel.com,ahsan.atta@intel.com,herbert@gondor.apana.org.au
+	b=Lk8zYkOpfBMiP0jsYnAqQl7oPlEg5oK14m/MM58Vp6K38u0AXw/7Hg/icq+z4lJFP
+	 vOGXd6DrD9URxt/S5MZRF0scj7wFjCo1wpmSs2Ty72X719jVUhdZwiLrnC5v+O0j2A
+	 wb+dQqETsMchnp6578yLAHZIKx2mmGydCyJXkSnI=
+Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Fix UAF in channel timeout by holding conn" failed to apply to 6.12-stable tree
+To: elver@google.com,luiz.von.dentz@intel.com,oss@fourdim.xyz,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:34:53 +0200
-Message-ID: <2026071353-appraiser-nemeses-9188@gregkh>
+Date: Mon, 13 Jul 2026 15:35:57 +0200
+Message-ID: <2026071357-fable-dawn-6213@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 277281c10c63791067d24d421f7c43a15faa9096
+git cherry-pick -x b66774b48dd98f07254951f74ea6f513efe7ff8b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071353-appraiser-nemeses-9188@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071357-fable-dawn-6213@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,216 +62,242 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 277281c10c63791067d24d421f7c43a15faa9096 Mon Sep 17 00:00:00 2001
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Date: Wed, 13 May 2026 15:47:32 +0100
-Subject: [PATCH] crypto: qat - fix VF2PF work teardown race in
- adf_disable_sriov()
+From b66774b48dd98f07254951f74ea6f513efe7ff8b Mon Sep 17 00:00:00 2001
+From: Marco Elver <elver@google.com>
+Date: Fri, 5 Jun 2026 16:23:35 +0200
+Subject: [PATCH] Bluetooth: L2CAP: Fix UAF in channel timeout by holding conn
+ ref
 
-The VF2PF interrupt handler queues PF-side response work that stores a
-raw pointer to per-VF state (struct adf_accel_vf_info). Currently,
-adf_disable_sriov() destroys per-VF mutexes and frees vf_info without
-stopping new VF2PF work or waiting for in-flight workers to complete. A
-concurrently scheduled or already queued worker can then dereference
-freed memory.
+l2cap_chan_timeout() runs asynchronously and accesses chan->conn. If
+the connection is torn down while the timer is running or pending,
+chan->conn can be freed, leading to a use-after-free when the timer
+worker attempts to lock conn->lock:
 
-This manifests as a use-after-free when KASAN is enabled:
+| BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+| BUG: KASAN: slab-use-after-free in atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4456 [inline]
+| BUG: KASAN: slab-use-after-free in __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
+| BUG: KASAN: slab-use-after-free in mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
+| Write of size 8 at addr ffff8881298d9550 by task kworker/2:1/83
+|
+| CPU: 2 UID: 0 PID: 83 Comm: kworker/2:1 Not tainted 7.1.0-rc6-next-20260601-dirty #6 PREEMPT(full)
+| Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+| Workqueue: events l2cap_chan_timeout
+| Call Trace:
+|  <TASK>
+|  instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+|  atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4456 [inline]
+|  __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
+|  mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
+|  l2cap_chan_timeout+0x5d/0x1b0 net/bluetooth/l2cap_core.c:422
+|  process_one_work kernel/workqueue.c:3326 [inline]
+|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
+|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
+|  kthread+0x346/0x430 kernel/kthread.c:436
+|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
+|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+|  </TASK>
+|
+| Allocated by task 320:
+|  l2cap_conn_add+0xa7/0x820 net/bluetooth/l2cap_core.c:7075
+|  l2cap_connect_cfm+0xdb/0xd70 net/bluetooth/l2cap_core.c:7452
+|  hci_connect_cfm include/net/bluetooth/hci_core.h:2139 [inline]
+|  hci_remote_features_evt+0x52f/0x9f0 net/bluetooth/hci_event.c:3760
+|  hci_event_func net/bluetooth/hci_event.c:7796 [inline]
+|  hci_event_packet+0x561/0xa70 net/bluetooth/hci_event.c:7847
+|  hci_rx_work+0x370/0x890 net/bluetooth/hci_core.c:4040
+|  process_one_work kernel/workqueue.c:3326 [inline]
+|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
+|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
+|  kthread+0x346/0x430 kernel/kthread.c:436
+|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
+|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+|
+| Freed by task 322:
+|  hci_disconn_cfm include/net/bluetooth/hci_core.h:2154 [inline]
+|  hci_conn_hash_flush+0x101/0x1f0 net/bluetooth/hci_conn.c:2736
+|  hci_dev_close_sync+0x889/0xde0 net/bluetooth/hci_sync.c:5405
+|  hci_dev_do_close net/bluetooth/hci_core.c:502 [inline]
+|  hci_unregister_dev+0x1f7/0x370 net/bluetooth/hci_core.c:2679
+|  vhci_release+0x12a/0x180 drivers/bluetooth/hci_vhci.c:690
+|  __fput+0x369/0x890 fs/file_table.c:510
+|  task_work_run+0x160/0x1d0 kernel/task_work.c:233
+|  get_signal+0xf5b/0x1120 kernel/signal.c:2810
+|  arch_do_signal_or_restart+0x4d/0x600 arch/x86/kernel/signal.c:337
+|  __exit_to_user_mode_loop kernel/entry/common.c:64 [inline]
+|  exit_to_user_mode_loop+0x85/0x510 kernel/entry/common.c:98
+|  do_syscall_64+0x263/0x3d0 arch/x86/entry/syscall_64.c:100
+|  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+|
+| The buggy address belongs to the object at ffff8881298d9400
+|  which belongs to the cache kmalloc-512 of size 512
+| The buggy address is located 336 bytes inside of
+|  freed 512-byte region [ffff8881298d9400, ffff8881298d9600)
 
-  BUG: KASAN: null-ptr-deref in mutex_lock+0x76/0xe0
-  Write of size 8 at addr 0000000000000260 by task kworker/24:2/...
-  Workqueue: qat_pf2vf_resp_wq adf_iov_send_resp [intel_qat]
-  Call Trace:
-    kasan_report+0x119/0x140
-    mutex_lock+0x76/0xe0
-    adf_gen4_pfvf_send+0xd4/0x1f0 [intel_qat]
-    adf_recv_and_handle_vf2pf_msg+0x290/0x360 [intel_qat]
-    adf_iov_send_resp+0x8c/0xe0 [intel_qat]
-    process_one_work+0x6ac/0xfd0
-    worker_thread+0x4dd/0xd30
-    kthread+0x326/0x410
-    ret_from_fork+0x33b/0x670
+Fix it by having chan->conn hold a reference to l2cap_conn (via
+l2cap_conn_get) when the channel is added to the connection, and
+releasing it in the channel destructor. This ensures the l2cap_conn
+remains alive as long as the channel exists.
 
-Add a PF-local flag, vf2pf_disabled, that gates work queueing, worker
-processing, and interrupt re-enabling during teardown. Set this flag
-atomically with the hardware interrupt mask inside
-adf_disable_all_vf2pf_interrupts(). After masking, synchronize the AE
-cluster MSI-X interrupt and flush the PF response workqueue before
-tearing down per-VF locks and state so all in-flight work completes
-before vf_info is destroyed.
+A new FLAG_DEL channel flag is introduced to indicate that the channel
+has been deleted from its connection. l2cap_chan_del() atomically sets
+this flag using test_and_set_bit() instead of setting chan->conn to
+NULL. All asynchronous workers (l2cap_chan_timeout, l2cap_ack_timeout,
+l2cap_monitor_timeout, l2cap_retrans_timeout) and l2cap_chan_send()
+check FLAG_DEL to determine whether the channel has been torn down,
+rather than testing chan->conn for NULL.
 
-Introduce adf_enable_all_vf2pf_interrupts() to clear the flag and
-unmask all VF2PF interrupts under the same lock when SR-IOV is
-re-enabled. This ensures the software flag and hardware state transition
-atomically on both the enable and disable paths.
+Fixes: 8c8e620467a7 ("Bluetooth: L2CAP: use chan timer to close channels in cleanup_listen()")
+Cc: <stable@vger.kernel.org>
+Cc: Siwei Zhang <oss@fourdim.xyz>
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Assisted-by: Gemini:gemini-3.1-pro-preview
+Reported-by: https://sashiko.dev/#/patchset/20260521021249.3258069-1-oss%40fourdim.xyz
+Signed-off-by: Marco Elver <elver@google.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-Cc: stable@vger.kernel.org
-Fixes: ed8ccaef52fa ("crypto: qat - Add support for SRIOV")
-Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Reviewed-by: Ahsan Atta <ahsan.atta@intel.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h b/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h
-index 03a4e9690208..d9b2a1cf474e 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h
-+++ b/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h
-@@ -480,6 +480,8 @@ struct adf_accel_dev {
- 		struct {
- 			/* protects VF2PF interrupts access */
- 			spinlock_t vf2pf_ints_lock;
-+			/* prevents VF2PF handling from racing with VF state teardown */
-+			bool vf2pf_disabled;
- 			/* vf_info is non-zero when SR-IOV is init'ed */
- 			struct adf_accel_vf_info *vf_info;
- 		} pf;
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-index a05d149423b0..b9188ea9aa72 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-+++ b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-@@ -110,6 +110,7 @@ void qat_comp_alg_callback(void *resp);
+diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
+index 790935950a0c..1640cc9bf83a 100644
+--- a/include/net/bluetooth/l2cap.h
++++ b/include/net/bluetooth/l2cap.h
+@@ -745,6 +745,7 @@ enum {
+ 	FLAG_ECRED_CONN_REQ_SENT,
+ 	FLAG_PENDING_SECURITY,
+ 	FLAG_HOLD_HCI_CONN,
++	FLAG_DEL,
+ };
  
- int adf_isr_resource_alloc(struct adf_accel_dev *accel_dev);
- void adf_isr_resource_free(struct adf_accel_dev *accel_dev);
-+void adf_isr_sync_ae_cluster(struct adf_accel_dev *accel_dev);
- int adf_vf_isr_resource_alloc(struct adf_accel_dev *accel_dev);
- void adf_vf_isr_resource_free(struct adf_accel_dev *accel_dev);
+ /* Lock nesting levels for L2CAP channels. We need these because lockdep
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 863fc4b8a55e..a97d492473e2 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -408,7 +408,7 @@ static void l2cap_chan_timeout(struct work_struct *work)
  
-@@ -183,6 +184,7 @@ int adf_sriov_configure(struct pci_dev *pdev, int numvfs);
- void adf_disable_sriov(struct adf_accel_dev *accel_dev);
- void adf_reenable_sriov(struct adf_accel_dev *accel_dev);
- void adf_enable_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 vf_mask);
-+void adf_enable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 num_vfs);
- void adf_disable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev);
- bool adf_recv_and_handle_pf2vf_msg(struct adf_accel_dev *accel_dev);
- bool adf_recv_and_handle_vf2pf_msg(struct adf_accel_dev *accel_dev, u32 vf_nr);
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_isr.c b/drivers/crypto/intel/qat/qat_common/adf_isr.c
-index 4639d7fd93e6..159e91a50106 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_isr.c
-+++ b/drivers/crypto/intel/qat/qat_common/adf_isr.c
-@@ -62,6 +62,23 @@ void adf_enable_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 vf_mask)
- 	unsigned long flags;
+ 	BT_DBG("chan %p state %s", chan, state_to_string(chan->state));
  
- 	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	if (!READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		GET_PFVF_OPS(accel_dev)->enable_vf2pf_interrupts(pmisc_addr, vf_mask);
-+	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
-+}
-+
-+void adf_enable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 num_vfs)
-+{
-+	void __iomem *pmisc_addr = adf_get_pmisc_base(accel_dev);
-+	unsigned long flags;
-+	u32 vf_mask;
-+
-+	vf_mask = BIT_ULL(num_vfs) - 1;
-+	if (!vf_mask)
-+		return;
-+
-+	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	WRITE_ONCE(accel_dev->pf.vf2pf_disabled, false);
- 	GET_PFVF_OPS(accel_dev)->enable_vf2pf_interrupts(pmisc_addr, vf_mask);
- 	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
- }
-@@ -72,6 +89,7 @@ void adf_disable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	WRITE_ONCE(accel_dev->pf.vf2pf_disabled, true);
- 	GET_PFVF_OPS(accel_dev)->disable_all_vf2pf_interrupts(pmisc_addr);
- 	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
- }
-@@ -174,6 +192,27 @@ static irqreturn_t adf_msix_isr_ae(int irq, void *dev_ptr)
- 	return IRQ_NONE;
- }
- 
-+void adf_isr_sync_ae_cluster(struct adf_accel_dev *accel_dev)
-+{
-+	struct adf_accel_pci *pci_dev_info = &accel_dev->accel_pci_dev;
-+	struct adf_hw_device_data *hw_data = GET_HW_DATA(accel_dev);
-+	u32 num_entries = pci_dev_info->msix_entries.num_entries;
-+	struct adf_irq *irqs = pci_dev_info->msix_entries.irqs;
-+	u32 irq_idx;
-+	int irq;
-+
-+	if (!test_bit(ADF_STATUS_IRQ_ALLOCATED, &accel_dev->status) || !irqs)
-+		return;
-+
-+	irq_idx = num_entries > 1 ? hw_data->num_banks : 0;
-+	if (irq_idx >= num_entries || !irqs[irq_idx].enabled)
-+		return;
-+
-+	irq = pci_irq_vector(pci_dev_info->pci_dev, hw_data->num_banks);
-+	if (irq > 0)
-+		synchronize_irq(irq);
-+}
-+
- static void adf_free_irqs(struct adf_accel_dev *accel_dev)
- {
- 	struct adf_accel_pci *pci_dev_info = &accel_dev->accel_pci_dev;
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_sriov.c b/drivers/crypto/intel/qat/qat_common/adf_sriov.c
-index 8bf0fe1fcb4d..96939572109e 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_sriov.c
-+++ b/drivers/crypto/intel/qat/qat_common/adf_sriov.c
-@@ -26,6 +26,9 @@ static void adf_iov_send_resp(struct work_struct *work)
- 	u32 vf_nr = vf_info->vf_nr;
- 	bool ret;
- 
-+	if (READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		goto out;
-+
- 	mutex_lock(&vf_info->pfvf_mig_lock);
- 	ret = adf_recv_and_handle_vf2pf_msg(accel_dev, vf_nr);
- 	if (ret)
-@@ -33,13 +36,18 @@ static void adf_iov_send_resp(struct work_struct *work)
- 		adf_enable_vf2pf_interrupts(accel_dev, 1 << vf_nr);
- 	mutex_unlock(&vf_info->pfvf_mig_lock);
- 
-+out:
- 	kfree(pf2vf_resp);
- }
- 
- void adf_schedule_vf2pf_handler(struct adf_accel_vf_info *vf_info)
- {
-+	struct adf_accel_dev *accel_dev = vf_info->accel_dev;
- 	struct adf_pf2vf_resp *pf2vf_resp;
- 
-+	if (READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		return;
-+
- 	pf2vf_resp = kzalloc_obj(*pf2vf_resp, GFP_ATOMIC);
- 	if (!pf2vf_resp)
+-	if (!conn) {
++	if (test_bit(FLAG_DEL, &chan->flags)) {
+ 		l2cap_chan_put(chan);
  		return;
-@@ -49,6 +57,12 @@ void adf_schedule_vf2pf_handler(struct adf_accel_vf_info *vf_info)
- 	queue_work(pf2vf_resp_wq, &pf2vf_resp->pf2vf_resp_work);
+ 	}
+@@ -419,6 +419,9 @@ static void l2cap_chan_timeout(struct work_struct *work)
+ 	 */
+ 	l2cap_chan_lock(chan);
+ 
++	if (test_bit(FLAG_DEL, &chan->flags))
++		goto unlock;
++
+ 	if (chan->state == BT_CONNECTED || chan->state == BT_CONFIG)
+ 		reason = ECONNREFUSED;
+ 	else if (chan->state == BT_CONNECT &&
+@@ -431,10 +434,10 @@ static void l2cap_chan_timeout(struct work_struct *work)
+ 
+ 	chan->ops->close(chan);
+ 
++unlock:
+ 	l2cap_chan_unlock(chan);
+-	l2cap_chan_put(chan);
+-
+ 	mutex_unlock(&conn->lock);
++	l2cap_chan_put(chan);
  }
  
-+static void adf_flush_pf2vf_resp_wq(void)
-+{
-+	if (pf2vf_resp_wq)
-+		flush_workqueue(pf2vf_resp_wq);
-+}
+ struct l2cap_chan *l2cap_chan_create(void)
+@@ -487,6 +490,9 @@ static void l2cap_chan_destroy(struct kref *kref)
+ 	list_del(&chan->global_l);
+ 	write_unlock(&chan_list_lock);
+ 
++	if (chan->conn)
++		l2cap_conn_put(chan->conn);
 +
- static int adf_enable_sriov(struct adf_accel_dev *accel_dev)
+ 	kfree(chan);
+ }
+ 
+@@ -590,7 +596,7 @@ void __l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
+ 
+ 	conn->disc_reason = HCI_ERROR_REMOTE_USER_TERM;
+ 
+-	chan->conn = conn;
++	chan->conn = l2cap_conn_get(conn);
+ 
+ 	switch (chan->chan_type) {
+ 	case L2CAP_CHAN_CONN_ORIENTED:
+@@ -645,30 +651,26 @@ void l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
+ 
+ void l2cap_chan_del(struct l2cap_chan *chan, int err)
  {
- 	struct pci_dev *pdev = accel_to_pci_dev(accel_dev);
-@@ -75,7 +89,7 @@ static int adf_enable_sriov(struct adf_accel_dev *accel_dev)
- 		hw_data->configure_iov_threads(accel_dev, true);
+-	struct l2cap_conn *conn = chan->conn;
+-
+ 	__clear_chan_timer(chan);
  
- 	/* Enable VF to PF interrupts for all VFs */
--	adf_enable_vf2pf_interrupts(accel_dev, BIT_ULL(totalvfs) - 1);
-+	adf_enable_all_vf2pf_interrupts(accel_dev, totalvfs);
+-	BT_DBG("chan %p, conn %p, err %d, state %s", chan, conn, err,
++	BT_DBG("chan %p, err %d, state %s", chan, err,
+ 	       state_to_string(chan->state));
  
- 	/*
- 	 * Due to the hardware design, when SR-IOV and the ring arbiter
-@@ -248,8 +262,10 @@ void adf_disable_sriov(struct adf_accel_dev *accel_dev)
- 	adf_pf2vf_wait_for_restarting_complete(accel_dev);
- 	pci_disable_sriov(accel_to_pci_dev(accel_dev));
+ 	chan->ops->teardown(chan, err);
  
--	/* Disable VF to PF interrupts */
-+	/* Block VF2PF work and disable VF to PF interrupts */
- 	adf_disable_all_vf2pf_interrupts(accel_dev);
-+	adf_isr_sync_ae_cluster(accel_dev);
-+	adf_flush_pf2vf_resp_wq();
+-	if (conn) {
++	if (!test_and_set_bit(FLAG_DEL, &chan->flags)) {
+ 		/* Delete from channel list */
+ 		list_del(&chan->list);
  
- 	/* Clear Valid bits in AE Thread to PCIe Function Mapping */
- 	if (hw_data->configure_iov_threads)
+ 		l2cap_chan_put(chan);
+ 
+-		chan->conn = NULL;
+-
+ 		/* Reference was only held for non-fixed channels or
+ 		 * fixed channels that explicitly requested it using the
+ 		 * FLAG_HOLD_HCI_CONN flag.
+ 		 */
+ 		if (chan->chan_type != L2CAP_CHAN_FIXED ||
+ 		    test_bit(FLAG_HOLD_HCI_CONN, &chan->flags))
+-			hci_conn_drop(conn->hcon);
++			hci_conn_drop(chan->conn->hcon);
+ 	}
+ 
+ 	if (test_bit(CONF_NOT_COMPLETE, &chan->conf_state))
+@@ -1900,7 +1902,7 @@ static void l2cap_monitor_timeout(struct work_struct *work)
+ 
+ 	l2cap_chan_lock(chan);
+ 
+-	if (!chan->conn) {
++	if (test_bit(FLAG_DEL, &chan->flags)) {
+ 		l2cap_chan_unlock(chan);
+ 		l2cap_chan_put(chan);
+ 		return;
+@@ -1921,7 +1923,7 @@ static void l2cap_retrans_timeout(struct work_struct *work)
+ 
+ 	l2cap_chan_lock(chan);
+ 
+-	if (!chan->conn) {
++	if (test_bit(FLAG_DEL, &chan->flags)) {
+ 		l2cap_chan_unlock(chan);
+ 		l2cap_chan_put(chan);
+ 		return;
+@@ -2562,7 +2564,7 @@ int l2cap_chan_send(struct l2cap_chan *chan, struct msghdr *msg, size_t len,
+ 	int err;
+ 	struct sk_buff_head seg_queue;
+ 
+-	if (!chan->conn)
++	if (test_bit(FLAG_DEL, &chan->flags))
+ 		return -ENOTCONN;
+ 
+ 	/* Connectionless channel */
+@@ -3157,12 +3159,16 @@ static void l2cap_ack_timeout(struct work_struct *work)
+ 
+ 	l2cap_chan_lock(chan);
+ 
++	if (test_bit(FLAG_DEL, &chan->flags))
++		goto unlock;
++
+ 	frames_to_ack = __seq_offset(chan, chan->buffer_seq,
+ 				     chan->last_acked_seq);
+ 
+ 	if (frames_to_ack)
+ 		l2cap_send_rr_or_rnr(chan, 0);
+ 
++unlock:
+ 	l2cap_chan_unlock(chan);
+ 	l2cap_chan_put(chan);
+ }
 
