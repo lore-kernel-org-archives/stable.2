@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111F81DED5B
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:43:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85227357CE5
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:43:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783971791; cv=none; b=tKaaoAvJHikbecSO0r/+UsJR5wTGZgZXXc6VYd7Ad2nED50MuqvuriLIUoy5YoTV0OBDBxAbgzUna5ScuFaLilED9/mrbRdBPSdKM9pNDsxckzOOggdj5+pM6L0ZiurqKZosLoM4GY14Tg+elC+IZyHYvVTnP+bQP4N06fzikQw=
+	t=1783971793; cv=none; b=biQyNvQI9hnlr3j2og7XXVQecDB5vf6BJ3dAYqYGQnFlmHq0plG19U3kGk2QtQ3dfzQYCtdOE/lBGPLmilxblnOLoVIpYXrIL7FcEHi1dTXZxScNIeFqe+tO3SCEL90J3NATT7kAFp9PC8mbEMc846PMt68Zd9Fk3I16UUhMIMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783971791; c=relaxed/simple;
+	s=arc-20240116; t=1783971793; c=relaxed/simple;
 	bh=WsysDYKlmNIi1GeaMYZNzj3eo5Jd1cfgBO4xygxqFM8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EEmcWWC8HbJdMhsSu7L0qUVm/s2mXkmMoie2TVqdOZZJBrTiH8WufvgRfweSMz1tpfb1arTdkvoAn1Y1+VQWR5CtMFFdCWIVrBXFUtkbB0qTQ76rWpJvJHbZgPwzAIr74JABUPHjFyL8yoTolJCtVrUdJ53D+NokxolSaxBYXdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V18a9lzf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SvSKLilvDTST9o0+uty3dZsDARAfJS/86tLFwEcbCTVeBsWSAk6yHSUZFZs4BoXk64xKYVh9XxHqkQxsAmydi4Yo6XIUVLyryNGGQ2oJ67cmESnXiCkiHneho7FhrA6wYBBV0P6c2ZKEKAVqJcRakL7wCgQBKxWEFvE96dD1x2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HnrC9BaM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V18a9lzf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150B81F000E9;
-	Mon, 13 Jul 2026 19:43:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HnrC9BaM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 911351F000E9;
+	Mon, 13 Jul 2026 19:43:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783971789;
+	s=k20260515; t=1783971792;
 	bh=xg6cJ7Emy56zQk35qGT2BR2rdqy14HcsQeCTzOrDaOw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V18a9lzfYyS+E55hLaV9xF11f9hklzThT6ACS+Iy9vM56OYzrTiCZdW6LIrYlAwUu
-	 gWt14xEGMHt8Lc3bdUC+BKyACCUarhVj5KTdQBVzxIxquxQgkXEtUUR7FHnvLvfMsO
-	 Snu9l3wiKp/lViG5u1dtSZi2/5MVE23aCUsvMynVpYIc61d3FAzo3ENan/fef3bDvC
-	 3Qmu1ZCgDK/d47mUVhNe+kUEAwjxb1OCGh6BHn9cHd37qZSEPLZg5XAS1c1FsIadzq
-	 Zu/1yyJLPV0kVXvdkgsXboAQGdKLlY34F6bWvwHhGRHj0G1QOKC+sjfFiVmIjQMDH2
-	 ZYdHKaKSK2vVg==
+	b=HnrC9BaMw6TEpgwlojQP+9+4ttFpO/5f/sIoOpvfBDnUPVeIT6BS9aXFwwkT5Coo5
+	 Rf8NkPjquX6D64oSCeiUlmmJUTrLfBUEyMeQiTWHuCbDqGb8gRnyPocn1+9wvI/dal
+	 h+hO+KdYZc5rmOmLgbC7esprlvrs1fhSjuLtoERGawZJgpJ2pPN7ZZAl7zAuvxOqIG
+	 Wyd3CkOrtP+k2brAgxrU+tCxZz2LWlJ8Yx1xEZhshTeelrZpSTlgMmXRGybPY6y1Am
+	 FYqnv7qJDqimh+G9um0Gvfhz/LcH+BMRgm/dKVJcC1Egy8ioflz1z7eEXhuEeVNEbh
+	 1dnitsx3eO0Fg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Biren Pandya <birenpandya@gmail.com>,
@@ -33,8 +33,8 @@ Cc: Biren Pandya <birenpandya@gmail.com>,
 	Jonathan Cameron <jic23@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
 Subject: [PATCH 6.6.y] iio: pressure: mpl115: fix runtime PM leak on read error
-Date: Mon, 13 Jul 2026 15:43:07 -0400
-Message-ID: <20260713194307.2064131-1-sashal@kernel.org>
+Date: Mon, 13 Jul 2026 15:43:10 -0400
+Message-ID: <20260713194310.2065294-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <2026071359-barbell-reversal-8689@gregkh>
 References: <2026071359-barbell-reversal-8689@gregkh>
