@@ -1,308 +1,129 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8FE355F4E
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE3231283E;
+	Mon, 13 Jul 2026 19:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783972578; cv=none; b=sDBPA6EfKp69mCdrUs5hJE5V7rqLun4bCXGUd5abl6uRXJco8vwLgnvlRu3DHA5aNRdYUtzVGMX47iocqFcBTJ0mfEZT2qePYC5fGTTDSvV+ke4ijQ5MmZY/Yt3UZxxQEFxzTr9sd/R+EBjzkqvt6h45aWdfgWcFGxIJYvM8q1c=
+	t=1783972760; cv=none; b=New4Qp4Btti3tcpCgGgz0RKJ2UKPpWGQbGFWGXrYhWo7jIJ7tPlq+auVaeD7/ARlWV+Gk+9SL83EfQZItazWJEYIjME7EP/oPqJTDHyDUGi2fRztIKPqTyG4ua0JQzWgZg8oDbTciciJadYMEZnbW722SuW5udE4AsLNchPD9Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783972578; c=relaxed/simple;
-	bh=DkpHIkyA78b9pvW76RGxZGm+Wk1vMcZtNbkqBaNR7QA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=r8NYawswukuVvE7nx1ZyGSzWgYH/bzsbHyCZAElmgjNgVY/msxGk92f0a55DQ5p8FRPZythwpB2gdDTa8RSo4DWMbQwsqXHOVqMtki5q+LUHCbw/tcdXukClT9VUJJnW7HORh2yGK9YuA8bXmLWYC/asuD1zRo7XIOil/0THWHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pVPRGyWO; arc=none smtp.client-ip=209.85.128.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783972760; c=relaxed/simple;
+	bh=Apy9mRRYzWmoQg6ncTKp2wNjakOPkPBVy71t6WXPbyo=;
+	h=Date:To:From:Subject:Message-Id; b=As8OontdF/UzS1i4o4cLh+/vt6OB1gP0LCJpq/xRBpcTcy6HrH/iyEsbQHkNyT0gHb4S0aWhI+OIBYccS9eYRtYbJwIbP3PLs65BVCl05lcbRdHs8ZLqsLgOomNmJ95NEiG3iXve3VW8rvfX+GyftEh3ajEdQ2BZKxw+wcCMlrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=tGfpEgy2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pVPRGyWO"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-81e69a2db34so56104807b3.0
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 12:56:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="tGfpEgy2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230C01F000E9;
+	Mon, 13 Jul 2026 19:59:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783972576; x=1784577376; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:content-language:references:cc
-         :to:from:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=q68YkVUsAq88sLtazB65v1PXfjC68MwiD7btmXhogW0=;
-        b=pVPRGyWOm489H+VbX71HU2xdQzOwIeAUzBCxdJp/E5qlC4YlQi/yZYt89NjcYPTY+x
-         japI7YuxJea3dw/QXGBjNsW9IRkaxg8Li8mR+bu08hVe3IZ2y4LOUGyz0CJ3kCOlMuZl
-         ZoWC5YEYqpw90hk6fdOo3IHBhANKR7ADfG7lHTpYBTiQj1wJpD1Hi93o4YrGDup40I6v
-         rLpN5Ay/dzDes2wdj2WQvebchLNlbaA0oikMFJCgBxYDxDCRnmW1bft4hckK7yy39mUR
-         /qWeHsuEdX5j/1vubuArFq5D0IQL/9mcohNUSFyNLPEVmVD0/ZCW3JAA4AG7ePHOdiay
-         sYzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783972576; x=1784577376;
-        h=content-type:in-reply-to:autocrypt:content-language:references:cc
-         :to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q68YkVUsAq88sLtazB65v1PXfjC68MwiD7btmXhogW0=;
-        b=ik2VRFgDbpjYHAl0IEv9E10KqBFG14cKHHplZLRlEKwfv1tl3Xk8E7aiHH1JgWSuPD
-         po4u77DRDgTIoi4oMjHZAZFK6g6xmj2X6ASHUOWd2Nmq4m2BfkWV3EldFHkRbXVc1DL/
-         4ZmMr7GZpIQI1O5EZZhYBJ5F4zGsU3iWKrLVwukolMxJ2hDbGMGhcym9dKA8ddnyuZ8w
-         sW9Oo13q3AUKoqtZIw9uS5+h82IY8C43Yjb8zGepis2JiLzz7MG0WjP7tU0IU8o3HgHv
-         fiGkjWo7U/EXP8LYPKOUCP55lC0QKspj3MrC+Zasc/l90rf3g+LAFcBlLznEr5on7DCr
-         Morg==
-X-Forwarded-Encrypted: i=1; AHgh+Roa1KymggUdoLMS+VSVuQXwsoe2dqUSUv7pGsds8anmdcJpXlzdZBIGj8wZFVWdHjkFhFKycFA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3MyEYCRBlQoU5y8N9P9g8Dhliot03SYci0sm/Rla8b88W24MM
-	IT8Up9JMXCvcOkLIvgsc/o98qQdDMUpja4qpZjJkOLXR/n/4YDIKyQIT
-X-Gm-Gg: AfdE7cn2U1hvXHw5YVWNkhb9ipwL55Z3yCHaNfvPQQZmyVoGAm5Ess8u0DqM4MjZ7uG
-	Qpycwwk/CM6PqTpiP6ZbpAumTNpO+xbc8Pnisa5dkUjc8s5dqZKEtDUu0sK/jojbfGwx/Gtrt74
-	ScMt7jAO1Q9jDYPOlIcD9Vkbrs4wMr1H1K4LMdOR4s82ZjIn7HHXcUkj2i/PzwjOFi8SgAYiNiF
-	gaQPebFUNLwjiSS2+ZMXpjyaypj6Wdj/2V8KXcgHMW7fQ09CljA7Zl6kUvvfjS3GVu20TntvOdw
-	39ETMoGJjicxJSB3siBsPMMYaKM0qjn37CBvJOsuOs8JAJ6OVLs5RG97KWuKa6+PNxU2sNacP6a
-	Kxq3xztLPGg5wC+yY79BVqVuwfO6wPR/432tiU/pFJ5gIz6u3mhh6rHF3LkufzANph6XYKDUrNT
-	qXt0OBSZl4Xyjp50w=
-X-Received: by 2002:a05:690c:480b:b0:81d:6af3:b9cd with SMTP id 00721157ae682-81e9015af55mr73668997b3.40.1783972575423;
-        Mon, 13 Jul 2026 12:56:15 -0700 (PDT)
-Received: from [10.138.10.6] ([185.98.168.14])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81e6c1a32e2sm123459527b3.30.2026.07.13.12.56.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 12:56:13 -0700 (PDT)
-Message-ID: <b5f56cbe-38ab-4772-a828-f77eb513a4ee@gmail.com>
-Date: Mon, 13 Jul 2026 15:56:10 -0400
+	d=linux-foundation.org; s=korg; t=1783972759;
+	bh=JYdQLERzhBRpObVIusmPTCsbavr8zH0CU8vdERSNF2U=;
+	h=Date:To:From:Subject;
+	b=tGfpEgy25k2+RwJYSy0DBiEdHhl7svXbYwqN/9hP88DMYwNTJAITyoqBVwDs8YjOf
+	 omnXwIfnjbBlpUKggznRiZPY6T6GoyYC2sQNZ20GTtutAfIvMzneGsEgQmjgfwAoO8
+	 YEGTHIana0zAjvqJdonGML8DJysWdxjEyBirZSwk=
+Date: Mon, 13 Jul 2026 12:59:18 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@suse.com,hannes@cmpxchg.org,zhangguopeng@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings.patch added to mm-new branch
+Message-Id: <20260713195919.230C01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
-From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Eric Biggers <ebiggers@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, stable@vger.kernel.org
-References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
- <2026071312-uncover-refining-8cac@gregkh> <20260713130745.GA2254@quark>
- <bd5821b9-7459-4db4-86ef-bd67fb645753@gmail.com>
- <2026071320-encode-modify-6193@gregkh>
- <dcf16dac-e26d-42b0-a0e7-32990446f7bf@gmail.com>
-Content-Language: en-US
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <dcf16dac-e26d-42b0-a0e7-32990446f7bf@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------C8yGlXu1E0DNNa0TaKUJFVNn"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------C8yGlXu1E0DNNa0TaKUJFVNn
-Content-Type: multipart/mixed; boundary="------------g4KQxFs8CLpWmawHNDGnmSMO";
- protected-headers="v1"; hp="clear"
-Message-ID: <b5f56cbe-38ab-4772-a828-f77eb513a4ee@gmail.com>
-Date: Mon, 13 Jul 2026 15:56:10 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
-From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Eric Biggers <ebiggers@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, stable@vger.kernel.org
-References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
- <2026071312-uncover-refining-8cac@gregkh> <20260713130745.GA2254@quark>
- <bd5821b9-7459-4db4-86ef-bd67fb645753@gmail.com>
- <2026071320-encode-modify-6193@gregkh>
- <dcf16dac-e26d-42b0-a0e7-32990446f7bf@gmail.com>
-Content-Language: en-US
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <dcf16dac-e26d-42b0-a0e7-32990446f7bf@gmail.com>
 
---------------g4KQxFs8CLpWmawHNDGnmSMO
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+The patch titled
+     Subject: mm: memcg-v1: fix wrong linux-mm list address in deprecation warnings
+has been added to the -mm mm-new branch.  Its filename is
+     mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings.patch
 
-On 7/13/26 15:49, Demi Marie Obenour wrote:
-> On 7/13/26 11:31, Greg KH wrote:
->> On Mon, Jul 13, 2026 at 10:42:04AM -0400, Demi Marie Obenour wrote:
->>> On 7/13/26 09:07, Eric Biggers wrote:
->>>> On Mon, Jul 13, 2026 at 06:47:07AM +0200, Greg KH wrote:
->>>>> On Sun, Jul 12, 2026 at 05:31:31PM -0400, Demi Marie Obenour via B4=
- Relay wrote:
->>>>>> From: Demi Marie Obenour <demiobenour@gmail.com>
->>>>>>
->>>>>> This driver is harmful:
->>>>>>
->>>>>> - It is much slower than the CPU [1] [2].
->>>>>> - It Has a history of bugs [2] [3].
->>>>>> - It does not have exclusive access to the hardware [4], causing r=
-aces
->>>>>>   with the secure world.
->>>>>> - It register its implementations with too low a cra_priority for =
-them
->>>>>>   to be actually used [5].
->>>>>>
->>>>>> Therefore, disable it to ensure that nobody builds it into kernels=
- they
->>>>>> intend to ship.
->>>>>>
->>>>>> In the future, the driver will be used for processing restricted m=
-edia
->>>>>> content.  However, the kernel does not currently support this.  Si=
-nce
->>>>>> the driver will have future uses, allow building it if COMPILE_TES=
-T is
->>>>>> enabled.
->>>>>
->>>>> Why not just delete it now, and then bring it back when it is neede=
-d in
->>>>> the future?  Otherwise this will just trip up the static code check=
-ers
->>>>> who will attempt to "fix" things in it.
->>>>
->>>> That makes sense to me, but Qualcomm pushed back on deletion:
->>>> https://lore.kernel.org/linux-crypto/20260602-qcom-qce-broken-v1-1-a=
-4ef756089e0@oss.qualcomm.com/
->>>>
->>>> But I've still not seen any evidence that this driver is useful for
->>>> anything or has any users.  Even Qualcomm seems to be unwilling to m=
-ake
->>>> such claims; they only claim that the IP is used (i.e., not in Linux=
-)
->>>> and that new features are planned.
->>>>
->>>> - Eric
->>>
->>> Here is my reading of Qualcomm's statements:
->>>
->>> QCE is currently used by the Arm secure world.  In the future, QCE
->>> will be used by the kernel as part of restricted content playback.
->>> Qualcomm wants to add the needed features to the existing driver.
->>> This will not use the crypto API.
->>
->> Why is a crypto driver not going to use the crypto API?
->=20
-> I suspect that the restricted content playback use-case involves
-> QCE decrypting data stored in kernel memory, using keys inaccessible
-> to the kernel, to memory inaccessible to the kernel.  The crypto API
-> can't express this.
->=20
->>> I would be fine with the driver being removed, but not if it means
->>> another out-of-tree Android driver.
->>
->> It's not another out-of-tree Android driver if nothing in Android
->> actually uses it :)
->=20
-> Nothing uses it *yet*.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings.patch
 
-That said, deleting the driver is also an option.  I don't have a
-problem with that myself, but Qualcomm does.  I figured that
-marking the driver BROKEN would be less objectionable.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
---------------g4KQxFs8CLpWmawHNDGnmSMO--
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
---------------C8yGlXu1E0DNNa0TaKUJFVNn
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+The mm-new branch of mm.git is not included in linux-next
 
------BEGIN PGP SIGNATURE-----
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmpVQtoACgkQszaHOrMp
-8lMiWw//WlbyclsseubZEFwpF3D7kF/tsmijPxTxd3+XD5FohrzBTMAA7RbPwETV
-S71upvd2zrIbVDUwy/eYWdFd7YvSYAenqtihZKHHYZDydYKI6C47qIxOHgPV/wJK
-K1W941NRAXX0PaK8BoyciEiEmy2Jztz9/A6pCxUCnl1vDkj7sk9p7mb6538dxqbK
-Nm6qpfoPkd0gx5YsmDJDb/UnHlxPG6k3+xUgk03wB5uDzockJ4bkCx9H5G21uckh
-AljsQc8kFUa0eQOgYXHTV8zOGx/Qz9F+9AIq9DoUC3bQqVpkw3b/eQxrvtykIry+
-sJERfMRQa+oQjrkhYFIXJHVJWLRnA3AgY8kNOki2u4EpBORwfZcaauVjPi5e43aR
-se8BNILtUW7ODV26LuyfMDONeEn5zyApO6wLVY39+koPR1J9g7QBzphNecwKYt7V
-oplp/ZImB67NXkYAgwm7lFQyFrHl7IlLPnPEhELUMRbZcM7ilcAQbStR70wC+6vO
-F02SHWhEr0sznkq0Y1YvTFF6IOM2J7rm+jQ8sjc1+g+9NwuNYJIyZnxAeHUwLYPx
-WUXO6TIUQSIfRUmch4hfjq3R3b76fzjVyNmxZ1aHk5MtEzjTgmb+qEcYEOgJRQ2K
-c2iWRd7o+KaJmwiZnHglgqw1lHPsVd2EGEeqg/zJGusjsQfgPxE=
-=JMJV
------END PGP SIGNATURE-----
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
---------------C8yGlXu1E0DNNa0TaKUJFVNn--
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: mm: memcg-v1: fix wrong linux-mm list address in deprecation warnings
+Date: Mon, 13 Jul 2026 16:57:56 +0800
+
+The deprecation warnings for memory.oom_control and memory.pressure_level
+use linux-mm-@kvack.org instead of the linux-mm mailing list address. 
+Remove the extra hyphen.
+
+Link: https://lore.kernel.org/20260713085756.2973549-1-guopeng.zhang@linux.dev
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Acked-by: Michal Hocko <mhocko@suse.com>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/memcontrol-v1.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--- a/mm/memcontrol-v1.c~mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings
++++ a/mm/memcontrol-v1.c
+@@ -1182,13 +1182,13 @@ static ssize_t memcg_write_event_control
+ 		event->unregister_event = mem_cgroup_usage_unregister_event;
+ 	} else if (!strcmp(name, "memory.oom_control")) {
+ 		pr_warn_once("oom_control is deprecated and will be removed. "
+-			     "Please report your usecase to linux-mm-@kvack.org"
++			     "Please report your usecase to linux-mm@kvack.org"
+ 			     " if you depend on this functionality.\n");
+ 		event->register_event = mem_cgroup_oom_register_event;
+ 		event->unregister_event = mem_cgroup_oom_unregister_event;
+ 	} else if (!strcmp(name, "memory.pressure_level")) {
+ 		pr_warn_once("pressure_level is deprecated and will be removed. "
+-			     "Please report your usecase to linux-mm-@kvack.org "
++			     "Please report your usecase to linux-mm@kvack.org "
+ 			     "if you depend on this functionality.\n");
+ 		event->register_event = vmpressure_register_event;
+ 		event->unregister_event = vmpressure_unregister_event;
+@@ -2340,7 +2340,7 @@ static int mem_cgroup_oom_control_write(
+ 	struct mem_cgroup *memcg = mem_cgroup_from_css(css);
+ 
+ 	pr_warn_once("oom_control is deprecated and will be removed. "
+-		     "Please report your usecase to linux-mm-@kvack.org if you "
++		     "Please report your usecase to linux-mm@kvack.org if you "
+ 		     "depend on this functionality.\n");
+ 
+ 	/* cannot set to root cgroup and only 0 and 1 are allowed */
+_
+
+Patches currently in -mm which might be from zhangguopeng@kylinos.cn are
+
+mm-memcg-remove-stray-text-from-obj_stock_pcp-comment.patch
+mm-memcontrol-update-state_local-when-flushing-nmi-stats.patch
+mm-memcg-v1-account-vmpressure-event-allocations.patch
+mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings.patch
+
