@@ -1,222 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E529A356772
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 20:39:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B5834C83C
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 20:39:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783975171; cv=none; b=pRsmcgcWOmglQEu+GIRzERD4Mn+l2nVW21uxRT08vNUvCUncpBuFXBzN1cH5XN2ezFUy3o5/2ZwQc3DWATPRjGPkPf7+kCwacakdVXoJ2rscC0yHK4PdlKY4EW0A209kx45H+YEez+CyFzJrTrqu4lhalDNvWxlozx/NK+E/WV0=
+	t=1783975185; cv=none; b=ZT4OLHZyTJwulm25T3JUR5jfAEfzPgYEWVvfgx8Lp8KuozA4FG86CTKXidHBRQFgH9QJnojijpymNxtAOWIPMoqoMxSQ2ZwaTaTLTy1MZn+Kp+E9vOSRuceyeevWK6u53drpr7SvNSxiZe3VNSnw77BApulSBuyB9HkVXTA9bFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783975171; c=relaxed/simple;
-	bh=QxTlfGWAMSCW4MV03u+LwyKoteoJ2MtXxOttGn/k/FI=;
+	s=arc-20240116; t=1783975185; c=relaxed/simple;
+	bh=Ld6H3w3XWYSwMwbwNBzkAjNiO0iCTHIKQ7HzSzW3Muc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gL5Z7dRGf3eVbgsv0owcL/hAixcY2x1bJ8RPTDgkSPFKATSOW8OH46UvkfSKnHkl0K0THywKNdXUi3zLRRIgMOjcSjXKAQcZ7XyFs3VtsSNbEO81comKG507Wtg7XIpUFFM1LyQkrMfOzdOHxrbryZHrJfF6XKptjvalqXZRaVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckkO8ksQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ALWMrrZII5mwtWk6hq+T/QAERqJ1lbuuJKgicbLoMk5UDoGV8IuWtTI8Hq9oI6mmiCH/XExXsbjjQW6+VdpB5oIVIfWxzHEVSZ6wHoUFtWzPVq5o/qaZlY15XSqTDo7HnqKZ+bzWi2c24cOqUE4wBjNU4BmXrs7GrHAPE4AmZM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bPbcOd4h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckkO8ksQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221751F000E9;
-	Mon, 13 Jul 2026 20:39:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bPbcOd4h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3FC01F000E9;
+	Mon, 13 Jul 2026 20:39:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783975169;
-	bh=64uuml4Q1dTgYnsk3Thz6+3awGttCcYagDKuUk0/qDQ=;
+	s=k20260515; t=1783975184;
+	bh=FpEdli64lCknD4tRrV1a2HpFh8jLFyGh+cNeePqcbNE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ckkO8ksQzg8hAbFxT24sCcMYdLtEayyyHpA880K3Ex07J8ZEjufYEH9GX/DWecLTF
-	 WxSCxvaBYMbXNt7+4eYeNS/xapvUNpB7XtKXRrCoYIBRsJrlTmQ6LQ/HCasgTPuQ7w
-	 6pu1ecqKvmZReYuNDo/eehLha9AFZdO4MjSH5rhEudnNl3S2LfaFZ7wGbGeG1rX4Lp
-	 wc/qevPAjT0GH5smmxiBlXpUZ5WvoTVTufTsFMQ38lZK+RPd0TgiMQ4Pa4zJbWA1mr
-	 srzDN2Eiz0n4J5q+AJv4LOe/96Ssv8ZHq3sYwvn/zHW1ON9RUYOra3ShkY1Ll07EO3
-	 FqSJbXgrV04xw==
+	b=bPbcOd4hBVkGuTgmKO5oZYgUCSh0EpmR8ZWu0OPrjOQvcgWFsPtPT1WcaEmgr1qNd
+	 O0vH2Eec4DMONoYo7ZVDn5LxVFyAj2E1WR+JJ/gbOBsNPl7TEKJGzwmJGg1gsyON7i
+	 HGTx/2ZLIfO5xvatj0iyqoW0X44RyQLci9TTxxF74UgmwyiA+x4ELMWjtitBI8aAqt
+	 0mWTPj3btt/uxMbo7Qb3CTV5W7IXmM7Xu8Kd4WKxbYW/hRa3ZnZKjG9vp8PYzWMK5h
+	 1yPdeNXfo6iYrq1O0Idq7XpuHy7ggQfT/Wn2yaoEFyQkghUG1xJHWVb1JCakBvZHfX
+	 PMDJeawonZvnQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
-	Stefan Binding <sbinding@opensource.cirrus.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ALSA: hda/cs35l41: Fix firmware load work teardown
-Date: Mon, 13 Jul 2026 16:39:27 -0400
-Message-ID: <20260713203927.2143760-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/8] iio: imu: inv_icm42600: make timestamp module chip independent
+Date: Mon, 13 Jul 2026 16:39:35 -0400
+Message-ID: <20260713203942.2144352-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071358-headfirst-radiantly-f108@gregkh>
-References: <2026071358-headfirst-radiantly-f108@gregkh>
+In-Reply-To: <2026071317-shortwave-thrift-0c90@gregkh>
+References: <2026071317-shortwave-thrift-0c90@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-[ Upstream commit b65020d5398f499c09498c9786dba6d67ae57664 ]
+[ Upstream commit 6e9f2d8375cb24ba75e02e0272e9164d06a1522e ]
 
-cs35l41_hda creates ALSA controls whose private data points at the
-cs35l41_hda object. The firmware load control can also queue
-fw_load_work.
+Move icm42600 dependent function inside the core module.
+Do some headers cleanup at the same time.
 
-Those controls are not removed on component unbind, and device remove
-only cancels fw_load_work through cs35l41_remove_dsp(). That helper is
-skipped when halo_initialized is false. With firmware_autostart
-disabled, a firmware load can be requested before the DSP has been
-initialized. If the component or device is removed before the queued
-work runs, the worker can run after teardown and dereference driver
-state that is no longer valid.
-
-Track the created controls and remove them on unbind so no new control
-callback can reach the driver data or queue more work. Then cancel
-fw_load_work to drain any request that was already queued. Also cancel
-the work unconditionally during device remove before runtime PM teardown.
-
-Fixes: 47ceabd99a28 ("ALSA: hda: cs35l41: Support Firmware switching and reloading")
-Fixes: 4c870513fbb0 ("ALSA: hda: cs35l41: Add read-only ALSA control for forced mute")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
-Reviewed-by: Stefan Binding <sbinding@opensource.cirrus.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260511-alsa-hda-cs35l41-fw-work-teardown-v1-1-1184e9bc4f25@gmail.com
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Link: https://lore.kernel.org/r/20230606162147.79667-2-inv.git-commit@tdk.com
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: affe3f077d7a ("iio: imu: inv_icm42600: fix timestamping by limiting FIFO reading")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/cs35l41_hda.c | 77 ++++++++++++++++++++++++++-----------
- sound/pci/hda/cs35l41_hda.h |  5 +++
- 2 files changed, 60 insertions(+), 22 deletions(-)
+ drivers/iio/imu/inv_icm42600/inv_icm42600_core.c   | 11 +++++++++++
+ .../iio/imu/inv_icm42600/inv_icm42600_timestamp.c  | 14 +-------------
+ .../iio/imu/inv_icm42600/inv_icm42600_timestamp.h  |  6 ------
+ 3 files changed, 12 insertions(+), 19 deletions(-)
 
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 42c576d9f1179b..099b8e9582b841 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -1293,6 +1293,43 @@ static int cs35l41_fw_type_ctl_info(struct snd_kcontrol *kcontrol, struct snd_ct
- 	return snd_ctl_enum_info(uinfo, 1, ARRAY_SIZE(hda_cs_dsp_fw_ids), hda_cs_dsp_fw_ids);
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+index 0833dece8f9e7d..0369cfd990ca01 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+@@ -522,6 +522,17 @@ static int inv_icm42600_irq_init(struct inv_icm42600_state *st, int irq,
+ 					 "inv_icm42600", st);
  }
  
-+static void cs35l41_remove_controls(struct cs35l41_hda *cs35l41)
++static int inv_icm42600_timestamp_setup(struct inv_icm42600_state *st)
 +{
-+	if (!cs35l41->codec)
-+		return;
++	unsigned int val;
 +
-+	snd_ctl_remove(cs35l41->codec->card, cs35l41->mute_override_ctl);
-+	cs35l41->mute_override_ctl = NULL;
-+
-+	snd_ctl_remove(cs35l41->codec->card, cs35l41->fw_load_ctl);
-+	cs35l41->fw_load_ctl = NULL;
-+
-+	snd_ctl_remove(cs35l41->codec->card, cs35l41->fw_type_ctl);
-+	cs35l41->fw_type_ctl = NULL;
++	/* enable timestamp register */
++	val = INV_ICM42600_TMST_CONFIG_TMST_TO_REGS_EN |
++	      INV_ICM42600_TMST_CONFIG_TMST_EN;
++	return regmap_update_bits(st->map, INV_ICM42600_REG_TMST_CONFIG,
++				  INV_ICM42600_TMST_CONFIG_MASK, val);
 +}
 +
-+static int cs35l41_add_control(struct cs35l41_hda *cs35l41,
-+			       struct snd_kcontrol_new *ctl,
-+			       struct snd_kcontrol **kctl)
-+{
-+	int ret;
-+
-+	*kctl = snd_ctl_new1(ctl, cs35l41);
-+	if (!*kctl)
-+		return -ENOMEM;
-+
-+	ret = snd_ctl_add(cs35l41->codec->card, *kctl);
-+	if (ret) {
-+		dev_err(cs35l41->dev, "Failed to add KControl %s = %d\n", ctl->name, ret);
-+		*kctl = NULL;
-+		return ret;
-+	}
-+
-+	dev_dbg(cs35l41->dev, "Added Control %s\n", ctl->name);
-+
-+	return 0;
-+}
-+
- static int cs35l41_create_controls(struct cs35l41_hda *cs35l41)
+ static int inv_icm42600_enable_regulator_vddio(struct inv_icm42600_state *st)
  {
- 	char fw_type_ctl_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
-@@ -1328,32 +1365,23 @@ static int cs35l41_create_controls(struct cs35l41_hda *cs35l41)
- 	scnprintf(mute_override_ctl_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "%s Forced Mute Status",
- 		  cs35l41->amp_name);
+ 	int ret;
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.c
+index 7f2dc41f807bbe..d3d560eaa7d8ed 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.c
+@@ -3,11 +3,10 @@
+  * Copyright (C) 2020 Invensense, Inc.
+  */
  
--	ret = snd_ctl_add(cs35l41->codec->card, snd_ctl_new1(&fw_type_ctl, cs35l41));
--	if (ret) {
--		dev_err(cs35l41->dev, "Failed to add KControl %s = %d\n", fw_type_ctl.name, ret);
--		return ret;
--	}
--
--	dev_dbg(cs35l41->dev, "Added Control %s\n", fw_type_ctl.name);
--
--	ret = snd_ctl_add(cs35l41->codec->card, snd_ctl_new1(&fw_load_ctl, cs35l41));
--	if (ret) {
--		dev_err(cs35l41->dev, "Failed to add KControl %s = %d\n", fw_load_ctl.name, ret);
--		return ret;
--	}
--
--	dev_dbg(cs35l41->dev, "Added Control %s\n", fw_load_ctl.name);
-+	ret = cs35l41_add_control(cs35l41, &fw_type_ctl, &cs35l41->fw_type_ctl);
-+	if (ret)
-+		goto err;
++#include <linux/errno.h>
+ #include <linux/kernel.h>
+-#include <linux/regmap.h>
+ #include <linux/math64.h>
  
--	ret = snd_ctl_add(cs35l41->codec->card, snd_ctl_new1(&mute_override_ctl, cs35l41));
--	if (ret) {
--		dev_err(cs35l41->dev, "Failed to add KControl %s = %d\n", mute_override_ctl.name,
--			ret);
--		return ret;
--	}
-+	ret = cs35l41_add_control(cs35l41, &fw_load_ctl, &cs35l41->fw_load_ctl);
-+	if (ret)
-+		goto err;
+-#include "inv_icm42600.h"
+ #include "inv_icm42600_timestamp.h"
  
--	dev_dbg(cs35l41->dev, "Added Control %s\n", mute_override_ctl.name);
-+	ret = cs35l41_add_control(cs35l41, &mute_override_ctl, &cs35l41->mute_override_ctl);
-+	if (ret)
-+		goto err;
- 
- 	return 0;
-+
-+err:
-+	cs35l41_remove_controls(cs35l41);
-+	return ret;
+ /* internal chip period is 32kHz, 31250ns */
+@@ -56,17 +55,6 @@ void inv_icm42600_timestamp_init(struct inv_icm42600_timestamp *ts,
+ 	inv_update_acc(&ts->chip_period, INV_ICM42600_TIMESTAMP_PERIOD);
  }
  
- static bool cs35l41_dsm_supported(acpi_handle handle, unsigned int commands)
-@@ -1491,6 +1519,10 @@ static void cs35l41_hda_unbind(struct device *dev, struct device *master, void *
- 		device_link_remove(&cs35l41->codec->core.dev, cs35l41->dev);
- 		unlock_system_sleep(sleep_flags);
- 		memset(comp, 0, sizeof(*comp));
-+
-+		cs35l41_remove_controls(cs35l41);
-+		cancel_work_sync(&cs35l41->fw_load_work);
-+		cs35l41->codec = NULL;
- 	}
- }
+-int inv_icm42600_timestamp_setup(struct inv_icm42600_state *st)
+-{
+-	unsigned int val;
+-
+-	/* enable timestamp register */
+-	val = INV_ICM42600_TMST_CONFIG_TMST_TO_REGS_EN |
+-	      INV_ICM42600_TMST_CONFIG_TMST_EN;
+-	return regmap_update_bits(st->map, INV_ICM42600_REG_TMST_CONFIG,
+-				  INV_ICM42600_TMST_CONFIG_MASK, val);
+-}
+-
+ int inv_icm42600_timestamp_update_odr(struct inv_icm42600_timestamp *ts,
+ 				      uint32_t period, bool fifo)
+ {
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.h b/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.h
+index 4e4f331d4fe4b8..b808a6da15e585 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.h
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.h
+@@ -6,10 +6,6 @@
+ #ifndef INV_ICM42600_TIMESTAMP_H_
+ #define INV_ICM42600_TIMESTAMP_H_
  
-@@ -2030,6 +2062,7 @@ void cs35l41_hda_remove(struct device *dev)
- 	struct cs35l41_hda *cs35l41 = dev_get_drvdata(dev);
+-#include <linux/kernel.h>
+-
+-struct inv_icm42600_state;
+-
+ /**
+  * struct inv_icm42600_timestamp_interval - timestamps interval
+  * @lo:	interval lower bound
+@@ -53,8 +49,6 @@ struct inv_icm42600_timestamp {
+ void inv_icm42600_timestamp_init(struct inv_icm42600_timestamp *ts,
+ 				 uint32_t period);
  
- 	component_del(cs35l41->dev, &cs35l41_hda_comp_ops);
-+	cancel_work_sync(&cs35l41->fw_load_work);
+-int inv_icm42600_timestamp_setup(struct inv_icm42600_state *st);
+-
+ int inv_icm42600_timestamp_update_odr(struct inv_icm42600_timestamp *ts,
+ 				      uint32_t period, bool fifo);
  
- 	pm_runtime_get_sync(cs35l41->dev);
- 	pm_runtime_dont_use_autosuspend(cs35l41->dev);
-diff --git a/sound/pci/hda/cs35l41_hda.h b/sound/pci/hda/cs35l41_hda.h
-index c730b335158944..65aed476fd8025 100644
---- a/sound/pci/hda/cs35l41_hda.h
-+++ b/sound/pci/hda/cs35l41_hda.h
-@@ -56,6 +56,8 @@ enum control_bus {
- 	SPI
- };
- 
-+struct snd_kcontrol;
-+
- struct cs35l41_hda {
- 	struct device *dev;
- 	struct regmap *regmap;
-@@ -74,6 +76,9 @@ struct cs35l41_hda {
- 	int speaker_id;
- 	struct mutex fw_mutex;
- 	struct work_struct fw_load_work;
-+	struct snd_kcontrol *fw_type_ctl;
-+	struct snd_kcontrol *fw_load_ctl;
-+	struct snd_kcontrol *mute_override_ctl;
- 
- 	struct regmap_irq_chip_data *irq_data;
- 	bool firmware_running;
 -- 
 2.53.0
 
