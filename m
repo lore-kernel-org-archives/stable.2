@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A92B41B36C
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:12:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF864189D9
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:12:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783948348; cv=none; b=GlcKFpCKnKlxg6tsZIAjFzHtJeVofQJTZmTu0GY2YGNlnOp/iRAE0czyevm/eIEbeOTcDuezQdwa5T2jHK64BIs47LMu70AyvMjJxlWWm23aTEuefUEsQKVTWr7gyr5K0b6P3XW37EQjZlkcmfoB/KIMljl9MFGm7oRhjI2802o=
+	t=1783948350; cv=none; b=e51M9HTWbYSMykEw84CdfFTQ2rB9plmxYcS9auweCUCYbBSbBQqBKJYIYQRE0CjFqlGH7dQPVXne4DHhF5v7bFCaywhfUGJGC5f+WisqOA22Yyp9bJYt4L0V7QuxpAagUnDaUBYP6+WigzoKSkU9/aAjnuVvBeK0/LSCQfdbj3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783948348; c=relaxed/simple;
-	bh=GhRdy3EIRC9gPBcBi4nxBTJnKLVsooQvt/uLJEs7w9M=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=A0PrBy4ItomPeskMkd/bKK3mgfIgHn53AQEFkGEqBZD65DUGV3PNXnFGixUROT0sVpUwbv7ZOlFOr7ViltUFxLjbX4ED3XHi9pzCrpzd5oDkT5hmLtEhv26DZZKZHapc9MBqZUg4pp2CfT2HjgDRBaz7Iv0B8G9KMwFQmaBZfNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TzcCENcH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783948350; c=relaxed/simple;
+	bh=6catU9Hkz+LYFJMyP64Ks5VL8C+2qSkzrNYX8QSkP8o=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mc7hSO7U8fQx042UzS2GyRmSj4qCy3vT4mhZVmygwEtdoggYbKZtP+aAWKNbQlO6jiJ8fheiPl1mCgiPiXBq9SI/IbBpI4a7Z7BO1OH3MiJ/syboc8ki1f+pp6TcA5P2Gna5Vzc7f1SAkVYBtH3MoPL2rKEjP1dm/bkEnC5C3fQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vrXea5Ci; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TzcCENcH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AE441F000E9;
-	Mon, 13 Jul 2026 13:12:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vrXea5Ci"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EA161F000E9;
+	Mon, 13 Jul 2026 13:12:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783948346;
-	bh=PgKKepZt4rR9M71isAgaXKiz7mmzOLOl99dYcH79a0A=;
+	s=korg; t=1783948349;
+	bh=SehFogX36lY8x8seRaVnCwz9y20T1cfttCz9Bp+ukjw=;
 	h=Subject:To:Cc:From:Date;
-	b=TzcCENcHQW6K+Yjms/PXSWGrsp/bqYRZ0Z34HGf61lGmLCl0/PLg8SA0oeP8JMFCk
-	 3CPifu/DwnzB9152YdooOtjBZg8NNsDhet2X2Ok6HlSSOJhFccnRGZqYrO+Ryk52o+
-	 hhdihm4bjHCVlGM7i2G4kS/0H2YI31fKucDzZhoc=
-Subject: FAILED: patch "[PATCH] ALSA: scarlett2: Update offsets for 2i2 Gen 4 firmware 2417" failed to apply to 6.12-stable tree
+	b=vrXea5CiTr7sTDmmhsL6Dd3C4lbpROMxhCW+dEmzjvXVYeOFBMnO83DsZxMSp43AA
+	 /0Zrr25oHeIZK1/xN60rA6+bqv7IxkpHpzrmMQRsG6K2xJOb53feAd8pSODNmhVbu4
+	 XXTiFa3poLQ003xmYNKZYtI8eEJ04TnMo2guATwA=
+Subject: FAILED: patch "[PATCH] ALSA: scarlett2: Update offsets for 2i2 Gen 4 firmware 2417" failed to apply to 6.18-stable tree
 To: g@b4.vu,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 13 Jul 2026 15:00:50 +0200
-Message-ID: <2026071350-latitude-exorcism-aa2b@gregkh>
+Message-ID: <2026071350-defrost-overripe-4b59@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3ca15754b561483aa7a1bce51677d6389f8ff5bb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071350-latitude-exorcism-aa2b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071350-defrost-overripe-4b59@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
