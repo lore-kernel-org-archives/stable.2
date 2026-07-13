@@ -1,73 +1,73 @@
 Received: from flow-b4-smtp.messagingengine.com (flow-b4-smtp.messagingengine.com [202.12.124.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E910342E007;
-	Mon, 13 Jul 2026 13:38:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF6D4314A4;
+	Mon, 13 Jul 2026 13:38:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783949884; cv=none; b=H3Ul3yWpy8wV4fG/l1ETolNtBWQI3+WfXHbST4WQZsUjGiq/qc96aq3c0OoOTuiFzBDeWRmy8YDnjXaDUNQFINgo7BwQynxtJDFj+jBs2yRXvn4P8qF4ZZfphH2J/0hK/lsV9igeBTPeI7D8DzIkOKCq0B6q8N+VRrAcNdPksbw=
+	t=1783949887; cv=none; b=qy4Aes3VK1WIX07lFa/4hW6uw9FMB4rKPPa8R0WVdptDM4VgltpE6ctyPU8ryEWUpiDb9SkcZeOFEMI4CZL5u1mI8ayOtXCwy00x84ub3oHORR/sKgabF7K5tHe7igcfQgz3YAxIoSFLOXbK1K8WI8R+Ti2NMF4X3bDIUMzKsGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783949884; c=relaxed/simple;
-	bh=vOdjohvfT/JVM5+C4VK9UHHmS0dTShzcpvJWsJleNZw=;
+	s=arc-20240116; t=1783949887; c=relaxed/simple;
+	bh=zbfTA2VJjWQfugM0y3HKDpUMdj5msjiIH2TZdK1WrjI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eKOtiSEQ8Z9cXtcyZbCBNIjC/1A9ugfPo7SrCDYzERV7R9bpIkZEMo8qgX3/2mvLDC0p7hLc8OMPoBu7l51sRP3Fo9t/9uKjKOgUVAtB/YEMlhzUwk/bUHij3zE6JjgCZzqKcyK1iW0qHpQED3PaPRQv6JFJYWBPh+zL53pZ2Ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=rogB8Emm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=oz/RPRLS; arc=none smtp.client-ip=202.12.124.139
+	 MIME-Version; b=ie9frmCWcQgmKY75xMnwUdEl5Bnw2U8nDZm3dhjjwcG38eZ30rJCb2RcPtQFLWlETUuc5Yb91osb9KbIClsApeCTRZduGYaz+Frg8OQOPvNhFWEjcFtymCgfEVrPL0d12QLlYI+wAPTr4MoSS5wegwB+Q5i4XRLKPVZHAjHwHbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=SnxlMej2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KVZ4xmzq; arc=none smtp.client-ip=202.12.124.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="rogB8Emm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="oz/RPRLS"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailflow.stl.internal (Postfix) with ESMTP id D0FA413000C6;
-	Mon, 13 Jul 2026 09:38:01 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="SnxlMej2";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KVZ4xmzq"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailflow.stl.internal (Postfix) with ESMTP id D5F5813000C4;
+	Mon, 13 Jul 2026 09:38:04 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Mon, 13 Jul 2026 09:38:02 -0400
+  by phl-compute-06.internal (MEProxy); Mon, 13 Jul 2026 09:38:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1783949881; x=
-	1783957081; bh=2BOhLxRDrmefh4M9XySyk/MCBQ/z2wAYsJMssS6fQpg=; b=r
-	ogB8EmmNSm3HNRgqx35bBss1goUiq/DoUq73fj6qXAcqKlRHcZQvPv6p32T7Bwtj
-	pW9I9aJSWeGOvUqmBSyD5y0uqnIlKCQvA07rxNcBZio17y5FWWzpMoIM5o+Fc7ba
-	iz1z0lkKlyonSqPVakS+aO9V+3bDK/8klF5JSfoBpcXbngGglZmeRpouxIUQVV9j
-	7BxfzlGyHp9rMkuy6fKEuqYNtN4wuXIP2vTY3REnsDhlQreH9VQ2Dy8WzhGM/CgO
-	eloJq+jcipXv59KPF8QOxRihA6ckFEYY1rFJc6YFHK3owncj3GtlUL4//oyAR2QL
-	kwT2Vsm2aO+vYo3wAwjig==
+	:reply-to:subject:subject:to:to; s=fm3; t=1783949884; x=
+	1783957084; bh=112Yvu8MDmd9GxnWgYRo8OOQeNBIsEEGqTciWSFqlIs=; b=S
+	nxlMej2TTJEJdZQwyjy/QgeFh9+k1ounA0jahS6aksRxAnCMkuwOn6chkBxI6WzQ
+	5BhoUBci/xVzsuMMCCMnLzhikutgaZV+tMBfhRDgmXzFwJ5mwRpzwpgl90jAAUNT
+	aR1vH3HbN9gmbrmatrNiWHd51a43tLLdrMDqgD67/VkwA6Xz0lyP+1a68jDJgec5
+	vi6ViS1aNO8WV2sXi5I9xE+8/EyIf1RNE0aV4oEeTFzRHSCerA09CJeuejAcmBcW
+	XM7JoZt+b4jcYsA1nWCsvHdk/OxrbpHMZBqoj3kiu4y8WRHJCRrY0AdGm134J5o1
+	YxeqRTtozOZ6I2k25i9HQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1783949881; x=1783957081; bh=2
-	BOhLxRDrmefh4M9XySyk/MCBQ/z2wAYsJMssS6fQpg=; b=oz/RPRLS9x3C6o7Wd
-	WDlwodrfLl/J7Tj11IJnW9Wj35xc1h3srbmJe4zEFEvNWpuQ/ZeO2VkKBZZxiXnL
-	rw5UlyYbZ3oaUCKew1x3OtUGFHYxAZ0Jn8lw70Wvda0Wqfdrw+Xk+hHO34QWHa44
-	1DHIbH/PrBczFu+xVCtzJlkmktEB7nB4SEX+hTYM+jiKJwD4K3C58aPSU4XBCsg+
-	iN8CDkpiY5quKPHClMwqxHlaXvySxJ9JeO/ofqKdiMtDfn3fC8xtt9+6MkgheDXh
-	F8DSGMppLTKM7OLEkz+xyek+t2SVoTlI6qqr+/9veVMYomo7HssSm7A6+Nr+1Jf7
-	bd3wg==
-X-ME-Sender: <xms:OepUagI_LAwxZG_YawLKudg0jSPWJXd2KIrgi9xncbi8gI9oMeQHwA>
-    <xme:OepUatX2gtcM6YsPXgFKxZM-ENIwAyTCFgqo1mEcubJfoH74Hk6iXEovjI8qwUwga
-    BoGpWpViPeNaLZH4VWQjcN-v_gBax_Axg_LuGoEdNSxS_0Tu-A6jDPV>
-X-ME-Received: <xmr:OepUalPvmabT6_P1z70_QtBKsRTBVcIBYnsnA1QIdcGGIuREMMOYxd9sLEiDdQ>
-X-ME-Proxy-Cause: dmFkZTFQs0i3wS5Vl8SeTNASfEPj1lXCeauVb8beM61HiLv3fATtJz9SK0Vdzpd4QIEsL5
-    GailNmiN3IQWIz5zHKECR3wLxl6J6vifHDtUPcmfY57ZY/1fcfGvR7GMD5kke9ymcub7j/
-    76wI/XlAzgLriqanNPyKkJ1vrEk7lkz83sLT/ndmHNZGD3bt+nSyG1fEnNpbtFx0/9v6AC
-    sNXsK0pdaNviGChqCQ22zotcKFrnYhH1fHTT9n50jdkwiK2+NXio2pJpO0SaVfSAj8suql
-    x79Whg/E/6h2KgpjXM/CcIwq1NEbpakcfLMat+1P9i0rkjE4OEWpAvW193LDrEgl5njaJM
-    edlbua2zAPA2mlXTSOnpN9fDL7IOIk7bN0qoOrJ6f43NMP7py5xp/s4fmsuqQZ/2EnpHCR
-    Iiy2mN5UrCnmwb68vlbN8Z/45/sJeR+gVufDXGFevNPxGPuewn2V9lDWcALGeaavT2+XuI
-    FWqKKqAdYuLMl/OXIjzd6cpqEFO+QtL1QnWnGAKi7Pb/cxuX/X5Te1YVFEf+0w4lXwYm83
-    2Z4MeZ1GbyBZLsyNYXTQ2HWmytgIR/jyNlAzxmjqk9262tDVZxG5qSK8Go9av0pc8Xrmm9
-    giXjpCIfBs8PkwOpimSBbWrNXhkG8ZcfrKSaVQfdsWUxUtBmw6uUxL/O2o1g
-X-ME-Proxy: <xmx:OepUapl_3Oy429H2WIk0qkyEzA7fOo6RmXpO5SKTjQhqLYElhDPmVg>
-    <xmx:OepUaoWvU6oMLBLxqx3ixePDaf0DYt343nE9ivlN4yMxuN7VrQ9jqQ>
-    <xmx:OepUaoLgAKAJ2d0Eou8Z2OOgNV0r10otevzFbvgz_3fVfF9ALk7VjA>
-    <xmx:OepUasb_5mvmggfJQz0L6ZdVEil1qrDBtp4DgzeiDFImIbVkZNGSzg>
-    <xmx:OepUavhRSn8KhqMKN45WnD9N_c4I5mkLN4KsMIj9g4nXGNXH9YnwGba4>
+	:x-me-sender:x-sasl-enc; s=fm2; t=1783949884; x=1783957084; bh=1
+	12Yvu8MDmd9GxnWgYRo8OOQeNBIsEEGqTciWSFqlIs=; b=KVZ4xmzq8D226ZBsQ
+	4asGgbRqztjojoG9K+Ptvr2ESLfysvQV6Kx7pCaZL2e3+M96I6rCsX3b11vBTtQO
+	hdCtdaqg0RUj5uHD+CTmT2h9fwNDA8kYSz16RjdlxKUtvERTpIl0Bpp6APD/Jt4x
+	Mxf2+aKek2okYGMXzlkKQUmwJa+8cjJYsWyZWYKbnNKEX6VU7nKoUfdk4iplvCdP
+	jqoGS4vl0PIhd+1HvOstCbN17CwMm6TnIhk6ET+IcXz2pgBIqLXE0zH91BfEOWWN
+	y5m0cJ6PEsNNoaTdCoFAZIDJO+t0m+n0mdCGlXoVkTMsyDJ3Nh7yodX1RUwczJqj
+	rI6Nw==
+X-ME-Sender: <xms:POpUasU3WfQ8J9utIdv7h02WxmF7UFzfBh0w1S95h3nAhlEIcLcjzA>
+    <xme:POpUatwT7Ic0t1evl1iauSQcPG93VK1WXlJInLwd96rx-H_ndpa3zNtIbOWx8WRhk
+    fCzem0pMURg-amNBIrmTyy8lfSZUPyj1LE4a3K8-I2kvvy9jOwDLMTN>
+X-ME-Received: <xmr:POpUak6V4wf0DWDLByovSxtF0ZeaZqI1OguWuXp1GK23K1XnONjDDjqbqXZ_Vg>
+X-ME-Proxy-Cause: dmFkZTEW6S1SvXSlZs4OOnc4VahxjW69aaGDPVJd2EBjsmGIohL3aDaqbSu+8YkVanPFjR
+    tgfQDCCpmX969bn/U9UO+n3QFXz0q323naPF4jWiHMmRntzGcQhp3Vx2KAhMBucKBrMoVj
+    X5CwYvbDFJlTUkQTRAgKvI65LvTaLY14waW97LrBigSnkpE1VVt9mBrvLTUpmoEfS6d4eG
+    NKQd5S3QFjNq4Gy3l1vDGekWs+36+zmLytr+byevjqc4klRvGFU3gjURfoh9Tfq4eVG+a+
+    Cgqgl3n6aDHjUo+YCrNUfd8of0qgvvgGYEP4z2EH+IhHTWSStBT7XqcjOnyMOC1DkjQYMX
+    vH8zgGWR2ixyB/rEh8253RHKpjrS43SzwQtSH3LB3AZh6xNQY5gfxF4nBCzMk/8YR8HSoQ
+    fwW7D76ifB2ndnjsAGRCAZ6Xb26kxKS/6hOm30U77TwPv2NTc95nQQU2lzlkuW2z3qpd+I
+    JK3yXRpiyOtPFeS7RQ8K9pipl7bQDoiWczd/zPW2ao1maFXFG6lOiFrufnMqsxrBrskx95
+    CLTU1eJgfYwkBemJ6Sotnv+ZipxtQr5KLX9BjGTWdCKjL/ZLyGzzsGfObNSLwQhoByAGRq
+    82aKz2LNjMrhaG687s+bRC42Voc4QEgx3DqvsxcPq1HB2QzMN8ZZahDWNQhQ
+X-ME-Proxy: <xmx:POpUanituzHeGoASJzvZGmbF1FDFL8eayck3XMFWWm4HmaYHbCGjYQ>
+    <xmx:POpUaniRJCzRSBf63msiFbFX6_Bv4TlBbdLeSHf9EIekOk245ne_kA>
+    <xmx:POpUavlm9ZY5usq_RsqUkfFB8FhIZZ2CDwrtH_tcia48nEK3grP-2Q>
+    <xmx:POpUanEqh2oW6gQ6C8y_yzJ2TOTOZ6eCyXN4EOrze4C-FKriq0SnqA>
+    <xmx:POpUakt10YhM7s9lJZuMNT-i_znUd-TPIXPdsWCpCL48SSHrLRezflge>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 13 Jul 2026 09:38:01 -0400 (EDT)
+ 13 Jul 2026 09:38:03 -0400 (EDT)
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: Dave Hansen <dave.hansen@linux.intel.com>,
 	Thomas Gleixner <tglx@kernel.org>,
@@ -90,9 +90,9 @@ Cc: Sean Christopherson <seanjc@google.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [PATCH v6 2/3] x86/insn-eval: Move assign_register() out of KVM as insn_assign_reg()
-Date: Mon, 13 Jul 2026 14:37:52 +0100
-Message-ID: <20260713133753.223947-3-kirill@shutemov.name>
+Subject: [PATCH v6 3/3] x86/tdx: Fix zero-extension for 32-bit port I/O
+Date: Mon, 13 Jul 2026 14:37:53 +0100
+Message-ID: <20260713133753.223947-4-kirill@shutemov.name>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260713133753.223947-1-kirill@shutemov.name>
 References: <20260713133753.223947-1-kirill@shutemov.name>
@@ -106,147 +106,53 @@ Content-Transfer-Encoding: 8bit
 
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-KVM's instruction emulator has a small helper, assign_register(), that
-writes a value into a register following the x86 rules for writes to
-general-purpose registers: an 8- or 16-bit write leaves the rest of the
-register untouched, a 32-bit write zero-extends the result to 64 bits,
-and a 64-bit write replaces the whole register.
+According to x86 architecture rules, 32-bit operations zero-extend the
+result to 64 bits. The current implementation of handle_in() only masks
+the lower 32 bits, which preserves the upper 32 bits of RAX when a
+32-bit port IN instruction is emulated.
 
-The TDX guest #VE handler needs the same logic for port I/O emulation
-to get 32-bit zero-extension right.  Rather than add a third copy of
-the same switch, move the helper verbatim to <asm/insn-eval.h>, rename
-it to insn_assign_reg(), and route KVM's callers through it.
+Use insn_assign_reg() to write the result back into RAX with proper
+partial-register-write semantics: 1- and 2-byte forms leave the upper
+bits untouched, the 4-byte form zero-extends to the full register.
 
-Add <asm/insn.h> to the header's includes so it builds standalone in
-callers that have not pulled it in transitively.
-
-No functional change.
-
+Fixes: 03149948832a ("x86/tdx: Port I/O: Add runtime hypercalls")
+Reported-by: Borys Tsyrulnikov <tsyrulnikov.borys@gmail.com>
+Link: https://lore.kernel.org/all/CAKw_Dz96rfSQc6Rn+9QBcUFHhmkK+9zu+P=bxowfZwxrATCBRg@mail.gmail.com/
 Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Sean Christopherson <seanjc@google.com>
-Cc: stable@vger.kernel.org # prerequisite for the following 32-bit port I/O zero-extension fix
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: stable@vger.kernel.org
 ---
- arch/x86/include/asm/insn-eval.h | 36 ++++++++++++++++++++++++++++++++
- arch/x86/kvm/emulate.c           | 26 ++++-------------------
- 2 files changed, 40 insertions(+), 22 deletions(-)
+ arch/x86/coco/tdx/tdx.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/include/asm/insn-eval.h b/arch/x86/include/asm/insn-eval.h
-index 4733e9064ee5..ae05647a0afb 100644
---- a/arch/x86/include/asm/insn-eval.h
-+++ b/arch/x86/include/asm/insn-eval.h
-@@ -9,6 +9,7 @@
- #include <linux/compiler.h>
- #include <linux/bug.h>
- #include <linux/err.h>
-+#include <asm/insn.h>
- #include <asm/ptrace.h>
+diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+index b8bbd715fb62..f904a636d449 100644
+--- a/arch/x86/coco/tdx/tdx.c
++++ b/arch/x86/coco/tdx/tdx.c
+@@ -694,8 +694,8 @@ static bool handle_in(struct pt_regs *regs, int size, int port)
+ 		.r13 = PORT_READ,
+ 		.r14 = port,
+ 	};
+-	u64 mask = GENMASK(BITS_PER_BYTE * size - 1, 0);
+ 	bool success;
++	u64 val;
  
- #define INSN_CODE_SEG_ADDR_SZ(params) ((params >> 4) & 0xf)
-@@ -46,4 +47,39 @@ enum insn_mmio_type insn_decode_mmio(struct insn *insn, int *bytes);
+ 	/*
+ 	 * Emulate the I/O read via hypercall. More info about ABI can be found
+@@ -703,11 +703,9 @@ static bool handle_in(struct pt_regs *regs, int size, int port)
+ 	 * "TDG.VP.VMCALL<Instruction.IO>".
+ 	 */
+ 	success = !__tdx_hypercall(&args);
++	val = success ? args.r11 : 0;
  
- bool insn_is_nop(struct insn *insn);
+-	/* Update part of the register affected by the emulated instruction */
+-	regs->ax &= ~mask;
+-	if (success)
+-		regs->ax |= args.r11 & mask;
++	insn_assign_reg(&regs->ax, val, size);
  
-+/*
-+ * Write @val into *@reg following the x86 rules for writes to
-+ * general-purpose registers (Intel SDM Vol. 1, "General-Purpose
-+ * Registers in 64-Bit Mode"): an 8- or 16-bit write leaves the rest of
-+ * the register untouched, a 32-bit write zero-extends the result into
-+ * the upper 32 bits, and a 64-bit write replaces the whole register.
-+ *
-+ * @bytes is the width of the write, not a property of the instruction:
-+ * an instruction that, say, sign-extends a 32-bit immediate into a
-+ * 64-bit register does a 64-bit write here.
-+ *
-+ * @reg need not be 8-byte aligned: KVM's instruction emulator offsets
-+ * the pointer by one byte to address the high-byte registers (AH, CH,
-+ * DH, BH).  Use narrow stores for the sub-word cases so the access
-+ * width matches @bytes and the adjacent bytes are left alone.
-+ */
-+static inline void insn_assign_reg(unsigned long *reg, u64 val, int bytes)
-+{
-+	switch (bytes) {
-+	case 1:
-+		*(u8 *)reg = (u8)val;
-+		break;
-+	case 2:
-+		*(u16 *)reg = (u16)val;
-+		break;
-+	case 4:
-+		/* A 32-bit write zero-extends into the upper 32 bits. */
-+		*reg = (u32)val;
-+		break;
-+	case 8:
-+		*reg = val;
-+		break;
-+	}
-+}
-+
- #endif /* _ASM_X86_INSN_EVAL_H */
-diff --git a/arch/x86/kvm/emulate.c b/arch/x86/kvm/emulate.c
-index b566ab5c7515..c6dcb5ac48af 100644
---- a/arch/x86/kvm/emulate.c
-+++ b/arch/x86/kvm/emulate.c
-@@ -24,6 +24,7 @@
- #include "kvm_emulate.h"
- #include <linux/stringify.h>
- #include <asm/debugreg.h>
-+#include <asm/insn-eval.h>
- #include <asm/nospec-branch.h>
- #include <asm/ibt.h>
- #include <asm/text-patching.h>
-@@ -439,25 +440,6 @@ static void assign_masked(ulong *dest, ulong src, ulong mask)
- 	*dest = (*dest & ~mask) | (src & mask);
+ 	return success;
  }
- 
--static void assign_register(unsigned long *reg, u64 val, int bytes)
--{
--	/* The 4-byte case *is* correct: in 64-bit mode we zero-extend. */
--	switch (bytes) {
--	case 1:
--		*(u8 *)reg = (u8)val;
--		break;
--	case 2:
--		*(u16 *)reg = (u16)val;
--		break;
--	case 4:
--		*reg = (u32)val;
--		break;	/* 64b: zero-extend */
--	case 8:
--		*reg = val;
--		break;
--	}
--}
--
- static inline unsigned long ad_mask(struct x86_emulate_ctxt *ctxt)
- {
- 	return (1UL << (ctxt->ad_bytes << 3)) - 1;
-@@ -505,7 +487,7 @@ register_address_increment(struct x86_emulate_ctxt *ctxt, int reg, int inc)
- {
- 	ulong *preg = reg_rmw(ctxt, reg);
- 
--	assign_register(preg, *preg + inc, ctxt->ad_bytes);
-+	insn_assign_reg(preg, *preg + inc, ctxt->ad_bytes);
- }
- 
- static void rsp_increment(struct x86_emulate_ctxt *ctxt, int inc)
-@@ -1767,7 +1749,7 @@ static int load_segment_descriptor(struct x86_emulate_ctxt *ctxt,
- 
- static void write_register_operand(struct operand *op)
- {
--	return assign_register(op->addr.reg, op->val, op->bytes);
-+	return insn_assign_reg(op->addr.reg, op->val, op->bytes);
- }
- 
- static int writeback(struct x86_emulate_ctxt *ctxt, struct operand *op)
-@@ -2008,7 +1990,7 @@ static int em_popa(struct x86_emulate_ctxt *ctxt)
- 		rc = emulate_pop(ctxt, &val, ctxt->op_bytes);
- 		if (rc != X86EMUL_CONTINUE)
- 			break;
--		assign_register(reg_rmw(ctxt, reg), val, ctxt->op_bytes);
-+		insn_assign_reg(reg_rmw(ctxt, reg), val, ctxt->op_bytes);
- 		--reg;
- 	}
- 	return rc;
 -- 
 2.54.0
 
