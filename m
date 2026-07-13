@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A835042DFF3
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:45:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A803812E1
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:45:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950315; cv=none; b=rWeJt0Ckp+gx4DHigWADH8pg3x1MuC4FyPafTmaeb2ba/UXd/aiEBJOQDBpywYb9nY8DOiE8WyasiN//AFRpiglxWwJSJfL/0aclQqiQi4B3537MjSHq0knxL25fL/sK5/CQxVogVvWCpuSWLnTX/wlMWWeHD5Qd65F8oMyE74A=
+	t=1783950317; cv=none; b=fRKIgs+PXb2hcAPuiRSfqsbA3HFpoAUix2S4fvqOCWPprtbUCfDAV6xc8YbnoYbAPpewkVm7VlzpMGNZ9QH71JuvUuVAcSYkPpDGI/DHJ6VH7+xtuX0qOeJlflnipwieyZVGZuvAGnZSA7eDRhN/hJylBwIInrZjtzE+204Zl6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950315; c=relaxed/simple;
-	bh=T9ozbmxQR0QcQJ8yhwUrD40osw0SDKw8NGgUdKvDXaU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Hp6XJYQVn3UwBfGYOKp97NNIAc7YyFZeLEFCjN5KYTr5DcTm0YzmdPu4t12ex4pkODiZ5Ou9ItpMrJK6wEhQMRCcsntI9ITWYSIJq3cPu/MovLjqZ1ARI3C+5vNDx3gLdfSV8sF69MhFtQrSOCAvqg6P7RDTzhnsvgFcxCfNfWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jRP21yaN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950317; c=relaxed/simple;
+	bh=MWZa2KEfBqFt/QjfysXxViIS0Q/i/aYgk1Nehro4K4A=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pm96yEOZeH8bHnUb61kClDv0/nLZEPNUDS6/gb9Gb2BUhHLvHiMtrHcqZ6WTnMiXrGaWoqeK3qo5EwXlcqw1B8SBO4ggIWVGp7XfeO/6hall3uAK0R6ZvX75cxDNkuO4y1GcihVBV4Fj/t1YGlTRxYJhX/UopXxz1bZWCHMgArk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pEPPZ5kK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jRP21yaN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 516BF1F00A3A;
-	Mon, 13 Jul 2026 13:45:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pEPPZ5kK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5B7C1F000E9;
+	Mon, 13 Jul 2026 13:45:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783950312;
-	bh=uDuW31X9aJmr2GeWYOd364OMIj/71d6Et0nfgKBgCX8=;
+	s=korg; t=1783950315;
+	bh=mjRDzCopTqK60BWARtPW/XVlTSaecLHITn3OHCvKdwo=;
 	h=Subject:To:Cc:From:Date;
-	b=jRP21yaNdhrzd4+NOTfGGJe+pSJACL7Qye0kiYPQlK88fjixWSfeZ9WP0U0QEPLGx
-	 HEHyFqlhsQKm6Jp5IkqmLR2UANB8dhfUT7ftH9UGS965kGBOWG/0i7qilgnA5EWdOY
-	 RtxTwi8iXstpQaQZW1DEPU4XbMzMsggsHOjFHLB8=
-Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix OOB reads in IE loops in" failed to apply to 5.10-stable tree
-To: hossu.alexandru@gmail.com,gregkh@linuxfoundation.org,luka.gejak@linux.dev,stable@kernel.org
+	b=pEPPZ5kKU7nqaRE6Hf+Ah5VGuazYhZu+NJTaXtr1aGPwdTMS+fAH46VPfQ/DkdsEf
+	 FMmyoVCqpWwkPOOYBGnbQGkguWETuiP/3zzWfqwGuJKXfb0hmegVZGE0Mdj/5+aQpG
+	 hCOOaTxdF99k9F+rRsMViqXEZOEnRT7/UBAccK6A=
+Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix OOB reads in is_ap_in_tkip() IE loop" failed to apply to 5.10-stable tree
+To: hossu.alexandru@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:33:33 +0200
-Message-ID: <2026071333-pacify-morbidly-5ced@gregkh>
+Date: Mon, 13 Jul 2026 15:33:47 +0200
+Message-ID: <2026071347-leotard-finlike-cc76@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x ef61d628dfad38fead1fd2e08979ae9126d011d5
+git cherry-pick -x 3bf39f711ff27c64be8680a8938bcc5001982e81
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071333-pacify-morbidly-5ced@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071347-leotard-finlike-cc76@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,63 +62,70 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ef61d628dfad38fead1fd2e08979ae9126d011d5 Mon Sep 17 00:00:00 2001
+From 3bf39f711ff27c64be8680a8938bcc5001982e81 Mon Sep 17 00:00:00 2001
 From: Alexandru Hossu <hossu.alexandru@gmail.com>
-Date: Fri, 22 May 2026 02:45:26 +0200
-Subject: [PATCH] staging: rtl8723bs: fix OOB reads in IE loops in
- issue_assocreq() and join_cmd_hdl()
+Date: Fri, 22 May 2026 02:45:30 +0200
+Subject: [PATCH] staging: rtl8723bs: fix OOB reads in is_ap_in_tkip() IE loop
 
-Two IE parsing loops are missing the header bounds checks before they
-dereference pIE->length:
+The loop in is_ap_in_tkip() iterates over IEs without verifying that
+enough bytes remain before dereferencing the IE header or its payload:
 
- - issue_assocreq() walks pmlmeinfo->network.ies to build the
-   association request. If the stored IE data ends with only an
-   element_id byte and no length byte, pIE->length is read one byte
-   past the end of the buffer.
+- pIE->element_id and pIE->length are read without checking that
+  i + sizeof(*pIE) <= ie_length, so a truncated IE at the end of the
+  buffer causes an OOB read.
 
- - join_cmd_hdl() walks pnetwork->ies during station join and has
-   the same problem under the same conditions.
+- For WLAN_EID_VENDOR_SPECIFIC the code compares pIE->data + 12,
+  which requires pIE->length >= 16.  For WLAN_EID_RSN it compares
+  pIE->data + 8, requiring pIE->length >= 12.  Neither requirement
+  is checked.
 
-Both buffers are filled from AP beacon and probe-response frames, so a
-malicious AP that sends a truncated final IE can trigger the issue.
-
-Apply the two-guard pattern established in update_beacon_info():
-  1. Break if fewer than sizeof(*pIE) bytes remain.
-  2. Break if the IE's declared data extends past the buffer end.
+Add the missing IE header and payload bounds checks and guard each
+data access with an explicit pIE->length minimum, matching the
+pattern established in update_beacon_info().
 
 Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
 Cc: stable <stable@kernel.org>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
 Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
-Link: https://patch.msgid.link/20260522004531.1038924-3-hossu.alexandru@gmail.com
+Link: https://patch.msgid.link/20260522004531.1038924-7-hossu.alexandru@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-index 7198be795000..70e864cd530d 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-@@ -2861,7 +2861,11 @@ void issue_assocreq(struct adapter *padapter)
+diff --git a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
+index 4c0eb93f412e..a4de538722b5 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
++++ b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
+@@ -1308,15 +1308,23 @@ unsigned int is_ap_in_tkip(struct adapter *padapter)
+ 		for (i = sizeof(struct ndis_802_11_fix_ie); i < pmlmeinfo->network.ie_length;) {
+ 			pIE = (struct ndis_80211_var_ie *)(pmlmeinfo->network.ies + i);
  
- 	/* vendor specific IE, such as WPA, WMM, WPS */
- 	for (i = sizeof(struct ndis_802_11_fix_ie); i < pmlmeinfo->network.ie_length;) {
-+		if (i + sizeof(*pIE) > pmlmeinfo->network.ie_length)
-+			break;
- 		pIE = (struct ndis_80211_var_ie *)(pmlmeinfo->network.ies + i);
-+		if (i + sizeof(*pIE) + pIE->length > pmlmeinfo->network.ie_length)
-+			break;
++			if (i + sizeof(*pIE) > pmlmeinfo->network.ie_length)
++				break;
++			if (i + sizeof(*pIE) + pIE->length > pmlmeinfo->network.ie_length)
++				break;
++
+ 			switch (pIE->element_id) {
+ 			case WLAN_EID_VENDOR_SPECIFIC:
+-				if ((!memcmp(pIE->data, RTW_WPA_OUI, 4)) && (!memcmp((pIE->data + 12), WPA_TKIP_CIPHER, 4)))
++				if (pIE->length >= 16 &&
++				    !memcmp(pIE->data, RTW_WPA_OUI, 4) &&
++				    !memcmp((pIE->data + 12), WPA_TKIP_CIPHER, 4))
+ 					return true;
  
- 		switch (pIE->element_id) {
- 		case WLAN_EID_VENDOR_SPECIFIC:
-@@ -5189,7 +5193,11 @@ u8 join_cmd_hdl(struct adapter *padapter, u8 *pbuf)
+ 				break;
  
- 	/* sizeof(struct ndis_802_11_fix_ie) */
- 	for (i = _FIXED_IE_LENGTH_; i < pnetwork->ie_length;) {
-+		if (i + sizeof(*pIE) > pnetwork->ie_length)
-+			break;
- 		pIE = (struct ndis_80211_var_ie *)(pnetwork->ies + i);
-+		if (i + sizeof(*pIE) + pIE->length > pnetwork->ie_length)
-+			break;
+ 			case WLAN_EID_RSN:
+-				if (!memcmp((pIE->data + 8), RSN_TKIP_CIPHER, 4))
++				if (pIE->length >= 12 &&
++				    !memcmp((pIE->data + 8), RSN_TKIP_CIPHER, 4))
+ 					return true;
+ 				break;
  
- 		switch (pIE->element_id) {
- 		case WLAN_EID_VENDOR_SPECIFIC:/* Get WMM IE. */
+@@ -1324,7 +1332,7 @@ unsigned int is_ap_in_tkip(struct adapter *padapter)
+ 				break;
+ 			}
+ 
+-			i += (pIE->length + 2);
++			i += sizeof(*pIE) + pIE->length;
+ 		}
+ 
+ 		return false;
 
