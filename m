@@ -1,198 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F2C2E8E09;
-	Mon, 13 Jul 2026 15:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7F1306776;
+	Mon, 13 Jul 2026 15:56:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783958085; cv=none; b=At2c/XaZn4U2CR8R431rZXWLrmBsMCpNEF1Jxtj3KzqLyc1BpFCKvfIi05W70BzRmh0Fsxx78tRSxDmWeymxqx86U5ZGKj651CObuW4q60Sq/dZ4pGmi/YkXIm/dkJOR4IlUOD0lXhldeJSHocO5bvKG2RYeIswx3wQ+rP0nyT0=
+	t=1783958167; cv=none; b=KgZ0/1j2E7A6cjGri+FP09ZZX5ORmh1OH+BYcXJ3nfyzleq2TJuRI7ehQ/wmx7CA0j6HPhtLay2aue5KJczFF94drOgjEPiAY6bxNdKmt9z0/662gQ+DO+X1DgTwyGIxrr3dKtE4MhxovByJnnS065K3gIw3vuDGk2A6wIunnWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783958085; c=relaxed/simple;
-	bh=FIvZPUpWGsIv0UoOrLlTzIJJwkqp4TjN3YKw+0UH+Ko=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CipA4LQZ7AL3+74cNxVR1OvlL882Xf2NFwgkd8wjk+k1tdAHiKRiscj+VHccHYZ4viggkAzGjN/8jDSqSnIJ3QoyiaJI25u3wLXFyZdbu8jm1NsmS1qTMKRuIskHmvHID2GLcER6Va8A9raVNCSp2nkos3infdj1ZwIXE152r6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Al/31Rtk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783958167; c=relaxed/simple;
+	bh=usnlRUfQMi+kIpY+f2d1ev+TXNjf0dTNMkmAhvdAuhk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k1UvscDJdB+XHzKfat9ChP7hwXCs/0OrvnUF4XZ9dD7ecjmVlqyMkiSuDv/fV8DE1IaezFPpH3XUepXOjm0sM7983teDJ/ezHbUvG1d7YtVz0raw70ObIRD7WLRUMBaey+my0VBO4SOTiW+YWYgMB/pWebnew4Om3kbQdkr13yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jfQk2JwQ; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Al/31Rtk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921121F000E9;
-	Mon, 13 Jul 2026 15:54:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783958084;
-	bh=p66T0NncB+5raKUdPRksLr/+xBC+Njc5g/o72Yk49hk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Al/31Rtku4yM52tR3QNXE4FDvk8JrNQ/OKqQIR4Gw42mq/+wRDTRFDbNaOZZ/J0Ip
-	 trE67THHLLKgw/9c8lLgl464jvRdo9Rl39bWVfDs5f2/ak+l7gLCmCCUBBwO2ClV5o
-	 6Ms7uhjv+c/jAxAxLV580cW8rMBI8KCxWpjcE8LSXkzLAVZ6JTo/kQ26KBFoeEciHc
-	 PjkuemTz3G+8ug2nkEZR51GUlnv5Nlj9ldK7NfTVawcO/klBlFSV3Ci6mWxMbRt5u8
-	 Daa4BcwmyolvmBxOiDE3shvuqoBVrT3L6NKlAB1AcrrsoTpNU5EMJx2ZirPE9YvmcR
-	 mGpeXGLtXYYKw==
-Date: Mon, 13 Jul 2026 16:54:27 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
-	syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-Subject: Re: [PATCH mm-hotfixes v2 0/4] mm: fix UAF caused by race between
- ptdump and vmap pgtable freeing
-Message-ID: <alTq4V50767L-s5H@lucifer>
-References: <20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org>
- <alTn7NguEW_4bodu@thinkstation>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jfQk2JwQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783958166; x=1815494166;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=usnlRUfQMi+kIpY+f2d1ev+TXNjf0dTNMkmAhvdAuhk=;
+  b=jfQk2JwQlH2S6LSiwirgHPTgMieIUrvAb0G/kEFnPQSN0gzhmu90R4GT
+   OYlcXhmCIzYxX3Oq4cOdv7Xp08oZ2mXpCKp+7+MWWhGyo8r4BWACSdT9k
+   7KfieWrward35c66vjpKwoWKSDmHTRT+kzfgfUKQ5McP3naxdpstzgFhD
+   QLIwLaWiB5SoFEqYLLxQJW54BKyMEvujIJCCJr1ohG/Td8ZPEqAphXNPN
+   H1IMie2qGYNm5dwvGi9YfaKKZuUGmR3qZvY6SSGk8rw5QDjG3OL/f8UC1
+   YQCzlR72ixQ5V9vtG3oUfjbq62F726+Ylp273NEMP7dEPQnJCQuhqefmd
+   g==;
+X-CSE-ConnectionGUID: mPqE3p/2SS6LD5FWSLo/wA==
+X-CSE-MsgGUID: 1BWqbw+ERY674d1QX4bQlg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88393409"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="88393409"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 08:56:05 -0700
+X-CSE-ConnectionGUID: xUShJ/UoTMuUDL2JTKyxAA==
+X-CSE-MsgGUID: Xh6mQCHcQTqfB2Na1Mm7vg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="293774647"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa001.jf.intel.com with ESMTP; 13 Jul 2026 08:56:02 -0700
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Raag Jadav <raag.jadav@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Ramesh Babu B <ramesh.babu.b@intel.com>,
+	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
+	linux-kernel@vger.kernel.org,
+	intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: [PATCH v4 0/3] drm/xe/i2c: alerts and controller enabling modifications
+Date: Mon, 13 Jul 2026 17:55:58 +0200
+Message-ID: <20260713155601.711389-1-heikki.krogerus@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alTn7NguEW_4bodu@thinkstation>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 13, 2026 at 02:32:09PM +0100, Kiryl Shutsemau wrote:
-> On Sun, Jul 12, 2026 at 11:42:23AM +0100, Lorenzo Stoakes wrote:
-> > This series addresses the issue by having the vmap huge promotion
-> > logic acquire the mmap read lock while both setting the huge page
-> > table entry and freeing the prior leaf page table.
->
-> Hi Lorenzo,
->
-> Before we settle on the mmap lock scheme, have you considered handling
-> this the way GUP-fast handles page table freeing -- RCU-defer the free
-> and make ptdump a lockless walker?
+Hi,
 
-Overall I like the idea of eventually moving this to _all_ being
-RCU-free-able :)
+The hardware challenges that these patches address are so severe that I'm
+marking both of them as fixes. In both cases the GPU may silently end up in
+unresponsive state (or worse). The second patch has been refactored so that it
+includes the direct AMC alert handling in Xe instead of the normal alert handler
+registration. The subject lines were also changed to highlight the fact that
+these are fixes. Ramesh helped me with the testing and with the implementation
+for the AMC alert handling.
 
-BUT... I don't like it as a fix for this bug that has to be backported.
+Changed since v2:
+- Added Fixes tag to both patches.
+- i2c-designware is no longer supplied with an interrupt so it will be in
+  polling mode (ACCESS_POLLING will be enabled). The IRQ path in hardware can't
+  handle the amount of interrupts the i2c controller generates. Only the
+  interrupts from the SMBus Alert line are left enabled.
+- The registration of the default smbus alert handler is dropped.
+- The AMC alerts are handled directly in Xe. All the alerts will cause the
+  device to be declared as wedged at least for now.
+- Cleanups proposed by Raag.
 
-I think there's a lot of subtleties to worry about and I don't want to
-worry about having to maintain tht as a backport.
+v2: https://lore.kernel.org/lkml/20260625125939.429078-1-heikki.krogerus@linux.intel.com/
 
-But also, we have an unfortunate situation with ptdump where it also walks
-userland ranges on x86 (and ranges for efi_mm on both x86 and arm64).
+Changed since v1:
+- Global header for the DesignWare I2C registers which meant a bit of
+  patch refactoring.
+- Selecting CONFIG_SMBUS in CONFIG_XE and handling smbus in xe_i2c.c instead of
+  separate file.
+- Storing the alert device to the client array and providing enum for the
+  clients.
+- Allowing other fields in the IC_ENABLE register to be updated except the
+  Enable bit.
+- Can't sleep in xe_i2c_disable() so using udelay().
 
-And for userland ranges you have to have the mmap write lock to exclude a
-downgraded mmap read lock munmap() operation (which gives rise to the weird
-inversion you mention).
+v1: https://lore.kernel.org/lkml/20260622114759.3464047-1-heikki.krogerus@linux.intel.com/
 
-So the walker still has to take the write lock in this case.
+This includes support for the SMBus alerts, and special handling for the
+IC_ENABLE register.
 
-I spoke a bit about it overall at [0].
+Thanks,
 
-We already have this mmap lock convention as a requirement for kernel
-ranges, and it was being violated by CPA and vmalloc.
+Heikki Krogerus (3):
+  i2c: designware: Global register definitions
+  drm/xe/i2c: Fix the interrupt handling
+  drm/xe/i2c: Keep the i2c controller always enabled
 
-So I'd prefer we keep this as the proximate fix to solve the bug here, and
-then revisit this later (alongside moving to RCU page table freeing
-_overall_, though one doesn't have to block the other).
+ MAINTAINERS                                |   1 +
+ drivers/gpu/drm/xe/Makefile                |   4 +-
+ drivers/gpu/drm/xe/regs/xe_i2c_regs.h      |   2 +
+ drivers/gpu/drm/xe/xe_amc.c                | 173 +++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_amc.h                |  25 +++
+ drivers/gpu/drm/xe/xe_i2c.c                | 136 +++++++++-------
+ drivers/gpu/drm/xe/xe_i2c.h                |  14 +-
+ drivers/i2c/busses/i2c-designware-common.c |   2 +
+ drivers/i2c/busses/i2c-designware-core.h   |  85 +---------
+ drivers/i2c/busses/i2c-designware-master.c |   2 +
+ drivers/i2c/busses/i2c-designware-slave.c  |   2 +
+ include/linux/designware_i2c.h             | 107 +++++++++++++
+ 12 files changed, 405 insertions(+), 148 deletions(-)
+ create mode 100644 drivers/gpu/drm/xe/xe_amc.c
+ create mode 100644 drivers/gpu/drm/xe/xe_amc.h
+ create mode 100644 include/linux/designware_i2c.h
 
-I believe Suren is looking at this (and I'm happy to look if Suren is tied
-up with other things also!)
+-- 
+2.50.1
 
->
-> The locking here is inverted from what one would normally expect
-> (walker takes the write lock, mutators take read locks, mutators safe
-> against each other only by range ownership). It works, but it is
-
-Yeah :) this is a direct result of the munmap() thing mentioned above
-(because ptdump can read non-kernel ranges).
-
-Because you _have_ to take the mmap write lock there, so you _may as well_
-exclude with a read lock and then get to do an mmap read trylock as an
-added bonus on vmap huge page promotion.
-
-> subtle, it is what produced the arm64 deadlock and the ifdeffery, and
-> it depends on every current and future freeing site remembering the
-> rule -- patch 3 exists because two walkers did not fit the scheme.
-
-Well everybody who does things with shared resources should be aware of
-locking requirements.
-
->
-> The free side looks cheap: kernel page table freeing already funnels
-> through pagetable_free_kernel(), which already has a deferred path
-> (used for IOMMU SVA). Adding a grace period there -- synchronize_rcu()
-> in the worker, amortized over the batch -- covers every freeing site
-> by construction.
-
-Well I did want to say btw that CPA doesn't actually mark the page tables
-as kernel, was going to chase up with something on that when I got a chance
-:)
-
-synchronize_rcu() is a very bug hammer, you can just use call_rcu() (and
-the ptdesc already has an rcu_head I think).
-
-
->
-> On the walk side, nothing on the ptdump path can sleep -- the pagewalk
-> core only allocates for install_pte ops, kernel PTE level uses
-> pte_offset_kernel(), and the arch note_page() implementations are
-> seq_printf()/printk() into a preallocated buffer. So the walk could run
-> under rcu_read_lock() as is. The real work is bounding the read-side
-> sections: a full walk can take dozens of seconds on a KASAN kernel per
-> the comment in mm/ptdump.c, so it would need to drop RCU and
-> cond_resched() periodically, re-descending from the top. Note we
-> currently hold the init_mm mmap write lock across those same dozens of
-> seconds, and this series makes that load-bearing: during a long walk
-> every promotion trylock fails, silently degrading vmalloc to small
-> pages, and CPA collapse blocks.
->
-
-Yeah it all sucks, but you're really making my point that this is better to
-revisit and consider carefully rather than doing as a fix.
-
-> That would give us: no inverted locking, no arm64 deadlock possibility
-> (your patch 4 stands on its own), the patch 3 walkers covered
-> structurally rather than by locking init_mm as well, and ptdump
-> invisible to production paths.
->
-> Given the live UAF, this could also be a follow-up rather than a
-> respin. But I would like to hear whether you see a fatal flaw in the
-> approach first.
-
-Yes - as above obviously I'd definitely prefer to defer this to a
-follow-up.
-
-The main concern for ptdump is properly slicing its walk to avoid
-RCU stalls.
-
-Keeping in mind that vmap can (in theory) span PUDs and even P4Ds it
-becomes a bit tricky.
-
-But also I worry about whether the entries in the page table will actually
-be valid at the point the walker reads them.
-
-For vmap/CPA pretty much yes they are, but if something was to actually
-unmap them in future then that might no longer be the case. RCU will only
-guarantee that the page tables stick around, not that they contain anything
-valid.
-
-In userland a lot of this is solved already by the leaf page table entry's
-PTL.
-
-Kernel page tables are a bit of a weird case, because mostly we solve
-things through exclusive owners, ptdump being the weirdo outlier.
-
-Anyway TL;DR is that - I think we need to be careful and think this through
-and make changes across the board for all kernel page table users and
-update the page walkers.
-
-I'm happy to spin up an RFC for this when I get a moment :)
-
-But in general I'd like us to solve the problem as a whole across the
-kernel for both userland and kernel page table allocations, ideally!
-
->
-> --
->   Kiryl Shutsemau / Kirill A. Shutemov
-
-Cheers, Lorenzo
