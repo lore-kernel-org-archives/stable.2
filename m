@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B303537CD
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 18:44:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2C63537CD
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 18:44:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783968244; cv=none; b=gz0ZBCTNsuvCv5y+DdnmsvRAGQ1C54mV6Fmudz5gaDbcgK9gGn9KiCDFL35gac9uUfYoQzbOg9gJCtClbSC8rSLYq5IdXOgJrgPZtPGK8v2exU+HXpgFaHCqC4TXMW+Ll3jMFWyMD3NCMgvFzTxCB9cuaHTjHk+E9DN6ZPTK72g=
+	t=1783968246; cv=none; b=hPABMZfGx0gImSnq5oIr6iK98wAkpjJzAAILPhU8d8EdAgva/9zZFy82mkrU9PKMV/UJcF6XlaXiwf424elt0VwsyJhqAgOq2Bfy5HHTFm+mJD7H4BGRlV6Vm+QbNKNW1Ezr3G5amElluo5rIl1j3IObOhTDVAMJ/fGjhm34tdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783968244; c=relaxed/simple;
+	s=arc-20240116; t=1783968246; c=relaxed/simple;
 	bh=BD7RgtT7LVUzyH5B2yO7qKo7Aoo/3KiO9wN/6gozsds=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pJe+BiojDxUOsYbBqefgI5AQ55ElmS4d3qnp/AmFw0OiPc38QZ/AjU+y9hxCjBKRdwvNGFHxgB6kwhXgcCjhKB7heSihHBaJK2taVuBlQR5xXf9s/Ui3UD6RZmHDet6N3dF5PnURt8qQHlq/B4bRHsFM8eIfw7GHw2ncB37dKe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iqSdLKWR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=u3pYlgdEXhZ05D2Q96ik8n/478tiEaTPDDhMo6NXupUuJRcO9GDxrDpL10/7wYTjDWvKjDaHdvnzU6/uaa0jTGb/ksik4QZU68O2xihGV9BeYa3pvC6T9dJX3bBXqwUgdE3xvw5P+kcoU5F9ANPyhB90HLznzplcPh3ISbv9tds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+lwgKg8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iqSdLKWR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168E31F000E9;
-	Mon, 13 Jul 2026 18:44:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+lwgKg8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4011F000E9;
+	Mon, 13 Jul 2026 18:44:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783968242;
+	s=k20260515; t=1783968245;
 	bh=tFdcY9/unnw9ZqBEebLvoO7DAa0kXmsT+Ii4u6E1bDo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iqSdLKWRbvbCiOsp59eEaIjsgGKRc6uM8VrRRzJcZPNgdQZNY6hko08FMtzPZim9v
-	 xh0YNzXxITCqstaEuATXpymQfn6+I+yqDmHsF/RMM0DBNFtURh6Oh/qyrtzg+DDqW9
-	 /XTqnYKV6AEk0jS2NlPPibIU7GUrSoRHyWM9g6xgRWhoeh1oN4k3D6MfO0GTTG2hlm
-	 xpZThdntEjzLZVDMWDLny028EMoubkY1gJvooPoRVXX6DQCqEXXWecQSsHzSpkdK7J
-	 dhxio5tmGD7YbIg7U9axcEMvisgd50n7g0mC4V2F97JEebNMbNMXmgi0iCzRHi/WdB
-	 aXQDm5CjdTZpg==
+	b=W+lwgKg8MZP4R9vTzZWH/IdRSLQY26DJv9PUNaQbWiPvC7AwAtJ5rmlC7nSrGSpAp
+	 OwRYqyG+U4/gwoXV+OKGTbigk/26Je5MZfyZ84/gpzjE4RElFy5DI94EIP8lfyROg4
+	 OeBmxXTqakPhgNi6URmDaW/BdUkLLyg45NupFjh6Stu26Am4GdYu55KTv/YDnh6ECF
+	 gDdMjKmtm0P/epOoNfHAGAmH/J2w4iXyoCWGUZBuTnHnuOZu6WzVmw0mCEpBG0tpxI
+	 13nnUsyIegQYkSYi73BfEeGwyYQJxG28q6Tmn9aAyOqdgy3u5Nxzppa5M/D/EiGTST
+	 MBRWpa5Wcrt9w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Biren Pandya <birenpandya@gmail.com>,
@@ -33,8 +33,8 @@ Cc: Biren Pandya <birenpandya@gmail.com>,
 	Jonathan Cameron <jic23@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
 Subject: [PATCH 6.18.y] iio: pressure: mpl115: fix runtime PM leak on read error
-Date: Mon, 13 Jul 2026 14:44:00 -0400
-Message-ID: <20260713184400.1954266-1-sashal@kernel.org>
+Date: Mon, 13 Jul 2026 14:44:03 -0400
+Message-ID: <20260713184403.1954310-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <2026071341-matchbox-decay-e5c8@gregkh>
 References: <2026071341-matchbox-decay-e5c8@gregkh>
