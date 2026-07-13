@@ -1,189 +1,107 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5005D270552
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A06F29B228;
+	Mon, 13 Jul 2026 17:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783963006; cv=none; b=Y181yMzLyczvgqk9xTSjJ0dscC7i+EATWzbcs9Yi7a9FtWKDcu3eQlpNXa6jLS53TcmX7sueVdKKkhBfQAwcXkiSjzjIbZAU9p8OSNSYvhI+bW/XOQUDdcILPjnk24UVdA7leYvwsHh9OQQeTH/N/o915/4aAKsxQX6GAjeXZxg=
+	t=1783963149; cv=none; b=Pu+uZn129EvF+muTSzLabBxg79mX6MTLPD+gQVtJo7IQFyrYgsxhm8Qb1UVa+Wv+lfoK50KEP92KmEb1fFKWG3lJ3R9s2FcOq5l4C48HHW912coEGQNirUQDoykZlY1edXtVxjCqeG1+uxT08YfVPGTmYvb3T2jk1r9MDCV7PPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783963006; c=relaxed/simple;
-	bh=p1jLAlgaFAZC8YZE8WGwBXhLOIAf22MGlzvlCbicn1g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tn0Ia6BH0iV2vzRnf2i9kf4U/R2NEncL70JmTuB7vwSioPGaG+ZFNs3QDSLccRAsoiyXvj0RWQWvM7yZRNY3S5HtGCvWcRRPSkl6JZLOX50g7cjaYy7nv9oaKQK4sDOj2/xZbdu9qpQr7nGxR3856goZcQ6vuawR+otMXew4I2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=breiti.cc; spf=pass smtp.mailfrom=breiti.cc; dkim=temperror (0-bit key) header.d=breiti.cc header.i=@breiti.cc header.b=H4Ub/jeg; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=breiti.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=breiti.cc
+	s=arc-20240116; t=1783963149; c=relaxed/simple;
+	bh=OP5zFLSF2uBJkImUkWMBqP948PbgqJn0AGqQgF1gQDw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qIFHgKRjeyiSQq1fAXwgBKs9LWt4cnOvhOYe0m8osLmFfi5bGAGDkO1QBmpf10AIH7QGsg0IphJc9Z31hSKYlTzvxOb1QHV3vZig1VIxY1lLl2lXWswYjnzdHwnP/Qifm/jUnJztzVNAz86flM/ONoPxV4SGIeYHtF8PoMO8XoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=boJ4VxME; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=breiti.cc header.i=@breiti.cc header.b="H4Ub/jeg"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47defd0c1c5so51897f8f.3
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 10:16:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=breiti.cc; s=google; t=1783963004; x=1784567804; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D6+zJCN4uHBUySGZxMxtpjUmXPdT/OOFNXEwXFVOhXs=;
-        b=H4Ub/jegVV6xKMr4b4ZDBmeZ0ff+XupXiS9lQnnIZYqM4pT9VVV3bSGeBrmCRXsc5z
-         g1zq7Q/Jp09al8/RSz30PQaRl7O3KE7e18lo7uC+l16JFTDYLn+WEBqCc2h3XxplWNyT
-         Eyfd3QPCqAPv0bKUvjN0+/shaMoAQ6AdgF3jc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783963004; x=1784567804;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D6+zJCN4uHBUySGZxMxtpjUmXPdT/OOFNXEwXFVOhXs=;
-        b=YaglnTXOYVkDHBVuj6Cc+/WCdRHfPm2sMAnnB7/8D1MOlcEzB90bdwq7YGruo/D3l7
-         Ywuoe1mpRpU7kCJ2ofec4VLMmXTfS1SP2XZFwOjioWPhgyZ3wT7BeFnOZXdHnJxFijtG
-         as3pHF/bHl9m6q2z4duf3n1oo+/60rOuu5tYFRnX7D3OovHKji9sbrHKnlN0FMLJ2IXd
-         RYq5t5QqeDN6rf15/ChBqwxa32hS4tT+n9CWTMc6yYz5PbimQ54ONC1+BcJAjDTSoLh8
-         W5HIy6b3/CT+Kd8Ow+VeE/xVgDQ72CEUS+nWTqQc68rD8sP2sAhBfSnGnOysuy/OjOFG
-         j5ag==
-X-Forwarded-Encrypted: i=1; AHgh+RoehHSGB4OTgoMQD5giY7n7zCd7Fm/F8vceranmvoVi8MkVCh1sgmAD2gnDCl5Y7gpnViTJ1mw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzm+XuiQUzo1Hi0q1beZy8sExA0DADc+4DC996H+htypYdjcNyy
-	aEbj0co1SJwabAyoIMw9m3syV7Ami0MUrq9xiYqtM690viR5C6+scRjCitW5Tkd/Qg==
-X-Gm-Gg: AfdE7cnUZbapyfWZWdBKtYBl+APtOUfXRPbnjYqxYA+37GiVRBnukFEGnKRMOTHw/V/
-	qXpy1Amksgsef4osIKBwZ2ZNd1/EAgexy1UhDpG6OZ/tEQyqsBABF/+58c8BIuuIUmh0tdB2LVz
-	US5DIWeji3SyRQ5pILJQO9GU94PP+nb7Tc2dYn9+CA6GaCEN1wdVhjPvc/jnBY4S9/cm10SH/wF
-	MyiTo1YjeI6mag24MhHuKvHAzGp/hzMNpXmJyCZYPJ+wqLAsHwLK4PDGZ2bwdWsP6u1sTS88P4q
-	syuQXMwFyKnEefzYj9uHkmUuhKD6czkupKClOqdw5hIWpIGy5kvlDkHlqEKBxQeQJJJ/e4fzV5i
-	q+nLTA0xRpmH9UOpr6R3Z3iJMxhQSScTnNlN0dbb0B9QOt2IkUryqEA0C1AYCNFXu10myZpOh34
-	PD03CProTDZYPytzP2Ur2DPCaux419LO4lhbLj1YLlKOx8EIvOMQ==
-X-Received: by 2002:a05:6000:1848:b0:476:a715:1a with SMTP id ffacd0b85a97d-47f2dce2b61mr11893647f8f.41.1783963003297;
-        Mon, 13 Jul 2026 10:16:43 -0700 (PDT)
-Received: from framework.casa.breiti.cc ([2.57.48.190])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464a9728sm1007047f8f.21.2026.07.13.10.16.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 10:16:42 -0700 (PDT)
-From: Markus Breitenberger <bre@breiti.cc>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	maxime.chevallier@bootlin.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk,
-	yong.liang.choong@linux.intel.com,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	stable@vger.kernel.org,
-	Markus Breitenberger <bre@keba.com>
-Subject: [PATCH net v3] net: stmmac: intel: skip SerDes reconfig when rate is unchanged
-Date: Mon, 13 Jul 2026 19:16:19 +0200
-Message-ID: <20260713171619.192452-1-bre@breiti.cc>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="boJ4VxME"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A44D1F00A3A;
+	Mon, 13 Jul 2026 17:19:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783963148;
+	bh=sT8ncCoskQ+pPBlVmZsj1ldkcql22WoFMry/YNTn7dY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=boJ4VxMEmG63STqe+XFCnj16oQ7l+0rEaBTr5BJHY/4QyYwdcOPLk/CHmde/re4iF
+	 fEh0mglmtEmzRuQhUOEqnWlQt0tNYHyA87uDBHT4b4eL/9psB7SXrBl/4bqVXFwHh0
+	 l7qy6tODw0b+aIxGBGn7vD44LU8rX1Zp+c/ToNTc2uPGrxPaPSqjqSs2f5z9OBXHUd
+	 6Ay1qFpyMD142+txfZQ+JBuhv8KK+GOMsU6TVRKs/7SR2+5/454lJUVIwvwoNuuOuL
+	 ASVfuIEZbms/fzPv86YOTlYqCDS7kM8Ui9XQKZ/7H784DFE+qnfoQFLk9EJJ4zKObG
+	 AuoKKLf26ZUYw==
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfauth.phl.internal (Postfix) with ESMTP id BF36FF4027E;
+	Mon, 13 Jul 2026 13:19:06 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Mon, 13 Jul 2026 13:19:06 -0400
+X-ME-Sender: <xms:Ch5Vapkw_J_hWklNR21wK1KKIBeblcJH9nG69vBtUr8uQjtvdjbPzA>
+    <xme:Ch5VaoEfePqA02oVSHz1UNta3XSzzWuL7PMDrX_CqI7wdD4WRaeY1Lg0laPXMYiCN
+    wCRW_Yo5Hc-hxCmB9N_B7KSofxg-hYvVALdgo1XQkJBX2WtxtdL8H0>
+X-ME-Received: <xmr:Ch5VanIsgv6d1HLy3wvj80hRkRg2wnsowoe86iILxc08bdfEiELSDRpW4Pq-ZQ>
+X-ME-Proxy-Cause: dmFkZTEJ4lXnpy7cJu3kFZKie8XWmk7c16mf9c3dcg0mO/FRWw9JnqjgAXFL0YAMoBP1EJ
+    3xyuhbt9BpRDEzXMxnJfwaKFHYcsya5wGuyrDMTWWxzCkKI4Pv2rog+fL8gPL5WqfWAbUY
+    ICsHYG56N5Gu45mM1QaSisXid9T5TyNpxl5uf69gdMIrqWPh+JXRP5hXTFb/mkMc+UZAKA
+    CjLTsZZCg8zJeTPMIApQmEoo4QI6fow3qIeTeBGGYfSrtF8keWO2+L4+L3246fvQcvYPsD
+    o3OWDXJkLyganHi/46YNGLhBEpkTvo55OAnPmHxwvEvEXua41QXG/KQ5VQtjTJBqbr2LtQ
+    dDHAxskcep2CzldPvnyC0cQU9W5m7ZnNLvHQD32nI/REFI51GAnENKrKi4nGZu44nogMkA
+    M8DvSGtHMwaG3Tq9XiOUMo/oggtZVqfJkJPMieBMIykGMstIdx+hkm4v7j82UolMzsQaKn
+    70uRX+2FasfCx9DVifeP+mFUBYMOEemngKsgGj32mI1qPdvsXdWFgZt7NlfGVd7V1zgeGB
+    DeSZN38Ez3MKW0qgKNsGPX+mFRnIWtMdEJfdqszTSk7PJbHp4kYi0PT6dwN/ZcHV+jX76K
+    2xvLHjPdyR5tLmOwT7JWSXJxl4RH8Aa4m3eU/bqdZeoNZrBgBUfZ+bMC9wNQ
+X-ME-Proxy: <xmx:Ch5VanNriCjfnz8yYshIDIf3p97N9HWCROMmDfgsNcmm-xkWsAc9kw>
+    <xmx:Ch5VapEYQMiAAASjG9sGsIVxLSdOmHJNRPEhZi9iQBk3ZTFu7vi6sw>
+    <xmx:Ch5VaomSoAAa4XNbLcCuZxhmsnahq9uskwAhdsHd75mnMcxahDPxRg>
+    <xmx:Ch5VakcdkwWfOV1Xn37kJWx2WqlIHFcP2GCFH0zriKVprx1VvV2Dow>
+    <xmx:Ch5VaiYvYAoJxn7KpCO1wmZUIlSx6AbdaYmo4o1S8m3emWW2DXghwl4Q>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 13 Jul 2026 13:19:05 -0400 (EDT)
+Date: Mon, 13 Jul 2026 18:19:05 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH mm-hotfixes v2 3/4] mm/ptdump: always stabilise against
+ page table freeing using init_mm
+Message-ID: <alUdUKk0zGmskSib@thinkstation>
+References: <20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org>
+ <20260712-series-vmap-race-fix-v2-3-ad134cc3a12a@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260712-series-vmap-race-fix-v2-3-ad134cc3a12a@kernel.org>
 
-From: Markus Breitenberger <bre@keba.com>
+On Sun, Jul 12, 2026 at 11:42:26AM +0100, Lorenzo Stoakes wrote:
+> x86 and arm64 invoke ptdump_walk_pgd() with non-init_mm mm whilst still
+> walking kernel page table ranges.
 
-intel_mac_finish() is registered as the phylink mac_finish()
-callback for the Elkhart Lake SGMII ports. phylink calls it at
-the end of every major link reconfiguration, including the
-initial one during probe.
+The code looks good to me.
 
-The callback selects the PMC ModPHY LCPLL programming for the
-requested MAC-side interface and then power-cycles the SerDes.
-On Elkhart Lake that ModPHY is also used by the on-die AHCI
-SATA PHY. Reapplying the programming during the initial
-boot-time link-up disturbs the shared analog block while it is
-still driving SATA, so the SATA link fails to train:
+Same comment as on patch 1 about the commit message structure, only
+more so: the race itself is never actually stated -- that these walks
+hold only the walked mm's lock, while the freeing exclusion built by
+patches 1 and 2 hangs off the init_mm lock. The fact that makes it
+possible (x86 shares kernel pgd entries with every mm) is hidden in a
+parenthesis. And the last three paragraphs read like v2 changelog
+rather than commit message material.
 
-  ata1: SATA link down (SStatus 1 SControl 300)
+> We take this after mmap write locking the non-init_mm mm. Nothing acquires
+> the init_mm lock first before locking an arbitrary mm, so no deadlock is
+> possible.
 
-The disk carrying the root filesystem is never detected and the
-system hangs at rootwait. Ethernet itself comes up normally,
-which makes the failure look unrelated to the network driver.
+Do we want to document this locking order somewhere?
 
-Before mac_finish() runs, the legacy SerDes power-up path has
-already programmed SERDES_GCR0 for the current interface. The
-1G and 2.5G ModPHY tables selected by mac_finish() correspond
-to the SerDes lane rate, so read that rate back from SERDES_GCR0
-and skip the PMC reprogramming and SerDes power-cycle when it
-already matches the selected interface.
-
-This keeps the disruptive reprogramming out of the boot path
-when the SerDes is configured correctly, while preserving the
-previous behavior when a real SGMII/1000BASE-X to 2500BASE-X
-rate change is needed. If the register read fails, reconfigure
-as before.
-
-Fixes: a42f6b3f1cc1 ("net: stmmac: configure SerDes according to the interface mode")
-Cc: stable@vger.kernel.org
-Assisted-by: GitHub-Copilot:claude-opus-4.8
-Signed-off-by: Markus Breitenberger <bre@keba.com>
----
-v3:
-  - Update priv->plat->phy_interface before skipping SerDes reconfiguration,
-    so SGMII <-> 1000BASE-X changes still update the cached interface.
-  - Rename subject to "net: stmmac: intel: skip SerDes reconfig when rate is unchanged".
-
-v2: https://lore.kernel.org/netdev/20260709190329.124432-1-bre@breiti.cc/
-  - Read current SerDes lane rate from SERDES_GCR0 instead of comparing
-    against cached phy_interface state.
-  - Rework commit message.
-  - Keep previous behavior if SERDES_GCR0 read fails.
-
-v1: https://lore.kernel.org/netdev/20260706061954.94842-1-bre@breiti.cc/
-
- .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 31 +++++++++++++++++++
- 1 file changed, 31 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index b8d467ba6d72..4d207f41a43b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -525,6 +525,32 @@ static int intel_set_reg_access(const struct pmc_serdes_regs *regs, int max_regs
- 	return ret;
- }
- 
-+/*
-+ * Return true if the SerDes lane rate must change to serve @interface.
-+ * If the current rate cannot be determined, reconfigure as before.
-+ */
-+static bool intel_serdes_needs_reconfig(struct stmmac_priv *priv,
-+					struct intel_priv_data *intel_priv,
-+					phy_interface_t interface)
-+{
-+	u32 cur_rate, want_rate;
-+	int data;
-+
-+	if (!intel_priv->mdio_adhoc_addr)
-+		return true;
-+
-+	data = mdiobus_read(priv->mii, intel_priv->mdio_adhoc_addr,
-+			    SERDES_GCR0);
-+	if (data < 0)
-+		return true;
-+
-+	cur_rate = (data & SERDES_RATE_MASK) >> SERDES_RATE_PCIE_SHIFT;
-+	want_rate = interface == PHY_INTERFACE_MODE_2500BASEX ?
-+			SERDES_RATE_PCIE_GEN2 : SERDES_RATE_PCIE_GEN1;
-+
-+	return cur_rate != want_rate;
-+}
-+
- static int intel_mac_finish(struct net_device *ndev,
- 			    void *intel_data,
- 			    unsigned int mode,
-@@ -536,6 +562,11 @@ static int intel_mac_finish(struct net_device *ndev,
- 	int max_regs = 0;
- 	int ret = 0;
- 
-+	if (!intel_serdes_needs_reconfig(priv, intel_priv, interface)) {
-+		priv->plat->phy_interface = interface;
-+		return 0;
-+	}
-+
- 	ret = intel_tsn_lane_is_available(ndev, intel_priv);
- 	if (ret < 0) {
- 		netdev_info(priv->dev, "No TSN lane available to set the registers.\n");
 -- 
-2.55.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
