@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A33353A88
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9541353A88
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:33:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783971215; cv=none; b=bAwEhRKJE7hsAu6cGUCvm89kShLnj21WcVatoOQRUPCHPNaNOqYlhqSyTaTXLH4tm0PEvKHs65XkUo9rezeUxhwMD5tRpG5DF/04TPwp1jkolj7TWGmb0Bf+AqCzut9GCRS4lsXeqTYRobai/U7Unn7REmcH4V3+BUbYQFqTrw0=
+	t=1783971220; cv=none; b=moNQcURngwn+xBcMmjqULADM4IpuTRz/ujSMq6dUOYyDYmjJpv9clYoio1ST+xZlNZTdeColJtVWbhU27v59e0j56YOM9FK0ejv0RAbn//VxFd4OxGknWgvaUhe0wTvMKAhTXVk8xMIlB/2ArQPacGoMBMTwHtI7QqNOXQY/ZW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783971215; c=relaxed/simple;
-	bh=WsysDYKlmNIi1GeaMYZNzj3eo5Jd1cfgBO4xygxqFM8=;
+	s=arc-20240116; t=1783971220; c=relaxed/simple;
+	bh=eizR3QPZ5G82+WXxWyH6Gg8Bt8c6IJxtP3mvkLeKmgI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gHaj+IrlMRm4NVTT5LdY4CxteonX73dfe1KtZ0MUVZm+v7FHyjti+c0P48deDqQMmYnQce/hWsF7TrLpE+ncD4yDCmh8K+ftpsr/e2jEJy7YdDQYs72YtBdFEcj5QWCLOGOamC5YXHu7WN5d8n00xd1dAmO2MFcY+jeiyoZAaBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrEZg4sf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YvtPHaOjYimu1Xbzu2aYP9ohewjyoLgquGVbptAcRsD0rWWDSybLRVBDo3LugcuFWq4U0TOs4/0gk+Nu64Y8+BF7Y8HUtZRXxxkWFBX0NGSPnH9I+l4oy2r3OyV0MfNwHUuvQYq74Du8ekRloaAeO5JmHv4H6OIIhYw2E3sUz8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hMLu1cqn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrEZg4sf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB7FB1F000E9;
-	Mon, 13 Jul 2026 19:33:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hMLu1cqn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C701F000E9;
+	Mon, 13 Jul 2026 19:33:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783971214;
-	bh=xg6cJ7Emy56zQk35qGT2BR2rdqy14HcsQeCTzOrDaOw=;
+	s=k20260515; t=1783971219;
+	bh=WEkVjVr0ZBoehiMgk/Q//g5DQDsi+umWdIQ0l8xSNIY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YrEZg4sfjhcb7BZl6Ul8dP1gl3d1dlJYBrpxcR4EMFcv08ieHO4d7euALBtXzIgrg
-	 Iz3e2fsB0ZuJNZc/2Gucw6c/p3bGkRWXyI0R3rJhxb9J6SYsmuLrSzXWPiY4ICJCQI
-	 vc2dg1KN5RaDW31C0XQ/yu3ZcEOwYInoKSYCzgbjFeGpsH4C3aaIrJvXMdxD3ig9Pf
-	 06lyWsASPQJ2TG5m+N5m//JNKNvg2oV02bjg7Qs0BXANniWpBRz/p9OxSJuWN7aJNn
-	 ACIDvlUN2cSsDTa/walFPcA6I7vRTe8ZIjT9/yUl6Pl40JQ2/RoVDK4K9sWV2FUtm1
-	 //5ln1o6W7UpQ==
+	b=hMLu1cqnsf0GITz4Nv1+UcD+JLMQYlU7IUMeyYfnWYNlNoJZK3sYRL4yZHbyBi0Sg
+	 H2R808qBCxvpJpFWFPJID4t2c+47V87YSLycbC+gcTMIi1Bx7YaulCZ8ve2n3KhcY9
+	 ZOL7dIK5VwNgwi+HqTUzXgnJBGb1tVvMCOIrJ8pLY8zdE/J6d5hzBUPHMN0fu/ewoa
+	 B5R8qJ4YsOzW3BAgEjbiKwdaj8Cw+KRC7fWoI9D98BrGHVSbvbltR8jyZWM9xQljMA
+	 jR4Jyp3eROrXZbE0znjzIrXN2TrdvlYqEwalN5VjASwfKqNxjVxclpREq7Nty/Srkb
+	 hbukPf4Im8Jew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Biren Pandya <birenpandya@gmail.com>,
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Zhang Lixu <lixu.zhang@intel.com>,
+	Jiri Kosina <jkosina@suse.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	Stable@vger.kernel.org,
 	Jonathan Cameron <jic23@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] iio: pressure: mpl115: fix runtime PM leak on read error
-Date: Mon, 13 Jul 2026 15:33:31 -0400
-Message-ID: <20260713193331.2036682-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] HID: sensor-hub: Add sensor_hub_input_attr_read_values() for multi-byte reads
+Date: Mon, 13 Jul 2026 15:33:35 -0400
+Message-ID: <20260713193336.2037451-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071351-alphabet-sleep-d297@gregkh>
-References: <2026071351-alphabet-sleep-d297@gregkh>
+In-Reply-To: <2026071341-urethane-barber-5549@gregkh>
+References: <2026071341-urethane-barber-5549@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,59 +49,185 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Biren Pandya <birenpandya@gmail.com>
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-[ Upstream commit fbe67ff37a6fd855a6c097f84f3738bd13d0a898 ]
+[ Upstream commit f784fcea450617055d2d12eec5b2f6e0e38bf878 ]
 
-mpl115_read_raw() takes a runtime PM reference with pm_runtime_get_sync()
-before reading the processed pressure or raw temperature, but on the read
-error path it returns without calling pm_runtime_put_autosuspend(). Each
-failed read therefore leaks a runtime PM reference and prevents the device
-from autosuspending.
+sensor_hub_input_attr_get_raw_value() is limited to returning a single
+32-bit value, which is insufficient for sensors that report data larger
+than 32 bits, such as a quaternion with four s16 elements.
 
-Drop the reference before checking the return value so both the success
-and error paths are balanced.
+Add sensor_hub_input_attr_read_values() that accepts a caller-provided
+buffer and accumulates incoming data until the buffer is full. The two
+paths are distinguished in sensor_hub_raw_event() by pending.max_raw_size
+being non-zero, preserving backward compatibility.
 
-Fixes: 0c3a333524a3 ("iio: pressure: mpl115: Implementing low power mode by shutdown gpio")
-Signed-off-by: Biren Pandya <birenpandya@gmail.com>
-Assisted-by: Claude:claude-opus-4-8 coccinelle
+Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Co-developed-by: Zhang Lixu <lixu.zhang@intel.com>
+Signed-off-by: Zhang Lixu <lixu.zhang@intel.com>
+Acked-by: Jiri Kosina <jkosina@suse.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
-[ moved pm_runtime_mark_last_busy() together with pm_runtime_put_autosuspend() ]
+Stable-dep-of: 3ce8d099e0af ("iio: hid-sensor-rotation: Fix stale or zero output when reading raw values")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/pressure/mpl115.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/hid/hid-sensor-hub.c   | 77 +++++++++++++++++++++++++++++++---
+ include/linux/hid-sensor-hub.h | 25 +++++++++++
+ 2 files changed, 96 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/iio/pressure/mpl115.c b/drivers/iio/pressure/mpl115.c
-index 02ea38c8a3e431..e3eb154feb5fde 100644
---- a/drivers/iio/pressure/mpl115.c
-+++ b/drivers/iio/pressure/mpl115.c
-@@ -106,20 +106,20 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
- 	case IIO_CHAN_INFO_PROCESSED:
- 		pm_runtime_get_sync(data->dev);
- 		ret = mpl115_comp_pressure(data, val, val2);
--		if (ret < 0)
--			return ret;
- 		pm_runtime_mark_last_busy(data->dev);
- 		pm_runtime_put_autosuspend(data->dev);
-+		if (ret < 0)
-+			return ret;
+diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-hub.c
+index 244a5429ff7dca..fe4eefd623b57d 100644
+--- a/drivers/hid/hid-sensor-hub.c
++++ b/drivers/hid/hid-sensor-hub.c
+@@ -287,6 +287,54 @@ int sensor_hub_get_feature(struct hid_sensor_hub_device *hsdev, u32 report_id,
+ }
+ EXPORT_SYMBOL_GPL(sensor_hub_get_feature);
  
- 		return IIO_VAL_INT_PLUS_MICRO;
- 	case IIO_CHAN_INFO_RAW:
- 		pm_runtime_get_sync(data->dev);
- 		/* temperature -5.35 C / LSB, 472 LSB is 25 C */
- 		ret = mpl115_read_temp(data);
--		if (ret < 0)
--			return ret;
- 		pm_runtime_mark_last_busy(data->dev);
- 		pm_runtime_put_autosuspend(data->dev);
-+		if (ret < 0)
-+			return ret;
- 		*val = ret >> 6;
++int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
++				      u32 usage_id, u32 attr_usage_id,
++				      u32 report_id,
++				      enum sensor_hub_read_flags flag,
++				      u32 buffer_size, u8 *buffer)
++{
++	struct sensor_hub_data *data = hid_get_drvdata(hsdev->hdev);
++	struct hid_report *report;
++	unsigned long flags;
++	long cycles;
++	int ret;
++
++	report = sensor_hub_report(report_id, hsdev->hdev, HID_INPUT_REPORT);
++	if (!report)
++		return -EINVAL;
++
++	mutex_lock(hsdev->mutex_ptr);
++	if (flag == SENSOR_HUB_SYNC) {
++		memset(&hsdev->pending, 0, sizeof(hsdev->pending));
++		init_completion(&hsdev->pending.ready);
++		hsdev->pending.usage_id = usage_id;
++		hsdev->pending.attr_usage_id = attr_usage_id;
++		hsdev->pending.max_raw_size = buffer_size;
++		hsdev->pending.raw_data = buffer;
++
++		spin_lock_irqsave(&data->lock, flags);
++		hsdev->pending.status = true;
++		spin_unlock_irqrestore(&data->lock, flags);
++	}
++	mutex_lock(&data->mutex);
++	hid_hw_request(hsdev->hdev, report, HID_REQ_GET_REPORT);
++	mutex_unlock(&data->mutex);
++	ret = 0;
++	if (flag == SENSOR_HUB_SYNC) {
++		cycles = wait_for_completion_interruptible_timeout(&hsdev->pending.ready,
++								   HZ * 5);
++		if (cycles == 0)
++			ret = -ETIMEDOUT;
++		else if (cycles < 0)
++			ret = cycles;
++
++		hsdev->pending.status = false;
++	}
++	mutex_unlock(hsdev->mutex_ptr);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(sensor_hub_input_attr_read_values);
  
- 		return IIO_VAL_INT;
+ int sensor_hub_input_attr_get_raw_value(struct hid_sensor_hub_device *hsdev,
+ 					u32 usage_id,
+@@ -480,6 +528,8 @@ static int sensor_hub_raw_event(struct hid_device *hdev,
+ 	struct hid_collection *collection = NULL;
+ 	void *priv = NULL;
+ 	struct hid_sensor_hub_device *hsdev = NULL;
++	u32 copy_size;
++	u32 avail;
+ 
+ 	hid_dbg(hdev, "sensor_hub_raw_event report id:0x%x size:%d type:%d\n",
+ 			 report->id, size, report->type);
+@@ -519,12 +569,27 @@ static int sensor_hub_raw_event(struct hid_device *hdev,
+ 					      hsdev->pending.attr_usage_id ==
+ 					      report->field[i]->logical)) {
+ 			hid_dbg(hdev, "data was pending ...\n");
+-			hsdev->pending.raw_data = kmemdup(ptr, sz, GFP_ATOMIC);
+-			if (hsdev->pending.raw_data)
+-				hsdev->pending.raw_size = sz;
+-			else
+-				hsdev->pending.raw_size = 0;
+-			complete(&hsdev->pending.ready);
++			if (hsdev->pending.max_raw_size) {
++				if (hsdev->pending.index < hsdev->pending.max_raw_size) {
++					avail = hsdev->pending.max_raw_size - hsdev->pending.index;
++					copy_size = clamp(sz, 0U, avail);
++
++					memcpy(hsdev->pending.raw_data + hsdev->pending.index,
++					       ptr, copy_size);
++					hsdev->pending.index += copy_size;
++					if (hsdev->pending.index >= hsdev->pending.max_raw_size) {
++						hsdev->pending.raw_size = hsdev->pending.index;
++						complete(&hsdev->pending.ready);
++					}
++				}
++			} else {
++				hsdev->pending.raw_data = kmemdup(ptr, sz, GFP_ATOMIC);
++				if (hsdev->pending.raw_data)
++					hsdev->pending.raw_size = sz;
++				else
++					hsdev->pending.raw_size = 0;
++				complete(&hsdev->pending.ready);
++			}
+ 		}
+ 		if (callback->capture_sample) {
+ 			if (report->field[i]->logical)
+diff --git a/include/linux/hid-sensor-hub.h b/include/linux/hid-sensor-hub.h
+index 46bcef380446fa..dba516c447a949 100644
+--- a/include/linux/hid-sensor-hub.h
++++ b/include/linux/hid-sensor-hub.h
+@@ -43,6 +43,8 @@ struct hid_sensor_hub_attribute_info {
+  * @attr_usage_id:	Usage Id of a field, E.g. X-AXIS for a gyro.
+  * @raw_size:		Response size for a read request.
+  * @raw_data:		Place holder for received response.
++ * @index:		Current write index into raw_data for multi-byte reads.
++ * @max_raw_size:	Total buffer size for multi-byte reads; 0 for single-value reads.
+  */
+ struct sensor_hub_pending {
+ 	bool status;
+@@ -51,6 +53,8 @@ struct sensor_hub_pending {
+ 	u32 attr_usage_id;
+ 	int raw_size;
+ 	u8  *raw_data;
++	u32 index;
++	u32 max_raw_size;
+ };
+ 
+ /**
+@@ -182,6 +186,27 @@ int sensor_hub_input_attr_get_raw_value(struct hid_sensor_hub_device *hsdev,
+ 					bool is_signed
+ );
+ 
++/**
++ * sensor_hub_input_attr_read_values() - Synchronous multi-byte read request
++ * @hsdev:		Hub device instance.
++ * @usage_id:		Attribute usage id of parent physical device as per spec
++ * @attr_usage_id:	Attribute usage id as per spec
++ * @report_id:		Report id to look for
++ * @flag:		Synchronous or asynchronous read
++ * @buffer_size:	Size of the buffer in bytes
++ * @buffer:		Buffer to store the read data
++ *
++ * Issues a synchronous or asynchronous read request for an input attribute,
++ * accumulating data into the provided buffer until it is full.
++ * Return: 0 on success, -ETIMEDOUT if the device did not respond, or a
++ * negative error code.
++ */
++int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
++				      u32 usage_id, u32 attr_usage_id,
++				      u32 report_id,
++				      enum sensor_hub_read_flags flag,
++				      u32 buffer_size, u8 *buffer);
++
+ /**
+ * sensor_hub_set_feature() - Feature set request
+ * @hsdev:	Hub device instance.
 -- 
 2.53.0
 
