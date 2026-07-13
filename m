@@ -1,84 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BB939EF14;
-	Mon, 13 Jul 2026 08:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 527B139DBFA;
+	Mon, 13 Jul 2026 08:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783930103; cv=none; b=lnF51uRsSTOLvZ6fAOVP7enAGyw688+5lSPBjSJwKu4zIxtOh/CSKBRfeFrX8i+Wxa8UESdmpDi9PFWGXELaD+g07+14mU7PaXubmHr+pg1VrHIBo1WInirpK0S6gbwg1AHHzMNzaA/5bkUm6+Hf81NiWeK/vXCsZyLjsDpZo1o=
+	t=1783930744; cv=none; b=UhBs+yXojPrALwMBBiGyA0WwQrcvlnoFpiqnMKMZx5mlKfv6zvIVxQUHEPs/v53Ioo4YNAp0aI9Zi+ZAspcv/fzY7L2O0rHt87Xiah4wD1ddB2p1SE/7onf0AV13koLrKA14cMKRuqSs5soHInBH+R4rwBidXWQpCdTf/N06vvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783930103; c=relaxed/simple;
-	bh=uLT7HWzsI84MdeWJhgNF4lDj6foDO+aRXB+64HHmnzM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FpkSMwYs4BlrzDxdERcVUYLi+SpytyV2zQilEggUpY20TYZvkaWgroXyHVsVGqPgNypsZL2P0Zl0DsbVIdAUrWSwoSew7KUtuLRW6kqcOl+LR8u1NhKfxoqJ+0tRaybE5HYQZMCRdsNRrPvQyd0WGvEgBhnC4rUYL3vfk9y55R4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdAfMVNg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783930744; c=relaxed/simple;
+	bh=yQvdhLWJ8LZ6eGjVPDK/jPe0RYv7DHDk1LRwJrKtbzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qOsBRb0Pa2H5TUHD8nWdTqzswLZd3QEVWZtvxAkmXa9u24ArRUBpLXjQlB2ZCHx050Lr+N3nl00ZjK/h/SwwKXEs5pD2k5Ad8V4jkCnMR9VWjtpVEq6azWs/x/MjSFQ0hrCdIUfh+eyW9GzJeK4Wyh3q6slUhyCYJIQFb0wf6Kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=lGle3H04; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdAfMVNg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300321F00A3F;
-	Mon, 13 Jul 2026 08:08:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783930102;
-	bh=pYNE2/vvUsYohUa/Lltav4piWNiMdY9CO+/H9wkxZu4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GdAfMVNgR8cuLk8qti7w7tFiS+cVjrHBaRfIfI16N7YleLCkgNNDKTR2IiKInO4c6
-	 eW9VJ5OusGVuvE0MMMM9XOpH4pjsk5xCKr6LvMGCz+vk4dvRN61vLAEpk+WaHlEJEI
-	 //NNe2+dXOmZlic/YjAAXICikCfFE5GnaDlfO466oe1mo4YQW6dHhRGZpuHwRdGfxA
-	 6hQbvqZw0NUq7B/TEs1Xgj3yqpw16mqxbvQ37tN57fFAjVjHNYdMGIZoEBwypS3kzt
-	 6jNC3LDIvlOFikYUaPKzfq5rh67MM6n05mLl/Iq9Mf+68Njd1ghRQqrsLAmciNBt0k
-	 RewQpcHA4rrAg==
-Date: Mon, 13 Jul 2026 11:08:16 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Saeed Mahameed Michael <saeedm@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>,
-	Michael Guralnik <michaelgur@nvidia.com>, netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="lGle3H04"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
+	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=yoaBk
+	GIVqsBzBcPxnKJVPP9RSrjDbcCn33d5TYJXsic=; b=lGle3H04Yi/22OmGIjdlJ
+	7Nx1jr0hB5dqTpSu/rDHyOUoWzxYLVqtCJzxu75RI9wKam1t5xZmlMasvlATk3Nj
+	JflmUNSOzgV7t2XQimWzQ5lt1qqfc9d/PWqzq8fCXeWf6ZlGlrkA5HH7+pRCdzIF
+	lVE658CK/uhqSBcGgSE6Ik=
+Received: from localhost.localdomain (unknown [121.229.84.192])
+	by web3 (Coremail) with SMTP id ygQGZQAHVpNln1RqkskjAw--.19778S2;
+	Mon, 13 Jul 2026 16:18:46 +0800 (CST)
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+To: netdev@vger.kernel.org
+Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	Eric Dumazet <edumazet@google.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net/mlx5: free mlx5_st_idx_data on final dealloc
-Message-ID: <20260713080816.GA327832@unreal>
-References: <20260702222507.1234467-1-zhipingz@meta.com>
- <9e4e455b-c10b-447e-9fe6-80672f26fd8a@redhat.com>
+Subject: [PATCH net] tcp: initialize standalone IPv4 ACK options
+Date: Mon, 13 Jul 2026 16:18:41 +0800
+Message-ID: <20260713081842.3119-1-zhaoyz24@mails.tsinghua.edu.cn>
+X-Mailer: git-send-email 2.46.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9e4e455b-c10b-447e-9fe6-80672f26fd8a@redhat.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:ygQGZQAHVpNln1RqkskjAw--.19778S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7urWxAF1kXFyfJFy8uw1UAwb_yoW8WFWfpa
+	1IkwsayFyUGry293WkAay0vr43XF4kWFyI9w4jkF9rZFn8WF1xua4Fg3WYvF90v3ykKF1S
+	yFyjvr1Dt398ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9v1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
+	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4
+	x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2
+	z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4
+	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E74AGY7Cv6cx26r4r
+	Kr1UJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc
+	8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Av
+	z4vE14v_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8Ww4UJr1UMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU0Ysj5UUUUU==
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQIHAWpUE7LrhwAAs2
 
-On Fri, Jul 10, 2026 at 01:25:45PM +0200, Paolo Abeni wrote:
-> On 7/3/26 12:24 AM, Zhiping Zhang wrote:
-> > Workloads that repeatedly allocate and release mkeys carrying TPH
-> > steering-tag hints (e.g. churning RDMA MRs) leak one
-> > struct mlx5_st_idx_data per cycle; kmemleak flags it as unreferenced
-> > and the kmalloc slab grows over time.
-> > 
-> > When the last reference to an ST table entry is dropped,
-> > mlx5_st_dealloc_index() removed the entry from idx_xa but the backing
-> > mlx5_st_idx_data allocation was never freed.
-> > 
-> > Free idx_data after the xa_erase() so the lifetime of the bookkeeping
-> > struct matches the lifetime of the ST entry it tracks.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Fixes: 888a7776f4fb ("net/mlx5: Add support for device steering tag")
-> > Reviewed-by: Michael Gur <michaelgur@nvidia.com>
-> > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> @Leon, @Saeed, @Tariq: just in case this fell under the radar, it's
-> waiting for your ack.
+tcp_v4_send_ack() constructs standalone IPv4 TCP ACK replies on the stack
+for SYN-RECV and TIME-WAIT paths.  It currently zeroes only the TCP
+header, not the accompanying option buffer.
 
-Tariq and I completed this on Jul 5 and Jul 6.
+TCP-AO options may have actual lengths that are not 4-byte aligned, while
+the transmitted TCP header length is correctly rounded up to a 4-byte
+boundary.  tcp_ao_hash_hdr() writes only the MAC bytes, leaving the
+TCP-AO option alignment padding in rep.opt uninitialized.  With stack
+auto-initialization disabled, those padding bytes can be copied into the
+network packet and sent to the peer.
 
-https://lore.kernel.org/linux-rdma/20260705141920.GI15188@unreal/
-https://lore.kernel.org/linux-rdma/0bb37f75-c94a-4a10-b115-186b71daf14f@nvidia.com/
+Zero the whole reply structure before writing options, so the alignment
+padding bytes are initialized.
 
-Thanks
+Fixes: decde2586b34 ("net/tcp: Add TCP-AO sign to twsk")
+Cc: stable@vger.kernel.org
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Assisted-by: Claude-Code:GLM-5.2-special
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+---
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index ec09f97..327ee96 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -922,7 +922,7 @@ static void tcp_v4_send_ack(const struct sock *sk,
+ 	struct sock *ctl_sk;
+ 	u64 transmit_time;
+ 
+-	memset(&rep.th, 0, sizeof(struct tcphdr));
++	memset(&rep, 0, sizeof(rep));
+ 	memset(&arg, 0, sizeof(arg));
+ 
+ 	arg.iov[0].iov_base = (unsigned char *)&rep;
 
-> 
-> Thanks,
-> 
-> Paolo
-> 
+--
+2.47.3
+
