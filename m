@@ -1,98 +1,301 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EF34499A4
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:48:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D641133E37A
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783972139; cv=none; b=PJIOyFkwoEUzrw4kW1pSUvoEMzOCldi/F8Q0b83DSLWjKVPcQ4LkbToOt2pod05fMF6ptYVdnqjgbLNxIjBpRAcJ5Oh2ShGSnUS9NJs1UgNHXHCsilDBgcRfQ05H2AJwUqH2ywd8g3Xao8SKdfYR3sG2hTPQN2MkGzOc6A2STUk=
+	t=1783972147; cv=none; b=UAXT8DWWRpDNwiCc2UWmGWdLaztCGmSLn2Tomdkqp/Pz/LT56MOr5fCf5G0FXTdUTYHLJ8I/geJ/1wk5kARExytY89Z+YJcNkk4AWfZgCJACC+YGKrd7BX7FAx/f5cxyxJ+OKmn8YGwBCKU4oMO0SmWTncQVQTFYGV9jbsiQklU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783972139; c=relaxed/simple;
-	bh=cl53LS9VyjfaeNhcfJF8+oJIveH4l0kNujEm4a/TVnc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZXqmewvXWcrkyU0+D66kMf3pJd0ebRswZBZUIGHGGsqaE8I76mWX/oVCTG623/tbZgbl/nTBvf6JqF1UB1nz+9vwtgzP2qvXy77VuBtAsjr/jfX5iktynnJnjTNQLL458VuGVbLQL2zmYX3eOvPiDHWNAbbYgcgMBeZOIDT/L+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Xcxkn4Jj; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1783972147; c=relaxed/simple;
+	bh=ZzYnsmKixhrXa3Fm5QIuH6+nuKAf7+GS2Y5AW16oGUk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VRaYoalHg1ojLvFFr4Cf4PHvrwJ5qypYgm5NQbQpcvWjlSJvhcFofOWFWd7+p7liFdosuek/eurrQxo/iW4l1ZmlhtqbH5R7XJs60CzDfXSh8fudWwd+q2m8dPUTwFFRjf1wtabChv+hGNucGz9f7zuMbe7nOTV+FKcHe/6F3Xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H44DtkCw; arc=none smtp.client-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Xcxkn4Jj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783972136;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oJ+EzR6/4eyBzTaIbA+IBRWvu+AJlHHcGpx6AmbYvOM=;
-	b=Xcxkn4JjKVH8+Z8k75JvT6DKGR9WwgmND/UsAzwV14bOscuczQo4k+guWhp8l0Ude2D01v
-	gnRBDBdV+qcp5QObPmbLm1LCABgB2eUiC8J9L2d/3Wx1ccMuZJBHBsGhxKsBOCY8ebJV3G
-	GWH80GWsVts+LoR5NufHhDI8sKs80vw=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-261-o9cP-YHWNDCVpkX7VZrznw-1; Mon,
- 13 Jul 2026 15:48:53 -0400
-X-MC-Unique: o9cP-YHWNDCVpkX7VZrznw-1
-X-Mimecast-MFC-AGG-ID: o9cP-YHWNDCVpkX7VZrznw_1783972131
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 832761955D96;
-	Mon, 13 Jul 2026 19:48:50 +0000 (UTC)
-Received: from fedora (unknown [10.44.49.164])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 86B1130002DA;
-	Mon, 13 Jul 2026 19:48:45 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Mon, 13 Jul 2026 21:48:50 +0200 (CEST)
-Date: Mon, 13 Jul 2026 21:48:43 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-Cc: Bradley Morgan <include@grrlz.net>, akpm@linux-foundation.org,
-	brauner@kernel.org, peterz@infradead.org, tglx@kernel.org,
-	npiggin@gmail.com, pasha.tatashin@soleen.com, kees@kernel.org,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
-Subject: Re: [PATCH] reboot: enable IRQs before do_exit in the halt and power
- off fallback
-Message-ID: <alVBG8OS4RBCOqDK@redhat.com>
-References: <20260712125300.31501-1-include@grrlz.net>
- <87tsq3vbtf.fsf@email.froward.int.ebiederm.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H44DtkCw"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-664d78637f8so6246917d50.3
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 12:49:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783972145; x=1784576945; darn=vger.kernel.org;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=n2Nhmjf1P25H7Nc2LjCEV+3VIdZwevh4O2RWWuW3P00=;
+        b=H44DtkCwgNbmUp4Qzh27tO/L9Uz++6vBBzs+qTrLQ70qHxeP6H5tX+uBbtYXGQD6fN
+         pSfb93togs1d+ABr7eLu6Mnyk6JEW8ZyZZ9FOwWzMG7x3IaIpQKyr3k4bARN98u0XqRe
+         7c8R7qg+pVQYe8VyvQq5j5AA7vDCX//CFXNGpSBonZ33RvrNpRo2QfHUANS2gV8kj5ef
+         zuCDOlPkj3NFT5KidsQseolep3G1UVmc5OZ33wvXUNyOcYWlCx9RTYQCyqPXEY5pqsfB
+         f4tWvryxA5dOgY2TeG/DpCzc+fFP1S0lOWfw5TOKXRepD0qYnWfjffWmLR5/HFjkHVat
+         JqLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783972145; x=1784576945;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n2Nhmjf1P25H7Nc2LjCEV+3VIdZwevh4O2RWWuW3P00=;
+        b=ZLdFwqupnwijAG2vWfnW2EkaD2WJxkKAnmcLf0ampZhRLy7VU0wZ510HjsZnZjHpvn
+         fFAR1DhSmHv4rva+n+PKsroePI1gq0Md2yhtSmrY4r7f6WK2v04DfVvLJOoe03dmp8sg
+         X3+7GxBcwuqQYATIF17QcGFd+TRk4mufcgxsW311t5eouz1UoLZrNz/KTg5DvO/K4t2F
+         d7JKke4GuzrYpI110Auz1x5nxFVfU243SrEqXY+cb+6cHuc/gnHeKbIjDdczWT0SB2F4
+         VokNyxPGOItYolW+jKirsCbPKYB1fXYD6wU/43IsrFBrfwRh6p9XvFviNSwrcH4fww3n
+         UjGw==
+X-Forwarded-Encrypted: i=1; AHgh+RrCVQnbk2zV+UQwSK/e31BZpQe2vhlniZonPfRCn9C2LONvMF5ZeyR/Kirzr13ONqzYz+l45yc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnQ/SeoWKkMBr8OB/rPvUz7zNZLMMyT9P6wCnp5yJCRLV22Fye
+	ZJeDSEbd6FNAHcbLC0aYMk6xWE1Ic5E6jYnbkKZXeAzzTRowKD7EWkhVM9gLucPF
+X-Gm-Gg: AfdE7clkBFnRKchhV7P27cG60zc2YunvoiFTxS18WmvO27aXYIVO1YVwCgRNNfG3BrK
+	MAq40wmXkLdsgQc1nDAydCCj5Xk9IDnOBFs6rm9JYouj60/9VKLarwZi4bRoZeHcPZ47UVyc4rH
+	etD27IFS/6u5X/zOO7AbeFnWcD2sQnj9WcgjrGvZeaPw2s70pxGXVpAGwojbWUKgI2qQXzDXwEu
+	9dn4xuP4dVjQ3s/LvwpYeCE0hxRXOJ1OO5KpJ8OUZSnjiBaBOu8lwr5Bo4q0u7uPv2wp41Gh1ds
+	yqpzz0xsc3fk0Kf7WFe5wdK3tgROTvqZQ7Kb5+z549DXecSgE1MutheFyKyOo4dYb4uM33g5/Si
+	YusWBQyX+mPTk5en6FMqPn7VjGNKxjd6PFZfRmiX761zU0EA6VCmWc8E5hMgeEGWXHs/ZgE2wGj
+	N9zLP8sfT3FO2YUv1wQLPV3/sxS4940hwhupAY
+X-Received: by 2002:a05:690e:1246:b0:667:ff9c:21dc with SMTP id 956f58d0204a3-667ff9c2a33mr1497202d50.93.1783972144782;
+        Mon, 13 Jul 2026 12:49:04 -0700 (PDT)
+Received: from [10.138.10.6] ([185.98.168.14])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-667879d8818sm14496185d50.13.2026.07.13.12.49.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Jul 2026 12:49:03 -0700 (PDT)
+Message-ID: <dcf16dac-e26d-42b0-a0e7-32990446f7bf@gmail.com>
+Date: Mon, 13 Jul 2026 15:49:00 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87tsq3vbtf.fsf@email.froward.int.ebiederm.org>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Eric Biggers <ebiggers@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, stable@vger.kernel.org
+References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
+ <2026071312-uncover-refining-8cac@gregkh> <20260713130745.GA2254@quark>
+ <bd5821b9-7459-4db4-86ef-bd67fb645753@gmail.com>
+ <2026071320-encode-modify-6193@gregkh>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <2026071320-encode-modify-6193@gregkh>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------vgImv900avlh0tVHitrPh5xj"
 
-On 07/12, Eric W. Biederman wrote:
->
-> Bradley Morgan <include@grrlz.net> writes:
->
-> > The reboot syscall calls do_exit(0) after kernel_halt() or
-> > kernel_power_off().  Those are expected to stop the machine and not
-> > return.  When they do return (no PM info, power off failed), the
-> > shutdown path has already disabled interrupts: native_machine_shutdown()
-> > calls local_irq_disable() on x86, and do_exit() then hits its
-> > WARN_ON(irqs_disabled()) at kernel/exit.c:930.
-> >
-> > do_exit only warns by design; make_task_dead() is the path that fixes
-> > the IRQs disabled state (commit 001c28e57187 ("exit: Detect and fix irq
-> > disabled state in oops")).  The reboot fallback is not an oops and wants
-> > a clean do_exit, so enable IRQs at the two call sites instead, matching
-> > the make_task_dead pattern.
->
-> I think this is fixing symptoms not the actual cause.
->
-> How does kernel_halt or kernel_power_off manage to return?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------vgImv900avlh0tVHitrPh5xj
+Content-Type: multipart/mixed; boundary="------------ETtg58S8PChwJVaC0HzUiT8C";
+ protected-headers="v1"; hp="clear"
+Message-ID: <dcf16dac-e26d-42b0-a0e7-32990446f7bf@gmail.com>
+Date: Mon, 13 Jul 2026 15:49:00 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Eric Biggers <ebiggers@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, stable@vger.kernel.org
+References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
+ <2026071312-uncover-refining-8cac@gregkh> <20260713130745.GA2254@quark>
+ <bd5821b9-7459-4db4-86ef-bd67fb645753@gmail.com>
+ <2026071320-encode-modify-6193@gregkh>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <2026071320-encode-modify-6193@gregkh>
 
-Agreed... and this was already reported twice at least. See
+--------------ETtg58S8PChwJVaC0HzUiT8C
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-	https://lore.kernel.org/all/20250403-exit-v1-1-8e9266bfc4b7@debian.org/
+On 7/13/26 11:31, Greg KH wrote:
+> On Mon, Jul 13, 2026 at 10:42:04AM -0400, Demi Marie Obenour wrote:
+>> On 7/13/26 09:07, Eric Biggers wrote:
+>>> On Mon, Jul 13, 2026 at 06:47:07AM +0200, Greg KH wrote:
+>>>> On Sun, Jul 12, 2026 at 05:31:31PM -0400, Demi Marie Obenour via B4 =
+Relay wrote:
+>>>>> From: Demi Marie Obenour <demiobenour@gmail.com>
+>>>>>
+>>>>> This driver is harmful:
+>>>>>
+>>>>> - It is much slower than the CPU [1] [2].
+>>>>> - It Has a history of bugs [2] [3].
+>>>>> - It does not have exclusive access to the hardware [4], causing ra=
+ces
+>>>>>   with the secure world.
+>>>>> - It register its implementations with too low a cra_priority for t=
+hem
+>>>>>   to be actually used [5].
+>>>>>
+>>>>> Therefore, disable it to ensure that nobody builds it into kernels =
+they
+>>>>> intend to ship.
+>>>>>
+>>>>> In the future, the driver will be used for processing restricted me=
+dia
+>>>>> content.  However, the kernel does not currently support this.  Sin=
+ce
+>>>>> the driver will have future uses, allow building it if COMPILE_TEST=
+ is
+>>>>> enabled.
+>>>>
+>>>> Why not just delete it now, and then bring it back when it is needed=
+ in
+>>>> the future?  Otherwise this will just trip up the static code checke=
+rs
+>>>> who will attempt to "fix" things in it.
+>>>
+>>> That makes sense to me, but Qualcomm pushed back on deletion:
+>>> https://lore.kernel.org/linux-crypto/20260602-qcom-qce-broken-v1-1-a4=
+ef756089e0@oss.qualcomm.com/
+>>>
+>>> But I've still not seen any evidence that this driver is useful for
+>>> anything or has any users.  Even Qualcomm seems to be unwilling to ma=
+ke
+>>> such claims; they only claim that the IP is used (i.e., not in Linux)=
 
-	https://lore.kernel.org/all/20250410143937.1829272-1-Tze-nan.Wu@mediatek.com/
+>>> and that new features are planned.
+>>>
+>>> - Eric
+>>
+>> Here is my reading of Qualcomm's statements:
+>>
+>> QCE is currently used by the Arm secure world.  In the future, QCE
+>> will be used by the kernel as part of restricted content playback.
+>> Qualcomm wants to add the needed features to the existing driver.
+>> This will not use the crypto API.
+>=20
+> Why is a crypto driver not going to use the crypto API?
 
-Oleg.
+I suspect that the restricted content playback use-case involves
+QCE decrypting data stored in kernel memory, using keys inaccessible
+to the kernel, to memory inaccessible to the kernel.  The crypto API
+can't express this.
 
+>> I would be fine with the driver being removed, but not if it means
+>> another out-of-tree Android driver.
+>=20
+> It's not another out-of-tree Android driver if nothing in Android
+> actually uses it :)
+
+Nothing uses it *yet*.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+
+--------------ETtg58S8PChwJVaC0HzUiT8C--
+
+--------------vgImv900avlh0tVHitrPh5xj
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmpVQSwACgkQszaHOrMp
+8lOTZg/+J7VZdIiJw1B68LNMjCivUN153yqTLpN9zrY5X2j10DRj3fsnS/8S0DU2
+mCSIjkUljEp6N6NI5bmALO5CXYnIsL7PPjq2/2qhzuLUrxEMf255RRLFg+Yei3OG
+OVEp9tXyvrRCBuvrSKXyxMkUKAzKhJEaBEv0NVAuMsYuytTqvuAc6A6+sUvESRco
+CFpnGzsfwRXpu/+M30+HTWGTOElO8ReeYR9vTWyrcP8fUQXeGCV9gBcyZrkzH5Rk
+ICqvs7N0mQXtSd/v9EpxjiDOd49GF+Gg2PKk5XyyEy/m8p4zDey5KI5fEcsBCzlR
+JMLyCwuI/yMQHlGYeCCNLrgM3HTm80hJo+6fVIl4Fd29QZelhaIfh65SdF1/9rXn
+z3XcBKgjG6INHmGrmY3FGzYtlJODu99ojT8PHbEz3Wd4t87aRaJxZD0ICfTrJPEt
+iJ+9cRKn6TSk9pj3IjOzYRDQ8a8zMQcESxmr/TNTSv63SLlRsLnibkKIgR9wwPyh
+1LlpafCxmeyhmYB8Kr+p36zlYXoln3GSDl+5MDzlv3FqI95RA0UJqIzBwtOlsbRK
+BUO8ECuHNejjLydzZnsKOlYpKJrQQ8Lx307tPTboG74oO3kWI5Ep3XEWT1/EJyyp
+ZfrjHfL9CQmwDsCwBcmT9eFi3zT4OGdm0/El15HCB2fuTQlp8bU=
+=oS9l
+-----END PGP SIGNATURE-----
+
+--------------vgImv900avlh0tVHitrPh5xj--
