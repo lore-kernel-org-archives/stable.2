@@ -1,146 +1,128 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A48346766
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 11:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02B1381E8F;
+	Mon, 13 Jul 2026 11:34:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783942338; cv=none; b=ql+UOrzjBJ31RMvjPg2pWKYHCYqBVHVcZSyF8CIOq7heP+AFzOobtYF5TgxrDvdk+fAGjl4dDmWxvCyGEV+pTD2sy0kQU2nWTFUXrkazZz5tSp+Ty8wHC5yTjSJEfvxBf+LJqiJpTAP/EypWnwPTLJ/1SnmKFcgcGnOgjT50fkg=
+	t=1783942479; cv=none; b=Uw2gpvEQKHa9rrdmViAIH0WD/UwU7KtXUrfpTuMb5hsUDRUxrNc5riwo+fp5TtQChDNwMPPi4b/cH33mv7jCQkBPmlNJnRsJjh1yFAnazwDlbB/BwZb5l0HUUnkloIYa+6qDf0B3QMX6YTLDgWVfPbR9lWbwd1hK6DFm4bTL9t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783942338; c=relaxed/simple;
-	bh=pe0ZWEl9hpbKNM4POdPYU+xRMmXadYbOlA4SMxHiFR4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XVx1b4C2sUq+0KVgG2gjQ7ZrryiUCuFj8G3T/N0rCN4DtPOKQncbVmGXqufF0B+bVDlTuoQWjW9rB8BZYQe+FH+T+xWtWfzo7njhWQ7f+VxO+mzPGRFV9qkd+ACT+YMheForncU8TqQFyqd7vFbem1DDmlLcC+AbvvJO/bg/MlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bv0+jPSE; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783942479; c=relaxed/simple;
+	bh=M84iIkDz2qoCIceHYB5sFpzZWTMnU6n74p+J5ddZ3hU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sdWYo2jN7EQhoToRNm6NvJV1caA0ipzr0U4p1nvfrZTIGSgk1+dCnNfZ5RSzmfS5tDCXlNm2Nkaql3+N/RVoEOXE7uwDou2YBCkA8uoZyEiNosfdPeE2Nh650jGkQNeDAGjg1bMyvec46H8xULaJ5pX3BQs2ARCw4xpY6V5SxWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RzT1SR/T; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bv0+jPSE"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-848882fdb18so2129541b3a.0
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 04:32:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783942337; x=1784547137; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bQ5YkObDJn3q5yEXBMbpydhpxp/loGCG/PfQF+sLSPI=;
-        b=bv0+jPSE1dp5ZtI8P/S87t2/8h78QGDfYyX573LFTRf0PpyXoPEHJYMVsp0rxN3pvU
-         WhnbRpWiC4HRBwlYPNKSpyzmZayODlgPXb2CCE+xzEYamoDqOAMkrv3pU7LKYoF0fVjb
-         SGCorSeUAcWUziKrZT/NxlDs68RVWQ46RrOACsmftat89aubRSEZTzrFTVyBPY250HOu
-         2HP+7TGAZgyAvKMZCPktusOfcOr2VPGuqrVbgynriKbyXNHvjEEZLMo8scsLb26ySwpi
-         ggQG1+1hUPylCGZIvvFtHFbLQGVn2GWRU1hBy/aLAgNPjLSxo+YPxpk4bCKCi8QbMJa0
-         V1ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783942337; x=1784547137;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bQ5YkObDJn3q5yEXBMbpydhpxp/loGCG/PfQF+sLSPI=;
-        b=GL19ewor3q8Qu/CgCkwLoqvePsGybT0d+UAEb8PCZgdN2lG2ZzdS9cEQLN+0PZRcqM
-         VSQvXMrVT3BsSwt8RowsyLvHy6TWuw5bjqazdbYlH/rfxqt7gBH/1Tp4/z5DXw0/TfSk
-         FmlYuyftyzFq2Y/aKb27T+g1bNTA1bB1wAsOA+4/Wm4eXsTdtayjOxfEvwsaZPtYunX8
-         pjeUx7mUwjXNVsNZRPKWvj7tCZX99PwLOU+06Gp/22z8+WfzDTUHSAtHjC2q77ShLws5
-         Up0E1gseliDk6WoK8NgsSNRyXAu56E50DDwJ7iabIDsioP08+LP5jurxt+L1rHGpBSk8
-         1+rA==
-X-Forwarded-Encrypted: i=1; AHgh+RrHRokyLUlT+6sD+p1+XyAErAsNoKjwVbR/uBs6uN4MjLruZS3QFBZoqB3JgtRvE0hKOF6L/0Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx1RS8hVr+Iyv8TZ8fG5z8UQHwB2eRPjdIxayltBquIN2CyVu5V
-	L2k34S46BviJ5g7sKBSz7M39d0hfCWJoWeKkVZi0fFJes43p0qwdhaka
-X-Gm-Gg: AfdE7cnsUM3WTMJoq/EnbfYM1D+CI7zkTXXLJEzQp8ityw16c0Eovu4o/qV/NKY5uDR
-	mUN90RF3EULS/6B9ye/C4STWXEgbg05rD3y1vf+ZbAur3xpjhGFEL4GAiF3ku90/6ytVjO5U9b0
-	KC+SBU+pDvTWG0On+aJ+USSn5b8V/IwHhcdoO6xHxFF32anZgpsTdd5KajuCCZ0rD1TEenIiopW
-	DlJ31K7k5h6fTzJmdJEjXzpwvXgkezx/gtzBXy08bGwLKqV6Lc8fQsJmQISQLEnUn79Bv7FRb6W
-	YmVN52qj8HXYvbIykrqK/fGiEhLu8Pv9EqYx3VCVIaC9+nBip24651sMnDa3e4CeANpie3zwq07
-	8XVUp6CWGIYYBJGm3SvEgFHvPmeXqCQRntdgokhjUjrPrKpgRWoxIplgiWiITd0pfWLAPovU=
-X-Received: by 2002:a05:6a00:18aa:b0:845:d286:1fa8 with SMTP id d2e1a72fcca58-84889768958mr8641367b3a.55.1783942336528;
-        Mon, 13 Jul 2026 04:32:16 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84880a4abf1sm4318802b3a.16.2026.07.13.04.32.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 04:32:16 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	CK Hu <ck.hu@mediatek.com>,
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] drm/mediatek: mtk_hdmi: Fix DDC adapter double put in v2
-Date: Mon, 13 Jul 2026 19:29:57 +0800
-Message-ID: <20260713112957.884640-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RzT1SR/T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783942478; x=1815478478;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=M84iIkDz2qoCIceHYB5sFpzZWTMnU6n74p+J5ddZ3hU=;
+  b=RzT1SR/T5cR73OGaoTuYy2lWggVq8OG6z/0AV4DolR0YVTcI+TnzSYfr
+   WN6YU3GyfVcXw8DmF+Smfqc5eh6skkTgE5e+HXPpvOnsXsM1xHSGEVlMu
+   V8Ep26/EkvUuukzZjkZn6GNhPQhmS6ot1gOJfZm9FVk7aoOR3ULzqkqRb
+   hd7cXv1/T7+KrK/tBUmewj7R/trPyI5XfO8ALXQujaWpusRxCQSlEIxta
+   A4B9eNKkOhfIGWDOUa6mOZwZjrETb3Lfg76FaIpiFrWaoiIPjCi24Jevz
+   CDzi9d3unMQxf4HbS7LAQp02BTPRXJYaRGBZKnT+ftYu8Ivk1+nIqo5j9
+   Q==;
+X-CSE-ConnectionGUID: aqWwbW88TMemIXYm3h696w==
+X-CSE-MsgGUID: t8Pn2/T4Qw2kJki81t+uQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84664882"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="84664882"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 04:34:37 -0700
+X-CSE-ConnectionGUID: a5JbNem3TnCc+rYpJUMWGg==
+X-CSE-MsgGUID: d5/VchwyRRe7Nv4ET0q/LQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="285611198"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.88])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 04:34:35 -0700
+Date: Mon, 13 Jul 2026 14:34:32 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] iio: proximity: hx9023s: validate firmware size
+Message-ID: <alTNSJODSTsPWyAF@ashevche-desk.local>
+References: <CAMyXUJnsV1GD0VmK_n25hqr_=A5Z=u_gCXV=oACgKuP3dSgwnQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMyXUJnsV1GD0VmK_n25hqr_=A5Z=u_gCXV=oACgKuP3dSgwnQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-mtk_hdmi_common_probe() gets the DDC adapter with
-of_find_i2c_adapter_by_node() and registers a devm action to release the
-adapter device reference with put_device().
+On Mon, Jul 13, 2026 at 10:31:30AM +0545, Laxman Acharya Padhya wrote:
+> hx9023s_send_cfg() copies the firmware into a counted flexible array and
+> then reads fixed offsets from the copied data before walking register/value
+> pairs starting at FW_DATA_OFFSET. A truncated firmware image can therefore
+> make the driver read past the copied buffer during probe-time configuration
+> loading.
+> 
+> Reject firmware images that cannot contain the fixed header, reject images
+> too large for the u16 fw_size field, and validate that the advertised
+> register count fits in the remaining payload.
 
-The HDMI v2 remove callback also calls i2c_put_adapter() on the same DDC
-adapter. This is not paired with of_find_i2c_adapter_by_node(): it drops
-the adapter device reference before the devm action drops it again, and
-it also puts a module reference that was never taken.
+> Fixes: e9ed97be4fcc ("iio: proximity: hx9023s: Added firmware file
+> parsing functionality")
 
-Remove the extra i2c_put_adapter() call and drop the now-empty HDMI v2
-remove callback. The common devm action releases the adapter device
-reference.
+This has to be a single line.
 
-Fixes: 8d0f79886273 ("drm/mediatek: Introduce HDMI/DDC v2 for MT8195/MT8188")
-Cc: stable@vger.kernel.org
-Reviewed-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v3:
-  - Add Reviewed-by tag from Johan Hovold.
-  - No code changes.
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
 
-v2:
-  - Drop the empty remove callback, as suggested by Johan Hovold.
-  - Mention that i2c_put_adapter() also drops a module reference that was
-    never taken.
-  - Fix the Fixes tag.
-  - Add Cc stable.
+...
 
- drivers/gpu/drm/mediatek/mtk_hdmi_v2.c | 8 --------
- 1 file changed, 8 deletions(-)
+> v3:
+> - Resend once in plain-text format after the duplicate v2 messages.
+> - Keep each commit trailer on one complete line.
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-index 7bbf463056c9..ffe456238a2b 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-@@ -1499,13 +1499,6 @@ static int mtk_hdmi_v2_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
--static void mtk_hdmi_v2_remove(struct platform_device *pdev)
--{
--	struct mtk_hdmi *hdmi = platform_get_drvdata(pdev);
--
--	i2c_put_adapter(hdmi->ddc_adpt);
--}
--
- static const struct of_device_id mtk_drm_hdmi_v2_of_ids[] = {
- 	{ .compatible = "mediatek,mt8188-hdmi-tx", .data = &mtk_hdmi_conf_mt8188 },
- 	{ .compatible = "mediatek,mt8195-hdmi-tx", .data = &mtk_hdmi_conf_mt8195 },
-@@ -1515,7 +1508,6 @@ MODULE_DEVICE_TABLE(of, mtk_drm_hdmi_v2_of_ids);
- 
- static struct platform_driver mtk_hdmi_v2_driver = {
- 	.probe = mtk_hdmi_v2_probe,
--	.remove = mtk_hdmi_v2_remove,
- 	.driver = {
- 		.name = "mediatek-drm-hdmi-v2",
- 		.of_match_table = mtk_drm_hdmi_v2_of_ids,
+None of these is being addressed.
+
+...
+
+>  static int hx9023s_send_cfg(const struct firmware *fw, struct
+> hx9023s_data *data)
+>  {
+> + /* fw_size is u16 in struct hx9023s_bin, so reject truncation. */
+> + if (fw->size < FW_DATA_OFFSET || fw->size > U16_MAX)
+> + return -EINVAL;
+
+The patch is mangled. Please, conduct an investigation before sending any new
+versions or other patches to the kernel mailing lists.
+
+>   struct hx9023s_bin *bin __free(kfree) =
+>    kzalloc(fw->size + sizeof(*bin), GFP_KERNEL);
+>   if (!bin)
+
+Compare the above to
+
+	struct hx9023s_bin *bin __free(kfree) =
+		kzalloc(fw->size + sizeof(*bin), GFP_KERNEL);
+	if (!bin)
+		return -ENOMEM;
+
+	bin->fw_size = fw->size;
+	memcpy(bin->data, fw->data, bin->fw_size);
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
