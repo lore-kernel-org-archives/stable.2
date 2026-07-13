@@ -1,82 +1,89 @@
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2FD3438A7
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:46:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5102535200B
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783953962; cv=none; b=X7GCEqv6XhIm09Bj84md5vBbnC9KvKpdX2nwBMZEAJ/e4oZ/KOD478sWGfliglJzVzANkWdZKvljrVD1pcVGwOwJmU38OOEe1IkfwV0P6uAKODcij1d4SoHtG5BzldhO3+n1/WhV7jqbdimi+cBfZLvN3JKmAOZ3RzVSXEGEPs4=
+	t=1783954746; cv=none; b=DPogzkYgCMJCx2kP26UQ1YZJf6YDu9ExWdaGniEh6qjW4cGh+F0mf4UiTtTUaiUZi2LnFuw8/+uwVJXW7VOSgLeamfWV3Ik6l+58gBm8J7kcyVKZYVvYA36HH+APNjhf2x5zvVz4mzND7ET7AhKETpehe9+i466Rs9Dysq7WGQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783953962; c=relaxed/simple;
-	bh=eH06d02Chz0Ei34ikr+qHmgb+23hHim1HZnyhQXjhPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LnhMg1ilVVwOucId+PiJpHSk084kBpMtNgKcCKubnef9KCb2TbkVUvBDquPjcI1vapOI2LPl5pEHJrGxGMlUnwqb1qbQ+whmNI5wu7uSsMAQW6D7P5Ijuy/BN+/MaiVF40OKWStPnx1GZM5rSAKOKBr5tGdsKICiC02A0wctnGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h+OzWSIT; arc=none smtp.client-ip=209.85.161.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783954746; c=relaxed/simple;
+	bh=lkIgxWjwf/sFNbQZls9lXBmTHyrWhCv7iqGMHOrl1TA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gTOs4w/3+g/RFGHaja4tf8Y/BdhHYl+Uaxcuu8YkpnJxbsxQfDHavyu4/SRBz2DWNajEZIcqINCVmiAkN5/dWVv9aiIZCJAzCohdcis6iA2dbfv8SB/37vYjZDVBouXXtK3C3b1f4zW6yxSemIkPtLQb57ZvMSs0lQBnjrqZw28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k/CknA1O; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ji8rIqni; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h+OzWSIT"
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6a39ee84e64so334460eaf.2
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 07:46:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k/CknA1O";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ji8rIqni"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66DCEAFZ1304582
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:59:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Y0B/Toi++qviIsvH3wfVq2MiAIIVK6Q0fCt
+	d190RJhY=; b=k/CknA1OSczHCEG6uycRAnm5Hcq3NAN0oR7cqwGm83rbmAswce/
+	8AraklXfNNdy72spR/hK6WQEBiKhdazNMtH/2/V+gmRGIhQB/oFPPOTZM2j6ovu2
+	CEn/fwL/nXuwLHjxxjrtWLmd55Ehx9CAuJA/s7qyfuctis+vVJNgMEsft4Walnjq
+	quM/uMR4AL+6OO1DJsLDzAwEnea/uuMoNbInqeXwH+cvOU9Odo1KVFP9YACD2Ty9
+	2cwnKPC6RpLsacAutAr1kX9jVYK9GkBBNfPiRsvaKNMs2x92TaXHM9lDoA7Vlg5q
+	LpK3JTWDkz8wMvyvaE21qELMurRTFqeOyKQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcwk9s81d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:59:04 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90410c668adso43726396d6.1
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 07:59:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783953959; x=1784558759; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XU2J9ywExwhM1zwy22c2Y1HK11dL7My6r4TdOxaIsEI=;
-        b=h+OzWSITVdjXU/MsbsL2FDJB7UtxW0qZSXAAduBJcf3j8Kl0uT2Z34Nc9j/STJoDt1
-         D/Z9AAOiOcnAjcxwvJS1TxxlpB9d5+jYCE0AL62r85mCkLHaRTFgiYLqrAITneSoDb9U
-         jdvRz6VK9JT2lhvZTQ6NpZRdNXwS8WeH658vVIXP+m6TJTIvBSXM/n3T170k9bywt3/o
-         84rCvzLsioJzNUprP3W1aiFJHLQ0gwU0P8QvbP9s9fSf1jadwooMDSY+tsRUtSubGmS/
-         5NV5MarUtBYO3HSv68hAqFo6Kh1fFV+LyGOkdQMz4fpo9J5hLkcyKf12rNpJcBfd0Pe0
-         +fFQ==
+        d=oss.qualcomm.com; s=google; t=1783954744; x=1784559544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y0B/Toi++qviIsvH3wfVq2MiAIIVK6Q0fCtd190RJhY=;
+        b=ji8rIqnitntbUCXjzM9Hb7NVgX54bLQIOeWSTsd76iXiE5fSfEagIu0WrVfqYD5qjF
+         80cBUIVXTTN70CYuJzycO+f45GRuptEBBy5tV8iMRia13510+qFMgc6XqpAKSwPJDSrJ
+         sA8ZzPyMw3UKpoJVriZsvj2MypQ6w+MYNomwkHQyzjeyt6ISUDVhQ08pZPBLCdGBTI8A
+         /7o1r4G1qPCmv/bbBigogNwrM9120wmbDbE775I8Q5ePBzeSWuJ/V6VCcjw1m7O56rIS
+         jWZqkLwCMIacd/cnlYfpmsGO3AG11mZM8JSdFdkeQgGS3Z3NsaBjP2fx6C2P9DMuWf6L
+         USRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783953959; x=1784558759;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XU2J9ywExwhM1zwy22c2Y1HK11dL7My6r4TdOxaIsEI=;
-        b=H1dZnAN0kQ86hfAJ16Gp5IE8X/NRX6uA2f1b5DV0lirP6gzKA1bjXm9+NPbiiNliby
-         EGJyA9aa8DcQh2m3qKXvzREVTcaQYzYnEpNp7AuUnxFe/aAoqii+bOCEiNWvx5WcW+Sj
-         UTAoXue6OgEpwqUsknBCwM7e57zOvlwJKHsB3R18fX5lwSf4aivCOLN+gago6n1XP/3X
-         bjgGuc0hdXGKuqhjGjvyNPQDRSCSo9bPSVGmBcQmHDf+e5BHemcdeJyvZhYs/1JFiTAF
-         sY+HwrmPMH7/3Ct/Fif3ZbGSp26mNRhxhsXIwojRzk5kymjZJxbs3v+5N9pYR/IHDCuA
-         Jitg==
-X-Forwarded-Encrypted: i=1; AFNElJ++TWHnGO3APH3BfnVUvGZDHyuoLX9ZBoAbhrNDSJ+mDamosT1r1QslFGrtb6ZAXDzWgECqZEY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4HpniF8t8Hsn3HVIdXWk3xb5Mvi5RmM12UX6dbJ4Xey6TVg5K
-	cM4CeuLROWmt2VaXNpxL2XUjpzV8xFKvtZFWu2HjBfo7efhu48DzBvxY
-X-Gm-Gg: AfdE7ck5DYdpevaIJ8/AT68EMocYZ1ntoWRTAI1OZrnhYudFmX/bywUZhfvSZJp+CDO
-	ubof5f3Vt6O5YB839eEC1JVT09togOBTFLop+RHIsdOSvVwR1SpvhoZpSxpWwlJU6vQBnP9XU9N
-	T7HIiPx3/Jov2FrUlsk9aKH8CUohtQ7gVMB6UZh9KCZLcZqUYCIA3oUpw6iucZMqVJTizqq8xN7
-	I2c7hnKY5A83LeA/MsQygaiqnfTN8ADqf3sle2XgWFyyuq8pM2AHIi6qRKbC+uDk7av+35wtWSH
-	BnCMPNfsIof3fqd83mijsXdZS9kdUa7hqNXKV2vr1gu39E6iEi0WtX8EOZLdUaz2UcYxM1re5N6
-	iCbweQWG6tBauMn3dI5CF3XGcFmaxxzTtS80nfiIEwqrFb6/YBIZ32ijal7Hg0nUdOsjfNNxFNQ
-	1xEC/xSVgUejsWapIjOCHX5AfcUcsV+J6c98xuwpehYsF1M6c1E7l5Jw==
-X-Received: by 2002:a05:6820:1b0b:b0:6a3:2368:4cc5 with SMTP id 006d021491bc7-6a39a6dd434mr5521035eaf.35.1783953959481;
-        Mon, 13 Jul 2026 07:45:59 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:71::])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a38e9bc8casm6715121eaf.2.2026.07.13.07.45.59
+        d=1e100.net; s=20251104; t=1783954744; x=1784559544;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y0B/Toi++qviIsvH3wfVq2MiAIIVK6Q0fCtd190RJhY=;
+        b=mweVsE4W6l1fbrjDoG5FaN4Omf5A8LmiiF7NBzxCPIyl3TsiLBJuXz+2jb7g3NgFQA
+         H2m4oA2KG5vlMMdLReIcVlEpJdAvw9mGJjZGEGphvYe1UIXKGIOp0Ik06jVmsFb0PlqJ
+         X3SCvnoNVKsc1or/8ew1y8x6sffcO2Sgf59drHzctAKZg5nUX3Fs2vejVh9HUPUQX3yl
+         I+jbL7NmeMpJ6ltOfhAlwZLyqqQAaYAmcPGMipghi3lQeo3D3v4qJO6gCDG79m3dxVBi
+         6QTr6zlj4/WaT9/bk6kHwnkGmyY+OYccmQrjczB6fRnxSgKtW3lALONsJkaliUANvcVU
+         emzQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqO9544k3ZHAAiEM5weQTzkA4RtAAOixeF0VuSUmo65aEzUxZ21Wx5DGu6Kd9KE61qby1Q/Wu4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVmYKuYnSOqGYuUKJvjCoWjtRbj4pxPc2jbgTlYc5jUcYwQrWZ
+	Ccu8ow5zUXcktzC12CFPFDWRvq53nISLFSmLLjTwKegjDFsP/Lt8UfbrhvxMT1O9ruO6yO7J4aA
+	zDBmIgW/od+qCHVXTYNg6I8uDAjjsQg0AJlQPkFSsebcae4z7JTkRfwYWUVPIDhIAdSpTWQ==
+X-Gm-Gg: AfdE7cn9mo0++dkBLk3jVbHA1/txKE7OHTzoDB3wvAGpzq0P+2NzhiZJU+alGGqbjJE
+	xn4jaB9lS6Mcu7sL+yS3eEgpIV3pcrBBkML9wT880MMxZt/kzkNQWdfYCiZQVwwRTqpnKMQyGXU
+	HPyvslADCfeXqyPC2YwMVykQF9vRNe/ifZGyUbKt3KVNRIr+4WKblADb8m3ejS+lEm/05jpjwYM
+	OkiRYxNznhW+J9/GGATjBPYYKsqs35VrzSoSWGsIXB1fFEbJ1C2j92U7zxgdgMWLSFO2SFFGzXz
+	MqPmuD2n2ZX+nHP3q7vD+brA7ohcb6drDx9SkblJcAViROYqUvm2LbtaEQqSxUufceZq9SUr4Vs
+	Z277Wzi+o372mEkKm80tKROoNbAnZ8kqtjmLBLPpRrUg9ZuiE0pU=
+X-Received: by 2002:a05:622a:1b8f:b0:51b:fddc:1de8 with SMTP id d75a77b69052e-51cbf30423amr92118311cf.65.1783954743668;
+        Mon, 13 Jul 2026 07:59:03 -0700 (PDT)
+X-Received: by 2002:a05:622a:1b8f:b0:51b:fddc:1de8 with SMTP id d75a77b69052e-51cbf30423amr92118091cf.65.1783954743140;
+        Mon, 13 Jul 2026 07:59:03 -0700 (PDT)
+Received: from hu-yabdulra-ams.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15fc29937esm542450066b.22.2026.07.13.07.59.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 07:45:59 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Song Hu <husong@kylinos.cn>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Wupeng Ma <mawupeng1@huawei.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ackerley Tng <ackerleytng@google.com>,
-	Zhao Li <enderaoelyther@gmail.com>,
-	David Carlier <devnexen@gmail.com>
-Subject: Re: [PATCH] mm/hugetlb: restore failed global reservations to subpool in alloc_hugetlb_folio
-Date: Mon, 13 Jul 2026 07:45:56 -0700
-Message-ID: <20260713144557.3845941-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260713115008.937175-1-husong@kylinos.cn>
-References: 
+        Mon, 13 Jul 2026 07:59:02 -0700 (PDT)
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+To: mani@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, horms@kernel.org
+Cc: jeff.hugo@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        netdev@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] net: qrtr: ns: Raise node count limit to 512
+Date: Mon, 13 Jul 2026 16:59:01 +0200
+Message-ID: <20260713145901.212396-1-youssef.abdulrahman@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,66 +91,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDE1NiBTYWx0ZWRfX1pSY53ldNXUV
+ E7kGrIHe2TbUGJPLV0MhX7qkAl2oCKdeenL08LZydPGthXaDAvTRdZWvnp4fdyF2utR3j+nmJJR
+ rzKStHRv3FQmYgnUfcKwfPtw5glgmsuFTLdktkWZZb+dNUEL/7N7liiBnqty0keQ2pwdOy9OdSY
+ 7wKcULNzd67za96hYJtlOopExzGrZBNyH9epqiRM6HtxF6tHo15PF7qUw6FNfBa1chl4CbyaCOZ
+ r/xWDEt2+ajEaPPdcrGIHJlugfc7AJOkEBa8iD0GxFvfhK6PjnMCu4J3c28prvvI5+Q3spd35Bn
+ oqMef6ZU1rWFEA9NC3CccWA2QgY97Ec/uAfYDhZF2k1gZxXH+6d191vlIsMJHO7mhkm4Te9aUoZ
+ 03BmlXsqESpf91v9KrSqW2TPUuy6t7/3xyOV7kmdpQIWsHGf62keibSVEHXYtn7RWZRoTi3kBBW
+ eg2TSEdjtJw7DFHQfkw==
+X-Proofpoint-ORIG-GUID: 3qA97mWQC3_Sl9sdLFsizEiFbq0TyNbZ
+X-Authority-Analysis: v=2.4 cv=UMHt2ify c=1 sm=1 tr=0 ts=6a54fd38 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=BAFur2-UtLnwWEDNYK0A:9 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: 3qA97mWQC3_Sl9sdLFsizEiFbq0TyNbZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDE1NiBTYWx0ZWRfXzGA9xfwpuRd0
+ CMVZlZlWKbCMq0iF7BIqDu755+VFWFFNTjDAE8jgO3OeKaJsceYz2wWQnj1XT6zARn8LZb+2vk8
+ CQxsk20xKanJY40LfCJ01VxpZZ2aVwA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_03,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 spamscore=0 clxscore=1015 adultscore=0
+ malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607130156
 
-On Mon, 13 Jul 2026 19:50:08 +0800 Song Hu <husong@kylinos.cn> wrote:
+The current node limit of 64 breaks the functionality for a number of AI200
+deployments that have up to 384 nodes. Raise the limit to 512.
 
-Hi Song, thank you for the patch.
+Fixes: 27d5e84e810b ("net: qrtr: ns: Limit the total number of nodes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+---
+ net/qrtr/ns.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> When hugetlb_alloc_folio() fails, alloc_hugetlb_folio() only rolls back
-> spool->used_hpages in the out_subpool_put path when gbl_chg == 0. For
-> gbl_chg > 0 (e.g. a size= hugetlbfs mount), hugepage_subpool_get_pages()
-> has already incremented used_hpages, but the error path skips the
-> rollback, so each failed fault permanently leaks one used_hpage until
-> the subpool is exhausted and hugepage_subpool_get_pages() itself fails.
-> 
-> Decrement used_hpages for the gbl_chg > 0 case too, mirroring the
-> hugetlb_reserve_pages() fix.
+diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
+index b3f9bbcf9ab9..e5b2adb161d9 100644
+--- a/net/qrtr/ns.c
++++ b/net/qrtr/ns.c
+@@ -76,11 +76,11 @@ struct qrtr_node {
+  * requirements. If the requirement changes in the future, these values can be
+  * increased.
+  */
+-#define QRTR_NS_MAX_NODES   64
++#define QRTR_NS_MAX_NODES   512
+ #define QRTR_NS_MAX_SERVERS 256
+ #define QRTR_NS_MAX_LOOKUPS 64
+ 
+-static u8 node_count;
++static u16 node_count;
+ 
+ static struct qrtr_node *node_get(unsigned int node_id)
+ {
+-- 
+2.43.0
 
-So something is clearly wrong with this codepath here; there are now 4
-competing fixes in the mailing list currently being discussed [1] [2] [3]
-including this one and they all do things slightly differently.
-Let's please agree on what the correct solution is, 
-I've CC-ed the authors of those 3 other solutions to discuss here. 
-
-> Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
-> Signed-off-by: Song Hu <husong@kylinos.cn>
-> ---
->  mm/hugetlb.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index d6c812d1857b..8413ec92d836 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -3073,6 +3073,19 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
->  	if (map_chg && !gbl_chg) {
->  		gbl_reserve = hugepage_subpool_put_pages(spool, 1);
->  		hugetlb_acct_memory(h, -gbl_reserve);
-> +	} else if (map_chg && gbl_chg > 0 && spool) {
-> +		/*
-> +		 * Restore used_hpages for the globally-requested page that
-> +		 * hugepage_subpool_get_pages() counted against the subpool's
-> +		 * maximum, but which we failed to back from the global pool.
-> +		 * Mirrors the fix in hugetlb_reserve_pages() (1d3f9bb4c8af).
-> +		 */
-> +		unsigned long flags;
-> +
-> +		spin_lock_irqsave(&spool->lock, flags);
-> +		if (spool->max_hpages != -1)
-> +			spool->used_hpages -= gbl_chg;
-> +		unlock_or_release_subpool(spool, flags);
-
-Why are we unlocking or releasing the subpool here? 
-
->  	}
->  
->  out_end_reservation:
-> -- 
-> 2.43.0
-
-Thanks again for the patch,
-Joshua
-
-[1] https://lore.kernel.org/all/20260708-hugetlb-alloc-failure-fixes-v2-2-c7f27cbb462b@google.com/
-[2] https://lore.kernel.org/linux-mm/20260428113037.88766-2-enderaoelyther@gmail.com/
-[3] https://lore.kernel.org/linux-mm/20260515202902.461539-1-devnexen@gmail.com/
