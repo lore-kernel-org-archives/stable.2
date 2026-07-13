@@ -1,49 +1,50 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8F6367F4D;
-	Mon, 13 Jul 2026 07:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9083438F62A;
+	Mon, 13 Jul 2026 07:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783927597; cv=none; b=InQbwMLB7KRtQX7WopGuPTf4z8jojrOe+gxkOiWUkT3ZRNcCqxDKhYKP062N89nYMDVY3BTWZCOni0HigD1e6lBTqngXwZmu7O5GgKzSzVWgBN2a8OFQARH+4Ezlf6QSlmIBVyZoNcVoUA3DpuVaC46vWPF/afQm0UPUqJ79i7o=
+	t=1783928050; cv=none; b=DssQuhwPMzt+dHcbo+CLqIK/wcYwiGuYJj5zUPqDezjBCQSWVYKnqED47oAOXU39d2fH3IkvkJNY3u8gRWp2VAlM4HPShxMYvNz3qli6pjBVPEl5LNPDIiY83+Y504zkt55exC8jSx17CIlRe54gqcEV4RcDYouD0JTNCuGht6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783927597; c=relaxed/simple;
-	bh=L7xoaJrUdDXlvGuljK/J3/a4RlGKUVh9PitZfk3Islc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G00qdkDgirlEXGQKafVX4oRR6dxcx7V3DhpYpsfw4GK9MWQw8iPy8AK8oW6GvZAzx2mnBZbvCJrVsuGKMsKycTsGKVFyQngxcrpNy7qenaahjCbK+oP65Ge8jqZcbIigMUxUgGHGMkZ0hMZUWAofpMCBUX4YiQ5gKAPUXElrZNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=AxB4HHZD; arc=none smtp.client-ip=54.243.244.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1783928050; c=relaxed/simple;
+	bh=5EsQAGcW3lKZK7yZPg3wu2Pv2XPmCi8qN8NuZceqpd0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lzeBzSR8NzGqHQODLX+zI12TCiJ5CX/AZlb6njC4nZ1PIyMrEhd7Dwa3OZZpjts+MygQSDm/AKxzMhTEL0oNnsw+K/l8nIevIvD+3vCF/BClXSByFOYVVqdj8UuE8B3mziFm4vtvMwNuOxPgm7EBe+RhwQxrH4M4qoZoDB4XZZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=GXgBy5Pl; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="AxB4HHZD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1783927553;
-	bh=v5zHyTWnlXl2131UmamubukTuUePJf2rxwslkzR5zyE=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=AxB4HHZDb2NYqK8qyKuRzBYwOLMAoZ+II24Zs1BWZx3a4VJ7Cmi2FoHXXzztYIhk9
-	 P16pAnzbjmxtETVfdiOKTEWvnwiR4AtDQ1QVi4CQ96yCv0VQG7QiyU7gAzVAobbrzm
-	 eOgCyA5tOmRG1kz88k4mQN5i5m3sCFeS8hRA5yCQ=
-X-QQ-mid: zesmtpgz6t1783927546t46037448
-X-QQ-Originating-IP: aUH+avv7FL44AIbU3VNg7RDj7c57+bpD6izfgXkE3Sc=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 13 Jul 2026 15:25:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 8809296686197180074
-EX-QQ-RecipientCnt: 8
-From: raoxu <raoxu@uniontech.com>
-To: brgl@kernel.org
-Cc: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="GXgBy5Pl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=5EsQAGcW3lKZK7yZPg3wu2Pv2XPmCi8qN8
+	NuZceqpd0=; b=GXgBy5PlYQz1xx/8DoEMpeNDbnJZ/beB2bjgXsH9MPpUDIYRsL
+	hiZcQqdtffz6tfUt6waWDecTjsE6pUWlZLM+6wZTekQkzKlNE16rByk1ohdrCoOC
+	50qJ4SH1MFdbGVcQDGtzNlZBZMtG+BXL0DtdKDfMpyOoqy9WgrSF9sbq4=
+Received: from ur-dp1000 (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYUL5lFRqtIEQAA--.16562S2;
+	Mon, 13 Jul 2026 15:34:20 +0800 (CST)
+From: Xie Bo <xb@ultrarisc.com>
+To: Anup Patel <anup@brainfault.org>
+Cc: Xie Bo <xb@ultrarisc.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Alexander Graf <graf@amazon.com>,
+	kvm-riscv@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
 	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: btqcomsmd: destroy RPMsg endpoints before freeing hci_dev
-Date: Mon, 13 Jul 2026 15:25:43 +0800
-Message-ID: <0CB2D8D715AB9933+20260713072543.3348755-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+Subject: Re: [PATCH] RISC-V: KVM: Fix lost virtual interrupts during IRQ sync
+Date: Mon, 13 Jul 2026 15:33:36 +0800
+Message-ID: <20260713073346.1293408-1-xb@ultrarisc.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <CAAhSdy3_YnzNiSE=KykriwSWU8X2CLhdr2E8CB=32JxA_L7caA@mail.gmail.com>
+References: <178159067899.108868.8176174463274678253@ultrarisc.com> <CAAhSdy3_YnzNiSE=KykriwSWU8X2CLhdr2E8CB=32JxA_L7caA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,87 +52,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NU4e3V92LJuQ9l5gE0EGAvqalUZ1/hFlYUh31zQ9FdX8lx6a86yPen5b
-	EClUpMl2HJyNeydsSc88dqA3DqUIG2bCEJFUXeTCk+Subr3EtxXBCiGsUDYjqerUoqN6x3j
-	HtnmVF+mw7Fzro35EsUUQ5lWT+5YLedGe/O3u+pThDonU03Hm+zZ9LDAOQYctTvbjUoXWIc
-	wBX78JO77BAYFctuF3KK2Hy/C+wLn4R+Ihdq3iEkmgSllqqfj1i4r4l5qBTUX4em3EQ0cVy
-	Czc9aD1m3JDD+lw0ZZw+/nlSbYo5Ba8uOTOpkfCIfNIq2YtResI0xSGBVmzeYqZLDk5DOQs
-	jKqbEQBo3S2KzsplznS7NTf3Yn6Ic3DstKE48+7Nt/5vfz0SP3NoXTf/Y7o6VfOkFQr9jZN
-	2/kivbhVF/mqlciZ7I1Nxiu0ZYm8uG88+FDwoCCwx9viC42IZ+Gujn+NCpCVCBCutt/Sfqn
-	+PNIkPU5IHqvWQzg3hTf56dvZpTxK5iyWzNUe/UDaPvgpjQkJM+F2aIyU3xdvXmpnpuEU77
-	55uha1gKN5ZTuSZuoXnYIDx8Nbt/OUeHgAkQvtcI+r2QqWoh9CDFasD59/fEjOWgXs7Mmaa
-	WW7n7mupa4ZKtWajwtQZfBIteDRbbHW2ZVVr01rmMjGLciNgX10hHIkydJ25U3Z587W7qz6
-	1oMg0es+9ol0fh8X4Tn0fzE1KZx7IOfHb/UDi4K5VrbSHZWZI2r9wDkqVjixfAUq/VvyEmp
-	Y/QrEgUt6kayVzS/gpwFIjr/+aqKXOBU26xQTMAbs4l3dfTkESAdyqMuBH4AMa9+UVLfEb3
-	ageoJkUNesXGGcIhGVcomwE/+7t5Dj3ZDkcGYzxTaDaFRhulbDxHVXcWBeYYwuz3URinldW
-	rktJyltNuSxJ1heuaL8gk7eLiLhRgXcQHnT65t0i7zDkR0b6haIa2ysUlENjrNyf7o6DBTb
-	Xx1JsU/V8STpz4TRok6P9io4jspzjV6YDwTq3QlsXHPB2Aw9wuCu1/JmBHApD3TM4vSuCxS
-	J0s9//hbf8Lwfv3c/J9aPeA2gSyFsM0AfAkSsS8NRocvFNYM3WUL66iHXVHPIbdPM2wXjcB
-	A==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID:AQAAfwAnYUL5lFRqtIEQAA--.16562S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZr4kGFy3uw4fJF4fGw1UGFg_yoWxKFg_Wr
+	yrZ39rG34xJw4ay3Z5Xrna9rsagw1kAw4xGws7uFn7Jwn8AFs3WaykCrnxuwsxJayFya45
+	tr18Wa1fAan3CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbT8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU52NtDUUUU
+X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQAHB2pUYNAAEwAIsU
 
-From: Xu Rao <raoxu@uniontech.com>
+Hi Anup,
 
-The command and ACL RPMsg endpoints store struct btqcomsmd as their
-callback private data.  The receive callbacks dereference btq->hdev
-without taking an hci_dev reference.
+After sending v3, I found that kvm_riscv_vcpu_has_interrupts() held
+irqs_pending_lock while the AIA helper could acquire the IMSIC
+vsfile_lock. Since vsfile_lock is sleepable on PREEMPT_RT, this creates
+a sleep-in-atomic issue. IMSIC update paths can also acquire the locks
+in the reverse order, creating an ABBA lock ordering cycle.
 
-The current teardown order frees the hci_dev before destroying the RPMsg
-endpoints in both the hci_register_dev() error path and the driver remove
-path.  If WCNSS delivers data in that window, the endpoint callback can
-run with an already freed hci_dev and pass it to the Bluetooth core.
+I fixed this in v4 by splitting the AIA high pending bitmap check from
+the IMSIC VS-file check. The bitmap check remains protected by
+irqs_pending_lock, while the IMSIC check runs after releasing it.
 
-For qcom_smd endpoints, rpmsg_destroy_ept() closes the channel and clears
-the callback under the channel recv_lock.  The receive path holds the same
-lock while invoking the callback, so destroying the endpoints first both
-prevents new callbacks and serializes with any callback already running.
+The v4 patch is still based on Linux 7.2-rc3. Both RV64 and RV32 KVM
+builds pass, and checkpatch reports no issues.
 
-Destroy the command and ACL endpoints before hci_free_dev().  Keep
-hci_unregister_dev() first during remove so the HCI core stops issuing
-operations before the transport endpoints are shut down.  In the full
-registration-error cleanup path, return directly after freeing the hci_dev
-to avoid falling through to the partial-construction labels and destroying
-the endpoints twice.
+The v4 patch follows this reply.
 
-Fixes: 5052de8deff5 ("soc: qcom: smd: Transition client drivers from smd to rpmsg")
-Fixes: 9a39a927be01 ("Bluetooth: btqcomsmd: Fix a resource leak in error handling paths in the probe function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/bluetooth/btqcomsmd.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/bluetooth/btqcomsmd.c b/drivers/bluetooth/btqcomsmd.c
-index d2e13fcb6bab..d669ea4eb3eb 100644
---- a/drivers/bluetooth/btqcomsmd.c
-+++ b/drivers/bluetooth/btqcomsmd.c
-@@ -188,7 +188,10 @@ static int btqcomsmd_probe(struct platform_device *pdev)
- 	return 0;
-
- hci_free_dev:
-+	rpmsg_destroy_ept(btq->cmd_channel);
-+	rpmsg_destroy_ept(btq->acl_channel);
- 	hci_free_dev(hdev);
-+	return ret;
- destroy_cmd_channel:
- 	rpmsg_destroy_ept(btq->cmd_channel);
- destroy_acl_channel:
-@@ -202,10 +205,11 @@ static void btqcomsmd_remove(struct platform_device *pdev)
- 	struct btqcomsmd *btq = platform_get_drvdata(pdev);
-
- 	hci_unregister_dev(btq->hdev);
--	hci_free_dev(btq->hdev);
-
- 	rpmsg_destroy_ept(btq->cmd_channel);
- 	rpmsg_destroy_ept(btq->acl_channel);
-+
-+	hci_free_dev(btq->hdev);
- }
-
- static const struct of_device_id btqcomsmd_of_match[] = {
---
-2.50.1
+Regards,
+Xie Bo
 
