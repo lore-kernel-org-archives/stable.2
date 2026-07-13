@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A803812E1
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:45:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C863EB7F8
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:45:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950317; cv=none; b=fRKIgs+PXb2hcAPuiRSfqsbA3HFpoAUix2S4fvqOCWPprtbUCfDAV6xc8YbnoYbAPpewkVm7VlzpMGNZ9QH71JuvUuVAcSYkPpDGI/DHJ6VH7+xtuX0qOeJlflnipwieyZVGZuvAGnZSA7eDRhN/hJylBwIInrZjtzE+204Zl6U=
+	t=1783950319; cv=none; b=HE9p/ZJYy31wALGscT4KU/+jdGrXaXc53lf6xOqEM3H/BfszxcCmEAIeQZqULH37Tr4xAKAyJKeFPcB/meQHNh3OtsVkP3kj50l3PIb9fenezyjScykxQ4svtaKaYxZXZurI/IRVuvRWjXfVVPin8eq/LJu6YktdIfQWuBlCnVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950317; c=relaxed/simple;
-	bh=MWZa2KEfBqFt/QjfysXxViIS0Q/i/aYgk1Nehro4K4A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pm96yEOZeH8bHnUb61kClDv0/nLZEPNUDS6/gb9Gb2BUhHLvHiMtrHcqZ6WTnMiXrGaWoqeK3qo5EwXlcqw1B8SBO4ggIWVGp7XfeO/6hall3uAK0R6ZvX75cxDNkuO4y1GcihVBV4Fj/t1YGlTRxYJhX/UopXxz1bZWCHMgArk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pEPPZ5kK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950319; c=relaxed/simple;
+	bh=DaNR5nZ1iKNNDR/svX7vckC8qvSTCdL0ZPl2peOH+hc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=J8H/oiM1XmLvLzvoL9Pwu//wjOrVboLScujWJXuRLV5MwNQs8bPWpUf99wRbBSTZe7m5RYekLmzWWopqELi+YgLMExJTuESV79Qc0+SdQZ+TC2PORDEIdNGLoqxqR/4wSyrVzUtInAcWhiVVvVwhScJ8x76ZejrTfpnGn+61UTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SEUuDwNx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pEPPZ5kK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5B7C1F000E9;
-	Mon, 13 Jul 2026 13:45:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SEUuDwNx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3D21F000E9;
+	Mon, 13 Jul 2026 13:45:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783950315;
-	bh=mjRDzCopTqK60BWARtPW/XVlTSaecLHITn3OHCvKdwo=;
+	s=korg; t=1783950318;
+	bh=fze9JcBO93P1QFnwbBDM0oAxntzFoHzxgLwG/pEFnSs=;
 	h=Subject:To:Cc:From:Date;
-	b=pEPPZ5kKU7nqaRE6Hf+Ah5VGuazYhZu+NJTaXtr1aGPwdTMS+fAH46VPfQ/DkdsEf
-	 FMmyoVCqpWwkPOOYBGnbQGkguWETuiP/3zzWfqwGuJKXfb0hmegVZGE0Mdj/5+aQpG
-	 hCOOaTxdF99k9F+rRsMViqXEZOEnRT7/UBAccK6A=
-Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix OOB reads in is_ap_in_tkip() IE loop" failed to apply to 5.10-stable tree
+	b=SEUuDwNxVoArcppRyFfMZP1mDKklZcTK/8VH4veO/0YM6Z2LAglriM42ZwsImqXyB
+	 xSrwiS5lmZJUHvCjb8bXk93RNYDHhITqMiWNqTpjHHQ6lzd+PNh92lZSh7E9EgOe7t
+	 jRTk/zPUY1j8+jrkjWodT1kAiQLXcfBwob4VZYTc=
+Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix OOB reads in rtw_get_sec_ie()," failed to apply to 6.12-stable tree
 To: hossu.alexandru@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:33:47 +0200
-Message-ID: <2026071347-leotard-finlike-cc76@gregkh>
+Date: Mon, 13 Jul 2026 15:33:58 +0200
+Message-ID: <2026071358-startling-counting-680a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3bf39f711ff27c64be8680a8938bcc5001982e81
+git cherry-pick -x 1463ca3ec6601cbb097d8d87dbf5dcf1cb86a344
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071347-leotard-finlike-cc76@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071358-startling-counting-680a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,70 +62,89 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3bf39f711ff27c64be8680a8938bcc5001982e81 Mon Sep 17 00:00:00 2001
+From 1463ca3ec6601cbb097d8d87dbf5dcf1cb86a344 Mon Sep 17 00:00:00 2001
 From: Alexandru Hossu <hossu.alexandru@gmail.com>
-Date: Fri, 22 May 2026 02:45:30 +0200
-Subject: [PATCH] staging: rtl8723bs: fix OOB reads in is_ap_in_tkip() IE loop
+Date: Fri, 22 May 2026 02:45:31 +0200
+Subject: [PATCH] staging: rtl8723bs: fix OOB reads in rtw_get_sec_ie(),
+ rtw_get_wapi_ie(), and rtw_get_wps_attr()
 
-The loop in is_ap_in_tkip() iterates over IEs without verifying that
-enough bytes remain before dereferencing the IE header or its payload:
+Three IE/attribute parsing functions have missing bounds checks.
 
-- pIE->element_id and pIE->length are read without checking that
-  i + sizeof(*pIE) <= ie_length, so a truncated IE at the end of the
-  buffer causes an OOB read.
+rtw_get_sec_ie() and rtw_get_wapi_ie() iterate over a raw IE buffer
+without verifying that the header bytes (tag + length) are within the
+remaining buffer before reading them.  Additionally, rtw_get_sec_ie()
+compares the 4-byte WPA OUI at cnt+2 without checking that at least
+6 bytes remain, and rtw_get_wapi_ie() compares a 4-byte WAPI OUI at
+cnt+6 without checking that at least 10 bytes remain.
 
-- For WLAN_EID_VENDOR_SPECIFIC the code compares pIE->data + 12,
-  which requires pIE->length >= 16.  For WLAN_EID_RSN it compares
-  pIE->data + 8, requiring pIE->length >= 12.  Neither requirement
-  is checked.
+rtw_get_wps_attr() reads wps_ie[0] and wps_ie+2 unconditionally at
+entry, before verifying that wps_ielen is large enough to contain
+the 6-byte WPS IE header (element_id + length + 4-byte OUI).  Inside
+the attribute loop, get_unaligned_be16() is called on attr_ptr and
+attr_ptr+2 without checking that 4 bytes remain in the buffer.
 
-Add the missing IE header and payload bounds checks and guard each
-data access with an explicit pIE->length minimum, matching the
-pattern established in update_beacon_info().
+Add a cnt+2 bounds check before each loop body in rtw_get_sec_ie()
+and rtw_get_wapi_ie(), guard each multi-byte comparison with a minimum
+IE length requirement, add a wps_ielen < 6 early return in
+rtw_get_wps_attr(), and add a 4-byte bounds check in its inner loop.
 
 Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
 Cc: stable <stable@kernel.org>
 Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
-Link: https://patch.msgid.link/20260522004531.1038924-7-hossu.alexandru@gmail.com
+Link: https://patch.msgid.link/20260522004531.1038924-8-hossu.alexandru@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
-index 4c0eb93f412e..a4de538722b5 100644
---- a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
-@@ -1308,15 +1308,23 @@ unsigned int is_ap_in_tkip(struct adapter *padapter)
- 		for (i = sizeof(struct ndis_802_11_fix_ie); i < pmlmeinfo->network.ie_length;) {
- 			pIE = (struct ndis_80211_var_ie *)(pmlmeinfo->network.ies + i);
+diff --git a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
+index d0bbe1bb979c..54f805a6b5ce 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
++++ b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
+@@ -583,9 +583,14 @@ int rtw_get_wapi_ie(u8 *in_ie, uint in_len, u8 *wapi_ie, u16 *wapi_len)
+ 	cnt = (_TIMESTAMP_ + _BEACON_ITERVAL_ + _CAPABILITY_);
  
-+			if (i + sizeof(*pIE) > pmlmeinfo->network.ie_length)
-+				break;
-+			if (i + sizeof(*pIE) + pIE->length > pmlmeinfo->network.ie_length)
-+				break;
+ 	while (cnt < in_len) {
++		if (cnt + 2 > in_len)
++			break;
++		if (cnt + 2 + in_ie[cnt + 1] > in_len)
++			break;
+ 		authmode = in_ie[cnt];
+ 
+ 		if (authmode == WLAN_EID_BSS_AC_ACCESS_DELAY &&
++		    in_ie[cnt + 1] >= 8 &&
+ 		    (!memcmp(&in_ie[cnt + 6], wapi_oui1, 4) ||
+ 		     !memcmp(&in_ie[cnt + 6], wapi_oui2, 4))) {
+ 			if (wapi_ie)
+@@ -615,9 +620,14 @@ void rtw_get_sec_ie(u8 *in_ie, uint in_len, u8 *rsn_ie, u16 *rsn_len, u8 *wpa_ie
+ 	cnt = (_TIMESTAMP_ + _BEACON_ITERVAL_ + _CAPABILITY_);
+ 
+ 	while (cnt < in_len) {
++		if (cnt + 2 > in_len)
++			break;
++		if (cnt + 2 + in_ie[cnt + 1] > in_len)
++			break;
+ 		authmode = in_ie[cnt];
+ 
+ 		if ((authmode == WLAN_EID_VENDOR_SPECIFIC) &&
++		    in_ie[cnt + 1] >= 4 &&
+ 		    (!memcmp(&in_ie[cnt + 2], &wpa_oui[0], 4))) {
+ 			if (wpa_ie)
+ 				memcpy(wpa_ie, &in_ie[cnt], in_ie[cnt + 1] + 2);
+@@ -698,6 +708,9 @@ u8 *rtw_get_wps_attr(u8 *wps_ie, uint wps_ielen, u16 target_attr_id, u8 *buf_att
+ 	if (len_attr)
+ 		*len_attr = 0;
+ 
++	if (wps_ielen < 6)
++		return attr_ptr;
 +
- 			switch (pIE->element_id) {
- 			case WLAN_EID_VENDOR_SPECIFIC:
--				if ((!memcmp(pIE->data, RTW_WPA_OUI, 4)) && (!memcmp((pIE->data + 12), WPA_TKIP_CIPHER, 4)))
-+				if (pIE->length >= 16 &&
-+				    !memcmp(pIE->data, RTW_WPA_OUI, 4) &&
-+				    !memcmp((pIE->data + 12), WPA_TKIP_CIPHER, 4))
- 					return true;
+ 	if ((wps_ie[0] != WLAN_EID_VENDOR_SPECIFIC) ||
+ 		(memcmp(wps_ie + 2, wps_oui, 4))) {
+ 		return attr_ptr;
+@@ -708,6 +721,8 @@ u8 *rtw_get_wps_attr(u8 *wps_ie, uint wps_ielen, u16 target_attr_id, u8 *buf_att
  
- 				break;
- 
- 			case WLAN_EID_RSN:
--				if (!memcmp((pIE->data + 8), RSN_TKIP_CIPHER, 4))
-+				if (pIE->length >= 12 &&
-+				    !memcmp((pIE->data + 8), RSN_TKIP_CIPHER, 4))
- 					return true;
- 				break;
- 
-@@ -1324,7 +1332,7 @@ unsigned int is_ap_in_tkip(struct adapter *padapter)
- 				break;
- 			}
- 
--			i += (pIE->length + 2);
-+			i += sizeof(*pIE) + pIE->length;
- 		}
- 
- 		return false;
+ 	while (attr_ptr - wps_ie < wps_ielen) {
+ 		/*  4 = 2(Attribute ID) + 2(Length) */
++		if (attr_ptr + 4 > wps_ie + wps_ielen)
++			break;
+ 		u16 attr_id = get_unaligned_be16(attr_ptr);
+ 		u16 attr_data_len = get_unaligned_be16(attr_ptr + 2);
+ 		u16 attr_len = attr_data_len + 4;
 
