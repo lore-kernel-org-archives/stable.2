@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61343425CEA
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0432B3D412C
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:28:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783949290; cv=none; b=qWqn6CNpVrKFsjy+S0qqhb9duTifFFhJrrqBqQsUextcDm7ocTMgg3OWJ2+6JCrZBIlEZI/hsrSb0v7WdxgtCLSPdp6t2vlBEr/d5b4YQBLCCxeFhlrzkFm8MnO0iAnbCiPqJOKAIvd47EStoOPwl+6Lgx1B84jeZzcOnFqeh5E=
+	t=1783949293; cv=none; b=cHC449ggGWr+GZvX9SOn/KBY2Cd7ZZs8dG1PvjP8fOhbTcN4Yx3aKpKp3ID6rYBLZGcER1wV9h038St30/o3rNOrQVIR6ooeZZnZ1XZt2nUqLxYK/5bcI1X0/+UEET/DC07Xk3Nll7KT9ZzsmPoLpq/DLy+Yluk7stSUOidNKQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783949290; c=relaxed/simple;
-	bh=9PqTy3sxNMIg3XHn6CnKpkfWJRrrF+XShXqxLKA1Tzg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=AjZD/5dyiHXofxDfHWZxII2G+tZs3+uTHH2AThNJfYdMycCe1aIrkNzXmSFq5J2aSGP/W0xtXhJcc1emx8+Pq0TVwa2c+JlHzncIZNWxzWQt+Lj2Xaw0fRXg+zotUlhRvmPlVkMZL0b7G7rge51krP21raSbitq6GaNA9vm8vMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HWYujeZx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783949293; c=relaxed/simple;
+	bh=z3GXtKvTV7WZJImDTs9i4VZ/KKEo7D2gej+1vAM+i0k=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fxW8Eaj5VImoUHmBdriLselDMu3ibVwPiI3WNSwVkQlDDnq3KWcoF5bZ4qGglLXCL7WdPLlDZxWCowd56GHGaAtVo1U4jPdFFf/BNBaZA96rBSB+sXGz0ZF0tCtCy2l+H0Q4cJFHYVboOvfpSMfvq9Z3p8xJxV7GN/zsJLl54yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ofT4Yhen; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HWYujeZx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6EC51F000E9;
-	Mon, 13 Jul 2026 13:28:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ofT4Yhen"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BDFF1F000E9;
+	Mon, 13 Jul 2026 13:28:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783949289;
-	bh=NhOX0CqWueXGK0ha2rVad9SpCbs+00nXFCzaeqGSIGo=;
+	s=korg; t=1783949291;
+	bh=Intam0ISFo/L+gNzdOejwW1/yOAtnH4YOH+K/Ag9T0c=;
 	h=Subject:To:Cc:From:Date;
-	b=HWYujeZxxzOD9EooF11Ez3YyeTdOsfW4+qaSep0+pfvtZrBZclN22rtx42geUEDrH
-	 d2FRuuq39yFuBJKs9KSXYouKtJQKMx3+Vjx4CpmuBsIHONBvcIr/MzEkgWtV0HgfOY
-	 BF27wGM8mSS+puJe1sJ4Y3LFlkyvqGzwOEHdIne4=
-Subject: FAILED: patch "[PATCH] PCI: Skip Resizable BAR restore on read error" failed to apply to 5.15-stable tree
+	b=ofT4Yhen8k8+47eaC/at7bAUkH6XBtpC3bjjv0fM1aMwGy0KhJxGlGaGlSMTjrqKu
+	 D4UyXlf0xXvUVF1uJ8ugnk8hm4Dzsvb7Nt7nKaIVGyjD5ZzXUiPwm4Y3b05Lv/eK8B
+	 iDARVdyqtTrb89nPbHNx6Hfd+KN5nCoHib4/K5D0=
+Subject: FAILED: patch "[PATCH] PCI: Skip Resizable BAR restore on read error" failed to apply to 5.10-stable tree
 To: mnencia@kcore.it,bhelgaas@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:24:14 +0200
-Message-ID: <2026071314-tableware-flashback-79cc@gregkh>
+Date: Mon, 13 Jul 2026 15:24:18 +0200
+Message-ID: <2026071318-kettle-cringe-5d1a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x ee7471fe968d210939be9046089a924cd23c8c3b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071314-tableware-flashback-79cc@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071318-kettle-cringe-5d1a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
