@@ -1,42 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2AF34CFCA
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:57:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417BE33E36A;
+	Mon, 13 Jul 2026 18:02:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783965470; cv=none; b=U/BUMvIUB5yy025B4eRLr1RY1a+MwFUD+oFoBduu26PToWwFZgeYaBZuKyRgg5nNDfXX/ccsR7rslwqLQuE2wEl/g/5sMBgPXFJgjMwMKUI6qAAmRt/7V9/WenFKKma7KlK+hgbNER3I5hAKj/eBxcnpjsUsSs/dCoHf0asjUAY=
+	t=1783965732; cv=none; b=tjqGQRuNtJx+KSjWPlXMBXo4kZ5y51gbYxeaWaTbYyZjuJWq5+9f/MICUsthA7qWxZ0XESlh6BjGT8+EsoBQtEitTDN55R93nUDIpZgTNtJGr8xVenoe5kuJdMoBwFYIDjqaXjLT0taUEmV0uVsgxvmvwjMHqBs8LpYaj4t1GKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783965470; c=relaxed/simple;
-	bh=nvgz8S/G4xOdrauZEYeH2t5Dk7LmnQ1Ehp6VPAXOSwE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RePBAve48Lj8q9B6tnv/EdN9jaAqMl4aNCQEBY7qJmJdP5CRVWt+CIJ4lXuu2eaGxokxoIjNW3GhKtvua26ZKNR8U9fUqkCB1PWnA3dOfqaXtkDywp2OkFztkYGYgYdMrD8dCSZWvlqesxiQ1tA8JQqbkQ5VJrv8smAb/VcHTao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HyVvTjrj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783965732; c=relaxed/simple;
+	bh=qTFbrJO1EIURj5coHE7P8jfs+T3R57WvmR8hoGJitbA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=a3FAbyroIjTV6TLo5a8NMwfDl8T9+Xz4zKhYGNszS03/Ms11eaTUItBclq7pkhHxUIi321OJ7lPH8YWxxPVy41lTB88YuM1tBPlgWD7MykL75fQtjdB733cKAx7xh27uF41RyXOAjKmNncWMQaIU68YWTR6En8dexuVkHcYI+aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=ZstIlkRU; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HyVvTjrj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1B31F000E9;
-	Mon, 13 Jul 2026 17:57:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783965468;
-	bh=vSteEKYmc5eOugLiHW+eDmg4kcFWdCcEVkfvQGQ+QvY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HyVvTjrjlFiQUPhuRDzuLPmCzkcgfs7N+I3SpMPxkJaIOfMlq4/VWNM/VY+T4+IfC
-	 1wPqEDIdqT5stN7k2ph7W4bYl61Yc3EBseybVwXIFzPcH2Bv+2A/RNCLU+XBv25Adh
-	 AOQ2ozAuZujoI+6F6mVMfNaqwcINs7XR8c8yaS79ydbKVvag5y2KnyhXnjDQJzGsgo
-	 6FFMFkD82PhcZbYuomVf0HD8VFtIlHs1cUb18PKcUUwnmcLzmnPLnuu4GME030YYY7
-	 MAP2OJeQchCjtzx0cFS0f79lsSTK7GFKAY8tPoAR2kcjRQOvuUVgtevSozDyL0h9Z1
-	 G2Sr0qXwCNQEA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] iio: imu: adis: add IRQF_NO_THREAD to non-FIFO trigger IRQ
-Date: Mon, 13 Jul 2026 13:57:46 -0400
-Message-ID: <20260713175746.1907755-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071351-smashup-frighten-8514@gregkh>
-References: <2026071351-smashup-frighten-8514@gregkh>
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="ZstIlkRU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1783965174;
+	bh=qTFbrJO1EIURj5coHE7P8jfs+T3R57WvmR8hoGJitbA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ZstIlkRUUKnGElVKoX+VXKqW/ZCcdaYL9K0C8NptQI04CCWLg6skHvRWVwN4hvVxw
+	 AtXlTUkZjwuPyrLHyraOorUqq5fARQKq/PnNvJt9zSsZK2M+/aXVEVPJ0XoK6BGmut
+	 fbx4LSUyDm1xYXVuiOwgrtbR+3RM9zt10s92N8R12vO9qGClVWHBk9uepx9ePWDhaF
+	 alyGrQOA8GiThkO9E8ejQqkrAiSU9wKy6C1QuicS/Okg682M3/HKtz3Dr9MUIHofQm
+	 tDbUAzMe3NvxBo+RJH3Vyn8SiCy/Hx9Y4GYahgQCrGeNCJAKXnBvqsQm8bQh0iqnBn
+	 k+LoE3rhl85Mw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 934B425596;
+	Mon, 13 Jul 2026 20:52:54 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Mon, 13 Jul 2026 20:52:50 +0300 (MSK)
+Received: from rbta-spb-lt-115149.astralinux.ru (rbta-spb-lt-115149.astralinux.ru [10.198.24.8])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4gzVQT3vP9z4lNf;
+	Mon, 13 Jul 2026 20:52:49 +0300 (MSK)
+From: Elizaveta Tereshkina <etereshkina@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Elizaveta Tereshkina <etereshkina@astralinux.ru>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Ethan Tidmore <ethantidmore06@gmail.com>
+Subject: [PATCH 5.10/5.15] drm/sun4i: backend: fix error pointer dereference
+Date: Mon, 13 Jul 2026 20:52:37 +0300
+Message-Id: <20260713175238.715526-1-etereshkina@astralinux.ru>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,49 +67,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/07/13 17:19:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: etereshkina@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 112 0.3.112 7c8d497b0e572fbfa504a2ee62037c045a8cb4ec, {Tracking_ml_letters}, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, patch.msgid.link:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 204404 [Jul 13 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.22
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/07/13 15:36:00 #28439953
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/07/13 17:19:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Ethan Tidmore <ethantidmore06@gmail.com>
 
-[ Upstream commit 6e1b9bff1202da55c464e36bd34a2b6863d7fe30 ]
+commit 06277983eca4a31d3c2114fa33d99a6e82484b11 upstream.
 
-devm_adis_probe_trigger() registers iio_trigger_generic_data_rdy_poll()
-through devm_request_irq() on the non-FIFO path, but it does not add
-IRQF_NO_THREAD to the IRQ flags.
+The function drm_atomic_get_plane_state() can return an error pointer
+and is not checked for it. Add error pointer check.
 
-When the kernel is booted with forced IRQ threading, the parent IRQ can
-otherwise be threaded by the IRQ core and the subsequent IIO trigger
-child IRQ is then dispatched from irq/... thread context instead of
-hardirq context. Because iio_trigger_generic_data_rdy_poll()
-immediately drives iio_trigger_poll(), this violates the hardirq-only
-IIO trigger helper contract and can push downstream trigger consumers
-through the wrong execution context.
+Detected by Smatch:
+drivers/gpu/drm/sun4i/sun4i_backend.c:496 sun4i_backend_atomic_check() error:
+'plane_state' dereferencing possible ERR_PTR()
 
-Add IRQF_NO_THREAD on top of the existing adis->irq_flag value for the
-non-FIFO request_irq() path, while preserving the current trigger
-polarity and IRQF_NO_AUTOEN behavior.
-
-Fixes: fec86c6b8369 ("iio: imu: adis: Add Managed device functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 96180dde23b79 ("drm/sun4i: backend: Add a custom atomic_check for the frontend")
+Signed-off-by: Ethan Tidmore <ethantidmore06@gmail.com>
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Link: https://patch.msgid.link/20260217014801.60760-1-ethantidmore06@gmail.com
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+Signed-off-by: Elizaveta Tereshkina <etereshkina@astralinux.ru>
 ---
- drivers/iio/imu/adis_trigger.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Backport fix for CVE-2026-53066
+ drivers/gpu/drm/sun4i/sun4i_backend.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/iio/imu/adis_trigger.c b/drivers/iio/imu/adis_trigger.c
-index f890bf842db86b..7e18b31f9d7770 100644
---- a/drivers/iio/imu/adis_trigger.c
-+++ b/drivers/iio/imu/adis_trigger.c
-@@ -79,7 +79,7 @@ int devm_adis_probe_trigger(struct adis *adis, struct iio_dev *indio_dev)
- 
- 	ret = devm_request_irq(&adis->spi->dev, adis->spi->irq,
- 			       &iio_trigger_generic_data_rdy_poll,
--			       adis->irq_flag,
-+			       adis->irq_flag | IRQF_NO_THREAD,
- 			       indio_dev->name,
- 			       adis->trig);
- 	if (ret)
+diff --git a/drivers/gpu/drm/sun4i/sun4i_backend.c b/drivers/gpu/drm/sun4i/sun4i_backend.c
+index d935f36a24dd..b3741827c6c3 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_backend.c
++++ b/drivers/gpu/drm/sun4i/sun4i_backend.c
+@@ -507,6 +507,9 @@ static int sun4i_backend_atomic_check(struct sunxi_engine *engine,
+ 	drm_for_each_plane_mask(plane, drm, crtc_state->plane_mask) {
+ 		struct drm_plane_state *plane_state =
+ 			drm_atomic_get_plane_state(state, plane);
++		if (IS_ERR(plane_state))
++			return PTR_ERR(plane_state);
++
+ 		struct sun4i_layer_state *layer_state =
+ 			state_to_sun4i_layer_state(plane_state);
+ 		struct drm_framebuffer *fb = plane_state->fb;
 -- 
-2.53.0
+2.39.2
 
