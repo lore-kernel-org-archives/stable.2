@@ -1,66 +1,65 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F5F4307B5
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152E0430CED
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950520; cv=none; b=KEZ098VIH5WVf1sXNeq2a7/zprJ3e41uc5kikLHosQzS3eGr7lo9DG5nMVH0wx9dmLVACMnQIArPJKpLx7tk75ta2M9/Ti4t/gjfv14Z5zqFb3pi1aDQsYL8IZ2npQVrgooKuwEtdEdaYuFMtZXCggUloTYKahb2agYNIN5ixDk=
+	t=1783950538; cv=none; b=IZw2nTaXsZUs2hK+40dA/Q671FJ5tPrcA1qWxlJzVwZEj3rT/YdvD3hV3lPi1qLd6UCUMo5adWuOZorWRhQfcss4azDmef5q3Sjb/rEuIiFrn1N30HkgKug4UPGLN9zMihb0IoCElHmEIdx7+N5OdCk6eURAJayO2285+ewuFf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950520; c=relaxed/simple;
-	bh=TZ3tsMwiJUiaaTsevwJ4o+L1EGJMO6hFNrbfM3qjrPE=;
+	s=arc-20240116; t=1783950538; c=relaxed/simple;
+	bh=+UeBgr/3oETL59f/IS+j1IQ/p/NMk8/4+wpi5kr0WO4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HAzdkzFPznCwrxJEZbgen7/uA+h3ogOXBfqIES/dowciTr8xRlYuW+7r+ANut/9TIN+WOVyAZ2Byy2FP7g1h7etnbSxbKKhvgMdwMfw2snO1zxZTPozyGwKuRFiKM5Nw2I6fkuuAd6161Qh77u8CUumh9F+7CdV0ZRE+pBIyN34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=y0btpEGD; arc=none smtp.client-ip=209.85.208.54
+	 Content-Type:Content-Disposition:In-Reply-To; b=lgiresdCEqKzanjAgtPEmepXptBc66vcOorjvIwkS3RwgE1StQIQ24GUZ8oqJO69IPD+OQE2NG508uhruxU+DxvIcYKSOaQDQng3/3YOlLAORG6fM2SrG1I9h5kXHtkiEPceLDV8FASm/rV0o2XSvHZKjaYKhCiTXC8zlrABCMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=puJYv+lx; arc=none smtp.client-ip=209.85.208.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="y0btpEGD"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-69c1220bd51so5305021a12.3
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 06:48:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="puJYv+lx"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-69a5ecbbfb2so4796900a12.2
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 06:48:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1783950517; x=1784555317; darn=vger.kernel.org;
+        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1783950535; x=1784555335; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=C6DMbuqOtH23SHLzkFv4+Shmk8usPkwua39wHbFqGJE=;
-        b=y0btpEGDbt5xb744hsgMZGhHKUpiHWw9b4KFynYz0jcJ8dVx1IEWrEklT21Lyj4fUM
-         CFPIVyiqVQYrO8d3VlafwtzXvqmqR0gB7ONMopwOGiZip5fPUDvc+Zcyoqsb/R5E/Bsj
-         /e9qmHwqStA7aVraFVkxyMCAoguT4tQFh/3ooGqz6CCi6dg/V5+Zkt04uvQjkCq9N0Ae
-         lYMXa511DhWgy8HyBcCEGtnzM7DWxTJUnk+CwY8FdZgiNtdw/wav1RyQEt4bKqyt/Uv4
-         UZScHf1jzjTrc+83MBzcWDrrxPsrQkJ4Nkag/cxQ4dOvwsRDZT/17zWG4AwFwCodauUG
-         xoYA==
+        bh=eXn5kMcR5nKmIutY68IqK6aV4F4qyXcvYDJKsjI+c7U=;
+        b=puJYv+lx0ircsYqjjtqYeKjjw3QaB8Ldy/O5KFhnEca2DiViLJlPsx9UDI4miuUG9n
+         n1+HQjhV74UP2dhs4ePnJe8UX6IVh70nwxDAEKfqrVYIDdPi4PqpOrlAdH2Gq5Bz9gdo
+         NRznjSnLCdHGDx5eGLpdyFrNZeQQFHzvNLqAXS9DaNei2M1ImakCC8t4nAzAtGAvvYhx
+         xh/55TQvrD1hLTXBRHUPEanyAT7zt9DlAMVLMT6iQVOdxx8tkMGT42gtMZpNYVDH+1Jr
+         T2wXmvkCacsny0KvtSvo4RK5w10JL/S4U43KVV6OyyiP+JS6i6PhaeUQiGf4opnIxe/Z
+         hOyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783950517; x=1784555317;
+        d=1e100.net; s=20251104; t=1783950535; x=1784555335;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=C6DMbuqOtH23SHLzkFv4+Shmk8usPkwua39wHbFqGJE=;
-        b=LfID+h5hn0HXgd4TgElp2w90FoEkyiuyGqEwSZq69990Gb7UbcDjNQGhwSdfv22yve
-         vurFSjoTZldR6eJyyz1cYa2S0AgBuPj0p75yh2EDpSUNzjlmEZgF6s4w9ixha1Ri9jXm
-         q6LzR6p2dC+XRvjWVKY67+nBU43ZLS3p6AQP8m4gCh+QFmjCGfdHPsxoILjXQ1e6/icU
-         4BSAQZrJUyNkdU6ADcrGM2HA0TRD6kwaavxKZ0m8GhuzBRMsyo+QAVEsdR0skZ3DdJva
-         pjtrzzn1Qbhe5ojiWw0WxoiYmhUlfHG3toQhSrkMFDNN1mcc1u21Co3psdhjURF3s9yf
-         6EEg==
-X-Forwarded-Encrypted: i=1; AHgh+Rov0kMUk3oTHruLqlwMlw8BF3pdHQ5NbXdazm8vXm0CyVsi46FJ/xEOb3NdJov3m6WzVRvIYcY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8e2INYyj5YBkkmXONCKxWulLKBfP+NKEdFL4zpGeFEyHniirF
-	T33RgIDm776r67PNp+9Q82SV87Hy5NqwGEwlloQWTHz2y2UFu7IUu8ot13/iMy246IL/2goXtF4
-	Yf2QMsQw=
-X-Gm-Gg: AfdE7ckj6T1aysnscVQYuNyEzDViDec9AOxOehp8Tqlw7N8xW/xe8PwoVH66cRH9gu3
-	j3XuyIosHy0QfUprzpbzJEImB/n6IcxUVImP2TxMN4qZ0J52Rw05sXmXpZoImTsKxoIUP8aufD0
-	izJEbI0V9z66Yg/bJ2ZkWY+qgpQyIgUWGbKmrAziIkEgcEo4VYwokACUIG7xFUxZ5FUlHM/yGnc
-	Z0uyve/P3/P0M/v/ixPS6eTmIvDA2eTCkGKm5lK/s2RxJFrnULxT6EU84mQAcUasjp2NOntj8GJ
-	4cVSKDcigtyPMbSBVWDJmP7UEiqcbuT3QgntKNcbsXDJ3moRC5W5f71L3AtaQ7SbtDmFyJ4fVfP
-	Jr0vSBpz7lQVRTCtTUTm3qVkUWj/To5GA3MrFBBV6zwquBHis78LTk952QYGVNxQ7ELjpsXnEc2
-	14
-X-Received: by 2002:a05:6402:3585:b0:698:62b7:a4cc with SMTP id 4fb4d7f45d1cf-69c5ef82f71mr4143024a12.5.1783950516676;
-        Mon, 13 Jul 2026 06:48:36 -0700 (PDT)
+        bh=eXn5kMcR5nKmIutY68IqK6aV4F4qyXcvYDJKsjI+c7U=;
+        b=tLm9SEvnW/4mOLhnJ8JtxGLlHeZjMPzMCE8pK/pwL9GXszDh1sXlgQ/JqiejehK9JG
+         dONONfYsy7JrEE9dPNXxVEhif/u2YApQ5/L8kZJZK+RS6qLkp0U9/VCmFP+GZAjXkvpM
+         HkgDtz73myL2CdLMZv5Ox/xoKGVbiPGkI5pdMlhUWCa52OdRq7psDGQZNq++rMaX1l7Q
+         spP7lelodk0U3JBzmR1UH/GCu9Npfo5BpvfXKCGY861hQdq8juRJhjF+ooRRyEj/CBr0
+         ZXaWdF25ZSXsGr91PxHLBSeLYYAi/8THXGSTZZET+veJKvciV/6u8//nUYbFSIVLhhwb
+         Z+4A==
+X-Forwarded-Encrypted: i=1; AHgh+RqQML5JRFtlIk07ep9YOkQXV/tiwpKZ8TlZELrGSxKg2cBlL6+ngUWYUddUun4apHDxRKwKO0g=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzftFryAe0PSNdKJxQnDdxEgYw0ay2e5y5lGjvCm8LLQO9BF4JE
+	O2hf9QsCOn6b7fanYVqyI46FEz7SavIoXMWHEo021fE3dHuGLZZQYudGK72ebpphOE4=
+X-Gm-Gg: AfdE7cm4O5pNuWwovIXdt7xXFx6I8PXQLYzSzh6C5J1umvi4lFO9EUrO74nQHJpcaPH
+	wZb7dgqkTixOiv78KafI4/cm6xTkcNX0bLMyakB+BcVE8WedN2g6t/r9fZn9QpdLzd1sBpkXYI3
+	CHTOY8oMgAoErE6JttSrq89AsJ6lvQsqJT6W4cW+l5wL4iFjqsO+dHc+HTINtNxrJBCAeIWE37e
+	EdhIqaAXeGkimGzQ6P0JoW8vTGo4/WPLGysOw7f6OC/Gk19fyIKM8b4UrbuxkPXg5Ne4jT8lbeM
+	eny+aPQZQdiBbhqhRisfze0u/Z+W2PPRqRSqWZzHmC3eYuXyP7BWU5ASNy7lkORkvxYDLgrFiKg
+	oThN7LvW79zWcMOQ3eTJnt8BkSLofbIAQmQtamijWdCjia+aRFz7w/2HuIaEZDBIbn5zQlJkyIT
+	xT
+X-Received: by 2002:a05:6402:3512:b0:699:6415:750a with SMTP id 4fb4d7f45d1cf-69c5f12197cmr3696963a12.23.1783950535377;
+        Mon, 13 Jul 2026 06:48:55 -0700 (PDT)
 Received: from localhost ([2a09:bac6:37a8:1f19::319:116])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69aa6dba523sm9753669a12.0.2026.07.13.06.48.35
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69a19d78a08sm16555473a12.18.2026.07.13.06.48.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 06:48:36 -0700 (PDT)
-Date: Mon, 13 Jul 2026 14:48:35 +0100
+        Mon, 13 Jul 2026 06:48:54 -0700 (PDT)
+Date: Mon, 13 Jul 2026 14:48:54 +0100
 From: Matt Fleming <matt@readmodwrite.com>
 To: Tejun Heo <tj@kernel.org>
 Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
@@ -70,12 +69,12 @@ Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
 	Zhaoyang Huang <zhaoyang.huang@unisoc.com>, "ziwei . dai" <ziwei.dai@unisoc.com>, 
 	"ke . wang" <ke.wang@unisoc.com>, Matt Fleming <mfleming@cloudflare.com>, 
 	sched-ext@lists.linux.dev, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, kernel-team@cloudflare.com
-Subject: Re: [PATCH 1/2] sched/psi: Create the psimon kthread outside of
- cgroup_mutex
-Message-ID: <alTsERFTlUKCLw4C@matt-Precision-5490>
+	stable@vger.kernel.org, kernel-team@cloudflare.com, Sashiko AI <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 2/2] sched/psi: Shut down rtpoll_timer in
+ psi_cgroup_free()
+Message-ID: <alTsuUssizMKh0lW@matt-Precision-5490>
 References: <20260712174619.3553231-1-tj@kernel.org>
- <20260712174619.3553231-2-tj@kernel.org>
+ <20260712174619.3553231-3-tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,44 +83,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260712174619.3553231-2-tj@kernel.org>
+In-Reply-To: <20260712174619.3553231-3-tj@kernel.org>
 
-On Sun, Jul 12, 2026 at 07:46:18AM -1000, Tejun Heo wrote:
-> a5b98009f16d ("sched/psi: fix race between file release and pressure write")
-> made pressure_write() hold cgroup_mutex across psi_trigger_create(), which
-> forks the psimon kthread for the first rtpoll trigger. As kthread creation
-> depends on the whole fork path, the commit inadvertently created a lot of
-> unwanted locking dependencies from cgroup_mutex.
+On Sun, Jul 12, 2026 at 07:46:19AM -1000, Tejun Heo wrote:
+> psi_schedule_rtpoll_work() is called locklessly from the scheduler hotpath
+> and can race psi_trigger_destroy() taking down the last rtpoll trigger under
+> rtpoll_trigger_lock:
 > 
-> sched_ext got hit by one: its enable path blocks forks and then grabs
-> cgroup_mutex, so a pressure write racing a scheduler enable deadlocks, with
-> every other fork piling up behind.
+>   psi_schedule_rtpoll_work()        psi_trigger_destroy()
 > 
-> Fix it by splitting trigger creation so that the worker is forked with
-> cgroup_mutex dropped and the kernfs active reference left broken. The latter
-> matters because rmdir and cgroup.pressure writes drain active references
-> under cgroup_mutex. Publishing the trigger last keeps error reporting
-> synchronous and preserves the of->priv lifetime rules.
+>   rcu_read_lock();
+>   task = rcu_dereference(rtpoll_task);
+>                                     rcu_assign_pointer(rtpoll_task, NULL);
+>                                     timer_delete(&rtpoll_timer);
+>   mod_timer(&rtpoll_timer, ...);
+>   rcu_read_unlock();
+>                                     synchronize_rcu();
+>                                     kthread_stop(task_to_destroy);
 > 
-> The trigger registered in the first stage pins the group's rtpoll machinery
-> across the unlocked window, leaving only creation races to resolve. The
-> catch-up poll on installation covers scheduling attempts dropped while there
-> was no worker.
+> The group can then be freed with the re-armed timer still pending, and
+> poll_timer_fn() runs on freed memory.
 > 
-> v2: Retagged sched/psi (was cgroup).
+> 461daba06bdc ("psi: eliminate kthread_worker from psi trigger scheduling
+> mechanism") deleted the timer synchronously after the synchronize_rcu(),
+> which prevented this but raced trigger creation instead: the deletion could
+> cancel the timer that a new trigger set armed during the grace period and,
+> as creation also reinitialized the timer at the time, corrupt it.
+> 8f91efd870ea ("psi: Fix race between psi_trigger_create/destroy") moved the
+> initialization into group_init() and the deletion into the locked section,
+> trading the creation races for the window above.
 > 
-> Fixes: a5b98009f16d ("sched/psi: fix race between file release and pressure write")
-> Cc: stable@vger.kernel.org
-> Cc: Johannes Weiner <hannes@cmpxchg.org>
-> Cc: Edward Adam Davis <eadavis@qq.com>
-> Cc: Chen Ridong <chenridong@huaweicloud.com>
-> Reported-by: Matt Fleming <mfleming@cloudflare.com>
-> Closes: https://lore.kernel.org/all/20260710100441.2653477-1-matt@readmodwrite.com/
+> Neither placement in the destruction path works. A pending timer firing
+> while the group is alive is harmless though. poll_timer_fn() just wakes the
+> rtpoll waitqueue and doesn't re-arm itself. Bind the timer to the group's
+> lifetime instead and shut it down in psi_cgroup_free(). Nothing can arm it
+> by then. timer_shutdown_sync() because the timer is never armed again.
+> 
+> Fixes: 8f91efd870ea ("psi: Fix race between psi_trigger_create/destroy")
+> Cc: stable@vger.kernel.org # v5.10+
+> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260711000434.36C4A1F000E9@smtp.kernel.org/
 > Signed-off-by: Tejun Heo <tj@kernel.org>
 > ---
->  include/linux/psi.h    |  4 ++-
->  kernel/cgroup/cgroup.c | 23 +++++++++++++-
->  kernel/sched/psi.c     | 69 ++++++++++++++++++++++++++++++++----------
->  3 files changed, 78 insertions(+), 18 deletions(-)
-
+>  kernel/sched/psi.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+ 
 Tested-by: Matt Fleming <mfleming@cloudflare.com>
