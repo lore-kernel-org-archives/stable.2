@@ -1,169 +1,241 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7AC3911A8;
-	Mon, 13 Jul 2026 07:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD56B3955F9;
+	Mon, 13 Jul 2026 07:55:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=216.71.154.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783929086; cv=pass; b=t99N6KtUntvxVvgyglICqby19BU4kFnVMBes/GCdCmaFbJWTqvBL8It+zNDhpLLpNgteAm2UXcUtI4HB9228aNeZuZjHm5OLskiwVgfwlt3S68mfavPLxH9PonnXeYTOUmCccDAXdY5MNGU9sW6NKmYuZ7ZQiDQDxHT+5je+Txs=
+	t=1783929325; cv=fail; b=ZalV1IYXocmzDxcM2HqIspPPG2arj7AqV6MFRQdnZMlCqFYuvMKXWHVQOr7Vmz9HeNnFPWtza51rXXL6MVSQDK/ilaFem7VQ+8Od6pOj8W41ewXYOg8QVl9CSUnMh4jgLuDk2fCCxySw1o5ibQbK6+cgR2TebPysXiPayx9cBI0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783929086; c=relaxed/simple;
-	bh=Zn9yp04dkxcptICWzcylSB2YzRs1BmVv0mxKAOMhbIo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UFgkmJh+IGHs/9Haffe3jpDQVrUGsYQYW/T/nkIxddAX8J88kg+1aBH2T2QBFYwT32VGCwPYydIKIlXc5xOhvgzfqLA9qSdoT3tXGfnqF9ksPXxbE4dRWIG1EvNhaNZg68wL1miVhuZzyo7Ih03CD0k8wsKJ3oYLuveWgmO0/38=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=SZH76zsB; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
+	s=arc-20240116; t=1783929325; c=relaxed/simple;
+	bh=69T2IhxVtz5AY0sVEPwO0W+QOr0tAHVxdlDQ5zIgtj4=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:From:To:References:
+	 In-Reply-To:MIME-Version; b=iMM75jgKQ1BknTAjQIIOzM0ZuVxqozDrxQ5NDBxg5zxklcxagv429JrW1uCrgfEcjM/ELOklXdr5RP9UM4cayhUusYLN9qG6a30xi2mjRo3dOgbFExreKaqqjrzh9NQLhxwOKJ0+Bq1Sf52pERyK9oBzs5e7wqyHADteaJyKNeo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wdc.com; spf=pass smtp.mailfrom=wdc.com; dkim=pass (2048-bit key) header.d=wdc.com header.i=@wdc.com header.b=Q8fAl+5d; dkim=pass (1024-bit key) header.d=sharedspace.onmicrosoft.com header.i=@sharedspace.onmicrosoft.com header.b=R62f0D7J; arc=fail smtp.client-ip=216.71.154.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wdc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wdc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="SZH76zsB"
-ARC-Seal: i=1; a=rsa-sha256; t=1783929076; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=a+OIq9XkmEcFpuvC/8whmc1brhOc+kdLqw4DE/oQy4BXQETsxoibMhYSPWKk1xudwxV3WNyjbz3NmhtPUaacBLAfsFHkt4EZbNZSqg1NuLjXdVI8AAz0ey6RBLYD0IpY2krXhGXLB9JqnV0MBDuWI6C8MiRZ3oficNz8CR9eh64=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1783929076; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=puQfJUbqWOxh3XTCnl2QiqtxHk9PU07MjOqSaUFegmU=; 
-	b=jtTcm8m3SriHxdUOGc0wUbBI8t2wAbhb27+UKWP5hC7YfYoETegTS0ox8pHjeJ6tJyWPoPsCI7AgZNZFEwsLx2AugE+sZp9PgB5Zb0/82YbLtbKwiNdZ5YGRe23AFITFFTCEEoLxaG+FuakFjljq1c8IeyBg+ID2FK+FU5de93c=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=auditcode.ai;
-	spf=pass  smtp.mailfrom=security@auditcode.ai;
-	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783929076;
-	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=puQfJUbqWOxh3XTCnl2QiqtxHk9PU07MjOqSaUFegmU=;
-	b=SZH76zsBo5oqoJvb5C8mFhcMTFkWsQ4SOf9aBCA2C3vdnaybAoqp5+at476dP+dE
-	wGFHQLmEzYd5/c6/NXKspAAY5QSf4/O8dBbKIYgvLY6LqB/mR/ju4Ro1dOCXvv5UwRZ
-	CQZBgOxKZJiAqwANQAboAbYH4ChRJesbsCaYvyJU=
-Received: by mx.zoho.eu with SMTPS id 1783929073212890.3778375842252;
-	Mon, 13 Jul 2026 09:51:13 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: wacom: validate report length before Intuos Pro2 BT pen parse
-Date: Mon, 13 Jul 2026 09:51:10 +0200
-Message-ID: <20260713075110.92469-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=wdc.com header.i=@wdc.com header.b="Q8fAl+5d";
+	dkim=pass (1024-bit key) header.d=sharedspace.onmicrosoft.com header.i=@sharedspace.onmicrosoft.com header.b="R62f0D7J"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
+  t=1783929323; x=1815465323;
+  h=content-transfer-encoding:date:message-id:subject:cc:
+   from:to:references:in-reply-to:mime-version;
+  bh=69T2IhxVtz5AY0sVEPwO0W+QOr0tAHVxdlDQ5zIgtj4=;
+  b=Q8fAl+5dnv4Rjyamn3PtQodWRJaWzRWZKt0xasSg3jEjHJ/5t8XoT2nX
+   0t/K+11MqYLqw/KOuZmAbDcMTsAi6j5riIivFriSSv/eVU258jozMarvL
+   UghpWpA2i2B/k1137MZxRfj5H9ATRYku0T7yqhG3l70t4YWduuk7e8BUe
+   B7Zs4AX10Uo+ek1eef2rQqANl+K2oFAt5HGuUIVKAGkaorYDLuRO82xiw
+   YWtf4iIIbRPiPBE2c398ln97VCvDIAPK+rhHJJxKYjpPnaK4skC6xtmwF
+   eKrrbTDTsSQPB63CT1YR5EefunZ3pJAUTMJvDHH4xJgpB8TDtBuB2uFPw
+   A==;
+X-CSE-ConnectionGUID: 8RXdZcppS7W+XEf9+5FsRg==
+X-CSE-MsgGUID: Is8I1d0PSfyw2t06LlfJ0g==
+X-IronPort-AV: E=Sophos;i="6.25,154,1779120000"; 
+   d="scan'208";a="149375566"
+Received: from mail-southcentralusazon11011054.outbound.protection.outlook.com (HELO SN4PR0501CU005.outbound.protection.outlook.com) ([40.93.194.54])
+  by ob1.hgst.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 Jul 2026 15:55:17 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DVOCL9Q4PiK8xgr3kCE0pv8AbQ3wdUoy01CPNsxRekMOMearcLHom6SMF2PnLsW3Ibqf8cCa2UTYGKOIv93qIHcBwsOfoErTJBpNANTLFYr/R4glZigJnosSFJSQJlYBHwbT8KfXa0i8ge32ysHLOJY8mD6yy2SLr7xJ6e3qsfGp2iATYzIEYrBrNa+IV2xSxhHVIS5lnrqqRzTybFKdEWkGCL+HMzbiSW159HTO//KNb1ERGohIpWhmDZLN5VWVYmVdaj04Um94/erI4UK3vApEGdaSCpxui5xvMVH6DJpy3cGcSfIWmU86ZQXj27ptJPQIQ4O278Tbb/d+0V8xqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h5IFBOorN9cWgfBD+h2XsIlRI+soeficqjDALqlksEU=;
+ b=OUyMh2awHwDzp7GVmfCLtG7KLu1ktpc455IQgybAUNt8KVCZrzrfdvekOTwLmRGgKwGP7hgwSngVrw4lSikn7cvYgIUYOwT2dUQKjoENmX7VTzbiOBLd9bgztV9X7heyQ6WI/5Ta2XHVgaPUM7oNHkFND90DXBc3ifaSJuFV+4Xa/0P2EsXXlBRZYZyVk7hHk61cMEVR9In6Q2peNfFVRuNBmXu1Ff/r2F7/aqL9y2dSfgFRU/vYc77tsRzrv3ubaRIso17Nd21pHP4sM/6Lq36NhAHQjfGjwHbuyIU8jmT3rc8dy+qiBfQieZ7bnlYO7t6jGfMbeDxJpUidgDgS0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com; dkim=pass
+ header.d=wdc.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h5IFBOorN9cWgfBD+h2XsIlRI+soeficqjDALqlksEU=;
+ b=R62f0D7JeDm5U+yIIzJHF9UpPlxdXQx2vgYt6i5/MjlzFZEs91TiEuZB0/oekVBfQZUUwJ+nyIWUm3PA/Jf3dHHVDEXtM1paaMkb7ZxX80YUyjS0CfG6xW0dPjMP6VMVLWVkpsrw2x2/V4GR/IoCO3fae8YmFSyL9H7wm7zwS0A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=wdc.com;
+Received: from LV3PR04MB9258.namprd04.prod.outlook.com (2603:10b6:408:26a::17)
+ by BN0PR04MB7919.namprd04.prod.outlook.com (2603:10b6:408:152::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Mon, 13 Jul
+ 2026 07:55:15 +0000
+Received: from LV3PR04MB9258.namprd04.prod.outlook.com
+ ([fe80::1d27:4d42:3be8:77f2]) by LV3PR04MB9258.namprd04.prod.outlook.com
+ ([fe80::1d27:4d42:3be8:77f2%4]) with mapi id 15.21.0181.016; Mon, 13 Jul 2026
+ 07:55:15 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 13 Jul 2026 16:55:11 +0900
+Message-Id: <DJXA5VV29ZVI.BNMG6SJ4KJNE@wdc.com>
+Subject: Re: [PATCH] btrfs: zoned: fix deadlock between metadata writeback
+ and transaction commit
+Cc: "Naohiro Aota" <naohiro.aota@wdc.com>, <stable@vger.kernel.org>
+From: "Naohiro Aota" <Naohiro.Aota@wdc.com>
+To: "Johannes Thumshirn" <johannes.thumshirn@wdc.com>,
+ <linux-btrfs@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260703055440.117200-1-johannes.thumshirn@wdc.com>
+In-Reply-To: <20260703055440.117200-1-johannes.thumshirn@wdc.com>
+X-ClientProxiedBy: TYCP286CA0367.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:79::14) To LV3PR04MB9258.namprd04.prod.outlook.com
+ (2603:10b6:408:26a::17)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR04MB9258:EE_|BN0PR04MB7919:EE_
+X-MS-Office365-Filtering-Correlation-Id: be91e692-8062-4e04-8db6-08dee0b41348
+WDCIPOUTBOUND: EOP-TRUE
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|19092799006|1800799024|376014|10070799003|22082099003|18002099003|6133799003|56012099006|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	5M0AGjsUpU94LcV0xlhu3Tc3cUUEWx89nPqfE/0lBKGYJlV+UiuyLCDBNPM0O/wsRAOIQdApik+n+B/cm3jZPKrwJYYjeBUmeGIVEsh/5Jjuj9XV7qDwSRTM+nFBXdPoxNCcFI8VIp+bjNFPHQvFHn4NzUEF5YNZFvw1EEzU5b9MLlDVnSdZ/ID9D7teT1O7lBW/qsy+GROlcupYrc5bksfGzUPiw9Q2aA02tr4GBaFbXDCvVPBiHXhc5Z6rgxP/143J15E/ra8UEFG7jQNZIKB9db0c9kEmUh9MJJ/+Wp0k1LoqddvHcjSCfq3Ou+lSRlZoz7VL/L3z6VXiodiOHT36+s5vL0qAk/bn6CyZfQWkoQRsryhN7aMfCaMX6lkV6AUFDrED1IX/YDpOfLurahDQUoBBZCMpWSLNJ6dAK+HL4JSHJxPO+ZeASrARmKcMEDgRjlPYjZQy7nxXJDfetTOfYxz6utNhv7AzZUuyPV1zKeM7F97zmcbG2ro4kXMUlNWNSQX7PAlKIr8n9z6hmtiKNaV67REdCgd+ifpkU1Rmp9jYhFRTFGRWHvv7wdIZAduKPb5uBjAuwBHSz9pvxq7MR86Xa2tnm37j0WBP1aB46ukYGI6X8lsFVffq3Tdx/buJWwqsfde+AAzLgKqzddS7gCJNjBcLlv2oMJ3bJXc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR04MB9258.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(19092799006)(1800799024)(376014)(10070799003)(22082099003)(18002099003)(6133799003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U2Y5S09PUW9RUTg5UExUTGY1QjIzakw1Wnp4V1lXSFB1bnhZUy9hTVIxTnhH?=
+ =?utf-8?B?VVlmMHByOHBlWlBqckxPc0FOdHl2SGZEdVE2dHpKU21yMnVLdEVleDY1cC9a?=
+ =?utf-8?B?bDFlSDIyNFA5S0NqY0VpMnhGNDhQSlhhcUlQTXRNOTN3Vk12YWtoRW1DNkND?=
+ =?utf-8?B?SGRhcE5iR1g2SzZmYkNhQ1cxazUvT0JyQ2FoSXQrczVRMC85L0ZoclRvM252?=
+ =?utf-8?B?Rm14MktkVVpQSEFMVzMwVUhlODNHd3hUMlg3b05vdHN4MkZ0aXZpVHlEaEV1?=
+ =?utf-8?B?T2p3dGQ3SGZjNldCUDh6dVd4emtqNmpKN0l2c2Z3WjErYTczcFRmd2dldk9o?=
+ =?utf-8?B?YXlPeVhqenpQUThUV2ZFeHNaMWNrUDN4Mml3a3MydWdhQ0dxQUJPN1JlcG9T?=
+ =?utf-8?B?YVd6NjdwUkVEeWFONnE4S28zNWQyd1c5S0YvYnJITllZMXpiTXFpS1JOVU0w?=
+ =?utf-8?B?QkhMMHRjdFA1Qy82bkZmN3pWTG8wRStoR1ZQaDFNRzFieldnbS8wUm1mWURy?=
+ =?utf-8?B?ditIK3U1WG9RODlUWHl6WVJPaGxkNUl6Sllxc2JWZUNDZWZ5NEV3eXMyTnhv?=
+ =?utf-8?B?VnorVXMyejlsZ05ZdlBuQnRoeHhvZmZZYmwzTDFSTmtoVGQ2Q3YvMXVZZWlM?=
+ =?utf-8?B?UDV4c3ZlSUpGb3FpUEhMVUdoTjZyZkxBeExCbjBWVzNUdXFJTUtOMldWbzkw?=
+ =?utf-8?B?dnhBQlRMZjBHTnptRjdRek1jSkRSVkxXdEhOczV2YjQ2NHROenhvcXI5UjlU?=
+ =?utf-8?B?NWg1M210SmJYNUpNNWhkOUN5Z0M1VW1rV1V1Ly9JMThManZINjNNTEhraG8z?=
+ =?utf-8?B?blNkSHdTYi9kaVdzZlZ1dUlnMDRIR3ZTWUx4MGdyejlra3RmL3NNeXN1Yjhz?=
+ =?utf-8?B?c0xnYk0xblBNL0hyYmVGZzJOTnRiYy9MWGVIbld2cnN5MTF0azIvU1lXZ1gz?=
+ =?utf-8?B?MEZyNldGVlFNOVJvZ21zT0lxVHNDVGxnd1YwaWdDU1d2c1NOTDRQUGlDWWx4?=
+ =?utf-8?B?NWFFcEp4VEpWRnRvRno4SGdCTTZ5Y2VKUTRreEZxS0FKb1JnSmdRTno4b2xV?=
+ =?utf-8?B?bnFHdVJGTDE5ZzBrZGpXYkZrZ1pJRWRpYlEvVVV5MWtXaHZySnJQSnRtV3Vs?=
+ =?utf-8?B?M29HRmQxUDI3K2toTW5mOGVJa3ZHK2ZhK0k3KzdtVmQzbUVKdDRpd2NkRk9i?=
+ =?utf-8?B?TUlrYUhLeUN0SjlyUmR6STdTRlNwWkZQKzNCNDFPWG04SlZLNE8waWxzVXkr?=
+ =?utf-8?B?dkxkMmRBNlF6ekp1bWozQmtHeTFydGQwNVVuYy8rY2N4NGtSZ1ZjQ0lDNll2?=
+ =?utf-8?B?bi9zc21ONVV5VmozT3plN2hrdWZJTjlmc3FxYkMxaCtreUd3VVF2bDVzSklQ?=
+ =?utf-8?B?QVVRZDdYMGtPcThmTlJtbzRuWHJrT2VOQkM4MENla0ZhbzVjMTRZMmhweTk4?=
+ =?utf-8?B?MXdXVHJyWFdxdnNkaVEwT1lSeWNuK1lTUkd5VTdaQzYwZ25Bb3JjOFVUT1lR?=
+ =?utf-8?B?VkJGOXJDMU5qeEZGNTVXM2UyZWxTYTB4Qk05aWZnUWV0NEl0RlZ5cVZvL1BH?=
+ =?utf-8?B?T1YxdjBwUFo4bE9BWUxIOUd2eitTQlpwdW5WOWN3bDVncGdiaGU1enkzRExG?=
+ =?utf-8?B?UXMwT3Z5UDAzRjRMWXZLMW9iM21lQVJ1eE5DYThmZ2tyRW1XQTFiOStaaFpN?=
+ =?utf-8?B?YVZkYU5TeG50VlBHekVsVkJPRXFMMDhXd3NQZTUwWTFCb0tYTm1zQmVOenYz?=
+ =?utf-8?B?b2hOeHpKamYwZzU3cWJqSEdmamRDMlRtMk5hSG1Kbm9UbDRhelJ0alVZZDMx?=
+ =?utf-8?B?dDBGQVFSSWl3RVRocDd1SzFNUHRoa1RZTjh6SFE1VWZoS1YyT2dDbGpiSDlt?=
+ =?utf-8?B?RllVRk1SWmsvdmUxOHFsMzhMWkhNejNzUzJPMzlBR1dGYWQ3eVl6RWUvTmJE?=
+ =?utf-8?B?MkZoT2JzU3dKbFhVK2plZm1ENzJMOVpPem16aURuZnhPMzJsVlFJb2pHb2Y4?=
+ =?utf-8?B?bzY4R0xGR1MvalQ5M014U3hLcTF2VDFQSDFUR0Z5ZGVSZm9pUkxPd0t3TlBX?=
+ =?utf-8?B?K2FnRjJKUE5iQU9Fc09KY0xuZlE0SGlJVkZzTzNVaUFmMGtYYWY5VzJDa3B1?=
+ =?utf-8?B?V0RveTJybmhWV2dET0pLZkd1M1FFRWFjUnNUVDBCNW84MWM1Tkc3OGg4bzAr?=
+ =?utf-8?B?bXRsTzNZek1yMVI4ZXBuUFpEL1VQU0NuaFVQWXBaWXpSMUMzTDM4Smhvay81?=
+ =?utf-8?B?MEtaenUzalAzN3VhTU5Ca2gyMWFVV3Q2N3VZR1RRVzVmMEVRelVKTDcxMVJu?=
+ =?utf-8?B?cjVORStGMm1yaWlXek9xRU1HaXU3b0Nqc0J2dEIrTlhRUGp4NFFFQnhVVEhQ?=
+ =?utf-8?Q?j5XVa5WETvc3Kzd5KLKiGHAueafn05jZFyIghdd1f+Yak?=
+X-MS-Exchange-AntiSpam-MessageData-1: btJcHhr8y9VgVg==
+X-Exchange-RoutingPolicyChecked:
+	gvpb5VAo2o9LfJGwa4fL6EK0z2xWZb1z5YvLDVzX/+WwQwBH2YYnArtepwMSj6qOpyE/F1sbYny3IbxnLX9nDfvIdsveEkomqBJsddm5Tc3M9lCZYW+bXDadPeSwfVmhJ+C9DRMowXwsY65Z7JvwspHHVjj3o9nLth51Fu2U0Pff3S7zsbvlbU25J4IYqijjBBNhgtu4I4jcjLfUD1Urz6O+6zZcGQqfiCJci9ChEobjzIoiahQUDihazXFbHaH+MS6OUDPL+AxU+Ct/ZRFH0tDOeSDOSA5s2uV/+8lLac2FnJKmmFqjnLuP5EB63zRbvHGHlwFH/Q/L1SzY8QLtIA==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	vIqmvXo/WK98X3fmPRsZ16jo1GSpLev7SYx7Z8VqasYNs4UAF9LqN0vW9zXwguHPshcvVB01b1oK/cDPfdvXfL64sR9y0LjB95WzLpAr5b13pyjwa38Jke25vYeTQXCVgUMb9+gM/uXCmt2kZciRpaUt0YMIY0hscYaYcPs4+x1MAgUKyr7YBN31ndrS4kfPtoBtxV6y+n6ZTOZks/vZx8JrH7CdHWfSRJdPmrqevpIjtGInbw8SG27EUNLGYChWVcqB2LUfwlvqcXYv2blsJ/B2jirtTpXMa3yjxHLgL6+DWNrfbnNtBOKsI9mG0ovCvJOjspENiwdMX1YnOG3O2R563pkZ7Ee1qF2Yslo0D3dsll5JkbocKMpyIsXZ2yWhx6NEWpKXAzNAn00mUCvledXgM6wo1fDrolGdqaMkd1As2A6Oq+24SVNe5c6QqvABcnmcxzwMm9fvESyAq7NI2apgl0aRCiG6q2i2B+dVczSq9ZQmgVXe7t1pfbvOma8vIK7sQILOXryqbTKm3/0rKkAwFQ460o2yi1qutw9IIPRPRWmgcb0PXBmdJG0Lo4mfl7Usda2AsUYAfCbW5HspjlWt8TckG4r7y/u94AibQUZjBsFwnYbCgw9MRHHUvwyP
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be91e692-8062-4e04-8db6-08dee0b41348
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR04MB9258.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 07:55:15.6949
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wZFPK+ctyFdqklquqqEqqnZp5y5q4l5JMDAxtEMNyM4YaFD4kSDfqKe4tuJ7Ja9TvDHcrXAydPGxTVDIHLncBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR04MB7919
 
-wacom_intuos_pro2_bt_irq() receives the wire report length in `len`
-but never consults it before calling wacom_intuos_pro2_bt_pen(). The
-only admission check on this path is the report-id byte:
+On Fri Jul 3, 2026 at 2:54 PM JST, Johannes Thumshirn wrote:
+> When writing out metadata extent buffers in a zoned filesystem,
+> btree_writepages() holds fs_info->zoned_meta_io_lock across the whole
+> writeback loop, including the call to btrfs_check_meta_write_pointer() ->
+> check_bg_is_active().
+>
+> For the tree-log block group, check_bg_is_active() may fail to activate
+> the zone and fall back to btrfs_zone_finish_one_bg() to free an active
+> zone. That path waits for the running transaction to commit while still
+> holding zoned_meta_io_lock, but the committer needs that same lock to
+> write out the tree extents, so the two tasks deadlock:
+>
+>   Task A (kworker, metadata writeback)      Task B (fsstress, transaction=
+ commit)
+>   ------------------------------------      -----------------------------=
+--------
+>   wb_workfn()                               btrfs_commit_transaction(T)
+>    btree_writepages()                        btrfs_write_and_wait_transac=
+tion()
+>     btrfs_zoned_meta_io_lock()                btrfs_write_marked_extents(=
+)
+>     btrfs_check_meta_write_pointer()           btree_writepages()
+>      check_bg_is_active() [treelog_bg]          btrfs_zoned_meta_io_lock(=
+)
+>       btrfs_zone_finish_one_bg()               <blocks on zoned_meta_io_l=
+ock,
+>        btrfs_zone_finish()                      held by Task A>
+>         do_zone_finish()
+>          btrfs_inc_block_group_ro()
+>           btrfs_wait_for_commit()
+>            <blocks waiting for commit
+>             of transaction T, done by
+>             Task B>
+>
+> The sibling branch in check_bg_is_active() already drops zoned_meta_io_lo=
+ck
+> around do_zone_finish() for this exact reason. Do the same in the tree-lo=
+g
+> branch: release the lock around btrfs_zone_finish_one_bg() and re-acquire
+> it afterwards. The lock only protects fs_info->active_{meta,system}_bg,
+> which this branch does not touch, and ctx->zoned_bg keeps a reference to
+> the block group across the unlock, so nothing is lost while the lock
+> is dropped.
+>
+> This hang occasionally reproduces with fstests generic/475 on a zoned
+> btrfs filesystem.
 
-	if (data[0] != 0x80 && data[0] != 0x81) {
-		...
-		return 0;
-	}
-	wacom_intuos_pro2_bt_pen(wacom);
+looks good,
 
-wacom_intuos_pro2_bt_pen() itself does not even receive `len` (it
-takes only `struct wacom_wac *wacom`), so it cannot bound its own
-reads. For INTUOSP2_BT / INTUOSP2S_BT devices it unconditionally does:
+Reviewed-by: Naohiro Aota <naohiro.aota@wdc.com>
 
-	wacom->serial[0] = get_unaligned_le64(&data[99]);
-	wacom->id[0]     = get_unaligned_le16(&data[107]);
+Note: I'm thinking to make treelog_bg reserved, and pivot like as
+metadata block group. It will be more reliable and naturally aligned
+with the metadata block group.
 
-i.e. it reads up to offset 108 regardless of how many bytes the
-peripheral actually sent. features.type is selected from the VID/PID
-id_table entry (BT_DEVICE_WACOM(0x361) -> INTUOSP2_BT) and
-wacom_setup_device_quirks() force-registers the pen/pad/touch inputs
-for that type independent of the report descriptor, so a malicious or
-malfunctioning paired/spoofed Bluetooth peripheral can advertise that
-VID/PID and send an undersized report (e.g. 10 bytes) that still
-satisfies the data[0] == 0x80/0x81 gate. The driver then reads past
-the received report and forwards the bytes to userspace via evdev
-(MSC_SERIAL / ABS_MISC on the pen input node), an out-of-bounds read
-with a concrete userspace read-back channel, and a true
-out-of-bounds read on transports where the backing buffer is sized to
-the (small) report descriptor rather than a fixed-size staging
-buffer.
-
-The non-Pro2 branch of the same function (INTUOSHT3_BT, reading
-&data[33]/&data[41]) has the identical defect at a smaller offset.
-
-This is the same class of bug commit 2f1763f62909 ("HID: wacom: fix
-out-of-bounds read in wacom_intuos_bt_irq") already hardened in the
-sibling function wacom_intuos_bt_irq(), which added explicit
-short-report guards before parsing:
-
-	case 0x04:
-		if (len < 32) {
-			dev_warn(..., "Report 0x04 too short: %zu bytes\n", len);
-			break;
-		}
-		wacom_intuos_bt_process_data(wacom, data + i);
-		...
-	case 0x03:
-		if (i == 1 && len < 22) {
-			dev_warn(..., "Report 0x03 too short: %zu bytes\n", len);
-			break;
-		}
-
-wacom_intuos_pro2_bt_irq() never received the analogous guard.
-
-Fix it the same way: before calling wacom_intuos_pro2_bt_pen(), check
-`len` against the minimum size each branch of that function actually
-dereferences (109 bytes for INTUOSP2_BT/INTUOSP2S_BT, whose furthest
-read is &data[107] as a le16 -> byte index 108; 43 bytes for the
-INTUOSHT3_BT ("gen3") branch, whose furthest read is &data[41] as a
-le16 -> byte index 42). On a short report, warn and bail out before
-touching wacom->data past what was actually received, exactly as
-wacom_intuos_bt_irq() now does for its own report ids. Returning 0
-here also skips the subsequent pro2 touch/pad/battery calls for the
-same malformed report, which is the safe, conservative behavior.
-
-Runtime-verified on a v6.19 stand: injecting the truncated report
-via a spoofed 056a:0361 BT peripheral leaks bytes past the declared
-report length to the pen evdev node (MSC_SERIAL / ABS_MISC) before
-this fix, and the same input is rejected by the new length check
-with no leaked event afterward. KASAN itself stays quiet on the
-fixed-size uhid staging buffer used to inject the report (the
-over-read there lands in-object); on a descriptor-sized USB/BT
-buffer the identical read crosses the slab boundary and is a
-genuine KASAN-visible out-of-bounds read.
-
-Fixes: 4922cd26f03c ("HID: wacom: Support 2nd-gen Intuos Pro's Bluetooth classic interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
----
- drivers/hid/wacom_wac.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index da1f0ea85625..89a191cf1924 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -1548,6 +1548,19 @@ static int wacom_intuos_pro2_bt_irq(struct wacom_wac *wacom, size_t len)
- 		return 0;
- 	}
- 
-+	if (wacom->features.type == INTUOSP2_BT ||
-+	    wacom->features.type == INTUOSP2S_BT) {
-+		if (len < 109) {
-+			dev_warn(wacom->pen_input->dev.parent,
-+				 "Pro2 BT report too short: %zu bytes\n", len);
-+			return 0;
-+		}
-+	} else if (len < 43) {
-+		dev_warn(wacom->pen_input->dev.parent,
-+			 "Pro2 BT report too short: %zu bytes\n", len);
-+		return 0;
-+	}
-+
- 	wacom_intuos_pro2_bt_pen(wacom);
- 	if (wacom->features.type == INTUOSP2_BT ||
- 	    wacom->features.type == INTUOSP2S_BT) {
--- 
-2.50.1 (Apple Git-155)
+>
+> Fixes: 13bb483d32ab ("btrfs: zoned: activate metadata block group on writ=
+e time")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+> ---
+>  fs/btrfs/zoned.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
+> index 97f06dd01693..44a13ed6b8b2 100644
+> --- a/fs/btrfs/zoned.c
+> +++ b/fs/btrfs/zoned.c
+> @@ -2190,7 +2190,11 @@ static bool check_bg_is_active(struct btrfs_eb_wri=
+te_context *ctx,
+> =20
+>  	if (fs_info->treelog_bg =3D=3D block_group->start) {
+>  		if (!btrfs_zone_activate(block_group)) {
+> -			int ret_fin =3D btrfs_zone_finish_one_bg(fs_info);
+> +			int ret_fin;
+> +
+> +			btrfs_zoned_meta_io_unlock(fs_info);
+> +			ret_fin =3D btrfs_zone_finish_one_bg(fs_info);
+> +			btrfs_zoned_meta_io_lock(fs_info);
+> =20
+>  			if (ret_fin !=3D 1 || !btrfs_zone_activate(block_group))
+>  				return false;
 
