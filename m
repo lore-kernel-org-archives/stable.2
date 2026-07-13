@@ -1,88 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4B213DBA0
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 18:13:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C24227F4F5;
+	Mon, 13 Jul 2026 18:14:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783966411; cv=none; b=fCbRKTmq9ceYJRxcSE0onIxiou7rZQc3GBTz320fxX9ZOlo6pr2CPPFDm3hS/+ZCYSyaY/etdBtVMvA5xaLjSnZ/P4xwBxenY+kpQi2SEXPCcvWmCemWR0jfpodx6aoshXFU8iusIw/t2TIer6eI7P/CEjGiXoLYFUHzjOacX0M=
+	t=1783966498; cv=none; b=aiZ0GZQkP7mh1oDQmeTpkz+vJOzFggHt31dgr+2GMrzUnJJ239CbBQCUsrqvGsHkdexDDnVJwQ77AOQVonSlFWnPFuBVk2pSv+TyuDTSYC6RtKpY6WqGmdcpJJRAcq1kHHnUZH90Eb1FkrS8mDtkLCbjgDngoWWXOoWaQ6hI19k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783966411; c=relaxed/simple;
-	bh=s6yg6Id2DxDNmXho1lrHc6YBmSddikKGx3ZIN6EyEXY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ps30fHvcD6Lzqe3JyMOkrUVnrTEHc9ApuJcZKFAjeNfxn4Dm/AEe83/6ptVDRQn7VNOzEwM9Aky5bzZs0PkJxbrgyD27M2YKDvIfPmoxU9XrvLdxsph8EV9j9aQ6mbwl651XfxXv0uJeq0a713Y/lf4sZNEMLq70VAFubv32yp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FR83AyLz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783966498; c=relaxed/simple;
+	bh=p536q1fZMhD4VsIbp+AlHkFIuiGVNiIk3+r824wk/Ac=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=H5CoEOy1L49gK5DBAIBernT5qaDzsxGfJAsyGRcWNJml4TTghUmfRqmYCaDrmhe7QPOMSgR9gpsxJ/N5rDLK2Cp8fy2Z9sZUN9Fe2oXGo+nuGf3GPipMETHow2Mxlupbumv6ocpU80aDTE7p76JiFSN2iN2lDVY1KjF1vBCRAdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=byb5BROk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FR83AyLz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84E3C1F00A3A;
-	Mon, 13 Jul 2026 18:13:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="byb5BROk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78F1C1F000E9;
+	Mon, 13 Jul 2026 18:14:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783966410;
-	bh=k8mmaq32H5+jT7Dp8ApIMkini6h8tUrLJqNznUhmrGA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FR83AyLzwZwR4GNOB8JfE/1Cm879LbBmqGfNbolviv7c14lGEvlvFpxyBsGc4Xq04
-	 q/yfDbv40igLOv5R9VG3DMM4her4BHpa9j2PF053WN0O0CKgiYCtPZQmnanbYRCURn
-	 iDo9se2pQIDp8CK9IEbekghd1L2y+L9WL0p9dSfQPtV54OveEZtWO2jwd9K+a3Ux1W
-	 pttzjLKvxL8KitX9AFyxtsrvPvjUYSkfD2t6xxy8b9cKDe+yjvueA2XJkOhwtBZ311
-	 N8tj/wtbey88Rq9i1pBKABYLCt3kM+sNIDsf6NcaIA0mMD3jf1toRoHmWKDAwrZR/5
-	 Zb5NDW9QE1Ejw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Samuel Moelius <samuel.moelius@trailofbits.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] iio: adc: ad7380: select REGMAP
-Date: Mon, 13 Jul 2026 14:13:28 -0400
-Message-ID: <20260713181328.1932706-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071354-cannabis-broadness-e866@gregkh>
-References: <2026071354-cannabis-broadness-e866@gregkh>
+	s=k20260515; t=1783966497;
+	bh=JyASWAKAD6ak8FJcxWdDEg+sFNwuVoRQymBg/98oo+M=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=byb5BROkJpBcOzvzYTSnccebRDOp9+OET/OpjUZrjGZHZfc9R2wq7LMXGJdJ4XIjM
+	 5PRtd3cH6rYC9RmoqhiVrXGZjALT+HBoS6chP/efteMPq2MqXr4uLIWxbAy/tVcQSd
+	 cOKktWOZjtp4JEMNgjY5Mm9iYDH7CwVeoQ+2m16MSP24r6FkMg6SdYj55by4peeO0f
+	 fCwkbY6m2uGhHW6LX/kurmyI/FwWVvfY1/pUV1P9PeuiGIuOQnCPDWTXXoGnT38Ku4
+	 4cI6pzCGcqW+gHcc5Dy+LN5iB02lqDx5uXBiWRAeKCrLeXW8xlfTzJNCN12S+N/s01
+	 zVZUFJfR1v9/Q==
+Date: Mon, 13 Jul 2026 12:14:53 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>
+cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Nathan Chancellor <nathan@kernel.org>, 
+    Conor Dooley <conor.dooley@microchip.com>, Wende Tan <twd2.me@gmail.com>, 
+    Palmer Dabbelt <palmer@rivosinc.com>, linux-riscv@lists.infradead.org, 
+    linux-kernel@vger.kernel.org, Nam Cao <namcao@linutronix.de>, 
+    kernel test robot <lkp@intel.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] riscv: vdso: Do not use LTO for the vDSO
+In-Reply-To: <20260701-riscv-vdso-lto-v1-1-89db0cd82077@linutronix.de>
+Message-ID: <541aed79-b153-726c-87f9-cfd9f9304c46@kernel.org>
+References: <20260701-riscv-vdso-lto-v1-0-89db0cd82077@linutronix.de> <20260701-riscv-vdso-lto-v1-1-89db0cd82077@linutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-1762691194-1783966497=:1536112"
 
-From: Samuel Moelius <samuel.moelius@trailofbits.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-[ Upstream commit 6697091b386a4e2830bdd38512c87a4befff2b32 ]
+--8323329-1762691194-1783966497=:1536112
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
 
-The AD7380 driver uses generic regmap types and APIs. However, its
-Kconfig entry does not select REGMAP.
+On Wed, 1 Jul 2026, Thomas Weißschuh wrote:
 
-As a result, AD7380 can be enabled from an allnoconfig-derived config
-with SPI_MASTER=y while REGMAP remains unset, causing ad7380.o to fail
-to build.
+> With LTO enabled the compiler assumes that the vDSO functions are not
+> used and optimizes them away completely. Currently this happens to
+> __vdso_clock_getres(), __vdso_clock_gettime(), __vdso_getrandom(),
+> __vdso_gettimeofday() and __vdso_riscv_hwprobe().
+> 
+> Disable LTO for the vDSO, as these functions are hand-optimized anyways.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202606301855.WvkSC4kD-lkp@intel.com/
+> Fixes: 021d23428bdb ("RISC-V: build: Allow LTO to be selected")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 
-Fixes: b095217c104b ("iio: adc: ad7380: new driver for AD7380 ADCs")
-Signed-off-by: Samuel Moelius <samuel.moelius@trailofbits.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/iio/adc/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Thanks, queued for v7.2-rc.
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 216f3c9ce183e7..57fc8f0de7b0c8 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -188,6 +188,7 @@ config AD7298
- config AD7380
- 	tristate "Analog Devices AD7380 ADC driver"
- 	depends on SPI_MASTER
-+	select REGMAP
- 	select IIO_BUFFER
- 	select IIO_TRIGGER
- 	select IIO_TRIGGERED_BUFFER
--- 
-2.53.0
 
+- Paul
+--8323329-1762691194-1783966497=:1536112--
