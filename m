@@ -1,247 +1,180 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3766078F3A
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 21:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5B035E949
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 21:12:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783976473; cv=fail; b=U7DSmQfTALUGpvqCyZFov3M0Vj+ocDE+CaD+CHPfv3DWfJIkKCqADjQcxsgXInzi1qSd4Soe9at74eayqaN8WEzafpAH7o1q/ato0cw/r7KtjftCKhjb5iDrhcm+g9p8VI0cvJnb52EykaLTuK427ERpH8gSI+V7/TinxSQCW28=
+	t=1783977142; cv=pass; b=OZJXYK8dF07pgEFXwpLMZieaJtK3tNiZzDUkQ1NiYeCWUzzdvY+4INPYNqEI93WO1NK9p499/slubvzBMV/GWN/jhRjI+uBMGn4YQt8XpXYSzZfJyXelBEn/UyICioxX4CZZBC5sRsNAIWJpkMRfAS68t0b2fQLT5A/9SviVGvs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783976473; c=relaxed/simple;
-	bh=JSmJ2UOnyg2ld/BUBpIz2T+z1oxktSVKoickiAR/0VE=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=n0DwhVz31T1OXHTjO9l+Dc1RRG1KUQ3PjMlEE4aIEiaIzLR5R4bKu9eZ8Hi4nIjDIL2zDTn6qT944C20Wx/1hW2JKxUHrm9wdzMJjHU0FDAc9vy+WD0iCUXzMMhONpmnDmivHziY6WCVYep/RPkAAU9ly0bPj7jVzVkTb3Cp+Cs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AKdShRdw; arc=fail smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783977142; c=relaxed/simple;
+	bh=8PXVs/vJwXci6zYoPKQ+hpQ4HKNdygv1qoTYmsjQx5Q=;
+	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SBeNOV9p1lTKoUP2GnOt8zplwLqGXlfKKY3ZQb8sb0xi26SndRxl28Ha4UBSk1UOFGSX2KCBAY1JYsD3COM5MhT8ITfP+2kzrzvS0Vfds9sX6vx+YYAMBWXhLbCFvh2fR7gP8IkVctncUBmqfFc7eEeMjpbkCDocV8dqujUpiis=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=AuwGr0lG; arc=pass smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AKdShRdw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783976471; x=1815512471;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=JSmJ2UOnyg2ld/BUBpIz2T+z1oxktSVKoickiAR/0VE=;
-  b=AKdShRdw+b3q3ju712+CjIshw8Zr7v25ZwNwV+waZ96YrgrjrbTjeGJv
-   7KGzye/MW7XKa0HjzenaUYfkT520kSsHRzpwEKR8BBKdPjO2jFMpY4bcM
-   rOIO7/i0bnkjzeG4/VmnneKpFeYi452G79NMrmAoV8dABgVW+6Fq3v2DR
-   PgHNOy1aceFx/Nw6rujc6U/lASavMePL5A41iBns92He1Vw3uRxtmm0Pr
-   5Aj4ZnFst4qNKAV2nh+BZ7OCGkB5H4AqQVW4iqXbduaMpaLMdazl/Is8g
-   3EWH5iiJXEEc3D1GaBDZELFv+MdPR1oxVlOCw6hxluSAj8gpy5uh3pVDX
-   g==;
-X-CSE-ConnectionGUID: 37ULzJsiRDucgt4duiiNxQ==
-X-CSE-MsgGUID: 3aTZ9c2+RS6eDPpltZi1fA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="87135044"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="87135044"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 14:01:10 -0700
-X-CSE-ConnectionGUID: tNznffcnRziFubgoyl/SzQ==
-X-CSE-MsgGUID: XSpYly2rQ7qL8ZnhBNNlNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="251229310"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 14:01:10 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 13 Jul 2026 14:01:10 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Mon, 13 Jul 2026 14:01:10 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.53)
- by edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 13 Jul 2026 14:01:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XCqh3xFbFBqSsbMAWdxOmBLmfbUbm17A/5xuc98D1PmO+QUXmhnSertr7kKmNciubGCrJCGRROSN4Kr7f313RezY9yN0UnpAofCQ8NFrhe4sPII2zD4qqD9bKqlDqtDhblvT1NyhRvyhkRdxSnmIMQuPPB+ItkZZFDR5mHkP3hIVmbVTOXeobj+WK9QQGBY+J/lW7i7/Le8jKEQAn15/P+nAuCgTT5VvgZx4uz4ylWAUekdSNxL16nD1hDedYA6Yu4qJ7ufDeGkXiC9SJ1nl0HBWwliC0+mL7MtTpx359qqwX1k5DtCKfVODK2GTaK/ci0+Yq6FE/dKwU3jSJ8W/9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BSPiFZ66rZhfCB2WBiNzQyYRLWlr2Mat8Q1XrscWoD4=;
- b=XMwmehgw22B9jl6bhfS4E+TcsrnS7LVG88mQlxa9Ur0GPsdVTuqzxOZantIybQeocA7c2PyIjGUthwh1KjyQyuNGIXUPj1IU4/OhN+E/oDJNewd1LWpQlpG9xsqEoCNiVwfDl5qQsYHvlpyi4SWZl09diHBe4BzvL9iB5ufK4tqXjyg/5kcx7RfRIYpW7mZuFlef2RwP2Mni8TxZC1OYh614XGFyU+hI8xXDjYdTymBMNI8PLvbvJiGLlxRWuTHISg0TIA97zqxOjoYYJCDSIHdHfDCbtPa6OslZt64//53x8t/Z5fzjnAXFgUFgT76JGxO7ZJRcFzIAMOw6+bm+/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by BL4PR11MB8821.namprd11.prod.outlook.com (2603:10b6:208:5a6::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Mon, 13 Jul
- 2026 21:01:05 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0202.014; Mon, 13 Jul 2026
- 21:01:05 +0000
-Date: Mon, 13 Jul 2026 14:01:02 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Shuicheng Lin <shuicheng.lin@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, Himal Prasad Ghimiray
-	<himal.prasad.ghimiray@intel.com>, <stable@vger.kernel.org>
-Subject: Re: [PATCH] drm/xe/vm: Reject invalid prefetch region for non-SVM VMA
-Message-ID: <alVSDlVhQBy59KlF@gsse-cloud1.jf.intel.com>
-References: <20260710021700.3611909-1-shuicheng.lin@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260710021700.3611909-1-shuicheng.lin@intel.com>
-X-ClientProxiedBy: MW4PR04CA0205.namprd04.prod.outlook.com
- (2603:10b6:303:86::30) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="AuwGr0lG"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc73e322dbso41180285ad.1
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:12:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783977140; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fqgfOWP6aggmcRi7FGzYBIBghvzOIbeuENworTdx7jJmmcbjlweJ5EHfB0kuONI2Da
+         pXVhIDMJnX+TOH+Sp7y6aJfD8nBoQm5QY+qu+NHknIfxYzzqEBWsRrNf/uK5mQDwQAtp
+         j1CJeWxOb/4K6Hai7pXrqZYPkECI+JXnEYwSQ+1tqwgM2z2Jn3lqf/7P7lpFl6PrGWSm
+         k2LzsSFzBVVyzpehIO7Y1BvLnjsa8otdILSp/w1OQ8WFSrvkL0kP8poxte58gHVypJUJ
+         Ziuj2lCxu7WJikHZUVEj5UwDt5yOfLAhlKAZIP+c38wKntDcP5MQxhmy4gR4j+uZ+mNT
+         XPtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:references
+         :in-reply-to:dkim-signature;
+        bh=qUBCghi6kjnH1ka8HUmHkrbbiY09NwwjNH5EUa3nwfI=;
+        fh=r+33VfzZJGOU9oXTkps28VA7XxsEReN6++yhgXh5PJs=;
+        b=Q+bYRAYSp74xg9yeHWrwbiApJ+6J66W885JjqSem2Jq8xXCDer0zyF441aohc4tnaR
+         BsUs1p7XhMs/mMoRICMbH6SWPp97EiqARMTNKmErUBkfYXd+LFEFNPA5R+BdhN4qZCip
+         wFc1ZZ1qh95ku9KK74yf3A7CLvHo808fg0VW5tFcBUFrRbw38oEi0F2v4rfxiguLNiIq
+         qlo+IWofUwWnZalX6VQ6FtyfXmYZinA2wRu5YyrwLguJmIL5lHvAN5HLKWER54oR5JXc
+         4N6eisngVfnlpMHWYAenbe/71870Z8h4U3T93m/ZILjNy31A2tjIymvwPHg6c3trmYOO
+         CwUg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1783977140; x=1784581940; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :references:in-reply-to:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qUBCghi6kjnH1ka8HUmHkrbbiY09NwwjNH5EUa3nwfI=;
+        b=AuwGr0lGDDCHJtNm9lXTNc3DAbpSxBMnkBqNpX4312yBpmq5Q24mtRGrI3uPPLgQH9
+         OMYgIz3Sr+2vC20tljuj9F0rhHDa5utb8guwLtVG2CRLfrzdBvrp+asMiPEiUkV9LSyK
+         8bWdtWL40Zxx3PxkhwMqJni22W+CchbzzZ/xChuoib8HlT0/mTnORhSmc5LsJObSywMY
+         3S2zBTJZO2p1wMesvG561TV0GfZCNj6646x3r8ZDoWwNy9CFa79KPFCRpum6lx5mrsna
+         kgv6SdZSPoqoBn/Ht8yNUo212gCUSeK2EslvC9VDcW4UIK9pWR3ij80TRyD+WkkRJUCc
+         1PLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783977140; x=1784581940;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :references:in-reply-to:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qUBCghi6kjnH1ka8HUmHkrbbiY09NwwjNH5EUa3nwfI=;
+        b=KB6yjL5EnTslNofah3/rLHcXTBwcQLU5Z5FmzGjyb34gn/9c24iDERmD6+DYsx5Cmx
+         O6wWG3bpHxN45u8O9vb+idqViIB5IBc95L8+b3oSliDcpYtDFPmI32+HslDSjzZ6Nz+h
+         gfNSDzLNPhM5sK5QDWv67T0MML1I2nyVXPUHxMRy8PZwAqKo2Q1t7FajNkYWdHRHSrHx
+         Fja8yJC3vHe6L9Wmhf8zGTbeF8ZkXnZaRjrWCKXF4tKRFZ1IhOLNp5CVb3/AcKqKQ4Lr
+         JEP3DrtW4FED+9o55y1C4DW4N3K9FUNTrQK8Wt9DNSc1fbb1VzE75myxsfax52d98LI9
+         5BZg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr9KK9hRdFGXhAfemuaLBxC6tgTdoMIDvEYNMWMJn3wSbR4uW9VfK9ChnhYB4E7wv9xEcOI5Ns=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxyV0AIMXmvD1QSOSEVyyzgiSRTVv9oUjvWQxMIM8y72Fpmv+/u
+	rJQW5umVqwEWDJU+N/nQquUW9c6RuDoPPD4SefcUAK8t3PBjjpUtEAAMVMrG02YEPLek7X/NRqg
+	iXHJnhtMde7lOhvDkMx8w5lXh86vPPaPQSLZy0k8yzM8=
+X-Gm-Gg: AfdE7cnrOzYr/hACydWpeaL5y7f0Pc5zPzw4wSd8ZQ4PIvRzErjCrbs7KAOlkrbp4Ub
+	ooeYax4L+qlwy+rRMhzPN86tDjRbA9DSaK7NKBlbP2YmDFYcgzbOvykpX3081Bt0JQMwmeKZkN0
+	FJuq0spD3tScEBeGQdEl63dweR0uu3FyQ9c6iWNHU1LJjMOS/lVZdnH16/azPda3JbALKd5QKqm
+	2+lgXeOMYHQbV1TmuGenbUNHjB6GfYpNS/Ijxaoamg+48Ptro2LCfjAumjXa2K3C7jAq3UssTq/
+	h/+jnNavsDD5S506Bwm1O/iBC4WpcmER8/AmNMLIGIdvZXaDyhbfra06mQ==
+X-Received: by 2002:a17:903:2301:b0:2ca:ed41:d331 with SMTP id
+ d9443c01a7336-2ce9f27eb79mr100834245ad.45.1783977140474; Mon, 13 Jul 2026
+ 14:12:20 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 13 Jul 2026 16:12:20 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 13 Jul 2026 16:12:20 -0500
+In-Reply-To: <20260713200417.dghlrj4ca27b6nd4@skbuf>
+References: <20260713194010.54642-1-doruk@0sec.ai> <20260713194010.54642-2-doruk@0sec.ai>
+ <20260713200417.dghlrj4ca27b6nd4@skbuf>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|BL4PR11MB8821:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc652fce-ee97-4274-988f-08dee121da80
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|11063799006|6133799003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Pty86VZMl8BanNmYehOopNlKdCV0/leF5+rfMma7vqkEqbMedEE+af4zzlkFwcKq69buWviswBVNp6hqny7bgI4q3jsfrvJAYfKrvRwSDjHRl5aawat8rKumUrCxf+LOE8Ho6jvhTk7tyezKBeV0dc81X51evzWK4zZ6jLRymjoYmwmzpXCKXHx3aC3KxBktDhbAxpZoLgRrPHG48BfHA4F77WHZljJGZYu4Yjh1I2H5LcB76ZdUmttXeGgQ2fy7g/5AClZAWacAjoe+KLKb8QX6V1cKrsX6LM2TeR7B/hlzdKGBvHTqityoJXJVcvgJqWMH1Tc7ODzvt2BgLL0VkpsO/k9kT9w//kYzKzjaFKo7S+KMj5f2IjZr2lBb2E7iBUb8a8e3J7MRBIKGY7sLHi61h1Px5TlswahEjOwtccX7fS1lBkigM3qv5pFPsv+oOvi1o7NkZGAHFrdKRVWdkOeDJ0E4Hm7uiv2E0zU34sY6GLHGXFDga2YTMyGZoLQmyBj09HUWnLp3EhpUALHzdTy2AZwBAdO5b/zH6sTn08fMk4p13ddYw2cWUDltlKdT/rOfoomrOHJFcyC7xI8FXev0qsGf01DgqhFRrGmSuLDxbYeQumH8YNMqoNopEpmX
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6522.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(11063799006)(6133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cqi1m9mjNTbPlCD+RZr9w0edLubLAmwekqC4Kay0C2fmqQRBPOMdy87aEwjI?=
- =?us-ascii?Q?51dIdwHH7oZPnMleh2vO7jLrCiSEOHmkrIgVB4iLegQiDXWYHP2S0EKzeJWg?=
- =?us-ascii?Q?W7s4XEbgG7WbOCvN1pIYjMG41/kRY/fNvvwHa24hs2rvcEy351OMVwBDBmR2?=
- =?us-ascii?Q?mZgKwS7lb5NghnVlM0vSpF2cPXbQXndd4Na/4UcjCb4X8CFkIk4WaSTceWS/?=
- =?us-ascii?Q?jgIMxLlzVZqr2w88PhHetyMBZgalid+h7optOu01JdSgAUhqxI8qEOtbUT0B?=
- =?us-ascii?Q?4NDPPFxwma3vocBBM/+nq6Ka+Jz+HK57DH57eY2nuzo4gE9TAT267D1bQ+ve?=
- =?us-ascii?Q?cMs3sky7piLJcXF1Bm70CBXn5RXT6DeuVx//Gx1DQji/ntMKCM/w5R9ENH37?=
- =?us-ascii?Q?3ULwKveMB5es5JUiKjx33SAvcCubaxgy7RuXsBH3dzOpcWrJdUkfcfa8aDGw?=
- =?us-ascii?Q?tXMAVDEQ3aCaFT2YDSxMKRM124nxfxw7T+5NkE8SWdYST2wjRoQOOueeRhFw?=
- =?us-ascii?Q?UbiOHoq+d9ZHMQL9fwLtsMXyr+FZfnCWVHlBluzwU1eGx/H/RDQqo3+/Qj/w?=
- =?us-ascii?Q?NlzWS/9L7AzVEym1rdXWCl4jK+87KdKMTgOWOyALTmz2JZtS//vxTBAJpFvq?=
- =?us-ascii?Q?3NntVlGlc0H8Q2tXlezLRhbg8Z1zCrt1R4vQ0x5GqhOwAP+0sc7ANj3jCkpq?=
- =?us-ascii?Q?/2K69pGU4q58OeJfaWPMGpiPmnX8uLirHH1+8U4fCwNkiQbfauIV3tPlmL85?=
- =?us-ascii?Q?yARvozKsFoGbTTpeHwCo/Ik71e2nMdV71fXrDjy+etW1DjLKFFrbAW/ibafN?=
- =?us-ascii?Q?gZbnQOGNkEJM57N7jd9uQo+HqKUSVizv9kFlP4WJYgpMB9FPgKf04yfredJT?=
- =?us-ascii?Q?dkwjDN40aF07UPplruWOMRqTpslj5YRyJ6aHa8wgl8FVSmDvs1KLnti0IU8P?=
- =?us-ascii?Q?bL5EAGjt7mWQbQ5iJb58iEOWuBeGB8EOlH4/wYQLAzIKwtWaEIGq6IXE34ea?=
- =?us-ascii?Q?yzeXLs13DAKoc9eNMw2nPNXWpS+2K9DtfpxW9aNqbavlH45EkCIX11pOrc02?=
- =?us-ascii?Q?lFzTS3aWX9rbBGDmFym72oa38tC1giKI65Rfqg4A3V5HO5jIHIavDdaa5CWE?=
- =?us-ascii?Q?8qkFU5p7aeUA8j+962wvqa0DdugnVK6p/le1doKXoH+ADbRHC3QKqMQSdArb?=
- =?us-ascii?Q?8SjnqiA7IHf2oX/3yiMMeGTALzjhl4ae4kQ0lbYR6cMZ4JbLWc1E27xtvzOr?=
- =?us-ascii?Q?MKIR2Uhs++cEyXEjgujhEHnfM8LlWcy5n2RCbYqgDlRrnR+MO2yt4EOwHjKa?=
- =?us-ascii?Q?+qbwdXYzdIByhZytuBqL2VXFKXdLlf+R4UzvdWQmX97wlrnvYG23AFzIEhip?=
- =?us-ascii?Q?rnsQsTj/FAvRIcYbMuEo/gPiVFhYdzBJX3ZV+LMNv6/nFINkCD6WLQpgMjA/?=
- =?us-ascii?Q?zW+6XhG1uKcLSWVJ55cDlho9pozxt3F5eKFLwyi1eAmwHo02OVbINMADFVAA?=
- =?us-ascii?Q?jJoUA5Zjhg0cRF6n1KP/dLLpqkOOR8Dl+8hGJ/Lr6MeBCP3Zz0q0zQLVMiUm?=
- =?us-ascii?Q?vSVcmpw793JGv5EJrpC2MVaUjQE44VJXara8pYWvsS7mKiw/Hz2GU3CaPaXB?=
- =?us-ascii?Q?IQ5ZCxGLQzeXiUwYpXRunqfcyGE7I89hftUqqjF43tt0krUtLgovGt4y5DTJ?=
- =?us-ascii?Q?/6YqEt7RJGLpad54eujSsDKe6t7N2e4J/aMuM4frtRZeIddEQMu0V0Q9y6wE?=
- =?us-ascii?Q?LwvT25sGWdD/9eV1gO34d3xO4b5tnRc=3D?=
-X-Exchange-RoutingPolicyChecked: EiSo3q+pGOQwulsLlHhCAJFo9QZCIS8yKPv6K3SksxWTrNAaGR/W8IzGDzFi9yrbCdnXuNmXNW00e0TDZvys7p0h9u1ZVKhJMWwqrOxeM0oozqI0N7SJ+j3TVvjckCtytDe0Fomi8PmKbMHAYM00Go7URAkKW4d0o9w7YrM6TO5alEAJSgpJgAfpy4I+5PMP70OhpGdVQWKA+DnFW1RgEXjbxGjMTrFOdsRna4Tp7Zel1251JcCZ85ONPaFbd2Kt1wtZTifIGiCaKMsDoXQMZAC88XErHn5cIT0Ol0DN4fJs+oP98bf8vf4uxP7yZSLP4gX5DbQWbYE67LhfTK1txA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc652fce-ee97-4274-988f-08dee121da80
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 21:01:05.0688
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P7ozk8NaV540QEA0dRPt7IJ+tklZhL7HLkUUCV6Sm0ty5u/jZ/DPeE3VWuByspa+3jsh/e6zO7G+zD40cLfVfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR11MB8821
-X-OriginatorOrg: intel.com
+From: "Doruk (0sec)" <doruk@0sec.ai>
+Date: Mon, 13 Jul 2026 16:12:20 -0500
+X-Gm-Features: AVVi8Ccf64lA0azySl9H8ulwhmt3h2F_jWjPpkuQXsHGkD6_OCbSPA-I2DgzOTY
+Message-ID: <CAPdMp1qf4q42MAaRqqzYnhYyU9KvdryGQR+TWsFNvJ1oCTnPKw@mail.gmail.com>
+Subject: Re: [PATCH net 1/3] net: dsa: tag_ocelot_8021q: don't read an unset
+ MAC header on transmit
+To: Vladimir Oltean <olteanv@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>, 
+	Woojung Huh <woojung.huh@microchip.com>, Nick Child <nnac123@linux.ibm.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	Sabrina Dubroca <sd@queasysnail.net>, Arun Ramadoss <arun.ramadoss@microchip.com>, 
+	UNGLinuxDriver@microchip.com, Michael Ellerman <mpe@ellerman.id.au>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Jul 10, 2026 at 02:17:00AM +0000, Shuicheng Lin wrote:
-> DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC (-1) is only valid on a
-> CPU-address-mirror (SVM) VMA. On a regular VMA the value is used as
-> an index into region_to_mem_type[], causing an out-of-bounds access:
-> 
->   UBSAN: array-index-out-of-bounds in drivers/gpu/drm/xe/xe_vm.c:3260:28
->   index 4294967295 is out of range for type 'u32 [3]'
->   Call Trace:
->    __ubsan_handle_out_of_bounds+0xa7/0xf0
->    vm_bind_ioctl_ops_execute+0x9b0/0x9d0 [xe]
->    xe_vm_bind_ioctl+0x19f1/0x1b10 [xe]
-> 
-> Three related changes:
-> 
-> - vm_bind_ioctl_ops_create(): For a non-CPU-address-mirror VMA, reject
->   both DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC and out-of-range prefetch
->   regions with -EINVAL. This is the primary fix for the OOB.
-> 
-> - op_lock_and_prep(): Tighten the xe_assert() to
->   'region < ARRAY_SIZE(region_to_mem_type)'. The
->   DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC exemption is no longer needed
->   since the value is rejected earlier, and '<=' was an off-by-one
->   bound (valid indices are 0..ARRAY_SIZE-1).
-> 
-> - xe_drm.h: Document the CPU-address-mirror constraint on the
->   DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC UAPI value.
-> 
-> Fixes: c1bb69a2e8e2 ("drm/xe/svm: Consult madvise preferred location in prefetch")
-> Assisted-by: Claude:claude-opus-4.7
-> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Hi Vladimir,
 
-I think Himal at least fixed the memory safety problem later in the
-pipeline here [1]. I'm unsure if he merged that one yet, but I'm
-inclined to say this is a better solution.
+Thanks for the review.
 
-What do you think Himal?
+I checked the DSA cases with CONFIG_NET_DSA_LOOP=y. Since dsa_loop
+normally uses DSA_TAG_PROTO_NONE, I used a local repro-only override
+of dsa_loop_get_protocol() to select the relevant tagger, then sent an
+AF_PACKET/SOCK_RAW frame with PACKET_QDISC_BYPASS and
+sll_protocol=ETH_P_IP through lan1.
 
-Matt
+That leaves skb->mac_header unset (65535) on the direct-xmit path.
 
-[1] https://patchwork.freedesktop.org/series/168913/
+For tag_ocelot_8021q, the eth_hdr(skb) version reproduces as:
 
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
-> ---
->  drivers/gpu/drm/xe/xe_vm.c | 12 ++++++++++--
->  include/uapi/drm/xe_drm.h  |  4 +++-
->  2 files changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-> index 080c2fff0e95..9430b2be18e4 100644
-> --- a/drivers/gpu/drm/xe/xe_vm.c
-> +++ b/drivers/gpu/drm/xe/xe_vm.c
-> @@ -2495,6 +2495,15 @@ vm_bind_ioctl_ops_create(struct xe_vm *vm, struct xe_vma_ops *vops,
->  			u32 i;
->  
->  			if (!xe_vma_is_cpu_addr_mirror(vma)) {
-> +				if (XE_IOCTL_DBG(vm->xe,
-> +						 prefetch_region ==
-> +						 DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC) ||
-> +				    XE_IOCTL_DBG(vm->xe,
-> +						 prefetch_region >=
-> +						 ARRAY_SIZE(region_to_mem_type))) {
-> +					err = -EINVAL;
-> +					goto unwind_prefetch_ops;
-> +				}
->  				op->prefetch.region = prefetch_region;
->  				break;
->  			}
-> @@ -3236,8 +3245,7 @@ static int op_lock_and_prep(struct drm_exec *exec, struct xe_vm *vm,
->  
->  		if (!xe_vma_is_cpu_addr_mirror(vma)) {
->  			region = op->prefetch.region;
-> -			xe_assert(vm->xe, region == DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC ||
-> -				  region <= ARRAY_SIZE(region_to_mem_type));
-> +			xe_assert(vm->xe, region < ARRAY_SIZE(region_to_mem_type));
->  		}
->  
->  		/*
-> diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
-> index 509202a7b13e..e159c44e380a 100644
-> --- a/include/uapi/drm/xe_drm.h
-> +++ b/include/uapi/drm/xe_drm.h
-> @@ -1075,7 +1075,9 @@ struct drm_xe_vm_destroy {
->   *
->   * The @prefetch_mem_region_instance for %DRM_XE_VM_BIND_OP_PREFETCH can also be:
->   *  - %DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC, which ensures prefetching occurs in
-> - *    the memory region advised by madvise.
-> + *    the memory region advised by madvise. Only valid when the target VMA
-> + *    was created with %DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR; rejected with
-> + *    -EINVAL otherwise.
->   */
->  struct drm_xe_vm_bind_op {
->  	/** @extensions: Pointer to the first extension struct, if any */
-> -- 
-> 2.43.0
-> 
+  BUG: KASAN: slab-out-of-bounds in ocelot_xmit()
+
+Switching that site to skb_eth_hdr(skb) makes the same reproducer run clean.
+
+I also checked the LAN937X path the same way by forcing
+DSA_TAG_PROTO_LAN937X. The eth_hdr(skb) version reproduces as:
+
+  BUG: KASAN: slab-out-of-bounds in lan937x_xmit()
+
+and the skb_eth_hdr(skb) version runs clean with the same packet sender.
+
+So yes, for these DSA TX paths this is a real bug on the
+PACKET_QDISC_BYPASS path, not just a future-proofing cleanup. I have
+not yet checked ibmveth with a pseries/ibmveth setup.
+
+For the older DSA commits you listed, I think they should be treated
+as stable candidates if they remove eth_hdr()/skb_mac_header() use
+from the same TX path. I can go through those individually and send a
+follow-up with the exact stable list if that would be useful.
+
+Thanks,
+Doruk
+
+On Mon, 13 Jul 2026 23:04:17 +0300, Vladimir Oltean <olteanv@gmail.com> wrote:
+> On Mon, Jul 13, 2026 at 09:40:08PM +0200, Doruk Tan Ozturk wrote:
+> > ocelot_xmit() reads the Ethernet header via eth_hdr(skb) to test the
+> > destination address against the link-local range.
+> >
+> > On the AF_PACKET SOCK_RAW + PACKET_QDISC_BYPASS transmit path the skb
+> > reaches ndo_start_xmit() with the MAC header unset, so eth_hdr(skb)
+> > resolves to skb->head + (u16)~0 and the read is out of bounds.
+> >
+> > On the TX path the L2 header is at skb->data, so use skb_eth_hdr(), as
+> > done for the same class by
+> > commit f5089008f90c ("macsec: don't read an unset MAC header in macsec_encrypt()")
+> > and commit 96cc4b69581d ("macvlan: do not assume mac_header is set in macvlan_broadcast()").
+> >
+> > Fixes: 43ba33b4f143 ("net: dsa: tag_ocelot_8021q: fix inability to inject STP BPDUs into BLOCKING ports")
+> > Cc: stable@vger.kernel.org
+> > Found by 0sec automated security-research tooling (https://0sec.ai).
+> > Assisted-by: 0sec:claude-opus-4-8
+> > Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+> > ---
+>
+> Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
+>
+> I was not aware of the bug introduced by commit d346a3fae3ff ("packet:
+> introduce PACKET_QDISC_BYPASS socket option"). Commits
+> eabb1494c9f2 ("net: dsa: tag_ocelot: do not rely on skb_mac_header() for VLAN xmit")
+> 499b2491d550 ("net: dsa: tag_ksz: do not rely on skb_mac_header() in TX paths")
+> f9346f00b5af ("net: dsa: tag_sja1105: don't rely on skb_mac_header() in TX paths")
+> 0bcf2e4aca6c ("net: dsa: tag_ocelot: call only the relevant portion of __skb_vlan_pop() on TX")
+>
+> were made assuming that the bug to avoid would be exclusively a future
+> one (the revert of commit 6d1ccff62780 ("net: reset mac header in
+> dev_start_xmit()")) and thus they were not marked as bug fixes.
+>
+> Are they true bug fixes, as in "can we reproduce these [using
+> CONFIG_NET_DSA_LOOP=y on virtually any network adapter]"? If so, should
+> all the commits above also be backported to stable?
