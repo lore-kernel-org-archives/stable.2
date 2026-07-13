@@ -1,114 +1,116 @@
-Received: from smtp9.infineon.com (smtp9.infineon.com [217.10.52.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507433F4116;
-	Mon, 13 Jul 2026 11:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.10.52.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCB6386C17
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 11:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783943569; cv=none; b=ZSpKa7IJ8nFfR970ocIaoLbx3/UMrPXNmiQnyWv1/3tqpg9NeqzjmrF5NXdsC5/igWJx8IO1KGMuzzjSPjWhR6ht+iXAzZli1R5oYJ0TiJX2Opp69pKvDSwBK5gdEXlrDgBQjRSjyBbkEkYcG/fbpLl+3jYMKx7sSCVQ1hjyrRg=
+	t=1783943678; cv=none; b=vCAzuqzfUbDfPBKXhsQxSEZvsZdx7VG6rgsyoWoUUWZWRyTILlSTxQZruF+ZBMW0Pggai+wHPX3gwO4qLdsRFzLvChABPy4saYj4Yxo6DvxvixWdTEJZLaSsNHlYqfmKwU3JXuteX9uErdts0Q7faSfoWM1ORIEo0VbNWRkwLvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783943569; c=relaxed/simple;
-	bh=pcKVlxyOm15Z2BIGF1THFUV3ru6W5lx2ct0St2rETNY=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m63zwfrK6PVYqF7PxqtICvTOyC3DrZ9C8C/BQ2W7KMArHvQVKxgeFxQ7X7XbmcruOOzQx2e+W992SQzzg679o9+BrtZkSoP8z8gIazgHsQNKdKW4GXmG+D6g+zx8wtFyCIPL2m17tdJMf0EPKi/Le9JOwmxbs15h0+NnS9A3iwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=infineon.com; spf=pass smtp.mailfrom=infineon.com; dkim=pass (1024-bit key) header.d=infineon.com header.i=@infineon.com header.b=p+gFikwC; arc=none smtp.client-ip=217.10.52.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=infineon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infineon.com
+	s=arc-20240116; t=1783943678; c=relaxed/simple;
+	bh=Xx8GPJ2nKgjX8oK3ouIjFUvUPuGPoItp/jdx3bi/nvc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QPaVkAFe5uZ+oOnPzJkuRw2dKLItLDGLaDPtn8AV/JAF+vRBdsIcfWyLAjx4w0SIWfTk6TSY9xW5bDh8wFj6ZRxh7lJ8M9p/ihkfq0Bs0BwHI2V4BxfrF6SGCsD9iJuu+Z/bjnmKGFCC1wo0PA5qW3dCEdt7OcGLwFyeTV0QPhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sFZoJpE6; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=infineon.com header.i=@infineon.com header.b="p+gFikwC"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=infineon.com; i=@infineon.com; q=dns/txt; s=IFXMAIL;
-  t=1783943566; x=1815479566;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pcKVlxyOm15Z2BIGF1THFUV3ru6W5lx2ct0St2rETNY=;
-  b=p+gFikwCHdC5SbeXn9SqanMiTy2CqX/WJ9V/VW6WmGQds6gc/uykvZa2
-   gapPPjOVrEa7TnIRp0EGc0aucBqTKtsvUe7XO/8nMbUGReJ2mLzRfDayb
-   NqqLwZjZ6hm8EM/L9LS+O/ZXRCyOBEG8v0xCwjrQsKxJba/yiPphwolJJ
-   U=;
-X-CSE-ConnectionGUID: EOPx2jo/RvWnT4rZz/snDA==
-X-CSE-MsgGUID: eQFU/od+TPaXooHwjBARSA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="100701446"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779141600"; 
-   d="scan'208";a="100701446"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO MUCSE805.infineon.com) ([172.23.29.31])
-  by smtp9.infineon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 13:51:28 +0200
-Received: from MUCSE827.infineon.com (172.23.29.20) by MUCSE805.infineon.com
- (172.23.29.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 13 Jul
- 2026 13:51:27 +0200
-Received: from ISCN5CG54722ST.infineon.com (10.161.6.196) by
- MUCSE827.infineon.com (172.23.29.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 13 Jul 2026 13:51:25 +0200
-Date: Mon, 13 Jul 2026 11:51:18 +0000
-From: Gokul Sivakumar <gokulkumar.sivakumar@infineon.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-CC: LiangCheng Wang <zaq14760@gmail.com>, Kalle Valo <kvalo@kernel.org>,
-	"Angus Ainslie" <angus@akkea.ca>, Wig Cheng <onlywig@gmail.com>,
-	<linux-wireless@vger.kernel.org>, <brcm80211@lists.linux.dev>,
-	<brcm80211-dev-list.pdl@broadcom.com>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, <wlan-kernel-dev-list@infineon.com>
-Subject: Re: [PATCH] wifi: brcmfmac: set F2 blocksize to 256 for BCM43752
-Message-ID: <uhwfd77gkvcrs22h5h42x5ujclzrq7ru5wkixguywfej3444w2@ejmn5s2kmapd>
-References: <20260713-b43752-f2-blksz-v1-1-8697fcfeaef4@gmail.com>
- <36f4388a-b856-438c-8ef4-795a7b1eda3e@broadcom.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sFZoJpE6"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so521735a91.0
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 04:54:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783943676; x=1784548476; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x2fdTEqbfX9vvZ1ZNoboKP4zdBzByVQgUUXRVPv19eQ=;
+        b=sFZoJpE6GGZUlfgUYueAoOD30HUb3qrDwrSGB8X6qXzdHwJX3rhphxni3Yx/niZlGt
+         Oa5dJIwqxIeVwTedgYUoHJ+vD31ncffzHTTtrZQMlr8LMKQrfUQ3NJOZy9HgcbhlNO0V
+         4ud+XF+Pf1/NUzFINSou5dEsrdahtojMQHQs3JBonRvD1TZcNszRyfbLGiLXSWW345q4
+         1cetZnLfu4v2dgj6hQM8gxj0dROL8Eu5zqxiv2DbY8H2iMkloTOYJ7ZSNPgUtS+nM4t0
+         9FXt/POZnzbV5ZJ9Y1jg8o09prBjSI/PNWorsISJyWIxD1FfniAZFE9H4GLrub3ScmWE
+         UBfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783943676; x=1784548476;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x2fdTEqbfX9vvZ1ZNoboKP4zdBzByVQgUUXRVPv19eQ=;
+        b=NEAKTpHomMjS1WanCkAiFxSNk6/Z1f9EZlqK4lK8gYjwRHdXMFZgT+QqqJmmFW+NOk
+         RGwoOX6riYieVGxm05SgDIzSF7JkTRJlTqp1DwsgkZJ5eO7ZP2E4HVUoEPhJl8FfG1EK
+         1XPc4eBpe7HGr1NH9xigDdKvIJjOhefCpU+6w97kjq0eIyk5UVsV8g/7zsNxS0NJq/A2
+         EXV+WNPv/ZQqW5Py7940/IcW+H6VbxGnZvQRoyVRHK4EDpWzjBtlyDuDQgzkQtuuZOHE
+         VI5Cz04hj/i/SuAGBFTvY3ubJLt7R8wswNacDi0Uyplp/CLgA/RH95Hg6rSvSohmdz1I
+         R5tw==
+X-Forwarded-Encrypted: i=1; AHgh+RofgUwWsMcSS/HZc/IP/I6dReUKx4wjRjEQelPzvaAEdkoOMNplFtOieqySL3S8KKJJvwBNSWA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7TEmJE5BpyCGr/SQFDC6SgnHEQTV5itursKUKzgRt1MUkUEyM
+	k5a/lJ8QCB5/HkT5psnftzIJ3A34twYHMu9obUQlU2cbfKbqGZF81EZL
+X-Gm-Gg: AfdE7cn9T30hwauQZqwM3AVUNtCBTVIR+xw3Wvp/6/lk0RA1t5X6IK81RGQt9gvCqIC
+	ONCJt4Tx5aXTx9bxifI6cudZW0lAopLzFjhfjQ+7kDppURCT/xlusWLZhrbnAgRJtPJTegIn+EQ
+	U7Grb/ABNO72lDtxqcWcEDg9JTL5eT5YWtgZL7l2jd2D1P5jtJnWlCJqJbTEfOvgZwuO83wxmiA
+	BHrmX3AY93tsHMSUpTAINrgXWzVMEgcRBScgTFFc0pjuae10FJxfzUOvEOPP9pribWYZWYTIndj
+	xz0HKw0jMWZQ8GO4LKGUcQh4ngPivcDbN8g8uEiFHBPujWShq3uFHiibvwZ4kjeCTTOrQX4iqJw
+	1/CgL+CF63eHS/yCUNhZ3PH+6FDjqLBiMvLKIE76JfpJBtoNGaQILZ4hqOg/UAEbGi8F9zSTaTn
+	FyTkkn9a72/WrVabbIsAX5ZazMMZreK8jovchpChz1UBmwuu7LJhD2mFQ3e3iujQW6HoGHYiaOG
+	lzm793OAK9wxQ5V9d4W8uzIxdZVv+CpTA==
+X-Received: by 2002:a17:90b:3943:b0:37f:9ce1:735a with SMTP id 98e67ed59e1d1-38dc7777c02mr9454667a91.27.1783943676460;
+        Mon, 13 Jul 2026 04:54:36 -0700 (PDT)
+Received: from localhost.localdomain ([101.251.7.10])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3118ee6080dsm51773930eec.17.2026.07.13.04.54.32
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 13 Jul 2026 04:54:36 -0700 (PDT)
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+To: nbd@nbd.name,
+	lorenzo@kernel.org,
+	ryder.lee@mediatek.com,
+	shayne.chen@mediatek.com,
+	sean.wang@mediatek.com
+Cc: linux-wireless@vger.kernel.org,
+	stable@vger.kernel.org,
+	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Subject: [PATCH] wifi: mt76: mt7996: validate default EEPROM firmware size
+Date: Mon, 13 Jul 2026 17:39:12 +0545
+Message-ID: <20260713115412.67095-1-acharyalaxman8848@gmail.com>
+X-Mailer: git-send-email 2.51.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <36f4388a-b856-438c-8ef4-795a7b1eda3e@broadcom.com>
-X-ClientProxiedBy: MUCSE812.infineon.com (172.23.29.38) To
- MUCSE827.infineon.com (172.23.29.20)
+Content-Transfer-Encoding: 8bit
 
-On 07/13, Arend van Spriel wrote:
-> On 13/07/2026 10:50, LiangCheng Wang wrote:
-> > The BCM43752 is not reliable with the default 512-byte SDIO function 2
-> > block size: on an i.MX8MP board with an AMPAK AP6275S module at
-> > SDR104 / 200 MHz, an iperf TX stress test kills WLAN within seconds:
-> > 
-> >    mmc_submit_one: CMD53 sg block write failed -84
-> >    brcmf_sdio_dpc: failed backplane access over SDIO, halting operation
-> > 
-> > Commit d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
-> > set up the 43752 like the 4373 for the F2 watermark but missed the F2
-> > block size, which the 4373 limits to 256 bytes. The vendor driver
-> > (bcmdhd) also programs a 256-byte F2 block size for this chip and runs
-> > the same hardware without errors.
-> > 
-> > Group the 43752 with the 4373, matching the F2 watermark handling.
-> > With this change a 10-minute bidirectional iperf3 soak completes with
-> > zero SDIO errors at ~270 Mbit/s in each direction.
-> > 
-> > Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
-> > Cc: stable@vger.kernel.org # <= 6.16 needs the CYPRESS_43752 id name
-> 
-> Looks good to me but the stable instruction looks confusion. What do you
-> mean. If there is no 43752 support there is no need for this patch, right?
+The default EEPROM firmware is parsed and copied as a full EEPROM
+without checking its length. A truncated file can make the driver
+read beyond the firmware buffer during variant validation or the
+fallback copy.
 
-Arend, one year back, from Infineon we had submitted a patch [1] to correct
-the vendor ownership of 43752. i.e, SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373 got
-replaced with SDIO_DEVICE_ID_BROADCOM_43752. 
+Reject files shorter than MT7996_EEPROM_SIZE before parsing or
+copying the firmware.
 
-So in the older kernel versions like v6.16.x which does not have patch [1],
-the 43752 support exists, but with SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752.
-So his instruction is to, again replace SDIO_DEVICE_ID_BROADCOM_4373 with
-SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752 in his patch [2] while cherry-picking
-to the older stable trees.
+Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
 
-Rather than that, I would suggest to cherry-pick both the patches [1] & [2]
-to stable trees, since the new patch [2] is dependent on existing patch [1].
+Cc: stable@vger.kernel.org
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+---
+ drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-[1] https://lore.kernel.org/linux-wireless/20250724101136.6691-1-gokulkumar.sivakumar@infineon.com/
-[2] https://lore.kernel.org/linux-wireless/20260713-b43752-f2-blksz-v1-1-8697fcfeaef4@gmail.com/
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c b/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c
+index ac05f7d75d63..ec33521db564 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c
+@@ -150,6 +150,12 @@ mt7996_eeprom_check_or_use_default(struct mt7996_dev *dev, bool use_default)
+ 		goto out;
+ 	}
+ 
++	if (fw->size < MT7996_EEPROM_SIZE) {
++		dev_err(dev->mt76.dev, "Invalid default bin size\n");
++		ret = -EINVAL;
++		goto out;
++	}
++
+ 	if (!use_default && mt7996_eeprom_variant_valid(dev, fw->data))
+ 		goto out;
+ 
+-- 
+2.51.2
 
-Gokul
-
-> > Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
-> > ---
-> 
