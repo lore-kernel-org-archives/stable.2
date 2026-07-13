@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CFE3546C1
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:33:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275CA35676A
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783971221; cv=none; b=KEEieTAKPoQXNLNiSNL9WXwZ1F/lI0KVqghJUEr73RUbTQvra+mkIVRWYvlKaI8lcYJLlIGlNAbLyRNMmlbxp8Mrj+xcSXcPXOUQxDHOaeHokBijnl4Z87DYeWORoYBr9P+q4wLkedHs1D8DIijF6G81rnxj3qq2crxyRjEa7eo=
+	t=1783971432; cv=none; b=LwyeDNiOfeuODe28bHu3kHuI+0xWjkkbyE/YVUTJBZgxpFDk/y7M7uGO1r9qnTk088tYTwk/Jk3rcAUbMXVq6TQifvbvXtIC3AtZ33a6j/aO3MISaTmj/EuBLkAyvYv5A8A1cNyM6nZe0w7/52ZiWxqTjgSfGvtvD9KWcn4w2vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783971221; c=relaxed/simple;
-	bh=1OFczrwWoI0prDEmBIUrx939EeAsrLRn0ygwvvyfnvo=;
+	s=arc-20240116; t=1783971432; c=relaxed/simple;
+	bh=8ZajXJaLsj3U7aSMJ8PzX4Ml/FbnffFDQ+omnmoE8Po=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mDD5ugzEOVanI4sGC6ZQCLo4TY04YyrqvKTsZeOMm33EDSUBHHhu8QoSx2tSXBtJDPjCNf7AXts9Mmq6u8mlLpCQ0XZrx1kDzESRstOrMFMVXaqr68krf8xwg8wNSLpaJjLPLegCugBjEsBb4HdpGhb1DpJmjD4OYuQBOI8DZto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i3/ybCEp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UrSYxdjZdYwBo9cCmOElgqsQY7hnKmlh2SObpRflB14YBuyCUShiQN9sRo5jAdxRXQ+BomR/R3mMg4qWOZYIninRgPPH8HWyLf7vCiCk2EWx/y19lUku7Z0sQAKBlOGtDDvyKGZayKy+DClcTZBn/CDCtssh2M+0TZt58FimLEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W48XrTpE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i3/ybCEp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DFCE1F00A3A;
-	Mon, 13 Jul 2026 19:33:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W48XrTpE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380881F00A3E;
+	Mon, 13 Jul 2026 19:37:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783971220;
-	bh=A8+KNoBbAqeX6A/AndBwwJZcG3W3kdOplvA4UkhHJ10=;
+	s=k20260515; t=1783971430;
+	bh=QCE72gH/mt07Y6rVbdgTmgaSmYp1LHcxIxbCe/gBiVg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i3/ybCEpcdHeTZR3pzaBNztkseCKW4Zgcj0dxW5PFAd11k9x5pWlJlNHoQ5vfMy4C
-	 3GLSDv4885ZMr5DvkGBIfAfAn2I+/3XaX8MoOtKCfJqsvazlYoX2deE7hfpxmvygNg
-	 G/sJN7Mw/6k8eZed+I5RSvT/mMBATYwuxXfXe6+bE1h7xO3TDUqsjUu6M4lTxBLzAL
-	 DpQzfzCZ15L6uWUBlZbvqx1/ZAXYaOATZZ9JEXF3J8TP4L9IsfdliPQo9jxjoX9AFA
-	 7YVjWuinY9/0RAkHrTs69c8x60XTMGGtZwjgYrspp0zh1TXJ9RMTQF5G7Z2kXtfPKv
-	 RwCRLAHCZGSPA==
+	b=W48XrTpEcQDLaCVd9X+shewmVVIf2zem7q274IUNTN/CDe/rg81ohsDmzo71q0ONv
+	 6QH8HGGuhIF/xOB51bHgb7HWsUfYrLyp0PQOa7ZYnqYCUo8Ne1kEPd/cLYz7jsBgSN
+	 gSNaTIO3bjiGiSR+UTlbI5Ga8koYouFRWMxO4RXnByUyvKXJWJQE/fxHO21ZBt6Tch
+	 yRBWVs8U93FI5+xeTPzQr4+SwxLv0MzVl2ozWSLh7eeV4t5XFBPA6DR7RkYx6JxkuF
+	 02TkWnFibZGUNpnWcrNP5Lr551TXVVh7zKrLQ6OmROi6CzIhnpujQFscgmSmaBmfjQ
+	 u2T7ypqdtdY0Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhang Lixu <lixu.zhang@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] iio: hid-sensor-rotation: Fix stale or zero output when reading raw values
-Date: Mon, 13 Jul 2026 15:33:36 -0400
-Message-ID: <20260713193336.2037451-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] iio: pressure: Remove redundant pm_runtime_mark_last_busy() calls
+Date: Mon, 13 Jul 2026 15:37:07 -0400
+Message-ID: <20260713193708.2054715-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260713193336.2037451-1-sashal@kernel.org>
-References: <2026071341-urethane-barber-5549@gregkh>
- <20260713193336.2037451-1-sashal@kernel.org>
+In-Reply-To: <2026071315-trespass-legible-97d4@gregkh>
+References: <2026071315-trespass-legible-97d4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,88 +45,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhang Lixu <lixu.zhang@intel.com>
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-[ Upstream commit 3ce8d099e0afc5a7da75a2007a67f67c4f5a4af1 ]
+[ Upstream commit dfb68a8ebb2e8d9af6e356ae0806bfd8e854ab44 ]
 
-When reading the raw quaternion attribute (in_rot_quaternion_raw), the
-driver currently returns either all zeros (if the sensor was never enabled)
-or stale data (if the sensor was previously enabled) because it reads from
-the internal buffer without explicitly requesting a new sample from the
-sensor.
+pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
+pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
+to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
+pm_runtime_mark_last_busy().
 
-To fix this, power up the sensor, call sensor_hub_input_attr_read_values()
-to issue a synchronous GET_REPORT and receive the full quaternion data
-directly into a local buffer, then decode the four components.
-
-Fixes: fc18dddc0625 ("iio: hid-sensors: Added device rotation support")
-Signed-off-by: Zhang Lixu <lixu.zhang@intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Link: https://patch.msgid.link/20250825135401.1765847-11-sakari.ailus@linux.intel.com
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: fbe67ff37a6f ("iio: pressure: mpl115: fix runtime PM leak on read error")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/orientation/hid-sensor-rotation.c | 40 ++++++++++++++++++-
- 1 file changed, 38 insertions(+), 2 deletions(-)
+ drivers/iio/pressure/bmp280-core.c | 5 -----
+ drivers/iio/pressure/icp10100.c    | 1 -
+ drivers/iio/pressure/mpl115.c      | 2 --
+ drivers/iio/pressure/zpa2326.c     | 2 --
+ 4 files changed, 10 deletions(-)
 
-diff --git a/drivers/iio/orientation/hid-sensor-rotation.c b/drivers/iio/orientation/hid-sensor-rotation.c
-index 23bc61a7f018cf..b10204c147baf9 100644
---- a/drivers/iio/orientation/hid-sensor-rotation.c
-+++ b/drivers/iio/orientation/hid-sensor-rotation.c
-@@ -60,6 +60,13 @@ static int dev_rot_read_raw(struct iio_dev *indio_dev,
- 				long mask)
- {
- 	struct dev_rot_state *rot_state = iio_priv(indio_dev);
-+	struct hid_sensor_hub_device *hsdev = rot_state->common_attributes.hsdev;
-+	struct hid_sensor_hub_attribute_info *info = &rot_state->quaternion;
-+	u32 usage_id = HID_USAGE_SENSOR_ORIENT_QUATERNION;
-+	union {
-+		s16 val16[4];
-+		s32 val32[4];
-+	} raw_buf;
- 	int ret_type;
- 	int i;
+diff --git a/drivers/iio/pressure/bmp280-core.c b/drivers/iio/pressure/bmp280-core.c
+index 9e46aa65acef77..088b13ac2d9d1b 100644
+--- a/drivers/iio/pressure/bmp280-core.c
++++ b/drivers/iio/pressure/bmp280-core.c
+@@ -747,7 +747,6 @@ static int bmp280_read_raw(struct iio_dev *indio_dev,
  
-@@ -69,8 +76,37 @@ static int dev_rot_read_raw(struct iio_dev *indio_dev,
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
- 		if (size >= 4) {
--			for (i = 0; i < 4; ++i)
--				vals[i] = rot_state->sampled_vals[i];
-+			if (info->size <= 0 || info->size > sizeof(raw_buf))
-+				return -EINVAL;
-+
-+			hid_sensor_power_state(&rot_state->common_attributes, true);
-+
-+			ret_type = sensor_hub_input_attr_read_values(hsdev,
-+								     hsdev->usage,
-+								     usage_id,
-+								     info->report_id,
-+								     SENSOR_HUB_SYNC,
-+								     info->size,
-+								     (u8 *)&raw_buf);
-+
-+			hid_sensor_power_state(&rot_state->common_attributes, false);
-+
-+			if (ret_type < 0)
-+				return ret_type;
-+
-+			switch (info->size) {
-+			case sizeof(raw_buf.val16):
-+				for (i = 0; i < ARRAY_SIZE(raw_buf.val16); i++)
-+					vals[i] = raw_buf.val16[i];
-+				break;
-+			case sizeof(raw_buf.val32):
-+				for (i = 0; i < ARRAY_SIZE(raw_buf.val32); i++)
-+					vals[i] = raw_buf.val32[i];
-+				break;
-+			default:
-+				return -EINVAL;
-+			}
-+
- 			ret_type = IIO_VAL_INT_MULTIPLE;
- 			*val_len =  4;
- 		} else
+ 	pm_runtime_get_sync(data->dev);
+ 	ret = bmp280_read_raw_impl(indio_dev, chan, val, val2, mask);
+-	pm_runtime_mark_last_busy(data->dev);
+ 	pm_runtime_put_autosuspend(data->dev);
+ 
+ 	return ret;
+@@ -922,7 +921,6 @@ static int bmp280_write_raw(struct iio_dev *indio_dev,
+ 
+ 	pm_runtime_get_sync(data->dev);
+ 	ret = bmp280_write_raw_impl(indio_dev, chan, val, val2, mask);
+-	pm_runtime_mark_last_busy(data->dev);
+ 	pm_runtime_put_autosuspend(data->dev);
+ 
+ 	return ret;
+@@ -1951,7 +1949,6 @@ static int bmp580_nvmem_read(void *priv, unsigned int offset, void *val,
+ 
+ 	pm_runtime_get_sync(data->dev);
+ 	ret = bmp580_nvmem_read_impl(priv, offset, val, bytes);
+-	pm_runtime_mark_last_busy(data->dev);
+ 	pm_runtime_put_autosuspend(data->dev);
+ 
+ 	return ret;
+@@ -2026,7 +2023,6 @@ static int bmp580_nvmem_write(void *priv, unsigned int offset, void *val,
+ 
+ 	pm_runtime_get_sync(data->dev);
+ 	ret = bmp580_nvmem_write_impl(priv, offset, val, bytes);
+-	pm_runtime_mark_last_busy(data->dev);
+ 	pm_runtime_put_autosuspend(data->dev);
+ 
+ 	return ret;
+@@ -2634,7 +2630,6 @@ static int bmp280_buffer_postdisable(struct iio_dev *indio_dev)
+ {
+ 	struct bmp280_data *data = iio_priv(indio_dev);
+ 
+-	pm_runtime_mark_last_busy(data->dev);
+ 	pm_runtime_put_autosuspend(data->dev);
+ 
+ 	return 0;
+diff --git a/drivers/iio/pressure/icp10100.c b/drivers/iio/pressure/icp10100.c
+index 3e0bf5d31ad7a4..ff6b36b5927c1f 100644
+--- a/drivers/iio/pressure/icp10100.c
++++ b/drivers/iio/pressure/icp10100.c
+@@ -265,7 +265,6 @@ static int icp10100_get_measures(struct icp10100_state *st,
+ 			(be16_to_cpu(measures[1]) >> 8);
+ 	*temperature = be16_to_cpu(measures[2]);
+ 
+-	pm_runtime_mark_last_busy(&st->client->dev);
+ error_measure:
+ 	pm_runtime_put_autosuspend(&st->client->dev);
+ 	return ret;
+diff --git a/drivers/iio/pressure/mpl115.c b/drivers/iio/pressure/mpl115.c
+index 02ea38c8a3e431..18c2488e182cdc 100644
+--- a/drivers/iio/pressure/mpl115.c
++++ b/drivers/iio/pressure/mpl115.c
+@@ -108,7 +108,6 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
+ 		ret = mpl115_comp_pressure(data, val, val2);
+ 		if (ret < 0)
+ 			return ret;
+-		pm_runtime_mark_last_busy(data->dev);
+ 		pm_runtime_put_autosuspend(data->dev);
+ 
+ 		return IIO_VAL_INT_PLUS_MICRO;
+@@ -118,7 +117,6 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
+ 		ret = mpl115_read_temp(data);
+ 		if (ret < 0)
+ 			return ret;
+-		pm_runtime_mark_last_busy(data->dev);
+ 		pm_runtime_put_autosuspend(data->dev);
+ 		*val = ret >> 6;
+ 
+diff --git a/drivers/iio/pressure/zpa2326.c b/drivers/iio/pressure/zpa2326.c
+index 8fae58db1d6393..4146396755b64f 100644
+--- a/drivers/iio/pressure/zpa2326.c
++++ b/drivers/iio/pressure/zpa2326.c
+@@ -699,7 +699,6 @@ static void zpa2326_suspend(struct iio_dev *indio_dev)
+ 
+ 	zpa2326_sleep(indio_dev);
+ 
+-	pm_runtime_mark_last_busy(parent);
+ 	pm_runtime_put_autosuspend(parent);
+ }
+ 
+@@ -710,7 +709,6 @@ static void zpa2326_init_runtime(struct device *parent)
+ 	pm_runtime_enable(parent);
+ 	pm_runtime_set_autosuspend_delay(parent, 1000);
+ 	pm_runtime_use_autosuspend(parent);
+-	pm_runtime_mark_last_busy(parent);
+ 	pm_runtime_put_autosuspend(parent);
+ }
+ 
 -- 
 2.53.0
 
