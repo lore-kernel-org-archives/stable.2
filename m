@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39FF421F1B
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:26:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C4140E8E6
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:26:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783949200; cv=none; b=NyS0Sr1r/LPwudBygytSDUNagk4b6G6oSJoWG6zqrXuxLS7BgYzcFe9GWy2mfI4KGiKGOuRTtD+jOln3xSuPPXpMSRGo9NQV7EC3Ccd7wboRkGhDzkB2YyD2/m+PmJuglbko4QGCcpaUs7qPG6g3eDT9FgPG8S+vKtKnBBXi9v8=
+	t=1783949202; cv=none; b=Rxevu/hmQxoN0xJ8HiGYPKfPO34uPCupDp+eS5gcMdaJ0eKYWv8i0MXxv1g3593AMHGdtWmLuyLzoilryURB3n79rD1BwujDkNcJPxAIvOXLk82TfPPtqZsoA7ZgWwVbF0+Qjr7N6NxXE5Wm091cKemOoBvACF9DK2848G/j8vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783949200; c=relaxed/simple;
-	bh=H/Em/iMeqbvJeQS1Kpi6LNqqUn3jSkdNqH5suy62ayQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GOpzczgMIVfEVaaPx97713AewBgLZIm8TH0BXYYgHfSA51WA3V0EW/6beyz7UEs4up2s9C3/BK+AoKZ3BQMz/Meip3HSlfgAEkwF7wUS6G+tLLM+Lp55Tk0d0L+Jx2KQ4LO8Lt/X30tIhYBOQv95t0Jls6qsT+DJOXttdBjjPYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZB8PDke4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783949202; c=relaxed/simple;
+	bh=J8dPfGIyfsx7DScBE5TFgjJxaOk7l9de139O3w2dR8Q=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bI8YFVlDriUMGBphUNDLB3WiB7TpChh+zdzWZNnoouP6S/FrojJasakhMSNRW8lcUVdwRReftbAuu3pxstGk5EaLSwntgzhc3aCx2O/EdsvAWoLfTj3h0WCa0okJtMPzjbK+03emTik1YMZyh/wfa4+5tjsydLr2dxjIlu1ekXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OUOFEggQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZB8PDke4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03F11F000E9;
-	Mon, 13 Jul 2026 13:26:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OUOFEggQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99E131F000E9;
+	Mon, 13 Jul 2026 13:26:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783949198;
-	bh=4SHoyC/7V8ArrdfFX2MKRXjXuOuXlF6JnIcxSI7Xbps=;
+	s=korg; t=1783949201;
+	bh=IjRS1mLNasXsLF4nMft8F2BmoZSaHLfbR+/jhYhrifs=;
 	h=Subject:To:Cc:From:Date;
-	b=ZB8PDke4t68s+VkIUwgqXDNrWqdbwg/Mpt4JFeVuNMQ9f2m10ZSHgqwwsXBRuBJ75
-	 ADsAfbiNB8Dc3W5XH5EnmQMEYVGPUJ3nRudoo/bhSAL8O0X04ae/nyTIzjXqiys37f
-	 KJYAAEmp7HKGzuWrOJLxf6Sqma/mtT/opy0IccjQ=
-Subject: FAILED: patch "[PATCH] PCI: mediatek: Fix IRQ domain leak when port fails to enable" failed to apply to 5.10-stable tree
-To: manivannan.sadhasivam@oss.qualcomm.com,cjd@cjdns.fr,mani@kernel.org
+	b=OUOFEggQdAp0BRGwRMIVd/7nq3Nnnr2j0Ipch/9Ud5d2KcDpuBQ2qb/IooaJj8ePx
+	 tA33JE7fY1TTzAE4Ly89PCPabzEvMQRrRK+++uai5hlvwIv/5JNOgMXloYJ0ouinBk
+	 JFOpKdq3M+0ALlPy3QSc7bU8li1XBDfsmVNdAFRo=
+Subject: FAILED: patch "[PATCH] PCI: Skip Resizable BAR restore on read error" failed to apply to 6.18-stable tree
+To: mnencia@kcore.it,bhelgaas@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:23:33 +0200
-Message-ID: <2026071332-nectar-acre-e146@gregkh>
+Date: Mon, 13 Jul 2026 15:23:50 +0200
+Message-ID: <2026071350-unfold-lather-d66a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x f865a57896bd92d7662eb2818d8f48872e2cbbc7
+git cherry-pick -x ee7471fe968d210939be9046089a924cd23c8c3b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071332-nectar-acre-e146@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071350-unfold-lather-d66a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,161 +62,55 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f865a57896bd92d7662eb2818d8f48872e2cbbc7 Mon Sep 17 00:00:00 2001
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Date: Thu, 21 May 2026 23:16:17 +0530
-Subject: [PATCH] PCI: mediatek: Fix IRQ domain leak when port fails to enable
+From ee7471fe968d210939be9046089a924cd23c8c3b Mon Sep 17 00:00:00 2001
+From: Marco Nenciarini <mnencia@kcore.it>
+Date: Fri, 17 Apr 2026 15:24:36 +0200
+Subject: [PATCH] PCI: Skip Resizable BAR restore on read error
 
-When mtk_pcie_enable_port() fails, mtk_pcie_port_free() removes the port
-from pcie->ports and frees the port structure. However, the IRQ domains set
-up earlier by mtk_pcie_init_irq_domain() are never freed.
+pci_restore_rebar_state() uses the Resizable BAR Control register to decide
+how many BARs to restore (nbars) and which BAR each iteration addresses
+(bar_idx).
 
-Fix this by refactoring mtk_pcie_irq_teardown() into a per-port helper,
-mtk_pcie_irq_teardown_port(), and calling it from mtk_pcie_setup() when
-mtk_pcie_enable_port() fails. Since the IRQ teardown must only happen in
-the probe error path (during resume, child devices may have active MSI
-mappings and the NOIRQ context prohibits sleeping locks),
-mtk_pcie_enable_port() is changed to return an error code so callers can
-distinguish the two paths and act accordingly.
+When a device does not respond, config reads typically return
+PCI_ERROR_RESPONSE (~0).  Both fields are 3 bits wide, so nbars and bar_idx
+both evaluate to 7, past the spec's valid ranges for both fields.
+pci_resource_n() then returns an unrelated resource slot, whose size is
+used to derive a nonsensical value written back to the Resizable BAR
+Control register.
 
-This issue was reported by Sashiko while reviewing the EcoNet EN7528 SoC
-support series.
+Bail out if any Resizable BAR Control read returns PCI_ERROR_RESPONSE. No
+further BARs are touched, which is safe because a config read that returns
+PCI_ERROR_RESPONSE indicates the device is unreachable and restoration is
+pointless.
 
-Fixes: b099631df160 ("PCI: mediatek: Add controller support for MT2712 and MT7622")
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
-Cc: stable@vger.kernel.org # 5.10
-Cc: Caleb James DeLisle <cjd@cjdns.fr>
-Link: https://patch.msgid.link/20260521174617.17692-1-mani@kernel.org
+Fixes: d3252ace0bc6 ("PCI: Restore resized BAR state on resume")
+Signed-off-by: Marco Nenciarini <mnencia@kcore.it>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/666cac19b5daa0ab0e0ab64454e76b4d24465dbd.1776429882.git.mnencia@kcore.it
 
-diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
-index dcfc7408340f..f34d91e495bc 100644
---- a/drivers/pci/controller/pcie-mediatek.c
-+++ b/drivers/pci/controller/pcie-mediatek.c
-@@ -530,23 +530,27 @@ static void mtk_pcie_enable_msi(struct mtk_pcie_port *port)
- 	writel(val, port->base + PCIE_INT_MASK);
- }
+diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
+index 39f8cf3b70d5..11965947c4cb 100644
+--- a/drivers/pci/rebar.c
++++ b/drivers/pci/rebar.c
+@@ -231,6 +231,9 @@ void pci_restore_rebar_state(struct pci_dev *pdev)
+ 		return;
  
-+static void mtk_pcie_irq_teardown_port(struct mtk_pcie_port *port)
-+{
-+	irq_set_chained_handler_and_data(port->irq, NULL, NULL);
+ 	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
++	if (PCI_POSSIBLE_ERROR(ctrl))
++		return;
 +
-+	if (port->irq_domain)
-+		irq_domain_remove(port->irq_domain);
+ 	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
+ 
+ 	for (i = 0; i < nbars; i++, pos += 8) {
+@@ -238,6 +241,9 @@ void pci_restore_rebar_state(struct pci_dev *pdev)
+ 		int bar_idx, size;
+ 
+ 		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
++		if (PCI_POSSIBLE_ERROR(ctrl))
++			return;
 +
-+	if (IS_ENABLED(CONFIG_PCI_MSI)) {
-+		if (port->inner_domain)
-+			irq_domain_remove(port->inner_domain);
-+	}
-+
-+	irq_dispose_mapping(port->irq);
-+}
-+
- static void mtk_pcie_irq_teardown(struct mtk_pcie *pcie)
- {
- 	struct mtk_pcie_port *port, *tmp;
- 
--	list_for_each_entry_safe(port, tmp, &pcie->ports, list) {
--		irq_set_chained_handler_and_data(port->irq, NULL, NULL);
--
--		if (port->irq_domain)
--			irq_domain_remove(port->irq_domain);
--
--		if (IS_ENABLED(CONFIG_PCI_MSI)) {
--			if (port->inner_domain)
--				irq_domain_remove(port->inner_domain);
--		}
--
--		irq_dispose_mapping(port->irq);
--	}
-+	list_for_each_entry_safe(port, tmp, &pcie->ports, list)
-+		mtk_pcie_irq_teardown_port(port);
- }
- 
- static int mtk_pcie_intx_map(struct irq_domain *domain, unsigned int irq,
-@@ -866,7 +870,7 @@ static int mtk_pcie_startup_port_an7583(struct mtk_pcie_port *port)
- 	return mtk_pcie_startup_port_v2(port);
- }
- 
--static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
-+static int mtk_pcie_enable_port(struct mtk_pcie_port *port)
- {
- 	struct mtk_pcie *pcie = port->pcie;
- 	struct device *dev = pcie->dev;
-@@ -875,7 +879,7 @@ static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
- 	err = clk_prepare_enable(port->sys_ck);
- 	if (err) {
- 		dev_err(dev, "failed to enable sys_ck%d clock\n", port->slot);
--		goto err_sys_clk;
-+		return err;
- 	}
- 
- 	err = clk_prepare_enable(port->ahb_ck);
-@@ -923,11 +927,15 @@ static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
- 		goto err_phy_on;
- 	}
- 
--	if (!pcie->soc->startup(port))
--		return;
-+	err = pcie->soc->startup(port);
-+	if (err) {
-+		dev_info(dev, "Port%d link down\n", port->slot);
-+		goto err_soc_startup;
-+	}
- 
--	dev_info(dev, "Port%d link down\n", port->slot);
-+	return 0;
- 
-+err_soc_startup:
- 	phy_power_off(port->phy);
- err_phy_on:
- 	phy_exit(port->phy);
-@@ -943,8 +951,8 @@ static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
- 	clk_disable_unprepare(port->ahb_ck);
- err_ahb_clk:
- 	clk_disable_unprepare(port->sys_ck);
--err_sys_clk:
--	mtk_pcie_port_free(port);
-+
-+	return err;
- }
- 
- static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
-@@ -1110,8 +1118,13 @@ static int mtk_pcie_setup(struct mtk_pcie *pcie)
- 		return err;
- 
- 	/* enable each port, and then check link status */
--	list_for_each_entry_safe(port, tmp, &pcie->ports, list)
--		mtk_pcie_enable_port(port);
-+	list_for_each_entry_safe(port, tmp, &pcie->ports, list) {
-+		err = mtk_pcie_enable_port(port);
-+		if (err) {
-+			mtk_pcie_irq_teardown_port(port);
-+			mtk_pcie_port_free(port);
-+		}
-+	}
- 
- 	/* power down PCIe subsys if slots are all empty (link down) */
- 	if (list_empty(&pcie->ports))
-@@ -1210,14 +1223,18 @@ static int mtk_pcie_resume_noirq(struct device *dev)
- {
- 	struct mtk_pcie *pcie = dev_get_drvdata(dev);
- 	struct mtk_pcie_port *port, *tmp;
-+	int err;
- 
- 	if (list_empty(&pcie->ports))
- 		return 0;
- 
- 	clk_prepare_enable(pcie->free_ck);
- 
--	list_for_each_entry_safe(port, tmp, &pcie->ports, list)
--		mtk_pcie_enable_port(port);
-+	list_for_each_entry_safe(port, tmp, &pcie->ports, list) {
-+		err = mtk_pcie_enable_port(port);
-+		if (err)
-+			mtk_pcie_port_free(port);
-+	}
- 
- 	/* In case of EP was removed while system suspend. */
- 	if (list_empty(&pcie->ports))
+ 		bar_idx = ctrl & PCI_REBAR_CTRL_BAR_IDX;
+ 		res = pci_resource_n(pdev, bar_idx);
+ 		size = pci_rebar_bytes_to_size(resource_size(res));
 
