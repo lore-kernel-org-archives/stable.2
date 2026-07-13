@@ -1,55 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0713E866B;
-	Mon, 13 Jul 2026 11:37:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7743E5A2B
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 11:39:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783942674; cv=none; b=H9zsGQvXZghr0Jx6LM1w5vDbRPOfm43MDpqqCmzrkjhDBGSIwrnrATgcx95ZMBK6Ku5b3nqOy5I9NAFlWRHGjcg5pa0tDbg0A1ZVjdciN4ZJOEsZFE9aY4WAc2pkiWwJdREXpxTWcvhgEp4BFQo0urQqQ9fqxnmyRoFbyilJIAs=
+	t=1783942751; cv=none; b=e2vYs8MEgaQGUJ+4mJv1e2B8/TDHP8DT4VgebrscqjkGBt/c8Lv1u2yLPFQBlFMhDCIPnJBLwb58h7lY1A/rK4wJL2fr81/0fBI8Tue2lCeh9FTzgZo2mEtdp7rXEJijYK2t9XvybWvdZP+qW/VAzrbrJBSLEsbhzKoPAmFQax8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783942674; c=relaxed/simple;
-	bh=T9I9LggSZGnd+opeAplGGNQctxNzn/jhs9k9J87eSGg=;
+	s=arc-20240116; t=1783942751; c=relaxed/simple;
+	bh=A4zo2+xQeX1vbXQna3iVpqkY6KIz76I1W77x/MUxy0U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b1MhnXsx/MXEN9FG+xPazoEZij0FKTIu2rnbdS9kP/tJ5V2xHIm7MMsR0cVrsNi961wCvKsTMib78bSDcb/I5/uJ3Jc8NX9KHA8XQLfdF2HZAzwkkKSBbnvMFLf5wIiZsDQpGBU6cjinVmN46GBhCTlrEks+SHN6wVBnoF4lx2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lwsqz1Ru; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cw73/CXyyhYCu72MGd9yLITi9gMPDNlrTQ774SxDCbAIdYygYua+tpn62J7EiQiEnH08SfrFIrDuHxBtqCaio5uhbSIuI/jLtWC02BPgm/8J53sc76ZbUuK10KFYW4MxznNy4THkTW6eSjaNA8wRRFj4YgtS3oi38XMDRiqSwDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=VA8CuCvg; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lwsqz1Ru"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 126A51F000E9;
-	Mon, 13 Jul 2026 11:37:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783942673;
-	bh=/BjtT2J2J6zXKuxGY/oNhYmRT76YRdnfRvP+EVhF3Q0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lwsqz1RuU3/1+c0OVzE60Yb3p9ZEdRyv87rOvJQj2jHlLDEJ9FJh3edRHAabzd8wG
-	 camah820QByAwHgAARZVVejvD11aO+S9Ik8ny9LouWcULNkE1aQXCemywImUs6WKfe
-	 GDEVgH7ZgoNJI7HcE1g7bcNYXDtt8CrQ/eWnGg2fEWMwktPX7Fww8DmwHln3sdp12T
-	 D3uAw0aHU9doRMgRKZY8ITJ7+5ZQAQtLaK2rBS+h//zPXpg/FDXOpqa8jixTrT3CLp
-	 7T5xptgnEXNSjzGBE9uqCjgtRrEMT7yXfCEDCtOh+IFFSelv4KHvpqcfasikBCvYr5
-	 LvZXZRZnbq1mQ==
-Date: Mon, 13 Jul 2026 12:37:46 +0100
-From: Will Deacon <will@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>, Andrew Morton <akpm@linux-foundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="VA8CuCvg"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493b77b150aso25437275e9.2
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 04:39:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1783942747; x=1784547547; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SyGrauJ6Z/D7QxLsQH4fnjbmvOpSdbv71QSALvp4E6s=;
+        b=VA8CuCvgfGGkCyqKmHeOkFtpBz32Tl6QHxXPxixf9osP8opwAIWCbsAwwYyUxgIiad
+         94hjON7VcI5h7qGfptpg+PsOVw1jSgDP1bsvQFGdho7u1E6mqFjVud2rSCN39mtGyFcr
+         escfbKYAw5x+LNSXeZqEgzOAYNa7MIk5DED5rfAuHptJjeWGsrTgud1fo1CtNm+DBNHS
+         fQSKKYbcA8zTBR/FPxNVAFzwjzdWmLOYP4uzmduu6MiwEhY3hAkyvM4ditxI8ZDtukML
+         JLGTjmj7EQ2GVRPKux3PbRm2UK29kEOVVeWqtz33oV7tmYq7WmBrNQIQmbFIDr4eXmsV
+         ylBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783942747; x=1784547547;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SyGrauJ6Z/D7QxLsQH4fnjbmvOpSdbv71QSALvp4E6s=;
+        b=rC5W+GklKfuCSXuA5SY0eob5dynkJLJX6iewiWKaMnPq6/iGMRxPECmG1vxO2p1g4d
+         v/0FaXYcWQ6OcZPANPAEgkzeDSRruF74fX3rKnPOiyx+/nItHQ16TjQ3flW+0kN5T84r
+         SMHU3lTEbHo15rX358qL8T29beGe+ngKfQRvgvKCEn79/kp6d0LOQnJp94oi2h540LkG
+         G7gi6huHv9zN5e8lLMs4jv5W+eJ59d1dbGViuP+WakZRQFdMq6JQz0+vTW5FM5qz022N
+         IX4nrEKjHdHhcXOtA8EINGaPWFYxamXxy5Y5cpHuo7pTEqD04Pbgp/iEwblVLITXvrET
+         Zo6A==
+X-Forwarded-Encrypted: i=1; AHgh+RqB76o3oFBtxLRK60ZCqoHguTiSqNA428kwRAdK/eXDOkOJ835dto489KsBRYus4kPwKv8DxC4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNhH5JrqfYY6n+Cz4GeORzRJrZqxJW+qt0AfNapCMUdBgmJ3Wf
+	d/wNRM61vEGKvqkDUryVdPUnSjimFf44TnPtVqbeFxBTDZtQrVJ5fnN+Fb+7GlOyNm4=
+X-Gm-Gg: AfdE7cnKQQnSiLDPpz1l4YhK4AHONNGovKSTlJ/oHqgTa1QOQKIAk+27uy3bLVNMSAI
+	aiS6BC5+r5807Bh0mifLn+YucNe5y9HkAcF7EhbMBKe8XKuCORCKdBFoejMMcTgXOi9Xp2oZmP4
+	ruqtn+FANmCXrjV1FkAZVJSKmLvY8WjQfg19Srn0ZaRFiZTRlVa2fx92ErN3af1SecPtVQZH/6F
+	lZEOSrM/tqjbicfaMaMfqaFc5BiIIMfo5pesDPnEQM3PwtKFCnb4cqN1Ox6SsdPBmSLEOff1vNU
+	aipcVK/qXm7JiC5I1FjdOvA6hCZJMd6QTfvVUiusvL+FKjvborkOoW9vfsqOJdvEYbuRwiCgeXZ
+	CDZ/TFSMq5Mswni0zjTGMgu9hjz0ohPOSncTRcaGGqpJY88AvbZXHp/zTX/VTVxMgb3//k/uQO7
+	t0ecw3FJot9g==
+X-Received: by 2002:a05:600c:3acf:b0:493:f176:dc69 with SMTP id 5b1f17b1804b1-493f884f5f2mr85117975e9.37.1783942746646;
+        Mon, 13 Jul 2026 04:39:06 -0700 (PDT)
+Received: from localhost ([2a02:8071:6401:180:d892:bf43:a0b4:83b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6ccdbbsm372032495e9.3.2026.07.13.04.39.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 04:39:05 -0700 (PDT)
+Date: Mon, 13 Jul 2026 07:39:01 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Guopeng Zhang <guopeng.zhang@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Shakeel Butt <shakeel.butt@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Toshi Kani <toshi.kani@hpe.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	David Carlier <devnexen@gmail.com>,
-	Ryan Roberts <ryan.roberts@arm.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	stable@vger.kernel.org,
-	syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-Subject: Re: [PATCH 0/2] mm: fix UAF caused by race between ptdump and vmap
- pgtable freeing
-Message-ID: <alTOCtzQh9RMfWbc@willie-the-truck>
-References: <20260710-series-vmap-race-fix-v1-0-5b3794c113fe@kernel.org>
- <8e320b30-9658-4e9f-ac4c-f99dcf855944@arm.com>
- <alNQccqtx5-QApup@lucifer>
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Alexandre Ghiti <alex@ghiti.fr>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: Re: [PATCH] mm: memcontrol: update state_local when flushing NMI
+ stats
+Message-ID: <20260713113901.GG276793@cmpxchg.org>
+References: <20260713085053.2916813-1-guopeng.zhang@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,29 +83,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alNQccqtx5-QApup@lucifer>
+In-Reply-To: <20260713085053.2916813-1-guopeng.zhang@linux.dev>
 
-On Sun, Jul 12, 2026 at 09:46:46AM +0100, Lorenzo Stoakes wrote:
-> On Sun, Jul 12, 2026 at 12:50:08PM +0530, Dev Jain wrote:
-> > Will Deacon had pushed back on a similar approach:
-> > https://lore.kernel.org/all/20250530123527.GA30463@willie-the-truck/
-> >
-> > Although now when I read back that thread, it feels more so like my
-> > incompetency to convince :) because:
+On Mon, Jul 13, 2026 at 04:50:53PM +0800, Guopeng Zhang wrote:
+> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 > 
-> No haha not so, I think more like this stuff is fiddly.
+> flush_nmi_stats() updates state[] for kmem and slab counters but leaves
+> the corresponding state_local[] counters unchanged. Local kmem and
+> slab statistics therefore miss updates collected through the NMI-safe
+> atomic path.
+> 
+> Update state_local[] together with state[].
+> 
+> Fixes: 940b01fc8dc1 ("memcg: nmi safe memcg stats for specific archs")
+> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-Yup, not disputing that this is hard to get right.
+This issue affects memcg1 but also the workingset shrinker.
 
-Conceptually, adding locking purely to deal with a vanishingly rare,
-debug reader does turn my head but I'm _far_ less concerned about it if
-it's done in the core code, as is the case here. x86 needs it and we're
-recently running into related locking issues with the set_memory_*()
-APIs if we want to collapse the page-table on arm64 [1]. If the overhead
-is flagged as an issue, we can see if it's worth generalising the static
-key trick that the second patch reverts but I definitely wouldn't start
-from that position.
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
 
-Will
-
-[1] https://lore.kernel.org/linux-arm-kernel/799181c3-a1a1-4de7-bc6a-576d3282efb0@arm.com/
+And we should probably CC: stable # 6.15. Shakeel?
