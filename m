@@ -1,77 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C24227F4F5;
-	Mon, 13 Jul 2026 18:14:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from smtpfb1-g21.free.fr (smtpfb1-g21.free.fr [212.27.42.9])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0460A34A3BF;
+	Mon, 13 Jul 2026 18:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783966498; cv=none; b=aiZ0GZQkP7mh1oDQmeTpkz+vJOzFggHt31dgr+2GMrzUnJJ239CbBQCUsrqvGsHkdexDDnVJwQ77AOQVonSlFWnPFuBVk2pSv+TyuDTSYC6RtKpY6WqGmdcpJJRAcq1kHHnUZH90Eb1FkrS8mDtkLCbjgDngoWWXOoWaQ6hI19k=
+	t=1783966724; cv=none; b=G+EsNslmPbTfUSP19auUJAThSdcHE9dQYzmNkM+SFq0nWnNLH8fm1fFDB+oLr3/0QQSXThfYrZbbNoFPe69Naeq/P++gJof8pb95fcVm42Z7e3a2vuhMb6YTFzvoAIaEzO7a120jBsLdHMlLeNECHWtZwHXV/HpejAGWvKBU1OY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783966498; c=relaxed/simple;
-	bh=p536q1fZMhD4VsIbp+AlHkFIuiGVNiIk3+r824wk/Ac=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=H5CoEOy1L49gK5DBAIBernT5qaDzsxGfJAsyGRcWNJml4TTghUmfRqmYCaDrmhe7QPOMSgR9gpsxJ/N5rDLK2Cp8fy2Z9sZUN9Fe2oXGo+nuGf3GPipMETHow2Mxlupbumv6ocpU80aDTE7p76JiFSN2iN2lDVY1KjF1vBCRAdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=byb5BROk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783966724; c=relaxed/simple;
+	bh=MW0fHm4TEwvAk5mUjhZ7QSZSJF8LLYeJTbTRWroVGJI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dcM58BzIxCTKgYx7iUFPT90ZHDCfh5F6ytnBwUr9QlcHUeV3c1uaq7SWGNvJvTfHtG1zXXIcgJnYC6Bs1lDf+tRlrOORLr+oBTwBbmciNfDMWhGCL3OhhpbBaRUKdAYfZxpodwUd23RUWWEg5dg1JA/S+/Ab1i2rNtDGkGoGiPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=HP9/4s5G; arc=none smtp.client-ip=212.27.42.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="byb5BROk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78F1C1F000E9;
-	Mon, 13 Jul 2026 18:14:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783966497;
-	bh=JyASWAKAD6ak8FJcxWdDEg+sFNwuVoRQymBg/98oo+M=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=byb5BROkJpBcOzvzYTSnccebRDOp9+OET/OpjUZrjGZHZfc9R2wq7LMXGJdJ4XIjM
-	 5PRtd3cH6rYC9RmoqhiVrXGZjALT+HBoS6chP/efteMPq2MqXr4uLIWxbAy/tVcQSd
-	 cOKktWOZjtp4JEMNgjY5Mm9iYDH7CwVeoQ+2m16MSP24r6FkMg6SdYj55by4peeO0f
-	 fCwkbY6m2uGhHW6LX/kurmyI/FwWVvfY1/pUV1P9PeuiGIuOQnCPDWTXXoGnT38Ku4
-	 4cI6pzCGcqW+gHcc5Dy+LN5iB02lqDx5uXBiWRAeKCrLeXW8xlfTzJNCN12S+N/s01
-	 zVZUFJfR1v9/Q==
-Date: Mon, 13 Jul 2026 12:14:53 -0600 (MDT)
-From: Paul Walmsley <pjw@kernel.org>
-To: =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>
-cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Nathan Chancellor <nathan@kernel.org>, 
-    Conor Dooley <conor.dooley@microchip.com>, Wende Tan <twd2.me@gmail.com>, 
-    Palmer Dabbelt <palmer@rivosinc.com>, linux-riscv@lists.infradead.org, 
-    linux-kernel@vger.kernel.org, Nam Cao <namcao@linutronix.de>, 
-    kernel test robot <lkp@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] riscv: vdso: Do not use LTO for the vDSO
-In-Reply-To: <20260701-riscv-vdso-lto-v1-1-89db0cd82077@linutronix.de>
-Message-ID: <541aed79-b153-726c-87f9-cfd9f9304c46@kernel.org>
-References: <20260701-riscv-vdso-lto-v1-0-89db0cd82077@linutronix.de> <20260701-riscv-vdso-lto-v1-1-89db0cd82077@linutronix.de>
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="HP9/4s5G"
+Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
+	by smtpfb1-g21.free.fr (Postfix) with ESMTP id 3D2728346D6;
+	Mon, 13 Jul 2026 20:12:33 +0200 (CEST)
+Received: from [127.0.1.1] (unknown [91.160.0.144])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp1-g21.free.fr (Postfix) with ESMTPSA id 009BAB0055A;
+	Mon, 13 Jul 2026 20:12:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1783966345;
+	bh=MW0fHm4TEwvAk5mUjhZ7QSZSJF8LLYeJTbTRWroVGJI=;
+	h=From:Subject:Date:To:Cc:From;
+	b=HP9/4s5GL7nJJXLSYkAF+NqAQsUFE9JtmkJnD8cU4E0lmuJT2TZTQiygCb+inNRRZ
+	 Z2WTVMEI2JpxTwiI2gTOo3k8Z+mkGkLH9ZNwIZOzbqXm8xdh/RVktt9ZH5GTBNKH3k
+	 NBehoNisOosZP2h0hHq4oLvPWFbpMTM+gq2pO3mtYi4Thz8Juvgh3dn3D6wzpV79z/
+	 Uc4YzUjDsztG80b5lgGRL2g6M51MwmwcVjgSmK/gaEnPEt/gUqDnQwUqxDnyt+OUrd
+	 EVn7K/rpxEpFr7YRTWomdJnsP9EE2ItGY4Kp+vkX4GCF5pUTGq1f4C8K9BIGwyrvbh
+	 pUvnksAgC3i3w==
+From: Vincent Jardin <vjardin@free.fr>
+Subject: [PATCH v3 0/2] i2c: imx: fix SMBus block-read of 0 locking the bus
+Date: Mon, 13 Jul 2026 20:11:58 +0200
+Message-Id: <20260713-for-upstream-i2c-lx2160-fix-v1-v3-0-073ac9e103a5@free.fr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1762691194-1783966497=:1536112"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAG4qVWoC/5XNwQ6CMAzG8VchO1tTugzFk+9hPIzRyRIV0uGCI
+ by7g4tXPf7b5PfNKrIEjupUzEo4hRj6Zw69K5Tr7PPGENrcipAqNGTA9wKvIY7C9gGBHNwnKis
+ EHyZIJaBrLFrEWrNRGRmE82cbuFxzdyGOvby3vVSu15/pVQev0TZGt219cGcvzHsvaoUT/YdRx
+ qiy2rmja9GYL7YsyweAWWSWFwEAAA==
+To: Oleksij Rempel <o.rempel@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Andi Shyti <andi.shyti@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+ Wolfram Sang <wsa@kernel.org>, 
+ Kaushal Butala <kaushalkernelmailinglist@gmail.com>, 
+ Shawn Guo <shawn.guo@freescale.com>, 
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>
+Cc: linux-i2c@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Vincent Jardin <vjardin@free.fr>, stable@vger.kernel.org, 
+ Carlos Song <carlos.song@nxp.com>, Stefan Eichenberger <eichest@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783966324; l=1860;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=MW0fHm4TEwvAk5mUjhZ7QSZSJF8LLYeJTbTRWroVGJI=;
+ b=HB4/D489cBV9RGeIlXnJ5L0Cx4Oci/dGh9tVchNtz7Ut6n2ixBh23Cwbk1Xta51rz/iUbqwun
+ XJ6O0CjdUAgD9GB9UUz9/kcWL1vmAwrDWZ2G2qkSXTeEdIDKXhaN4Oo
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+i2c-imx rejects an SMBus Block Read byte count of 0 (valid per SMBus 3.1
+6.5.7) as -EPROTO and returns without emitting a NACK + STOP, leaving the
+target holding SDA so the bus stays stuck until a power cycle.
 
---8323329-1762691194-1783966497=:1536112
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
+It was triggered by an MPQ8785 PMBus regulator on a LX2160A i2c
+bus: when the kernel binds it using the pmbus/hwmon framework, the bus
+locks up and it does never recovers. It was confirmed with a scope, with
+and without the fix.
 
-On Wed, 1 Jul 2026, Thomas Weißschuh wrote:
+The same bug is occuring with two independently introduced spots, so the
+fix is two patches with their respective Fixes: tags and backport ranges
 
-> With LTO enabled the compiler assumes that the vDSO functions are not
-> used and optimizes them away completely. Currently this happens to
-> __vdso_clock_getres(), __vdso_clock_gettime(), __vdso_getrandom(),
-> __vdso_gettimeofday() and __vdso_riscv_hwprobe().
-> 
-> Disable LTO for the vDSO, as these functions are hand-optimized anyways.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202606301855.WvkSC4kD-lkp@intel.com/
-> Fixes: 021d23428bdb ("RISC-V: build: Allow LTO to be selected")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+  1/2  atomic/polling path       Fixes: 8e8782c71595   v3.16+
+  2/2  IRQ-driven state machine  Fixes: 5f5c2d4579ca   v6.13+
 
-Thanks, queued for v7.2-rc.
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+Changes in v3:
+- no functional change; collected the review tags received on v2:
+  Acked-by Oleksij Rempel, Acked-by Carlos Song, Reviewed-by Stefan
+  Eichenberger (both patches)
+- cover letter: add the real-world trigger (MPQ8785 PMBus regulator
+  on the LX2160A) and how the fix was validated, asked by Carlos Song
+- resend as a new thread, per Andi Shyti's request
+- Link to v2: https://lore.kernel.org/r/20260525-for-upstream-i2c-lx2160-fix-v1-v2-0-26a3cc8cd055@free.fr
 
+Changes in v2:
+- Handle when count > I2C_SMBUS_BLOCK_MAX the same way as count == 0
+  Reported by the Sashiko AI review on v1.
 
-- Paul
---8323329-1762691194-1783966497=:1536112--
+---
+Vincent Jardin (2):
+      i2c: imx: fix locked bus on SMBus block-read of 0 (atomic)
+      i2c: imx: fix locked bus on SMBus block-read of 0 (IRQ)
+
+ drivers/i2c/busses/i2c-imx.c | 36 +++++++++++++++++++++++++++++++++---
+ 1 file changed, 33 insertions(+), 3 deletions(-)
+---
+base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
+change-id: 20260525-for-upstream-i2c-lx2160-fix-v1-0cba0a0093e5
+
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
+
