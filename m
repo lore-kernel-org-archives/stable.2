@@ -1,131 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6414D2EEE66
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A2F349CDC
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783963978; cv=none; b=XesZDb3so3TpnaheK18SYjQpeXw1Iujd/SVTvvvJ3LXnsrODcP/ucabxjaeEOvSzzlLLEbuz64Ln6stDMqoT7/wuur7hn7GaxMcIkrT6H06RB4crhxTazDoaMuGqsV+4TySLJxScwwZX3vuU97F6hG9Z9cxgalKOQ31tNTSr9YY=
+	t=1783964004; cv=none; b=fNn2es0l7KCjjlyCwoepO5AEi/UwvdQ7E9xYDd3cIjdzI8bIH/jhDgw3M2IF2viFxsR89I0kDWBE70uwMHieWD2Z9RhzkJDvq0mpqt311aNeXzOEtOKE04wV5i6XOBZtNiiGKDh2Fbcn9In12heVx+8YJPfxrzvcyxpjFVGKeAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783963978; c=relaxed/simple;
-	bh=maRVhgMPqp+mDGVmrIOup3jDLEQlpa9wllykpEHKkgE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=d1tMN4vXDNHBU1JR6ad1rEH3P24NxKftzd3ivSY1JjtpxR+WptJ1p2qLgpMZKrUIZaiyHS8m5U5Hjzge9Mtu8m10wT7uSEK67ScMi3i1XOK4A+AaOmGG2TPMSoSBfTptgooHTCQjr0a/B8+9AcbKuXaOpCJRXOC3eVXbiUNmKw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yVC48x06; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783964004; c=relaxed/simple;
+	bh=DX4yD1fceAw1TE2YJq//fl5Ld5WZXHMoH7nz+I58P6c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AmRfQmTeBHKUjT6V+6At6oazUOQrYIBByzSD41OPWhRqjrAZ/GWD5O9NX0OGulrQIKfGvseobjDnl7hof4WLsOxwn9Zj9c7WJcOJMwbUXvko4jYfznBIaux5feWcdJ4h0Xg2yzqKI58//yDlIEaGb9Rwd5Jf9xqebOgdoa0U+wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UNRc07qe; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yVC48x06"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76C3C1F000E9;
-	Mon, 13 Jul 2026 17:32:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783963977;
-	bh=Ty648bzJnTLT9j3Zd+xzqAksWBGbW29MnLCc7njVhX8=;
-	h=Subject:To:Cc:From:Date;
-	b=yVC48x06Hzh6yoEOcRKsIp7bSeti9dwAeUUty4Waqrn5OU7FmaF7/vViAkBn+13Q+
-	 hVWOl7zwh6hjckub6sKZ2SK+DDjF2r6ijYYli5cAkWVWUm2BFg9o5CFSMWvXPyASgd
-	 eeEllpP/9mARSoN5CI4cY3m4Zsw7EXlwQ0Rp+Prw=
-Subject: FAILED: patch "[PATCH] Bluetooth: hci_uart: clear HCI_UART_SENDING when write_work" failed to apply to 6.1-stable tree
-To: pav@iki.fi,luiz.von.dentz@intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 19:32:38 +0200
-Message-ID: <2026071338-cut-deflected-2e46@gregkh>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UNRc07qe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783964002;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=8qE4a9Od404gw/x9tLPMScB2hPPKwyyUE1M5NWdqvd4=;
+	b=UNRc07qeKXNyWpa6zpkMeGYIXk4GZjjcB/L+arqZu/QqabCMrSK4dsKXkf7BT2JLXXBuin
+	EnvefZ2F5Uqhob2JYG0/vtKSLB1ddshyvBBp4MiqGJn1Dk8WuZjp7Mp1c9/Q527W2kh1Dt
+	Up++2YKP3REsz18+qd1Xe6mCuITVKR4=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-230-zH5eTQK2Ns6yNU_X8H0m5g-1; Mon,
+ 13 Jul 2026 13:33:20 -0400
+X-MC-Unique: zH5eTQK2Ns6yNU_X8H0m5g-1
+X-Mimecast-MFC-AGG-ID: zH5eTQK2Ns6yNU_X8H0m5g_1783963999
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AC408195609F;
+	Mon, 13 Jul 2026 17:33:19 +0000 (UTC)
+Received: from localhost.localdomain (unknown [10.6.23.248])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 17E661686;
+	Mon, 13 Jul 2026 17:33:18 +0000 (UTC)
+From: "Ewan D. Milne" <emilne@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	justin.tee@broadcom.com,
+	sarah.catania@broadcom.com
+Subject: [PATCH v2] drivers: base: Remove statistics group if encryption group not created
+Date: Mon, 13 Jul 2026 13:33:18 -0400
+Message-ID: <20260713173318.3060047-1-emilne@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
+If transport_add_class_device() gets an error from sysfs_create_group() when
+creating the encryption group, it does not remove the statistics group in
+the error path.  Adjust the error path to do this properly.
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+v2: Only remove statistics group if tcont->statistics is non-NULL
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 1b0d946d6f08bd39211385bc703a440911b41e46
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071338-cut-deflected-2e46@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 1b0d946d6f08bd39211385bc703a440911b41e46 Mon Sep 17 00:00:00 2001
-From: Pauli Virtanen <pav@iki.fi>
-Date: Sat, 13 Jun 2026 21:43:37 +0300
-Subject: [PATCH] Bluetooth: hci_uart: clear HCI_UART_SENDING when write_work
- is canceled
-
-HCI_UART_SENDING bit in tx_state means write_work is pending and blocks
-queueing it again.  Currently this bit is not cleared when canceling the
-work in hci_uart_close(), which blocks future writes when device is
-reopened later if write_work was pending.
-
-Fix by clearing HCI_UART_SENDING when canceling the work.
-
-Also make clearing of tx_skb safe by using disable_work_sync +
-enable_work instead of just cancel_work_sync.  hci_uart_flush() purges
-the proto tx queue so we can cancel the pending write_work there,
-instead of doing it just in hci_uart_close().  Re-enable and possibly
-requeue the work after queue flush.
-
-Fixes: c1bb9336ae6b ("Bluetooth: hci_uart: fix UAFs and race conditions in close and init paths")
-Link: https://lore.kernel.org/linux-bluetooth/07e0a28650773abec711ee492fdb1bf5d21a6c98.camel@iki.fi/
+Fixes: bd2bc528691e ("scsi: scsi_transport_fc: Introduce encryption group")
 Cc: stable@vger.kernel.org
-Signed-off-by: Pauli Virtanen <pav@iki.fi>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: Ewan D. Milne <emilne@redhat.com>
+---
+ drivers/base/transport_class.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/bluetooth/hci_ldisc.c b/drivers/bluetooth/hci_ldisc.c
-index 47f4902b40b4..2ad42c3bbaac 100644
---- a/drivers/bluetooth/hci_ldisc.c
-+++ b/drivers/bluetooth/hci_ldisc.c
-@@ -239,6 +239,8 @@ static int hci_uart_flush(struct hci_dev *hdev)
- 
- 	BT_DBG("hdev %p tty %p", hdev, tty);
- 
-+	disable_work_sync(&hu->write_work);
-+
- 	if (hu->tx_skb) {
- 		kfree_skb(hu->tx_skb); hu->tx_skb = NULL;
+diff --git a/drivers/base/transport_class.c b/drivers/base/transport_class.c
+index 416e9f819df5..351c3d3ce6a0 100644
+--- a/drivers/base/transport_class.c
++++ b/drivers/base/transport_class.c
+@@ -168,11 +168,14 @@ static int transport_add_class_device(struct attribute_container *cont,
+ 	if (tcont->encryption) {
+ 		error = sysfs_create_group(&classdev->kobj, tcont->encryption);
+ 		if (error)
+-			goto err_del;
++			goto err_del_statistics;
  	}
-@@ -254,6 +256,14 @@ static int hci_uart_flush(struct hci_dev *hdev)
  
- 	percpu_up_read(&hu->proto_lock);
- 
-+	/* Resume TX. Also reschedule in case work was queued concurrently;
-+	 * this may schedule write_work although there's nothing to do.
-+	 */
-+	enable_work(&hu->write_work);
-+	clear_bit(HCI_UART_SENDING, &hu->tx_state);
-+	if (test_bit(HCI_UART_TX_WAKEUP, &hu->tx_state))
-+		hci_uart_tx_wakeup(hu);
-+
  	return 0;
- }
  
-@@ -271,12 +281,8 @@ static int hci_uart_open(struct hci_dev *hdev)
- /* Close device */
- static int hci_uart_close(struct hci_dev *hdev)
- {
--	struct hci_uart *hu = hci_get_drvdata(hdev);
--
- 	BT_DBG("hdev %p", hdev);
- 
--	cancel_work_sync(&hu->write_work);
--
- 	hci_uart_flush(hdev);
- 	hdev->flush = NULL;
- 	return 0;
++err_del_statistics:
++	if (tcont->statistics)
++		sysfs_remove_group(&classdev->kobj, tcont->statistics);
+ err_del:
+ 	attribute_container_class_device_del(classdev);
+ err_remove:
+-- 
+2.52.0
 
