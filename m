@@ -1,86 +1,233 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC6834B43F
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:44:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C40345CC0
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783964653; cv=none; b=j67KpkKLZtbgAjZHcCH7zA8+519RPlbU/vlAbnn25aG392jK/QCxZZcy6P4KmmkyWy0FMuGRwa66dh2u7MsxP17dbxjGDUdVGM0lSDzD+S0N2V4f6qNrmAQnfkrMJUNvA3hMJIS+X284OptR8zaEaHCbL0PKzgsWz2T46uDrRnc=
+	t=1783965208; cv=none; b=MF6PoO92J3I1P1D4sFmM0D5lNX910OKzXAnJfY7JweiiVrAUvfi8/Yt8hzkKd34Ns6i42hDJvf11PuuhHayNpEv9YE08zkgAKutBOkgJ+m9c/hIFcbXrs5XWxdN1SlXOPFx68Txsf0ig717MtqE57VL4feqACeYuI2yxX7O3XKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783964653; c=relaxed/simple;
-	bh=Eo8mcJx96u8VH4jn7nXN0WzI3pTAqmoosY5GMUzgLRE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b/jaxvd12WKpZI2wGuJ82Sw9ByijQD0z3mAwgSUpEhQ/9WqfyXmfbrJZjgaozf7W08hOEqKm4qJRTuC53ogFjvKeeFO9IENCY+0Qw3xPfb9eof9Z40Lu6tx1vDMh/igQDogU7TatzDY8x902t3J7mGxxmKTFdG1LQVlD2J8+owc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YVQX6Csy; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783965208; c=relaxed/simple;
+	bh=4q+rPGvFaceGERu0IfaIeQ6Oy23iH81RRw/LHfg1CYc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NCaMutG7pmibrmmG6b/uq4J1DQ15wj9FJcFyRfyqesWjl3BYMT/p0n24IHsSlA7hihcADxOJn9rSzUak1T4/6CUiomfSfDsjB4I6Fvy1yhY1H6tJU8sUZevqXNeV4Qz4MsLN0yQs/aqtKeIC9uyrmTWInYxzQnV+lpI7cL0WWzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n0SJgrP+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YVQX6Csy"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ce7d2adef4so638425ad.3
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 10:44:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783964652; x=1784569452; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Eo8mcJx96u8VH4jn7nXN0WzI3pTAqmoosY5GMUzgLRE=;
-        b=YVQX6Csyxrsc4YDfTiO/wM2Xzc+sFs4Um+BKRypZBuETxe13r2I+w+qu8bXfrCdvJb
-         x7pRrnz4RPPgnPb+LoKZ6qXW9w/4GcGtxoiCyhmEvaBbU7Hm5wNY5IXv48FIQrATJACp
-         LMdBGAunfEtRZzhHUnh3LwOohpeAGkQtbWjuqz8cX4idECnkSlfwknUnptJ4htk+WVBt
-         XwwPPJXS0PW+sQcxOJMhMy6bPJSUKR12jpNR2oKKZvnanGmS5W+GUcDCYtzRwiHyJXt0
-         sncbXRrUfvqnvEGqARDM1LVqz4CdhbFm6lMI48/hgeeGlq365iSChbrpiYdzC8zWWARY
-         wEqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783964652; x=1784569452;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Eo8mcJx96u8VH4jn7nXN0WzI3pTAqmoosY5GMUzgLRE=;
-        b=ccgeMu4e1uvaLFiZnFusQeM0Q40ji0ylSZD4m23vSCHNHMmaoPxxB9lzhHWjd4HC2w
-         j0wJN8wYkSPd/7WSOsjlEyXzm5Rj1PppeRWx1+hJ/DjlSoPXiTQHKJ1tCKcponWcMLBe
-         /Fs/IaCisoco0ldIYJbJVnETVDvb+dQ0/lfM/Tmq3PtGb93FmDDNH0ee/VqBVSh4CYya
-         tu8SVnpH7ePUMq5RaWAYrl39kP3P/QJoy23rjgcNRFnpZZoDK74rR3JgdL9ONXw6s763
-         vPCynIHq3ErFH+3PCAfIPpxoLCxqNf1oSiTR0lvXoH02ADqyOlYkoQU8HENLZPcOH+IP
-         pgfA==
-X-Gm-Message-State: AOJu0YzxYj9fgJ0Hq6lsjDbZVhhYNxn2EoLf0XIP6qSJcUNaXaV4vOBC
-	ladsCRaql+kjAo561I8zP+3u2cOztvLIrVzPjNjt5HTP3p7NUj0bQtIW
-X-Gm-Gg: AfdE7ckHrJSbCaA0GLQbwBuaEE6yXalHbWKOefXwDbuGwr8i24b5Hd42E04ANI49Z98
-	vkGEnEFlWc9sz7QKmd75hFzycJGyirHwMyd6im9qlxutArwapbNrniTnQGO6j1pK3gznJRK5M/L
-	q1qPmswrbyFzIBpVvvOXwXm+Ad/APyRVsGRJ9p2DwvNgUY89H7oKpbEnzhM5MLdmj8YQ5sqXm2k
-	q9F/jFeiP9Uron5Q/ca3lAXbrI4bepcSI+WqfFMB3L/eNE6kUR6EkXaFWYEXuVdhQw52qKmbKg2
-	2qr1isgqqv2rginRa6wZTR8FVBdujZzlcDgLTaUcUqLu7vdOII4Lkir/W9Htl6iFu4CTB7/m3kq
-	qNZ1SsAVDM+mYT/9GvNm9kPgGFsMNB4UAY1HznA4fVT8YijBX947B+tscdXmur/kjc5uOI/uCqY
-	CihQCB0tIm4qzI5jVtbDRj35UgttYvFMcShqMRe0LCeHIXIeEC+RvrqtWFMZDw8/uR18U=
-X-Received: by 2002:a05:6a21:890d:b0:3c3:2e2b:2a0c with SMTP id adf61e73a8af0-3c32e2b4e6amr4647038637.18.1783964651871;
-        Mon, 13 Jul 2026 10:44:11 -0700 (PDT)
-Received: from [10.69.74.200] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b84d6ce15sm32086520c88.5.2026.07.13.10.44.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 10:44:11 -0700 (PDT)
-Message-ID: <ed34e55e-c391-40a6-b381-6898f53ea20a@gmail.com>
-Date: Mon, 13 Jul 2026 10:43:54 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n0SJgrP+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 254F21F000E9;
+	Mon, 13 Jul 2026 17:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783965207;
+	bh=YO8JHCLItKs2MpQnNQb1oTsaANzXjznH4gQOI5znc+w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=n0SJgrP+fO0NkxqiW9laNSa8ORbmI6LNZ3k6HhJyTxS4GqMYhrJKEJqXtjizv/R1M
+	 kkgY4FwvNGL9vchP8ZcVwIB9za+RjZ288JueUdrs9z485kRUeWKn3rDguToaw3QzxP
+	 MbFO/1AhU8l20OH40BySx5+iNdqv8oyqr9lRdsp2DziHad6+NtN2GJRL44QEnfiCJz
+	 5Ad0mvQSi2G9253XCjVeboskI03D7aLi0Rf+nzyjU6LeV7ETiIMTIA3rA3Fgsh26gx
+	 qMOVrq02OOYQ3s+zEB0T6Q6bjPy/uCKort+ESWCcPiyd+aZzu9qVNgmSnhaTqIhz7m
+	 k08Ef3iC+ZfNA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Zhang Lixu <lixu.zhang@intel.com>,
+	Jiri Kosina <jkosina@suse.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Stable@vger.kernel.org,
+	Jonathan Cameron <jic23@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/2] HID: sensor-hub: Add sensor_hub_input_attr_read_values() for multi-byte reads
+Date: Mon, 13 Jul 2026 13:53:23 -0400
+Message-ID: <20260713175324.1902799-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071306-financial-slept-710f@gregkh>
+References: <2026071306-financial-slept-710f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drivers: base: Remove statistics group if encryption
- group not created
-To: "Ewan D. Milne" <emilne@redhat.com>, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, justin.tee@broadcom.com,
- sarah.catania@broadcom.com, "paul.ely@broadcom.com" <paul.ely@broadcom.com>
-References: <20260713173318.3060047-1-emilne@redhat.com>
-Content-Language: en-US
-From: Justin Tee <justintee8345@gmail.com>
-In-Reply-To: <20260713173318.3060047-1-emilne@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Justin Tee <justin.tee@broadcom.com>
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-Regards,
-Justin
+[ Upstream commit f784fcea450617055d2d12eec5b2f6e0e38bf878 ]
+
+sensor_hub_input_attr_get_raw_value() is limited to returning a single
+32-bit value, which is insufficient for sensors that report data larger
+than 32 bits, such as a quaternion with four s16 elements.
+
+Add sensor_hub_input_attr_read_values() that accepts a caller-provided
+buffer and accumulates incoming data until the buffer is full. The two
+paths are distinguished in sensor_hub_raw_event() by pending.max_raw_size
+being non-zero, preserving backward compatibility.
+
+Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Co-developed-by: Zhang Lixu <lixu.zhang@intel.com>
+Signed-off-by: Zhang Lixu <lixu.zhang@intel.com>
+Acked-by: Jiri Kosina <jkosina@suse.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Stable-dep-of: 3ce8d099e0af ("iio: hid-sensor-rotation: Fix stale or zero output when reading raw values")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/hid/hid-sensor-hub.c   | 77 +++++++++++++++++++++++++++++++---
+ include/linux/hid-sensor-hub.h | 25 +++++++++++
+ 2 files changed, 96 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-hub.c
+index 90666ff629defa..34f710c465b80a 100644
+--- a/drivers/hid/hid-sensor-hub.c
++++ b/drivers/hid/hid-sensor-hub.c
+@@ -286,6 +286,54 @@ int sensor_hub_get_feature(struct hid_sensor_hub_device *hsdev, u32 report_id,
+ }
+ EXPORT_SYMBOL_GPL(sensor_hub_get_feature);
+ 
++int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
++				      u32 usage_id, u32 attr_usage_id,
++				      u32 report_id,
++				      enum sensor_hub_read_flags flag,
++				      u32 buffer_size, u8 *buffer)
++{
++	struct sensor_hub_data *data = hid_get_drvdata(hsdev->hdev);
++	struct hid_report *report;
++	unsigned long flags;
++	long cycles;
++	int ret;
++
++	report = sensor_hub_report(report_id, hsdev->hdev, HID_INPUT_REPORT);
++	if (!report)
++		return -EINVAL;
++
++	mutex_lock(hsdev->mutex_ptr);
++	if (flag == SENSOR_HUB_SYNC) {
++		memset(&hsdev->pending, 0, sizeof(hsdev->pending));
++		init_completion(&hsdev->pending.ready);
++		hsdev->pending.usage_id = usage_id;
++		hsdev->pending.attr_usage_id = attr_usage_id;
++		hsdev->pending.max_raw_size = buffer_size;
++		hsdev->pending.raw_data = buffer;
++
++		spin_lock_irqsave(&data->lock, flags);
++		hsdev->pending.status = true;
++		spin_unlock_irqrestore(&data->lock, flags);
++	}
++	mutex_lock(&data->mutex);
++	hid_hw_request(hsdev->hdev, report, HID_REQ_GET_REPORT);
++	mutex_unlock(&data->mutex);
++	ret = 0;
++	if (flag == SENSOR_HUB_SYNC) {
++		cycles = wait_for_completion_interruptible_timeout(&hsdev->pending.ready,
++								   HZ * 5);
++		if (cycles == 0)
++			ret = -ETIMEDOUT;
++		else if (cycles < 0)
++			ret = cycles;
++
++		hsdev->pending.status = false;
++	}
++	mutex_unlock(hsdev->mutex_ptr);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(sensor_hub_input_attr_read_values);
+ 
+ int sensor_hub_input_attr_get_raw_value(struct hid_sensor_hub_device *hsdev,
+ 					u32 usage_id,
+@@ -478,6 +526,8 @@ static int sensor_hub_raw_event(struct hid_device *hdev,
+ 	struct hid_collection *collection = NULL;
+ 	void *priv = NULL;
+ 	struct hid_sensor_hub_device *hsdev = NULL;
++	u32 copy_size;
++	u32 avail;
+ 
+ 	hid_dbg(hdev, "sensor_hub_raw_event report id:0x%x size:%d type:%d\n",
+ 			 report->id, size, report->type);
+@@ -518,12 +568,27 @@ static int sensor_hub_raw_event(struct hid_device *hdev,
+ 					      hsdev->pending.attr_usage_id ==
+ 					      report->field[i]->logical)) {
+ 			hid_dbg(hdev, "data was pending ...\n");
+-			hsdev->pending.raw_data = kmemdup(ptr, sz, GFP_ATOMIC);
+-			if (hsdev->pending.raw_data)
+-				hsdev->pending.raw_size = sz;
+-			else
+-				hsdev->pending.raw_size = 0;
+-			complete(&hsdev->pending.ready);
++			if (hsdev->pending.max_raw_size) {
++				if (hsdev->pending.index < hsdev->pending.max_raw_size) {
++					avail = hsdev->pending.max_raw_size - hsdev->pending.index;
++					copy_size = clamp(sz, 0U, avail);
++
++					memcpy(hsdev->pending.raw_data + hsdev->pending.index,
++					       ptr, copy_size);
++					hsdev->pending.index += copy_size;
++					if (hsdev->pending.index >= hsdev->pending.max_raw_size) {
++						hsdev->pending.raw_size = hsdev->pending.index;
++						complete(&hsdev->pending.ready);
++					}
++				}
++			} else {
++				hsdev->pending.raw_data = kmemdup(ptr, sz, GFP_ATOMIC);
++				if (hsdev->pending.raw_data)
++					hsdev->pending.raw_size = sz;
++				else
++					hsdev->pending.raw_size = 0;
++				complete(&hsdev->pending.ready);
++			}
+ 		}
+ 		if (callback->capture_sample) {
+ 			if (report->field[i]->logical)
+diff --git a/include/linux/hid-sensor-hub.h b/include/linux/hid-sensor-hub.h
+index e7105655310850..ab5cc8db3fbb3b 100644
+--- a/include/linux/hid-sensor-hub.h
++++ b/include/linux/hid-sensor-hub.h
+@@ -43,6 +43,8 @@ struct hid_sensor_hub_attribute_info {
+  * @attr_usage_id:	Usage Id of a field, e.g. X-axis for a gyro.
+  * @raw_size:		Response size for a read request.
+  * @raw_data:		Place holder for received response.
++ * @index:		Current write index into raw_data for multi-byte reads.
++ * @max_raw_size:	Total buffer size for multi-byte reads; 0 for single-value reads.
+  */
+ struct sensor_hub_pending {
+ 	bool status;
+@@ -51,6 +53,8 @@ struct sensor_hub_pending {
+ 	u32 attr_usage_id;
+ 	int raw_size;
+ 	u8  *raw_data;
++	u32 index;
++	u32 max_raw_size;
+ };
+ 
+ /**
+@@ -183,6 +187,27 @@ int sensor_hub_input_attr_get_raw_value(struct hid_sensor_hub_device *hsdev,
+ 					bool is_signed
+ );
+ 
++/**
++ * sensor_hub_input_attr_read_values() - Synchronous multi-byte read request
++ * @hsdev:		Hub device instance.
++ * @usage_id:		Attribute usage id of parent physical device as per spec
++ * @attr_usage_id:	Attribute usage id as per spec
++ * @report_id:		Report id to look for
++ * @flag:		Synchronous or asynchronous read
++ * @buffer_size:	Size of the buffer in bytes
++ * @buffer:		Buffer to store the read data
++ *
++ * Issues a synchronous or asynchronous read request for an input attribute,
++ * accumulating data into the provided buffer until it is full.
++ * Return: 0 on success, -ETIMEDOUT if the device did not respond, or a
++ * negative error code.
++ */
++int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
++				      u32 usage_id, u32 attr_usage_id,
++				      u32 report_id,
++				      enum sensor_hub_read_flags flag,
++				      u32 buffer_size, u8 *buffer);
++
+ /**
+ * sensor_hub_set_feature() - Feature set request
+ * @hsdev:	Hub device instance.
+-- 
+2.53.0
+
