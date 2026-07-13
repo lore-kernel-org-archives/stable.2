@@ -1,30 +1,30 @@
 Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBD02376481
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 22:26:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C06D2ED870
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 22:27:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783981591; cv=none; b=QI0iVdBwn3K/mF3151m7MSTxzuY41stEiM17JUISUNHmAZchis+GtihpvgzTPEhHlPlJ9wFVJziwK8MF4ZefILy0SaPv17uRCuYkuh5ryfucSaU5PrAAFDDC213nnkinBOV6CH2QjTFNwYBjFTfEpfnlnjnKOpRk+KeIgptzeis=
+	t=1783981655; cv=none; b=o/4sh0QhLTddiDtq0lQtdjRXslVN2l8mJceYCBkLsAu7XRqN7dMei5RD9UQB5TMe6/H0WxnBcn7a7dVQD+p/Df+VmtNiQOwo4oKym07kKA2jZutbroHo6uf5MS43ak3wd1knQP7X8Ot40RfrzlmEROJuuc1YMHtqH/pJsoyQHMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783981591; c=relaxed/simple;
-	bh=tpFHPCOrbm+C7CmObi1NIljMQC4evdgd8G+mppZW/Zo=;
+	s=arc-20240116; t=1783981655; c=relaxed/simple;
+	bh=BPUbe4TsjMUBZtrWH9Dy4qFUI5sRAEfUFCY1Auk9u+I=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cu3nPJ2X1wOq32Sozq0BjIRvJREZt/elqH5y0eijT0LpbINropt6DuzFvas6fb+Lj57sbg3HhGL4w9frpNVQnJIEVpXGWQT5XBW7ZYnHeKA1QgaTXnxfsQ49pzaGuyyxx9jFA4hl+w/iaQXeUYNm4CQ/Jp12XcavNZrWohDfZLk=
+	 MIME-Version; b=uafa+Hvm3Vb8Omn7WdCIKh//h9uyyxWqWUFuFovcvF/k30HujX05Bkq5c/aCohL9+c5GM1t1Z2r2OiXLlFwBVaeAcOl9aYRG/1kLEv6778j3CxP5ueo8+bqAYaOM4AG33ET0b56nKzYnafXtK1OKKfmOUc/CRJKeZGJQ3oCvjLQ=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
 Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id C670C92009C; Tue, 14 Jul 2026 00:26:19 +0200 (CEST)
+	id 69D2292009C; Tue, 14 Jul 2026 00:27:30 +0200 (CEST)
 From: "Maciej W. Rozycki" <macro@orcam.me.uk>
 To: stable@vger.kernel.org
 Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
 	Bjorn Helgaas <bhelgaas@google.com>,
 	Alok Tiwari <alok.a.tiwari@oracle.com>
-Subject: [PATCH 6.12.y] PCI: Always lift 2.5GT/s restriction in PCIe failed link retraining
-Date: Mon, 13 Jul 2026 23:25:49 +0100
-Message-Id: <20260713222549.28006-1-macro@orcam.me.uk>
+Subject: [PATCH 6.6.y] PCI: Always lift 2.5GT/s restriction in PCIe failed link retraining
+Date: Mon, 13 Jul 2026 23:27:26 +0100
+Message-Id: <20260713222726.28158-1-macro@orcam.me.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <2026071351-deport-apply-58df@gregkh>
-References: <2026071351-deport-apply-58df@gregkh>
+In-Reply-To: <2026071351-buffoon-parameter-8f6b@gregkh>
+References: <2026071351-buffoon-parameter-8f6b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,14 +54,14 @@ Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
 Tested-by: Alok Tiwari <alok.a.tiwari@oracle.com>
 Cc: stable@vger.kernel.org # v6.5+
 Link: https://patch.msgid.link/alpine.DEB.2.21.2512080331530.49654@angie.orcam.me.uk
-[ Update for missing PCIe link speed helpers for 6.12.y. ]
+[ Update for missing PCIe link speed helpers for 6.6.y. ]
 Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
 ---
  drivers/pci/quirks.c | 51 +++++++++++++++++---------------------------
  1 file changed, 20 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 3d05ea35c536..9b2acf388f8a 100644
+index 5df3a6ea6601..28fa0a9b18c8 100644
 --- a/drivers/pci/quirks.c
 +++ b/drivers/pci/quirks.c
 @@ -68,11 +68,10 @@
