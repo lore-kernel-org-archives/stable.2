@@ -1,120 +1,141 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD2C26F2B0
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 21:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB8235CBCB
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 21:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783978378; cv=none; b=IvNmznoLYezju1GxtlgexU5xxAp2pi9dhuVZRoZAj9tFBUhsUDFPz0/35LBpbTOoQoPBTLbKa7PzVcEa7pSvl2+0UUdxI+EyWlhxjsfqXFyfnsjb20Y2S2p/hM1p1QjAQo42ggz7/rCfcHc7LcbmcqOEAyAhjOlT3EX11BZ9m1s=
+	t=1783978629; cv=none; b=YMCGjOus/j7vHgVeZLLMZYKDBbqvQahT0PdYi5U8Uz51xWJZay9yUkaBnrTAAB2HjOVp1sASYE0+25m1SEahVkzW1nwBnaA8xUfO5DMVg3HyzmDdxe2fFQSsKSAUGV4dcrcQ4KGrD0V1bO3kNJ6Jx0uyaNH9Ccu+CSssWV9TYvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783978378; c=relaxed/simple;
-	bh=KPNRNFZEJ2UjwZa0agq4MDAlQLgIYnxwb+Izb8tPesk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pALvwMoY+WHq36P7qod3TQeIjWSHmEdNujMXboMyKeNLKGpY/2oKwApcVZRTedSFPLYfPInj77ZGbXvWW6NipY/TdRUHIjjCp6tNZdAYi+LWTQfEvp81VLvdx+CWB4lKgnvyfEqrp0V+Dz3S0RJhH8sh7NOidBxY888E3+RPlk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=eJdfJXem; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1783978629; c=relaxed/simple;
+	bh=pkkipRXB4vj3yiwDAjdxncf0VuKYLA3vSbGWEP/PV2Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VNGhnwvtBXvwQIPMMvFH7MvxucYgdXYPfpLYx6ANyhBO/mUSGBz5s+pY+j3NOZGhA7TfcVtPIb/SiwJuav6uGPp4e6B6GKS4TBbzZpf95eGSMu9qqZsDD6L+muVjtkJAyKrsU6IHO5IpxRHb62/MJCI72xo1ghs1FzP8w2WiXPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAxdTrOn; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="eJdfJXem"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493b77b150aso2689805e9.2
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:32:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAxdTrOn"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-472d9d69e16so260963f8f.0
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:37:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1783978375; x=1784583175; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6rdaRIl05xXqbdOzxCjD1XxZpsLBKNtHk20piNYF/bM=;
-        b=eJdfJXemqur2+0Qxv/hz86ypC/5EG3h/kqqYdFbL78/YQyiq65aglMOSDx/GWIV+z9
-         GtNnROs5lLDY7ILbVCB47eedcrvVVYlQhinW+D42JULJiITszOIe3XYhOAVASaHN2YOg
-         b35PQNXloY4ik8KMSqwS4jgw6HEZdoIdStw9WaOzPcFPC1yRop7A6MEcjPYp0F3IFw1S
-         X6kZMI/cLjNA2hQQOKVmVw5Mq7FiJijGvZpm8+PVhfEWjtZNIlCBE6/XnGgF9gamoE2j
-         m0vOImNdSyc75gjCUPD+E/2Vw7kmAiiJ7P/80dUGFlwnRBvyq7cHgDTAzQEFcS62QihA
-         inlw==
+        d=gmail.com; s=20251104; t=1783978627; x=1784583427; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KFg02OlTkf2Yn/CkP+xFl6ERBV7PQVQSfXTqSOnpsLE=;
+        b=MAxdTrOnTxSjniqa0rD5zSi4thLPyLfudkS4W/w7KvMDm7F3ga+cgyVMfoXZQbeHL2
+         TiGhTVjs+nh64brMeCulIosK4UpMNHRfIfjGizJss6eRL5twOUYy7u9rvYX8q6QrKMF6
+         hrPb8IYIwT17TX9c5GOojdFg/j4xCBuuo5OzM8QfmDBXa3k5mEXsJo7JVVqYl3poVHmX
+         /e3PJzgI1EN35nhV4/eii1E2SUzl8S9hUyXpnTkdtV07T9ulSlS/sQYFEMwcqzlizOOp
+         3gbqIksItik3o3fC8AFdLG/o2gRV7kAuc4hySXZYWCv7yiEoICWdN7EjLodmTnFnnFrW
+         hLPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783978375; x=1784583175;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6rdaRIl05xXqbdOzxCjD1XxZpsLBKNtHk20piNYF/bM=;
-        b=TFRuoyCyJffLohhz8gKFwSHuZtQvKJlYWhk8EL/LLD1dGK9w6nrZaev+3Z57OYtvMV
-         7/TWnVP11817RjWcU36HMDLzRpSajqfJSNbRaG3BpSfS+NUPK+nHyCXtbnDUBp52Sq9a
-         X+2U3jYQnTrSKjHkEPAfo/fUSKz1pMNCMbnIeVQbyOdx+iGXC0UWB4bmsOscnChkVKsD
-         8l7F7ermUvQbNyX4Uo8CSx52W1IjlNPzbbglhVM1tuyf3DXLV6GeCvoLJ/u8w55z/d8n
-         j1pwPgFXL/edxipFbBmigrRM1N6olB+mR148dQ1hQLLv6vF311XRPshUDHgjVvr5zf+l
-         nzbg==
-X-Forwarded-Encrypted: i=1; AHgh+RoljLgxMrPp7AIYwe+H2BQh9KsEbDFf7kh+JbljhNL9fOZmOzNeg41kp/Gg2r3UuSe17lrzeiA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGdWF/Vz2O/hwcRlUkz99EiSN2k/Q8DFLLhRS9OJixC5aWeAXA
-	0h+6/7KqHGGcWgmxSPOK5qQc8OiA5yDz1crjs01a9GN+gWtKZbrdRmngC5hVz8KIHv/9
-X-Gm-Gg: AfdE7cmg268GREnflvPR3vZbDUVZMFf4PX0+H0eno9vUvetNxxE1CrMoIYnDMvVFv7N
-	qrbeNJoYp7ns6RtU/ZXh0KpjlT9cLyD/wLg+y0WU2oHhFtaBwgJQagUD27/1cZJk9a1eqHSmujv
-	1GMvcmTcFgz+qPdF23Se0eoxsRIx5/RPF+XWJ1/KJw9c3YFYNrKeRDuK7z7LfP94tUWSKlrRYr6
-	3gBhSnptWvl7FcgwYefOEoWF3wqyl1kn5Lvo/2Htl5bGvuHPAdzF4V3vB2NtUwZY8qzFSJtiLN1
-	wknFVN9hVMrthCAfGk8IWnxrySy6KvOMKv73mk+dmpLGpXvcBObxg1oJyyRhcodC3q6JvQFxsVu
-	uVRzA/tQpDQjVi+pcUVRqR1+4u/zUwXfgQ+dCxaz8uImLEuC3GOaahOTtsYFXNR8Juus1yDwhJg
-	vsq2rUslEnagDQeSQ71Hu8WYzIooUujA2QotQlzL+ulXkA/nhZ4G9kcPla59krT0B9d0G9HyXC8
-	Zt5eVF6pPvRWDnujg430XdONwkGTAAxmxw=
-X-Received: by 2002:a05:600c:3acf:b0:493:f176:dc69 with SMTP id 5b1f17b1804b1-493f884f5f2mr104527375e9.37.1783978375216;
-        Mon, 13 Jul 2026 14:32:55 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49508724786sm25938115e9.3.2026.07.13.14.32.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 13 Jul 2026 14:32:54 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	linux-wireless@vger.kernel.org
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Peddolla Harshavardhan Reddy <peddolla.reddy@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org,
+        d=1e100.net; s=20251104; t=1783978627; x=1784583427;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KFg02OlTkf2Yn/CkP+xFl6ERBV7PQVQSfXTqSOnpsLE=;
+        b=BxzRu6wiQShbyzeGukLUfGXn5GSPqUh/5Sk5sozfB80c+C+R+RWP90bOieCdmWJd8E
+         uCCoQWxfpNnK1rAq87CZgkMQ9FWSAfSrJRLT/jky9IK+W9Pf8vvOAI+47CSHNR/jNWoh
+         YPM4ZnrR+IXSleLorGM4YbB+GVq9cDZWsDehQ6zmh5GjpdAF9shsZRKIAg7MIl/NHndA
+         hnEyDmby/irh3Rplvd+bcL1RpmhxTJu1ptmImDTi6jG4x/TueC/sTKVx+FROB/4DMKeG
+         mzoiY1Vl3fw+Y93N4B7aARU1IaRzrOh2AkK5hTnEeAoPgXtDWfpHP6bSx2cqBbgwqnMy
+         4m8Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rq53jJHiHinMLxO1qgulPcL0ls5ul77EnhUItWSTpvjvPg9ayDhqQGM95dJusMjyxVOoxfoEJM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4NfsRUt+DcrWnssmufWVCeYCKl/mjwQtVaGFQ9ddCFso5K/Jr
+	8ADKoQwvv0jpYcFIXWrGI9DBZD4a80SD1r+q6dLr7J1UlePaTvHpOMi1
+X-Gm-Gg: AfdE7cl/UzBp+nzrD9BoHnGx1nUq7fZg48D0Puh8rBkx8jpLST0mYJ5xFzfxx91UNWB
+	JBfQZiFgCjA5YKovxvrvJP3EZKFKGgs0ftpkBUmM1+HXdp5YGUANx1g8zr03DVufEEWneScBZON
+	cJ4ANvaT0k4VC3HwD21Y+QQLY6Qf2ae3bKsMWLKg1t8+2Or3WuMHQPrv5IPuf7Bm5Cwj5gqlYMc
+	C4LzvQEA39Svj41TVpCNEd5Lw3YNfnFLovC1peT7jxdanHMA3fbrUZu909jWqoIivHCP2B68uef
+	B/isYVGriDtzeJGOmQavxQGAgYpyGrBx74BUeMsNLOEihH3UA0jtRSZvtpmfdCktr+R/sGA4dqd
+	PXNZvEwO4C55HDfj/PRTmG2H2WpDbFIZu9k3BqaZPlb5+JGIQcvUWAqWM4ainPunkzMTe/YpwGs
+	blcGXe
+X-Received: by 2002:a05:6000:1843:b0:47d:ed40:a913 with SMTP id ffacd0b85a97d-47f2dd21ae8mr7457545f8f.7.1783978626485;
+        Mon, 13 Jul 2026 14:37:06 -0700 (PDT)
+Received: from skbuf ([2a02:2f04:d40e:d500:d8f0:7a38:1703:914b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464c25b2sm2173077f8f.30.2026.07.13.14.37.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 14:37:05 -0700 (PDT)
+Date: Tue, 14 Jul 2026 00:37:02 +0300
+From: Vladimir Oltean <olteanv@gmail.com>
+To: "Doruk (0sec)" <doruk@0sec.ai>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Woojung Huh <woojung.huh@microchip.com>,
+	Nick Child <nnac123@linux.ibm.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, Sabrina Dubroca <sd@queasysnail.net>,
+	Arun Ramadoss <arun.ramadoss@microchip.com>,
+	UNGLinuxDriver@microchip.com, Michael Ellerman <mpe@ellerman.id.au>,
 	stable@vger.kernel.org
-Subject: [PATCH] wifi: ath6kl: clamp assoc request/response lengths before subtracting IE offsets
-Date: Mon, 13 Jul 2026 23:32:51 +0200
-Message-ID: <20260713213251.21161-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: [PATCH net 1/3] net: dsa: tag_ocelot_8021q: don't read an unset
+ MAC header on transmit
+Message-ID: <20260713213702.3kjamxnto2bciqak@skbuf>
+References: <20260713194010.54642-1-doruk@0sec.ai>
+ <20260713194010.54642-2-doruk@0sec.ai>
+ <20260713200417.dghlrj4ca27b6nd4@skbuf>
+ <CAPdMp1qf4q42MAaRqqzYnhYyU9KvdryGQR+TWsFNvJ1oCTnPKw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPdMp1qf4q42MAaRqqzYnhYyU9KvdryGQR+TWsFNvJ1oCTnPKw@mail.gmail.com>
 
-ath6kl_cfg80211_connect_event() subtracts fixed IE offsets from
-assoc_req_len (-= 4) and assoc_resp_len (-= 6), both u8, with no lower
-bound. The aggregate check recently added to ath6kl_wmi_connect_event_rx()
-bounds the declared lengths from above (their sum must fit the received
-event), but an assoc request/response shorter than its fixed offset still
-underflows here: the u8 wraps to ~250, and cfg80211_connect_result() /
-cfg80211_roamed() then treat that wrapped value as the IE length and copy
-that many bytes out of the small assoc_info buffer to user space via
-nl80211, disclosing adjacent slab memory.
+On Mon, Jul 13, 2026 at 04:12:20PM -0500, Doruk (0sec) wrote:
+> Hi Vladimir,
+> 
+> Thanks for the review.
+> 
+> I checked the DSA cases with CONFIG_NET_DSA_LOOP=y. Since dsa_loop
+> normally uses DSA_TAG_PROTO_NONE, I used a local repro-only override
+> of dsa_loop_get_protocol() to select the relevant tagger, then sent an
+> AF_PACKET/SOCK_RAW frame with PACKET_QDISC_BYPASS and
+> sll_protocol=ETH_P_IP through lan1.
+> 
+> That leaves skb->mac_header unset (65535) on the direct-xmit path.
+> 
+> For tag_ocelot_8021q, the eth_hdr(skb) version reproduces as:
+> 
+>   BUG: KASAN: slab-out-of-bounds in ocelot_xmit()
+> 
+> Switching that site to skb_eth_hdr(skb) makes the same reproducer run clean.
+> 
+> I also checked the LAN937X path the same way by forcing
+> DSA_TAG_PROTO_LAN937X. The eth_hdr(skb) version reproduces as:
+> 
+>   BUG: KASAN: slab-out-of-bounds in lan937x_xmit()
+> 
+> and the skb_eth_hdr(skb) version runs clean with the same packet sender.
+> 
+> So yes, for these DSA TX paths this is a real bug on the
+> PACKET_QDISC_BYPASS path, not just a future-proofing cleanup. I have
+> not yet checked ibmveth with a pseries/ibmveth setup.
 
-Clamp both lengths to their offsets before subtracting.
+Thanks for clarifying your testing procedure (and please do not top-post
+replies).
 
-Found by 0sec (https://0sec.ai) using automated source analysis; the
-missing lower bound is evident from source. Compile-tested.
+Yes, manually editing dsa_loop_get_protocol() is the current state of
+the art technology.
 
-Fixes: bdcd81707973 ("Add ath6kl cleaned up driver")
-Cc: stable@vger.kernel.org
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
----
- drivers/net/wireless/ath/ath6kl/cfg80211.c | 5 +++++
- 1 file changed, 5 insertions(+)
+> For the older DSA commits you listed, I think they should be treated
+> as stable candidates if they remove eth_hdr()/skb_mac_header() use
+> from the same TX path. I can go through those individually and send a
+> follow-up with the exact stable list if that would be useful.
 
-diff --git a/drivers/net/wireless/ath/ath6kl/cfg80211.c b/drivers/net/wireless/ath/ath6kl/cfg80211.c
-index cc0f2c45fc3a..62f663c0daa2 100644
---- a/drivers/net/wireless/ath/ath6kl/cfg80211.c
-+++ b/drivers/net/wireless/ath/ath6kl/cfg80211.c
-@@ -754,6 +754,11 @@ void ath6kl_cfg80211_connect_event(struct ath6kl_vif *vif, u16 channel,
- 	u8 *assoc_resp_ie = assoc_info + beacon_ie_len + assoc_req_len +
- 	    assoc_resp_ie_offset;
- 
-+	if (assoc_req_len < assoc_req_ie_offset)
-+		assoc_req_len = assoc_req_ie_offset;
-+	if (assoc_resp_len < assoc_resp_ie_offset)
-+		assoc_resp_len = assoc_resp_ie_offset;
-+
- 	assoc_req_len -= assoc_req_ie_offset;
- 	assoc_resp_len -= assoc_resp_ie_offset;
- 
--- 
-2.43.0
+Since skb_mac_header() in TX paths is the real problem, I now think
+those commits should need backporting too. I only reworked the
+first-order callers of skb_mac_header(), not realizing that eth_hdr()
+needs rework too - and not having a clear testing procedure at the time.
 
+I think it would be great if you could prepare an email to the stable
+mailing list and to the maintainers.
