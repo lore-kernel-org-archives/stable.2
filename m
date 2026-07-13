@@ -1,182 +1,114 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E878D235C01
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 05:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1709336215F;
+	Mon, 13 Jul 2026 05:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783920067; cv=none; b=AJibS2Ih80rghUDgN/H2A3JcD3NuubX+WCvjWCQjes+RzbMKgeN86TX9hM/2LCrBASSubCOVolyIyAkF3qrrqYlH78aClvxqE75WvOkipgTP2P2NT+KoNcrQAGcglkYT5tit7mYbVYn3CYdDHet7Rjb7SwOAmXjtDzbuyUejopE=
+	t=1783920183; cv=none; b=OIwpBAHgMdgHS4gvUu6/q/F0UvvI6bOWpsmH6KgVTVZhd4Hps9igSWKPIXw7xoI7v/+UeC+H3XZUKvXF5mm9sy6j/QnY2CLUe4JjLhoMBjospahvFGZY51qZubdFUsU18zc1T5CU3ekObuBipEQ/k2acc+2dqfYWSb+1NLMgR3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783920067; c=relaxed/simple;
-	bh=hQxFD7i4yXKbNXdf7zrLnrm2u0tzyOUDotsrRF+73YU=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=PdlMlkVnJ0rd92nX3SUTnN8u5KijbO/CicRLXjh+GF7LAKc4ImYyb6cbnWE/7cyeXhaFNJw/5E560IZTX1D+qCsNBW5vCx7R3sDFPsA/6amrbHRnrc+wHV/Tols+lcjcoH/16eFrDLlK58n7rgmq7FMGFPEg2kFbhIZHBJiUzj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ajj7AkiG; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783920183; c=relaxed/simple;
+	bh=a0BAPmH6oNa2FYXnzPiCddacYqWUGRA45fRdK95jE4E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ol8O1SNB2BJ6JjcoubP+94DriW732zsH5oxdGCc7pt8KOf4pWkA/nnPN6pAB8mPuWawHlWdT8NdOwxGQZd5fqhcKbwxlYPHqhiLlFQMxYan9El5uVvpnO9H/XWUJSJWq7TYJZSaehNJ0EzGY+bZEseUgfvFWRGgFFSI7IzqEQ74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=RQzHJEJk; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ajj7AkiG"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-381018b9375so3133588a91.0
-        for <stable@vger.kernel.org>; Sun, 12 Jul 2026 22:21:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783920065; x=1784524865; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=NgrUijC43NZjO9+tarpgdkIMgwBwcs7VglIntyvaAbA=;
-        b=Ajj7AkiGrhbqE8ptQn7IjU9adPXU9L9VPVfJTdqpsmbLdPm3pFOQX02DZj4j7Yg23X
-         y3BuU4cELZXzY/95YKB5MxQgAwp5VkXQdwJS0oDriyJeEegLWLJQfAZv16a8GFRgZF/H
-         peWGgoFo/jRdjGwjJnLA3me7axcxgWbsqPKRSdjPN8LlyYNcYabsZYaHKyQfFcqJgis4
-         m1FYK4C+rMpEgD8trDgWU3eEzK6R6xOVK1GwCXkQFXlhW5EmbcPjlJVkDJhTaShbAoO2
-         celHEFv2UiGCcJrcZCsQkTxBNeDyOZUFc0BZeghMnYRnYWiKYovEXdqYPnOtvHJIEggG
-         5wCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783920065; x=1784524865;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NgrUijC43NZjO9+tarpgdkIMgwBwcs7VglIntyvaAbA=;
-        b=oAXSuKkz2N+4+CVcNNwVK4iLV9/0UmFgcHwjHiUbeCZqEkVPCugiD46xfd1gI/QA7t
-         vxhlITnzTjhjMfk11nCJ2iBYdEALudH++KVLwkOOHbx+emIHOfpgn7JKJd5Lx0t0I3rW
-         pTGrHLSd7aKBkd7bymIJmwYlrUS50d/iKiqNZQbT/zLkxciDNLS5FfWeOTaDndhNCSMs
-         8YvwCoyaxWiAlurSyJGAeObxIw+dcd1+4ocLacRFYf96+FpS2bADL3+r390SFr5pRDzA
-         v9LQiwjs/PQVrWUdhlhyE9XpxkceFquPy4LjzpZ/sxZTSuMsiAcN7fgK91I+XL2Vpe/7
-         hp+g==
-X-Forwarded-Encrypted: i=1; AHgh+RoPnHUmxjTxD8goXLAcMZFwtet52QEvZFQmTcrqzQlCCdVISPJFndmoaRfDJolz98t4zjQUgps=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3D5io0KEbmHoUFM+XLKUJSc7p4dXgGKFU4ZU97mJzacWLKQ+2
-	NTw2b074jATk1VhCa4HVAYJrqA/5UAXc291XyG8QbXtH0jUYnOobvP/M
-X-Gm-Gg: AfdE7cnQ4oCg/2eI2WEih7Q0oaNHijQyEN+iTYmpIZHtXgKQel7VXJiQbduXOFm1/hq
-	RMV8xqYe2pppxPN8klwvC8gwYLL06nFGjFcYFUnMx4NufiBqdNtH3Aou92RWyZQL9Kf4jJZDCrF
-	UFCtlaMjpvbV9YEOtcCZi+/SEZL8eqjty/Az/Ham87CecCmpxbkvZlNvMJVw/QUk0Yc0Bnq6047
-	5IpscAc7QfcEE0mlvYNZsvDq6d3Z4zDf91VA8VgPrp+tjrsLE++0yA7FCiNK5US0bNgHWbnat22
-	lstMhsbp+Qqrmuk6cBurB0AL3oUO110NqUoMpiADpGThFA1lSHg/vh6t94EsxAblq6on0KAzxDJ
-	9rfT2Hkb7cgcYsC4u2pjRxeVTieTy171crg6FdKVTYdDb1zoyUHqnwUoDdh+ZCnIkA1J6u8ncRi
-	9cknoQjJt8u/M=
-X-Received: by 2002:a17:90b:2f0f:b0:38d:f710:63f0 with SMTP id 98e67ed59e1d1-38df7106443mr2705726a91.43.1783920065185;
-        Sun, 12 Jul 2026 22:21:05 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3117d847e17sm65148262eec.18.2026.07.12.22.20.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Jul 2026 22:21:04 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Sourabh Jain <sourabhjain@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au
-Cc: npiggin@gmail.com, chleroy@kernel.org, shivangu@linux.ibm.com, hbathini@linux.ibm.com, mahesh@linux.ibm.com, adityag@linux.ibm.com, venkat88@linux.ibm.com, stable@vger.kernel.org, Sourabh Jain <sourabhjain@linux.ibm.com>, Mahesh Kumar G <mahe657@linux.ibm.com>
-Subject: Re: [PATCH v2 3/3] powerpc/crash: stop watchdogs before booting kdump kernel
-In-Reply-To: <20260713035954.1559605-4-sourabhjain@linux.ibm.com>
-Date: Mon, 13 Jul 2026 10:40:06 +0530
-Message-ID: <o6gbv5jl.ritesh.list@gmail.com>
-References: <20260713035954.1559605-1-sourabhjain@linux.ibm.com> <20260713035954.1559605-4-sourabhjain@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="RQzHJEJk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1783920131;
+	bh=fM8Q1SD7XfugxOcJgMLQxjpqmZ4SQOJLImfo/tMCzlA=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=RQzHJEJklgJsNetIRAk63Iq6MonT4XksBMG3i59t/aFxDvoBlzTQmwAooXEy/GvLx
+	 xFDag2eidAx/l87DZ/JKMo6Zp8Pm6kGAJZtkEyeOCEa03DdKaGjLGVVyLz9S628LWP
+	 s85PTc+quhMjwAbVMnGRiMigpzQRxsjmInGPZ4eY=
+X-QQ-mid: zesmtpgz6t1783920126tc35ffb0f
+X-QQ-Originating-IP: VPaKhDxv5lrTk04FFn2/VRP/TWvfOBAM+q2sqajFpoE=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 13 Jul 2026 13:22:04 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 14185114708170478530
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: miquel.raynal@bootlin.com
+Cc: richard@nod.at,
+	vigneshr@ti.com,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH] mtd: mtdoops: free page bitmap when the backing MTD is removed
+Date: Mon, 13 Jul 2026 13:22:03 +0800
+Message-ID: <11D80ECD6F2BBA62+20260713052203.3130998-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: M+fRGLN47oKLNN+1WT3o4y7kGNRtG6QWTN1Ahd3yrvE76c6k+8+VOgUX
+	DdQn4+oV1tgSIZxRhI0RSP8mG2WUb22HHPh50tEWJY/tYLIpwPWF3pAdITZ6YJIooKBsKrd
+	unr8ZBiGxxd1fuD7tmW3mffv5sT1wCitI7lAFBLoH8bQvorsfjfW8DAuEGqcBTrDga/ffl3
+	yDcGmbbceavLIeDIhbYLmK1qTj8x7PIkMoL67YHnxy1qai2CuFk81b5mpinHmM7UuFkgI5o
+	8VsHLcUELzCYsEUSkn1mcrEDKujRzeh0ZSb2cKqyDvm20D/nb2NwutmH+KAIcpyMiS449Oz
+	gRVfdRhC0pOC97nGCUx60Scilgn5LW8pPlY5K3cc++rLPa8UOYByYaFlhz8mn0pa6meEVcp
+	0ZxugGq/wrtYu6Ieaei6u99zAsjbLChwtnEiHneHjaL2HJWAFkEPtcqZrxH7l1uvNK9OghB
+	0dpr9piaemlqJCv1vkzU0I8dIK8ntKNBtUZz9Gu6KL3lHG93Lkv6r1f6kmrsCRroAXNSJ1z
+	KBtUAOvDeAPds5DI3TCbmEPVdHKtCEEqXPBlpufMTqDHSB7LdV7CIL40Wv+QG83vYsO3A0x
+	ipZLdpvYEn7gkguyA7WXigmLBgC36NbNhz0TP3uZGMZ0cb7dWR2Cb6uHzp/GpVqLgoToC1F
+	lFXXw+iXjo4qHdsrohDZ9qKQiiVv+OQ5FMqiBuFSDyexuZixZNfO8OpztC+TGBLLxXoHvtg
+	Qx6hIKj6P6NfJ4hJ8un1bveht+b3d/A92yW5ltn1MR3kdJUNy6rGumrhu94XQGaA70aCNok
+	ZeAGr+1v1Up44eiMMYb7t7Peo3HN0e07mn5seXmH9Qo9S0pESVhc4mRasVAsjNL7SqUVOwr
+	94HpnKgFCdRPEWQzSDfYsmlwqFAjAU/NJEIZ1qlfj71KkCE8VX2C0W2li6kDCp7KfkRQ/za
+	qXvFob5xuMPTjQki8CrmdzLh2ejLfbQYcSNONm+PK0L+PtG1dqgdqux95BMND3HzBVz3Vbk
+	BMu1aEyfmTXoGc0NfH+ZmqMMFHXXRAx+vomqHGntxXR2uHHkTo
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-Sourabh Jain <sourabhjain@linux.ibm.com> writes:
+From: Xu Rao <raoxu@uniontech.com>
 
-> On pseries LPAR systems, watchdog timers configured from userspace can
-> remain active after a kernel panic. When a panic triggers kdump, the
-> crashing kernel jumps directly to the kdump kernel without stopping
-> active watchdogs. As a result, the watchdogs remain active after the
-> kdump kernel starts.
->
-> If dump capture takes longer than the watchdog timeout, PHYP resets the
-> LPAR before the dump is fully captured, causing dump capture to fail.
->
-> Fix this by issuing the `H_WATCHDOG` hcall during the crash shutdown
-> sequence to stop all active watchdogs before booting the kdump kernel.
->
-> Fixes: 69472ffa6575 ("watchdog/pseries-wdt: initial support for H_WATCHDOG-based watchdog timers")
-> Reported-by: Mahesh Kumar G <mahe657@linux.ibm.com>
-> Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> ---
->  arch/powerpc/include/asm/papr-watchdog.h |  2 ++
->  arch/powerpc/platforms/pseries/setup.c   | 18 ++++++++++++++++++
->  2 files changed, 20 insertions(+)
->
-> diff --git a/arch/powerpc/include/asm/papr-watchdog.h b/arch/powerpc/include/asm/papr-watchdog.h
-> index fb3a511aa861..84bbe1ddd56f 100644
-> --- a/arch/powerpc/include/asm/papr-watchdog.h
-> +++ b/arch/powerpc/include/asm/papr-watchdog.h
-> @@ -55,4 +55,6 @@
->  #define PSERIES_WDTQ_MIN_TIMEOUT(cap)	(((cap) >> 48) & 0xffff)
->  #define PSERIES_WDTQ_MAX_NUMBER(cap)	(((cap) >> 32) & 0xffff)
->  
-> +#define PSERIES_WDT_NUM_ALL	((unsigned long)-1)
-> +
+mtdoops_notify_add() allocates oops_page_used when the configured MTD
+device is registered.  mtdoops_notify_remove() detaches from that device
+but leaves the bitmap allocated.  If the same MTD device is later
+registered again, the add path allocates a new bitmap and overwrites the
+old pointer, leaking one vmalloc allocation per remove/add cycle.
 
-minor nit:
+This is only visible when the backing MTD device can disappear and be
+registered again while mtdoops remains loaded, so the usual static MTD
+case does not expose it.
 
-This should be defined at the end of the H_WATCHDOG Input section.
-/*
- * H_WATCHDOG Input
- *
+Free the bitmap after unregistering the dumper and flushing the pending
+workers, then clear the pointer and page count before a later attach can
+allocate fresh state.  Clearing the pointer also keeps the module exit
+path from freeing the same bitmap a second time after a remove event.
 
-<...>
+Fixes: be95745f0167 ("mtd: mtdoops: keep track of used/unused pages in an array")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/mtd/mtdoops.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Something like this maybe?
-
-/*
- * R5: "watchdogNumber":
- *       PAPR says use -1 (all ones) to stop all watchdogs.
- */
-#define PSERIES_WDT_NUM_ALL	((unsigned long)-1)
-
-/*
- * H_WATCHDOG Output
- *
- * R3: Return code
- *
- <...> 
-
->  #endif /* _ASM_POWERPC_CRASHDUMP_PPC64_H */
-> diff --git a/arch/powerpc/platforms/pseries/setup.c b/arch/powerpc/platforms/pseries/setup.c
-> index bbb2813f8ede..2e40a9dba637 100644
-> --- a/arch/powerpc/platforms/pseries/setup.c
-> +++ b/arch/powerpc/platforms/pseries/setup.c
-> @@ -77,6 +77,7 @@
->  #include <asm/dtl.h>
->  #include <asm/hvconsole.h>
->  #include <asm/setup.h>
-> +#include <asm/papr-watchdog.h>
->  
->  #include "pseries.h"
->  
-> @@ -185,6 +186,18 @@ static void __init fwnmi_init(void)
->  #endif
->  }
->  
-> +#ifdef CONFIG_CRASH_DUMP
-> +static void pseries_crash_stop_watchdogs(void)
-> +{
-> +	long rc;
-> +
-> +	rc = plpar_hcall_norets_notrace(H_WATCHDOG, PSERIES_WDTF_OP_STOP,
-> +					PSERIES_WDT_NUM_ALL);
-> +	if (rc != H_SUCCESS && rc != H_NOOP)
-> +		pr_warn("Could not stop watchdogs before kdump rc=%ld\n", rc);
-> +}
-> +#endif /* CONFIG_CRASH_DUMP */
-> +
->  /*
->   * Affix a device for the first timer to the platform bus if
->   * we have firmware support for the H_WATCHDOG hypercall.
-> @@ -203,6 +216,11 @@ static __init int pseries_wdt_init(void)
->  		return PTR_ERR(pseries_wdt_dev);
->  	}
->  
-> +#ifdef CONFIG_CRASH_DUMP
-> +	if (crash_shutdown_register(pseries_crash_stop_watchdogs))
-> +		pr_warn("Could not register watchdog crash shutdown handler\n");
-> +#endif
-> +
-
-minor nit:
-I don't think we need any of the #ifdef. All definitions used inside
-pseries_crash_stop_watchdogs are already available and
-crash_shutdown_register() already exists for !CONFIG_CRASH_DUMP, so we
-may as well drop all of the ifdefs.
+diff --git a/drivers/mtd/mtdoops.c b/drivers/mtd/mtdoops.c
+index 39df7ce8f55f..1da7ef06a7a9 100644
+--- a/drivers/mtd/mtdoops.c
++++ b/drivers/mtd/mtdoops.c
+@@ -392,6 +392,9 @@ static void mtdoops_notify_remove(struct mtd_info *mtd)
+ 	cxt->mtd = NULL;
+ 	flush_work(&cxt->work_erase);
+ 	flush_work(&cxt->work_write);
++	vfree(cxt->oops_page_used);
++	cxt->oops_page_used = NULL;
++	cxt->oops_pages = 0;
+ }
 
 
-Otherwise LGTM, so feel free to add:
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+--
+2.50.1
 
