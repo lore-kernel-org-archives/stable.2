@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0193D293C4E
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:46:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B60F293C4E
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:46:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950364; cv=none; b=X4Z1yaRbv5p9zn4ks5dl64vZrXINhBTMERWPmL6zMEdPwjbDfJRUdznctRpTWBPXZUo5rZ9tcGztC/nZWhGwWP5Bm56OK/WpOjiV2eb+Cbq6GBROS1J5YFo+aYPsdPvfsxcv9FxeEQ8dWW4mu0N9jgrJ+wTeUvzUjXYnhmyj2fM=
+	t=1783950366; cv=none; b=cyUzwDWLq/FLyNlJA0YME7nSduI7VtEA/TSQbZ52OKgysSQevKqxGk2IU/L7kpTydr7P6vZtDF7agbJ9T/2iEbQ4C2pUbOT39yHq6LUViZclwlFeyyC9ZXPseIzRonChXXB/O2tnCKukgr7EJfPQmT5am5kWnqUmbd/2agkk+uQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950364; c=relaxed/simple;
-	bh=K5LPdzhQXLmjSuQILxWVsEurHLp/pyJb4bZAxxgXzZk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BvYJkUUUi7IXxsNH6TFZt18239aC+UWRuguA1VRcV7KKNonjOJhPmaIFSNOPMrsOX/VCEssCteUkurg/8X6n9RIOXY6uhfR0nAgDdVFls2OOSFbQly+CzJ91KIDh1Cb4/VptvqzJOTVNprqvKVZdWpirRtc0WMuj/fs2c+JDZIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=n4lP/Iup; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950366; c=relaxed/simple;
+	bh=QY0tGcG8UeEJoqp6LwQ1f4qH4zze+pNjZODe2rxObEs=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PXhufczHvQi6NvvUExRI201wrU/S1MWgEy0+0IwT+4K9iU3guY70tpK8DEluzaRNjlWP9UjU+ipkhPVB9gBMXhX2sNM9kMdvwDOJibtXnrTr1diwur6OG32yqYy3MDO+CjXj8/+8MnVuH47p9hu9LRs0el0rKFYxByQG8+h3m3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LP+GnHSM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="n4lP/Iup"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662B11F000E9;
-	Mon, 13 Jul 2026 13:46:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LP+GnHSM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C25C1F000E9;
+	Mon, 13 Jul 2026 13:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783950362;
-	bh=Av+LDbgLtCHfegMDf2Nl4Qo7bQAQpm5W1WzwjwFBpls=;
+	s=korg; t=1783950365;
+	bh=ULIT9pjj2XCiTvq7UNvMC7suoUrauKMEr1bWRlP6/10=;
 	h=Subject:To:Cc:From:Date;
-	b=n4lP/IupqYjMCdlP2x/CkDoD3J6LG7yNCHeFGK21SF5iDUCE61rUMAduUV6yOH9dQ
-	 dIams/fhk44TiBqqSr4YXDrnkFR1dyvhJM9Pivufbdhi5khfo5ag+10AN/f2+HGQG6
-	 H8dsBF70DO/sQOI/Zw/nVg8UlIaws8JQoUD2cUXA=
-Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Fix UAF in channel timeout by holding conn" failed to apply to 5.10-stable tree
-To: elver@google.com,luiz.von.dentz@intel.com,oss@fourdim.xyz,stable@vger.kernel.org
+	b=LP+GnHSMmFranD9t1mUPEc0jWlh+zZp86jGD+PTBMv22IXMDwiWLj14DwCZxdNgdh
+	 7y6lvmuMec8Y8DqK4tm/o1FhqMuzHJe1XATbhgB7rMqOKuiNhCsKDTAqNwuVvFnDcz
+	 gCfww0nLQRn4RzH+VY4R7akamVrVrWDSchPFQ8Wo=
+Subject: FAILED: patch "[PATCH] coresight: etb10: restore atomic_t for shared reading state" failed to apply to 6.6-stable tree
+To: runyu.xiao@seu.edu.cn,james.clark@linaro.org,suzuki.poulose@arm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:36:01 +0200
-Message-ID: <2026071301-bonsai-operative-a6c3@gregkh>
+Date: Mon, 13 Jul 2026 15:36:23 +0200
+Message-ID: <2026071323-clinking-armband-5963@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x b66774b48dd98f07254951f74ea6f513efe7ff8b
+git cherry-pick -x fa09f08ede3db3050ae16ae1ed92c902d0cada23
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071301-bonsai-operative-a6c3@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071323-clinking-armband-5963@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,242 +62,117 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b66774b48dd98f07254951f74ea6f513efe7ff8b Mon Sep 17 00:00:00 2001
-From: Marco Elver <elver@google.com>
-Date: Fri, 5 Jun 2026 16:23:35 +0200
-Subject: [PATCH] Bluetooth: L2CAP: Fix UAF in channel timeout by holding conn
- ref
+From fa09f08ede3db3050ae16ae1ed92c902d0cada23 Mon Sep 17 00:00:00 2001
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Fri, 29 May 2026 00:52:01 +0800
+Subject: [PATCH] coresight: etb10: restore atomic_t for shared reading state
 
-l2cap_chan_timeout() runs asynchronously and accesses chan->conn. If
-the connection is torn down while the timer is running or pending,
-chan->conn can be freed, leading to a use-after-free when the timer
-worker attempts to lock conn->lock:
+The etb10 miscdevice uses drvdata->reading as a shared exclusivity gate
+for userspace buffer access. etb_open() claims that gate with
+local_cmpxchg(), and etb_release() clears it with local_set().
 
-| BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
-| BUG: KASAN: slab-use-after-free in atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4456 [inline]
-| BUG: KASAN: slab-use-after-free in __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
-| BUG: KASAN: slab-use-after-free in mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
-| Write of size 8 at addr ffff8881298d9550 by task kworker/2:1/83
-|
-| CPU: 2 UID: 0 PID: 83 Comm: kworker/2:1 Not tainted 7.1.0-rc6-next-20260601-dirty #6 PREEMPT(full)
-| Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-| Workqueue: events l2cap_chan_timeout
-| Call Trace:
-|  <TASK>
-|  instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
-|  atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4456 [inline]
-|  __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
-|  mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
-|  l2cap_chan_timeout+0x5d/0x1b0 net/bluetooth/l2cap_core.c:422
-|  process_one_work kernel/workqueue.c:3326 [inline]
-|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
-|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
-|  kthread+0x346/0x430 kernel/kthread.c:436
-|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
-|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-|  </TASK>
-|
-| Allocated by task 320:
-|  l2cap_conn_add+0xa7/0x820 net/bluetooth/l2cap_core.c:7075
-|  l2cap_connect_cfm+0xdb/0xd70 net/bluetooth/l2cap_core.c:7452
-|  hci_connect_cfm include/net/bluetooth/hci_core.h:2139 [inline]
-|  hci_remote_features_evt+0x52f/0x9f0 net/bluetooth/hci_event.c:3760
-|  hci_event_func net/bluetooth/hci_event.c:7796 [inline]
-|  hci_event_packet+0x561/0xa70 net/bluetooth/hci_event.c:7847
-|  hci_rx_work+0x370/0x890 net/bluetooth/hci_core.c:4040
-|  process_one_work kernel/workqueue.c:3326 [inline]
-|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
-|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
-|  kthread+0x346/0x430 kernel/kthread.c:436
-|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
-|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-|
-| Freed by task 322:
-|  hci_disconn_cfm include/net/bluetooth/hci_core.h:2154 [inline]
-|  hci_conn_hash_flush+0x101/0x1f0 net/bluetooth/hci_conn.c:2736
-|  hci_dev_close_sync+0x889/0xde0 net/bluetooth/hci_sync.c:5405
-|  hci_dev_do_close net/bluetooth/hci_core.c:502 [inline]
-|  hci_unregister_dev+0x1f7/0x370 net/bluetooth/hci_core.c:2679
-|  vhci_release+0x12a/0x180 drivers/bluetooth/hci_vhci.c:690
-|  __fput+0x369/0x890 fs/file_table.c:510
-|  task_work_run+0x160/0x1d0 kernel/task_work.c:233
-|  get_signal+0xf5b/0x1120 kernel/signal.c:2810
-|  arch_do_signal_or_restart+0x4d/0x600 arch/x86/kernel/signal.c:337
-|  __exit_to_user_mode_loop kernel/entry/common.c:64 [inline]
-|  exit_to_user_mode_loop+0x85/0x510 kernel/entry/common.c:98
-|  do_syscall_64+0x263/0x3d0 arch/x86/entry/syscall_64.c:100
-|  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-|
-| The buggy address belongs to the object at ffff8881298d9400
-|  which belongs to the cache kmalloc-512 of size 512
-| The buggy address is located 336 bytes inside of
-|  freed 512-byte region [ffff8881298d9400, ffff8881298d9600)
+That gate is shared per-device state rather than CPU-local state. A
+running system can reach it whenever /dev/<etb> is opened, closed, and
+reopened by different tasks while the device remains registered, so the
+same drvdata->reading variable may be claimed on one CPU and later
+cleared on another.
 
-Fix it by having chan->conn hold a reference to l2cap_conn (via
-l2cap_conn_get) when the channel is added to the connection, and
-releasing it in the channel destructor. This ensures the l2cap_conn
-remains alive as long as the channel exists.
+This code used to use atomic_t for the same gate, but commit
+27b10da8fff2 ("coresight: etb10: moving to local atomic operations")
+changed it to local_t even though the access pattern remained cross-task
+and cross-CPU. Restore atomic_t together with atomic_cmpxchg() and
+atomic_set() so the exclusivity gate again uses a primitive intended
+for shared state.
 
-A new FLAG_DEL channel flag is introduced to indicate that the channel
-has been deleted from its connection. l2cap_chan_del() atomically sets
-this flag using test_and_set_bit() instead of setting chan->conn to
-NULL. All asynchronous workers (l2cap_chan_timeout, l2cap_ack_timeout,
-l2cap_monitor_timeout, l2cap_retrans_timeout) and l2cap_chan_send()
-check FLAG_DEL to determine whether the channel has been torn down,
-rather than testing chan->conn for NULL.
+The issue was found on Linux v6.18.21 by our static analysis tool while
+scanning surviving local_t-on-shared-state sites, and then manually
+reviewed against the live etb10 file-op path.
 
-Fixes: 8c8e620467a7 ("Bluetooth: L2CAP: use chan timer to close channels in cleanup_listen()")
-Cc: <stable@vger.kernel.org>
-Cc: Siwei Zhang <oss@fourdim.xyz>
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Assisted-by: Gemini:gemini-3.1-pro-preview
-Reported-by: https://sashiko.dev/#/patchset/20260521021249.3258069-1-oss%40fourdim.xyz
-Signed-off-by: Marco Elver <elver@google.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+It was runtime-validated with a reproducible QEMU no-device KCSAN PoC
+that kept the same report-local contract:
 
-diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index 790935950a0c..1640cc9bf83a 100644
---- a/include/net/bluetooth/l2cap.h
-+++ b/include/net/bluetooth/l2cap.h
-@@ -745,6 +745,7 @@ enum {
- 	FLAG_ECRED_CONN_REQ_SENT,
- 	FLAG_PENDING_SECURITY,
- 	FLAG_HOLD_HCI_CONN,
-+	FLAG_DEL,
- };
+  1. use one shared struct etb_drvdata carrier and its
+     drvdata->reading gate;
+  2. call etb_open() and etb_release() sequentially on that gate to
+     confirm the original claim/clear path;
+  3. bind the open side to CPU0 and the release side to CPU1 for the
+     same gate to show cross-CPU ownership;
+  4. run bound workers that repeatedly race etb_open() and
+     etb_release() on the same gate until KCSAN reports a target hit.
+
+The harness recorded:
+
+  L1 passed open=1 release=1
+  reading_after_open=1 reading_after_release=0
+  L2 passed open_cpu=0 release_cpu=1
+  cross_cpu_release=1 reading_after=0 open_ret=0
+
+Representative KCSAN excerpt from the no-device validation run:
+
+  BUG: KCSAN: data-race in etb_open.constprop.0.isra.0 [vuln_msv]
+
+  write to 0xffffffffc0003810 of 4 bytes by task 216 on cpu 1:
+   etb_open.constprop.0.isra.0+0x38/0x80 [vuln_msv]
+   l3_worker_thread_fn+0x4f/0xf0 [vuln_msv]
+   kthread+0x17e/0x1c0
+   ret_from_fork+0x22/0x30
+
+  read to 0xffffffffc0003810 of 4 bytes by task 215 on cpu 0:
+   etb_open.constprop.0.isra.0+0x18/0x80 [vuln_msv]
+   l3_worker_thread_fn+0x4f/0xf0 [vuln_msv]
+   kthread+0x17e/0x1c0
+   ret_from_fork+0x22/0x30
+
+  value changed: 0x00000000 -> 0x00000001
+
+  Reported by Kernel Concurrency Sanitizer on:
+  CPU: 0 PID: 215 Comm: etb10_l3_a Tainted: G           O       6.1.66 #2
+
+This no-device harness is not a real ETB10 hardware end-to-end run, but
+it preserves the same shared drvdata->reading gate and the same
+etb_open()/etb_release() claim/clear contract. No real ETB10 hardware
+was available for runtime testing.
+
+Build-tested with:
+  make olddefconfig
+  make -j"$(nproc)" drivers/hwtracing/coresight/coresight-etb10.o
+
+Fixes: 27b10da8fff2 ("coresight: etb10: moving to local atomic operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Reviewed-by: James Clark <james.clark@linaro.org>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+Link: https://lore.kernel.org/r/20260528165201.319452-1-runyu.xiao@seu.edu.cn
+
+diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
+index b952a1d47f12..a827f76b8144 100644
+--- a/drivers/hwtracing/coresight/coresight-etb10.c
++++ b/drivers/hwtracing/coresight/coresight-etb10.c
+@@ -83,7 +83,7 @@ struct etb_drvdata {
+ 	struct coresight_device	*csdev;
+ 	struct miscdevice	miscdev;
+ 	raw_spinlock_t		spinlock;
+-	local_t			reading;
++	atomic_t		reading;
+ 	pid_t			pid;
+ 	u8			*buf;
+ 	u32			buffer_depth;
+@@ -601,7 +601,7 @@ static int etb_open(struct inode *inode, struct file *file)
+ 	struct etb_drvdata *drvdata = container_of(file->private_data,
+ 						   struct etb_drvdata, miscdev);
  
- /* Lock nesting levels for L2CAP channels. We need these because lockdep
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 863fc4b8a55e..a97d492473e2 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -408,7 +408,7 @@ static void l2cap_chan_timeout(struct work_struct *work)
+-	if (local_cmpxchg(&drvdata->reading, 0, 1))
++	if (atomic_cmpxchg(&drvdata->reading, 0, 1))
+ 		return -EBUSY;
  
- 	BT_DBG("chan %p state %s", chan, state_to_string(chan->state));
- 
--	if (!conn) {
-+	if (test_bit(FLAG_DEL, &chan->flags)) {
- 		l2cap_chan_put(chan);
- 		return;
- 	}
-@@ -419,6 +419,9 @@ static void l2cap_chan_timeout(struct work_struct *work)
- 	 */
- 	l2cap_chan_lock(chan);
- 
-+	if (test_bit(FLAG_DEL, &chan->flags))
-+		goto unlock;
-+
- 	if (chan->state == BT_CONNECTED || chan->state == BT_CONFIG)
- 		reason = ECONNREFUSED;
- 	else if (chan->state == BT_CONNECT &&
-@@ -431,10 +434,10 @@ static void l2cap_chan_timeout(struct work_struct *work)
- 
- 	chan->ops->close(chan);
- 
-+unlock:
- 	l2cap_chan_unlock(chan);
--	l2cap_chan_put(chan);
--
- 	mutex_unlock(&conn->lock);
-+	l2cap_chan_put(chan);
- }
- 
- struct l2cap_chan *l2cap_chan_create(void)
-@@ -487,6 +490,9 @@ static void l2cap_chan_destroy(struct kref *kref)
- 	list_del(&chan->global_l);
- 	write_unlock(&chan_list_lock);
- 
-+	if (chan->conn)
-+		l2cap_conn_put(chan->conn);
-+
- 	kfree(chan);
- }
- 
-@@ -590,7 +596,7 @@ void __l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
- 
- 	conn->disc_reason = HCI_ERROR_REMOTE_USER_TERM;
- 
--	chan->conn = conn;
-+	chan->conn = l2cap_conn_get(conn);
- 
- 	switch (chan->chan_type) {
- 	case L2CAP_CHAN_CONN_ORIENTED:
-@@ -645,30 +651,26 @@ void l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
- 
- void l2cap_chan_del(struct l2cap_chan *chan, int err)
+ 	dev_dbg(&drvdata->csdev->dev, "%s: successfully opened\n", __func__);
+@@ -639,7 +639,7 @@ static int etb_release(struct inode *inode, struct file *file)
  {
--	struct l2cap_conn *conn = chan->conn;
--
- 	__clear_chan_timer(chan);
+ 	struct etb_drvdata *drvdata = container_of(file->private_data,
+ 						   struct etb_drvdata, miscdev);
+-	local_set(&drvdata->reading, 0);
++	atomic_set(&drvdata->reading, 0);
  
--	BT_DBG("chan %p, conn %p, err %d, state %s", chan, conn, err,
-+	BT_DBG("chan %p, err %d, state %s", chan, err,
- 	       state_to_string(chan->state));
- 
- 	chan->ops->teardown(chan, err);
- 
--	if (conn) {
-+	if (!test_and_set_bit(FLAG_DEL, &chan->flags)) {
- 		/* Delete from channel list */
- 		list_del(&chan->list);
- 
- 		l2cap_chan_put(chan);
- 
--		chan->conn = NULL;
--
- 		/* Reference was only held for non-fixed channels or
- 		 * fixed channels that explicitly requested it using the
- 		 * FLAG_HOLD_HCI_CONN flag.
- 		 */
- 		if (chan->chan_type != L2CAP_CHAN_FIXED ||
- 		    test_bit(FLAG_HOLD_HCI_CONN, &chan->flags))
--			hci_conn_drop(conn->hcon);
-+			hci_conn_drop(chan->conn->hcon);
- 	}
- 
- 	if (test_bit(CONF_NOT_COMPLETE, &chan->conf_state))
-@@ -1900,7 +1902,7 @@ static void l2cap_monitor_timeout(struct work_struct *work)
- 
- 	l2cap_chan_lock(chan);
- 
--	if (!chan->conn) {
-+	if (test_bit(FLAG_DEL, &chan->flags)) {
- 		l2cap_chan_unlock(chan);
- 		l2cap_chan_put(chan);
- 		return;
-@@ -1921,7 +1923,7 @@ static void l2cap_retrans_timeout(struct work_struct *work)
- 
- 	l2cap_chan_lock(chan);
- 
--	if (!chan->conn) {
-+	if (test_bit(FLAG_DEL, &chan->flags)) {
- 		l2cap_chan_unlock(chan);
- 		l2cap_chan_put(chan);
- 		return;
-@@ -2562,7 +2564,7 @@ int l2cap_chan_send(struct l2cap_chan *chan, struct msghdr *msg, size_t len,
- 	int err;
- 	struct sk_buff_head seg_queue;
- 
--	if (!chan->conn)
-+	if (test_bit(FLAG_DEL, &chan->flags))
- 		return -ENOTCONN;
- 
- 	/* Connectionless channel */
-@@ -3157,12 +3159,16 @@ static void l2cap_ack_timeout(struct work_struct *work)
- 
- 	l2cap_chan_lock(chan);
- 
-+	if (test_bit(FLAG_DEL, &chan->flags))
-+		goto unlock;
-+
- 	frames_to_ack = __seq_offset(chan, chan->buffer_seq,
- 				     chan->last_acked_seq);
- 
- 	if (frames_to_ack)
- 		l2cap_send_rr_or_rnr(chan, 0);
- 
-+unlock:
- 	l2cap_chan_unlock(chan);
- 	l2cap_chan_put(chan);
- }
+ 	dev_dbg(&drvdata->csdev->dev, "%s: released\n", __func__);
+ 	return 0;
 
