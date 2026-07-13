@@ -1,161 +1,240 @@
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C06D2ED870
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 22:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65A138CFFE
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 22:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783981655; cv=none; b=o/4sh0QhLTddiDtq0lQtdjRXslVN2l8mJceYCBkLsAu7XRqN7dMei5RD9UQB5TMe6/H0WxnBcn7a7dVQD+p/Df+VmtNiQOwo4oKym07kKA2jZutbroHo6uf5MS43ak3wd1knQP7X8Ot40RfrzlmEROJuuc1YMHtqH/pJsoyQHMI=
+	t=1783981681; cv=none; b=pOKXJ/fLd361jalszK1Hq1CFuChyTelBxgLYjTr3RDw4ea82vXpPtLEH88OFazo2MWnvMFBQoQW6bNeJZya9lKbMH/lssQqDdtlhIwQ3NfiBjsPzTe6otKF2bsTYv3iI3sjMEpR4QoaeWtbxn9sMuU170K4+27s1PSKguXW63j4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783981655; c=relaxed/simple;
-	bh=BPUbe4TsjMUBZtrWH9Dy4qFUI5sRAEfUFCY1Auk9u+I=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uafa+Hvm3Vb8Omn7WdCIKh//h9uyyxWqWUFuFovcvF/k30HujX05Bkq5c/aCohL9+c5GM1t1Z2r2OiXLlFwBVaeAcOl9aYRG/1kLEv6778j3CxP5ueo8+bqAYaOM4AG33ET0b56nKzYnafXtK1OKKfmOUc/CRJKeZGJQ3oCvjLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 69D2292009C; Tue, 14 Jul 2026 00:27:30 +0200 (CEST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: stable@vger.kernel.org
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Alok Tiwari <alok.a.tiwari@oracle.com>
-Subject: [PATCH 6.6.y] PCI: Always lift 2.5GT/s restriction in PCIe failed link retraining
-Date: Mon, 13 Jul 2026 23:27:26 +0100
-Message-Id: <20260713222726.28158-1-macro@orcam.me.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <2026071351-buffoon-parameter-8f6b@gregkh>
-References: <2026071351-buffoon-parameter-8f6b@gregkh>
+	s=arc-20240116; t=1783981681; c=relaxed/simple;
+	bh=B2PMpUvblp5hyxjnA/hFM71N7/kvSkCyfKwQezd7D7k=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZeWu61DNvw0T2qRToTTIsyxnINaBMcAGqrWk16Uo2wwOLpvSJ5Zi3UznoxpEOlpAjTHOeASAJVd9aEkRE65nzaDo9AF3UJTt6jhzvOUDqA+/RHzaHrg7fALs5MbUHn28VxgDBQJtwRdKKepXpyO1O41Pu+j0iEPkSvmYmhAfTow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=PW/KNB5w; arc=none smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="PW/KNB5w"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-664c535f1a0so6231542d50.1
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 15:27:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1783981678; x=1784586478; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K+d9JIH+nqFpF2LO/9v6L6+WLXY2mSweMKR5vNXN1VU=;
+        b=PW/KNB5w8NegITRt9T+zxUQ8u703i/DfAluoZ22EwzzqxolTOsT+7+kJBzx2KAfGPd
+         tx390vdcDqwoEZv6I+1Rsc7zcI8fApCUNhHK+8d1HJyWcbwO7GpuP6rFLFyHDjnYSNV9
+         e75RUiLp+ahyMMhOZhTDfW4m+EaJTgOEe2b5Q5SMxYVPjlfMTzBuEPK7V1+xogqPfajw
+         m+TTxXYiZDTm5kv96StZCcPlJ0Jw0T5lLoFsfs/IwCZWcn2S1tyod/QTNpQGRt4drfY6
+         nqgZ7U2f6xlb93XRZquyvEayAyHdjwI4UmiWVEfN/Af7qLJOkmKILKuRl93CcdONBwX/
+         VNfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783981678; x=1784586478;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=K+d9JIH+nqFpF2LO/9v6L6+WLXY2mSweMKR5vNXN1VU=;
+        b=qneIQ6kTl7+IMec+ZoJVHg2Vl3Z/5w8r71kfQaISZn/SuzZpMKdAxeghCqqJKZJ2wn
+         KEq2NnUvCKCpKf4TLxXEkR8nho5R9j9eWBqhwU1cEgumih3wg/wwCfHMU9NfFoAYmmgl
+         CoBPMMGdHp0c1QRfaAhQcvATRhSKhBR0b3Dl50JhvK0pmHWwpzULH9A1Vu7PmPMqZoh4
+         L/2FU1sp2nnkH4esQZ2/tFfZWq4plrjbUmtj8mhhwxleH34vfdNZeaBhHki02Q9F6jzx
+         HX+fbFNdvb3hXGwxJL5PM4HWuFzHll0YHve11j+VwgbV7/TsdUZ7RG20iRlMOygZvHoU
+         vLpA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6Veapy9chTQH2eA2b1K4TJneeWs5mTGwJItHfhVSOsXoaiuZWPdoi6f6QPZ74/smqnId0AP8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw60A1V2paAE2cUkjv+gRd9fZ2dBoxQ1n43wE6+IlVbMScW/3+g
+	PMGiIVZmkArG/vorfsTnY+F0qLYJpQq1YHogyBpettfuBePlo7tA91i9whEhNLT32Umkr/may+X
+	pzlt5wpdu9w==
+X-Gm-Gg: AfdE7clQ5ZsBZF+amKurWJIXVOIyRADYuuwo8XGfZrCwsbmWpR4e5xZfmeRFQEgsrxO
+	Ke0MIo6FZSXU4wu/J/fC4C+RBbUFjzSN5FiW89mxlJhtVm7Z+syIsw3Rsh+qHxtOvlIBnv+LwCP
+	MRtLQTWgFfU8VQZoyTzcF8iVj/ejCdu/O2wt0a1fdHcxygotuIjl0kEMUz/ljCVKxk8G7taxlyZ
+	MswqzLTC2Ju7LSH+I0kNe7Vg9jE/bGVInpsfRyslbGBVhEDXn4iU01u9/u7RfhC8Cfc24VJrbmx
+	DRwK6mm5ap+7Wn2rkQ5y3W/YmYttvc6BH6cPS3eh9RvYugp1z6R6dzuIRZDYeaQY8WJFKMxo+nw
+	2d/UT42VtVa4Jt/25I1hO+1ZVGqpaXokf3xDRH450sdM/K580Czsm0ztrAzTT+OcclHEDwv+7yB
+	8kwzY1vz8rqpkh7e2qgu5ytpgquq8GdRCv1dfZyGfHBpaIUdfgzFd27u31IKSX5wIojo0rodWkg
+	7ut8exsx8GQit3m+nXbNPvYgcDp/oclmXxARAscG3lNno9TQmaeuDZHHyVeyzdoMnOcaSlCLkvb
+	UFwSig==
+X-Received: by 2002:a53:ecd7:0:b0:667:6276:63b4 with SMTP id 956f58d0204a3-667d7c426damr5293391d50.60.1783981677773;
+        Mon, 13 Jul 2026 15:27:57 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:e472:ff2d:20b0:742d? ([2600:1700:6476:1430:e472:ff2d:20b0:742d])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66787a5a9b4sm14860155d50.17.2026.07.13.15.27.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 15:27:57 -0700 (PDT)
+Message-ID: <1115c1f9c91381f2b6ceba9b62e28aa336776dbf.camel@dubeyko.com>
+Subject: Re: [PATCH] libceph: validate OSD extent maps before cursor advance
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>, Ilya Dryomov
+	 <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>
+Cc: Milind Changire <mchangir@redhat.com>, Xiubo Li <xiubli@redhat.com>, 
+ Jeff Layton <jlayton@kernel.org>, ceph-devel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
+Date: Mon, 13 Jul 2026 15:27:55 -0700
+In-Reply-To: <20260710022818.3737468-1-michael.bommarito@gmail.com>
+References: <20260710022818.3737468-1-michael.bommarito@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-commit 72780f7964684939d7d2f69c348876213b184484 upstream.
+On Thu, 2026-07-09 at 22:28 -0400, Michael Bommarito wrote:
+> net/ceph/osd_client.c:osd_sparse_read() validates that the sparse-
+> read
+> data length matches the summed extent lengths, but it does not
+> validate
+> that each OSD-supplied extent is monotonic and lies inside the
+> original
+> request range. A malformed authenticated OSD reply can advertise a
+> far-forward nonzero extent offset with a matching data length and
+> make
+> the client advance the message-data cursor beyond the request buffer.
+> This reaches the BUG_ON(!*length) assertion in ceph_msg_data_next()
+> from
+> the client receive path.
+>=20
+> Impact: A malicious or compromised authenticated Ceph OSD peer can
+> crash
+> a kernel Ceph client via a malformed sparse-read reply.
+>=20
+> Reject sparse extent maps that overflow, move backwards, overlap, or
+> extend outside the original sparse-read request before advancing the
+> cursor.
+>=20
+> Fixes: f628d7999727 ("libceph: add sparse read support to OSD
+> client")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5-5-xhigh
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+> ---
+>=20
+> I reproduced this with a same-translation-unit KUnit test on
+> f5459048c38a, x86_64 with panic_on_oops=3D1. Without the patch, the
+> malformed extent triggers kernel BUG at net/ceph/messenger.c:1117
+> after
+> the benign in-range control passes. With the patch, the malformed map
+> returns -EREMOTEIO and both KUnit cases pass; net/ceph/osd_client.o
 
-Discard Vendor:Device ID matching in the PCIe failed link retraining quirk
-and ignore the link status for the removal of the 2.5GT/s speed clamp,
-whether applied by the quirk itself or the firmware earlier on.  Revert to
-the original target link speed if this final link retraining has failed.
+Do you have KUnit test? Why do not send the patch with adding KUnit
+test(s)?
 
-This is so that link training noise in hot-plug scenarios does not make a
-link remain clamped to the 2.5GT/s speed where an event race has led the
-quirk to apply the speed clamp for one device, only to leave it in place
-for a subsequent device to be plugged in.
+> builds cleanly with W=3D1.
+> =C2=A0net/ceph/osd_client.c | 30 ++++++++++++++++++++++++++++++
+> =C2=A01 file changed, 30 insertions(+)
+>=20
+> diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
+> index 2ff00070c1810..76ba3abdad9b1 100644
+> --- a/net/ceph/osd_client.c
+> +++ b/net/ceph/osd_client.c
+> @@ -6,6 +6,7 @@
+> =C2=A0#include <linux/err.h>
+> =C2=A0#include <linux/highmem.h>
+> =C2=A0#include <linux/mm.h>
+> +#include <linux/overflow.h>
+> =C2=A0#include <linux/pagemap.h>
+> =C2=A0#include <linux/slab.h>
+> =C2=A0#include <linux/uaccess.h>
+> @@ -5799,6 +5800,31 @@ static inline void convert_extent_map(struct
+> ceph_sparse_read *sr)
+> =C2=A0}
+> =C2=A0#endif
+> =C2=A0
+> +static bool sparse_extent_map_valid(struct ceph_sparse_read *sr)
+> +{
+> +	u64 req_end, pos;
+> +	int i;
+> +
+> +	if (check_add_overflow(sr->sr_req_off, sr->sr_req_len,
+> &req_end))
+> +		return false;
+> +
+> +	pos =3D sr->sr_req_off;
+> +	for (i =3D 0; i < sr->sr_count; i++) {
+> +		struct ceph_sparse_extent *ext =3D &sr->sr_extent[i];
+> +		u64 end;
+> +
+> +		if (ext->off < pos)
+> +			return false;
+> +		if (check_add_overflow(ext->off, ext->len, &end))
+> +			return false;
+> +		if (end > req_end)
+> +			return false;
+> +		pos =3D end;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+> =C2=A0static int osd_sparse_read(struct ceph_connection *con,
+> =C2=A0			=C2=A0=C2=A0 struct ceph_msg_data_cursor *cursor,
+> =C2=A0			=C2=A0=C2=A0 char **pbuf)
+> @@ -5856,6 +5882,10 @@ static int osd_sparse_read(struct
+> ceph_connection *con,
+> =C2=A0	case CEPH_SPARSE_READ_DATA_PRE:
+> =C2=A0		/* Convert sr_datalen to host-endian */
+> =C2=A0		sr->sr_datalen =3D le32_to_cpu((__force __le32)sr-
+> >sr_datalen);
+> +		if (!sparse_extent_map_valid(sr)) {
+> +			pr_warn_ratelimited("invalid sparse extent
+> map\n");
+> +			return -EREMOTEIO;
+> +		}
+> =C2=A0		for (i =3D 0; i < count; i++)
+> =C2=A0			len +=3D sr->sr_extent[i].len;
+> =C2=A0		if (sr->sr_datalen !=3D len) {
 
-Refer to the Link Capabilities register directly for the maximum link speed
-determination so as to streamline backporting.
+Makes sense to me.
 
-Fixes: a89c82249c37 ("PCI: Work around PCIe link training failures")
-Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Tested-by: Alok Tiwari <alok.a.tiwari@oracle.com>
-Cc: stable@vger.kernel.org # v6.5+
-Link: https://patch.msgid.link/alpine.DEB.2.21.2512080331530.49654@angie.orcam.me.uk
-[ Update for missing PCIe link speed helpers for 6.6.y. ]
-Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
----
- drivers/pci/quirks.c | 51 +++++++++++++++++---------------------------
- 1 file changed, 20 insertions(+), 31 deletions(-)
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
 
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 5df3a6ea6601..28fa0a9b18c8 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -68,11 +68,10 @@
-  * Restrict the speed to 2.5GT/s then with the Target Link Speed field,
-  * request a retrain and check the result.
-  *
-- * If this turns out successful and we know by the Vendor:Device ID it is
-- * safe to do so, then lift the restriction, letting the devices negotiate
-- * a higher speed.  Also check for a similar 2.5GT/s speed restriction the
-- * firmware may have already arranged and lift it with ports that already
-- * report their data link being up.
-+ * If this turns out successful, or where a 2.5GT/s speed restriction has
-+ * been previously arranged by the firmware and the port reports its link
-+ * already being up, lift the restriction, in a hope it is safe to do so,
-+ * letting the devices negotiate a higher speed.
-  *
-  * Otherwise revert the speed to the original setting and request a retrain
-  * again to remove any residual state, ignoring the result as it's supposed
-@@ -83,12 +82,9 @@
-  */
- int pcie_failed_link_retrain(struct pci_dev *dev)
- {
--	static const struct pci_device_id ids[] = {
--		{ PCI_VDEVICE(ASMEDIA, 0x2824) }, /* ASMedia ASM2824 */
--		{}
--	};
--	u16 lnksta, lnkctl2;
-+	u16 lnksta, lnkctl2, oldlnkctl2;
- 	int ret = -ENOTTY;
-+	u32 lnkcap;
- 
- 	if (!pci_is_pcie(dev) || !pcie_downstream_port(dev) ||
- 	    !pcie_cap_has_lnkctl2(dev) || !dev->link_active_reporting)
-@@ -96,10 +92,9 @@ int pcie_failed_link_retrain(struct pci_dev *dev)
- 
- 	pcie_capability_read_word(dev, PCI_EXP_LNKCTL2, &lnkctl2);
- 	pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
-+	oldlnkctl2 = lnkctl2;
- 	if ((lnksta & (PCI_EXP_LNKSTA_LBMS | PCI_EXP_LNKSTA_DLLLA)) ==
- 	    PCI_EXP_LNKSTA_LBMS) {
--		u16 oldlnkctl2 = lnkctl2;
--
- 		pci_info(dev, "broken device, retraining non-functional downstream link at 2.5GT/s\n");
- 
- 		lnkctl2 &= ~PCI_EXP_LNKCTL2_TLS;
-@@ -107,35 +102,29 @@ int pcie_failed_link_retrain(struct pci_dev *dev)
- 		pcie_capability_write_word(dev, PCI_EXP_LNKCTL2, lnkctl2);
- 
- 		ret = pcie_retrain_link(dev, false);
--		if (ret) {
--			pci_info(dev, "retraining failed\n");
--			pcie_capability_write_word(dev, PCI_EXP_LNKCTL2,
--						   oldlnkctl2);
--			pcie_retrain_link(dev, true);
--			return ret;
--		}
--
--		pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
-+		if (ret)
-+			goto err;
- 	}
- 
--	if ((lnksta & PCI_EXP_LNKSTA_DLLLA) &&
--	    (lnkctl2 & PCI_EXP_LNKCTL2_TLS) == PCI_EXP_LNKCTL2_TLS_2_5GT &&
--	    pci_match_id(ids, dev)) {
--		u32 lnkcap;
--
-+	pcie_capability_read_dword(dev, PCI_EXP_LNKCAP, &lnkcap);
-+	if ((lnkctl2 & PCI_EXP_LNKCTL2_TLS) == PCI_EXP_LNKCTL2_TLS_2_5GT &&
-+	    (lnkcap & PCI_EXP_LNKCAP_SLS) != PCI_EXP_LNKCAP_SLS_2_5GB) {
- 		pci_info(dev, "removing 2.5GT/s downstream link speed restriction\n");
--		pcie_capability_read_dword(dev, PCI_EXP_LNKCAP, &lnkcap);
- 		lnkctl2 &= ~PCI_EXP_LNKCTL2_TLS;
- 		lnkctl2 |= lnkcap & PCI_EXP_LNKCAP_SLS;
- 		pcie_capability_write_word(dev, PCI_EXP_LNKCTL2, lnkctl2);
- 
- 		ret = pcie_retrain_link(dev, false);
--		if (ret) {
--			pci_info(dev, "retraining failed\n");
--			return ret;
--		}
-+		if (ret)
-+			goto err;
- 	}
- 
-+	return ret;
-+err:
-+	pci_info(dev, "retraining failed\n");
-+	pcie_capability_write_word(dev, PCI_EXP_LNKCTL2, oldlnkctl2);
-+
-+	pcie_retrain_link(dev, true);
- 	return ret;
- }
- 
--- 
-2.20.1
-
+Thanks,
+Slava.
