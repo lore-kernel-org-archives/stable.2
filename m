@@ -1,75 +1,46 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D59D32FA2C
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B1F34CFCF
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783965264; cv=none; b=kXTls6SRMcO3d+fC85HGcctMWR1spHe6q/1tGwdWO2hhIyvfXCm83sv+ZKc4zZtY+8m5lajUNxt1hrs324xKnzbZ1+TNUX1bfJrQ096vX/1zaSgyjsG3yKSMxJVg/A/w8k0lPZZgbTfIJPGeNmeujsayycGCDSp1P9QIIz3lkHA=
+	t=1783965458; cv=none; b=LdqF22qH5jWUKENYOquMk8vxfHhqkCbQR1LPn04UsiLtBcOcDxJc5OkXuVW0ewP1Ee+1S5l9LqRJnpqGUyV8HvUUOUmEGlYvFTT8vOHqJZLm2u9IVTT+xaiB77nI1TnMHSduQjbKNXLSe23kYm0HKJYECqTDwgnV3nC70jE6n2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783965264; c=relaxed/simple;
-	bh=jF3lkhKiWakpsBVktimaJzqA+Qy4eUHt2cp8o/pJc9o=;
+	s=arc-20240116; t=1783965458; c=relaxed/simple;
+	bh=4Gj5VuRyO7nTlTb+3ZMYsdfj6AIyls3aVgQPdKGtIhI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SwWE4cmiiT1OFPtCLcN3srNUnJj2nNGI21L6NKslULtoPuMZ1IHn/nYWYPRbFiqWaEAywEuajhsF3zkwA2EghGfONd3tdvU5gXVTCWqoJIHsfnnZW8eKaUJY8zjX/SG6PXtz0H4QQrkSUo0+cw7TKrKFdyqPUaLm9vK449nxfcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fNySx5R8; arc=none smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=fKD6/mao7qfJCdWPvnFgSLXBrZ6gCKqmLlS0ovhlggtW1+CSicUpCnWB2JW5I4k/50lwaKqAB2XWYKMz0kmV0N9HzlnrIu60+L/7fcwhTtni2TG8zQsRykVi5AKuou+M9EHlsphiYCJuyuB0ZgjjbfxiAZ6g/igGorCGhICtZOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZxQNZ8U4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fNySx5R8"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7eb5a9f02e8so1751249a34.0
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 10:54:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783965262; x=1784570062; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wTazow5AK7oQsOPc1YIhM/ohcZWShlTcPJrS3UikzxY=;
-        b=fNySx5R8oMbE0REIG/NMakSSFc8IRWEv/rkgGbus36kbyeZzQs3T9UzTZFIlOvhuTx
-         sBq2yTBaFCwzCTnDh4T5b+Lk/Uksx1RwmwqjXA34yJ5aaPLYbDF3n0cz0IH7O66J+p7f
-         D6B5fwYs5KLXyrVoQ6CDpQgwAmBXQYfk9FsTRZyzKfncHiaBcHpORalWEiLL5mI226d1
-         mTZNHwLTgE97p5f4vURTH3zkSaEgM65kH722HxIBLhGAjtw5ExBlXQS4QtKsKWpfvJpH
-         EdqPpnGSCnoEhCyWXLlSWHk01viIc49AREZw7T/EyEOaFzeCURos7oxx/7yL1XWwh7SU
-         l4JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783965262; x=1784570062;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wTazow5AK7oQsOPc1YIhM/ohcZWShlTcPJrS3UikzxY=;
-        b=OzH5Dl9UoiynklPR9x4pW3QAYA0Obi6kMEyxBConPaNLzdkKY5nNT8CtkO/S/1WnY0
-         xR9cbuUSJIJeIw/Fgdchg6pbbZtzgqyA6CaHMCJNpNz2epLDWqfUvFZzqQg5sgtxnjDn
-         /eY29sWoh39nVF/7dIKLsDwV5Fc0lEf7yo0cefCDYmLmmat7qW2yRFUflDUvEd0dquzO
-         NQwN4fSUx1pOjGvECvqK5FZ5I6F9ZTJjGZ/gGsWWdPcyIyDwcjpSA6MT7zOwzLfkq/bT
-         Rw5HhydxxnTAbi/2aZw8cKV6rpQG3bAVobFteM+xIAbNPwKvHbscOFJlsjiHADkVjCpS
-         ZjWg==
-X-Forwarded-Encrypted: i=1; AFNElJ+tMt4b6BgGq26l2CMSxu/BTqhp7zbJPVHnbuEWydRZxASSbBLGsvKsCrhDeuPcnZAI+HvOaXs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHrhZCJheIucae9DO95jtn0kJLYkTSli7KxFuAQIS5InkKRbe8
-	0exleg++bFqvhrtlFXF/voPINRfcavmixMFVbR7e5UHU/EA6ildNUBVk
-X-Gm-Gg: AfdE7cl3xVqpWYGpFunDu5WjxqUoAQlZhKjudl0qn/6EDAWGH5raNHL4CsWDIgjcT1h
-	5FBxGNXSVmvAhqpRPYO0vgd2JmTnEfvKnpDzPcHXgZsZOdRkILcNA6yYkl+foHkrqNswKH4K6yP
-	iV09lPmyrdBOwyBUNJcqSlPwRhew04n8cTGTDWZxgiNNie6oKLDhBL5gd1sp0o99heiso/3QlGv
-	sQitjfmOUZrRDUr4MG8K8pN7BuaQ0KMWQImm9R1/+8F+xEkQv/Bs/tJ+l55zhFCVlgOUNXq9hdU
-	Ko7mnLS0UifKmS1E22q2kyBPKoZpzfMSqbG7bGiaZeumn8jJYyrFVOp9YQMWtemDEk7ACQXVRJz
-	m0OtZ3SK6GAKG6Dua43Zrh9rdwaT6U1hD9uMrQ4HyOZuy//3OMhkpV6QSCvUxCeHDbQOif+IZbe
-	WhkR97aEJaiMeM9scSNFPGhVUv0QivUQQOvumNDXiG1wbzG2fNW9xxGBMZyK+5vQMo9l+LQ6WPU
-	Js=
-X-Received: by 2002:a05:6830:6995:b0:7e6:d54e:8fe3 with SMTP id 46e09a7af769-7ec09678204mr6662957a34.9.1783965262313;
-        Mon, 13 Jul 2026 10:54:22 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:48::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcaf742e1sm13630238a34.8.2026.07.13.10.54.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 10:54:21 -0700 (PDT)
-From: Joanne Koong <joannelkoong@gmail.com>
-To: miklos@szeredi.hu,
-	bernd@bsbernd.com
-Cc: fuse-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH v1 2/2] fuse: publish io-uring queues with release semantics
-Date: Mon, 13 Jul 2026 10:53:45 -0700
-Message-ID: <20260713175345.2542331-3-joannelkoong@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260713175345.2542331-1-joannelkoong@gmail.com>
-References: <20260713175345.2542331-1-joannelkoong@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZxQNZ8U4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9DCE1F000E9;
+	Mon, 13 Jul 2026 17:57:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783965456;
+	bh=blU+JzKLCXpm9VdZ5EklSmoIV6WJrgr6Zgn9JqP8rEo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZxQNZ8U4lMocOj2pykap3JyhdSxHCpL3tQNsU0KR3niYRgfLZSj1L7XhfnT+h7gyQ
+	 wUEhSUdHtg/qdbjT6f4Pm79GZ+eibipBGfWsEmdBGqAUfBcga7yAdEVx3PGi4A9JVj
+	 gvwRuA4zm5YPXBvSmr5eNMI/Sz/t8deISkWHhF9E7+IFa+vKpnikj1VPMd4DM09DLG
+	 AQtNxe/bl4PTU1akLK5nvcMemtf8T7GCnBNDlEnN91bQH4TlFXGmQw7Ps3CxqUSFE3
+	 MCUWjZNz446qIrTgnJHAfO0ImpJJDBOcL8XKbup5KWi8Wys7B3NuxLkByA2UrudmCy
+	 KYntwngde6ZSg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Zhang Lixu <lixu.zhang@intel.com>,
+	Jiri Kosina <jkosina@suse.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Stable@vger.kernel.org,
+	Jonathan Cameron <jic23@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] HID: sensor-hub: Add sensor_hub_input_attr_read_values() for multi-byte reads
+Date: Mon, 13 Jul 2026 13:57:32 -0400
+Message-ID: <20260713175733.1907391-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071306-provider-scrap-2570@gregkh>
+References: <2026071306-provider-scrap-2570@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,58 +49,185 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fuse_uring_create_queue() initializes a fuse_ring_queue and then
-publishes the pointer into ring->queues[qid] with WRITE_ONCE() under the
-fch->lock. On the reader side, fuse_uring_register() reads that pointer
-on a fast path locklessly with
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-	queue = ring->queues[qid];
+[ Upstream commit f784fcea450617055d2d12eec5b2f6e0e38bf878 ]
 
-There's no barrier that orders the initialization/setup of the queue's
-fields and the WRITE_ONCE() that publishes the queue. As a result, the
-lockless concurrent reader can see a non-null queue but uninitialized
-queue fields (eg spinlock and list heads) and then operate on
-uninitialized memory.
+sensor_hub_input_attr_get_raw_value() is limited to returning a single
+32-bit value, which is insufficient for sensors that report data larger
+than 32 bits, such as a quaternion with four s16 elements.
 
-Publish the queue with smp_store_release() and read it on the lockless
-fast path with smp_load_acquire().
+Add sensor_hub_input_attr_read_values() that accepts a caller-provided
+buffer and accumulates incoming data until the buffer is full. The two
+paths are distinguished in sensor_hub_raw_event() by pending.max_raw_size
+being non-zero, preserving backward compatibility.
 
-Fixes: 24fe962c86f5 ("fuse: {io-uring} Handle SQEs - register commands")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Co-developed-by: Zhang Lixu <lixu.zhang@intel.com>
+Signed-off-by: Zhang Lixu <lixu.zhang@intel.com>
+Acked-by: Jiri Kosina <jkosina@suse.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Stable-dep-of: 3ce8d099e0af ("iio: hid-sensor-rotation: Fix stale or zero output when reading raw values")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/dev_uring.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/hid/hid-sensor-hub.c   | 77 +++++++++++++++++++++++++++++++---
+ include/linux/hid-sensor-hub.h | 25 +++++++++++
+ 2 files changed, 96 insertions(+), 6 deletions(-)
 
-diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-index 77c8cec43d9c..0ea142d6670b 100644
---- a/fs/fuse/dev_uring.c
-+++ b/fs/fuse/dev_uring.c
-@@ -321,9 +321,12 @@ static struct fuse_ring_queue *fuse_uring_create_queue(struct fuse_ring *ring,
- 	}
+diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-hub.c
+index 4c94c03cb57396..1b725c87965061 100644
+--- a/drivers/hid/hid-sensor-hub.c
++++ b/drivers/hid/hid-sensor-hub.c
+@@ -286,6 +286,54 @@ int sensor_hub_get_feature(struct hid_sensor_hub_device *hsdev, u32 report_id,
+ }
+ EXPORT_SYMBOL_GPL(sensor_hub_get_feature);
  
- 	/*
--	 * write_once and lock as the caller mostly doesn't take the lock at all
-+	 * fch->lock serializes concurrent creators for this qid.
-+	 * smp_store_release() is for the lockless reader in
-+	 * fuse_uring_register(), which pairs it with smp_load_acquire() and
-+	 * must see the fully initialized queue if it sees a non-null queue
- 	 */
--	WRITE_ONCE(ring->queues[qid], queue);
-+	smp_store_release(&ring->queues[qid], queue);
- 	spin_unlock(&fch->lock);
++int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
++				      u32 usage_id, u32 attr_usage_id,
++				      u32 report_id,
++				      enum sensor_hub_read_flags flag,
++				      u32 buffer_size, u8 *buffer)
++{
++	struct sensor_hub_data *data = hid_get_drvdata(hsdev->hdev);
++	struct hid_report *report;
++	unsigned long flags;
++	long cycles;
++	int ret;
++
++	report = sensor_hub_report(report_id, hsdev->hdev, HID_INPUT_REPORT);
++	if (!report)
++		return -EINVAL;
++
++	mutex_lock(hsdev->mutex_ptr);
++	if (flag == SENSOR_HUB_SYNC) {
++		memset(&hsdev->pending, 0, sizeof(hsdev->pending));
++		init_completion(&hsdev->pending.ready);
++		hsdev->pending.usage_id = usage_id;
++		hsdev->pending.attr_usage_id = attr_usage_id;
++		hsdev->pending.max_raw_size = buffer_size;
++		hsdev->pending.raw_data = buffer;
++
++		spin_lock_irqsave(&data->lock, flags);
++		hsdev->pending.status = true;
++		spin_unlock_irqrestore(&data->lock, flags);
++	}
++	mutex_lock(&data->mutex);
++	hid_hw_request(hsdev->hdev, report, HID_REQ_GET_REPORT);
++	mutex_unlock(&data->mutex);
++	ret = 0;
++	if (flag == SENSOR_HUB_SYNC) {
++		cycles = wait_for_completion_interruptible_timeout(&hsdev->pending.ready,
++								   HZ * 5);
++		if (cycles == 0)
++			ret = -ETIMEDOUT;
++		else if (cycles < 0)
++			ret = cycles;
++
++		hsdev->pending.status = false;
++	}
++	mutex_unlock(hsdev->mutex_ptr);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(sensor_hub_input_attr_read_values);
  
- 	return queue;
-@@ -1191,7 +1194,8 @@ static int fuse_uring_register(struct io_uring_cmd *cmd,
- 		return -EINVAL;
- 	}
+ int sensor_hub_input_attr_get_raw_value(struct hid_sensor_hub_device *hsdev,
+ 					u32 usage_id,
+@@ -480,6 +528,8 @@ static int sensor_hub_raw_event(struct hid_device *hdev,
+ 	struct hid_collection *collection = NULL;
+ 	void *priv = NULL;
+ 	struct hid_sensor_hub_device *hsdev = NULL;
++	u32 copy_size;
++	u32 avail;
  
--	queue = ring->queues[qid];
-+	/* Pairs with smp_store_release() in fuse_uring_create_queue() */
-+	queue = smp_load_acquire(&ring->queues[qid]);
- 	if (!queue) {
- 		queue = fuse_uring_create_queue(ring, qid);
- 		if (!queue)
+ 	hid_dbg(hdev, "sensor_hub_raw_event report id:0x%x size:%d type:%d\n",
+ 			 report->id, size, report->type);
+@@ -520,12 +570,27 @@ static int sensor_hub_raw_event(struct hid_device *hdev,
+ 					      hsdev->pending.attr_usage_id ==
+ 					      report->field[i]->logical)) {
+ 			hid_dbg(hdev, "data was pending ...\n");
+-			hsdev->pending.raw_data = kmemdup(ptr, sz, GFP_ATOMIC);
+-			if (hsdev->pending.raw_data)
+-				hsdev->pending.raw_size = sz;
+-			else
+-				hsdev->pending.raw_size = 0;
+-			complete(&hsdev->pending.ready);
++			if (hsdev->pending.max_raw_size) {
++				if (hsdev->pending.index < hsdev->pending.max_raw_size) {
++					avail = hsdev->pending.max_raw_size - hsdev->pending.index;
++					copy_size = clamp(sz, 0U, avail);
++
++					memcpy(hsdev->pending.raw_data + hsdev->pending.index,
++					       ptr, copy_size);
++					hsdev->pending.index += copy_size;
++					if (hsdev->pending.index >= hsdev->pending.max_raw_size) {
++						hsdev->pending.raw_size = hsdev->pending.index;
++						complete(&hsdev->pending.ready);
++					}
++				}
++			} else {
++				hsdev->pending.raw_data = kmemdup(ptr, sz, GFP_ATOMIC);
++				if (hsdev->pending.raw_data)
++					hsdev->pending.raw_size = sz;
++				else
++					hsdev->pending.raw_size = 0;
++				complete(&hsdev->pending.ready);
++			}
+ 		}
+ 		if (callback->capture_sample) {
+ 			if (report->field[i]->logical)
+diff --git a/include/linux/hid-sensor-hub.h b/include/linux/hid-sensor-hub.h
+index e7105655310850..ab5cc8db3fbb3b 100644
+--- a/include/linux/hid-sensor-hub.h
++++ b/include/linux/hid-sensor-hub.h
+@@ -43,6 +43,8 @@ struct hid_sensor_hub_attribute_info {
+  * @attr_usage_id:	Usage Id of a field, e.g. X-axis for a gyro.
+  * @raw_size:		Response size for a read request.
+  * @raw_data:		Place holder for received response.
++ * @index:		Current write index into raw_data for multi-byte reads.
++ * @max_raw_size:	Total buffer size for multi-byte reads; 0 for single-value reads.
+  */
+ struct sensor_hub_pending {
+ 	bool status;
+@@ -51,6 +53,8 @@ struct sensor_hub_pending {
+ 	u32 attr_usage_id;
+ 	int raw_size;
+ 	u8  *raw_data;
++	u32 index;
++	u32 max_raw_size;
+ };
+ 
+ /**
+@@ -183,6 +187,27 @@ int sensor_hub_input_attr_get_raw_value(struct hid_sensor_hub_device *hsdev,
+ 					bool is_signed
+ );
+ 
++/**
++ * sensor_hub_input_attr_read_values() - Synchronous multi-byte read request
++ * @hsdev:		Hub device instance.
++ * @usage_id:		Attribute usage id of parent physical device as per spec
++ * @attr_usage_id:	Attribute usage id as per spec
++ * @report_id:		Report id to look for
++ * @flag:		Synchronous or asynchronous read
++ * @buffer_size:	Size of the buffer in bytes
++ * @buffer:		Buffer to store the read data
++ *
++ * Issues a synchronous or asynchronous read request for an input attribute,
++ * accumulating data into the provided buffer until it is full.
++ * Return: 0 on success, -ETIMEDOUT if the device did not respond, or a
++ * negative error code.
++ */
++int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
++				      u32 usage_id, u32 attr_usage_id,
++				      u32 report_id,
++				      enum sensor_hub_read_flags flag,
++				      u32 buffer_size, u8 *buffer);
++
+ /**
+ * sensor_hub_set_feature() - Feature set request
+ * @hsdev:	Hub device instance.
 -- 
-2.52.0
+2.53.0
 
