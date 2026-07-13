@@ -1,100 +1,137 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD3337BE71
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 07:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8F6367F4D;
+	Mon, 13 Jul 2026 07:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783927337; cv=none; b=Mxim87faFi3YO0jU3OdIMFWqgVFfbu5WT8Y1bb1p8TJ03OSD0EK1quoO+tqbJk9YOG39oEnFHaEfygo9re2niCsnCXFg1EWrDHMpdfjl7JjzMsJsCyEPalM6G4emP2ggVV5E3vSgwikbfltnBqPGA8/V26CjCLeWGRDWH21uho0=
+	t=1783927597; cv=none; b=InQbwMLB7KRtQX7WopGuPTf4z8jojrOe+gxkOiWUkT3ZRNcCqxDKhYKP062N89nYMDVY3BTWZCOni0HigD1e6lBTqngXwZmu7O5GgKzSzVWgBN2a8OFQARH+4Ezlf6QSlmIBVyZoNcVoUA3DpuVaC46vWPF/afQm0UPUqJ79i7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783927337; c=relaxed/simple;
-	bh=prDBsEDkefgLC10ZgD/cNKCQ1km1ZVKL+7eLXBoG9jg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J216x8NroaPyKI3vf9brKBc72k2SbpUe2G9Fo76ELNYyKv2n2gi9x3I6MQSaDLmP+VY/ViiBA7+19sAP95iU4S3i+v0IEyPtomP9vOBk5MUg2fv5WyB0d8rwhk+NGbOYXGab1LgAPLs/uzBiENjDpluQWUidcqIw+bXE3vBlE7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5bf62388d17so1026528e0c.3
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 00:22:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783927334; x=1784532134;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=k9efCbe+5Y6ahQNJH2dxKPZ1FaQevv/SuYysWDsVR8s=;
-        b=oecLF32iHTu6VTHWkIcfyBYaMRdJAi/aWPI61mxr/q0Gw5TeZDR0QmU5WBRp+a9Qi6
-         fhTsBDMUL9fqBLbfFJHIKzf+wLloGj4oqy0+sYS1thX47wZTCk/Vi2jiwmsbvKz3xARE
-         UsaGe78mZF6fyWgSN5U05jpK63mhFP0FTjb590+OPti4Wbtpk9CrG9pVROBYxEC+Hayw
-         NrRncRvGQ5RAwRFOi4KibYxFaMzp3ttED4YcIzPYbiR9U0mbPSDzpyi4R+B4KofGdGn4
-         4sXby57yQtLwdKU3DuddziiNgffQbYwUqXOC1E37Jp4vE1dOPcpDNczDWFcM0B7opynM
-         aRuQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoLwLDKlnNU+pRK90THK/Jxg87yleyBE6NALEtTtJsRf9MYplrs6aPR/mF720k1BsHxQ1629Vg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFD8xZeuSpoETPMkzXJJMgMrVsa/Fesh949a2fNsF0BGDDQmKK
-	q3WicYokJ48UQ9HXGBIacyD9Zy7lmHJusEhNAbtH3Cu69hFyquZ05c2dRpcvicad
-X-Gm-Gg: AfdE7ckb/PjQBoEBqQp3nCmL7OMVrMFgps7GVlYMXhZErFQP8WXMBHIOTa8MxUc1ZhZ
-	DN0BLi4dqO6O/zjXny/kvMN9BWJ53poVgmFx/PVTO29q0zwSElYfoXs8kFuce2yZTEMmq9Wu9Aa
-	lA2BEcBZsA9GZTTMKjNktaIH0f7c4XfPpuCtd79bKv6w/fFwurkGJQilWzYxIeXZVaKhdhBC8Dh
-	W8yx8PLsfbhtaz/0uxAvSuoT+iUzonbyxLlc6CShKepKeAozuQTzmdGm7qQNl0NPgt2YGWDrMkm
-	xirFL7Ojk/+nuzMojsmmdHYqlVDvJU8qbZNjlh5FgwWJIhOe6PIVPoXm3DrWzT62ibHixQBdDzm
-	J3TIKCstSyWmDgmAMCeRccCGsKOYLFo4wKd1vIPI7/1SydUa7+X4u2QukNxQqMI0z4JyNqhbIJ/
-	onxMeoXJ14+xiF2mh8psu5hU3WCl7XJFbybYK78fCw/dJRGMrFfw==
-X-Received: by 2002:a05:6102:2913:b0:631:af51:7d8e with SMTP id ada2fe7eead31-74533d605e1mr4248472137.17.1783927334115;
-        Mon, 13 Jul 2026 00:22:14 -0700 (PDT)
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com. [209.85.222.42])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96ed5d4d40esm6880956241.9.2026.07.13.00.22.09
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 00:22:11 -0700 (PDT)
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9618b8bdc51so683689241.1
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 00:22:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoezkAP40Kepr9+UW5IsEalXKa7BlK6jNtxtRtTlfuzZyA/DLBfPS9suoU6HSO4rFw13ZCyOv8=@vger.kernel.org
-X-Received: by 2002:a05:6102:26d4:b0:737:783d:1900 with SMTP id
- ada2fe7eead31-74533bddb5fmr4721253137.9.1783927329441; Mon, 13 Jul 2026
- 00:22:09 -0700 (PDT)
+	s=arc-20240116; t=1783927597; c=relaxed/simple;
+	bh=L7xoaJrUdDXlvGuljK/J3/a4RlGKUVh9PitZfk3Islc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G00qdkDgirlEXGQKafVX4oRR6dxcx7V3DhpYpsfw4GK9MWQw8iPy8AK8oW6GvZAzx2mnBZbvCJrVsuGKMsKycTsGKVFyQngxcrpNy7qenaahjCbK+oP65Ge8jqZcbIigMUxUgGHGMkZ0hMZUWAofpMCBUX4YiQ5gKAPUXElrZNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=AxB4HHZD; arc=none smtp.client-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="AxB4HHZD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1783927553;
+	bh=v5zHyTWnlXl2131UmamubukTuUePJf2rxwslkzR5zyE=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=AxB4HHZDb2NYqK8qyKuRzBYwOLMAoZ+II24Zs1BWZx3a4VJ7Cmi2FoHXXzztYIhk9
+	 P16pAnzbjmxtETVfdiOKTEWvnwiR4AtDQ1QVi4CQ96yCv0VQG7QiyU7gAzVAobbrzm
+	 eOgCyA5tOmRG1kz88k4mQN5i5m3sCFeS8hRA5yCQ=
+X-QQ-mid: zesmtpgz6t1783927546t46037448
+X-QQ-Originating-IP: aUH+avv7FL44AIbU3VNg7RDj7c57+bpD6izfgXkE3Sc=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 13 Jul 2026 15:25:44 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 8809296686197180074
+EX-QQ-RecipientCnt: 8
+From: raoxu <raoxu@uniontech.com>
+To: brgl@kernel.org
+Cc: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: btqcomsmd: destroy RPMsg endpoints before freeing hci_dev
+Date: Mon, 13 Jul 2026 15:25:43 +0800
+Message-ID: <0CB2D8D715AB9933+20260713072543.3348755-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260711130931.740719-3-thorsten.blum@linux.dev>
-In-Reply-To: <20260711130931.740719-3-thorsten.blum@linux.dev>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 13 Jul 2026 09:21:57 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUK9a+1EwCGFw7dS8tvU=N438Bd2Z=EY0xuaQYPDy2hug@mail.gmail.com>
-X-Gm-Features: AUfX_mx-KZ6ym34u_XnSAl1rHvfZCpzLD6QFC2QtuW07Z8oE-TV1vNB_HazP5kM
-Message-ID: <CAMuHMdUK9a+1EwCGFw7dS8tvU=N438Bd2Z=EY0xuaQYPDy2hug@mail.gmail.com>
-Subject: Re: [PATCH] powerpc/ps3: Fix map failure path in dma_ioc0_map_pages()
-To: Thorsten Blum <thorsten.blum@linux.dev>
-Cc: Geoff Levand <geoff@infradead.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Paul Mackerras <paulus@ozlabs.org>, 
-	MOKUNO Masakazu <mokuno@sm.sony.co.jp>, stable@vger.kernel.org, 
-	Geoff Levand <geoffrey.levand@am.sony.com>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NU4e3V92LJuQ9l5gE0EGAvqalUZ1/hFlYUh31zQ9FdX8lx6a86yPen5b
+	EClUpMl2HJyNeydsSc88dqA3DqUIG2bCEJFUXeTCk+Subr3EtxXBCiGsUDYjqerUoqN6x3j
+	HtnmVF+mw7Fzro35EsUUQ5lWT+5YLedGe/O3u+pThDonU03Hm+zZ9LDAOQYctTvbjUoXWIc
+	wBX78JO77BAYFctuF3KK2Hy/C+wLn4R+Ihdq3iEkmgSllqqfj1i4r4l5qBTUX4em3EQ0cVy
+	Czc9aD1m3JDD+lw0ZZw+/nlSbYo5Ba8uOTOpkfCIfNIq2YtResI0xSGBVmzeYqZLDk5DOQs
+	jKqbEQBo3S2KzsplznS7NTf3Yn6Ic3DstKE48+7Nt/5vfz0SP3NoXTf/Y7o6VfOkFQr9jZN
+	2/kivbhVF/mqlciZ7I1Nxiu0ZYm8uG88+FDwoCCwx9viC42IZ+Gujn+NCpCVCBCutt/Sfqn
+	+PNIkPU5IHqvWQzg3hTf56dvZpTxK5iyWzNUe/UDaPvgpjQkJM+F2aIyU3xdvXmpnpuEU77
+	55uha1gKN5ZTuSZuoXnYIDx8Nbt/OUeHgAkQvtcI+r2QqWoh9CDFasD59/fEjOWgXs7Mmaa
+	WW7n7mupa4ZKtWajwtQZfBIteDRbbHW2ZVVr01rmMjGLciNgX10hHIkydJ25U3Z587W7qz6
+	1oMg0es+9ol0fh8X4Tn0fzE1KZx7IOfHb/UDi4K5VrbSHZWZI2r9wDkqVjixfAUq/VvyEmp
+	Y/QrEgUt6kayVzS/gpwFIjr/+aqKXOBU26xQTMAbs4l3dfTkESAdyqMuBH4AMa9+UVLfEb3
+	ageoJkUNesXGGcIhGVcomwE/+7t5Dj3ZDkcGYzxTaDaFRhulbDxHVXcWBeYYwuz3URinldW
+	rktJyltNuSxJ1heuaL8gk7eLiLhRgXcQHnT65t0i7zDkR0b6haIa2ysUlENjrNyf7o6DBTb
+	Xx1JsU/V8STpz4TRok6P9io4jspzjV6YDwTq3QlsXHPB2Aw9wuCu1/JmBHApD3TM4vSuCxS
+	J0s9//hbf8Lwfv3c/J9aPeA2gSyFsM0AfAkSsS8NRocvFNYM3WUL66iHXVHPIbdPM2wXjcB
+	A==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-On Sat, 11 Jul 2026 at 15:10, Thorsten Blum <thorsten.blum@linux.dev> wrote:
-> If lv1_put_iopte() fails in dma_ioc0_map_pages(), the error path
-> decrements iopage but keeps using the failed mapping's offset. As a
-> result, it repeatedly tries to invalidate the failed IOPTE slot and
-> leaves the already installed IOPTEs valid.
->
-> Recompute offset and invalidate the installed IOPTEs instead.
->
-> Fixes: 6bb5cf102541 ("[POWERPC] PS3: System-bus rework")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+From: Xu Rao <raoxu@uniontech.com>
 
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+The command and ACL RPMsg endpoints store struct btqcomsmd as their
+callback private data.  The receive callbacks dereference btq->hdev
+without taking an hci_dev reference.
 
-Gr{oetje,eeting}s,
+The current teardown order frees the hci_dev before destroying the RPMsg
+endpoints in both the hci_register_dev() error path and the driver remove
+path.  If WCNSS delivers data in that window, the endpoint callback can
+run with an already freed hci_dev and pass it to the Bluetooth core.
 
-                        Geert
+For qcom_smd endpoints, rpmsg_destroy_ept() closes the channel and clears
+the callback under the channel recv_lock.  The receive path holds the same
+lock while invoking the callback, so destroying the endpoints first both
+prevents new callbacks and serializes with any callback already running.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Destroy the command and ACL endpoints before hci_free_dev().  Keep
+hci_unregister_dev() first during remove so the HCI core stops issuing
+operations before the transport endpoints are shut down.  In the full
+registration-error cleanup path, return directly after freeing the hci_dev
+to avoid falling through to the partial-construction labels and destroying
+the endpoints twice.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Fixes: 5052de8deff5 ("soc: qcom: smd: Transition client drivers from smd to rpmsg")
+Fixes: 9a39a927be01 ("Bluetooth: btqcomsmd: Fix a resource leak in error handling paths in the probe function")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/bluetooth/btqcomsmd.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/bluetooth/btqcomsmd.c b/drivers/bluetooth/btqcomsmd.c
+index d2e13fcb6bab..d669ea4eb3eb 100644
+--- a/drivers/bluetooth/btqcomsmd.c
++++ b/drivers/bluetooth/btqcomsmd.c
+@@ -188,7 +188,10 @@ static int btqcomsmd_probe(struct platform_device *pdev)
+ 	return 0;
+
+ hci_free_dev:
++	rpmsg_destroy_ept(btq->cmd_channel);
++	rpmsg_destroy_ept(btq->acl_channel);
+ 	hci_free_dev(hdev);
++	return ret;
+ destroy_cmd_channel:
+ 	rpmsg_destroy_ept(btq->cmd_channel);
+ destroy_acl_channel:
+@@ -202,10 +205,11 @@ static void btqcomsmd_remove(struct platform_device *pdev)
+ 	struct btqcomsmd *btq = platform_get_drvdata(pdev);
+
+ 	hci_unregister_dev(btq->hdev);
+-	hci_free_dev(btq->hdev);
+
+ 	rpmsg_destroy_ept(btq->cmd_channel);
+ 	rpmsg_destroy_ept(btq->acl_channel);
++
++	hci_free_dev(btq->hdev);
+ }
+
+ static const struct of_device_id btqcomsmd_of_match[] = {
+--
+2.50.1
+
