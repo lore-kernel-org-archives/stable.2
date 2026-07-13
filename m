@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37732356772
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 20:39:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E529A356772
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 20:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783975169; cv=none; b=dBoDCEB4N3/BVF5K8jGm19g12avwBkksCS8S5kxdc75TtUzpgTlG3be9hRzuQzUc5FsPLEwUVP5WjW9nUXKTux1IjKLMVX0jXxS9YlVAx0Q7XJnbNCRRJkAv2TlAfBW85fgdXQZWCe71k2auH9eKsxBT2zk/E9xoHfPf1XfxXWc=
+	t=1783975171; cv=none; b=pRsmcgcWOmglQEu+GIRzERD4Mn+l2nVW21uxRT08vNUvCUncpBuFXBzN1cH5XN2ezFUy3o5/2ZwQc3DWATPRjGPkPf7+kCwacakdVXoJ2rscC0yHK4PdlKY4EW0A209kx45H+YEez+CyFzJrTrqu4lhalDNvWxlozx/NK+E/WV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783975169; c=relaxed/simple;
-	bh=UFkYjqoLqmpLBSPtxM2kVEHTI35ar+FiDV4IYGblHQM=;
+	s=arc-20240116; t=1783975171; c=relaxed/simple;
+	bh=QxTlfGWAMSCW4MV03u+LwyKoteoJ2MtXxOttGn/k/FI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eccmcHlGgeVEWomCjccbmv/B/NExKiGSY7+MJoEt24Fb5jLcmb8tr6nZQE+ZjZHL8P2lVhIhzE7zBa2pf5aEfrYJ+75WNUlSWQU63yxEsiFyslrXwxDsNRVcyKpiWgTDxbPKevPkQiPp2UjEU/yu9SZ2IUvV9PgYFjpCdg9FWNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AiNpPPRe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=gL5Z7dRGf3eVbgsv0owcL/hAixcY2x1bJ8RPTDgkSPFKATSOW8OH46UvkfSKnHkl0K0THywKNdXUi3zLRRIgMOjcSjXKAQcZ7XyFs3VtsSNbEO81comKG507Wtg7XIpUFFM1LyQkrMfOzdOHxrbryZHrJfF6XKptjvalqXZRaVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckkO8ksQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AiNpPPRe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EACC1F00A3D;
-	Mon, 13 Jul 2026 20:39:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckkO8ksQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221751F000E9;
+	Mon, 13 Jul 2026 20:39:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783975167;
-	bh=R58yMrpyLhAc/PWwlX5g68JEU16gHrC5YLJDc3abSyM=;
+	s=k20260515; t=1783975169;
+	bh=64uuml4Q1dTgYnsk3Thz6+3awGttCcYagDKuUk0/qDQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AiNpPPRe1d8qxIQ6lIvzaU9b/PDRCcXplKyAJWk/bwW216lJBwNfYPVB3yib0DYGL
-	 2X3E+vwtVOQY1abf5Pt66IXOYmUEQKRCVT04hO0cNURyaDTveukjwBzXRMIkL6GtnL
-	 XnRWgV2Oos0S3TVNd7d8Cq0qUWrQID3k+x89r1ReTbkTzpgIhQ/tjPpprM0PxHvvUO
-	 vWBaYL5QQ623hBxOulHCfXoGsVpSqcnzTzKE/HV1hDNnyHgktoCmdG/Gcn5cxyIjXq
-	 YzUY/udzVSv6HBTFvKE4ez/v7uNwxoP5ILYyKJviGLv+GCBNsHTfZklTZhrAF7672m
-	 4WSBCETtuxsuA==
+	b=ckkO8ksQzg8hAbFxT24sCcMYdLtEayyyHpA880K3Ex07J8ZEjufYEH9GX/DWecLTF
+	 WxSCxvaBYMbXNt7+4eYeNS/xapvUNpB7XtKXRrCoYIBRsJrlTmQ6LQ/HCasgTPuQ7w
+	 6pu1ecqKvmZReYuNDo/eehLha9AFZdO4MjSH5rhEudnNl3S2LfaFZ7wGbGeG1rX4Lp
+	 wc/qevPAjT0GH5smmxiBlXpUZ5WvoTVTufTsFMQ38lZK+RPd0TgiMQ4Pa4zJbWA1mr
+	 srzDN2Eiz0n4J5q+AJv4LOe/96Ssv8ZHq3sYwvn/zHW1ON9RUYOra3ShkY1Ll07EO3
+	 FqSJbXgrV04xw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Herman van Hazendonk <github.com@herrie.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
+Cc: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
+	Stefan Binding <sbinding@opensource.cirrus.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] iio: common: st_sensors: honour channel endianness in read_axis_data
-Date: Mon, 13 Jul 2026 16:39:24 -0400
-Message-ID: <20260713203924.2143667-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ALSA: hda/cs35l41: Fix firmware load work teardown
+Date: Mon, 13 Jul 2026 16:39:27 -0400
+Message-ID: <20260713203927.2143760-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260713203924.2143667-1-sashal@kernel.org>
-References: <2026071348-glorify-lapel-3161@gregkh>
- <20260713203924.2143667-1-sashal@kernel.org>
+In-Reply-To: <2026071358-headfirst-radiantly-f108@gregkh>
+References: <2026071358-headfirst-radiantly-f108@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,108 +47,176 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Herman van Hazendonk <github.com@herrie.org>
+From: Cássio Gabriel <cassiogabrielcontato@gmail.com>
 
-[ Upstream commit 55052184ac9011db2ea983e54d6c21f0b1079a12 ]
+[ Upstream commit b65020d5398f499c09498c9786dba6d67ae57664 ]
 
-st_sensors_read_axis_data() unconditionally decoded multi-byte
-results with get_unaligned_le16() / get_unaligned_le24() regardless
-of the channel's declared scan_type.endianness.
+cs35l41_hda creates ALSA controls whose private data points at the
+cs35l41_hda object. The firmware load control can also queue
+fw_load_work.
 
-For every ST sensor that has used this helper since it was introduced
-this happened to be fine because the ST IMU/accel/gyro/pressure
-families publish their data registers as little-endian and the
-channel specs in those drivers declare IIO_LE accordingly.
+Those controls are not removed on component unbind, and device remove
+only cancels fw_load_work through cs35l41_remove_dsp(). That helper is
+skipped when halo_initialized is false. With firmware_autostart
+disabled, a firmware load can be requested before the DSP has been
+initialized. If the component or device is removed before the queued
+work runs, the worker can run after teardown and dereference driver
+state that is no longer valid.
 
-The LSM303DLH magnetometer however publishes its X/Y/Z output as a
-pair of big-endian bytes (the H register sits at the lower address,
-0x03/0x05/0x07, and the L register immediately after), and its
-channel specs in st_magn_core.c correctly declare IIO_BE -- but
-read_axis_data() ignored that and decoded as little-endian, swapping
-the high and low bytes of every magnetometer sample. The LSM303DLHC
-and LSM303DLM share the same st_magn_16bit_channels (IIO_BE) and
-were therefore byte-swapped by the same bug; users of those parts
-will see different in_magn_*_raw values after this fix lands.
+Track the created controls and remove them on unbind so no new control
+callback can reach the driver data or queue more work. Then cancel
+fw_load_work to drain any request that was already queued. Also cancel
+the work unconditionally during device remove before runtime PM teardown.
 
-The bug is most visible on a stationary chip: in earth's field the
-true X reading is small and the high byte sits at 0x00, so swapping
-the bytes pins sysfs X at exactly the low byte's pattern (e.g. 0x00F0
-= 240). Y and Z still appear "to vary" because their magnitudes are
-larger and the noise in the low byte produces big swings in the
-swapped high byte:
-
-  before (LSM303DLH flat, sysfs in_magn_*_raw):
-      X=240 (stuck), Y= 12032..23296, Z=-16128..-9728
-
-  after (direct i2c-dev big-endian decode, same chip same orientation):
-      X≈-4096, Y≈210, Z≈80     (sensible values reflecting earth's
-                                ambient field at low gauss range)
-
-Fix read_axis_data() to dispatch on ch->scan_type.endianness and
-call get_unaligned_be16() / get_unaligned_be24() when the channel
-declares IIO_BE. Existing IIO_LE consumers (st_accel, st_gyro,
-st_pressure, st_lsm6dsx and others) are unaffected because their
-channel specs already declare IIO_LE and the LE path is unchanged.
-
-While restructuring the branches, replace the previously implicit
-silent-success-with-uninitialised-*data fall-through for
-byte_for_channel outside 1..3 with an explicit return -EINVAL. No
-in-tree ST sensor publishes such a channel, but the new behaviour
-is strictly safer than handing userspace garbage.
-
-Fixes: 23491b513bcd ("iio:common: Add STMicroelectronics common library")
+Fixes: 47ceabd99a28 ("ALSA: hda: cs35l41: Support Firmware switching and reloading")
+Fixes: 4c870513fbb0 ("ALSA: hda: cs35l41: Add read-only ALSA control for forced mute")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-7 sparse smatch clang-analyzer coccinelle checkpatch
-Assisted-by: Sashiko:claude-opus-4-7
-Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+Reviewed-by: Stefan Binding <sbinding@opensource.cirrus.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20260511-alsa-hda-cs35l41-fw-work-teardown-v1-1-1184e9bc4f25@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../iio/common/st_sensors/st_sensors_core.c   | 23 ++++++++++++++-----
- 1 file changed, 17 insertions(+), 6 deletions(-)
+ sound/pci/hda/cs35l41_hda.c | 77 ++++++++++++++++++++++++++-----------
+ sound/pci/hda/cs35l41_hda.h |  5 +++
+ 2 files changed, 60 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/iio/common/st_sensors/st_sensors_core.c b/drivers/iio/common/st_sensors/st_sensors_core.c
-index 78f5728417d5b3..6fd725b3c0684e 100644
---- a/drivers/iio/common/st_sensors/st_sensors_core.c
-+++ b/drivers/iio/common/st_sensors/st_sensors_core.c
-@@ -498,6 +498,7 @@ static int st_sensors_read_axis_data(struct iio_dev *indio_dev,
- 	u8 *outdata;
- 	struct st_sensor_data *sdata = iio_priv(indio_dev);
- 	unsigned int byte_for_channel;
-+	u32 tmp;
+diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
+index 42c576d9f1179b..099b8e9582b841 100644
+--- a/sound/pci/hda/cs35l41_hda.c
++++ b/sound/pci/hda/cs35l41_hda.c
+@@ -1293,6 +1293,43 @@ static int cs35l41_fw_type_ctl_info(struct snd_kcontrol *kcontrol, struct snd_ct
+ 	return snd_ctl_enum_info(uinfo, 1, ARRAY_SIZE(hda_cs_dsp_fw_ids), hda_cs_dsp_fw_ids);
+ }
  
- 	byte_for_channel = DIV_ROUND_UP(ch->scan_type.realbits +
- 					ch->scan_type.shift, 8);
-@@ -510,12 +511,22 @@ static int st_sensors_read_axis_data(struct iio_dev *indio_dev,
- 	if (err < 0)
- 		goto st_sensors_free_memory;
- 
--	if (byte_for_channel == 1)
--		*data = (s8)*outdata;
--	else if (byte_for_channel == 2)
--		*data = (s16)get_unaligned_le16(outdata);
--	else if (byte_for_channel == 3)
--		*data = (s32)sign_extend32(get_unaligned_le24(outdata), 23);
-+	if (byte_for_channel == 1) {
-+		tmp = *outdata;
-+	} else if (byte_for_channel == 2) {
-+		if (ch->scan_type.endianness == IIO_BE)
-+			tmp = get_unaligned_be16(outdata);
-+		else
-+			tmp = get_unaligned_le16(outdata);
-+	} else if (byte_for_channel == 3) {
-+		if (ch->scan_type.endianness == IIO_BE)
-+			tmp = get_unaligned_be24(outdata);
-+		else
-+			tmp = get_unaligned_le24(outdata);
-+	} else {
-+		return -EINVAL;
++static void cs35l41_remove_controls(struct cs35l41_hda *cs35l41)
++{
++	if (!cs35l41->codec)
++		return;
++
++	snd_ctl_remove(cs35l41->codec->card, cs35l41->mute_override_ctl);
++	cs35l41->mute_override_ctl = NULL;
++
++	snd_ctl_remove(cs35l41->codec->card, cs35l41->fw_load_ctl);
++	cs35l41->fw_load_ctl = NULL;
++
++	snd_ctl_remove(cs35l41->codec->card, cs35l41->fw_type_ctl);
++	cs35l41->fw_type_ctl = NULL;
++}
++
++static int cs35l41_add_control(struct cs35l41_hda *cs35l41,
++			       struct snd_kcontrol_new *ctl,
++			       struct snd_kcontrol **kctl)
++{
++	int ret;
++
++	*kctl = snd_ctl_new1(ctl, cs35l41);
++	if (!*kctl)
++		return -ENOMEM;
++
++	ret = snd_ctl_add(cs35l41->codec->card, *kctl);
++	if (ret) {
++		dev_err(cs35l41->dev, "Failed to add KControl %s = %d\n", ctl->name, ret);
++		*kctl = NULL;
++		return ret;
 +	}
-+	*data = sign_extend32(tmp, BYTES_TO_BITS(byte_for_channel) - 1);
++
++	dev_dbg(cs35l41->dev, "Added Control %s\n", ctl->name);
++
++	return 0;
++}
++
+ static int cs35l41_create_controls(struct cs35l41_hda *cs35l41)
+ {
+ 	char fw_type_ctl_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
+@@ -1328,32 +1365,23 @@ static int cs35l41_create_controls(struct cs35l41_hda *cs35l41)
+ 	scnprintf(mute_override_ctl_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "%s Forced Mute Status",
+ 		  cs35l41->amp_name);
  
- st_sensors_free_memory:
- 	kfree(outdata);
+-	ret = snd_ctl_add(cs35l41->codec->card, snd_ctl_new1(&fw_type_ctl, cs35l41));
+-	if (ret) {
+-		dev_err(cs35l41->dev, "Failed to add KControl %s = %d\n", fw_type_ctl.name, ret);
+-		return ret;
+-	}
+-
+-	dev_dbg(cs35l41->dev, "Added Control %s\n", fw_type_ctl.name);
+-
+-	ret = snd_ctl_add(cs35l41->codec->card, snd_ctl_new1(&fw_load_ctl, cs35l41));
+-	if (ret) {
+-		dev_err(cs35l41->dev, "Failed to add KControl %s = %d\n", fw_load_ctl.name, ret);
+-		return ret;
+-	}
+-
+-	dev_dbg(cs35l41->dev, "Added Control %s\n", fw_load_ctl.name);
++	ret = cs35l41_add_control(cs35l41, &fw_type_ctl, &cs35l41->fw_type_ctl);
++	if (ret)
++		goto err;
+ 
+-	ret = snd_ctl_add(cs35l41->codec->card, snd_ctl_new1(&mute_override_ctl, cs35l41));
+-	if (ret) {
+-		dev_err(cs35l41->dev, "Failed to add KControl %s = %d\n", mute_override_ctl.name,
+-			ret);
+-		return ret;
+-	}
++	ret = cs35l41_add_control(cs35l41, &fw_load_ctl, &cs35l41->fw_load_ctl);
++	if (ret)
++		goto err;
+ 
+-	dev_dbg(cs35l41->dev, "Added Control %s\n", mute_override_ctl.name);
++	ret = cs35l41_add_control(cs35l41, &mute_override_ctl, &cs35l41->mute_override_ctl);
++	if (ret)
++		goto err;
+ 
+ 	return 0;
++
++err:
++	cs35l41_remove_controls(cs35l41);
++	return ret;
+ }
+ 
+ static bool cs35l41_dsm_supported(acpi_handle handle, unsigned int commands)
+@@ -1491,6 +1519,10 @@ static void cs35l41_hda_unbind(struct device *dev, struct device *master, void *
+ 		device_link_remove(&cs35l41->codec->core.dev, cs35l41->dev);
+ 		unlock_system_sleep(sleep_flags);
+ 		memset(comp, 0, sizeof(*comp));
++
++		cs35l41_remove_controls(cs35l41);
++		cancel_work_sync(&cs35l41->fw_load_work);
++		cs35l41->codec = NULL;
+ 	}
+ }
+ 
+@@ -2030,6 +2062,7 @@ void cs35l41_hda_remove(struct device *dev)
+ 	struct cs35l41_hda *cs35l41 = dev_get_drvdata(dev);
+ 
+ 	component_del(cs35l41->dev, &cs35l41_hda_comp_ops);
++	cancel_work_sync(&cs35l41->fw_load_work);
+ 
+ 	pm_runtime_get_sync(cs35l41->dev);
+ 	pm_runtime_dont_use_autosuspend(cs35l41->dev);
+diff --git a/sound/pci/hda/cs35l41_hda.h b/sound/pci/hda/cs35l41_hda.h
+index c730b335158944..65aed476fd8025 100644
+--- a/sound/pci/hda/cs35l41_hda.h
++++ b/sound/pci/hda/cs35l41_hda.h
+@@ -56,6 +56,8 @@ enum control_bus {
+ 	SPI
+ };
+ 
++struct snd_kcontrol;
++
+ struct cs35l41_hda {
+ 	struct device *dev;
+ 	struct regmap *regmap;
+@@ -74,6 +76,9 @@ struct cs35l41_hda {
+ 	int speaker_id;
+ 	struct mutex fw_mutex;
+ 	struct work_struct fw_load_work;
++	struct snd_kcontrol *fw_type_ctl;
++	struct snd_kcontrol *fw_load_ctl;
++	struct snd_kcontrol *mute_override_ctl;
+ 
+ 	struct regmap_irq_chip_data *irq_data;
+ 	bool firmware_running;
 -- 
 2.53.0
 
