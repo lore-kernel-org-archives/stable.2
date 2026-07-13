@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC721414DCE
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:08:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C584189D9
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:12:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783948106; cv=none; b=eKpsSeVsP8w2flXTwjSC+m0O1CaYBRQFPavzcaBGDnH+ZDFhlfcTagYVKnWKdbjoDMbkxZWq7VDcZMmt88fO+4KZelwy8X7o713Yc3bh2QavmZ5b497/MmtizWECdllGEFydoFxiFGJfrS/f26rbLvRq+7z6KIXt7WLTrqdzBIY=
+	t=1783948329; cv=none; b=Fq+3p5gMer9SpQqyUt47AQT3CtT+DislOlWz3QauU5bXSftaTVNFii47NR8cJfKxen4+TBYva+DEniTBGZf+BLsj+LnKBhMQ8dIXlvwuobiCwfACPpgv4TOGlY6MohnWtfD/0hHtRgkHQX3PNVBWFjKXiaQZb97E/hcGPRm0k04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783948106; c=relaxed/simple;
-	bh=ie6cZRB/tKxDu4uqPOOXxefcWz+o5G0dL9KeMJnRoSY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=k2DusjqRCpD4gjueCnzY/ch/DqpsrFDI1Z4ay6dXFK3KQ2o2hsZU2Zj5RXtzCT7nq1oBsxdTB/YlPxvYDHZb+fQAcuMzDU6Qumf+EzNjEKi5H2KAdu0Wmt0xOBU4d0jVPbC+7ff3awTMkvwkq7LeNK9IFHXjgTOP/X1OiFjjHTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iehR4yiy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783948329; c=relaxed/simple;
+	bh=rFsqt5uEaLx3Ru5saqP6EgfRxrisDP9tdmtmML2SuGw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=arrGM+yqDTO3spY4Wd1PtTbAOEBm5tQ6QV/p6mW2IvdQZLVFstGaMahihj4+/ch6D2hf8nxi1MCkkDGcNXw9EJ0DgcxayrPFRdG7m4cs/PLbaCRosw2H4xw/6ggk6ynPh8+Ki2Ui9pbS/x2kzGN21uJ4TnLJPxH1ITjJtzJlw6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XJUItoB5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iehR4yiy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 156711F000E9;
-	Mon, 13 Jul 2026 13:08:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XJUItoB5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF3401F000E9;
+	Mon, 13 Jul 2026 13:12:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783948104;
-	bh=9aMRkeiYZZeTC73uTAX1m+2tLFbh+XSKkcdix5Fqk7w=;
+	s=korg; t=1783948328;
+	bh=FkNVtA1fojUeNwfvU5XizFj5f7eJ0/IgT1CF8O0BxrU=;
 	h=Subject:To:Cc:From:Date;
-	b=iehR4yiyOmKUR9aAR3e/MtAsN+v6elaeHY/16i189+HldoPxnDrt3EY1Qj9NMw1JE
-	 TEY14y1Jzzk6C/ptrFxNzGe/uANfxv7yVplRjUNhvQmq4YxNyU/RZXfBu2tTS2weAK
-	 5ugb7D0YpOAUvLOLjW6y/GTeVyV1NzWEevI3KVIE=
-Subject: FAILED: patch "[PATCH] iio: common: st_sensors: honour channel endianness in" failed to apply to 5.10-stable tree
-To: github.com@herrie.org,andriy.shevchenko@intel.com,jic23@kernel.org
+	b=XJUItoB5aqkLWd0mG3eaBiswyUnnqgQLt6GDgnd6sY+wHx6n+6GsWM5AOrMUDN990
+	 Qb+jAtMTj6geqekViDXddMkPKrGODRUtcDjuEOKbxjx6QVdVlT5V1oFbGGa5+thSwR
+	 B0wjM3jB93PCgrTfGF1F5YcNH8bmgMof2wIYV8KY=
+Subject: FAILED: patch "[PATCH] ALSA: aoa: check snd_ctl_new1() return value" failed to apply to 6.6-stable tree
+To: zhaodongdong@kylinos.cn,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 14:57:51 +0200
-Message-ID: <2026071351-cheating-unrented-98cd@gregkh>
+Date: Mon, 13 Jul 2026 14:58:59 +0200
+Message-ID: <2026071359-swung-cycle-429d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 55052184ac9011db2ea983e54d6c21f0b1079a12
+git cherry-pick -x 8df560fefe6fed6a20b7e06720eeaeccec349ac0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071351-cheating-unrented-98cd@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071359-swung-cycle-429d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,107 +62,54 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 55052184ac9011db2ea983e54d6c21f0b1079a12 Mon Sep 17 00:00:00 2001
-From: Herman van Hazendonk <github.com@herrie.org>
-Date: Tue, 16 Jun 2026 15:02:04 +0200
-Subject: [PATCH] iio: common: st_sensors: honour channel endianness in
- read_axis_data
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 8df560fefe6fed6a20b7e06720eeaeccec349ac0 Mon Sep 17 00:00:00 2001
+From: Zhao Dongdong <zhaodongdong@kylinos.cn>
+Date: Wed, 27 May 2026 20:09:14 +0800
+Subject: [PATCH] ALSA: aoa: check snd_ctl_new1() return value
 
-st_sensors_read_axis_data() unconditionally decoded multi-byte
-results with get_unaligned_le16() / get_unaligned_le24() regardless
-of the channel's declared scan_type.endianness.
+snd_ctl_new1() can return NULL when memory allocation fails. In
+layout.c, the function does not check the return value before
+dereferencing ctl->id.name or passing to aoa_snd_ctl_add(), which can
+lead to a NULL pointer dereference.
 
-For every ST sensor that has used this helper since it was introduced
-this happened to be fine because the ST IMU/accel/gyro/pressure
-families publish their data registers as little-endian and the
-channel specs in those drivers declare IIO_LE accordingly.
+Add NULL checks after snd_ctl_new1() calls and return early if any
+fails.
 
-The LSM303DLH magnetometer however publishes its X/Y/Z output as a
-pair of big-endian bytes (the H register sits at the lower address,
-0x03/0x05/0x07, and the L register immediately after), and its
-channel specs in st_magn_core.c correctly declare IIO_BE -- but
-read_axis_data() ignored that and decoded as little-endian, swapping
-the high and low bytes of every magnetometer sample. The LSM303DLHC
-and LSM303DLM share the same st_magn_16bit_channels (IIO_BE) and
-were therefore byte-swapped by the same bug; users of those parts
-will see different in_magn_*_raw values after this fix lands.
-
-The bug is most visible on a stationary chip: in earth's field the
-true X reading is small and the high byte sits at 0x00, so swapping
-the bytes pins sysfs X at exactly the low byte's pattern (e.g. 0x00F0
-= 240). Y and Z still appear "to vary" because their magnitudes are
-larger and the noise in the low byte produces big swings in the
-swapped high byte:
-
-  before (LSM303DLH flat, sysfs in_magn_*_raw):
-      X=240 (stuck), Y= 12032..23296, Z=-16128..-9728
-
-  after (direct i2c-dev big-endian decode, same chip same orientation):
-      X≈-4096, Y≈210, Z≈80     (sensible values reflecting earth's
-                                ambient field at low gauss range)
-
-Fix read_axis_data() to dispatch on ch->scan_type.endianness and
-call get_unaligned_be16() / get_unaligned_be24() when the channel
-declares IIO_BE. Existing IIO_LE consumers (st_accel, st_gyro,
-st_pressure, st_lsm6dsx and others) are unaffected because their
-channel specs already declare IIO_LE and the LE path is unchanged.
-
-While restructuring the branches, replace the previously implicit
-silent-success-with-uninitialised-*data fall-through for
-byte_for_channel outside 1..3 with an explicit return -EINVAL. No
-in-tree ST sensor publishes such a channel, but the new behaviour
-is strictly safer than handing userspace garbage.
-
-Fixes: 23491b513bcd ("iio:common: Add STMicroelectronics common library")
+Assisted-by: Opencode:DeepSeek-V4-Flash
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-7 sparse smatch clang-analyzer coccinelle checkpatch
-Assisted-by: Sashiko:claude-opus-4-7
-Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Fixes: f3d9478b2ce4 ("[ALSA] snd-aoa: add snd-aoa")
+Signed-off-by: Zhao Dongdong <zhaodongdong@kylinos.cn>
+Link: https://patch.msgid.link/tencent_35F3A25FEEBF190A2E15ED787754C57E3708@qq.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/drivers/iio/common/st_sensors/st_sensors_core.c b/drivers/iio/common/st_sensors/st_sensors_core.c
-index dbc5e16fbde4..76f91696f66a 100644
---- a/drivers/iio/common/st_sensors/st_sensors_core.c
-+++ b/drivers/iio/common/st_sensors/st_sensors_core.c
-@@ -498,6 +498,7 @@ static int st_sensors_read_axis_data(struct iio_dev *indio_dev,
- 	u8 *outdata;
- 	struct st_sensor_data *sdata = iio_priv(indio_dev);
- 	unsigned int byte_for_channel;
-+	u32 tmp;
- 
- 	byte_for_channel = DIV_ROUND_UP(ch->scan_type.realbits +
- 					ch->scan_type.shift, 8);
-@@ -508,12 +509,22 @@ static int st_sensors_read_axis_data(struct iio_dev *indio_dev,
- 	if (err < 0)
- 		return err;
- 
--	if (byte_for_channel == 1)
--		*data = (s8)*outdata;
--	else if (byte_for_channel == 2)
--		*data = (s16)get_unaligned_le16(outdata);
--	else if (byte_for_channel == 3)
--		*data = (s32)sign_extend32(get_unaligned_le24(outdata), 23);
-+	if (byte_for_channel == 1) {
-+		tmp = *outdata;
-+	} else if (byte_for_channel == 2) {
-+		if (ch->scan_type.endianness == IIO_BE)
-+			tmp = get_unaligned_be16(outdata);
-+		else
-+			tmp = get_unaligned_le16(outdata);
-+	} else if (byte_for_channel == 3) {
-+		if (ch->scan_type.endianness == IIO_BE)
-+			tmp = get_unaligned_be24(outdata);
-+		else
-+			tmp = get_unaligned_le24(outdata);
-+	} else {
-+		return -EINVAL;
-+	}
-+	*data = sign_extend32(tmp, BYTES_TO_BITS(byte_for_channel) - 1);
- 
- 	return 0;
- }
+diff --git a/sound/aoa/fabrics/layout.c b/sound/aoa/fabrics/layout.c
+index c3ebb6de4789..7bb541577a26 100644
+--- a/sound/aoa/fabrics/layout.c
++++ b/sound/aoa/fabrics/layout.c
+@@ -948,6 +948,8 @@ static void layout_attached_codec(struct aoa_codec *codec)
+ 			if (lineout == 1)
+ 				ldev->gpio.methods->set_lineout(codec->gpio, 1);
+ 			ctl = snd_ctl_new1(&lineout_ctl, codec->gpio);
++			if (!ctl)
++				return;
+ 			if (cc->connected & CC_LINEOUT_LABELLED_HEADPHONE)
+ 				strscpy(ctl->id.name, "Headphone Switch");
+ 			ldev->lineout_ctrl = ctl;
+@@ -961,12 +963,16 @@ static void layout_attached_codec(struct aoa_codec *codec)
+ 			if (ldev->have_lineout_detect) {
+ 				ctl = snd_ctl_new1(&lineout_detect_choice,
+ 						   ldev);
++				if (!ctl)
++					return;
+ 				if (cc->connected & CC_LINEOUT_LABELLED_HEADPHONE)
+ 					strscpy(ctl->id.name,
+ 						"Headphone Detect Autoswitch");
+ 				aoa_snd_ctl_add(ctl);
+ 				ctl = snd_ctl_new1(&lineout_detected,
+ 						   ldev);
++				if (!ctl)
++					return;
+ 				if (cc->connected & CC_LINEOUT_LABELLED_HEADPHONE)
+ 					strscpy(ctl->id.name,
+ 						"Headphone Detected");
 
