@@ -1,135 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F9813B5B3;
-	Mon, 13 Jul 2026 01:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03D92475CF
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 01:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783905138; cv=none; b=qMEtuuEJNrWGt6sD6XCKHgDlxlSxovKsibAGBMSUd7VYsuT2+8lt112gMvvMCesaoAYXu7KwBojlbfhoeZVJruGsk92SVydL6hKSHRkkK1KrrKETtthEuF9UAzuEgg3Q2qddnv0t1gBgstjGU20JwPz+H2sAc6SAkgpLSZ9L3Wc=
+	t=1783905769; cv=none; b=T7J9uA5Ym4SiC/nnlA5g1VLVRvoYA1s5abmsuinCURe3A+/XJXaGxA9nVHidk+PrQoYZte/Mchc9tWe3ExhlVDxIZzkDkG4btNlmlDA01zl82AnR9j0UWeSUf+/wX9ftGEy+b5j0MOHbRMrKDPMQYJRb6zRgSt84R6Ujjh2aYXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783905138; c=relaxed/simple;
-	bh=u9SDqKvrlnMY82JDbnD9khiGodRQTChxzUQJ3PoM+/I=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hQbgzg0W9ZLIk/5L+jtOGjRGwo+iXkxFVfq/B0S3YXCvHEzXnEbTKVSSaWXIi4tbyUywPPqJEIqkAfmrzh5CqxuyFEqD+YM7O86JnfQjcpDXr3lYwpju8LIsevXssi5viho86wUYsEMR9VZiE73eyFSXM6SqwWKiKgSXiQOETsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NMbc6yya; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783905769; c=relaxed/simple;
+	bh=r68fvNfyB5iq5zgmcYtQh4f4Sqo7v+mUf0FuLyud6fI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y9vhDT9/OR0QoyBmlkIHoWGY9RLftd3nnZyNyIn0ibxIpvd/HqERPqQUROsd7VIcAsoO7vMCgMBI19Of2CYKT3suJKXZgZpeIzj1EOamk6ZuOgAYYSOVywnlVToj88wf1LFfMt7tDdWGMlE5TV/JQBUqlsTQQeq7QHK6AMHXQuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J3YeyoM1; arc=none smtp.client-ip=209.85.219.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NMbc6yya"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BD31F000E9;
-	Mon, 13 Jul 2026 01:12:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783905136;
-	bh=SjHSeeF7vUQ5X6MLMCggjMuDp75OzmSjcIL2grGv3oQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NMbc6yya+P/o+sY3VXKgwU7y12k+tXVixWH5VjF5lwJHAUd70JiTOzqhdi/FbpOxw
-	 AX5vgwrhunfCaRV3lw2WZfnzpEqCrFRP6Y/YNwtXR9zRXDTvluUTfxKfD1c6VOl4iG
-	 9thpADgtULzLbrkcIPf/EiiAz53ph4d3qBa1KdrNAcfmkxJqbc1zkjm+nDeM3UdOsq
-	 E+SqHKw4XtMeGCysQIT+TfTy2Yorie4YUsY2Qg+0WQ6oB8WOpSDWMgXUImLb5KSUQ/
-	 SxVXWqQ8UOoy0uPapdWhxnsSfC5XGuz78FX5khWZJ1g8VE/dY0RPXgT4iLB+VHbvu0
-	 wvHW/zGBsescw==
-Date: Mon, 13 Jul 2026 02:12:11 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Biren Pandya <birenpandya@gmail.com>
-Cc: linux-iio@vger.kernel.org, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v4] iio: accel: kxsd9: fix runtime PM leak in write_raw
-Message-ID: <20260713021211.1fb3e5b8@jic23-huawei>
-In-Reply-To: <20260712083106.97429-2-birenpandya@gmail.com>
-References: <20260712083106.97429-2-birenpandya@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J3YeyoM1"
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-90327237340so14620876d6.1
+        for <stable@vger.kernel.org>; Sun, 12 Jul 2026 18:22:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783905767; x=1784510567; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NTLeZyR0HQahPotCRM69u6fZXEm2pgRfmSKzmsE+130=;
+        b=J3YeyoM1w+6qxDuYW43WQT4HAXKqRE5ettOOO6O4AWpdSWrJUqNDX8NRabrHbapzrW
+         YCPgqiQJZe0Sltd2ORUggUwSgXpjIGaZhfOAfzBzbMAfcDP9+C8gWDTK6FpQeGkuha9M
+         4rc8ywj1QWcTb6NTlwsaDKvmn02gJfUTS+oLu+FnbDt1aenvwgjiZUr8ImyCbbh3Iy2c
+         5AzBGhlAdz1GyQ54UWp5nWJ+JpKLw/0RErzDI1ZPkZoOca4MdJQCYgclC1Rpae4Jaefd
+         PQmuQeBkjDKbldd3N1LzBoVHD1Ni/onM+hJ8KDWDqZYoN8GTkVpzA+Si4MHd1I+A+ufr
+         BRKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783905767; x=1784510567;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NTLeZyR0HQahPotCRM69u6fZXEm2pgRfmSKzmsE+130=;
+        b=ldv5q49bkQrWAALjc6pP2THFwEa+BHFtv19rqmqwZEbSu7qjOWHggnhXXxbh+jxJKv
+         GsYlsH8p9x19q1UbaM5dGls6QIh6oPN4VxIHi5oaWFLjNWT36tmas8ldkKk1QWJCDchk
+         mhd5poi31lCj5+HerpawCGCw2q9gXAlJkoeLj00gKXlzMiPcUerW8zSX4zLZ8Cyx9u4y
+         aa2fWEsWOuab/ycf4es3TdbmU3vhUe+bxgVwmy6dxdxAiFpnlbNhC+Q5BaScKyOROg0N
+         YgAVSlquRdoSsGOaNrJ3/qKFJPDfdjuj/sDfGiqiqFEPVYkPt2fKjtSlbuXIiHF50/Ph
+         o/DA==
+X-Forwarded-Encrypted: i=1; AHgh+RpCocZ5rKf+7NlkajdLFt9V1WvNmk8MflldxdjIzMyorgcoakAyj260QAgr9Fw4+uv497WICgk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2P1J9UJLv3Ur7VyQCIVogtS5qnwg3Kec7XRCybD94i3LP7VU0
+	3k+uPqOYUHosMHgvOUyBzLDt1fPjSYole+x8vNpIe3qbnOLNSGw0vzxO
+X-Gm-Gg: AfdE7cnOf1xQn0s73H0J5Lqvp9us+na+Du846+ndJqjlo6TziZJ76AbECvxhr1gV2tx
+	J4GQC1YMd76hI3N2O73aF/H7LPISyGukMa7CIJshN+eHEsbHBYz1bTPcX9wpXqGX3iFDlxoCguO
+	1b0B8xOPhnVjTgjoEpY8AtES2ShnRl9n+b/42D4MlOCy9VujnJ5h+v68N+2rbmDM99/gbKKTXh5
+	9hZyp5z8XSiWod83HqCyQj3kIlco7QJv/tlcDjYtdyLJ8Jx/Zn/TjK7/ne5WkLUyrYJQrlnmfcE
+	Nz4r3PrHN6kdY4VkLvQ2CGZV40jI/pc3muoOhdoJ885z1UEBLdvhqdZ8Ct9ax3DUgRfTD6qfZ8n
+	xNJC6m0FxgwTntTSdjfxWrZkihh+py4gQYxUbSa9snlpq+sGqVMGfz6CmDeXU/LWlAlBIVYkUtf
+	144h+EqIeHyjjHeU5VjjUE1bXvSNOURZ6L4f7HLDguzw==
+X-Received: by 2002:a0c:f119:0:b0:8e5:8d7b:5188 with SMTP id 6a1803df08f44-902351409fbmr120041846d6.9.1783905766785;
+        Sun, 12 Jul 2026 18:22:46 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd87cad3csm117151996d6.48.2026.07.12.18.22.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 18:22:46 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Subject: [PATCH net] nfc: llcp: Fix raw socket local ref leak on rebind
+Date: Sun, 12 Jul 2026 21:21:11 -0400
+Message-ID: <20260713012111.4066423-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, 12 Jul 2026 14:01:06 +0530
-Biren Pandya <birenpandya@gmail.com> wrote:
+Raw LLCP sockets own the reference returned by nfc_llcp_find_local().
+When the bound NFC device is unregistered, nfc_llcp_socket_release()
+sets raw sockets back to LLCP_CLOSED. It also unlinks them from
+local->raw_sockets, but leaves llcp_sock->local pointing at that local.
 
-> The kxsd9 driver previously used manual pm_runtime_get_sync() and
-> pm_runtime_put_autosuspend() calls around the entire kxsd9_write_raw()
-> function. If the user provides a non-zero integer component for scale,
-> the function returned -EINVAL directly, leaking the runtime PM usage
-> counter.
->=20
-> Move the mask and value validation checks before pm_runtime_get_sync()
-> to ensure the early -EINVAL returns do not leak the usage counter.
->=20
-> Fixes: 9a9a369d6178 ("iio: accel: kxsd9: Deploy system and runtime PM")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Biren Pandya <birenpandya@gmail.com>
-> ---
-> Changes since the reviewed version:
-> - Reduced to the minimal write_raw() leak fix. Dropped the remove()
->   rework (no underflow is possible =E2=80=94 pm_runtime_put_noidle() floo=
-rs at 0)
-Ah. I think I wasn't clear on what I was thinking for minimal fix.
+A subsequent successful bind on the same socket gets a new local reference
+and overwrites llcp_sock->local. The old local reference is then lost, and
+the final socket release only drops the new local.
 
-The floor thing is something we should only use when we know there is basic=
-ally
-only a single user or we don't mind giving garbage to others (so in teardow=
-n flows).
+Drop any stale local reference after the new target local has been found,
+but before overwriting llcp_sock->local. This keeps failed bind attempts
+from changing the old reference while preventing a successful rebind from
+leaking it.
 
-Here a few things are different from that.
+Fixes: e6a3a4bb856a ("NFC: llcp: Clean raw sockets from nfc_llcp_socket_release")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+---
+ net/nfc/llcp_sock.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-A single user:
-- We need the power on, no point in continuing to access device.
-- Carrying on may result in an error, or maybe garbage data.  Either way
-  the real source of the error is hidden.
-(I had another one about underflow but as you use get_sync that one didn't
- actually apply)
-
-See below...
->   and deferred the PM-macro conversion and style cleanup to a follow-up
->   series, per Jonathan Cameron and Andy Shevchenko.
->  drivers/iio/accel/kxsd9.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/iio/accel/kxsd9.c b/drivers/iio/accel/kxsd9.c
-> index 4717d80fc24af..1af04cb4bf86a 100644
-> --- a/drivers/iio/accel/kxsd9.c
-> +++ b/drivers/iio/accel/kxsd9.c
-> @@ -139,18 +139,18 @@ static int kxsd9_write_raw(struct iio_dev *indio_de=
-v,
->  			   int val2,
->  			   long mask)
->  {
-> -	int ret =3D -EINVAL;
->  	struct kxsd9_state *st =3D iio_priv(indio_dev);
-> +	int ret;
-> =20
-> -	pm_runtime_get_sync(st->dev);
-> +	if (mask !=3D IIO_CHAN_INFO_SCALE)
-> +		return -EINVAL;
-> =20
-> -	if (mask =3D=3D IIO_CHAN_INFO_SCALE) {
-> -		/* Check no integer component */
-> -		if (val)
-> -			return -EINVAL;
-> -		ret =3D kxsd9_write_scale(indio_dev, val2);
-> -	}
-> +	/* Check no integer component */
-> +	if (val)
-> +		return -EINVAL;
-> =20
-> +	pm_runtime_get_sync(st->dev);
-
-With above in mind, I'd fix this as:
-
-	ret =3D pm_runtime_resume_and_get(st->dev);
-	if (ret < 0)
-		return ret;
-
-	ret =3D kxsd9_..
-  	pm_runtime_put_autosuspend(st->dev);
-
-	return ret;
-
-> +	ret =3D kxsd9_write_scale(indio_dev, val2);
->  	pm_runtime_put_autosuspend(st->dev);
-> =20
->  	return ret;
+diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
+index feab29fc6..0c00cdaab 100644
+--- a/net/nfc/llcp_sock.c
++++ b/net/nfc/llcp_sock.c
+@@ -152,6 +152,7 @@ static int llcp_raw_sock_bind(struct socket *sock, struct sockaddr_unsized *addr
+ 	struct sock *sk = sock->sk;
+ 	struct nfc_llcp_sock *llcp_sock = nfc_llcp_sock(sk);
+ 	struct nfc_llcp_local *local;
++	struct nfc_llcp_local *old_local;
+ 	struct nfc_dev *dev;
+ 	struct sockaddr_nfc_llcp llcp_addr;
+ 	int len, ret = 0;
+@@ -185,6 +186,11 @@ static int llcp_raw_sock_bind(struct socket *sock, struct sockaddr_unsized *addr
+ 		goto put_dev;
+ 	}
+ 
++	old_local = llcp_sock->local;
++	llcp_sock->local = NULL;
++	llcp_sock->dev = NULL;
++	nfc_llcp_local_put(old_local);
++
+ 	llcp_sock->dev = dev;
+ 	llcp_sock->local = local;
+ 	llcp_sock->nfc_protocol = llcp_addr.nfc_protocol;
+-- 
+2.43.0
 
