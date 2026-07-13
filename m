@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27BA349CCC
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:32:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C198519D8A8
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:32:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783963972; cv=none; b=AAyVMkSfWoNh9fyry78WcLbrksW5YTG3iDiK1/PoEWQyCxjADqAvRXmrIDIcufJIIGZHYUnu13hssbrJ4eHQTp59WugKTH5z4EzgitAnWw+cTBhN99MbVwSN9P9cXWyOmI571orDPJQhxa/f5wa9NdRtPAHADSrxgLukPA4mhcA=
+	t=1783963975; cv=none; b=d/wvCF6DrjJseeirJuCM2fQTaKnqVZGS7c8bZ1InTOjdKrUbeEJsY2Fv/AIoYxanhA1PwdyRz+wKApBwjWRYSYibb582YgBauigvOIsWTgcq1G+13M/y1/bqmRtj8sHQjMlivxY3I97D6fboijXUcA4qvU4ajx1R2MMxDsq5kLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783963972; c=relaxed/simple;
-	bh=xj5M7ilmxYQ34mDYeqeUA6MON2FeY7ys9tq7eGXrKTk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UbB3Ca8XpP0Vg2wglTaVCFJbfgTCd3EJSUrGr/xDMP1lww+xHDyEB7938HDqm2eSBHN/m9nzDozr3UQMS2j+ksRO9UieY0VNXwfgCOVtSMd958G1GAu2vfpE+mEdX5z2ltfLh5XV5FH0YaORDo6EASKuBglbF2Na6Ag9o22MYh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OxKxqxZ6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783963975; c=relaxed/simple;
+	bh=x0j/8xdnIO9tpEJxlN0xwxwtfiVEGAtdk0uTgIEDoBI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mMUlEgYXz2jvFYjCD6IJREZuPb6crKADMON+Q0XuNaJh8uLVlS7p7oFvNYtY0SmUbVNhN+NEvUZy3Wra5kc1CDbemg3yAbxouQdr5dATtuDfwUH4dSdWYxnIosM+qvHAcXkzaCiufIZGdIGpQsL8OgjJ9bMb7HMIcxMAYr1Eguc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=n5yY6vwm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OxKxqxZ6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33F881F000E9;
-	Mon, 13 Jul 2026 17:32:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="n5yY6vwm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D02731F000E9;
+	Mon, 13 Jul 2026 17:32:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783963971;
-	bh=K4trJc6y2L3GB288Skr/6+EnSJ004mzVS6LuDfW5PxI=;
+	s=korg; t=1783963974;
+	bh=vgB0R3HSV4C8Mxv6RE7Od7xc4DLOTugaj7AN3ESm2BM=;
 	h=Subject:To:Cc:From:Date;
-	b=OxKxqxZ6NRW+lk4a+J6LvZf+WqxnCA3z+qqiRez52yGNH/j0ExfwY3EhlLylMYabf
-	 BUUuE2/qurnIOlfNmCuhELyUXtBV2JUkwFmCCjLcwPoRjDPMo9gDf4Qaj5yawNMBF0
-	 yJojLcvLCn7f5IwEMfedwO18Rwi21qd8qcnEJg7Q=
-Subject: FAILED: patch "[PATCH] Bluetooth: hci_uart: clear HCI_UART_SENDING when write_work" failed to apply to 5.15-stable tree
+	b=n5yY6vwmFtHSJ3pr+cjZwGMOlogqvq2cmy7V+vDVN/WR7FxrbJEEidVPKS0IpU6qP
+	 g75tqyQMQ/xxwMDK85Uf39IEyLGILA4+VFcFcYjWWSz0lDehod+przfPzP+M9zghfW
+	 TWTNABRGixXoiBq1rR3dbnuNuU2E8tVL5UpaU9bA=
+Subject: FAILED: patch "[PATCH] Bluetooth: hci_uart: clear HCI_UART_SENDING when write_work" failed to apply to 5.10-stable tree
 To: pav@iki.fi,luiz.von.dentz@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 13 Jul 2026 19:32:38 +0200
-Message-ID: <2026071338-emergency-outrank-a9ad@gregkh>
+Message-ID: <2026071338-expend-curing-7388@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1b0d946d6f08bd39211385bc703a440911b41e46
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071338-emergency-outrank-a9ad@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071338-expend-curing-7388@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
