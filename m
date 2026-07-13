@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88360430798
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:25:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB5C430792
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:25:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783949129; cv=none; b=nzuevm7rhiNkeNDmzfiMR0BFOQNFgKGBOySw/ADa/FYvKJXy1vQww2evHd0dBMQD56xQ8DqN5CbQbpj7i96oGaVqnq77PC/yJAlUblnfPccwAdPTUEgtydQcGMxv+hREcCLdsM0RnKMTqgv4O3AVfpZJm2DKDEoaoQWYBmsmqj4=
+	t=1783949131; cv=none; b=pbgkGeUFt42f70F5tvq5XY0EzpHoX7eCtp29k0ah7nGbmLfWf+phVNv4dJ7MMGOzEn2aUpbU+w42IjCr6eSu+ZzVtYE2Zhqj2vXtN0GC8yGX6dn2c6yjUPrD9N57Tspbw8xuc2iYzzOL21Y5M8RAyLNASPIUJYcjoRt+WTnCUVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783949129; c=relaxed/simple;
-	bh=9uwl6/ENtVL1Zu4Dw2vb7uubT2Nr/7iy0w2svp+OD40=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YCO4oYSgRYnJtwotbcT/i45rbSGPoM7u1YKxGmTjwFJvEAa8iwApgkhGZZ7u9RH+JF+JyLtv5UHxeRlEgSbiAbzmDtYnYP4WZkYm6bsMTCPrPxAFvrgc/5TuBsG9TTwF5CHRji3cTHV9VBmBJ/0dnM50NOsjItY9wVjXi04rkvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gdX9KmaL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783949131; c=relaxed/simple;
+	bh=uDUXV6QzbMuGieNjS5L8sivhi2PnjitosSxa2d1++KU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Xn3s9PgET2CwEQ8xAG3DEhzJeu5Wlltwn2X47C8xrRFvXV5StA3JXkdW7wvgVxJ4R7Ef73Vd6J7FQmozfzYUeax4QlvwWYtScK0GSbU1UQzxhw3vRrgDPtuYUqe1XVbDALh441clG4xmGsnbvH8fQ0SBIq9eycf46PqIoqCaN2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b8Gmglnv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gdX9KmaL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC89B1F000E9;
-	Mon, 13 Jul 2026 13:25:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b8Gmglnv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2F81F000E9;
+	Mon, 13 Jul 2026 13:25:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783949127;
-	bh=6/RXpIuVjPnFAFXrDdvRLiSo0y89fxKyAB7CI7Wv88c=;
+	s=korg; t=1783949130;
+	bh=c+jGrWqxVGbNCE3ba/lxa82/3AABXDYvK6Er6fFEH4Y=;
 	h=Subject:To:Cc:From:Date;
-	b=gdX9KmaLtc2+5uxb3k3NkMzFwZVj82jHG3++qjB/Vj/W2BzENYeU9mCnfyKcLDna/
-	 y+4FfyS16fOxKh0SPCcYwv322zv1+0oyIbVkBF4+gWQLbFP4/5bbege7HB774CQwRx
-	 F3Zsc4i3rYmZq0Gq2azgH3leaK5uZ6rTNaIValpg=
-Subject: FAILED: patch "[PATCH] PCI: altera: Fix resource leaks on probe failure" failed to apply to 5.15-stable tree
+	b=b8GmglnvbRTzajy+CjvPyiMpTsATi+t/2zOuoirb4ZdUgZNgVe6ofMjYEZZrDbqrw
+	 8cQKTam1Gs3AX9yqkdUsZbGAI4KLJ1NrVdeoLUX5x7gvhXnkvyC/7jhRdta+2cODX7
+	 1RE58Nz3Pm4KqmRU6TVLEqIdMmmXrH+eaKJ9+64w=
+Subject: FAILED: patch "[PATCH] PCI: altera: Fix resource leaks on probe failure" failed to apply to 5.10-stable tree
 To: mahesh.vaidya@altera.com,mani@kernel.org,subhransu.sekhar.prusty@altera.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:16:23 +0200
-Message-ID: <2026071323-sterilize-parcel-144a@gregkh>
+Date: Mon, 13 Jul 2026 15:16:30 +0200
+Message-ID: <2026071330-snugly-map-ad62@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7a94138caeb27f3c49c1dbd93bf422098925bb28
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071323-sterilize-parcel-144a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071330-snugly-map-ad62@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
