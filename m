@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0432B3D412C
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:28:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6B6426EC1
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:28:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783949293; cv=none; b=cHC449ggGWr+GZvX9SOn/KBY2Cd7ZZs8dG1PvjP8fOhbTcN4Yx3aKpKp3ID6rYBLZGcER1wV9h038St30/o3rNOrQVIR6ooeZZnZ1XZt2nUqLxYK/5bcI1X0/+UEET/DC07Xk3Nll7KT9ZzsmPoLpq/DLy+Yluk7stSUOidNKQU=
+	t=1783949340; cv=none; b=sQ/EoyoUyiW4bu2abVtaW8MqYjpwAnzgs+Dr1ECjksyltLzDakRtiJMYpQzMP+oifP4yBOoehAsB+cfp7VcapwcXKvdqoEuY7QEZdVogFHUafCAuW8m9OjIdHqlbo4r+LuOgP3URbHhdJU1UJqvD2YCOl4pjvpwhCl+xAmG1WFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783949293; c=relaxed/simple;
-	bh=z3GXtKvTV7WZJImDTs9i4VZ/KKEo7D2gej+1vAM+i0k=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fxW8Eaj5VImoUHmBdriLselDMu3ibVwPiI3WNSwVkQlDDnq3KWcoF5bZ4qGglLXCL7WdPLlDZxWCowd56GHGaAtVo1U4jPdFFf/BNBaZA96rBSB+sXGz0ZF0tCtCy2l+H0Q4cJFHYVboOvfpSMfvq9Z3p8xJxV7GN/zsJLl54yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ofT4Yhen; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783949340; c=relaxed/simple;
+	bh=GTn8+Hjn0xUbx56UH0I8lAjM4VzEdj6f7WHAOsl/tuE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=s1Wg6vgpWLz+sO5JR0FPbKPHGY3C4iA8X131FlO9XY0iUSwDilfPMwNanxduxVV1uqOeyylrsJTsDA7qZ2HhtOiyuHFRlW/hNr/PRSzaioqIZxvhKfoHDpIHc45nQvwGL0D7hN+OI5CNY2WhlwM6nCNQuFdTmpzRWlWYGwBbhug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TcISEaCM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ofT4Yhen"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BDFF1F000E9;
-	Mon, 13 Jul 2026 13:28:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TcISEaCM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0FB41F00A3A;
+	Mon, 13 Jul 2026 13:28:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783949291;
-	bh=Intam0ISFo/L+gNzdOejwW1/yOAtnH4YOH+K/Ag9T0c=;
+	s=korg; t=1783949339;
+	bh=WtUZF9IOF0+uCApo3TOYABni264QY6azIlzojFKXiiA=;
 	h=Subject:To:Cc:From:Date;
-	b=ofT4Yhen8k8+47eaC/at7bAUkH6XBtpC3bjjv0fM1aMwGy0KhJxGlGaGlSMTjrqKu
-	 D4UyXlf0xXvUVF1uJ8ugnk8hm4Dzsvb7Nt7nKaIVGyjD5ZzXUiPwm4Y3b05Lv/eK8B
-	 iDARVdyqtTrb89nPbHNx6Hfd+KN5nCoHib4/K5D0=
-Subject: FAILED: patch "[PATCH] PCI: Skip Resizable BAR restore on read error" failed to apply to 5.10-stable tree
-To: mnencia@kcore.it,bhelgaas@google.com
+	b=TcISEaCM1Hvbh6G3Vr1YNBcOQhHtFyIRU7zfulndUGBaJuASA0elW8VUsnDOxOjwo
+	 Vi2N1Oez/HaP5FGhJEZ/GR2fNBtArHhWCIkiTDBnsJNcdsgJxpkjk7fVYHS/+Js5A2
+	 38WL8/yrwBgT2D7A/hFM8RbvCOsnvBaDsIN9eKB8=
+Subject: FAILED: patch "[PATCH] PCI: loongson: Override PCIe bridge supported speeds for" failed to apply to 6.1-stable tree
+To: liziyao@uniontech.com,aydenmeng@yeah.net,bhelgaas@google.com,chenhuacai@loongson.cn,fsf@live.com,jeffbai@aosc.io,mani@kernel.org,xry111@xry111.site
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:24:18 +0200
-Message-ID: <2026071318-kettle-cringe-5d1a@gregkh>
+Date: Mon, 13 Jul 2026 15:27:18 +0200
+Message-ID: <2026071318-tweet-shaking-65d3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ee7471fe968d210939be9046089a924cd23c8c3b
+git cherry-pick -x e373c789bac0ad73b472d8b44714df3bd18a4edf
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071318-kettle-cringe-5d1a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071318-tweet-shaking-65d3@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,55 +62,92 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ee7471fe968d210939be9046089a924cd23c8c3b Mon Sep 17 00:00:00 2001
-From: Marco Nenciarini <mnencia@kcore.it>
-Date: Fri, 17 Apr 2026 15:24:36 +0200
-Subject: [PATCH] PCI: Skip Resizable BAR restore on read error
+From e373c789bac0ad73b472d8b44714df3bd18a4edf Mon Sep 17 00:00:00 2001
+From: Ziyao Li <liziyao@uniontech.com>
+Date: Sun, 12 Apr 2026 18:17:31 +0800
+Subject: [PATCH] PCI: loongson: Override PCIe bridge supported speeds for
+ Loongson-3C6000 series
 
-pci_restore_rebar_state() uses the Resizable BAR Control register to decide
-how many BARs to restore (nbars) and which BAR each iteration addresses
-(bar_idx).
+Older steppings of the Loongson-3C6000 series incorrectly report the
+supported link speeds on their PCIe bridges (device IDs 0x3c19, 0x3c29)
+as only 2.5 GT/s, despite the upstream bus supporting speeds from
+2.5 GT/s up to 16 GT/s.
 
-When a device does not respond, config reads typically return
-PCI_ERROR_RESPONSE (~0).  Both fields are 3 bits wide, so nbars and bar_idx
-both evaluate to 7, past the spec's valid ranges for both fields.
-pci_resource_n() then returns an unrelated resource slot, whose size is
-used to derive a nonsensical value written back to the Resizable BAR
-Control register.
+As a result, since commit 774c71c52aa4 ("PCI/bwctrl: Enable only if more
+than one speed is supported"), bwctrl will be disabled if there's only
+one 2.5 GT/s value in vector 'supported_speeds'.
 
-Bail out if any Resizable BAR Control read returns PCI_ERROR_RESPONSE. No
-further BARs are touched, which is safe because a config read that returns
-PCI_ERROR_RESPONSE indicates the device is unreachable and restoration is
-pointless.
+Manually override the 'supported_speeds' field for affected PCIe bridges
+with those found on the upstream bus to correctly reflect the supported
+link speeds.  Updating the speeds to reflect what the hardware actually
+supports avoids quirks in drivers consuming the speed information.
 
-Fixes: d3252ace0bc6 ("PCI: Restore resized BAR state on resume")
-Signed-off-by: Marco Nenciarini <mnencia@kcore.it>
+This commit was originally found from AOSC OS[1].
+
+Fixes: cd89edda4002 ("PCI: loongson: Add ACPI init support")
+Signed-off-by: Ayden Meng <aydenmeng@yeah.net>
+Signed-off-by: Mingcong Bai <jeffbai@aosc.io>
+[Ziyao Li: move from drivers/pci/quirks.c to drivers/pci/controller/pci-loongson.c]
+Signed-off-by: Ziyao Li <liziyao@uniontech.com>
+[Xi Ruoyao: Fixed falling through logic, added debug log, Fixes tag and rebased to 7.0-rc7]
+Signed-off-by: Xi Ruoyao <xry111@xry111.site>
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+[bhelgaas: commit log, https://lore.kernel.org/all/9d815df3b33a63223112b97440c01247935363c1.camel@xry111.site]
 Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Tested-by: Lain Fearyncess Yang <fsf@live.com>
+Tested-by: Ayden Meng <aydenmeng@yeah.net>
+Tested-by: Mingcong Bai <jeffbai@aosc.io>
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/666cac19b5daa0ab0e0ab64454e76b4d24465dbd.1776429882.git.mnencia@kcore.it
+Link: https://github.com/AOSC-Tracking/linux/commit/4392f441363abdf6fa0a0433d73175a17f493454
+Link: https://github.com/AOSC-Tracking/linux/pull/2 #1
+Link: https://patch.msgid.link/20260412101731.107059-1-xry111@xry111.site
 
-diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
-index 39f8cf3b70d5..11965947c4cb 100644
---- a/drivers/pci/rebar.c
-+++ b/drivers/pci/rebar.c
-@@ -231,6 +231,9 @@ void pci_restore_rebar_state(struct pci_dev *pdev)
- 		return;
+diff --git a/drivers/pci/controller/pci-loongson.c b/drivers/pci/controller/pci-loongson.c
+index de5e809a537d..d0c643996476 100644
+--- a/drivers/pci/controller/pci-loongson.c
++++ b/drivers/pci/controller/pci-loongson.c
+@@ -177,6 +177,42 @@ static void loongson_pci_msi_quirk(struct pci_dev *dev)
+ }
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_LOONGSON, DEV_LS7A_PCIE_PORT5, loongson_pci_msi_quirk);
  
- 	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+	if (PCI_POSSIBLE_ERROR(ctrl))
++/*
++ * Older steppings of the Loongson-3C6000 series incorrectly report the
++ * supported link speeds on their PCIe bridges (device IDs 0x3c19,
++ * 0x3c29) as only 2.5 GT/s, despite the upstream bus supporting speeds
++ * from 2.5 GT/s up to 16 GT/s.
++ */
++static void loongson_pci_bridge_speed_quirk(struct pci_dev *pdev)
++{
++	u8 old_supported_speeds = pdev->supported_speeds;
++
++	switch (pdev->bus->max_bus_speed) {
++	case PCIE_SPEED_16_0GT:
++		pdev->supported_speeds |= PCI_EXP_LNKCAP2_SLS_16_0GB;
++		fallthrough;
++	case PCIE_SPEED_8_0GT:
++		pdev->supported_speeds |= PCI_EXP_LNKCAP2_SLS_8_0GB;
++		fallthrough;
++	case PCIE_SPEED_5_0GT:
++		pdev->supported_speeds |= PCI_EXP_LNKCAP2_SLS_5_0GB;
++		fallthrough;
++	case PCIE_SPEED_2_5GT:
++		pdev->supported_speeds |= PCI_EXP_LNKCAP2_SLS_2_5GB;
++		break;
++	default:
++		pci_warn(pdev, "unexpected max bus speed");
++
 +		return;
++	}
 +
- 	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
- 
- 	for (i = 0; i < nbars; i++, pos += 8) {
-@@ -238,6 +241,9 @@ void pci_restore_rebar_state(struct pci_dev *pdev)
- 		int bar_idx, size;
- 
- 		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+		if (PCI_POSSIBLE_ERROR(ctrl))
-+			return;
++	if (pdev->supported_speeds != old_supported_speeds)
++		pci_info(pdev, "fixed up supported link speeds: 0x%x => 0x%x",
++			 old_supported_speeds, pdev->supported_speeds);
++}
++DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_LOONGSON, 0x3c19, loongson_pci_bridge_speed_quirk);
++DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_LOONGSON, 0x3c29, loongson_pci_bridge_speed_quirk);
 +
- 		bar_idx = ctrl & PCI_REBAR_CTRL_BAR_IDX;
- 		res = pci_resource_n(pdev, bar_idx);
- 		size = pci_rebar_bytes_to_size(resource_size(res));
+ static struct loongson_pci *pci_bus_to_loongson_pci(struct pci_bus *bus)
+ {
+ 	struct pci_config_window *cfg;
 
