@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A222DA74A
-	for <Stable@vger.kernel.org>; Mon, 13 Jul 2026 12:56:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C002DA74A
+	for <Stable@vger.kernel.org>; Mon, 13 Jul 2026 12:56:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783947373; cv=none; b=XRBVuKBBXRkXKzXdwB+XstDO2tf9C1V7b3Itum5/0JMJcqM3EZ3wbH6gGYh6s02Hqnh78Fzj5WQxf90OgUMGJRvhOsetGafHu7qypNlwt907kkMXBYe8T//K4tr5Tq6VytNqB1lQy+2WarA5RZ0qLAfJiWSbqDcyCgXzoOPBrqM=
+	t=1783947381; cv=none; b=eGGEVb3mFvzOCK5fRb3kXJMC/1iwDN35JpbkJR1OzQ3XkH9FS02ogHdLUSdBxTzytGlG3cxn4dA0CxqhF8l079sE7IFJ5sAx57RwEhWvzIYh839DA/kZU6yqgqM2OqdYKJG8ZWB9XmHBBDtaZL1jKfoJQFiSpH3LRzDS69UdBcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783947373; c=relaxed/simple;
-	bh=AQ34wTRcJafB9qq8y3ArOAEDJR//jbV+RqpqCtC2gKU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=W8ZA53kGOvkslqWGTU8G6PioU+iz+7CxiYK+aGiATcsYm2ugh+IHszp2Ok5wbhKQLDlwviyW9AdCFt71Bx6a7jY84CtMPJ01U6grLiADw0cNPqQMpZTYiWBp2KB/owB2ssKttFXIr8eH4gzRVkIB6WfqimYd3ERbOY3nXRZ6Avk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QdafRPtJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783947381; c=relaxed/simple;
+	bh=6qTCyJEwKLzcQ4Vw8rwxH+wr8cSfLqj/oIeFu8BX6Ys=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=R2MfdAjRtaxlKKv0PFNw1arUMHaPJZWMpuanRQqDaAh4w5Bt8yMtXvkCEuSSMODYvLoE3/8cyFWOhW2BeMwEId8jnS51vNLu6S4kDtAhSJH1pZO2vupF9TJgsB23K28jQ/JhS9RPdpFSZR4U0nYs3JCWQsrkE2rTdoo6NQ9l6s4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=r8xBZMpp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QdafRPtJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133291F000E9;
-	Mon, 13 Jul 2026 12:56:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="r8xBZMpp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A6C91F000E9;
+	Mon, 13 Jul 2026 12:56:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783947371;
-	bh=9JdgJcdPj1TyK0ozE9Y3e+gYfvX+QhciI1sAZM4fen8=;
+	s=korg; t=1783947380;
+	bh=gQ0cOHjBkvmRt+ZBrqAbNc4lrcAWdxWEESO9TpsWYf0=;
 	h=Subject:To:Cc:From:Date;
-	b=QdafRPtJ6dE+vbaA1Vwy+OKJJ/2zK5BgZYppGss/rEJHYBDbUbRe7DBlfyFvGs/fz
-	 7yxmqlShSnuyvopuSr+ze7pqYTAT21VBRAsQo6epj9qDzxj49ujYp3BfS72evVFOKG
-	 8vGvD0VD9TvsP41ZAtyOUVVBJu7l40rbCIv8yOCw=
-Subject: FAILED: patch "[PATCH] iio: hid-sensor-rotation: Fix stale or zero output when" failed to apply to 7.1-stable tree
+	b=r8xBZMpplO3d5Wfgrd5MhsZzlvCqBp17YwvgD/IW1JorivGEi3yXwHbpC1af8JTA5
+	 d5IuITfILS+zwIEtXCZjGc59M6eaJL69a10hC8Mcvq8S2z5GTDHNmLP9RRokizpclE
+	 bYhazniA5MrUvE2svKHhqk23CsCBVvgg2MsfVvY0=
+Subject: FAILED: patch "[PATCH] iio: hid-sensor-rotation: Fix stale or zero output when" failed to apply to 6.18-stable tree
 To: lixu.zhang@intel.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jic23@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 13 Jul 2026 14:56:06 +0200
-Message-ID: <2026071306-financial-slept-710f@gregkh>
+Message-ID: <2026071306-provider-scrap-2570@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3ce8d099e0afc5a7da75a2007a67f67c4f5a4af1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071306-financial-slept-710f@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071306-provider-scrap-2570@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
