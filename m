@@ -1,73 +1,77 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FFA36A358
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 21:59:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 383F236F8EF
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 21:59:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783979983; cv=none; b=qp590P+SHSpBdOjF3NUw7PFGWjRL8jkspAL7ptU0kB1yhMCJIBW/tlqh0SBi+VJ1JCEwMSOaE3bQ/sL5W3SY7bH7i9zgD9s/XfrruScn+C24dyGiAtuArVyRAolVBnDRZBA/PSSwhOu1r7DhtVvRikI87DBba2HNqBflviNJmZg=
+	t=1783979996; cv=none; b=HBNintwrmpVZk8XMiJM7Een0U6z339lvpRTGsDPrmYS6tQXFyC+lhQda4vm+3P4MvlopPuPDiIIvSJJIR3yCG6vBeSujFv2jTIJv5zmwupMy82icP8iw1Ms8Nw6CAFeol7IOUB3Q068O4uwwvuTz7Qhhg/7Jhf71259i15hB/jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783979983; c=relaxed/simple;
-	bh=CHryohLe/fnBYpOI8e4BvVaoKUdQxQ7HJ+W2ldsPKKc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nl+9EvZ+F5msR+7S/4rKkhNJGcEBPrYKSOUv3QmEzLtfRxtCPD0m0CtEcEa9xiIGkjk8aJ2tdHLpXvt1XQA9JAyDqJtj3DIsV00dGmBE92fDZJI4Ioan1rarckKs0/82Heq1IIaSWpaURmcw522/OSfx6QmFvID4V1/2QcJlANQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=d4Ba279q; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1783979996; c=relaxed/simple;
+	bh=H0cwLVGaX4dKbobyhMaQ5PNoidoTkOFDxl0nwbS8RTw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mxuTmLFTJhCqIfmUXpP8XKBwESIPF9Jjry50guBPENtxtpX9ONwpTlv3KY+HGL1eSWNEp8uXluR3c65aaPnV5GMrtzXmXgrW/XLDGB2Qi+OSj+y8MvBxWySJ48sE+jqe4eJcKQ1QGcAqBsqRqx4OYRbJX1kYNCwZvwKq3AtUebQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=gbo98aie; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="d4Ba279q"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493ba701891so2338835e9.3
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:59:41 -0700 (PDT)
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="gbo98aie"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47d70879764so2338690f8f.2
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:59:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1783979980; x=1784584780; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=37p3VfmrrNMS4akxO403NRH36eKSLE6Wn3AfUCl+4gA=;
-        b=d4Ba279qNkP/UzpnjQeR3R07VNfGiC7musfQDHgXQlPqo/ZZtjEKD23esT9dGQ91Tn
-         V4qnX13+i8lyy4l1VYJDvtctc9g7MdmxVeMT1i37ee2iw10bnVJoG/DKd/qJy6eGTLaD
-         VNcZCeKLzKS0rVxAd6q2nXeB7VvAWJ2TLSQyS/fbLTZ/ic9dP286KML7L8TXikk0u36k
-         wJQrOHY+9D4yfNz2hCypcXChHxyzaNEdPT3/ftsiiqEEyoujBeWrRn2wkPmciZ/21VqJ
-         3A3Mfc/A1RHvUz1lOoAUr3HG4Bcrr1zmpVVgctWaPFYuYwqr708BM/whR6LQ4qR6qdJp
-         2GmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783979980; x=1784584780;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=0sec.ai; s=google; t=1783979993; x=1784584793; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=37p3VfmrrNMS4akxO403NRH36eKSLE6Wn3AfUCl+4gA=;
-        b=Aim32RId8ZscFfugjYsCv1xTUc7OhDKWr3XYmMQfsLzdUpKlm+elh3r02tZNhRpqrA
-         YT/kD3UMkef1aksnQPHfwTQXGKTbwQh2Bg4NfISBOlafZF1XvqPFyaySqR5515Y5492B
-         J3Svz23xKqzS8I/Sf9AmjrQbtiNEjPPkAK4aSXol4l8f+yFzKqCHw4zkCE0dvF5Z08mG
-         7WuzkJluS1Z5ezdsM9CjCNaZV3Zl+3triPg8TmHRSLrTmWDow1/4k25LD6iWGXWdNpW8
-         M1N2L5mLdSDAHFEPcwdKglTvAjTC8jJ4eRHX5Jhc0fsCbJwFc4BoDxJAfILPxbMMedp/
-         XSTQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpy1OU9u1GDb84xuDGdjxq2mOcGpFgTO/6YKXe2+2ETlv08dy8MMrVIWm8yXQsN/Czh67Lbx54=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwV+l5QWFYA4KwmJUJ7MdLKy+DJ7LNGF1OHLAMiMsKcUhB7Qt45
-	1q1QizxIK7X6capNbJQ1CGWs43wQUP3Z/spaQlT5mgiqWMfvPBwzieMLfULOWPlcXCrRhbthwoy
-	2AJ/+dcjW
-X-Gm-Gg: AfdE7ckXYBR90NuTqFH4O52Q1jJorHinkutgucxqw7vxHR17HqfYOaCGXjtGYbHSCNb
-	kGhqHCPPKtJPsjUOVAuM7fPOmtgv6z3ckmuqM7Pcid5JeYj3xbimnf0NbNVTDtiWe/KGUlBdnfg
-	4G21DmI7npOChXxEXYpqI3dEX6C0V+NWKHG53mYJrRI4aL/YmM6IRvb2ZrSONC/3QCZ5t8XMlC9
-	1ruqaMvcno3a/S8d9hHZV/SdeH9AtGoxHXSWNEwCN2WbwFslzkut2K9wIvevQErwdlf9Uxk/gaR
-	6TQsTS9xFhRuz7havBYtnmmEY/Drx1QigkEJ4H84LnUWQE4o4SEW+Zy4tXgw2oIuDB0fExSdvch
-	kPzH/Y7/zbJKKth5WEYf17wgDrcIavy4NV56AtVlchXBfRsuTOC+n7U0Tou++ITjckuLtw7i0dj
-	rgKZPbwSUUAYyR2sicdEEkP4Y9Y8sjfqeDX0Y49pPO41iqcB0eXdeSXgwXvSqHzVLUKQHrs1hPA
-	2FI3d0T9LmEcIEJEwa5j0XXWCy5qU+As3s=
-X-Received: by 2002:a05:600c:b90:b0:493:b967:178d with SMTP id 5b1f17b1804b1-493f881d05emr112865375e9.19.1783979980087;
-        Mon, 13 Jul 2026 14:59:40 -0700 (PDT)
+        bh=LI09mRpsYnchiZqtEGapuavy2o/KNyJgShSvZvNJrfM=;
+        b=gbo98aie1JDjGGQrq53Qgr6kNjB79h2HNxwfDK3kcW/gQY9m829mnVre4e+iSUTTmS
+         +9/79K5xI1BkDa38egSC/ujkMFlQuBH5HEMwGQNqzDKQ0La10TpFG4tvRh6GVZBJ8Rpw
+         I7ijbRO6nMXIDQwB4IAF06tdakU20Btj1nvf9z2P0ZOKa4wuX88rFP9m2s2rFJbCHJzl
+         pMOLddwOvFbLaySbueHFw1/FDW9ICc1a9YCZGczq1PsuxO9vaGNGzJ2QGTk+uK8CfSgO
+         kKEd2Xubbq5oLjrBNRwh0I2Bhx1RCR/7v8BAR/dE4V63169naNmtFhT0Hbkn8nrN3J1q
+         jAcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783979993; x=1784584793;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LI09mRpsYnchiZqtEGapuavy2o/KNyJgShSvZvNJrfM=;
+        b=aFM3u6diRFKBZQbbYRQsrgAYzxQhwyti5lVH5RlFoA+t7qI3s3vV/UIvr1dryHmifp
+         SkGcIdRuwB4C0wovIT6WkQyIAABfG6GYeaP9rCYau+b3GvE9Y9a4i6aAgPYtzpqASVlf
+         td5jr0fWNGn6vVk2TZC4X3EsBwCECpVg6e2ZM8+X5dDf/laNNcP90mWd7OrOeTuJWyuv
+         uSws0inbLTbYCbrl8oCbIep1Bfn+NLnjLCd1Wru49e1RLYq4maUAYykeGOxPWq00xUa0
+         nYACwlXzPl3fUsobIhwB/eFeFoSBRfYIK2YxJqhideTZIohyvFfAjQyG8TAHBkHGNe6x
+         rD1g==
+X-Forwarded-Encrypted: i=1; AHgh+RoTEyJkvhIATJajinCC9NuFeQe2wUP38ZxQmQVZi5A2Lzf4VnCabiZZlobPHSwidZyicMH3jOQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxyotJ8+C31w82GI4Uc/7UoQHzD6TLpEUOP7MJ+K5/pdGhdv8nl
+	f3h2/mTW/xatmHoj3xGlKdaHmWCy2aLYzRLxXIBL0nrXVMB+U5vDQe3pf/+hFGpe9FT9
+X-Gm-Gg: AfdE7cmoG1fony+yEdhFPJjJN+Frgma3S8+qcmkd/mbglSMBxE++P0izDPysLePNpKX
+	nbdmSqk3bPpMDCnvWkMBa423a7mrhIQ5G4kgpkbYvfVhuJp214rjf9BNDMHK29d4SVHHVdWuhbO
+	39UFD6dI+fGTFowLs2QNsSEZV8DdvRBzm5cNIQ2MTTRxsrUHGR6selT2VLexcK4fnhenPj4ygs2
+	lfExbxU66ljpDE6BRJYR6GEGpF4fA8sJ/fodP7OIptTmYHuGrNZiQkKI7Bfwe9ouwGQgzmuPjt+
+	0TTI/Mac021w7bUbMRElwt4+Y/aR8/NHQyOwkSsSFdbA5jLSWLtP6Nvk5aw8aosOYqpbRKhFXxT
+	ZP1kIg7Z5GLgcTlLd8WFco5aWr93mG2Oo/8x6rnRtABuGAqzEG67+EPSpLctOXlk6KAkHcukGsk
+	zXAb5rggofEQXWllHZbm5pPNsJbs3LP/w9NEPz9v6cUyNlwkK7UFJgxDNyIRws/1EPCU0n1dvwu
+	bdKZoF2lLY3zdD6BF6ZaAnOg2W8OqeRx+o=
+X-Received: by 2002:a05:6000:26ca:b0:441:1e1e:a050 with SMTP id ffacd0b85a97d-47f2dcb5325mr12237283f8f.16.1783979993692;
+        Mon, 13 Jul 2026 14:59:53 -0700 (PDT)
 Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4950a2f9402sm28390785e9.13.2026.07.13.14.59.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4635a63esm2584715f8f.9.2026.07.13.14.59.52
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 13 Jul 2026 14:59:39 -0700 (PDT)
+        Mon, 13 Jul 2026 14:59:53 -0700 (PDT)
 From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: David Heidelberg <david@ixit.cz>
-Cc: oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Nikolai Kondrashov <spbnick@gmail.com>,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net] nfc: microread: validate CARD_FOUND event length before parsing targets
-Date: Mon, 13 Jul 2026 23:59:36 +0200
-Message-ID: <20260713215936.23137-1-doruk@0sec.ai>
+Subject: [PATCH v3 2/2] HID: uclogic: fix desc_ptr leak in probe error path
+Date: Mon, 13 Jul 2026 23:59:50 +0200
+Message-ID: <20260713215950.24193-2-doruk@0sec.ai>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260713215950.24193-1-doruk@0sec.ai>
+References: <20260713215950.24193-1-doruk@0sec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,114 +80,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-microread_target_discovered() parses a device-supplied MREAD_CARD_FOUND
-event into a struct nfc_target, reading fixed offsets and -- for the
-ISO-A and ISO-A-3 gates -- a variable-length NFCID1 straight out of the
-event skb. The only length check is nfcid1_len vs sizeof(targets->nfcid1);
-skb->len itself is never validated, so a short event makes every gate
-case read out of bounds past the skb:
+uclogic_probe() calls uclogic_params_get_desc(), which stores a
+kmalloc-allocated replacement report descriptor into drvdata->desc_ptr.
+If a later init step (hid_parse() or hid_hw_start()) fails, probe jumps
+to the "failure" label, which only runs uclogic_params_cleanup() on
+drvdata->params and returns. The device core does not call
+uclogic_remove() when probe fails, so the kfree(drvdata->desc_ptr) that
+uclogic_remove() normally performs never runs, leaking the descriptor.
 
-  - ISO-A / ISO-A-3: fixed ATQA/SAK/LEN reads plus a memcpy of an
-    attacker-controlled nfcid1_len bytes from the NFCID1 offset;
-  - ISO-B / NFC-T1 / NFC-T3: a fixed 4- or 8-byte NFCID1 memcpy from a
-    fixed offset.
-
-The copied nfcid1 is exported to user space via nfc_targets_found(), so
-the over-read is an information leak (and a possible oops on an unmapped
-page).
-
-Reject events too short for the fields each gate case reads.
+drvdata itself is devm-allocated and freed automatically, but desc_ptr
+is a plain kmalloc/krealloc buffer and must be freed explicitly. Free it
+on the probe error path. The kfree is gated on params_initialized, under
+which desc_ptr is either NULL (a no-op) or the allocated descriptor.
 
 Found by 0sec (https://0sec.ai).
 
-Fixes: cfad1ba87150 ("NFC: Initial support for Inside Secure microread")
+Fixes: 9614219e9310 ("HID: uclogic: Extract tablet parameter discovery into a module")
 Cc: stable@vger.kernel.org
 Assisted-by: 0sec
 Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
- drivers/nfc/microread/microread.c | 31 +++++++++++++++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
+ drivers/hid/hid-uclogic-core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nfc/microread/microread.c b/drivers/nfc/microread/microread.c
-index 4149c5d735bd..9a7a4fd6796b 100644
---- a/drivers/nfc/microread/microread.c
-+++ b/drivers/nfc/microread/microread.c
-@@ -483,13 +483,19 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
- 
- 	switch (gate) {
- 	case MICROREAD_GATE_ID_MREAD_ISO_A:
-+		if (skb->len < MICROREAD_EMCF_A_UID) {
-+			r = -EINVAL;
-+			goto exit_free;
-+		}
-+
- 		targets->supported_protocols =
- 		      nfc_hci_sak_to_protocol(skb->data[MICROREAD_EMCF_A_SAK]);
- 		targets->sens_res =
- 			 be16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_A_ATQA]);
- 		targets->sel_res = skb->data[MICROREAD_EMCF_A_SAK];
- 		targets->nfcid1_len = skb->data[MICROREAD_EMCF_A_LEN];
--		if (targets->nfcid1_len > sizeof(targets->nfcid1)) {
-+		if (targets->nfcid1_len > sizeof(targets->nfcid1) ||
-+		    skb->len - MICROREAD_EMCF_A_UID < targets->nfcid1_len) {
- 			r = -EINVAL;
- 			goto exit_free;
- 		}
-@@ -497,13 +503,19 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
- 		       targets->nfcid1_len);
- 		break;
- 	case MICROREAD_GATE_ID_MREAD_ISO_A_3:
-+		if (skb->len < MICROREAD_EMCF_A3_UID) {
-+			r = -EINVAL;
-+			goto exit_free;
-+		}
-+
- 		targets->supported_protocols =
- 		      nfc_hci_sak_to_protocol(skb->data[MICROREAD_EMCF_A3_SAK]);
- 		targets->sens_res =
- 			 be16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_A3_ATQA]);
- 		targets->sel_res = skb->data[MICROREAD_EMCF_A3_SAK];
- 		targets->nfcid1_len = skb->data[MICROREAD_EMCF_A3_LEN];
--		if (targets->nfcid1_len > sizeof(targets->nfcid1)) {
-+		if (targets->nfcid1_len > sizeof(targets->nfcid1) ||
-+		    skb->len - MICROREAD_EMCF_A3_UID < targets->nfcid1_len) {
- 			r = -EINVAL;
- 			goto exit_free;
- 		}
-@@ -511,11 +523,21 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
- 		       targets->nfcid1_len);
- 		break;
- 	case MICROREAD_GATE_ID_MREAD_ISO_B:
-+		if (skb->len < MICROREAD_EMCF_B_UID + 4) {
-+			r = -EINVAL;
-+			goto exit_free;
-+		}
-+
- 		targets->supported_protocols = NFC_PROTO_ISO14443_B_MASK;
- 		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_B_UID], 4);
- 		targets->nfcid1_len = 4;
- 		break;
- 	case MICROREAD_GATE_ID_MREAD_NFC_T1:
-+		if (skb->len < MICROREAD_EMCF_T1_UID + 4) {
-+			r = -EINVAL;
-+			goto exit_free;
-+		}
-+
- 		targets->supported_protocols = NFC_PROTO_JEWEL_MASK;
- 		targets->sens_res =
- 			le16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_T1_ATQA]);
-@@ -523,6 +545,11 @@ static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
- 		targets->nfcid1_len = 4;
- 		break;
- 	case MICROREAD_GATE_ID_MREAD_NFC_T3:
-+		if (skb->len < MICROREAD_EMCF_T3_UID + 8) {
-+			r = -EINVAL;
-+			goto exit_free;
-+		}
-+
- 		targets->supported_protocols = NFC_PROTO_FELICA_MASK;
- 		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_T3_UID], 8);
- 		targets->nfcid1_len = 8;
+diff --git a/drivers/hid/hid-uclogic-core.c b/drivers/hid/hid-uclogic-core.c
+index d74f98efa879..ad9914ed0c71 100644
+--- a/drivers/hid/hid-uclogic-core.c
++++ b/drivers/hid/hid-uclogic-core.c
+@@ -265,8 +265,10 @@ static int uclogic_probe(struct hid_device *hdev,
+ 	return 0;
+ failure:
+ 	/* Assume "remove" might not be called if "probe" failed */
+-	if (params_initialized)
++	if (params_initialized) {
++		kfree(drvdata->desc_ptr);
+ 		uclogic_params_cleanup(&drvdata->params);
++	}
+ 	/*
+ 	 * If hid_hw_start() started I/O and then failed, raw_event may have
+ 	 * armed the timer; shut it down so it cannot fire on the devm-freed
 -- 
 2.43.0
 
