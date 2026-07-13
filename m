@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240A742253A
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:19:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97D5421EED
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:19:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783948769; cv=none; b=VTKG3Jpt1AHU6W08c//I+Mt4RRPvwQYm9QDMSFt5H+yfPToNQzTX6pEGhm0YP/eXyCCiPJyYOhaC1X2CdSmRllqqnlO6UV4K9mfBD0NpaTN/W7FaqLQ9aaY73UtAQCUh7huaVU8OdlCXNyg3CLVVenZZ/+q2VT8X5JK+CY/U0hk=
+	t=1783948771; cv=none; b=fqv06qerqwH/jzVz9GT7MCXyTBmGAToMtJLadnL3eJeAzKe0qIYmwz6xQvWelf4xrXA+gUpZF/wBAWZN6Juj6O6Wxg34MFO5gXOT+IVORhNcZ0H5/fD1IClzpkXqjWN8RV+BO0GT72M+CZ3mPrFk3UMULfIoGpMzBHGCcGAr570=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783948769; c=relaxed/simple;
-	bh=EYzqX3YShRZ7iHNIkWx+CePCPNSDcD5Eju9trXOmukE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=g+mzf8+9rNXgv02vSK7gx7OJXN2XZqvPN0HQCLVZxukpgs45C/5E+ayzDUq0mp9fHFhuZ90AFiJ/kTzVDdgpmPiHWRyCxrb10TuvLAv+Gm7UTeyImbMPE4AdkuqDztkgFPSAtgSV5186+m0aOVwy1JC4B1RRbqq2CmMSCWPsDqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=m+z4Pjtk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783948771; c=relaxed/simple;
+	bh=eJVnFsIPP6blew/D513pDfINr0Sfjy8ufMWViYH6bE8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SenTgL2ysLvwTjcWVg2fOB01UdLVFzJJHE9xc2k1KtPhBPZ2MelBkup7DcTXkbBxe0gz7us3jq0VDgYYNfw5B6yktkHvfhciZO6dqtVmUEcumcLu+qhDmFTPlAFFJ0XkM1EFOF5P04RRuRrAy74CWf2Iu67JONnOxYxqbiParxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1v1+5jPn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="m+z4Pjtk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891751F000E9;
-	Mon, 13 Jul 2026 13:19:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1v1+5jPn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B5DB1F00A3A;
+	Mon, 13 Jul 2026 13:19:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783948768;
-	bh=ltqI6qOOEBExQ0RQzmRwLXudrVUPPhzSq9lRlLAYow4=;
+	s=korg; t=1783948770;
+	bh=6duZNTXyp5lYtakL6pB6ojqAqFsj44IgUOM+kfTJrZE=;
 	h=Subject:To:Cc:From:Date;
-	b=m+z4PjtkWG7mVGg0E/hP+UGk8Danmz7CBK3bBOqUQdtbW6qDzSuDW7UtIzjL1z2kg
-	 8EYTOgcUU7/T6YvV8vANc7TxXyPF/TzYm7/uFBG9fXPZLx9yEXa0YbXiPfY7h0r6cA
-	 g9XDX4EK1Drt3SSysRscUMEJTUseCjlthecWJ/yI=
-Subject: FAILED: patch "[PATCH] vfio/pci: Release the VGA arbiter client on register_device()" failed to apply to 5.15-stable tree
+	b=1v1+5jPnfGlwLLJc9838GZj6l43Ba2B9XyrW9RdqUlxIdCpchBKlfQOnQobQfveOt
+	 +YFKcxwNVdesLLPllMRMZxyP0uvg04tvbVp7GAmU2THSGz46nfEHOWkcui0RJo7e16
+	 V1tj5hA4iHUCQeUy65yqyOuC4bsVvWXDRBi8hy6Y=
+Subject: FAILED: patch "[PATCH] vfio/pci: Release the VGA arbiter client on register_device()" failed to apply to 5.10-stable tree
 To: alex.williamson@nvidia.com,alex@shazbot.org,kevin.tian@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:06:18 +0200
-Message-ID: <2026071318-parasail-contents-0b7a@gregkh>
+Date: Mon, 13 Jul 2026 15:06:29 +0200
+Message-ID: <2026071329-outbid-dividing-1c8d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x daedde7f024ecf88bc8e832ed40cf2c795f0796a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071318-parasail-contents-0b7a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071329-outbid-dividing-1c8d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
