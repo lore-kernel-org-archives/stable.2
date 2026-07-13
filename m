@@ -1,84 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC6B4189A5;
-	Mon, 13 Jul 2026 13:07:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0726D40E8F1
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:08:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783948069; cv=none; b=HQSajkx0DtrFz49uGxtONAlMW2D70fNTiyQPM73wBXeVkYvLF4/IuvpoHZUs9SM9JjV5CdRZNDWlja1ekHsniVZ5tVme8mk9fpFrmv3CBv1vDeA8QzaNU9VFt8DqP20/PO3GUieeBX5gUZtBFurUyZ6Z8bMocyOhjLI/UV7z1bo=
+	t=1783948098; cv=none; b=jgy8j6c5+6Lpus4cHeLZqqc7NEXTxikA5KozmjALZfgRccEC7BMFJJE2+eiwZT72iT6WSr6iCC1ZCyO5tIe4/RRDGltMfNsi6A0BsGtdPOAUXfAdB9ZEFybjcaMS0d4K/sRN83bJohWd0amYaxt1oHSrA63fOQdkwVInTmFj0JY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783948069; c=relaxed/simple;
-	bh=eZDb2Tb0TorVW6SVUJBl2A+95nQMtBtkxZCbkSWL+D0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hYIbyf1wRiJj9ruU/axq9hyLB+HGrlm6TIhFXZv8IaG687QuwhRJGa8Gq4zYgoVXqV+gL0Y7UCP3DeRn8kpwIJypGChzaLamG5FUwAveWLxakUIxnui+bS9bn4WAYjzUY2iW/MHdURXQxRMIY4Sxwad8ebaWHmKTcU4VGMwrLQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M6WsI97x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783948098; c=relaxed/simple;
+	bh=Alw8mjOtEK6QfSAeHLi9Fby1ao7jUjz80XugbFbpSMQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OuG+aiTGoTAvm2Kaj6wfi39VboTsLvUBCWC45S5clHm8hHzqkWqQXnwToHYVI6m9/E9u1lF7RHImZLnq4iTa0tl9cGb8PZniBkiNP2Yvxd3aSTl4RGVe+4B45BCBSyNcNFR+KaBkyEwyWUkBFQDvzmBZWAGznA7XZGB0WeQh47w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IiFfFNT/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M6WsI97x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D30F1F00A3D;
-	Mon, 13 Jul 2026 13:07:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783948067;
-	bh=kXQnTwBPub3tZDUV3lE7n/0kdw8aNXe/OrgkdMgIWss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M6WsI97x0WTAWfxR3KXWh9Utq+r9um1NRRAO4gUwOERZBkLePwAAszdV6RYGWd7RV
-	 +GUZ6+s/4IFenPdHEgtOuSZaWu1zexnaqtBQ9rNpkPj4dQ/azMsiskt9R2rkXIpiwO
-	 U9MSPRqaaVLtSVTffHNFxadDfVgQFogfJBZ6ikjx72rWfHBHJqQ9fXYnST9pD26a1L
-	 aTKGHKrQB1MHm2r0WQdku6WYSh4P3NPyF3Asg0gLr7bRTHf996+1SxZ1Lm3W1y0TCJ
-	 rBKyMAKxCMh5lgwcp/hkHlX8Jli69z+gP4qguXLv5HvPylT2D8Fv7p6S0uMmLx5WW+
-	 NMAh5Kt/NVtFw==
-Date: Mon, 13 Jul 2026 09:07:45 -0400
-From: Eric Biggers <ebiggers@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: demiobenour@gmail.com, Russell King <linux@armlinux.org.uk>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
-Message-ID: <20260713130745.GA2254@quark>
-References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
- <2026071312-uncover-refining-8cac@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IiFfFNT/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ADCD1F000E9;
+	Mon, 13 Jul 2026 13:08:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1783948096;
+	bh=/kYy2PSnk5Mg1gzvZfAQRIforw8cB49BoGBFLHUqNs8=;
+	h=Subject:To:Cc:From:Date;
+	b=IiFfFNT/HkDorVum0UdfQjR2KGUZ9iziTgrmESITu5iL2s9RVFc8uxPkGcNZ7RNNs
+	 Lo/YNxV9OzTmMSKcK/diRSACqyB8nfXNmVpQE1m1CAyDcZz9cy7ji+5fFFMna780RL
+	 vhWCGv6OsWNAJqzAIcmuYAneE/BDQAOIKtFEvixI=
+Subject: FAILED: patch "[PATCH] iio: common: st_sensors: honour channel endianness in" failed to apply to 6.1-stable tree
+To: github.com@herrie.org,andriy.shevchenko@intel.com,jic23@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 13 Jul 2026 14:57:49 +0200
+Message-ID: <2026071349-oppose-radiantly-81a4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026071312-uncover-refining-8cac@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 13, 2026 at 06:47:07AM +0200, Greg KH wrote:
-> On Sun, Jul 12, 2026 at 05:31:31PM -0400, Demi Marie Obenour via B4 Relay wrote:
-> > From: Demi Marie Obenour <demiobenour@gmail.com>
-> > 
-> > This driver is harmful:
-> > 
-> > - It is much slower than the CPU [1] [2].
-> > - It Has a history of bugs [2] [3].
-> > - It does not have exclusive access to the hardware [4], causing races
-> >   with the secure world.
-> > - It register its implementations with too low a cra_priority for them
-> >   to be actually used [5].
-> > 
-> > Therefore, disable it to ensure that nobody builds it into kernels they
-> > intend to ship.
-> > 
-> > In the future, the driver will be used for processing restricted media
-> > content.  However, the kernel does not currently support this.  Since
-> > the driver will have future uses, allow building it if COMPILE_TEST is
-> > enabled.
-> 
-> Why not just delete it now, and then bring it back when it is needed in
-> the future?  Otherwise this will just trip up the static code checkers
-> who will attempt to "fix" things in it.
 
-That makes sense to me, but Qualcomm pushed back on deletion:
-https://lore.kernel.org/linux-crypto/20260602-qcom-qce-broken-v1-1-a4ef756089e0@oss.qualcomm.com/
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-But I've still not seen any evidence that this driver is useful for
-anything or has any users.  Even Qualcomm seems to be unwilling to make
-such claims; they only claim that the IP is used (i.e., not in Linux)
-and that new features are planned.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-- Eric
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 55052184ac9011db2ea983e54d6c21f0b1079a12
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071349-oppose-radiantly-81a4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 55052184ac9011db2ea983e54d6c21f0b1079a12 Mon Sep 17 00:00:00 2001
+From: Herman van Hazendonk <github.com@herrie.org>
+Date: Tue, 16 Jun 2026 15:02:04 +0200
+Subject: [PATCH] iio: common: st_sensors: honour channel endianness in
+ read_axis_data
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+st_sensors_read_axis_data() unconditionally decoded multi-byte
+results with get_unaligned_le16() / get_unaligned_le24() regardless
+of the channel's declared scan_type.endianness.
+
+For every ST sensor that has used this helper since it was introduced
+this happened to be fine because the ST IMU/accel/gyro/pressure
+families publish their data registers as little-endian and the
+channel specs in those drivers declare IIO_LE accordingly.
+
+The LSM303DLH magnetometer however publishes its X/Y/Z output as a
+pair of big-endian bytes (the H register sits at the lower address,
+0x03/0x05/0x07, and the L register immediately after), and its
+channel specs in st_magn_core.c correctly declare IIO_BE -- but
+read_axis_data() ignored that and decoded as little-endian, swapping
+the high and low bytes of every magnetometer sample. The LSM303DLHC
+and LSM303DLM share the same st_magn_16bit_channels (IIO_BE) and
+were therefore byte-swapped by the same bug; users of those parts
+will see different in_magn_*_raw values after this fix lands.
+
+The bug is most visible on a stationary chip: in earth's field the
+true X reading is small and the high byte sits at 0x00, so swapping
+the bytes pins sysfs X at exactly the low byte's pattern (e.g. 0x00F0
+= 240). Y and Z still appear "to vary" because their magnitudes are
+larger and the noise in the low byte produces big swings in the
+swapped high byte:
+
+  before (LSM303DLH flat, sysfs in_magn_*_raw):
+      X=240 (stuck), Y= 12032..23296, Z=-16128..-9728
+
+  after (direct i2c-dev big-endian decode, same chip same orientation):
+      X≈-4096, Y≈210, Z≈80     (sensible values reflecting earth's
+                                ambient field at low gauss range)
+
+Fix read_axis_data() to dispatch on ch->scan_type.endianness and
+call get_unaligned_be16() / get_unaligned_be24() when the channel
+declares IIO_BE. Existing IIO_LE consumers (st_accel, st_gyro,
+st_pressure, st_lsm6dsx and others) are unaffected because their
+channel specs already declare IIO_LE and the LE path is unchanged.
+
+While restructuring the branches, replace the previously implicit
+silent-success-with-uninitialised-*data fall-through for
+byte_for_channel outside 1..3 with an explicit return -EINVAL. No
+in-tree ST sensor publishes such a channel, but the new behaviour
+is strictly safer than handing userspace garbage.
+
+Fixes: 23491b513bcd ("iio:common: Add STMicroelectronics common library")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-7 sparse smatch clang-analyzer coccinelle checkpatch
+Assisted-by: Sashiko:claude-opus-4-7
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+
+diff --git a/drivers/iio/common/st_sensors/st_sensors_core.c b/drivers/iio/common/st_sensors/st_sensors_core.c
+index dbc5e16fbde4..76f91696f66a 100644
+--- a/drivers/iio/common/st_sensors/st_sensors_core.c
++++ b/drivers/iio/common/st_sensors/st_sensors_core.c
+@@ -498,6 +498,7 @@ static int st_sensors_read_axis_data(struct iio_dev *indio_dev,
+ 	u8 *outdata;
+ 	struct st_sensor_data *sdata = iio_priv(indio_dev);
+ 	unsigned int byte_for_channel;
++	u32 tmp;
+ 
+ 	byte_for_channel = DIV_ROUND_UP(ch->scan_type.realbits +
+ 					ch->scan_type.shift, 8);
+@@ -508,12 +509,22 @@ static int st_sensors_read_axis_data(struct iio_dev *indio_dev,
+ 	if (err < 0)
+ 		return err;
+ 
+-	if (byte_for_channel == 1)
+-		*data = (s8)*outdata;
+-	else if (byte_for_channel == 2)
+-		*data = (s16)get_unaligned_le16(outdata);
+-	else if (byte_for_channel == 3)
+-		*data = (s32)sign_extend32(get_unaligned_le24(outdata), 23);
++	if (byte_for_channel == 1) {
++		tmp = *outdata;
++	} else if (byte_for_channel == 2) {
++		if (ch->scan_type.endianness == IIO_BE)
++			tmp = get_unaligned_be16(outdata);
++		else
++			tmp = get_unaligned_le16(outdata);
++	} else if (byte_for_channel == 3) {
++		if (ch->scan_type.endianness == IIO_BE)
++			tmp = get_unaligned_be24(outdata);
++		else
++			tmp = get_unaligned_le24(outdata);
++	} else {
++		return -EINVAL;
++	}
++	*data = sign_extend32(tmp, BYTES_TO_BITS(byte_for_channel) - 1);
+ 
+ 	return 0;
+ }
+
