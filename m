@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942E4346A14
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 18:33:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CA2335BB4
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 18:33:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783967632; cv=none; b=dNQ8eXGgXYdTS10hw5MSGsqOTIGoYUCafA/qCaBlHCxsDXU+dRhU9yOifhCSSVrgc4aBpmAyoWH3yq5zPcF49LiVNwmPWX+BCcqdoBbs4j092+E9qQqfL26RIRK6q0p+P9a/MhlT0x/LS3XnG1K/aJXqNXxuD2+iW8PsNW57DqM=
+	t=1783967633; cv=none; b=cVLRxJM1nsvBzy/ptUMtNSnEeXLEXld5q75D12RVzd/Uzw2KmVQiP6ZZ94G+VAc/hxfdNcuWOpo8XwYArn/xoinNcfUnw0txLrlHMr7IfmbEgM6Afvf4Uvn+M3lGmf+gU6Abf9uWtdLqsYQF5G9mPUREAGMyISlWDj7tyiOgljg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783967632; c=relaxed/simple;
-	bh=rdao/reQ3az3qaLcw8zQOpmHnODeXcRHBl7v6FhdAgo=;
+	s=arc-20240116; t=1783967633; c=relaxed/simple;
+	bh=u1YLNUC8PYJdKXzu336gyE8oi0QIO9J2WJ1QD4SmN7o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BdVSglBxCTYwLIdBouxmrEe0+NW2HV4Yr1dX4GzR6PIzzjftDAV6/43/lT0ednRi82s24nGqNfhO02cEjgJE/AuWaWuqeE1Yrkh12ti+pnwSQpvmJeh18lrfOh+WIHpfDtq1HAEuKAtxQsrZKuswDzHSMLGDgakoEdMbOMU/cLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c8n7SkG0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KlZYk0nHJBXzUHghqg9JoqZ1UOY9sjpw6JikJEWeeRqor5WWiQC7Bq8z7r5i0JFz9A4+Y8ZC74fPaZpjM3UqT1bjeldW9b7zeKh3+N7WOfIVaXwhzpnn5dxYSq+ODDI4/jrDs2+85tUHuhABMta9zA/W1DKRfZQe9gm0wb1aa24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JFcKqaGl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c8n7SkG0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1D51F00A3D;
-	Mon, 13 Jul 2026 18:33:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JFcKqaGl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1931F00A3A;
+	Mon, 13 Jul 2026 18:33:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783967631;
-	bh=zWLRhyYaWZZ+9ZWqNMj2xX451nMztLzt0FNFmL8b8IQ=;
+	s=k20260515; t=1783967632;
+	bh=B5tj67aFz/QCjhovtik7je4u3RDVA1q9Uw4xIkPJNHU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c8n7SkG0TyuvtBHNxN+JRRva2yJwZcQSTB14y1R6p6lDWQF18qTa/EL44qdaGYFjN
-	 fHhcr40UhSpREJvS73/x18rcG87HDzBW9KwWOsfsRvJA/xTdL4Cmu2ll6gxv2aVgHd
-	 +EZyk0xVell8DXVvEnHn77/j9aBpWmk7rKIj0wid9t8BDRIqPxxXzawIUnLcaVdx69
-	 6G3pVvllPLpObyy5CYpIt+LXu8urkYjyQfpSD4SBfLBiyREPzaDW2aGyt9Ow5z38ot
-	 k+2xdGyDHxHoXCcDg8LVa59U+Cxq2no3XQJJ8RY7s6dNr+XhIdTyS1SQ74Y9aECciW
-	 QKeneyr4fmRkg==
+	b=JFcKqaGlBOV5qqjmN1RreowmZvTkCy4u0sclPYOa/HsemltVqVyNPDpF+wJCJuL+h
+	 D/p1Iq6AMWior32cYsbRErzr5hcE0B3k6sXWjhhFc9QsuaH0dI3GT9ZEdGpNhPUBzN
+	 rsyf6hXNEV+TolzFfWevt3LqiQ/5WxhJv4Evf27poSEOQ7zcEIhlFR2MSGx3YiD/xd
+	 cOK0CxShvySh7tOE1lCXIWBXAFrQpT0P0x6551ZVxv+lqbyw0kJwN3gNhXdMbM1kbX
+	 k7fJaUTfbfSikbTSlaVa4RMH2qKtxDqeOyKM82TFLjzIFMaGUQ66ykZD1GUZ/eGVWS
+	 Itt10SFUkXvTQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Stable@vger.kernel.org,
 	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/4] iio: invensense: fix timestamp glitches when switching frequency
-Date: Mon, 13 Jul 2026 14:33:46 -0400
-Message-ID: <20260713183348.1951183-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/4] iio: imu: inv_icm42600: stabilized timestamp in interrupt
+Date: Mon, 13 Jul 2026 14:33:47 -0400
+Message-ID: <20260713183348.1951183-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260713183348.1951183-1-sashal@kernel.org>
 References: <2026071317-seventeen-sedate-4f50@gregkh>
@@ -49,188 +48,117 @@ Content-Transfer-Encoding: 8bit
 
 From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-[ Upstream commit bf8367b00c33c64a9391c262bb2e11d274c9f2a4 ]
+[ Upstream commit d7bd473632d07f8a54655c270c0940cc3671c548 ]
 
-When a sensor is running and there is a FIFO frequency change due to
-another sensor turned on/off, there are glitches on timestamp. Fix that
-by using only interrupt timestamp when there is the corresponding sensor
-data in the FIFO.
+Use IRQF_ONESHOT flag to ensure the timestamp is not updated in the
+hard handler during the thread handler. And compute and use the
+effective watermark value that correspond to this first timestamp.
 
-Delete FIFO period handling and simplify internal functions.
+This way we can ensure the timestamp is always corresponding to the
+value used by the timestamping mechanism. Otherwise, it is possible
+that between FIFO count read and FIFO processing the timestamp is
+overwritten in the hard handler.
 
-Update integration inside inv_mpu6050 and inv_icm42600 drivers.
-
-Fixes: 0ecc363ccea7 ("iio: make invensense timestamp module generic")
-Cc: Stable@vger.kernel.org
+Fixes: ec74ae9fd37c ("iio: imu: inv_icm42600: add accurate timestamping")
+Cc: stable@vger.kernel.org
 Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Link: https://lore.kernel.org/r/20240426094835.138389-1-inv.git-commit@tdk.com
+Link: https://lore.kernel.org/r/20240529154717.651863-1-inv.git-commit@tdk.com
 Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 Stable-dep-of: affe3f077d7a ("iio: imu: inv_icm42600: fix timestamping by limiting FIFO reading")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../inv_sensors/inv_sensors_timestamp.c       | 24 +++++++++----------
- .../imu/inv_icm42600/inv_icm42600_buffer.c    | 20 +++++++---------
- drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c    |  2 +-
- .../linux/iio/common/inv_sensors_timestamp.h  |  3 +--
- 4 files changed, 21 insertions(+), 28 deletions(-)
+ .../imu/inv_icm42600/inv_icm42600_buffer.c    | 19 +++++++++++++++++--
+ .../imu/inv_icm42600/inv_icm42600_buffer.h    |  2 ++
+ .../iio/imu/inv_icm42600/inv_icm42600_core.c  |  1 +
+ 3 files changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-index 5985c99cc0b60a..37d0bdaa8d824f 100644
---- a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-+++ b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-@@ -78,13 +78,13 @@ int inv_sensors_timestamp_update_odr(struct inv_sensors_timestamp *ts,
- }
- EXPORT_SYMBOL_NS_GPL(inv_sensors_timestamp_update_odr, IIO_INV_SENSORS_TIMESTAMP);
- 
--static bool inv_validate_period(struct inv_sensors_timestamp *ts, uint32_t period, uint32_t mult)
-+static bool inv_validate_period(struct inv_sensors_timestamp *ts, uint32_t period)
- {
- 	uint32_t period_min, period_max;
- 
- 	/* check that period is acceptable */
--	period_min = ts->min_period * mult;
--	period_max = ts->max_period * mult;
-+	period_min = ts->min_period * ts->mult;
-+	period_max = ts->max_period * ts->mult;
- 	if (period > period_min && period < period_max)
- 		return true;
- 	else
-@@ -92,15 +92,15 @@ static bool inv_validate_period(struct inv_sensors_timestamp *ts, uint32_t perio
- }
- 
- static bool inv_update_chip_period(struct inv_sensors_timestamp *ts,
--				    uint32_t mult, uint32_t period)
-+				   uint32_t period)
- {
- 	uint32_t new_chip_period;
- 
--	if (!inv_validate_period(ts, period, mult))
-+	if (!inv_validate_period(ts, period))
- 		return false;
- 
- 	/* update chip internal period estimation */
--	new_chip_period = period / mult;
-+	new_chip_period = period / ts->mult;
- 	inv_update_acc(&ts->chip_period, new_chip_period);
- 	ts->period = ts->mult * ts->chip_period.val;
- 
-@@ -133,16 +133,14 @@ static void inv_align_timestamp_it(struct inv_sensors_timestamp *ts)
- }
- 
- void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
--				      uint32_t fifo_period, size_t fifo_nb,
--				      size_t sensor_nb, int64_t timestamp)
-+				     size_t sample_nb, int64_t timestamp)
- {
- 	struct inv_sensors_timestamp_interval *it;
- 	int64_t delta, interval;
--	const uint32_t fifo_mult = fifo_period / ts->chip.clock_period;
- 	uint32_t period;
- 	bool valid = false;
- 
--	if (fifo_nb == 0)
-+	if (sample_nb == 0)
- 		return;
- 
- 	/* update interrupt timestamp and compute chip and sensor periods */
-@@ -152,14 +150,14 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
- 	delta = it->up - it->lo;
- 	if (it->lo != 0) {
- 		/* compute period: delta time divided by number of samples */
--		period = div_s64(delta, fifo_nb);
--		valid = inv_update_chip_period(ts, fifo_mult, period);
-+		period = div_s64(delta, sample_nb);
-+		valid = inv_update_chip_period(ts, period);
- 	}
- 
- 	/* no previous data, compute theoritical value from interrupt */
- 	if (ts->timestamp == 0) {
- 		/* elapsed time: sensor period * sensor samples number */
--		interval = (int64_t)ts->period * (int64_t)sensor_nb;
-+		interval = (int64_t)ts->period * (int64_t)sample_nb;
- 		ts->timestamp = it->up - interval;
- 		return;
- 	}
 diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-index 743580ea5845e8..e6d25844cf026f 100644
+index e6d25844cf026f..be123c2f41131a 100644
 --- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
 +++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-@@ -515,20 +515,20 @@ int inv_icm42600_buffer_fifo_parse(struct inv_icm42600_state *st)
- 		return 0;
+@@ -222,10 +222,15 @@ int inv_icm42600_buffer_update_watermark(struct inv_icm42600_state *st)
+ 	latency_accel = period_accel * wm_accel;
  
- 	/* handle gyroscope timestamp and FIFO data parsing */
--	ts = iio_priv(st->indio_gyro);
--	inv_sensors_timestamp_interrupt(ts, st->fifo.period, st->fifo.nb.total,
--					st->fifo.nb.gyro, st->timestamp.gyro);
- 	if (st->fifo.nb.gyro > 0) {
-+		ts = iio_priv(st->indio_gyro);
-+		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro,
-+						st->timestamp.gyro);
- 		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
- 		if (ret)
- 			return ret;
+ 	/* 0 value for watermark means that the sensor is turned off */
++	if (wm_gyro == 0 && wm_accel == 0)
++		return 0;
++
+ 	if (latency_gyro == 0) {
+ 		watermark = wm_accel;
++		st->fifo.watermark.eff_accel = wm_accel;
+ 	} else if (latency_accel == 0) {
+ 		watermark = wm_gyro;
++		st->fifo.watermark.eff_gyro = wm_gyro;
+ 	} else {
+ 		/* compute the smallest latency that is a multiple of both */
+ 		if (latency_gyro <= latency_accel)
+@@ -241,6 +246,13 @@ int inv_icm42600_buffer_update_watermark(struct inv_icm42600_state *st)
+ 		watermark = latency / period;
+ 		if (watermark < 1)
+ 			watermark = 1;
++		/* update effective watermark */
++		st->fifo.watermark.eff_gyro = latency / period_gyro;
++		if (st->fifo.watermark.eff_gyro < 1)
++			st->fifo.watermark.eff_gyro = 1;
++		st->fifo.watermark.eff_accel = latency / period_accel;
++		if (st->fifo.watermark.eff_accel < 1)
++			st->fifo.watermark.eff_accel = 1;
  	}
  
- 	/* handle accelerometer timestamp and FIFO data parsing */
--	ts = iio_priv(st->indio_accel);
--	inv_sensors_timestamp_interrupt(ts, st->fifo.period, st->fifo.nb.total,
--					st->fifo.nb.accel, st->timestamp.accel);
- 	if (st->fifo.nb.accel > 0) {
-+		ts = iio_priv(st->indio_accel);
-+		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel,
-+						st->timestamp.accel);
- 		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
- 		if (ret)
- 			return ret;
-@@ -556,9 +556,7 @@ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
- 
+ 	/* compute watermark value in bytes */
+@@ -517,7 +529,7 @@ int inv_icm42600_buffer_fifo_parse(struct inv_icm42600_state *st)
+ 	/* handle gyroscope timestamp and FIFO data parsing */
  	if (st->fifo.nb.gyro > 0) {
  		ts = iio_priv(st->indio_gyro);
--		inv_sensors_timestamp_interrupt(ts, st->fifo.period,
--						st->fifo.nb.total, st->fifo.nb.gyro,
--						gyro_ts);
-+		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
+-		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro,
++		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
+ 						st->timestamp.gyro);
  		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
  		if (ret)
- 			return ret;
-@@ -566,9 +564,7 @@ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
- 
+@@ -527,7 +539,7 @@ int inv_icm42600_buffer_fifo_parse(struct inv_icm42600_state *st)
+ 	/* handle accelerometer timestamp and FIFO data parsing */
  	if (st->fifo.nb.accel > 0) {
  		ts = iio_priv(st->indio_accel);
--		inv_sensors_timestamp_interrupt(ts, st->fifo.period,
--						st->fifo.nb.total, st->fifo.nb.accel,
--						accel_ts);
-+		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
+-		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel,
++		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_accel,
+ 						st->timestamp.accel);
  		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
  		if (ret)
- 			return ret;
-diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c
-index ace3ce4faea73a..26621f181e82b4 100644
---- a/drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c
-+++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c
-@@ -113,7 +113,7 @@ irqreturn_t inv_mpu6050_read_fifo(int irq, void *p)
- 		goto end_session;
- 	/* Each FIFO data contains all sensors, so same number for FIFO and sensor data */
- 	fifo_period = NSEC_PER_SEC / INV_MPU6050_DIVIDER_TO_FIFO_RATE(st->chip_config.divider);
--	inv_sensors_timestamp_interrupt(&st->timestamp, fifo_period, nb, nb, pf->timestamp);
-+	inv_sensors_timestamp_interrupt(&st->timestamp, nb, pf->timestamp);
- 	inv_sensors_timestamp_apply_odr(&st->timestamp, fifo_period, nb, 0);
+@@ -578,6 +590,9 @@ int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
+ 	unsigned int val;
+ 	int ret;
  
- 	/* clear internal data buffer for avoiding kernel data leak */
-diff --git a/include/linux/iio/common/inv_sensors_timestamp.h b/include/linux/iio/common/inv_sensors_timestamp.h
-index a47d304d1ba7c4..8d506f1e9df292 100644
---- a/include/linux/iio/common/inv_sensors_timestamp.h
-+++ b/include/linux/iio/common/inv_sensors_timestamp.h
-@@ -71,8 +71,7 @@ int inv_sensors_timestamp_update_odr(struct inv_sensors_timestamp *ts,
- 				     uint32_t period, bool fifo);
++	st->fifo.watermark.eff_gyro = 1;
++	st->fifo.watermark.eff_accel = 1;
++
+ 	/*
+ 	 * Default FIFO configuration (bits 7 to 5)
+ 	 * - use invalid value
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
+index eed6a3152acf48..ffca4da1e24936 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
+@@ -32,6 +32,8 @@ struct inv_icm42600_fifo {
+ 	struct {
+ 		unsigned int gyro;
+ 		unsigned int accel;
++		unsigned int eff_gyro;
++		unsigned int eff_accel;
+ 	} watermark;
+ 	size_t count;
+ 	struct {
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+index 99eb651743f80f..2f9a0e7fada43f 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+@@ -523,6 +523,7 @@ static int inv_icm42600_irq_init(struct inv_icm42600_state *st, int irq,
+ 	if (ret)
+ 		return ret;
  
- void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
--				     uint32_t fifo_period, size_t fifo_nb,
--				     size_t sensor_nb, int64_t timestamp);
-+				     size_t sample_nb, int64_t timestamp);
- 
- static inline int64_t inv_sensors_timestamp_pop(struct inv_sensors_timestamp *ts)
- {
++	irq_type |= IRQF_ONESHOT;
+ 	return devm_request_threaded_irq(dev, irq, inv_icm42600_irq_timestamp,
+ 					 inv_icm42600_irq_handler, irq_type,
+ 					 "inv_icm42600", st);
 -- 
 2.53.0
 
