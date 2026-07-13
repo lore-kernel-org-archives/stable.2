@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDC841B346
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:12:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A92B41B36C
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:12:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783948345; cv=none; b=W2aa0F/vd+px9ekOIJVfqAPfVotFLC8eFsfBTaiRWDdMqUAHeXhS2cRFKNx4TC16/qg2T6498F6ScYV14gV+zLuz1kEnhLUXxIf3WbpPzVS3iOkhwWtAavi0wXdid3K9bb3735ArZDdtDIKW7hQiIfieNSO8G5oufR5BhM6deOM=
+	t=1783948348; cv=none; b=GlcKFpCKnKlxg6tsZIAjFzHtJeVofQJTZmTu0GY2YGNlnOp/iRAE0czyevm/eIEbeOTcDuezQdwa5T2jHK64BIs47LMu70AyvMjJxlWWm23aTEuefUEsQKVTWr7gyr5K0b6P3XW37EQjZlkcmfoB/KIMljl9MFGm7oRhjI2802o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783948345; c=relaxed/simple;
-	bh=siL5qBATRH6H7uJuV0O+95sP7HZEkwSv8zS32W4gQtw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ouhJYskVrBOH+olZ1VaL90jCZQ5BHtTdRXsm/T0vE5Vt1DKr7tM+Iye9Kdc495AoaoRHnXQ0amFtHZM5tPRmAgALFZ4bt47vXeRBMjMv/Bff+eZB8+UL9h62alPn3/OJ72jQJ7Qv7YIv7QbMm6SoTA5ICpR5IPUI/lwQNFYOLMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X8luEaE5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783948348; c=relaxed/simple;
+	bh=GhRdy3EIRC9gPBcBi4nxBTJnKLVsooQvt/uLJEs7w9M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=A0PrBy4ItomPeskMkd/bKK3mgfIgHn53AQEFkGEqBZD65DUGV3PNXnFGixUROT0sVpUwbv7ZOlFOr7ViltUFxLjbX4ED3XHi9pzCrpzd5oDkT5hmLtEhv26DZZKZHapc9MBqZUg4pp2CfT2HjgDRBaz7Iv0B8G9KMwFQmaBZfNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TzcCENcH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X8luEaE5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4FC81F000E9;
-	Mon, 13 Jul 2026 13:12:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TzcCENcH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AE441F000E9;
+	Mon, 13 Jul 2026 13:12:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783948344;
-	bh=BxXN4wOdKeOChTv8wH9I5GzUCGnd+cMnpY2K/cUHaiA=;
+	s=korg; t=1783948346;
+	bh=PgKKepZt4rR9M71isAgaXKiz7mmzOLOl99dYcH79a0A=;
 	h=Subject:To:Cc:From:Date;
-	b=X8luEaE55/jHuvqvyfUOJW5WBYdON7jhEkqtkvbLqKaqqDTKt3YRKFj6DsF02I7Pl
-	 6s+717zhQBwDcalY0OAmyTD0CEyhqzyTAaHy7ZhrTO+DV09f+hq/nx2bygCpd1yPu8
-	 YqIqVZZ8iSyWV7Zl3gxD/r16XKBZdW5qybkh7qJs=
-Subject: FAILED: patch "[PATCH] ALSA: scarlett2: Update offsets for 2i2 Gen 4 firmware 2417" failed to apply to 7.1-stable tree
+	b=TzcCENcHQW6K+Yjms/PXSWGrsp/bqYRZ0Z34HGf61lGmLCl0/PLg8SA0oeP8JMFCk
+	 3CPifu/DwnzB9152YdooOtjBZg8NNsDhet2X2Ok6HlSSOJhFccnRGZqYrO+Ryk52o+
+	 hhdihm4bjHCVlGM7i2G4kS/0H2YI31fKucDzZhoc=
+Subject: FAILED: patch "[PATCH] ALSA: scarlett2: Update offsets for 2i2 Gen 4 firmware 2417" failed to apply to 6.12-stable tree
 To: g@b4.vu,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:00:49 +0200
-Message-ID: <2026071349-volatile-trustable-cfdf@gregkh>
+Date: Mon, 13 Jul 2026 15:00:50 +0200
+Message-ID: <2026071350-latitude-exorcism-aa2b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3ca15754b561483aa7a1bce51677d6389f8ff5bb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071349-volatile-trustable-cfdf@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071350-latitude-exorcism-aa2b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
