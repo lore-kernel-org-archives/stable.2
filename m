@@ -1,120 +1,338 @@
-Received: from smtp-out.kfki.hu (smtp-out.kfki.hu [148.6.0.51])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60285426EA8;
-	Mon, 13 Jul 2026 13:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.6.0.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9479542F6FC
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:22:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783948892; cv=none; b=DjoEOhnE631cUjljICY7QxXiSeVhhDyXQSNqz49F8vgpYHEtRHkG6GH1TYIHJyJJMT8ASOMaHp6Fid94Kr4X2HBMOdMLFQc6kac3Er9pGncKngdEE9UF05q30pKynae2oK/ht/EZAyal3XGrazs0p8kwqU7FvteXP+OXBtjL5LU=
+	t=1783948970; cv=none; b=kqyPZeLr0e/D+PgrMG5QesCvJo/oLp8lHglmJZ3e3eCbQiB0PS2K7TPH9Gh64Mf9lJpviashMNbsfFE1KLu/76fOtEwt7XPW1ukbSme7TbmIBWF4+pTFxEKdDlAfdGcO2NOaVxBi6n6LKLTrnPNIIxwCQHhUwwyvLdQQTHDOu/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783948892; c=relaxed/simple;
-	bh=CLvOMuTGzK0B9UMbrs4BcMOxKRHnFjD8dC/fxRzRXiY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=l9iM0PRurGnR6ywG9zy0fgLybP5lB/Zaw+WUlv2RrhBSjEtxqTlnwgusDsQOlQdDqPmf780wKErsrgkziLp9OkMePSVs3xe7b1H4tLTrYFZaWTQTU3KrHrPlaCp72/q/8ClCBSkVwUXw9GUpRxK9r5qKNblqJKi7KXBIFH3RmJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=blackhole.kfki.hu; spf=pass smtp.mailfrom=blackhole.kfki.hu; dkim=pass (1024-bit key) header.d=blackhole.kfki.hu header.i=@blackhole.kfki.hu header.b=jsuZad9b; arc=none smtp.client-ip=148.6.0.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=blackhole.kfki.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blackhole.kfki.hu
+	s=arc-20240116; t=1783948970; c=relaxed/simple;
+	bh=ag9GABG/KCK2k1CiVkiRT6W4nQPOM+dhNq/pMnY2aTE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rokQo/Jg0jIxXDWz3aOhn/zHwU8j9sgQ2XZFE36Qwk6EHIvulh98eoCmOolBf9k0rZu7EWPAOnw1A+E49uUb4+TpTGh0cE6xszVsXWmWxOYyaQblbHJ5+Eh6O6G24i+mjJe/UTN2Ci+KkVltkUh2Yy2TaFUyv84+53Lv17I4JfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xb0qNOMN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=blackhole.kfki.hu header.i=@blackhole.kfki.hu header.b="jsuZad9b"
-Received: from localhost (localhost [127.0.0.1])
-	by smtp2.kfki.hu (Postfix) with ESMTP id 4gzNC64STBz7s7wb;
-	Mon, 13 Jul 2026 15:12:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	blackhole.kfki.hu; h=mime-version:references:message-id
-	:in-reply-to:from:from:date:date:received:received:received
-	:received; s=20151130; t=1783948352; x=1785762753; bh=bU3QVDxuYL
-	ifBEDECxq11ROerf4rx5150fNX0c5ItPU=; b=jsuZad9bJ4Zvd34yJl5KRB1YeQ
-	HIBhprnbt/jelZDAs8Cduhs6srZdPjKr8gSvvJUSHsf2nLl6YFGvpzVRvnMQMhro
-	Ui64n7c5ycE7XKiIYMIPImZwLhOVmMiNpLpFdHADN7eKweAZMejXEhV9ekUrkkns
-	uEzyTjEe/DrYMuJLY=
-X-Virus-Scanned: Debian amavis at smtp2.kfki.hu
-Received: from smtp2.kfki.hu ([127.0.0.1])
- by localhost (smtp2.kfki.hu [127.0.0.1]) (amavis, port 10026) with ESMTP
- id ktaVqrb7ZuZ4; Mon, 13 Jul 2026 15:12:32 +0200 (CEST)
-Received: from blackhole.kfki.hu (blackhole.szhk.kfki.hu [148.6.240.2])
-	by smtp2.kfki.hu (Postfix) with ESMTP id 4gzNC41S29z7s7wX;
-	Mon, 13 Jul 2026 15:12:32 +0200 (CEST)
-Received: by blackhole.kfki.hu (Postfix, from userid 1000)
-	id 1FC6B34316E; Mon, 13 Jul 2026 15:12:32 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by blackhole.kfki.hu (Postfix) with ESMTP id 1E4DF34316D;
-	Mon, 13 Jul 2026 15:12:32 +0200 (CEST)
-Date: Mon, 13 Jul 2026 15:12:32 +0200 (CEST)
-From: Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
-To: David Lee <david.lee@trailofbits.com>
-cc: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
-    Jozsef Kadlecsik <kadlec@netfilter.org>, Phil Sutter <phil@nwl.cc>, 
-    Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>, 
-    netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
-    netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH nf] netfilter: ipset: do not update comments from
- kernel-side hash adds
-In-Reply-To: <20260713095918.173450-1-david.lee@trailofbits.com>
-Message-ID: <288616cf-27fa-eed8-2e4c-898d723cc283@blackhole.kfki.hu>
-References: <20260713095918.173450-1-david.lee@trailofbits.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xb0qNOMN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F5F1F000E9;
+	Mon, 13 Jul 2026 13:22:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1783948968;
+	bh=xCgY36FxlqBph4rcw5fv3jVo4BU8EvFzKULc3t6r044=;
+	h=Subject:To:Cc:From:Date;
+	b=xb0qNOMNa6r4VGHo0GNWi4lnSm5ufyDxs4v4PRv7gRg57727u5uwFun/Alhjo7z2w
+	 TRfIN4twum0Ho+97t8tSxQZ50I7lEDVxRgUlonrFn7TQyyYiXpGH3wRS+9jomVAJXi
+	 oiEMEaeAtP2AhDgHTLAaTlUzxUWTwl8OD+ZfvMo0=
+Subject: FAILED: patch "[PATCH] rust_binder: fix BINDER_GET_EXTENDED_ERROR" failed to apply to 6.18-stable tree
+To: aliceryhl@google.com,cmllamas@google.com,gregkh@linuxfoundation.org,stable@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 13 Jul 2026 15:12:31 +0200
+Message-ID: <2026071331-obstruct-sprig-4ee1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hi,
 
-On Mon, 13 Jul 2026, David Lee wrote:
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> mtype_resize() copies comment pointers with memcpy(), not the comment objects
-> themselves. During the window after an entry has been copied but before the
-> table swap and backlog replay, the old table is still published for
-> packet-side updates while the replacement-table entry already holds the same
-> ip_set_comment_rcu pointer.
->
-> If xt_SET --add-set ... --exist hits that old entry in this window,
-> mtype_add() calls ip_set_init_comment() even though packet-side adds carry no
-> comment payload. That call frees the shared comment through the old entry, so
-> the replacement-table entry now holds a stale pointer. When the queued add is
-> replayed on the new table, mtype_add() calls ip_set_init_comment() again and
-> strlen() dereferences the stale pointer.
->
-> Fix this in mtype_add() by skipping ip_set_init_comment() when ext->target
-> marks a packet-side add. Userspace adds still update comments, while
-> packet-side adds can no longer free comment storage shared with a resize copy.
->
-> Fixes: f66ee0410b1c ("netfilter: ipset: Fix "INFO: rcu detected stall in hash_xxx" reports")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Lee <david.lee@trailofbits.com>
-> Assisted-by: Codex:gpt-5.5
-> ---
-> A reproducer triggers a KASAN slab-use-after-free in strlen() from
-> ip_set_init_comment() during hash_ip4_resize().
->
-> Trail of Bits has a privilege escalation PoC for this bug on a
-> custom kernel, which can be shared further if needed.
->
-> net/netfilter/ipset/ip_set_hash_gen.h | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/net/netfilter/ipset/ip_set_hash_gen.h b/net/netfilter/ipset/ip_set_hash_gen.h
-> index 8231317b0f1f..b2d77973272d 100644
-> --- a/net/netfilter/ipset/ip_set_hash_gen.h
-> +++ b/net/netfilter/ipset/ip_set_hash_gen.h
-> @@ -1005,7 +1005,7 @@ mtype_add(struct ip_set *set, void *value, const struct ip_set_ext *ext,
-> #endif
-> 	if (SET_WITH_COUNTER(set))
-> 		ip_set_init_counter(ext_counter(data, set), ext);
-> -	if (SET_WITH_COMMENT(set))
-> +	if (SET_WITH_COMMENT(set) && !ext->target)
-> 		ip_set_init_comment(set, ext_comment(data, set), ext);
-> 	if (SET_WITH_SKBINFO(set))
-> 		ip_set_init_skbinfo(ext_skbinfo(data, set), ext);
-> --
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Thanks! Resize is a can of worms for edge cases and hopefully all of them 
-caught one by one.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 77bfebf110773f5a0d6b5ff8110896adb2c9c335
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071331-obstruct-sprig-4ee1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-Acked-by: Jozsef Kadlecsik <kadlec@netfilter.org>
+Possible dependencies:
 
-Best regards,
-Jozsef
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 77bfebf110773f5a0d6b5ff8110896adb2c9c335 Mon Sep 17 00:00:00 2001
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Fri, 5 Jun 2026 11:13:50 +0000
+Subject: [PATCH] rust_binder: fix BINDER_GET_EXTENDED_ERROR
+
+This code currently copies the ExtendedError struct to the stack,
+modifies the copy, and then doesn't modify the original. Thus, fix it.
+
+Furthermore, errors when replying must be delivered directly to the
+remote thread, so update deliver_reply() to take an extended error
+argument.
+
+Cc: stable <stable@kernel.org>
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+Acked-by: Carlos Llamas <cmllamas@google.com>
+Link: https://patch.msgid.link/20260605-set-extended-error-v3-1-d60b69a75f97@google.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/android/binder/error.rs b/drivers/android/binder/error.rs
+index 45d85d4c2815..1296072c35d9 100644
+--- a/drivers/android/binder/error.rs
++++ b/drivers/android/binder/error.rs
+@@ -73,20 +73,17 @@ impl fmt::Debug for BinderError {
+     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+         match self.reply {
+             BR_FAILED_REPLY => match self.source.as_ref() {
+-                Some(source) => f
+-                    .debug_struct("BR_FAILED_REPLY")
+-                    .field("source", source)
+-                    .finish(),
++                Some(source) => source.fmt(f),
+                 None => f.pad("BR_FAILED_REPLY"),
+             },
+             BR_DEAD_REPLY => f.pad("BR_DEAD_REPLY"),
+             BR_FROZEN_REPLY => f.pad("BR_FROZEN_REPLY"),
+             BR_TRANSACTION_PENDING_FROZEN => f.pad("BR_TRANSACTION_PENDING_FROZEN"),
+             BR_TRANSACTION_COMPLETE => f.pad("BR_TRANSACTION_COMPLETE"),
+-            _ => f
+-                .debug_struct("BinderError")
+-                .field("reply", &self.reply)
+-                .finish(),
++            _ => match self.source.as_ref() {
++                Some(source) => source.fmt(f),
++                None => self.reply.fmt(f),
++            },
+         }
+     }
+ }
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index 97d5f31e8fe3..3b8520813941 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -495,9 +495,16 @@ pub(crate) fn debug_print(self: &Arc<Self>, m: &SeqFile, print_all: bool) -> Res
+         Ok(())
+     }
+ 
++    pub(crate) fn clear_extended_error(&self, debug_id: usize) {
++        self.inner.lock().extended_error = ExtendedError::new(debug_id as u32, BR_OK, 0);
++    }
++
+     pub(crate) fn get_extended_error(&self, data: UserSlice) -> Result {
+         let mut writer = data.writer();
+-        let ee = self.inner.lock().extended_error;
++        let mut inner = self.inner.lock();
++        let ee = inner.extended_error;
++        inner.extended_error = ExtendedError::new(0, BR_OK, 0);
++        drop(inner);
+         writer.write(&ee)?;
+         Ok(())
+     }
+@@ -1109,7 +1116,10 @@ fn unwind_transaction_stack(self: &Arc<Self>) {
+             inner.pop_transaction_to_reply(thread.as_ref())
+         } {
+             let reply = Err(BR_DEAD_REPLY);
+-            if !transaction.from.deliver_single_reply(reply, &transaction) {
++            if !transaction
++                .from
++                .deliver_single_reply(reply, &transaction, None)
++            {
+                 break;
+             }
+ 
+@@ -1121,8 +1131,9 @@ pub(crate) fn deliver_reply(
+         &self,
+         reply: Result<DLArc<Transaction>, u32>,
+         transaction: &DArc<Transaction>,
++        extended_error: Option<ExtendedError>,
+     ) {
+-        if self.deliver_single_reply(reply, transaction) {
++        if self.deliver_single_reply(reply, transaction, extended_error) {
+             transaction.from.unwind_transaction_stack();
+         }
+     }
+@@ -1136,6 +1147,7 @@ fn deliver_single_reply(
+         &self,
+         reply: Result<DLArc<Transaction>, u32>,
+         transaction: &DArc<Transaction>,
++        extended_error: Option<ExtendedError>,
+     ) -> bool {
+         if let Ok(transaction) = &reply {
+             crate::trace::trace_transaction(true, transaction, Some(&self.task));
+@@ -1152,6 +1164,12 @@ fn deliver_single_reply(
+                 return true;
+             }
+ 
++            if let Some(ee) = extended_error {
++                if inner.extended_error.command == BR_OK {
++                    inner.extended_error = ee;
++                }
++            }
++
+             match reply {
+                 Ok(work) => {
+                     inner.push_work(work);
+@@ -1222,6 +1240,9 @@ fn read_transaction_info(
+         info.buffers_size = td.buffers_size as usize;
+         // SAFETY: Above `read` call initializes all bytes, so this union read is ok.
+         info.target_handle = unsafe { td.transaction_data.target.handle };
++
++        info.debug_id = super::next_debug_id();
++
+         Ok(())
+     }
+ 
+@@ -1230,6 +1251,8 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
+         let mut info = TransactionInfo::zeroed();
+         self.read_transaction_info(cmd, reader, &mut info)?;
+ 
++        self.clear_extended_error(info.debug_id);
++
+         let ret = if info.is_reply {
+             self.reply_inner(&mut info)
+         } else if info.is_oneway() {
+@@ -1239,23 +1262,21 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
+         };
+ 
+         if let Err(err) = ret {
++            self.push_return_work(err.reply);
+             if err.reply != BR_TRANSACTION_COMPLETE {
+                 info.reply = err.reply;
+-            }
++                if let Some(source) = &err.source {
++                    info.errno = source.to_errno();
+ 
+-            self.push_return_work(err.reply);
+-            if let Some(source) = &err.source {
+-                info.errno = source.to_errno();
+-                info.reply = err.reply;
+-
+-                {
+-                    let mut ee = self.inner.lock().extended_error;
+-                    ee.command = err.reply;
+-                    ee.param = source.to_errno();
++                    {
++                        let mut inner = self.inner.lock();
++                        inner.extended_error =
++                            ExtendedError::new(info.debug_id as u32, err.reply, source.to_errno());
++                    }
+                 }
+ 
+                 pr_warn!(
+-                    "{}:{} transaction to {} failed: {source:?}",
++                    "{}:{} transaction to {} failed: {err:?}",
+                     info.from_pid,
+                     info.from_tid,
+                     info.to_pid
+@@ -1320,18 +1341,24 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
+             let allow_fds = orig.flags & TF_ACCEPT_FDS != 0;
+             let reply = Transaction::new_reply(self, process, info, allow_fds)?;
+             self.inner.lock().push_work(completion);
+-            orig.from.deliver_reply(Ok(reply), &orig);
++            orig.from.deliver_reply(Ok(reply), &orig, None);
+             Ok(())
+         })()
+         .map_err(|mut err| {
+             // At this point we only return `BR_TRANSACTION_COMPLETE` to the caller, and we must let
+             // the sender know that the transaction has completed (with an error in this case).
++
+             pr_warn!(
+-                "Failure {:?} during reply - delivering BR_FAILED_REPLY to sender.",
+-                err
++                "{}:{} reply to {} failed: {err:?}",
++                info.from_pid,
++                info.from_tid,
++                info.to_pid
+             );
+-            let reply = Err(BR_FAILED_REPLY);
+-            orig.from.deliver_reply(reply, &orig);
++
++            let param = err.source.as_ref().map_or(0, |e| e.to_errno());
++            let ee = ExtendedError::new(info.debug_id as u32, err.reply, param);
++            orig.from
++                .deliver_reply(Err(BR_FAILED_REPLY), &orig, Some(ee));
+             err.reply = BR_TRANSACTION_COMPLETE;
+             err
+         });
+diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
+index 1d9b66920a21..0e5d07b7e6f0 100644
+--- a/drivers/android/binder/transaction.rs
++++ b/drivers/android/binder/transaction.rs
+@@ -42,6 +42,7 @@ pub(crate) struct TransactionInfo {
+     pub(crate) reply: u32,
+     pub(crate) oneway_spam_suspect: bool,
+     pub(crate) is_reply: bool,
++    pub(crate) debug_id: usize,
+ }
+ 
+ impl TransactionInfo {
+@@ -93,7 +94,6 @@ pub(crate) fn new(
+         from: &Arc<Thread>,
+         info: &mut TransactionInfo,
+     ) -> BinderResult<DLArc<Self>> {
+-        let debug_id = super::next_debug_id();
+         let allow_fds = node_ref.node.flags & FLAT_BINDER_FLAG_ACCEPTS_FDS != 0;
+         let txn_security_ctx = node_ref.node.flags & FLAT_BINDER_FLAG_TXN_SECURITY_CTX != 0;
+         let mut txn_security_ctx_off = if txn_security_ctx { Some(0) } else { None };
+@@ -101,7 +101,7 @@ pub(crate) fn new(
+         let mut alloc = match from.copy_transaction_data(
+             to.clone(),
+             info,
+-            debug_id,
++            info.debug_id,
+             allow_fds,
+             txn_security_ctx_off.as_mut(),
+         ) {
+@@ -128,7 +128,7 @@ pub(crate) fn new(
+         let data_address = alloc.ptr;
+ 
+         Ok(DTRWrap::arc_pin_init(pin_init!(Transaction {
+-            debug_id,
++            debug_id: info.debug_id,
+             target_node: Some(target_node),
+             from_parent,
+             sender_euid: Kuid::current_euid(),
+@@ -152,9 +152,8 @@ pub(crate) fn new_reply(
+         info: &mut TransactionInfo,
+         allow_fds: bool,
+     ) -> BinderResult<DLArc<Self>> {
+-        let debug_id = super::next_debug_id();
+         let mut alloc =
+-            match from.copy_transaction_data(to.clone(), info, debug_id, allow_fds, None) {
++            match from.copy_transaction_data(to.clone(), info, info.debug_id, allow_fds, None) {
+                 Ok(alloc) => alloc,
+                 Err(err) => {
+                     pr_warn!("Failure in copy_transaction_data: {:?}", err);
+@@ -165,7 +164,7 @@ pub(crate) fn new_reply(
+             alloc.set_info_clear_on_drop();
+         }
+         Ok(DTRWrap::arc_pin_init(pin_init!(Transaction {
+-            debug_id,
++            debug_id: info.debug_id,
+             target_node: None,
+             from_parent: None,
+             sender_euid: Kuid::current_euid(),
+@@ -394,7 +393,7 @@ fn do_work(
+         let send_failed_reply = ScopeGuard::new(|| {
+             if self.target_node.is_some() && self.flags & TF_ONE_WAY == 0 {
+                 let reply = Err(BR_FAILED_REPLY);
+-                self.from.deliver_reply(reply, &self);
++                self.from.deliver_reply(reply, &self, None);
+             }
+             self.drop_outstanding_txn();
+         });
+@@ -478,7 +477,7 @@ fn cancel(self: DArc<Self>) {
+         // If this is not a reply or oneway transaction, then send a dead reply.
+         if self.target_node.is_some() && self.flags & TF_ONE_WAY == 0 {
+             let reply = Err(BR_DEAD_REPLY);
+-            self.from.deliver_reply(reply, &self);
++            self.from.deliver_reply(reply, &self, None);
+         }
+ 
+         self.drop_outstanding_txn();
+
