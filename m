@@ -1,120 +1,178 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012051.outbound.protection.outlook.com [40.107.200.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F2DDF59;
-	Mon, 13 Jul 2026 03:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783913748; cv=none; b=qKBD2660yiiSR5C869Dvk09qiUcGvJ6zBymUjfFYT7/waALeZzWpbOupq77waQVk3h1dQc1l/XSi4NevbF1R5wpMjtnw9oNP50Pusdmg0rIs2a0vY2UDc3Kk0ZFoEIFfCKsSF7g+64XesSQtlMXB1ymmf0Qaty/+k1hTyv9Cv9s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783913748; c=relaxed/simple;
-	bh=49dJJ0Sp0/vn4DmKvNUpSlyKySCDpPlXsdYOeRJpe58=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g5iHBPHnbaBlqTHLduh9FcsQY8UO2A3tYxWhJhufrEoaTUV4o+j6LZo4eAfpOXRBaFlvvdoeEk7vroFyGbRYsUCGDBrduXGxFO4ik772UvuB6q6LzeDSuBg/Y7MUTDUUqMMW9G46vDsrV1SM5NjuNfGpRhSBcH7FwWfCbkzjHO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=f8Nb/KWG; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368101F3BA4;
+	Mon, 13 Jul 2026 03:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783913949; cv=fail; b=OYfpLq9AueLeIU+5vQiO3h+Pp+ol/orzuiKJJNRKbj11CyGRQWLVBkmoL9b0AmbfN4uT424zf5EqRJ8Rt0IRTF0pWcSt0FeEjhfDvuQ8mhpsmaDcriCqSrVpVbGQU3DQawLKhKgO7R4hrQA9gcK9/Aaz2A8ERLm9aryayHo1UD4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783913949; c=relaxed/simple;
+	bh=TvUQ2s4lS1MGkHUYBtEQlGKm/VKkWD/n9WNr2oGghCI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=UIx0JgHxaWcMi3ToPtX1FOgnda7B1+8Xs8LrXS2mp1ON2r7a/2KX9aWxIXRaBF/pGwYQpOwKQPMHxAWwI1GywkzOB6pWjPQzOcq/Sr4LRzCr/ua2bMoxDpSFSy/Xa7ZUY6X41F9d+e+Mtv6lRHBC6Yna7XnHeZbumaLKPKd1sGU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VnUzuhzA; arc=fail smtp.client-ip=40.107.200.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="f8Nb/KWG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=IJLs1QJf2eols2ajMEIJIevnH0XW0XzUVPHUmDnAlwc=; 
-	b=f8Nb/KWG1PDLnMBNVfqwzNcphoYwOETjw10pBXJnzZOPjl4EE/ZRRxVU21fVhj6Qkmz0XurYmJS
-	YwYAh2IIAmUZI8Zb53ngipfncxOdSt3D3L1DAoG6F67YLcJWIot4OihsUQo15O9tC5NRZfWRNQvW6
-	m9bS0i1JXZmd3paJ+xkB+rLK77a57J/WuqcYROeLKPU9YT3fru9bXMseF3Cpm/A+fecDOsENdTS9m
-	Gfngm10iDSZ1Wyv4nlNLtssLBJyUWtbAQSioUcNlMMTaIwfsImrwYOZV5ISUTdQs3gzUqNZunCunc
-	tlmR2QyEJ80FpV7/EUwkGI9pMrrx7Lzd6now==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1wj7S0-0000000CyCJ-3h8m;
-	Mon, 13 Jul 2026 11:35:25 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 13 Jul 2026 13:35:24 +1000
-Date: Mon, 13 Jul 2026 13:35:24 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Atish Patra <atish.patra@linux.dev>
-Cc: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Peter Gonda <pgonda@google.com>,
-	Brijesh Singh <brijesh.singh@amd.com>,
-	Youngjae Lee <youngjaelee@meta.com>,
-	Ashish Kalra <ashish.kalra@amd.com>,
-	Michael Roth <michael.roth@amd.com>,
-	John Allen <john.allen@amd.com>, clm@meta.com, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	stable@vger.kernel.org, Atish Patra <atishp@meta.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v3 0/4] KVM: Miscellaneous SEV/SNP related fixes
-Message-ID: <alRc_IA1NJxvVAzR@gondor.apana.org.au>
-References: <20260602-sev_snp_fixes-v3-0-24bfd3ae047c@meta.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VnUzuhzA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=luKDnQaj0GyoC1lmy0cU1KvHTzOQCvajPf3WIx+H4ShhIkpf2kSk8SfuncYxImHFAmKSRe0bjZG3vYQb9ToFAJMw/y+H5NWeXMTSkoHiTuUJ+mEjX6ctDNTY/uBN6ZNUD2fdHvEop4GreJ/TLXR/9X+BPoHWgDkptNBMvDAHsRfV+/wsP9F7X//TmFPBzWtkhzlXaCjXHB6fgAInnUBVdTQyMqW9Cyc5ypUGtnPXkKUlz/D+vKhWA1miGSfgs7himNpSuedhaiCBH3eAfTyIcBVyfgVvEOSRYWr/sg82RqJiFNW5zdOtLiO3xbF9k0EdS9Sx0D9pqz83K7p84vgCsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NNa9qIiKhIOr3utpxmBrWEX1h2v+nBZWK5oNzswzf/o=;
+ b=Lz4Xm8IvaNzHZg8J6CA3VUoWiz2igmoR1lRN5ITBysUPLJbA0+DMSqdpGOUWM+XgMim/HVKg4cOe6bUf6VcleJUBExU2LXUWy97MLna/HIjVM46+TPK0UsKwpHzPoWL7sKx3sd/8jG2qRfc90jwjY7d7OxJFfa0Tr39k/4VDXBHJACvj3yaX4CBVpGyMjmw0fL0+DYYtOEmxvtT+8DwjUmh8KmpNM1pNgKUkepL+I3S2T24XKnGeuArRJ0HSj4XQnPsm5+I9OZaS3pIrpkiYvh43EXUHZsBBt9Mt4SpTfGrkY63rwhoqnaUQHljtWP90E7omTuRxeqY6aCEHEbHgVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NNa9qIiKhIOr3utpxmBrWEX1h2v+nBZWK5oNzswzf/o=;
+ b=VnUzuhzAyrnpW3NmnPQXcbxrl4y92dFj6j4nx/i72n5L6rgXAR28qMBxOXxpOLFPB0/8dTzPQsNgwHWuPV8xtm72IwHz1ZvBMu6GQ8LBtYk34/sSyMKmNGPQEIoD2mqwzxigX2kCQox0mJxqtavZI1QXrAq8JQfI+6OOXTQyWLlrLZLAJHxGhtoxTKrazm2oXqjnBc4oWhL4RqsjtMQeQLZ/Mql+j7HgQrB5VMSzFoS/N8Ltc6n7Ml+srynZXxgYStK8fxt/XA2ikE3cKeS6UYiAQrANYlJ9kHX4p8JmfNrRCxe6CZadbCb5W4V5Uhd2BNGSAlTEEhfdy5gVZ15MCA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB5001.namprd12.prod.outlook.com (2603:10b6:610:61::18)
+ by DM4PR12MB6327.namprd12.prod.outlook.com (2603:10b6:8:a2::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.23; Mon, 13 Jul 2026 03:39:01 +0000
+Received: from CH2PR12MB5001.namprd12.prod.outlook.com
+ ([fe80::89e3:6df0:de90:8dfe]) by CH2PR12MB5001.namprd12.prod.outlook.com
+ ([fe80::89e3:6df0:de90:8dfe%3]) with mapi id 15.21.0181.014; Mon, 13 Jul 2026
+ 03:39:01 +0000
+Date: Mon, 13 Jul 2026 13:38:56 +1000
+From: Balbir Singh <balbirs@nvidia.com>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com, 
+	baohua@kernel.org, baolin.wang@linux.alibaba.com, byungchul@sk.com, 
+	david@kernel.org, dev.jain@arm.com, gourry@gourry.net, jannh@google.com, 
+	joshua.hahnjy@gmail.com, lance.yang@linux.dev, liam@infradead.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, matthew.brost@intel.com, 
+	npache@redhat.com, rakie.kim@sk.com, ryan.roberts@arm.com, vbabka@kernel.org, 
+	ying.huang@linux.alibaba.com, ziy@nvidia.com, shakeel.butt@linux.dev, hannes@cmpxchg.org, 
+	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] mm/mempolicy: skip non-present PMDs when queueing
+ folios
+Message-ID: <alRdvU1CGaqGn7re@parvat>
+References: <20260710105557.1987433-1-usama.arif@linux.dev>
+ <20260710105557.1987433-2-usama.arif@linux.dev>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260710105557.1987433-2-usama.arif@linux.dev>
+X-ClientProxiedBy: MEWP282CA0177.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:220:1cd::20) To CH2PR12MB5001.namprd12.prod.outlook.com
+ (2603:10b6:610:61::18)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260602-sev_snp_fixes-v3-0-24bfd3ae047c@meta.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB5001:EE_|DM4PR12MB6327:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7c6c419-16e0-4a01-6bf3-08dee0904768
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	hr3zG1iDw1J+i/KqSMXfmzgDRumblVNJwmIwtYQ5sJ4JUOqISubN0sE2t2ZGs9ZBLr6OQiAkEshhc4Uk8kZhilm/RQhFDP7QPFYLYIeinnyh1D4Fe+flZbacUFmLZ3TTc/1CSWRXAldNGa9jmqVOl5TEGHK2OJCDYTWYB/QFv2n2HE+6fcAUtP5CXFNsPs8hjCskEyu0mlfIDZkzmAuloHH0554pWnDkKsWCTSbNy49IKIfXotkzN4th5SCvgkSriLa6UvV6CCpJPQXwpV/VLny+tAK3Oe8BSsJ4f63hvcp25uhmML4OjP9HxDTHnoDvE1fgNAphA4NB6Bd58d8XkXCFGbCXuZvVKM7nWDkPNptM+TIiCgCGXD+r43xQWHIjOEIZXEawcEkBqj9zpAlvFU3iZ6KQctsI12+EWaMyXThcxKKQlFlbSyEtdVMZUKx8zrtfEnoF13M9m1zvD1ng6AiM8AoPXbM7FSNjfD9M6SZx1d3s1a+pOTuIqEg/GjQ45jyuVNgQLk9DNxytH9GvHdGSba9n65Zsa4TMewfrdLknfkGpnox8E5yqT133HJGY5JrNrNd466pQ54Johv5SxDFjt2MxbE8yyTKHeAnC2p4KqXR2ms+ve0sqTVve05RgyGNQZ6hQ6DBFZOgwoK2RjPkONL+L0rxEdMOEwRe/ONg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB5001.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?v+ssguYM1DA3lsOxuKft6ajVbw3zi0tr3Ji2KMF8FTdeDL6pYwstsTa8SAfe?=
+ =?us-ascii?Q?dw2yEUdqZ+07TpUE34TVK7U34K/mF7PXOKYmtPt1ajLP17AiGsUl5D2+/9lR?=
+ =?us-ascii?Q?r6DhTbQwPXAdlwKP/lrAa1GguoPQtF6wdZPbWGaS7f4o8zgdxyUx1SNILygR?=
+ =?us-ascii?Q?MVQztiujRU8c1n8E9BY2cPo+UAQIgG7Jhov68MGYg4BZBeN4e25RN62nrbge?=
+ =?us-ascii?Q?NSxHR4hTShNDOkCgy4SwYUewJHMgeOytyIarh3N07PjkdZHtOIskqzGo5Dsq?=
+ =?us-ascii?Q?2WbUMcgO4+33hh5eSXsdJcJ8Gy0q/GCznqSpfvZ/86FjU6Psq3RDJPn8mKD6?=
+ =?us-ascii?Q?rmh4066xORjVCPDEDJKuiL5gqxrie+e4//1VtfnOtikiu28A3634k/jCv4FZ?=
+ =?us-ascii?Q?Ha7b5o6jOvDnhAoQtZ74XDO5ExJbAFK+4dbzZxAfdUA+Qtt82Kj1C1AoSjNh?=
+ =?us-ascii?Q?AfmFbF5marX/pXYdtk/rCNEtNJpLhsHTuGaC7PZI9bsKxWA0J44wSy39Zb+D?=
+ =?us-ascii?Q?5Tik5XVTvJjzbxUB4+WA4WH2R7Xdu9Sz/GXQHvbqso4uUH/UlpMiiNdChvN/?=
+ =?us-ascii?Q?yRCKVu+bYBv7rpxCdJEuVFXC/GigvSBpUMgzK06YNLgEeEA6XDLMSnHmjDX3?=
+ =?us-ascii?Q?yWtgFt4fX9oAICTwoOmn2PqFMw1/LQ1idMeK9XnGxM/SsuRm2BF82vKH1iUL?=
+ =?us-ascii?Q?NKiTqa5bJf3vJU+3uN6bepRwVZawOei7JAgcDvNQGSGwWhraq65TGsbK2xYN?=
+ =?us-ascii?Q?rYrKoeq+CLo00qAjMw/t4YhPOjfoKRQivy0g0cp0dm/xeN3yTbEURgTUTzP0?=
+ =?us-ascii?Q?gLtTwuzlSsvDtFoOK4mo0E7kPGfgiCxU3OnKI3HvwNhTCPuGjQ7ppXu7NVs3?=
+ =?us-ascii?Q?qe3F19ONXSUKYZfA97gDbxeWWO7XBwMD5EJOts7px8XGVYu11sYSIc6FGeg7?=
+ =?us-ascii?Q?JL38apfdnniTRd71GisYew/iJKf00/5zreH1PUtbadX+LD1gPyj0c062noFt?=
+ =?us-ascii?Q?A79XoKMeB+pbSwHJclFAkpYqPzMlsKnmIV1z+jM+wiP7+astcu+hxwvrhm8d?=
+ =?us-ascii?Q?PXIABQ1m7UkydYsI2cFxiIvsP+MYQXkFXz6Rl+aiyxGNQJ0jXOz6UkkOYo5K?=
+ =?us-ascii?Q?ZiMcJnMlEKmr7BCsXj12h2YHMHqwTomAbtfu47YC43HaPwTtBPbun57afoYt?=
+ =?us-ascii?Q?Ky/Yujp1x3IuBR74zRuBy8aXVrz998wV9CAGoubeyT4p/AxP/1qnZjOeuba0?=
+ =?us-ascii?Q?lcoe36ULVDDRZkPuZ18Z8t7j22iJDpNVLRBEAj3D6FY8bf2cC1C+w1Nc7vyG?=
+ =?us-ascii?Q?aZ0pOWiR8jWo0EQUehgGJwxrM8k5CJ88nEJ+zwozf2474rIPIBR0VNthYx1r?=
+ =?us-ascii?Q?lFuSatR7KdJkhtW3otsGnsInyyD/e415/maOHgy+3apFzXlJHWuJ+fhfusMy?=
+ =?us-ascii?Q?Pf3ZQlZYSZx1iUZNJSQv5anFcRXJINWdC7F2SURYPRFtIys4W5FEC0NPWxnY?=
+ =?us-ascii?Q?RN2yHLn1zCwj/7dTUFfeWRk1suRsKPdJ+gpW7XHAo31/iAdN89t9ZiIYXn9w?=
+ =?us-ascii?Q?iG5hvCjU6CQtaeJg0VzIcttWgg1O7nJvLjgU4R8kjTWi6vh9f6y8NJ+GReqA?=
+ =?us-ascii?Q?554RJlS3WACPy5oTrEPNzKEsyytTepKNG1p0AXmyq291I5JeMJ1IDVsz6VlH?=
+ =?us-ascii?Q?Olm7XM4JKDPC9fiZVdALnxH2B50YAZ3yeS29dBUvK09Q3vy9a1ALGGP9Hccq?=
+ =?us-ascii?Q?mGxnFbUANw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7c6c419-16e0-4a01-6bf3-08dee0904768
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB5001.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 03:39:01.3071
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eYT7IWLpWLkIaPYw1woROCil7jvMwIR8iyU4cDHDXh02/hQiyygcneNlw65GdO8nhPGREiKuJGYbgW/4SCgbJA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6327
 
-On Tue, Jun 02, 2026 at 03:36:31PM -0700, Atish Patra wrote:
-> This series addresses a few issues found during code audit of the
-> KVM SEV/SNP and CCP driver code. The fixes include a incorrect lock state
-> and incomplete state handling during intra-host migration for SNP VMs.
+On Fri, Jul 10, 2026 at 03:55:21AM -0700, Usama Arif wrote:
+> queue_folios_pmd() is called under pmd_trans_huge_lock(), whose
+> pmd_is_huge() check returns true for any non-present, non-none PMD
+> softleaf. Passing such a PMD to pmd_folio() treats the softleaf encoding
+> as a hardware PFN and can return a bogus folio pointer.
 > 
-> To: Sean Christopherson <seanjc@google.com>
-> To: Paolo Bonzini <pbonzini@redhat.com>
-> To: Borislav Petkov <bp@alien8.de>
-> To: Dave Hansen <dave.hansen@linux.intel.com>
-> To: x86@kernel.org
-> To: H. Peter Anvin <hpa@zytor.com>
-> To: Tom Lendacky <thomas.lendacky@amd.com>
-> To: Peter Gonda <pgonda@google.com>
-> To: Brijesh Singh <brijesh.singh@amd.com>
-> To: Youngjae Lee <youngjaelee@meta.com>
-> To: Ashish Kalra <ashish.kalra@amd.com>
-> To: Michael Roth <michael.roth@amd.com>
-> To: John Allen <john.allen@amd.com>
-> To: Herbert Xu <herbert@gondor.apana.org.au>
-> Cc: clm@meta.com
-> Cc: kvm@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-crypto@vger.kernel.org
-> Cc: stable@vger.kernel.org
+> Mirror queue_folios_pte_range(): handle non-present entries before
+> looking up a folio. Keep migration entries counted as failures, but skip
+> other non-present PMDs such as device-private entries.
 > 
-> Signed-off-by: Atish Patra <atishp@meta.com>
+> Potential trigger: an HMM-based GPU driver migrates an anonymous THP
+> folio to device memory via migrate_vma_pages(), leaving a device-private
+> PMD. Userspace then calls mbind(), migrate_pages() or
+> set_mempolicy_home_node() on that range.
+> 
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260703173903.3789516-1-usama.arif%40linux.dev?part=6
+> Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to PMD operations")
+> Cc: <stable@vger.kernel.org>
+> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > ---
-> Changes in v3:
-> - Added comments, fixed commit messages and fixes tag as per discussions on v2. 
-> - sev_init_ex_buffer initialized with zero at allocation to prevent any kernel
->   data leak in case of init_ex_file is not present. Reported by Sashiko
-> - Link to v2: https://lore.kernel.org/r/20260601-sev_snp_fixes-v2-0-611891b28a86@meta.com
+>  mm/mempolicy.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 > 
-> Changes in v2:
-> - Added fixes based on the reports by Sashiko. 
-> - Added a kselftest for validating SNP VM mirroring/migration rejection. 
-> - Link to v1: https://lore.kernel.org/r/20260528-sev_snp_fixes-v1-0-d67a08151779@meta.com
-> 
-> ---
-> Atish Patra (4):
->       KVM: SEV: Do not allow intra-host migration/mirroring of SNP VMs
->       KVM: selftests: Verify SNP VMs are rejected from migration and mirroring
->       crypto: ccp: Fix possible deadlock in SEV init failure path
->       crypto: ccp: Fix memory leak in SEV INIT_EX path
-> 
->  arch/x86/kvm/svm/sev.c                             |  6 ++-
->  drivers/crypto/ccp/sev-dev.c                       | 19 +++++++--
->  .../testing/selftests/kvm/x86/sev_migrate_tests.c  | 47 ++++++++++++++++++++++
->  3 files changed, 67 insertions(+), 5 deletions(-)
-> ---
-> base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
-> change-id: 20260525-sev_snp_fixes-0b73789c1a91
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index 914f81863db5..69a00a324ef5 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -654,12 +654,14 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
+>  {
+>  	struct folio *folio;
+>  	struct queue_pages *qp = walk->private;
+> +	pmd_t pmdval = pmdp_get(pmd);
+>  
+> -	if (unlikely(pmd_is_migration_entry(*pmd))) {
+> -		qp->nr_failed++;
+> +	if (unlikely(!pmd_present(pmdval))) {
+> +		if (pmd_is_migration_entry(pmdval))
+> +			qp->nr_failed++;
+>  		return;
+>  	}
+> -	folio = pmd_folio(*pmd);
+> +	folio = pmd_folio(pmdval);
+>  	if (is_huge_zero_folio(folio)) {
+>  		walk->action = ACTION_CONTINUE;
+>  		return;
+> -- 
 
-Patches 3-4 applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Reviewed-by: Balbir Singh <balbirs@nvidia.com>
