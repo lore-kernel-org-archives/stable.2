@@ -1,129 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98523371878
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 12:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61142DA74A
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 12:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783946977; cv=none; b=YFpq+wjqVjaKju9qvOHBceSb6W1Ns6R8RxV4FWib1zITelRKV3c4ZvnyNr4nff7+n/mnzQconJi/M5omCNYDMdUmAQzsRB/BXPOSwkay8wZ2U1DU04ja0IT/pVJcf9fkJkkTJBMc7TiYv6yiz+lb0Ax+wXgmGWcJC0FCS/MBd1Y=
+	t=1783947016; cv=none; b=rtjWg5qNLZlotYKIUvwU57UvECKBwqeYFyoyxeIC8UTlk3Zk31dr+5ENjWOqwvrSFz22CM3vzyUuxwrexri1cxpdvcQHfEP4ufCXZdKGapM6useaYy0jWrRo6JJ1f0NXLUJbUWlViAbS5qAPxGb6PV6dBPTwW1RpvRGVH/XXpRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783946977; c=relaxed/simple;
-	bh=BQ7+Ovrf1OG6msRMA3b0ZCpTYCTjfltL0SeWi40l9ec=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=c2qUtSYrpCrc4C7MUjUtR2W2tMRJe0SbRxe26qx5X6AJ+/nrb3LcbBatLLlOIifHIM+BEqxs58iJWTgE/Cd8ZJWpK6yIB00rMxCAqitS0F3aCb2U8iq9LZWYFK0sPii+Vc4jdB6kVk2cuLhNTIujtNWs6QCePZK6I9OsUhEovMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=04D4Y0K1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783947016; c=relaxed/simple;
+	bh=S92pQ2C0qUV/KBqi32UApWFOvWJs4dXNLhZODPKvz9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=INVgvf2Ev1vs56gQk4s1gBZ+gJt8YgJl4Jx4dqRJ3Pt0wkZI7rbMDKSAcDTKcEdPiWeDNG/47HtOlsMh+OuDhZT1VmKYlFRhpLALEgYE6eVgXKRvekmWUnkoUzzDlr3MuGZhJQVHB3x9ud9mu6lNibfqjYPdiCDsJcceDb4CDCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S3LyF4yF; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="04D4Y0K1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5FC91F000E9;
-	Mon, 13 Jul 2026 12:49:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783946976;
-	bh=AWp75C8FYBmKUShavSLiiMcwFSOR53nAv3BTNExCGRY=;
-	h=Subject:To:Cc:From:Date;
-	b=04D4Y0K12hgazxDtX/gdj6b9Ln6G1ElA+BGVAj31YwgamCr6nHV7dXNoCRy8isTm/
-	 lfnHjPDXH8mWQB4I0l8bVelzCDfGP5fWG1f7QI6b0quCm+WLPSTpGKiTeYMvI/BMLQ
-	 kN6fPGnor3O5VQECbItjWDxyHFnlhwlpirj0uOg4=
-Subject: FAILED: patch "[PATCH] iio: imu: inv_icm42600: fix timestamping by limiting FIFO" failed to apply to 5.10-stable tree
-To: jean-baptiste.maneyrol@tdk.com,jic23@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 14:49:18 +0200
-Message-ID: <2026071317-litmus-defame-e23c@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S3LyF4yF"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ccf2360620so26050965ad.3
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 05:50:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783947015; x=1784551815; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TvooeHfwR2QntnuwEEpfCHr1XrT9fgk2dlfW1+7scHw=;
+        b=S3LyF4yFCL8Rb/DLclSRrX8LAud28j1tN9zG8au2ig8qIULMOML73cVJ+9ZeQqazhQ
+         sqV28oVOALOyyGqBIaVS3Q7TNcO9yKtf4iOcEqhzJVBPcGt6/j1XR93sYo2zCHeBjJqx
+         jLrjp+PC9M9AEc3OMM24Xt3dBdgziXgOXIG3OIfaXbMVScJoJnIm0ntvklxUJs/skj4t
+         kxt+Gb2DpLnVyrh9tgkJCWhSGTWFfzpXKzQJcQp7faDf6GiSioQ+JdxbQeMMR+igbq7R
+         3YkyZmq0vi5ml9owV+R4O6pIX77dcEmyv23/EKjoDMj73pwCR7pJ2/+py2VzmeN35HDs
+         NXNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783947015; x=1784551815;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TvooeHfwR2QntnuwEEpfCHr1XrT9fgk2dlfW1+7scHw=;
+        b=b4DhO+bJwjuM3tyZ1uzshH1ijg2WuHr5/TahMF426b9OwX9Q6gxxiGzRzJh3DgODgP
+         /aYFgnMn9tZrXz0qUIECCfEK+tEiXztY91F33zKufLSdNtdL4+4jloGx1nQEvoI4WXxh
+         RTeHMl1xtGVzJ4MlwBiuKI5HdFETice0Ih1FUu8z3/+ny1d333llSlDoqJzTzSUprskl
+         +dbMMNzOjmxmcopsU/PrqkGBlw/KobNJAKk5Otsjo6o1jyLrXiv5Q9OizaemP/KsIa/b
+         Q8qUE/bKFwbGUM4EBV+IRtGqbqRGti1JRgJlC4ZHTnsWvo0WDRsCgIIaogShwqHRzIEw
+         V+qQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpYmhisNwvvDaL8AHivU1EqKT+RNA0y+TcD/mGtten1axgUS+6/k2mNxjMwODbdAY8TgMI+02Y=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMYpwh/AfDYG7kCNHSFywRD3H2yrQMDZwy4TS6Q56/09E1/m6W
+	qDle6T38uwsx+QCvoPxS2+nNlZdrHeR6o4ygTVgE0CEbYcEETEEUzB9gJ5Q+YmJS+Mk=
+X-Gm-Gg: AfdE7clvj3/PN2EH4GXJJ0SEOMUEAdTLtiI/KqYQBO1hHx8OdWW6MWUMvC6nc01e9m/
+	WLgkwxx9vmNPKFW/3ch00bF5mECR6cIwLqUfkLTlq1KNPcfZCe8ByoFPIpn3/Q29pbCxira4u1G
+	+nXTV2NzLYe0ZtA6RC40rwTW3dSmaudnxcQDxtnuaO271CxV9V+JZIkwJoXJ0OQD/4DegXsTlJu
+	D8q309KxplxFezDWtLLy94okeImcHVzPi3byI3m78RCsGcmeDKkiLHhnX7E/XU7X5mvuzEH3+mI
+	R5epdhhIlDjCxEcpcaJ9J2aQ3SV3qqmSijAfEraoTbGxqq1cHg5Vgg9CkKn1XBcsXS3Ed4F2sVU
+	eQK3Xzac7Kz1+5Bm1jGFF5I6i3mZR83tcer4MiKjSMEw6oF9GjYykLZItTY64xKpgcNeDxv81AP
+	Xxf0/RnxLheE63ECFA6O8+amgIUHTv7T4ujpsuMykYdyj+uL5mpsTcqLqzRpOu2mc2ZIlUxGIXH
+	dDFm+VI/8MlmRqo4r0utgPcYrAd8H8dkA==
+X-Received: by 2002:a17:903:3904:b0:2c9:c517:d078 with SMTP id d9443c01a7336-2ce9f038f6amr81245505ad.36.1783947014974;
+        Mon, 13 Jul 2026 05:50:14 -0700 (PDT)
+Received: from localhost.localdomain ([101.251.7.10])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb76asm101815485ad.12.2026.07.13.05.50.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 13 Jul 2026 05:50:14 -0700 (PDT)
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: btbcm: bound local name logging
+Date: Mon, 13 Jul 2026 18:35:08 +0545
+Message-ID: <20260713125008.75358-1-acharyalaxman8848@gmail.com>
+X-Mailer: git-send-email 2.51.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+The HCI Read Local Name response contains a fixed 248-byte name. A NUL
+terminator is supplied only when the name is shorter than the maximum
+length.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+btbcm prints the returned name using %s, so a maximum-length controller
+name lets the log formatting read past the HCI response buffer.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Use a precision of HCI_MAX_NAME_LENGTH when logging the name.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x affe3f077d7a4eeb25937f5323ff059a54b4712c
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071317-litmus-defame-e23c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From affe3f077d7a4eeb25937f5323ff059a54b4712c Mon Sep 17 00:00:00 2001
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Date: Mon, 29 Jun 2026 21:51:55 +0200
-Subject: [PATCH] iio: imu: inv_icm42600: fix timestamping by limiting FIFO
- reading
-
-Timestamps are made by measuring the chip clock using the watermark
-interrupts. If we read more than watermark samples as done today, we
-are reducing the period between interrupts and distort the time
-measurement. Fix that by reading only watermark samples in the
-interrupt case.
-
-Fixes: 7f85e42a6c54 ("iio: imu: inv_icm42600: add buffer support in iio devices")
+Fixes: 9bc63ca0904d ("Bluetooth: btbcm: Read the local name in setup stage")
+Fixes: 2fcdd562b91b ("Bluetooth: btbcm: Make btbcm_initialize() print local-name on re-init too")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+---
+ drivers/bluetooth/btbcm.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-index 68a395758031..5c3840acf085 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-@@ -248,6 +248,7 @@ int inv_icm42600_buffer_update_watermark(struct inv_icm42600_state *st)
+diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
+index 463d59890bef..499e12169ca3 100644
+--- a/drivers/bluetooth/btbcm.c
++++ b/drivers/bluetooth/btbcm.c
+@@ -479,7 +479,8 @@ static int btbcm_print_local_name(struct hci_dev *hdev)
+ 	if (IS_ERR(skb))
+ 		return PTR_ERR(skb);
  
- 	/* compute watermark value in bytes */
- 	wm_size = watermark * packet_size;
-+	st->fifo.watermark.value = watermark;
+-	bt_dev_info(hdev, "%s", (char *)(skb->data + 1));
++	bt_dev_info(hdev, "%.*s", HCI_MAX_NAME_LENGTH,
++		    (char *)(skb->data + 1));
+ 	kfree_skb(skb);
  
- 	/* changing FIFO watermark requires to turn off watermark interrupt */
- 	ret = regmap_update_bits_check(st->map, INV_ICM42600_REG_INT_SOURCE0,
-@@ -454,11 +455,10 @@ int inv_icm42600_buffer_fifo_read(struct inv_icm42600_state *st,
- 	st->fifo.nb.accel = 0;
- 	st->fifo.nb.total = 0;
+ 	return 0;
+@@ -766,7 +767,8 @@ int btbcm_setup_apple(struct hci_dev *hdev)
+ 	/* Read Local Name */
+ 	skb = btbcm_read_local_name(hdev);
+ 	if (!IS_ERR(skb)) {
+-		bt_dev_info(hdev, "%s", (char *)(skb->data + 1));
++		bt_dev_info(hdev, "%.*s", HCI_MAX_NAME_LENGTH,
++			    (char *)(skb->data + 1));
+ 		kfree_skb(skb);
+ 	}
  
--	/* compute maximum FIFO read size */
-+	/* compute maximum FIFO read size (watermark for max = 0 interrupt case) */
- 	if (max == 0)
--		max_count = sizeof(st->fifo.data);
--	else
--		max_count = max * inv_icm42600_get_packet_size(st->fifo.en);
-+		max = st->fifo.watermark.value;
-+	max_count = max * inv_icm42600_get_packet_size(st->fifo.en);
- 
- 	/* read FIFO count value */
- 	raw_fifo_count = (__be16 *)st->buffer;
-@@ -574,6 +574,7 @@ int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
- 
- 	st->fifo.watermark.eff_gyro = 1;
- 	st->fifo.watermark.eff_accel = 1;
-+	st->fifo.watermark.value = 1;
- 
- 	/*
- 	 * Default FIFO configuration (bits 7 to 5)
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
-index ffca4da1e249..88b8b9f780af 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.h
-@@ -34,6 +34,7 @@ struct inv_icm42600_fifo {
- 		unsigned int accel;
- 		unsigned int eff_gyro;
- 		unsigned int eff_accel;
-+		unsigned int value;
- 	} watermark;
- 	size_t count;
- 	struct {
+-- 
+2.51.2
 
