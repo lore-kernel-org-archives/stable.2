@@ -1,95 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B554F3BF66D;
-	Mon, 13 Jul 2026 09:00:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BDD3101D0;
+	Mon, 13 Jul 2026 09:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783933206; cv=none; b=PbS7LyVJIA0L51LcNITVZg+GPTIIxVZ0e30iEs9l505E7Ux8R/3cXfebxwiUhzkhYZHYF5FqJfAyn1QcDziGRRew07jhzmNjGENjjRxb4IkhHxuKQ6sCFzX5fB9fRfl9cG4sAxMQGeoVaxqAAWgdZyPdFdzAEzTs4UY23ZxlQMs=
+	t=1783933296; cv=none; b=Z3O+hlOP1uQ5Sw++EmdW0Wq3hAFnvsjp0I0JePAPBMbTjEGLy5bV8wBZ7+MKBxH/ig9NCasEoiX56swxMP9idWaqrMqvA/Zr4rpIs3gL6KBFZCGZji5aVdNRdDwEDprTBA4tjIrE93HOTP456V+tLNb6duBczlrDJwCjvNjw+u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783933206; c=relaxed/simple;
-	bh=UuziIpDu90kRuOD7/BOwxh2+So0PzZ6qVPJ5csO42uA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ce5rxoW0U/17nIkHPBk4M0ypMEO6yU89jRefJhIl7e2rQD5gxwBvr1dfVoVOmVRc+jhGWvE8Xyt7ZpJSM/0B+jtQyCj1jXX0wY5rIUZB7cwVMAOu/kHq3Vkt2dOJ05cDwfhZ+eYChEKRWkYpp/IL7QVYUBJxL1PDYUpWl5K7r98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UTg2yDqU; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783933296; c=relaxed/simple;
+	bh=brG4punToi/QVZMcOiAxFIY3tK8FArsXXfXKOAc1Lh0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TvamSODN5B8zOHxawt1goQQRbO34lf5BuMh0SVVEwy8eGxW5Aava2ENRYAmcR+ZArn7xhYp2SD1MEB3x5l56TFgmKVU++YtB0IT2sAlJNBMnCXy7Kr80wUa+cjsDh20mRHRbDwuNtG4+c2t1M+CEBpB/R0tpyMx2G0U71tbFKEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=FghWGFBu; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UTg2yDqU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783933205; x=1815469205;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UuziIpDu90kRuOD7/BOwxh2+So0PzZ6qVPJ5csO42uA=;
-  b=UTg2yDqU+GwnisYCSy4BW4j7qTPZ9ny9DFnPw5ckbL/tSrC83S/37bRP
-   zCCKs38h1PdxqtgPYsTz75LSyPxg49VAPOHW7DxD68j7ZWHCwVfYDQo5c
-   n/aLt4gV9Rj20mJvjCixG8XThFCxGYoZxLiPMa6vsdbd+ZrFZ6FOlIuMu
-   7o38gTq9LynZ2pxdu46eSKdM4hj7s3yo98Ia9uFBf02agTrGU8JHa3pgP
-   L9wJLfrJqJdOYskwwB207YrzE9kJO3g8TZlDmMN1232A6949AbmaMjLyt
-   Up/Fbzg8ZfDrC5752puQF2QBYxn/LfTIl0OhxZymiuxKkgWDnOFGv8tSX
-   g==;
-X-CSE-ConnectionGUID: bzn/dBNnQQ2TzAFceAaKjw==
-X-CSE-MsgGUID: tNTNPBTNS6yDvlnvpfxGYQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84416122"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="84416122"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 02:00:04 -0700
-X-CSE-ConnectionGUID: SONFLOagREuCQH2CVMlSAw==
-X-CSE-MsgGUID: BeKHladpTIOjpCNEL1MGnA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="259074510"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa003.jf.intel.com with ESMTP; 13 Jul 2026 02:00:02 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id B5EB495; Mon, 13 Jul 2026 11:00:01 +0200 (CEST)
-Date: Mon, 13 Jul 2026 12:00:00 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: WenTao Liang <vulab@iscas.ac.cn>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fix: drivers/usb/typec/altmodes: dp_altmode_probe:
- missing typec_altmode_put_plug on error path
-Message-ID: <alSpEMgcTJx398UG@kuha>
-References: <20260627034143.59224-1-vulab@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="FghWGFBu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1783933182;
+	bh=BFMvyiC2DCtmPYg5QWCM+o3YaMaFN7Rp9m1r80pW+l0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=FghWGFBu/KT/mqxO9CBg92ra28jfl/l4d82Hw8cP/kgJbC76OfebIy6IQuBJSbZsN
+	 Inwv1/jKPb/m6HfigoH3l+t+VlHE5MzetcetCGIQkPClXZvdmLAUBnwwduYnKldh5A
+	 IHV6dAonM984mEErpGXAxnXXXII7tDKKlWzQhnak=
+X-QQ-mid: zesmtpgz9t1783933181t06373724
+X-QQ-Originating-IP: PL47oaHtcBmq07klp3P7KVA6E5BJWjci0tMvgqd6WM8=
+Received: from [127.0.0.1] ( [36.152.24.145])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 13 Jul 2026 16:59:39 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5298362049264850985
+Message-ID: <45448501516EA311+ca2ef796-7533-4bab-92ad-ee2dbc4cb003@smail.nju.edu.cn>
+Date: Mon, 13 Jul 2026 16:59:38 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260627034143.59224-1-vulab@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommufd: Reject DMABUF pages from the access pin path
+To: "Tian, Kevin" <kevin.tian@intel.com>, "jgg@ziepe.ca" <jgg@ziepe.ca>
+Cc: "joro@8bytes.org" <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>,
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+ "robin.murphy@arm.com" <robin.murphy@arm.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "syzkaller@googlegroups.com" <syzkaller@googlegroups.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <E8540D7D05768C91+8b2ef227-3368-494e-909d-7b28e1489dfb@smail.nju.edu.cn>
+ <CD68F549BF3761B7+20260709050800.520607-1-peiyang_he@smail.nju.edu.cn>
+ <CO1PR11MB48356388B36743AE8E083A3B8CFA2@CO1PR11MB4835.namprd11.prod.outlook.com>
+Content-Language: en-US
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+In-Reply-To: <CO1PR11MB48356388B36743AE8E083A3B8CFA2@CO1PR11MB4835.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: Nl7eTg5yGHnwq5BHGlfQ52lnSdLbiyRf5Xc9U1uTQkcvjhe7CKYLk3o+
+	YX+miOIT45Zt2Z/d8laqBVuF+BK3usFhzSUxnReRkZFwEP3GMKoW1Ucrr9UgEUz4oh7SEV1
+	833MdLdT09LzIq/uCyStJt7T91RgK8fUzSIDVhYz1gX6+xkuuL3kQSLelxmi1W/ipLvx5bM
+	ABkCZy76oglFjoKRUDpPEyUYJxX0OVP6u8zOpKi92jB/wGw8zGNG00nRrxo3XsCF5fu2VDk
+	z9TUQR20lsLOM8SvTI2Vjb7RZwMKEpQqVMaSQY+gr1GNac6gAiAkaBSfpTzj6TyxMADTuOi
+	AFXZMyHkLxwKjWmaRLK4KqAp7aTFNpO6LeP0prwaChmGM3FZQVuGY2IUamBPGJIoi36LhU2
+	E+ayVo/tfZ1Sm1puKSPz4kQ+IMoaVWcu2zZxjJCGK/ku016QLYoH7HYnL7rgWiy4BPdb9Zl
+	/ir6huh0QCo5Iok0dVsij50svHlrb6hkbnmGPuybmLNghMYq9f04BH0z7jghHEY/2epAndv
+	wG76sZQ1Sm2o1OBcQRgM+RMD4/2TPLUe7Wyqu75VVG8QgDeR61uuK2xa+6DOHDxXslfidE+
+	2PFZjB7VXZwPVlxZIr/92IxsD0Z1vew2lZCK6tIdKDAMFyW6gXwEiolIq/rcn2PyW8fyGyX
+	ep6fLuBcYZqF66wPDQ6NqcWDnlkF5XUACu8wqXsYgbXpmmn1S0/qnDmZKMqjnWShFbV0XGz
+	B820XA83QVq8/Xi8yHpw67rpe0RwDVSBgMIYsiOdpv+f9azeoo1grd1nLhLj+Hp/yHTPhQ2
+	7iTw2/7a6wq+8SL53PR07bcnkmO8TffyghfzcKjX7M33lgZBLTTSYBF6M2ZXuY2qXOuFVXC
+	2GVWoVHruQS8OCibOU/tqEUPzxAUFAqb8Yu/oFDqDlJ6k6tt1D1iEw8IOyPMN2PzEcaxyMT
+	woxs+yxwTm/mWY2EFbMpNxg9oN3CdnxGyLibmgaaI0PkC+OBY4LvjYgmySzkbvAQ6dM3cCy
+	WzoYHoUk1a89Mg/M8CdB3fAqBWzvDHzoA6225jbhKTo5q/2SBQfl5mKPxADL0wqphdVBsQr
+	XPNCJLvqEd8ocf9dVu/YFQ=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-Hi,
-
-I hate complain about trivial things, but the subject line has a bit
-too much information. You have to improve it.
-
-Please take a look at how the previous commits were written. My
-suggestion is that you change it to, for example,
-        "usb: typec: displayport: Fix a plug altmode leak"
-or
-        "usb: typec: displayport: Add missing typec_altmode_put_plug call"
-
-Thanks,
-
-On Sat, Jun 27, 2026 at 11:41:43AM +0800, WenTao Liang kirjoitti:
-> In dp_altmode_probe(), typec_altmode_get_plug() acquires a reference on
-> plug. When the data role check fails (TYPEC_HOST check), the function
-> returns -EPROTO without calling typec_altmode_put_plug(plug), leaking the
-> plug reference. Other error paths (ENODEV, ENOMEM) correctly release the
-> reference.
+On 2026/7/13 14:10, Tian, Kevin wrote:
+>> From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+>> Sent: Thursday, July 9, 2026 1:08 PM
+>>
+>> DMABUF pages are not supported for iommufd access pinning.
+>> iommufd_access_pin_pages() returns struct page pointers for
+>> in-kernel CPU access, but DMABUF-backed iopt_pages do not carry
+>> a userspace address that can be passed to the GUP path.
+>>
+>> iopt_pages_rw_access() already rejects IOPT_ADDRESS_DMABUF before
+>> doing
+>> CPU access. Apply the same rejection to iopt_area_add_access() before it
+>> takes pages->mutex and calls iopt_pages_fill_xarray().
+>> Otherwise a DMABUF-backed iopt_pages can reach the hole-fill path, where
+>> pfn_reader_user_pin() interprets the union as uptr and
+>> calls pin_user_pages_fast()/pin_user_pages_remote().
+>>
+>> This fix also avoids the lockdep warning reported from that path, where
+>> pages_dmabuf_mutex_key is held while gup_fast_fallback() may acquire
+>> mmap_lock.
+>>
+>> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
 > 
-> Add typec_altmode_put_plug(plug) before returning on the EPROTO error
-> path to fix the leak.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 41294342fad7 ("usb: typec: altmodes/displayport: do not enter mode if port is the UFP")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+> this is not required when you are the author
 
--- 
-heikki
+Hi Kevin,
+Thanks for your reply! Will send a V2 patch fixing this.
+
+Best,
+Peiyang
+
+
