@@ -1,443 +1,189 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83660276050
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:15:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5005D270552
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:16:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783962957; cv=none; b=Lrkp4/4VmmhYa0WPFq/CW+4n3+Ruv12D4zh87Qzk03LmnNhKGBnI8+tJe4QkiSU4Hd04OdiBHoIE8/ovcWTZRW4TtJs+x1l2r3LiuEfZj1RdG8bFsHAREEaed01EtYr1lJ3CdLNdTuDq5hkk2QGWWY8AjPelncQIjD28wO5O9L0=
+	t=1783963006; cv=none; b=Y181yMzLyczvgqk9xTSjJ0dscC7i+EATWzbcs9Yi7a9FtWKDcu3eQlpNXa6jLS53TcmX7sueVdKKkhBfQAwcXkiSjzjIbZAU9p8OSNSYvhI+bW/XOQUDdcILPjnk24UVdA7leYvwsHh9OQQeTH/N/o915/4aAKsxQX6GAjeXZxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783962957; c=relaxed/simple;
-	bh=lbWCACkR41uJTu9GOag7zGhGTR2jdNc+qOeSlVKSSbc=;
-	h=Content-Type:From:Subject:Cc:Message-Id:Mime-Version:In-Reply-To:
-	 To:References:Date; b=ac5yFBC4T1YLBxK45imGrWJeZpYm1CCGmXDPb2YKH/k/+Mw3ac2awOnrncobHnhxUciTkx8MjjBxpPdtH4nFyarD171GhqzvenNfcLHUmlv9jMhalQ/pFWR69Pr4eviAqnCpgMSwK6uPnJOwsFpoHKnxpMI45PQSonxaJtTkZNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=oZukcZ5v; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1783963006; c=relaxed/simple;
+	bh=p1jLAlgaFAZC8YZE8WGwBXhLOIAf22MGlzvlCbicn1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tn0Ia6BH0iV2vzRnf2i9kf4U/R2NEncL70JmTuB7vwSioPGaG+ZFNs3QDSLccRAsoiyXvj0RWQWvM7yZRNY3S5HtGCvWcRRPSkl6JZLOX50g7cjaYy7nv9oaKQK4sDOj2/xZbdu9qpQr7nGxR3856goZcQ6vuawR+otMXew4I2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=breiti.cc; spf=pass smtp.mailfrom=breiti.cc; dkim=temperror (0-bit key) header.d=breiti.cc header.i=@breiti.cc header.b=H4Ub/jeg; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=breiti.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=breiti.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="oZukcZ5v"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1783962947; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=FQf/qWjQhGY0dwG8Ri4r2F+VrewrSV+wxAsCOy/JUy8=;
- b=oZukcZ5voP5cD0olLVdsQts52lsu6o0FxT+43MJt4IJoKeHanYgl/9v/ipwcqfIMs/Zs0m
- oHkS26m5G6mVlzlM05IpLBgF59W9i8IBRr9q8yj9IfoLfgudIH1mdMBjqu9lJotWdF9MQF
- PaMHjfHr3vFphvBU/ZPtEnaDydInO/ubdR41J7Ul4C145v2vMh/8Xu4njTmYVUavtYQ3Fs
- qAhm1+TTPsxqcQrxgSAyIu2dw6oJAZenMTagq9ZyCwWpb7ChCctd5xtkUsWS4iDtpVbj9f
- nYM044hDhllTf1iTwjQICXVF2ajR8w0q3MkOWgtyPamYiKX88M1kPqlx9UkHyA==
-Content-Type: text/plain; charset=UTF-8
-From: "Xiangfeng Cai" <caixiangfeng@bytedance.com>
-Subject: [PATCH 2/2] selftests/mm: add hugetlb_region_cache_race regression test
-Cc: <caixiangfeng@bytedance.com>, <richard.weiyang@linux.alibaba.com>, 
-	<baoquan.he@linux.dev>, <shuah@kernel.org>, <linux-mm@kvack.org>, 
-	<linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-Message-Id: <20260713171456.300518-3-caixiangfeng@bytedance.com>
+	dkim=temperror (0-bit key) header.d=breiti.cc header.i=@breiti.cc header.b="H4Ub/jeg"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47defd0c1c5so51897f8f.3
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 10:16:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=breiti.cc; s=google; t=1783963004; x=1784567804; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D6+zJCN4uHBUySGZxMxtpjUmXPdT/OOFNXEwXFVOhXs=;
+        b=H4Ub/jegVV6xKMr4b4ZDBmeZ0ff+XupXiS9lQnnIZYqM4pT9VVV3bSGeBrmCRXsc5z
+         g1zq7Q/Jp09al8/RSz30PQaRl7O3KE7e18lo7uC+l16JFTDYLn+WEBqCc2h3XxplWNyT
+         Eyfd3QPCqAPv0bKUvjN0+/shaMoAQ6AdgF3jc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783963004; x=1784567804;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D6+zJCN4uHBUySGZxMxtpjUmXPdT/OOFNXEwXFVOhXs=;
+        b=YaglnTXOYVkDHBVuj6Cc+/WCdRHfPm2sMAnnB7/8D1MOlcEzB90bdwq7YGruo/D3l7
+         Ywuoe1mpRpU7kCJ2ofec4VLMmXTfS1SP2XZFwOjioWPhgyZ3wT7BeFnOZXdHnJxFijtG
+         as3pHF/bHl9m6q2z4duf3n1oo+/60rOuu5tYFRnX7D3OovHKji9sbrHKnlN0FMLJ2IXd
+         RYq5t5QqeDN6rf15/ChBqwxa32hS4tT+n9CWTMc6yYz5PbimQ54ONC1+BcJAjDTSoLh8
+         W5HIy6b3/CT+Kd8Ow+VeE/xVgDQ72CEUS+nWTqQc68rD8sP2sAhBfSnGnOysuy/OjOFG
+         j5ag==
+X-Forwarded-Encrypted: i=1; AHgh+RoehHSGB4OTgoMQD5giY7n7zCd7Fm/F8vceranmvoVi8MkVCh1sgmAD2gnDCl5Y7gpnViTJ1mw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzm+XuiQUzo1Hi0q1beZy8sExA0DADc+4DC996H+htypYdjcNyy
+	aEbj0co1SJwabAyoIMw9m3syV7Ami0MUrq9xiYqtM690viR5C6+scRjCitW5Tkd/Qg==
+X-Gm-Gg: AfdE7cnUZbapyfWZWdBKtYBl+APtOUfXRPbnjYqxYA+37GiVRBnukFEGnKRMOTHw/V/
+	qXpy1Amksgsef4osIKBwZ2ZNd1/EAgexy1UhDpG6OZ/tEQyqsBABF/+58c8BIuuIUmh0tdB2LVz
+	US5DIWeji3SyRQ5pILJQO9GU94PP+nb7Tc2dYn9+CA6GaCEN1wdVhjPvc/jnBY4S9/cm10SH/wF
+	MyiTo1YjeI6mag24MhHuKvHAzGp/hzMNpXmJyCZYPJ+wqLAsHwLK4PDGZ2bwdWsP6u1sTS88P4q
+	syuQXMwFyKnEefzYj9uHkmUuhKD6czkupKClOqdw5hIWpIGy5kvlDkHlqEKBxQeQJJJ/e4fzV5i
+	q+nLTA0xRpmH9UOpr6R3Z3iJMxhQSScTnNlN0dbb0B9QOt2IkUryqEA0C1AYCNFXu10myZpOh34
+	PD03CProTDZYPytzP2Ur2DPCaux419LO4lhbLj1YLlKOx8EIvOMQ==
+X-Received: by 2002:a05:6000:1848:b0:476:a715:1a with SMTP id ffacd0b85a97d-47f2dce2b61mr11893647f8f.41.1783963003297;
+        Mon, 13 Jul 2026 10:16:43 -0700 (PDT)
+Received: from framework.casa.breiti.cc ([2.57.48.190])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464a9728sm1007047f8f.21.2026.07.13.10.16.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 10:16:42 -0700 (PDT)
+From: Markus Breitenberger <bre@breiti.cc>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	maxime.chevallier@bootlin.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	rmk+kernel@armlinux.org.uk,
+	yong.liang.choong@linux.intel.com,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	stable@vger.kernel.org,
+	Markus Breitenberger <bre@keba.com>
+Subject: [PATCH net v3] net: stmmac: intel: skip SerDes reconfig when rate is unchanged
+Date: Mon, 13 Jul 2026 19:16:19 +0200
+Message-ID: <20260713171619.192452-1-bre@breiti.cc>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <20260713171456.300518-1-caixiangfeng@bytedance.com>
-X-Original-From: Xiangfeng Cai <caixiangfeng@bytedance.com>
-X-Lms-Return-Path: <lba+26a551d41+3113a5+vger.kernel.org+caixiangfeng@bytedance.com>
-To: <akpm@linux-foundation.org>, <muchun.song@linux.dev>, 
-	<osalvador@suse.de>, <david@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.55.0.122.gf85a7e6620
-References: <20260713171456.300518-1-caixiangfeng@bytedance.com>
-Date: Tue, 14 Jul 2026 01:14:56 +0800
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Add a regression test for the list corruption in
-allocate_file_region_entries() fixed by the previous patch
-("mm/hugetlb: fix list corruption in allocate_file_region_entries()").
+From: Markus Breitenberger <bre@keba.com>
 
-Triggering the bug requires a concurrent reservation operation to drain
-resv->region_cache while allocate_file_region_entries() has dropped
-resv->lock for its GFP_KERNEL allocation, forcing its retry loop to run
-again.  As the mmap() and fallocate(PUNCH_HOLE) paths serialise on
-inode_lock, the cache has to be drained by faults from a separate address
-space.  The test forks several processes sharing one hugetlb inode via
-memfd_create(MFD_HUGETLB); each mmap()s and faults ranges and punches holes
-to keep the shared resv_map fragmented.
+intel_mac_finish() is registered as the phylink mac_finish()
+callback for the Elkhart Lake SGMII ports. phylink calls it at
+the end of every major link reconfiguration, including the
+initial one during probe.
 
-Two modes are provided:
+The callback selects the PMC ModPHY LCPLL programming for the
+requested MAC-side interface and then power-cycles the SerDes.
+On Elkhart Lake that ModPHY is also used by the on-die AHCI
+SATA PHY. Reapplying the programming during the initial
+boot-time link-up disturbs the shared analog block while it is
+still driving SATA, so the SATA link fails to train:
 
- - default: a safe single-process functional check that exercises the buggy
-   line without forcing a second loop iteration; safe on any kernel.
+  ata1: SATA link down (SStatus 1 SControl 300)
 
- - --trigger: the concurrent reproducer, which panics a vulnerable
-   CONFIG_DEBUG_LIST=y kernel and is therefore opt-in.  It faults pages in,
-   so it needs as many free huge pages as the file is large.
+The disk carrying the root filesystem is never detected and the
+system hangs at rootwait. Ethernet itself comes up normally,
+which makes the failure look unrelated to the network driver.
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiangfeng Cai <caixiangfeng@bytedance.com>
+Before mac_finish() runs, the legacy SerDes power-up path has
+already programmed SERDES_GCR0 for the current interface. The
+1G and 2.5G ModPHY tables selected by mac_finish() correspond
+to the SerDes lane rate, so read that rate back from SERDES_GCR0
+and skip the PMC reprogramming and SerDes power-cycle when it
+already matches the selected interface.
+
+This keeps the disruptive reprogramming out of the boot path
+when the SerDes is configured correctly, while preserving the
+previous behavior when a real SGMII/1000BASE-X to 2500BASE-X
+rate change is needed. If the register read fails, reconfigure
+as before.
+
+Fixes: a42f6b3f1cc1 ("net: stmmac: configure SerDes according to the interface mode")
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub-Copilot:claude-opus-4.8
+Signed-off-by: Markus Breitenberger <bre@keba.com>
 ---
- tools/testing/selftests/mm/.gitignore         |   1 +
- tools/testing/selftests/mm/Makefile           |   1 +
- .../selftests/mm/hugetlb_region_cache_race.c  | 315 ++++++++++++++++++
- tools/testing/selftests/mm/run_vmtests.sh     |   1 +
- 4 files changed, 318 insertions(+)
- create mode 100644 tools/testing/selftests/mm/hugetlb_region_cache_race.c
+v3:
+  - Update priv->plat->phy_interface before skipping SerDes reconfiguration,
+    so SGMII <-> 1000BASE-X changes still update the cached interface.
+  - Rename subject to "net: stmmac: intel: skip SerDes reconfig when rate is unchanged".
 
-diff --git a/tools/testing/selftests/mm/.gitignore b/tools/testing/selftests/mm/.gitignore
-index 9ccd9e1447e6..7db8657960d9 100644
---- a/tools/testing/selftests/mm/.gitignore
-+++ b/tools/testing/selftests/mm/.gitignore
-@@ -59,6 +59,7 @@ hugetlb_madv_vs_map
- mseal_test
- droppable
- hugetlb_dio
-+hugetlb_region_cache_race
- pkey_sighandler_tests_32
- pkey_sighandler_tests_64
- guard-regions
-diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
-index e6df968f0971..421a0b7fdddf 100644
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -67,6 +67,7 @@ TEST_GEN_FILES += hugetlb-read-hwpoison
- TEST_GEN_FILES += hugetlb-shm
- TEST_GEN_FILES += hugetlb-soft-offline
- TEST_GEN_FILES += hugetlb-vmemmap
-+TEST_GEN_FILES += hugetlb_region_cache_race
- TEST_GEN_FILES += khugepaged
- TEST_GEN_FILES += madv_populate
- TEST_GEN_FILES += map_fixed_noreplace
-diff --git a/tools/testing/selftests/mm/hugetlb_region_cache_race.c b/tools/testing/selftests/mm/hugetlb_region_cache_race.c
-new file mode 100644
-index 000000000000..6e3f753640be
---- /dev/null
-+++ b/tools/testing/selftests/mm/hugetlb_region_cache_race.c
-@@ -0,0 +1,315 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Regression test for list corruption in
-+ * mm/hugetlb.c:allocate_file_region_entries().
-+ *
-+ * Fork processes sharing a hugetlb inode via `memfd_create(MFD_HUGETLB)`
-+ * and have them fault ranges and punch holes to fragment the shared
-+ * `resv_map` while draining `resv->region_cache` from a separate address
-+ * space.
-+ */
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <setjmp.h>
-+#include <signal.h>
-+#include <stdbool.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <time.h>
-+#include <unistd.h>
-+#include <sys/mman.h>
-+#include <sys/syscall.h>
-+#include <sys/wait.h>
-+
-+#include <linux/falloc.h>
-+#include <linux/memfd.h>
-+
-+#include "../kselftest.h"
-+#include "hugepage_settings.h"
-+
-+/* Tunables (overridable via argv). */
-+static unsigned long file_pages = 64;	/* huge pages backing the shared file */
-+static unsigned int nr_procs;		/* 0 => auto (2 * nr online cpus) */
-+static unsigned int duration_sec = 5;	/* --trigger run time */
-+
-+static unsigned long huge_page_size;	/* bytes */
-+static int memfd = -1;
-+static volatile int *stop;		/* shared across forked children */
-+
-+/*
-+ * Per-process SIGBUS escape: a fault can fail (pool exhausted) and raise
-+ * SIGBUS; jump back and abandon the rest of the current range instead of
-+ * dying.  Each child is single-threaded, so a file-scope buffer is fine.
-+ */
-+static sigjmp_buf sigbus_env;
-+
-+static void sigbus_handler(int sig)
-+{
-+	siglongjmp(sigbus_env, 1);
-+}
-+
-+static void install_sigbus_handler(void)
-+{
-+	struct sigaction sa = {
-+		.sa_handler = sigbus_handler,
-+	};
-+
-+	sigemptyset(&sa.sa_mask);
-+	sigaction(SIGBUS, &sa, NULL);
-+}
-+
-+static long sys_memfd_create(const char *name, unsigned int flags)
-+{
-+	return syscall(__NR_memfd_create, name, flags);
-+}
-+
-+/*
-+ * Map [start, start+len) of the shared file and fault every page in.
-+ *
-+ * The mmap() drives mmap-time hugetlb_reserve_pages -> region_chg (the
-+ * wide-window victim when the range is fragmented) + region_add.  The
-+ * subsequent stores fault pages in *without* inode_lock, driving the
-+ * lock-free region_add/region_chg that drains resv->region_cache -- the
-+ * concurrency the buggy loop needs from *other* processes.
-+ */
-+static void map_and_fault_range(unsigned long start, unsigned long len)
-+{
-+	unsigned long i;
-+	char *addr;
-+
-+	if (!len)
-+		return;
-+	addr = mmap(NULL, len * huge_page_size, PROT_READ | PROT_WRITE,
-+		    MAP_SHARED, memfd, start * huge_page_size);
-+	if (addr == MAP_FAILED)
-+		return;		/* ENOMEM under pool pressure is fine */
-+
-+	for (i = 0; i < len; i++) {
-+		if (sigsetjmp(sigbus_env, 1) == 0)
-+			*(volatile char *)(addr + i * huge_page_size) = (char)i;
-+		else
-+			break;	/* SIGBUS: pool exhausted, stop faulting */
-+	}
-+	munmap(addr, len * huge_page_size);
-+}
-+
-+/*
-+ * Remove [start, start+len) huge pages from the shared file, driving
-+ * hugetlbfs_punch_hole -> remove_inode_hugepages -> region_del for the pages
-+ * that were faulted in above.  This frees pages back to the pool (bounding
-+ * residency) and re-fragments the resv_map so later region_chg calls keep
-+ * needing multiple entries.
-+ */
-+static void punch_range(unsigned long start, unsigned long len)
-+{
-+	if (!len)
-+		return;
-+	fallocate(memfd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
-+		  start * huge_page_size, len * huge_page_size);
-+}
-+
-+/*
-+ * One forked worker.  Each worker is simultaneously a victim (its wide
-+ * mmap-time region_chg) and, for the other workers, a lock-free cache
-+ * drainer (its faults) -- exactly the shared-inode map+fault churn seen in
-+ * the original crash (QEMU prealloc + SPDK/Bytelight on one guest-RAM file).
-+ */
-+static void child_worker(unsigned int id)
-+{
-+	unsigned int seed = id * 2654435761u ^ (unsigned int)time(NULL) ^
-+			    ((unsigned int)getpid() << 1);
-+
-+	install_sigbus_handler();
-+
-+	while (!*stop) {
-+		unsigned long start = rand_r(&seed) % file_pages;
-+		unsigned long len = 1 + rand_r(&seed) % (file_pages - start);
-+
-+		/*
-+		 * Bias toward map+fault (victims and drainers); punch a
-+		 * quarter of the time to keep the map fragmented and to cap
-+		 * how many pages stay resident.
-+		 */
-+		if (rand_r(&seed) % 4)
-+			map_and_fault_range(start, len);
-+		else
-+			punch_range(start, len);
-+	}
-+}
-+
-+/*
-+ * Safe, single-process functional check.  It fragments the shared resv_map
-+ * (reservations for a shared mapping persist on the inode after munmap) so
-+ * that a subsequent whole-file mmap makes region_chg compute
-+ * regions_needed > 1, forcing allocate_file_region_entries to allocate and
-+ * splice several entries.  This exercises the buggy line, but without
-+ * concurrency it always makes exactly one loop iteration, so it cannot trip
-+ * the race and is safe on any kernel.  Returns 0 on success.
-+ */
-+static int functional_check(void)
-+{
-+	unsigned long i;
-+	void *addr;
-+
-+	/* Punch everything so we start from an empty resv_map. */
-+	punch_range(0, file_pages);
-+
-+	/* Reserve every other huge page -> ~file_pages/2 disjoint regions. */
-+	for (i = 0; i < file_pages; i += 2)
-+		map_and_fault_range(i, 1);
-+
-+	/*
-+	 * One mapping spanning the whole file must fill all the holes in a
-+	 * single region_chg -> a multi-entry region_cache refill.
-+	 */
-+	addr = mmap(NULL, file_pages * huge_page_size, PROT_READ | PROT_WRITE,
-+		    MAP_SHARED, memfd, 0);
-+	if (addr == MAP_FAILED) {
-+		ksft_print_msg("whole-file mmap failed: %s\n", strerror(errno));
-+		return -1;
-+	}
-+	munmap(addr, file_pages * huge_page_size);
-+	punch_range(0, file_pages);
-+	return 0;
-+}
-+
-+static int run_trigger(void)
-+{
-+	pid_t *pids;
-+	unsigned int i, started = 0;
-+
-+	stop = mmap(NULL, sizeof(*stop), PROT_READ | PROT_WRITE,
-+		    MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+	if (stop == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap(stop flag): %s\n", strerror(errno));
-+	*stop = 0;
-+
-+	pids = calloc(nr_procs, sizeof(*pids));
-+	if (!pids)
-+		ksft_exit_fail_msg("calloc: %s\n", strerror(errno));
-+
-+	ksft_print_msg("stressing %u processes for %us on %lu huge pages (%lu MiB)\n",
-+		       nr_procs, duration_sec, file_pages,
-+		       (file_pages * huge_page_size) >> 20);
-+	ksft_print_msg("WARNING: a vulnerable kernel will panic here\n");
-+
-+	for (i = 0; i < nr_procs; i++) {
-+		pid_t pid = fork();
-+
-+		if (pid < 0) {
-+			ksft_print_msg("fork: %s\n", strerror(errno));
-+			break;
-+		}
-+		if (pid == 0) {
-+			free(pids);
-+			child_worker(i);
-+			_exit(0);
-+		}
-+		pids[started++] = pid;
-+	}
-+
-+	if (!started) {
-+		free(pids);
-+		munmap((void *)stop, sizeof(*stop));
-+		ksft_exit_fail_msg("no worker processes started\n");
-+	}
-+
-+	sleep(duration_sec);
-+	*stop = 1;
-+
-+	for (i = 0; i < started; i++)
-+		waitpid(pids[i], NULL, 0);
-+	free(pids);
-+	munmap((void *)stop, sizeof(*stop));
-+	return 0;
-+}
-+
-+static void usage(const char *prog)
-+{
-+	fprintf(stderr,
-+		"usage: %s [--trigger] [-s huge_pages] [-t procs] [-d seconds]\n"
-+		"  (default) run a safe single-process functional check\n"
-+		"  --trigger fork+fault concurrent reproducer (CAN PANIC A BUGGY HOST)\n"
-+		"  -s  huge pages backing the shared file (default %lu)\n"
-+		"  -t  worker processes for --trigger (default 2 * nr_cpus)\n"
-+		"  -d  --trigger run time in seconds (default %u)\n",
-+		prog, file_pages, duration_sec);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	bool trigger = false;
-+	int i, ret;
-+
-+	for (i = 1; i < argc; i++) {
-+		if (!strcmp(argv[i], "--trigger")) {
-+			trigger = true;
-+		} else if (!strcmp(argv[i], "-s") && i + 1 < argc) {
-+			file_pages = strtoul(argv[++i], NULL, 0);
-+		} else if (!strcmp(argv[i], "-t") && i + 1 < argc) {
-+			nr_procs = strtoul(argv[++i], NULL, 0);
-+		} else if (!strcmp(argv[i], "-d") && i + 1 < argc) {
-+			duration_sec = strtoul(argv[++i], NULL, 0);
-+		} else {
-+			usage(argv[0]);
-+			return KSFT_FAIL;
-+		}
-+	}
-+
-+	ksft_print_header();
-+	ksft_set_plan(1);
-+
-+	if (file_pages < 4)
-+		file_pages = 4;
-+	if (!nr_procs) {
-+		long cpus = sysconf(_SC_NPROCESSORS_ONLN);
-+
-+		nr_procs = cpus > 0 ? (unsigned int)cpus * 2 : 4;
-+	}
-+	if (nr_procs < 2)
-+		nr_procs = 2;
-+
-+	huge_page_size = default_huge_page_size();
-+	if (!huge_page_size)
-+		ksft_exit_skip("no hugetlbfs / huge page size available\n");
-+
-+	/*
-+	 * Both modes fault pages in (functional_check touches every page it
-+	 * maps, and --trigger's workers fault the ranges they map), so the
-+	 * whole file may become resident; require that many *free* huge pages,
-+	 * not just reservations.
-+	 */
-+	if (hugetlb_free_default_pages() < file_pages)
-+		ksft_exit_skip("need %lu free huge pages, have %lu (set nr_hugepages)\n",
-+			       file_pages, hugetlb_free_default_pages());
-+
-+	memfd = sys_memfd_create("hugetlb_region_cache_race",
-+				 MFD_HUGETLB |
-+				 (__builtin_ctzl(huge_page_size) << MFD_HUGE_SHIFT));
-+	if (memfd < 0)
-+		ksft_exit_skip("memfd_create(MFD_HUGETLB): %s\n",
-+			       strerror(errno));
-+	if (ftruncate(memfd, file_pages * huge_page_size)) {
-+		close(memfd);
-+		ksft_exit_fail_msg("ftruncate: %s\n", strerror(errno));
-+	}
-+
-+	if (trigger)
-+		ret = run_trigger();
-+	else
-+		ret = functional_check();
-+
-+	close(memfd);
-+
-+	if (ret)
-+		ksft_test_result_fail("hugetlb region_cache race check\n");
-+	else if (trigger)
-+		ksft_test_result_pass("survived concurrent region_cache churn\n");
-+	else
-+		ksft_test_result_pass("multi-entry region_cache refill works\n");
-+
-+	ksft_finished();
-+}
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index 8c296dedf047..0cb857056915 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -267,6 +267,7 @@ CATEGORY="hugetlb" run_test ./hugetlb-madvise
- CATEGORY="hugetlb" run_test ./hugetlb_dio
- CATEGORY="hugetlb" run_test ./hugetlb_fault_after_madv
- CATEGORY="hugetlb" run_test ./hugetlb_madv_vs_map
-+CATEGORY="hugetlb" run_test ./hugetlb_region_cache_race
+v2: https://lore.kernel.org/netdev/20260709190329.124432-1-bre@breiti.cc/
+  - Read current SerDes lane rate from SERDES_GCR0 instead of comparing
+    against cached phy_interface state.
+  - Rework commit message.
+  - Keep previous behavior if SERDES_GCR0 read fails.
+
+v1: https://lore.kernel.org/netdev/20260706061954.94842-1-bre@breiti.cc/
+
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 31 +++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index b8d467ba6d72..4d207f41a43b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -525,6 +525,32 @@ static int intel_set_reg_access(const struct pmc_serdes_regs *regs, int max_regs
+ 	return ret;
+ }
  
- if test_selected "hugetlb"; then
- 	echo "NOTE: These hugetlb tests provide minimal coverage.  Use"	  | tap_prefix
++/*
++ * Return true if the SerDes lane rate must change to serve @interface.
++ * If the current rate cannot be determined, reconfigure as before.
++ */
++static bool intel_serdes_needs_reconfig(struct stmmac_priv *priv,
++					struct intel_priv_data *intel_priv,
++					phy_interface_t interface)
++{
++	u32 cur_rate, want_rate;
++	int data;
++
++	if (!intel_priv->mdio_adhoc_addr)
++		return true;
++
++	data = mdiobus_read(priv->mii, intel_priv->mdio_adhoc_addr,
++			    SERDES_GCR0);
++	if (data < 0)
++		return true;
++
++	cur_rate = (data & SERDES_RATE_MASK) >> SERDES_RATE_PCIE_SHIFT;
++	want_rate = interface == PHY_INTERFACE_MODE_2500BASEX ?
++			SERDES_RATE_PCIE_GEN2 : SERDES_RATE_PCIE_GEN1;
++
++	return cur_rate != want_rate;
++}
++
+ static int intel_mac_finish(struct net_device *ndev,
+ 			    void *intel_data,
+ 			    unsigned int mode,
+@@ -536,6 +562,11 @@ static int intel_mac_finish(struct net_device *ndev,
+ 	int max_regs = 0;
+ 	int ret = 0;
+ 
++	if (!intel_serdes_needs_reconfig(priv, intel_priv, interface)) {
++		priv->plat->phy_interface = interface;
++		return 0;
++	}
++
+ 	ret = intel_tsn_lane_is_available(ndev, intel_priv);
+ 	if (ret < 0) {
+ 		netdev_info(priv->dev, "No TSN lane available to set the registers.\n");
 -- 
-2.55.0.122.gf85a7e6620
+2.55.0
+
