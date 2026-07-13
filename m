@@ -1,115 +1,112 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3043C37CD52;
-	Mon, 13 Jul 2026 10:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159AE2BEC2B
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 11:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783940365; cv=none; b=HTJDpJ0MV8htT90+Y5AR6xbOLt7amRxP0h0o8R5D9mXTjtKwLAPhU3ebK672TVUUDklnjNAZSv0eoDUz68C44qsskgC/JH8M+wEzmHSsUxBeEdiM3MmK1NiTSKGwF+NRzD+b+gWf0ruqMh37ZcWh+JcOohqBTVNSHq8icrc50yQ=
+	t=1783940564; cv=none; b=SrTou3BWeCIUmdy+OJNLKmYLJJZucvLOAvygmVgCVN/DDH53fKz0tBnuAcYXQp89KrBHifiMu7aHq9WyR42e4FxSQk55yo3HoCakwH+pz217OIX36HBGNqRtgFdSucmmB7gBTPLTDjjxaZ98kuZq0EzP0WzqWf1TdwafH/Mem20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783940365; c=relaxed/simple;
-	bh=hMUzyfPsZITC71r2AApuo/5sd8jeSwkGVY9URMR8w9A=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=C6FkYNpfIZ1UtknvwcJ0PBzlOXacyw4BFg/m1VcT8GI+HkvhIUMUN2HCzS0vHFa4m/N830wR51hsoqay3KlDh1xs4wIRp+nmO2PvFi1py4z9JHMqpnTLRoMf0dma9LMST96wHfcxOKWaIETU+4S8tYuuW0PdqfgE/1JqYT6IwBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=SlEx8YZX; arc=none smtp.client-ip=206.189.21.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1783940564; c=relaxed/simple;
+	bh=MFagdxKbayikzJggDuQHwidUYx5+Wiq1MGiWqy6MxUQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=juthzxS3RBOzIjWuRNdIk0yGMSWzatzPFSsInaM7TAlIpfwga+jSWeK78VEWOHyuBwvdNc7li+rjjnGsbhTpLa3r6qid02lD8LUEJtyW2nFNbGFTNN7PMNsJY41cS40+UdCX7nD0JI/BboGSzwttbdcF/93bH4R3g1sv1bWFxJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in; spf=pass smtp.mailfrom=cse.iitm.ac.in; dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b=Ywox/kHZ; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cse.iitm.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="SlEx8YZX"
+	dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="Ywox/kHZ"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38101f85591so2851288a91.1
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 04:02:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:Content-Type:
-	Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	Content-Transfer-Encoding:Message-Id:References:To; bh=i0slMDNhK
-	lMyKtTXMPPaVwgKTGbRsXdDj4D0CFNyp8s=; b=SlEx8YZXNk65B/21Jeyn0TMPf
-	bGaUytD4QtgkPr8NfjoqxsMMTm1uUSHjzUUSeI1K9dJvkwYLgW9CJAsk7KJtp89P
-	gk+45V4WloGbN4qjuvMBd90gthy/XU843t8wdmLeSHpfwfHBqXpDKXzoswDgVclF
-	JWtgDm7xbj5pgcNZxA=
-Received: from smtpclient.apple (unknown [121.229.84.192])
-	by web3 (Coremail) with SMTP id ygQGZQDHE5EAxVRqfF4kAw--.20159S2;
-	Mon, 13 Jul 2026 18:59:12 +0800 (CST)
-Content-Type: text/plain;
-	charset=utf-8
+        d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1783940560; x=1784545360; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FRGrF4i2nmK2rkhMiQH5i1w4BrMy8RzeV71NdueHFlU=;
+        b=Ywox/kHZyepBV31YUOq18ecHmyHGhdBneG7rmGAYk0EpknxPbr+Mh7UX6BHGeCGyS7
+         K428Vzb6BbHL/GNWDgEYVyj4uGLtlv2ZhY7X2Q5PcBXNpJpqqhZLZMalYvNzJ1iJdQlq
+         6QRRpMPnWHHbWd1krikjIIljGeFEbpj7ll6FCFMU0Rbz/YkYmiUWdMjUvpFDWSV/RK3k
+         KkANY8B5lOQ8EEnMEwAzQK/BTyW+jY8muUly46nX+LbUFlaczPr3z69nRtj+JL3xk2fX
+         Tl2kDhwLei/YGT+v1K34R+K1eQnOex7yDluxMjxFoIn2HnWsspNc3hEWgUPVi+W21H3K
+         xFYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783940560; x=1784545360;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FRGrF4i2nmK2rkhMiQH5i1w4BrMy8RzeV71NdueHFlU=;
+        b=Nz2kL0KLt0ZNgwYsK8IMWtDNLlIoU46RKV7WjO1FUt+OwWCRNkcyn1uqRtwlfFZJ5y
+         XoVjQuI1GKC5QWcOSLKSzlgM9q6RtdRn1Q8BwaIxO2M+TyV0W2/991HcpqxIxeB964hV
+         tKy5XDtHFnHmyvgEvnKxEmxIhyhlpFars6d0J02O4NRcYDHud+qJSMWi2XZpUPEAncZO
+         M/dxoPurHEmMMqbFh8xwVXJ5el5v7VDWqP1gCd0n7NPKsKrPYOOa+OyV6VghMQX7f23h
+         Nr2BUhLH18oqP/9fb0471WGPTrA7EBFrVtfdHyafvoR8Hhd4GdmPAOHv8Fa7bjDMQCjZ
+         vJOQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpXZ+XjWvrMtPX0bVZNGUAiNB+xTo0Y+I7yu1FaWkO9eRE1znYfudwztNIIwfbERjMQnaWFvSo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWXCs24zW8Or26f9AhjiDwV/H1TFdt8T7QOlJCCM+Um2/LBS/B
+	54U8TjKAuWDqF7VAufQ8i+nyijdYWnquBWxBvAKDIWTejfjGOyELr0RJ15mFB4uFwYr0uRyrFY5
+	iitb/C7U=
+X-Gm-Gg: AfdE7cm5wCAn7c4kdWVLJ03S1sNQppltdPqV1gfdI5R8LN9pgE+pZKCVOOXSdLkEcTQ
+	z/Un3/1JfwCaMlDKgnUcfQTUAQx698BzbFTumwVklX0YeJwYKzUsNiCtJH4PwvjUuinN62Xbw/f
+	HpNQLp6+5/RQVEhVEFaPy2jqblpweGTu/175uqDGupIkb7ylqWv4Uouev3i0t7YaGAD6Mn3OgXP
+	ciHJLsalJQcr00mb4rjpIujmYDsjp8uE/aWZle+DCpeuX83YzJ9OW5ExzTxc2iOB/VGKGQ04bvC
+	+ssWs1gMJ9pBwg+eDr2iyJgjwXS/hRjt03FLzI8p2CnyJFWW+PRPN6Og06U9YxfhstLon7tBYQf
+	6GXL1A5A7FIaWCYmyiKIP0/16CERUfAgNLngT9tBZ96E3Ujhghl/K1vbYBko66vqwbwruXi3kAA
+	sIBdcCdIXn83H8yo3NyY+KBrn6hGHui2R7LoujvGzDNBTbKdin5zV6gTrJNO1wqwWNusfpVW70j
+	FUsv+qLuF2W0Oi6Aw/R28BeCuu/1kGrXYU=
+X-Received: by 2002:a17:90b:5108:b0:385:39ac:fe4b with SMTP id 98e67ed59e1d1-38d15c881d0mr15343936a91.17.1783940560178;
+        Mon, 13 Jul 2026 04:02:40 -0700 (PDT)
+Received: from [127.0.1.1] ([103.158.43.43])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-311a6115e61sm52249087eec.22.2026.07.13.04.02.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 04:02:39 -0700 (PDT)
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Subject: [PATCH 0/2] platform/x86: int1092: Fix two bugs in SAR driver
+Date: Mon, 13 Jul 2026 16:32:23 +0530
+Message-Id: <20260713-platx86-v1-0-c8991bff03a0@cse.iitm.ac.in>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH net] tcp: initialize standalone IPv4 ACK options
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-In-Reply-To: <CANn89i+jA5kPcZrjXfsY1ic_LjeEwPHi-U54kYmZdkBKHB+vTA@mail.gmail.com>
-Date: Mon, 13 Jul 2026 18:59:02 +0800
-Cc: netdev@vger.kernel.org,
- Neal Cardwell <ncardwell@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- linux-kernel@vger.kernel.org,
- Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
- Ao Wang <wangao@seu.edu.cn>,
- Xuewei Feng <fengxw06@126.com>,
- Qi Li <qli01@tsinghua.edu.cn>,
- Ke Xu <xuke@tsinghua.edu.cn>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <4A9A9EE6-1859-4F1E-B8DE-2ACE839D5274@mails.tsinghua.edu.cn>
-References: <20260713081842.3119-1-zhaoyz24@mails.tsinghua.edu.cn>
- <CANn89i+jA5kPcZrjXfsY1ic_LjeEwPHi-U54kYmZdkBKHB+vTA@mail.gmail.com>
-To: Eric Dumazet <edumazet@google.com>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
-X-CM-TRANSID:ygQGZQDHE5EAxVRqfF4kAw--.20159S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrur4fJFyxCFy5XryrAw4xZwb_yoWkurXEkF
-	W7G39rWwn7ZFWktrnakr4qkry5Xayj9r4ftrnYgF17WryfAa1rtFs5Cr9avFyxGr18tF47
-	urnIvF1jyr9IgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-kFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wA2ocxC64kI
-	II0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7
-	xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28E
-	F7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzx
-	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VCjz48v1sIEY20_GrWk
-	Jr1UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5c
-	I20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxkIecxE
-	wVAFwVW8twCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4rKr1UJr1l4I8I3I
-	0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWU
-	GVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI
-	0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0
-	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJV
-	WxJrUvcSsGvfC2KfnxnUUI43ZEXa7VU0kWrtUUUUU==
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQAHAWpUpbI4RgAAsQ
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAL/FVGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDc0Nj3YKcxJIKCzPdpFSzVCPTRONky5QUJaDqgqLUtMwKsEnRsbW1AJ6
+ 5R+5ZAAAA
+To: Shravan Sudhakar <s.shravan@intel.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Abdun Nihaal <nihaal@cse.iitm.ac.in>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.13.0
 
+The patchset includes two fixes for
+- a potential memory leak in sar_probe()
+- an information leak in parse_package()
 
-Thanks for your review.
+Both patches are compile tested only.
 
-> On Jul 13, 2026, at 16:48, Eric Dumazet <edumazet@google.com> wrote:
->=20
-> On Mon, Jul 13, 2026 at 10:18=E2=80=AFAM Yizhou Zhao
-> <zhaoyz24@mails.tsinghua.edu.cn> wrote:
->>=20
->> tcp_v4_send_ack() constructs standalone IPv4 TCP ACK replies on the =
-stack
->> for SYN-RECV and TIME-WAIT paths.  It currently zeroes only the TCP
->> header, not the accompanying option buffer.
->>=20
->> TCP-AO options may have actual lengths that are not 4-byte aligned, =
-while
->> the transmitted TCP header length is correctly rounded up to a 4-byte
->> boundary.  tcp_ao_hash_hdr() writes only the MAC bytes, leaving the
->> TCP-AO option alignment padding in rep.opt uninitialized.  With stack
->> auto-initialization disabled, those padding bytes can be copied into =
-the
->> network packet and sent to the peer.
->>=20
->> Zero the whole reply structure before writing options, so the =
-alignment
->> padding bytes are initialized.
->=20
-> Please fix TCP-AO instead of slowing down TCP (almost no TCP flow is =
-using AO)
+v2->v3:
+- Converted into a patch set with two patches
 
-We have posted a v2 patch following your suggestions:
-=
-https://lore.kernel.org/netdev/20260713105631.8616-1-zhaoyz24@mails.tsingh=
-ua.edu.cn/
+Link to v1: https://patchwork.kernel.org/project/platform-driver-x86/patch/20260707070524.953741-1-nihaal@cse.iitm.ac.in/
+Link to v2: https://patchwork.kernel.org/project/platform-driver-x86/patch/20260710052806.100107-1-nihaal@cse.iitm.ac.in/
 
-Regards,
-Yizhou=
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+---
+Abdun Nihaal (2):
+      platform/x86: int1092: Fix potential memory leak in sar_probe()
+      platform/x86: int1092: Fix info leak in parse_package()
+
+ drivers/platform/x86/intel/int1092/intel_sar.c | 32 ++++++++------------------
+ 1 file changed, 10 insertions(+), 22 deletions(-)
+---
+base-commit: bee763d5f341b99cf472afeb508d4988f62a6ca1
+change-id: 20260713-platx86-be6e25a3c9dd
+
+Best regards,
+-- 
+Abdun Nihaal <nihaal@cse.iitm.ac.in>
 
