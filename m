@@ -1,113 +1,114 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp9.infineon.com (smtp9.infineon.com [217.10.52.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5802FD665;
-	Mon, 13 Jul 2026 11:50:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507433F4116;
+	Mon, 13 Jul 2026 11:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.10.52.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783943458; cv=none; b=Bp31kAOJ9KWfLZZdDe8UwR3ySaLG/CUy/Xp4oH0Tc3iI33KrVuRn2BTmX+WLgUM3upex5cd1UbEAZbO+XBktAC/NPqisXnRGt6HfvjQIJdoAqsRt1zWc5KO5t9T7PdwO0Rg/C4lwBXYJldGMZm0lEgugLu6/KwgGnEoA3YlSqwo=
+	t=1783943569; cv=none; b=ZSpKa7IJ8nFfR970ocIaoLbx3/UMrPXNmiQnyWv1/3tqpg9NeqzjmrF5NXdsC5/igWJx8IO1KGMuzzjSPjWhR6ht+iXAzZli1R5oYJ0TiJX2Opp69pKvDSwBK5gdEXlrDgBQjRSjyBbkEkYcG/fbpLl+3jYMKx7sSCVQ1hjyrRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783943458; c=relaxed/simple;
-	bh=CL75+9ML7uU1G0rYExGM4x711b7iz+krqLhefU/7pb4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SdjMpqMijpGUMvG+XnxlJK81uAePeMdaHONlwXLMUb+ORV/uahHFYOBXdjiSACSBZe3Ue6/T4Sp5xtWH74SRsVJbtwlOAT93TCSl8y+RaYtcYZDz9g6avRaAA1ngISG5XIv0f0UTQb/1RolSr4JNLtZ8iym5L9z0je4Uu/CodmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 14a764c67eb111f1aa26b74ffac11d73-20260713
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
-	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME
-	IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_EXISTED, SN_UNTRUSTED
-	SN_LOWREP, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
-	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
-	AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:5e2ff409-49b6-4a6e-ad9b-29162985b8f9,IP:10,
-	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:5
-X-CID-INFO: VERSION:1.3.12,REQID:5e2ff409-49b6-4a6e-ad9b-29162985b8f9,IP:10,UR
-	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:5
-X-CID-META: VersionHash:e7bac3a,CLOUDID:d130ebfbf25e73115cc0a35aa7111af6,BulkI
-	D:260713195045ABOGV230,BulkQuantity:0,Recheck:0,SF:17|19|66|78|102|127|136
-	|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:ni
-	l,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE
-	:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 14a764c67eb111f1aa26b74ffac11d73-20260713
-X-User: husong@kylinos.cn
-Received: from ctao-book.. [(223.70.159.239)] by mailgw.kylinos.cn
-	(envelope-from <husong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 672932306; Mon, 13 Jul 2026 19:50:44 +0800
-From: Song Hu <husong@kylinos.cn>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Wupeng Ma <mawupeng1@huawei.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Song Hu <husong@kylinos.cn>
-Subject: [PATCH] mm/hugetlb: restore failed global reservations to subpool in alloc_hugetlb_folio
-Date: Mon, 13 Jul 2026 19:50:08 +0800
-Message-ID: <20260713115008.937175-1-husong@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1783943569; c=relaxed/simple;
+	bh=pcKVlxyOm15Z2BIGF1THFUV3ru6W5lx2ct0St2rETNY=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m63zwfrK6PVYqF7PxqtICvTOyC3DrZ9C8C/BQ2W7KMArHvQVKxgeFxQ7X7XbmcruOOzQx2e+W992SQzzg679o9+BrtZkSoP8z8gIazgHsQNKdKW4GXmG+D6g+zx8wtFyCIPL2m17tdJMf0EPKi/Le9JOwmxbs15h0+NnS9A3iwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=infineon.com; spf=pass smtp.mailfrom=infineon.com; dkim=pass (1024-bit key) header.d=infineon.com header.i=@infineon.com header.b=p+gFikwC; arc=none smtp.client-ip=217.10.52.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=infineon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infineon.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=infineon.com header.i=@infineon.com header.b="p+gFikwC"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=infineon.com; i=@infineon.com; q=dns/txt; s=IFXMAIL;
+  t=1783943566; x=1815479566;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pcKVlxyOm15Z2BIGF1THFUV3ru6W5lx2ct0St2rETNY=;
+  b=p+gFikwCHdC5SbeXn9SqanMiTy2CqX/WJ9V/VW6WmGQds6gc/uykvZa2
+   gapPPjOVrEa7TnIRp0EGc0aucBqTKtsvUe7XO/8nMbUGReJ2mLzRfDayb
+   NqqLwZjZ6hm8EM/L9LS+O/ZXRCyOBEG8v0xCwjrQsKxJba/yiPphwolJJ
+   U=;
+X-CSE-ConnectionGUID: EOPx2jo/RvWnT4rZz/snDA==
+X-CSE-MsgGUID: eQFU/od+TPaXooHwjBARSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="100701446"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779141600"; 
+   d="scan'208";a="100701446"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO MUCSE805.infineon.com) ([172.23.29.31])
+  by smtp9.infineon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 13:51:28 +0200
+Received: from MUCSE827.infineon.com (172.23.29.20) by MUCSE805.infineon.com
+ (172.23.29.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 13 Jul
+ 2026 13:51:27 +0200
+Received: from ISCN5CG54722ST.infineon.com (10.161.6.196) by
+ MUCSE827.infineon.com (172.23.29.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 13 Jul 2026 13:51:25 +0200
+Date: Mon, 13 Jul 2026 11:51:18 +0000
+From: Gokul Sivakumar <gokulkumar.sivakumar@infineon.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+CC: LiangCheng Wang <zaq14760@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+	"Angus Ainslie" <angus@akkea.ca>, Wig Cheng <onlywig@gmail.com>,
+	<linux-wireless@vger.kernel.org>, <brcm80211@lists.linux.dev>,
+	<brcm80211-dev-list.pdl@broadcom.com>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <wlan-kernel-dev-list@infineon.com>
+Subject: Re: [PATCH] wifi: brcmfmac: set F2 blocksize to 256 for BCM43752
+Message-ID: <uhwfd77gkvcrs22h5h42x5ujclzrq7ru5wkixguywfej3444w2@ejmn5s2kmapd>
+References: <20260713-b43752-f2-blksz-v1-1-8697fcfeaef4@gmail.com>
+ <36f4388a-b856-438c-8ef4-795a7b1eda3e@broadcom.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <36f4388a-b856-438c-8ef4-795a7b1eda3e@broadcom.com>
+X-ClientProxiedBy: MUCSE812.infineon.com (172.23.29.38) To
+ MUCSE827.infineon.com (172.23.29.20)
 
-When hugetlb_alloc_folio() fails, alloc_hugetlb_folio() only rolls back
-spool->used_hpages in the out_subpool_put path when gbl_chg == 0. For
-gbl_chg > 0 (e.g. a size= hugetlbfs mount), hugepage_subpool_get_pages()
-has already incremented used_hpages, but the error path skips the
-rollback, so each failed fault permanently leaks one used_hpage until
-the subpool is exhausted and hugepage_subpool_get_pages() itself fails.
+On 07/13, Arend van Spriel wrote:
+> On 13/07/2026 10:50, LiangCheng Wang wrote:
+> > The BCM43752 is not reliable with the default 512-byte SDIO function 2
+> > block size: on an i.MX8MP board with an AMPAK AP6275S module at
+> > SDR104 / 200 MHz, an iperf TX stress test kills WLAN within seconds:
+> > 
+> >    mmc_submit_one: CMD53 sg block write failed -84
+> >    brcmf_sdio_dpc: failed backplane access over SDIO, halting operation
+> > 
+> > Commit d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
+> > set up the 43752 like the 4373 for the F2 watermark but missed the F2
+> > block size, which the 4373 limits to 256 bytes. The vendor driver
+> > (bcmdhd) also programs a 256-byte F2 block size for this chip and runs
+> > the same hardware without errors.
+> > 
+> > Group the 43752 with the 4373, matching the F2 watermark handling.
+> > With this change a 10-minute bidirectional iperf3 soak completes with
+> > zero SDIO errors at ~270 Mbit/s in each direction.
+> > 
+> > Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
+> > Cc: stable@vger.kernel.org # <= 6.16 needs the CYPRESS_43752 id name
+> 
+> Looks good to me but the stable instruction looks confusion. What do you
+> mean. If there is no 43752 support there is no need for this patch, right?
 
-Decrement used_hpages for the gbl_chg > 0 case too, mirroring the
-hugetlb_reserve_pages() fix.
+Arend, one year back, from Infineon we had submitted a patch [1] to correct
+the vendor ownership of 43752. i.e, SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373 got
+replaced with SDIO_DEVICE_ID_BROADCOM_43752. 
 
-Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
-Signed-off-by: Song Hu <husong@kylinos.cn>
----
- mm/hugetlb.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+So in the older kernel versions like v6.16.x which does not have patch [1],
+the 43752 support exists, but with SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752.
+So his instruction is to, again replace SDIO_DEVICE_ID_BROADCOM_4373 with
+SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752 in his patch [2] while cherry-picking
+to the older stable trees.
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index d6c812d1857b..8413ec92d836 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -3073,6 +3073,19 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 	if (map_chg && !gbl_chg) {
- 		gbl_reserve = hugepage_subpool_put_pages(spool, 1);
- 		hugetlb_acct_memory(h, -gbl_reserve);
-+	} else if (map_chg && gbl_chg > 0 && spool) {
-+		/*
-+		 * Restore used_hpages for the globally-requested page that
-+		 * hugepage_subpool_get_pages() counted against the subpool's
-+		 * maximum, but which we failed to back from the global pool.
-+		 * Mirrors the fix in hugetlb_reserve_pages() (1d3f9bb4c8af).
-+		 */
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&spool->lock, flags);
-+		if (spool->max_hpages != -1)
-+			spool->used_hpages -= gbl_chg;
-+		unlock_or_release_subpool(spool, flags);
- 	}
- 
- out_end_reservation:
--- 
-2.43.0
+Rather than that, I would suggest to cherry-pick both the patches [1] & [2]
+to stable trees, since the new patch [2] is dependent on existing patch [1].
 
+[1] https://lore.kernel.org/linux-wireless/20250724101136.6691-1-gokulkumar.sivakumar@infineon.com/
+[2] https://lore.kernel.org/linux-wireless/20260713-b43752-f2-blksz-v1-1-8697fcfeaef4@gmail.com/
+
+Gokul
+
+> > Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
+> > ---
+> 
