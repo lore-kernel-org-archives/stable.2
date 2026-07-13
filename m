@@ -1,113 +1,87 @@
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19913624C2;
-	Mon, 13 Jul 2026 10:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA9C3E9C32
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 10:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783938173; cv=none; b=aa/woqKdBQLdJOfUhhODaitJh4zWZAf1uh3u8zjTz9Lt5JeBHaI5s+qjBJLzM/wjmvkIISmQyuHsOqc/GBB/EfEChdjrszBJuQHmXtU5rzWoazqR2CvKE2twMoFLUTQLM9JbPlu2uIbBbQ2XmNY+9vMA2/wiscU61o/7V3OiRho=
+	t=1783938441; cv=none; b=EkUDn/NiwqO+RmcP829OrWZ6PRvu3sRaffbJSrziHLfVQRy9NzlHi+dctqeE1XhfttIJE+go7LGIvITbnhEQZrdQ0YJyZcfRxofc2n3LVw6kmZ0+QBkunN0fdqOcmymZCFu8WAlrjJeii3r4ipQ5jI0M23UZccxa8jIRHXHcyX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783938173; c=relaxed/simple;
-	bh=VX4g3z4Wikmxzsaw+/m6jdJkTveTTJM1UMis/os1+EE=;
+	s=arc-20240116; t=1783938441; c=relaxed/simple;
+	bh=tlSStQRjz7IsgoduonWvy/BiNHcyY6I1VMddmxBXKcc=;
 	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=KcdvapyEBHHJXy5fTz8NhXVids92SMoRNy9kMvco3CsoqpjFKDgWfw75l/rFzJ0Q+mlkWFoxwJiNbZ1b+qtag+5il369gerwmffu1/FIYwdYlZ1GXPixrahcvjlsnYw/Lhldm3vlGvUhazy1yqsqCO1+ktmZhsKbnsXMyrM2/zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h9p5lrWo; arc=none smtp.client-ip=95.215.58.174
+	 In-Reply-To:Content-Type; b=fYLXMBxHukSNH3yEqSQFZmLs9b8X5mO+BCjfALSXlZPc+QlfyC54fVAiGVyizIEBnlUxIpejE8PwViElPewIJfVAyY2fsV+RXCaQ3uK/6BshjQJRtqvxWon/Q4o/wdFtyhDpNMoSaei6Xeq1uHEz0Ptn/VpdpmTujLEWr/8lLto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t7KmIKiI; arc=none smtp.client-ip=91.218.175.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h9p5lrWo"
-Message-ID: <99977527-c2d7-4c70-8d92-03c306d3ec36@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t7KmIKiI"
+Message-ID: <877c39be-d4d6-4d9c-b824-18d9463c62c7@linux.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783938158;
+	t=1783938425;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hRcZAfhs+kHcVySJuPzxTTfP2MnAcNBGTb9R86cF3qs=;
-	b=h9p5lrWoV13zy8DGeLR6b7gi3acso++iVPQs8D7wNMi/Ih6KYYfFJUmgfgkfEv8+XFNcc1
-	OZcCWSmr4yLy1eth1NIjkqg0xOwrOFEP2ALqZBlkt2ef+WIhGVktu0vDSCRWZIfGJhWt9F
-	7txsaIItmeJFSUeYUgQWdBIa6aEa09k=
-Date: Mon, 13 Jul 2026 18:22:28 +0800
+	bh=hI0ulS+e7/Y2oO5fBiqc90A7kYsME7pKoySFXxv5Y8o=;
+	b=t7KmIKiIfaH9vl5ApL6tbaX1tiOn/PaCox8ALC8rjDdI01CWo4AmLTP0tK6BQlWieFWasG
+	0JO4hkTfq9GOdwbNl5DqBRt225BskLmxXZfbAVmz6vFMi2FQ7hPHhjyRUltdm1FqaK6hPs
+	48nvhCZmrCrmd0yqgcc0L3n3D12Qv8w=
+Date: Mon, 13 Jul 2026 18:26:58 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Cc: cui.tao@linux.dev, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Alexandre Ghiti <alex@ghiti.fr>, cgroups@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: Re: [PATCH] mm: memcontrol: update state_local when flushing NMI
- stats
+Cc: cui.tao@linux.dev, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: Re: [PATCH] mm: memcg-v1: account vmpressure event allocations
 To: Guopeng Zhang <guopeng.zhang@linux.dev>,
  Andrew Morton <akpm@linux-foundation.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>
-References: <20260713085053.2916813-1-guopeng.zhang@linux.dev>
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Stanislav Fort <stanislav.fort@aisle.com>
+References: <20260713085520.2953121-1-guopeng.zhang@linux.dev>
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20260713085053.2916813-1-guopeng.zhang@linux.dev>
+In-Reply-To: <20260713085520.2953121-1-guopeng.zhang@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
 
 
 
-在 2026/7/13 16:50, Guopeng Zhang 写道:
+在 2026/7/13 16:55, Guopeng Zhang 写道:
 > From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 > 
-> flush_nmi_stats() updates state[] for kmem and slab counters but leaves
-> the corresponding state_local[] counters unchanged. Local kmem and
-> slab statistics therefore miss updates collected through the NMI-safe
-> atomic path.
+> Commit 72797d218b43 ("mm/memcg: v1: account event registrations and drop
+> world-writable cgroup.event_control") accounted cgroup v1 event
+> registration allocations with GFP_KERNEL_ACCOUNT, but missed struct
+> vmpressure_event.
 > 
-> Update state_local[] together with state[].
+> Use GFP_KERNEL_ACCOUNT for this allocation as well.
 > 
-> Fixes: 940b01fc8dc1 ("memcg: nmi safe memcg stats for specific archs")
+> Fixes: 72797d218b43 ("mm/memcg: v1: account event registrations and drop world-writable cgroup.event_control")
 > Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 > ---
->  mm/memcontrol.c | 5 +++++
->  1 file changed, 5 insertions(+)
+>  mm/memcontrol-v1.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 22f55aeb94f3..02599b8b6bd5 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -4443,6 +4443,7 @@ static void flush_nmi_stats(struct mem_cgroup *memcg, struct mem_cgroup *parent,
->  		int index = memcg_stats_index(MEMCG_KMEM);
->  
->  		memcg->vmstats->state[index] += kmem;
-> +		memcg->vmstats->state_local[index] += kmem;
->  		if (parent)
->  			parent->vmstats->state_pending[index] += kmem;
+> diff --git a/mm/memcontrol-v1.c b/mm/memcontrol-v1.c
+> index e8b6e1560278..f8424ec3734b 100644
+> --- a/mm/memcontrol-v1.c
+> +++ b/mm/memcontrol-v1.c
+> @@ -1721,7 +1721,7 @@ int vmpressure_register_event(struct mem_cgroup *memcg,
+>  		mode = ret;
 >  	}
-> @@ -4460,9 +4461,11 @@ static void flush_nmi_stats(struct mem_cgroup *memcg, struct mem_cgroup *parent,
->  			int index = memcg_stats_index(NR_SLAB_RECLAIMABLE_B);
 >  
->  			lstats->state[index] += slab;
-> +			lstats->state_local[index] += slab;
->  			if (plstats)
->  				plstats->state_pending[index] += slab;
->  			memcg->vmstats->state[index] += slab;
-> +			memcg->vmstats->state_local[index] += slab;
->  			if (parent)
->  				parent->vmstats->state_pending[index] += slab;
->  		}
-> @@ -4471,9 +4474,11 @@ static void flush_nmi_stats(struct mem_cgroup *memcg, struct mem_cgroup *parent,
->  			int index = memcg_stats_index(NR_SLAB_UNRECLAIMABLE_B);
->  
->  			lstats->state[index] += slab;
-> +			lstats->state_local[index] += slab;
->  			if (plstats)
->  				plstats->state_pending[index] += slab;
->  			memcg->vmstats->state[index] += slab;
-> +			memcg->vmstats->state_local[index] += slab;
->  			if (parent)
->  				parent->vmstats->state_pending[index] += slab;
->  		}
-
-Looks correct — state_local[] mirrors state[] for this cgroup's own NMI-accounted kmem/slab charges, and pending→local is properly left untouched.
-
+> -	ev = kzalloc_obj(*ev);
+> +	ev = kzalloc_obj(*ev, GFP_KERNEL_ACCOUNT);
+>  	if (!ev) {
+>  		ret = -ENOMEM;
+>  		goto out;
 Acked-by: Tao Cui <cuitao@kylinos.cn>
+
