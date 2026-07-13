@@ -1,152 +1,138 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5102535200B
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4607931C56D
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 15:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783954746; cv=none; b=DPogzkYgCMJCx2kP26UQ1YZJf6YDu9ExWdaGniEh6qjW4cGh+F0mf4UiTtTUaiUZi2LnFuw8/+uwVJXW7VOSgLeamfWV3Ik6l+58gBm8J7kcyVKZYVvYA36HH+APNjhf2x5zvVz4mzND7ET7AhKETpehe9+i466Rs9Dysq7WGQ0=
+	t=1783955088; cv=none; b=dOfm8dKi398PJ+5S0NF86z4yLEab4s1IsDgBKM0OWNKV/MfvN+hvi6C7AWcmykFzhEcHLfqfrHhKg6USj8ZDUsHMXTPWArt/dUdQD9bp/g68zC4dgPwTHonRSOFD4or4YdwB2qZETZmU5BFtltDGqsQF74PzB9h1Y2vM+Vy6nE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783954746; c=relaxed/simple;
-	bh=lkIgxWjwf/sFNbQZls9lXBmTHyrWhCv7iqGMHOrl1TA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gTOs4w/3+g/RFGHaja4tf8Y/BdhHYl+Uaxcuu8YkpnJxbsxQfDHavyu4/SRBz2DWNajEZIcqINCVmiAkN5/dWVv9aiIZCJAzCohdcis6iA2dbfv8SB/37vYjZDVBouXXtK3C3b1f4zW6yxSemIkPtLQb57ZvMSs0lQBnjrqZw28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k/CknA1O; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ji8rIqni; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783955088; c=relaxed/simple;
+	bh=CcUxOCYJu+kCaoHe9zAA6HFPq1oFXw4srhy8scQRLLM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pZFV9P6JsCeHX7FcCZcANc3p4EwdUm0FMei0uMfPPli9qXf+yhsvSZca5O67ui5nrCLPrEzFH1NF40++yTT+A+86/z/cScrsTxtHGOsKZH0JzwIZPw8m+9SZA04cEokL3DTB72H/2MHkRPDbHJdZW2h9w+Rz7KgAmh69i5O/nHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VKq6fCHq; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=kk81RgFJ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VKq6fCHq; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=kk81RgFJ; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k/CknA1O";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ji8rIqni"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66DCEAFZ1304582
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:59:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=Y0B/Toi++qviIsvH3wfVq2MiAIIVK6Q0fCt
-	d190RJhY=; b=k/CknA1OSczHCEG6uycRAnm5Hcq3NAN0oR7cqwGm83rbmAswce/
-	8AraklXfNNdy72spR/hK6WQEBiKhdazNMtH/2/V+gmRGIhQB/oFPPOTZM2j6ovu2
-	CEn/fwL/nXuwLHjxxjrtWLmd55Ehx9CAuJA/s7qyfuctis+vVJNgMEsft4Walnjq
-	quM/uMR4AL+6OO1DJsLDzAwEnea/uuMoNbInqeXwH+cvOU9Odo1KVFP9YACD2Ty9
-	2cwnKPC6RpLsacAutAr1kX9jVYK9GkBBNfPiRsvaKNMs2x92TaXHM9lDoA7Vlg5q
-	LpK3JTWDkz8wMvyvaE21qELMurRTFqeOyKQ==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcwk9s81d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:59:04 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90410c668adso43726396d6.1
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 07:59:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783954744; x=1784559544; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y0B/Toi++qviIsvH3wfVq2MiAIIVK6Q0fCtd190RJhY=;
-        b=ji8rIqnitntbUCXjzM9Hb7NVgX54bLQIOeWSTsd76iXiE5fSfEagIu0WrVfqYD5qjF
-         80cBUIVXTTN70CYuJzycO+f45GRuptEBBy5tV8iMRia13510+qFMgc6XqpAKSwPJDSrJ
-         sA8ZzPyMw3UKpoJVriZsvj2MypQ6w+MYNomwkHQyzjeyt6ISUDVhQ08pZPBLCdGBTI8A
-         /7o1r4G1qPCmv/bbBigogNwrM9120wmbDbE775I8Q5ePBzeSWuJ/V6VCcjw1m7O56rIS
-         jWZqkLwCMIacd/cnlYfpmsGO3AG11mZM8JSdFdkeQgGS3Z3NsaBjP2fx6C2P9DMuWf6L
-         USRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783954744; x=1784559544;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y0B/Toi++qviIsvH3wfVq2MiAIIVK6Q0fCtd190RJhY=;
-        b=mweVsE4W6l1fbrjDoG5FaN4Omf5A8LmiiF7NBzxCPIyl3TsiLBJuXz+2jb7g3NgFQA
-         H2m4oA2KG5vlMMdLReIcVlEpJdAvw9mGJjZGEGphvYe1UIXKGIOp0Ik06jVmsFb0PlqJ
-         X3SCvnoNVKsc1or/8ew1y8x6sffcO2Sgf59drHzctAKZg5nUX3Fs2vejVh9HUPUQX3yl
-         I+jbL7NmeMpJ6ltOfhAlwZLyqqQAaYAmcPGMipghi3lQeo3D3v4qJO6gCDG79m3dxVBi
-         6QTr6zlj4/WaT9/bk6kHwnkGmyY+OYccmQrjczB6fRnxSgKtW3lALONsJkaliUANvcVU
-         emzQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqO9544k3ZHAAiEM5weQTzkA4RtAAOixeF0VuSUmo65aEzUxZ21Wx5DGu6Kd9KE61qby1Q/Wu4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwVmYKuYnSOqGYuUKJvjCoWjtRbj4pxPc2jbgTlYc5jUcYwQrWZ
-	Ccu8ow5zUXcktzC12CFPFDWRvq53nISLFSmLLjTwKegjDFsP/Lt8UfbrhvxMT1O9ruO6yO7J4aA
-	zDBmIgW/od+qCHVXTYNg6I8uDAjjsQg0AJlQPkFSsebcae4z7JTkRfwYWUVPIDhIAdSpTWQ==
-X-Gm-Gg: AfdE7cn9mo0++dkBLk3jVbHA1/txKE7OHTzoDB3wvAGpzq0P+2NzhiZJU+alGGqbjJE
-	xn4jaB9lS6Mcu7sL+yS3eEgpIV3pcrBBkML9wT880MMxZt/kzkNQWdfYCiZQVwwRTqpnKMQyGXU
-	HPyvslADCfeXqyPC2YwMVykQF9vRNe/ifZGyUbKt3KVNRIr+4WKblADb8m3ejS+lEm/05jpjwYM
-	OkiRYxNznhW+J9/GGATjBPYYKsqs35VrzSoSWGsIXB1fFEbJ1C2j92U7zxgdgMWLSFO2SFFGzXz
-	MqPmuD2n2ZX+nHP3q7vD+brA7ohcb6drDx9SkblJcAViROYqUvm2LbtaEQqSxUufceZq9SUr4Vs
-	Z277Wzi+o372mEkKm80tKROoNbAnZ8kqtjmLBLPpRrUg9ZuiE0pU=
-X-Received: by 2002:a05:622a:1b8f:b0:51b:fddc:1de8 with SMTP id d75a77b69052e-51cbf30423amr92118311cf.65.1783954743668;
-        Mon, 13 Jul 2026 07:59:03 -0700 (PDT)
-X-Received: by 2002:a05:622a:1b8f:b0:51b:fddc:1de8 with SMTP id d75a77b69052e-51cbf30423amr92118091cf.65.1783954743140;
-        Mon, 13 Jul 2026 07:59:03 -0700 (PDT)
-Received: from hu-yabdulra-ams.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15fc29937esm542450066b.22.2026.07.13.07.59.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 07:59:02 -0700 (PDT)
-From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-To: mani@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, horms@kernel.org
-Cc: jeff.hugo@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] net: qrtr: ns: Raise node count limit to 512
-Date: Mon, 13 Jul 2026 16:59:01 +0200
-Message-ID: <20260713145901.212396-1-youssef.abdulrahman@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VKq6fCHq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kk81RgFJ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VKq6fCHq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kk81RgFJ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 346FF77941;
+	Mon, 13 Jul 2026 15:04:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1783955085; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SIOvXaew/x5orSgLKcP5Gf9LyiNxo32RHsPyKfFhkIo=;
+	b=VKq6fCHqU2C3PZ57bsq0zgFAmM+yxTFGoD004x1pzaSwj+EAPEv1LN6y5wWuV2cyHbOUXj
+	295dv1MMy/KLm3MANv7TCona/xbOlg8Ap00BMsfZjaufcMVnTsP3y2cgNuHPN7SMj4OEYz
+	lv/23XIFD83qYZM7i/1liawZe2HXntE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1783955085;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SIOvXaew/x5orSgLKcP5Gf9LyiNxo32RHsPyKfFhkIo=;
+	b=kk81RgFJuKOukj9RFxw0QXJ4qbPx950mg8hSQsniUA0W3KG1Ok/x22TBmHkxebpeY9OHBw
+	KsXr9obi9Z6rpDBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1783955085; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SIOvXaew/x5orSgLKcP5Gf9LyiNxo32RHsPyKfFhkIo=;
+	b=VKq6fCHqU2C3PZ57bsq0zgFAmM+yxTFGoD004x1pzaSwj+EAPEv1LN6y5wWuV2cyHbOUXj
+	295dv1MMy/KLm3MANv7TCona/xbOlg8Ap00BMsfZjaufcMVnTsP3y2cgNuHPN7SMj4OEYz
+	lv/23XIFD83qYZM7i/1liawZe2HXntE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1783955085;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SIOvXaew/x5orSgLKcP5Gf9LyiNxo32RHsPyKfFhkIo=;
+	b=kk81RgFJuKOukj9RFxw0QXJ4qbPx950mg8hSQsniUA0W3KG1Ok/x22TBmHkxebpeY9OHBw
+	KsXr9obi9Z6rpDBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F2072779AE;
+	Mon, 13 Jul 2026 15:04:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id aS7aOYz+VGpEUgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 13 Jul 2026 15:04:44 +0000
+Date: Mon, 13 Jul 2026 17:04:44 +0200
+Message-ID: <871pd7ylpv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Zhang Heng <zhangheng@kylinos.cn>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	bo.liu@senarytech.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda: conexant: Remove mic bias threshold override
+In-Reply-To: <20260713100329.306892-1-zhangheng@kylinos.cn>
+References: <20260713100329.306892-1-zhangheng@kylinos.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDE1NiBTYWx0ZWRfX1pSY53ldNXUV
- E7kGrIHe2TbUGJPLV0MhX7qkAl2oCKdeenL08LZydPGthXaDAvTRdZWvnp4fdyF2utR3j+nmJJR
- rzKStHRv3FQmYgnUfcKwfPtw5glgmsuFTLdktkWZZb+dNUEL/7N7liiBnqty0keQ2pwdOy9OdSY
- 7wKcULNzd67za96hYJtlOopExzGrZBNyH9epqiRM6HtxF6tHo15PF7qUw6FNfBa1chl4CbyaCOZ
- r/xWDEt2+ajEaPPdcrGIHJlugfc7AJOkEBa8iD0GxFvfhK6PjnMCu4J3c28prvvI5+Q3spd35Bn
- oqMef6ZU1rWFEA9NC3CccWA2QgY97Ec/uAfYDhZF2k1gZxXH+6d191vlIsMJHO7mhkm4Te9aUoZ
- 03BmlXsqESpf91v9KrSqW2TPUuy6t7/3xyOV7kmdpQIWsHGf62keibSVEHXYtn7RWZRoTi3kBBW
- eg2TSEdjtJw7DFHQfkw==
-X-Proofpoint-ORIG-GUID: 3qA97mWQC3_Sl9sdLFsizEiFbq0TyNbZ
-X-Authority-Analysis: v=2.4 cv=UMHt2ify c=1 sm=1 tr=0 ts=6a54fd38 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=BAFur2-UtLnwWEDNYK0A:9 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-GUID: 3qA97mWQC3_Sl9sdLFsizEiFbq0TyNbZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDE1NiBTYWx0ZWRfXzGA9xfwpuRd0
- CMVZlZlWKbCMq0iF7BIqDu755+VFWFFNTjDAE8jgO3OeKaJsceYz2wWQnj1XT6zARn8LZb+2vk8
- CQxsk20xKanJY40LfCJ01VxpZZ2aVwA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-13_03,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 spamscore=0 clxscore=1015 adultscore=0
- malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607130156
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Level: 
+X-Spam-Score: -3.30
 
-The current node limit of 64 breaks the functionality for a number of AI200
-deployments that have up to 384 nodes. Raise the limit to 512.
+On Mon, 13 Jul 2026 12:03:29 +0200,
+Zhang Heng wrote:
+> 
+> Remove the mic bias current comparator threshold override (NID 0x1c,
+> verb 0x320, value 0x010) from Conexant codec driver.
+> 
+> This override was originally intended to support volume up/down controls on
+> headsets with inline remote controls, but it causes microphone detection
+> failures on some headsets with impedance less than 1k ohm.
+> 
+> After consulting with the vendor's engineers, it was confirmed that this
+> setting is board-specific and should be handled by BIOS/firmware rather
+> than the generic codec driver, especially since inline remote support
+> is not currently implemented.
+> 
+> Fixes: 7aeb25908648 ("ALSA: hda/conexant: Fix headset auto detect fail in cx8070 and SN6140")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
 
-Fixes: 27d5e84e810b ("net: qrtr: ns: Limit the total number of nodes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
----
- net/qrtr/ns.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Applied now.  Thanks.
 
-diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
-index b3f9bbcf9ab9..e5b2adb161d9 100644
---- a/net/qrtr/ns.c
-+++ b/net/qrtr/ns.c
-@@ -76,11 +76,11 @@ struct qrtr_node {
-  * requirements. If the requirement changes in the future, these values can be
-  * increased.
-  */
--#define QRTR_NS_MAX_NODES   64
-+#define QRTR_NS_MAX_NODES   512
- #define QRTR_NS_MAX_SERVERS 256
- #define QRTR_NS_MAX_LOOKUPS 64
- 
--static u8 node_count;
-+static u16 node_count;
- 
- static struct qrtr_node *node_get(unsigned int node_id)
- {
--- 
-2.43.0
 
+Takashi
