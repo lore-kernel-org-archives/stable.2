@@ -1,80 +1,99 @@
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4465438A720
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 12:31:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7E340C5C5
+	for <Stable@vger.kernel.org>; Mon, 13 Jul 2026 12:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783945872; cv=none; b=I/uterG2y33E/f+SlyOWtAiNZGTTVE/ETCIOZa255NJvqomj2eS7SQPmqGjaCe8Xz/QizD8bdOnnIEx/tv788vcueG+2syuk5MOD6t8/Vwo+SbHRBWlwW/pddpM/elhN4s2phcfXHZD2IS+USSlMq6EVJvtH+1WMPSEDAVpSqb4=
+	t=1783946767; cv=none; b=nPkULRaLOjXFv4CeMznUxfsZ0I2Je1SMC04U03mly3GqYn+1ivk9qnXe+OaNgBMJuZ4JyGHrcYrxVmQoLxjYciZ5+qBqgvUWsN3YNbGexULytGlrA2A6ktS3uH3Xzef0eN5gcW/XDgBrXAOEjf5InOBKX4oX7gyqmvwu9dtH6mE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783945872; c=relaxed/simple;
-	bh=JI+/o9g62QcrTsdBJA8Y9yefEkfCO4FlJVcAJIAYH+A=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=h0gpgTRDZ1n5DKF9fl76uNGcqJlQY0dZEmg+5wltTTir4l9iS5zgMhgE6qwdr0PtjOuyfRXkmH/HoTTHbM4kT55vgrYLRrhE2Wzz2O3dKKc4ZLfAW/iX1zIxTekHZOqDAfRq8S7CYuce9xtrHjlKD+sFFSiWR7Wt7nY5AleZ1/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JfRMoYe/; arc=none smtp.client-ip=91.218.175.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1783946767; c=relaxed/simple;
+	bh=zSuLuB8YtnExfLzHz7M/afVpgUkHrbd77m53thGvkcU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Xp2fHkdcTGniaIeG/XqnnAemqkXjB4AOUlQhq+3XGVxDwn1Po15MrJ4YApzr2Dns09uPSawvf0OTkBTwL8Y9N6V/9gkUBOHcIH1uypkJSHoLDp89EtokFpZrZ5fuhYCbdz5iS+8j0MOvrn7lxuRHj9HgeqPkC+spIGeq1Pv5FtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EDaU712e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JfRMoYe/"
-Content-Type: text/plain;
-	charset=us-ascii
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783945869;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JI+/o9g62QcrTsdBJA8Y9yefEkfCO4FlJVcAJIAYH+A=;
-	b=JfRMoYe/osc67xC5UABSw/Jid07sqLX65BD/x+9RL9hscga8kjPX1PdLGZ8PW0DzBQwJRO
-	pH+MmCQrpYIYZwFKQCfjkAF0s5YR+BnX3cAxQIfMUrcSSoCrV9DdPJpof+re3Sdwlwsxbz
-	NHLsfxHkgMFEqPjPJnO7Ywt7bSI0IBc=
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EDaU712e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13B451F000E9;
+	Mon, 13 Jul 2026 12:46:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1783946762;
+	bh=K4SQB9MdFJ0UJ/yoNxNIKzBNERCN8x4bxLFw91S3m64=;
+	h=Subject:To:Cc:From:Date;
+	b=EDaU712e008XQabb0RRKH7xYIF9NetVVcqUDwRk03MmArO4x8VVVc74wC+/pefoM6
+	 A76uOe5nKc/5nCpxdJMddZgo3WkOWO53vycc6Q4qibLbatMlIzPxX1AX6lfETPdYMd
+	 B/FW/3hMGFPU2aaWSas2vzLowAsI3HtEWgjTgBis=
+Subject: FAILED: patch "[PATCH] iio: adc: ad7380: select REGMAP" failed to apply to 6.12-stable tree
+To: samuel.moelius@trailofbits.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jic23@kernel.org,nuno.sa@analog.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 13 Jul 2026 14:45:54 +0200
+Message-ID: <2026071354-cannabis-broadness-e866@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH] mm: memcg-v1: account vmpressure event allocations
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260713085520.2953121-1-guopeng.zhang@linux.dev>
-Date: Mon, 13 Jul 2026 20:30:31 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Stanislav Fort <stanislav.fort@aisle.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- cgroups@vger.kernel.org,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <523274F8-9DE3-406A-80BF-00AF0610D033@linux.dev>
-References: <20260713085520.2953121-1-guopeng.zhang@linux.dev>
-To: Guopeng Zhang <guopeng.zhang@linux.dev>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 6697091b386a4e2830bdd38512c87a4befff2b32
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071354-cannabis-broadness-e866@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
 
 
 
-> On Jul 13, 2026, at 16:55, Guopeng Zhang <guopeng.zhang@linux.dev> =
-wrote:
->=20
-> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->=20
-> Commit 72797d218b43 ("mm/memcg: v1: account event registrations and =
-drop
-> world-writable cgroup.event_control") accounted cgroup v1 event
-> registration allocations with GFP_KERNEL_ACCOUNT, but missed struct
-> vmpressure_event.
->=20
-> Use GFP_KERNEL_ACCOUNT for this allocation as well.
->=20
-> Fixes: 72797d218b43 ("mm/memcg: v1: account event registrations and =
-drop world-writable cgroup.event_control")
-> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+thanks,
 
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
+greg k-h
 
+------------------ original commit in Linus's tree ------------------
+
+From 6697091b386a4e2830bdd38512c87a4befff2b32 Mon Sep 17 00:00:00 2001
+From: Samuel Moelius <samuel.moelius@trailofbits.com>
+Date: Tue, 2 Jun 2026 16:45:39 +0000
+Subject: [PATCH] iio: adc: ad7380: select REGMAP
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The AD7380 driver uses generic regmap types and APIs. However, its
+Kconfig entry does not select REGMAP.
+
+As a result, AD7380 can be enabled from an allnoconfig-derived config
+with SPI_MASTER=y while REGMAP remains unset, causing ad7380.o to fail
+to build.
+
+Fixes: b095217c104b ("iio: adc: ad7380: new driver for AD7380 ADCs")
+Signed-off-by: Samuel Moelius <samuel.moelius@trailofbits.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+
+diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+index 1c663c98c6c9..6fb0766ca27a 100644
+--- a/drivers/iio/adc/Kconfig
++++ b/drivers/iio/adc/Kconfig
+@@ -328,6 +328,7 @@ config AD7298
+ config AD7380
+ 	tristate "Analog Devices AD7380 ADC driver"
+ 	depends on SPI_MASTER
++	select REGMAP
+ 	select SPI_OFFLOAD
+ 	select IIO_BUFFER
+ 	select IIO_BUFFER_DMAENGINE
 
