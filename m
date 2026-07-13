@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAD340FDAF
-	for <Stable@vger.kernel.org>; Mon, 13 Jul 2026 12:46:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E882DA75C
+	for <Stable@vger.kernel.org>; Mon, 13 Jul 2026 12:48:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783946815; cv=none; b=vEjm28zX/NzwLnWUYqoQthe7h+tEZANv1LLYMR4f4V6tVGYqLpKLjtAmViPC7akcridZUMdjHcTB0kKa8g1IL3BXD7zYUKvnJxqxEB7NKr3eNdpdsCIGjTwt4ms5f5/KwXR+NraW6DnWsDG3EbT/6ka3J8Dg6SNsbaDkMbwhWaI=
+	t=1783946928; cv=none; b=VBxJ0YqtVeH00VZtInD18qwTQVpwB954l/RHTL5LcXZrqtVbef4B2ZwvYUGviAVevyK98Id9CU3j2DncthM3q3Re04aXMZ6YTSvovpQ4mRV8dy5gUIsQ/lvl5JePtTTpRk0d3S6Rm3gf8EJ1riBJEVm5OM+pND4jbTDQBFFrZyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783946815; c=relaxed/simple;
-	bh=UnsZcAc6QneCiswXB/04ds2Pg6uvmpqPE4vtOikW0rs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nnUqH2x2uYbshlx7UdjwOqp9mtgcqkbTZkF5OnPsuGvV1MGrJDejkQ5mMrQG/C2qtan8JoxGStq6uyJAbEuuuZ7RLn9hQ3DDLgUPHlB0mOvuqrjcpoVhyPPF5uSpHCKPtWNiSvHQaj4Mi2KTUShMT22+KpzElf7lvjj3XzF/DJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KX0LWkzD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783946928; c=relaxed/simple;
+	bh=eSIeuwkMpNwelv/rgyg6Y7mJs+0csbQ6KWZyA3w3Cgg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IGHz8ynieRJU054Rk4j4M4pR+RO0KShvHgTST/qNWUAv256kBIz0ruIh7TnUm7TthZSh/xANPDWyvvrAVpLOqvlCE4A2qLoODxRZgcwvSIvDcT8HICqRTt73b/25IjJUrwgg+/rYSJa3oCl4BFYoKIVmW0qjVGNgUYo+57p7gVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lUiGO4hz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KX0LWkzD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 348D41F00A3D;
-	Mon, 13 Jul 2026 12:46:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lUiGO4hz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E931F000E9;
+	Mon, 13 Jul 2026 12:48:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783946812;
-	bh=+kKStmpabwFdJ7OkNdkv0dZiqIyfYY8X8nU6OAI8UTM=;
+	s=korg; t=1783946926;
+	bh=7De2EZbRUOYb6wdQ7VAeIXuhLmcRoF818dhhxT3m3Go=;
 	h=Subject:To:Cc:From:Date;
-	b=KX0LWkzD7IEb2VblY7Tsym9lV5it8KNblB66GF586x2hZnKQyEj8ITlmPTOfKkf4z
-	 Cbkb7wuRCTWVeWiUvb/1Ja00TaRylBqZPcANfHZIUq21V9b7x0Eh6cU/UqMMrMA8TV
-	 d6+hvaiu9z10uDCU+tj0xwXai0xGx2SXGzOA3P2E=
-Subject: FAILED: patch "[PATCH] iio: adc: spear: Initialize completion before requesting IRQ" failed to apply to 5.10-stable tree
-To: m32285159@gmail.com,Stable@vger.kernel.org,bookyungwook@gmail.com,jic23@kernel.org,jjy600901@snu.ac.kr,sangyun.kim@snu.ac.kr,vz@kernel.org
+	b=lUiGO4hzIvM8eDzmC7YTWqhZc9t/X3WwvyZofnCNWtGPqi7c1L02LDgLUMNWbSTak
+	 HCRN4YhPblNkv6+7Cq9hMrM/hEgMpzP7TZzDx66ziiHi9Y5zv5G2fi1Bk7w5w7UrhA
+	 b4Rewkpv+4MRwHLq37uaaWBGUDUmRYJw1d09GWqw=
+Subject: FAILED: patch "[PATCH] iio: hid-sensor-rotation: Fix stale or zero output when" failed to apply to 5.10-stable tree
+To: lixu.zhang@intel.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jic23@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 14:46:47 +0200
-Message-ID: <2026071347-duplex-theatrics-64bf@gregkh>
+Date: Mon, 13 Jul 2026 14:48:41 +0200
+Message-ID: <2026071341-urethane-barber-5549@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3ee2128b6f0eb0be7b6cb8f6e0f1f113a65201a0
+git cherry-pick -x 3ce8d099e0afc5a7da75a2007a67f67c4f5a4af1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071347-duplex-theatrics-64bf@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071341-urethane-barber-5549@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,70 +62,84 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3ee2128b6f0eb0be7b6cb8f6e0f1f113a65201a0 Mon Sep 17 00:00:00 2001
-From: Maxwell Doose <m32285159@gmail.com>
-Date: Fri, 12 Jun 2026 19:58:11 -0500
-Subject: [PATCH] iio: adc: spear: Initialize completion before requesting IRQ
+From 3ce8d099e0afc5a7da75a2007a67f67c4f5a4af1 Mon Sep 17 00:00:00 2001
+From: Zhang Lixu <lixu.zhang@intel.com>
+Date: Wed, 10 Jun 2026 16:29:10 +0800
+Subject: [PATCH] iio: hid-sensor-rotation: Fix stale or zero output when
+ reading raw values
 
-In the report from Jaeyoung Chung:
+When reading the raw quaternion attribute (in_rot_quaternion_raw), the
+driver currently returns either all zeros (if the sensor was never enabled)
+or stale data (if the sensor was previously enabled) because it reads from
+the internal buffer without explicitly requesting a new sample from the
+sensor.
 
-"spear_adc_probe() in drivers/iio/adc/spear_adc.c registers its
-interrupt handler with devm_request_irq() before it initializes
-st->completion with init_completion(). If an interrupt arrives after
-devm_request_irq() and before init_completion(), the handler calls
-complete() on an uninitialized completion, causing a kernel panic.
+To fix this, power up the sensor, call sensor_hub_input_attr_read_values()
+to issue a synchronous GET_REPORT and receive the full quaternion data
+directly into a local buffer, then decode the four components.
 
-The probe path, in spear_adc_probe():
-
-    iodev = devm_iio_device_alloc(&pdev->dev, sizeof(*st)); /* st kzalloc-zeroed */
-    ...
-    retval = devm_request_irq(&pdev->dev, irq, spear_adc_isr, 0,
-                              LPC32XXAD_NAME, st);           /* register handler */
-    ...
-    init_completion(&st->completion);                       /* initialize completion */
-
-spear_adc_isr() calls complete():
-
-    complete(&st->completion);
-
-If the device raises an interrupt before init_completion() runs,
-complete() acquires the uninitialized wait.lock and walks the zeroed
-task_list in swake_up_locked(). The zeroed task_list makes list_empty()
-return false, so swake_up_locked() dereferences a NULL list entry,
-triggering a KASAN wild-memory-access."
-
-Fix the chance of a spurious IRQ causing an uninitialized pointer
-dereference by moving init_completion() above devm_request_irq().
-
-Fixes: b586e5d9eee0 ("staging:iio:adc:spear rename device specific state structure to _state")
-Reported-by: Sangyun Kim <sangyun.kim@snu.ac.kr>
-Reported-by: Kyungwook Boo <bookyungwook@gmail.com>
-Reported-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
-Closes: https://lore.kernel.org/linux-iio/20260610115700.774689-1-jjy600901@snu.ac.kr/
-Signed-off-by: Maxwell Doose <m32285159@gmail.com>
-Reviewed-by: Vladimir Zapolskiy <vz@kernel.org>
+Fixes: fc18dddc0625 ("iio: hid-sensors: Added device rotation support")
+Signed-off-by: Zhang Lixu <lixu.zhang@intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 
-diff --git a/drivers/iio/adc/spear_adc.c b/drivers/iio/adc/spear_adc.c
-index 4be722406bb5..ab02a14682ed 100644
---- a/drivers/iio/adc/spear_adc.c
-+++ b/drivers/iio/adc/spear_adc.c
-@@ -283,6 +283,7 @@ static int spear_adc_probe(struct platform_device *pdev)
- 	st = iio_priv(indio_dev);
- 	st->dev = dev;
+diff --git a/drivers/iio/orientation/hid-sensor-rotation.c b/drivers/iio/orientation/hid-sensor-rotation.c
+index 4a11e4555099..1c6f02374f3c 100644
+--- a/drivers/iio/orientation/hid-sensor-rotation.c
++++ b/drivers/iio/orientation/hid-sensor-rotation.c
+@@ -86,6 +86,13 @@ static int dev_rot_read_raw(struct iio_dev *indio_dev,
+ 				long mask)
+ {
+ 	struct dev_rot_state *rot_state = iio_priv(indio_dev);
++	struct hid_sensor_hub_device *hsdev = rot_state->common_attributes.hsdev;
++	struct hid_sensor_hub_attribute_info *info = &rot_state->quaternion;
++	u32 usage_id = HID_USAGE_SENSOR_ORIENT_QUATERNION;
++	union {
++		s16 val16[4];
++		s32 val32[4];
++	} raw_buf;
+ 	int ret_type;
+ 	int i;
  
-+	init_completion(&st->completion);
- 	mutex_init(&st->lock);
- 
- 	/*
-@@ -329,8 +330,6 @@ static int spear_adc_probe(struct platform_device *pdev)
- 
- 	spear_adc_configure(st);
- 
--	init_completion(&st->completion);
--
- 	indio_dev->name = SPEAR_ADC_MOD_NAME;
- 	indio_dev->info = &spear_adc_info;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
+@@ -95,8 +102,37 @@ static int dev_rot_read_raw(struct iio_dev *indio_dev,
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_RAW:
+ 		if (size >= 4) {
+-			for (i = 0; i < 4; ++i)
+-				vals[i] = rot_state->scan.sampled_vals[i];
++			if (info->size <= 0 || info->size > sizeof(raw_buf))
++				return -EINVAL;
++
++			hid_sensor_power_state(&rot_state->common_attributes, true);
++
++			ret_type = sensor_hub_input_attr_read_values(hsdev,
++								     hsdev->usage,
++								     usage_id,
++								     info->report_id,
++								     SENSOR_HUB_SYNC,
++								     info->size,
++								     (u8 *)&raw_buf);
++
++			hid_sensor_power_state(&rot_state->common_attributes, false);
++
++			if (ret_type < 0)
++				return ret_type;
++
++			switch (info->size) {
++			case sizeof(raw_buf.val16):
++				for (i = 0; i < ARRAY_SIZE(raw_buf.val16); i++)
++					vals[i] = raw_buf.val16[i];
++				break;
++			case sizeof(raw_buf.val32):
++				for (i = 0; i < ARRAY_SIZE(raw_buf.val32); i++)
++					vals[i] = raw_buf.val32[i];
++				break;
++			default:
++				return -EINVAL;
++			}
++
+ 			ret_type = IIO_VAL_INT_MULTIPLE;
+ 			*val_len =  4;
+ 		} else
 
