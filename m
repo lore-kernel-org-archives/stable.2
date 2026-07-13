@@ -1,57 +1,56 @@
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8499554723
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E25233937
 	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 04:00:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783915230; cv=none; b=kC+S2ZAqi0vsBV88nNvEDDF4gl1+iHbv5b9+C1XglPWJPpkSHaTMNc2Rx9DtD5sBtQ/Szx7yQpUqT9c0r2ak+pujhHq2GUkIXJ63SZqoIVm3UFl8+HLPD+sbyTWm4EnIqSfyUT5wds4TvAfDtXzORttuK99vaeH7Rdy+KQO/dhE=
+	t=1783915231; cv=none; b=Exr3Yi5Xoo2Y8sWRZ/UpA0bN/OaNIY2wFVQdLPfXC3EBMUu3hESbCmGKc4m0ToSMAfWMLrwG7LxEhYw09Akf/TwfyX1Vq/0fh5fGesXt5dI47IToQDRolEPkSY252XPFBZAqO4KGPAe8n32Ee9ErQDJHIiBPj6gWcJB8XnqyEmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783915230; c=relaxed/simple;
-	bh=ENk3L6GDM2H7eh2ULxsnaDkK1fnzHBc1gSf7Wir6W78=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i5AGJPTdTjDmuFYQAWtDupYhg32/+9Qn4CZdn/550k4HE65QTVTBK3mh/zlk8vcpCxU0IXcElEuJ0ateUZXeTOmlK/egNFewghoFYPBwSgkyiQqnSruRdy1ifOFOmRLqdccYxrgrsrqoR2kADZldhZZKAM3LMjpeZZDaXyym+e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=RKwOlIoJ; arc=none smtp.client-ip=148.163.156.1
+	s=arc-20240116; t=1783915231; c=relaxed/simple;
+	bh=jfmyXq/xdOSYlzbwqm++BXMv/l5HuzXdEbA9n/YRNnE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mxw+IyqNqyBL6pqxvenQr5GhhhtHCnkMRSn4KR8BI5zKeXumgD+vE8OWxuU/Y3n8pSvS0b4QTn0qM53zKvDmcSNv15Jl3kjgZDaDn9jCQBtH4Sm/uPxNItQjAG7DWOH9AXl4eaBekbDDw0hi9kchAF/UJJ1c8v06kKIwQMjlems=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=MaahYQex; arc=none smtp.client-ip=148.163.156.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="RKwOlIoJ"
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="MaahYQex"
 Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D3Bfi11283661;
-	Mon, 13 Jul 2026 04:00:12 GMT
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D3CerA1285034;
+	Mon, 13 Jul 2026 04:00:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=WlHhu1Q+xzTF8bbFA
-	Gz93JWNPU7N/wflReqwQ79BzBI=; b=RKwOlIoJvDURCWvqpLllcY2g0KH9iaH0y
-	sD3EMiCECYDeQmVgWYSuE0CYmIikf6UPOhkAmCncpfQPe/WlDq4vWBQuwTklKPOl
-	tT90++bAIonllMOQ23g5oNRTzxi4eCjJtwSkrZMJv66SdiELtN62xFtETyKL65x/
-	2saso4GGmZ1jWqU67P4HLRqq+MklILqz1CefqbudcLUZGI60pdFZbs/MyUFrXZV8
-	mQ69/9+HHV4I/+ACXD0ldUgasJghBHK0/dIIXvjnKLP+Eq46B1/rVu8yPG7UL9qD
-	ZJ8ov5XOsyMg5zJlr1jvv+r6IpS+qWWO3I9sIkTGtQzFM4ObZ6f9w==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fber86gn8-1
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=TcvkY5jQJWy2eqfpBuatDJifMVq1igm6aF/4dCdVp
+	Es=; b=MaahYQexuTghk+jm5Uz7FIag0nM4D7vFMBtIyqiSZaWxqG6Yt8f7Y/sCp
+	vB3hYo03bfPGKWG9p9IrxrPGASaQYY8o8VmseeF3AJOeSeR1lvlvo21+zEYhViAH
+	ccZ00nfOTg/37CFBQXb6S6eXvjFeaXwsngygT/PEAGkAmI44vNLCLxLwzhiolCgw
+	7rLeJoY6dn+Mazy5CETC5g/Yu7Dv7cg1aM86auntiqSRAFZjpwnbIO5iszLViLVO
+	RPkK9gR4GzJ6BmvGyKUywoXmyGA4zFF5KlPFZTBJSb1RYjCDGngLGVKxLC8tLk6b
+	ccChk81IxYtjB28ISESfMEZFmYGzw==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fber86gmj-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 13 Jul 2026 04:00:11 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66D3ncAK014922;
-	Mon, 13 Jul 2026 04:00:10 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fc15jkx8u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 13 Jul 2026 04:00:10 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66D406Tw50463088
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 13 Jul 2026 04:00:06 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0972820040;
 	Mon, 13 Jul 2026 04:00:06 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66D3ns8h032189;
+	Mon, 13 Jul 2026 04:00:05 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fc2uxummx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Jul 2026 04:00:05 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66D401IK44892656
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 13 Jul 2026 04:00:01 GMT
 Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BE2102004F;
-	Mon, 13 Jul 2026 04:00:02 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 4A2402004B;
+	Mon, 13 Jul 2026 04:00:01 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F296E20040;
+	Mon, 13 Jul 2026 03:59:57 +0000 (GMT)
 Received: from li-4f5ba44c-27d4-11b2-a85c-a08f5b49eada.bl1-in.ibm.com (unknown [9.123.14.142])
 	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 13 Jul 2026 04:00:02 +0000 (GMT)
+	Mon, 13 Jul 2026 03:59:57 +0000 (GMT)
 From: Sourabh Jain <sourabhjain@linux.ibm.com>
 To: linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
         ritesh.list@gmail.com
@@ -59,12 +58,10 @@ Cc: npiggin@gmail.com, chleroy@kernel.org, shivangu@linux.ibm.com,
         hbathini@linux.ibm.com, mahesh@linux.ibm.com, adityag@linux.ibm.com,
         venkat88@linux.ibm.com, stable@vger.kernel.org,
         Sourabh Jain <sourabhjain@linux.ibm.com>
-Subject: [PATCH v2 1/3] powerpc/pseries: Move H_WATCHDOG definitions to a common header
-Date: Mon, 13 Jul 2026 09:29:52 +0530
-Message-ID: <20260713035954.1559605-2-sourabhjain@linux.ibm.com>
+Subject: [PATCH v2 0/3] powerpc/crash: protect kdump from active watchdogs
+Date: Mon, 13 Jul 2026 09:29:51 +0530
+Message-ID: <20260713035954.1559605-1-sourabhjain@linux.ibm.com>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260713035954.1559605-1-sourabhjain@linux.ibm.com>
-References: <20260713035954.1559605-1-sourabhjain@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,24 +71,25 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDAzNCBTYWx0ZWRfX5Bt7pO4bu+MQ
- rt4XSQVuHc/H6kenRW/hYcHkHgWMQTh8AdBc4ACakkXq+QTo8HnZF+2xjILuJIwGsFi+rxTURBz
- 5puz+qduLF+M0g8tfOFVMkml/M7hluduvAIiCe1JAUk2ngJ4kuVNXvz+gbXLdtqsqvKdhh1+H7g
- uiviri10VrpMz5JKpYzhxCfaoOfqjrX8i75EQeDDFurndcNB63dyN3dv/Xx1YovVVZFQTcmk110
- Wd1AUDU8AuDEbSa1pGcbRSA/Qvbh0W4pw2h+IinRQigi+WHRmHGMgwNUTNsBgGGU6V+iHX1uFoF
- elEiWKd5ea070u0QyuhyvuuHIsWI5uxttsMHteiO8DNfkdSpfJpvoLuXCDiQqzo+3m4xn9s9aL/
- ZVF9WSOtp84BAWvLpb3UvLoiz+tq18HfRr2qj3EtYv+dEG75BTxDtokHuT8vUDnmivvtTUdQFbg
- eZ+qTM3w9tEpzAUScuw==
-X-Proofpoint-ORIG-GUID: rL_-M4gxF_dLXV3US6xznv2T1ZMPwIs6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDAzNCBTYWx0ZWRfXxeDlFbsh4CS9
- 5Y8Gxz6vUjVgLz1FSKDcF41x2tizN6Om3mHKW5ennVQBvWrC9ztkR+8gzxY3MSfC8i8EJLq9OLG
- j7e/xVs1cUzihYXxHoXqnykyNJTQqAE=
-X-Authority-Analysis: v=2.4 cv=TpzWQjXh c=1 sm=1 tr=0 ts=6a5462cb cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDAzNCBTYWx0ZWRfXwEeaK+HBr3fT
+ R/jXEmFaR/nrr/cvix9zA8/Oobo40TLdg+165clZLe4KoqC2Q9TTeXv4eKvDtavsKjxCbyUv++w
+ A69lX6X5mtfLCO0rxc3ZlYOandNsJ9NpfCxjfhGAYRQ+2dFDbSr41RaZiHAHMy18HXtMwEDDlls
+ FJFuWQmpD2Tckg2+11iqE2jaaSYbK7ygW977+IK0g3z+r2N2Ys3CHHBR5Gv70/MBDV8G9kp5JZ0
+ p/QeyQL1nD9UCoxYxMGyVLz9Rmk4ZyzWjUA2V9+oAeQkv1TStuqFwWbB1HqeOjSkukx4bncYDCy
+ 7XJ+FFT73/geaDnkjzsWHCXVpiCLEvqqPlRn4RlKotivIG9Cz3zr8TSiGjZnsxdzFkyij7daE4O
+ 1G9f/nFYwd+U3lXQxzMrI/Qstqi5RyYguSLl2emtyTM72dhnhsAxXMi7Q4friDlferycBpM2lOv
+ QB6AGZqRtTQQnQznvzQ==
+X-Proofpoint-ORIG-GUID: HtxwFtt75lm-fJeRFP11dfwJSDN7oMiO
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDAzNCBTYWx0ZWRfXzyUOwROZQDqK
+ 69lbJR33v/2uvUiwYfRo27VojjBCooLANROkGAWwoUfTm9eCWoxuifOe+tgzSBdHeYkh5elMoP4
+ Fe0q6KqNQm+6nvKOVV83N29yoBPdfZk=
+X-Authority-Analysis: v=2.4 cv=TpzWQjXh c=1 sm=1 tr=0 ts=6a5462c6 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
  a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8
- a=GYsGH9NJgqgsJyUot8sA:9
-X-Proofpoint-GUID: Q5ai_6-jgueiHRD2Lj2_slL8c23QVex-
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=Gk6Qg7I2AAAA:20 a=iox4zFpeAAAA:8 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=akTv58P-d981-2rlXkgA:9 a=O8hF6Hzn-FEA:10
+ a=WzC6qhA0u3u7Ye7llzcV:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-GUID: UvoKfOaP_kROOzZAEsPq8YPjXuEqrb9Q
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-13_01,2026-07-10_01,2025-10-01_01
@@ -101,155 +99,183 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130034
 
-The H_WATCHDOG input and output definitions are currently local to the
-pseries watchdog driver. The next patch in this series also needs these
-definitions to issue H_WATCHDOG hypercalls outside the watchdog driver.
+On pseries LPAR systems in a high-availability environment using the
+SBD[1][2] service, I observed that the system abruptly rebooted before
+dump capture could complete.
 
-Move the H_WATCHDOG definitions to a new common header,
-asm/papr-watchdog.h, so they can be shared without duplicating the
-PAPR watchdog definitions.
+Further investigation showed that SBD had configured a watchdog with
+a 30-second timeout. Since the kernel crashes directly into the
+kdump kernel without shutting down userspace services, the watchdog
+remained active during dump capture. Once the watchdog timeout
+expired, PHYP reset the LPAR, causing dump capture to fail.
 
-No functional changes.
+The issue was reproducible only when the watchdog was active. Dump
+capture completed successfully after disabling the watchdog,
+stopping the SBD service, or increasing the watchdog timeout value.
 
-Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
----
- arch/powerpc/include/asm/papr-watchdog.h | 58 ++++++++++++++++++++++++
- drivers/watchdog/pseries-wdt.c           | 53 +---------------------
- 2 files changed, 59 insertions(+), 52 deletions(-)
+This patch fixes the issue by stopping all active watchdogs on the
+crash shutdown path before booting the kdump kernel.
+
+Driver that export the hardware watchdog device is:
+drivers/watchdog/pseries-wdt.c
+
+[1] https://github.com/clusterlabs/sbd/blob/main/man/sbd.8.pod.in
+[2] https://documentation.suse.com/sle-ha/15-SP4/html/SLE-HA-all/cha-ha-storage-protect.html
+
+Changelog:
+==========
+
+v2:
+ - Move H_WATCHDOG definitions to a common header for shared use
+   across pseries code. 1/3
+ - Added a new patch to handle pseries watchdog device registration
+   failure. 2/3
+ - Stop active watchdogs in crash hanlder. 3/3 Ritesh
+ - Add suggested-by tag 1/3 & 3/3
+
+v1:
+https://lore.kernel.org/all/20260603070217.483696-1-sourabhjain@linux.ibm.com/
+
+
+This issue can be reproduce using below program:
+------------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <signal.h>
+#include <errno.h>
+#include <sys/ioctl.h>
+#include <linux/watchdog.h>
+
+#define WATCHDOG_DEV    "/dev/watchdog"
+#define TIMEOUT         10
+#define PET_INTERVAL    1
+
+static int wdt_fd = -1;
+
+static void watchdog_close(int disarm)
+{
+    int flags;
+
+    if (wdt_fd < 0)
+        return;
+
+    if (disarm) {
+        flags = WDIOS_DISABLECARD;
+        if (ioctl(wdt_fd, WDIOC_SETOPTIONS, &flags) < 0)
+            printf("WDIOS_DISABLECARD failed: %m (nowayout may be set)\n");
+        else
+            printf("Watchdog disabled via WDIOS_DISABLECARD\n");
+
+        if (write(wdt_fd, "V", 1) < 0)
+            printf("Magic 'V' write failed: %m\n");
+        else
+            printf("Magic 'V' written\n");
+    } else {
+        printf("Closing WITHOUT disarming - watchdog keeps running!\n");
+    }
+
+    close(wdt_fd);
+    wdt_fd = -1;
+    printf("Watchdog fd closed\n");
+}
+
+static void safe_exit(int sig)
+{
+    printf("\nSignal %d received - disarming watchdog...\n", sig);
+    watchdog_close(1);
+    exit(0);
+}
+
+static int watchdog_init(void)
+{
+    int flags, timeout = TIMEOUT;
+    struct watchdog_info ident;
+
+    printf("Opening %s...\n", WATCHDOG_DEV);
+    wdt_fd = open(WATCHDOG_DEV, O_WRONLY);
+    if (wdt_fd < 0) {
+        printf("Failed to open %s: %m\n", WATCHDOG_DEV);
+        return -1;
+    }
+    printf("Watchdog opened and ARMED\n");
+
+    flags = WDIOS_ENABLECARD;
+    if (ioctl(wdt_fd, WDIOC_SETOPTIONS, &flags) < 0)
+        /* ENOTTY = driver always enabled, that's fine */
+        printf("WDIOS_ENABLECARD: %m (ok if ENOTTY)\n");
+    else
+        printf("Watchdog enabled via WDIOS_ENABLECARD\n");
+
+    if (ioctl(wdt_fd, WDIOC_SETTIMEOUT, &timeout) < 0)
+        printf("WDIOC_SETTIMEOUT failed: %m\n");
+    else
+        printf("Timeout set to %d seconds\n", timeout);
+
+    /* verify what the driver actually set */
+    if (ioctl(wdt_fd, WDIOC_GETTIMEOUT, &timeout) == 0)
+        printf("Actual timeout  : %d seconds\n", timeout);
+
+    if (ioctl(wdt_fd, WDIOC_GETSUPPORT, &ident) == 0)
+        printf("Identity        : %s\n", ident.identity);
+
+    return 0;
+}
+
+static void watchdog_tickle(void)
+{
+    int timeleft = 0;
+
+    if (ioctl(wdt_fd, WDIOC_KEEPALIVE, 0) < 0) {
+        printf("WDIOC_KEEPALIVE failed: %m - falling back to write\n");
+        write(wdt_fd, "1", 1);
+    }
+
+    if (ioctl(wdt_fd, WDIOC_GETTIMELEFT, &timeleft) == 0)
+        printf("Petted watchdog. Timeleft: %d sec\n", timeleft);
+    else
+        printf("Petted watchdog.\n");
+}
+
+int main(void)
+{
+    signal(SIGINT,  safe_exit);
+    signal(SIGTERM, safe_exit);
+
+    if (watchdog_init() < 0)
+        return 1;
+
+    printf("\nPetting every %d seconds. Ctrl+C to safely stop.\n\n",
+           PET_INTERVAL);
+
+    while (1) {
+        watchdog_tickle();
+        sleep(PET_INTERVAL);
+    }
+
+    return 0;
+}
+
+Steps to reproduce the issue:
+-----------------------------
+1. Load kdump kernel
+2. Insert pseries-wdt driver
+3. Compile the above proram and run the binary
+4. Crash the kernel (echo c > /proc/sysrq-trigger)
+
+Sourabh Jain (3):
+  powerpc/pseries: Move H_WATCHDOG definitions to a common header
+  powerpc/pseries: Handle and log pseries-wdt registration failures
+  powerpc/crash: stop watchdogs before booting kdump kernel
+
+ arch/powerpc/include/asm/papr-watchdog.h | 60 ++++++++++++++++++++++++
+ arch/powerpc/platforms/pseries/setup.c   | 32 ++++++++++++-
+ drivers/watchdog/pseries-wdt.c           | 53 +--------------------
+ 3 files changed, 91 insertions(+), 54 deletions(-)
  create mode 100644 arch/powerpc/include/asm/papr-watchdog.h
 
-diff --git a/arch/powerpc/include/asm/papr-watchdog.h b/arch/powerpc/include/asm/papr-watchdog.h
-new file mode 100644
-index 000000000000..fb3a511aa861
---- /dev/null
-+++ b/arch/powerpc/include/asm/papr-watchdog.h
-@@ -0,0 +1,58 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef _ASM_POWERPC_CRASHDUMP_PPC64_H
-+#define _ASM_POWERPC_CRASHDUMP_PPC64_H
-+
-+/*
-+ * H_WATCHDOG Input
-+ *
-+ * R4: "flags":
-+ *
-+ *         Bits 48-55: "operation"
-+ */
-+#define PSERIES_WDTF_OP_START	0x100UL		/* start timer */
-+#define PSERIES_WDTF_OP_STOP	0x200UL		/* stop timer */
-+#define PSERIES_WDTF_OP_QUERY	0x300UL		/* query timer capabilities */
-+
-+/*
-+ *         Bits 56-63: "timeoutAction" (for "Start Watchdog" only)
-+ */
-+#define PSERIES_WDTF_ACTION_HARD_POWEROFF	0x1UL	/* poweroff */
-+#define PSERIES_WDTF_ACTION_HARD_RESTART	0x2UL	/* restart */
-+#define PSERIES_WDTF_ACTION_DUMP_RESTART	0x3UL	/* dump + restart */
-+
-+/*
-+ * H_WATCHDOG Output
-+ *
-+ * R3: Return code
-+ *
-+ *     H_SUCCESS    The operation completed.
-+ *
-+ *     H_BUSY	    The hypervisor is too busy; retry the operation.
-+ *
-+ *     H_PARAMETER  The given "flags" are somehow invalid.  Either the
-+ *                  "operation" or "timeoutAction" is invalid, or a
-+ *                  reserved bit is set.
-+ *
-+ *     H_P2         The given "watchdogNumber" is zero or exceeds the
-+ *                  supported maximum value.
-+ *
-+ *     H_P3         The given "timeoutInMs" is below the supported
-+ *                  minimum value.
-+ *
-+ *     H_NOOP       The given "watchdogNumber" is already stopped.
-+ *
-+ *     H_HARDWARE   The operation failed for ineffable reasons.
-+ *
-+ *     H_FUNCTION   The H_WATCHDOG hypercall is not supported by this
-+ *                  hypervisor.
-+ *
-+ * R4:
-+ *
-+ * - For the "Query Watchdog Capabilities" operation, a 64-bit
-+ *   structure:
-+ */
-+#define PSERIES_WDTQ_MIN_TIMEOUT(cap)	(((cap) >> 48) & 0xffff)
-+#define PSERIES_WDTQ_MAX_NUMBER(cap)	(((cap) >> 32) & 0xffff)
-+
-+#endif /* _ASM_POWERPC_CRASHDUMP_PPC64_H */
-diff --git a/drivers/watchdog/pseries-wdt.c b/drivers/watchdog/pseries-wdt.c
-index 48d67f7c972a..e97b943e1d3c 100644
---- a/drivers/watchdog/pseries-wdt.c
-+++ b/drivers/watchdog/pseries-wdt.c
-@@ -12,61 +12,10 @@
- #include <linux/platform_device.h>
- #include <linux/time64.h>
- #include <linux/watchdog.h>
-+#include <asm/papr-watchdog.h>
- 
- #define DRV_NAME "pseries-wdt"
- 
--/*
-- * H_WATCHDOG Input
-- *
-- * R4: "flags":
-- *
-- *         Bits 48-55: "operation"
-- */
--#define PSERIES_WDTF_OP_START	0x100UL		/* start timer */
--#define PSERIES_WDTF_OP_STOP	0x200UL		/* stop timer */
--#define PSERIES_WDTF_OP_QUERY	0x300UL		/* query timer capabilities */
--
--/*
-- *         Bits 56-63: "timeoutAction" (for "Start Watchdog" only)
-- */
--#define PSERIES_WDTF_ACTION_HARD_POWEROFF	0x1UL	/* poweroff */
--#define PSERIES_WDTF_ACTION_HARD_RESTART	0x2UL	/* restart */
--#define PSERIES_WDTF_ACTION_DUMP_RESTART	0x3UL	/* dump + restart */
--
--/*
-- * H_WATCHDOG Output
-- *
-- * R3: Return code
-- *
-- *     H_SUCCESS    The operation completed.
-- *
-- *     H_BUSY	    The hypervisor is too busy; retry the operation.
-- *
-- *     H_PARAMETER  The given "flags" are somehow invalid.  Either the
-- *                  "operation" or "timeoutAction" is invalid, or a
-- *                  reserved bit is set.
-- *
-- *     H_P2         The given "watchdogNumber" is zero or exceeds the
-- *                  supported maximum value.
-- *
-- *     H_P3         The given "timeoutInMs" is below the supported
-- *                  minimum value.
-- *
-- *     H_NOOP       The given "watchdogNumber" is already stopped.
-- *
-- *     H_HARDWARE   The operation failed for ineffable reasons.
-- *
-- *     H_FUNCTION   The H_WATCHDOG hypercall is not supported by this
-- *                  hypervisor.
-- *
-- * R4:
-- *
-- * - For the "Query Watchdog Capabilities" operation, a 64-bit
-- *   structure:
-- */
--#define PSERIES_WDTQ_MIN_TIMEOUT(cap)	(((cap) >> 48) & 0xffff)
--#define PSERIES_WDTQ_MAX_NUMBER(cap)	(((cap) >> 32) & 0xffff)
--
- static const unsigned long pseries_wdt_action[] = {
- 	[0] = PSERIES_WDTF_ACTION_HARD_POWEROFF,
- 	[1] = PSERIES_WDTF_ACTION_HARD_RESTART,
 -- 
 2.52.0
 
