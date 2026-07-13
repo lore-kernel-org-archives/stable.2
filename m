@@ -1,114 +1,146 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 527B139DBFA;
-	Mon, 13 Jul 2026 08:18:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0FA3932CE;
+	Mon, 13 Jul 2026 08:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783930744; cv=none; b=UhBs+yXojPrALwMBBiGyA0WwQrcvlnoFpiqnMKMZx5mlKfv6zvIVxQUHEPs/v53Ioo4YNAp0aI9Zi+ZAspcv/fzY7L2O0rHt87Xiah4wD1ddB2p1SE/7onf0AV13koLrKA14cMKRuqSs5soHInBH+R4rwBidXWQpCdTf/N06vvw=
+	t=1783930814; cv=none; b=ewkIO9/RyBCi2wtcNmZ1xkpOGWQPqCMGQevx3d2VHD6tW37YDxOGwHP4K5+bmue6eLusC4N3gdGbjc+DjyqW7XFqCvQ3Y915VmryNE9+bvu90/CugTzQwDAP7T2X9S+c34XMWyPYVoUkogzkuhVAHL6hh1TjZ/x/tT/InGByZGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783930744; c=relaxed/simple;
-	bh=yQvdhLWJ8LZ6eGjVPDK/jPe0RYv7DHDk1LRwJrKtbzI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qOsBRb0Pa2H5TUHD8nWdTqzswLZd3QEVWZtvxAkmXa9u24ArRUBpLXjQlB2ZCHx050Lr+N3nl00ZjK/h/SwwKXEs5pD2k5Ad8V4jkCnMR9VWjtpVEq6azWs/x/MjSFQ0hrCdIUfh+eyW9GzJeK4Wyh3q6slUhyCYJIQFb0wf6Kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=lGle3H04; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1783930814; c=relaxed/simple;
+	bh=BBqMnGi4wGTH9S1GDOdPt9fL8SQXpYQGHyQzDjuWEKY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=omRm+cYKmAdmenIs3PDN2Xe3Y6IKLI/abrYBYnVvL3eW16uIXY4aPE1laedMFGv4UVfLHehwM4hH8xMMXw1E8Rq75OchXOFCY7SruXaAu1CBVUm0Q/IMNuznTo1IhZH7YDwRulucrXBFSvou7XxTP4mpcd9x0mKnQYMb5K1v6lI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=eBtNqezf; arc=none smtp.client-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="lGle3H04"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=yoaBk
-	GIVqsBzBcPxnKJVPP9RSrjDbcCn33d5TYJXsic=; b=lGle3H04Yi/22OmGIjdlJ
-	7Nx1jr0hB5dqTpSu/rDHyOUoWzxYLVqtCJzxu75RI9wKam1t5xZmlMasvlATk3Nj
-	JflmUNSOzgV7t2XQimWzQ5lt1qqfc9d/PWqzq8fCXeWf6ZlGlrkA5HH7+pRCdzIF
-	lVE658CK/uhqSBcGgSE6Ik=
-Received: from localhost.localdomain (unknown [121.229.84.192])
-	by web3 (Coremail) with SMTP id ygQGZQAHVpNln1RqkskjAw--.19778S2;
-	Mon, 13 Jul 2026 16:18:46 +0800 (CST)
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-To: netdev@vger.kernel.org
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Eric Dumazet <edumazet@google.com>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net] tcp: initialize standalone IPv4 ACK options
-Date: Mon, 13 Jul 2026 16:18:41 +0800
-Message-ID: <20260713081842.3119-1-zhaoyz24@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.46.2
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="eBtNqezf"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1783930802; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=DiUBhTKFzNhpXGXkh49SffbTXZU5ygdNhcD76oDQdCM=;
+	b=eBtNqezfRPXH2H4qB/GBzY52xKDBbtq4Odc0zUr7w370fz6i/a85t5twUf2MBePqQD25Bk4A4dXSVPJ8n9fOOuxifPyAUoWBcHj1zOVzsOjSur6fSIp3ZI8ul0QBDW6FCXqzXqO3s1Fe3mNy+SEOlg4jULoNoC3pQ2XT5kYUhUs=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R891e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0X6wbGFP_1783930801;
+Received: from 30.221.131.131(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0X6wbGFP_1783930801 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 13 Jul 2026 16:20:01 +0800
+Message-ID: <26a9a225-617c-4492-af1d-152d71414f4d@linux.alibaba.com>
+Date: Mon, 13 Jul 2026 16:20:00 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:ygQGZQAHVpNln1RqkskjAw--.19778S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7urWxAF1kXFyfJFy8uw1UAwb_yoW8WFWfpa
-	1IkwsayFyUGry293WkAay0vr43XF4kWFyI9w4jkF9rZFn8WF1xua4Fg3WYvF90v3ykKF1S
-	yFyjvr1Dt398ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9v1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
-	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4
-	x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2
-	z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4
-	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E74AGY7Cv6cx26r4r
-	Kr1UJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc
-	8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Av
-	z4vE14v_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8Ww4UJr1UMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU0Ysj5UUUUU==
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQIHAWpUE7LrhwAAs2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] fuse: copy request headers via a stack buffer for
+ io-uring
+To: Xiang Mei <xmei5@asu.edu>
+Cc: fuse-devel@lists.linux.dev, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Luis Henriques <luis@igalia.com>, Pavel Begunkov <asml.silence@gmail.com>,
+ bestswngs@gmail.com, "Gustavo A . R . Silva" <gustavoars@kernel.org>,
+ Joanne Koong <joannelkoong@gmail.com>, Kees Cook <kees@kernel.org>,
+ Bernd Schubert <bernd@bsbernd.com>, Miklos Szeredi <miklos@szeredi.hu>
+References: <20260709211130.543773-1-xmei5@asu.edu>
+From: Baokun Li <libaokun@linux.alibaba.com>
+In-Reply-To: <20260709211130.543773-1-xmei5@asu.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-tcp_v4_send_ack() constructs standalone IPv4 TCP ACK replies on the stack
-for SYN-RECV and TIME-WAIT paths.  It currently zeroes only the TCP
-header, not the accompanying option buffer.
+Hi Xiang,
 
-TCP-AO options may have actual lengths that are not 4-byte aligned, while
-the transmitted TCP header length is correctly rounded up to a 4-byte
-boundary.  tcp_ao_hash_hdr() writes only the MAC bytes, leaving the
-TCP-AO option alignment padding in rep.opt uninitialized.  With stack
-auto-initialization disabled, those padding bytes can be copied into the
-network packet and sent to the peer.
+On 2026/7/10 05:11, Xiang Mei wrote:
+> The fuse-io-uring transport copies req->in.h out to the ring in
+> fuse_uring_copy_to_ring() and req->out.h back in fuse_uring_commit().
+> Both headers live inside the fuse_request slab object, whose cache
+> (fuse_req_cachep) is created without a usercopy whitelist,
 
-Zero the whole reply structure before writing options, so the alignment
-padding bytes are initialized.
 
-Fixes: decde2586b34 ("net/tcp: Add TCP-AO sign to twsk")
-Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: Claude-Code:GLM-5.2-special
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
----
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index ec09f97..327ee96 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -922,7 +922,7 @@ static void tcp_v4_send_ack(const struct sock *sk,
- 	struct sock *ctl_sk;
- 	u64 transmit_time;
- 
--	memset(&rep.th, 0, sizeof(struct tcphdr));
-+	memset(&rep, 0, sizeof(rep));
- 	memset(&arg, 0, sizeof(arg));
- 
- 	arg.iov[0].iov_base = (unsigned char *)&rep;
+Then why not allocate "fuse_request" with kmem_cache_create_usercopy()
+to add a usercopy whitelist instead?
 
---
-2.47.3
+That would avoid the extra stack usage for the bounce headers and
+the 56 bytes of copying they incur.
+
+
+Thanks,
+Baokun
+
+>  so copying
+> them directly to/from userspace trips CONFIG_HARDENED_USERCOPY and
+> panics:
+>
+>   usercopy: Kernel memory exposure attempt detected from SLUB object
+>   'fuse_request' (offset 56, size 40)!
+>   kernel BUG at mm/usercopy.c:102!
+>   RIP: 0010:usercopy_abort+0x6c/0x80
+>   Call Trace:
+>    __check_heap_object
+>    __check_object_size
+>    copy_header_to_ring          fs/fuse/dev_uring.c:618
+>    fuse_uring_prepare_send
+>    fuse_uring_send_in_task
+>    ...
+>    __do_sys_io_uring_enter
+>    entry_SYSCALL_64_after_hwframe
+>
+> Bounce both headers through an on-stack copy so the usercopy touches
+> stack memory, not the slab object.
+>
+> Fixes: c090c8abae4b ("fuse: Add io-uring sqe commit and fetch support")
+> Cc: stable@vger.kernel.org
+> Reported-by: Weiming Shi <bestswngs@gmail.com>
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Xiang Mei <xmei5@asu.edu>
+> Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
+> Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+> ---
+> v3: no context change; add Bernd's Reviewed-by
+>
+>  fs/fuse/dev_uring.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+>
+> diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+> index 77c8cec43d9c..0814681eb04b 100644
+> --- a/fs/fuse/dev_uring.c
+> +++ b/fs/fuse/dev_uring.c
+> @@ -744,6 +744,7 @@ static int fuse_uring_copy_to_ring(struct fuse_ring_ent *ent,
+>  {
+>  	struct fuse_ring_queue *queue = ent->queue;
+>  	struct fuse_ring *ring = queue->ring;
+> +	struct fuse_in_header in_header;
+>  	int err;
+>  
+>  	err = -EIO;
+> @@ -765,8 +766,9 @@ static int fuse_uring_copy_to_ring(struct fuse_ring_ent *ent,
+>  	}
+>  
+>  	/* copy fuse_in_header */
+> -	return copy_header_to_ring(ent, FUSE_URING_HEADER_IN_OUT, &req->in.h,
+> -				   sizeof(req->in.h));
+> +	in_header = req->in.h;
+> +	return copy_header_to_ring(ent, FUSE_URING_HEADER_IN_OUT, &in_header,
+> +				   sizeof(in_header));
+>  }
+>  
+>  static int fuse_uring_prepare_send(struct fuse_ring_ent *ent,
+> @@ -871,11 +873,13 @@ static void fuse_uring_commit(struct fuse_ring_ent *ent, struct fuse_req *req,
+>  			      unsigned int issue_flags)
+>  {
+>  	struct fuse_ring *ring = ent->queue->ring;
+> +	struct fuse_out_header out_header;
+>  	ssize_t err = -EFAULT;
+>  
+> -	if (copy_header_from_ring(ent, FUSE_URING_HEADER_IN_OUT, &req->out.h,
+> -				  sizeof(req->out.h)))
+> +	if (copy_header_from_ring(ent, FUSE_URING_HEADER_IN_OUT, &out_header,
+> +				  sizeof(out_header)))
+>  		goto out;
+> +	req->out.h = out_header;
+>  
+>  	err = fuse_uring_out_header_has_err(&req->out.h, req);
+>  	if (err) {
+
 
