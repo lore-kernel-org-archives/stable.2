@@ -1,153 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFC7371878
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:29:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19CA04218B1;
+	Mon, 13 Jul 2026 13:32:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783949343; cv=none; b=MrCEOTfRRPEfisvijFv3foJ1tnmWEvX7zZbvL573/lrvC0M8i38mrp7KeCeKVUMJ547dQ1ECoikUkUzpi2CFeSJHq/2A2dYGihBPzjQcvUrm6gkZ02aNcg0CMVRREooOScpmivJyc8YcQXBGOQYE+1IfLjv+FpRunIXT8exFEI4=
+	t=1783949534; cv=none; b=aySLHdO0roYZr3G8Qy/6AjkOQbsV19+rNtnTflV7UyAg3aTT1h4rRa49rKXo0seczaLZlLvXisA0DhXcxDbthvIxooynuZjAM/XXL8PjVo9Anl9/CpEKudrwD8GVJjz4ILuT1nWB/Zz+Q5JdX8C/ZylRDTDK8qZ1qdx1S+ArAe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783949343; c=relaxed/simple;
-	bh=TwyiOxEmA4bQvKkLoob9SIYeuImOa9oxBnJtfECS3FA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cgbZ6SmhUgiiPsug0NLSHY11brBrKe5L6KiEfvZO7vhNH6UOa1jmKhAQy0VZ14+cqfDOFgzlJbakcHQKBjhsECB6Wodky5cA/MV0YuXE7JC+9DQV8kzHSJ/5O9ENiDK0ufaSYo2iDU1P1KmAobiqadILd/N4uQsQaL1vIN6uzLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xlXJkfG9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783949534; c=relaxed/simple;
+	bh=RMBNf0nz6UqVKObHbtRoALMqXm0jYPaVeg/zELKfVqI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UyC8EigVemr2f6e5jXwJZHd4ilLjfdYPSwBkur8aJLUDg9CbxlI8TDH8WLVkvHVUAZ+hdZYcQXrBsC3iLLAmK97rB6iodWjaTgotOXgR0873lFhiI2kv6Dnx2kSmHXO/1sWmJT7IAoR2HKEZe0+NUNBxc13+AqpLk3FOUcVqzzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HaxJIDin; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xlXJkfG9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F50A1F000E9;
-	Mon, 13 Jul 2026 13:29:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783949341;
-	bh=ytb3Ly2qWQQuVUt8ldFGA8Qylhq2xLuweM+EqGfILpY=;
-	h=Subject:To:Cc:From:Date;
-	b=xlXJkfG9OmOmuKRFG00GhBBtKX1YdbRPiYbu9V0MaLaUW+Se+ScrKaivWVHoWjuTW
-	 XMCh4x/xMcsIzllNdG6gkwPjfPO9bTKjSjFdM3h2v9zEbzwy6lw13prEYSDW4dBU+a
-	 zPv5sfEmKnJr25ssPJisyXu9tx1r9eJw9J81PEy8=
-Subject: FAILED: patch "[PATCH] PCI: loongson: Override PCIe bridge supported speeds for" failed to apply to 6.6-stable tree
-To: liziyao@uniontech.com,aydenmeng@yeah.net,bhelgaas@google.com,chenhuacai@loongson.cn,fsf@live.com,jeffbai@aosc.io,mani@kernel.org,xry111@xry111.site
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:27:39 +0200
-Message-ID: <2026071339-saint-vicinity-7295@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HaxJIDin"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA9BD1F000E9;
+	Mon, 13 Jul 2026 13:32:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783949532;
+	bh=HebesSjqW6Ei186xyy2KHgsVFXclOSjyLdpPX4+hId0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HaxJIDinBW7qhd8TWrNK4s8T3PTUfLTXFXS85kDKWcN4pWvtuL6xy0nsCIx7iq40O
+	 QxcAYjybAjwroqbFOs9TRta3swb5bYhfKBvWawcyqH0Zge2Lx6VdtiZhiBafycuXNH
+	 i4/Vlvk4FSU2fyS8bhx8BrQr4NQvM3DRQrVhBKQMkp91hb5Fa4g7Pw14ueQNVgVdTi
+	 /h2k/N+9tWkQ4UDofeftbfgEXnxzcX8poyxZ4F8EiUKIMqeXWUW1W0KUWktE6mpRmX
+	 RGfWv776A9M5DdWrONyX3UluBAo//ouIVD4GlnqfJmLYmgxG+cxXo7deuEwlEEEjCb
+	 MiFOa9IU3UB2A==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.phl.internal (Postfix) with ESMTP id DF046F40119;
+	Mon, 13 Jul 2026 09:32:10 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Mon, 13 Jul 2026 09:32:10 -0400
+X-ME-Sender: <xms:2uhUajOJ6o0IkHECCjHAkKUVhPE0Boq32n16IxuwUb8qx_me03fgwg>
+    <xme:2uhUaua0NvhWILEF9Sxf9_9wz151PQ8fPiEp73LaeMgWC-DQJaiXxn4HYApdFNqVD
+    pkxd-bsOBJpRWdPvlmMSXRDek6HhjKp5vhX3BvtHxdpR6RBZu_qS1H->
+X-ME-Received: <xmr:2uhUajtAPLpWxfCImZEQ7-lfeyLnIftK-qeVlUcWfWQghfbRNQiHsjuNUz5QMA>
+X-ME-Proxy-Cause: dmFkZTGZpmVpeDsjZ8Vo2Jq64/2U20HFa/JrgfKn6CiNifuBo1pzPMXk0a4NqT0VMciG8K
+    SugdcXNhzIz2GGRAcNPbldLn+3yx1gRLwC0eqh8SjcuMzzoyAOiQcW15pHkFoUU8sU93Ol
+    20upXRjRc9bBvKSvF+ldu18a4Su7mlFUTAvgOHmfQ4EOLFyHDZ9CXRB5B0cLlRIRNNuJ69
+    LDPcIZFQurDXONw9w7x2l+i30vbvXOnao60OZfbfVAcAC/fcUzZNKRbLUxuPN7zU2u+h2L
+    lu3b55TVWwqQsO6vcM7WnlDCmGUWatjBJ4CSoYLZcP+x21iYiTGDYJ0lfqOuP9kAzP2JPg
+    j8w8DwhG5wOdhN2Rk3Rdg8n9nLNaujJTGC620J5zoH7n5t3hX39aCaLsRBN9JGDO7mcmWL
+    IzaLYY9N+V442PvDjYSTXuP4EHvI6v+fcV6Q/yTDaPZDQgnHPe1yyzGNJzxCUjaYKCCdpO
+    z/OkCkLFvQT3MiYbDmeWq3a8qm4Z/Agi5IGGkB4PZs8GgeaaaXu1uHQ/ufm4VZ9+64V+QE
+    8QtfNFMPv+xm7WYMT9O2psU2UIaozivzoRxbp2UTRKG5DvsMUoVZyOCnD4i8d0NJq/Rqe9
+    jTIL8srd7T6/FERCHRYF/A9blfowGsOrxRZc+ML2aNnL8IwcxIqNnPaId1jw
+X-ME-Proxy: <xmx:2uhUanuCa_oH3IVyt_HoThgNWUvv1acMMJfbjC90H2Nq77p1x1F7Lw>
+    <xmx:2uhUaq189DO0V2p_spqOaFhIiqFBrCec7III9gjx4U0IMtDvOnqvgQ>
+    <xmx:2uhUasO-I4V3wpEwkUedoK1wopX28y3s7esdQvgnTjYsrDF-dVm1hg>
+    <xmx:2uhUan593b1xCOHaLKH3StbrybHDors6AC91jhpaHmP9qnHIgWbSqw>
+    <xmx:2uhUara1OWRFLjD_9gN1CsUt5A0pYmkwSJBsl-81U2gW-oJMg0OqiWDs>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 13 Jul 2026 09:32:09 -0400 (EDT)
+Date: Mon, 13 Jul 2026 14:32:09 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ 	Suren Baghdasaryan <surenb@google.com>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ 	Vlastimil Babka <vbabka@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ 	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, 	Uladzislau Rezki <urezki@gmail.com>,
+ Toshi Kani <toshi.kani@hpe.com>,
+ 	Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>,
+ 	Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, 	Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ 	"H. Peter Anvin" <hpa@zytor.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ 	Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, 	David Carlier <devnexen@gmail.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 	bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
+ 	syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+Subject: Re: [PATCH mm-hotfixes v2 0/4] mm: fix UAF caused by race between
+ ptdump and vmap pgtable freeing
+Message-ID: <alTn7NguEW_4bodu@thinkstation>
+References: <20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org>
 
+On Sun, Jul 12, 2026 at 11:42:23AM +0100, Lorenzo Stoakes wrote:
+> This series addresses the issue by having the vmap huge promotion
+> logic acquire the mmap read lock while both setting the huge page
+> table entry and freeing the prior leaf page table.
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Hi Lorenzo,
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Before we settle on the mmap lock scheme, have you considered handling
+this the way GUP-fast handles page table freeing -- RCU-defer the free
+and make ptdump a lockless walker?
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x e373c789bac0ad73b472d8b44714df3bd18a4edf
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071339-saint-vicinity-7295@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+The locking here is inverted from what one would normally expect
+(walker takes the write lock, mutators take read locks, mutators safe
+against each other only by range ownership). It works, but it is
+subtle, it is what produced the arm64 deadlock and the ifdeffery, and
+it depends on every current and future freeing site remembering the
+rule -- patch 3 exists because two walkers did not fit the scheme.
 
-Possible dependencies:
+The free side looks cheap: kernel page table freeing already funnels
+through pagetable_free_kernel(), which already has a deferred path
+(used for IOMMU SVA). Adding a grace period there -- synchronize_rcu()
+in the worker, amortized over the batch -- covers every freeing site
+by construction.
 
+On the walk side, nothing on the ptdump path can sleep -- the pagewalk
+core only allocates for install_pte ops, kernel PTE level uses
+pte_offset_kernel(), and the arch note_page() implementations are
+seq_printf()/printk() into a preallocated buffer. So the walk could run
+under rcu_read_lock() as is. The real work is bounding the read-side
+sections: a full walk can take dozens of seconds on a KASAN kernel per
+the comment in mm/ptdump.c, so it would need to drop RCU and
+cond_resched() periodically, re-descending from the top. Note we
+currently hold the init_mm mmap write lock across those same dozens of
+seconds, and this series makes that load-bearing: during a long walk
+every promotion trylock fails, silently degrading vmalloc to small
+pages, and CPA collapse blocks.
 
+That would give us: no inverted locking, no arm64 deadlock possibility
+(your patch 4 stands on its own), the patch 3 walkers covered
+structurally rather than by locking init_mm as well, and ptdump
+invisible to production paths.
 
-thanks,
+Given the live UAF, this could also be a follow-up rather than a
+respin. But I would like to hear whether you see a fatal flaw in the
+approach first.
 
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From e373c789bac0ad73b472d8b44714df3bd18a4edf Mon Sep 17 00:00:00 2001
-From: Ziyao Li <liziyao@uniontech.com>
-Date: Sun, 12 Apr 2026 18:17:31 +0800
-Subject: [PATCH] PCI: loongson: Override PCIe bridge supported speeds for
- Loongson-3C6000 series
-
-Older steppings of the Loongson-3C6000 series incorrectly report the
-supported link speeds on their PCIe bridges (device IDs 0x3c19, 0x3c29)
-as only 2.5 GT/s, despite the upstream bus supporting speeds from
-2.5 GT/s up to 16 GT/s.
-
-As a result, since commit 774c71c52aa4 ("PCI/bwctrl: Enable only if more
-than one speed is supported"), bwctrl will be disabled if there's only
-one 2.5 GT/s value in vector 'supported_speeds'.
-
-Manually override the 'supported_speeds' field for affected PCIe bridges
-with those found on the upstream bus to correctly reflect the supported
-link speeds.  Updating the speeds to reflect what the hardware actually
-supports avoids quirks in drivers consuming the speed information.
-
-This commit was originally found from AOSC OS[1].
-
-Fixes: cd89edda4002 ("PCI: loongson: Add ACPI init support")
-Signed-off-by: Ayden Meng <aydenmeng@yeah.net>
-Signed-off-by: Mingcong Bai <jeffbai@aosc.io>
-[Ziyao Li: move from drivers/pci/quirks.c to drivers/pci/controller/pci-loongson.c]
-Signed-off-by: Ziyao Li <liziyao@uniontech.com>
-[Xi Ruoyao: Fixed falling through logic, added debug log, Fixes tag and rebased to 7.0-rc7]
-Signed-off-by: Xi Ruoyao <xry111@xry111.site>
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
-[bhelgaas: commit log, https://lore.kernel.org/all/9d815df3b33a63223112b97440c01247935363c1.camel@xry111.site]
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Tested-by: Lain Fearyncess Yang <fsf@live.com>
-Tested-by: Ayden Meng <aydenmeng@yeah.net>
-Tested-by: Mingcong Bai <jeffbai@aosc.io>
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-Cc: stable@vger.kernel.org
-Link: https://github.com/AOSC-Tracking/linux/commit/4392f441363abdf6fa0a0433d73175a17f493454
-Link: https://github.com/AOSC-Tracking/linux/pull/2 #1
-Link: https://patch.msgid.link/20260412101731.107059-1-xry111@xry111.site
-
-diff --git a/drivers/pci/controller/pci-loongson.c b/drivers/pci/controller/pci-loongson.c
-index de5e809a537d..d0c643996476 100644
---- a/drivers/pci/controller/pci-loongson.c
-+++ b/drivers/pci/controller/pci-loongson.c
-@@ -177,6 +177,42 @@ static void loongson_pci_msi_quirk(struct pci_dev *dev)
- }
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_LOONGSON, DEV_LS7A_PCIE_PORT5, loongson_pci_msi_quirk);
- 
-+/*
-+ * Older steppings of the Loongson-3C6000 series incorrectly report the
-+ * supported link speeds on their PCIe bridges (device IDs 0x3c19,
-+ * 0x3c29) as only 2.5 GT/s, despite the upstream bus supporting speeds
-+ * from 2.5 GT/s up to 16 GT/s.
-+ */
-+static void loongson_pci_bridge_speed_quirk(struct pci_dev *pdev)
-+{
-+	u8 old_supported_speeds = pdev->supported_speeds;
-+
-+	switch (pdev->bus->max_bus_speed) {
-+	case PCIE_SPEED_16_0GT:
-+		pdev->supported_speeds |= PCI_EXP_LNKCAP2_SLS_16_0GB;
-+		fallthrough;
-+	case PCIE_SPEED_8_0GT:
-+		pdev->supported_speeds |= PCI_EXP_LNKCAP2_SLS_8_0GB;
-+		fallthrough;
-+	case PCIE_SPEED_5_0GT:
-+		pdev->supported_speeds |= PCI_EXP_LNKCAP2_SLS_5_0GB;
-+		fallthrough;
-+	case PCIE_SPEED_2_5GT:
-+		pdev->supported_speeds |= PCI_EXP_LNKCAP2_SLS_2_5GB;
-+		break;
-+	default:
-+		pci_warn(pdev, "unexpected max bus speed");
-+
-+		return;
-+	}
-+
-+	if (pdev->supported_speeds != old_supported_speeds)
-+		pci_info(pdev, "fixed up supported link speeds: 0x%x => 0x%x",
-+			 old_supported_speeds, pdev->supported_speeds);
-+}
-+DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_LOONGSON, 0x3c19, loongson_pci_bridge_speed_quirk);
-+DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_LOONGSON, 0x3c29, loongson_pci_bridge_speed_quirk);
-+
- static struct loongson_pci *pci_bus_to_loongson_pci(struct pci_bus *bus)
- {
- 	struct pci_config_window *cfg;
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
