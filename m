@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB791430785
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:46:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC923F7899
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:46:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950376; cv=none; b=VZwbC+8xwK5tt1Lg49Znoj6l4WFtA/MBpybSDGBygnpv9YNW5YOHaT3jslArr3TYV2dVr+Duf8fATF3SluhxQU1mYKo/P5FXXKNm80poXTwt/gR6JZxKsXpcy1weSB/H+UAROAUHM0osWbcDp+m9SfVOOgTBpEUMkzzA8HzbIyY=
+	t=1783950377; cv=none; b=tKxpBJSTL4Rvu5jCc01WwZQ1S/+gXsttt0EyYla/YIhNJG1eVk/Ou052iMAkx0+ARDjM2KfJcshViaZA7UKIPd/hvrkOUocJ7zfKXGs0N6NMs4ObOmgHH/8ItTravK3PY7ev9H7gI+5k5dE2JmQwb/WEpXTaaJb6dLg4bOpLGJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950376; c=relaxed/simple;
-	bh=Oa0Q1qNT1dXVjH+ViAMvtUdrDdzZgtwFLkPVXbBHXOM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LjymwxLvB/Ozpu4MRMmx8MxLEDfRcC4ZsciU0M+GPh4MiM5fI7nKUEes5tKIeCEWDbonO/gc4u/YjE8vUhyycz+jQAWxs4NxdIdPbsR/tEX5eu/PxoeJo/hpvFn/nhmRMAvzm2moP04MB51VeKnoK+W5iM5O1qDzQeJI1tfT2KY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=z2DIIpNf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950377; c=relaxed/simple;
+	bh=mj9Jei4Ggxb7QsHbuH4O9l0QtKculTZIxWo2fqgMPBw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EUVCAjrZyKLtjbO1UOMPU0HRST02KYphfxr+cMa36B13PAKFoFFXMefD1TFqVNaN4IJyRN4Oxnbz5TfWMr7h6NaHIgQOllqi7Fdn34ipoFCEHGsbKHU7VoIb746Y/yXLap2WEJUAj6VO43ujYE4FexGaxLALj02uXFPzRXf7aaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Fz0jvLcU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z2DIIpNf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECCA21F000E9;
-	Mon, 13 Jul 2026 13:46:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Fz0jvLcU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91C591F00A3D;
+	Mon, 13 Jul 2026 13:46:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783950373;
-	bh=I9x2nNVlF/CQ9OAMCsIC6JvnsR/9Bcf/3eBrzheuZcE=;
+	s=korg; t=1783950376;
+	bh=TdhHdcOXEoVaiE+vMaCy385YHzpMi9BUdGKGqIjPy3g=;
 	h=Subject:To:Cc:From:Date;
-	b=z2DIIpNfpuTuOywks24d5zzCCudfSDRQqlmFmXStuyCa42HPucv1QVdpqH/7PK4cw
-	 cXMKfPEqWGcwSN4t+oLxHKkiPJba3BX9xDvG14785ZUcOciLWMmQSIeWx1zs5TuHCM
-	 z38UToT1ZRCCto5ttM2mTYaT7hiU72w7IP72y0NY=
-Subject: FAILED: patch "[PATCH] coresight: etb10: restore atomic_t for shared reading state" failed to apply to 5.10-stable tree
-To: runyu.xiao@seu.edu.cn,james.clark@linaro.org,suzuki.poulose@arm.com
+	b=Fz0jvLcUyMpIkNhL8yq2jzE/6FT3IVDB0I0GeSf/L9PFntbnTLTTzF2AQkVWGunpu
+	 FxRi5vEKadfycQYMONv8FsWbu4xiPfebUyHrQxbZu3TuWPMxbFsSb2NjQYRl1eN8ES
+	 p3GX7sLZt6jnb6W2lEzztd0XPsIpeHl4je9inOlI=
+Subject: FAILED: patch "[PATCH] gpio: sch: use raw_spinlock_t in the irq startup path" failed to apply to 6.6-stable tree
+To: runyu.xiao@seu.edu.cn,andriy.shevchenko@intel.com,bartosz.golaszewski@oss.qualcomm.com,bigeasy@linutronix.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:36:25 +0200
-Message-ID: <2026071325-earthly-clothes-8ff0@gregkh>
+Date: Mon, 13 Jul 2026 15:39:21 +0200
+Message-ID: <2026071321-marshy-mountain-21a1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x fa09f08ede3db3050ae16ae1ed92c902d0cada23
+git cherry-pick -x 286533cb14a3c8a8bd39ff64ea2fc8e1aa0f638b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071325-earthly-clothes-8ff0@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071321-marshy-mountain-21a1@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,117 +62,157 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From fa09f08ede3db3050ae16ae1ed92c902d0cada23 Mon Sep 17 00:00:00 2001
+From 286533cb14a3c8a8bd39ff64ea2fc8e1aa0f638b Mon Sep 17 00:00:00 2001
 From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Fri, 29 May 2026 00:52:01 +0800
-Subject: [PATCH] coresight: etb10: restore atomic_t for shared reading state
+Date: Wed, 17 Jun 2026 23:40:34 +0800
+Subject: [PATCH] gpio: sch: use raw_spinlock_t in the irq startup path
 
-The etb10 miscdevice uses drvdata->reading as a shared exclusivity gate
-for userspace buffer access. etb_open() claims that gate with
-local_cmpxchg(), and etb_release() clears it with local_set().
+sch_irq_unmask() enables the GPIO IRQ and then updates the controller
+state through sch_irq_mask_unmask(), which takes sch->lock with
+spin_lock_irqsave().  The callback can be reached from irq_startup()
+while setting up a requested IRQ.  That path is not sleepable, but on
+PREEMPT_RT a regular spinlock_t becomes a sleeping lock.
 
-That gate is shared per-device state rather than CPU-local state. A
-running system can reach it whenever /dev/<etb> is opened, closed, and
-reopened by different tasks while the device remains registered, so the
-same drvdata->reading variable may be claimed on one CPU and later
-cleared on another.
+This issue was found by our static analysis tool and then manually
+reviewed against the current tree.
 
-This code used to use atomic_t for the same gate, but commit
-27b10da8fff2 ("coresight: etb10: moving to local atomic operations")
-changed it to local_t even though the access pattern remained cross-task
-and cross-CPU. Restore atomic_t together with atomic_cmpxchg() and
-atomic_set() so the exclusivity gate again uses a primitive intended
-for shared state.
+The grounded PoC kept the request_threaded_irq() -> __setup_irq() ->
+irq_startup() -> sch_irq_unmask() -> sch_irq_mask_unmask() carrier and
+used the original spin_lock_irqsave(&sch->lock) edge.  Lockdep reported:
 
-The issue was found on Linux v6.18.21 by our static analysis tool while
-scanning surviving local_t-on-shared-state sites, and then manually
-reviewed against the live etb10 file-op path.
+  BUG: sleeping function called from invalid context
+  hardirqs last disabled at ... __setup_irq.constprop.0 ... [vuln_msv]
+  sch_rt_spin_lock_irqsave+0x1c/0x30 [vuln_msv]
+  sch_irq_mask_unmask.constprop.0+0x31/0x70 [vuln_msv]
+  __setup_irq.constprop.0+0xd/0x30 [vuln_msv]
 
-It was runtime-validated with a reproducible QEMU no-device KCSAN PoC
-that kept the same report-local contract:
+Convert the SCH controller lock to raw_spinlock_t.  The same lock is
+also used by the GPIO direction and value callbacks, but those critical
+sections only update MMIO-backed GPIO registers and do not contain
+sleepable operations.  Keeping this register lock non-sleeping is
+therefore appropriate for the irqchip callbacks and does not change the
+GPIO-side locking contract.
 
-  1. use one shared struct etb_drvdata carrier and its
-     drvdata->reading gate;
-  2. call etb_open() and etb_release() sequentially on that gate to
-     confirm the original claim/clear path;
-  3. bind the open side to CPU0 and the release side to CPU1 for the
-     same gate to show cross-CPU ownership;
-  4. run bound workers that repeatedly race etb_open() and
-     etb_release() on the same gate until KCSAN reports a target hit.
-
-The harness recorded:
-
-  L1 passed open=1 release=1
-  reading_after_open=1 reading_after_release=0
-  L2 passed open_cpu=0 release_cpu=1
-  cross_cpu_release=1 reading_after=0 open_ret=0
-
-Representative KCSAN excerpt from the no-device validation run:
-
-  BUG: KCSAN: data-race in etb_open.constprop.0.isra.0 [vuln_msv]
-
-  write to 0xffffffffc0003810 of 4 bytes by task 216 on cpu 1:
-   etb_open.constprop.0.isra.0+0x38/0x80 [vuln_msv]
-   l3_worker_thread_fn+0x4f/0xf0 [vuln_msv]
-   kthread+0x17e/0x1c0
-   ret_from_fork+0x22/0x30
-
-  read to 0xffffffffc0003810 of 4 bytes by task 215 on cpu 0:
-   etb_open.constprop.0.isra.0+0x18/0x80 [vuln_msv]
-   l3_worker_thread_fn+0x4f/0xf0 [vuln_msv]
-   kthread+0x17e/0x1c0
-   ret_from_fork+0x22/0x30
-
-  value changed: 0x00000000 -> 0x00000001
-
-  Reported by Kernel Concurrency Sanitizer on:
-  CPU: 0 PID: 215 Comm: etb10_l3_a Tainted: G           O       6.1.66 #2
-
-This no-device harness is not a real ETB10 hardware end-to-end run, but
-it preserves the same shared drvdata->reading gate and the same
-etb_open()/etb_release() claim/clear contract. No real ETB10 hardware
-was available for runtime testing.
-
-Build-tested with:
-  make olddefconfig
-  make -j"$(nproc)" drivers/hwtracing/coresight/coresight-etb10.o
-
-Fixes: 27b10da8fff2 ("coresight: etb10: moving to local atomic operations")
+Fixes: 7a81638485c1 ("gpio: sch: Add edge event support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Reviewed-by: James Clark <james.clark@linaro.org>
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-Link: https://lore.kernel.org/r/20260528165201.319452-1-runyu.xiao@seu.edu.cn
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Link: https://patch.msgid.link/20260617154035.1199948-2-runyu.xiao@seu.edu.cn
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
-index b952a1d47f12..a827f76b8144 100644
---- a/drivers/hwtracing/coresight/coresight-etb10.c
-+++ b/drivers/hwtracing/coresight/coresight-etb10.c
-@@ -83,7 +83,7 @@ struct etb_drvdata {
- 	struct coresight_device	*csdev;
- 	struct miscdevice	miscdev;
- 	raw_spinlock_t		spinlock;
--	local_t			reading;
-+	atomic_t		reading;
- 	pid_t			pid;
- 	u8			*buf;
- 	u32			buffer_depth;
-@@ -601,7 +601,7 @@ static int etb_open(struct inode *inode, struct file *file)
- 	struct etb_drvdata *drvdata = container_of(file->private_data,
- 						   struct etb_drvdata, miscdev);
+diff --git a/drivers/gpio/gpio-sch.c b/drivers/gpio/gpio-sch.c
+index 966d16a6d515..5e361742a11a 100644
+--- a/drivers/gpio/gpio-sch.c
++++ b/drivers/gpio/gpio-sch.c
+@@ -39,7 +39,7 @@
+ struct sch_gpio {
+ 	struct gpio_chip chip;
+ 	void __iomem *regs;
+-	spinlock_t lock;
++	raw_spinlock_t lock;
+ 	unsigned short resume_base;
  
--	if (local_cmpxchg(&drvdata->reading, 0, 1))
-+	if (atomic_cmpxchg(&drvdata->reading, 0, 1))
- 		return -EBUSY;
+ 	/* GPE handling */
+@@ -104,9 +104,9 @@ static int sch_gpio_direction_in(struct gpio_chip *gc, unsigned int gpio_num)
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
  
- 	dev_dbg(&drvdata->csdev->dev, "%s: successfully opened\n", __func__);
-@@ -639,7 +639,7 @@ static int etb_release(struct inode *inode, struct file *file)
- {
- 	struct etb_drvdata *drvdata = container_of(file->private_data,
- 						   struct etb_drvdata, miscdev);
--	local_set(&drvdata->reading, 0);
-+	atomic_set(&drvdata->reading, 0);
- 
- 	dev_dbg(&drvdata->csdev->dev, "%s: released\n", __func__);
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GIO, 1);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
  	return 0;
+ }
+ 
+@@ -122,9 +122,9 @@ static int sch_gpio_set(struct gpio_chip *gc, unsigned int gpio_num, int val)
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GLV, val);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 
+ 	return 0;
+ }
+@@ -135,9 +135,9 @@ static int sch_gpio_direction_out(struct gpio_chip *gc, unsigned int gpio_num,
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GIO, 0);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 
+ 	/*
+ 	 * according to the datasheet, writing to the level register has no
+@@ -196,14 +196,14 @@ static int sch_irq_type(struct irq_data *d, unsigned int type)
+ 		return -EINVAL;
+ 	}
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 
+ 	sch_gpio_reg_set(sch, gpio_num, GTPE, rising);
+ 	sch_gpio_reg_set(sch, gpio_num, GTNE, falling);
+ 
+ 	irq_set_handler_locked(d, handle_edge_irq);
+ 
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 
+ 	return 0;
+ }
+@@ -215,9 +215,9 @@ static void sch_irq_ack(struct irq_data *d)
+ 	irq_hw_number_t gpio_num = irqd_to_hwirq(d);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GTS, 1);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ }
+ 
+ static void sch_irq_mask_unmask(struct gpio_chip *gc, irq_hw_number_t gpio_num, int val)
+@@ -225,9 +225,9 @@ static void sch_irq_mask_unmask(struct gpio_chip *gc, irq_hw_number_t gpio_num,
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GGPE, val);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ }
+ 
+ static void sch_irq_mask(struct irq_data *d)
+@@ -268,12 +268,12 @@ static u32 sch_gpio_gpe_handler(acpi_handle gpe_device, u32 gpe, void *context)
+ 	int offset;
+ 	u32 ret;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 
+ 	core_status = ioread32(sch->regs + CORE_BANK_OFFSET + GTS);
+ 	resume_status = ioread32(sch->regs + RESUME_BANK_OFFSET + GTS);
+ 
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 
+ 	pending = (resume_status << sch->resume_base) | core_status;
+ 	for_each_set_bit(offset, &pending, sch->chip.ngpio)
+@@ -343,7 +343,7 @@ static int sch_gpio_probe(struct platform_device *pdev)
+ 
+ 	sch->regs = regs;
+ 
+-	spin_lock_init(&sch->lock);
++	raw_spin_lock_init(&sch->lock);
+ 	sch->chip = sch_gpio_chip;
+ 	sch->chip.label = dev_name(dev);
+ 	sch->chip.parent = dev;
 
