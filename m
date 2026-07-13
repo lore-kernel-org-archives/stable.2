@@ -1,241 +1,171 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B333DE425;
-	Mon, 13 Jul 2026 09:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AB03D647F
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 09:12:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783933699; cv=none; b=lV5FFdBhX58YwTg31hlzMr1Vo+NeLK3N4X7hlweS0ymR60m2SFnYbtZrgTZ6Vr025vUGzo69Iilc74bqB5YxRw56bglwF0bh6BjqKcLEr80hB6DF/3HIs7xMEtO8hZOBK2AFMkMLmLJ+DlXgSe7o1SvppXigPbHGFpCfp2kSiEM=
+	t=1783933924; cv=none; b=EtiBqzwb/NtM03ES+IZq31EzunWAb90u+PHSFW2yRk4OwEL0Z7o4VhbSnbnXJI5VXiAyo3KlbxfluR4f++U41N5DO2bhkLkcQrZAX21hxiVjLuOa5AHEDxNso1Eo1D7TU+qBCSKGH/l6OSdJk2kjgNXYoLiP3OdjQk8zQF4Vckg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783933699; c=relaxed/simple;
-	bh=H2AUnpcM7vGdfeo0oaTmK0c1rHLcYnkUgNEUg+kogJc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PKostjkqETBIb5FLFZv4+K0wEduLIKPqwTQJgfskbWZBJaep5hq0nKDSVggmV9WFbgQd1gfFovxKQ9qVFKJTpaYeiIFppiyJb6wNowbWSp8Bfc2qouoAUcbkQx3HBpLN5sqVQEB/ZXK175RrXv33gxCPVdFijueAF2hUT6xw6MQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mmtA9XGg; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mmtA9XGg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783933696; x=1815469696;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=H2AUnpcM7vGdfeo0oaTmK0c1rHLcYnkUgNEUg+kogJc=;
-  b=mmtA9XGgdeKJoZf1F20bRczPeOUvG0bE+eNJKQ+O3xv8TlxnTnRRNdZo
-   dUKDGxayi034/likg4UG0BCHt3VoKf6jSB3DmzWR+HikLnHXTpFX6CeyO
-   DJxrwUJGA+37lB8uNOKi3riHjoNYukGiddZ/zJk7GnW6UzHNsPzK9/u6A
-   dlmyQzt0nhWQ1ZWxcykdPBAp9A8yIT5KFzQK2DpVIqAm9iSXt2klUaCgt
-   eybXGXQh7+q7ytG2rPz0Wd2LrlE5mJOz5yPiEDJecr3AJWVDd0dD6eLt1
-   gEgLZD89YJHhN7/M7mpE/cvuU49FE7KXrAMAxO/47JqVOiK5VPgSpj0zl
-   g==;
-X-CSE-ConnectionGUID: ZipU0zqkTs+QQikjHcz9gg==
-X-CSE-MsgGUID: ZkELZ/uUTIGeiwmwsirrjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83653595"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="83653595"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 02:08:15 -0700
-X-CSE-ConnectionGUID: Vhk4qVlcT5q8FvzEWKTcQw==
-X-CSE-MsgGUID: AJT3mAscTIKWsN4TKaW++w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="255571404"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa007.jf.intel.com with ESMTP; 13 Jul 2026 02:08:12 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id D6C1E95; Mon, 13 Jul 2026 11:08:10 +0200 (CEST)
-Date: Mon, 13 Jul 2026 12:08:09 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Andrei Kuchynski <akuchynski@chromium.org>
-Cc: Jameson Thies <jthies@google.com>, Benson Leung <bleung@chromium.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Pooja Katiyar <pooja.katiyar@intel.com>,
-	Johan Hovold <johan@kernel.org>,
-	Hsin-Te Yuan <yuanhsinte@chromium.org>,
-	Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>,
-	Linyu Yuan <quic_linyyuan@quicinc.com>,
-	Jack Pham <quic_jackp@quicinc.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: Fix race condition and ordering in
- port unregistration
-Message-ID: <alSq-cD0_fdhA3tU@kuha>
-References: <20260707141736.1635698-1-akuchynski@chromium.org>
+	s=arc-20240116; t=1783933924; c=relaxed/simple;
+	bh=c5+FxcOGmAmceHhtPcpLKMS/cB4l1dpKb753xDlDMDw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=L3XjdHabEUAk5ozIorzL7FXdkxcvPEhjJ9XzF2nOwfkuZAlDqfnRatoDIdIvHlHihoY8FNIUI7BZQ5gZTooQFUfC9ML+Vb0zAVZCONC0L//R2E1ubEU/b/KMVXD26lgBkEIz9KXWRv/EFEj9LR0SEqjcXQB0pbOxgOn4sf5xTGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5bfaf91daa2so634700e0c.0
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 02:12:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783933922; x=1784538722;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=W0GhslFIBhV7HjGc4JTm9mx3d3RqP/ws4R5ft90HGkM=;
+        b=TyZQOnCejI8S5WlD6Yw2beyqLtiJTrSCTv53BMpl5pY/udeWjcT9qnsDmeQujoQVMJ
+         NWGT4x9TIbAWrFcT9Be0Jo9LaML8blDeAbiFnzd9lFSj8IwxIJn7ARKyDWE/HmwwtxV0
+         brP7PcJARAr2eX4tSmopr7+NrTAKyD+VpJaIR8xmcCi25OOSNv5fNx7aWMQZE07cF70L
+         HzVYk3mG98bqQYzLhs95pIzpAAwAuK8/2flEoqCTeEXEAtOIoE/IkOtnBMbMouKAerr4
+         s6KumehOCmwLrWokdZRsbYfEfeSJp/20fPT56C9BuwU0DMik9LiwCIzwqUqcxCtxY6DC
+         9z5A==
+X-Forwarded-Encrypted: i=1; AHgh+RpR90kXFH3Q23FekuSHe/UtbJ0eC3wQUuCg7zq4NSjs+Nlz+iCDr8CKnkjRKeV98iXUIld3oSY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxjbAp/e9R6rA1NULRmrZ/v5zZ+mb9J1OzILmw7KMFn8onsXexa
+	myO+UW7MoaaLncczBWNeVTfBSdauwqamK/tqsZCMontTpV3k663gVAZEmDAxSCuR
+X-Gm-Gg: AfdE7ck83vicRgAahAVdtz9fS6BDIUZTGpuTTzFcYzYZBgLPZInWo+wf8XLNgne/fwx
+	a25Zqf/LkEI4DaVWrAbbO5cmAF1SUc2+PqTH6Ezf7rRYjbokUwTNSFTx6jd50FgJNSBcMYb6Tip
+	YcMtQIuaBxF5ZZ+uRBaxDVx2SDWEX7fx/tMFQWLyGCu4yxAO0sNEBCeiAlrwqiz80Fxj6Ihrdj1
+	r9tUsqjtsEuLrAekgfhuRmt7LdVRsG1SfIHG4fi5/wuuLvOuZ/ut8um0thupG79UNwnLSVlr5Sw
+	YFn4SB0STyZDGUqJLycnZ8iw1w4QRBfFmuIawacoG8OsAG3TE8GaDHSu/hEudSp9lnmfLkmmRsD
+	W7cqDRB9DnDJACZVgtuj2/T0/6jt5FFTgvJ6y7fpHOhCWN0HwM8zjU/ev5VhSKeI/AHb2DNk9Tx
+	Z5uUvnuTFpxLk7fxgGxiVZf57U3pFqInjOgOijh3MBFoqYL5uk00YwkQ==
+X-Received: by 2002:a05:6122:50a:b0:5bd:aa13:c9a6 with SMTP id 71dfb90a1353d-5bfbed583f7mr5056632e0c.0.1783933922075;
+        Mon, 13 Jul 2026 02:12:02 -0700 (PDT)
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com. [209.85.221.174])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bf6f8f4283sm8541512e0c.17.2026.07.13.02.11.58
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Jul 2026 02:12:00 -0700 (PDT)
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5bf62388d17so1051179e0c.3
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 02:11:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq51p19Kbe1YQ+2IkB3G/oOWdXySylNvI6O00kNVfOPlJ0iMRydiPrMJoi25gg61Ebn0O5UixA=@vger.kernel.org
+X-Received: by 2002:a05:6122:4881:b0:5bd:ddab:59a7 with SMTP id
+ 71dfb90a1353d-5bfbf36c0c7mr4476532e0c.10.1783933918601; Mon, 13 Jul 2026
+ 02:11:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260707141736.1635698-1-akuchynski@chromium.org>
+References: <20260710160450.64967-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260710160450.64967-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 13 Jul 2026 11:11:47 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUQJ8mzUi0birB5f1KnCMX_QufHTgYB7AW=d3ZoFer+Yg@mail.gmail.com>
+X-Gm-Features: AUfX_mx2_XwwyHYURvzuCSrFPVED98PoIu91Ql66CsUnywXi7izjAFqbWrYeOLo
+Message-ID: <CAMuHMdUQJ8mzUi0birB5f1KnCMX_QufHTgYB7AW=d3ZoFer+Yg@mail.gmail.com>
+Subject: Re: [PATCH v2] arm64: dts: renesas: ironhide: Describe inline ECC carveouts
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Tue, Jul 07, 2026 at 02:17:36PM +0000, Andrei Kuchynski kirjoitti:
-> A synchronization issue exists during port unregistration where pending
-> partner work items can race against workqueue destruction, leading to
-> use-after-free conditions:
-> 
->   cros_ec_ucsi cros_ec_ucsi.3.auto: error -ETIMEDOUT: PPM init failed
->   BUG: kernel NULL pointer dereference, address: 0000000000000000
->   RIP: 0010:__queue_work+0x83/0x4a0
->   Call Trace:
->     <IRQ>
->     __cfi_delayed_work_timer_fn+0x10/0x10
->     run_timer_softirq+0x3b6/0xbd0
->     sched_clock_cpu+0xc/0x110
->     irq_exit_rcu+0x18d/0x330
->     fred_sysvec_apic_timer_interrupt+0x5e/0x80
-> 
-> Fix this by ensuring strict ordering and proper serialization during
-> teardown:
-> 
-> 1. Move ucsi_unregister_partner() to the beginning of the teardown
-> sequence and protect it under the connector mutex lock.
-> 2. Ensure all pending partner tasks are explicitly flushed and finished
-> before the workqueue is destroyed.
-> 3. Switch from mod_delayed_work() to a cancel_delayed_work() and
-> queue_delayed_work() sequence. This guarantees that items currently marked
-> as pending won't be scheduled an additional time, preventing a double
-> release of resources which leads to the following crash:
-> 
->   Oops: general protection fault, probably for non-canonical address
->     0xdead000000000122: 0000 [#1] SMP NOPTI
->   Workqueue: cros_ec_ucsi.3.auto-con2 ucsi_poll_worker
->   RIP: 0010:ucsi_poll_worker+0x65/0x1e0
->   Call Trace:
->   <TASK>
->     process_scheduled_works+0x218/0x6d0
->     worker_thread+0x188/0x3f0
->     __cfi_worker_thread+0x10/0x10
->     kthread+0x226/0x2a0
-> 
-> To ensure these rules are applied identically across both the normal
-> teardown and the ucsi_init() error paths, consolidate the cleanup logic
-> into a new helper, ucsi_unregister_port().
-> 
+Hi Marek,
+
+On Fri, 10 Jul 2026 at 18:05, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> The DBSC5 DRAM controller protects DRAM content using inline ECC.
+> The inline ECC utilizes areas of DRAM for its operation, which are
+> in the DRAM address range, but must not be accessed or modified.
+> Describe the inline ECC carveout areas used by the DBSC5 controller
+> on this hardware as reserved-memory, which must not be accessed.
+> Include DRAM areas which are unprotected by ECC as well, those are
+> parts of the DRAM which directly precede the ECC carveout.
+>
+> In case of high DRAM utilization, unless the inline ECC carveouts
+> are properly reserved, Linux may use and corrupt the memory used
+> by the DBSC5 DRAM controller for inline ECC, which would lead to
+> the system becoming unstable.
+>
+> Fixes: ad142a4ef710 ("arm64: dts: renesas: r8a78000: Add initial Ironhide board support")
 > Cc: stable@vger.kernel.org
-> Fixes: b9aa02ca39a4 ("usb: typec: ucsi: Add polling mechanism for partner tasks like alt mode checking")
-> Fixes: b13abcb7ddd8 ("usb: typec: ucsi: Fix NULL pointer access")
-> Fixes: fac4b8633fd6 ("usb: ucsi: Ensure connector delayed work items are flushed")
-> Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> V2: Include the unprotected data areas as well
 
-> ---
->  drivers/usb/typec/ucsi/ucsi.c | 82 +++++++++++++++++------------------
->  1 file changed, 39 insertions(+), 43 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-> index 92166a3725b16..d9668ed7c80ea 100644
-> --- a/drivers/usb/typec/ucsi/ucsi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi.c
-> @@ -1845,6 +1845,42 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
->  	return ret;
->  }
->  
-> +static void ucsi_unregister_port(struct ucsi_connector *con)
-> +{
-> +	struct ucsi_work *uwork;
-> +
-> +	if (con->wq) {
-> +		mutex_lock(&con->lock);
-> +		ucsi_unregister_partner(con);
-> +		/*
-> +		 * queue delayed items immediately so they can execute
-> +		 * and free themselves before the wq is destroyed
-> +		 */
-> +		list_for_each_entry(uwork, &con->partner_tasks, node) {
-> +			if (cancel_delayed_work(&uwork->work))
-> +				queue_delayed_work(con->wq, &uwork->work, 0);
-> +		}
-> +		mutex_unlock(&con->lock);
-> +
-> +		destroy_workqueue(con->wq);
-> +		con->wq = NULL;
-> +	} else {
-> +		ucsi_unregister_partner(con);
-> +	}
-> +
-> +	ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
-> +	ucsi_unregister_port_psy(con);
-> +
-> +	usb_power_delivery_unregister_capabilities(con->port_sink_caps);
-> +	con->port_sink_caps = NULL;
-> +	usb_power_delivery_unregister_capabilities(con->port_source_caps);
-> +	con->port_source_caps = NULL;
-> +	usb_power_delivery_unregister(con->pd);
-> +	con->pd = NULL;
-> +	typec_unregister_port(con->port);
-> +	con->port = NULL;
-> +}
-> +
->  static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
->  {
->  	u16 features = ucsi->cap.features;
-> @@ -1971,22 +2007,8 @@ static int ucsi_init(struct ucsi *ucsi)
->  	for (i = 0; i < ucsi->cap.num_connectors; i++)
->  		lockdep_unregister_key(&connector[i].lock_key);
->  
-> -	for (con = connector; con->port; con++) {
-> -		if (con->wq)
-> -			destroy_workqueue(con->wq);
-> -		ucsi_unregister_partner(con);
-> -		ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
-> -		ucsi_unregister_port_psy(con);
-> -
-> -		usb_power_delivery_unregister_capabilities(con->port_sink_caps);
-> -		con->port_sink_caps = NULL;
-> -		usb_power_delivery_unregister_capabilities(con->port_source_caps);
-> -		con->port_source_caps = NULL;
-> -		usb_power_delivery_unregister(con->pd);
-> -		con->pd = NULL;
-> -		typec_unregister_port(con->port);
-> -		con->port = NULL;
-> -	}
-> +	for (con = connector; con->port; con++)
-> +		ucsi_unregister_port(con);
->  	kfree(connector);
->  err_reset:
->  	memset(&ucsi->cap, 0, sizeof(ucsi->cap));
-> @@ -2194,33 +2216,7 @@ void ucsi_unregister(struct ucsi *ucsi)
->  
->  	for (i = 0; i < ucsi->cap.num_connectors; i++) {
->  		cancel_work_sync(&ucsi->connector[i].work);
-> -
-> -		if (ucsi->connector[i].wq) {
-> -			struct ucsi_work *uwork;
-> -
-> -			mutex_lock(&ucsi->connector[i].lock);
-> -			/*
-> -			 * queue delayed items immediately so they can execute
-> -			 * and free themselves before the wq is destroyed
-> -			 */
-> -			list_for_each_entry(uwork, &ucsi->connector[i].partner_tasks, node)
-> -				mod_delayed_work(ucsi->connector[i].wq, &uwork->work, 0);
-> -			mutex_unlock(&ucsi->connector[i].lock);
-> -			destroy_workqueue(ucsi->connector[i].wq);
-> -		}
-> -
-> -		ucsi_unregister_partner(&ucsi->connector[i]);
-> -		ucsi_unregister_altmodes(&ucsi->connector[i],
-> -					 UCSI_RECIPIENT_CON);
-> -		ucsi_unregister_port_psy(&ucsi->connector[i]);
-> -
-> -		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_sink_caps);
-> -		ucsi->connector[i].port_sink_caps = NULL;
-> -		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_source_caps);
-> -		ucsi->connector[i].port_source_caps = NULL;
-> -		usb_power_delivery_unregister(ucsi->connector[i].pd);
-> -		ucsi->connector[i].pd = NULL;
-> -		typec_unregister_port(ucsi->connector[i].port);
-> +		ucsi_unregister_port(&ucsi->connector[i]);
->  		lockdep_unregister_key(&ucsi->connector[i].lock_key);
->  	}
->  
-> -- 
-> 2.55.0.rc2.803.g1fd1e6609c-goog
+Thanks for the update!
 
--- 
-heikki
+With the ECC carveouts, Ironhide survives booting with "earlycon
+memtest=17".
+
+> --- a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+> +++ b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+> @@ -107,6 +107,47 @@ tee@8c400000 {
+>                         reg = <0x0 0x8c400000 0x0 0x02000000>;
+>                         no-map;
+>                 };
+> +
+> +               /* DRAM controller inline ECC areas */
+> +               ecc@10cccc0000 {
+> +                       reg = <0x10 0xcccc0000 0x0 0x33340000>;
+> +                       no-map;
+> +               };
+> +
+> +               ecc@12cccc0000 {
+> +                       reg = <0x12 0xcccc0000 0x0 0x33340000>;
+> +                       no-map;
+> +               };
+> +
+> +               ecc@14cccc0000 {
+> +                       reg = <0x14 0xcccc0000 0x0 0x33340000>;
+> +                       no-map;
+> +               };
+> +
+> +               ecc@16cccc0000 {
+> +                       reg = <0x16 0xcccc0000 0x0 0x33340000>;
+> +                       no-map;
+> +               };
+> +
+> +               ecc@18cccc0000 {
+> +                       reg = <0x18 0xcccc0000 0x0 0x33340000>;
+> +                       no-map;
+> +               };
+> +
+> +               ecc@1a66660000 {
+> +                       reg = <0x1a 0x66660000 0x0 0x999a0000>;
+> +                       no-map;
+> +               };
+> +
+> +               ecc@1c66660000 {
+> +                       reg = <0x1c 0x66660000 0x0 0x999a0000>;
+> +                       no-map;
+> +               };
+> +
+> +               ecc@1e66660000 {
+> +                       reg = <0x1e 0x66660000 0x0 0x999a0000>;
+> +                       no-map;
+> +               };
+
+Given all DB[0-7]FSDRAMECCAREA00 registers on Ironhide contain
+0x0000cccc (md.l e98[0-3][7f]450 1), I think the last 3 regions should
+start at offset 0xcccc0000 instead of 0x66660000, too.
+As a bonus, we get 4.8 GiB back ;-)
+
+>         };
+>  };
+>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
