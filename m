@@ -1,80 +1,78 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7743E5A2B
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 11:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DA53E9589
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 11:39:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783942751; cv=none; b=e2vYs8MEgaQGUJ+4mJv1e2B8/TDHP8DT4VgebrscqjkGBt/c8Lv1u2yLPFQBlFMhDCIPnJBLwb58h7lY1A/rK4wJL2fr81/0fBI8Tue2lCeh9FTzgZo2mEtdp7rXEJijYK2t9XvybWvdZP+qW/VAzrbrJBSLEsbhzKoPAmFQax8=
+	t=1783942798; cv=none; b=IHAbRyWPBN05SmxEf0GYBR/eyHD+eJsBk3S+MBjW3/oCzqB/RzbONRcU8g5zh8Ko6H/pTAtcgNhwhO9UqTFditnzMdgEbnjZBMbQSGkEd5UBMbf+GGPNZK+Zgd42JP/NNvyAxi0P2q7/pXQokP9jA5upMUhT2FbT18v8anvQWSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783942751; c=relaxed/simple;
-	bh=A4zo2+xQeX1vbXQna3iVpqkY6KIz76I1W77x/MUxy0U=;
+	s=arc-20240116; t=1783942798; c=relaxed/simple;
+	bh=HH8yJYozLc4qkKrr/HAaxxtxQon+M9HwA47b2g1ZfE0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cw73/CXyyhYCu72MGd9yLITi9gMPDNlrTQ774SxDCbAIdYygYua+tpn62J7EiQiEnH08SfrFIrDuHxBtqCaio5uhbSIuI/jLtWC02BPgm/8J53sc76ZbUuK10KFYW4MxznNy4THkTW6eSjaNA8wRRFj4YgtS3oi38XMDRiqSwDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=VA8CuCvg; arc=none smtp.client-ip=209.85.128.47
+	 Content-Type:Content-Disposition:In-Reply-To; b=BnweI9a7ycd427BBObi2OUDuxgUmbJ5U67jWgvMdhR5OIZ9exp6bK16mCd2Mbpe/3CAcA1Ii8p9wVyHQkx7+drO1jzUCLOnitosq9itwwJQ8TJl+8qQ92K9cPeCcTWtQHtuWW9rJe5XLiRzQ7EIVhZwmaqpPkuXnfTqL7AT0xdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=MBIf/ySZ; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="VA8CuCvg"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493b77b150aso25437275e9.2
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 04:39:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="MBIf/ySZ"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493c52cde9eso27544985e9.3
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 04:39:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1783942747; x=1784547547; darn=vger.kernel.org;
+        d=cmpxchg.org; s=google; t=1783942795; x=1784547595; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SyGrauJ6Z/D7QxLsQH4fnjbmvOpSdbv71QSALvp4E6s=;
-        b=VA8CuCvgfGGkCyqKmHeOkFtpBz32Tl6QHxXPxixf9osP8opwAIWCbsAwwYyUxgIiad
-         94hjON7VcI5h7qGfptpg+PsOVw1jSgDP1bsvQFGdho7u1E6mqFjVud2rSCN39mtGyFcr
-         escfbKYAw5x+LNSXeZqEgzOAYNa7MIk5DED5rfAuHptJjeWGsrTgud1fo1CtNm+DBNHS
-         fQSKKYbcA8zTBR/FPxNVAFzwjzdWmLOYP4uzmduu6MiwEhY3hAkyvM4ditxI8ZDtukML
-         JLGTjmj7EQ2GVRPKux3PbRm2UK29kEOVVeWqtz33oV7tmYq7WmBrNQIQmbFIDr4eXmsV
-         ylBg==
+        bh=uhEJSmb1zAc+1BJfU7rn0s0R4zfNHqR+TO6aCnEihGQ=;
+        b=MBIf/ySZmCVAhal4XZqddfeWpugm067UrkyGqM9wBcZCyIRCj2jTDSbA/RWy/nGRqj
+         mKA8nPiI4N/LAgtkGrBq/N3ktJRZCzvJdD0dObVPiBUzWdj/JER3x4g1cS0bNd+W5PCp
+         vMTRwkV6npDdYdaElPcziIrqFuWwFAIPXSZfOcu8Q5p9HD+NWAk9Uvk5mkCO3G06A8AA
+         bKuzNn1mc5Hiuj25kXgvHZ3sGyVjnfQ+SvDViTSmqes8b7eKJDSyeULnLNmcaAvkmVOm
+         Xp/H2VKhxfdBoWiuA9s2SKjqb3bV3X26514nxb+b1hpYlLpCQPC3xgFB9iRAgJ6jg8cD
+         aZZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783942747; x=1784547547;
+        d=1e100.net; s=20251104; t=1783942795; x=1784547595;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SyGrauJ6Z/D7QxLsQH4fnjbmvOpSdbv71QSALvp4E6s=;
-        b=rC5W+GklKfuCSXuA5SY0eob5dynkJLJX6iewiWKaMnPq6/iGMRxPECmG1vxO2p1g4d
-         v/0FaXYcWQ6OcZPANPAEgkzeDSRruF74fX3rKnPOiyx+/nItHQ16TjQ3flW+0kN5T84r
-         SMHU3lTEbHo15rX358qL8T29beGe+ngKfQRvgvKCEn79/kp6d0LOQnJp94oi2h540LkG
-         G7gi6huHv9zN5e8lLMs4jv5W+eJ59d1dbGViuP+WakZRQFdMq6JQz0+vTW5FM5qz022N
-         IX4nrEKjHdHhcXOtA8EINGaPWFYxamXxy5Y5cpHuo7pTEqD04Pbgp/iEwblVLITXvrET
-         Zo6A==
-X-Forwarded-Encrypted: i=1; AHgh+RqB76o3oFBtxLRK60ZCqoHguTiSqNA428kwRAdK/eXDOkOJ835dto489KsBRYus4kPwKv8DxC4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNhH5JrqfYY6n+Cz4GeORzRJrZqxJW+qt0AfNapCMUdBgmJ3Wf
-	d/wNRM61vEGKvqkDUryVdPUnSjimFf44TnPtVqbeFxBTDZtQrVJ5fnN+Fb+7GlOyNm4=
-X-Gm-Gg: AfdE7cnKQQnSiLDPpz1l4YhK4AHONNGovKSTlJ/oHqgTa1QOQKIAk+27uy3bLVNMSAI
-	aiS6BC5+r5807Bh0mifLn+YucNe5y9HkAcF7EhbMBKe8XKuCORCKdBFoejMMcTgXOi9Xp2oZmP4
-	ruqtn+FANmCXrjV1FkAZVJSKmLvY8WjQfg19Srn0ZaRFiZTRlVa2fx92ErN3af1SecPtVQZH/6F
-	lZEOSrM/tqjbicfaMaMfqaFc5BiIIMfo5pesDPnEQM3PwtKFCnb4cqN1Ox6SsdPBmSLEOff1vNU
-	aipcVK/qXm7JiC5I1FjdOvA6hCZJMd6QTfvVUiusvL+FKjvborkOoW9vfsqOJdvEYbuRwiCgeXZ
-	CDZ/TFSMq5Mswni0zjTGMgu9hjz0ohPOSncTRcaGGqpJY88AvbZXHp/zTX/VTVxMgb3//k/uQO7
-	t0ecw3FJot9g==
-X-Received: by 2002:a05:600c:3acf:b0:493:f176:dc69 with SMTP id 5b1f17b1804b1-493f884f5f2mr85117975e9.37.1783942746646;
-        Mon, 13 Jul 2026 04:39:06 -0700 (PDT)
+        bh=uhEJSmb1zAc+1BJfU7rn0s0R4zfNHqR+TO6aCnEihGQ=;
+        b=X7HwVuRLq/j5BT25NF8NIDlNTUX1HA6BuiQUc0XGWHOauAPBGimtfsOjR1FryJtAdk
+         vGmPF3NG+PA9cO+1sF2o2s1UTmE4VljVLSt04FC/ZFFAkCu07jufbandj7f/D7CulZlA
+         6LqsRGLBuls2E8hgsRk24fu/afcTxXetkNlGNW8XYxIUds39+/YGLCs+OGl1Z3QYLlpT
+         IavYjnDkxnARlQSEB/0tQbVA3g1poUE/x4e6DMFZDReG5KIOL6rGKCg3VOk4AiuyI6l9
+         g0/GVhnmn57sZcHnCTNO3SGhVBaZ1oFQNp5rAnZzLW7l0rIPEp7zEBSE2tfPvDW7NyD0
+         1YjQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrPTfmZNLJM6brAcsBB0XEXj1QOsZwxkoTU4t1Z8U9aGutQwekRT1RPV5T40cdmk/mR42EXnOo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVzjBwIRgg/+WWtaeo8aTppqejmYkyar1q3fg6YdMtZRrm82Q5
+	hjBfX1PGPcwHMmTMNTN6s6KNzKO96ZQrqG5jrxKbm99gotfu1/GarQ8S8kWRxQ5HZEM=
+X-Gm-Gg: AfdE7cky5HOclq1yD3EyLEeEukx5s5dECyIaWcvtlGtn7i4cReLdZSI6/vuRQ+oSqad
+	Dh3X8VIPwr1i6SEf3rWibHEVzUtu5+LipYkXFfT8UnYjxin0yBO4KawUQGRmNK2Gh8Evx4/jDvx
+	Y+Jcrff6iUIFSkewiBVuSmZFcop7kY558+D9CAZzdkVb0jy7S43t+lG1z6/mvA7kpW7JFrUXjyR
+	2eMYFoW1J7PCjqlauucZJwgvKLgyhyS2Wca5L6wopy4sRMnyy8aaXYonAj1fhjBy5uXmXrl9vUv
+	HKADFNT0nOsid4cY5d+YLLgRlH0r3KXd3TKZTKYg4B+iIhoWb4Yi0cY6Kxqor4xrIBLU6jlAfsu
+	zDKA0zrT8fnTnRD60rfilLNon3qwdy122KQmShZayPLxYIz9yDPkPNsyyGh8JEraXmbmZNp5Qc+
+	MzCZ8SfOufitgcX+CS++xV
+X-Received: by 2002:a05:600c:1992:b0:493:f261:d295 with SMTP id 5b1f17b1804b1-493f87d9886mr86244245e9.4.1783942795022;
+        Mon, 13 Jul 2026 04:39:55 -0700 (PDT)
 Received: from localhost ([2a02:8071:6401:180:d892:bf43:a0b4:83b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6ccdbbsm372032495e9.3.2026.07.13.04.39.05
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6d5055sm355712995e9.5.2026.07.13.04.39.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 04:39:05 -0700 (PDT)
-Date: Mon, 13 Jul 2026 07:39:01 -0400
+        Mon, 13 Jul 2026 04:39:54 -0700 (PDT)
+Date: Mon, 13 Jul 2026 07:39:53 -0400
 From: Johannes Weiner <hannes@cmpxchg.org>
 To: Guopeng Zhang <guopeng.zhang@linux.dev>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Michal Hocko <mhocko@kernel.org>,
 	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Alexandre Ghiti <alex@ghiti.fr>, cgroups@vger.kernel.org,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Stanislav Fort <stanislav.fort@aisle.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>, cgroups@vger.kernel.org,
 	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: Re: [PATCH] mm: memcontrol: update state_local when flushing NMI
- stats
-Message-ID: <20260713113901.GG276793@cmpxchg.org>
-References: <20260713085053.2916813-1-guopeng.zhang@linux.dev>
+Subject: Re: [PATCH] mm: memcg-v1: account vmpressure event allocations
+Message-ID: <20260713113953.GH276793@cmpxchg.org>
+References: <20260713085520.2953121-1-guopeng.zhang@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,23 +81,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260713085053.2916813-1-guopeng.zhang@linux.dev>
+In-Reply-To: <20260713085520.2953121-1-guopeng.zhang@linux.dev>
 
-On Mon, Jul 13, 2026 at 04:50:53PM +0800, Guopeng Zhang wrote:
+On Mon, Jul 13, 2026 at 04:55:20PM +0800, Guopeng Zhang wrote:
 > From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 > 
-> flush_nmi_stats() updates state[] for kmem and slab counters but leaves
-> the corresponding state_local[] counters unchanged. Local kmem and
-> slab statistics therefore miss updates collected through the NMI-safe
-> atomic path.
+> Commit 72797d218b43 ("mm/memcg: v1: account event registrations and drop
+> world-writable cgroup.event_control") accounted cgroup v1 event
+> registration allocations with GFP_KERNEL_ACCOUNT, but missed struct
+> vmpressure_event.
 > 
-> Update state_local[] together with state[].
+> Use GFP_KERNEL_ACCOUNT for this allocation as well.
 > 
-> Fixes: 940b01fc8dc1 ("memcg: nmi safe memcg stats for specific archs")
+> Fixes: 72797d218b43 ("mm/memcg: v1: account event registrations and drop world-writable cgroup.event_control")
 > Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-This issue affects memcg1 but also the workingset shrinker.
+I guess :)
 
 Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-
-And we should probably CC: stable # 6.15. Shakeel?
