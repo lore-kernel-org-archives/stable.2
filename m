@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3F934D4F9;
-	Mon, 13 Jul 2026 18:10:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E1C35201A;
+	Mon, 13 Jul 2026 18:10:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783966229; cv=none; b=MNAuZJiv3NyoOW2bK0zBJZbknr3owRzG47ujNzsWAnU/wwCqZ2zf4x4OHqBMQIFXdfFnkVTpcofz8VE10plBgY0f8iTgOaJCepLboIO5UotMOwFP+XVrfc/sRINEDQyaHIus0GT90Kd+s7/p6mE/NhUfND0yJsqRQA3o8f+ywk4=
+	t=1783966230; cv=none; b=gSvBPwgsH5pA5E956od1SeI254sygMIHd9PJr6r3TnU2wU3nkCJma8fi2KVeh00BHTRyw6of99xqOcdlzOgZe6VryAfw5n6nGLHt1VozoVQj0ihzgTQHSDAf9evrFSysroWzXr+qotQbsB8nHHIWUueNiOzLQMSaB7f3b0ui14I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783966229; c=relaxed/simple;
-	bh=CEzJP8iXiE81KaVA8s3E4s9qC3Tqhw4yjd9MVLZenc0=;
+	s=arc-20240116; t=1783966230; c=relaxed/simple;
+	bh=IDqxay3NTB4CCLgYPJY66JPKcvOLrwrNCqZ0HbvZ75E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jbspkKjLEa3MaehrrIiOPX8MaDsFpORi8PNeuj8DTdzemn+WZFoM2n8Ze2KhUgPWqRDJf6/rUtbM44dytX7FUTSCpqpwk3nycRGg961c/MZXjy8weVV6zlwbWykXgxSC3xaJFJadLoOIm3KWFJx1Ss9qu/j6Fc0mCgGGt42tGGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hYQfDQye; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=deo1OdZNk0/+GjKKlACOkOu6w/2Qq2jN9oDt0okhEFDWSYWTd0oaxqVSfK/BRfK8VlGVY6Viy32NFxgYYtPo3M8u7FVU8HEI/nnsLmLsph3IrPwySjPIViqnb0QJJmE0JGZgK6cUeB9WVl7y2fEFJ9ZXTGGUOgPVH6wEn5xus5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tf7aWMwD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hYQfDQye"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78FDA1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tf7aWMwD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8F821F00A3E;
 	Mon, 13 Jul 2026 18:10:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783966228;
-	bh=O75oVI8HOnhEwJFlZoZQsUnH7nY5IlDX63zUhNhf9S8=;
+	s=k20260515; t=1783966229;
+	bh=vzhwlEbKTgZAWFKcMtzkcmv3HB8/WBKsAoQsDcJh8r4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hYQfDQyeMHI0+PkgbJj9rhLbZXj/XW1EhFLhlczvQ/kuY1JE/4/AXBGfI5oFMNJOr
-	 wt/K46o2/poZoxRxZhOJjo++URh6j9dF4+J+h5LPDmmwALZdEBP203MHYjkSj6q33+
-	 Icaa5JPERAlzjTMscZ9OwF8+LbzM/kGw4SFE+XlzpP3vuWt4NP0imsXyETO+WFzERj
-	 HaxhYJ2GxQTtmurc19zPvt1pscGST8J2+hv3yNUHCiMvVzi2TGYdtGYomj1oS4xqCY
-	 lLCPj5PjzmcmQPZxfESUEivFA0of3DkoRuP4nk+RhFHqIXOzi988Vp2iUvamsIEHBL
-	 MsvqDHciAc78g==
+	b=Tf7aWMwDbRRaTXcFMO3xahCA/yefHkm/0pAexF+k6S/M3jAoXoLZFRtbKME9d4+2k
+	 rWcdHgtk1U3MIwvkEMcD85/KPi/ftnrJoihwoY0zJubF9M5sl2GM6mpezFJ5p4KP4G
+	 6Iv3SFpXZbsAlTeUV5FqEwve6rdXZ32Mumhx22Trv/E3YJo2aimoWIXdYENu/eBeXB
+	 FtnJVvHpPUPa3VVnkTq/gc/zFsAwfwYeWZ+o4S198wFOOPMJS18G0SYjSY6I9hKm7X
+	 kAlNeFp1GvYFPZcLIo9Qqb/neU7SuPRERpqa+n8HR1n8pez4D1OEdGXnmWY7YH+iE3
+	 233A5Dcxrvo3w==
 From: Yosry Ahmed <yosry@kernel.org>
 To: Sean Christopherson <seanjc@google.com>
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -33,9 +33,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	Yosry Ahmed <yosry@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/5] KVM: x86: Disallow EFER.LME and EFER.LMA if long mode is not supported
-Date: Mon, 13 Jul 2026 18:10:17 +0000
-Message-ID: <20260713181020.2735367-3-yosry@kernel.org>
+Subject: [PATCH v3 3/5] KVM: x86: Always initialize EFER reserved bits on vendor initialization
+Date: Mon, 13 Jul 2026 18:10:18 +0000
+Message-ID: <20260713181020.2735367-4-yosry@kernel.org>
 X-Mailer: git-send-email 2.55.0.141.g00534a21ce-goog
 In-Reply-To: <20260713181020.2735367-1-yosry@kernel.org>
 References: <20260713181020.2735367-1-yosry@kernel.org>
@@ -47,57 +47,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove EFER.LME and EFER.LMA from EFER reserved bits only if long mode
-is actually supported. KVM does check long-mode support before allowing
-the bits for guest writes and userspace writes through KVM_SET_SREGS*
-(in __kvm_valid_efer()), but userspace writes through KVM_SET_MSRS only
-check reserved bits.
+EFER reserved bits are statically initialized, and do not reset if a
+vendor module is re-loaded. For example, loading kvm_amd with nested=1
+removes EFER.SVME (and potentially EFER.LMSLE) from the reserved bits.
+Reloading kvm_amd with nested=0 does not add them back, allowing
+userspace to set EFER.SVME with nested=0.
 
-In practice, this doesn't really matter. The true motiviation is getting
-rid of the #ifdeffery when initializing efer_reserved_bits.
+Re-initializing EFER reserved bits before configuring them on vendor
+initialization.
 
 Cc: stable@vger.kernel.org
 Signed-off-by: Yosry Ahmed <yosry@kernel.org>
 ---
- arch/x86/kvm/msrs.c | 10 +---------
- arch/x86/kvm/x86.c  |  3 +++
- 2 files changed, 4 insertions(+), 9 deletions(-)
+ arch/x86/kvm/msrs.c | 10 ++++++++--
+ arch/x86/kvm/msrs.h |  1 +
+ arch/x86/kvm/x86.c  |  2 ++
+ 3 files changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index c230b18d87e38..67481429ad6b8 100644
+index 67481429ad6b8..a7394bdae0295 100644
 --- a/arch/x86/kvm/msrs.c
 +++ b/arch/x86/kvm/msrs.c
-@@ -19,16 +19,8 @@ bool __read_mostly report_ignored_msrs = true;
+@@ -19,8 +19,7 @@ bool __read_mostly report_ignored_msrs = true;
  module_param(report_ignored_msrs, bool, 0644);
  EXPORT_SYMBOL_FOR_KVM_INTERNAL(report_ignored_msrs);
  
--/* EFER defaults:
-- * - enable syscall per default because its emulated by KVM
-- * - enable LME and LMA per default on 64 bit KVM
-- */
--#ifdef CONFIG_X86_64
--static
--u64 __read_mostly efer_reserved_bits = ~((u64)(EFER_SCE | EFER_LME | EFER_LMA));
--#else
-+/* Enable syscall by default because its emulated by KVM */
- static u64 __read_mostly efer_reserved_bits = ~((u64)EFER_SCE);
--#endif
+-/* Enable syscall by default because its emulated by KVM */
+-static u64 __read_mostly efer_reserved_bits = ~((u64)EFER_SCE);
++static u64 __read_mostly efer_reserved_bits;
  
  #define MAX_IO_MSRS 256
  
+@@ -650,6 +649,13 @@ static int set_efer(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+ 	return 0;
+ }
+ 
++void kvm_init_efer_bits(void)
++{
++	/* Enable syscall by default because its emulated by KVM */
++	efer_reserved_bits = ~((u64)EFER_SCE);
++}
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_init_efer_bits);
++
+ void kvm_enable_efer_bits(u64 mask)
+ {
+        efer_reserved_bits &= ~mask;
+diff --git a/arch/x86/kvm/msrs.h b/arch/x86/kvm/msrs.h
+index 9c5c6b33e58f5..1f772e1717588 100644
+--- a/arch/x86/kvm/msrs.h
++++ b/arch/x86/kvm/msrs.h
+@@ -58,6 +58,7 @@ int kvm_get_set_one_reg(struct kvm_vcpu *vcpu, unsigned int ioctl,
+ int kvm_get_reg_list(struct kvm_vcpu *vcpu,
+ 		     struct kvm_reg_list __user *user_list);
+ 
++void kvm_init_efer_bits(void);
+ void kvm_enable_efer_bits(u64);
+ bool kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer);
+ int kvm_emulate_msr_read(struct kvm_vcpu *vcpu, u32 index, u64 *data);
 diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index ca01a2f2ec466..f68424a985cda 100644
+index f68424a985cda..83f608dad0605 100644
 --- a/arch/x86/kvm/x86.c
 +++ b/arch/x86/kvm/x86.c
-@@ -6913,6 +6913,9 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_setup_xss_caps);
+@@ -6913,6 +6913,8 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_setup_xss_caps);
  
  static void kvm_setup_efer_caps(void)
  {
-+	if (kvm_cpu_cap_has(X86_FEATURE_LM))
-+		kvm_enable_efer_bits(EFER_LME | EFER_LMA);
++	kvm_init_efer_bits();
 +
- 	if (kvm_cpu_cap_has(X86_FEATURE_NX))
- 		kvm_enable_efer_bits(EFER_NX);
+ 	if (kvm_cpu_cap_has(X86_FEATURE_LM))
+ 		kvm_enable_efer_bits(EFER_LME | EFER_LMA);
  
 -- 
 2.55.0.141.g00534a21ce-goog
