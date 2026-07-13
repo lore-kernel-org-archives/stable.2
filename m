@@ -1,142 +1,195 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAB530BF70
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 15:58:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF5B337BAB;
+	Mon, 13 Jul 2026 16:15:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783958335; cv=none; b=UU9YVouBvI7ggF6RvIvTUjNxvbDl3jC39HSJ5j8iQOcFAzMUtmebH2vK0yjW4Os8PTZ6P+aoe+CSIzSiyvm+3K+8FkzLA6CsbKCAKRr/X6hwGMPuyHVLdxufcnJeNdgbv/ym6uh4Knj+wgcrT3xI12rYKeptoVmutGrD8ehUFx0=
+	t=1783959323; cv=none; b=Vv5wd5SjsBTkVPMoAt97DMIGCnG3fD5Ye4/F9s+VAMMQPBiD/B9dBUqw35+ftZ9JsOF/oxBZg7M2z8R6jBq3m3A0sGqx1/mzekxtLzH/cS8b1cMBh6uEox2x01Sd3wTiLfomA01yEVt8yCe0zL8fcgITWDWBGrJUVmqvs/JCBXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783958335; c=relaxed/simple;
-	bh=UPM0BjavTHeN7FjPEDHtX5K0N+psJJcGHmtOEuf1xbs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r95YtE7ytS/6oOn2QyNxoU/LJwUJejG+NNRRtQtO4Uecyf30GE0svuP0ObuKvMa4jllCxm2hRsf31srTa7NndK3iA31YCvLbHqek74dfEPfz6aQpIV1brC1jMLEmrBaBk5rn6QlQSQEHsBg8yERHaw7Y8gLinkm3DDoUZB++AQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=rmkDAm5Y; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1783959323; c=relaxed/simple;
+	bh=5a7bPiRMs7Qwq8lEoorWWCh7/0KOYMbTvIMeVOGwL58=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=n7X1H5jIJPiPB0V/Ny4fHvKtsSBXtPXMaWKCrhfLlKPhHTiqugWPpMSEI/xfQ+/mWNK9uWifxm5Q9fXf6YUyG2CMa3agJxajK2Yy5PHjmRjJBh1NAtKACs3lnC7EpyF8IS3ETjho/8uWFY9VTLEAo6JgyDbwey++F6mY1GfPVic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOMPvtSa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="rmkDAm5Y"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493b7612475so26411225e9.3
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 08:58:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1783958332; x=1784563132; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fcync883JEMNF+UENDQLMgM7eZIOfrN4gu6gzZ2ECRE=;
-        b=rmkDAm5YxRGQm91xPyY7/3FBlrX1m4+Lb3owsYVAuwA/VOxqrZmfcCvp/eO+ZmKABK
-         6F8EJXIBgEHggDTEVuJ0RBpN/Sp/dOKnpMyyVV8suE2WLhJFvT3EijBTpa4BCF+vs3tg
-         +iaJEBQGhbduzfHdnL751xkkLspMOwp50QOidwvl06XzWcG4IJ8FBap5PeEhfgxAXDUF
-         v12KUujAG/Bj1wLvZL0Gb0PwBGRvf6F0bJkS6XdT65CSE/oSU7XaE9UHFhG09F3E5yZU
-         BQIUGjCNuhuVOtBoNM4hpcGeiYTMN/7r91La4zP+leCyI7tPsOBGwpS7upJ/aVOxiJII
-         QLwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783958332; x=1784563132;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fcync883JEMNF+UENDQLMgM7eZIOfrN4gu6gzZ2ECRE=;
-        b=FhMKwVyARzyi8kvFeLJpwWG/XmkriWZlX5wjI9fk5jQuNq60PZOkTetiO0mcf3UfW8
-         LGfCDNuF4EFPDtCv4d5ZedGJNu4//TlCm309zptSoO0p/kqLxVfk5TSwhs5XfWPVHbYQ
-         HqOF/+MYBuPRWy3vRa2qeSBvU/Z7QHplNoDZbuuv1kV7LUqTrbgWG4+wxCtAbpO8W2Cx
-         AV8C5/AKyFzvLTr8bUFB4CXHTKNRb2+F4RjO0Kmpu1AI/bQzjyFSbSh9zOIfzENQAlZA
-         CalQNTzmjUao9+ZRSeZBfssnPREkZJnMk/FGsC0qCaYlWMBDeMSFa5WaP2Ybd4YytZa1
-         PNhQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqWmALGpvZLTiRekvgQRiRCYXNwUTof7EeYKiEXqh6/nDkrbYn3SSz1MWti9j9vyVs9s8zZ2Kw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrdnhsgeKdBjGW0HmtbrBz6y/to5lo5XqisKBSwUpvzj17I0ia
-	9xM2/PKHhp/fwr9QlMquydhAI2Lxcw4psRG65fOgvsKWFapES7CQg3PSWJ9V7i0N+fSl
-X-Gm-Gg: AfdE7cm/kWeO9l6UQwcN2a5VtB5thY31Q/KLIXgCe2Fi9Y/KUHBj6+7ymGZGNTIShXY
-	CFS4CwJJCTDKRjX1e/HMb/jj806OsqxUB44HqvtGCqezbNy/wACWoqq970YjdmzpfqvGOuWiHCS
-	/eujT5tUQleuoO1OotnCbs5s0hnuzh2jznoTztKKOpfDVhRiejE+9Gu+S5dM+Sv6yx7qa+M8FSf
-	Q4frsJB3ruuNI76dhDINbNCBU0gwCRnGMpdjq24IdB7CDh6//xG1Ee+EA3ViUCtajKjgQkqoWOQ
-	sXJMkoSDEajXScC2bqCTzPQ0y115PPpHhQGO90Nf5ElM7vzXZzQ18i3pg7J2Ab2l9cAZgAhlHwM
-	veM8+WUVjMD4GVBour1DWFJz0hCsXgAMe/aOmogWdF7UprP/5srBjo9QYAqnL+psJsKgltz3OEd
-	MLkrUf2f6g9hf0ApAIGkhNxR19T41aBgWbl5ML4sLXMitxNvK+2j7zyUe27p241p4JfA4NH4tbQ
-	ILZETV9OJbwAyCA+rYR6SCAWYPFobx9AFHeAI6hMWnz9A==
-X-Received: by 2002:a05:600c:4f94:b0:492:3e66:6c84 with SMTP id 5b1f17b1804b1-493f8829926mr95921725e9.30.1783958331815;
-        Mon, 13 Jul 2026 08:58:51 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493f3a60404sm255840755e9.1.2026.07.13.08.58.49
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 13 Jul 2026 08:58:50 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: david@ixit.cz
-Cc: vadim.fedorenko@linux.dev,
-	horms@kernel.org,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] nfc: llcp: reject PDUs shorter than the LLCP header
-Date: Mon, 13 Jul 2026 17:58:48 +0200
-Message-ID: <20260713155848.55530-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOMPvtSa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A3321F000E9;
+	Mon, 13 Jul 2026 16:15:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783959317;
+	bh=oNIWkoRxlut88jezsElvPH1wV8FkiiBk36IvzZ2BAwo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QOMPvtSaMxX9MpsXzTtiH2pWD1W/+0iiLAHU0QOSAyGHZ3amnA/Bu1/A4lKY5tOYJ
+	 Wtiz3ty98R2Fbype7p9a0rxYruVz2pXVagCTCyzX3AKW1F6GKtZhPrOvL4r2TuMu2Y
+	 j/JKvmod6ihm10/0FqARNrS4oLdcQDC2tnMtCiDvjkCaz0pFmRo0GezGCV9mVXbq3N
+	 J2OgXqfodG4emrSkrdUAAiKr0PmbekyjmeRf42NigHAQlyqR6YaLXkU44ql4Hm8tI/
+	 KNUF1VCvsufqBvwNlfGGx7EXWov7p6L/NJ+6NVThcRcO2nSWwZDmQ56sFSRI/2Lu42
+	 XNYFs3mM9vTew==
+Message-ID: <4c969202-a8ed-41a8-9e9a-281a12f6dde3@kernel.org>
+Date: Tue, 14 Jul 2026 01:15:08 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/page_alloc: don't spin_trylock() in NMI on UP
+To: Brendan Jackman <brendan.jackman@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Jackman <jackmanb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Alexei Starovoitov <ast@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, sashiko-bot@kernel.org,
+ stable@vger.kernel.org
+References: <20260710-spin-trylock-followup-v1-0-affb5fe5ed00@google.com>
+ <20260710-spin-trylock-followup-v1-1-affb5fe5ed00@google.com>
+ <20260710170311.e22bfd21c658e8357ceddeec@linux-foundation.org>
+ <DJXILB94G82L.37YBL62YO9XBK@linux.dev>
+Content-Language: en-US
+From: Harry Yoo <harry@kernel.org>
+In-Reply-To: <DJXILB94G82L.37YBL62YO9XBK@linux.dev>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------wjfaJTQWd3NhLTT80YxRJH5m"
 
-Every LLCP PDU begins with a two-byte header (DSAP/SSAP + PTYPE), but the
-receive path never checked that a frame is at least LLCP_HEADER_SIZE bytes
-before parsing it.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------wjfaJTQWd3NhLTT80YxRJH5m
+Content-Type: multipart/mixed; boundary="------------nxjIPOFNtOXUEKiJUGKT1hb6";
+ protected-headers="v1"
+From: Harry Yoo <harry@kernel.org>
+To: Brendan Jackman <brendan.jackman@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Jackman <jackmanb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Alexei Starovoitov <ast@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, sashiko-bot@kernel.org,
+ stable@vger.kernel.org
+Message-ID: <4c969202-a8ed-41a8-9e9a-281a12f6dde3@kernel.org>
+Subject: Re: [PATCH 1/2] mm/page_alloc: don't spin_trylock() in NMI on UP
+References: <20260710-spin-trylock-followup-v1-0-affb5fe5ed00@google.com>
+ <20260710-spin-trylock-followup-v1-1-affb5fe5ed00@google.com>
+ <20260710170311.e22bfd21c658e8357ceddeec@linux-foundation.org>
+ <DJXILB94G82L.37YBL62YO9XBK@linux.dev>
+In-Reply-To: <DJXILB94G82L.37YBL62YO9XBK@linux.dev>
 
-A peer LLCP PDU travels: NFC-DEP frame -> nfc_tm_data_received() (target /
-NCI path) or nfc_llcp_recv() (initiator data-exchange callback) ->
-__nfc_llcp_recv() -> rx_work -> nfc_llcp_rx_skb() ->
-nfc_llcp_recv_connect(). For a CONNECT (or CC) PDU nfc_llcp_recv_connect()
-computes
+--------------nxjIPOFNtOXUEKiJUGKT1hb6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-	tlv_array_len = skb->len - LLCP_HEADER_SIZE;
 
-as a size_t and hands it to the TLV walk. When skb->len is 0 or 1 the
-subtraction wraps to a huge value and the walk runs far past the skb,
-causing an out-of-bounds read; nfc_llcp_ptype()/nfc_llcp_ssap() likewise
-read pdu->data[1] for such a short frame.
 
-A nearby NFC device can reach this without authentication; LLCP link
-activation happens automatically after NFC-DEP.
+On 7/13/26 11:31 PM, Brendan Jackman wrote:
+> On Sat Jul 11, 2026 at 12:03 AM UTC, Andrew Morton wrote:
+>> On Fri, 10 Jul 2026 10:42:20 +0000 Brendan Jackman <jackmanb@google.co=
+m> wrote:
+>>
+>>> As noted in can_spin_trylock(), using this is unsafe in this context.=
 
-Reject PDUs shorter than the LLCP header in __nfc_llcp_recv(), the common
-choke point shared by both the target (nfc_llcp_data_received()) and
-initiator (nfc_llcp_recv()) receive paths, so a short skb is freed before
-the rx_work worker is scheduled.
+>>> commit 620b46ed6ae17 ("mm/page_alloc: return NULL early from
+>>> alloc_frozen_pages_nolock() in NMI on UP") fixed this on the alloc si=
+de
+>>> but missed the free side.
 
-Reproduced with a KFENCE out-of-bounds read via /dev/virtual_nci on
-linux-next.
+Ouch, do we allow alloc_pages() -> free_pages_nolock()?
+Didn't notice.
 
-Found by 0sec (https://0sec.ai) using automated source analysis.
+>>> Reported-by: sashiko-bot@kernel.org
+>>> Link: https://sashiko.dev/#/patchset/20260703-alloc-trylock-v5-0-c87b=
+714e19d3@google.com
+>>> Cc: stable@vger.kernel.org
+>>> Fixes: d7242af86434 ("mm: Introduce alloc_frozen_pages_nolock()")
+>>
+>> Is this correct?  I'm not seeing anything in that commit which could
+>> have caused this?
+>=20
+> Oh yeah I guess it should be:
+>=20
+> Fixes: 8c57b687e8331 ("mm, bpf: Introduce free_pages_nolock()")
+>=20
+> This is confusing coz we have:
+>=20
+> A: commit d7242af86434 ("mm: Introduce alloc_frozen_pages_nolock()")
+> B: commit 8c57b687e8331 ("mm, bpf: Introduce free_pages_nolock()")
+> ...
+> X: commit 620b46ed6ae17 ("mm/page_alloc: return NULL early from alloc_f=
+rozen_pages_nolock() in NMI on UP")=20
+>=20
+> X is marked as Fixing A, but it was an incomplete fix. I just copy
+> pasted the Fixes tag. But actually I'm now changing the free path that
+> was only introduced in B.=20
+>=20
+>>> --- a/mm/page_alloc.c
+>>> +++ b/mm/page_alloc.c
+>>> @@ -2979,8 +2979,7 @@ static void __free_frozen_pages(struct page *pa=
+ge, unsigned int order,
+>>>  		migratetype =3D MIGRATE_MOVABLE;
+>>>  	}
+>>> =20
+>>> -	if (unlikely((fpi_flags & FPI_TRYLOCK) && IS_ENABLED(CONFIG_PREEMPT=
+_RT)
+>>> -		     && (in_nmi() || in_hardirq()))) {
+>>> +	if (unlikely((fpi_flags & FPI_TRYLOCK) && !can_spin_trylock())) {
+>>>  		add_page_to_zone_llist(zone, page, order);
+>>>  		return;
+>>>  	}
+>>
+>> It would be nice to include a description of the userspace impact.  I'=
+m
+>> suspecting that's "none known", but some speculation on what might
+>> happen to someone is appropriate.
+>=20
+> Ack. I think if you trigger this bug by accident it will probably crash=
 
-Fixes: d646960f7986 ("NFC: Initial LLCP support")
-Cc: stable@vger.kernel.org
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
----
-v2: move the check into __nfc_llcp_recv() so a short skb is dropped
-    before the rx_work worker is scheduled (Vadim Fedorenko), which also
-    covers the initiator nfc_llcp_recv() path. Reword the commit message
-    (drop the "same guard as AGF" wording) and add a KFENCE reproduction
-    note.
+> your machine in extremely confusing ways. If you can trigger it
+> deliberately from unpriv (depends on the rest of the host setup, e.g.
+> what tracing is being used) you can probably use it to get root/ring0.
+> Can mention this in the commit message.
 
- net/nfc/llcp_core.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Just noting, it is quite niche because it requires UP, and tracing
+something that can be called in NMI on UP is even nicher.
 
-diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-index aed5fe1afef0..72b6e707ad0c 100644
---- a/net/nfc/llcp_core.c
-+++ b/net/nfc/llcp_core.c
-@@ -1565,6 +1565,11 @@ static void nfc_llcp_rx_work(struct work_struct *work)
- 
- static void __nfc_llcp_recv(struct nfc_llcp_local *local, struct sk_buff *skb)
- {
-+	if (skb->len < LLCP_HEADER_SIZE) {
-+		kfree_skb(skb);
-+		return;
-+	}
-+
- 	local->rx_pending = skb;
- 	timer_delete(&local->link_timer);
- 	schedule_work(&local->rx_work);
--- 
-2.43.0
+>> Also, Sashiko might have found yet more pre-existing issues:
+>> 	https://sashiko.dev/#/patchset/20260710-spin-trylock-followup-v1-0-af=
+fb5fe5ed00@google.com
+>=20
+> There are 2 cases here:
+>=20
+> 1: !pcp_allowed_order() -> This is forbidden by alloc_order_allowed(),
+>    quite a bad miss from Sashiko IMO.
 
+Hmm but alloc_order_allowed() would return true for !pcp_allowed_order()
+when spinning is allowed, then pages can be freed via
+free_pages_nolock()?
+
+--=20
+Cheers,
+Harry / Hyeonggon
+
+--------------nxjIPOFNtOXUEKiJUGKT1hb6--
+
+--------------wjfaJTQWd3NhLTT80YxRJH5m
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCalUPDQAKCRCGXBN6rc5S
+1uORAP95b6ffqA3hjbQbhh4fTA8JO2q/aCxMraAwrw3m7JnqIwEAhA/YJsuRldNh
+eHZVy6QNewHI+2W+paQ1iqEOvb1FuAs=
+=UlbM
+-----END PGP SIGNATURE-----
+
+--------------wjfaJTQWd3NhLTT80YxRJH5m--
