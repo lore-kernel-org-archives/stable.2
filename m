@@ -1,146 +1,163 @@
-Received: from devianza.investici.org (devianza.investici.org [198.167.222.108])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E801E29992A;
-	Mon, 13 Jul 2026 05:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.167.222.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD162750FB
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 05:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783922261; cv=none; b=rYSgMIVqPc2oCyvq9QRxCCZYQkETkzR/jdw425B/TpQv2V6hwskaSWAAgO2K4cYYVwoHHxk2SwBfkHtyx3N3JLRP+uzUEvZTGopcSEEs2b51csNMaeX0a50Vxl2+7pU81y2LiCkSUHFcPSjB8BPaJIJASQ2z7qGjNPMjZH5vDKU=
+	t=1783922374; cv=none; b=AN8OLQ6JpHlSnGmlV0GHZuoIH1Pe1qtewZDzfLINbd75IsJJ3dvt6oDIhmtLqytkP2jNrSHfNyKAntLtH2+fjyIXfvYDOZ8YctAiKLENj3hBS84nRvBzKTO6QgbLpxT9a2Q+qJvUNsJGRHzl8mxY5/ZagyPQwnq9dakfH1+mmYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783922261; c=relaxed/simple;
-	bh=ghvSR731ywixyygr0RBmBJDrkYSzfu1orlQs9/ElasQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=PsL7ZkHXe8q/Jw5ZhdhZC8WV5QaZ1azWrZQgXlIZGPgKWF7/foTJzZDF38is7lbF0BYAVKJZApKf+4aVK7zsIA27hY8WmHY8slpmKsFxwO3uV92Pbu9Hd20rA/rheEW8Cs86dnE3gufdOGQecIFXxOS4oZLDViejjt9evn+QB64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=RWnnLw0J; arc=none smtp.client-ip=198.167.222.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
+	s=arc-20240116; t=1783922374; c=relaxed/simple;
+	bh=MBy2QSmiJrt2HCgohTrgmq6jz1DWn5uE7Uj1V+WeRkE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VNthlksJ4H1BUBV4h4tGwtYx/eJwg7Mvkynm9JBdiJiXZPudVeoMJypxBXi7LiyohD0NbYpL3Vk243Mq5fSfPqgMdmx+mbo3dxYBNGAaCUCWaQt9e9qwhmLPpKGfLfoKPLG7LfyT0MMTsOjhbmS4g2mG8AbFjQW1V+dYVHRSAaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=flOktqwq; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="RWnnLw0J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1783922248;
-	bh=wK3teu60zqHskTeqI3g1BIktGR91ceQ9tifigFTSbCA=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=RWnnLw0Js5i2tQ1+hSp7VlLF5KsXgbTkxtdEc10ZK3qX5A9bYJZ1DdkdTVYXdn8L2
-	 5+4Q7JgRrqoXiMSaWAbvndDRoMNXnFSGhpsGBQ98MxY6YjOXcfS8gudhSjV9V0Qj1w
-	 ITKPWvOmQMuGH/4+Kx51Z0GA5a4MWqX6symL9QLI=
-Received: from mx2.investici.org (unknown [127.0.0.1])
-	by devianza.investici.org (Postfix) with ESMTP id 4gzBY45KJwz6vQ5;
-	Mon, 13 Jul 2026 05:57:28 +0000 (UTC)
-Received: by mx2.investici.org (Postfix) id 4gzBY32j1Hz4vyJ;
-	Mon, 13 Jul 2026 05:57:27 +0000 (UTC)
-Date: Mon, 13 Jul 2026 06:57:26 +0100
-From: Bradley Morgan <include@grrlz.net>
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-CC: akpm@linux-foundation.org, brauner@kernel.org, peterz@infradead.org,
- oleg@redhat.com, tglx@kernel.org, npiggin@gmail.com,
- pasha.tatashin@soleen.com, kees@kernel.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_reboot=3A_enable_IRQs_before_d?=
- =?US-ASCII?Q?o=5Fexit_in_the_halt_and_power_off_fallback?=
-In-Reply-To: <87tsq3vbtf.fsf@email.froward.int.ebiederm.org>
-References: <20260712125300.31501-1-include@grrlz.net> <87tsq3vbtf.fsf@email.froward.int.ebiederm.org>
-Message-ID: <0F13AE9B-5C0C-4327-AA36-C1EB2413EA9F@grrlz.net>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="flOktqwq"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D3Boa51283829;
+	Mon, 13 Jul 2026 05:59:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=NQGmSL
+	jz8OekUiFBHyJb/1zvyn7NuBWdUzEly6xuVG0=; b=flOktqwqRvX0qFJyNVk98Y
+	xd3fEf6b33kBVxUGVARSF4dIPIq93UZsAr/Mvgu1/5lr8vbV+GMJtFma+/+1jG3G
+	OsPN5V7P4VRzXULLgUJHSpfgE7wsSWhvjrYojPnlMQaDjTru5TwDRwbuBrO/SdxV
+	ITiTiSPQgPixMsw2BG+rB1/jWGLin9ioGMX9WBzFDLer7YhY55ni4LwkmyboL6FX
+	RmvnfGIqRc7lQrv3PYqs6jKmy8WFzuCC6n2tuRj70rON3lYQXRN3VIrY+Ci1RuWH
+	JyTL5qxsFGf1KbnSeHVDJV26MDTQaMTQZVU3w/RA+AteMxFLYdGgYJhFgtPXtfPw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fber86vj6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Jul 2026 05:59:22 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66D5nfsZ006359;
+	Mon, 13 Jul 2026 05:59:21 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fc15jm9ec-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Jul 2026 05:59:21 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66D5xHBp30081552
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 13 Jul 2026 05:59:17 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E93FE20049;
+	Mon, 13 Jul 2026 05:59:16 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 30C9220040;
+	Mon, 13 Jul 2026 05:59:14 +0000 (GMT)
+Received: from [9.123.14.142] (unknown [9.123.14.142])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 13 Jul 2026 05:59:13 +0000 (GMT)
+Message-ID: <91e04278-aa90-4cbc-aeb4-f4663bf1f058@linux.ibm.com>
+Date: Mon, 13 Jul 2026 11:29:12 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] powerpc/crash: protect kdump from active watchdogs
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au
+Cc: npiggin@gmail.com, chleroy@kernel.org, shivangu@linux.ibm.com,
+        hbathini@linux.ibm.com, mahesh@linux.ibm.com, adityag@linux.ibm.com,
+        venkat88@linux.ibm.com, stable@vger.kernel.org
+References: <20260713035954.1559605-1-sourabhjain@linux.ibm.com>
+ <mrvvv515.ritesh.list@gmail.com>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <mrvvv515.ritesh.list@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDA1NyBTYWx0ZWRfX10ZIAYzDAvYb
+ 4FQRuFa1dtTCxN57HqagOPTecHS+e7Da/EWiNSMeDMuIDk9YfdTK1SozvacakSb5Q1Va+o/k6zF
+ 8uYZD/9/O4pRUh3kxhAAfm42EGk5s5KbvLK46dqQ4MHYv85UMfk09uEp8Aj9EKCltRO0OOWF1du
+ Qf8bBbsnFe0bmWEsU6d8z1fcfMvkOtAFuLpc1sviN2sZg9GFIoNLSw8AAA2LpsXskGp5DFBLw+Q
+ wkK5yUstT/iSZattuJ2/rHidi+CW7/XH41JE/eZv2GLKLvHTkwsDgDb1iz66b/b5izZGBfoxm6J
+ Ksyxj+ERycxB31C24jQklA8O2W7BVMhDxEdkfArnJt8K5xSQZcYHDysf7oAozM2agN6BJf/mwS2
+ 8ToEtOWKJzWkR57jLw3xMDX39L5u6gRzC27kCatba5VauMJRSxW5YwfsTao3eo6d4pF3iZWpRB+
+ zu5lWKRz71DKhEJ0AfQ==
+X-Proofpoint-ORIG-GUID: QNfa4UZDELKHg7oMWgpF1vxmwACJTdHP
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDA1NyBTYWx0ZWRfX4L6Q+dce14RH
+ oOdP44hwBfDqBrXBJhyqHCeiwjadzZm6aIdpNZtTLQDqs/pAykP9pT3NSKlReAS4NUDjuIjzJr5
+ xhH2ifBdx0J8LY+i6OaRVa2pnS//uVQ=
+X-Authority-Analysis: v=2.4 cv=TpzWQjXh c=1 sm=1 tr=0 ts=6a547eba cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=mxXqI5Gt1W863cXGw_MA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: souf_10N6rLF5rpALs4ycEFTec1Hipmu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_01,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 adultscore=0 spamscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130057
 
-On July 13, 2026 3:54:36 AM GMT+01:00, "Eric W. Biederman"
-<ebiederm@xmission.com> wrote:
->Bradley Morgan <include@grrlz.net> writes:
+
+
+On 13/07/26 10:51, Ritesh Harjani (IBM) wrote:
+> Sourabh Jain <sourabhjain@linux.ibm.com> writes:
 >
->> The reboot syscall calls do_exit(0) after kernel_halt() or
->> kernel_power_off().  Those are expected to stop the machine and not
->> return.  When they do return (no PM info, power off failed), the
->> shutdown path has already disabled interrupts: native_machine_shutdown()
->> calls local_irq_disable() on x86, and do_exit() then hits its
->> WARN_ON(irqs_disabled()) at kernel/exit.c:930.
+>> Changelog:
+>> ==========
 >>
->> do_exit only warns by design; make_task_dead() is the path that fixes
->> the IRQs disabled state (commit 001c28e57187 ("exit: Detect and fix irq
->> disabled state in oops")).  The reboot fallback is not an oops and wants
->> a clean do_exit, so enable IRQs at the two call sites instead, matching
->> the make_task_dead pattern.
+>> v2:
+>>   - Move H_WATCHDOG definitions to a common header for shared use
+>>     across pseries code. 1/3
+>>   - Added a new patch to handle pseries watchdog device registration
+>>     failure. 2/3
+>>   - Stop active watchdogs in crash hanlder. 3/3 Ritesh
+>>   - Add suggested-by tag 1/3 & 3/3
 >
->I think this is fixing symptoms not the actual cause.
+> Reviewed the changes and mostly looks good with some minor nits added to
+> the individual patches.
 >
->How does kernel_halt or kernel_power_off manage to return?
+> Small request -
+> Could you please also update test results with v3 in your changelog
+> (since you mentioned we are able to reproduce the issue easily with your
+> test code).
+
+I tested this fix with the program I shared in cover letter. The watchdog
+was successfully stopped even when H_WATCHDOG is called form crash
+handler.  I will share my test details in v3 cover letter also.
+
 >
->If they aren't supposed to return changing the code to call
->make_task_dead to indicate you are on an error path is probably
->the better fix.
 >
->Eric
+> aah one other thing I just noticed since you are ccing stable and you
+> added a Fixes tag in patch-3.
+> Patch-3 alone cannot be easily backported now due to patch-1 and
+> patch-2. There must be a way to define the dependencies if you are
+> looking for backporting the fix patch to stable tree, please check that
+> and follow that accordingly in v3.
 
-Doh! Nice catch!
+I thought about that as well, but since they are part of the same patch 
+series,
+I assumed they would be picked together. However, I don't think that 
+will work
+in all cases.
 
-I'll do a V2 with some other things I needed to address too, e.g:
+I checked the older commits and noticed that a backport note was added. 
+I think
+we can do the same for the fix patch. I'll add a note indicating that the
+following patches should be backported first:
 
+powerpc/pseries: Move H_WATCHDOG definitions to a common header
+powerpc/pseries: Handle and log pseries-wdt registration failures
 
->> Splat from syzbot:
->>
->>   ACPI: PM: Preparing to enter system sleep state S5
->>   kvm: exiting hardware virtualization
->>   reboot: Power down
->>   ------------[ cut here ]------------
->>   irqs_disabled()
->>   WARNING: kernel/exit.c:930 at do_exit+0x1cf7/0x2ae0 kernel/exit.c:930,
->CPU#0: init/6193
->>   CPU: 0 UID: 0 PID: 6193 Comm: init Tainted: G             L     
->syzkaller #0 PREEMPT(full)
->>   Tainted: [L]=SOFTLOCKUP
->>   Call Trace:
->>    <TASK>
->>    __do_sys_reboot+0x36e/0x400 kernel/reboot.c:784
->>    do_syscall_64+0x115/0x840 arch/x86/entry/syscall_64.c:94
->>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
->>    </TASK>
->>
->> Fixes: 001c28e57187 ("exit: Detect and fix irq disabled state in oops")
->> Reported-by: syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=8fdf0d8e10bdde1c2e88
->> Closes:
->https://lore.kernel.org/all/69f5ec0c.050a0220.312cd3.0023.GAE@google.com/T/
+Since these patches are not upstream yet, I'll refer to them by their 
+commit titles.
 
-The lore links wrong, I'll fix that bug later.
+Does that look good to you?
 
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Bradley Morgan <include@grrlz.net>
->> ---
->>  kernel/reboot.c | 10 ++++++++++
->>  1 file changed, 10 insertions(+)
->>
->> diff --git a/kernel/reboot.c b/kernel/reboot.c
->> index bed6967bfa96..7e8ebb470721 100644
->> --- a/kernel/reboot.c
->> +++ b/kernel/reboot.c
->> @@ -777,10 +777,20 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2,
->unsigned int, cmd,
->>  
->>  	case LINUX_REBOOT_CMD_HALT:
->>  		kernel_halt();
->> +		/* kernel_halt() was expected to not return. */
->> +		if (irqs_disabled()) {
->> +			pr_info("reboot: halt returned with irqs disabled\n");
->> +			local_irq_enable();
->> +		}
->>  		do_exit(0);
->>  
->>  	case LINUX_REBOOT_CMD_POWER_OFF:
->>  		kernel_power_off();
->> +		/* kernel_power_off() was expected to not return. */
->> +		if (irqs_disabled()) {
->> +			pr_info("reboot: power off returned with irqs disabled\n");
->> +			local_irq_enable();
->> +		}
->>  		do_exit(0);
->>  		break;
->
-
-Thanks!
+- Sourabh Jain
