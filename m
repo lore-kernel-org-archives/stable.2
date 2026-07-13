@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEBA42DA37
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:46:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0193D293C4E
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:46:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950361; cv=none; b=XJ51trF5IrajW6Cx++M89kXcO8qSHzfEJErsKOD0VLY4cTbn7GZY5RT48S/x9mzKJRq8k9osrswTmNQBfP7dP4nXcdOYnZStKpTTciamiNf1Kjpp/iyDANk4N8Q7kUllnrdGtGX0b22q72yMVtc1vvPVF7DOi3SlDYuoeJMPX2U=
+	t=1783950364; cv=none; b=X4Z1yaRbv5p9zn4ks5dl64vZrXINhBTMERWPmL6zMEdPwjbDfJRUdznctRpTWBPXZUo5rZ9tcGztC/nZWhGwWP5Bm56OK/WpOjiV2eb+Cbq6GBROS1J5YFo+aYPsdPvfsxcv9FxeEQ8dWW4mu0N9jgrJ+wTeUvzUjXYnhmyj2fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950361; c=relaxed/simple;
-	bh=OKlyRv8wgmnVyrHwn3r8KKsjdRRa4r1bBcMlKrX3Rzo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ApcIAvAlDxV8abu12PA1GcU4mHQoUlaYCNjOdxc1cTLgZAghXElUhApZ2/jQnyF9tT2b9bAoDbHd6m0tTit9A4C9grFGTfZvXPy1wCI0rPbW5tNYaGthDRBHLqoy8VCS5dkMRTHDdm5rfaPTluPHgqdfcSWrF1BR0rTycKhunj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TQrrd7ue; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950364; c=relaxed/simple;
+	bh=K5LPdzhQXLmjSuQILxWVsEurHLp/pyJb4bZAxxgXzZk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BvYJkUUUi7IXxsNH6TFZt18239aC+UWRuguA1VRcV7KKNonjOJhPmaIFSNOPMrsOX/VCEssCteUkurg/8X6n9RIOXY6uhfR0nAgDdVFls2OOSFbQly+CzJ91KIDh1Cb4/VptvqzJOTVNprqvKVZdWpirRtc0WMuj/fs2c+JDZIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=n4lP/Iup; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TQrrd7ue"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5971F000E9;
-	Mon, 13 Jul 2026 13:45:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="n4lP/Iup"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662B11F000E9;
+	Mon, 13 Jul 2026 13:46:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783950360;
-	bh=JsGCqmWlGuW8sSzx4d1g0EOWQzEWD85LGeI0dhORn00=;
+	s=korg; t=1783950362;
+	bh=Av+LDbgLtCHfegMDf2Nl4Qo7bQAQpm5W1WzwjwFBpls=;
 	h=Subject:To:Cc:From:Date;
-	b=TQrrd7uesOSeQm8gtMs3BjpICCid6dlocIVfzUQ//RD5X14/xhZmflmORx8HnfksC
-	 tcWIDWXzcZtH+6yik3ansleNhoflncBirHEvH8KK6VVEZ/Z0w5GlOhdyZMkzIK5CUV
-	 sjt+Ptdl8cjbBkphyUOnn505wR0zTLaggo6e+pmc=
-Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Fix UAF in channel timeout by holding conn" failed to apply to 5.15-stable tree
+	b=n4lP/IupqYjMCdlP2x/CkDoD3J6LG7yNCHeFGK21SF5iDUCE61rUMAduUV6yOH9dQ
+	 dIams/fhk44TiBqqSr4YXDrnkFR1dyvhJM9Pivufbdhi5khfo5ag+10AN/f2+HGQG6
+	 H8dsBF70DO/sQOI/Zw/nVg8UlIaws8JQoUD2cUXA=
+Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Fix UAF in channel timeout by holding conn" failed to apply to 5.10-stable tree
 To: elver@google.com,luiz.von.dentz@intel.com,oss@fourdim.xyz,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:36:00 +0200
-Message-ID: <2026071300-swiftly-sniff-72ee@gregkh>
+Date: Mon, 13 Jul 2026 15:36:01 +0200
+Message-ID: <2026071301-bonsai-operative-a6c3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x b66774b48dd98f07254951f74ea6f513efe7ff8b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071300-swiftly-sniff-72ee@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071301-bonsai-operative-a6c3@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
