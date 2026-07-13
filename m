@@ -1,111 +1,100 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0652836A0;
-	Mon, 13 Jul 2026 07:14:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD3337BE71
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 07:22:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783926900; cv=none; b=LD/vnxJIj7VziLc1DNEnIGxyCEzLW1vz8Ppif3pEluwhVne2GNxvd02Pt9KhXwonpl4ZsCEAjYf8zJGwGLVLyfpNBJ8oXB5ZA25vKddsNjcwtWsqJNtgDX+KPCxUo3iTDm0zpcg8w8y7Fl7y66m5PIpHjjDSistJq5PB4d67bS0=
+	t=1783927337; cv=none; b=Mxim87faFi3YO0jU3OdIMFWqgVFfbu5WT8Y1bb1p8TJ03OSD0EK1quoO+tqbJk9YOG39oEnFHaEfygo9re2niCsnCXFg1EWrDHMpdfjl7JjzMsJsCyEPalM6G4emP2ggVV5E3vSgwikbfltnBqPGA8/V26CjCLeWGRDWH21uho0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783926900; c=relaxed/simple;
-	bh=ft5/eljShbuYhVYHfb0X4qATRaHxv9WlJJ3lqFQIN2A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lux58siNrdcTRCq72KYQLMwaPpLvsR+k+UVhkH/hOZEHCK9HT7OYJUOlKSV4zxOeMdoa1OLUbdIURATZQcz1OfOi89d90ShS2Oh48VbZQhnVNZeIrQhWAWeOfAqC+IYr4y3tj+/9cpHtE9qdqYiknvl4vIWeykAQNMEYMt3gJ1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=QXkWykl8; arc=none smtp.client-ip=188.68.63.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="QXkWykl8"
-Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4gzDFF2YLdz41mt;
-	Mon, 13 Jul 2026 09:13:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1783926833;
-	bh=ft5/eljShbuYhVYHfb0X4qATRaHxv9WlJJ3lqFQIN2A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QXkWykl8hifEgutAY/lzyn35YKVwZWQWF3ZaqD7dFUropywiLUD+NzTU9FbrMS8Gb
-	 N7TxJzsyM0rLg1s/N6S+evPSuSWcZKd3S72/5H9dIgpUVrYW9zJfbJ/NJReuVi0hiA
-	 ZEdzy7+Yr2Yn2lwb9NaTOuQbP8Q03XImk0jOy1ds6DrsPXaCFjrUwgbNgeJU2W9foc
-	 IeTnObDohuNHv8HGeUgcPfb760bwn+7YdwIoW7B5laHHhvYjg6ZsQPAN7SCUtJNtAk
-	 XCKUKycfalhsqa+m1pOL8dSc8Pd5aec/KxZiGCDjsJndw0jrSY8Hn+zQwBmHhsLsgy
-	 IClFEYaqTfVJA==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4gzDF31rC6z41vC;
-	Mon, 13 Jul 2026 09:13:43 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.898
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gzDDz3Vhbz8tbl;
-	Mon, 13 Jul 2026 09:13:39 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 81FD66041D;
-	Mon, 13 Jul 2026 09:13:31 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <ae5c29aa-3790-479a-bdfb-1b571eaab809@leemhuis.info>
-Date: Mon, 13 Jul 2026 09:13:30 +0200
+	s=arc-20240116; t=1783927337; c=relaxed/simple;
+	bh=prDBsEDkefgLC10ZgD/cNKCQ1km1ZVKL+7eLXBoG9jg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J216x8NroaPyKI3vf9brKBc72k2SbpUe2G9Fo76ELNYyKv2n2gi9x3I6MQSaDLmP+VY/ViiBA7+19sAP95iU4S3i+v0IEyPtomP9vOBk5MUg2fv5WyB0d8rwhk+NGbOYXGab1LgAPLs/uzBiENjDpluQWUidcqIw+bXE3vBlE7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5bf62388d17so1026528e0c.3
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 00:22:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783927334; x=1784532134;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=k9efCbe+5Y6ahQNJH2dxKPZ1FaQevv/SuYysWDsVR8s=;
+        b=oecLF32iHTu6VTHWkIcfyBYaMRdJAi/aWPI61mxr/q0Gw5TeZDR0QmU5WBRp+a9Qi6
+         fhTsBDMUL9fqBLbfFJHIKzf+wLloGj4oqy0+sYS1thX47wZTCk/Vi2jiwmsbvKz3xARE
+         UsaGe78mZF6fyWgSN5U05jpK63mhFP0FTjb590+OPti4Wbtpk9CrG9pVROBYxEC+Hayw
+         NrRncRvGQ5RAwRFOi4KibYxFaMzp3ttED4YcIzPYbiR9U0mbPSDzpyi4R+B4KofGdGn4
+         4sXby57yQtLwdKU3DuddziiNgffQbYwUqXOC1E37Jp4vE1dOPcpDNczDWFcM0B7opynM
+         aRuQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoLwLDKlnNU+pRK90THK/Jxg87yleyBE6NALEtTtJsRf9MYplrs6aPR/mF720k1BsHxQ1629Vg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFD8xZeuSpoETPMkzXJJMgMrVsa/Fesh949a2fNsF0BGDDQmKK
+	q3WicYokJ48UQ9HXGBIacyD9Zy7lmHJusEhNAbtH3Cu69hFyquZ05c2dRpcvicad
+X-Gm-Gg: AfdE7ckb/PjQBoEBqQp3nCmL7OMVrMFgps7GVlYMXhZErFQP8WXMBHIOTa8MxUc1ZhZ
+	DN0BLi4dqO6O/zjXny/kvMN9BWJ53poVgmFx/PVTO29q0zwSElYfoXs8kFuce2yZTEMmq9Wu9Aa
+	lA2BEcBZsA9GZTTMKjNktaIH0f7c4XfPpuCtd79bKv6w/fFwurkGJQilWzYxIeXZVaKhdhBC8Dh
+	W8yx8PLsfbhtaz/0uxAvSuoT+iUzonbyxLlc6CShKepKeAozuQTzmdGm7qQNl0NPgt2YGWDrMkm
+	xirFL7Ojk/+nuzMojsmmdHYqlVDvJU8qbZNjlh5FgwWJIhOe6PIVPoXm3DrWzT62ibHixQBdDzm
+	J3TIKCstSyWmDgmAMCeRccCGsKOYLFo4wKd1vIPI7/1SydUa7+X4u2QukNxQqMI0z4JyNqhbIJ/
+	onxMeoXJ14+xiF2mh8psu5hU3WCl7XJFbybYK78fCw/dJRGMrFfw==
+X-Received: by 2002:a05:6102:2913:b0:631:af51:7d8e with SMTP id ada2fe7eead31-74533d605e1mr4248472137.17.1783927334115;
+        Mon, 13 Jul 2026 00:22:14 -0700 (PDT)
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com. [209.85.222.42])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96ed5d4d40esm6880956241.9.2026.07.13.00.22.09
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Jul 2026 00:22:11 -0700 (PDT)
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9618b8bdc51so683689241.1
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 00:22:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoezkAP40Kepr9+UW5IsEalXKa7BlK6jNtxtRtTlfuzZyA/DLBfPS9suoU6HSO4rFw13ZCyOv8=@vger.kernel.org
+X-Received: by 2002:a05:6102:26d4:b0:737:783d:1900 with SMTP id
+ ada2fe7eead31-74533bddb5fmr4721253137.9.1783927329441; Mon, 13 Jul 2026
+ 00:22:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [resend] [regression] amdgpu carrizo: no display signal after
- modeset
-To: Dianne Skoll <dianne@skoll.ca>, Jaak Ristioja <jaak@ristioja.ee>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Salvatore Bonaccorso <carnil@debian.org>, Chris Park <chris.park@amd.com>,
- Matthew Stewart <matthew.stewart2@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- 1139950@bugs.debian.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
- <178198613176.3658222.16247101620976737948@eldamar.lan>
- <ajcLuO0YZCoPN7Xw@eldamar.lan> <e4f60b98-9bd8-491a-9703-a5a7a58a4ca0@amd.com>
- <82b5026d-2dcc-4dcd-9094-2ccf70057964@ristioja.ee>
- <6cf6be99-76c3-43b3-854f-96cae180318c@ristioja.ee>
- <20260622153449.453b493e@gato.skoll.ca>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260622153449.453b493e@gato.skoll.ca>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178392681229.3442660.9578169747564647640@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 81FD66041D
-X-NC-CID: MzLG2tZMKB/ADR25837MhEmuu9VJVl40ek1ivkRoK5XTXQ/26lE=
+References: <20260711130931.740719-3-thorsten.blum@linux.dev>
+In-Reply-To: <20260711130931.740719-3-thorsten.blum@linux.dev>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 13 Jul 2026 09:21:57 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUK9a+1EwCGFw7dS8tvU=N438Bd2Z=EY0xuaQYPDy2hug@mail.gmail.com>
+X-Gm-Features: AUfX_mx-KZ6ym34u_XnSAl1rHvfZCpzLD6QFC2QtuW07Z8oE-TV1vNB_HazP5kM
+Message-ID: <CAMuHMdUK9a+1EwCGFw7dS8tvU=N438Bd2Z=EY0xuaQYPDy2hug@mail.gmail.com>
+Subject: Re: [PATCH] powerpc/ps3: Fix map failure path in dma_ioc0_map_pages()
+To: Thorsten Blum <thorsten.blum@linux.dev>
+Cc: Geoff Levand <geoff@infradead.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Paul Mackerras <paulus@ozlabs.org>, 
+	MOKUNO Masakazu <mokuno@sm.sony.co.jp>, stable@vger.kernel.org, 
+	Geoff Levand <geoffrey.levand@am.sony.com>, linuxppc-dev@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 6/22/26 21:34, Dianne Skoll wrote:
-> On Mon, 22 Jun 2026 20:46:44 +0300
-> Jaak Ristioja <jaak@ristioja.ee> wrote:
-> 
->> Reverting commit fee50077656 ("drm/amd/display: Bump the HDMI clock to 
->> 340MHz") on top of v7.1.1 appears to resolve the issue, as I am now able 
->> to get a picture.
-> 
-> Unfortunately, reverting that commit will *break* it for me with my Dasung
-> E-Ink monitor. :(
-Jaak, was this ever resolved? It looks like this fell through the
-cracks, but maybe I missed something.
+On Sat, 11 Jul 2026 at 15:10, Thorsten Blum <thorsten.blum@linux.dev> wrote:
+> If lv1_put_iopte() fails in dma_ioc0_map_pages(), the error path
+> decrements iopage but keeps using the failed mapping's offset. As a
+> result, it repeatedly tries to invalidate the failed IOPTE slot and
+> leaves the already installed IOPTEs valid.
+>
+> Recompute offset and invalidate the installed IOPTEs instead.
+>
+> Fixes: 6bb5cf102541 ("[POWERPC] PS3: System-bus rework")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 
-If this is still unfixed, I think it likely is best if you report this
-to https://gitlab.freedesktop.org/drm/amd/-/work_items/ if you haven't
-done so already -- I suspect that is more likely to get the attention of
-the amdgpu maintainers. Please drop the link to the ticket here after
-submitting the issue.
+Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
 
-Ciao, Thorsten
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
