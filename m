@@ -1,45 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1D234BA28
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D838F34C981
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783965209; cv=none; b=ICuacmUTx8B/V1vlndQQZI3OoAG2nnz15kyCr8tP6aUtXU8FHrnmVVCGZaq/LAu9XB1ucoH//PFHp7o9ouERwARTzYEp8MOl+iZbvlkP42bi+onqLoHqTvElFwkHPETIeqbvag3e2EsaacfukAYPv8hvUgrDP7qV5jC9ebVODpU=
+	t=1783965256; cv=none; b=IA3kZzkifhm6DTrGWyzxF7MKg2bqp61+49i6t3IymJd3smtyn/UWXACB6G7taq6ichyMSZ1ENL6g2NM+Xfe8NdsYG1VUFqd+Ol7ILHuubkWem4OJtclSaYytZ6ikdYnc2P8O5r+IePDTAt5GEoIoefNOKken6rua8fNplaKOKTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783965209; c=relaxed/simple;
-	bh=1QlsY5rU9NfH6hD/zubc+2LFb5UgaNK3kyoqS2xxSy4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uPQuiDmJEEt20cv9qp7EQ3G38Wbg4uT5x1B/TUCmlh/qIFI+s04pgOYxXG0/fep9PTOGgl6RxGDEs7Qos82e2dOsIMS10BnRig9G70Dfk6vLfELBq3G79rPc1dhnD6Kvox4sBaDidNlVdenKtiWN0HVaBxq2I8Z6PfZlkwaFUr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gUT8MKvW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783965256; c=relaxed/simple;
+	bh=fwwlYXwipnRJM74azo+rjLcKco1it7zPCL0/YQ8eHvc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fGVI5pkXDLQlPPx1rC3d++8tHdhl05PIL4wi6lH0m1Z0w5FSimZhR1awL5Hm1Vzx1UgE0L9sE6R1vV33SrNWyEIKaDRC2kZuaC35xH0+Oej1+L4VGoBdBlpGu71/n5pDDtkxbnL3pJKozDhvc3Rmf0DV361HQpWtWOdkN3Pe9JU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S7hsQcEp; arc=none smtp.client-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gUT8MKvW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F501F00A3E;
-	Mon, 13 Jul 2026 17:53:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783965208;
-	bh=vUUp7MSmtVU1mttDz1u6K47mjBh0cTysm+9DPzq0WLs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gUT8MKvWLz4keZl5O1pbb/Mxz+ulnu06KZicJxV9xvtWH9/Frje5IkZ8tZMGN2ina
-	 VPtBz/zGAVXcrb9ar3i3oWF2SsrkiaYgUlr6GNY6SZPNOy4udQAUpXXF9NB8cpkm13
-	 7aIHj5KxsPgB9W8otn/BpWlonpWbaHw0vWl6jXFVpULq3ybfKCACQug1ICh9gJx2Lc
-	 yzhjlxhCpQH8Kb1ox3BCq7c7Xx48KLQwyaOTazFiXFHHQLz8oiR/p5YgqDsW1ydh/D
-	 P1ksC2jYSE8GAzzH3SpHZnRBAdQ4bzDIUq7wLAb6uaRCaeFLTltmL3n4bo2V+p7bcS
-	 N+aexdoDBzIwA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhang Lixu <lixu.zhang@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 2/2] iio: hid-sensor-rotation: Fix stale or zero output when reading raw values
-Date: Mon, 13 Jul 2026 13:53:24 -0400
-Message-ID: <20260713175324.1902799-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260713175324.1902799-1-sashal@kernel.org>
-References: <2026071306-financial-slept-710f@gregkh>
- <20260713175324.1902799-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S7hsQcEp"
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6a168dc590cso2411162eaf.0
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 10:54:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783965254; x=1784570054; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0oi7RBUONXGXfnURZsInlGh33PNi9ChYYlmF2YyoKqk=;
+        b=S7hsQcEpNtyUh/EAj+9DO7grKtEOyeWQtbWp2Yb0cg5SQlNWWrxHPsuQdX8usCpQgB
+         OLogv1fXbN4zpis7nAqZazMOY5SvEVbgyp9/pkyt3WKqL+8/7mbW8XcpR3E4gPxccw3z
+         lOhqpnaxhUMCGyem01H8E7YtJVTD731yaT7hqm9kjvfKlsNp1adghZjhXz4OFqAgncoh
+         6bfNY99uQKl45nGXiNUBZzGoG1Bb1WpljSSUlGpiFtg5OuDc7Cu0tcie9fXmLEybOpDJ
+         pFT4Yl+ZnxF7FnJa3TXqcjDgzR8iGluluTNTptPZrXrIJatuuSm6M8/SCBc+WezrT3me
+         Du1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783965254; x=1784570054;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0oi7RBUONXGXfnURZsInlGh33PNi9ChYYlmF2YyoKqk=;
+        b=LHry4mft/ERMXKO97neLmRz2SvsByCa5YNw0w1stqyOM3eMHfPxPbeiKm+8vFcJlfv
+         6YKQGOW498xNvfQbWYmtuLsIU1lgTs2xZG7IYV2tzSZ831VfyxSNTxueVaTllzOEOBdy
+         l4Wv4QJpDiampGCXKL5kc6/RO/tpv/ZbmcjT+OuT5SobkA6cRyBn8cKFprPxDLZ00VmP
+         7xZcDLO47+RODocrC9N5KI2pcytDMLMj5DvZNTkqIvMl5WMsVBwkBr8CeNsgnKbmTTAT
+         8J7Z566b9GiFbJmO9LrmYNjq+lx7q4LlMG3SGC5kLk4bLCtn6d7A0eF0ipLF7gTPplrF
+         VQ4Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/f6ru1pDQVDxYuP9IzsnbQkZ68hyLkhdrJIzqbo0680otIM+4Lul1G+lTuiPPIMlrSgiEefZk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbPUshDkrMGhhN5JXohl/biRZ5umIQXSyfBhDQKGvgRvpe5JC6
+	ePpCFecyw04dbmqmw+AkZCWy4jBnoDqOsa46rhl6OiybxzhAYamqwKmS
+X-Gm-Gg: AfdE7clujbmQKzVeJbEgliQyMc+/LMw4DXLMuvW0ophQpNHOU7HEs0mRscfdcXD1Clm
+	kL2KO+0FxQO6Xbe3Eaib3SccyrGNu5AcjcWM1M4bJk8RR9VVAesh0wgNSRzVF444t+qf/FRktwV
+	mtflwOS0EpEEXv7QGtl5zIbUhKgYYDoSy+KG+/Lhr+hDGoOfpfiBYqVN4aUCaj0OUoA21SuORub
+	/DruEuvCgpWrlm1UkRKLmbeboprikGVHKfyHS7E3TSggXfIPTwOia5/ZwmzJr6h0rN305ohIyFA
+	BN4TIQSFCnHUjl4dbFmEnY1ZaxWtEdbTluc7fQ2AcqJ9JO5gYVC922Kw4nXaYaEhLonvXDrefX4
+	fSonJogmBAUIhutHbH1Ugvmg4BEjZMHHAodpoL8jEy1OaKgNA4elGlFQiKrfWMLm7ct9R/xxnoZ
+	KcPNlapRNDkgHEjcn/eenrHwN1ZvSCq/xKcZTaAs5bXJMsgojuPLcF54Xs694v/zQIa8PO2rMWl
+	J4=
+X-Received: by 2002:a4a:e910:0:b0:6a3:7701:660c with SMTP id 006d021491bc7-6a3c607cbb7mr303794eaf.20.1783965253754;
+        Mon, 13 Jul 2026 10:54:13 -0700 (PDT)
+Received: from localhost ([2a03:2880:ff:73::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ec2229b4bdsm4169384a34.1.2026.07.13.10.54.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 10:54:13 -0700 (PDT)
+From: Joanne Koong <joannelkoong@gmail.com>
+To: miklos@szeredi.hu,
+	bernd@bsbernd.com
+Cc: fuse-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v1 0/2] fuse: fix missing barriers in io-uring init
+Date: Mon, 13 Jul 2026 10:53:43 -0700
+Message-ID: <20260713175345.2542331-1-joannelkoong@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,88 +74,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhang Lixu <lixu.zhang@intel.com>
+These are two pre-existing issues Sashiko reported [1] on the fuse zerocopy
+series.
 
-[ Upstream commit 3ce8d099e0afc5a7da75a2007a67f67c4f5a4af1 ]
+[1] https://sashiko.dev/#/patchset/20260630211436.2062816-1-joannelkoong%40gmail.com
 
-When reading the raw quaternion attribute (in_rot_quaternion_raw), the
-driver currently returns either all zeros (if the sensor was never enabled)
-or stale data (if the sensor was previously enabled) because it reads from
-the internal buffer without explicitly requesting a new sample from the
-sensor.
+Joanne Koong (2):
+  fuse: fix missing barrier when checking io-uring readiness
+  fuse: publish io-uring queues with release semantics
 
-To fix this, power up the sensor, call sensor_hub_input_attr_read_values()
-to issue a synchronous GET_REPORT and receive the full quaternion data
-directly into a local buffer, then decode the four components.
+ fs/fuse/dev.c       |  8 +++++++-
+ fs/fuse/dev_uring.c | 10 +++++++---
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-Fixes: fc18dddc0625 ("iio: hid-sensors: Added device rotation support")
-Signed-off-by: Zhang Lixu <lixu.zhang@intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/iio/orientation/hid-sensor-rotation.c | 40 ++++++++++++++++++-
- 1 file changed, 38 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/iio/orientation/hid-sensor-rotation.c b/drivers/iio/orientation/hid-sensor-rotation.c
-index 5a5e6e4fbe34ba..83a0b0283605b0 100644
---- a/drivers/iio/orientation/hid-sensor-rotation.c
-+++ b/drivers/iio/orientation/hid-sensor-rotation.c
-@@ -74,6 +74,13 @@ static int dev_rot_read_raw(struct iio_dev *indio_dev,
- 				long mask)
- {
- 	struct dev_rot_state *rot_state = iio_priv(indio_dev);
-+	struct hid_sensor_hub_device *hsdev = rot_state->common_attributes.hsdev;
-+	struct hid_sensor_hub_attribute_info *info = &rot_state->quaternion;
-+	u32 usage_id = HID_USAGE_SENSOR_ORIENT_QUATERNION;
-+	union {
-+		s16 val16[4];
-+		s32 val32[4];
-+	} raw_buf;
- 	int ret_type;
- 	int i;
- 
-@@ -83,8 +90,37 @@ static int dev_rot_read_raw(struct iio_dev *indio_dev,
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
- 		if (size >= 4) {
--			for (i = 0; i < 4; ++i)
--				vals[i] = rot_state->scan.sampled_vals[i];
-+			if (info->size <= 0 || info->size > sizeof(raw_buf))
-+				return -EINVAL;
-+
-+			hid_sensor_power_state(&rot_state->common_attributes, true);
-+
-+			ret_type = sensor_hub_input_attr_read_values(hsdev,
-+								     hsdev->usage,
-+								     usage_id,
-+								     info->report_id,
-+								     SENSOR_HUB_SYNC,
-+								     info->size,
-+								     (u8 *)&raw_buf);
-+
-+			hid_sensor_power_state(&rot_state->common_attributes, false);
-+
-+			if (ret_type < 0)
-+				return ret_type;
-+
-+			switch (info->size) {
-+			case sizeof(raw_buf.val16):
-+				for (i = 0; i < ARRAY_SIZE(raw_buf.val16); i++)
-+					vals[i] = raw_buf.val16[i];
-+				break;
-+			case sizeof(raw_buf.val32):
-+				for (i = 0; i < ARRAY_SIZE(raw_buf.val32); i++)
-+					vals[i] = raw_buf.val32[i];
-+				break;
-+			default:
-+				return -EINVAL;
-+			}
-+
- 			ret_type = IIO_VAL_INT_MULTIPLE;
- 			*val_len =  4;
- 		} else
 -- 
-2.53.0
+2.52.0
 
