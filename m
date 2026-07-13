@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470ED437127;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DC3437107;
 	Mon, 13 Jul 2026 13:58:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783951127; cv=none; b=njeQp3vYkYs2ioCL5g30YwRkda99aigHXQd7n0w2R/EMObqDKF4aKWFLBXME43C7NoDYvEjjRoJspGhLe/yypp2RIEVzN2IQUIbbd/3ILExFtDBLXapFO1hG0q03Bi48Q2MFdQLZZW0zkF84HCnwwj/or/MI8XhGFK3tdBCXiQk=
+	t=1783951127; cv=none; b=OkPsyd3WeZpeD4V8CZAPuhuMSTu1sWYwLoURgYJqnQ15hqHIMJNDO4D8SMfevsN6l2Pw9EDP5Idip0IQ86knA/26WlYHokMUBCMoJ5VxcYEmOSNqqFSRI9SeGCcxxne+Tf9xWaklISRJzN/cqaBK1I3Nfs+e8mIF5O9EEYD+Iiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783951127; c=relaxed/simple;
-	bh=UvG3w3Q38JCvdgaSsgN+1fOmYYd1A7xQdvoEpH7rRxM=;
+	bh=2YTUi5fssLwguc0tdmj+L1Qs0tTe4BqhfdbB6oOiClA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qut64Mb5T7Qsd0qdqtNPAn1NGC/pV85pQqjSoV2T2s9P2g3BqeKljlL/tU5sHBChgex+hcWfDQApVzO+outjPGSu4azzAHOqJopeuYaS6iX+YKavk5MmQTUfz1s36cIFTcoS4pQGlmROlz2RK66DnniiDC/6/ki4hCnxTdSEJ4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MEkO4cOG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=q3022A0Kp4m9MlG3xSV+V9jEgNRESRjYVlj4mJ0w7zJ8De+xyQfUKFl/szlQfaKBwC5P6s0PfPusX/pgMuXFbMO4RNrnJN03pxJ6qv8VZeBZCginIJZJ6qu5Lo7Q7C+tuIXCq8C095ccBL782nDas+b3f5Q7I6Au5KCxCbdv538=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LQ/zMYiy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MEkO4cOG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C461F00A3E;
-	Mon, 13 Jul 2026 13:58:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LQ/zMYiy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5565E1F00A3D;
+	Mon, 13 Jul 2026 13:58:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1783951126;
-	bh=yFIQucAr4vFmOrW82XY64T561EcF6nkSnWV7DSiSLJg=;
+	bh=SKLq7ZuoHq2BFm176pu4DfNEYfPU8F0EbpgzHa8ZXlA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MEkO4cOG07NJ7HKPJXu62PXT/o98eeK7TbKkTVT+LMqWbUKy8aZygB2ygoNst2sRj
-	 gzXjIFlJyFrWDM6dButP2m/w78beObSMeuDCcC6XBQN+wMUof0NDeVOkmTzOIjVsvX
-	 vda83iP5GNBiHr2EWkKqMacRAYB3/h7Skld5ia18TmOZJHI90UFAaZW8mFaQN1STnB
-	 Oh6nZjIWOrghkf2//6kGQBmZUUIjmUhpBCDv8RxOqziLQlsy0jcZN+1q2uTQorM0z1
-	 hBb6oEjPFxvqOmnAsUZrNGVkxxl9jp56aoWwMgfZnCkNkSye/bJUUzrFwapcTh/0w+
-	 /p3IkKRDDSeyA==
+	b=LQ/zMYiyDc9DBS+2PK4RjZYTpHzO2uSG2unKv5GwCgnDUqdMiXhJTqI0CAFZAa/3P
+	 1VHFTEGSTxLynIIT943yFiCNPlZs2qYLlkPj5Lrfw3eveLRGKadq+v8/xT17JP2OpH
+	 L82xYFFVjkghxdfAMdHlpQzTJEh9RWCz2fVa3BBJsjN/WjDZR49JoYSQ71YyYsSRaF
+	 RDGRPLh6A1tTvWXaOQvf8hecqWIQ21JwhI3GXDDS4vJnPKRN/RLhDiRbTNbz5gq3Eq
+	 nd1bC5m5KLvePmsUtrEd19vJxmscIWClZ9+2ZPN9UuOnMDRbSCD/38I76b4JqnZrzo
+	 bKvk5Ooi9Yn2A==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	SeongJae Park <sjpark@amazon.de>,
 	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v1.2 1/5] mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
-Date: Mon, 13 Jul 2026 06:58:32 -0700
-Message-ID: <20260713135838.32730-2-sj@kernel.org>
+Subject: [RFC PATCH v1.2 2/5] mm/damon/tests/core-kunit: catch test failure in test_merge_regions_of()
+Date: Mon, 13 Jul 2026 06:58:33 -0700
+Message-ID: <20260713135838.32730-3-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260713135838.32730-1-sj@kernel.org>
 References: <20260713135838.32730-1-sj@kernel.org>
@@ -48,71 +53,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Due to online parameter update like events, the number of DAMON regions
-could be higher than the user-set upper limit.  kdamond_merge_regions()
-repeats merge regions until the number meets the limit, while doubling
-the merge threshold up to the theoretical maximum threshold.  It is
-tried only up to the theoretical maximum threshold because even the
-aggressive merging can fail from reducing the number of regions under
-the user-defined upper limit.  For example, there could be many
-user-defined non-contiguous regions that cannot be merged.
+KUNIT_EXPECT_EQ() does not abort the execution of test code when the
+expectation is not met.  But damon_test_merge_regions_of() code after
+its initial KUNIT_EXPECT_EQ() call assumes the expectation is met.  It
+does a per-region test with a hard-coded number of regions that is
+correct only if the expectation was met.  As a result, __nth_region_of()
+could return NULL, and the test code can dereference NULL pointers.  Fix
+the issue by catching the expectation failure and skip the per-region
+tests.
 
-The threshold based loop break condition is evaluated by comparing the
-threshold for the next merging try against the theoretical maximum
-threshold.  If max_thres is larger than UINT_MAX / 2, doubling the
-threshold could make it overflow, and bypass the loop break condition.
-In the case, if the number of regions cannot be reduced under the upper
-limit like explained above, the loop will run infinitely.
-
-Prevent the case by doing the break condition check before doubling the
-threshold.  Also, prevent the threshold exceeding the maximum threshold,
-as it could overflow and apply the wrong merge threshold.
-
-This issue is unlikely to occur in real world, since having the
-max_thres higher than UINT_MAX / 2 require unrealistically large
-aggregation intervals compared to the sampling interval.  Also, it
-requires an unrealistically large number of uncontiguous regions setup.
-Nonetheless, the consequence is bad and the fix is simple.
+The user impact on realistic setups should be negligible, as it is a
+unit test.
 
 The issue was discovered [1] by Sashiko.
 
-[1] https://lore.kernel.org/20260709145425.96247-1-sj@kernel.org
+[1] https://lore.kernel.org/20260710144937.26981-1-sj@kernel.org
 
-Fixes: 310d6c15e910 ("mm/damon/core: merge regions aggressively when max_nr_regions is unmet")
-Cc: <stable@vger.kernel.org> # 6.10.x
+Fixes: 17ccae8bb5c9 ("mm/damon: add kunit tests")
+Cc: <stable@vger.kernel.org> # 5.15.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ mm/damon/tests/core-kunit.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 806a67d02a6e9..f3b6a46fdaabd 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3369,15 +3369,20 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
- 
- 	max_thres = c->attrs.aggr_interval /
- 		(c->attrs.sample_interval ?  c->attrs.sample_interval : 1);
--	do {
-+	while (true) {
- 		nr_regions = 0;
- 		damon_for_each_target(t, c) {
- 			damon_merge_regions_of(t, threshold, sz_limit, c);
- 			nr_regions += damon_nr_regions(t);
- 		}
--		threshold = max(1, threshold * 2);
--	} while (nr_regions > c->attrs.max_nr_regions &&
--			threshold / 2 < max_thres);
-+		if (nr_regions <= c->attrs.max_nr_regions ||
-+				max_thres <= threshold)
-+			break;
-+		if (threshold < max_thres / 2)
-+			threshold = max(1, threshold * 2);
-+		else
-+			threshold = max_thres;
-+	}
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 6ad73559dd8ea..a99363720e677 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -260,11 +260,14 @@ static void damon_test_merge_regions_of(struct kunit *test)
+ 	damon_merge_regions_of(t, 9, 9999, ctx);
+ 	/* 0-112, 114-130, 130-156, 156-170, 170-230, 230-10170 */
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 6u);
++	if (damon_nr_regions(t) != 6)
++		goto out;
+ 	for (i = 0; i < 6; i++) {
+ 		r = __nth_region_of(t, i);
+ 		KUNIT_EXPECT_EQ(test, r->ar.start, saddrs[i]);
+ 		KUNIT_EXPECT_EQ(test, r->ar.end, eaddrs[i]);
+ 	}
++out:
+ 	damon_free_target(t);
+ 	damon_destroy_ctx(ctx);
  }
- 
- #ifdef CONFIG_DAMON_DEBUG_SANITY
 -- 
 2.47.3
