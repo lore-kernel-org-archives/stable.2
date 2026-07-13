@@ -1,99 +1,110 @@
-Received: from va-2-111.ptr.blmpb.com (va-2-111.ptr.blmpb.com [209.127.231.111])
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0B3346A01
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:15:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D41277035
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 17:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783962942; cv=none; b=UhrP1hhIWnNcltoM/cXCCQW3nwl07PYWoBKHvsIS1pDJlD2B5wmFlZXm2/j4BUpG9WnPb/+1X9w8BKjzVRFBlOLjt8j/73DtKTQr9A58GgwjeprXm2EkpIXrwS5eEmsARzcae+tUxLa5UxT8M5v5JlskXsq+wlzMPNmVJZ8bgUc=
+	t=1783962943; cv=none; b=dxNfIQTwjOr0bl7C+ZLC1OhkamB5NWT4eLF8Djzhk7zasmur3/BY4Bt/WDAxwSFmcGtKVNWA2td3y3U8KaWVYCzxaI6dZ/IcYWFWDkHWmy454kYOT/6j42qmt/c42efMjJAetGpAVII8pTZ6WDNSqeqiRhowrNoDmZ6mUcL418s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783962942; c=relaxed/simple;
-	bh=5xqdn2MG8EMbx57mqkJmkxO2vcQq47DaGhOVz3FDHIM=;
-	h=Date:Content-Type:Subject:Message-Id:Mime-Version:To:Cc:From; b=Vvrq/1HDRp6RM3FcKE74CfVPUM0Tuf4pWzDSLoX4BlUcUR9KZDtZ46DY+WwhofcZXhMIfcbqF0V5NJ5yTNUu08mx77gqp32FeGWP+WQr7FlA47C428k2d85KDgFEIu/ZFSX98KAQvSLIElbLnddKQQBXMjMm1FwHbBhp22Ruhes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=gwrgITpl; arc=none smtp.client-ip=209.127.231.111
+	s=arc-20240116; t=1783962943; c=relaxed/simple;
+	bh=Aa8/5udmfj8TWjs9Foxa4aNvmPw6ehqBRclM4OZGM5M=;
+	h=To:Cc:Mime-Version:References:Content-Type:Date:In-Reply-To:From:
+	 Subject:Message-Id; b=jYJCZLkWLM602kj4id25h9ATtQ4PqolrsnLh3SOwuN6GFsRFb5blmKkiACuzrP6gzaCcr3JOFgLcuWRl7oSs313dW+Jeu7bizy8DiMQS1wBKR2NPj32VUyoWSP4tjbS2mGW/s6t9DK4ADoTUyqbT1vqS34ZirCDc9r6r8hUDuP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=hv1aiAcn; arc=none smtp.client-ip=209.127.230.113
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="gwrgITpl"
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="hv1aiAcn"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1783962926; h=from:subject:
+ s=2212171451; d=bytedance.com; t=1783962936; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=EhzDAb+qkscwAvcITNaP5V9HM6bbzYTebqCVp/u0Das=;
- b=gwrgITplNd33XsQaP+yqa9caiECxYCIGgRU/ssSuQl/uVsdfxnzkOD+OUVtRfJAxHqSU/+
- 3BPlO6k930EWwCVgCbw48hLMJ98TI+jEmIMJsbY+fTGDxQ3dC4PZTg3+smdnf/yy2xYhfo
- P8edRo5KCzeYUGcf7SQOdqzkU51SfO65UDmWuFcLLjSeg0zG88z/mSiP5AKOMoI+NkiDBb
- o1lQVvMs9wNTi56iAYXcMiAZYYTKo4GM5VWWZJJt9T/m4QPobF5fHGcyzx4PKGA/N5hkul
- WNBImWL8bBVCtcVyzARtUgMAUvXqRHYj4Qpldtw5+d1ixvhbkS8PP6Vyj/dTgQ==
-Date: Tue, 14 Jul 2026 01:14:54 +0800
-X-Mailer: git-send-email 2.55.0.122.gf85a7e6620
-X-Original-From: Xiangfeng Cai <caixiangfeng@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH 0/2] mm/hugetlb: fix list corruption in allocate_file_region_entries()
-Message-Id: <20260713171456.300518-1-caixiangfeng@bytedance.com>
+ bh=Nw+wphzpHskAbkcarmC3gNoJ47BFqLlYPBNMfUcVWJk=;
+ b=hv1aiAcn/0yT3QSpIcP8SEh1TTNWX0ykOHopIA9NWEyADckU+Z7pcRNqQBqrjbrLG/oml5
+ 3T63yANZU4Uuntj+OFE7MjMi7qkXxeWTo6wxP47VSrfdeWGJqOGdhQ2pbCOvO/+4uAVmZE
+ Oc3zJC3SNbALj3I8ZZ/Dn2MecH4ybxwi0PhxG+e/kp+zGbjNc+F4mycM1ujCgREqv6Nqlc
+ Oe+/bi/NVQWcn3ys3n6SbIeZIMq665/Jb61v5ZzMpQ19vidAU8DbeFMa40bcszYC1aFmHz
+ PZMU1d/HC57RqWtXG/eMX3GqA5Bb4hH0AEXIS5lkMg4t5D71kCoQd7NgcVmEuA==
+To: <akpm@linux-foundation.org>, <muchun.song@linux.dev>, 
+	<osalvador@suse.de>, <david@kernel.org>
+Cc: <caixiangfeng@bytedance.com>, <richard.weiyang@linux.alibaba.com>, 
+	<baoquan.he@linux.dev>, <shuah@kernel.org>, <linux-mm@kvack.org>, 
+	<linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-To: <akpm@linux-foundation.org>, <muchun.song@linux.dev>, 
-	<osalvador@suse.de>, <david@kernel.org>
-X-Lms-Return-Path: <lba+26a551d2d+92f900+vger.kernel.org+caixiangfeng@bytedance.com>
-Cc: <caixiangfeng@bytedance.com>, <richard.weiyang@linux.alibaba.com>, 
-	<baoquan.he@linux.dev>, <shuah@kernel.org>, <linux-mm@kvack.org>, 
-	<linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-From: "Xiangfeng Cai" <caixiangfeng@bytedance.com>
 Content-Transfer-Encoding: 7bit
+References: <20260713171456.300518-1-caixiangfeng@bytedance.com>
+X-Original-From: Xiangfeng Cai <caixiangfeng@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 14 Jul 2026 01:14:55 +0800
+In-Reply-To: <20260713171456.300518-1-caixiangfeng@bytedance.com>
+From: "Xiangfeng Cai" <caixiangfeng@bytedance.com>
+Subject: [PATCH 1/2] mm/hugetlb: fix list corruption in allocate_file_region_entries()
+Message-Id: <20260713171456.300518-2-caixiangfeng@bytedance.com>
+X-Mailer: git-send-email 2.55.0.122.gf85a7e6620
+X-Lms-Return-Path: <lba+26a551d36+583eed+vger.kernel.org+caixiangfeng@bytedance.com>
 
-To: Andrew Morton <akpm@linux-foundation.org>
-To: Muchun Song <muchun.song@linux.dev>
-To: Oscar Salvador <osalvador@suse.de>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: linux-mm@kvack.org
-Cc: linux-kselftest@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
+allocate_file_region_entries() tops up resv->region_cache with freshly
+allocated file_region descriptors.  The allocation uses GFP_KERNEL, so
+resv->lock is dropped around it: the new entries are gathered on a
+stack-local list head, allocated_regions, and spliced into
+resv->region_cache once the lock is re-acquired.
 
-allocate_file_region_entries() refills resv->region_cache with freshly
-allocated file_region descriptors.  It allocates with GFP_KERNEL, so it
-drops resv->lock, gathers the new entries on a stack-local list head, and
-on regaining the lock moves them into resv->region_cache with
-list_splice().  list_splice() does not re-initialize the source head, so
-if the retry loop iterates again -- which happens when a concurrent
-region_* operation on the same shared resv_map consumes cache entries
-during the unlocked window -- the next list_add() operates on the stale,
-already spliced head and corrupts the list.  On a CONFIG_DEBUG_LIST=y
-kernel this is a hard BUG(); without list debugging it silently links a
-kernel-stack address into resv->region_cache.
+The splice used list_splice(), which moves the entries but does not
+re-initialize the source head, so allocated_regions is left pointing at an
+entry that now lives on resv->region_cache.  The top-up runs in a while
+loop that re-checks the cache deficit after re-acquiring the lock.  For a
+shared mapping the resv_map is shared by every mapper of the hugetlbfs
+inode, so a concurrent region_chg()/region_add()/region_del() on the same
+resv_map can consume cache entries during the unlocked window and force a
+second iteration.  That iteration calls list_add() on the stale head and
+corrupts the list; with CONFIG_DEBUG_LIST the __list_add_valid() check
+trips:
 
-This was observed as a real host panic on a dense KVM host where a QEMU
-guest-RAM hugetlbfs file was mapped MAP_SHARED by both QEMU and a separate
-SPDK/DPDK vhost-user target, generating concurrent region_* traffic on one
-shared resv_map.
+  list_add corruption. next->prev should be prev (ffffc900011ff7f8),
+  but was ffff88814c281460. (next=ffff88814c545640).
+  kernel BUG at lib/list_debug.c:31!
+   allocate_file_region_entries+0x191/0x420
+   region_chg+0x267/0x300
+   hugetlb_reserve_pages+0x387/0xc80
+   hugetlbfs_file_mmap+0x2ce/0x3f0
+   mmap_region+0x1348/0x1a80
+   do_mmap+0x85e/0xb90
+   vm_mmap_pgoff+0x18c/0x330
+   ksys_mmap_pgoff+0x2a1/0x3e0
+   do_syscall_64+0xd7/0x420
 
-Patch 1 fixes it by using list_splice_init().  The bug is present in
-mainline; the Fixes: commit dates back to v5.10.
+Without CONFIG_DEBUG_LIST the bad list_add() silently links a kernel-stack
+address into resv->region_cache, leading to later use-after-free.
 
-Patch 2 adds a selftest that reproduces the race (opt-in --trigger mode,
-since it panics a vulnerable host) and runs a safe single-threaded
-functional check by default.
+Use list_splice_init() so the source head is re-initialized empty after
+each splice, making the retry loop safe.
 
-Xiangfeng Cai (2):
-  mm/hugetlb: fix list corruption in allocate_file_region_entries()
-  selftests/mm: add hugetlb_region_cache_race regression test
+Fixes: d3ec7b6e09e5 ("mm/hugetlb: use list_splice to merge two list at once")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Xiangfeng Cai <caixiangfeng@bytedance.com>
+---
+ mm/hugetlb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- mm/hugetlb.c                                  |   2 +-
- tools/testing/selftests/mm/.gitignore         |   1 +
- tools/testing/selftests/mm/Makefile           |   1 +
- .../selftests/mm/hugetlb_region_cache_race.c  | 315 ++++++++++++++++++
- tools/testing/selftests/mm/run_vmtests.sh     |   1 +
- 5 files changed, 319 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/mm/hugetlb_region_cache_race.c
-
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 571212b80835..f9577a789fe6 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -693,7 +693,7 @@ static int allocate_file_region_entries(struct resv_map *resv,
+ 
+ 		spin_lock(&resv->lock);
+ 
+-		list_splice(&allocated_regions, &resv->region_cache);
++		list_splice_init(&allocated_regions, &resv->region_cache);
+ 		resv->region_cache_count += to_allocate;
+ 	}
+ 
 -- 
 2.55.0.122.gf85a7e6620
