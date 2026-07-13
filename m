@@ -1,89 +1,156 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CAA1B36D9E0;
-	Mon, 13 Jul 2026 06:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0108B17A300
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 06:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783925355; cv=none; b=Lv0rn6Guc9OFd1BjxXBuyn0Q8N8cPUUZyu264haPvy7KK9Ad9rN/Yb0Bz4nfLdRJw1PXJJ+ncibg5dWXpLtuN7E63V8TLCYLTnhB/dtFDQFOpTPb10QmLPb8dDTz0Qx4SGJb/cjx4uLRbOkf7QEDdXY4GawSgB5RTwYz6RY+gyo=
+	t=1783925460; cv=none; b=WrBU3EJFgDGnnWAdgGE8pfYejE7lvS4Eaa4/naRqN6owYBs+FKYoqCcy0xsrFJyKuLlE5CfjrqByUxVhxh8nMWNDzWQshr+Omhq543JYDanPHyG5lPNvvbzcAS7iGRZvRf3VwJUMf9+bM9/qNh7HbHer45AJtF8zuPmGxSuVjRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783925355; c=relaxed/simple;
-	bh=lyXqyOWVpjUYzeo6dapPbpq32QuBspJ7hsTTwK9skfg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K9EH8WICk11phLGj86MV0VbV9gqsKl3USPdKHhviFmwtYXh1PtqcDRcsqfBQJT2kRj6XMBLNI0SQNZs/9crLbo5U4MDu4SWdbYdVYaBtA8cWo/J5emBYp8mMXNlDV1VX6GQ1epn0GP0xdVzsORvuG72QeRzXvOKQESZ34UHFhD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=SXyihkrh; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1783925460; c=relaxed/simple;
+	bh=5TdS/ksFwJrzoI/JCVDUgN0F/C6juzrfcjtP2lrrgYk=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References:
+	 MIME-version:Content-type; b=PXfedX10Nqojypa7yrY5kfyVGCu9uzkZku3nSt7s+BbpFgh8el7YSz6ql52Xp87syBItQurJ2tLNr5sxKkdkj/3COdmz6CtHENHqw3FVj6R8GSgcAU9vsZou1HkWwE8sOMl8EIiU8U98sie8xguOoZdJsZS4pUA/MWQ4MhBGu5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CjTd2LC6; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="SXyihkrh"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CjTd2LC6"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso2660398a91.3
+        for <stable@vger.kernel.org>; Sun, 12 Jul 2026 23:50:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=RT5+wPpAl4iGgnsOvf4B4+nW8I0T9Bewcc
-	bYyASGIJM=; b=SXyihkrhkelFqNAZwMW26Duz44LPCmx9msIr19v2BN4T/HcpE/
-	ujQ5uiJ1rY8/i/WwdvqPy0Oko+eBq3a7uttYuEBehDk0ioT+WyavuEIepLeOKz4c
-	Z7U3MwdEfXK+KStM/aKSRhDD4ITNxgqBkVImByIfAuiTxGDdxsPFQTC+s=
-Received: from ur-dp1000 (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cUJOilRqfnsQAA--.16812S2;
-	Mon, 13 Jul 2026 14:49:01 +0800 (CST)
-From: Xie Bo <xb@ultrarisc.com>
-To: Anup Patel <anup@brainfault.org>
-Cc: Atish Patra <atish.patra@linux.dev>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Alexander Graf <graf@amazon.com>,
-	kvm-riscv@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Xie Bo <xb@ultrarisc.com>
-Subject: Re: [PATCH] RISC-V: KVM: Fix lost virtual interrupts during IRQ sync
-Date: Mon, 13 Jul 2026 14:48:14 +0800
-Message-ID: <20260713064815.1276212-1-xb@ultrarisc.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <CAAhSdy3_YnzNiSE=KykriwSWU8X2CLhdr2E8CB=32JxA_L7caA@mail.gmail.com>
-References: <178159067899.108868.8176174463274678253@ultrarisc.com> <CAAhSdy3_YnzNiSE=KykriwSWU8X2CLhdr2E8CB=32JxA_L7caA@mail.gmail.com>
+        d=gmail.com; s=20251104; t=1783925458; x=1784530258; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :message-id:date:in-reply-to:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eWmwa1QUvWmWfZcAMrMrN6lD6RiBuEcOW0PxEeSlbVg=;
+        b=CjTd2LC6CcN2cLZMJJPL2NCHbAXfuK9V+lawlm0RnvIo11exHdXkZKxR2jq5DenWTR
+         UirkLH98aBbnWMSbUm74hJFRg+x+Ouq6VTa+ZxxNu8npvAdTpz0neyAe5xg7kbzIXxId
+         qXTTSKk6D/wv+wC2NeYUT9HOLiT+CCYKDTQsdDDLRLI8gGPqSAexiicE5rYR0Sflmyys
+         gb0Jh55TVRF8nN7WER6MUSy5svnYLiuoftz/3ulHcJD5ijL/OsYLHeA7jefNXe7SeASz
+         jiQ4rERww18J8N59Zij2XcK5/KOyU+W7dPNimfWsYzFtxq+aYH6naIjjcchqUkhAi5ag
+         TDPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783925458; x=1784530258;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eWmwa1QUvWmWfZcAMrMrN6lD6RiBuEcOW0PxEeSlbVg=;
+        b=IFFRVCGIwkW156RkH8W21uh91kt6SCoX/yU9m778UlZixhE3Pr/AFNJsCAv2XcMm/v
+         Qld9/C2yEZ1yWSTv9SCQsBuOSwjUKDpUAJXpFSzFA+T8AqI+3fkLQBBCX+NfgRlkhkLE
+         CoHNuzC2YlQmEe4whIU/ey03zGrVX/4iF+tcLHiyEFxP196WyiKWbJ9FRg1t8pbHnkPG
+         aXVZhgw88gZaevOBEeIdlPn7oc8vPEOHevhRFXIwL4wSVS8leBDLgT9DXCPNKc9lEiTW
+         uz272dbi8e+3bgdlw6movkCYUROJrTxZUBpHEi3PtPj9WC1UvHNFYwP8YeVfLuzHlueN
+         ko3A==
+X-Forwarded-Encrypted: i=1; AHgh+RqjJDoaJa/VI5jRPZY0dnVE3O4AUQI4Qb1jtfz2gRjr23T5UuuqKcQmPX4j3ofdOUwyBWwwnCU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxq7ZXB1eIO83UV6TwwTgJjbyiNdaVI7EQSdEeUjveO9JP389B3
+	ApC9C4IXuLa7Bt8FEqPvAo75XBFnLB+XZAb78reO6yNd6rrDRtMGl68Kef43Bw==
+X-Gm-Gg: AfdE7clMUQo3xsQ59V5CJQiXfofLMjoxrYKEY+yB/Kgcse8lC7PehlKYY5XZuOIC2Ec
+	Facc0acqL8VF7zSQcTBUbDNNxZ1OJd6zh8KbnKca1tcTv+k2gM6JOyPnVSSpe+5b04afLxATUQt
+	D/RlKjOp1TUdySgd26qAp7X5NamfOz4cqzLjpahBlVvJN0mGeGcpujNbNlVkrAuY9GnWskyJ4rt
+	S1y7zwEco32sNWlxdqswZEkf2uvQFseoJT36Z/W1XHRoPgZJbov5aKePGN4NgY6+fRh2YLMeHSp
+	67AZDA/Rt1AHUSZ31DJgI+ObeK2HYjl6fNQdC/Z9xtfepQfAcLVkvh1Llj8/D8vNzvjINBUhuKH
+	PeVraZHVVglfJa6iDYMq8RePBF24vHu3+VHnB1geVNzFU9/n7ZyOMLwLsi8EV20++7XqInur5xW
+	WwqcOxyKaBTsE=
+X-Received: by 2002:a05:6a21:1b81:b0:3b4:93b9:2b91 with SMTP id adf61e73a8af0-3c110009b82mr8720511637.12.1783925458332;
+        Sun, 12 Jul 2026 23:50:58 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b8fc7c088sm18775525c88.2.2026.07.12.23.50.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 23:50:57 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Sourabh Jain <sourabhjain@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au
+Cc: npiggin@gmail.com, chleroy@kernel.org, shivangu@linux.ibm.com, hbathini@linux.ibm.com, mahesh@linux.ibm.com, adityag@linux.ibm.com, venkat88@linux.ibm.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] powerpc/crash: protect kdump from active watchdogs
+In-Reply-To: <91e04278-aa90-4cbc-aeb4-f4663bf1f058@linux.ibm.com>
+Date: Mon, 13 Jul 2026 12:10:06 +0530
+Message-ID: <ldbfv1dl.ritesh.list@gmail.com>
+References: <20260713035954.1559605-1-sourabhjain@linux.ibm.com> <mrvvv515.ritesh.list@gmail.com> <91e04278-aa90-4cbc-aeb4-f4663bf1f058@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-version: 1.0
+Content-type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAfwA3cUJOilRqfnsQAA--.16812S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYG7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
-	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
-	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8I
-	cVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aV
-	CY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE
-	5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeV
-	CFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxAqzxv26x
-	kF7I0En4kS14v26r1q6r43MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
-	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
-	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
-	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbE_M3UUUUU=
-	=
-X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQAHB2pUYNAAEwABsd
 
-Hi Anup,
+Sourabh Jain <sourabhjain@linux.ibm.com> writes:
 
-I have addressed all three suggestions in v3:
+> On 13/07/26 10:51, Ritesh Harjani (IBM) wrote:
+>> Sourabh Jain <sourabhjain@linux.ibm.com> writes:
+>>
+>>> Changelog:
+>>> ==========
+>>>
+>>> v2:
+>>>   - Move H_WATCHDOG definitions to a common header for shared use
+>>>     across pseries code. 1/3
+>>>   - Added a new patch to handle pseries watchdog device registration
+>>>     failure. 2/3
+>>>   - Stop active watchdogs in crash hanlder. 3/3 Ritesh
+>>>   - Add suggested-by tag 1/3 & 3/3
+>>
+>> Reviewed the changes and mostly looks good with some minor nits added to
+>> the individual patches.
+>>
+>> Small request -
+>> Could you please also update test results with v3 in your changelog
+>> (since you mentioned we are able to reproduce the issue easily with your
+>> test code).
+>
+> I tested this fix with the program I shared in cover letter. The watchdog
+> was successfully stopped even when H_WATCHDOG is called form crash
+> handler.  I will share my test details in v3 cover letter also.
+>
+>>
+>>
+>> aah one other thing I just noticed since you are ccing stable and you
+>> added a Fixes tag in patch-3.
+>> Patch-3 alone cannot be easily backported now due to patch-1 and
+>> patch-2. There must be a way to define the dependencies if you are
+>> looking for backporting the fix patch to stable tree, please check that
+>> and follow that accordingly in v3.
+>
+> I thought about that as well, but since they are part of the same patch 
+> series,
+> I assumed they would be picked together. However, I don't think that 
+> will work
+> in all cases.
+>
+> I checked the older commits and noticed that a backport note was added. 
+> I think
+> we can do the same for the fix patch. I'll add a note indicating that the
+> following patches should be backported first:
+>
+> powerpc/pseries: Move H_WATCHDOG definitions to a common header
+> powerpc/pseries: Handle and log pseries-wdt registration failures
+>
+> Since these patches are not upstream yet, I'll refer to them by their 
+> commit titles.
+>
+> Does that look good to you?
+>
 
-- use non-atomic bitmap operations while holding irqs_pending_lock;
-- hold irqs_pending_lock across the AIA sync, flush, and pending checks,
-  with lockdep assertions in the AIA helpers; and
-- protect kvm_riscv_vcpu_has_interrupts() with the same lock.
+Documentation/process/stable-kernel-rules.rst
+  Note that for a patch series, you do not have to list as prerequisites the
+  patches present in the series itself. For example, if you have the following
+  patch series::
 
-I also rebased the patch onto Linux 7.2-rc3. Both RV64 and RV32 KVM
-builds pass, and checkpatch reports no issues.
+    patch1
+    patch2
 
-The v3 patch follows this reply.
+  where patch2 depends on patch1, you do not have to list patch1 as
+  prerequisite of patch2 if you have already marked patch1 for stable
+  inclusion.
 
-Regards,
-Xie Bo
 
+In that case, I think, we should mark all 3 patches for stable inclusion.
+
+  patch 1/3   Cc: stable@vger.kernel.org
+  patch 2/3   Cc: stable@vger.kernel.org
+  patch 3/3   Cc: stable@vger.kernel.org
+              Fixes: 69472ffa6575 ("watchdog/pseries-wdt: initial support for H_WATCHDOG-based watchdog timers")
+
+-ritesh
