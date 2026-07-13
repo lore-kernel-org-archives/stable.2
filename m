@@ -1,140 +1,137 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42D8C367B7B;
-	Mon, 13 Jul 2026 10:56:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7141C3E867F
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 10:56:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783940220; cv=none; b=cFGe/BVuuv4rU2ZS50Rh/wXzf7lL+7kAqTEXrDgLmYCbBN3OvyB4CXW6d0eb+0bAHUjwxNC2VFPu/uIkNxWOHdQ7ZpyBYPGrEID4lsaXghOvuCmSJX1OkfyfHv483879a9AmK5cMKRTd2jNIEP6aGTFOtAn2O+nMtZ1NjRT/9xQ=
+	t=1783940221; cv=none; b=KHNRJTI6JrSN+ghG0FbLgInWv35YZ0z1NjCPEMSNC+8kLtbiCoaKGknALdUIi9Jm14iQfN0+1S2fNdmLpj1BzQn5ia4IdSLUk2999J62KHiKdaxwp+fUcRtJb10SfDYh+vv0gQbgh8pdXpMe7K1p2u0/Nv1+LVjbChs9a9r1kkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783940220; c=relaxed/simple;
-	bh=X+GUCZSY7VaPmAb1eZdsudVEsWE4IID3rjLysW22MPc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JecE+kgQTInIYqyiHjxKAC9UMaI9KnRzKcItFh7zMbAI7h/u5f4PMKGvybewaQ9+A5XkGbNFEgK2Kl5bU8vK/mQLlQQwFKX6ij1Mn7gIay32amk7GEIaLuU/njaaGzLPWD6QPVAZWrzYsZfwIosxD/6K8sWJ159iEoHgCrC0f+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=HJWZBPzv; arc=none smtp.client-ip=4.193.249.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1783940221; c=relaxed/simple;
+	bh=y7zI6WWCN62EttLtA8m/eJMwaY6HfV7JtvtgKW2u+RI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PunCafQpswuAueJDqQLxP4IkO+H9CO9cDB7fI0eMcxmKNFmUmnIarWS8Hd37mNm54bevXigrPIle6ixpjw5F0bQW8a55XOiBuzCSg7I5mxpXFUSPbaO574ZI0L4oF6LeObKcPWtLc4dIUpcyapqqJ20ANtVYkhoS1u7inkH+SDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=L0inpc3C; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="HJWZBPzv"
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="L0inpc3C"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493f0ae9572so11578925e9.3
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 03:56:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=ViK3v
-	pQvfAzETPkp1jCexkPmLiNdIgNhDxZkKvpJvL0=; b=HJWZBPzvYNSAOK2kIGY9Q
-	noDewbswtmg/Bvmkuxp9eUuDEtCNLS2KrFEgfzfTmXnbXSQ/Lw0TlIm9Epq1FlP8
-	osxS4DGkLrt6sBOP28N16pfpuc4vtAy1qosZ892jQE8amjNSXd0rUkdURalbgm/R
-	qL5brTyF25zG5HQqywr/Y8=
-Received: from localhost.localdomain (unknown [121.229.84.192])
-	by web3 (Coremail) with SMTP id ygQGZQAndJFjxFRqT1wkAw--.20921S2;
-	Mon, 13 Jul 2026 18:56:36 +0800 (CST)
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-To: netdev@vger.kernel.org
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Eric Dumazet <edumazet@google.com>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] tcp: initialize standalone TCP-AO response padding
-Date: Mon, 13 Jul 2026 18:56:30 +0800
-Message-ID: <20260713105631.8616-1-zhaoyz24@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.46.2
+        d=cmpxchg.org; s=google; t=1783940218; x=1784545018; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4Dhj2OBMuhusOZcXZldE/EzCpMTqXXR0jxmWBxe1EX0=;
+        b=L0inpc3CP/d/ACLmiClmdyk04MGYYQzowGg+hyTlIjfzZG8+i+eLstDVM7G1V9wZPa
+         DbCq9RThE/phL8g5fGwGB24sQf5O8f5acacYQMpC2DzXynsSDuo0vWVAJE6fD7RYFsWD
+         D0FEGE/9zdPp00aI06fzR79iwvCPi3Ee3ZNfU5S5JjnvAXpK3qZREo4uZEY4CZYmViRA
+         5EMP2HytNoFlwCAb64uVnhoPnjqeiBMTxiH9wGFtedGhHSjOTfHOT2n7OJSthoAbpDrR
+         lT1GteYzVXXG0frwaB8w0MCkk2jxSnMdbhZ0gQsgYw4zh66Y4nKY9+J4tflf8a8hdQzX
+         IQEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783940218; x=1784545018;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4Dhj2OBMuhusOZcXZldE/EzCpMTqXXR0jxmWBxe1EX0=;
+        b=n01JboJNVqdUwiM4CCq8/f3iHirx2hh7JywSpW83hRzNiZEG5PK6MyhuOfV0Gp7sMe
+         KdDltwpF8s1DNf488XaAoWF4eaae4ZKKb3rBFMnO1bCH3riGNIUFX8yy2gNvX4Rk+2Oy
+         kndJkZOVKkQabIGZNKSdw64jGJvJnKnwid1JycEtjHZSsu3T1T6Qg8LmV4ThDynxqBno
+         99RfzXQe0ZhGGGAF1ZHxJeVp1Rc1dBnrvfDuDqemjBR3Bq1q403fbryHf85i7C/Uahjy
+         br8fTvReu9kN0rTWQCOF04tkcblB9gxYX5okLNyWxol16OC39Lx5U1/52jxc5AsyzFvc
+         MMlg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp0woYkjEDWBvuh51jAOVyNJnJYS4a3N9Enjyxffrbg7hiLJrb9OlPXDtS1F268HoYc70Evn5w=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTwYGNbiXOiNv12Y5J8qb2EHUOnMLeSXJJzsfqH1WobAC1h/zE
+	DQjjXD/NN99+x0kw87PfzKGm2b+3OjgebrrcEwhAzhnDzDOmPJmtV5zaauxkfWfhxWQ=
+X-Gm-Gg: AfdE7clProBSHmnC1G0C1UA6i6UpC0E06+6JMPAU5tOyxrZRwq1EbpblqVmutDygnjc
+	/x5WjJzaVDREzLpiV0b6IcAS6p96FICw3/eGogpXQdmO5XLzS6jjf6YHjL5rROjnP1QLIn+ra10
+	YQ/kjYd2Blo+AWfRvD10dd+4PK+fJDz2CnYOR9Wu9eNuxQLA1rcK5mdH/tl2YmfwvJyrO2xvXhU
+	e089EyGG4kzXU6isJwK/mYL5kRcf5yrqOCO63+mJOt2WWEz01jbDrGruZH6O3GGp7zwRBPLhkvg
+	QEsyo9jEhV0NO4GtiWK8v9XmsrRMCGN01rwmcG3saRGddGNvgYcCZC7F0/rWJrv1ibY7ymcuF/8
+	K4o3iyP33Lv1+JLYeV5Qlj+G3AWtjnLvxF2/9aPYpv4V1cXn0qizAs+pvbmKp0w3Iz52qVR/sv8
+	GnYzB8Fd9MSg==
+X-Received: by 2002:a05:600c:a016:b0:493:f442:3de9 with SMTP id 5b1f17b1804b1-493f883174amr85181725e9.27.1783940217582;
+        Mon, 13 Jul 2026 03:56:57 -0700 (PDT)
+Received: from localhost ([2a02:8071:6401:180:d892:bf43:a0b4:83b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb73ae14sm352682965e9.11.2026.07.13.03.56.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 03:56:56 -0700 (PDT)
+Date: Mon, 13 Jul 2026 06:56:55 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: Matt Fleming <matt@readmodwrite.com>, David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Edward Adam Davis <eadavis@qq.com>,
+	Chen Ridong <chenridong@huaweicloud.com>,
+	Zhaoyang Huang <zhaoyang.huang@unisoc.com>,
+	"ziwei . dai" <ziwei.dai@unisoc.com>,
+	"ke . wang" <ke.wang@unisoc.com>,
+	Matt Fleming <mfleming@cloudflare.com>, sched-ext@lists.linux.dev,
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, kernel-team@cloudflare.com,
+	Sashiko AI <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 2/2] sched/psi: Shut down rtpoll_timer in
+ psi_cgroup_free()
+Message-ID: <20260713105655.GC276793@cmpxchg.org>
+References: <20260712174619.3553231-1-tj@kernel.org>
+ <20260712174619.3553231-3-tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:ygQGZQAndJFjxFRqT1wkAw--.20921S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJw47JF13Xw4UXF1fCrWkXrb_yoW5ArWfpa
-	yxCrsayr9F9ry3Awn2kw109r45C3yDuFyIgr4UtFy3Gr1DWF9rJF18K3yrKF9IvFWIkFyF
-	vryjqr4UtF98ArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9q1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
-	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4
-	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28E
-	F7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzx
-	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VCjz48v1sIEY20_GrWk
-	Jr1UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5c
-	I20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxkIecxE
-	wVAFwVW8twCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4rKr1UJr1l4I8I3I
-	0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWU
-	GVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI
-	0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0
-	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJbIYCTnIWIevJa73UjIFyTuYvjfUs4rWDUUUU
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQEHAWpUpbI3sAAAso
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260712174619.3553231-3-tj@kernel.org>
 
-tcp_v4_send_ack() and tcp_v6_send_response() construct standalone TCP
-responses with TCP-AO options.  The option length carries the actual MAC
-length, but the TCP header length includes the option rounded up to a
-four-byte boundary.
+On Sun, Jul 12, 2026 at 07:46:19AM -1000, Tejun Heo wrote:
+> psi_schedule_rtpoll_work() is called locklessly from the scheduler hotpath
+> and can race psi_trigger_destroy() taking down the last rtpoll trigger under
+> rtpoll_trigger_lock:
+> 
+>   psi_schedule_rtpoll_work()        psi_trigger_destroy()
+> 
+>   rcu_read_lock();
+>   task = rcu_dereference(rtpoll_task);
+>                                     rcu_assign_pointer(rtpoll_task, NULL);
+>                                     timer_delete(&rtpoll_timer);
+>   mod_timer(&rtpoll_timer, ...);
+>   rcu_read_unlock();
+>                                     synchronize_rcu();
+>                                     kthread_stop(task_to_destroy);
+> 
+> The group can then be freed with the re-armed timer still pending, and
+> poll_timer_fn() runs on freed memory.
+> 
+> 461daba06bdc ("psi: eliminate kthread_worker from psi trigger scheduling
+> mechanism") deleted the timer synchronously after the synchronize_rcu(),
+> which prevented this but raced trigger creation instead: the deletion could
+> cancel the timer that a new trigger set armed during the grace period and,
+> as creation also reinitialized the timer at the time, corrupt it.
+> 8f91efd870ea ("psi: Fix race between psi_trigger_create/destroy") moved the
+> initialization into group_init() and the deletion into the locked section,
+> trading the creation races for the window above.
+> 
+> Neither placement in the destruction path works. A pending timer firing
+> while the group is alive is harmless though. poll_timer_fn() just wakes the
+> rtpoll waitqueue and doesn't re-arm itself. Bind the timer to the group's
+> lifetime instead and shut it down in psi_cgroup_free(). Nothing can arm it
+> by then. timer_shutdown_sync() because the timer is never armed again.
+> 
+> Fixes: 8f91efd870ea ("psi: Fix race between psi_trigger_create/destroy")
+> Cc: stable@vger.kernel.org # v5.10+
+> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260711000434.36C4A1F000E9@smtp.kernel.org/
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 
-tcp_ao_hash_hdr() writes the MAC only.  Thus, when the MAC length is not
-four-byte aligned, the one to three bytes after the MAC are left
-uninitialized and may be transmitted.  For the normal TCP-AO hashing
-mode, those bytes also have to be initialized before computing the MAC.
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
 
-Initialize only the alignment padding in the TCP-AO branches, before
-hashing the header.  Use TCPOPT_NOP, as in the normal TCP-AO output path.
-This avoids adding work to non-AO TCP responses while preserving a valid
-authenticated header.
-
-Fixes: decde2586b34 ("net/tcp: Add TCP-AO sign to twsk")
-Fixes: da7dfaa6d6f7 ("net/tcp: Consistently align TCP-AO option in the header")
-Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: Claude-Code:GLM-5.2-special
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
----
-Changes in v2:
-- Fix TCP-AO path only to avoid slowing down other TCP paths, suggested
-by Eric.
-- Fix the IPv6 path either.
-- Link to v1: https://lore.kernel.org/netdev/20260713081842.3119-1-zhaoyz24@mails.tsinghua.edu.cn/
----
- net/ipv4/tcp_ipv4.c | 3 +++
- net/ipv6/tcp_ipv6.c | 2 ++
- 2 files changed, 5 insertions(+)
-
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index 209ef7522508..2f6ff630a0e5 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -971,6 +971,9 @@ static void tcp_v4_send_ack(const struct sock *sk,
- 					  key->rcv_next);
- 		arg.iov[0].iov_len += tcp_ao_len_aligned(key->ao_key);
- 		rep.th.doff = arg.iov[0].iov_len / 4;
-+		memset((u8 *)&rep.opt[offset] + tcp_ao_maclen(key->ao_key),
-+		       TCPOPT_NOP, tcp_ao_len_aligned(key->ao_key) -
-+				    tcp_ao_len(key->ao_key));
- 
- 		tcp_ao_hash_hdr(AF_INET, (char *)&rep.opt[offset],
- 				key->ao_key, key->traffic_key,
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index ebe161d72fbd..0bc89014653d 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -923,6 +923,8 @@ static void tcp_v6_send_response(const struct sock *sk, struct sk_buff *skb, u32
- 				(tcp_ao_len(key->ao_key) << 16) |
- 				(key->ao_key->sndid << 8) |
- 				(key->rcv_next));
-+		memset((u8 *)topt + tcp_ao_maclen(key->ao_key), TCPOPT_NOP,
-+		       tcp_ao_len_aligned(key->ao_key) - tcp_ao_len(key->ao_key));
- 
- 		tcp_ao_hash_hdr(AF_INET6, (char *)topt, key->ao_key,
- 				key->traffic_key,
--- 
-2.47.3
-
+Both these patches look good to me, but Suren can you please also take
+a look?
