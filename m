@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A8142DFE1
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:46:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B4C243078E
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:46:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950395; cv=none; b=V8vgrsBVpYgKXm7P0j6B+8OiPRz6J1tTsZaXY+FYMa9kjhTGk6lLlgKBv3durSuvJFwXlU1bcPJdBl55utsrqqLRLWHBwPvMcz151PSzpi/Q6Z4mpUfcpX/xlaTD8lTu3AQHbdMNtVz8pTJbYtrF6VvEunZ9KUJGuXbk1FwdJR8=
+	t=1783950398; cv=none; b=XoTsOHQPrILyA9lbm4L2f/zF2TuLzsSSOqxAbSh/Qs9BVar4i0Cca5nz5OeDwTApS4VNs1cx3y1vo/6bj/nmmn2kr59oH5WHgyRmUzvDaddA2jDPmGisVBgjbwRmI1QSpoqoRZdgtzam7VNoeL9l75iVzYaxewORMXSFVVUs8l0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950395; c=relaxed/simple;
-	bh=qg/yfrjRaaGk2ft8izzR25COIsEnDiejqHtwOtXWNB4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jBAb68olasxyrUmHCmNabKTe2r2piulyUfR4ZPDowdWNjEYnaMSH/feGhqB8coX3wOWMUzxlM9mEXPDqzCM4ETi/SBfo8tcU0jd7WmTBb7BFUPmepXJPxG/O/4wMEZeyB3MgwgJwneffQpGUN24VbFhgSipwRvdNTEV6pSZ/SQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R5ncPVuB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950398; c=relaxed/simple;
+	bh=hbpStMtUaWCRRAmfipr3B+uPCepzzhlJJMZnuPdVDvw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MO69mtEao1rotEdXM7YMohqwxL5wL0FH1YeTW9FewtFROwX70+UgvIcDufiVaGEHkrU8JUDkgr6ZbjclcVMdNTp/vGs/JxFsX1BKMEuhe0fDb1wRS1xtpnLzJ8mbXFZc+8GF8mwtTYMwc4ixekeh2sWKF4RlgKovlH+bpSUwya0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sL49E9W6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R5ncPVuB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 054F01F000E9;
-	Mon, 13 Jul 2026 13:46:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sL49E9W6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9931F000E9;
+	Mon, 13 Jul 2026 13:46:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783950394;
-	bh=QdXGQP7ivRL9YNT8LR7jJ4Yw7DIZZP/d34jHkJdvJSo=;
+	s=korg; t=1783950397;
+	bh=xXddyrhIaAT/peecIg9VkeNHkr4CLjq2ZwM4npKGKIc=;
 	h=Subject:To:Cc:From:Date;
-	b=R5ncPVuBOGjkTxWGCdRPxwzlTi1jLBEMykgfz6raR2zQYWReoswiRP502nY+RG2KO
-	 Axkn88HZLxU09wjFO2EST913Ml03WdqBkK9iG/nWjoI+e9jpled36bVhuuxvYEiHLa
-	 /WEQPDQpIiXBb2U5tOV+VvsHvFrHOCemsHBruqdI=
-Subject: FAILED: patch "[PATCH] media: nxp: imx8-isi: Fix use-after-free on remove" failed to apply to 6.12-stable tree
+	b=sL49E9W6MqtenbK/rPyaXj4ol0be7XMov3LYHq8n84G9su462CNCG6c0vKBikCxTN
+	 G7HW6IFp1mshIhV2bPlIOk9hD0W/0hG97ziFBVWRAYy0xnW8gUNIUR/0KPlkVbe4Wq
+	 4YbmW7zvmQ+yHRE+gkO+WwV4ijZ649ol34yAo8Rk=
+Subject: FAILED: patch "[PATCH] media: nxp: imx8-isi: Fix use-after-free on remove" failed to apply to 6.18-stable tree
 To: xiaolei.wang@windriver.com,Frank.Li@nxp.com,hverkuil+cisco@kernel.org,laurent.pinchart@ideasonboard.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 13 Jul 2026 15:41:42 +0200
-Message-ID: <2026071342-backfire-varsity-a0ef@gregkh>
+Message-ID: <2026071341-throttle-refurbish-8c48@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x b670bf89824ede5d07d20bb9bfbafb754846081d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071342-backfire-varsity-a0ef@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071341-throttle-refurbish-8c48@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
