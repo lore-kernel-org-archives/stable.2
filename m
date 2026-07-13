@@ -1,114 +1,120 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B8A2FF144
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 03:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F2DDF59;
+	Mon, 13 Jul 2026 03:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783911665; cv=none; b=tc/PFykxr75EpESpkn+ANuqrHfWq5ImyxcKw00INrC1W9/7XXrqkscalIXrB48lX7KOx1Q31/s1rdTB39jOeDmaHfjfm+eCK6SZXoDRjpLRyxs7MhTROZBXhLuN4FZAxJyspBmZ5eHihNaCyDYwjODFbtAmi2sWSMcgYV44ZvcM=
+	t=1783913748; cv=none; b=qKBD2660yiiSR5C869Dvk09qiUcGvJ6zBymUjfFYT7/waALeZzWpbOupq77waQVk3h1dQc1l/XSi4NevbF1R5wpMjtnw9oNP50Pusdmg0rIs2a0vY2UDc3Kk0ZFoEIFfCKsSF7g+64XesSQtlMXB1ymmf0Qaty/+k1hTyv9Cv9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783911665; c=relaxed/simple;
-	bh=Gtks24nGS2PEXvE4OeZrCnqjewElZhLxVQVatXzmG30=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hn6qiJB61OiJ7xXPxVO+tP+6miE0YW0U5iqW+wlwcxCO/6xVA2eWdW0jjeLQhsc85FIHSZklvre6mJHMe/edLjZuDW4m+vz0qc0MRaxdsOY8PtYJ95hhrb7Q3d7AhYVq/mYMWE4HV7SH5FYVAyek+GnXCpg+AbqFYckod+lRPoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IFkvepFr; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783913748; c=relaxed/simple;
+	bh=49dJJ0Sp0/vn4DmKvNUpSlyKySCDpPlXsdYOeRJpe58=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g5iHBPHnbaBlqTHLduh9FcsQY8UO2A3tYxWhJhufrEoaTUV4o+j6LZo4eAfpOXRBaFlvvdoeEk7vroFyGbRYsUCGDBrduXGxFO4ik772UvuB6q6LzeDSuBg/Y7MUTDUUqMMW9G46vDsrV1SM5NjuNfGpRhSBcH7FwWfCbkzjHO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=f8Nb/KWG; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IFkvepFr"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38de840f2f0so534818a91.0
-        for <stable@vger.kernel.org>; Sun, 12 Jul 2026 20:01:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783911663; x=1784516463; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fy4EZP2uQweLrKR+q7jpU3GAZlA4iI/CrpNIH98Z8vY=;
-        b=IFkvepFrZwozQIGJa2Zt4gCjAIaxeFVDOFGm1Z/ssewZ5cXlBgNG9RdhOGY7BTs1Oo
-         SLh429lUydwYyi13hAPMq2W3iae9V1TNocTby1rCJ0VN1UwtKfqdUhhA8CRchQy7uuwh
-         vTugpIsEhjac/i7H7jWe87Rw0BeRJz9DVpATSBAy+glHaoVKYDU/Wb9diqNM0N3dvj0z
-         bgZ1QiCUTcyHKr7v1c/dUjjdn30upp+zC/KvyrZbAnqbdJY5J3eLGTqUTe5a9rjK+K4P
-         UlR8BatuNMobz5V9pLo8PQniB5OGOKcPmsVxBorHCHcRew3PEzPk6BRSpgL7Iqy1CaKY
-         xMPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783911663; x=1784516463;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fy4EZP2uQweLrKR+q7jpU3GAZlA4iI/CrpNIH98Z8vY=;
-        b=TpOfssDelkf6Jdk2UY6joAGrgxtQesIdZHG97HfZz2BV73nRzIjFqb5Fh8n6s7LFL0
-         KOHWGCyest4nK2rbDjhKhDiFD8w74KLvi2xtnf8xZVOIQRp/KOiGzDqPzPKxw+NaKSWb
-         tornRQsMcONQcHsJ0mblhTye/aaHWjJDXW0zARS3J0DlBlTfZSZuGzIhld04MtEgK/Ks
-         4/IDAbpviZ2R/QXDjapxFp2FJhcZNzjiDn8khWuNZuAjIBRYLc9PKz69y10Ns8QB6wxv
-         ReB3oMMzJY3f/OJSnifAlAKkAuMLg/4uF5JzHeu0SdibmcGog4uGM5T3XjFwXoagJDCh
-         PNbg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq4S/CSgqHM2CpP7XDsfmDjKTECooX15XhzNzKwdn7JKEM0hdoJOqHaRhsDzdqJnMJfyE8HPio=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2X9c5lX0XOGc4aYXPKLJMLu0fqE13Zwq+Gl3+nrXKDWUYfWvg
-	YEx4Q4MCsclNGpZ4A2VirFwrU1w7UxZ+J5gJmEMvdme2S+x9BS0Vol4P
-X-Gm-Gg: AfdE7cl3JLju6Qpw+2CJrnnXs5VcTT4KUShqa/KpqWGmO45BUtgC8tA5J10isQsrD7Z
-	WF9f3Fgr5gUYEnqVhIW1/P0aE6E6slrKql0Q1rUC4jX+7xcDULbD5KIVfRaMcY+aiW62AzA3kOm
-	r8mA8kASnBYJR1Qk5lpzlHBNwxXTdvdeGfJNqeNKjMrf31NagwyoZUOxCOWR9kWAXEQNjRFvc4U
-	wrdccHjXEnmpSOiKv4k8hhEzNaxgJRahOu39ChIcNNmWG3HO0VcTjdjC0apfLyfJ1ZrnX83vBFm
-	AmLQhqZR3Uu8F2zVV1OotcEe6+pSxQEnx13qg1b8k68+fwLOsif0ZsFkazzN8WKpUJXGXgobF7T
-	n6JgY029hXJ9aaeGkUZmVMO/x0ieVQ4Nsu0NDqGh+3LkWps2vOW76g9jmMcvZi9iBHAfoUsrgyG
-	WJgO+b9GFObpyl90Ud9QwGJkvnqabz4EXotimg/c9yQODgxRzHoDxl7g8dvWHcv37QpMEN
-X-Received: by 2002:a05:6a21:d83:b0:3bf:9a30:3a12 with SMTP id adf61e73a8af0-3c110ad2b13mr6859782637.50.1783911663534;
-        Sun, 12 Jul 2026 20:01:03 -0700 (PDT)
-Received: from moksh-Nitro-ANV15-51.. ([2401:4900:ab82:b7db:dc18:7983:dbbe:39aa])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174accb0esm67242637eec.30.2026.07.12.20.01.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Jul 2026 20:01:02 -0700 (PDT)
-From: Moksh Panicker <mokshpanicker.7@gmail.com>
-To: jic23@kernel.org
-Cc: dlechner@baylibre.com,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	skhan@linuxfoundation.org,
-	Moksh Panicker <mokshpanicker.7@gmail.com>
-Subject: [PATCH] iio: chemical: atlas-sensor: fix PM reference leak in buffer postenable
-Date: Mon, 13 Jul 2026 03:00:46 +0000
-Message-Id: <20260713030046.21143-1-mokshpanicker.7@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="f8Nb/KWG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=IJLs1QJf2eols2ajMEIJIevnH0XW0XzUVPHUmDnAlwc=; 
+	b=f8Nb/KWG1PDLnMBNVfqwzNcphoYwOETjw10pBXJnzZOPjl4EE/ZRRxVU21fVhj6Qkmz0XurYmJS
+	YwYAh2IIAmUZI8Zb53ngipfncxOdSt3D3L1DAoG6F67YLcJWIot4OihsUQo15O9tC5NRZfWRNQvW6
+	m9bS0i1JXZmd3paJ+xkB+rLK77a57J/WuqcYROeLKPU9YT3fru9bXMseF3Cpm/A+fecDOsENdTS9m
+	Gfngm10iDSZ1Wyv4nlNLtssLBJyUWtbAQSioUcNlMMTaIwfsImrwYOZV5ISUTdQs3gzUqNZunCunc
+	tlmR2QyEJ80FpV7/EUwkGI9pMrrx7Lzd6now==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1wj7S0-0000000CyCJ-3h8m;
+	Mon, 13 Jul 2026 11:35:25 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 13 Jul 2026 13:35:24 +1000
+Date: Mon, 13 Jul 2026 13:35:24 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Atish Patra <atish.patra@linux.dev>
+Cc: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Peter Gonda <pgonda@google.com>,
+	Brijesh Singh <brijesh.singh@amd.com>,
+	Youngjae Lee <youngjaelee@meta.com>,
+	Ashish Kalra <ashish.kalra@amd.com>,
+	Michael Roth <michael.roth@amd.com>,
+	John Allen <john.allen@amd.com>, clm@meta.com, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	stable@vger.kernel.org, Atish Patra <atishp@meta.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v3 0/4] KVM: Miscellaneous SEV/SNP related fixes
+Message-ID: <alRc_IA1NJxvVAzR@gondor.apana.org.au>
+References: <20260602-sev_snp_fixes-v3-0-24bfd3ae047c@meta.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260602-sev_snp_fixes-v3-0-24bfd3ae047c@meta.com>
 
-atlas_buffer_postenable() acquires a runtime PM reference with
-pm_runtime_resume_and_get() but returns the result of
-atlas_set_interrupt() directly. If atlas_set_interrupt() fails,
-the runtime PM reference is leaked and the device can never
-autosuspend.
+On Tue, Jun 02, 2026 at 03:36:31PM -0700, Atish Patra wrote:
+> This series addresses a few issues found during code audit of the
+> KVM SEV/SNP and CCP driver code. The fixes include a incorrect lock state
+> and incomplete state handling during intra-host migration for SNP VMs.
+> 
+> To: Sean Christopherson <seanjc@google.com>
+> To: Paolo Bonzini <pbonzini@redhat.com>
+> To: Borislav Petkov <bp@alien8.de>
+> To: Dave Hansen <dave.hansen@linux.intel.com>
+> To: x86@kernel.org
+> To: H. Peter Anvin <hpa@zytor.com>
+> To: Tom Lendacky <thomas.lendacky@amd.com>
+> To: Peter Gonda <pgonda@google.com>
+> To: Brijesh Singh <brijesh.singh@amd.com>
+> To: Youngjae Lee <youngjaelee@meta.com>
+> To: Ashish Kalra <ashish.kalra@amd.com>
+> To: Michael Roth <michael.roth@amd.com>
+> To: John Allen <john.allen@amd.com>
+> To: Herbert Xu <herbert@gondor.apana.org.au>
+> Cc: clm@meta.com
+> Cc: kvm@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-crypto@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> 
+> Signed-off-by: Atish Patra <atishp@meta.com>
+> ---
+> Changes in v3:
+> - Added comments, fixed commit messages and fixes tag as per discussions on v2. 
+> - sev_init_ex_buffer initialized with zero at allocation to prevent any kernel
+>   data leak in case of init_ex_file is not present. Reported by Sashiko
+> - Link to v2: https://lore.kernel.org/r/20260601-sev_snp_fixes-v2-0-611891b28a86@meta.com
+> 
+> Changes in v2:
+> - Added fixes based on the reports by Sashiko. 
+> - Added a kselftest for validating SNP VM mirroring/migration rejection. 
+> - Link to v1: https://lore.kernel.org/r/20260528-sev_snp_fixes-v1-0-d67a08151779@meta.com
+> 
+> ---
+> Atish Patra (4):
+>       KVM: SEV: Do not allow intra-host migration/mirroring of SNP VMs
+>       KVM: selftests: Verify SNP VMs are rejected from migration and mirroring
+>       crypto: ccp: Fix possible deadlock in SEV init failure path
+>       crypto: ccp: Fix memory leak in SEV INIT_EX path
+> 
+>  arch/x86/kvm/svm/sev.c                             |  6 ++-
+>  drivers/crypto/ccp/sev-dev.c                       | 19 +++++++--
+>  .../testing/selftests/kvm/x86/sev_migrate_tests.c  | 47 ++++++++++++++++++++++
+>  3 files changed, 67 insertions(+), 5 deletions(-)
+> ---
+> base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
+> change-id: 20260525-sev_snp_fixes-0b73789c1a91
 
-Add pm_runtime_put_autosuspend() on the error path to balance
-the reference.
-
-Fixes: 0e4f336f50de ("iio: chemical: atlas-sensor: Balance runtime pm + pm_runtime_resume_and_get()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Moksh Panicker <mokshpanicker.7@gmail.com>
----
- drivers/iio/chemical/atlas-sensor.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/iio/chemical/atlas-sensor.c b/drivers/iio/chemical/atlas-sensor.c
-index 0e2edcff63f9..b2c1a598b3a5 100644
---- a/drivers/iio/chemical/atlas-sensor.c
-+++ b/drivers/iio/chemical/atlas-sensor.c
-@@ -413,7 +413,11 @@ static int atlas_buffer_postenable(struct iio_dev *indio_dev)
- 	if (ret)
- 		return ret;
- 
--	return atlas_set_interrupt(data, true);
-+	ret = atlas_set_interrupt(data, true);
-+	if (ret)
-+		pm_runtime_put_autosuspend(&data->client->dev);
-+
-+	return ret;
- }
- 
- static int atlas_buffer_predisable(struct iio_dev *indio_dev)
+Patches 3-4 applied.  Thanks.
 -- 
-2.34.1
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
