@@ -1,61 +1,62 @@
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F36642EED6
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5027342EED6
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 14:32:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783953120; cv=none; b=nPW5LsQYzwCGDX23vpWN8aN30CXe+f4nOkaWGDLhnSTkBi7l7Dkx6FEANumwGh0luQPZE2oQBO52mTLuNfHR6I94OKJ7okiytxIgzG1ikbqCbymUq6T3H/DvVzpSFvzV8iHuH4lnmoXD1BS4N4CL5hf+KpjiWRJ2UKDxkGMmAgU=
+	t=1783953164; cv=none; b=DGz+3rDeNfT5DMC4uxrKwIfvAlZm45JWZYJfoAg6UeGbUEThWgi9ram5qWTjYQvd3mF0gFf5JCO1LqpOOVU6LwNcZkqz409pxYsQYQGItGKebIY6r2RktW/2dk+TSMwOVsKT6t3/AVVch4Z5O9f/VEaGIkovpD2OTzPD7H+XGPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783953120; c=relaxed/simple;
-	bh=A2xFIOQn4EQBrTYygnbPTaYiYbMmq15YdbnLqyoZHoA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IGy6Tcohh5GVTn693PKEaqLy3JLXmI5k6NUPW5zecUdnoIbMkc4Cg+YISqAiZ9QZIXY5rKj3Ma112xt9M6dP9bznznxXu/1LH9L4sOabZn8xZYrMdr1dQhO55+MdZQYNd4CBSOhygdgnMcpcsupVVORLPaIFFHttj8JDZMcTOpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bitbyteword.org; spf=pass smtp.mailfrom=bitbyteword.org; dkim=pass (2048-bit key) header.d=bitbyteword.org header.i=@bitbyteword.org header.b=BUBC3eqF; arc=none smtp.client-ip=209.85.222.177
+	s=arc-20240116; t=1783953164; c=relaxed/simple;
+	bh=APFPjJYh+3axQdzl4jqIBJles6mF0Mqa0CHTCfGwNFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=j9BEAr4axrx6CsS/x0OwERNicctZThTdeidKFsfULudYFv5DA3mx4Qnl/OkY4hT1V4EiOysGcAfOO9dKF2iYgc2NcF848XgJTH4Oe4Vmyx8MqJgmeB3kx2FCiILuvJGJWSZ72XAV6L5MM6q8VMDxpwhVs4ee9XPYiYYIRETwcIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bitbyteword.org; spf=pass smtp.mailfrom=bitbyteword.org; dkim=pass (2048-bit key) header.d=bitbyteword.org header.i=@bitbyteword.org header.b=e87Jt2l8; arc=none smtp.client-ip=209.85.219.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bitbyteword.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bitbyteword.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="BUBC3eqF"
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-92f03daaa97so123746085a.2
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 07:31:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="e87Jt2l8"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-9034b6b7674so19236346d6.0
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 07:32:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bitbyteword.org; s=google; t=1783953117; x=1784557917; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d3Xnf5pBN/p4XtBmZRoAH7hQuhbyP5Ve4fda8RvOTYw=;
-        b=BUBC3eqFnHZZihZxxvKvddgoru68dhXMc2clPdkXpQSfsHweuoAoDnLFWHYiXt1VW6
-         UdOtwTbm8qu5PuCyZlc8TiqYioP/9uxjdM8k41beLW+Lmg8lJc0fVS9/LbylxWb/J24B
-         EuzbAar3/EtyVHlliFD2Yvgnz2nA36w9Mou8J0qLaosI9GansqBEqu1HhAQqoGeDbug2
-         ouda2fWzMw/0Z8+Ev9Hn+ause5V5iH60DS+JnCu7SuWBZvgLHHu6TO0lfSohf4ABp+ZM
-         yWkFa63EmOit1GbXeGboemp3fBwBm5/PWlc2gpTP7ljSmQU0NDbFjz2Yct8Ysl3ZkxUH
-         y6Xw==
+        d=bitbyteword.org; s=google; t=1783953161; x=1784557961; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MHPIf1s3xlU9uqyou5Dlf+Hq+MNN01lfNKqTIKtcffU=;
+        b=e87Jt2l8Mz9blnuXcIepPA+Q+iLFSKz8aE6LuNNiwxPiI5IqW10SrIpi8+BOZ5yUfT
+         2HthazEN3mCAn5g6lfYu6HVe+5nKS1xcmnEGm/ddBewg16dp4D+xtGRzWlEvyB33/48w
+         KkpL23QFkk8fxeQ/bXk1dj46Pq/NpOEVYOOF3z+BhcfXFOF0A+lgNau2wCHmxkHsRK8m
+         wL1yxdfRyCk4VqVaCG5z7jbG0CUDzkrHGqk9/cjwlZvdbHzuhEQZ+V7czk+NCycQ7IM+
+         liI2ekYFsBlQHRKYdeboSsXi+lYoGgEknlIc905w4ScaG6IHaqeg/cCGGKB5VzYv0z1p
+         Bqjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783953117; x=1784557917;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d3Xnf5pBN/p4XtBmZRoAH7hQuhbyP5Ve4fda8RvOTYw=;
-        b=ZUWESHv7xZC5W4Ir58oG2C5jAiVWy0QRfhu2VH65AKzU/VNbP86GlgfIHpE/2dEPGZ
-         6ZOx7zhCe1+mpjxKjvUmgWzBh69rXYeLgfIvx8mGHibBexhi6iGTNXp7nBzVxw8apHhs
-         vV4re5VdCmrHets19jOv0qTwETE2WMfppdjEZgClEz0Jv32jEgt9UeuSmpf5rEz+iOal
-         KVBIScLitkULeQLKevZFVeJdf2BIJ44TVgLDyQqinkfUOPRobcd/KT4lGtpiyAic/CXz
-         7fHtqj0c1GRdMJ0bATSNdBjXOifM+ty/kaGHD5bwo/8moAVwcAbKBZTj0s4BK3Nu4ujN
-         38Iw==
-X-Gm-Message-State: AOJu0YyABm+k74TnTa+zLSXzf69nnL8xEVo15/jR4zUcQL8VA37Fr1SN
-	tXlapDvlVd6IdkuSVkQQFQGqTGCjHXrkVfG7vqXAxeR7gXFVrwyTuRjqzosIvST+UGn3U9znktQ
-	3XWqi3uU=
-X-Gm-Gg: AfdE7cmbRwcbMI13ASseinHPbehbBXz2Vn61+8YtGKmvfKuVFXAZ+pOd1w/9No89HHk
-	Zmte8T98xFc6BGiz41DC3ceh8Ln0URPatvbBPnBZsMA5D8/J+ih0FQpjsWLD6EY6+GyIfh8/z2t
-	o9zidMCXNGLSsIxPS6LZd/H0LBFZlIICu3Y8voYfmYjiNHr59bQFFBxG8+lMAlUeN8rv4GiLTNe
-	hl/6F//faYQa79JvMAp13zPfIRtNQ1nV9q9hEvmZ5vH4mGU4ZTV7gMkb5Pqlz4E0WkHhMdYM9dn
-	0DJD340HIVnoQITPblFi6v28Z1+JVwq29UeDuWNUSnsQRQRBqXfADQae/WmD1+3v7OwM/IRzy7c
-	fFXdCfBMz55aw557ml6cXU/IbFoGxxebp1CtyPcPHAJ7+fKOJFuRcODoCd0/4v0R0NK1moOFYwb
-	az8VbanWA8K2agiqO2kzkvhezkhHEt8QjCCd+hSwcE9GsrPjU2gBml
-X-Received: by 2002:a05:620a:2549:b0:92b:6805:eade with SMTP id af79cd13be357-92ef2c04ebbmr929968585a.59.1783953117044;
-        Mon, 13 Jul 2026 07:31:57 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783953161; x=1784557961;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MHPIf1s3xlU9uqyou5Dlf+Hq+MNN01lfNKqTIKtcffU=;
+        b=I8eZTtPbkR9s/7tzul6bwehL9gI9c3sh2co6R3RpYUCMz+mpAYsudhfCnXp8ZOU8eU
+         AyF0XsNsEiSWFa0banR+dp95MZtHmmF1V24PP1YQdfCRXDakzXQGdJfIz0SEBhkRxmVB
+         mXYRWdVI4IP5+HBFuogUmotY4ovIhlMz8x1lqkSXsC+8uG7GtqqmqRM0ZiJ3VOh4X8uL
+         yre4tSPj/eNfnmYt3Z7z5Z2x0Qn5zTAPstzfaRRY5+wAey5KoqWdx+OeBz8A11hIwcpc
+         vgW8svXcKEs+GTph66bjcwmy88orftTgRDY19CQRXZNLxgM8EmClZNcfNC/1PgKWmMac
+         lSsQ==
+X-Gm-Message-State: AOJu0YxJ17SabrVeo1/WC3Zr/02ZbO/OpUNDKLXnTNhBun9VQkuObX7q
+	NvVux5BnTl46/JfwjjeeUgQ6Q7p8UOJfi8UwGXVJd5E7dkMvPfoftKo+m/VaZcBBrIDBTbrN6Zl
+	F8JmMRxs=
+X-Gm-Gg: AfdE7cnTGKheqWrEMRb4EYKv2DOJllnw9iGAEaTBs+6nFgwtwbgjAna86v8lWelNYYN
+	0DybQeFFoEzX5coLrc4tjNQFT7UuhaCD5mxoleIr9eScOp8VS47ZEWcu6D1FKNUIDMkc/9hffuY
+	KesVqpaS5vpjLrqgB+RVqK5YfJuBKPpFAVLCsgiQVIuoDYkO69yy6EGojrcKr6pMzN2E/yUAxM9
+	coSQmfyA1FSiURXakPn1vPUC46xeCCQgw9CCMQG/rY0kO0f4sdMzhRirr8WfjvX73IzzB4b2MlO
+	3XClEihJKZExhOq31VrYicXc7OWH+o0o2MTRVAxKbdheGqkxNT7ILDeStQBU5fAYutt+p/S4Pvh
+	2Dbr+qdPSYhu6yPOMebg6ZpDQ5UMa4XbmbXsMosDgxOe6nEhD3Bw7WlRijJzzGpV1s3IT2g3M6P
+	iiL3hsKyMHEK8ndCYRAK0W2+8gqIHvf+pODMwWGl7tgPhwzTszTLND
+X-Received: by 2002:a05:620a:440c:b0:92e:520a:ffab with SMTP id af79cd13be357-92ef2b9489amr1031383385a.38.1783953160919;
+        Mon, 13 Jul 2026 07:32:40 -0700 (PDT)
 Received: from vinp2.lan (c-71-235-107-29.hsd1.vt.comcast.net. [71.235.107.29])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5d6a77csm1102905185a.45.2026.07.13.07.31.55
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5b88e40sm1063648985a.14.2026.07.13.07.32.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 07:31:56 -0700 (PDT)
+        Mon, 13 Jul 2026 07:32:40 -0700 (PDT)
 From: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
 To: stable@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
@@ -65,16 +66,10 @@ Cc: gregkh@linuxfoundation.org,
 	kevin.tian@intel.com,
 	joerg.roedel@amd.com,
 	dmaluka@chromium.org,
-	Brett A C Sheffield <bacs@librecast.net>,
-	Peter Schneider <pschneider1968@googlemail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-	Mark Brown <broonie@kernel.org>,
-	Ron Economos <re@w6rz.net>,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH 6.18.y] Linux 6.18.38
-Date: Mon, 13 Jul 2026 10:31:38 -0400
-Message-ID: <20260713143138.1926364-1-vineeth@bitbyteword.org>
+	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
+Subject: [PATCH] iommu/vt-d: Fix race condition during PASID entry replacement
+Date: Mon, 13 Jul 2026 10:32:37 -0400
+Message-ID: <20260713143237.1927180-1-vineeth@bitbyteword.org>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -82,39 +77,379 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Lu Baolu <baolu.lu@linux.intel.com>
 
-Link: https://lore.kernel.org/r/20260702155112.110058792@linuxfoundation.org
-Tested-by: Brett A C Sheffield <bacs@librecast.net>
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
-Tested-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-Link: https://lore.kernel.org/r/20260703072816.644513463@linuxfoundation.org
-Tested-by: Brett A C Sheffield <bacs@librecast.net>
-Tested-by: Mark Brown <broonie@kernel.org>
-Tested-by: Ron Economos <re@w6rz.net>
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+commit c3b1edea3791fa91ab7032faa90355913ad9451b upstream.
+
+The Intel VT-d PASID table entry is 512 bits (64 bytes). When replacing
+an active PASID entry (e.g., during domain replacement), the current
+implementation calculates a new entry on the stack and copies it to the
+table using a single structure assignment.
+
+        struct pasid_entry *pte, new_pte;
+
+        pte = intel_pasid_get_entry(dev, pasid);
+        pasid_pte_config_first_level(iommu, &new_pte, ...);
+        *pte = new_pte;
+
+Because the hardware may fetch the 512-bit PASID entry in multiple
+128-bit chunks, updating the entire entry while it is active (Present
+bit set) risks a "torn" read. In this scenario, the IOMMU hardware
+could observe an inconsistent state — partially new data and partially
+old data — leading to unpredictable behavior or spurious faults.
+
+Fix this by removing the unsafe "replace" helpers and following the
+"clear-then-update" flow, which ensures the Present bit is cleared and
+the required invalidation handshake is completed before the new
+configuration is applied.
+
+This fixes CVE-2026-45945.
+
+Fixes: 7543ee63e811 ("iommu/vt-d: Add pasid replace helpers")
+Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
+Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Link: https://lore.kernel.org/r/20260120061816.2132558-4-baolu.lu@linux.intel.com
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+[vineeth: adjusted for 6.18.y: the removed intel_pasid_replace_second_level()
+ in 6.18 still computed pgd/pgd_val locally and used the older
+ pasid_pte_config_second_level() signature; since the function is deleted
+ entirely, the resolution only affects removed lines. The prerequisite
+ "Clear Present bit" patches are already in 6.18.y.
+ Built and tested on 6.18.38: PASID replace, iommufd RID replace and DMA
+ sanity on QEMU VT-d in scalable mode (FS and SS), no regressions.]
+Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+Cc: <stable@vger.kernel.org> # 6.18
 ---
- Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iommu/intel/iommu.c  |  29 +++---
+ drivers/iommu/intel/nested.c |   9 +-
+ drivers/iommu/intel/pasid.c  | 190 -----------------------------------
+ drivers/iommu/intel/pasid.h  |  14 ---
+ 4 files changed, 16 insertions(+), 226 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index 74cbca8abc6c..7ee3beedceca 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- VERSION = 6
- PATCHLEVEL = 18
--SUBLEVEL = 37
-+SUBLEVEL = 38
- EXTRAVERSION =
- NAME = Baby Opossum Posse
+diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+index 79676188f60f3..db0cf436c8395 100644
+--- a/drivers/iommu/intel/iommu.c
++++ b/drivers/iommu/intel/iommu.c
+@@ -1734,12 +1734,10 @@ int __domain_setup_first_level(struct intel_iommu *iommu, struct device *dev,
+ 			       ioasid_t pasid, u16 did, phys_addr_t fsptptr,
+ 			       int flags, struct iommu_domain *old)
+ {
+-	if (!old)
+-		return intel_pasid_setup_first_level(iommu, dev, fsptptr, pasid,
+-						     did, flags);
+-	return intel_pasid_replace_first_level(iommu, dev, fsptptr, pasid, did,
+-					       iommu_domain_did(old, iommu),
+-					       flags);
++	if (old)
++		intel_pasid_tear_down_entry(iommu, dev, pasid, false);
++
++	return intel_pasid_setup_first_level(iommu, dev, fsptptr, pasid, did, flags);
+ }
  
+ static int domain_setup_second_level(struct intel_iommu *iommu,
+@@ -1747,23 +1745,20 @@ static int domain_setup_second_level(struct intel_iommu *iommu,
+ 				     struct device *dev, ioasid_t pasid,
+ 				     struct iommu_domain *old)
+ {
+-	if (!old)
+-		return intel_pasid_setup_second_level(iommu, domain,
+-						      dev, pasid);
+-	return intel_pasid_replace_second_level(iommu, domain, dev,
+-						iommu_domain_did(old, iommu),
+-						pasid);
++	if (old)
++		intel_pasid_tear_down_entry(iommu, dev, pasid, false);
++
++	return intel_pasid_setup_second_level(iommu, domain, dev, pasid);
+ }
+ 
+ static int domain_setup_passthrough(struct intel_iommu *iommu,
+ 				    struct device *dev, ioasid_t pasid,
+ 				    struct iommu_domain *old)
+ {
+-	if (!old)
+-		return intel_pasid_setup_pass_through(iommu, dev, pasid);
+-	return intel_pasid_replace_pass_through(iommu, dev,
+-						iommu_domain_did(old, iommu),
+-						pasid);
++	if (old)
++		intel_pasid_tear_down_entry(iommu, dev, pasid, false);
++
++	return intel_pasid_setup_pass_through(iommu, dev, pasid);
+ }
+ 
+ static int domain_setup_first_level(struct intel_iommu *iommu,
+diff --git a/drivers/iommu/intel/nested.c b/drivers/iommu/intel/nested.c
+index e91b07475fb84..a909ab1a665a3 100644
+--- a/drivers/iommu/intel/nested.c
++++ b/drivers/iommu/intel/nested.c
+@@ -141,11 +141,10 @@ static int domain_setup_nested(struct intel_iommu *iommu,
+ 			       struct device *dev, ioasid_t pasid,
+ 			       struct iommu_domain *old)
+ {
+-	if (!old)
+-		return intel_pasid_setup_nested(iommu, dev, pasid, domain);
+-	return intel_pasid_replace_nested(iommu, dev, pasid,
+-					  iommu_domain_did(old, iommu),
+-					  domain);
++	if (old)
++		intel_pasid_tear_down_entry(iommu, dev, pasid, false);
++
++	return intel_pasid_setup_nested(iommu, dev, pasid, domain);
+ }
+ 
+ static int intel_nested_set_dev_pasid(struct iommu_domain *domain,
+diff --git a/drivers/iommu/intel/pasid.c b/drivers/iommu/intel/pasid.c
+index 7a64a55fb5887..787897e61efa3 100644
+--- a/drivers/iommu/intel/pasid.c
++++ b/drivers/iommu/intel/pasid.c
+@@ -417,50 +417,6 @@ int intel_pasid_setup_first_level(struct intel_iommu *iommu, struct device *dev,
+ 	return 0;
+ }
+ 
+-int intel_pasid_replace_first_level(struct intel_iommu *iommu,
+-				    struct device *dev, phys_addr_t fsptptr,
+-				    u32 pasid, u16 did, u16 old_did,
+-				    int flags)
+-{
+-	struct pasid_entry *pte, new_pte;
+-
+-	if (!ecap_flts(iommu->ecap)) {
+-		pr_err("No first level translation support on %s\n",
+-		       iommu->name);
+-		return -EINVAL;
+-	}
+-
+-	if ((flags & PASID_FLAG_FL5LP) && !cap_fl5lp_support(iommu->cap)) {
+-		pr_err("No 5-level paging support for first-level on %s\n",
+-		       iommu->name);
+-		return -EINVAL;
+-	}
+-
+-	pasid_pte_config_first_level(iommu, &new_pte, fsptptr, did, flags);
+-
+-	spin_lock(&iommu->lock);
+-	pte = intel_pasid_get_entry(dev, pasid);
+-	if (!pte) {
+-		spin_unlock(&iommu->lock);
+-		return -ENODEV;
+-	}
+-
+-	if (!pasid_pte_is_present(pte)) {
+-		spin_unlock(&iommu->lock);
+-		return -EINVAL;
+-	}
+-
+-	WARN_ON(old_did != pasid_get_domain_id(pte));
+-
+-	*pte = new_pte;
+-	spin_unlock(&iommu->lock);
+-
+-	intel_pasid_flush_present(iommu, dev, pasid, old_did, pte);
+-	intel_iommu_drain_pasid_prq(dev, pasid);
+-
+-	return 0;
+-}
+-
+ /*
+  * Set up the scalable mode pasid entry for second only translation type.
+  */
+@@ -528,57 +484,6 @@ int intel_pasid_setup_second_level(struct intel_iommu *iommu,
+ 	return 0;
+ }
+ 
+-int intel_pasid_replace_second_level(struct intel_iommu *iommu,
+-				     struct dmar_domain *domain,
+-				     struct device *dev, u16 old_did,
+-				     u32 pasid)
+-{
+-	struct pasid_entry *pte, new_pte;
+-	struct dma_pte *pgd;
+-	u64 pgd_val;
+-	u16 did;
+-
+-	/*
+-	 * If hardware advertises no support for second level
+-	 * translation, return directly.
+-	 */
+-	if (!ecap_slts(iommu->ecap)) {
+-		pr_err("No second level translation support on %s\n",
+-		       iommu->name);
+-		return -EINVAL;
+-	}
+-
+-	pgd = domain->pgd;
+-	pgd_val = virt_to_phys(pgd);
+-	did = domain_id_iommu(domain, iommu);
+-
+-	pasid_pte_config_second_level(iommu, &new_pte, pgd_val,
+-				      domain->agaw, did,
+-				      domain->dirty_tracking);
+-
+-	spin_lock(&iommu->lock);
+-	pte = intel_pasid_get_entry(dev, pasid);
+-	if (!pte) {
+-		spin_unlock(&iommu->lock);
+-		return -ENODEV;
+-	}
+-
+-	if (!pasid_pte_is_present(pte)) {
+-		spin_unlock(&iommu->lock);
+-		return -EINVAL;
+-	}
+-
+-	WARN_ON(old_did != pasid_get_domain_id(pte));
+-
+-	*pte = new_pte;
+-	spin_unlock(&iommu->lock);
+-
+-	intel_pasid_flush_present(iommu, dev, pasid, old_did, pte);
+-	intel_iommu_drain_pasid_prq(dev, pasid);
+-
+-	return 0;
+-}
+-
+ /*
+  * Set up dirty tracking on a second only or nested translation type.
+  */
+@@ -691,38 +596,6 @@ int intel_pasid_setup_pass_through(struct intel_iommu *iommu,
+ 	return 0;
+ }
+ 
+-int intel_pasid_replace_pass_through(struct intel_iommu *iommu,
+-				     struct device *dev, u16 old_did,
+-				     u32 pasid)
+-{
+-	struct pasid_entry *pte, new_pte;
+-	u16 did = FLPT_DEFAULT_DID;
+-
+-	pasid_pte_config_pass_through(iommu, &new_pte, did);
+-
+-	spin_lock(&iommu->lock);
+-	pte = intel_pasid_get_entry(dev, pasid);
+-	if (!pte) {
+-		spin_unlock(&iommu->lock);
+-		return -ENODEV;
+-	}
+-
+-	if (!pasid_pte_is_present(pte)) {
+-		spin_unlock(&iommu->lock);
+-		return -EINVAL;
+-	}
+-
+-	WARN_ON(old_did != pasid_get_domain_id(pte));
+-
+-	*pte = new_pte;
+-	spin_unlock(&iommu->lock);
+-
+-	intel_pasid_flush_present(iommu, dev, pasid, old_did, pte);
+-	intel_iommu_drain_pasid_prq(dev, pasid);
+-
+-	return 0;
+-}
+-
+ /*
+  * Set the page snoop control for a pasid entry which has been set up.
+  */
+@@ -853,69 +726,6 @@ int intel_pasid_setup_nested(struct intel_iommu *iommu, struct device *dev,
+ 	return 0;
+ }
+ 
+-int intel_pasid_replace_nested(struct intel_iommu *iommu,
+-			       struct device *dev, u32 pasid,
+-			       u16 old_did, struct dmar_domain *domain)
+-{
+-	struct iommu_hwpt_vtd_s1 *s1_cfg = &domain->s1_cfg;
+-	struct dmar_domain *s2_domain = domain->s2_domain;
+-	u16 did = domain_id_iommu(domain, iommu);
+-	struct pasid_entry *pte, new_pte;
+-
+-	/* Address width should match the address width supported by hardware */
+-	switch (s1_cfg->addr_width) {
+-	case ADDR_WIDTH_4LEVEL:
+-		break;
+-	case ADDR_WIDTH_5LEVEL:
+-		if (!cap_fl5lp_support(iommu->cap)) {
+-			dev_err_ratelimited(dev,
+-					    "5-level paging not supported\n");
+-			return -EINVAL;
+-		}
+-		break;
+-	default:
+-		dev_err_ratelimited(dev, "Invalid stage-1 address width %d\n",
+-				    s1_cfg->addr_width);
+-		return -EINVAL;
+-	}
+-
+-	if ((s1_cfg->flags & IOMMU_VTD_S1_SRE) && !ecap_srs(iommu->ecap)) {
+-		pr_err_ratelimited("No supervisor request support on %s\n",
+-				   iommu->name);
+-		return -EINVAL;
+-	}
+-
+-	if ((s1_cfg->flags & IOMMU_VTD_S1_EAFE) && !ecap_eafs(iommu->ecap)) {
+-		pr_err_ratelimited("No extended access flag support on %s\n",
+-				   iommu->name);
+-		return -EINVAL;
+-	}
+-
+-	pasid_pte_config_nestd(iommu, &new_pte, s1_cfg, s2_domain, did);
+-
+-	spin_lock(&iommu->lock);
+-	pte = intel_pasid_get_entry(dev, pasid);
+-	if (!pte) {
+-		spin_unlock(&iommu->lock);
+-		return -ENODEV;
+-	}
+-
+-	if (!pasid_pte_is_present(pte)) {
+-		spin_unlock(&iommu->lock);
+-		return -EINVAL;
+-	}
+-
+-	WARN_ON(old_did != pasid_get_domain_id(pte));
+-
+-	*pte = new_pte;
+-	spin_unlock(&iommu->lock);
+-
+-	intel_pasid_flush_present(iommu, dev, pasid, old_did, pte);
+-	intel_iommu_drain_pasid_prq(dev, pasid);
+-
+-	return 0;
+-}
+-
+ /*
+  * Interfaces to setup or teardown a pasid table to the scalable-mode
+  * context table entry:
+diff --git a/drivers/iommu/intel/pasid.h b/drivers/iommu/intel/pasid.h
+index 637373995be80..0296ca55ea5e6 100644
+--- a/drivers/iommu/intel/pasid.h
++++ b/drivers/iommu/intel/pasid.h
+@@ -315,20 +315,6 @@ int intel_pasid_setup_pass_through(struct intel_iommu *iommu,
+ 				   struct device *dev, u32 pasid);
+ int intel_pasid_setup_nested(struct intel_iommu *iommu, struct device *dev,
+ 			     u32 pasid, struct dmar_domain *domain);
+-int intel_pasid_replace_first_level(struct intel_iommu *iommu,
+-				    struct device *dev, phys_addr_t fsptptr,
+-				    u32 pasid, u16 did, u16 old_did, int flags);
+-int intel_pasid_replace_second_level(struct intel_iommu *iommu,
+-				     struct dmar_domain *domain,
+-				     struct device *dev, u16 old_did,
+-				     u32 pasid);
+-int intel_pasid_replace_pass_through(struct intel_iommu *iommu,
+-				     struct device *dev, u16 old_did,
+-				     u32 pasid);
+-int intel_pasid_replace_nested(struct intel_iommu *iommu,
+-			       struct device *dev, u32 pasid,
+-			       u16 old_did, struct dmar_domain *domain);
+-
+ void intel_pasid_tear_down_entry(struct intel_iommu *iommu,
+ 				 struct device *dev, u32 pasid,
+ 				 bool fault_ignore);
 -- 
 2.54.0
 
