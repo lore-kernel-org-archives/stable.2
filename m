@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF9642DA51
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:45:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F6C42EED8
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:45:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950308; cv=none; b=hdMRUpNRU+At0YwzhCuzI8R7O2yqY1bJj7XI4PU6tTTw6qifdsZ6MgPeJTnRGGzx6w+IGS4kBQquPS+BmAVU0MGN7gzYOhE70tjXK+z0fRts1TTf4fYO2Q9+IqFY6fF8sQki9HtIvxhlA4kI5RsBlPQQOWyGmQOhQX8l7ujv91U=
+	t=1783950312; cv=none; b=rKy9avprSsb8T9S3nmxbI7AHu2P3v2LohXEfWuKzEQRaCi/tAAc9FvoBPDa+LMpltPIrFvEEjCArukDw6wcsLQD37Kr+SdMcI3RmWKKSk2I/xKPKpC6A5pXoA5LgGVySz/nC8jrsilu1TKmPx2oX5VBUlpxjX21QKTtGN1KIIV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950308; c=relaxed/simple;
-	bh=S0j/0hfPHKI3OJl7oKlPeRy/V8WqudeONtnpFw8EJto=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XkPIjUm6Kd/0Bu70+eZ/Qpl/vCb2v+9WrwpzdnSjyTddXXdX8fW3u6MhCkJqy1DgH4pU0wDt1Ekp4ILDNFpU4diTTd3rJGnZEknWcIZjh7+io8MnYSvZgx907Ld2r1GS8feZQn3Z6iCCqgMB97BzlCo3pGWm2YJKYr6jB2wkP2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gwJ/jtT3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950312; c=relaxed/simple;
+	bh=KDKvhbAk2Ugvzr1arlo3ZMiU2lh6oKw+/z4XfSLFZ5w=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kitvFSPTYow/7gryhDyX6QZ301CyK+ckxBmlEncuacWcKhfFsLu5SL1BjHKANdtzQj1j82ciXBegorDFNLyE3vrre9kjU/rdNYMkdavWo2/IC3ingCSDJEO2nqKxfgNUbXA7+/cw8PHRpSlwpri9zWcCb04q4wRy3w9fLcNNTeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LOMZNaCV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gwJ/jtT3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FAD91F000E9;
-	Mon, 13 Jul 2026 13:45:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LOMZNaCV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1E21F000E9;
+	Mon, 13 Jul 2026 13:45:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783950307;
-	bh=Aus1jRbnzzcDBGy6aTfs4qHGy+622kn5GmRvo6McSAU=;
+	s=korg; t=1783950310;
+	bh=1juTBW49maZFa3pFdUQuAxyB/dwOsMl3j4Uj0gD1QvY=;
 	h=Subject:To:Cc:From:Date;
-	b=gwJ/jtT3gIsL8bVOVD/TWSsaIISK4Q4kJnmxuruyaDvsnDK14TIQrPJKvV1pS8oZw
-	 Ww6/kUpBzBmlZmfittZ2AOnq37wN9hdgH6foR3SLvAM/SSSZVpwTZoODnITcxrh3kk
-	 SgoG/gVTJU9qb4ZzMKxCCcXbheCMeu06OEaEb6kc=
-Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix WEP length underflow and OOB read in" failed to apply to 5.10-stable tree
-To: hossu.alexandru@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
+	b=LOMZNaCVe0D7bw3mHLlQX5Mxe8ffRGYqT7H2o5uutYkSwSqDrsAEWGdMTTD/bB11Z
+	 Fan1V/WyjLSJm1v341lrS7ta8DRRuFhRK7kTXjtThygsJZxai0oZaqAOF61uEJJ5s7
+	 m7pX6Ni9hRIe3eSe1pcMJmF8wuXoBvEEar1T7KoM=
+Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix OOB read in update_beacon_info() IE" failed to apply to 5.10-stable tree
+To: hossu.alexandru@gmail.com,gregkh@linuxfoundation.org,luka.gejak@linux.dev,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:32:52 +0200
-Message-ID: <2026071352-wreckage-humorless-3481@gregkh>
+Date: Mon, 13 Jul 2026 15:33:16 +0200
+Message-ID: <2026071316-urchin-unenvied-752f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x a1fc19d61f661d47204f095b593de507884849f7
+git cherry-pick -x ed51de4a86e173c3b0ef78e039c2e49e08b11f16
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071352-wreckage-humorless-3481@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071316-urchin-unenvied-752f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,69 +62,59 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a1fc19d61f661d47204f095b593de507884849f7 Mon Sep 17 00:00:00 2001
+From ed51de4a86e173c3b0ef78e039c2e49e08b11f16 Mon Sep 17 00:00:00 2001
 From: Alexandru Hossu <hossu.alexandru@gmail.com>
-Date: Fri, 22 May 2026 02:46:05 +0200
-Subject: [PATCH] staging: rtl8723bs: fix WEP length underflow and OOB read in
- OnAuth()
+Date: Fri, 22 May 2026 02:45:25 +0200
+Subject: [PATCH] staging: rtl8723bs: fix OOB read in update_beacon_info() IE
+ loop
 
-OnAuth() has two bugs in the shared-key authentication path.
+The IE parsing loop in update_beacon_info() advances by
+(pIE->length + 2) each iteration but only guards on i < len.
+When a malicious AP sends a Beacon whose last IE has only one byte
+remaining in the frame (the element_id byte lands at len-1), the loop
+reads pIE->length from one byte past the allocated receive buffer.
 
-When the Privacy bit is set, rtw_wep_decrypt() is called without
-verifying that the frame is long enough to contain a valid WEP IV and
-ICV.  Inside rtw_wep_decrypt(), length is computed as:
+Additionally, even when the header bytes are in bounds, pIE->length
+itself can extend the data window beyond len, passing a truncated IE
+to the handler functions.
 
-    length = len - WLAN_HDR_A3_LEN - iv_len
+Add two guards at the top of the loop body:
+  1. Break if fewer than sizeof(*pIE) bytes remain (can't read header).
+  2. Break if the IE's declared data extends past len.
 
-and then passed as (length - 4) to crc32_le().  If len is less than
-WLAN_HDR_A3_LEN + iv_len + icv_len (32 bytes), length - 4 is negative
-and, after the implicit cast to size_t, causes crc32_le() to read far
-beyond the frame buffer.  Add a minimum length check before accessing
-the IV field and calling the decryption path.
-
-When processing a seq=3 response, rtw_get_ie() stores the Challenge
-Text IE length in ie_len, but the subsequent memcmp() always reads 128
-bytes regardless of ie_len.  IEEE 802.11 mandates a challenge text of
-exactly 128 bytes; reject any IE whose length field differs, matching
-the check already applied to OnAuthClient().
+Also replace i += (pIE->length + 2) with i += sizeof(*pIE) + pIE->length
+for consistency with the sizeof(*pIE) guards added above.
 
 Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
 Cc: stable <stable@kernel.org>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
 Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
-Link: https://patch.msgid.link/20260522004605.1039209-1-hossu.alexandru@gmail.com
+Link: https://patch.msgid.link/20260522004531.1038924-2-hossu.alexandru@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-index a86d6f97cf02..7198be795000 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-@@ -677,6 +677,9 @@ unsigned int OnAuth(struct adapter *padapter, union recv_frame *precv_frame)
- 	if ((pmlmeinfo->state&0x03) != WIFI_FW_AP_STATE)
- 		return _FAIL;
+diff --git a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
+index 1d37c2d5b10d..b355d8a3ceab 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
++++ b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
+@@ -1262,7 +1262,11 @@ void update_beacon_info(struct adapter *padapter, u8 *pframe, uint pkt_len, stru
+ 	len = pkt_len - (_BEACON_IE_OFFSET_ + WLAN_HDR_A3_LEN);
  
-+	if (len < WLAN_HDR_A3_LEN)
-+		return _FAIL;
-+
- 	sa = GetAddr2Ptr(pframe);
+ 	for (i = 0; i < len;) {
++		if (i + sizeof(*pIE) > len)
++			break;
+ 		pIE = (struct ndis_80211_var_ie *)(pframe + (_BEACON_IE_OFFSET_ + WLAN_HDR_A3_LEN) + i);
++		if (i + sizeof(*pIE) + pIE->length > len)
++			break;
  
- 	auth_mode = psecuritypriv->dot11AuthAlgrthm;
-@@ -688,6 +691,9 @@ unsigned int OnAuth(struct adapter *padapter, union recv_frame *precv_frame)
- 		prxattrib->hdrlen = WLAN_HDR_A3_LEN;
- 		prxattrib->encrypt = _WEP40_;
+ 		switch (pIE->element_id) {
+ 		case WLAN_EID_VENDOR_SPECIFIC:
+@@ -1287,7 +1291,7 @@ void update_beacon_info(struct adapter *padapter, u8 *pframe, uint pkt_len, stru
+ 			break;
+ 		}
  
-+		if (len < WLAN_HDR_A3_LEN + 8)
-+			return _FAIL;
-+
- 		iv = pframe+prxattrib->hdrlen;
- 		prxattrib->key_index = ((iv[3]>>6)&0x3);
+-		i += (pIE->length + 2);
++		i += sizeof(*pIE) + pIE->length;
+ 	}
+ }
  
-@@ -787,7 +793,7 @@ unsigned int OnAuth(struct adapter *padapter, union recv_frame *precv_frame)
- 			p = rtw_get_ie(pframe + WLAN_HDR_A3_LEN + 4 + _AUTH_IE_OFFSET_, WLAN_EID_CHALLENGE, (int *)&ie_len,
- 					len - WLAN_HDR_A3_LEN - _AUTH_IE_OFFSET_ - 4);
- 
--			if (!p || ie_len <= 0) {
-+			if (!p || ie_len != 128) {
- 				status = WLAN_STATUS_CHALLENGE_FAIL;
- 				goto auth_fail;
- 			}
 
