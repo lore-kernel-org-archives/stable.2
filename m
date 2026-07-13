@@ -1,117 +1,128 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8BA38D40D
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 11:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFFA38D40D
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 11:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783942865; cv=none; b=rqD4wWEAIofU0TT8IICjh9QgE6xf1u9XWKB5CBnGDAmi42lX1g7jDTNYsckhx1Ca4RV8oGRrz2M860OBkx7XSnUKUM/cj0heEVLRulz3IxW1o/f0OBEglkUXsXjqHCPovtN0TjNlGTpcILhsP7dJq2fpI4JBkcj1Ych97S0WMy4=
+	t=1783942876; cv=none; b=BBziCglQF+u+1P1wWV/FpEbRs9qrdNMYfky1CNciyTnx+C51jDGrmWFdNo0bLBH260kMzEuDM8kr/qcdFU+NyUOT0yj7ivyG7DziuULtKfp0MJs4mkc8Z//Bt844c2xG5HnAydC0+AhT/JJ+anuKrLCVNAtHDxMeJC3JN+NCvoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783942865; c=relaxed/simple;
-	bh=9FrLo67VfYF3ZpnOVkaF8Rlr709oEukF8gtE+IPKx9Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Pnr0w12wUCGm/Ovmr05UgoygnrzpVB7Vp+A/eGE87gD1rlBEmdOh5eEiLfvhRkvCuPEhoCNJttIVQffkwmEnRpdU2/hjzzNyKRhNK7jb+7DxKrGw3s55/Qcx0A7SOad/8o7MXYt082eMtbi4S4iqHxNTqiIdq3tB3cq4TtMT574=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZSZZrx9Z; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1783942876; c=relaxed/simple;
+	bh=DF8JWJfNh6M1Sw4cPR6Hjd+QCs0193pYYptH/jXmmFE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rlXi9FzMmZaGC1IrltnZuQbApINsiHYwEya5OELeB4Nk9NzUITRKc29EaDEN9PiDniZfUr4WQ9aXatsjtk6JYXF3z+oMoexCeKhOGB+1geRPVNPmztPqBR9DqINvOhnhJQyxdc/u+Q5FmOMvoW3tMluNuX+Dgd8TvJNBjtKEkT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I4PRoorD; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZSZZrx9Z"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493c19bad03so27495445e9.2
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 04:41:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I4PRoorD"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cca0c5799eso30343395ad.0
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 04:41:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783942862; x=1784547662; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=P/WYgW+KJeYAWgpC3kzeRPmTrBu/4muElQjvrWC1UWc=;
-        b=ZSZZrx9Z0qsVercscfNYdU+AKk1Pe8mahzDGSsoI6Z3VdL8OqYeqnsoF/S5IIFpbjF
-         /GuFxpbJzrcv3CgAuVJFmxVcgYp37bCYty1R/6PFqfw8rtVbrkbIA0t+M8WPgLE2twiI
-         0eU284Yb6xMWa16QAzx/4YucsJjVssm8673FMUZYxAKZC+as72JWi/3ztEBg9v/UcANi
-         IlxWTJ+BkD3EAWATdngDmSw0322sisTkLmImpdpwzodFeH1PPmdFhdZ7aCQhzulQ0581
-         jTq/nkUTs5UClzZYY2z6YETTAk71JH0zxDud+pwXDXcJIPQiMDnnBj0p/gH3nJFSxpJE
-         iTGA==
+        d=gmail.com; s=20251104; t=1783942874; x=1784547674; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Bjup8tkbZReyLVbx7owWNWJpf0WRCU5BarQCoUzbWwU=;
+        b=I4PRoorDO4Oia6Gdwk/Kc/D0+f8ToiOYMGTUk6lTcb7FsTAqOMEkCjZlap27qNdGUd
+         pTL21PqGoj4S8mZIWr8Z1j+qRCSgi0IJw20qAACd5co6Ay6PT3iCu3vSzCA/Nyo+y2yK
+         t8qYUWpKln5W1rLNGUtwUp9L3MttmDPhfPf7phjh8RDCwe0KlKbkQ8qvgL4Pz/Ut+6Rq
+         t4NmddTc167tRLSXEW1JVdybAjE3K0iIaJP8A9guPUzD0uE6+KLw3djuIp5n/U5NOEbk
+         9Y/0vMyC5FIg96LRDdpr6JSjpbc3kfABhrqBEM/FsuS7ZTFwbC6yoJPhYfeVl1BcfTIv
+         TefQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783942862; x=1784547662;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P/WYgW+KJeYAWgpC3kzeRPmTrBu/4muElQjvrWC1UWc=;
-        b=Wo2XPdwFi3D70zkHqr+vtHJh+oEjyEkxQbsJ89mSUwXowsQeJa71pbZWkQqItu1SsS
-         yE+85nP5o2fi6iGFEwGXEUaEknrAFl6X4CuIKg82ZrRADGwA5Xuedoa43O3ZTHExc+P+
-         HXo46ej82wEnFgugDt0ZeikYP7qW6cv+4HWAH28J/zoaTmovLHnUfVBIkADBBJpBO724
-         srXO1ArGGSwbw9HodmNlYtd7SOhjPbnv2kzH/5rZ8KlAKTr0RloFW8NuD8FjSttY3E98
-         I7xhxcUT4zCDcrbgIIE+jOyBtLWmdVT8ISgZiniDsNA2Fjazm7r6kjoMJTeulsfo2NQP
-         hycw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1BaHD+jccMNpVeUeOcL0RDv0IkHqn/Xa7mJZ2FGDc+NX77dlPhrf2s1Wqgq8qAp2lC7t8Wlw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx5OkjrRC4y2kN2+Ika9CfaddyiyxFZriEtGCRVXmQs0X1wpz8s
-	TZqrFaJiUGgEsEfHYDUwraRNkT9yqrRHLy+oKXtsEIUGShiOQ+uURzBM
-X-Gm-Gg: AfdE7ck/6wvKr/MDW9H8FI7bWFwr+zpRyxaTx0Mhz1EtP9nxXaLlncgAaXR4SVpb+TI
-	LVkiGC9IYPzktVdUMO/5K36bgXdBZRTE7KFPc7h0ELMq4rXym/18TbCtXqquB1lyLYz+Om66huU
-	AfcAbm9CSYNM0GZ9p9XQusI3fa84y2irBq3O8kisOuTOjqMkltPRQS9uIlQqdZEAJkBrM4Hadek
-	CZ0BzH2+LxjTsAC2PV4H1mfnjVU7Lg7QT3cX+0AOyU3n8lbtP7ZMoueaiZqwWJ4Ih3+c3aSSqZT
-	qRYLq8hZkrrv/uZ0qn5ZaVZJnKxcVoqIlmQ04koxO4PO8RYiiZHPJQ47q5nBVqKGYsU1XyYviOS
-	sjZdIIGBj2WjNgnLr2eAkUDx5VEN6nUTPnrr9M4pyy8RpKOKapGLLP+vyVwbmeIQUeslnfE4vW/
-	McxGhDpCXV63FNok9QdLpE7kBBNRQY4b7TCA/3cx7JhiGoDzIQJJg/N50iGe5vLrji5/VBPLArF
-	Z5ZnhC5ZBRh409mSg+5rEiFNCc2P9Gt815LsuFZ1SDZtTyaWe6FOwid7ssTCz6tnBk0f+moh5no
-	gE1eVKTeJ2zV1js4hj1XXGtBzsWUdIf6EGbqTqjkT4hDqSrcuwzfM+46FiUCNYk/97dpzQ4XPpA
-	YMVn7yWvhFdaXI91PHOjS9Lbfk1Xtq04LKA==
-X-Received: by 2002:a05:600c:46ce:b0:493:bc92:ef45 with SMTP id 5b1f17b1804b1-493f8820951mr87046575e9.24.1783942862160;
-        Mon, 13 Jul 2026 04:41:02 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493f49755f9sm272718035e9.8.2026.07.13.04.41.01
+        d=1e100.net; s=20251104; t=1783942874; x=1784547674;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bjup8tkbZReyLVbx7owWNWJpf0WRCU5BarQCoUzbWwU=;
+        b=UUADFWTvmdJ7+45jgxcELgHMYKVwaNIfIkr1t2iBeNKeqG3Jn8gOtGH8CTjOdLq6GC
+         iGYLFMavXtS6EPzo+8h+cEQ7KGHe5vk6ewKZNOSaEj5h2Ip5umD4BnE0gSn57kBca8ot
+         Nw+xz6WXpKuBD7akOa9NeAmuZQnNELukqwlFs0TG/PcFXKQk5dET6y9aUmWiHbmZICUw
+         JqogcCTpckd2jbM+Uv4zwJz6lCx5z+SO9hU8kBCvA15fRgRPxDD6pKBc21DkEVm2Zhrg
+         nbfG8RsYoajZRRuSz4gJNNh5zBuzAtdj6kwgMX6TgyUrXLiJ50n7uqlkXVEuMwxPiwLx
+         v4gw==
+X-Gm-Message-State: AOJu0YzY2rnAdGwI3TSZ2BS2QeU+ekHD9PZKTqjksEOQ398hy+zeFErV
+	vsWo515NJUAcaaBp4kjL5j3jZHEoomBiqoXO6+R29/WBKo0PHtRuod72
+X-Gm-Gg: AfdE7cn6XU9IEWy6/nWTf7llvhyMRhHQ3ckW6yaWXDAgHILH5GdfZDCw5f1CzUI7rP+
+	L5DN+rbus47A1r00snBLcD2sq4IF1jXbTNpNOfxFKAN0WhPniRpRZCAgC0iLl3mnQD+bNpqHyeh
+	EZtjqQtCRWnrwXblaieypimZmirO0I6uppD8hslc6NQSCKgFQ6u114tQW5tuv0Fuu2XQGin8NRA
+	8gEGOcsPYzpoXzdUD6uOgvO7HlN4Fi71iHiNrrCi4MVoWvvnHxOQOR9zyoZYeoEs8TdOA1va9CJ
+	9h8bRVHv4KOqdDbdLbNDmU7tYF4xePM+SZM3mJQfVOWdSHDQXdYlpD6OO/KgcL1SDdz1ggYAIOK
+	azrYe1B6BGxFIfeH+f3QeX8Tx76GlRQJjUV2bEwv9WM5CykInxwWvvrgTZsoDZQ2MRAvwZHq2lQ
+	1lX6AmTg==
+X-Received: by 2002:a17:902:ea03:b0:2c0:e2ea:6b0c with SMTP id d9443c01a7336-2ce9ed181f6mr81660085ad.21.1783942873961;
+        Mon, 13 Jul 2026 04:41:13 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::f280])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d59e33sm95978515ad.74.2026.07.13.04.41.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 04:41:02 -0700 (PDT)
-Date: Mon, 13 Jul 2026 13:41:00 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v3] iio: proximity: hx9023s: validate firmware size
-Message-ID: <20260713134100.00006272@gmail.com>
-In-Reply-To: <alTNSJODSTsPWyAF@ashevche-desk.local>
-References: <CAMyXUJnsV1GD0VmK_n25hqr_=A5Z=u_gCXV=oACgKuP3dSgwnQ@mail.gmail.com>
-	<alTNSJODSTsPWyAF@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Mon, 13 Jul 2026 04:41:13 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Johan Hovold <johan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] media: platform: mtk-mdp3: Fix SCP device refcounting
+Date: Mon, 13 Jul 2026 19:38:59 +0800
+Message-ID: <20260713113859.921358-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 13 Jul 2026 14:34:32 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+mdp_probe() first tries to get the SCP handle with scp_get(). When that
+fails, it falls back to looking up the SCP platform device with
+__get_pdev_by_id() and then reads its driver data.
 
-> On Mon, Jul 13, 2026 at 10:31:30AM +0545, Laxman Acharya Padhya wrote:
-> > hx9023s_send_cfg() copies the firmware into a counted flexible array and
-> > then reads fixed offsets from the copied data before walking register/value
-> > pairs starting at FW_DATA_OFFSET. A truncated firmware image can therefore
-> > make the driver read past the copied buffer during probe-time configuration
-> > loading.
-> > 
-> > Reject firmware images that cannot contain the fixed header, reject images
-> > too large for the u16 fw_size field, and validate that the advertised
-> > register count fits in the remaining payload.  
-> 
-> > Fixes: e9ed97be4fcc ("iio: proximity: hx9023s: Added firmware file
-> > parsing functionality")  
-> 
-> This has to be a single line.
-> 
-> > Cc: stable@vger.kernel.org
-> > Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+The fallback lookup returns the platform device with a reference, just
+like scp_get() does. However, the fallback path currently drops that
+reference immediately after platform_get_drvdata(). The driver later
+still calls scp_put(mdp->scp) unconditionally from the probe error path
+and from mdp_video_device_release(), which drops the SCP device
+reference again.
 
-Remove my tag for the time being, I do agree with the change in principle
-however this patch needs a bit more work than I expected. Happy to re-review
-once everyone's comments have been addressed.
+Keep the fallback reference until the existing scp_put() call, so that
+the fallback path follows the same ownership rules as the scp_get()
+path.
 
+Fixes: 8f6f3aa21517 ("media: platform: mtk-mdp3: fix device leaks at probe")
+Cc: stable@vger.kernel.org
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Add Cc stable.
+  - Add Reviewed-by tag from Johan Hovold.
+  - No code changes.
+
+ drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
+index 8f4da4cf55d2..121b1006ffdc 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
+@@ -294,7 +294,6 @@ static int mdp_probe(struct platform_device *pdev)
+ 			goto err_destroy_clock_wq;
+ 		}
+ 		mdp->scp = platform_get_drvdata(mm_pdev);
+-		put_device(&mm_pdev->dev);
+ 	}
+ 
+ 	mdp->rproc_handle = scp_get_rproc(mdp->scp);
 -- 
-Kind regards
+2.43.0
 
-CJD
