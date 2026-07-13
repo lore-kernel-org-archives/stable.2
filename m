@@ -1,60 +1,67 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2273DD861;
-	Mon, 13 Jul 2026 09:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B333DE425;
+	Mon, 13 Jul 2026 09:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783933537; cv=none; b=EukVUJ6Baz2lmRdpa9MSZI7BK5cwbj6I84z4GIbm+iMe46DqP0JQyJtPey9EW9kSKcZIplyzd5ebtNIJrabqRtgLNKgQcZuJpWG1CU7j5y6/pL6gFvH3zbyLXmiyF78u+J8kXK3qUiKkWZyc6qIxYxbrcKlnE4h80hxGsFHYoCU=
+	t=1783933699; cv=none; b=lV5FFdBhX58YwTg31hlzMr1Vo+NeLK3N4X7hlweS0ymR60m2SFnYbtZrgTZ6Vr025vUGzo69Iilc74bqB5YxRw56bglwF0bh6BjqKcLEr80hB6DF/3HIs7xMEtO8hZOBK2AFMkMLmLJ+DlXgSe7o1SvppXigPbHGFpCfp2kSiEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783933537; c=relaxed/simple;
-	bh=4gib2vhDzLFQ7tnF4IVPav8LHJ2wHdR4rw+1RbpRt2Y=;
+	s=arc-20240116; t=1783933699; c=relaxed/simple;
+	bh=H2AUnpcM7vGdfeo0oaTmK0c1rHLcYnkUgNEUg+kogJc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PyR7F5OUyq9NrJNjU7GCueDfemZtH0acxmY0S1XmG+tQeYIy1sLVtG2U7iisOqg/TQ0A2zpB7h1ptqjlM1sR6btQFs6KAx0u8jieHJaE9K81B3IjzdMFTl9ueBgCpa8DJY1QVZHVny+UPnVMaCzoKfsb/7yqTP9qcnFBv1OWEPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ggbSnCU0; arc=none smtp.client-ip=198.175.65.14
+	 Content-Type:Content-Disposition:In-Reply-To; b=PKostjkqETBIb5FLFZv4+K0wEduLIKPqwTQJgfskbWZBJaep5hq0nKDSVggmV9WFbgQd1gfFovxKQ9qVFKJTpaYeiIFppiyJb6wNowbWSp8Bfc2qouoAUcbkQx3HBpLN5sqVQEB/ZXK175RrXv33gxCPVdFijueAF2hUT6xw6MQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mmtA9XGg; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ggbSnCU0"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mmtA9XGg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783933536; x=1815469536;
+  t=1783933696; x=1815469696;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=4gib2vhDzLFQ7tnF4IVPav8LHJ2wHdR4rw+1RbpRt2Y=;
-  b=ggbSnCU01L5bua3lFU/7OZRUx4cB7E5QRiH/E0iB31gNwbU3GjSZQEyx
-   vgEgECZl4vX6K1dkknRYpRU5/pankbIkkg+2rVQM858XFDI3J2oaln4Et
-   KcCToyFL9m6cdf/yXwbzPmA22mMDRvAkX8w3HlK005fjew/0KeUo5erqx
-   MCZGL3KgusFc463AFfLrq/34wIogrEFpbrO2iWKbMs9YQwkb8bafGaxjQ
-   s/YhY/Pdx7p9i86nr9AfuwzJz4j8TPwIycF+R7AxCl5xiqDUC5tqRntHb
-   sITEi03bXd4JMdJQ1D3Wt81EGSsfzG5IShY7pYR218QiqrIu+c0bk4PdO
-   A==;
-X-CSE-ConnectionGUID: bR2TUSxaTrqqZlX2E+Ye/w==
-X-CSE-MsgGUID: XP21mTV9ThezTRGdZ33ITA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88441025"
+  bh=H2AUnpcM7vGdfeo0oaTmK0c1rHLcYnkUgNEUg+kogJc=;
+  b=mmtA9XGgdeKJoZf1F20bRczPeOUvG0bE+eNJKQ+O3xv8TlxnTnRRNdZo
+   dUKDGxayi034/likg4UG0BCHt3VoKf6jSB3DmzWR+HikLnHXTpFX6CeyO
+   DJxrwUJGA+37lB8uNOKi3riHjoNYukGiddZ/zJk7GnW6UzHNsPzK9/u6A
+   dlmyQzt0nhWQ1ZWxcykdPBAp9A8yIT5KFzQK2DpVIqAm9iSXt2klUaCgt
+   eybXGXQh7+q7ytG2rPz0Wd2LrlE5mJOz5yPiEDJecr3AJWVDd0dD6eLt1
+   gEgLZD89YJHhN7/M7mpE/cvuU49FE7KXrAMAxO/47JqVOiK5VPgSpj0zl
+   g==;
+X-CSE-ConnectionGUID: ZipU0zqkTs+QQikjHcz9gg==
+X-CSE-MsgGUID: ZkELZ/uUTIGeiwmwsirrjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83653595"
 X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="88441025"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 02:05:35 -0700
-X-CSE-ConnectionGUID: +pIAPZXJQZGfQt6aRdDuGw==
-X-CSE-MsgGUID: RlnR+4xtTdWaPqF/Bzs1WA==
+   d="scan'208";a="83653595"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 02:08:15 -0700
+X-CSE-ConnectionGUID: Vhk4qVlcT5q8FvzEWKTcQw==
+X-CSE-MsgGUID: AJT3mAscTIKWsN4TKaW++w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="259793879"
+   d="scan'208";a="255571404"
 Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa005.jf.intel.com with ESMTP; 13 Jul 2026 02:05:33 -0700
+  by orviesa007.jf.intel.com with ESMTP; 13 Jul 2026 02:08:12 -0700
 Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id F0D0295; Mon, 13 Jul 2026 11:05:11 +0200 (CEST)
-Date: Mon, 13 Jul 2026 12:05:10 +0300
+	id D6C1E95; Mon, 13 Jul 2026 11:08:10 +0200 (CEST)
+Date: Mon, 13 Jul 2026 12:08:09 +0300
 From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+To: Andrei Kuchynski <akuchynski@chromium.org>
+Cc: Jameson Thies <jthies@google.com>, Benson Leung <bleung@chromium.org>,
 	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH v2] usb: typec: tcpci_rt1711h: unregister TCPCI port with
- devres
-Message-ID: <alSqRrKPCqrjufv1@kuha>
-References: <20260706145312.37260-1-mhun512@gmail.com>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
+	Pooja Katiyar <pooja.katiyar@intel.com>,
+	Johan Hovold <johan@kernel.org>,
+	Hsin-Te Yuan <yuanhsinte@chromium.org>,
+	Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>,
+	Linyu Yuan <quic_linyyuan@quicinc.com>,
+	Jack Pham <quic_jackp@quicinc.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: ucsi: Fix race condition and ordering in
+ port unregistration
+Message-ID: <alSq-cD0_fdhA3tU@kuha>
+References: <20260707141736.1635698-1-akuchynski@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,82 +70,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260706145312.37260-1-mhun512@gmail.com>
+In-Reply-To: <20260707141736.1635698-1-akuchynski@chromium.org>
 
-On Mon, Jul 06, 2026 at 11:53:12PM +0900, Myeonghun Pak wrote:
-> rt1711h_probe() registers the TCPCI port before requesting the interrupt
-> and enabling alert interrupts. If either of those later steps fails, the
-> probe function returns without unregistering the TCPCI port. The explicit
-> unregister currently only happens from the remove callback.
+Tue, Jul 07, 2026 at 02:17:36PM +0000, Andrei Kuchynski kirjoitti:
+> A synchronization issue exists during port unregistration where pending
+> partner work items can race against workqueue destruction, leading to
+> use-after-free conditions:
 > 
-> Register a devres action immediately after tcpci_register_port() succeeds,
-> so tcpci_unregister_port() runs on later probe failures and on driver
-> detach. Drop the remove callback to avoid unregistering the same port
-> twice.
+>   cros_ec_ucsi cros_ec_ucsi.3.auto: error -ETIMEDOUT: PPM init failed
+>   BUG: kernel NULL pointer dereference, address: 0000000000000000
+>   RIP: 0010:__queue_work+0x83/0x4a0
+>   Call Trace:
+>     <IRQ>
+>     __cfi_delayed_work_timer_fn+0x10/0x10
+>     run_timer_softirq+0x3b6/0xbd0
+>     sched_clock_cpu+0xc/0x110
+>     irq_exit_rcu+0x18d/0x330
+>     fred_sysvec_apic_timer_interrupt+0x5e/0x80
 > 
-> This issue was identified during our ongoing static-analysis research while
-> reviewing kernel code.
+> Fix this by ensuring strict ordering and proper serialization during
+> teardown:
 > 
-> Fixes: 302c570bf36e ("usb: typec: tcpci_rt1711h: avoid screaming irq causing boot hangs")
+> 1. Move ucsi_unregister_partner() to the beginning of the teardown
+> sequence and protect it under the connector mutex lock.
+> 2. Ensure all pending partner tasks are explicitly flushed and finished
+> before the workqueue is destroyed.
+> 3. Switch from mod_delayed_work() to a cancel_delayed_work() and
+> queue_delayed_work() sequence. This guarantees that items currently marked
+> as pending won't be scheduled an additional time, preventing a double
+> release of resources which leads to the following crash:
+> 
+>   Oops: general protection fault, probably for non-canonical address
+>     0xdead000000000122: 0000 [#1] SMP NOPTI
+>   Workqueue: cros_ec_ucsi.3.auto-con2 ucsi_poll_worker
+>   RIP: 0010:ucsi_poll_worker+0x65/0x1e0
+>   Call Trace:
+>   <TASK>
+>     process_scheduled_works+0x218/0x6d0
+>     worker_thread+0x188/0x3f0
+>     __cfi_worker_thread+0x10/0x10
+>     kthread+0x226/0x2a0
+> 
+> To ensure these rules are applied identically across both the normal
+> teardown and the ucsi_init() error paths, consolidate the cleanup logic
+> into a new helper, ucsi_unregister_port().
+> 
 > Cc: stable@vger.kernel.org
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> Fixes: b9aa02ca39a4 ("usb: typec: ucsi: Add polling mechanism for partner tasks like alt mode checking")
+> Fixes: b13abcb7ddd8 ("usb: typec: ucsi: Fix NULL pointer access")
+> Fixes: fac4b8633fd6 ("usb: ucsi: Ensure connector delayed work items are flushed")
+> Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
 > ---
-> v2:
-> - Add Cc: stable@vger.kernel.org.
+>  drivers/usb/typec/ucsi/ucsi.c | 82 +++++++++++++++++------------------
+>  1 file changed, 39 insertions(+), 43 deletions(-)
 > 
->  drivers/usb/typec/tcpm/tcpci_rt1711h.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/tcpm/tcpci_rt1711h.c b/drivers/usb/typec/tcpm/tcpci_rt1711h.c
-> index a8726da6fc71..20037ef130ca 100644
-> --- a/drivers/usb/typec/tcpm/tcpci_rt1711h.c
-> +++ b/drivers/usb/typec/tcpm/tcpci_rt1711h.c
-> @@ -298,2 +298,4 @@
-> +static void rt1711h_unregister_tcpci_port(void *tcpci);
-> +
->  static int rt1711h_probe(struct i2c_client *client)
->  {
-> @@ -339,7 +341,11 @@ static int rt1711h_probe(struct i2c_client *client)
->  	chip->tcpci = tcpci_register_port(chip->dev, &chip->data);
->  	if (IS_ERR_OR_NULL(chip->tcpci))
->  		return PTR_ERR(chip->tcpci);
-> +
-> +	ret = devm_add_action_or_reset(chip->dev, rt1711h_unregister_tcpci_port, chip->tcpci);
-> +	if (ret)
-> +		return ret;
->  
->  	ret = devm_request_threaded_irq(chip->dev, client->irq, NULL,
->  					rt1711h_irq,
->  					IRQF_ONESHOT | IRQF_TRIGGER_LOW,
-> @@ -357,11 +363,9 @@ static int rt1711h_probe(struct i2c_client *client)
->  	return 0;
+> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+> index 92166a3725b16..d9668ed7c80ea 100644
+> --- a/drivers/usb/typec/ucsi/ucsi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi.c
+> @@ -1845,6 +1845,42 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
+>  	return ret;
 >  }
 >  
-> -static void rt1711h_remove(struct i2c_client *client)
-> +static void rt1711h_unregister_tcpci_port(void *tcpci)
+> +static void ucsi_unregister_port(struct ucsi_connector *con)
+> +{
+> +	struct ucsi_work *uwork;
+> +
+> +	if (con->wq) {
+> +		mutex_lock(&con->lock);
+> +		ucsi_unregister_partner(con);
+> +		/*
+> +		 * queue delayed items immediately so they can execute
+> +		 * and free themselves before the wq is destroyed
+> +		 */
+> +		list_for_each_entry(uwork, &con->partner_tasks, node) {
+> +			if (cancel_delayed_work(&uwork->work))
+> +				queue_delayed_work(con->wq, &uwork->work, 0);
+> +		}
+> +		mutex_unlock(&con->lock);
+> +
+> +		destroy_workqueue(con->wq);
+> +		con->wq = NULL;
+> +	} else {
+> +		ucsi_unregister_partner(con);
+> +	}
+> +
+> +	ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
+> +	ucsi_unregister_port_psy(con);
+> +
+> +	usb_power_delivery_unregister_capabilities(con->port_sink_caps);
+> +	con->port_sink_caps = NULL;
+> +	usb_power_delivery_unregister_capabilities(con->port_source_caps);
+> +	con->port_source_caps = NULL;
+> +	usb_power_delivery_unregister(con->pd);
+> +	con->pd = NULL;
+> +	typec_unregister_port(con->port);
+> +	con->port = NULL;
+> +}
+> +
+>  static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
 >  {
-> -	struct rt1711h_chip *chip = i2c_get_clientdata(client);
+>  	u16 features = ucsi->cap.features;
+> @@ -1971,22 +2007,8 @@ static int ucsi_init(struct ucsi *ucsi)
+>  	for (i = 0; i < ucsi->cap.num_connectors; i++)
+>  		lockdep_unregister_key(&connector[i].lock_key);
+>  
+> -	for (con = connector; con->port; con++) {
+> -		if (con->wq)
+> -			destroy_workqueue(con->wq);
+> -		ucsi_unregister_partner(con);
+> -		ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
+> -		ucsi_unregister_port_psy(con);
 > -
-> -	tcpci_unregister_port(chip->tcpci);
-> +	tcpci_unregister_port(tcpci);
->  }
+> -		usb_power_delivery_unregister_capabilities(con->port_sink_caps);
+> -		con->port_sink_caps = NULL;
+> -		usb_power_delivery_unregister_capabilities(con->port_source_caps);
+> -		con->port_source_caps = NULL;
+> -		usb_power_delivery_unregister(con->pd);
+> -		con->pd = NULL;
+> -		typec_unregister_port(con->port);
+> -		con->port = NULL;
+> -	}
+> +	for (con = connector; con->port; con++)
+> +		ucsi_unregister_port(con);
+>  	kfree(connector);
+>  err_reset:
+>  	memset(&ucsi->cap, 0, sizeof(ucsi->cap));
+> @@ -2194,33 +2216,7 @@ void ucsi_unregister(struct ucsi *ucsi)
 >  
->  static const struct rt1711h_chip_info rt1711h = {
-> @@ -394,7 +396,6 @@ static struct i2c_driver rt1711h_i2c_driver = {
->  		.of_match_table = rt1711h_of_match,
->  	},
->  	.probe = rt1711h_probe,
-> -	.remove = rt1711h_remove,
->  	.id_table = rt1711h_id,
->  };
->  module_i2c_driver(rt1711h_i2c_driver);
+>  	for (i = 0; i < ucsi->cap.num_connectors; i++) {
+>  		cancel_work_sync(&ucsi->connector[i].work);
+> -
+> -		if (ucsi->connector[i].wq) {
+> -			struct ucsi_work *uwork;
+> -
+> -			mutex_lock(&ucsi->connector[i].lock);
+> -			/*
+> -			 * queue delayed items immediately so they can execute
+> -			 * and free themselves before the wq is destroyed
+> -			 */
+> -			list_for_each_entry(uwork, &ucsi->connector[i].partner_tasks, node)
+> -				mod_delayed_work(ucsi->connector[i].wq, &uwork->work, 0);
+> -			mutex_unlock(&ucsi->connector[i].lock);
+> -			destroy_workqueue(ucsi->connector[i].wq);
+> -		}
+> -
+> -		ucsi_unregister_partner(&ucsi->connector[i]);
+> -		ucsi_unregister_altmodes(&ucsi->connector[i],
+> -					 UCSI_RECIPIENT_CON);
+> -		ucsi_unregister_port_psy(&ucsi->connector[i]);
+> -
+> -		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_sink_caps);
+> -		ucsi->connector[i].port_sink_caps = NULL;
+> -		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_source_caps);
+> -		ucsi->connector[i].port_source_caps = NULL;
+> -		usb_power_delivery_unregister(ucsi->connector[i].pd);
+> -		ucsi->connector[i].pd = NULL;
+> -		typec_unregister_port(ucsi->connector[i].port);
+> +		ucsi_unregister_port(&ucsi->connector[i]);
+>  		lockdep_unregister_key(&ucsi->connector[i].lock_key);
+>  	}
+>  
 > -- 
-> 2.47.1
+> 2.55.0.rc2.803.g1fd1e6609c-goog
 
 -- 
 heikki
