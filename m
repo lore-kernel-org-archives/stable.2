@@ -1,123 +1,151 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914993002D1
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 16:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5987443E9D8
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 16:58:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783961611; cv=none; b=iMnHEqlugMDZtR91G+1HYJqplP0Lr8w2cqcJ+3g7+DBqVxxdYwjDH1j4QPGUQv1n43UX8MMu20r9zjPDEZ2pyRC2b79Tvp45FnQ8wf/om7YQZJACRRPQH9rYS6aLf2X0lBz5m0HGi+Cx/n8dLmf9f0fWRe/6fIS8VcZqG4AAlCQ=
+	t=1783961917; cv=none; b=QkLwKB2K/+n3XuADrypmE3LcRjEqLnsXwhPU4dtUr5Mr3h15yiTZlKed64jODD5gRRUP/xe/VbocuOF+UN00mCJncdBvnw7RttN0G7C/aDmFsrja8UDcWnFoJXQlT9Bccwl4mG/TgPeBqpgj6It1lk2Z7AH/dec/SdtGb4xQrm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783961611; c=relaxed/simple;
-	bh=W8h/pOX2A68/AN9GGx/hlGAI45Btx/6RAqn1jjPBzJ0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kyPSkoMXm+kqqx8N/PyGiwNI/rKFUvAsXTe9Bhg6eRHEYT8QdFaEWYgIRVtFSpUHTfQayTtt5NK8dg1NOFShyDZT9zbn6uCRU6Av01lN7GIJ129G37jZeFU4sLbx6o1TN/oXV7sR0wliQlM5rFehxnyrr/GzS57vO3FgMOuNYH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=WdH04Eem; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1783961917; c=relaxed/simple;
+	bh=DxrdQK+FMY6knsZvirHX0KtVEweLXXULOEIRIUL/31w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YdUEV9d5rP0C9oJA4Lprr5eJqUQpr7MuMffqaEIcYARDmIshxw553+5F+RasLvkUNonLiv3PCjTDqLE/0Ur79aQY369tTGQJbhYksb/YxDxy44tHGXoD3iq2V4ML0aq1CjyMxgLDliw4ya72Cn2zSo2iO9i/4mRPQl10yrm/5gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pvE4LXcw; arc=none smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="WdH04Eem"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-51c2a76536bso32220131cf.1
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 09:53:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pvE4LXcw"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7eb9b427da2so70299a34.0
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 09:58:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1783961599; x=1784566399; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1wy5cjU8bpodUKB+73h1Dg8HOClHzWqmvSatqxWWARE=;
-        b=WdH04EemQd7/ddxFpnJx6/Ba7mOZCai2CIoZZdA3LjWi+IXyq70gmGXmYZVaSThPsb
-         o42rA0pJQSel7PbvhX4gdEvmVoPhs+mk342SmDurClN7+uN1ZYh0aTcYIbgN8pN4c03S
-         X17rOMqOEDLDipVofv2jZRTbgaU6bWPKZGZ/fX3oiCR5wTh9Ko6H2YqHKamM7Caj0ydj
-         UeCcy0UzbMcM2dYq4rd7GWTmkWgiRbA1gZWFYxA1lqVO1zw69jCDI1h4+z7mb/Gi2HdO
-         VPkbF903DtIHjEWV/SKdO1hNOxVFz38Vk/u1jbv/3oNSVfs+YFJWkKx5nh3ZX8NznQzx
-         W+Ug==
+        d=gmail.com; s=20251104; t=1783961915; x=1784566715; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vQ/MbrAy6RyE5QbP12v4EtWdPmh429k6lznRwDdghJs=;
+        b=pvE4LXcw2Le9beMo1vPphqp4gw/H0YdIzy1r2b6DxmzqaLkRqUPkEpUt+MJjuHxBsW
+         2oYI9Vk7XiI66rfljttbuVDWEuXtsFWLCv1xS3kIR2SuW1GRYJ7JU/2kdNs0jLYROhfY
+         SeOpu7mXTA/s4YKaCstPNKX9JUzANe24Tal1WzHKSLDADBuMasZibSZ4yyvaLxNrd1DV
+         l5NVveV2vzcMP0KjPdqDtSwZ9l6gqwNwlAHZjz/0laTBTsGeB45c+Xb2As0X1vjT0nbg
+         ruOb/+BHSE6CPIGf+/0UWt0FMtwhE2FbNXGj9vQY2JMZERP2rJRyOJ9w3ZPj3pcfv5ZG
+         EBfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783961599; x=1784566399;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1wy5cjU8bpodUKB+73h1Dg8HOClHzWqmvSatqxWWARE=;
-        b=UZ6LKeXxFiJp0foxMBLM9qGZXZ7wMhNmTg18GfkvLO38nuzFwoh0/swp7FKZw9dwPJ
-         yaUDZylzQ01vzfQHej6SVgxEvq+a/cE3dzmMqBs89N7r7QptjUGIBC+R3LEbPPwvv4at
-         CFBqFPyvpqJOK2TwYPwDecdHOY8kz+kiD2bj6PP3+dhyvCsUNkHtEHLDK1oqzNyT00Ax
-         2/t7KRyISAmmkGynPxX/LYOv69tTAjAmuTkmoZgF65C/GkZYygqRAjjJSGRyvMi7n3IQ
-         CMWancjTf/EdRtTbv3J2VrJT9h9AkLCDQoRPUsF4QGftCK1K5xlJS2UQ448d3qZaSQep
-         3gpg==
-X-Forwarded-Encrypted: i=1; AHgh+RqyvelaCqsyoXF7uPzUilHY2HjzHSINJ2ES0BaE8VGonSA4oWuXvcB/eHuCX/xed3MIUEqwHUM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz/ABlpQsJucwoilvI94mYEkWr3GA+tYq5qMAOSdmz+CGEDmRGM
-	PPsuMnDYIbaOG/dyep3+JAB0A23h5cIm3MJ2/VS1FlP9SI/Jj1zBEtsHV4k+rrUIuGNa5y8d75C
-	ix4DY
-X-Gm-Gg: AfdE7cmEX42q4RLriZwVQyXRXLTtSJ7NU+uiOdGSvQiXBbAOdIBUWEPOn4JGbsuXKgY
-	TDzb4qKNZpH7HQAffeqLERkpJK7H5cTz4KKewMkFTwJHVs5NawXeUORUDbaEYVQryDVVSGYIiCZ
-	QqPC0g76D6CTwp4Cf6yQJUMXjv0uJ0Xf9jjuJPmyzE6TqvI3ztVMLZ9DX/fos3J9q0IM5nb3qbQ
-	5VPTwCYgxJjSB4Yb6OfCeLlTXQLhbMF/66G3GcHk0Rj/l8ecfa5EL1g3YMadHMC19g+O2QNOPoZ
-	V8WaK9vzFtF4zk2KqRkCsKaePqZNPyIJKResXjS9th02WFt/oxqv2a3ZxvpqXvEUidT/BLpdoeL
-	WF0jq25UFqYQGSqdcDFnikBAgfPceneFoqjxFva2AnAs17qBVsWgWw5NKFrh8
-X-Received: by 2002:ac8:6f12:0:b0:51a:8c9a:8fb7 with SMTP id d75a77b69052e-51cbf30ebd1mr99770401cf.72.1783961598776;
-        Mon, 13 Jul 2026 09:53:18 -0700 (PDT)
-Received: from ziepe.ca ([159.2.72.92])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caab6e9f4sm88381971cf.2.2026.07.13.09.53.18
+        d=1e100.net; s=20251104; t=1783961915; x=1784566715;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vQ/MbrAy6RyE5QbP12v4EtWdPmh429k6lznRwDdghJs=;
+        b=tTfvMmNEPM+SLR1nyQiLcxgd6TLAqdwmJfvaEWM/RfFYbbLM7MIcGTnA35GHqUb/SQ
+         bryDncA0qcHghMFrYmCo/M20Jp6o8YHPQEd0MLF4KyYER9tZSEtJZWRIe0R85YXLC6k+
+         X5vPhdQxo2YN3s0ytAA7etdRwheYOq22s50/C6G5wl/5A6dePvtvBPSmFa91jgfAEIp8
+         yuCDt7qGKHCK0VE235vVbh2d56Ra1RwSP4654ojvmuc/fmWRIR9aQlu3avycw7zpfpP3
+         uAxTeHnnO4K6t1tDbRSQsCLoSHjmR1IiU/p5FIBl57aNwlwmukoLIskHBYhh6sub+dtz
+         bTFg==
+X-Gm-Message-State: AOJu0YwL1/QgPoM7lrwv82Ojrv+PZHMZhKfFosN2jtlmXT44Q9rjvgJf
+	wyacnkc8dMqeBKOjvpVORnfxbRo4VgeOhkPmPpyqCx8Ba0iQiyIt3no7jgYkOuT2
+X-Gm-Gg: AfdE7clGbrWB9HyND2cv0Agctue909sEJOjiNNh7L5Ae2jx0xVl8uejAPdMOpxBmQsM
+	H3jZ2f9WPDCs0fVut6BMf7UYqXIRmt1Nun1xCMoYkEyct43TftJDSvR6YN71/La/jbAK6VrDRNG
+	7ZNe1jYiNRw1NjT+3lmGa2YeyydDFFxsLY2wuGsVuZ5dJUTDLEHYdhNuOp4DH/9htvRmVI2gYSt
+	hqQljwdV+n75Gb+HrjzVbAC/Ab2SK7qbehf98MWsTzF5CD9wk4DDBamJd4QdLWTGYt5sUvPieJi
+	ffBOoubbp+UCAGLJZ0TZYlePCzn4rSTcv+tE56/AxCgCPyroQ0JoMO+r26dOl/anCxLQsN99sBb
+	5Zy1bR8nF+f3d7HW2zYHTi2Cpg+CaCpg2hgvS1zKTCfokO5lKagGPH4pwx03vAD4IXMZYaq5aoK
+	wW3xP8lF0fLdsY7yrIyscVJkVEC92hB1sgTwtZ8ppkvrDOSco=
+X-Received: by 2002:a05:6820:987:b0:69e:b97c:2f16 with SMTP id 006d021491bc7-6a39be9a7c8mr4742886eaf.27.1783961915286;
+        Mon, 13 Jul 2026 09:58:35 -0700 (PDT)
+Received: from linuxescape.lan (23-88-128-2.fttp.usinternet.com. [23.88.128.2])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a38aab2761sm7411487eaf.1.2026.07.13.09.58.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 09:53:18 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1wjJu9-0000000Dd2s-2yX2;
-	Mon, 13 Jul 2026 13:53:17 -0300
-Date: Mon, 13 Jul 2026 13:53:17 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Cc: kevin.tian@intel.com, joro@8bytes.org, will@kernel.org,
-	iommu@lists.linux.dev, robin.murphy@arm.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	nicolinc@nvidia.com
-Subject: Re: [PATCH] iommufd: Fix wrong hwpt passed to
- iommufd_auto_response_faults on replace
-Message-ID: <20260713165317.GE3133966@ziepe.ca>
-References: <9D652384339C69D5+20260710122952.885325-1-peiyang_he@smail.nju.edu.cn>
+        Mon, 13 Jul 2026 09:58:34 -0700 (PDT)
+From: Maxwell Doose <m32285159@gmail.com>
+To: stable@vger.kernel.org
+Cc: Sangyun Kim <sangyun.kim@snu.ac.kr>,
+	Kyungwook Boo <bookyungwook@gmail.com>,
+	Jaeyoung Chung <jjy600901@snu.ac.kr>,
+	Vladimir Zapolskiy <vz@kernel.org>,
+	Stable@vger.kernel.org,
+	Jonathan Cameron <jic23@kernel.org>
+Subject: [PATCH 5.10.y] iio: adc: spear: Initialize completion before requesting IRQ
+Date: Mon, 13 Jul 2026 11:58:33 -0500
+Message-ID: <20260713165833.500024-1-m32285159@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026071347-duplex-theatrics-64bf@gregkh>
+References: <2026071347-duplex-theatrics-64bf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9D652384339C69D5+20260710122952.885325-1-peiyang_he@smail.nju.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 10, 2026 at 08:29:52PM +0800, Peiyang He wrote:
-> iommufd_hwpt_replace_device() calls:
-> 
-> 	iommufd_auto_response_faults(hwpt, old_handle);
-> 
-> passing the *new* hwpt together with the handle of
-> the device's *old* domain. This should be a parameter mismatch:
-> 
-> 1. Semantically, iommufd_auto_response_faults(x, handle) scans
->    x->fault's deliver list and response xarray for groups matching
->    "handle". A group is queued under the hwpt that was attached at
->    fault-delivery time. old_handle is fetched *before* the domain switch,
->    so its group lives on old->fault, not on the new hwpt->fault.
-> 
-> 2. Historically, the first argument was "old". The routine was
->    introduced by commit b7d8833677ba ("iommufd: Fault-capable hwpt
->    attach/detach/replace") as __fault_domain_replace_dev() in
->    fault.c, correctly calling iommufd_auto_response_faults(old, curr).
->    Commit fb21b1568ada ("iommufd: Make attach_handle generic than
->    fault specific") moved this into iommufd_hwpt_replace_device() in
->    device.c and swapped it to "hwpt". This should be a refactor regression,
->    not an intentional change.
-> 
-> Fix this by passing "old" instead.
-> 
-> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Fixes: fb21b1568ada ("iommufd: Make attach_handle generic than fault specific")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> ---
->  drivers/iommu/iommufd/device.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+In the report from Jaeyoung Chung:
 
-Applied
+"spear_adc_probe() in drivers/iio/adc/spear_adc.c registers its
+interrupt handler with devm_request_irq() before it initializes
+st->completion with init_completion(). If an interrupt arrives after
+devm_request_irq() and before init_completion(), the handler calls
+complete() on an uninitialized completion, causing a kernel panic.
 
-Thanks,
-Jason
+The probe path, in spear_adc_probe():
+
+    iodev = devm_iio_device_alloc(&pdev->dev, sizeof(*st)); /* st kzalloc-zeroed */
+    ...
+    retval = devm_request_irq(&pdev->dev, irq, spear_adc_isr, 0,
+                              LPC32XXAD_NAME, st);           /* register handler */
+    ...
+    init_completion(&st->completion);                       /* initialize completion */
+
+spear_adc_isr() calls complete():
+
+    complete(&st->completion);
+
+If the device raises an interrupt before init_completion() runs,
+complete() acquires the uninitialized wait.lock and walks the zeroed
+task_list in swake_up_locked(). The zeroed task_list makes list_empty()
+return false, so swake_up_locked() dereferences a NULL list entry,
+triggering a KASAN wild-memory-access."
+
+Fix the chance of a spurious IRQ causing an uninitialized pointer
+dereference by moving init_completion() above devm_request_irq().
+
+Fixes: b586e5d9eee0 ("staging:iio:adc:spear rename device specific state structure to _state")
+Reported-by: Sangyun Kim <sangyun.kim@snu.ac.kr>
+Reported-by: Kyungwook Boo <bookyungwook@gmail.com>
+Reported-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
+Closes: https://lore.kernel.org/linux-iio/20260610115700.774689-1-jjy600901@snu.ac.kr/
+Signed-off-by: Maxwell Doose <m32285159@gmail.com>
+Reviewed-by: Vladimir Zapolskiy <vz@kernel.org>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+(cherry picked from commit 3ee2128b6f0eb0be7b6cb8f6e0f1f113a65201a0)
+Signed-off-by: Maxwell Doose <m32285159@gmail.com>
+---
+ drivers/iio/adc/spear_adc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/iio/adc/spear_adc.c b/drivers/iio/adc/spear_adc.c
+index 4d4aff88aa6c..12e0811a47b7 100644
+--- a/drivers/iio/adc/spear_adc.c
++++ b/drivers/iio/adc/spear_adc.c
+@@ -274,6 +274,8 @@ static int spear_adc_probe(struct platform_device *pdev)
+ 	st = iio_priv(indio_dev);
+ 	st->np = np;
+ 
++	init_completion(&st->completion);
++
+ 	/*
+ 	 * SPEAr600 has a different register layout than other SPEAr SoC's
+ 	 * (e.g. SPEAr3xx). Let's provide two register base addresses
+@@ -334,8 +336,6 @@ static int spear_adc_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, indio_dev);
+ 
+-	init_completion(&st->completion);
+-
+ 	indio_dev->name = SPEAR_ADC_MOD_NAME;
+ 	indio_dev->info = &spear_adc_info;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+-- 
+2.55.0
+
