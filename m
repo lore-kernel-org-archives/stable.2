@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C9A357CE9
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:37:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2119135677E
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 19:37:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783971432; cv=none; b=uI+D0rZU4bqtN+Ee6VxJHRiTK0qXgagelXF5a85af3jXkopA4CplVZxSTnmd5AYs8goYiOZukZDK8pGIl+Opd/EyUWn8JBmzaDrUuNmaVqGqobpXqgfYWrU+o9X4Y1Z9doge9jOOGE93Xq/tjFjmFeApvNkpjwAxMN00qEQd6ec=
+	t=1783971435; cv=none; b=RKzU+FrMPtlT8fWLeULgPtDryzQwUgr3GSsXGeB9mK+n8UqKTVB6JR9gCVeTIriISt6XqqI81k5XamJfxk9qfdfxetalAg7s3qs7jvyoa7IPQPK+Ar6UOM4jLk+bG2BfHKY5R0d5d7/MVQnhxcrmxvyP1pdU0wDSA5t8ijaTjrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783971432; c=relaxed/simple;
-	bh=MJq1fm2luXJMkmYln+5H20kq8NZO8TMdz0aFrJd223g=;
+	s=arc-20240116; t=1783971435; c=relaxed/simple;
+	bh=WsysDYKlmNIi1GeaMYZNzj3eo5Jd1cfgBO4xygxqFM8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BqnpfK2nBacJy3zJmeqUOdPnViLvcAcqE5eHZnTFx8hyUXkatcEM5fjmu2fm0xj/1c9d8XqOhDh0EvzRrcCZcs7VVn++FwgD14ObJS8J1hdqHYrgm19p97LtaOuyXC8gVfoq2h+6iHOtkxkHQe0VnVGrLY6Tp4NvPIkYP8E19Ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/djOljZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fo/QWtuwFibuUtuyARfun7xIB5XxiBk5DkqKzfjUzgleyDE8YcfrnhyISQTVHZDqqYDzLpmkKhEYIEuPn4zqjaNFSFKNF4FW4bLEoDRBPHcPoYxD9We3tvIBzLG2cDSbwpKN4q0UOTxlAsA8ENAXMxkgEkOSfDNZSypNESnMnLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mg/sfdm8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/djOljZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F131C1F00ADF;
-	Mon, 13 Jul 2026 19:37:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mg/sfdm8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C821F00A3A;
+	Mon, 13 Jul 2026 19:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783971431;
-	bh=502MmbbA0DROJE9Ngx7Tv7g9FElr0jhMz0k7+z3BM5I=;
+	s=k20260515; t=1783971433;
+	bh=xg6cJ7Emy56zQk35qGT2BR2rdqy14HcsQeCTzOrDaOw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J/djOljZmXROoAetJOOqqlRztciqOI1ICzlMbDMXv6Vk8OaFiPsFgnN7EIWT+sDf2
-	 6PQ/2kBulet9lnWRGmLG1tcYIH8turE9A2K6DRXiF/PapiZ2/PMetCXHLj2n3AypAj
-	 BeBfkH+Nnk51WQ3K6EYcKRPHadEF7G6va6ID0seC/ohw2iee+4RAE6SEWJFvNI+jgV
-	 yZWrOs3x6EMSAMX7gNj4PW5VL994lT9rdL+66zg6x+26zdGRnxJw0ancLO5ywpnL4b
-	 r2nPUuYAQGMbbBIPFu/OsYnmw33Rki20IcAVUHZyHIk2R1CFjt7lrkr+YyfAX2hc4C
-	 DHoFcOYczvbyg==
+	b=mg/sfdm8It94SargUh4HyPm6l9acImKVa/VhD+sRwzOEaI4l3E8ixUw9cMIxBMYvJ
+	 phDlk4a6X18uEuhg69458btFsidXOYxklaVTVtS5yTiOvb+vdr/z25r8fhMJD5h62r
+	 UV8BDZhXf64uGFOe/B0q6/Yp4otQw8tNqIunPrzRUFDeVy6hHWqS4PUFkfGsDVTkAH
+	 4Q1kqFaysPtCCji+I/K1ANmO3uwfa/nsQJjB7zJRTkqfxmtJ/tbXA+9hn51OryOmSS
+	 eJ67uAdoO+sal9+LBA9PulYON3Do3I+cKlBjrKwRHCYv5q395AqjTfd6Stje6QQa+5
+	 +M8sAX+iED8Iw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Biren Pandya <birenpandya@gmail.com>,
 	Stable@vger.kernel.org,
 	Jonathan Cameron <jic23@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] iio: pressure: mpl115: fix runtime PM leak on read error
-Date: Mon, 13 Jul 2026 15:37:08 -0400
-Message-ID: <20260713193708.2054715-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] iio: pressure: mpl115: fix runtime PM leak on read error
+Date: Mon, 13 Jul 2026 15:37:11 -0400
+Message-ID: <20260713193711.2054758-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260713193708.2054715-1-sashal@kernel.org>
+In-Reply-To: <2026071315-trespass-legible-97d4@gregkh>
 References: <2026071315-trespass-legible-97d4@gregkh>
- <20260713193708.2054715-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,33 +64,38 @@ Signed-off-by: Biren Pandya <birenpandya@gmail.com>
 Assisted-by: Claude:claude-opus-4-8 coccinelle
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+[ moved pm_runtime_mark_last_busy() together with pm_runtime_put_autosuspend() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/pressure/mpl115.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iio/pressure/mpl115.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/iio/pressure/mpl115.c b/drivers/iio/pressure/mpl115.c
-index 18c2488e182cdc..11ee879f4da440 100644
+index 02ea38c8a3e431..e3eb154feb5fde 100644
 --- a/drivers/iio/pressure/mpl115.c
 +++ b/drivers/iio/pressure/mpl115.c
-@@ -106,18 +106,18 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
+@@ -106,20 +106,20 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
  	case IIO_CHAN_INFO_PROCESSED:
  		pm_runtime_get_sync(data->dev);
  		ret = mpl115_comp_pressure(data, val, val2);
-+		pm_runtime_put_autosuspend(data->dev);
- 		if (ret < 0)
- 			return ret;
--		pm_runtime_put_autosuspend(data->dev);
+-		if (ret < 0)
+-			return ret;
+ 		pm_runtime_mark_last_busy(data->dev);
+ 		pm_runtime_put_autosuspend(data->dev);
++		if (ret < 0)
++			return ret;
  
  		return IIO_VAL_INT_PLUS_MICRO;
  	case IIO_CHAN_INFO_RAW:
  		pm_runtime_get_sync(data->dev);
  		/* temperature -5.35 C / LSB, 472 LSB is 25 C */
  		ret = mpl115_read_temp(data);
-+		pm_runtime_put_autosuspend(data->dev);
- 		if (ret < 0)
- 			return ret;
--		pm_runtime_put_autosuspend(data->dev);
+-		if (ret < 0)
+-			return ret;
+ 		pm_runtime_mark_last_busy(data->dev);
+ 		pm_runtime_put_autosuspend(data->dev);
++		if (ret < 0)
++			return ret;
  		*val = ret >> 6;
  
  		return IIO_VAL_INT;
