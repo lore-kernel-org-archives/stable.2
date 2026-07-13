@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3F942DFFA
-	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:44:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6202F42B746
+	for <stable@vger.kernel.org>; Mon, 13 Jul 2026 13:44:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950296; cv=none; b=EbRo9vYsBlGJFDKJwRb01ykjFsChJs4QOdgeKavJW9v0dG7GnlVebNBzxrrTvoairTdPOo1O+nUmvf9UewSIA1I5RYD3nMw51lmiRTm3sSZh5Th/Mtb2Va2m+YQblm7Guu9A+0UfdCyrmfZj82wTKfijyOAtic8qCTPYHuBKA+Y=
+	t=1783950298; cv=none; b=UpiHFOlMjC8eJfjIFlBvrVJ7z1EsNxUTmsNN2mHlQNDIQY5W3cRoFA9xgelppwKP54Bnbf9xiZBS96lvzxHyFU/xAnaI1fqWDVO/I4utR58vbzmyofSEY7uk0zyURc2oWvOncqLCyVoyKQoRRkzQPrZ1XBFcNu6s3WHWHRUggtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950296; c=relaxed/simple;
-	bh=2fkOpLSZiBS1GnksGnHf2XYKMiJRJjULyXBmhHH00cQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FhVM2u9SJ8aAmJdfNMWD1bLwrXQbHxI/JCVVx4+x3XCzvZLKaWPNeO1klAPcaZUrdez3E4swbF0jbNr8WulSIyocDhWhmwyY04SNc7PHUGmxiZXbIiUnx/rghGd4aM3Uf6qibOfauhwiMfE4mMtu09iK6e86UP9xukgIb7lPMjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=alChpWzv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950298; c=relaxed/simple;
+	bh=FR2Sxa6kIIeJr1mL4LmNIy/cyGB0x3f09WKR8D+91Gc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=F3+N7UAHn3dNwzoZFe8MevWf2OgwE0n69nh+7hhrg6ns2ySvhVQIX1vdtGMPQiIPPaLPF/2PzAcETqAiQuUGsTXtPQjAMzKYQhDeGROBpnSb1SkCXbp3k8JA/AkyFdEgFS/C9Gp+fHjm9XsCsf6MCpBnmTIpImXYn75iVtdaw8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kwpl1/5a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="alChpWzv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7E01F000E9;
-	Mon, 13 Jul 2026 13:44:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kwpl1/5a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861D71F000E9;
+	Mon, 13 Jul 2026 13:44:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783950294;
-	bh=WxBQ68CFp/GSlEYyBZ8I6zWyPGMHs09ar/ukALkucQo=;
+	s=korg; t=1783950297;
+	bh=sYBPLO2O3cDlmoy6UwelYNXwHOBAJ7+7EjxKSpEKEqY=;
 	h=Subject:To:Cc:From:Date;
-	b=alChpWzvfkmmG6JRjXr6GOXPOhxBDuTxAxb6/eWgO+/2963tUG62UqklWdBTIZpyC
-	 P8MSl9IQeoXeq96iIf2nZcijZmjqrwSDqTEIcrrmWjO34Kl3hIc6omhPnxe0mgMo5w
-	 AcmcNthL4RPJKuHL4O3foqbE1NVEmv3E5tKLxtgQ=
-Subject: FAILED: patch "[PATCH] smb: client: restrict implied bcc[0] exemption to responses" failed to apply to 5.10-stable tree
-To: shoichiro.miyamoto@gmail.com,stfrench@microsoft.com
+	b=kwpl1/5aTCI98IrIPtjLLUhmyrPK60w5i48P4Wm3Bov6aHfSQELQNeni/O3kq4sQq
+	 m9znbWlKInCLjSGKDdh481lHZlbTWklx406tadoOC+A4OOOMGw0bOxWqrAptph5eP1
+	 Mid1Aj5RwVaQkFsIYefra7XIhBBjYS5JJQxsLVC4=
+Subject: FAILED: patch "[PATCH] staging: media: atomisp: reduce load_primary_binaries() stack" failed to apply to 5.10-stable tree
+To: arnd@arndb.de,andriy.shevchenko@intel.com,sakari.ailus@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 13 Jul 2026 15:31:12 +0200
-Message-ID: <2026071312-blank-founding-5203@gregkh>
+Date: Mon, 13 Jul 2026 15:32:04 +0200
+Message-ID: <2026071304-opulently-outburst-4960@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 53b7c271f06be4dd5cfc8c6ef552a8355c891a7f
+git cherry-pick -x f4d51e55dd47ef467fbe37d8575e20eee41b092d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071312-blank-founding-5203@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071304-opulently-outburst-4960@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,201 +62,59 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 53b7c271f06be4dd5cfc8c6ef552a8355c891a7f Mon Sep 17 00:00:00 2001
-From: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
-Date: Tue, 7 Jul 2026 20:23:58 +0900
-Subject: [PATCH] smb: client: restrict implied bcc[0] exemption to responses
- without data area
+From f4d51e55dd47ef467fbe37d8575e20eee41b092d Mon Sep 17 00:00:00 2001
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Wed, 25 Mar 2026 13:59:43 +0100
+Subject: [PATCH] staging: media: atomisp: reduce load_primary_binaries() stack
+ usage
 
-smb2_check_message() has a long-standing quirk that accepts a response
-whose calculated length is one byte larger than the bytes actually
-received ("server can return one byte more due to implied bcc[0]").
-This was introduced to accommodate servers that omit the trailing bcc[0]
-overlap byte when no data area is present.
+The load_primary_binaries() function is overly complex and has som large
+variables on the stack, which can cause warnings depending on CONFIG_FRAME_WARN
+setting:
 
-However, the exemption is applied unconditionally, regardless of whether
-the command actually carries a data area (has_smb2_data_area[]).  When a
-response with a data area is subject to the +1 exemption, the reported
-data can extend one byte beyond the bytes actually received, yet
-smb2_check_message() still accepts it.  The subsequent decoder then reads
-past the end of the receive buffer.  This is reachable during NEGOTIATE
-and SESSION_SETUP, before the session is established.
+drivers/staging/media/atomisp/pci/sh_css.c: In function 'load_primary_binaries':
+drivers/staging/media/atomisp/pci/sh_css.c:5260:1: error: the frame size of 1560 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
 
-The resulting out-of-bounds reads are visible under KASAN when mounting
-against a non-conforming server; both the SPNEGO/negTokenInit and the
-NTLMSSP challenge decoders are affected:
+Half of the stack usage is for the prim_descr[] array, but only one
+member of the array is used at any given time.
 
-  BUG: KASAN: slab-out-of-bounds in asn1_ber_decoder+0x16a7/0x1b00
-  Read of size 1 at addr ffff8880084d67c0 by task mount.cifs/81
-  CPU: 1 UID: 0 PID: 81 Comm: mount.cifs Not tainted 7.1.0-rc6 #1
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x4e/0x70
-   print_report+0x157/0x4c9
-   kasan_report+0xce/0x100
-   asn1_ber_decoder+0x16a7/0x1b00
-   decode_negTokenInit+0x19/0x30
-   SMB2_negotiate+0x31d9/0x4c90
-   cifs_negotiate_protocol+0x1f2/0x3f0
-   cifs_get_smb_ses+0x93f/0x17e0
-   cifs_mount_get_session+0x7f/0x3a0
-   cifs_mount+0xb4/0xcf0
-   cifs_smb3_do_mount+0x23a/0x1500
-   smb3_get_tree+0x3b0/0x630
-   vfs_get_tree+0x82/0x2d0
-   fc_mount+0x10/0x1b0
-   path_mount+0x50d/0x1de0
-   __x64_sys_mount+0x20b/0x270
-   do_syscall_64+0xee/0x590
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-  Allocated by task 85:
-   kmem_cache_alloc_noprof+0x106/0x380
-   mempool_alloc_noprof+0x116/0x1e0
-   cifs_small_buf_get+0x31/0x80
-   allocate_buffers+0x10d/0x2b0
-   cifs_demultiplex_thread+0x1d5/0x1d50
-   kthread+0x2c6/0x390
-   ret_from_fork+0x36e/0x5a0
-   ret_from_fork_asm+0x1a/0x30
-  The buggy address is located 0 bytes to the right of
-   allocated 448-byte region [ffff8880084d6600, ffff8880084d67c0)
-   which belongs to the cache cifs_small_rq of size 448
+Reduce the stack usage by turning the array into a single structure.
 
-  BUG: KASAN: slab-out-of-bounds in kmemdup_noprof+0x36/0x50
-  Read of size 329 at addr ffff88800726c678 by task mount.cifs/89
-  CPU: 0 UID: 0 PID: 89 Comm: mount.cifs Tainted: G    B      7.1.0-rc6 #1
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x4e/0x70
-   print_report+0x157/0x4c9
-   kasan_report+0xce/0x100
-   kasan_check_range+0x10f/0x1e0
-   __asan_memcpy+0x23/0x60
-   kmemdup_noprof+0x36/0x50
-   decode_ntlmssp_challenge+0x457/0x680
-   SMB2_sess_auth_rawntlmssp_negotiate+0x6f0/0xcb0
-   SMB2_sess_setup+0x219/0x4f0
-   cifs_setup_session+0x248/0xaf0
-   cifs_get_smb_ses+0xf79/0x17e0
-   cifs_mount_get_session+0x7f/0x3a0
-   cifs_mount+0xb4/0xcf0
-   cifs_smb3_do_mount+0x23a/0x1500
-   smb3_get_tree+0x3b0/0x630
-   vfs_get_tree+0x82/0x2d0
-   fc_mount+0x10/0x1b0
-   path_mount+0x50d/0x1de0
-   __x64_sys_mount+0x20b/0x270
-   do_syscall_64+0xee/0x590
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-  Allocated by task 93:
-   kmem_cache_alloc_noprof+0x106/0x380
-   mempool_alloc_noprof+0x116/0x1e0
-   cifs_small_buf_get+0x31/0x80
-   allocate_buffers+0x10d/0x2b0
-   cifs_demultiplex_thread+0x1d5/0x1d50
-   kthread+0x2c6/0x390
-   ret_from_fork+0x36e/0x5a0
-   ret_from_fork_asm+0x1a/0x30
-  The buggy address is located 120 bytes inside of
-   allocated 448-byte region [ffff88800726c600, ffff88800726c7c0)
-   which belongs to the cache cifs_small_rq of size 448
-
-Restrict the +1 exemption to responses that have no data area, so that
-it still covers the bcc[0] omission it was meant for.  When a data area
-is present, the +1 discrepancy instead means the reported data length
-overruns the received buffer, so the response must be rejected.
-
-Fixes: 093b2bdad322 ("CIFS: Make demultiplex_thread work with SMB2 code")
+Fixes: a49d25364dfb ("staging/atomisp: Add support for the Intel IPU v2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
-index 2a7355ce1a07..6270b33147d2 100644
---- a/fs/smb/client/smb2misc.c
-+++ b/fs/smb/client/smb2misc.c
-@@ -19,6 +19,8 @@
- #include "nterr.h"
- #include "cached_dir.h"
+diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
+index c6838772553d..792379407828 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css.c
++++ b/drivers/staging/media/atomisp/pci/sh_css.c
+@@ -5019,7 +5019,6 @@ static int load_primary_binaries(
+ 	struct ia_css_capture_settings *mycs;
+ 	unsigned int i;
+ 	bool need_extra_yuv_scaler = false;
+-	struct ia_css_binary_descr prim_descr[MAX_NUM_PRIMARY_STAGES];
  
-+static unsigned int __smb2_calc_size(void *buf, bool *have_data);
-+
- static int
- check_smb2_hdr(struct smb2_hdr *shdr, __u64 mid)
- {
-@@ -145,6 +147,7 @@ smb2_check_message(char *buf, unsigned int pdu_len, unsigned int len,
- 	int command;
- 	__u32 calc_len; /* calculated length */
- 	__u64 mid;
-+	bool have_data;
+ 	IA_CSS_ENTER_PRIVATE("");
+ 	assert(pipe);
+@@ -5188,15 +5187,16 @@ static int load_primary_binaries(
  
- 	/* If server is a channel, select the primary channel */
- 	pserver = SERVER_IS_CHAN(server) ? server->primary_server : server;
-@@ -228,7 +231,8 @@ smb2_check_message(char *buf, unsigned int pdu_len, unsigned int len,
- 		}
- 	}
+ 	/* Primary */
+ 	for (i = 0; i < mycs->num_primary_stage; i++) {
++		struct ia_css_binary_descr prim_descr;
+ 		struct ia_css_frame_info *local_vf_info = NULL;
  
--	calc_len = smb2_calc_size(buf);
-+	have_data = false;
-+	calc_len = __smb2_calc_size(buf, &have_data);
- 
- 	/* For SMB2_IOCTL, OutputOffset and OutputLength are optional, so might
- 	 * be 0, and not a real miscalculation */
-@@ -247,8 +251,13 @@ smb2_check_message(char *buf, unsigned int pdu_len, unsigned int len,
- 		/* Windows 7 server returns 24 bytes more */
- 		if (calc_len + 24 == len && command == SMB2_OPLOCK_BREAK_HE)
- 			return 0;
--		/* server can return one byte more due to implied bcc[0] */
--		if (calc_len == len + 1)
-+		/*
-+		 * Server can return one byte more due to implied bcc[0].
-+		 * Allow it only when there is no data area; if data_length > 0
-+		 * the +1 gap indicates an overreported data length rather than
-+		 * the bcc[0] omission.
-+		 */
-+		if (calc_len == len + 1 && !have_data)
- 			return 0;
- 
- 		/*
-@@ -409,14 +418,17 @@ smb2_get_data_area_len(int *off, int *len, struct smb2_hdr *shdr)
- /*
-  * Calculate the size of the SMB message based on the fixed header
-  * portion, the number of word parameters and the data portion of the message.
-+ * If have_data is non-NULL, it is set to true when a non-empty data area was
-+ * found (data_length > 0), allowing callers to distinguish the implied bcc[0]
-+ * case (no data area) from an overreported data length.
-  */
--unsigned int
--smb2_calc_size(void *buf)
-+static unsigned int
-+__smb2_calc_size(void *buf, bool *have_data)
- {
- 	struct smb2_pdu *pdu = buf;
- 	struct smb2_hdr *shdr = &pdu->hdr;
- 	int offset; /* the offset from the beginning of SMB to data area */
--	int data_length; /* the length of the variable length data area */
-+	int data_length = 0; /* the length of the variable length data area */
- 	/* Structure Size has already been checked to make sure it is 64 */
- 	int len = le16_to_cpu(shdr->StructureSize);
- 
-@@ -449,9 +461,17 @@ smb2_calc_size(void *buf)
- 	}
- calc_size_exit:
- 	cifs_dbg(FYI, "SMB2 len %d\n", len);
-+	if (have_data)
-+		*have_data = (data_length > 0);
- 	return len;
- }
- 
-+unsigned int
-+smb2_calc_size(void *buf)
-+{
-+	return __smb2_calc_size(buf, NULL);
-+}
-+
- /* Note: caller must free return buffer */
- __le16 *
- cifs_convert_path_to_utf16(const char *from, struct cifs_sb_info *cifs_sb)
+ 		if (pipe->enable_viewfinder[IA_CSS_PIPE_OUTPUT_STAGE_0] &&
+ 		    (i == mycs->num_primary_stage - 1))
+ 			local_vf_info = &vf_info;
+-		ia_css_pipe_get_primary_binarydesc(pipe, &prim_descr[i],
++		ia_css_pipe_get_primary_binarydesc(pipe, &prim_descr,
+ 						   &prim_in_info, &prim_out_info,
+ 						   local_vf_info, i);
+-		err = ia_css_binary_find(&prim_descr[i], &mycs->primary_binary[i]);
++		err = ia_css_binary_find(&prim_descr, &mycs->primary_binary[i]);
+ 		if (err) {
+ 			IA_CSS_LEAVE_ERR_PRIVATE(err);
+ 			return err;
 
