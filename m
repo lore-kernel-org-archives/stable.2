@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2761238E5D7
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:04:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2A73655F0
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:04:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783998294; cv=none; b=P9hjELVrQDlfEVwOmdCgF+9X4pkMwwYEjg6gpq37T4BKS1lp9OrKtJokCHmOZWyWpSK65NM9+237pMzrzV7/bKn9JJVy7o3uxh2xLWTCnB3xg1p6DKtl306I0TLF4roK/gpmZSK8DSvM2ohn8nXYqMfadC0dQ3UswUqEaUkZoDg=
+	t=1783998294; cv=none; b=QTJfAptDngZpCFXauvG5OqYHHBcnMpMxzAbyxFbWCQe8FgKqQV7bxB7uCReApE/zL+mttU43amAcGlEsmjJtkOKZl89Yu8NBdWfBheiKDswD4qh7kXIHf5c4s5opFRZqIwWhrcWM05MVt/PBcoUpAYMK/oKrFMMNCQhRRMEdIFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783998294; c=relaxed/simple;
-	bh=qH7AzihBoFOxViVe9V4fvifxGNQbrqsc41GBcv40VGo=;
+	bh=fv996MMaclLqfaYUfFI1P27Abdf4POxlCiMflcy7zoE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Avyake3yBO2aV+bbRQGifwpK7/FLaGxvoJL3vNNhH8TmFLOQizfAHKw/sGLRtQRa3Qu/TfsExo+oovsT1sAowUQKWa+C+vXNV9yWBI8/us7xp7ZrnPLQBJTWcjo6Eh1e0Bxu0NR9b6QDm+Tj+NIQj1o+IPiTdF2RQYvmhj31SxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AsiZDiwl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LJRoqlOvul4qmdkK0wA+mY9U0le1I8z3vcsJikk6qK3o0Nei0hC016uZ8gW7/viR9qd/UZRGXPaE1TYw/FXbs0ZBJaCiRHg5UoYngvGnyyD820fUdJevQtYVqOj2DkKkenjye67Il2Pu+vzHzGyR8YUZ355AeajwQTmKCg2daS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b5pK2/Xe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AsiZDiwl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 516121F000E9;
-	Tue, 14 Jul 2026 03:04:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b5pK2/Xe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD5181F00A3E;
+	Tue, 14 Jul 2026 03:04:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783998293;
-	bh=XPa19kAf2Mdxd9fM1mfykmkI6GCr/J34SLA7meouvK0=;
+	s=k20260515; t=1783998289;
+	bh=0TdJAb9I18F4Yk3J1K/Ka2fYq5EsdsWStjIxX9GgPqY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AsiZDiwl47OCtVdBiIrv4cAKLCAhA1uV3i3g/2ZHIxLql/iYyggAZnZwzMnBTTMy1
-	 UvtpgqpF4JJbNeDmw8/oLKK/txHpxfZ61BFgs8eypUpjRazrXXZNXIEXzP41/wUbVU
-	 /GWlHNqGk1w4UiRveueK3eic3YLDk+GgpKgTolocBnjL0AgJ1Q3r6B+D1NnX3Lfaqs
-	 7XKpGricR4hIhP2I+R5H5VGL0iXX9sxC0SXSKAy+djha7XkQ6Exa8rXqzAL+iB2Afb
-	 s/Se3x40QIlDyLTGL1bVmsSvA+hq6R3rQ26JXsYsq0dKiB2pHCpLVHriwJ/WCThGZy
-	 NR4nnTPUGz7/Q==
+	b=b5pK2/XeVP/Fw4uxXDZ6x0LbvI8c8Y/w9HS4PIHZwqVgBNXQPKDwCO3J1kH13R9WC
+	 yBtWO/W9Dp3lVlRdpz24EHxDcCyIKNZl+rI5ya4qMI03Kb67QFcEfzsW4l1v+d62aJ
+	 DQ74vanE76nd+lngBmbMQK+/QI6ibjrbcG3Qx+Vuwt02ovxYCgYgvAWc+31rIjH49H
+	 WIBOvX5lqJ8BhlCNsAzXKAHzVF/G4M0KTohnUtVS4+Oyb4iOTCBLoolQlbrWCOoDmJ
+	 /yGrGSLF194BKcwrRE/3Q2Qwqv8nwabcsPpwGNEz0GH3AeYJDnlEikr0yeHwSUlW/p
+	 Z6AU2kd+DzAtw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alexander Lobakin <aleksander.lobakin@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
+Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] bitops: make BYTES_TO_BITS() treewide-available
-Date: Mon, 13 Jul 2026 23:04:47 -0400
-Message-ID: <20260714030448.2382602-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 4/8] iio: imu: inv_mpu6050: use the common inv_sensors timestamp module
+Date: Mon, 13 Jul 2026 23:04:40 -0400
+Message-ID: <20260714030444.2382550-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071351-cheating-unrented-98cd@gregkh>
-References: <2026071351-cheating-unrented-98cd@gregkh>
+In-Reply-To: <20260714030444.2382550-1-sashal@kernel.org>
+References: <2026071317-litmus-defame-e23c@gregkh>
+ <20260714030444.2382550-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,95 +47,314 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alexander Lobakin <aleksander.lobakin@intel.com>
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-[ Upstream commit 7d8296b250f2eed73f1758607926d4d258dea5d4 ]
+[ Upstream commit 111e1abd00455971f6a568900f033cbddec9d4e5 ]
 
-Avoid open-coding that simple expression each time by moving
-BYTES_TO_BITS() from the probes code to <linux/bitops.h> to export
-it to the rest of the kernel.
-Simplify the macro while at it. `BITS_PER_LONG / sizeof(long)` always
-equals to %BITS_PER_BYTE, regardless of the target architecture.
-Do the same for the tools ecosystem as well (incl. its version of
-bitops.h). The previous implementation had its implicit type of long,
-while the new one is int, so adjust the format literal accordingly in
-the perf code.
+Replace timestamping by the new common inv_sensors timestamp
+module. The principle behind is the same but the implementation in
+the new module is far better providing less jitter and a better
+estimation.
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Acked-by: Yury Norov <yury.norov@gmail.com>
-Signed-off-by: Alexander Lobakin <aleksander.lobakin@intel.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Stable-dep-of: 55052184ac90 ("iio: common: st_sensors: honour channel endianness in read_axis_data")
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Link: https://lore.kernel.org/r/20230606162147.79667-5-inv.git-commit@tdk.com
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: affe3f077d7a ("iio: imu: inv_icm42600: fix timestamping by limiting FIFO reading")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/bitops.h         | 2 ++
- kernel/trace/trace_probe.c     | 2 --
- tools/include/linux/bitops.h   | 2 ++
- tools/perf/util/probe-finder.c | 4 +---
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/iio/imu/inv_mpu6050/Kconfig           |  1 +
+ drivers/iio/imu/inv_mpu6050/inv_mpu_core.c    | 30 +++++--
+ drivers/iio/imu/inv_mpu6050/inv_mpu_iio.h     | 18 ++--
+ drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c    | 83 ++-----------------
+ drivers/iio/imu/inv_mpu6050/inv_mpu_trigger.c |  6 +-
+ 5 files changed, 45 insertions(+), 93 deletions(-)
 
-diff --git a/include/linux/bitops.h b/include/linux/bitops.h
-index 5b74bdf159d6f2..e2930a990ea4aa 100644
---- a/include/linux/bitops.h
-+++ b/include/linux/bitops.h
-@@ -17,6 +17,8 @@
- #define BITS_TO_U32(nr)		DIV_ROUND_UP(nr, BITS_PER_TYPE(u32))
- #define BITS_TO_BYTES(nr)	DIV_ROUND_UP(nr, BITS_PER_TYPE(char))
+diff --git a/drivers/iio/imu/inv_mpu6050/Kconfig b/drivers/iio/imu/inv_mpu6050/Kconfig
+index 7137ea6f25db24..6db4273fe4e7e0 100644
+--- a/drivers/iio/imu/inv_mpu6050/Kconfig
++++ b/drivers/iio/imu/inv_mpu6050/Kconfig
+@@ -7,6 +7,7 @@ config INV_MPU6050_IIO
+ 	tristate
+ 	select IIO_BUFFER
+ 	select IIO_TRIGGERED_BUFFER
++	select IIO_INV_SENSORS_TIMESTAMP
  
-+#define BYTES_TO_BITS(nb)	((nb) * BITS_PER_BYTE)
+ config INV_MPU6050_I2C
+ 	tristate "Invensense MPU6050 devices (I2C)"
+diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+index 533c71a0dd01a6..0150f8ce389770 100644
+--- a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
++++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+@@ -12,12 +12,15 @@
+ #include <linux/jiffies.h>
+ #include <linux/irq.h>
+ #include <linux/interrupt.h>
+-#include <linux/iio/iio.h>
+ #include <linux/acpi.h>
+ #include <linux/platform_device.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/pm.h>
+ #include <linux/pm_runtime.h>
 +
- extern unsigned int __sw_hweight8(unsigned int w);
- extern unsigned int __sw_hweight16(unsigned int w);
- extern unsigned int __sw_hweight32(unsigned int w);
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index 48f5ca60c68dd1..6a879f395084d8 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -502,8 +502,6 @@ parse_probe_arg(char *arg, const struct fetch_type *type,
- 	return ret;
- }
- 
--#define BYTES_TO_BITS(nb)	((BITS_PER_LONG * (nb)) / sizeof(long))
--
- /* Bitfield type needs to be parsed into a fetch function */
- static int __parse_bitfield_probe_arg(const char *bf,
- 				      const struct fetch_type *t,
-diff --git a/tools/include/linux/bitops.h b/tools/include/linux/bitops.h
-index 5fca38fe1ba839..a92e187bd77e33 100644
---- a/tools/include/linux/bitops.h
-+++ b/tools/include/linux/bitops.h
-@@ -20,6 +20,8 @@
- #define BITS_TO_U32(nr)		DIV_ROUND_UP(nr, BITS_PER_TYPE(u32))
- #define BITS_TO_BYTES(nr)	DIV_ROUND_UP(nr, BITS_PER_TYPE(char))
- 
-+#define BYTES_TO_BITS(nb)	((nb) * BITS_PER_BYTE)
++#include <linux/iio/common/inv_sensors_timestamp.h>
++#include <linux/iio/iio.h>
 +
- extern unsigned int __sw_hweight8(unsigned int w);
- extern unsigned int __sw_hweight16(unsigned int w);
- extern unsigned int __sw_hweight32(unsigned int w);
-diff --git a/tools/perf/util/probe-finder.c b/tools/perf/util/probe-finder.c
-index 8a98673fea380a..45c0c1d6b6aa65 100644
---- a/tools/perf/util/probe-finder.c
-+++ b/tools/perf/util/probe-finder.c
-@@ -299,8 +299,6 @@ static int convert_variable_location(Dwarf_Die *vr_die, Dwarf_Addr addr,
- 	return ret2;
- }
+ #include "inv_mpu_iio.h"
+ #include "inv_mpu_magn.h"
  
--#define BYTES_TO_BITS(nb)	((nb) * BITS_PER_LONG / sizeof(long))
--
- static int convert_variable_type(Dwarf_Die *vr_die,
- 				 struct probe_trace_arg *tvar,
- 				 const char *cast, bool user_access)
-@@ -330,7 +328,7 @@ static int convert_variable_type(Dwarf_Die *vr_die,
- 		total = dwarf_bytesize(vr_die);
- 		if (boffs < 0 || total < 0)
- 			return -ENOENT;
--		ret = snprintf(buf, 16, "b%d@%d/%zd", bsize, boffs,
-+		ret = snprintf(buf, 16, "b%d@%d/%d", bsize, boffs,
- 				BYTES_TO_BITS(total));
- 		goto formatted;
+@@ -481,6 +484,7 @@ static int inv_mpu6050_init_config(struct iio_dev *indio_dev)
+ 	int result;
+ 	u8 d;
+ 	struct inv_mpu6050_state *st = iio_priv(indio_dev);
++	struct inv_sensors_timestamp_chip timestamp;
+ 
+ 	result = inv_mpu6050_set_gyro_fsr(st, st->chip_config.fsr);
+ 	if (result)
+@@ -504,12 +508,12 @@ static int inv_mpu6050_init_config(struct iio_dev *indio_dev)
+ 	if (result)
+ 		return result;
+ 
+-	/*
+-	 * Internal chip period is 1ms (1kHz).
+-	 * Let's use at the beginning the theorical value before measuring
+-	 * with interrupt timestamps.
+-	 */
+-	st->chip_period = NSEC_PER_MSEC;
++	/* clock jitter is +/- 2% */
++	timestamp.clock_period = NSEC_PER_SEC / INV_MPU6050_INTERNAL_FREQ_HZ;
++	timestamp.jitter = 20;
++	timestamp.init_period =
++			NSEC_PER_SEC / INV_MPU6050_DIVIDER_TO_FIFO_RATE(st->chip_config.divider);
++	inv_sensors_timestamp_init(&st->timestamp, &timestamp);
+ 
+ 	/* magn chip init, noop if not present in the chip */
+ 	result = inv_mpu_magn_probe(st);
+@@ -900,6 +904,8 @@ inv_mpu6050_fifo_rate_store(struct device *dev, struct device_attribute *attr,
+ 			    const char *buf, size_t count)
+ {
+ 	int fifo_rate;
++	u32 fifo_period;
++	bool fifo_on;
+ 	u8 d;
+ 	int result;
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+@@ -916,12 +922,21 @@ inv_mpu6050_fifo_rate_store(struct device *dev, struct device_attribute *attr,
+ 	d = INV_MPU6050_FIFO_RATE_TO_DIVIDER(fifo_rate);
+ 	/* compute back the fifo rate to handle truncation cases */
+ 	fifo_rate = INV_MPU6050_DIVIDER_TO_FIFO_RATE(d);
++	fifo_period = NSEC_PER_SEC / fifo_rate;
+ 
+ 	mutex_lock(&st->lock);
+ 	if (d == st->chip_config.divider) {
+ 		result = 0;
+ 		goto fifo_rate_fail_unlock;
  	}
++
++	fifo_on = st->chip_config.accl_fifo_enable ||
++		  st->chip_config.gyro_fifo_enable ||
++		  st->chip_config.magn_fifo_enable;
++	result = inv_sensors_timestamp_update_odr(&st->timestamp, fifo_period, fifo_on);
++	if (result)
++		goto fifo_rate_fail_unlock;
++
+ 	result = pm_runtime_get_sync(pdev);
+ 	if (result < 0) {
+ 		pm_runtime_put_noidle(pdev);
+@@ -1741,3 +1756,4 @@ EXPORT_SYMBOL_GPL(inv_mpu_pmops);
+ MODULE_AUTHOR("Invensense Corporation");
+ MODULE_DESCRIPTION("Invensense device MPU6050 driver");
+ MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS(IIO_INV_SENSORS_TIMESTAMP);
+diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_iio.h b/drivers/iio/imu/inv_mpu6050/inv_mpu_iio.h
+index eb522b38acf3f5..992bda45b41fcb 100644
+--- a/drivers/iio/imu/inv_mpu6050/inv_mpu_iio.h
++++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_iio.h
+@@ -9,15 +9,17 @@
+ #include <linux/i2c.h>
+ #include <linux/i2c-mux.h>
+ #include <linux/mutex.h>
+-#include <linux/iio/iio.h>
+-#include <linux/iio/buffer.h>
++#include <linux/platform_data/invensense_mpu6050.h>
+ #include <linux/regmap.h>
+-#include <linux/iio/sysfs.h>
++
++#include <linux/iio/buffer.h>
++#include <linux/iio/common/inv_sensors_timestamp.h>
++#include <linux/iio/iio.h>
+ #include <linux/iio/kfifo_buf.h>
+ #include <linux/iio/trigger.h>
+ #include <linux/iio/triggered_buffer.h>
+ #include <linux/iio/trigger_consumer.h>
+-#include <linux/platform_data/invensense_mpu6050.h>
++#include <linux/iio/sysfs.h>
+ 
+ /**
+  *  struct inv_mpu6050_reg_map - Notable registers.
+@@ -163,9 +165,7 @@ struct inv_mpu6050_hw {
+  *  @map		regmap pointer.
+  *  @irq		interrupt number.
+  *  @irq_mask		the int_pin_cfg mask to configure interrupt type.
+- *  @chip_period:	chip internal period estimation (~1kHz).
+- *  @it_timestamp:	timestamp from previous interrupt.
+- *  @data_timestamp:	timestamp for next data sample.
++ *  @timestamp:		timestamping module
+  *  @vdd_supply:	VDD voltage regulator for the chip.
+  *  @vddio_supply	I/O voltage regulator for the chip.
+  *  @magn_disabled:     magnetometer disabled for backward compatibility reason.
+@@ -189,9 +189,7 @@ struct inv_mpu6050_state {
+ 	int irq;
+ 	u8 irq_mask;
+ 	unsigned skip_samples;
+-	s64 chip_period;
+-	s64 it_timestamp;
+-	s64 data_timestamp;
++	struct inv_sensors_timestamp timestamp;
+ 	struct regulator *vdd_supply;
+ 	struct regulator *vddio_supply;
+ 	bool magn_disabled;
+diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c
+index 45c37525c2f165..d83f61a9950494 100644
+--- a/drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c
++++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c
+@@ -13,81 +13,10 @@
+ #include <linux/interrupt.h>
+ #include <linux/poll.h>
+ #include <linux/math64.h>
+-#include "inv_mpu_iio.h"
+-
+-/**
+- *  inv_mpu6050_update_period() - Update chip internal period estimation
+- *
+- *  @st:		driver state
+- *  @timestamp:		the interrupt timestamp
+- *  @nb:		number of data set in the fifo
+- *
+- *  This function uses interrupt timestamps to estimate the chip period and
+- *  to choose the data timestamp to come.
+- */
+-static void inv_mpu6050_update_period(struct inv_mpu6050_state *st,
+-				      s64 timestamp, size_t nb)
+-{
+-	/* Period boundaries for accepting timestamp */
+-	const s64 period_min =
+-		(NSEC_PER_MSEC * (100 - INV_MPU6050_TS_PERIOD_JITTER)) / 100;
+-	const s64 period_max =
+-		(NSEC_PER_MSEC * (100 + INV_MPU6050_TS_PERIOD_JITTER)) / 100;
+-	const s32 divider = INV_MPU6050_FREQ_DIVIDER(st);
+-	s64 delta, interval;
+-	bool use_it_timestamp = false;
+-
+-	if (st->it_timestamp == 0) {
+-		/* not initialized, forced to use it_timestamp */
+-		use_it_timestamp = true;
+-	} else if (nb == 1) {
+-		/*
+-		 * Validate the use of it timestamp by checking if interrupt
+-		 * has been delayed.
+-		 * nb > 1 means interrupt was delayed for more than 1 sample,
+-		 * so it's obviously not good.
+-		 * Compute the chip period between 2 interrupts for validating.
+-		 */
+-		delta = div_s64(timestamp - st->it_timestamp, divider);
+-		if (delta > period_min && delta < period_max) {
+-			/* update chip period and use it timestamp */
+-			st->chip_period = (st->chip_period + delta) / 2;
+-			use_it_timestamp = true;
+-		}
+-	}
+ 
+-	if (use_it_timestamp) {
+-		/*
+-		 * Manage case of multiple samples in the fifo (nb > 1):
+-		 * compute timestamp corresponding to the first sample using
+-		 * estimated chip period.
+-		 */
+-		interval = (nb - 1) * st->chip_period * divider;
+-		st->data_timestamp = timestamp - interval;
+-	}
++#include <linux/iio/common/inv_sensors_timestamp.h>
+ 
+-	/* save it timestamp */
+-	st->it_timestamp = timestamp;
+-}
+-
+-/**
+- *  inv_mpu6050_get_timestamp() - Return the current data timestamp
+- *
+- *  @st:		driver state
+- *  @return:		current data timestamp
+- *
+- *  This function returns the current data timestamp and prepares for next one.
+- */
+-static s64 inv_mpu6050_get_timestamp(struct inv_mpu6050_state *st)
+-{
+-	s64 ts;
+-
+-	/* return current data timestamp and increment */
+-	ts = st->data_timestamp;
+-	st->data_timestamp += st->chip_period * INV_MPU6050_FREQ_DIVIDER(st);
+-
+-	return ts;
+-}
++#include "inv_mpu_iio.h"
+ 
+ static int inv_reset_fifo(struct iio_dev *indio_dev)
+ {
+@@ -121,6 +50,7 @@ irqreturn_t inv_mpu6050_read_fifo(int irq, void *p)
+ 	size_t bytes_per_datum;
+ 	int result;
+ 	u16 fifo_count;
++	u32 fifo_period;
+ 	s64 timestamp;
+ 	int int_status;
+ 	size_t i, nb;
+@@ -177,7 +107,10 @@ irqreturn_t inv_mpu6050_read_fifo(int irq, void *p)
+ 
+ 	/* compute and process all complete datum */
+ 	nb = fifo_count / bytes_per_datum;
+-	inv_mpu6050_update_period(st, pf->timestamp, nb);
++	/* Each FIFO data contains all sensors, so same number for FIFO and sensor data */
++	fifo_period = NSEC_PER_SEC / INV_MPU6050_DIVIDER_TO_FIFO_RATE(st->chip_config.divider);
++	inv_sensors_timestamp_interrupt(&st->timestamp, fifo_period, nb, nb, pf->timestamp);
++	inv_sensors_timestamp_apply_odr(&st->timestamp, fifo_period, nb, 0);
+ 	for (i = 0; i < nb; ++i) {
+ 		result = regmap_noinc_read(st->map, st->reg->fifo_r_w,
+ 					   st->data, bytes_per_datum);
+@@ -188,7 +121,7 @@ irqreturn_t inv_mpu6050_read_fifo(int irq, void *p)
+ 			st->skip_samples--;
+ 			continue;
+ 		}
+-		timestamp = inv_mpu6050_get_timestamp(st);
++		timestamp = inv_sensors_timestamp_pop(&st->timestamp);
+ 		iio_push_to_buffers_with_timestamp(indio_dev, st->data, timestamp);
+ 	}
+ 
+diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_trigger.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_trigger.c
+index f7b5a70be30f92..a50cd48b7f9cbe 100644
+--- a/drivers/iio/imu/inv_mpu6050/inv_mpu_trigger.c
++++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_trigger.c
+@@ -4,6 +4,9 @@
+ */
+ 
+ #include <linux/pm_runtime.h>
++
++#include <linux/iio/common/inv_sensors_timestamp.h>
++
+ #include "inv_mpu_iio.h"
+ 
+ static unsigned int inv_scan_query_mpu6050(struct iio_dev *indio_dev)
+@@ -107,7 +110,8 @@ int inv_mpu6050_prepare_fifo(struct inv_mpu6050_state *st, bool enable)
+ 	int ret;
+ 
+ 	if (enable) {
+-		st->it_timestamp = 0;
++		/* reset timestamping */
++		inv_sensors_timestamp_reset(&st->timestamp);
+ 		/* reset FIFO */
+ 		d = st->chip_config.user_ctrl | INV_MPU6050_BIT_FIFO_RST;
+ 		ret = regmap_write(st->map, st->reg->user_ctrl, d);
 -- 
 2.53.0
 
