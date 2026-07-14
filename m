@@ -1,326 +1,284 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013011.outbound.protection.outlook.com [40.107.159.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08EE62A1BF
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 15:09:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784041747; cv=none; b=XIy7UmnW1gE7VE5Vz4BnHaeWvwUCd3/PRG5Q0xdVLzZPAw7wCko8rmgGkM24N8c3dtYGzsFHds7UeAa+OCrYugC8esLhCDY1D1dhDAvjSJthb00oxUJVUKu7xsxGgnMEIXQTD5GNMA6eLi80YbTVwA69rutgAvoUTFEocFzwz1I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784041747; c=relaxed/simple;
-	bh=brtSlaXWYjEvu1apUC9GnGvgR1Va3GgEBftzZynhgww=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NkgW2KDY7VcRzxiBnLoKIUeDNEv3mVdcDYAqaBGPZX6C3xFFyuG84xOvxl4RFFnAfpp1KERAd9DyWl2ai1UZ6lpRnlRZ3+pFiyK+fzaFx0duAqH4BAq+Y41l+f+D+b0G3pcw4re2915kj1lselOwr0twiyqKKONwLSe9sRExyPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W6whS1pX; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1156F33D4E1;
+	Tue, 14 Jul 2026 15:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784043362; cv=fail; b=lBihxhIIEPKSXwJnc3jymIbsEGQzj9+3GapmDzuafI5y9BO7GRCvxCO26cFduOsZw8m4prW31Int1Ebs2QU3Gmq5AWeywi71n+Tg3/KEiFPMGWAcxX66JM6mDcvk8T6HI4iFAW0x2Dj3Q4OQlF8iu2ftb4z55q3ydnqqafGl5gE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784043362; c=relaxed/simple;
+	bh=WpH3NLU37o+Ik1z8E+FXoUcvY/TFexq5Ir1qFQSpfZI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ciItMMQapDGavvYi+klgPAynbd4+FS763oyLlXpkN5wMlrxFJDT5ZYedCCPICSTtZ2i5fBCWU7uXf5+Z1IEVy4zOGdijqjwi8wiJJjR3QCEQK7f8KOc299DaiRXxOB6a70HeAK5lMqJ9OryMmystGEBqyHT8Iy1x9e2YpPe+XYc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=weidmueller.com; spf=pass smtp.mailfrom=weidmueller.com; dkim=pass (2048-bit key) header.d=weidmueller.com header.i=@weidmueller.com header.b=8A5iqNNH; arc=fail smtp.client-ip=40.107.159.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=weidmueller.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weidmueller.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W6whS1pX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784041744;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vHo8RNl2LI2DW1/5h4rnjcUhrGhhIuy5tIua1RWi8to=;
-	b=W6whS1pX5nQFqDW4E5vyCaX3IqxrPr0Ww/w0xT01dEkA/EDPYhkpSa0iQnCQGSIfSb6kI2
-	GdJw3xqQSWV1hVuzdccENCDuRwkIKgtQVY8aDVRYV8LhMXFI7owwBAq5gwAxLORPKBARHe
-	VK4x1bRsTo2mzYGax5HcULtYHJ4Dq/0=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-227-rS3m6NEjOFSZpiuBHxUBcw-1; Tue,
- 14 Jul 2026 11:09:03 -0400
-X-MC-Unique: rS3m6NEjOFSZpiuBHxUBcw-1
-X-Mimecast-MFC-AGG-ID: rS3m6NEjOFSZpiuBHxUBcw_1784041742
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EBA6818011E6;
-	Tue, 14 Jul 2026 15:09:01 +0000 (UTC)
-Received: from bfoster (unknown [10.22.88.111])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 01EC63000232;
-	Tue, 14 Jul 2026 15:09:00 +0000 (UTC)
-Date: Tue, 14 Jul 2026 11:08:58 -0400
-From: Brian Foster <bfoster@redhat.com>
-To: Ibrahim Hashimov <security@auditcode.ai>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] xfs: bounds-check buffer log item's dirty bitmap
-Message-ID: <alZRCj6IIETEDjRM@bfoster>
-References: <20260708225814.2568-1-security@auditcode.ai>
+	dkim=pass (2048-bit key) header.d=weidmueller.com header.i=@weidmueller.com header.b="8A5iqNNH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uFOeHS1ZqTH6JmzrKmAZ6FCqi1cELqpk3FvC7d327hML+rr38Rm8K0+Cw/ljZPvjETosthTnMmkWsA9ZAIRJALOd7FvcFAwd49L6hLNmG6IK6q2jxrpchmW/9zUCFd0D8AxY3ACJLPF1R+6T0jNuBCiC/brvcA2kfyOSWjRpUuEfi88x/WT5pvpOk/WIJTy+gMssqUVvANkNnMMlgk7hoCUT1KIKULTOTVcXYPhuacEYl37HBYPM7GEZLvffLq641CvhMJPot9glhkX61QT3wGZRF0QuuTuj/OierNhn0zf6dNRz9P9OKLMBVxV6QjbKeKZtHaRwtrLVEAUqlN+gug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fEfo4KwCZXBUT/e2NXE8bgL39yxiza8RzVGAN1Ulbhs=;
+ b=d1mOgSxgnCuCVSdEnhpmFWKZjDK/wInIYmdrsgCLnlvPB+yXzvh71EtAf4x5/hmU5B709641q7cgQyDBtgxn9ynUcnuFOJ6YpE2sDFgsV5/nJl7whNb5S7kDTeq+zLCxjAVBHy1I4pL6G7fXDBNT57NSrTBp/wilKMT64BAyhkQB02YR5xggjKR2pWhOlK78m6uo3L+BJiha5j/no+85EFXShzAFStT9AUxWvl2gYWOfKHQRB8IWg7DuzgbAY9jAa6yVY4aDPEE+iKMeJDcBu6vAKwu33iKSXm8Gv98+KsW4BmbY5PHhNw5YKOux+5SQXc3B8LOt/mhCGRC0DHXmxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=weidmueller.com; dmarc=pass action=none
+ header.from=weidmueller.com; dkim=pass header.d=weidmueller.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=weidmueller.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fEfo4KwCZXBUT/e2NXE8bgL39yxiza8RzVGAN1Ulbhs=;
+ b=8A5iqNNHpQGz5P+Qn1yc+pXyn1wlTOx7h+VnPrDTFiS9pcYu+nq7Qa0gSIHueP0D/jNCrYfp7KO7fKWkiy7qhutYh5DMp9Is0A2B0Ft2SZkte/PQPaHTfJSSEasNoSiahBWPPK7sQJhXYOvpQFgfMToWre2gk9sB/lDoz/cs5D+gd/SNRYSTlF+Lt/LzHQR3S7aFG4qVyqe4q1nDcwOTG0jaSUgW9CVrrQ66yg3iDZYh0ftWCHlv347nGkOrNJC3I/TIUka5+QvxfoSdns3liA5Z64qrJmkwmNF9SL8rrwyNkk2oH7umcg/DYiDR5fUE80OpbEEwW/CVYDu36Fmcag==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=weidmueller.com;
+Received: from AS2PR08MB9199.eurprd08.prod.outlook.com (2603:10a6:20b:578::22)
+ by GV2PR08MB11393.eurprd08.prod.outlook.com (2603:10a6:150:2a6::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
+ 2026 15:35:51 +0000
+Received: from AS2PR08MB9199.eurprd08.prod.outlook.com
+ ([fe80::5022:16e9:45e4:f778]) by AS2PR08MB9199.eurprd08.prod.outlook.com
+ ([fe80::5022:16e9:45e4:f778%2]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
+ 15:35:51 +0000
+Message-ID: <52f6b231-7351-4dbf-92cf-459f1f19d150@weidmueller.com>
+Date: Tue, 14 Jul 2026 17:35:50 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/2] net: macb: reprogram TBQP after shuffling the TX
+ ring on link-up
+To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>,
+ Kevin Hao <haokexin@gmail.com>
+Cc: christian.taedcke@weidmueller.com,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Robert Hancock <robert.hancock@calian.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ stable@vger.kernel.org
+References: <20260706-upstreaming-macb-irq-storm-v1-0-ab3115b5a13a@weidmueller.com>
+ <20260706-upstreaming-macb-irq-storm-v1-1-ab3115b5a13a@weidmueller.com>
+ <akzDQrmdYwHAMMmw@xiaowei>
+ <8d53c3d9-7918-456c-8c27-e9d73c896452@weidmueller.com>
+ <ak2-XJHVc3Cg6ZEk@xiaowei> <DJUXYXEQMUJ4.31H82KQMG29UC@bootlin.com>
+From: "Taedcke, Christian" <christian.taedcke-oss@weidmueller.com>
+In-Reply-To: <DJUXYXEQMUJ4.31H82KQMG29UC@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0077.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::16) To AS2PR08MB9199.eurprd08.prod.outlook.com
+ (2603:10a6:20b:578::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708225814.2568-1-security@auditcode.ai>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR08MB9199:EE_|GV2PR08MB11393:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41af9c90-a329-4062-c89f-08dee1bd95ce
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|4133799003|11063799006|56012099006|4143699003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	t7bOR/enL+kzccG2WcyLvJ2JZ6NIkyn7Zcj3lJm84Imi2ejLz16bKHOWxHh/OtKyBoipVsMc8PekcDI+if3CzhTzCSYc7ALd+Pu2KU+LOR84BFiesex8s1ulTBK8tLuDLgggxXlZ+D2qhQzPw1s2JzkgHYjfVkfWOB9BthnFDCcfMx+/HxTRZr9W6uW2KsS/N/P2Sj4PrL5QVp3EqxgiEQ5AHwCDQLIon6nuTvOoYe5Es6DrqLgn+HyaMDDbmdb+mGz6X3XBd8UieyzrUG1NzstRcpq52p15HUxvmK/qRAEfnBWekT9pfB+XTxtd439PhZriZF7UAA4CjzLR8rTk1lQJqVCWsXMw3ELoekY3WMWa62yoaloaWEyfXI0FNnKYRmwUr9qRRTLityKEPwflrA8I0Pc0F/b/K4kIVMLLpEdQ7z3mvC7sC6nLI6lJcmqEqJwFUbs8x+rgh1OIXJKuO6uiCYwHAGOkPgy9JnW3QMgm5Wp+YlwYa5KAG8usePJQZrniuioLSDPLt+iBa08FHNcB7RiK+skfe+2AbkLODUJHy4CBbqNeWEF9yd8zYxxCq2Bk3z8WEqlt0HzNBXIwH2Qq+aDvw6MEVeMjByDG4U4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR08MB9199.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(4133799003)(11063799006)(56012099006)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WGFINUZRNHM0V2F6Y1dic3ZQS2hEcjM1N1JkMVBEUVFKM2tyQ0NWQU5CTnN6?=
+ =?utf-8?B?UWlxTWRDQUJEQTFsVThURk91eVgza1J3NjZwRCtwNkZaME44YVZCMHJ1cjNq?=
+ =?utf-8?B?U24rSDJRQ0JwU25TU1VuQ1RWNVNxdGxCOG5yMStzU01JVEt3L2hhNmhwZDgy?=
+ =?utf-8?B?VTBaNU5yUVR4dFB5ZStwbjd5YnQ5NmFPWUFPU0hxTGtycEdVY3NRU0dBMDUy?=
+ =?utf-8?B?cHlYOUkycXhkSTNLaVEveERVcmd1Q2J0RmZ3OVdYNlN2VzBvQlJSZHYySnNR?=
+ =?utf-8?B?QkNYWVJ1NjBSbUQ0S3EyN3l5RHBBNlFhN2NkRHZKTFlxRUFIZUUzV1BNTkYy?=
+ =?utf-8?B?MlhXNUZOMXNUM2MrdTE0VThsa1UwZ1RQaW1PSEk2dWdBblZzVldZUUE4dk9x?=
+ =?utf-8?B?TTR4V3pJd2tORWp2Tmkxb2U4VG9KMHQvK2lNOEpSNVhwNy9udFBDeUxtVzV4?=
+ =?utf-8?B?V09udjVtekI1RFhqV1MrZlNraVVDd0JKNXZRQ3ZaOTE4M0FHdW4yVmN4ekxs?=
+ =?utf-8?B?UGpuMjNHMDRzbFhpUGtHcEpwcVpLcXdxUU5oampwdG5PcndvdmdMUlptdjdB?=
+ =?utf-8?B?U3p1SFF4bVEvU0daT0dWOGtVNmNLdGJWS1BSaVpmb2NhaitQVmM2Qmx5MW1Y?=
+ =?utf-8?B?VVRUMllWRVRONW51TXpqZzNLMG9iS01OblZzVFhnVWRNMVJYVHo2QmpvY05h?=
+ =?utf-8?B?WVpLOGZoSVRCOGN6YXFUTXNIZnR4MGtCN1RlOUhKaXYybVVrN3owblQxaTNl?=
+ =?utf-8?B?amJpMGZwNHIxcVRUS2UrMFZ0V3lsSDFlbGxMVjdBblcrZForOUUwSjd4bDFs?=
+ =?utf-8?B?RTRTYlhEd3hnTjF1VHB6YzVMbUxVc0JmUTFQT2FXSVlmV2t2L0VzQWd1SVZO?=
+ =?utf-8?B?MFJFYndFL0ZPN28wdEsrTEpUaHl3bDVKMzhrbXZlUk9VOWpSVXB1bmlhbUls?=
+ =?utf-8?B?NlB6WGIxS21nUmF6QnpTR1BoL1dLMzdnSDNyc2ZwbC9CYXdUclcrZ1VpWUNQ?=
+ =?utf-8?B?akRHdkFoWW4vQjUwZlNraW9CNHN5Lzg0VkdlZDhpaGx4bHFCQ2tsSk00Smgx?=
+ =?utf-8?B?ZVdRbloyWmZDdk93VU9lRVhWcTI5MEpST3RYbWhGcS9GYU5DcFVhYzJucUlR?=
+ =?utf-8?B?ZngxQldoSThmTDAyZGk2Z1YvVHVKRHp4L00wSUdGNW9XVit2OHYvdnFnL1ZU?=
+ =?utf-8?B?b2o3M3hZQ2hGdmRTWXlZdUh0QkdHeDRDK2NJTnpldit1QW8wSUJEYUtsSHY1?=
+ =?utf-8?B?bTdUQ2R2Qzd6SXlOT1dIckppY25sNmZ2cFlJalFzcFg2SWhPU1kxSTJMRWVj?=
+ =?utf-8?B?UzJkd1JDNkFIYmliUUZGUHVXU0FiUUQ1OU1JVDc2N1FKa0JvZjBKUHJldmVi?=
+ =?utf-8?B?YURPdThQTU0zenhqY1I5b3RITU9CQmhOeFF5aHZhcm9kMUxDaGI5QVMzZlVG?=
+ =?utf-8?B?WUF4N2pnUTF3NEdESmwwUWNSelRacUd2ZGNBUC9PcFE0Rm9UMFVnRS9YUDAw?=
+ =?utf-8?B?VDhpZHp2ckVIK2NNSTdlY3ozd0ZHV2M0ampaZCtLSXZ0ZFRneDNiQnJSMXdR?=
+ =?utf-8?B?WFR4cVNDUkd4U0J0MGgwOEFHZDdBNXFaa2FKY3FRZkk0aS9KTzYwV0NkV3Vl?=
+ =?utf-8?B?NG1GbW4rNVZiL2tzdHRnNGZTWnh1QmZsUFBzR0RMYlRBRCtab2xjdlRTaDF5?=
+ =?utf-8?B?OWh6T1oyWW5CMzQ2VVJSV1c1eXBCQ1lmdGNkQmZteTluWEpRU0g1NEwza3Vr?=
+ =?utf-8?B?OVJHQXlKNWxlVG9uSHZlckVTVGE3ZEl4US9GRnc1ZTZwQmxnc0NlSU5ycWVN?=
+ =?utf-8?B?cThZR1c2WWZYTWNtSzhaanl3eUdFSzZLQU5OV2lSVmkvZHRYZkVkWVlyem92?=
+ =?utf-8?B?aUxUdWJraVlhS0M3Y2VqM0h2Zlo4KzVzUER1c2lCc1MyaXpiTkRObnltT1FV?=
+ =?utf-8?B?dDNNZ1lhd3VVUkltL2VpUWNCVEZieHBFVGU1WldBdWt3WVB5L2oxNGtOeE5S?=
+ =?utf-8?B?dzAxdWkwaG0yQkVHaEtNdjN6dm5XWXFTaGxqUHh0d1AxN09KNVpjcXpCcjVI?=
+ =?utf-8?B?OGJFbXBVSkdTL2doejc2cU9RZEpMMU4rUG9PblR0RjhBQmJhWXRtTUc4elI5?=
+ =?utf-8?B?V3MxU1JyWGVvS0ROcHFvZUNIcXk4UlNhNFllYlVYeUcxTnJoVlhkVGxSR2VB?=
+ =?utf-8?B?dWNpM2VOcDE5NmxVS29Pb1Q3dEYvY3hTU0xYTkNBbDQ0QXVuNWJzSlR2QzZ0?=
+ =?utf-8?B?S1IxTmhJNnNUZkFLSGtTWENhYUxRRDVqbDZZQVppS2RSdE5iYm5JTVNSVmsy?=
+ =?utf-8?B?Rm5RWXBhRVBHOFBNVDFEbUlpRm5ZUXRHR1pNelpxZ0lZQ1cyV1B2S3BqVGZC?=
+ =?utf-8?Q?bKeLaqYwxE3KVeDZtDHomYscjkO4+ovg1JuVP?=
+X-OriginatorOrg: weidmueller.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41af9c90-a329-4062-c89f-08dee1bd95ce
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR08MB9199.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 15:35:51.2633
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e4289438-1c5f-4c95-a51a-ee553b8b18ec
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8nGnR6H/0nm9npMSM/SMsrSwsqRSK2d2FXPg7y8ejLeyZ5lQF9xAUIygln+Ok+TBCZPmHUvIzpfxmA9i3AthBCW/MNNzQPPUeaZNTKfdJjPLTKX3VqCTYynKOkgGBnUA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB11393
 
-On Thu, Jul 09, 2026 at 12:58:14AM +0200, Ibrahim Hashimov wrote:
-> xlog_recover_do_reg_buffer() replays each dirty region a buffer log
-> item's bitmap describes into the in-core buffer read for that log
-> item:
+Hello Kevin & Théo,
+
+i recorded some traces and include 2 of them here.
+
+On 7/10/2026 3:56 PM, Théo Lebrun wrote:
+> Hello Kevin & Christian,
 > 
-> 	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
-> 		item->ri_buf[i].iov_base,
-> 		nbits << XFS_BLF_SHIFT);
+> On Wed Jul 8, 2026 at 5:05 AM CEST, Kevin Hao wrote:
+>>> I agree that the TRM says the transmit pointer is reset while TE is low. My
+>>> question is whether this describes an internal pointer being reloaded from TBQP,
+>>> or whether TBQP itself is restored to the original ring base.
+>>
+>> The Zynq UltraScale TRM [1] describes the receive-buffer queue pointer as follows:
+>>
+>>   An internal counter represents the receive-buffer queue pointer and it is not
+>>   visible through the CPU interface.
+>>
+>> I could not find a similar description for the transmit-buffer queue pointer,
+>> but I believe it behaves the same way. From a software perspective, it should
+>> be safe to assume that the TBQP is reset to point to the start of the transmit
+>> descriptor list upon reset. This assumption is supported by the description
+>> of the transmit_q_ptr (GEM) Register [2]:
+>>
+>>   Reading this register returns the location of the descriptor currently being accessed.
+>>   Since the DMA handles two frames at once, this may not necessarily be pointing to the
+>>   current frame being transmitted.
+>>
+>> [1] https://docs.amd.com/v/u/en-US/ug1085-zynq-ultrascale-trm
+>> [2] https://docs.amd.com/r/en-US/ug1087-zynq-ultrascale-registers/transmit_q_ptr-GEM-Register
 > 
-> The only thing standing between that destination offset and the end
-> of "bp" is:
+> For what it's worth, I agree with Kevin.
 > 
-> 	ASSERT(BBTOB(bp->b_length) >=
-> 	       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
+> It should be rather easy to detect if the patch is needed, with more
+> logging. Dump TBQP before link-down & dump it at link-up. The code
+> expects TBQP to reset to the ring start automatically whereas this
+> commit message says the TBQP after link-up is some offset into the ring.
+
+These traces were captured on a zynqmp device. The patches in this series were not applied.
+
+The traces contain information from both tx queues (q0 and q1).
+tbqp contains the value returned by queue_readl(queue, TBQP).
+base is lower_32_bits(queue->tx_ring_dma).
+tbqp_ctrl contains macb_tx_desc(queue, tbqp_idx)->ctrl.
+tail_ctrl contains macb_tx_desc(queue, queue->tx_tail)->ctrl.
+
+At the beginning the link is up and communication over ethernet is working.
+The cpu is not at 100% load, everything worked fine.
+
+
+Trace 1 (everythink works as expected, no high cpu load):
+
+The ethernet link goes down.
+
+Trace from macb_mac_link_down():
+
+     kworker/0:4-1679    [000] .N...   141.796925: macb_tx_hw_state: macb_tx_hw_state q0 linkdown_pre_te tbqp=67cd0030 base=67cd0000 ncr=0010001c tsr=00000021 imr=3fffffff head=2 tail=2 tbqp_idx=343 tbqp_ctrl=80000000(used=1) tail_ctrl=80000000(used=1)
+     kworker/0:4-1679    [000] .....   141.796958: macb_tx_hw_state: macb_tx_hw_state q1 linkdown_pre_te tbqp=67cda598 base=67cd8000 ncr=0010001c tsr=00000021 imr=00000ce6 head=3985 tail=3985 tbqp_idx=59 tbqp_ctrl=80000036(used=1) tail_ctrl=80000000(used=1)
+
+ctrl = macb_readl(bp, NCR) & ~(MACB_BIT(RE) | MACB_BIT(TE));
+macb_writel(bp, NCR, ctrl);
+
+     kworker/0:4-1679    [000] .....   141.796961: macb_tx_hw_state: macb_tx_hw_state q0 linkdown_post_te tbqp=67cd0030 base=67cd0000 ncr=00100010 tsr=00000021 imr=3fffffff head=2 tail=2 tbqp_idx=343 tbqp_ctrl=80000000(used=1) tail_ctrl=80000000(used=1)
+     kworker/0:4-1679    [000] .....   141.796964: macb_tx_hw_state: macb_tx_hw_state q1 linkdown_post_te tbqp=67cd8000 base=67cd8000 ncr=00100010 tsr=00000021 imr=00000ce6 head=3985 tail=3985 tbqp_idx=170 tbqp_ctrl=0000800f(used=0) tail_ctrl=80000000(used=1)
+
+Ethernet link goes up.
+
+Trace from macb_mac_link_up():
+
+     kworker/0:3-190     [000] .....   152.966203: macb_tx_hw_state: macb_tx_hw_state q0 linkup_post_shuffle tbqp=67cd0030 base=67cd0000 ncr=00100010 tsr=00000021 imr=3ffff305 head=0 tail=0 tbqp_idx=343 tbqp_ctrl=80000000(used=1) tail_ctrl=80018040(used=1)
+     kworker/0:3-190     [000] .....   152.966206: macb_tx_hw_state: macb_tx_hw_state q1 linkup_post_shuffle tbqp=67cd8000 base=67cd8000 ncr=00100010 tsr=00000021 imr=00000004 head=0 tail=0 tbqp_idx=170 tbqp_ctrl=0000800f(used=0) tail_ctrl=0000800f(used=0)
+
+macb_writel(bp, NCR, ctrl | MACB_BIT(RE) | MACB_BIT(TE));
+
+     kworker/0:3-190     [000] .....   152.966209: macb_tx_hw_state: macb_tx_hw_state q0 linkup_post_te tbqp=67cd0030 base=67cd0000 ncr=0010001c tsr=00000021 imr=3ffff305 head=0 tail=0 tbqp_idx=343 tbqp_ctrl=80000000(used=1) tail_ctrl=80018040(used=1)
+     kworker/0:3-190     [000] .....   152.966211: macb_tx_hw_state: macb_tx_hw_state q1 linkup_post_te tbqp=67cd8000 base=67cd8000 ncr=0010001c tsr=00000021 imr=00000004 head=0 tail=0 tbqp_idx=170 tbqp_ctrl=0000800f(used=0) tail_ctrl=0000800f(used=0)
+
+CPU load is normal, no issue in this trace.
+tbqp on q0 is not reset to base. But in this case it did not result in the interrupt storm.
+
+
+Trace 2 (results in interrupt storm):
+
+The ethernet link goes down.
+
+Trace from macb_mac_link_down():
+
+     kworker/0:3-95      [000] .N...   459.682957: macb_tx_hw_state: macb_tx_hw_state q0 linkdown_pre_te tbqp=67cd2cb8 base=67cd0000 ncr=0010001c tsr=00000021 imr=3fffffff head=4061 tail=4061 tbqp_idx=306 tbqp_ctrl=0000800f(used=0) tail_ctrl=80000000(used=1)
+     kworker/0:3-95      [000] .....   459.682991: macb_tx_hw_state: macb_tx_hw_state q1 linkdown_pre_te tbqp=67cd85a0 base=67cd8000 ncr=0010001c tsr=00000021 imr=00000ce6 head=60 tail=60 tbqp_idx=230 tbqp_ctrl=80000036(used=1) tail_ctrl=80000000(used=1)
+
+ctrl = macb_readl(bp, NCR) & ~(MACB_BIT(RE) | MACB_BIT(TE));
+macb_writel(bp, NCR, ctrl);
+
+     kworker/0:3-95      [000] .....   459.682994: macb_tx_hw_state: macb_tx_hw_state q0 linkdown_post_te tbqp=67cd2cb8 base=67cd0000 ncr=00100010 tsr=00000021 imr=3fffffff head=4061 tail=4061 tbqp_idx=306 tbqp_ctrl=0000800f(used=0) tail_ctrl=80000000(used=1)
+     kworker/0:3-95      [000] .....   459.682996: macb_tx_hw_state: macb_tx_hw_state q1 linkdown_post_te tbqp=67cd8000 base=67cd8000 ncr=00100010 tsr=00000021 imr=00000ce6 head=60 tail=60 tbqp_idx=170 tbqp_ctrl=80000036(used=1) tail_ctrl=80000000(used=1)
+
+Ethernet link goes up.
+
+Trace from macb_mac_link_up():
+
+     kworker/0:3-95      [000] .....   470.292877: macb_tx_hw_state: macb_tx_hw_state q0 linkup_post_shuffle tbqp=67cd2cb8 base=67cd0000 ncr=00100010 tsr=00000021 imr=3ffff305 head=0 tail=0 tbqp_idx=306 tbqp_ctrl=0000800f(used=0) tail_ctrl=0000800f(used=0)
+     kworker/0:3-95      [000] .....   470.292879: macb_tx_hw_state: macb_tx_hw_state q1 linkup_post_shuffle tbqp=67cd8000 base=67cd8000 ncr=00100010 tsr=00000021 imr=00000004 head=0 tail=0 tbqp_idx=170 tbqp_ctrl=80000036(used=1) tail_ctrl=80018040(used=1)
+
+macb_writel(bp, NCR, ctrl | MACB_BIT(RE) | MACB_BIT(TE));
+
+     kworker/0:3-95      [000] .....   470.292882: macb_tx_hw_state: macb_tx_hw_state q0 linkup_post_te tbqp=67cd2cb8 base=67cd0000 ncr=0010001c tsr=00000021 imr=3ffff305 head=0 tail=0 tbqp_idx=306 tbqp_ctrl=0000800f(used=0) tail_ctrl=0000800f(used=0)
+     kworker/0:3-95      [000] .....   470.292884: macb_tx_hw_state: macb_tx_hw_state q1 linkup_post_te tbqp=67cd8000 base=67cd8000 ncr=0010001c tsr=00000021 imr=00000004 head=0 tail=0 tbqp_idx=170 tbqp_ctrl=80000036(used=1) tail_ctrl=80018040(used=1)
+
+After that sequence one CPU core is at 100% load continously executing the macb irq handler.
+
+The issue seems to be q0. tbqp of q1 is properly reset to its base address.
+tbqp of q0 is not changed as expected in link down when tx is disabled.
+
+Are there any other details i could put into the trace to determine the root cause?
+I suspect that some packet is still in transmission/ being processed and this might be the
+reason why tbqp of q0 is not being reset. But i do not see that in this trace.
+
+
 > 
-> "bp" is sized directly from the logged, attacker-controlled
-> buf_f->blf_len (xlog_recover_buf_commit_pass2() ->
-> xfs_buf_read(..., buf_f->blf_blkno, buf_f->blf_len, ...)), while
-> "bit"/"nbits" come from the logged dirty bitmap (buf_f->blf_data_map),
-> also attacker-controlled. Nothing else relates the two: the source
-> side is trimmed against the log iovec length a few lines down
-> (item->ri_buf[i].iov_len), but the destination side has no equivalent
-> runtime check.
+> Lastly, the cover letter mentions that [PATCH 1/2] alone isn't enough.
+> But it doesn't mention that [PATCH 2/2] alone doesn't solve the issue.
+> This would be a useful test as well.
 > 
-> ASSERT() compiles to a no-op on production (non-DEBUG, non-XFS_WARN)
-> kernels, which is exactly where this matters. A dirty log record
-> whose buffer-log-format item logs a small blf_len (e.g. 1, a
-> 512-byte buffer) together with a dirty bitmap bit that indexes past
-> that buffer drives the memcpy() above straight past the end of the
-> recovered buffer's backing allocation, corrupting adjacent kernel
-> heap memory during mount-time log recovery of a crafted (or merely
-> corrupt) XFS image. This is reachable by anyone who can get such an
-> image mounted (CAP_SYS_ADMIN in the init namespace, or automount of
-> removable/untrusted media) -- the standard malicious-filesystem
-> threat model XFS's other verifiers guard against. Found with a
-> KASAN-enabled kernel: a crafted image with a small blf_len and an
-> out-of-range bitmap bit produces a slab-out-of-bounds write during
-> log recovery.
+> On Tue Jul 7, 2026 at 3:36 PM CEST, Taedcke, Christian wrote:
+>> Thank you for the quick review! This is my first Linux kernel
+>> contribution, so I appreciate your feedback here.
 > 
-> Nearby recovery code already treats this class of "logged size
-> doesn't match reality" problem as a real runtime condition rather
-> than an invariant to assert on. In this very function, the dquot
-> sanity check a few lines below does exactly that:
+> Welcome!
 > 
-> 	if (item->ri_buf[i].iov_len < size_disk_dquot) {
-> 		xfs_alert(mp, "XFS: dquot too small (%zd) in %s.", ...);
-> 		goto next;
-> 	}
+> Thanks,
 > 
-> and its sibling xlog_recover_do_inode_buffer(), a little further down
-> in this same file, converts the equivalent destination-bounds
-> ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery of
-> the item instead of trusting the log:
-> 
-> 	ASSERT((reg_buf_offset + reg_buf_bytes) <= BBTOB(bp->b_length));
-> 	...
-> 	if (XFS_IS_CORRUPT(mp, *logged_nextp == 0)) {
-> 		xfs_alert(mp, "Bad inode buffer log record ...");
-> 		return -EFSCORRUPTED;
-> 	}
+> --
+> Théo Lebrun, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com/
 > 
 
-In the spirit of the LLM guidelines thing Carlos had recently posted, I
-feel like this commit log could probably be cut down without losing
-useful information. I'm not sure we need all this detailed context and
-code snippets from other functions, for example. It should be sufficient
-to say something like we have runtime validation/detection in other
-places like and this change is consistent.
-
-In general, I think you should read this and think about how to cut it
-down to minimally useful information. I'm not opposed to long commit
-logs by any stretch, but usually these are reserved to explain
-complicated problems and solutions. This is quite a lot of text for a
-patch to convert a preexisting assert to a runtime check.
-
-> Give xlog_recover_do_reg_buffer() the same treatment: turn the
-> destination-bounds ASSERT() into a real XFS_IS_CORRUPT() check, log
-> it with xfs_alert() (matching xlog_recover_do_inode_buffer() and the
-> xfs_dquot_item_recover.c size checks), and fail recovery of this
-> buffer with -EFSCORRUPTED instead of copying past its end. Since the
-> function now needs to report failure, change it from "STATIC void"
-> to "STATIC int" and propagate the new error out of all three
-> callers:
-> 
->   - xlog_recover_do_primary_sb_buffer(), which already returns int
->     and already checks other error conditions inline;
->   - xlog_recover_do_dquot_buffer(), which returns a "dirty" bool to
->     its one caller; it gains an "int *error" out-parameter so the
->     caller can distinguish "buffer intentionally skipped" from
->     "buffer recovery failed";
->   - the plain regular-buffer branch of
->     xlog_recover_buf_commit_pass2(), which already has an in-scope
->     "error" local used by the sibling branches right next to it.
-> 
-> This is a minimal, targeted fix: it does not change any successful
-> recovery path (the new check only rejects logs that were already
-> violating the invariant the ASSERT() was documenting), and it
-> mirrors the exact validate-and-fail idiom already used a few lines
-> away in the same file and in fs/xfs/xfs_dquot_item_recover.c.
-> 
-> Verified on a v6.19 KASAN-enabled kernel (CONFIG_XFS_DEBUG=n): mount
-> of a crafted image whose buffer log item's dirty bitmap indexes past
-> its logged blf_len trips a KASAN slab-out-of-bounds write in
-> xlog_recover_do_reg_buffer() before this patch; with the patch
-> applied, mounting the same image fails recovery with -EFSCORRUPTED
-> and no KASAN report is produced.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> Assisted-by: AuditCode-AI:2026.07
-> ---
-> v2: no functional change; v1 was sent with an empty Subject line due to
->     a local git send-email glitch (leading blank line in the patch file).
-> 
->  fs/xfs/xfs_buf_item_recover.c | 48 ++++++++++++++++++++++++++++-------
->  1 file changed, 39 insertions(+), 9 deletions(-)
-> 
-> diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
-> index 02b95b89d1b5..521e5f544caf 100644
-> --- a/fs/xfs/xfs_buf_item_recover.c
-> +++ b/fs/xfs/xfs_buf_item_recover.c
-> @@ -461,7 +461,7 @@ xlog_recover_validate_buf_type(
->   * given buffer.  The bitmap in the buf log format structure indicates
->   * where to place the logged data.
->   */
-> -STATIC void
-> +STATIC int
->  xlog_recover_do_reg_buffer(
->  	struct xfs_mount		*mp,
->  	struct xlog_recover_item	*item,
-> @@ -489,8 +489,25 @@ xlog_recover_do_reg_buffer(
->  		ASSERT(nbits > 0);
->  		ASSERT(item->ri_buf[i].iov_base != NULL);
->  		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
-> -		ASSERT(BBTOB(bp->b_length) >=
-> -		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
-> +
-> +		/*
-> +		 * The bitmap is only trustworthy to the extent that it
-> +		 * describes a region that actually fits inside the buffer we
-> +		 * read in based on the (attacker-controlled) blf_len.  Do not
-> +		 * rely on an ASSERT() for this -- it compiles away entirely
-> +		 * on non-DEBUG kernels, which is exactly where this matters,
-> +		 * so validate it for real and abort recovery of this buffer
-> +		 * rather than copying past the end of it.
-> +		 */
-
-Similarly.. not sure we need a paragraph on what we don't do here (use
-an assert) and why.
-
-Also I find the opposite logic a little more readable as a validation
-check (i.e. bit/nbits too large for buffer), for whatever reason, but
-others might disagree.
-
-> +		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
-> +				((uint)bit << XFS_BLF_SHIFT) +
-> +				(nbits << XFS_BLF_SHIFT))) {
-> +			xfs_alert(mp,
-> +	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
-> +				bit, nbits, BBTOB(bp->b_length),
-> +				xfs_buf_daddr(bp));
-> +			return -EFSCORRUPTED;
-> +		}
->  
->  		/*
->  		 * The dirty regions logged in the buffer, even though
-> @@ -544,6 +561,7 @@ xlog_recover_do_reg_buffer(
->  	ASSERT(i == item->ri_total);
->  
->  	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
-> +	return 0;
->  }
->  
->  /*
-> @@ -553,7 +571,9 @@ xlog_recover_do_reg_buffer(
->   * Else, treat it as a regular buffer and do recovery.
->   *
->   * Return false if the buffer was tossed and true if we recovered the buffer to
-> - * indicate to the caller if the buffer needs writing.
-> + * indicate to the caller if the buffer needs writing.  *error is set if
-> + * recovery of the buffer failed and the caller must abort replay of this
-> + * buffer.
->   */
->  STATIC bool
->  xlog_recover_do_dquot_buffer(
-> @@ -561,10 +581,12 @@ xlog_recover_do_dquot_buffer(
->  	struct xlog			*log,
->  	struct xlog_recover_item	*item,
->  	struct xfs_buf			*bp,
-> -	struct xfs_buf_log_format	*buf_f)
-> +	struct xfs_buf_log_format	*buf_f,
-> +	int				*error)
-
-Hrm, that's kind of an ugly function signature...
-
->  {
->  	uint			type;
->  
-> +	*error = 0;
->  	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
->  
->  	/*
-> @@ -586,7 +608,7 @@ xlog_recover_do_dquot_buffer(
->  	if (log->l_quotaoffs_flag & type)
->  		return false;
->  
-> -	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
-> +	*error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
->  	return true;
->  }
->  
-> @@ -724,7 +746,9 @@ xlog_recover_do_primary_sb_buffer(
->  	xfs_rgnumber_t			orig_rgcount = mp->m_sb.sb_rgcount;
->  	int				error;
->  
-> -	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-> +	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-> +	if (error)
-> +		return error;
->  
->  	if (orig_agcount == 0) {
->  		xfs_alert(mp, "Trying to grow file system without AGs");
-> @@ -1083,7 +1107,10 @@ xlog_recover_buf_commit_pass2(
->  		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
->  		bool	dirty;
->  
-> -		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
-> +		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f,
-> +						     &error);
-> +		if (error)
-> +			goto out_release;
->  		if (!dirty)
->  			goto out_release;
-
-... and the error = 0 assignment buried in the _do_dquot_buffer() call
-is also kind of confusing, since these both reuse the same error path
-out of the function.
-
-I wonder if we should switch the semantics of the call to return error
-and let 'dirty' be a parameter..? Another option could be to use a
-special error code to reflect the !dirty case that we can check for and
-reset here, but that might be too hacky as well (but if not, should
-probably be a separate patch). Hm?
-
-Brian
-
->  	} else if ((xfs_blft_from_flags(buf_f) & XFS_BLFT_SB_BUF) &&
-> @@ -1105,7 +1132,10 @@ xlog_recover_buf_commit_pass2(
->  			xfs_buf_relse(rtsb_bp);
->  		}
->  	} else {
-> -		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-> +		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
-> +						   current_lsn);
-> +		if (error)
-> +			goto out_release;
->  	}
->  
->  	/*
-> -- 
-> 2.50.1 (Apple Git-155)
-> 
-> 
+Regards,
+Christian
 
