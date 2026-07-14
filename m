@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6B93A4F36
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:50:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B32B285CA2
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:50:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784047816; cv=none; b=QbkZY1gpjOLp1cvHg89CQVy4ZV12ITG3H2JDTu9488Axw6MQOVAQ8bliPyc87NC66QYzEGfnl1kPbontB2VMX7EZ/Ka9/f04ORn1irA9ztwKP09Szixz0mXvxOi1qz2S6TngpGUmPFKxo1bMCztMm21nx691zKXHSKc4WPnB9Do=
+	t=1784047822; cv=none; b=b3qfxP+A7DJpA/atBtnVzDU+VBtZjYeyrIxQZdWSNUHDJQXgEorBGqIB6i2BAAlln7KQiddky7Z3uIPAQcZa1cEh5GKh+bXxQduDkJzPL82+jWZf+GhCm/P/GbShzSJwFkl5gD84M39C6ibacZsyDoS3jLUfUt0VhjCaq47JKtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784047816; c=relaxed/simple;
-	bh=WArem/Gl1KcuCRUqgmh1Ebo5AtDLqKxSBKU6wREgcyQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gtlBYBvfakUbbW7k4exs8x/yVY4rrn2gSpwewkFIh3j8SlpAeDV79ZupwVs4+cn+8HAKgnff+n1tjrJOg/NvjpZREd8TLtJPWKD7CxUE42RxxNIASZOV3klXuk97sL9D06m75w3Mla/jrNy8S0j3P6UOAhvLTXgxXOCmzqjmvMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sAvfoUno; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784047822; c=relaxed/simple;
+	bh=kvuYJpjmiJcuDHApbDcKPfJTp80VKSPAsfQMdospI0s=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Ji1727NzBs65S6N3bxcRWN4JNm8ZXMq98+3LoEiRP25W6LsGAV8tldLHuY5wz8VZ2T+usijKoiHCnKB4JlEPU6LoxFlacwkRzI8PO2NjpAD3WG/JJrYOlcqBphRku96mPhdOs7tiRAU0jUB9zIJEYLji5H4JkARnr0RjUMfaQRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kOGTuluP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sAvfoUno"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 023BC1F000E9;
-	Tue, 14 Jul 2026 16:50:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kOGTuluP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D79AA1F00A3A;
+	Tue, 14 Jul 2026 16:50:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784047814;
-	bh=QIGM7e1fLQlWnE7zBp4XTn1rOT119GctsdQEmr16Ros=;
+	s=korg; t=1784047821;
+	bh=bBcOH5Xp0nGyxNlxDj8VQvfB7elAsqkpBFJ7fm1x8Oc=;
 	h=Subject:To:Cc:From:Date;
-	b=sAvfoUnopihbIb/6FcGU2ziB4yEZa7kuw/dmmpXoWxcu3sAl+iftg3AZc68dFxF+E
-	 DUaFP4OsfENyc2xCGk/YJRLY6+fMA2GKhjCKnlbWfgEdtc2QNpJAFMfnVmLI4qmfTy
-	 IzSRTsX5tNXXbQfLJ4i3EwiMAVi3L5YIZRbUdOzI=
-Subject: FAILED: patch "[PATCH] usb: gadget: f_fs: initialize reset_work at allocation time" failed to apply to 5.15-stable tree
-To: tyler.baker@oss.qualcomm.com,dmitry.baryshkov@oss.qualcomm.com,gregkh@linuxfoundation.org,loic.poulain@oss.qualcomm.com,mina86@mina86.com,peter.chen@kernel.org,srinivas.kandagatla@oss.qualcomm.com,stable@kernel.org
+	b=kOGTuluPA6DMnQkop5wilnOM1aowZzW/UdQZ97YNIVZ/gUZ1o3EYTCyRU2dym2PhP
+	 I70kQXH1vXSqfEMJ9F+n2Qg5RP14kI21dGDncTGscoDqk5c5d+y9XIIdsz54KdgJ8l
+	 Ij1Fg4N3i9Tp4Sjyk6oDHKW89p8neYoHJ/bO4nTI=
+Subject: FAILED: patch "[PATCH] usb: gadget: f_fs: Initialize epfile->in early to fix" failed to apply to 6.18-stable tree
+To: nkapron@google.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 14 Jul 2026 18:49:57 +0200
-Message-ID: <2026071457-deepness-vixen-ba68@gregkh>
+Date: Tue, 14 Jul 2026 18:50:15 +0200
+Message-ID: <2026071415-tragedy-purely-e8df@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3137b243c93982fe3460335e12f9247739766e10
+git cherry-pick -x 82cfd4739011bdc7e87b5d585703427e89ddfaa5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071457-deepness-vixen-ba68@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071415-tragedy-purely-e8df@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,98 +62,47 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3137b243c93982fe3460335e12f9247739766e10 Mon Sep 17 00:00:00 2001
-From: Tyler Baker <tyler.baker@oss.qualcomm.com>
-Date: Tue, 9 Jun 2026 15:36:34 -0400
-Subject: [PATCH] usb: gadget: f_fs: initialize reset_work at allocation time
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 82cfd4739011bdc7e87b5d585703427e89ddfaa5 Mon Sep 17 00:00:00 2001
+From: Neill Kapron <nkapron@google.com>
+Date: Fri, 19 Jun 2026 04:06:03 +0000
+Subject: [PATCH] usb: gadget: f_fs: Initialize epfile->in early to fix
+ endpoint direction checks
 
-ffs_fs_kill_sb() unconditionally calls cancel_work_sync() on
-ffs->reset_work when a functionfs instance is unmounted:
+When parsing endpoint descriptors, ffs_data_got_descs() generates the
+eps_addrmap which contains the endpoint direction. However, epfile->in
+was previously only populated in ffs_func_eps_enable() which executes
+upon USB host connection. As a result, early userspace ioctls like
+FUNCTIONFS_DMABUF_ATTACH that run before the host connects would see
+epfile->in as 0, leading to incorrect DMA directions.
 
-	ffs_data_reset(ffs);
-	cancel_work_sync(&ffs->reset_work);
+By moving the initialization to ffs_epfiles_create(), epfile->in is
+accurate before userspace opens the endpoint files.
 
-However ffs->reset_work is only ever initialized via INIT_WORK() in
-ffs_func_set_alt() and ffs_func_disable(), and only on the
-FFS_DEACTIVATED path. That state is reached solely by ffs_data_closed()
-when the instance is mounted with the "no_disconnect" option, so for the
-common case (no "no_disconnect", or mounted and unmounted without ever
-being deactivated) reset_work is never initialized.
-
-ffs_data_new() allocates the ffs_data with kzalloc_obj() and does not
-initialize reset_work, and ffs_data_reset()/ffs_data_clear() do not touch
-it either, so reset_work.func is left NULL. cancel_work_sync() on such a
-work then trips the WARN_ON(!work->func) guard in __flush_work():
-
-  WARNING: kernel/workqueue.c:4301 at __flush_work+0x330/0x360, CPU#3: umount
-  Call trace:
-   __flush_work
-   cancel_work_sync
-   ffs_fs_kill_sb [usb_f_fs]
-   deactivate_locked_super
-   deactivate_super
-   cleanup_mnt
-   __cleanup_mnt
-   task_work_run
-   exit_to_user_mode_loop
-   el0_svc
-
-On older kernels cancel_work_sync() on a zero-initialized work struct was
-a silent no-op, which hid the missing initialization.
-
-Initialize reset_work once in ffs_data_new() so it is always valid for
-the lifetime of the ffs_data, and drop the now-redundant INIT_WORK()
-calls from the two deactivation paths.
-
-Fixes: 18d6b32fca38 ("usb: gadget: f_fs: add "no_disconnect" mode")
+Fixes: 7b07a2a7ca02 ("usb: gadget: functionfs: Add DMABUF import interface")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Tested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Reviewed-by: Peter Chen <peter.chen@kernel.org>
-Acked-by: Michał Nazarewicz <mina86@mina86.com>
-Link: https://patch.msgid.link/20260609193635.2284430-1-tyler.baker@oss.qualcomm.com
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Neill Kapron <nkapron@google.com>
+Link: https://patch.msgid.link/20260619040609.4010746-2-nkapron@google.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 7cc446502980..745c44d251f7 100644
+index 745c44d251f7..d9b95fb830df 100644
 --- a/drivers/usb/gadget/function/f_fs.c
 +++ b/drivers/usb/gadget/function/f_fs.c
-@@ -288,6 +288,7 @@ static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data);
- static void ffs_release_dev(struct ffs_dev *ffs_dev);
- static int ffs_ready(struct ffs_data *ffs);
- static void ffs_closed(struct ffs_data *ffs);
-+static void ffs_reset_work(struct work_struct *work);
- 
- /* Misc helper functions ****************************************************/
- 
-@@ -2222,6 +2223,7 @@ static struct ffs_data *ffs_data_new(const char *dev_name)
- 	init_waitqueue_head(&ffs->ev.waitq);
- 	init_waitqueue_head(&ffs->wait);
- 	init_completion(&ffs->ep0req_completion);
-+	INIT_WORK(&ffs->reset_work, ffs_reset_work);
- 
- 	/* XXX REVISIT need to update it in some places, or do we? */
- 	ffs->ev.can_stall = 1;
-@@ -3776,7 +3778,6 @@ static int ffs_func_set_alt(struct usb_function *f,
- 	if (ffs->state == FFS_DEACTIVATED) {
- 		ffs->state = FFS_CLOSING;
- 		spin_unlock_irqrestore(&ffs->eps_lock, flags);
--		INIT_WORK(&ffs->reset_work, ffs_reset_work);
- 		schedule_work(&ffs->reset_work);
- 		return -ENODEV;
- 	}
-@@ -3807,7 +3808,6 @@ static void ffs_func_disable(struct usb_function *f)
- 	if (ffs->state == FFS_DEACTIVATED) {
- 		ffs->state = FFS_CLOSING;
- 		spin_unlock_irqrestore(&ffs->eps_lock, flags);
--		INIT_WORK(&ffs->reset_work, ffs_reset_work);
- 		schedule_work(&ffs->reset_work);
- 		return;
- 	}
+@@ -2367,6 +2367,7 @@ static int ffs_epfiles_create(struct ffs_data *ffs)
+ 			sprintf(epfile->name, "ep%02x", ffs->eps_addrmap[i]);
+ 		else
+ 			sprintf(epfile->name, "ep%u", i);
++		epfile->in = (ffs->eps_addrmap[i] & USB_ENDPOINT_DIR_MASK) ? 1 : 0;
+ 		err = ffs_sb_create_file(ffs->sb, epfile->name,
+ 					 epfile, &ffs_epfile_operations);
+ 		if (err) {
+@@ -2456,7 +2457,6 @@ static int ffs_func_eps_enable(struct ffs_function *func)
+ 		ret = usb_ep_enable(ep->ep);
+ 		if (!ret) {
+ 			epfile->ep = ep;
+-			epfile->in = usb_endpoint_dir_in(ep->ep->desc);
+ 			epfile->isoc = usb_endpoint_xfer_isoc(ep->ep->desc);
+ 		} else {
+ 			break;
 
