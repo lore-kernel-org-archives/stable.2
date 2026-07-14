@@ -1,116 +1,109 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75EF1442104;
-	Tue, 14 Jul 2026 09:46:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBAC3F9F38;
+	Tue, 14 Jul 2026 09:46:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784022391; cv=none; b=MDotU1dCwdXV5V4bVUa4M4LNYW1MyhsyN0KF8P+thdU6cE2cEEMcglqVj7T/B/74NJnyH8m1GFkKBgYP9/m6VanG951yO2Tpg2FfuOld4Gs+ODQZ6dsEXz1grA2B24TjpBB2+Kd7Z7aqNIik6VjyL8oolOfmbWhT38wB6yhZQuk=
+	t=1784022410; cv=none; b=FwcJfVj8/tH+5+FTne4aWX4PoWbhdGTPDmo2q5xT5Fd+Jt+S9O3Ax3tSbhs2s021BOSNRuq0riLRA2M7v5xT64GC6fxWe8cTqeONhUCYVB9vxmcAS+6p7xGAwLXKeUZs9qIrbxDnnBFpCGZqsUr95mvJtIzF8Kq2gQMNPaV+0aU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784022391; c=relaxed/simple;
-	bh=LpD3hSsQSbbRZ5CV578jTOwyZ1UkrYEYXFXZr54gADE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TIyz90kSUinPN/qB+7vV+N6b+KcGZCp6CM5q3W5N2gxpZVDU6EsJsPKztRs7hDkRw6BN+A1s3qG6RqN2CQCPsKqOiELAoej6X+qXztWVb+gATXUiAmiggrbw0bRooHNS5HMopVjQBiz3DE3HIZjRGZWNDpVXBZmdvG6fDiSEues=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.21.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAnovxeBVZqeJdMAA--.42304S3;
-	Tue, 14 Jul 2026 17:46:07 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgBn+tBeBVZq8ZziAg--.53180S2;
-	Tue, 14 Jul 2026 17:46:06 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/vmwgfx: uninstall the IRQ before freeing the command buffer manager on unload
-Date: Tue, 14 Jul 2026 09:45:11 +0000
-Message-Id: <20260714094511.2960308-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1784022410; c=relaxed/simple;
+	bh=a7VMRw+J+v8nzO2qena+1Qa+1xYq9bL9avRWJ8DcXDM=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=UcFYttBdL8WLWgf4XJijdxgy7lbdY41Q8MQW1bTFNve4ugaSmhMnfUgnHct+EMGt71yYkOHxIdjhf9P837QRydManUEasKQXq3zQyfUPD7qrW9477l87xjUKgCuhlxJ4uuB7e0+PZVnu9+e5EW4kViDunDuxpiq58gmi0ulxwFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wx5oJE4R; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wx5oJE4R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4AE1F000E9;
+	Tue, 14 Jul 2026 09:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784022406;
+	bh=E1UQ1who+MzGJnhRAGQnZjnEvcZY391rlmuNIJbBr8I=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=Wx5oJE4RDEO4dpFV0phT403AjtH8RYoSYzbGWynEUfagmkrDOBkIbSFsS+x53Ry+Z
+	 5EyDiYSdAlSv9M9WXQCsigWqSLQqxT60I3cGYCq+cTtojdHF9mL5k6OUmcHi9JboFn
+	 GEb5fgFiZIjw/cz5FWDvHJte2fMyl2uab32nxlFj2pXeb84lc9s0I0zXS6z3d6SXXl
+	 VP1FX7yrz+0z7UUMLnhbYRTPjdYSiE/+1upFXAxeEEBWrK+9mI+jbnZLn34Nu0FyLx
+	 lh9kNwEY/9P0B8kcjQOWOs0RkuOPBOwgdAthkIV9aVwNzhJUf3oauqhZB02agLe1es
+	 olERYlqWI2iYw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgBn+tBeBVZq8ZziAg--.53180S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?vdbangXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI1wangcCasbKL4hiewR5cEodUhZ6yUbaMs+LPLxbAYu6MGi
-	N6LL0RgrDmJ9zTZyyyj91pEwZzpiCNyjwd4j4xMK
-X-Coremail-Antispam: 1Uk129KBj93XoWxZFW3uF4xAryfJr17Wr4kuFX_yoW5Gr1xpr
-	W3C3WUKr97JrnFvF9rZa92gFyruws5KFyI9FW2kws3Jw15AryrtryYy3yj9FyDCFZ7tF4Y
-	qrW8XFs7uF4FyrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH mm-hotfixes v2 1/4] mm/vmalloc: acquire init_mm lock on
+ huge vmap to avoid ptdump UAF
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, David Carlier <devnexen@gmail.com>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
+ syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+In-Reply-To: <alUUfGnM_vbhOTVK@thinkstation>
+References: <20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org>
+ <20260712-series-vmap-race-fix-v2-1-ad134cc3a12a@kernel.org>
+ <alUUfGnM_vbhOTVK@thinkstation>
+Date: Tue, 14 Jul 2026 10:46:30 +0100
+Message-Id: <178402239024.69739.1681992582238824793.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1415; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=a7VMRw+J+v8nzO2qena+1Qa+1xYq9bL9avRWJ8DcXDM=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLCWMtnZOXOu+4kNGHDhr83f+jpc3x//2kdX9irTVzJ1
+ lqvT5qXd5SyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAi7TMZ/heEXvVdbXTATHn5
+ Vw8+tT+vdm+4V+LvWbF054M3B9t/T21gZPjK4SQ4J9OKY9Nhx39/5+0WvP0neuI64/CWJqVTqp8
+ mmzEBAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-vmw_driver_unload() frees the command buffer manager before uninstalling
-the device IRQ. vmw_release_device_late() -> vmw_cmdbuf_man_destroy()
-frees the manager, while the threaded handler vmw_thread_fn(), released
-only later by vmw_irq_uninstall() -> free_irq(), dereferences
-dev_priv->cman without a NULL guard and is the sole producer of
-schedule_work(&man->work), whose worker vmw_cmdbuf_work_func() recovers
-the manager via container_of(). dev_priv->cman is never NULLed on the
-unload path, so a handler woken in the window between kfree(man) and
-free_irq() runs against freed memory and can re-arm man->work after the
-manager's cancel_work_sync() has already returned.
+On 2026-07-13 17:42 +0100, Kiryl Shutsemau wrote:
+> On Sun, Jul 12, 2026 at 11:42:24AM +0100, Lorenzo Stoakes wrote:
+> > Currently there is a nasty race between ptdump and vmap when attempting to
+> > map a huge P4D, PMD or PUD entry.
+>
+> <... skip 145 lines of commit message :P >
+>
+> The code looks good to me, but I think the commit message needs some
+> love. It is long, and the pieces of the story are scattered: the race
+> itself only shows up around the middle, after several paragraphs of
+> ptdump background (including the arm32 and EFI notes that the text
+> itself says are not relevant to the bug), and the one genuinely subtle
+> part -- why the read lock is sufficient -- is not spelled out at all.
+>
+> Something along these lines would be much easier to follow:
+>
+> 1. The race, up front. Diagram, if we you feel like it;
+> 2. The fix, and why the read lock is enough;
+> 3. Why a trylock;
+> 4. The arm64 wrinkle and the temporary ifdeffery patch 4 removes;
+> 5. Secondary changes (guard class, walk_page_range_debug() assert);
+> 6. History, if you feel like it.
+>
+> Point 2 is the one I care about most -- the same reasoning would also
+> help in the comment in vmap_try_huge_pmd(), where "Therefore, acquire
+> the mmap read lock" is doing a lot of unexplained work.
+>
+> --
+>   Kiryl Shutsemau / Kirill A. Shutemov
+>
 
-Reorder the unload path to drain pending fences, then uninstall the IRQ,
-and only then free the manager: free_irq() guarantees the threaded
-handler has exited before kfree(man). vmw_fence_fifo_down() is called
-explicitly before the IRQ uninstall so its dma_fence waits are signalled
-by the still-live threaded handler (vmw_fences_update() in
-vmw_thread_fn()); uninstalling the IRQ first could force pending fence
-waits to time out at VMW_FENCE_WAIT_TIMEOUT. vmw_release_device_late()
-is left unchanged because it is shared with the hibernation path; its
-existing call to vmw_fence_fifo_down() runs against an empty fence list
-after the explicit drain above.
 
-Fixes: ef369904aaf7 ("drm/vmwgfx: Move irq bottom half processing to threads")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Yeah that's fair, I will reword!
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 599052d07ae88af2f5775f968fe1e7046a3efe4e..dbe02fe8d8571587733d6f002436bf18dac1887a 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -1181,10 +1181,11 @@
- 	vmw_devcaps_destroy(dev_priv);
- 	vmw_vram_manager_fini(dev_priv);
- 	ttm_device_fini(&dev_priv->bdev);
--	vmw_release_device_late(dev_priv);
--	vmw_fence_manager_takedown(dev_priv->fman);
-+	vmw_fence_fifo_down(dev_priv->fman);
- 	if (dev_priv->capabilities & SVGA_CAP_IRQMASK)
- 		vmw_irq_uninstall(&dev_priv->drm);
-+	vmw_release_device_late(dev_priv);
-+	vmw_fence_manager_takedown(dev_priv->fman);
-
- 	ttm_object_device_release(&dev_priv->tdev);
-
---
-2.39.5
+Cheers, Lorenzo
 
