@@ -1,72 +1,76 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA551386443
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 11:50:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD57938A728
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 11:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784029835; cv=none; b=p9Fp+iMzgPY5rfujORmQbfED/BhYLceTm9D+O2E9rqfrbqWi2b0tPD5fEgE8o1L1wKbYO03psAD7BaCOQRj2ONWDZkWCkmM3Y9YXSf5mm3fRqYK2CcBBC7rp+1rrIXjRghNzYmi1x8+EoOKsCj4G6bMzBRtRx2RSA+uIbeHdan4=
+	t=1784029908; cv=none; b=SsoECyJAwc9AmbofQ/qemUWiGFkfZmH1SqZq0EhAVudFtkBDFD6855y+DSSnhobe4Idlpb/P3r+P2BTnBAQYA9a/i3IIgbjSdRGE8ATn0+kFJSVxYballnRcmQCbPH1paXxWTh+4gDXN/C5OFB1mGsvIptr1cW2tAqR016YcvwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784029835; c=relaxed/simple;
-	bh=XKxW2TQY+X13rVob3xUUT3lxqULNnyORDzPC22ICKMw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cd6dXyLh0c+uHRvO2c9sXI7A93NIQX11cNUQQolLOFC84sPgPx+7y3Vq1xSzFX6PngV30fZW/roKm0WHAf6y51Qst+GqJ2CcFC5MA+6gMtfrB4YxuRiydgAnI0H7/IcI9uFRXPBwQRTXke9fRXxC9MYtKTgvi104nJ76COhKCoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lnI8Kc+F; arc=none smtp.client-ip=209.85.219.52
+	s=arc-20240116; t=1784029908; c=relaxed/simple;
+	bh=JpnDZ8ql3IabuVoCGMVqUfzzVcIrlI9D12dRWum7fzY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q1jC/PYsgkq97ynduVOmdJUqFv5ifxZvATVQEx1CNGCHU2d2z6JTa9cqF0HfDiBehOLEVYQa2wcybHYSZYHCaTcRLZq/QLwaLeki0qyWDwaJEV9gY3op0Q2cOFkzGr/Ccm9l4M1/WS/lNq7BtcAG4ABQyVBf9d14FrZEmwRdeW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CRVhmLQX; arc=none smtp.client-ip=209.85.222.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lnI8Kc+F"
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-8f29ec73064so36791516d6.1
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:50:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CRVhmLQX"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-92ea24a2dbfso315323485a.0
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:51:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784029832; x=1784634632; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tfheTGlygVpDVxAIMsoMk40gZJxut02XkQ4/10VORUc=;
-        b=lnI8Kc+FHIlU/SzUIjtKC35t3tpoYF0etvziPGwVeO6vp1/KJhOSn1/qQdGzm6mCZy
-         cP9nojO1WzaGO7LD1+4guNzWoGnUC90M5DgizB0xEXhb80lcN5SCnUnmLm/BVpuFpoUT
-         P9rW4UgwwDFZbtSPzq0YYYXAdzfy6cV9la6oE56DZcX6ifm+UekU+uJ/w4qvNFr/sgjA
-         jX3UzzFz+xwm4xG9yhWTHOXLR884n+ULxVnRP+O0xuyvN8JxfpblpaAjQQ/rJS3GjynY
-         sDojcbyiKszOQ7tCkSK3YkxdBGvnDPYoUR+SVK/3L5+dGv0sW7k8I/SYBc4cPW8hg14n
-         XT0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784029832; x=1784634632;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1784029906; x=1784634706; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tfheTGlygVpDVxAIMsoMk40gZJxut02XkQ4/10VORUc=;
-        b=kOrYI2ibLmF6yhl33YXgHXdrnxINvf/vzRiM47+4MzNyQg136pnFxsaIiEMhK2Tv/M
-         a2902hMAnHBk/dozulb12etARNadLXYtInDueklUinF+1lF2Kr6e2XYyGuE0VrphKC6i
-         OIZY2WlAjxhwcf53cYI/sy67A8Ft/DpWb5+hNmKBJIwQhrgQ2Q7tOdwb4knjDA3iMhiO
-         Lb1NFg8MRvITFRhJmIDdmiPPoIbWmlJRp5FWXij57XCoIzCJgqeFqd/G0A0i0uRoPzs4
-         4K7whBNuorloYJpvShNHd5oAdOtIcJKMs9Agl9NbV9xNHi9+ak8azjEh1z2e4NWiXs29
-         CDvA==
-X-Forwarded-Encrypted: i=1; AHgh+RpW2mLjGjxFKQJPMgJWOlBhltvvpqX51KfW8IfXGN+CawgiARm8vLuBXrh0FdRksTai5c5WErU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzxZT4yy2Au3UdZE6P4l9kHGeR+WpYdHXHQR/bPxxqR3A0ESkLN
-	fFtp3jpO927qKobNvCgshbDqkbKOgzIAHkaCRftV+j+r9QTqxMwvQyIF
-X-Gm-Gg: AfdE7cmtpJ9We9i8zrmHlX+Jtkuq3RlpnSsq6Masvmdd9Qp0EwTEvCBli2Bpx7qZcb5
-	wNtQ9IlU8rnZeQq5eljCQUaDbC5OIxNhX64TTVYM0PVn5zN8jNrsz9/8Ov6qfIZFh6hmwCAT8AB
-	RXmLy6Dw/6XB/Uu6zGQGEWLBgx1D61cnuVyIn1I3cr/Qk4wMWBjXXbDVUD/CX1cRrtDxWaq3Zha
-	DrR2U+0J3lWTw5l3K62Xy15SVnphjpP0RZPxWkjhDBIaYPGogX5d5O97TmsvfA4Ha7w4bKg4Vp9
-	0Ac3avo81ipDMsllY+hrVJvJ/BeyhWNvppQayFWe/fIIOLKP2wyHkPZ/1yMO+C/fnFgj9uKw4oa
-	7pb42cZ3BLMssblzJG96pF2mH0m+TOZCrdKNkoUOZ5z2VMOa0S98xJIAeaZ2kzEaJAhxq544RGC
-	QdyH/SIAiXGVHvITipmdgrx6tT76nObxMpIPvGISw5tAak0WcvvUr2QIWOW7u6TuPOkKBjc3XF2
-	tuwjZFRTg==
-X-Received: by 2002:a05:6214:238c:b0:8fd:7913:b345 with SMTP id 6a1803df08f44-9074c73cd81mr19960516d6.22.1784029832510;
-        Tue, 14 Jul 2026 04:50:32 -0700 (PDT)
+        bh=9p/+/UmywR6wfRNM0SB+tDIf7SPmlvrUuoPqzMH3Bt8=;
+        b=CRVhmLQXuYhcFRtawFDba1mWcn4TLI7Fvbe9G0vaiskeR7OGKsIbUehmcqtEQgN4lc
+         xs6aKQQ7ivcDrDSwcR/OyRfAkJvdmBLGPftqJ+NwhhWfRyzHWGDNCfLaUFHCU8cj3Q/l
+         cscvRFLY0Tl3/T1y/huqIlDBtp/HI39b9retGyyQHhYB7tXUdx4XiOHvhs0KqcXuO8CP
+         P6IlLNR/dPVkVFYtIRGOHbdug6FtMmdL1vEprxRMktiJT6D0lCRygE11p7LrwU3kVYRU
+         WIn28rmJAqZCFsxc6PYI7XMtrbOYwTTGn6IOAP5kxIu8FWEUujEi8tDgMUK73jSWcWD4
+         OxVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784029906; x=1784634706;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9p/+/UmywR6wfRNM0SB+tDIf7SPmlvrUuoPqzMH3Bt8=;
+        b=VsZgWlEQETjAQgIjSx+3JPJg1z2IZb9weasufU9LckvzMfPOfoTYxOwWoypFTtwaol
+         cu5gCGnoFYjP/H/HY+j0JXr9LGapgC7qYIGzIdsQqsh2FVzbnAm3tOYEcy9SVaeiMias
+         oWPonpCIEu9XqVs/tQ3Tz+SZLKw4K1gYtIjs0G3z51BeUMzG+Pz+q267LKjqD/2BEIUe
+         L6dC981syU+qteAFzNjmpRxVdH9wyBLaJDLQP9dsK4epRtZ1e2ZcpyK6GUYlKax+ds3r
+         aEVIljoxtKcrpehAqDVpSrIvfWiuRSytelwY5DAAYjhrZnXqu71MtN2qnJ0dNl9nZyLu
+         vSGg==
+X-Forwarded-Encrypted: i=1; AHgh+RoCnzWfyVOGrXATNvo9y1FMg/tDUJOprPm7BBqrBFwQ3N9NkIJelMN58L9QSNTwjC4gyxVHiBM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxbi08R3NCbvacRDPzIXgqtXoTnjyzrwwejSaTaD39bpLSdAYE/
+	O/F3jy1on8+0InPdpI2KC1+IbSJnoiWcHBUnSSiECSiyQzrzv2yLJDrc
+X-Gm-Gg: AfdE7clJdPd3k2WsmvfG+j1BQHx0lPu9qXTUdIFN2eE3xIPhJH3A2qUUBuUYXyFtXCn
+	T4GFryIBsmwGGdTiHZ16lrE8cwMVTouCT+4oEqQZTH/JzXi6qE5q+E2PFICGGTNfoZ+EPO78emO
+	ov88EivFFJAKLsFT8a8bGDhqIgOxdoVg1gDxfdCLrk4ic7BOKejaT++Zy/dwz8xVFJh/iAcNseQ
+	3Ra50O+ANoA0dv1TCaEKuGk4U+oZunhclSgIthdfxqXvIar5C25nfmG6T623XerQzBBhxx/EpYN
+	vkb6nLlmRAxXcm7rJ/EK/zZZv/vqK1ie72kfnxqp3PTJVG0U6QbHvP8dVcZ6Un4NlCD/0rZakpl
+	ggmpboiNStwE8qwAH/iKnw50RxH2/EFckoCBQQIrw/izRttPlqFzVi69FRMxvmk8k58AL3G6dtc
+	3FCx6GkAe0tg7BEDamrPgF5rz+/lVfRn7t5PATYo/zFelmeh8/NkdAfQCgqLXlQurvNdLDVIDcv
+	ZsJn2CA7w==
+X-Received: by 2002:a05:620a:2790:b0:92e:c117:9eae with SMTP id af79cd13be357-92ef2e57c99mr1073038685a.92.1784029905785;
+        Tue, 14 Jul 2026 04:51:45 -0700 (PDT)
 Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd82ea876sm168065016d6.40.2026.07.14.04.50.31
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5d6c28bsm1479415585a.46.2026.07.14.04.51.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 04:50:31 -0700 (PDT)
+        Tue, 14 Jul 2026 04:51:45 -0700 (PDT)
 From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Cc: Andrew Price <anprice@redhat.com>,
-	gfs2@lists.linux.dev,
+To: Ilya Dryomov <idryomov@gmail.com>
+Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
+	ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2] gfs2: reject an over-long directory entry name in gfs2_check_dirent
-Date: Tue, 14 Jul 2026 07:50:27 -0400
-Message-ID: <20260714115027.3765869-1-michael.bommarito@gmail.com>
+Subject: [PATCH v2 1/2] libceph: validate OSD extent maps before cursor advance
+Date: Tue, 14 Jul 2026 07:51:39 -0400
+Message-ID: <20260714115141.3768034-2-michael.bommarito@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260714115141.3768034-1-michael.bommarito@gmail.com>
+References: <20260714115141.3768034-1-michael.bommarito@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,66 +79,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-gfs2_check_dirent() validates a directory entry against the space in its
-dirent record but never bounds de_name_len to GFS2_FNAMESIZE. A dirent
-with a large de_rec_len can therefore carry a de_name_len far greater than
-GFS2_FNAMESIZE and still pass the check. That length flows unclamped
-through do_filldir_main() -> dir_emit() to the ctx->actor. In the
-NFS-export get_name path get_name_filldir() copies the name into the
-fixed NAME_MAX+1 byte buffer nbuf[] on the exportfs_decode_fh_raw() stack
-with memcpy(gnfd->name, name, length), so a crafted or corrupted on-disk
-directory overflows that buffer.
+net/ceph/osd_client.c:osd_sparse_read() validates that the sparse-read
+data length matches the summed extent lengths, but it does not validate
+that each OSD-supplied extent is monotonic and lies inside the original
+request range. A malformed authenticated OSD reply can advertise a
+far-forward nonzero extent offset with a matching data length and make
+the client advance the message-data cursor beyond the request buffer.
+This reaches the BUG_ON(!*length) assertion in ceph_msg_data_next() from
+the client receive path.
 
-Impact: an out-of-bounds write past the NAME_MAX+1 byte name buffer
-(KASAN), reachable when a gfs2 filesystem carrying a crafted directory
-entry is re-exported over NFS and a file handle is resolved.
+Impact: A malicious or compromised authenticated Ceph OSD peer can crash
+a kernel Ceph client via a malformed sparse-read reply.
 
-Reject dirents whose name length exceeds GFS2_FNAMESIZE at the read-path
-check, so no over-long name reaches any dirent consumer.
+Reject sparse extent maps that overflow, move backwards, overlap, or
+extend outside the original sparse-read request before advancing the
+cursor.
 
-Fixes: b3b94faa5fe5 ("[GFS2] The core of GFS2")
+Fixes: f628d7999727 ("libceph: add sparse read support to OSD client")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Assisted-by: Codex:gpt-5-5-xhigh
 Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 ---
-v2: move the validation from get_name_filldir() into gfs2_check_dirent()
-    on the dirent read path, per Andrew Price's review, so every dirent
-    consumer is protected rather than only the NFS get_name path; and
-    correct the buffer description (the destination is the NAME_MAX+1
-    byte nbuf[] in exportfs_decode_fh_raw(), not a GFS2_FNAMESIZE buffer).
-v1: https://lore.kernel.org/gfs2/20260711150845.gfs2-getname-v1@bommarito/
+ net/ceph/osd_client.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-v1: https://lore.kernel.org/gfs2/20260711150808.2919076-1-michael.bommarito@gmail.com/
-
-Evidence: a crafted gfs2 image with a directory dirent whose de_name_len
-is 300 (record length left valid so the existing size check passes),
-resolved with open_by_handle_at() on a KASAN + KASAN_STACK kernel.  Stock:
-BUG: KASAN: stack-out-of-bounds in get_name_filldir, Write of size 300 into
-the NAME_MAX+1 byte nbuf[] object of the exportfs_decode_fh_raw() stack
-frame, via open_by_handle_at -> exportfs_decode_fh_raw -> reconnect_path ->
-gfs2_get_name -> do_filldir_main -> get_name_filldir.  Patched:
-gfs2_check_dirent() rejects the entry (name length exceeds GFS2_FNAMESIZE)
-and the handle resolves to ESTALE; a valid name still reconnects.  Built
-clean, no new warnings.
-
- fs/gfs2/dir.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/fs/gfs2/dir.c b/fs/gfs2/dir.c
-index 0237b36b9eb16..905b658a05177 100644
---- a/fs/gfs2/dir.c
-+++ b/fs/gfs2/dir.c
-@@ -521,6 +521,10 @@ static int gfs2_check_dirent(struct gfs2_sbd *sdp,
- 	    unlikely(sizeof(struct gfs2_dirent)+be16_to_cpu(dent->de_name_len) >
- 		     size))
- 		goto error;
-+	msg = "name length exceeds GFS2_FNAMESIZE";
-+	if (!gfs2_dirent_sentinel(dent) &&
-+	    unlikely(be16_to_cpu(dent->de_name_len) > GFS2_FNAMESIZE))
-+		goto error;
- 	return 0;
- error:
- 	fs_warn(sdp, "%s: %s (%s)\n",
+diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
+index 2ff00070c1810..76ba3abdad9b1 100644
+--- a/net/ceph/osd_client.c
++++ b/net/ceph/osd_client.c
+@@ -6,6 +6,7 @@
+ #include <linux/err.h>
+ #include <linux/highmem.h>
+ #include <linux/mm.h>
++#include <linux/overflow.h>
+ #include <linux/pagemap.h>
+ #include <linux/slab.h>
+ #include <linux/uaccess.h>
+@@ -5799,6 +5800,31 @@ static inline void convert_extent_map(struct ceph_sparse_read *sr)
+ }
+ #endif
+ 
++static bool sparse_extent_map_valid(struct ceph_sparse_read *sr)
++{
++	u64 req_end, pos;
++	int i;
++
++	if (check_add_overflow(sr->sr_req_off, sr->sr_req_len, &req_end))
++		return false;
++
++	pos = sr->sr_req_off;
++	for (i = 0; i < sr->sr_count; i++) {
++		struct ceph_sparse_extent *ext = &sr->sr_extent[i];
++		u64 end;
++
++		if (ext->off < pos)
++			return false;
++		if (check_add_overflow(ext->off, ext->len, &end))
++			return false;
++		if (end > req_end)
++			return false;
++		pos = end;
++	}
++
++	return true;
++}
++
+ static int osd_sparse_read(struct ceph_connection *con,
+ 			   struct ceph_msg_data_cursor *cursor,
+ 			   char **pbuf)
+@@ -5856,6 +5882,10 @@ static int osd_sparse_read(struct ceph_connection *con,
+ 	case CEPH_SPARSE_READ_DATA_PRE:
+ 		/* Convert sr_datalen to host-endian */
+ 		sr->sr_datalen = le32_to_cpu((__force __le32)sr->sr_datalen);
++		if (!sparse_extent_map_valid(sr)) {
++			pr_warn_ratelimited("invalid sparse extent map\n");
++			return -EREMOTEIO;
++		}
+ 		for (i = 0; i < count; i++)
+ 			len += sr->sr_extent[i].len;
+ 		if (sr->sr_datalen != len) {
 -- 
 2.53.0
 
