@@ -1,223 +1,159 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C2D427FB7
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 21:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784065405; cv=pass; b=W/44BC54orleXoDmFw/+YSzJfWKzaGz/wzRVEgeXPyDv1RE7fiFnTk26Z9EXQs7H6wFHQb7G2MTinYPy57x/GDRtuBiJR+ZpEWL8zXRtQX1H1/5z4ohTWt9xTX3/xAZNxRMb3LabXPqu0jqO7Kcgdhe0pYHZJk3vQn+ChQYZ9VM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784065405; c=relaxed/simple;
-	bh=4aQTdtO8KYad2za5eRHJV5vDJ+EA563EbVWpaDplWy0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S8idPAcp9WhJav6iKKJs+36zD8265ELKY2oXDDJ33kI+PWC/4Jr3FG+4cmsi3rtO7+z+WbDVwJaum4qSz6Np/8ILOCaK+orTF5k2jjr4KuulhT3IpwL1HE/3+05G9kbfIlGad7LObA1MyNqAd48bIUQvBJeLN81IH3i1VJ6Qwoo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ck2XzSsp; arc=pass smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5326D2931D7
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 21:56:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784066178; cv=none; b=Cu8n4E8r5ugF7KD2j6YSQ6mH7xJFfOzt3GXiWXYpk3QALAnsZIsvoBQ5bFzPvaZXGh1pX3et8ZwIQdgkBXux6BobUge99c5VxLX4hb1LTsGhPLbe6X2WrNA8AIaCy2DdbKyhdr7BfG1Uhwnhlyl4gFEJoHsQlHK6JsgcPLhdLzk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784066178; c=relaxed/simple;
+	bh=/AfF9I8r9L88QBqEXJ+knjHCrOUZXwHF9Mjcs14h22w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VYKwLtfUStQ4+gGGXreIkwJScgC5ABDL0/de5ogA4fP7SqeowkwfcowM58Q8qa2P5iQ6Qw3QTh+KdIfaC+76J3khO5Vp7sHJ5y33ge/53qzoikp3astJoli8k48RFx5QWG0zsQUkNuxhCHelm3l5WBf1q8mHjb1Q7L/g3c3hOqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=DREa4cm1; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ck2XzSsp"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-8eeb4508f29so48677966d6.0
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:43:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784065402; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D4oHBQrxp9TIkeksp+PqnHeJTrJbtKOen9NGHUcHj964y8o7zxzNnmJYzb8NnQqGwC
-         0jJmR+60W2BumlD1a/Z6kszgF2hlogmka6OBIOc72pQSpRX0rmYM2lv/aLO5/Zz5Ee0R
-         JsnWqSqI0JXbfyT5FnScesEsG35rkWC0YMpTE44XsUvHCAQMdZFGDorBLbl8Ou1jGag6
-         cZkPOKUqf2HCrJzSXCbZZCkbGKXEP4bMctl0oNa6VT9lErz+ccidh1ArOwteI+VJnkTw
-         YvuZrLPrJOGyzFlhwCnt+HKl4pFmdce46Gm1lzdo6OLupgcaXAbqX16tJYhRQJHZcS7X
-         UDyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ce642oQbZs1xv2ArVXz4HBvznk2bFGiA93O2rqosIw8=;
-        fh=Ikb93n7maT/9Fe+n1AstQTa8uQSinIBpuViCXRx/TSw=;
-        b=XYakE5DlS8ONEvJlSNrMdv0tL3ed1pvrRycpv5qemGo36W88oJ6J921UHhbXBNH5LM
-         0TaIiZ8iBoU389Z2uJUiAQ8EPz8VsgFLfIbNhEeCH+q96FlMAISYNTCzerQ3Ntw7N5YQ
-         4s2F7AWT5GGMemsWmz8VJxD7cAO9szdLTWgCQ2whEHv74lx6bAGeboP2Wn1cku1CujKK
-         MbOhtOCNFM8xUhoMtYVKmEBgudti5hnsl3Qw2uGWy09TrZcdmI1f2EROiMHs53HPJtAc
-         EwufBCS47tfwDDdRAWdheJRXeAWC4NlVCyiIrAj5ZT98TPHqTQJkV6HprDBt28Pe7N06
-         jlZg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="DREa4cm1"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ce98cb8165so15007585ad.1
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:56:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784065402; x=1784670202; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ce642oQbZs1xv2ArVXz4HBvznk2bFGiA93O2rqosIw8=;
-        b=ck2XzSspYwNM4eJ51SHo7NHV2Amqvp6V9bFrF5+WZ5eUqOQGc9qk62BrVhjp6QAyQ0
-         rn7U7Qd42bjIgQnLLpiaD0k9tvch8qhJYixCe+KnzQtc0Ve4ba8tVCsGd83PJT8091eL
-         1tjEbJJ54/SJUjIAEqL8WaC0ljzKB5IUxwQbsZeRS7LE169DR87rvTYHHaJ41AMxDOeI
-         Xz2lZ95Y5i5hj83OxF6Gc7OBXlKthbgw2FAy0eWFPEQu4NeXAg2R9FuJduRBI5wUX+Yo
-         NJ1P68lVbQJKGoCkP805LvZUWcEaKvzB+NhFJykqKj/FEVzc1fq7qaa4V+RPDnHg0FUt
-         ZX8g==
+        d=asu.edu; s=google; t=1784066177; x=1784670977; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a3bMWS4b6GGm8PZgGzkoAOMcuJeTSNNgmOihDM66PlI=;
+        b=DREa4cm1m9Ylo7pKIQDsuRve4bsUFOEFus+ELhJDsYeTdBv4ZmbfoFXRBZntrl0Sff
+         oRKEmy3QGgnHQangciwzBVKJEi2lKt0raXk3YAvj2hfzG2NnCwO26KGdMiTQvaPr0WHN
+         Wl1TGVZGSyBpkc7XcZlKDCQbzEa1kpT9dKWJ1Hemcp32RnmRZXRTKGlVMvmICJwjJ8F2
+         e3TC/E87pg5MrDKBrZSs9wsf/pWZtf6mOvoReIJvM2WO4y3Jg+XrxfXV1KZOyqUc8mpU
+         J2pgaVRDfNLZwUY68Ogm0U3xsXQWYGqIGu6ycGM9cJ+hymr0oJixMJ+UlrF6ZbHK5YS3
+         c2Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784065402; x=1784670202;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ce642oQbZs1xv2ArVXz4HBvznk2bFGiA93O2rqosIw8=;
-        b=SAiySEgxQ0pluLEHYylyEKmOEgwu5oFktp1CXNN0JVj9qa3O5hiszrNktD/9uAWg9J
-         JOI80C9RvKyNGNeaeKRjtnxvCwz87Mia2QD2yWB9N9GRBc0476Xk6HBaNC+DbP60ReL5
-         GzQBxeZh+SoCU2MLZmh3Djb7xnkOXhGmBWwzRRXAHx9VZpaPMPNd1fRt3DA4q0qOm5LB
-         8OSbYso/7s7sw2rEKVPlEhE34arbXerTd9IBOpXkzEMbot4fcUnuNY7zR57lUqctnxRx
-         p372As5Yl5N2B8Ae43Jo9kHNVWWje65yWGx3lH6qPSZkC7YJ8YstVwR9HCjU3uJNW2V7
-         oEOg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq+rUCy/cCErc3A00vYqUMXorTUcSFbnXEOlXLUk9m+ZPpEdTpOfrjZm8VZDKw2TEgppC8vCy0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzmEcQp3LaKAhA4/qCxJEo+pnlQZ4lXLj9cb0etU62SUVkJIAmX
-	qcvIJ4MHSlpZg0khow+Z5MzhVCAGXG1QtONwWjE0LmP/TauIUD+bxaSjhBVvdvMPfWQkT+DD375
-	o5jzR8pDrF9GFsov2J3IDlr4WzixDTXw=
-X-Gm-Gg: AfdE7cn2+Co0BwaYaeUhvRVurSQhilYKb56uIz2QasQjHAkxJNt/tQXa6RriCZEvY+5
-	YaFff9aHcvjho60fvJxG6erbgmi8elynvkVWDE6Z5djoQdSNd7ZQWDTkkKOFT6keARsc8XsRbzY
-	1mMY1inT93bqpdSgbECsg1neNhbLs1QQm9oG4N/V1UlggKOZ3XVR4dtNGudjC/tyGRvlcT9koC7
-	9IjGYXUm4NLH/qmnN/4aAapT5J+QeHcLdJ7cpVSdcBchtJ+Jmd2aHR7Hc9odJI8v6jFNbzx3H9w
-	iQaNUIkg5ttBxogdlXskSbRniR9NoIs5G41SO4Jpj+N7Vll21ni3CUmvPmk21B1nMNzyc7gtQpZ
-	8qVZak0glHrZHHduWOoTaOaoSUrOCTuu7zyjvs59gAgcg3vKO8gtO6R8W4GZKZdAeLOCrtLPJsm
-	nXowMQLL3hTg==
-X-Received: by 2002:a05:6214:5c0a:b0:907:5613:96ba with SMTP id
- 6a1803df08f44-90758cbeefamr4194226d6.1.1784065402390; Tue, 14 Jul 2026
- 14:43:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784066177; x=1784670977;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a3bMWS4b6GGm8PZgGzkoAOMcuJeTSNNgmOihDM66PlI=;
+        b=n+tsnJOBtBtqz0GQH5Xz7I9VS4kpUBptAUiTuU0gA1REQCiKcc2pmFmfyEheO60NdU
+         sIB+5q7MfTadjSsWfqLIGY/lmIBXb7Byh5kDyvVkVT6Ja9XJtuCWs9YV5el627y35eqb
+         i1opCMtbgDtD9ZnKijS1FMKccycID0gBi1LgPge7+XmJABbJYsDSm72XefCnBzRazf/h
+         UmEqYdy8RO+gLgcSM45kf/SpnGd3P7eojx8TdcmXWS4wGCmb/bGvfXsfc5hacsTAOykY
+         3faZgW+Fl8nUr7hDG2dANX5CY5oNhVPVBoa6LkIbdGGCTBabzMpiRRrVnjsWAOO94YWh
+         rdPA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq8n2syFAHKgaldqaGgyD6OI69aEDLzqpBMGX/bR2CJHp3HQF8QhYBB963t7OnjLZceLBm+1po=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzIbfhgHL/vD4q8oklBRK23oYlMkz2/9k6UTMKX2g6Xxf8Qqcr
+	0EXMwuVf69T5mxxqbrBKfQgvsF+AZ1BtLgSy0ugvysmjQoPHfyVFvI1iq7QKd1XelFPn46h3Q0A
+	nQutsYg==
+X-Gm-Gg: AfdE7cm1Jy8wnnxCE8RLBT84AuUt6OouRuO+H7xcEa94ai/xCLxmbKFSq29Z18y3Eve
+	ThSvwFkQYstJtaj8dEFQI86BmakWf7EJ+Q7FRTmlHbEx64fzcb0hX+W9xNMzLvR4jZle3zXu/J2
+	UUXoOljv0XX2P71HnsNll6f4SSpk8oIU/3kCOyRqcOXCQHycQYsH6B5SO2xAZfTas/lh6SmZqQp
+	vgM5ybpIIej+2XrzbaIU4/QzbCV4FgPVcjbB8d2+rI8+JyldarGERTiYXNnstq5VFtQ1ZPdeBp/
+	OUMiZVz9M65WoDVhrNzaIl3ygDyJJHjP17rdQTNEoHUWlqXjY25NEgAX7stv/+Z/0GyyF6TS8y0
+	2TPKhU5vAndOAO+iLW2wWf9PJtq2P0sn6WhTmfLi57+VciBCJfAwqQxpXpfOCOr3PNPb2uMPI8y
+	hCMWYfqB4=
+X-Received: by 2002:a17:903:298e:b0:2c9:97a7:3283 with SMTP id d9443c01a7336-2cea187c0d0mr144303245ad.23.1784066176736;
+        Tue, 14 Jul 2026 14:56:16 -0700 (PDT)
+Received: from p1.. ([2607:fb91:153f:24b:150b:bb6f:1d25:f03e])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bf77e4sm122119835ad.22.2026.07.14.14.56.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 14:56:16 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: "Darrick J . Wong" <djwong@kernel.org>,
+	linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bestswngs@gmail.com,
+	Xiang Mei <xmei5@asu.edu>,
+	stable@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>
+Subject: [PATCH v2] xfs: fix off-by-one in rtrefcount btree root level validation
+Date: Tue, 14 Jul 2026 14:56:12 -0700
+Message-ID: <20260714215612.1528518-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709155440.2132459-3-doebel@amazon.de> <CAH2r5msvEGdEJvyV5sWcZjQ0SjMOwXP_Ad4eKN7etHtXS1vwbA@mail.gmail.com>
- <FR5P281MB509177A7DE157E6D72EC05B3CFFD2@FR5P281MB5091.DEUP281.PROD.OUTLOOK.COM>
-In-Reply-To: <FR5P281MB509177A7DE157E6D72EC05B3CFFD2@FR5P281MB5091.DEUP281.PROD.OUTLOOK.COM>
-From: Steve French <smfrench@gmail.com>
-Date: Tue, 14 Jul 2026 16:43:11 -0500
-X-Gm-Features: AUfX_mxGET6Hzdo3BRy4X2zGh1cwSMHd2R3p0A5ZfqRGr6sFuXPsooE4k766PEY
-Message-ID: <CAH2r5ms-_Z1c3twqt8i_syyXpi1jtBJm15GuvRhUXEk8BVwAQw@mail.gmail.com>
-Subject: Re: [PATCH] smb: client: set SB_I_NODEV to prevent device node injection
-To: "Manthey, Norbert" <nmanthey@amazon.de>
-Cc: "Doebel, Bjoern" <doebel@amazon.de>, Paulo Alcantara <pc@manguebit.org>, 
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
-	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, 
-	"linux-cifs@vger.kernel.org" <linux-cifs@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"samba-technical@lists.samba.org" <samba-technical@lists.samba.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, linux-fsdevel <linux-fsdevel@vger.kernel.org>, 
-	David Howells <dhowells@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-If this is needed for cifs.ko wouldn't this also be needed for AFS,
-NFS, CEPH and others?
+xfs_rtrefcountbt_compute_maxlevels() sets
 
-On Tue, Jul 14, 2026 at 11:23=E2=80=AFAM Manthey, Norbert <nmanthey@amazon.=
-de> wrote:
->
-> Hi Steve,
->
-> The issue is that the client takes the device node's mode straight
-> from the server. So a malicious/compromised SMB server can define a
-> device node (type + major/minor + permissions) on the client that the
-> admin never created and cannot otherwise constrain -- the only knob
-> left to block it is the "nodev" mount option. That's why we introduce
-> the change using SB_I_NODEV here.
->
-> We did analyze the CIFS code, and found this missing security checks.
-> We have a reproducer that allows a malicious server and local user to
-> elevate privileges by introducing a new device in the mount.
->
-> Best,
-> Norbert
->
-> ________________________________________
-> From: Steve French <smfrench@gmail.com>
-> Sent: Thursday, July 9, 2026 7:20 PM
-> To: Doebel, Bjoern <doebel@amazon.de>
-> Cc: Paulo Alcantara <pc@manguebit.org>; Ronnie Sahlberg <ronniesahlberg@g=
-mail.com>; Shyam Prasad N <sprasad@microsoft.com>; Tom Talpey <tom@talpey.c=
-om>; Bharath SM <bharathsm@microsoft.com>; linux-cifs@vger.kernel.org <linu=
-x-cifs@vger.kernel.org>; linux-kernel@vger.kernel.org <linux-kernel@vger.ke=
-rnel.org>; samba-technical@lists.samba.org <samba-technical@lists.samba.org=
->; stable@vger.kernel.org <stable@vger.kernel.org>; Manthey, Norbert <nmant=
-hey@amazon.de>; linux-fsdevel <linux-fsdevel@vger.kernel.org>
-> Subject: RE: [EXTERNAL] [PATCH] smb: client: set SB_I_NODEV to prevent de=
-vice node injection
->
-> CAUTION: This email originated from outside of the organization. Do not c=
-lick links or open attachments unless you can confirm the sender and know t=
-he content is safe.
->
->
->
-> Setting SB_I_NODEV is apparently not done for any remote filesystems,
-> and AI search confirmed that it probably isn't a good idea to set it
-> for remote fs.  It is more of a thing in pseudofilesystems and not
-> needed for network filesystems.
->
-> e.g.
->
-> "Is there any benefit to setting SB_I_NODEV?
->
-> Today, probably not.If you grep the kernel, you'll find SB_I_NODEV is
-> used in only a handful of places, and those places generally involve
-> pseudo-filesystems or internal VFS assumptions rather than remote
-> storage.  Setting it on CIFS or NFS is unlikely to change behavior,
-> because those filesystems have worked correctly for decades without
-> it. Most remote filesystems don't set s_iflags because almost none of
-> the SB_I_* flags are intended as generic filesystem capability flags.
-> They're mostly internal VFS state, and SB_I_NODEV in particular has a
-> very specific purpose.  SB_I_NODEV does not mean "this filesystem
-> contains no device nodes." It means something closer to:  This
-> superblock is not associated with a block device.
-> or more precisely: The VFS should not expect a backing struct
-> block_device for this superblock."
->
-> Has something changed?  How did this question about SB_I_NODEV come up?
->
-> On Thu, Jul 9, 2026 at 11:05=E2=80=AFAM Bjoern Doebel <doebel@amazon.de> =
-wrote:
-> >
-> > From: Norbert Manthey <nmanthey@amazon.de>
-> >
-> > Set SB_I_NODEV on the superblock by default for CIFS mounts. This is
-> > consistent with how other filesystems handle untrusted remote content
-> > and prevents the server side from injecting device nodes on the client.
-> >
-> > Fixes: 2e4564b31b645 ("smb3: add support for stat of WSL reparse points=
- for special file types")
-> > Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
-> > Assisted-by: Kiro:claude-opus-4.6
-> > Cc: stable@vger.kernel.org
-> > ---
-> >  fs/smb/client/cifsfs.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-> > index ea4fc0fa68cac..35eee2f9899d5 100644
-> > --- a/fs/smb/client/cifsfs.c
-> > +++ b/fs/smb/client/cifsfs.c
-> > @@ -208,6 +208,9 @@ cifs_read_super(struct super_block *sb)
-> >         if (sbflags & CIFS_MOUNT_POSIXACL)
-> >                 sb->s_flags |=3D SB_POSIXACL;
-> >
-> > +       /* Prevent device node opens from remote filesystem by default =
-*/
-> > +       sb->s_iflags |=3D SB_I_NODEV;
-> > +
-> >         if (tcon->snapshot_time)
-> >                 sb->s_flags |=3D SB_RDONLY;
-> >
-> > --
-> > 2.50.1
-> >
-> >
->
->
-> --
-> Thanks,
->
-> Steve
+	mp->m_rtrefc_maxlevels = min(d_maxlevels, r_maxlevels) + 1;
 
+where the trailing "+ 1" already accounts for the inode-root level, so the
+deepest valid on-disk root level is m_rtrefc_maxlevels - 1 and a cursor must
+satisfy bc_nlevels <= bc_maxlevels (= m_rtrefc_maxlevels).
 
+The two on-disk validation paths, xfs_rtrefcountbt_verify() and
+xfs_iformat_rtrefcount(), check the root level with ">" instead of ">=", so a
+crafted rtreflink (metadir + realtime + reflink) image whose
+/rtgroups/N.refcount inode has bb_level == m_rtrefc_maxlevels is accepted on
+mount. xfs_rtrefcountbt_init_cursor() then sets bc_nlevels = bb_level + 1,
+exceeding bc_maxlevels by one. Since the xfs_rtrefcountbt_cur slab object is
+sized for exactly bc_maxlevels entries, the first btree op on such a cursor
+indexes bc_levels[m_rtrefc_maxlevels] past the end of the object. This is
+reached by the first rtrefcount cursor built after mount, via log/CoW
+recovery (xfs_reflink_recover_cow() during xfs_mountfs()) or an
+FS_IOC_GETFSMAP over the realtime device.
 
---=20
-Thanks,
+Reject a root level equal to m_rtrefc_maxlevels, matching the ">=" form
+already used by the sibling data-device refcount/rmap verifiers and the
+in-memory rtrmap verifier.
 
-Steve
+  BUG: KASAN: slab-out-of-bounds in xfs_btree_lookup (fs/xfs/libxfs/xfs_btree.c:2101)
+  Write of size 2 at addr ffff888018391658 by task exploit/144
+   xfs_btree_lookup (fs/xfs/libxfs/xfs_btree.c:2101)
+   xfs_btree_query_range (fs/xfs/libxfs/xfs_btree.c:5308)
+   xfs_refcount_recover_cow_leftovers (fs/xfs/libxfs/xfs_refcount.c:2113)
+   xfs_reflink_recover_cow (fs/xfs/xfs_reflink.c:1085)
+   xlog_recover_finish (fs/xfs/xfs_log_recover.c:3551)
+   xfs_mountfs (fs/xfs/xfs_mount.c:1158)
+   xfs_fs_fill_super (fs/xfs/xfs_super.c:1940)
+   get_tree_bdev_flags (fs/super.c:1634)
+   vfs_get_tree (fs/super.c:1694)
+   path_mount (fs/namespace.c:4161)
+   __x64_sys_mount (fs/namespace.c:4367)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+  The buggy address belongs to the cache xfs_rtrefcountbt_cur of size 216
+  The buggy address is located 8 bytes to the right of
+   allocated 216-byte region [ffff888018391578, ffff888018391650)
+  Kernel panic - not syncing: Fatal exception
+
+Cc: <stable@vger.kernel.org> # v6.14
+Fixes: 9abe03a0e4f978 ("xfs: introduce realtime refcount btree ondisk definitions")
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+---
+ fs/xfs/libxfs/xfs_rtrefcount_btree.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/xfs/libxfs/xfs_rtrefcount_btree.c b/fs/xfs/libxfs/xfs_rtrefcount_btree.c
+index f27b80a199ba..22acc1411aac 100644
+--- a/fs/xfs/libxfs/xfs_rtrefcount_btree.c
++++ b/fs/xfs/libxfs/xfs_rtrefcount_btree.c
+@@ -201,7 +201,7 @@ xfs_rtrefcountbt_verify(
+ 	if (fa)
+ 		return fa;
+ 	level = be16_to_cpu(block->bb_level);
+-	if (level > mp->m_rtrefc_maxlevels)
++	if (level >= mp->m_rtrefc_maxlevels)
+ 		return __this_address;
+ 
+ 	return xfs_btree_fsblock_verify(bp, mp->m_rtrefc_mxr[level != 0]);
+@@ -651,7 +651,7 @@ xfs_iformat_rtrefcount(
+ 	numrecs = be16_to_cpu(dfp->bb_numrecs);
+ 	level = be16_to_cpu(dfp->bb_level);
+ 
+-	if (level > mp->m_rtrefc_maxlevels ||
++	if (level >= mp->m_rtrefc_maxlevels ||
+ 	    xfs_rtrefcount_droot_space_calc(level, numrecs) > dsize) {
+ 		xfs_inode_mark_sick(ip, XFS_SICK_INO_CORE);
+ 		return -EFSCORRUPTED;
+-- 
+2.43.0
+
