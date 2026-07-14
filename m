@@ -1,134 +1,151 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6214C27E049
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 06:26:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90BB275B1A
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 06:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784010416; cv=none; b=eMtq9tvMiy7rsEF3jB0f91e70QdISsUS0MfnKDzKLrKyVC7uK9LBlztHNT4p0tv3i1tPVGp2+b6Q5tH8VFc8cYpCqk5YowBdIqTUTY3iF8E0bveEi4SGvEp91aFIgK7pbG4skrlAR6NnIkUCiHaq2WcXSMmpFQV1tkHSLD2S4Fg=
+	t=1784010476; cv=none; b=tWk0MQjONMcvTbp2buxeKr1xTmpLIhfqprGCBEcwpPiaQTHrGtt6b6HoB/Cws1503kqSNgRbGkh9+WCtjhAS0lXAdLg6uktL5Csj5JTyaRBSy63TL/ZBVF/VyJIm3gHOOO788gXqIPPVGL48+TPy24TjZMwFXwfJKWZGj479vIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784010416; c=relaxed/simple;
-	bh=QOlk4/7XmS+Dvvh4zsIn+c758NQjUwIDEuJ6mCb1RhY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WqGVZpHLuEDncTo9nI4qnkgeBoQxyeZz07ZgQeylYqJiKqwmO/Ie17wwWsXvGEwKV6S67DSQFt36bqmp5BmQacSkTHn65k6/v2tIMK9NZG9rDWGCZTDKYPZWXMopkAQCxQViRB2rc/q4ftvR39V6+PYlJ7eL4iWcGT02QpvLf7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aPMP8etj; arc=none smtp.client-ip=209.85.210.172
+	s=arc-20240116; t=1784010476; c=relaxed/simple;
+	bh=pJG5VHUMIbJYe94r2iWRstBlolLK9xvWO+NtoSrqI1U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nePYTmE2z1seH8BKpoMT2PhEyOkqbKeiWHyQo/9NonedeHljZ7NenTN0FSdKmQvociqcAzYYplqAN8tDhqo7/4G4HWScSjGAX8Xoi04s5qmtQ3ae5WfHn/o5IszAhgvxy32e5I1nsX5+Vor2x4eqm7M1v9dwZf/DtK+6tOZCIH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cMKictyh; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aPMP8etj"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8423f236418so550291b3a.1
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 23:26:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cMKictyh"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cad8076b01so46015605ad.2
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 23:27:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784010415; x=1784615215; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EWLEhkqERYcaPy6Lu/sccZNkhKmKRgHN8QESefuPqFE=;
-        b=aPMP8etjYNiopWIan9lE00b4S+ViPJ78K46NPzpWtWAhZkCRQSGNHqN5J+6lpGeNMD
-         ieedPaQapP1v58Qnod49jeDe2rVBuuB4XVsY4b4B+LBuoXL43vX6TUOav210uXIVqyQ7
-         xqJ2vuDi0mXDwWTP1F1oSndgmkz0wkHS9YRD1omqn7dGeFbpN4DoyAdyXvq1y0XqM5iQ
-         0Mppmu9RFcfhWRw3BPxZhh0xOcutuKrjrmgrJ5SblZ1iCFKRClocU5OtIE2/AGiU5Fft
-         7Bcbj+nexjbPVpZ/eMSGfz4SLNOBael+98vRCRtr3g4EvL6Ix1+8K5StjOneXK2A5WhO
-         ieOQ==
+        d=gmail.com; s=20251104; t=1784010474; x=1784615274; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OT3QgGn/8h7LxaasZ82I0pD7QJ8te5z8lFRU4KJ98IA=;
+        b=cMKictyhaSS2nZr2O6dK+2ePshIezOFXxj8ZUyYzCyzfdoPmT4wRQ8idstQUlaaxAV
+         QBt2eecU+jqYOLQgLYmUDlRPwvVi520Hs6y+8Ts2Hhy9WnCOuMxMZG8Ha594aA7vpGxT
+         +9TO+OQ/YJNM83avoVfSkB0zaHmOslPA42IKwg0IGjSsT5dQaF//ukYZRViB+dkb0ziV
+         M2vobNanAr8k0f4iLiKruSpiKNzo0rx/lLTary2xdqXTNdbh+NdSHXpu9vqKrbjxQ1pO
+         1Oy/qHNajSE/3D9pR1Q5iRxEuaxpzbE1xO1c/rmO25rwi+eQYStiuoFHvlsUef20HiXK
+         Assw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784010415; x=1784615215;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1784010474; x=1784615274;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EWLEhkqERYcaPy6Lu/sccZNkhKmKRgHN8QESefuPqFE=;
-        b=IVe/dVYsEbbP3ctprj6K8r/KGBtVa/oKZP3YtABZdsATL5PbtY9EoMgoof3QToTz4B
-         J+4Xcy1vBTcIb+CBrXEgk0UtZ79YiGLMTi/0oAlqcXRoQw7f+A6eBp8zSBgaK+ExtnJc
-         5B2CLglecelZT86D9TQqvqB2USeOPNuWm/ll9/bwoB3uR5kmiClMouTncmN3AANty4mU
-         mwcBH69xlZKta/dhUuZjns1DWugu6HNmRJ+gHK8xqBBPmQMNVICCL8vBr7C69ZTu1bIL
-         fa/EY+KQ6lM109vhlmdL02FjAAancTCc8bFAiQQU+C6bIzACU044IgaVtNauTNBAHn4M
-         nQ7A==
-X-Forwarded-Encrypted: i=1; AHgh+RpJ7QvCL4tqhw3imV/ai1JMpqHaYkBDxo0HxMhy2ztpZLfJCa+HPHgh9VXdxYarUjkElouIfyI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCluDDaBpf/IhL3gXyIfF+jkecU53sPC3SCz9TNIJQ/omlFN0C
-	8G8qitH0+XvjPgSQgGz3hi2gyCaDBH/zGcN8LkYQNQBsG74f1RYxxA4H
-X-Gm-Gg: AfdE7cmPQl02JlZhYlpV42pYhvXB2kCjNZ0LTbJzcsBlvlchsXsYxiRufwnfjZln4sU
-	NtBGm99d5PIa81HbE2pnxSW9vEFyBulZZv3bf+r06qIXgOMXmmnGRVbNCB2OMn9qU9c0Q61YV32
-	5ATx49eO1kZs1++KOcnSSrq5JEXMdXjLNf7H+V785WZk26oA8avMLpShmPz73o5Zn6cpi7z8XxD
-	fLrDqIsNuNPeNHZQyiv/g0V6As9Ut7lu+bE6IBRsrJdfHUtsL68MxfbdF4rqqbE5dMHNQpBX9ll
-	7KAAU8yjexZw6ftIU8aqDcqen8KO4Y+Z14ZIydwgHSoKIf66ooAkl9cpV2gWp8EdtA6Fm+TSRzp
-	0ZH7BoePmLq4hIY9/o57eaB7/q9ufPYcHK/Fyk3iIYte2BB0+V+yXvvpAtHt4p7kkEqSoq1i7Nh
-	ScNkWJsaTPKLegTaOCbobgzfUgAsdUF0VA
-X-Received: by 2002:a05:6a00:3cc7:b0:845:d274:c01a with SMTP id d2e1a72fcca58-848896eb1e0mr11054809b3a.51.1784010414616;
-        Mon, 13 Jul 2026 23:26:54 -0700 (PDT)
-Received: from [100.125.248.95] ([124.70.231.46])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f242999sm932902b3a.1.2026.07.13.23.26.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 23:26:54 -0700 (PDT)
-Message-ID: <452a57dd-43ce-4694-9164-8d2512d37417@gmail.com>
-Date: Tue, 14 Jul 2026 14:26:11 +0800
+        bh=OT3QgGn/8h7LxaasZ82I0pD7QJ8te5z8lFRU4KJ98IA=;
+        b=PYpMxLM2nxm+ogN5hdKs+P6SE0O6IbtiM/aTmD+1l/n/GpDf2nXorPYiLcXPwx1yqz
+         TTF+vbLzpOAyKeXotKgyLDTqjDO2hTFS9uTVnazwhK0Bg4KpGTJDBpx0ETLG6Fumz8gE
+         NLgegzp2xKhhX5xq5ry/uPbzAJCTIhmEFI4ar5IvCzZq1YqXnc+FUOtpskXnJEpC67SQ
+         HAZVlTedgbalOClMYdEtZkU0gb7hC3bczxay74yhvd/ZVe5GIMYqiILTSlXLEb7NcOKr
+         kVJrh73Iwfyzngnnvq4howED86l+/d6yzmT8AlbbOX4rFWyeDQgG9LQdfxRLYeRwLFl9
+         yQTg==
+X-Forwarded-Encrypted: i=1; AHgh+RrmJ82xeOS9CQUfc6XUpMMXcDgPEK9OplYR7/Da5dgAEZypyACNn5JJcrexwLQ+NanDNLhErk0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwQPbYMK7Y0LB3yavWwOAV44nBTqTl6smuwJ91jxoEOsaOA107
+	UYr470sm1fWagfqSQof+ClWT2AQ+O859wO1eigBDeIj7m/f8vTmb+J3h
+X-Gm-Gg: AfdE7cnxiv10kp77Q7EhQEFkNd9Ah/EAiVZkW+J+wgw4Lh4YtAXjR1hn18V75WCc5ek
+	bthcNvekFL4biMfFIrFmHJzuSiZFq/dRWn4deh6R1FbuxFxLbgszmZuh8m7A4Bqx5/T9t97wS9p
+	RRYs3e8jt61VzqfcNTU/cdzX9XbCETQhaJAt//DAMcnbse5h3a3JhvrRA1+bN5gcyUsg4RumPDT
+	UXdHkxUkrNSBs8UeFt9NeTL/nv1m8iSKxPjodsXZmnnSdD71vCWHrLIslMG+gtv62gp+JeeOXj0
+	zTtuKJiCW1xcfnHmyoQQUP86kicNNUTrvIhEgezz8SwPIN+DQuAqHvK2n80GrmivQvtYrrFEi/m
+	sfnyufPYi0qrn4Ioc3wr7vb3T3SQbt4MlEjxCe7Qk9PHst0OVJu/HvRvMA1CNf031NHk9xOx4Ph
+	lGwLCfmWX+CviRYflOtO8w4UWXKshZkbAbHzupeyto8X2eHjuU41U=
+X-Received: by 2002:a17:903:3583:b0:2ce:b096:e50b with SMTP id d9443c01a7336-2cee9bb19c3mr21600385ad.47.1784010474102;
+        Mon, 13 Jul 2026 23:27:54 -0700 (PDT)
+Received: from localhost.localdomain ([47.246.98.93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bfb7aesm110798435ad.29.2026.07.13.23.27.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 13 Jul 2026 23:27:53 -0700 (PDT)
+From: "=?UTF-8?q?=E9=93=AD=E5=AE=A3?=" <omeux327@gmail.com>
+X-Google-Original-From: =?UTF-8?q?=E9=93=AD=E5=AE=A3?= <yangmingxuan.ymx@antgroup.com>
+To: marcelo.leitner@gmail.com,
+	lucien.xin@gmail.com
+Cc: security@kernel.org,
+	HanQuan <eilaimemedsnaimel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] sctp: diag: fix uninitialized stack leak via INET_DIAG_LOCALS/PEERS
+Date: Tue, 14 Jul 2026 14:27:40 +0800
+Message-ID: <20260714062740.79126-1-yangmingxuan.ymx@antgroup.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] jbd2: check need_resched() when skipping busy
- checkpoint buffers
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, tytso@mit.edu,
- jack@suse.com, stable@vger.kernel.org
-References: <20260713102229.1598812-1-max.kellermann@ionos.com>
- <20260713102229.1598812-2-max.kellermann@ionos.com>
-Content-Language: en-US
-From: Zhang Yi <yizhang089@gmail.com>
-In-Reply-To: <20260713102229.1598812-2-max.kellermann@ionos.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/13/2026 6:22 PM, Max Kellermann wrote:
-> journal_shrink_one_cp_list() skips busy checkpoint buffers when called
-> with JBD2_SHRINK_BUSY_SKIP.  The continue statement on this path also
-> skips the need_resched() check at the end of the loop body.
-> 
-> Consequently, when a checkpoint list contains mostly busy buffers, the
-> shrinker can walk the entire list while holding journal->j_list_lock,
-> even when a reschedule has been requested.  Large checkpoint lists under
-> memory pressure can therefore cause long lock hold times and leave other
-> CPUs spinning on j_list_lock, resulting in soft lockups or RCU stalls.
-> 
-> Route the busy-buffer path through the need_resched() check so that the
-> shrinker can release j_list_lock and reschedule promptly, restoring
-> parity with the clean-buffer path, which already checks need_resched().
-> This does not change which checkpoint buffers are eligible for removal.
-> 
-> Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+From: HanQuan <eilaimemedsnaimel@gmail.com>
 
-Thanks for the fix! This looks good to me.
+inet_diag_msg_sctpladdrs_fill() copies sizeof(union sctp_addr) (28 bytes,
+the size of sockaddr_in6) from each sctp_sockaddr_entry.a into the netlink
+INET_DIAG_LOCALS attribute and then only zeroes the bytes from offset 28 to
+sizeof(sockaddr_storage).  The same pattern is used by
+inet_diag_msg_sctpaddrs_fill() for INET_DIAG_PEERS.
 
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+The IPv4 address-filling helpers sctp_v4_from_addr_param() and
+sctp_v4_from_skb() only initialize the sockaddr_in portion (16 bytes) of the
+union sctp_addr; the trailing 12 bytes (offset 16..27, the sockaddr_in6-only
+region) are left uninitialized.  Those bytes are propagated verbatim through
+sctp_add_bind_addr() (which copies sizeof(union sctp_addr)=28 bytes) and then
+copied straight to userspace by the diag fill functions, leaking 12 bytes of
+kernel stack residue per local/peer address to any process that can issue a
+SOCK_DIAG_BY_FAMILY dump for IPPROTO_SCTP.
 
-> ---
->   fs/jbd2/checkpoint.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
-> index 1508e2f54462..5266017565ac 100644
-> --- a/fs/jbd2/checkpoint.c
-> +++ b/fs/jbd2/checkpoint.c
-> @@ -389,7 +389,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
->   			ret = jbd2_journal_try_remove_checkpoint(jh);
->   			if (ret < 0) {
->   				if (type == JBD2_SHRINK_BUSY_SKIP)
-> -					continue;
-> +					goto next;
->   				break;
->   			}
->   		}
-> @@ -400,6 +400,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
->   			break;
->   		}
->   
-> +next:
->   		if (need_resched())
->   			break;
->   	} while (jh != last_jh);
+Fix it by computing the actually-initialized length of the address from its
+sa_family (struct sockaddr_in for AF_INET, the whole union otherwise) and
+copying only that many bytes into an already-zeroed sockaddr_storage slot, so
+the uninitialized tail is never read and never reaches userspace.
+
+Fixes: 8f840e47f190cbe61a96945c13e9551048d42cef ("sctp: add the sctp_diag.c file")
+Cc: stable@vger.kernel.org
+Signed-off-by: HanQuan <eilaimemedsnaimel@gmail.com>
+---
+ net/sctp/diag.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/net/sctp/diag.c b/net/sctp/diag.c
+index c2a0de2adf6f..ec12f3f03318 100644
+--- a/net/sctp/diag.c
++++ b/net/sctp/diag.c
+@@ -68,6 +68,7 @@ static int inet_diag_msg_sctpladdrs_fill(struct sk_buff *skb,
+ 					 struct list_head *address_list)
+ {
+ 	struct sctp_sockaddr_entry *laddr;
++	size_t addr_len;
+ 	int addrlen = sizeof(struct sockaddr_storage);
+ 	int addrcnt = 0;
+ 	struct nlattr *attr;
+@@ -85,8 +86,11 @@ static int inet_diag_msg_sctpladdrs_fill(struct sk_buff *skb,
+ 	info = nla_data(attr);
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(laddr, address_list, list) {
+-		memcpy(info, &laddr->a, sizeof(laddr->a));
+-		memset(info + sizeof(laddr->a), 0, addrlen - sizeof(laddr->a));
++		addr_len = laddr->a.sa.sa_family == AF_INET ?
++			   sizeof(struct sockaddr_in) : sizeof(laddr->a);
++		memset(info, 0, addrlen);
++		memcpy(info, &laddr->a, addr_len);
++
+ 		info += addrlen;
+ 
+ 		if (!--addrcnt)
+@@ -114,9 +118,12 @@ static int inet_diag_msg_sctpaddrs_fill(struct sk_buff *skb,
+ 	info = nla_data(attr);
+ 	list_for_each_entry(from, &asoc->peer.transport_addr_list,
+ 			    transports) {
+-		memcpy(info, &from->ipaddr, sizeof(from->ipaddr));
+-		memset(info + sizeof(from->ipaddr), 0,
+-		       addrlen - sizeof(from->ipaddr));
++		size_t addr_len = from->ipaddr.sa.sa_family == AF_INET ?
++				  sizeof(struct sockaddr_in) :
++				  sizeof(from->ipaddr);
++
++		memset(info, 0, addrlen);
++		memcpy(info, &from->ipaddr, addr_len);
+ 		info += addrlen;
+ 	}
+ 
+-- 
+2.43.0
 
