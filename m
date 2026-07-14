@@ -1,123 +1,227 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC33E35675E
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:32:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D339228469A
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783999962; cv=none; b=Rv5sLr83yL2gwXbGoGJdkiE8p3adyLUFVTq+35UqtBUFNMgUpMMplBOn6R7AC7rgXIyk6JrbZPzczCvVT+a4TSTwFhYA7/ctjASWkgKYDiOgI9PVsoC0ac8wkcuOD2gnQQuYP90+LgUsuartYpjZHhZ2jSnIOK7UKrcGQ6rnS/s=
+	t=1783999980; cv=none; b=nPWdWkITMPB5Vq30GubzLn8lotVLbzHoIPHCgjHzmE/vWnAG/gYwwo7IUEubhNBIy3tudvOU28KdrgYQ9LXhIMUFDdk/Kdo2AdHkwx/Ouk7OMWy/LoxJnJICScga4GPPE6IzwX9NVMrDQGObmPg1yeAhgve1540xHuIt9cMpHZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783999962; c=relaxed/simple;
-	bh=5l6nLVdO88+2acJsOr1UCToSieAPDX3Bwyvphb8xIls=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mn6IEvNl0qC84/EqVwVmUzU1gaA6J7jFgro+Kl0yj9HN8vFLsG0hOEwCg3Ee/20MDLpzPt2oWMcBATLIRaFs/jMntMkMsAIyvtZa+f+xH+m5CKUeHVFRUOA8pszFD9mpY+ad5bQfdu2D5N4WJcZiX/Ne3FNxork0ryWqinXj/+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ArqdH1rX; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1783999980; c=relaxed/simple;
+	bh=aCvxA+n0GdZpiaaP9v6dNnq8/dzGweZgs2er/VZwDr8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kxhJdGWB1qqBdMxv8z34rNEG116NO31PJNz/d+tDXvJtKTd3dwC3p2Ql0/SGQ1nGk80sASFCUWnu+dx+vajFF/Hax9C0Ty4bhuzXiqWBx/EotVenR0N5VQ7ADuuciowGVpDXvnjWmV2Sz8fgOjOzARcl5JdWraZy+n6CWaBg9do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A8qROFM1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ArqdH1rX"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-698bf7a1a2dso5735168a12.0
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 20:32:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1783999959; x=1784604759; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bdiM3wGZvU9W32ITVwJWXfEY5ZH1jUwmribSUCxIuno=;
-        b=ArqdH1rXOesSkDeZcyrn/gwmYeGCPfhD9ycpZxDFlq1zBr3byohbWaORK5xuqH9P+i
-         Kp7BWm7ILY2LeTUxrHADGfcElxoWDlnPpBhtJ9OwCTU5hkGqqiTWQm0Ywi8VvSYSQhx4
-         +Cg5J5j7gww51+d9kU01an3h1a3e4Rabush3KBhThPMvWOTRQiNcoknZwBpdgg/mzsTi
-         QmsDm3aZlF/Affo/XDS+kP0YFn2VN/nccOxyxycivjBO/FYoSzCL+K9til6FtgxEq2Qd
-         WLyI7qrwMz4UBX9JArXVYtfRCWB0a9sca3WoLrGIZ9Q8L8TRKbN899ZQjDFxMkn3yxz7
-         Tg0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783999959; x=1784604759;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bdiM3wGZvU9W32ITVwJWXfEY5ZH1jUwmribSUCxIuno=;
-        b=q6G50RYWp8UyVGfkWj8dveh0C4+RPF0s26Hh0XIKrdVr/jZEzD+rL47k3wFYqBG2Ju
-         7EitJHXmE7q3O2mMEBeUPfZPNzxbGrTfh9YVi1u+yfPgt4YQCTRzps95f+IQO/r3y+H3
-         Z+P/wg5kUTP6syAwdxbADLcshKvQ9wMghMFEqvVOTQhmAALbLUA80F7MI1moGwHCNQmy
-         2ZVRPcwIpALq+IgTvUbzBrSHR7NkBpWrR+htwO5iyc7uU3euSyD3lkafmYEftLaYlaQD
-         9J28iXwSIRN4pmOBWW6i5boNQBXuKTCXpFGwvwNeGT1LWDSrkt0ClHsRBNJCiWxqQW7j
-         91iA==
-X-Forwarded-Encrypted: i=1; AHgh+RoDf1yuqiZTrJnSMK8QdGi27xlP5cnUgyxGaX7j49ccdVinTOvm0+r4NucMmtucmXAhXEw23IQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwwjqlZ1DceA8d/98N6bsSVyQ1pkLJXz6LGQ/yQu/ewsurrFqQj
-	Eb7MAhB942++38qfqkrzDhMCuTQu3LILyAD/mwRRIaVHb9e1T7JeFX9Etg4j1LyEUWo=
-X-Gm-Gg: AfdE7cnJMcPiLgBbeU/5fTp3HH+C6PLQhhZw1YxGFzecsbqYZILztMYIzTTJ/HcgjPf
-	mIqUJwF4V08MSV4MIh6ADGPPmuMeJMXeBMEB1M81WDzQQStMsOWhAmaK54Rk8cr8kAfFt39QM2w
-	fovgDu3Q9L6jIX3ZtSCdRS7eOcXTU/DFeCSG/D/O3qaW0einpAKN6dtEVNyBaPveBQ13tjYVB+6
-	c9Juc52ifLSPwoKqkT87hqwbhG7acMd/0RD71Y9AMNe+LikP0CpVhNRVw0dBLBJRzWJjGvWIW9T
-	DITcg43y3EtOXvj6pp5lySJc51hVmgoYlrT/0DkDS3/TC32DKNfMiZZZUY/Ps09d8/TARCIg2I+
-	zs/kCskNLF0Fx7N9KJzEkFQRvdd4ac9a/xWmggskfexY4vIZP5SN1nzkpllteSHC0KhyyYuVfKj
-	wHxM1Rc8sbap+ZE5fyr0hwho2Z3DNomvZ+JqiBmE/Pp/4=
-X-Received: by 2002:a17:906:f587:b0:c15:e8c8:34f with SMTP id a640c23a62f3a-c161e84b4a7mr493269566b.13.1783999959174;
-        Mon, 13 Jul 2026 20:32:39 -0700 (PDT)
-Received: from u94a (27-51-48-151.adsl.fetnet.net. [27.51.48.151])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb2b79c9sm14334466a34.22.2026.07.13.20.32.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 20:32:38 -0700 (PDT)
-Date: Tue, 14 Jul 2026 11:32:29 +0800
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: Eduard Zingerman <eddyz87@gmail.com>, 
-	sun jian <sun.jian.kdev@gmail.com>
-Cc: bpf@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
-	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Matt Mullins <mmullins@mmlx.us>, stable@vger.kernel.org
-Subject: Re: [PATCH bpf 1/1] selftests/bpf: Enable BLK_DEV_NBD for
- raw_tp_writable_reject_nbd_invalid
-Message-ID: <alWsBzShn4sgDRl-@u94a>
-References: <20260713063513.215781-1-shung-hsi.yu@suse.com>
- <08508d2133284d49e1da297895c85cf854a97bf3.camel@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A8qROFM1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10E8C1F000E9;
+	Tue, 14 Jul 2026 03:32:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783999978;
+	bh=zwLe3qhaWQM7uKnjzOL8a8hdB4kZ986vnSvIap7r8iI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=A8qROFM1E52Big60BJ+XwcE9vInvaaRQzWYR6d3aYnH/pKH8UEL1s5D8hNlyoalVc
+	 5ulEHSP7ua53rvutR9k7Chdf2PLbzDL+fMPnYvllG7QpMldGjjKUwgrZMdUgH0wrUM
+	 ecVb5imJ/IeipXYKXjYmPOyLAh9k+IlR3uIpMAH2QjAHsX/8NaAcgTReewWdqUiAv2
+	 vzxVxtk2T8TA/8Y68VtK4ssEUUrZkKaXJ00NnR+f71a9zKLBdffxYfttxwgfeSJxtp
+	 ZI1ialwN6wqemy9LCuZFx6p3gC69XJGCDv/YpvEI1dLeX4UMQp/WpFCZD4S0V0g+TG
+	 NFgupka1mTHUA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/2] firmware_loader: Add cancel helper for async requests
+Date: Mon, 13 Jul 2026 23:32:55 -0400
+Message-ID: <20260714033256.2396704-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071331-subarctic-arrival-f0d8@gregkh>
+References: <2026071331-subarctic-arrival-f0d8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <08508d2133284d49e1da297895c85cf854a97bf3.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 13, 2026 at 01:47:18PM -0700, Eduard Zingerman wrote:
-> On Mon, 2026-07-13 at 14:35 +0800, Shung-Hsi Yu wrote:
-> > The raw_tp_writable_reject_nbd_invalid test relies on availability of the
-> > nbd_send_request tracepoint, which is only present if the selftest kernel is
-> > built with CONFIG_BLK_DEV_NBD=y and the kernel built from current BPF selftests
-> > config lacks.
-> > 
-> > Without it, the bpf_raw_tracepoint_open() call always returns with -2, leaving
-> > raw_tp_writable_reject_nbd_invalid test always passing without exercising the
-> > checks bpf_probe_register().
-> > 
-> > Cc: <stable@vger.kernel.org> # 5.2.0
-> > Link: https://lore.kernel.org/bpf/alRtilWhKw4zzMkI@u94a
-> > Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-> > ---
-> > Not sure if fixes tag is the right thing to use here, so use the cc
-> > stable tag instead to get this config change propogated to other stable
-> > branches to make stable BPF CI's job easier.
-> 
-> Shung-Hsi,
-> 
-> Thank you for figuring this out.
-> I'd suggest we switch to bpf_testmod_test_writable_bare_tp() [1]
-> from the test module to avoid the config dependency and let
-> Sun pack all of this as a single patch-set to simplify backports
-> (if such are necessary). Wdyt?
+From: Cássio Gabriel <cassiogabrielcontato@gmail.com>
 
-Make sense, that's probably for the better.
+[ Upstream commit b9bdd68b8b979c7e9de58b2e7d21e1d7d932c755 ]
 
-pw-bot: changes-requested
+request_firmware_nowait() keeps the callback module pinned and holds
+a device reference until the firmware work completes.
 
-@Sun can you make sure to include the follow tag for [1] when you send
-it? Should give a better guarantee that is will be picked up by AUTOSEL.
-Thanks!
+Callers still have no way to cancel or synchronize the queued callback
+before tearing down their driver-private state.
 
-  Cc: <stable@vger.kernel.org> # 5.2.0
+Track scheduled async firmware work in an internal list and add
+request_firmware_nowait_cancel(). The helper cancels work matching the
+device, callback context and callback function. It cancels work that has
+not started yet and waits for an already-running callback to return. If
+the request has already completed, it is a no-op.
+
+Keep the existing request_firmware_nowait() lifetime model manual. A
+devres-managed variant can be layered on top separately if needed.
+
+Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20260505-alsa-hda-tas2781-fw-callback-teardown-v4-1-e7c4bf930dc8@gmail.com
+Stable-dep-of: 5367e2ad14f0 ("ALSA: hda/tas2781: Cancel async firmware request at unbind")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/base/firmware_loader/main.c | 68 +++++++++++++++++++++++++++--
+ include/linux/firmware.h            | 10 +++++
+ 2 files changed, 74 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/base/firmware_loader/main.c b/drivers/base/firmware_loader/main.c
+index a11b30dda23be5..78c5f05a2ec101 100644
+--- a/drivers/base/firmware_loader/main.c
++++ b/drivers/base/firmware_loader/main.c
+@@ -1132,6 +1132,7 @@ EXPORT_SYMBOL(release_firmware);
+ /* Async support */
+ struct firmware_work {
+ 	struct work_struct work;
++	struct list_head list;
+ 	struct module *module;
+ 	const char *name;
+ 	struct device *device;
+@@ -1140,6 +1141,17 @@ struct firmware_work {
+ 	u32 opt_flags;
+ };
+ 
++static LIST_HEAD(firmware_work_list);
++static DEFINE_SPINLOCK(firmware_work_lock);
++
++static void firmware_work_free(struct firmware_work *fw_work)
++{
++	put_device(fw_work->device); /* taken in request_firmware_nowait() */
++	module_put(fw_work->module);
++	kfree_const(fw_work->name);
++	kfree(fw_work);
++}
++
+ static void request_firmware_work_func(struct work_struct *work)
+ {
+ 	struct firmware_work *fw_work;
+@@ -1150,11 +1162,15 @@ static void request_firmware_work_func(struct work_struct *work)
+ 	_request_firmware(&fw, fw_work->name, fw_work->device, NULL, 0, 0,
+ 			  fw_work->opt_flags);
+ 	fw_work->cont(fw, fw_work->context);
+-	put_device(fw_work->device); /* taken in request_firmware_nowait() */
+ 
+-	module_put(fw_work->module);
+-	kfree_const(fw_work->name);
+-	kfree(fw_work);
++	spin_lock_irq(&firmware_work_lock);
++	if (!list_empty(&fw_work->list)) {
++		list_del_init(&fw_work->list);
++		spin_unlock_irq(&firmware_work_lock);
++		firmware_work_free(fw_work);
++		return;
++	}
++	spin_unlock_irq(&firmware_work_lock);
+ }
+ 
+ 
+@@ -1164,6 +1180,7 @@ static int _request_firmware_nowait(
+ 	void (*cont)(const struct firmware *fw, void *context), bool nowarn)
+ {
+ 	struct firmware_work *fw_work;
++	unsigned long flags;
+ 
+ 	fw_work = kzalloc_obj(struct firmware_work, gfp);
+ 	if (!fw_work)
+@@ -1196,7 +1213,12 @@ static int _request_firmware_nowait(
+ 
+ 	get_device(fw_work->device);
+ 	INIT_WORK(&fw_work->work, request_firmware_work_func);
++
++	spin_lock_irqsave(&firmware_work_lock, flags);
++	list_add_tail(&fw_work->list, &firmware_work_list);
+ 	schedule_work(&fw_work->work);
++	spin_unlock_irqrestore(&firmware_work_lock, flags);
++
+ 	return 0;
+ }
+ 
+@@ -1259,6 +1281,44 @@ int firmware_request_nowait_nowarn(
+ }
+ EXPORT_SYMBOL_GPL(firmware_request_nowait_nowarn);
+ 
++/**
++ * request_firmware_nowait_cancel() - cancel an async firmware request
++ * @device: device for which the firmware is being loaded
++ * @context: context passed to request_firmware_nowait()
++ * @cont: callback passed to request_firmware_nowait()
++ *
++ * Cancel a pending request_firmware_nowait() request for @device, @context
++ * and @cont. If the associated work has already started, this function waits
++ * until the callback has returned. If the callback has already completed, this
++ * function does nothing.
++ *
++ * This function may sleep.
++ */
++void request_firmware_nowait_cancel(struct device *device, void *context,
++				    void (*cont)(const struct firmware *fw,
++						 void *context))
++{
++	struct firmware_work *fw_work = NULL;
++	struct firmware_work *tmp;
++
++	spin_lock_irq(&firmware_work_lock);
++	list_for_each_entry_reverse(tmp, &firmware_work_list, list) {
++		if (tmp->device == device && tmp->context == context &&
++		    tmp->cont == cont) {
++			fw_work = tmp;
++			list_del_init(&fw_work->list);
++			break;
++		}
++	}
++	spin_unlock_irq(&firmware_work_lock);
++
++	if (!fw_work)
++		return;
++	cancel_work_sync(&fw_work->work);
++	firmware_work_free(fw_work);
++}
++EXPORT_SYMBOL_GPL(request_firmware_nowait_cancel);
++
+ #ifdef CONFIG_FW_CACHE
+ static ASYNC_DOMAIN_EXCLUSIVE(fw_cache_domain);
+ 
+diff --git a/include/linux/firmware.h b/include/linux/firmware.h
+index aae1b85ffc10e2..0fa3b027f02f16 100644
+--- a/include/linux/firmware.h
++++ b/include/linux/firmware.h
+@@ -110,6 +110,9 @@ int request_firmware_nowait(
+ 	struct module *module, bool uevent,
+ 	const char *name, struct device *device, gfp_t gfp, void *context,
+ 	void (*cont)(const struct firmware *fw, void *context));
++void request_firmware_nowait_cancel(struct device *device, void *context,
++				    void (*cont)(const struct firmware *fw,
++						 void *context));
+ int request_firmware_direct(const struct firmware **fw, const char *name,
+ 			    struct device *device);
+ int request_firmware_into_buf(const struct firmware **firmware_p,
+@@ -157,6 +160,13 @@ static inline int request_firmware_nowait(
+ 	return -EINVAL;
+ }
+ 
++static inline void request_firmware_nowait_cancel(struct device *device,
++						  void *context,
++						  void (*cont)(const struct firmware *fw,
++							       void *context))
++{
++}
++
+ static inline void release_firmware(const struct firmware *fw)
+ {
+ }
+-- 
+2.53.0
+
