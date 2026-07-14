@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5E63502A6
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:36:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B476646AEC5
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:40:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784036167; cv=none; b=q0VRrRtD29H1f5NDin5Bq9n9o+b70PKmkh2fS4IJ/GectCroSe+Fj+CvH1NoGNAGz6PDJQZRmDZjZXqwtiLNirBugzfZWhh43//E8IbQcRcd2E7qM8unYfK/YO6v6eIsTohssty9oS917sdDlrBX37T5Lm/XVadsYAtKFqoJ/bo=
+	t=1784036409; cv=none; b=cxNByPH33jdrtzAqZ/oCjek6wi+drpfo32fMmNo5tvG9sGRJofwdpmeLDcAjkN7Bya465DAKJ1YSa06VL5IdGhIODshfBKUNvLfKZ+ERd9qmnrFokrpDzrP3T+Mbp9f+MFVp6EDYOGSBS624FInR+5L+xr985X6ei0z04eN6EWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784036167; c=relaxed/simple;
-	bh=gmGsknYpjggyVcUxjH5vM4r2+SvlA0rJxmQ1FnG/JdE=;
+	s=arc-20240116; t=1784036409; c=relaxed/simple;
+	bh=dk8+sxzVrKZnC3pdjINjc3ADHlhhIfgLWSjY2CADzEI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TnkZr/4b5+g8tuKswgz6if/0m60dSZmXEmQPAuU0RdM3mkLFSOmFbATHnsfksfXKq6IvHSmYGNVnaFODRAurvL7eKbuNnsNxG6Z+W2uTxC2mNPU7ol6ZpbtiZj8DOeD0nk/CZzJkA942zrz06JFZn81D0lGMg895sm8L+2GMRyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W7vRisRD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dBNzlDw6YDnmlG4j6IOo8egICN6DBRQCFTZ84s7HCphcY1FF2oiVSLvMvNp+9u79g0Ku8+ouv3V9HiwSRUAq2OBMaaBZSEWgjfBj/GSHHb0YN8W2kstWLhGGmTE4OTiHuEUJ5+T3yQ9HiWiRlAb/KS+r3sAOV03KKXBKtirWIVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=izgRZWzX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W7vRisRD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D47D1F000E9;
-	Tue, 14 Jul 2026 13:36:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="izgRZWzX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF7B51F000E9;
+	Tue, 14 Jul 2026 13:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784036165;
-	bh=grriAsXiJxT5DD9hlL3W0jcmxJwhqS2rkEQ7ubHwLUw=;
+	s=k20260515; t=1784036408;
+	bh=sPDbkxHxgEKKVcB027/gn33SgyACm9HEB0VRRiNhrOc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W7vRisRD+d9izb6xeMhhEbHV5y0GFl8mdHszLm1lfk8OkT13McNVFbeIZiF0irULA
-	 ZmrJnA5gBCFvfx0Sczcv5YtUe1FU9Ju7sU7bdJvtu3W38OKINQe7Bc5GTsCkSp8yCn
-	 y1CLpVL3NDrUA/B87fwDIKerxyuiBbYKkam0+PTFOlT0PCHNcnUbj24pOHG+2wR0th
-	 NMEY086WjdiIt9rerGtpw2C2mN8Nlbrj7xaVXBujbsvobrAC1//AEqfm4zvw/bSYiE
-	 J6sHo+MLigyIXroUkGpyvGbUrgscoQgNB+wyh52RX6nFhBViGJhAz2EIGizO1Hy442
-	 9gDSXZAKUmQQg==
+	b=izgRZWzXN/pvklS97uBHkTF9ISuN8gCXNl2xiLToTnhGwYGP+AYIlowIFijc+Mqb5
+	 dLcAL8+A5i/p9g05Tf9GWKMH1P6thngNKaSzV7YK5v210zsdhqVsExqYS2EiHWW/eU
+	 K5jB2GHtr/fdgD5c3fv+dpa2aC4/IZufUghK5sl78HKm5a3GLw2JLhRs41zoH+DJLm
+	 uU8UNxUCTqExnrxgkqK7Q4nDpxZ2ryqNga2noPa0lVtZbT3u93rPg+ZuHVIq+ay5r+
+	 kxDHJxP3ex8/eAtv7w0OIQVtY95Z35PYM5fYIS+o2pcSumrtV+F42PfgVoydw0Uxrw
+	 +7LpWzIDIQdtg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Alex Williamson <alex@shazbot.org>,
+Cc: Jisheng Zhang <jszhang@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] vfio/pci: Release the VGA arbiter client on register_device() failure
-Date: Tue, 14 Jul 2026 09:36:03 -0400
-Message-ID: <20260714133603.2673230-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/2] binder: Use LIST_HEAD() to initialize on stack list head
+Date: Tue, 14 Jul 2026 09:40:05 -0400
+Message-ID: <20260714134006.2674552-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071318-parasail-contents-0b7a@gregkh>
-References: <2026071318-parasail-contents-0b7a@gregkh>
+In-Reply-To: <2026071306-applaud-quail-8690@gregkh>
+References: <2026071306-applaud-quail-8690@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,45 +45,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alex Williamson <alex.williamson@nvidia.com>
+From: Jisheng Zhang <jszhang@kernel.org>
 
-[ Upstream commit daedde7f024ecf88bc8e832ed40cf2c795f0796a ]
+[ Upstream commit 91f818b184b44b105b1c92859ea8d2d6f47912a9 ]
 
-The re-order in the Fixes commit below displaced vfio_pci_vga_init() as
-the last failure point of what is now vfio_pci_core_register_device()
-without introducing an unwind for the VGA arbiter registration.
+Use LIST_HEAD to initialize on stack list head. No intentional
+functional impact.
 
-In current kernels this is mostly benign because vfio_pci_set_decode()
-only uses pci_dev state, but the original failure path could leave a
-callback with a freed vdev cookie.  The stale registration also becomes
-unsafe again once the callback follows drvdata to the vfio device.
+Change generated with below coccinelle script:
 
-Add the required VGA unwind callout.
+@@
+identifier name;
+@@
+- struct list_head name;
++ LIST_HEAD(name);
+... when != name
+- INIT_LIST_HEAD(&name);
 
-Fixes: 4aeec3984ddc ("vfio/pci: Re-order vfio_pci_probe()")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Link: https://lore.kernel.org/r/20260615191241.688297-3-alex.williamson@nvidia.com
-Signed-off-by: Alex Williamson <alex@shazbot.org>
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+Link: https://patch.msgid.link/20260519055623.13142-1-jszhang@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: b34826e55aad ("binder: cache secctx size before release zeroes it")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vfio/pci/vfio_pci_core.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/android/binder.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index ea4e75be1884f2..2da7067d5c34ab 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1899,6 +1899,7 @@ int vfio_pci_core_register_device(struct vfio_pci_core_device *vdev)
- out_power:
- 	if (!disable_idle_d3)
- 		vfio_pci_set_power_state(vdev, PCI_D0);
-+	vfio_pci_vga_uninit(vdev);
- out_vf:
- 	vfio_pci_vf_uninit(vdev);
- out_group_put:
+diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+index 9e619422459368..ec0ab4f2853014 100644
+--- a/drivers/android/binder.c
++++ b/drivers/android/binder.c
+@@ -3080,12 +3080,10 @@ static void binder_transaction(struct binder_proc *proc,
+ 	int t_debug_id = atomic_inc_return(&binder_last_id);
+ 	ktime_t t_start_time = ktime_get();
+ 	struct lsm_context lsmctx = { };
+-	struct list_head sgc_head;
+-	struct list_head pf_head;
++	LIST_HEAD(sgc_head);
++	LIST_HEAD(pf_head);
+ 	const void __user *user_buffer = (const void __user *)
+ 				(uintptr_t)tr->data.ptr.buffer;
+-	INIT_LIST_HEAD(&sgc_head);
+-	INIT_LIST_HEAD(&pf_head);
+ 
+ 	e = binder_transaction_log_add(&binder_transaction_log);
+ 	e->debug_id = t_debug_id;
 -- 
 2.53.0
 
