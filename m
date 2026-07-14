@@ -1,159 +1,115 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF384657F5
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:03:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A1346AF03
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784034239; cv=none; b=exU4bx6lON96GQSW4dfFJAgI663L2GribP6aFFOMGH7cYVoKC8fHdCeXyxYzJg4mi0PD9ZR7NqPMxDdUfJ6aZM1pFDInuUauIg1hiTmWZlYpowF0663F7zCuOL9sFcMPrA+8Hio7hJiX/q+REeSPhGZc89UP+aDhQ5otTlf8jnc=
+	t=1784034313; cv=none; b=b0bqntvxtDFbb7cGIxMEqN90YOoyiPidk1gg89u7aulrLDiz7h6gsH4QRFlboF3vftG/GM9PQhGsv1grMwp3NWRnY2StBe8jiRvkO/0MJZrfs/oLBt2dW6InFzcOL5LNWm4baJetmX3MsGHWf+U11xOqfwfIpJq7y39O3l0FVBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784034239; c=relaxed/simple;
-	bh=+9LSkEaOqHP5J+gwKCY481xJEYJYJF7buSxUcCGkD+Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yep+ErsXzXZCG4mXwDyTG6BUZLDfg8iRE4AKsG9g6tHms1Rezzm39NSQ7+f3BzvWyXy3GlyAH4HRNEH1uLmKZi9WynNyw/MVKe+KDV6khz0tE9Hzo8YdgqbL+ZrAyAPWY8eTsuQbO3qi+T5BOTSIIphkK/FogxoL4Cd9Ttj6uZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=oXNuM1us; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1784034313; c=relaxed/simple;
+	bh=uONPNuPd9OKKjtc0cbFYUNdRBRuTnzo0udv7EwdreEY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g/nwW6vG5SZF2X6PizfgKMPlZvTTQYlCqBjrRXl5uhbiL+XcurMFhmtTOrl5tbedPNZDBhAw+st3nY8uBK/umOVTjyfefBSGOQEjnLwpA7Rkp92g7x+9QN2CTKs9jE2hU7aCVeH5pjEzkUv/xXJQAZAy/9GIBuw3LcYcql9ceSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZ0obx5O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="oXNuM1us"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4629051c9d1so620437f8f.2
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 06:03:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1784034232; x=1784639032; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QcF0L770TQKMQqDorbzgjGu6vJT+Lw4syVjdxxXe8x0=;
-        b=oXNuM1us0X+T1LlQf5qFfxZTFuukMAx5HuDd/w/MKIKoGVq19fqeVU3x57f0cm8Cah
-         LIhWDgLE8aH+KyAq2iKrCHVUP8hLN7eG/c9N2/X0qEMEoGTa6oaY3G9kBDghZwaXY0U5
-         fshcOKovEIbIjcshNdzTP0yfbO0Oc40zUPcLsasVvjivAQ9V4AX3BVGEEnq7+QAuNEiB
-         FNgyo7sjQHVfrgdOKSJrVLBaqjuSgJ6kq1SmD+CqD9XT7BlFIOvp1M3LYbP49chPEjvz
-         XFSIwbZmL9aDC5MqfwuleqLiHR783CX9QfW1fnOs/XLsHIiHEwyLnlGqJj9ZkGjeTaDT
-         kzQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784034232; x=1784639032;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QcF0L770TQKMQqDorbzgjGu6vJT+Lw4syVjdxxXe8x0=;
-        b=oDWJkQeAd3wzVVkHpcbX1odSV+gq3o2ye9jmnSCEFsivJfIXDVOfh9uD5eUucRimAs
-         wf1PUVuHZyQ5SxH1qyBBAOdUTwhexM5rtsD67ODtOS/UMimhHFW3TZPm2HTxUbfxrry3
-         siP3Ae4kQfqO6xABT7uwjdahARhVWFH0uGQAbWDQvxGtbMm6uaDbliEWWDO8eErXxvJN
-         IA+r0XtSx4An4Sb6CVtvy7LUI7OKycgxV9hbpJK91gjOneShnbWp8wpFRakOxK/GjG9M
-         mwX2+h3l3KKeQUdxtV7Se+deS4t72mu3uRk7lsIkrJ7T4WhsjnoxwqzHv8p6qEKPkas+
-         LaJw==
-X-Forwarded-Encrypted: i=1; AHgh+RqonQ6CMRd92nPtnAi3uDLpaWaoj6/0l2xbGKpr6TxiHl7jvxNRXbAwac+4YZ71mqAa6HNSm/0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YznQOawjFe6MBcq+GpRqz/76rmyGohhFa8uDjLNb9Pv2ZKsHaWm
-	rEdihMcYyYNaGX5bKrU1D74YRs8JtABCAc4RHtmJnI1akQ9Qw/8biM1LamKcZV5Bw8hi
-X-Gm-Gg: AfdE7cmtrj+SCAcK59H8IGywtzNp2WJphB5yTccXw+Jx+ydr0M7kdy2x6fcz9UBqLR9
-	fhUOW+S2whO7kCm3Loao2NnAKO9aVeb7rx/t8rgrmyqgiabo14tQ/PvJWBxRKBa0b0HFrwpzk4y
-	FkQX+c6i2w7dpyl9JI/qqG7cFuYl1ADSny1mpcziejf6uycZ3ttYujywDaZfdGWa996xsNXv24S
-	9usPzGRNWV5qxEiOs/S22i1mpxVpBKP0R4Xm4jyanog8gjC44losnlheVlLApk/M2OigGTwkBPH
-	GbgsGQ5hXwSJ9q8YKSzCFqwkgzasI0b5mRglRz2J0fp1Q4Pek71K03n87r9mrRNVHS6pZYvP7zg
-	3g3fKgtLmhf2p+Ws0UXAiYBIN8bERSR34oOeFzhddXjIcl6GqMIKWZ/IuW8HFeJrSN0Jq81NoQw
-	HMw2vN1te5GlI77wMSKA1rza+R9esAV48zlBuMQ83ylYZEDbS3LOAvx1ZnQBgIQPA7vCHb/Fshc
-	cuqn34O6BMSTSFifmXjIrMAsSgUGK/ZVJM=
-X-Received: by 2002:a05:600c:e54a:20b0:493:a573:179b with SMTP id 5b1f17b1804b1-493f8829b05mr88159195e9.30.1784034231418;
-        Tue, 14 Jul 2026 06:03:51 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4950a2f951asm79484005e9.14.2026.07.14.06.03.49
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 14 Jul 2026 06:03:51 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: jk@codeconstruct.com.au,
-	matt@codeconstruct.com.au,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] mctp: serial: reject zero-length frames to prevent rx buffer overflow
-Date: Tue, 14 Jul 2026 15:03:48 +0200
-Message-ID: <20260714130348.72716-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZ0obx5O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3788A1F00ADE;
+	Tue, 14 Jul 2026 13:05:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784034311;
+	bh=HhdQiVTu6KA3opOMmKVdmA07qpV4bmi8kt8ZDXJ4P3w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PZ0obx5O3QFI6l8EJIJYSOahVEPqlrLTU55V39v8H62drxItp5CWFCFACTgEGkN42
+	 49T1SvqP9IH9lO7G6gP/vg7eqKISrhHNtrX990wuyt9AX9hZscHITYKWFAiHoj2+xA
+	 1NHzriP7pQqqmQhMlAZtwEXkitGoB+Hin5Zbj3F1CgcYoYc6/w82Ihe8jPrKj+mqwd
+	 sdCJ7sih4ypqNkUCrfPATiNhD9bR1YGVXxWz0p/feArcgNfFoRB0GPiBkxee9h3xom
+	 PB5bmYyXRxQifynJ9kK0RFC6/uxoOPjzaBcvBf2+UecHRpcOp/uhYqtyzcbiR54gtN
+	 kgeNloFpdy1RA==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 52E95F40066;
+	Tue, 14 Jul 2026 09:05:10 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Tue, 14 Jul 2026 09:05:10 -0400
+X-ME-Sender: <xms:BjRWagNi83rL4RE4Qzq_CHX1oez7HKXUjA69k5PADjg3PaIWoPBTHQ>
+    <xme:BjRWajuX2JbZOFCP_0cGkfRmZeEosQPaK5cnLePrvffit5u1SFwjcehQfsiruyRXE
+    dDiJXl5LhOmh4bO0xBsntVijiISR7BYZm6fv9Y5MWgCZ7stuMOp4Q>
+X-ME-Received: <xmr:BjRWam0wnS74KGev3VJ4KM43BoAWCs57Lf4nzrXSFn1nu4B6WYly-DlNqVH81A>
+X-ME-Proxy-Cause: dmFkZTG2+qoH7YKbDlyzXcMOV8ogYXK4x4YWWZstIygUmJWSdfFUXxfKJXPuuHTq2il8YC
+    4dFtu85gFPcaTqNqU3aftuUiHdYh4lvK7JQllt5w6x97pLVFtkNXm61NuG8tobtjLnb1tD
+    1hFuzcLAw4HMnUo2y/t/BIi/qcl7+Or33WV0BjsbndomlgUzbeg806UaEqP2eQgCQmppi6
+    fTUKJvXwLMnoXzycderldx42CWnKTyFto9X9gefWfYhFuh4G13cjBY7lCc6dm6nJbOdJEr
+    QmVRL1usA7cILcT60xIFIxTl8Q2AKHvsb7RObv7EXRP4L0GTAJPp8h0BJTedLoQrWtQZLG
+    hDZtzhI3EB7g433rhNA5IWc34XkTIp9Z2/FSm/ysYplg8uDejU5w11BnOdZAWXsIrPya8C
+    YmFZHyyuEOGu7e3AJ+kWdN5NaxqHbt77Yc7+dL24yiuoPL1p1Sg5HXcG/roRy0ISvinkhH
+    BOnYaQz3bIkTvFYAWS2QBQu7XrGNlfTCgZeOFQaPYwJ0qYCnXbEbP6IXLibUO4AOsNNSYI
+    vPav/2j1e4ojOQVJaooohbHypA0+XXKAZScDO6PzZNp++wkgoGrhTfTpxC3hG4LX44v1l5
+    Piuqxud9l7rgnbs8VjBA0zGxCJVy1yYr2nlrM+T8Jpp89uG+0pNGRBegyx4w
+X-ME-Proxy: <xmx:BjRWahXnTxBvcc7YhMqs8WKsrcQV186pH-2cmMOJIX2iWLEQYcVkog>
+    <xmx:BjRWasukaIAcWGkwb_LYkDWN4F6RrN-Pn-ZTxmuZ6wRkecdntjWaxg>
+    <xmx:BjRWaszQmfr2r_k1XmGT_xU59KGomGGlQzC-Lyrbb01VG2y6RSLNbQ>
+    <xmx:BjRWajkdtz-OXhToMrbPm3KIpaCHey15lyJaI6zfi0t1kLqmaMz5JA>
+    <xmx:BjRWaiZR_BGHImDMXqbUM9CSeon3mOfVtcr_uViC4Qam2j0jLwARoLlY>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 14 Jul 2026 09:05:07 -0400 (EDT)
+Date: Tue, 14 Jul 2026 14:05:05 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Hao Zhang <zhanghao1@kylinos.cn>, Hao Zhang <hao_zhang_kdev@163.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] mm/memory-failure: keep the folio, not the
+ poisoned subpage, locked across split
+Message-ID: <alYzJ9-zsTuQl08J@thinkstation>
+References: <20260714122344.351895-1-kirill@shutemov.name>
+ <20260714122344.351895-2-kirill@shutemov.name>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714122344.351895-2-kirill@shutemov.name>
 
-The MCTP serial receive state machine reads a frame length byte in
-mctp_serial_push_header() case 2 and validates it upper-bound-only:
+On Tue, Jul 14, 2026 at 01:23:40PM +0100, Kiryl Shutsemau wrote:
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index 51508a55c405..68d42cbed458 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -1657,11 +1657,18 @@ static int identify_page_state(unsigned long pfn, struct page *p,
+>  static int try_to_split_thp_page(struct page *page, unsigned int new_order,
+>  		bool release)
+>  {
+> +	struct folio *folio = page_folio(page);
+>  	int ret;
+>  
+> -	lock_page(page);
+> -	ret = split_huge_page_to_order(page, new_order);
+> -	unlock_page(page);
+> +	/*
+> +	 * Lock and split at the head, not the poisoned subpage: __folio_split()
+> +	 * keeps the anchor folio locked and needs it to stay in the page cache
+> +	 * to pin the inode. A tail beyond EOF would be dropped yet returned
+> +	 * locked, losing that pin. The caller re-locks @page afterwards.
+> +	 */
+> +	folio_lock(folio);
+> +	ret = split_folio_to_order(folio, new_order);
+> +	folio_unlock(folio);
+>  
+>  	if (ret && release)
+>  		put_page(page);
 
-	if (c > MCTP_SERIAL_FRAME_MTU) {
-		dev->rxstate = STATE_ERR;
-	} else {
-		dev->rxlen = c;
-		dev->rxpos = 0;
-		dev->rxstate = STATE_DATA;
-		...
-	}
+Ughh.. This patch is broken, sorry.
 
-A length of zero passes this check, so rxlen is set to 0 and the state
-machine advances to STATE_DATA. In mctp_serial_push() STATE_DATA, the
-incoming byte is stored and rxpos incremented before the terminator is
-tested:
+Please ignore the patchset. Will follow up.
 
-	dev->rxbuf[dev->rxpos] = c;
-	dev->rxpos++;
-	dev->rxstate = STATE_DATA;
-	if (dev->rxpos == dev->rxlen) {
-		dev->rxpos = 0;
-		dev->rxstate = STATE_TRAILER;
-	}
-
-With rxlen == 0 the "rxpos == rxlen" terminator can never fire (rxpos is
-already 1 on the first data byte), so subsequent bytes are written past
-the end of the fixed 74-byte rxbuf, which is the last member of the
-netdev private area. Every following data byte is an attacker-controlled
-1-byte out-of-bounds heap write, and the overflow continues until a
-frame (0x7e) or escape byte resets the parser -- effectively unbounded.
-
-Reaching this requires CAP_NET_ADMIN to attach the N_MCTP line
-discipline and bring the resulting mctpserialN netdev up, after which
-the bytes arrive via the tty receive path.
-
-Reject a zero-length frame in the header parser, matching the existing
-upper-bound rejection.
-
-KASAN, on a frame of 0x7e 0x01 0x00 followed by data bytes:
-
-  UBSAN: array-index-out-of-bounds in drivers/net/mctp/mctp-serial.c:370
-  index 74 is out of range for type 'u8 [74]'
-  BUG: KASAN: slab-out-of-bounds in mctp_serial_tty_receive_buf
-  Write of size 1 at addr ... by task kworker/u16:0
-   mctp_serial_tty_receive_buf
-   tty_ldisc_receive_buf
-   flush_to_ldisc
-  Allocated by task 152:
-   alloc_netdev_mqs
-   mctp_serial_open
-
-Found by 0sec (https://0sec.ai).
-Fixes: a0c2ccd9b5ad ("mctp: Add MCTP-over-serial transport binding")
-Cc: stable@vger.kernel.org
-Assisted-by: 0sec
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
----
- drivers/net/mctp/mctp-serial.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/mctp/mctp-serial.c b/drivers/net/mctp/mctp-serial.c
-index 26c9a33fd636..1e3d285c0500 100644
---- a/drivers/net/mctp/mctp-serial.c
-+++ b/drivers/net/mctp/mctp-serial.c
-@@ -313,7 +313,7 @@ static void mctp_serial_push_header(struct mctp_serial *dev, u8 c)
- 		}
- 		break;
- 	case 2:
--		if (c > MCTP_SERIAL_FRAME_MTU) {
-+		if (c == 0 || c > MCTP_SERIAL_FRAME_MTU) {
- 			dev->rxstate = STATE_ERR;
- 		} else {
- 			dev->rxlen = c;
 -- 
-2.43.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
