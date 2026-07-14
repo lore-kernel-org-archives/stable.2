@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85880478E50;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DEB47A0B4;
 	Tue, 14 Jul 2026 13:52:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784037162; cv=none; b=fra0qhzt0dAYhIVEr/W7bAx4ulFyO9hgmYov2ua6XOFdEEkOsG/Rz+eCXt4ZQJXCOetZiouZUxSQAITnaYecjDhZERf9Nsmt0y9gKEsGgiMZLztj20+S5VJ1hQibOKck+K9YJYa8ScH/iavi9tIHGlCbsp9HJZ7hA73b/d4NyqE=
+	t=1784037163; cv=none; b=dI55WIL7pKczEmk8RpnS/L1SEBWcnZSnNqAdtlZG+if8LHLs9UBIfKV8BkvEr69o0O1OsgyoP+s4dbTvyrK6TQEocROagLKh0fEOZmXZcAtyCwN7Tko3YpaXuZRipHOnJeKJRzEj76MCatHTXjqrqyt1CmdwcvzHRC4r5pUHXkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784037162; c=relaxed/simple;
-	bh=oa/Api2m6C6paRLqdcrPW1anhL7pYe2ZAUU7W+EEjsg=;
+	s=arc-20240116; t=1784037163; c=relaxed/simple;
+	bh=vZYyX+a12usp29MAJtKmwcAKj0175PGkEUqyahpcjCo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c3O20P+XdOoDfYlr29TFrQSEdA88/wwHmTMuJ0U+rUs6cA5BvlwTmoQwoNB7ZkafmgPpm98p5OG5Ess5yLzlxrsTGBhfjj9659YEfnLNYqk+/2imF9o0FjqhAVyldKYuCWJL0miI4AG1O6sCjLKAoiEkwI9QF7k1z52jHsh075E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o2Mu32fe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=s1ojKjAkS1sufAxPjBWAMF/308Gw/GhWtCp1F6fFbGRF7MWtbN/N3bC6aSSuDy4dXUiMM5mgALJYTHZpWSyFEaCbBvzJA/hCA91zJGIDjw6yktJo5GlLXYK0gLnrOpU6wOUrwr77pGPhjZphwyKveoYrIubyKo5tekbq1Qzs4QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mg/1cImU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o2Mu32fe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E051D1F00A3D;
-	Tue, 14 Jul 2026 13:52:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mg/1cImU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648221F00A3E;
+	Tue, 14 Jul 2026 13:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784037161;
-	bh=Csk2Bs95SoFAJpGitaPFL2lXi5OcS5tAvUkrHnWNWRA=;
+	bh=dZ7Hztpv9AG3ym6rD1iyRftJCr5BqjDTKMYF5vaHn/Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o2Mu32feVKP83fD7JNCE+FPeaLoTggU2hLWV+t91Oq6Xo/b7T0n91PDrKGBicdpIT
-	 tpx7pkI6XwSagk62CiGVmhne6IeOKo8WbVk+n3mogaHWHsVIDCTFl2ar8xwch0Kc1Q
-	 4DxxOJ66fjwEMNPC8Gx/UtamMjq5vnz2drmQ2Ms2q/x0xLhSQSZYEl8WQ+zvrcQCz2
-	 4n/elR7mws1pVx6Rfn7PvRVZYtRNH1JfJnMdtcSCP5/9dTyxKcWpQimVMabUYxJNKM
-	 /2kZJa3E83DkUVcmNqKZbkYKgnyEdquT4xc4eSqF1wqV77KN8xdgkWTJsDDc5HNOCO
-	 xnu1NV3GuDpfg==
+	b=Mg/1cImUvg1xFHeuB7HlVPy4iR52T3765lzbUe744vSr6w8vgzvRsPXCeM8TIAKBH
+	 EfnFC2sunhWRbpKAwMxprwe8uusmv3x7oT+iInwMgbk2UajQHiCGqsJ66jZOAR/6Iu
+	 fY4i7nwBAdYIct4z3u9mmAaTUP/NTEDWXwGh253f0vC8iKCEdZUlG76KCmzLYkFc7D
+	 Qy4xGvWQLRjSHnhnNVI+qu+FkVvFef8x9bKu/aZWQOVkLqNwCznx/iwmLd/7hFn2Ws
+	 XRdj4VpzQVT2MvoyUgAJ2ZXS14418PyBe3FDRUN2PGTngkDFRYd+nbRQyqL+Po2Sqc
+	 DHRb07n+BCDNQ==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
+	Fernand Sieber <sieberf@amazon.com>,
+	Leonard Foerster <foersleo@amazon.de>,
 	SeongJae Park <sjpark@amazon.de>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
 	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 2/5] mm/damon/tests/core-kunit: catch test failure in test_merge_regions_of()
-Date: Tue, 14 Jul 2026 06:52:30 -0700
-Message-ID: <20260714135236.92699-3-sj@kernel.org>
+Subject: [PATCH 3/5] mm/damon/vaddr: drop last same folio access check optimization
+Date: Tue, 14 Jul 2026 06:52:31 -0700
+Message-ID: <20260714135236.92699-4-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260714135236.92699-1-sj@kernel.org>
 References: <20260714135236.92699-1-sj@kernel.org>
@@ -52,47 +51,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KUNIT_EXPECT_EQ() does not abort the execution of test code when the
-expectation is not met.  But damon_test_merge_regions_of() code after
-its initial KUNIT_EXPECT_EQ() call assumes the expectation is met.  It
-does a per-region test with a hard-coded number of regions that is
-correct only if the expectation was met.  As a result, __nth_region_of()
-could return NULL, and the test code can dereference NULL pointers.  Fix
-the issue by catching the expectation failure and skip the per-region
-tests.
+The optimization can race when multiple kdamonds are running.
+Meanwhile, the impact of the optimization is quite doubtful.  Just
+remove it.
 
-The user impact on realistic setups should be negligible, as it is a
-unit test.
+The user impact of the issue should be quite trivial.  After all, the
+race can happen only when the user intentionally setup DAMON in the way.
+Even if it happens, it would be rare and only degrade the best-effort
+monitoring results.  No critical consequences like kernel panic or
+memory corruption happen.
 
-The issue was discovered [1] by Sashiko.
+The race possibility was discovered [1] by Sashiko.
 
-[1] https://lore.kernel.org/20260710144937.26981-1-sj@kernel.org
+[1] https://lore.kernel.org/20260621204050.10993-1-sj@kernel.org
 
-Fixes: 17ccae8bb5c9 ("mm/damon: add kunit tests")
+Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
 Cc: <stable@vger.kernel.org> # 5.15.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/tests/core-kunit.h | 3 +++
- 1 file changed, 3 insertions(+)
+ mm/damon/vaddr.c | 33 ++++++---------------------------
+ 1 file changed, 6 insertions(+), 27 deletions(-)
 
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 485472ddebd19..eba643762132f 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -260,11 +260,14 @@ static void damon_test_merge_regions_of(struct kunit *test)
- 	damon_merge_regions_of(t, 9, 9999, ctx, true);
- 	/* 0-112, 114-130, 130-156, 156-170, 170-230, 230-10170 */
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 6u);
-+	if (damon_nr_regions(t) != 6)
-+		goto out;
- 	for (i = 0; i < 6; i++) {
- 		r = __nth_region_of(t, i);
- 		KUNIT_EXPECT_EQ(test, r->ar.start, saddrs[i]);
- 		KUNIT_EXPECT_EQ(test, r->ar.end, eaddrs[i]);
- 	}
-+out:
- 	damon_free_target(t);
- 	damon_destroy_ctx(ctx);
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index d10b8042adb5b..d487b7a4a1042 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -383,8 +383,6 @@ static void damon_va_prepare_access_checks(struct damon_ctx *ctx)
  }
+ 
+ struct damon_young_walk_private {
+-	/* size of the folio for the access checked virtual memory address */
+-	unsigned long *folio_sz;
+ 	bool young;
+ };
+ 
+@@ -411,7 +409,6 @@ static int damon_young_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 					mmu_notifier_test_young(walk->mm,
+ 						addr))
+ 			priv->young = true;
+-		*priv->folio_sz = HPAGE_PMD_SIZE;
+ huge_out:
+ 		spin_unlock(ptl);
+ 		return 0;
+@@ -430,7 +427,6 @@ static int damon_young_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 	if (pte_young(ptent) || !folio_test_idle(folio) ||
+ 			mmu_notifier_test_young(walk->mm, addr))
+ 		priv->young = true;
+-	*priv->folio_sz = folio_size(folio);
+ out:
+ 	pte_unmap_unlock(pte, ptl);
+ 	return 0;
+@@ -458,7 +454,6 @@ static int damon_young_hugetlb_entry(pte_t *pte, unsigned long hmask,
+ 	if (pte_young(entry) || !folio_test_idle(folio) ||
+ 	    mmu_notifier_test_young(walk->mm, addr))
+ 		priv->young = true;
+-	*priv->folio_sz = huge_page_size(h);
+ 
+ 	folio_put(folio);
+ 
+@@ -470,11 +465,9 @@ static int damon_young_hugetlb_entry(pte_t *pte, unsigned long hmask,
+ #define damon_young_hugetlb_entry NULL
+ #endif /* CONFIG_HUGETLB_PAGE */
+ 
+-static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
+-		unsigned long *folio_sz)
++static bool damon_va_young(struct mm_struct *mm, unsigned long addr)
+ {
+ 	struct damon_young_walk_private arg = {
+-		.folio_sz = folio_sz,
+ 		.young = false,
+ 	};
+ 
+@@ -494,28 +487,17 @@ static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
+  * r	the region to be checked
+  */
+ static void __damon_va_check_access(struct mm_struct *mm,
+-				struct damon_region *r, bool same_target)
++				struct damon_region *r)
+ {
+-	static unsigned long last_addr;
+-	static unsigned long last_folio_sz = PAGE_SIZE;
+-	static bool last_accessed;
++	bool accessed;
+ 
+ 	if (!mm) {
+ 		damon_update_region_access_rate(r, false);
+ 		return;
+ 	}
+ 
+-	/* If the region is in the last checked page, reuse the result */
+-	if (same_target && (ALIGN_DOWN(last_addr, last_folio_sz) ==
+-				ALIGN_DOWN(r->sampling_addr, last_folio_sz))) {
+-		damon_update_region_access_rate(r, last_accessed);
+-		return;
+-	}
+-
+-	last_accessed = damon_va_young(mm, r->sampling_addr, &last_folio_sz);
+-	damon_update_region_access_rate(r, last_accessed);
+-
+-	last_addr = r->sampling_addr;
++	accessed = damon_va_young(mm, r->sampling_addr);
++	damon_update_region_access_rate(r, accessed);
+ }
+ 
+ static unsigned int damon_va_check_accesses(struct damon_ctx *ctx)
+@@ -524,15 +506,12 @@ static unsigned int damon_va_check_accesses(struct damon_ctx *ctx)
+ 	struct mm_struct *mm;
+ 	struct damon_region *r;
+ 	unsigned int max_nr_accesses = 0;
+-	bool same_target;
+ 
+ 	damon_for_each_target(t, ctx) {
+ 		mm = damon_get_mm(t);
+-		same_target = false;
+ 		damon_for_each_region(r, t) {
+-			__damon_va_check_access(mm, r, same_target);
++			__damon_va_check_access(mm, r);
+ 			max_nr_accesses = max(r->nr_accesses, max_nr_accesses);
+-			same_target = true;
+ 		}
+ 		if (mm)
+ 			mmput(mm);
 -- 
 2.47.3
