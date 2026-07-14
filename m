@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C294C77BE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D564C77D3
 	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784059348; cv=none; b=eoIHhtXePOMZcFlKzuLdPk0me5RbJC+LtgRojkZKao3fnez849Waaf+PGNSAdqlOfynz+wB6rznCmX4BJhmPh+fTUQQH6uY3yjGrYQhnLAY93igQrD8N/pXPVLTlLM2dBtGtBhvMqjdMywB7e/rL9d/8AT8nqN0anzteOyjIhiQ=
+	t=1784059348; cv=none; b=RSKTIBfjhSSvJ41ilqDM7X/kmlFbbtdMjmuDDHUkFD66PNyCZ16drgANETG7AyRc/pULDQPLvKL2v38cydcpoaXPMvK0cusUMAfA+iOGEwttoA0hRxS2JUL50RHZSfyzX0KEO12JV7agvhx1vX70cxxKzx4xeVo0jA1p0j2J0Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784059348; c=relaxed/simple;
-	bh=OlVGFoZt9hhNAamMcIZJsg6XloxkkOpd+R4GmlB/jcQ=;
+	bh=WZoJtH7rxJr5tdM1etZa0dcj8g6UR2ZbGCvO9Fr6pug=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UFCxBb49ILOjjUeu7zfUVPTO5tzx4hTQoR728GwiK/21VErqUZN8fmgXX1dmzGFKf+icNnial4KN69DQ8URtv5u7OrL7vhPzvgvzsh71n2ZL3dWCefwdP780l8BECOzm2TfnE2xsYTTxLYyI5IhmVTg3R4CLcr9msXtlPeHjpJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K8X7+uzu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PsGVxBiTnZqMhztSaB2Hi8x5bin5H5te0xrm2MGWhtPXe42CG/0cenJ0mxncSSrDIc0v7zwrqKA9wmTlNv14a/vhJpr7xUXIRvzItW/ugozghXLdevLvaTdfOw/4r+GADJmkKaFQpcjGju9PA2VGEJZfQeQ3GAHiXwyCMX3ysBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Da5of+UR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K8X7+uzu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEC0A1F00AC4;
-	Tue, 14 Jul 2026 20:02:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Da5of+UR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1C7B1F00A3D;
+	Tue, 14 Jul 2026 20:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784059339;
-	bh=KnwQVLEYEHlb4BDY48vptng8MO8lcJE5iJc5ahSJ17c=;
+	s=k20260515; t=1784059340;
+	bh=9K9tRDDHguzKbIoi0udEKGmZDLzi9KztZ/+lOhPQ2z4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K8X7+uzuAzGLun462nsF/456W8ehlVlCb8RGZ/CfvkAF6mJov2hV2UacCerfOKkL0
-	 Nd2cWPS2M8yHrlQU3Fz/BLhqYcA/vy6iZAzSnvxvPaY9v7CufMQVy4zMdL20BT6Ngn
-	 qfp0ba5dxhiarMfIf74tXm8TF/MiAkilief4+/kz2gxPi4xNMnS2YF4f+tQJgp9oQU
-	 q16nFtY0hitEnXxLSGpcRXV9L0UWwk4ZWTxEbRzp5P2yD6lt39oFQSuDXVbZDhYhiF
-	 Rn1hmVU/lTwKPXpOaSGARpXs7YOgpjZDF6bIreT2lkiX0jcbBf7jamHKx/GH68V0jg
-	 xF99NJC5pB18w==
+	b=Da5of+URTr6FzVMJ1iQvnj9nPNQdpqXGUeMsKFijN8eKpSXItucAzqQMUjGtcdlkv
+	 1UYT7CRv7wwvEOcrKw6FthyfmqI+ER+LsFmzyEXupmSSwDI81h/oxyfPkI4zBjSYfb
+	 dOX77FDc8f9pwJVl9QlRCafNHpVH8iIAe9UhEoFVMUHct/W/nrSo27A4oBMVpGk6vg
+	 m611R4zYFHUVud6F2gDGfkk8fjsGlL2CwD1JJHsa0H3NV4XHO7RawvZpQaWAdDmp/v
+	 MLNzbgE2B+Z9w6Aq8L3GR//VHxfrSrlXm11mI+abFouKMj5cRvJ+SO7zfyVgGYHEtd
+	 QvXKxeEZWI3mQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Enzo Matsumiya <ematsumiya@suse.de>,
+	"Paulo Alcantara (SUSE)" <pc@cjr.nz>,
 	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/5] smb2: small refactor in smb2_check_message()
-Date: Tue, 14 Jul 2026 16:02:13 -0400
-Message-ID: <20260714200215.3152449-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 4/5] cifs: remove unused server parameter from calc_smb_size()
+Date: Tue, 14 Jul 2026 16:02:14 -0400
+Message-ID: <20260714200215.3152449-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260714200215.3152449-1-sashal@kernel.org>
 References: <2026071307-payment-valium-e77f@gregkh>
@@ -48,167 +49,164 @@ Content-Transfer-Encoding: 8bit
 
 From: Enzo Matsumiya <ematsumiya@suse.de>
 
-[ Upstream commit da3847894fddc27ca95d5ac0012f444a77a5e0c3 ]
+[ Upstream commit 68ed14496b032b0c9ef21b38ee45c6c8f3a18ff1 ]
 
-If the command is SMB2_IOCTL, OutputLength and OutputContext are
-optional and can be zero, so return early and skip calculated length
-check.
+This parameter is unused by the called function
 
-Move the mismatched length message to the end of the check, to avoid
-unnecessary logs when the check was not a real miscalculation.
-
-Also change the pr_warn_once() to a pr_warn() so we're sure to get a
-log for the real mismatches.
-
+Reviewed-by: Paulo Alcantara (SUSE) <pc@cjr.nz>
 Signed-off-by: Enzo Matsumiya <ematsumiya@suse.de>
 Signed-off-by: Steve French <stfrench@microsoft.com>
 Stable-dep-of: 53b7c271f06b ("smb: client: restrict implied bcc[0] exemption to responses without data area")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/connect.c  | 13 ++++++-------
- fs/cifs/smb2misc.c | 47 +++++++++++++++++++++++++++-------------------
- 2 files changed, 34 insertions(+), 26 deletions(-)
+ fs/cifs/cifs_debug.c | 2 +-
+ fs/cifs/cifsglob.h   | 2 +-
+ fs/cifs/cifsproto.h  | 2 +-
+ fs/cifs/misc.c       | 2 +-
+ fs/cifs/netmisc.c    | 2 +-
+ fs/cifs/readdir.c    | 6 ++----
+ fs/cifs/smb2misc.c   | 4 ++--
+ fs/cifs/smb2ops.c    | 2 +-
+ fs/cifs/smb2proto.h  | 2 +-
+ 9 files changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/fs/cifs/connect.c b/fs/cifs/connect.c
-index 6fca381353620a..e29314719bc26b 100644
---- a/fs/cifs/connect.c
-+++ b/fs/cifs/connect.c
-@@ -890,19 +890,18 @@ int
- cifs_handle_standard(struct TCP_Server_Info *server, struct mid_q_entry *mid)
- {
- 	char *buf = server->large_buf ? server->bigbuf : server->smallbuf;
--	int length;
-+	int rc;
- 
- 	/*
- 	 * We know that we received enough to get to the MID as we
- 	 * checked the pdu_length earlier. Now check to see
--	 * if the rest of the header is OK. We borrow the length
--	 * var for the rest of the loop to avoid a new stack var.
-+	 * if the rest of the header is OK.
- 	 *
- 	 * 48 bytes is enough to display the header and a little bit
- 	 * into the payload for debugging purposes.
- 	 */
--	length = server->ops->check_message(buf, server->total_read, server);
--	if (length != 0)
-+	rc = server->ops->check_message(buf, server->total_read, server);
-+	if (rc)
- 		cifs_dump_mem("Bad SMB: ", buf,
- 			min_t(unsigned int, server->total_read, 48));
- 
-@@ -917,9 +916,9 @@ cifs_handle_standard(struct TCP_Server_Info *server, struct mid_q_entry *mid)
- 		return -1;
- 
- 	if (!mid)
--		return length;
-+		return rc;
- 
--	handle_mid(mid, server, buf, length);
-+	handle_mid(mid, server, buf, rc);
- 	return 0;
+diff --git a/fs/cifs/cifs_debug.c b/fs/cifs/cifs_debug.c
+index dd39097027b5f3..b7bbcd67e09545 100644
+--- a/fs/cifs/cifs_debug.c
++++ b/fs/cifs/cifs_debug.c
+@@ -42,7 +42,7 @@ void cifs_dump_detail(void *buf, struct TCP_Server_Info *server)
+ 		 smb->Command, smb->Status.CifsError,
+ 		 smb->Flags, smb->Flags2, smb->Mid, smb->Pid);
+ 	cifs_dbg(VFS, "smb buf %p len %u\n", smb,
+-		 server->ops->calc_smb_size(smb, server));
++		 server->ops->calc_smb_size(smb));
+ #endif /* CONFIG_CIFS_DEBUG2 */
  }
  
+diff --git a/fs/cifs/cifsglob.h b/fs/cifs/cifsglob.h
+index 1030159152cc28..136f8b9cb44454 100644
+--- a/fs/cifs/cifsglob.h
++++ b/fs/cifs/cifsglob.h
+@@ -389,7 +389,7 @@ struct smb_version_operations {
+ 	int (*close_dir)(const unsigned int, struct cifs_tcon *,
+ 			 struct cifs_fid *);
+ 	/* calculate a size of SMB message */
+-	unsigned int (*calc_smb_size)(void *buf, struct TCP_Server_Info *ptcpi);
++	unsigned int (*calc_smb_size)(void *buf);
+ 	/* check for STATUS_PENDING and process the response if yes */
+ 	bool (*is_status_pending)(char *buf, struct TCP_Server_Info *server);
+ 	/* check for STATUS_NETWORK_SESSION_EXPIRED */
+diff --git a/fs/cifs/cifsproto.h b/fs/cifs/cifsproto.h
+index 7d00802f972239..3de85b3283e627 100644
+--- a/fs/cifs/cifsproto.h
++++ b/fs/cifs/cifsproto.h
+@@ -148,7 +148,7 @@ extern int cifs_get_writable_path(struct cifs_tcon *tcon, const char *name,
+ extern struct cifsFileInfo *find_readable_file(struct cifsInodeInfo *, bool);
+ extern int cifs_get_readable_path(struct cifs_tcon *tcon, const char *name,
+ 				  struct cifsFileInfo **ret_file);
+-extern unsigned int smbCalcSize(void *buf, struct TCP_Server_Info *server);
++extern unsigned int smbCalcSize(void *buf);
+ extern int decode_negTokenInit(unsigned char *security_blob, int length,
+ 			struct TCP_Server_Info *server);
+ extern int cifs_convert_address(struct sockaddr *dst, const char *src, int len);
+diff --git a/fs/cifs/misc.c b/fs/cifs/misc.c
+index 7fd5882671b6b9..8b0eeb9ae7926e 100644
+--- a/fs/cifs/misc.c
++++ b/fs/cifs/misc.c
+@@ -357,7 +357,7 @@ checkSMB(char *buf, unsigned int total_read, struct TCP_Server_Info *server)
+ 	/* otherwise, there is enough to get to the BCC */
+ 	if (check_smb_hdr(smb))
+ 		return -EIO;
+-	clc_len = smbCalcSize(smb, server);
++	clc_len = smbCalcSize(smb);
+ 
+ 	if (4 + rfclen != total_read) {
+ 		cifs_dbg(VFS, "Length read does not match RFC1001 length %d\n",
+diff --git a/fs/cifs/netmisc.c b/fs/cifs/netmisc.c
+index fa9fbd6a819cb8..6ddab41f587385 100644
+--- a/fs/cifs/netmisc.c
++++ b/fs/cifs/netmisc.c
+@@ -912,7 +912,7 @@ map_and_check_smb_error(struct mid_q_entry *mid, bool logErr)
+  * portion, the number of word parameters and the data portion of the message
+  */
+ unsigned int
+-smbCalcSize(void *buf, struct TCP_Server_Info *server)
++smbCalcSize(void *buf)
+ {
+ 	struct smb_hdr *ptr = (struct smb_hdr *)buf;
+ 	return (sizeof(struct smb_hdr) + (2 * ptr->WordCount) +
+diff --git a/fs/cifs/readdir.c b/fs/cifs/readdir.c
+index 6aa3c267f4ca41..7c47a03afbcc39 100644
+--- a/fs/cifs/readdir.c
++++ b/fs/cifs/readdir.c
+@@ -808,8 +808,7 @@ find_cifs_entry(const unsigned int xid, struct cifs_tcon *tcon, loff_t pos,
+ 
+ 		end_of_smb = cfile->srch_inf.ntwrk_buf_start +
+ 			server->ops->calc_smb_size(
+-					cfile->srch_inf.ntwrk_buf_start,
+-					server);
++					cfile->srch_inf.ntwrk_buf_start);
+ 
+ 		cur_ent = cfile->srch_inf.srch_entries_start;
+ 		first_entry_in_buffer = cfile->srch_inf.index_of_last_entry
+@@ -1008,8 +1007,7 @@ int cifs_readdir(struct file *file, struct dir_context *ctx)
+ 	cifs_dbg(FYI, "loop through %d times filling dir for net buf %p\n",
+ 		 num_to_fill, cifsFile->srch_inf.ntwrk_buf_start);
+ 	max_len = tcon->ses->server->ops->calc_smb_size(
+-			cifsFile->srch_inf.ntwrk_buf_start,
+-			tcon->ses->server);
++			cifsFile->srch_inf.ntwrk_buf_start);
+ 	end_of_smb = cifsFile->srch_inf.ntwrk_buf_start + max_len;
+ 
+ 	tmp_buf = kmalloc(UNICODE_NAME_MAX, GFP_KERNEL);
 diff --git a/fs/cifs/smb2misc.c b/fs/cifs/smb2misc.c
-index ab20585db8c159..c24d3bcb565f17 100644
+index c24d3bcb565f17..29d723c04b1666 100644
 --- a/fs/cifs/smb2misc.c
 +++ b/fs/cifs/smb2misc.c
-@@ -132,15 +132,15 @@ static __u32 get_neg_ctxt_len(struct smb2_hdr *hdr, __u32 len,
- }
- 
- int
--smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *srvr)
-+smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *server)
- {
- 	struct smb2_hdr *shdr = (struct smb2_hdr *)buf;
- 	struct smb2_pdu *pdu = (struct smb2_pdu *)shdr;
--	__u64 mid;
--	__u32 clc_len;  /* calculated length */
--	int command;
--	int pdu_size = sizeof(struct smb2_pdu);
- 	int hdr_size = sizeof(struct smb2_hdr);
-+	int pdu_size = sizeof(struct smb2_pdu);
-+	int command;
-+	__u32 calc_len; /* calculated length */
-+	__u64 mid;
- 
- 	/*
- 	 * Add function to do table lookup of StructureSize by command
-@@ -154,7 +154,7 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *srvr)
- 
- 		/* decrypt frame now that it is completely read in */
- 		spin_lock(&cifs_tcp_ses_lock);
--		list_for_each_entry(iter, &srvr->smb_ses_list, smb_ses_list) {
-+		list_for_each_entry(iter, &server->smb_ses_list, smb_ses_list) {
- 			if (iter->Suid == le64_to_cpu(thdr->SessionId)) {
- 				ses = iter;
- 				break;
-@@ -221,30 +221,33 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *srvr)
+@@ -221,7 +221,7 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *server)
  		}
  	}
  
--	clc_len = smb2_calc_size(buf, srvr);
-+	calc_len = smb2_calc_size(buf, server);
-+
-+	/* For SMB2_IOCTL, OutputOffset and OutputLength are optional, so might
-+	 * be 0, and not a real miscalculation */
-+	if (command == SMB2_IOCTL_HE && calc_len == 0)
-+		return 0;
+-	calc_len = smb2_calc_size(buf, server);
++	calc_len = smb2_calc_size(buf);
  
--	if (shdr->Command == SMB2_NEGOTIATE)
--		clc_len += get_neg_ctxt_len(shdr, len, clc_len);
-+	if (command == SMB2_NEGOTIATE_HE)
-+		calc_len += get_neg_ctxt_len(shdr, len, calc_len);
+ 	/* For SMB2_IOCTL, OutputOffset and OutputLength are optional, so might
+ 	 * be 0, and not a real miscalculation */
+@@ -403,7 +403,7 @@ smb2_get_data_area_len(int *off, int *len, struct smb2_hdr *shdr)
+  * portion, the number of word parameters and the data portion of the message.
+  */
+ unsigned int
+-smb2_calc_size(void *buf, struct TCP_Server_Info *srvr)
++smb2_calc_size(void *buf)
+ {
+ 	struct smb2_pdu *pdu = (struct smb2_pdu *)buf;
+ 	struct smb2_hdr *shdr = &pdu->hdr;
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index 2a640015c261bf..b17b5aa3fdb2f4 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -374,7 +374,7 @@ smb2_dump_detail(void *buf, struct TCP_Server_Info *server)
+ 		 shdr->Command, shdr->Status, shdr->Flags, shdr->MessageId,
+ 		 shdr->Id.SyncId.ProcessId);
+ 	cifs_server_dbg(VFS, "smb buf %p len %u\n", buf,
+-		 server->ops->calc_smb_size(buf, server));
++		 server->ops->calc_smb_size(buf));
+ #endif
+ }
  
--	if (len != clc_len) {
--		cifs_dbg(FYI, "Calculated size %u length %u mismatch mid %llu\n",
--			 clc_len, len, mid);
-+	if (len != calc_len) {
- 		/* create failed on symlink */
- 		if (command == SMB2_CREATE_HE &&
- 		    shdr->Status == STATUS_STOPPED_ON_SYMLINK)
- 			return 0;
- 		/* Windows 7 server returns 24 bytes more */
--		if (clc_len + 24 == len && command == SMB2_OPLOCK_BREAK_HE)
-+		if (calc_len + 24 == len && command == SMB2_OPLOCK_BREAK_HE)
- 			return 0;
- 		/* server can return one byte more due to implied bcc[0] */
--		if (clc_len == len + 1)
-+		if (calc_len == len + 1)
- 			return 0;
- 
- 		/*
- 		 * Some windows servers (win2016) will pad also the final
- 		 * PDU in a compound to 8 bytes.
- 		 */
--		if (((clc_len + 7) & ~7) == len)
-+		if (((calc_len + 7) & ~7) == len)
- 			return 0;
- 
- 		/*
-@@ -253,12 +256,18 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *srvr)
- 		 * SMB2/SMB3 frame length (header + smb2 response specific data)
- 		 * Some windows servers also pad up to 8 bytes when compounding.
- 		 */
--		if (clc_len < len)
-+		if (calc_len < len)
- 			return 0;
- 
--		pr_warn_once(
--			"srv rsp too short, len %d not %d. cmd:%d mid:%llu\n",
--			len, clc_len, command, mid);
-+		/* Only log a message if len was really miscalculated */
-+		if (unlikely(cifsFYI))
-+			cifs_dbg(FYI, "Server response too short: calculated "
-+				 "length %u doesn't match read length %u (cmd=%d, mid=%llu)\n",
-+				 calc_len, len, command, mid);
-+		else
-+			pr_warn("Server response too short: calculated length "
-+				"%u doesn't match read length %u (cmd=%d, mid=%llu)\n",
-+				calc_len, len, command, mid);
- 
- 		return 1;
- 	}
+diff --git a/fs/cifs/smb2proto.h b/fs/cifs/smb2proto.h
+index b8f7abbf9dacd7..73955013033c04 100644
+--- a/fs/cifs/smb2proto.h
++++ b/fs/cifs/smb2proto.h
+@@ -23,7 +23,7 @@ struct smb_rqst;
+ extern int map_smb2_to_linux_error(char *buf, bool log_err);
+ extern int smb2_check_message(char *buf, unsigned int length,
+ 			      struct TCP_Server_Info *server);
+-extern unsigned int smb2_calc_size(void *buf, struct TCP_Server_Info *server);
++extern unsigned int smb2_calc_size(void *buf);
+ extern char *smb2_get_data_area_len(int *off, int *len,
+ 				    struct smb2_hdr *shdr);
+ extern __le16 *cifs_convert_path_to_utf16(const char *from,
 -- 
 2.53.0
 
