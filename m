@@ -1,35 +1,45 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4FED35957;
-	Tue, 14 Jul 2026 02:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0543E30C161
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 02:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783994753; cv=none; b=P8SrfBoSYe9EeK+L7ubSZ9duDu8Fsv4I6bhL8GxHZkN0fpIV3zHo4PJOu+OZaSL1PeS1gloKLbIguxDoXTWh4KwyhATJEmdfhAWxoUycSTj9BMH19SJfDhePC8D5HTZpxjyys09lOcbh6BupDMakMekeaAJ1RJ9EK5G57zHRPpg=
+	t=1783994952; cv=none; b=TT78uaiM3o2/hF5M0bIrj1gbQtfsO25ANweWapk0svh0NWb8pgSzGAtBBAnmIMEJik2RBkvS2ZxoC2SmzT1SEqOqwcd2i3eBLNFTSQ8xLR4WINr3jrtlfZKJ7SbzDVo8+zZakBmd3EWAKHYISU6pYQQ+OWFEQ9PsWWLUmKHgnfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783994753; c=relaxed/simple;
-	bh=0ti1Ldu58kffWfgSL38M+Cff0aojGKXgxJSvseRuz9E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R0XhON3uRmH2cVIGvILnJyDnBaQVaGaElu1fdbfIhvqz1F0BmoLtTQIamryr3OiADSyI3ghkxi8ld2BPfEi3vkGpL6AZly33uNX8R59iO45etFUFrCbqq20LTuHfMeDmxQXZyhGQd2VhXnlexSTrMsgTB7PC4faxUx2XKMVebqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wA3AuJzmVVqpHlJAA--.6138S3;
-	Tue, 14 Jul 2026 10:05:40 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgBXyKFymVVqmyDSAg--.28764S2;
-	Tue, 14 Jul 2026 10:05:38 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: kwliu@nuvoton.com,
-	kflin@nuvoton.com
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] media: nuvoton: npcm-video: quiesce VCD IRQ before teardown in remove
-Date: Tue, 14 Jul 2026 02:04:43 +0000
-Message-Id: <20260714020443.2795883-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1783994952; c=relaxed/simple;
+	bh=XGjexdyGXez/DmDM17YF5A5l2trtmbm9mdeUDl3gYPs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=icdIWtSRcA1V//XEjmtJoiYcMnv9NyUYrtFQIs94adm3SaDrLBoDxjE22hUa4654N3GlYd13mFYekKt5yhuujZQyhjU2IRb2oQGYXWHp6JM28xbW3hzDPTshdoxDjFa9dOlkQ9f6oBSFkVgn0AlC26n5G30AeC0HrWw3gfHA5sE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LoR0SEDi; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LoR0SEDi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1584E1F00A3D;
+	Tue, 14 Jul 2026 02:09:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783994950;
+	bh=nR+oROq3U6lykK4quTluGOC1Ufbbty4iwZfGter6Ixs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LoR0SEDilDKlCHat500C57Jdfi2Dt6HntPMsvMnB+/WZwtyF4jZyo37eEgRJu5bDu
+	 Vdi4VtBQ2RzVWUQ9ijvWUqyUynwUcTnCsHlfyGFm4IQKqqsMMHfGGDv/efpWSCFVCK
+	 Ht/AIqqlRDb22IRcLOKQCCPUHKJmfFfyqoqqm8LpXiTPGK2vw5Ss3UbCKQLWiG60/8
+	 Mj8hPv4981Dwjmb4cOS1U5f8bK4/7/K1NsRLaEGVEQK5JnX3xsp8OuKcJ/apMwP2zM
+	 za5UYSUCC7dBGgCvjAzqBurac+Ml22PaggyZif54VU2VYjl8+vd1eO6EiJFRG3Qg75
+	 PQ2+CLdr57QYQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Alexander Lobakin <aleksander.lobakin@intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] bitops: make BYTES_TO_BITS() treewide-available
+Date: Mon, 13 Jul 2026 22:09:07 -0400
+Message-ID: <20260714020908.2355876-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071350-armored-aspirin-5d78@gregkh>
+References: <2026071350-armored-aspirin-5d78@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,110 +47,96 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgBXyKFymVVqmyDSAg--.28764S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?iUNvXwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBFuQHMub3xCTcaqJhWvQUrmJzcPvPZRWmrwNbr1jlDSOWph
-	btrZUVyggrj9ydiDOc6p9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxZF45Kr15Cr4UJFWxtrWrWFX_yoWrWr4xpF
-	WrKa13ArZ8JF10q3WUZF4rZFy5Awn7CF4akryjk34fA345JryFqF10vFyUt3y5Ar97WrW2
-	qrWFvw4kur4YqFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-The VCD interrupt is requested with devm_request_threaded_irq() in
-npcm_video_init(), so it stays registered until the devm release that
-follows npcm_video_remove().  remove() itself calls kfree(video), so a
-VCD interrupt delivered between kfree(video) and that devm release
-dereferences freed memory: npcm_video_irq() reads VCD_STAT off
-video->vcd_regmap before the VIDEO_STREAMING flag early-return, so the
-use-after-free is unconditional on delivery, not gated by streaming
-state.
+From: Alexander Lobakin <aleksander.lobakin@intel.com>
 
-With streaming active, stop_streaming() (run from vb2_queue_release())
-masks VCD_INTE and resets the VCD, but an in-flight handler can
-re-enable VCD_INTE afterward.  On a DONE or FIFO-overrun/overflow
-interrupt the handler finishes its buffer under buffer_lock and then
-calls npcm_video_start_frame().  start_frame() drops buffer_lock before
-it re-enables VCD_INTE (VCD_INTE_DONE_IE) and starts the next capture
-(npcm_video_command() with VCD_CMD_GO); it can therefore perform those
-operations after stop_streaming() masks and resets the VCD.
+[ Upstream commit 7d8296b250f2eed73f1758607926d4d258dea5d4 ]
 
-For the re-arm to happen, start_frame() must take buffer_lock, find a
-next queued buffer, and release the lock before stop_streaming() empties
-the list.  Once start_frame() has released the lock, the VCD re-enable
-and capture start that follow are outside buffer_lock, so emptying the
-list afterwards cannot stop them.  buffer_lock protects the buffer list
-only; it is not held for the re-arm and capture start, nor for
-stop_streaming()'s mask and reset, so those VCD writes are not
-serialized with each other.  start_frame() returns without re-arming
-when no next buffer is queued, there is no video signal, or the VCD
-stays busy past its poll timeout.
+Avoid open-coding that simple expression each time by moving
+BYTES_TO_BITS() from the probes code to <linux/bitops.h> to export
+it to the rest of the kernel.
+Simplify the macro while at it. `BITS_PER_LONG / sizeof(long)` always
+equals to %BITS_PER_BYTE, regardless of the target architecture.
+Do the same for the tools ecosystem as well (incl. its version of
+bitops.h). The previous implementation had its implicit type of long,
+while the new one is int, so adjust the format literal accordingly in
+the perf code.
 
-That capture can complete and raise VCD_STAT_DONE; with VCD_INTE
-re-armed, a new interrupt can then fire after kfree(video), and the
-handler dereferences the freed per-device structure.
-
-Unregister the video device, then mask the VCD interrupt source and
-unregister and drain the threaded handler with devm_free_irq() before
-releasing the vb2 buffers, the ECE state and the per-device structure.
-devm_free_irq() also clears the devm action, so the later devm release
-is a no-op and does not double-free.  Gating the re-arm alone would not
-close the window: the handler dereferences the per-device structure
-before any streaming-flag check, so any interrupt delivered after
-kfree(video) is fatal regardless of re-arm.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Acked-by: Yury Norov <yury.norov@gmail.com>
+Signed-off-by: Alexander Lobakin <aleksander.lobakin@intel.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: 55052184ac90 ("iio: common: st_sensors: honour channel endianness in read_axis_data")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/nuvoton/npcm-video.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ include/linux/bitops.h         | 2 ++
+ kernel/trace/trace_probe.c     | 2 --
+ tools/include/linux/bitops.h   | 2 ++
+ tools/perf/util/probe-finder.c | 4 +---
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
-index 52505af35c08..637b1fe54824 100644
---- a/drivers/media/platform/nuvoton/npcm-video.c
-+++ b/drivers/media/platform/nuvoton/npcm-video.c
-@@ -120,6 +120,7 @@ struct npcm_video {
+diff --git a/include/linux/bitops.h b/include/linux/bitops.h
+index 5e62e2383b7f19..e8fa3439b083a6 100644
+--- a/include/linux/bitops.h
++++ b/include/linux/bitops.h
+@@ -21,6 +21,8 @@
+ #define BITS_TO_U32(nr)		__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(u32))
+ #define BITS_TO_BYTES(nr)	__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(char))
  
- 	struct list_head buffers;
- 	struct mutex buffer_lock; /* buffer list lock */
-+	int irq;
- 	unsigned long flags;
- 	unsigned int sequence;
++#define BYTES_TO_BITS(nb)	((nb) * BITS_PER_BYTE)
++
+ extern unsigned int __sw_hweight8(unsigned int w);
+ extern unsigned int __sw_hweight16(unsigned int w);
+ extern unsigned int __sw_hweight32(unsigned int w);
+diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
+index f45a31cad6b6a1..1a1eecbfd907e0 100644
+--- a/kernel/trace/trace_probe.c
++++ b/kernel/trace/trace_probe.c
+@@ -530,8 +530,6 @@ parse_probe_arg(char *arg, const struct fetch_type *type,
+ 	return ret;
+ }
  
-@@ -1707,6 +1708,7 @@ static int npcm_video_init(struct npcm_video *video)
- 		dev_err(dev, "Failed to find VCD IRQ\n");
- 		return -ENODEV;
+-#define BYTES_TO_BITS(nb)	((BITS_PER_LONG * (nb)) / sizeof(long))
+-
+ /* Bitfield type needs to be parsed into a fetch function */
+ static int __parse_bitfield_probe_arg(const char *bf,
+ 				      const struct fetch_type *t,
+diff --git a/tools/include/linux/bitops.h b/tools/include/linux/bitops.h
+index 5fca38fe1ba839..a92e187bd77e33 100644
+--- a/tools/include/linux/bitops.h
++++ b/tools/include/linux/bitops.h
+@@ -20,6 +20,8 @@
+ #define BITS_TO_U32(nr)		DIV_ROUND_UP(nr, BITS_PER_TYPE(u32))
+ #define BITS_TO_BYTES(nr)	DIV_ROUND_UP(nr, BITS_PER_TYPE(char))
+ 
++#define BYTES_TO_BITS(nb)	((nb) * BITS_PER_BYTE)
++
+ extern unsigned int __sw_hweight8(unsigned int w);
+ extern unsigned int __sw_hweight16(unsigned int w);
+ extern unsigned int __sw_hweight32(unsigned int w);
+diff --git a/tools/perf/util/probe-finder.c b/tools/perf/util/probe-finder.c
+index 3c13597d0a0db7..dcd64d71e08105 100644
+--- a/tools/perf/util/probe-finder.c
++++ b/tools/perf/util/probe-finder.c
+@@ -304,8 +304,6 @@ static int convert_variable_location(Dwarf_Die *vr_die, Dwarf_Addr addr,
+ 	return ret2;
+ }
+ 
+-#define BYTES_TO_BITS(nb)	((nb) * BITS_PER_LONG / sizeof(long))
+-
+ static int convert_variable_type(Dwarf_Die *vr_die,
+ 				 struct probe_trace_arg *tvar,
+ 				 const char *cast, bool user_access)
+@@ -335,7 +333,7 @@ static int convert_variable_type(Dwarf_Die *vr_die,
+ 		total = dwarf_bytesize(vr_die);
+ 		if (boffs < 0 || total < 0)
+ 			return -ENOENT;
+-		ret = snprintf(buf, 16, "b%d@%d/%zd", bsize, boffs,
++		ret = snprintf(buf, 16, "b%d@%d/%d", bsize, boffs,
+ 				BYTES_TO_BITS(total));
+ 		goto formatted;
  	}
-+	video->irq = irq;
- 
- 	rc = devm_request_threaded_irq(dev, irq, NULL, npcm_video_irq,
- 				       IRQF_ONESHOT, DEVICE_NAME, video);
-@@ -1808,6 +1810,8 @@ static void npcm_video_remove(struct platform_device *pdev)
- 	struct npcm_video *video = to_npcm_video(v4l2_dev);
- 
- 	video_unregister_device(&video->vdev);
-+	regmap_write(video->vcd_regmap, VCD_INTE, 0);
-+	devm_free_irq(dev, video->irq, video);
- 	vb2_queue_release(&video->queue);
- 	v4l2_ctrl_handler_free(&video->ctrl_handler);
- 	v4l2_device_unregister(v4l2_dev);
 -- 
-2.34.1
+2.53.0
 
