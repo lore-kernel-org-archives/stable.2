@@ -1,52 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB82466B4B;
-	Tue, 14 Jul 2026 14:01:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10EC047DD6B
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:06:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784037688; cv=none; b=S6/JVYzy9nm2stqQZiPQx985lq6jfqEjpcYX8i32Zg/IWddSgeDDl215O6Tc3N2ee6D6tUwldQSs/yj/dCIE0TJQBnyw9MMRvNrdjShDDw8egX66jcHXvT6gXC2jEO/EPvoYIR9ymoMTHKPTtm7aaVMvdhAvSva2HnQ4Iah+his=
+	t=1784037969; cv=none; b=SP+do+hdBEu6DfleWULPnikjWEsqOPh3O5nRUZfbYWvteEDIG+lJ466XVetKpjeG2vz+DmtlBhhByVpuU6oAN+oTm/eQtuLvmg08zII0I3H8uLJKWnAxDCBSMv+HoPi2mcf3fNNTHWYdILSu49e7lrazkfpGYvwFm1hZCvfm8fc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784037688; c=relaxed/simple;
-	bh=cwEe3GMj8wIH2cfCAEdSUb6Zz5PnDj3MlNBurC9ROJw=;
+	s=arc-20240116; t=1784037969; c=relaxed/simple;
+	bh=ceWdEpcsvCg5vy46gJ7RSjzLYpdCmVf/a8jE3XKdFdk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K0zGOYx6ojHqeIg0JiJYgWjjHrVkTA0wFuOJI8n/5LojHW6Tp0JR5KNDhPLjTNrANQXjV4vlC2+RSXeyWnOw1UOu59UI4x7SjhVeAC7CtYFXvQA3NjGqrMAbCCiXvXrW7KS3gjffrbLZH59k1Ia2PSI0mylkVBdGzFsDGOVBOHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RpXX+MXd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BicY0fKhp8QKJbuKINgQNhWEBTNMO/mOxsNuF26NIc75cGcBltzIir3EpIbWW81i/WScMc2/5WHcfBx0AwLxEQsirx+y0nDSSPEAEcYZVz2RRMsHyOqPJL0vP8AU4a+mWG7sukekRn8nYq1/NtSwoWQx9p6NOhqr5l/YqDmcJWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+MAbq1L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RpXX+MXd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A1C1F00A3A;
-	Tue, 14 Jul 2026 14:01:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+MAbq1L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60B7C1F00A3A;
+	Tue, 14 Jul 2026 14:06:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784037687;
-	bh=S/jz9927dvpD5avqF3TGJEv1UpRwfeRrTrpzU9XDfBE=;
+	s=k20260515; t=1784037968;
+	bh=IBtB3Jl3WH6cteuZ0e28j8yYFaYszHcmlU172dsCDOs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RpXX+MXdKkQe71SzGUVmEz4k5XIIG0ZX3M3umvXkQ0LjXr9yBzoEptFInp71ay5Oy
-	 87h1faAOXLoUVfhxjjaQxnFbPAjprhMRqqqbj2XC1KNz6kJAz//9BBc5xt7/wQJhRP
-	 9oMpQTkGk8/oMIYz59RfEBzsBvcZ720SxhVnqvV7PaatzwR63v5xoJ8n4GG7w9PrQg
-	 gviVPEDbq1QQo0emxb/k8duZhNQSEpZ3Jb8EuNdfQAHX8wunwWE5JVupUvN06MW6uG
-	 wFOdYUFcZ5jwDGcnF4tcQR9Z9YiTWBMT1KMGfTA016d6lsaLn83XYU4iApGCthInsj
-	 dsX8Fcky9J44A==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Song Hu <husong@kylinos.cn>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	SJ Park <sj@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/4] Docs/ABI/damon: fix typo in intervals_goal sysfs path
-Date: Tue, 14 Jul 2026 07:01:13 -0700
-Message-ID: <20260714140117.94147-2-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260714140117.94147-1-sj@kernel.org>
-References: <20260714140117.94147-1-sj@kernel.org>
+	b=K+MAbq1L4dkzTuWang2oqHXTRbhf9DFKlHfN48NSFP0SSlEMtvhYjoiqomaN1YpJy
+	 nMdvnAdNqOnRtMdPnyrWAeVoxY9QVGySHzga8WNs4KHwrp4w0i1Ps1/cGlqw+ooGkt
+	 56jDZqhknMVe2p6S0TDPpbOlFnKLsHVn6nxvU0mtVdGl3JDctsL7pCkQ+8E1iilYJg
+	 Cq8trMCxtfgnOOMRFgz4dC5TbxJEXkI0vv8CdMt50Nuyv8GsRwX8ONQr5ZZ3e4o0AV
+	 tMTuwL93DIcmz++35mo+/7hTVAK5BrF1br1MawJxiE3/x4NNNA1rnhaPsJcEOMDU/g
+	 CMz0FGJ/RPh3w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mahesh Vaidya <mahesh.vaidya@altera.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	"Subhransu S. Prusty" <subhransu.sekhar.prusty@altera.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] PCI: altera: Fix resource leaks on probe failure
+Date: Tue, 14 Jul 2026 10:06:05 -0400
+Message-ID: <20260714140605.2729466-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071301-yummy-panhandle-afe6@gregkh>
+References: <2026071301-yummy-panhandle-afe6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,60 +46,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Song Hu <husong@kylinos.cn>
+From: Mahesh Vaidya <mahesh.vaidya@altera.com>
 
-The ABI document spells the DAMON sysfs directory as "intrvals_goal"
-(missing 'e') in four What: entries, but the kernel creates it as
-"intervals_goal" (mm/damon/sysfs.c).  Following the documented path
-therefore yields a non-existent directory.
+[ Upstream commit 7a94138caeb27f3c49c1dbd93bf422098925bb28 ]
 
-Fixes: e2b23dc62369 ("Docs/ABI/damon: document intervals auto-tuning ABI")
+The chained IRQ handler is set during probe, but is only removed during the
+driver remove(). If pci_host_probe() fails, the handler and INTx IRQ
+domain remain set even though the devm-managed host bridge storage
+containing struct altera_pcie will be released, leaving the handler with
+a stale data pointer.
+
+Interrupts are also enabled before pci_host_probe() is called. If probe
+fails after that point, the controller interrupt source should be disabled
+before the chained handler and INTx domain are removed.
+
+So set the chained handler only after the INTx domain has been created.
+Disable controller interrupts during IRQ teardown, and tear the IRQ setup
+down if pci_host_probe() fails.
+
+Fixes: c63aed7334c2 ("PCI: altera: Use pci_host_probe() to register host")
+Signed-off-by: Mahesh Vaidya <mahesh.vaidya@altera.com>
+[mani: commit log]
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+Reviewed-by: Subhransu S. Prusty <subhransu.sekhar.prusty@altera.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Song Hu <husong@kylinos.cn>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
+Link: https://patch.msgid.link/20260430204330.3121003-3-mahesh.vaidya@altera.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/ABI/testing/sysfs-kernel-mm-damon | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/pci/controller/pcie-altera.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-kernel-mm-damon b/Documentation/ABI/testing/sysfs-kernel-mm-damon
-index 907a504fb64c5..a8269123b4231 100644
---- a/Documentation/ABI/testing/sysfs-kernel-mm-damon
-+++ b/Documentation/ABI/testing/sysfs-kernel-mm-damon
-@@ -112,7 +112,7 @@ Description:	Writing a value to this file sets the update interval of the
- 		DAMON context in microseconds as the value.  Reading this file
- 		returns the value.
+diff --git a/drivers/pci/controller/pcie-altera.c b/drivers/pci/controller/pcie-altera.c
+index 650b2dd81c4822..177a8ebd1d1e1d 100644
+--- a/drivers/pci/controller/pcie-altera.c
++++ b/drivers/pci/controller/pcie-altera.c
+@@ -679,8 +679,18 @@ static int altera_pcie_init_irq_domain(struct altera_pcie *pcie)
+ 	return 0;
+ }
  
--What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/access_bp
-+What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/access_bp
- Date:		Feb 2025
- Contact:	SJ Park <sj@kernel.org>
- Description:	Writing a value to this file sets the monitoring intervals
-@@ -120,7 +120,7 @@ Description:	Writing a value to this file sets the monitoring intervals
- 		the given time interval (aggrs in same directory), in bp
- 		(1/10,000).  Reading this file returns the value.
++static void altera_pcie_disable_irq(struct altera_pcie *pcie)
++{
++	if (pcie->pcie_data->version == ALTERA_PCIE_V1 ||
++	    pcie->pcie_data->version == ALTERA_PCIE_V2) {
++		/* Disable all P2A interrupts */
++		cra_writel(pcie, 0, P2A_INT_ENABLE);
++	}
++}
++
+ static void altera_pcie_irq_teardown(struct altera_pcie *pcie)
+ {
++	altera_pcie_disable_irq(pcie);
+ 	irq_set_chained_handler_and_data(pcie->irq, NULL, NULL);
+ 	irq_domain_remove(pcie->irq_domain);
+ 	irq_dispose_mapping(pcie->irq);
+@@ -706,7 +716,6 @@ static int altera_pcie_parse_dt(struct altera_pcie *pcie)
+ 	if (pcie->irq < 0)
+ 		return pcie->irq;
  
--What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/aggrs
-+What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/aggrs
- Date:		Feb 2025
- Contact:	SJ Park <sj@kernel.org>
- Description:	Writing a value to this file sets the time interval to achieve
-@@ -128,14 +128,14 @@ Description:	Writing a value to this file sets the time interval to achieve
- 		access events ratio (access_bp in same directory) within.
- 		Reading this file returns the value.
+-	irq_set_chained_handler_and_data(pcie->irq, altera_pcie_isr, pcie);
+ 	return 0;
+ }
  
--What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/min_sample_us
-+What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/min_sample_us
- Date:		Feb 2025
- Contact:	SJ Park <sj@kernel.org>
- Description:	Writing a value to this file sets the minimum value of
- 		auto-tuned sampling interval in microseconds.  Reading this
- 		file returns the value.
+@@ -791,6 +800,12 @@ static int altera_pcie_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
  
--What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/max_sample_us
-+What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/max_sample_us
- Date:		Feb 2025
- Contact:	SJ Park <sj@kernel.org>
- Description:	Writing a value to this file sets the maximum value of
++	/*
++	 * The chained handler uses pcie->irq_domain, so set it only after the
++	 * INTx domain has been created.
++	 */
++	irq_set_chained_handler_and_data(pcie->irq, altera_pcie_isr, pcie);
++
+ 	/* clear all interrupts */
+ 	cra_writel(pcie, P2A_INT_STS_ALL, P2A_INT_STATUS);
+ 	/* enable all interrupts */
+@@ -801,7 +816,16 @@ static int altera_pcie_probe(struct platform_device *pdev)
+ 	bridge->busnr = pcie->root_bus_nr;
+ 	bridge->ops = &altera_pcie_ops;
+ 
+-	return pci_host_probe(bridge);
++	ret = pci_host_probe(bridge);
++	if (ret)
++		goto err_teardown_irq;
++
++	return 0;
++
++err_teardown_irq:
++	altera_pcie_irq_teardown(pcie);
++
++	return ret;
+ }
+ 
+ static void altera_pcie_remove(struct platform_device *pdev)
 -- 
-2.47.3
+2.53.0
+
