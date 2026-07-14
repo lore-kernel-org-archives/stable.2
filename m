@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB624A33FD
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:01:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819D348BD4A
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:02:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784044913; cv=none; b=J192oqH8i4ukYzXXKrb8E4Zz7WIqzHvSAJhpA9Zlm53cWKn0U/vaHN8W6LUzGStGFY4DauipXQ6mkRy2kQbN1laace0tuJAFLc57CYXV5W/QMI/ljPTMQ/M2ghXYK4udgcBF7Q2qcy91lVcxPc6vZYlh2Y2I2k1H6dPdgpOuqmI=
+	t=1784044938; cv=none; b=nP/BLEDMqyYvBrDGHM8i65FCvfxVtcLHl7+MLPbW9+LOZm5vMhwyYK0T534sH3wTk8AUuK5cIepNjrR7d2nGpdvhOVNMreUwXF2XH+vrM+BP+trQ9CH8P0QD9XygWFOX0HDC9XrDd6/bOCm8Xa25+vSwZR7i/MbMxy7aOhLreCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784044913; c=relaxed/simple;
-	bh=UNYa6jd2KHgv0pff3rPHRy+UzIpx7g0OknITBLuNo9A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gryLgY3CpibNQjjp8E+brp/hP2S6ItsxFSWoAgA/Nhs0YA3kerhYGaxGPS5anIo0faidpKUo5PXCLM9Za/OwpKa/IimT6b5Eta/hxaag62cgF8Om2TKOjfJqr2bSLi2yh9uynSrdOCU214itP2cfAdNDXrcm4T46tHeZftIFYZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MWTkrKlS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784044938; c=relaxed/simple;
+	bh=qzaZOmD9nw34VDtQ+m1Y+uXGscrkzAN1P93jV8Ih/WE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uINzvLA1resypAHIxKPx5gsLlRRqfAa9Acu4j2+8I6bsCWnxSPswJNwKYKwZdre2+EuKBIbXYpLVJoUcUuIO4RacxBSvJzdKITI31ZIAjA6sKxydsus6LpjZKanMlAMHolrQqqXQVxFwyq0pAvLYsVSI2okHNtObNYm5JMvH/DQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MROQCDfO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MWTkrKlS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95EF81F000E9;
-	Tue, 14 Jul 2026 16:01:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MROQCDfO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B70791F000E9;
+	Tue, 14 Jul 2026 16:02:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784044912;
-	bh=Dd+1lvw9QFxdfCoNYiqyTIj9QtnXC0g+lYKnq+SrO80=;
+	s=korg; t=1784044937;
+	bh=JGPRLHzI1Z2hSQ5m84hxEnYH4d1UdzdA/5Sd6fy/1d0=;
 	h=Subject:To:Cc:From:Date;
-	b=MWTkrKlSJ8iBCBXSOow3OBrDLb7DH2DtAhs58DzbzzCIS2pvk9G07rWW8o89CexYt
-	 srF1AmBX+T72x0vEjuwoZ6uTiFsdPl3QxSNzNHdzYmpgS4kopnLsyYTHrkJF9GjTw/
-	 g6hfi+ZgNMk6ncqf2XPpjmtM+ww6n3hsOBfNhE24=
-Subject: FAILED: patch "[PATCH] usb: atm: ueagle-atm: wait for pre-firmware load in" failed to apply to 5.15-stable tree
-To: mfo@igalia.com,aitsygunka@yandex.ru,gregkh@linuxfoundation.org,stable@kernel.org,stf_xl@wp.pl
+	b=MROQCDfO+RDPQoePQwgc5hqVoigaCS9+r+fhUWMHaVqVKNNFT2aDE3BP1z0Xxi6zJ
+	 rA/xlXzvwXUGCUD52AffPw1aMZ5dA+r7nsDWgT5NLA8YM29JZjdZI3E+Q0LMQGCV/c
+	 0dHcsob966xhkem698VY7b9flcInB/BO0Tc5jVsI=
+Subject: FAILED: patch "[PATCH] usb: dwc3: fix dwc3_readl() and dwc3_writel() calls in" failed to apply to 6.18-stable tree
+To: ben.dooks@codethink.co.uk,Thinh.Nguyen@synopsys.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 14 Jul 2026 18:01:30 +0200
-Message-ID: <2026071430-skid-blazer-70f4@gregkh>
+Date: Tue, 14 Jul 2026 18:02:11 +0200
+Message-ID: <2026071411-expose-starless-4335@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e2674dfbed8a30d57e2bc872c4bfa6c3eec918bf
+git cherry-pick -x e0f844d9d74200d311c6438a0f04270834ba5365
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071430-skid-blazer-70f4@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071411-expose-starless-4335@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,170 +62,46 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e2674dfbed8a30d57e2bc872c4bfa6c3eec918bf Mon Sep 17 00:00:00 2001
-From: Mauricio Faria de Oliveira <mfo@igalia.com>
-Date: Tue, 26 May 2026 14:09:44 -0300
-Subject: [PATCH] usb: atm: ueagle-atm: wait for pre-firmware load in
- .disconnect()
+From e0f844d9d74200d311c6438a0f04270834ba5365 Mon Sep 17 00:00:00 2001
+From: Ben Dooks <ben.dooks@codethink.co.uk>
+Date: Fri, 3 Jul 2026 17:20:33 +0100
+Subject: [PATCH] usb: dwc3: fix dwc3_readl() and dwc3_writel() calls in
+ dwc3_ulpi_setup()
 
-ueagle-atm uses the asynchronous request_firmware_nowait() in .probe(),
-but does not wait for its completion, not even in .disconnect(); so, if the
-device is unplugged meanwhile, its teardown runs concurrently with that.
+The dwc3_ulpi_setup() calls the register read and write calls with
+dwc3->regs when both these calls take the dwc3 structure directly.
 
-Even though this inconsistency is worth addressing on its own, it has also
-triggered several bug reports in syzbot over the years (some auto-closed)
-where the firmware sysfs fallback mechanism (CONFIG_FW_LOADER_USER_HELPER)
-creates a firmware subdirectory in the device directory during its removal,
-which might hit unexpected conditions in kernfs, apparently, depending at
-which point the add and remove operations raced. (See links.)
+Chnage these two calls to fix the following sparse warning, and
+possibly a nasty bug in the dwc3_ulpi_setup() code:
 
-The pattern is:
-
-usb ?-?: Direct firmware load for ueagle-atm/eagle?.fw failed with error -2
-usb ?-?: Falling back to sysfs fallback for: ueagle-atm/eagle?.fw
-<ERROR>
-Call trace:
- ...
- kernfs_create_dir_ns
- sysfs_create_dir_ns
- create_dir
- kobject_add_internal
- kobject_add_varg
- kobject_add
- class_dir_create_and_add
- get_device_parent
- device_add
- fw_load_sysfs_fallback
- fw_load_from_user_helper
- firmware_fallback_sysfs
- _request_firmware
- request_firmware_work_func
- ...
-
-(Some variations are observed, after fw_load_sysfs_fallback(), e.g., [1].)
-
-While the kernfs side is being looked at, the ueagle-atm side can be fixed
-by waiting for the pre-firmware load in the .disconnect() handler.
-
-This change has a similar approach to previous work by Andrey Tsygunka [2]
-(wait_for_completion() in .disconnect()), but it is relatively different in
-design/implementation; using the Originally-by tag for credit assignment.
-
-This has been tested with:
-- synthetic reproducer to check the error path;
-- USB gadget (virtual device) to check the firmware upload path;
-- QEMU device emulator to check the device ID re-enumeration path;
-(The latter two were written by Claude; no other code/text in this commit.)
-
-Links (year first reported):
- 2025 https://syzbot.org/bug?extid=ce1e5a1b4e086b43e56d
- 2025 https://syzbot.org/bug?extid=9af8471255ac36e34fd4
- 2024 https://syzbot.org/bug?extid=306212936b13e520679d
- 2023 https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
- 2022 https://syzbot.org/bug?extid=782984d6f1701b526edb
- 2021 https://syzbot.org/bug?id=f3f221579f4ef7e9691281f3c6f56c05f83e8490
- 2021 https://syzbot.org/bug?id=84d86f0d71394829df6fc53daf6642c045983881
- 2021 https://syzbot.org/bug?id=3302dc1c0e2b9c94f2e8edb404eabc9267bc6f90
-
-[1] https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
-[2] https://lore.kernel.org/lkml/20250410093146.3776801-2-aitsygunka@yandex.ru/
+drivers/usb/dwc3/core.c:796:45: warning: incorrect type in argument 1 (different address spaces)
+drivers/usb/dwc3/core.c:796:45:    expected struct dwc3 *dwc
+drivers/usb/dwc3/core.c:796:45:    got void [noderef] __iomem *regs
+drivers/usb/dwc3/core.c:798:40: warning: incorrect type in argument 1 (different address spaces)
+drivers/usb/dwc3/core.c:798:40:    expected struct dwc3 *dwc
+drivers/usb/dwc3/core.c:798:40:    got void [noderef] __iomem *regs
 
 Cc: stable <stable@kernel.org>
-Reported-by: syzbot+ce1e5a1b4e086b43e56d@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=ce1e5a1b4e086b43e56d
-Reported-by: syzbot+306212936b13e520679d@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=306212936b13e520679d
-Reported-by: syzbot+457452d30bcdda75ead2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
-Originally-by: Andrey Tsygunka <aitsygunka@yandex.ru>
-Fixes: b72458a80c75 ("[PATCH] USB: Eagle and ADI 930 usb adsl modem driver")
-Assisted-by: Claude:claude-opus-4.7 # usb gadget & qemu device for testing
-Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
-Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
-Link: https://patch.msgid.link/20260526-ueagle-atm_req-fw-sync-v3-1-93c01961daaf@igalia.com
+Fixes: 9accc68b1cf0 ("usb: dwc3: Add dwc pointer to dwc3_readl/writel")
+Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
+Link: https://patch.msgid.link/20260703162033.2847599-1-ben.dooks@codethink.co.uk
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/usb/atm/ueagle-atm.c b/drivers/usb/atm/ueagle-atm.c
-index d610cdcef7d0..4e71ed679a76 100644
---- a/drivers/usb/atm/ueagle-atm.c
-+++ b/drivers/usb/atm/ueagle-atm.c
-@@ -594,7 +594,9 @@ static int uea_send_modem_cmd(struct usb_device *usb,
- static void uea_upload_pre_firmware(const struct firmware *fw_entry,
- 								void *context)
- {
--	struct usb_device *usb = context;
-+	struct usb_interface *intf = context;
-+	struct usb_device *usb = interface_to_usbdev(intf);
-+	struct completion *fw_done = usb_get_intfdata(intf);
- 	const u8 *pfw;
- 	u8 value;
- 	u32 crc = 0;
-@@ -663,15 +665,17 @@ static void uea_upload_pre_firmware(const struct firmware *fw_entry,
- 	uea_err(usb, "firmware is corrupted\n");
- err:
- 	release_firmware(fw_entry);
-+	complete(fw_done);
- }
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index 517aa7f1486d..ceb49f2f8004 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -789,9 +789,9 @@ static void dwc3_ulpi_setup(struct dwc3 *dwc)
  
- /*
-  * uea_load_firmware - Load usb firmware for pre-firmware devices.
-  */
--static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
-+static int uea_load_firmware(struct usb_interface *intf, unsigned int ver)
- {
- 	int ret;
- 	char *fw_name = EAGLE_FIRMWARE;
-+	struct usb_device *usb = interface_to_usbdev(intf);
- 
- 	uea_info(usb, "pre-firmware device, uploading firmware\n");
- 
-@@ -694,7 +698,7 @@ static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
- 	}
- 
- 	ret = request_firmware_nowait(THIS_MODULE, 1, fw_name, &usb->dev,
--					GFP_KERNEL, usb,
-+					GFP_KERNEL, intf,
- 					uea_upload_pre_firmware);
- 	if (ret)
- 		uea_err(usb, "firmware %s is not available\n", fw_name);
-@@ -2555,8 +2559,23 @@ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 
- 	usb_reset_device(usb);
- 
--	if (UEA_IS_PREFIRM(id))
--		return uea_load_firmware(usb, UEA_CHIP_VERSION(id));
-+	if (UEA_IS_PREFIRM(id)) {
-+		struct completion *fw_done;
-+
-+		/* Wait for the firmware load to be done, in .disconnect() */
-+		fw_done = kzalloc_obj(*fw_done);
-+		if (!fw_done)
-+			return -ENOMEM;
-+
-+		init_completion(fw_done);
-+		usb_set_intfdata(intf, fw_done);
-+
-+		ret = uea_load_firmware(intf, UEA_CHIP_VERSION(id));
-+		if (ret)
-+			kfree(fw_done);
-+
-+		return ret;
-+	}
- 
- 	ret = usbatm_usb_probe(intf, id, &uea_usbatm_driver);
- 	if (ret == 0) {
-@@ -2586,6 +2605,13 @@ static void uea_disconnect(struct usb_interface *intf)
- 		usbatm_usb_disconnect(intf);
- 		mutex_unlock(&uea_mutex);
- 		uea_info(usb, "ADSL device removed\n");
-+	} else if (usb->config->desc.bNumInterfaces == 1) {
-+		struct completion *fw_done = usb_get_intfdata(intf);
-+
-+		uea_dbg(usb, "pre-firmware device, waiting firmware upload\n");
-+		wait_for_completion(fw_done);
-+		uea_dbg(usb, "pre-firmware device, finished waiting\n");
-+		kfree(fw_done);
+ 	if (dwc->enable_usb2_transceiver_delay) {
+ 		for (index = 0; index < dwc->num_usb2_ports; index++) {
+-			reg = dwc3_readl(dwc->regs, DWC3_GUSB2PHYCFG(index));
++			reg = dwc3_readl(dwc, DWC3_GUSB2PHYCFG(index));
+ 			reg |= DWC3_GUSB2PHYCFG_XCVRDLY;
+-			dwc3_writel(dwc->regs, DWC3_GUSB2PHYCFG(index), reg);
++			dwc3_writel(dwc, DWC3_GUSB2PHYCFG(index), reg);
+ 		}
  	}
  }
- 
 
