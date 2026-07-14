@@ -1,148 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D209374E48;
-	Tue, 14 Jul 2026 03:11:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2693A254C
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:19:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783998674; cv=none; b=kuunH21v915qcjY2VxUVxYzKV7pLL9Sr9kU5pX9C4arw3gF0gXB2NiJP98bEF/IQg3IZpEQU9yKqd+q6wEIGrp3Orv2lva1uDf+b6XSAq0VZZ/uwCAPYk98HlSbXm8mo2xXBTOnGeic+/LZb/r9Sn6+DgpKiL/McMCdW80pKyv0=
+	t=1783999164; cv=none; b=riwcuDHfNpC7FXEIgnhLV+NzdG4rg+nEvPaYvH2LyIDvE1RiDWbsYzrbSfUR1kfAgKiIwf67mRgv47812jQQbCBmqgtwWmJFfT6nlSDQADEFPiwQMlp2iaouvGj0Si6qiJRH87pqjv4Q8yrLXM0RY5AQYSAyRHWSkos1YTatQZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783998674; c=relaxed/simple;
-	bh=LjjT35fSVOzy3i17prl0SgCWMsEEM3TXbI6hNpMBiCY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=feT28XERVazFu1cigHEjrRQAazgsxbj3PCgdQV1d2rTncK8DTglo33ajreb9iGBF4YFEkc44RC2D0Baky+s/vPHj4tnlcdDdF7ENT2xBh2XEi4westKC7jDXZLo/LOBHkwU98Nexcy6jl/vmkMcmqY2kfvbUoB98XvkdtDeyhkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGufD2QM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783999164; c=relaxed/simple;
+	bh=6RrHeppzkzfU+SHIqDJ1xWIS0q8JFrR+C+V0L1kHG4I=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=EZtVSvZoivP9oBoMBVQrnxT1usYu6Tuu4Pblxl4c65EXzG1YGb8frS/BWVXH2Kc7vZXrf/m2XgcPKEkhRkHdAxcPhcEq8WwLMtvG59vscqwbJsk3+8ByygZMU/tMXI1xzZ1WM5UnokLFZfdTnR/s4tOGUPP0n19egtcnu+Pw1eU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jTZZ/MhG; arc=none smtp.client-ip=91.218.175.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGufD2QM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB4E1F000E9;
-	Tue, 14 Jul 2026 03:11:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783998673;
-	bh=WQO27JXCZrAXB48JPGlTU+aqgSxyvxXOkxoRWPDVquw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AGufD2QMN1KY/qkzOtIvKJk80WJP4i/txLpkQ8UIlCc70eb6KBHdvKJu8ff0Qj5hE
-	 Xg3cYVZxCP/Hkfvby3BpC6m+3YLL7uL51AV/9Yf8Ex0680BiHmiKtRfwYCNDCI9ilQ
-	 kmdUXYgxss5mk/jnHCJIrVP9yevkr53llp5e2FqFOQRdy3wWKA1x8Jw9UhkmCHZ8iM
-	 HnNF2jefm1b+f/Qyamm+ssCRgbnIwUVbIZYndDnVGpSc3tcYoe6+3uBHFA0u+8gL3b
-	 gyWrLoI65XKs6T+83J3BlITlzWSiry3lpw9UZ8cLp8FdBg43ryLA96m0u/vg/baUMm
-	 WUvFl27ie2tOQ==
-Date: Mon, 13 Jul 2026 22:11:10 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Chunkai Deng <chunkai.deng@oss.qualcomm.com>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	chris.lew@oss.qualcomm.com, tony.truong@oss.qualcomm.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] rpmsg: glink: smem: Add WARN_ON_ONCE for FIFO
- index invariants
-Message-ID: <alWlzzi7uxbSkw8c@baldur>
-References: <20260617-rpmsg-improvements-v2-0-477d4eb569dc@oss.qualcomm.com>
- <20260617-rpmsg-improvements-v2-2-477d4eb569dc@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jTZZ/MhG"
+Message-ID: <6d591685-ee60-49a8-b883-f3d0a9395dd4@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1783999150;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7FqoW5vhqKhg1zCd1cbexcf+W2Xlo42P5CIW3iiN/l8=;
+	b=jTZZ/MhG7gSRciEDdAyQd5WQHLnVHJ2ua3YHVc82LoamHLJkYvBKJ6AFiCYr9SXhBN/Oiy
+	HC1zILZj5BvOio8jZhF129F77OKclZ58t7MXJlWtSdDCX43Qb/sjropOe4VMVMJvO0rX8t
+	DAmphx8ZxQcoFp8qxUP9bfCrvi+2k3c=
+Date: Tue, 14 Jul 2026 11:19:03 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617-rpmsg-improvements-v2-2-477d4eb569dc@oss.qualcomm.com>
+Cc: cui.tao@linux.dev, kernel@xen0n.name, lixianglai@loongson.cn,
+ kvm@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [PATCH 1/2] LoongArch: KVM: EIOINTC: clamp ipnum to valid range
+ in INT_ENCODE mode
+To: Bibo Mao <maobibo@loongson.cn>, zhaotianrui@loongson.cn,
+ chenhuacai@kernel.org
+References: <20260714012452.1021833-1-cui.tao@linux.dev>
+ <20260714012452.1021833-2-cui.tao@linux.dev>
+ <69470d5d-6c67-c42d-b8f8-8c115599703e@loongson.cn>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <69470d5d-6c67-c42d-b8f8-8c115599703e@loongson.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Wed, Jun 17, 2026 at 07:07:14PM +0800, Chunkai Deng wrote:
-> The FIFO read/write helpers assume the head and tail indices stay within
-> [0, pipe->native.length) and use them directly as offsets into the
-> mapped FIFO region. If that invariant is ever broken, the subsequent
-> memcpy or memcpy_fromio would access memory outside the FIFO.
+
+
+在 2026/7/14 10:32, Bibo Mao 写道:
+> Hi Tao,
 > 
-> Add WARN_ON_ONCE checks in these helpers so a broken invariant is
-> caught and reported once, and the out-of-bounds access is skipped
-> instead of proceeding silently.
+> Thanks to catch this, there is similar modification which can be located at:
+> https://lore.kernel.org/lkml/20260709082109.1361767-5-maobibo@loongson.cn/
 > 
-> Fixes: caf989c350e8 ("rpmsg: glink: Introduce glink smem based transport")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chunkai Deng <chunkai.deng@oss.qualcomm.com>
-> ---
->  drivers/rpmsg/qcom_glink_smem.c | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
+Hi Bibo,
+
+Haha, looks like we raced to the same fix :) I came across it while
+debugging VM migration (the LOAD_FINISHED restore path). Your patch
+takes priority — I'll go ahead and drop my series.
+
+Thanks,
+Tao
+
+> Regards
+> Bibo Mao
 > 
-> diff --git a/drivers/rpmsg/qcom_glink_smem.c b/drivers/rpmsg/qcom_glink_smem.c
-> index edab912557ac..42ad315d7910 100644
-> --- a/drivers/rpmsg/qcom_glink_smem.c
-> +++ b/drivers/rpmsg/qcom_glink_smem.c
-> @@ -86,9 +86,14 @@ static size_t glink_smem_rx_avail(struct qcom_glink_pipe *np)
->  	tail = le32_to_cpu(*pipe->tail);
->  
->  	if (head < tail)
-> -		return pipe->native.length - tail + head;
-> +		len = pipe->native.length - tail + head;
->  	else
-> -		return head - tail;
-> +		len = head - tail;
-> +
-> +	if (WARN_ON_ONCE(len > pipe->native.length))
-> +		len = 0;
-> +
-> +	return len;
-
-Looks good.
-
->  }
->  
->  static void glink_smem_rx_peek(struct qcom_glink_pipe *np,
-> @@ -103,6 +108,9 @@ static void glink_smem_rx_peek(struct qcom_glink_pipe *np,
->  	if (tail >= pipe->native.length)
->  		tail -= pipe->native.length;
->  
-> +	if (WARN_ON_ONCE(tail >= pipe->native.length))
-> +		return;
-> +
-
-Wouldn't it be preferable to check the original "tail", before the
-addition and subtraction?
-
-Perhaps also validate that `offset + count < pipe->native.length`?
-
->  	len = min_t(size_t, count, pipe->native.length - tail);
->  	if (len)
->  		memcpy_fromio(data, pipe->fifo + tail, len);
-> @@ -141,6 +149,9 @@ static size_t glink_smem_tx_avail(struct qcom_glink_pipe *np)
->  	else
->  		avail = tail - head;
->  
-> +	if (WARN_ON_ONCE(avail > pipe->native.length))
-> +		avail = 0;
-
-`head - tail < length` does not guarantee that head and tail are valid
-offsets within the fifo, so I think you should check both of them
-instead of the difference.
-
-> +
->  	if (avail < (FIFO_FULL_RESERVE + TX_BLOCKED_CMD_RESERVE))
->  		avail = 0;
->  	else
-> @@ -155,6 +166,9 @@ static unsigned int glink_smem_tx_write_one(struct glink_smem_pipe *pipe,
->  {
->  	size_t len;
->  
-> +	if (WARN_ON_ONCE(head >= pipe->native.length))
-> +		return head;
-
-This makes glink_smem_tx_write_one() do nothing, twice. But then we
-return to glink_smem_tx_write() which will adjust and update pipe->head;
-possible subtract head into the valid range.
-
-I think it would be better to move this check up to
-glink_smem_tx_write().
-
-And also check that `hlen + dlen < pipe->native.length`?
-
-Regards,
-Bjorn
-
-> +
->  	len = min_t(size_t, count, pipe->native.length - head);
->  	if (len)
->  		memcpy(pipe->fifo + head, data, len);
+> On 2026/7/14 上午9:24, Tao Cui wrote:
+>> From: Tao Cui <cuitao@kylinos.cn>
+>>
+>> The IP-number decode in eiointc_set_sw_coreisr() and eiointc_update_irq()
+>> clamps ipnum only in the default (1-hot) mode. In INT_ENCODE mode the raw
+>> ipmap byte (0..255) is used as the index into sw_coreisr[cpu][ipnum],
+>> whose second dimension is LOONGSON_IP_NUM (8), so any ipmap byte >= 8
+>> accesses the array out of bounds.
+>>
+>> The value is guest-programmable through the EIOINTC virtual extension
+>> (VIRT_CONFIG enables INT_ENCODE and the IPMAP IOCSR write is unvalidated)
+>> and is also restored unvalidated from a migration stream via the
+>> LOAD_FINISHED control attribute, resulting in a host slab out-of-bounds
+>> access reachable from an unprivileged guest.
+>>
+>> Clamp ipnum to [0, LOONGSON_IP_NUM) in INT_ENCODE mode as well.
+>>
+>> Fixes: 3956a52bc05b ("LoongArch: KVM: Add EIOINTC read and write functions")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+>> ---
+>>   arch/loongarch/kvm/intc/eiointc.c | 4 ++++
+>>   1 file changed, 4 insertions(+)
+>>
+>> diff --git a/arch/loongarch/kvm/intc/eiointc.c b/arch/loongarch/kvm/intc/eiointc.c
+>> index 2b14485d14a7..0c34d7ab264d 100644
+>> --- a/arch/loongarch/kvm/intc/eiointc.c
+>> +++ b/arch/loongarch/kvm/intc/eiointc.c
+>> @@ -17,6 +17,8 @@ static void eiointc_set_sw_coreisr(struct loongarch_eiointc *s)
+>>           if (!(s->status & BIT(EIOINTC_ENABLE_INT_ENCODE))) {
+>>               ipnum = count_trailing_zeros(ipnum);
+>>               ipnum = ipnum < 4 ? ipnum : 0;
+>> +        } else {
+>> +            ipnum = (ipnum < LOONGSON_IP_NUM) ? ipnum : 0;
+>>           }
+>>             cpuid = ((u8 *)s->coremap)[irq];
+>> @@ -42,6 +44,8 @@ static void eiointc_update_irq(struct loongarch_eiointc *s, int irq, int level)
+>>       if (!(s->status & BIT(EIOINTC_ENABLE_INT_ENCODE))) {
+>>           ipnum = count_trailing_zeros(ipnum);
+>>           ipnum = ipnum < 4 ? ipnum : 0;
+>> +    } else {
+>> +        ipnum = (ipnum < LOONGSON_IP_NUM) ? ipnum : 0;
+>>       }
+>>         cpu = s->sw_coremap[irq];
+>>
 > 
-> -- 
-> 2.34.1
-> 
+
