@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF069444716
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:51:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5740748C8C7
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:52:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784040719; cv=none; b=dekvkwFygwb1XgnfHFaT9dcUbmr08u6h/MTrLBtEJwX2ySvbvF7W6l+c/6s3/heYij1ksnzT1lySpNZDDV2kmmQxDnjdtG89rONynN4+ltQGkH7E3+m0pCM9x56CRRcQZxzmBzILve5apwFHHHm/8mTDTSTE4TG++AYZaEUqR2s=
+	t=1784040730; cv=none; b=H4uMiWjsCug9V/L/Z0glReKI6Ql3f4LTtj/BSLoyZ2PnuyH3oZoLcwyTml4siRUmGxhTbPtDin/nv+Y1SNj/cDqOLK7H/vYuHYTLsCxS9HFtQPgSnd9fWsxmiu7YC81au09R4pgW2hNdpNdHwZ5KXMqIwpalZpum7y7bwWJWKVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784040719; c=relaxed/simple;
-	bh=FCussJIOjPuS8TP36T2QA1gTvIteYdqF5Mo4kN+gjdI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SEPc2ROVYji9n10ftOTyydm3iWIewZ4cpSkVRNgdu/21TbN+hfO+4jioMtsDr8/55lFOM8WCQ7fuNxFduoIMwXQPcOlplo89BuFCvSFlCc3PBnjPush5R6mkY+h56rAO/Ebxs1M9Rj3Q8GVGqxDutIXX/QvAJp0A+gPkTyyCBEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jvfZJ79X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784040730; c=relaxed/simple;
+	bh=ovSXpTa1Oye6zbR175Q8rIEwQfkQFDUxmgweZlRZv8o=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C3fUFe5M0/0lChnhwaaBDjc3aNGUOaDeDQ9AqGx2T31k/Dcin+SzIK9nGXTUXrt0eDAF+DQEIhjgAhAmUu9yt7hyNughfOpy7vewtV5oq6XcRHlIMEz3bkxpVG19wS5qXzHqFzJqeMduQXyFk4nRm4kOxl0wc5fnWwWRggHifmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JvaJ6Sx7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jvfZJ79X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FAC51F000E9;
-	Tue, 14 Jul 2026 14:51:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JvaJ6Sx7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB041F000E9;
+	Tue, 14 Jul 2026 14:52:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784040717;
-	bh=YHA3Z4ccMc5W5z55D/72SeqBhFtP16YfHG0h/MA3AdM=;
+	s=korg; t=1784040729;
+	bh=S4dmAiRiOl8FI1XqXNwyaSc4nXeQpuYkPqWh2AERuDY=;
 	h=Subject:To:Cc:From:Date;
-	b=jvfZJ79XbQpfxyg551RknYRL5szklIZNCVxA0Z4TjgSXRc4G7/zdJiU3XKBfJx5IT
-	 Opgrk7HqoZxXqvvxR2KkUnBrz8Uo/EvHqZkCZBqvbxk/utxSYNeGTviVrDBGI0Rta3
-	 OpoxssOFlli2ia5uY2r2Fz3xtStFDNjllDQ9WpUs=
-Subject: FAILED: patch "[PATCH] X.509: Fix validation of ASN.1 certificate header" failed to apply to 5.10-stable tree
-To: lukas@wunner.de,alistair.francis@wdc.com,herbert@gondor.apana.org.au,ignat@linux.win,sashiko-bot@kernel.org
+	b=JvaJ6Sx7HgpjpVAamWQuLwtcB/YWbPxyenO31fegI8lg/iiQZYQUS4Rna8QMMR5D7
+	 QT+mJDXTII4MKvhvZxYBITPq62kvguzLlN/uy9j/XFJWoRGVr6duKES0xsFUOxgBYz
+	 /yP1iI8DRWuSnSCCDiyheWBljsHnJCkqdAfjNuss=
+Subject: FAILED: patch "[PATCH] mm/slab: do not limit zeroing to orig_size when only red" failed to apply to 6.6-stable tree
+To: vbabka@kernel.org,hao.li@linux.dev,harry@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 14 Jul 2026 16:51:43 +0200
-Message-ID: <2026071443-shed-dipper-bf70@gregkh>
+Date: Tue, 14 Jul 2026 16:52:03 +0200
+Message-ID: <2026071403-afar-policy-60a2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3b626ba431c4501512ad07549310685e07fe4706
+git cherry-pick -x 648927ceb84021a25a0fbd5673740956f318d534
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071443-shed-dipper-bf70@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071403-afar-policy-60a2@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,38 +62,66 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3b626ba431c4501512ad07549310685e07fe4706 Mon Sep 17 00:00:00 2001
-From: Lukas Wunner <lukas@wunner.de>
-Date: Thu, 14 May 2026 08:55:58 +0200
-Subject: [PATCH] X.509: Fix validation of ASN.1 certificate header
+From 648927ceb84021a25a0fbd5673740956f318d534 Mon Sep 17 00:00:00 2001
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Date: Wed, 10 Jun 2026 17:40:03 +0200
+Subject: [PATCH] mm/slab: do not limit zeroing to orig_size when only red
+ zoning is enabled
 
-x509_load_certificate_list() seeks to enforce that a certificate starts
-with 0x30 0x82 (ASN.1 SEQUENCE tag followed by a length of more than 256
-and less than 65535 bytes).
+When init (zeroing) on allocation is requested, for kmalloc() we
+generally have to zero the full object size even if a smaller size is
+requested, in order to provide krealloc()'s __GFP_ZERO guarantees.
 
-But it only enforces that *either* of those two byte values are present,
-instead of checking for the *conjunction* of the two values.  Fix it.
+But if we track the requested size, krealloc() uses that information to
+do the right thing, so we can zero only the requested size. With red
+zoning also enabled, any extra size became part of the red zone, so it
+must not be zeroed and thus we must zero only the requested size.
 
-Fixes: 631cc66eb9ea ("MODSIGN: Provide module signing public keys to the kernel")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/20260508033917.B5873C2BCB0@smtp.kernel.org/
-Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Cc: stable@vger.kernel.org # v3.7+
-Reviewed-by: Ignat Korchagin <ignat@linux.win>
-Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+However the current check is imprecise, and will trigger also when only
+SLAB_RED_ZONE is enabled without SLAB_STORE_USER (which enables tracking
+the requested size). This means enabling red zoning alone can compromise
+krealloc()'s __GFP_ZERO contract.
 
-diff --git a/crypto/asymmetric_keys/x509_loader.c b/crypto/asymmetric_keys/x509_loader.c
-index a41741326998..0d516c77cc26 100644
---- a/crypto/asymmetric_keys/x509_loader.c
-+++ b/crypto/asymmetric_keys/x509_loader.c
-@@ -20,7 +20,7 @@ int x509_load_certificate_list(const u8 cert_list[],
- 		 */
- 		if (end - p < 4)
- 			goto dodgy_cert;
--		if (p[0] != 0x30 &&
-+		if (p[0] != 0x30 ||
- 		    p[1] != 0x82)
- 			goto dodgy_cert;
- 		plen = (p[2] << 8) | p[3];
+Fix this by using slub_debug_orig_size() instead, which is the exact
+check for whether the requested size is tracked. We don't need to care
+if red zoning is also enabled or not. Also update and expand the
+comment accordingly.
+
+Fixes: 9ce67395f5a0 ("mm/slub: only zero requested size of buffer for kzalloc when debug enabled")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260610-slab_alloc_flags-v2-1-7190909db118@kernel.org
+Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+Reviewed-by: Hao Li <hao.li@linux.dev>
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+
+diff --git a/mm/slub.c b/mm/slub.c
+index ff83345d7f95..e9f827a24a1e 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -4574,15 +4574,17 @@ bool slab_post_alloc_hook(struct kmem_cache *s, struct list_lru *lru,
+ 	gfp_t init_flags = flags & gfp_allowed_mask;
+ 
+ 	/*
+-	 * For kmalloc object, the allocated memory size(object_size) is likely
+-	 * larger than the requested size(orig_size). If redzone check is
+-	 * enabled for the extra space, don't zero it, as it will be redzoned
+-	 * soon. The redzone operation for this extra space could be seen as a
+-	 * replacement of current poisoning under certain debug option, and
+-	 * won't break other sanity checks.
++	 * For kmalloc object, the allocated size (object_size) can be larger
++	 * than the requested size (orig_size). We however need to zero the
++	 * whole object_size to handle possible later krealloc() with
++	 *__GFP_ZERO properly.
++	 *
++	 * But if we keep track of the requested size, krealloc() uses that
++	 * information. Additionally if red zoning is enabled, the extra space
++	 * is also red zone, so we should not overwrite it. So limit zeroing to
++	 * orig_size if we track it.
+ 	 */
+-	if (kmem_cache_debug_flags(s, SLAB_STORE_USER | SLAB_RED_ZONE) &&
+-	    (s->flags & SLAB_KMALLOC))
++	if (slub_debug_orig_size(s))
+ 		zero_size = orig_size;
+ 
+ 	/*
 
