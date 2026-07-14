@@ -1,213 +1,213 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BC147DD42;
-	Tue, 14 Jul 2026 14:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83903D3CF6
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:54:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784040843; cv=none; b=O68b8LrSkT5SeQwrPXQPRdCT9oYZPma2kYmFcud6Dpm5qzOCVh5gAKk+d95s+bOrL5Y/eKMgLBiLg/Kh89/exeyDDkJCHPYgSKqaasX331B08CI4BC1ionHyHgh7YGtgakorGl7VipFLz0fOxJvuoSXIRGaJopeyoY9qk7hrI6k=
+	t=1784040865; cv=none; b=rOmiEiFvU4IaFQrZYRfudJlzkxE60PNNeNvFLz/2W2ju4/Fi09AThvxj1KvkQDE502FydNit3w9lkzBhVrCmJ4uQaqsVO+dFsYNxYU55v6LBckHzB6BnqKZoNBma+7xE3F4uqjvIxS7u9uFkj/GKyKDWJRSVet8rSto5zuxhy1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784040843; c=relaxed/simple;
-	bh=QSeOIvk99bu62pNbNhzg8VIxfvd3Ob8NHAu7pE1se7Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SEiwZw2t1m7Tn4cvodBHx8BodpsSHniqaf9ThyyAd/oqlv4aeHHrEWKrd9ayW+1KTVcnJgmfLAwyqSRuPUIb+f6ptVEXvPxMkuRGXwTn/HGBOuOtSqkxm4uUg+TAwnN3Yg+hYM/ID+gwOrj7BrzSTZnXzLswFgb5C6XQV4mtzro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=bmFdAdh3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=GMK5LnZ5; arc=none smtp.client-ip=202.12.124.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1784040865; c=relaxed/simple;
+	bh=IK7c1I5HguJ8GEyuHqaBTBSs6WkQzAzzhpk5BddI7x0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tDOv51eayTuYkEsY2L2Zg/hlOlndZU24WQ5LhghAlq3Hh5etV6cgL86bef7u2Ntfzslog7b6NyMbFyGTVEfsr9wqG4LzN7yWnSf0XApZzBXmWVxt20NF93EkbpDBMSOnMei/oCjmlEsmgDgFopmv5y5tKNtG4ilAENg6sAnE6l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tbJXVXC2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="bmFdAdh3";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="GMK5LnZ5"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 70F6C7A01B9;
-	Tue, 14 Jul 2026 10:53:59 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Tue, 14 Jul 2026 10:54:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1784040839; x=
-	1784127239; bh=nQSEvv8Ji5wHP6dbtiBwKk1VRYsau1XbRKPN6tHYx1M=; b=b
-	mFdAdh33VHTcyDSHWsQ+0WugAdbti5voM8qIo1v4SKhuvjcbuY0JS7hmbWOvdJt5
-	mipTbRE00hjBgcp4d5JEKFzMoFsW2ui6IDOB6gyJEShqSHD5xaYOLLVoPpTu4g4j
-	ZHNA6mhRRBd3Oj+pFJ2jZpNT2EGZuTACl1HtAWxqmAvPTw1cj4nRfWb7QOqJKpWR
-	4mSkiD7vmWxKJ0F4rDqsNT1mC7gM058AsY2N1jPdyg5jsaZxlYhP79W3lkuqgoR2
-	nvGhiBdV9URp2LAcjveRSL+QFHkI0Zu5w3KWchKg/P7QDdrZ70OC69QNJcBIMmZi
-	4cPLf4DnBfnxcdtNLsBaA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1784040839; x=1784127239; bh=nQSEvv8Ji5wHP6dbtiBwKk1VRYsau1XbRKP
-	N6tHYx1M=; b=GMK5LnZ5PB5+wdyHPH5lFt7IGLSOE4mO7Z7MKE5f73+3ZrRRPVg
-	al8F+XlN0BkX0iq3FRSilAxFIfWj3OAK5jSaoN3YhYD3wPxxUWs9GzDafRfQKnOR
-	P5f5yxZF0OHXgVw5KJgG8bqgnAVmi8qLBLaWHg++AH1cvkhOq+09v6NoYxdOMypJ
-	PRYBHi8ufjxbFwrAMooq7ZV4Dg/byZELH5nfn1ehy2P9gxf85nFynBiMOVG048tm
-	rTdZQersbXlP2Y4qAwMwQYhCvKBF29A6Fq+icMgk+IuHBDoasWT1QG7mNNBS/sYk
-	3Ubdtm8w12kjtaE3wFE5g1w5sLdHr9ogoiQ==
-X-ME-Sender: <xms:hU1Was4D8Wd7A92k3PC7rOU97Ezh9LAGCcrF9jTKJ_ZP4pnlirIQtQ>
-    <xme:hU1WaqrcVo8grnXkhvCsL1uOY3LqfeeYtr1mIkyfAzP6T_quyNSuWRcaYJ9gMnxiq
-    KGZcioOcLEZpYZTrNSywWLW74u34UgJoc9ldZAKkNmHD_-gxO06PpPK>
-X-ME-Received: <xmr:hU1WarB6FrNL6bqxlPff_xDWf0bpIAd7uOJkbpyIPOqqKEC43C6mrNGWw-mD3g>
-X-ME-Proxy-Cause: dmFkZTFCjKBpqF2AR4Iy8Xi7RXztKtZs1VxOjZg2Y6DrZbU2u5b7SdZVsP/MxxYB9D5lx1
-    fWtzDUSp89q6mLHdfChL6kBpCrlZWf6Bfh78JGo1QdklPsgYxTkfCmYxxye1CPm3XWI6oz
-    sNCHWxj1tj1Z6yEVxAsAa4vD4R1E7BIBEwVcCrpxJQLS1mS0xN7fU/y8oDI+qSJ4XMIZUm
-    e0LNvdfjgEUA2+xUN8dyzEzlcNdzSyzPgHjrbWxM5RK9B2hRP0V7mUdZaWlgBxv+yVC/3d
-    cVx1aAVbys5cwpIsZlhXlxXsH9GFH9MyXkDFrmP/wknqkilVJW+iCM59mwiZed7GL7QwWa
-    C3f+b8bmPCfSXdocKU4qgut34NolPN6xHvt96lWk7GHH5qE7A98uIVCJ/yNpmofazFwPYD
-    n9lAMLNmZ4ZnzebK4MsG3HVj9p65aLuI0iKc6afSGDa76C9etQL/cokjwU84UG7WHMKMQi
-    jMsS1Cm1ZkSsazWZvOM1LGU72LblSJboOHtNTiQxqF8+C+hKFgbsUBcW2NZTXOI6zPiuQP
-    LFF/IONyEKvE0RfTNRAWEvM3UMTlY7EOLh+PbHPSdGzSGN94zFTtiN2D0CT7WmVslCMX+w
-    erfM3v7bLZrSMiHUNCLMh/cfhsRkyUNxNduKE7LecmGfOOTfcKKTVfLWcEnA
-X-ME-Proxy: <xmx:hU1Wapy3cAA_4qdE78bB5v5a4S1mMdiKH9OCNKaM9r-FVJikk2dYYQ>
-    <xmx:hU1Waka4LohTE7esP0gEnQGQ2zZvBazYQs_dSfv0zBI5s5Fgc7PuWw>
-    <xmx:hU1Waiue1N6NzXFcBl95--LcWmzXjIcU48lvM_C2fyub25SUZldDKQ>
-    <xmx:hU1Waqzo1_Ymy1N4lPc2Dp8RfiDiD85_0m0iOXI8UkIzYB5_0EaCHg>
-    <xmx:h01WapBLMdTTgf53F79sETWJM8MfF9kl9w4ybfCDvjHmYFDZgdySp5QO>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 14 Jul 2026 10:53:56 -0400 (EDT)
-Date: Tue, 14 Jul 2026 15:53:55 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>, 
-	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Hao Zhang <zhanghao1@kylinos.cn>, 
-	Hao Zhang <hao_zhang_kdev@163.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] mm/memory-failure: keep the folio, not the
- poisoned subpage, locked across split
-Message-ID: <alZNYYsybKZA0eJb@thinkstation>
-References: <20260714122344.351895-1-kirill@shutemov.name>
- <20260714122344.351895-2-kirill@shutemov.name>
- <c4aa63df-30ab-464d-bd0b-48dc37c8e6ba@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tbJXVXC2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046421F000E9;
+	Tue, 14 Jul 2026 14:54:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784040863;
+	bh=Qw1uCa7bUxOv2jhODLolI1u4eoiu36vRAxDkb/NEfm8=;
+	h=Subject:To:Cc:From:Date;
+	b=tbJXVXC2S+95xbBR+prfprWBfvdpu7IyhNUpu9q7N3Z7RcgdzuzQUbgUyIUrS0a4E
+	 0uloEGv63bLh8WiDL0D2fD8TUIDvyQkhX+ESvjEgX5YboIrOmYC+0N/cXTZuGX936J
+	 J4Bt3HPJxSot8D0aZlSqFPL4Z2SaeRoooOwGKet8=
+Subject: FAILED: patch "[PATCH] HID: multitouch: fix out-of-bounds bit access on mt_io_flags" failed to apply to 6.12-stable tree
+To: trungnh@cystack.net,bentiss@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 14 Jul 2026 16:54:17 +0200
+Message-ID: <2026071417-rarity-paralyze-9329@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c4aa63df-30ab-464d-bd0b-48dc37c8e6ba@kernel.org>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 14, 2026 at 03:01:46PM +0200, David Hildenbrand (Arm) wrote:
-> On 7/14/26 14:23, Kiryl Shutsemau wrote:
-> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> > 
-> > try_to_split_thp_page() locked the poisoned page and passed it to
-> > split_huge_page_to_order(), which returns that very page locked to the
-> > caller.  For a tail page that means __folio_split() runs with @lock_at
-> > pointing into the middle of the folio.
-> > 
-> > __folio_split() dereferences the mapping after the split completes
-> > (shmem_uncharge(), i_mmap_unlock_read()).  The only thing keeping the
-> > inode alive across that is the locked @lock_at folio: while it stays in
-> > the page cache, eviction cannot complete.
-> > 
-> > But a tail @lock_at can lie beyond EOF -- e.g. part of a shmem THP that
-> > reaches past i_size while the file is being truncated.  The split then
-> > drops it from the page cache yet still returns it locked, so the pin is
-> > gone and a racing final iput() can evict and RCU-free the inode while
-> > __folio_split() is still running:
-> > 
-> >   BUG: KASAN: slab-use-after-free in __up_read+0x634/0x790
-> >    i_mmap_unlock_read include/linux/fs.h:537 [inline]
-> >    __folio_split+0x732/0x1640 mm/huge_memory.c:4100
-> >    try_to_split_thp_page+0xab/0x390 mm/memory-failure.c:1675
-> >    memory_failure+0x1394/0x26e0 mm/memory-failure.c:2470
-> > 
-> >   Freed by task 4601:
-> >    shmem_free_in_core_inode+0x54/0xb0 mm/shmem.c:5177
-> >    evict+0x57f/0xac0 fs/inode.c:870
-> > 
-> > Split the folio as a folio, via split_folio_to_order(), so the head is
-> > the anchor left locked.  The head is piece 0, which the beyond-EOF drop
-> > loop never removes (it starts at folio_next(folio)), so the split always
-> > leaves it in the page cache and the inode stays pinned for the whole of
-> > __folio_split().  memory_failure() and soft offline re-lock the poisoned
-> > subpage's folio themselves after the split, so they do not depend on it
-> > being returned locked.
-> > 
-> > Reported-by: Hao Zhang <zhanghao1@kylinos.cn>
-> > Closes: https://lore.kernel.org/linux-mm/20260710071344.GA106129@zh-pc
-> > Fixes: baa355fd3314 ("thp: file pages support for split_huge_page()")
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> > ---
-> >  mm/memory-failure.c | 13 ++++++++++---
-> >  1 file changed, 10 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> > index 51508a55c405..68d42cbed458 100644
-> > --- a/mm/memory-failure.c
-> > +++ b/mm/memory-failure.c
-> > @@ -1657,11 +1657,18 @@ static int identify_page_state(unsigned long pfn, struct page *p,
-> >  static int try_to_split_thp_page(struct page *page, unsigned int new_order,
-> >  		bool release)
-> >  {
-> > +	struct folio *folio = page_folio(page);
-> >  	int ret;
-> >  
-> > -	lock_page(page);
-> > -	ret = split_huge_page_to_order(page, new_order);
-> > -	unlock_page(page);
-> > +	/*
-> > +	 * Lock and split at the head, not the poisoned subpage: __folio_split()
-> > +	 * keeps the anchor folio locked and needs it to stay in the page cache
-> > +	 * to pin the inode. A tail beyond EOF would be dropped yet returned
-> > +	 * locked, losing that pin. The caller re-locks @page afterwards.
-> > +	 */
-> > +	folio_lock(folio);
-> > +	ret = split_folio_to_order(folio, new_order);
-> > +	folio_unlock(folio);
-> 
-> With a non-uniform split it would actually make a difference: we'd want to split
-> such that we the other folio pages minimal.
-> 
->  split_folio_to_order() always seems to end up in
-> __split_huge_page_to_list_to_order() where we do a SPLIT_TYPE_UNIFORM.
-> 
-> I recall discussing with Zi and Willy that in the future we'd want to convert
-> more places to do a non-uniform split.
-> 
-> So I'm afraid that would just re-introduce the problem then.
 
-Right. Non-uniform split can be useful.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-But my patch is completely broken because code expects the pin to be on the
-@page, not on the head. put_page() few lines down can explode already.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-So the fix does not belong in memory_failure(). It belongs in
-__folio_split(), and it is really just 2/5: refuse the split with -EBUSY
-when @lock_at is at or beyond the sampled EOF.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 8813b0612275cc61fe9e6603d0ee019247ade6be
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071417-rarity-paralyze-9329@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-The safety then sits in __folio_split() regardless of caller or split type,
-which should also cover your non-uniform worry.
+Possible dependencies:
 
-The behavioural change is that memory_failure() reports a beyond-EOF
-poisoned tail as unsplit (MF_FAILED) instead of recovered, and kills the
-mappers instead of splitting the page off. What we give up is salvaging
-the folio's healthy pages and the clean unmap -- both low value for a page
-that is beyond EOF and getting truncated away. Containment is unaffected:
-PageHWPoison is set before the split and free_pages_prepare() keeps a
-poisoned page out of the buddy allocator, so the bad page never comes back
-regardless.
 
-The alternative, if we would rather keep the recovered outcome, is to leave
-@lock_at as the poisoned page and move i_mmap_unlock_read() (and
-shmem_uncharge()) ahead of the after-split unlock loop, so every mapping
-dereference happens while @folio -- the head, within EOF -- still pins the
-inode. That is close to Hao's original patch. It works, but it rests on "no
-mapping dereference after the unlock loop", which is its own fragility.
 
-I lean towards the -EBUSY guard.
+thanks,
 
-Comments?
+greg k-h
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+------------------ original commit in Linus's tree ------------------
+
+From 8813b0612275cc61fe9e6603d0ee019247ade6be Mon Sep 17 00:00:00 2001
+From: Trung Nguyen <trungnh@cystack.net>
+Date: Thu, 2 Jul 2026 00:13:19 +0700
+Subject: [PATCH] HID: multitouch: fix out-of-bounds bit access on mt_io_flags
+
+mt_io_flags is a single unsigned long, but mt_process_slot(),
+mt_release_pending_palms() and mt_release_contacts() use it as a
+per-slot bitmap indexed by the slot number. That slot number is only
+bounded by td->maxcontacts, which is taken from the device's
+ContactCountMaximum feature report and can be up to 255, not by
+BITS_PER_LONG.
+
+As a result, a multitouch device that advertises a large contact count
+makes set_bit()/clear_bit() operate past the mt_io_flags word and
+corrupt the adjacent members of struct mt_device. The sticky-fingers
+release timer is the easiest way to reach this. mt_release_contacts()
+runs
+
+	for (i = 0; i < mt->num_slots; i++)
+		clear_bit(i, &td->mt_io_flags);
+
+with num_slots == maxcontacts. For maxcontacts around 250 the loop
+clears the bits that overlap td->applications.next, zeroing that list
+head, and the list_for_each_entry() that immediately follows then
+dereferences NULL. The kernel panics from timer (softirq) context. On a
+KASAN build this shows up as a general protection fault in
+mt_release_contacts() with a null-ptr-deref at offset 0x58, which is
+offsetof(struct mt_application, num_received).
+
+The state is reachable from an untrusted USB or Bluetooth HID
+multitouch device; no local privileges are required.
+
+Store the per-slot active state in a separately allocated bitmap sized
+for maxcontacts, the same pattern already used for pending_palm_slots,
+and keep only MT_IO_FLAGS_RUNNING in mt_io_flags. The two
+"mt_io_flags & MT_IO_SLOTS_MASK" arming checks become
+bitmap_empty(td->active_slots, td->maxcontacts).
+
+Move MT_IO_FLAGS_RUNNING back to bit 0. It was bumped to bit 32 by the
+same commit to leave the low byte for the slot bits; with the slot bits
+gone it fits in bit 0 again, which also keeps it within the unsigned
+long on 32-bit.
+
+Fixes: 46f781e0d151 ("HID: multitouch: fix sticky fingers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Trung Nguyen <trungnh@cystack.net>
+Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
+
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 0495152091e3..edb37b4c867e 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -31,6 +31,7 @@
+  * [1] https://gitlab.freedesktop.org/libevdev/hid-tools
+  */
+ 
++#include <linux/bitmap.h>
+ #include <linux/bits.h>
+ #include <linux/device.h>
+ #include <linux/hid.h>
+@@ -97,8 +98,7 @@ enum report_mode {
+ 	TOUCHPAD_REPORT_ALL = TOUCHPAD_REPORT_BUTTONS | TOUCHPAD_REPORT_CONTACTS,
+ };
+ 
+-#define MT_IO_SLOTS_MASK		GENMASK(7, 0) /* reserve first 8 bits for slot tracking */
+-#define MT_IO_FLAGS_RUNNING		32
++#define MT_IO_FLAGS_RUNNING		0
+ 
+ static const bool mtrue = true;		/* default for true */
+ static const bool mfalse;		/* default for false */
+@@ -174,10 +174,9 @@ struct mt_device {
+ 	struct timer_list release_timer;	/* to release sticky fingers */
+ 	struct hid_haptic_device *haptic;	/* haptic related configuration */
+ 	struct hid_device *hdev;	/* hid_device we're attached to */
+-	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING)
+-					 * first 8 bits are reserved for keeping the slot
+-					 * states, this is fine because we only support up
+-					 * to 250 slots (MT_MAX_MAXCONTACT)
++	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING) */
++	unsigned long *active_slots;	/* bitmap of slots with an active
++					 * contact, sized for maxcontacts
+ 					 */
+ 	__u8 inputmode_value;	/* InputMode HID feature value */
+ 	__u8 maxcontacts;
+@@ -1036,7 +1035,7 @@ static void mt_release_pending_palms(struct mt_device *td,
+ 
+ 	for_each_set_bit(slotnum, app->pending_palm_slots, td->maxcontacts) {
+ 		clear_bit(slotnum, app->pending_palm_slots);
+-		clear_bit(slotnum, &td->mt_io_flags);
++		clear_bit(slotnum, td->active_slots);
+ 
+ 		input_mt_slot(input, slotnum);
+ 		input_mt_report_slot_inactive(input);
+@@ -1247,9 +1246,9 @@ static int mt_process_slot(struct mt_device *td, struct input_dev *input,
+ 		input_event(input, EV_ABS, ABS_MT_TOUCH_MAJOR, major);
+ 		input_event(input, EV_ABS, ABS_MT_TOUCH_MINOR, minor);
+ 
+-		set_bit(slotnum, &td->mt_io_flags);
++		set_bit(slotnum, td->active_slots);
+ 	} else {
+-		clear_bit(slotnum, &td->mt_io_flags);
++		clear_bit(slotnum, td->active_slots);
+ 	}
+ 
+ 	return 0;
+@@ -1384,7 +1383,7 @@ static void mt_touch_report(struct hid_device *hid,
+ 	 * defect.
+ 	 */
+ 	if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
+-		if (td->mt_io_flags & MT_IO_SLOTS_MASK)
++		if (!bitmap_empty(td->active_slots, td->maxcontacts))
+ 			mod_timer(&td->release_timer,
+ 				  jiffies + msecs_to_jiffies(100));
+ 		else
+@@ -1443,6 +1442,15 @@ static int mt_touch_input_configured(struct hid_device *hdev,
+ 	if (td->is_pressurepad)
+ 		__set_bit(INPUT_PROP_PRESSUREPAD, input->propbit);
+ 
++	if (!td->active_slots) {
++		td->active_slots = devm_kcalloc(&td->hdev->dev,
++						BITS_TO_LONGS(td->maxcontacts),
++						sizeof(long),
++						GFP_KERNEL);
++		if (!td->active_slots)
++			return -ENOMEM;
++	}
++
+ 	app->pending_palm_slots = devm_kcalloc(&hi->input->dev,
+ 					       BITS_TO_LONGS(td->maxcontacts),
+ 					       sizeof(long),
+@@ -2062,7 +2070,7 @@ static void mt_release_contacts(struct hid_device *hid)
+ 			for (i = 0; i < mt->num_slots; i++) {
+ 				input_mt_slot(input_dev, i);
+ 				input_mt_report_slot_inactive(input_dev);
+-				clear_bit(i, &td->mt_io_flags);
++				clear_bit(i, td->active_slots);
+ 			}
+ 			input_mt_sync_frame(input_dev);
+ 			input_sync(input_dev);
+@@ -2085,7 +2093,7 @@ static void mt_expired_timeout(struct timer_list *t)
+ 	 */
+ 	if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
+ 		return;
+-	if (td->mt_io_flags & MT_IO_SLOTS_MASK)
++	if (!bitmap_empty(td->active_slots, td->maxcontacts))
+ 		mt_release_contacts(hdev);
+ 	clear_bit_unlock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags);
+ }
+
