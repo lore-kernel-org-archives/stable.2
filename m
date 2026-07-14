@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E9233C192
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F9929D270
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:27:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784035624; cv=none; b=PoeWwkH2R9K429ZA4iXXr/Xqm/a2UulIP0FlkWZ2kx2nvaVKldek2DHBq6oFZCBKKrWjAFVBWYgFSnPPKeM6dqgCNTNx2A7LSKYpzNhvrGOw6TNnNJTlHvJ/UsxYh+NN6i9l99SQrl0qd2szRvwfa9WpdvXK4SmaALePDVO+mFg=
+	t=1784035632; cv=none; b=h3eQw3llIlK1j3UQ4FvaeS81GDEeHYRJQUJwvhB26Ydkir3YfP3yQlDHNcGy605M+GUdWWY1yMjG9yL9nnBUQ3qzhal+Kg60UKzH7TwNK2FuEzW6G2wfxNiVhEbJc3YYpIEp9UB3u6MIEIDOfsxYzM1ob1Jax1WS30/5efF490E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784035624; c=relaxed/simple;
-	bh=JaD2l+rFXk8RZaM3dLQbr/1bPy3njcFpaK28H6PNT1M=;
+	s=arc-20240116; t=1784035632; c=relaxed/simple;
+	bh=4gtc1Atl/reaPLFpiFy49YLPGaA32T6kUO3QjS9u4M0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nPEGbAUU6WuEX1U5qInUaYH79D2KuqK2qC1Rsq748gM+iHuXaVLqKTRJDzDzDRunnnP9qJttTKmri37zoJ5Ev6gs1M/Txv9z15cKjxrqv5Y4LoHjCYlhmvUkLvBJyFn0KlONDSapfKgbOQogrbz2XBg5/ifBxxvZAZM/S3HtY10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oj28ZcDt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sC9bO25gbM2kidafgdGsQQ5SLKXCqPulbFMhRLRpH5q6IpLL7cEOC4kHo0CBQUWR8aJd0HLcxSq8sAraUMOslEnHtgMsAtj6jALb9u7DaqkCnF8afmfn0bAOrhLU45fd1iUxMnV3pFWcEJunqmJO9Zp9fDXc1wCa72fryfo7www=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mJRR4+HB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oj28ZcDt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A85BD1F000E9;
-	Tue, 14 Jul 2026 13:27:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJRR4+HB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93EFD1F000E9;
+	Tue, 14 Jul 2026 13:27:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784035623;
-	bh=zUYYVZ8PwrijQQu+C/fD5Axpz/29XABq9FM9/cGx2CQ=;
+	s=k20260515; t=1784035631;
+	bh=36b99Og6kWEkF94Fv0JrkfA7SxMdJDW+WBhx1HNSiNQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oj28ZcDt1ylHQmp4tpZARPMmPLvLujY3Zftj9T2uDu5b2EM2fPHfs+NgDXg3lSToc
-	 3Je0muddyY5Hl0wjRz29LW03IWZK1XBbOcsVpOIT5BWJV/GojCgViOsoBYY9GikTEA
-	 j29maQimbHQ+sK4FjbGyUcx89GXSvt34D0QUB5Gj74Kax4n231M6i4UHE9ayCiUhXx
-	 +D+qo0CwegWTrLnNeMoOEaGovSUUWafWcfXRWts3CDyGIoYZ3KN0g0u9fb84MztFGl
-	 zVPzOoliZC2IpSMn3g6OXEzowwL2WJRDXOgq9yEAAzs97Z9G2tAhhZQeZuOqjiPdYw
-	 tbiIeY6nqzaZw==
+	b=mJRR4+HB/q1KCNYYx7nTggg7CWeiqcgVUG8u875DWzmPb1h8JoZUQ/ihJ3ssTG0LI
+	 S3YGQ/NjbsHgXpcyUV4t0sP5zKjq1T0n7g1ksM821vCKMqY5QmPUOgcQ9emYGPXQl0
+	 Y/dllq7graUi6zp4ICxnWJ5yyYGf81EOwafR4J52JXq5JSXxPnLkiPpC3SDjLhciaO
+	 dqD4FUN0wSHtxrsXoBH4NkddCFOdSmG/c45epHyb70rRCIRIdmU3tTYjouSIGTjQPA
+	 NMlBCDwBYIBLXs+KwmfwKC6+wXsaHAnzHwbOm/Npd6msN1N+yB8+CFzcEIML/sVZuh
+	 TWbkLBjZQgnvg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Rajat Jain <rajatja@google.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Alex Williamson <alex.williamson@nvidia.com>,
+	Yishai Hadas <yishaih@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Alex Williamson <alex@shazbot.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 5/5] Bluetooth: btusb: fix wakeup source leak on probe failure
-Date: Tue, 14 Jul 2026 09:26:57 -0400
-Message-ID: <20260714132657.2663805-5-sashal@kernel.org>
+Subject: [PATCH 6.18.y] vfio/mlx5: Fix racy bitfields and tighten struct layout
+Date: Tue, 14 Jul 2026 09:27:08 -0400
+Message-ID: <20260714132708.2663976-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714132657.2663805-1-sashal@kernel.org>
-References: <2026071341-glamorous-shower-90f7@gregkh>
- <20260714132657.2663805-1-sashal@kernel.org>
+In-Reply-To: <2026071330-plus-jackpot-fb60@gregkh>
+References: <2026071330-plus-jackpot-fb60@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,81 +47,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Alex Williamson <alex.williamson@nvidia.com>
 
-[ Upstream commit 3d93e1bb0fb881fe3ef961d1120556658e9cac4d ]
+[ Upstream commit f2365a63b02ddea32e7db78b742c2503ec7b81f1 ]
 
-Make sure to disable wakeup on probe failure to avoid leaking the wakeup
-source.
+Bitfield operations are not atomic, they use a read-modify-write
+pattern, therefore we should be careful not to pack bitfields that
+can be concurrently updated into the same storage unit.
 
-Fixes: fd913ef7ce61 ("Bluetooth: btusb: Add out-of-band wakeup support")
-Cc: stable@vger.kernel.org	# 4.11
-Cc: Rajat Jain <rajatja@google.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+This split takes a binary approach: flags that are only modified
+pre/post open/close remain bitfields, flags modified from user
+action, including actions that reach across to another device (ex.
+reset) use dedicated storage units.
+
+Note mlx5_vhca_page_tracker.status is relocated to fill the alignment
+hole this split exposes.
+
+Bitfield justifications:
+
+  migrate_cap: written only in mlx5vf_cmd_set_migratable() at probe
+  chunk_mode: written only in mlx5vf_cmd_set_migratable() at probe
+  mig_state_cap: written only in mlx5vf_cmd_set_migratable() at probe
+
+Dedicated storage units:
+
+  mdev_detach: written in the VF attach/detach event notifier
+               mlx5fv_vf_event() at runtime
+  log_active: written in mlx5vf_start_page_tracker()/
+              mlx5vf_stop_page_tracker() during runtime dirty tracking
+  deferred_reset: written in mlx5vf_state_mutex_unlock()/
+                  mlx5vf_pci_aer_reset_done() during runtime reset handling
+  is_err: set by tracker error handling and dirty-log polling at runtime
+  object_changed: set by tracker event handling and cleared by dirty-log
+                  polling at runtime
+
+Fixes: 61a2f1460fd0 ("vfio/mlx5: Manage the VF attach/detach callback from the PF")
+Fixes: 79c3cf279926 ("vfio/mlx5: Init QP based resources for dirty tracking")
+Fixes: f886473071d6 ("vfio/mlx5: Add support for tracker object change event")
+Cc: Yishai Hadas <yishaih@nvidia.com>
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Link: https://lore.kernel.org/r/20260615191241.688297-5-alex.williamson@nvidia.com
+Signed-off-by: Alex Williamson <alex@shazbot.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/bluetooth/btusb.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/vfio/pci/mlx5/cmd.h | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index 6d32e48418da78..cb349276522e23 100644
---- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -3501,6 +3501,11 @@ static int marvell_config_oob_wake(struct hci_dev *hdev)
+diff --git a/drivers/vfio/pci/mlx5/cmd.h b/drivers/vfio/pci/mlx5/cmd.h
+index d7821b5ca77293..82831e0483c09d 100644
+--- a/drivers/vfio/pci/mlx5/cmd.h
++++ b/drivers/vfio/pci/mlx5/cmd.h
+@@ -155,25 +155,28 @@ struct mlx5_vhca_qp {
+ struct mlx5_vhca_page_tracker {
+ 	u32 id;
+ 	u32 pdn;
+-	u8 is_err:1;
+-	u8 object_changed:1;
++	/* Flags modified at runtime - dedicated storage unit */
++	u8 is_err;
++	u8 object_changed;
++	int status;
+ 	struct mlx5_uars_page *uar;
+ 	struct mlx5_vhca_cq cq;
+ 	struct mlx5_vhca_qp *host_qp;
+ 	struct mlx5_vhca_qp *fw_qp;
+ 	struct mlx5_nb nb;
+-	int status;
+ };
  
- 	return 0;
- }
-+#else
-+static inline int marvell_config_oob_wake(struct hci_dev *hdev)
-+{
-+	return 0;
-+}
- #endif
- 
- static int btusb_set_bdaddr_marvell(struct hci_dev *hdev,
-@@ -4011,6 +4016,11 @@ static int btusb_config_oob_wake(struct hci_dev *hdev)
- 	bt_dev_info(hdev, "OOB Wake-on-BT configured at IRQ %u", irq);
- 	return 0;
- }
-+#else
-+static inline int btusb_config_oob_wake(struct hci_dev *hdev)
-+{
-+	return 0;
-+}
- #endif
- 
- static void btusb_check_needs_reset_resume(struct usb_interface *intf)
-@@ -4164,7 +4174,6 @@ static int btusb_probe(struct usb_interface *intf,
- 	hdev->notify = btusb_notify;
- 	hdev->prevent_wake = btusb_prevent_wake;
- 
--#ifdef CONFIG_PM
- 	err = btusb_config_oob_wake(hdev);
- 	if (err)
- 		goto out_free_dev;
-@@ -4173,9 +4182,9 @@ static int btusb_probe(struct usb_interface *intf,
- 	if (id->driver_info & BTUSB_MARVELL && data->oob_wake_irq) {
- 		err = marvell_config_oob_wake(hdev);
- 		if (err)
--			goto out_free_dev;
-+			goto err_disable_wakeup;
- 	}
--#endif
-+
- 	if (id->driver_info & BTUSB_CW6622)
- 		set_bit(HCI_QUIRK_BROKEN_STORED_LINK_KEY, &hdev->quirks);
- 
-@@ -4393,6 +4402,9 @@ static int btusb_probe(struct usb_interface *intf,
- 	}
- err_kill_tx_urbs:
- 	usb_kill_anchored_urbs(&data->tx_anchor);
-+err_disable_wakeup:
-+	if (data->oob_wake_irq)
-+		device_init_wakeup(&data->udev->dev, false);
- out_free_dev:
- 	if (data->reset_gpio)
- 		gpiod_put(data->reset_gpio);
+ struct mlx5vf_pci_core_device {
+ 	struct vfio_pci_core_device core_device;
+ 	int vf_id;
+ 	u16 vhca_id;
++	/* Flags only modified on setup/release - bitfield ok */
+ 	u8 migrate_cap:1;
+-	u8 deferred_reset:1;
+-	u8 mdev_detach:1;
+-	u8 log_active:1;
+ 	u8 chunk_mode:1;
++	/* Flags modified at runtime - dedicated storage unit */
++	u8 mdev_detach;
++	u8 log_active;
++	u8 deferred_reset;
+ 	struct completion tracker_comp;
+ 	/* protect migration state */
+ 	struct mutex state_mutex;
 -- 
 2.53.0
 
