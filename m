@@ -1,292 +1,263 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250152E88A4
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 15:39:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D88448381
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 15:39:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784043547; cv=none; b=bYbvX5cKGh563X5s+afdJfUWwIq2Byk9KHKc7Zv0f3UbFOKmbCp48SNUIopjuZIjU5ko1/+PDjpPIZ82tUy0JcY8vkrWUytxMGYV/01Jz7I/6xSaatA19I75g/w5Nfmk1WhxuyvuJm8kWkLUyAiZzIpEaYyTmSOsEBLTvqc/MSA=
+	t=1784043552; cv=none; b=ZpgnA9E7SZbRETQbceCVwxU33rym6LJeJ/nenOZ6L1GRL+8GZq7ZJLXpayz5JpGIWJJhApOFMcjl6QlC9CqQrG96GYlzXz6C9TX4SAP1C6iPmGsmlNi0iNRGHRPXVvn07lnejzZH217v4qqhswrDSw06diBeGhLAzlmCHd9bM4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784043547; c=relaxed/simple;
-	bh=Hn3a99V0GshSYRRajT1LdTigZCY403M9C6bDrN6U6Xg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aJDH7dCB3A6ACMN8Um/d9+zdDQXo7G3S+jM5Sh4yjlecyrJgvyJV+fd9KywqAijG4JhNqztgBqvySL1lPUIwf3qHfa8xMpszd4ZnuyEktW7jpiqjwzd+yPfLfi8rgZMQ31/ch/XGBM7OXWHowiUn7fprnI6OGbpCvr1G30X0HSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=b/Iz6iR1; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1784043552; c=relaxed/simple;
+	bh=2p32/JOiOUGkzMruOJtrpMcYlWH5TB77HdwhMlQYP5g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=C21I22Ay3PTE6AnJtm0rrUlrKptrrNpAuW+vbKF2vw2aLdRzvRlrSUiIRpP1zHStOTxbQ9Tvy9yDOvCAbD5vIs9OVB88yXFj6lFL5QzJUOc++GPKq/59TZKn8Ooa4XAVfXCNZI70ZxcieiBdGFLkDk7Vs5qiDKte0nFKfhJ0zRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GcCVT0kz; arc=none smtp.client-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="b/Iz6iR1"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493b8d92a4eso68215e9.1
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 08:39:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GcCVT0kz"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7eb61bbeb25so638069a34.1
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 08:39:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784043543; x=1784648343; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=J01qK8ph2yz3FUSd+RgsaIaOKQH5OUzQg7HSEfuNJTU=;
-        b=b/Iz6iR1FHq27+s0VO9vfu34mL4Xl4LosQVVLFouzfZEtSEi8LB1JKtIguBdLsLaAT
-         kKixynXNbtaFE02UxitLYDmp7o9mmU3tfVcesZnGNpR01c2En6S/jgi4TFbITb5zuSio
-         mUtlN3g08LZSZm0TeR3R/3YuaCWT+U7B/IHTtWbMwHOQGiRNICSb172eg8hYNZ7QIS1T
-         N8d+pcg5vQev+d37yp3bFiOhD1fa7tNqvmrFWo+ixSWEik448k9eJtazTQ5oOhmeIU0A
-         G2iqYXFQyYTsjUONO57oxDDs8ZKjiPSlydad/u1705SZvsOoJLGErE1dzWf8x2k1lokV
-         r/uQ==
+        d=gmail.com; s=20251104; t=1784043549; x=1784648349; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h2jZPg8BmRJ0mbFQa7ElFHkaNBrmZCQEMsa0xC0hHN8=;
+        b=GcCVT0kzYiQOrqrtVMyNzTe9FRn8eXNMmPigxErccptVbBohoP8WZt01cd+GmEbGfR
+         nN2RvqBjYhkRRnN9tf/mY7dGgh6l4GwGiQc5d4l32id3DgdJKPc9h9YZQLGajjGrK4GT
+         ONZTRGpUPU63ow4/VmXijus1pXAZYjNQF67s1QllfPfzIH+XGf/Oir5OCuHvBxFLSYE8
+         eIaDggUt6bz0Ujt4XDi+AdOT+koNePhMaMnNGUuLwWol41LltE1haqQx2OJaPeOaqjCf
+         g6hrgZNo7rSta4LpL0ePACQnQA4lJFD80DA5WJkxWkeEitcJHXOHRH6rVMZwpK2tiGlD
+         9+9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784043543; x=1784648343;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=J01qK8ph2yz3FUSd+RgsaIaOKQH5OUzQg7HSEfuNJTU=;
-        b=eqIJAn+2zLpf1s4r0ooZFkJZcYznZBGnqiaoJB90nfUyPc6dP+ryITuyvaLiIEXAjo
-         rko4kv/qYqp9yY5dc/qtBG6hTadogfOZyypP5/v8HoZ3ZwbJcuWSPcC97I3sEKw+OT30
-         +6D3rAXjM6iLRGG3tzk73d157SxoHu/ROzjJWjHvGPHRupsdHW7NE5Ad1xjaD9l+sFrF
-         Cgv8R50tVFHEz8aTGnp5a8uh8GonisPCG4I841hwngZxBYgESosQEVx5odmyscGXFcsh
-         RiZHNsNTsea9qEz9tAjK4UlX4SIRMiR3LN5JD+jpZcPn7WM0raiKSErjbdaDS/ERAkSB
-         VsxQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrX+uvLiqXf943eLgsCr54W3Hqs+FjgyNGIlNU5J5GuA5dOnmN7H1HkCTMw91N0qK7Gs+rqqac=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKVG74dZ1LpmpGk+rs6lXJOWEjGrDkTlCv4lYIiTa2RsA9ckgx
-	Z+3SGC7plPxFjEUnX7rmpyN004hVkBw4Zu5VIxE9VBT7hSk4Hxiv8U5Iyb1+hzN66A==
-X-Gm-Gg: AfdE7ck5hXO/EYBvAbKLfqSD5c+LnwfNEWmEi4ZuZMBwhPmq3vsxCIiBd/9lZmRvIJY
-	5swlK2uus7NbOyAxQJ5OSBTUvxmBEUGdh5RDAHev95T0mETSKMOQ2GHogm9nIc6b8jImncu/mHt
-	TIkrlDA4XMTD4MLqYPHLvB8TjozqM6Muwl1DPY/OAvXbweJDuyKAb+4nnc95nzFl01ciyT6HYzV
-	F09Nrh5B92z20knuYLG/4SYgjIDharPwJPq89xkv+5DvFJ9n/YwOWAV/bfsd4bBlU6jkJL71RSF
-	RroO9T6+8vzFs/tTU3IeXCuTaZ6jJzPxTdEANInq55bRBA1aIntS/8xWyW4RcG5Mibq0wQARPW0
-	hkvIUyjq8PBQTK0ZrbrPRQSYMSASk9/6kwW0pQO1QdSBCVbmqjuDscdp2NCfA4U6g9+yOdOcTT4
-	ofR1JNfBwI4iPeNFzkzDwN/H5e2+A7h5eg1nW2ieLTBeGczWLck92J/B3rQT0iuUUM859MlZUL
-X-Received: by 2002:a05:600c:828c:b0:493:b279:6012 with SMTP id 5b1f17b1804b1-4945e2be9femr2073435e9.0.1784043542713;
-        Tue, 14 Jul 2026 08:39:02 -0700 (PDT)
-Received: from localhost ([2a00:79e0:288a:8:84a1:f866:349a:250b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464caeffsm8522501f8f.36.2026.07.14.08.39.02
+        d=1e100.net; s=20251104; t=1784043549; x=1784648349;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h2jZPg8BmRJ0mbFQa7ElFHkaNBrmZCQEMsa0xC0hHN8=;
+        b=H/8hpkL125m7ESNU7gxYFWmKu7ayIf96xZmhyqBY3nRRdVO2aqAWZvEzqQNMY5oYvG
+         OP3ZBMFGq7Ba6OtP7xbn7bV8pvu98TabVJlkQX/t2r/FHKN6dwRyJSw2Pkknf8LuEHoJ
+         5nRhWiyKnvXipYMYXRhTPVZcfeiFurIralbJEhhOaWtqA99zR6BPOIQaYTEsJ9/3KEj5
+         unPOLdVCc6JVCpFfevFNZ0giOTq/ooOeuA7Mw4Vxt8uLbfQ2zey4o/n3KKASDBhgaZmv
+         2jcGnqUNSYRhZjT2gumJvZDsUJ6O7sBzQuWqroJI1o9c02+EpiOJtMLAMqbJdUExcVmL
+         UqTg==
+X-Forwarded-Encrypted: i=1; AFNElJ+1DKjnheQ3Ms4fFdXRTJmU0tjztZ2otAsFBCBo7L9UC2+Q5GU5Xb/wU03DGenomb89jmco/A0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLGwunGtY+cb1F2xZXcoUY0FJm7ycMjVdwAaElnNBMNJfcWF68
+	MEBOsiO/B4MAoXaCfNvMrczCyGw9RmitkMHr7UobOVL89X9jb9mpa9/v
+X-Gm-Gg: AfdE7cnDvLZg8zOx0yyv2yjRbFhp1Oo8NuFFDu2WOqO35XLY+z+c9ytxW7tWRLk4PNq
+	NVOJNwhOcWB78CNO4MXvBupi8I1ObpW9OgXx9OAc5kWzI1pbC1AlRRL0Qp2SwixiRoKEm3lb0Jw
+	Ie9YqmGo6VHb1xFUV9HXY4eURd9Ek6a7ELaz6RNq7Fz/Bytshf+kzZVaIxnHib6u/pIWnTWPbl6
+	Vb8YPeqBS2enHbnvIa6an7pOlLs5eP+46Qy6gKOHfzfJm8b5n2XoJ4qWf2zw9TOfHz1ufg0TZgX
+	OTyB5gE51PONw9HG63EfmbLzPCGDlmf3k+fByWtYsOBCciKVR6GXJCY6ZrkQaiGTrIQWUBTQA8j
+	ehGguV+7uf3dViASWWE1ItXmp5orogLfeN3Y2mD8EnjbBCtEfk7qxjt6qQmpJ2VcKfDGPEBTKwL
+	N83ION3ywxtXxFg47sVIEpI4rp/qODbnzwaLlCEzHdZBg=
+X-Received: by 2002:a05:6830:6ae6:b0:7e6:e385:4c1e with SMTP id 46e09a7af769-7ec096027c1mr8121305a34.4.1784043549120;
+        Tue, 14 Jul 2026 08:39:09 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:5f::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb3f2b86sm15347657a34.26.2026.07.14.08.39.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 08:39:02 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
-Date: Tue, 14 Jul 2026 17:38:07 +0200
-Subject: [PATCH] apparmor: fix cred UAF caused by
- begin_current_label_crit_section()
+        Tue, 14 Jul 2026 08:39:08 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Peter Xu <peterx@redhat.com>,
+	Wupeng Ma <mawupeng1@huawei.com>,
+	fvdl@google.com,
+	rientjes@google.com,
+	jthoughton@google.com,
+	vannapurve@google.com,
+	erdemaktas@google.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	Zhao Li <enderaoelyther@gmail.com>,
+	lance.yang@linux.dev
+Subject: Re: [PATCH v2 2/5] mm: hugetlb: Fix subpool usage leak on allocation failure
+Date: Tue, 14 Jul 2026 08:39:06 -0700
+Message-ID: <20260714153906.772019-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAEvNRgGN0HSJ2iLSDD2haSKOxifa-uhkO9Hwossh0+Q_d9fzOw@mail.gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-fix-apparmor-cred-uaf-v1-1-be40e8c83b90@google.com>
-X-B4-Tracking: v=1; b=H4sIAN5XVmoC/yXMQQqEMAyF4atI1ga0DipeRVy0MToZUEuqIoh3n
- 6rLD977TwiswgGa5ATlXYIsc0SeJkBfO4+M0keDyUyZVfkHBznQem91WhRJucfNDkhU1EzGFbW
- rIH69chw+3bZ7HTb3Y1rvGFzXH+fPN6t5AAAA
-X-Change-ID: 20260714-fix-apparmor-cred-uaf-cc38ec2b38b7
-To: John Johansen <john.johansen@canonical.com>, 
- John Johansen <john@apparmor.net>, 
- Georgia Garcia <georgia.garcia@canonical.com>, apparmor@lists.ubuntu.com, 
- Paul Moore <paul@paul-moore.com>, "Serge E. Hallyn" <serge@hallyn.com>
-Cc: James Morris <jmorris@namei.org>, 
- Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, 
- linux-security-module <linux-security-module@vger.kernel.org>, 
- kernel list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org, 
- Jann Horn <jannh@google.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784043499; l=7433;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=Hn3a99V0GshSYRRajT1LdTigZCY403M9C6bDrN6U6Xg=;
- b=ek9GXlKutf3DdPTWJIyyWtUNapXj2tmf0u00pReeaJnFg6apXCXhtVQ1Le/ihIA9Lbny+trOM
- qUbSL85AurAADcVVB6QDQ3Q/RDJg48BA9OYerWkBkrLig0pjgV0UrGG
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+Content-Transfer-Encoding: 8bit
 
-AppArmor's begin_current_label_crit_section() is a scary function called
-from lots of LSM hooks (in particular VFS/socket-related ones) that checks
-if the label referenced by the current creds is marked FLAG_STALE, and if
-so, attempts to use aa_replace_current_label() to replace the creds with an
-updated version that uses a new label.
+On Thu, 9 Jul 2026 15:15:50 -0700 Ackerley Tng <ackerleytng@google.com> wrote:
 
-The first problem with this is that it would directly lead to UAF of
-`struct cred` if anything in the kernel takes a pointer to the current
-creds and accesses these past a security hook invocation that replaces
-creds, like so:
-```
-const struct cred *cred = current_cred();
-alloc_file_pseudo(...);
-uid_t uid = cred->euid;
-```
-I don't know if anything in the kernel actually does this, but I think it
-is very surprising that this pattern could lead to UAF.
+> Ackerley Tng <ackerleytng@google.com> writes:
+> 
+> > Joshua Hahn <joshua.hahnjy@gmail.com> writes:
+> >
+> >> Hi Ackerley,
+> >>
+> >> Thank you for this series. I really wanted to work on hugeTLB accounting
+> >> fixes but never got the time to get to it. I'm very grateful that you
+> >> are taking a look!!
+> >>
+> >>> From: Ackerley Tng <ackerleytng@google.com>
+> >>>
+> >>> When alloc_hugetlb_folio() fails early (e.g. buddy allocation failure or
+> >>> hugetlb cgroup charging failure) and gbl_chg == 1 (meaning a reservation
+> >>> was not used, but a global page was allocated instead), the subpool page
+> >>> acquired via hugepage_subpool_get_pages() must still be returned.
+> >>>
+> >>> Currently, the error path out_subpool_put: only calls
+> >>> hugepage_subpool_put_pages() if !gbl_chg is true. If gbl_chg is 1, it
+> >>> skips it, permanently leaking the subpool's used_hpages counter.
+> >>>
+> >>> With the earlier patch to always track used_hpages in the subpool, always
+> >>> call hugepage_subpool_put_pages() if map_chg is true to consistently
+> >>> restore the page to the subpool. Only call hugetlb_acct_memory() to adjust
+> >>> global reservations if gbl_chg == 0 since gbl_chg == 0 indicates a
+> >>> subpool (and global) reservation was used.
+> >>
+> >> So I think that I've seen that this part of the accounting specifically
+> >> is a bit suspicious. There have been two attempts in the past to fix
+> >> this area [1] [2]. I think functionally they are quite similar to this
+> >> fix, they just open-code the contents of the put_pages function inside
+> >> the condition. I've Cc-ed the authors of those two patches in case
+> >> they wanted to chime in.
+> >>
+> >
+> > Thanks for connecting us! I didn't realize this was already being worked
+> > on. Also adding Lance, who commented at [3].
+> >
+> >> I reference these fixes because I think they handle the minimum
+> >> subpage case a bit differently. To be honest, I recall reading those
+> >> fixes a while back and getting a bit confused on what exactly happens
+> >> when the page is absorbed to fulfill the minimum size...
+> >>
+> >> It does seem like Sashiko also notes this as a possible concern.
+> >> WDYT? Does your reproducer for this issue also work when a minimum
+> >> size is set (let's say, to 1?)
+> >>
+> >
+> > Let me look into this more!
+> >
 
-The second problem is that things go wrong when aa_replace_current_label()
-runs with overridden credentials. aa_replace_current_label() bails out if
-`current_cred() != current_real_cred()` (mirroring the check in
-proc_pid_attr_write()), but this check can't actually reliably detect
-overridden credentials because the overridden creds can be the same as the
-objective creds.
+Hi Ackerley, sorry that the reply took a while : -(
 
-So in approximately the following scenario, things go wrong:
+> I was looking at Sashiko's comment [4] and Sashiko is right that there
+> could be a race. Specifically, at the time of
+> hugepage_subpool_get_page(), I might be using a reservation, hence
+> returning 1 (thread A), but at the time of hugepage_subpool_put_page(),
+> some other thread (B) might already have restored a reservation to the
+> subpool.
+> 
+> With used_hpages tracking within the subpool, we can rely on the return value of
+> hugepage_subpool_put_page():
+> 
+> + Return 1: Reservation should be returned elsewhere (pool has enough pages to
+>   satisfy minimum, or doesn't track minimums)
+> + Return 0: Reservation does not need to be returned elsewhere
+> 
+> But calling hugepage_subpool_put_pages(1) doesn't say anything about whether the
+> 1 (in this case, 1 doesn't always represent a page, since specifically on the
+> error cases, the page wasn't allocated) consumed a reservation or not.
+> 
+> + gbl_chg == 0 means a reservation was used, and
+> + gbl_chg == 1 means a reservation *should be used*, but
+> + gbl_chg == 1 does not necessarily mean a reservation should be used, since
+>   h->resv_huge_pages may not have been decremented yet. (See goto
+>   out_subpool_put and goto out_uncharge_cgroup_reservation in
+>   alloc_hugetlb_folio())
 
-1. task begins with <creds A> (as both objective and subjective creds),
-   with refcount=2
-2. task grabs an extra reference on <creds A> for overriding
-3. task calls override_creds(<creds A>), which returns a pointer to the old
-   subjective creds (<creds A>)
-4. task enters AppArmor LSM hook
-5. AppArmor checks that objective/subjective creds are equal
-6. AppArmor replaces both cred pointers with <creds B> and drops 2 refs on
-   <creds A>
-7. task leaves AppArmor LSM hook
-8. task calls revert_creds(<creds A>)
-9. now task->cred is <creds A> while task->real_cred is <creds B>, but the
-   task_struct logically holds two references to <creds B>
-10. another task drops the extra reference on <creds A> that was used for
-    overriding, refcount drops to 0
-11. now task->real_cred points to freed creds
+Yeah... this kind of tripped me up.
 
-At this point, any access to current_cred() will be UAF.
+> So, we need to track if h->resv_huge_pages-- happened (with some local variable
+> like reservation_consumed)
+> 
+> | reservation_consumed | hugepage_subpool_put_pages() return value |
+> h->resv_huge_pages++ |
+> |----------------------|-------------------------------------------|----------------------|
+> | 1                    | 1                                         |
+> Yes                  |
+> | 1                    | 0                                         |
+> No                   |
+> | 0                    | 1                                         |
+> No                   |
+> | 0                    | 0                                         |
+> No                   |
+> 
+> TLDR: replace !gbl_chg with reservation_consumed?
 
-I have a test case where I run aa-disable on a profile while a process
-using that profile is blocked on splice() from a FUSE passthrough file into
-a full pipe; after the profile update, the pipe becomes empty, splice()
-resumes, the credentials go out of sync, and a subsequent getuid() syscall
-results in a KASAN UAF splat.
+This seems like quite a reasonable approach. It's new information that
+we can't derive from the existing flags we have.
 
-To fix this, instead of directly replacing creds, do it via task_work that
-will run at the end of the current syscall. (The point in time at which the
-cred replacement happens should have no correctness impact; it is just a
-performance optimization to avoid unnecessarily touching the refcount of
-the new label.)
+>     <<== reservation_consumed = true
+> 
+> 	if (!gbl_chg) {
+> 		folio_set_hugetlb_restore_reserve(folio);
+> 		h->resv_huge_pages--;
+>         <<== reservation_consumed = true
+> 	}
+> 
+> 	if (map_chg) {
+> 		long gbl_reserve = hugepage_subpool_put_pages(spool, 1);
+> 
+> 		if (!gbl_chg)  <<== this should be reservation_consumed
+> 			hugetlb_acct_memory(h, -gbl_reserve);
+> 	}
+> 
+> I believe this depends on always tracking used_hpages in subpools, in order to
+> know for sure, just based on a number (with no page information), if the page is
+> supposed to use a reservation.
+> 
+> 
+> Perhaps related: does it make sense to flipping the reservation tracking
+> to instead track an "available" page count? This is basically the
+> mathematical opposite of rsvd_huge_pages, as in,
+> 
+>   available_pages = free_huge_pages - resv_huge_pages
+> 
+> This way, there's no need to synchronize the number of reserved pages in
+> both the subpool and global hstate.
+> 
+> It's quite confusing now, that reserved_pages-- can be either "used a
+> reservation" or "unreserve". If we track the opposite, available_pages--
+> will definitely mean the page's availability is removed from the global
+> hstate and transferred to the subpool, and allocating page doesn't
+> involve updating both the subpool and hstate.
 
-Note that AppArmor still performs direct cred replacements in the
-sb_pivotroot LSM hook after this change, and that direct cred replacements
-can still happen in VFS ->write() callbacks via proc_pid_attr_write().
+I think I like the semantic change, since it does make the code a lot
+more obvious on why and where we are making the accounting changes.
+One fear that I have is that this churn could introduce some new
+subtle accounting errors, since we have been fixing this area for
+quite some time now. Let's audit very carefully to make sure that
+there are no new accounting errors that will be introduced : -)
 
-Cc: stable@vger.kernel.org
-Fixes: c75afcd153f6 ("AppArmor: contexts used in attaching policy to system objects")
-Signed-off-by: Jann Horn <jannh@google.com>
----
- include/linux/task_work.h        |  1 +
- kernel/task_work.c               | 14 ++++++++++++++
- security/apparmor/include/cred.h |  6 +-----
- security/apparmor/include/task.h |  1 +
- security/apparmor/task.c         | 29 +++++++++++++++++++++++++++++
- 5 files changed, 46 insertions(+), 5 deletions(-)
+> One downside I can think of is that creating hugepages (surplus, or
+> promote/demote, or hotplug, or runtime echo 1 > nr_hugepages) would need
+> to update the global hstate's available_pages count, but I imagine that
+> would be less frequent than allocating huge pages?
 
-diff --git a/include/linux/task_work.h b/include/linux/task_work.h
-index 0646804860ff..ce19fc14060c 100644
---- a/include/linux/task_work.h
-+++ b/include/linux/task_work.h
-@@ -33,6 +33,7 @@ struct callback_head *task_work_cancel_match(struct task_struct *task,
- 	bool (*match)(struct callback_head *, void *data), void *data);
- struct callback_head *task_work_cancel_func(struct task_struct *, task_work_func_t);
- bool task_work_cancel(struct task_struct *task, struct callback_head *cb);
-+bool task_work_has_func(struct task_struct *task, task_work_func_t func);
- void task_work_run(void);
- 
- static inline void exit_task_work(struct task_struct *task)
-diff --git a/kernel/task_work.c b/kernel/task_work.c
-index 0f7519f8e7c9..f83d1528e0bc 100644
---- a/kernel/task_work.c
-+++ b/kernel/task_work.c
-@@ -189,6 +189,20 @@ bool task_work_cancel(struct task_struct *task, struct callback_head *cb)
- 	return ret == cb;
- }
- 
-+bool task_work_has_func(struct task_struct *task, task_work_func_t func)
-+{
-+	struct callback_head *work;
-+
-+	if (!task_work_pending(task))
-+		return false;
-+	guard(raw_spinlock_irqsave)(&task->pi_lock);
-+	for (work = READ_ONCE(task->task_works); work; work = READ_ONCE(work->next)) {
-+		if (work->func == func)
-+			return true;
-+	}
-+	return false;
-+}
-+
- /**
-  * task_work_run - execute the works added by task_work_add()
-  *
-diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
-index 2b6098149b15..0e8b67159f56 100644
---- a/security/apparmor/include/cred.h
-+++ b/security/apparmor/include/cred.h
-@@ -222,13 +222,9 @@ static inline struct aa_label *begin_current_label_crit_section(void)
- {
- 	struct aa_label *label = aa_current_raw_label();
- 
--	might_sleep();
--
- 	if (label_is_stale(label)) {
- 		label = aa_get_newest_label(label);
--		if (aa_replace_current_label(label) == 0)
--			/* task cred will keep the reference */
--			aa_put_label(label);
-+		aa_schedule_stale_label_replacement();
- 	}
- 
- 	return label;
-diff --git a/security/apparmor/include/task.h b/security/apparmor/include/task.h
-index b1aaaf60fa8b..4e49a4142777 100644
---- a/security/apparmor/include/task.h
-+++ b/security/apparmor/include/task.h
-@@ -30,6 +30,7 @@ struct aa_task_ctx {
- };
- 
- int aa_replace_current_label(struct aa_label *label);
-+void aa_schedule_stale_label_replacement(void);
- void aa_set_current_onexec(struct aa_label *label, bool stack);
- int aa_set_current_hat(struct aa_label *label, u64 token);
- int aa_restore_previous_label(u64 cookie);
-diff --git a/security/apparmor/task.c b/security/apparmor/task.c
-index b9fb3738124e..8e368f6278f5 100644
---- a/security/apparmor/task.c
-+++ b/security/apparmor/task.c
-@@ -14,6 +14,7 @@
- 
- #include <linux/gfp.h>
- #include <linux/ptrace.h>
-+#include <linux/task_work.h>
- 
- #include "include/path.h"
- #include "include/audit.h"
-@@ -89,6 +90,34 @@ int aa_replace_current_label(struct aa_label *label)
- 	return 0;
- }
- 
-+static void aa_replace_stale_label_tw_func(struct callback_head *tw)
-+{
-+	struct aa_label *label;
-+
-+	kfree(tw);
-+	label = aa_current_raw_label();
-+	if (!label_is_stale(label))
-+		return;
-+	label = aa_get_newest_label(label);
-+	aa_replace_current_label(label);
-+	aa_put_label(label);
-+}
-+
-+/* replace the current task's stale label on syscall return */
-+void aa_schedule_stale_label_replacement(void)
-+{
-+	struct callback_head *tw;
-+
-+	if (task_work_has_func(current, aa_replace_stale_label_tw_func))
-+		return;
-+	tw = kmalloc_obj(struct callback_head);
-+	if (!tw)
-+		return;
-+	init_task_work(tw, aa_replace_stale_label_tw_func);
-+	if (task_work_add(current, tw, TWA_RESUME))
-+		kfree(tw);
-+}
-+
- 
- /**
-  * aa_set_current_onexec - set the tasks change_profile to happen onexec
+Yup I think so. You might be more familiar with the new usecase you
+are adding as part of the guest_memfd, but I have not really seen a
+usecase for hugeTLB that would require userspace to do many hugeTLB
+allocations (that THP wouldn't be able to serve). Having this accuracy
+seems to be much more important than the rare contention we will see.
 
----
-base-commit: 3b029c035b34bbc693405ddf759f0e9b920c27f1
-change-id: 20260714-fix-apparmor-cred-uaf-cc38ec2b38b7
+Thanks again for the fixes and ideas Ackerley! Looking forward to your
+new approach : -)
+Joshua
 
-Best regards,
---  
-Jann Horn <jannh@google.com>
-
+> >>
+> >> [...snip...]
+> >>
+> >>
+> >> [1] https://lore.kernel.org/linux-mm/20260428113037.88766-2-enderaoelyther@gmail.com/
+> >> [2] https://lore.kernel.org/linux-mm/20260515202902.461539-1-devnexen@gmail.com/
+> > [3] https://lore.kernel.org/linux-mm/20260428113059.79001-1-lance.yang@linux.dev/
+> [4] https://sashiko.dev/#/patchset/20260708-hugetlb-alloc-failure-fixes-v2-0-c7f27cbb462b%40google.com?part=2,
