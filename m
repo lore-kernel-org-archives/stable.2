@@ -1,129 +1,116 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-oi1-f202.google.com (mail-oi1-f202.google.com [209.85.167.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494B541B8D5
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0DE42BC24
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:53:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784062387; cv=none; b=h19b0RgL42dtgWX2GEyyVqz3GAy2Yc8vjeQ9J6GFUYmuAvS0tn8Z+zRebkeZOUeC/on8EJw8pQcU+fZsf0g7lXrO2dtrW0AlWYGjmwCdyI7w3C7nKRAX8eVM8MOW8pHW797jD3fVHnt3vRn+Op6w50Fv2cm1mfgDNNQxOxdLW6Q=
+	t=1784062426; cv=none; b=nJWNw8uoahHulAdmv8hcCr2XxR5GZ1EYGdN+ZvcZ0ekSerZe0j0OcCFKj8itWk4PG8lYdwK7CWEPbgV6mdpp7kVs5V4D69B5sJ5XVqGwUcqLotxgaMvCVrx9vInS9RfcKE2Nc/pO02ydtAFm+VNPNyZeCvjyJ7Ttqy/NQ70SgFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784062387; c=relaxed/simple;
-	bh=JYol08YXW91ovkNpZaJIz1Ed+fcIPymArOeW437uj6E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BDoRJSA8PzkkfEL8eggHDIgEzJeSxxYiMoKGbI/ChVzK7cK3rtKbwJ+Fp29hyJq+uZ/F+eSo0byeMZ8tnZQj65Z926NL79XLvMmjFS7gnD/KtW+Sca+CFEuTTqj/YAHAMo49/GIRGIw0fxKKUMMNlRLJ+4vmkJNYcmXH8ysbHEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZbZtBtow; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784062426; c=relaxed/simple;
+	bh=CVxlXqroJ+zbdEQvFTmQSEai7uJdckgsx5rP8Fi9ZbM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=S6x0fgQVq69h3C5+XOsLTJWQnyIKux22tRjvKb9KSKlKEYQ1Adr87cTflcMcZsAj2iwVuiQSAaLgTRbkJBTGV1KQcKgjunDMVuD0xbsaYxK7Xo84ooMIRFOvbPHCkpd16o1rKjY1/WKrVZ60pLOwhTcWTlesmSiAkoI5kjCyTFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jNFCDX4Z; arc=none smtp.client-ip=209.85.167.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZbZtBtow"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47de0093c42so1175000f8f.3
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:53:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jNFCDX4Z"
+Received: by mail-oi1-f202.google.com with SMTP id 5614622812f47-4909b046dabso7546975b6e.0
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:53:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784062384; x=1784667184; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hPy+9VG/Wk31EHh/SoTTpkYEXwE1ur2uoLWA6FIrzb4=;
-        b=ZbZtBtowHnKVwWhiD6W4WpkjM1/b4ytWELp6smlEUBB5giX4gp8gZHd7HyjyC1OOfY
-         LajJeYuFBpaPRAz/L2bwLnCrsOv9cynhodMK8KYLSmwYVLKbULpao6pQorQUGizkzhFD
-         JHoSvOCriqdFWVhmgBO09XVh8RYV5HHEa9jiLW9uV0vydVAzmdLou8TZe3jLJSGIj8d6
-         J3mA3HToUkf9CvaEpLyUM5uBV9rag6Ga6RIZi/TLvYG+aANH8NqVz6O0yQK453L8GIMt
-         4ewJDnzml3D2e9wQR+aEJGFHcoKbQYlv1gVoCoRhiOa+lyTFgmq3Lysw51/MfiOh3DgU
-         60RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784062384; x=1784667184;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1784062423; x=1784667223; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hPy+9VG/Wk31EHh/SoTTpkYEXwE1ur2uoLWA6FIrzb4=;
-        b=iJtMc2jx1i1w6FPn8ctB/j5yYV7+Z5X61kBTyYGb8p0aV4ADe/8BcLoKerHnhZT+sU
-         oZXc0TBN6sQ5TjmSiEN7+PUTk/7rDpc3NemkOiHE+EWSq96bU5/eYpOrASxNxM0Mc8h3
-         ZO0fBRwWOwnn5CVGQcSrEgbzpX3Wq1B8aohHCjZl8FnjQFrstB02lgUQi0naPxck0eBM
-         7jip3oYKnvL/UH3vqYmCbdkw7otCgKh0SlWzTLjCf+n9ZXeTUU6u9UTH0NHrdv2tQHiC
-         HcJw7IKz9NWNfOBktb4buO7WAQk6HI0Dp7+xIPPvNjLoWVudY/w9dctMSdEyA0MGZMVU
-         8JHA==
-X-Forwarded-Encrypted: i=1; AHgh+RoBzy/PVrnjaoZKfAcvrg0fPI5/LsponvNV+PjConVs0qeXOVMvrDDVjTiIbF67dZ11V+Gf/3k=@vger.kernel.org
-X-Gm-Message-State: AOJu0YysxCyU+tmek+DNHwRH1g5UMAKT1jOG9Kj9CrME0CDMNHHQIKrE
-	To5n1Mbbm23BdNxv+eVin/Awkqw1iIalc9RLTkLHDpKrKxsuT/ZaLDp8
-X-Gm-Gg: AfdE7clyt92CUuNMt1YBIY6j/sBBa/k+mE6+ZAccYoyr9ZDQW9TNaYNkldidLb8C0Bm
-	wkU8vOCqBW58tqOy0+U6xfZL+WRmePa5wDXYMPZbe0PEC0JOQAq7h2zaJu+f5Nl1D8ZZ7jKjZki
-	kskqovBywDuPgGIdmlcbEq4Gio3gK9QhxL0SLf3fgMsIQT6fPRxSZfChQxejxL9bHYN4rMoTltL
-	scrN9uYMUNwgZ2cxsMO90hW6YLOtxuxgYAZi2BJgnrqF3U+NJzZpPs1ohyRy1pgf1oTHTY4uXWk
-	S4Okt2mBCejIfw1F4Uu0lvFd2hrhJm432dHhX1+Q2EZU1afFcdvd+QDvhTiePZyqC1D5aQiET1v
-	25ingFz3yqsdcG0ICDrDZzkJqudvgQRq6Au/qGPwzIzmC1Liab5VcJFWkhhHhqMSRLbmm4PCl6A
-	4n4XVtcXB8Mi19JeXp78dwc8J+YIhl4mkh1L7xQe3chE0qkhvzHA==
-X-Received: by 2002:a05:6000:1866:b0:475:f0d1:eb56 with SMTP id ffacd0b85a97d-47f2dd0d63fmr18015724f8f.49.1784062384331;
-        Tue, 14 Jul 2026 13:53:04 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4634debesm10998794f8f.8.2026.07.14.13.53.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 13:53:04 -0700 (PDT)
-Date: Tue, 14 Jul 2026 21:53:02 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Doruk Tan Ozturk <doruk@0sec.ai>
-Cc: david@ixit.cz, vadim.fedorenko@linux.dev, horms@kernel.org,
- oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] nfc: llcp: reject PDUs shorter than the LLCP
- header
-Message-ID: <20260714215302.75d8bf72@pumpkin>
-In-Reply-To: <20260714164629.75051-1-doruk@0sec.ai>
-References: <20260713221556.13a830b8@pumpkin>
-	<20260714164629.75051-1-doruk@0sec.ai>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=AYYbKFCcbxU1GiSJBJboqnLv1Ilizhm2sLEHzbZubZU=;
+        b=jNFCDX4ZS/SrUzmwXeP6aMNOW3ClyoEKQwj5Q8qZGcrYZp/us2iNcGKp8O8Wo6ra5B
+         EjZdHNgX6jUDMp2vxOZnxMecr4pLQzApw11zbOaULoImtagM5OAA4A4A0+Uq6KJrCsoK
+         sYxaBQFwYmhkZNQWP9R8hswtxz/xe637ArhhqNx3eX/SfraTyRdj/vsFoC5h83WAQN2Z
+         I+iyxx9lKhwIYFgdD3EOalv+Q4i5vWGyHLaIy8rp9ojx45SiXQFOJVqaz80zdlIzR5Wz
+         sdJC5SNUOcKZ6bYb8QmP77twm5pGmYjJHQ0tBs3jlc5lzI6vkUQQy5+O2C+wQDgqjMf/
+         dGlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784062423; x=1784667223;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AYYbKFCcbxU1GiSJBJboqnLv1Ilizhm2sLEHzbZubZU=;
+        b=aVrca5tfte8353pCH8thkJfLS7cc7gEhQbtVSAnXIVxD3uOAA/PAYLNjAM8erLihZN
+         z2HDsHlw+zh9yacI0hmre41z5c0PkKu9nFRuPwSDpKIluJPDv5A6Wm/lp9Rv/nTwDqJ5
+         BkY+GtTkvTgxgrekMaFM2N7QZdZVOawXFOyvQMKP4f6fsYkFKd/ecGlB7Fv0+iApYJ12
+         Wb1gN52uTICNuerWc4mUDNSWshs3ze531NNii9yNCfBb6w+597ajhtEE8N+V+r/VljYy
+         Abf+Y369ar7bN5uBTUMiHSG99w5IKY/AogoYXCAxuBkWmBLgNDah7gS9ISF9lB/giIBs
+         vk8w==
+X-Gm-Message-State: AOJu0YwkjMGWfDfLr76yFNFIdr096XHFjPesg8fnYz2JJVdHkYzuzZmN
+	k3SjB3l/b2m1IyvpiWUAPygmgVchZXJjZYjf/H2Anl4WGrjqbp7WEI9Xfgt8Gv7OOp2hlW3s+cw
+	CMFJ1eeX9BN4k4wQPwZQs646+k5OSndm31XeMfui4Ehi8uCYS80sGSfMWmHfzdJjqEfUDwBxOXX
+	oFzeWWOzrT4oQKDhlY6/lunDyyb4I1Be9V4K0pmFI99g==
+X-Received: from jatb13.prod.google.com ([2002:a05:6638:150d:b0:5e9:1651:373f])
+ (user=nkapron job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:221d:b0:496:dfe1:6d91
+ with SMTP id 5614622812f47-4a472b41732mr4180069b6e.42.1784062423245; Tue, 14
+ Jul 2026 13:53:43 -0700 (PDT)
+Date: Tue, 14 Jul 2026 20:53:15 +0000
+In-Reply-To: <2026071415-tragedy-purely-e8df@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <2026071415-tragedy-purely-e8df@gregkh>
+X-Mailer: git-send-email 2.55.0.141.g00534a21ce-goog
+Message-ID: <20260714205315.1584726-1-nkapron@google.com>
+Subject: [PATCH 6.18.y] usb: gadget: f_fs: Initialize epfile->in early to fix
+ endpoint direction checks
+From: Neill Kapron <nkapron@google.com>
+To: stable@vger.kernel.org
+Cc: Neill Kapron <nkapron@google.com>, stable <stable@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 14 Jul 2026 18:46:29 +0200
-Doruk Tan Ozturk <doruk@0sec.ai> wrote:
+When parsing endpoint descriptors, ffs_data_got_descs() generates the
+eps_addrmap which contains the endpoint direction. However, epfile->in
+was previously only populated in ffs_func_eps_enable() which executes
+upon USB host connection. As a result, early userspace ioctls like
+FUNCTIONFS_DMABUF_ATTACH that run before the host connects would see
+epfile->in as 0, leading to incorrect DMA directions.
 
-> > Is there a similar problem with non-linear skb?
-> > Maybe they can't get into this code, but who knows what can happen
-> > with unusual configs.  
-> 
-> Good question. Today every skb that reaches __nfc_llcp_recv() is
-> linear: the target path (nci_rx_data_packet -> nci_add_rx_data_frag ->
-> nfc_tm_data_received) and the initiator path (nfc_data_exchange ->
-> nfc_llcp_recv) both build the frame with alloc_skb()/nci_skb_alloc()
-> plus skb_put()/skb_put_data(), and NCI reassembly uses skb_cow_head()
-> and skb_push() into the linear area. Nothing on the NFC receive side
-> attaches page frags or a frag_list, so skb->len == skb_headlen() and the
-> v2 skb->len test was in fact sufficient for the in-tree drivers.
-> 
-> But relying on that is fragile: the parser reads the header out of the
-> linear area (pdu->data[0]/data[1]) while skb->len is the total length,
-> so a non-linear skb with a short linear head would slip past a skb->len
-> test and still over-read the linear buffer. pskb_may_pull() is the
-> right guard here -- it also covers the non-linear case, and it matches
-> how the sibling NCI and HCI receive paths already validate their
-> headers.
-> 
-> I will send a v3 that uses:
-> 
-> 	if (!pskb_may_pull(skb, LLCP_HEADER_SIZE)) {
-> 		kfree_skb(skb);
-> 		return;
-> 	}
-> 
-> That is strictly stronger than the v2 check and does not reject any
-> valid frame -- pskb_may_pull() pulls the two header bytes into the
-> linear area when needed.
+By moving the initialization to ffs_epfiles_create(), epfile->in is
+accurate before userspace opens the endpoint files.
 
-Does that help any code further down the rx path?
-It might be better to drop non-linear packets with a comment that
-they aren't expected to happen.
+Fixes: 7b07a2a7ca02 ("usb: gadget: functionfs: Add DMABUF import interface")
+Cc: stable <stable@kernel.org>
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Neill Kapron <nkapron@google.com>
+Link: https://patch.msgid.link/20260619040609.4010746-2-nkapron@google.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(backported from commit 82cfd4739011bdc7e87b5d585703427e89ddfaa5)
+Signed-off-by: Neill Kapron <nkapron@google.com>
+---
+ drivers/usb/gadget/function/f_fs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-	David
-
-
-> 
-> Thanks,
-> Doruk
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 737d60b26e02..1a1fa04a9e34 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -2353,6 +2353,7 @@ static int ffs_epfiles_create(struct ffs_data *ffs)
+ 			sprintf(epfile->name, "ep%02x", ffs->eps_addrmap[i]);
+ 		else
+ 			sprintf(epfile->name, "ep%u", i);
++		epfile->in = (ffs->eps_addrmap[i] & USB_ENDPOINT_DIR_MASK) ? 1 : 0;
+ 		epfile->dentry = ffs_sb_create_file(ffs->sb, epfile->name,
+ 						 epfile,
+ 						 &ffs_epfile_operations);
+@@ -2439,7 +2440,6 @@ static int ffs_func_eps_enable(struct ffs_function *func)
+ 		ret = usb_ep_enable(ep->ep);
+ 		if (!ret) {
+ 			epfile->ep = ep;
+-			epfile->in = usb_endpoint_dir_in(ep->ep->desc);
+ 			epfile->isoc = usb_endpoint_xfer_isoc(ep->ep->desc);
+ 		} else {
+ 			break;
+-- 
+2.55.0.141.g00534a21ce-goog
 
