@@ -1,215 +1,164 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332E02931D4
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 19:17:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784056636; cv=pass; b=CeFxUD8ql+/ZF0AbQMBrBcX4EYB0SEOC4MNBDEHmWB/CpAjh0oa8vC4Lf9MAzFvofvG+rXHw6LqCIXND6sFn7G9y+X47KOar3axiTM1Sgm3CV484+wJ3a4f5YaI9y/Rp8ubJT1ELU4DKCe28kNPxPIJja24/pdg1XxJI6wj1Jf0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784056636; c=relaxed/simple;
-	bh=03SHA63Ly75PsSBm1H26G0RiDGofkvShlM+yXEyaBO8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=serxTBgcfg4vIb8VXBvImI+fVcCBdZ6U3lD3+G4CSl+mlcYD/d2P7GC8Ljz5QKDyPKUm96syjIkRdeHWRVz0LIIzJSnHeWXct/KXZjjyUjWM3cAYKIBHKLRu3yNGgEDAEYNu+6slYeplLTbe2AQ0MSwLWOF+uKQpsSN524bHnX8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rbl883hR; arc=pass smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37222931D4
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 19:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784056821; cv=none; b=G/xYvtpqZ/ANyqCNPGaPdpqh9TpJF9Q8cRIErJCdQcKQH8OJlUJ5FHSUIAHYsm2tNXwWZDIyz57Y46oXCO4R6LFLopnvtVi7mHRbA+1EH0rszAV7MhQ+pgSjN75jus4AcSK3Z+V/uZIl8RMnpFn/J+M/xUwyf49ZzcQSLlGQONA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784056821; c=relaxed/simple;
+	bh=yqd4MKAtMwnmAxGSUdIx+mohPQm8y+iXnHfZQckwwbU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VMu4Q+qK9xGk5BnGCNTLd+e3atJ5F2+kf6/hh8bfw9/YGni9CO5Xv7STBQi1USVHGH1fdZIlfBCXRCFKOXvmg9iQyhcI+mO2e/FSx/a9lyM0sokaN0KDP+zG14UjxM/5bBPayDHe5217oclie5xjdKCRCyf/Aor509CU4rxTGoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SWJHQijp; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rbl883hR"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-848595b338cso5493040b3a.0
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 12:17:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784056634; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i0b62gzgt8ddOTWRTWsniMSw9r7MzC779XdVV+/xwazNURLztYXMKsL3vK5ppyWdri
-         wUFM/We9jbVMY49czJ8yT2kBIcF0dqTQycdBZC293xktiJSXjlCxWo6mYEZ8KNsE7T+M
-         FJFwAJW1RJcehf/ZxXRX0EcQCegz5bEr3t06br8JxlIp45sQnNp9NDHNjU4tjvZE7YFn
-         QlsJpireMIAiY4OChq6NWZzRMb/ySaAQKVdpADikQ3f8TwTrcrmv/4/dioX6ZaR1OdPM
-         IDrnqZLBJncGG7e3PTjqI6MW8BVntqw9m3Sj+I0ODFu5JfnE43zOJH5Nuk1ICNLKuson
-         FzhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=F8hPgzdKqAAXiK6RO6TPJDACvUtDM+GsrhUQmJNvsxo=;
-        fh=7jG8m3EqW3K9ZhoWJtMIMu2Ep4z7u2zama+fVQjgvkc=;
-        b=XJ2lfGnGRa2PnVZwO7npMYqzHul784moZe+fbDCDMqiaVxNfvU3rr7iY1hi13sBfFA
-         g6slTiERwmNH2yZiNH2FLYi4/IV7PjuyEgDmYlwJQ0JfYc9mdHjBYU7ShkA211l76453
-         zc2znObW9h39qQCWHQ3es4yIVWYGgHV8RL5ESCwM6s//tva0ce4YRKA1jpYvq5mDHUkF
-         AsPx+gT8itUXMiesxsaN64D/v5bn4ceUTfxtdaMk94F9UI0DvNufIF1xyOhSpSlf4nm3
-         GyCGWyjOTGXdNy7Vv+oFPc7oA1RjFMgdLHppyjZXDYEyJ+cuCZN+Y3cTdqCa84AipCH8
-         VHBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784056634; x=1784661434; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F8hPgzdKqAAXiK6RO6TPJDACvUtDM+GsrhUQmJNvsxo=;
-        b=rbl883hRwNARWpe/8CyJyE/k4StNNBOoHeAWkCSPmu0M+/vUrfBy+VNfmny+JVhxyD
-         MTX6iOqYNaEY+m2bwrqGH4phq/UR+OuPlaIq501xmMDuu5XcWsmLbpyp6e0w5U9wpXh7
-         h9/B5yZkNRWLh1drYHopAyrHPxbZXjYaz2ldjNeq2a06QHkeVHitk3CgGBE/u8j0p86i
-         EsNOrqZ7FfaynUY7B3cTQRcv1xOyBcNdmqI68WKeDHeSkGFUlVvhHrCzvoQYoPpD95ln
-         XjRHDCDDdWakrltbGV1mU6c6I40Tp1Gc6BaWHCndqUq9wooBi0g9o0X31hiJ3LrWZ71V
-         XdKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784056634; x=1784661434;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F8hPgzdKqAAXiK6RO6TPJDACvUtDM+GsrhUQmJNvsxo=;
-        b=iYRy26/qUpKZ6NUVlJr98BL9e+BWLncFJauDXRmwxgbgSr0Hy3LAEgxzy0nRDicqvE
-         IcTe8BkWlV5bp+yaHlARlj+OvWJT+YHeCsMP/59wBtYFxPuRekJQlXnaWsFStTPN+3/X
-         UNSeZfW9FzhJlni+hkHpmfakTEBmcn+eIehOUKxz3t8FYXNC/ID5DDhpPWgIWwGysfzP
-         8Ai2B1KcwHrA/RO356Tmr/VwRptGZUtdsj/nXiixaIa6iMYwgFfBytlo9aoD2lAsD74f
-         gEW7B4qa2uu0K37fSYFssUtAvEPfsOF0htnZEs4XkggghUAearalqCQSknQyBErzPVDw
-         Al1A==
-X-Forwarded-Encrypted: i=1; AHgh+RrjDwilrM9WbNmCYZQPlAP2ZxfufVjx65wI8NbyAVLqSoxLMFUJvekjQHGHpDNMUPPool05IYs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlqsLx75Dh70UkBOSpCy7fWQPj41noVI/RJ0zxnX7FvsdZyZyk
-	cUjruV6RaPEbRI2phHYNEthdMdoKuFTHwhYaTgmCMQ4XJc/CpJywzyY8HiIf0qg75Zc33gSytES
-	SZpmyhj8ShGgkK5X7KLYeSjDpD4GH43I=
-X-Gm-Gg: AfdE7cnhhAetI+Wk7j4fob6DFOxlW/vjD0c3ZVe8nAkXAeVAfGfO8+RhXHjK86VOI3R
-	C0+3C6/LcPBuZL0SbmlQBVuIwDf1W2aqd/TtTWI6d+yj06KsWE9vFsnaBtUio5V1iaA+emZjWGt
-	v9NXr+atsz4IBEP1vQXy6O0z3FKCzRg6bDzvvRb5FwOw0V2wxnLwlpQOk0O0hlyuJNLfh75yIT1
-	PpA9u6I38VajnkhwWxamwXQieFqJ7lv8lKDmqKe6Njq1IC7HYi2ZTL/WTpM+h1PRj7t5WgiegEM
-	NfNr5YM1P5gEgQA4zXiStkuk7dDfKbsQVAX72j7Q0ZVLq6/BQEqQcLKiHH6SjejbMU5pw/4k1+2
-	DuK3mmAXHhUyJn7A3NZbFZzFovSTA
-X-Received: by 2002:a05:6a00:27a3:b0:848:3d18:2700 with SMTP id
- d2e1a72fcca58-84a558868e0mr3675149b3a.71.1784056634582; Tue, 14 Jul 2026
- 12:17:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SWJHQijp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784056818;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/uKDBVP44I9YE9Zk7Xpf6ZOElFBwIIrrOVbJoZwZECQ=;
+	b=SWJHQijpvu+qLoWlzxPj7aQDtb9QTfOowtu5ymLftevVUtUbCuJdftkcb3QZ0xsPaSivpL
+	MQr1F3LB8lYMuQfelTLIskqiroPo/fMyCZp9R1Um3dM2ye4ZFCkVQnG05hEfAYfD0huoWZ
+	d6bEX/LApUxGwk1TZWRgCF2tdS0Szmo=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-26-IM0-mnCVMgmyM0Z28z-8IQ-1; Tue,
+ 14 Jul 2026 15:20:15 -0400
+X-MC-Unique: IM0-mnCVMgmyM0Z28z-8IQ-1
+X-Mimecast-MFC-AGG-ID: IM0-mnCVMgmyM0Z28z-8IQ_1784056814
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DB3F5195607C;
+	Tue, 14 Jul 2026 19:20:13 +0000 (UTC)
+Received: from bfoster (unknown [10.22.88.111])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D1B39414;
+	Tue, 14 Jul 2026 19:20:12 +0000 (UTC)
+Date: Tue, 14 Jul 2026 15:20:08 -0400
+From: Brian Foster <bfoster@redhat.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Ibrahim Hashimov <security@auditcode.ai>, cem@kernel.org,
+	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4] xfs: bounds-check buffer log item's dirty bitmap
+Message-ID: <alaL6C6Gy717Jk2J@bfoster>
+References: <20260714172730.73160-1-security@auditcode.ai>
+ <20260714175532.74257-1-security@auditcode.ai>
+ <20260714180152.GH7398@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714062740.79126-1-yangmingxuan.ymx@antgroup.com>
-In-Reply-To: <20260714062740.79126-1-yangmingxuan.ymx@antgroup.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 14 Jul 2026 15:17:03 -0400
-X-Gm-Features: AUfX_mzH3PiKLXZOup84hcCniykODWJPF3dMr97EXJhAUSzU99V9qlqP9r5m1PQ
-Message-ID: <CADvbK_d8GQpRQc-D48itTFj1r+OK4z3ou8U9=YL54qtsWYYaKg@mail.gmail.com>
-Subject: Re: [PATCH] sctp: diag: fix uninitialized stack leak via INET_DIAG_LOCALS/PEERS
-To: =?UTF-8?B?6ZOt5a6j?= <omeux327@gmail.com>
-Cc: marcelo.leitner@gmail.com, security@kernel.org, 
-	HanQuan <eilaimemedsnaimel@gmail.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714180152.GH7398@frogsfrogsfrogs>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Tue, Jul 14, 2026 at 2:27=E2=80=AFAM =E9=93=AD=E5=AE=A3 <omeux327@gmail.=
-com> wrote:
->
-> From: HanQuan <eilaimemedsnaimel@gmail.com>
->
-> inet_diag_msg_sctpladdrs_fill() copies sizeof(union sctp_addr) (28 bytes,
-> the size of sockaddr_in6) from each sctp_sockaddr_entry.a into the netlin=
-k
-> INET_DIAG_LOCALS attribute and then only zeroes the bytes from offset 28 =
-to
-> sizeof(sockaddr_storage).  The same pattern is used by
-> inet_diag_msg_sctpaddrs_fill() for INET_DIAG_PEERS.
->
-> The IPv4 address-filling helpers sctp_v4_from_addr_param() and
-> sctp_v4_from_skb() only initialize the sockaddr_in portion (16 bytes) of =
-the
-> union sctp_addr; the trailing 12 bytes (offset 16..27, the sockaddr_in6-o=
-nly
-> region) are left uninitialized.  Those bytes are propagated verbatim thro=
-ugh
-> sctp_add_bind_addr() (which copies sizeof(union sctp_addr)=3D28 bytes) an=
-d then
-> copied straight to userspace by the diag fill functions, leaking 12 bytes=
- of
-> kernel stack residue per local/peer address to any process that can issue=
- a
-> SOCK_DIAG_BY_FAMILY dump for IPPROTO_SCTP.
->
-> Fix it by computing the actually-initialized length of the address from i=
-ts
-> sa_family (struct sockaddr_in for AF_INET, the whole union otherwise) and
-> copying only that many bytes into an already-zeroed sockaddr_storage slot=
-, so
-> the uninitialized tail is never read and never reaches userspace.
->
-> Fixes: 8f840e47f190cbe61a96945c13e9551048d42cef ("sctp: add the sctp_diag=
-.c file")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: HanQuan <eilaimemedsnaimel@gmail.com>
-> ---
->  net/sctp/diag.c | 17 ++++++++++++-----
->  1 file changed, 12 insertions(+), 5 deletions(-)
->
-> diff --git a/net/sctp/diag.c b/net/sctp/diag.c
-> index c2a0de2adf6f..ec12f3f03318 100644
-> --- a/net/sctp/diag.c
-> +++ b/net/sctp/diag.c
-> @@ -68,6 +68,7 @@ static int inet_diag_msg_sctpladdrs_fill(struct sk_buff=
- *skb,
->                                          struct list_head *address_list)
->  {
->         struct sctp_sockaddr_entry *laddr;
-> +       size_t addr_len;
->         int addrlen =3D sizeof(struct sockaddr_storage);
->         int addrcnt =3D 0;
->         struct nlattr *attr;
-> @@ -85,8 +86,11 @@ static int inet_diag_msg_sctpladdrs_fill(struct sk_buf=
-f *skb,
->         info =3D nla_data(attr);
->         rcu_read_lock();
->         list_for_each_entry_rcu(laddr, address_list, list) {
-> -               memcpy(info, &laddr->a, sizeof(laddr->a));
-> -               memset(info + sizeof(laddr->a), 0, addrlen - sizeof(laddr=
-->a));
-> +               addr_len =3D laddr->a.sa.sa_family =3D=3D AF_INET ?
-> +                          sizeof(struct sockaddr_in) : sizeof(laddr->a);
-It's better to keep this consistent by defining addr_len either inside the
-loop in both cases or at the beginning of the functions.
+On Tue, Jul 14, 2026 at 11:01:52AM -0700, Darrick J. Wong wrote:
+> On Tue, Jul 14, 2026 at 07:55:32PM +0200, Ibrahim Hashimov wrote:
+> > xlog_recover_do_reg_buffer() replays each dirty region described by a
+> > buffer log item's bitmap into the buffer read for that item:
+> > 
+> > 	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
+> > 		item->ri_buf[i].iov_base,
+> > 		nbits << XFS_BLF_SHIFT);
+> > 
+> > The destination offset (bit/nbits, from the logged dirty bitmap) and the
+> > buffer size (from the logged blf_len) are both attacker-controlled and
+> > otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
+> > which compiles away on production kernels. A crafted image logging a
+> > small blf_len together with a bitmap bit past the end of that buffer
+> > drives the memcpy() past the buffer's allocation, corrupting adjacent
+> > kernel heap during mount-time log recovery. This is reachable by anyone
+> > who can get a crafted image mounted -- the malicious-filesystem threat
+> > model XFS already guards against elsewhere.
+> > 
+> > Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
+> > of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
+> > idiom already used in xlog_recover_do_inode_buffer() and
+> > xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
+> > STATIC int and its three callers propagate the error.
+> > 
+> > Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
+> > image trips a slab-out-of-bounds write before this change and fails
+> > recovery cleanly with -EFSCORRUPTED after it.
+> > 
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+> > Assisted-by: AuditCode-AI:2026.07
+> 
+> Looks fine to me now, thanks for making those edits.
+> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+> 
+> --D
+> 
+> > ---
+> > v4: fold xlog_recover_do_dquot_buffer()'s bool return and error
+> >     out-parameter into a single int return (1 if dirty, 0 if clean, or a
+> >     negative errno on failure), per Darrick's review. No behavioural
+> >     change.
+> > v3: trim the changelog per Brian Foster's review. Add a Fixes: tag --
+> >     the destination-bounds check has been an ASSERT since the initial git
+> >     import (2.6.12-rc2), so it predates the git era.
+> > v2: resend; v1 went out with an empty Subject line due to a local
+> >     git send-email glitch (leading blank line in the patch file).
+> > 
+> >  fs/xfs/xfs_buf_item_recover.c | 56 ++++++++++++++++++++++++++++-------------
+> >  1 file changed, 40 insertions(+), 16 deletions(-)
+> > 
+> > diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+> > index 02b95b89d1b5..cf2b07ebc6f3 100644
+> > --- a/fs/xfs/xfs_buf_item_recover.c
+> > +++ b/fs/xfs/xfs_buf_item_recover.c
+...
+> > @@ -1081,11 +1103,10 @@ xlog_recover_buf_commit_pass2(
+> >  			goto out_release;
+> >  	} else if (buf_f->blf_flags &
+> >  		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
+> > -		bool	dirty;
+> > -
+> > -		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
+> > -		if (!dirty)
+> > +		error = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
+> > +		if (error <= 0)
+> >  			goto out_release;
 
-Also, it would be preferable to use sizeof(struct sockaddr_in6) instead of
-sizeof(laddr->a), even though they are currently the same size.
+I might suggest something like:
 
-With these changes, please resend the patch to:
+		/* reset error since > 0 means to write the buffer */
 
-# ./scripts/get_maintainer.pl net/sctp/diag.c
-Marcelo Ricardo Leitner <marcelo.leitner@gmail.com> (maintainer:SCTP PROTOC=
-OL)
-Xin Long <lucien.xin@gmail.com> (maintainer:SCTP PROTOCOL)
-"David S. Miller" <davem@davemloft.net> (maintainer:NETWORKING [GENERAL])
-Eric Dumazet <edumazet@google.com> (maintainer:NETWORKING [GENERAL])
-Jakub Kicinski <kuba@kernel.org> (maintainer:NETWORKING [GENERAL])
-Paolo Abeni <pabeni@redhat.com> (maintainer:NETWORKING [GENERAL])
-Simon Horman <horms@kernel.org> (reviewer:NETWORKING [GENERAL])
-linux-sctp@vger.kernel.org (open list:SCTP PROTOCOL)
-netdev@vger.kernel.org (open list:NETWORKING [GENERAL])
-linux-kernel@vger.kernel.org (open list)
+... or maybe we can phrase that better. But regardless LGTM now as well,
+thanks:
 
+Reviewed-by: Brian Foster <bfoster@redhat.com>
 
-Thanks.
+> > +		error = 0;
+> >  	} else if ((xfs_blft_from_flags(buf_f) & XFS_BLFT_SB_BUF) &&
+> >  			xfs_buf_daddr(bp) == 0) {
+> >  		error = xlog_recover_do_primary_sb_buffer(mp, item, bp, buf_f,
+> > @@ -1105,7 +1126,10 @@ xlog_recover_buf_commit_pass2(
+> >  			xfs_buf_relse(rtsb_bp);
+> >  		}
+> >  	} else {
+> > -		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
+> > +		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
+> > +						   current_lsn);
+> > +		if (error)
+> > +			goto out_release;
+> >  	}
+> >  
+> >  	/*
+> > -- 
+> > 2.50.1 (Apple Git-155)
+> 
 
-> +               memset(info, 0, addrlen);
-> +               memcpy(info, &laddr->a, addr_len);
-> +
->                 info +=3D addrlen;
->
->                 if (!--addrcnt)
-> @@ -114,9 +118,12 @@ static int inet_diag_msg_sctpaddrs_fill(struct sk_bu=
-ff *skb,
->         info =3D nla_data(attr);
->         list_for_each_entry(from, &asoc->peer.transport_addr_list,
->                             transports) {
-> -               memcpy(info, &from->ipaddr, sizeof(from->ipaddr));
-> -               memset(info + sizeof(from->ipaddr), 0,
-> -                      addrlen - sizeof(from->ipaddr));
-> +               size_t addr_len =3D from->ipaddr.sa.sa_family =3D=3D AF_I=
-NET ?
-> +                                 sizeof(struct sockaddr_in) :
-> +                                 sizeof(from->ipaddr);
-> +
-> +               memset(info, 0, addrlen);
-> +               memcpy(info, &from->ipaddr, addr_len);
->                 info +=3D addrlen;
->         }
->
-> --
-> 2.43.0
->
