@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FE72D0C92
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 17:49:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD8D4156E2
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 17:49:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784051386; cv=none; b=MEX50oIBR1aN/L4kDweEqLxO/RNhIpDOR+QEHgGMNnXjJNEt1iGB1k1C//l/LGdFRKvQ9EYQiV8GS0HEtqU4Aw4ar8Ns6jp5hx7qpiLgTAeWy+RcwmI3uMGkf1pNa0LuBlnNBz49zH0r+VDdc65QEzJSFynzh2A4Hm6DBfRIiHA=
+	t=1784051386; cv=none; b=Dj7LZgGph/fV7CZp4v3i0waL1ULTlMceD+jroDbGVIiadHafTWUNmn4GM+zaG3ERxUw7c3dx32NG3abzbSNjvXVB6sY25ytZt2Mo9Pe0yoAXSSSrDAT+gmnFDOx7ep6Jce8XrteYbi+bUrDP4pqUWkmSNib0Gp4mAyvJC239dB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784051386; c=relaxed/simple;
-	bh=6sel/MvMW4EwFl/kJR6hEcfHTYrI5K2nOQ+hotgGbyE=;
+	bh=9AMjLe43MOrynghOdSieS9bEzotZ/oA3QJ27ctcEnAk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mmbp+iUuY3Ueli7/XelKpG5kSHLm7pHKv2RnJnO7DpxC0EuniO0GgbsPuDccoa3wDtb7sNMp8IPDw6V/3yFW6ZIb5CQD4JcuZArfMb6kHaD0peSpykx3EepQh8l/7w1r5rqHKsi7jtP/fAOOznVek3Qsuiehd2AijrCyKTLPNWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SfSfyIdW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qNV27d7zvMANwT/M7CymgDZZwD2LLuooZnql2JATfsz/lr9aT6DkATqAwcUhmd4v+8v+z4nhyZsOGvHpdGElt6TiqfgjWwtulJfBSjHFs/1F2ROzLwB/vHqpOabDxR9UWxph4MKbxAwfKa4kUWYRN0mSuSMSwnJPfnCCrjcPb0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wipwbu16; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SfSfyIdW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 621111F00A3E;
-	Tue, 14 Jul 2026 17:49:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wipwbu16"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5DA1F000E9;
+	Tue, 14 Jul 2026 17:49:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784051365;
-	bh=5FujlfPyD6VJytbI4NIX9wvjGakLlM+TmCT+nVGASGg=;
+	s=k20260515; t=1784051369;
+	bh=2axj1WO8xfNj4DrrHpv8gfYA/ibGGMPoazCPogGlMdU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SfSfyIdWe64MY7q0BS8O7Yz6fuKv/l/CEAdnNmpYQ8Nmz5wAzxfuQwriLhC3GUB5O
-	 gm7vFf6SC57rbrMEYkRJkrhdT4KUlHAKxW+91P46yonk+MrATHKZejVl1MlswfTnyW
-	 WyVGBY8W20UGmsJWZrQ5GSNVbB9cKHToALwFlriZSHg3/6LAtyOYGxNoi2DPva2S1W
-	 y1UNj/joLEXYtQoK2+qme3zwc0nBPXqw7xIH/JwSUXM4cUcmwL1BvePEJ/WYMplx6K
-	 u6he+EgnGYKQAee+VmUt0NWO3Tn9hNC1nNUqSrl3IBhcMSyXUmeimdxXWrJ9e2ruaV
-	 ftmT3b+dLHrxw==
+	b=Wipwbu16QjvpdIw/qmIxr03eV4S+bfvClGrPqQvHx29xtBdGwmSrwaGBXnJ3mqlK3
+	 +edzNLhqLh2F4QZEzHu3zYrxN7l2mIbhO+EcwMIeGJ1HcnbaBXq/GGHV88vkJhWFfq
+	 8sKD5ddKi6PCG0vYWCyG07nh1Cxjg7z+KD86ei2UyV/BwAL91bU/TUeOvcKfQ1Quy/
+	 /Ej43J3JrnTH/UPdNa2MC1pYpbyyP0frWaiY/gOz0kfxct280iskLs1fpbDNR6mhAW
+	 BhSUid+bBPRnyouooWHvxjZWG5TYZbU3EoBv+gisDLvQSPTq1BiCbt+5MXSSzqcUqm
+	 Fl/BEQQTmvINg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Richard Zhu <hongxing.zhu@nxp.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	stable <stable@kernel.org>,
+	Ijae Kim <ae878000@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] PCI: imx6: Configure REF_USE_PAD before PHY reset for i.MX95
-Date: Tue, 14 Jul 2026 13:49:21 -0400
-Message-ID: <20260714174921.3041761-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] usb: typec: tcpci_rt1711h: unregister TCPCI port with devres
+Date: Tue, 14 Jul 2026 13:49:27 -0400
+Message-ID: <20260714174927.3041910-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714174921.3041761-1-sashal@kernel.org>
-References: <2026071331-exit-kinfolk-e3f9@gregkh>
- <20260714174921.3041761-1-sashal@kernel.org>
+In-Reply-To: <2026071347-undermine-legible-9f57@gregkh>
+References: <2026071347-undermine-legible-9f57@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,102 +47,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Richard Zhu <hongxing.zhu@nxp.com>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit 0c26b1c34d12d4debfb5363cc0be6cdf68e87ba2 ]
+[ Upstream commit e8da46d99d3710106e7c44db14566bf9b57386b5 ]
 
-According to the i.MX95 PCIe PHY Databook, the ref_use_pad signal in the
-Common Block Signals section selects the reference clock source connected
-to the PHY pads. Per the specification, any change to this input must be
-followed by a PHY reset assertion to take effect.
+rt1711h_probe() registers the TCPCI port before requesting the interrupt
+and enabling alert interrupts. If either of those later steps fails, the
+probe function returns without unregistering the TCPCI port. The explicit
+unregister currently only happens from the remove callback.
 
-Move the REF_USE_PAD configuration before the PHY reset toggle to comply
-with the required initialization sequence.
+Register a devres action immediately after tcpci_register_port() succeeds,
+so tcpci_unregister_port() runs on later probe failures and on driver
+detach. Drop the remove callback to avoid unregistering the same port
+twice.
 
-Fixes: 47f54a902dcd ("PCI: imx6: Toggle the core reset for i.MX95 PCIe")
-Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
-[mani: renamed the callback and helper to match the usecase]
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260518072715.3166514-2-hongxing.zhu@nxp.com
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
+
+Fixes: 302c570bf36e ("usb: typec: tcpci_rt1711h: avoid screaming irq causing boot hangs")
+Cc: stable <stable@kernel.org>
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260706145312.37260-1-mhun512@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/controller/dwc/pci-imx6.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ drivers/usb/typec/tcpm/tcpci_rt1711h.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-index 942fa61d13ef3c..1dbb502157074b 100644
---- a/drivers/pci/controller/dwc/pci-imx6.c
-+++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -135,6 +135,7 @@ struct imx_pcie_drvdata {
- 	const u32 mode_off[IMX_PCIE_MAX_INSTANCES];
- 	const u32 mode_mask[IMX_PCIE_MAX_INSTANCES];
- 	const struct pci_epc_features *epc_features;
-+	int (*select_ref_clk_src)(struct imx_pcie *pcie);
- 	int (*init_phy)(struct imx_pcie *pcie);
- 	int (*enable_ref_clk)(struct imx_pcie *pcie, bool enable);
- 	int (*core_reset)(struct imx_pcie *pcie, bool assert);
-@@ -243,6 +244,24 @@ static unsigned int imx_pcie_grp_offset(const struct imx_pcie *imx_pcie)
- 	return imx_pcie->controller_id == 1 ? IOMUXC_GPR16 : IOMUXC_GPR14;
+diff --git a/drivers/usb/typec/tcpm/tcpci_rt1711h.c b/drivers/usb/typec/tcpm/tcpci_rt1711h.c
+index 9df13ce036c6d8..fd3832202c39e1 100644
+--- a/drivers/usb/typec/tcpm/tcpci_rt1711h.c
++++ b/drivers/usb/typec/tcpm/tcpci_rt1711h.c
+@@ -212,6 +212,8 @@ static int rt1711h_check_revision(struct i2c_client *i2c)
+ 	return 0;
  }
  
-+static int imx95_pcie_select_ref_clk_src(struct imx_pcie *imx_pcie)
-+{
-+	bool ext = imx_pcie->enable_ext_refclk;
++static void rt1711h_unregister_tcpci_port(void *tcpci);
 +
-+	/*
-+	 * Regarding the Signal Descriptions of i.MX95 PCIe PHY, ref_use_pad is
-+	 * used to select reference clock connected to a pair of pads.
-+	 *
-+	 * Any change in this input must be followed by phy_reset assertion.
-+	 */
-+
-+	regmap_update_bits(imx_pcie->iomuxc_gpr, IMX95_PCIE_PHY_GEN_CTRL,
-+			   IMX95_PCIE_REF_USE_PAD,
-+			   ext ? IMX95_PCIE_REF_USE_PAD : 0);
-+
-+	return 0;
-+}
-+
- static int imx95_pcie_init_phy(struct imx_pcie *imx_pcie)
+ static int rt1711h_probe(struct i2c_client *client,
+ 			 const struct i2c_device_id *i2c_id)
  {
- 	bool ext = imx_pcie->enable_ext_refclk;
-@@ -265,9 +284,6 @@ static int imx95_pcie_init_phy(struct imx_pcie *imx_pcie)
- 			IMX95_PCIE_PHY_CR_PARA_SEL,
- 			IMX95_PCIE_PHY_CR_PARA_SEL);
+@@ -257,6 +259,10 @@ static int rt1711h_probe(struct i2c_client *client,
+ 	if (IS_ERR_OR_NULL(chip->tcpci))
+ 		return PTR_ERR(chip->tcpci);
  
--	regmap_update_bits(imx_pcie->iomuxc_gpr, IMX95_PCIE_PHY_GEN_CTRL,
--			   IMX95_PCIE_REF_USE_PAD,
--			   ext ? IMX95_PCIE_REF_USE_PAD : 0);
- 	regmap_update_bits(imx_pcie->iomuxc_gpr, IMX95_PCIE_SS_RW_REG_0,
- 			   IMX95_PCIE_REF_CLKEN,
- 			   ext ? 0 : IMX95_PCIE_REF_CLKEN);
-@@ -1237,6 +1253,9 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
- 		pp->bridge->disable_device = imx_pcie_disable_device;
- 	}
- 
-+	if (imx_pcie->drvdata->select_ref_clk_src)
-+		imx_pcie->drvdata->select_ref_clk_src(imx_pcie);
++	ret = devm_add_action_or_reset(chip->dev, rt1711h_unregister_tcpci_port, chip->tcpci);
++	if (ret)
++		return ret;
 +
- 	imx_pcie_assert_core_reset(imx_pcie);
+ 	ret = devm_request_threaded_irq(chip->dev, client->irq, NULL,
+ 					rt1711h_irq,
+ 					IRQF_ONESHOT | IRQF_TRIGGER_LOW,
+@@ -274,12 +280,9 @@ static int rt1711h_probe(struct i2c_client *client,
+ 	return 0;
+ }
  
- 	if (imx_pcie->drvdata->init_phy)
-@@ -1938,6 +1957,7 @@ static const struct imx_pcie_drvdata drvdata[] = {
- 		.mode_mask[0] = IMX95_PCIE_DEVICE_TYPE,
- 		.core_reset = imx95_pcie_core_reset,
- 		.init_phy = imx95_pcie_init_phy,
-+		.select_ref_clk_src = imx95_pcie_select_ref_clk_src,
- 		.wait_pll_lock = imx95_pcie_wait_for_phy_pll_lock,
- 		.enable_ref_clk = imx95_pcie_enable_ref_clk,
+-static int rt1711h_remove(struct i2c_client *client)
++static void rt1711h_unregister_tcpci_port(void *tcpci)
+ {
+-	struct rt1711h_chip *chip = i2c_get_clientdata(client);
+-
+-	tcpci_unregister_port(chip->tcpci);
+-	return 0;
++	tcpci_unregister_port(tcpci);
+ }
+ 
+ static const struct i2c_device_id rt1711h_id[] = {
+@@ -302,7 +305,6 @@ static struct i2c_driver rt1711h_i2c_driver = {
+ 		.of_match_table = of_match_ptr(rt1711h_of_match),
  	},
-@@ -1992,6 +2012,7 @@ static const struct imx_pcie_drvdata drvdata[] = {
- 		.ltssm_mask = IMX95_PCIE_LTSSM_EN,
- 		.mode_off[0]  = IMX95_PE0_GEN_CTRL_1,
- 		.mode_mask[0] = IMX95_PCIE_DEVICE_TYPE,
-+		.select_ref_clk_src = imx95_pcie_select_ref_clk_src,
- 		.init_phy = imx95_pcie_init_phy,
- 		.core_reset = imx95_pcie_core_reset,
- 		.wait_pll_lock = imx95_pcie_wait_for_phy_pll_lock,
+ 	.probe = rt1711h_probe,
+-	.remove = rt1711h_remove,
+ 	.id_table = rt1711h_id,
+ };
+ module_i2c_driver(rt1711h_i2c_driver);
 -- 
 2.53.0
 
