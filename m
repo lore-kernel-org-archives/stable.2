@@ -1,42 +1,29 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EF12F5A0E;
-	Tue, 14 Jul 2026 05:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC15B314D13;
+	Tue, 14 Jul 2026 05:20:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784005941; cv=none; b=rDXxC3mb/8ku2jw6cYZTVFfI4BpFj8FHCqmoMwDSaHCxG60B2m2/EhNhcXF4hpu6COgRPDBKj/Pqew5JWb+lPM8QR2ZmnkO3hScd4RYpzBksJeq8esV/h0ZT5jTeQa88VWJzcPec45kwx8XVgLexvaopvSUslFgBtxnGLdbGpec=
+	t=1784006416; cv=none; b=u/yTG/SFhtZThHBqjEhJEy7Ca80jZTS9TEvgGjUpJ/itQBvcZpUOSzPV5tZqrCVWml2Bq6exnEvgyofhF9xA5XACBW8V3f3aK3RSksqehHKnxuNSqiZT/leg4Vne5Ql0Qa+1mQ4tD5zLgIk8FfXK2X8rCiixhDc4qtOkGSCHHEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784005941; c=relaxed/simple;
-	bh=QKLHpYC9cD10hDiGlFe4/QTrEv2pYoWptLgAsLjXIE8=;
+	s=arc-20240116; t=1784006416; c=relaxed/simple;
+	bh=MitakgT13Ss/MpEJIxEJ1E/XKAuOsJV6Ppty4ExJX/U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KtWHCTnzkKdRq2peF921RuAtrk7a4F+RT7BvD1y8EuQ6Lm+a0UcH0sLjrAOaeqgjSOM88fkB1AstIKSFjByU9rmTCAP3jZCmtc9OrTVclZdnJSypsGCIzBat5v4aytOfQFLoIkNBpj724osso/YRjrPIOyrv2r6Xo04cfLfTByk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ufuW9pbH; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ufuW9pbH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36DE51F000E9;
-	Tue, 14 Jul 2026 05:12:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784005939;
-	bh=TMXzA4wrYATAkRbd0MtGWCT8lsBcidpH7evOMPd0N8M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ufuW9pbH7t+BO068AtApQMfa4+R7cKxsBYRakma1PEbq7EB76XZ69ffufKfWQMuem
-	 f85rZKZBc6EuYiVdHJSbXn1izuXBuR+2eXapNX2n9Og9RT1CeamIHN7/upL3odkuGa
-	 MVa20/aJOfYrBOAFuzn5EHWR0Oi5pGxxGx0gd9zA=
-Date: Tue, 14 Jul 2026 07:11:00 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Qi Xi <xiqi2@huawei.com>
-Cc: Naoya Horiguchi <naoya.horiguchi@nec.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
-	Jane Chu <jane.chu@oracle.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, sunnanyong@huawei.com,
-	wangkefeng.wang@huawei.com, stable@vger.kernel.org
-Subject: Re: [PATCH stable/linux-6.6.y] mm/memory-failure: fix missing
- ->mf_stats count when hugetlb folio already poisoned
-Message-ID: <2026071451-geologic-handprint-89d1@gregkh>
-References: <20260706084118.1284271-1-xiqi2@huawei.com>
- <6a756801-f4a5-44a5-abfd-e9ae57432c56@huawei.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=lvJKvvdeHyg5hxk5bIiVTE/9vxFn1Gekahf9ZakdcyuXh8EkjwOpeIAYFMvNkGtxmDGRJ5w0oUtc4RY7uLL7VoXx724jQT0JwdVa5XRGzZttJUcRO/17WpouCE+KRgOz+ML0vuXERZlvX8cylvgQH5IHtYENLx83GylNoDWkY2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 41EB868BFE; Tue, 14 Jul 2026 07:20:12 +0200 (CEST)
+Date: Tue, 14 Jul 2026 07:20:11 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, cem@kernel.org, stable@vger.kernel.org,
+	linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 5/6] xfs: write the rg superblock when fixing it
+Message-ID: <20260714052011.GA31796@lst.de>
+References: <178346726054.1271589.14164163317011378817.stgit@frogsfrogsfrogs> <178346726193.1271589.8429966417697809477.stgit@frogsfrogsfrogs> <20260713064105.GA29416@lst.de> <20260713215857.GG7195@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,16 +32,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6a756801-f4a5-44a5-abfd-e9ae57432c56@huawei.com>
+In-Reply-To: <20260713215857.GG7195@frogsfrogsfrogs>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Tue, Jul 14, 2026 at 09:45:03AM +0800, Qi Xi wrote:
-> Add stable@ to Cc.
+On Mon, Jul 13, 2026 at 02:58:57PM -0700, Darrick J. Wong wrote:
+> Hrmm.  Right now both superblock scrubbers don't do much for group 0,
+> because both buffers are pinned to the xfs_mount, so they assume that
+> there's no need to check anything.  However, the ondisk super could have
+> gotten corrupted (or blown away by fdisk), in which case an immediate
+> crash could render the filesystem unmountable.
+> 
+> So, I could (a) teach the super scrubbers to read the primary / rt
+> super; and (b) teach them both to log the superblock and bwrite it
+> immediately to shorten the window in which this could happen.
+> 
+> What do you think?
 
-<formletter>
+I guess the only sensible time to scrub the sb would be early during
+mount? 
 
-This is not the correct way to submit patches for inclusion in the
-stable kernel tree.  Please read:
-    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-for how to do this properly.
+> Also, this patch should be calling xfs_log_sb *after* xfs_trans_getsb,
+> so I'll fix that for the repost.
 
-</formletter>
+Oops.
+
