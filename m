@@ -1,164 +1,156 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37222931D4
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 19:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02FF643550F;
+	Tue, 14 Jul 2026 19:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784056821; cv=none; b=G/xYvtpqZ/ANyqCNPGaPdpqh9TpJF9Q8cRIErJCdQcKQH8OJlUJ5FHSUIAHYsm2tNXwWZDIyz57Y46oXCO4R6LFLopnvtVi7mHRbA+1EH0rszAV7MhQ+pgSjN75jus4AcSK3Z+V/uZIl8RMnpFn/J+M/xUwyf49ZzcQSLlGQONA=
+	t=1784057196; cv=none; b=R4RcaVGfP9HR0M+3Oy17QN207VjVzTL6HOkl6sUnNf8w8rME6XEuq0xdS8NqI8Kyk21RI+II7quBdM1tQo3Ef9cPudeIpotjyb6NVPtUN5KdcdKcaKIXvZUbf8RbmFdH9JMxU7tjKxzjdp0zJKS/JYU8cCFRKJtRnUZ3hTSvYys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784056821; c=relaxed/simple;
-	bh=yqd4MKAtMwnmAxGSUdIx+mohPQm8y+iXnHfZQckwwbU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VMu4Q+qK9xGk5BnGCNTLd+e3atJ5F2+kf6/hh8bfw9/YGni9CO5Xv7STBQi1USVHGH1fdZIlfBCXRCFKOXvmg9iQyhcI+mO2e/FSx/a9lyM0sokaN0KDP+zG14UjxM/5bBPayDHe5217oclie5xjdKCRCyf/Aor509CU4rxTGoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SWJHQijp; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784057196; c=relaxed/simple;
+	bh=DcAzajSqCunJxr0FdUfewaKosOP5X5y1kjgf0/1bfA4=;
+	h=Date:To:From:Subject:Message-Id; b=n0NaytqM6Mjrl5ybxkfm3hFGGE9PTWaXrSJjKGk71Oz9cWM8zb/dY8TWLChln4+fAGWLrXZ1A95/6PHBSVBXM04x9vPeO0dsfsTOTDwoD1ku7laWtpYFellnF5W/cxyuptdMmzE990kieOLG8E2rw/HJzchYeXFlWDOWR6moMQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=gG8sYcIe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SWJHQijp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784056818;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/uKDBVP44I9YE9Zk7Xpf6ZOElFBwIIrrOVbJoZwZECQ=;
-	b=SWJHQijpvu+qLoWlzxPj7aQDtb9QTfOowtu5ymLftevVUtUbCuJdftkcb3QZ0xsPaSivpL
-	MQr1F3LB8lYMuQfelTLIskqiroPo/fMyCZp9R1Um3dM2ye4ZFCkVQnG05hEfAYfD0huoWZ
-	d6bEX/LApUxGwk1TZWRgCF2tdS0Szmo=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-26-IM0-mnCVMgmyM0Z28z-8IQ-1; Tue,
- 14 Jul 2026 15:20:15 -0400
-X-MC-Unique: IM0-mnCVMgmyM0Z28z-8IQ-1
-X-Mimecast-MFC-AGG-ID: IM0-mnCVMgmyM0Z28z-8IQ_1784056814
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DB3F5195607C;
-	Tue, 14 Jul 2026 19:20:13 +0000 (UTC)
-Received: from bfoster (unknown [10.22.88.111])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D1B39414;
-	Tue, 14 Jul 2026 19:20:12 +0000 (UTC)
-Date: Tue, 14 Jul 2026 15:20:08 -0400
-From: Brian Foster <bfoster@redhat.com>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Ibrahim Hashimov <security@auditcode.ai>, cem@kernel.org,
-	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4] xfs: bounds-check buffer log item's dirty bitmap
-Message-ID: <alaL6C6Gy717Jk2J@bfoster>
-References: <20260714172730.73160-1-security@auditcode.ai>
- <20260714175532.74257-1-security@auditcode.ai>
- <20260714180152.GH7398@frogsfrogsfrogs>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gG8sYcIe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB351F000E9;
+	Tue, 14 Jul 2026 19:26:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784057185;
+	bh=tRZl80cIL3bceruoW/T+8unND8ARGow/PrXin/lYvrc=;
+	h=Date:To:From:Subject;
+	b=gG8sYcIeNaqACEbyDzVtKLYDXHoCab0mHSSgpCOasxLnp9nwyIiCOJ6MtQEVv/hrl
+	 xXUZscJdx75u1nSyA4vjn35+SgCZUrRRGbQRRZf/oWldxJVgSrdsggOllnxrhxWrwJ
+	 Qh3UkAfOL5/7tnAyA5plbobV7GG6Hrxk6AyQHfcc=
+Date: Tue, 14 Jul 2026 12:26:25 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,sj@kernel.org,rppt@kernel.org,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,david@kernel.org,corbet@lwn.net,husong@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + docs-abi-damon-fix-typo-in-intervals_goal-sysfs-path.patch added to mm-unstable branch
+Message-Id: <20260714192625.BAB351F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714180152.GH7398@frogsfrogsfrogs>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Tue, Jul 14, 2026 at 11:01:52AM -0700, Darrick J. Wong wrote:
-> On Tue, Jul 14, 2026 at 07:55:32PM +0200, Ibrahim Hashimov wrote:
-> > xlog_recover_do_reg_buffer() replays each dirty region described by a
-> > buffer log item's bitmap into the buffer read for that item:
-> > 
-> > 	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
-> > 		item->ri_buf[i].iov_base,
-> > 		nbits << XFS_BLF_SHIFT);
-> > 
-> > The destination offset (bit/nbits, from the logged dirty bitmap) and the
-> > buffer size (from the logged blf_len) are both attacker-controlled and
-> > otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
-> > which compiles away on production kernels. A crafted image logging a
-> > small blf_len together with a bitmap bit past the end of that buffer
-> > drives the memcpy() past the buffer's allocation, corrupting adjacent
-> > kernel heap during mount-time log recovery. This is reachable by anyone
-> > who can get a crafted image mounted -- the malicious-filesystem threat
-> > model XFS already guards against elsewhere.
-> > 
-> > Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
-> > of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
-> > idiom already used in xlog_recover_do_inode_buffer() and
-> > xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
-> > STATIC int and its three callers propagate the error.
-> > 
-> > Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
-> > image trips a slab-out-of-bounds write before this change and fails
-> > recovery cleanly with -EFSCORRUPTED after it.
-> > 
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> > Assisted-by: AuditCode-AI:2026.07
-> 
-> Looks fine to me now, thanks for making those edits.
-> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-> 
-> --D
-> 
-> > ---
-> > v4: fold xlog_recover_do_dquot_buffer()'s bool return and error
-> >     out-parameter into a single int return (1 if dirty, 0 if clean, or a
-> >     negative errno on failure), per Darrick's review. No behavioural
-> >     change.
-> > v3: trim the changelog per Brian Foster's review. Add a Fixes: tag --
-> >     the destination-bounds check has been an ASSERT since the initial git
-> >     import (2.6.12-rc2), so it predates the git era.
-> > v2: resend; v1 went out with an empty Subject line due to a local
-> >     git send-email glitch (leading blank line in the patch file).
-> > 
-> >  fs/xfs/xfs_buf_item_recover.c | 56 ++++++++++++++++++++++++++++-------------
-> >  1 file changed, 40 insertions(+), 16 deletions(-)
-> > 
-> > diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
-> > index 02b95b89d1b5..cf2b07ebc6f3 100644
-> > --- a/fs/xfs/xfs_buf_item_recover.c
-> > +++ b/fs/xfs/xfs_buf_item_recover.c
-...
-> > @@ -1081,11 +1103,10 @@ xlog_recover_buf_commit_pass2(
-> >  			goto out_release;
-> >  	} else if (buf_f->blf_flags &
-> >  		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
-> > -		bool	dirty;
-> > -
-> > -		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
-> > -		if (!dirty)
-> > +		error = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
-> > +		if (error <= 0)
-> >  			goto out_release;
 
-I might suggest something like:
+The patch titled
+     Subject: Docs/ABI/damon: fix typo in intervals_goal sysfs path
+has been added to the -mm mm-unstable branch.  Its filename is
+     docs-abi-damon-fix-typo-in-intervals_goal-sysfs-path.patch
 
-		/* reset error since > 0 means to write the buffer */
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/docs-abi-damon-fix-typo-in-intervals_goal-sysfs-path.patch
 
-... or maybe we can phrase that better. But regardless LGTM now as well,
-thanks:
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Reviewed-by: Brian Foster <bfoster@redhat.com>
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-> > +		error = 0;
-> >  	} else if ((xfs_blft_from_flags(buf_f) & XFS_BLFT_SB_BUF) &&
-> >  			xfs_buf_daddr(bp) == 0) {
-> >  		error = xlog_recover_do_primary_sb_buffer(mp, item, bp, buf_f,
-> > @@ -1105,7 +1126,10 @@ xlog_recover_buf_commit_pass2(
-> >  			xfs_buf_relse(rtsb_bp);
-> >  		}
-> >  	} else {
-> > -		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-> > +		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
-> > +						   current_lsn);
-> > +		if (error)
-> > +			goto out_release;
-> >  	}
-> >  
-> >  	/*
-> > -- 
-> > 2.50.1 (Apple Git-155)
-> 
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Song Hu <husong@kylinos.cn>
+Subject: Docs/ABI/damon: fix typo in intervals_goal sysfs path
+Date: Tue, 14 Jul 2026 07:01:13 -0700
+
+Patch series "Docs/ABI/damon: sysfs ABI document fixes and additions", v2.
+
+This series fixes typos and fills in missing entries in the DAMON sysfs
+ABI document (Documentation/ABI/testing/sysfs-kernel-mm-damon).
+
+Patch 1 fixes a path typo, "intrvals_goal" -> "intervals_goal", in four
+What: entries; the documented path points to a non-existent directory, so
+it is Cc'ed to stable.
+
+Patch 2 fixes two further typos ("WDate:", "manimum").
+
+Patches 3 and 4 add ABI entries that exist in the kernel and are already
+described in usage.rst but are missing from the canonical ABI document:
+the 'update_tuned_intervals' state command (patch 3) and the
+'tried_regions/<R>/probes/<P>/hits' file (patch 4).
+
+
+This patch (of 4):
+
+The ABI document spells the DAMON sysfs directory as "intrvals_goal"
+(missing 'e') in four What: entries, but the kernel creates it as
+"intervals_goal" (mm/damon/sysfs.c).  Following the documented path
+therefore yields a non-existent directory.
+
+Link: https://lore.kernel.org/20260714140117.94147-1-sj@kernel.org
+Link: https://lore.kernel.org/20260714140117.94147-2-sj@kernel.org
+Fixes: e2b23dc62369 ("Docs/ABI/damon: document intervals auto-tuning ABI")
+Signed-off-by: Song Hu <husong@kylinos.cn>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ Documentation/ABI/testing/sysfs-kernel-mm-damon |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+--- a/Documentation/ABI/testing/sysfs-kernel-mm-damon~docs-abi-damon-fix-typo-in-intervals_goal-sysfs-path
++++ a/Documentation/ABI/testing/sysfs-kernel-mm-damon
+@@ -112,7 +112,7 @@ Description:	Writing a value to this fil
+ 		DAMON context in microseconds as the value.  Reading this file
+ 		returns the value.
+ 
+-What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/access_bp
++What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/access_bp
+ Date:		Feb 2025
+ Contact:	SJ Park <sj@kernel.org>
+ Description:	Writing a value to this file sets the monitoring intervals
+@@ -120,7 +120,7 @@ Description:	Writing a value to this fil
+ 		the given time interval (aggrs in same directory), in bp
+ 		(1/10,000).  Reading this file returns the value.
+ 
+-What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/aggrs
++What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/aggrs
+ Date:		Feb 2025
+ Contact:	SJ Park <sj@kernel.org>
+ Description:	Writing a value to this file sets the time interval to achieve
+@@ -128,14 +128,14 @@ Description:	Writing a value to this fil
+ 		access events ratio (access_bp in same directory) within.
+ 		Reading this file returns the value.
+ 
+-What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/min_sample_us
++What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/min_sample_us
+ Date:		Feb 2025
+ Contact:	SJ Park <sj@kernel.org>
+ Description:	Writing a value to this file sets the minimum value of
+ 		auto-tuned sampling interval in microseconds.  Reading this
+ 		file returns the value.
+ 
+-What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intrvals_goal/max_sample_us
++What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/monitoring_attrs/intervals/intervals_goal/max_sample_us
+ Date:		Feb 2025
+ Contact:	SJ Park <sj@kernel.org>
+ Description:	Writing a value to this file sets the maximum value of
+_
+
+Patches currently in -mm which might be from husong@kylinos.cn are
+
+mm-damon-tests-core-kunit-test-damon_nr_accesses_mvsum.patch
+docs-abi-damon-fix-typo-in-intervals_goal-sysfs-path.patch
+docs-abi-damon-fix-typos.patch
+docs-abi-damon-document-update_tuned_intervals-state-command.patch
+docs-abi-damon-document-tried_regions-probe-hits.patch
 
