@@ -1,267 +1,291 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DF62C21D9
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:33:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783999986; cv=none; b=TYcLSkYoNJOsBqmKDBU2QUAVXMA65sQuqoC4nxQ3RGfguAuWK13E8D4p1H53mAa+RcEI+oA4thGKkgZ/L8bFOpZ+ebLOR6KJfDEbLdESPus8Jz77u0LT8tdos/3dSTWh/C02gzctPCsyxhM1y21410Dxzo/D4Ss0EFtNB/H8jE8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC612C11FE
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783999986; cv=fail; b=DkmGJ2Lhe3fC8tRanixvXv6yfocvSO52NoXd3AQtOC80m8c36iYxEE8ykNqNPoTWk3FmHuImgkASDaCtok4ETnD+3f2aNPLALt7vZNG1oCJ/xmHICZCEeHfd6LyxD7HM+xcs5ciH5fwnNw2c2N4ZmmTFL7a4Iawmg4HnPihKB+4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783999986; c=relaxed/simple;
-	bh=fA3Ty6iw2Or296XBIiNC3lRwfN8kRWHKWLxrpWe1JlM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eXDs7/aEhCOt2tJExdMbzqCGjhtZMNYq/QBI5FRjZckUPdlRZNRY7YEgmNtdejOVZ2Hf4EibiBXl0s1TZhj0Yc3CcqLcDq5ax5EnLk/xAmaP9Kt0FE5s8Eq0iJLmdKgVVL5WQDRTfRtwnt2P3O4YDIBSwvhGOPXBLZQipixdFDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OROTFto/; arc=none smtp.client-ip=100.103.45.18
+	bh=ymHHmfGDaFBtT2d/p2n8wO94BDyKp/lssZh5ArPVJEg=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=gywePx167riOnNkteH5b0wWGlTwPh2bf9AIO+9oBbVqD3H/kUpquR42WJWrTUYYFQ1QOdX3HiDCetMxrZA9lZOf9s+oahyoTQXnVR/7HUtHowiXfepszEU4c3fmKPO9weUSXhX2M+fmVghuJcxJpNRjzgehExRLLjivo5R6DVY8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ftbxQQeB; arc=fail smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OROTFto/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7741F00A3D;
-	Tue, 14 Jul 2026 03:33:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783999984;
-	bh=tBw9QIFRvjhbH8w6Jj/M7iVDIU96K4JoENoG9m4XqW8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OROTFto/KY7o4A7dDnqoB0pcGs+arn/Dr6lEzsSgrr385yNjjtx2oTEkpzpDu6h3O
-	 jEUvgS2YaLVi86srk8eNAGz+Fy+oI1/LyLOUqy9uTqtz/sLWaKB9IrsY20YMcOi8n5
-	 my0KXknuvW4s2OIe8H1sUlrr4jTB5bJbH8TzP2zL5UWQwxbNm4o6Mo4XibGQhTXGU7
-	 KnfvEXNbBi9bXwtl7l192qsaPE1QEmkhdTsQua99HRRnp7jwS/CbP25/eybeAKYhfT
-	 LhLGi8026VzDIS9VrUXxLx6NEnbgn/0VEF+hMOiUf4RmcPOrdAvISyZwgftGEbXqxb
-	 BLeP4MjAP5ZOQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Raghavendra Rao Ananta <rananta@google.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Alex Williamson <alex@shazbot.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] vfio/pci: Use a private flag to prevent power state change with VFs
-Date: Mon, 13 Jul 2026 23:33:01 -0400
-Message-ID: <20260714033301.2397090-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714033301.2397090-1-sashal@kernel.org>
-References: <2026071325-recipient-lavender-88d4@gregkh>
- <20260714033301.2397090-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ftbxQQeB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783999984; x=1815535984;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=ymHHmfGDaFBtT2d/p2n8wO94BDyKp/lssZh5ArPVJEg=;
+  b=ftbxQQeBdHrn92gv621E6vNGEk/bj+fUJ9p330i93ZZpcJHSO0w4+EGO
+   I29mdRlPyjpjZnzdg+wqdtq8pBqKfMIJzKZuZ3kuDNMu/ZUlnz53TmEX8
+   kQtg7DlvDLhr4o19Pn7SjiM/+WZqnCJKcWhqLwqMgrQJBw7DiWu5S55Rs
+   ag6Kce7aZrZTKHyAIN5KdHamm4dzYt0sAJOaU9+se7dwg80w0kD2cfYLt
+   G5r0SUUEvD4vE07ViRyiIDYMGeBH45P25NHV6+9pkOebczAizJvKeYh6s
+   P/RjipVXKHqivNRm4G+Ixt83y4rH+Nm80/jq9B9sK0dJxovueSRhDNioL
+   w==;
+X-CSE-ConnectionGUID: a4hzCET7ThOfzX1ep0ge0Q==
+X-CSE-MsgGUID: H2Z1Dhb7SmCv5hNwYXPQeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95981028"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="95981028"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 20:33:03 -0700
+X-CSE-ConnectionGUID: S04rUPX9Qa+CIRWvkDfgeA==
+X-CSE-MsgGUID: 0cka85bTRyK4etbsiwOo7w==
+X-ExtLoop1: 1
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 20:33:03 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 13 Jul 2026 20:33:02 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Mon, 13 Jul 2026 20:33:02 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.29) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 13 Jul 2026 20:33:01 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gvdv0XjJtObMGh+RXh0S6LDzpRIiQtdm11zbwyAKF8r+CBD6DzNphLsCxqImyKBd8rjzKFtyaw7/vJVpA76FkMQJYjBYsxaVEvpb1g1usS/Y89InZuJxNBBbQTn7Z4Ckxm9uhleAM7ifbRzGspea9wl9ekiycZKW9NpDaJqPVgw+4mPS+/pJ4WcWmuy8TwKfrbpcc7xPJcC8oPTx9ymKVeDulxMaMFhrYf7XpH2zKpW8guWqKNC5OzW80FPbzCwlH3GGtK0On6BvJd1yONKzR9/FMMitx69EDUTSTPmz4MZmC4Q1HkgpNBbk8J24CV+uhvdVrKRXomwMfVmdbArz1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bz2MtSA9Mn2X0OmkVniERaXZT7MAH38EurEcrK6mfcQ=;
+ b=pfVKbX7L2gouiQgSX5KKdqG4RCkjz+Bx3eARRxso1mr+xgRtw0EsmrG+9mrrG7Y4zalXEyWBIV3Zm73c5LATnnbTJvxroGJqFExbb2WXGTjYJ/g8wwP794FcVDrF3MUmvIP5DSAHT7GRTGyjybS+FjM1X6na6XwhRiY0Qq4Rzl+snz+LhJx1T5M3OgKJslb2w1o/Akwsonow+8l/625p4qbTgI5ByyyvTyKs/lXXOzYgauBVcJ1fK0ZMQGMRkVgj7SlDPuXFekuF67GyqdQJf2ohBCRJCGxN+0FiVR7NTeAiU3WSQdIkkP886GtzfvPEkV7iMZHvkUJLQWQfECtvSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF691668CDD.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::2a) by PH8PR11MB7143.namprd11.prod.outlook.com
+ (2603:10b6:510:22d::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.18; Tue, 14 Jul
+ 2026 03:32:58 +0000
+Received: from DS4PPF691668CDD.namprd11.prod.outlook.com
+ ([fe80::a3b:efa:42d5:e983]) by DS4PPF691668CDD.namprd11.prod.outlook.com
+ ([fe80::a3b:efa:42d5:e983%8]) with mapi id 15.21.0181.017; Tue, 14 Jul 2026
+ 03:32:58 +0000
+Message-ID: <f6a7473e-66fa-4151-ba46-3e51d2009582@intel.com>
+Date: Tue, 14 Jul 2026 09:02:52 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/xe/vm: Reject invalid prefetch region for non-SVM VMA
+To: Matthew Brost <matthew.brost@intel.com>, Shuicheng Lin
+	<shuicheng.lin@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <stable@vger.kernel.org>
+References: <20260710021700.3611909-1-shuicheng.lin@intel.com>
+ <alVSDlVhQBy59KlF@gsse-cloud1.jf.intel.com>
+Content-Language: en-US
+From: "Ghimiray, Himal Prasad" <himal.prasad.ghimiray@intel.com>
+In-Reply-To: <alVSDlVhQBy59KlF@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0021.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:177::13) To DS4PPF691668CDD.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::2a)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF691668CDD:EE_|PH8PR11MB7143:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a8a872a-7803-4aaa-8c56-08dee1589920
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|56012099006|11063799006|4143699003|5023799004|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 4gR4aag8CfKISg9CUL9SdQsf+QGI7U5icCDWkjz2/TLYbBnpDqZeJlUV5GWQwoWvgCN+fEIRlutI8SLp6rHLQJJH9ujqbYiUry4Cu+s8OilfdUKVqoQJCBYh9qKiY9BdRbVlvWhFfIXzTiduPj/u8OSaBOTCzkQ7JoAJB2B+5pLSc44fjmEuMRN3+QgxAOjZyubSGsDCXPLI7AnjD6fb0CjbR8OU+/Rmpr3JmYSRXscEWHbR2VorqjBvvcf5gjsjvBFadwzITUcz4xdn4K5OeOyT+5Dhhl3jBXiZGgt8vdkzah7fliIs+35IRoH067gFjEAADr1S0DGFQ+1ekLmVtjXSl5osaWmYvWwMxg5Hyv93RAd+fasw8pTu8wjD/3rFwjfknPDvBP5actZGdm+ZgVrg+d/rq1bjD/bSEwGuqdRix+iYIYb8Vf2eIklnHOTY4g/ji00GzLo2hzS0pcPv2dP55jYHkPrr1NlYZkqKWCKUU3USos9xIyqVnli856kRdLoSPccsbJEA8bWZFpiKiqxdEB+DBu4dWLAsD4rwnOPyBFTIGI2Ewi0Mc7lJJ3/uSrcRnjvl9xq1UzY9+XNjZMln31zdpXIq0gDgBIl+xl6U3su6Ty6WYNCsiDkzy8uA
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF691668CDD.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(56012099006)(11063799006)(4143699003)(5023799004)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXhHRGo1RDIzSEUvR3YxeFd3Mlg2ZGZ0emIzTDUvb29Cc2FOWmo1RHVlMmFW?=
+ =?utf-8?B?djQwbjFiRzlxQVVJUWlxY3VpQkVTNmZTcURVeVdRTHVoVXBRZm43NzBPQTVa?=
+ =?utf-8?B?ZUNSamNMRm40UnluOEx5U3NIZkkzSzRoV2tBUmh4NkwwdXczcFE1STBHdXdw?=
+ =?utf-8?B?Zmx3dHRZVEpCbWVNdWtEbDlkd1l4U2pXWks2WEJzMUNHRWlMM2tiVnd0aWhH?=
+ =?utf-8?B?SWw4VjVKbjFlNU8vT055cDJXK3ZGU0dxdkpEQmRaWmFscE1LNjhvNFNkWjQy?=
+ =?utf-8?B?ekl1MitLWVpVRDdBSjlFNzBMblpSang1VlVlODcwV3NFTVdmWDBaNGtNRDBT?=
+ =?utf-8?B?USt4UHFOVThSUlY2R2dyZkpsSGZ2Q0V2RGNJZHpKYmJhc0RDQzJ2djg1UTBD?=
+ =?utf-8?B?dGc3RVJabmJYakcvckFiQkl1dHZRdDluOEZ0eEZXWEVxS3QxUFdEVDVHVWl3?=
+ =?utf-8?B?Z3ZiMEF2aWU0Y0c2bjd3Um5ldkhIQ00rRHl1TjkwbFNyeGNYZGNmY0FQa1Vy?=
+ =?utf-8?B?azNCVm8vRUgrY1c1ajc4VHAzTTdWTWQyRCtPOXFhNFVyY0pOaHBwd2tjWkc1?=
+ =?utf-8?B?RzhoZ24xQ1NncHowM05sbmNwcXBDd08yTU9lTFBTQjZ6bzZ0d21VbzNkcmwx?=
+ =?utf-8?B?SEdTWm1mcnAzdnV0ZzQyNW9ETGVGZm55ZHdLdlQ3cm5TWGZheUlDQjF5SXov?=
+ =?utf-8?B?bkd2K3gvb3ltUGhmd2hjdmI2TTNxVFlRbkMrTkJNRWgxQWE3U2ZFaEZyMUo4?=
+ =?utf-8?B?a1ZlWGk4Q3p2ZGM1V0NhbXVJTlc3YTdYYXBvL1N3OXRJSEpsN1dVT1NUNUdK?=
+ =?utf-8?B?bFZBY0dYT3ltRjdzS1ZEWmFUd1lIQnh0RGdQd3JLVTI5Y3lZbjRkQXhjK1lx?=
+ =?utf-8?B?ZUNGVEJyTURHSzZ2Vy9oZmt5RXBzajlJcXFub2tSS0N1VStuWU9BMHdOVzV4?=
+ =?utf-8?B?MGkzRTNSMU56L3Bja1JvWkJ4VytIVzBldThTZzFJV2ZmSDBMTU9id01CUWls?=
+ =?utf-8?B?WU54aUw1akpKUDRsTGh3VkpwNTRGNHNHb1p5dGEyK1JUZFlBaDViZkFaM01L?=
+ =?utf-8?B?Tm9Zd1M1bnBFOUhGVE9QS3F6a3BvTnpxa0ZUL3RwR0llNzRJeDM2dHZiUFls?=
+ =?utf-8?B?YVBMZHZPZ0FZOHpDZnk2c0NENzdraW1LRG53UGttVlEzZlh3ZWEzSHI2R3E4?=
+ =?utf-8?B?WC9yK1FOL1p3Uk5HYncrNmZiWWtXendqMDBxSGR4VnNOMmZieWs5Q1lXL2Uy?=
+ =?utf-8?B?QklJVW5WWWZsS2kvbzVsTm8vNHZkczgra21HSk9lVU1tdmFaWlp6dVUzYW1N?=
+ =?utf-8?B?VElqK3FJeUNNTkJSbjFTM3BHMWMxTVovbnJoSTBPNnltYUJqOVg2RFloQTQ5?=
+ =?utf-8?B?VGlRYUdiSFo2NjA5NnIySC9vUzBMZ3krV3lSQm9DZG4rTFAwWjUyRlZVNk5O?=
+ =?utf-8?B?SWJpTVJzY2dOZ24vTFR0bVFPeTAzK3BHYmorYUZCR3g3b2RNMURtS0NMR2cy?=
+ =?utf-8?B?SEdTYitTTVhNYXNPVFRSd2RmdVd1Ty9hSlRVWG5FbVZhMlNROUE2V2p6emlj?=
+ =?utf-8?B?eHlwOUwzTWVHTFlzbG5IeTB3QUJVRkk1eENCZlEwOEhUYXJVc1kySUtMOFVz?=
+ =?utf-8?B?MWJXeDBmSzJZeVhId04xeC9qSnN5aElPL09TUTN3SjVZdmZtUUpiS3pXa0JW?=
+ =?utf-8?B?QTI2aS9LeVhMNysvRmttczRySnl6amprdEpkM045R1V2UGlxQmNzUWZXVmJG?=
+ =?utf-8?B?UGl4TFB3eisraTJONnlvejhiOUVwK09WWFAza1BDNzBKcDFyOGxjYjVDY2Mz?=
+ =?utf-8?B?QjNzeHArcGpNUTBaN3Z5MEpuRU1zK3VwbWp4Zi9PRVpIUDRaL1V6SVZIT1pH?=
+ =?utf-8?B?eUxvelA3aWEwWmpqNFozaWh1KzlpWGRkby9uVnI1WVFoZ2VEOWIrMFZOcGdJ?=
+ =?utf-8?B?NlFDQ01VUFIxeUN0QW5hb0FrSGdtUUdmdlhnaU96L2k5MldiZm9Wb0Z0ZmxM?=
+ =?utf-8?B?K2RzUDlPTGx3RlhmYkV5eW8rYytydmxQdTV6eXRQWFJic2VMeGVKdEsyNEo2?=
+ =?utf-8?B?TmJPZjB2TndMcVlJWDlSZnQzOTV5ZXR3cmtJSHJidVY1YWZBZE9vN1VQaFRx?=
+ =?utf-8?B?MFYyeXRWZXd2cWxHdGJhSGdXTGZsVGlpa05sZ0Y5dExSWjUxamEvSEgyYndt?=
+ =?utf-8?B?ejVrYldNdzB3NDBnU0hNdXZKZXlRcGRrQ0ZoNnMrMk8ybm9LQ2J2NkNxMkE3?=
+ =?utf-8?B?bUM5eXZCQVRCTW5jRWN1OE0yMnJuZERwU0ZkUmVBVU8wU2luWWQ0NjBySi85?=
+ =?utf-8?B?b2NLOGo5S2ZLZE5xN3BUZzZQb2hZTXhVQmJZcmk1aXh1MHdtSDlXUUlWL1dK?=
+ =?utf-8?Q?NnB4F9GdbrSBlGRs=3D?=
+X-Exchange-RoutingPolicyChecked: l/rFOvgdPM2EzJQezx/Ix7NAM6limIYHO1KAebmH+20xYzSi6D+k49haRmG5YjgjXrnLD7VJRXZ7Cf5aK0tivqYUm25xOzjf4nx9V29+HubgfXtH511G1WQnHXwnAdivZvc+z4nQt2DR3u2HtS+6Sh0O+MbQbypXobpCON1IwrQ+Lsw+eQ//D0P4kS8wCeJYem3JUO+h/MPYXdhGJWCTIT5pgs4ijYqfnqwhZ5G4x3N7N7SFcxPKHvEcKo1w5ZUrPWLobyoWQ21wA6fsv3ftd+EmZt7R7nlWpMt5Cx5aC1gipHadCHIbbBIGu5LV9zyM2h8Js/3+KTNtr036WMeZhg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a8a872a-7803-4aaa-8c56-08dee1589920
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF691668CDD.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 03:32:57.9799
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8h4R4To6er227bnTgvudnJsMIbJDpZiJhVCKnba0PoUf+HHRsUuiNph6CbHjbI/bkuJ1s3KmCAt+JE70jWTrQbKSd8of4OKmfPYbP08nSQw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB7143
+X-OriginatorOrg: intel.com
 
-From: Raghavendra Rao Ananta <rananta@google.com>
 
-[ Upstream commit 40ef3edf151e184d021917a5c4c771cc0870844a ]
 
-The current implementation uses pci_num_vf() while holding the
-memory_lock to prevent changing the power state of a PF when
-VFs are enabled. This creates a lockdep circular dependency
-warning because memory_lock is held during device probing.
+On 14-07-2026 02:31, Matthew Brost wrote:
+> On Fri, Jul 10, 2026 at 02:17:00AM +0000, Shuicheng Lin wrote:
+>> DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC (-1) is only valid on a
+>> CPU-address-mirror (SVM) VMA. On a regular VMA the value is used as
+>> an index into region_to_mem_type[], causing an out-of-bounds access:
+>>
+>>    UBSAN: array-index-out-of-bounds in drivers/gpu/drm/xe/xe_vm.c:3260:28
+>>    index 4294967295 is out of range for type 'u32 [3]'
+>>    Call Trace:
+>>     __ubsan_handle_out_of_bounds+0xa7/0xf0
+>>     vm_bind_ioctl_ops_execute+0x9b0/0x9d0 [xe]
+>>     xe_vm_bind_ioctl+0x19f1/0x1b10 [xe]
+>>
+>> Three related changes:
+>>
+>> - vm_bind_ioctl_ops_create(): For a non-CPU-address-mirror VMA, reject
+>>    both DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC and out-of-range prefetch
+>>    regions with -EINVAL. This is the primary fix for the OOB.
+>>
+>> - op_lock_and_prep(): Tighten the xe_assert() to
+>>    'region < ARRAY_SIZE(region_to_mem_type)'. The
+>>    DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC exemption is no longer needed
+>>    since the value is rejected earlier, and '<=' was an off-by-one
+>>    bound (valid indices are 0..ARRAY_SIZE-1).
+>>
+>> - xe_drm.h: Document the CPU-address-mirror constraint on the
+>>    DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC UAPI value.
+>>
+>> Fixes: c1bb69a2e8e2 ("drm/xe/svm: Consult madvise preferred location in prefetch")
+>> Assisted-by: Claude:claude-opus-4.7
+>> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+> 
+> I think Himal at least fixed the memory safety problem later in the
+> pipeline here [1]. I'm unsure if he merged that one yet, but I'm
+> inclined to say this is a better solution.
+> 
+> What do you think Himal?
 
-[  286.997167] ======================================================
-[  287.003363] WARNING: possible circular locking dependency detected
-[  287.009562] 7.0.0-dbg-DEV #3 Tainted: G S
-[  287.015074] ------------------------------------------------------
-[  287.021270] vfio_pci_sriov_/18636 is trying to acquire lock:
-[  287.026942] ff45bea2294d4968 (&vdev->memory_lock){+.+.}-{4:4}, at:
-vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.036530]
-[  287.036530] but task is already holding lock:
-[  287.042383] ff45bea3a96b8230 (&new_dev_set->lock){+.+.}-{4:4}, at:
-vfio_group_fops_unl_ioctl+0x44d/0x7b0
-[  287.051879]
-[  287.051879] which lock already depends on the new lock.
-[  287.051879]
-[  287.060070]
-[  287.060070] the existing dependency chain (in reverse order) is:
-[  287.067568]
-[  287.067568] -> #2 (&new_dev_set->lock){+.+.}-{4:4}:
-[  287.073941]        __mutex_lock+0x92/0xb80
-[  287.078058]        vfio_assign_device_set+0x66/0x1b0
-[  287.083042]        vfio_pci_core_register_device+0xd1/0x2a0
-[  287.088638]        vfio_pci_probe+0xd2/0x100
-[  287.092933]        local_pci_probe_callback+0x4d/0xa0
-[  287.098001]        process_scheduled_works+0x2ca/0x680
-[  287.103158]        worker_thread+0x1e8/0x2f0
-[  287.107452]        kthread+0x10c/0x140
-[  287.111230]        ret_from_fork+0x18e/0x360
-[  287.115519]        ret_from_fork_asm+0x1a/0x30
-[  287.119983]
-[  287.119983] -> #1 ((work_completion)(&arg.work)){+.+.}-{0:0}:
-[  287.127219]        __flush_work+0x345/0x490
-[  287.131429]        pci_device_probe+0x2e3/0x490
-[  287.135979]        really_probe+0x1f9/0x4e0
-[  287.140180]        __driver_probe_device+0x77/0x100
-[  287.145079]        driver_probe_device+0x1e/0x110
-[  287.149803]        __device_attach_driver+0xe3/0x170
-[  287.154789]        bus_for_each_drv+0x125/0x150
-[  287.159346]        __device_attach+0xca/0x1a0
-[  287.163720]        device_initial_probe+0x34/0x50
-[  287.168445]        pci_bus_add_device+0x6e/0x90
-[  287.172995]        pci_iov_add_virtfn+0x3c9/0x3e0
-[  287.177719]        sriov_add_vfs+0x2c/0x60
-[  287.181838]        sriov_enable+0x306/0x4a0
-[  287.186038]        vfio_pci_core_sriov_configure+0x184/0x220
-[  287.191715]        sriov_numvfs_store+0xd9/0x1c0
-[  287.196351]        kernfs_fop_write_iter+0x13f/0x1d0
-[  287.201338]        vfs_write+0x2be/0x3b0
-[  287.205286]        ksys_write+0x73/0x100
-[  287.209233]        do_syscall_64+0x14d/0x750
-[  287.213529]        entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  287.219120]
-[  287.219120] -> #0 (&vdev->memory_lock){+.+.}-{4:4}:
-[  287.225491]        __lock_acquire+0x14c6/0x2800
-[  287.230048]        lock_acquire+0xd3/0x2f0
-[  287.234168]        down_write+0x3a/0xc0
-[  287.238019]        vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.243436]        __rpm_callback+0x8c/0x310
-[  287.247730]        rpm_resume+0x529/0x6f0
-[  287.251765]        __pm_runtime_resume+0x68/0x90
-[  287.256402]        vfio_pci_core_enable+0x44/0x310
-[  287.261216]        vfio_pci_open_device+0x1c/0x80
-[  287.265947]        vfio_df_open+0x10f/0x150
-[  287.270148]        vfio_group_fops_unl_ioctl+0x4a4/0x7b0
-[  287.275476]        __se_sys_ioctl+0x71/0xc0
-[  287.279679]        do_syscall_64+0x14d/0x750
-[  287.283975]        entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  287.289559]
-[  287.289559] other info that might help us debug this:
-[  287.289559]
-[  287.297582] Chain exists of:
-[  287.297582]   &vdev->memory_lock --> (work_completion)(&arg.work)
---> &new_dev_set->lock
-[  287.297582]
-[  287.310023]  Possible unsafe locking scenario:
-[  287.310023]
-[  287.315961]        CPU0                    CPU1
-[  287.320510]        ----                    ----
-[  287.325059]   lock(&new_dev_set->lock);
-[  287.328917]
-lock((work_completion)(&arg.work));
-[  287.336153]                                lock(&new_dev_set->lock);
-[  287.342523]   lock(&vdev->memory_lock);
-[  287.346382]
-[  287.346382]  *** DEADLOCK ***
-[  287.346382]
-[  287.352315] 2 locks held by vfio_pci_sriov_/18636:
-[  287.357125]  #0: ff45bea208ed3e18 (&group->group_lock){+.+.}-{4:4},
-at: vfio_group_fops_unl_ioctl+0x3e3/0x7b0
-[  287.367048]  #1: ff45bea3a96b8230 (&new_dev_set->lock){+.+.}-{4:4},
-at: vfio_group_fops_unl_ioctl+0x44d/0x7b0
-[  287.376976]
-[  287.376976] stack backtrace:
-[  287.381353] CPU: 191 UID: 0 PID: 18636 Comm: vfio_pci_sriov_
-Tainted: G S                  7.0.0-dbg-DEV #3 PREEMPTLAZY
-[  287.381355] Tainted: [S]=CPU_OUT_OF_SPEC
-[  287.381356] Call Trace:
-[  287.381357]  <TASK>
-[  287.381358]  dump_stack_lvl+0x54/0x70
-[  287.381361]  print_circular_bug+0x2e1/0x300
-[  287.381363]  check_noncircular+0xf9/0x120
-[  287.381364]  ? __lock_acquire+0x5b4/0x2800
-[  287.381366]  __lock_acquire+0x14c6/0x2800
-[  287.381368]  ? pci_mmcfg_read+0x4f/0x220
-[  287.381370]  ? pci_mmcfg_write+0x57/0x220
-[  287.381371]  ? lock_acquire+0xd3/0x2f0
-[  287.381373]  ? pci_mmcfg_write+0x57/0x220
-[  287.381374]  ? lock_release+0xef/0x360
-[  287.381376]  ? vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.381377]  lock_acquire+0xd3/0x2f0
-[  287.381378]  ? vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.381379]  ? lock_is_held_type+0x76/0x100
-[  287.381382]  down_write+0x3a/0xc0
-[  287.381382]  ? vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.381383]  vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.381384]  ? __pfx_pci_pm_runtime_resume+0x10/0x10
-[  287.381385]  __rpm_callback+0x8c/0x310
-[  287.381386]  ? ktime_get_mono_fast_ns+0x3d/0xb0
-[  287.381389]  ? __pfx_pci_pm_runtime_resume+0x10/0x10
-[  287.381390]  rpm_resume+0x529/0x6f0
-[  287.381392]  ? lock_is_held_type+0x76/0x100
-[  287.381394]  __pm_runtime_resume+0x68/0x90
-[  287.381396]  vfio_pci_core_enable+0x44/0x310
-[  287.381398]  vfio_pci_open_device+0x1c/0x80
-[  287.381399]  vfio_df_open+0x10f/0x150
-[  287.381401]  vfio_group_fops_unl_ioctl+0x4a4/0x7b0
-[  287.381402]  __se_sys_ioctl+0x71/0xc0
-[  287.381404]  do_syscall_64+0x14d/0x750
-[  287.381405]  ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  287.381406]  ? trace_irq_disable+0x25/0xd0
-[  287.381409]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Hi Matt,
 
-Introduce a private flag 'sriov_active' in the vfio_pci_core_device
-struct. This  allows the driver to track the SR-IOV power state requirement
-without  relying on pci_num_vf() while holding the memory_lock. The lock is
-now  only held to set the flag and ensure the device is in D0, after which
-pci_enable_sriov() can be called without the lock.
+IMO -EINVAL isn't the right behaviour here. Rejecting fails the whole 
+ioctl and prefetches nothing — including the SVM VMAs in the range that 
+were always valid.
 
-Fixes: f4162eb1e2fc ("vfio/pci: Change the PF power state to D0 before enabling VFs")
-Cc: stable@vger.kernel.org
-Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
-Suggested-by: Alex Williamson <alex@shazbot.org>
-Signed-off-by: Raghavendra Rao Ananta <rananta@google.com>
-Link: https://lore.kernel.org/r/20260514173449.3282188-1-rananta@google.com
-[promote bitfield to plain bool to avoid storage-unit races]
-Signed-off-by: Alex Williamson <alex@shazbot.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/vfio/pci/vfio_pci_core.c | 17 ++++++++++++++---
- include/linux/vfio_pci_core.h    |  1 +
- 2 files changed, 15 insertions(+), 3 deletions(-)
+AFAIU prefetching a range that covers mixed VMAs is a perfectly valid 
+use case. Today:
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index 13c223228c31e0..a8823cc77b998a 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -237,8 +237,11 @@ int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev, pci_power_t stat
- 	int ret;
- 
- 	/* Prevent changing power state for PFs with VFs enabled */
--	if (pci_num_vf(pdev) && state > PCI_D0)
--		return -EBUSY;
-+	if (state > PCI_D0) {
-+		lockdep_assert_held_write(&vdev->memory_lock);
-+		if (vdev->sriov_active)
-+			return -EBUSY;
-+	}
- 
- 	if (vdev->needs_pm_restore) {
- 		if (pdev->current_state < PCI_D3hot && state >= PCI_D3hot) {
-@@ -2270,8 +2273,9 @@ int vfio_pci_core_sriov_configure(struct vfio_pci_core_device *vdev,
- 
- 		down_write(&vdev->memory_lock);
- 		vfio_pci_set_power_state(vdev, PCI_D0);
--		ret = pci_enable_sriov(pdev, nr_virtfn);
-+		vdev->sriov_active = true;
- 		up_write(&vdev->memory_lock);
-+		ret = pci_enable_sriov(pdev, nr_virtfn);
- 		if (ret) {
- 			pm_runtime_put(&pdev->dev);
- 			goto out_del;
-@@ -2285,6 +2289,13 @@ int vfio_pci_core_sriov_configure(struct vfio_pci_core_device *vdev,
- 	}
- 
- out_del:
-+	/*
-+	 * Avoid taking the memory_lock intentionally. A race with a power
-+	 * state transition would at most result in an -EBUSY, leaving the
-+	 * device in PCI_D0.
-+	 */
-+	vdev->sriov_active = false;
-+
- 	mutex_lock(&vfio_pci_sriov_pfs_mutex);
- 	list_del_init(&vdev->sriov_pfs_item);
- out_unlock:
-diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-index 1c56c1df163cca..cda27d476d8597 100644
---- a/include/linux/vfio_pci_core.h
-+++ b/include/linux/vfio_pci_core.h
-@@ -80,6 +80,7 @@ struct vfio_pci_core_device {
- 	bool			needs_pm_restore:1;
- 	bool			pm_intx_masked:1;
- 	bool			pm_runtime_engaged:1;
-+	bool			sriov_active;
- 	struct pci_saved_state	*pci_saved_state;
- 	struct pci_saved_state	*pm_save;
- 	int			ioeventfds_nr;
--- 
-2.53.0
+region 0 (system) works
+region 1 (devmem) works
+for -1 (CONSULT_MEM_ADVISE_PREF_LOC) we should prefetch each SVM VMA to 
+its preferred location, and for a BO VMA try its preferred location 
+(which is effectively always local devmem); if the BO has no VRAM 
+placement, fall back to PL_TT — but no ioctl failure.
+
+If we do decide -EINVAL is the right way, then we'd effectively be 
+telling UMD that range-based prefetch only works with system/devmem, and 
+that a CONSULT_MEM_ADVISE_PREF_LOC prefetch range must not contain any 
+BO VMAs. That's a much more awkward contract to put on UMD, since a 
+range can span both VMA types, so I'm not aligned with the EINVAL approach.
+
+Patch [1] is not merged yet, once you confirm will go ahead with it.
+
+BR
+Himal
+
+
+> 
+> Matt
+> 
+> [1] https://patchwork.freedesktop.org/series/168913/
+> 
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
+>> ---
+>>   drivers/gpu/drm/xe/xe_vm.c | 12 ++++++++++--
+>>   include/uapi/drm/xe_drm.h  |  4 +++-
+>>   2 files changed, 13 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+>> index 080c2fff0e95..9430b2be18e4 100644
+>> --- a/drivers/gpu/drm/xe/xe_vm.c
+>> +++ b/drivers/gpu/drm/xe/xe_vm.c
+>> @@ -2495,6 +2495,15 @@ vm_bind_ioctl_ops_create(struct xe_vm *vm, struct xe_vma_ops *vops,
+>>   			u32 i;
+>>   
+>>   			if (!xe_vma_is_cpu_addr_mirror(vma)) {
+>> +				if (XE_IOCTL_DBG(vm->xe,
+>> +						 prefetch_region ==
+>> +						 DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC) ||
+>> +				    XE_IOCTL_DBG(vm->xe,
+>> +						 prefetch_region >=
+>> +						 ARRAY_SIZE(region_to_mem_type))) {
+>> +					err = -EINVAL;
+>> +					goto unwind_prefetch_ops;
+>> +				}
+>>   				op->prefetch.region = prefetch_region;
+>>   				break;
+>>   			}
+>> @@ -3236,8 +3245,7 @@ static int op_lock_and_prep(struct drm_exec *exec, struct xe_vm *vm,
+>>   
+>>   		if (!xe_vma_is_cpu_addr_mirror(vma)) {
+>>   			region = op->prefetch.region;
+>> -			xe_assert(vm->xe, region == DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC ||
+>> -				  region <= ARRAY_SIZE(region_to_mem_type));
+>> +			xe_assert(vm->xe, region < ARRAY_SIZE(region_to_mem_type));
+>>   		}
+>>   
+>>   		/*
+>> diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
+>> index 509202a7b13e..e159c44e380a 100644
+>> --- a/include/uapi/drm/xe_drm.h
+>> +++ b/include/uapi/drm/xe_drm.h
+>> @@ -1075,7 +1075,9 @@ struct drm_xe_vm_destroy {
+>>    *
+>>    * The @prefetch_mem_region_instance for %DRM_XE_VM_BIND_OP_PREFETCH can also be:
+>>    *  - %DRM_XE_CONSULT_MEM_ADVISE_PREF_LOC, which ensures prefetching occurs in
+>> - *    the memory region advised by madvise.
+>> + *    the memory region advised by madvise. Only valid when the target VMA
+>> + *    was created with %DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR; rejected with
+>> + *    -EINVAL otherwise.
+>>    */
+>>   struct drm_xe_vm_bind_op {
+>>   	/** @extensions: Pointer to the first extension struct, if any */
+>> -- 
+>> 2.43.0
+>>
 
