@@ -1,187 +1,129 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022077.outbound.protection.outlook.com [52.101.126.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45B82DB7BD;
-	Tue, 14 Jul 2026 09:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4067A43D50E
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 09:19:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784020756; cv=fail; b=c5otyO0CCp/FqGko6YFD0soqsut3ng2zoDVdxmQQL0gpHVQWZ6j/le1Vg/3W8g9gg/BS5zHncPWIyhtMr88j/oGRyUqi+zbtJtt+/ic1Z/T1W9toBuMsxmaQpovn+kVWOXhtQmuuKozx8PFY6eC1Rdl8P4nS9H0LKmRS6scBd2w=
+	t=1784020768; cv=pass; b=jb0UZ7FCoGL+88vQKL/bj6gT3FnoV2vzF3CQz5jr+A4V2oZb2HxVuQtZPXFFHLyKJ/o/qNnHvf/DUg3kQzhzT5Smm93NHwpBOXGaqE+paowoNypEWj0LQ17VmfQTvVyJDyGvg0S3Zq6R2nJegXTHOouu+kOYgDwvVyR1YlSakmw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784020756; c=relaxed/simple;
-	bh=Cx5lg4j784fg62doZ0WootStYcgiz/YdvWhb2d2ogto=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=tsLJ85ww1kxPMeXmwUrzvfgLfcHMGm+NSi8e0RXqkv6t8kVICCeR6hyruUioC7tAr0IytZVKlZ7B+L/jwfDcnwlGwM7BWUAWzeieo2RITvpB9Kl2s2UUKi8QGmn1X4NUoMOaY8PrmgjR+B4WkFjVj3Hxwmhe3xL2T66K2rrOFZI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=smu.edu.sg; spf=pass smtp.mailfrom=smu.edu.sg; dkim=pass (2048-bit key) header.d=smu.edu.sg header.i=@smu.edu.sg header.b=fcy2+L+J; arc=fail smtp.client-ip=52.101.126.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=smu.edu.sg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smu.edu.sg
+	s=arc-20240116; t=1784020768; c=relaxed/simple;
+	bh=1+6OfoIbXmuIEVoIyX1bMPQc3AaQ9LY/ZItgZpQFXXc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UgbFlSMXodqeiJBOoxBUpcQOD9H6r89xE93QYo4Tnyw38/BE/1FxEwIsFIx0NTWzkesT4arHX13JKSkK24wIrlLrktKsnnb7ZYEbPLEiahWtFzqTq99hVLH96P2YjNIUO1Y1wYV79jYztbGYCsDIjPWt82nHfLyedHwQWrEqNzs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TMDKrAY9; arc=pass smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smu.edu.sg header.i=@smu.edu.sg header.b="fcy2+L+J"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x99NGkXRq/BhL92KnJDI6Ql10GOkwQenH25rAStq2dIBXKnfERMhSdwgtPoCsgsce8Y3vaoia0SXCkhfRYZTIE0nLNV99sjW1oQs9RoI8ZC2LfYy7TGeQZ7mGNRSLzt50uGDLahwcJ7opuiZTNwacncwPMbnac6VBslpQunarKqBhSjFFElU+wRFQDjOd5XxB0pFim7SwN9EgYXDeRHmqzdgaN5ENqeVvwq6U2O/Ff0o0TTEgh+46gDAtZ0V4aiJ80EG9tQPWXLDPiW/d/pGcHEpQJzyrOGgWUTeUfu0p+tU79Z5F3KiPJ9Z6O/vt++RPksa+i2GHy24Ehx2EIJwQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kFEPdT5nteN2CBLjqqc5IuMFb8hVYbt1UJf5qfE8+fI=;
- b=UXaq9i3g/bgALocrA+d6jCRSIcOwb8+rfwgQ/CXSoxwM9/eLpXfgoDdiX/Tkw7dhXPs2f2wq/yeaBbJs8R1FXZUP7E95oMF7WtzEOc+c8ysILtOgySLgfAibOnsJSR92X5im5nv3B0YyJKmTSyRl5QK6AyYco1DjX41xxwdhTW7yU3vdF0inCSjeRrVOu6EYW1sdirURJDAvq6lDN2RHSWUC4h+niZ3enTS4QMnjegAiHt5vbj8NSb3fm+1kL3A/7NrS3XLVJYiZ5Sy67oPCkkiU3Zr24DEuxUagOg4a80Mf+D15DbsXB9AQXXaJ1YBGBqLPSN4zgAWRXe4KsQuTjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=smu.edu.sg; dmarc=pass action=none header.from=smu.edu.sg;
- dkim=pass header.d=smu.edu.sg; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smu.edu.sg;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kFEPdT5nteN2CBLjqqc5IuMFb8hVYbt1UJf5qfE8+fI=;
- b=fcy2+L+JyzMG57sL5eLz5ZZoTgLpcodcYxiwZBWL64CbFqvrN82KuOSXhZZfZm3xP4YFBhO7KTXMBP4nekaOcZBEA0DwaT7U8LbpN2JJDIpaBXuliyOT48UTWkCRFF+msu+hy/XZnabcNHLjVpQ4FQKAAeJeMSzmlfL6fU3RZlG/yVHLJjT1aSF/1YIwd6bb4bJIL38RpydNx/nOQdQdUz+UW0RdW5GY5kTBJohs4DvH4zmAJmzgsl66aryxgZxQQBQ+rNxLg6ZA0L9eFmsrccRcc/HDEklgdxOo3EMYQUVY/H0PvZAlEtlpw4MHGi/ib1R8rLK5FQQEKnEA6q0u2g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=smu.edu.sg;
-Received: from KUXPR01MB7791.apcprd01.prod.exchangelabs.com
- (2603:1096:d10:3f::9) by SG2PPFA603A64E4.apcprd01.prod.exchangelabs.com
- (2603:1096:f:fff6::440) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.20; Tue, 14 Jul
- 2026 09:19:06 +0000
-Received: from KUXPR01MB7791.apcprd01.prod.exchangelabs.com
- ([fe80::6bd0:d704:7d90:a595]) by KUXPR01MB7791.apcprd01.prod.exchangelabs.com
- ([fe80::6bd0:d704:7d90:a595%5]) with mapi id 15.21.0202.014; Tue, 14 Jul 2026
- 09:19:06 +0000
-From: Huihui Huang <hhhuang@smu.edu.sg>
-To: linux-wireless@vger.kernel.org
-Cc: Huihui Huang <hhhuang@smu.edu.sg>,
-	Ajay Singh <ajay.kathat@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: wilc1000: validate assoc response length before subtracting header
-Date: Tue, 14 Jul 2026 17:17:58 +0800
-Message-ID: <20260714091811.3596126-1-hhhuang@smu.edu.sg>
-X-Mailer: git-send-email 2.50.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI3PR03CA0013.apcprd03.prod.outlook.com
- (2603:1096:4:297::19) To KUXPR01MB7791.apcprd01.prod.exchangelabs.com
- (2603:1096:d10:3f::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TMDKrAY9"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-384422b05b5so549385a91.2
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 02:19:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784020766; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LAS3sCcuKuuATQp56smvBodrOo2dSM2Fqe6xLxbUCbkjtFUzDg75DbYaVgfWtEQtRO
+         SidNJ5oRCx4J9WOW44zEZrMZjnC1vKuC3XOw1H8Z26UOTQAS0TPiDd4OA5SJQbPqZ5ad
+         OVzzbmOM6jc4cQ+9j+idtB9Vxi7M04QrM8XIRhWcXDY5WijjlBh6f8FbQZIc0hfgdAeK
+         /yp6wPb2EYwE0dBPbwILIhDf0zDNcO1wrjSjXTa5O9hRewrF0wTUGjtocPZBhlyK6xyu
+         8RovqWBCYxWFBL+qVlULH9gCxG4nOu0MctkWBJnT9pVpMqucFJIXHqpcTsBPsg7y7l/b
+         RRAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1+6OfoIbXmuIEVoIyX1bMPQc3AaQ9LY/ZItgZpQFXXc=;
+        fh=oONkpLKj262pDpnWc2kFaZwKOcZUKzJUnavrmtlwcjE=;
+        b=HHcoX2G7gNt80LYqOECnT2MK5kGktsiuri0FV+NJ9PTSV9jyr66lbntok7qk0q78uG
+         JYIVp+LFhGJP0y0AOJZcTr+aKs7u724HufDNHz6spml+1c1xQmMpOLU/RJ4gRNQ3HC5b
+         BbWJpLxx4uNfVSYl+t/UMdtbCtCKQL2K/Cd1hx7X1p3yHLGHluYVGPTj+n+kWygNEBGO
+         uvla0E7GsmE6wnQoIqGL1iuKXIXZgjv5mqgxo8DdL4AX6BQMgvLOt1unLuouxlrkcb02
+         gQt6WcZFANxl0YnRhTjpewVupIBqJimKIJfQDBduZZqRF4+idwGdXp8nHYtb9FPwcrxj
+         E4OA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784020766; x=1784625566; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1+6OfoIbXmuIEVoIyX1bMPQc3AaQ9LY/ZItgZpQFXXc=;
+        b=TMDKrAY9USx2GyQWgV48IQXQOMPhSoywVqYLHrJK0vFg8F4SluLxulW2Ic1qDCJGXN
+         2+wSasQMStQrjT1KgoMQRIOXX3vCn42S9vS6p8rzI+yyMtWuhXpyT/5sP0AHkrF1F9+q
+         h6icAzuqIMdWZimxjFRO1yL+Iyx1wervdi7gt1xMX39/bdr2JeHgdkhId0Odmvrs62/j
+         /xplJ/SIr0pGLSgp4G0aQ8l2OCuqpVqf6fsz0Ilgt+3NeXtBzdhmiiXl22AsD+t9nysn
+         mNFkWCoAo5o/keiTHYZZKGm566PAuPSvk6Ac+z8u0jynsO7oXTBJUa3x51UFNu5r753i
+         pBQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784020766; x=1784625566;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1+6OfoIbXmuIEVoIyX1bMPQc3AaQ9LY/ZItgZpQFXXc=;
+        b=UcUV0INx4CEukcWrcKeRBFD0aO+UPXrnEYUpuG2tQxFdiBO/upjT6Cp+M18PEX2SHs
+         jjp/UWFdgVvkThfN5DJSzlxK3A6ko/a+rAs5JstI6skcEbSFoennYqYMuo/xwbxHj+EM
+         RSzZ34eWWLxp+NPXv0THLu6exMTrNCZKMY6JjXHjY/Enb1KLWSaopLt66S6wLOI1yZKk
+         ws2SME05n6hRycQSw59pgEnJbQE3Dw5b36+gyaNa8X3+6xWxiRCLO8QeIqEsJropwkoo
+         Yi5e3iVVmb0oR1blL7uDSlxhBKqY7/FhUN3QNLG2YfniYTFujshXqJY7s8NY1zg9oh6L
+         JYpA==
+X-Forwarded-Encrypted: i=1; AHgh+RpIRItMt+1snEtf6xFR3m0idPjo4/mFGc4JPGZ4C3w6NfEhRmBzO9bvvjwiAO48CP4OLZwC/tA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyG1uBH8S0s+6nH1XV5lYYz62ak/clodvpiTzv750mPG07fYt/U
+	j4DAbaemuDvib9L/78068qOOoIXzflcHAJgut9+DELPQ7wv1qm9s1y9pCQPhfgdwy2u+ykfPTCf
+	LhW6LXjDs91XHvPjt8su3/d1D22dyXHI=
+X-Gm-Gg: AfdE7cmO4AQ3y4GA9u5JJ1hY4lh5JGGaHM1tJymr8IAaCU2fe9dWcbvAAiMChp4h6PC
+	il4VEQQQDa+OA6CfEte8dPSyY+qWcT2HguD7tvAVEM0um2kvgXig/jOi0v/2/0dG7nlG/uQIrqM
+	83wfetk0ZGn92LdL+DXm37ikCZCYvkRvB1m/AsJXv2n5hmP0jZ6/kEdZOayIudIF4EOWuFwO56Q
+	AD8AivPPeVACIlWLHk9tnSiwEh9DZnWkq/DkTiyZX8CFCCrZ0z6CuhPGzQUBG4RJpN5IVSswuCC
+	RYe1r3jzmSRhQsEwaxTeXrKkN+QNFTbp6yxC0YYBFIHXXbe2Rb/ns2tqSVMd4QB5jo8Mvmo0aPp
+	+BPnMkHk0mKDMJlQhpFPpPSs=
+X-Received: by 2002:a17:90b:4c02:b0:38e:bfe:81e6 with SMTP id
+ 98e67ed59e1d1-38e1a9d90f9mr1536708a91.1.1784020766402; Tue, 14 Jul 2026
+ 02:19:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KUXPR01MB7791:EE_|SG2PPFA603A64E4:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f313fe8-f327-4fc8-7477-08dee188f42b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|786006|366016|52116014|376014|23010399003|11063799006|56012099006|18002099003|3023799007|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	e5plu51BadXL6WO3ucaSjoSKTBBsDAw5YpOCBz2uLPHxcppWqO3t+L5SOIq8FBB9HnNGu8bkiVFFPIn07UtDpHTr7tQUU5YSIjKxJ+IDLvw1aseeDcj0R4bDEYWK4SBcA3unpOCNB/m6CuHSujhPNnJQytooz/aRo/hTfEGzGH9C/hVO6A8az6pw8rb7znqrE7BNzhyRedjPSnVN7tAAnub5WGdeWa57Y+7BpL03iN5Ht9jtyQwOd3UE3f/esIWZMGOdo8eP7KxgoutCUqxY85nQBEhpfO2g33tCLtTvSnFsTnQ7deozlxodj8Z78l0SwTtmO0Fxq9GMdl8jKNZgI8s5Z6f1wTy2lVuWlZkXods0ogYTA7UA+rWTPamThwe3sg3SOrTg7/QDYQBOodrK05tHzJs4Q2yS8+WWx1ruJyPoW5f9/+gXNoken7kotzr68i9LV7TES16LAzYSnB6ZMItK/GK1inhJHvW/GpruNp0+WTwDs8AWK3HixyHwhBIgXKaZEJc6BTo7SYTNaorSjP1Qv+T/iMDFBZD/8+LQJvGtsbRDaiV6MVdNF/uuxxuWbI+OUypCsIky9i44rHpsy4pBqlRKcDjW8F9T8L122I670lATYdEht5aywCpWLLnKuqootaII4iNS9eDgbeZjZBO352kLIOjqpzsCtF+DAX6MGClHEOSnVtVTR9VtXC1k8Y/OCdVHpSWyBIhBIeJ8wcTD8RkrNIoa5WJORzYTidQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUXPR01MB7791.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(786006)(366016)(52116014)(376014)(23010399003)(11063799006)(56012099006)(18002099003)(3023799007)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?iml3W1VX12ARo2/bYVqvqvujksvFyeQGwexKNlOvA9jEfwkjDXUG1g2Mj+fB?=
- =?us-ascii?Q?g/+eKsculispi6kdm4IplWLRSk44RZhGZadbdoLvvOA16xIoKfcFBonHvL5h?=
- =?us-ascii?Q?W674y4ACiC9JixwxDHlGwXR8BnO/+JMfDup8CXE7f6tBfB0w/4i1QRxarX9Z?=
- =?us-ascii?Q?sSu6TINIJ+erHNv/XeT1VJKpacV9nDToKDmAm+JsYMf/iXWpfzntb6uPVEE7?=
- =?us-ascii?Q?zOsejv3lkXm2plCbocUuEhprCFm6Gj+t1jPX9rDIuJlL8/oHhnKtHz4vZpO3?=
- =?us-ascii?Q?cmVfo4Lnkm+8cw1Rxb2kvXLQm6JAKeXeXNXMa+ENDvSpwyZfoUPT8EfSE/Ek?=
- =?us-ascii?Q?9lB+UCvIJ+8Lg3UYUnlSU2iFsSodMnr6TKF5Dpm0pjYLIYthX4NK0/d2zati?=
- =?us-ascii?Q?5YzM84HAYxUE2vZgpudU128P9ZbNBm4567RHrUganXj4He80SV4wpvC/8aTY?=
- =?us-ascii?Q?NaxjFVKY9livBfXC2GYNuyYdIjenfWE8TsbtqB7wij3H2iPRzuqk6/FpSAu7?=
- =?us-ascii?Q?0evaEe6ZwmtvmkQma65dH4bq2rtuyb6m7rFypSydudsMb7T50yMtPsCW9lcx?=
- =?us-ascii?Q?sijkVrj0pShhPdUFBotFDib25p+hoR5S2ZbtVFLsTykENA6bAyLGBOniFZhh?=
- =?us-ascii?Q?GchkqRaKI0RVorBhietnz1ZsrngUctBej10VV4unLo0ggd33jqpjK1TVznSC?=
- =?us-ascii?Q?8MDJVvCbfO7B5zn76uZYVvQJk+Y19ySOcsOcspeSvsTQP91ZqQ+1LjsraTm+?=
- =?us-ascii?Q?+zhNWWDcMM5G7w+N7RhyD3ZkHNydVjUw1s3+SL9A7DMrYrlZAI6R8ipVavhR?=
- =?us-ascii?Q?992s23uR1krXvSGQt5uSXmdS9TzrrZNCBFw55aGxvVjVhjYk46HGiicoTjFE?=
- =?us-ascii?Q?xg2fnTQ905vy3ixqRlbFx7DN+KN4P625YOtnSHL14d7XI4qOCL6AAgE4okNe?=
- =?us-ascii?Q?XhDbtUleaDKblZ96wtRIWD8OzDvVmJRhs4Tt9kWYX0xhiBrPyk4yZ9DkzfBw?=
- =?us-ascii?Q?PKfRrrwZPfaD3VExi+Mx05+eh6Ooi1vkPRjL0bOihGD69D0KXvsybnFSo1yy?=
- =?us-ascii?Q?CYYgLJjrwkC449L1apxDqSKMcroQqzSPKXkuxTSXQWO5dJzZjPsysfbokPCx?=
- =?us-ascii?Q?nIezjaJNVmp2kGCk2ZIbbEIJ40J2qSV60OViGFAoCFDRYW/Keej2MkPg9zNp?=
- =?us-ascii?Q?NmDtF4WmXCL1VTfYAs6/IYXFOZlyojMmqbUSYLPZd7GUwvJn4DPAUyORn0ec?=
- =?us-ascii?Q?MlNZDEAqYfcJ2rLwwHWUmmIZp2CDf9b3sZdUWIbUvSclGCisoPI0fG6rCFKe?=
- =?us-ascii?Q?+FRI+0b/ZRyUCSoOrGMEYB02/+tSUVzDyxURkNAJAA/YYNX/ynW0HpfVya8E?=
- =?us-ascii?Q?p4YWK/e2N5InyxIr4vtTn8t4zoVziZGOJEz5rUbWT7xTyRE/rqDnw+/5ZBRn?=
- =?us-ascii?Q?VqKqu69UXniXX9QcXCZLynHuAw5mBPIjqmv0oNBAolByPWTlGTaMTeFYeZtO?=
- =?us-ascii?Q?vIOf9zBVj/xIZlCSkRG4uSsOUuTBU9VlBrZTm/NcSvrymgClkj9/Y18hLHG5?=
- =?us-ascii?Q?pSIAY7nw/gjgWXCyLS2YxYeZD9GLmJXv4MRyooOZJZbl0lWfbk+V5ZCHbN0i?=
- =?us-ascii?Q?YUfSv+X7kPVBELldkqbSqP8wKEmUFJ+wwvlao8JDeKykivbc5Ih3zlXTQJQs?=
- =?us-ascii?Q?7iWjcovRUSJilUJU+dUy/BgrZxmrd1c1qT/BbUyKvR7GIVGwdB3/GQMqsMNd?=
- =?us-ascii?Q?CqoBXpQpyw=3D=3D?=
-X-OriginatorOrg: smu.edu.sg
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f313fe8-f327-4fc8-7477-08dee188f42b
-X-MS-Exchange-CrossTenant-AuthSource: KUXPR01MB7791.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 09:19:06.5410
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: c98a79ca-5a9a-4791-a243-f06afd67464d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sJwE+ygbK4fERQjSaUNFNLgbh4lu0NOXzWuienbZ9FSMl+uXxh0e/KG1M2/BzYg8x1WaI9el8qoYl1bIinjIuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PPFA603A64E4
+References: <CANiq72kHbVQfNrum5D2a5sCd3mFQHNtigrQxP1WW=YcggxA=WQ@mail.gmail.com>
+ <20260714083709.69517-1-litvindev@gmail.com>
+In-Reply-To: <20260714083709.69517-1-litvindev@gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 14 Jul 2026 11:19:14 +0200
+X-Gm-Features: AUfX_mxhVU-rpFvO4T2J_6Fnb7m9tCvhM2LiAWJbL3xu2TTk-JxiIQfVMXQWuLg
+Message-ID: <CANiq72k0RbkWk=8hiNzHUmFWr=6OA2DBHAUew4OfZb_Umb=6hA@mail.gmail.com>
+Subject: Re: [PATCH v2] scripts/tags.sh: Add support for rust source files
+To: Sergei Litvin <litvindev@gmail.com>
+Cc: ojeda@kernel.org, nathan@kernel.org, nsc@kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-wilc_parse_assoc_resp_info() computes the trailing IE length as
+On Tue, Jul 14, 2026 at 10:37=E2=80=AFAM Sergei Litvin <litvindev@gmail.com=
+> wrote:
+>
+> Cc: stable@vger.kernel.org
 
-	ies_len = buffer_len - sizeof(*res);
+To clarify, I meant this one for the other one, i.e. this one sounds a
+bit more like a feature.
 
-without first checking that buffer_len is at least sizeof(struct
-wilc_assoc_resp) (6 bytes). buffer_len is the length reported for a
-received association response (host_int_parse_assoc_resp_info() passes
-hif_drv->assoc_resp / assoc_resp_info_len straight in) and must be
-validated before the driver accesses the fixed header.
+But I am not sure -- to decide whether it is a fix, it would be nice
+to get a description of how each of them breaks something, to decide
+whether it is a fix or not, e.g. the other one sounded to me like it
+was a mistake because it added extra unexpected files (and I guess
+that could in principle confuse tooling or perhaps makes `cscope`
+print non-sense in some cases), but does it?
 
-For a frame shorter than the 6-byte fixed header, the subtraction wraps.
-For a four-byte response the result is truncated to a u16 ies_len of
-65534, so kmemdup() then attempts to copy 65534 bytes starting at
-buffer + sizeof(*res), beyond the valid association-response data
-(CWE-125). A response shorter than four bytes can also cause an
-out-of-bounds read of res->status_code at offsets 2 and 3.
+Similarly, for this one, what breaks "in practice" for the end user?
+e.g. is there an error message, or does some workflow break, etc.? (It
+would be nice to show it in the commit message if so.)
 
-Reject frames too short to hold the fixed header before touching the
-header or computing ies_len. Also set the connection status to a failure
-on this path: the caller falls through to a
-"conn_info->status == WLAN_STATUS_SUCCESS" check after the parser
-returns, so leaving the status untouched could let a malformed short
-response be treated as a successful association.
+Finally, if this one is a fix too, then this should likely has the
+Fixes: hash too.
 
-Fixes: c5c77ba18ea6 ("staging: wilc1000: Add SDIO/SPI 802.11 driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Huihui Huang <hhhuang@smu.edu.sg>
----
- drivers/net/wireless/microchip/wilc1000/hif.c | 5 +++++
- 1 file changed, 5 insertions(+)
+(By the way, if you send a new version, please Cc the entire `RUST`
+entry if you don't mind).
 
-Confirmed on Linux v7.2-rc2 with a temporary KUnit test that calls the
-static wilc_parse_assoc_resp_info() on a 4-byte association-response frame
-(status_code zeroed, i.e. WLAN_STATUS_SUCCESS). Verbatim KUnit output
-(timestamps stripped):
+Thanks!
 
-  before this change:
-    # wilc_assoc_resp_short_frame_test: ret=0 resp_ies=ffff888008890000 resp_ies_len=65534 (want -EINVAL / NULL / 0)
-  after this change:
-    # wilc_assoc_resp_short_frame_test: ret=-22 resp_ies=0000000000000000 resp_ies_len=0 (want -EINVAL / NULL / 0)
-
-So a 4-byte frame drives a 65534-byte kmemdup() over-read before the fix,
-and is rejected with -EINVAL after it. The test also asserts the rejected
-frame does not leave conn_info->status at WLAN_STATUS_SUCCESS.
-
-diff --git a/drivers/net/wireless/microchip/wilc1000/hif.c b/drivers/net/wireless/microchip/wilc1000/hif.c
-index 009c477..60fe5f0 100644
---- a/drivers/net/wireless/microchip/wilc1000/hif.c
-+++ b/drivers/net/wireless/microchip/wilc1000/hif.c
-@@ -600,6 +600,11 @@ static s32 wilc_parse_assoc_resp_info(u8 *buffer, u32 buffer_len,
- 	u16 ies_len;
- 	struct wilc_assoc_resp *res = (struct wilc_assoc_resp *)buffer;
- 
-+	if (buffer_len < sizeof(*res)) {
-+		ret_conn_info->status = WLAN_STATUS_UNSPECIFIED_FAILURE;
-+		return -EINVAL;
-+	}
-+
- 	ret_conn_info->status = le16_to_cpu(res->status_code);
- 	if (ret_conn_info->status == WLAN_STATUS_SUCCESS) {
- 		ies = &buffer[sizeof(*res)];
-
-base-commit: a0d82fb8505326cbc53dc9a0c08f97d11197bb30
--- 
-2.50.1
-
+Cheers,
+Miguel
