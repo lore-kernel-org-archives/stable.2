@@ -1,76 +1,76 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24B63B14CF
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 11:47:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181AF383305
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 11:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784029655; cv=none; b=mp2OQvSthwgwuqg4DC8+8zpwJLpCBZEO6mfOEPKk+6VslpsGll92q+fhRaB1AAq6iKtzyR0qNukAR6CUIBtSsaJ24Ii7dF3u2PFPIoTvBuey7uhjZ0GfwcweYANFixn/RC+d8x7nkzf79GEOtQ0lJATLRuN12OJJ0uWW5JLPhC4=
+	t=1784029750; cv=none; b=a1cFPBwCWdcBkTgLAcoWWXLtET4fx5pKwMjqPQ+kdx5BBybI+LA6MG/Vvxf4lse4xoo0lVaxwbf8FFQF6jWBVAPjN17M2Le55tkbZUJlSlM3/K3VcRRSfizloPr2JZcr2+p+CzcDrOlmTRymMBuPrS1QUZg0gu4tdh0WLWGJSY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784029655; c=relaxed/simple;
-	bh=/CcXiG0JybDQ0pTlwzD5PTutDSZdgoLglABg/Kf5tXg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BVX83iHviC/em6u98rdXgpSm7r3DZ7GY54ULdfrQiWpwPZO6BcdGYVAbGd5x0uwPjNUVy3xEjY2mFxqZRFAnQ4nyMC6ogb7dYzBJSeUCFbjoKEeA6MZUumC8WeNCM9v2vnB8ruLZYpciFeCNiRLeNcdE+jvJ8HaxgM0/Z/XsCDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YtT5Wk+7; arc=none smtp.client-ip=209.85.219.54
+	s=arc-20240116; t=1784029750; c=relaxed/simple;
+	bh=ZGYvGbRP+oXuIcup1YsFuHoUmTi9k6xwxTD9TCdJ5qw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sUIokS1gwWOlghKeKASoehrtRmoFeBwFAnPwnN5oP7p/xo+yqfJb3ZqoQXvxXVJGwT3XNxF2YHxrWQtOTWqx9fCoScUmgTM34N2y2AEmu3uayS9/JCNz8AUUZ29DhrqTt9ESw6y/Yg8eRU/l0KEFd9YmxN4R08rpPo+MxLCmodA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=svBsPqnv; arc=none smtp.client-ip=209.85.222.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YtT5Wk+7"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-90327237340so6337456d6.1
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:47:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="svBsPqnv"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-92edb12cdf2so55088985a.3
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:49:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784029653; x=1784634453; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784029748; x=1784634548; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v6XTzlQqHFw6xqg6gEsB8Wgx3QjcRA5c6qOuB7Sr3eQ=;
-        b=YtT5Wk+7BUz82f95gpA+vHTnjeV0e8OTV1AYCgDeSsykVP0oEEj3TXyXCRhifvpTpx
-         2BYspo5sYtPMN0PLTtdEm2o4YPWR2LbkEm11kzHfE9K6lOjp5b6KC0zBmKSKTbxI2dap
-         uSh+yu08f5QcMnWZ8UPb0zYhxXaWWRg19G1qRZWgeQgDjgmhmTcjnslIRq77F1T8sMrG
-         qeER2d8DwvBYfk7tT1AjYlPxDxeEkUK06FhcOCa4nYfDYZV43zRFObydl41JFqoqoUcC
-         XXqFxUCckZH1GeKg2YkTW1RgF+MYxgl6mOiLCynbYUauisfYsARq4B/vQYtjgXDCAN+F
-         dZQA==
+        bh=1JUpepjd+suSCp2cPlkh7EA3gKkiN6bvfQtDVC0IsC0=;
+        b=svBsPqnvkfvOh7NfF2v/W2O1G/xVRiQ1CYms/5QQcPbKrP86JXGBzWXil0GWK76PlT
+         iccXMG8hC5ux0WGtLTTq/WYtEjSXbW+RpKgXq4S2EkrIDfLayt8/q+CFdCWxc3ZteKYS
+         Qdos3iQqkJDuwoXnCh4iKL8qW171KTCTvJjOJxxfb+EytwDbR5fEsF1THk0HOSOO/0C3
+         ZNtTV5EPnc6IWSdHr4sTqOu9PEBvbyP/VNDk8lDmAIbgyuPtz1ShP8DbrTNDLRGykPn2
+         MBQ23o24jGX/SpuCG26KYnEmMY1rMtseq2A0CCWGf37ry6ssuWf9sng86RBaES8PlhZ8
+         LOiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784029653; x=1784634453;
+        d=1e100.net; s=20251104; t=1784029748; x=1784634548;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=v6XTzlQqHFw6xqg6gEsB8Wgx3QjcRA5c6qOuB7Sr3eQ=;
-        b=RgW7kpsCavS7Mri2Kw4MR0JJtzVV5LHXQdfJ0f3qdkkUA7c+vEvUQN0ZfbI2JsdTI5
-         r3BU0qLHL63ngj+n6BrHxYjmR0l10jHg7yyhdzwLN1AdVcHwFRckv7KiOkJAho73O/tK
-         7WZ5ZxRABxL5CHoL8RJ/JZWypiS/jpcHx4M7ML0cCkbkvSkw6uY2rsSipdsiaj/fg/kP
-         4+yR/p17+pPCJzE3BzUvlYCvu7VCMiuOwEjHsxlzub3NtTJo/T0gRUxVIXYiTW9pBWsO
-         C+zU6vRRgMMIDst3H4jMglQsHiFCU+fvg/jDXxchKkUC9v3Iq0/RNbzKslbvdbtx7g9e
-         gmxQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqqCm0X9bj3zp38gTS+s3e98UQ/lMURzJGHYEtA68MJm55IFSq1vGFF2JYrRu1kyVAX0dufEHE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYMT2VbziLvf0SwwFffyNm2IFi41H3yaU5sM3ongopfH+yXa0V
-	NQbxM4jusP5/T1hAJxKGU6YvFxaUt7T6aJraTK5H1PlbndmFE5m7T4FI
-X-Gm-Gg: AfdE7ckv/0Ew7AeqRzJUpmRUy8vSPmfps4z6am4OGpP02tiED+2v7XydoNvKbouVTdd
-	uEOlMetbnUDOvA0L5A9RCu4a6knMFvXiAO7vTZIK5S0/bsnPuQ4A3+QccmtcboNNbHR+lDhK1Ze
-	YGWBDEHmPZJ7Pe1y/AjlUCNc3/r1kZjL0Ze6UFKKn7r71IRMpG1S7osYfJ+wDYN7zbcg4lTwMbB
-	PXfzKzjihagXBVB7CcgBkutjN5pbCvK92a92jZ9yyomUhjt4IDjz3OIcJEFcPfgI3kTD5uXt9vl
-	ZRiXvidZ5lVrgN+Q1tPtpUdcmshvX7ymLhRjvnkuj3d6f9wix3mAIWVFT/taDNIXzYNw47tHbZM
-	7YGOrQmKb8iXUrLvnmL2oBDGXiJAZLEy10c+6dTl8gnFlzMYu8eLgZGT9PfteqrnsExjIKq8PfY
-	FxovMNo9eg0imeUSump0mumJKeHv4QHmo0nutP5Y4yb8MWzp18zcv0IDeKdH3hyv/ywL6VeIsW9
-	JwOB/ZizA==
-X-Received: by 2002:ad4:5fc8:0:b0:8df:7b64:fc4c with SMTP id 6a1803df08f44-904167e20c3mr138859676d6.22.1784029652626;
-        Tue, 14 Jul 2026 04:47:32 -0700 (PDT)
+        bh=1JUpepjd+suSCp2cPlkh7EA3gKkiN6bvfQtDVC0IsC0=;
+        b=ghv7+WyyczXY65PTG0Yc4UKvAgUSnfwQwZNSEV2zitLsya3lOLkSiN7OXA8yC9M3iF
+         yC/s7RgKm+Ze5li67tz0snuZuwtqS1IXBCVmlXaHuoRlNZX1dr/FRhbmydwrliSEcFec
+         ALK1BVH9CVgnFJ5upH45LFyM3g08V9J4uouOnqOrSldS+It8GtGdII80gGRJ+LkVr3yr
+         vXHcR9HT1Xo46TLwN2iC++cch8zsXaZ7uLhQGLk+/5+FZ+/ZiGUtk0Fymj/fRABtSAcx
+         wtHRa5cGIOFEupzbgGivpfxniSgswBJIKXpydWmPjQGURU6qotw4fr0ZzaBRnCERMm82
+         rg0A==
+X-Forwarded-Encrypted: i=1; AHgh+Rrcutru2gH8MesjUKNNBvn5JPcU3Al56n/pd1uaXBeHwkuQKffP/K7AC5hnuectk4fFW2191gM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwrtzINojVx9vE/rTxt89Cnm3ifmdaEOlUDYrukLBpZQuE+lxZq
+	Js/4qpERiDU0/0oq0DKpTAoFhR7Yl99DC1Z4lE2E/NBGU9eKL9g7yD2b
+X-Gm-Gg: AfdE7ckmZ2bUfw7IGcSGMmXIoGeFaGzyz7jHBa4ZbTTS7knPchY0aRbZqaBUtNBuob1
+	g/5cHrXPpK0HiHB5anIrQRnY2VJkUvLg4fvt4Vrd/sikUl08Y1TwkdO4s5QQtukmfNtDo1Yi4vP
+	AMgELP/rCw158BWRQZ/bDDn5Sq8dvKjgsu8uHty1mEkhYSOj05IIGFBQBTC5yym/+kzU1ZVm/eO
+	uZdKh5Lbc3hbDw+PfI379cSSK1pIxL5Bl9v3WLNi/kvKiuAZMeeVRXuLT52Ijo14dbmH8XKd8Eg
+	v8/MjaDCbiS/lQHTmf07eUm/wvBqZAlpb2RuwdO88YtXSdE7Ham8ZBP/me9VQB+E4mrGuOESyFb
+	wdCiNaFE7QFFNI2jkX5RFkYm0PBhgJPlbevLguLPvG0BeE7mihv92uL4V4aZC0O/dUl1wgs9WFt
+	bso6ar7AcdMxA3A3+fLfuwWJyWl8X5JV8di7eEM5GnA1hA+gmGZ5eIirdsEhbdEVfa1mVpKQsWQ
+	O42eNvTrw==
+X-Received: by 2002:a05:620a:258c:b0:92e:54b1:2881 with SMTP id af79cd13be357-92ef2bb787bmr1289546185a.16.1784029747886;
+        Tue, 14 Jul 2026 04:49:07 -0700 (PDT)
 Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9063df4319asm64144136d6.38.2026.07.14.04.47.31
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5baaab7sm1500521585a.19.2026.07.14.04.49.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 04:47:32 -0700 (PDT)
+        Tue, 14 Jul 2026 04:49:07 -0700 (PDT)
 From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Gao Xiang <xiang@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Yue Hu <zbestahu@gmail.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Sandeep Dhavale <dhavale@google.com>,
-	Hongbo Li <lihongbo22@huawei.com>,
-	Chunhai Guo <guochunhai@vivo.com>,
-	linux-erofs@lists.ozlabs.org,
+To: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Antoine Tenart <atenart@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Tom Herbert <tom@herbertland.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3] erofs: cap LZMA stream pool size
-Date: Tue, 14 Jul 2026 07:47:29 -0400
-Message-ID: <20260714114729.3760594-1-michael.bommarito@gmail.com>
+Subject: [PATCH net v2] ila: reload IPv6 header after pskb_may_pull in checksum adjust
+Date: Tue, 14 Jul 2026 07:49:03 -0400
+Message-ID: <20260714114903.3763420-1-michael.bommarito@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,89 +80,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-fs/erofs/decompressor_lzma.c sizes the module-global MicroLZMA stream
-pool from num_possible_cpus() when the lzma_streams module parameter is
-unset, then z_erofs_load_lzma_config() preallocates one image-supplied
-dictionary per stream, accepting dictionaries up to 8 MiB.  On high-CPU
-systems, a small EROFS image can pin hundreds of MiB of vmalloc-backed
-decoder state until the erofs module is unloaded.
+ila_csum_adjust_transport() caches ip6h = ipv6_hdr(skb) before calling
+pskb_may_pull(). On a non-linear skb whose transport header sits in a page
+fragment, pskb_may_pull() can call __pskb_pull_tail() / pskb_expand_head()
+and free the old skb head, leaving ip6h dangling; the following
+get_csum_diff(ip6h, p) then reads freed memory. ila_update_ipv6_locator()
+uses ip6h (and the iaddr derived from it) again after the csum-adjust
+call and additionally writes the new locator through that pointer.
 
-Impact: an attacker-supplied EROFS image mounted by the system can pin up
-to 8 MiB times the LZMA stream count of kernel vmalloc memory.
+Impact: a remote IPv6 packet routed through a configured ILA
+csum-adjust-transport route or receive-side mapping triggers a
+slab-use-after-free in ila_update_ipv6_locator() (KASAN). The route or
+mapping requires CAP_NET_ADMIN to configure, but trigger packets are
+unauthenticated once it exists.
 
-Bound the default stream count by a new
-CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS option, default 16, so the
-worst-case default preallocation is 128 MiB while preserving the existing
-per-image dictionary limit.  An explicit lzma_streams module parameter is
-still honoured as-is, so administrators who deliberately size the pool are
-not affected.
+Reload ip6h after each pskb_may_pull() in ila_csum_adjust_transport()
+before the csum-diff read. In ila_update_ipv6_locator() only the
+ILA_CSUM_ADJUST_TRANSPORT case pulls the skb, so reload ip6h and iaddr in
+that case alone before the destination-address write; the neutral-map
+modes never pull and keep their cached pointers.
 
-Fixes: 622ceaddb764 ("erofs: lzma compression support")
+Fixes: 33f11d16142b ("ila: Create net/ipv6/ila directory")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 ---
-v3: rename the Kconfig option to EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS
-    and only cap the default (num_possible_cpus); an explicit non-zero
-    lzma_streams module parameter is now honoured unchanged.  Simplified
-    the Kconfig help text and dropped the in-code comment, per Gao
-    Xiang's review.
-v2: https://lore.kernel.org/linux-erofs/20260711143419.2762894-1-michael.bommarito@gmail.com/
+v2: In ila_update_ipv6_locator() reload ip6h/iaddr only in the
+    ILA_CSUM_ADJUST_TRANSPORT case instead of unconditionally, per
+    Antoine Tenart's review; the neutral-map modes never pull the skb,
+    so their cached pointers remain valid.
+v1: https://lore.kernel.org/netdev/20260711150648.2915106-1-michael.bommarito@gmail.com/
 
-Evidence: the stock code sets the stream count to num_possible_cpus() when
-lzma_streams is unset, and z_erofs_load_lzma_config() then preallocates one
-image-supplied dictionary (up to Z_EROFS_LZMA_MAX_DICT_SIZE, 8 MiB) per
-stream, so on a host with many CPUs a single small mounted image reserves
-num_possible_cpus() x up-to-8 MiB of vmalloc decoder state until the module
-is unloaded.  With this patch an unset lzma_streams caps the default at
-CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS (16, i.e. 128 MiB worst case),
-while an explicit non-zero lzma_streams= is left unbounded.  Built with W=1,
-no new warnings; boots and mounts an LZMA image with the capped default and
-with lzma_streams= overriding it.
+Evidence: a KUnit case on UML+KASAN drives ila_update_ipv6_locator()
+with a non-linear skb whose transport header sits in a fragment, so the
+pskb_may_pull() in ila_csum_adjust_transport() reallocates the head.
+Stock: BUG: KASAN: slab-use-after-free in ila_update_ipv6_locator, Read of
+size 4 (the stale ip6h/iaddr). Patched: both the valid-linear control and
+the fragmented case pass, KASAN-clean. Built clean, no new warnings.
 
- fs/erofs/Kconfig             | 14 ++++++++++++++
- fs/erofs/decompressor_lzma.c |  3 ++-
- 2 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/fs/erofs/Kconfig b/fs/erofs/Kconfig
-index 4789b1077d8ce..8948cb6314e07 100644
---- a/fs/erofs/Kconfig
-+++ b/fs/erofs/Kconfig
-@@ -131,6 +131,20 @@ config EROFS_FS_ZIP_LZMA
+ net/ipv6/ila/ila_common.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/net/ipv6/ila/ila_common.c b/net/ipv6/ila/ila_common.c
+index e71571455c8a0..b78179bfc4c72 100644
+--- a/net/ipv6/ila/ila_common.c
++++ b/net/ipv6/ila/ila_common.c
+@@ -85,6 +85,7 @@ static void ila_csum_adjust_transport(struct sk_buff *skb,
+ 			struct tcphdr *th = (struct tcphdr *)
+ 					(skb_network_header(skb) + nhoff);
  
- 	  Say N if you want to disable LZMA compression support.
++			ip6h = ipv6_hdr(skb);
+ 			diff = get_csum_diff(ip6h, p);
+ 			inet_proto_csum_replace_by_diff(&th->check, skb,
+ 							diff, true, true);
+@@ -96,6 +97,7 @@ static void ila_csum_adjust_transport(struct sk_buff *skb,
+ 					(skb_network_header(skb) + nhoff);
  
-+config EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS
-+	int "EROFS LZMA default maximum decompression streams"
-+	depends on EROFS_FS_ZIP_LZMA
-+	range 1 1024
-+	default 16
-+	help
-+	  By default EROFS allocates one LZMA decompression stream per CPU.
-+	  Each stream can hold a dictionary of up to 8 MiB taken from the
-+	  mounted image, so on systems with many CPUs this can reserve a lot
-+	  of memory.  This caps the default; the lzma_streams module parameter
-+	  still overrides it.
-+
-+	  If unsure, keep the default of 16.
-+
- config EROFS_FS_ZIP_DEFLATE
- 	bool "EROFS DEFLATE compressed data support"
- 	depends on EROFS_FS_ZIP
-diff --git a/fs/erofs/decompressor_lzma.c b/fs/erofs/decompressor_lzma.c
-index f6692d0f2f04d..6b0cdb446c6ad 100644
---- a/fs/erofs/decompressor_lzma.c
-+++ b/fs/erofs/decompressor_lzma.c
-@@ -51,7 +51,8 @@ static int __init z_erofs_lzma_init(void)
+ 			if (uh->check || skb->ip_summed == CHECKSUM_PARTIAL) {
++				ip6h = ipv6_hdr(skb);
+ 				diff = get_csum_diff(ip6h, p);
+ 				inet_proto_csum_replace_by_diff(&uh->check, skb,
+ 								diff, true, true);
+@@ -110,6 +112,7 @@ static void ila_csum_adjust_transport(struct sk_buff *skb,
+ 			struct icmp6hdr *ih = (struct icmp6hdr *)
+ 					(skb_network_header(skb) + nhoff);
  
- 	/* by default, use # of possible CPUs instead */
- 	if (!z_erofs_lzma_nstrms)
--		z_erofs_lzma_nstrms = num_possible_cpus();
-+		z_erofs_lzma_nstrms = min_t(unsigned int, num_possible_cpus(),
-+				CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS);
- 
- 	for (i = 0; i < z_erofs_lzma_nstrms; ++i) {
- 		struct z_erofs_lzma *strm = kzalloc_obj(*strm);
++			ip6h = ipv6_hdr(skb);
+ 			diff = get_csum_diff(ip6h, p);
+ 			inet_proto_csum_replace_by_diff(&ih->icmp6_cksum, skb,
+ 							diff, true, true);
+@@ -127,6 +130,15 @@ void ila_update_ipv6_locator(struct sk_buff *skb, struct ila_params *p,
+ 	switch (p->csum_mode) {
+ 	case ILA_CSUM_ADJUST_TRANSPORT:
+ 		ila_csum_adjust_transport(skb, p);
++		/*
++		 * ila_csum_adjust_transport() calls pskb_may_pull(), which can
++		 * reallocate the skb head and leave ip6h (and the iaddr derived
++		 * from it) dangling; reload both before the write below.  The
++		 * other csum modes do not pull, so their cached pointers stay
++		 * valid.
++		 */
++		ip6h = ipv6_hdr(skb);
++		iaddr = ila_a2i(&ip6h->daddr);
+ 		break;
+ 	case ILA_CSUM_NEUTRAL_MAP:
+ 		if (sir2ila) {
 -- 
 2.53.0
 
