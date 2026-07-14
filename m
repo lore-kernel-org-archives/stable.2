@@ -1,151 +1,167 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90BB275B1A
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 06:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784010476; cv=none; b=tWk0MQjONMcvTbp2buxeKr1xTmpLIhfqprGCBEcwpPiaQTHrGtt6b6HoB/Cws1503kqSNgRbGkh9+WCtjhAS0lXAdLg6uktL5Csj5JTyaRBSy63TL/ZBVF/VyJIm3gHOOO788gXqIPPVGL48+TPy24TjZMwFXwfJKWZGj479vIk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784010476; c=relaxed/simple;
-	bh=pJG5VHUMIbJYe94r2iWRstBlolLK9xvWO+NtoSrqI1U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nePYTmE2z1seH8BKpoMT2PhEyOkqbKeiWHyQo/9NonedeHljZ7NenTN0FSdKmQvociqcAzYYplqAN8tDhqo7/4G4HWScSjGAX8Xoi04s5qmtQ3ae5WfHn/o5IszAhgvxy32e5I1nsX5+Vor2x4eqm7M1v9dwZf/DtK+6tOZCIH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cMKictyh; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5890D38422D
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 06:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784011116; cv=pass; b=driHetfdFg5NMWGQTR05JcM+i8W8kaIf++DOo4oI1BHrUmti5Qr9Xwz5IiDUDCV4gb/Ql1qCZQeOqbQIyhlGKY/8AIniDd0rvxTCt/lcuB0AJv/5ayWacIcg37UM+WKBJH0NkQsQNbrhkVXaCinRn7hlA7gcmtsWN57lvZT6Tno=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784011116; c=relaxed/simple;
+	bh=y8xHWmkJkqubTyz+Whxf6Mqk6P6YdMklCfjtCXAS0DI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mICaOQvy2qfWBD4+iWBFD3sAqhsFb0WuCf8P9AZjXquiuunSmxfHux715S2T3YjYhmWPFCdzAzCpzH+fVntXVOYYqdCNWmcRIcUs81FCMWgV+soq9xFok2mg2RFMTarhLkhsReNVicD4nyVwAEUTg7MIhqL7sME3MhkdbkzYZXw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DCtyWsHf; arc=pass smtp.client-ip=74.125.224.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cMKictyh"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cad8076b01so46015605ad.2
-        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 23:27:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DCtyWsHf"
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-664ce3000e6so606446d50.0
+        for <stable@vger.kernel.org>; Mon, 13 Jul 2026 23:38:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784011112; cv=none;
+        d=google.com; s=arc-20260327;
+        b=khtHPU1O7vpQArnYufKp1iAtFFdfP1Ev6dZd7pI3QKgASabokiHWUQAMnSM+dsfwSO
+         ZfW8JZXJo1up/Nm36tqURcGmcsQGATQ1WjHlIzgx79+ONbgasTvuD5mGKjEryY12ueF3
+         cHPEFpsoIcJ+itEmlkxtydkIrdJXy2yCTZOHywprE/dNaMDOSsryrL15NcmKsx1RFB90
+         66Szgwj9ycimVlWVWnYbdshBbm79tl8NctkqPPC+CKVa4LwMLHfVITN/I7+ueFCxy3Vf
+         whPtSDC1Pxou3rOVO8yt3VVPOPJKu8TZnfhd6bEbVzmsimIVKYnUt2JP6beQZjufQ5tK
+         dAJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kfYwLW4pS/TGI+RDVYXaWxQ3zgK1Q7Yru9JeS97oBl0=;
+        fh=RhCYkjFy2Mu9+ldovypHx6VEpA0gcS6ESnRWX05f18M=;
+        b=KaZ4M+VfPLYwy1GC24hdy5J863MFdEvBhLkrJHyJ04A5tjOgkztWQOChxoZiVcpbXJ
+         W2Vn+/kKDURvLF6nBKsDG2fj6dnqVVIIaze0CklDQtZqqkIAYJZ2mKUbuzrGrK5pa2qM
+         ZfFBz6xMTp/VzOwL3WEK7lj7yg+BXX8K8nyi3MnuSia3rYhM8MUuSD/Su7SSCPs1Sti0
+         577UVNXgnc0S34lOrPgsQ3OizEBkoNPa9/A81pSYfQrbRq8j6bExZxsydv4+h5Vs1SWA
+         F6mOy76Xg2Rt1GU+ankuFKOXw7b0pe9q4Uu7eYSzVBNkTcwU2jZFtxpTzeAZeh82SeZj
+         eaew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784010474; x=1784615274; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OT3QgGn/8h7LxaasZ82I0pD7QJ8te5z8lFRU4KJ98IA=;
-        b=cMKictyhaSS2nZr2O6dK+2ePshIezOFXxj8ZUyYzCyzfdoPmT4wRQ8idstQUlaaxAV
-         QBt2eecU+jqYOLQgLYmUDlRPwvVi520Hs6y+8Ts2Hhy9WnCOuMxMZG8Ha594aA7vpGxT
-         +9TO+OQ/YJNM83avoVfSkB0zaHmOslPA42IKwg0IGjSsT5dQaF//ukYZRViB+dkb0ziV
-         M2vobNanAr8k0f4iLiKruSpiKNzo0rx/lLTary2xdqXTNdbh+NdSHXpu9vqKrbjxQ1pO
-         1Oy/qHNajSE/3D9pR1Q5iRxEuaxpzbE1xO1c/rmO25rwi+eQYStiuoFHvlsUef20HiXK
-         Assw==
+        d=gmail.com; s=20251104; t=1784011112; x=1784615912; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kfYwLW4pS/TGI+RDVYXaWxQ3zgK1Q7Yru9JeS97oBl0=;
+        b=DCtyWsHfFa34WGsH/FU/ot7DL5lVk21Ch+IuYgixgMS4QZv9kbkkyRzqYaBoFEvX4C
+         bFcorL8VOrUHln/Gvpjdv+/KUfjoFj/Lojy5roxQZ+cQn2yWNIpEgWdssicH9SQ8lykD
+         haxzX2zUNadlg4BEJ+bzMTTAAzPINuCa8Ls51MmfrXccgxxhKZCiI2NTgR6X8MA1U9Ty
+         rGAh8DbmKdOdzA8Ru30bTsolChfKwIC/Z27EezlEX1WIcmd8ZEDwGiMb1t7NosDGZnAz
+         WwWp+32sQXQoc8UutywqsInzhfmWo1DQ2V4A4gsA3n6NOr6abhr0L73gw3YHC6maGr1C
+         z9FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784010474; x=1784615274;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OT3QgGn/8h7LxaasZ82I0pD7QJ8te5z8lFRU4KJ98IA=;
-        b=PYpMxLM2nxm+ogN5hdKs+P6SE0O6IbtiM/aTmD+1l/n/GpDf2nXorPYiLcXPwx1yqz
-         TTF+vbLzpOAyKeXotKgyLDTqjDO2hTFS9uTVnazwhK0Bg4KpGTJDBpx0ETLG6Fumz8gE
-         NLgegzp2xKhhX5xq5ry/uPbzAJCTIhmEFI4ar5IvCzZq1YqXnc+FUOtpskXnJEpC67SQ
-         HAZVlTedgbalOClMYdEtZkU0gb7hC3bczxay74yhvd/ZVe5GIMYqiILTSlXLEb7NcOKr
-         kVJrh73Iwfyzngnnvq4howED86l+/d6yzmT8AlbbOX4rFWyeDQgG9LQdfxRLYeRwLFl9
-         yQTg==
-X-Forwarded-Encrypted: i=1; AHgh+RrmJ82xeOS9CQUfc6XUpMMXcDgPEK9OplYR7/Da5dgAEZypyACNn5JJcrexwLQ+NanDNLhErk0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwwQPbYMK7Y0LB3yavWwOAV44nBTqTl6smuwJ91jxoEOsaOA107
-	UYr470sm1fWagfqSQof+ClWT2AQ+O859wO1eigBDeIj7m/f8vTmb+J3h
-X-Gm-Gg: AfdE7cnxiv10kp77Q7EhQEFkNd9Ah/EAiVZkW+J+wgw4Lh4YtAXjR1hn18V75WCc5ek
-	bthcNvekFL4biMfFIrFmHJzuSiZFq/dRWn4deh6R1FbuxFxLbgszmZuh8m7A4Bqx5/T9t97wS9p
-	RRYs3e8jt61VzqfcNTU/cdzX9XbCETQhaJAt//DAMcnbse5h3a3JhvrRA1+bN5gcyUsg4RumPDT
-	UXdHkxUkrNSBs8UeFt9NeTL/nv1m8iSKxPjodsXZmnnSdD71vCWHrLIslMG+gtv62gp+JeeOXj0
-	zTtuKJiCW1xcfnHmyoQQUP86kicNNUTrvIhEgezz8SwPIN+DQuAqHvK2n80GrmivQvtYrrFEi/m
-	sfnyufPYi0qrn4Ioc3wr7vb3T3SQbt4MlEjxCe7Qk9PHst0OVJu/HvRvMA1CNf031NHk9xOx4Ph
-	lGwLCfmWX+CviRYflOtO8w4UWXKshZkbAbHzupeyto8X2eHjuU41U=
-X-Received: by 2002:a17:903:3583:b0:2ce:b096:e50b with SMTP id d9443c01a7336-2cee9bb19c3mr21600385ad.47.1784010474102;
-        Mon, 13 Jul 2026 23:27:54 -0700 (PDT)
-Received: from localhost.localdomain ([47.246.98.93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bfb7aesm110798435ad.29.2026.07.13.23.27.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 13 Jul 2026 23:27:53 -0700 (PDT)
-From: "=?UTF-8?q?=E9=93=AD=E5=AE=A3?=" <omeux327@gmail.com>
-X-Google-Original-From: =?UTF-8?q?=E9=93=AD=E5=AE=A3?= <yangmingxuan.ymx@antgroup.com>
-To: marcelo.leitner@gmail.com,
-	lucien.xin@gmail.com
-Cc: security@kernel.org,
-	HanQuan <eilaimemedsnaimel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] sctp: diag: fix uninitialized stack leak via INET_DIAG_LOCALS/PEERS
-Date: Tue, 14 Jul 2026 14:27:40 +0800
-Message-ID: <20260714062740.79126-1-yangmingxuan.ymx@antgroup.com>
-X-Mailer: git-send-email 2.50.1
+        d=1e100.net; s=20251104; t=1784011112; x=1784615912;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kfYwLW4pS/TGI+RDVYXaWxQ3zgK1Q7Yru9JeS97oBl0=;
+        b=cWi0J/1sEap4rNe8yHxjB/mVfBfQ3jAblYmE/djWnipU94BfM+F2K40kzWfQ1+3jau
+         zovdgnftx1DVa3DqaLEuNi29oSlydUqjJflMrcOX2l8LkXpJC/Ue4Waak0d+t16VfDI/
+         eawAGJjgvpFsYB1tRqRuDkrIa63IRpGoRMKUwChJHJ/S8YdlPaYU9ukMkLHLsV5Reuho
+         z5+OYKrk5a2XI7P3pHZ/2a7rvBJcdLIniG+JAS7wu8nPSM3dBtYtcSJfQYFYbdES5Ur4
+         P+3aGBWOc/FzR8sQO2bFPGPeRy7tb0FVQTJdI4eWsWzf/90IIym09x0DP6R/MHxZ5H+s
+         1ijg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr9kXFSzDuDNAgeV6bxhtJ4s+SKVs+UVTbdHPdab1cGNjx0ppY1CXNDg20GcTYPFfOpYPMRgfE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwW4coDaneJm8Jfok3t4zXOw3lAFBhX8PCQ7a8noHsoc1XxTvuG
+	vau2r9UaIG8lzVyYh3t+kvnySUXsrXcp82dgwrhjhs/tlUzPqWb+EGncknOr/DnUYs5G/bmKENt
+	R1il67JEjAoi6Uab7NFwPdo/OCAVelkw=
+X-Gm-Gg: AfdE7cmPzbKdFad9yP3QyTgdovmFqQbvb2sRnOR6flx1/63ZCfY/Cl94i3czIPxg7bL
+	xzp6Dhy95aJVWZCfw3JngM4I9dUuLvrhwnvS2dERPvuTEycbCVZzFSR28cuOUpFsKyWQoZ1g3Ri
+	5ewtjkP9kTY2ZEfbkPj1b8+Oe74iSysCJ1kDCnsk/0xLfQTHNpwcJ+c/i67Ve4PrrqPKK4KwqSC
+	VGqoeLkP5ORzk/+660eBTLUCNfjX7iu0K47b5SolWA1gERUX2R664BODxXqBS+n7l4wCzpUTYsm
+	/TxItLNLT75wFeQINS7I83MUFRBRg1iKXvsx6oljsASE86nJUBg=
+X-Received: by 2002:a05:690e:1447:b0:664:ae6a:ee9 with SMTP id
+ 956f58d0204a3-667d7be0259mr7772187d50.71.1784011112312; Mon, 13 Jul 2026
+ 23:38:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260713063513.215781-1-shung-hsi.yu@suse.com>
+ <08508d2133284d49e1da297895c85cf854a97bf3.camel@gmail.com> <alWsBzShn4sgDRl-@u94a>
+In-Reply-To: <alWsBzShn4sgDRl-@u94a>
+From: sun jian <sun.jian.kdev@gmail.com>
+Date: Tue, 14 Jul 2026 14:38:22 +0800
+X-Gm-Features: AUfX_myWt_NEQQv-BJRVLkgSebpkvKsdZl_YXe7JCUgTiKFP3vZHGE0QBxAv-Pg
+Message-ID: <CABFUUZFJ6N6uC3kJM+qRcMFk75S2+6mTK_+052u3zdscz=DErA@mail.gmail.com>
+Subject: Re: [PATCH bpf 1/1] selftests/bpf: Enable BLK_DEV_NBD for raw_tp_writable_reject_nbd_invalid
+To: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+Cc: Eduard Zingerman <eddyz87@gmail.com>, bpf@vger.kernel.org, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Matt Mullins <mmullins@mmlx.us>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: HanQuan <eilaimemedsnaimel@gmail.com>
+On Tue, Jul 14, 2026 at 11:32=E2=80=AFAM Shung-Hsi Yu <shung-hsi.yu@suse.co=
+m> wrote:
+>
+> On Mon, Jul 13, 2026 at 01:47:18PM -0700, Eduard Zingerman wrote:
+> > On Mon, 2026-07-13 at 14:35 +0800, Shung-Hsi Yu wrote:
+> > > The raw_tp_writable_reject_nbd_invalid test relies on availability of=
+ the
+> > > nbd_send_request tracepoint, which is only present if the selftest ke=
+rnel is
+> > > built with CONFIG_BLK_DEV_NBD=3Dy and the kernel built from current B=
+PF selftests
+> > > config lacks.
+> > >
+> > > Without it, the bpf_raw_tracepoint_open() call always returns with -2=
+, leaving
+> > > raw_tp_writable_reject_nbd_invalid test always passing without exerci=
+sing the
+> > > checks bpf_probe_register().
+> > >
+> > > Cc: <stable@vger.kernel.org> # 5.2.0
+> > > Link: https://lore.kernel.org/bpf/alRtilWhKw4zzMkI@u94a
+> > > Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+> > > ---
+> > > Not sure if fixes tag is the right thing to use here, so use the cc
+> > > stable tag instead to get this config change propogated to other stab=
+le
+> > > branches to make stable BPF CI's job easier.
+> >
+> > Shung-Hsi,
+> >
+> > Thank you for figuring this out.
+> > I'd suggest we switch to bpf_testmod_test_writable_bare_tp() [1]
+> > from the test module to avoid the config dependency and let
+> > Sun pack all of this as a single patch-set to simplify backports
+> > (if such are necessary). Wdyt?
+>
+> Make sense, that's probably for the better.
+>
 
-inet_diag_msg_sctpladdrs_fill() copies sizeof(union sctp_addr) (28 bytes,
-the size of sockaddr_in6) from each sctp_sockaddr_entry.a into the netlink
-INET_DIAG_LOCALS attribute and then only zeroes the bytes from offset 28 to
-sizeof(sockaddr_storage).  The same pattern is used by
-inet_diag_msg_sctpaddrs_fill() for INET_DIAG_PEERS.
+Hi Shung-Hsi and Eduard,
 
-The IPv4 address-filling helpers sctp_v4_from_addr_param() and
-sctp_v4_from_skb() only initialize the sockaddr_in portion (16 bytes) of the
-union sctp_addr; the trailing 12 bytes (offset 16..27, the sockaddr_in6-only
-region) are left uninitialized.  Those bytes are propagated verbatim through
-sctp_add_bind_addr() (which copies sizeof(union sctp_addr)=28 bytes) and then
-copied straight to userspace by the diag fill functions, leaking 12 bytes of
-kernel stack residue per local/peer address to any process that can issue a
-SOCK_DIAG_BY_FAMILY dump for IPPROTO_SCTP.
+Thanks for tracking down the CONFIG_BLK_DEV_NBD false
+pass and for the test-module suggestion.
 
-Fix it by computing the actually-initialized length of the address from its
-sa_family (struct sockaddr_in for AF_INET, the whole union otherwise) and
-copying only that many bytes into an already-zeroed sockaddr_storage slot, so
-the uninitialized tail is never read and never reaches userspace.
+I'll fold everything into the v5 series:
 
-Fixes: 8f840e47f190cbe61a96945c13e9551048d42cef ("sctp: add the sctp_diag.c file")
-Cc: stable@vger.kernel.org
-Signed-off-by: HanQuan <eilaimemedsnaimel@gmail.com>
----
- net/sctp/diag.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+1. Keep only the necessary effective-start check in the verifier fix,
+dropping the BPF_MAX_VAR_OFF and size < 0 checks as Eduard suggested.
+2. Move the attach tests to bpf_testmod_test_writable_bare_tp(), use
+subtests, and remove the NBD configuration dependency.
+3. Add the PTR_TO_BUF negative-offset verifier case requested by Eduard.
 
-diff --git a/net/sctp/diag.c b/net/sctp/diag.c
-index c2a0de2adf6f..ec12f3f03318 100644
---- a/net/sctp/diag.c
-+++ b/net/sctp/diag.c
-@@ -68,6 +68,7 @@ static int inet_diag_msg_sctpladdrs_fill(struct sk_buff *skb,
- 					 struct list_head *address_list)
- {
- 	struct sctp_sockaddr_entry *laddr;
-+	size_t addr_len;
- 	int addrlen = sizeof(struct sockaddr_storage);
- 	int addrcnt = 0;
- 	struct nlattr *attr;
-@@ -85,8 +86,11 @@ static int inet_diag_msg_sctpladdrs_fill(struct sk_buff *skb,
- 	info = nla_data(attr);
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(laddr, address_list, list) {
--		memcpy(info, &laddr->a, sizeof(laddr->a));
--		memset(info + sizeof(laddr->a), 0, addrlen - sizeof(laddr->a));
-+		addr_len = laddr->a.sa.sa_family == AF_INET ?
-+			   sizeof(struct sockaddr_in) : sizeof(laddr->a);
-+		memset(info, 0, addrlen);
-+		memcpy(info, &laddr->a, addr_len);
-+
- 		info += addrlen;
- 
- 		if (!--addrcnt)
-@@ -114,9 +118,12 @@ static int inet_diag_msg_sctpaddrs_fill(struct sk_buff *skb,
- 	info = nla_data(attr);
- 	list_for_each_entry(from, &asoc->peer.transport_addr_list,
- 			    transports) {
--		memcpy(info, &from->ipaddr, sizeof(from->ipaddr));
--		memset(info + sizeof(from->ipaddr), 0,
--		       addrlen - sizeof(from->ipaddr));
-+		size_t addr_len = from->ipaddr.sa.sa_family == AF_INET ?
-+				  sizeof(struct sockaddr_in) :
-+				  sizeof(from->ipaddr);
-+
-+		memset(info, 0, addrlen);
-+		memcpy(info, &from->ipaddr, addr_len);
- 		info += addrlen;
- 	}
- 
--- 
-2.43.0
+> pw-bot: changes-requested
+>
+> @Sun can you make sure to include the follow tag for [1] when you send
+> it? Should give a better guarantee that is will be picked up by AUTOSEL.
+> Thanks!
+>
+>   Cc: <stable@vger.kernel.org> # 5.2.0
 
+Will do.
+
+Best Regards,
+Sun Jian
