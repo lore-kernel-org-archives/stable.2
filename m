@@ -1,154 +1,265 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F680363C5E;
-	Tue, 14 Jul 2026 10:29:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FBC03655EA;
+	Tue, 14 Jul 2026 11:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784024985; cv=none; b=FeM3vAO8szNhWfJjZNwExkvcNgiQ3ecwKmubEHMuDZfFHG+9ujWhPV+U831ruUp82btfmmYKma4MUdxmo8blHTiYsH8RTleUlRtBExqZFiajNQOyadLw/3F5tNZKybomzVISdMyUNjNN3Dxtf/TUOxQkmrBH27njQit6/g17z8s=
+	t=1784027829; cv=none; b=d0J4IwHezLQG+WwXx6cQcoPjUASvq84Ns352ag7R3NdLFN0yl3frYtGrywLZkvnZd4P8gKkXqt6255QEXOBb5CJH4OBiqK2IONyh7IJ+L3TWn09fQA+HLJPDu+Uucrix7/SvUwxYm5chCsn4Jee7lUHKvbuPialNjjHHXjjENwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784024985; c=relaxed/simple;
-	bh=b2KoF/ZdvnS+1NbXWLxi8vnBDnwa3H3fVyTHe5v7DVk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eDrUGq3QXwVcdL5FLrai8rVOjt+D17uWeIaTEokHjcC0dy89YiUHyItfM+wTJkC0aSGjhEw+FcxQlzQi6/22IgvlQ8cY9FodI7wON5W8pVV2AJev15yQ2CM/NZW6Htq0XrizXMoiW4c6xDhPh48OH7bT6HyA7qBTp8N+YqPq284=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=dPIydHwD; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=XC07vfoK; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1784027829; c=relaxed/simple;
+	bh=3sznWqZahOX3dGYSqEcnCcyFoW7K0dYNJqYsNgXlrQo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=AW8QCMnlRcP2FXyYMKCfLvQq6cwVGJ8t8qfHacNdiuKLnWNiGSgZQ944nwLSSWC4fuNfJ/lk9QchtEFQbTghYp/uWJXMyBSqfcgvkbZ4X1VC7xYM+B3TeEyLyiKbY5GUuvj3NA2/dII4M+H0w4DJIoEhvkUXHe0XCYOKDmAGj5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=h3/bqy6Q; arc=none smtp.client-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="dPIydHwD";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="XC07vfoK"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id 77E2B1D000B0;
-	Tue, 14 Jul 2026 06:29:41 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Tue, 14 Jul 2026 06:29:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1784024981; x=
-	1784111381; bh=D/druKhd9IvNef2J0pJK27qVVVk4qI3tVilOxadA1e8=; b=d
-	PIydHwDr3/Tg+Hi3OkA+1QoItUIckCj1nhbg0b9h5NSTS4gYSsFuoy2CSmb4AQNM
-	orGtwGN9bp1pQGPWIkLrQmBvjxz/NV2ZrMw1GV6Atuw959cnU4Bia6H95pTC7kSJ
-	JzIs7af1KEx3MvzY287uWhUdNSmtKeDz5ma+OkrFdlEwji5qjGk1KpSRekLidyF4
-	bmLmHz8OxCYK3sJ9DOlFXi+J1mLwXkiX2KAwTr5DbggRxxCG8NIVadPs2FIUMW4U
-	pyr2yRot8Ueq1amRdyxZwkfgYgXtdJL2Otk+h3Ko2716sMcgQj0od8BYId6LdphJ
-	NCjWM730NBRX2Oxc667Ug==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1784024981; x=1784111381; bh=D/druKhd9IvNef2J0pJK27qVVVk4qI3tVil
-	OxadA1e8=; b=XC07vfoK4nsA+cBeBnFTMekbPtk+TK+HRAQIT64nptDzo2nmP/4
-	vHUAPC58ZBZNMt4eSuuAKUz5bcsw55FSa0JZg7cYxxqujb7XJEUZkghyao8C5n1S
-	BXco/DxCGNkmV7Zx59nQlrsGdcdJsVZiHpgA3HwEOlzJ//PYL+t8sPWZAkdPFAaP
-	40iYrCS4A3lZtcciy8lT+msxcyDWHOUzT8+BusKWb5jnH0XjlR78NhQuA0QMHKSL
-	sIMhBja/Dpu23e0OhjfutuCMCclE6g2HRfKjtu1ccUM/T/4ddH5fC8A1eVq30/bP
-	tX95DSxT7eOfAec1VoEdK6nX95dTIaEvzXA==
-X-ME-Sender: <xms:kw9Wat9C2QTeHF6-ePmUCQcBAUFGKePfFf5wh5wss2uh9V_8HVHPKQ>
-    <xme:kw9WakB3I-eXBfmkWnUSUpQvDP3B5aduq9oh3HB8yYqObfBCvx8fhp7D6vjgoiRPC
-    B4WbGVlmjbHEveoWiXwg622qP_Y-N1u-LaAxUbC_MMtElP8Nf1y3I4>
-X-ME-Received: <xmr:kw9WapujENMK8sn9Fr1bprk9NFRT9_p6wahvM-bDtzBN1p_D0fb45Dta8x2J7A>
-X-ME-Proxy-Cause: dmFkZTEjQddmFbvKigDMQdRqPJ9XSi1XrBW+ZC8BP7zhnCiYnrJnKj9UHprC+RU4ycuqir
-    wV2GJTTRlRcTN/CyiH+ODp1oFJ0eBsmClA3QYKTzOlBg+03PAxve7QMoYT1uOexdoEKBHl
-    3D2PiTA4kPq9gZAetGrReve0e9NbA5Lj5KTZMrwybItPm9IQH5qiiBz+sOFqdOHWjvibSB
-    uSjuhGtKEyH8YUM4yLTvaYcQLtEM6zfk6b3p8QJ2wQ+x/1luB8vJvYj2DuGjcrEsBkbwnh
-    Tl3VozsJM7BFQNSjYATBTvTc+zLxNS4S+NSy5bPvx9nbwkiBt9JqIEcfzhOy7t9Q1qEdJC
-    OYTpVUjelx4tRsH9EaKnse8jHJMVDHuw96Z5hTUcOva+qHMp6m+4X0XhgabBRrbWtC5Y1B
-    1PUTKJNyvqBrC0azgWq2E85ld4QJ+i4cOEUmlVbbiXDaV4jBYbyDT1SVC0MZnraB/ySvuq
-    wYzDVHnqNvCWXcHdlJNN7gp9qY8Vtv6eg5N6I6fv/47U/dWmMoilKh+2iZv/HfFYqjXUE2
-    D47+tLGrxVKSAZzXNcmzQZjcbgAzKp4mem39Zv51sEXOWi6fgdxfHybzU4lAuLTR4UfUy2
-    2872xGer3gtOh6wB2hmMtPVmX4SnCARpvYsE1jSvz8F50O6wO7gpFY9xb6JQ
-X-ME-Proxy: <xmx:kw9WauYAJIfJyg9M4SXs_Nme2bzDJoeSCD2CPzGuUIGS9gmopEAAbA>
-    <xmx:kw9Wav0ivMgNKptookebq9rZ9_P4eP_h7ViSgZpv68k0bLYrL9z8wQ>
-    <xmx:kw9WarnjlVZo4mEjG2GzGSVUxalHgCW_BhhAiXbwWn6bXLqcTjy_cg>
-    <xmx:kw9War9Ba-_ihxLsCURfA7Y5LobYraL9QZ7ZtLpo1QVRbaMPs093xA>
-    <xmx:lQ9Wap6J8O2PmRR8gtF5rczRAW_O-D6kQgsOgb-g7nQ06yXGRKFH30Kn>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 14 Jul 2026 06:29:38 -0400 (EDT)
-Date: Tue, 14 Jul 2026 11:29:38 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Hao Zhang <hao_zhang_kdev@163.com>, 
-	Hao Zhang <zhanghao1@kylinos.cn>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm: thp: pin the inode across a file folio split
-Message-ID: <alYPE1CDJE4HaP1J@thinkstation>
-References: <20260713170915.239819-1-kirill@shutemov.name>
- <20260713161341.eefb7ad32bca25ffc8f3390a@linux-foundation.org>
- <alV3oLwvbeQsagsA@thinkstation>
+	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="h3/bqy6Q"
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id AB82821B1A;
+	Tue, 14 Jul 2026 14:16:59 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=2AYue9V/xyYnT/GTe0/pexAq27BPH889PPznAkkDRSE=; b=h3/bqy6Q+bNL
+	5yzOKQCLasFLLpACDDqR4QAxUh8X2ODepl2qoDbZ+5+66XDBsg+smwvwVdE7Rxrk
+	4WCHKT1kzq/nqtfv+meobmEbZLw9CSIE9OB2Xq4se8jiFghyEVZJ9cpSN/i8xei5
+	5JvkSCfxvPTtAWC+UY8S8VdO6kJyZYK1i4ibyWVGskNZtUIXEtruJsCZCxptWXaN
+	ADigaVN5Cveniav4QM3K9GXbfsD3F8Cf/+HkTWe4wUET8bASQ49+ZVIn37gj0Zu+
+	UMaiom3K8UH3+b/UpeSh5zDTlixYcTzSi1un7fKzR+NuEbG1v5sFzwIXESMQQrNm
+	jn5VlwjxzAjjK1PtKP9TBWe0EzZb6qB1zDsugyD+9uSRHcIjO3KzD3sADphCxwBq
+	2XPAYZYyRQJmrBsbhgnOxf5pFmjsUn8gXgPttg7ndAuGANlIduFa10o5UWcMcCEs
+	2G6/05MvN0QRUcUZ6ErpiWGY2SZMmcC6KJoN4m6M5qCEz6IEnjaTH3jtB8pA1rcV
+	4uk76FTb61SoSEqVN7H/kj0gctuj+00PjSf/nnThnQOkOiTKkEy0j1/XjFHxIvST
+	OQ4QVhxd7Njv5z8KGaex4L04hePOYdEz7Qi7hi6ZPdygneU68KvHj09hPEyyJT+P
+	tJrcPj25NyLYUj8qhWRGZk/l9PkiQCk=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Tue, 14 Jul 2026 14:16:59 +0300 (EEST)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 310F0608A4;
+	Tue, 14 Jul 2026 14:17:00 +0300 (EEST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 66EBGrHQ029875;
+	Tue, 14 Jul 2026 14:16:54 +0300
+Date: Tue, 14 Jul 2026 14:16:53 +0300 (EEST)
+From: Julian Anastasov <ja@ssi.bg>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+        Simon Horman <horms@verge.net.au>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Pablo Neira Ayuso <pablo@netfilter.org>,
+        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+        netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+        coreteam@netfilter.org, stable@vger.kernel.org,
+        Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+        Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+        Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
+Subject: Re: [PATCH nf v3 2/2] ipvs: use bitops for destination overload
+ state
+In-Reply-To: <edc095e05c89cc6481613126de5f2a91ed601fa9.1783931964.git.zhaoyz24@mails.tsinghua.edu.cn>
+Message-ID: <a82b528b-2710-3978-fc18-ef902fd903e1@ssi.bg>
+References: <cover.1783931964.git.zhaoyz24@mails.tsinghua.edu.cn> <edc095e05c89cc6481613126de5f2a91ed601fa9.1783931964.git.zhaoyz24@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alV3oLwvbeQsagsA@thinkstation>
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Jul 14, 2026 at 12:45:41AM +0100, Kiryl Shutsemau wrote:
-> On Mon, Jul 13, 2026 at 04:13:41PM -0700, Andrew Morton wrote:
-> > On Mon, 13 Jul 2026 18:09:15 +0100 Kiryl Shutsemau <kirill@shutemov.name> wrote:
-> > 
-> > > From: "Kiryl Shutsemau (Meta)" <kirill@shutemov.name>
-> > > 
-> > > __folio_split() looks up mapping = folio->mapping for a file-backed
-> > > folio and keeps dereferencing it after the split completes:
-> > > shmem_uncharge(mapping->host) for folios dropped beyond EOF and
-> > > i_mmap_unlock_read(mapping) on the way out.
-> > > 
-> > > Nothing holds an inode reference for that duration. The split relies on
-> > > the folio the caller keeps locked (@lock_at) to pin the inode through
-> > > the page cache: while it is locked and present,
-> > > truncate_inode_pages_final() in evict() cannot make progress. But the
-> > > split drops @lock_at from the page cache when it falls beyond EOF (the
-> > > @end handling in __folio_freeze_and_split_unmapped()), while keeping it
-> > > locked for the caller. That removes the last pin, and a concurrent final
-> > > iput() can then evict and RCU-free the inode before __folio_split() is
-> > > done touching mapping.
-> > > 
-> > > This is reachable from memory_failure(): poisoning a tail page of a
-> > > shmem THP that straddles EOF makes try_to_split_thp_page() split at that
-> > > page, so the dropped @lock_at is the folio returned locked. The result
-> > > is a use-after-free, e.g.:
-> > > 
-> > >   BUG: KASAN: slab-use-after-free in __up_read+0x634/0x790
-> > >    i_mmap_unlock_read include/linux/fs.h:537 [inline]
-> > >    __folio_split+0x732/0x1640 mm/huge_memory.c:4100
-> > >    try_to_split_thp_page+0xab/0x390 mm/memory-failure.c:1675
-> > >    memory_failure+0x1394/0x26e0 mm/memory-failure.c:2470
-> > > 
-> > >   Freed by task 4601:
-> > >    shmem_free_in_core_inode+0x54/0xb0 mm/shmem.c:5177
-> > >    i_callback+0x4c/0xa0 fs/inode.c:326
-> > >    destroy_inode+0x144/0x1e0 fs/inode.c:402
-> > >    evict+0x57f/0xac0 fs/inode.c:870
-> > > 
-> > > Pin the inode with igrab() before the split and drop the reference with
-> > > iput() after the last mapping dereference. igrab() returns NULL only if
-> > > the inode is already being evicted (i_count 0 and I_FREEING set), which
-> > > a split racing eviction can observe; there is nothing safe to split
-> > > then, so return -EBUSY, which callers already handle.
-> > 
-> > Sashiko is worried about iput() while holding folio_lock():
-> > 
-> > 	https://sashiko.dev/#/patchset/20260713170915.239819-1-kirill@shutemov.name
+
+	Hi Yizhou,
+
+On Mon, 13 Jul 2026, Yizhou Zhao wrote:
+
+> IPVS destination schedulers read the overload state from packet processing
+> paths, while connection accounting and destination updates can change it
+> concurrently. IP_VS_DEST_F_OVERLOAD currently shares dest->flags with
+> IP_VS_DEST_F_AVAILABLE, so plain read-modify-write operations on the two
+> independent states can race and lose either update.
 > 
-> Sashiko is right. If iput() drops the last reference and
-> @lock_at is still in page cache we would self-deadlock.
+> KCSAN reports the race with the SH scheduler and an upper connection
+> threshold configured:
 > 
-> I don't see an obvious solution. Will think more tomorrow.
+>   BUG: KCSAN: data-race in __ip_vs_update_dest / ip_vs_sh_schedule
+> 
+> IP_VS_DEST_F_AVAILABLE is changed under service_mutex. Keep it in the
+> existing flags word, but move the overload state to a separate unsigned
+> long and access it with bitops. Use test_bit() in scheduler paths and
+> set_bit()/clear_bit() in ip_vs_dest_update_overload(). This serializes the
+> overload bit accesses and prevents updates to the available and overload
+> states from clobbering each other.
+> 
+> The destination flags are not exposed by the IPVS sockopt or netlink
+> interfaces, so move their definitions out of the UAPI header. Place the
+> new overload word next to weight, which keeps the existing flags,
+> conn_flags and weight offsets unchanged. On x86-64 this grows struct
+> ip_vs_dest from 472 to 480 bytes.
+> 
+> test_bit() does not add reader-side ordering. Schedulers can still observe
+> stale destination state, as they could before this change; this does not
+> provide a fresh cross-field snapshot.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+> Reported-by: Ao Wang <wangao@seu.edu.cn>
+> Reported-by: Xuewei Feng <fengxw06@126.com>
+> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+> Assisted-by: Claude-Code:GLM-5.2
+> Suggested-by: Julian Anastasov <ja@ssi.bg>
+> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+> ---
+>  include/net/ip_vs.h              | 8 ++++++++
+>  include/uapi/linux/ip_vs.h       | 6 ------
+>  net/netfilter/ipvs/ip_vs_conn.c  | 7 ++++---
+>  net/netfilter/ipvs/ip_vs_dh.c    | 4 ++--
+>  net/netfilter/ipvs/ip_vs_fo.c    | 2 +-
+>  net/netfilter/ipvs/ip_vs_lblc.c  | 4 ++--
+>  net/netfilter/ipvs/ip_vs_lblcr.c | 8 ++++----
+>  net/netfilter/ipvs/ip_vs_lc.c    | 2 +-
+>  net/netfilter/ipvs/ip_vs_mh.c    | 2 +-
+>  net/netfilter/ipvs/ip_vs_nq.c    | 2 +-
+>  net/netfilter/ipvs/ip_vs_ovf.c   | 2 +-
+>  net/netfilter/ipvs/ip_vs_rr.c    | 2 +-
+>  net/netfilter/ipvs/ip_vs_sed.c   | 4 ++--
+>  net/netfilter/ipvs/ip_vs_sh.c    | 2 +-
+>  net/netfilter/ipvs/ip_vs_twos.c  | 4 ++--
+>  net/netfilter/ipvs/ip_vs_wlc.c   | 4 ++--
+>  net/netfilter/ipvs/ip_vs_wrr.c   | 2 +-
+>  17 files changed, 34 insertions(+), 31 deletions(-)
+> 
+> diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
+> index 3fc864a320fb..5e8e55f82b04 100644
+> --- a/include/net/ip_vs.h
+> +++ b/include/net/ip_vs.h
+> @@ -36,6 +36,13 @@
+>  #define IP_VS_HDR_INVERSE	1
+>  #define IP_VS_HDR_ICMP		2
+>  
+> +/* Destination Server Flags */
+> +#define IP_VS_DEST_F_AVAILABLE	0x0001		/* server is available */
+> +
+> +enum {
+> +	IP_VS_DEST_FL_OVERLOAD,
+> +};
+> +
+>  /* conn_tab limits (as per Kconfig) */
+>  #define IP_VS_CONN_TAB_MIN_BITS	8
+>  #if BITS_PER_LONG > 32
+> @@ -976,6 +983,7 @@ struct ip_vs_dest {
+>  	volatile unsigned int	flags;		/* dest status flags */
 
-Andrew, please drop the patch. Zi and I are discussing possible
-alternatives.
+	Sashiko has some comments that we should fix somehow:
 
-https://lore.kernel.org/all/alYNlDNMQy0Fl2VB@thinkstation/
+https://sashiko.dev/#/patchset/cover.1783931964.git.zhaoyz24%40mails.tsinghua.edu.cn
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+	One option is IP_VS_DEST_F_AVAILABLE to become
+IP_VS_DEST_CF_AVAILABLE (CF=Config Flag)
+
+>  	atomic_t		conn_flags;	/* flags to copy to conn */
+>  	atomic_t		weight;		/* server weight */
+> +	unsigned long		flags2;		/* dest status flags */
+
+	unsigned long		cfg_flags;
+
+	We then put IP_VS_DEST_CF_AVAILABLE in this new cache line
+that most of the schedulers will not read until dest is selected.
+DH even should not check the IP_VS_DEST_F_AVAILABLE flag,
+only lblc/lblcr should use this flag.
+
+	We can preserve IP_VS_DEST_F_OVERLOAD in 'flags',
+even we may not need to use bitops if we start to use
+spin_lock_bh(&dest->dst_lock), as this lock is already
+present in the dest structure. See below...
+
+>  	atomic_t		last_weight;	/* server latest weight */
+>  	__u16			tun_type;	/* tunnel type */
+>  	__be16			tun_port;	/* tunnel port */
+
+> diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
+> index fa3fbd597f3f..2591f4e143f8 100644
+> --- a/net/netfilter/ipvs/ip_vs_conn.c
+> +++ b/net/netfilter/ipvs/ip_vs_conn.c
+> @@ -1006,7 +1006,7 @@ __always_inline void ip_vs_dest_update_overload(struct ip_vs_dest *dest)
+
+	We can add new arg 'bool locked'. Also, we will
+return false if caller should retry under lock.
+It will happen when we change IP_VS_DEST_F_OVERLOAD and
+require its changes to be synchronized with the
+thresholds and the number of connections.
+
+>  		goto unset;
+>  	conns = ip_vs_dest_totalconns(dest);
+>  	if (conns >= u) {
+> -		dest->flags |= IP_VS_DEST_F_OVERLOAD;
+> +		set_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2);
+
+
+	if (conns >= u) {
+		if (!locked)
+			return false;
+		dest->flags |= IP_VS_DEST_F_OVERLOAD;
+		return true;
+	}
+
+>  		return;
+>  	}
+>  	/* Low threshold defaults to 75% of upper threshold */
+> @@ -1015,7 +1015,8 @@ __always_inline void ip_vs_dest_update_overload(struct ip_vs_dest *dest)
+>  		return;
+>  
+>  unset:
+> -	dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
+> +	if (test_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2))
+> +		clear_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2);
+
+	if (dest->flags & IP_VS_DEST_F_OVERLOAD) {
+		if (!locked)
+			return false;
+		dest->flags &= ~IP_VS_DEST_F_OVERLOAD;
+	}
+	return true;
+
+>  }
+>  
+>  /*
+> @@ -1174,7 +1175,7 @@ static inline void ip_vs_unbind_dest(struct ip_vs_conn *cp)
+>  		atomic_dec(&dest->persistconns);
+>  	}
+>  
+> -	if (dest->flags & IP_VS_DEST_F_OVERLOAD)
+> +	if (test_bit(IP_VS_DEST_FL_OVERLOAD, &dest->flags2))
+>  		ip_vs_dest_update_overload(dest);
+
+	if (dest->flags & IP_VS_DEST_F_OVERLOAD) {
+		if (!ip_vs_dest_update_overload(dest, false)) {
+			spin_lock_bh(&dest->dst_lock);
+			ip_vs_dest_update_overload(dest, true);
+			spin_unlock_bh(&dest->dst_lock);
+		}
+	}
+
+	In __ip_vs_update_dest() we will always use lock:
+
+		spin_lock_bh(&dest->dst_lock);
+		WRITE_ONCE(dest->u_threshold, udest->u_threshold);
+		WRITE_ONCE(dest->l_threshold, udest->l_threshold);
+		ip_vs_dest_update_overload(dest, true);
+		spin_unlock_bh(&dest->dst_lock);
+
+	The goal is to avoid the lock for the common case
+when flag does not change. What do you think?
+
+Regards
+
+--
+Julian Anastasov <ja@ssi.bg>
+
