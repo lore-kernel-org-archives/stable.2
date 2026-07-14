@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5761B2DB78C
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 23:34:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD2737DEAD
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 23:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784072054; cv=none; b=LSJsd/WMrbTRiTJK7U1utmwbz8eN2VgiREjoHIn6n/KmH4ppzqMiz7ngYsgJv8Qkz8FTCfSBH8Pc/BXuI6yZvf/2nPoSwQafE0+RbKQHv7V8yypIi2PfHjxmm0fInOmnbbO74nG9emQDxDc8VGtpC6ltPaVuhAbs8aFYz/DbnZo=
+	t=1784072054; cv=none; b=tIsO7ZYajCMt54O2PhYIGIr1SMZCpEPk0b7tftmPKgZQXnAP5peh305yRc57JukQqz2npqP6Qc9b9jsOmv2ZjFV7m4jQln6hzvr1ROUAKLHMqvlXP/kl4eORiiMvi1U00Z9GyDVsOoEw0JtNdGRck/L/lZ+oUCJmXzkUmRq1TQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784072054; c=relaxed/simple;
-	bh=SVjSJW2snB8AkyAoDjzSkZEwiXlZmJ/CA5vzqHZQ4W0=;
+	bh=Ft/EE2noUwMqo41LHFZG8y2oNsWQ0DlDXomW0doFW90=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C0kOAaSL/S1KR+S29ZmlL/KjNajJIp40MIjAzl3JDQS4geVdKPFw49Fxqj/RUhlomlfuXojwCaafNypVsHas8o9GM0EaydpLqwj5UvbLNY0HdcvOqyR9jBoVVzqKE/+V4fAnlPjB0E6IKThqsfMayIOa52Q2ZcuXCSYoUKPOILI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=St1rRmEb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Hw7p97x55eaHdya4usvJfEzTLd6a7Zw67Yv1g5XdmYnOfhhsymQzpv68Uy3120q7e/Cud1K0v46sp1fVJVoba6ypvIrPx1+I93T98cJugLUlmIcgpxO2OAp+zJMbvbCFAj/VbjnXKAT8kgUhqR9mc7x+KHR2jf3osEVkeG/BEYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gTTBQ1e4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="St1rRmEb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561611F00A3E;
-	Tue, 14 Jul 2026 23:34:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gTTBQ1e4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80B31F00A3F;
+	Tue, 14 Jul 2026 23:34:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784072051;
-	bh=n4xUergNUu3Si6CHBNPhrMnlQLAvMbGMUJri3RhC/cU=;
+	s=k20260515; t=1784072053;
+	bh=jHS0mA3TcaXaAi9qV0QBH0CvhDworYXHqOGXny3m8Vc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=St1rRmEb9zorsVhG0sX6xFtJLXaokhGamcmk5lvz1I1dkHGXEttJUgJFjt/iyi5vu
-	 4/VymAP0WuJk+Q1uXb61Wn2ZXQULzZq050NLBEAXx571yGL/2NEY3F1CheQJndhTH4
-	 7uGw1qfJTECj++poBDLRnlrBGMNbK/ho7ihtEiB4PkWGkFC1B8dvc98p6iy82cxYNs
-	 yXf0bKH4jPCs0BGjzyPR+pWhUaDNdGipE57u3011TZngFwW1pr4fqOPW2yIGjcBSHM
-	 cvYEYOYb3lt3Q6KI1PSMoqxPqtBplDP9Y7l29Of/3nq3QhfKS8VOkNptCeHBHFXpgN
-	 VgAOqliH6DmHQ==
+	b=gTTBQ1e4ZHBtoF4L74P5Dp3wWhHrq9u2tyCg6Jbegyd92qq2clRhMHHkjfHtU8zgp
+	 WOlqS7A1LOR/hy8uXCbcpl50G3lgSvOfYXsN8ShFEPg+d1Ywh6mIvdHZWdEIk0BNW9
+	 ZwR6ilJFS0jQB1n8Px6DD9gbv6IkxQy0oGTt3DK6sswxkdNt/XNKqaMhGVo4a29tiQ
+	 MWth2in/DHvA8Ut6gSnGpJVFqe6kNM6gFVZs0dN4cqqbnXhC0lN39R/mK7qSfi018n
+	 UmBmfaN07Gkt/cy51rEXK89Wl6pvpbYplxg+nIknwjXh7fXEmNrTCvblNDvzuHu3ot
+	 TrtPTTniMSUXw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Fabio Aiuto <fabioaiuto83@gmail.com>,
-	Hans de Goede <hdegoede@redhat.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/8] staging: rtl8723bs: remove 5Ghz code related to channel plan definition
-Date: Tue, 14 Jul 2026 19:34:03 -0400
-Message-ID: <20260714233407.3591885-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 6/8] staging: rtl8723bs: remove commented out condition
+Date: Tue, 14 Jul 2026 19:34:05 -0400
+Message-ID: <20260714233407.3591885-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260714233407.3591885-1-sashal@kernel.org>
 References: <2026071352-wreckage-humorless-3481@gregkh>
@@ -49,499 +48,32 @@ Content-Transfer-Encoding: 8bit
 
 From: Fabio Aiuto <fabioaiuto83@gmail.com>
 
-[ Upstream commit ec84d0ae54a6774091b3b7d1e9da32589f48b2f9 ]
+[ Upstream commit 2a62ff13132a22a754d042b2230117bbea0af477 ]
 
-remove 5Ghz code related to channel plan definition.
+remove commented out condition checking channel > 14.
 
-Acked-by: Hans de Goede <hdegoede@redhat.com>
 Signed-off-by: Fabio Aiuto <fabioaiuto83@gmail.com>
-Link: https://lore.kernel.org/r/17a707952cec951893748d2cb59d02a294cdd1be.1624367071.git.fabioaiuto83@gmail.com
+Link: https://lore.kernel.org/r/83762719c0c13ac8b78612a32db26e691eef17d1.1626874164.git.fabioaiuto83@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: a1fc19d61f66 ("staging: rtl8723bs: fix WEP length underflow and OOB read in OnAuth()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 210 ++++++++----------
- .../staging/rtl8723bs/hal/hal_com_phycfg.c    |  34 ---
- .../staging/rtl8723bs/include/rtw_mlme_ext.h  |   6 +-
- .../staging/rtl8723bs/os_dep/ioctl_cfg80211.c |   2 -
- .../staging/rtl8723bs/os_dep/ioctl_linux.c    |   1 -
- 5 files changed, 94 insertions(+), 159 deletions(-)
+ drivers/staging/rtl8723bs/os_dep/ioctl_linux.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-index dd8043e4f7b785..db5abaafa91a2f 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-@@ -123,93 +123,93 @@ static RT_CHANNEL_PLAN_5G	RTW_ChannelPlan5G[RT_CHANNEL_DOMAIN_5G_MAX] = {
- 
- static RT_CHANNEL_PLAN_MAP	RTW_ChannelPlanMap[RT_CHANNEL_DOMAIN_MAX] = {
- 	/*  0x00 ~ 0x1F , Old Define ===== */
--	{0x02, 0x20},	/* 0x00, RT_CHANNEL_DOMAIN_FCC */
--	{0x02, 0x0A},	/* 0x01, RT_CHANNEL_DOMAIN_IC */
--	{0x01, 0x01},	/* 0x02, RT_CHANNEL_DOMAIN_ETSI */
--	{0x01, 0x00},	/* 0x03, RT_CHANNEL_DOMAIN_SPAIN */
--	{0x01, 0x00},	/* 0x04, RT_CHANNEL_DOMAIN_FRANCE */
--	{0x03, 0x00},	/* 0x05, RT_CHANNEL_DOMAIN_MKK */
--	{0x03, 0x00},	/* 0x06, RT_CHANNEL_DOMAIN_MKK1 */
--	{0x01, 0x09},	/* 0x07, RT_CHANNEL_DOMAIN_ISRAEL */
--	{0x03, 0x09},	/* 0x08, RT_CHANNEL_DOMAIN_TELEC */
--	{0x03, 0x00},	/* 0x09, RT_CHANNEL_DOMAIN_GLOBAL_DOAMIN */
--	{0x00, 0x00},	/* 0x0A, RT_CHANNEL_DOMAIN_WORLD_WIDE_13 */
--	{0x02, 0x0F},	/* 0x0B, RT_CHANNEL_DOMAIN_TAIWAN */
--	{0x01, 0x08},	/* 0x0C, RT_CHANNEL_DOMAIN_CHINA */
--	{0x02, 0x06},	/* 0x0D, RT_CHANNEL_DOMAIN_SINGAPORE_INDIA_MEXICO */
--	{0x02, 0x0B},	/* 0x0E, RT_CHANNEL_DOMAIN_KOREA */
--	{0x02, 0x09},	/* 0x0F, RT_CHANNEL_DOMAIN_TURKEY */
--	{0x01, 0x01},	/* 0x10, RT_CHANNEL_DOMAIN_JAPAN */
--	{0x02, 0x05},	/* 0x11, RT_CHANNEL_DOMAIN_FCC_NO_DFS */
--	{0x01, 0x21},	/* 0x12, RT_CHANNEL_DOMAIN_JAPAN_NO_DFS */
--	{0x00, 0x04},	/* 0x13, RT_CHANNEL_DOMAIN_WORLD_WIDE_5G */
--	{0x02, 0x10},	/* 0x14, RT_CHANNEL_DOMAIN_TAIWAN_NO_DFS */
--	{0x00, 0x21},	/* 0x15, RT_CHANNEL_DOMAIN_ETSI_NO_DFS */
--	{0x00, 0x22},	/* 0x16, RT_CHANNEL_DOMAIN_KOREA_NO_DFS */
--	{0x03, 0x21},	/* 0x17, RT_CHANNEL_DOMAIN_JAPAN_NO_DFS */
--	{0x06, 0x08},	/* 0x18, RT_CHANNEL_DOMAIN_PAKISTAN_NO_DFS */
--	{0x02, 0x08},	/* 0x19, RT_CHANNEL_DOMAIN_TAIWAN2_NO_DFS */
--	{0x00, 0x00},	/* 0x1A, */
--	{0x00, 0x00},	/* 0x1B, */
--	{0x00, 0x00},	/* 0x1C, */
--	{0x00, 0x00},	/* 0x1D, */
--	{0x00, 0x00},	/* 0x1E, */
--	{0x06, 0x04},	/* 0x1F, RT_CHANNEL_DOMAIN_WORLD_WIDE_ONLY_5G */
-+	{0x02},	/* 0x00, RT_CHANNEL_DOMAIN_FCC */
-+	{0x02},	/* 0x01, RT_CHANNEL_DOMAIN_IC */
-+	{0x01},	/* 0x02, RT_CHANNEL_DOMAIN_ETSI */
-+	{0x01},	/* 0x03, RT_CHANNEL_DOMAIN_SPAIN */
-+	{0x01},	/* 0x04, RT_CHANNEL_DOMAIN_FRANCE */
-+	{0x03},	/* 0x05, RT_CHANNEL_DOMAIN_MKK */
-+	{0x03},	/* 0x06, RT_CHANNEL_DOMAIN_MKK1 */
-+	{0x01},	/* 0x07, RT_CHANNEL_DOMAIN_ISRAEL */
-+	{0x03},	/* 0x08, RT_CHANNEL_DOMAIN_TELEC */
-+	{0x03},	/* 0x09, RT_CHANNEL_DOMAIN_GLOBAL_DOAMIN */
-+	{0x00},	/* 0x0A, RT_CHANNEL_DOMAIN_WORLD_WIDE_13 */
-+	{0x02},	/* 0x0B, RT_CHANNEL_DOMAIN_TAIWAN */
-+	{0x01},	/* 0x0C, RT_CHANNEL_DOMAIN_CHINA */
-+	{0x02},	/* 0x0D, RT_CHANNEL_DOMAIN_SINGAPORE_INDIA_MEXICO */
-+	{0x02},	/* 0x0E, RT_CHANNEL_DOMAIN_KOREA */
-+	{0x02},	/* 0x0F, RT_CHANNEL_DOMAIN_TURKEY */
-+	{0x01},	/* 0x10, RT_CHANNEL_DOMAIN_JAPAN */
-+	{0x02},	/* 0x11, RT_CHANNEL_DOMAIN_FCC_NO_DFS */
-+	{0x01},	/* 0x12, RT_CHANNEL_DOMAIN_JAPAN_NO_DFS */
-+	{0x00},	/* 0x13, RT_CHANNEL_DOMAIN_WORLD_WIDE_5G */
-+	{0x02},	/* 0x14, RT_CHANNEL_DOMAIN_TAIWAN_NO_DFS */
-+	{0x00},	/* 0x15, RT_CHANNEL_DOMAIN_ETSI_NO_DFS */
-+	{0x00},	/* 0x16, RT_CHANNEL_DOMAIN_KOREA_NO_DFS */
-+	{0x03},	/* 0x17, RT_CHANNEL_DOMAIN_JAPAN_NO_DFS */
-+	{0x06},	/* 0x18, RT_CHANNEL_DOMAIN_PAKISTAN_NO_DFS */
-+	{0x02},	/* 0x19, RT_CHANNEL_DOMAIN_TAIWAN2_NO_DFS */
-+	{0x00},	/* 0x1A, */
-+	{0x00},	/* 0x1B, */
-+	{0x00},	/* 0x1C, */
-+	{0x00},	/* 0x1D, */
-+	{0x00},	/* 0x1E, */
-+	{0x06},	/* 0x1F, RT_CHANNEL_DOMAIN_WORLD_WIDE_ONLY_5G */
- 	/*  0x20 ~ 0x7F , New Define ===== */
--	{0x00, 0x00},	/* 0x20, RT_CHANNEL_DOMAIN_WORLD_NULL */
--	{0x01, 0x00},	/* 0x21, RT_CHANNEL_DOMAIN_ETSI1_NULL */
--	{0x02, 0x00},	/* 0x22, RT_CHANNEL_DOMAIN_FCC1_NULL */
--	{0x03, 0x00},	/* 0x23, RT_CHANNEL_DOMAIN_MKK1_NULL */
--	{0x04, 0x00},	/* 0x24, RT_CHANNEL_DOMAIN_ETSI2_NULL */
--	{0x02, 0x04},	/* 0x25, RT_CHANNEL_DOMAIN_FCC1_FCC1 */
--	{0x00, 0x01},	/* 0x26, RT_CHANNEL_DOMAIN_WORLD_ETSI1 */
--	{0x03, 0x0C},	/* 0x27, RT_CHANNEL_DOMAIN_MKK1_MKK1 */
--	{0x00, 0x0B},	/* 0x28, RT_CHANNEL_DOMAIN_WORLD_KCC1 */
--	{0x00, 0x05},	/* 0x29, RT_CHANNEL_DOMAIN_WORLD_FCC2 */
--	{0x00, 0x00},	/* 0x2A, */
--	{0x00, 0x00},	/* 0x2B, */
--	{0x00, 0x00},	/* 0x2C, */
--	{0x00, 0x00},	/* 0x2D, */
--	{0x00, 0x00},	/* 0x2E, */
--	{0x00, 0x00},	/* 0x2F, */
--	{0x00, 0x06},	/* 0x30, RT_CHANNEL_DOMAIN_WORLD_FCC3 */
--	{0x00, 0x07},	/* 0x31, RT_CHANNEL_DOMAIN_WORLD_FCC4 */
--	{0x00, 0x08},	/* 0x32, RT_CHANNEL_DOMAIN_WORLD_FCC5 */
--	{0x00, 0x09},	/* 0x33, RT_CHANNEL_DOMAIN_WORLD_FCC6 */
--	{0x02, 0x0A},	/* 0x34, RT_CHANNEL_DOMAIN_FCC1_FCC7 */
--	{0x00, 0x02},	/* 0x35, RT_CHANNEL_DOMAIN_WORLD_ETSI2 */
--	{0x00, 0x03},	/* 0x36, RT_CHANNEL_DOMAIN_WORLD_ETSI3 */
--	{0x03, 0x0D},	/* 0x37, RT_CHANNEL_DOMAIN_MKK1_MKK2 */
--	{0x03, 0x0E},	/* 0x38, RT_CHANNEL_DOMAIN_MKK1_MKK3 */
--	{0x02, 0x0F},	/* 0x39, RT_CHANNEL_DOMAIN_FCC1_NCC1 */
--	{0x00, 0x00},	/* 0x3A, */
--	{0x00, 0x00},	/* 0x3B, */
--	{0x00, 0x00},	/* 0x3C, */
--	{0x00, 0x00},	/* 0x3D, */
--	{0x00, 0x00},	/* 0x3E, */
--	{0x00, 0x00},	/* 0x3F, */
--	{0x02, 0x10},	/* 0x40, RT_CHANNEL_DOMAIN_FCC1_NCC2 */
--	{0x05, 0x00},	/* 0x41, RT_CHANNEL_DOMAIN_GLOBAL_NULL */
--	{0x01, 0x12},	/* 0x42, RT_CHANNEL_DOMAIN_ETSI1_ETSI4 */
--	{0x02, 0x05},	/* 0x43, RT_CHANNEL_DOMAIN_FCC1_FCC2 */
--	{0x02, 0x11},	/* 0x44, RT_CHANNEL_DOMAIN_FCC1_NCC3 */
--	{0x00, 0x13},	/* 0x45, RT_CHANNEL_DOMAIN_WORLD_ETSI5 */
--	{0x02, 0x14},	/* 0x46, RT_CHANNEL_DOMAIN_FCC1_FCC8 */
--	{0x00, 0x15},	/* 0x47, RT_CHANNEL_DOMAIN_WORLD_ETSI6 */
--	{0x00, 0x16},	/* 0x48, RT_CHANNEL_DOMAIN_WORLD_ETSI7 */
--	{0x00, 0x17},	/* 0x49, RT_CHANNEL_DOMAIN_WORLD_ETSI8 */
--	{0x00, 0x18},	/* 0x50, RT_CHANNEL_DOMAIN_WORLD_ETSI9 */
--	{0x00, 0x19},	/* 0x51, RT_CHANNEL_DOMAIN_WORLD_ETSI10 */
--	{0x00, 0x1A},	/* 0x52, RT_CHANNEL_DOMAIN_WORLD_ETSI11 */
--	{0x02, 0x1B},	/* 0x53, RT_CHANNEL_DOMAIN_FCC1_NCC4 */
--	{0x00, 0x1C},	/* 0x54, RT_CHANNEL_DOMAIN_WORLD_ETSI12 */
--	{0x02, 0x1D},	/* 0x55, RT_CHANNEL_DOMAIN_FCC1_FCC9 */
--	{0x00, 0x1E},	/* 0x56, RT_CHANNEL_DOMAIN_WORLD_ETSI13 */
--	{0x02, 0x1F},	/* 0x57, RT_CHANNEL_DOMAIN_FCC1_FCC10 */
-+	{0x00},	/* 0x20, RT_CHANNEL_DOMAIN_WORLD_NULL */
-+	{0x01},	/* 0x21, RT_CHANNEL_DOMAIN_ETSI1_NULL */
-+	{0x02},	/* 0x22, RT_CHANNEL_DOMAIN_FCC1_NULL */
-+	{0x03},	/* 0x23, RT_CHANNEL_DOMAIN_MKK1_NULL */
-+	{0x04},	/* 0x24, RT_CHANNEL_DOMAIN_ETSI2_NULL */
-+	{0x02},	/* 0x25, RT_CHANNEL_DOMAIN_FCC1_FCC1 */
-+	{0x00},	/* 0x26, RT_CHANNEL_DOMAIN_WORLD_ETSI1 */
-+	{0x03},	/* 0x27, RT_CHANNEL_DOMAIN_MKK1_MKK1 */
-+	{0x00},	/* 0x28, RT_CHANNEL_DOMAIN_WORLD_KCC1 */
-+	{0x00},	/* 0x29, RT_CHANNEL_DOMAIN_WORLD_FCC2 */
-+	{0x00},	/* 0x2A, */
-+	{0x00},	/* 0x2B, */
-+	{0x00},	/* 0x2C, */
-+	{0x00},	/* 0x2D, */
-+	{0x00},	/* 0x2E, */
-+	{0x00},	/* 0x2F, */
-+	{0x00},	/* 0x30, RT_CHANNEL_DOMAIN_WORLD_FCC3 */
-+	{0x00},	/* 0x31, RT_CHANNEL_DOMAIN_WORLD_FCC4 */
-+	{0x00},	/* 0x32, RT_CHANNEL_DOMAIN_WORLD_FCC5 */
-+	{0x00},	/* 0x33, RT_CHANNEL_DOMAIN_WORLD_FCC6 */
-+	{0x02},	/* 0x34, RT_CHANNEL_DOMAIN_FCC1_FCC7 */
-+	{0x00},	/* 0x35, RT_CHANNEL_DOMAIN_WORLD_ETSI2 */
-+	{0x00},	/* 0x36, RT_CHANNEL_DOMAIN_WORLD_ETSI3 */
-+	{0x03},	/* 0x37, RT_CHANNEL_DOMAIN_MKK1_MKK2 */
-+	{0x03},	/* 0x38, RT_CHANNEL_DOMAIN_MKK1_MKK3 */
-+	{0x02},	/* 0x39, RT_CHANNEL_DOMAIN_FCC1_NCC1 */
-+	{0x00},	/* 0x3A, */
-+	{0x00},	/* 0x3B, */
-+	{0x00},	/* 0x3C, */
-+	{0x00},	/* 0x3D, */
-+	{0x00},	/* 0x3E, */
-+	{0x00},	/* 0x3F, */
-+	{0x02},	/* 0x40, RT_CHANNEL_DOMAIN_FCC1_NCC2 */
-+	{0x05},	/* 0x41, RT_CHANNEL_DOMAIN_GLOBAL_NULL */
-+	{0x01},	/* 0x42, RT_CHANNEL_DOMAIN_ETSI1_ETSI4 */
-+	{0x02},	/* 0x43, RT_CHANNEL_DOMAIN_FCC1_FCC2 */
-+	{0x02},	/* 0x44, RT_CHANNEL_DOMAIN_FCC1_NCC3 */
-+	{0x00},	/* 0x45, RT_CHANNEL_DOMAIN_WORLD_ETSI5 */
-+	{0x02},	/* 0x46, RT_CHANNEL_DOMAIN_FCC1_FCC8 */
-+	{0x00},	/* 0x47, RT_CHANNEL_DOMAIN_WORLD_ETSI6 */
-+	{0x00},	/* 0x48, RT_CHANNEL_DOMAIN_WORLD_ETSI7 */
-+	{0x00},	/* 0x49, RT_CHANNEL_DOMAIN_WORLD_ETSI8 */
-+	{0x00},	/* 0x50, RT_CHANNEL_DOMAIN_WORLD_ETSI9 */
-+	{0x00},	/* 0x51, RT_CHANNEL_DOMAIN_WORLD_ETSI10 */
-+	{0x00},	/* 0x52, RT_CHANNEL_DOMAIN_WORLD_ETSI11 */
-+	{0x02},	/* 0x53, RT_CHANNEL_DOMAIN_FCC1_NCC4 */
-+	{0x00},	/* 0x54, RT_CHANNEL_DOMAIN_WORLD_ETSI12 */
-+	{0x02},	/* 0x55, RT_CHANNEL_DOMAIN_FCC1_FCC9 */
-+	{0x00},	/* 0x56, RT_CHANNEL_DOMAIN_WORLD_ETSI13 */
-+	{0x02},	/* 0x57, RT_CHANNEL_DOMAIN_FCC1_FCC10 */
- };
- 
-  /* use the combination for max channel numbers */
--static RT_CHANNEL_PLAN_MAP RTW_CHANNEL_PLAN_MAP_REALTEK_DEFINE = {0x03, 0x02};
-+static RT_CHANNEL_PLAN_MAP RTW_CHANNEL_PLAN_MAP_REALTEK_DEFINE = {0x03};
- 
- /* Search the @param ch in given @param ch_set
-  * @ch_set: the given channel set
-@@ -231,23 +231,6 @@ int rtw_ch_set_search_ch(RT_CHANNEL_INFO *ch_set, const u32 ch)
- 	return i;
- }
- 
--/* Check the @param ch is fit with setband setting of @param adapter
-- * @adapter: the given adapter
-- * @ch: the given channel number
-- *
-- * return true when check valid, false not valid
-- */
--bool rtw_mlme_band_check(struct adapter *adapter, const u32 ch)
--{
--	if (adapter->setband == GHZ24_50 /* 2.4G and 5G */
--		|| (adapter->setband == GHZ_24 && ch < 35) /* 2.4G only */
--		|| (adapter->setband == GHZ_50 && ch > 35) /* 5G only */
--	) {
--		return true;
--	}
--	return false;
--}
--
- /****************************************************************************
- 
- Following are the initialization functions for WiFi MLME
-@@ -424,7 +407,6 @@ static u8 init_channel_set(struct adapter *padapter, u8 ChannelPlan, RT_CHANNEL_
- 				else if ((channel_set[chanset_size].ChannelNum  >= 12 && channel_set[chanset_size].ChannelNum  <= 14))
- 					channel_set[chanset_size].ScanType  = SCAN_PASSIVE;
- 			} else if (RT_CHANNEL_DOMAIN_WORLD_WIDE_13 == ChannelPlan ||
--				RT_CHANNEL_DOMAIN_WORLD_WIDE_5G == ChannelPlan ||
- 				RT_CHANNEL_DOMAIN_2G_WORLD == Index2G) { /*  channel 12~13, passive scan */
- 				if (channel_set[chanset_size].ChannelNum <= 11)
- 					channel_set[chanset_size].ScanType = SCAN_ACTIVE;
-@@ -4938,10 +4920,6 @@ static void process_80211d(struct adapter *padapter, struct wlan_bssid_ex *bssid
- 	while ((i < MAX_CHANNEL_NUM) && (chplan_new[i].ChannelNum != 0)) {
- 		if (chplan_new[i].ChannelNum == channel) {
- 			if (chplan_new[i].ScanType == SCAN_PASSIVE) {
--				/* 5G Bnad 2, 3 (DFS) doesn't change to active scan */
--				if (channel >= 52 && channel <= 144)
--					break;
--
- 				chplan_new[i].ScanType = SCAN_ACTIVE;
- 				RT_TRACE(_module_rtl871x_mlme_c_, _drv_notice_,
- 						 ("%s: change channel %d scan type from passive to active\n",
-@@ -6250,7 +6228,6 @@ static int rtw_scan_ch_decision(struct adapter *padapter, struct rtw_ieee80211_c
- 		set_idx = rtw_ch_set_search_ch(pmlmeext->channel_set, in[i].hw_value);
- 		if (in[i].hw_value && !(in[i].flags & RTW_IEEE80211_CHAN_DISABLED)
- 			&& set_idx >= 0
--			&& rtw_mlme_band_check(padapter, in[i].hw_value)
- 		) {
- 			if (j >= out_num) {
- 				DBG_871X_LEVEL(_drv_always_, FUNC_ADPT_FMT" out_num:%u not enough\n",
-@@ -6275,21 +6252,18 @@ static int rtw_scan_ch_decision(struct adapter *padapter, struct rtw_ieee80211_c
- 
- 			DBG_871X(FUNC_ADPT_FMT" ch:%u\n", FUNC_ADPT_ARG(padapter), pmlmeext->channel_set[i].ChannelNum);
- 
--			if (rtw_mlme_band_check(padapter, pmlmeext->channel_set[i].ChannelNum)) {
--
--				if (j >= out_num) {
--					DBG_871X_LEVEL(_drv_always_, FUNC_ADPT_FMT" out_num:%u not enough\n",
--						FUNC_ADPT_ARG(padapter), out_num);
--					break;
--				}
-+			if (j >= out_num) {
-+				DBG_871X_LEVEL(_drv_always_, FUNC_ADPT_FMT" out_num:%u not enough\n",
-+					FUNC_ADPT_ARG(padapter), out_num);
-+				break;
-+			}
- 
--				out[j].hw_value = pmlmeext->channel_set[i].ChannelNum;
-+			out[j].hw_value = pmlmeext->channel_set[i].ChannelNum;
- 
--				if (pmlmeext->channel_set[i].ScanType == SCAN_PASSIVE)
--					out[j].flags |= RTW_IEEE80211_CHAN_PASSIVE_SCAN;
-+			if (pmlmeext->channel_set[i].ScanType == SCAN_PASSIVE)
-+				out[j].flags |= RTW_IEEE80211_CHAN_PASSIVE_SCAN;
- 
--				j++;
--			}
-+			j++;
- 		}
- 	}
- 
-diff --git a/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c b/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c
-index 10250642d30ae7..f806b3c7ee6ae7 100644
---- a/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c
-+++ b/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c
-@@ -2062,139 +2062,105 @@ void Hal_ChannelPlanToRegulation(struct adapter *Adapter, u16 ChannelPlan)
- 		break;
- 	case RT_CHANNEL_DOMAIN_FCC1_FCC1:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI1:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_MKK1_MKK1:
- 		pHalData->Regulation2_4G = TXPWR_LMT_MKK;
--		pHalData->Regulation5G = TXPWR_LMT_MKK;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_KCC1:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_MKK;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_FCC2:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_FCC3:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_FCC4:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_FCC5:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_FCC6:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_FCC1_FCC7:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI2:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI3:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_MKK1_MKK2:
- 		pHalData->Regulation2_4G = TXPWR_LMT_MKK;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_MKK1_MKK3:
- 		pHalData->Regulation2_4G = TXPWR_LMT_MKK;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_FCC1_NCC1:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_FCC1_NCC2:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_GLOBAL_NULL:
- 		pHalData->Regulation2_4G = TXPWR_LMT_WW;
--		pHalData->Regulation5G = TXPWR_LMT_WW;
- 		break;
- 	case RT_CHANNEL_DOMAIN_ETSI1_ETSI4:
- 		pHalData->Regulation2_4G = TXPWR_LMT_ETSI;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_FCC1_FCC2:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_FCC1_NCC3:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI5:
- 		pHalData->Regulation2_4G = TXPWR_LMT_ETSI;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_FCC1_FCC8:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI6:
- 		pHalData->Regulation2_4G = TXPWR_LMT_ETSI;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI7:
- 		pHalData->Regulation2_4G = TXPWR_LMT_ETSI;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI8:
- 		pHalData->Regulation2_4G = TXPWR_LMT_ETSI;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI9:
- 		pHalData->Regulation2_4G = TXPWR_LMT_ETSI;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI10:
- 		pHalData->Regulation2_4G = TXPWR_LMT_ETSI;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI11:
- 		pHalData->Regulation2_4G = TXPWR_LMT_ETSI;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_FCC1_NCC4:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI12:
- 		pHalData->Regulation2_4G = TXPWR_LMT_ETSI;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_FCC1_FCC9:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_WORLD_ETSI13:
- 		pHalData->Regulation2_4G = TXPWR_LMT_ETSI;
--		pHalData->Regulation5G = TXPWR_LMT_ETSI;
- 		break;
- 	case RT_CHANNEL_DOMAIN_FCC1_FCC10:
- 		pHalData->Regulation2_4G = TXPWR_LMT_FCC;
--		pHalData->Regulation5G = TXPWR_LMT_FCC;
- 		break;
- 	case RT_CHANNEL_DOMAIN_REALTEK_DEFINE: /* Realtek Reserve */
- 		pHalData->Regulation2_4G = TXPWR_LMT_WW;
--		pHalData->Regulation5G = TXPWR_LMT_WW;
- 		break;
- 	default:
- 		break;
-diff --git a/drivers/staging/rtl8723bs/include/rtw_mlme_ext.h b/drivers/staging/rtl8723bs/include/rtw_mlme_ext.h
-index 1567831caf914a..3df957c71f51a2 100644
---- a/drivers/staging/rtl8723bs/include/rtw_mlme_ext.h
-+++ b/drivers/staging/rtl8723bs/include/rtw_mlme_ext.h
-@@ -255,7 +255,6 @@ typedef struct _RT_CHANNEL_PLAN_5G {
- 
- typedef struct _RT_CHANNEL_PLAN_MAP {
- 	unsigned char Index2G;
--	unsigned char Index5G;
- } RT_CHANNEL_PLAN_MAP, *PRT_CHANNEL_PLAN_MAP;
- 
- enum Associated_AP {
-@@ -360,13 +359,13 @@ struct FW_Sta_Info {
-  * When the driver scanned RTW_SCAN_NUM_OF_CH channels, it would switch back to AP's operating channel for
-  * RTW_STAY_AP_CH_MILLISECOND * SURVEY_TO milliseconds.
-  * Example:
-- * For chip supports 2.4G + 5GHz and AP mode is operating in channel 1,
-+ * For chip supports 2.4G and AP mode is operating in channel 1,
-  * RTW_SCAN_NUM_OF_CH is 8, RTW_STAY_AP_CH_MILLISECOND is 3 and SURVEY_TO is 100.
-  * When it's STA mode gets set_scan command,
-  * it would
-  * 1. Doing the scan on channel 1.2.3.4.5.6.7.8
-  * 2. Back to channel 1 for 300 milliseconds
-- * 3. Go through doing site survey on channel 9.10.11.36.40.44.48.52
-+ * 3. Go through doing site survey on channel 9.10.11
-  * 4. Back to channel 1 for 300 milliseconds
-  * 5. ... and so on, till survey done.
-  */
-@@ -423,7 +422,6 @@ typedef struct _RT_CHANNEL_INFO {
- } RT_CHANNEL_INFO, *PRT_CHANNEL_INFO;
- 
- int rtw_ch_set_search_ch(RT_CHANNEL_INFO *ch_set, const u32 ch);
--bool rtw_mlme_band_check(struct adapter *adapter, const u32 ch);
- 
- /*  P2P_MAX_REG_CLASSES - Maximum number of regulatory classes */
- #define P2P_MAX_REG_CLASSES 10
-diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-index b7993e25764d51..65bb060b0958fd 100644
---- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-+++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-@@ -77,7 +77,6 @@ static struct ieee80211_rate rtw_rates[] = {
- #define RTW_G_RATES_NUM	12
- 
- #define RTW_2G_CHANNELS_NUM 14
--#define RTW_5G_CHANNELS_NUM 37
- 
- static struct ieee80211_channel rtw_2ghz_channels[] = {
- 	CHAN2G(1, 2412, 0),
-@@ -1422,7 +1421,6 @@ void rtw_cfg80211_surveydone_event_callback(struct adapter *padapter)
- 
- 		/* report network only if the current channel set contains the channel to which this network belongs */
- 		if (rtw_ch_set_search_ch(padapter->mlmeextpriv.channel_set, pnetwork->network.Configuration.DSConfig) >= 0
--			&& rtw_mlme_band_check(padapter, pnetwork->network.Configuration.DSConfig) == true
- 			&& true == rtw_validate_ssid(&(pnetwork->network.Ssid))
- 		)
- 		{
 diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_linux.c b/drivers/staging/rtl8723bs/os_dep/ioctl_linux.c
-index 083ff72976cf04..fa167c68d9b5cc 100644
+index e9d006cdcde7ed..f7908b6ba16e18 100644
 --- a/drivers/staging/rtl8723bs/os_dep/ioctl_linux.c
 +++ b/drivers/staging/rtl8723bs/os_dep/ioctl_linux.c
-@@ -1462,7 +1462,6 @@ static int rtw_wx_get_scan(struct net_device *dev, struct iw_request_info *a,
+@@ -165,7 +165,7 @@ static char *translate_scan(struct adapter *padapter,
+ 		start = iwe_stream_add_event(info, start, stop, &iwe, IW_EV_UINT_LEN);
+ 	}
  
- 		/* report network only if the current channel set contains the channel to which this network belongs */
- 		if (rtw_ch_set_search_ch(padapter->mlmeextpriv.channel_set, pnetwork->network.Configuration.DSConfig) >= 0
--			&& rtw_mlme_band_check(padapter, pnetwork->network.Configuration.DSConfig) == true
- 			&& true == rtw_validate_ssid(&(pnetwork->network.Ssid))) {
+-	if (pnetwork->network.Configuration.DSConfig < 1 /*|| pnetwork->network.Configuration.DSConfig > 14*/)
++	if (pnetwork->network.Configuration.DSConfig < 1)
+ 		pnetwork->network.Configuration.DSConfig = 1;
  
- 			ev = translate_scan(padapter, a, pnetwork, ev, stop);
+ 	 /* Add frequency/channel */
 -- 
 2.53.0
 
