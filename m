@@ -1,320 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF28372058;
-	Tue, 14 Jul 2026 01:58:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4FED35957;
+	Tue, 14 Jul 2026 02:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783994305; cv=none; b=my0h4mLMJGaxJzsIZQTulqMqtwWC4m+cgiq3n/zq/hDnNag8uJyfb6aJVNUvHTzlJ2VtvNrj6s06kcKp47HkTvDdT9DbdvJI5ulCB3QK6T09b7TkdkogtBIbF/fStNt52PRx5dk8dbfeWbg8C0T8nhXdqVthI79CiKROwa4tRSo=
+	t=1783994753; cv=none; b=P8SrfBoSYe9EeK+L7ubSZ9duDu8Fsv4I6bhL8GxHZkN0fpIV3zHo4PJOu+OZaSL1PeS1gloKLbIguxDoXTWh4KwyhATJEmdfhAWxoUycSTj9BMH19SJfDhePC8D5HTZpxjyys09lOcbh6BupDMakMekeaAJ1RJ9EK5G57zHRPpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783994305; c=relaxed/simple;
-	bh=lawGtfG7xAmLuZNXwLCTRkiKu18JDuBNSsjNeDuqn/Q=;
-	h=Date:To:From:Subject:Message-Id; b=tbpfV14umI6uuYp6+UKNBSSF4uF0Ko82kWm1ynEeVcHw0W/imSh7c7Znv+K1yUvwJONG3bMNWfMwkjEMzu7kNFJcfxrqNkSINGqKqsOz5tyBdiVRDGtMV4l2CdCae+DrQEEglTgRLQYShukOil6DrNrAHgvVxYDYxBrL73LXQHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=qib5hZ8g; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="qib5hZ8g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B011F000E9;
-	Tue, 14 Jul 2026 01:58:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1783994303;
-	bh=n3QUlS0MIEPEeUVJ/2bFwzQ3z5OFnI4xqZVcdzr4PPQ=;
-	h=Date:To:From:Subject;
-	b=qib5hZ8gccjT2XWSiG+UNBvAjmFmB5ydnoymmF52prLpzglq1hCqI03sNj0nuq5v8
-	 qNOwMVIaJVgxoWvwOtqfemLINwvHyTB34fDuPewyF5NzmewhBQhGj3Po4Hp1xQLBPd
-	 +0Pz4+ge9XBY7pOG1aFLbzgfGZqIxJh/N5yhZSjk=
-Date: Mon, 13 Jul 2026 18:58:23 -0700
-To: mm-commits@vger.kernel.org,will@kernel.org,vbabka@kernel.org,urezki@gmail.com,toshi.kani@hpe.com,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,ryan.roberts@arm.com,rppt@kernel.org,peterz@infradead.org,mingo@redhat.com,mhocko@suse.com,luto@kernel.org,liam@infradead.org,kas@kernel.org,hpa@zytor.com,dev.jain@arm.com,david@kernel.org,catalin.marinas@arm.com,bp@alien8.de,ljs@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + arm64-remove-redundant-concurrent-ptdump-uaf-mitigation.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260714015823.82B011F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1783994753; c=relaxed/simple;
+	bh=0ti1Ldu58kffWfgSL38M+Cff0aojGKXgxJSvseRuz9E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R0XhON3uRmH2cVIGvILnJyDnBaQVaGaElu1fdbfIhvqz1F0BmoLtTQIamryr3OiADSyI3ghkxi8ld2BPfEi3vkGpL6AZly33uNX8R59iO45etFUFrCbqq20LTuHfMeDmxQXZyhGQd2VhXnlexSTrMsgTB7PC4faxUx2XKMVebqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wA3AuJzmVVqpHlJAA--.6138S3;
+	Tue, 14 Jul 2026 10:05:40 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgBXyKFymVVqmyDSAg--.28764S2;
+	Tue, 14 Jul 2026 10:05:38 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: kwliu@nuvoton.com,
+	kflin@nuvoton.com
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] media: nuvoton: npcm-video: quiesce VCD IRQ before teardown in remove
+Date: Tue, 14 Jul 2026 02:04:43 +0000
+Message-Id: <20260714020443.2795883-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgBXyKFymVVqmyDSAg--.28764S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?iUNvXwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBFuQHMub3xCTcaqJhWvQUrmJzcPvPZRWmrwNbr1jlDSOWph
+	btrZUVyggrj9ydiDOc6p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxZF45Kr15Cr4UJFWxtrWrWFX_yoWrWr4xpF
+	WrKa13ArZ8JF10q3WUZF4rZFy5Awn7CF4akryjk34fA345JryFqF10vFyUt3y5Ar97WrW2
+	qrWFvw4kur4YqFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
+The VCD interrupt is requested with devm_request_threaded_irq() in
+npcm_video_init(), so it stays registered until the devm release that
+follows npcm_video_remove().  remove() itself calls kfree(video), so a
+VCD interrupt delivered between kfree(video) and that devm release
+dereferences freed memory: npcm_video_irq() reads VCD_STAT off
+video->vcd_regmap before the VIDEO_STREAMING flag early-return, so the
+use-after-free is unconditional on delivery, not gated by streaming
+state.
 
-The patch titled
-     Subject: arm64: remove redundant concurrent ptdump UAF mitigation
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     arm64-remove-redundant-concurrent-ptdump-uaf-mitigation.patch
+With streaming active, stop_streaming() (run from vb2_queue_release())
+masks VCD_INTE and resets the VCD, but an in-flight handler can
+re-enable VCD_INTE afterward.  On a DONE or FIFO-overrun/overflow
+interrupt the handler finishes its buffer under buffer_lock and then
+calls npcm_video_start_frame().  start_frame() drops buffer_lock before
+it re-enables VCD_INTE (VCD_INTE_DONE_IE) and starts the next capture
+(npcm_video_command() with VCD_CMD_GO); it can therefore perform those
+operations after stop_streaming() masks and resets the VCD.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/arm64-remove-redundant-concurrent-ptdump-uaf-mitigation.patch
+For the re-arm to happen, start_frame() must take buffer_lock, find a
+next queued buffer, and release the lock before stop_streaming() empties
+the list.  Once start_frame() has released the lock, the VCD re-enable
+and capture start that follow are outside buffer_lock, so emptying the
+list afterwards cannot stop them.  buffer_lock protects the buffer list
+only; it is not held for the re-arm and capture start, nor for
+stop_streaming()'s mask and reset, so those VCD writes are not
+serialized with each other.  start_frame() returns without re-arming
+when no next buffer is queued, there is no video signal, or the VCD
+stays busy past its poll timeout.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+That capture can complete and raise VCD_STAT_DONE; with VCD_INTE
+re-armed, a new interrupt can then fire after kfree(video), and the
+handler dereferences the freed per-device structure.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Unregister the video device, then mask the VCD interrupt source and
+unregister and drain the threaded handler with devm_free_irq() before
+releasing the vb2 buffers, the ECE state and the per-device structure.
+devm_free_irq() also clears the devm action, so the later devm release
+is a no-op and does not double-free.  Gating the re-arm alone would not
+close the window: the handler dereferences the per-device structure
+before any streaming-flag check, so any interrupt delivered after
+kfree(video) is fatal regardless of re-arm.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+This issue was found by an in-house static analysis tool.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Lorenzo Stoakes <ljs@kernel.org>
-Subject: arm64: remove redundant concurrent ptdump UAF mitigation
-Date: Sun, 12 Jul 2026 11:42:27 +0100
-
-This partially reverts commit fa93b45fd397 ("arm64: Enable vmalloc-huge
-with ptdump"), retaining vmalloc-huge support but eliminating the now
-redundant mitigation against a race between huge vmap page table freeing
-and ptdump, as this issue has now been fixed at core.
-
-We also simultaneously remove the arm64 if-deffery when acquiring the mmap
-read lock upon vmap huge page table promotion as it is no longer required.
-
-Note that this patch relies on the preceding vmalloc patch, and should not
-be backported alone.
-
-Link: https://lore.kernel.org/20260712-series-vmap-race-fix-v2-4-ad134cc3a12a@kernel.org
-Fixes: fa93b45fd397 ("arm64: Enable vmalloc-huge with ptdump")
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: Will Deacon <will@kernel.org>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Cc: Andy Lutomirski <luto@kernel.org>
-Cc: "Borislav Petkov (AMD)" <bp@alien8.de>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Toshi Kani <toshi.kani@hpe.com>
-Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
+ drivers/media/platform/nuvoton/npcm-video.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- arch/arm64/include/asm/ptdump.h |    2 -
- arch/arm64/mm/mmu.c             |   43 ++----------------------------
- arch/arm64/mm/ptdump.c          |   11 +------
- mm/vmalloc.c                    |   15 ++--------
- 4 files changed, 9 insertions(+), 62 deletions(-)
-
---- a/arch/arm64/include/asm/ptdump.h~arm64-remove-redundant-concurrent-ptdump-uaf-mitigation
-+++ a/arch/arm64/include/asm/ptdump.h
-@@ -7,8 +7,6 @@
+diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
+index 52505af35c08..637b1fe54824 100644
+--- a/drivers/media/platform/nuvoton/npcm-video.c
++++ b/drivers/media/platform/nuvoton/npcm-video.c
+@@ -120,6 +120,7 @@ struct npcm_video {
  
- #include <linux/ptdump.h>
+ 	struct list_head buffers;
+ 	struct mutex buffer_lock; /* buffer list lock */
++	int irq;
+ 	unsigned long flags;
+ 	unsigned int sequence;
  
--DECLARE_STATIC_KEY_FALSE(arm64_ptdump_lock_key);
--
- #ifdef CONFIG_PTDUMP
- 
- #include <linux/mm_types.h>
---- a/arch/arm64/mm/mmu.c~arm64-remove-redundant-concurrent-ptdump-uaf-mitigation
-+++ a/arch/arm64/mm/mmu.c
-@@ -49,8 +49,6 @@
- #define NO_CONT_MAPPINGS	BIT(1)
- #define NO_EXEC_MAPPINGS	BIT(2)	/* assumes FEAT_HPDS is not used */
- 
--DEFINE_STATIC_KEY_FALSE(arm64_ptdump_lock_key);
--
- u64 kimage_voffset __ro_after_init;
- EXPORT_SYMBOL(kimage_voffset);
- 
-@@ -1857,8 +1855,7 @@ int pmd_clear_huge(pmd_t *pmdp)
- 	return 1;
- }
- 
--static int __pmd_free_pte_page(pmd_t *pmdp, unsigned long addr,
--			       bool acquire_mmap_lock)
-+int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
- {
- 	pte_t *table;
- 	pmd_t pmd;
-@@ -1870,25 +1867,13 @@ static int __pmd_free_pte_page(pmd_t *pm
- 		return 1;
+@@ -1707,6 +1708,7 @@ static int npcm_video_init(struct npcm_video *video)
+ 		dev_err(dev, "Failed to find VCD IRQ\n");
+ 		return -ENODEV;
  	}
++	video->irq = irq;
  
--	/* See comment in pud_free_pmd_page for static key logic */
- 	table = pte_offset_kernel(pmdp, addr);
- 	pmd_clear(pmdp);
- 	__flush_tlb_kernel_pgtable(addr);
--	if (static_branch_unlikely(&arm64_ptdump_lock_key) && acquire_mmap_lock) {
--		mmap_read_lock(&init_mm);
--		mmap_read_unlock(&init_mm);
--	}
--
- 	pte_free_kernel(NULL, table);
- 	return 1;
- }
+ 	rc = devm_request_threaded_irq(dev, irq, NULL, npcm_video_irq,
+ 				       IRQF_ONESHOT, DEVICE_NAME, video);
+@@ -1808,6 +1810,8 @@ static void npcm_video_remove(struct platform_device *pdev)
+ 	struct npcm_video *video = to_npcm_video(v4l2_dev);
  
--int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
--{
--	/* If ptdump is walking the pagetables, acquire init_mm.mmap_lock */
--	return __pmd_free_pte_page(pmdp, addr, /* acquire_mmap_lock = */ true);
--}
--
- int pud_free_pmd_page(pud_t *pudp, unsigned long addr)
- {
- 	pmd_t *table;
-@@ -1904,36 +1889,16 @@ int pud_free_pmd_page(pud_t *pudp, unsig
- 	}
- 
- 	table = pmd_offset(pudp, addr);
--
--	/*
--	 * Our objective is to prevent ptdump from reading a PMD table which has
--	 * been freed. In this race, if pud_free_pmd_page observes the key on
--	 * (which got flipped by ptdump) then the mmap lock sequence here will,
--	 * as a result of the mmap write lock/unlock sequence in ptdump, give
--	 * us the correct synchronization. If not, this means that ptdump has
--	 * yet not started walking the pagetables - the sequence of barriers
--	 * issued by __flush_tlb_kernel_pgtable() guarantees that ptdump will
--	 * observe an empty PUD.
--	 */
--	pud_clear(pudp);
--	__flush_tlb_kernel_pgtable(addr);
--	if (static_branch_unlikely(&arm64_ptdump_lock_key)) {
--		mmap_read_lock(&init_mm);
--		mmap_read_unlock(&init_mm);
--	}
--
- 	pmdp = table;
- 	next = addr;
- 	end = addr + PUD_SIZE;
- 	do {
- 		if (pmd_present(pmdp_get(pmdp)))
--			/*
--			 * PMD has been isolated, so ptdump won't see it. No
--			 * need to acquire init_mm.mmap_lock.
--			 */
--			__pmd_free_pte_page(pmdp, next, /* acquire_mmap_lock = */ false);
-+			pmd_free_pte_page(pmdp, next);
- 	} while (pmdp++, next += PMD_SIZE, next != end);
- 
-+	pud_clear(pudp);
-+	__flush_tlb_kernel_pgtable(addr);
- 	pmd_free(NULL, table);
- 	return 1;
- }
---- a/arch/arm64/mm/ptdump.c~arm64-remove-redundant-concurrent-ptdump-uaf-mitigation
-+++ a/arch/arm64/mm/ptdump.c
-@@ -283,13 +283,6 @@ void note_page_flush(struct ptdump_state
- 	note_page(pt_st, 0, -1, pte_val(pte_zero));
- }
- 
--static void arm64_ptdump_walk_pgd(struct ptdump_state *st, struct mm_struct *mm)
--{
--	static_branch_inc(&arm64_ptdump_lock_key);
--	ptdump_walk_pgd(st, mm, NULL);
--	static_branch_dec(&arm64_ptdump_lock_key);
--}
--
- void ptdump_walk(struct seq_file *s, struct ptdump_info *info)
- {
- 	unsigned long end = ~0UL;
-@@ -318,7 +311,7 @@ void ptdump_walk(struct seq_file *s, str
- 		}
- 	};
- 
--	arm64_ptdump_walk_pgd(&st.ptdump, info->mm);
-+	ptdump_walk_pgd(&st.ptdump, info->mm, NULL);
- }
- 
- static void __init ptdump_initialize(void)
-@@ -360,7 +353,7 @@ bool ptdump_check_wx(void)
- 		}
- 	};
- 
--	arm64_ptdump_walk_pgd(&st.ptdump, &init_mm);
-+	ptdump_walk_pgd(&st.ptdump, &init_mm, NULL);
- 
- 	if (st.wx_pages || st.uxn_pages) {
- 		pr_warn("Checked W+X mappings: FAILED, %lu W+X pages found, %lu non-UXN pages found\n",
---- a/mm/vmalloc.c~arm64-remove-redundant-concurrent-ptdump-uaf-mitigation
-+++ a/mm/vmalloc.c
-@@ -170,10 +170,7 @@ static int vmap_try_huge_pmd(pmd_t *pmd,
- 	 * Therefore, acquire the mmap read lock to prevent use-after-free when
- 	 * freeing page tables.
- 	 */
--#ifndef CONFIG_ARM64
--	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
--#endif
--	{
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm) {
- 		if (!pmd_free_pte_page(pmd, addr))
- 			return 0;
- 		return pmd_set_huge(pmd, phys_addr, prot);
-@@ -230,10 +227,7 @@ static int vmap_try_huge_pud(pud_t *pud,
- 		return pud_set_huge(pud, phys_addr, prot);
- 
- 	/* See comment in vmap_try_huge_pmd(). */
--#ifndef CONFIG_ARM64
--	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
--#endif
--	{
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm) {
- 		if (!pud_free_pmd_page(pud, addr))
- 			return 0;
- 		return pud_set_huge(pud, phys_addr, prot);
-@@ -290,10 +284,7 @@ static int vmap_try_huge_p4d(p4d_t *p4d,
- 		return p4d_set_huge(p4d, phys_addr, prot);
- 
- 	/* See comment in vmap_try_huge_pmd(). */
--#ifndef CONFIG_ARM64
--	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
--#endif
--	{
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm) {
- 		if (!p4d_free_pud_page(p4d, addr))
- 			return 0;
- 		return p4d_set_huge(p4d, phys_addr, prot);
-_
-
-Patches currently in -mm which might be from ljs@kernel.org are
-
-mm-vmalloc-acquire-init_mm-lock-on-huge-vmap-to-avoid-ptdump-uaf.patch
-x86-mm-pat-acquire-mmap-lock-on-page-table-free-to-avoid-ptdump-uaf.patch
-mm-ptdump-always-stabilise-against-page-table-freeing-using-init_mm.patch
-arm64-remove-redundant-concurrent-ptdump-uaf-mitigation.patch
-mm-move-alloc-tag-to-mm.patch
-mm-move-vma_start_pgoff-into-mmh-and-clean-up.patch
-mm-add-kdoc-comments-for-vma_start-last_pgoff.patch
-tools-testing-vma-use-vma_start_pgoff-in-merge-tests.patch
-mm-introduce-and-use-vma_end_pgoff.patch
-mm-rmap-update-mm-interval_treec-comments.patch
-mm-rmap-parameterise-vma_interval_tree_-by-address_space.patch
-mm-rmap-elide-unnecessary-static-inlines-in-interval_treec.patch
-mm-rmap-rename-vma_interval_tree_-to-mapping_rmap_tree_.patch
-mm-rmap-parameterise-anon_vma_interval_tree_-by-anon_vma.patch
-mm-rmap-rename-anon_vma_interval_tree_-params-and-use-pgoff_t.patch
-mm-rmap-rename-anon_vma_interval_tree_-to-anon_rmap_tree_.patch
-maintainers-move-mm-interval_treec-to-rmap-section.patch
-mm-vma-introduce-and-use-vmg_pages-vmg__pgoff.patch
-mm-vma-clean-up-anon_vma_compatible.patch
-mm-vma-refactor-vmg_adjust_set_range-for-clarity.patch
-mm-vma-minor-cleanup-of-expand_.patch
-mm-introduce-and-use-linear_page_delta.patch
-mm-vma-use-vma_start_pgoff-linear_page_index-in-mm-code.patch
-mm-prefer-vma__pgoff-to-vma-vm_pgoff-in-kernel.patch
-mm-vma-remove-duplicative-vma_pgoff_offset-helper.patch
-mm-use-linear_page_-consistently.patch
-mm-vma-introduce-vma_assert_can_modify.patch
-mm-vma-add-and-use-vma__pgoff.patch
-mm-vma-move-__install_special_mapping-to-vmac.patch
-mm-vma-make-vma_set_range-static-drop-insert_vm_struct-decl.patch
-mm-vma-update-vma_shrink-to-not-pass-start-pgoff-parameters.patch
-mm-vma-update-vmg_adjust_set_range-to-offset-pgoff-instead.patch
-mm-vma-slightly-rework-the-anonymous-check-in-__mmap_new_vma.patch
-mm-vma-introduce-and-use-vma_set_pgoff.patch
-mm-vma-correct-incorrect-vmah-inclusion.patch
-mm-vma-use-guard-clauses-in-can_vma_merge_.patch
-tools-testing-vma-default-vma-mm-flag-bits-to-64-bit.patch
-tools-testing-vma-output-compared-expression-on-assert_.patch
+ 	video_unregister_device(&video->vdev);
++	regmap_write(video->vcd_regmap, VCD_INTE, 0);
++	devm_free_irq(dev, video->irq, video);
+ 	vb2_queue_release(&video->queue);
+ 	v4l2_ctrl_handler_free(&video->ctrl_handler);
+ 	v4l2_device_unregister(v4l2_dev);
+-- 
+2.34.1
 
