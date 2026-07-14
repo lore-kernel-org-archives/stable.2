@@ -1,122 +1,138 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382CD34EF0F
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE2639E9D5
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:14:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784034844; cv=none; b=kmhpxHXy0w/fauUeQdVfUfpjn3CORK366/DF02fC3rhEAuYXg+z23/dW4gfAYn+o2z1YqmaCoFXlw/b4PrDvdLTwhtfh0454npHxnUKCL0NGhSM/WogG+2YC94puF28+suN5KuuhNC4EjTcdGwvvuuAx8LXjaxKNNdaLogyYFNo=
+	t=1784034892; cv=none; b=YqVd8M2pmX2/1Lm3Z98Gr6e9EaC7vA0nskFAWRf+TPZjXwNt3R8UgyAjXuPL0NMaX4rjiLqItoauTa+GP71s0oafNAdT2X1GCjJ6liiR19GY4pupTSThvC6E9P+Q9TaabpeoUiNIBB2934LFKztBJ6e+wAVr6Txs98++U/a22mA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784034844; c=relaxed/simple;
-	bh=MtotPDhuzhIIvZBQmRSCVo0ZcnrH0YTdHYKCpqdh+5Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u3BLH5x2yiqwzpMjzL6yAXgGx/Jp3DzGLOYl66+dg92xx7HQDDYmoOZSxs2IaMUEEX/vdOpbQYkWEEFMHxrrxeG1/hEhOhTMzu5ez4TSmREFvXBkWiHXTiYQnvDi01ZvQu4G3bsM+b/23/QdjM0/Ncmt9ZfgPnu3Ri3Mr/JSMYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TURxFoUS; arc=none smtp.client-ip=209.85.208.44
+	s=arc-20240116; t=1784034892; c=relaxed/simple;
+	bh=UCBel2zhiaYu5dFqjTEjCTrbnvjgUBDs+YAhKN4u8M8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QoJkkfzF9w7iJRmiEEnB7rlTXEC+uQyFz8XdWGbIK3JYt+fSm4FaJPn45U3eRlZ7LsTfzdABbFgY4yYrabKHD3yzx6JGZyHGXp0kc6RXBtrZCND4DHhg0Eh1irkQH9HD7OYL50iOA6msl3mJTNBm/M804qdltln6b3EFMKrAWzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y4wZalMg; arc=none smtp.client-ip=209.85.160.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TURxFoUS"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-69c7697d523so1286253a12.2
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 06:14:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y4wZalMg"
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-451fd21113cso918654fac.1
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 06:14:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784034841; x=1784639641; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ny5+3yiTMDoQJssQpPJVjH5n2qiBSxJZzbYo0RMA4qo=;
-        b=TURxFoUSnQcZdZTMzki54XbbsritsNyE5wfUOwKJtz+XqjImvEPn0hzlYIn6Xb7FFH
-         RDvzEA5MN8AXdrNoL8mc1aq2b+10fWDyOm9fHY7g1FREOMStaZC9WczDhx4+/7X5QRUY
-         fHXD+yH7Y6flG1P9De8Xqm38X6etWOmf9/VipAJ5exzG9nFCbLC8BiIX18Twlq8osr0P
-         +rPNI8cme+sVw+c8ApdPYEv3zdjgvf50+YY8+oqhfGmZnNB38lze+/y/t5dE+cdTFXEo
-         DY4OQtpbNgh2BoEpPMyuhevxih+MxMIZk0DKEozf8tW++WEqYhzwNEVGTLxjrjB9IEyC
-         siwQ==
+        d=gmail.com; s=20251104; t=1784034881; x=1784639681; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AbwIZFBF8Iz6LqeeG2AP7ya8fzzPvitx0MG9ZNL5PZg=;
+        b=Y4wZalMg4meLriclN6zI2cGRuy2GyLPJ7EscOUf3bD8QS8Y4qdjUtmPId7bqcjuv9Y
+         +LBX8QKdTffEWzbWGhEk5NyxTn+sMpSWOZqUVnR2m/+A/O+LEQoNl392ZAsmZ6ci/RZx
+         bs1gsA11yRRAW96QweYQVN5FeQtmVBaYZTuDumfAB8p8XVACJgSn+ub9o20mc/x+THY3
+         blZYPcBFOvidJAHFqbysL9VbyVydlZRARKNV1pF/IKe3qB/07np6/eCmIFJxLk4+D8Lh
+         YBTSN13QHXc/z6P+feGdvtFGEf22ZvQeQE4vXEgtlumjhUpW0AFScCUgyr4jBVbn55Cj
+         BeXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784034841; x=1784639641;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ny5+3yiTMDoQJssQpPJVjH5n2qiBSxJZzbYo0RMA4qo=;
-        b=Ibe0c4omWrO9sEst9kbJbERg7dxscncURGj6GAVgZmbeov5Bd2HhZem8OC6f94Tx5O
-         homLCB5U5cQZwKEGWJU3M5V0mbiM/yG0injqqzZjEoe8txK3RvVn+lW1bqhqNDYKpTEo
-         nGtU1siuyoVdLf39TYV+zyxBt4tEpGsytW4KtCNeCNQKSVdpFtBmY04PhKRIEPerYH9t
-         BPJ34gOI8sWapDUzFPylunguXmFhlm+vyk+pxfwBmhedrGF178NOGJ15VxNQUrjQJTTU
-         Xwq59z30LGBcPBurA1MWDNr2BtHidVe+QRDuOYAFOhQU+h71f3MnZwbVk9SIVvMgrZ2y
-         Qevw==
-X-Forwarded-Encrypted: i=1; AHgh+RpwWw60qXv3rFvnwsY2+4x5aq8UDn3FskDZQPmbTCCjjpiQK7ZHHRVHWJG4trOvglj5d2N0W7M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFiI96XXi4CyWeDxFCZukCioOxqIPpUruDBvQpx6pVsYV3AO2f
-	DrSo6lvN/7CB9iTX713U4PCaU1Yoyx2s/nJRcAKWPzWiCPbA5Nwotx63
-X-Gm-Gg: AfdE7ck71nSxQgM31jh9uXdKu6hRTMlMk1HiibU4xNRgVqt26tG1P3G5d6ZE6LmtKj5
-	4i5yVeaHtUHDsPOZHP8ep9ZbUmh4dPVh+CQbNADM8p3mnIgv7mIoV57YxKB9eb95qMBSA6jf781
-	4GqdIwjynY2bV+sUx2SKf3Dd5b1a95qrWJUzjbSXlw2+QWf5W7m6q/70E8sJPIJAXeNIyqWiJdr
-	QoyznPjnp5aOvW/W3udK9ATeFrGnMA1zuXOIsB45k40dRPnuAl3woq41s3cviCQpEt1do8M75es
-	EupFT/VzynxJos1ct2nY98S09+MLs9SSgWkjnITaGoOLHK8OC84KzW+ObMygkRxLZcRL7TBvd84
-	IYSDiaX84pGT1EoFKrgGKv+TTpILG97JA1s7l7HHi28ybI9izf5XW1n8lBEHLMehr65eAQfeMxG
-	9bsyh1b5DR5o4zzt8zOvQ4dHgOf7aYcQ2YanyOA+oq4qQ/x89ciw==
-X-Received: by 2002:a05:6402:1e8c:b0:683:e394:cc0c with SMTP id 4fb4d7f45d1cf-69c5ef84424mr6428415a12.4.1784034841275;
-        Tue, 14 Jul 2026 06:14:01 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69cd2952836sm1533316a12.27.2026.07.14.06.14.00
+        d=1e100.net; s=20251104; t=1784034881; x=1784639681;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AbwIZFBF8Iz6LqeeG2AP7ya8fzzPvitx0MG9ZNL5PZg=;
+        b=CaxDHi/zZwGiA5+1e7LutXkQqfjqtLoeaXyF51yp67mFcJamVDX2/RTPWegpGzkDNN
+         BQwkRlOvAF3DdZaU9inJweyM8XAzCWD0nmrgxQ1zHOajHMD47WsXk48sAlgXCvqAB4gg
+         +Mf41uQ+8S2+mTWTfbPeBH82wJskUBPQP3RURp7iYrFOdXYJHLPOTnnQ+b0v5GOdpXeH
+         Sq+jIS+PG/EQZV5QJxWNtMCdlHYiDZmazs2ScBhMO4YQZ6DKjvwAk2/ZP7xz9ylfONtL
+         n/JSGlLZ46Ik6bRd66TX6+SSh4Qns/AFVHfsSueGZETSWJ1dYVW04VDKJfxqEQeMhqht
+         WDUg==
+X-Forwarded-Encrypted: i=1; AFNElJ8JQ1steMjCsafmK9stJCnF5EJCo4ejQa2U/Geoq/4mi8iRh8bczMl6lF4FgI6V5CsCj5FXoAg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWw0WpMz1GYwdUh8pHiqGY0thVRP/rfO9o9Y729cC66O+hZ9+g
+	Qum88sWSzYAJp5pTDAyFLv150AzGL9oN4pjlWzxMjzwN4siELaYddtSq
+X-Gm-Gg: AfdE7cmj8whxmVgwh3Cm2xtSJm5CvS+JhbSbxvI3YDtbnZY8dR1yfrYenXAiKz/u1V6
+	Lp+3Jgb3Q7ghtUDgXueOzPOOZ7cj6NNyILNh6BCeqtslwTCXnIWkGOBR6U7U7+ZWzwM5W0IUhvL
+	BGg2LOWraLiFiCySjo8k8SFR+1/IueEom2WzN1mwlSXMFjK/I3MS6BpfkLatxA52GV695mgAdPq
+	+l+JWStpv52QRDTFyXzo1Speykd6zELLugppVcUig2InKqiwh/8agC8aBeJcV5nYDRLwmqo9iuZ
+	5I4941oOCtUx80YuZ98Q71Bqbr/rRoej+QmggLv9KTQXsEyOYLzo3QpaEwRLPH1dfAclq0nCLKR
+	LEjMHM5wKpNmYfdKIzK76968d8e9LkIxPxWPjcX902dd1GcqEhK7JOieOunfK7gdnDpGR+g2pc2
+	YQ+EpJucdh5Jw40+oCOCvXTa8IMHoQiQrE
+X-Received: by 2002:a05:6820:1523:b0:6a3:7d24:7b8e with SMTP id 006d021491bc7-6a39be98f17mr5777449eaf.26.1784034881466;
+        Tue, 14 Jul 2026 06:14:41 -0700 (PDT)
+Received: from ChatreeyT9-N100.localdomain ([122.35.120.240])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a38e9bc8casm8518384eaf.2.2026.07.14.06.14.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 06:14:00 -0700 (PDT)
-Date: Tue, 14 Jul 2026 14:13:59 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Baineng Shou <shoubaineng@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, "T . J . Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
- <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, Sandeep Patil
- <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla
- <srini@kernel.org>, stable@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dma-buf: dma-heap: don't publish fd before
- copy_to_user() succeeds
-Message-ID: <20260714141359.7758575d@pumpkin>
-In-Reply-To: <20260714114654.3885457-2-shoubaineng@gmail.com>
-References: <CABdmKX21NHc2=9Sk2F-BFpu6is0vTg-QXLE+wiFNEPdsWWjvog@mail.gmail.com>
-	<20260714114654.3885457-1-shoubaineng@gmail.com>
-	<20260714114654.3885457-2-shoubaineng@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Tue, 14 Jul 2026 06:14:40 -0700 (PDT)
+From: teirua <qndkdrnl@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Dan Carpenter <error27@gmail.com>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	MinJea Kim <qndkdrnl@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] staging: rtl8723bs: fix inverted HT40 secondary channel offset
+Date: Tue, 14 Jul 2026 22:14:21 +0900
+Message-ID: <20260714131421.3980-1-qndkdrnl@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <alSVi8i-OB7Y51MW@stanley.mountain>
+References: <alSVi8i-OB7Y51MW@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, 14 Jul 2026 19:46:53 +0800
-Baineng Shou <shoubaineng@gmail.com> wrote:
+From: MinJea Kim <qndkdrnl@gmail.com>
 
-> DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-> caller's fd table via dma_buf_fd() -> fd_install() before
-> dma_heap_ioctl() copies the result back to userspace.  If the trailing
-> copy_to_user() fails, userspace never learns the fd number, but the
-> fd (and the underlying dma-buf reference) are already visible to
-> other threads in the same process and are leaked for the lifetime of
-> the process.
->=20
-> The obvious "close it on the failure path" fix is unsafe: once
-> fd_install() has run, another thread can already dup() the fd, send
-> it via SCM_RIGHTS, or close() it and let its number be reused, so a
-> subsequent close_fd() from the ioctl path can operate on an unrelated
-> file.  This was pointed out by Christian K=C3=B6nig on v1 [1].
-...
+rtw_get_chan_type() maps the driver's channel offset to nl80211 channel
+types the wrong way around.
 
-My 2c:
+In this driver HAL_PRIME_CHNL_OFFSET_LOWER means the primary channel is
+the lower 20 MHz half of the 40 MHz pair, i.e. the secondary channel is
+above the primary one: rtw_get_center_ch() computes the center channel
+as "channel + 2" for OFFSET_LOWER, and bwmode_update_check() sets
+OFFSET_LOWER when the AP's HT operation IE announces SCA (secondary
+channel above). In nl80211 terms that is NL80211_CHAN_HT40PLUS, not
+HT40MINUS.
 
-The other option is just to leave it as a 'problem for user space'.
-No reasonable program is going to handle the EFAULT return by doing
-anything other than exiting.
-Even getting an EFAULT is really an indication that the application
-is already in a real mess - most likely with a badly corrupted heap.
+Because of the inversion, cfg80211_rtw_get_channel() reports an HT40+
+association as HT40-. For an HT40+ AP on a low channel (e.g. channel 3)
+the resulting chandef spans below the 2.4 GHz band edge and is invalid,
+so the regulatory core tears the connection down 60 seconds
+(REG_ENFORCE_GRACE_MS) after the AP's country IE triggers a regdomain
+change: reg_check_chans_work() considers the reported chandef unusable
+and calls cfg80211_leave(). The supplicant then reconnects, the country
+IE changes the regdomain again, and the cycle repeats, causing a
+disconnect/reconnect loop every ~65 seconds for as long as the link is
+up.
 
-Anything else leaves error recovery code in the kernel that is pretty
-much never executed and open to a variety of bugs.
-While the recovery here is probably ok, there are some sockopt calls
-where it is all more complicated.
+Observed on a TECLAST X80 Power tablet (RTL8723BS) associated to an
+HT40+ AP on channel 3 with a KR country IE; a kprobe trace showed
+cfg80211_disconnect() being invoked from reg_check_chans_work(). With
+the mapping fixed, "iw dev wlan0 info" reports the correct
+"width: 40 MHz, center1: 2432 MHz" and the periodic disconnects stop.
 
-	David
+Fixes: 5402cc178c5d ("staging: rtl8723bs: add get_channel cfg80211 implementation")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude-Code:claude-fable-5 bpftrace
+Signed-off-by: MinJea Kim <qndkdrnl@gmail.com>
+---
+v2: drop the comment at the use site; the explanation stays in the
+    commit message (suggested by Dan Carpenter)
+
+ drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+index 6a97afd..967cd1b 100644
+--- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
++++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+@@ -1957,7 +1957,7 @@ static u8 rtw_get_chan_type(struct adapter *adapter)
+ 		else
+ 			return NL80211_CHAN_NO_HT;
+ 	case CHANNEL_WIDTH_40:
+-		if (mlme_ext->cur_ch_offset == HAL_PRIME_CHNL_OFFSET_UPPER)
++		if (mlme_ext->cur_ch_offset == HAL_PRIME_CHNL_OFFSET_LOWER)
+ 			return NL80211_CHAN_HT40PLUS;
+ 		else
+ 			return NL80211_CHAN_HT40MINUS;
+-- 
+2.43.0
+
