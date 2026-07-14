@@ -1,63 +1,63 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687DB3F076E
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 08:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EC6308F0A
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 08:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784018028; cv=none; b=YkGHDUbHKkWdy62B/VAhLk0GnkW3r0eENbLerh/NxD5owZijcTtZI3jbpF02jMrwDdsecw7MGk1QO/LeDDeVDSWawrJIqKdzPLRASNdD3NHedgyR089BUc9SDnXGl/GxEGNc1C+ye4t+VP2n620wwS+379eLTAYDYUGoP3J+1jk=
+	t=1784018245; cv=none; b=qEeV7Rp2rlFwOZLlm5xjWqsR9WOfOBaXR+KWkBo3HveQS+vT8w2KN3VbusqdJl/wfXFV/6nxBz1p0edXyXMOn8KPi4qe1KZ7x8D0n3daOKHqqwbLTPY4bKwmIxaXZgjzEI8R6wf1C2GSMXqxblstFzyCjFBdLSXx2w5g6aef2I4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784018028; c=relaxed/simple;
-	bh=IHW0jrVYKirRz4xFnRAvekmWCpqi2k7RyAf7Y5W4PyI=;
+	s=arc-20240116; t=1784018245; c=relaxed/simple;
+	bh=jyNi2uQN+yA/KxZs/JeOh8FJ+fAidxRw+r2ty9saz0U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F1DrCpN+Pt5Pxo66C6IEhWxD+yLp2MxdNj/Zz/MUsOMpCnJXLqp6ZdcJitjl+wEyHIsQ9eka/ds4u3mr1lZrglhD7Z6h5fpcBMp9bH8fTcsxRFPQ3oFSNa93CJ+BNctgXtyQ3YIORvug5MCL++O5D/8ls3fbVSeKjtwgT8DK1Us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZRNHBawA; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version; b=dD/EEModKT044nBSFowThZpu9P9SKF5a7FIhOtGACS/rzVgEtzuKwGN7zLzqmONAAvAM+h4s8b5bEs8Ves4JBsu3cod21zDi6tjqhcxTyJptU+1ab9WnOJkvTTabrBkJURkvV2gomddJqoOC9Qqw/hkmTqljrXU+SosF/YBzGEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RoHG1Zjl; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZRNHBawA"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493c2c0b9a8so5156025e9.1
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 01:33:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RoHG1Zjl"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4758bd3731bso535192f8f.0
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 01:37:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784018020; x=1784622820; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784018236; x=1784623036; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dN43QeMKt3opRlURLs9WAJqq1Kw1gcGP8C53HZV1wz0=;
-        b=ZRNHBawAzRsgDKjWIYbkX/L1AqJpGi259NXywqFklR5avA8/pAhNQPKxfaa7liKDGY
-         NV9ytgt92T/KO1vMDsKuWiBcWT9AtNz/q4ge3CeGVXADTLhavvQiF9NVejobzMQizcy+
-         OSYECwuCUW4yzY99N0TT7xKej9FCV+CvkR+uyeaFsaQupoT92k3dVzY9RvibPF+ZrP+k
-         PnAoa2EWiPB8TPl/VQMTjpbig2UNMZ7cS8uNkIMfR+3jOe8IBchyDeaoSngsoWYBhj9N
-         GKF0e4AZ0teyjC1rpeqSD2d/+7s9DVcmuPxCqSuEKn4MaUjLkoWCwiF302XoWJHMFDu+
-         PJCQ==
+        bh=C2Wd2Xk4XZ8QtjBdQAzkHYSxRYvpP0OLkJpmP7Ac0SQ=;
+        b=RoHG1ZjlN9LgqdgchRqf/YaTilkFn0aSTzPr5wN/U5HfBN2utje0GaqlVq54eCOhJv
+         QtrOgbOUE1xWkc6eNiGptCUfaj84r7C6ABNGYomMT63j7pb8AIX68WhY9+U5wSyDFIGb
+         WAEPAYpgpXfmFNtua87OM5m8A3J5hgMkCVb3E/KrDGyZFwF+Ab/QLq1iH9kaW9DvOuxu
+         cJhUwP56x44S78K/9JCE/XH+FMTrX3+Pe1s87HQxc3gnDzHNEZxNmrPQuZ+P3bwCOkaU
+         XRDXhANlAj4kUjSaIcGRS1i+87/kms91l/YpENjhU5faNS4MKtjjfE1l3TQseMVco7BR
+         gi/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784018020; x=1784622820;
+        d=1e100.net; s=20251104; t=1784018236; x=1784623036;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dN43QeMKt3opRlURLs9WAJqq1Kw1gcGP8C53HZV1wz0=;
-        b=DUBL4K3t5rWa41XzhIQQMs6I/KvNZw2+P4hWvXk4gKmNZ4YGYvL6x9rjT6FMWSbh/L
-         phNjpjb6uEI1GkhhL154FAu6Rg0xeQD7YvWIx8dWwp/VHqpsScJ94cH4R7eMV1ddvFFK
-         cXbAeQEWR6dvfTY2s1lyzXTTjXyeQ0P6JEVZq/Il+YgtG0/kR+wl5oWDeq9Nfzy9xESf
-         YAhZ4jgduPQreWAgGKwWa8oO9hZ4jWXC6LpBDnHfdSbEIHsRgF1onBVlStisq/H5Z9KL
-         XqM5E1gM5emJuglrdIAAah5Psf0mYXL5g7RiqWQNXK08e1Cfu2nrGM+AOuqeZmrXqdev
-         CdlA==
-X-Forwarded-Encrypted: i=1; AHgh+RpS4kjMOduo6dLLWFl6Ap+HCVBQhZ4TS7KFGyK62Q3wBMaybj3h4jTqsJ7vVU2Ytv11h2d/Z00=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw91W7+1aExkDuO1SvrmwiH7LKLlMxEJT7F8iZYc+wOU+lhhDsY
-	EoGO0UwH6KFEXwa/dsyiNAPnbK1b0ZUWtiItvUYUI3c/oQe065Lyv2z/
-X-Gm-Gg: AfdE7clpElD6wgWBAf66pn7DRE2sQn+g+QNSSypJBGDNaaxZT4PNvc4KjTzN3IFXSmH
-	0k1DLKyuf4YHqjMVdqzYfdaVNSenVLo+QfWVLTw1gDk7KzWssBbSeMvHvZb4ZGqMs+7ORKRAxna
-	ujtPT3XKnv6/ji/mZtlzOEL6QPM/FUovwxNLCOvoaosBxnqLhdTsb2piS5BMsKLC7Ly/9d+IXeF
-	M8ke7THnclTv8v7M0yPNq2QNGAOAlME4sOZAhk/Gsbb9R6WWf3r/gVXhuQGuSWNpkzJUcsgZFKw
-	GQWbLimr18CBx9NTCwcsj0FMmv3GUrH7vNucD6SYF7o7Mn4I50b2vIVFG4HZ/DvoGaXdiPrgmS1
-	07oqTdbzgReISQ2V5WIVYHSc2QbRCmbpeRT3mefPwknC4xWT7k4mIPIxMzltST9IoV0Fgs0bUPc
-	T4hEr6UZGVPbMA4Ha0FDgBllWT4j6LWVnNXg==
-X-Received: by 2002:a05:600c:1392:b0:493:f753:24e8 with SMTP id 5b1f17b1804b1-493fed59338mr109265975e9.6.1784018019335;
-        Tue, 14 Jul 2026 01:33:39 -0700 (PDT)
+        bh=C2Wd2Xk4XZ8QtjBdQAzkHYSxRYvpP0OLkJpmP7Ac0SQ=;
+        b=qtyRBIYzZVztrLmdDGx3jDyBLwUfAAHpqzIgeEZkOiheGwStL3umClVyh4KWFVwxqa
+         VHg9598zLrE6laEWgPxceTfI/yofqDfMtyDuAhg0eL/r/lC9zJ4TNy1ZrUluCQeEDuRg
+         8btg3KZM5M3ieRmQsxo8Cc4GYmVDOiqGj8o277q17jswsCkY234nIH6evSc9kBpDij9M
+         ZVV1gR/bXBAaDM6gjqrROzcOCEyYCuR9Q0e/n1NDs0EsE76e+KjSD3uFNFYnYUtQPoLe
+         7h1jhoIdW6uxBDYGucGADRoWbkucawQA2VFsCKOYoSsez1AcRa+iZVzl70qZ3wRTAm73
+         Q+nQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1GE97j9EqoY8Fzkhgv5avouGbEAi9jl6eySl+I56mfRULAFZ0KwaWN9FbdmTO/fAFwu0v+10=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy9WXew3wZnk/LGJ1IHE1Q6/w3Z2FQhTB2hfatI7f59ruUdsTZX
+	B+0YxcDl5kM6SHgZe7iNQ1/5WEF0bbsi0+Drw7sGBN/tkw3I6rPf+0wc
+X-Gm-Gg: AfdE7cm/ZBRHTbWZirV20ri37SFJP/Eeu+uE0ZjmBtH4125Z75ND3KZPzLhZRiit9a4
+	ktMknrAqpVlLwMbEyHuywlZtcRon5Iz6Kb6a+cM1kUTdM4ObBaxmimykfP8Q1+N43zUuSnZY8cK
+	/WCWxTMbra/Jt3+4oYCpAcSP3BL/1Vr5N4y1UXYwn2SGjHqmfvRLg8n19Xkn2vPrf3SlIPrWp1N
+	IPSkqhSnDf8rEnsG4P5VhuzHqWnMrM2kGn1oPeWLne912FKjTlejYR8QnUSr52X/51GmO1edUu5
+	QH9DZ3BzAhEJIY7MVS6tQEbd4TfCLzROV0gwn4AWn7FUh0V/0zpJvjfQdWSKdKAWGIJz+DfGL/X
+	GncmOE6AVrm10FqZmTbp72JIDMlvMPBYVm0FV57QhvEW1pFseQEGszg9BrbHJ1AymCkoksubK7X
+	SwVNC09u/34Yb8hojTSs612tQDMn8ZF16BAkQvrsf3wlyo
+X-Received: by 2002:adf:e19a:0:b0:47e:96f2:52ab with SMTP id ffacd0b85a97d-47f2dc85da3mr15640517f8f.7.1784018235606;
+        Tue, 14 Jul 2026 01:37:15 -0700 (PDT)
 Received: from localhost (a89-182-201-216.net-htp.de. [89.182.201.216])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4950a33a926sm52933245e9.15.2026.07.14.01.33.38
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47f464c7c96sm6238308f8f.33.2026.07.14.01.37.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 01:33:38 -0700 (PDT)
+        Tue, 14 Jul 2026 01:37:15 -0700 (PDT)
 From: Sergei Litvin <litvindev@gmail.com>
 To: miguel.ojeda.sandonis@gmail.com
 Cc: ojeda@kernel.org,
@@ -68,9 +68,9 @@ Cc: ojeda@kernel.org,
 	linux-kbuild@vger.kernel.org,
 	Sergei Litvin <litvindev@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] scripts/tags.sh: Prevent binary files appearing in cscope.files
-Date: Tue, 14 Jul 2026 10:33:31 +0200
-Message-ID: <20260714083331.69482-1-litvindev@gmail.com>
+Subject: [PATCH v2] scripts/tags.sh: Add support for rust source files
+Date: Tue, 14 Jul 2026 10:37:09 +0200
+Message-ID: <20260714083709.69517-1-litvindev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <CANiq72kHbVQfNrum5D2a5sCd3mFQHNtigrQxP1WW=YcggxA=WQ@mail.gmail.com>
 References: <CANiq72kHbVQfNrum5D2a5sCd3mFQHNtigrQxP1WW=YcggxA=WQ@mail.gmail.com>
@@ -82,59 +82,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When executing the command `make COMPILED_SOURCE=1 cscope`, the resulting
-`cscope.files` file contains filenames with the extensions *.rlib, *.rmeta,
-and *.so.
+When executing the command `make cscope`, the `cscope.files` file generated
+by it includes only filenames with the extensions *.h, *.c, *.S and not includes
+filenames with *.rs extensions.
 
-To fix this, modify the regular expression in the `all_compiled_sources()`
-function so that only files with the extensions *.h, *.c, *.S, and *.rs are
-accepted.
-
-The issue has been introduced by commit 4f491bb6ea2a ("scripts/tags.sh: collect
-compiled source precisely") which implemented the parsing of compiled sources
-from *.cmd files instead of using the "find" command.
+To fix this, modify the functions `find_arch_sources()`,
+`find_arch_include_sources()`, `find_include_sources()`, and
+`find_other_sources()` so that they can accept an unlimited number of filename
+patterns as parameters for the search. Add the `setup_name_pattern()` function
+to convert these filename pattern parameters into a list of parameters that can
+be passed to the `find` utility via the new `pattern` variable.
 
 Cc: ojeda@kernel.org
 Cc: nsc@kernel.org
 Cc: nathan@kernel.org
 Cc: stable@vger.kernel.org
-Fixes: 4f491bb6ea2a ("scripts/tags.sh: collect compiled source precisely")
 Signed-off-by: Sergei Litvin <litvindev@gmail.com>
 
 ---
 
-This is the first part of this patch:
+This is the second part of this patch:
 https://lore.kernel.org/lkml/20260602121521.11650-1-litvindev@gmail.com/
 
 which I have split into two parts, as suggested by Nicolas Schier here:
 https://lore.kernel.org/lkml/akVkIrcpNxZrrfii@levanger/
 
 Changes since V1:
-https://lore.kernel.org/lkml/20260705175936.4653-1-litvindev@gmail.com/
+https://lore.kernel.org/lkml/20260705175957.4672-1-litvindev@gmail.com/
 
 as suggested by Miguel Ojeda here:
 https://lore.kernel.org/lkml/CANiq72kHbVQfNrum5D2a5sCd3mFQHNtigrQxP1WW=YcggxA=WQ@mail.gmail.com/
 
 - Add "Cc: stable@vger.kernel.org" tag
-- Add "Fixes:" tag
 - Add missed "Signed-off-by:" tag
 ---
- scripts/tags.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ scripts/tags.sh | 40 +++++++++++++++++++++++++++++++---------
+ 1 file changed, 31 insertions(+), 9 deletions(-)
 
 diff --git a/scripts/tags.sh b/scripts/tags.sh
-index 243373683f98..c9dc2763a505 100755
+index c9dc2763a505..41e38df96984 100755
 --- a/scripts/tags.sh
 +++ b/scripts/tags.sh
-@@ -100,7 +100,7 @@ all_compiled_sources()
- 	{
- 		echo include/generated/autoconf.h
- 		find $ignore -name "*.cmd" -exec \
--			grep -Poh '(?<=^  )\S+|(?<== )\S+[^\\](?=$)' {} \+ |
-+			grep -Poh '(?<=^  )\S+\.([chS]|rs)(?=\s)|(?<== )\S+\.(?1)(?=$)' {} \+ |
- 		awk '!a[$0]++'
- 	} | xargs realpath -esq $([ -z "$KBUILD_ABS_SRCTREE" ] && echo --relative-to=.) |
- 	sort -u
+@@ -46,13 +46,31 @@ elif [ "${ALLSOURCE_ARCHS}" = "all" ]; then
+ 	ALLSOURCE_ARCHS=$(find ${tree}arch/ -mindepth 1 -maxdepth 1 -type d -printf '%f ')
+ fi
+ 
++setup_name_pattern()
++{
++	pattern=()
++	for ext; do
++		if [ ${#pattern[@]} -gt 0 ]; then
++			pattern+=("-o" "-name" "$ext")
++		else
++			pattern+=("(" "-name" "$ext")
++		fi
++	done
++	if [ ${#pattern[@]} -gt 0 ]; then
++		pattern+=(")")
++	fi
++}
++
+ # find sources in arch/$1
+ find_arch_sources()
+ {
+ 	for i in $archincludedir; do
+ 		local prune="$prune ( -path $i ) -prune -o"
+ 	done
+-	find ${tree}arch/$1 $ignore $prune -name "$2" -not -type l -print;
++	local src=${tree}arch/$1
++	shift
++	setup_name_pattern "$@"
++	find $src $ignore $prune "${pattern[@]}" -not -type l -print;
+ }
+ 
+ # find sources in arch/$1/include
+@@ -61,14 +79,17 @@ find_arch_include_sources()
+ 	local include=$(find ${tree}arch/$1/ -name include -type d -print);
+ 	if [ -n "$include" ]; then
+ 		archincludedir="$archincludedir $include"
+-		find $include $ignore -name "$2" -not -type l -print;
++		shift
++		setup_name_pattern "$@"
++		find $include $ignore "${pattern[@]}" -not -type l -print;
+ 	fi
+ }
+ 
+ # find sources in include/
+ find_include_sources()
+ {
+-	find ${tree}include $ignore -name config -prune -o -name "$1" \
++	setup_name_pattern "$@"
++	find ${tree}include $ignore -name config -prune -o "${pattern[@]}" \
+ 		-not -type l -print;
+ }
+ 
+@@ -76,23 +97,24 @@ find_include_sources()
+ # we could benefit from a list of dirs to search in here
+ find_other_sources()
+ {
++	setup_name_pattern "$@"
+ 	find ${tree}* $ignore \
+ 	     \( -path ${tree}include -o -path ${tree}arch -o -name '.tmp_*' \) -prune -o \
+-	       -name "$1" -not -type l -print;
++	       "${pattern[@]}" -not -type l -print;
+ }
+ 
+ all_sources()
+ {
+-	find_arch_include_sources ${SRCARCH} '*.[chS]'
++	find_arch_include_sources ${SRCARCH} '*.[chS]' '*.rs'
+ 	if [ -n "$archinclude" ]; then
+-		find_arch_include_sources $archinclude '*.[chS]'
++		find_arch_include_sources $archinclude '*.[chS]' '*.rs'
+ 	fi
+-	find_include_sources '*.[chS]'
++	find_include_sources '*.[chS]' '*.rs'
+ 	for arch in $ALLSOURCE_ARCHS
+ 	do
+-		find_arch_sources $arch '*.[chS]'
++		find_arch_sources $arch '*.[chS]' '*.rs'
+ 	done
+-	find_other_sources '*.[chS]'
++	find_other_sources '*.[chS]' '*.rs'
+ }
+ 
+ all_compiled_sources()
 -- 
 2.55.0
 
