@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F9929D270
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:27:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273DE46AF05
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:34:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784035632; cv=none; b=h3eQw3llIlK1j3UQ4FvaeS81GDEeHYRJQUJwvhB26Ydkir3YfP3yQlDHNcGy605M+GUdWWY1yMjG9yL9nnBUQ3qzhal+Kg60UKzH7TwNK2FuEzW6G2wfxNiVhEbJc3YYpIEp9UB3u6MIEIDOfsxYzM1ob1Jax1WS30/5efF490E=
+	t=1784036087; cv=none; b=r49EeLvEi2gJ/NzIyQJZ6oT5FEmbGFMRBi1bEx9a/Rw085lYdSo5sXyUb5DO5tW+SygzAotXpl45q5UoXif1fBs6PP43CnF5MQ1YQK7IofbqqbIAhFId28QEkafChu6/cSZqiNuacXOG85DaBNFpn7SWX5IeAlcYvHGBxjwDd+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784035632; c=relaxed/simple;
-	bh=4gtc1Atl/reaPLFpiFy49YLPGaA32T6kUO3QjS9u4M0=;
+	s=arc-20240116; t=1784036087; c=relaxed/simple;
+	bh=EO1x6uwgMkF/y58nUnKP7j7wgalyEVL+YGXIziHTKZk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sC9bO25gbM2kidafgdGsQQ5SLKXCqPulbFMhRLRpH5q6IpLL7cEOC4kHo0CBQUWR8aJd0HLcxSq8sAraUMOslEnHtgMsAtj6jALb9u7DaqkCnF8afmfn0bAOrhLU45fd1iUxMnV3pFWcEJunqmJO9Zp9fDXc1wCa72fryfo7www=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mJRR4+HB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tumFcT0ziqyi+WLRNqbBoNjWqm7/yP4XdBv4ulDRckJJrjX2Vl4Mz12qZQuycGedrqaakTXaGjqhM3KBPAkLixliRI14DMHpebBL0MSCBkQEfWPPFSqWm+KDnw34g2WZbCExvNWMTsqi7C706v0Xqqmoi/esnfDsZEbNVyr3R0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P6G4iKmG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJRR4+HB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93EFD1F000E9;
-	Tue, 14 Jul 2026 13:27:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P6G4iKmG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FE751F000E9;
+	Tue, 14 Jul 2026 13:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784035631;
-	bh=36b99Og6kWEkF94Fv0JrkfA7SxMdJDW+WBhx1HNSiNQ=;
+	s=k20260515; t=1784036085;
+	bh=/M3ZErL57N8QoINDm8mapDvZ/LLUbS3LxC6MktlP/v8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mJRR4+HB/q1KCNYYx7nTggg7CWeiqcgVUG8u875DWzmPb1h8JoZUQ/ihJ3ssTG0LI
-	 S3YGQ/NjbsHgXpcyUV4t0sP5zKjq1T0n7g1ksM821vCKMqY5QmPUOgcQ9emYGPXQl0
-	 Y/dllq7graUi6zp4ICxnWJ5yyYGf81EOwafR4J52JXq5JSXxPnLkiPpC3SDjLhciaO
-	 dqD4FUN0wSHtxrsXoBH4NkddCFOdSmG/c45epHyb70rRCIRIdmU3tTYjouSIGTjQPA
-	 NMlBCDwBYIBLXs+KwmfwKC6+wXsaHAnzHwbOm/Npd6msN1N+yB8+CFzcEIML/sVZuh
-	 TWbkLBjZQgnvg==
+	b=P6G4iKmGTNb3e/63JPTeP9k/0E3bQhdJqRHqKAqoyQoWexhi/+uDk4oTv3r4u7RWL
+	 HUrUJF+2dYSUtSocYN7o/o6LUH0wqsyW2sE80FueufH+oqi5vJ8YGK3kicf/rGRycV
+	 X+o8O7elB9mE5+UNN0/cHq3Y8fG8OuICVpwuX3CN7hPnNGpXbgkm08oMxyoClgAv67
+	 Cmfw/dSNHag7B5JR9XHNu9UuIacchkZ5l7hHLC4tcPt7E7dXqnwpoYG3PxzmxyGmjo
+	 wvL2aBoVPDjNsMWkqdiVH4P6fuJt9CogZS33/dQT1MezFPTbmjdmMcAiZVKOFfNVIh
+	 nGC+S2g1hpfhw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Alex Williamson <alex.williamson@nvidia.com>,
@@ -33,12 +33,12 @@ Cc: Alex Williamson <alex.williamson@nvidia.com>,
 	Kevin Tian <kevin.tian@intel.com>,
 	Alex Williamson <alex@shazbot.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] vfio/mlx5: Fix racy bitfields and tighten struct layout
-Date: Tue, 14 Jul 2026 09:27:08 -0400
-Message-ID: <20260714132708.2663976-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] vfio/mlx5: Fix racy bitfields and tighten struct layout
+Date: Tue, 14 Jul 2026 09:34:43 -0400
+Message-ID: <20260714133443.2672245-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071330-plus-jackpot-fb60@gregkh>
-References: <2026071330-plus-jackpot-fb60@gregkh>
+In-Reply-To: <2026071342-scrooge-clay-0479@gregkh>
+References: <2026071342-scrooge-clay-0479@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -97,10 +97,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 9 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/vfio/pci/mlx5/cmd.h b/drivers/vfio/pci/mlx5/cmd.h
-index d7821b5ca77293..82831e0483c09d 100644
+index df421dc6de0485..5e8ebb6857687c 100644
 --- a/drivers/vfio/pci/mlx5/cmd.h
 +++ b/drivers/vfio/pci/mlx5/cmd.h
-@@ -155,25 +155,28 @@ struct mlx5_vhca_qp {
+@@ -157,25 +157,28 @@ struct mlx5_vhca_qp {
  struct mlx5_vhca_page_tracker {
  	u32 id;
  	u32 pdn;
