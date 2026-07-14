@@ -1,115 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A1346AF03
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382CD34EF0F
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784034313; cv=none; b=b0bqntvxtDFbb7cGIxMEqN90YOoyiPidk1gg89u7aulrLDiz7h6gsH4QRFlboF3vftG/GM9PQhGsv1grMwp3NWRnY2StBe8jiRvkO/0MJZrfs/oLBt2dW6InFzcOL5LNWm4baJetmX3MsGHWf+U11xOqfwfIpJq7y39O3l0FVBY=
+	t=1784034844; cv=none; b=kmhpxHXy0w/fauUeQdVfUfpjn3CORK366/DF02fC3rhEAuYXg+z23/dW4gfAYn+o2z1YqmaCoFXlw/b4PrDvdLTwhtfh0454npHxnUKCL0NGhSM/WogG+2YC94puF28+suN5KuuhNC4EjTcdGwvvuuAx8LXjaxKNNdaLogyYFNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784034313; c=relaxed/simple;
-	bh=uONPNuPd9OKKjtc0cbFYUNdRBRuTnzo0udv7EwdreEY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g/nwW6vG5SZF2X6PizfgKMPlZvTTQYlCqBjrRXl5uhbiL+XcurMFhmtTOrl5tbedPNZDBhAw+st3nY8uBK/umOVTjyfefBSGOQEjnLwpA7Rkp92g7x+9QN2CTKs9jE2hU7aCVeH5pjEzkUv/xXJQAZAy/9GIBuw3LcYcql9ceSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZ0obx5O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784034844; c=relaxed/simple;
+	bh=MtotPDhuzhIIvZBQmRSCVo0ZcnrH0YTdHYKCpqdh+5Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u3BLH5x2yiqwzpMjzL6yAXgGx/Jp3DzGLOYl66+dg92xx7HQDDYmoOZSxs2IaMUEEX/vdOpbQYkWEEFMHxrrxeG1/hEhOhTMzu5ez4TSmREFvXBkWiHXTiYQnvDi01ZvQu4G3bsM+b/23/QdjM0/Ncmt9ZfgPnu3Ri3Mr/JSMYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TURxFoUS; arc=none smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZ0obx5O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3788A1F00ADE;
-	Tue, 14 Jul 2026 13:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784034311;
-	bh=HhdQiVTu6KA3opOMmKVdmA07qpV4bmi8kt8ZDXJ4P3w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PZ0obx5O3QFI6l8EJIJYSOahVEPqlrLTU55V39v8H62drxItp5CWFCFACTgEGkN42
-	 49T1SvqP9IH9lO7G6gP/vg7eqKISrhHNtrX990wuyt9AX9hZscHITYKWFAiHoj2+xA
-	 1NHzriP7pQqqmQhMlAZtwEXkitGoB+Hin5Zbj3F1CgcYoYc6/w82Ihe8jPrKj+mqwd
-	 sdCJ7sih4ypqNkUCrfPATiNhD9bR1YGVXxWz0p/feArcgNfFoRB0GPiBkxee9h3xom
-	 PB5bmYyXRxQifynJ9kK0RFC6/uxoOPjzaBcvBf2+UecHRpcOp/uhYqtyzcbiR54gtN
-	 kgeNloFpdy1RA==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 52E95F40066;
-	Tue, 14 Jul 2026 09:05:10 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Tue, 14 Jul 2026 09:05:10 -0400
-X-ME-Sender: <xms:BjRWagNi83rL4RE4Qzq_CHX1oez7HKXUjA69k5PADjg3PaIWoPBTHQ>
-    <xme:BjRWajuX2JbZOFCP_0cGkfRmZeEosQPaK5cnLePrvffit5u1SFwjcehQfsiruyRXE
-    dDiJXl5LhOmh4bO0xBsntVijiISR7BYZm6fv9Y5MWgCZ7stuMOp4Q>
-X-ME-Received: <xmr:BjRWam0wnS74KGev3VJ4KM43BoAWCs57Lf4nzrXSFn1nu4B6WYly-DlNqVH81A>
-X-ME-Proxy-Cause: dmFkZTG2+qoH7YKbDlyzXcMOV8ogYXK4x4YWWZstIygUmJWSdfFUXxfKJXPuuHTq2il8YC
-    4dFtu85gFPcaTqNqU3aftuUiHdYh4lvK7JQllt5w6x97pLVFtkNXm61NuG8tobtjLnb1tD
-    1hFuzcLAw4HMnUo2y/t/BIi/qcl7+Or33WV0BjsbndomlgUzbeg806UaEqP2eQgCQmppi6
-    fTUKJvXwLMnoXzycderldx42CWnKTyFto9X9gefWfYhFuh4G13cjBY7lCc6dm6nJbOdJEr
-    QmVRL1usA7cILcT60xIFIxTl8Q2AKHvsb7RObv7EXRP4L0GTAJPp8h0BJTedLoQrWtQZLG
-    hDZtzhI3EB7g433rhNA5IWc34XkTIp9Z2/FSm/ysYplg8uDejU5w11BnOdZAWXsIrPya8C
-    YmFZHyyuEOGu7e3AJ+kWdN5NaxqHbt77Yc7+dL24yiuoPL1p1Sg5HXcG/roRy0ISvinkhH
-    BOnYaQz3bIkTvFYAWS2QBQu7XrGNlfTCgZeOFQaPYwJ0qYCnXbEbP6IXLibUO4AOsNNSYI
-    vPav/2j1e4ojOQVJaooohbHypA0+XXKAZScDO6PzZNp++wkgoGrhTfTpxC3hG4LX44v1l5
-    Piuqxud9l7rgnbs8VjBA0zGxCJVy1yYr2nlrM+T8Jpp89uG+0pNGRBegyx4w
-X-ME-Proxy: <xmx:BjRWahXnTxBvcc7YhMqs8WKsrcQV186pH-2cmMOJIX2iWLEQYcVkog>
-    <xmx:BjRWasukaIAcWGkwb_LYkDWN4F6RrN-Pn-ZTxmuZ6wRkecdntjWaxg>
-    <xmx:BjRWaszQmfr2r_k1XmGT_xU59KGomGGlQzC-Lyrbb01VG2y6RSLNbQ>
-    <xmx:BjRWajkdtz-OXhToMrbPm3KIpaCHey15lyJaI6zfi0t1kLqmaMz5JA>
-    <xmx:BjRWaiZR_BGHImDMXqbUM9CSeon3mOfVtcr_uViC4Qam2j0jLwARoLlY>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 14 Jul 2026 09:05:07 -0400 (EDT)
-Date: Tue, 14 Jul 2026 14:05:05 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Hao Zhang <zhanghao1@kylinos.cn>, Hao Zhang <hao_zhang_kdev@163.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] mm/memory-failure: keep the folio, not the
- poisoned subpage, locked across split
-Message-ID: <alYzJ9-zsTuQl08J@thinkstation>
-References: <20260714122344.351895-1-kirill@shutemov.name>
- <20260714122344.351895-2-kirill@shutemov.name>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TURxFoUS"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-69c7697d523so1286253a12.2
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 06:14:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784034841; x=1784639641; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ny5+3yiTMDoQJssQpPJVjH5n2qiBSxJZzbYo0RMA4qo=;
+        b=TURxFoUSnQcZdZTMzki54XbbsritsNyE5wfUOwKJtz+XqjImvEPn0hzlYIn6Xb7FFH
+         RDvzEA5MN8AXdrNoL8mc1aq2b+10fWDyOm9fHY7g1FREOMStaZC9WczDhx4+/7X5QRUY
+         fHXD+yH7Y6flG1P9De8Xqm38X6etWOmf9/VipAJ5exzG9nFCbLC8BiIX18Twlq8osr0P
+         +rPNI8cme+sVw+c8ApdPYEv3zdjgvf50+YY8+oqhfGmZnNB38lze+/y/t5dE+cdTFXEo
+         DY4OQtpbNgh2BoEpPMyuhevxih+MxMIZk0DKEozf8tW++WEqYhzwNEVGTLxjrjB9IEyC
+         siwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784034841; x=1784639641;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ny5+3yiTMDoQJssQpPJVjH5n2qiBSxJZzbYo0RMA4qo=;
+        b=Ibe0c4omWrO9sEst9kbJbERg7dxscncURGj6GAVgZmbeov5Bd2HhZem8OC6f94Tx5O
+         homLCB5U5cQZwKEGWJU3M5V0mbiM/yG0injqqzZjEoe8txK3RvVn+lW1bqhqNDYKpTEo
+         nGtU1siuyoVdLf39TYV+zyxBt4tEpGsytW4KtCNeCNQKSVdpFtBmY04PhKRIEPerYH9t
+         BPJ34gOI8sWapDUzFPylunguXmFhlm+vyk+pxfwBmhedrGF178NOGJ15VxNQUrjQJTTU
+         Xwq59z30LGBcPBurA1MWDNr2BtHidVe+QRDuOYAFOhQU+h71f3MnZwbVk9SIVvMgrZ2y
+         Qevw==
+X-Forwarded-Encrypted: i=1; AHgh+RpwWw60qXv3rFvnwsY2+4x5aq8UDn3FskDZQPmbTCCjjpiQK7ZHHRVHWJG4trOvglj5d2N0W7M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFiI96XXi4CyWeDxFCZukCioOxqIPpUruDBvQpx6pVsYV3AO2f
+	DrSo6lvN/7CB9iTX713U4PCaU1Yoyx2s/nJRcAKWPzWiCPbA5Nwotx63
+X-Gm-Gg: AfdE7ck71nSxQgM31jh9uXdKu6hRTMlMk1HiibU4xNRgVqt26tG1P3G5d6ZE6LmtKj5
+	4i5yVeaHtUHDsPOZHP8ep9ZbUmh4dPVh+CQbNADM8p3mnIgv7mIoV57YxKB9eb95qMBSA6jf781
+	4GqdIwjynY2bV+sUx2SKf3Dd5b1a95qrWJUzjbSXlw2+QWf5W7m6q/70E8sJPIJAXeNIyqWiJdr
+	QoyznPjnp5aOvW/W3udK9ATeFrGnMA1zuXOIsB45k40dRPnuAl3woq41s3cviCQpEt1do8M75es
+	EupFT/VzynxJos1ct2nY98S09+MLs9SSgWkjnITaGoOLHK8OC84KzW+ObMygkRxLZcRL7TBvd84
+	IYSDiaX84pGT1EoFKrgGKv+TTpILG97JA1s7l7HHi28ybI9izf5XW1n8lBEHLMehr65eAQfeMxG
+	9bsyh1b5DR5o4zzt8zOvQ4dHgOf7aYcQ2YanyOA+oq4qQ/x89ciw==
+X-Received: by 2002:a05:6402:1e8c:b0:683:e394:cc0c with SMTP id 4fb4d7f45d1cf-69c5ef84424mr6428415a12.4.1784034841275;
+        Tue, 14 Jul 2026 06:14:01 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69cd2952836sm1533316a12.27.2026.07.14.06.14.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 06:14:00 -0700 (PDT)
+Date: Tue, 14 Jul 2026 14:13:59 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Baineng Shou <shoubaineng@gmail.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, "T . J . Mercier" <tjmercier@google.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
+ <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, Sandeep Patil
+ <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla
+ <srini@kernel.org>, stable@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dma-buf: dma-heap: don't publish fd before
+ copy_to_user() succeeds
+Message-ID: <20260714141359.7758575d@pumpkin>
+In-Reply-To: <20260714114654.3885457-2-shoubaineng@gmail.com>
+References: <CABdmKX21NHc2=9Sk2F-BFpu6is0vTg-QXLE+wiFNEPdsWWjvog@mail.gmail.com>
+	<20260714114654.3885457-1-shoubaineng@gmail.com>
+	<20260714114654.3885457-2-shoubaineng@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714122344.351895-2-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 14, 2026 at 01:23:40PM +0100, Kiryl Shutsemau wrote:
-> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> index 51508a55c405..68d42cbed458 100644
-> --- a/mm/memory-failure.c
-> +++ b/mm/memory-failure.c
-> @@ -1657,11 +1657,18 @@ static int identify_page_state(unsigned long pfn, struct page *p,
->  static int try_to_split_thp_page(struct page *page, unsigned int new_order,
->  		bool release)
->  {
-> +	struct folio *folio = page_folio(page);
->  	int ret;
->  
-> -	lock_page(page);
-> -	ret = split_huge_page_to_order(page, new_order);
-> -	unlock_page(page);
-> +	/*
-> +	 * Lock and split at the head, not the poisoned subpage: __folio_split()
-> +	 * keeps the anchor folio locked and needs it to stay in the page cache
-> +	 * to pin the inode. A tail beyond EOF would be dropped yet returned
-> +	 * locked, losing that pin. The caller re-locks @page afterwards.
-> +	 */
-> +	folio_lock(folio);
-> +	ret = split_folio_to_order(folio, new_order);
-> +	folio_unlock(folio);
->  
->  	if (ret && release)
->  		put_page(page);
+On Tue, 14 Jul 2026 19:46:53 +0800
+Baineng Shou <shoubaineng@gmail.com> wrote:
 
-Ughh.. This patch is broken, sorry.
+> DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+> caller's fd table via dma_buf_fd() -> fd_install() before
+> dma_heap_ioctl() copies the result back to userspace.  If the trailing
+> copy_to_user() fails, userspace never learns the fd number, but the
+> fd (and the underlying dma-buf reference) are already visible to
+> other threads in the same process and are leaked for the lifetime of
+> the process.
+>=20
+> The obvious "close it on the failure path" fix is unsafe: once
+> fd_install() has run, another thread can already dup() the fd, send
+> it via SCM_RIGHTS, or close() it and let its number be reused, so a
+> subsequent close_fd() from the ioctl path can operate on an unrelated
+> file.  This was pointed out by Christian K=C3=B6nig on v1 [1].
+...
 
-Please ignore the patchset. Will follow up.
+My 2c:
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+The other option is just to leave it as a 'problem for user space'.
+No reasonable program is going to handle the EFAULT return by doing
+anything other than exiting.
+Even getting an EFAULT is really an indication that the application
+is already in a real mess - most likely with a badly corrupted heap.
+
+Anything else leaves error recovery code in the kernel that is pretty
+much never executed and open to a variety of bugs.
+While the recovery here is probably ok, there are some sockopt calls
+where it is all more complicated.
+
+	David
