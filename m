@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6B12D3727
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:39:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD1E2F8EA6
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:39:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784039979; cv=none; b=B3sRkDbpUxibEY0JojO8XWFjYtgqhbT+ukJuaFDHvoKa1Umey+sxJ1LDXzZTqtD04SHQ4Xf5W47fHiUF2+UQbQ9z8x+GzrxvMxdpnxG1TbSXWcnGxn6OIffEj3II28JRPMf5LdADN+RK5LS0ROiw/SxvqUqWO7vG/hF8D9/dLgA=
+	t=1784039982; cv=none; b=NTk8tcTJAnVehi3qho8PoxNR2iDZiVkT6XtFMOmJqYMq3whupm9kXddBsKHei1zfYviC5UGBtWxBohX24QXxRld9O6Pg3gb3eX0y91s4qCoLk0UM04DDgUANfthwyjj8Y0t2+sNetBVEf8Hj+aTmHk+ExqudFhTDGhLGXbVAzhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784039979; c=relaxed/simple;
-	bh=J0uI9xOY+3u0FGb9gi7wMD7IXIxR7sqw3Ow2kyTaZgE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=saPl2raicalBOOeAjsvvBI0u7+RycTD+2RXGLvL7ohzB64V7pf17TgMBDDSku8lSUiQweynh4cx9Sd897snMeOtOPOextEN2fVmiIym0uKwcVygGm8UZi038NDrGAfp0d8KaD+p5uPbn2iaxNj5T4Lq4Fpy7FK8uDbIhyrmlmoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Te40QiQ6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784039982; c=relaxed/simple;
+	bh=O/z7TjUAcJXYDiO9bl4qnWOYu0JR1CbdVgSLWFflWLI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pSy18RyMUi7YgsBLq2JZcDIKdnTHiRfjVKXOATxuLjnxxHsJz9uCQ+u5LxzTgWXdClr036G4v7C4x86dSwbYWpkvkvPYFd/MndnekjCA8vpY9sDna+AvId2SQZxorWALwWkKg+RMARdhIS1H1wWnk6SgUAlrUZ+d0t7sNlJl8h4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VvWb9w5k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Te40QiQ6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88AE41F000E9;
-	Tue, 14 Jul 2026 14:39:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VvWb9w5k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFDDF1F000E9;
+	Tue, 14 Jul 2026 14:39:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784039977;
-	bh=vaAYt63KWu452JjBcNvHwUrFaLqz5FvB95oGOmvwgJc=;
+	s=korg; t=1784039981;
+	bh=cM5qZjYH57OunI0zC1R0JV6HzqbzIfFHCKv5NLAfayA=;
 	h=Subject:To:Cc:From:Date;
-	b=Te40QiQ61IqISv4RsuuUeM3SA+d0HRIdt6MfyL04ohQKAIbmJzyRnMM03lnLYnWLF
-	 4UcfZUmZ/ebee8zlrpDQG3g3VzkqPnIWLk2jeXj+4y98xrg4dMmNzZMvjmwC9fa2ZF
-	 YEgHhGA7hV2utrgw0M+IK/cGsVXtnARd0NQqs2f0=
-Subject: FAILED: patch "[PATCH] ksmbd: track the connection owning a byte-range lock" failed to apply to 5.15-stable tree
-To: linkinjeon@kernel.org,musaab.khan@protonmail.com,stfrench@microsoft.com
+	b=VvWb9w5kBoBmajDbaulEP5fbi+fAIKV5gLl9MwB9oAbPn2QWBOF39teBTGpuBxj5A
+	 TXcsJmT7F3RI7AeCjGJ+C96jzRwX+wXOHmOUdxMde9mbdY+cI5XUJVfwDcBb9nd8+M
+	 OBskyRhqF4nfQTgTXi/0W5ATpIaGxmKrk19T4a7Y=
+Subject: FAILED: patch "[PATCH] ksmbd: validate NTLMv2 response before updating session key" failed to apply to 6.18-stable tree
+To: lihaofeng@kylinos.cn,chenxiaosong@kylinos.cn,linkinjeon@kernel.org,stfrench@microsoft.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 14 Jul 2026 16:39:15 +0200
-Message-ID: <2026071415-rambling-chooser-b760@gregkh>
+Date: Tue, 14 Jul 2026 16:39:27 +0200
+Message-ID: <2026071427-follicle-footprint-220e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c1016dd1d8b2bcd1158bbaabe94a31bb7e7431fb
+git cherry-pick -x 954d196bebb2b50151cb96454c72dc113b2af1ac
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071415-rambling-chooser-b760@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071427-follicle-footprint-220e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,134 +62,94 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c1016dd1d8b2bcd1158bbaabe94a31bb7e7431fb Mon Sep 17 00:00:00 2001
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 15 Jun 2026 10:00:00 +0900
-Subject: [PATCH] ksmbd: track the connection owning a byte-range lock
+From 954d196bebb2b50151cb96454c72dc113b2af1ac Mon Sep 17 00:00:00 2001
+From: Haofeng Li <lihaofeng@kylinos.cn>
+Date: Tue, 23 Jun 2026 09:30:26 +0800
+Subject: [PATCH] ksmbd: validate NTLMv2 response before updating session key
 
-SMB2_LOCK adds each granted byte-range lock to both the file lock list
-and the lock list of the connection which handled the request.  The
-final close and durable handle paths, however, remove the connection
-list entry while holding fp->conn->llist_lock.
+ksmbd_auth_ntlmv2() derives the NTLMv2 session key into
+sess->sess_key before it verifies the NTLMv2 response.
+ksmbd_decode_ntlmssp_auth_blob() then continues into KEY_XCH even
+when ksmbd_auth_ntlmv2() failed.
 
-With SMB3 multichannel, the connection handling the LOCK request can be
-different from the connection which opened the file.  The entry can
-therefore be removed under a different spinlock from the one protecting
-the list it belongs to.  A concurrent traversal can then access freed
-struct ksmbd_lock and struct file_lock objects.
+With SMB3 multichannel binding, the failed authentication operates on
+an existing session and the session setup error path does not expire
+binding sessions. A client can send a binding session setup with a
+bad NT proof and KEY_XCH and still modify sess->sess_key before
+STATUS_LOGON_FAILURE is returned.
 
-Record the connection owning each lock's clist entry and hold a
-reference to it while the entry is linked.  Use that connection and its
-llist_lock for unlock, rollback, close, and durable preserve.  Durable
-reconnect assigns the new connection as the owner when publishing the
-locks again.
+Relevant path:
 
-Fixes: f5a544e3bab7 ("ksmbd: add support for SMB3 multichannel")
+  smb2_sess_setup()
+    -> conn->binding = true
+    -> ntlm_authenticate()
+       -> session_user()
+       -> ksmbd_decode_ntlmssp_auth_blob()
+          -> ksmbd_auth_ntlmv2()
+             -> calc_ntlmv2_hash()
+             -> hmac_md5_usingrawkey(..., sess->sess_key)
+             -> crypto_memneq() returns mismatch
+          -> KEY_XCH arc4_crypt(..., sess->sess_key, ...)
+    -> out_err without expiring the binding session
+
+Derive the base session key into a local buffer and copy it to
+sess->sess_key only after the proof matches. Return immediately on
+authentication failure so KEY_XCH is only processed after successful
+authentication.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fixes: f9929ef6a2a5 ("ksmbd: add support for key exchange")
 Cc: stable@vger.kernel.org
-Reported-by: Musaab Khan <musaab.khan@protonmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Haofeng Li <lihaofeng@kylinos.cn>
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Steve French <stfrench@microsoft.com>
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index c1c6c1a64f60..ba24040d05eb 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -7774,9 +7774,11 @@ int smb2_lock(struct ksmbd_work *work)
- 						nolock = 0;
- 						list_del(&cmp_lock->flist);
- 						list_del(&cmp_lock->clist);
-+						cmp_lock->conn = NULL;
- 						spin_unlock(&conn->llist_lock);
- 						up_read(&conn_list_lock);
+diff --git a/fs/smb/server/auth.c b/fs/smb/server/auth.c
+index e99409fa721c..86f521e849d5 100644
+--- a/fs/smb/server/auth.c
++++ b/fs/smb/server/auth.c
+@@ -142,6 +142,7 @@ int ksmbd_auth_ntlmv2(struct ksmbd_conn *conn, struct ksmbd_session *sess,
+ {
+ 	char ntlmv2_hash[CIFS_ENCPWD_SIZE];
+ 	char ntlmv2_rsp[CIFS_HMAC_MD5_HASH_SIZE];
++	char sess_key[SMB2_NTLMV2_SESSKEY_SIZE];
+ 	struct hmac_md5_ctx ctx;
+ 	int rc;
  
-+						ksmbd_conn_put(conn);
- 						locks_free_lock(cmp_lock->fl);
- 						kfree(cmp_lock);
- 						goto out_check_cl;
-@@ -7911,6 +7913,7 @@ int smb2_lock(struct ksmbd_work *work)
- 				goto out2;
- 			} else if (!rc) {
- 				list_add(&smb_lock->llist, &rollback_list);
-+				smb_lock->conn = ksmbd_conn_get(work->conn);
- 				spin_lock(&work->conn->llist_lock);
- 				list_add_tail(&smb_lock->clist,
- 					      &work->conn->lock_list);
-@@ -7965,11 +7968,14 @@ int smb2_lock(struct ksmbd_work *work)
- 		}
+@@ -164,12 +165,21 @@ int ksmbd_auth_ntlmv2(struct ksmbd_conn *conn, struct ksmbd_session *sess,
+ 	/* Generate the session key */
+ 	hmac_md5_usingrawkey(ntlmv2_hash, CIFS_HMAC_MD5_HASH_SIZE,
+ 			     ntlmv2_rsp, CIFS_HMAC_MD5_HASH_SIZE,
+-			     sess->sess_key);
++			     sess_key);
  
- 		list_del(&smb_lock->llist);
--		spin_lock(&work->conn->llist_lock);
-+		conn = smb_lock->conn;
-+		spin_lock(&conn->llist_lock);
- 		if (!list_empty(&smb_lock->flist))
- 			list_del(&smb_lock->flist);
- 		list_del(&smb_lock->clist);
--		spin_unlock(&work->conn->llist_lock);
-+		smb_lock->conn = NULL;
-+		spin_unlock(&conn->llist_lock);
-+		ksmbd_conn_put(conn);
- 
- 		locks_free_lock(smb_lock->fl);
- 		if (rlock)
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 8c556e46cc10..39c56942ae44 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -484,10 +484,14 @@ static void __ksmbd_close_fd(struct ksmbd_file_table *ft, struct ksmbd_file *fp)
- 	 * there are not accesses to fp->lock_list.
- 	 */
- 	list_for_each_entry_safe(smb_lock, tmp_lock, &fp->lock_list, flist) {
--		if (!list_empty(&smb_lock->clist) && fp->conn) {
--			spin_lock(&fp->conn->llist_lock);
--			list_del(&smb_lock->clist);
--			spin_unlock(&fp->conn->llist_lock);
-+		struct ksmbd_conn *conn = smb_lock->conn;
+ 	if (crypto_memneq(ntlmv2->ntlmv2_hash, ntlmv2_rsp,
+-			  CIFS_HMAC_MD5_HASH_SIZE))
+-		return -EINVAL;
+-	return 0;
++			  CIFS_HMAC_MD5_HASH_SIZE)) {
++		rc = -EINVAL;
++		goto out;
++	}
 +
-+		if (conn) {
-+			spin_lock(&conn->llist_lock);
-+			list_del_init(&smb_lock->clist);
-+			smb_lock->conn = NULL;
-+			spin_unlock(&conn->llist_lock);
-+			ksmbd_conn_put(conn);
- 		}
++	memcpy(sess->sess_key, sess_key, sizeof(sess_key));
++	rc = 0;
++out:
++	memzero_explicit(ntlmv2_hash, sizeof(ntlmv2_hash));
++	memzero_explicit(ntlmv2_rsp, sizeof(ntlmv2_rsp));
++	memzero_explicit(sess_key, sizeof(sess_key));
++	return rc;
+ }
  
- 		list_del(&smb_lock->flist);
-@@ -1303,9 +1307,15 @@ static bool session_fd_check(struct ksmbd_tree_connect *tcon,
- 	up_write(&ci->m_lock);
+ /**
+@@ -226,6 +236,8 @@ int ksmbd_decode_ntlmssp_auth_blob(struct authenticate_message *authblob,
+ 				nt_len - CIFS_ENCPWD_SIZE,
+ 				domain_name, conn->ntlmssp.cryptkey);
+ 	kfree(domain_name);
++	if (ret)
++		return ret;
  
- 	list_for_each_entry_safe(smb_lock, tmp_lock, &fp->lock_list, flist) {
--		spin_lock(&conn->llist_lock);
-+		struct ksmbd_conn *lock_conn = smb_lock->conn;
-+
-+		if (!lock_conn)
-+			continue;
-+		spin_lock(&lock_conn->llist_lock);
- 		list_del_init(&smb_lock->clist);
--		spin_unlock(&conn->llist_lock);
-+		smb_lock->conn = NULL;
-+		spin_unlock(&lock_conn->llist_lock);
-+		ksmbd_conn_put(lock_conn);
- 	}
- 
- 	fp->conn = NULL;
-@@ -1435,6 +1445,7 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 	}
- 
- 	list_for_each_entry(smb_lock, &fp->lock_list, flist) {
-+		smb_lock->conn = ksmbd_conn_get(conn);
- 		spin_lock(&conn->llist_lock);
- 		list_add_tail(&smb_lock->clist, &conn->lock_list);
- 		spin_unlock(&conn->llist_lock);
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index 7d547e1a74f7..a3a9fda6de91 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -32,6 +32,7 @@ struct ksmbd_session;
- 
- struct ksmbd_lock {
- 	struct file_lock *fl;
-+	struct ksmbd_conn *conn;
- 	struct list_head clist;
- 	struct list_head flist;
- 	struct list_head llist;
+ 	/* The recovered secondary session key */
+ 	if (conn->ntlmssp.client_flags & NTLMSSP_NEGOTIATE_KEY_XCH) {
 
