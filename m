@@ -1,211 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com [209.85.210.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2E143CECA;
-	Tue, 14 Jul 2026 18:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503DF41A927
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 18:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784054024; cv=none; b=FvFxpUp1VuXeV2k4FP/HFZTm8oqaCxXvvBNVqtwv7t49bg79mhCluYHuEM5n1K0D8hViDtu5m9h+S56O3UiDjtEGsjC2U2QPFh9ehGBT6hx1pxWZYXUEf+JPVSHAQMT/IJ/ZWvKn+amMG3sAJOECCv4yIxRRFpukmDQleDj1ZSM=
+	t=1784054521; cv=none; b=ploBP5/TelkCyRPZ4lJwYJOklINBf7DwNHG4zpLj178zhw/2t9pa1n/yqifWbX52STmS1qJtdocdBPoLQMCEnd7EYGkXVY/eEtYdvQfZLIBP1pt8Xu30QtKoyLtUAVhRCvEvb10gKJF4wE+8Q0Ocwn1VSB7R/7visvohm3m/jos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784054024; c=relaxed/simple;
-	bh=G+CQm2u0t0jDXEYLT97IgrcW4GZxek5QHJjqTILuWeo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cnuwNCi/sqVKBUvpHzI2wj6elotvad2E0hjC8cLQk4p9XFHs+AMS4jgH9usHSUDPDlqjmX3cf73bJIeHaGoa1y/XqnmAtf0XcIdTZbORBrNXtPSW+7rXNP7154uUINAucNh/THfjGSSxwnWaJYIXIq1PzczWGZyWl6jGFxY78g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CH3qaEjK; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784054521; c=relaxed/simple;
+	bh=PaQBkS90a4rPCv/dq+YRWwLuz5fATYts+TOoZzoPZj4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=dp2o7FXtyNrG+Iif8kPIC5Ngt+qhIsdLxqezFYr5hQe27dpIfGDExNSiRxXcdHIcLROLEoWSXQBFoplpHBmwWt8eIsPTdCpPUWLGDKjwHGAuP7dLF81uUjfJVN3bzDV3bj4ZHw3Q90Z0GtEZvdYwSbHX5KK3XxhsTohse7+Vkog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rNCK1ue6; arc=none smtp.client-ip=209.85.210.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CH3qaEjK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784054022; x=1815590022;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=G+CQm2u0t0jDXEYLT97IgrcW4GZxek5QHJjqTILuWeo=;
-  b=CH3qaEjKWw5poOJJ1jE++MnlO42OWSlwEBNt8V/3spY0DaS+/vMLX4aQ
-   Sy6Yhtk2Z+RV5T92DD5iv5D8HrXom3wJIhQrEXjYxJweTJHHa9FRfINAq
-   HrBzIENakx+G4OMXR17RfpGJJqumuYhBsW94g6OnTcr9fatfVgYWtqWoW
-   4Tty/GSvulR3uA2GZ+XnGxQE9cUs+byyIOMZA6hcL7/zTghrwdcjOFmxS
-   DlZBD5xxPEnlWmBsReybEJKEz8nYOW7O8bHAOV15+ZuWanEDXpRuW7SjP
-   ymn3ZQtFbTICISbfedaPYMklheF8n6w1SmptC94zvRBtpq4k9eWY03ZoW
-   g==;
-X-CSE-ConnectionGUID: RVgSD4BFRj25Zo3CVBbfew==
-X-CSE-MsgGUID: H9HV/vf2RmCrK7Ay7hrRsw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="95038848"
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; 
-   d="scan'208";a="95038848"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 11:33:42 -0700
-X-CSE-ConnectionGUID: vI5Lrot2TqCssFkfALbIog==
-X-CSE-MsgGUID: a+xk3+08R8akDWBAe+bVnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; 
-   d="scan'208";a="259511182"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.238]) ([10.245.245.238])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 11:33:39 -0700
-Message-ID: <b66a85c300828f2a79bce20cdbad9051c617b694.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/ttm: Account for NULL and handle pages in
- ttm_pool_backup
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- 	dri-devel@lists.freedesktop.org
-Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
- <ray.huang@amd.com>,  Matthew Auld <matthew.auld@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	 <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 14 Jul 2026 20:33:36 +0200
-In-Reply-To: <20260702214815.4009271-1-matthew.brost@intel.com>
-References: <20260702214815.4009271-1-matthew.brost@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rNCK1ue6"
+Received: by mail-pf1-f201.google.com with SMTP id d2e1a72fcca58-84870e7f498so5426558b3a.3
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 11:41:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784054517; x=1784659317; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4QSNMOG9WUYsnTrdiXuaPBwAZEBhxka1gM9x6zaBmSM=;
+        b=rNCK1ue6708Vv/JHVtlGRjDGmBg7q7721OgtbVuL7BIIm4HkNGVJG1vYzTGM9MDe5z
+         1OUpxXC0cOGbLG+Jzn1WMctTPA+1IfA1i77sPtNKFgOEjmuSt06dIks3incEeubf428m
+         zSITgaZnP86MMavZ181GykbtaURT2oBdYUpnDPxXERg/EWu+mul+RMoxZll7Pjf9AEfo
+         Vm/SyCa5dOmFVfkZOWFptvYLO38cjr/ZZBMFQdzRv6KzEGbecMfb8ryqEBDI8RTMYfZS
+         mZjgu9H3fKEOon8Rr9RbYgQaJAGn8urwRUCOqbTNxWJAs0meHhowCK3PmlfZYDb8nqci
+         pYWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784054517; x=1784659317;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4QSNMOG9WUYsnTrdiXuaPBwAZEBhxka1gM9x6zaBmSM=;
+        b=VUarIg3xYlcceNKK2p7fW1audxd0e3ludoBoPG23ey7Jf85FH1ySWVrzfs0OZS+pNx
+         i7Jlx+dEdMlEk/hOdldw7cTpCuKXsNrTshaiANeaG3Z2z6EpNIOWlaZ4aZqzDLZltj8f
+         XYKfMIaBbJZzzrYEAyghh0o2wzN5805usDCj8pRi1GsemBrTEpiTEq0yYD+9IaIRMUCK
+         sbFVRDW2gXJZed+4WX8o8HCl1CL5Kz7MG7DcHw8K4km4Y+Dz3kevWfdsvwXtKQcEDixH
+         PJxAmLx/sS5qmiwuiM2zAZIGuh3S3UWpQuciOxDXYL9qPfqE9+QwoBqJVXf809gp6Rnz
+         qpGA==
+X-Forwarded-Encrypted: i=1; AHgh+RraLn/uoC9b4KcJtJQlxy3gYfNtqVMI3eRvIqMVvRP0limC99ZpAd0WGcY5RKVYHEUg67bzuzQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YymNMNBNZAcnJr3e8FF7yHSqFsdrSJig4FtNCy9r9F1A+hqXKqo
+	LpTqMOCWiyVkzEP5jXlu0GUdV/tOkwb6IVD3/5YTiCzssYCDy9URQjrFMAVefKciEoY0u02U1kR
+	0M46fjg==
+X-Received: from pfmy4.prod.google.com ([2002:aa7:8044:0:b0:848:56a2:f6a9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:9289:b0:848:2ae4:d2ba
+ with SMTP id d2e1a72fcca58-84889687b36mr12770821b3a.28.1784054516663; Tue, 14
+ Jul 2026 11:41:56 -0700 (PDT)
+Date: Tue, 14 Jul 2026 11:41:01 -0700
+In-Reply-To: <20260602-sev_snp_fixes-v3-0-24bfd3ae047c@meta.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20260602-sev_snp_fixes-v3-0-24bfd3ae047c@meta.com>
+X-Mailer: git-send-email 2.55.0.141.g00534a21ce-goog
+Message-ID: <178405419095.3137257.15966365152304045590.b4-ty@google.com>
+Subject: Re: [PATCH v3 0/4] KVM: Miscellaneous SEV/SNP related fixes
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Tom Lendacky <thomas.lendacky@amd.com>, Peter Gonda <pgonda@google.com>, 
+	Brijesh Singh <brijesh.singh@amd.com>, Youngjae Lee <youngjaelee@meta.com>, 
+	Ashish Kalra <ashish.kalra@amd.com>, Michael Roth <michael.roth@amd.com>, 
+	John Allen <john.allen@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	Atish Patra <atish.patra@linux.dev>
+Cc: clm@meta.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, stable@vger.kernel.org, 
+	Atish Patra <atishp@meta.com>, Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 
-On Thu, 2026-07-02 at 14:48 -0700, Matthew Brost wrote:
-> Pages in ttm_pool_backup can be NULL or backup handles
-> (ttm_backup_page_ptr_is_handle()), neither of which can be passed to
-> set_pages_array_wb() or freed. Add a dedicated WB pass before the
-> dma/purge loop that walks allocations using the same i +=3D num_pages
-> stride, skipping NULL and handle entries, and calls
-> set_pages_array_wb()
-> once per contiguous run of real pages. Apply the same NULL/handle
-> guard
-> to the dma/purge loop.
->=20
-> Fixes the following oops:
->=20
-> Oops: general protection fault, kernel NULL pointer dereference 0x0:
-> 0000 [#1] SMP NOPTI
-> RIP: 0010:__cpa_process_fault+0xf8/0x770
-> RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
-> RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
-> RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
-> RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
-> R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
-> R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
-> FS:=C2=A0 0000000000000000(0000) GS:ffff8884ec840000(0000)
-> knlGS:0000000000000000
-> CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
-> PKRU: 55555554
-> Call Trace:
-> =C2=A0<TASK>
-> =C2=A0__change_page_attr_set_clr+0x989/0xe90
-> =C2=A0? __purge_vmap_area_lazy+0x6c/0x3a0
-> =C2=A0? _vm_unmap_aliases+0x250/0x2a0
-> =C2=A0set_pages_array_wb+0x7f/0x120
-> =C2=A0ttm_pool_backup+0x4c9/0x5b0 [ttm]
-> =C2=A0? dma_resv_wait_timeout+0x3b/0xf0
-> =C2=A0ttm_tt_backup+0x32/0x60 [ttm]
-> =C2=A0ttm_bo_shrink+0x66/0x110 [ttm]
-> =C2=A0xe_bo_shrink_purge+0x12b/0x1b0 [xe]
-> =C2=A0xe_bo_shrink+0xbb/0x270 [xe]
-> =C2=A0__xe_shrinker_walk+0xf7/0x160 [xe]
-> =C2=A0xe_shrinker_walk+0x9d/0xc0 [xe]
-> =C2=A0xe_shrinker_scan+0x11f/0x210 [xe]
-> =C2=A0do_shrink_slab+0x13b/0x270
-> =C2=A0shrink_slab+0xf1/0x400
-> =C2=A0shrink_node+0x352/0x8a0
-> =C2=A0balance_pgdat+0x32c/0x700
-> =C2=A0kswapd+0x205/0x2f0
-> =C2=A0? __pfx_autoremove_wake_function+0x10/0x10
-> =C2=A0? __pfx_kswapd+0x10/0x10
-> =C2=A0kthread+0xd1/0x110
-> =C2=A0? __pfx_kthread+0x10/0x10
-> =C2=A0ret_from_fork+0x1b1/0x200
-> =C2=A0? __pfx_kthread+0x10/0x10
-> =C2=A0ret_from_fork_asm+0x1a/0x30
-> =C2=A0</TASK>
->=20
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Cc: dri-devel@lists.freedesktop.org
+On Tue, 02 Jun 2026 15:36:31 -0700, Atish Patra wrote:
+> This series addresses a few issues found during code audit of the
+> KVM SEV/SNP and CCP driver code. The fixes include a incorrect lock state
+> and incomplete state handling during intra-host migration for SNP VMs.
+> 
+> To: Sean Christopherson <seanjc@google.com>
+> To: Paolo Bonzini <pbonzini@redhat.com>
+> To: Borislav Petkov <bp@alien8.de>
+> To: Dave Hansen <dave.hansen@linux.intel.com>
+> To: x86@kernel.org
+> To: H. Peter Anvin <hpa@zytor.com>
+> To: Tom Lendacky <thomas.lendacky@amd.com>
+> To: Peter Gonda <pgonda@google.com>
+> To: Brijesh Singh <brijesh.singh@amd.com>
+> To: Youngjae Lee <youngjaelee@meta.com>
+> To: Ashish Kalra <ashish.kalra@amd.com>
+> To: Michael Roth <michael.roth@amd.com>
+> To: John Allen <john.allen@amd.com>
+> To: Herbert Xu <herbert@gondor.apana.org.au>
+> Cc: clm@meta.com
+> Cc: kvm@vger.kernel.org
 > Cc: linux-kernel@vger.kernel.org
+> Cc: linux-crypto@vger.kernel.org
 > Cc: stable@vger.kernel.org
-> Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to
-> shrink pages")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GitHub_Copilot:claude-opus-4.8
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> 
+> [...]
 
-Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+Applied patches 1 and 2 to kvm-x86 fixes, thanks!
 
-> ---
-> =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 30 ++++++++++++++++++++++++++----
-> =C2=A01 file changed, 26 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
-> b/drivers/gpu/drm/ttm/ttm_pool.c
-> index 3d5f2ae0a456..ff043420d517 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -1065,9 +1065,31 @@ long ttm_pool_backup(struct ttm_pool *pool,
-> struct ttm_tt *tt,
-> =C2=A0		return -EBUSY;
-> =C2=A0
-> =C2=A0#ifdef CONFIG_X86
-> -	/* Anything returned to the system needs to be cached. */
-> -	if (tt->caching !=3D ttm_cached)
-> -		set_pages_array_wb(tt->pages, tt->num_pages);
-> +	/* Anything returned to the system needs to be cached. Walk
-> allocations
-> +	 * skipping NULL pages and issue set_pages_array_wb() per
-> contiguous run.
-> +	 */
-> +	if (tt->caching !=3D ttm_cached) {
-> +		pgoff_t run_start =3D 0, run_count =3D 0;
-> +
-> +		for (i =3D 0; i < tt->num_pages; i +=3D num_pages) {
-> +			page =3D tt->pages[i];
-> +			if (unlikely(!page ||
-> ttm_backup_page_ptr_is_handle(page))) {
-> +				if (run_count) {
-> +					set_pages_array_wb(&tt-
-> >pages[run_start],
-> +							=C2=A0=C2=A0
-> run_count);
-> +					run_count =3D 0;
-> +				}
-> +				num_pages =3D 1;
-> +				continue;
-> +			}
-> +			num_pages =3D 1UL << ttm_pool_page_order(pool,
-> page);
-> +			if (!run_count)
-> +				run_start =3D i;
-> +			run_count +=3D num_pages;
-> +		}
-> +		if (run_count)
-> +			set_pages_array_wb(&tt->pages[run_start],
-> run_count);
-> +	}
-> =C2=A0#endif
-> =C2=A0
-> =C2=A0	if (tt->dma_address || flags->purge) {
-> @@ -1075,7 +1097,7 @@ long ttm_pool_backup(struct ttm_pool *pool,
-> struct ttm_tt *tt,
-> =C2=A0			unsigned int order;
-> =C2=A0
-> =C2=A0			page =3D tt->pages[i];
-> -			if (unlikely(!page)) {
-> +			if (unlikely(!page ||
-> ttm_backup_page_ptr_is_handle(page))) {
-> =C2=A0				num_pages =3D 1;
-> =C2=A0				continue;
-> =C2=A0			}
+[1/4] KVM: SEV: Do not allow intra-host migration/mirroring of SNP VMs
+      https://github.com/kvm-x86/linux/commit/6ee414078823
+[2/4] KVM: selftests: Verify SNP VMs are rejected from migration and mirroring
+      https://github.com/kvm-x86/linux/commit/df371f2c6244
+
+--
+https://github.com/kvm-x86/linux/tree/next
