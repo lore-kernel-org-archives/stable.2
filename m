@@ -1,221 +1,134 @@
-Received: from sender-op-o14.zoho.eu (sender-op-o14.zoho.eu [136.143.169.14])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5724A33EE;
-	Tue, 14 Jul 2026 17:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784050089; cv=pass; b=O8i6xCvs0qBYpy3AGHKuxNR4JIP4Upn/yWlpxR3WBdabM4RFTg3X9WC/DR1LUq3WBxGjnWoXJEMokHGC29stcq49mIDqTVBe7lxTP5N7o4HmKfZyQZs1CI2OoYjba4fF4WvNImasCgT4XVLuJS7tlr3mEiGNB4yWor7AX3r8990=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784050089; c=relaxed/simple;
-	bh=+CdKXOVVRYrqjjRvEc5d1x8WFWoQfwKjiybkT7eZOYw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LVtCcujb/lWdH18SItcWYjUWSXEli2cRlEMkCZcAEcx3p36KqJqLWYlfFB4F/udqF3vu1AtX/ZP+LiMn2OgO7rJbDG6zBjyMv6VQ0fQPWZqLGCIT54OB79m12ipMfcs2lbWHpl/dXxuQdc19rzk+t82Eo/u+3QveKGs9BHYfSOM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=oFNVFQ9W; arc=pass smtp.client-ip=136.143.169.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DF939CCFA;
+	Tue, 14 Jul 2026 17:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784050191; cv=none; b=P6H7kpfU8z543gAks5DaD/rB7xpmarKwjNlzbW7jU+YBLoQIXgDCrW3ypEniMt9aUDFpD/C5wg0nnuwFYi8/MdVYyqDi9Ag2TzA5OTrmci22WYL3YS4nJ0TZbMd2Zs/0WjA9ybg+Wr6g9BjuiLUgxvCMeZGzzUtGZNd2Q5GES8U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784050191; c=relaxed/simple;
+	bh=T9nDWMGUUMYK4zdgmduf9ZJ/16QHCvDwhtGJVdrnzuY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=loTBNi2VJLI/3hI69B5VLr6+rTskITPZS/fhVwOe0+9NWaTHG/0g/BnG3l4ktP3pns1djxooS8T0rnuKB7iO662sfqfOlUKAK1kHQbKdqN2bMQR30VBm5DPla9/9Ur3C2+I650hDuC5ozW9MoGReZkHHIPbYNbSsr7F+Cz2z15Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OQVTwuBi; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="oFNVFQ9W"
-ARC-Seal: i=1; a=rsa-sha256; t=1784050066; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=jYynRAuQlE6CUQPQtMDQhifqU9YOHqzlnBYKb+o+tbJqVaDsQB90KDP+c9Fht1kifJqp/hWFKZNjzBCE4zP1FiTdF9EQZFBApBUqlBii4n0PpT+7OmiywzrZ9Vhi+CQjn81GkKNdC9ncKS0UmW4dYRHAVbFG9T5PVQl/Dr+7YoU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1784050066; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=6UeP/VDZyPjcl/HdNqYzQJ9QoEouMkC4hjP+2tzge8A=; 
-	b=Z9U2KvseMsYAzEmpF5LLYNzyJscTKpzd6EwR+tvHFqbPFYH9Ps/YIZYWa7YKjNLh55S6sQVidLgIwa+jKuR/nPLafjS4JtTsUwOHHpNJwpiATlw0hGVWBwWA+SyV3d4FmzbLBX3BED5Gpf7IL0nmNsWUH+dFVXqYzKK9KRoyJpQ=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=auditcode.ai;
-	spf=pass  smtp.mailfrom=security@auditcode.ai;
-	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784050066;
-	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=6UeP/VDZyPjcl/HdNqYzQJ9QoEouMkC4hjP+2tzge8A=;
-	b=oFNVFQ9WQ/8fsi14+IaRxftENK0sdzeIXA7ZB9V25eELENU1jSwzCNs+SqjlE5Jb
-	CHVed1feclYZgL5EC7efEnQ9zGFya8qK5FnWE+0VXflZEqX2L42/TQ9v4owKKwSYqO/
-	N9a9C2gQaFT5FrYkg0CyKfcQpt0gV+JNOnDP1O6w=
-Received: by mx.zoho.eu with SMTPS id 1784050063328436.2612031617032;
-	Tue, 14 Jul 2026 19:27:43 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: cem@kernel.org,
-	linux-xfs@vger.kernel.org
-Cc: bfoster@redhat.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] xfs: bounds-check buffer log item's dirty bitmap
-Date: Tue, 14 Jul 2026 19:27:30 +0200
-Message-ID: <20260714172730.73160-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260708225814.2568-1-security@auditcode.ai>
-References: <20260708225814.2568-1-security@auditcode.ai>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OQVTwuBi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784050190; x=1815586190;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=T9nDWMGUUMYK4zdgmduf9ZJ/16QHCvDwhtGJVdrnzuY=;
+  b=OQVTwuBiH8pGI+8zsuOfzvbJMEaT2vHBdiHrf6izxTsdCilwAZjFuxTp
+   wKuz5+eVvYM9jrsLHd8xz7FmZi1BL7uIo8vyWIzXV/HVt2dbePaRifrWZ
+   2ASwgNxDxqHF+Oo+4rAMeTzt8SwUpxdb8AV/qm6Fk7cJ1gNauRAArQpzH
+   QAE+DAEbh/3iyZdLGAHRs+ITqXqMhtmM2V1OdcwNV7bpgejrcqQD2kBkQ
+   tbbktxCxF3+3PSYHuIUA6u6abba/tYNRTo+XRWpQin8YuoPGuyAbUs6OH
+   LeETekGfTxwYWufTM8cMI+LGNxwXAqVb8/2BqcTD1HDfQBrWvZG87dh6I
+   Q==;
+X-CSE-ConnectionGUID: mlZu+RTmS22rODwziCadgg==
+X-CSE-MsgGUID: qTCNEHe+QbuACDkZ1l/hyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11846"; a="84463060"
+X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; 
+   d="scan'208";a="84463060"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 10:29:49 -0700
+X-CSE-ConnectionGUID: JVAk0EKWSyOAbtmWxbWciQ==
+X-CSE-MsgGUID: gb3gmc2+RamLrgmELZSMvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; 
+   d="scan'208";a="259497092"
+Received: from aschende-mobl.amr.corp.intel.com (HELO [10.125.108.120]) ([10.125.108.120])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 10:29:48 -0700
+Message-ID: <13fcd4d7-0efc-4aa5-9425-8f4fa05c8eee@intel.com>
+Date: Tue, 14 Jul 2026 10:29:51 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH mm-hotfixes v3 2/4] x86/mm/pat: acquire mmap lock on page
+ table free to avoid ptdump UAF
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
+ <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>
+Cc: David Carlier <devnexen@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
+References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
+ <20260714-series-vmap-race-fix-v3-2-b812eccfa0f9@kernel.org>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260714-series-vmap-race-fix-v3-2-b812eccfa0f9@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-xlog_recover_do_reg_buffer() replays each dirty region described by a
-buffer log item's bitmap into the buffer read for that item:
+On 7/14/26 10:24, Lorenzo Stoakes wrote:
+...
+> Resolve the issue by acquiring the mmap read lock on init_mm which prevents
+> a concurrent ptdump as it acquires the write lock.
 
-	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
-		item->ri_buf[i].iov_base,
-		nbits << XFS_BLF_SHIFT);
+The move over to locking on init_mm instead of current->mm fixes the
+earlier issues I saw with this. Thanks for doing that!
 
-The destination offset (bit/nbits, from the logged dirty bitmap) and the
-buffer size (from the logged blf_len) are both attacker-controlled and
-otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
-which compiles away on production kernels. A crafted image logging a
-small blf_len together with a bitmap bit past the end of that buffer
-drives the memcpy() past the buffer's allocation, corrupting adjacent
-kernel heap during mount-time log recovery. This is reachable by anyone
-who can get a crafted image mounted -- the malicious-filesystem threat
-model XFS already guards against elsewhere.
-
-Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
-of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
-idiom already used in xlog_recover_do_inode_buffer() and
-xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
-STATIC int and its three callers propagate the error.
-
-Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
-image trips a slab-out-of-bounds write before this change and fails
-recovery cleanly with -EFSCORRUPTED after it.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
----
-v3: trim the changelog per Brian Foster's review; no code change. Add a
-    Fixes: tag -- the destination-bounds check has been an ASSERT since
-    the initial git import (2.6.12-rc2), so it predates the git era.
-v2: resend; v1 went out with an empty Subject line due to a local
-    git send-email glitch (leading blank line in the patch file).
-
- fs/xfs/xfs_buf_item_recover.c | 48 ++++++++++++++++++++++++++++-------
- 1 file changed, 39 insertions(+), 9 deletions(-)
-
-diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
-index 02b95b89d1b5..521e5f544caf 100644
---- a/fs/xfs/xfs_buf_item_recover.c
-+++ b/fs/xfs/xfs_buf_item_recover.c
-@@ -461,7 +461,7 @@ xlog_recover_validate_buf_type(
-  * given buffer.  The bitmap in the buf log format structure indicates
-  * where to place the logged data.
-  */
--STATIC void
-+STATIC int
- xlog_recover_do_reg_buffer(
- 	struct xfs_mount		*mp,
- 	struct xlog_recover_item	*item,
-@@ -489,8 +489,25 @@ xlog_recover_do_reg_buffer(
- 		ASSERT(nbits > 0);
- 		ASSERT(item->ri_buf[i].iov_base != NULL);
- 		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
--		ASSERT(BBTOB(bp->b_length) >=
--		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
-+
-+		/*
-+		 * The bitmap is only trustworthy to the extent that it
-+		 * describes a region that actually fits inside the buffer we
-+		 * read in based on the (attacker-controlled) blf_len.  Do not
-+		 * rely on an ASSERT() for this -- it compiles away entirely
-+		 * on non-DEBUG kernels, which is exactly where this matters,
-+		 * so validate it for real and abort recovery of this buffer
-+		 * rather than copying past the end of it.
-+		 */
-+		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
-+				((uint)bit << XFS_BLF_SHIFT) +
-+				(nbits << XFS_BLF_SHIFT))) {
-+			xfs_alert(mp,
-+	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
-+				bit, nbits, BBTOB(bp->b_length),
-+				xfs_buf_daddr(bp));
-+			return -EFSCORRUPTED;
-+		}
- 
- 		/*
- 		 * The dirty regions logged in the buffer, even though
-@@ -544,6 +561,7 @@ xlog_recover_do_reg_buffer(
- 	ASSERT(i == item->ri_total);
- 
- 	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
-+	return 0;
- }
- 
- /*
-@@ -553,7 +571,9 @@ xlog_recover_do_reg_buffer(
-  * Else, treat it as a regular buffer and do recovery.
-  *
-  * Return false if the buffer was tossed and true if we recovered the buffer to
-- * indicate to the caller if the buffer needs writing.
-+ * indicate to the caller if the buffer needs writing.  *error is set if
-+ * recovery of the buffer failed and the caller must abort replay of this
-+ * buffer.
-  */
- STATIC bool
- xlog_recover_do_dquot_buffer(
-@@ -561,10 +581,12 @@ xlog_recover_do_dquot_buffer(
- 	struct xlog			*log,
- 	struct xlog_recover_item	*item,
- 	struct xfs_buf			*bp,
--	struct xfs_buf_log_format	*buf_f)
-+	struct xfs_buf_log_format	*buf_f,
-+	int				*error)
- {
- 	uint			type;
- 
-+	*error = 0;
- 	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
- 
- 	/*
-@@ -586,7 +608,7 @@ xlog_recover_do_dquot_buffer(
- 	if (log->l_quotaoffs_flag & type)
- 		return false;
- 
--	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
-+	*error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
- 	return true;
- }
- 
-@@ -724,7 +746,9 @@ xlog_recover_do_primary_sb_buffer(
- 	xfs_rgnumber_t			orig_rgcount = mp->m_sb.sb_rgcount;
- 	int				error;
- 
--	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-+	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-+	if (error)
-+		return error;
- 
- 	if (orig_agcount == 0) {
- 		xfs_alert(mp, "Trying to grow file system without AGs");
-@@ -1083,7 +1107,10 @@ xlog_recover_buf_commit_pass2(
- 		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
- 		bool	dirty;
- 
--		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
-+		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f,
-+						     &error);
-+		if (error)
-+			goto out_release;
- 		if (!dirty)
- 			goto out_release;
- 	} else if ((xfs_blft_from_flags(buf_f) & XFS_BLFT_SB_BUF) &&
-@@ -1105,7 +1132,10 @@ xlog_recover_buf_commit_pass2(
- 			xfs_buf_relse(rtsb_bp);
- 		}
- 	} else {
--		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-+		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
-+						   current_lsn);
-+		if (error)
-+			goto out_release;
- 	}
- 
- 	/*
--- 
-2.50.1 (Apple Git-155)
+Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
 
