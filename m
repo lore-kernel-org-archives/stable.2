@@ -1,136 +1,225 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FB9417BFE
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 17:42:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51890417BE0;
+	Tue, 14 Jul 2026 17:43:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784050959; cv=none; b=cuWmUs0JhUpmVQv6XStOl1N5XhRlBNY2V+i+jSFZrQ20PeAJxISp7/cJNcyz/7C/XV1rYks6ZCCwpVoOuZBX0sS6/KRpCaX2Ow63ebi1faW0su4aDMYtk5Mss5Q/HFftcd/rUFXWBrkfqng0Fwt/6mCSpv9xn43boDSGOwPMz9Q=
+	t=1784050996; cv=none; b=i1y+sh+Z65o+u7md8AAU18d+ppFR0Zq2UsnIFJD7JIAXflBPsS6SyoIsYRAY2vM1/QrS10FqqinOpcvWm44SE4gkegk56oagNKZXOa7fv8MIgzX4W81Ng8YUCy+g5xhbKrvrFZPTrPae+wNgmob+Iv1HjAKXklcjEM0NhB6+aOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784050959; c=relaxed/simple;
-	bh=KA7yxA87EpUa70BsOJGm3jGECo/kO/v5dEvRZOSkHJ8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XOVzSK18rZVBCIqAAxQMHXJfmDwY0dcThRuWUic5BHnfmBk4ELsZegqtu8Iu6TaEpFe75KBewiPrxLh3ZqhCAONRPOKyZn+z8OGRU3aGV7deKyeqpKZIaCgSCgh19sb5lccWgE8b6jNK3gFX76urQZtmqqYVhinVMqSMJMtloxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BjCGqZ9j; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784050996; c=relaxed/simple;
+	bh=5WiDCyRVPgHRCvGJATrrMG40A+oR9ekLRX4yiJTQ7E0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=doq56x/oifEFf6WHM9qqhAnyxOD2klHyhgIgmuGYf8Q9krYvKrfYf/RGCoCNmV2DLTE8AgxR8rCGGX93ZPicdA7mHNzufWZ+h89n6OIPMoJ4/K1bC3z4dyedZkL3mLjp0kb0VpUmLQQy5cRLUYEqysO5o/JwurHEewZCVmCPhIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DyMyvqet; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BjCGqZ9j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784050948;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0XneA0CYM00BRNRTb4B9DVpDpuR42nW+B7bPBHZY/xY=;
-	b=BjCGqZ9j9poFa/STKDDLcclY7VvpgjDsEQbK/QaLxjOjxtq1kImMAz5agygwx6lhjyhxVg
-	GYaYGBEzYzJLymuATXTGohg1qaUwJGcNcwqsMEGSm+KGwN7+OEIedWEdum6/n1ev3TKOaR
-	4zhZtjrEAoCqg/sDDQpuggpxTS7cWbQ=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-596-uuGR4G2DNMuxPlmcgrn2Dw-1; Tue, 14 Jul 2026 13:41:18 -0400
-X-MC-Unique: uuGR4G2DNMuxPlmcgrn2Dw-1
-X-Mimecast-MFC-AGG-ID: uuGR4G2DNMuxPlmcgrn2Dw_1784050878
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8ec45d9628aso23416916d6.1
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 10:41:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784050878; x=1784655678;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0XneA0CYM00BRNRTb4B9DVpDpuR42nW+B7bPBHZY/xY=;
-        b=LkzSLQJobfJhcVgUnNGIljP5BbWwcTRUlKar5UYD4KGqZfDsQrBu3814+jzr6FMWFJ
-         x6ZGuyUU6nA6otezUHRtuoR2kpM2lLyJDP1z0aVV4VvYg1X/cKpA77Ew/6cxUNoQpqN9
-         jF0ZfSSX0oj+OhMK08pnlxUFCIY7ruUMku/QWKhH+1D1+PVzSFZUKU9Dfqz34mzjUO0J
-         YaaprunClRQnohSdavJnlDNlvsehkxyaoCP/M8LqYDOwlPTq1YWzmzP66ss1XpIfEJ0U
-         XfZiHOOVGiJ6zvM8UngECqWm624rnR5gIxZbEsKYRY99W398iF53kbcxgNO7Mc5b2tAo
-         eJLA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpp4ZpUZ+HQ2VZjX6jtV2qeVYscIfDbhBHYnYh3ZxtUAnw1ZP5RAz/0bPo2ojmiqWFnQ06I1LA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyv2eKmUPabD1TFTlHwmPIgVeaUJ2aDOoc5lpvxhTWVS6Q/tSLB
-	PUk3xpdgE3TkB5k6hYUE6wUsibtnf8jpEAyc6smBDo4knBKkATcSL8dT1gJ0yKmIcwQ+Qk0zgNT
-	NvIRrONNP0GwygoVXSem8a9HM/xtBKG2IX068olDwmtno2L8RfEmjlZbs6Q==
-X-Gm-Gg: AfdE7ckW/KZfSx15rvZHLZH0haw65otyJLozh9irnXSQz/R7/kCcR6qeojO9DHAzgUE
-	Wbeud5DjB88xXOyyuZHiHAwhTikb5/ZlS5U5sl/hCr6SAzt4nvLxV8/MRfwSdgQeLOmBICcgU6o
-	2nkV0XIPcmCYJx+wY9yfHv82E78/AWy+ewVXG/73RsG53j3iooRjeahWBnuDpBjQytF7HldxRDz
-	Ovt+E9rSrRq5EXXHqBkh1ehOhOQqF0huYe6fTYkExiPKZFWIuHp5UtzA+Ienwp90c4dm39JeF5A
-	TAPX1hqoH9DfM3CW6hwl05336Wcezb8BiT9C87GChY7XgqLwqiPbqAdYHItZ+sWtJtZnuby+p8F
-	iDkyBb2PccZVwT2vpvqxUSjfbFrUn8Odfrsqe9U5e+U9vC+opmih5mdFabrvGx7eFWvY49T0Y
-X-Received: by 2002:a05:6214:130b:b0:8ea:efae:ab26 with SMTP id 6a1803df08f44-903fdd64832mr161430616d6.0.1784050877663;
-        Tue, 14 Jul 2026 10:41:17 -0700 (PDT)
-X-Received: by 2002:a05:6214:130b:b0:8ea:efae:ab26 with SMTP id 6a1803df08f44-903fdd64832mr161430346d6.0.1784050877267;
-        Tue, 14 Jul 2026 10:41:17 -0700 (PDT)
-Received: from [192.168.2.110] (bras-base-aylmpq0104w-grc-61-70-49-81-60.dsl.bell.ca. [70.49.81.60])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd7c1fd2bsm175197236d6.27.2026.07.14.10.41.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 10:41:16 -0700 (PDT)
-Message-ID: <690257d2-2126-4a8e-86de-b0882e282431@redhat.com>
-Date: Tue, 14 Jul 2026 13:41:16 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DyMyvqet"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 02FBF1F000E9;
+	Tue, 14 Jul 2026 17:43:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784050988;
+	bh=KcEgfzomHAugZM1nIzI/5XdcPmhJJaHE/IScPEaJG+s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DyMyvqetJTTR+63fDDCOyuqc0t01wLf0lmHP5Y5IxBrPTdamxT9hZru9odg7ye5iB
+	 NurJ4aK9Z1NV0X94118DQw93X+paYqEaE+AK5IPEsJUfPuE4mNbmb+RWHxYBWZWY/x
+	 +z5a6RI+V+CtaRPgAh6s1NmKLoWG+zwCfLNeJwweLA00BZrfP2EVkXjFnDGThULPGa
+	 riCz3LMW4JapXUA6il3o3QcLJRvqGaBHE7OFx4zGFlHFDUCQKlb16P9v5krCaN3NDD
+	 3uzOjRtiulcFRhXv9iufiL23Mab1+TMWZHZxg+I4vvs1EJMIfSxU/qSr7rY1hQfh2x
+	 gzgGAaFgAhJXQ==
+Date: Tue, 14 Jul 2026 10:43:07 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Ibrahim Hashimov <security@auditcode.ai>
+Cc: cem@kernel.org, linux-xfs@vger.kernel.org, bfoster@redhat.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] xfs: bounds-check buffer log item's dirty bitmap
+Message-ID: <20260714174307.GE7380@frogsfrogsfrogs>
+References: <20260708225814.2568-1-security@auditcode.ai>
+ <20260714172730.73160-1-security@auditcode.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/util: don't read __page_2 for order-1 folios in
- snapshot_page()
-To: Aboorva Devarajan <aboorvad@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Sourabh Jain <sourabhjain@linux.ibm.com>,
- Ritesh Harjani <ritesh.list@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260708201954.686111-1-aboorvad@linux.ibm.com>
-Content-Language: en-US, en-CA
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <20260708201954.686111-1-aboorvad@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714172730.73160-1-security@auditcode.ai>
 
-On 2026-07-08 16:19, Aboorva Devarajan wrote:
-> snapshot_page() currently reads __page_2 after checking nr_pages > 1,
-> but it should only do so when nr_pages > 2.
+On Tue, Jul 14, 2026 at 07:27:30PM +0200, Ibrahim Hashimov wrote:
+> xlog_recover_do_reg_buffer() replays each dirty region described by a
+> buffer log item's bitmap into the buffer read for that item:
 > 
-> During DLPAR memory remove on a 22 TB ppc64le LPAR, snapshot_page()
-> oopsed on the page isolation path while reading an order-1 folio's
-> __page_2 from an adjacent absent section (unmapped vmemmap).
+> 	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
+> 		item->ri_buf[i].iov_base,
+> 		nbits << XFS_BLF_SHIFT);
 > 
-> Fix this to avoid reading memmap that doesn't exist (e.g., a vmemmap
-> hole).
-
-Reviewed-by: Luiz Capitulino <luizcap@redhat.com>
-
+> The destination offset (bit/nbits, from the logged dirty bitmap) and the
+> buffer size (from the logged blf_len) are both attacker-controlled and
+> otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
+> which compiles away on production kernels. A crafted image logging a
+> small blf_len together with a bitmap bit past the end of that buffer
+> drives the memcpy() past the buffer's allocation, corrupting adjacent
+> kernel heap during mount-time log recovery. This is reachable by anyone
+> who can get a crafted image mounted -- the malicious-filesystem threat
+> model XFS already guards against elsewhere.
 > 
-> Fixes: 31a31da8a618 ("mm: move _pincount in folio to page[2] on 32bit")
-> Cc: stable@vger.kernel.org # v6.15+
-> Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
-> Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
+> Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
+> of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
+> idiom already used in xlog_recover_do_inode_buffer() and
+> xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
+> STATIC int and its three callers propagate the error.
+> 
+> Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
+> image trips a slab-out-of-bounds write before this change and fails
+> recovery cleanly with -EFSCORRUPTED after it.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+> Assisted-by: AuditCode-AI:2026.07
 > ---
-> v1 -> v2:
->   - Condense the commit message.
->   - Drop the code comment.
+> v3: trim the changelog per Brian Foster's review; no code change. Add a
+>     Fixes: tag -- the destination-bounds check has been an ASSERT since
+>     the initial git import (2.6.12-rc2), so it predates the git era.
+> v2: resend; v1 went out with an empty Subject line due to a local
+>     git send-email glitch (leading blank line in the patch file).
 > 
->   mm/util.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>  fs/xfs/xfs_buf_item_recover.c | 48 ++++++++++++++++++++++++++++-------
+>  1 file changed, 39 insertions(+), 9 deletions(-)
 > 
-> diff --git a/mm/util.c b/mm/util.c
-> index af2c2103f0d95..34cb43b3eaa4c 100644
-> --- a/mm/util.c
-> +++ b/mm/util.c
-> @@ -1353,7 +1353,7 @@ void snapshot_page(struct page_snapshot *ps, const struct page *page)
->   	if (ps->idx < MAX_FOLIO_NR_PAGES) {
->   		memcpy(&ps->folio_snapshot, foliop, 2 * sizeof(struct page));
->   		nr_pages = folio_nr_pages(&ps->folio_snapshot);
-> -		if (nr_pages > 1)
-> +		if (nr_pages > 2)
->   			memcpy(&ps->folio_snapshot.__page_2, &foliop->__page_2,
->   			       sizeof(struct page));
->   		set_ps_flags(ps, foliop, page);
+> diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+> index 02b95b89d1b5..521e5f544caf 100644
+> --- a/fs/xfs/xfs_buf_item_recover.c
+> +++ b/fs/xfs/xfs_buf_item_recover.c
+> @@ -461,7 +461,7 @@ xlog_recover_validate_buf_type(
+>   * given buffer.  The bitmap in the buf log format structure indicates
+>   * where to place the logged data.
+>   */
+> -STATIC void
+> +STATIC int
+>  xlog_recover_do_reg_buffer(
+>  	struct xfs_mount		*mp,
+>  	struct xlog_recover_item	*item,
+> @@ -489,8 +489,25 @@ xlog_recover_do_reg_buffer(
+>  		ASSERT(nbits > 0);
+>  		ASSERT(item->ri_buf[i].iov_base != NULL);
+>  		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
+> -		ASSERT(BBTOB(bp->b_length) >=
+> -		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
+> +
+> +		/*
+> +		 * The bitmap is only trustworthy to the extent that it
+> +		 * describes a region that actually fits inside the buffer we
+> +		 * read in based on the (attacker-controlled) blf_len.  Do not
+> +		 * rely on an ASSERT() for this -- it compiles away entirely
+> +		 * on non-DEBUG kernels, which is exactly where this matters,
+> +		 * so validate it for real and abort recovery of this buffer
+> +		 * rather than copying past the end of it.
+> +		 */
+> +		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
+> +				((uint)bit << XFS_BLF_SHIFT) +
+> +				(nbits << XFS_BLF_SHIFT))) {
+> +			xfs_alert(mp,
+> +	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
+> +				bit, nbits, BBTOB(bp->b_length),
+> +				xfs_buf_daddr(bp));
+> +			return -EFSCORRUPTED;
+> +		}
+>  
+>  		/*
+>  		 * The dirty regions logged in the buffer, even though
+> @@ -544,6 +561,7 @@ xlog_recover_do_reg_buffer(
+>  	ASSERT(i == item->ri_total);
+>  
+>  	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
+> +	return 0;
+>  }
+>  
+>  /*
+> @@ -553,7 +571,9 @@ xlog_recover_do_reg_buffer(
+>   * Else, treat it as a regular buffer and do recovery.
+>   *
+>   * Return false if the buffer was tossed and true if we recovered the buffer to
+> - * indicate to the caller if the buffer needs writing.
+> + * indicate to the caller if the buffer needs writing.  *error is set if
+> + * recovery of the buffer failed and the caller must abort replay of this
+> + * buffer.
 
+This is still a rather ugly function signature.  You could compress the
+return value into "1 if dirty, 0 if clean, or a negative errno on
+failure" and then the callsite becomes:
+
+	error = xlog_recover_do_dquot_buffer(...):
+	if (error <= 0)
+		goto out_release;
+
+	/* write dirty buffer */
+	error = 0;
+
+--D
+
+>   */
+>  STATIC bool
+>  xlog_recover_do_dquot_buffer(
+> @@ -561,10 +581,12 @@ xlog_recover_do_dquot_buffer(
+>  	struct xlog			*log,
+>  	struct xlog_recover_item	*item,
+>  	struct xfs_buf			*bp,
+> -	struct xfs_buf_log_format	*buf_f)
+> +	struct xfs_buf_log_format	*buf_f,
+> +	int				*error)
+>  {
+>  	uint			type;
+>  
+> +	*error = 0;
+>  	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
+>  
+>  	/*
+> @@ -586,7 +608,7 @@ xlog_recover_do_dquot_buffer(
+>  	if (log->l_quotaoffs_flag & type)
+>  		return false;
+>  
+> -	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
+> +	*error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
+>  	return true;
+>  }
+>  
+> @@ -724,7 +746,9 @@ xlog_recover_do_primary_sb_buffer(
+>  	xfs_rgnumber_t			orig_rgcount = mp->m_sb.sb_rgcount;
+>  	int				error;
+>  
+> -	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
+> +	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
+> +	if (error)
+> +		return error;
+>  
+>  	if (orig_agcount == 0) {
+>  		xfs_alert(mp, "Trying to grow file system without AGs");
+> @@ -1083,7 +1107,10 @@ xlog_recover_buf_commit_pass2(
+>  		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
+>  		bool	dirty;
+>  
+> -		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
+> +		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f,
+> +						     &error);
+> +		if (error)
+> +			goto out_release;
+>  		if (!dirty)
+>  			goto out_release;
+>  	} else if ((xfs_blft_from_flags(buf_f) & XFS_BLFT_SB_BUF) &&
+> @@ -1105,7 +1132,10 @@ xlog_recover_buf_commit_pass2(
+>  			xfs_buf_relse(rtsb_bp);
+>  		}
+>  	} else {
+> -		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
+> +		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
+> +						   current_lsn);
+> +		if (error)
+> +			goto out_release;
+>  	}
+>  
+>  	/*
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
+> 
