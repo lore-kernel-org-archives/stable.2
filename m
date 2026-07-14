@@ -1,104 +1,98 @@
-Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5A1412BED
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1407427FB4
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:22:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784059533; cv=none; b=Bpgxs1B1WCF7dvYAPf+EoaQKseUe2AxFjNyJn+FqBh8hLeM+79Cpo98vSLaS6s5bO8rO8khVCiyyPfk+12UsEPL40NLjb5l3l26zeXR6Dm2WNq7lmN78Jqy8Dx0j7K8bDRp+clVgN60IprDRdJM3YhSp41utPNJVqxfn+cA0U9c=
+	t=1784060538; cv=none; b=a96NGdyWXK7j9WwEEr2Aq+hipES3QcWX+mFPTgv6RW8Tr6EQsqiTfDXiIxHA6HKbGR2nx75TUJy0ej3zMuqLw0s4agsGlZc/go31lRFCHLjIBtkYlFpiObVKt+dB2IBr1qkzl//Kj/dXpa5Qy5zCXwlgAGNWdR0eXU7Cw+xzOug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784059533; c=relaxed/simple;
-	bh=N75yYzsLi76+4XbivVftPrDGrOyxJD1mSoPJE0IsWPI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J/N06deps/3O/ysjzgSHdgaC8wFBEbh3oCrVIL3RlX5FGKkhGZf18Nm37RJEqUQPjxzuDpUsPcxlRVl9I9a31fSuRxShSkzOoP7F+vYoMTsJJHJNGenMbh3TsJcnfRhNUB5igWBsMAFsFNUXdSd+kSU9/mruU72eMs8OIf1ho2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nASgY/cP; arc=none smtp.client-ip=95.215.58.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784060538; c=relaxed/simple;
+	bh=4qtL0ez3hyrpM2ABej3N5hPK1bXfn9+2cpvfKZbLuTo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=r1//OYkjkZNubMG23ysmOkey7ygv2hkKlltIrfgJbNEuA5nm1lF13gPKaQ+Ld37DGvMw7WBXkbQ/S/aC2qJ0ajjT/Ul027jJx/+FZfYEJ/AitAQgx6ulKn/fSv11VpB+7yh33apPAB+fSytiBISmVJ223z/QYDdp5C0X2+/W0YA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=3wtQYsN7; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nASgY/cP"
-Date: Tue, 14 Jul 2026 13:05:08 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784059528;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BLqLKH5IvfKdelylXtTpwefx4KsBR33CINxbQ5x0Fqk=;
-	b=nASgY/cPDPiWt21ZZyKIcwGLYVyGB4ufGOPaFxRr5hd6gHTbtV8ySF1XScNfYac7cwG9pg
-	QeQlV4JxgsYquQV9RNtt34ZrStlkQWSaagjaMGCvZawUrfC+veAPNpWRV3spiCK62S1xJ+
-	HdM9i+zJep7TuSY+/PyleCqGIiIoqv0=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Qi Zheng <qi.zheng@linux.dev>
-Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com, 
-	baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
-	hannes@cmpxchg.org, harry@kernel.org, muchun.song@linux.dev, 
-	peiyang_he@smail.nju.edu.cn, mhocko@kernel.org, roman.gushchin@linux.dev, ljs@kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v5] mm: mglru: fix stale batch updates after memcg
- reparenting
-Message-ID: <alaWT_sKn7V9zoOr@linux.dev>
-References: <20260710154318.75388-1-qi.zheng@linux.dev>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="3wtQYsN7"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A9041A47FE;
+	Tue, 14 Jul 2026 22:14:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1784060046; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=FbHrFT3aPOIRk2G2iDaIAzJcsRnUxYpIE1B26zLqdvs=;
+	b=3wtQYsN7VJ1WRWzmPblt5yts6xFJNnZFV/J+trD/CTYf+ntlOAVUrXDPUoUALb79eZw4sj
+	dGV4qEwxA4pNSPRBPCNZv6x7vpHTsFeH98/vVgRJj1s7PvPt80yYY26QEaBihHgdmVXVd3
+	jADDInXrEjXRLPc18setVSzNV/763ec3/89V+IyERXCxvb8KgJ8o1VTw9Gxg1l2QDYLq+w
+	Y6Ty40J2B7K/8JS5hBJt7a5lmEEMB0jq8HoPtEfSSn/atKyIKL8yJH1IjjbP3pIh+5jfgz
+	h60xO9FZ2GSVquY02+jywc75BCRk7i6MuNRH9DHrjfgtAdBW7BC5yjCEHQDkSA==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	kbusch@kernel.org,
+	hch@lst.de,
+	sagi@grimberg.me,
+	roger.pau@citrix.com,
+	phil@raspberrypi.com,
+	linux-nvme@lists.infradead.org,
+	Nicolai Buchwitz <nb@tipi-net.de>
+Subject: [PATCH 6.18.y] nvme-pci: DMA unmap the correct regions in nvme_free_sgls
+Date: Tue, 14 Jul 2026 22:13:42 +0200
+Message-ID: <20260714201342.1347823-1-nb@tipi-net.de>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710154318.75388-1-qi.zheng@linux.dev>
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Jul 10, 2026 at 11:43:18PM +0800, Qi Zheng wrote:
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> The mglru page table walker batches per-generation size deltas in
-> walk->nr_pages while walking page tables without holding the lruvec lock.
-> The reset_batch_size() later folds those deltas into walk->lruvec under
-> the lruvec lock.
-> 
-> The page table walker can run concurrently with the memcg reparenting path
-> as follows:
-> 
-> CPU0                           CPU1
-> ====                           ====
-> 
-> walk_mm
-> --> walk_page_range
->     --> update_batch_size
->         --> walk->nr_pages += delta
-> 
->                               mem_cgroup_css_offline
->                               --> memcg_reparent_objcgs
->                                   --> lock lruvec
->                                       lru_gen_reparent_memcg
->                                       --> reparent child folios to parent
->                                       unlock lruvec
-> 
->     lock lruvec
->     reset_batch_size
->     --> child lrugen->nr_pages += delta
-> 
-> This will trigger the following warning in lru_gen_exit_memcg():
-> 
-> 	VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
-> 				   sizeof(lruvec->lrugen.nr_pages)));
-> 
-> And the user-visible impact of underestimated nr_pages in MGLRU was
-> premature OOMs because MGLRU does not try to reclaim memory when nr_pages
-> reaches zero, but there are still more pages.
-> 
-> To fix it, make reset_batch_size() check CSS_DYING under RCU before
-> flushing the pending batch. A non-dying memcg keeps the original lruvec
-> stable against RCU-delayed offlining; a dying memcg redirects the deltas
-> to the first non-dying ancestor.
-> 
-> Reported-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Closes: https://lore.kernel.org/all/5A9E929D82717101+12fcf643-efb8-4b9a-a53a-1e28cc894f0b@smail.nju.edu.cn
-> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+From: Roger Pau Monne <roger.pau@citrix.com>
 
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+commit a54afbc8a2138f8c2490510cf26cde188d480c43 upstream.
+
+The call to nvme_free_sgls() in nvme_unmap_data() has the sg_list and sge
+parameters swapped.  This wasn't noticed by the compiler because both share
+the same type.  On a Xen PV hardware domain, and possibly any other
+architectures that takes that path, this leads to corruption of the NVMe
+contents.
+
+Fixes: f0887e2a52d4 ("nvme-pci: create common sgl unmapping helper")
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[nb: drop the attrs parameter added in 6.19 by commit 61d43b1731e0
+ ("nvme-pci: migrate to dma_map_phys instead of map_page"), which is
+ not in 6.18.y]
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+This hits 6.18 too: besides the known Xen PV issue, the missing fix
+leads to corrupted data on NVMe disks with SGL support on BCM2712
+(Raspberry Pi 5).
+
+Reported and diagnosed in https://github.com/raspberrypi/linux/issues/7496
+Backported by Phil Elwell in https://github.com/raspberrypi/linux/pull/7500
+
+ drivers/nvme/host/pci.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+index 5e36a5926fe0..8c66fd23a143 100644
+--- a/drivers/nvme/host/pci.c
++++ b/drivers/nvme/host/pci.c
+@@ -761,8 +761,8 @@ static void nvme_unmap_data(struct request *req)
+ 
+ 	if (!blk_rq_dma_unmap(req, dma_dev, &iod->dma_state, iod->total_len)) {
+ 		if (nvme_pci_cmd_use_sgl(&iod->cmd))
+-			nvme_free_sgls(req, iod->descriptors[0],
+-				       &iod->cmd.common.dptr.sgl);
++			nvme_free_sgls(req, &iod->cmd.common.dptr.sgl,
++				       iod->descriptors[0]);
+ 		else
+ 			nvme_free_prps(req);
+ 	}
+-- 
+2.53.0
+
