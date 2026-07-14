@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC8B48C3F9
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:50:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E846148C40A
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:50:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784040630; cv=none; b=EyQMUKlszBLqmxw/TlyfES0kds+pVjgBrr+sPMnYNgJCBQXs0FtPs+mpwoyvGx6rHv6GbaGLcLhWDvqEnsIusKhQakC8I+L2GJ64KajnLQHszX2sUZ9ECugoJbf4kxjXwxhu9Mx4ey6VQgrmLZuNwAaRoW/akOZl9hgQ8KV5c4g=
+	t=1784040636; cv=none; b=NE0N4tTVyW4N0oK/P0Z+35TLPvz+VGvLLUDJ9qYWd1qW+QEnGMgEQFdCpNB70bIiP75JSx3sHYD/J+6KtfVYGwa1RJBp+k2NUG/1jQBAx8uJkWtDEP/Ub0bFtRvtIvu2NbqUYA3V/ocpy0h0Bbsl2YTODx6al4zjVtPxW3IbDTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784040630; c=relaxed/simple;
-	bh=3s/c7515yZXab2h7sU7pR//1NrY5X8DLAtNr7V3V/k8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=taqWTXYN/Tm8ePNRhcRVMZukJFLg1Zf2wPbRMFIWr7eIs30L2HtCdsQhPZOOIvTd7wfWkZ3HUi6mVdJlQwONsRzHIOOtj9gP/SMq6HY+WW6DUotFhJgDZYku75lNkHie7YvVuZMdxZ/pa/ut2ymp2q8W6yGQaJ9WDALz+7mhzBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mE1+nLSJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784040636; c=relaxed/simple;
+	bh=OTVgtA1VArgRh5MjPB9CQmAq4Mr4y5IK2BNK3cibiQA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=aN5np+r/rZ23QxEC4s5RAlp9NgFThh1ixx5u/16nt1/xKs5/seGm0l01L1gYWEUyXrf9DgIWboPZIMr63snjfwmX4/tjZfFqFlL5EgcQ6lySZsl4y89XjGnsG1zQrVBpjfb+qYbGTFTHuYEY/KlIsOk8p5vfWAap/rJbDShxAJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DbjfS5mo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mE1+nLSJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480C61F000E9;
-	Tue, 14 Jul 2026 14:50:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DbjfS5mo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A83A1F00A3A;
+	Tue, 14 Jul 2026 14:50:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784040622;
-	bh=NIQvyM48JZKQdHcNmAI8pFGpGTn/ZzVDTLYLib+5QTM=;
+	s=korg; t=1784040628;
+	bh=BihyHJNmewADdrufhl44AfW3oU5XmeP6P5O3vldhiEc=;
 	h=Subject:To:Cc:From:Date;
-	b=mE1+nLSJMB1pLEUY9kiuqTZFf9rFtRxD3P0SNizkBKZC1Je0YqsRpLCiwdMPG8TOl
-	 UprTjB0oEfnJYCSuKieLdPvICAW3YNF5WTQn/gthKgfjSdRM9T2miY/xaJcfVZcco2
-	 SPxKn0VchsL3hRPii8sYgc6PtcjE2t5KhwCxyPXI=
-Subject: FAILED: patch "[PATCH] smb/server: do not require delete access for non-replacing" failed to apply to 6.18-stable tree
-To: chenxiaosong@kylinos.cn,linkinjeon@kernel.org,stfrench@microsoft.com
+	b=DbjfS5moZ8hUvx2tHe8nCc8m6edOa8Pwk+7u2720RLzIOZFfUkflhLpXQ/1LVwxez
+	 pkYUGp6YKmFpfIy3K3WMf1jKOGGmJpYuaPPQ6/pZun8Uz9XvxyY0LcsDGNbobdc0sQ
+	 w6UNEio73Y9AtEO30gbybbtUW4xPvfeEiXakyh24=
+Subject: FAILED: patch "[PATCH] writeback: fix race between cgroup_writeback_umount() and" failed to apply to 6.6-stable tree
+To: libaokun@linux.alibaba.com,brauner@kernel.org,jack@suse.cz,tj@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 14 Jul 2026 16:47:08 +0200
-Message-ID: <2026071408-album-feel-56ee@gregkh>
+Date: Tue, 14 Jul 2026 16:48:45 +0200
+Message-ID: <2026071445-sank-sadness-63d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 851ed9e09639e0daf79a506ce26097b296ed5518
+git cherry-pick -x cba38ec4cbd3a7b8b942a8d52531a05be8a9ff0d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071408-album-feel-56ee@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071445-sank-sadness-63d6@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,55 +62,176 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 851ed9e09639e0daf79a506ce26097b296ed5518 Mon Sep 17 00:00:00 2001
-From: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Date: Sun, 28 Jun 2026 07:42:43 +0000
-Subject: [PATCH] smb/server: do not require delete access for non-replacing
- links
+From cba38ec4cbd3a7b8b942a8d52531a05be8a9ff0d Mon Sep 17 00:00:00 2001
+From: Baokun Li <libaokun@linux.alibaba.com>
+Date: Thu, 21 May 2026 17:50:14 +0800
+Subject: [PATCH] writeback: fix race between cgroup_writeback_umount() and
+ inode_switch_wbs()
 
-Reproducer:
+When a container exits, the following BUG_ON() is occasionally triggered:
 
-  1. server: systemctl start ksmbd
-  2. client: mount -t cifs //${server_ip}/export /mnt
-  3. client: touch /mnt/file; ln /mnt/file /mnt/hardlink
-  4. client err log: ln: failed to create hard link 'hardlink' =>
-     'file': Permission denied
-  5. server err log: ksmbd: no right to delete : 0x80
+==================================================================
+ VFS: Busy inodes after unmount of sdb (ext4)
+ ------------[ cut here ]------------
+ kernel BUG at fs/super.c:695!
+ CPU: 3 PID: 6 Comm: containerd-shim Tainted: G OE K 6.6 #1
+ pstate: 63400009 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+ pc : generic_shutdown_super+0xf0/0x100
+ lr : generic_shutdown_super+0xf0/0x100
+ Call trace:
+  generic_shutdown_super+0xf0/0x100
+  kill_block_super+0x20/0x48
+  ext4_kill_sb+0x28/0x60
+  deactivate_locked_super+0x54/0x130
+  deactivate_super+0x84/0xa0
+  cleanup_mnt+0xa4/0x140
+  __cleanup_mnt+0x18/0x28
+  task_work_run+0x78/0xe0
+  do_notify_resume+0x204/0x240
+==================================================================
 
-Fixes: 13f3942f2bf4 ("ksmbd: add per-handle permission check to FILE_LINK_INFORMATION")
+The root cause is a race between cgroup_writeback_umount() and
+inode_switch_wbs()/cleanup_offline_cgwb(). There is a window between
+inode_prepare_wbs_switch() returning true and the subsequent
+wb_queue_isw() call. Following is the process that triggers the issue:
+
+      CPU A (umount)           |          CPU B (writeback)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                 inode_switch_wbs/cleanup_offline_cgwb
+                                  atomic_inc(&isw_nr_in_flight)
+                                  inode_prepare_wbs_switch
+                                   -> passes SB_ACTIVE check
+                                   __iget(inode)
+ generic_shutdown_super
+  sb->s_flags &= ~SB_ACTIVE
+  cgroup_writeback_umount(sb)
+   smp_mb()
+   atomic_read(&isw_nr_in_flight)
+   rcu_barrier()
+    -> no pending RCU callbacks
+   flush_workqueue(isw_wq)
+    -> nothing queued, returns
+  evict_inodes(sb)
+   -> Inode skipped as isw still holds a ref.
+  sop->put_super(sb)
+   /* destroys percpu counters */
+  -> VFS: Busy inodes after unmount!
+                                  wb_queue_isw()
+                                   queue_work(isw_wq, ...)
+                                  /* later in work function */
+                                  inode_switch_wbs_work_fn
+                                   process_inode_switch_wbs
+                                    iput() -> evict
+                                     percpu_counter_dec() // UAF!
+
+Fix this by extending the RCU read-side critical section in
+inode_switch_wbs() and cleanup_offline_cgwb() to cover from
+inode_prepare_wbs_switch() through wb_queue_isw().  Since there is
+no sleep in this window, rcu_read_lock() can be used.  Then add a
+synchronize_rcu() in cgroup_writeback_umount() before the existing
+rcu_barrier(), so that all in-flight switchers that have passed the
+SB_ACTIVE check have completed queue_work() before flush_workqueue()
+is called.
+
+The existing rcu_barrier() is intentionally retained so this fix can
+be backported unchanged to stable kernels (5.10.y, 6.6.y, ...) that
+still queue switches via queue_rcu_work(). It is a no-op on current
+mainline (since commit e1b849cfa6b6 ("writeback: Avoid contention on
+wb->list_lock when switching inodes")) and is removed in a follow-up
+patch.
+
+Fixes: a1a0e23e4903 ("writeback: flush inode cgroup wb switches instead of pinning super_block")
 Cc: stable@vger.kernel.org
-Reported-by: Steve French <stfrench@microsoft.com>
-Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Suggested-by: Jan Kara <jack@suse.cz>
+Link: https://lore.kernel.org/all/mxnjq2l6guusfchvauxr3v7c4bwjasybxlleqbbh4efloeqspz@iqylk76ohufz
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+Link: https://patch.msgid.link/20260521095016.2791354-2-libaokun@linux.alibaba.com
+Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 727ba86ede36..097f51fc7ed6 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -6921,16 +6921,18 @@ static int smb2_set_info_file(struct ksmbd_work *work, struct ksmbd_file *fp,
- 	}
- 	case FILE_LINK_INFORMATION:
- 	{
--		if (!(fp->daccess & FILE_DELETE_LE)) {
--			pr_err("no right to delete : 0x%x\n", fp->daccess);
--			return -EACCES;
--		}
-+		struct smb2_file_link_info *file_info;
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index a65694cbfe68..6766de9f9d75 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -660,12 +660,19 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
  
- 		if (buf_len < sizeof(struct smb2_file_link_info))
- 			return -EMSGSIZE;
+ 	atomic_inc(&isw_nr_in_flight);
  
--		return smb2_create_link(work, work->tcon->share_conf,
--					(struct smb2_file_link_info *)buffer,
-+		file_info = (struct smb2_file_link_info *)buffer;
-+		if (file_info->ReplaceIfExists && !(fp->daccess & FILE_DELETE_LE)) {
-+			pr_err("no right to delete : 0x%x\n", fp->daccess);
-+			return -EACCES;
-+		}
-+
-+		return smb2_create_link(work, work->tcon->share_conf, file_info,
- 					buf_len, fp->filp,
- 					work->conn->local_nls);
- 	}
+-	/* find and pin the new wb */
++	/*
++	 * Paired with synchronize_rcu() in cgroup_writeback_umount():
++	 * holding rcu_read_lock across inode_prepare_wbs_switch()
++	 * (covering the SB_ACTIVE check and the inode grab) and
++	 * wb_queue_isw() ensures synchronize_rcu() cannot return until
++	 * the work is queued, so the subsequent flush_workqueue() will
++	 * wait for the switch.
++	 */
+ 	rcu_read_lock();
++	/* find and pin the new wb */
+ 	memcg_css = css_from_id(new_wb_id, &memory_cgrp_subsys);
+ 	if (memcg_css && !css_tryget(memcg_css))
+ 		memcg_css = NULL;
+-	rcu_read_unlock();
+ 	if (!memcg_css)
+ 		goto out_free;
+ 
+@@ -681,9 +688,11 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
+ 
+ 	trace_inode_switch_wbs_queue(inode->i_wb, new_wb, 1);
+ 	wb_queue_isw(new_wb, isw);
++	rcu_read_unlock();
+ 	return;
+ 
+ out_free:
++	rcu_read_unlock();
+ 	atomic_dec(&isw_nr_in_flight);
+ 	if (new_wb)
+ 		wb_put(new_wb);
+@@ -741,6 +750,14 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+ 		new_wb = &wb->bdi->wb; /* wb_get() is noop for bdi's wb */
+ 
+ 	nr = 0;
++	/*
++	 * Paired with synchronize_rcu() in cgroup_writeback_umount().
++	 * Holding rcu_read_lock across the SB_ACTIVE check, the inode grab
++	 * and wb_queue_isw() ensures synchronize_rcu() cannot return until
++	 * the work is queued, so the subsequent flush_workqueue() will wait
++	 * for the switch.
++	 */
++	rcu_read_lock();
+ 	spin_lock(&wb->list_lock);
+ 	/*
+ 	 * In addition to the inodes that have completed writeback, also switch
+@@ -758,6 +775,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+ 
+ 	/* no attached inodes? bail out */
+ 	if (nr == 0) {
++		rcu_read_unlock();
+ 		atomic_dec(&isw_nr_in_flight);
+ 		wb_put(new_wb);
+ 		kfree(isw);
+@@ -766,6 +784,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+ 
+ 	trace_inode_switch_wbs_queue(wb, new_wb, nr);
+ 	wb_queue_isw(new_wb, isw);
++	rcu_read_unlock();
+ 
+ 	return restart;
+ }
+@@ -1221,6 +1240,14 @@ void cgroup_writeback_umount(struct super_block *sb)
+ 	smp_mb();
+ 
+ 	if (atomic_read(&isw_nr_in_flight)) {
++		/*
++		 * Paired with rcu_read_lock() in inode_switch_wbs() and
++		 * cleanup_offline_cgwb().  synchronize_rcu() waits for any
++		 * in-flight switcher that already passed the SB_ACTIVE check
++		 * to finish queueing its work, so flush_workqueue() below
++		 * will then drain it.
++		 */
++		synchronize_rcu();
+ 		/*
+ 		 * Use rcu_barrier() to wait for all pending callbacks to
+ 		 * ensure that all in-flight wb switches are in the workqueue.
 
