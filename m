@@ -1,276 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender-op-o14.zoho.eu (sender-op-o14.zoho.eu [136.143.169.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F6147DD7A;
-	Tue, 14 Jul 2026 17:25:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784049915; cv=none; b=GifNEkL8Kg6oZw2/aLZbF6UscyN51fUjHTT46n7lZSQLsCcQ5EQxRmJju8IifJxPdJgVHmCvWTcUiY+pXmEfSndNQdPlT/vf7NTlkPjHkGuRGIyGh9w9pVfHHztmp/Hkw8Wr17K0toKkzYZRloxCbttADwr/k8wKWQqRo44H/gA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784049915; c=relaxed/simple;
-	bh=QfkQiauRr1PTaQoDS6zXfYa+8p/BKdWZL6M6VQqRgS0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Hm8ViroIN6Y32b5YUuGVUcv6nmYQEjlVUm2TmoxhlLtx+916daNYH5Y9gA58t8kGzXkm0gBhDVwjn+GnvCU+qaU56kNxyn1eJ0kY9d/RvRhJiI8xPVub95bw5rFaaoSNdHJKCI12kwXP3YZwPh3O16iEfeReujAPk7jotMqTNBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PC17pXS2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5724A33EE;
+	Tue, 14 Jul 2026 17:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784050089; cv=pass; b=O8i6xCvs0qBYpy3AGHKuxNR4JIP4Upn/yWlpxR3WBdabM4RFTg3X9WC/DR1LUq3WBxGjnWoXJEMokHGC29stcq49mIDqTVBe7lxTP5N7o4HmKfZyQZs1CI2OoYjba4fF4WvNImasCgT4XVLuJS7tlr3mEiGNB4yWor7AX3r8990=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784050089; c=relaxed/simple;
+	bh=+CdKXOVVRYrqjjRvEc5d1x8WFWoQfwKjiybkT7eZOYw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LVtCcujb/lWdH18SItcWYjUWSXEli2cRlEMkCZcAEcx3p36KqJqLWYlfFB4F/udqF3vu1AtX/ZP+LiMn2OgO7rJbDG6zBjyMv6VQ0fQPWZqLGCIT54OB79m12ipMfcs2lbWHpl/dXxuQdc19rzk+t82Eo/u+3QveKGs9BHYfSOM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=oFNVFQ9W; arc=pass smtp.client-ip=136.143.169.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PC17pXS2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 279171F00A3A;
-	Tue, 14 Jul 2026 17:25:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784049913;
-	bh=6X5YMXpvKlN1rtFZuXWP5ezzGqrHft5cjQkbgIqQagg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PC17pXS2WHaTYBIL1Slqx4PrZnyY8dMc2smCQYBF/0yu4Wi4jL/xj6gSsjw9azwsH
-	 h2PBo0E+0nEYjR6EkiARz92BXhIqmjmW4a6zK34FpYcajUMzqcWO7elmfDzKcaoqr7
-	 dsgozGajBE7ht5bjTWhV9wjAMcphziVzf5Wcuoh1s1jsrCx8EIiwXgedkDdnqhJv/y
-	 KyApJKXEtaOZR2x9QFGqMRtDHMBG3iTiLsarzRks95WAQ6NzX5+pCm4pDlv19UfUKt
-	 ZtJx4I31XHtkTgIb9cpQS7AVdPrHfrSmd0TmDewmewNFNK/PJKo1UzNVdV3ivRcQKH
-	 uERmQC+kxoAVA==
-From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Tue, 14 Jul 2026 18:24:26 +0100
-Subject: [PATCH mm-hotfixes v3 4/4] arm64: remove redundant concurrent
- ptdump UAF mitigation
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="oFNVFQ9W"
+ARC-Seal: i=1; a=rsa-sha256; t=1784050066; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=jYynRAuQlE6CUQPQtMDQhifqU9YOHqzlnBYKb+o+tbJqVaDsQB90KDP+c9Fht1kifJqp/hWFKZNjzBCE4zP1FiTdF9EQZFBApBUqlBii4n0PpT+7OmiywzrZ9Vhi+CQjn81GkKNdC9ncKS0UmW4dYRHAVbFG9T5PVQl/Dr+7YoU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1784050066; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=6UeP/VDZyPjcl/HdNqYzQJ9QoEouMkC4hjP+2tzge8A=; 
+	b=Z9U2KvseMsYAzEmpF5LLYNzyJscTKpzd6EwR+tvHFqbPFYH9Ps/YIZYWa7YKjNLh55S6sQVidLgIwa+jKuR/nPLafjS4JtTsUwOHHpNJwpiATlw0hGVWBwWA+SyV3d4FmzbLBX3BED5Gpf7IL0nmNsWUH+dFVXqYzKK9KRoyJpQ=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784050066;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=6UeP/VDZyPjcl/HdNqYzQJ9QoEouMkC4hjP+2tzge8A=;
+	b=oFNVFQ9WQ/8fsi14+IaRxftENK0sdzeIXA7ZB9V25eELENU1jSwzCNs+SqjlE5Jb
+	CHVed1feclYZgL5EC7efEnQ9zGFya8qK5FnWE+0VXflZEqX2L42/TQ9v4owKKwSYqO/
+	N9a9C2gQaFT5FrYkg0CyKfcQpt0gV+JNOnDP1O6w=
+Received: by mx.zoho.eu with SMTPS id 1784050063328436.2612031617032;
+	Tue, 14 Jul 2026 19:27:43 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: cem@kernel.org,
+	linux-xfs@vger.kernel.org
+Cc: bfoster@redhat.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] xfs: bounds-check buffer log item's dirty bitmap
+Date: Tue, 14 Jul 2026 19:27:30 +0200
+Message-ID: <20260714172730.73160-1-security@auditcode.ai>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260708225814.2568-1-security@auditcode.ai>
+References: <20260708225814.2568-1-security@auditcode.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-series-vmap-race-fix-v3-4-b812eccfa0f9@kernel.org>
-References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
-In-Reply-To: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
- Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>
-Cc: David Carlier <devnexen@gmail.com>, ljs@kernel.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6970; i=ljs@kernel.org;
- h=from:subject:message-id; bh=QfkQiauRr1PTaQoDS6zXfYa+8p/BKdWZL6M6VQqRgS0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLCCs6xNmyP28KoEf/gWoHNpG1/fXYf2zhlta4S669uy
- QXX9WxudZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAidnEMv5gadq15wVohonZt
- 46eHq3Ii/Q9Jlk7gEDx3kf/ot3Ui4jcYGToXsTs9EnRJnC5rsyE2cO1k6wOFbXMibap49z40L3u
- 3lAEA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-This partially reverts commit fa93b45fd397 ("arm64: Enable vmalloc-huge
-with ptdump"), retaining vmalloc-huge support but eliminating the now
-redundant mitigation against a race between huge vmap page table freeing
-and ptdump, as this issue has now been fixed at core.
+xlog_recover_do_reg_buffer() replays each dirty region described by a
+buffer log item's bitmap into the buffer read for that item:
 
-We also simultaneously remove the arm64 if-deffery when acquiring the mmap
-read lock upon vmap huge page table promotion as it is no longer required.
+	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
+		item->ri_buf[i].iov_base,
+		nbits << XFS_BLF_SHIFT);
 
-Note that this patch relies on the preceding vmalloc patch, and should not
-be backported alone.
+The destination offset (bit/nbits, from the logged dirty bitmap) and the
+buffer size (from the logged blf_len) are both attacker-controlled and
+otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
+which compiles away on production kernels. A crafted image logging a
+small blf_len together with a bitmap bit past the end of that buffer
+drives the memcpy() past the buffer's allocation, corrupting adjacent
+kernel heap during mount-time log recovery. This is reachable by anyone
+who can get a crafted image mounted -- the malicious-filesystem threat
+model XFS already guards against elsewhere.
 
-Fixes: fa93b45fd397 ("arm64: Enable vmalloc-huge with ptdump")
+Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
+of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
+idiom already used in xlog_recover_do_inode_buffer() and
+xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
+STATIC int and its three callers propagate the error.
+
+Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
+image trips a slab-out-of-bounds write before this change and fails
+recovery cleanly with -EFSCORRUPTED after it.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Will Deacon <will@kernel.org>
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
 ---
- arch/arm64/include/asm/ptdump.h |  2 --
- arch/arm64/mm/mmu.c             | 43 ++++-------------------------------------
- arch/arm64/mm/ptdump.c          | 11 ++---------
- mm/vmalloc.c                    | 15 +++-----------
- 4 files changed, 9 insertions(+), 62 deletions(-)
+v3: trim the changelog per Brian Foster's review; no code change. Add a
+    Fixes: tag -- the destination-bounds check has been an ASSERT since
+    the initial git import (2.6.12-rc2), so it predates the git era.
+v2: resend; v1 went out with an empty Subject line due to a local
+    git send-email glitch (leading blank line in the patch file).
 
-diff --git a/arch/arm64/include/asm/ptdump.h b/arch/arm64/include/asm/ptdump.h
-index 5b374a6ab34a..50a195eda8ed 100644
---- a/arch/arm64/include/asm/ptdump.h
-+++ b/arch/arm64/include/asm/ptdump.h
-@@ -7,8 +7,6 @@
+ fs/xfs/xfs_buf_item_recover.c | 48 ++++++++++++++++++++++++++++-------
+ 1 file changed, 39 insertions(+), 9 deletions(-)
+
+diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+index 02b95b89d1b5..521e5f544caf 100644
+--- a/fs/xfs/xfs_buf_item_recover.c
++++ b/fs/xfs/xfs_buf_item_recover.c
+@@ -461,7 +461,7 @@ xlog_recover_validate_buf_type(
+  * given buffer.  The bitmap in the buf log format structure indicates
+  * where to place the logged data.
+  */
+-STATIC void
++STATIC int
+ xlog_recover_do_reg_buffer(
+ 	struct xfs_mount		*mp,
+ 	struct xlog_recover_item	*item,
+@@ -489,8 +489,25 @@ xlog_recover_do_reg_buffer(
+ 		ASSERT(nbits > 0);
+ 		ASSERT(item->ri_buf[i].iov_base != NULL);
+ 		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
+-		ASSERT(BBTOB(bp->b_length) >=
+-		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
++
++		/*
++		 * The bitmap is only trustworthy to the extent that it
++		 * describes a region that actually fits inside the buffer we
++		 * read in based on the (attacker-controlled) blf_len.  Do not
++		 * rely on an ASSERT() for this -- it compiles away entirely
++		 * on non-DEBUG kernels, which is exactly where this matters,
++		 * so validate it for real and abort recovery of this buffer
++		 * rather than copying past the end of it.
++		 */
++		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
++				((uint)bit << XFS_BLF_SHIFT) +
++				(nbits << XFS_BLF_SHIFT))) {
++			xfs_alert(mp,
++	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
++				bit, nbits, BBTOB(bp->b_length),
++				xfs_buf_daddr(bp));
++			return -EFSCORRUPTED;
++		}
  
- #include <linux/ptdump.h>
+ 		/*
+ 		 * The dirty regions logged in the buffer, even though
+@@ -544,6 +561,7 @@ xlog_recover_do_reg_buffer(
+ 	ASSERT(i == item->ri_total);
  
--DECLARE_STATIC_KEY_FALSE(arm64_ptdump_lock_key);
--
- #ifdef CONFIG_PTDUMP
- 
- #include <linux/mm_types.h>
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index a25d8beacc83..bd52fca6e872 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -49,8 +49,6 @@
- #define NO_CONT_MAPPINGS	BIT(1)
- #define NO_EXEC_MAPPINGS	BIT(2)	/* assumes FEAT_HPDS is not used */
- 
--DEFINE_STATIC_KEY_FALSE(arm64_ptdump_lock_key);
--
- u64 kimage_voffset __ro_after_init;
- EXPORT_SYMBOL(kimage_voffset);
- 
-@@ -1864,8 +1862,7 @@ int pmd_clear_huge(pmd_t *pmdp)
- 	return 1;
+ 	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
++	return 0;
  }
  
--static int __pmd_free_pte_page(pmd_t *pmdp, unsigned long addr,
--			       bool acquire_mmap_lock)
-+int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
+ /*
+@@ -553,7 +571,9 @@ xlog_recover_do_reg_buffer(
+  * Else, treat it as a regular buffer and do recovery.
+  *
+  * Return false if the buffer was tossed and true if we recovered the buffer to
+- * indicate to the caller if the buffer needs writing.
++ * indicate to the caller if the buffer needs writing.  *error is set if
++ * recovery of the buffer failed and the caller must abort replay of this
++ * buffer.
+  */
+ STATIC bool
+ xlog_recover_do_dquot_buffer(
+@@ -561,10 +581,12 @@ xlog_recover_do_dquot_buffer(
+ 	struct xlog			*log,
+ 	struct xlog_recover_item	*item,
+ 	struct xfs_buf			*bp,
+-	struct xfs_buf_log_format	*buf_f)
++	struct xfs_buf_log_format	*buf_f,
++	int				*error)
  {
- 	pte_t *table;
- 	pmd_t pmd;
-@@ -1877,25 +1874,13 @@ static int __pmd_free_pte_page(pmd_t *pmdp, unsigned long addr,
- 		return 1;
+ 	uint			type;
+ 
++	*error = 0;
+ 	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
+ 
+ 	/*
+@@ -586,7 +608,7 @@ xlog_recover_do_dquot_buffer(
+ 	if (log->l_quotaoffs_flag & type)
+ 		return false;
+ 
+-	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
++	*error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
+ 	return true;
+ }
+ 
+@@ -724,7 +746,9 @@ xlog_recover_do_primary_sb_buffer(
+ 	xfs_rgnumber_t			orig_rgcount = mp->m_sb.sb_rgcount;
+ 	int				error;
+ 
+-	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++	if (error)
++		return error;
+ 
+ 	if (orig_agcount == 0) {
+ 		xfs_alert(mp, "Trying to grow file system without AGs");
+@@ -1083,7 +1107,10 @@ xlog_recover_buf_commit_pass2(
+ 		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
+ 		bool	dirty;
+ 
+-		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
++		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f,
++						     &error);
++		if (error)
++			goto out_release;
+ 		if (!dirty)
+ 			goto out_release;
+ 	} else if ((xfs_blft_from_flags(buf_f) & XFS_BLFT_SB_BUF) &&
+@@ -1105,7 +1132,10 @@ xlog_recover_buf_commit_pass2(
+ 			xfs_buf_relse(rtsb_bp);
+ 		}
+ 	} else {
+-		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
++						   current_lsn);
++		if (error)
++			goto out_release;
  	}
  
--	/* See comment in pud_free_pmd_page for static key logic */
- 	table = pte_offset_kernel(pmdp, addr);
- 	pmd_clear(pmdp);
- 	__flush_tlb_kernel_pgtable(addr);
--	if (static_branch_unlikely(&arm64_ptdump_lock_key) && acquire_mmap_lock) {
--		mmap_read_lock(&init_mm);
--		mmap_read_unlock(&init_mm);
--	}
--
- 	pte_free_kernel(NULL, table);
- 	return 1;
- }
- 
--int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
--{
--	/* If ptdump is walking the pagetables, acquire init_mm.mmap_lock */
--	return __pmd_free_pte_page(pmdp, addr, /* acquire_mmap_lock = */ true);
--}
--
- int pud_free_pmd_page(pud_t *pudp, unsigned long addr)
- {
- 	pmd_t *table;
-@@ -1911,36 +1896,16 @@ int pud_free_pmd_page(pud_t *pudp, unsigned long addr)
- 	}
- 
- 	table = pmd_offset(pudp, addr);
--
--	/*
--	 * Our objective is to prevent ptdump from reading a PMD table which has
--	 * been freed. In this race, if pud_free_pmd_page observes the key on
--	 * (which got flipped by ptdump) then the mmap lock sequence here will,
--	 * as a result of the mmap write lock/unlock sequence in ptdump, give
--	 * us the correct synchronization. If not, this means that ptdump has
--	 * yet not started walking the pagetables - the sequence of barriers
--	 * issued by __flush_tlb_kernel_pgtable() guarantees that ptdump will
--	 * observe an empty PUD.
--	 */
--	pud_clear(pudp);
--	__flush_tlb_kernel_pgtable(addr);
--	if (static_branch_unlikely(&arm64_ptdump_lock_key)) {
--		mmap_read_lock(&init_mm);
--		mmap_read_unlock(&init_mm);
--	}
--
- 	pmdp = table;
- 	next = addr;
- 	end = addr + PUD_SIZE;
- 	do {
- 		if (pmd_present(pmdp_get(pmdp)))
--			/*
--			 * PMD has been isolated, so ptdump won't see it. No
--			 * need to acquire init_mm.mmap_lock.
--			 */
--			__pmd_free_pte_page(pmdp, next, /* acquire_mmap_lock = */ false);
-+			pmd_free_pte_page(pmdp, next);
- 	} while (pmdp++, next += PMD_SIZE, next != end);
- 
-+	pud_clear(pudp);
-+	__flush_tlb_kernel_pgtable(addr);
- 	pmd_free(NULL, table);
- 	return 1;
- }
-diff --git a/arch/arm64/mm/ptdump.c b/arch/arm64/mm/ptdump.c
-index 1c20144700d7..5a76c59b5ada 100644
---- a/arch/arm64/mm/ptdump.c
-+++ b/arch/arm64/mm/ptdump.c
-@@ -283,13 +283,6 @@ void note_page_flush(struct ptdump_state *pt_st)
- 	note_page(pt_st, 0, -1, pte_val(pte_zero));
- }
- 
--static void arm64_ptdump_walk_pgd(struct ptdump_state *st, struct mm_struct *mm)
--{
--	static_branch_inc(&arm64_ptdump_lock_key);
--	ptdump_walk_pgd(st, mm, NULL);
--	static_branch_dec(&arm64_ptdump_lock_key);
--}
--
- void ptdump_walk(struct seq_file *s, struct ptdump_info *info)
- {
- 	unsigned long end = ~0UL;
-@@ -318,7 +311,7 @@ void ptdump_walk(struct seq_file *s, struct ptdump_info *info)
- 		}
- 	};
- 
--	arm64_ptdump_walk_pgd(&st.ptdump, info->mm);
-+	ptdump_walk_pgd(&st.ptdump, info->mm, NULL);
- }
- 
- static void __init ptdump_initialize(void)
-@@ -360,7 +353,7 @@ bool ptdump_check_wx(void)
- 		}
- 	};
- 
--	arm64_ptdump_walk_pgd(&st.ptdump, &init_mm);
-+	ptdump_walk_pgd(&st.ptdump, &init_mm, NULL);
- 
- 	if (st.wx_pages || st.uxn_pages) {
- 		pr_warn("Checked W+X mappings: FAILED, %lu W+X pages found, %lu non-UXN pages found\n",
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 1fa9ac6e43d4..400563ac6d5d 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -170,10 +170,7 @@ static int vmap_try_huge_pmd(pmd_t *pmd, unsigned long addr, unsigned long end,
- 	 * Therefore, acquire the mmap read lock to prevent use-after-free when
- 	 * freeing page tables.
- 	 */
--#ifndef CONFIG_ARM64
--	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
--#endif
--	{
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm) {
- 		if (!pmd_free_pte_page(pmd, addr))
- 			return 0;
- 		return pmd_set_huge(pmd, phys_addr, prot);
-@@ -230,10 +227,7 @@ static int vmap_try_huge_pud(pud_t *pud, unsigned long addr, unsigned long end,
- 		return pud_set_huge(pud, phys_addr, prot);
- 
- 	/* See comment in vmap_try_huge_pmd(). */
--#ifndef CONFIG_ARM64
--	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
--#endif
--	{
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm) {
- 		if (!pud_free_pmd_page(pud, addr))
- 			return 0;
- 		return pud_set_huge(pud, phys_addr, prot);
-@@ -290,10 +284,7 @@ static int vmap_try_huge_p4d(p4d_t *p4d, unsigned long addr, unsigned long end,
- 		return p4d_set_huge(p4d, phys_addr, prot);
- 
- 	/* See comment in vmap_try_huge_pmd(). */
--#ifndef CONFIG_ARM64
--	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
--#endif
--	{
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm) {
- 		if (!p4d_free_pud_page(p4d, addr))
- 			return 0;
- 		return p4d_set_huge(p4d, phys_addr, prot);
-
+ 	/*
 -- 
-2.55.0
+2.50.1 (Apple Git-155)
 
