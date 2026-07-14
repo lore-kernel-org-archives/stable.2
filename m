@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D023264C1
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:41:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1E848167E
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:42:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784040118; cv=none; b=KUlpGQ8lL8mIOtq0HEtgj3E5osdK9vGMGsht4rUnQtthRM/RwHPqTo3GlXC68D7qpeaeMPVBf216uHuzb/mx3l9niec3+CVbKnx4U+448J8RwQGv/OcPtcNELg1lnPgKBqVSSpALef9nQcMCqVgOaQN3bww6slyKbRQPxwetY3s=
+	t=1784040135; cv=none; b=UCFUjj4ZaXNdByTNQmyF13oS3lCZnvyl+lwyXYCIgCK4PUrQgWdJjlKmRoPomOzrPRXaB/isEkuNA2+FAhfmCV7btW7pERCXejER3mghEN0bcvsETgNI56QJP3vgccNUIEeGgglJvxtungFYxNAVjbTIOyF4DHlnQDUfNHGjfs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784040118; c=relaxed/simple;
-	bh=EW5b6SOXr3sMCwmIsVhnNw4T0RgqndsDrATgZmLKg7M=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=q+OD46JZjBmgPO886Br3YpCAvuskCzc8YPemrBFPDWJhlt0qQ2S1baSS02SOBpKOrx7ZNKoFxswo8megxC5Pv0FjrW9yInKF4AKbX48q9LWBRtH7JMMTcatQ/cpr/cY9Tk3CoHDdOKjVVjQc3bsSruhukXcmgRvDUlvYAOYzHJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=l8fNM/WL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784040135; c=relaxed/simple;
+	bh=9biIILWh7k8Vh+whNh6JsE5SQ+zQ3MaUtXGtDBogfh0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YwXlnW0DwzPtXAmly44dTlIaWWpSC9b/fZd0dmQaIRZGVnOcChiFijg+kFlaKjrI0qBIPsbJ6AGALLoDCOYqsgwx8U10aohpXeoE/peiiMaJ6oeo4NGP6j6XHjANMQY4ru9LGcijQvlarnlrAur9oztF6r8bi8TyAlrjE2GjZY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=E/gdniEV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="l8fNM/WL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E08BC1F000E9;
-	Tue, 14 Jul 2026 14:41:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E/gdniEV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42D91F00A3E;
+	Tue, 14 Jul 2026 14:41:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784040099;
-	bh=pYmh3mGomz6ZTTiuqX8OduFXJWGL6YNndOk1O28iteU=;
+	s=korg; t=1784040120;
+	bh=PQ3qI01d79B6drAV4v2aw9Eb4uZ4VGPVr865XW3QceM=;
 	h=Subject:To:Cc:From:Date;
-	b=l8fNM/WLdnf67weKhyPM93jU+psVvA/ZGknNY/5LJomQnfaOGEdAtHZ8plQGaiSH0
-	 9GSgLL0IVJH5KmAKDwt4k1elv/fAhHCi1oDKoKMW2F1qOInD+xMW2Kjxr46ZlgdkCh
-	 lFl+k0NdviLSEkWvgsZldbjLMeuXtVCyfrg1rkik=
-Subject: FAILED: patch "[PATCH] smb: client: harden POSIX SID length parsing" failed to apply to 5.10-stable tree
-To: xizh2024@lzu.edu.cn,bird@lzu.edu.cn,n05ec@lzu.edu.cn,stfrench@microsoft.com,tomapufckgml@gmail.com,yifanwucs@gmail.com,yuantan098@gmail.com
+	b=E/gdniEVudRhZXOFB+mVovRZZVLenDZ6v98MaPO611tVxThGiogqGI5ukXNfBYCtA
+	 GnIxr3VO+q0Nsjv7Ze209bbDMI6Na99RSdUQ9CNsNBVzm+78Ycb8QYyNNqh+/IIg4G
+	 +wEcS/7DO88KXlUTcNlIbR9CqZS3qXqUfYfzg+2E=
+Subject: FAILED: patch "[PATCH] smb: client: mask server-provided mode to 07777 in" failed to apply to 5.15-stable tree
+To: nmanthey@amazon.de,stfrench@microsoft.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 14 Jul 2026 16:41:25 +0200
-Message-ID: <2026071425-undertone-protozoan-2d33@gregkh>
+Date: Tue, 14 Jul 2026 16:41:54 +0200
+Message-ID: <2026071454-wolf-talcum-3f10@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7ad2bcf2441430bb2e918fb3ef9a90d775a6e422
+git cherry-pick -x e3d9c7160d483fc8f9e225aafad8ecbbc43f3151
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071425-undertone-protozoan-2d33@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071454-wolf-talcum-3f10@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,38 +62,33 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7ad2bcf2441430bb2e918fb3ef9a90d775a6e422 Mon Sep 17 00:00:00 2001
-From: Zihan Xi <xizh2024@lzu.edu.cn>
-Date: Sun, 28 Jun 2026 17:19:24 +0800
-Subject: [PATCH] smb: client: harden POSIX SID length parsing
+From e3d9c7160d483fc8f9e225aafad8ecbbc43f3151 Mon Sep 17 00:00:00 2001
+From: Norbert Manthey <nmanthey@amazon.de>
+Date: Thu, 9 Jul 2026 15:54:39 +0000
+Subject: [PATCH] smb: client: mask server-provided mode to 07777 in
+ modefromsid
 
-posix_info_sid_size() reads sid[1] to obtain the subauthority count,
-but its existing boundary check still accepts buffers with only one
-remaining byte. Require two bytes before reading sid[1] so all client
-paths that reuse the helper reject truncated POSIX SIDs safely.
+When modefromsid is active, parse_dacl() applies the server-provided
+sub_auth[2] value from the NFS mode SID to cf_mode without masking to
+07777. Apply the correct masking, same as in the read path.
 
-Fixes: 349e13ad30b4 ("cifs: add smb2 POSIX info level")
+Fixes: e2f8fbfb8d09c ("cifs: get mode bits from special sid on stat")
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+Assisted-by: Kiro:claude-opus-4.6
 Cc: stable@vger.kernel.org
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zihan Xi <xizh2024@lzu.edu.cn>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
 Signed-off-by: Steve French <stfrench@microsoft.com>
 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index d058584b8f05..77738900e75e 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -5405,7 +5405,7 @@ int posix_info_sid_size(const void *beg, const void *end)
- 	size_t subauth;
- 	int total;
- 
--	if (beg + 1 > end)
-+	if (beg + 2 > end)
- 		return -1;
- 
- 	subauth = *(u8 *)(beg+1);
+diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+index 07cf0e578233..9424281a7674 100644
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -962,7 +962,7 @@ static void parse_dacl(struct smb_acl *pdacl, char *end_of_acl,
+ 				 */
+ 				fattr->cf_mode &= ~07777;
+ 				fattr->cf_mode |=
+-					le32_to_cpu(ppace[i]->sid.sub_auth[2]);
++					le32_to_cpu(ppace[i]->sid.sub_auth[2]) & 07777;
+ 				break;
+ 			} else {
+ 				if (compare_sids(&(ppace[i]->sid), pownersid) == 0) {
 
