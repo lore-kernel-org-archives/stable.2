@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6137B48BD41
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:54:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D0748B397
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:54:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784040879; cv=none; b=EdNXq5pfPWmVEi1JvZ9MgOrPzEP2+QmkRmT3bwopYMyG2E7pF+FwoUWJNrik23Tz/MyukKU+9Jz02vp9XuUj89qPWOoNtwouAK/PgBRHAfkl/OuWwo3qbNP+6PiXHHytPVc0PRia0za6MxFV9rAnOvnMwW484a7Ly5kBXKSbKAA=
+	t=1784040881; cv=none; b=ogtjUHUg3RMnEfJm+h5woiwz1eCfx9KZIsGvNCuRepVPAOYqg2mpKWODJfYbDIJyIx/85/Sx3yI4EErvdETd5pIfZqfx+ZW6GGOWnotOtSJ34yd1tR04cVfW7biNq2/EWxuwBZqI+rZvMnlM2NCHUQseTwiHTqEiFZ0gsdld+u0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784040879; c=relaxed/simple;
-	bh=6qK/EOvQbOpjktFweYkwPEZfx1OXL4MBkY9KxPb25UI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kUg9OMBQG/A55cNLZyPgbwKcah5GSXqw7H2+jtOl9XRKTq3E4rF1Ni1MTRRoADtPts5b7XkRVlMDRUFV05dquPzPz4N9qRlQT4P3Yn/KJ27e57i86X4jWB5+3y5LQCPOthDlPZ5v74lb3MRFNg0J7SlSWdfj3KCuNjlGzjAJttA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SX/8k/s1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784040881; c=relaxed/simple;
+	bh=F6KDwHoBtF5MJSlsWAsPdtvT7fh2tStXrYEzBQJl/OM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=i09E3MuxVQdarVkUsHuSPQtL8oiPYR9OEKFFW1FJ8/F5TaZBjxiFvj4RF/HQJJA876pLY346+iGQHJkcFqnTBjvJk6pk7hnvTZQeTBqARoNyzLhGyldn1oaFz5lEM3AE0TfoMbLkCQuiSRdzrSt5+2jMn17RXHJ+h9G1t00Dn/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=O0LhgZi2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SX/8k/s1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFD6E1F000E9;
-	Tue, 14 Jul 2026 14:54:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="O0LhgZi2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61C211F00A3A;
+	Tue, 14 Jul 2026 14:54:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784040877;
-	bh=HP/G3ALrHlxnH82P/xheayRqXaBKmRm0CYY7YyAeibs=;
+	s=korg; t=1784040879;
+	bh=MFpnMX1HDnXTQOU1eNaWLa9qlc1VxMHsD+8kUDwL1VM=;
 	h=Subject:To:Cc:From:Date;
-	b=SX/8k/s1ufXiop6Gka/eUKS9milDMsa59p0JEyjDM5Lf/P4d6WmXgrkA3JO9B22F7
-	 e6J/JxadwTk8U7dw2ooAETXH4bPSrchxUx10cwAdLCxWk3IyklL3PGwkLaU7rdVY26
-	 v7045CCNC4JvBBNp8AatTlfl9Tqm/v1wzJHivevA=
-Subject: FAILED: patch "[PATCH] HID: multitouch: fix out-of-bounds bit access on mt_io_flags" failed to apply to 5.10-stable tree
+	b=O0LhgZi25SlpdMnNG046QFcYpvOYLrpRag1yGiGDFRFIkptYVPyVTwJwZJxrdimaY
+	 WVk1+AijWMBKOkgSrlI4Zzf2WTnzXO1H1FcP01YM2mpTgl3I9pH4CVMPmmtN1y4DVt
+	 IijSiu9tzt9FUiGxSSct4P0EeN5xv6la32yBjFuc=
+Subject: FAILED: patch "[PATCH] HID: multitouch: fix out-of-bounds bit access on mt_io_flags" failed to apply to 5.15-stable tree
 To: trungnh@cystack.net,bentiss@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 14 Jul 2026 16:54:19 +0200
-Message-ID: <2026071419-refined-abrasion-5918@gregkh>
+Message-ID: <2026071419-skinny-privatize-967b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8813b0612275cc61fe9e6603d0ee019247ade6be
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071419-refined-abrasion-5918@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071419-skinny-privatize-967b@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
