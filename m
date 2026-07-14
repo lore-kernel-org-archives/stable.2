@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18073446DE
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:33:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E6828469A
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:33:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783999990; cv=none; b=oaxYvqlCCBCbTMG4rdriCzPUS1PYKSulRg6VD2kBIe9W9KwENeI3zDPypev6hDvkXlpRY8uY1MjTdNxfhC3NkdodJPiz2KUQmJVwIYxyVxvhNy/joG7DLaMMOYtUP5dAQul81IMjvcBIBTYIAAzVwB5LnKE3X8iycm5Ds+pbDEg=
+	t=1783999991; cv=none; b=gU0s8s5iy99H9HhbscU+UwZilGcj62vu5GF6Nyk+KbxpuAQJBWRWrxN4svaBuCBV83F52iw5zK/OK15eabDlYwrxcBdAwaOdnACfTB+huD8gQzQP1dSVNCTzCET0+Dctc30S48LSFjLxa6N1IonvvekYnPYI1b2rYQAQxxxaYSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783999990; c=relaxed/simple;
-	bh=1N0IY7N/6XMvZF7U6elx+lv8qcqgY1rZa/7xp+itAvs=;
+	s=arc-20240116; t=1783999991; c=relaxed/simple;
+	bh=s6uEkSQa79RA+46TTqDMHWcgR/tKs6wshyUpyKs/+AM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wn4KZoOfPfFT1uO8+gQ86/QoUZO0/WW+K5pcw3w58TVC2QvURYkOktpNAIrnTM1h5Etl6zZHOU3LSSRpwZNylmmkGbOR5384yCkQabrinhA+x92QEnCjusrYRzuhmOWcApf8LJRiKHUiQEUSswwsP5iP1TKIBVx6QhcAOUdgNQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHG0+JnZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Uc40VRkhRAmw4tKz+pw+y+Ianyz1dryGKc8j++0L72vb/7pEfXfZ3K6ct7jnT2rJBW+SsoPQoA3dRAgS6mwdGnWl7DCQrIv6X2M1DkltThy3AI9kY4qjLS0MPf6DeZqR4ACwX+tvc+oaYBsW1bGfAsqKG9FdFeD0GhFn8+gtHvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUBzwQw/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHG0+JnZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6551F000E9;
-	Tue, 14 Jul 2026 03:33:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUBzwQw/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 859F01F00A3D;
+	Tue, 14 Jul 2026 03:33:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783999989;
-	bh=Ts2vplMApUb8gS2fFc1kKhqwHRPZ/uhI4zjYisA0/II=;
+	s=k20260515; t=1783999990;
+	bh=0zEXSiRtscDeoTQ0s9OWpFSsEqDqYIA8hjbsRdWalWg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hHG0+JnZIOeUKnstFRdgt0eCNOZeGEbrryIJtH8uDrI/GeVNA5soplptUJgmqoMQO
-	 uAocOB9hFUsbVwh/lKdAaSw2WvPYoGcxdP0AcgQ6SkUm4nPJeQmJ372DLoio5mGKhy
-	 yz6qz8XupzjYv7IYALlmSEWCTEKFpDV5ai9jFaGcj0YCgM5oq+sm2n5T9q1B5dAT8+
-	 ft/rjj4+IJybKH8j2mOGKXRlWdGrXvxmCOl6XCBjMQ68i4oniiluGhNuE7/M5WI5Dr
-	 9ABQW3958T2NaV3hOh3YnwY1VNbgVpmxJjGxfPCV7SmoFBzdHif5s/1eydp83OSN2l
-	 TYTtJMW6UpE4Q==
+	b=nUBzwQw/wXCx3zHKDYoykMvOzvtxIoGCEKQelmu4/2ZekUlEkXre9VfSlxzwD22Rb
+	 6pUqOQjhpRblypYiXt7WrMMGQm0cjiqYWzCPHDTCK/+Dbff9/nZn8RyT5RL6B/RQSB
+	 WwKmPwXEQ2RX6A8kOYbovAnNjWZ2OnyxZrbRFz0A7vfrgnnrL85xaj4iGTyNIVWjJB
+	 NmMMVLdJVvpZXyNYINa69DMZUnq7sG6O7ZaocE400i6/qkMj+zAJaWwlyablN4xC8A
+	 JxiSdnrjEFqzR3ny/eEW8VsCgJrvya3Vy3H9/DkswXA/hl4S1i1Zw+iFNUGMi5Teke
+	 HN/fkP27zpPDQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Reinette Chatre <reinette.chatre@intel.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Alex Williamson <alex.williamson@redhat.com>,
+Cc: Raghavendra Rao Ananta <rananta@google.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Alex Williamson <alex@shazbot.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/3] vfio/pci: Use bitfield for struct vfio_pci_core_device flags
-Date: Mon, 13 Jul 2026 23:33:05 -0400
-Message-ID: <20260714033307.2397254-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/3] vfio/pci: Use a private flag to prevent power state change with VFs
+Date: Mon, 13 Jul 2026 23:33:06 -0400
+Message-ID: <20260714033307.2397254-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071301-corned-default-6f79@gregkh>
+In-Reply-To: <20260714033307.2397254-1-sashal@kernel.org>
 References: <2026071301-corned-default-6f79@gregkh>
+ <20260714033307.2397254-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,66 +47,219 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Reinette Chatre <reinette.chatre@intel.com>
+From: Raghavendra Rao Ananta <rananta@google.com>
 
-[ Upstream commit 9cd0f6d5cbb6fda09aa83beb8146c287a552017e ]
+[ Upstream commit 40ef3edf151e184d021917a5c4c771cc0870844a ]
 
-struct vfio_pci_core_device contains eleven boolean flags.
-Boolean flags clearly indicate their usage but space usage
-starts to be a concern when there are many.
+The current implementation uses pci_num_vf() while holding the
+memory_lock to prevent changing the power state of a PF when
+VFs are enabled. This creates a lockdep circular dependency
+warning because memory_lock is held during device probing.
 
-An upcoming change adds another boolean flag to
-struct vfio_pci_core_device, thereby increasing the concern
-that the boolean flags are consuming unnecessary space.
+[  286.997167] ======================================================
+[  287.003363] WARNING: possible circular locking dependency detected
+[  287.009562] 7.0.0-dbg-DEV #3 Tainted: G S
+[  287.015074] ------------------------------------------------------
+[  287.021270] vfio_pci_sriov_/18636 is trying to acquire lock:
+[  287.026942] ff45bea2294d4968 (&vdev->memory_lock){+.+.}-{4:4}, at:
+vfio_pci_core_runtime_resume+0x1f/0xa0
+[  287.036530]
+[  287.036530] but task is already holding lock:
+[  287.042383] ff45bea3a96b8230 (&new_dev_set->lock){+.+.}-{4:4}, at:
+vfio_group_fops_unl_ioctl+0x44d/0x7b0
+[  287.051879]
+[  287.051879] which lock already depends on the new lock.
+[  287.051879]
+[  287.060070]
+[  287.060070] the existing dependency chain (in reverse order) is:
+[  287.067568]
+[  287.067568] -> #2 (&new_dev_set->lock){+.+.}-{4:4}:
+[  287.073941]        __mutex_lock+0x92/0xb80
+[  287.078058]        vfio_assign_device_set+0x66/0x1b0
+[  287.083042]        vfio_pci_core_register_device+0xd1/0x2a0
+[  287.088638]        vfio_pci_probe+0xd2/0x100
+[  287.092933]        local_pci_probe_callback+0x4d/0xa0
+[  287.098001]        process_scheduled_works+0x2ca/0x680
+[  287.103158]        worker_thread+0x1e8/0x2f0
+[  287.107452]        kthread+0x10c/0x140
+[  287.111230]        ret_from_fork+0x18e/0x360
+[  287.115519]        ret_from_fork_asm+0x1a/0x30
+[  287.119983]
+[  287.119983] -> #1 ((work_completion)(&arg.work)){+.+.}-{0:0}:
+[  287.127219]        __flush_work+0x345/0x490
+[  287.131429]        pci_device_probe+0x2e3/0x490
+[  287.135979]        really_probe+0x1f9/0x4e0
+[  287.140180]        __driver_probe_device+0x77/0x100
+[  287.145079]        driver_probe_device+0x1e/0x110
+[  287.149803]        __device_attach_driver+0xe3/0x170
+[  287.154789]        bus_for_each_drv+0x125/0x150
+[  287.159346]        __device_attach+0xca/0x1a0
+[  287.163720]        device_initial_probe+0x34/0x50
+[  287.168445]        pci_bus_add_device+0x6e/0x90
+[  287.172995]        pci_iov_add_virtfn+0x3c9/0x3e0
+[  287.177719]        sriov_add_vfs+0x2c/0x60
+[  287.181838]        sriov_enable+0x306/0x4a0
+[  287.186038]        vfio_pci_core_sriov_configure+0x184/0x220
+[  287.191715]        sriov_numvfs_store+0xd9/0x1c0
+[  287.196351]        kernfs_fop_write_iter+0x13f/0x1d0
+[  287.201338]        vfs_write+0x2be/0x3b0
+[  287.205286]        ksys_write+0x73/0x100
+[  287.209233]        do_syscall_64+0x14d/0x750
+[  287.213529]        entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[  287.219120]
+[  287.219120] -> #0 (&vdev->memory_lock){+.+.}-{4:4}:
+[  287.225491]        __lock_acquire+0x14c6/0x2800
+[  287.230048]        lock_acquire+0xd3/0x2f0
+[  287.234168]        down_write+0x3a/0xc0
+[  287.238019]        vfio_pci_core_runtime_resume+0x1f/0xa0
+[  287.243436]        __rpm_callback+0x8c/0x310
+[  287.247730]        rpm_resume+0x529/0x6f0
+[  287.251765]        __pm_runtime_resume+0x68/0x90
+[  287.256402]        vfio_pci_core_enable+0x44/0x310
+[  287.261216]        vfio_pci_open_device+0x1c/0x80
+[  287.265947]        vfio_df_open+0x10f/0x150
+[  287.270148]        vfio_group_fops_unl_ioctl+0x4a4/0x7b0
+[  287.275476]        __se_sys_ioctl+0x71/0xc0
+[  287.279679]        do_syscall_64+0x14d/0x750
+[  287.283975]        entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[  287.289559]
+[  287.289559] other info that might help us debug this:
+[  287.289559]
+[  287.297582] Chain exists of:
+[  287.297582]   &vdev->memory_lock --> (work_completion)(&arg.work)
+--> &new_dev_set->lock
+[  287.297582]
+[  287.310023]  Possible unsafe locking scenario:
+[  287.310023]
+[  287.315961]        CPU0                    CPU1
+[  287.320510]        ----                    ----
+[  287.325059]   lock(&new_dev_set->lock);
+[  287.328917]
+lock((work_completion)(&arg.work));
+[  287.336153]                                lock(&new_dev_set->lock);
+[  287.342523]   lock(&vdev->memory_lock);
+[  287.346382]
+[  287.346382]  *** DEADLOCK ***
+[  287.346382]
+[  287.352315] 2 locks held by vfio_pci_sriov_/18636:
+[  287.357125]  #0: ff45bea208ed3e18 (&group->group_lock){+.+.}-{4:4},
+at: vfio_group_fops_unl_ioctl+0x3e3/0x7b0
+[  287.367048]  #1: ff45bea3a96b8230 (&new_dev_set->lock){+.+.}-{4:4},
+at: vfio_group_fops_unl_ioctl+0x44d/0x7b0
+[  287.376976]
+[  287.376976] stack backtrace:
+[  287.381353] CPU: 191 UID: 0 PID: 18636 Comm: vfio_pci_sriov_
+Tainted: G S                  7.0.0-dbg-DEV #3 PREEMPTLAZY
+[  287.381355] Tainted: [S]=CPU_OUT_OF_SPEC
+[  287.381356] Call Trace:
+[  287.381357]  <TASK>
+[  287.381358]  dump_stack_lvl+0x54/0x70
+[  287.381361]  print_circular_bug+0x2e1/0x300
+[  287.381363]  check_noncircular+0xf9/0x120
+[  287.381364]  ? __lock_acquire+0x5b4/0x2800
+[  287.381366]  __lock_acquire+0x14c6/0x2800
+[  287.381368]  ? pci_mmcfg_read+0x4f/0x220
+[  287.381370]  ? pci_mmcfg_write+0x57/0x220
+[  287.381371]  ? lock_acquire+0xd3/0x2f0
+[  287.381373]  ? pci_mmcfg_write+0x57/0x220
+[  287.381374]  ? lock_release+0xef/0x360
+[  287.381376]  ? vfio_pci_core_runtime_resume+0x1f/0xa0
+[  287.381377]  lock_acquire+0xd3/0x2f0
+[  287.381378]  ? vfio_pci_core_runtime_resume+0x1f/0xa0
+[  287.381379]  ? lock_is_held_type+0x76/0x100
+[  287.381382]  down_write+0x3a/0xc0
+[  287.381382]  ? vfio_pci_core_runtime_resume+0x1f/0xa0
+[  287.381383]  vfio_pci_core_runtime_resume+0x1f/0xa0
+[  287.381384]  ? __pfx_pci_pm_runtime_resume+0x10/0x10
+[  287.381385]  __rpm_callback+0x8c/0x310
+[  287.381386]  ? ktime_get_mono_fast_ns+0x3d/0xb0
+[  287.381389]  ? __pfx_pci_pm_runtime_resume+0x10/0x10
+[  287.381390]  rpm_resume+0x529/0x6f0
+[  287.381392]  ? lock_is_held_type+0x76/0x100
+[  287.381394]  __pm_runtime_resume+0x68/0x90
+[  287.381396]  vfio_pci_core_enable+0x44/0x310
+[  287.381398]  vfio_pci_open_device+0x1c/0x80
+[  287.381399]  vfio_df_open+0x10f/0x150
+[  287.381401]  vfio_group_fops_unl_ioctl+0x4a4/0x7b0
+[  287.381402]  __se_sys_ioctl+0x71/0xc0
+[  287.381404]  do_syscall_64+0x14d/0x750
+[  287.381405]  ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[  287.381406]  ? trace_irq_disable+0x25/0xd0
+[  287.381409]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Transition the boolean flags to use bitfields. On a system that
-uses one byte per boolean this reduces the space consumed
-by existing flags from 11 bytes to 2 bytes with room for
-a few more flags without increasing the structure's size.
+Introduce a private flag 'sriov_active' in the vfio_pci_core_device
+struct. This  allows the driver to track the SR-IOV power state requirement
+without  relying on pci_num_vf() while holding the memory_lock. The lock is
+now  only held to set the flag and ensure the device is in D0, after which
+pci_enable_sriov() can be called without the lock.
 
-Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Acked-by: Thomas Gleixner <tglx@linutronix.de>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Link: https://lore.kernel.org/r/cf34bf0499c889554a8105eeb18cc0ab673005be.1683740667.git.reinette.chatre@intel.com
-Signed-off-by: Alex Williamson <alex.williamson@redhat.com>
+Fixes: f4162eb1e2fc ("vfio/pci: Change the PF power state to D0 before enabling VFs")
+Cc: stable@vger.kernel.org
+Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
+Suggested-by: Alex Williamson <alex@shazbot.org>
+Signed-off-by: Raghavendra Rao Ananta <rananta@google.com>
+Link: https://lore.kernel.org/r/20260514173449.3282188-1-rananta@google.com
+[promote bitfield to plain bool to avoid storage-unit races]
+Signed-off-by: Alex Williamson <alex@shazbot.org>
 Stable-dep-of: 4575e9aac533 ("vfio/pci: Latch disable_idle_d3 per device")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/vfio_pci_core.h | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ drivers/vfio/pci/vfio_pci_core.c | 17 ++++++++++++++---
+ include/linux/vfio_pci_core.h    |  1 +
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index 13c223228c31e0..a8823cc77b998a 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -237,8 +237,11 @@ int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev, pci_power_t stat
+ 	int ret;
+ 
+ 	/* Prevent changing power state for PFs with VFs enabled */
+-	if (pci_num_vf(pdev) && state > PCI_D0)
+-		return -EBUSY;
++	if (state > PCI_D0) {
++		lockdep_assert_held_write(&vdev->memory_lock);
++		if (vdev->sriov_active)
++			return -EBUSY;
++	}
+ 
+ 	if (vdev->needs_pm_restore) {
+ 		if (pdev->current_state < PCI_D3hot && state >= PCI_D3hot) {
+@@ -2270,8 +2273,9 @@ int vfio_pci_core_sriov_configure(struct vfio_pci_core_device *vdev,
+ 
+ 		down_write(&vdev->memory_lock);
+ 		vfio_pci_set_power_state(vdev, PCI_D0);
+-		ret = pci_enable_sriov(pdev, nr_virtfn);
++		vdev->sriov_active = true;
+ 		up_write(&vdev->memory_lock);
++		ret = pci_enable_sriov(pdev, nr_virtfn);
+ 		if (ret) {
+ 			pm_runtime_put(&pdev->dev);
+ 			goto out_del;
+@@ -2285,6 +2289,13 @@ int vfio_pci_core_sriov_configure(struct vfio_pci_core_device *vdev,
+ 	}
+ 
+ out_del:
++	/*
++	 * Avoid taking the memory_lock intentionally. A race with a power
++	 * state transition would at most result in an -EBUSY, leaving the
++	 * device in PCI_D0.
++	 */
++	vdev->sriov_active = false;
++
+ 	mutex_lock(&vfio_pci_sriov_pfs_mutex);
+ 	list_del_init(&vdev->sriov_pfs_item);
+ out_unlock:
 diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-index 367fd79226a306..1c56c1df163cca 100644
+index 1c56c1df163cca..cda27d476d8597 100644
 --- a/include/linux/vfio_pci_core.h
 +++ b/include/linux/vfio_pci_core.h
-@@ -69,17 +69,17 @@ struct vfio_pci_core_device {
- 	u16			msix_size;
- 	u32			msix_offset;
- 	u32			rbar[7];
--	bool			pci_2_3;
--	bool			virq_disabled;
--	bool			reset_works;
--	bool			extended_caps;
--	bool			bardirty;
--	bool			has_vga;
--	bool			needs_reset;
--	bool			nointx;
--	bool			needs_pm_restore;
--	bool			pm_intx_masked;
--	bool			pm_runtime_engaged;
-+	bool			pci_2_3:1;
-+	bool			virq_disabled:1;
-+	bool			reset_works:1;
-+	bool			extended_caps:1;
-+	bool			bardirty:1;
-+	bool			has_vga:1;
-+	bool			needs_reset:1;
-+	bool			nointx:1;
-+	bool			needs_pm_restore:1;
-+	bool			pm_intx_masked:1;
-+	bool			pm_runtime_engaged:1;
+@@ -80,6 +80,7 @@ struct vfio_pci_core_device {
+ 	bool			needs_pm_restore:1;
+ 	bool			pm_intx_masked:1;
+ 	bool			pm_runtime_engaged:1;
++	bool			sriov_active;
  	struct pci_saved_state	*pci_saved_state;
  	struct pci_saved_state	*pm_save;
  	int			ioeventfds_nr;
