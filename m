@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269074BCAA9
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DB74F797E
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784059353; cv=none; b=gmtp9zIt1DT+GuZy3lsCjGrZQkA2yeUOPHsKCKsta8ojEzE1p6/oQFN0yCPA0a581AlsY/1+XFTIvQqKwWggtWEIUMsJAJwCzynZRkVO8B88d32PgGJ967R6TTxKAxKEBAjw7roRM2gTCvVM0sz5vDp7WMcdWYzzq1zotj168WU=
+	t=1784059355; cv=none; b=Cc1A470NH+l63PB9faLPFNAbL9ddSqVW4fBkqCc+hK817Z4Cb7bAzdYHbuSmmCnbI+D4zb7L8CHermGFp5BbuiZFKube6LqLEHDHgXC1/QDTv62yvYob+4ZsUmXYl4WmgRsi5OCBKKOB/nruxpPs4TDIZeCBYMw6vnvg3my/NqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784059353; c=relaxed/simple;
-	bh=xX1Uu5ZLaS22AMdcvldQb7axoq6wkQUvfrp7H8AmytQ=;
+	s=arc-20240116; t=1784059355; c=relaxed/simple;
+	bh=dGlAjBUem1g2zyLkhTog4bEwuyqPzQ5VoMpDBhjyZDQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oejApoyGKOqP+TP9oHkILh78NPB6l7fTg/TxAyUDhHXrwMjHJ9tHY9eIe5dlUKnf6NT2Ns+fbKfrIr3YRMs+mjLt2ALdGUn7iPY8fN6csv1Bu8wvh6wMTYa71+q0l08B2IZ439w0Jsyd9rg5JO3Zn9Tuni4TS9PL7rj16rA3SKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c4AqjgMW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AbH0apMg6z48Mg1Vhw0JSPfg0TVwUkH9AmAhAAMrTlkJHnoRsM6ZwS5+XidBPd5QHEBZkY6pXcd8KwEm79eVQLSUIOAwcsoHholTMJskA1OQSGB33nlic/jjdhtr55sPWiKvCi8gD1jlwe6Z0SilOfiod85E6L3cPqQ/ArRmDRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iA7CdUU5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c4AqjgMW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E78B1F00ACA;
-	Tue, 14 Jul 2026 20:02:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iA7CdUU5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ADE31F00A3D;
+	Tue, 14 Jul 2026 20:02:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784059341;
-	bh=cnaiqfUpZNHe4xestwP40UcWyco34J+R32EhqBISsqc=;
+	s=k20260515; t=1784059349;
+	bh=6GgVxYjEmFnLmlgmmjJPV1cd8ISn/k4MHOwITtQGC5M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c4AqjgMWqgGF4CXNheShwLGRzW790Y9ZX+I/BbbStGrSVpNqdZbMm0USTQKVKdUTW
-	 BBzkagijGaAtPg5kC8qfYbV3dZc8a006BV1uJFnOF5zBGGXQfw0+8WyFg5YUgVIibv
-	 wnJ6UUtxrfRdATAE1Devjs1RQAk74+YlWqZd+hBjUzi9OUKSST+q4VBO48ZKUCVHRz
-	 OfGmTf51d/pzs/kiq9aw1g8QW+VWMfiwuLzfY3FH6u2TYTmGH8NTL55UpX3CNSvEQQ
-	 7ac22gbiBJlmrpTQQAZkYaYyBUVFZxH7ZUpXGdUTJOqb8wzdNaCqpYxI7dw1xDIH4t
-	 G2MnnzzuSzQMw==
+	b=iA7CdUU5ewNlbZaFYfs1HKo6cP74FeRIJfD40uXdcJvfiDM0OzOM+lBCixVg5SsBl
+	 Rp66YTEdigBlDjrj7ksJMGxxg5Q5fyMDXzQmpShB3PNvKmCafpImW9CgtYvkaWBU7F
+	 0KFik99pTC3pfA0DfeQFxZSkXgO7XDDc74fEgXIn4aOsDqtDX8BF09Fj6/q48V40is
+	 5uA/MzJopW3BEaX99YjdzMUPyt/RmEkxeQmoVtK8cXF4GMp0Sq1lQTWSWZoLaStGHE
+	 X7SQBvnBweFilZ2xbWB3QnChAHtMOMT9vHyOkl2da38bLdztviayyme+xVHUr/LpXX
+	 G+O7g/so9NWew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 5/5] smb: client: restrict implied bcc[0] exemption to responses without data area
-Date: Tue, 14 Jul 2026 16:02:15 -0400
-Message-ID: <20260714200215.3152449-5-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/5] PCI: mediatek: Convert bool to single quirks entry and bitmap
+Date: Tue, 14 Jul 2026 16:02:24 -0400
+Message-ID: <20260714200226.3152882-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714200215.3152449-1-sashal@kernel.org>
-References: <2026071307-payment-valium-e77f@gregkh>
- <20260714200215.3152449-1-sashal@kernel.org>
+In-Reply-To: <20260714200226.3152882-1-sashal@kernel.org>
+References: <2026071353-appointee-tactful-9ca3@gregkh>
+ <20260714200226.3152882-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,205 +47,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
+From: Christian Marangi <ansuelsmth@gmail.com>
 
-[ Upstream commit 53b7c271f06be4dd5cfc8c6ef552a8355c891a7f ]
+[ Upstream commit 04305367fab7ec9c98eeba315ad09c8b20abce93 ]
 
-smb2_check_message() has a long-standing quirk that accepts a response
-whose calculated length is one byte larger than the bytes actually
-received ("server can return one byte more due to implied bcc[0]").
-This was introduced to accommodate servers that omit the trailing bcc[0]
-overlap byte when no data area is present.
+To clean Mediatek SoC PCIe struct, convert all the bool to a bitmap and
+use a single quirks to reference all the values. This permits cleaner
+addition of new quirk without having to define a new bool in the struct.
 
-However, the exemption is applied unconditionally, regardless of whether
-the command actually carries a data area (has_smb2_data_area[]).  When a
-response with a data area is subject to the +1 exemption, the reported
-data can extend one byte beyond the bytes actually received, yet
-smb2_check_message() still accepts it.  The subsequent decoder then reads
-past the end of the receive buffer.  This is reachable during NEGOTIATE
-and SESSION_SETUP, before the session is established.
-
-The resulting out-of-bounds reads are visible under KASAN when mounting
-against a non-conforming server; both the SPNEGO/negTokenInit and the
-NTLMSSP challenge decoders are affected:
-
-  BUG: KASAN: slab-out-of-bounds in asn1_ber_decoder+0x16a7/0x1b00
-  Read of size 1 at addr ffff8880084d67c0 by task mount.cifs/81
-  CPU: 1 UID: 0 PID: 81 Comm: mount.cifs Not tainted 7.1.0-rc6 #1
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x4e/0x70
-   print_report+0x157/0x4c9
-   kasan_report+0xce/0x100
-   asn1_ber_decoder+0x16a7/0x1b00
-   decode_negTokenInit+0x19/0x30
-   SMB2_negotiate+0x31d9/0x4c90
-   cifs_negotiate_protocol+0x1f2/0x3f0
-   cifs_get_smb_ses+0x93f/0x17e0
-   cifs_mount_get_session+0x7f/0x3a0
-   cifs_mount+0xb4/0xcf0
-   cifs_smb3_do_mount+0x23a/0x1500
-   smb3_get_tree+0x3b0/0x630
-   vfs_get_tree+0x82/0x2d0
-   fc_mount+0x10/0x1b0
-   path_mount+0x50d/0x1de0
-   __x64_sys_mount+0x20b/0x270
-   do_syscall_64+0xee/0x590
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-  Allocated by task 85:
-   kmem_cache_alloc_noprof+0x106/0x380
-   mempool_alloc_noprof+0x116/0x1e0
-   cifs_small_buf_get+0x31/0x80
-   allocate_buffers+0x10d/0x2b0
-   cifs_demultiplex_thread+0x1d5/0x1d50
-   kthread+0x2c6/0x390
-   ret_from_fork+0x36e/0x5a0
-   ret_from_fork_asm+0x1a/0x30
-  The buggy address is located 0 bytes to the right of
-   allocated 448-byte region [ffff8880084d6600, ffff8880084d67c0)
-   which belongs to the cache cifs_small_rq of size 448
-
-  BUG: KASAN: slab-out-of-bounds in kmemdup_noprof+0x36/0x50
-  Read of size 329 at addr ffff88800726c678 by task mount.cifs/89
-  CPU: 0 UID: 0 PID: 89 Comm: mount.cifs Tainted: G    B      7.1.0-rc6 #1
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x4e/0x70
-   print_report+0x157/0x4c9
-   kasan_report+0xce/0x100
-   kasan_check_range+0x10f/0x1e0
-   __asan_memcpy+0x23/0x60
-   kmemdup_noprof+0x36/0x50
-   decode_ntlmssp_challenge+0x457/0x680
-   SMB2_sess_auth_rawntlmssp_negotiate+0x6f0/0xcb0
-   SMB2_sess_setup+0x219/0x4f0
-   cifs_setup_session+0x248/0xaf0
-   cifs_get_smb_ses+0xf79/0x17e0
-   cifs_mount_get_session+0x7f/0x3a0
-   cifs_mount+0xb4/0xcf0
-   cifs_smb3_do_mount+0x23a/0x1500
-   smb3_get_tree+0x3b0/0x630
-   vfs_get_tree+0x82/0x2d0
-   fc_mount+0x10/0x1b0
-   path_mount+0x50d/0x1de0
-   __x64_sys_mount+0x20b/0x270
-   do_syscall_64+0xee/0x590
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-  Allocated by task 93:
-   kmem_cache_alloc_noprof+0x106/0x380
-   mempool_alloc_noprof+0x116/0x1e0
-   cifs_small_buf_get+0x31/0x80
-   allocate_buffers+0x10d/0x2b0
-   cifs_demultiplex_thread+0x1d5/0x1d50
-   kthread+0x2c6/0x390
-   ret_from_fork+0x36e/0x5a0
-   ret_from_fork_asm+0x1a/0x30
-  The buggy address is located 120 bytes inside of
-   allocated 448-byte region [ffff88800726c600, ffff88800726c7c0)
-   which belongs to the cache cifs_small_rq of size 448
-
-Restrict the +1 exemption to responses that have no data area, so that
-it still covers the bcc[0] omission it was meant for.  When a data area
-is present, the +1 discrepancy instead means the reported data length
-overruns the received buffer, so the response must be rejected.
-
-Fixes: 093b2bdad322 ("CIFS: Make demultiplex_thread work with SMB2 code")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Link: https://patch.msgid.link/20251020111121.31779-4-ansuelsmth@gmail.com
+Stable-dep-of: f865a57896bd ("PCI: mediatek: Fix IRQ domain leak when port fails to enable")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/smb2misc.c | 32 ++++++++++++++++++++++++++------
- 1 file changed, 26 insertions(+), 6 deletions(-)
+ drivers/pci/controller/pcie-mediatek.c | 33 ++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 13 deletions(-)
 
-diff --git a/fs/cifs/smb2misc.c b/fs/cifs/smb2misc.c
-index 29d723c04b1666..0db16730dccab9 100644
---- a/fs/cifs/smb2misc.c
-+++ b/fs/cifs/smb2misc.c
-@@ -17,6 +17,8 @@
- #include "smb2glob.h"
- #include "nterr.h"
+diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
+index 487cfdf9115ffa..8483d854e6d1ee 100644
+--- a/drivers/pci/controller/pcie-mediatek.c
++++ b/drivers/pci/controller/pcie-mediatek.c
+@@ -142,24 +142,32 @@
  
-+static unsigned int __smb2_calc_size(void *buf, bool *have_data);
+ struct mtk_pcie_port;
+ 
++/**
++ * enum mtk_pcie_quirks - MTK PCIe quirks
++ * @MTK_PCIE_FIX_CLASS_ID: host's class ID needed to be fixed
++ * @MTK_PCIE_FIX_DEVICE_ID: host's device ID needed to be fixed
++ * @MTK_PCIE_NO_MSI: Bridge has no MSI support, and relies on an external block
++ */
++enum mtk_pcie_quirks {
++	MTK_PCIE_FIX_CLASS_ID = BIT(0),
++	MTK_PCIE_FIX_DEVICE_ID = BIT(1),
++	MTK_PCIE_NO_MSI = BIT(2),
++};
 +
- static int
- check_smb2_hdr(struct smb2_hdr *shdr, __u64 mid)
- {
-@@ -141,6 +143,7 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *server)
- 	int command;
- 	__u32 calc_len; /* calculated length */
- 	__u64 mid;
-+	bool have_data;
- 
- 	/*
- 	 * Add function to do table lookup of StructureSize by command
-@@ -221,7 +224,8 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *server)
- 		}
- 	}
- 
--	calc_len = smb2_calc_size(buf);
-+	have_data = false;
-+	calc_len = __smb2_calc_size(buf, &have_data);
- 
- 	/* For SMB2_IOCTL, OutputOffset and OutputLength are optional, so might
- 	 * be 0, and not a real miscalculation */
-@@ -239,8 +243,13 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *server)
- 		/* Windows 7 server returns 24 bytes more */
- 		if (calc_len + 24 == len && command == SMB2_OPLOCK_BREAK_HE)
- 			return 0;
--		/* server can return one byte more due to implied bcc[0] */
--		if (calc_len == len + 1)
-+		/*
-+		 * Server can return one byte more due to implied bcc[0].
-+		 * Allow it only when there is no data area; if data_length > 0
-+		 * the +1 gap indicates an overreported data length rather than
-+		 * the bcc[0] omission.
-+		 */
-+		if (calc_len == len + 1 && !have_data)
- 			return 0;
- 
- 		/*
-@@ -401,14 +410,17 @@ smb2_get_data_area_len(int *off, int *len, struct smb2_hdr *shdr)
- /*
-  * Calculate the size of the SMB message based on the fixed header
-  * portion, the number of word parameters and the data portion of the message.
-+ * If have_data is non-NULL, it is set to true when a non-empty data area was
-+ * found (data_length > 0), allowing callers to distinguish the implied bcc[0]
-+ * case (no data area) from an overreported data length.
+ /**
+  * struct mtk_pcie_soc - differentiate between host generations
+- * @need_fix_class_id: whether this host's class ID needed to be fixed or not
+- * @need_fix_device_id: whether this host's device ID needed to be fixed or not
+- * @no_msi: Bridge has no MSI support, and relies on an external block
+  * @device_id: device ID which this host need to be fixed
+  * @ops: pointer to configuration access functions
+  * @startup: pointer to controller setting functions
+  * @setup_irq: pointer to initialize IRQ functions
++ * @quirks: PCIe device quirks.
   */
--unsigned int
--smb2_calc_size(void *buf)
-+static unsigned int
-+__smb2_calc_size(void *buf, bool *have_data)
- {
- 	struct smb2_pdu *pdu = (struct smb2_pdu *)buf;
- 	struct smb2_hdr *shdr = &pdu->hdr;
- 	int offset; /* the offset from the beginning of SMB to data area */
--	int data_length; /* the length of the variable length data area */
-+	int data_length = 0; /* the length of the variable length data area */
- 	/* Structure Size has already been checked to make sure it is 64 */
- 	int len = le16_to_cpu(shdr->StructureSize);
+ struct mtk_pcie_soc {
+-	bool need_fix_class_id;
+-	bool need_fix_device_id;
+-	bool no_msi;
+ 	unsigned int device_id;
+ 	struct pci_ops *ops;
+ 	int (*startup)(struct mtk_pcie_port *port);
+ 	int (*setup_irq)(struct mtk_pcie_port *port, struct device_node *node);
++	enum mtk_pcie_quirks quirks;
+ };
  
-@@ -441,9 +453,17 @@ smb2_calc_size(void *buf)
+ /**
+@@ -705,7 +713,7 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
+ 	writel(val, port->base + PCIE_RST_CTRL);
+ 
+ 	/* Set up vendor ID and class code */
+-	if (soc->need_fix_class_id) {
++	if (soc->quirks & MTK_PCIE_FIX_CLASS_ID) {
+ 		val = PCI_VENDOR_ID_MEDIATEK;
+ 		writew(val, port->base + PCIE_CONF_VEND_ID);
+ 
+@@ -713,7 +721,7 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
+ 		writew(val, port->base + PCIE_CONF_CLASS_ID);
  	}
- calc_size_exit:
- 	cifs_dbg(FYI, "SMB2 len %d\n", len);
-+	if (have_data)
-+		*have_data = (data_length > 0);
- 	return len;
- }
  
-+unsigned int
-+smb2_calc_size(void *buf)
-+{
-+	return __smb2_calc_size(buf, NULL);
-+}
-+
- /* Note: caller must free return buffer */
- __le16 *
- cifs_convert_path_to_utf16(const char *from, struct cifs_sb_info *cifs_sb)
+-	if (soc->need_fix_device_id)
++	if (soc->quirks & MTK_PCIE_FIX_DEVICE_ID)
+ 		writew(soc->device_id, port->base + PCIE_CONF_DEVICE_ID);
+ 
+ 	/* 100ms timeout value should be enough for Gen1/2 training */
+@@ -1106,7 +1114,7 @@ static int mtk_pcie_probe(struct platform_device *pdev)
+ 
+ 	host->ops = pcie->soc->ops;
+ 	host->sysdata = pcie;
+-	host->msi_domain = pcie->soc->no_msi;
++	host->msi_domain = !!(pcie->soc->quirks & MTK_PCIE_NO_MSI);
+ 
+ 	err = pci_host_probe(host);
+ 	if (err)
+@@ -1194,9 +1202,9 @@ static const struct dev_pm_ops mtk_pcie_pm_ops = {
+ };
+ 
+ static const struct mtk_pcie_soc mtk_pcie_soc_v1 = {
+-	.no_msi = true,
+ 	.ops = &mtk_pcie_ops,
+ 	.startup = mtk_pcie_startup_port,
++	.quirks = MTK_PCIE_NO_MSI,
+ };
+ 
+ static const struct mtk_pcie_soc mtk_pcie_soc_mt2712 = {
+@@ -1206,19 +1214,18 @@ static const struct mtk_pcie_soc mtk_pcie_soc_mt2712 = {
+ };
+ 
+ static const struct mtk_pcie_soc mtk_pcie_soc_mt7622 = {
+-	.need_fix_class_id = true,
+ 	.ops = &mtk_pcie_ops_v2,
+ 	.startup = mtk_pcie_startup_port_v2,
+ 	.setup_irq = mtk_pcie_setup_irq,
++	.quirks = MTK_PCIE_FIX_CLASS_ID,
+ };
+ 
+ static const struct mtk_pcie_soc mtk_pcie_soc_mt7629 = {
+-	.need_fix_class_id = true,
+-	.need_fix_device_id = true,
+ 	.device_id = PCI_DEVICE_ID_MEDIATEK_7629,
+ 	.ops = &mtk_pcie_ops_v2,
+ 	.startup = mtk_pcie_startup_port_v2,
+ 	.setup_irq = mtk_pcie_setup_irq,
++	.quirks = MTK_PCIE_FIX_CLASS_ID | MTK_PCIE_FIX_DEVICE_ID,
+ };
+ 
+ static const struct of_device_id mtk_pcie_ids[] = {
 -- 
 2.53.0
 
