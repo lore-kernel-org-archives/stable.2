@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C7336C9D0
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:04:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F872FF65F
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:04:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783998282; cv=none; b=P6aRVMq+EgNxHrJhalxVa00geOjbzA5V1syoY0Jh5tdW1mEMYVHrR8a047JlSk1Sf8MfKKjT/DYMDadaic43HJ5BIMYGhZTCD3/pO6MeRj2RzMiVHQH1P+NAjEX6QKpNplr96mLOsBKLIkIB2JDea8Vwcsa+gk441m+kSJQJ6fk=
+	t=1783998288; cv=none; b=YdOU0QSa5GIbppBjesRYdI2kJtWuLeLvdUw4TkUho/xUvr9JM7T1Fl+FlwXe1/BnDPqBUJxh4ah3uEaueoe69RnyV9nTziYTikOTKOqPCuwrC/PS6JLUP1UZtG+5DIok3Gu0RgZDt4rpvsWjn67DklBTMzUkYt+tSvUV2nIQIRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783998282; c=relaxed/simple;
-	bh=LFgKpjk6dpOTqsICoDnMFnBPRDP4sGmAC9z+XnAdBCA=;
+	s=arc-20240116; t=1783998288; c=relaxed/simple;
+	bh=Jn+lSZkEFeRHAA28C0s39kAV/60B50tn4HGMHKAGhb0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hhLrAyDg+aVkX+zt8YBmDx1fTwwSikMhIjpkIefVgR9+EJs4YiwMX+NJ83tFDfQjfAVnNcIiFxbONocjmYlbmyv/rLE3ap4CkAr113ryGXgCZKLjlPQTQtL/nzIH/8eWrTUeYYnX9lKTeP38OQ+1IYARVt5Nr6JPO9uWV1mS6z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nn121GIl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nlmR85GeHhDuvE8NSmpd92crkBgqaNLFXgdCTqnxiH+uI7pNNvamun0ofvviU9+AdG47Pp1yd+NUyH9pRC1zLv6tTtXe2M84tA+YvRtPH6QObZlm6Etimgj8Kylju43yt2kAIWwTxdCJIo+rHmLc0MEHWyfwNy5PPI8j5Er90F4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5+TY/nR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nn121GIl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E9061F00A3E;
-	Tue, 14 Jul 2026 03:04:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5+TY/nR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A141F000E9;
+	Tue, 14 Jul 2026 03:04:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783998281;
-	bh=me9YmtiOcEyXv4NYpPtTKeRnDwrQ9cerby3VafZOsv4=;
+	s=k20260515; t=1783998287;
+	bh=YM11Jqd+vfamheMPbnlsKOqJPuavPE9c7hDHQLP90Ho=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nn121GIlK/bnODQhoFMfrSrxACsXitectLKQExkRqIO2UCwHq2KT/0W/EeFkRtlq/
-	 gB38gTObyatC1JL0ZgoqgL89GxZfq+D64BbJ10kuTuFaCpulaSxakPsjjUUjucAgaH
-	 iF3HiFfGtukF1hnxELcnxc1qWoFR2VuaeOvaTl1I8wutCgrVNv54AwHyNaOm9hppDH
-	 MxHKiW0Zucpc3IeNsb1dnTcjEIYsVXmrBe9pwPI1SAoNG+KaW/8ZVhugsvT5ENFo/t
-	 nedPky7tYcrjW3wfosB/Xk3E3Zw2OkwxZwgdBopty+4H9w2YPLi7bsqIwAAtc5QxPX
-	 8073lDRTpQfuA==
+	b=Q5+TY/nRzu1QCVXBAROn2Upj2KkDxY/cjvQD6JeOBhYhwKlDmsQeWe3Gn/3vW8IAl
+	 eMF2kOXfu5e02kD535udK5EWLP3YPamm1+rZYJftnP6wzEHaDTT1s0TNoWfI0REHnC
+	 zgEAseCwPCX1RZRzn2Os0wR1NC2x6P2qoERNtIQootNEvra/PE48l0WL06Ehtz3rKD
+	 f8lo/C7CRcUC7a8bPfRL1q+TwYkOhStYsXnWUId1yN6fgPGCwo2WExt5kbhrVQVbzv
+	 B/n41aG3prE+9RWd4zdhrhnZSQb+NwWcO4W+eNP5g1s4CqnhLm2ci+fS0cJuzPj7k8
+	 CDKvO5kjO8Qqg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Geoffrey D. Bennett" <g@b4.vu>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ALSA: scarlett2: Update offsets for 2i2 Gen 4 firmware 2417
-Date: Mon, 13 Jul 2026 23:04:38 -0400
-Message-ID: <20260714030438.2382402-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/8] iio: imu: inv_icm42600: make timestamp module chip independent
+Date: Mon, 13 Jul 2026 23:04:37 -0400
+Message-ID: <20260714030444.2382550-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714030438.2382402-1-sashal@kernel.org>
-References: <2026071350-latitude-exorcism-aa2b@gregkh>
- <20260714030438.2382402-1-sashal@kernel.org>
+In-Reply-To: <2026071317-litmus-defame-e23c@gregkh>
+References: <2026071317-litmus-defame-e23c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,102 +46,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Geoffrey D. Bennett" <g@b4.vu>
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-[ Upstream commit 3ca15754b561483aa7a1bce51677d6389f8ff5bb ]
+[ Upstream commit 6e9f2d8375cb24ba75e02e0272e9164d06a1522e ]
 
-Firmware 2417 for the Scarlett 4th Gen 2i2 moved the direct monitor gain
-parameters, so add a second config_set with the shifted offset and
-select it for firmware versions >= 2417.
+Move icm42600 dependent function inside the core module.
+Do some headers cleanup at the same time.
 
-Fixes: 4e809a299677 ("ALSA: scarlett2: Add support for Solo, 2i2, and 4i4 Gen 4")
-Cc: stable@vger.kernel.org # ALSA: scarlett2: Allow selecting config_set by firmware version
-Cc: stable@vger.kernel.org # ALSA: scarlett2: Fold min_firmware_version into config_sets
-Cc: stable@vger.kernel.org
-Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/ad0fc5a131e76eb656a24e0e198382f7134068fe.1777151532.git.g@b4.vu
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Link: https://lore.kernel.org/r/20230606162147.79667-2-inv.git-commit@tdk.com
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: affe3f077d7a ("iio: imu: inv_icm42600: fix timestamping by limiting FIFO reading")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/mixer_scarlett2.c | 58 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
+ drivers/iio/imu/inv_icm42600/inv_icm42600_core.c   | 11 +++++++++++
+ .../iio/imu/inv_icm42600/inv_icm42600_timestamp.c  | 14 +-------------
+ .../iio/imu/inv_icm42600/inv_icm42600_timestamp.h  |  6 ------
+ 3 files changed, 12 insertions(+), 19 deletions(-)
 
-diff --git a/sound/usb/mixer_scarlett2.c b/sound/usb/mixer_scarlett2.c
-index 0948d3d7b7a995..28ea0dd5726a51 100644
---- a/sound/usb/mixer_scarlett2.c
-+++ b/sound/usb/mixer_scarlett2.c
-@@ -910,6 +910,63 @@ static const struct scarlett2_config_set scarlett2_config_set_gen4_2i2 = {
- 	}
- };
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+index 8787dae64ff7fc..7f588bd7a5f797 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+@@ -522,6 +522,17 @@ static int inv_icm42600_irq_init(struct inv_icm42600_state *st, int irq,
+ 					 "inv_icm42600", st);
+ }
  
-+/* 2i2 Gen 4, firmware version 2417 and above
-+ *
-+ * Firmware 2417 shifted DIRECT_MONITOR_GAIN by 4 bytes; all other
-+ * offsets are unchanged from scarlett2_config_set_gen4_2i2.
-+ */
-+static const struct scarlett2_config_set scarlett2_config_set_gen4_2i2_2417 = {
-+	.notifications = scarlett4_2i2_notifications,
-+	.param_buf_addr = 0xfc,
-+	.input_gain_tlv = db_scale_gen4_gain,
-+	.autogain_status_texts = scarlett2_autogain_status_gen4,
-+	.items = {
-+		[SCARLETT2_CONFIG_MSD_SWITCH] = {
-+			.offset = 0x49, .size = 8, .activate = 4 },
++static int inv_icm42600_timestamp_setup(struct inv_icm42600_state *st)
++{
++	unsigned int val;
 +
-+		[SCARLETT2_CONFIG_DIRECT_MONITOR] = {
-+			.offset = 0x14a, .size = 8, .activate = 16, .pbuf = 1 },
++	/* enable timestamp register */
++	val = INV_ICM42600_TMST_CONFIG_TMST_TO_REGS_EN |
++	      INV_ICM42600_TMST_CONFIG_TMST_EN;
++	return regmap_update_bits(st->map, INV_ICM42600_REG_TMST_CONFIG,
++				  INV_ICM42600_TMST_CONFIG_MASK, val);
++}
 +
-+		[SCARLETT2_CONFIG_AUTOGAIN_SWITCH] = {
-+			.offset = 0x135, .size = 8, .activate = 10, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_AUTOGAIN_STATUS] = {
-+			.offset = 0x137, .size = 8 },
-+
-+		[SCARLETT2_CONFIG_AG_MEAN_TARGET] = {
-+			.offset = 0x131, .size = 8, .activate = 29, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_AG_PEAK_TARGET] = {
-+			.offset = 0x132, .size = 8, .activate = 30, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_PHANTOM_SWITCH] = {
-+			.offset = 0x48, .size = 8, .activate = 11, .pbuf = 1,
-+			.mute = 1 },
-+
-+		[SCARLETT2_CONFIG_INPUT_GAIN] = {
-+			.offset = 0x4b, .size = 8, .activate = 12, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_LEVEL_SWITCH] = {
-+			.offset = 0x3c, .size = 8, .activate = 13, .pbuf = 1,
-+			.mute = 1 },
-+
-+		[SCARLETT2_CONFIG_SAFE_SWITCH] = {
-+			.offset = 0x147, .size = 8, .activate = 14, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_AIR_SWITCH] = {
-+			.offset = 0x3e, .size = 8, .activate = 15, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_INPUT_SELECT_SWITCH] = {
-+			.offset = 0x14b, .size = 8, .activate = 17, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_INPUT_LINK_SWITCH] = {
-+			.offset = 0x14e, .size = 8, .activate = 18, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_DIRECT_MONITOR_GAIN] = {
-+			.offset = 0x2a4, .size = 16, .activate = 36 }
-+	}
-+};
-+
- /* 4i4 Gen 4 */
- static const struct scarlett2_config_set scarlett2_config_set_gen4_4i4 = {
- 	.notifications = scarlett4_4i4_notifications,
-@@ -1960,6 +2017,7 @@ static const struct scarlett2_device_info solo_gen4_info = {
- static const struct scarlett2_device_info s2i2_gen4_info = {
- 	.config_sets = (const struct scarlett2_config_set_entry[]) {
- 		{ 2115, &scarlett2_config_set_gen4_2i2 },
-+		{ 2417, &scarlett2_config_set_gen4_2i2_2417 },
- 		{ }
- 	},
- 	.min_firmware_version = 2115,
+ static int inv_icm42600_enable_regulator_vddio(struct inv_icm42600_state *st)
+ {
+ 	int ret;
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.c
+index 7f2dc41f807bbe..d3d560eaa7d8ed 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.c
+@@ -3,11 +3,10 @@
+  * Copyright (C) 2020 Invensense, Inc.
+  */
+ 
++#include <linux/errno.h>
+ #include <linux/kernel.h>
+-#include <linux/regmap.h>
+ #include <linux/math64.h>
+ 
+-#include "inv_icm42600.h"
+ #include "inv_icm42600_timestamp.h"
+ 
+ /* internal chip period is 32kHz, 31250ns */
+@@ -56,17 +55,6 @@ void inv_icm42600_timestamp_init(struct inv_icm42600_timestamp *ts,
+ 	inv_update_acc(&ts->chip_period, INV_ICM42600_TIMESTAMP_PERIOD);
+ }
+ 
+-int inv_icm42600_timestamp_setup(struct inv_icm42600_state *st)
+-{
+-	unsigned int val;
+-
+-	/* enable timestamp register */
+-	val = INV_ICM42600_TMST_CONFIG_TMST_TO_REGS_EN |
+-	      INV_ICM42600_TMST_CONFIG_TMST_EN;
+-	return regmap_update_bits(st->map, INV_ICM42600_REG_TMST_CONFIG,
+-				  INV_ICM42600_TMST_CONFIG_MASK, val);
+-}
+-
+ int inv_icm42600_timestamp_update_odr(struct inv_icm42600_timestamp *ts,
+ 				      uint32_t period, bool fifo)
+ {
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.h b/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.h
+index 4e4f331d4fe4b8..b808a6da15e585 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.h
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_timestamp.h
+@@ -6,10 +6,6 @@
+ #ifndef INV_ICM42600_TIMESTAMP_H_
+ #define INV_ICM42600_TIMESTAMP_H_
+ 
+-#include <linux/kernel.h>
+-
+-struct inv_icm42600_state;
+-
+ /**
+  * struct inv_icm42600_timestamp_interval - timestamps interval
+  * @lo:	interval lower bound
+@@ -53,8 +49,6 @@ struct inv_icm42600_timestamp {
+ void inv_icm42600_timestamp_init(struct inv_icm42600_timestamp *ts,
+ 				 uint32_t period);
+ 
+-int inv_icm42600_timestamp_setup(struct inv_icm42600_state *st);
+-
+ int inv_icm42600_timestamp_update_odr(struct inv_icm42600_timestamp *ts,
+ 				      uint32_t period, bool fifo);
+ 
 -- 
 2.53.0
 
