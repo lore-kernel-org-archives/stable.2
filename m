@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62ECC496906
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 15:56:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E64496915
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 15:57:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784044617; cv=none; b=I8iYGgV88YoSbA9X8V2wVfp6DDq+0IVSoznVpYZB19rJRIcbx3JZI0DQofy5X2+oM433Du18uVqColE6NlWMSZ4dh6fnQc0ivI6BsNQ+zriz+dMOfYlAitfESXcoub/c0MJtirJey37gtZ+e0F4AN4IP9LbM4KUqPGorJVVWic8=
+	t=1784044656; cv=none; b=Wmw58Cjlhcg5rVDN8hFXgtBvYEI+QwdZIywgjK9RiFV0w4e4I5nbuJiHMA0ygNxrz01ud0rPdsQDpaB1d8+NzmwTOSGhQ3enGTRPRuri63CDesK+1tdZm/QKGmUs0a5WpF9J5h3Z6vu/VV0LKhDBb0GdUDnFL3zgLnCR+JacaSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784044617; c=relaxed/simple;
-	bh=zBqLbTYtlDQRHV7hbFO0aKoY1Vf+s3uCyuYKf/8WLhE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KidI6lUgO74ZHoa+T4nN8FnzZ87pgO0OmWabqcHuJ5SLfzwllfucOxD0yST/z2WV/M26V8OjQPAe8aPDlImyeXoUJxxVvfQ58gAf16JpSrYer5GFxFvg/CS4w+2zJbs8vr/K48sNsSlMyn5sG8x5zkL/OMAmiWeI9PBE9C6cz0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hpTjHG8Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784044656; c=relaxed/simple;
+	bh=X7LX/JIfOkMIuQ/tGoX3jrl1sF+SenmAoSFnxQrL4pE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bGbSIn8OT49Zr6rr2CPlniayextRUXOuBc/bQ8Ia+TmAzsJlPB0vPGPQ53xvnvg8kKZwdZeXxvn7OPQq+Ci8qL/CecaaC4eRQ6GM0/JdxvbXxnEU3DSBbOA4Rk6vbfNQx/i1675NBDFFUUnQBWYgwtrkBI5mM4G8fB1AngAKBng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KXqCnKPq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hpTjHG8Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C681F000E9;
-	Tue, 14 Jul 2026 15:56:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KXqCnKPq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9051F000E9;
+	Tue, 14 Jul 2026 15:57:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784044616;
-	bh=fXJ3EPsHBiYkd+luqOba64g9M0/iPUHb3I+zYlJSLuQ=;
+	s=korg; t=1784044655;
+	bh=nhqUXTfRQ6pCkziiWdjrl2yaU6LQyDaKgeBgRzkgEzc=;
 	h=Subject:To:Cc:From:Date;
-	b=hpTjHG8ZJPS1nG3XXdbUgoSXLkFsptBkq+SUPEnPNKmIhsW8pkwi4j3XJ3UDSnKzi
-	 cTSkwwxzes8SwO04SVrBFB/PnTvjJm8IJ5peX1A1cNevZd02hasQZLyglS8GfW7Lcf
-	 mko8wmrmQtDiLQdgclUsnwnLfzgXi8cKKN3EC1hI=
-Subject: FAILED: patch "[PATCH] xfs: only log freed extents for the current RTG in zoned" failed to apply to 6.18-stable tree
-To: hch@lst.de,cem@kernel.org,djwong@kernel.org,dlemoal@kernel.org,stable@vger.kernel.org
+	b=KXqCnKPqS8Ra88iaBwCqqsrGtcNpzjGXVzCVnCXRWxtBRjwh6hOzhyTL4nDR44lyk
+	 vGjA0i11Vc0zBGUEr4Q+aR4kVpEt3VcV5X0i5MWoCLeh32vMOQa9HCzOND5GRNYSW+
+	 NHe2J52lmUtXA6x/RA1GFXTuq15IFV5PKlBzlwAs=
+Subject: FAILED: patch "[PATCH] bpf: Allow LPM map access from sleepable BPF programs" failed to apply to 6.18-stable tree
+To: vlad.wing@gmail.com,ast@kernel.org,emil@etsalapatis.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 14 Jul 2026 17:56:41 +0200
-Message-ID: <2026071441-surfacing-postwar-8451@gregkh>
+Date: Tue, 14 Jul 2026 17:57:29 +0200
+Message-ID: <2026071429-contort-navy-4802@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 44cccefe65749821d9a13523c8b763bf1262ef73
+git cherry-pick -x 2f884d371fafea137afea504d49ee4a7c8d7985b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071441-surfacing-postwar-8451@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071429-contort-navy-4802@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,57 +62,112 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 44cccefe65749821d9a13523c8b763bf1262ef73 Mon Sep 17 00:00:00 2001
-From: Christoph Hellwig <hch@lst.de>
-Date: Wed, 10 Jun 2026 07:07:21 +0200
-Subject: [PATCH] xfs: only log freed extents for the current RTG in zoned
- growfs
+From 2f884d371fafea137afea504d49ee4a7c8d7985b Mon Sep 17 00:00:00 2001
+From: Vlad Poenaru <vlad.wing@gmail.com>
+Date: Tue, 9 Jun 2026 06:55:57 -0700
+Subject: [PATCH] bpf: Allow LPM map access from sleepable BPF programs
 
-Otherwise a power fail or crash during growfs could lead to an
-elevated sb_rblocks counter.
+trie_lookup_elem() annotates its rcu_dereference_check() walks with
+only rcu_read_lock_bh_held().  Because rcu_dereference_check(p, c)
+resolves to "c || rcu_read_lock_held()", this passes for XDP/NAPI and
+classic RCU readers but fails for sleepable BPF programs, which enter
+via __bpf_prog_enter_sleepable() and hold only rcu_read_lock_trace().
 
-Note that the step function is much simpler compared to the classic RT
-allocator as zoned RT sections must be aligned to real time group
-boundaries.
+trie_update_elem() and trie_delete_elem() have the same problem in a
+different form: they walk the trie with plain rcu_dereference(), which
+asserts rcu_read_lock_held() unconditionally.  Both are reachable from
+sleepable BPF programs via the bpf_map_update_elem / bpf_map_delete_elem
+helpers, and from the syscall path under classic rcu_read_lock().  In
+the writer paths the trie is actually protected by trie->lock (an
+rqspinlock taken across the walk); we never relied on the RCU read-side
+lock to keep nodes alive there.
 
-Fixes: 01b71e64bb87 ("xfs: support growfs on zoned file systems")
-Cc: <stable@vger.kernel.org> # v6.15
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+A sleepable LSM hook that ends up touching an LPM trie therefore
+triggers lockdep on debug kernels:
 
-diff --git a/fs/xfs/xfs_rtalloc.c b/fs/xfs/xfs_rtalloc.c
-index debbcefdf07f..7a3f97686989 100644
---- a/fs/xfs/xfs_rtalloc.c
-+++ b/fs/xfs/xfs_rtalloc.c
-@@ -890,8 +890,7 @@ xfs_growfs_rt_sb_fields(
+  =============================
+  WARNING: suspicious RCU usage
+  7.1.0-... Tainted: G            E
+  -----------------------------
+  kernel/bpf/lpm_trie.c:249 suspicious rcu_dereference_check() usage!
+  1 lock held by net_tests/540:
+   #0: (rcu_tasks_trace_srcu_struct){....}-{0:0},
+       at: __bpf_prog_enter_sleepable+0x26/0x280
+  Call Trace:
+   dump_stack_lvl
+   lockdep_rcu_suspicious
+   trie_lookup_elem
+   bpf_prog_..._enforce_security_socket_connect
+   bpf_trampoline_...
+   security_socket_connect
+   __sys_connect
+   do_syscall_64
+
+This is lockdep-only -- no UAF, since Tasks Trace RCU does serialize
+against the trie's reclaim path -- but it spams the console once per
+distinct callsite on every debug kernel running a sleepable BPF LSM
+that touches an LPM trie, which is increasingly common.
+
+For the lookup path, switch the rcu_dereference_check() annotation
+from rcu_read_lock_bh_held() to bpf_rcu_lock_held(), which accepts all
+three contexts (classic, BH, Tasks Trace).  Other map types already
+follow this convention.
+
+For trie_update_elem() and trie_delete_elem(), annotate the walks as
+rcu_dereference_protected(*p, 1) -- matching trie_free() in the same
+file -- since trie->lock is held across the walk.  rqspinlock has no
+lockdep_map, so the predicate degenerates to '1' rather than
+lockdep_is_held(&trie->lock); the protection is real but not
+machine-verifiable.  trie_get_next_key() also uses bare
+rcu_dereference() but is reachable only from the BPF syscall, which
+holds classic rcu_read_lock() before dispatching, so it is left
+untouched.
+
+Fixes: 694cea395fde ("bpf: Allow RCU-protected lookups to happen from bh context")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
+Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+Link: https://lore.kernel.org/r/20260609135558.193287-2-vlad.wing@gmail.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+
+diff --git a/kernel/bpf/lpm_trie.c b/kernel/bpf/lpm_trie.c
+index 0f57608b385d..4d6f25db9ba1 100644
+--- a/kernel/bpf/lpm_trie.c
++++ b/kernel/bpf/lpm_trie.c
+@@ -246,7 +246,7 @@ static void *trie_lookup_elem(struct bpf_map *map, void *_key)
  
- static int
- xfs_growfs_rt_zoned(
--	struct xfs_rtgroup	*rtg,
--	xfs_rfsblock_t		nrblocks)
-+	struct xfs_rtgroup	*rtg)
- {
- 	struct xfs_mount	*mp = rtg_mount(rtg);
- 	struct xfs_mount	*nmp;
-@@ -903,7 +902,8 @@ xfs_growfs_rt_zoned(
- 	 * Calculate new sb and mount fields for this round.  Also ensure the
- 	 * rtg_extents value is uptodate as the rtbitmap code relies on it.
+ 	/* Start walking the trie from the root node ... */
+ 
+-	for (node = rcu_dereference_check(trie->root, rcu_read_lock_bh_held());
++	for (node = rcu_dereference_check(trie->root, bpf_rcu_lock_held());
+ 	     node;) {
+ 		unsigned int next_bit;
+ 		size_t matchlen;
+@@ -280,7 +280,7 @@ static void *trie_lookup_elem(struct bpf_map *map, void *_key)
+ 		 */
+ 		next_bit = extract_bit(key->data, node->prefixlen);
+ 		node = rcu_dereference_check(node->child[next_bit],
+-					     rcu_read_lock_bh_held());
++					     bpf_rcu_lock_held());
+ 	}
+ 
+ 	if (!found)
+@@ -359,7 +359,7 @@ static long trie_update_elem(struct bpf_map *map,
  	 */
--	nmp = xfs_growfs_rt_alloc_fake_mount(mp, nrblocks,
-+	nmp = xfs_growfs_rt_alloc_fake_mount(mp,
-+			xfs_rtgs_to_rfsbs(mp, rtg_rgno(rtg) + 1),
- 			mp->m_sb.sb_rextsize);
- 	if (!nmp)
- 		return -ENOMEM;
-@@ -1226,7 +1226,7 @@ xfs_growfs_rtg(
- 	}
+ 	slot = &trie->root;
  
- 	if (xfs_has_zoned(mp)) {
--		error = xfs_growfs_rt_zoned(rtg, nrblocks);
-+		error = xfs_growfs_rt_zoned(rtg);
- 		goto out_rele;
- 	}
+-	while ((node = rcu_dereference(*slot))) {
++	while ((node = rcu_dereference_protected(*slot, 1))) {
+ 		matchlen = longest_prefix_match(trie, node, key);
  
+ 		if (node->prefixlen != matchlen ||
+@@ -482,7 +482,7 @@ static long trie_delete_elem(struct bpf_map *map, void *_key)
+ 	trim = &trie->root;
+ 	trim2 = trim;
+ 	parent = NULL;
+-	while ((node = rcu_dereference(*trim))) {
++	while ((node = rcu_dereference_protected(*trim, 1))) {
+ 		matchlen = longest_prefix_match(trie, node, key);
+ 
+ 		if (node->prefixlen != matchlen ||
 
