@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C21B496906
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 15:58:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC8C4A3402
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:01:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784044708; cv=none; b=cc0rPclHBENK3oeeCQczbyAeItfPAsTaCXR0bLhWUI4si+zOE9dv/UJ2KLYqIq3RTqdNyYSmm4e3/ENcMnjxKiYoZHetUgrapdMAOTZP2k5qzyuytLSpfWfou3HjlGtOxn17ZWDjxYNx+ahjdBDgvSSP1L9GGElx11Dh4pFdqoM=
+	t=1784044894; cv=none; b=YmCIYNhKxMfKZZirB6tB5PRaVwZpQ5sc5hDz4KTqaqP3FgCDYLGitZLd0hr5ZHAmxWOGyaHaQjinrlbg/hdSUz4Uugfn+QQA8PEtRUm+oOGZskET6q1sZiDwMURmIWGB4oxkvYSigc1x0SqZEIoFrger+0gR+eWTqYvR/bbQ13U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784044708; c=relaxed/simple;
-	bh=JVAB1nTQHv1aRIiv9O0ICktJKmg8epzDhLy+BNazAfE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BICsJKHjDFhRJLx0ItqLb1BO0ta+/+GTPS7h/kv18QWJ7UtrKATx2eTROONQVhSS9Ll2pqOotPPH760c3daprMNCrnKPDZ4dbB9lqa0gtAcq6EVXEzunY+5Z7f9xxpjQtAPG4ix/Vb7SfiFPreXvhAuW39sLn5sAzUm1/zoj8S8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FITkPp1t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784044894; c=relaxed/simple;
+	bh=YWIUJMkBiFzaFKRUQ8zrzIarNCmbvGlRQXTlsQpNpog=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TasTTX72YMjLr+Rq4SG67vwhFpZe0f9JEOD6ojZwXAvfkb78P+OnoHBl4nkdgWmbHaUBCavy5iyp6F6G92DOleeZgIhkTolxzZfFFnsrIsL792o0E9dTfE7hJH0pCfKUIug2CM4RLn6J8QwVA9RA0rpcOs99dfYkeo/4LQOVcMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jm4VHMos; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FITkPp1t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD41F1F000E9;
-	Tue, 14 Jul 2026 15:58:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jm4VHMos"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B0F31F000E9;
+	Tue, 14 Jul 2026 16:01:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784044707;
-	bh=nvKE8mXHRL0r9nwdheynKDO2YJrsEeZRBG+whXNTgxg=;
+	s=korg; t=1784044892;
+	bh=OkAlXvrWQGC9G2WWiX2ILF3LFvoOKuSPCwHB7TrkOeY=;
 	h=Subject:To:Cc:From:Date;
-	b=FITkPp1taFJswJ789m7iY0V+hZEihvUqqXqHrmfJtK/Ma/AzxpIx4EBs4bV0TxZOo
-	 8FqWdO5UFX+RkOuZ1hBU467TFr/yqU43RahKKhoRO7pL0UX/9BMwTy87VQR7S/S5Nw
-	 mvrBE92gtNDtKDMleBQbvHIT7K4FOcQ0F4Domzko=
-Subject: FAILED: patch "[PATCH] bpf: Reject fragmented frames in devmap" failed to apply to 5.15-stable tree
-To: zzhan461@ucr.edu,ast@kernel.org,bird@lzu.edu.cn,emil@etsalapatis.com,n05ec@lzu.edu.cn,toke@redhat.com,yuantan098@gmail.com,zcliangcn@gmail.com
+	b=jm4VHMosFaN5lBoaIE2dG5EcQxZtgqaQwmiF5OQyZDRiv4Z+99GZgx1KNAnexca1r
+	 Z3XYKWSBQyqjQohp9KuEC94p9we2ELaOua059BSGgT4mZae1NCSFkIDkGHZ8eh6G8a
+	 28r3NCdIn2KVH2fW7KYgis/GM5qANuTlQ/O6vc64=
+Subject: FAILED: patch "[PATCH] usb: atm: ueagle-atm: wait for pre-firmware load in" failed to apply to 7.1-stable tree
+To: mfo@igalia.com,aitsygunka@yandex.ru,gregkh@linuxfoundation.org,stable@kernel.org,stf_xl@wp.pl
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 14 Jul 2026 17:58:21 +0200
-Message-ID: <2026071421-video-bucket-8e49@gregkh>
+Date: Tue, 14 Jul 2026 18:01:26 +0200
+Message-ID: <2026071426-neurosis-lumpish-e192@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x aa496720618f1a6054f1c870bf10b4f6c99bf656
+git cherry-pick -x e2674dfbed8a30d57e2bc872c4bfa6c3eec918bf
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071421-video-bucket-8e49@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071426-neurosis-lumpish-e192@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,67 +62,170 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From aa496720618f1a6054f1c870bf10b4f6c99bf656 Mon Sep 17 00:00:00 2001
-From: Zhao Zhang <zzhan461@ucr.edu>
-Date: Tue, 2 Jun 2026 16:43:33 +0800
-Subject: [PATCH] bpf: Reject fragmented frames in devmap
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From e2674dfbed8a30d57e2bc872c4bfa6c3eec918bf Mon Sep 17 00:00:00 2001
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+Date: Tue, 26 May 2026 14:09:44 -0300
+Subject: [PATCH] usb: atm: ueagle-atm: wait for pre-firmware load in
+ .disconnect()
 
-Devmap broadcast redirects clone the packet for all but the last
-destination.
+ueagle-atm uses the asynchronous request_firmware_nowait() in .probe(),
+but does not wait for its completion, not even in .disconnect(); so, if the
+device is unplugged meanwhile, its teardown runs concurrently with that.
 
-For native XDP, that clone path copies only the linear xdp_frame data,
-while fragmented frames keep skb_shared_info in tailroom outside the
-linear area. Cloning such a frame leaves XDP_FLAGS_HAS_FRAGS set but
-without valid frag metadata, and the later free path can interpret
-uninitialized tail data as skb_shared_info, leading to an out-of-bounds
-access during frame return.
+Even though this inconsistency is worth addressing on its own, it has also
+triggered several bug reports in syzbot over the years (some auto-closed)
+where the firmware sysfs fallback mechanism (CONFIG_FW_LOADER_USER_HELPER)
+creates a firmware subdirectory in the device directory during its removal,
+which might hit unexpected conditions in kernfs, apparently, depending at
+which point the add and remove operations raced. (See links.)
 
-Reject fragmented native XDP frames in dev_map_enqueue_clone().
+The pattern is:
 
-Add the same restriction to the generic XDP clone path in
-dev_map_redirect_clone(). Generic XDP represents fragmented packets as
-nonlinear skbs, and rejecting them here keeps clone-based broadcast
-support aligned between native and generic XDP.
+usb ?-?: Direct firmware load for ueagle-atm/eagle?.fw failed with error -2
+usb ?-?: Falling back to sysfs fallback for: ueagle-atm/eagle?.fw
+<ERROR>
+Call trace:
+ ...
+ kernfs_create_dir_ns
+ sysfs_create_dir_ns
+ create_dir
+ kobject_add_internal
+ kobject_add_varg
+ kobject_add
+ class_dir_create_and_add
+ get_device_parent
+ device_add
+ fw_load_sysfs_fallback
+ fw_load_from_user_helper
+ firmware_fallback_sysfs
+ _request_firmware
+ request_firmware_work_func
+ ...
 
-Fixes: e624d4ed4aa8 ("xdp: Extend xdp_redirect_map with broadcast support")
-Cc: stable@kernel.org
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Zhengchuan Liang <zcliangcn@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Assisted-by: Codex:GPT-5.4
-Signed-off-by: Zhao Zhang <zzhan461@ucr.edu>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Reviewed-by: Toke Høiland-Jørgensen <toke@redhat.com>
-Link: https://lore.kernel.org/r/21c2d153dd25603d359069a02bf06779b51f6423.1780385378.git.zzhan461@ucr.edu
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+(Some variations are observed, after fw_load_sysfs_fallback(), e.g., [1].)
 
-diff --git a/kernel/bpf/devmap.c b/kernel/bpf/devmap.c
-index cc0a43ebab6b..5b9eac5342a9 100644
---- a/kernel/bpf/devmap.c
-+++ b/kernel/bpf/devmap.c
-@@ -581,6 +581,10 @@ static int dev_map_enqueue_clone(struct bpf_dtab_netdev *obj,
+While the kernfs side is being looked at, the ueagle-atm side can be fixed
+by waiting for the pre-firmware load in the .disconnect() handler.
+
+This change has a similar approach to previous work by Andrey Tsygunka [2]
+(wait_for_completion() in .disconnect()), but it is relatively different in
+design/implementation; using the Originally-by tag for credit assignment.
+
+This has been tested with:
+- synthetic reproducer to check the error path;
+- USB gadget (virtual device) to check the firmware upload path;
+- QEMU device emulator to check the device ID re-enumeration path;
+(The latter two were written by Claude; no other code/text in this commit.)
+
+Links (year first reported):
+ 2025 https://syzbot.org/bug?extid=ce1e5a1b4e086b43e56d
+ 2025 https://syzbot.org/bug?extid=9af8471255ac36e34fd4
+ 2024 https://syzbot.org/bug?extid=306212936b13e520679d
+ 2023 https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
+ 2022 https://syzbot.org/bug?extid=782984d6f1701b526edb
+ 2021 https://syzbot.org/bug?id=f3f221579f4ef7e9691281f3c6f56c05f83e8490
+ 2021 https://syzbot.org/bug?id=84d86f0d71394829df6fc53daf6642c045983881
+ 2021 https://syzbot.org/bug?id=3302dc1c0e2b9c94f2e8edb404eabc9267bc6f90
+
+[1] https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
+[2] https://lore.kernel.org/lkml/20250410093146.3776801-2-aitsygunka@yandex.ru/
+
+Cc: stable <stable@kernel.org>
+Reported-by: syzbot+ce1e5a1b4e086b43e56d@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=ce1e5a1b4e086b43e56d
+Reported-by: syzbot+306212936b13e520679d@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=306212936b13e520679d
+Reported-by: syzbot+457452d30bcdda75ead2@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
+Originally-by: Andrey Tsygunka <aitsygunka@yandex.ru>
+Fixes: b72458a80c75 ("[PATCH] USB: Eagle and ADI 930 usb adsl modem driver")
+Assisted-by: Claude:claude-opus-4.7 # usb gadget & qemu device for testing
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
+Link: https://patch.msgid.link/20260526-ueagle-atm_req-fw-sync-v3-1-93c01961daaf@igalia.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/usb/atm/ueagle-atm.c b/drivers/usb/atm/ueagle-atm.c
+index d610cdcef7d0..4e71ed679a76 100644
+--- a/drivers/usb/atm/ueagle-atm.c
++++ b/drivers/usb/atm/ueagle-atm.c
+@@ -594,7 +594,9 @@ static int uea_send_modem_cmd(struct usb_device *usb,
+ static void uea_upload_pre_firmware(const struct firmware *fw_entry,
+ 								void *context)
  {
- 	struct xdp_frame *nxdpf;
+-	struct usb_device *usb = context;
++	struct usb_interface *intf = context;
++	struct usb_device *usb = interface_to_usbdev(intf);
++	struct completion *fw_done = usb_get_intfdata(intf);
+ 	const u8 *pfw;
+ 	u8 value;
+ 	u32 crc = 0;
+@@ -663,15 +665,17 @@ static void uea_upload_pre_firmware(const struct firmware *fw_entry,
+ 	uea_err(usb, "firmware is corrupted\n");
+ err:
+ 	release_firmware(fw_entry);
++	complete(fw_done);
+ }
  
-+	/* Frags live outside the linear frame and cannot be cloned safely. */
-+	if (unlikely(xdp_frame_has_frags(xdpf)))
-+		return -EOPNOTSUPP;
-+
- 	nxdpf = xdpf_clone(xdpf);
- 	if (!nxdpf)
- 		return -ENOMEM;
-@@ -726,6 +730,9 @@ static int dev_map_redirect_clone(struct bpf_dtab_netdev *dst,
- 	struct sk_buff *nskb;
- 	int err;
+ /*
+  * uea_load_firmware - Load usb firmware for pre-firmware devices.
+  */
+-static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
++static int uea_load_firmware(struct usb_interface *intf, unsigned int ver)
+ {
+ 	int ret;
+ 	char *fw_name = EAGLE_FIRMWARE;
++	struct usb_device *usb = interface_to_usbdev(intf);
  
-+	if (unlikely(skb_is_nonlinear(skb)))
-+		return -EOPNOTSUPP;
+ 	uea_info(usb, "pre-firmware device, uploading firmware\n");
+ 
+@@ -694,7 +698,7 @@ static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
+ 	}
+ 
+ 	ret = request_firmware_nowait(THIS_MODULE, 1, fw_name, &usb->dev,
+-					GFP_KERNEL, usb,
++					GFP_KERNEL, intf,
+ 					uea_upload_pre_firmware);
+ 	if (ret)
+ 		uea_err(usb, "firmware %s is not available\n", fw_name);
+@@ -2555,8 +2559,23 @@ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 
+ 	usb_reset_device(usb);
+ 
+-	if (UEA_IS_PREFIRM(id))
+-		return uea_load_firmware(usb, UEA_CHIP_VERSION(id));
++	if (UEA_IS_PREFIRM(id)) {
++		struct completion *fw_done;
 +
- 	nskb = skb_clone(skb, GFP_ATOMIC);
- 	if (!nskb)
- 		return -ENOMEM;
++		/* Wait for the firmware load to be done, in .disconnect() */
++		fw_done = kzalloc_obj(*fw_done);
++		if (!fw_done)
++			return -ENOMEM;
++
++		init_completion(fw_done);
++		usb_set_intfdata(intf, fw_done);
++
++		ret = uea_load_firmware(intf, UEA_CHIP_VERSION(id));
++		if (ret)
++			kfree(fw_done);
++
++		return ret;
++	}
+ 
+ 	ret = usbatm_usb_probe(intf, id, &uea_usbatm_driver);
+ 	if (ret == 0) {
+@@ -2586,6 +2605,13 @@ static void uea_disconnect(struct usb_interface *intf)
+ 		usbatm_usb_disconnect(intf);
+ 		mutex_unlock(&uea_mutex);
+ 		uea_info(usb, "ADSL device removed\n");
++	} else if (usb->config->desc.bNumInterfaces == 1) {
++		struct completion *fw_done = usb_get_intfdata(intf);
++
++		uea_dbg(usb, "pre-firmware device, waiting firmware upload\n");
++		wait_for_completion(fw_done);
++		uea_dbg(usb, "pre-firmware device, finished waiting\n");
++		kfree(fw_done);
+ 	}
+ }
+ 
 
