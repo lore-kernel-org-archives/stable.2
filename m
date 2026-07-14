@@ -1,152 +1,168 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8873B14C7
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 11:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24B63B14CF
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 11:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784029647; cv=none; b=Df5e5zgZjwl1lMsMW4EBPQU3+4+mx0k6vJC5BbPVzkM0Fmhi4QnMBvia+Gg/87pNUG5+siIQkGYvKwGGgcLZVrtzicyNYZwN6ddl43c6rFYYXLKNNQBAdCuTTKLwWsPPITEJl9QExYOUgCNcp9JXip2n26g45qMFHP5A72vHPeU=
+	t=1784029655; cv=none; b=mp2OQvSthwgwuqg4DC8+8zpwJLpCBZEO6mfOEPKk+6VslpsGll92q+fhRaB1AAq6iKtzyR0qNukAR6CUIBtSsaJ24Ii7dF3u2PFPIoTvBuey7uhjZ0GfwcweYANFixn/RC+d8x7nkzf79GEOtQ0lJATLRuN12OJJ0uWW5JLPhC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784029647; c=relaxed/simple;
-	bh=Uy7FphsDH/6m7cGZVypayztHXs5inLwbY1LCe/lb3fU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=GmraLU3R9ZdLmolPbjhI/44e8bVCuXJzOlZaiTInF0/d9hN1e7C89PanO5brnuVtynKUUYYtOBApfT93+fAvOyPSfStbT5CHZISDLECF67AOwub2LHWiWfwdKOusHHHDKmVbnj0iraddE9bqOsnnze2GVAgKH8k2iNA83/UBZ0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bZpA9tl5; arc=none smtp.client-ip=209.85.216.42
+	s=arc-20240116; t=1784029655; c=relaxed/simple;
+	bh=/CcXiG0JybDQ0pTlwzD5PTutDSZdgoLglABg/Kf5tXg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BVX83iHviC/em6u98rdXgpSm7r3DZ7GY54ULdfrQiWpwPZO6BcdGYVAbGd5x0uwPjNUVy3xEjY2mFxqZRFAnQ4nyMC6ogb7dYzBJSeUCFbjoKEeA6MZUumC8WeNCM9v2vnB8ruLZYpciFeCNiRLeNcdE+jvJ8HaxgM0/Z/XsCDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YtT5Wk+7; arc=none smtp.client-ip=209.85.219.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bZpA9tl5"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-383cb94f742so3802192a91.3
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:47:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YtT5Wk+7"
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-90327237340so6337456d6.1
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:47:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784029645; x=1784634445; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9XJ+pkLF/zrrWNVQ3+TJme7MRR7lpIC8LYwT0f9F3iM=;
-        b=bZpA9tl51WlU+QiBJo8jM1Z6kfYLdOPx2EyT+1a8r3OVqbH93QegbWnDa/UGcM9bY3
-         +ry9inNECLk6OdJlJEstk4vJA6MXI7Jd9ZINBJTkLpSp5gO6VzvS3LvVzlkztPeItCAs
-         WG2urDN7YBP3O+O9+0p7gKTTBdaMtl2LT2+eFlIbh/oCIIZ3BIpZGLmO42E0xV7UY/gg
-         J5iU6zUpyfZFUleDZp5kSFv5sgrBv3hYWdb9a337HwzyjUbBCkpDHdG4Zzl/dB7yTPs6
-         LczNcdEfMHygENFbb8nBwtQnRlh1ZO18wFyixHoduDuGUPh7w86NSfOPov6qVFroFXJJ
-         pdTA==
+        d=gmail.com; s=20251104; t=1784029653; x=1784634453; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v6XTzlQqHFw6xqg6gEsB8Wgx3QjcRA5c6qOuB7Sr3eQ=;
+        b=YtT5Wk+7BUz82f95gpA+vHTnjeV0e8OTV1AYCgDeSsykVP0oEEj3TXyXCRhifvpTpx
+         2BYspo5sYtPMN0PLTtdEm2o4YPWR2LbkEm11kzHfE9K6lOjp5b6KC0zBmKSKTbxI2dap
+         uSh+yu08f5QcMnWZ8UPb0zYhxXaWWRg19G1qRZWgeQgDjgmhmTcjnslIRq77F1T8sMrG
+         qeER2d8DwvBYfk7tT1AjYlPxDxeEkUK06FhcOCa4nYfDYZV43zRFObydl41JFqoqoUcC
+         XXqFxUCckZH1GeKg2YkTW1RgF+MYxgl6mOiLCynbYUauisfYsARq4B/vQYtjgXDCAN+F
+         dZQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784029645; x=1784634445;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9XJ+pkLF/zrrWNVQ3+TJme7MRR7lpIC8LYwT0f9F3iM=;
-        b=jrhQkJwPbkAEVA16dX3kk0+WvcIWhDXYXXLy+LGl9+xP9GyZdlvawwL4dJLsK1ezdh
-         2wZ9m8eT5t87BJc2Dxdy8TffGyjRnkOP7N8o0Wx3hLCLieXa6ozdEy7mndWs1b9sIpkF
-         8OBnKeAn1rU/LreI4fvY5klOH0oghApoP/0aNgn9F7uNsTmLE+wjPLq6aQ3P0mZNtiOh
-         L4UxekJZEqHKvaj30ycU3ikBWvAOT3vl4Go8KfhYHCmnXoa3OJCoWPMcoBkEl10i3pKD
-         yottwt3nAo9MU1JfwnDMeB/94XDUsEIksE3fYGa7SnAQ6exsCRtjJtseo4ei7Ua/CCiy
-         EC9w==
-X-Gm-Message-State: AOJu0YyJKW4RaZrR5I9Gk/CdkwsD6isZ2rQHkdKXc/EsEiVRF4ZUB2x9
-	iFV+BiLmAEdwFt1Hku7jSyrAhpM5DGTPlb62cr4LzIri7uSmbH9V0XGT
-X-Gm-Gg: AfdE7clouIwEhcit3YC/KRZa7boB6Ip0jrwXpOi6d3OP72hk60jx1SZye8Wfd647ouq
-	smdYASkNT0XUMibLqdY7iaeK6R1z8U2VKtTcc0bc39mxOvkoaEhLgaR6254wxFN+8U5A1b7LVZY
-	2dLopESgn0pKOx1Jyvz6gHCsFgGQrdA4y7clOqzkSoGPJrnLW13gtiXrWaDYFXECS9ucAHAaPXa
-	Qw2dQSsj9r5h57uuZRKy1dOv50jKXj+RnsPGsu/zvA7jofP92u9d4sOD1QEx/3bLTvCB2dfF5Q/
-	tcsnjiYjjEWocIOrFmQDPKDpyHwQpx33LbA3Sh9jqvkp0vZ/2K1n4I+1CxfcotDhvGdbGQSly7q
-	2RWmIICX884rG5yZJ/QSgMvTbc3yuzaSZX48xf0bHBuuaVYuKY13M/7cMgstcIIn+KqrCcS3YiS
-	auNQpbnXeeURlEtpwR
-X-Received: by 2002:a17:90b:3dcb:b0:387:e0bb:5804 with SMTP id 98e67ed59e1d1-38dc7bc50femr12271219a91.43.1784029644922;
-        Tue, 14 Jul 2026 04:47:24 -0700 (PDT)
-Received: from baineng-pc.. ([117.133.183.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e17470008sm1356162a91.17.2026.07.14.04.47.19
+        d=1e100.net; s=20251104; t=1784029653; x=1784634453;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v6XTzlQqHFw6xqg6gEsB8Wgx3QjcRA5c6qOuB7Sr3eQ=;
+        b=RgW7kpsCavS7Mri2Kw4MR0JJtzVV5LHXQdfJ0f3qdkkUA7c+vEvUQN0ZfbI2JsdTI5
+         r3BU0qLHL63ngj+n6BrHxYjmR0l10jHg7yyhdzwLN1AdVcHwFRckv7KiOkJAho73O/tK
+         7WZ5ZxRABxL5CHoL8RJ/JZWypiS/jpcHx4M7ML0cCkbkvSkw6uY2rsSipdsiaj/fg/kP
+         4+yR/p17+pPCJzE3BzUvlYCvu7VCMiuOwEjHsxlzub3NtTJo/T0gRUxVIXYiTW9pBWsO
+         C+zU6vRRgMMIDst3H4jMglQsHiFCU+fvg/jDXxchKkUC9v3Iq0/RNbzKslbvdbtx7g9e
+         gmxQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqqCm0X9bj3zp38gTS+s3e98UQ/lMURzJGHYEtA68MJm55IFSq1vGFF2JYrRu1kyVAX0dufEHE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYMT2VbziLvf0SwwFffyNm2IFi41H3yaU5sM3ongopfH+yXa0V
+	NQbxM4jusP5/T1hAJxKGU6YvFxaUt7T6aJraTK5H1PlbndmFE5m7T4FI
+X-Gm-Gg: AfdE7ckv/0Ew7AeqRzJUpmRUy8vSPmfps4z6am4OGpP02tiED+2v7XydoNvKbouVTdd
+	uEOlMetbnUDOvA0L5A9RCu4a6knMFvXiAO7vTZIK5S0/bsnPuQ4A3+QccmtcboNNbHR+lDhK1Ze
+	YGWBDEHmPZJ7Pe1y/AjlUCNc3/r1kZjL0Ze6UFKKn7r71IRMpG1S7osYfJ+wDYN7zbcg4lTwMbB
+	PXfzKzjihagXBVB7CcgBkutjN5pbCvK92a92jZ9yyomUhjt4IDjz3OIcJEFcPfgI3kTD5uXt9vl
+	ZRiXvidZ5lVrgN+Q1tPtpUdcmshvX7ymLhRjvnkuj3d6f9wix3mAIWVFT/taDNIXzYNw47tHbZM
+	7YGOrQmKb8iXUrLvnmL2oBDGXiJAZLEy10c+6dTl8gnFlzMYu8eLgZGT9PfteqrnsExjIKq8PfY
+	FxovMNo9eg0imeUSump0mumJKeHv4QHmo0nutP5Y4yb8MWzp18zcv0IDeKdH3hyv/ywL6VeIsW9
+	JwOB/ZizA==
+X-Received: by 2002:ad4:5fc8:0:b0:8df:7b64:fc4c with SMTP id 6a1803df08f44-904167e20c3mr138859676d6.22.1784029652626;
+        Tue, 14 Jul 2026 04:47:32 -0700 (PDT)
+Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9063df4319asm64144136d6.38.2026.07.14.04.47.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 04:47:24 -0700 (PDT)
-From: Baineng Shou <shoubaineng@gmail.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	"T . J . Mercier" <tjmercier@google.com>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Sandeep Patil <sspatil@android.com>,
-	"Andrew F . Davis" <afd@ti.com>,
-	Srinivas Kandagatla <srini@kernel.org>
-Cc: stable@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
+        Tue, 14 Jul 2026 04:47:32 -0700 (PDT)
+From: Michael Bommarito <michael.bommarito@gmail.com>
+To: Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Yue Hu <zbestahu@gmail.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Sandeep Dhavale <dhavale@google.com>,
+	Hongbo Li <lihongbo22@huawei.com>,
+	Chunhai Guo <guochunhai@vivo.com>,
+	linux-erofs@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH v3 2/2] misc: fastrpc: don't publish fd before copy_to_user() succeeds
-Date: Tue, 14 Jul 2026 19:46:54 +0800
-Message-Id: <20260714114654.3885457-3-shoubaineng@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260714114654.3885457-1-shoubaineng@gmail.com>
-References: <CABdmKX21NHc2=9Sk2F-BFpu6is0vTg-QXLE+wiFNEPdsWWjvog@mail.gmail.com>
- <20260714114654.3885457-1-shoubaineng@gmail.com>
+	stable@vger.kernel.org
+Subject: [PATCH v3] erofs: cap LZMA stream pool size
+Date: Tue, 14 Jul 2026 07:47:29 -0400
+Message-ID: <20260714114729.3760594-1-michael.bommarito@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
-into the caller's fd table before copy_to_user() copies the fd number
-back to userspace.  If copy_to_user() fails, the fd is already visible
-to other threads in the same process but the ioctl returns -EFAULT.
-The existing comment in the code even acknowledges the problem:
+fs/erofs/decompressor_lzma.c sizes the module-global MicroLZMA stream
+pool from num_possible_cpus() when the lzma_streams module parameter is
+unset, then z_erofs_load_lzma_config() preallocates one image-supplied
+dictionary per stream, accepting dictionaries up to 8 MiB.  On high-CPU
+systems, a small EROFS image can pin hundreds of MiB of vmalloc-backed
+decoder state until the erofs module is unloaded.
 
-  "The usercopy failed, but we can't do much about it, as dma_buf_fd()
-   already called fd_install()..."
+Impact: an attacker-supplied EROFS image mounted by the system can pin up
+to 8 MiB times the LZMA stream count of kernel vmalloc memory.
 
-Now that dma_buf_fd_install() is available (introduced to fix the same
-issue in dma-heap), apply the same pattern here: reserve the fd with
-get_unused_fd_flags(), attempt copy_to_user(), and only on success call
-dma_buf_fd_install() to publish it atomically with the tracepoint.  On
-copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
-unwind without any user-visible side effects.
+Bound the default stream count by a new
+CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS option, default 16, so the
+worst-case default preallocation is 128 MiB while preserving the existing
+per-image dictionary limit.  An explicit lzma_streams module parameter is
+still honoured as-is, so administrators who deliberately size the pool are
+not affected.
 
-Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
+Fixes: 622ceaddb764 ("erofs: lzma compression support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 ---
- drivers/misc/fastrpc.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+v3: rename the Kconfig option to EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS
+    and only cap the default (num_possible_cpus); an explicit non-zero
+    lzma_streams module parameter is now honoured unchanged.  Simplified
+    the Kconfig help text and dropped the in-code comment, per Gao
+    Xiang's review.
+v2: https://lore.kernel.org/linux-erofs/20260711143419.2762894-1-michael.bommarito@gmail.com/
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index f3a49384586d..c5143cd25767 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -1709,24 +1709,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
- 		return err;
- 	}
+Evidence: the stock code sets the stream count to num_possible_cpus() when
+lzma_streams is unset, and z_erofs_load_lzma_config() then preallocates one
+image-supplied dictionary (up to Z_EROFS_LZMA_MAX_DICT_SIZE, 8 MiB) per
+stream, so on a host with many CPUs a single small mounted image reserves
+num_possible_cpus() x up-to-8 MiB of vmalloc decoder state until the module
+is unloaded.  With this patch an unset lzma_streams caps the default at
+CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS (16, i.e. 128 MiB worst case),
+while an explicit non-zero lzma_streams= is left unbounded.  Built with W=1,
+no new warnings; boots and mounts an LZMA image with the capped default and
+with lzma_streams= overriding it.
+
+ fs/erofs/Kconfig             | 14 ++++++++++++++
+ fs/erofs/decompressor_lzma.c |  3 ++-
+ 2 files changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/fs/erofs/Kconfig b/fs/erofs/Kconfig
+index 4789b1077d8ce..8948cb6314e07 100644
+--- a/fs/erofs/Kconfig
++++ b/fs/erofs/Kconfig
+@@ -131,6 +131,20 @@ config EROFS_FS_ZIP_LZMA
  
--	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
-+	bp.fd = get_unused_fd_flags(O_ACCMODE);
- 	if (bp.fd < 0) {
- 		dma_buf_put(buf->dmabuf);
--		return -EINVAL;
-+		return bp.fd;
- 	}
+ 	  Say N if you want to disable LZMA compression support.
  
- 	if (copy_to_user(argp, &bp, sizeof(bp))) {
--		/*
--		 * The usercopy failed, but we can't do much about it, as
--		 * dma_buf_fd() already called fd_install() and made the
--		 * file descriptor accessible for the current process. It
--		 * might already be closed and dmabuf no longer valid when
--		 * we reach this point. Therefore "leak" the fd and rely on
--		 * the process exit path to do any required cleanup.
--		 */
-+		put_unused_fd(bp.fd);
-+		dma_buf_put(buf->dmabuf);
- 		return -EFAULT;
- 	}
- 
-+	dma_buf_fd_install(buf->dmabuf, bp.fd);
++config EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS
++	int "EROFS LZMA default maximum decompression streams"
++	depends on EROFS_FS_ZIP_LZMA
++	range 1 1024
++	default 16
++	help
++	  By default EROFS allocates one LZMA decompression stream per CPU.
++	  Each stream can hold a dictionary of up to 8 MiB taken from the
++	  mounted image, so on systems with many CPUs this can reserve a lot
++	  of memory.  This caps the default; the lzma_streams module parameter
++	  still overrides it.
 +
- 	return 0;
- }
++	  If unsure, keep the default of 16.
++
+ config EROFS_FS_ZIP_DEFLATE
+ 	bool "EROFS DEFLATE compressed data support"
+ 	depends on EROFS_FS_ZIP
+diff --git a/fs/erofs/decompressor_lzma.c b/fs/erofs/decompressor_lzma.c
+index f6692d0f2f04d..6b0cdb446c6ad 100644
+--- a/fs/erofs/decompressor_lzma.c
++++ b/fs/erofs/decompressor_lzma.c
+@@ -51,7 +51,8 @@ static int __init z_erofs_lzma_init(void)
  
+ 	/* by default, use # of possible CPUs instead */
+ 	if (!z_erofs_lzma_nstrms)
+-		z_erofs_lzma_nstrms = num_possible_cpus();
++		z_erofs_lzma_nstrms = min_t(unsigned int, num_possible_cpus(),
++				CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS);
+ 
+ 	for (i = 0; i < z_erofs_lzma_nstrms; ++i) {
+ 		struct z_erofs_lzma *strm = kzalloc_obj(*strm);
 -- 
-2.34.1
+2.53.0
 
