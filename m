@@ -1,138 +1,155 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF07363C60
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 11:22:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784028128; cv=pass; b=UAMlre2YeaC3HQReYa9k3ArrQZKKYBYMd/XH7AaKEGg3lEAzZM4FEqNlJ43kQyyigsEHJMY43iFgOguuEuOMxr7Kqwj0IqdYqWKYekqwXn/DATSKu9vLnEx3fm7S+UQ7/umNIntrHtX+JliAcwyD1xaoJt7Vs65VErm4BvL/a98=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784028128; c=relaxed/simple;
-	bh=bJUeMKQG3cczeINdPYa5bHkurV0CwFGNWw6AvZenC78=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=csfHSEn/Pi19HiTuYyOq+DrTNgIn1x9fM/QxfJJiH1jcjsuF2IkjxQdud1R9dRFHyohKXTKZMzFt95X5Bw6ugVauVOS/pxRXDaQ+s1wcs4W99bErmyRJLzdl5b3sw5FGtmAn8gxN1JMcoRFjQcGh0kMwMF2sU+U9N7CSaT/ddcY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sty6K/AN; arc=pass smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C10B37A83B;
+	Tue, 14 Jul 2026 11:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784029023; cv=none; b=SJYiQnXJIsFdHjJwWd5l6R9oMRNuPD7EiovdEs7xm/jGn2Tn6ePjC11yQ0Vou2VMhDoFA0B3Bd4v8HQsTzwtRWKTb1suwS7gMebBLx7320qUiifY9sVcymi8goBUilXjjTa3QIcBnM+UOeQ4zFGC+WuehEFCA1bw1IjBvZ8+dxM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784029023; c=relaxed/simple;
+	bh=Lax5sUFt9NAgHbmoQttxXe++JwXDaNdCauF7ZsFnOQg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KkHqOKXbVXRbSnWkVPQ5I7B/M7kgCxgJqoQYWXRxz6Jdd8+FER0poZpnXJvHrSpAsQ4QD1mcAe2KNwMlDQbwdmlds2PV52XGoTYX9uHinMmZjZe7z2P0Cdy6+K+S7SeovhvnT0dUtnAuva1/cm3O8WiHf3u05LxX55qfOVX1VBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com; spf=pass smtp.mailfrom=invisiblethingslab.com; dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b=DIdZ3qJD; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Z1xmThv1; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sty6K/AN"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6984169c126so7513082a12.1
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:22:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784028125; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EAzvI9K9ikVpANH4oLbuG6RMnteeia4Jyh3NxcZmFLmPQfDOGR7CslwFnS/1vKRN9L
-         lXjx7duseE2QEhdfxpX9udbBnWiW7nwKQtnZbzqyY/F0QxE8ZSpYIOXv2KXbVwf2VOdk
-         IKxnZinm7cletQQSTISpArhFhTqnx3YRTEecBleYCIxYBeD5Wjv3IQwsdGVyIS96+w3m
-         oIju+zBF7Y9WxnrzkKv9yQMuoDklqzb3Rr6F3DVxTkuXNOqHSUpZqKW35fY8GNJnWrW1
-         7cJ3Y48SD0+LUAyI+LkFQTl6KxTIfVUBcCcHKhUVwSq6wpDVhkWmZVuqmuIZ9RcSrEtd
-         tokw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bJUeMKQG3cczeINdPYa5bHkurV0CwFGNWw6AvZenC78=;
-        fh=LTTcFN+zfLFSGNCj1F6GgvgtnxO/FHiJIOrNwOWX39g=;
-        b=bnY8ywuBXl8o9Ff58UbDNIIeo54Jk68JEW+jER/OPZ/+ABQh6dUaMn8dEE5XDEZdqg
-         84s3m/par4gjlWUBnBWrtgI1qgVP9u+pYu/mVllKvXlNbO/UF74NgDIN7gdeliV237jb
-         QfwYbouRFJq+mZ8fQ3BszAR0BRhEj5p35E/FKL1n1QUTngRgJO+y0t61zl4dw8elsBkE
-         DAdVPG+vtzwH776RobewDHE0xYCSDj2Qca56I2I4sQIJqvC22xJHTBnKyPE++ckISrCI
-         xkuwPm/MUtBjH/7geGYittyI1SqqlcGM7ecVLqa13KurtQ6ht6t/Em8gVE2YICVwYkB8
-         qHHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784028125; x=1784632925; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bJUeMKQG3cczeINdPYa5bHkurV0CwFGNWw6AvZenC78=;
-        b=Sty6K/ANhxtYYAOYXs/ttbRB6TFHEN0WdgprgkX8tXbxbiUO7kAG40ff6HihX7Kgwj
-         gXgn463LvVemathG2+1299gX+X1eq5S+igO2dsA+YZJxC5jjjwsDQM7OTtcmfylWNgC0
-         gH8+COiMqDRYlxEqhkhnLS9bx8iASbm9EZTR32+kmE18ol5spEgwSxSmJTOtFzQSrl9n
-         0O9GHMhxWids4ETuvm1WSO1nOQM+9SCKlB20mPzc23YadnrZ+focWaS9DOlVw15Q4vaT
-         JJtWoIpacWIEsjEJaUlMN8a5V5YsqsLoJhTxsbvU964ZFkTwWItboPpIRU1VCT6Inbea
-         FsTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784028125; x=1784632925;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bJUeMKQG3cczeINdPYa5bHkurV0CwFGNWw6AvZenC78=;
-        b=R3vLqFO5H2sLgPpJFoLa2BPcloz+J5SGZUjZwXdOlAxWEiQpbyIESOsK7fyl5SzTDA
-         xotrh80zaijCGkDTvIYwU4IuOvBdWTHxO7zKDAnmNx5PDpd8ZwJAS7o9DdbuVuxchh9J
-         RG8yfEe81yUYnQOX6dEQWBbx/uAPIoCIuw6tfETSk6MHLipQOMRi0Ao3NFPyftoFA2Ww
-         Fb2BzLxnxOlX6sFQLs8Hb4cgK6VWzlhEBdLRfjO00gP5skvs/PhZzX4uYYLJZ9SXUkGs
-         WzRB4Q6WQbqaLKN9kgyo1THK/73tilpIeCxOBDc3Uj9APes+IS4gu8NEX+R+l2Tje8xq
-         OKrw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpn+CWXxKWgYpEFKWd4yjNxIJUV0BRmv1cuGKOCT+SA+Ufk/MKQFL1Lfhuk6vt7x8sVo11P3RA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4iXQk02F9l9YSx13vG1+tb3uAgn9Uqu3f1TmsU/eeUbbihCgI
-	uK/H8Uskqgqlf29iXFhaoGlJdBAELFY6edZ0ifDKTcgTf7xgq+AmyBJoL/HX3chfJC94ixv/YiE
-	GjK9fDNrGOZHWcOSgCFTZRLYtNmtIJ8A=
-X-Gm-Gg: AfdE7ckHYrCHWx3isReUTP5ccnf69XargUxu70YV125H6kgdcpd6rkBAa0Uf7Ec4FZI
-	8M6UuRNoFqgi9pSOHT2Ml0msn77rvngNSWjZjKcu9zxN2ISVTFOhYv0W2NMYnM3jnNyiiXt8P0e
-	gieyEuSrVYhtnCfcM1To09/If/AAr3qcdSMvARsK3sNtWsIz8MXVn193IW+OIwhunOkN/NHcagM
-	K+TdvSWJz3rj42b/aP0yznEDgQptIEx6+q0iZgPRBiX0+oOaN8u9HeNXxDRXy0brvjoESciB5+T
-	i0mqobP3
-X-Received: by 2002:a05:6402:a299:10b0:69d:4ed6:449a with SMTP id
- 4fb4d7f45d1cf-69d4ed64c46mr482016a12.8.1784028124702; Tue, 14 Jul 2026
- 04:22:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="DIdZ3qJD";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Z1xmThv1"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id 1D8331D00169;
+	Tue, 14 Jul 2026 07:37:00 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Tue, 14 Jul 2026 07:37:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1784029019;
+	 x=1784115419; bh=7RbE0Nv3PqcWEvg1NZK6t1ZxnUn6Kyl+33LgQxDmYXI=; b=
+	DIdZ3qJDNjFfCq4vVsWQ87xJiw3qZ5c7YL3vGL4qywkWZjEIN7uYZaZPgR1g5kWK
+	zCwiJGs2kcDMs+kKUnEnt5+l4ZAYNe6+ixyMRLMvh/j35WEBZlh6nkyWov9CcQl9
+	iFO4asR5sMES6GvXJHll6mWHJLZEyXfus6rkbxbjm/Rq1ZFRX75Tzef5cZ3Ydlyz
+	CMjjUmWYkaX9K3qC6XknGqMr4hVpQEu6L8djFyjbR/Q9cX9Iau8UDzdFVBYEdSFC
+	MkomefYe7mDOxVsoHS9jwp37FYFsLvuPPrmx7TgHeX9lKGcB5KmSlJ2RA+pBdmTa
+	Yxk+oL0dQ/udPcMqbBWYhg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1784029019; x=1784115419; bh=7RbE0Nv3PqcWEvg1NZK6t1ZxnUn6Kyl+33L
+	gQxDmYXI=; b=Z1xmThv1CYV1tNrSnZEi0QiOlbH+i7cdpdojeV31lnk0o8tWWgw
+	VuCcKnbphyhooTP1ke5JtxtCykYynYAgZDt2v5Oc/fZsNT25N1pLzjkMY1ZyPA8Q
+	mOXHggO+0G8d3chlmhbJgfemnWyoUKTw9Jg9ZA/G1Ztmxj/iRDgGxwaBxSTLnAUT
+	UmYFpbQ+DyTebINyw60T56YoaByJwORTvC3ybWlGQkShD58rHzK7Bryu8r8wG4cd
+	KT9yICHSimzQ22YJ5mi3wuhccZ2n4nvoP5nBtEzgwSEu61B1oiGawwb9YAncUDUk
+	05iz8nn//Dw7ZjraRfvZ9d+7Echhjez4JzQ==
+X-ME-Sender: <xms:Wx9WauHLaHt_gupfLLE40lPICHUHoourcg8bHJ6R1w-k8ZB3RzE7fw>
+    <xme:Wx9WavC2sU3qmnjz5XAdxkTFVgvmMnj-Em4YnBO3nV-C8CO0HLooevmK0eEOUtI-V
+    PibthgL5grIeVdpTGDagMwFyWkNozDfvtahLCl1sf2ezE6r>
+X-ME-Received: <xmr:Wx9WajwKv-bobG9As7YjRNvisWNxEcTNwnVpKSlIXLNW6jQrCrpKxDO9gVtsMTzeHFtlhSaKWYGS7EY4FrIuf-h_mCsJAtPrZUE>
+X-ME-Proxy-Cause: dmFkZTEFCIzIQMCd2MkWM2GVRPXPZcLLdFwqIvCqn7GNb/FgdSTRcwIq2bs70YB4KkszA0
+    2Uu3wp1FwQ9/V4n2J5vOU4vaQRgdzlHw0yPwcCuCso7VIxmXCWYu8IUyjRtDnMApMYk63Q
+    8YAp2R6L/gdWyVzjJB87R229XAVEhDPaYGFpcWlQAY4dDV31/3M34n7UFcBai4hWiu/l76
+    kgXWXllMALS0ldoYIP/4pPVV6OAtxoGSSxcgVBT79/xhnOGimo4VmNFxG8cGmqmy6BJYYt
+    cpa0mAteMx2JSNzl8dQSJVHtsmy/mpEFdof5T3KEXOGFqfC6F1gRed+oxwEL3Ys64vPppm
+    IEgImoAdzdXUaJGEhUB8BBAixpojp7+95yQn1EnMWiQVVtkqNA+YQsajUpPkfAazrpFKUs
+    Ax38yXkVmSI/xr2lCJ4OQnKslwH0zeLS0wNN5UZxT1ExwypRmjKdf8Rz4FVvv/RVxoekI9
+    M8Y3Sdt1btLcUD3dmPWYSWxLvIpOe8hvsyPdBQLWEgUkhC5RYQ3/CbYW/allvTEPNUgywj
+    IEhCg+ViWQhF6EhvLi9xgc5hqyVQsCgoEmDao6ceqs3QfuiRdJHbI3vZPXP3LwFfisEczt
+    oMNSe68bgBKoH379/ecqFep3N7MwTcJu0IioGwoEwcB59EnXNjrYBSJANnKg
+X-ME-Proxy: <xmx:Wx9Waj6HJ1HZy5pwxQMmH2l_QJSPJlgFBfNW-CIsuFaA-ZuaGhyMlw>
+    <xmx:Wx9WakwcY3m5WIs76-FAIFGMVngiHN81kPKXOj8-RufKbZ5tvNLbVg>
+    <xmx:Wx9WandveogwV-gWTqPYujKe2VvHtfP3RdF1wvcvqBjOQ_ycW5lAKA>
+    <xmx:Wx9WapDKK83ncNPhj7-FAJLXBG9TPlkhPdMcFKoG_02C97GSFFWnXw>
+    <xmx:Wx9WarWWotNXlr6sYu6OniZPRL6HhYOWATfOo8neVOEkPT05SnvjLu8m>
+Feedback-ID: i1568416f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 14 Jul 2026 07:36:57 -0400 (EDT)
+Date: Tue, 14 Jul 2026 13:36:55 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Keith Busch <kbusch@kernel.org>
+Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
+	Jens Axboe <axboe@kernel.dk>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] nvme-pci: fix parameter order in nvme_free_sgls() call
+Message-ID: <alYfV2l-7p4Y3eX-@mail-itl>
+References: <20260127195907.34563-1-roger.pau@citrix.com>
+ <aXokOX20HMD0E_PM@kbusch-mbp>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260713175345.2542331-1-joannelkoong@gmail.com>
- <CAJnrk1b9jjvP6a9PaYAiA0HZcJ0_dR_O2aGWPF44T2NNBJC94w@mail.gmail.com> <CAJnrk1Zo_j_QY9Q=jft5=fio9mU36uy5LXP3bC4=xO8DbakzrA@mail.gmail.com>
-In-Reply-To: <CAJnrk1Zo_j_QY9Q=jft5=fio9mU36uy5LXP3bC4=xO8DbakzrA@mail.gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 14 Jul 2026 13:21:53 +0200
-X-Gm-Features: AUfX_mx0XwOPLr_TC9ZSVZR7KwlGJvFz9wpGiR9F2T_Q54IMIVcuOKELEzZmZKs
-Message-ID: <CAOQ4uxg1m0C6suUpoO8hNkgnqEH-APV3BJgzKg2biCEoC6kXVw@mail.gmail.com>
-Subject: Re: [PATCH v1 0/2] fuse: fix missing barriers in io-uring init
-To: Joanne Koong <joannelkoong@gmail.com>
-Cc: miklos@szeredi.hu, bernd@bsbernd.com, fuse-devel@lists.linux.dev, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="G/yGk+MB9HjdayeF"
+Content-Disposition: inline
+In-Reply-To: <aXokOX20HMD0E_PM@kbusch-mbp>
+
+
+--G/yGk+MB9HjdayeF
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 13:36:55 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Keith Busch <kbusch@kernel.org>
+Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
+	Jens Axboe <axboe@kernel.dk>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] nvme-pci: fix parameter order in nvme_free_sgls() call
 
-On Tue, Jul 14, 2026 at 1:51=E2=80=AFAM Joanne Koong <joannelkoong@gmail.co=
-m> wrote:
->
-> On Mon, Jul 13, 2026 at 3:11=E2=80=AFPM Joanne Koong <joannelkoong@gmail.=
-com> wrote:
-> >
-> > On Mon, Jul 13, 2026 at 10:54=E2=80=AFAM Joanne Koong <joannelkoong@gma=
-il.com> wrote:
-> > >
-> > > These are two pre-existing issues Sashiko reported [1] on the fuse ze=
-rocopy
-> > > series.
-> > >
-> > > [1] https://sashiko.dev/#/patchset/20260630211436.2062816-1-joannelko=
-ong%40gmail.com
-> >
-> > Sashiko noted some other places that are also missing barriers [1].
-> > Will send v2 to add these places as well.
->
-> These additional ones aren't real bugs. They're not reachable on a
-> well-behaved server and on a malicious/buggy server, the failure is
-> benign / self-correcting.
->
-> I think we need some sort of way to help Sashiko understand so it
-> doesn't keep flagging this on every future patch anyone submits. I
-> think there's a few other places where some of Sashiko's
-> assumptions/analysis are wrong (eg uring-cmd sqe stability semantics
-> [1] in the zero-copy series). I'll look into this unless anyone
-> already knows how to do this.
+On Wed, Jan 28, 2026 at 07:59:05AM -0700, Keith Busch wrote:
+> On Tue, Jan 27, 2026 at 08:59:06PM +0100, Roger Pau Monne wrote:
+> > The call to nvme_free_sgls() in nvme_unmap_data() has the sg_list and s=
+ge
+> > parameters swapped.  This wasn't noticed by the compiler because both s=
+hare
+> > the same type.  On a Xen PV hardware domain, and possibly any other
+> > architectures that takes that path, this leads to corruption of the NVMe
+> > contents.
 
-You may want to talk with your colleague Chris Mason about adding review
-prompts for FUSE, because he is also running AI analysis on existing subsys=
-tems
-regardless of mailing list patches.
-I didn't try, but you can probably figure out how to add FUSE specific
-review prompts
-to Sashiko yourself...
+On Wed, Jan 28, 2026 at 09:49:58AM +0100, Christoph Hellwig wrote:
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+>=20
+> but maybe we can reword the subject to sound less harmless, e.g.:
+>=20
+> nvme-pci: DMA unmap the correct regions in nvme_free_sgls
 
-Thanks,
-Amir.
+On Wed, Jan 28, 2026 at 07:59:05AM -0700, Keith Busch wrote:
+> Thanks, applied to nvme-6.19 with updated subject.
+
+Hi,
+
+I think this wants to be included in v6.18 too, as it also has the
+faulty commit. And indeed, I do hit this issue when running 6.18.38.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--G/yGk+MB9HjdayeF
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmpWH1cACgkQ24/THMrX
+1yyenAf9FWpkwva0hdfgfqEDIy6a/Hgllhx36/HeJWibLzeDbTJFYpwU8I+qDTRh
+fFCn1CT9lYNxu4O0IFtCTBiktCI/J7aFuZXIvFak2viOU9Jc06fYF5q+dEgwnZm2
+m/glL8tOsJDW9TCtxqzvn5Zvjb7eGZCqKZeQFQmlcDWgTsXLssyoTrYJBoK3EyKV
+XqJooQme6+zH6s6S0ACyaBWq/5W6MmWsa6awJ2RlhDFOX3LgKjXY6TMAIXkCVjj5
+VHOepitO3/fFqVu2QpICN89638kG9JCZsG53x/dUSVrtdpBVZhXVYkzMTT2ViDUu
+P7FaNiGtA2F7sbx1kImZcp8q0pSQrA==
+=7k8S
+-----END PGP SIGNATURE-----
+
+--G/yGk+MB9HjdayeF--
