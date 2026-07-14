@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AC530DEDC
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:26:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113233191CE
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784035616; cv=none; b=jcxfESZ1rwCHPevywYHTzVRUIoBVrGCF3/SR0KsOhrRsaGBuly9IrGCsxX6XhMGBpUrjsoBCz4r5PFKrmnzRUcebe/fxrS/sKUea4S2ZC8V/LjwnemlmSDAIgr1+Ezbukr/qZqA7Z3YgKf/yVlwLIJJmrAA6+Xq7UttNCUy616k=
+	t=1784035621; cv=none; b=t3MFVREDZ5dSJreAGh94mOqfq2agV4CGJFCbjAMVODm0L/B/8lF9TVOq//FyFGApwcIFGxhYlJh7uINdi1onis8+ZjsJLKng0n4gJ8Op61MCiISmXzYBnnMWEBHSeWeCc+Xx2Fyg3DU6n4F9MWpQsw/LwCQmzGp7XnVliKpcgs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784035616; c=relaxed/simple;
-	bh=yPycsxrUsJpt3cifcLDogQufHZuMkAvU13dO9046lvk=;
+	s=arc-20240116; t=1784035621; c=relaxed/simple;
+	bh=JiI38/QADHJWUXtPB3pwoD0Riu6wC80ED2azZwq5tlk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B2U23/JVVclJskp+2SNmF66eckU1OWmfZ9sd97xFZTz3rm9z21sc/cT34qp8y9kGn7C05YX4Xe/aGMvXqwGnt//P8Gej3Nm+eg0Mf0k2Dqv+xsF2DordpWXteeOFA1S2BqGCLKe+5yJdRYUe6zhnlWVkxH5ylK6s4YMJEdViyqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P4jWxZUK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tSDD8I9AfGM3XYTNz7OWhWIFvO28uFfcJkp0u4HDanY5NX/VQZRrYdsLTOdgQdz+tC+83uvgunuaoRIRVdK0TFlu6XffFHB1A/ioT3DP71ItxTNKt7UmFrnuBKhf05uP4ye8ADw7dLJjtTLIxG+c2EZilS9whWbttPqWR7w04W4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T4f9uwks; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P4jWxZUK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63B31F000E9;
-	Tue, 14 Jul 2026 13:26:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T4f9uwks"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74AFE1F000E9;
+	Tue, 14 Jul 2026 13:26:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784035615;
-	bh=9AeC2l9rdi22wfrqdqIr4SRij2ysDEINrED4PD8fwUA=;
+	s=k20260515; t=1784035620;
+	bh=PrFDd1nmGNylw05wT6IgACIk9Z/IryVWQZtl7nJOS2o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P4jWxZUKgMBxMHc3/R/lW9i6jOdT8Am230aBI/sH5Yu+FP4jF0YfChgw6k6SLGSr8
-	 AxfsEy0bDUH9W1EpLkOpCgmKmZfw8i8/IOVypwNYZNPm1uGmDahXAbw45C/s+4p40q
-	 T9j2fvoIkCT8dIFxpyOiG2HxjeUGsR0DGC4LBOfp7MD3tIFmMMOLdpW7472R1YzVyM
-	 dkrHdl7ps5Gh6D55jt5iZFn4buESUmVVdbi8zo58CucNMg6d+UBtF4b4hdcT8sBR2O
-	 5R6tVGkrsOdfgziP+gT1nJXMQQtxKbIqqA2ru/BHDidDuJJQf8sFtevMY8FIH8UvLh
-	 am9dwKl3ie0lw==
+	b=T4f9uwksIwzkzwt8D9TjnmaVxjGM+LPNVgaWqtAj7vORIY0kv4cVuK6vKoFSP+j9M
+	 In0hIiBbjYNzxk1ju2axG8xDYTQ1skPaG68SyDJsJHHGCsJYuNByE0C2dHq1aLU9bq
+	 IQL/9pM0BBt754YUvknjElyNWMq9b6a7nLLT5hLcpvN8dyClQMZRdBusXv3OfK0iYw
+	 uaFytF40/OKVdYmSwItzWj+fKRMDyXT0KtzHsksgz1LQkJgvKZkL0tQgHWYNFpttKg
+	 vNFDzQCsk4YNqg3CFOr6R2ma1GL5cHLGpyBksBWTDS/XVTYdYVgV4tv9My4OKiDlVf
+	 efyjQ77x/zeBA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Rajat Jain <rajatja@google.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Kiran K <kiran.k@intel.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/4] Bluetooth: btusb: fix use-after-free on marvell probe failure
-Date: Tue, 14 Jul 2026 09:26:50 -0400
-Message-ID: <20260714132650.2663656-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/5] Bluetooth: btintel: Fix offset calculation boot address parameter
+Date: Tue, 14 Jul 2026 09:26:53 -0400
+Message-ID: <20260714132657.2663805-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714132650.2663656-1-sashal@kernel.org>
-References: <2026071309-contempt-purposely-3c5c@gregkh>
- <20260714132650.2663656-1-sashal@kernel.org>
+In-Reply-To: <2026071341-glamorous-shower-90f7@gregkh>
+References: <2026071341-glamorous-shower-90f7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,59 +45,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Kiran K <kiran.k@intel.com>
 
-[ Upstream commit c5b600a3c05b1a7a110d558df935a8fc8a471c79 ]
+[ Upstream commit d00745da644d42c2f97293eb3fe19cfd5c0b073c ]
 
-Make sure to stop any TX URBs submitted during Marvell OOB wakeup
-configuration on later probe failures to avoid use-after-free in the
-completion callback.
+Boot address parameter was not getting updated properly
+due to wrong offset
 
-This issue was reported by Sashiko while reviewing a fix for a wakeup
-source leak in the btusb probe errors paths.
-
-Link: https://sashiko.dev/#/patchset/20260402092704.2346710-1-johan%40kernel.org
-Fixes: a4ccc9e33d2f ("Bluetooth: btusb: Configure Marvell to use one of the pins for oob wakeup")
-Cc: stable@vger.kernel.org	# 4.11
-Cc: Rajat Jain <rajatja@google.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Kiran K <kiran.k@intel.com>
+Signed-off-by: Marcel Holtmann <marcel@holtmann.org>
+Stable-dep-of: 3d93e1bb0fb8 ("Bluetooth: btusb: fix wakeup source leak on probe failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/bluetooth/btusb.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/bluetooth/btintel.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index 620dc80992b727..6d32e48418da78 100644
---- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -4352,7 +4352,7 @@ static int btusb_probe(struct usb_interface *intf,
- 		err = usb_set_interface(data->udev, 0, 0);
- 		if (err < 0) {
- 			BT_ERR("failed to set interface 0, alt 0 %d", err);
--			goto out_free_dev;
-+			goto err_kill_tx_urbs;
+diff --git a/drivers/bluetooth/btintel.c b/drivers/bluetooth/btintel.c
+index 2538bdee31d8ab..a7efbadc3d146e 100644
+--- a/drivers/bluetooth/btintel.c
++++ b/drivers/bluetooth/btintel.c
+@@ -863,7 +863,8 @@ static int btintel_download_firmware_payload(struct hci_dev *hdev,
+ 			/* The boot parameter is the first 32-bit value
+ 			 * and rest of 3 octets are reserved.
+ 			 */
+-			*boot_param = get_unaligned_le32(fw_ptr + sizeof(*cmd));
++			*boot_param = get_unaligned_le32(fw_ptr + frag_len +
++							 sizeof(*cmd));
+ 
+ 			bt_dev_dbg(hdev, "boot_param=0x%x", *boot_param);
  		}
- 	}
- 
-@@ -4360,7 +4360,7 @@ static int btusb_probe(struct usb_interface *intf,
- 		err = usb_driver_claim_interface(&btusb_driver,
- 						 data->isoc, data);
- 		if (err < 0)
--			goto out_free_dev;
-+			goto err_kill_tx_urbs;
- 	}
- 
- 	if (IS_ENABLED(CONFIG_BT_HCIBTUSB_BCM) && data->diag) {
-@@ -4391,6 +4391,8 @@ static int btusb_probe(struct usb_interface *intf,
- 		usb_set_intfdata(data->isoc, NULL);
- 		usb_driver_release_interface(&btusb_driver, data->isoc);
- 	}
-+err_kill_tx_urbs:
-+	usb_kill_anchored_urbs(&data->tx_anchor);
- out_free_dev:
- 	if (data->reset_gpio)
- 		gpiod_put(data->reset_gpio);
 -- 
 2.53.0
 
