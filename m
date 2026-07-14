@@ -1,44 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0321367B9C
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 23:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3913D366DA3
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 23:54:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784072064; cv=none; b=WKpoGJneYHSBe6/cgHRuPIlVOdj3lIsW5al8aFCUvjK6rB7r+eL+Ww5CNq2JV1WSPeWLrdmnf0QnbutMPIgkJHHv2TpH/Ykf753WqldgTNPmBTem9Qci6+89n5yHAvFTvQpub+PQIiVqQycnkFAhBzCy7rzzfgdRzHUZ5Wd9L1g=
+	t=1784073254; cv=none; b=GrHaw3ootAiujiuST66oFUr+ghsNSRfjlZrjV6XwqKEUZVZjquwlRG3O+xr4tluxjXihZ5fO5Rcr0iR/NDxOqQfv8UBXpZa2qGz4h5OA/6giwN5Dyn5M83T/DhkZa93F7zlSeAwd7K12U8DXX0e4PQrVgRGCtqo4aJwaPkaiioM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784072064; c=relaxed/simple;
-	bh=tmdY44OnQSvNVZN6AZ9sHCZz6pUzi68tLJJP4v4xQ8Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c36cT87YvZ48Yinhw4e92fZ26VXTUrIGbviCTvokMu11vHsB3skIEScT3RKKrC/SDq6QENMeeJvJzYfWbPb7X+hy/XmuudhRnWivT9quGlSurDcuGqw9L7P+8UHPhyfuf24d4GWNdFS4hTpuHXLBnfVygKzTobQ5RvRn6UOJER0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L6CT+Ll8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784073254; c=relaxed/simple;
+	bh=AuZlmqiR8+NPISpjMyL03Y3+6R9Uu6pS6O/DvI2I34E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hpYfVTt5PBdyKF27KjdC5Dyd9606Fn/618af3bz1kl0CyAmnnkeFrsLEVCe2LzelI/unFRikQQDeCO0rU7PLcIdYr8LlV+H+g2lZlVG5jgD44PyDzr2qcAlxn4P6lzU2ic2TQqYxJfqq8yL7N826opfRpsKrkjlTRay0lHwJgGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=tlhg3TXO; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L6CT+Ll8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EA591F00A3D;
-	Tue, 14 Jul 2026 23:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784072062;
-	bh=85k/Qz2G5H/+9FIxQkeebk/3r0tjp3ooIQmVVLYN2yw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L6CT+Ll8fYtbfosUJ1Qt1EWG7GfJ/vrPp9lBXVXzMV0NfWbtvOdC8ED/7BGySaE+9
-	 w1250oWC1ipEQDVRe/9vX9YEEqWh0949V3ikHDo5sUY3UsB8Zp7Eww0x9KuL1yWnnj
-	 e6LSyTnmR9YM9DcYktwDFUUBEh7jT/bgaqDcluPvbqw8RNNq5+rxMjmLsTf0TE+u5V
-	 5G5UO0gBuccwycC4JDuqfxeKFOfxivOnssrlY7N6E4QrNqxMyoOglLgrdKo/z/T2iQ
-	 ZtMYUXRN0TX/dxW1hvw2N0aNFXZChxUWnDK4IORUVj8LyOJ/FrUwdTE6//uEwAHwpd
-	 63tAY/laut/LQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Caleb James DeLisle <cjd@cjdns.fr>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/4] PCI: mediatek: Fix IRQ domain leak when port fails to enable
-Date: Tue, 14 Jul 2026 19:34:17 -0400
-Message-ID: <20260714233418.3592225-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714233418.3592225-1-sashal@kernel.org>
-References: <2026071316-untidy-lily-01f2@gregkh>
- <20260714233418.3592225-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="tlhg3TXO"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cace91f112so43916955ad.0
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:54:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1784073251; x=1784678051; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6qOgI3AhwNY3MyS5Yl8AT4tj9fOaqiCdXwpSFV0QdFk=;
+        b=tlhg3TXONtvK7oGvTT+6+gc5hQQA3faL1//xtfH2o7C142VXPCp/XEePr4U0yGJT5Y
+         Xv71C0Dk7pYeaQL9G7DkOmm6jco/LvENbXhU4gMmLYhGRuhvoxCJvfu4NT6s3UyUcBY0
+         +H02ruSUFLPZs3DdrhWHY0ryvWgsCYnOmvV8otkmuCSRoco4CU+uS3nn8w5PgQMQw+l8
+         tWUAe7rAreBvPSnnWE+/TCbA0Fdvz1c7ycuj7IicFlOaGxj3nVLRaATNTMVrXSODCcNk
+         +tqEKNtMA6ibxfuNi6KwyBqdY392p+np/gnYPRn7cKCjf5Tn0jHdAgbZ2zzD1WrlUl8x
+         8Gfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784073251; x=1784678051;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6qOgI3AhwNY3MyS5Yl8AT4tj9fOaqiCdXwpSFV0QdFk=;
+        b=pbA3TfcIXgI4oj+yG7+77GMqMOzPHvShuI1M8weIcVx/gLnALbn0GCP/UNDYKvjlnW
+         hoyDfdGodJbyFxiJ3S+WTCdud9S5cdZ5PuNsNd6VUgy9OaT3gg6+41DmYFE/owvZQi8N
+         OOPkdH9N9vAe0toAUAE/QZZk/e0gBY2bfrWYyOzyEBi8DYeYA4Zu4EburbH0KSQhBT8G
+         M2hBij4OxScMewpqEco486lQR89uDgXwOu2ITdL4MsgkRjZ6ZdSJ7FPAzEAWD1/xziLp
+         IsGyuNoWnj06hLuDaEIqKoJezxiY3mh1Y622aS2J81hYhGJhmROu1cjcFxO1gbUOtlSk
+         Thrw==
+X-Forwarded-Encrypted: i=1; AHgh+RphgADt8Y46sWE1IvfDXNt/zEwKdlOZq5byCF8xTqsnAtZ9AiseVQqJyeF91njs4g+WjqGF1wY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxg2CygNycjutjwzG2Yd5xfi/qv34e9yXEalawF8Gth+QZMhLYh
+	yagVBmEP2dEfBK7HsGNHZ4dS78MZGQyMgf3lteuGu9kEekiwuqmACmaExiG8rBF7Kw==
+X-Gm-Gg: AfdE7clFfO1MV9ZwTApNLm2UBH9ICGYuyyLYOWM8SP9jgkQ02JIDo09u3W1aoC6936a
+	oOYR3kJn1W3o6EGuqphGsmfctlDmihvVqjZ96dWA5Sagzrt7vaRpGueJ4qOqGITKxADMHMh9lep
+	Del8nNaOtwJb3oV1N3c1RkX1gCAFefcM2Z/BIB4ACUjp0GQ5kgMN2N3IrXR2HoxqUDiV6boiwxP
+	Zs7WNNQ/aSUFwAv61JO8Rxzc6HMj1E9+LaV6WqvGudslOzpiwGZxQyyN3cQ30aWc+izboq+fqUx
+	ByeNhGVFCldBfEImMKSIvdCjkVHH3FBAnXZAnff3bwGE+s91y936jGlMUgmujBspWJP3zcp5EoK
+	8RAE6gdOTil2+I7qrlLni2bWNwaaffBTuplriRLzWUy56CLMKFwnQyZAjy08KtAYc3Znrd4KQCw
+	==
+X-Received: by 2002:a17:903:186:b0:2cb:ea0b:9164 with SMTP id d9443c01a7336-2cf03c7f0f7mr5116715ad.6.1784073251584;
+        Tue, 14 Jul 2026 16:54:11 -0700 (PDT)
+Received: from p1.. ([2607:fb91:1513:463e:34c6:f6a3:8e91:2983])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d3d451sm123236075ad.65.2026.07.14.16.54.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 16:54:11 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: Joanne Koong <joannelkoong@gmail.com>,
+	Bernd Schubert <bernd@bsbernd.com>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>
+Cc: fuse-devel@lists.linux.dev,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Luis Henriques <luis@igalia.com>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	bestswngs@gmail.com,
+	Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH v4 1/3] fuse: whitelist the request headers for usercopy
+Date: Tue, 14 Jul 2026 16:54:06 -0700
+Message-ID: <20260714235408.1666063-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,184 +83,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+The fuse-io-uring transport copies req->in.h out to the ring in
+fuse_uring_copy_to_ring() and req->out.h back in fuse_uring_commit().
+Both headers live inside the fuse_request slab object, whose cache
+(fuse_req_cachep) is created without a usercopy whitelist, so copying
+them directly to/from userspace trips CONFIG_HARDENED_USERCOPY and
+panics:
 
-[ Upstream commit f865a57896bd92d7662eb2818d8f48872e2cbbc7 ]
+  usercopy: Kernel memory exposure attempt detected from SLUB object
+  'fuse_request' (offset 56, size 40)!
+  kernel BUG at mm/usercopy.c:102!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:usercopy_abort (mm/usercopy.c:90)
+  Call Trace:
+   __check_heap_object (mm/slub.c:8268)
+   __check_object_size (mm/usercopy.c:197 mm/usercopy.c:258 mm/usercopy.c:223)
+   copy_header_to_ring (fs/fuse/dev_uring.c:618)
+   fuse_uring_prepare_send (fs/fuse/dev_uring.c:776 fs/fuse/dev_uring.c:785)
+   fuse_uring_send_in_task (fs/fuse/dev_uring.c:1306)
+   tctx_task_work_run (io_uring/tw.c:96)
+   task_work_run (kernel/task_work.c:233)
+   io_run_task_work (io_uring/tw.h:84)
+   io_cqring_wait (io_uring/wait.c:278)
+   __do_sys_io_uring_enter (io_uring/io_uring.c:2685)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
 
-When mtk_pcie_enable_port() fails, mtk_pcie_port_free() removes the port
-from pcie->ports and frees the port structure. However, the IRQ domains set
-up earlier by mtk_pcie_init_irq_domain() are never freed.
+in.h and out.h are adjacent in struct fuse_req, so a single usercopy
+region starting at in.h covers both and nothing else.  Create the cache
+with that region whitelisted.
 
-Fix this by refactoring mtk_pcie_irq_teardown() into a per-port helper,
-mtk_pcie_irq_teardown_port(), and calling it from mtk_pcie_setup() when
-mtk_pcie_enable_port() fails. Since the IRQ teardown must only happen in
-the probe error path (during resume, child devices may have active MSI
-mappings and the NOIRQ context prohibits sleeping locks),
-mtk_pcie_enable_port() is changed to return an error code so callers can
-distinguish the two paths and act accordingly.
-
-This issue was reported by Sashiko while reviewing the EcoNet EN7528 SoC
-support series.
-
-Fixes: b099631df160 ("PCI: mediatek: Add controller support for MT2712 and MT7622")
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
-Cc: stable@vger.kernel.org # 5.10
-Cc: Caleb James DeLisle <cjd@cjdns.fr>
-Link: https://patch.msgid.link/20260521174617.17692-1-mani@kernel.org
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: c090c8abae4b ("fuse: Add io-uring sqe commit and fetch support")
+Cc: stable@vger.kernel.org
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Suggested-by: Baokun Li <libaokun@linux.alibaba.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
 ---
- drivers/pci/controller/pcie-mediatek.c | 67 ++++++++++++++++----------
- drivers/pci/pci.h                      |  3 ++
- 2 files changed, 45 insertions(+), 25 deletions(-)
+v3: no context change; add Bernd's Reviewed-by
+v4: drop previous tags; use kmem_cache_args to reserve usercopy area
 
-diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
-index afda83372beaee..d472e87a5c767c 100644
---- a/drivers/pci/controller/pcie-mediatek.c
-+++ b/drivers/pci/controller/pcie-mediatek.c
-@@ -537,25 +537,29 @@ static void mtk_pcie_enable_msi(struct mtk_pcie_port *port)
- 	writel(val, port->base + PCIE_INT_MASK);
- }
+ fs/fuse/dev.c        | 9 +++++++--
+ fs/fuse/fuse_dev_i.h | 5 +++++
+ 2 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 5763a7cd3b37..b8e43e374b35 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -2404,10 +2404,15 @@ static struct miscdevice fuse_miscdevice = {
  
--static void mtk_pcie_irq_teardown(struct mtk_pcie *pcie)
-+static void mtk_pcie_irq_teardown_port(struct mtk_pcie_port *port)
+ int __init fuse_dev_init(void)
  {
--	struct mtk_pcie_port *port, *tmp;
-+	irq_set_chained_handler_and_data(port->irq, NULL, NULL);
- 
--	list_for_each_entry_safe(port, tmp, &pcie->ports, list) {
--		irq_set_chained_handler_and_data(port->irq, NULL, NULL);
-+	if (port->irq_domain)
-+		irq_domain_remove(port->irq_domain);
- 
--		if (port->irq_domain)
--			irq_domain_remove(port->irq_domain);
-+	if (IS_ENABLED(CONFIG_PCI_MSI)) {
-+		if (port->msi_domain)
-+			irq_domain_remove(port->msi_domain);
-+		if (port->inner_domain)
-+			irq_domain_remove(port->inner_domain);
-+	}
- 
--		if (IS_ENABLED(CONFIG_PCI_MSI)) {
--			if (port->msi_domain)
--				irq_domain_remove(port->msi_domain);
--			if (port->inner_domain)
--				irq_domain_remove(port->inner_domain);
--		}
-+	irq_dispose_mapping(port->irq);
-+}
- 
--		irq_dispose_mapping(port->irq);
--	}
-+static void mtk_pcie_irq_teardown(struct mtk_pcie *pcie)
-+{
-+	struct mtk_pcie_port *port, *tmp;
++	struct kmem_cache_args args = {
++		.useroffset = offsetof(struct fuse_req, in.h),
++		.usersize = sizeof_field(struct fuse_req, in.h) +
++			    sizeof_field(struct fuse_req, out.h),
++	};
+ 	int err = -ENOMEM;
 +
-+	list_for_each_entry_safe(port, tmp, &pcie->ports, list)
-+		mtk_pcie_irq_teardown_port(port);
- }
+ 	fuse_req_cachep = kmem_cache_create("fuse_request",
+-					    sizeof(struct fuse_req),
+-					    0, 0, NULL);
++					    sizeof(struct fuse_req), &args, 0);
+ 	if (!fuse_req_cachep)
+ 		goto out;
  
- static int mtk_pcie_intx_map(struct irq_domain *domain, unsigned int irq,
-@@ -838,7 +842,7 @@ static int mtk_pcie_startup_port(struct mtk_pcie_port *port)
- 	return 0;
- }
+diff --git a/fs/fuse/fuse_dev_i.h b/fs/fuse/fuse_dev_i.h
+index 668c8391d61c..b511aaab6bfc 100644
+--- a/fs/fuse/fuse_dev_i.h
++++ b/fs/fuse/fuse_dev_i.h
+@@ -81,6 +81,11 @@ struct fuse_req {
+ 	/** @flags: Request flags, updated with test/set/clear_bit() */
+ 	unsigned long flags;
  
--static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
-+static int mtk_pcie_enable_port(struct mtk_pcie_port *port)
- {
- 	struct mtk_pcie *pcie = port->pcie;
- 	struct device *dev = pcie->dev;
-@@ -847,7 +851,7 @@ static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
- 	err = clk_prepare_enable(port->sys_ck);
- 	if (err) {
- 		dev_err(dev, "failed to enable sys_ck%d clock\n", port->slot);
--		goto err_sys_clk;
-+		return err;
- 	}
- 
- 	err = clk_prepare_enable(port->ahb_ck);
-@@ -895,11 +899,15 @@ static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
- 		goto err_phy_on;
- 	}
- 
--	if (!pcie->soc->startup(port))
--		return;
-+	err = pcie->soc->startup(port);
-+	if (err) {
-+		dev_info(dev, "Port%d link down\n", port->slot);
-+		goto err_soc_startup;
-+	}
- 
--	dev_info(dev, "Port%d link down\n", port->slot);
-+	return 0;
- 
-+err_soc_startup:
- 	phy_power_off(port->phy);
- err_phy_on:
- 	phy_exit(port->phy);
-@@ -915,8 +923,8 @@ static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
- 	clk_disable_unprepare(port->ahb_ck);
- err_ahb_clk:
- 	clk_disable_unprepare(port->sys_ck);
--err_sys_clk:
--	mtk_pcie_port_free(port);
++	/*
++	 * @in and @out are the usercopy region of this cache (see
++	 * fuse_dev_init()); keep them adjacent.
++	 */
 +
-+	return err;
- }
- 
- static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
-@@ -1084,8 +1092,13 @@ static int mtk_pcie_setup(struct mtk_pcie *pcie)
- 		return err;
- 
- 	/* enable each port, and then check link status */
--	list_for_each_entry_safe(port, tmp, &pcie->ports, list)
--		mtk_pcie_enable_port(port);
-+	list_for_each_entry_safe(port, tmp, &pcie->ports, list) {
-+		err = mtk_pcie_enable_port(port);
-+		if (err) {
-+			mtk_pcie_irq_teardown_port(port);
-+			mtk_pcie_port_free(port);
-+		}
-+	}
- 
- 	/* power down PCIe subsys if slots are all empty (link down) */
- 	if (list_empty(&pcie->ports))
-@@ -1189,14 +1202,18 @@ static int mtk_pcie_resume_noirq(struct device *dev)
- {
- 	struct mtk_pcie *pcie = dev_get_drvdata(dev);
- 	struct mtk_pcie_port *port, *tmp;
-+	int err;
- 
- 	if (list_empty(&pcie->ports))
- 		return 0;
- 
- 	clk_prepare_enable(pcie->free_ck);
- 
--	list_for_each_entry_safe(port, tmp, &pcie->ports, list)
--		mtk_pcie_enable_port(port);
-+	list_for_each_entry_safe(port, tmp, &pcie->ports, list) {
-+		err = mtk_pcie_enable_port(port);
-+		if (err)
-+			mtk_pcie_port_free(port);
-+	}
- 
- 	/* In case of EP was removed while system suspend. */
- 	if (list_empty(&pcie->ports))
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 8b177931cf21ef..214a0af8b14f64 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -14,6 +14,9 @@
- #define PCI_EXP_AER_FLAGS	(PCI_EXP_DEVCTL_CERE | PCI_EXP_DEVCTL_NFERE | \
- 				 PCI_EXP_DEVCTL_FERE | PCI_EXP_DEVCTL_URRE)
- 
-+/* Power stable to PERST# inactive from PCIe card Electromechanical Spec */
-+#define PCIE_T_PVPERL_MS		100
-+
- /*
-  * PCIe r6.0, sec 5.3.3.2.1 <PME Synchronization>
-  * Recommends 1ms to 10ms timeout to check L2 ready.
+ 	/** @in: The request input header */
+ 	struct {
+ 		/** @in.h: The request input header */
 -- 
-2.53.0
+2.43.0
 
