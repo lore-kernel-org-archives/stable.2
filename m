@@ -1,636 +1,299 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F9741D657
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7F441D65B
 	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784059376; cv=none; b=JpauSMeiW/ADNyF5QndGCwYyNQU7OHwYl1ZpTWBQKqbJUsIAAHnByyaoV5SODbj6Zvyh44AhjTL8XTm2exdRrX9jo7NmmweW5d9TR9iHs9B8LoAjzRjqEeLDG46GChYT8/Nq2jsY4UWCHq0OsvKgTeVh2VdCKtHxyP61o8AdUjk=
+	t=1784059376; cv=none; b=jQnTjfzguLADYq9Ovwqp6fzO5XV8h7eIofeEkHRFyamEa+rkFxMXDRtp2/48lCQj+390XxALb6wm0YaRbxdYwl9r7be5G8lwb9x8LEeyeHLJwuJx3mKhXxj0xzhdQ9ggMZZ9pOzQGXWt93zrVnvJZ/4xOi9Fhw/F/5TlO3uZkxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784059376; c=relaxed/simple;
-	bh=WDEyEBr+uokZnqbXdD2MEzw+RvIr2+fhMTeoTGp74dM=;
+	bh=HTXPe6lewbMpP4x2Nk12Te7o/kOuFCTYHN3WcYNab48=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=upFwFY3zX2w/3KByfBN5fGNZDhEoC1+a+uiZoHRcFIlmrmXx1eQoZ4jk6pAzNcQCeYwDlFIW7ss1iJoE+npH7SO0HBAz5BfserFi3KgbJLBv0k9lnp/ocLV/b6k9M9srVA8Sa2TONbtBpFoMY5FQ7U0jzEMlc68J0INmFmBlR7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oO2qnuvX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EkyYBgbINvePqXF+UrI0tb7mh2xoJb61nXnRA252lLUMbkDFajMK5R9WuwUXH1oMul0AMD33bYkA7TT2/Bw3TqPix1iAcA3oYftstTla7g1v7koOeKLCBY6Z6uj4+pMJzGRM1GE/CfB8tpWzmJGvgBGfKrFCr3k8rk/qleGpC4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LXBRcqHF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oO2qnuvX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66B831F00ADB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LXBRcqHF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4B0C1F00ACF;
 	Tue, 14 Jul 2026 20:02:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784059364;
-	bh=AE9tWDO/Oa6J4pS2GgSgbvIiqVKAxrk2Uvb592+jDgE=;
+	bh=r5Osa4PnVV8av07qwTenvzT+YFpEFRjQkEmU2Aski3s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oO2qnuvXwjSS8uQegxFl1PrTifGe4I2MRgv24ksZhjeLgn5e62izhiXJcZOKA7PJO
-	 /uRa2gSTPDCaP2BkS8Ywy01hIYZOr6iin+S3CpYPwDWnTV5aUahKvJKwHxYJ17FeDu
-	 d+ZdOSOi15PDO0AohW6Tn6Q7PKSwKXQ4Q/4os5B/ZgmGl1wS7uHxFQA2D/d0gUyZyC
-	 Wo5tO3d0JTqV7Dkd/Ed7NlJm/TpDt4Z0gcIY5INUbCmm8pcyj8F0T3co3z4dkUA1dy
-	 vIt6Bb/3PrMCqS2gDQkT5oiApVuIcSf15234mqcOZAaE8jHnKy3asrxLrgAhmN/Z1l
-	 5D4zNyTgMeZzg==
+	b=LXBRcqHFVVgb8pqPAs4thbda3pF/v7SVjK4GnsgE9wkvXNoFdazprj0VvicQD//xB
+	 PlUrbLW1NzBA5olP+m/6i3giKfYFZHMVIJP1YWq5iH1G27FozChkXLUFBNJhxfbFsr
+	 sbL0hAngBisdxw5j8Fy43xTokkL/vHAK0boptS7mJEPeue1UmdenOvfA0kJd0XYUwR
+	 hgoNUpYqFGewdXrZu0ox98+aBcqYy0oyJ3CayQUNpmnLacM5+BZ6gWOi+7rrrwsfe0
+	 jv0jQC9lpa1S+uZ8Ob8T1X1gd6JBt35FHtNHZwcEo1sIK3wZM/4LRwFHzwBS+8MWY1
+	 tDmk+GbbZjIBw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: Franziska Naepelt <franziska.naepelt@googlemail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 7/8] PCI: Move Resizable BAR code to rebar.c
-Date: Tue, 14 Jul 2026 16:02:35 -0400
-Message-ID: <20260714200236.3153778-7-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/3] staging: rtl8723bs: Fix space issues
+Date: Tue, 14 Jul 2026 16:02:40 -0400
+Message-ID: <20260714200241.3154071-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714200236.3153778-1-sashal@kernel.org>
-References: <2026071350-unfold-lather-d66a@gregkh>
- <20260714200236.3153778-1-sashal@kernel.org>
+In-Reply-To: <20260714200241.3154071-1-sashal@kernel.org>
+References: <2026071335-fool-faction-0f5b@gregkh>
+ <20260714200241.3154071-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+From: Franziska Naepelt <franziska.naepelt@googlemail.com>
 
-[ Upstream commit 9f71938cd77f32a448f40a288e409eca60e55486 ]
+[ Upstream commit c4b811b9361b0d7ea167a79587f5ec0a13fd8863 ]
 
-For lack of a better place to put it, Resizable BAR code has been placed
-inside pci.c and setup-res.c that do not use it for anything.  Upcoming
-changes are going to add more Resizable BAR related functions, increasing
-the code size.
+Fix the following checkpatch space issues:
+- CHECK: spaces preferred around that '*' (ctx:VxV)
+- CHECK: spaces preferred around that '+' (ctx:VxV)
+- CHECK: spaces preferred around that '-' (ctx:VxV)
+- CHECK: spaces preferred around that '|' (ctx:VxV)
+- CHECK: No space is necessary after a cast
+- WARNING: please, no spaces at the start of a line
 
-As pci.c is huge as is, move the Resizable BAR related code and the BAR
-resize code from setup-res.c to rebar.c.
-
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Link: https://patch.msgid.link/20251113180053.27944-2-ilpo.jarvinen@linux.intel.com
-Stable-dep-of: ee7471fe968d ("PCI: Skip Resizable BAR restore on read error")
+Signed-off-by: Franziska Naepelt <franziska.naepelt@googlemail.com>
+Link: https://lore.kernel.org/r/20230701102538.5359-1-franziska.naepelt@googlemail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 5a752a616e75 ("staging: rtl8723bs: fix heap buffer overflow in rtw_cfg80211_set_wpa_ie()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/driver-api/pci/pci.rst |   3 +
- drivers/pci/Makefile                 |   2 +-
- drivers/pci/pci.c                    | 149 ----------------
- drivers/pci/pci.h                    |   1 +
- drivers/pci/rebar.c                  | 247 +++++++++++++++++++++++++++
- drivers/pci/setup-res.c              |  85 ---------
- 6 files changed, 252 insertions(+), 235 deletions(-)
- create mode 100644 drivers/pci/rebar.c
+ .../staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 76 +++++++++----------
+ 1 file changed, 38 insertions(+), 38 deletions(-)
 
-diff --git a/Documentation/driver-api/pci/pci.rst b/Documentation/driver-api/pci/pci.rst
-index 59d86e8271986a..99a1bbaaec5d07 100644
---- a/Documentation/driver-api/pci/pci.rst
-+++ b/Documentation/driver-api/pci/pci.rst
-@@ -37,6 +37,9 @@ PCI Support Library
- .. kernel-doc:: drivers/pci/slot.c
-    :export:
+diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+index 5bef829780c1b1..faceb6e592f030 100644
+--- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
++++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+@@ -95,14 +95,14 @@ static struct ieee80211_channel rtw_2ghz_channels[] = {
+ static void rtw_2g_channels_init(struct ieee80211_channel *channels)
+ {
+ 	memcpy((void *)channels, (void *)rtw_2ghz_channels,
+-		sizeof(struct ieee80211_channel)*RTW_2G_CHANNELS_NUM
++		sizeof(struct ieee80211_channel) * RTW_2G_CHANNELS_NUM
+ 	);
+ }
  
-+.. kernel-doc:: drivers/pci/rebar.c
-+   :export:
-+
- .. kernel-doc:: drivers/pci/rom.c
-    :export:
+ static void rtw_2g_rates_init(struct ieee80211_rate *rates)
+ {
+ 	memcpy(rates, rtw_g_rates,
+-		sizeof(struct ieee80211_rate)*RTW_G_RATES_NUM
++		sizeof(struct ieee80211_rate) * RTW_G_RATES_NUM
+ 	);
+ }
  
-diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
-index 67647f1880fb8f..f3c81c892786ec 100644
---- a/drivers/pci/Makefile
-+++ b/drivers/pci/Makefile
-@@ -4,7 +4,7 @@
+@@ -126,8 +126,8 @@ static struct ieee80211_supported_band *rtw_spt_band_alloc(
+ 	if (!spt_band)
+ 		goto exit;
  
- obj-$(CONFIG_PCI)		+= access.o bus.o probe.o host-bridge.o \
- 				   remove.o pci.o pci-driver.o search.o \
--				   rom.o setup-res.o irq.o vpd.o \
-+				   rebar.o rom.o setup-res.o irq.o vpd.o \
- 				   setup-bus.o vc.o mmap.o devres.o
+-	spt_band->channels = (struct ieee80211_channel *)(((u8 *)spt_band)+sizeof(struct ieee80211_supported_band));
+-	spt_band->bitrates = (struct ieee80211_rate *)(((u8 *)spt_band->channels)+sizeof(struct ieee80211_channel)*n_channels);
++	spt_band->channels = (struct ieee80211_channel *)(((u8 *)spt_band) + sizeof(struct ieee80211_supported_band));
++	spt_band->bitrates = (struct ieee80211_rate *)(((u8 *)spt_band->channels) + sizeof(struct ieee80211_channel) * n_channels);
+ 	spt_band->band = band;
+ 	spt_band->n_channels = n_channels;
+ 	spt_band->n_bitrates = n_bitrates;
+@@ -247,10 +247,10 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
+ 		u32 wpsielen = 0;
+ 		u8 *wpsie = NULL;
  
- obj-$(CONFIG_PCI)		+= msi/
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index b161d0560bad1f..0c4f20de1a86f1 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -1826,32 +1826,6 @@ static void pci_restore_config_space(struct pci_dev *pdev)
+-		wpsie = rtw_get_wps_ie(pnetwork->network.ies+_FIXED_IE_LENGTH_, pnetwork->network.ie_length-_FIXED_IE_LENGTH_, NULL, &wpsielen);
++		wpsie = rtw_get_wps_ie(pnetwork->network.ies + _FIXED_IE_LENGTH_, pnetwork->network.ie_length - _FIXED_IE_LENGTH_, NULL, &wpsielen);
+ 
+ 		if (wpsie && wpsielen > 0)
+-			psr = rtw_get_wps_attr_content(wpsie,  wpsielen, WPS_ATTR_SELECTED_REGISTRAR, (u8 *)(&sr), NULL);
++			psr = rtw_get_wps_attr_content(wpsie, wpsielen, WPS_ATTR_SELECTED_REGISTRAR, (u8 *)(&sr), NULL);
+ 
+ 		if (sr != 0) {
+ 			/* it means under processing WPS */
+@@ -277,9 +277,9 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
+ 	/* We've set wiphy's signal_type as CFG80211_SIGNAL_TYPE_MBM: signal strength in mBm (100*dBm) */
+ 	if (check_fwstate(pmlmepriv, _FW_LINKED) == true &&
+ 		is_same_network(&pmlmepriv->cur_network.network, &pnetwork->network, 0)) {
+-		notify_signal = 100*translate_percentage_to_dbm(padapter->recvpriv.signal_strength);/* dbm */
++		notify_signal = 100 * translate_percentage_to_dbm(padapter->recvpriv.signal_strength);/* dbm */
+ 	} else {
+-		notify_signal = 100*translate_percentage_to_dbm(pnetwork->network.phy_info.signal_strength);/* dbm */
++		notify_signal = 100 * translate_percentage_to_dbm(pnetwork->network.phy_info.signal_strength);/* dbm */
+ 	}
+ 
+ 	buf = kzalloc(MAX_BSSINFO_LEN, GFP_ATOMIC);
+@@ -453,20 +453,20 @@ void rtw_cfg80211_indicate_connect(struct adapter *padapter)
+ 		roam_info.links[0].channel = notify_channel;
+ 		roam_info.links[0].bssid = cur_network->network.mac_address;
+ 		roam_info.req_ie =
+-			pmlmepriv->assoc_req+sizeof(struct ieee80211_hdr_3addr)+2;
++			pmlmepriv->assoc_req + sizeof(struct ieee80211_hdr_3addr) + 2;
+ 		roam_info.req_ie_len =
+-			pmlmepriv->assoc_req_len-sizeof(struct ieee80211_hdr_3addr)-2;
++			pmlmepriv->assoc_req_len - sizeof(struct ieee80211_hdr_3addr) - 2;
+ 		roam_info.resp_ie =
+-			pmlmepriv->assoc_rsp+sizeof(struct ieee80211_hdr_3addr)+6;
++			pmlmepriv->assoc_rsp + sizeof(struct ieee80211_hdr_3addr) + 6;
+ 		roam_info.resp_ie_len =
+-			pmlmepriv->assoc_rsp_len-sizeof(struct ieee80211_hdr_3addr)-6;
++			pmlmepriv->assoc_rsp_len - sizeof(struct ieee80211_hdr_3addr) - 6;
+ 		cfg80211_roamed(padapter->pnetdev, &roam_info, GFP_ATOMIC);
+ 	} else {
+ 		cfg80211_connect_result(padapter->pnetdev, cur_network->network.mac_address
+-			, pmlmepriv->assoc_req+sizeof(struct ieee80211_hdr_3addr)+2
+-			, pmlmepriv->assoc_req_len-sizeof(struct ieee80211_hdr_3addr)-2
+-			, pmlmepriv->assoc_rsp+sizeof(struct ieee80211_hdr_3addr)+6
+-			, pmlmepriv->assoc_rsp_len-sizeof(struct ieee80211_hdr_3addr)-6
++			, pmlmepriv->assoc_req + sizeof(struct ieee80211_hdr_3addr) + 2
++			, pmlmepriv->assoc_req_len - sizeof(struct ieee80211_hdr_3addr) - 2
++			, pmlmepriv->assoc_rsp + sizeof(struct ieee80211_hdr_3addr) + 6
++			, pmlmepriv->assoc_rsp_len - sizeof(struct ieee80211_hdr_3addr) - 6
+ 			, WLAN_STATUS_SUCCESS, GFP_ATOMIC);
  	}
  }
+@@ -721,7 +721,7 @@ static int rtw_cfg80211_set_encryption(struct net_device *dev, struct ieee_param
+ 	param->u.crypt.err = 0;
+ 	param->u.crypt.alg[IEEE_CRYPT_ALG_NAME_LEN - 1] = '\0';
  
--static void pci_restore_rebar_state(struct pci_dev *pdev)
--{
--	unsigned int pos, nbars, i;
--	u32 ctrl;
--
--	pos = pdev->rebar_cap;
--	if (!pos)
--		return;
--
--	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
--	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
--
--	for (i = 0; i < nbars; i++, pos += 8) {
--		struct resource *res;
--		int bar_idx, size;
--
--		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
--		bar_idx = ctrl & PCI_REBAR_CTRL_BAR_IDX;
--		res = pci_resource_n(pdev, bar_idx);
--		size = pci_rebar_bytes_to_size(resource_size(res));
--		ctrl &= ~PCI_REBAR_CTRL_BAR_SIZE;
--		ctrl |= FIELD_PREP(PCI_REBAR_CTRL_BAR_SIZE, size);
--		pci_write_config_dword(pdev, pos + PCI_REBAR_CTRL, ctrl);
--	}
--}
--
- /**
-  * pci_restore_state - Restore the saved state of a PCI device
-  * @dev: PCI device that we're dealing with
-@@ -3684,129 +3658,6 @@ void pci_acs_init(struct pci_dev *dev)
- 	dev->acs_cap = pci_find_ext_capability(dev, PCI_EXT_CAP_ID_ACS);
- }
+-	if (param_len < (u32) ((u8 *) param->u.crypt.key - (u8 *) param) + param->u.crypt.key_len) {
++	if (param_len < (u32)((u8 *)param->u.crypt.key - (u8 *)param) + param->u.crypt.key_len) {
+ 		ret =  -EINVAL;
+ 		goto exit;
+ 	}
+@@ -1036,10 +1036,10 @@ static int cfg80211_rtw_get_station(struct wiphy *wiphy,
+ 	}
  
--void pci_rebar_init(struct pci_dev *pdev)
--{
--	pdev->rebar_cap = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_REBAR);
--}
--
--/**
-- * pci_rebar_find_pos - find position of resize ctrl reg for BAR
-- * @pdev: PCI device
-- * @bar: BAR to find
-- *
-- * Helper to find the position of the ctrl register for a BAR.
-- * Returns -ENOTSUPP if resizable BARs are not supported at all.
-- * Returns -ENOENT if no ctrl register for the BAR could be found.
-- */
--static int pci_rebar_find_pos(struct pci_dev *pdev, int bar)
--{
--	unsigned int pos, nbars, i;
--	u32 ctrl;
--
--	if (pci_resource_is_iov(bar)) {
--		pos = pci_iov_vf_rebar_cap(pdev);
--		bar = pci_resource_num_to_vf_bar(bar);
--	} else {
--		pos = pdev->rebar_cap;
--	}
--
--	if (!pos)
--		return -ENOTSUPP;
--
--	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
--	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
--
--	for (i = 0; i < nbars; i++, pos += 8) {
--		int bar_idx;
--
--		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
--		bar_idx = FIELD_GET(PCI_REBAR_CTRL_BAR_IDX, ctrl);
--		if (bar_idx == bar)
--			return pos;
--	}
--
--	return -ENOENT;
--}
--
--/**
-- * pci_rebar_get_possible_sizes - get possible sizes for BAR
-- * @pdev: PCI device
-- * @bar: BAR to query
-- *
-- * Get the possible sizes of a resizable BAR as bitmask defined in the spec
-- * (bit 0=1MB, bit 31=128TB). Returns 0 if BAR isn't resizable.
-- */
--u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
--{
--	int pos;
--	u32 cap;
--
--	pos = pci_rebar_find_pos(pdev, bar);
--	if (pos < 0)
--		return 0;
--
--	pci_read_config_dword(pdev, pos + PCI_REBAR_CAP, &cap);
--	cap = FIELD_GET(PCI_REBAR_CAP_SIZES, cap);
--
--	/* Sapphire RX 5600 XT Pulse has an invalid cap dword for BAR 0 */
--	if (pdev->vendor == PCI_VENDOR_ID_ATI && pdev->device == 0x731f &&
--	    bar == 0 && cap == 0x700)
--		return 0x3f00;
--
--	return cap;
--}
--EXPORT_SYMBOL(pci_rebar_get_possible_sizes);
--
--/**
-- * pci_rebar_get_current_size - get the current size of a BAR
-- * @pdev: PCI device
-- * @bar: BAR to set size to
-- *
-- * Read the size of a BAR from the resizable BAR config.
-- * Returns size if found or negative error code.
-- */
--int pci_rebar_get_current_size(struct pci_dev *pdev, int bar)
--{
--	int pos;
--	u32 ctrl;
--
--	pos = pci_rebar_find_pos(pdev, bar);
--	if (pos < 0)
--		return pos;
--
--	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
--	return FIELD_GET(PCI_REBAR_CTRL_BAR_SIZE, ctrl);
--}
--
--/**
-- * pci_rebar_set_size - set a new size for a BAR
-- * @pdev: PCI device
-- * @bar: BAR to set size to
-- * @size: new size as defined in the spec (0=1MB, 31=128TB)
-- *
-- * Set the new size of a BAR as defined in the spec.
-- * Returns zero if resizing was successful, error code otherwise.
-- */
--int pci_rebar_set_size(struct pci_dev *pdev, int bar, int size)
--{
--	int pos;
--	u32 ctrl;
--
--	pos = pci_rebar_find_pos(pdev, bar);
--	if (pos < 0)
--		return pos;
--
--	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
--	ctrl &= ~PCI_REBAR_CTRL_BAR_SIZE;
--	ctrl |= FIELD_PREP(PCI_REBAR_CTRL_BAR_SIZE, size);
--	pci_write_config_dword(pdev, pos + PCI_REBAR_CTRL, ctrl);
--
--	if (pci_resource_is_iov(bar))
--		pci_iov_resource_set_size(pdev, bar, size);
--
--	return 0;
--}
--
- /**
-  * pci_enable_atomic_ops_to_root - enable AtomicOp requests to root port
-  * @dev: the PCI device
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 5336a4b5b45676..8acded5921509f 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1042,6 +1042,7 @@ static inline int acpi_get_rc_resources(struct device *dev, const char *hid,
- #endif
+ 	/* for Ad-Hoc/AP mode */
+-	if ((check_fwstate(pmlmepriv, WIFI_ADHOC_STATE)
+- || check_fwstate(pmlmepriv, WIFI_ADHOC_MASTER_STATE)
+- || check_fwstate(pmlmepriv, WIFI_AP_STATE))
+-		&& check_fwstate(pmlmepriv, _FW_LINKED)) {
++	if ((check_fwstate(pmlmepriv, WIFI_ADHOC_STATE) ||
++	     check_fwstate(pmlmepriv, WIFI_ADHOC_MASTER_STATE) ||
++	     check_fwstate(pmlmepriv, WIFI_AP_STATE)) &&
++	    check_fwstate(pmlmepriv, _FW_LINKED)) {
+ 		/* TODO: should acquire station info... */
+ 	}
  
- void pci_rebar_init(struct pci_dev *pdev);
-+void pci_restore_rebar_state(struct pci_dev *pdev);
- int pci_rebar_get_current_size(struct pci_dev *pdev, int bar);
- int pci_rebar_set_size(struct pci_dev *pdev, int bar, int size);
- static inline u64 pci_rebar_size_to_bytes(int size)
-diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
-new file mode 100644
-index 00000000000000..f6ed7e4893a773
---- /dev/null
-+++ b/drivers/pci/rebar.c
-@@ -0,0 +1,247 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * PCI Resizable BAR Extended Capability handling.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/errno.h>
-+#include <linux/export.h>
-+#include <linux/ioport.h>
-+#include <linux/pci.h>
-+#include <linux/types.h>
-+
-+#include "pci.h"
-+
-+void pci_rebar_init(struct pci_dev *pdev)
-+{
-+	pdev->rebar_cap = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_REBAR);
-+}
-+
-+/**
-+ * pci_rebar_find_pos - find position of resize ctrl reg for BAR
-+ * @pdev: PCI device
-+ * @bar: BAR to find
-+ *
-+ * Helper to find the position of the ctrl register for a BAR.
-+ * Returns -ENOTSUPP if resizable BARs are not supported at all.
-+ * Returns -ENOENT if no ctrl register for the BAR could be found.
-+ */
-+static int pci_rebar_find_pos(struct pci_dev *pdev, int bar)
-+{
-+	unsigned int pos, nbars, i;
-+	u32 ctrl;
-+
-+	if (pci_resource_is_iov(bar)) {
-+		pos = pci_iov_vf_rebar_cap(pdev);
-+		bar = pci_resource_num_to_vf_bar(bar);
-+	} else {
-+		pos = pdev->rebar_cap;
-+	}
-+
-+	if (!pos)
-+		return -ENOTSUPP;
-+
-+	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
-+
-+	for (i = 0; i < nbars; i++, pos += 8) {
-+		int bar_idx;
-+
-+		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+		bar_idx = FIELD_GET(PCI_REBAR_CTRL_BAR_IDX, ctrl);
-+		if (bar_idx == bar)
-+			return pos;
-+	}
-+
-+	return -ENOENT;
-+}
-+
-+/**
-+ * pci_rebar_get_possible_sizes - get possible sizes for BAR
-+ * @pdev: PCI device
-+ * @bar: BAR to query
-+ *
-+ * Get the possible sizes of a resizable BAR as bitmask defined in the spec
-+ * (bit 0=1MB, bit 31=128TB). Returns 0 if BAR isn't resizable.
-+ */
-+u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
-+{
-+	int pos;
-+	u32 cap;
-+
-+	pos = pci_rebar_find_pos(pdev, bar);
-+	if (pos < 0)
-+		return 0;
-+
-+	pci_read_config_dword(pdev, pos + PCI_REBAR_CAP, &cap);
-+	cap = FIELD_GET(PCI_REBAR_CAP_SIZES, cap);
-+
-+	/* Sapphire RX 5600 XT Pulse has an invalid cap dword for BAR 0 */
-+	if (pdev->vendor == PCI_VENDOR_ID_ATI && pdev->device == 0x731f &&
-+	    bar == 0 && cap == 0x700)
-+		return 0x3f00;
-+
-+	return cap;
-+}
-+EXPORT_SYMBOL(pci_rebar_get_possible_sizes);
-+
-+/**
-+ * pci_rebar_get_current_size - get the current size of a BAR
-+ * @pdev: PCI device
-+ * @bar: BAR to set size to
-+ *
-+ * Read the size of a BAR from the resizable BAR config.
-+ * Returns size if found or negative error code.
-+ */
-+int pci_rebar_get_current_size(struct pci_dev *pdev, int bar)
-+{
-+	int pos;
-+	u32 ctrl;
-+
-+	pos = pci_rebar_find_pos(pdev, bar);
-+	if (pos < 0)
-+		return pos;
-+
-+	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+	return FIELD_GET(PCI_REBAR_CTRL_BAR_SIZE, ctrl);
-+}
-+
-+/**
-+ * pci_rebar_set_size - set a new size for a BAR
-+ * @pdev: PCI device
-+ * @bar: BAR to set size to
-+ * @size: new size as defined in the spec (0=1MB, 31=128TB)
-+ *
-+ * Set the new size of a BAR as defined in the spec.
-+ * Returns zero if resizing was successful, error code otherwise.
-+ */
-+int pci_rebar_set_size(struct pci_dev *pdev, int bar, int size)
-+{
-+	int pos;
-+	u32 ctrl;
-+
-+	pos = pci_rebar_find_pos(pdev, bar);
-+	if (pos < 0)
-+		return pos;
-+
-+	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+	ctrl &= ~PCI_REBAR_CTRL_BAR_SIZE;
-+	ctrl |= FIELD_PREP(PCI_REBAR_CTRL_BAR_SIZE, size);
-+	pci_write_config_dword(pdev, pos + PCI_REBAR_CTRL, ctrl);
-+
-+	if (pci_resource_is_iov(bar))
-+		pci_iov_resource_set_size(pdev, bar, size);
-+
-+	return 0;
-+}
-+
-+void pci_restore_rebar_state(struct pci_dev *pdev)
-+{
-+	unsigned int pos, nbars, i;
-+	u32 ctrl;
-+
-+	pos = pdev->rebar_cap;
-+	if (!pos)
-+		return;
-+
-+	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
-+
-+	for (i = 0; i < nbars; i++, pos += 8) {
-+		struct resource *res;
-+		int bar_idx, size;
-+
-+		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+		bar_idx = ctrl & PCI_REBAR_CTRL_BAR_IDX;
-+		res = pci_resource_n(pdev, bar_idx);
-+		size = pci_rebar_bytes_to_size(resource_size(res));
-+		ctrl &= ~PCI_REBAR_CTRL_BAR_SIZE;
-+		ctrl |= FIELD_PREP(PCI_REBAR_CTRL_BAR_SIZE, size);
-+		pci_write_config_dword(pdev, pos + PCI_REBAR_CTRL, ctrl);
-+	}
-+}
-+
-+static bool pci_resize_is_memory_decoding_enabled(struct pci_dev *dev,
-+						  int resno)
-+{
-+	u16 cmd;
-+
-+	if (pci_resource_is_iov(resno))
-+		return pci_iov_is_memory_decoding_enabled(dev);
-+
-+	pci_read_config_word(dev, PCI_COMMAND, &cmd);
-+
-+	return cmd & PCI_COMMAND_MEMORY;
-+}
-+
-+void pci_resize_resource_set_size(struct pci_dev *dev, int resno, int size)
-+{
-+	resource_size_t res_size = pci_rebar_size_to_bytes(size);
-+	struct resource *res = pci_resource_n(dev, resno);
-+
-+	if (pci_resource_is_iov(resno))
-+		res_size *= pci_sriov_get_totalvfs(dev);
-+
-+	resource_set_size(res, res_size);
-+}
-+
-+/**
-+ * pci_resize_resource - reconfigure a Resizable BAR and resources
-+ * @dev: the PCI device
-+ * @resno: index of the BAR to be resized
-+ * @size: new size as defined in the spec (0=1MB, 31=128TB)
-+ * @exclude_bars: a mask of BARs that should not be released
-+ *
-+ * Reconfigure @resno to @size and re-run resource assignment algorithm
-+ * with the new size.
-+ *
-+ * Prior to resize, release @dev resources that share a bridge window with
-+ * @resno.  This unpins the bridge window resource to allow changing it.
-+ *
-+ * The caller may prevent releasing a particular BAR by providing
-+ * @exclude_bars mask, but this may result in the resize operation failing
-+ * due to insufficient space.
-+ *
-+ * Return: 0 on success, or negative on error. In case of an error, the
-+ *         resources are restored to their original places.
-+ */
-+int pci_resize_resource(struct pci_dev *dev, int resno, int size,
-+			int exclude_bars)
-+{
-+	struct pci_host_bridge *host;
-+	int old, ret;
-+	u32 sizes;
-+
-+	/* Check if we must preserve the firmware's resource assignment */
-+	host = pci_find_host_bridge(dev->bus);
-+	if (host->preserve_config)
-+		return -ENOTSUPP;
-+
-+	if (pci_resize_is_memory_decoding_enabled(dev, resno))
-+		return -EBUSY;
-+
-+	sizes = pci_rebar_get_possible_sizes(dev, resno);
-+	if (!sizes)
-+		return -ENOTSUPP;
-+
-+	if (!(sizes & BIT(size)))
-+		return -EINVAL;
-+
-+	old = pci_rebar_get_current_size(dev, resno);
-+	if (old < 0)
-+		return old;
-+
-+	ret = pci_rebar_set_size(dev, resno, size);
-+	if (ret)
-+		return ret;
-+
-+	ret = pci_do_resource_release_and_resize(dev, resno, size, exclude_bars);
-+	if (ret)
-+		goto error_resize;
-+	return 0;
-+
-+error_resize:
-+	pci_rebar_set_size(dev, resno, old);
-+	return ret;
-+}
-+EXPORT_SYMBOL(pci_resize_resource);
-diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
-index 92a5af115cd63f..1769ba960197eb 100644
---- a/drivers/pci/setup-res.c
-+++ b/drivers/pci/setup-res.c
-@@ -433,91 +433,6 @@ int pci_release_resource(struct pci_dev *dev, int resno)
- }
- EXPORT_SYMBOL(pci_release_resource);
+@@ -1238,7 +1238,7 @@ static int cfg80211_rtw_scan(struct wiphy *wiphy
+ 	spin_unlock_bh(&pwdev_priv->scan_req_lock);
  
--static bool pci_resize_is_memory_decoding_enabled(struct pci_dev *dev,
--						  int resno)
--{
--	u16 cmd;
--
--	if (pci_resource_is_iov(resno))
--		return pci_iov_is_memory_decoding_enabled(dev);
--
--	pci_read_config_word(dev, PCI_COMMAND, &cmd);
--
--	return cmd & PCI_COMMAND_MEMORY;
--}
--
--void pci_resize_resource_set_size(struct pci_dev *dev, int resno, int size)
--{
--	resource_size_t res_size = pci_rebar_size_to_bytes(size);
--	struct resource *res = pci_resource_n(dev, resno);
--
--	if (pci_resource_is_iov(resno))
--		res_size *= pci_sriov_get_totalvfs(dev);
--
--	resource_set_size(res, res_size);
--}
--
--/**
-- * pci_resize_resource - reconfigure a Resizable BAR and resources
-- * @dev: the PCI device
-- * @resno: index of the BAR to be resized
-- * @size: new size as defined in the spec (0=1MB, 31=128TB)
-- * @exclude_bars: a mask of BARs that should not be released
-- *
-- * Reconfigure @resno to @size and re-run resource assignment algorithm
-- * with the new size.
-- *
-- * Prior to resize, release @dev resources that share a bridge window with
-- * @resno.  This unpins the bridge window resource to allow changing it.
-- *
-- * The caller may prevent releasing a particular BAR by providing
-- * @exclude_bars mask, but this may result in the resize operation failing
-- * due to insufficient space.
-- *
-- * Return: 0 on success, or negative on error. In case of an error, the
-- *         resources are restored to their original places.
-- */
--int pci_resize_resource(struct pci_dev *dev, int resno, int size,
--			int exclude_bars)
--{
--	struct pci_host_bridge *host;
--	int old, ret;
--	u32 sizes;
--
--	/* Check if we must preserve the firmware's resource assignment */
--	host = pci_find_host_bridge(dev->bus);
--	if (host->preserve_config)
--		return -ENOTSUPP;
--
--	if (pci_resize_is_memory_decoding_enabled(dev, resno))
--		return -EBUSY;
--
--	sizes = pci_rebar_get_possible_sizes(dev, resno);
--	if (!sizes)
--		return -ENOTSUPP;
--
--	if (!(sizes & BIT(size)))
--		return -EINVAL;
--
--	old = pci_rebar_get_current_size(dev, resno);
--	if (old < 0)
--		return old;
--
--	ret = pci_rebar_set_size(dev, resno, size);
--	if (ret)
--		return ret;
--
--	ret = pci_do_resource_release_and_resize(dev, resno, size, exclude_bars);
--	if (ret)
--		goto error_resize;
--	return 0;
--
--error_resize:
--	pci_rebar_set_size(dev, resno, old);
--	return ret;
--}
--EXPORT_SYMBOL(pci_resize_resource);
--
- int pci_enable_resources(struct pci_dev *dev, int mask)
- {
- 	u16 cmd, old_cmd;
+ 	if (check_fwstate(pmlmepriv, WIFI_AP_STATE) == true) {
+-		if (check_fwstate(pmlmepriv, WIFI_UNDER_WPS|_FW_UNDER_SURVEY|_FW_UNDER_LINKING) == true) {
++		if (check_fwstate(pmlmepriv, WIFI_UNDER_WPS | _FW_UNDER_SURVEY | _FW_UNDER_LINKING) == true) {
+ 			need_indicate_scan_done = true;
+ 			goto check_need_indicate_scan_done;
+ 		}
+@@ -1292,7 +1292,7 @@ static int cfg80211_rtw_scan(struct wiphy *wiphy
+ 	}
+ 
+ 	/* parsing channels, n_channels */
+-	memset(ch, 0, sizeof(struct rtw_ieee80211_channel)*RTW_CHANNEL_SCAN_AMOUNT);
++	memset(ch, 0, sizeof(struct rtw_ieee80211_channel) * RTW_CHANNEL_SCAN_AMOUNT);
+ 	for (i = 0; i < request->n_channels && i < RTW_CHANNEL_SCAN_AMOUNT; i++) {
+ 		ch[i].hw_value = request->channels[i]->hw_value;
+ 		ch[i].flags = request->channels[i]->flags;
+@@ -1306,7 +1306,7 @@ static int cfg80211_rtw_scan(struct wiphy *wiphy
+ 	} else if (request->n_channels <= 4) {
+ 		for (j = request->n_channels - 1; j >= 0; j--)
+ 			for (i = 0; i < survey_times; i++)
+-				memcpy(&ch[j*survey_times+i], &ch[j], sizeof(struct rtw_ieee80211_channel));
++				memcpy(&ch[j * survey_times + i], &ch[j], sizeof(struct rtw_ieee80211_channel));
+ 		_status = rtw_sitesurvey_cmd(padapter, ssid, RTW_SSID_SCAN_AMOUNT, ch, survey_times * request->n_channels);
+ 	} else {
+ 		_status = rtw_sitesurvey_cmd(padapter, ssid, RTW_SSID_SCAN_AMOUNT, NULL, 0);
+@@ -1462,7 +1462,7 @@ static int rtw_cfg80211_set_wpa_ie(struct adapter *padapter, u8 *pie, size_t iel
+ 		goto exit;
+ 	}
+ 
+-	if (ielen > MAX_WPA_IE_LEN+MAX_WPS_IE_LEN+MAX_P2P_IE_LEN) {
++	if (ielen > MAX_WPA_IE_LEN + MAX_WPS_IE_LEN + MAX_P2P_IE_LEN) {
+ 		ret = -EINVAL;
+ 		goto exit;
+ 	}
+@@ -1482,19 +1482,19 @@ static int rtw_cfg80211_set_wpa_ie(struct adapter *padapter, u8 *pie, size_t iel
+ 
+ 	pwpa = rtw_get_wpa_ie(buf, &wpa_ielen, ielen);
+ 	if (pwpa && wpa_ielen > 0) {
+-		if (rtw_parse_wpa_ie(pwpa, wpa_ielen+2, &group_cipher, &pairwise_cipher, NULL) == _SUCCESS) {
++		if (rtw_parse_wpa_ie(pwpa, wpa_ielen + 2, &group_cipher, &pairwise_cipher, NULL) == _SUCCESS) {
+ 			padapter->securitypriv.dot11AuthAlgrthm = dot11AuthAlgrthm_8021X;
+ 			padapter->securitypriv.ndisauthtype = Ndis802_11AuthModeWPAPSK;
+-			memcpy(padapter->securitypriv.supplicant_ie, &pwpa[0], wpa_ielen+2);
++			memcpy(padapter->securitypriv.supplicant_ie, &pwpa[0], wpa_ielen + 2);
+ 		}
+ 	}
+ 
+ 	pwpa2 = rtw_get_wpa2_ie(buf, &wpa2_ielen, ielen);
+ 	if (pwpa2 && wpa2_ielen > 0) {
+-		if (rtw_parse_wpa2_ie(pwpa2, wpa2_ielen+2, &group_cipher, &pairwise_cipher, NULL) == _SUCCESS) {
++		if (rtw_parse_wpa2_ie(pwpa2, wpa2_ielen + 2, &group_cipher, &pairwise_cipher, NULL) == _SUCCESS) {
+ 			padapter->securitypriv.dot11AuthAlgrthm = dot11AuthAlgrthm_8021X;
+ 			padapter->securitypriv.ndisauthtype = Ndis802_11AuthModeWPA2PSK;
+-			memcpy(padapter->securitypriv.supplicant_ie, &pwpa2[0], wpa2_ielen+2);
++			memcpy(padapter->securitypriv.supplicant_ie, &pwpa2[0], wpa2_ielen + 2);
+ 		}
+ 	}
+ 
+@@ -1893,7 +1893,7 @@ static int cfg80211_rtw_set_pmksa(struct wiphy *wiphy,
+ 
+ 			memcpy(psecuritypriv->PMKIDList[index].PMKID, (u8 *)pmksa->pmkid, WLAN_PMKID_LEN);
+ 			psecuritypriv->PMKIDList[index].bUsed = true;
+-			psecuritypriv->PMKIDIndex = index+1;
++			psecuritypriv->PMKIDIndex = index + 1;
+ 			blInserted = true;
+ 			break;
+ 		}
+@@ -2095,8 +2095,8 @@ static netdev_tx_t rtw_cfg80211_monitor_if_xmit_entry(struct sk_buff *skb, struc
+ 		_rtw_xmit_entry(skb, padapter->pnetdev);
+ 		return NETDEV_TX_OK;
+ 
+-	} else if ((frame_control & (IEEE80211_FCTL_FTYPE|IEEE80211_FCTL_STYPE)) ==
+-		   (IEEE80211_FTYPE_MGMT|IEEE80211_STYPE_ACTION)) {
++	} else if ((frame_control & (IEEE80211_FCTL_FTYPE | IEEE80211_FCTL_STYPE)) ==
++		   (IEEE80211_FTYPE_MGMT | IEEE80211_STYPE_ACTION)) {
+ 		/* only for action frames */
+ 		struct xmit_frame		*pmgntframe;
+ 		struct pkt_attrib	*pattrib;
+@@ -2210,7 +2210,7 @@ static int rtw_cfg80211_add_monitor_if(struct adapter *padapter, char *name, str
+ 		goto out;
+ 
+ 	*ndev = pwdev_priv->pmon_ndev = mon_ndev;
+-	memcpy(pwdev_priv->ifname_mon, name, IFNAMSIZ+1);
++	memcpy(pwdev_priv->ifname_mon, name, IFNAMSIZ + 1);
+ 
+ out:
+ 	if (ret && mon_wdev) {
+@@ -2304,14 +2304,14 @@ static int rtw_add_beacon(struct adapter *adapter, const u8 *head, size_t head_l
+ 	if (head_len < 24)
+ 		return -EINVAL;
+ 
+-	pbuf = rtw_zmalloc(head_len+tail_len);
++	pbuf = rtw_zmalloc(head_len + tail_len);
+ 	if (!pbuf)
+ 		return -ENOMEM;
+ 
+-	memcpy(pbuf, (void *)head+24, head_len-24);/*  24 =beacon header len. */
+-	memcpy(pbuf+head_len-24, (void *)tail, tail_len);
++	memcpy(pbuf, (void *)head + 24, head_len - 24);/*  24 =beacon header len. */
++	memcpy(pbuf + head_len - 24, (void *)tail, tail_len);
+ 
+-	len = head_len+tail_len-24;
++	len = head_len + tail_len - 24;
+ 
+ 	/* check wps ie if inclued */
+ 	rtw_get_wps_ie(pbuf + _FIXED_IE_LENGTH_, len - _FIXED_IE_LENGTH_, NULL, &wps_ielen);
+@@ -2601,7 +2601,7 @@ static int cfg80211_rtw_mgmt_tx(struct wiphy *wiphy,
+ 	pwdev_priv = adapter_wdev_data(padapter);
+ 
+ 	/* cookie generation */
+-	*cookie = (unsigned long) buf;
++	*cookie = (unsigned long)buf;
+ 
+ 	/* indicate ack before issue frame to avoid racing with rsp frame */
+ 	rtw_cfg80211_mgmt_tx_status(padapter, *cookie, buf, len, ack, GFP_KERNEL);
 -- 
 2.53.0
 
