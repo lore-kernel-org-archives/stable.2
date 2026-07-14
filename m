@@ -1,218 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBBBEAC7;
-	Tue, 14 Jul 2026 13:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B3429346F
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784035067; cv=none; b=SHJLHQTz4nlhum8mHTn5O1EtRne3DtrIR8Aza/M1kHl+pCnK3LZB3lepMBgrpvlseHiSfKVvIc+YobagcnwoteOVQE5fVlVkBH/xerOxHWs5AjQyNHXuxn4yKjEAh2Xzh8wOEDq5mFi0nAw82CIGVMx09EfSEufkdnbHdBdQAP8=
+	t=1784035200; cv=none; b=mtiP8Dd1dJtyEFz2q6ZEiduYeuaaktOCPbbgrBC0IJiBBdGHLpY5WlNl2izxLO2zAb2OjqNbqBffBiK+zI/9+RpZw5nd9n0RH7UjKliDk/w+D3iW6+aeIjucNbGF5z2oWS0unN04wa1TX4+qCI8JLk+DHsqvyNYbgtHVkpt/Y8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784035067; c=relaxed/simple;
-	bh=w1ZUj1749/I3WMkB1bXQWcYiLYcInm+Txyh34c/H1cM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IeyZeGuH8ZaYdlQaxQv05wMoiIxrHOSId18Mx3/nBa4JCN9SurSq+Ci2xaMgjz5px/GTllAaKQd5ihZCXsmnlxlONZZQPI378Yw4pxQU5Qwyj+MbgYwocXt0+hXr4gX3R0ZVSAOqCw8HWSCjpDMqq8rfFhrEib0+dIjrPEAyb2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FED4vNrC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784035200; c=relaxed/simple;
+	bh=yFU6tVT/yFzLBuEg0rvre2hfLwrV7PyfOCpFeGeK4ak=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tauGttyg5hrUXMVaFb3uS96CQ7oA8jSb+om1mgTV93ZgK0+9ZNjeFJyUhr4AFxhdi7uT55y25ozPPVIpPEeEQoNxdgQ9pwC7BgEmuw3g18c+Zg/cJS4OsP7Oa5U8yKgfEVEp/csO1HVa26bHxXGVQJ0VCdqd8IrCEIpd5r1ZPpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FRDamuvg; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FED4vNrC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887CA1F00A3A;
-	Tue, 14 Jul 2026 13:17:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784035066;
-	bh=XPP2myTGPA5lMKiNw+TtdOeHCWrcAC/vqmt4XlyULw4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FED4vNrCvRA+E87/OHhMTv0sfCp09VAGYZiCGXNOiE/pu8OVC+5T3j135myCIb0B+
-	 HyytLmY+Zx+54l8JqAbasXFFpi4S5Wvw45Hyr3VUpIrati8G7aqxEqOIwPHfmZDNlM
-	 WWJIeDXiIWaWuTZ88BGzH1cfhWqwQQHEHu0p9yjTXmw/Am4wTsLlVQuzpZofqiFlW0
-	 AD+aQnQhQCtuAJkK/rd8PGJjcdPzRLRFWEm7QIwUMLdDEDo3j0ey9lq/HkjI8UL5Wt
-	 tbhorm20fDX8meWpCOhymc5mNvLYAPYcYIUtkesKWymOv+FhcI7oF58MmI83iUWW2L
-	 bq9WyWLH+mVnA==
-Message-ID: <8d316b6c-41fb-4ae3-8923-3b649b92b33d@kernel.org>
-Date: Tue, 14 Jul 2026 15:17:42 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FRDamuvg"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38759bcd877so3693021a91.2
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 06:19:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784035195; x=1784639995; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WNvlJknX3V6hG5xwMburTptRLxJL73QN/VwaqdH3Aoo=;
+        b=FRDamuvgiXr0ybC/Qi97rKxMAbtkMA2gWhwQcfqpnP1cpc3QVoNMBLteRNG9JF+ioe
+         6PeXvkmGzH5VZWYhKWf398R3o2yeXfa/lUSjnhEkv8o/0fWIOtvLvJEmBI2caK0g2JFl
+         pI7D63PzKfCuYWpA9B+pFmZj+/ZT29Dlad22NTo/Xq152CFSULEk2SPS/YY1lnDF6EgW
+         GGpTumRmZL+plJOe8dEbIAGhawVV0tQFHdZQxuDr4jWJMMfkvM/K5FbRfGq1g+XaOrti
+         xeDR4MNxlQK1hcsXROixDXevOJ8zauxY/DwH43aLqfG/VjLRBqJGxx6cBdKQID8FhnFl
+         F3Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784035195; x=1784639995;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WNvlJknX3V6hG5xwMburTptRLxJL73QN/VwaqdH3Aoo=;
+        b=hdBrW0Sv8DZI7k5f3igJiM9SZvqokRPLs1mTQwn7kGnSwnninn9BSA686R7AMhdDds
+         ru5Z8kfajQO7nqKQ8gaOTCy5N6MSWUNJmegBrw3h7QI0kt4F4GvntmR5DhS5gZW08jar
+         CIMWbcMCIRuh1Zq7ESgXHkmr22JHYF3y/TuAeN2146vFBdu+UTyh/sMtX/QtNjzwE2ao
+         NdOsJ3lHO+PDrDEthal/H7EjCs66X7D2VrRMz8bdJgNN8H/rDD3UT4gVQa3YbxI+hiHd
+         jrdGCY9CYgxLOfDqUZtxaCPABDKZgZNEXoCsBv4qF3AEBPj2xy1jKAFme0ht8D0YqKOK
+         /GAQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpmG6McjHCSIbLU8ZvBoXRUrAYBkXVfnR7UpWWRoExNk8VpcFwaWP9FeiGKdzTSac5gtWyZ4p8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3ikCRZj8J4FyArOg/mtdKGfVQ1ofTJUeBdLA5MNtrcOtBpa4a
+	dhZgm4AeFagbGwNOoBuO4HXqsRwE+ePF20voH6DXNAypGNI87LdhUVUg
+X-Gm-Gg: AfdE7clcb2ExGBvh+5xj6tSSQM174MsQFQefh0ZDpGgq4vqBD7XD4SOuo7OiewI48sW
+	0UWhis9CANG6KsPIdGEguO1qT9JCUYFdG9seozy/rpsLBJmFatrWHTRbspFYv/GmsweNvHgapjG
+	J9d2oyosuYcZ9c37vkhMCAuP2u0zKGqwuc/syU7UJJzPpBYzHP6GE1uhCHmil5kAEaYDtGG22XW
+	07J4gUxjtSQAywl3G7SsNeQj3VNswq8bJXtyD7mXACz/KZX3M8FTEC1xtKyB6NcxGmr2ouAz5qR
+	CjGGpB/1HfOVZD86FCUGOS40ai5ttVgiGAgNRro/HJN5edspx1Bn1mJ5A0bbZ1bpzLB1XD4W2mI
+	t1uN7XrpRC7btIvoncaT77ZuYRGn67rY/sidOKtuHnT4Gkd2jGZ+d2Xqfw4OT2HA8jOAHDww8WZ
+	ybDNR0YKpD17i200AolEF0Onpd
+X-Received: by 2002:a17:90b:3e8d:b0:37f:be6c:f3f2 with SMTP id 98e67ed59e1d1-38dc782279bmr11459375a91.2.1784035195311;
+        Tue, 14 Jul 2026 06:19:55 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bf92bfsm116881975ad.28.2026.07.14.06.19.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 06:19:54 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Jon Maloy <jmaloy@redhat.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
+	Breno Leitao <leitao@debian.org>,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Daehyeon Ko <4ncienth@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] tipc: clear sock->sk on the failed-insert path in tipc_sk_create()
+Date: Tue, 14 Jul 2026 22:19:39 +0900
+Message-ID: <20260714131939.1255974-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] virtio_balloon: fix Use-After-Free in page reporting during
- PM freeze
-To: Link Lin <linkl@google.com>, Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, "Michael S . Tsirkin" <mst@redhat.com>
-Cc: virtualization@lists.linux.dev, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, prasin@google.com, rientjes@google.com,
- duenwen@google.com, jasowang@redhat.com, xuanzhuo@linux.alibaba.com,
- Ammar Faizi <ammarfaizi2@openresty.com>, jiaqiyan@google.com,
- ahwilkins@google.com, Greg Thelen <gthelen@google.com>,
- Alexander Duyck <alexander.duyck@gmail.com>, stable@vger.kernel.org
-References: <20260709224330.946683-1-linkl@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260709224330.946683-1-linkl@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/10/26 00:43, Link Lin wrote:
-> During system power management freeze (e.g. ACPI S3 suspend or S4
-> hibernation), virtballoon_freeze() calls remove_common() to reset the
-> virtio device and delete all virtqueues via vdev->config->del_vqs().
-> However, unlike virtballoon_remove(), virtballoon_freeze() fails to call
-> page_reporting_unregister(&vb->pr_dev_info).
-> 
-> The comment in virtballoon_freeze() states:
->     /*
->      * The workqueue is already frozen by the PM core before this
->      * function is called.
->      */
-> 
-> While this comment was accurate in 2011 for balloon-internal workqueues
-> (such as balloon_wq, which was created with WQ_FREEZABLE and is paused
-> by the PM freezer), it is invalid for Free Page Reporting.
-> 
-> Free Page Reporting (mm/page_reporting.c) schedules its delayed work
-> (prdev->work) on the global system_wq. Because system_wq lacks the
-> WQ_FREEZABLE flag, the PM freezer (freeze_workqueues_busy()) explicitly
-> skips it. Consequently, page_reporting_process() on system_wq remains
-> active and unfrozen throughout device suspend.
-> 
-> If memory is freed into the buddy allocator or a delayed work timer
-> expires while the device is being frozen, page_reporting_process() fires
-> on system_wq and calls virtballoon_free_page_report(). This function
-> passes vb->reporting_vq into virtqueue_add_inbuf() / virtqueue_add_split().
-> Because the virtqueues were already destroyed by del_vqs(), this results
-> in a Use-After-Free / General Protection Fault:
-> 
->     [  250.709271] general protection fault, probably for non-canonical address 0x7f728084daf08d5e: 0000 [#1] SMP PTI
->     [  250.732967] CPU: 2 PID: 38 Comm: kworker/2:1 Not tainted 5.10.0-44-cloud-amd64 #1 Debian 5.10.257-1
->     [  250.751575] Workqueue: events page_reporting_process
->     [  250.756665] RIP: 0010:virtqueue_add_split+0x233/0x4c0 [virtio_ring]
->     ...
->     [  250.867678] virtballoon_free_page_report+0x3a/0xe0 [virtio_balloon]
->     [  250.883446] page_reporting_process+0x225/0x4f0
-> 
-> (Note: The OOM Notifier and Shrinker/Free Page Hinting features suffer
-> from an identical lifecycle flaw and are also vulnerable to UAFs during
-> S4 hibernation when memory pressure spikes. This patch focuses on Free
-> Page Reporting, which runs periodically, to ensure clean backports to
-> stable kernels).
-> 
-> Fix this by:
-> 1. Unregistering page reporting in virtballoon_freeze() prior to calling
->    remove_common(). This clears the RCU pr_dev_info pointer and flushes/
->    cancels prdev->work on system_wq via cancel_delayed_work_sync().
-> 2. Re-registering page reporting in virtballoon_restore() after the
->    virtqueues are re-initialized and virtio_device_ready() has been called.
-> 3. Unwinding virtqueue initialization via remove_common() in 
->    virtballoon_restore() if page_reporting_register() fails.
-> 
-> Fixes: 924a663f75e2 ("virtio-balloon: Reporting free page reservations")
-> Cc: stable@vger.kernel.org
-> Cc: jasowang@redhat.com
-> Cc: xuanzhuo@linux.alibaba.com
-> Cc: Ammar Faizi <ammarfaizi2@openresty.com>
-> Cc: jiaqiyan@google.com
-> Cc: ahwilkins@google.com
-> Cc: Greg Thelen <gthelen@google.com>
-> Cc: Alexander Duyck <alexander.duyck@gmail.com>
-> Signed-off-by: Link Lin <linkl@google.com>
-> ---
->  drivers/virtio/virtio_balloon.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-> index a1b2c3d4e5f6..45a90fb3abf8 100640
-> --- a/drivers/virtio/virtio_balloon.c
-> +++ b/drivers/virtio/virtio_balloon.c
-> @@ -1055,6 +1055,9 @@ static int virtballoon_freeze(struct virtio_device *vdev)
->  	 * The workqueue is already frozen by the PM core before this
->  	 * function is called.
->  	 */
-> +	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING))
-> +		page_reporting_unregister(&vb->pr_dev_info);
-> +
->  	remove_common(vb);
->  	return 0;
->  }
->  
->  static int virtballoon_restore(struct virtio_device *vdev)
->  {
->  	struct virtio_balloon *vb = vdev->priv;
->  	int ret;
->  
->  	ret = init_vqs(vdev->priv);
->  	if (ret)
->  		return ret;
->  
->  	virtio_device_ready(vdev);
->  
-> +	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING)) {
-> +		ret = page_reporting_register(&vb->pr_dev_info);
-> +		if (ret)
-> +			goto out_remove_vqs;
-> +	}
+When tipc_sk_create() fails to insert the new socket (tipc_sk_insert()
+returns non-zero), its error path frees the sk with sk_free() but leaves
+sock->sk pointing at the freed object:
 
-Hm, that failure handling is rather nasty.
+	if (tipc_sk_insert(tsk)) {
+		sk_free(sk);
+		pr_warn("Socket create failed; port number exhausted\n");
+		return -EINVAL;
+	}
 
+This is harmless for plain socket(): the syscall layer clears sock->ops
+before releasing, so tipc_release() is never called. It is not harmless
+on the accept() path. tipc_accept() creates the pre-allocated child
+socket with tipc_sk_create(net, new_sock, 0, kern); on failure it leaves
+new_sock->sk dangling and new_sock->ops non-NULL, and do_accept() then
+fput()s the new file, so __sock_release() -> tipc_release() runs
+lock_sock(new_sock->sk) on the freed sk -- a use-after-free write of the
+sk_lock spinlock.
 
-In virtballoon_freeze() we document:
+tipc_release() already guards this exact "failed accept() releases a
+pre-allocated child" case with "if (sk == NULL) return 0;", but the
+guard is bypassed because tipc_sk_create() left sock->sk non-NULL
+(dangling) rather than NULL.
 
-"The workqueue is already frozen by the PM core before this function is called"
+Clear sock->sk on the failed-insert path so the existing tipc_release()
+NULL check fires and the use-after-free is avoided.
 
-Your report states:
+The tipc_sk_insert() failure is reached when the per-netns socket
+rhashtable hits its max_size (tsk_rht_params.max_size = 1048576, ~2M
+elements) -- i.e. once a netns holds ~2M TIPC sockets every insert
+returns -E2BIG.
 
-"Workqueue: events page_reporting_process"
+  BUG: KASAN: slab-use-after-free in lock_sock_nested (net/core/sock.c:3839)
+  Write of size 8 at addr ffff8880047cdc38 by task init/1
+   lock_sock_nested (net/core/sock.c:3839)
+   tipc_release (net/tipc/socket.c:638)
+   __sock_release (net/socket.c:710)
+   sock_close (net/socket.c:1501)
+   __fput (fs/file_table.c:512)
+  Allocated by task 1:
+   sk_alloc (net/core/sock.c:2308)
+   tipc_sk_create (net/tipc/socket.c:487)
+   tipc_accept (net/tipc/socket.c:2744)
+   do_accept (net/socket.c:2034)
+  Freed by task 1:
+   __sk_destruct (net/core/sock.c:2391)
+   tipc_sk_create (net/tipc/socket.c:504)
+   tipc_accept (net/tipc/socket.c:2744)
+   do_accept (net/socket.c:2034)
 
+Fixes: 00aff3590fc0 ("net: tipc: fix possible refcount leak in tipc_sk_create()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+v3: correct the Fixes: tag to 00aff3590fc0 ("net: tipc: fix possible
+    refcount leak in tipc_sk_create()") -- that commit added the sk_free()
+    on the insert-failure path; before it the path leaked sk rather than
+    freeing it, so the use-after-free only exists since then (v5.19+).
+    Thanks Breno. Collect Reviewed-by from Tung and Breno. No code change.
+v2: https://lore.kernel.org/netdev/20260713082342.3803379-1-4ncienth@gmail.com/
+v1: https://lore.kernel.org/netdev/20260710014440.2055584-1-4ncienth@gmail.com/
 
-I assume that workqueue is not frozen yet because ... it's not freezable :)
+ net/tipc/socket.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-So could we queue to system_freezable_wq instead, or define our own freezable
-workqueue there? Then a driver doesn't have to worry about that.
-
+diff --git a/net/tipc/socket.c b/net/tipc/socket.c
+index e564341e0216..55e695748332 100644
+--- a/net/tipc/socket.c
++++ b/net/tipc/socket.c
+@@ -502,6 +502,7 @@ static int tipc_sk_create(struct net *net, struct socket *sock,
+ 	tipc_set_sk_state(sk, TIPC_OPEN);
+ 	if (tipc_sk_insert(tsk)) {
+ 		sk_free(sk);
++		sock->sk = NULL;
+ 		pr_warn("Socket create failed; port number exhausted\n");
+ 		return -EINVAL;
+ 	}
 -- 
-Cheers,
+2.54.0
 
-David
