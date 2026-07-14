@@ -1,32 +1,33 @@
 Received: from confino.investici.org (confino.investici.org [93.190.126.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809AA2F3614;
-	Tue, 14 Jul 2026 17:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CED261388;
+	Tue, 14 Jul 2026 17:31:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784050278; cv=none; b=ElKcILDVU7wdXHOZfpevvADHJIEpjwUbyIqBa2YAj3631h7aCrmst2UHj6OFWZOvuF4CWD4wkomT6xg3NxwpYIjestnEey1i9JvjmhqpM3lgALqtPvYhWVixhsMjNzck34NxXpNxMLMy/N0Q394f9UJLq8AIBjWVBV/XjfQHxZc=
+	t=1784050279; cv=none; b=CbTUiidZskFKsm5gjLd8ikcl4qHXSmnolS2Q/oDknsHAAFgofPk0IBMNVOt+E/aeeG/pmP6AOfIlRqyqPJefD4orpfvC+eBVpGhZivTlrUV0A3m8TDtAuchSAokHXEBX3oYZYBhZHtKSa8MRGv4/QTC96FvK5ZP3ek8X8vr1/eE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784050278; c=relaxed/simple;
-	bh=UZiOGp0/vJhhgaQv/VWyxJYZyMtPN+vHXY20iH3H9as=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hyMDOeGkxd9KasmaXJDygIeSSIVBl2naoNN7ajlrx4jX6BUnAgfr2q2+brQ3YJIMW2zRSYwR0D5ekk0DtEQThhwSZVqKzfaFrFC52ku7ECqISX0xSYtKcf/iBj5OgeLXbxVAGzh003JJ5bkQSB7ygkgmil1Wx622UE9K0mDs9hE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=N18O4HZp; arc=none smtp.client-ip=93.190.126.19
+	s=arc-20240116; t=1784050279; c=relaxed/simple;
+	bh=8SRN96h3qsVItWUutJFKOI64e3eK1Au6hyeH09dAdfw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=vF/CYwIpzPu8XbY84YcNPmf0x2j8Ys29uR1RxmojXCriCjHQCVP/4e5KKO9pepfcRnoyaMhV//7Kri+C9YYK4D+sFpsbtHpn9/YWVfRgkCi2ViyrbA/dWJf5edH7Vse8naO/FITaRN9p8r9Xi0a1v9YWs90drlNfW9s0Kq+QcKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=JCuautg8; arc=none smtp.client-ip=93.190.126.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="N18O4HZp"
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="JCuautg8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1784050270;
-	bh=UGpWzI1bp68mcgLlSW3gVZ5ZO/RISIWT7S496u0RQFw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=N18O4HZpwv0wyGbQp+T6i90d7rzKACBjKlaVUJAgll++PUISPckwRG24MS/TNAIpb
-	 GJeabSbOs7vQkZF6DS9izJsEnQ+Oj4QH234sRbM7Gv/5GUn8eZ5kEh4XSSWsAFUoxq
-	 NOa9mplgi0HYEFp9s2ngPZis8fREr+BQCeNtSBhk=
+	s=stigmate; t=1784050274;
+	bh=b36zf3rs7zvqc4fJ5AgCG9tOAbyeS22TKu09skdKryQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=JCuautg8Zekw12m3HwplN/l5RadmCDM3dUq8m36h/q/ObUNeyXVrifVqT16IoNpgU
+	 j7I/DU3cGKc68FAtIOLgGI8/+2ZfrjpHdSZoAkA4oaLZTG54DXDRZEzhSt2Q8mseE0
+	 hJrDR381KAfqTsIK6uX2Qth9CGWC7PJthlJ9z/Lg=
 Received: from mx1.investici.org (unknown [127.0.0.1])
-	by confino.investici.org (Postfix) with ESMTP id 4h05v2597hz112f;
-	Tue, 14 Jul 2026 17:31:10 +0000 (UTC)
-Received: by mx1.investici.org (Postfix) id 4h05v16L7yz112c;
-	Tue, 14 Jul 2026 17:31:09 +0000 (UTC)
+	by confino.investici.org (Postfix) with ESMTP id 4h05v65NVFz112r;
+	Tue, 14 Jul 2026 17:31:14 +0000 (UTC)
+Received: by mx1.investici.org (Postfix) id 4h05v56JyXz112c;
+	Tue, 14 Jul 2026 17:31:13 +0000 (UTC)
 From: Bradley Morgan <include@grrlz.net>
 To: akpm@linux-foundation.org
 Cc: pmladek@suse.com,
@@ -35,10 +36,12 @@ Cc: pmladek@suse.com,
 	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	include@grrlz.net
-Subject: [PATCH v4 0/3] panic: fix the panic_force_cpu redirect races
-Date: Tue, 14 Jul 2026 17:30:59 +0000
-Message-ID: <20260714173103.11585-1-include@grrlz.net>
+Subject: [PATCH v4 3/3] panic: allow force_cpu redirect from an NMI
+Date: Tue, 14 Jul 2026 17:31:02 +0000
+Message-ID: <20260714173103.11585-4-include@grrlz.net>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260714173103.11585-1-include@grrlz.net>
+References: <20260714173103.11585-1-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,73 +50,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Sorry for sending this before the earlier threads fully settled. I am
-posting the series now because everything is in one place, a single
-thread of three patches, instead of replies spread across the old
-threads, which is easier to follow than a few separate discussions.
-
-The panic_force_cpu= parameter redirects a panic to a specific CPU so
-the crash kernel runs there. The redirect code in
-panic_try_force_cpu() had two races and one ordering bug, all found by
-Sashiko. This series closes them.
-
-Patch 1: fix the redirect CPU race.
-
-The redirect is gated by an atomic cmpxchg on panic_redirect_cpu, so
-only one CPU sends the redirect IPI. The cmpxchg loser used to return
-false and fall through into vpanic(), where it could win panic_try_start()
-and run crash_kexec on the wrong CPU before the target ever received the
-IPI. The loser has to stop. It cannot just return true, though, because
-panic_try_force_cpu() can be called twice on the same CPU (nested NMI
-during the message formatting, before the IPI is sent), and a blind
-stop on that second call would abandon the panic with no IPI sent. The
-loser now returns true to stop, unless it is reentering on the same CPU
-(old_cpu == this_cpu), in which case it returns false and falls through.
-
-Patch 1 also fixes the panic_in_progress() guard. We must never redirect
-when panic_cpu is already taken, so the guard stays. But it now returns
-true (stop) when the panic is on another CPU and false (proceed) when it
-is on this CPU, instead of returning false either way.
-
-The two races side by side, two non target CPUs A and B (target is C),
-then a reentry on the redirect winner:
-
-             cpu A                          cpu B
-          ----------                     ----------
-    panic_try_force_cpu()                panic_try_force_cpu()
-        cmpxchg wins                         cmpxchg fails
-        IPI -> C                             return false  <- old BUG
-        return true                      panic_try_start() wins
-    panic_smp_self_stop()                 __crash_kexec() on B
-    (A stops)                             (target C bypassed)
-
-             cpu A (1st)                  cpu A (nested NMI)
-          ----------                     ----------
-    panic_try_force_cpu()
-        cmpxchg wins (redirect = A)
-        vsnprintf(msg) ...
-            <-- NMI -->
-                                     panic_try_force_cpu()
-                                         cmpxchg fails
-                                         old_cpu == A == this_cpu
-                                         return true  <- would abandon
-                                     self_stop (IPI never sent)
-
-Patch 2: flatten nmi_panic control flow.
-
-A behavior preserving cleanup. panic() is noreturn, so the else after it
-is dropped and the body flattened, ready for patch 3 to add the redirect
-step without piling more onto the if else chain. Split out on its own so
-patch 3 only adds new behavior and does not also reshape the function.
-
-Patch 3: allow force_cpu redirect from an NMI.
-
-A panic from an NMI used to bypass the redirect entirely. nmi_panic()
-called panic_try_start() first, which claims panic_cpu, so by the time
-panic() reached panic_try_force_cpu() the panic_in_progress() check saw
-panic_cpu set, returned false, and never sent the redirect IPI. The
-crash kernel ran on the CPU that took the NMI instead of the requested
-one.
+nmi_panic() calls panic_try_start() before panic(), so it claims
+panic_cpu first. When the panic then reaches panic_try_force_cpu(),
+the panic_in_progress() check sees panic_cpu set and returns false,
+so the redirect to the requested CPU never happens. The crash kernel
+runs on the CPU that took the NMI instead.
 
 The buggy call order, on a CPU X that is not the target (target is C):
 
@@ -127,44 +68,95 @@ The buggy call order, on a CPU X that is not the target (target is C):
         panic_try_start()          already won
         __crash_kexec()            on X, not C
 
-The fix tries the redirect before claiming panic_cpu. nmi_panic() calls
-panic_try_force_cpu_fmt() first and only calls panic_try_start() when no
-redirect happens. The requested CPU then claims panic_cpu itself when
-its panic() runs, so panic_cpu is never handed off.
+The fix is to try the redirect before claiming panic_cpu. nmi_panic()
+now calls panic_try_force_cpu_fmt() first, and only calls
+panic_try_start() when no redirect happens. The requested CPU then
+claims panic_cpu itself when it runs panic(), so panic_cpu does not need
+to be handed off.
 
-nmi_panic() holds an already formatted string, not a va_list. A variadic
-wrapper, panic_try_force_cpu_fmt(), builds the va_list and calls the
-existing panic_try_force_cpu(), which still copies and formats under the
-redirect cmpxchg. This keeps the static panic_force_buf safe, it is only
-written by the cmpxchg winner, never before ownership.
+nmi_panic() holds an already formatted string, not a va_list. Add a
+variadic wrapper, panic_try_force_cpu_fmt(), so it can reach the
+existing formatting guarded by the cmpxchg in panic_try_force_cpu() without
+a signature change. The wrapper builds the va_list and the real
+function still copies and formats under the redirect cmpxchg, so no
+shared buffer is written before ownership.
 
-The redirect IPI goes out via smp_call_function_single_async(). This is
-safe from NMI: the _async variant is documented as callable with
-interrupts disabled, and kgdb_roundup_cpus() already uses it from NMI
-context (kernel/debug/debug_core.c).
+The redirect sends the IPI via smp_call_function_single_async().
+This is safe from NMI context: the doc on the _async variant
+states it can be called with interrupts disabled, and kgdb_roundup_cpus()
+already calls it from NMI/debug context (kernel/debug/debug_core.c).
 
-Changes since v3:
-  - Patch 1 now also fixes the panic_in_progress() guard to return
-    true or false depending on which CPU owns panic_cpu, and drops the
-    recursion framing in the comment per Petr's review.
-  - Patch 3 no longer changes the panic_try_force_cpu() signature or
-    formats the message before the redirect cmpxchg. Petr pointed out
-    the static buf is only safe under panic_cpu ownership, so the
-    formatting stays inside the cmpxchg guarded path. nmi_panic() now
-    reaches it via a variadic wrapper.
-  - Patch 3 adds the NMI safety justification for
-    smp_call_function_single_async(), answering Petr's v1 question.
-  - The nmi_panic() control flow cleanup is split into its own patch
-    (patch 2), per Petr's request to split changes.
+The nmi_panic() body is reshaped to a goto self_stop, since panic()
+is noreturn and the stop path is shared.
 
-Bradley Morgan (3):
-  panic: fix redirect CPU race in panic_try_force_cpu()
-  panic: flatten nmi_panic control flow
-  panic: allow force_cpu redirect from an NMI
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260708164312.19044-1-include@grrlz.net
+Cc: stable@vger.kernel.org
+Signed-off-by: Bradley Morgan <include@grrlz.net>
+---
+ kernel/panic.c | 33 +++++++++++++++++++++++++++++++--
+ 1 file changed, 31 insertions(+), 2 deletions(-)
 
- kernel/panic.c | 48 +++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 41 insertions(+), 7 deletions(-)
-
+diff --git a/kernel/panic.c b/kernel/panic.c
+index c58c72d9f5a0..c81a5c9646e3 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -450,12 +450,32 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
+ 	/* IPI/NMI sent, this CPU should stop */
+ 	return true;
+ }
++
++/* For callers without a va_list, such as nmi_panic(). */
++static __printf(1, 2)
++bool panic_try_force_cpu_fmt(const char *fmt, ...)
++{
++	va_list args;
++	bool ret;
++
++	va_start(args, fmt);
++	ret = panic_try_force_cpu(fmt, args);
++	va_end(args);
++
++	return ret;
++}
+ #else
+ __printf(1, 0)
+ static inline bool panic_try_force_cpu(const char *fmt, va_list args)
+ {
+ 	return false;
+ }
++
++static __printf(1, 2)
++bool panic_try_force_cpu_fmt(const char *fmt, ...)
++{
++	return false;
++}
+ #endif /* CONFIG_SMP && CONFIG_CRASH_DUMP */
+ 
+ bool panic_try_start(void)
+@@ -519,11 +539,20 @@ EXPORT_SYMBOL(panic_on_other_cpu);
+  */
+ void nmi_panic(struct pt_regs *regs, const char *msg)
+ {
++	/* Try to redirect to the requested CPU when one is set. */
++	if (panic_try_force_cpu_fmt("%s", msg))
++		goto self_stop;
++
++	/* Try to acquire the right to proceed with the noreturn panic(). */
+ 	if (panic_try_start())
+ 		panic("%s", msg);
+ 
+-	if (panic_on_other_cpu())
+-		nmi_panic_self_stop(regs);
++	/*
++	 * panic_try_start() only fails when a panic is already in progress
++	 * on another CPU, in which case this CPU must stop.
++	 */
++self_stop:
++	nmi_panic_self_stop(regs);
+ }
+ EXPORT_SYMBOL(nmi_panic);
+ 
 -- 
 2.53.0
 
