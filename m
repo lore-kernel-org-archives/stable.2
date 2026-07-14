@@ -1,127 +1,133 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605B94D98F8
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:46:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54EC25B0B2
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:47:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784047599; cv=none; b=VF9pXMMzUKeb7l5i6Ch0jO4fTxizN0hd419zGAz8BwWJFVvL9UW9vbYe2C/b3OFGV4eIdkTnJbi54O8NU20hEmnLNZ235TGTj7/7Y1RGAWg3fSIJjTkSVT6LnlnyXXuFeULm6dc7dUb/J5AkaoKTT9mHT6y/MIaWDKPlleK40kc=
+	t=1784047646; cv=none; b=JqT3E7dmJJAl1PVh24HZvRNlSBeYseKdd9muvLn/W9TNL8rt+0U37khLH3MBcLG4VrwuJlfTVq9LrNKe5UnKPu1CnmGDTrgVRbVifLds/OpKUv+yg+7u9gXpgkaIdyaEfgfnbXmKoO3NcYASgOV2sGZcfaw701VKhpQwzG10ckE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784047599; c=relaxed/simple;
-	bh=9iodVMrU+2GAF2BdS6r4I7mPchCfTnRiHaGN1DpNBHE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l0PRd3VT20zYRPVGCaIkxwOocQbWkajEHJ1boqxWuK4ltAR9SwLWRWbbdMl8DpXYKyYziLbMXBmq4iir6FjhJ9s6Su5Jezs2YMAxkGAlkwSS8aFIghtUoRnewSvudwNuA4dlY2zeZqnE1IZZ4uF0VMQwe2U8vHPYJlBbaiqqE5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=encKXvoW; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1784047646; c=relaxed/simple;
+	bh=LTbRCKE/2H9p+MgWoauwwJ1WR6ljz9PqN9CGDiGgzZw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BkKlqcvsyQISj+8pRVCaPPCHQXFKwdndgkt89sDNs7eTwX1KjpevZW5cpC/bNMA01r1GQMNEQO2BkmQ0DRLc+ELjX/P8nhsfmoVrz8l7lVrXcVoXJa6XOrwUSZaXHDtbabcQGL8MP7vljD3JyNxs6Jh0F39iPGzycl4K4spl+Ag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rg3sF0vM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="encKXvoW"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4799b3f7c83so3432417f8f.2
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 09:46:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1784047596; x=1784652396; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xA34URPmvLevJFaYVe08J7EpsJU8i+fALDat5zmBi3g=;
-        b=encKXvoW02r8DklJ2kIbfxCvf+XSZ4XX93lJ+91p9CLzAhZc0nf2oNxfRoNmrk1lYe
-         AzcDgQ6kOEU2YgRvZf2dz+pCJd6UDqlfx+4uwFzPPXoulFLYcDzob7EpTUc1QTPgN3h1
-         fXluyw05AuWLt7/v3ym37dkQiVoDREZyCfCl1S/4G2IPAXel9I75g9J+pb6oTFjsVB2T
-         frhKYBMXlg1VVviLk/1HLWBR3TbLhmfEuP2l8oTbYoDKEkKaKoJGcU8gkW6/sWtB3T6c
-         jBbmpFdCHaRbo84Jdc0xw0thhfSG1KWCPki0gaHhXv7W2bW14/VnU6Gl9U3kcx8S/vMy
-         7Zzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784047596; x=1784652396;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xA34URPmvLevJFaYVe08J7EpsJU8i+fALDat5zmBi3g=;
-        b=gLJ+2I5coKZ079tj1jBX/x0fhHqajY/revcG9NGrYuHuELp+5HVaBDXr35uYyO3tkC
-         seGhK5iYjn+eX9/fBuRSArys8kiLKiIk1xjEEKTvt1ZHnweg0r3YSr64J0WT7R75+kpi
-         rb9jjc/mAgI5vm9z9WTRjYL3f/IKNgHq1h8wIWPUMjypTmjZa8gKOcaHo57bBKFcaRpQ
-         PutaLbWSGHq3MchH8fUpETCxdVzSqEjKLascUfXi1OjcX6RVYWJ1dsP/m7uXrOQ6aLhK
-         yn/o0sEAilePjc8GYJMeJtuzSQMxOgE6DEpjYFP5BsGNXohJHu1fIZZf1sU5Frli1GQu
-         4asQ==
-X-Gm-Message-State: AOJu0Yz3oCxHcz0CuNxIo17D/ebnso/a+6XE1kyARVv/WqhzWx/cv8MZ
-	v9xfGiRATz2umMcFrPl4MKP3EIH38a+MvR2OhgaoCFCrF8m7U1g6PWRPKoayXa2m4K3m8QQB19M
-	SbdThFwLZ
-X-Gm-Gg: AfdE7cmulMUvILgggJj1B7hmN8NJVlVZCC7gwiCdzm8JLAvk+5ryed6N6+nUtO+mg0/
-	4WoZmNNiJX37sLHf1U1YY7Dlfom4XqVFhrUx5H1nHa//U8fGidjiRvrbxDYzacJX25QjvBpdCdp
-	u9ZxaxDWi06LPYPEw+AXjb5ZPHW6yz+yWXWcxw4tGTRaSJKvf58DyW7ZSqs075heur46cUO3LLN
-	J3p1fq3sKo4anGe0FrlWfNal5YBtCOUJXNDmhi4tmCicVTrYDc1D3kjRj+a+6k0S1d4tVYvKzoO
-	Msq+zCk4N0Sede/cJolaDvgnGHnQbbzTUqVMUnAFp5uQrDbOE+uaXJS3Sk3180QLXvTa7S/DNSf
-	QTw+A8zL5XW1Q5aMz4IHea2hzhTlPZf0Eqno5iH8+zrh+gs7HcwOqFlHaUUkw4l/IgGOuqqdfqO
-	NNcpC8hSB2OS20G3PWv9attk0qSdC5ZaMqb2gZSzKUdo3kR+ZxPwCiMTPbXrGZ/mjP/mYQELwVT
-	NQ63AoS884jgU0BaEgScpC/R2OGvWm4gZk=
-X-Received: by 2002:a05:6000:4615:b0:46d:d6e0:9cc6 with SMTP id ffacd0b85a97d-47f2dcf556emr15992661f8f.44.1784047595602;
-        Tue, 14 Jul 2026 09:46:35 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4634e0d9sm9739781f8f.2.2026.07.14.09.46.34
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 14 Jul 2026 09:46:35 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: stable@vger.kernel.org
-Cc: olteanv@gmail.com,
-	andrew@lunn.ch,
-	f.fainelli@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org
-Subject: Please backport: DSA taggers OOB read on PACKET_QDISC_BYPASS TX
-Date: Tue, 14 Jul 2026 18:46:33 +0200
-Message-ID: <20260714164633.75135-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rg3sF0vM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AB2D1F000E9;
+	Tue, 14 Jul 2026 16:47:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784047644;
+	bh=KJ0zHNEVEaV7NF2I7KDp04hfVZS0JbQxk1fryiQuANo=;
+	h=Subject:To:Cc:From:Date;
+	b=rg3sF0vMV/gsEu8h3r1f7onanpJTyDYMxmAVChs5vVqmrefvaku2gmH+NTB/IKrKz
+	 uC29qJFLN+zPCm66q19B9CS6msbg3MeCFutnepbRZqv42ga9jycVAMGz/b5iolC+Q9
+	 TifcHHZvTeyAyU/86TAcwOJobUVApkI6dIsQ//Sk=
+Subject: FAILED: patch "[PATCH] USB: serial: digi_acceleport: fix write buffer corruption" failed to apply to 5.10-stable tree
+To: johan@kernel.org,gregkh@linuxfoundation.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 14 Jul 2026 18:47:18 +0200
+Message-ID: <2026071418-aground-flatly-63ff@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-Please backport the following mainline commits to the stable trees.
 
-Reason: the ocelot, ksz and sja1105 DSA taggers dereference
-eth_hdr(skb)/skb_mac_header(skb) on their TX paths. skb->mac_header is
-not set on the AF_PACKET SOCK_RAW + PACKET_QDISC_BYPASS transmit path
-(packet_direct_xmit() -> netdev_start_xmit(), which bypasses the
-dev_hard_start_xmit() reset from 6d1ccff62780), so eth_hdr(skb) resolves
-~64 KB out of bounds -> out-of-bounds read. The fixes below make these
-taggers read the header from skb->data instead. Reproducible with an
-unmodified CONFIG_NET_DSA_LOOP=y kernel by sending on a raw packet
-socket with PACKET_QDISC_BYPASS set.
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-These commits went into v6.4 without a Cc: stable tag because they were
-made as preparation for reverting 6d1ccff62780 and the bug was assumed
-to be future-only; it is not -- the bypass path was always unaffected by
-that reset. 6.6.y and 6.12.y already carry them.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Prerequisite (helper, not a fix on its own; needed or the ocelot and
-sja1105 fixes will not build on pre-v6.4 trees):
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 24ca1fea8f2753bf33e1d458ec1ae5d9b7796a65
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071418-aground-flatly-63ff@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
-  1f5020acb33f ("net: vlan: introduce skb_vlan_eth_hdr()")
+Possible dependencies:
 
-Fixes, in mainline order:
 
-  eabb1494c9f2 ("net: dsa: tag_ocelot: do not rely on skb_mac_header() for VLAN xmit")
-  499b2491d550 ("net: dsa: tag_ksz: do not rely on skb_mac_header() in TX paths")
-  f9346f00b5af ("net: dsa: tag_sja1105: don't rely on skb_mac_header() in TX paths")
-  0bcf2e4aca6c ("net: dsa: tag_ocelot: call only the relevant portion of __skb_vlan_pop() on TX")
 
-Not all fixes apply to all trees (the vulnerable code was introduced at
-different times). Per tree:
+thanks,
 
-  6.1.y:  1f5020acb33f, eabb1494c9f2, 499b2491d550, f9346f00b5af, 0bcf2e4aca6c
-  5.15.y: 1f5020acb33f, 499b2491d550, f9346f00b5af
-          (tag_ocelot has no ocelot_xmit_get_vlan_info() before v5.16)
-  5.10.y: 499b2491d550
-          (sja1105_pvid_tag_control_pkt() is v5.15+; ocelot is v5.16+;
-           skb_eth_hdr() already present, so no prerequisite needed)
+greg k-h
 
-Ordering: apply 1f5020acb33f before eabb1494c9f2/f9346f00b5af, and
-eabb1494c9f2 before 0bcf2e4aca6c.
+------------------ original commit in Linus's tree ------------------
 
-5.4.y is EOL and also lacks skb_eth_hdr(); not requested.
+From 24ca1fea8f2753bf33e1d458ec1ae5d9b7796a65 Mon Sep 17 00:00:00 2001
+From: Johan Hovold <johan@kernel.org>
+Date: Tue, 23 Jun 2026 17:12:29 +0200
+Subject: [PATCH] USB: serial: digi_acceleport: fix write buffer corruption
 
-Thanks,
-Doruk Ozturk
+The digi_write_inb_command() is supposed to wait for the write urb to
+become available or return an error, but instead it updates the transfer
+buffer and tries to resubmit the urb on timeout.
+
+To make things worse, for commands like break control where no timeout
+is used, the driver would corrupt the urb immediately due to a broken
+jiffies comparison (on 32-bit machines this takes five minutes of uptime
+to trigger due to INITIAL_JIFFIES).
+
+Fix this by adding the missing return on timeout and waiting
+indefinitely when no timeout has been specified as intended.
+
+This issue was (sort of) flagged by Sashiko when reviewing an unrelated
+change to the driver.
+
+Link: https://sashiko.dev/#/patchset/20260610132232.356139-1-johan%40kernel.org?part=11
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+
+diff --git a/drivers/usb/serial/digi_acceleport.c b/drivers/usb/serial/digi_acceleport.c
+index 6899aebfd6ae..5f3a95682179 100644
+--- a/drivers/usb/serial/digi_acceleport.c
++++ b/drivers/usb/serial/digi_acceleport.c
+@@ -427,20 +427,22 @@ static int digi_write_inb_command(struct usb_serial_port *port,
+ 	int len;
+ 	struct digi_port *priv = usb_get_serial_port_data(port);
+ 	unsigned char *data = port->write_urb->transfer_buffer;
++	unsigned long expire;
+ 	unsigned long flags;
+ 
+ 	dev_dbg(&port->dev, "digi_write_inb_command: TOP: port=%d, count=%d\n",
+ 		priv->dp_port_num, count);
+ 
+ 	if (timeout)
+-		timeout += jiffies;
+-	else
+-		timeout = ULONG_MAX;
++		expire = jiffies + timeout;
+ 
+ 	spin_lock_irqsave(&priv->dp_port_lock, flags);
+ 	while (count > 0 && ret == 0) {
+-		while (priv->dp_write_urb_in_use &&
+-		       time_before(jiffies, timeout)) {
++		while (priv->dp_write_urb_in_use) {
++			if (timeout && time_after(jiffies, expire)) {
++				ret = -ETIMEDOUT;
++				break;
++			}
+ 			cond_wait_interruptible_timeout_irqrestore(
+ 				&priv->write_wait, DIGI_RETRY_TIMEOUT,
+ 				&priv->dp_port_lock, flags);
+@@ -449,6 +451,9 @@ static int digi_write_inb_command(struct usb_serial_port *port,
+ 			spin_lock_irqsave(&priv->dp_port_lock, flags);
+ 		}
+ 
++		if (ret)
++			break;
++
+ 		/* len must be a multiple of 4 and small enough to */
+ 		/* guarantee the write will send buffered data first, */
+ 		/* so commands are in order with data and not split */
+
