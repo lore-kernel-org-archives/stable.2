@@ -1,225 +1,377 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51890417BE0;
-	Tue, 14 Jul 2026 17:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F4C3FF1DC
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 17:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784050996; cv=none; b=i1y+sh+Z65o+u7md8AAU18d+ppFR0Zq2UsnIFJD7JIAXflBPsS6SyoIsYRAY2vM1/QrS10FqqinOpcvWm44SE4gkegk56oagNKZXOa7fv8MIgzX4W81Ng8YUCy+g5xhbKrvrFZPTrPae+wNgmob+Iv1HjAKXklcjEM0NhB6+aOA=
+	t=1784051020; cv=none; b=mClAPIPjLcCAuQYugXEW+t24v0PcUDe7CmXOE7ApbyU/x/U8LzkAKlfB+AND4SJwRde/FqzMvW2spUvzyS9/UY0HaSSd7636jNidj4oYIHfXeQQwXNURVIys8dDp7S3Emjrtwl5rPEvQW1wPIRmwjPzhlLAANJIDE7qV1SX712s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784050996; c=relaxed/simple;
-	bh=5WiDCyRVPgHRCvGJATrrMG40A+oR9ekLRX4yiJTQ7E0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=doq56x/oifEFf6WHM9qqhAnyxOD2klHyhgIgmuGYf8Q9krYvKrfYf/RGCoCNmV2DLTE8AgxR8rCGGX93ZPicdA7mHNzufWZ+h89n6OIPMoJ4/K1bC3z4dyedZkL3mLjp0kb0VpUmLQQy5cRLUYEqysO5o/JwurHEewZCVmCPhIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DyMyvqet; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784051020; c=relaxed/simple;
+	bh=rrheX9zLnTW0q9CUdPKHOxyibv+wv7jJL8WMfHrf2G0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YyEdBQaEwl4v/GsC+/gBQdF35+oS+Tur8MqhOgHHaETMFkYelNW06ZMJru7QnUMBSKiodgZmzPDNl6pu255UV+vkfdnIyDfNnY262MISNE23yZlqb0l15bt9kZA5ctF+B/gEwr54sh5yHz5fr+A5h+rbk3f+JAxpWoXE8FAIiMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=QXod+ipn; arc=none smtp.client-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DyMyvqet"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 02FBF1F000E9;
-	Tue, 14 Jul 2026 17:43:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784050988;
-	bh=KcEgfzomHAugZM1nIzI/5XdcPmhJJaHE/IScPEaJG+s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DyMyvqetJTTR+63fDDCOyuqc0t01wLf0lmHP5Y5IxBrPTdamxT9hZru9odg7ye5iB
-	 NurJ4aK9Z1NV0X94118DQw93X+paYqEaE+AK5IPEsJUfPuE4mNbmb+RWHxYBWZWY/x
-	 +z5a6RI+V+CtaRPgAh6s1NmKLoWG+zwCfLNeJwweLA00BZrfP2EVkXjFnDGThULPGa
-	 riCz3LMW4JapXUA6il3o3QcLJRvqGaBHE7OFx4zGFlHFDUCQKlb16P9v5krCaN3NDD
-	 3uzOjRtiulcFRhXv9iufiL23Mab1+TMWZHZxg+I4vvs1EJMIfSxU/qSr7rY1hQfh2x
-	 gzgGAaFgAhJXQ==
-Date: Tue, 14 Jul 2026 10:43:07 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Ibrahim Hashimov <security@auditcode.ai>
-Cc: cem@kernel.org, linux-xfs@vger.kernel.org, bfoster@redhat.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] xfs: bounds-check buffer log item's dirty bitmap
-Message-ID: <20260714174307.GE7380@frogsfrogsfrogs>
-References: <20260708225814.2568-1-security@auditcode.ai>
- <20260714172730.73160-1-security@auditcode.ai>
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="QXod+ipn"
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8111c0c7561so60827277b3.3
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 10:43:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1784051012; x=1784655812; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G9wlwE1qc1NCTa5GQJy5k8lqlcIm2ec1yJpzofB80Ug=;
+        b=QXod+ipnxSKfyJ6+TksfrOr0XbppMP8+9VZlmW6ZH9jmJ8gvYip+5uu7HYGBmrUX8O
+         l2y329JroToourITPBLwgoE2NcaPMLSTg5UAcaa5VprxxY9VOW1V+02aZS5M4LdOf4ug
+         nHc21DWY1o5sP5GXpZXBq1hMLZP7MBnnteON6rKksDFPnGxpGmHq5XgmZAvs1XfQMPlB
+         Yt3t8TDpliYJ9Ii/jMsTyWIM5jilqklMTkuq8zoD5yCbXLYPjJjfUj0E1Y+ZwYTnytZO
+         iphFFvk80L4q/x/WRcpi4exmKdSWzRKBxhz0SKvAzp+OO48+oLOYxLad7VZwkLqVGdNk
+         /xuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784051012; x=1784655812;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=G9wlwE1qc1NCTa5GQJy5k8lqlcIm2ec1yJpzofB80Ug=;
+        b=me3dYvKRuds6oAbCIjmZcTxpu6+ndrfCwSy0/lP+NpNuSJHfRkwT2OjhMyo97xyHT3
+         7V3lPjRXzeqJLDRQu9k6bMIZhaoqNo3i8Ueuybkyl6vLpZkO101dXFLj7RRj9F4ZirEB
+         +vKoFXGJ19f+G64NuUccjXERAWgQ9GCHTghA+Ea46V3b/Oiqy01BMwGwKMLQNwAbHSaf
+         okgZJkYKKPk/B/LbADg28tj2JBtg0dpPH5baSfFxcz7cJjg8RjnSjNXChbuvuBAB4o2Y
+         zd1waCy4E2RC3QXusTe+I6CPqeM5gN1dU46bpC8UT/KvECkEC+SsoJ3CjE3wCpFJoTCw
+         Lw1A==
+X-Forwarded-Encrypted: i=1; AHgh+RqxYARH2NWqfzbY+o/TLu0h1NWdVJWWFVwB9NI/hbCkikdQ1ShsaTLvnvIB+Wp8h2xpaJBVXtk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3c91DzciNViFwZ5+7BFW26akVku1q+WuuQOVJCc1KW01b0dQq
+	bpxXgBV+Gm19+Tq00l+mOf7EEqgxsCcm8ko7zrg6txnOEXunsbb3NCfdRuaNGTka7vA=
+X-Gm-Gg: AfdE7cnZgy/zX4Fs0jlWPIxEWpVoC9v8OKKeCuyUxwswfj30/m5qAht927wjiK5SHQW
+	JF+zMeS3TkJR+gzNcyBnFSDxvhojOB+orbfJnfp1Od0ZlsLbOx2QeVdzZAq9WqI8wVkyiCpKPF0
+	/Kv8R4isLB0RYvQl07N8KpY7t8ip5tbHHwNf02HmhrAk1LhHViXMgD41lWC4YffsYCPyEuTtmDE
+	/xnfEv17kxKYZoePQFxGwA8lzCLL2GmzaYiTtFo/eykdjHN2vrtOtVLrgG6Cs/C/oi9gqXZooKf
+	eZjqCI+pDKp/1wL0DDLeDexLGjNZssUngRb5fhSKGKpsCAnawiEgFcklqg5LZEcC10r8ANRbRm4
+	rnm4aUzB5ZpHC/Gqc2ORPuiE2oyHRPKCKtyjhQ816ls49LYXnPvCuuINBAo5XwpZ2c2AHYqkYK7
+	1MUwoDHzpX4hUbuqldogDC21tH0jHIUKIPpIjosPunEp3neIZQI6sOYPAyv0+enMP7QrMsrmNe4
+	bwE1Cea7iyFfRvU1xpdmd9mdd/BIheFDcBJ173jmMIv1Gu2ebZXLKrCOlpgryGdb/DuSe3YABXz
+	MUl0YgyOL5ddM7d9
+X-Received: by 2002:a05:690c:660a:b0:81e:6d9b:1556 with SMTP id 00721157ae682-81ec0076513mr23814757b3.42.1784051011994;
+        Tue, 14 Jul 2026 10:43:31 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:9b87:2209:14fb:1802? ([2600:1700:6476:1430:9b87:2209:14fb:1802])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81e6be98397sm147788057b3.6.2026.07.14.10.43.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 10:43:31 -0700 (PDT)
+Message-ID: <94afbe7aab19700afa9ec7200675e6c15cf344af.camel@dubeyko.com>
+Subject: Re: [PATCH v2 2/2] libceph: add KUnit coverage for OSD sparse-read
+ extent validation
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>, Ilya Dryomov
+	 <idryomov@gmail.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Tue, 14 Jul 2026 10:43:29 -0700
+In-Reply-To: <20260714115141.3768034-3-michael.bommarito@gmail.com>
+References: <20260714115141.3768034-1-michael.bommarito@gmail.com>
+	 <20260714115141.3768034-3-michael.bommarito@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714172730.73160-1-security@auditcode.ai>
 
-On Tue, Jul 14, 2026 at 07:27:30PM +0200, Ibrahim Hashimov wrote:
-> xlog_recover_do_reg_buffer() replays each dirty region described by a
-> buffer log item's bitmap into the buffer read for that item:
-> 
-> 	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
-> 		item->ri_buf[i].iov_base,
-> 		nbits << XFS_BLF_SHIFT);
-> 
-> The destination offset (bit/nbits, from the logged dirty bitmap) and the
-> buffer size (from the logged blf_len) are both attacker-controlled and
-> otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
-> which compiles away on production kernels. A crafted image logging a
-> small blf_len together with a bitmap bit past the end of that buffer
-> drives the memcpy() past the buffer's allocation, corrupting adjacent
-> kernel heap during mount-time log recovery. This is reachable by anyone
-> who can get a crafted image mounted -- the malicious-filesystem threat
-> model XFS already guards against elsewhere.
-> 
-> Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
-> of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
-> idiom already used in xlog_recover_do_inode_buffer() and
-> xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
-> STATIC int and its three callers propagate the error.
-> 
-> Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
-> image trips a slab-out-of-bounds write before this change and fails
-> recovery cleanly with -EFSCORRUPTED after it.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> Assisted-by: AuditCode-AI:2026.07
+On Tue, 2026-07-14 at 07:51 -0400, Michael Bommarito wrote:
+> Add KUnit coverage for the sparse-read extent-map validation added by
+> the
+> previous patch. The tests drive the real osd_sparse_read() state
+> machine
+> over a synthesized OSD reply (no OSD or network): an in-range single
+> extent is accepted and advances the cursor, and an extent whose
+> offset
+> lies outside the original request range is rejected with -EREMOTEIO
+> before
+> the message-data cursor is advanced.
+>=20
+> The suite is included from osd_client.c so it can exercise the static
+> sparse-read parser and cursor-advance helpers without exporting test-
+> only
+> symbols, guarded by CONFIG_CEPH_LIB_KUNIT_TEST.
+>=20
+> Assisted-by: Codex:gpt-5-5-xhigh
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 > ---
-> v3: trim the changelog per Brian Foster's review; no code change. Add a
->     Fixes: tag -- the destination-bounds check has been an ASSERT since
->     the initial git import (2.6.12-rc2), so it predates the git era.
-> v2: resend; v1 went out with an empty Subject line due to a local
->     git send-email glitch (leading blank line in the patch file).
-> 
->  fs/xfs/xfs_buf_item_recover.c | 48 ++++++++++++++++++++++++++++-------
->  1 file changed, 39 insertions(+), 9 deletions(-)
-> 
-> diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
-> index 02b95b89d1b5..521e5f544caf 100644
-> --- a/fs/xfs/xfs_buf_item_recover.c
-> +++ b/fs/xfs/xfs_buf_item_recover.c
-> @@ -461,7 +461,7 @@ xlog_recover_validate_buf_type(
->   * given buffer.  The bitmap in the buf log format structure indicates
->   * where to place the logged data.
->   */
-> -STATIC void
-> +STATIC int
->  xlog_recover_do_reg_buffer(
->  	struct xfs_mount		*mp,
->  	struct xlog_recover_item	*item,
-> @@ -489,8 +489,25 @@ xlog_recover_do_reg_buffer(
->  		ASSERT(nbits > 0);
->  		ASSERT(item->ri_buf[i].iov_base != NULL);
->  		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
-> -		ASSERT(BBTOB(bp->b_length) >=
-> -		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
+> =C2=A0net/ceph/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 12 +++
+> =C2=A0net/ceph/osd_client-kunit.c | 146
+> ++++++++++++++++++++++++++++++++++++
+> =C2=A0net/ceph/osd_client.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+=C2=A0 4 +
+> =C2=A03 files changed, 162 insertions(+)
+> =C2=A0create mode 100644 net/ceph/osd_client-kunit.c
+>=20
+> diff --git a/net/ceph/Kconfig b/net/ceph/Kconfig
+> index 7e2528cde4b94..6b78fe4a0f8a4 100644
+> --- a/net/ceph/Kconfig
+> +++ b/net/ceph/Kconfig
+> @@ -45,3 +45,15 @@ config CEPH_LIB_USE_DNS_RESOLVER
+> =C2=A0	=C2=A0 Documentation/networking/dns_resolver.rst
+> =C2=A0
+> =C2=A0	=C2=A0 If unsure, say N.
 > +
-> +		/*
-> +		 * The bitmap is only trustworthy to the extent that it
-> +		 * describes a region that actually fits inside the buffer we
-> +		 * read in based on the (attacker-controlled) blf_len.  Do not
-> +		 * rely on an ASSERT() for this -- it compiles away entirely
-> +		 * on non-DEBUG kernels, which is exactly where this matters,
-> +		 * so validate it for real and abort recovery of this buffer
-> +		 * rather than copying past the end of it.
-> +		 */
-> +		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
-> +				((uint)bit << XFS_BLF_SHIFT) +
-> +				(nbits << XFS_BLF_SHIFT))) {
-> +			xfs_alert(mp,
-> +	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
-> +				bit, nbits, BBTOB(bp->b_length),
-> +				xfs_buf_daddr(bp));
-> +			return -EFSCORRUPTED;
-> +		}
->  
->  		/*
->  		 * The dirty regions logged in the buffer, even though
-> @@ -544,6 +561,7 @@ xlog_recover_do_reg_buffer(
->  	ASSERT(i == item->ri_total);
->  
->  	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
+> +config CEPH_LIB_KUNIT_TEST
+> +	bool "KUnit tests for the Ceph core library" if
+> !KUNIT_ALL_TESTS
+> +	depends on CEPH_LIB && KUNIT
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	=C2=A0 This builds KUnit coverage for selected Ceph core-library
+> parser
+> +	=C2=A0 and state-machine helpers. The tests exercise internal
+> libceph
+> +	=C2=A0 behavior with synthesized state and are intended for
+> developer
+> +	=C2=A0 validation rather than production systems.
+> +
+> +	=C2=A0 If unsure, say N.
+> diff --git a/net/ceph/osd_client-kunit.c b/net/ceph/osd_client-
+> kunit.c
+> new file mode 100644
+> index 0000000000000..713f24675f68f
+> --- /dev/null
+> +++ b/net/ceph/osd_client-kunit.c
+> @@ -0,0 +1,146 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * KUnit coverage for net/ceph/osd_client.c internals.
+> + *
+> + * Included from osd_client.c so the test can drive the real static
+> sparse-read
+> + * parser and cursor-advance helper without exporting test-only
+> symbols.
+> + */
+> +
+> +#include <kunit/test.h>
+> +
+> +struct ceph_osd_sparse_read_test {
+> +	struct ceph_osd osd;
+> +	struct ceph_connection con;
+> +	struct ceph_msg *msg;
+> +	struct ceph_msg_data_cursor cursor;
+> +	struct ceph_osd_request *req;
+> +	struct page **pages;
+> +	struct page *page;
+> +};
+> +
+> +static int ceph_osd_sparse_read_test_init(struct kunit *test)
+> +{
+> +	struct ceph_osd_sparse_read_test *ctx;
+> +
+> +	ctx =3D kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx);
+> +
+> +	ctx->req =3D kunit_kzalloc(test, struct_size(ctx->req, r_ops,
+> 1),
+> +				 GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx->req);
+> +
+> +	ctx->pages =3D kunit_kcalloc(test, 1, sizeof(*ctx->pages),
+> GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx->pages);
+> +
+> +	ctx->page =3D alloc_page(GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx->page);
+> +	ctx->pages[0] =3D ctx->page;
+> +
+> +	ctx->msg =3D ceph_msg_new2(CEPH_MSG_OSD_OPREPLY, 0, 1,
+> GFP_KERNEL, true);
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx->msg);
+> +
+> +	osd_init(&ctx->osd);
+> +	ctx->osd.o_sparse_op_idx =3D -1;
+> +	ceph_init_sparse_read(&ctx->osd.o_sparse_read);
+> +
+> +	request_init(ctx->req);
+> +	ctx->req->r_tid =3D 1;
+> +	ctx->req->r_num_ops =3D 1;
+> +	osd_req_op_extent_init(ctx->req, 0, CEPH_OSD_OP_SPARSE_READ,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0, PAGE_SIZE, 0, 0);
+> +	KUNIT_ASSERT_EQ(test, ctx->req->r_ops[0].op,
+> CEPH_OSD_OP_SPARSE_READ);
+> +
+> +	insert_request(&ctx->osd.o_requests, ctx->req);
+> +
+> +	ctx->msg->hdr.tid =3D cpu_to_le64(ctx->req->r_tid);
+> +	ceph_msg_data_add_pages(ctx->msg, ctx->pages, PAGE_SIZE, 0,
+> false);
+> +	ceph_msg_data_cursor_init(&ctx->cursor, ctx->msg,
+> PAGE_SIZE);
+> +
+> +	ctx->con.private =3D &ctx->osd;
+> +	ctx->con.in_msg =3D ctx->msg;
+> +
+> +	test->priv =3D ctx;
 > +	return 0;
->  }
->  
->  /*
-> @@ -553,7 +571,9 @@ xlog_recover_do_reg_buffer(
->   * Else, treat it as a regular buffer and do recovery.
->   *
->   * Return false if the buffer was tossed and true if we recovered the buffer to
-> - * indicate to the caller if the buffer needs writing.
-> + * indicate to the caller if the buffer needs writing.  *error is set if
-> + * recovery of the buffer failed and the caller must abort replay of this
-> + * buffer.
+> +}
+> +
+> +static void ceph_osd_sparse_read_test_exit(struct kunit *test)
+> +{
+> +	struct ceph_osd_sparse_read_test *ctx =3D test->priv;
+> +
+> +	if (!ctx)
+> +		return;
+> +
+> +	if (ctx->req && !RB_EMPTY_NODE(&ctx->req->r_node))
+> +		erase_request(&ctx->osd.o_requests, ctx->req);
+> +	ceph_init_sparse_read(&ctx->osd.o_sparse_read);
+> +	if (ctx->msg)
+> +		ceph_msg_put(ctx->msg);
+> +	if (ctx->page)
+> +		__free_page(ctx->page);
+> +}
+> +
+> +static int ceph_osd_sparse_read_feed_one_extent(struct kunit *test,
+> +						u64 off, u64 len,
+> u32 datalen)
+> +{
+> +	struct ceph_osd_sparse_read_test *ctx =3D test->priv;
+> +	struct ceph_sparse_read *sr =3D &ctx->osd.o_sparse_read;
+> +	char *buf =3D NULL;
+> +	int ret;
+> +
+> +	ret =3D osd_sparse_read(&ctx->con, &ctx->cursor, &buf);
+> +	KUNIT_ASSERT_EQ(test, ret, (int)sizeof(sr->sr_count));
+> +	KUNIT_ASSERT_PTR_EQ(test, buf, (char *)&sr->sr_count);
+> +
+> +	sr->sr_count =3D (__force u32)cpu_to_le32(1);
+> +	ret =3D osd_sparse_read(&ctx->con, &ctx->cursor, &buf);
+> +	KUNIT_ASSERT_EQ(test, ret, (int)sizeof(*sr->sr_extent));
+> +	KUNIT_ASSERT_NOT_NULL(test, sr->sr_extent);
+> +	KUNIT_ASSERT_PTR_EQ(test, buf, (char *)sr->sr_extent);
+> +
+> +	sr->sr_extent[0].off =3D (__force u64)cpu_to_le64(off);
+> +	sr->sr_extent[0].len =3D (__force u64)cpu_to_le64(len);
+> +	ret =3D osd_sparse_read(&ctx->con, &ctx->cursor, &buf);
+> +	KUNIT_ASSERT_EQ(test, ret, (int)sizeof(sr->sr_datalen));
+> +	KUNIT_ASSERT_PTR_EQ(test, buf, (char *)&sr->sr_datalen);
+> +
+> +	sr->sr_datalen =3D (__force u32)cpu_to_le32(datalen);
+> +	return osd_sparse_read(&ctx->con, &ctx->cursor, &buf);
+> +}
+> +
+> +static void ceph_osd_sparse_read_in_range_extent(struct kunit *test)
+> +{
+> +	struct ceph_osd_sparse_read_test *ctx =3D test->priv;
+> +	struct ceph_sparse_read *sr =3D &ctx->osd.o_sparse_read;
+> +	int ret;
+> +
+> +	ret =3D ceph_osd_sparse_read_feed_one_extent(test, 0, 16, 16);
+> +
+> +	KUNIT_EXPECT_EQ(test, ret, 16);
+> +	KUNIT_EXPECT_EQ(test, sr->sr_pos, 16);
+> +	KUNIT_EXPECT_EQ(test, ctx->cursor.sr_resid, 16);
+> +	KUNIT_EXPECT_EQ(test, ctx->cursor.resid, PAGE_SIZE);
+> +}
+> +
+> +static void ceph_osd_sparse_read_rejects_out_of_range_extent(struct
+> kunit *test)
+> +{
+> +	int ret;
+> +
+> +	ret =3D ceph_osd_sparse_read_feed_one_extent(test, PAGE_SIZE +
+> 16, 16, 16);
+> +
+> +	KUNIT_EXPECT_EQ(test, ret, -EREMOTEIO);
+> +}
+> +
+> +static struct kunit_case ceph_osd_sparse_read_test_cases[] =3D {
+> +	KUNIT_CASE(ceph_osd_sparse_read_in_range_extent),
+> +	KUNIT_CASE(ceph_osd_sparse_read_rejects_out_of_range_extent)
+> ,
+> +	{}
+> +};
+> +
+> +static struct kunit_suite ceph_osd_sparse_read_test_suite =3D {
+> +	.name =3D "ceph_osd_sparse_read",
+> +	.init =3D ceph_osd_sparse_read_test_init,
+> +	.exit =3D ceph_osd_sparse_read_test_exit,
+> +	.test_cases =3D ceph_osd_sparse_read_test_cases,
+> +};
+> +
+> +kunit_test_suite(ceph_osd_sparse_read_test_suite);
+> diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
+> index 76ba3abdad9b1..b9ab9608ec88e 100644
+> --- a/net/ceph/osd_client.c
+> +++ b/net/ceph/osd_client.c
+> @@ -5951,3 +5951,7 @@ static const struct ceph_connection_operations
+> osd_con_ops =3D {
+> =C2=A0	.handle_auth_done =3D osd_handle_auth_done,
+> =C2=A0	.handle_auth_bad_method =3D osd_handle_auth_bad_method,
+> =C2=A0};
+> +
+> +#ifdef CONFIG_CEPH_LIB_KUNIT_TEST
+> +#include "osd_client-kunit.c"
+> +#endif
 
-This is still a rather ugly function signature.  You could compress the
-return value into "1 if dirty, 0 if clean, or a negative errno on
-failure" and then the callsite becomes:
+Usually, KUnit test requires .kunitconfig file and I don't see it.
+Because, there are several ways to run Kunit tests: (1) python script,
+(2) running kernel module.
 
-	error = xlog_recover_do_dquot_buffer(...):
-	if (error <= 0)
-		goto out_release;
+The osd_client-kunit.c should contains:
+MODULE_LICENSE()
+MODULE_AUTHOR()
+MODULE_DESCRIPTION()
+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
 
-	/* write dirty buffer */
-	error = 0;
+The tested function needs to be properly exported:
 
---D
+EXPORT_SYMBOL_IF_KUNIT(<function_name>);
 
->   */
->  STATIC bool
->  xlog_recover_do_dquot_buffer(
-> @@ -561,10 +581,12 @@ xlog_recover_do_dquot_buffer(
->  	struct xlog			*log,
->  	struct xlog_recover_item	*item,
->  	struct xfs_buf			*bp,
-> -	struct xfs_buf_log_format	*buf_f)
-> +	struct xfs_buf_log_format	*buf_f,
-> +	int				*error)
->  {
->  	uint			type;
->  
-> +	*error = 0;
->  	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
->  
->  	/*
-> @@ -586,7 +608,7 @@ xlog_recover_do_dquot_buffer(
->  	if (log->l_quotaoffs_flag & type)
->  		return false;
->  
-> -	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
-> +	*error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
->  	return true;
->  }
->  
-> @@ -724,7 +746,9 @@ xlog_recover_do_primary_sb_buffer(
->  	xfs_rgnumber_t			orig_rgcount = mp->m_sb.sb_rgcount;
->  	int				error;
->  
-> -	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-> +	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-> +	if (error)
-> +		return error;
->  
->  	if (orig_agcount == 0) {
->  		xfs_alert(mp, "Trying to grow file system without AGs");
-> @@ -1083,7 +1107,10 @@ xlog_recover_buf_commit_pass2(
->  		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
->  		bool	dirty;
->  
-> -		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
-> +		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f,
-> +						     &error);
-> +		if (error)
-> +			goto out_release;
->  		if (!dirty)
->  			goto out_release;
->  	} else if ((xfs_blft_from_flags(buf_f) & XFS_BLFT_SB_BUF) &&
-> @@ -1105,7 +1132,10 @@ xlog_recover_buf_commit_pass2(
->  			xfs_buf_relse(rtsb_bp);
->  		}
->  	} else {
-> -		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-> +		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
-> +						   current_lsn);
-> +		if (error)
-> +			goto out_release;
->  	}
->  
->  	/*
-> -- 
-> 2.50.1 (Apple Git-155)
-> 
-> 
+Thanks,
+Slava.
