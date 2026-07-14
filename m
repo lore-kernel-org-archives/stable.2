@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB85D41D65C
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CE141D63C
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784059370; cv=none; b=lfLKQLH2J5mAOA3wMFYcPkUiK+qRNRHqhCDEgxL31MTLw6Do5uQDY5B16/tyc/JDx5S0YoUfvt63DaG1H+4I4B03u10Dzvvx9zlnriuVQGhyrhwrPA9Hpi26Vyv0mQeXDnKJWym8Qm7xNuiBzlxxYx5UGwlM/OhmEY5looJhNiY=
+	t=1784059372; cv=none; b=gIVjEMP1S1y7K+ZDg9HuIM/dhKgiIF84gwYC/KDC6yK4COTIt4xHQyZSkBIUy0r8WUqXc+x+xX02xcEUnAsPa52jJsz01LIQgQiQb5ftr1uuLA4KO6JUeZWzVfBptLTJKRcy7HRlNKwSoiELk7a4gIkk2B2PUeiNYCnt9e3MMoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784059370; c=relaxed/simple;
-	bh=EF9SS4euiyIL8QdhSyRwqFvLZytctp4tkqFUBfbGE4k=;
+	s=arc-20240116; t=1784059372; c=relaxed/simple;
+	bh=akN/88WdJGEfZePDz9mXxIEFNSEBQ6ADSZwvlToGdQw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PJuchLWDySZaYJu2DN8WxnY0j1kliZutX3w5Euhk6UPJ3EkKQ6MrvhFjs9onwBe8gqQ3aD0DeMq/aedf7hRGaaIlavbbb5UG0yKKKtj7F3efJt1LPKRx3cr16N4in5EkXGrQS1kJFVJMBgmIC0v9GG5ZS/VgaNYcLmAO+2TF+CY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dby0inz+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=RLgNP7QV+5iNBCu8QPRhE5zAEMZpD8iFB11hCQ8UOT1wSBCW9z85lRz7yesFME1JazEUInXwXh038hWs27730sIGeVIWl1k6b4JpjkGGRy9Z7vXtI3w2Dorh/s1gqKpTczc8a5BaXZ3lT/ZY2Soo/KqrgaDROaNatd8eOpJk1tI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNzdHHio; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dby0inz+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A1A1F00ADE;
-	Tue, 14 Jul 2026 20:02:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNzdHHio"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B59611F00A3F;
+	Tue, 14 Jul 2026 20:02:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784059364;
-	bh=kd2+vhDqDPyS7bkbvDgLomhpqVH8WydyWdB3lRFsUr8=;
+	s=k20260515; t=1784059361;
+	bh=zuiOq3wPT0D/PnLDozRyhRHWmMlLP36M+6CjPPFmw6Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dby0inz+QI9uyIzKqDfdWR9lyN7MM6Ijmcpq8STcgQ0QXqVsGDYKRcGyQD0qjYZA0
-	 HG7a95CCPOm4BdeSpobz2zMayQausD23lTweeNZhhwSSaSxS3XVrrb1EaTIiFPC99D
-	 uioy4iDcqnEnRVZ/QY2plyQdhrNCg9kyfjykKQQpTepcxcYkeRN6UPZabPIWGPw8Q5
-	 edoPkm9BO4lL3kJeC+JVEFRlR1qVBXug7ZeVBmbiOb8s1iIfpCqBCJKQ9lztqOllUe
-	 X/yojBItLvcTiG5mC1RLmcxAxCc3aAOAtz+Yc2vVJOitdJtuCdNDg2icAaqY+87w1t
-	 /U2SMEKzWGIpA==
+	b=CNzdHHio5hqV3RxiPA3RDK0uaRvdP5P+ZubQePrxwtIyU03AJ9EY98DTBTJYPLZC6
+	 fOqnhcLVZSEZIGG9drrwy2uYo55+uvV7AqH24iAHQslmufRqs6w03bKSc8VAv9XKG6
+	 8FuSddcAi60knxPqgwTPaQInWGoodhc4sBfzqXxWe2cO5xoUp/tPUrTnkFETbGS7rt
+	 N2po/+55PKDTNE8gqfUv3dChkLxZPnMGL6xzmMo5zPmY0UCbtiZLgv5BTLTrE/Z8+i
+	 AuJvBQaknnouTNGGqlnrDOfz7Xomg+5fHwXmMRUNe3c/7s08EE6xaIlXkcTiWKWpE6
+	 QZdSegzU661dA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marco Nenciarini <mnencia@kcore.it>,
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Bjorn Helgaas <bhelgaas@google.com>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 8/8] PCI: Skip Resizable BAR restore on read error
-Date: Tue, 14 Jul 2026 16:02:36 -0400
-Message-ID: <20260714200236.3153778-8-sashal@kernel.org>
+Subject: [PATCH 6.18.y 4/8] PCI: Free saved list without holding pci_bus_sem
+Date: Tue, 14 Jul 2026 16:02:32 -0400
+Message-ID: <20260714200236.3153778-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260714200236.3153778-1-sashal@kernel.org>
 References: <2026071350-unfold-lather-d66a@gregkh>
@@ -44,62 +45,40 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Marco Nenciarini <mnencia@kcore.it>
+From: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-[ Upstream commit ee7471fe968d210939be9046089a924cd23c8c3b ]
+[ Upstream commit 1d8a0506f69895b7cfd9d5c4546761c508231a8a ]
 
-pci_restore_rebar_state() uses the Resizable BAR Control register to decide
-how many BARs to restore (nbars) and which BAR each iteration addresses
-(bar_idx).
+Freeing the saved list does not require holding pci_bus_sem, so the
+critical section can be made shorter.
 
-When a device does not respond, config reads typically return
-PCI_ERROR_RESPONSE (~0).  Both fields are 3 bits wide, so nbars and bar_idx
-both evaluate to 7, past the spec's valid ranges for both fields.
-pci_resource_n() then returns an unrelated resource slot, whose size is
-used to derive a nonsensical value written back to the Resizable BAR
-Control register.
-
-Bail out if any Resizable BAR Control read returns PCI_ERROR_RESPONSE. No
-further BARs are touched, which is safe because a config read that returns
-PCI_ERROR_RESPONSE indicates the device is unreachable and restoration is
-pointless.
-
-Fixes: d3252ace0bc6 ("PCI: Restore resized BAR state on resume")
-Signed-off-by: Marco Nenciarini <mnencia@kcore.it>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/666cac19b5daa0ab0e0ab64454e76b4d24465dbd.1776429882.git.mnencia@kcore.it
+Tested-by: Alex Bennée <alex.bennee@linaro.org> # AVA, AMD GPU
+Link: https://patch.msgid.link/20251113162628.5946-6-ilpo.jarvinen@linux.intel.com
+Stable-dep-of: ee7471fe968d ("PCI: Skip Resizable BAR restore on read error")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/rebar.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/pci/setup-bus.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
-index f6ed7e4893a773..22853cf538fc11 100644
---- a/drivers/pci/rebar.c
-+++ b/drivers/pci/rebar.c
-@@ -145,6 +145,9 @@ void pci_restore_rebar_state(struct pci_dev *pdev)
- 		return;
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index 55f3ac3f3eb1cc..5985ee441c7e2a 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2465,8 +2465,8 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
+ 		pci_claim_resource(dev, i);
+ 		pci_setup_bridge(dev->subordinate);
+ 	}
+-	free_list(&saved);
+ 	up_read(&pci_bus_sem);
++	free_list(&saved);
  
- 	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+	if (PCI_POSSIBLE_ERROR(ctrl))
-+		return;
-+
- 	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
- 
- 	for (i = 0; i < nbars; i++, pos += 8) {
-@@ -152,6 +155,9 @@ void pci_restore_rebar_state(struct pci_dev *pdev)
- 		int bar_idx, size;
- 
- 		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+		if (PCI_POSSIBLE_ERROR(ctrl))
-+			return;
-+
- 		bar_idx = ctrl & PCI_REBAR_CTRL_BAR_IDX;
- 		res = pci_resource_n(pdev, bar_idx);
- 		size = pci_rebar_bytes_to_size(resource_size(res));
+ 	return ret;
+ }
 -- 
 2.53.0
 
