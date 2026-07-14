@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3473353A73
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:46:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12EA48B37D
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:46:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784040397; cv=none; b=eH+BalvAtXj+e08ITRoXaSrsTRa/GaRG/CROS1N35rEdr9KeMh3JrB0SZvfXHvazpP4iKJ6kEvPE9A5/eATP6+xOp+JlnD/TaXfguJO4xvdFEXW/9UV/MjL1p1mByNgzHLTWIEHk/FS7IX9mvnI/8IEZvRm+dYUwxR+rm2BFINM=
+	t=1784040409; cv=none; b=e8DEDyr/5E0H1qYGeX6a+sgWSfhyub4wrY4wiRgLzOcN0bV87rBOTZiDhw17piRF4ZGLZxOTjCCqAyY4NnJmTJMJHg6V4ME5AJ4ANWjuEJCO6rmdBIAsLj/Wbh1LB34RE/szNl5SrkppO2eCoVDit3FzufKZSocaygoHqispFtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784040397; c=relaxed/simple;
-	bh=AvzAfCUfi+inm5lUZ04isjN9ObUvEQsePV+z9fotHwE=;
+	s=arc-20240116; t=1784040409; c=relaxed/simple;
+	bh=5nUfEZA0lZohJ7cnO1v+HPat/DdHdvSQW9NUG8Xi9HQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hk/omzQcRb9GNdEiyZM3H22QfKG4WN5ee+sYpjkHa8RWbrLr+fYkBafRjwwXxuX9gUDl2Kzr7mTBjwU96adlbltQKRhcDx9hdKPPeHJDn4ljmaT6DuEAdEhvdZuKTLh8upacrTqjrNkeP4OTEP73s5VYOPD3HjQKklO/Syp/y9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EocsvtU1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ixMCDt9LKxwaKVGL7NeHX+6tCoe8EoyMvAkwxB0iYW1zkOpezSYYWpaOTuVRIGb8/lvP++TfNdY/LTP1VWyDog0cOcPScKgzCYkF8juhrCNqxPcFgdUXkbcQQelPV0sb8VDIYbXYFWR2DoBDDa3QY+ip1+lgJQ17G4JwRBn1AOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eaX+qEKr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EocsvtU1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 170C01F000E9;
-	Tue, 14 Jul 2026 14:46:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eaX+qEKr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67B101F00ACA;
+	Tue, 14 Jul 2026 14:46:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784040387;
-	bh=cpMG7qnSoXG/L/7A69y3+meZZh36SgxES34IY0TEecU=;
+	s=k20260515; t=1784040400;
+	bh=kDBs+MM40ce/6I7uy7Sis87CIxmAlLTbD/Dv+uPM2Co=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EocsvtU1USb0OmyxRFW91cDaSkgEYNs7zHm1aFlHSykJoJcr495e2iV7rBwDCPuMZ
-	 /YH1CNOj+3BtF6DV0L8xM6mZ+P5LsxzHtHdDCjwUwfmNTR2ZGAFpogGpuNcXEeIEA8
-	 T5wVHGSSgGdRGIKmXeMdwf6FleGJw11XhtEBrH7SZJMZTxG7NgP+OxKlXFyZb8gYfK
-	 QNQS2ZJSMhSPUkz2jSEi4S2c0KSzmfQTezaOJ9Zl4trAEmN7zv2ltJ3dCSgrloqP6l
-	 fudqBAhv8NSoIz2p+DJZJlh2WOS7Py8RVv/eFproIbpndCPecR9ifM2F9cG7JmhTcB
-	 DGJyKco03GhEw==
+	b=eaX+qEKrwB4auvp/Pp13Q2pI/B2jvzbCmzg6ZLR5qaEdyWGQWLMAnXi8UMvoUe7C5
+	 N7tOIdorG+f69r7GJdC9EN0U2belVluaVEfUk2rvfcNHtyMoYvCbyRycMzEZNjGqSc
+	 UPhaCG3EOy8hX6OS6STesuOmiaI2cEDe7Jhg4SYx1c5Iw89ME8Y8w0DVFHnlaA/CFF
+	 LX/V5iW0pef6adbTu7bCFfw/6WwPkPIRDagwc9MpRuZf8uFQv7sVo9S7YYgktlN2lm
+	 jWQ69nfLwudBOzQaoPbehgctcEQpKuSw5e4RpR7dzoDUFfLWuewK4eFkSMBIP7sU7C
+	 KQ9pGpn0Kiusg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mahesh Vaidya <mahesh.vaidya@altera.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	"Subhransu S. Prusty" <subhransu.sekhar.prusty@altera.com>,
+Cc: Alex Williamson <alex.williamson@nvidia.com>,
+	Yishai Hadas <yishaih@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Alex Williamson <alex@shazbot.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] PCI: altera: Fix resource leaks on probe failure
-Date: Tue, 14 Jul 2026 10:46:24 -0400
-Message-ID: <20260714144624.2781507-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] vfio/mlx5: Fix racy bitfields and tighten struct layout
+Date: Tue, 14 Jul 2026 10:46:37 -0400
+Message-ID: <20260714144637.2781948-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071314-linseed-onslaught-176b@gregkh>
-References: <2026071314-linseed-onslaught-176b@gregkh>
+In-Reply-To: <2026071351-hypnotist-breeching-8539@gregkh>
+References: <2026071351-hypnotist-breeching-8539@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,98 +47,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mahesh Vaidya <mahesh.vaidya@altera.com>
+From: Alex Williamson <alex.williamson@nvidia.com>
 
-[ Upstream commit 7a94138caeb27f3c49c1dbd93bf422098925bb28 ]
+[ Upstream commit f2365a63b02ddea32e7db78b742c2503ec7b81f1 ]
 
-The chained IRQ handler is set during probe, but is only removed during the
-driver remove(). If pci_host_probe() fails, the handler and INTx IRQ
-domain remain set even though the devm-managed host bridge storage
-containing struct altera_pcie will be released, leaving the handler with
-a stale data pointer.
+Bitfield operations are not atomic, they use a read-modify-write
+pattern, therefore we should be careful not to pack bitfields that
+can be concurrently updated into the same storage unit.
 
-Interrupts are also enabled before pci_host_probe() is called. If probe
-fails after that point, the controller interrupt source should be disabled
-before the chained handler and INTx domain are removed.
+This split takes a binary approach: flags that are only modified
+pre/post open/close remain bitfields, flags modified from user
+action, including actions that reach across to another device (ex.
+reset) use dedicated storage units.
 
-So set the chained handler only after the INTx domain has been created.
-Disable controller interrupts during IRQ teardown, and tear the IRQ setup
-down if pci_host_probe() fails.
+Note mlx5_vhca_page_tracker.status is relocated to fill the alignment
+hole this split exposes.
 
-Fixes: c63aed7334c2 ("PCI: altera: Use pci_host_probe() to register host")
-Signed-off-by: Mahesh Vaidya <mahesh.vaidya@altera.com>
-[mani: commit log]
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
-Reviewed-by: Subhransu S. Prusty <subhransu.sekhar.prusty@altera.com>
+Bitfield justifications:
+
+  migrate_cap: written only in mlx5vf_cmd_set_migratable() at probe
+  chunk_mode: written only in mlx5vf_cmd_set_migratable() at probe
+  mig_state_cap: written only in mlx5vf_cmd_set_migratable() at probe
+
+Dedicated storage units:
+
+  mdev_detach: written in the VF attach/detach event notifier
+               mlx5fv_vf_event() at runtime
+  log_active: written in mlx5vf_start_page_tracker()/
+              mlx5vf_stop_page_tracker() during runtime dirty tracking
+  deferred_reset: written in mlx5vf_state_mutex_unlock()/
+                  mlx5vf_pci_aer_reset_done() during runtime reset handling
+  is_err: set by tracker error handling and dirty-log polling at runtime
+  object_changed: set by tracker event handling and cleared by dirty-log
+                  polling at runtime
+
+Fixes: 61a2f1460fd0 ("vfio/mlx5: Manage the VF attach/detach callback from the PF")
+Fixes: 79c3cf279926 ("vfio/mlx5: Init QP based resources for dirty tracking")
+Fixes: f886473071d6 ("vfio/mlx5: Add support for tracker object change event")
+Cc: Yishai Hadas <yishaih@nvidia.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260430204330.3121003-3-mahesh.vaidya@altera.com
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Link: https://lore.kernel.org/r/20260615191241.688297-5-alex.williamson@nvidia.com
+Signed-off-by: Alex Williamson <alex@shazbot.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/controller/pcie-altera.c | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+ drivers/vfio/pci/mlx5/cmd.h | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/pci/controller/pcie-altera.c b/drivers/pci/controller/pcie-altera.c
-index a9536dc4bf96bc..af6bab5cdc297f 100644
---- a/drivers/pci/controller/pcie-altera.c
-+++ b/drivers/pci/controller/pcie-altera.c
-@@ -680,8 +680,18 @@ static int altera_pcie_init_irq_domain(struct altera_pcie *pcie)
- 	return 0;
- }
+diff --git a/drivers/vfio/pci/mlx5/cmd.h b/drivers/vfio/pci/mlx5/cmd.h
+index aec4c69dd6c1ee..f002e5eda04f51 100644
+--- a/drivers/vfio/pci/mlx5/cmd.h
++++ b/drivers/vfio/pci/mlx5/cmd.h
+@@ -147,23 +147,26 @@ struct mlx5_vhca_qp {
+ struct mlx5_vhca_page_tracker {
+ 	u32 id;
+ 	u32 pdn;
+-	u8 is_err:1;
++	/* Flags modified at runtime - dedicated storage unit */
++	u8 is_err;
++	int status;
+ 	struct mlx5_uars_page *uar;
+ 	struct mlx5_vhca_cq cq;
+ 	struct mlx5_vhca_qp *host_qp;
+ 	struct mlx5_vhca_qp *fw_qp;
+ 	struct mlx5_nb nb;
+-	int status;
+ };
  
-+static void altera_pcie_disable_irq(struct altera_pcie *pcie)
-+{
-+	if (pcie->pcie_data->version == ALTERA_PCIE_V1 ||
-+	    pcie->pcie_data->version == ALTERA_PCIE_V2) {
-+		/* Disable all P2A interrupts */
-+		cra_writel(pcie, 0, P2A_INT_ENABLE);
-+	}
-+}
-+
- static void altera_pcie_irq_teardown(struct altera_pcie *pcie)
- {
-+	altera_pcie_disable_irq(pcie);
- 	irq_set_chained_handler_and_data(pcie->irq, NULL, NULL);
- 	irq_domain_remove(pcie->irq_domain);
- 	irq_dispose_mapping(pcie->irq);
-@@ -707,7 +717,6 @@ static int altera_pcie_parse_dt(struct altera_pcie *pcie)
- 	if (pcie->irq < 0)
- 		return pcie->irq;
- 
--	irq_set_chained_handler_and_data(pcie->irq, altera_pcie_isr, pcie);
- 	return 0;
- }
- 
-@@ -792,6 +801,12 @@ static int altera_pcie_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	/*
-+	 * The chained handler uses pcie->irq_domain, so set it only after the
-+	 * INTx domain has been created.
-+	 */
-+	irq_set_chained_handler_and_data(pcie->irq, altera_pcie_isr, pcie);
-+
- 	/* clear all interrupts */
- 	cra_writel(pcie, P2A_INT_STS_ALL, P2A_INT_STATUS);
- 	/* enable all interrupts */
-@@ -802,7 +817,16 @@ static int altera_pcie_probe(struct platform_device *pdev)
- 	bridge->busnr = pcie->root_bus_nr;
- 	bridge->ops = &altera_pcie_ops;
- 
--	return pci_host_probe(bridge);
-+	ret = pci_host_probe(bridge);
-+	if (ret)
-+		goto err_teardown_irq;
-+
-+	return 0;
-+
-+err_teardown_irq:
-+	altera_pcie_irq_teardown(pcie);
-+
-+	return ret;
- }
- 
- static void altera_pcie_remove(struct platform_device *pdev)
+ struct mlx5vf_pci_core_device {
+ 	struct vfio_pci_core_device core_device;
+ 	int vf_id;
+ 	u16 vhca_id;
++	/* Flags only modified on setup/release - bitfield ok */
+ 	u8 migrate_cap:1;
+-	u8 deferred_reset:1;
+-	u8 mdev_detach:1;
+-	u8 log_active:1;
++	/* Flags modified at runtime - dedicated storage unit */
++	u8 mdev_detach;
++	u8 log_active;
++	u8 deferred_reset;
+ 	struct completion tracker_comp;
+ 	/* protect migration state */
+ 	struct mutex state_mutex;
 -- 
 2.53.0
 
