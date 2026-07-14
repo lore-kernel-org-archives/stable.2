@@ -1,94 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5604D481647
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:42:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3473353A73
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 14:46:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784040144; cv=none; b=HEo179fuUvu3ouBNwLIq4eICR/lVBv4sQI4L4kld7g/qtRhZMVQJSld2jxqTxhBK0DNYK8l9GOjySwffEeHFnGyahR/p1J5ciTcqRD6Vo8wNEnNNk5yFpEIJC/6TSjKlUgtBlMroxt0NvXO21BF0UDj8qDDFyXfzqAYE5KxUMKM=
+	t=1784040397; cv=none; b=eH+BalvAtXj+e08ITRoXaSrsTRa/GaRG/CROS1N35rEdr9KeMh3JrB0SZvfXHvazpP4iKJ6kEvPE9A5/eATP6+xOp+JlnD/TaXfguJO4xvdFEXW/9UV/MjL1p1mByNgzHLTWIEHk/FS7IX9mvnI/8IEZvRm+dYUwxR+rm2BFINM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784040144; c=relaxed/simple;
-	bh=1Eg0Pb12lyB7IZSHTtHRoBt8Iv/f3lDNLg/OZu7xfi8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dfs9Oe0la5oEx6+Wcm+eKPNHI6Z0tOqDUlgiKgzWzBstBtledqRQjhYE/IswbBVD36Ke+oKShM02A62tNHFN5rg3EtY8Y5KzYqQMMvGcDN17VijHy7NnoeprmbKLn7GSUSLHJvphaBYxptN/9OUkXiyC0BDvqcZXjGOliU0GqGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CIH5EDZR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784040397; c=relaxed/simple;
+	bh=AvzAfCUfi+inm5lUZ04isjN9ObUvEQsePV+z9fotHwE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hk/omzQcRb9GNdEiyZM3H22QfKG4WN5ee+sYpjkHa8RWbrLr+fYkBafRjwwXxuX9gUDl2Kzr7mTBjwU96adlbltQKRhcDx9hdKPPeHJDn4ljmaT6DuEAdEhvdZuKTLh8upacrTqjrNkeP4OTEP73s5VYOPD3HjQKklO/Syp/y9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EocsvtU1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CIH5EDZR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06111F00A3D;
-	Tue, 14 Jul 2026 14:42:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784040128;
-	bh=svqe6bWe7ho3FfkyVxO66ti0QpHyqbg1LPY8WePKL7U=;
-	h=Subject:To:Cc:From:Date;
-	b=CIH5EDZRH0gi3ezwb5Yg+EzAFBsH/Cfa4zN9OO72WaBYfyIH/xBq4QuJo+iVNeYHt
-	 Qu7bAvrMccBmkyPHeu3WniQEC92tQfqjR5D9uPmKFb9v5E/vzWpBt6l2RxgycJpAUY
-	 yfpqyjNB+aK8JB5fMfz3mildw75GTLSDbOfIeu8g=
-Subject: FAILED: patch "[PATCH] smb: client: mask server-provided mode to 07777 in" failed to apply to 5.10-stable tree
-To: nmanthey@amazon.de,stfrench@microsoft.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 14 Jul 2026 16:41:54 +0200
-Message-ID: <2026071454-prowler-bucktooth-a71f@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EocsvtU1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 170C01F000E9;
+	Tue, 14 Jul 2026 14:46:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784040387;
+	bh=cpMG7qnSoXG/L/7A69y3+meZZh36SgxES34IY0TEecU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EocsvtU1USb0OmyxRFW91cDaSkgEYNs7zHm1aFlHSykJoJcr495e2iV7rBwDCPuMZ
+	 /YH1CNOj+3BtF6DV0L8xM6mZ+P5LsxzHtHdDCjwUwfmNTR2ZGAFpogGpuNcXEeIEA8
+	 T5wVHGSSgGdRGIKmXeMdwf6FleGJw11XhtEBrH7SZJMZTxG7NgP+OxKlXFyZb8gYfK
+	 QNQS2ZJSMhSPUkz2jSEi4S2c0KSzmfQTezaOJ9Zl4trAEmN7zv2ltJ3dCSgrloqP6l
+	 fudqBAhv8NSoIz2p+DJZJlh2WOS7Py8RVv/eFproIbpndCPecR9ifM2F9cG7JmhTcB
+	 DGJyKco03GhEw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mahesh Vaidya <mahesh.vaidya@altera.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	"Subhransu S. Prusty" <subhransu.sekhar.prusty@altera.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] PCI: altera: Fix resource leaks on probe failure
+Date: Tue, 14 Jul 2026 10:46:24 -0400
+Message-ID: <20260714144624.2781507-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071314-linseed-onslaught-176b@gregkh>
+References: <2026071314-linseed-onslaught-176b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Mahesh Vaidya <mahesh.vaidya@altera.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 7a94138caeb27f3c49c1dbd93bf422098925bb28 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The chained IRQ handler is set during probe, but is only removed during the
+driver remove(). If pci_host_probe() fails, the handler and INTx IRQ
+domain remain set even though the devm-managed host bridge storage
+containing struct altera_pcie will be released, leaving the handler with
+a stale data pointer.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x e3d9c7160d483fc8f9e225aafad8ecbbc43f3151
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071454-prowler-bucktooth-a71f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Interrupts are also enabled before pci_host_probe() is called. If probe
+fails after that point, the controller interrupt source should be disabled
+before the chained handler and INTx domain are removed.
 
-Possible dependencies:
+So set the chained handler only after the INTx domain has been created.
+Disable controller interrupts during IRQ teardown, and tear the IRQ setup
+down if pci_host_probe() fails.
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From e3d9c7160d483fc8f9e225aafad8ecbbc43f3151 Mon Sep 17 00:00:00 2001
-From: Norbert Manthey <nmanthey@amazon.de>
-Date: Thu, 9 Jul 2026 15:54:39 +0000
-Subject: [PATCH] smb: client: mask server-provided mode to 07777 in
- modefromsid
-
-When modefromsid is active, parse_dacl() applies the server-provided
-sub_auth[2] value from the NFS mode SID to cf_mode without masking to
-07777. Apply the correct masking, same as in the read path.
-
-Fixes: e2f8fbfb8d09c ("cifs: get mode bits from special sid on stat")
-Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
-Assisted-by: Kiro:claude-opus-4.6
+Fixes: c63aed7334c2 ("PCI: altera: Use pci_host_probe() to register host")
+Signed-off-by: Mahesh Vaidya <mahesh.vaidya@altera.com>
+[mani: commit log]
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+Reviewed-by: Subhransu S. Prusty <subhransu.sekhar.prusty@altera.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Link: https://patch.msgid.link/20260430204330.3121003-3-mahesh.vaidya@altera.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/pci/controller/pcie-altera.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
-index 07cf0e578233..9424281a7674 100644
---- a/fs/smb/client/cifsacl.c
-+++ b/fs/smb/client/cifsacl.c
-@@ -962,7 +962,7 @@ static void parse_dacl(struct smb_acl *pdacl, char *end_of_acl,
- 				 */
- 				fattr->cf_mode &= ~07777;
- 				fattr->cf_mode |=
--					le32_to_cpu(ppace[i]->sid.sub_auth[2]);
-+					le32_to_cpu(ppace[i]->sid.sub_auth[2]) & 07777;
- 				break;
- 			} else {
- 				if (compare_sids(&(ppace[i]->sid), pownersid) == 0) {
+diff --git a/drivers/pci/controller/pcie-altera.c b/drivers/pci/controller/pcie-altera.c
+index a9536dc4bf96bc..af6bab5cdc297f 100644
+--- a/drivers/pci/controller/pcie-altera.c
++++ b/drivers/pci/controller/pcie-altera.c
+@@ -680,8 +680,18 @@ static int altera_pcie_init_irq_domain(struct altera_pcie *pcie)
+ 	return 0;
+ }
+ 
++static void altera_pcie_disable_irq(struct altera_pcie *pcie)
++{
++	if (pcie->pcie_data->version == ALTERA_PCIE_V1 ||
++	    pcie->pcie_data->version == ALTERA_PCIE_V2) {
++		/* Disable all P2A interrupts */
++		cra_writel(pcie, 0, P2A_INT_ENABLE);
++	}
++}
++
+ static void altera_pcie_irq_teardown(struct altera_pcie *pcie)
+ {
++	altera_pcie_disable_irq(pcie);
+ 	irq_set_chained_handler_and_data(pcie->irq, NULL, NULL);
+ 	irq_domain_remove(pcie->irq_domain);
+ 	irq_dispose_mapping(pcie->irq);
+@@ -707,7 +717,6 @@ static int altera_pcie_parse_dt(struct altera_pcie *pcie)
+ 	if (pcie->irq < 0)
+ 		return pcie->irq;
+ 
+-	irq_set_chained_handler_and_data(pcie->irq, altera_pcie_isr, pcie);
+ 	return 0;
+ }
+ 
+@@ -792,6 +801,12 @@ static int altera_pcie_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
++	/*
++	 * The chained handler uses pcie->irq_domain, so set it only after the
++	 * INTx domain has been created.
++	 */
++	irq_set_chained_handler_and_data(pcie->irq, altera_pcie_isr, pcie);
++
+ 	/* clear all interrupts */
+ 	cra_writel(pcie, P2A_INT_STS_ALL, P2A_INT_STATUS);
+ 	/* enable all interrupts */
+@@ -802,7 +817,16 @@ static int altera_pcie_probe(struct platform_device *pdev)
+ 	bridge->busnr = pcie->root_bus_nr;
+ 	bridge->ops = &altera_pcie_ops;
+ 
+-	return pci_host_probe(bridge);
++	ret = pci_host_probe(bridge);
++	if (ret)
++		goto err_teardown_irq;
++
++	return 0;
++
++err_teardown_irq:
++	altera_pcie_irq_teardown(pcie);
++
++	return ret;
+ }
+ 
+ static void altera_pcie_remove(struct platform_device *pdev)
+-- 
+2.53.0
 
