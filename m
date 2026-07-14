@@ -1,147 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D05D1F0991
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 02:09:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29001F942;
+	Tue, 14 Jul 2026 02:19:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783994958; cv=none; b=qswf91E2E6ALx8tbUsaiVORXhDL+MukOAkvNFJSNx+cZzsZBfolfxq6m3V6WTso1lNykk5urEYK+nDPtrl/NM5q74quwiJuED1irbV/w8m4hta3ityd8nhZcW8AbRqudCo7U5LdXK+NdNTiJ3XVBsbof0Qct9cWVdQugYQGDQpA=
+	t=1783995553; cv=none; b=nI8k1k8yS+j1SeFmUQlYa1aWaZZi9b0nfAxrgFaikjONgCQPyXuZviaVLWXnBd3M4Wo6xgVqVFUcX0s43x7gao1BSSSQAx3lkvyL8PNlQAdEG4qu4qPyNBNPsJrMWOZp8lp806QOWEHg2COu27lACN8A8lxrUUt87NqiD4UxS14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783994958; c=relaxed/simple;
-	bh=XnKGg6vNj2WEtP0a46uDMxDPs1w1ol3GbamxNGIRIPA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HEyHcT6m2LtLmR4chcyUAJrDRHOOZWMuGx7F5cFROm+yj3Otj2MhgUoRFh9GdaQDUJfHkeNiPGm3d7yak9/sYa2aKghTYNodrTeykCqrnH1H5mUTsMldAdGlNewXw9zF786SXd5KEVzTaYmr8jVqamuwBfhMSKwv3cMery2Fbyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CYbe0RkE; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CYbe0RkE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89E091F000E9;
-	Tue, 14 Jul 2026 02:09:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783994957;
-	bh=6J8AyhuIhltmcldAbyl/M/RKqCTsvP60+Rc1ePmUNqE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CYbe0RkEu5kkZauiVMuNFMn9DA3l4aw25oyiXiJLySQG1Bh87C9VrAN0Fta3HBFKP
-	 2pzfULhnhfXzvoAXg3Sm9EqFAdCoEKl3/y7w8g5wJFli17/XauBkqJGKGucf9UOd4i
-	 Tdc/XTrRIbts6Z28BNo3gcjJj1FVUnzIH/2kDRWUsw9OBQjMw93eOW/fGOvhp1ndxB
-	 mv7MmCbjUZfNpwy2QHMa4BPW73/ygR2PVY0o2yFJIxi5G8YVmMKVY3i3kkaGyDIQmc
-	 lHGRzEU5EB0Q8atvkcROZodDRqLBK7HEQdErRgbabVelTytoFbTlf1gZOmJkheIZ4r
-	 P+hb1hQuapFuA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Geoffrey D. Bennett" <g@b4.vu>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] ALSA: scarlett2: Update offsets for 2i2 Gen 4 firmware 2417
-Date: Mon, 13 Jul 2026 22:09:14 -0400
-Message-ID: <20260714020914.2356076-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714020914.2356076-1-sashal@kernel.org>
-References: <2026071350-defrost-overripe-4b59@gregkh>
- <20260714020914.2356076-1-sashal@kernel.org>
+	s=arc-20240116; t=1783995553; c=relaxed/simple;
+	bh=CHSQNLW3A/NkNZfZSWLZL6Uuk8fxjN/BNQCuDsK2o7g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=k/K3Dg7G9bwC8GuJNlK1MOe1xYlh0ETF8HOEHYw9XfumuoEszf9cbENdvCKNDLqobXVEZY8htiLJiHFAbvpA9ak/a9Mf5rgbwWJElsjSlKlVS+Tm7GVTo7gvGxOGFw+EXGrO/eAFXNyT2hMBw8aJstz2Er2WlhYthAYaHzE35a0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 616f46ce7f2a11f1aa26b74ffac11d73-20260714
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:e328e8df-f2f2-4d26-9dbd-b9940e0a73f7,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:8c40c6ec2e0d51ac1c6d4e291a08cf7f,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 616f46ce7f2a11f1aa26b74ffac11d73-20260714
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 365658842; Tue, 14 Jul 2026 10:19:02 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	arnd@arndb.de,
+	jonas.jensen@gmail.com
+Cc: dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] dmaengine: moxart: Fix use-after-free by proper tasklet cleanup
+Date: Tue, 14 Jul 2026 10:18:58 +0800
+Message-Id: <20260714021858.642473-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Geoffrey D. Bennett" <g@b4.vu>
+The moxart DMA driver has a use-after-free vulnerability:
+- vchan_init() creates tasklets that access moxart_chan memory
+- Neither probe error paths nor remove() call tasklet_kill()
+- devm_free_irq() only waits for IRQ handler, NOT tasklets
+- mdc is devm-managed and freed after probe/remove
+- Running tasklets accessing freed memory → Use-After-Free!
 
-[ Upstream commit 3ca15754b561483aa7a1bce51677d6389f8ff5bb ]
+Fix by adding moxart_dma_free_channels() helper that calls
+tasklet_kill() for each channel, and ensuring proper teardown order:
 
-Firmware 2417 for the Scarlett 4th Gen 2i2 moved the direct monitor gain
-parameters, so add a second config_set with the shifted offset and
-select it for firmware versions >= 2417.
+In remove():
+- devm_free_irq() FIRST to stop the IRQ handler (implies
+  synchronize_irq(), preventing new tasklets from being scheduled)
+- moxart_dma_free_channels() to kill already-scheduled tasklets
+- Then of_dma_controller_free() and dma_async_device_unregister()
+  to safely unregister the device
 
-Fixes: 4e809a299677 ("ALSA: scarlett2: Add support for Solo, 2i2, and 4i4 Gen 4")
-Cc: stable@vger.kernel.org # ALSA: scarlett2: Allow selecting config_set by firmware version
-Cc: stable@vger.kernel.org # ALSA: scarlett2: Fold min_firmware_version into config_sets
+In probe error path:
+- moxart_dma_free_channels() to kill tasklets created by vchan_init()
+- devm_request_irq() is automatically released by devres, so no
+  explicit devm_free_irq() is needed
+
+Fixes: 5f9e685a0d46 ("dmaengine: Add MOXA ART DMA engine driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/ad0fc5a131e76eb656a24e0e198382f7134068fe.1777151532.git.g@b4.vu
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- sound/usb/mixer_scarlett2.c | 58 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
+ drivers/dma/moxart-dma.c | 28 +++++++++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
 
-diff --git a/sound/usb/mixer_scarlett2.c b/sound/usb/mixer_scarlett2.c
-index fedf0c656b9959..6ac2fad37f04ad 100644
---- a/sound/usb/mixer_scarlett2.c
-+++ b/sound/usb/mixer_scarlett2.c
-@@ -937,6 +937,63 @@ static const struct scarlett2_config_set scarlett2_config_set_gen4_2i2 = {
- 	}
- };
+diff --git a/drivers/dma/moxart-dma.c b/drivers/dma/moxart-dma.c
+index 442f5aa16031..d01eaa6b964b 100644
+--- a/drivers/dma/moxart-dma.c
++++ b/drivers/dma/moxart-dma.c
+@@ -553,6 +553,22 @@ static irqreturn_t moxart_dma_interrupt(int irq, void *devid)
+ 	return IRQ_HANDLED;
+ }
  
-+/* 2i2 Gen 4, firmware version 2417 and above
-+ *
-+ * Firmware 2417 shifted DIRECT_MONITOR_GAIN by 4 bytes; all other
-+ * offsets are unchanged from scarlett2_config_set_gen4_2i2.
-+ */
-+static const struct scarlett2_config_set scarlett2_config_set_gen4_2i2_2417 = {
-+	.notifications = scarlett4_2i2_notifications,
-+	.param_buf_addr = 0xfc,
-+	.input_gain_tlv = db_scale_gen4_gain,
-+	.autogain_status_texts = scarlett2_autogain_status_gen4,
-+	.items = {
-+		[SCARLETT2_CONFIG_MSD_SWITCH] = {
-+			.offset = 0x49, .size = 8, .activate = 4 },
++static void moxart_dma_free_channels(struct moxart_dmadev *mdc)
++{
++	struct moxart_chan *ch;
++	int i;
 +
-+		[SCARLETT2_CONFIG_DIRECT_MONITOR] = {
-+			.offset = 0x14a, .size = 8, .activate = 16, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_AUTOGAIN_SWITCH] = {
-+			.offset = 0x135, .size = 8, .activate = 10, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_AUTOGAIN_STATUS] = {
-+			.offset = 0x137, .size = 8 },
-+
-+		[SCARLETT2_CONFIG_AG_MEAN_TARGET] = {
-+			.offset = 0x131, .size = 8, .activate = 29, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_AG_PEAK_TARGET] = {
-+			.offset = 0x132, .size = 8, .activate = 30, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_PHANTOM_SWITCH] = {
-+			.offset = 0x48, .size = 8, .activate = 11, .pbuf = 1,
-+			.mute = 1 },
-+
-+		[SCARLETT2_CONFIG_INPUT_GAIN] = {
-+			.offset = 0x4b, .size = 8, .activate = 12, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_LEVEL_SWITCH] = {
-+			.offset = 0x3c, .size = 8, .activate = 13, .pbuf = 1,
-+			.mute = 1 },
-+
-+		[SCARLETT2_CONFIG_SAFE_SWITCH] = {
-+			.offset = 0x147, .size = 8, .activate = 14, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_AIR_SWITCH] = {
-+			.offset = 0x3e, .size = 8, .activate = 15, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_INPUT_SELECT_SWITCH] = {
-+			.offset = 0x14b, .size = 8, .activate = 17, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_INPUT_LINK_SWITCH] = {
-+			.offset = 0x14e, .size = 8, .activate = 18, .pbuf = 1 },
-+
-+		[SCARLETT2_CONFIG_DIRECT_MONITOR_GAIN] = {
-+			.offset = 0x2a4, .size = 16, .activate = 36 }
++	for (i = 0; i < APB_DMA_MAX_CHANNEL; i++) {
++		ch = &mdc->slave_chans[i];
++		/*
++		 * Wait for any scheduled tasklet to complete before channel
++		 * memory is freed by devres.
++		 */
++		tasklet_kill(&ch->vc.task);
++		list_del(&ch->vc.chan.device_node);
 +	}
-+};
++}
 +
- /* 4i4 Gen 4 */
- static const struct scarlett2_config_set scarlett2_config_set_gen4_4i4 = {
- 	.notifications = scarlett4_4i4_notifications,
-@@ -1999,6 +2056,7 @@ static const struct scarlett2_device_info solo_gen4_info = {
- static const struct scarlett2_device_info s2i2_gen4_info = {
- 	.config_sets = (const struct scarlett2_config_set_entry[]) {
- 		{ 2115, &scarlett2_config_set_gen4_2i2 },
-+		{ 2417, &scarlett2_config_set_gen4_2i2_2417 },
- 		{ }
- 	},
- 	.min_firmware_version = 2115,
+ static int moxart_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -609,19 +625,23 @@ static int moxart_probe(struct platform_device *pdev)
+ 	ret = dma_async_device_register(&mdc->dma_slave);
+ 	if (ret) {
+ 		dev_err(dev, "dma_async_device_register failed\n");
+-		return ret;
++		goto err_dma_register;
+ 	}
+ 
+ 	ret = of_dma_controller_register(node, moxart_of_xlate, mdc);
+ 	if (ret) {
+ 		dev_err(dev, "of_dma_controller_register failed\n");
+ 		dma_async_device_unregister(&mdc->dma_slave);
+-		return ret;
++		goto err_dma_register;
+ 	}
+ 
+ 	dev_dbg(dev, "%s: IRQ=%u\n", __func__, irq);
+ 
+ 	return 0;
++
++err_dma_register:
++	moxart_dma_free_channels(mdc);
++	return ret;
+ }
+ 
+ static void moxart_remove(struct platform_device *pdev)
+@@ -630,10 +650,12 @@ static void moxart_remove(struct platform_device *pdev)
+ 
+ 	devm_free_irq(&pdev->dev, m->irq, m);
+ 
+-	dma_async_device_unregister(&m->dma_slave);
++	moxart_dma_free_channels(m);
+ 
+ 	if (pdev->dev.of_node)
+ 		of_dma_controller_free(pdev->dev.of_node);
++
++	dma_async_device_unregister(&m->dma_slave);
+ }
+ 
+ static const struct of_device_id moxart_dma_match[] = {
 -- 
-2.53.0
+2.25.1
 
