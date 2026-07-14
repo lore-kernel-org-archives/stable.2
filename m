@@ -1,42 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A4C41D631
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F9741D657
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784059372; cv=none; b=dbBDCMl4Vrr491cs74XIl/ig9vMWrYWYb6OD37L+Y7XMI1FUT3EbjwbPYzZw3lAGaLGhCNR+EaMj13s2TPYTk2qCzfMcPCp/53NMEW2Qv/3vSJutN9ad8ksJXmeuN4UX35Vuf7bczQfs/LTNEQlsEpBIjTwPx7q3Act3KTPf/7o=
+	t=1784059376; cv=none; b=JpauSMeiW/ADNyF5QndGCwYyNQU7OHwYl1ZpTWBQKqbJUsIAAHnByyaoV5SODbj6Zvyh44AhjTL8XTm2exdRrX9jo7NmmweW5d9TR9iHs9B8LoAjzRjqEeLDG46GChYT8/Nq2jsY4UWCHq0OsvKgTeVh2VdCKtHxyP61o8AdUjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784059372; c=relaxed/simple;
-	bh=6S5KhnlsUqcKHaqwSZYc47TJMiXHIr3XZqlfuHARySA=;
+	s=arc-20240116; t=1784059376; c=relaxed/simple;
+	bh=WDEyEBr+uokZnqbXdD2MEzw+RvIr2+fhMTeoTGp74dM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=esMXvmX1QwJKAERYC6C25+d42TZdoaMTdW23TL/W6dv800BqHZVqKT1epny4NVzWmEqHy3tU1OVZgTQ5ayaP9xNjshBtCNLNIlqnKWgvHu7Nh+rI+z+vjgBnf1YBuGmFrTJlTyswDRwROgU0vmZVa3wIcfsRgQDK2UXaAUYcXAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K98S5DoJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=upFwFY3zX2w/3KByfBN5fGNZDhEoC1+a+uiZoHRcFIlmrmXx1eQoZ4jk6pAzNcQCeYwDlFIW7ss1iJoE+npH7SO0HBAz5BfserFi3KgbJLBv0k9lnp/ocLV/b6k9M9srVA8Sa2TONbtBpFoMY5FQ7U0jzEMlc68J0INmFmBlR7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oO2qnuvX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K98S5DoJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BFB61F000E9;
-	Tue, 14 Jul 2026 20:02:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oO2qnuvX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66B831F00ADB;
+	Tue, 14 Jul 2026 20:02:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784059362;
-	bh=jxmnUOo0HISi01ksBhaz2fDCmFrhfvrhP8UO5K5gexU=;
+	s=k20260515; t=1784059364;
+	bh=AE9tWDO/Oa6J4pS2GgSgbvIiqVKAxrk2Uvb592+jDgE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K98S5DoJlEVaTKmW6DK6V7WI9FS6+pEodbGmLwnrwnGQF2jqVJQook9bL92NvBHUE
-	 ilxJ8I0tfPAdNrVI7uMGzYU9CNu4dXgeVrDe06NHaEQBEynZB4M+p+IB3ReodPemjk
-	 9KZpYUWf2nK9qpr9/DGI0G+jlhQOA4+2GpU1VEtblh/4mqnqz0DcAhxVpU1/yVG+7d
-	 WR+c0xfXRre2pghvZeUzzNppApExKwV+0/f1GtAW7ogBIo/axH4VW18QaQgCuHtWE2
-	 HRQ20mgONYyZicDXbPAAcwG4zEGeQAQM6S2ANCt0tUf/51sFWQTXONzc9qxhSRX4q9
-	 V8ThjsYueY0PQ==
+	b=oO2qnuvXwjSS8uQegxFl1PrTifGe4I2MRgv24ksZhjeLgn5e62izhiXJcZOKA7PJO
+	 /uRa2gSTPDCaP2BkS8Ywy01hIYZOr6iin+S3CpYPwDWnTV5aUahKvJKwHxYJ17FeDu
+	 d+ZdOSOi15PDO0AohW6Tn6Q7PKSwKXQ4Q/4os5B/ZgmGl1wS7uHxFQA2D/d0gUyZyC
+	 Wo5tO3d0JTqV7Dkd/Ed7NlJm/TpDt4Z0gcIY5INUbCmm8pcyj8F0T3co3z4dkUA1dy
+	 vIt6Bb/3PrMCqS2gDQkT5oiApVuIcSf15234mqcOZAaE8jHnKy3asrxLrgAhmN/Z1l
+	 5D4zNyTgMeZzg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Simon Richter <Simon.Richter@hogyros.de>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
 	Bjorn Helgaas <bhelgaas@google.com>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 5/8] PCI: Fix restoring BARs on BAR resize rollback path
-Date: Tue, 14 Jul 2026 16:02:33 -0400
-Message-ID: <20260714200236.3153778-5-sashal@kernel.org>
+Subject: [PATCH 6.18.y 7/8] PCI: Move Resizable BAR code to rebar.c
+Date: Tue, 14 Jul 2026 16:02:35 -0400
+Message-ID: <20260714200236.3153778-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260714200236.3153778-1-sashal@kernel.org>
 References: <2026071350-unfold-lather-d66a@gregkh>
@@ -52,404 +50,587 @@ Content-Transfer-Encoding: 8bit
 
 From: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-[ Upstream commit 337b1b566db087347194e4543ddfdfa5645275cc ]
+[ Upstream commit 9f71938cd77f32a448f40a288e409eca60e55486 ]
 
-BAR resize operation is implemented in the pci_resize_resource() and
-pbus_reassign_bridge_resources() functions. pci_resize_resource() can be
-called either from __resource_resize_store() from sysfs or directly by the
-driver for the Endpoint Device.
+For lack of a better place to put it, Resizable BAR code has been placed
+inside pci.c and setup-res.c that do not use it for anything.  Upcoming
+changes are going to add more Resizable BAR related functions, increasing
+the code size.
 
-The pci_resize_resource() requires that caller has released the device
-resources that share the bridge window with the BAR to be resized as
-otherwise the bridge window is pinned in place and cannot be changed.
+As pci.c is huge as is, move the Resizable BAR related code and the BAR
+resize code from setup-res.c to rebar.c.
 
-pbus_reassign_bridge_resources() rolls back resources if the resize
-operation fails, but rollback is performed only for the bridge windows.
-Because releasing the device resources are done by the caller of the BAR
-resize interface, these functions performing the BAR resize do not have
-access to the device resources as they were before the resize.
-
-pbus_reassign_bridge_resources() could try __pci_bridge_assign_resources()
-after rolling back the bridge windows as they were, however, it will not
-guarantee the resource are assigned due to differences in how FW and the
-kernel assign the resources (alignment of the start address and tail).
-
-To perform rollback robustly, the BAR resize interface has to be altered to
-also release the device resources that share the bridge window with the BAR
-to be resized.
-
-Also, remove restoring from the entries failed list as saved list should
-now contain both the bridge windows and device resources so the extra
-restore is duplicated work.
-
-Some drivers (currently only amdgpu) want to prevent releasing some
-resources. Add exclude_bars param to pci_resize_resource() and make amdgpu
-pass its register BAR (BAR 2 or 5), which should never be released during
-resize operation. Normally 64-bit prefetchable resources do not share a
-bridge window with the 32-bit only register BAR, but there are various
-fallbacks in the resource assignment logic which may make the resources
-share the bridge window in rare cases.
-
-This change (together with the driver side changes) is to counter the
-resource releases that had to be done to prevent resource tree corruption
-in the ("PCI: Release assigned resource before restoring them") change. As
-such, it likely restores functionality in cases where device resources were
-released to avoid resource tree conflicts which appeared to be "working"
-when such conflicts were not correctly detected by the kernel.
-
-Reported-by: Simon Richter <Simon.Richter@hogyros.de>
-Link: https://lore.kernel.org/linux-pci/f9a8c975-f5d3-4dd2-988e-4371a1433a60@hogyros.de/
-Reported-by: Alex Bennée <alex.bennee@linaro.org>
-Link: https://lore.kernel.org/linux-pci/874irqop6b.fsf@draig.linaro.org/
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-[bhelgaas: squash amdgpu BAR selection from
-https: //lore.kernel.org/r/20251114103053.13778-1-ilpo.jarvinen@linux.intel.com]
 Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Tested-by: Alex Bennée <alex.bennee@linaro.org> # AVA, AMD GPU
 Reviewed-by: Christian König <christian.koenig@amd.com>
-Link: https://patch.msgid.link/20251113162628.5946-7-ilpo.jarvinen@linux.intel.com
+Link: https://patch.msgid.link/20251113180053.27944-2-ilpo.jarvinen@linux.intel.com
 Stable-dep-of: ee7471fe968d ("PCI: Skip Resizable BAR restore on read error")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   4 +-
- drivers/gpu/drm/i915/gt/intel_region_lmem.c |   2 +-
- drivers/gpu/drm/xe/xe_vram.c                |   2 +-
- drivers/pci/pci-sysfs.c                     |  17 +---
- drivers/pci/pci.h                           |   4 +-
- drivers/pci/setup-bus.c                     | 100 +++++++++++++++-----
- drivers/pci/setup-res.c                     |  23 ++---
- include/linux/pci.h                         |   3 +-
- 8 files changed, 93 insertions(+), 62 deletions(-)
+ Documentation/driver-api/pci/pci.rst |   3 +
+ drivers/pci/Makefile                 |   2 +-
+ drivers/pci/pci.c                    | 149 ----------------
+ drivers/pci/pci.h                    |   1 +
+ drivers/pci/rebar.c                  | 247 +++++++++++++++++++++++++++
+ drivers/pci/setup-res.c              |  85 ---------
+ 6 files changed, 252 insertions(+), 235 deletions(-)
+ create mode 100644 drivers/pci/rebar.c
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c22aea46efcdfb..56791c5b53a49e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1736,7 +1736,9 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
+diff --git a/Documentation/driver-api/pci/pci.rst b/Documentation/driver-api/pci/pci.rst
+index 59d86e8271986a..99a1bbaaec5d07 100644
+--- a/Documentation/driver-api/pci/pci.rst
++++ b/Documentation/driver-api/pci/pci.rst
+@@ -37,6 +37,9 @@ PCI Support Library
+ .. kernel-doc:: drivers/pci/slot.c
+    :export:
  
- 	pci_release_resource(adev->pdev, 0);
++.. kernel-doc:: drivers/pci/rebar.c
++   :export:
++
+ .. kernel-doc:: drivers/pci/rom.c
+    :export:
  
--	r = pci_resize_resource(adev->pdev, 0, rbar_size);
-+	r = pci_resize_resource(adev->pdev, 0, rbar_size,
-+				(adev->asic_type >= CHIP_BONAIRE) ? 1 << 5
-+								  : 1 << 2);
- 	if (r == -ENOSPC)
- 		dev_info(adev->dev,
- 			 "Not enough PCI address space for a large BAR.");
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index 51bb27e10a4f87..7699e8fcf5edf2 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -37,7 +37,7 @@ _resize_bar(struct drm_i915_private *i915, int resno, resource_size_t size)
+diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
+index 67647f1880fb8f..f3c81c892786ec 100644
+--- a/drivers/pci/Makefile
++++ b/drivers/pci/Makefile
+@@ -4,7 +4,7 @@
  
- 	_release_bars(pdev);
+ obj-$(CONFIG_PCI)		+= access.o bus.o probe.o host-bridge.o \
+ 				   remove.o pci.o pci-driver.o search.o \
+-				   rom.o setup-res.o irq.o vpd.o \
++				   rebar.o rom.o setup-res.o irq.o vpd.o \
+ 				   setup-bus.o vc.o mmap.o devres.o
  
--	ret = pci_resize_resource(pdev, resno, bar_size);
-+	ret = pci_resize_resource(pdev, resno, bar_size, 0);
- 	if (ret) {
- 		drm_info(&i915->drm, "Failed to resize BAR%d to %dM (%pe)\n",
- 			 resno, 1 << bar_size, ERR_PTR(ret));
-diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
-index 652df7a5f4f65d..a4076f56a3c988 100644
---- a/drivers/gpu/drm/xe/xe_vram.c
-+++ b/drivers/gpu/drm/xe/xe_vram.c
-@@ -56,7 +56,7 @@ static void resize_bar(struct xe_device *xe, int resno, resource_size_t size)
+ obj-$(CONFIG_PCI)		+= msi/
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b161d0560bad1f..0c4f20de1a86f1 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -1826,32 +1826,6 @@ static void pci_restore_config_space(struct pci_dev *pdev)
+ 	}
+ }
  
- 	release_bars(pdev);
- 
--	ret = pci_resize_resource(pdev, resno, bar_size);
-+	ret = pci_resize_resource(pdev, resno, bar_size, 0);
- 	if (ret) {
- 		drm_info(&xe->drm, "Failed to resize BAR%d to %dM (%pe). Consider enabling 'Resizable BAR' support in your BIOS\n",
- 			 resno, 1 << bar_size, ERR_PTR(ret));
-diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-index d36b46849fee2f..edb9bc34c0c583 100644
---- a/drivers/pci/pci-sysfs.c
-+++ b/drivers/pci/pci-sysfs.c
-@@ -1571,18 +1571,13 @@ static ssize_t __resource_resize_store(struct device *dev, int n,
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct pci_bus *bus = pdev->bus;
--	struct resource *b_win, *res;
- 	unsigned long size;
--	int ret, i;
-+	int ret;
- 	u16 cmd;
- 
- 	if (kstrtoul(buf, 0, &size) < 0)
- 		return -EINVAL;
- 
--	b_win = pbus_select_window(bus, pci_resource_n(pdev, n));
--	if (!b_win)
--		return -EINVAL;
+-static void pci_restore_rebar_state(struct pci_dev *pdev)
+-{
+-	unsigned int pos, nbars, i;
+-	u32 ctrl;
 -
- 	device_lock(dev);
- 	if (dev->driver || pci_num_vf(pdev)) {
- 		ret = -EBUSY;
-@@ -1604,15 +1599,7 @@ static ssize_t __resource_resize_store(struct device *dev, int n,
- 
- 	pci_remove_resource_files(pdev);
- 
--	pci_dev_for_each_resource(pdev, res, i) {
--		if (i >= PCI_BRIDGE_RESOURCES)
--			break;
+-	pos = pdev->rebar_cap;
+-	if (!pos)
+-		return;
 -
--		if (b_win == pbus_select_window(bus, res))
--			pci_release_resource(pdev, i);
+-	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
+-	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
+-
+-	for (i = 0; i < nbars; i++, pos += 8) {
+-		struct resource *res;
+-		int bar_idx, size;
+-
+-		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
+-		bar_idx = ctrl & PCI_REBAR_CTRL_BAR_IDX;
+-		res = pci_resource_n(pdev, bar_idx);
+-		size = pci_rebar_bytes_to_size(resource_size(res));
+-		ctrl &= ~PCI_REBAR_CTRL_BAR_SIZE;
+-		ctrl |= FIELD_PREP(PCI_REBAR_CTRL_BAR_SIZE, size);
+-		pci_write_config_dword(pdev, pos + PCI_REBAR_CTRL, ctrl);
+-	}
+-}
+-
+ /**
+  * pci_restore_state - Restore the saved state of a PCI device
+  * @dev: PCI device that we're dealing with
+@@ -3684,129 +3658,6 @@ void pci_acs_init(struct pci_dev *dev)
+ 	dev->acs_cap = pci_find_ext_capability(dev, PCI_EXT_CAP_ID_ACS);
+ }
+ 
+-void pci_rebar_init(struct pci_dev *pdev)
+-{
+-	pdev->rebar_cap = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_REBAR);
+-}
+-
+-/**
+- * pci_rebar_find_pos - find position of resize ctrl reg for BAR
+- * @pdev: PCI device
+- * @bar: BAR to find
+- *
+- * Helper to find the position of the ctrl register for a BAR.
+- * Returns -ENOTSUPP if resizable BARs are not supported at all.
+- * Returns -ENOENT if no ctrl register for the BAR could be found.
+- */
+-static int pci_rebar_find_pos(struct pci_dev *pdev, int bar)
+-{
+-	unsigned int pos, nbars, i;
+-	u32 ctrl;
+-
+-	if (pci_resource_is_iov(bar)) {
+-		pos = pci_iov_vf_rebar_cap(pdev);
+-		bar = pci_resource_num_to_vf_bar(bar);
+-	} else {
+-		pos = pdev->rebar_cap;
 -	}
 -
--	ret = pci_resize_resource(pdev, n, size);
-+	ret = pci_resize_resource(pdev, n, size, 0);
- 
- 	pci_assign_unassigned_bus_resources(bus);
- 
+-	if (!pos)
+-		return -ENOTSUPP;
+-
+-	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
+-	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
+-
+-	for (i = 0; i < nbars; i++, pos += 8) {
+-		int bar_idx;
+-
+-		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
+-		bar_idx = FIELD_GET(PCI_REBAR_CTRL_BAR_IDX, ctrl);
+-		if (bar_idx == bar)
+-			return pos;
+-	}
+-
+-	return -ENOENT;
+-}
+-
+-/**
+- * pci_rebar_get_possible_sizes - get possible sizes for BAR
+- * @pdev: PCI device
+- * @bar: BAR to query
+- *
+- * Get the possible sizes of a resizable BAR as bitmask defined in the spec
+- * (bit 0=1MB, bit 31=128TB). Returns 0 if BAR isn't resizable.
+- */
+-u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
+-{
+-	int pos;
+-	u32 cap;
+-
+-	pos = pci_rebar_find_pos(pdev, bar);
+-	if (pos < 0)
+-		return 0;
+-
+-	pci_read_config_dword(pdev, pos + PCI_REBAR_CAP, &cap);
+-	cap = FIELD_GET(PCI_REBAR_CAP_SIZES, cap);
+-
+-	/* Sapphire RX 5600 XT Pulse has an invalid cap dword for BAR 0 */
+-	if (pdev->vendor == PCI_VENDOR_ID_ATI && pdev->device == 0x731f &&
+-	    bar == 0 && cap == 0x700)
+-		return 0x3f00;
+-
+-	return cap;
+-}
+-EXPORT_SYMBOL(pci_rebar_get_possible_sizes);
+-
+-/**
+- * pci_rebar_get_current_size - get the current size of a BAR
+- * @pdev: PCI device
+- * @bar: BAR to set size to
+- *
+- * Read the size of a BAR from the resizable BAR config.
+- * Returns size if found or negative error code.
+- */
+-int pci_rebar_get_current_size(struct pci_dev *pdev, int bar)
+-{
+-	int pos;
+-	u32 ctrl;
+-
+-	pos = pci_rebar_find_pos(pdev, bar);
+-	if (pos < 0)
+-		return pos;
+-
+-	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
+-	return FIELD_GET(PCI_REBAR_CTRL_BAR_SIZE, ctrl);
+-}
+-
+-/**
+- * pci_rebar_set_size - set a new size for a BAR
+- * @pdev: PCI device
+- * @bar: BAR to set size to
+- * @size: new size as defined in the spec (0=1MB, 31=128TB)
+- *
+- * Set the new size of a BAR as defined in the spec.
+- * Returns zero if resizing was successful, error code otherwise.
+- */
+-int pci_rebar_set_size(struct pci_dev *pdev, int bar, int size)
+-{
+-	int pos;
+-	u32 ctrl;
+-
+-	pos = pci_rebar_find_pos(pdev, bar);
+-	if (pos < 0)
+-		return pos;
+-
+-	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
+-	ctrl &= ~PCI_REBAR_CTRL_BAR_SIZE;
+-	ctrl |= FIELD_PREP(PCI_REBAR_CTRL_BAR_SIZE, size);
+-	pci_write_config_dword(pdev, pos + PCI_REBAR_CTRL, ctrl);
+-
+-	if (pci_resource_is_iov(bar))
+-		pci_iov_resource_set_size(pdev, bar, size);
+-
+-	return 0;
+-}
+-
+ /**
+  * pci_enable_atomic_ops_to_root - enable AtomicOp requests to root port
+  * @dev: the PCI device
 diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 549f60d2198648..5336a4b5b45676 100644
+index 5336a4b5b45676..8acded5921509f 100644
 --- a/drivers/pci/pci.h
 +++ b/drivers/pci/pci.h
-@@ -439,8 +439,10 @@ enum pci_bar_type {
- struct device *pci_get_host_bridge_device(struct pci_dev *dev);
- void pci_put_host_bridge_device(struct device *dev);
+@@ -1042,6 +1042,7 @@ static inline int acpi_get_rc_resources(struct device *dev, const char *hid,
+ #endif
  
-+void pci_resize_resource_set_size(struct pci_dev *dev, int resno, int size);
-+int pci_do_resource_release_and_resize(struct pci_dev *dev, int resno, int size,
-+				       int exclude_bars);
- unsigned int pci_rescan_bus_bridge_resize(struct pci_dev *bridge);
--int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res);
- int __must_check pci_reassign_resource(struct pci_dev *dev, int i, resource_size_t add_size, resource_size_t align);
- 
- int pci_configure_extended_tags(struct pci_dev *dev, void *ign);
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index 5985ee441c7e2a..03eadc81dc7d3a 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2372,18 +2372,16 @@ EXPORT_SYMBOL_GPL(pci_assign_unassigned_bridge_resources);
-  * release it when possible. If the bridge window contains assigned
-  * resources, it cannot be released.
-  */
--int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
-+static int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res,
-+					  struct list_head *saved)
- {
- 	unsigned long type = res->flags;
- 	struct pci_dev_resource *dev_res;
- 	struct pci_dev *bridge = NULL;
--	LIST_HEAD(saved);
- 	LIST_HEAD(added);
- 	LIST_HEAD(failed);
- 	unsigned int i;
--	int ret;
--
--	down_read(&pci_bus_sem);
-+	int ret = 0;
- 
- 	while (!pci_is_root_bus(bus)) {
- 		bridge = bus->self;
-@@ -2395,9 +2393,9 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
- 
- 		/* Ignore BARs which are still in use */
- 		if (!res->child) {
--			ret = add_to_list(&saved, bridge, res, 0, 0);
-+			ret = add_to_list(saved, bridge, res, 0, 0);
- 			if (ret)
--				goto cleanup;
-+				return ret;
- 
- 			pci_release_resource(bridge, i);
- 		} else {
-@@ -2420,34 +2418,78 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
- 		free_list(&added);
- 
- 	if (!list_empty(&failed)) {
--		if (pci_required_resource_failed(&failed, type)) {
-+		if (pci_required_resource_failed(&failed, type))
- 			ret = -ENOSPC;
--			goto cleanup;
--		}
--		/* Only resources with unrelated types failed (again) */
- 		free_list(&failed);
-+		if (ret)
-+			return ret;
+ void pci_rebar_init(struct pci_dev *pdev);
++void pci_restore_rebar_state(struct pci_dev *pdev);
+ int pci_rebar_get_current_size(struct pci_dev *pdev, int bar);
+ int pci_rebar_set_size(struct pci_dev *pdev, int bar, int size);
+ static inline u64 pci_rebar_size_to_bytes(int size)
+diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
+new file mode 100644
+index 00000000000000..f6ed7e4893a773
+--- /dev/null
++++ b/drivers/pci/rebar.c
+@@ -0,0 +1,247 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * PCI Resizable BAR Extended Capability handling.
++ */
 +
-+		/* Only resources with unrelated types failed (again) */
- 	}
- 
--	list_for_each_entry(dev_res, &saved, list) {
-+	list_for_each_entry(dev_res, saved, list) {
- 		struct pci_dev *dev = dev_res->dev;
- 
- 		/* Skip the bridge we just assigned resources for */
- 		if (bridge == dev)
- 			continue;
- 
-+		if (!dev->subordinate)
-+			continue;
++#include <linux/bitfield.h>
++#include <linux/errno.h>
++#include <linux/export.h>
++#include <linux/ioport.h>
++#include <linux/pci.h>
++#include <linux/types.h>
 +
- 		pci_setup_bridge(dev->subordinate);
- 	}
- 
--	free_list(&saved);
--	up_read(&pci_bus_sem);
- 	return 0;
-+}
- 
--cleanup:
--	/* Restore size and flags */
--	list_for_each_entry(dev_res, &failed, list)
--		restore_dev_resource(dev_res);
--	free_list(&failed);
-+int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size,
-+				       int exclude_bars)
++#include "pci.h"
++
++void pci_rebar_init(struct pci_dev *pdev)
 +{
-+	struct resource *res = pci_resource_n(pdev, resno);
-+	struct pci_dev_resource *dev_res;
-+	struct pci_bus *bus = pdev->bus;
-+	struct resource *b_win, *r;
-+	LIST_HEAD(saved);
-+	unsigned int i;
-+	int ret = 0;
++	pdev->rebar_cap = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_REBAR);
++}
 +
-+	b_win = pbus_select_window(bus, res);
-+	if (!b_win)
-+		return -EINVAL;
++/**
++ * pci_rebar_find_pos - find position of resize ctrl reg for BAR
++ * @pdev: PCI device
++ * @bar: BAR to find
++ *
++ * Helper to find the position of the ctrl register for a BAR.
++ * Returns -ENOTSUPP if resizable BARs are not supported at all.
++ * Returns -ENOENT if no ctrl register for the BAR could be found.
++ */
++static int pci_rebar_find_pos(struct pci_dev *pdev, int bar)
++{
++	unsigned int pos, nbars, i;
++	u32 ctrl;
 +
-+	pci_dev_for_each_resource(pdev, r, i) {
-+		if (i >= PCI_BRIDGE_RESOURCES)
-+			break;
-+
-+		if (exclude_bars & BIT(i))
-+			continue;
- 
-+		if (b_win != pbus_select_window(bus, r))
-+			continue;
-+
-+		ret = add_to_list(&saved, pdev, r, 0, 0);
-+		if (ret)
-+			goto restore;
-+		pci_release_resource(pdev, i);
++	if (pci_resource_is_iov(bar)) {
++		pos = pci_iov_vf_rebar_cap(pdev);
++		bar = pci_resource_num_to_vf_bar(bar);
++	} else {
++		pos = pdev->rebar_cap;
 +	}
 +
-+	pci_resize_resource_set_size(pdev, resno, size);
++	if (!pos)
++		return -ENOTSUPP;
 +
-+	if (!bus->self)
-+		goto out;
++	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
++	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
 +
-+	down_read(&pci_bus_sem);
-+	ret = pbus_reassign_bridge_resources(bus, res, &saved);
-+	if (ret)
-+		goto restore;
++	for (i = 0; i < nbars; i++, pos += 8) {
++		int bar_idx;
 +
-+out:
-+	up_read(&pci_bus_sem);
-+	free_list(&saved);
-+	return ret;
-+
-+restore:
- 	/* Revert to the old configuration */
- 	list_for_each_entry(dev_res, &saved, list) {
- 		struct resource *res = dev_res->res;
-@@ -2462,13 +2504,21 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
- 
- 		restore_dev_resource(dev_res);
- 
--		pci_claim_resource(dev, i);
--		pci_setup_bridge(dev->subordinate);
--	}
--	up_read(&pci_bus_sem);
--	free_list(&saved);
-+		ret = pci_claim_resource(dev, i);
-+		if (ret)
-+			continue;
- 
--	return ret;
-+		if (i < PCI_BRIDGE_RESOURCES) {
-+			const char *res_name = pci_resource_name(dev, i);
-+
-+			pci_update_resource(dev, i);
-+			pci_info(dev, "%s %pR: old value restored\n",
-+				 res_name, res);
-+		}
-+		if (dev->subordinate)
-+			pci_setup_bridge(dev->subordinate);
++		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
++		bar_idx = FIELD_GET(PCI_REBAR_CTRL_BAR_IDX, ctrl);
++		if (bar_idx == bar)
++			return pos;
 +	}
-+	goto out;
- }
- 
- void pci_assign_unassigned_bus_resources(struct pci_bus *bus)
-diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
-index 53338eb45f038f..25a64358feea96 100644
---- a/drivers/pci/setup-res.c
-+++ b/drivers/pci/setup-res.c
-@@ -446,8 +446,7 @@ static bool pci_resize_is_memory_decoding_enabled(struct pci_dev *dev,
- 	return cmd & PCI_COMMAND_MEMORY;
- }
- 
--static void pci_resize_resource_set_size(struct pci_dev *dev, int resno,
--					 int size)
++
++	return -ENOENT;
++}
++
++/**
++ * pci_rebar_get_possible_sizes - get possible sizes for BAR
++ * @pdev: PCI device
++ * @bar: BAR to query
++ *
++ * Get the possible sizes of a resizable BAR as bitmask defined in the spec
++ * (bit 0=1MB, bit 31=128TB). Returns 0 if BAR isn't resizable.
++ */
++u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
++{
++	int pos;
++	u32 cap;
++
++	pos = pci_rebar_find_pos(pdev, bar);
++	if (pos < 0)
++		return 0;
++
++	pci_read_config_dword(pdev, pos + PCI_REBAR_CAP, &cap);
++	cap = FIELD_GET(PCI_REBAR_CAP_SIZES, cap);
++
++	/* Sapphire RX 5600 XT Pulse has an invalid cap dword for BAR 0 */
++	if (pdev->vendor == PCI_VENDOR_ID_ATI && pdev->device == 0x731f &&
++	    bar == 0 && cap == 0x700)
++		return 0x3f00;
++
++	return cap;
++}
++EXPORT_SYMBOL(pci_rebar_get_possible_sizes);
++
++/**
++ * pci_rebar_get_current_size - get the current size of a BAR
++ * @pdev: PCI device
++ * @bar: BAR to set size to
++ *
++ * Read the size of a BAR from the resizable BAR config.
++ * Returns size if found or negative error code.
++ */
++int pci_rebar_get_current_size(struct pci_dev *pdev, int bar)
++{
++	int pos;
++	u32 ctrl;
++
++	pos = pci_rebar_find_pos(pdev, bar);
++	if (pos < 0)
++		return pos;
++
++	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
++	return FIELD_GET(PCI_REBAR_CTRL_BAR_SIZE, ctrl);
++}
++
++/**
++ * pci_rebar_set_size - set a new size for a BAR
++ * @pdev: PCI device
++ * @bar: BAR to set size to
++ * @size: new size as defined in the spec (0=1MB, 31=128TB)
++ *
++ * Set the new size of a BAR as defined in the spec.
++ * Returns zero if resizing was successful, error code otherwise.
++ */
++int pci_rebar_set_size(struct pci_dev *pdev, int bar, int size)
++{
++	int pos;
++	u32 ctrl;
++
++	pos = pci_rebar_find_pos(pdev, bar);
++	if (pos < 0)
++		return pos;
++
++	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
++	ctrl &= ~PCI_REBAR_CTRL_BAR_SIZE;
++	ctrl |= FIELD_PREP(PCI_REBAR_CTRL_BAR_SIZE, size);
++	pci_write_config_dword(pdev, pos + PCI_REBAR_CTRL, ctrl);
++
++	if (pci_resource_is_iov(bar))
++		pci_iov_resource_set_size(pdev, bar, size);
++
++	return 0;
++}
++
++void pci_restore_rebar_state(struct pci_dev *pdev)
++{
++	unsigned int pos, nbars, i;
++	u32 ctrl;
++
++	pos = pdev->rebar_cap;
++	if (!pos)
++		return;
++
++	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
++	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
++
++	for (i = 0; i < nbars; i++, pos += 8) {
++		struct resource *res;
++		int bar_idx, size;
++
++		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
++		bar_idx = ctrl & PCI_REBAR_CTRL_BAR_IDX;
++		res = pci_resource_n(pdev, bar_idx);
++		size = pci_rebar_bytes_to_size(resource_size(res));
++		ctrl &= ~PCI_REBAR_CTRL_BAR_SIZE;
++		ctrl |= FIELD_PREP(PCI_REBAR_CTRL_BAR_SIZE, size);
++		pci_write_config_dword(pdev, pos + PCI_REBAR_CTRL, ctrl);
++	}
++}
++
++static bool pci_resize_is_memory_decoding_enabled(struct pci_dev *dev,
++						  int resno)
++{
++	u16 cmd;
++
++	if (pci_resource_is_iov(resno))
++		return pci_iov_is_memory_decoding_enabled(dev);
++
++	pci_read_config_word(dev, PCI_COMMAND, &cmd);
++
++	return cmd & PCI_COMMAND_MEMORY;
++}
++
 +void pci_resize_resource_set_size(struct pci_dev *dev, int resno, int size)
- {
- 	resource_size_t res_size = pci_rebar_size_to_bytes(size);
- 	struct resource *res = pci_resource_n(dev, resno);
-@@ -458,9 +457,9 @@ static void pci_resize_resource_set_size(struct pci_dev *dev, int resno,
- 	resource_set_size(res, res_size);
- }
- 
--int pci_resize_resource(struct pci_dev *dev, int resno, int size)
++{
++	resource_size_t res_size = pci_rebar_size_to_bytes(size);
++	struct resource *res = pci_resource_n(dev, resno);
++
++	if (pci_resource_is_iov(resno))
++		res_size *= pci_sriov_get_totalvfs(dev);
++
++	resource_set_size(res, res_size);
++}
++
++/**
++ * pci_resize_resource - reconfigure a Resizable BAR and resources
++ * @dev: the PCI device
++ * @resno: index of the BAR to be resized
++ * @size: new size as defined in the spec (0=1MB, 31=128TB)
++ * @exclude_bars: a mask of BARs that should not be released
++ *
++ * Reconfigure @resno to @size and re-run resource assignment algorithm
++ * with the new size.
++ *
++ * Prior to resize, release @dev resources that share a bridge window with
++ * @resno.  This unpins the bridge window resource to allow changing it.
++ *
++ * The caller may prevent releasing a particular BAR by providing
++ * @exclude_bars mask, but this may result in the resize operation failing
++ * due to insufficient space.
++ *
++ * Return: 0 on success, or negative on error. In case of an error, the
++ *         resources are restored to their original places.
++ */
 +int pci_resize_resource(struct pci_dev *dev, int resno, int size,
 +			int exclude_bars)
- {
--	struct resource *res = pci_resource_n(dev, resno);
- 	struct pci_host_bridge *host;
- 	int old, ret;
- 	u32 sizes;
-@@ -470,10 +469,6 @@ int pci_resize_resource(struct pci_dev *dev, int resno, int size)
- 	if (host->preserve_config)
- 		return -ENOTSUPP;
- 
--	/* Make sure the resource isn't assigned before resizing it. */
--	if (!(res->flags & IORESOURCE_UNSET))
--		return -EBUSY;
--
- 	if (pci_resize_is_memory_decoding_enabled(dev, resno))
- 		return -EBUSY;
- 
-@@ -492,19 +487,13 @@ int pci_resize_resource(struct pci_dev *dev, int resno, int size)
- 	if (ret)
- 		return ret;
- 
--	pci_resize_resource_set_size(dev, resno, size);
--
--	/* Check if the new config works by trying to assign everything. */
--	if (dev->bus->self) {
--		ret = pbus_reassign_bridge_resources(dev->bus, res);
--		if (ret)
--			goto error_resize;
--	}
++{
++	struct pci_host_bridge *host;
++	int old, ret;
++	u32 sizes;
++
++	/* Check if we must preserve the firmware's resource assignment */
++	host = pci_find_host_bridge(dev->bus);
++	if (host->preserve_config)
++		return -ENOTSUPP;
++
++	if (pci_resize_is_memory_decoding_enabled(dev, resno))
++		return -EBUSY;
++
++	sizes = pci_rebar_get_possible_sizes(dev, resno);
++	if (!sizes)
++		return -ENOTSUPP;
++
++	if (!(sizes & BIT(size)))
++		return -EINVAL;
++
++	old = pci_rebar_get_current_size(dev, resno);
++	if (old < 0)
++		return old;
++
++	ret = pci_rebar_set_size(dev, resno, size);
++	if (ret)
++		return ret;
++
 +	ret = pci_do_resource_release_and_resize(dev, resno, size, exclude_bars);
 +	if (ret)
 +		goto error_resize;
- 	return 0;
- 
- error_resize:
- 	pci_rebar_set_size(dev, resno, old);
--	pci_resize_resource_set_size(dev, resno, old);
- 	return ret;
++	return 0;
++
++error_resize:
++	pci_rebar_set_size(dev, resno, old);
++	return ret;
++}
++EXPORT_SYMBOL(pci_resize_resource);
+diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
+index 92a5af115cd63f..1769ba960197eb 100644
+--- a/drivers/pci/setup-res.c
++++ b/drivers/pci/setup-res.c
+@@ -433,91 +433,6 @@ int pci_release_resource(struct pci_dev *dev, int resno)
  }
- EXPORT_SYMBOL(pci_resize_resource);
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 89f5a4290b6e20..505bf6e009b18a 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -1425,7 +1425,8 @@ static inline int pci_rebar_bytes_to_size(u64 bytes)
- }
+ EXPORT_SYMBOL(pci_release_resource);
  
- u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar);
--int __must_check pci_resize_resource(struct pci_dev *dev, int i, int size);
-+int __must_check pci_resize_resource(struct pci_dev *dev, int i, int size,
-+				     int exclude_bars);
- int pci_select_bars(struct pci_dev *dev, unsigned long flags);
- bool pci_device_is_present(struct pci_dev *pdev);
- void pci_ignore_hotplug(struct pci_dev *dev);
+-static bool pci_resize_is_memory_decoding_enabled(struct pci_dev *dev,
+-						  int resno)
+-{
+-	u16 cmd;
+-
+-	if (pci_resource_is_iov(resno))
+-		return pci_iov_is_memory_decoding_enabled(dev);
+-
+-	pci_read_config_word(dev, PCI_COMMAND, &cmd);
+-
+-	return cmd & PCI_COMMAND_MEMORY;
+-}
+-
+-void pci_resize_resource_set_size(struct pci_dev *dev, int resno, int size)
+-{
+-	resource_size_t res_size = pci_rebar_size_to_bytes(size);
+-	struct resource *res = pci_resource_n(dev, resno);
+-
+-	if (pci_resource_is_iov(resno))
+-		res_size *= pci_sriov_get_totalvfs(dev);
+-
+-	resource_set_size(res, res_size);
+-}
+-
+-/**
+- * pci_resize_resource - reconfigure a Resizable BAR and resources
+- * @dev: the PCI device
+- * @resno: index of the BAR to be resized
+- * @size: new size as defined in the spec (0=1MB, 31=128TB)
+- * @exclude_bars: a mask of BARs that should not be released
+- *
+- * Reconfigure @resno to @size and re-run resource assignment algorithm
+- * with the new size.
+- *
+- * Prior to resize, release @dev resources that share a bridge window with
+- * @resno.  This unpins the bridge window resource to allow changing it.
+- *
+- * The caller may prevent releasing a particular BAR by providing
+- * @exclude_bars mask, but this may result in the resize operation failing
+- * due to insufficient space.
+- *
+- * Return: 0 on success, or negative on error. In case of an error, the
+- *         resources are restored to their original places.
+- */
+-int pci_resize_resource(struct pci_dev *dev, int resno, int size,
+-			int exclude_bars)
+-{
+-	struct pci_host_bridge *host;
+-	int old, ret;
+-	u32 sizes;
+-
+-	/* Check if we must preserve the firmware's resource assignment */
+-	host = pci_find_host_bridge(dev->bus);
+-	if (host->preserve_config)
+-		return -ENOTSUPP;
+-
+-	if (pci_resize_is_memory_decoding_enabled(dev, resno))
+-		return -EBUSY;
+-
+-	sizes = pci_rebar_get_possible_sizes(dev, resno);
+-	if (!sizes)
+-		return -ENOTSUPP;
+-
+-	if (!(sizes & BIT(size)))
+-		return -EINVAL;
+-
+-	old = pci_rebar_get_current_size(dev, resno);
+-	if (old < 0)
+-		return old;
+-
+-	ret = pci_rebar_set_size(dev, resno, size);
+-	if (ret)
+-		return ret;
+-
+-	ret = pci_do_resource_release_and_resize(dev, resno, size, exclude_bars);
+-	if (ret)
+-		goto error_resize;
+-	return 0;
+-
+-error_resize:
+-	pci_rebar_set_size(dev, resno, old);
+-	return ret;
+-}
+-EXPORT_SYMBOL(pci_resize_resource);
+-
+ int pci_enable_resources(struct pci_dev *dev, int mask)
+ {
+ 	u16 cmd, old_cmd;
 -- 
 2.53.0
 
