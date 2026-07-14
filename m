@@ -1,76 +1,71 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181AF383305
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 11:49:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA551386443
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 11:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784029750; cv=none; b=a1cFPBwCWdcBkTgLAcoWWXLtET4fx5pKwMjqPQ+kdx5BBybI+LA6MG/Vvxf4lse4xoo0lVaxwbf8FFQF6jWBVAPjN17M2Le55tkbZUJlSlM3/K3VcRRSfizloPr2JZcr2+p+CzcDrOlmTRymMBuPrS1QUZg0gu4tdh0WLWGJSY0=
+	t=1784029835; cv=none; b=p9Fp+iMzgPY5rfujORmQbfED/BhYLceTm9D+O2E9rqfrbqWi2b0tPD5fEgE8o1L1wKbYO03psAD7BaCOQRj2ONWDZkWCkmM3Y9YXSf5mm3fRqYK2CcBBC7rp+1rrIXjRghNzYmi1x8+EoOKsCj4G6bMzBRtRx2RSA+uIbeHdan4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784029750; c=relaxed/simple;
-	bh=ZGYvGbRP+oXuIcup1YsFuHoUmTi9k6xwxTD9TCdJ5qw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sUIokS1gwWOlghKeKASoehrtRmoFeBwFAnPwnN5oP7p/xo+yqfJb3ZqoQXvxXVJGwT3XNxF2YHxrWQtOTWqx9fCoScUmgTM34N2y2AEmu3uayS9/JCNz8AUUZ29DhrqTt9ESw6y/Yg8eRU/l0KEFd9YmxN4R08rpPo+MxLCmodA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=svBsPqnv; arc=none smtp.client-ip=209.85.222.175
+	s=arc-20240116; t=1784029835; c=relaxed/simple;
+	bh=XKxW2TQY+X13rVob3xUUT3lxqULNnyORDzPC22ICKMw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cd6dXyLh0c+uHRvO2c9sXI7A93NIQX11cNUQQolLOFC84sPgPx+7y3Vq1xSzFX6PngV30fZW/roKm0WHAf6y51Qst+GqJ2CcFC5MA+6gMtfrB4YxuRiydgAnI0H7/IcI9uFRXPBwQRTXke9fRXxC9MYtKTgvi104nJ76COhKCoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lnI8Kc+F; arc=none smtp.client-ip=209.85.219.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="svBsPqnv"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-92edb12cdf2so55088985a.3
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:49:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lnI8Kc+F"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-8f29ec73064so36791516d6.1
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:50:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784029748; x=1784634548; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784029832; x=1784634632; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1JUpepjd+suSCp2cPlkh7EA3gKkiN6bvfQtDVC0IsC0=;
-        b=svBsPqnvkfvOh7NfF2v/W2O1G/xVRiQ1CYms/5QQcPbKrP86JXGBzWXil0GWK76PlT
-         iccXMG8hC5ux0WGtLTTq/WYtEjSXbW+RpKgXq4S2EkrIDfLayt8/q+CFdCWxc3ZteKYS
-         Qdos3iQqkJDuwoXnCh4iKL8qW171KTCTvJjOJxxfb+EytwDbR5fEsF1THk0HOSOO/0C3
-         ZNtTV5EPnc6IWSdHr4sTqOu9PEBvbyP/VNDk8lDmAIbgyuPtz1ShP8DbrTNDLRGykPn2
-         MBQ23o24jGX/SpuCG26KYnEmMY1rMtseq2A0CCWGf37ry6ssuWf9sng86RBaES8PlhZ8
-         LOiQ==
+        bh=tfheTGlygVpDVxAIMsoMk40gZJxut02XkQ4/10VORUc=;
+        b=lnI8Kc+FHIlU/SzUIjtKC35t3tpoYF0etvziPGwVeO6vp1/KJhOSn1/qQdGzm6mCZy
+         cP9nojO1WzaGO7LD1+4guNzWoGnUC90M5DgizB0xEXhb80lcN5SCnUnmLm/BVpuFpoUT
+         P9rW4UgwwDFZbtSPzq0YYYXAdzfy6cV9la6oE56DZcX6ifm+UekU+uJ/w4qvNFr/sgjA
+         jX3UzzFz+xwm4xG9yhWTHOXLR884n+ULxVnRP+O0xuyvN8JxfpblpaAjQQ/rJS3GjynY
+         sDojcbyiKszOQ7tCkSK3YkxdBGvnDPYoUR+SVK/3L5+dGv0sW7k8I/SYBc4cPW8hg14n
+         XT0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784029748; x=1784634548;
+        d=1e100.net; s=20251104; t=1784029832; x=1784634632;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1JUpepjd+suSCp2cPlkh7EA3gKkiN6bvfQtDVC0IsC0=;
-        b=ghv7+WyyczXY65PTG0Yc4UKvAgUSnfwQwZNSEV2zitLsya3lOLkSiN7OXA8yC9M3iF
-         yC/s7RgKm+Ze5li67tz0snuZuwtqS1IXBCVmlXaHuoRlNZX1dr/FRhbmydwrliSEcFec
-         ALK1BVH9CVgnFJ5upH45LFyM3g08V9J4uouOnqOrSldS+It8GtGdII80gGRJ+LkVr3yr
-         vXHcR9HT1Xo46TLwN2iC++cch8zsXaZ7uLhQGLk+/5+FZ+/ZiGUtk0Fymj/fRABtSAcx
-         wtHRa5cGIOFEupzbgGivpfxniSgswBJIKXpydWmPjQGURU6qotw4fr0ZzaBRnCERMm82
-         rg0A==
-X-Forwarded-Encrypted: i=1; AHgh+Rrcutru2gH8MesjUKNNBvn5JPcU3Al56n/pd1uaXBeHwkuQKffP/K7AC5hnuectk4fFW2191gM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrtzINojVx9vE/rTxt89Cnm3ifmdaEOlUDYrukLBpZQuE+lxZq
-	Js/4qpERiDU0/0oq0DKpTAoFhR7Yl99DC1Z4lE2E/NBGU9eKL9g7yD2b
-X-Gm-Gg: AfdE7ckmZ2bUfw7IGcSGMmXIoGeFaGzyz7jHBa4ZbTTS7knPchY0aRbZqaBUtNBuob1
-	g/5cHrXPpK0HiHB5anIrQRnY2VJkUvLg4fvt4Vrd/sikUl08Y1TwkdO4s5QQtukmfNtDo1Yi4vP
-	AMgELP/rCw158BWRQZ/bDDn5Sq8dvKjgsu8uHty1mEkhYSOj05IIGFBQBTC5yym/+kzU1ZVm/eO
-	uZdKh5Lbc3hbDw+PfI379cSSK1pIxL5Bl9v3WLNi/kvKiuAZMeeVRXuLT52Ijo14dbmH8XKd8Eg
-	v8/MjaDCbiS/lQHTmf07eUm/wvBqZAlpb2RuwdO88YtXSdE7Ham8ZBP/me9VQB+E4mrGuOESyFb
-	wdCiNaFE7QFFNI2jkX5RFkYm0PBhgJPlbevLguLPvG0BeE7mihv92uL4V4aZC0O/dUl1wgs9WFt
-	bso6ar7AcdMxA3A3+fLfuwWJyWl8X5JV8di7eEM5GnA1hA+gmGZ5eIirdsEhbdEVfa1mVpKQsWQ
-	O42eNvTrw==
-X-Received: by 2002:a05:620a:258c:b0:92e:54b1:2881 with SMTP id af79cd13be357-92ef2bb787bmr1289546185a.16.1784029747886;
-        Tue, 14 Jul 2026 04:49:07 -0700 (PDT)
+        bh=tfheTGlygVpDVxAIMsoMk40gZJxut02XkQ4/10VORUc=;
+        b=kOrYI2ibLmF6yhl33YXgHXdrnxINvf/vzRiM47+4MzNyQg136pnFxsaIiEMhK2Tv/M
+         a2902hMAnHBk/dozulb12etARNadLXYtInDueklUinF+1lF2Kr6e2XYyGuE0VrphKC6i
+         OIZY2WlAjxhwcf53cYI/sy67A8Ft/DpWb5+hNmKBJIwQhrgQ2Q7tOdwb4knjDA3iMhiO
+         Lb1NFg8MRvITFRhJmIDdmiPPoIbWmlJRp5FWXij57XCoIzCJgqeFqd/G0A0i0uRoPzs4
+         4K7whBNuorloYJpvShNHd5oAdOtIcJKMs9Agl9NbV9xNHi9+ak8azjEh1z2e4NWiXs29
+         CDvA==
+X-Forwarded-Encrypted: i=1; AHgh+RpW2mLjGjxFKQJPMgJWOlBhltvvpqX51KfW8IfXGN+CawgiARm8vLuBXrh0FdRksTai5c5WErU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxZT4yy2Au3UdZE6P4l9kHGeR+WpYdHXHQR/bPxxqR3A0ESkLN
+	fFtp3jpO927qKobNvCgshbDqkbKOgzIAHkaCRftV+j+r9QTqxMwvQyIF
+X-Gm-Gg: AfdE7cmtpJ9We9i8zrmHlX+Jtkuq3RlpnSsq6Masvmdd9Qp0EwTEvCBli2Bpx7qZcb5
+	wNtQ9IlU8rnZeQq5eljCQUaDbC5OIxNhX64TTVYM0PVn5zN8jNrsz9/8Ov6qfIZFh6hmwCAT8AB
+	RXmLy6Dw/6XB/Uu6zGQGEWLBgx1D61cnuVyIn1I3cr/Qk4wMWBjXXbDVUD/CX1cRrtDxWaq3Zha
+	DrR2U+0J3lWTw5l3K62Xy15SVnphjpP0RZPxWkjhDBIaYPGogX5d5O97TmsvfA4Ha7w4bKg4Vp9
+	0Ac3avo81ipDMsllY+hrVJvJ/BeyhWNvppQayFWe/fIIOLKP2wyHkPZ/1yMO+C/fnFgj9uKw4oa
+	7pb42cZ3BLMssblzJG96pF2mH0m+TOZCrdKNkoUOZ5z2VMOa0S98xJIAeaZ2kzEaJAhxq544RGC
+	QdyH/SIAiXGVHvITipmdgrx6tT76nObxMpIPvGISw5tAak0WcvvUr2QIWOW7u6TuPOkKBjc3XF2
+	tuwjZFRTg==
+X-Received: by 2002:a05:6214:238c:b0:8fd:7913:b345 with SMTP id 6a1803df08f44-9074c73cd81mr19960516d6.22.1784029832510;
+        Tue, 14 Jul 2026 04:50:32 -0700 (PDT)
 Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5baaab7sm1500521585a.19.2026.07.14.04.49.06
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd82ea876sm168065016d6.40.2026.07.14.04.50.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 04:49:07 -0700 (PDT)
+        Tue, 14 Jul 2026 04:50:31 -0700 (PDT)
 From: Michael Bommarito <michael.bommarito@gmail.com>
-To: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Antoine Tenart <atenart@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Tom Herbert <tom@herbertland.com>,
-	netdev@vger.kernel.org,
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: Andrew Price <anprice@redhat.com>,
+	gfs2@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v2] ila: reload IPv6 header after pskb_may_pull in checksum adjust
-Date: Tue, 14 Jul 2026 07:49:03 -0400
-Message-ID: <20260714114903.3763420-1-michael.bommarito@gmail.com>
+Subject: [PATCH v2] gfs2: reject an over-long directory entry name in gfs2_check_dirent
+Date: Tue, 14 Jul 2026 07:50:27 -0400
+Message-ID: <20260714115027.3765869-1-michael.bommarito@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,92 +75,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-ila_csum_adjust_transport() caches ip6h = ipv6_hdr(skb) before calling
-pskb_may_pull(). On a non-linear skb whose transport header sits in a page
-fragment, pskb_may_pull() can call __pskb_pull_tail() / pskb_expand_head()
-and free the old skb head, leaving ip6h dangling; the following
-get_csum_diff(ip6h, p) then reads freed memory. ila_update_ipv6_locator()
-uses ip6h (and the iaddr derived from it) again after the csum-adjust
-call and additionally writes the new locator through that pointer.
+gfs2_check_dirent() validates a directory entry against the space in its
+dirent record but never bounds de_name_len to GFS2_FNAMESIZE. A dirent
+with a large de_rec_len can therefore carry a de_name_len far greater than
+GFS2_FNAMESIZE and still pass the check. That length flows unclamped
+through do_filldir_main() -> dir_emit() to the ctx->actor. In the
+NFS-export get_name path get_name_filldir() copies the name into the
+fixed NAME_MAX+1 byte buffer nbuf[] on the exportfs_decode_fh_raw() stack
+with memcpy(gnfd->name, name, length), so a crafted or corrupted on-disk
+directory overflows that buffer.
 
-Impact: a remote IPv6 packet routed through a configured ILA
-csum-adjust-transport route or receive-side mapping triggers a
-slab-use-after-free in ila_update_ipv6_locator() (KASAN). The route or
-mapping requires CAP_NET_ADMIN to configure, but trigger packets are
-unauthenticated once it exists.
+Impact: an out-of-bounds write past the NAME_MAX+1 byte name buffer
+(KASAN), reachable when a gfs2 filesystem carrying a crafted directory
+entry is re-exported over NFS and a file handle is resolved.
 
-Reload ip6h after each pskb_may_pull() in ila_csum_adjust_transport()
-before the csum-diff read. In ila_update_ipv6_locator() only the
-ILA_CSUM_ADJUST_TRANSPORT case pulls the skb, so reload ip6h and iaddr in
-that case alone before the destination-address write; the neutral-map
-modes never pull and keep their cached pointers.
+Reject dirents whose name length exceeds GFS2_FNAMESIZE at the read-path
+check, so no over-long name reaches any dirent consumer.
 
-Fixes: 33f11d16142b ("ila: Create net/ipv6/ila directory")
+Fixes: b3b94faa5fe5 ("[GFS2] The core of GFS2")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 ---
-v2: In ila_update_ipv6_locator() reload ip6h/iaddr only in the
-    ILA_CSUM_ADJUST_TRANSPORT case instead of unconditionally, per
-    Antoine Tenart's review; the neutral-map modes never pull the skb,
-    so their cached pointers remain valid.
-v1: https://lore.kernel.org/netdev/20260711150648.2915106-1-michael.bommarito@gmail.com/
+v2: move the validation from get_name_filldir() into gfs2_check_dirent()
+    on the dirent read path, per Andrew Price's review, so every dirent
+    consumer is protected rather than only the NFS get_name path; and
+    correct the buffer description (the destination is the NAME_MAX+1
+    byte nbuf[] in exportfs_decode_fh_raw(), not a GFS2_FNAMESIZE buffer).
+v1: https://lore.kernel.org/gfs2/20260711150845.gfs2-getname-v1@bommarito/
 
-Evidence: a KUnit case on UML+KASAN drives ila_update_ipv6_locator()
-with a non-linear skb whose transport header sits in a fragment, so the
-pskb_may_pull() in ila_csum_adjust_transport() reallocates the head.
-Stock: BUG: KASAN: slab-use-after-free in ila_update_ipv6_locator, Read of
-size 4 (the stale ip6h/iaddr). Patched: both the valid-linear control and
-the fragmented case pass, KASAN-clean. Built clean, no new warnings.
+v1: https://lore.kernel.org/gfs2/20260711150808.2919076-1-michael.bommarito@gmail.com/
 
+Evidence: a crafted gfs2 image with a directory dirent whose de_name_len
+is 300 (record length left valid so the existing size check passes),
+resolved with open_by_handle_at() on a KASAN + KASAN_STACK kernel.  Stock:
+BUG: KASAN: stack-out-of-bounds in get_name_filldir, Write of size 300 into
+the NAME_MAX+1 byte nbuf[] object of the exportfs_decode_fh_raw() stack
+frame, via open_by_handle_at -> exportfs_decode_fh_raw -> reconnect_path ->
+gfs2_get_name -> do_filldir_main -> get_name_filldir.  Patched:
+gfs2_check_dirent() rejects the entry (name length exceeds GFS2_FNAMESIZE)
+and the handle resolves to ESTALE; a valid name still reconnects.  Built
+clean, no new warnings.
 
- net/ipv6/ila/ila_common.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ fs/gfs2/dir.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/net/ipv6/ila/ila_common.c b/net/ipv6/ila/ila_common.c
-index e71571455c8a0..b78179bfc4c72 100644
---- a/net/ipv6/ila/ila_common.c
-+++ b/net/ipv6/ila/ila_common.c
-@@ -85,6 +85,7 @@ static void ila_csum_adjust_transport(struct sk_buff *skb,
- 			struct tcphdr *th = (struct tcphdr *)
- 					(skb_network_header(skb) + nhoff);
- 
-+			ip6h = ipv6_hdr(skb);
- 			diff = get_csum_diff(ip6h, p);
- 			inet_proto_csum_replace_by_diff(&th->check, skb,
- 							diff, true, true);
-@@ -96,6 +97,7 @@ static void ila_csum_adjust_transport(struct sk_buff *skb,
- 					(skb_network_header(skb) + nhoff);
- 
- 			if (uh->check || skb->ip_summed == CHECKSUM_PARTIAL) {
-+				ip6h = ipv6_hdr(skb);
- 				diff = get_csum_diff(ip6h, p);
- 				inet_proto_csum_replace_by_diff(&uh->check, skb,
- 								diff, true, true);
-@@ -110,6 +112,7 @@ static void ila_csum_adjust_transport(struct sk_buff *skb,
- 			struct icmp6hdr *ih = (struct icmp6hdr *)
- 					(skb_network_header(skb) + nhoff);
- 
-+			ip6h = ipv6_hdr(skb);
- 			diff = get_csum_diff(ip6h, p);
- 			inet_proto_csum_replace_by_diff(&ih->icmp6_cksum, skb,
- 							diff, true, true);
-@@ -127,6 +130,15 @@ void ila_update_ipv6_locator(struct sk_buff *skb, struct ila_params *p,
- 	switch (p->csum_mode) {
- 	case ILA_CSUM_ADJUST_TRANSPORT:
- 		ila_csum_adjust_transport(skb, p);
-+		/*
-+		 * ila_csum_adjust_transport() calls pskb_may_pull(), which can
-+		 * reallocate the skb head and leave ip6h (and the iaddr derived
-+		 * from it) dangling; reload both before the write below.  The
-+		 * other csum modes do not pull, so their cached pointers stay
-+		 * valid.
-+		 */
-+		ip6h = ipv6_hdr(skb);
-+		iaddr = ila_a2i(&ip6h->daddr);
- 		break;
- 	case ILA_CSUM_NEUTRAL_MAP:
- 		if (sir2ila) {
+diff --git a/fs/gfs2/dir.c b/fs/gfs2/dir.c
+index 0237b36b9eb16..905b658a05177 100644
+--- a/fs/gfs2/dir.c
++++ b/fs/gfs2/dir.c
+@@ -521,6 +521,10 @@ static int gfs2_check_dirent(struct gfs2_sbd *sdp,
+ 	    unlikely(sizeof(struct gfs2_dirent)+be16_to_cpu(dent->de_name_len) >
+ 		     size))
+ 		goto error;
++	msg = "name length exceeds GFS2_FNAMESIZE";
++	if (!gfs2_dirent_sentinel(dent) &&
++	    unlikely(be16_to_cpu(dent->de_name_len) > GFS2_FNAMESIZE))
++		goto error;
+ 	return 0;
+ error:
+ 	fs_warn(sdp, "%s: %s (%s)\n",
 -- 
 2.53.0
 
