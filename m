@@ -1,166 +1,191 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012022.outbound.protection.outlook.com [40.93.195.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8809C44682A;
-	Tue, 14 Jul 2026 12:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784031844; cv=none; b=IXRaAK08uk//gjdM93KLBhc65a6re7GEhFrtLNIk6jnUFIIgnKKs3imVfqVMLXbKkfAxc+90RCkti9IkD3gG2sWqnq6aTVQcRGZtjvWR8Az1AvoJ6hxFRcvSHb02qjaEWa4B4T7dtD8ttACYPMVqWPLr67fm4zl+Ma1N7w5Yt9I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784031844; c=relaxed/simple;
-	bh=jQNVO4RRwQ525O93hAsBPU5SzGEuk75wV+ZKmx7uvqU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CpUn0yBhnbFQITq5mUB+TyI7X9PxVjaKquwCPX74qGVeFe0pgj5PQFgbqp8iqDX897aRZkveglHQuqhjoJruFD1R88f6svNF4AYE6w8vbGhEsxgZu5EGK0g1RR9VnprSZz5fxT7W8TXHmJ02SUJVvZLqAM32Fy8SgK/U/ac/RXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=WLGNLuJF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dxic3/Ka; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB93448D03;
+	Tue, 14 Jul 2026 12:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784031874; cv=fail; b=b31TpA9sd4L3ZvM3Mbjj/uqXlue4IO+CE45X9tjmD1AoEYyqeWry31VEZ9FeLrJCGYghc6zwem+kOEmDFGedl/2XB4fjPVimiEfdLP6q3SUTzrSbo1H67f2I4xMYmhvYk43PxUYc8dgA3gzk1g0f7XCqocaUUq3/yWLYKPRRn7w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784031874; c=relaxed/simple;
+	bh=pZDGbWkiPVNZN6qJFXUcqcxCJHIXY1ESLGMzE4Ndg58=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qK/es0KD/c2nqY1yow8XDRrMPbMOAJvvVIi5vUfIb2FtQghHldnovZ6wGY6OM8PlhvxzSIdirUiacKiSz+PIhOL/Bd7TqzrJic8xKuvbBGiHgrOMbSyBd3PEXHkFefBgrd6R3FiL31E2K5qYiU5I0tVS/O6ncX1q9z2xYei0Ua8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=I6zmW3OK; arc=fail smtp.client-ip=40.93.195.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="WLGNLuJF";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dxic3/Ka"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id B7E287A00D9;
-	Tue, 14 Jul 2026 08:23:53 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Tue, 14 Jul 2026 08:23:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1784031833; x=
-	1784118233; bh=/0a1QUYMOPMY+SvL6khttYjCLI43JqaOiKufnepwcnw=; b=W
-	LGNLuJFxBWrSHckB5wRVqupAOxNLygiRQyPEsUw7uASygYWzCxbrMGxNB2NIgoQ9
-	EHffatN/GgCS7/ABt0RfMD5rKbJMY3nCMU3FTRYFoXEqyfIsPWdGA7V8XxgkgySR
-	flZUbd3L3LTWZ7Q6DS+zopB+k2IVjaERRMCTOWNh/Y7nP487sxWxujjT7udFOVLB
-	It2tOnYqj6fEgvYVIYpGMwbJepTDPC/346vIxQiEIm4pOrqkVPJ1vPOvwy/gNEtY
-	toQLi/ulIsUq/vW5zLFryE2/Fr8obt8NEeXY0T/p9kTg/hx0IOhs9Y/+PoSK47wG
-	v0Blh7m+6exfc+bqHFY8g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1784031833; x=1784118233; bh=/
-	0a1QUYMOPMY+SvL6khttYjCLI43JqaOiKufnepwcnw=; b=dxic3/KaZf89qck97
-	vfe2mTSSOFkWLBxDBwepWT1gEWeXbf2QX9iW4Bmzfonw8WnKpVrHa/YuL0iy/hTe
-	cyREDf73F2o4ehWyDa9wSt/XNdGD3uA8Na3/vyapWSKTnRFMNch1rHj4jjXpRdGs
-	SQTkoClZNum0JjnryUM6vra9k2k10VWI2b3uM8Wu/bZP0yKfPXyXpqu4n8p8jTVt
-	Br4QeRE1htq65UV4+DaGHbBXhiVLd4EWlbGNv39HLszzf+cjADAjdWIB9NwVn4bs
-	xlNujrBpYB1AJxQFibUKmevJBAJMAkjiQkzEDhHmsx7DJR6nxuIxl82gPS7jYvHQ
-	0/g8w==
-X-ME-Sender: <xms:WSpWaggJkeJU3EmxeREr0QDSAyZRCAgnH9LG0vm_wrIfuwRi5-q7hw>
-    <xme:WSpWauxQijxhvz6w9GIyWAzqo152DdT97r-0JlQiz9j0XT3ugFALQbJfSlMsNBomg
-    IS6fo6zpBvP2J9vXYJ6n7nBUG1naWVJspXNnIa7zMZ3LJn7lOuMyHk>
-X-ME-Received: <xmr:WSpWamLLKynTz4ovFQl-6IECigvxenA0mWJq4C-50EqtMJwIy33gNM1gHDqSlA>
-X-ME-Proxy-Cause: dmFkZTE/UbLJkgjt0BoqHglwrJX1f5PHEA/FB0nSUDVtYKpndNAtdUl6JHnSUpXWMgfs4c
-    d4J6LwvZCUX0a5T+QyiumtaKrodT7U+OJWhjSGjWu2F5DfddgHzIfut/BYthc7Sto1/3uk
-    EHEI9Uu/OGSx6QViQOKP9KqikD2m/IBo47muElgTZEunn3coMc/3CzhGZk75H75+Vz2euG
-    I8nkEmlGh0wryQWBMqDENy1O90ym5jZd3bfa9OkWP8p+lMnB48rVCs57F+52UpkmpKSDTQ
-    pvWo96Nduo4s64x50svctFa77x9730BnaPHuEEzPQXyZFSJzjFCAKNnirj3a4e+5JuRctf
-    3AjwX4rDrPBcraK/o3UwdKh0iaxSX+j0q99V36cWJJo35qVybt7yo+jUA//DL74jZfDjav
-    UwpHaX/LCOA8zLyCvjnSWcAJJdWonIZKQH5EkfB86gIoxmJbdDA/+gkzlAz8tI6pHf3a4Q
-    hY2OEtBhBzJ8T2pcXDcts6nWcgon4DmboC3fGXnInCtwRiZ5EkfXNB6ZNhCRLIAIk6nzUy
-    qDkB38vSo+lJme+ZkJwsNqpUM/STROBDHByw9QDBKHESUSqRTs4phsjtAFbf+MiBfVmkDn
-    dJIe+pmHbjx71Zo+FTWJjNbMq9SQZvTIoOvz1lSpZenE7wQBJ8EqCdZmaqSw
-X-ME-Proxy: <xmx:WSpWar2Ly2Mn8j2HySrdEQDCWGUjJwgI2NaQMJZdjISRKA9QtelBzQ>
-    <xmx:WSpWaoc35WgD7yVf8WLqSNjT1muC7YbV0RmMDNTNRB3lQzfBAyNw0Q>
-    <xmx:WSpWan6nW1fLWAySpnerCtA0fjiVS0nG8BXuMQs03d1WK3HK7DOcOQ>
-    <xmx:WSpWaj8bBfe0BI5s3730ulC-f88KW26Z5OYpQseWknYuSVYBDNhsBw>
-    <xmx:WSpWardi_astK4Fc_m8S94wRNrXdXD_6Ehli5WeV5kRQcZCZE1c6Z0lI>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 14 Jul 2026 08:23:52 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Nico Pache <npache@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Hao Zhang <zhanghao1@kylinos.cn>,
-	Hao Zhang <hao_zhang_kdev@163.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/5] mm/huge_memory: refuse to split a file folio when the anchor is beyond EOF
-Date: Tue, 14 Jul 2026 13:23:41 +0100
-Message-ID: <20260714122344.351895-3-kirill@shutemov.name>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260714122344.351895-1-kirill@shutemov.name>
-References: <20260714122344.351895-1-kirill@shutemov.name>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="I6zmW3OK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=isKA+3WlWv20An9N/0cBVXJZsgWcbMd/Zrj5YZFhXTTQ6yT4QOxZu0mLpgYwre5DZrMh4L0xYgdW9eZ+INW1fvfAS7GleERHslvUqX0PWeFUx00eS7ebU4gjLRPxeqjL955m9Is9CxBgm1sGPrV2Iy9cCx7gqPqOk8ul+c/NmFjX2sEvMpClL+RbwnSFeCIu1fvyzzPklITZRrpQcYFY8LJhSMwPQ6WtvaTJf76B3dTZcfdzkMkIY4iM7y8V13hP9l7a5z+1aUURHvyk1H2F8LPuKWIAIcMbF7mEtvg6oohLY/p37a5EjmEmxA5l8jiWo6com3dM55SmTbO4evp1AA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nGeT0F8HdfVtW/QKVHUM86s8Gy7Aqqi2GhckDlsZk+4=;
+ b=T++Vuojcobl80AZBq228jWx6wQlsulZiYten/wlSB6HGaUn7XZbxAg6V/nkUqKKIu/COodddosb0FgRgRHOY3p6bYRpGq1a3lYiLmfKrWjgaW6wqDfqfw4Uqt9vMwAtQ7OtsZELB+Lt83+6NgMMJnSo3I580SeuXE3cfwzaA/tfCMqqnf+pcr52kaSTD6L0YQGEbnZR6B7kjg7o08a3BIBzL/VBiabcQhlTwICQiE3uyUcrlwRyL5or76Ik9ouxy6I6lpCCZ15tJSwZCcM6fCyXof5Rdus0eX4jOxMxExNhH1aIX1JOcobMf7S4RwkOVJvkRkHCqY3tESz4b9ThfZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nGeT0F8HdfVtW/QKVHUM86s8Gy7Aqqi2GhckDlsZk+4=;
+ b=I6zmW3OKhZ8vQL57IaMnrnkfx+gKLlnyCgP+maLkWYxrCNjmVUi3NHjdK0Xp6o2zS81I5/t+a1BFrniRNGQJ0eQ9QoT8dPy4sr3XiTTG/sfw6iCfQjKU7F8inYUzoM9DxS1oytNQrKixTECMqRnp1QfBIs6eX0WE8pmulS+XpxU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB6742.namprd12.prod.outlook.com (2603:10b6:806:26e::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Tue, 14 Jul
+ 2026 12:24:12 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0202.014; Tue, 14 Jul 2026
+ 12:24:12 +0000
+Message-ID: <4ccf4ae5-ccd7-4bec-836a-fcebfa271c96@amd.com>
+Date: Tue, 14 Jul 2026 14:24:06 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] dma-buf: fix fd leak when copy_to_user() fails
+ after fd_install()
+To: Baineng Shou <shoubaineng@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "T . J . Mercier" <tjmercier@google.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Sandeep Patil <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <CABdmKX21NHc2=9Sk2F-BFpu6is0vTg-QXLE+wiFNEPdsWWjvog@mail.gmail.com>
+ <20260714114654.3885457-1-shoubaineng@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260714114654.3885457-1-shoubaineng@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0PR03CA0029.namprd03.prod.outlook.com
+ (2603:10b6:208:52f::34) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6742:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a963880-8c1c-436d-2268-08dee1a2cf7c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|4143699003|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	TmR6DhnrJeDRyQZRfQAcbG6KOyJubG5+JSl71GWoff78uI4PAK+QNMK/VT4qH7q6YYxGUn2pPuBn6O4tMt4HkHMVH09ViYb3h/mgArDnctBroGfFD27IEEjqprxzzZ1JSF8nzX4lJ2Ifr64GsLxLHP3OBC4bl2HHAZ5asWSE7UB7RgmLVCzD8VQy8kuNxR8mIAHq9xtzZ/6bCG7xftNG861Vc8uZT85q1KEJl+Q21F5ELSEYg2N+jbqXdLZUNbY5KcXGFbQ2Fv8rnPSXE2q/f22SweLU0g6HAzHRVsAE9cnvqjJQv4NGAq4sDww2mqtfFBQELrUdwzCAWCyvbGJmmxpO+38BdMDdsaHvRfcSNnPS6oF0VL5kMKQ1+V3fLYHxioQd2zZkb2R4+yZXi2B4deLR5FS1FV90fDS/pBWh3ISMB7Khn84DPlVJRkl+Y/exOEvWEDkTy0rz/3TJr3yMTllfPxyeOMqS6hatBgBHUr89v2Y1MGiqoykXgEvD8PPoDLUGNBH9Jba2iXOrB4QoMsPOn9W7vZI5sQc//KevDi7onWSZhOCrQCQBkc1LMLbQvk06y/bMlvQvY40Bo+KI15VsjAKnXU5i7uQs7lEr4UY0nuAVBer4RbPWt3sfj8bSV9YkTSAzOnIPDTrUzPHwy+RdjZdy9XXS8TMLi6HXXf8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(4143699003)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L0ZUbDNFUEZMMThNT0szekwxRDdFR1I5ZVBSS2ZFUnkxUmU3SWZUMWpIOEo2?=
+ =?utf-8?B?ekhqUEM5UklxNGtyTnBXRk4wdTEvdERSVWozaGFFa1JsTFMvZ1MrWHo2UkRz?=
+ =?utf-8?B?cTRlbEkyZmFNb2N4bStoQWFzVkpFRTE1aG9yNlFtTVl5RkJwWUFaRitqSzR4?=
+ =?utf-8?B?UWRtQUNQdm8wdEx1VHBSZXZ3cEJPeEthYmV5OFV0ZVk1SWZmQ3VTOVFBSSs2?=
+ =?utf-8?B?QzNwOHo0Lys2T2EvSDluWTlEZmVHdzA5UFZNWmpRUDgxTk5OdTZIdytQSnl0?=
+ =?utf-8?B?MHdTV3IrQlJjRkxTajNLdUNpVVFEUys0Q0hMNGpZTXAxUkVRbmJEVEZZRklX?=
+ =?utf-8?B?Q3NlYTd5VGpWQUVTalI4LzE2NHlPOHJmblg2TDBOZTRCVDNOTmFicHJZVFk4?=
+ =?utf-8?B?N1JNb1hodm9ieDNJNm5IRTNqMmtYbS9zUFg2aktuWDhHb25Pc3l2ZisvZS9S?=
+ =?utf-8?B?Z3UwNnM3azJBOHNXbWtOOFVWTnBMMUVFekp0aDlTNXBwT0o4YndwM2hkOE5Z?=
+ =?utf-8?B?WTRha1FWY3RJUTBlaG9DaGx6bHA0a3I4MFJuL1ZsMTN6bG5URDIwclRTSTdK?=
+ =?utf-8?B?RDRPeEFsRVJlUnhaRlVNaUd2N1VLc2NhVW1zSHdUZE9lNHNyVWcyRFJnenp6?=
+ =?utf-8?B?Z21vYXhDakYrQTVmOHY5Y0Zlc3JvbEdaVHZkZWlGVjgxSWs1OGpJdjluVVFY?=
+ =?utf-8?B?KzMrNWZUdkdXU3UyVDdlUUhIQzBtbEk4d0FFNURiTDJSUEcvYXBodmE3UDIx?=
+ =?utf-8?B?eWphcUF6YjR2U1RMbE14ZjRxV0ZmVEdjVEU2Mk9DaEM4T1I2ZWwyS3JjcTVr?=
+ =?utf-8?B?ZVR2RTQ2YzBRc082bmtSSUlrdVhXbmRHQVdNNURkc1loNjVteXhTTUVMZnZB?=
+ =?utf-8?B?YVMvaEtCNXBtK0h4R3ExaC9kbFpZMHBjSWE0NFRpZkszMkQzTHJpTXJoQjVR?=
+ =?utf-8?B?WGQ3UVdtby9NTHNxYURxMEoxYmJPTkE0Z0dSNk0vWmg5cjJLaGV5TEUyRnZT?=
+ =?utf-8?B?OFBEM3kxUThicUEvSzI3Y3V3UW42dWcyY2x4eGtpS0c2Nkl5VnIwZjVLSldt?=
+ =?utf-8?B?a2N3a3Z2Q05YSnNaV3dpMUw0akJRM01NWklCOTBxWG11NFNlTTV1dm81dFQz?=
+ =?utf-8?B?VnhsUHBHWFBWcGs4TnYvSFJ4QnFmNEI5RlRoWDhvSlNTRDhFdExERWgxUEd0?=
+ =?utf-8?B?ZEdnRjBBdHh6a2FuMlY4TWpCSTNaZXJoNVdmdCtkTWZ0STFHdnJ5RTBBUXhw?=
+ =?utf-8?B?VnF2dVI3KzBtS2ZvK3VscEltSjJmU2ZmSjkzL25NTE1rSUtjQm9JQnNBZW5G?=
+ =?utf-8?B?OHQxYStLcFE0bld5M3dmaEtGQ2xtSmQ0WFNnby9pbGR5UDAxVVZzdFUzVTNP?=
+ =?utf-8?B?aGppU0FpUEV1aVZXUGVkTXhzYVpxY3FTSUdKSTdqSmJZRjJ1TXVRanhIMVhY?=
+ =?utf-8?B?NHUzOUI1cWJ1K0N2eXZicUtmbDl6NGdadk16MStCdXpOSUZlR3ZFVHNHOGF2?=
+ =?utf-8?B?ZFlQa0dDdmZteVNIK0F4TnZKZ2pyeFcrMC9FaHFMNjkyV2xlSWNTcEEwY2t3?=
+ =?utf-8?B?UDV1SWFiR1FFcGdPR0hPUjV5WEQzb29xRmZKWC84MjJDa3RQUVlPcXFkOXlG?=
+ =?utf-8?B?S2d4b1R1M1YranlDVkcrWXFNTnR4cEl3dVp4ZjFrRnRsWHpzVUJJYmhyZ3Iw?=
+ =?utf-8?B?SjBjMXVkeWhSY1FpQjlkOUpWeEVKUUR0dlNUaGRrUlVtWjQwb3o1SkRmRDVs?=
+ =?utf-8?B?dythQjBiaXdjZlFnMFc0RTFLc1Y5Vk1Iak04TE9wY0xQTHBPSnpOdXdlWkxj?=
+ =?utf-8?B?Wjc1cXlqaVlxZ1FhNHZBM3F4WHBqNXk2aXN5YXEyUW8rNG5tTWFXTUlwWFpk?=
+ =?utf-8?B?c0t1OGJlZXlkYThhZTZqTC8yV0ZTQjA1SXJiQzUydVpkbzEwUWVFUGJ5b3My?=
+ =?utf-8?B?czZqR0dIZG5ULytYVDZzWFBCMEpLNDZLbnlDYncwUENNQzFZS3dJWnJucjFD?=
+ =?utf-8?B?bFJnUGpsUTVuRi9KR0JhVG5pTFVtRzF1SUs1SE10bjBEK0YwU0Jaa2ZQZVFZ?=
+ =?utf-8?B?L0FycHlTRElhZDhSQ2w3NVBNZXNJeUs2ajdkZTV2eFJCby9SSTlDQ0V3ZSt4?=
+ =?utf-8?B?K0JsZ253SGQxMUVzVEVSRXNhL25ZVkJ5eW5VQUx0ckt3MzViQmIzTGllblVU?=
+ =?utf-8?B?Z2UrbnZIc0tRRUo2NlZjbWdoemtwMlNaWjZBMmlKSkV3a29sQyt3aXNzdkJE?=
+ =?utf-8?B?amJWRmp0MnBHeGE3c0VNVXV0Y1F4ZGZyS0ZlL2k3ekE2ZklnRG1oaEZHNWdi?=
+ =?utf-8?Q?BZQ8xLFIJlzsRfaGul?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a963880-8c1c-436d-2268-08dee1a2cf7c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 12:24:12.0337
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BeQTvqcjq5r1EEk5+QyHmoiqhxx3W+QWaSc+6Lvkdj5w2MobX66DjbBgKN+0Ahdx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6742
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On 7/14/26 13:46, Baineng Shou wrote:
+> Several drivers call dma_buf_fd() — which internally calls fd_install()
+> — before copy_to_user() returns the fd number to userspace.  If
+> copy_to_user() fails, the fd is already published in the caller's fd
+> table but the ioctl returns an error, so userspace never learns the fd
+> number.  Worse, the window between fd_install() and copy_to_user()
+> allows other threads to observe and manipulate the fd (dup, close,
+> SCM_RIGHTS), making any "close it on the failure path" fix unsafe.
+> 
+> The fix is to split the allocation into three steps: reserve an fd with
+> get_unused_fd_flags() (not yet visible to other threads), do
+> copy_to_user(), and only then publish the fd with fd_install() via the
+> new dma_buf_fd_install() helper.  On copy_to_user() failure,
+> put_unused_fd() + dma_buf_put() cleanly unwind with no user-visible
+> side effects.
+> 
+> Patch 1 introduces dma_buf_fd_install() in dma-buf.c (wrapping
+> fd_install() together with the DMA_BUF_TRACE call to preserve export
+> tracing) and applies the fix to dma-heap.
+> 
+> Patch 2 applies the same fix to fastrpc, which even had a comment
+> acknowledging the problem could not be fixed before.
 
-__folio_split() dereferences the mapping after the split completes:
-shmem_uncharge(mapping->host) for folios dropped beyond EOF and
-i_mmap_unlock_read(mapping) on the way out.  Nothing holds an inode
-reference for that duration; the split relies on the caller's locked
-@lock_at folio, while it is locked and present in the page cache, to keep
-the inode alive through eviction's truncate_inode_pages_final().
+drivers/gpu/drm/drm_prime.c is also using fd_install() of a DMA-buf file descriptor manually.
 
-If @lock_at lies beyond EOF, __folio_freeze_and_split_unmapped() removes
-it from the page cache while keeping it locked for the caller.  That drops
-the pin and lets a concurrent final iput() evict and free the inode under
-the still-running split.  On the anon side __folio_split() already pins
-its anchor explicitly (folio_get_anon_vma()); the file side's anchor was
-always the locked in-cache folio, just never enforced.
+Would be nice if we could us the new dma_buf_fd_install() for tracing here as well.
 
-The only in-tree caller that passed a beyond-EOF @lock_at was
-memory_failure(), fixed in the previous patch to anchor on the head.  Make
-the requirement explicit so it cannot be reintroduced: refuse the split
-with -EBUSY when @lock_at is at or beyond the sampled EOF.  Such a folio
-is racing truncation, so there is nothing useful to split; -EBUSY is
-already handled by every caller.
+Apart from that feel free to add Acked-by: Christian König <christian.koenig@amd.com> to the whole series.
 
-The check uses the same @end sampled under the folio lock that the drop
-loop uses, so it does not race the trimming it guards against.
+Regards,
+Christian.
 
-Fixes: baa355fd3314 ("thp: file pages support for split_huge_page()")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- mm/huge_memory.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 2bccb0a53a0a..0e3ca7178d8c 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4065,6 +4065,20 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 		end = DIV_ROUND_UP(i_size_read(mapping->host), PAGE_SIZE);
- 		if (shmem_mapping(mapping))
- 			end = shmem_fallocend(mapping->host, end);
-+
-+		/*
-+		 * @lock_at is returned locked to the caller, and while it is
-+		 * locked and present in the page cache it is what keeps the
-+		 * inode alive: the mapping is still dereferenced after the split
-+		 * (shmem_uncharge(), i_mmap_unlock_read()).  If it lies beyond
-+		 * EOF the split would drop it from the page cache while handing
-+		 * it back locked, removing that pin.  Such a folio is racing
-+		 * truncation and there is nothing useful to split; bail out.
-+		 */
-+		if (folio->index + folio_page_idx(folio, lock_at) >= end) {
-+			ret = -EBUSY;
-+			goto out_unlock;
-+		}
- 	}
- 
- 	/*
--- 
-2.54.0
+> 
+> v1: https://lore.kernel.org/dri-devel/20260703080922.1838362-1-shoubaineng@gmail.com/
+> v2: https://lore.kernel.org/dri-devel/20260710105430.3059661-1-shoubaineng@gmail.com/
+> 
+> Changes in v3:
+>  - Split into two patches (dma-heap + fastrpc separately)
+>  - Add dma_buf_fd_install() to preserve trace_dma_buf_fd tracepoint
+>    (spotted by T.J. Mercier and sashiko-bot on v2)
+>  - Add fastrpc fix using the new helper (suggested by T.J. Mercier)
+> 
+> Baineng Shou (2):
+>   dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+>   misc: fastrpc: don't publish fd before copy_to_user() succeeds
+> 
+>  drivers/dma-buf/dma-buf.c  | 20 ++++++++++
+>  drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
+>  drivers/misc/fastrpc.c     | 16 +++-----
+>  include/linux/dma-buf.h    |  1 +
+>  4 files changed, 67 insertions(+), 50 deletions(-)
+> 
 
