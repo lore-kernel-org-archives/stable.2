@@ -1,44 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EC51C861D
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:30:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B833594A
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 04:33:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784003410; cv=none; b=IIfBTN81u9MNiCiiMucAyuM38XLM3xbJd4CIIdyistYBsGfaa5Cs6hokbpIHX273NHiu0KzkyPVycl4jqebeVFLFAa6B8BgB2dUm6KoM1ypKT7fOUSnz0BX9NIH0TKkSaJtWsQORxS0jOeehkHPxtIMz8TVZm/vubENfCqdxM/Y=
+	t=1784003622; cv=none; b=TbbNDizbXtqut8c8BU8i2Dn+cpOR6xsqhXMIoXYLeetTm/+JiFA8VCPY2HxjkOFSVNcFoZPeICyRieI9yDFK6L+9VCa5KyYkI7ZM/vfMwpVmkJyTUBMgr/k7/VE5Ca8gxr+9TpVrvia4ZY7lbm7Vb3oDdjHWrx7Y8TpIV3AxBKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784003410; c=relaxed/simple;
-	bh=D1F8BS5Gm4yez8XborKQAIv3+GKQxynFgEE98rHc8fY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=izUs8Zq7fPNG9o9sQuPf36ezDJwtpkc8jowjwaGe8qhp3EH5BPb/EXkKyI19toEXp7Srgdd+eowTY9i5qXtpFEoNp47vOsgHy20s7+IIts+W5HEJwVcXDdBW0WkO9c3LC+jB0invvU0Nq1ymXr/fBFk1kYhsYc7VuRVGHzXlPsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0pEpwer; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784003622; c=relaxed/simple;
+	bh=M1Mn3+9Uy7M5AanOhNkzLOnh/dVP9q+Y4eLQaskJ6oE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d366nbhOb0CBUTLSFXJnZEs/vszOvGSJUeZzq7r82UWuWvgKZDScnmA4SohRclQpHLNuexobWf4vrHjYBs81w2hi2LVLkxBFh5afey8Uwfkzex3x/x56O8wzjULyFVnajNEeo6TW/j1uCXVIGxHvQm9SyWjj92gKjXhk4vrTqK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N9SolEhc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0pEpwer"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCC131F000E9;
-	Tue, 14 Jul 2026 04:30:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N9SolEhc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 529B81F000E9;
+	Tue, 14 Jul 2026 04:33:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784003408;
-	bh=mICutwBK0EOWPaJt4dE51Zi2P/cBrQAMNeIDmrK7FQw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E0pEpwerZ5on1SZjEJueqR+tDisH+rxCo7p0Qm6oHWrPgUwUU3XP/nWrugGaN5EC6
-	 zlMkcPhEWousOPzNLjodpXrvbdJVTUZGdmUn92RHdi8ep3+pZkiO5gPo8jrkX/KePJ
-	 tSOo0BPQVLz2CZSDscTbrcb5h8VL/ivI2BvGaKw9sWSbw9mjhzZfnErSVFitdy7ker
-	 89YKeBPmL/ZOXqwRecAg8x0WUPQAdUhL+J8RC2eAwz75CjDI1KB+ta1w7lCchOvIcn
-	 6GuAybIEZr661VHrQeKeYMNc+hXUC0k37FQpYblJm+PhzYKA2E6pnk/vz9iKQFnT0Z
-	 q+rcLNdFlWlBg==
-From: Sasha Levin <sashal@kernel.org>
+	s=k20260515; t=1784003620;
+	bh=nA4UPwrFeP8KV4xaf9d1nDWJ59NZopciHR5+2yKHs0I=;
+	h=From:To:Cc:Subject:Date;
+	b=N9SolEhcJjKszrhJ0QrCC+5QzBKUaI4WALp7fF79H2cRi5xQuuE0F5+GveMzAtusa
+	 EhqLcbP+L0H2WiI5yBWwxmZEg87kgS8/AuIMaIxYsMhjmGGfpFvdAuhH8zONXgfvSg
+	 M+evAc/zdkU916QYmp7YKx18SnRMsNTOeovhNTmv8QKhH8E4XWF7DxtiQHEapIn7jv
+	 0WOTx8c+D5jwF2EDo/G9CoaM6gBIxZevoVY+3je6dfPW/fGJL6FPOcza6dbVYeuWQ5
+	 NoRz1Wm+Mb9qwSCWi6MKz5/RwBudGibWJzxQ9n1l4F2sbfQOqIT9+2f+qYQu93aBAI
+	 GudQolqXM90kg==
+From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: stable@vger.kernel.org
-Cc: Reinette Chatre <reinette.chatre@intel.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	stable@kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] x86,fs/resctrl: Prevent out-of-bounds access while offlining CPU when SNC enabled
-Date: Tue, 14 Jul 2026 00:30:04 -0400
-Message-ID: <20260714043004.2500830-1-sashal@kernel.org>
+Cc: Anisse Astier <an.astier@criteo.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH 6.1.y] efivarfs: expose used and total size
+Date: Mon, 13 Jul 2026 23:33:29 -0500
+Message-ID: <20260714043329.3510162-1-superm1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071357-shifter-degree-6c12@gregkh>
-References: <2026071357-shifter-degree-6c12@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,126 +42,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Reinette Chatre <reinette.chatre@intel.com>
+From: Anisse Astier <an.astier@criteo.com>
 
-[ Upstream commit fc16126cc11d9f507130bf84ab137ee0938c900e ]
+When writing EFI variables, one might get errors with no other message
+on why it fails. Being able to see how much is used by EFI variables
+helps analyzing such issues.
 
-The architecture updates the cpu_mask in a domain's header to track which
-online CPUs are associated with the domain. When this mask becomes empty
-the architecture initiates offline of the domain that includes calling
-on resctrl fs to offline the domain. If it is a monitoring domain in
-which LLC occupancy is tracked resctrl fs forces the limbo handler to
-clear all busy RMID state associated with the domain.
+Since this is not a conventional filesystem, block size is intentionally
+set to 1 instead of PAGE_SIZE.
 
-The limbo handler always reads the current event value associated with a
-busy RMID irrespective of it being checked as part of regular "is it still
-busy" check or whether it will be forced released anyway. When reading an
-RMID on a system with SNC enabled the "logical RMID" is converted to the
-"physical RMID" and this conversion requires the NUMA node ID of the
-resctrl monitoring domain that is in turn determined by querying the NUMA
-node ID of any CPU belonging to the monitoring domain.
+x86 quirks of reserved size are taken into account; so that available
+and free size can be different, further helping debugging space issues.
 
-When the monitoring domain is going offline its cpu_mask is empty causing
-the NUMA node ID query via cpu_to_node() to be done with "nr_cpu_ids" as
-argument resulting in an out-of-bounds access.
+With this patch, one can see the remaining space in EFI variable storage
+via efivarfs, like this:
 
-Refactor the limbo handler to skip reading the RMID when the RMID will
-just be forced to no longer be dirty in the domain anyway. Add a safety
-check to the architecture's RMID reader to protect against this scenario.
+   $ df -h /sys/firmware/efi/efivars/
+   Filesystem      Size  Used Avail Use% Mounted on
+   efivarfs        176K  106K   66K  62% /sys/firmware/efi/efivars
 
-Fixes: e13db55b5a0d ("x86/resctrl: Introduce snc_nodes_per_l3_cache")
-Closes: https://sashiko.dev/#/patchset/cover.1780456704.git.reinette.chatre%40intel.com?part=9
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Cc: <stable@kernel.org>
-Link: https://patch.msgid.link/16137433df42f85013b2f7a53626795cbd6637b9.1781029125.git.reinette.chatre@intel.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Anisse Astier <an.astier@criteo.com>
+[ardb: - rename efi_reserved_space() to efivar_reserved_space()
+       - whitespace/coding style tweaks]
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+(cherry-picked from d86ff3333cb1 ("efivarfs: expose used and total size"))
+Adjusted for headers in linux-6.1.y
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- arch/x86/kernel/cpu/resctrl/monitor.c | 47 +++++++++++++++++----------
- 1 file changed, 29 insertions(+), 18 deletions(-)
+Cc:Steve McIntyre <steve@einval.com> 
+Cc:Richard Hughes <richard@hughsie.com>
 
-diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
-index c117fba4f8da92..b4dcfe6d0831ac 100644
---- a/arch/x86/kernel/cpu/resctrl/monitor.c
-+++ b/arch/x86/kernel/cpu/resctrl/monitor.c
-@@ -338,14 +338,20 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_mon_domain *d,
- 			   u64 *val, void *ignored)
- {
- 	struct rdt_hw_mon_domain *hw_dom = resctrl_to_arch_mon_dom(d);
--	int cpu = cpumask_any(&d->hdr.cpu_mask);
- 	struct arch_mbm_state *am;
- 	u64 msr_val;
- 	u32 prmid;
-+	int cpu;
- 	int ret;
+Background for this backport is that fwupd needs to be able to do CA
+updates on Debian oldstable (bookworm) which tracks 6.1.7.  The CA update
+process checks for free storage, and needs this function to do it.
+ arch/x86/platform/efi/quirks.c |  8 +++++++
+ drivers/firmware/efi/efi.c     |  1 +
+ drivers/firmware/efi/vars.c    | 12 +++++++++++
+ fs/efivarfs/super.c            | 39 +++++++++++++++++++++++++++++++++-
+ include/linux/efi.h            | 11 ++++++++++
+ 5 files changed, 70 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/platform/efi/quirks.c b/arch/x86/platform/efi/quirks.c
+index b0b848d6933a..f0cc00032751 100644
+--- a/arch/x86/platform/efi/quirks.c
++++ b/arch/x86/platform/efi/quirks.c
+@@ -114,6 +114,14 @@ void efi_delete_dummy_variable(void)
+ 				     EFI_VARIABLE_RUNTIME_ACCESS, 0, NULL);
+ }
  
- 	resctrl_arch_rmid_read_context_check();
- 
-+	if (cpumask_empty(&d->hdr.cpu_mask)) {
-+		pr_warn_once("Domain %d has no CPUs\n", d->hdr.id);
-+		return -EINVAL;
-+	}
++u64 efivar_reserved_space(void)
++{
++	if (efi_no_storage_paranoia)
++		return 0;
++	return EFI_MIN_RESERVE;
++}
++EXPORT_SYMBOL_GPL(efivar_reserved_space);
 +
-+	cpu = cpumask_any(&d->hdr.cpu_mask);
- 	prmid = logical_rmid_to_physical_rmid(cpu, rmid);
- 	ret = __rmid_read_phys(prmid, eventid, &msr_val);
+ /*
+  * In the nonblocking case we do not attempt to perform garbage
+  * collection if we do not have enough free space. Rather, we do the
+diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
+index 9786dfff9f84..83b63dd2de9b 100644
+--- a/drivers/firmware/efi/efi.c
++++ b/drivers/firmware/efi/efi.c
+@@ -211,6 +211,7 @@ static int generic_ops_register(void)
+ 	generic_ops.get_variable = efi.get_variable;
+ 	generic_ops.get_next_variable = efi.get_next_variable;
+ 	generic_ops.query_variable_store = efi_query_variable_store;
++	generic_ops.query_variable_info = efi.query_variable_info;
  
-@@ -382,9 +388,9 @@ void __check_limbo(struct rdt_mon_domain *d, bool force_free)
- 	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
- 	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
- 	struct rmid_entry *entry;
-+	bool rmid_dirty = true;
- 	u32 idx, cur_idx = 1;
- 	void *arch_mon_ctx;
--	bool rmid_dirty;
- 	u64 val = 0;
- 
- 	arch_mon_ctx = resctrl_arch_mon_ctx_alloc(r, QOS_L3_OCCUP_EVENT_ID);
-@@ -406,22 +412,27 @@ void __check_limbo(struct rdt_mon_domain *d, bool force_free)
- 			break;
- 
- 		entry = __rmid_entry(idx);
--		if (resctrl_arch_rmid_read(r, d, entry->closid, entry->rmid,
--					   QOS_L3_OCCUP_EVENT_ID, &val,
--					   arch_mon_ctx)) {
--			rmid_dirty = true;
--		} else {
--			rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
--
--			/*
--			 * x86's CLOSID and RMID are independent numbers, so the entry's
--			 * CLOSID is an empty CLOSID (X86_RESCTRL_EMPTY_CLOSID). On Arm the
--			 * RMID (PMG) extends the CLOSID (PARTID) space with bits that aren't
--			 * used to select the configuration. It is thus necessary to track both
--			 * CLOSID and RMID because there may be dependencies between them
--			 * on some architectures.
--			 */
--			trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid, d->hdr.id, val);
-+		if (!force_free) {
-+			if (resctrl_arch_rmid_read(r, d, entry->closid,
-+						   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
-+						   &val, arch_mon_ctx)) {
-+				rmid_dirty = true;
-+			} else {
-+				rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
+ 	if (efi_rt_services_supported(EFI_RT_SUPPORTED_SET_VARIABLE)) {
+ 		generic_ops.set_variable = efi.set_variable;
+diff --git a/drivers/firmware/efi/vars.c b/drivers/firmware/efi/vars.c
+index 4ca256bcd697..d22160e7c785 100644
+--- a/drivers/firmware/efi/vars.c
++++ b/drivers/firmware/efi/vars.c
+@@ -250,3 +250,15 @@ efi_status_t efivar_set_variable(efi_char16_t *name, efi_guid_t *vendor,
+ 	return status;
+ }
+ EXPORT_SYMBOL_NS_GPL(efivar_set_variable, EFIVAR);
 +
-+				/*
-+				 * x86's CLOSID and RMID are independent numbers,
-+				 * so the entry's CLOSID is an empty CLOSID
-+				 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
-+				 * (PMG) extends the CLOSID (PARTID) space with
-+				 * bits that aren't used to select the configuration.
-+				 * It is thus necessary to track both CLOSID and
-+				 * RMID because there may be dependencies between
-+				 * them on some architectures.
-+				 */
-+				trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
-+							      d->hdr.id, val);
-+			}
- 		}
++efi_status_t efivar_query_variable_info(u32 attr,
++					u64 *storage_space,
++					u64 *remaining_space,
++					u64 *max_variable_size)
++{
++	if (!__efivars->ops->query_variable_info)
++		return EFI_UNSUPPORTED;
++	return __efivars->ops->query_variable_info(attr, storage_space,
++			remaining_space, max_variable_size);
++}
++EXPORT_SYMBOL_NS_GPL(efivar_query_variable_info, EFIVAR);
+diff --git a/fs/efivarfs/super.c b/fs/efivarfs/super.c
+index b8c4641ed152..6bd100f03aa5 100644
+--- a/fs/efivarfs/super.c
++++ b/fs/efivarfs/super.c
+@@ -14,6 +14,7 @@
+ #include <linux/slab.h>
+ #include <linux/magic.h>
+ #include <linux/printk.h>
++#include <linux/statfs.h>
  
- 		if (force_free || !rmid_dirty) {
+ #include "internal.h"
+ 
+@@ -24,8 +25,44 @@ static void efivarfs_evict_inode(struct inode *inode)
+ 	clear_inode(inode);
+ }
+ 
++static int efivarfs_statfs(struct dentry *dentry, struct kstatfs *buf)
++{
++	const u32 attr = EFI_VARIABLE_NON_VOLATILE |
++			 EFI_VARIABLE_BOOTSERVICE_ACCESS |
++			 EFI_VARIABLE_RUNTIME_ACCESS;
++	u64 storage_space, remaining_space, max_variable_size;
++	efi_status_t status;
++
++	status = efivar_query_variable_info(attr, &storage_space, &remaining_space,
++					    &max_variable_size);
++	if (status != EFI_SUCCESS)
++		return efi_status_to_err(status);
++
++	/*
++	 * This is not a normal filesystem, so no point in pretending it has a block
++	 * size; we declare f_bsize to 1, so that we can then report the exact value
++	 * sent by EFI QueryVariableInfo in f_blocks and f_bfree
++	 */
++	buf->f_bsize	= 1;
++	buf->f_namelen	= NAME_MAX;
++	buf->f_blocks	= storage_space;
++	buf->f_bfree	= remaining_space;
++	buf->f_type	= dentry->d_sb->s_magic;
++
++	/*
++	 * In f_bavail we declare the free space that the kernel will allow writing
++	 * when the storage_paranoia x86 quirk is active. To use more, users
++	 * should boot the kernel with efi_no_storage_paranoia.
++	 */
++	if (remaining_space > efivar_reserved_space())
++		buf->f_bavail = remaining_space - efivar_reserved_space();
++	else
++		buf->f_bavail = 0;
++
++	return 0;
++}
+ static const struct super_operations efivarfs_ops = {
+-	.statfs = simple_statfs,
++	.statfs = efivarfs_statfs,
+ 	.drop_inode = generic_delete_inode,
+ 	.evict_inode = efivarfs_evict_inode,
+ };
+diff --git a/include/linux/efi.h b/include/linux/efi.h
+index 1d73c77051c0..5868c4b29332 100644
+--- a/include/linux/efi.h
++++ b/include/linux/efi.h
+@@ -1039,6 +1039,7 @@ struct efivar_operations {
+ 	efi_set_variable_t *set_variable;
+ 	efi_set_variable_t *set_variable_nonblocking;
+ 	efi_query_variable_store_t *query_variable_store;
++	efi_query_variable_info_t *query_variable_info;
+ };
+ 
+ struct efivars {
+@@ -1047,6 +1048,12 @@ struct efivars {
+ 	const struct efivar_operations *ops;
+ };
+ 
++#ifdef CONFIG_X86
++u64 __attribute_const__ efivar_reserved_space(void);
++#else
++static inline u64 efivar_reserved_space(void) { return 0; }
++#endif
++
+ /*
+  * The maximum size of VariableName + Data = 1024
+  * Therefore, it's reasonable to save that much
+@@ -1081,6 +1088,10 @@ efi_status_t efivar_set_variable_locked(efi_char16_t *name, efi_guid_t *vendor,
+ efi_status_t efivar_set_variable(efi_char16_t *name, efi_guid_t *vendor,
+ 				 u32 attr, unsigned long data_size, void *data);
+ 
++efi_status_t efivar_query_variable_info(u32 attr, u64 *storage_space,
++					u64 *remaining_space,
++					u64 *max_variable_size);
++
+ #if IS_ENABLED(CONFIG_EFI_CAPSULE_LOADER)
+ extern bool efi_capsule_pending(int *reset_type);
+ 
 -- 
 2.53.0
 
