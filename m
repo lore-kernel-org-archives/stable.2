@@ -1,190 +1,94 @@
-Received: from smtp1.tecnico.ulisboa.pt (smtp1.tecnico.ulisboa.pt [193.136.128.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFAE448CF5
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 11:30:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.136.128.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0884483BE;
+	Wed, 15 Jul 2026 11:35:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784115045; cv=none; b=bPJ0gtsWOMAHLGc30yOUdOzBtZZrEKRTGGhlezc6UPwghMclrj5lM2q77Sg8M5/U5XMJurV675dID1rLCsNCQe1mlVRjpBqyxi/cI1WO4yWssg5vPh1whmJCqQSKZNSPsondbTQAtpSezMYLWXJu6zyTBxsSXx73YCXXyrCGQp8=
+	t=1784115335; cv=none; b=MxWDRW90l3z+QzJwY+8O2r1hI/NLwasJM4YzQPAor6IoOr3V8KmIKNZbG0fYwK+4QSw5UC2Dk7f4N7dVqV9Dn7qdLLc7sJXQ5XTHG/L1rfjxZO/OMElsXKtTrGOVmjZfa1m5kroOm64KC1zTaz7faKsYXNXv7Cij6E/n2o/V008=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784115045; c=relaxed/simple;
-	bh=O+Ur9eYnsFQSPhsp8ewzlA525GBnrJImSCfz0U85SQA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lNB6WI5ygCv+LSDqLLxGzGV/avid5XNVkq+9IQbgbOU+YO9cDnPY2b9opPPMmOFQV7R8oPQuF3LtkQfRSqOW4XUzPSGNCRkpNbrukQhgnLEEIV9XB87Iv41nejm9/b5fzifxFpG+rom4JaJynvXADtMpMQppsOJHtc1Z/DabnJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ist.utl.pt; spf=pass smtp.mailfrom=ist.utl.pt; dkim=pass (1024-bit key) header.d=ist.utl.pt header.i=@ist.utl.pt header.b=QHRFFScv; arc=none smtp.client-ip=193.136.128.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ist.utl.pt
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ist.utl.pt
+	s=arc-20240116; t=1784115335; c=relaxed/simple;
+	bh=sNEXueWVdWEvfYKYwZZOPFDO+l6YsE+OW3Ra6F4e6zw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=TNjTWbYLAS4YVCJX/YjnrvmMYK+SznEY+th5Z4WZ3Ori7jGDw/1AkhkPCtumC8HGiOpgTnbh9qYP1uf/sZXYhyomGWr8oD/T/y5WYYgScNed1jRUsaPc2YvWF1TOKJ27HjdCYHhkGJYX8Osy9kYaZsfsoFQFOVb+6Pkk2nvvOfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DU7gCO/h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ist.utl.pt header.i=@ist.utl.pt header.b="QHRFFScv"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTP id E7069639CF3F;
-	Wed, 15 Jul 2026 12:25:04 +0100 (WEST)
-X-Virus-Scanned: by amavis-2.13.0 (20230106) (Debian) at tecnico.ulisboa.pt
-Received: from smtp1.tecnico.ulisboa.pt ([127.0.0.1])
- by localhost (smtp1.tecnico.ulisboa.pt [127.0.0.1]) (amavis, port 10025)
- with LMTP id tbtQaezFjhuO; Wed, 15 Jul 2026 12:25:03 +0100 (WEST)
-Received: from mail1.tecnico.ulisboa.pt (mail1.ist.utl.pt [193.136.128.10])
-	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTPS id B078E63579D2;
-	Wed, 15 Jul 2026 12:25:02 +0100 (WEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ist.utl.pt; s=mail;
-	t=1784114702;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ecflkBoDJhed0VZ6jHgpb4su8KoM+WVK0lOaA9bisVM=;
-	b=QHRFFScvNSTqmKacjhFM1K0u1eli5YizxCnf+6X5PSUJroYr9PM9h3RaQmJ6iI/At4nWWn
-	DicaEAHTD6hRl9ATzoj2KNWISPXtWqO+zPXgKBJPswyzx3CwECmbRLpRdBCks6+To+OqjQ
-	nRKnG4cUpvvRz7aP/vv7gDX2LEmgvCk=
-Received: from jcmfernandes-desktop.tail184b8c.ts.net (unknown [IPv6:2a01:14:8051:c010:b43e:a652:ae6c:a531])
-	(Authenticated sender: ist157885)
-	by mail1.tecnico.ulisboa.pt (Postfix) with ESMTPSA id 7814E3601AD;
-	Wed, 15 Jul 2026 12:25:02 +0100 (WEST)
-From: =?UTF-8?q?Jo=C3=A3o=20Moreira=20Fernandes?= <joao.fernandes@ist.utl.pt>
-To: Joao <joao@bckground.com>
-Cc: =?UTF-8?q?Jo=C3=A3o=20Moreira=20Fernandes?= <joao.fernandes@ist.utl.pt>,
-	stable@vger.kernel.org
-Subject: [PATCH] usbip: flush the event handler in usbip_stop_eh() to fix use-after-free
-Date: Wed, 15 Jul 2026 12:24:57 +0100
-Message-ID: <20260715112458.2143740-1-joao.fernandes@ist.utl.pt>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DU7gCO/h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711331F000E9;
+	Wed, 15 Jul 2026 11:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784115333;
+	bh=jesZuPeWaeL9z/PHoWJHtu6Qq+AFb40j5P16AfqJxyA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=DU7gCO/hsLqTwwk7TrDDgi6SxLThPZZUBTDgrO/vIreh//foqleLzkS3qXzkElWtB
+	 CQKaJF8wR03T1QTKHvCbSFm/OO8G6JR8351ZvqQ+kJLjx6xlt3W4hgFzvdQti/56z8
+	 AdAl7uEqWLmVf0QiQAuxA4DZzP2OppKvovPu4dVvbzk60+2W591kBra8i7MQarcQhV
+	 4WlAiIpr83zDimSizShclQeutXvBhvTeOXE0a+il4DdprKWBqwrQT7lW/+ViVJty6H
+	 W36kWw2XuxnRh12PUqcjsBdUtsNN6cg06zSSPMCEBMj3vuMZE4NIWePo6cy6a9P3o7
+	 FucInxpg9bLog==
+From: Mark Brown <broonie@kernel.org>
+To: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com, 
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
+ Frank.Li@nxp.com, Chancel Liu <chancel.liu@oss.nxp.com>
+Cc: kernel@pengutronix.de, linuxppc-dev@lists.ozlabs.org, 
+ linux-sound@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260710031333.3491445-1-chancel.liu@oss.nxp.com>
+References: <20260710031333.3491445-1-chancel.liu@oss.nxp.com>
+Subject: Re: [PATCH] ASoC: fsl: imx-card: Skip sysclk reset for active DAIs
+ in shutdown
+Message-Id: <178406418862.7661.7096078031628027721.b4-ty@b4>
+Date: Tue, 14 Jul 2026 22:23:08 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1149; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=sNEXueWVdWEvfYKYwZZOPFDO+l6YsE+OW3Ra6F4e6zw=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqV3CBctjQmNjrs8DaxHnHGNriWx0pEgtvGK67Z
+ 99Q7E7K7dSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaldwgQAKCRAk1otyXVSH
+ 0Lv2B/9iwsllDW7+fFWuMbcXDu+pjbFkmouDD7PciHiUfac0zJWqUb8SwEPVm7oGXMOibcDq2Kq
+ YYouaK3iixM869F51GmvpQGgKWcu5tKldP5a1KGcQLcD5SfJvvsd4oYraV7jkS2zWaKToBwYBjM
+ mhXSdzMOSNTZyFo1oH7Dt2gv7gI9vW9Q4UHyxpFoY6/Lz0VPCcAzVfNRPImPqiCWBNUZ5irG833
+ J69er+PQAizp+0z8ltrK5Coa9q3+igR48mHEgGulXvStCD73JTM2MYHoao8/eJFV9ueYHpT27sO
+ IO1bOopuY7+1+mIo9ncpEwxUoLEhRN4sVHiQpy6KO7RHgqTe
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-usbip_stop_eh() is used by the stub, vhci and vudc sides to wait for the
-event handler to finish with a usbip_device before the caller tears it
-down.  It waits only on the event bitmask:
+On Fri, 10 Jul 2026 12:13:33 +0900, Chancel Liu wrote:
+> ASoC: fsl: imx-card: Skip sysclk reset for active DAIs in shutdown
 
-	wait_event_interruptible(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
+Applied to
 
-but event_handler() clears those bits with unset_event() *before* its
-final dereferences of ud:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
 
-	if (ud->event & USBIP_EH_SHUTDOWN) {
-		ud->eh_ops.shutdown(ud);
-		unset_event(ud, USBIP_EH_SHUTDOWN);   /* wait may now return */
-	}
-	...
-	mutex_unlock(&ud->sysfs_lock);            /* still touches ud */
-	wake_up(&ud->eh_waitq);                   /* still touches ud */
+Thanks!
 
-Once the last non-BYE bit is cleared the waiter can wake and the caller
-proceeds to free ud.  For the stub side, stub_disconnect() ->
-shutdown_busid() calls usbip_stop_eh() and then stub_device_free() frees
-the stub_device that embeds ud, while event_handler() is still executing
-mutex_unlock(&ud->sysfs_lock) and wake_up(&ud->eh_waitq), and may still
-mutex_lock(&ud->sysfs_lock) on a second queued event for the same ud.
-The result is a use-after-free in the usbip_event workqueue.
+[1/1] ASoC: fsl: imx-card: Skip sysclk reset for active DAIs in shutdown
+      https://git.kernel.org/broonie/sound/c/9f86aea99256
 
-It is readily triggered by a reverse/exported-device teardown that
-unbinds usbip-host while the importer is still attached: the socket EOF
-queues SDEV_EVENT_ERROR_TCP (SHUTDOWN|RESET) from the stub_rx thread at
-the same moment stub_disconnect() queues SDEV_EVENT_REMOVED
-(SHUTDOWN|BYE), so the handler re-runs shutdown/reset on ud in the exact
-window where it is being freed.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Reproduced under KASAN on v6.12.95 (usbip built as vhci_hcd importer and
-usbip-host exporter on two separate VMs).  The freed object is the
-stub_device, freed by the unbind write and then read by the event
-workqueue:
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-  BUG: KASAN: slab-use-after-free in event_handler+0x2ba/0x3a0
-  Read of size 8 at addr ffff888005cc6058 by task kworker/u8:5/63
-  Workqueue: usbip_event event_handler
-  Call Trace:
-   event_handler+0x2ba/0x3a0
-   process_one_work+0x5c2/0xfd0
-   worker_thread+0x49d/0xb00
-   kthread+0x246/0x300
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-  Allocated by task 1657:
-   stub_probe+0xf0/0xb00
-   usb_probe_device+0xaa/0x2e0
-   bind_store+0xce/0x140
-   vfs_write+0x87c/0xd70
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-  Freed by task 1660:
-   kfree+0x1a4/0x3a0
-   stub_disconnect+0x21e/0x340
-   usb_unbind_device+0x6b/0x170
-   device_release_driver_internal+0x384/0x550
-   unbind_store+0xdb/0xf0
-   vfs_write+0x87c/0xd70
-
-The same run produced 37 KASAN splats against the one freed object,
-reached through every place the handler still touches ud after clearing
-the event bits: mutex_lock() on ud->sysfs_lock, the eh_waitq wake
-(__wake_up_common / finish_wait / prepare_to_wait_event), and
-stub_shutdown_connection() called from event_handler().
-
-Waiting on the event bits cannot close the window, because the handler's
-last accesses to ud are inherently after the bit is cleared.  Instead,
-flush the event work in usbip_stop_eh() so the handler has fully returned
-before the caller is allowed to free ud.  Every *_EVENT_REMOVED sets
-USBIP_EH_BYE, after which usbip_event_add() no longer queues new work for
-that ud, so flush_work() only has to wait out the in-flight run.  Guard
-the flush with usbip_in_eh() so it is skipped in the (stub reset) path
-that runs from the handler itself, and move the usbip_work declaration
-above usbip_stop_eh() so it is in scope.  None of the three usbip_stop_eh()
-callers hold ud->sysfs_lock, so flushing the worker (which takes it)
-cannot deadlock.
-
-With the patch applied, the same KASAN reproducer runs the teardown
-suite repeatedly with zero KASAN reports.
-
-Fixes: 363eaa3a450a ("usbip: synchronize event handler with sysfs code paths")
-Cc: stable@vger.kernel.org
-Signed-off-by: João Moreira Fernandes <joao.fernandes@ist.utl.pt>
-Assisted-by: Claude:claude-opus-4-8
----
- drivers/usb/usbip/usbip_event.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
---- a/drivers/usb/usbip/usbip_event.c
-+++ b/drivers/usb/usbip/usbip_event.c
-@@ -97,6 +97,8 @@ static void event_handler(struct work_struct *work)
- 	}
- }
- 
-+static DECLARE_WORK(usbip_work, event_handler);
-+
- int usbip_start_eh(struct usbip_device *ud)
- {
- 	init_waitqueue_head(&ud->eh_waitq);
-@@ -116,6 +118,21 @@ void usbip_stop_eh(struct usbip_device *ud)
- 		usbip_dbg_eh("usbip_eh waiting completion %lx\n", pending);
- 
- 	wait_event_interruptible(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
-+
-+	/*
-+	 * The wait above only tracks ud->event. event_handler() clears those
-+	 * bits with unset_event() before it drops ud->sysfs_lock and wakes
-+	 * eh_waitq, so the wait can return while the handler is still
-+	 * dereferencing ud. A caller such as stub_disconnect() then frees ud
-+	 * (and its enclosing stub_device), and the still-running handler
-+	 * touches freed memory -- a use-after-free in the usbip_event
-+	 * workqueue. Flush the work so the handler has completely finished
-+	 * with ud before returning. Skip the flush when we are the handler,
-+	 * to avoid flushing our own work.
-+	 */
-+	if (!usbip_in_eh(current))
-+		flush_work(&usbip_work);
-+
- 	usbip_dbg_eh("usbip_eh has stopped\n");
- }
- EXPORT_SYMBOL_GPL(usbip_stop_eh);
-@@ -123,7 +140,6 @@ void usbip_stop_eh(struct usbip_device *ud)
- #define WORK_QUEUE_NAME "usbip_event"
- 
- static struct workqueue_struct *usbip_queue;
--static DECLARE_WORK(usbip_work, event_handler);
- 
- int usbip_init_eh(void)
- {
--- 
-2.43.0
+Thanks,
+Mark
 
