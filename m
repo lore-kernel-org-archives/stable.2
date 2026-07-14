@@ -1,184 +1,69 @@
-Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E6D2931FE;
-	Tue, 14 Jul 2026 22:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A7B377AB4;
+	Tue, 14 Jul 2026 22:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784067702; cv=none; b=mBLojryxO4Y1RjZdxIoW9URIY+Y2tPabdbZon6MLRO0Gh1iCtEL+sX+aIFDaZqflJsDO6nsQsqreLBz36Q7pjTv2crBk8a9EFWsiHwxihmb3mpZQaTbtTxbZl95N0FRLTsYSzTe3jPF9qIbPlAM7sc4uq1gCqqpE/+Kk1X5gpDk=
+	t=1784067957; cv=none; b=MI1KQ4TIEqdY+f3CjN+dt7hBuekf1iWRrfVrDRPbiXN5ScATo898+pOjNPRVJJuu6H2XbTGVjOWhtcmvJn7qIdhQH03nbgL01bjnV64fTIO2NYhOpoNXXEfngk19p9xfgX008S9w1tA7G0kryKxLO2artoeSM3wPJ55692CNy+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784067702; c=relaxed/simple;
-	bh=IaD5t0LBOWr6KMudIZ1Y148ufQxnJjDnaqzUil2vMrU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=F+X4Y/g5IIk33ueiUT5yPRr6maGjChiaCOr157oG8kbryapebHY4jyodU3OZBLCWZ8qOOAp4M+2z6PhU2ZRYRBhmSe9+WSBVhkcD8HigVtJ42siKk1SrW86dqqT9Klkp+Pqd5L+SD3Z2nr6enaCSyR2eDn6li3K+Hfia/DdA8IE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=mdJ4xqfR; arc=none smtp.client-ip=95.143.211.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
+	s=arc-20240116; t=1784067957; c=relaxed/simple;
+	bh=S7eAX6LeH8Zsdt9Sg2EvYAKXA2oU0yPKhN5cDf7rbYs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qWneHqnxZ+pRnkosMdshUlR6HNJNNT21Cn4H2Vk+vD36c2PxDN8NpWT018UlZn7S35N55L58S75Q6JFMcfjcrBP1K+Kjs98fRoZfNonoRkhRFydglzdTUQ4mQMik7bP4fHSTkJOnhmYkCm0nqzE3KNppmuUTug/h1I0imXpUZmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N98NbSqp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="mdJ4xqfR"
-From: Konstantin Andreev <andreev@swemel.ru>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
-	t=1784067684;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=0lt14j5LIzqlXoMtLk8NSNIDUzznDwimtXlMInsAM4A=;
-	b=mdJ4xqfRbONBHqx5E8K/zKDQinIH1hHH4wC7JZUMwSVSkwWvhvb9nuvLYMurmxTBDTQAWB
-	hdz9iHqbAuHnZa9h6b1/AxWH+ED9QlHRrJz5+bHJse+TnbguCVnNzev7yaMnxUBNyua4nR
-	j/6pky+UnIcQ3Xb67WCjWkPV7/zXb54=
-To: stable@vger.kernel.org
-Cc: Lu Baolu <baolu.lu@linux.intel.com>,
-	Dmytro Maluka <dmaluka@chromium.org>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Joerg Roedel <joerg.roedel@amd.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	"Keshavamurthy, Anil S" <anil.s.keshavamurthy@intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Adrian Bunk <bunk@stusta.de>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.12.y] iommu/vt-d: Clear Present bit before tearing down context entry
-Date: Wed, 15 Jul 2026 01:21:23 +0300
-Message-ID: <20260714222124.1906678-1-andreev@swemel.ru>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N98NbSqp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F831F000E9;
+	Tue, 14 Jul 2026 22:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784067955;
+	bh=FnY3zyFinC3+lm72vnzw/gDx1kFOPSh6nzQxKUrgSKM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N98NbSqpiwClF1AgURNZpLcV2roeim3qj6ofCisOzrlaFw2JSk5FNtXl6hVOyIrpk
+	 uN5nJInB316XY56tbnTv0qZIdDtETMWtXsxiDrGANR3eETeX5R/R666jWhgkf+XJa8
+	 pkQ+JS1G7lcRGalcFWyN3OJ3Xs1xcgf0tCzTcFO332gW65eSVlptxeSmo8wME+curv
+	 A1JJZuDNOVVkUBZTUVDKkKa620F4Mya3ECF7JSiyM8AhOGRx8EsJMLPHr131yrqG/h
+	 67+L/NdfLDGvUvoDJUXg5+H1k6LilDwJTMK3V+EMOZ/GxiKrlXKBd942W+EtvH2nmK
+	 k4IoUrixnUi3Q==
+Date: Wed, 15 Jul 2026 00:25:52 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: rva333@protonmail.com
+Cc: Qii Wang <qii.wang@mediatek.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] i2c: mediatek: fix WRRD for SoCs without auto_restart
+ option
+Message-ID: <ala3XZ1Jw_M8sZlt@zenone.zhora.eu>
+References: <20260709-6572-6595-i2c-v2-1-b2fb8510d1d3@protonmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260709-6572-6595-i2c-v2-1-b2fb8510d1d3@protonmail.com>
 
-From: Lu Baolu <baolu.lu@linux.intel.com>
+Hi Roman,
 
-[ Upstream commit c1e4f1dccbe9d7656d1c6872ebeadb5992d0aaa2 ]
+On Thu, Jul 09, 2026 at 04:31:29PM +0300, Roman Vivchar via B4 Relay wrote:
+> From: Roman Vivchar <rva333@protonmail.com>
+> 
+> MediaTek mt65xx family SoCs have no auto restart, however, they still
+> support the WRRD mode in the hardware. Because auto_restart is set to 0,
+> the WRRD mode will be never enabled, leading to read errors.
+> 
+> Fix this by removing auto_restart check from the WRRD enable path.
+> 
+> Fixes: b49218365280 ("i2c: mediatek: fix potential incorrect use of I2C_MASTER_WRRD")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 
-When tearing down a context entry, the current implementation zeros the
-entire 128-bit entry using multiple 64-bit writes. This creates a window
-where the hardware can fetch a "torn" entry — where some fields are
-already zeroed while the 'Present' bit is still set — leading to
-unpredictable behavior or spurious faults.
+merged to i2c/i2c-fixes.
 
-While x86 provides strong write ordering, the compiler may reorder writes
-to the two 64-bit halves of the context entry. Even without compiler
-reordering, the hardware fetch is not guaranteed to be atomic with
-respect to multiple CPU writes.
-
-Align with the "Guidance to Software for Invalidations" in the VT-d spec
-(Section 6.5.3.3) by implementing the recommended ownership handshake:
-
-1. Clear only the 'Present' (P) bit of the context entry first to
-   signal the transition of ownership from hardware to software.
-2. Use dma_wmb() to ensure the cleared bit is visible to the IOMMU.
-3. Perform the required cache and context-cache invalidation to ensure
-   hardware no longer has cached references to the entry.
-4. Fully zero out the entry only after the invalidation is complete.
-
-Also, add a dma_wmb() to context_set_present() to ensure the entry
-is fully initialized before the 'Present' bit becomes visible.
-
-Fixes: ba39592764ed2 ("Intel IOMMU: Intel IOMMU driver")
-Reported-by: Dmytro Maluka <dmaluka@chromium.org>
-Closes: https://lore.kernel.org/all/aTG7gc7I5wExai3S@google.com/
-Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
-Reviewed-by: Dmytro Maluka <dmaluka@chromium.org>
-Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Link: https://lore.kernel.org/r/20260120061816.2132558-3-baolu.lu@linux.intel.com
-Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
-Signed-off-by: Konstantin Andreev <andreev@swemel.ru>
----
-Backport of the CVE-2026-45944 fix to 6.12.y LTS
-The fix first appeared in mainline v7.0-rc1,
-then was backported to 6.19.y stable and 6.18 LTS branches,
-but was not backported to earlier LTS kernels.
-
-Probably, upstream commit was not backported to 6.12.y
-as it does not apply cleanly due to minor diff context change.
-
-The patch applies on top of linux-6.12.y tag v6.12.95
-
- drivers/iommu/intel/iommu.c |  4 +++-
- drivers/iommu/intel/iommu.h | 21 ++++++++++++++++++++-
- drivers/iommu/intel/pasid.c |  5 ++++-
- 3 files changed, 27 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index cce5a19b5d33..18022d17c492 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -1914,10 +1914,12 @@ static void domain_context_clear_one(struct device_domain_info *info, u8 bus, u8
- 	}
- 
- 	did = context_domain_id(context);
--	context_clear_entry(context);
-+	context_clear_present(context);
- 	__iommu_flush_cache(iommu, context, sizeof(*context));
- 	spin_unlock(&iommu->lock);
- 	intel_context_flush_present(info, context, did, true);
-+	context_clear_entry(context);
-+	__iommu_flush_cache(iommu, context, sizeof(*context));
- }
- 
- static int domain_setup_first_level(struct intel_iommu *iommu,
-diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
-index b33d8888d7eb..e46eb1d3fba2 100644
---- a/drivers/iommu/intel/iommu.h
-+++ b/drivers/iommu/intel/iommu.h
-@@ -958,7 +958,26 @@ static inline unsigned long virt_to_dma_pfn(void *p)
- 
- static inline void context_set_present(struct context_entry *context)
- {
--	context->lo |= 1;
-+	u64 val;
-+
-+	dma_wmb();
-+	val = READ_ONCE(context->lo) | 1;
-+	WRITE_ONCE(context->lo, val);
-+}
-+
-+/*
-+ * Clear the Present (P) bit (bit 0) of a context table entry. This initiates
-+ * the transition of the entry's ownership from hardware to software. The
-+ * caller is responsible for fulfilling the invalidation handshake recommended
-+ * by the VT-d spec, Section 6.5.3.3 (Guidance to Software for Invalidations).
-+ */
-+static inline void context_clear_present(struct context_entry *context)
-+{
-+	u64 val;
-+
-+	val = READ_ONCE(context->lo) & GENMASK_ULL(63, 1);
-+	WRITE_ONCE(context->lo, val);
-+	dma_wmb();
- }
- 
- static inline void context_set_fault_enable(struct context_entry *context)
-diff --git a/drivers/iommu/intel/pasid.c b/drivers/iommu/intel/pasid.c
-index 74be6b547fc0..5e63b5d4577f 100644
---- a/drivers/iommu/intel/pasid.c
-+++ b/drivers/iommu/intel/pasid.c
-@@ -804,7 +804,7 @@ static int device_pasid_table_setup(struct device *dev, u8 bus, u8 devfn)
- 	}
- 
- 	if (context_copied(iommu, bus, devfn)) {
--		context_clear_entry(context);
-+		context_clear_present(context);
- 		__iommu_flush_cache(iommu, context, sizeof(*context));
- 
- 		/*
-@@ -824,6 +824,9 @@ static int device_pasid_table_setup(struct device *dev, u8 bus, u8 devfn)
- 		iommu->flush.flush_iotlb(iommu, 0, 0, 0, DMA_TLB_GLOBAL_FLUSH);
- 		devtlb_invalidation_with_pasid(iommu, dev, IOMMU_NO_PASID);
- 
-+		context_clear_entry(context);
-+		__iommu_flush_cache(iommu, context, sizeof(*context));
-+
- 		/*
- 		 * At this point, the device is supposed to finish reset at
- 		 * its driver probe stage, so no in-flight DMA will exist,
--- 
-2.47.3
-
+Thanks,
+Andi
