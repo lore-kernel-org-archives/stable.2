@@ -1,128 +1,241 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530C539CCE7
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 17:05:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D5947ECF7;
+	Tue, 14 Jul 2026 17:24:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784048711; cv=none; b=J2kHL4uMATSOY3ofZp3TtnKGaR+n68ZGqlyyec+s2pQdq/xcYCltW9fgVOssEA9TkqGP0D44kv5DcG8AazXXdHvroWUBQk48SncPUpIJzlb+KQWJ3SNNWUThUXdFAYytbEg7olwNrx7Q0vH0hsCluEt7yPiDlm9EGTUT15k/f78=
+	t=1784049886; cv=none; b=dHcsudAS1QLGiV2TNAbPwbEccue6OtDqUOEoxus4Z8pMHH90BU2zlBAOOn6yK2MypkpJEGGBxTd3MCRKqxakeNOm4j6YDtheXqLXMxZX9hfIMNArO4V8aJKa8c6HjFMGdwz6QWDm5SBaUKOMpoJ/ylxtfOrwLipJouf0Hg4m0yM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784048711; c=relaxed/simple;
-	bh=iK1clcL4j93nB26JCu+mo8s7xBdBdbWDurBsBejafaY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LEVwZ5Msx4gCunhcb5tYojP5gRjauEnxTzBJeiTcLkfn4BlD4pJLOX8KmL8IiDZdrAwm/QgN9FI6u3NZl7GoXp7BEfqQtOwixF+IYfbRFF29b6ewvFRNX3HUn7t3Bm+P70IINFPo18Bs34uJrwpUG2shO0t2q9Wd7h/bA+lh0SQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8hD0Weu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784049886; c=relaxed/simple;
+	bh=E5x2M+pW0x83+rnlsvaoN0nNZ3diw9k6q4cZIdZs9Uk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HHeFR1hUG+si0jpL1zYClCoLhJGksVgAo6QgGrvNZ73RVFOeHdgjtaQm2r0s3ZYAbsXvpd4cE04pdSWyXk0rSRhjeSB2F1aR3dA9+ffghuO0C1fMw77u/RGGk8CELuB6KOPpWOB02HI0Lq1wpuL+hCS4sKxlvJGciMszEo9L47E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NIizjbIK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8hD0Weu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4031F1F000E9;
-	Tue, 14 Jul 2026 17:05:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NIizjbIK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 002101F000E9;
+	Tue, 14 Jul 2026 17:24:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784048709;
-	bh=ydgxQP/oa7xEv0jlIXInXGbUm/sXAmGgSanquee8prE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D8hD0WeuYKlx36Y5L2e4bzKDjObG0iLRTHPa2FOZvUhTU0FrYNaaMeFA8sHpKtrdA
-	 KwXMMoUkns+4VYuoR2bugd6YoPO0xzv7zp3C/c+6pIm7x//ttFG6KF9/lAyy1oYnmg
-	 nrHEgYoOFkroutxdRfFu4R2P5Z7bLE1HgkOgsEeg29x7ySkRZKcr1WBFGbdMCmQh7n
-	 l8P8t2sd1a2Jckb1bsUT0sr7xbKNJEFkji9hiablV0GE32MsF55/FgOKh0keIbfOdZ
-	 ldEnwxHukjw5ov3fGqFNEoi6UovYUE1LUWbJlerABj5mz/RtRICoCh8ZBP89UjqZle
-	 hxJZmW76rCqOg==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 6FB16F4006B;
-	Tue, 14 Jul 2026 13:05:08 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Tue, 14 Jul 2026 13:05:08 -0400
-X-ME-Sender: <xms:RGxWapPXbB5dVu53Jz7RrippvtSKKiAiIJVJ5GoTsW29sf-zJC66Jw>
-    <xme:RGxWasZTnBKb9bCAmfX0IqbM8Ed5DZM-tMrieZPtZAv-_vOKsS4WlCPcFe_HzuGoR
-    4yhsz-XKh5zBAEJuk9zp0cQ9zWdMZDIdT6qwkGq6rkt24kiKrBV7A>
-X-ME-Received: <xmr:RGxWapslvvrOUkuR9AuAdM_Gt0YsL-K_n0305h3XhPWdgjEVANE4Bevhdipelw>
-X-ME-Proxy-Cause: dmFkZTFmy+VemEL8y4m/0c6SxM2MpgY/lUB50b1pGO9hizfkVYuDYx4C2dh69xVyekjjVF
-    SM16JUY7uBZ4MgywK/EicPR2jaoa2RvJU2pvEyOxthy7IxCU4yoKq5ltVWcNJlEPeG5PD/
-    La7r4WvGmHo6f+HQp9hAsZMebjDJ6UU4aeFkik8+mWeHwOszix8pf/umVHOJ3FrSeeX1Ep
-    urx2zOqpy79jM/gcgeHPLClx4ZD5PIiAPgkDFFJ8vW2YYYwEh3OSG/Ng0deBensnErFliG
-    Cx85IWH5hmqDvVZlFms+1oCUSCe2CgRWM9tg918uHCJjnaCkn6LHh0uivkwfLqo+HrrSqw
-    /vD5cDJGDYcRixMT4B1b1W/Oqoir4wrmSc04uvjG+o9qqJajA+QNDm9rCdp5WdTi7wtlWh
-    ow8/u1xCky2ml+w62/3u0/11lgO4Ch7qe+KEj+eztYk0agWgOkcNQS7AepEXJIyZ5szllJ
-    5aMvBky0fhySWBI5vvukYk5SbrPDoaQ5sIsFNbluAxKbB4KBJjwf0PeW1oKB7+nPQ/n02u
-    oCvgqRALMOOl5sngUh6rP3Q5kZHgjv48PtDGFT6kihcspAuv/N1ExURuPiLuhi4HYSCfeL
-    q//noQRZyomBaUesw2AggexEf3LHnrFQotNu2k+xS7i3QXELw3IUnA9qhV7g
-X-ME-Proxy: <xmx:RGxWaltsTtr4ZjIGeOTb2H7BlQE0FP4YCrbw4gdcPHSHCzs3YznmIg>
-    <xmx:RGxWag1RMUC3o23VL7q3yu2zQ7NeU5EL7ocwG3bKkk9QlCg4JI_YCg>
-    <xmx:RGxWaqNrWGr5C3kXNzgBHVFPBVDWKgd0N3KUDgFTF3sMfQqZ9VOE8A>
-    <xmx:RGxWat5YHEcBpFpFY44XIzGRimwMYLN9Edflpk0v-w5jXuD5GmbpCQ>
-    <xmx:RGxWapZdlcn3WvyTxZNGFMK7K0whXjTgVTcsMq0ulr4g5weXE5EZKU6t>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 14 Jul 2026 13:05:05 -0400 (EDT)
-Date: Tue, 14 Jul 2026 18:05:01 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- 	Suren Baghdasaryan <surenb@google.com>,
- "Liam R. Howlett" <liam@infradead.org>,
- 	Vlastimil Babka <vbabka@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- 	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, 	Uladzislau Rezki <urezki@gmail.com>,
- Toshi Kani <toshi.kani@hpe.com>,
- 	Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>,
- 	Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, 	Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- 	"H. Peter Anvin" <hpa@zytor.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- 	Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>,
- Ryan Roberts <ryan.roberts@arm.com>, 	David Carlier <devnexen@gmail.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 	bpf@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
- 	syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-Subject: Re: [PATCH mm-hotfixes v2 0/4] mm: fix UAF caused by race between
+	s=k20260515; t=1784049884;
+	bh=25Q0GG3HaiGcVFQs/3bkfUHgoMNdoTtvx40TwqLtl9c=;
+	h=From:Subject:Date:To:Cc;
+	b=NIizjbIKoWyfmE2sFlmh9sEN0DehUCPkCbBYfwovGioLfEvWnSvnCpNNqNmcPQna1
+	 +8B9etjzd8OJu9DBMk5S/Za6aw+pKIbw+4jSCppOvceMFuoKhE9K5iNBc8wV4N7ej2
+	 77PdfC0f4gs1FIyKH7qkf9OeX8CYBy/TWH2maZn49S+Iqo0IPa3tdkwkgYX2uuiLny
+	 BD7PZPgGWNju+2dMD5RfrJAhvv7lsqZzRXjar9Z1jX7kZxvxV6hwXvQEQmBtwTZuLE
+	 DHVQm0amwjtj/9Wei2XVZuNF9peRQJv3U5MWGrMpBR2QzX+yu+gM8nes9PUFCRdYgv
+	 I5wfVZ4saWDiA==
+From: Lorenzo Stoakes <ljs@kernel.org>
+Subject: [PATCH mm-hotfixes v3 0/4] mm: fix UAF caused by race between
  ptdump and vmap pgtable freeing
-Message-ID: <alZm0tBf8DpMXimM@thinkstation>
-References: <20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org>
- <alTn7NguEW_4bodu@thinkstation>
- <alTq4V50767L-s5H@lucifer>
- <alUNiWcygLd4rqBo@thinkstation>
- <178404602957.85099.8935151447302412515.b4-reply@b4>
+Date: Tue, 14 Jul 2026 18:24:22 +0100
+Message-Id: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178404602957.85099.8935151447302412515.b4-reply@b4>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMZwVmoC/32OwQ6CMBBEf8X07BraooAn/8N4KMsCVaGkxUZD+
+ HdLuehBj7M782Ym5shqcuy4mZglr502fRByu2HYqr4h0FXQTCTikGQ8gdUPvlMDWIUEtX6CUCk
+ qLPK8kDkL0cFSOEfsmXUdtGZc9WV9ukd5JRwX8GJvtRuNfcURnsfQ/z7PIYF9KbMiRc5lTacb2
+ Z7uO2Ob2OHFJ0X8oIhAURWXKaJUXKgvyjzPby+vmBEeAQAA
+X-Change-ID: 20260710-series-vmap-race-fix-2a4cac988938
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>
+Cc: David Carlier <devnexen@gmail.com>, ljs@kernel.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
+ syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7616; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=E5x2M+pW0x83+rnlsvaoN0nNZ3diw9k6q4cZIdZs9Uk=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLCCs45x9ddyas3XK6tt227wv076aveG5053pibcGlW/
+ gEltrMtHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZhIrg/D/7LCwOcTVnB5va36
+ vXrfUd2XS7f38sd8EO5+bH/nsdWy3+WMDE3T3X4qKUhfz1kUe8pXjjf2gEm429z6r8x2ik1vDja
+ k8QMA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Tue, Jul 14, 2026 at 05:20:29PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Basically you need the IRQs disabled to get the semi-RCU behaviour and to
-> be able to safely traverse page tables that way.
-> 
-> So with CONFIG_PT_RECLAIM you're safe to RCU traverse PTEs only.
+Kernel page table walkers fall into two broad categories - those ranges
+where no exclusion is required via walk_kernel_page_table_range_lockless()
+and those where exclusion is required via walk_kernel_page_table_range()
+or walk_page_range_debug().
 
-I think this is stale. Since 1fb3d8c20bfa ("mm/mmu_gather: replace IPI
-with synchronize_rcu() when batch allocation fails") the !PT_RECLAIM
-fallback is a real grace period -- note your own quote of
-__tlb_remove_table_one() calls tlb_remove_table_sync_rcu(), which is
-synchronize_rcu() nowadays, not the IPI broadcast. The name invites
-the confusion.
+The former category is used only by arm64 arch code operating on ranges it
+both wholly owns and does not concurrently write.
 
-Together with a37259732a7d ("x86/mm: Make MMU_GATHER_RCU_TABLE_FREE
-unconditional") that means every freeing path through the generic
-mmu_gather is genuine RCU, batched or not, all levels. A plain
-rcu_read_lock() walker is protected; IRQs disabled is not required.
+The latter category consists of kernel page table walkers operating on
+ranges that are wholly owned (but which need exclusion against concurrent
+writers).
 
-> HAVE_ARCH_TLB_REMOVE_TABLE is set for powerpc, which also enables PTDUMP :)
-> and that's because it actually tracks multiple PTE page tables together as
-> a fragment.
+The lock used for exclusion is the mmap lock, and for kernel ranges this
+the mmap lock on init_mm.
 
-sparc also sets it with SMP. So the audit list for custom
-tlb_remove_table() implementations is powerpc and sparc -- everything
-else gets the generic behaviour above.
+ptdump is a special case being both the only user of
+walk_page_range_debug(), and the only case in which it walks ranges it does
+not own.
 
-No disagreement on the rest: the walker needs
-ptep_get_lockless()/pmdp_get_lockless(), and the ppc kernel-side
-fragments need a look.
+This presents a problem, as page tables may be freed under ptdump. And
+indeed there is a use-after-free bug in the kernel as a result, which this
+series addresses.
 
+vmap promotes page tables to huge leaf entries where possible, freeing the
+lower page table when it does. It does this with no meaningful locks held
+against concurrent ptdump walks.
+
+As a result, use-after-free can currently occur. This series addresses the
+issue by having the vmap huge promotion logic acquire the mmap read lock
+while both setting the huge page table entry and freeing the prior leaf
+page table.
+
+The ptdump code already acquires the mmap write lock, so by doing so we
+ensure that the ptdump walker only ever observes either the huge page table
+entry or the existing page table entry, and nothing is freed underneath it.
+
+A mitigation for this issue was already applied for arm64 in commit
+fa93b45fd397 ("arm64: Enable vmalloc-huge with ptdump"), which this series
+has to deal with carefully.
+
+This mitigation resolves the issue by acquiring the mmap read lock on
+init_mm on vmap page table free if a ptdump is in progress.
+
+However the fix in this series would cause a deadlock if we were to simply
+apply it for arm64 without also reverting the change.
+
+This is because vmap may acquire the read lock before ptdump attempts to
+acquire the write lock, which then gets queued, and rwsem starvation rules
+mean that the (unacknowledged) nested mmap read lock in the arm64 code
+would also block, meaning the original read lock is never released and thus
+deadlock.
+
+This series works around this by #ifndef CONFIG_ARM64'ing the mmap read
+lock in vmap logic, then partially reverting commit fa93b45fd397 ("arm64:
+Enable vmalloc-huge with ptdump"), keeping the enablement of huge vmap
+support, and removing the ifdeffery with the partial revert patch.
+
+There are two related issues that we also address in this series:
+
+* x86 page attribute logic, specifically Change Page Attributes (CPA),
+  implements a feature whereby huge ranges can be collapsed into huge leaf
+  entries. This can similarly cause a UAF when done in parallel with a
+  ptdump walk, so similarly acquire the init_mm mmap lock to avoid this.
+
+* x86 and arm64 permit walks of non-kernel mm's (both allowing efi mm
+  walks, and in intel's case arbitrary mm's), so we ensure kernel mappings
+  remain stable by locking the init_mm as well as the mm being walked.
+
+The ordering of patches is established for both strict dependencies (the
+arm64 partial revert in particular has to be done after the vmap changes)
+and logical ones (the non-kernel mm fix only makes sense once the vmap/CPA
+fixes are in place).
+
+---
+v3:
+* Rebased on latest master of Linus's tree.
+* Accumulated tags, thanks everybody!
+* Reworded commit messages as per Kiryl and Boris.
+
+v2:
+* Rebased on latest master of Linus's tree.
+* Accumulated tags, thanks everybody!
+* Fixed cover letter reference to arm64 partial revert as per David C.
+* Combined all patches into a 4 patch series for ease of tracking/review
+  and updated cover letter to reflect.
+* Reordered patches in series logically - fix vmap, fix CPA issue, handle
+  mm vs. init_mm then revert arm64 mitigation.
+* Reworded first patch to be consistent with x86 wording to clearly
+  indicate the intent of the fix is to fix ptdump UAF.
+* Reworded arm64 revert patch subject as per Mike, Dev to make clear this
+  is only reverting the ptdump mitigation not the vmap huge support.
+* Added Fixes: tag to arm64 revert patch so we backport this also for
+  neatness. Not strictly necessary, but is a better fix overall applied.
+* Added note about stable dependency to arm64 revert patch.
+* Updated walk_page_range_debug() to remove pointless !walk.mm check - if
+  NULL mm then the mmap lock asserts would NULL pointer deref, and of
+  course no caller does this anyway.
+* Updated walk_page_range_debug() to always assert init_mm mmap write lock
+  is held.
+* Updated walk_page_range_debug() to always check for start >= end and that
+  it has safe walk ops, and remove the unnecessary
+  walk_kernel_page_table_range() invocation which ultimately does the same
+  thing.
+* Typo fixups as per Mike.
+* Some small commit message/comment wording fixups.
+https://patch.msgid.link/20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org
+
+v1:
+* vmap/arm64 partial revert series:
+  https://patch.msgid.link/20260710-series-vmap-race-fix-v1-0-5b3794c113fe@kernel.org
+* CPA patch:
+  https://patch.msgid.link/20260710-fix-cpa-ptdump-race-v1-1-d898699a7417@kernel.org
+* non-init_mm patch:
+  https://patch.msgid.link/20260710-b4-fix-non-init_mm-ptdump-v1-1-2d40982c98ec@kernel.org
+
+To: Andrew Morton <akpm@linux-foundation.org>
+To: Suren Baghdasaryan <surenb@google.com>
+To: "Liam R. Howlett" <liam@infradead.org>
+To: Vlastimil Babka <vbabka@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+To: David Hildenbrand <david@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+To: Michal Hocko <mhocko@suse.com>
+To: Uladzislau Rezki <urezki@gmail.com>
+To: Toshi Kani <toshi.kani@hpe.com>
+To: Dave Hansen <dave.hansen@linux.intel.com>
+To: Andy Lutomirski <luto@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+To: Thomas Gleixner <tglx@kernel.org>
+To: Ingo Molnar <mingo@redhat.com>
+To: Borislav Petkov <bp@alien8.de>
+To: x86@kernel.org
+To: "H. Peter Anvin" <hpa@zytor.com>
+To: Kiryl Shutsemau <kas@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>
+To: Dev Jain <dev.jain@arm.com>
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: David Carlier <devnexen@gmail.com>
+Cc: ljs@kernel.org
+Cc: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org
+Cc: bpf@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+
+---
+Lorenzo Stoakes (4):
+      mm/vmalloc: acquire init_mm lock on huge vmap to avoid ptdump UAF
+      x86/mm/pat: acquire mmap lock on page table free to avoid ptdump UAF
+      mm/ptdump: always stabilise against page table freeing using init_mm
+      arm64: remove redundant concurrent ptdump UAF mitigation
+
+ arch/arm64/include/asm/ptdump.h |  2 --
+ arch/arm64/mm/mmu.c             | 43 ++++-------------------------------------
+ arch/arm64/mm/ptdump.c          | 11 ++---------
+ arch/x86/mm/pat/set_memory.c    | 14 +++++++++++---
+ include/linux/mmap_lock.h       |  1 +
+ mm/pagewalk.c                   | 36 ++++++++++++++++++++--------------
+ mm/ptdump.c                     |  7 +++++++
+ mm/vmalloc.c                    | 41 ++++++++++++++++++++++++++++++---------
+ 8 files changed, 78 insertions(+), 77 deletions(-)
+---
+base-commit: 7059bdf4f04a3e14f4fafb3ac35fdca913e3e21a
+change-id: 20260710-series-vmap-race-fix-2a4cac988938
+
+Cheers,
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
