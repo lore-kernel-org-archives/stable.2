@@ -1,129 +1,73 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B0C426ED3;
-	Tue, 14 Jul 2026 09:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4EACA43CECA
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 09:09:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784019976; cv=none; b=Q2B2eCUUhm8sqIimTZWNBlnm93pV0fr49jGri777vfvdruCB7F67fbMPExjyCOZVDtBiQdq8I3Eat8TqQeEI1ZHocm+i03XW4Q7BFZDnNCN0uT2Hjyw0eOZxzbmfguYY+F6r6FzXKyW+afe/zfia9/Wt14cYfe303dpbQd7P9XI=
+	t=1784020153; cv=none; b=fnsAgEMMHcqMr8ZWYpgSTgzZEzdMPVCgBWUSNxWCRXETYAKcNyOhv8jNvVXbrH50VApmxD4HbQKjcyLWIj0XScDGrFyaksTdPWqAB4eaCqY/TXWQGj5aqWoj91OxzyvHZReETxvKNCM1XYo5XPKZ2iwN5Kbe9nLD3ft/2wgjLyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784019976; c=relaxed/simple;
-	bh=kaoxXX0jAstSfaSlXnlO4sW/eHscmBEnQsohmFJRh5E=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=pWUeznGm1g4WB5TzSMyJ+9kTTsRqTk3Q6q1ra1fno30t/qy1gtn7vjFIuk9Z4PJwNjNtsKGjKqrVjE4y5YACbJ+rVRyDC33YJgkJ00Ww+5Prch7bAWtrIufZrj6PcheNV1uH5zvegKdZkKHxR6xugYAEz4ij9nt9NdkKVOsLzSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=U2W7GE1q; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dZ4pgaqi; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1784020153; c=relaxed/simple;
+	bh=ZvlQ1OcN/73ADfk9UgQRlKT2NlZTfJ21cSPlVtwgSoM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kEiPMTuqNvz9rpAwEP2KI2x8KySLGZrqbHGrDfjfGPi/6lXPISNKc1TliflO62AfTUhIU/DVvZuAOKPW43sQXFB5ZKOcVvANlnXr6lkwQwjZNIZ4UWD8t6aeWFExKyn1wl8q7hO7S1Q2ZOFOo+ftQimEkdlE6HY6s96gzqaFzqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=V34uMCAX; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="U2W7GE1q";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dZ4pgaqi"
-Date: Tue, 14 Jul 2026 09:06:11 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1784019973;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uc1n7R7SS3CkocN0qbaxkTdnlUlunyItCVNa07EcMi4=;
-	b=U2W7GE1q9FKMUYwQq6M8eba3aMMwK7h90sP1kw84W4VcxwfsmOOGULEnUjhdMgTKifnNiC
-	nd2kuIuW9CjaKxYsis3Nqh4Fe8OEs+7K+EPD0oFhNBplLYCngZvGlGzgXkWaNXBQO06oBy
-	yi5gHTdVFRFe/PfGZVuIvwfJ7CuFl0D1YLIA8Gx6nQKcNSTHaOGSGoZKEb/1PaU8B9VXCX
-	nhtBr4L+RoVuDdaiKwGqtdatV0QwAOrm78K+HHkRr/hpQaT9CoBiMMYKhQ4uZJVUYpgNIi
-	W92rHQgxq+RXTmMmLHGpo8bgQ7VLno2+q6qoEnXroqiXzA6Ta6QP9EUs7q9gRg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1784019973;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uc1n7R7SS3CkocN0qbaxkTdnlUlunyItCVNa07EcMi4=;
-	b=dZ4pgaqi6dHniVGWwL4/sw1ndYWHl+GwB45P6G3/RZy0ySsD/2Ky4aLjaIeYp9Xb/k44KA
-	LPFsaONZl9t4LdBg==
-From: "tip-bot2 for Thorsten Blum" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/boot: Validate console=uart8250 baud rate to
- fix early boot hang
-Cc: Thorsten Blum <thorsten.blum@linux.dev>, Ingo Molnar <mingo@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260713194924.126472-3-thorsten.blum@linux.dev>
-References: <20260713194924.126472-3-thorsten.blum@linux.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="V34uMCAX"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 272E12B;
+	Tue, 14 Jul 2026 02:09:06 -0700 (PDT)
+Received: from [10.1.34.162] (e121487-lin.cambridge.arm.com [10.1.34.162])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 50EB23F93E;
+	Tue, 14 Jul 2026 02:09:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1784020149; bh=ZvlQ1OcN/73ADfk9UgQRlKT2NlZTfJ21cSPlVtwgSoM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=V34uMCAX6GLDE6QDDVGNjNtSJFA4PZmBPtw1V/yMOp2eNmIN7rtTusZWX8m4uJHMJ
+	 C35UC/WkBozRqbJyk2fa+k5E3oNqatu8duMS1kzQoyTsSjKp2tIM2AIYqJV+xA/1P3
+	 XEZd9wqXoIgg2jN/vvOWiekbYnox+SJw8mjbjQtg=
+Message-ID: <bdb0ee39-7175-46fa-ac0d-8eff2ffbc616@arm.com>
+Date: Tue, 14 Jul 2026 10:09:06 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178401997162.1844600.12790933633191960716.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 03/36] arm64: hibernate: mask DAIF before restoring
+ hibernated kernel
+To: Jinjie Ruan <ruanjinjie@huawei.com>, linux-arm-kernel@lists.infradead.org
+Cc: mark.rutland@arm.com, maz@kernel.org, will@kernel.org,
+ catalin.marinas@arm.com, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+ stable@vger.kernel.org
+References: <20260709121333.23507-1-vladimir.murzin@arm.com>
+ <20260709121333.23507-4-vladimir.murzin@arm.com>
+ <cd801ce1-7326-49c2-a6d2-218f9e3bd670@huawei.com>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <cd801ce1-7326-49c2-a6d2-218f9e3bd670@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the x86/urgent branch of tip:
+On 7/9/26 14:19, Jinjie Ruan wrote:
+> 
+> On 7/9/2026 8:13 PM, Vladimir Murzin wrote:
+>> From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+>>
+>> The arm64 hibernate code manages the exception masking in an unsound
+>> way, leading to potential crashes and/or warnings during resume.
+>>
+>> When a hibernation image is saved in `swsusp_arch_suspend()`, all DAIF
+>> exceptions are masked (by virtue of `local_daif_save()`), and the
+>> suspended image is saved assuming that all DAIF exceptions will remain
+>> masked when the image is restored.
+>>
+>> When a hibernation image is resumed by `swsusp_arch_resume()`, only
+>> interrupts are masked (by virtue of `local_irq_save()` in
+> local_irq_disable()?
 
-Commit-ID:     ffa0aa5b625fe0bed7463ac613f8b06676ff4542
-Gitweb:        https://git.kernel.org/tip/ffa0aa5b625fe0bed7463ac613f8b06676f=
-f4542
-Author:        Thorsten Blum <thorsten.blum@linux.dev>
-AuthorDate:    Mon, 13 Jul 2026 21:49:25 +02:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Tue, 14 Jul 2026 11:01:33 +02:00
+Sorry, yes it should be local_irq_disable(). I'll fix that in next iteration.
 
-x86/boot: Validate console=3Duart8250 baud rate to fix early boot hang
-
-When the baud rate is empty, 0, invalid, or overflows to 0 when stored
-as an int, the system will hang during early boot because of a division
-by zero in early_serial_init().
-
-Fall back to DEFAULT_BAUD when the resulting baud rate is 0 to prevent
-an early system hang.
-
-Fixes: ce0aa5dd20e4 ("x86, setup: Make the setup code also accept console=3Du=
-art8250")
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260713194924.126472-3-thorsten.blum@linux.dev
----
- arch/x86/boot/early_serial_console.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/arch/x86/boot/early_serial_console.c b/arch/x86/boot/early_seria=
-l_console.c
-index 023bf1c..5b83bea 100644
---- a/arch/x86/boot/early_serial_console.c
-+++ b/arch/x86/boot/early_serial_console.c
-@@ -117,7 +117,7 @@ static unsigned int probe_baud(int port)
- static void parse_console_uart8250(void)
- {
- 	char optstr[64], *options;
--	int baud =3D DEFAULT_BAUD;
-+	int baud;
- 	int port =3D 0;
-=20
- 	/*
-@@ -136,10 +136,13 @@ static void parse_console_uart8250(void)
- 	else
- 		return;
-=20
--	if (options && (options[0] =3D=3D ','))
--		baud =3D simple_strtoull(options + 1, &options, 0);
--	else
-+	if (options && (options[0] =3D=3D ',')) {
-+		baud =3D simple_strtoull(options + 1, NULL, 0);
-+		if (!baud)
-+			baud =3D DEFAULT_BAUD;
-+	} else {
- 		baud =3D probe_baud(port);
-+	}
-=20
- 	if (port)
- 		early_serial_init(port, baud);
+Cheers
+Vladimir
