@@ -1,72 +1,100 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from confino.investici.org (confino.investici.org [93.190.126.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99795370D57
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 15:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919CF4963AB;
+	Tue, 14 Jul 2026 15:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784043942; cv=none; b=EV3K0WTRmq0ZBCDKthbJsTPDFruKOaI4jcuBoBJZcFv4U1yFwk18eodLnfJZAvnZPwdHsOYsFkyVk01JIsMoBObZE2JsmqWVNLDn0foSI/aw7/HKZ1bQ2cBlxawCIunfSe+nqfJo7MhjM4/DMqKJEP4rVMtEBe5gmXh9tgcMWuQ=
+	t=1784044108; cv=none; b=GoGyE86ZU095Igt8GEn5unZPIlSGlyePjAPzZ7ic1Aq4TdG5+mMS7ho+ZLhJ01g8H8mOiBta2/gAuOHDF5lbTa9duVAsKdjgQ8PhOZg/opd2O6+7TmKaTqF7x830zit1R3/Rniq8ILuw2mA8X0kzNSOITIU9IG63skaQN+5SgJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784043942; c=relaxed/simple;
-	bh=Zlbztg6yiHPnkiE4IG2I/j2f7aZ060OxX5TItitbtV0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sR853VSJuX0y8u+HDnNkcSxWCz4ODpyk6JSAEYwzgJPTrs1k55qGgHBWUuyeGzR7PL03HhN5rUp5/BEqvQitqLMRJS9a0cauVV4kj+Vxcpp0XRYt3nWLK4U09vUK2am5pscVgOHyh2G4evYkMAoTFD9XFBdjxzPLvJYa3mb1A+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=GRPBhngk; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1784044108; c=relaxed/simple;
+	bh=2xK11R5XTnZdZ9w7vMn+gA8t1UQPml6J/T5wbWKRHvM=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=hKc/pobHFnyi6qaP6FQOJPglUUqjW2npN/0adLd9FLmWLCV87FaaJycAq89cGyKBIHOzgrWGJGBDwX8g2Qz0oQBvBqOJLKlddoJFhFfKmM0G/iDDv/PJq68THSGIT1nvcnPBkhE44J0XCnm5vzdN6FVzJutNZHfi/5b61HJdMgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=jVCbGNmD; arc=none smtp.client-ip=93.190.126.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="GRPBhngk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=Zlbz
-	tg6yiHPnkiE4IG2I/j2f7aZ060OxX5TItitbtV0=; b=GRPBhngk5B7vXiKudUsU
-	dSmlpTkEFwT9K5LvAcpwF+FcoE3Oa03IIyu9rGjZZVOY4LpetxduTNW64buNDxPV
-	jtASd5YPg6BF0WfuxBUGn5WisjrF2e5rESA67Xm8kqp3Kfdc8Jy0qtjSdBW7Mbdm
-	CBm+UD1fq9Vb+mothDffuyFmbHkfa0+sX1tv9PcWcBFnzyfDjS3QsxXXFUfuyJO3
-	1bijkbclwNqLEo9hHBTj8++NiFmg2R4nUA3JEAGycF8lEeNs7Yj6dCKWnLKQ28vM
-	h4lZAFpa1kJApspP3PgTg6zj9U0TXv+i8LhXwPWQdYRNH9FKputuIYtiqPcP/25/
-	Wg==
-Received: (qmail 330099 invoked from network); 14 Jul 2026 17:45:35 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 14 Jul 2026 17:45:35 +0200
-X-UD-Smtp-Session: l3s3148p1@e5ADGZRWdoAujnsO
-Date: Tue, 14 Jul 2026 17:45:31 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Andi Shyti <andi.shyti@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Wolfram Sang <wsa@kernel.org>,
-	Kaushal Butala <kaushalkernelmailinglist@gmail.com>,
-	Shawn Guo <shawn.guo@freescale.com>,
-	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
-	linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Carlos Song <carlos.song@nxp.com>,
-	Stefan Eichenberger <eichest@gmail.com>
-Subject: Re: [PATCH v3 0/2] i2c: imx: fix SMBus block-read of 0 locking the
- bus
-Message-ID: <alZZmzQrnBptGEMQ@shikoro>
-References: <20260713-for-upstream-i2c-lx2160-fix-v1-v3-0-073ac9e103a5@free.fr>
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="jVCbGNmD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
+	s=stigmate; t=1784044091;
+	bh=XEhMqYAv+6EFinpq8nxhUlPqncdWVIAulg93LkLHFps=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=jVCbGNmDdhra1ZUb/BEvQFXd4jXl7qVZBpAEctqLvGNJ6hL7J6+uyvA1nKXi+MDGP
+	 GShg4ymCUIv2HMywbzhoVi3gluTQns63hIWlk3M6yU4pIA09xswxntdpEv3bVwbNB1
+	 EWDJx2IUCq7Eqmr558ClfYkWKFE47pb4RHrze2NY=
+Received: from mx1.investici.org (unknown [127.0.0.1])
+	by confino.investici.org (Postfix) with ESMTP id 4h03cC4Snkz112c;
+	Tue, 14 Jul 2026 15:48:11 +0000 (UTC)
+Received: by mx1.investici.org (Postfix) id 4h03cC17ZFz111k;
+	Tue, 14 Jul 2026 15:48:11 +0000 (UTC)
+Date: Tue, 14 Jul 2026 16:48:09 +0100
+From: Bradley Morgan <include@grrlz.net>
+To: Andrew Morton <akpm@linux-foundation.org>
+CC: brauner@kernel.org, peterz@infradead.org, oleg@redhat.com, tglx@kernel.org,
+ npiggin@gmail.com, ebiederm@xmission.com, pasha.tatashin@soleen.com,
+ kees@kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_reboot=3A_use_make=5Ftask=5Fdea?=
+ =?US-ASCII?Q?d_for_the_halt_and_power_off_fallback?=
+In-Reply-To: <20260713181001.a46e0bf04235dd076f10d5dd@linux-foundation.org>
+References: <20260713062332.21131-1-include@grrlz.net> <20260713181001.a46e0bf04235dd076f10d5dd@linux-foundation.org>
+Message-ID: <0D454AB0-9690-4228-84DD-60AC3F02C9FC@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260713-for-upstream-i2c-lx2160-fix-v1-v3-0-073ac9e103a5@free.fr>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 13, 2026 at 08:11:58PM +0200, Vincent Jardin wrote:
-> i2c-imx rejects an SMBus Block Read byte count of 0 (valid per SMBus 3.1
-> 6.5.7) as -EPROTO and returns without emitting a NACK + STOP, leaving the
-> target holding SDA so the bus stays stuck until a power cycle.
+On July 14, 2026 2:10:01 AM GMT+01:00, Andrew Morton
+<akpm@linux-foundation.org> wrote:
+>On Mon, 13 Jul 2026 06:23:32 +0000 Bradley Morgan <include@grrlz.net>
+>wrote:
+>
+>> The reboot syscall calls do_exit(0) after kernel_halt() or
+>> kernel_power_off().  Those are expected to stop the machine and not
+>> return.  When they do return, the shutdown path has already disabled
+>> interrupts and torn down state, and do_exit() then hits its
+>> WARN_ON(irqs_disabled()).
+>
+>Well...  why are they returning?  Is it both kernel_halt() and
+>kernel_power_off()?  The report seems to indicate that
+>kernel_power_off() is returning.
 
-Bigger picture: Linux does not support SMBus3 which also allows byte
-counts of up to 255. I started sketching support for all that but could
-never implement it.
+native_machine_power_off() has no __noreturn backstop.
 
-That being said, despite no SMBus3 support, it should not hang the bus
-like here.
+(Only for kernel_power_off, kernel_halt() is theoretically safe, ends in
+stop_this_cpu)
 
+>So is there a flaw in x86 machine_power_off() which we should be
+>addressing?
+
+Well, yes, but it's really not that simple Andrew...
+
+I did a quick dig at the other arches code and guess what? 
+
+x86, arm, arm64, (loongarch, riscv)           power_off can all return,
+(BUG!)
+
+
+So just doing a fix arch specific isn't really right (unless we want a
+3-5 patch series, which just adds more complication)
+
+>> That is an error path, not a clean exit.  Use make_task_dead() instead
+>> of do_exit(0): it is built for this, fixes up the irqs disabled and
+>> preempt state, and bounds repeated failure via oops_limit.  This
+>> matches the make_task_dead pattern that exit.c already uses for the
+>> oops path.
+>
+>And make_tsk_dead() is __noreturn.
+
+Nice catch! let's just remove break;, it's dead code
+
+>
+>
+
+Thanks!
