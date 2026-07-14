@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E6828469A
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:33:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2839E346AC0
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 03:33:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783999991; cv=none; b=gU0s8s5iy99H9HhbscU+UwZilGcj62vu5GF6Nyk+KbxpuAQJBWRWrxN4svaBuCBV83F52iw5zK/OK15eabDlYwrxcBdAwaOdnACfTB+huD8gQzQP1dSVNCTzCET0+Dctc30S48LSFjLxa6N1IonvvekYnPYI1b2rYQAQxxxaYSU=
+	t=1783999992; cv=none; b=kWzVFuXqe4h/zc7kEs/zJjlpCJcIxltz1xEsJNZPpGb0+FGeWDHHMUsS/ETVgOWgr5fkivTzbhFpvhDvf6cIZaTur1sSSClmj9LyabdF42XPZuKmBtTlHt3/O6NAT3ltCKgQn+psvs5W5nW01f8P3DldpW2ZSk5XY4eWyndyvNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783999991; c=relaxed/simple;
-	bh=s6uEkSQa79RA+46TTqDMHWcgR/tKs6wshyUpyKs/+AM=;
+	s=arc-20240116; t=1783999992; c=relaxed/simple;
+	bh=KT129RmMdEJRGquz2YSZZMG6I9PSAnJ0bAyas/x7TS8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uc40VRkhRAmw4tKz+pw+y+Ianyz1dryGKc8j++0L72vb/7pEfXfZ3K6ct7jnT2rJBW+SsoPQoA3dRAgS6mwdGnWl7DCQrIv6X2M1DkltThy3AI9kY4qjLS0MPf6DeZqR4ACwX+tvc+oaYBsW1bGfAsqKG9FdFeD0GhFn8+gtHvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUBzwQw/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WcLRqbmjdc2GzklwrwRxPYeKm3PvtqPYCEez1rBLoeocLM69I34FPNpFwD1CFfRMlSsbVCCXdowG1XycjEupIIpvCiqOs4AVCvsg3xKXd91b/Zt7/8JgSmeR0KLjH69l4j0rV1IpJoPDhtAGFgiBoiJAbvJynDg6i4CeUYJoKws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FKWTyB79; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUBzwQw/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 859F01F00A3D;
-	Tue, 14 Jul 2026 03:33:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FKWTyB79"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AAAE1F00A3E;
+	Tue, 14 Jul 2026 03:33:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1783999990;
-	bh=0zEXSiRtscDeoTQ0s9OWpFSsEqDqYIA8hjbsRdWalWg=;
+	bh=Bh41rrTxZjbzBI2Nu3aE6/bm0WIN5OVVlmlpkoN9Qlc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nUBzwQw/wXCx3zHKDYoykMvOzvtxIoGCEKQelmu4/2ZekUlEkXre9VfSlxzwD22Rb
-	 6pUqOQjhpRblypYiXt7WrMMGQm0cjiqYWzCPHDTCK/+Dbff9/nZn8RyT5RL6B/RQSB
-	 WwKmPwXEQ2RX6A8kOYbovAnNjWZ2OnyxZrbRFz0A7vfrgnnrL85xaj4iGTyNIVWjJB
-	 NmMMVLdJVvpZXyNYINa69DMZUnq7sG6O7ZaocE400i6/qkMj+zAJaWwlyablN4xC8A
-	 JxiSdnrjEFqzR3ny/eEW8VsCgJrvya3Vy3H9/DkswXA/hl4S1i1Zw+iFNUGMi5Teke
-	 HN/fkP27zpPDQ==
+	b=FKWTyB79eC0U9xycBJUwWxOBjJVnQzjcXtlkoMjZL/YwGC/F3SU9T5Z+rxdV7g7Pl
+	 QKtXPk0ix77unwd81UvegOKY8qCZs48P0kAuxNp2EorBsV1stFhpazP6fkIH52vf/9
+	 j6CveFFP7dnqtpPkHda0VYTAnk5fW9+f9KoXh5F+WRT7VoOLwLuStN4RqxjMp89iKs
+	 tp8LXWTfCw9tiQPEhdtnYZuEbgbDdnknNEw1VazPNB2KwCqxCaGE1GqjlFYNUc1e+P
+	 zn33wkRVDK3Jk9+yqmiDTWwf5zyFmlTH4tfo8Yv/UvFvP8zdGyWrNVHhIIyJcKSvRJ
+	 eBAqLLEUL5Myg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Raghavendra Rao Ananta <rananta@google.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
+Cc: Alex Williamson <alex.williamson@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
 	Alex Williamson <alex@shazbot.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/3] vfio/pci: Use a private flag to prevent power state change with VFs
-Date: Mon, 13 Jul 2026 23:33:06 -0400
-Message-ID: <20260714033307.2397254-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] vfio/pci: Latch disable_idle_d3 per device
+Date: Mon, 13 Jul 2026 23:33:07 -0400
+Message-ID: <20260714033307.2397254-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260714033307.2397254-1-sashal@kernel.org>
 References: <2026071301-corned-default-6f79@gregkh>
@@ -47,222 +47,155 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Raghavendra Rao Ananta <rananta@google.com>
+From: Alex Williamson <alex.williamson@nvidia.com>
 
-[ Upstream commit 40ef3edf151e184d021917a5c4c771cc0870844a ]
+[ Upstream commit 4575e9aac5336d1365138c0284773bf8da4b1fa3 ]
 
-The current implementation uses pci_num_vf() while holding the
-memory_lock to prevent changing the power state of a PF when
-VFs are enabled. This creates a lockdep circular dependency
-warning because memory_lock is held during device probing.
+When disable_idle_d3 was introduced in vfio-pci, it directly manipulated
+the device power state with pci_set_power_state().  There were no
+refcounts to maintain or balanced operations, we could unconditionally
+bring the device to D0 and conditionally move it to D3hot.  Therefore
+the module parameter was made writable.
 
-[  286.997167] ======================================================
-[  287.003363] WARNING: possible circular locking dependency detected
-[  287.009562] 7.0.0-dbg-DEV #3 Tainted: G S
-[  287.015074] ------------------------------------------------------
-[  287.021270] vfio_pci_sriov_/18636 is trying to acquire lock:
-[  287.026942] ff45bea2294d4968 (&vdev->memory_lock){+.+.}-{4:4}, at:
-vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.036530]
-[  287.036530] but task is already holding lock:
-[  287.042383] ff45bea3a96b8230 (&new_dev_set->lock){+.+.}-{4:4}, at:
-vfio_group_fops_unl_ioctl+0x44d/0x7b0
-[  287.051879]
-[  287.051879] which lock already depends on the new lock.
-[  287.051879]
-[  287.060070]
-[  287.060070] the existing dependency chain (in reverse order) is:
-[  287.067568]
-[  287.067568] -> #2 (&new_dev_set->lock){+.+.}-{4:4}:
-[  287.073941]        __mutex_lock+0x92/0xb80
-[  287.078058]        vfio_assign_device_set+0x66/0x1b0
-[  287.083042]        vfio_pci_core_register_device+0xd1/0x2a0
-[  287.088638]        vfio_pci_probe+0xd2/0x100
-[  287.092933]        local_pci_probe_callback+0x4d/0xa0
-[  287.098001]        process_scheduled_works+0x2ca/0x680
-[  287.103158]        worker_thread+0x1e8/0x2f0
-[  287.107452]        kthread+0x10c/0x140
-[  287.111230]        ret_from_fork+0x18e/0x360
-[  287.115519]        ret_from_fork_asm+0x1a/0x30
-[  287.119983]
-[  287.119983] -> #1 ((work_completion)(&arg.work)){+.+.}-{0:0}:
-[  287.127219]        __flush_work+0x345/0x490
-[  287.131429]        pci_device_probe+0x2e3/0x490
-[  287.135979]        really_probe+0x1f9/0x4e0
-[  287.140180]        __driver_probe_device+0x77/0x100
-[  287.145079]        driver_probe_device+0x1e/0x110
-[  287.149803]        __device_attach_driver+0xe3/0x170
-[  287.154789]        bus_for_each_drv+0x125/0x150
-[  287.159346]        __device_attach+0xca/0x1a0
-[  287.163720]        device_initial_probe+0x34/0x50
-[  287.168445]        pci_bus_add_device+0x6e/0x90
-[  287.172995]        pci_iov_add_virtfn+0x3c9/0x3e0
-[  287.177719]        sriov_add_vfs+0x2c/0x60
-[  287.181838]        sriov_enable+0x306/0x4a0
-[  287.186038]        vfio_pci_core_sriov_configure+0x184/0x220
-[  287.191715]        sriov_numvfs_store+0xd9/0x1c0
-[  287.196351]        kernfs_fop_write_iter+0x13f/0x1d0
-[  287.201338]        vfs_write+0x2be/0x3b0
-[  287.205286]        ksys_write+0x73/0x100
-[  287.209233]        do_syscall_64+0x14d/0x750
-[  287.213529]        entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  287.219120]
-[  287.219120] -> #0 (&vdev->memory_lock){+.+.}-{4:4}:
-[  287.225491]        __lock_acquire+0x14c6/0x2800
-[  287.230048]        lock_acquire+0xd3/0x2f0
-[  287.234168]        down_write+0x3a/0xc0
-[  287.238019]        vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.243436]        __rpm_callback+0x8c/0x310
-[  287.247730]        rpm_resume+0x529/0x6f0
-[  287.251765]        __pm_runtime_resume+0x68/0x90
-[  287.256402]        vfio_pci_core_enable+0x44/0x310
-[  287.261216]        vfio_pci_open_device+0x1c/0x80
-[  287.265947]        vfio_df_open+0x10f/0x150
-[  287.270148]        vfio_group_fops_unl_ioctl+0x4a4/0x7b0
-[  287.275476]        __se_sys_ioctl+0x71/0xc0
-[  287.279679]        do_syscall_64+0x14d/0x750
-[  287.283975]        entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  287.289559]
-[  287.289559] other info that might help us debug this:
-[  287.289559]
-[  287.297582] Chain exists of:
-[  287.297582]   &vdev->memory_lock --> (work_completion)(&arg.work)
---> &new_dev_set->lock
-[  287.297582]
-[  287.310023]  Possible unsafe locking scenario:
-[  287.310023]
-[  287.315961]        CPU0                    CPU1
-[  287.320510]        ----                    ----
-[  287.325059]   lock(&new_dev_set->lock);
-[  287.328917]
-lock((work_completion)(&arg.work));
-[  287.336153]                                lock(&new_dev_set->lock);
-[  287.342523]   lock(&vdev->memory_lock);
-[  287.346382]
-[  287.346382]  *** DEADLOCK ***
-[  287.346382]
-[  287.352315] 2 locks held by vfio_pci_sriov_/18636:
-[  287.357125]  #0: ff45bea208ed3e18 (&group->group_lock){+.+.}-{4:4},
-at: vfio_group_fops_unl_ioctl+0x3e3/0x7b0
-[  287.367048]  #1: ff45bea3a96b8230 (&new_dev_set->lock){+.+.}-{4:4},
-at: vfio_group_fops_unl_ioctl+0x44d/0x7b0
-[  287.376976]
-[  287.376976] stack backtrace:
-[  287.381353] CPU: 191 UID: 0 PID: 18636 Comm: vfio_pci_sriov_
-Tainted: G S                  7.0.0-dbg-DEV #3 PREEMPTLAZY
-[  287.381355] Tainted: [S]=CPU_OUT_OF_SPEC
-[  287.381356] Call Trace:
-[  287.381357]  <TASK>
-[  287.381358]  dump_stack_lvl+0x54/0x70
-[  287.381361]  print_circular_bug+0x2e1/0x300
-[  287.381363]  check_noncircular+0xf9/0x120
-[  287.381364]  ? __lock_acquire+0x5b4/0x2800
-[  287.381366]  __lock_acquire+0x14c6/0x2800
-[  287.381368]  ? pci_mmcfg_read+0x4f/0x220
-[  287.381370]  ? pci_mmcfg_write+0x57/0x220
-[  287.381371]  ? lock_acquire+0xd3/0x2f0
-[  287.381373]  ? pci_mmcfg_write+0x57/0x220
-[  287.381374]  ? lock_release+0xef/0x360
-[  287.381376]  ? vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.381377]  lock_acquire+0xd3/0x2f0
-[  287.381378]  ? vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.381379]  ? lock_is_held_type+0x76/0x100
-[  287.381382]  down_write+0x3a/0xc0
-[  287.381382]  ? vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.381383]  vfio_pci_core_runtime_resume+0x1f/0xa0
-[  287.381384]  ? __pfx_pci_pm_runtime_resume+0x10/0x10
-[  287.381385]  __rpm_callback+0x8c/0x310
-[  287.381386]  ? ktime_get_mono_fast_ns+0x3d/0xb0
-[  287.381389]  ? __pfx_pci_pm_runtime_resume+0x10/0x10
-[  287.381390]  rpm_resume+0x529/0x6f0
-[  287.381392]  ? lock_is_held_type+0x76/0x100
-[  287.381394]  __pm_runtime_resume+0x68/0x90
-[  287.381396]  vfio_pci_core_enable+0x44/0x310
-[  287.381398]  vfio_pci_open_device+0x1c/0x80
-[  287.381399]  vfio_df_open+0x10f/0x150
-[  287.381401]  vfio_group_fops_unl_ioctl+0x4a4/0x7b0
-[  287.381402]  __se_sys_ioctl+0x71/0xc0
-[  287.381404]  do_syscall_64+0x14d/0x750
-[  287.381405]  ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  287.381406]  ? trace_irq_disable+0x25/0xd0
-[  287.381409]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Later, in commit c61302aa48f7 ("vfio/pci: Move module parameters to
+vfio_pci.c"), as part of the vfio-pci-core split, the writable aspect
+of the module parameter was nullified.  The parameter value could still
+be changed through sysfs, but the vfio-pci driver latched the values
+into vfio-pci-core globals at module init.  Loading the vfio-pci module,
+or unloading and reloading, with non-default or different values could
+change the globals relative to existing devices bound to vfio-pci
+variant drivers.
 
-Introduce a private flag 'sriov_active' in the vfio_pci_core_device
-struct. This  allows the driver to track the SR-IOV power state requirement
-without  relying on pci_num_vf() while holding the memory_lock. The lock is
-now  only held to set the flag and ensure the device is in D0, after which
-pci_enable_sriov() can be called without the lock.
+Runtime PM was introduced in commit 7ab5e10eda02 ("vfio/pci: Move the
+unused device into low power state with runtime PM"), which marks the
+point where power states became refcounted.  PM get and put operations
+need to be balanced, but the same module operations noted above can
+change the global variables relative to those devices already bound to
+vfio-pci variant drivers.  This introduces a window where PM operations
+can now become unbalanced.
 
-Fixes: f4162eb1e2fc ("vfio/pci: Change the PF power state to D0 before enabling VFs")
+To resolve this with a narrow footprint for stable backports, the
+disable_idle_d3 flag is latched into the vfio_pci_core_device at the
+time of initialization, such that the device always operates with a
+consistent value.
+
+NB. vfio_pci_dev_set_try_reset() now unconditionally raises the
+runtime PM usage count around bus reset to account for disable_idle_d3
+becoming a per-device rather than global flag.  When this flag is set,
+the additional get/put pair is harmless and allows continued use of the
+shared vfio_pci_dev_set_pm_runtime_get() helper.
+
+Fixes: 7ab5e10eda02 ("vfio/pci: Move the unused device into low power state with runtime PM")
 Cc: stable@vger.kernel.org
-Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
-Suggested-by: Alex Williamson <alex@shazbot.org>
-Signed-off-by: Raghavendra Rao Ananta <rananta@google.com>
-Link: https://lore.kernel.org/r/20260514173449.3282188-1-rananta@google.com
-[promote bitfield to plain bool to avoid storage-unit races]
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Link: https://lore.kernel.org/r/20260615191241.688297-2-alex.williamson@nvidia.com
 Signed-off-by: Alex Williamson <alex@shazbot.org>
-Stable-dep-of: 4575e9aac533 ("vfio/pci: Latch disable_idle_d3 per device")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vfio/pci/vfio_pci_core.c | 17 ++++++++++++++---
+ drivers/vfio/pci/vfio_pci_core.c | 19 ++++++++++---------
  include/linux/vfio_pci_core.h    |  1 +
- 2 files changed, 15 insertions(+), 3 deletions(-)
+ 2 files changed, 11 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index 13c223228c31e0..a8823cc77b998a 100644
+index a8823cc77b998a..519907bddeffb9 100644
 --- a/drivers/vfio/pci/vfio_pci_core.c
 +++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -237,8 +237,11 @@ int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev, pci_power_t stat
- 	int ret;
+@@ -472,7 +472,7 @@ int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
+ 	u16 cmd;
+ 	u8 msix_pos;
  
- 	/* Prevent changing power state for PFs with VFs enabled */
--	if (pci_num_vf(pdev) && state > PCI_D0)
--		return -EBUSY;
-+	if (state > PCI_D0) {
-+		lockdep_assert_held_write(&vdev->memory_lock);
-+		if (vdev->sriov_active)
-+			return -EBUSY;
-+	}
+-	if (!disable_idle_d3) {
++	if (!vdev->disable_idle_d3) {
+ 		ret = pm_runtime_resume_and_get(&pdev->dev);
+ 		if (ret < 0)
+ 			return ret;
+@@ -547,7 +547,7 @@ int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
+ out_disable_device:
+ 	pci_disable_device(pdev);
+ out_power:
+-	if (!disable_idle_d3)
++	if (!vdev->disable_idle_d3)
+ 		pm_runtime_put(&pdev->dev);
+ 	return ret;
+ }
+@@ -674,7 +674,7 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
+ 	vfio_pci_dev_set_try_reset(vdev->vdev.dev_set);
  
- 	if (vdev->needs_pm_restore) {
- 		if (pdev->current_state < PCI_D3hot && state >= PCI_D3hot) {
-@@ -2270,8 +2273,9 @@ int vfio_pci_core_sriov_configure(struct vfio_pci_core_device *vdev,
+ 	/* Put the pm-runtime usage counter acquired during enable */
+-	if (!disable_idle_d3)
++	if (!vdev->disable_idle_d3)
+ 		pm_runtime_put(&pdev->dev);
+ }
+ EXPORT_SYMBOL_GPL(vfio_pci_core_disable);
+@@ -2091,6 +2091,8 @@ int vfio_pci_core_init_dev(struct vfio_device *core_vdev)
+ 	INIT_LIST_HEAD(&vdev->sriov_pfs_item);
+ 	init_rwsem(&vdev->memory_lock);
  
- 		down_write(&vdev->memory_lock);
- 		vfio_pci_set_power_state(vdev, PCI_D0);
--		ret = pci_enable_sriov(pdev, nr_virtfn);
-+		vdev->sriov_active = true;
- 		up_write(&vdev->memory_lock);
-+		ret = pci_enable_sriov(pdev, nr_virtfn);
- 		if (ret) {
- 			pm_runtime_put(&pdev->dev);
- 			goto out_del;
-@@ -2285,6 +2289,13 @@ int vfio_pci_core_sriov_configure(struct vfio_pci_core_device *vdev,
- 	}
- 
- out_del:
-+	/*
-+	 * Avoid taking the memory_lock intentionally. A race with a power
-+	 * state transition would at most result in an -EBUSY, leaving the
-+	 * device in PCI_D0.
-+	 */
-+	vdev->sriov_active = false;
++	vdev->disable_idle_d3 = disable_idle_d3;
 +
- 	mutex_lock(&vfio_pci_sriov_pfs_mutex);
- 	list_del_init(&vdev->sriov_pfs_item);
- out_unlock:
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(vfio_pci_core_init_dev);
+@@ -2183,7 +2185,7 @@ int vfio_pci_core_register_device(struct vfio_pci_core_device *vdev)
+ 
+ 	dev->driver->pm = &vfio_pci_core_pm_ops;
+ 	pm_runtime_allow(dev);
+-	if (!disable_idle_d3)
++	if (!vdev->disable_idle_d3)
+ 		pm_runtime_put(dev);
+ 
+ 	ret = vfio_register_group_dev(&vdev->vdev);
+@@ -2192,7 +2194,7 @@ int vfio_pci_core_register_device(struct vfio_pci_core_device *vdev)
+ 	return 0;
+ 
+ out_power:
+-	if (!disable_idle_d3)
++	if (!vdev->disable_idle_d3)
+ 		pm_runtime_get_noresume(dev);
+ 
+ 	pm_runtime_forbid(dev);
+@@ -2211,7 +2213,7 @@ void vfio_pci_core_unregister_device(struct vfio_pci_core_device *vdev)
+ 	vfio_pci_vf_uninit(vdev);
+ 	vfio_pci_vga_uninit(vdev);
+ 
+-	if (!disable_idle_d3)
++	if (!vdev->disable_idle_d3)
+ 		pm_runtime_get_noresume(&vdev->pdev->dev);
+ 
+ 	pm_runtime_forbid(&vdev->pdev->dev);
+@@ -2526,7 +2528,7 @@ static void vfio_pci_dev_set_try_reset(struct vfio_device_set *dev_set)
+ 	 * state. Increment the usage count for all the devices in the dev_set
+ 	 * before reset and decrement the same after reset.
+ 	 */
+-	if (!disable_idle_d3 && vfio_pci_dev_set_pm_runtime_get(dev_set))
++	if (vfio_pci_dev_set_pm_runtime_get(dev_set))
+ 		return;
+ 
+ 	if (!pci_reset_bus(pdev))
+@@ -2536,8 +2538,7 @@ static void vfio_pci_dev_set_try_reset(struct vfio_device_set *dev_set)
+ 		if (reset_done)
+ 			cur->needs_reset = false;
+ 
+-		if (!disable_idle_d3)
+-			pm_runtime_put(&cur->pdev->dev);
++		pm_runtime_put(&cur->pdev->dev);
+ 	}
+ }
+ 
 diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-index 1c56c1df163cca..cda27d476d8597 100644
+index cda27d476d8597..9197cac4faadb2 100644
 --- a/include/linux/vfio_pci_core.h
 +++ b/include/linux/vfio_pci_core.h
 @@ -80,6 +80,7 @@ struct vfio_pci_core_device {
  	bool			needs_pm_restore:1;
  	bool			pm_intx_masked:1;
  	bool			pm_runtime_engaged:1;
-+	bool			sriov_active;
++	bool			disable_idle_d3:1;
+ 	bool			sriov_active;
  	struct pci_saved_state	*pci_saved_state;
  	struct pci_saved_state	*pm_save;
- 	int			ioeventfds_nr;
 -- 
 2.53.0
 
