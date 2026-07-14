@@ -1,155 +1,143 @@
-Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com [209.85.214.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E994DB56A
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3824DC543
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:55:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784048050; cv=none; b=h/uCa7cAEyz9tef3zFQ96a1d97RQzvVb4JKa+QKhqsyUsddueNvX4bD4y1vd/QSK7PXaFqSnN8WklERGgy9KCxj/buIwuZVzw/QehaDWc/Gd/jGjr0rGEuAwQuRV4gCi6EmBLp4//hMleg9vHpanYKaQTevpr9Z2PgYKtXtC9tc=
+	t=1784048152; cv=none; b=AHJ/XrSvOUc7yF59cG5/aeZ1w2zc72p5iQD0lji1GcEOzcYxW9V0S7MfJ54hFIlWVvN1oS8ipfdDyRi0JkwvHkzdbZT+SLTYNQObx8Dnn5CmTS1tLcLPrpindJVD8XkAz6j2Rl98uTkRbHY6sgKvrztp/l+ANJElm5iMWnDUdfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784048050; c=relaxed/simple;
-	bh=QpVWA5kBxLRil/3cTlurIa3Gg0zOcMLKe2INn1/y+4Q=;
-	h=From:To:CC:Date:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=Tnfdz0nJBk/dvOrVK+q+vKlnIZ+STe59nCiTG1eCVxiadOlI64oCvyi99LHVVriwyPM6y0hOqwP8A0WK41z2gdDsHNIgSHsOz8ufpvZjdPkBmb+Js6TRbdmgibfrfUV5HUlULJBvdmibcbDoH/4r+JDdywbFz2GrJUEasgHoSM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=QBZ98Snf; arc=none smtp.client-ip=209.85.214.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1784048152; c=relaxed/simple;
+	bh=brBYZRVa5TvHazC7+dLpqOEhg1+daAEjgWSIGnYFIlI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lvO9SP5dpLizLSn7ChXm39QZbuOYEjMsgLLhMlymqDgZeygF6ih1MislH36IfyL6ULEYOS9m2RWz57GCp9mvMoOj1WbHb7VjvYfSQAFw3/H/KR7/DrHwlx+ZBN8ueNLKDez4DPXuWsufibNIojHM81wAAi31liM0/Un0JbKdEt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hnTL6qGt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="QBZ98Snf"
-Received: by mail-pl1-f226.google.com with SMTP id d9443c01a7336-2ceab75934dso38322035ad.2
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 09:54:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784048048; x=1784652848;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :user-agent:references:in-reply-to:message-id:date:cc:to:from
-         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ptG2LrgVCiWDRJ0AJb0FvkOQlNYFLwr7+eK1TRT2NT4=;
-        b=rl4By1Y8ZR1HUCwzlxuKtFTaHVWTUXl8gph0KPOsnwvKSD5l8wUhByy5ZPFDDPcRAi
-         9o2S6CD6E7PrVePB7wis9vxznGS98nridZ8lom4QM1slNBi8xCXPlkTDiVE0mmyOwdwM
-         uX0x/7ENyMDmvYlkOqpYQ5L2SELy3UoBzbGcNRsVdfBJvVZ4s19GFE6qUEZLgsjvzgb0
-         zyrCegkcyeQYrzYe0C5i+2FL7RaaQ4TWugHVK2OB+vbD9MzQgNu/7x4xVDIo/2CVHHfG
-         Zibxb21pW+DcHrQSN2SZd0mcaht4SD567AbY5lLkG7IO0vMtIMvTWCAY5qWXUO9BfbDx
-         FCDg==
-X-Forwarded-Encrypted: i=1; AHgh+RrIPUkfAMW9otJOTpbB4V6gMkEluJU8YZ/y2CBE0NacwtPJ23yTLeL0WnJxqBCrEUWu0C3UZoQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwL3TQjztvUS2X9QbyQpILnrFu7CGPOd728tNDc2NvkgWwbXl4F
-	4Hg5iQ+tynGGBjkPW298LAjWux4uuOSYRWPHRd2XnnvbKDtZ8Y5Q3fDWNNSzK7do0HxaVibMy20
-	ZCwG7E8n9Ap62Gh/OCanTsi2/v70KWJmHsCrc/83q3JHgVETNyVOzN9rXTtP1mygtTMCiozX4rC
-	UVAG3mYMW3D0O+R8BjZ2hSua2VBro8Tbvy1fbc32R3ObAbBLX+Kne2TKEtNe0cafOz9KV4NCeVf
-	NgqpNcI8Nq+VgHPKg==
-X-Gm-Gg: AfdE7cnSUINpO0pLUbz9AqOWFxuSl5vo3PXdHsq4gEfVvdij6dht0M2dHsk31KCRp2A
-	crUDrAf509RYkFWoKYCCDKry0/qEhglhVmHdoPHrAuALZwuYV4p0/MCV7rIiMk9415QtDVPiF/N
-	LZ9x2EAKW1UcmecYmz1W3b1PKzK9Ycim2Uv1tpJAn4Xk9Ok/Lj/g9xw0TFrk2mzcaZNfw86sUIV
-	7Sw9LL3XzXJ5OhFXya99/Dsxlu+ByNvMykR1tiYOKWtoDJHQBxa9n8Mupj08GXHb/9WkIpIvk8L
-	lh4Gw0Cua0VMLZ3SuX7ZKtMeyYGPDXp+noENq2HvVjRGAbOz67LiFEWgzWyAnuAfqIeDiRqMJIQ
-	DZJAe3rAV1eJy/Z01XOlhqJE6w1daliGJmBowwztT4p3lbA/LYstVBpVdSfRcce/L1zIkVyQ9WO
-	BOuFkt2YZ61sx5o/qK2zbwsbJrVolgg6SfPlASJ9pOgg+w2wV8kQ==
-X-Received: by 2002:a17:902:c94f:b0:2ca:f8ef:33e4 with SMTP id d9443c01a7336-2ce9ead3f00mr140794205ad.17.1784048048358;
-        Tue, 14 Jul 2026 09:54:08 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
-        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2ce8b590967sm14055155ad.47.2026.07.14.09.54.07
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 14 Jul 2026 09:54:08 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c15ceb17a28so127547266b.3
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 09:54:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1784048046; x=1784652846; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :user-agent:references:in-reply-to:message-id:date:cc:to:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ptG2LrgVCiWDRJ0AJb0FvkOQlNYFLwr7+eK1TRT2NT4=;
-        b=QBZ98Snf/9Zq+wjlsGCHqvUCptOX/VPFbqXKc+lrvYZA/hBdG1/j28NQpPafUFgvq3
-         fm5YFTH2mQ0xiUX/Qc9CBoZhDQ2rOsOMGFuNNs5GM4uPbIs822kbvjL1T/2Hc+c9GITc
-         VRjEv7trb6z6EZoBt/mjMNx4WpfhU7HSLI0qA=
-X-Forwarded-Encrypted: i=1; AHgh+RrZVR+7LD7KgFID2BcWPFm4qjx9PReq068w2jAtzdjgHicWolpmjM0l192zGqm+avbB/8AdNEM=@vger.kernel.org
-X-Received: by 2002:a17:907:6e86:b0:c12:4c5b:f170 with SMTP id a640c23a62f3a-c161f469872mr712371166b.62.1784048046308;
-        Tue, 14 Jul 2026 09:54:06 -0700 (PDT)
-X-Received: by 2002:a17:907:6e86:b0:c12:4c5b:f170 with SMTP id a640c23a62f3a-c161f469872mr712367266b.62.1784048045367;
-        Tue, 14 Jul 2026 09:54:05 -0700 (PDT)
-Received: from [100.98.74.8] ([109.37.130.223])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15db22ed68sm890052966b.35.2026.07.14.09.54.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 09:54:04 -0700 (PDT)
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: Gokul Sivakumar <gokulkumar.sivakumar@infineon.com>
-CC: LiangCheng Wang <zaq14760@gmail.com>, Kalle Valo <kvalo@kernel.org>, Angus Ainslie <angus@akkea.ca>, Wig Cheng <onlywig@gmail.com>, <linux-wireless@vger.kernel.org>, <brcm80211@lists.linux.dev>, <brcm80211-dev-list.pdl@broadcom.com>, <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, <wlan-kernel-dev-list@infineon.com>
-Date: Tue, 14 Jul 2026 18:54:04 +0200
-Message-ID: <19f618cc7e0.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com>
-In-Reply-To: <uhwfd77gkvcrs22h5h42x5ujclzrq7ru5wkixguywfej3444w2@ejmn5s2kmapd>
-References: <20260713-b43752-f2-blksz-v1-1-8697fcfeaef4@gmail.com>
- <36f4388a-b856-438c-8ef4-795a7b1eda3e@broadcom.com>
- <uhwfd77gkvcrs22h5h42x5ujclzrq7ru5wkixguywfej3444w2@ejmn5s2kmapd>
-User-Agent: AquaMail/1.59.0 (build: 105900627)
-Subject: Re: [PATCH] wifi: brcmfmac: set F2 blocksize to 256 for BCM43752
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hnTL6qGt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 600411F00A3D;
+	Tue, 14 Jul 2026 16:55:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784048150;
+	bh=CiKR2Af8DQueFADs3TFjc+ks10x2vyjrryhR4a0h8a4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hnTL6qGt996MnTFpPXB+q90noH1fC+zQITkQrJu9M8+rBOLUOr5avAL6MDjGZ+EYw
+	 yzGzEIDw801CgSZU3ZLwEGbXDt9wupZVZebSqmrKqoxWLftmzR7v213xJDgjhEgjli
+	 Gn5hKZp8Vhf+eHv9qKL6OSJ9ylZ3EaWH3+KPhmwk/qYI3vsR5Um856gWfzii7Rc/Cr
+	 75qHD9IdOyiz0WUiNwasXmo6vPNh1Ddakoss4lMvouLwMFzDLICcn7VZtSaRnrYrk5
+	 i7uw21bfIY12po8cBUN6AgOw4s0nw+Ig0A+DXmsTtXeL/Sb1kDzuKA5RO3hQwogzcB
+	 zwH+zTPYQb6lA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mahesh Vaidya <mahesh.vaidya@altera.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	"Subhransu S. Prusty" <subhransu.sekhar.prusty@altera.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] PCI: altera: Fix resource leaks on probe failure
+Date: Tue, 14 Jul 2026 12:55:48 -0400
+Message-ID: <20260714165548.2885119-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071323-sterilize-parcel-144a@gregkh>
+References: <2026071323-sterilize-parcel-144a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; format=flowed; charset="us-ascii"
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Op 13 juli 2026 13:52:28 schreef Gokul Sivakumar 
-<gokulkumar.sivakumar@infineon.com>:
+From: Mahesh Vaidya <mahesh.vaidya@altera.com>
 
-> On 07/13, Arend van Spriel wrote:
->> On 13/07/2026 10:50, LiangCheng Wang wrote:
->>> The BCM43752 is not reliable with the default 512-byte SDIO function 2
->>> block size: on an i.MX8MP board with an AMPAK AP6275S module at
->>> SDR104 / 200 MHz, an iperf TX stress test kills WLAN within seconds:
->>>
->>> mmc_submit_one: CMD53 sg block write failed -84
->>> brcmf_sdio_dpc: failed backplane access over SDIO, halting operation
->>>
->>> Commit d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
->>> set up the 43752 like the 4373 for the F2 watermark but missed the F2
->>> block size, which the 4373 limits to 256 bytes. The vendor driver
->>> (bcmdhd) also programs a 256-byte F2 block size for this chip and runs
->>> the same hardware without errors.
->>>
->>> Group the 43752 with the 4373, matching the F2 watermark handling.
->>> With this change a 10-minute bidirectional iperf3 soak completes with
->>> zero SDIO errors at ~270 Mbit/s in each direction.
->>>
->>> Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
->>> Cc: stable@vger.kernel.org # <= 6.16 needs the CYPRESS_43752 id name
->>
->> Looks good to me but the stable instruction looks confusion. What do you
->> mean. If there is no 43752 support there is no need for this patch, right?
->
-> Arend, one year back, from Infineon we had submitted a patch [1] to correct
-> the vendor ownership of 43752. i.e, SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373 got
-> replaced with SDIO_DEVICE_ID_BROADCOM_43752.
->
-> So in the older kernel versions like v6.16.x which does not have patch [1],
-> the 43752 support exists, but with SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752.
-> So his instruction is to, again replace SDIO_DEVICE_ID_BROADCOM_4373 with
-> SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752 in his patch [2] while cherry-picking
-> to the older stable trees.
->
-> Rather than that, I would suggest to cherry-pick both the patches [1] & [2]
-> to stable trees, since the new patch [2] is dependent on existing patch [1].
+[ Upstream commit 7a94138caeb27f3c49c1dbd93bf422098925bb28 ]
 
-Agreed. Thanks for your guidance.
+The chained IRQ handler is set during probe, but is only removed during the
+driver remove(). If pci_host_probe() fails, the handler and INTx IRQ
+domain remain set even though the devm-managed host bridge storage
+containing struct altera_pcie will be released, leaving the handler with
+a stale data pointer.
 
-Regards,
-Arend
+Interrupts are also enabled before pci_host_probe() is called. If probe
+fails after that point, the controller interrupt source should be disabled
+before the chained handler and INTx domain are removed.
 
->
-> [1] 
-> https://lore.kernel.org/linux-wireless/20250724101136.6691-1-gokulkumar.sivakumar@infineon.com/
-> [2] 
-> https://lore.kernel.org/linux-wireless/20260713-b43752-f2-blksz-v1-1-8697fcfeaef4@gmail.com/
->
-> Gokul
->
->>> Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
->>> ---
+So set the chained handler only after the INTx domain has been created.
+Disable controller interrupts during IRQ teardown, and tear the IRQ setup
+down if pci_host_probe() fails.
 
+Fixes: c63aed7334c2 ("PCI: altera: Use pci_host_probe() to register host")
+Signed-off-by: Mahesh Vaidya <mahesh.vaidya@altera.com>
+[mani: commit log]
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+Reviewed-by: Subhransu S. Prusty <subhransu.sekhar.prusty@altera.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260430204330.3121003-3-mahesh.vaidya@altera.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/pci/controller/pcie-altera.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/pci/controller/pcie-altera.c b/drivers/pci/controller/pcie-altera.c
+index 2513e936323680..9223605735d433 100644
+--- a/drivers/pci/controller/pcie-altera.c
++++ b/drivers/pci/controller/pcie-altera.c
+@@ -683,8 +683,18 @@ static int altera_pcie_init_irq_domain(struct altera_pcie *pcie)
+ 	return 0;
+ }
+ 
++static void altera_pcie_disable_irq(struct altera_pcie *pcie)
++{
++	if (pcie->pcie_data->version == ALTERA_PCIE_V1 ||
++	    pcie->pcie_data->version == ALTERA_PCIE_V2) {
++		/* Disable all P2A interrupts */
++		cra_writel(pcie, 0, P2A_INT_ENABLE);
++	}
++}
++
+ static void altera_pcie_irq_teardown(struct altera_pcie *pcie)
+ {
++	altera_pcie_disable_irq(pcie);
+ 	irq_set_chained_handler_and_data(pcie->irq, NULL, NULL);
+ 	irq_domain_remove(pcie->irq_domain);
+ 	irq_dispose_mapping(pcie->irq);
+@@ -710,7 +720,6 @@ static int altera_pcie_parse_dt(struct altera_pcie *pcie)
+ 	if (pcie->irq < 0)
+ 		return pcie->irq;
+ 
+-	irq_set_chained_handler_and_data(pcie->irq, altera_pcie_isr, pcie);
+ 	return 0;
+ }
+ 
+@@ -795,6 +804,12 @@ static int altera_pcie_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
++	/*
++	 * The chained handler uses pcie->irq_domain, so set it only after the
++	 * INTx domain has been created.
++	 */
++	irq_set_chained_handler_and_data(pcie->irq, altera_pcie_isr, pcie);
++
+ 	/* clear all interrupts */
+ 	cra_writel(pcie, P2A_INT_STS_ALL, P2A_INT_STATUS);
+ 	/* enable all interrupts */
+@@ -805,7 +820,16 @@ static int altera_pcie_probe(struct platform_device *pdev)
+ 	bridge->busnr = pcie->root_bus_nr;
+ 	bridge->ops = &altera_pcie_ops;
+ 
+-	return pci_host_probe(bridge);
++	ret = pci_host_probe(bridge);
++	if (ret)
++		goto err_teardown_irq;
++
++	return 0;
++
++err_teardown_irq:
++	altera_pcie_irq_teardown(pcie);
++
++	return ret;
+ }
+ 
+ static int altera_pcie_remove(struct platform_device *pdev)
+-- 
+2.53.0
 
