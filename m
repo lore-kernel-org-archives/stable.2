@@ -1,61 +1,63 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3913D366DA3
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 23:54:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5327E433032
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 23:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784073254; cv=none; b=GrHaw3ootAiujiuST66oFUr+ghsNSRfjlZrjV6XwqKEUZVZjquwlRG3O+xr4tluxjXihZ5fO5Rcr0iR/NDxOqQfv8UBXpZa2qGz4h5OA/6giwN5Dyn5M83T/DhkZa93F7zlSeAwd7K12U8DXX0e4PQrVgRGCtqo4aJwaPkaiioM=
+	t=1784073257; cv=none; b=aVdVG2INWFegRWOtPl8fyxMaXHsLdqApAm8oDnEgSVpd6Dshe5tNQ2LBDq8YvAYPZfPKt6GaBvmYHRvCuiPlUs5qPYDNd1C4TP6Xv4NoiA/5XifiNb3Ot/cFg0HB2zsQ6ue3GyvLa29W/3gHU8R0xAY8slUqyZGk9H6UiArKmyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784073254; c=relaxed/simple;
-	bh=AuZlmqiR8+NPISpjMyL03Y3+6R9Uu6pS6O/DvI2I34E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hpYfVTt5PBdyKF27KjdC5Dyd9606Fn/618af3bz1kl0CyAmnnkeFrsLEVCe2LzelI/unFRikQQDeCO0rU7PLcIdYr8LlV+H+g2lZlVG5jgD44PyDzr2qcAlxn4P6lzU2ic2TQqYxJfqq8yL7N826opfRpsKrkjlTRay0lHwJgGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=tlhg3TXO; arc=none smtp.client-ip=209.85.214.171
+	s=arc-20240116; t=1784073257; c=relaxed/simple;
+	bh=iWC3dwTVFS0On/b+U1UVC9eFIiIpL6Q6Bi+esX7/UyE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZpwGlqSBl0UhNIWhSuQ6taLCpOvKauwLbs2Bf+SQ2Op/Rc5U3TNsXFGi3tUwONF45V3ri9ZHg/3LuE3lYuyNP5qwp5WAKWk9kT5zwHmnlRH2B/KkywNp6WHFmm6ZhLp4xhIZhuMnF4W0NeUOLowQdA0MrQaxQwFxf5vqj+SZAaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=Waxb25M6; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="tlhg3TXO"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cace91f112so43916955ad.0
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:54:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="Waxb25M6"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cea3004256so49211505ad.0
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 16:54:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1784073251; x=1784678051; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6qOgI3AhwNY3MyS5Yl8AT4tj9fOaqiCdXwpSFV0QdFk=;
-        b=tlhg3TXONtvK7oGvTT+6+gc5hQQA3faL1//xtfH2o7C142VXPCp/XEePr4U0yGJT5Y
-         Xv71C0Dk7pYeaQL9G7DkOmm6jco/LvENbXhU4gMmLYhGRuhvoxCJvfu4NT6s3UyUcBY0
-         +H02ruSUFLPZs3DdrhWHY0ryvWgsCYnOmvV8otkmuCSRoco4CU+uS3nn8w5PgQMQw+l8
-         tWUAe7rAreBvPSnnWE+/TCbA0Fdvz1c7ycuj7IicFlOaGxj3nVLRaATNTMVrXSODCcNk
-         +tqEKNtMA6ibxfuNi6KwyBqdY392p+np/gnYPRn7cKCjf5Tn0jHdAgbZ2zzD1WrlUl8x
-         8Gfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784073251; x=1784678051;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=asu.edu; s=google; t=1784073254; x=1784678054; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6qOgI3AhwNY3MyS5Yl8AT4tj9fOaqiCdXwpSFV0QdFk=;
-        b=pbA3TfcIXgI4oj+yG7+77GMqMOzPHvShuI1M8weIcVx/gLnALbn0GCP/UNDYKvjlnW
-         hoyDfdGodJbyFxiJ3S+WTCdud9S5cdZ5PuNsNd6VUgy9OaT3gg6+41DmYFE/owvZQi8N
-         OOPkdH9N9vAe0toAUAE/QZZk/e0gBY2bfrWYyOzyEBi8DYeYA4Zu4EburbH0KSQhBT8G
-         M2hBij4OxScMewpqEco486lQR89uDgXwOu2ITdL4MsgkRjZ6ZdSJ7FPAzEAWD1/xziLp
-         IsGyuNoWnj06hLuDaEIqKoJezxiY3mh1Y622aS2J81hYhGJhmROu1cjcFxO1gbUOtlSk
-         Thrw==
-X-Forwarded-Encrypted: i=1; AHgh+RphgADt8Y46sWE1IvfDXNt/zEwKdlOZq5byCF8xTqsnAtZ9AiseVQqJyeF91njs4g+WjqGF1wY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxg2CygNycjutjwzG2Yd5xfi/qv34e9yXEalawF8Gth+QZMhLYh
-	yagVBmEP2dEfBK7HsGNHZ4dS78MZGQyMgf3lteuGu9kEekiwuqmACmaExiG8rBF7Kw==
-X-Gm-Gg: AfdE7clFfO1MV9ZwTApNLm2UBH9ICGYuyyLYOWM8SP9jgkQ02JIDo09u3W1aoC6936a
-	oOYR3kJn1W3o6EGuqphGsmfctlDmihvVqjZ96dWA5Sagzrt7vaRpGueJ4qOqGITKxADMHMh9lep
-	Del8nNaOtwJb3oV1N3c1RkX1gCAFefcM2Z/BIB4ACUjp0GQ5kgMN2N3IrXR2HoxqUDiV6boiwxP
-	Zs7WNNQ/aSUFwAv61JO8Rxzc6HMj1E9+LaV6WqvGudslOzpiwGZxQyyN3cQ30aWc+izboq+fqUx
-	ByeNhGVFCldBfEImMKSIvdCjkVHH3FBAnXZAnff3bwGE+s91y936jGlMUgmujBspWJP3zcp5EoK
-	8RAE6gdOTil2+I7qrlLni2bWNwaaffBTuplriRLzWUy56CLMKFwnQyZAjy08KtAYc3Znrd4KQCw
+        bh=1yNKCuh3wjjGZi+YwPUxJXNIOv8IEH+SL77HN2XtO6I=;
+        b=Waxb25M6IpUWOTf4MJHsEpkppvNwqv5/i+Rk9c4uvwoK9782PALi0veiQUU7O76nT2
+         0V3AK64/Wmqp7K8OE7WfDhxaj3VW/gYBcRVjkN+VM/Fn7Ja1eGeq2Fgg3kFambXfGMAv
+         VkZH7gtQRIVTqftUPHAGJj3we87RcDTSoPbvvi3QkHIfeyvaTHUY74sueVuj8NhAgR1T
+         w/8Z7h0WLWlIezrhd2n18pWMM7m9izxQ5wkH4KTvSVf1YQd+XS37d+CO9JzEIGLOqC0o
+         2XrjFl+EIV1PlJx5ZvzSq3n6IJZ/Ul47j3hzCx4mJUos7WmuO0CpoE8tOVqwxIoR7XST
+         zg4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784073254; x=1784678054;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1yNKCuh3wjjGZi+YwPUxJXNIOv8IEH+SL77HN2XtO6I=;
+        b=nNv3QmiiTcb4e+QDtvT9NUmYQQ03eWgKGIz79hVHrbMKQZHIj0IzsMQkXqCeYGk0sl
+         p5bZ2ArSATY3By6Nno2J/YfrIW6JcezyDyh2BOV1487J2er2WDDk2E3YsgRuOq9DMQKA
+         N9tgECKpnXvDQWuKVXmqgdaJgRf0Ya6N+rDIQUeuqpZ9pRh5b1K9UR5Hdx6koiE6COOm
+         c1o16MR+8JWv1/xAGnp4h47Uw6vVyknByAY+GWxGGvW8vCVVW0Udn+4bcwy7xRBqhu+m
+         awc5kEvZQ6oplePeBqLd1BDi+oATD2G+ziVzjazm7+B9g6HWrEt91jI4RXd3C8fREBDV
+         u9MA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr6v5FECOIVjtPTV3qmY9g/YAh7Wy+BniBhYhXdKELj6T4jKKXGSUE48n0p6oVEDeonTbi0i1c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRO9DhRM3Rp2zk3Dhp3S9Zcpj2B6g33jFOY8+LkqFcZ70Ph4vp
+	Kt6pUarDpo2k+YFmgzNKbAEgkSeOqahKjuMjtW5gNQ121syA6G51iTZvnOFJLSma8Q==
+X-Gm-Gg: AfdE7ckA/nzHwxPTSlhQ7WM5wVSX+fCAnpjo8whtIkUBOdyMh8hA3xZN6n+FnDgNgwS
+	UFqaBPMzXDJfTY0NK9LmmlnvkmsSRsRpfhdJ9daFiMJXseiGXhZlooA6nBP6Pp1V2fOPX5p6pID
+	+nk7PbDIxTHU3rGIDQBvKniKcSAoRlwlH99xCrTub+WSdbkVHL52rKuboBtpQJ5Dp3y77VjQJRU
+	7XGW7IOI5qe60jqO6E5ILvriIr/EUhQCXi3GJKGBVzI5Gzsf+/W00ljAm6h2Jnv/KtdwoDQBRsj
+	IHHuC3uF/lYMHwQSu5fxDgVE2k5d1i3WHgtpeudDRpU9EYYKIgNI0kObuTy/EgKu5qOsoB4DLUb
+	AzxGszN/5UkQnr4q60hi36yv5MhXLm5rNwJ/UkIiwoG/rLor9BAmhwu7HCTUqoTRgUYGYDXNEIg
 	==
-X-Received: by 2002:a17:903:186:b0:2cb:ea0b:9164 with SMTP id d9443c01a7336-2cf03c7f0f7mr5116715ad.6.1784073251584;
-        Tue, 14 Jul 2026 16:54:11 -0700 (PDT)
+X-Received: by 2002:a17:903:380f:b0:2c9:c18f:7446 with SMTP id d9443c01a7336-2cef143b0aemr46392065ad.27.1784073253712;
+        Tue, 14 Jul 2026 16:54:13 -0700 (PDT)
 Received: from p1.. ([2607:fb91:1513:463e:34c6:f6a3:8e91:2983])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d3d451sm123236075ad.65.2026.07.14.16.54.10
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d3d451sm123236075ad.65.2026.07.14.16.54.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 16:54:11 -0700 (PDT)
+        Tue, 14 Jul 2026 16:54:13 -0700 (PDT)
 From: Xiang Mei <xmei5@asu.edu>
 To: Joanne Koong <joannelkoong@gmail.com>,
 	Bernd Schubert <bernd@bsbernd.com>,
@@ -71,10 +73,12 @@ Cc: fuse-devel@lists.linux.dev,
 	Pavel Begunkov <asml.silence@gmail.com>,
 	bestswngs@gmail.com,
 	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH v4 1/3] fuse: whitelist the request headers for usercopy
-Date: Tue, 14 Jul 2026 16:54:06 -0700
-Message-ID: <20260714235408.1666063-1-xmei5@asu.edu>
+Subject: [PATCH v4 2/3] fuse: bound io-uring payload copies to the registered buffer size
+Date: Tue, 14 Jul 2026 16:54:07 -0700
+Message-ID: <20260714235408.1666063-2-xmei5@asu.edu>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260714235408.1666063-1-xmei5@asu.edu>
+References: <20260714235408.1666063-1-xmei5@asu.edu>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,87 +87,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The fuse-io-uring transport copies req->in.h out to the ring in
-fuse_uring_copy_to_ring() and req->out.h back in fuse_uring_commit().
-Both headers live inside the fuse_request slab object, whose cache
-(fuse_req_cachep) is created without a usercopy whitelist, so copying
-them directly to/from userspace trips CONFIG_HARDENED_USERCOPY and
-panics:
+The fuse-io-uring transport imports each ring entry's payload buffer at
+ring->max_payload_sz and bounds both copy directions against that value,
+ignoring the buffer length the server actually registered.  Both the
+server-supplied reply payload_sz (fuse_uring_copy_from_ring) and an
+oversized request payload such as a large FUSE_SETXATTR value
+(fuse_uring_args_to_ring) can then overrun the imported iterator and hit
+fuse_copy_fill()'s BUG_ON(!err):
 
-  usercopy: Kernel memory exposure attempt detected from SLUB object
-  'fuse_request' (offset 56, size 40)!
-  kernel BUG at mm/usercopy.c:102!
+  kernel BUG at fs/fuse/dev.c:1053!
   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:usercopy_abort (mm/usercopy.c:90)
+  RIP: 0010:fuse_copy_fill (fs/fuse/dev.c:1022)
   Call Trace:
-   __check_heap_object (mm/slub.c:8268)
-   __check_object_size (mm/usercopy.c:197 mm/usercopy.c:258 mm/usercopy.c:223)
-   copy_header_to_ring (fs/fuse/dev_uring.c:618)
-   fuse_uring_prepare_send (fs/fuse/dev_uring.c:776 fs/fuse/dev_uring.c:785)
-   fuse_uring_send_in_task (fs/fuse/dev_uring.c:1306)
-   tctx_task_work_run (io_uring/tw.c:96)
-   task_work_run (kernel/task_work.c:233)
-   io_run_task_work (io_uring/tw.h:84)
-   io_cqring_wait (io_uring/wait.c:278)
-   __do_sys_io_uring_enter (io_uring/io_uring.c:2685)
+   fuse_copy_args (fs/fuse/dev.c:1329 fs/fuse/dev.c:1351)
+   fuse_uring_copy_from_ring (fs/fuse/dev_uring.c:686)
+   fuse_uring_cmd (fs/fuse/dev_uring.c:1226)
+   io_uring_cmd (io_uring/uring_cmd.c:271)
+   __io_issue_sqe (io_uring/io_uring.c:1395)
+   io_issue_sqe (io_uring/io_uring.c:1418)
+   io_submit_sqes (io_uring/io_uring.c:1649 io_uring/io_uring.c:1934 io_uring/io_uring.c:2057)
+   __do_sys_io_uring_enter (io_uring/io_uring.c:2646)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
    entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
 
-in.h and out.h are adjacent in struct fuse_req, so a single usercopy
-region starting at in.h covers both and nothing else.  Create the cache
-with that region whitelisted.
+The request path overruns the same way, via fuse_copy_args() ->
+fuse_uring_args_to_ring().
+
+Store the registered payload length (payload->iov_len) in the ring entry
+and use it for the import and both bounds checks, so the buffer the
+server provided is honoured and an oversized reply/request is rejected
+(-EINVAL for a reply, and -E2BIG/-EIO for a request, matching
+fuse_dev_do_read()) instead of panicking.
 
 Fixes: c090c8abae4b ("fuse: Add io-uring sqe commit and fetch support")
 Cc: stable@vger.kernel.org
 Reported-by: Weiming Shi <bestswngs@gmail.com>
-Suggested-by: Baokun Li <libaokun@linux.alibaba.com>
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
 ---
-v3: no context change; add Bernd's Reviewed-by
-v4: drop previous tags; use kmem_cache_args to reserve usercopy area
+v3: propose the patch fixing another issue found by Bernd by Joanne suggested way
+v4: no context change as v3; add Reviewed-by: Joanne Koong ...
 
- fs/fuse/dev.c        | 9 +++++++--
- fs/fuse/fuse_dev_i.h | 5 +++++
- 2 files changed, 12 insertions(+), 2 deletions(-)
+ fs/fuse/dev_uring.c   | 9 ++++++++-
+ fs/fuse/dev_uring_i.h | 1 +
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 5763a7cd3b37..b8e43e374b35 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -2404,10 +2404,15 @@ static struct miscdevice fuse_miscdevice = {
- 
- int __init fuse_dev_init(void)
+diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+index 77c8cec43d9c..4529505b2bca 100644
+--- a/fs/fuse/dev_uring.c
++++ b/fs/fuse/dev_uring.c
+@@ -650,7 +650,7 @@ static int setup_fuse_copy_state(struct fuse_copy_state *cs,
  {
-+	struct kmem_cache_args args = {
-+		.useroffset = offsetof(struct fuse_req, in.h),
-+		.usersize = sizeof_field(struct fuse_req, in.h) +
-+			    sizeof_field(struct fuse_req, out.h),
-+	};
- 	int err = -ENOMEM;
-+
- 	fuse_req_cachep = kmem_cache_create("fuse_request",
--					    sizeof(struct fuse_req),
--					    0, 0, NULL);
-+					    sizeof(struct fuse_req), &args, 0);
- 	if (!fuse_req_cachep)
- 		goto out;
+ 	int err;
  
-diff --git a/fs/fuse/fuse_dev_i.h b/fs/fuse/fuse_dev_i.h
-index 668c8391d61c..b511aaab6bfc 100644
---- a/fs/fuse/fuse_dev_i.h
-+++ b/fs/fuse/fuse_dev_i.h
-@@ -81,6 +81,11 @@ struct fuse_req {
- 	/** @flags: Request flags, updated with test/set/clear_bit() */
- 	unsigned long flags;
+-	err = import_ubuf(dir, ent->payload, ring->max_payload_sz, iter);
++	err = import_ubuf(dir, ent->payload, ent->payload_sz, iter);
+ 	if (err) {
+ 		pr_info_ratelimited("fuse: Import of user buffer failed\n");
+ 		return err;
+@@ -679,6 +679,9 @@ static int fuse_uring_copy_from_ring(struct fuse_ring *ring,
+ 	if (err)
+ 		return err;
  
-+	/*
-+	 * @in and @out are the usercopy region of this cache (see
-+	 * fuse_dev_init()); keep them adjacent.
-+	 */
++	if (ring_in_out.payload_sz > ent->payload_sz)
++		return -EINVAL;
 +
- 	/** @in: The request input header */
- 	struct {
- 		/** @in.h: The request input header */
+ 	err = setup_fuse_copy_state(&cs, ring, req, ent, ITER_SOURCE, &iter);
+ 	if (err)
+ 		return err;
+@@ -725,6 +728,9 @@ static int fuse_uring_args_to_ring(struct fuse_ring *ring, struct fuse_req *req,
+ 		num_args--;
+ 	}
+ 
++	if (fuse_len_args(num_args, (struct fuse_arg *)in_args) > ent->payload_sz)
++		return args->opcode == FUSE_SETXATTR ? -E2BIG : -EIO;
++
+ 	/* copy the payload */
+ 	err = fuse_copy_args(&cs, num_args, args->in_pages,
+ 			     (struct fuse_arg *)in_args, 0);
+@@ -1159,6 +1165,7 @@ fuse_uring_create_ring_ent(struct io_uring_cmd *cmd,
+ 	ent->queue = queue;
+ 	ent->headers = headers->iov_base;
+ 	ent->payload = payload->iov_base;
++	ent->payload_sz = payload->iov_len;
+ 
+ 	atomic_inc(&ring->queue_refs);
+ 	return ent;
+diff --git a/fs/fuse/dev_uring_i.h b/fs/fuse/dev_uring_i.h
+index 55f8d04e4b0b..efa7f034496a 100644
+--- a/fs/fuse/dev_uring_i.h
++++ b/fs/fuse/dev_uring_i.h
+@@ -41,6 +41,7 @@ struct fuse_ring_ent {
+ 	/* userspace buffer */
+ 	struct fuse_uring_req_header __user *headers;
+ 	void __user *payload;
++	size_t payload_sz;
+ 
+ 	/* the ring queue that owns the request */
+ 	struct fuse_ring_queue *queue;
 -- 
 2.43.0
 
