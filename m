@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0305E4C8FFD
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269074BCAA9
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784059353; cv=none; b=C+pLQDk9hqwNngHopvOsNsmO2gAvPny8mKNpAKp2F2a2M1yi4FYJP4CRUpqq9qfLV+u+DYc/mtC97QfPcRKQqYbg95BX9U4afUXdJUogBQtRFlyBRBY1mjjTfWGxkSGpa+iUr9Zl/adSTvpWAASbiyRkr/yy9XSB5ZXDusmQYF4=
+	t=1784059353; cv=none; b=gmtp9zIt1DT+GuZy3lsCjGrZQkA2yeUOPHsKCKsta8ojEzE1p6/oQFN0yCPA0a581AlsY/1+XFTIvQqKwWggtWEIUMsJAJwCzynZRkVO8B88d32PgGJ967R6TTxKAxKEBAjw7roRM2gTCvVM0sz5vDp7WMcdWYzzq1zotj168WU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784059353; c=relaxed/simple;
-	bh=rclWcM5QRFLBqWzHopl0KzVW/LdI76BpQr5SSrS4fms=;
+	bh=xX1Uu5ZLaS22AMdcvldQb7axoq6wkQUvfrp7H8AmytQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FxfemEMbCOPyABpjdK/u376Mdyz8/b3bmHhkQS4pFuk7+plRudY/MuKY04dH19QXOxOG0WwqkmUnADZPBZWu9VNcUI73UQwF0hu9iQjq0Vnb3rx2jjZXiJZK7aTUaHOEVI+VWaxrp46erx4wSTyW+V0JQB1zc5ZdvG0Q2EoY6UQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTlr3j8e; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oejApoyGKOqP+TP9oHkILh78NPB6l7fTg/TxAyUDhHXrwMjHJ9tHY9eIe5dlUKnf6NT2Ns+fbKfrIr3YRMs+mjLt2ALdGUn7iPY8fN6csv1Bu8wvh6wMTYa71+q0l08B2IZ439w0Jsyd9rg5JO3Zn9Tuni4TS9PL7rj16rA3SKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c4AqjgMW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTlr3j8e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1FC1F00A3F;
-	Tue, 14 Jul 2026 20:02:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c4AqjgMW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E78B1F00ACA;
+	Tue, 14 Jul 2026 20:02:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784059342;
-	bh=qWYkKpODIi7DVjT4zuS8XsqbwNWMfXKf/Wynv7q7fzg=;
+	s=k20260515; t=1784059341;
+	bh=cnaiqfUpZNHe4xestwP40UcWyco34J+R32EhqBISsqc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FTlr3j8eyjx0nU5cjBVIziwE0pZp6DADiuBVuZOJAFUqcHXiRgGtyCVbnSheU28MZ
-	 Q+rcI6XOZhKiAVKuOyDpcacnkl1Fz4gDZLzgJJhvMFtEXJ21ouSyRf25Ucc6UigHG/
-	 gHT1Ii6J/4Ls+RWV7gllZU1DZdgN6WL+ckYFvQ0vMErT8ubGtsKTP9i1iarRK4FYrN
-	 VNSS3QubjURcV7WJeMG8yHH1ytrJ0FPLPomv0Tjg5/2eDw29Lbp4cF3WwkzQTDPnqc
-	 RMKDntRScnGzBiNxVHRBdwARacl75tjYtW9RCq39TL1fJbaH0g8q0jf0ajghMwIrLh
-	 9UiBI/vE8lRGA==
+	b=c4AqjgMWqgGF4CXNheShwLGRzW790Y9ZX+I/BbbStGrSVpNqdZbMm0USTQKVKdUTW
+	 BBzkagijGaAtPg5kC8qfYbV3dZc8a006BV1uJFnOF5zBGGXQfw0+8WyFg5YUgVIibv
+	 wnJ6UUtxrfRdATAE1Devjs1RQAk74+YlWqZd+hBjUzi9OUKSST+q4VBO48ZKUCVHRz
+	 OfGmTf51d/pzs/kiq9aw1g8QW+VWMfiwuLzfY3FH6u2TYTmGH8NTL55UpX3CNSvEQQ
+	 7ac22gbiBJlmrpTQQAZkYaYyBUVFZxH7ZUpXGdUTJOqb8wzdNaCqpYxI7dw1xDIH4t
+	 G2MnnzzuSzQMw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Richard Zhu <hongxing.zhu@nxp.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Frank Li <Frank.Li@nxp.com>,
+Cc: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] PCI: imx6: Fix IMX6SX_GPR12_PCIE_TEST_POWERDOWN handling
-Date: Tue, 14 Jul 2026 16:02:20 -0400
-Message-ID: <20260714200220.3152632-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 5/5] smb: client: restrict implied bcc[0] exemption to responses without data area
+Date: Tue, 14 Jul 2026 16:02:15 -0400
+Message-ID: <20260714200215.3152449-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071350-dealmaker-sliding-cb76@gregkh>
-References: <2026071350-dealmaker-sliding-cb76@gregkh>
+In-Reply-To: <20260714200215.3152449-1-sashal@kernel.org>
+References: <2026071307-payment-valium-e77f@gregkh>
+ <20260714200215.3152449-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,54 +46,205 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Richard Zhu <hongxing.zhu@nxp.com>
+From: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
 
-[ Upstream commit aad953fb4eed0df5486cd54ccad80ac197678e01 ]
+[ Upstream commit 53b7c271f06be4dd5cfc8c6ef552a8355c891a7f ]
 
-The IMX6SX_GPR12_PCIE_TEST_POWERDOWN bit does not control the PCIe
-reference clock on i.MX6SX. Instead, it is part of i.MX6SX PCIe core
-reset sequence.
+smb2_check_message() has a long-standing quirk that accepts a response
+whose calculated length is one byte larger than the bytes actually
+received ("server can return one byte more due to implied bcc[0]").
+This was introduced to accommodate servers that omit the trailing bcc[0]
+overlap byte when no data area is present.
 
-Move the IMX6SX_GPR12_PCIE_TEST_POWERDOWN assertion/deassertion into
-the core reset functions to properly reflect its purpose. Remove the
-.enable_ref_clk() callback for i.MX6SX since it was incorrectly
-manipulating this bit.
+However, the exemption is applied unconditionally, regardless of whether
+the command actually carries a data area (has_smb2_data_area[]).  When a
+response with a data area is subject to the +1 exemption, the reported
+data can extend one byte beyond the bytes actually received, yet
+smb2_check_message() still accepts it.  The subsequent decoder then reads
+past the end of the receive buffer.  This is reachable during NEGOTIATE
+and SESSION_SETUP, before the session is established.
 
-Fixes: e3c06cd063d6 ("PCI: imx6: Add initial imx6sx support")
-Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+The resulting out-of-bounds reads are visible under KASAN when mounting
+against a non-conforming server; both the SPNEGO/negTokenInit and the
+NTLMSSP challenge decoders are affected:
+
+  BUG: KASAN: slab-out-of-bounds in asn1_ber_decoder+0x16a7/0x1b00
+  Read of size 1 at addr ffff8880084d67c0 by task mount.cifs/81
+  CPU: 1 UID: 0 PID: 81 Comm: mount.cifs Not tainted 7.1.0-rc6 #1
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x4e/0x70
+   print_report+0x157/0x4c9
+   kasan_report+0xce/0x100
+   asn1_ber_decoder+0x16a7/0x1b00
+   decode_negTokenInit+0x19/0x30
+   SMB2_negotiate+0x31d9/0x4c90
+   cifs_negotiate_protocol+0x1f2/0x3f0
+   cifs_get_smb_ses+0x93f/0x17e0
+   cifs_mount_get_session+0x7f/0x3a0
+   cifs_mount+0xb4/0xcf0
+   cifs_smb3_do_mount+0x23a/0x1500
+   smb3_get_tree+0x3b0/0x630
+   vfs_get_tree+0x82/0x2d0
+   fc_mount+0x10/0x1b0
+   path_mount+0x50d/0x1de0
+   __x64_sys_mount+0x20b/0x270
+   do_syscall_64+0xee/0x590
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+  Allocated by task 85:
+   kmem_cache_alloc_noprof+0x106/0x380
+   mempool_alloc_noprof+0x116/0x1e0
+   cifs_small_buf_get+0x31/0x80
+   allocate_buffers+0x10d/0x2b0
+   cifs_demultiplex_thread+0x1d5/0x1d50
+   kthread+0x2c6/0x390
+   ret_from_fork+0x36e/0x5a0
+   ret_from_fork_asm+0x1a/0x30
+  The buggy address is located 0 bytes to the right of
+   allocated 448-byte region [ffff8880084d6600, ffff8880084d67c0)
+   which belongs to the cache cifs_small_rq of size 448
+
+  BUG: KASAN: slab-out-of-bounds in kmemdup_noprof+0x36/0x50
+  Read of size 329 at addr ffff88800726c678 by task mount.cifs/89
+  CPU: 0 UID: 0 PID: 89 Comm: mount.cifs Tainted: G    B      7.1.0-rc6 #1
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x4e/0x70
+   print_report+0x157/0x4c9
+   kasan_report+0xce/0x100
+   kasan_check_range+0x10f/0x1e0
+   __asan_memcpy+0x23/0x60
+   kmemdup_noprof+0x36/0x50
+   decode_ntlmssp_challenge+0x457/0x680
+   SMB2_sess_auth_rawntlmssp_negotiate+0x6f0/0xcb0
+   SMB2_sess_setup+0x219/0x4f0
+   cifs_setup_session+0x248/0xaf0
+   cifs_get_smb_ses+0xf79/0x17e0
+   cifs_mount_get_session+0x7f/0x3a0
+   cifs_mount+0xb4/0xcf0
+   cifs_smb3_do_mount+0x23a/0x1500
+   smb3_get_tree+0x3b0/0x630
+   vfs_get_tree+0x82/0x2d0
+   fc_mount+0x10/0x1b0
+   path_mount+0x50d/0x1de0
+   __x64_sys_mount+0x20b/0x270
+   do_syscall_64+0xee/0x590
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+  Allocated by task 93:
+   kmem_cache_alloc_noprof+0x106/0x380
+   mempool_alloc_noprof+0x116/0x1e0
+   cifs_small_buf_get+0x31/0x80
+   allocate_buffers+0x10d/0x2b0
+   cifs_demultiplex_thread+0x1d5/0x1d50
+   kthread+0x2c6/0x390
+   ret_from_fork+0x36e/0x5a0
+   ret_from_fork_asm+0x1a/0x30
+  The buggy address is located 120 bytes inside of
+   allocated 448-byte region [ffff88800726c600, ffff88800726c7c0)
+   which belongs to the cache cifs_small_rq of size 448
+
+Restrict the +1 exemption to responses that have no data area, so that
+it still covers the bcc[0] omission it was meant for.  When a data area
+is present, the +1 discrepancy instead means the reported data length
+overruns the received buffer, so the response must be rejected.
+
+Fixes: 093b2bdad322 ("CIFS: Make demultiplex_thread work with SMB2 code")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260319090844.444987-1-hongxing.zhu@nxp.com
+Signed-off-by: Shoichiro Miyamoto <shoichiro.miyamoto@gmail.com>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/controller/dwc/pci-imx6.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ fs/cifs/smb2misc.c | 32 ++++++++++++++++++++++++++------
+ 1 file changed, 26 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-index 7766b5b1492903..20f7d3f6db160f 100644
---- a/drivers/pci/controller/dwc/pci-imx6.c
-+++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -430,9 +430,6 @@ static int imx6_pcie_enable_ref_clk(struct imx6_pcie *imx6_pcie)
- 			dev_err(dev, "unable to enable pcie_axi clock\n");
- 			break;
+diff --git a/fs/cifs/smb2misc.c b/fs/cifs/smb2misc.c
+index 29d723c04b1666..0db16730dccab9 100644
+--- a/fs/cifs/smb2misc.c
++++ b/fs/cifs/smb2misc.c
+@@ -17,6 +17,8 @@
+ #include "smb2glob.h"
+ #include "nterr.h"
+ 
++static unsigned int __smb2_calc_size(void *buf, bool *have_data);
++
+ static int
+ check_smb2_hdr(struct smb2_hdr *shdr, __u64 mid)
+ {
+@@ -141,6 +143,7 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *server)
+ 	int command;
+ 	__u32 calc_len; /* calculated length */
+ 	__u64 mid;
++	bool have_data;
+ 
+ 	/*
+ 	 * Add function to do table lookup of StructureSize by command
+@@ -221,7 +224,8 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *server)
  		}
--
--		regmap_update_bits(imx6_pcie->iomuxc_gpr, IOMUXC_GPR12,
--				   IMX6SX_GPR12_PCIE_TEST_POWERDOWN, 0);
- 		break;
- 	case IMX6QP:
- 	case IMX6Q:
-@@ -559,6 +556,8 @@ static void imx6_pcie_deassert_core_reset(struct imx6_pcie *imx6_pcie)
- 		imx7d_pcie_wait_for_phy_pll_lock(imx6_pcie);
- 		break;
- 	case IMX6SX:
-+		regmap_clear_bits(imx6_pcie->iomuxc_gpr, IOMUXC_GPR12,
-+				  IMX6SX_GPR12_PCIE_TEST_POWERDOWN);
- 		regmap_update_bits(imx6_pcie->iomuxc_gpr, IOMUXC_GPR5,
- 				   IMX6SX_GPR5_PCIE_BTNRST_RESET, 0);
- 		break;
+ 	}
+ 
+-	calc_len = smb2_calc_size(buf);
++	have_data = false;
++	calc_len = __smb2_calc_size(buf, &have_data);
+ 
+ 	/* For SMB2_IOCTL, OutputOffset and OutputLength are optional, so might
+ 	 * be 0, and not a real miscalculation */
+@@ -239,8 +243,13 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *server)
+ 		/* Windows 7 server returns 24 bytes more */
+ 		if (calc_len + 24 == len && command == SMB2_OPLOCK_BREAK_HE)
+ 			return 0;
+-		/* server can return one byte more due to implied bcc[0] */
+-		if (calc_len == len + 1)
++		/*
++		 * Server can return one byte more due to implied bcc[0].
++		 * Allow it only when there is no data area; if data_length > 0
++		 * the +1 gap indicates an overreported data length rather than
++		 * the bcc[0] omission.
++		 */
++		if (calc_len == len + 1 && !have_data)
+ 			return 0;
+ 
+ 		/*
+@@ -401,14 +410,17 @@ smb2_get_data_area_len(int *off, int *len, struct smb2_hdr *shdr)
+ /*
+  * Calculate the size of the SMB message based on the fixed header
+  * portion, the number of word parameters and the data portion of the message.
++ * If have_data is non-NULL, it is set to true when a non-empty data area was
++ * found (data_length > 0), allowing callers to distinguish the implied bcc[0]
++ * case (no data area) from an overreported data length.
+  */
+-unsigned int
+-smb2_calc_size(void *buf)
++static unsigned int
++__smb2_calc_size(void *buf, bool *have_data)
+ {
+ 	struct smb2_pdu *pdu = (struct smb2_pdu *)buf;
+ 	struct smb2_hdr *shdr = &pdu->hdr;
+ 	int offset; /* the offset from the beginning of SMB to data area */
+-	int data_length; /* the length of the variable length data area */
++	int data_length = 0; /* the length of the variable length data area */
+ 	/* Structure Size has already been checked to make sure it is 64 */
+ 	int len = le16_to_cpu(shdr->StructureSize);
+ 
+@@ -441,9 +453,17 @@ smb2_calc_size(void *buf)
+ 	}
+ calc_size_exit:
+ 	cifs_dbg(FYI, "SMB2 len %d\n", len);
++	if (have_data)
++		*have_data = (data_length > 0);
+ 	return len;
+ }
+ 
++unsigned int
++smb2_calc_size(void *buf)
++{
++	return __smb2_calc_size(buf, NULL);
++}
++
+ /* Note: caller must free return buffer */
+ __le16 *
+ cifs_convert_path_to_utf16(const char *from, struct cifs_sb_info *cifs_sb)
 -- 
 2.53.0
 
