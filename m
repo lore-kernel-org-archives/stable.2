@@ -1,107 +1,161 @@
-Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBAB13812FE;
-	Tue, 14 Jul 2026 03:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.245
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD35B13D886;
+	Tue, 14 Jul 2026 03:30:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783999768; cv=none; b=q1A6aiKwSoKpvU6FS/XdirZD9pGExs8qP9ab+1BYfwehW5F4zxacJqHlODyNBx3IkCGfQXZWUVfY3V7KLGDsbVLZC+tsMMMI77BTxG5cEPvcOxboIObZ4YYcsuLcoFaTrsIOwKAijecvdDaCq80jvaTYRzP9pSgK4DV+4w3qp3o=
+	t=1783999860; cv=none; b=h49EzvHtUo4j1W57/eK22/wpmJmFoNX2X+wI8ZHhUY5ijyU5JjyBH6Mn4W3vOr0PS6WKKGjZ01BhrXIfHj9rlqJo87csNBW7Tx8d9BCaij0D76YKO1FwW3ejuNaaUC39FQyCA+Xb2Ko++CgRPX+eymZcA0zc8xCtSWG8hCUqBaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783999768; c=relaxed/simple;
-	bh=Ybb0lo/pQie1JRy4DnkGKEXpzXEG/DqyvhyLUo2loIE=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=XukK9sRAFgNZl+TsFMO/W/Zm12yln1HZ9kNU5M77YYcGKrnfo2f1DwOsCMg0B3W9uVkomv1yz62PfMWxYlWHP73l5a/UEVrqXJmNTVET5N24MmOBiCbhLoA6g4PhSih2DPBpp0rSFwck4TOdZ8mYa24sDbjQaSehDC40sP8Zo1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=xuFK0id7; arc=none smtp.client-ip=203.205.221.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="xuFK0id7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1783999755; bh=x3YFPqYulkzGRS7IgpvrQmkvKvQcBY/dmHArhbt5OI4=;
-	h=From:To:Cc:Subject:Date;
-	b=xuFK0id7DMwosCnjQzwLtB6PcllvuWZLLQR9xR3GOrh4Oib8xt/CZuuLZrwlEKGMB
-	 zvT2FDnDhHeYutbzs5FVm9HzlvBVov5mW50uirRwj7Zkfq8Mvuh7+kgsJHAODmi2Kr
-	 kEGtcJbSEHAIMx6fM4mVjtcvcnxvx4VcTev8wm8I=
-Received: from ikun ([221.176.157.250])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 74B93286; Tue, 14 Jul 2026 11:29:11 +0800
-X-QQ-mid: xmsmtpt1783999751t0wfz2fy0
-Message-ID: <tencent_860054603C488A379E3D21126EA610D63108@qq.com>
-X-QQ-XMAILINFO: MpYZqmNm/7vMjHZFhA1jjMTVnmzJGsaWhB2/E/6C4EevcVcW9JITgXyqTPH0SG
-	 3K/gMAbpuTxY8uqRQ2snNf6tAA10m+F0i3TgXfgNHcj92Rc/cm80kg0vtlhBeP2YTWCgtYkRAu2U
-	 nEVwMj+kz6Q3Gw02xfDn0Occ+EQz1mmHAqyE7eMqRAFDBnUGnK0RGMVtbeWfeZ9/f/tamEhnqjDq
-	 2f7kny298ejGJBowP650XyI1nFieGR7n86HC+/DItUx0JBZnF9SqV9GeJPYSEC/WgjtNAaZ0f5uV
-	 fTn/CBSamoIBFbj6EPOaKbog95scdHgQKgZsMgWcQDvbisi57Q3h8zsdLEOOF+QEMlBNQMjccByQ
-	 pY5Y3Xn3ZDDcrDmV1xbfIpHyksBfbkDMtALHKSog6mG+IYt4t6C27AMSfhWVJQFy5refL/mAoJd2
-	 9RAdWEZdf1+8DBZza8QSW9MXGRHorZx73QUQ+tkk13+n6R0y/Nx4ibmKlu6VqIj75Lws0/UG0Iuy
-	 7+ezK+CNmwgSjPYAUWRBAIjwTo3D7Yb6VGDhs7tjkaXU6V7OTgxTKmiAcZZ6TIgDqqytVA8k7Tet
-	 +zlCR1Nla5WQ8Xn1xMB014hog89NPpgs8xPYLOb83wXToED5GrhUxYLIqrZK7hTakyUt7dEzt3Qo
-	 13JW1+sHkaXBET/9EK0GWCUG9wTm1LAgxPcN69P8x4THHqZl+7IsGQmENJZdMfSTTqkITgcbVtut
-	 SVEDl0hhE+1f1Sv+2KqhUoKm8ycfOO57fHnUTYlbKXKTTeUdDsUSOG5l0ADtrenocksrxKpmkvYa
-	 wDsUa3KeUtKq30KvPohd76TI8030Or6q8YyX0wGCpylB0X8nzf+TThokTyl4mAI6lZKXkB0AGq3Q
-	 qZjJWdDYR69augOBszOnmJPZYNKQfYw9bdPAVDnSre3nXllWL7HT8hxMwL5+b2e+csIK/sbmRFoE
-	 xpkGAHnarrYPs+IA6+VUDvqTy2of8ZRpEgBQ04o/iGKXHEeau01lnW4gBM0p9PDfEyZFldPlr0uK
-	 hiq2ski/BjSpryngd+oX0Z0fBn4VeL9xYz7f15e1BDIl85wt4M
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Guanghui Yang <3497809730@qq.com>
-To: linux-btrfs@vger.kernel.org
-Cc: clm@fb.com,
-	dsterba@suse.com,
-	naohiro.aota@wdc.com,
+	s=arc-20240116; t=1783999860; c=relaxed/simple;
+	bh=6TesKtS8aX+cKqBJvBoHE55K5LdLPD24p+gAmYAX+ks=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=M3NUTWQuni9Lw6wKfgwXjb7q2MqOncMCX79yg7TUN3rFtNkMd9qc72HIjsXil3lkk1FqPiiDa0wgS6vQysFitdt8uWGU4DI+wwgg/nd8En4Oh0P+ilaAr0dyoz/I/oQieGXcrqkDPSQ7AYHRIlvMsFciyh1KSEFPSmfMkGpK694=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 68fc48247f3411f1aa26b74ffac11d73-20260714
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:49dc99e2-bc32-4451-92b9-6f185baa9866,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:d085e429446b2b9a9044084871bdeac6,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 68fc48247f3411f1aa26b74ffac11d73-20260714
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 2049219937; Tue, 14 Jul 2026 11:30:50 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	arnd@arndb.de,
+	jonas.jensen@gmail.com
+Cc: dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Guanghui Yang <3497809730@qq.com>,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] btrfs: zoned: fix missing chunk metadata reservation
-Date: Tue, 14 Jul 2026 11:29:08 +0800
-X-OQ-MSGID: <20260714032908.595-1-3497809730@qq.com>
-X-Mailer: git-send-email 2.52.0.windows.1
+Subject: [PATCH v2] dmaengine: moxart: Fix use-after-free by proper tasklet cleanup
+Date: Tue, 14 Jul 2026 11:30:46 +0800
+Message-Id: <20260714033046.673677-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-reserve_chunk_space() stores the return value of
-btrfs_zoned_activate_one_bg() in ret. The helper can return 1 after
-successfully activating a block group, but ret is later used to decide
-whether to reserve metadata for chunk tree updates.
+The moxart DMA driver has a use-after-free vulnerability:
+- vchan_init() creates tasklets that access moxart_chan memory
+- Neither probe error paths nor remove() call tasklet_kill()
+- devm_free_irq() only waits for IRQ handler, NOT tasklets
+- mdc is devm-managed and freed after probe/remove
+- Running tasklets accessing freed memory → Use-After-Free!
 
-As a result, successful activation skips btrfs_block_rsv_add() and leaves
-trans->chunk_bytes_reserved unchanged. Use a separate variable for the
-activation result so positive success does not affect the later
-reservation.
+Fix by adding moxart_dma_free_channels() helper that calls
+tasklet_kill() for each channel, and ensuring proper teardown order:
 
-Fixes: b6a98021e401 ("btrfs: zoned: activate necessary block group")
+In remove():
+- devm_free_irq() FIRST to stop the IRQ handler (implies
+  synchronize_irq(), preventing new tasklets from being scheduled)
+- moxart_dma_free_channels() to kill already-scheduled tasklets
+- Then of_dma_controller_free() and dma_async_device_unregister()
+  to safely unregister the device
+
+In probe error path:
+- moxart_dma_free_channels() to kill tasklets created by vchan_init()
+- devm_request_irq() is automatically released by devres, so no
+  explicit devm_free_irq() is needed
+
+Fixes: 5f9e685a0d46 ("dmaengine: Add MOXA ART DMA engine driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guanghui Yang <3497809730@qq.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+
 ---
- fs/btrfs/block-group.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ Change in v2:
+ - The DMA core's dma_async_device_unregister() handles all channel
+   cleanup including sysfs entries, IDA tags, and per-cpu memory, so
+   we don't call list_del() on the channel nodes.
+---
+ drivers/dma/moxart-dma.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/fs/btrfs/block-group.c b/fs/btrfs/block-group.c
-index ab76a5173272..00540b96c163 100644
---- a/fs/btrfs/block-group.c
-+++ b/fs/btrfs/block-group.c
-@@ -4532,12 +4532,14 @@ static void reserve_chunk_space(struct btrfs_trans_handle *trans,
- 		if (IS_ERR(bg)) {
- 			ret = PTR_ERR(bg);
- 		} else {
-+			int activate_ret;
-+
- 			/*
- 			 * We have a new chunk. We also need to activate it for
- 			 * zoned filesystem.
- 			 */
--			ret = btrfs_zoned_activate_one_bg(info, true);
--			if (ret < 0)
-+			activate_ret = btrfs_zoned_activate_one_bg(info, true);
-+			if (activate_ret < 0)
- 				return;
+diff --git a/drivers/dma/moxart-dma.c b/drivers/dma/moxart-dma.c
+index 442f5aa16031..a2481960e870 100644
+--- a/drivers/dma/moxart-dma.c
++++ b/drivers/dma/moxart-dma.c
+@@ -553,6 +553,21 @@ static irqreturn_t moxart_dma_interrupt(int irq, void *devid)
+ 	return IRQ_HANDLED;
+ }
  
- 			/*
-
-base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
++static void moxart_dma_free_channels(struct moxart_dmadev *mdc)
++{
++	struct moxart_chan *ch;
++	int i;
++
++	for (i = 0; i < APB_DMA_MAX_CHANNEL; i++) {
++		ch = &mdc->slave_chans[i];
++		/*
++		 * Wait for any scheduled tasklet to complete before channel
++		 * memory is freed by devres.
++		 */
++		tasklet_kill(&ch->vc.task);
++	}
++}
++
+ static int moxart_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -609,19 +624,23 @@ static int moxart_probe(struct platform_device *pdev)
+ 	ret = dma_async_device_register(&mdc->dma_slave);
+ 	if (ret) {
+ 		dev_err(dev, "dma_async_device_register failed\n");
+-		return ret;
++		goto err_dma_register;
+ 	}
+ 
+ 	ret = of_dma_controller_register(node, moxart_of_xlate, mdc);
+ 	if (ret) {
+ 		dev_err(dev, "of_dma_controller_register failed\n");
+ 		dma_async_device_unregister(&mdc->dma_slave);
+-		return ret;
++		goto err_dma_register;
+ 	}
+ 
+ 	dev_dbg(dev, "%s: IRQ=%u\n", __func__, irq);
+ 
+ 	return 0;
++
++err_dma_register:
++	moxart_dma_free_channels(mdc);
++	return ret;
+ }
+ 
+ static void moxart_remove(struct platform_device *pdev)
+@@ -630,10 +649,12 @@ static void moxart_remove(struct platform_device *pdev)
+ 
+ 	devm_free_irq(&pdev->dev, m->irq, m);
+ 
+-	dma_async_device_unregister(&m->dma_slave);
++	moxart_dma_free_channels(m);
+ 
+ 	if (pdev->dev.of_node)
+ 		of_dma_controller_free(pdev->dev.of_node);
++
++	dma_async_device_unregister(&m->dma_slave);
+ }
+ 
+ static const struct of_device_id moxart_dma_match[] = {
 -- 
-2.52.0.windows.1
+2.25.1
 
