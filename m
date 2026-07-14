@@ -1,161 +1,179 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB322737E3
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 12:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779A744683F;
+	Tue, 14 Jul 2026 12:23:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784030876; cv=none; b=FgRO4ndv3lZMAIGI8HdPgH+nsb0JPAZMlmTrfhicZhp+/UHrtJZHhpWRirSsUOb1fl6VD9fYp7ecTnItBLLV9OeiDAKBycfamw6Y9vr34x92zIdRnMUMni4l0mWLU/86rxUdfq/87zbfnn0x3KD0Pc93CCsQjGoHfJxMq/VcGYM=
+	t=1784031841; cv=none; b=ScQYlQptVeLQ8by0iw+nlAqj0rkWSL4xa8jh7eMVn/9IsbtjjBjLxWjz0MdOdhxJr6VlKIZJZDUrmX4uibaN4ymI11GBqDGnD4DUE8NM9lshZcRwbbJWUeg7wD2juwx3LCDmM5ctj9gsTBBZw4p6HO0DmPYG21abD3kwLZKPDDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784030876; c=relaxed/simple;
-	bh=OMgrFuAHO48rjnve0IC7BkW6T1cWgVV5IqCaIa4ACps=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K3eV4D3jgz43f+dJVjUjxvAtu2JJStfOLy7pWfyW+rTTKkw9pQJ88YsgywDpS3cSZw/4mJWjyuNFihCfKo9fRP8uzi7I0CA0CL9LgK9Vcm4jrSuwdNB8X+K6si6EtXhhg3sQzlX7Q6e3vsmxw+KIOSljrBwqUtEL0Bk5DM13gRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ym1S2jkQ; arc=none smtp.client-ip=209.85.210.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784031841; c=relaxed/simple;
+	bh=JAXHDQ65haSpPHSaLQiKhpO66Y7VCX6bh7SRJntNok4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=D17JTVhnxCQZP1HFh7GXARG2Kbv/q1NEoo3q+uvV3oKIaiwOAsE0hdiXO9JmBmfZwEjLcAaq6bRJayx2LQcM5btVAS2+OyBRPMdwpfGZ+2bLKS17FIN84FV53Z/qFmfRlLtKOCxcHMLHXiykNOVs8mtbD4lZs+K2EtU30uMt/Wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=HfeikRSq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fREjrIAb; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ym1S2jkQ"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e9dc546f40so562673a34.1
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 05:07:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784030874; x=1784635674; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rBtlx7iHFHOhX9UuDDBDnXkrtPmiJE4QMJttkANYWxs=;
-        b=Ym1S2jkQ3rodfkYBfpZ076IJbKQQVkMe5Kuqr6FjFVopmfSS9VRACdnAm+a/fgjFis
-         eVzx/bCmqjtZ+PiHUAbkkFGlBZqbYaaIvA6xG1XLruvJZc8i1J1F8e4Kao9o1H00s3iV
-         R1v0RaSyFmtaLJGZCczITdVJCDWLUWu5IOaCOk4BOsZTcLiCa+gYX32nF5TLtexkyJFH
-         EwWtT/up56cBmdp+kvtlpqt5i6d03i/uO6Jci9S/0d5LPHcr5vEs4zwG/VbVM7hoQREb
-         nt3TlX+M5YJZ9YThD3PTwsss2ph/hVVkkLymsSH46u3+LLFm14gJkxhYZQ1tyjgXu/xc
-         2mJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784030874; x=1784635674;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rBtlx7iHFHOhX9UuDDBDnXkrtPmiJE4QMJttkANYWxs=;
-        b=HHg75oBYcMCUfpW7JKUZEkb9s6grcJUSoY4icyByYb4HBdw1ThstRjyDQgcmjGH80g
-         YRRR5Zs8Ro26ucUywLML0Y783AAK99OzNnOs9bggHDjH3rrL5nTnLahM3bE0GdeHKNIk
-         pLCN+bw+8kNXeh1oD2yRWJ/18LrtUg8TESTsdyBYnY44mEeP5U/Pun19Ev8o7xgNI7+a
-         QJW7vp9qRn4Ll3KrPPE4Y8VJ68vyxeYRL2+y5UP2MzlxHEZ3q2+Wyxep88tPeRwzfO4A
-         /uMAboBMoK7IemOgxhHrrWzrr7c54iLa3mxwvzryMWc0ggfy8F/km7SVsOLUvZvERweT
-         V2Og==
-X-Forwarded-Encrypted: i=1; AFNElJ8hJ0qNoVX/ooEhYWwpoUiYBBGBk4zstWZmFRpj+tNU+lv8sTpkNYwCBHE3Qrw3RObdTavx/L8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxnLl1YsGCeu75V50UaiJzqOIqcJO11h9G9sJNUsB01YOMkkWUc
-	aZn8+yLNfB2jcK60vIFuz/lpirisIuPiP1qt8lX1mTN+1+kpvAXTpppS
-X-Gm-Gg: AfdE7cmHXxz0Y/4hShQZKbwadVoAKDMqcOQqeD6DqZ6r7hGm38G2vK8yf8qFnNaGJh+
-	mWCJOXbWmT7qUK91tazjpcSVgBcBLFN/6Vu0/y5t18g7cOj1URhSsXJNN3PvGyXR8Hhg2Zyk4ci
-	T7CQ5jOszUhKjYTc9DBTGJl9zN/q5kw36HNJZO5J6W2p6Ibwj2Ha9oH4t1GXK8WSPH3t5W/csja
-	83tA+BVrYcdQjuwrkiDpw0VVgZiJ/W/DV0upSRPiRWEmntPQsPaFml4kyeRO7/WKyq1/MW9KR57
-	VOhPD9yx5j2JzC+/7WjlOfhmpX0vx8kKtRs2HN83NcLIeEJ6pEco4cFxwOhj5cX0ce+Lv/DeSvx
-	DayUAC9ap0R8R0PiQhpZFuG28raILTA7mYmg1fTu34kys38S6AH2FJ27HfpIcPCnZQhZN80jZ94
-	lQ9LyrRH5U9W6kwVCilo0pfujA0A==
-X-Received: by 2002:a05:6820:1627:b0:6a1:50f8:abb5 with SMTP id 006d021491bc7-6a39bee703cmr6227343eaf.32.1784030873900;
-        Tue, 14 Jul 2026 05:07:53 -0700 (PDT)
-Received: from localhost ([74.80.182.78])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb3f2b86sm14964026a34.26.2026.07.14.05.07.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 05:07:51 -0700 (PDT)
-Date: Tue, 14 Jul 2026 15:07:46 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: "Taedcke, Christian" <christian.taedcke-oss@weidmueller.com>
-Cc: christian.taedcke@weidmueller.com, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] dmaengine: nbpfaxi: Fix setting channel irqs in
- probe()
-Message-ID: <alYmkuGtjGRvMqup@stanley.mountain>
-References: <20260703-upstreaming-nbpfaxi-v1-v3-1-24f7f9aa102f@weidmueller.com>
- <ak96OkpYvJrK1Vbt@stanley.mountain>
- <84676bd8-3815-433b-b531-2715b8e8693f@weidmueller.com>
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="HfeikRSq";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fREjrIAb"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 374987A00CF;
+	Tue, 14 Jul 2026 08:23:51 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Tue, 14 Jul 2026 08:23:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1784031831; x=
+	1784118231; bh=0g5oskdRgsUXvKNkDRa5faJ7aqOeb+0ELgNs1jz8A+Y=; b=H
+	feikRSq/NAyfMt025iRCTPpadEaUfC2Icr1aPhqdRQ7KTT8SeDEptHSw1oAfQFVn
+	KfffwSoGjaHKQFJG1SPNYfr8osmRwmuYtjtEuAj75ffoXnixJZm9Y7jnyah2LA25
+	0kh+DNPjtS5SgbNNMUHpSERBZmu9GIzS6wG3OL0RO54EGk9BgNbCskvBuNcvvkZE
+	QkxCWbY4MoVtbHUA6dAnOTnr+kL8zJPX9/eKQApEH9K8yikF5bQZQIKFLcamHXO0
+	s9kzHbI46Qle2Bi/iPhtyIr5/WtAJU2imS0yT64M6beuwvYyroFDlomGh5yMFCWl
+	tP9vR/qG27PWmf7Xv5CEA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1784031831; x=1784118231; bh=0
+	g5oskdRgsUXvKNkDRa5faJ7aqOeb+0ELgNs1jz8A+Y=; b=fREjrIAbdI17ntVKn
+	MB8by3SxPUcW3qO+KdLZmEPeeGg/KmqRBtZY2cGUwwodsgX01r2DBhm3Vggp8Xp4
+	Nx/TuVnCQ3caFCL3j/F6RJHYYtFxL7gNELaTuw2lrIgxkyOycoI8y3aAqua9BMcV
+	5In2SikhPIDHqwBClDyojalCuSbrlTXSvRF/cQOJVZ+34LZZflIShhgrgIRZWN40
+	uV/R78R6/2BAjtvJozMVj81zg3PF0uvG2/qLmbzsnufNejX5UiHYYw9nuv0Zc2G0
+	mnQmTP1NC6roq364QNHm6zVcAPm1lOiryt2rN3IiJqtgBRakt6qj912NEVZqNP2r
+	+nFBQ==
+X-ME-Sender: <xms:VipWan-T4oIkmEE6r-RYnazwK1uosYc4Fu7pVMMok0k7wdanYCJJ5w>
+    <xme:VipWaom-4uKH2gmRoBmAjhG7P5Bp4JOu4JmbwGCEjP77oKlqz-YNZ6YJcSVM8mwsN
+    7Av-nMQLiNDi5DSB4ZlSJO_54wbujBcSjxF_jTzk-N6zgHUaHY8KQ>
+X-ME-Received: <xmr:VipWatl-UvnLzBaKQMjcjXNEEI4g2vnjNayF_EaNh47KKQCMy9VjbulQXvL-MA>
+X-ME-Proxy-Cause: dmFkZTFBvxovr0fjL2SDlhw64F6oFGvIraiDu6TVCnqgYaAZRHolensvaRSdeNznP8dyQu
+    Coman3QLm+Yiv7vIU4gCaDoV3zjPLAT5xMyob2T/RAiyCRcX5nino2GdJfXAIhMAG9Vfbt
+    8DmmQq188Z2uGp2nkuYEczpQaZcUln/b+ViESl/1sRXWiXixSkmKZ86RELzVQX1c5DoIyj
+    VYLQxCZGhSirPmfYkfg5Z9MFDCczGvA5NVGnQNjEY+/Dc2Z4MeErYRkfr5HJBXVY0/+gwS
+    wMHbPHqeV/WaAxudjO5n+4mCCjxtqKMzuTd7bYDWa5SZhntkJG3EmwdwQQDclBgW6W8CDd
+    Myk1BCEsjZDtocKPq6SFh76ysa5Z+9HMjeF/GuQroKl+BKIQFyK58Hi1iBuv4PrSsdBoed
+    qUKBlvXQLkXzvgPziLsgfGTHmGmaAYjCQitkrzLMJEtaJKPypXwEldF3t7zIQu4Y1iJZYP
+    8JdHx+ZsougTMMNwOza4whUv7GUcGNzNVeniMjQ2nZ9bV7QR6oLgFbrAdUOB3q2DJGK6ko
+    zjyFXvlBDUY3Dzjs61NkrSzXWUrHB86X9Z7AAS4GNjT7SNVwPl59/T1j+4ANijkQkYvFDr
+    dHPg2tBOQ5IC/khlzTXlr1HzV0jz38hy2O+EhVl5dFQ+G65hq3VRfujqMbdQ
+X-ME-Proxy: <xmx:VipWaktHJkAeUtY-3ehPTHEiwmneLsjIQotS6AjWgmhehaovG-lL3g>
+    <xmx:VipWavKjkYAgFgpOkSsTVPy1W9BeDBe7-Ya_Ni_bBcKY_s7fghEVJg>
+    <xmx:VipWahgk2ekyQF3e_pOaqup5HSWggwV5e-FDz82enjE4dFc1_wJxFQ>
+    <xmx:VipWajunbTktYq9IirahUkKY51FmLr8wyUmpYNbdz6VzleU4DCVw3A>
+    <xmx:VypWaugA_oyUVVqDplVi0s1VjO-1ZohE-PREermaSY2lbZedakUOpWiU>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 14 Jul 2026 08:23:50 -0400 (EDT)
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Nico Pache <npache@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Hao Zhang <zhanghao1@kylinos.cn>,
+	Hao Zhang <hao_zhang_kdev@163.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/5] mm/memory-failure: keep the folio, not the poisoned subpage, locked across split
+Date: Tue, 14 Jul 2026 13:23:40 +0100
+Message-ID: <20260714122344.351895-2-kirill@shutemov.name>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260714122344.351895-1-kirill@shutemov.name>
+References: <20260714122344.351895-1-kirill@shutemov.name>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <84676bd8-3815-433b-b531-2715b8e8693f@weidmueller.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 14, 2026 at 01:58:53PM +0200, Taedcke, Christian wrote:
-> 
-> 
-> On 7/9/2026 12:38 PM, Dan Carpenter wrote:
-> > On Fri, Jul 03, 2026 at 09:56:12AM +0200, Christian Taedcke via B4 Relay wrote:
-> >> From: Christian Taedcke <christian.taedcke@weidmueller.com>
-> >>
-> >> When one irq is used for errors and each channel gets a dedicated irq,
-> >> the total number of irqs is num_channels + 1. If the error irq is not
-> >> the last entry in irqbuf[] but an earlier one, the loop assigning
-> >> per-channel irqs terminates one iteration too early and the last
-> >> channel is left without an irq.
-> >>
-> >> Iterate over all collected irqs instead of num_channels so the
-> >> error-irq skip does not shorten the effective channel count.
-> >>
-> >> Fixes: 188c6ba1dd92 ("dmaengine: nbpfaxi: Fix memory corruption in probe()")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Christian Taedcke <christian.taedcke@weidmueller.com>
-> >> ---
-> >> Changes in v3:
-> >> - Guard against out-of-bound writes to chan in case of an invalid eirq.
-> >> - Link to v2: https://patch.msgid.link/20260702-upstreaming-nbpfaxi-v1-v2-1-e6d6b178a278@weidmueller.com
-> >>
-> >> Changes in v2:
-> >> - Advance chan only when assigning a real irq to fix out-of-bounds
-> >>   memory access.
-> >> - Remove now redundant ARRAY_SIZE(irqbuf) check.
-> >> - Link to v1: https://patch.msgid.link/20260702-upstreaming-nbpfaxi-v1-v1-1-fd8ea8830cea@weidmueller.com
-> >>
-> >> To: christian.taedcke-oss@weidmueller.com
-> >> To: Vinod Koul <vkoul@kernel.org>
-> >> To: Frank Li <Frank.Li@kernel.org>
-> >> To: Dan Carpenter <error27@gmail.com>
-> >> Cc: dmaengine@vger.kernel.org
-> >> Cc: linux-kernel@vger.kernel.org
-> >> ---
-> >>  drivers/dma/nbpfaxi.c | 8 ++++----
-> >>  1 file changed, 4 insertions(+), 4 deletions(-)
-> >>
-> >> diff --git a/drivers/dma/nbpfaxi.c b/drivers/dma/nbpfaxi.c
-> >> index 05d7321629cc..b1f06f0bd0d5 100644
-> >> --- a/drivers/dma/nbpfaxi.c
-> >> +++ b/drivers/dma/nbpfaxi.c
-> >> @@ -1374,14 +1374,14 @@ static int nbpf_probe(struct platform_device *pdev)
-> >>  		if (irqs == num_channels + 1) {
-> >>  			struct nbpf_channel *chan;
-> >>  
-> >> -			for (i = 0, chan = nbpf->chan; i < num_channels;
-> >> -			     i++, chan++) {
-> >> +			for (i = 0, chan = nbpf->chan; i < irqs; i++) {
-> >>  				/* Skip the error IRQ */
-> >>  				if (irqbuf[i] == eirq)
-> >> -					i++;
-> >> -				if (i >= ARRAY_SIZE(irqbuf))
-> >> +					continue;
-> >> +				if (chan >= nbpf->chan + num_channels)
-> > 
-> > Prefer my check, but sure...
-> 
-> I tested changing the condition back to check for i. But after a few different approaches, i think the check in v3 (chan >= nbpf->chan + num_channels) is more robust.
-> 
-> It handles the following cases well:
-> 1. eirq is the last entry in irqbuf[]
-> 2. eirq is not in irqbuf[] (which is not expected)
-> 
-> This check also makes it clear that the write destination is verified.
-> 
-> -> i would prefer to keep the v3 patch as is.
-> 
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-Ah, yeah.  You're right.  v3 is good.
+try_to_split_thp_page() locked the poisoned page and passed it to
+split_huge_page_to_order(), which returns that very page locked to the
+caller.  For a tail page that means __folio_split() runs with @lock_at
+pointing into the middle of the folio.
 
-Reviewed-by: Dan Carpenter <error27@gmail.com>
+__folio_split() dereferences the mapping after the split completes
+(shmem_uncharge(), i_mmap_unlock_read()).  The only thing keeping the
+inode alive across that is the locked @lock_at folio: while it stays in
+the page cache, eviction cannot complete.
 
-regards,
-dan carpenter
+But a tail @lock_at can lie beyond EOF -- e.g. part of a shmem THP that
+reaches past i_size while the file is being truncated.  The split then
+drops it from the page cache yet still returns it locked, so the pin is
+gone and a racing final iput() can evict and RCU-free the inode while
+__folio_split() is still running:
+
+  BUG: KASAN: slab-use-after-free in __up_read+0x634/0x790
+   i_mmap_unlock_read include/linux/fs.h:537 [inline]
+   __folio_split+0x732/0x1640 mm/huge_memory.c:4100
+   try_to_split_thp_page+0xab/0x390 mm/memory-failure.c:1675
+   memory_failure+0x1394/0x26e0 mm/memory-failure.c:2470
+
+  Freed by task 4601:
+   shmem_free_in_core_inode+0x54/0xb0 mm/shmem.c:5177
+   evict+0x57f/0xac0 fs/inode.c:870
+
+Split the folio as a folio, via split_folio_to_order(), so the head is
+the anchor left locked.  The head is piece 0, which the beyond-EOF drop
+loop never removes (it starts at folio_next(folio)), so the split always
+leaves it in the page cache and the inode stays pinned for the whole of
+__folio_split().  memory_failure() and soft offline re-lock the poisoned
+subpage's folio themselves after the split, so they do not depend on it
+being returned locked.
+
+Reported-by: Hao Zhang <zhanghao1@kylinos.cn>
+Closes: https://lore.kernel.org/linux-mm/20260710071344.GA106129@zh-pc
+Fixes: baa355fd3314 ("thp: file pages support for split_huge_page()")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+---
+ mm/memory-failure.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index 51508a55c405..68d42cbed458 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -1657,11 +1657,18 @@ static int identify_page_state(unsigned long pfn, struct page *p,
+ static int try_to_split_thp_page(struct page *page, unsigned int new_order,
+ 		bool release)
+ {
++	struct folio *folio = page_folio(page);
+ 	int ret;
+ 
+-	lock_page(page);
+-	ret = split_huge_page_to_order(page, new_order);
+-	unlock_page(page);
++	/*
++	 * Lock and split at the head, not the poisoned subpage: __folio_split()
++	 * keeps the anchor folio locked and needs it to stay in the page cache
++	 * to pin the inode. A tail beyond EOF would be dropped yet returned
++	 * locked, losing that pin. The caller re-locks @page afterwards.
++	 */
++	folio_lock(folio);
++	ret = split_folio_to_order(folio, new_order);
++	folio_unlock(folio);
+ 
+ 	if (ret && release)
+ 		put_page(page);
+-- 
+2.54.0
 
