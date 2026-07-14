@@ -1,218 +1,161 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011022.outbound.protection.outlook.com [52.101.70.22])
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56A8387585;
-	Tue, 14 Jul 2026 11:58:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784030345; cv=fail; b=mHeqU2/hg2Ah2RCwED3QAplvZcgYpAMhjJXjDvNdm/UZwY0P9tUJVeKeDdVU5VXTzWPHGWV+ZdYffqknjj2t1xUGacceq8RdZvXEyY1KxwMepCyOtj6cMvAFRLgRdi7wRv0e1knQjR0iM9lXjv+SNdkbs4QD4RUotLE8Zz/wkhI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784030345; c=relaxed/simple;
-	bh=H930La7zxkQAUYCbBdNtHWSzHrj0VQETBQaPP+kDWXg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZMmfPw2yE3sRwLMzNuHc6+S0TuaGqV9J3Vh50hqiq+3d3WR8iDFS1e1lpSktl9NdjeREWhpTZP527fuMUpFa7gcOZmpXapL6D7po2EqIPXc6FF8MXZLuac1ncbAHMgmFFdjBbxDTRyZsJgXXFuN66uWVjMAJ1gfRtuW18dmyDG0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=weidmueller.com; spf=pass smtp.mailfrom=weidmueller.com; dkim=pass (2048-bit key) header.d=weidmueller.com header.i=@weidmueller.com header.b=awlRFEYr; arc=fail smtp.client-ip=52.101.70.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=weidmueller.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weidmueller.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1823C37A83B;
+	Tue, 14 Jul 2026 12:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784030577; cv=none; b=uIoyUo+QweLPMMFEr8Npjs7IU2Q7NSSbQYA1rNBOWdmXUDrteHnlYer8VYLjs2VvmitPlWNTByKdq3Gd7w6EfhZnsm12n34U8vIdIpYAj5KKfRdoO+LNiD4GdddUkcJIoppepcJlxphqBIo/k0ttu/ByEiPQOkb3/RdRZQSOYas=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784030577; c=relaxed/simple;
+	bh=ROrMdPdO6onErXT9M+OlhhdYLJOoqWpGS0WOQwDjFBs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HazZakktlupnyaL94v49bmcspKzk5/wOp3k4N04v35mIOee+RMxVFvxzKxiqS65coTYe1SWimPhEiafe5nla+bNbHMGKahd4J9rEyw+F9V2CHWnUZh6wU+nbK/sVQIEn5Ip7YPiC37HZliwqs70oYnouRw/uB00MRDsiNcQMkxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=S25TugjO; arc=none smtp.client-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=weidmueller.com header.i=@weidmueller.com header.b="awlRFEYr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G0M07ZI+8aF8V9p1WAqZLMmxJtyEiIvE1ptCljvw+4qdP/kiC5/ibZkC3mtx2gD/rCyoal2dNSM46lEcw1EiFxaKcM8+hs+oZb9NcbyMq+9lntA5R+d0JDYlCxE7jIurBXut2OcjGoBIJ6+h2fLBFushhHrDIVMYGtiE+x9fuu9xv9J3l/Gb1s23rx1od+gYT8GR2DPK3lRwp/Hke/TWs7z8/VksHlnAykrmhv31Xoj9t6yPgOYqSZOXc2AOyTfyMpI4iGdLirHhRlFbNV1i57e2Rhb5OhO1Xxo3WaooSbHRG8TTjKdCk3iQ1Yu+GTskBwjd38JmUIwo0MFRQxQioQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EybbyUKE3eZtng4vClhZoYBQ5Y5PTkqrAm10KJ3gqg0=;
- b=rB8S1ARo3IGQ1PcBg+JEivQ+vmoTk/V4nAp261zj1SzV8KH0P/RevtXHvges91fgsYKl9oS9E4At0irbSiSgP7hWzsL53e0hHsV6CCkFvlFDKFEk18nbcs0QltMpKYDHV8MuBNIXIrFz/eKChz/bS27VhFPho4dzT9Phnv9I1d/kssInoLEtPluoBjmEwo/3BuZGYewpehTknjXM2TEZzrycua4rKYdTbtHM1z1OKZ2YgY5IoTZqSI2Dp1zOpQ064rh0+ldku5ixMvnGepPrCrUAXn28iDiWh65CeN6brTkZjVJHMWyh0LiravrRe37s5g4B2gRkzHdSjy7I3TBDlA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=weidmueller.com; dmarc=pass action=none
- header.from=weidmueller.com; dkim=pass header.d=weidmueller.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=weidmueller.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EybbyUKE3eZtng4vClhZoYBQ5Y5PTkqrAm10KJ3gqg0=;
- b=awlRFEYr3m3D3XWAopKxoexm1vnyhdOD4rGOLlJTP8Mn6xMU9AmqCDzM4+R038Ukt7SnuKQSswvD/wapxwK4fWwHEvjtQX9al6CJLxPjMmrs7FA6G/SGXPaNPLI+dAl8l7UJSpWqIJEwK/UlbIfgWlWz5bJx37mFt1x+//0eZZie4ik5Hyo37l1g3jhhmSzhYiNV8PeTl7VraYee5P69j6OuPEI61t8IWRNQr2ItEWJCIh2gOi18Ykx4B+ftS7I8vYdnjmb5Rg5yGmHy7iBdNf3nChNViLKKYqxZfm3cBynHNuK94eeGqgBszX1M0Lv446LWq12oQkPe9OiIXi4EmA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=weidmueller.com;
-Received: from AS2PR08MB9199.eurprd08.prod.outlook.com (2603:10a6:20b:578::22)
- by GV1PR08MB10421.eurprd08.prod.outlook.com (2603:10a6:150:16b::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.9; Tue, 14 Jul
- 2026 11:58:54 +0000
-Received: from AS2PR08MB9199.eurprd08.prod.outlook.com
- ([fe80::5022:16e9:45e4:f778]) by AS2PR08MB9199.eurprd08.prod.outlook.com
- ([fe80::5022:16e9:45e4:f778%2]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
- 11:58:54 +0000
-Message-ID: <84676bd8-3815-433b-b531-2715b8e8693f@weidmueller.com>
-Date: Tue, 14 Jul 2026 13:58:53 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] dmaengine: nbpfaxi: Fix setting channel irqs in
- probe()
-To: Dan Carpenter <error27@gmail.com>, christian.taedcke@weidmueller.com
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260703-upstreaming-nbpfaxi-v1-v3-1-24f7f9aa102f@weidmueller.com>
- <ak96OkpYvJrK1Vbt@stanley.mountain>
-From: "Taedcke, Christian" <christian.taedcke-oss@weidmueller.com>
-In-Reply-To: <ak96OkpYvJrK1Vbt@stanley.mountain>
-Content-Type: text/plain; charset=UTF-8
-X-ClientProxiedBy: FR0P281CA0069.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::22) To AS2PR08MB9199.eurprd08.prod.outlook.com
- (2603:10a6:20b:578::22)
+	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="S25TugjO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1784030576; x=1815566576;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Xg7sx8Fcwnz35cM6X5s89ftjr56njrrKRxrcpCwNiT8=;
+  b=S25TugjOgABs8xxtDueQjYFK8MMWr7GZ8FNGFf1Ljhg9JBNvAeXxPprV
+   O4Bsu8ggFsGfsBIJrewQrNqS07g45zegrvVlYZJjVncR5dp7xjv+V3ylN
+   E9M1xAcL1ANTV7qpJomsUXRbO8sbK1nxkupgYk4bpGgtKEuPrJUjdaYU7
+   ty01/vGZZ+oOMuuiAwDF5Ob4R2DrHZgZEu5VGmvqWgw4Cf8Y+uegOowaX
+   285DDdkQXArAlVPzPvr5sEYJWu+D5tX/Y+6L3WTs8z0/sGlM7PMlQtfYS
+   8SbnwhKnQop+rZoxmjXXC4buSQh7zrQZj5pfgy6jKb4xylppws3AQ9Q4C
+   w==;
+X-CSE-ConnectionGUID: BBEVK6/MRkyicl38cs1lxQ==
+X-CSE-MsgGUID: 4tRkKufeQB+DvyJnPm7R1g==
+X-IronPort-AV: E=Sophos;i="6.25,163,1779148800"; 
+   d="scan'208";a="23659306"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 12:02:52 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:17218]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.51.175:2525] with esmtp (Farcaster)
+ id ac228d5a-c9a9-439a-935a-e5fef6abf6b4; Tue, 14 Jul 2026 12:02:52 +0000 (UTC)
+X-Farcaster-Flow-ID: ac228d5a-c9a9-439a-935a-e5fef6abf6b4
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Tue, 14 Jul 2026 12:02:52 +0000
+Received: from cdd-al23.dub2.corp.amazon.com (10.253.66.177) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
+ Tue, 14 Jul 2026 12:02:48 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <hannes@cmpxchg.org>, <willy@infradead.org>
+CC: <abuehaze@amazon.com>, <akpm@linux-foundation.org>, <alisaidi@amazon.com>,
+	<blakgeof@amazon.com>, <brauner@kernel.org>, <dgc@kernel.org>,
+	<dipietro.salvatore@gmail.com>, <dipiets@amazon.it>, <djwong@kernel.org>,
+	<hch@infradead.org>, <jackmanb@google.com>, <linux-fsdevel@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
+	<stable@vger.kernel.org>, <surenb@google.com>, <vbabka@kernel.org>,
+	<vbabka@suse.cz>, <ziy@nvidia.com>
+Subject: Re: [PATCH v3] mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+Date: Tue, 14 Jul 2026 12:02:04 +0000
+Message-ID: <20260714120204.542300-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <alEz4Chf7Ibyg-ZG@casper.infradead.org>
+References: <alEz4Chf7Ibyg-ZG@casper.infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR08MB9199:EE_|GV1PR08MB10421:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b59648e-ab5a-4a18-4ae2-08dee19f470c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|18002099003|22082099003|4143699003|56012099006|11063799006|6133799003|4133799003;
-X-Microsoft-Antispam-Message-Info:
-	J7Xt0CjWyEmIJtM2PNR/iKr3ThpuwOY5YDn+Zs0p+vcLq6kzpkrOnvcL+wCcPvpN64MrFPo9xVGNeoFOaOrOZ5T3XgaO1CDUEOF/2TMr+mKPKC56wfEY/ktqSrLDjEK5c79mz5/wdYoatyQ+xs0XzmDiw1YIkergSn16IeD3urLEprRrQ7tV1JG+HN+xd+wncGqP5j7YaInFhiDNrwRyWUgo4yWbdSWGXcFNN9yyiXuiO1zBA+34GD7AM0kzHWPGXZ6+K+Vr63Kzr+qMZ1ST7H1Hy+Zbf4wAMt+mXLKE3XZcKtMvpEexsLd7m683vmFOzIhxV8Z5v+meLMJcGC8yaESkJ8V1ACPOB9HSjxccZRsokXteCf4QDgWm83jjVABy0IIO1haWVZVJ3ZC7dB7c2JuyJNtqe/o86wVkFqx7Si2JbBf/68s+XnFvcYtMZv5Ic7VFm7otBxMPGvDmhrzFHF4unelseosAzUfABakMpLc0GRGwj42d+Uka8h48ecXF0vH0ex4d9fC73AdwYVeFutIwpba8DVsoQF9NM8S5JRqTVk48jQrLwOxXyETOCcty7UO3GnQrKFBdGqXAJDJYQXwwZsMf4/lGtwO3OJRA4nEcQcRor702JyRgLnUgobs7
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR08MB9199.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(6133799003)(4133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dUdqYmtNQzNZSTQwZ2RDZG1VQm9SS0ZCQjcvVWFZM0ovQ1JxQ0gzZlliWnd6?=
- =?utf-8?B?amZvMEJ1QU1ZdFBmYU8zZGV5ZHpoZ1lidUZRZzJqRlNzQ0xReEZpbko5Tnlv?=
- =?utf-8?B?Vmg4NVFDTFhBNS9XNVZOUFNEWXVtaHlWV3BBUHp0TWpsMVB2bzBTVzc4ZUFh?=
- =?utf-8?B?SzR3SjB3VzVKSTVia1JOd09lRFZuc01JamhhSmMxWGpHUFRyYWJWUlRqazJh?=
- =?utf-8?B?M2dTL0RacUg3ZExLdTY5QmNibkR4dk1BTHF3N1ZhMHZnOXBDUWlsRlArOFZu?=
- =?utf-8?B?bGM0SDB4aXpmTHE3Z0VUNzVTUXV2SGREMGJZNldyUjhuOWltRitnck81V3Bv?=
- =?utf-8?B?L2VGc3YvbEx3Q3lFQXZmQTZ2ZlpzS3lnTnBpS3I3bjhiYU4rcFF5ZjdhWldH?=
- =?utf-8?B?QXlqdldDYTNDTzVFY3J3c0NLUm8wbTlBNFdCVmVMUzdHbGFvRWxsVzVuamxT?=
- =?utf-8?B?S1QwSEJ3WUpTamJHbG1BS3VnZ256RkptVWRhQzVXZVJlTTlpMEFOMkhqY2xP?=
- =?utf-8?B?RWh6Ny9JMTlselZYSTVXWVhoVHUyUVpFZGt2UDFmYlBtTTcvQnAyVXhKMS9T?=
- =?utf-8?B?OG9tVDFRdnBSS3NQSjBXd1JBMnZWNVlJNVNmL0tSNWhkSU94Y1l4TkYwSTZM?=
- =?utf-8?B?NDgrYkEyb1JtaWFPNXIyVXUydmwyZXltdjBxeFk5SCtONzd0NE4zcVd2VzlE?=
- =?utf-8?B?TTBUOTJsSUFsNFBlaWNDWlIydXFnRG5OcEN2RXZwSEVrdFhRK3liVTBCSC9C?=
- =?utf-8?B?L1pVNUlHRlJuTHV5Vm1sa1FYdjlhQUtRdDljNVIwNlM5ZDNHSXZqNEs0MklV?=
- =?utf-8?B?V2hWUU1jZ21LeVBlelBNVVVqR09ZTEl1dXRJNlBBSHh0Z1Evem1uK2RxZXJT?=
- =?utf-8?B?RjdPZ2pnT2VQNTNyTGMrMjJBNUhwSGt5cndSVVUyWEY0S2NMQnlYNCs3azVy?=
- =?utf-8?B?d0NKdU41aHFrMCtlSjBEdE1Odm1lNWJzaXVMMlp1K1VVYm1TR3JRU1VRQWR0?=
- =?utf-8?B?Y3BVL09SbCs5M0dpdjJFOXJibGswK3BJdklvdU9FNDJCL2hGb0ZVdThabzdB?=
- =?utf-8?B?c3VCNTdRNnFzZTJRWVVQQzBKSWhHWVgveVBhY2ZMQUt1dW4yOE9zUVNNbGc4?=
- =?utf-8?B?RWJTREpMb0VPaFJMR0xPVXhJL0pPL1B3UTdGY3BIZjJWUWNqdC8vc3c1MzFt?=
- =?utf-8?B?UWJ3SnNzUVFZaTdLVE9jUzVTc3RxclZyeXdYZzk1VjdjalU4U3VoYWdjTUlL?=
- =?utf-8?B?ZnJHL3EzRHNWNitqMGFFejlydWlXa2VzL0FLYmNHVkFrS0htb0ZPaU5FeEth?=
- =?utf-8?B?cERMSVZrZ2gvY2pON0xiMmxtSUU2YUYyMmVGL05IdXlUN29OOWRRMk9EZjlk?=
- =?utf-8?B?SDBGUU5VVFRPdHdYRVJOWlBmYm9KQ2tEbDZrbmRxRVFabmJsQ1h4SDVxNG5r?=
- =?utf-8?B?TUJOQmNuSk96cUFONnJ4QnZnaktiMzhWNW5UTW8yczBwVkZiSHlTellaZERK?=
- =?utf-8?B?WEZOaDhWYlczQWs3aEdXbTVxR2F1VmpWdjhmcUFtaGMyZHRQUGhqMUlIWEFt?=
- =?utf-8?B?SUQ0Y3ZhV2pKVDkwOEFlTkl5QTl5WkJTUkp2ZkxsdFdFQ1krYmZ2bzVZNndP?=
- =?utf-8?B?QVN4U0JralFTYm1HS1ZxQjhyazZrejl3U1VKQVhhWkQyTVJ0aGFQQW4rOEtU?=
- =?utf-8?B?cm95WnQ1SjZCL0VOaCt6R0NZV2E0cmdpQXFJbDZkd0tLMjlKSUhHa3J1RWlH?=
- =?utf-8?B?Mm5hVnhLNnJjckY4Q3BLVlI1RmIxdVArN1JuTzFlcGI0dWpuWHhwY1FRR2hR?=
- =?utf-8?B?NFVyK21pMHhCQVVQMkVQVzZQWklvT2FYWXA4Y2VBczNuSXB0Y29vblJWNVdj?=
- =?utf-8?B?eHJhOHprR0ExOSsyWHJocFlOb2Y2ZGxsOHpFRHhHcFNiTXJyOE5BM0NYdHY2?=
- =?utf-8?B?TlhrUzR4ZndBVEZPRzZ2UlFsNlgzWnlHNHI2ZFJwVXVLdm5MSjVRNUNuU2lE?=
- =?utf-8?B?eUdMU2Njb2Z6dUFOZ2pjYlVSQmRVMDAyUGk2ZmpMUXU0bGZBaldTM1p2Zjd4?=
- =?utf-8?B?RzZzR1dxY216WjRMUkd0dFE1S2tvRlhIclR5Qlk5ZWF3YkNlN1dmYWdOaVhR?=
- =?utf-8?B?cGJveE5xL2lkN09JSEo3NTBCRTlBWkJFY3hrMk1BQit5VjJheWJvRCtteEJ4?=
- =?utf-8?B?R1dONEZrWEFodDdEWHlEQVNqcE40UjlxZVJqTzBpdER4MHg1ZSthK2l6ZURO?=
- =?utf-8?B?R29zRHMzeThpbHlrVDQyL0kzam1QWkovSEtZYVpGT2ovV3hGQm1leDcxbUU3?=
- =?utf-8?B?SHd3WTA1ZnhsalJ6bjdCMW9wbjlsNnV6N24vWVFJNDZzbE5yUWNJSjhCWnJR?=
- =?utf-8?Q?mcj6zcgXKPlPjgCfTlBckFqDhU6uoUXfqKcGy?=
-X-OriginatorOrg: weidmueller.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b59648e-ab5a-4a18-4ae2-08dee19f470c
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR08MB9199.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 11:58:54.2217
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e4289438-1c5f-4c95-a51a-ee553b8b18ec
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gYjdzQLSWUxHCmoAAb5XphWeMMSAimrSwQp5s48sj9ONd+6S3ZaEjplj0tndVXyqK2oiTqJPj5g96QmgyAUZISCJqG597nMwgUS35sx/jG59yMI4yWrYo4WhmHcg6K/I
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB10421
+X-ClientProxiedBy: EX19D041UWB003.ant.amazon.com (10.13.139.176) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+
+Hi Johannes, Matthew,
+
+Thank you both for the alternative proposals. I've tested both
+approaches on the same test environment used for v3.
+
+Results (4 runs each):
+
+  Config                   Avg TPS      % vs Baseline
+  --------------------------------------------------------
+  baseline (no patch)       70,735       -
+  Johannes' approach       156,908      +121.8%
+  Matthew's approach        70,145       -0.8% (within noise)
+
+
+Johannes' approach (clearing __GFP_DIRECT_RECLAIM early in the
+slowpath for costly __GFP_NORETRY) delivers the same ~2.2x speedup
+as v3, as expected - it prevents the entire direct reclaim and
+compaction machinery from running for these opportunistic allocations.
+
+Matthew's filemap.c approach does not help in this workload.  The
+reason is that the first allocation attempt at max order still carries
+__GFP_DIRECT_RECLAIM and enters the slowpath with direct compaction
+enabled.  The __GFP_DIRECT_RECLAIM clearing only takes effect for 
+subsequent lower-order attempts in the fallback loop, but the costly 
+compaction has already executed on the first try.
+
+Let me know if you have any other variant you want me to test, 
+or if I should prepare a v4 based on Johannes' suggestion.
+
+This is what I tested for Johannes' approach:
+
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index a63733dac659..6e960c969e67 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4733,10 +4733,10 @@ static inline struct page *
+ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 					struct alloc_context *ac)
+ {
+-	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+-	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+-	bool nofail = gfp_mask & __GFP_NOFAIL;
+ 	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
++	bool can_direct_reclaim;
++	bool can_compact;
++	bool nofail;
+ 	struct page *page = NULL;
+ 	unsigned int alloc_flags;
+ 	unsigned long did_some_progress;
+@@ -4751,6 +4751,20 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 	bool can_retry_reserves = true;
+ 	unsigned long alloc_start_time = jiffies;
+ 
++	/*
++	 * Costly __GFP_NORETRY allocations are opportunistic: the caller
++	 * can fall back to smaller orders.  Don't stall on direct reclaim
++	 * or compaction; clearing __GFP_DIRECT_RECLAIM makes the entire
++	 * slowpath treat this as a non-blocking request.  kswapd will wake
++	 * kcompactd as needed for background defragmentation.
++	 */
++	if (costly_order && (gfp_mask & __GFP_NORETRY))
++		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
++
++	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
++	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
++	nofail = gfp_mask & __GFP_NOFAIL;
++
+ 	if (unlikely(nofail)) {
+ 		/*
+ 		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+
+
+Thanks,
+Salvatore
 
 
 
-On 7/9/2026 12:38 PM, Dan Carpenter wrote:
-> On Fri, Jul 03, 2026 at 09:56:12AM +0200, Christian Taedcke via B4 Relay wrote:
->> From: Christian Taedcke <christian.taedcke@weidmueller.com>
->>
->> When one irq is used for errors and each channel gets a dedicated irq,
->> the total number of irqs is num_channels + 1. If the error irq is not
->> the last entry in irqbuf[] but an earlier one, the loop assigning
->> per-channel irqs terminates one iteration too early and the last
->> channel is left without an irq.
->>
->> Iterate over all collected irqs instead of num_channels so the
->> error-irq skip does not shorten the effective channel count.
->>
->> Fixes: 188c6ba1dd92 ("dmaengine: nbpfaxi: Fix memory corruption in probe()")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Christian Taedcke <christian.taedcke@weidmueller.com>
->> ---
->> Changes in v3:
->> - Guard against out-of-bound writes to chan in case of an invalid eirq.
->> - Link to v2: https://patch.msgid.link/20260702-upstreaming-nbpfaxi-v1-v2-1-e6d6b178a278@weidmueller.com
->>
->> Changes in v2:
->> - Advance chan only when assigning a real irq to fix out-of-bounds
->>   memory access.
->> - Remove now redundant ARRAY_SIZE(irqbuf) check.
->> - Link to v1: https://patch.msgid.link/20260702-upstreaming-nbpfaxi-v1-v1-1-fd8ea8830cea@weidmueller.com
->>
->> To: christian.taedcke-oss@weidmueller.com
->> To: Vinod Koul <vkoul@kernel.org>
->> To: Frank Li <Frank.Li@kernel.org>
->> To: Dan Carpenter <error27@gmail.com>
->> Cc: dmaengine@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> ---
->>  drivers/dma/nbpfaxi.c | 8 ++++----
->>  1 file changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/dma/nbpfaxi.c b/drivers/dma/nbpfaxi.c
->> index 05d7321629cc..b1f06f0bd0d5 100644
->> --- a/drivers/dma/nbpfaxi.c
->> +++ b/drivers/dma/nbpfaxi.c
->> @@ -1374,14 +1374,14 @@ static int nbpf_probe(struct platform_device *pdev)
->>  		if (irqs == num_channels + 1) {
->>  			struct nbpf_channel *chan;
->>  
->> -			for (i = 0, chan = nbpf->chan; i < num_channels;
->> -			     i++, chan++) {
->> +			for (i = 0, chan = nbpf->chan; i < irqs; i++) {
->>  				/* Skip the error IRQ */
->>  				if (irqbuf[i] == eirq)
->> -					i++;
->> -				if (i >= ARRAY_SIZE(irqbuf))
->> +					continue;
->> +				if (chan >= nbpf->chan + num_channels)
-> 
-> Prefer my check, but sure...
 
-I tested changing the condition back to check for i. But after a few different approaches, i think the check in v3 (chan >= nbpf->chan + num_channels) is more robust.
 
-It handles the following cases well:
-1. eirq is the last entry in irqbuf[]
-2. eirq is not in irqbuf[] (which is not expected)
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
 
-This check also makes it clear that the write destination is verified.
 
--> i would prefer to keep the v3 patch as is.
-
-> 
-> It's pretty annoying that sashiko bot doesn't CC the CC list.
-> 
-> regards,
-> dan carpenter
-> 
->>  					return -EINVAL;
->>  				chan->irq = irqbuf[i];
->> +				chan++;
->>  			}
->>  		} else {
->>  			/* 2 IRQs and more than one channel */
-> 
-
-Regards,
-Christian
 
