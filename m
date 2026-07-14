@@ -1,160 +1,199 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85CEC3EEAD2
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 09:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC92918DB2A
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 09:39:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784021847; cv=none; b=sBHspDW9wxmIhZ1AGRwmdX3hV46zR/0ukKRZ5dazh0xvyvvmR4zEgBUd/ByR+p7JSHa1nmFJDKZWirgjonrWgdd0lu+Iw6+9WpXKUyAdV86EWFO215tMPESAtm/bTVHeAMgCs93+aHgch2QGfqNPhtvQk7NVdqEasjXsJDtEzVk=
+	t=1784021953; cv=none; b=IGAssQyWaeB/5asd/Y2WVSVfFiHL4XjZ/iXX2kSy8TCoee5nxcJKTcgHYV+kJtHVAwCJDYuOewh+Q8ddvXvd18vNJVlyNOomaGnOrsOfYv5RCMel7tK1vxscXhqAga6ehEujE4nOwJ6pjdM5NIappVC7/69sWSrLOwAQlVQB1Js=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784021847; c=relaxed/simple;
-	bh=jLwqC21xb7zoZVvgedRMLOS2jDIp3UeUNShVHI/8WFQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RG/Fw0JCQEW8uOl3fHfhtbXat/vXBgnG8ob7pZ0UcjRYkLFna2Kq+p86UxGgXsHMgoeee7AbZQpbA5CRLe4Zj3gaoJxsHPLspcH48eVQEwRDLgyAotqmRxvIw+fmYIo6yff+rLpmX85rCF8b3hcMHeLmpgXsSGMIqEb8e+NGY+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MQoqCBfA; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1784021953; c=relaxed/simple;
+	bh=mfnEbSScsujRwoxasSxyWdhvlmzfSWWEe+mMVO63fwg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=V4do5q5y3c4LhyDXmiqiEhRnNlZVU4XmeHIpnvPxmxGhi5iEKMwHQtTjVB60AwOOu8pE02cos6U7aO3VxR/fBT0gJDkYbPDB0mUx+CdT1e8F2Dyc+ej9fSSesdZP/kqEhH2Bddoa0bMe8EevPvSIKimw2xWWYBQJOMAAKp/5Ck0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ajw33idr; arc=none smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MQoqCBfA"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8DD9B2F;
-	Tue, 14 Jul 2026 02:37:20 -0700 (PDT)
-Received: from [10.1.34.162] (e121487-lin.cambridge.arm.com [10.1.34.162])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0C6163F93E;
-	Tue, 14 Jul 2026 02:37:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1784021844; bh=jLwqC21xb7zoZVvgedRMLOS2jDIp3UeUNShVHI/8WFQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MQoqCBfAv/eWGkJQmLgUxzmAwK9FyI08a0gMRrPdYjV19f/XBQ1QSuGFIniiMoHr9
-	 MlpnLG9GMapGMmANEKd6YVgwmxYdfoxSNzUxZuuqpKmZ9NofhE7Elp6Ro2Tccy+8AD
-	 Sh9YdqmC/93JBtv/NQqrYe6qKpa/VMHtj5yVNgFE=
-Message-ID: <8157087e-74e9-47bc-ad57-c2641a58acc8@arm.com>
-Date: Tue, 14 Jul 2026 10:37:21 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ajw33idr"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-51c0cea8883so6572401cf.1
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 02:39:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784021950; x=1784626750; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wL+dQXVVG1jrwdjXyQWY9fUn4W24MWcB/WCkDuLFzik=;
+        b=Ajw33idrKx2wBknLRObepsEF2PyiQ5p/GpEFEudsDvoqMAiujy5gWefUB/St074/X5
+         9rF0RzZy2qCl3dlktddBqoI0e0kSXOPtrEVLuaNQef+p48ZMm+Xm3MFN+bnzsZcrbUXu
+         EQFPC2uE5kotDPwJOmjPM3ieuaHpW198N9d4YM+59/JgRBVtShihMyMq033aMDBAX/0a
+         pFobB7xmEetSo2Eb6iUkfLMkXyzF4tSCejdJXhEWGqvVGpLhXcqwZstXvhIJcIRelAK8
+         9kdVdYq0aa/QQNX1Bw2fI+rcTbnf/WenW30eRlQcqgPJWvhDeTS2cniXfepkKsj4U8EY
+         G0+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784021950; x=1784626750;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wL+dQXVVG1jrwdjXyQWY9fUn4W24MWcB/WCkDuLFzik=;
+        b=HRZ5G/bXS7LeY7otUAIgx937tOWEyDsgq6apa4EANk8ybLDh172DmejjWnAObRmTPs
+         IUdBaW7bPVman3XPrgJE3po1dk2YXpQroIEOjhc6kOjZLsdlKrJnjEo/7mS7g4h3QTOI
+         zUetN91YeLovWJCIHJHML5JZ5nwLc88E3P8KO1TgPk1uDOOxHFYUoNN2V5VhNPXx35ju
+         z81nF9abVqa0QThu8NP/k2sHXrCvpl8QRxXgOwtTdWBCWwTXa4iXdk9Vud0/mDEbDRIq
+         0zFcublqrK6sz0NZhKSoIslzIRilNVTlkbdvCkJQ+RsxBc/zJJLmDgbHub31BKBv1eyT
+         5RHA==
+X-Forwarded-Encrypted: i=1; AHgh+RpS387BH8p8wM/g0onmNOziXVAo7N7sVGJ3Lna4o06Q2bMUnF7SgMgocVZ+C42myti+saSRQVc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxfpil5oINdKuPWLpNYVWyUmToUAaFy7xXjrVRwU2cXz/RpkFv0
+	TiBiQ528J0iD37WSg38IDzFZ+p7+M2iI1qCxsKzS6KebaYgrZrdgBpSC
+X-Gm-Gg: AfdE7cnVSCBhiMWyY2PRjRgKa2oZHr4yHyzi/0rAt5o9C4h5XC3F8/lHQTs3pYBZN+i
+	0K1v0SsrCxwqAckKMbtsRaWF4vqsSX/lyASSh9SiE7LoezbXc1GSSuvYViaFDLPSLxRUciK+Mod
+	mcRJAlKEsHy4cugRnqlqVgFehNGFs4bbXuiv9uebPFzp/53CCWrCVVm+KOnm3gIA9GS2Fj+fhY1
+	Weaf+pYGT3XCBGFNjJY46bmhApYLEcvnRlEQlMTpk9rlI5lwZH829JYdtYGeQJR3fBGBvMPg4BX
+	ZMUdldnEZHBUIvCMJ8FD0Hzmqbm88v7eWb5Fhl3U+my2sajeReYJqnZtedpISBoveDQ52lynx+2
+	Js0yh5LBF3lPGzewDrWJytDGgNW6SSmIJsT5Q2yAM+UwYX6SFpDxUHR4R1NTP2JdsZ1dnNjjWVF
+	lPk8cV9LVP7E6a16CrbRhtwesyTcLnMNCZixAKLKPIIlZWXbqNlLdWDvIy2abod9u4zmram31b
+X-Received: by 2002:a05:622a:1e07:b0:51c:4f35:81b8 with SMTP id d75a77b69052e-51cbf73e524mr120889981cf.7.1784021949680;
+        Tue, 14 Jul 2026 02:39:09 -0700 (PDT)
+Received: from localhost.localdomain ([202.8.105.115])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caacf2a75sm111460511cf.13.2026.07.14.02.39.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 02:39:09 -0700 (PDT)
+From: Sun Jian <sun.jian.kdev@gmail.com>
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Shung-Hsi Yu <shung-hsi.yu@suse.com>,
+	Matt Mullins <mmullins@mmlx.us>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Sun Jian <sun.jian.kdev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH bpf v5 1/2] bpf: Reject negative const offsets for buffer pointers
+Date: Tue, 14 Jul 2026 02:38:45 -0700
+Message-ID: <20260714093846.18159-2-sun.jian.kdev@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260714093846.18159-1-sun.jian.kdev@gmail.com>
+References: <20260714093846.18159-1-sun.jian.kdev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 03/36] arm64: hibernate: mask DAIF before restoring
- hibernated kernel
-To: Jinjie Ruan <ruanjinjie@huawei.com>, linux-arm-kernel@lists.infradead.org
-Cc: mark.rutland@arm.com, maz@kernel.org, will@kernel.org,
- catalin.marinas@arm.com, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
- stable@vger.kernel.org
-References: <20260709121333.23507-1-vladimir.murzin@arm.com>
- <20260709121333.23507-4-vladimir.murzin@arm.com>
- <a88a1ce6-f2e0-44ff-9713-57a94c78c24e@huawei.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <a88a1ce6-f2e0-44ff-9713-57a94c78c24e@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/10/26 04:28, Jinjie Ruan wrote:
->> @@ -465,9 +466,21 @@ int __nocfi swsusp_arch_resume(void)
->>  	if (el2_reset_needed())
->>  		__hyp_set_vectors(el2_vectors);
->>  
->> +	/*
->> +	 * It is necessary to mask all DAIF exceptions here as:
->> +	 *
->> +	 * - The copy of swsusp_arch_suspend_exit() in the hibernation
->> +	 *   text cannot handle taking any exceptions.
->> +	 *
->> +	 * - The suspended kernel masked all DAIF exceptions in
->> +	 *   swsusp_arch_resume(), and expects to be re-entered in the
->> +	 *   same state : with all DAIF exceptions masked.
->> +	 */
->> +	flags = local_daif_save();
->>  	hibernate_exit(virt_to_phys(tmp_pg_dir), resume_hdr.ttbr1_el1,
->>  		       resume_hdr.reenter_kernel, restore_pblist,
->>  		       resume_hdr.__hyp_stub_vectors, virt_to_phys(zero_page));
->> +	local_daif_restore(flags);
-> I believe that the local_daif_save() here is also unnecessary because
-> hibernate_exit() returns from the "return 0 branch" of
-> __cpu_suspend_enter() in swsusp_arch_suspend(), and before that,
-> local_daif_save() has already been called to mask all exceptions.
-> 
-> swsusp_arch_suspend(void)
->     -> flags = local_daif_save();
->     -> if (__cpu_suspend_enter(&state)) {
->            ...
->         } else {                // _cpu_resume <- hibernate_exit()
-> 
->            ...
->            in_suspend = 0;
->            ...
->         }
->      -> local_daif_restore(flags);
+The verifier rejects variable offsets for PTR_TO_TP_BUFFER and PTR_TO_BUF
+accesses, but it currently accepts a constant negative offset produced by
+pointer arithmetic.
 
-I'm not sure I follow, we are protecting path
+Commit 022ac0750883 ("bpf: use reg->var_off instead of reg->off for
+pointers") moved constant pointer offsets from reg->off to reg->var_off.
+However, __check_buffer_access() continued to check only the instruction
+offset. An access with reg->var_off equal to -8 and an instruction offset
+of zero therefore passes verification.
 
-...
-load_image_and_restore()
-  -> hibernation_restore()
-     -> resume_target_kernel()
-        -> local_irq_disable()
-        -> swsusp_arch_resume()
-	  -> swsusp_arch_suspend_exit (aka hibernate_exit())
-	     -> ...
+For writable raw tracepoints, the access end is also calculated from the
+unsigned reg->var_off.value. An eight-byte access starting at -8 wraps
+the calculated end to zero, allowing the program to load and attach
+without increasing max_tp_access.
 
+After ensuring that reg->var_off is constant, calculate the effective
+access start using signed arithmetic and reject it when it is negative.
+Use the validated start to calculate the access end for both
+PTR_TO_TP_BUFFER and PTR_TO_BUF.
 
-issue can be easily observed with debug diff bellow applied on top of the
-series
+Fixes: 022ac0750883 ("bpf: use reg->var_off instead of reg->off for pointers")
+Acked-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+Cc: stable@vger.kernel.org # 5.2.0
+Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
+---
+ kernel/bpf/verifier.c | 31 +++++++++++++++++++------------
+ 1 file changed, 19 insertions(+), 12 deletions(-)
 
-diff --git a/arch/arm64/kernel/hibernate.c b/arch/arm64/kernel/hibernate.c
-index 4dd40593f736..709f5f4c420a 100644
---- a/arch/arm64/kernel/hibernate.c
-+++ b/arch/arm64/kernel/hibernate.c
-@@ -476,6 +476,7 @@ int __nocfi swsusp_arch_resume(void)
-         *   swsusp_arch_resume(), and expects to be re-entered in the
-         *   same state : with all DAIF exceptions masked.
-         */
-+       arm64_debug_exc_context(CRITICAL_CONTEXT);
-        flags = local_all_irqs_save_mask(CRITICAL_CONTEXT);
-        hibernate_exit(virt_to_phys(tmp_pg_dir), resume_hdr.ttbr1_el1,
-                       resume_hdr.reenter_kernel, restore_pblist,
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 6515d4d3c003..9f1333676365 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -5326,14 +5326,11 @@ static int check_max_stack_depth(struct bpf_verifier_env *env)
+ static int __check_buffer_access(struct bpf_verifier_env *env,
+ 				 const char *buf_info,
+ 				 const struct bpf_reg_state *reg,
+-				 argno_t argno, int off, int size)
++				 argno_t argno, int off, int size,
++				 u32 *access_end)
+ {
+-	if (off < 0) {
+-		verbose(env,
+-			"%s invalid %s buffer access: off=%d, size=%d\n",
+-			reg_arg_name(env, argno), buf_info, off, size);
+-		return -EACCES;
+-	}
++	s64 start;
++
+ 	if (!tnum_is_const(reg->var_off)) {
+ 		char tn_buf[48];
+ 
+@@ -5344,6 +5341,15 @@ static int __check_buffer_access(struct bpf_verifier_env *env,
+ 		return -EACCES;
+ 	}
+ 
++	start = (s64)reg->var_off.value + off;
++	if (start < 0) {
++		verbose(env,
++			"%s invalid negative %s buffer offset: off=%d, var_off=%lld\n",
++			reg_arg_name(env, argno), buf_info, off, (s64)reg->var_off.value);
++		return -EACCES;
++	}
++
++	*access_end = start + size;
+ 	return 0;
+ }
+ 
+@@ -5351,14 +5357,14 @@ static int check_tp_buffer_access(struct bpf_verifier_env *env,
+ 				  const struct bpf_reg_state *reg,
+ 				  argno_t argno, int off, int size)
+ {
++	u32 access_end;
+ 	int err;
+ 
+-	err = __check_buffer_access(env, "tracepoint", reg, argno, off, size);
++	err = __check_buffer_access(env, "tracepoint", reg, argno, off, size, &access_end);
+ 	if (err)
+ 		return err;
+ 
+-	env->prog->aux->max_tp_access = max(reg->var_off.value + off + size,
+-					    env->prog->aux->max_tp_access);
++	env->prog->aux->max_tp_access = max(access_end, env->prog->aux->max_tp_access);
+ 
+ 	return 0;
+ }
+@@ -5370,13 +5376,14 @@ static int check_buffer_access(struct bpf_verifier_env *env,
+ 			       u32 *max_access)
+ {
+ 	const char *buf_info = type_is_rdonly_mem(reg->type) ? "rdonly" : "rdwr";
++	u32 access_end;
+ 	int err;
+ 
+-	err = __check_buffer_access(env, buf_info, reg, argno, off, size);
++	err = __check_buffer_access(env, buf_info, reg, argno, off, size, &access_end);
+ 	if (err)
+ 		return err;
+ 
+-	*max_access = max(reg->var_off.value + off + size, *max_access);
++	*max_access = max(access_end, *max_access);
+ 
+ 	return 0;
+ }
+-- 
+2.43.0
 
-That would generate warning when run on qemu
-
- ------------[ cut here ]------------
- Unexpected DAIF+ALLINT: 0xc0 + 0x0 (expected 0x3c0 + 0x2000)
- WARNING: ./arch/arm64/include/asm/interrupts/common_flags.h:175 at swsusp_arch_resume+0x2d0/0x32c, CPU#0: sh/100
- Modules linked in:
- CPU: 0 UID: 0 PID: 100 Comm: sh Not tainted 7.2.0-rc2-00041-gc07d2a0843b2-dirty #288 PREEMPTLAZY 
- Hardware name: linux,dummy-virt (DT)
- pstate: 614000c5 (nZCv daIF -ALLINT +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
- pc : swsusp_arch_resume+0x2d0/0x32c
- lr : swsusp_arch_resume+0x2d0/0x32c
- sp : ffff800081adba80
- x29: ffff800081adbad0 x28: fff00000024ff000 x27: 0000000000000000
- x26: 0000000000000000 x25: 0000000000000000 x24: ffff8000815cd000
- x23: ffff8000815b4000 x22: ffff8000815c28d8 x21: ffff8000815c2000
- x20: fff000000a839000 x19: 0000000000000000 x18: 0000000000000006
- x17: 0000000000000000 x16: 0000000000000000 x15: ffff800081adb64f
- x14: ffff800081adb470 x13: ffff800101adb647 x12: 000000648200003c
- x11: ffff8000815cd8e8 x10: 0000000000000161 x9 : ffff8000815cd8e8
- x8 : 0000000000000162 x7 : ffff8000816258e8 x6 : ffff8000816258e8
- x5 : 3fffffffffffefff x4 : bffffffffffff000 x3 : 0000000000000000
- x2 : 0000000000000000 x1 : 0000000000000000 x0 : fff00000024ff000
- Call trace:
-  swsusp_arch_resume+0x2d0/0x32c (P)
-  hibernation_restore+0xe0/0x1a4
-  load_image_and_restore+0x60/0xb0
-  hibernate+0x228/0x374
-  state_store+0xe8/0xf4
-  kobj_attr_store+0x18/0x34
-  sysfs_kf_write+0x5c/0x78
-  kernfs_fop_write_iter+0x130/0x200
-  vfs_write+0x20c/0x380
-  ksys_write+0x70/0x110
-  __arm64_sys_write+0x1c/0x28
-  invoke_syscall.constprop.0+0x58/0x100
-  do_el0_svc+0x40/0xc0
-  el0_svc+0x200/0xa0c
-  el0t_64_sync_handler+0x110/0x20c
-  el0t_64_sync+0x1ac/0x1b0
- ---[ end trace 0000000000000000 ]---
-
-Cheers
-Vladimir
