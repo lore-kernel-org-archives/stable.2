@@ -1,74 +1,54 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2840632E6BD;
-	Tue, 14 Jul 2026 17:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784051711; cv=none; b=fvcESFXABTqdSpzsuvmyTW83NLtabJfhV9hpDbPqYx3F3AXSoHCp5IybfiMY6ua9Ahl5+2n7jCE7e2JE9Sph6WygEZCtNz8TQVlomuREkMPsKlupaYjf10fR7zEeFpRDZI2fNTEfGAO6ySXV2P3MK7lWJ+ubOOzytH3kt7utfvw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784051711; c=relaxed/simple;
-	bh=eXxusvPDsCMKnWZFOcZEx2BZROpUi8qlen4XprQ8wno=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EcOftLVujQWKcElB/bD1wv2/cYXb42hjRUQVA1MuVaWUajtkZxWjEEhh1cRJ9kO3BP274jGBb6zWXzP2zZqBll5fBxJe8g3jC8sDsazyx7pi743aw56OIG72QGx7PS6FKttkV6iwU4UxYRo88wfb1S+IzgGBhO12bVehr89dcNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hecl8GT3; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF86D31F9A5;
+	Tue, 14 Jul 2026 17:55:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784051760; cv=pass; b=VjyR4t2lOs4c5vW/5uVOI/unpab4BoVcU2fxliBOtved19RAQEbUnBE7Is/uVCfP1SOZfWvBb65upAyoMPhRGOs7XIY7DW+nckjfjldzNiLXZKeYBzfOnYC9cFW0jlqJ0c8lJsktwo5gQKYq9bjDLh6Z7zWyYynB/KAyDHtZT4k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784051760; c=relaxed/simple;
+	bh=UKHWOInKSsgi2KnXFv6r2uAUaaENakFTx8b1t/icyB8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bR6m70Hx+mpxgl571D3hme/X0qFzBD/jKhNHdsD6MMzAoPrBYqoVNgMdhXP3d9of/wx7T0P5YNUbakeRuF/5CHm6mWcCBngda542v73CKv3znKQVBe11P/UntBKu900kPPc3slGZgQayjSqKsXwelZ0VOMtauQJj4L3ce/IHUCU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=U7i8uHMt; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hecl8GT3"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66EGC0Zj1725692;
-	Tue, 14 Jul 2026 17:54:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=LFybZzeITUOP25+o2cmJqHBpXtAGSmITfUto8DJFk
-	e8=; b=hecl8GT3cmtWyg91MSsWDXE6NwPGR6mXof7IffY/Plax1echuHVuMjprQ
-	2OmNw07GdyVUbS4pzknF969oe/9muJcZD7gPUfpX8iJzewfdGVZNSCNykoZrFDou
-	PcptczGNhdPUwYc89WJX9+G9BfTb7N0ePdr6PkaVZEQKSe/27BbBDpgTz3zZj9LJ
-	0jCyTB6q+6P9ENyVEbdg3qYQC2pd+vclcrjp0xU6h+jX8tW97BzdSI111EuYUPhx
-	fCyveogTQ5HcVcUYSf9Kzu0+3x669ZF0OYNl8nfP6ckix6u4SFRNl34F11WBuU8t
-	L1T3Il+oTYO55OhB8mUIcxIeVswCg==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fbf2a725m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 14 Jul 2026 17:54:52 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66EHnZWZ029296;
-	Tue, 14 Jul 2026 17:54:51 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fc2uy3qd2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 14 Jul 2026 17:54:51 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66EHslOP53084530
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 14 Jul 2026 17:54:47 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9400D20040;
-	Tue, 14 Jul 2026 17:54:47 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 901FE20043;
-	Tue, 14 Jul 2026 17:54:43 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.124.218.195])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 14 Jul 2026 17:54:43 +0000 (GMT)
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
-        Vaibhav Jain <vaibhav@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Anushree Mathur <anushree.mathur@linux.ibm.com>,
-        Gautam Menghani <gautam@linux.ibm.com>,
-        Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Thomas Huth <thuth@redhat.com>, kvm@vger.kernel.org,
-        stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5] KVM: PPC: Book3S HV: Validate arch_compat against host compatibility mode
-Date: Tue, 14 Jul 2026 23:24:32 +0530
-Message-ID: <20260714175432.86388-1-amachhiw@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="U7i8uHMt"
+ARC-Seal: i=1; a=rsa-sha256; t=1784051738; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=iBC7IYvHgUUt9j5S8rgYEyE3tQtFi2o3LhqdohwcoYQYyJUKyHUzd4vs67R5ft9u9uHaxNA51Oo9fys4uynq2sQLybVtzT2Qb5rYWvI1LbXoshjSyPmJhkXHyJ0YnelI82KLa5hzuMnzKbobnzLD5WhoXWSd6SK/cUqEJDmM4/0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1784051738; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7c5Xad8g61Krd55wOajNNUO+WnWE/38nsWdUUFA6FDE=; 
+	b=PuJXl9wGAk9Hp2CL5VuDMvgTWaI9c1ZmID099k5SAdExfm2G9K+eJIbnhvcP8ChOnA4Fgmk/+AeO1+mIMnPWDAyZfVj2ZAaexktqYPQYF9ibJ1KLnqHw25kIjfXHrqLH4qDJCSlb4FkkP4FDEgKdvUGPOj7IHbsVtf+2xAnAHRA=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784051738;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=7c5Xad8g61Krd55wOajNNUO+WnWE/38nsWdUUFA6FDE=;
+	b=U7i8uHMtJmsfeUkbVVdpxd0XsnYyow97V1FltXS8O21YlR69OVjLxUCVosE7t1UB
+	D7xWblPyuto2neNhF3JjicaScbT7XCmQNFQA74K6ZnTM5cPvljfqaoBirHEkezqTGgm
+	7MOX39aklSC0NBhh3JVj3+qL2fqqfSVotZE2814c=
+Received: by mx.zoho.eu with SMTPS id 1784051735409811.3930799086238;
+	Tue, 14 Jul 2026 19:55:35 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: cem@kernel.org,
+	djwong@kernel.org,
+	linux-xfs@vger.kernel.org
+Cc: bfoster@redhat.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v4] xfs: bounds-check buffer log item's dirty bitmap
+Date: Tue, 14 Jul 2026 19:55:32 +0200
+Message-ID: <20260714175532.74257-1-security@auditcode.ai>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260714172730.73160-1-security@auditcode.ai>
+References: <20260714172730.73160-1-security@auditcode.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,229 +56,185 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDE4MyBTYWx0ZWRfX1RjrIYX1qU+e
- gTGjK3xjG89AfaMwiVVX4NpUBdfDRwsJEMOyJot2RZysLR90ZSrFslu3vYUpZTAz9CtAufI3Yz2
- JQKPHQSYqRwKGBaCq37YR0oW53HsuSQ=
-X-Proofpoint-GUID: lGEopBmkUNErqpT_2Notwg3gCspzMrZ4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDE4MyBTYWx0ZWRfXyjfVmmHmu8eK
- +S28NHWb8Ms/kifuxdIxssZb2nGpZMVqbd3q/j5cElD7c4Jde62VYmEglxSQ0f4+FqYN2wjj4/6
- frQa+v06Cgld57eWXRg8EHQZTDW/2NjegEGEA9cwPSsH2kHHSgvglKLcqgaLYjSgCIllagwZ9xr
- exCsOnGjV9fVS/mRNgNV+VxjMAR278Z9ChtCeKqCx+ta7NiRLeIu3vAjhKL8aAzMh2dWkBSqkzv
- ByHuHvPKT1XlR3OWISlobxiRUk1ZPtLCv26XaZPnIcOr0a879R6PTnZ0N1fofn5s9EUgVpLlXXr
- 8uYm+14RhvyS+Hs8vbGNacppcp4JbcDvKRNgmsPtvPfRpfq946bQptI86ySy2l2L7jFrpbtY3o4
- zNwMM6CXCe6XPXU8+Voce6EDQSgTdRB0iFLlzcQYBLew71CrvX78FoWGuZGDKx0ER06z+wssqsw
- YlPkPXmsrkqAADOOVDg==
-X-Proofpoint-ORIG-GUID: 8HWXmtpBoW1TgEgTUa9JVA3K6G6OH88R
-X-Authority-Analysis: v=2.4 cv=PvajqQM3 c=1 sm=1 tr=0 ts=6a5677ec cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=VnNF1IyMAAAA:8
- a=pGLkceISAAAA:8 a=wmCt_sBD4itdXaQGqCMA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-14_04,2026-07-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0
- clxscore=1015 lowpriorityscore=0 spamscore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140183
+X-ZohoMailClient: External
 
-On IBM POWER systems, newer processor generations can operate in
-compatibility modes corresponding to earlier generations. This becomes
-relevant for nested virtualization, where nested KVM guests may need to
-run with a specific processor compatibility level.
+xlog_recover_do_reg_buffer() replays each dirty region described by a
+buffer log item's bitmap into the buffer read for that item:
 
-Currently, when running a nested KVM guest (L2) inside a Power11 pSeries
-logical partition (L1) booted in Power10 compatibility mode, the guest
-fails to boot while setting 'arch_compat'. This happens because the CPU
-class is derived from the hardware PVR (via mfspr()), which reflects the
-physical processor generation (Power11), rather than the effective
-compatibility mode (Power10).
+	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
+		item->ri_buf[i].iov_base,
+		nbits << XFS_BLF_SHIFT);
 
-As a result, userspace may request a Power11 arch_compat for the L2
-guest. However, the L1 partition, running in Power10 compatibility, has
-only negotiated support up to Power10 with the Power Hypervisor (L0).
-When H_GUEST_SET_STATE is invoked with a Power11 Logical PVR, the
-hypervisor rejects the request, leading to a late guest boot failure:
+The destination offset (bit/nbits, from the logged dirty bitmap) and the
+buffer size (from the logged blf_len) are both attacker-controlled and
+otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
+which compiles away on production kernels. A crafted image logging a
+small blf_len together with a bitmap bit past the end of that buffer
+drives the memcpy() past the buffer's allocation, corrupting adjacent
+kernel heap during mount-time log recovery. This is reachable by anyone
+who can get a crafted image mounted -- the malicious-filesystem threat
+model XFS already guards against elsewhere.
 
-  KVM-NESTEDv2: couldn't set guest wide elements
-  [..KVM reg dump..]
+Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
+of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
+idiom already used in xlog_recover_do_inode_buffer() and
+xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
+STATIC int and its three callers propagate the error.
 
-This situation should be detected earlier and rejected by KVM. Without
-proper validation, if userspace ignores the error, the guest may continue
-to boot in Power11 raw mode on a Power10 compatibility host, which should
-not be allowed.
+Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
+image trips a slab-out-of-bounds write before this change and fails
+recovery cleanly with -EFSCORRUPTED after it.
 
-Introduce a validation mechanism that detects unsupported arch_compat
-values early in the guest initialization path. When an unsupported
-arch_compat is requested (e.g., Power11 on a Power10 compatibility mode
-host), kvmppc_set_arch_compat() uses cpu_has_feature(CPU_FTR_P11_PVR) to
-detect the mismatch and sets arch_compat to PVR_ARCH_INVALID (0xffffffff).
-This sentinel value is architecturally safe: PAPR specifies that valid
-logical PVR values must have 0x0f as the first byte, ensuring 0xffffffff
-lies permanently outside the specification-defined range. Setting this
-value triggers kvmppc_sanity_check() to mark the vCPU as invalid by
-setting vcpu->arch.sane to false. On the next vCPU run, kvmppc_vcpu_run_hv()
-checks this flag and returns -EINVAL, preventing the guest from running
-with an invalid processor compatibility configuration.
-
-With this, when a Power11 arch_compat is requested on a Power10
-compatibility mode host, the guest fails early during boot with:
-
-  error: kvm run failed Invalid argument
-
-This provides a much clearer failure mode compared to the previous
-behavior where the guest could boot in Power11 raw mode (if userspace
-ignored the error) or fail late during H_GUEST_SET_STATE.
-
-Suggested-by: Vaibhav Jain <vaibhav@linux.ibm.com>
-Reviewed-by: Vaibhav Jain <vaibhav@linux.ibm.com>
-Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
-Acked-by: Gautam Menghani <gautam@linux.ibm.com>
-Cc: stable@vger.kernel.org # v6.13+
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
 ---
-Testing: Both Anushree and I have tested the below scenarios:
-1. P11 guest on P11 host - Works
-2. P10 compat guest on P11 host - Works
-3. P11 guest on compat-P10 host - Correctly fails with "Invalid argument"
-4. P10 guest on compat-P10 host - Works
+v4: fold xlog_recover_do_dquot_buffer()'s bool return and error
+    out-parameter into a single int return (1 if dirty, 0 if clean, or a
+    negative errno on failure), per Darrick's review. No behavioural
+    change.
+v3: trim the changelog per Brian Foster's review. Add a Fixes: tag --
+    the destination-bounds check has been an ASSERT since the initial git
+    import (2.6.12-rc2), so it predates the git era.
+v2: resend; v1 went out with an empty Subject line due to a local
+    git send-email glitch (leading blank line in the patch file).
 
-Changes in v5:
-* Guarded the new vcpu->arch.vcore->arch_compat check in
-  kvmppc_sanity_check() with #if defined(CONFIG_KVM_BOOK3S_HV_POSSIBLE)
-  to fix a build failure in randconfig builds where CONFIG_PPC_BOOK3S is
-  not set and struct kvmppc_vcore is not fully defined [Reported by
-  kernel test robot]
-* Report: https://lore.kernel.org/all/202607142107.CrgQhmsx-lkp@intel.com/
-* v4: https://lore.kernel.org/all/20260616163405.96962-1-amachhiw@linux.ibm.com/
+ fs/xfs/xfs_buf_item_recover.c | 56 ++++++++++++++++++++++++++++-------------
+ 1 file changed, 40 insertions(+), 16 deletions(-)
 
-Changes in v4:
-* Added documentation for PVR_ARCH_INVALID explaining why 0xffffffff is
-  architecturally safe to use as a sentinel value (PAPR constraint on
-  first byte being 0x0f) [Ritesh]
-* Updated commit message
-* v3: https://lore.kernel.org/all/20260609053327.61563-1-amachhiw@linux.ibm.com/
-
-Changes in v3:
-* Fixed null pointer dereference in kvmppc_sanity_check(): added check for
-  vcpu->arch.vcore before accessing arch_compat, as vcore is NULL for Book3S
-  PR and BookE guests (only Book3S HV uses vcore) [Reported by Sashiko AI]
-* Added Reviewed-by tag from Vaibhav
-* v2: https://lore.kernel.org/all/20260608201001.65760-1-amachhiw@linux.ibm.com/
-
-Changes in v2:
-* Fixed issue where v1 allowed guest to boot in Power11 raw mode when
-  userspace ignored the error, by adding validation in kvmppc_sanity_check()
-  to ensure early failure during vCPU run [Found the issue after posting v1,
-  also reported by Gautam.]
-* Introduced PVR_ARCH_INVALID constant for marking invalid arch_compat
-* Dropped all Reviewed-by and Tested-by tags due to code changes; requesting
-  fresh reviews
-* v1: https://lore.kernel.org/all/20260603141539.47620-1-amachhiw@linux.ibm.com/
-
-Changes in v1:
-* Moved this patch out of the v3 series [1] as discussed here [2]
-* Addressed below review comments from Ritesh:
-  - Based the PVR validation on cpu features
-  - Fixed hcall name typo
-  - Stable backport
-
-[1] https://lore.kernel.org/all/20260522152744.55251-1-amachhiw@linux.ibm.com/
-[2] https://lore.kernel.org/all/20260522152744.55251-2-amachhiw@linux.ibm.com/
----
- arch/powerpc/include/asm/reg.h | 12 ++++++++++++
- arch/powerpc/kvm/book3s_hv.c   | 15 ++++++++++++++-
- arch/powerpc/kvm/powerpc.c     |  6 ++++++
- 3 files changed, 32 insertions(+), 1 deletion(-)
-
-diff --git a/arch/powerpc/include/asm/reg.h b/arch/powerpc/include/asm/reg.h
-index 3449dd2b577d..b9ab9df1e2bc 100644
---- a/arch/powerpc/include/asm/reg.h
-+++ b/arch/powerpc/include/asm/reg.h
-@@ -1357,6 +1357,18 @@
- #define PVR_ARCH_31	0x0f000006
- #define PVR_ARCH_31_P11	0x0f000007
+diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+index 02b95b89d1b5..cf2b07ebc6f3 100644
+--- a/fs/xfs/xfs_buf_item_recover.c
++++ b/fs/xfs/xfs_buf_item_recover.c
+@@ -461,7 +461,7 @@ xlog_recover_validate_buf_type(
+  * given buffer.  The bitmap in the buf log format structure indicates
+  * where to place the logged data.
+  */
+-STATIC void
++STATIC int
+ xlog_recover_do_reg_buffer(
+ 	struct xfs_mount		*mp,
+ 	struct xlog_recover_item	*item,
+@@ -489,8 +489,24 @@ xlog_recover_do_reg_buffer(
+ 		ASSERT(nbits > 0);
+ 		ASSERT(item->ri_buf[i].iov_base != NULL);
+ 		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
+-		ASSERT(BBTOB(bp->b_length) >=
+-		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
++		/*
++		 * The bitmap is only trustworthy to the extent that it
++		 * describes a region that actually fits inside the buffer we
++		 * read in based on the (attacker-controlled) blf_len.  Do not
++		 * rely on an ASSERT() for this -- it compiles away entirely on
++		 * non-DEBUG kernels, which is exactly where this matters, so
++		 * validate it for real and abort recovery of this buffer rather
++		 * than copying past the end of it.
++		 */
++		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
++				((uint)bit << XFS_BLF_SHIFT) +
++				(nbits << XFS_BLF_SHIFT))) {
++			xfs_alert(mp,
++	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
++				bit, nbits, BBTOB(bp->b_length),
++				xfs_buf_daddr(bp));
++			return -EFSCORRUPTED;
++		}
  
-+/*
-+ * Kernel-internal sentinel for invalid processor compatibility modes.
-+ * PAPR specifies that the first byte of a valid logical PVR value is
-+ * 0x0f. So 0xffffffff lies permanently outside the PAPR-defined range
-+ * and is safe to repurpose. KVM stores it in vcpu->arch.arch_compat
-+ * when userspace requests an unsupported compatibility mode (e.g.,
-+ * Power11 PVR on a Power11 host booted in Power10 compat).
-+ * kvmppc_sanity_check() detects this and prevents the vCPU from
-+ * running with an unsupported arch_compat.
-+ */
-+#define PVR_ARCH_INVALID	0xffffffff
-+
- /* Macros for setting and retrieving special purpose registers */
- #ifndef __ASSEMBLER__
+ 		/*
+ 		 * The dirty regions logged in the buffer, even though
+@@ -544,6 +560,7 @@ xlog_recover_do_reg_buffer(
+ 	ASSERT(i == item->ri_total);
  
-diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-index 61dbeea317f3..f9380ef65750 100644
---- a/arch/powerpc/kvm/book3s_hv.c
-+++ b/arch/powerpc/kvm/book3s_hv.c
-@@ -446,7 +446,19 @@ static int kvmppc_set_arch_compat(struct kvm_vcpu *vcpu, u32 arch_compat)
- 			guest_pcr_bit = PCR_ARCH_300;
- 			break;
- 		case PVR_ARCH_31:
-+			guest_pcr_bit = PCR_ARCH_31;
-+			break;
- 		case PVR_ARCH_31_P11:
-+			/*
-+			 * Need to check this for ISA 3.1, as Power10 and
-+			 * Power11 share the same PCR. For any subsequent ISA
-+			 * versions, this will be taken care of by the guest vs
-+			 * host PCR comparison below.
-+			 */
-+			if (!cpu_has_feature(CPU_FTR_P11_PVR)) {
-+				arch_compat = PVR_ARCH_INVALID;
-+				goto out;
-+			}
- 			guest_pcr_bit = PCR_ARCH_31;
- 			break;
- 		default:
-@@ -469,6 +481,7 @@ static int kvmppc_set_arch_compat(struct kvm_vcpu *vcpu, u32 arch_compat)
- 			return -EINVAL;
- 	}
- 
-+out:
- 	spin_lock(&vc->lock);
- 	vc->arch_compat = arch_compat;
- 	kvmhv_nestedv2_mark_dirty(vcpu, KVMPPC_GSID_LOGICAL_PVR);
-@@ -479,7 +492,7 @@ static int kvmppc_set_arch_compat(struct kvm_vcpu *vcpu, u32 arch_compat)
- 	vc->pcr = (host_pcr_bit - guest_pcr_bit) | PCR_MASK;
- 	spin_unlock(&vc->lock);
- 
--	return 0;
-+	return kvmppc_sanity_check(vcpu);
+ 	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
++	return 0;
  }
  
- static void kvmppc_dump_regs(struct kvm_vcpu *vcpu)
-diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
-index 00302399fc37..b6b83fe3233f 100644
---- a/arch/powerpc/kvm/powerpc.c
-+++ b/arch/powerpc/kvm/powerpc.c
-@@ -258,6 +258,12 @@ int kvmppc_sanity_check(struct kvm_vcpu *vcpu)
- 	if (!vcpu->arch.pvr)
- 		goto out;
+ /*
+@@ -552,10 +569,10 @@ xlog_recover_do_reg_buffer(
+  * (ie. USR or GRP), then just toss this buffer away; don't recover it.
+  * Else, treat it as a regular buffer and do recovery.
+  *
+- * Return false if the buffer was tossed and true if we recovered the buffer to
+- * indicate to the caller if the buffer needs writing.
++ * Return 0 if the buffer was not recovered (tossed), 1 if it was recovered and
++ * needs writing, or a negative errno if recovery of the buffer failed.
+  */
+-STATIC bool
++STATIC int
+ xlog_recover_do_dquot_buffer(
+ 	struct xfs_mount		*mp,
+ 	struct xlog			*log,
+@@ -564,6 +581,7 @@ xlog_recover_do_dquot_buffer(
+ 	struct xfs_buf_log_format	*buf_f)
+ {
+ 	uint			type;
++	int			error;
  
-+#if defined(CONFIG_KVM_BOOK3S_HV_POSSIBLE)
-+	if (vcpu->arch.vcore &&
-+	    vcpu->arch.vcore->arch_compat == PVR_ARCH_INVALID)
-+		goto out;
-+#endif
-+
- 	/* PAPR only works with book3s_64 */
- 	if ((vcpu->arch.cpu_type != KVM_CPU_3S_64) && vcpu->arch.papr_enabled)
- 		goto out;
-
-base-commit: 3b029c035b34bbc693405ddf759f0e9b920c27f1
+ 	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
+ 
+@@ -571,7 +589,7 @@ xlog_recover_do_dquot_buffer(
+ 	 * Filesystems are required to send in quota flags at mount time.
+ 	 */
+ 	if (!mp->m_qflags)
+-		return false;
++		return 0;
+ 
+ 	type = 0;
+ 	if (buf_f->blf_flags & XFS_BLF_UDQUOT_BUF)
+@@ -584,10 +602,12 @@ xlog_recover_do_dquot_buffer(
+ 	 * This type of quotas was turned off, so ignore this buffer
+ 	 */
+ 	if (log->l_quotaoffs_flag & type)
+-		return false;
++		return 0;
+ 
+-	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
+-	return true;
++	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
++	if (error)
++		return error;
++	return 1;
+ }
+ 
+ /*
+@@ -724,7 +744,9 @@ xlog_recover_do_primary_sb_buffer(
+ 	xfs_rgnumber_t			orig_rgcount = mp->m_sb.sb_rgcount;
+ 	int				error;
+ 
+-	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++	if (error)
++		return error;
+ 
+ 	if (orig_agcount == 0) {
+ 		xfs_alert(mp, "Trying to grow file system without AGs");
+@@ -1081,11 +1103,10 @@ xlog_recover_buf_commit_pass2(
+ 			goto out_release;
+ 	} else if (buf_f->blf_flags &
+ 		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
+-		bool	dirty;
+-
+-		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
+-		if (!dirty)
++		error = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
++		if (error <= 0)
+ 			goto out_release;
++		error = 0;
+ 	} else if ((xfs_blft_from_flags(buf_f) & XFS_BLFT_SB_BUF) &&
+ 			xfs_buf_daddr(bp) == 0) {
+ 		error = xlog_recover_do_primary_sb_buffer(mp, item, bp, buf_f,
+@@ -1105,7 +1126,10 @@ xlog_recover_buf_commit_pass2(
+ 			xfs_buf_relse(rtsb_bp);
+ 		}
+ 	} else {
+-		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
++						   current_lsn);
++		if (error)
++			goto out_release;
+ 	}
+ 
+ 	/*
 -- 
 2.50.1 (Apple Git-155)
-
