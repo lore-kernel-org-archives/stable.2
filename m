@@ -1,187 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB2638E8BF;
-	Tue, 14 Jul 2026 13:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF384657F5
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 13:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784034112; cv=none; b=kY0Ryw8uP9hQALwHnINm16kAG6hlwiYO8y0/2G9jWukFaFpZI/By6kNNdFXlHxcGFii1R4cptDDE5KZaFZcuJL5TV+rBjbEufFPLXzJ1fX8cQ7D4DvR5RnYea3W1ooprqCYE3cKw2Ufyrx2mgeYwltDd8v9sg/IML0SSi6jnyC0=
+	t=1784034239; cv=none; b=exU4bx6lON96GQSW4dfFJAgI663L2GribP6aFFOMGH7cYVoKC8fHdCeXyxYzJg4mi0PD9ZR7NqPMxDdUfJ6aZM1pFDInuUauIg1hiTmWZlYpowF0663F7zCuOL9sFcMPrA+8Hio7hJiX/q+REeSPhGZc89UP+aDhQ5otTlf8jnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784034112; c=relaxed/simple;
-	bh=GLMaWwLOh/ycz857H6uubMqc9SqgwrtKJG1YSD6ft38=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EnWJ3PaEu/bFylOx5HAUHMGj750BHa10p6Z2bpXzgMmXOGxbWOF89GRE/jwrYOg5zGbhEDvcgrAjtznuP1+ZwpO0banMwJr4KjVtG4IQjp4g5mNS/aEQr4QWtEklMrNl1+alyma/CSWyIT/HcY5aKms7q397GiRxay+ST9+gppQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k5c7YCIU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784034239; c=relaxed/simple;
+	bh=+9LSkEaOqHP5J+gwKCY481xJEYJYJF7buSxUcCGkD+Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yep+ErsXzXZCG4mXwDyTG6BUZLDfg8iRE4AKsG9g6tHms1Rezzm39NSQ7+f3BzvWyXy3GlyAH4HRNEH1uLmKZi9WynNyw/MVKe+KDV6khz0tE9Hzo8YdgqbL+ZrAyAPWY8eTsuQbO3qi+T5BOTSIIphkK/FogxoL4Cd9Ttj6uZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=oXNuM1us; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k5c7YCIU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD4B71F000E9;
-	Tue, 14 Jul 2026 13:01:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784034111;
-	bh=HuK4P6aqO8DESV6CHxhF1gUmZk/0pbyK+8uhsekdIXE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k5c7YCIU9HDxHlg4W4qOo0RvYVF1Yi9F2s+I6qWTMFhO7y5LTv3AAIisV2EWRK7gt
-	 G71ZbZF4BS24Cc39/TUyfVc5uhFkyz1eBRQWXthjI6/20woS6JR6HyEDDmL6x8i/2F
-	 DcSgKfv3TmJNEK5wNp/jycuq4f8CVqmXXBJZZun553j3NwhJj4KAGuhBwn1OmnwVy4
-	 VuiGlTDHXX0ZSUBi3SsBZzNo3DQL4esXhTMzEzjfqW0tCG7qN+LvbgwN6KHFDf9WHQ
-	 h/sVeewLC8mS4d+YQIElGTCBmyQUMpOqmwK0Yw7f5mOPS1Udc2KNg1QbwGQlpNOdHu
-	 5iV3J2HxCieBg==
-Message-ID: <c4aa63df-30ab-464d-bd0b-48dc37c8e6ba@kernel.org>
-Date: Tue, 14 Jul 2026 15:01:46 +0200
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="oXNuM1us"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4629051c9d1so620437f8f.2
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 06:03:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1784034232; x=1784639032; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QcF0L770TQKMQqDorbzgjGu6vJT+Lw4syVjdxxXe8x0=;
+        b=oXNuM1us0X+T1LlQf5qFfxZTFuukMAx5HuDd/w/MKIKoGVq19fqeVU3x57f0cm8Cah
+         LIhWDgLE8aH+KyAq2iKrCHVUP8hLN7eG/c9N2/X0qEMEoGTa6oaY3G9kBDghZwaXY0U5
+         fshcOKovEIbIjcshNdzTP0yfbO0Oc40zUPcLsasVvjivAQ9V4AX3BVGEEnq7+QAuNEiB
+         FNgyo7sjQHVfrgdOKSJrVLBaqjuSgJ6kq1SmD+CqD9XT7BlFIOvp1M3LYbP49chPEjvz
+         XFSIwbZmL9aDC5MqfwuleqLiHR783CX9QfW1fnOs/XLsHIiHEwyLnlGqJj9ZkGjeTaDT
+         kzQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784034232; x=1784639032;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QcF0L770TQKMQqDorbzgjGu6vJT+Lw4syVjdxxXe8x0=;
+        b=oDWJkQeAd3wzVVkHpcbX1odSV+gq3o2ye9jmnSCEFsivJfIXDVOfh9uD5eUucRimAs
+         wf1PUVuHZyQ5SxH1qyBBAOdUTwhexM5rtsD67ODtOS/UMimhHFW3TZPm2HTxUbfxrry3
+         siP3Ae4kQfqO6xABT7uwjdahARhVWFH0uGQAbWDQvxGtbMm6uaDbliEWWDO8eErXxvJN
+         IA+r0XtSx4An4Sb6CVtvy7LUI7OKycgxV9hbpJK91gjOneShnbWp8wpFRakOxK/GjG9M
+         mwX2+h3l3KKeQUdxtV7Se+deS4t72mu3uRk7lsIkrJ7T4WhsjnoxwqzHv8p6qEKPkas+
+         LaJw==
+X-Forwarded-Encrypted: i=1; AHgh+RqonQ6CMRd92nPtnAi3uDLpaWaoj6/0l2xbGKpr6TxiHl7jvxNRXbAwac+4YZ71mqAa6HNSm/0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YznQOawjFe6MBcq+GpRqz/76rmyGohhFa8uDjLNb9Pv2ZKsHaWm
+	rEdihMcYyYNaGX5bKrU1D74YRs8JtABCAc4RHtmJnI1akQ9Qw/8biM1LamKcZV5Bw8hi
+X-Gm-Gg: AfdE7cmtrj+SCAcK59H8IGywtzNp2WJphB5yTccXw+Jx+ydr0M7kdy2x6fcz9UBqLR9
+	fhUOW+S2whO7kCm3Loao2NnAKO9aVeb7rx/t8rgrmyqgiabo14tQ/PvJWBxRKBa0b0HFrwpzk4y
+	FkQX+c6i2w7dpyl9JI/qqG7cFuYl1ADSny1mpcziejf6uycZ3ttYujywDaZfdGWa996xsNXv24S
+	9usPzGRNWV5qxEiOs/S22i1mpxVpBKP0R4Xm4jyanog8gjC44losnlheVlLApk/M2OigGTwkBPH
+	GbgsGQ5hXwSJ9q8YKSzCFqwkgzasI0b5mRglRz2J0fp1Q4Pek71K03n87r9mrRNVHS6pZYvP7zg
+	3g3fKgtLmhf2p+Ws0UXAiYBIN8bERSR34oOeFzhddXjIcl6GqMIKWZ/IuW8HFeJrSN0Jq81NoQw
+	HMw2vN1te5GlI77wMSKA1rza+R9esAV48zlBuMQ83ylYZEDbS3LOAvx1ZnQBgIQPA7vCHb/Fshc
+	cuqn34O6BMSTSFifmXjIrMAsSgUGK/ZVJM=
+X-Received: by 2002:a05:600c:e54a:20b0:493:a573:179b with SMTP id 5b1f17b1804b1-493f8829b05mr88159195e9.30.1784034231418;
+        Tue, 14 Jul 2026 06:03:51 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4950a2f951asm79484005e9.14.2026.07.14.06.03.49
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 14 Jul 2026 06:03:51 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: jk@codeconstruct.com.au,
+	matt@codeconstruct.com.au,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net] mctp: serial: reject zero-length frames to prevent rx buffer overflow
+Date: Tue, 14 Jul 2026 15:03:48 +0200
+Message-ID: <20260714130348.72716-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] mm/memory-failure: keep the folio, not the
- poisoned subpage, locked across split
-To: Kiryl Shutsemau <kirill@shutemov.name>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Hao Zhang <zhanghao1@kylinos.cn>,
- Hao Zhang <hao_zhang_kdev@163.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- stable@vger.kernel.org
-References: <20260714122344.351895-1-kirill@shutemov.name>
- <20260714122344.351895-2-kirill@shutemov.name>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260714122344.351895-2-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/14/26 14:23, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> try_to_split_thp_page() locked the poisoned page and passed it to
-> split_huge_page_to_order(), which returns that very page locked to the
-> caller.  For a tail page that means __folio_split() runs with @lock_at
-> pointing into the middle of the folio.
-> 
-> __folio_split() dereferences the mapping after the split completes
-> (shmem_uncharge(), i_mmap_unlock_read()).  The only thing keeping the
-> inode alive across that is the locked @lock_at folio: while it stays in
-> the page cache, eviction cannot complete.
-> 
-> But a tail @lock_at can lie beyond EOF -- e.g. part of a shmem THP that
-> reaches past i_size while the file is being truncated.  The split then
-> drops it from the page cache yet still returns it locked, so the pin is
-> gone and a racing final iput() can evict and RCU-free the inode while
-> __folio_split() is still running:
-> 
->   BUG: KASAN: slab-use-after-free in __up_read+0x634/0x790
->    i_mmap_unlock_read include/linux/fs.h:537 [inline]
->    __folio_split+0x732/0x1640 mm/huge_memory.c:4100
->    try_to_split_thp_page+0xab/0x390 mm/memory-failure.c:1675
->    memory_failure+0x1394/0x26e0 mm/memory-failure.c:2470
-> 
->   Freed by task 4601:
->    shmem_free_in_core_inode+0x54/0xb0 mm/shmem.c:5177
->    evict+0x57f/0xac0 fs/inode.c:870
-> 
-> Split the folio as a folio, via split_folio_to_order(), so the head is
-> the anchor left locked.  The head is piece 0, which the beyond-EOF drop
-> loop never removes (it starts at folio_next(folio)), so the split always
-> leaves it in the page cache and the inode stays pinned for the whole of
-> __folio_split().  memory_failure() and soft offline re-lock the poisoned
-> subpage's folio themselves after the split, so they do not depend on it
-> being returned locked.
-> 
-> Reported-by: Hao Zhang <zhanghao1@kylinos.cn>
-> Closes: https://lore.kernel.org/linux-mm/20260710071344.GA106129@zh-pc
-> Fixes: baa355fd3314 ("thp: file pages support for split_huge_page()")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  mm/memory-failure.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> index 51508a55c405..68d42cbed458 100644
-> --- a/mm/memory-failure.c
-> +++ b/mm/memory-failure.c
-> @@ -1657,11 +1657,18 @@ static int identify_page_state(unsigned long pfn, struct page *p,
->  static int try_to_split_thp_page(struct page *page, unsigned int new_order,
->  		bool release)
->  {
-> +	struct folio *folio = page_folio(page);
->  	int ret;
->  
-> -	lock_page(page);
-> -	ret = split_huge_page_to_order(page, new_order);
-> -	unlock_page(page);
-> +	/*
-> +	 * Lock and split at the head, not the poisoned subpage: __folio_split()
-> +	 * keeps the anchor folio locked and needs it to stay in the page cache
-> +	 * to pin the inode. A tail beyond EOF would be dropped yet returned
-> +	 * locked, losing that pin. The caller re-locks @page afterwards.
-> +	 */
-> +	folio_lock(folio);
-> +	ret = split_folio_to_order(folio, new_order);
-> +	folio_unlock(folio);
+The MCTP serial receive state machine reads a frame length byte in
+mctp_serial_push_header() case 2 and validates it upper-bound-only:
 
-With a non-uniform split it would actually make a difference: we'd want to split
-such that we the other folio pages minimal.
+	if (c > MCTP_SERIAL_FRAME_MTU) {
+		dev->rxstate = STATE_ERR;
+	} else {
+		dev->rxlen = c;
+		dev->rxpos = 0;
+		dev->rxstate = STATE_DATA;
+		...
+	}
 
- split_folio_to_order() always seems to end up in
-__split_huge_page_to_list_to_order() where we do a SPLIT_TYPE_UNIFORM.
+A length of zero passes this check, so rxlen is set to 0 and the state
+machine advances to STATE_DATA. In mctp_serial_push() STATE_DATA, the
+incoming byte is stored and rxpos incremented before the terminator is
+tested:
 
-I recall discussing with Zi and Willy that in the future we'd want to convert
-more places to do a non-uniform split.
+	dev->rxbuf[dev->rxpos] = c;
+	dev->rxpos++;
+	dev->rxstate = STATE_DATA;
+	if (dev->rxpos == dev->rxlen) {
+		dev->rxpos = 0;
+		dev->rxstate = STATE_TRAILER;
+	}
 
-So I'm afraid that would just re-introduce the problem then.
+With rxlen == 0 the "rxpos == rxlen" terminator can never fire (rxpos is
+already 1 on the first data byte), so subsequent bytes are written past
+the end of the fixed 74-byte rxbuf, which is the last member of the
+netdev private area. Every following data byte is an attacker-controlled
+1-byte out-of-bounds heap write, and the overflow continues until a
+frame (0x7e) or escape byte resets the parser -- effectively unbounded.
 
+Reaching this requires CAP_NET_ADMIN to attach the N_MCTP line
+discipline and bring the resulting mctpserialN netdev up, after which
+the bytes arrive via the tty receive path.
+
+Reject a zero-length frame in the header parser, matching the existing
+upper-bound rejection.
+
+KASAN, on a frame of 0x7e 0x01 0x00 followed by data bytes:
+
+  UBSAN: array-index-out-of-bounds in drivers/net/mctp/mctp-serial.c:370
+  index 74 is out of range for type 'u8 [74]'
+  BUG: KASAN: slab-out-of-bounds in mctp_serial_tty_receive_buf
+  Write of size 1 at addr ... by task kworker/u16:0
+   mctp_serial_tty_receive_buf
+   tty_ldisc_receive_buf
+   flush_to_ldisc
+  Allocated by task 152:
+   alloc_netdev_mqs
+   mctp_serial_open
+
+Found by 0sec (https://0sec.ai).
+Fixes: a0c2ccd9b5ad ("mctp: Add MCTP-over-serial transport binding")
+Cc: stable@vger.kernel.org
+Assisted-by: 0sec
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+---
+ drivers/net/mctp/mctp-serial.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/mctp/mctp-serial.c b/drivers/net/mctp/mctp-serial.c
+index 26c9a33fd636..1e3d285c0500 100644
+--- a/drivers/net/mctp/mctp-serial.c
++++ b/drivers/net/mctp/mctp-serial.c
+@@ -313,7 +313,7 @@ static void mctp_serial_push_header(struct mctp_serial *dev, u8 c)
+ 		}
+ 		break;
+ 	case 2:
+-		if (c > MCTP_SERIAL_FRAME_MTU) {
++		if (c == 0 || c > MCTP_SERIAL_FRAME_MTU) {
+ 			dev->rxstate = STATE_ERR;
+ 		} else {
+ 			dev->rxlen = c;
 -- 
-Cheers,
+2.43.0
 
-David
