@@ -1,142 +1,128 @@
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70C14EA378
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 17:03:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530C539CCE7
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 17:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784048599; cv=none; b=jCFJVzKSaPfJhVHJ986yeXLYKFGHmtNRnRChrWvxzOLx9bLeSzNV9hiLpg8iY5No2zU4eLedSqrL7x7siWseJ9TEmaHlvK/WG5lYO1ngX4GfsboiTUl9TICDLqgQTTSkPsXRq+oRKKSsJYliaJVp6OfXH7Ya7cIQ+9XDPSLNvno=
+	t=1784048711; cv=none; b=J2kHL4uMATSOY3ofZp3TtnKGaR+n68ZGqlyyec+s2pQdq/xcYCltW9fgVOssEA9TkqGP0D44kv5DcG8AazXXdHvroWUBQk48SncPUpIJzlb+KQWJ3SNNWUThUXdFAYytbEg7olwNrx7Q0vH0hsCluEt7yPiDlm9EGTUT15k/f78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784048599; c=relaxed/simple;
-	bh=RrM+CrO/r8o7FGUOsnl8gZr1EiYzoxDBKu+JkNQEhU4=;
-	h=From:To:CC:Date:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=NVGi/ykhTfLiymWpvDKy6qsmaQKrzRlKIU4S34Teba44RqmGHtFKBmowP0rXOfiityoS2+6Z+WFcqQDUwzMukCmOZzO6M3nBKT6grg3IHDx4+4pNscTVmtYhLqB78+mulG7w4OKYztYYGUbbZjvHiP49P//Dov+pjrEeQ+la9x4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Bbr89G8C; arc=none smtp.client-ip=209.85.216.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1784048711; c=relaxed/simple;
+	bh=iK1clcL4j93nB26JCu+mo8s7xBdBdbWDurBsBejafaY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LEVwZ5Msx4gCunhcb5tYojP5gRjauEnxTzBJeiTcLkfn4BlD4pJLOX8KmL8IiDZdrAwm/QgN9FI6u3NZl7GoXp7BEfqQtOwixF+IYfbRFF29b6ewvFRNX3HUn7t3Bm+P70IINFPo18Bs34uJrwpUG2shO0t2q9Wd7h/bA+lh0SQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8hD0Weu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Bbr89G8C"
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso1149371a91.3
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 10:03:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784048597; x=1784653397;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :user-agent:references:in-reply-to:message-id:date:cc:to:from
-         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W3XaKw1mZ5safaShnh8fqMEdlQ2rL6BwLt+Z3QDeOIY=;
-        b=NlI3qpwMaB/+d7cMnbD0HN3sPp9fbm5jTlMlwbmRxxtyXaCsfQjTMtrapCwbRWMryI
-         lTPnycrA/d+BYQj5+mfT2MxEC0iCJu9PMX4DwawgPDy/H/eQo7HGEcaKGn6PAxdAfP1q
-         0LitH1O93O6bTtMTG34d2eObWtsQ6ZVT8gaHKQJ9MjN6UAuLQ4GGopX9Jif+fEob9IK0
-         JMCrlZfaGbFd1oTXiU2ZJVbKDXJYAWornQ2rM/Pgta/6otVNct+7N6aNjrbGyIx6CqJI
-         pGfXmswhKU0K8vyXwfJ+oJ9eq0IU1W5uwFeAzjBL2PWFNJGlTS4lq0at3H2puEI2cqZL
-         6qGw==
-X-Forwarded-Encrypted: i=1; AHgh+RrpE1CuFRdk11vYDQxpHYWUw5uVt9JovM/fQ0appHgX8h2yY2up3DdDiHjnBvBzktYgkmo9cl4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLptQBcUSeMPweeK7LcBgyn1AVCD93nF8bbQCPQ1yg8ATKOMaC
-	gKcQlWHzstFF743axk9npvJZzNzzesZO38+FPvdhIk/vOHyGsXoxTTVyW7A1iSkDrMRYdK9yHbO
-	BZw3lLP7PQNx0hsmqWlGnNb84QXab8IeTjf0BuuWZdCSpStL91eRdX43EORTqAOkiESy/kDJb7A
-	30n2tWXsK1bwAGwOUu4jW6E+n9Gag2fdBNCVkQdl7Rc0cZLFcro3GQYkqITwOn6DXeoXxEyrjE9
-	jxa3o8KvPUTA0TGcw==
-X-Gm-Gg: AfdE7cnDPnqlNsmkF66KjGoQICgLmMQksm6S1an94G/h1CZAnB9QZpcVFhffvWX7Uzt
-	hsvukZ5zVSlOsyd3saEdOFE4cVZfQq+cfJSPQN2/Y+C/P0p14on4lRV++ik5068/WmWA3U9H848
-	GmbX83/UxTF5H2J7c9dccLNJG8k3pcdqBdUqaBm4czDGHXRvXBudXDrI1Hh0kgh0puIFVJUojph
-	YljPhVa0aQtdijPmPB7kZjci3FyFUOrI0+AlfawBQ+93NoNi6wzrblU8n636kny6dcj2VTc/5QO
-	WIYWHBWzbeoKHSKYsSTFM+iAWgsgTOZoFvnXQN/9EdKEKQpT48BjRlYKVIZeCQmqLf7iYDONCQR
-	dk7PdzPUW4hq8E7/si8hX96jHLoGmWJ6WGjcCxBVChdCkVEkJdNVGMbEhE6USB/ZfhcCJUptOQb
-	UrUcqVW/1DjOVZaEifqBmNZdaTm3pJFWdjxfVp+st9E0jt0Wk=
-X-Received: by 2002:a17:90b:4c4e:b0:38d:84ec:b03e with SMTP id 98e67ed59e1d1-38dc73bdd34mr11771890a91.6.1784048597063;
-        Tue, 14 Jul 2026 10:03:17 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-0.dlp.protect.broadcom.com. [144.49.247.0])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-38e1749ede2sm290025a91.7.2026.07.14.10.03.16
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 14 Jul 2026 10:03:17 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c15f0aea084so248914366b.0
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 10:03:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1784048595; x=1784653395; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :user-agent:references:in-reply-to:message-id:date:cc:to:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W3XaKw1mZ5safaShnh8fqMEdlQ2rL6BwLt+Z3QDeOIY=;
-        b=Bbr89G8C/hCPo4rxLT04YCJKbw6L1G7cX+j81dRW0ObwBFoGbY2AdZNZoUG0yevACJ
-         yX3tnqdX5N0VnTnmWhITnNHEDWBuBEv1Pt4DAmU3T+H70IktJSgJ9d11DnIBYJ6qB0NO
-         eKOirIJYOP94wc7JJLGo88sQ1I0txI/yD4uCc=
-X-Forwarded-Encrypted: i=1; AHgh+RpzGz9veJieFTW6yqZKGzyApjQRYX9hxCVnsM4j0XUycFx2FlSnvigtC1uOsuZviPHKchev8HQ=@vger.kernel.org
-X-Received: by 2002:a17:907:8e11:b0:c16:5b2e:f972 with SMTP id a640c23a62f3a-c165b2eff60mr300352966b.53.1784048594393;
-        Tue, 14 Jul 2026 10:03:14 -0700 (PDT)
-X-Received: by 2002:a17:907:8e11:b0:c16:5b2e:f972 with SMTP id a640c23a62f3a-c165b2eff60mr300349566b.53.1784048593952;
-        Tue, 14 Jul 2026 10:03:13 -0700 (PDT)
-Received: from [100.98.74.8] ([109.37.130.223])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15b7561db1sm1136622566b.12.2026.07.14.10.03.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 10:03:13 -0700 (PDT)
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: LiangCheng Wang <zaq14760@gmail.com>, Gokul Sivakumar <gokulkumar.sivakumar@infineon.com>
-CC: Kalle Valo <kvalo@kernel.org>, Angus Ainslie <angus@akkea.ca>, Wig Cheng <onlywig@gmail.com>, <linux-wireless@vger.kernel.org>, <brcm80211@lists.linux.dev>, <brcm80211-dev-list.pdl@broadcom.com>, <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, <wlan-kernel-dev-list@infineon.com>
-Date: Tue, 14 Jul 2026 19:03:13 +0200
-Message-ID: <19f61952868.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com>
-In-Reply-To: <20260714022859.1849447-1-zaq14760@gmail.com>
-References: <20260713-b43752-f2-blksz-v1-1-8697fcfeaef4@gmail.com>
- <36f4388a-b856-438c-8ef4-795a7b1eda3e@broadcom.com>
- <20260714022859.1849447-1-zaq14760@gmail.com>
-User-Agent: AquaMail/1.59.0 (build: 105900627)
-Subject: Re: [PATCH] wifi: brcmfmac: set F2 blocksize to 256 for BCM43752
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8hD0Weu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4031F1F000E9;
+	Tue, 14 Jul 2026 17:05:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784048709;
+	bh=ydgxQP/oa7xEv0jlIXInXGbUm/sXAmGgSanquee8prE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D8hD0WeuYKlx36Y5L2e4bzKDjObG0iLRTHPa2FOZvUhTU0FrYNaaMeFA8sHpKtrdA
+	 KwXMMoUkns+4VYuoR2bugd6YoPO0xzv7zp3C/c+6pIm7x//ttFG6KF9/lAyy1oYnmg
+	 nrHEgYoOFkroutxdRfFu4R2P5Z7bLE1HgkOgsEeg29x7ySkRZKcr1WBFGbdMCmQh7n
+	 l8P8t2sd1a2Jckb1bsUT0sr7xbKNJEFkji9hiablV0GE32MsF55/FgOKh0keIbfOdZ
+	 ldEnwxHukjw5ov3fGqFNEoi6UovYUE1LUWbJlerABj5mz/RtRICoCh8ZBP89UjqZle
+	 hxJZmW76rCqOg==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 6FB16F4006B;
+	Tue, 14 Jul 2026 13:05:08 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Tue, 14 Jul 2026 13:05:08 -0400
+X-ME-Sender: <xms:RGxWapPXbB5dVu53Jz7RrippvtSKKiAiIJVJ5GoTsW29sf-zJC66Jw>
+    <xme:RGxWasZTnBKb9bCAmfX0IqbM8Ed5DZM-tMrieZPtZAv-_vOKsS4WlCPcFe_HzuGoR
+    4yhsz-XKh5zBAEJuk9zp0cQ9zWdMZDIdT6qwkGq6rkt24kiKrBV7A>
+X-ME-Received: <xmr:RGxWapslvvrOUkuR9AuAdM_Gt0YsL-K_n0305h3XhPWdgjEVANE4Bevhdipelw>
+X-ME-Proxy-Cause: dmFkZTFmy+VemEL8y4m/0c6SxM2MpgY/lUB50b1pGO9hizfkVYuDYx4C2dh69xVyekjjVF
+    SM16JUY7uBZ4MgywK/EicPR2jaoa2RvJU2pvEyOxthy7IxCU4yoKq5ltVWcNJlEPeG5PD/
+    La7r4WvGmHo6f+HQp9hAsZMebjDJ6UU4aeFkik8+mWeHwOszix8pf/umVHOJ3FrSeeX1Ep
+    urx2zOqpy79jM/gcgeHPLClx4ZD5PIiAPgkDFFJ8vW2YYYwEh3OSG/Ng0deBensnErFliG
+    Cx85IWH5hmqDvVZlFms+1oCUSCe2CgRWM9tg918uHCJjnaCkn6LHh0uivkwfLqo+HrrSqw
+    /vD5cDJGDYcRixMT4B1b1W/Oqoir4wrmSc04uvjG+o9qqJajA+QNDm9rCdp5WdTi7wtlWh
+    ow8/u1xCky2ml+w62/3u0/11lgO4Ch7qe+KEj+eztYk0agWgOkcNQS7AepEXJIyZ5szllJ
+    5aMvBky0fhySWBI5vvukYk5SbrPDoaQ5sIsFNbluAxKbB4KBJjwf0PeW1oKB7+nPQ/n02u
+    oCvgqRALMOOl5sngUh6rP3Q5kZHgjv48PtDGFT6kihcspAuv/N1ExURuPiLuhi4HYSCfeL
+    q//noQRZyomBaUesw2AggexEf3LHnrFQotNu2k+xS7i3QXELw3IUnA9qhV7g
+X-ME-Proxy: <xmx:RGxWaltsTtr4ZjIGeOTb2H7BlQE0FP4YCrbw4gdcPHSHCzs3YznmIg>
+    <xmx:RGxWag1RMUC3o23VL7q3yu2zQ7NeU5EL7ocwG3bKkk9QlCg4JI_YCg>
+    <xmx:RGxWaqNrWGr5C3kXNzgBHVFPBVDWKgd0N3KUDgFTF3sMfQqZ9VOE8A>
+    <xmx:RGxWat5YHEcBpFpFY44XIzGRimwMYLN9Edflpk0v-w5jXuD5GmbpCQ>
+    <xmx:RGxWapZdlcn3WvyTxZNGFMK7K0whXjTgVTcsMq0ulr4g5weXE5EZKU6t>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 14 Jul 2026 13:05:05 -0400 (EDT)
+Date: Tue, 14 Jul 2026 18:05:01 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ 	Suren Baghdasaryan <surenb@google.com>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ 	Vlastimil Babka <vbabka@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ 	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, 	Uladzislau Rezki <urezki@gmail.com>,
+ Toshi Kani <toshi.kani@hpe.com>,
+ 	Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>,
+ 	Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, 	Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ 	"H. Peter Anvin" <hpa@zytor.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ 	Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, 	David Carlier <devnexen@gmail.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 	bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
+ 	syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+Subject: Re: [PATCH mm-hotfixes v2 0/4] mm: fix UAF caused by race between
+ ptdump and vmap pgtable freeing
+Message-ID: <alZm0tBf8DpMXimM@thinkstation>
+References: <20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org>
+ <alTn7NguEW_4bodu@thinkstation>
+ <alTq4V50767L-s5H@lucifer>
+ <alUNiWcygLd4rqBo@thinkstation>
+ <178404602957.85099.8935151447302412515.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; format=flowed; charset="us-ascii"
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178404602957.85099.8935151447302412515.b4-reply@b4>
 
-Op 14 juli 2026 04:29:16 schreef LiangCheng Wang <zaq14760@gmail.com>:
+On Tue, Jul 14, 2026 at 05:20:29PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Basically you need the IRQs disabled to get the semi-RCU behaviour and to
+> be able to safely traverse page tables that way.
+> 
+> So with CONFIG_PT_RECLAIM you're safe to RCU traverse PTEs only.
 
-> Hi Arend,
->
-> On 13/07/2026 12:51, Arend van Spriel wrote:
->> Looks good to me but the stable instruction looks confusion. What do you
->> mean. If there is no 43752 support there is no need for this patch, right?
->
-> Thank you for the review, and thanks Gokul for the detailed
-> explanation - that is exactly what I meant, and sorry the annotation
-> was not clearer. To summarize: 43752 support has been present since
-> v5.15 (commit d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and
-> initialization")), under the SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752 id
-> name. Commit 74e2ef72bd4b ("wifi: brcmfmac: fix 43752 SDIO FWVID
-> incorrectly labelled as Cypress (CYW)"), which landed in v6.18,
-> renamed it to SDIO_DEVICE_ID_BROADCOM_43752.
->
-> I also have to correct myself here: the boundary in the annotation
-> should have been "<= 6.17" rather than "<= 6.16", since the rename
-> only landed in v6.18. Apologies for the extra confusion.
->
-> Gokul's suggestion of cherry-picking the rename patch together with
-> this one into the stable trees sounds cleaner to me than editing the
-> id name while backporting, so I would be glad to go with that.
->
-> If it helps, I would be happy to send a v2 with the stable annotation
-> in the prerequisite format from
-> Documentation/process/stable-kernel-rules.rst:
->
->  Cc: <stable@vger.kernel.org> # 74e2ef72bd4b: wifi: brcmfmac: fix 43752 SDIO 
->  FWVID incorrectly labelled as Cypress (CYW)
->
-> Please let me know if you would prefer that, or if the patch is fine
-> to take as is.
+I think this is stale. Since 1fb3d8c20bfa ("mm/mmu_gather: replace IPI
+with synchronize_rcu() when batch allocation fails") the !PT_RECLAIM
+fallback is a real grace period -- note your own quote of
+__tlb_remove_table_one() calls tlb_remove_table_sync_rcu(), which is
+synchronize_rcu() nowadays, not the IPI broadcast. The name invites
+the confusion.
 
-Cc: instructions to stable should stick to the stable-kernel-rules format 
-if possible. I suspect there is a bit of scripting sifting through it.
+Together with a37259732a7d ("x86/mm: Make MMU_GATHER_RCU_TABLE_FREE
+unconditional") that means every freeing path through the generic
+mmu_gather is genuine RCU, batched or not, all levels. A plain
+rcu_read_lock() walker is protected; IRQs disabled is not required.
 
-Regards,
-Arend
+> HAVE_ARCH_TLB_REMOVE_TABLE is set for powerpc, which also enables PTDUMP :)
+> and that's because it actually tracks multiple PTE page tables together as
+> a fragment.
 
-> Best regards,
-> LiangCheng
+sparc also sets it with SMP. So the audit list for custom
+tlb_remove_table() implementations is powerpc and sparc -- everything
+else gets the generic behaviour above.
 
+No disagreement on the rest: the walker needs
+ptep_get_lockless()/pmdp_get_lockless(), and the ppc kernel-side
+fragments need a look.
 
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
