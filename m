@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E9642BC4F
-	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 22:04:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E3842BC34
+	for <stable@vger.kernel.org>; Tue, 14 Jul 2026 22:04:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784066665; cv=none; b=utR5431xh5W/1zPsDwsL3J42PIW53fBh3RP+QTPU+9NEONEpk5t5rtNC13SPVzxtFMnqeJ3rTLEYO7C9W/HNPCEiOq+NTn9VEvSd1Yre/4cQexhTAo7taaMkg4O4TMsWHAlHYDZ90gkVcUuy2J8SqQXiCihHMA5Ku8tAf5oudlI=
+	t=1784066665; cv=none; b=lli5G3vLUcsfV1MsPSDO6WZnuta3h5hZ12TZTE066xqjZpg2jdxrOndS+h8C2siHNHhqf6+bTJMnxXRt/wDu+Ez8m5I+9GMtmndZbpUaNl77oDXtwF+gOCuKSp2y0PteEY8nKosRy2eAwf8EuIjoaZUfiLx69rRAQPzPhlS6VuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784066665; c=relaxed/simple;
-	bh=FhJTwoBf2lkFjvhowJqNY5L/1xcaQNKAvBl72l2DZ98=;
+	bh=qdwlIFN/WJODidDBBtB/v0QvyEHJCTfneBun7brqC2o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UI1jdXC7mbF+2TZ6/Ob6cqGC7i+tjfVLImeHEovYEnn+SIwERx84IykYLzRarK69ZhIh/xmvXG7l1GLwSMjTZsGtkJ1CXCf8J+guGM+dCAwsR06K8JjB1THkLFQS1TJwC45e9MTcz92Y5hHNWIq4bg42hXq502FuMSUcyyn60VY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dOPQWGKG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=r805z+0zZXBtB6vuZ7DTC9DArU26a5nKtO13iT5zcUdml30aQT7n3wLdc4zBVdkLt0yxzKb/7IXVjCuqthxRjCJZovjVcTWyTpYQB3/K6nM3oB+IwXNlDZp8hZuuxXp35SJTxaGcQQS7vLz4jsyh4KWVReRTEGtFlUGQfgroJ+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M9n0OKtE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dOPQWGKG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 236B01F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M9n0OKtE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D31DE1F00A3D;
 	Tue, 14 Jul 2026 22:04:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784066663;
-	bh=LIHENYiA865q9J1bX/h4oHbavmr0ZDhGqKU/MmkhRB8=;
+	s=k20260515; t=1784066664;
+	bh=qiniJsr/CkWs6bFCwA5poRO3/B7AW1H9zxpTmVnmV6c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dOPQWGKGgoKBtGzco9BMVk1YQu3f4Lmfcv2i4BcKoRpdZjifNoNNxGvMbnYCT97xT
-	 txjGDTfIOVjrUWIOB9Du+FfrEVjbBCskqG/g1bgxp5PFIUcpGY2O1prCNzLqFFaDQl
-	 Xw+UQXq0zs8Z+4L24K4lorBrVaTTCESbacdrMLhoFs485HW9aZ4YidiZxuw6u1YUGN
-	 Sy4oWFRI0vR5jMD3Uf1gvwtlpBGuTR++oYnhztsTv5p1iLBMPpzL/7h3AHeoVRGWCA
-	 ZiQiAPFEYiCjIsPMvWiULoy4oH2UtCQ6BomgMKAyIRqydOh4bdvCAICE89q6i2Zl19
-	 xQwKsVwzSErNw==
+	b=M9n0OKtEB/4vw+TsPc6zcezsSLpHVMTPKQmVBhFtQ+UpPQo9QhmVSbauGB5cwtx5N
+	 x5NdlrPeVQw589fJyfp+2WXLnQrOcx2kj8maHcM9dQofBXX6MlTO+/VphJWi7I1eri
+	 jDXYnvj8Luojh6yRUGIi3pnIMx8i1Z/dqKLrJP661RptsVFgkHtw1NShoFZzcbIKgN
+	 G7b7AwnM5DcIA1zkikaW5GdV2owIOmNYJN9MPllJFukyucEFbCGb5OIVyySP3h2+ON
+	 lfzJR0AGiWMzzEpdsFqovPsNYgzy+NhlCqdlcxU0pmf1K9JY3O1QG/ICdk006o9YOO
+	 M6PTzDVddSRfw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Simon Richter <Simon.Richter@hogyros.de>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
 	Bjorn Helgaas <bhelgaas@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/6] PCI: Use pbus_select_window() during BAR resize
-Date: Tue, 14 Jul 2026 18:04:16 -0400
-Message-ID: <20260714220421.3334071-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/6] PCI: Prevent resource tree corruption when BAR resize fails
+Date: Tue, 14 Jul 2026 18:04:17 -0400
+Message-ID: <20260714220421.3334071-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071358-dominoes-employee-70eb@gregkh>
+In-Reply-To: <20260714220421.3334071-1-sashal@kernel.org>
 References: <2026071358-dominoes-employee-70eb@gregkh>
+ <20260714220421.3334071-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,78 +51,68 @@ Content-Transfer-Encoding: 8bit
 
 From: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-[ Upstream commit 7dc58aa7f1b32a215fb0b7c6ca30ddf4663dedf4 ]
+[ Upstream commit 91c4c89db41499eea1b29c56655f79c3bae66e93 ]
 
-Prior to a BAR resize, __resource_resize_store() loops through the normal
-resources of the PCI device and releases those that match to the flags of
-the BAR to be resized. This is necessary to allow resizing also the
-upstream bridge window as only childless bridge windows can be resized.
+pbus_reassign_bridge_resources() saves bridge windows into the saved
+list before attempting to adjust resource assignments to perform a BAR
+resize operation. If resource adjustments cannot be completed fully,
+rollback is attempted by restoring the resource from the saved list.
 
-While the flags check (mostly) works (if corner cases are ignored), the
-more straightforward way is to check if the resources share the bridge
-window. Change __resource_resize_store() to do the check using
-pbus_select_window().
+The rollback, however, does not check whether the resources it restores were
+assigned by the partial resize attempt. If restore changes addresses of the
+resource, it can result in corrupting the resource tree.
 
+An example of a corrupted resource tree with overlapping addresses:
+
+  6200000000000-6203fbfffffff : pciex@620c3c0000000
+    6200000000000-6203fbff0ffff : PCI Bus 0030:01
+      6200020000000-62000207fffff : 0030:01:00.0
+      6200000000000-6203fbff0ffff : PCI Bus 0030:02
+
+A resource that are assigned into the resource tree must remain
+unchanged. Thus, release such a resource before attempting to restore
+and claim it back.
+
+For simplicity, always do the release and claim back for the resource
+even in the cases where it is restored to the same address range.
+
+Note: this fix may "break" some cases where devices "worked" because
+the resource tree corruption allowed address space double counting to
+fit more resource than what can now be assigned without double
+counting. The upcoming changes to BAR resizing should address those
+scenarios (to the extent possible).
+
+Fixes: 8bb705e3e79d ("PCI: Add pci_resize_resource() for resizing BARs")
+Reported-by: Simon Richter <Simon.Richter@hogyros.de>
+Link: https://lore.kernel.org/linux-pci/67840a16-99b4-4d8c-9b5c-4721ab0970a2@hogyros.de/
+Reported-by: Alex Bennée <alex.bennee@linaro.org>
+Link: https://lore.kernel.org/linux-pci/874irqop6b.fsf@draig.linaro.org/
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Link: https://patch.msgid.link/20250829131113.36754-16-ilpo.jarvinen@linux.intel.com
+Tested-by: Alex Bennée <alex.bennee@linaro.org> # AVA, AMD GPU
+Link: https://patch.msgid.link/20251113162628.5946-2-ilpo.jarvinen@linux.intel.com
 Stable-dep-of: ee7471fe968d ("PCI: Skip Resizable BAR restore on read error")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/pci-sysfs.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ drivers/pci/setup-bus.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-index 122c182229b33d..a67de23a2cf94c 100644
---- a/drivers/pci/pci-sysfs.c
-+++ b/drivers/pci/pci-sysfs.c
-@@ -1426,13 +1426,19 @@ static ssize_t __resource_resize_store(struct device *dev, int n,
- 				       const char *buf, size_t count)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
--	unsigned long size, flags;
-+	struct pci_bus *bus = pdev->bus;
-+	struct resource *b_win, *res;
-+	unsigned long size;
- 	int ret, i;
- 	u16 cmd;
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index 1eceabef9e84d7..58dddb8b4d1d2f 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2388,6 +2388,11 @@ int pci_reassign_bridge_resources(struct pci_dev *bridge, unsigned long type)
+ 		bridge = dev_res->dev;
+ 		i = res - bridge->resource;
  
- 	if (kstrtoul(buf, 0, &size) < 0)
- 		return -EINVAL;
- 
-+	b_win = pbus_select_window(bus, pci_resource_n(pdev, n));
-+	if (!b_win)
-+		return -EINVAL;
++		if (res->parent) {
++			release_child_resources(res);
++			pci_release_resource(bridge, i);
++		}
 +
- 	device_lock(dev);
- 	if (dev->driver || pci_num_vf(pdev)) {
- 		ret = -EBUSY;
-@@ -1452,19 +1458,19 @@ static ssize_t __resource_resize_store(struct device *dev, int n,
- 	pci_write_config_word(pdev, PCI_COMMAND,
- 			      cmd & ~PCI_COMMAND_MEMORY);
- 
--	flags = pci_resource_flags(pdev, n);
--
- 	pci_remove_resource_files(pdev);
- 
--	for (i = 0; i < PCI_BRIDGE_RESOURCES; i++) {
--		if (pci_resource_len(pdev, i) &&
--		    pci_resource_flags(pdev, i) == flags)
-+	pci_dev_for_each_resource(pdev, res, i) {
-+		if (i >= PCI_BRIDGE_RESOURCES)
-+			break;
-+
-+		if (b_win == pbus_select_window(bus, res))
- 			pci_release_resource(pdev, i);
- 	}
- 
- 	ret = pci_resize_resource(pdev, n, size);
- 
--	pci_assign_unassigned_bus_resources(pdev->bus);
-+	pci_assign_unassigned_bus_resources(bus);
- 
- 	if (pci_create_resource_files(pdev))
- 		pci_warn(pdev, "Failed to recreate resource files after BAR resizing\n");
+ 		res->start = dev_res->start;
+ 		res->end = dev_res->end;
+ 		res->flags = dev_res->flags;
 -- 
 2.53.0
 
