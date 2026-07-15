@@ -1,50 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B608A35DA43
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 16:30:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483C228725B
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 16:30:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784133019; cv=none; b=C0zEfC/palPBfBXtbTGIB8Tdwe5Pyq/Gp7XrmG3sjv+ERcvqqXCsoz7iqBBhPjhM/9Q/ssig2hQ2lu9m1N+3LRJlnibjU0b8uYjgISS3wQ6JZ9YGhWBztk//WSE21e+SB0GiOkwoZN/UUyGVPgMZRX0+anDAzeIUekpoB/I40UA=
+	t=1784133026; cv=none; b=IoyJ6a21E6LbOHtlAIlk0p+PY5yG/iijlleC6GDUC3pZqiqdLwlzdPuEcj2ccKHf/14fH2g7cHwR7aR1GudQ+8wqKt4fpS5mHA4ejVzk0PMELw1LqUFBh3cOkxLPvGUpA8Tw40F0qG8uKGQGE0Dha1rScqB21CX3NOHNxPoSQpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784133019; c=relaxed/simple;
-	bh=1s1qibg43Wp2YNjXrofhytdQGEaNBIgPfBIcdTIe4iY=;
+	s=arc-20240116; t=1784133026; c=relaxed/simple;
+	bh=moPdQxzyaIDYjzOacpxcu40QF/X/9OYEZgi97wmvWJE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wl5jpJn0qpFl+pbXrN0B79byhcDLRqmVPb4GrtT/ZVidpv7C5uxEGY0KrrOEtzn8vFekTnV8NYhi3SfKgRGqHQLvOlWwIgq4Ixdy3U86FLfIZaN0xm9L/K7nlvgiCEYmrz6ghDXKMjv1LbAPJ6dWPK79FH18Wz9t1mVI4/I1MmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BL6Qzz6E; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QRtpT/HaoYh2t3XQAJPcHN95jmoHEJGrBZ4rvo5Tdy93pZXRrCaG7wwiPk1kyrw4MADDOvUNH7Eb7u1VRLHnhzR+p8Ii9iw7yONMIxUuztiCkTdqVCKciBqJ9NRkmseOM4cvOFGBa4krUzGpIrHpn9ePINwVeRnly6DdxlSz8vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SpA27K+Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BL6Qzz6E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5813F1F00A3D;
-	Wed, 15 Jul 2026 16:30:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SpA27K+Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 519B11F000E9;
+	Wed, 15 Jul 2026 16:30:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784133017;
-	bh=OtvHW7DdF2PFA0Y1xvmn1rUxtQB7PLFknr3CaOn0pDA=;
+	s=k20260515; t=1784133024;
+	bh=q/aldqVZpTg0JLZwPrvwr0RXlMrT6zFXrJzMDMafxqQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BL6Qzz6ES3Opv5yQ01ecKDhe7ZkhCjjm1qmpeUjpPd0nU9F+ee4fQrcGwpIuj6lrq
-	 xXfekVtVYphUqMZ7mUxf7w8JeajTXMC8DmvUzn3qN+vDSNnEy3fvR6UAFd9kaQFeH4
-	 0QzJH7EU6mAmmuz7lHJq2j5iT58c8cXH6zABQblgwLnahsMzBadZapOKqoWt0SNmfD
-	 HpbViE+Lq3l6M2rwpGYGSTUJ6Ql1qX+n5APTp9B+mRqubAmv5FNy10sPB3Ovly4V3m
-	 3NqsjLMumvaVh1CS23pGRAmuSKHOc+7D3QZ4onrgLTzteLujKX8XjvMAwXZLPRB4u6
-	 igNop4gXMO+1w==
+	b=SpA27K+QR4gAC+HG8DxvbG2PArFqwXIZixvokalCF96ILxi8f1caDsIZ/ok1IR7Hu
+	 Sk7Kn0bUwGFYGsA5PYYgDDQH5kIrUYmGoEkMnKQPRF4d15ONDGA8ORDJ7U4ijgy3nB
+	 QudZk+riX2THYF5YN6d8AsgpwnwJR+IjxyUDizksbYYsFcYUkMGyU3wDtXSWNkR8Y/
+	 1YoSE5rpIyPBvZqIewYKvYvbFCIBDSDf8OPeTRPLnCVr6Ktis43OoaOBxN7yl32K28
+	 cMpSf6Nugw+ou0VV/MZkJrlr2ItDUmwdpy6FTgM90dTe3fwu5bnDrBbGC59xiMK3Dk
+	 I7htyEjT5NYsg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shakeel Butt <shakeel.butt@linux.dev>,
-	Zenghui Yu <zenghui.yu@linux.dev>,
-	Nhat Pham <nphamcs@gmail.com>,
-	SeongJae Park <sj@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Dave Chinner <david@fromorbit.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	James Clark <james.clark@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] mm/shrinker: do not hold RCU lock in shrinker_debugfs_count_show()
-Date: Wed, 15 Jul 2026 12:30:06 -0400
-Message-ID: <20260715163006.950613-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] coresight: etb10: restore atomic_t for shared reading state
+Date: Wed, 15 Jul 2026 12:30:22 -0400
+Message-ID: <20260715163022.950711-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260715163006.950613-1-sashal@kernel.org>
-References: <2026071318-kindling-retrial-f9b4@gregkh>
- <20260715163006.950613-1-sashal@kernel.org>
+In-Reply-To: <2026071324-animosity-zone-6759@gregkh>
+References: <2026071324-animosity-zone-6759@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,77 +46,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shakeel Butt <shakeel.butt@linux.dev>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit b902890c62d200b3509cb5e09cf1e0a66553c128 ]
+[ Upstream commit fa09f08ede3db3050ae16ae1ed92c902d0cada23 ]
 
-Reading the debugfs "count" file of a memcg-aware shrinker can sleep
-inside an RCU read-side critical section:
+The etb10 miscdevice uses drvdata->reading as a shared exclusivity gate
+for userspace buffer access. etb_open() claims that gate with
+local_cmpxchg(), and etb_release() clears it with local_set().
 
-  BUG: sleeping function called from invalid context at kernel/cgroup/rstat.c:421
-  RCU nest depth: 1, expected: 0
-   css_rstat_flush
-   mem_cgroup_flush_stats
-   zswap_shrinker_count
-   shrinker_debugfs_count_show
+That gate is shared per-device state rather than CPU-local state. A
+running system can reach it whenever /dev/<etb> is opened, closed, and
+reopened by different tasks while the device remains registered, so the
+same drvdata->reading variable may be claimed on one CPU and later
+cleared on another.
 
-shrinker_debugfs_count_show() invokes the ->count_objects() callback under
-rcu_read_lock().  The zswap callback flushes memcg stats via
-css_rstat_flush(), which may sleep, so it must not run under RCU.
+This code used to use atomic_t for the same gate, but commit
+27b10da8fff2 ("coresight: etb10: moving to local atomic operations")
+changed it to local_t even though the access pattern remained cross-task
+and cross-CPU. Restore atomic_t together with atomic_cmpxchg() and
+atomic_set() so the exclusivity gate again uses a primitive intended
+for shared state.
 
-The RCU lock is not needed here.  mem_cgroup_iter() takes RCU internally
-and returns a memcg holding a css reference (dropped on the next iteration
-or by mem_cgroup_iter_break()), so the memcg stays alive without it.  The
-shrinker is kept alive by the open debugfs file: shrinker_free() removes
-the debugfs entries via debugfs_remove_recursive(), which waits for
-in-flight readers to drain, before call_rcu(..., shrinker_free_rcu_cb).
-The sibling "scan" handler already invokes the sleeping ->scan_objects()
-callback with no RCU section.
+The issue was found on Linux v6.18.21 by our static analysis tool while
+scanning surviving local_t-on-shared-state sites, and then manually
+reviewed against the live etb10 file-op path.
 
-Drop the rcu_read_lock()/rcu_read_unlock().
+It was runtime-validated with a reproducible QEMU no-device KCSAN PoC
+that kept the same report-local contract:
 
-Link: https://lore.kernel.org/20260610232048.62930-1-shakeel.butt@linux.dev
-Fixes: 5035ebc644ae ("mm: shrinkers: introduce debugfs interface for memory shrinkers")
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-Reported-by: Zenghui Yu <zenghui.yu@linux.dev>
-Closes: https://lore.kernel.org/all/c052a064-cddb-494f-a0d8-f8a10b4b1c4d@linux.dev/
-Suggested-by: Nhat Pham <nphamcs@gmail.com>
-Reviewed-by: SeongJae Park <sj@kernel.org>
-Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
-Tested-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Dave Chinner <david@fromorbit.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+  1. use one shared struct etb_drvdata carrier and its
+     drvdata->reading gate;
+  2. call etb_open() and etb_release() sequentially on that gate to
+     confirm the original claim/clear path;
+  3. bind the open side to CPU0 and the release side to CPU1 for the
+     same gate to show cross-CPU ownership;
+  4. run bound workers that repeatedly race etb_open() and
+     etb_release() on the same gate until KCSAN reports a target hit.
+
+The harness recorded:
+
+  L1 passed open=1 release=1
+  reading_after_open=1 reading_after_release=0
+  L2 passed open_cpu=0 release_cpu=1
+  cross_cpu_release=1 reading_after=0 open_ret=0
+
+Representative KCSAN excerpt from the no-device validation run:
+
+  BUG: KCSAN: data-race in etb_open.constprop.0.isra.0 [vuln_msv]
+
+  write to 0xffffffffc0003810 of 4 bytes by task 216 on cpu 1:
+   etb_open.constprop.0.isra.0+0x38/0x80 [vuln_msv]
+   l3_worker_thread_fn+0x4f/0xf0 [vuln_msv]
+   kthread+0x17e/0x1c0
+   ret_from_fork+0x22/0x30
+
+  read to 0xffffffffc0003810 of 4 bytes by task 215 on cpu 0:
+   etb_open.constprop.0.isra.0+0x18/0x80 [vuln_msv]
+   l3_worker_thread_fn+0x4f/0xf0 [vuln_msv]
+   kthread+0x17e/0x1c0
+   ret_from_fork+0x22/0x30
+
+  value changed: 0x00000000 -> 0x00000001
+
+  Reported by Kernel Concurrency Sanitizer on:
+  CPU: 0 PID: 215 Comm: etb10_l3_a Tainted: G           O       6.1.66 #2
+
+This no-device harness is not a real ETB10 hardware end-to-end run, but
+it preserves the same shared drvdata->reading gate and the same
+etb_open()/etb_release() claim/clear contract. No real ETB10 hardware
+was available for runtime testing.
+
+Build-tested with:
+  make olddefconfig
+  make -j"$(nproc)" drivers/hwtracing/coresight/coresight-etb10.o
+
+Fixes: 27b10da8fff2 ("coresight: etb10: moving to local atomic operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Reviewed-by: James Clark <james.clark@linaro.org>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+Link: https://lore.kernel.org/r/20260528165201.319452-1-runyu.xiao@seu.edu.cn
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/shrinker_debug.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/hwtracing/coresight/coresight-etb10.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
-index b0d818eacbeb5d..ce8c284ddf6b8e 100644
---- a/mm/shrinker_debug.c
-+++ b/mm/shrinker_debug.c
-@@ -55,8 +55,6 @@ static int shrinker_debugfs_count_show(struct seq_file *m, void *v)
- 	if (!count_per_node)
- 		return -ENOMEM;
+diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
+index 8aa6e4f83e42b5..d73b2dec6937d7 100644
+--- a/drivers/hwtracing/coresight/coresight-etb10.c
++++ b/drivers/hwtracing/coresight/coresight-etb10.c
+@@ -86,7 +86,7 @@ struct etb_drvdata {
+ 	struct coresight_device	*csdev;
+ 	struct miscdevice	miscdev;
+ 	spinlock_t		spinlock;
+-	local_t			reading;
++	atomic_t		reading;
+ 	pid_t			pid;
+ 	u8			*buf;
+ 	u32			mode;
+@@ -603,7 +603,7 @@ static int etb_open(struct inode *inode, struct file *file)
+ 	struct etb_drvdata *drvdata = container_of(file->private_data,
+ 						   struct etb_drvdata, miscdev);
  
--	rcu_read_lock();
--
- 	memcg_aware = shrinker->flags & SHRINKER_MEMCG_AWARE;
+-	if (local_cmpxchg(&drvdata->reading, 0, 1))
++	if (atomic_cmpxchg(&drvdata->reading, 0, 1))
+ 		return -EBUSY;
  
- 	memcg = mem_cgroup_iter(NULL, NULL, NULL);
-@@ -86,8 +84,6 @@ static int shrinker_debugfs_count_show(struct seq_file *m, void *v)
- 		}
- 	} while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)) != NULL);
+ 	dev_dbg(&drvdata->csdev->dev, "%s: successfully opened\n", __func__);
+@@ -641,7 +641,7 @@ static int etb_release(struct inode *inode, struct file *file)
+ {
+ 	struct etb_drvdata *drvdata = container_of(file->private_data,
+ 						   struct etb_drvdata, miscdev);
+-	local_set(&drvdata->reading, 0);
++	atomic_set(&drvdata->reading, 0);
  
--	rcu_read_unlock();
--
- 	kfree(count_per_node);
- 	return ret;
- }
+ 	dev_dbg(&drvdata->csdev->dev, "%s: released\n", __func__);
+ 	return 0;
 -- 
 2.53.0
 
