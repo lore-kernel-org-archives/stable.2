@@ -1,140 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC8E308F23;
-	Wed, 15 Jul 2026 06:04:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C148C33DEE5
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 06:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784095482; cv=none; b=OwjezlouLvJ60bZtn6L2bq41skXS/LovegrjUlp52oxGj9bPLeLL90ghMxnZ5LgKTi6asL77mzrN/2aY2GDCziauUQcclOhx2wPHERopAAjoEhyYW+A2lTr/gkssTK8GFG3ejz2v1V/EFnt0qNFr6xgoDu+FBH6AhZ8+TAAqV6A=
+	t=1784095992; cv=none; b=aIXWYXIkriatzTIui63cEcRmr8gooQx/RWnZoHAb1FZQyXOAKysDZISek0hv1g7u+/B7aCbULCjVx2BWLkPu1tYTbKglY78hMyHtaixtesic07vrcAELwMUPtkzoTOWV9P+a+6Z5Go6xy35oxbicWwKLCvHwauxPDoEhiTyof2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784095482; c=relaxed/simple;
-	bh=p0z8OfcS1fdiYyedH2MZyLZY7VEHaJFdRELjOTQv8uA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bCG8MFdWVXDozIL1mmx2qZ7BJv2BKzR9f2M2eSM4ZFRhCfOM5pcWDs/yQ9rGBALLY33XVKwmVI33wjpzZ4cipdtLxOoeIVmBFkmAz4TzJlWaUBRndYahT0SuQjzCgkWXSPLRJcaYQ6+PjGP0Wt36sUeQoQ9Bv/M2GuQsz/ZuXLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LHY952wb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784095992; c=relaxed/simple;
+	bh=Nv2g73dT9Ca/Dmbupn785gM4E5jzpax/qHLKPGVllpw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nyNV6byqh8Tf+JkDNZr+Ix5Blw4EzXcypuqjP8d0gr81Yt0ppGh8FqhFdPp0yRdumQ2CM7Cg0gHfw7JFst9X0Kr2jk0ZNSJ37ll5yuRQ48SnR779j7xrOC8HeKZsTJS9eMeudzwyicJarCasiTrfX9m2mqMAP2h4MQk/hZInptA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vJeKyWE3; arc=none smtp.client-ip=95.215.58.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LHY952wb"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3CBF7C2BCF5;
-	Wed, 15 Jul 2026 06:04:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784095482;
-	bh=p0z8OfcS1fdiYyedH2MZyLZY7VEHaJFdRELjOTQv8uA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=LHY952wbD00sIWzXEIPNLNo/4741CiFQVMFH+yoka+ROGcdwwyOAdwBFxwMtH/Rg2
-	 P1jEuWB7YUBHTg5gG5t11kTC379yR1GqjlUWHMTcMU3OJSIb5mfJZDJeM4J1GfLPPp
-	 ebUeX8d0WPfJlxcSeeMXWFthZdOGi5lXKu6ZMa9JLkUHl67Mi2q6RmW/+JpaoGGmwp
-	 j5m5uOOVu+LaVQ7HbabUvX3PqSUBoHot0aEsklwTzE7Bkme0tUIjGdMajsRlxjzHaG
-	 /x8ARK7kdAsNWkvckmy6j5rXxjW8IVRtjArnNXEiGZ9OMpsM6PFn5Li6DZakMmt4C+
-	 Vq/Kjvd1/L89A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F46EC44508;
-	Wed, 15 Jul 2026 06:04:42 +0000 (UTC)
-From: Haidar Lee via B4 Relay <devnull+haidar.lee.adlinktech.com@kernel.org>
-Date: Wed, 15 Jul 2026 14:04:40 +0800
-Subject: [PATCH 1/2] ASoC: tas2562: fix DVC coefficient write order
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vJeKyWE3"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784095987;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GNA34ZVAFe+Zjxs6F20dktajo1LonGeHCUW7GzDGnsw=;
+	b=vJeKyWE34SQhoigJZ0mLJv5fiWh7HpHFQ8s33lvfIDYX+wGgjskEcqf9MP6XM+7EWLVGJ2
+	wOBZ5Qn7OPKAyiqfAlfER98FEMYYk28wEqZuVvwXdlvQpgGmv0FzvH7Dxv1FZfGmpsVYyT
+	mFucntdU6STRSdwENCfNuh2IIQcm1+0=
+From: xuanqiang.luo@linux.dev
+To: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	intel-wired-lan@lists.osuosl.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Mitch Williams <mitch.a.williams@intel.com>,
+	Greg Rose <gregory.v.rose@intel.com>,
+	Sudheer Mogilappagari <sudheer.mogilappagari@intel.com>,
+	netdev@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH iwl-net v1 1/2] iavf: fix ASQ command buffer leak on init failure
+Date: Wed, 15 Jul 2026 14:11:30 +0800
+Message-ID: <20260715061131.34420-2-xuanqiang.luo@linux.dev>
+In-Reply-To: <20260715061131.34420-1-xuanqiang.luo@linux.dev>
+References: <20260715061131.34420-1-xuanqiang.luo@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-tas2562-dvc-fix-v1-1-072b13901b20@adlinktech.com>
-References: <20260715-tas2562-dvc-fix-v1-0-072b13901b20@adlinktech.com>
-In-Reply-To: <20260715-tas2562-dvc-fix-v1-0-072b13901b20@adlinktech.com>
-To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Dan Murphy <dmurphy@ti.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Haidar Lee <haidar.lee@adlinktech.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784095481; l=2928;
- i=haidar.lee@adlinktech.com; s=20260715; h=from:subject:message-id;
- bh=NrDARQuuRTnNObQOb1pPNHaoWGmUellYTb5N5X9Elwo=;
- b=Jojabzbyv2lFEZ+hhb+FNhvvFy6aGlg1FWjgRUKsynbkhjiuLUXTy09CvpQAQFY8xgCKVnmSm
- Q2E7sIt6QfkC/9HXXYyFL1aXKW+yliFQZNA4kFu7bWAhrtCh+aSTr38
-X-Developer-Key: i=haidar.lee@adlinktech.com; a=ed25519;
- pk=p37KzVgRl0a8om8VCM7iEwQvNuZz2fxL4lBCBp5qrno=
-X-Endpoint-Received: by B4 Relay for haidar.lee@adlinktech.com/20260715
- with auth_id=872
-X-Original-From: Haidar Lee <haidar.lee@adlinktech.com>
-Reply-To: haidar.lee@adlinktech.com
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-From: Haidar Lee <haidar.lee@adlinktech.com>
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-The TAS2562 applies the 32-bit digital volume coefficient to the
-playback path when the last byte, DVC_CFG4 (book 0 page 2 reg 0x0F), is
-written. tas2562_volume_control_put() wrote DVC_CFG4 first and DVC_CFG1
-(the MSB) last, so every volume change latched a value made of the
-previous coefficient's upper three bytes combined with the new LSB; the
-remaining bytes only took effect on the next volume change.
+iavf_alloc_adminq_asq_ring() allocates cmd_buf before the remaining ASQ
+resources. If iavf_alloc_asq_bufs() or iavf_config_asq_regs() fails, the
+unwind path elides cmd_buf while freeing the other allocations.
 
-In practice the control was unusable: the first setting after power-on
-always played at roughly 0 dB no matter what value was requested (the
-chip's default upper bytes were still latched), and most subsequent
-changes muted the output entirely or produced a distorted, over-unity
-gain.
+The ASQ count is not set until initialization succeeds, so the shutdown
+path cannot reclaim the buffer. Free cmd_buf in the common unwind path.
 
-Verified on a TAS2562 (ADLINK OSM-520 / MT8189 board) by tracing the
-I2C writes with ftrace and by writing the same coefficients manually in
-both byte orders: written MSB-first the register block behaves exactly
-as the driver expects, LSB-first reproduces the broken behaviour.
-
-Write the bytes MSB first with DVC_CFG4 last so the complete new
-coefficient is latched atomically.
-
-Fixes: bf726b1c86f2 ("ASoC: tas2562: Add support for digital volume control")
+Fixes: d358aa9a7a2d ("i40evf: init code and hardware support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Haidar Lee <haidar.lee@adlinktech.com>
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 ---
- sound/soc/codecs/tas2562.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ drivers/net/ethernet/intel/iavf/iavf_adminq.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-index e1d62f30418a..ec32ef0afd7e 100644
---- a/sound/soc/codecs/tas2562.c
-+++ b/sound/soc/codecs/tas2562.c
-@@ -475,20 +475,27 @@ static int tas2562_volume_control_put(struct snd_kcontrol *kcontrol,
- 	u32 reg_val;
+diff --git a/drivers/net/ethernet/intel/iavf/iavf_adminq.c b/drivers/net/ethernet/intel/iavf/iavf_adminq.c
+index 6937b7dd44cbb..82a32f8e78c12 100644
+--- a/drivers/net/ethernet/intel/iavf/iavf_adminq.c
++++ b/drivers/net/ethernet/intel/iavf/iavf_adminq.c
+@@ -346,6 +346,7 @@ static enum iavf_status iavf_init_asq(struct iavf_hw *hw)
+ 	iavf_free_virt_mem(hw, &hw->aq.asq.dma_head);
  
- 	reg_val = float_vol_db_lookup[ucontrol->value.integer.value[0]/2];
--	ret = snd_soc_component_write(component, TAS2562_DVC_CFG4,
--				      (reg_val & 0xff));
--	if (ret)
--		return ret;
--	ret = snd_soc_component_write(component, TAS2562_DVC_CFG3,
--				      ((reg_val >> 8) & 0xff));
-+	/*
-+	 * The device applies the 32-bit coefficient to the playback path on
-+	 * the write to DVC_CFG4 (the LSB, book 0 page 2 reg 0x0F), so the
-+	 * bytes must be written MSB first and DVC_CFG4 last. Writing CFG4
-+	 * first latches a mix of the previous coefficient's upper bytes and
-+	 * the new LSB instead of the requested value.
-+	 */
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG1,
-+				      ((reg_val >> 24) & 0xff));
- 	if (ret)
- 		return ret;
- 	ret = snd_soc_component_write(component, TAS2562_DVC_CFG2,
- 				      ((reg_val >> 16) & 0xff));
- 	if (ret)
- 		return ret;
--	ret = snd_soc_component_write(component, TAS2562_DVC_CFG1,
--				      ((reg_val >> 24) & 0xff));
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG3,
-+				      ((reg_val >> 8) & 0xff));
-+	if (ret)
-+		return ret;
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG4,
-+				      (reg_val & 0xff));
- 	if (ret)
- 		return ret;
+ init_adminq_free_rings:
++	iavf_free_virt_mem(hw, &hw->aq.asq.cmd_buf);
+ 	iavf_free_adminq_asq(hw);
  
-
+ init_adminq_exit:
 -- 
-2.34.1
-
-
+2.43.0
