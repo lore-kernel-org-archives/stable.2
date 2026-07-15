@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F167E37A488;
-	Wed, 15 Jul 2026 07:31:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BBD3B7B96;
+	Wed, 15 Jul 2026 07:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784100715; cv=none; b=PIMe2P+v2F+7cTG/z8ErrO/x9e1WoyksgEKhslCXLz4Fo0/B8TR4/w2yc/E0fgXH+kaPVnGTPWg/Xb15VrY1IuI4f+9GC3fGDtqxxG+n2nOs66GXCoAExaBKuhZ8Y25NX8j/Yi1xb/InRfGrlQgAw2+p6lXSOxwJxyuUWfR/biA=
+	t=1784100952; cv=none; b=M8V+wdLUyRnt1HWkNmwOfzlADjHxjxxlr1knqWbhQbQ09tOG0UmcxEfqKdc8gv5MlOu3uuJc5/kOdH7aqttYJ5qyvtzriCeBy5mDjLFf101HARzpxgv5zPma0II5b4+qnTCfw/CohLINlfOytczqBzrcJmgOBNxV7L3PejKaSGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784100715; c=relaxed/simple;
-	bh=ttq3bswJ9BjVoJk5v8fT97WX6vjQXw/yGOSE6gcg0OY=;
+	s=arc-20240116; t=1784100952; c=relaxed/simple;
+	bh=NptDMkS6Qr1yixQJUThm0z6U00IUO35X14f2lvHWgPs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bJntPMj4fZCZHvpvIxx13h3Kh69shQ3nBqryMSmE+09uEAQgQsisccKH/yngjsermaz3ldTUG0PqcqO4fAgBvaJI2SaK6/bqFB2PEV0v+y/AdFo1BinoIHzF0BQz9GDKw9P77FJkkf3PY+Mt6q8pu9ThsZP07qedmbBiKMh0sPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XQtFsAWd; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=RUycDMCs3GAAaw42Z9H8me/EIRW0YJGwzbAmLqWgw5hjeqMHbz9JK7uRqT1vw4l2JGOsrEggz9+xcyfhpvHhuJOuV8jqAffEsyeJdQrYovON8neVkNOlwqPaQ/XoaZzFSXHHWeKfneED8QHfeeqqNzsUk+ZSewowRAI61FJxAPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KoXslAMM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XQtFsAWd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9801F000E9;
-	Wed, 15 Jul 2026 07:31:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KoXslAMM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FADF1F00A3D;
+	Wed, 15 Jul 2026 07:35:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784100713;
-	bh=Wv0DXBGXjlIHKPcNIJc/Uy30l+DaXgiyniMOlGcLge8=;
+	s=k20260515; t=1784100944;
+	bh=vOrSGgvjfu6AlrRDbJK8SzilZUKXB43aBCWFKatGaw0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XQtFsAWd0B58XT4fIaywWdgiMuqPW4uRpcKGq5XuLC6yfnL4fKun9qp31g1kwK/ID
-	 Ez/ZmQRTIiAzKznQVq/UK7oHrZsEMZHMQebuLQ+mDBsBK7e8bo8u2F61pnUVXY36ff
-	 3SrBW7aErD8BKfRKxdw87/SM6G2bsISS8ZzOJHhmqkCrC4e7O6VXamv2r/hoaIwCe4
-	 nk4Pfl1PYmIRnsxUSUcApbaCYzQedFyE96UYugUTDXTnYXgyt8fhxrkTv5m0iuLWQS
-	 mmW2/NEFJwuOtD6grKDMvtO4izopWiXYmdxVozLBhHB8TdMFo/k2mfrhesv2fjj9J3
-	 izGtFny/GxFPw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1wju5v-00000005pwS-1idR;
-	Wed, 15 Jul 2026 09:31:51 +0200
-Date: Wed, 15 Jul 2026 09:31:51 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] intel_th: fix MSC output device reference leak
-Message-ID: <alc3ZyzBOZa9lDz9@hovoldconsulting.com>
-References: <20260715070851.2077965-1-lgs201920130244@gmail.com>
+	b=KoXslAMMJINuAQGsJNWtQ+lLOUhDhlf3IKGAL1uZ88QrKUJg3DSiOLRN5+x9k2Nu5
+	 JvfJmWp5JE3kXdebKvLD4sGs+uXVb2m9cjw6Jcod11ct7o+sqn7yH6cOlao93CTAzQ
+	 NABQb4e7+w5dp5RNSFDNNz1mxRw8M+i01v8xTKAR+IM3kCayePMAp2S+dxXKoQuKRu
+	 r9Paw5AFd8hyiu3Y1htVzLNqYb3xTLyM3yiCcolqOvy3dZXrZkJUvg9IeYHApec8Dt
+	 Dxk7sgu7XmoWT+L0PXJfE/R73nE6Z+JbP0++KMHrYVGsCzZYfv/XyeBtFX3zW+8K4o
+	 6bVRzC1KMGqHg==
+Date: Wed, 15 Jul 2026 08:35:30 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Pankaj Gupta <pankaj.gupta@amd.com>
+Cc: seanjc@google.com, pbonzini@redhat.com, tglx@kernel.org, bp@alien8.de, 
+	mingo@redhat.com, dave.hansen@linux.intel.com, x86@kernel.org, 
+	thomas.lendacky@amd.com, hpa@zytor.com, david@kernel.org, yangge1116@126.com, 
+	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] KVM: SEV: drop FOLL_WRITE for encrypted region
+ registration
+Message-ID: <alc4HsXeNaJczPSi@lucifer>
+References: <20260715063626.65899-1-pankaj.gupta@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,42 +45,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260715070851.2077965-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260715063626.65899-1-pankaj.gupta@amd.com>
 
-On Wed, Jul 15, 2026 at 03:08:51PM +0800, Guangshuo Li wrote:
-> intel_th_output_open() looks up the output device with
-> bus_find_device_by_devt(), which returns the device with a reference that
-> must be dropped after use.
-> 
-> commit 95fc36a234da ("intel_th: fix device leak on output open()")
-> attempted to drop the reference from intel_th_output_release(). However,
-> a successful open replaces file->f_op with the output driver file
-> operations before returning, so close runs the output driver release
-> callback instead.
-> 
-> For MSC outputs, close runs intel_th_msc_release(), which only removes
-> the per-file iterator and does not drop the device reference taken by
-> intel_th_output_open(). Consequently, every successful MSC output open
-> leaks one device reference.
-> 
-> Drop the device reference from intel_th_msc_release(), which is the
-> release path actually used for MSC output files. Remove the now-unused
-> intel_th_output_release() callback from intel_th_output_fops.
-> 
-> Fixes: 95fc36a234da ("intel_th: fix device leak on output open()")
+On Wed, Jul 15, 2026 at 01:36:26AM -0500, Pankaj Gupta wrote:
+> Commit 7e066cb9b71a ("KVM: SEV: Use long-term pin when registering
+> encrypted memory regions") added FOLL_LONGTERM to
+> sev_mem_enc_register_region() so anonymous guest RAM is migrated out of
+> MIGRATE_CMA/ZONE_MOVABLE before a long term pin. It also kept
+> FOLL_WRITE on the pin.
+>
+> Combining FOLL_WRITE with FOLL_LONGTERM breaks registration of file-backed
+> guest memory, such as virtio-pmem host memory-backend-file mappings
+> (MAP_SHARED). GUP rejects long-term writable pins on dirty tracked file
+> mappings since:
+>
+> commit 8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast writing to file-backed mappings")
+> commit a6e79df92e4a ("mm/gup: disallow FOLL_LONGTERM GUP-fast writing to file-backed mappings").
+>
+> Region registration only requires long-term pin to prevent page migration and
+> does not write through this GUP pin.
+>
+> Drop FOLL_WRITE and pin guest memory only with FOLL_LONGTERM.
+>
+> Fixes: 7e066cb9b71a ("KVM: SEV: Use long-term pin when registering encrypted memory regions")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Suggested-by: "David Hildenbrand (Arm)" <david@kernel.org>
+> Link: https://lore.kernel.org/all/ad784f05-b36c-4e91-9f17-4c5b826735d0@kernel.org/
+> Signed-off-by: Pankaj Gupta <pankaj.gupta@amd.com>
+
+Nice and simple, works for me :) So:
+
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
 > ---
-> v3:
->   - Remove the unused intel_th_output_release() callback as suggested by
->     Johan Hovold.
-> 
-> v2:
->   - Add Cc stable.
->   - No code changes.
+> v1 -> v2
+> - Remove FOLL_WRITE when the pin is not used for host writes
+>
+> v1: https://lore.kernel.org/all/20260701144543.39582-1-pankaj.gupta@amd.com/
+>
+>  arch/x86/kvm/svm/sev.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+> index 427229347876..5f2998761462 100644
+> --- a/arch/x86/kvm/svm/sev.c
+> +++ b/arch/x86/kvm/svm/sev.c
+> @@ -2752,7 +2752,7 @@ int sev_mem_enc_register_region(struct kvm *kvm,
+>  		return -ENOMEM;
+>
+>  	region->pages = sev_pin_memory(kvm, range->addr, range->size, &region->npages,
+> -				       FOLL_WRITE | FOLL_LONGTERM);
+> +				       FOLL_LONGTERM);
+>  	if (IS_ERR(region->pages)) {
+>  		ret = PTR_ERR(region->pages);
+>  		goto e_free;
+> --
+> 2.34.1
+>
 
-Thanks for catching this.
-
-Reviewed-by: Johan Hovold <johan@kernel.org>
-
-Johan
+Cheers, Lorenzo
