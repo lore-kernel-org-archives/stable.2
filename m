@@ -1,167 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0218D3B27C1
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 16:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784133862; cv=none; b=sRmuKAkYdR6ejp/BYcwbDR2DFTxdqfVWBUS9gnHV6/WO2fPzqlwm3uyRlJzCOIkLlAzdOH27QeIlQ0I7AC2uJYkr7w+L2ro/CvRNit/hNVSbPyOLLvUtl7X4zSkKZhtGg0W/myPczrotmHlT4+6uJqXevV7pEW1AOBgfNd5qpC8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784133862; c=relaxed/simple;
-	bh=DYLBIxqq07SouC7cKcDI3JWZwLYdmEwvEsoewU2kr3o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qu75MrMqD+rDhf4jwDZJoqFLGtXM5TNv6ME9SknARXbAGIgK8lHuwdgrtvoP2+Lgb7qmWfuIGnhvNrJe7lMYRu3fGHJpsdCUmgvuSZl/RWaWmoc9tSdqag9KfGs8jeQq5xob8UGpPEMG6FxuBNVM6yIDPlL/G33tC++qPXvzE4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O8K9Nadr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A11F3B19D5;
+	Wed, 15 Jul 2026 16:52:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784134329; cv=fail; b=dZL0JC2Z6UO0ejovvSCwIE5cGmEf3rmHf4/xmQAeShmP3HDF2OOA8mzDJYKtwN6/2x5aul0jiwwxgrJ56fy/HwThiW/n2ihunr5QsYv1yjo2JCsMU/xaUYOYV4mQjqAJ8/XU7isqttIeW07hqv5PmbGsEp5ZDvbkhv6btOwBncI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784134329; c=relaxed/simple;
+	bh=zXYL1/menh7E5Fqpp+h7WVPKrMxbhCCjh6Q0f1djqk8=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=XeNH12jA/Rn1t7putABOlkx2P+cbTi2qIDhUn3rQSY6vOlXMQAcMgf8UEJB6oN61NLLHdFcadJM0yaIg1N5Vm7mDJFbpFo4QbUM6dIwdFiNPmB7JlhclLT91lSOi4dnyAQ+qCitwzn6eCL/dPkoeKpDc37CBoqzlQD2CHRYe5mw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gY0PYMYP; arc=fail smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O8K9Nadr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9A01F000E9;
-	Wed, 15 Jul 2026 16:44:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784133860;
-	bh=8uUcsv/DtA16V9tn1EIzN56WzgTFSpUSeV6wyZ6mQEI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O8K9NadrVtNNhwS3kB+5gi8M/DrnXgylJ56YEPEY4IArcQ6j926biVZOl5gh8a1hi
-	 PCX0kJwzWABW0eMc1UpcOQtEfvMCU9tPLSV+nimLohOhAW597H2LMQPHoJ6Zd9To63
-	 WK944zrSsnrCDvJkFbdPqx4tD+JTjcAUnPPe3YGNG62NbH7FM5lJR0ih5Dxjfn98vA
-	 FxvcZ5Ce1X5efj/zMmH4ZgWU6Sh53VIqIvOJOmMp2PPOYI4fnRwArN2XsQnT3Pz1Bh
-	 ZPUH7Th+nqWfS/+sgK/vrZs4hYGrsRAGnCfbC/lkWJ5ZFouARcxDgDp3y9O7yOmT9+
-	 OmOeObGQuIgDA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	James Clark <james.clark@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] coresight: etb10: restore atomic_t for shared reading state
-Date: Wed, 15 Jul 2026 12:44:18 -0400
-Message-ID: <20260715164418.958997-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071324-silt-managing-86e8@gregkh>
-References: <2026071324-silt-managing-86e8@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gY0PYMYP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784134327; x=1815670327;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=zXYL1/menh7E5Fqpp+h7WVPKrMxbhCCjh6Q0f1djqk8=;
+  b=gY0PYMYPJxbGQPMva0aOsJQtIRVqqbWOQSHX9N3q0EJfsj80ztJLA4tf
+   Cn1zBrn86Ez3tY+zkJ0JftdMzJVIGTW52DeIy1CQqe1/nI9hO4uuql39Y
+   BjOtj++BtMlEv22sbvmh/HaIeQHDJ+dIABk4uwrFwKIWfTGOodeb8+e/R
+   cO8V73JTSkeipYL+1XdG9+ks7kT/Vjrl6dFbso/PBQAYURguWlvg9ajmz
+   ixIV/NL5rUbQ2y6wXFvY94CjeDkb++w4+22AKMOvltVLGj6MN6S2NJt4q
+   WV0gvx0HZbGFAtA7N5H+A7qFsKbCyBEtM1JQLzVCsmGNnqCNlVpywxRBD
+   Q==;
+X-CSE-ConnectionGUID: CIbCz524RCW4LjuHyAOtTA==
+X-CSE-MsgGUID: 6KD65nobQUeRu62AZ2lxMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="95134729"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="95134729"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 09:52:06 -0700
+X-CSE-ConnectionGUID: 6lK1GPJdRvSEPkj0dD/vpQ==
+X-CSE-MsgGUID: MBHgXCQFSOKhH26eMaIzPA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="256876911"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 09:52:05 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 15 Jul 2026 09:52:04 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Wed, 15 Jul 2026 09:52:04 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.17) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 15 Jul 2026 09:52:04 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LGzZUqAwlsokpOx7abYJGYiyiYfNMbsaqoky85iXOEgS5FqJlRrdURs5ArdVFmnbb0jZWpTVmVi8KcLyiBChjawGPq3nqG73mJ9HWY2sOnmLvrApJ2mSij5Yxgb67wTV+p4drc0CVLP7YN+5/0j7DbK/CQhi0E+hl65Qg8RI9YOCQhZUgd+pYTvgfDRIWYvSup0obs2FOT7oWGmMBq9baZicFgYVDfYLA93zp//VVpZJPcntrnfBgNC1AizQq9oRVe6mAXGNU1ivq3I73FACAKRyTR2a8gwUx3sgbm0HI25Pi+AQSvKhmfLQWs9kO8mEG9NFG0+jgDZLZmTdFHXzhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KZrgw4YtdIHxsHl6Mi8dMzZRbkQCDSGkc7sFBGNCx8I=;
+ b=upW5jHA5cu5QHZ/L5EnNsDNKUj1ue7AU2qtEFD0XnE1Swh5yNnzT7OdspTo/w2PfjPeFbaWzDfwBdrboP23ppfLe0LZz3Q9dw2uIqjkkFKvB/lOINfbA1JgrzOYHww64S/gjmh/g1nqOlWvcgdlspt38mqyQux6oWedRUASZnEaVmhM/AB7IWgCWaB06Ok4ggYbPpTTIm1qMAMa6zipxWr+fWFdJ7HWfZe4OKYUkg7QMCX74uTs0SkxvJj8KYFiXS/Z0VOArnXAQon+YbDmBeF8mZpiduQCTJ+pf+6AkdVE+6s8yVoC9MtFkIv32LpFgQDLQZu0nG9gj/6EhBloXGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7381.namprd11.prod.outlook.com (2603:10b6:8:134::14)
+ by IA3PR11MB9351.namprd11.prod.outlook.com (2603:10b6:208:57c::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
+ 2026 16:52:02 +0000
+Received: from DS0PR11MB7381.namprd11.prod.outlook.com
+ ([fe80::4c39:dfe6:d6dc:6f58]) by DS0PR11MB7381.namprd11.prod.outlook.com
+ ([fe80::4c39:dfe6:d6dc:6f58%6]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
+ 16:52:02 +0000
+Message-ID: <e7276482-2e42-436b-a611-0defb49e7194@intel.com>
+Date: Wed, 15 Jul 2026 09:51:55 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: hip04: fix RX buffer leak on build_skb failure
+To: Fan Wu <12321260@zju.edu.cn>
+CC: Fan Wu <fanwu01@zju.edu.cn>, <netdev@vger.kernel.org>,
+	<przemyslaw.kitszel@intel.com>, Simon Horman <horms@kernel.org>,
+	<shenjian15@huawei.com>, <salil.mehta@huawei.com>, <dingtianhong@huawei.com>,
+	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260712142729.2057636-1-fanwu01@zju.edu.cn>
+ <a361aa28-7f55-4476-9072-aa392a34b735@intel.com>
+ <190A7669-E0EC-4257-B65E-817FFA1ACCDC@zju.edu.cn>
+From: Jacob Keller <jacob.e.keller@intel.com>
+Content-Language: en-US
+In-Reply-To: <190A7669-E0EC-4257-B65E-817FFA1ACCDC@zju.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW3PR05CA0029.namprd05.prod.outlook.com
+ (2603:10b6:303:2b::34) To DS0PR11MB7381.namprd11.prod.outlook.com
+ (2603:10b6:8:134::14)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7381:EE_|IA3PR11MB9351:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ef6f968-785d-4f7a-7b3a-08dee29164cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|22082099003|18002099003|11063799006|4143699003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: A1mfumcHcG68m0ivXaNnVJ5yooM1nOuR669vuFNRTxgr+jzS9VhQcQ5NkscZatVvGFDYnJf5t58EwXmXJ2VZqtQKoqIikLPEmBG3X1aGStRTkJcjtKSf89Cmg3JirTbOSQdXDqAouwQCcfYZrAWi39vho0W1sXqV7OlzbFPmFaPyCXZLjZn01Z7C1Uk1Lgxo54g6sGX6wVVE2WN+VismdNdC4wKFInusgKmcjmQzDeyBd9sfk/lfhRkLKIXKZsmjPAZd+Ewp9rsLcQ9xVRiNT/9NYbLBRPs2Vso+TA5vGtbT4lrHE5JPLgKLo2YNFs25beuZXCkUyf1pxXVm31xXSYjt3+gUZD7vHJzSB6WLXav3lYmfk4IFI0VXYlZII21Nfg9tKrcxyiXO8RjpjHjvi22s2fcEf36faBmaLGhYIInZaUBTTLvegLc+v1yxn5VlsLBPwRSiLM5jR9itiSIpb0/R3k424/3ZHZDeNonxcf9hDTmkO6Lqzu4OM+8P3xE4MSZsuqFK/A2tFaguireMc9rK2xZ0ZY2mrS9Uoszr7cS5l3HrUb1v00e+FItQpe5G/DwjTY5ubaZtNWP505xcubX5mNy2Ah6b4vRx+onVQuA2VGVtkcXGcDGy7m7qjBICyiyZVkCKX9DfqtQE1AYfp7AieIHi/OnhSsQNMrwpAq4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7381.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?THdNTkZ4aHdocGtDaU52VmpZdWJSZjJFSUk3MXRxOFhqd3doNCtPakxxdWZy?=
+ =?utf-8?B?bjl3OXNHSC9iSGtBL2VHMFdOS01aSHhqRzBvdUx4bCtZd0xGVkx2MVU3T0lw?=
+ =?utf-8?B?RkFhbThZWDBjdXdzSkdkZG96MVVOcjEwRmxjT1d2UWlJdTR0UHlOaHc1WUIy?=
+ =?utf-8?B?SXpkZHdkMVZ0SG1NbmJzbVlHZjZncG5XNnZQT1hOTHl0N0I5M2k2OG5RVW5J?=
+ =?utf-8?B?ZFMxemdKY3ExOWFzNDdmaU5vZjY0RGF3MWhBMUFtWnI0bnQrNU5hVFJKcmZH?=
+ =?utf-8?B?YUV5c29uUkZUaWRIcEJNOFhrSU1ETXhPMDVla1hsalVpSVIxL29YbVkxWFA1?=
+ =?utf-8?B?RVhWc0ZBM0NXV0ZBOVFHMEprQ3FOWmttMFJDYTI0aXNtR1JvRVhVZmZLYXpX?=
+ =?utf-8?B?amgvZ25PUk15aWVwRVNBcnZVMnM1MmV6Ym5ueFYyb3JOWTZlSFJJdUFGUmxn?=
+ =?utf-8?B?UkIyNUVSNkxiVnE3UUYxaWtNWVpDbkpRRVYvZzZMNTBFQnAraE03ekJHNFFT?=
+ =?utf-8?B?bGJ6Mk01QTJIRG1iSndxOXRhTHAzdzJpVWNWb0NCYTlQaE1mSWpUSWFUMTNi?=
+ =?utf-8?B?VGRvZWJpc004dFJCUHdhN3ltT3BHdUZsNFZ5VWFTVFNMaE9COGl2RnRWWmpX?=
+ =?utf-8?B?OStBR2pWZS9PRnhiVndLSzhIVCtYYTZMV0xBZXQySmNzRjg2TjRVL3ZoZ2Q0?=
+ =?utf-8?B?MlBOdjczQmNCSmZoTHpnRUgwQ2hDbXNHVjExK04zVEthbFBLTHk4VHFJYWZX?=
+ =?utf-8?B?bXVrRjRjeFRIM1UyRStTVi9vMnMwc2puOGpIaUx6YUc4c0lJOEt2bFlUOUdI?=
+ =?utf-8?B?dXV1TmR0UzhXUHJJSUpXWmlzWkJCN1hUbVZsMVR5YWJJUG1wSGhEVU1rZUJO?=
+ =?utf-8?B?dnhNMjN0Z3dxR3dVSm9WSnhuUGxxMXJRSmZmWVQyaVlQaUt0a0pJUEhmSys3?=
+ =?utf-8?B?V25uMEZ5Ujl2d1d5RWtVZmVmdFZiWWwrdVhtQzlQaXpEaFpLKytiZnQ0djlM?=
+ =?utf-8?B?UWgrMWZXYWtxRVlYb3JiWGpINHQzankyb1dwMTF1MktjMDZHNm5HeUxmSU1H?=
+ =?utf-8?B?YWVJQzNWY1haWTlPcWVOdEtneEZUYmRET0lZNDlaQmIyMWU2RWpsSmlrcERR?=
+ =?utf-8?B?TW91dkRrdU12akxpUk9rdnBpeFhKakFBZllwLzZzL1ZZUnZlVVBwc2NaTmNI?=
+ =?utf-8?B?RjR2UHpBcmRqVHBvVVQ5ZEp1Y1BUcTMrWjlvK2ZicmsvTWlRejd1MERTK29V?=
+ =?utf-8?B?Y05IK2JlUlpUZXZ0ZTByY2VPYk0rUmJvVm5SQzRNQTBKR0VZekJURWtQLzU2?=
+ =?utf-8?B?S2JNZ3l4bHhIdTFNU3hVL1MwT2VWeXZZMXVTYUExQzRvV3VVaFhuV2VYUmYr?=
+ =?utf-8?B?bzF3VGQ5NnhPdEE1U1BRcFI3WVpFM0tXdS93azJBeVlZcG5Dd0tJaHFuMlND?=
+ =?utf-8?B?R2FKTnBYWmhlcE03RWxOeGhwalYzQlBsQ1QzR3pDQnRJLy9oSlVSVHMvQTBy?=
+ =?utf-8?B?QWNRT0FkMDNtaGxWVWxXMy9mT0l0bDZncHBqQ2MzWFBvU3ZJVnFMQ3B2dzRY?=
+ =?utf-8?B?V1VkNHZ1eHdZUzNIRTZTNDVvTFUvaVhjZHQvOXFWcFdHeTdPK0tkc3d3YjYz?=
+ =?utf-8?B?dVNxUm1wdVNvWHc4QVlQTGFibWI3WU85bnd5ZENtTVh3akJUMC91MUhsZ0pJ?=
+ =?utf-8?B?Tmw2QU44d29SRUFDb1Q3TlVadnhXck9Ebk41b1h0ZTk0VE9hcWs3WG1VakNj?=
+ =?utf-8?B?aXZQUlIrRTFoRlNUaUY0S0ZQTlRnR2QyY3RSTHRyRlhJeVZjUnpKbFpIUlVx?=
+ =?utf-8?B?Q2NKRmVVSkwzWkMrZTh0RWdEZUJRRmF4ZnZYZnVtQ2tIbFRTaWVudVNXazA2?=
+ =?utf-8?B?Z3FLZjJmdEdPMjhKeURBTUsyRGU4NGFucmhKTGdzTUdVOThoSkIrSDNzbEpS?=
+ =?utf-8?B?c01UUW9LLzJiVzlEYStLQW1sbVFyU0hiTlM1dmlBL3hJUk8wQUNDcXlYT2Np?=
+ =?utf-8?B?dnR5cnB3Q2pZcGdzRDdGdm5rZHRScTR4QlZOaktoMWNEU0Z4aW5TMEJ0dTF2?=
+ =?utf-8?B?WDdCeXFNZW5XNVNFVDBZWUtjdzJDbitrT3lzdTZ6clFVVlRUejNpSlVXVjBp?=
+ =?utf-8?B?YTJLdHhMelNYdFlJOUtvVkkxN3J6NmpPdUVyQjdsc3BPd2piU3liY2toK1ha?=
+ =?utf-8?B?SjBpL1hkUDJKaUhWTWM2RnRLUWZ5WUlIc3FWam1mRmVNVk1UdDl5ZEhXdkRj?=
+ =?utf-8?B?dGJWTzd3OTUvK1JVSmg5bTNSb1FTMmx0cWZvVUlYdmJUa2l2cUxFd3ZuWElt?=
+ =?utf-8?B?aFY1RTcwR1doSStKQkwrZU4xNlFsTHdaUzRzZXV6cDRmblpzOXFWVEx5UWJj?=
+ =?utf-8?Q?pw5RKBakbukYf+eA=3D?=
+X-Exchange-RoutingPolicyChecked: fEKn7ouDiFAoywGs3NobgiB+/B7r/333vhAeVieqAaPxGBVTzaLKpUQm+F/RyFQVwsBPGbtea7t4A8nph1KAEed3f5SwqW4Z+h12TiQXW+tWMHsmQ2ETgzsHfnDqwIEpMY1aLkbvbJ7yQrWqItCTDbm3hrmH9mawdzobQbIVTObr2C7N8M9dihFVs0AJo4o5QA/WprMk2NJsk5I2zIK0tMMF/0bhPYnEQYXQmXloaJUzDtLX/bygHAsQtley1bpU2sat0CB7luxZoEkEinoemcrHiFDDDsmUYesPKgsWv1VjaboBC33iqVZQk48E0kJDRwae15R+xWDF4nkARD0tuA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ef6f968-785d-4f7a-7b3a-08dee29164cb
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7381.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 16:52:02.4197
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ORVXMQRRRkf1S2KubwnjnmLcZFC9ZeSPunqt6O/q4H4vkdI1S3CcLKF7B7YVlrr3yTpeLvjcqErmw0WjhKGMu7iYvp7RwysDmOTXU8xYb0U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB9351
+X-OriginatorOrg: intel.com
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+On 7/15/2026 12:30 AM, Fan Wu wrote:
+> Hi Jacob,
+> 
+> Thanks for the review. I agree this is a rare allocation-failure path.
+> 
+> The leak is nevertheless deterministic from the ownership contract and
+> the driver's control flow. __build_skb() documents that, on failure, it
+> returns NULL without freeing the caller-provided data.
+> 
+> hip04_rx_poll() currently jumps to refill before dma_unmap_single().
+> Refill then replaces rx_buf[rx_head] and rx_phys[rx_head], so the old
+> fragment and its streaming DMA mapping are no longer reachable. The
+> stop and free-ring paths only operate on entries still referenced by
+> those arrays.
+> 
+> The fix leaves the slot, descriptor, rx_head, and rx_cnt_remaining
+> unchanged, and returns budget. This tells NAPI that RX work remains
+> outstanding and retries build_skb() using the same buffer. The additional
+> skb_free_frag() handles the separate case where a replacement fragment
+> was allocated but dma_map_single() failed before it was installed.
+> 
+> I hope this clarifies why the failure path is a deterministic leak even
+> though I do not have a dynamic reproduction on HIP04 hardware.
+> 
 
-[ Upstream commit fa09f08ede3db3050ae16ae1ed92c902d0cada23 ]
+Thanks,
+Jake
 
-The etb10 miscdevice uses drvdata->reading as a shared exclusivity gate
-for userspace buffer access. etb_open() claims that gate with
-local_cmpxchg(), and etb_release() clears it with local_set().
-
-That gate is shared per-device state rather than CPU-local state. A
-running system can reach it whenever /dev/<etb> is opened, closed, and
-reopened by different tasks while the device remains registered, so the
-same drvdata->reading variable may be claimed on one CPU and later
-cleared on another.
-
-This code used to use atomic_t for the same gate, but commit
-27b10da8fff2 ("coresight: etb10: moving to local atomic operations")
-changed it to local_t even though the access pattern remained cross-task
-and cross-CPU. Restore atomic_t together with atomic_cmpxchg() and
-atomic_set() so the exclusivity gate again uses a primitive intended
-for shared state.
-
-The issue was found on Linux v6.18.21 by our static analysis tool while
-scanning surviving local_t-on-shared-state sites, and then manually
-reviewed against the live etb10 file-op path.
-
-It was runtime-validated with a reproducible QEMU no-device KCSAN PoC
-that kept the same report-local contract:
-
-  1. use one shared struct etb_drvdata carrier and its
-     drvdata->reading gate;
-  2. call etb_open() and etb_release() sequentially on that gate to
-     confirm the original claim/clear path;
-  3. bind the open side to CPU0 and the release side to CPU1 for the
-     same gate to show cross-CPU ownership;
-  4. run bound workers that repeatedly race etb_open() and
-     etb_release() on the same gate until KCSAN reports a target hit.
-
-The harness recorded:
-
-  L1 passed open=1 release=1
-  reading_after_open=1 reading_after_release=0
-  L2 passed open_cpu=0 release_cpu=1
-  cross_cpu_release=1 reading_after=0 open_ret=0
-
-Representative KCSAN excerpt from the no-device validation run:
-
-  BUG: KCSAN: data-race in etb_open.constprop.0.isra.0 [vuln_msv]
-
-  write to 0xffffffffc0003810 of 4 bytes by task 216 on cpu 1:
-   etb_open.constprop.0.isra.0+0x38/0x80 [vuln_msv]
-   l3_worker_thread_fn+0x4f/0xf0 [vuln_msv]
-   kthread+0x17e/0x1c0
-   ret_from_fork+0x22/0x30
-
-  read to 0xffffffffc0003810 of 4 bytes by task 215 on cpu 0:
-   etb_open.constprop.0.isra.0+0x18/0x80 [vuln_msv]
-   l3_worker_thread_fn+0x4f/0xf0 [vuln_msv]
-   kthread+0x17e/0x1c0
-   ret_from_fork+0x22/0x30
-
-  value changed: 0x00000000 -> 0x00000001
-
-  Reported by Kernel Concurrency Sanitizer on:
-  CPU: 0 PID: 215 Comm: etb10_l3_a Tainted: G           O       6.1.66 #2
-
-This no-device harness is not a real ETB10 hardware end-to-end run, but
-it preserves the same shared drvdata->reading gate and the same
-etb_open()/etb_release() claim/clear contract. No real ETB10 hardware
-was available for runtime testing.
-
-Build-tested with:
-  make olddefconfig
-  make -j"$(nproc)" drivers/hwtracing/coresight/coresight-etb10.o
-
-Fixes: 27b10da8fff2 ("coresight: etb10: moving to local atomic operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Reviewed-by: James Clark <james.clark@linaro.org>
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-Link: https://lore.kernel.org/r/20260528165201.319452-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hwtracing/coresight/coresight-etb10.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
-index f775cbee12b88d..0835b52e65f763 100644
---- a/drivers/hwtracing/coresight/coresight-etb10.c
-+++ b/drivers/hwtracing/coresight/coresight-etb10.c
-@@ -86,7 +86,7 @@ struct etb_drvdata {
- 	struct coresight_device	*csdev;
- 	struct miscdevice	miscdev;
- 	spinlock_t		spinlock;
--	local_t			reading;
-+	atomic_t		reading;
- 	pid_t			pid;
- 	u8			*buf;
- 	u32			mode;
-@@ -604,7 +604,7 @@ static int etb_open(struct inode *inode, struct file *file)
- 	struct etb_drvdata *drvdata = container_of(file->private_data,
- 						   struct etb_drvdata, miscdev);
- 
--	if (local_cmpxchg(&drvdata->reading, 0, 1))
-+	if (atomic_cmpxchg(&drvdata->reading, 0, 1))
- 		return -EBUSY;
- 
- 	dev_dbg(&drvdata->csdev->dev, "%s: successfully opened\n", __func__);
-@@ -642,7 +642,7 @@ static int etb_release(struct inode *inode, struct file *file)
- {
- 	struct etb_drvdata *drvdata = container_of(file->private_data,
- 						   struct etb_drvdata, miscdev);
--	local_set(&drvdata->reading, 0);
-+	atomic_set(&drvdata->reading, 0);
- 
- 	dev_dbg(&drvdata->csdev->dev, "%s: released\n", __func__);
- 	return 0;
--- 
-2.53.0
+> Thanks,
+> Fan
+> 
 
