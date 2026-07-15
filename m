@@ -1,118 +1,99 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2889C2931F1
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 03:02:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6920B757EA;
+	Wed, 15 Jul 2026 03:10:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784084539; cv=none; b=OEFvXtUVNoFtbfHkuH6mEa5JLVdtKF7sysxVAQCpV4LalVFsVhKrgQD9s4K06TLllUYeR4Agc14vThCvmfjbYnH+OGF4VwtLKVf8nD8PWSz2bOo41kHEjtPvpi5l+TTSPfRnloenicVp248tzj21rZnsUNnKYu35Nm0m2he5qdQ=
+	t=1784085013; cv=none; b=AYmLwX3VtLlfrVdsQjVabNlJ62A/cr+FocuBJPuAOFOgQLSsxT1lUvrV8xDSJE6AwqklCVsDjCnvcdX1gdTR6U5H1LyrB57c7p01/BUL6o7VMVkT7twf3VrE/BPmolopTnnwzidAEYAgSihg2hMt1iVRgCiSOCyVlcBHfn4t8D0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784084539; c=relaxed/simple;
-	bh=Pyp2DnCViCnJgUi88+R0XBfifCiYiXiV56seNpVS6sg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HkEAZH43l23272B/mbo3ybjq43OuDO9ltEcEfMZqlAGtcjIWuusLTyGVho28RNKMLsyZR51IfvzevbuskjIG041TOcvd27tVCigZJRieW/9S3BWd8qTE6ZBsKZcq7eMylh7YKRcyN23qSdPi3DTbIwTED3Jizf4xCmBgXxxL2/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=CgJACLJ9; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1784085013; c=relaxed/simple;
+	bh=8FLrvyXbypcB7/NYujxfjOGZbZPVW048/ercppBGBe4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EU5VsiulFhJgowwqMsEBStX7mZKnBgxDWfO29N/ibzL5ArHC+RMVVOwFTxq2WNVxE6I5lLC2VO3tQw2jt2Edfh//QgbM4LlRJ6NGGMDpy68ZQkJkEivHeVX4vdIOVYX+t8pCIDWvrpdPmpc2/HoROHA4QIpK/u189uaEnjiXNAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N74Od/Ek; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="CgJACLJ9"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c15cd3fd760so567932766b.2
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784084536; x=1784689336; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hOjABmuvBW+jCcuokYEE7Gv19LjuO15ZtZi5onZDlks=;
-        b=CgJACLJ98v8bx0a5WjsLkmXa0c45JEdSrekLF6tl5Fk22ghzpLJUvgFKQNzQTq8Ifl
-         /ETsYk5Eo6xIB43MhUwOTHfm6l/60rKnMk3z77HYo3eisYf7NRzZMM+qx11ZKE/B/IiZ
-         vklNHjKz3M8XNO8/Ulp4B/L3Ont5OEf+hb9qmZq7FfrXmYIOgTLvsYr1mcGB8om87koA
-         eNoJog5ZJsjRDPz3ZRg0hRIWoIoPBCEPrG28tjn73CcgQw9BSKK4PCVnl0TowIaMCQJl
-         cKRfYR0ykvJXtO91SW3ILye1CqC2a48Lpg1PjvVqZVEEk6hLo2Llro4s7MO2IjdwzHBW
-         PEJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784084536; x=1784689336;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hOjABmuvBW+jCcuokYEE7Gv19LjuO15ZtZi5onZDlks=;
-        b=JbdXpTRwKLIOAJap3nU6wFM2qBCfi4Qr/mP2VC7QUE7c/HT6fLomQvj2P9fEAe7OIj
-         ZdWWDtJv48PXVgsV0VXHIkKBLYiKbJ51Lm438GfKpF3QjPxPkJAKy2YpR+W8cPmcDZPU
-         Skr6XvCUoUDIMrah8iPf02Oyr8QkWBOEunE2v3F0qtMi0DvRzknYtbew91pkuHBHDNp6
-         35BRYKc44scuT+VX8P/ICcvzVWjtVGHypS6RtpGY3k6+oAO9K+uhvnYTKWjOVUvVFExX
-         T6i+m8R+94Bf0N+L5cGljEud3Tim/mgyUGysO7wwzNpeKoK2E8FgSukL3c4kGZWsDgQP
-         T1+Q==
-X-Forwarded-Encrypted: i=1; AHgh+Ro04irtM0qrWTJoKuGic1vaP0I5MDPmA45CXl7kJqOyejYZIjwrKsr6rogtlb1lKHEPzu+Hu1s=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxe/8rR6UKPI+tx6DvyR0bguiiijVwZZlbY0ppS3SCmNf87Td2Z
-	2KNWytQXIEeOnV1eRmF0UQhr1ERhSSL8SqkqobvLOQMMIVrc76DfBDrrKdv/R6yWzYg=
-X-Gm-Gg: AfdE7cnxiVpOi5k7FjOXZwnHIfbAUWZCI/u0aZPO5iE4PC7Duo9Em0bK+C/yFNre+7Q
-	q/MeHLS4d4X2NUg/xWgDhXLR0bjzG1L0bPKPqcgVqSRLhU/i32ENhAhwqGo6FQKNRnZBas9tZEe
-	zgahb5iY6IISq+QlBmUCFsBEgor1yyAawkKCc72vtTMAKKDMtWilQACgnJQRA3wADPNdlNG8Uya
-	FpirDBolawuzX9NY+JaZFJHIPbe9wmNAzWUKm2KHHeYp4wJvhDhuMXfC2lex/xnb+aBFRqWbLVQ
-	XHXGsLfPlI2wwQfnSxnQqKb7pCVFSzH08jAMD6Vc2vaTeIvyXLmN3F6/lncU4Z7hwU8Tc/EIB4d
-	iJSRIbKs1QzPJqNkoQ1cKZdaqD+1YPFa31uYQ7jX+QE/L2R1OVsCm7lsBNN43QwwcR7ojlqJlgh
-	L+rAInxVGIsO/pUTPBv66wrMf5UYACgcby
-X-Received: by 2002:a17:907:f815:b0:bb7:eb68:514e with SMTP id a640c23a62f3a-c167940e66bmr67514766b.36.1784084536316;
-        Tue, 14 Jul 2026 20:02:16 -0700 (PDT)
-Received: from u94a (27-51-89-168.adsl.fetnet.net. [27.51.89.168])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a39a4a7797sm7988739eaf.6.2026.07.14.20.02.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 20:02:14 -0700 (PDT)
-Date: Wed, 15 Jul 2026 11:02:02 +0800
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: Sun Jian <sun.jian.kdev@gmail.com>
-Cc: bpf@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Jiri Olsa <jolsa@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Shuah Khan <shuah@kernel.org>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Matt Mullins <mmullins@mmlx.us>, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH bpf v5 2/2] selftests/bpf: Cover negative buffer pointer
- offsets
-Message-ID: <alb1fmxTl6-c-HJs@u94a>
-References: <20260714093846.18159-1-sun.jian.kdev@gmail.com>
- <20260714093846.18159-3-sun.jian.kdev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N74Od/Ek"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2FC1F000E9;
+	Wed, 15 Jul 2026 03:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784085012;
+	bh=zX5F+4lmbeae1CeGb/wxT1HGr47P+pAaJ2W/OiCCHm8=;
+	h=From:To:Cc:Subject:Date;
+	b=N74Od/EkYRy+y+m8B+GCPqq9csaIQ4tdN+b70jJHtcQ6Ip5IN6BCNhhd8eM9oGIYR
+	 2z7A7HDv7NksiEeb6yv5knT0aVbUNdvOJ4NusC7po080ymGjZRsNZ7Gd5baBh6F6nV
+	 V1e6zzjHjGlhki4F8gLUEWX9NgbwNQjgKHRBmyuRJ5ajc7qjHdBhtJQg6y33Lw+2pJ
+	 iWq0bIsk2Qu21W40SJX579OPlGhA8UfhYjaC10DcD6HOhGRgDBG2Zp+mpVR9aM3gb5
+	 PZQIxBLd3cSMaXJauJC/xj6HWwS5jG9/oz/3UYd69n+/zlOIx7sIQVQ8JAINn6Qfos
+	 OsjEzZF2G0xIQ==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Fernand Sieber <sieberf@amazon.com>,
+	Leonard Foerster <foersleo@amazon.de>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
+	SeongJae Park <sjpark@amazon.de>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH v1.1 0/6] mm/damon: unurgent fixes for infinite loop, NULL de-ref and races
+Date: Tue, 14 Jul 2026 20:09:55 -0700
+Message-ID: <20260715031002.108504-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714093846.18159-3-sun.jian.kdev@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 14, 2026 at 02:38:46AM -0700, Sun Jian wrote:
-> Add verifier coverage for constant negative offsets on PTR_TO_TP_BUFFER
-> and PTR_TO_BUF pointers. Both programs adjust the buffer pointer by -8
-> and access it at offset zero, so the negative effective start must be
-> rejected at load time.
-> 
-> Switch the raw tracepoint writable attach checks from nbd_send_request
-> to bpf_testmod_test_writable_bare_tp, avoiding a dependency on the NBD
-> tracepoint. Keep the existing past-end case and add a case with a
-> negative var_off compensated by a positive instruction offset. The
-> effective start remains non-negative, so the program loads, but its
-> access end exceeds the writable context size and
-> bpf_raw_tracepoint_open() must return -EINVAL.
-> 
-> Reported-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-> Link: https://lore.kernel.org/bpf/alRtilWhKw4zzMkI@u94a
-> Cc: stable@vger.kernel.org # 5.2.0
-...
+Sashiko found a few issues in DAMON that could cause infinite loop, NULL
+dereference and monitoring results degradation.  The first two sounds
+scary but the infinite loop happens only under unreasonable user setup.
+The NULL dereference is only in a unit test.  Monitoring results
+degradation is trivial since it is only best-effort, and those happens
+from only unlikely races.  Still those are bugs that better to fix if
+possible. Fix those.
 
-IMO it is slightly better to split this into two. First part would be
-[1] suggested by Eduard, and the second part would be the addition of
-negative offset test.
+Changes from v1
+- v1: https://lore.kernel.org/20260714135236.92699-1-sj@kernel.org
+- Add addr_unit race fix.
+- Add Fixes: tags to the race fixes.
+- Wordsmith subjects.
+Changes from RFC v1.2
+- RFC v1.2: https://lore.kernel.org/20260713135838.32730-1-sj@kernel.org
+- Drop RFC tag.
+- Rebase to latest mm-new.
+Changes from RFC v1.1
+- RFC v1.1: https://lore.kernel.org/20260712170328.91144-1-sj@kernel.org
+- Remove same_target param from __damon_va_check_access().
+Changes from RFC
+- RFC: https://lore.kernel.org/20260711180409.82093-1-sj@kernel.org
+- Rebase to mm-new.
 
-That said, I checked that with v5.2 we do have PTR_TO_TP_BUFFER and
-PTR_TO_BUF support already (latter as PTR_TO_RDONLY_BUF and
-PTR_TO_RDWR_BUF), so there shouldn't be a problem having these tests
-back in stable.
+SJ Park (6):
+  mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
+  mm/damon/tests/core-kunit: catch test failure in
+    test_merge_regions_of()
+  mm/damon/vaddr: drop last same folio access check optimization
+  mm/damon/paddr: drop last same folio access check reuse optimization
+  mm/damon/sysfs: read addr_unit only once in damon_sysfs_apply_inputs()
+  mm/damon/sysfs: read ops_id only once in damon_sysfs_apply_inputs()
 
-Acked-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+ mm/damon/core.c             | 13 +++++++++----
+ mm/damon/paddr.c            | 20 ++++----------------
+ mm/damon/sysfs.c            | 10 ++++++----
+ mm/damon/tests/core-kunit.h |  3 +++
+ mm/damon/vaddr.c            | 33 ++++++---------------------------
+ 5 files changed, 28 insertions(+), 51 deletions(-)
 
-1: https://lore.kernel.org/bpf/3430dc0a2a141769a596ab21d7abdd86a0a804db.camel@gmail.com/2-tp-test.diff
+
+base-commit: 52d335d2c1de60b6184b9de5ecec634892a3e136
+-- 
+2.47.3
