@@ -1,170 +1,137 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEC140EB94;
-	Wed, 15 Jul 2026 12:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CB642046C;
+	Wed, 15 Jul 2026 13:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784120400; cv=none; b=sZzFazWZB4E40uTanGG0MJ/Hx/9gamlMia7U1D4LBVe51cMyolyc3lwuL3Iv1ueV7YQHwO7T69x+kS3NtrM7SeFLBcS5V/kO8Msg+rl5G2xVmB9hKLPEpEmefGz04ElVvCVoYOh1ebut+3snjpmVLprV1xck97MCLRrcrdyeU/4=
+	t=1784120421; cv=none; b=XVfFJbozhWQb0j2kTsE0S2K0VWFsxn2I3PHHzaO5OF4XirSOXhqJx5wBiRyJ19daMYES4njsDRTNeVmWAO09N/q0W6Y2wfhJUVz5/9WQ97Jt/kZlLxo4k9xm8HQkRrgIWlGpF51zf9f0ZI5nz7VBuGUsBVOXs+OGmi+ONMPjois=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784120400; c=relaxed/simple;
-	bh=w8aJWrF1Nf/0ERxnBiNWFSlFyI2NJKQoDJmBc7nBkSw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h2QUZA3YTTVRlf+uxyMxmNTqe1RPqhAnz+JAwnwPO4brdipCOkxZgiqqslNKWhhzB2cYFkNsOUYlO4/JpM7Q1EmKcbSE+A6H0DNMzJ8eAB4ywCX2THAfcm6kDS6IlkBTv4NgRcdZsP40qAE6W3+Z/Qu8HVnlnKjb9d1iRpbtRI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DeRW5bV/; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784120421; c=relaxed/simple;
+	bh=3skrBAkbtNyg9Bumqk6FBKdNJba9ff3/9lSOe8ISDIE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CNOQVh2rkEd0ACdcVSiLR+b+KSr/gcGNJBau2nko4V9w48ds1RwRCyu6KzhfJ0M3QazSPxQldeKCCIbdFo7Zn+Bf+3HjYd3BOOoNnL0klf1JI4C/GCGxW+k2yQItf2YiYCxxdRHg8s8LEUkEjVpHyLhebJ2qJ972YqZVYKDm4ao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ALrAJdoC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DeRW5bV/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784120397; x=1815656397;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=w8aJWrF1Nf/0ERxnBiNWFSlFyI2NJKQoDJmBc7nBkSw=;
-  b=DeRW5bV/loXMAhtE2eFeBTOsYIxpk1SxY0sQ+M3uYXL9mJwcenXnn1sZ
-   i38Mp6/N1VdX6kc+0whFyrr1HMFws5GZRP+K3EOyki5MRuYZ0ku8iNDTA
-   TzlRH41Y1FRF6B3Qh3NXeUo8VV/G6XstgxDgIAuu2L6ZJzCQJg3aNn/Ma
-   pNGYVyfX5M3OvjU9exFsxh7nCLpuIMnbKmfvWOUBI7p0Pa9UY+fnQkTFc
-   9tWr7jh9w4hI4rKWiMiW6swGJl+b8/bl0fYwtGDcKpvauDpAM0dnh/pcn
-   22Hoay0qF/ergR56UZuOCWF8EzH3/QVkw+hfV9BNXDY17iwBgyiwxTnxx
-   g==;
-X-CSE-ConnectionGUID: TtrXWyg7RVu1JbnhwEfTWQ==
-X-CSE-MsgGUID: wg2f+RqWSvmIgsxKtktqbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84638190"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="84638190"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 05:59:55 -0700
-X-CSE-ConnectionGUID: s84493LkQq+LsPWRT/uq7Q==
-X-CSE-MsgGUID: x0BNHSheR9K3oRoK8oP2iw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="286246387"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa002.jf.intel.com with ESMTP; 15 Jul 2026 05:59:52 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 0ACD795; Wed, 15 Jul 2026 14:59:51 +0200 (CEST)
-Date: Wed, 15 Jul 2026 15:59:49 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Raag Jadav <raag.jadav@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Ramesh Babu B <ramesh.babu.b@intel.com>,
-	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
-	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] drm/xe/i2c: Fix the interrupt handling
-Message-ID: <aleEReNBnQMy3-1E@kuha>
-References: <20260713155601.711389-1-heikki.krogerus@linux.intel.com>
- <20260713155601.711389-3-heikki.krogerus@linux.intel.com>
- <alcoDtq2aul-tA_h@black.igk.intel.com>
- <aldYjL2pxA7QxoLN@kuha>
- <ald1HG6KzjWb9CUK@black.igk.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ALrAJdoC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0C971F000E9;
+	Wed, 15 Jul 2026 13:00:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784120420;
+	bh=iawfAx9IUNsqiGi8BIPj1NgosIqnNR7z7NURj181n5E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ALrAJdoCITv2RWPJ1pYX8IATK1b7oeIRF8Z7ES+ZMs2LU5ho4Z90RaY7B/uloe2TZ
+	 RNzHWSlRUToaosTnHHU8vdsvU1ikCVGi3uVTlWPvjzaUcCLDXI0TFwnLXOSRs/YUMf
+	 i5J3g8fP5Ph7dVazeKBaXVevZo0/GJ8fpom49TSGdgUNxK/UfAfvlaxgmVYm6yeAZE
+	 wztblW/ghKf6TSQmhlchQKCftszUm8k5yzSE7L1iw+FtDLo5CjIHI785kQHf9I8nPJ
+	 O23KxUDP7r26Dj9JqExQ+2ep2EjoLgpqHNwhC9vtLxkvElDZKPVyQjt9kVhQaehIja
+	 Dp8/8NaY/N0dA==
+Message-ID: <3f96edc0-229c-45c5-a9a1-852eb2de80c3@kernel.org>
+Date: Wed, 15 Jul 2026 15:00:14 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ald1HG6KzjWb9CUK@black.igk.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/page_alloc: don't spin_trylock() in NMI on UP
+Content-Language: en-US
+To: Brendan Jackman <jackmanb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Alexei Starovoitov <ast@kernel.org>, Harry Yoo <harry@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ sashiko-bot@kernel.org
+References: <20260715-alloc-nolock-fixes-v1-0-fadc49952dda@google.com>
+ <20260715-alloc-nolock-fixes-v1-1-fadc49952dda@google.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260715-alloc-nolock-fixes-v1-1-fadc49952dda@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Raag,
+On 7/15/26 11:03, Brendan Jackman wrote:
+> As noted in can_spin_trylock(), using this is unsafe in this context.
+> commit 620b46ed6ae17 ("mm/page_alloc: return NULL early from
+> alloc_frozen_pages_nolock() in NMI on UP") fixed this on the alloc side
+> but missed the free side.
+> 
+> Impact: If BPF programs using these features in NMI (probably tracing)
+> are present on non-SMP builds this might crash the kernel and is
+> probably exploitable by local attackers for privilege escalation.
+> 
+> Reported-by: sashiko-bot@kernel.org
+> Link: https://sashiko.dev/#/patchset/20260703-alloc-trylock-v5-0-c87b714e19d3%40google.com?part=18
 
-On Wed, Jul 15, 2026 at 01:55:08PM +0200, Raag Jadav wrote:
-> On Wed, Jul 15, 2026 at 12:53:16PM +0300, Heikki Krogerus wrote:
-> > On Wed, Jul 15, 2026 at 08:26:22AM +0200, Raag Jadav wrote:
-> > > On Mon, Jul 13, 2026 at 05:56:00PM +0200, Heikki Krogerus wrote:
-> > > > The platforms that support the interrupt from the I2C
-> > > > adapter can not handle the amount of interrupts the adapter
-> > > > generates because of the way the IRQ is routed in the
-> > > > hardware. The I2C controller driver has to be kept in
-> > > > polling mode because of that.
-> > > > 
-> > > > The AMC MCU can still generate critical alerts that have to
-> > > > be handled. The interrupt from SMBus Alert is left enabled
-> > > > and handled separately in the Xe. The alerts from the AMC
-> > > > will cause the device to be declared wedged for now.
-> 
-> ...
-> 
-> > > > +	    memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
-> > > > +		dev_err(&client->dev, "response does not match the request\n");
-> 
-> Forgot add, use drm_*() variants where possible.
+Should be "Closes:"?
+(Andrew can fix up locally)
 
-I used deliberately the dev_*() here so I can use the i2c client
-device, which to me feels more appropriate. With drm_*() I would need
-to use the drm device, right?
+> Cc: stable@vger.kernel.org
+> Fixes: 8c57b687e8331 ("mm, bpf: Introduce free_pages_nolock()")
+> Signed-off-by: Brendan Jackman <jackmanb@google.com>
 
-But I can change this if you still prefer the drm_*(). Let me know.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-> > > > +		return;
-> > > > +	}
-> > > > +
-> > > > +	if (response.error) {
-> > > > +		dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
+> ---
+>  mm/page_alloc.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> Ditto.
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index af63558391345..5f9873dfccc5a 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -2979,8 +2979,7 @@ static void __free_frozen_pages(struct page *page, unsigned int order,
+>  		migratetype = MIGRATE_MOVABLE;
+>  	}
+>  
+> -	if (unlikely((fpi_flags & FPI_TRYLOCK) && IS_ENABLED(CONFIG_PREEMPT_RT)
+> -		     && (in_nmi() || in_hardirq()))) {
+> +	if (unlikely((fpi_flags & FPI_TRYLOCK) && !can_spin_trylock())) {
+>  		add_page_to_zone_llist(zone, page, order);
+>  		return;
+>  	}
 > 
-> > > > +		return;
-> > > > +	}
-> > > > +
-> > > > +	dev_dbg(&client->dev, "%s: Alert reason: %d\n", __func__, response.value);
-> 
-> Ditto.
-> 
-> > > See below [1].
-> > > 
-> > > > +	switch (response.value) {
-> > > > +	case AMC_ALERT_FW_DOWNLOAD:
-> > > > +	case AMC_ALERT_THERMAL_TRIP:
-> > > > +	case AMC_ALERT_OOB_REQUEST:
-> > > > +	case AMC_ALERT_OOB_RESET:
-> > > > +	case AMC_ALERT_CATERR:
-> > > > +		xe_device_declare_wedged(i2c_client_to_xe_device(client));
-> > > > +		break;
-> > > > +	default:
-> > > > +		break;
-> > > > +	}
-> > > > +}
-> > > 
-> > > ...
-> > > 
-> > > > @@ -181,8 +187,7 @@ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
-> > > >  	if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
-> > > >  		return;
-> > > >  
-> > > > -	/* Forward interrupt to I2C adapter */
-> > > > -	generic_handle_irq_safe(xe->i2c->adapter_irq);
-> > > > +	xe_i2c_handle_smbus_alert(xe->i2c);
-> > > 
-> > > [1] Can we move the below re-assert code to wq now? Or do you suspect any
-> > > side-effects?
-> > 
-> > I think that you know this better than I do. But at this point
-> > interrupt is cleared, so why should we wait for the wq?
-> 
-> When does AMC clear the alert signal? Is it when you query from the wq?
-> If the answer is yes, there's a possibility we might end up with an
-> interrupt storm here.
-> 
-> > To play it safe, can we change this as a followup if necessary?
-> 
-> Sure, I'll leave it to you.
 
-I'll move it to the wq. There are no side-effects.
-
-> > > >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
-> > > >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
-
-Thanks,
-
--- 
-heikki
