@@ -1,79 +1,209 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D949935DA43;
-	Wed, 15 Jul 2026 16:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8543B3894
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 16:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784133306; cv=none; b=Aa0eZyhmsJmA8YTj/Av1wblUArneKeflqCYLP+HvJVmjDoFpDpLEclieVExTsBWQeqf3UpACnd/+YcSDGqbK7a4iBeecjIi+WfLC/Yd6dikFVvaWspbk8b+m9AY9+CXnxPIceDupjqwH7AroyjPRczPu1VKg9XOvFgCIYqQk2/I=
+	t=1784133859; cv=none; b=qIuoB5Iww5ttWCSflVH92RjmWN7/zVbqfgkqwsNDHMUEcOVXuSuM+imbklUdgVXRkSFSj8cFEtaTQmW71rxsW3VlSTq76xpU9nWVC9u82AbWi0Wb4TsLRopwICsJ6HlvPzja7F5UHDsts7eDx+LjqTb5pciT/EJEefUHGpTAftw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784133306; c=relaxed/simple;
-	bh=8bqmPG4IEM3bcUy0+Pz8nomt5fYXodsqpb0p2yu3P0I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gK2j2h922DI/orA8TRV7JimupPse690e3kkoACIAzeppljIuAvH9y069SznxfyBnsf8VDoe9BMqBMNMpmQ5Zb53X4LcUrrpt9pYWxIlzw8PwKD02+EzzZfz4jD56cXldk+GnCj6CQV9Aul6n8wLNzfkPIoUVcczglFRk0+d8CZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=whFCOvtJ; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784133859; c=relaxed/simple;
+	bh=CQN3toJDDYrG3acNkzzj2vyPoNzbN76XVMXYaC+EatU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rTQFmz0fS8OGcVQSw4N4IRhpAXD7TMfQ5hDokJoOv3MNAbQboxtz/ScTf2vFel6zaYJsZbSlrTmb4MJ+wzAgFkfUIzPWzd7yGBKMBo8ce7+xvY/HzDvZs9elAoC0LgXEFVdFwxYJbPwA72PJ5hBA3TFo6hS+64RIAjg6TdqAXYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oPuFS2/c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="whFCOvtJ"
-Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
-	by mail11.truemail.it (Postfix) with ESMTPA id 7542E1F8BF;
-	Wed, 15 Jul 2026 18:35:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784133302;
-	bh=mLy+AxIZdAZSn5ruUCN8ovCQjC731IjigUxz+gP0av4=; h=From:To:Subject;
-	b=whFCOvtJW4AcfTVTzpHIVQBG6qPD4UOrwU7h35w7pl3uZTUvRPheBCcQ8h4+CuJY0
-	 8ghAa1D8IY2as0EHX15rDIqhcevNa5E42msQ1ySyoI2/CjPd1Lp4a5zH6FBshAvtrJ
-	 ECZd3D0kdPyCnpnUYXnmmWFRgktipGvZAVbK05Xq8Wb/df2kUXUaI0VznqyQZXwyTG
-	 cmUhOwHJ9llunZsAmpCaw9Qc+G1RDerRJdrpMFGYUn1vh5Q1sQ+dqb+jhje0716X3T
-	 Ev0Atfp6peFHX/TkKevO+F7LUiuDWQnHAhy7J3BSR9dJzlEzmxup4aMymLzq7wmDlT
-	 vadzH/V2xHD9g==
-Date: Wed, 15 Jul 2026 18:34:58 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Doruk Tan Ozturk <doruk@0sec.ai>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Brian Norris <briannorris@chromium.org>,
-	Kees Cook <kees@kernel.org>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: mwifiex: validate HT/VHT capability and operation
- IE lengths
-Message-ID: <20260715163458.GA149147@francesco-nb>
-References: <20260715144021.GE56330@francesco-nb>
- <20260715162800.1922-1-doruk@0sec.ai>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oPuFS2/c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104E21F000E9;
+	Wed, 15 Jul 2026 16:44:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784133857;
+	bh=95fwdS709OQ6uXoN2qbwLfU66DK2jWaWbDOVfstWBPI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oPuFS2/cNz1ZH1bIIEUgI3CmsaOKHH1Z5GgdWkkEKehbo5INeUD27f9sSkDpXlMa5
+	 Hgw+lAsBbOC75r7BX8DncAZtVVpnrcTTv2u/BVp0JgaFfTYf1QIJDtjjxj8o9bKmeS
+	 4Udu8hU7nqWG75CVoKrLh4p9+gVI43+yojfxfid2ZdZtHIqX0PDFrbvOcVcQiyRpUA
+	 H2Rh/1/xo6u4TSVuUYWGDCg/hQ0gAb+pvnXZ7WD+Jl69kcQrgE7y8QWq0dFZtk1rFN
+	 piviK8lfsvfxgUD9fpou3fgP6COtsbFeeNdYtdsAKcNd0mfHWobVL2vSCnWpd5RfIJ
+	 NGl5pMk48fgGA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] gpio: sch: use raw_spinlock_t in the irq startup path
+Date: Wed, 15 Jul 2026 12:44:15 -0400
+Message-ID: <20260715164415.958948-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071322-humongous-drainable-d342@gregkh>
+References: <2026071322-humongous-drainable-d342@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260715162800.1922-1-doruk@0sec.ai>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 15, 2026 at 06:28:00PM +0200, Doruk Tan Ozturk wrote:
-> > why break and not return -EINVAL? (this in general, not only on this
-> > specific one).
-> 
-> To skip the one malformed optional element and keep parsing the rest of the
-> beacon, like the FH/DS/CF/IBSS cases just above in the same loop. Happy to
-> switch to -EINVAL if you'd rather reject the whole BSS.
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-maybe I am missing something, but I see return -EINVAL; when the packet
-is malformed. see for example
+[ Upstream commit 286533cb14a3c8a8bd39ff64ea2fc8e1aa0f638b ]
 
-		case WLAN_EID_VENDOR_SPECIFIC:
-			vendor_ie = (struct ieee_types_vendor_specific *)
-					current_ptr;
+sch_irq_unmask() enables the GPIO IRQ and then updates the controller
+state through sch_irq_mask_unmask(), which takes sch->lock with
+spin_lock_irqsave().  The callback can be reached from irq_startup()
+while setting up a requested IRQ.  That path is not sleepable, but on
+PREEMPT_RT a regular spinlock_t becomes a sleeping lock.
 
-			/* 802.11 requires at least 3-byte OUI. */
-			if (element_len < sizeof(vendor_ie->vend_hdr.oui.oui))
-				return -EINVAL;
+This issue was found by our static analysis tool and then manually
+reviewed against the current tree.
 
+The grounded PoC kept the request_threaded_irq() -> __setup_irq() ->
+irq_startup() -> sch_irq_unmask() -> sch_irq_mask_unmask() carrier and
+used the original spin_lock_irqsave(&sch->lock) edge.  Lockdep reported:
 
-My advise would be to do the same we are already doing, and unless I am
-wrong, it means that we skip the whole frame if a corruption is
-detected.
+  BUG: sleeping function called from invalid context
+  hardirqs last disabled at ... __setup_irq.constprop.0 ... [vuln_msv]
+  sch_rt_spin_lock_irqsave+0x1c/0x30 [vuln_msv]
+  sch_irq_mask_unmask.constprop.0+0x31/0x70 [vuln_msv]
+  __setup_irq.constprop.0+0xd/0x30 [vuln_msv]
 
-Francesco
+Convert the SCH controller lock to raw_spinlock_t.  The same lock is
+also used by the GPIO direction and value callbacks, but those critical
+sections only update MMIO-backed GPIO registers and do not contain
+sleepable operations.  Keeping this register lock non-sleeping is
+therefore appropriate for the irqchip callbacks and does not change the
+GPIO-side locking contract.
 
+Fixes: 7a81638485c1 ("gpio: sch: Add edge event support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Link: https://patch.msgid.link/20260617154035.1199948-2-runyu.xiao@seu.edu.cn
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+[ adjusted context for 6.6's pre-MMIO `iobase` port I/O and void `sch_gpio_set()` (no set_rv `return 0;`) ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpio/gpio-sch.c | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpio/gpio-sch.c b/drivers/gpio/gpio-sch.c
+index 8a83f7bf4382b6..d152c71a97f94c 100644
+--- a/drivers/gpio/gpio-sch.c
++++ b/drivers/gpio/gpio-sch.c
+@@ -38,7 +38,7 @@
+ 
+ struct sch_gpio {
+ 	struct gpio_chip chip;
+-	spinlock_t lock;
++	raw_spinlock_t lock;
+ 	unsigned short iobase;
+ 	unsigned short resume_base;
+ 
+@@ -102,9 +102,9 @@ static int sch_gpio_direction_in(struct gpio_chip *gc, unsigned int gpio_num)
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GIO, 1);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 	return 0;
+ }
+ 
+@@ -120,9 +120,9 @@ static void sch_gpio_set(struct gpio_chip *gc, unsigned int gpio_num, int val)
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GLV, val);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ }
+ 
+ static int sch_gpio_direction_out(struct gpio_chip *gc, unsigned int gpio_num,
+@@ -131,9 +131,9 @@ static int sch_gpio_direction_out(struct gpio_chip *gc, unsigned int gpio_num,
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GIO, 0);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 
+ 	/*
+ 	 * according to the datasheet, writing to the level register has no
+@@ -193,14 +193,14 @@ static int sch_irq_type(struct irq_data *d, unsigned int type)
+ 		return -EINVAL;
+ 	}
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 
+ 	sch_gpio_reg_set(sch, gpio_num, GTPE, rising);
+ 	sch_gpio_reg_set(sch, gpio_num, GTNE, falling);
+ 
+ 	irq_set_handler_locked(d, handle_edge_irq);
+ 
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 
+ 	return 0;
+ }
+@@ -212,9 +212,9 @@ static void sch_irq_ack(struct irq_data *d)
+ 	irq_hw_number_t gpio_num = irqd_to_hwirq(d);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GTS, 1);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ }
+ 
+ static void sch_irq_mask_unmask(struct gpio_chip *gc, irq_hw_number_t gpio_num, int val)
+@@ -222,9 +222,9 @@ static void sch_irq_mask_unmask(struct gpio_chip *gc, irq_hw_number_t gpio_num,
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GGPE, val);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ }
+ 
+ static void sch_irq_mask(struct irq_data *d)
+@@ -265,12 +265,12 @@ static u32 sch_gpio_gpe_handler(acpi_handle gpe_device, u32 gpe, void *context)
+ 	int offset;
+ 	u32 ret;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 
+ 	core_status = inl(sch->iobase + CORE_BANK_OFFSET + GTS);
+ 	resume_status = inl(sch->iobase + RESUME_BANK_OFFSET + GTS);
+ 
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 
+ 	pending = (resume_status << sch->resume_base) | core_status;
+ 	for_each_set_bit(offset, &pending, sch->chip.ngpio)
+@@ -336,7 +336,7 @@ static int sch_gpio_probe(struct platform_device *pdev)
+ 				 pdev->name))
+ 		return -EBUSY;
+ 
+-	spin_lock_init(&sch->lock);
++	raw_spin_lock_init(&sch->lock);
+ 	sch->iobase = res->start;
+ 	sch->chip = sch_gpio_chip;
+ 	sch->chip.label = dev_name(&pdev->dev);
+-- 
+2.53.0
 
