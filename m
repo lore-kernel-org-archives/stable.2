@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF3943B4B9
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:12:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF08543C065
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:12:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784110345; cv=none; b=gAwjIatIugygCLh4i5D+Owrz6LjVAmLcQs1xwDBa3WLnRGKy1LWenrAW28biZbE9ZhMkfBGcHZxgJDXFVm0RP0+hxTH+45nDHSIeR1Pl2glWA/TeDkLeRa/eLvUwllVj3dplxU2Am5rAU8LbJBsTh5/9E85GF+Q6Lk3NuXnABc8=
+	t=1784110352; cv=none; b=qjW84EHIbh02RFGmZrcQEaa+vcPcwngmHx3ETLtzhALwF5FlPOdO210p61mGyTOTYelLbL00jwSmfpwrxQHAvWQc6DsmkStkE/Zp1yiIrJXg7MKttlqlOsNGitRU84Afd5OwDKIry7lJP82md7rD4ZCIzGQzGUmvjS28C8ws6xY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784110345; c=relaxed/simple;
-	bh=MFS1j7p8U7tTHpf8TI1wTUsrrMOJaRTpkGKMp9y6KbI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=epJSkzac5amGNirSnh0qR7VMeNAU6PJ95I32sg0eGpM3lr5rfMy57stT0rb0Sc3M+gdYbqf0zTOkH2KspEcNb8yvgB48DwNqmWECSupsr1Z08j27p2+fqBsE34YDfN0bC0m2tFZV1h+yYHh9CeL6yTiMrrnPKxEge6eGCdLQAfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SFKfWHl+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784110352; c=relaxed/simple;
+	bh=nWgFmd6jvReP0KCMHxBELicSFc9rHvul9fSDUAiuE6Q=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=r6hS8HcW/Aosy8XOH7ARjPW/VACOTlXnCch6EMTKv7l63SQFFzQdsC7ZXXT3FUa3GiT8bL5L/f/Fwm4nSSWgYCbCJa8dTM6UH9OUnOxn6Uw0t8D9ichKP0aNwDnGJnl0yIBfkmClXFNwbiaJ2/8cl6PJNtIMohd6GXwNLcdZCEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vAfbEiUR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SFKfWHl+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1E31F000E9;
-	Wed, 15 Jul 2026 10:12:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vAfbEiUR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0BC1F000E9;
+	Wed, 15 Jul 2026 10:12:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784110343;
-	bh=bx5GLTj1VqeP/F3RJxv1hvH7eJKAF/sGusPS0sEvXtQ=;
+	s=korg; t=1784110349;
+	bh=Jb67AGfSGyoUha1ev0T9rG16nUl9G4W+XqlQiPM/UK4=;
 	h=Subject:To:Cc:From:Date;
-	b=SFKfWHl+juXUZMDvYBmx5GXHJpmEwjYanYMTVo4fPbDucCzvh3+Orh/kXeZweOB8k
-	 Cyg3ubH4D2zrLUHGeZRANT8LbXicC3SJ8Us2AZ1KE3yJYdQ2EPn14sKPkyXhaywMWT
-	 xHk/xDXSNtRw3Es++BkBzyQ5MHKcZy5iHXpF4Xdk=
-Subject: FAILED: patch "[PATCH] nvmet-auth: validate reply message payload bounds against" failed to apply to 6.6-stable tree
-To: flynnnchen@tencent.com,hare@kernel.org,kbusch@kernel.org
+	b=vAfbEiURkovTTx6EYet7pIqrRxAMt/h3rGETNo5KseWeYn2SHefItKqRZmQHAfji0
+	 FyeOQU6xaQGMRuun+o8LpKTN3Y8bduPhOgzeE5q4idos8FmPmaTE1QdjVvOu+aRRWw
+	 Vb+mR+qvk44DB3AdWHsTNWlfRC4smo5YS6g49axQ=
+Subject: FAILED: patch "[PATCH] btrfs: check and set EXTENT_DELALLOC_NEW before clearing" failed to apply to 6.12-stable tree
+To: wqu@suse.com,dsterba@suse.com,fdmanana@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 12:12:06 +0200
-Message-ID: <2026071506-ankle-quartered-9eb2@gregkh>
+Date: Wed, 15 Jul 2026 12:12:22 +0200
+Message-ID: <2026071522-pogo-deflector-3286@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3a413ece2504c70aa34a20be4dafec04e8c741f9
+git cherry-pick -x 95ee2231896d5f2a31760411429075a99d6045a7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071506-ankle-quartered-9eb2@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071522-pogo-deflector-3286@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,72 +62,267 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3a413ece2504c70aa34a20be4dafec04e8c741f9 Mon Sep 17 00:00:00 2001
-From: Tianchu Chen <flynnnchen@tencent.com>
-Date: Fri, 29 May 2026 14:18:39 +0000
-Subject: [PATCH] nvmet-auth: validate reply message payload bounds against
- transfer length
+From 95ee2231896d5f2a31760411429075a99d6045a7 Mon Sep 17 00:00:00 2001
+From: Qu Wenruo <wqu@suse.com>
+Date: Mon, 20 Apr 2026 18:32:49 +0930
+Subject: [PATCH] btrfs: check and set EXTENT_DELALLOC_NEW before clearing
+ EXTENT_DELALLOC
 
-nvmet_auth_reply() accesses the variable-length rval[] array using
-attacker-controlled hl (hash length) and dhvlen (DH value length) fields
-without verifying they fit within the allocated buffer of tl bytes.
+[WARNING]
+When running test cases with injected errors or shutdown, e.g.
+generic/388 or generic/475, there is a chance that the following kernel
+warning is triggered:
 
-A malicious NVMe-oF initiator can craft a DHCHAP_REPLY message with a
-small transfer length but large hl/dhvlen values, causing out-of-bounds
-heap reads when the target processes the DH public key (rval + 2*hl) or
-performs the host response memcmp.
+  BTRFS info (device dm-2): first mount of filesystem d8a19a28-3232-4809-b0df-38df83e71bff
+  BTRFS info (device dm-2): using crc32c checksum algorithm
+  BTRFS info (device dm-2): checking UUID tree
+  BTRFS info (device dm-2): turning on async discard
+  BTRFS info (device dm-2): enabling free space tree
+  BTRFS critical (device dm-2 state E): emergency shutdown
+  ------------[ cut here ]------------
+  WARNING: extent_io.c:1742 at extent_writepage_io+0x437/0x520 [btrfs], CPU#2: kworker/u43:2/651591
+  CPU: 2 UID: 0 PID: 651591 Comm: kworker/u43:2 Tainted: G        W  OE       7.0.0-rc6-custom+ #365 PREEMPT(full)  5804053f02137e627472d94b5128cc9fcb110e88
+  RIP: 0010:extent_writepage_io+0x437/0x520 [btrfs]
+  Call Trace:
+   <TASK>
+   extent_write_cache_pages+0x2a5/0x820 [btrfs 70299925d0856939e93b17d480651713b3cbba58]
+   btrfs_writepages+0x74/0x130 [btrfs 70299925d0856939e93b17d480651713b3cbba58]
+   do_writepages+0xd0/0x160
+   __writeback_single_inode+0x42/0x340
+   writeback_sb_inodes+0x22d/0x580
+   wb_writeback+0xc6/0x360
+   wb_workfn+0xbd/0x470
+   process_one_work+0x198/0x3b0
+   worker_thread+0x1c8/0x330
+   kthread+0xee/0x120
+   ret_from_fork+0x2a6/0x330
+   ret_from_fork_asm+0x11/0x20
+   </TASK>
+  ---[ end trace 0000000000000000 ]---
+  BTRFS error (device dm-2 state E): root 5 ino 259 folio 1323008 is marked dirty without notifying the fs
+  BTRFS error (device dm-2 state E): failed to submit blocks, root=5 inode=259 folio=1323008 submit_bitmap=0: -117
+  BTRFS info (device dm-2 state E): last unmount of filesystem d8a19a28-3232-4809-b0df-38df83e71bff
 
-With DH authentication configured, the OOB pointer is passed directly to
-sg_init_one() and read by crypto_kpp_compute_shared_secret(), reaching
-up to 526 bytes past the buffer. This is exploitable pre-authentication.
+[CAUSE]
+Inside btrfs we have the following pattern in several locations, for
+example inside btrfs_dirty_folio():
 
-Add bounds validation ensuring sizeof(*data) + 2*hl + dhvlen <= tl before
-any access to the variable-length fields.
+	btrfs_clear_extent_bit(&inode->io_tree, start_pos, end_of_last_block,
+			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
+			       cached);
 
-Discovered by Atuin - Automated Vulnerability Discovery Engine.
+	ret = btrfs_set_extent_delalloc(inode, start_pos, end_of_last_block,
+					extra_bits, cached);
+	if (ret)
+		return ret;
 
-Fixes: db1312dd9548 ("nvmet: implement basic In-Band Authentication")
-Cc: stable@vger.kernel.org
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+However btrfs_set_extent_delalloc() can return IO errors other than -ENOMEM
+through the following callchain:
 
-diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-index f1e613e7c63e..0a85acf1e5c7 100644
---- a/drivers/nvme/target/fabrics-cmd-auth.c
-+++ b/drivers/nvme/target/fabrics-cmd-auth.c
-@@ -132,13 +132,22 @@ static u8 nvmet_auth_negotiate(struct nvmet_req *req, void *d)
- 	return 0;
+ btrfs_set_extent_delalloc()
+ \- btrfs_find_new_delalloc_bytes()
+    \- btrfs_get_extent()
+       \- btrfs_lookup_file_extent()
+          \- btrfs_search_slot()
+
+When such IO error happened, the previous btrfs_clear_extent_bit() has
+cleared the EXTENT_DELALLOC for the range, and we're expecting
+btrfs_set_extent_delalloc() to re-set EXTENT_DELALLOC.
+
+But since btrfs_set_extent_delalloc() failed before
+btrfs_set_extent_bit(), EXTENT_DELALLOC flag is no longer present.
+
+And if the folio range is dirty before entering
+btrfs_set_extent_delalloc(), we got a dirty folio but no EXTENT_DELALLOC
+flag now.
+
+Then we hit the folio writeback:
+
+  extent_writepage()
+  |- writepage_delalloc()
+  |  No ordered extent is created, as there is no EXTENT_DELALLOC set
+  |  for the folio range.
+  |  This also means the folio has no ordered flag set.
+  |
+  |- extent_writepage_io()
+     \- if (unlikely(!folio_test_ordered(folio))
+        Now we hit the warning.
+
+[FIX]
+Introduce a new helper, btrfs_reset_extent_delalloc() to replace the
+currently open-coded btrfs_clear_extent_bit() +
+btrfs_set_extent_delalloc() combination.
+
+Instead of calling btrfs_clear_extent_bit() first, update
+EXTENT_DELALLOC_NEW first, as that part can fail due to metadata IO,
+meanwhile btrfs_clear_extent_bit() and btrfs_set_extent_bit() won't
+return any error but retry memory allocation until succeeded.
+
+This allows us to fail early without clearing EXTENT_DELALLOC bit, so
+even if that new btrfs_reset_extent_delalloc() failed before touching
+EXTENT_DELALLOC, the existing dirty range will still have their old
+EXTENT_DELALLOC flag present, thus avoid the warning.
+
+CC: stable@vger.kernel.org # 6.1+
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+
+diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
+index 6e696b350dc5..8acfb57768a6 100644
+--- a/fs/btrfs/btrfs_inode.h
++++ b/fs/btrfs/btrfs_inode.h
+@@ -569,6 +569,8 @@ int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
+ int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
+ 			      unsigned int extra_bits,
+ 			      struct extent_state **cached_state);
++int btrfs_reset_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
++				unsigned int extra_bits, struct extent_state **cached_state);
+ 
+ struct btrfs_new_inode_args {
+ 	/* Input */
+diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+index 7dbba3acb674..7e08d6e53687 100644
+--- a/fs/btrfs/file.c
++++ b/fs/btrfs/file.c
+@@ -85,16 +85,8 @@ int btrfs_dirty_folio(struct btrfs_inode *inode, struct folio *folio, loff_t pos
+ 
+ 	end_of_last_block = start_pos + num_bytes - 1;
+ 
+-	/*
+-	 * The pages may have already been dirty, clear out old accounting so
+-	 * we can set things up properly
+-	 */
+-	btrfs_clear_extent_bit(&inode->io_tree, start_pos, end_of_last_block,
+-			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
+-			       cached);
+-
+-	ret = btrfs_set_extent_delalloc(inode, start_pos, end_of_last_block,
+-					extra_bits, cached);
++	ret = btrfs_reset_extent_delalloc(inode, start_pos, end_of_last_block,
++					  extra_bits, cached);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1960,18 +1952,7 @@ static vm_fault_t btrfs_page_mkwrite(struct vm_fault *vmf)
+ 		}
+ 	}
+ 
+-	/*
+-	 * page_mkwrite gets called when the page is firstly dirtied after it's
+-	 * faulted in, but write(2) could also dirty a page and set delalloc
+-	 * bits, thus in this case for space account reason, we still need to
+-	 * clear any delalloc bits within this page range since we have to
+-	 * reserve data&meta space before lock_page() (see above comments).
+-	 */
+-	btrfs_clear_extent_bit(io_tree, page_start, end,
+-			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING |
+-			       EXTENT_DEFRAG, &cached_state);
+-
+-	ret = btrfs_set_extent_delalloc(inode, page_start, end, 0, &cached_state);
++	ret = btrfs_reset_extent_delalloc(inode, page_start, end, 0, &cached_state);
+ 	if (ret < 0) {
+ 		btrfs_unlock_extent(io_tree, page_start, page_end, &cached_state);
+ 		goto out_unlock;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index fd58f7792d94..e58cd85b8474 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -2809,7 +2809,13 @@ int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
+ 			      unsigned int extra_bits,
+ 			      struct extent_state **cached_state)
+ {
+-	WARN_ON(PAGE_ALIGNED(end));
++	const u32 blocksize = inode->root->fs_info->sectorsize;
++
++	/* Basic alignment check. */
++	ASSERT(IS_ALIGNED(start, blocksize), "start=%llu blocksize=%u",
++	       start, blocksize);
++	ASSERT(IS_ALIGNED(end + 1, blocksize), "inclusive end=%llu blocksize=%u",
++	       end, blocksize);
+ 
+ 	if (start >= i_size_read(&inode->vfs_inode) &&
+ 	    !(inode->flags & BTRFS_INODE_PREALLOC)) {
+@@ -2832,6 +2838,52 @@ int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
+ 				    EXTENT_DELALLOC | extra_bits, cached_state);
  }
  
--static u8 nvmet_auth_reply(struct nvmet_req *req, void *d)
-+static u8 nvmet_auth_reply(struct nvmet_req *req, void *d, u32 tl)
- {
- 	struct nvmet_ctrl *ctrl = req->sq->ctrl;
- 	struct nvmf_auth_dhchap_reply_data *data = d;
--	u16 dhvlen = le16_to_cpu(data->dhvlen);
-+	u16 dhvlen;
- 	u8 *response;
++/*
++ * Clear the old accounting flags and set EXTENT_DELALLOC for the range.
++ *
++ * Return <0 for error, in that case no range has EXTENT_DELALLOC bit cleared or set.
++ */
++int btrfs_reset_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
++				unsigned int extra_bits, struct extent_state **cached_state)
++{
++	const u32 blocksize = inode->root->fs_info->sectorsize;
++
++	/* The @extra_bits can only be EXTENT_NORESERVE for now. */
++	ASSERT(!(extra_bits & ~EXTENT_NORESERVE), "extra_bits=0x%x", extra_bits);
++
++	/* Basic alignment check. */
++	ASSERT(IS_ALIGNED(start, blocksize), "start=%llu blocksize=%u",
++	       start, blocksize);
++	ASSERT(IS_ALIGNED(end + 1, blocksize), "inclusive end=%llu blocksize=%u",
++	       end, blocksize);
++
++	/*
++	 * Check and set DELALLOC_NEW flag, this needs to search tree thus can
++	 * fail early.  Thus we want to do this before clearing EXTENT_DELALLOC.
++	 */
++	if (start >= i_size_read(&inode->vfs_inode) &&
++	    !(inode->flags & BTRFS_INODE_PREALLOC)) {
++		/*
++		 * There can't be any extents following EOF in this case so just
++		 * set the delalloc new bit for the range directly.
++		 */
++		extra_bits |= EXTENT_DELALLOC_NEW;
++	} else {
++		int ret;
++
++		ret = btrfs_find_new_delalloc_bytes(inode, start, end + 1 - start,
++						    NULL);
++		if (unlikely(ret))
++			return ret;
++	}
++	/* Clear the old accounting as the range may already be dirty. */
++	btrfs_clear_extent_bit(&inode->io_tree, start, end,
++			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING |
++			       EXTENT_DEFRAG, cached_state);
++	return btrfs_set_extent_bit(&inode->io_tree, start, end,
++				    EXTENT_DELALLOC | extra_bits, cached_state);
++}
++
+ static int insert_reserved_file_extent(struct btrfs_trans_handle *trans,
+ 				       struct btrfs_inode *inode, u64 file_pos,
+ 				       struct btrfs_file_extent_item *stack_fi,
+@@ -4978,12 +5030,7 @@ int btrfs_truncate_block(struct btrfs_inode *inode, u64 offset, u64 start, u64 e
+ 		goto again;
+ 	}
  
-+	if (tl < sizeof(*data))
-+		return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
-+
-+	dhvlen = le16_to_cpu(data->dhvlen);
-+
-+	/* Validate that hl and dhvlen fit within the transfer length */
-+	if (sizeof(*data) + 2 * (size_t)data->hl + dhvlen > tl)
-+		return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
-+
- 	pr_debug("%s: ctrl %d qid %d: data hl %d cvalid %d dhvlen %u\n",
- 		 __func__, ctrl->cntlid, req->sq->qid,
- 		 data->hl, data->cvalid, dhvlen);
-@@ -338,7 +347,7 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
+-	btrfs_clear_extent_bit(&inode->io_tree, block_start, block_end,
+-			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
+-			       &cached_state);
+-
+-	ret = btrfs_set_extent_delalloc(inode, block_start, block_end, 0,
+-					&cached_state);
++	ret = btrfs_reset_extent_delalloc(inode, block_start, block_end, 0, &cached_state);
+ 	if (ret) {
+ 		btrfs_unlock_extent(io_tree, block_start, block_end, &cached_state);
+ 		goto out_unlock;
+diff --git a/fs/btrfs/reflink.c b/fs/btrfs/reflink.c
+index 86fa8d92e15b..0a4628b3007d 100644
+--- a/fs/btrfs/reflink.c
++++ b/fs/btrfs/reflink.c
+@@ -95,9 +95,7 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+ 	if (ret < 0)
+ 		goto out_unlock;
  
- 	switch (data->auth_id) {
- 	case NVME_AUTH_DHCHAP_MESSAGE_REPLY:
--		dhchap_status = nvmet_auth_reply(req, d);
-+		dhchap_status = nvmet_auth_reply(req, d, tl);
- 		if (dhchap_status == 0)
- 			req->sq->dhchap_step =
- 				NVME_AUTH_DHCHAP_MESSAGE_SUCCESS1;
+-	btrfs_clear_extent_bit(&inode->io_tree, file_offset, range_end,
+-			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG, NULL);
+-	ret = btrfs_set_extent_delalloc(inode, file_offset, range_end, 0, NULL);
++	ret = btrfs_reset_extent_delalloc(inode, file_offset, range_end, 0, NULL);
+ 	if (ret)
+ 		goto out_unlock;
+ 
 
