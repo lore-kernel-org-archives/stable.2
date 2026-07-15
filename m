@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE3043FD3C
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:27:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEEF44161D
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:27:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784111256; cv=none; b=lsdI8c6bDy1u/BUx3gFQ1OeVzvL3xpcmgkWpzo77UjX9/cfj7oQkjGshHomxQoHqHOZBhMG2DeJ3OSOIGcRAQN0DVZTDdLxmeAwUjybbO2zSSjyzNV77cdYnW853dEwmEWZmED9TzjV622NJ60KrYCRQBHDwahHjWWrjCXr+si0=
+	t=1784111260; cv=none; b=iTl7zvQeDfu/BCrsyvQneu/Iug+QRJzXYodGpgfpkiz9tb7qq09jeaBXT5RovFP+jMwaJxEtSQs9d7+SLQzqy/gSOj5gqnGuZ0X0qcqeURyrak7q0rWuWhNQk0hEMYLSRlAFHGa0LKKjfmn+kDQrpcw/qMyzjyiDrYBI7m2Y2S4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784111256; c=relaxed/simple;
-	bh=Rla/1CXixEuLIRzgRF/UHrb6A9DMZ/ahQDXkCQI8fi8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bl1kCAkkiXkNykuzg2igKKYzpv/4dU1xUBCsGKNm2Sl92Czg7eIY2gEcw9AZ5JNBf6l1OqMW7n+2C1s0BAOSMQ53VNeew5oeYPLH3KxlRWKNXDCLvKAe2P+xrn1HWWk5qZNGev5/A0vLTx64hTrzjYKGUWhPhW+yDdZZqv86B/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=h7e8nS6c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784111260; c=relaxed/simple;
+	bh=PIQUawiy7xShY7SiGolhqEzljBKY5N67yPPhxj3LIGY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PPeXk4N12ISDerXqrYa4aeme200kzCVaqOzak5YTNlcKwH4XHXdHMwzD9gZWQ1XfrWJ2t6jvBKdME3Z83C65C3R+u+Iw33AmJT7ZLBgyvjSuk/O8xesTZEcjHyBwd4zgoc4ZMD3L9lxH1D5dbid28SunDqy6ktf0QOYCo5EyPnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z7jPbH7h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="h7e8nS6c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F39121F000E9;
-	Wed, 15 Jul 2026 10:27:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z7jPbH7h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 956111F000E9;
+	Wed, 15 Jul 2026 10:27:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784111255;
-	bh=997I2owbBdSwMjBJajFCsfDERlEm2HKjAyvdACHsIxg=;
+	s=korg; t=1784111258;
+	bh=64H48N8QxyTDRJbRP7EPbmHGG60BFEz0xF+6H/6JsvA=;
 	h=Subject:To:Cc:From:Date;
-	b=h7e8nS6cIku4XocsUg4E2rViBRD8qDp26EuBRCyFC6bWyjNDfJoy1Ap5hWtdlnZ5H
-	 x0vY/HxdJuhR2RjvQkWK5/ZkCDoVvYAY0STPcRz2cDvrnYGnG2rAsAe3xMOw1ljh2A
-	 Nsuuh1kGBQK3Kg9paVpYo24CabunApQGeu/rYw8E=
-Subject: FAILED: patch "[PATCH] crypto: qat - protect service table iterations with" failed to apply to 6.6-stable tree
+	b=Z7jPbH7hB6TD0LcRJ0tPxYz5NL6eSUYajaNWDZERGKE/5a1si+K8yLjcgn9bxxjph
+	 lMuVy9t22GyqfuBcd8xFilFUOceiPOy4fcvP2lhf1lbOOmkTiIWL8f3xmW8yqP+zOQ
+	 qLVQij07kjUP3CPXdOtRhkCXKrEyrTdZG9EnkHcs=
+Subject: FAILED: patch "[PATCH] crypto: qat - protect service table iterations with" failed to apply to 5.10-stable tree
 To: ahsan.atta@intel.com,giovanni.cabiddu@intel.com,herbert@gondor.apana.org.au,maksim.lukoshkov@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 12:23:32 +0200
-Message-ID: <2026071532-encode-spoilage-593a@gregkh>
+Date: Wed, 15 Jul 2026 12:23:33 +0200
+Message-ID: <2026071533-auction-absence-c739@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5c6f845e77ec35f9b7b047cc8f9789bf397cdd3e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071532-encode-spoilage-593a@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071533-auction-absence-c739@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
