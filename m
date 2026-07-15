@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF4E43FD3C
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:27:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760CF43FD3C
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784111262; cv=none; b=jXc2ud+CP4cyPb0WomnorraOE33wGkeQJbztfgqgIBrfIesRCuiH0jlC8cUnMdmQdhrc9tvtxXo18T0CoK4rvsZy5lRuQoLwqTagT4yM1ect5yKALTj3uPnH7fLQN+H6VysmlVD4/yQ70Z6pquxLNB1sPKt7jvWDPBUzFxMJekA=
+	t=1784111264; cv=none; b=GK+AG7EF4R9v5g/Qt0sn3wy93y6KqphcoK+HGuzDmMengInsrf/vkv4TGBFE7gSAimlbGEHrr6HvDBhmXnuHE5qgxsvybV9kt9ajcsqK0depJMDdM+wIwV9grQGhOUaXah1/vQ29iYG2PoimtQvQ8QPSnfpu/kgvcV2ECAQvX50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784111262; c=relaxed/simple;
-	bh=OVjlheHjjOHpoVmOZt0fCpgp2cj2W35gwkCUk+L9yUU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=W55XKKyfC+/M+jrrXwyC88vIZ/qhgxTqPhWFPc53W8DXrJHwrCX2K/XJeZ7+JF3++ta/VmFL2ePCRwC8z9ZOru/NFJyw60MT7DPoSEMH7oH2Ndei79xtoNemfaObfppF2QYn3qfFnV/cxxskkXbkJW0O+YBeQ/jlooMpoEAjMm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XTowxR+5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784111264; c=relaxed/simple;
+	bh=J2tp1gEPoxFKY4VhWXnequEo7rT0j6iIlhxoi3WYj8s=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=U2lo+qJpnr2Kon7/EzXg8BJkr8G4WguyyIsUZisFTV3yJ6l36DCqn3vrsR+RKhufc7Xs+lM5zFItAinuOCZH/PSNNnW8f4vp6AJwZAQLsXfl65FsOGsLS79M4oUnKSlzHTaQwkQACRTF44Iy8fsBgX1HSnS7MqBqGEtM5wr3TKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YzY/0Ni6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XTowxR+5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E2FC1F00A3A;
-	Wed, 15 Jul 2026 10:27:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YzY/0Ni6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB0171F000E9;
+	Wed, 15 Jul 2026 10:27:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784111260;
-	bh=VB8o1u3tIGPvde9XYX38b/OJOpcFQ4p2NsxZ5BIA5gE=;
+	s=korg; t=1784111263;
+	bh=02R+aBVQQXwG9x+6BgXiEkStBAcG6Eh4U+hlnU7yqvs=;
 	h=Subject:To:Cc:From:Date;
-	b=XTowxR+5rW48FSlLD/WJV3nKWLEn2qEQQ3KMEavRacRMaHPDdI5B3s8tFpGHY5IK+
-	 oPbEnVG0gKSLlcwj3XO+QMPDwNC9V4atGCMZwgx9SaOUt3QeIQJ3qL4I1TYBNeO7vZ
-	 mpByAtgrqccr2XfqoCMnt5dNIsQrJe+Ooh8APAUg=
-Subject: FAILED: patch "[PATCH] crypto: qat - protect service table iterations with" failed to apply to 5.15-stable tree
-To: ahsan.atta@intel.com,giovanni.cabiddu@intel.com,herbert@gondor.apana.org.au,maksim.lukoshkov@intel.com
+	b=YzY/0Ni62q4SdkdUTHHLWSRBTjViRdZdICzWQq+AVisyidFvCJwI9V6+M2x8jPI/U
+	 RH0j9ZN5gEgbJpqY80Rq36CDVQHZSN/e9kyok0epBMbr1yXx/HP9VpxvY1Qoi7pLSa
+	 JbYbFrZgpkASGeZGDi+EkrCaDytJDyMLpKsvVDjM=
+Subject: FAILED: patch "[PATCH] crypto: qat - validate RSA CRT component lengths" failed to apply to 6.1-stable tree
+To: giovanni.cabiddu@intel.com,ahsan.atta@intel.com,herbert@gondor.apana.org.au,laurent.m.coquerel@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 12:23:33 +0200
-Message-ID: <2026071533-skipping-woven-800c@gregkh>
+Date: Wed, 15 Jul 2026 12:23:49 +0200
+Message-ID: <2026071549-wrinkly-pogo-6277@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5c6f845e77ec35f9b7b047cc8f9789bf397cdd3e
+git cherry-pick -x b3ac78756588059729b9195fcc9f4b37d54057a5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071533-skipping-woven-800c@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071549-wrinkly-pogo-6277@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,155 +62,81 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5c6f845e77ec35f9b7b047cc8f9789bf397cdd3e Mon Sep 17 00:00:00 2001
-From: Ahsan Atta <ahsan.atta@intel.com>
-Date: Wed, 20 May 2026 13:41:55 +0100
-Subject: [PATCH] crypto: qat - protect service table iterations with
- service_lock
+From b3ac78756588059729b9195fcc9f4b37d54057a5 Mon Sep 17 00:00:00 2001
+From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+Date: Thu, 28 May 2026 16:57:44 +0100
+Subject: [PATCH] crypto: qat - validate RSA CRT component lengths
 
-The service_table list is protected by service_lock when entries are
-added or removed (in adf_service_add() and adf_service_remove()), but
-several functions iterate over the list without holding this lock.
+The generic RSA key parser (rsa_helper.c) bounds each CRT component (p,
+q, dp, dq, qinv) by the modulus size n_sz, but qat_rsa_setkey_crt()
+allocates half-size DMA buffers (key_sz / 2) and right-aligns each
+component with:
 
-A concurrent adf_service_register() or adf_service_unregister() call
-could modify the list during traversal, leading to list corruption or
-a use-after-free.
+    memcpy(dst + half_key_sz - len, src, len)
 
-Fix this by holding service_lock across all list_for_each_entry()
-iterations of service_table in adf_dev_init(), adf_dev_start(),
-adf_dev_stop(), adf_dev_shutdown(), adf_dev_restarting_notify(),
-adf_dev_restarted_notify(), and adf_error_notifier().
+When a CRT component is larger than half_key_sz the subtraction
+underflows and memcpy writes past the DMA buffer, causing memory
+corruption.
 
-The lock ordering is safe: callers of the static helpers (adf_dev_up()
-and adf_dev_down()) acquire state_lock before service_lock, and no
-event_hld callback or service_lock holder ever acquires state_lock in
-the reverse order.
+Add a len > half_key_sz check next to the existing !len check for each
+of the five CRT components so the driver falls back to the non-CRT path
+instead of writing out of bounds.
 
+Fixes: 879f77e9071f ("crypto: qat - Add RSA CRT mode")
 Cc: stable@vger.kernel.org
-Fixes: d8cba25d2c68 ("crypto: qat - Intel(R) QAT driver framework")
-Signed-off-by: Ahsan Atta <ahsan.atta@intel.com>
-Co-developed-by: Maksim Lukoshkov <maksim.lukoshkov@intel.com>
-Signed-off-by: Maksim Lukoshkov <maksim.lukoshkov@intel.com>
-Reviewed-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+Reviewed-by: Ahsan Atta <ahsan.atta@intel.com>
+Reviewed-by: Laurent M Coquerel <laurent.m.coquerel@intel.com>
+Tested-by: Laurent M Coquerel <laurent.m.coquerel@intel.com>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_init.c b/drivers/crypto/intel/qat/qat_common/adf_init.c
-index f9f5696ed476..1c7f9e49914d 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_init.c
-+++ b/drivers/crypto/intel/qat/qat_common/adf_init.c
-@@ -155,15 +155,18 @@ static int adf_dev_init(struct adf_accel_dev *accel_dev)
- 	 * This is to facilitate any ordering dependencies between services
- 	 * prior to starting any of the accelerators.
- 	 */
-+	mutex_lock(&service_lock);
- 	list_for_each_entry(service, &service_table, list) {
- 		if (service->event_hld(accel_dev, ADF_EVENT_INIT)) {
- 			dev_err(&GET_DEV(accel_dev),
- 				"Failed to initialise service %s\n",
- 				service->name);
-+			mutex_unlock(&service_lock);
- 			return -EFAULT;
- 		}
- 		set_bit(accel_dev->accel_id, service->init_status);
- 	}
-+	mutex_unlock(&service_lock);
- 
- 	return 0;
- }
-@@ -233,15 +236,18 @@ static int adf_dev_start(struct adf_accel_dev *accel_dev)
- 	if (ret && ret != -EOPNOTSUPP)
- 		return ret;
- 
-+	mutex_lock(&service_lock);
- 	list_for_each_entry(service, &service_table, list) {
- 		if (service->event_hld(accel_dev, ADF_EVENT_START)) {
- 			dev_err(&GET_DEV(accel_dev),
- 				"Failed to start service %s\n",
- 				service->name);
-+			mutex_unlock(&service_lock);
- 			return -EFAULT;
- 		}
- 		set_bit(accel_dev->accel_id, service->start_status);
- 	}
-+	mutex_unlock(&service_lock);
- 
- 	clear_bit(ADF_STATUS_STARTING, &accel_dev->status);
- 	set_bit(ADF_STATUS_STARTED, &accel_dev->status);
-@@ -315,6 +321,7 @@ static void adf_dev_stop(struct adf_accel_dev *accel_dev)
- 		qat_comp_algs_unregister(hw_data->accel_capabilities_ext_mask);
- 	clear_bit(ADF_STATUS_COMP_ALGS_REGISTERED, &accel_dev->status);
- 
-+	mutex_lock(&service_lock);
- 	list_for_each_entry(service, &service_table, list) {
- 		if (!test_bit(accel_dev->accel_id, service->start_status))
- 			continue;
-@@ -326,6 +333,7 @@ static void adf_dev_stop(struct adf_accel_dev *accel_dev)
- 			clear_bit(accel_dev->accel_id, service->start_status);
- 		}
- 	}
-+	mutex_unlock(&service_lock);
- 
- 	if (hw_data->stop_timer)
- 		hw_data->stop_timer(accel_dev);
-@@ -375,6 +383,7 @@ static void adf_dev_shutdown(struct adf_accel_dev *accel_dev)
- 				  &accel_dev->status);
- 	}
- 
-+	mutex_lock(&service_lock);
- 	list_for_each_entry(service, &service_table, list) {
- 		if (!test_bit(accel_dev->accel_id, service->init_status))
- 			continue;
-@@ -385,6 +394,7 @@ static void adf_dev_shutdown(struct adf_accel_dev *accel_dev)
- 		else
- 			clear_bit(accel_dev->accel_id, service->init_status);
- 	}
-+	mutex_unlock(&service_lock);
- 
- 	adf_rl_exit(accel_dev);
- 
-@@ -419,12 +429,14 @@ int adf_dev_restarting_notify(struct adf_accel_dev *accel_dev)
- {
- 	struct service_hndl *service;
- 
-+	mutex_lock(&service_lock);
- 	list_for_each_entry(service, &service_table, list) {
- 		if (service->event_hld(accel_dev, ADF_EVENT_RESTARTING))
- 			dev_err(&GET_DEV(accel_dev),
- 				"Failed to restart service %s.\n",
- 				service->name);
- 	}
-+	mutex_unlock(&service_lock);
- 	return 0;
- }
- 
-@@ -432,12 +444,14 @@ int adf_dev_restarted_notify(struct adf_accel_dev *accel_dev)
- {
- 	struct service_hndl *service;
- 
-+	mutex_lock(&service_lock);
- 	list_for_each_entry(service, &service_table, list) {
- 		if (service->event_hld(accel_dev, ADF_EVENT_RESTARTED))
- 			dev_err(&GET_DEV(accel_dev),
- 				"Failed to restart service %s.\n",
- 				service->name);
- 	}
-+	mutex_unlock(&service_lock);
- 	return 0;
- }
- 
-@@ -445,12 +459,14 @@ void adf_error_notifier(struct adf_accel_dev *accel_dev)
- {
- 	struct service_hndl *service;
- 
-+	mutex_lock(&service_lock);
- 	list_for_each_entry(service, &service_table, list) {
- 		if (service->event_hld(accel_dev, ADF_EVENT_FATAL_ERROR))
- 			dev_err(&GET_DEV(accel_dev),
- 				"Failed to send error event to %s.\n",
- 				service->name);
- 	}
-+	mutex_unlock(&service_lock);
- }
- 
- int adf_dev_down(struct adf_accel_dev *accel_dev)
+diff --git a/drivers/crypto/intel/qat/qat_common/qat_asym_algs.c b/drivers/crypto/intel/qat/qat_common/qat_asym_algs.c
+index e09b9edfce42..75c15c8e41db 100644
+--- a/drivers/crypto/intel/qat/qat_common/qat_asym_algs.c
++++ b/drivers/crypto/intel/qat/qat_common/qat_asym_algs.c
+@@ -1085,7 +1085,7 @@ static void qat_rsa_setkey_crt(struct qat_rsa_ctx *ctx, struct rsa_key *rsa_key)
+ 	ptr = rsa_key->p;
+ 	len = rsa_key->p_sz;
+ 	qat_rsa_drop_leading_zeros(&ptr, &len);
+-	if (!len)
++	if (!len || len > half_key_sz)
+ 		goto err;
+ 	ctx->p = dma_alloc_coherent(dev, half_key_sz, &ctx->dma_p, GFP_KERNEL);
+ 	if (!ctx->p)
+@@ -1096,7 +1096,7 @@ static void qat_rsa_setkey_crt(struct qat_rsa_ctx *ctx, struct rsa_key *rsa_key)
+ 	ptr = rsa_key->q;
+ 	len = rsa_key->q_sz;
+ 	qat_rsa_drop_leading_zeros(&ptr, &len);
+-	if (!len)
++	if (!len || len > half_key_sz)
+ 		goto free_p;
+ 	ctx->q = dma_alloc_coherent(dev, half_key_sz, &ctx->dma_q, GFP_KERNEL);
+ 	if (!ctx->q)
+@@ -1107,7 +1107,7 @@ static void qat_rsa_setkey_crt(struct qat_rsa_ctx *ctx, struct rsa_key *rsa_key)
+ 	ptr = rsa_key->dp;
+ 	len = rsa_key->dp_sz;
+ 	qat_rsa_drop_leading_zeros(&ptr, &len);
+-	if (!len)
++	if (!len || len > half_key_sz)
+ 		goto free_q;
+ 	ctx->dp = dma_alloc_coherent(dev, half_key_sz, &ctx->dma_dp,
+ 				     GFP_KERNEL);
+@@ -1119,7 +1119,7 @@ static void qat_rsa_setkey_crt(struct qat_rsa_ctx *ctx, struct rsa_key *rsa_key)
+ 	ptr = rsa_key->dq;
+ 	len = rsa_key->dq_sz;
+ 	qat_rsa_drop_leading_zeros(&ptr, &len);
+-	if (!len)
++	if (!len || len > half_key_sz)
+ 		goto free_dp;
+ 	ctx->dq = dma_alloc_coherent(dev, half_key_sz, &ctx->dma_dq,
+ 				     GFP_KERNEL);
+@@ -1131,7 +1131,7 @@ static void qat_rsa_setkey_crt(struct qat_rsa_ctx *ctx, struct rsa_key *rsa_key)
+ 	ptr = rsa_key->qinv;
+ 	len = rsa_key->qinv_sz;
+ 	qat_rsa_drop_leading_zeros(&ptr, &len);
+-	if (!len)
++	if (!len || len > half_key_sz)
+ 		goto free_dq;
+ 	ctx->qinv = dma_alloc_coherent(dev, half_key_sz, &ctx->dma_qinv,
+ 				       GFP_KERNEL);
 
