@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057723B42F4
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 11:16:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764FE25CC57
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 11:16:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784114189; cv=none; b=P2m6DKXSwi356GevFbnMFyXwvebVuz2pWb3Fy6BwU253aJGm59Y9wXYj7VXPM4cju5+BgJmk96KLxGeYmIUAnb8v4jZw/JMWMVzaov07qoPzJ06MilGZ/+iEHv3Q8bY/MgK+ZoMfy3BPYsAcKWAaEu07NTerqHzb29CZ3dbtt6g=
+	t=1784114189; cv=none; b=uc0EuJ8dFvjnTMjbyeVutRHSiNkElDPVcOay40aY4SQknkvHEhyMUmtjH5gA4sRh09PEbQErCjqEcYFAL6zMXMiDwMuUrO1bnbUKe6P/PNSB/tKqIG87Ts1Ve07m0OqGHRJQAtPAdSy2hEng98GiwWkrYTYL9LQkgrd9rVxu1G0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784114189; c=relaxed/simple;
-	bh=UZF/MiinyWpt7tROcJmbXq9LZBV4sxYzi/QPZdWaSHs=;
+	bh=iPBE6ev9W1VMUoQHtf9O+SktvmnnUBVHPH/5KlYPRXY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EiN4fKi8TUDu4u53ZcE1EYYYRX6qf3aOjxYHDTdYkCMItnA2WQ3uCIGXAq9aYq7eemPxwq99jC1Tbw/Tpm43mz4xXh+Ss4li2c5xNGsLyuZEQ4B0xjELwSxzKJu6Fk7C+877+LPIgvh6pwBR36PLfllyj9TcTW77J6Y2cp2NLRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3KqDziY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rJlJZi+TZMmawVwFtY6qNoGNpXfTFqR3XzVDvyci63TPcsXxnfewMYSRJ9LPiMIuea9ALguudHq80SktIWKUzfW9QbZjXckOhvN32ssNloP9e8a6IdgTMuqJlhmiCRhGy6RWJl8SSNrsCCgXvL05yh5faj7C1PCgK4kXi0Ua5OQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=csrIOYwA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3KqDziY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E5A11F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="csrIOYwA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD71D1F00A3D;
 	Wed, 15 Jul 2026 11:16:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784114187;
-	bh=XKP4FOKvbfwRQC3iQ8utpDguc4GhPOXc2D3Xa46TB/U=;
+	s=k20260515; t=1784114188;
+	bh=jL4PVFFznYvJSFZSVEWfMVfqHJKvB7Xflth2pLlGc/U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q3KqDziYxC5wnPYy5dzHB8vRYGuu0g4obNjzpKK3s66olGOIpo7vEPI7unLYkeF04
-	 YjlJyEddsZnCEaxKOp2IlN5H07dcH7Zub8WqRTNcj5W6gXQEybKVibXKaT6tIxTxbR
-	 VEdnRPMyE6S4YC0DBe6KJ8t9O4CQG4oVkICqGYJmsEz9Td3srqpJm4/biTWjcvL0by
-	 YE59ta6WbG4wgDeeSOwfiG8wudyXjYNDeLbnDardwqH0rKElMEk8Q1f6XyzYVeEbyz
-	 E27pjYQ9Xt20K+/o6P+nrSDaxxuFDkOf/H8AMGcxZOnp/nkUcWK4NGSPCVxL9XZq0X
-	 aFQ4D9uV8bJWw==
+	b=csrIOYwAB6XAt1KhPVerGKeyCj8l2AnkJauPUUtlcf1pJc+c5rsnxf4R2Z+dBnxJ8
+	 UerjgAbeuIh2u1Xk1W9OntIsPLr7fHPoLb4SKkKXYVaVf6GFcZOBG9hKKgrGfZNzk5
+	 KpBhqd+Tm3JGCqFwBYiOZR6MnsvVvWNIhd04a5Kh1MyinCR393npNtPgfd/U7u87WX
+	 7nHPeE5Kc13yWfVc15AMfA3o2nQK5BWXktVHFWuek9EIAFFXSOsvmyxplPJ+xWFU9T
+	 bZjJsmhXePXkAaFk2ypLwmpt6oeaXLrAMVfaV7QRHbr3VwLJCTdDc2vQOSplKXZ6fp
+	 NAGdXQUt/fxEw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Fabio Aiuto <fabioaiuto83@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 01/10] staging: rtl8723bs: remove 5Ghz code blocks
-Date: Wed, 15 Jul 2026 07:16:16 -0400
-Message-ID: <20260715111625.647536-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 02/10] staging: rtl8723bs: remove commented out condition
+Date: Wed, 15 Jul 2026 07:16:17 -0400
+Message-ID: <20260715111625.647536-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071300-length-drainable-3f8e@gregkh>
+In-Reply-To: <20260715111625.647536-1-sashal@kernel.org>
 References: <2026071300-length-drainable-3f8e@gregkh>
+ <20260715111625.647536-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,91 +48,32 @@ Content-Transfer-Encoding: 8bit
 
 From: Fabio Aiuto <fabioaiuto83@gmail.com>
 
-[ Upstream commit ddd7c8b0033ba01a0ee605697f12a33fd31e6fca ]
+[ Upstream commit 2a62ff13132a22a754d042b2230117bbea0af477 ]
 
-remove 5 Ghz code blocks, related to networks
-working over channel numbers above 14.
+remove commented out condition checking channel > 14.
 
 Signed-off-by: Fabio Aiuto <fabioaiuto83@gmail.com>
-Link: https://lore.kernel.org/r/c64443b92ce1a60f568db153842a62e3244a8c3a.1626874164.git.fabioaiuto83@gmail.com
+Link: https://lore.kernel.org/r/83762719c0c13ac8b78612a32db26e691eef17d1.1626874164.git.fabioaiuto83@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: 1463ca3ec660 ("staging: rtl8723bs: fix OOB reads in rtw_get_sec_ie(), rtw_get_wapi_ie(), and rtw_get_wps_attr()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/rtl8723bs/core/rtw_mlme_ext.c |  7 ++-----
- .../staging/rtl8723bs/os_dep/ioctl_linux.c    | 20 +++----------------
- 2 files changed, 5 insertions(+), 22 deletions(-)
+ drivers/staging/rtl8723bs/os_dep/ioctl_linux.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-index 1144749b4f585d..af3b14b1de7a9d 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-@@ -4133,7 +4133,7 @@ static void issue_action_BSSCoexistPacket(struct adapter *padapter)
- 			p = rtw_get_ie(pbss_network->IEs + _FIXED_IE_LENGTH_, _HT_CAPABILITY_IE_, &len, pbss_network->IELength - _FIXED_IE_LENGTH_);
- 			if ((p == NULL) || (len == 0)) {/* non-HT */
- 
--				if ((pbss_network->Configuration.DSConfig <= 0) || (pbss_network->Configuration.DSConfig > 14))
-+				if (pbss_network->Configuration.DSConfig <= 0)
- 					continue;
- 
- 				ICS[0][pbss_network->Configuration.DSConfig] = 1;
-@@ -6194,10 +6194,7 @@ u8 join_cmd_hdl(struct adapter *padapter, u8 *pbuf)
- 			{
- 				struct HT_info_element *pht_info = (struct HT_info_element *)(pIE->data);
- 
--				if (pnetwork->Configuration.DSConfig > 14) {
--					if ((pregpriv->bw_mode >> 4) > CHANNEL_WIDTH_20)
--						cbw40_enable = 1;
--				} else {
-+				if (pnetwork->Configuration.DSConfig <= 14) {
- 					if ((pregpriv->bw_mode & 0x0f) > CHANNEL_WIDTH_20)
- 						cbw40_enable = 1;
- 				}
 diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_linux.c b/drivers/staging/rtl8723bs/os_dep/ioctl_linux.c
-index 083ff72976cf04..21489f67bcce35 100644
+index 21489f67bcce35..70247ba9017a59 100644
 --- a/drivers/staging/rtl8723bs/os_dep/ioctl_linux.c
 +++ b/drivers/staging/rtl8723bs/os_dep/ioctl_linux.c
-@@ -135,14 +135,7 @@ static char *translate_scan(struct adapter *padapter,
- 		else
- 			snprintf(iwe.u.name, IFNAMSIZ, "IEEE 802.11bg");
- 	} else {
--		if (pnetwork->network.Configuration.DSConfig > 14) {
--			if (vht_cap)
--				snprintf(iwe.u.name, IFNAMSIZ, "IEEE 802.11AC");
--			else if (ht_cap)
--				snprintf(iwe.u.name, IFNAMSIZ, "IEEE 802.11an");
--			else
--				snprintf(iwe.u.name, IFNAMSIZ, "IEEE 802.11a");
--		} else {
-+		if (pnetwork->network.Configuration.DSConfig <= 14) {
- 			if (ht_cap)
- 				snprintf(iwe.u.name, IFNAMSIZ, "IEEE 802.11gn");
- 			else
-@@ -762,7 +755,7 @@ static int rtw_wx_get_name(struct net_device *dev,
- 	struct adapter *padapter = (struct adapter *)rtw_netdev_priv(dev);
- 	u32 ht_ielen = 0;
- 	char *p;
--	u8 ht_cap = false, vht_cap = false;
-+	u8 ht_cap = false;
- 	struct	mlme_priv *pmlmepriv = &(padapter->mlmepriv);
- 	struct wlan_bssid_ex  *pcur_bss = &pmlmepriv->cur_network.network;
- 	NDIS_802_11_RATES_EX* prates = NULL;
-@@ -788,14 +781,7 @@ static int rtw_wx_get_name(struct net_device *dev,
- 			else
- 				snprintf(wrqu->name, IFNAMSIZ, "IEEE 802.11bg");
- 		} else {
--			if (pcur_bss->Configuration.DSConfig > 14) {
--				if (vht_cap)
--					snprintf(wrqu->name, IFNAMSIZ, "IEEE 802.11AC");
--				else if (ht_cap)
--					snprintf(wrqu->name, IFNAMSIZ, "IEEE 802.11an");
--				else
--					snprintf(wrqu->name, IFNAMSIZ, "IEEE 802.11a");
--			} else {
-+			if (pcur_bss->Configuration.DSConfig <= 14) {
- 				if (ht_cap)
- 					snprintf(wrqu->name, IFNAMSIZ, "IEEE 802.11gn");
- 				else
+@@ -165,7 +165,7 @@ static char *translate_scan(struct adapter *padapter,
+ 		start = iwe_stream_add_event(info, start, stop, &iwe, IW_EV_UINT_LEN);
+ 	}
+ 
+-	if (pnetwork->network.Configuration.DSConfig < 1 /*|| pnetwork->network.Configuration.DSConfig > 14*/)
++	if (pnetwork->network.Configuration.DSConfig < 1)
+ 		pnetwork->network.Configuration.DSConfig = 1;
+ 
+ 	 /* Add frequency/channel */
 -- 
 2.53.0
 
