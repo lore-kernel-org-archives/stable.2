@@ -1,282 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9973164AA4
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 03:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D869C3655ED;
+	Wed, 15 Jul 2026 03:23:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784085366; cv=none; b=rFpKsMIz4OTVDUbd2OLtcSgkgXYnMeZIIpNWccwXGva0cFXa9/Nm4W8xow+vRsVd68uRoYLI5aXbMPX3GYliWQB5CPeUhGEZsX/cSOCevfhT1XR7tk8UF7Jt8ZLZyVsDbbGm1hJgECWHmwQaNpCNqPwmuWEeo1aI76lBYPQeku0=
+	t=1784085840; cv=none; b=Xjx2trGU3fGEANeyHSCKmjHGEGmChlEaj8U6IbdYobsVPv/O0YcYKD13mG1zPsSDnCVAXH1vivp2yfnfVRKb8V/BNnlwZwgRa4NVl17s3Gyn4mfKdcu78/p/4l6vUIJ8hePoQ6Hb9iZcnWSusC5EervXLrDl9nVQ/cmmXPN6LkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784085366; c=relaxed/simple;
-	bh=WFLXNwcFTGivNKiTVVlIq3iksLBJLQsGIm/AnIN4OLM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EN+hDS6qJ4zx7FGAd6zYQYkQBhXedb+Ggy+p2D7QkABrbxFj6UWJpJ3VObV28cczak7okHEjeLBJeg071bXfSKP8sYe/wr9en98I+uN3cPJNVvEf+zfe1sBnOWHpLPQyh2jlYeaR0Db8SwNsqFQnDOtsZ2wTxzzH8bnCtWeU3QE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IhQS72g8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784085840; c=relaxed/simple;
+	bh=XLWRLtrarHBQnKUHNoSPGQePR+GNNJjY2jAcX6E6fTg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WJCQt4Y0BZcmiVIxtmTN4ZaFQQT5dbU9mFyQZk2DlgTRe8R0Lop5vz/kQ+fE/E3uyeWtA/qnL41qdowuxoVfyUtWmWQnmOyG4Zo3Fq+Za3iHjym5y8uJ4SC+G0dFlixZoQnYC+x8rWE9D+G/skk5R3wvoVoaPX0ZsIOueJkl/34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=jII5BIJ5; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IhQS72g8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 973291F000E9;
-	Wed, 15 Jul 2026 03:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784085364;
-	bh=BcQJTjTOqmhtBprIj5o6ebd6NxBRAY7DTmFzETFIhQs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IhQS72g8bswJWhA18YIfjl/eXf9c+gsE+RYyapcNhJJ8v8XGWehguuoCpoKOy4NcG
-	 +5HrzcIQMsegCyIoripTvqIjVexNMhXxViCQksb5skXFM3U7RaUlYxNTnFW2Y35Uvw
-	 zEN69lKG9ss+4gueGBDITbBto2UL5jjLn0nlj6KmLPndmP1jAX8qu8ChKpIpkKPTTu
-	 46V9DUZX5OlhMPmf33J3yo85pjA1lIVzRbEKg77GWy+x5HTaYqjzuwXDOKgrD2EwGz
-	 44NBl/IFG8GdvhA4+T/fWg1+xi1+3HR1T63YDKG/xwJLUGeYor19NEhuujEpNCPioz
-	 oGxKs6ZG/AYBA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Ahsan Atta <ahsan.atta@intel.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] crypto: qat - fix VF2PF work teardown race in adf_disable_sriov()
-Date: Tue, 14 Jul 2026 23:16:01 -0400
-Message-ID: <20260715031602.247772-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071352-squealer-repent-dc31@gregkh>
-References: <2026071352-squealer-repent-dc31@gregkh>
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="jII5BIJ5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1784085835;
+	bh=YFnYNXhGRn1jDH2k6Osbkyxy71RMq9U1pB7B6ANqqvs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jII5BIJ5psAegctVrJdvqCjjq4lznxyxQp969yvZL5+zpIMISBiZ1jkgWQS9/b4as
+	 LrY5/VY/w27w5vt/lRj6NFiIJRyCfDhTEi4CtG+H1f2XjTcSZWocXf6SIudi0f3LzK
+	 ls5IfacRNXLe0hMstyya1jnf6jy0h0Q37YFAFg972ntp5O50lGYMEoyP86mYWhjCIj
+	 ZL2TnmfMG9Smtm3mLwPboeG1tlC8wEa8JegIlCqd/UmcC8UP8y9YweUFMHUBknBb2E
+	 prKDyjOO9boq5vMM/rTRcA9YmjJDeAg6/nfIlnqVb9cMjPUjY2enlwQJ0p9xlwXAEE
+	 9UrNUryVhRuGw==
+Received: from pecola.lan (unknown [159.196.93.152])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 0F12C655A4;
+	Wed, 15 Jul 2026 11:23:53 +0800 (AWST)
+Message-ID: <1a69cae2f078e24726bfdef5ee2e6575759c8dda.camel@codeconstruct.com.au>
+Subject: Re: [PATCH net] mctp: serial: reject zero-length frames to prevent
+ rx buffer overflow
+From: Jeremy Kerr <jk@codeconstruct.com.au>
+To: Doruk Tan Ozturk <doruk@0sec.ai>, matt@codeconstruct.com.au, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, 	pabeni@redhat.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Wed, 15 Jul 2026 11:23:53 +0800
+In-Reply-To: <20260714130348.72716-1-doruk@0sec.ai>
+References: <20260714130348.72716-1-doruk@0sec.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+Hi Doruk,
 
-[ Upstream commit 277281c10c63791067d24d421f7c43a15faa9096 ]
+Thanks for the report. The analysis looks solid, but I do have a
+recommendation for a different fix. One comment inline too.
 
-The VF2PF interrupt handler queues PF-side response work that stores a
-raw pointer to per-VF state (struct adf_accel_vf_info). Currently,
-adf_disable_sriov() destroys per-VF mutexes and frees vf_info without
-stopping new VF2PF work or waiting for in-flight workers to complete. A
-concurrently scheduled or already queued worker can then dereference
-freed memory.
+> The MCTP serial receive state machine reads a frame length byte in
+> mctp_serial_push_header() case 2 and validates it upper-bound-only:
+>=20
+> 	if (c > MCTP_SERIAL_FRAME_MTU) {
+> 		dev->rxstate =3D STATE_ERR;
+> 	} else {
+> 		dev->rxlen =3D c;
+> 		dev->rxpos =3D 0;
+> 		dev->rxstate =3D STATE_DATA;
+> 		...
+> 	}
+>=20
+> A length of zero passes this check, so rxlen is set to 0 and the state
+> machine advances to STATE_DATA. In mctp_serial_push() STATE_DATA, the
+> incoming byte is stored and rxpos incremented before the terminator is
+> tested:
+>=20
+> 	dev->rxbuf[dev->rxpos] =3D c;
+> 	dev->rxpos++;
+> 	dev->rxstate =3D STATE_DATA;
+> 	if (dev->rxpos =3D=3D dev->rxlen) {
+> 		dev->rxpos =3D 0;
+> 		dev->rxstate =3D STATE_TRAILER;
+> 	}
+>=20
+> With rxlen =3D=3D 0 the "rxpos =3D=3D rxlen" terminator can never fire (r=
+xpos is
+> already 1 on the first data byte), so subsequent bytes are written past
+> the end of the fixed 74-byte rxbuf, which is the last member of the
+> netdev private area. Every following data byte is an attacker-controlled
+> 1-byte out-of-bounds heap write, and the overflow continues until a
+> frame (0x7e) or escape byte resets the parser -- effectively unbounded.
+>=20
+> Reaching this requires CAP_NET_ADMIN to attach the N_MCTP line
+> discipline and bring the resulting mctpserialN netdev up, after which
+> the bytes arrive via the tty receive path.
+>=20
+> Reject a zero-length frame in the header parser, matching the existing
+> upper-bound rejection.
+>=20
+> KASAN, on a frame of 0x7e 0x01 0x00 followed by data bytes:
+>=20
+> =C2=A0 UBSAN: array-index-out-of-bounds in drivers/net/mctp/mctp-serial.c=
+:370
+> =C2=A0 index 74 is out of range for type 'u8 [74]'
+> =C2=A0 BUG: KASAN: slab-out-of-bounds in mctp_serial_tty_receive_buf
+> =C2=A0 Write of size 1 at addr ... by task kworker/u16:0
+> =C2=A0=C2=A0 mctp_serial_tty_receive_buf
+> =C2=A0=C2=A0 tty_ldisc_receive_buf
+> =C2=A0=C2=A0 flush_to_ldisc
+> =C2=A0 Allocated by task 152:
+> =C2=A0=C2=A0 alloc_netdev_mqs
+> =C2=A0=C2=A0 mctp_serial_open
+>=20
+> Found by 0sec (https://0sec.ai).
+> Fixes: a0c2ccd9b5ad ("mctp: Add MCTP-over-serial transport binding")
+> Cc: stable@vger.kernel.org
+> Assisted-by: 0sec
 
-This manifests as a use-after-free when KASAN is enabled:
+I assume this needs to be in the Assisted-by format.
 
-  BUG: KASAN: null-ptr-deref in mutex_lock+0x76/0xe0
-  Write of size 8 at addr 0000000000000260 by task kworker/24:2/...
-  Workqueue: qat_pf2vf_resp_wq adf_iov_send_resp [intel_qat]
-  Call Trace:
-    kasan_report+0x119/0x140
-    mutex_lock+0x76/0xe0
-    adf_gen4_pfvf_send+0xd4/0x1f0 [intel_qat]
-    adf_recv_and_handle_vf2pf_msg+0x290/0x360 [intel_qat]
-    adf_iov_send_resp+0x8c/0xe0 [intel_qat]
-    process_one_work+0x6ac/0xfd0
-    worker_thread+0x4dd/0xd30
-    kthread+0x326/0x410
-    ret_from_fork+0x33b/0x670
+> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+> ---
+> =C2=A0drivers/net/mctp/mctp-serial.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
 
-Add a PF-local flag, vf2pf_disabled, that gates work queueing, worker
-processing, and interrupt re-enabling during teardown. Set this flag
-atomically with the hardware interrupt mask inside
-adf_disable_all_vf2pf_interrupts(). After masking, synchronize the AE
-cluster MSI-X interrupt and flush the PF response workqueue before
-tearing down per-VF locks and state so all in-flight work completes
-before vf_info is destroyed.
+> diff --git a/drivers/net/mctp/mctp-serial.c b/drivers/net/mctp/mctp-seria=
+l.c
+> index 26c9a33fd636..1e3d285c0500 100644
+> --- a/drivers/net/mctp/mctp-serial.c
+> +++ b/drivers/net/mctp/mctp-serial.c
+> @@ -313,7 +313,7 @@ static void mctp_serial_push_header(struct mctp_seria=
+l *dev, u8 c)
+> =C2=A0		}
+> =C2=A0		break;
+> =C2=A0	case 2:
+> -		if (c > MCTP_SERIAL_FRAME_MTU) {
+> +		if (c =3D=3D 0 || c > MCTP_SERIAL_FRAME_MTU) {
+> =C2=A0			dev->rxstate =3D STATE_ERR;
+> =C2=A0		} else {
+> =C2=A0			dev->rxlen =3D c;
 
-Introduce adf_enable_all_vf2pf_interrupts() to clear the flag and
-unmask all VF2PF interrupts under the same lock when SR-IOV is
-re-enabled. This ensures the software flag and hardware state transition
-atomically on both the enable and disable paths.
+We probably want to advance directly to STATE_TRAILER instead, in order
+to consume the trailer and framing bytes for cases when it's a
+legitimate (although somewhat useless) zero-length frame.
 
-Cc: stable@vger.kernel.org
-Fixes: ed8ccaef52fa ("crypto: qat - Add support for SRIOV")
-Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Reviewed-by: Ahsan Atta <ahsan.atta@intel.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../crypto/qat/qat_common/adf_accel_devices.h |  2 ++
- .../crypto/qat/qat_common/adf_common_drv.h    |  4 +++
- drivers/crypto/qat/qat_common/adf_isr.c       | 18 +++++++++++++
- drivers/crypto/qat/qat_common/adf_pf2vf_msg.c | 27 +++++++++++++++++++
- drivers/crypto/qat/qat_common/adf_sriov.c     | 27 ++++++++++++++++---
- 5 files changed, 74 insertions(+), 4 deletions(-)
+Perhaps:
 
-diff --git a/drivers/crypto/qat/qat_common/adf_accel_devices.h b/drivers/crypto/qat/qat_common/adf_accel_devices.h
-index 3bb67b22edd6e1..ca26ffabc388d8 100644
---- a/drivers/crypto/qat/qat_common/adf_accel_devices.h
-+++ b/drivers/crypto/qat/qat_common/adf_accel_devices.h
-@@ -248,6 +248,8 @@ struct adf_accel_dev {
- 		struct {
- 			/* protects VF2PF interrupts access */
- 			spinlock_t vf2pf_ints_lock;
-+			/* prevents VF2PF handling from racing with VF state teardown */
-+			bool vf2pf_disabled;
- 			/* vf_info is non-zero when SR-IOV is init'ed */
- 			struct adf_accel_vf_info *vf_info;
- 		} pf;
-diff --git a/drivers/crypto/qat/qat_common/adf_common_drv.h b/drivers/crypto/qat/qat_common/adf_common_drv.h
-index d91b8e6dcd08a5..dc69edd0d1b065 100644
---- a/drivers/crypto/qat/qat_common/adf_common_drv.h
-+++ b/drivers/crypto/qat/qat_common/adf_common_drv.h
-@@ -120,6 +120,7 @@ void qat_asym_algs_unregister(void);
- 
- int adf_isr_resource_alloc(struct adf_accel_dev *accel_dev);
- void adf_isr_resource_free(struct adf_accel_dev *accel_dev);
-+void adf_isr_sync_ae_cluster(struct adf_accel_dev *accel_dev);
- int adf_vf_isr_resource_alloc(struct adf_accel_dev *accel_dev);
- void adf_vf_isr_resource_free(struct adf_accel_dev *accel_dev);
- 
-@@ -189,6 +190,9 @@ void adf_disable_vf2pf_interrupts_irq(struct adf_accel_dev *accel_dev,
- 				      u32 vf_mask);
- void adf_enable_vf2pf_interrupts(struct adf_accel_dev *accel_dev,
- 				 u32 vf_mask);
-+void adf_enable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev,
-+				     u32 num_vfs);
-+void adf_disable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev);
- void adf_enable_pf2vf_interrupts(struct adf_accel_dev *accel_dev);
- void adf_disable_pf2vf_interrupts(struct adf_accel_dev *accel_dev);
- void adf_schedule_vf2pf_handler(struct adf_accel_vf_info *vf_info);
-diff --git a/drivers/crypto/qat/qat_common/adf_isr.c b/drivers/crypto/qat/qat_common/adf_isr.c
-index c678d5c531aa9d..d5d15ed1a081a0 100644
---- a/drivers/crypto/qat/qat_common/adf_isr.c
-+++ b/drivers/crypto/qat/qat_common/adf_isr.c
-@@ -135,6 +135,24 @@ static irqreturn_t adf_msix_isr_ae(int irq, void *dev_ptr)
- 	return IRQ_NONE;
- }
- 
-+void adf_isr_sync_ae_cluster(struct adf_accel_dev *accel_dev)
-+{
-+	struct adf_accel_pci *pci_dev_info = &accel_dev->accel_pci_dev;
-+	struct adf_hw_device_data *hw_data = accel_dev->hw_device;
-+	struct msix_entry *msixe = pci_dev_info->msix_entries.entries;
-+	u32 num_entries = pci_dev_info->msix_entries.num_entries;
-+	u32 irq_idx;
-+
-+	if (!test_bit(ADF_STATUS_IRQ_ALLOCATED, &accel_dev->status) || !msixe)
-+		return;
-+
-+	irq_idx = num_entries > 1 ? hw_data->num_banks : 0;
-+	if (irq_idx >= num_entries)
-+		return;
-+
-+	synchronize_irq(msixe[irq_idx].vector);
-+}
-+
- static int adf_request_irqs(struct adf_accel_dev *accel_dev)
- {
- 	struct adf_accel_pci *pci_dev_info = &accel_dev->accel_pci_dev;
-diff --git a/drivers/crypto/qat/qat_common/adf_pf2vf_msg.c b/drivers/crypto/qat/qat_common/adf_pf2vf_msg.c
-index 7ec81989beb03f..ab2d0c3ad0acf3 100644
---- a/drivers/crypto/qat/qat_common/adf_pf2vf_msg.c
-+++ b/drivers/crypto/qat/qat_common/adf_pf2vf_msg.c
-@@ -40,6 +40,23 @@ void adf_enable_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 vf_mask)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	if (!READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		__adf_enable_vf2pf_interrupts(accel_dev, vf_mask);
-+	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
-+}
-+
-+void adf_enable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev,
-+				     u32 num_vfs)
-+{
-+	unsigned long flags;
-+	u32 vf_mask;
-+
-+	vf_mask = BIT_ULL(num_vfs) - 1;
-+	if (!vf_mask)
-+		return;
-+
-+	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	WRITE_ONCE(accel_dev->pf.vf2pf_disabled, false);
- 	__adf_enable_vf2pf_interrupts(accel_dev, vf_mask);
- 	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
- }
-@@ -84,6 +101,16 @@ void adf_disable_vf2pf_interrupts_irq(struct adf_accel_dev *accel_dev, u32 vf_ma
- 	spin_unlock(&accel_dev->pf.vf2pf_ints_lock);
- }
- 
-+void adf_disable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	WRITE_ONCE(accel_dev->pf.vf2pf_disabled, true);
-+	__adf_disable_vf2pf_interrupts(accel_dev, GENMASK(31, 0));
-+	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
-+}
-+
- static int __adf_iov_putmsg(struct adf_accel_dev *accel_dev, u32 msg, u8 vf_nr)
- {
- 	struct adf_accel_pci *pci_info = &accel_dev->accel_pci_dev;
-diff --git a/drivers/crypto/qat/qat_common/adf_sriov.c b/drivers/crypto/qat/qat_common/adf_sriov.c
-index 90ec057f9183d7..6647c0fa5cd1e6 100644
---- a/drivers/crypto/qat/qat_common/adf_sriov.c
-+++ b/drivers/crypto/qat/qat_common/adf_sriov.c
-@@ -19,15 +19,26 @@ static void adf_iov_send_resp(struct work_struct *work)
- {
- 	struct adf_pf2vf_resp *pf2vf_resp =
- 		container_of(work, struct adf_pf2vf_resp, pf2vf_resp_work);
-+	struct adf_accel_vf_info *vf_info = pf2vf_resp->vf_info;
-+	struct adf_accel_dev *accel_dev = vf_info->accel_dev;
- 
--	adf_vf2pf_req_hndl(pf2vf_resp->vf_info);
-+	if (READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		goto out;
-+
-+	adf_vf2pf_req_hndl(vf_info);
-+
-+out:
- 	kfree(pf2vf_resp);
- }
- 
- void adf_schedule_vf2pf_handler(struct adf_accel_vf_info *vf_info)
- {
-+	struct adf_accel_dev *accel_dev = vf_info->accel_dev;
- 	struct adf_pf2vf_resp *pf2vf_resp;
- 
-+	if (READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		return;
-+
- 	pf2vf_resp = kzalloc(sizeof(*pf2vf_resp), GFP_ATOMIC);
- 	if (!pf2vf_resp)
- 		return;
-@@ -37,6 +48,12 @@ void adf_schedule_vf2pf_handler(struct adf_accel_vf_info *vf_info)
- 	queue_work(pf2vf_resp_wq, &pf2vf_resp->pf2vf_resp_work);
- }
- 
-+static void adf_flush_pf2vf_resp_wq(void)
-+{
-+	if (pf2vf_resp_wq)
-+		flush_workqueue(pf2vf_resp_wq);
-+}
-+
- static int adf_enable_sriov(struct adf_accel_dev *accel_dev)
- {
- 	struct pci_dev *pdev = accel_to_pci_dev(accel_dev);
-@@ -63,7 +80,7 @@ static int adf_enable_sriov(struct adf_accel_dev *accel_dev)
- 
- 	/* Enable VF to PF interrupts for all VFs */
- 	if (hw_data->get_pf2vf_offset)
--		adf_enable_vf2pf_interrupts(accel_dev, BIT_ULL(totalvfs) - 1);
-+		adf_enable_all_vf2pf_interrupts(accel_dev, totalvfs);
- 
- 	/*
- 	 * Due to the hardware design, when SR-IOV and the ring arbiter
-@@ -97,9 +114,11 @@ void adf_disable_sriov(struct adf_accel_dev *accel_dev)
- 
- 	pci_disable_sriov(accel_to_pci_dev(accel_dev));
- 
--	/* Disable VF to PF interrupts */
-+	/* Block VF2PF work and disable VF to PF interrupts */
- 	if (hw_data->get_pf2vf_offset)
--		adf_disable_vf2pf_interrupts(accel_dev, GENMASK(31, 0));
-+		adf_disable_all_vf2pf_interrupts(accel_dev);
-+	adf_isr_sync_ae_cluster(accel_dev);
-+	adf_flush_pf2vf_resp_wq();
- 
- 	/* Clear Valid bits in AE Thread to PCIe Function Mapping */
- 	if (hw_data->configure_iov_threads)
--- 
-2.53.0
+--- a/drivers/net/mctp/mctp-serial.c
++++ b/drivers/net/mctp/mctp-serial.c
+@@ -318,7 +318,7 @@ static void mctp_serial_push_header(struct mctp_serial =
+*dev, u8 c)
+                } else {
+                        dev->rxlen =3D c;
+                        dev->rxpos =3D 0;
+-                       dev->rxstate =3D STATE_DATA;
++                       dev->rxstate =3D c > 0 ? STATE_DATA : STATE_TRAILER=
+;
+                        dev->rxfcs =3D crc_ccitt_byte(dev->rxfcs, c);
+                }
+                break;
 
+We'll still land in STATE_ERROR on incorrect framing, but just during
+trailer parse instead.
+
+We could then add an early error path rather than creating a zero-length
+skb (which then gets rejected by the MCTP core), but that would be best
+done separately.
+
+Cheers,
+
+
+Jeremy
