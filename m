@@ -1,34 +1,43 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E92DE3CC7EC;
-	Wed, 15 Jul 2026 08:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF853B4EBC;
+	Wed, 15 Jul 2026 08:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784104972; cv=none; b=XxwxivO0H3jBCVA7bt7prMXAW6KQkkKGMzESi6uK8zGYmZMmRplslg7XRpyaib9LCwwz8aNPHOz5uPKjz0pbNiowBl9Uci3kDY+DqbMjgjIbJC8qsXK98C17KAKsp7in5RS8v9rg4eh7oeD1M/Ahz3yS5RSEaTBAlfbmPK28Y+A=
+	t=1784104982; cv=none; b=DuRRe+YCgynKdIjVVW1gOsLOjEU3vTEdJowxp7cw5Rz7ts3AfONVo6oR/OmOiCmGnVWQuGgzcKMPwj7OKP/ui+jtn2BCzB7i4Zz+R6Sd8ZCA6RHkI0/O8uYEryIhuxHoLrSAF9EffIczx+nv7tHnlt3efykjzUykP/g+gs8/Vc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784104972; c=relaxed/simple;
-	bh=umjcuFJcf2lTCBDARH2Ph8MoP4rd13cZ0TLVfIj+K6U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LufuLEk4gk+1rn/4oxiWksmi0zhj3Q2OJTZWUGOterWJl8wA65O72zJ6xfbmZyAV7jg4x7Zar8TaTu2LoiUc6TyyQJZQOfRF7y0NuPF/4qI4Jkw6yq/mv4BRBAzXBISOY+BEJ2X4rdyzWdGF0E8nHIa+JvpZv9ketRfSnXPlbus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.245.140])
-	by APP-05 (Coremail) with SMTP id zQCowABHntHyR1dq9GpHGA--.31102S2;
-	Wed, 15 Jul 2026 16:42:26 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: miquel.raynal@bootlin.com,
-	vigneshr@ti.com
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	richard@nod.at,
-	linux-mtd@lists.infradead.org,
+	s=arc-20240116; t=1784104982; c=relaxed/simple;
+	bh=wM6CLola6B2GFF3988xRVkSeHvzK8Am3QE6zZhvJbBg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=l5b9PS2gEG18N9dcTo1mmBWe7sdhSK1Ki3BN6mwbLCDvqkv5E+Q1w+oXCMx6jrVdDqENIN12CVLwLn7M8unGhixupN7sFHEgq+W/GEcci5IDMfzXi1YWY8hwFOlCiMNx9DQkVIlNL8uAMozGdsXvnjvFZ6coiDkt0Lw1MFLDe6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=kLF7flyU; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kLF7flyU"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1784104974; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=xfldyTNDHCFTa6fvmjV4MUiBwe8GJdvnuUp7ls7VEqg=;
+	b=kLF7flyUQKyOa90P0RsgE5l5oreI5z9qCWq02jQMxY4J6Ld6tDR2jHGjzOfMZODKC7BeEbvt8bA/oEvrE2j7LzKADkmRDQqHXn9G5RnIa/bcnbmYhvMyqaqZliFiEMV7S0AEcxttpnTsRJVNZ2UkuFMt6ip5xU+bckApf6wbHVI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=lulie@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0X78c-OI_1784104973;
+Received: from localhost(mailfrom:lulie@linux.alibaba.com fp:SMTPD_---0X78c-OI_1784104973 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 15 Jul 2026 16:42:54 +0800
+From: Philo Lu <lulie@linux.alibaba.com>
+To: stable@vger.kernel.org
+Cc: tj@kernel.org,
+	hannes@cmpxchg.org,
+	cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Huang Shijie <b32955@freescale.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mtd: rawnand: validate ONFI extended parameter page sections
-Date: Wed, 15 Jul 2026 16:42:26 +0800
-Message-ID: <20260715084226.38336-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	eadavis@qq.com,
+	surenb@google.com,
+	akpm@linux-foundation.org,
+	dust.li@linux.alibaba.com
+Subject: [PATCH 6.1.y 0/2] sched/psi: fix race in pressure_write (CVE-2026-52991)
+Date: Wed, 15 Jul 2026 16:42:51 +0800
+Message-Id: <20260715084253.43276-1-lulie@linux.alibaba.com>
+X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,90 +45,28 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHntHyR1dq9GpHGA--.31102S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr1rXr1rCF4rWFWfKr1kuFg_yoW8uw1fpF
-	4Yk34akw4DJF47Zwn7Ca1DCFySy395GFWUGFyru3WYvwsIqrn5Kas8Kr1jvF1qkFy8ur1F
-	qrsrtFn8CF15CaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
-	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUTnQ
-	UUUUUU=
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-nand_flash_detect_ext_param_page() allocates a length declared by the ONFI
-parameter page.  It treats the returned data as a fixed header followed by
-variable-length sections.  It reads that header and advances over sections
-without first proving that the page and each current section fit in the
-allocated buffer.
+This patchset is same as that for 6.12.y.
 
-Reject pages shorter than the fixed header.  Track remaining bytes while
-walking sections.  Require the ECC section to cover every field read from
-struct onfi_ext_ecc_info.
+Backport of the CVE-2026-52991 fix.
 
-Fixes: 6dcbe0cdd83f ("mtd: get the ECC info from the Extended Parameter Page")
-Cc: stable@vger.kernel.org
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/mtd/nand/raw/nand_onfi.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+  1/2 (94a4acfec146) clear of->priv on release, turning the UAF into an
+      easier-to-detect NULL deref.
+  2/2 (a5b98009f16d, the CVE fix) extend cgroup_mutex to cover all
+      of->priv accesses, read ctx after taking the kn lock, and NULL-check
+      of->priv. It depends on 1/2 as discussed in [0].
 
-diff --git a/drivers/mtd/nand/raw/nand_onfi.c b/drivers/mtd/nand/raw/nand_onfi.c
-index cd3ad373883e..40b7db10bd73 100644
---- a/drivers/mtd/nand/raw/nand_onfi.c
-+++ b/drivers/mtd/nand/raw/nand_onfi.c
-@@ -40,11 +40,16 @@ static int nand_flash_detect_ext_param_page(struct nand_chip *chip,
- 	struct onfi_ext_section *s;
- 	struct onfi_ext_ecc_info *ecc;
- 	uint8_t *cursor;
-+	size_t section_len;
-+	size_t remaining;
- 	int ret;
- 	int len;
- 	int i;
- 
- 	len = le16_to_cpu(p->ext_param_page_length) * 16;
-+	if (len < sizeof(*ep))
-+		return -EINVAL;
-+
- 	ep = kmalloc(len, GFP_KERNEL);
- 	if (!ep)
- 		return -ENOMEM;
-@@ -77,11 +82,24 @@ static int nand_flash_detect_ext_param_page(struct nand_chip *chip,
- 
- 	/* find the ECC section. */
- 	cursor = (uint8_t *)(ep + 1);
-+	remaining = len - sizeof(*ep);
- 	for (i = 0; i < ONFI_EXT_SECTION_MAX; i++) {
- 		s = ep->sections + i;
--		if (s->type == ONFI_SECTION_TYPE_2)
-+		section_len = s->length * 16;
-+		if (section_len > remaining) {
-+			pr_debug("The section is invalid.\n");
-+			goto ext_out;
-+		}
-+
-+		if (s->type == ONFI_SECTION_TYPE_2) {
-+			if (section_len < sizeof(*ecc)) {
-+				pr_debug("The ECC section is invalid.\n");
-+				goto ext_out;
-+			}
- 			break;
--		cursor += s->length * 16;
-+		}
-+		cursor += section_len;
-+		remaining -= section_len;
- 	}
- 	if (i == ONFI_EXT_SECTION_MAX) {
- 		pr_debug("We can not find the ECC section.\n");
--- 
-2.43.0
+[0] https://lore.kernel.org/all/8a06c5c3-8f7a-4252-a3b1-0c0d812e2654@oracle.com/
+
+Chen Ridong (1):
+  cgroup/psi: Set of->priv to NULL upon file release
+
+Edward Adam Davis (1):
+  sched/psi: fix race between file release and pressure write
+
+ kernel/cgroup/cgroup.c | 25 +++++++++++++++++--------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
+
+--
+2.47.3
 
