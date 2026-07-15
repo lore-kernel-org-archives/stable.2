@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DFDE3BBFC4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA6D3CF69D
 	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 21:13:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784150039; cv=none; b=S4g1E6xIi2gpyIiEqY244/uNDio5AbUO8H93cP386vwjvJ1uCDclML5RpjyvatQcH75RzZFxruJrRS1w4YIz+4LbK975dFGr0IdBBw4S9RdS9mbkJSZ/7XTzBvd0v7pzkVk1WDzV+Kibih3+f9Pfsk7CCMR/8W50eH4t26L4xyo=
+	t=1784150040; cv=none; b=f1vuH6qgQLZkRMh8y6mwImre5az6fpHPInNjuGUKc5dW2LdW19ZiEU4WVfBS7OggKNvJcoxnh8ypBwrrCKWkKelXDDnGUHpk+2qdZGHeOFS4d14P9JY+KdhVwFP1SSoOg9k7oOBPOU1aO40DPh/vR0KlOk6k3oBSotxwjdtGm9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784150039; c=relaxed/simple;
-	bh=FteCG+NX38ux6O5WN6HjotDyFmawt2jYB5XfuHe3c90=;
+	s=arc-20240116; t=1784150040; c=relaxed/simple;
+	bh=giY2dWDPEABQZFRRfgWz8Z0/T+KgdfxpVDnO9pj7x+I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R3lmlGQVWvTqTdm8JR8hPT3bCCJL2q+OSynxa6i8gahBCwZqs/fwZu4LzIGwxPPu/SYWCH7m02NJxSK2PyfhOp/xUH4RImq0jArN5mbuClUZaUzklsTr/Ln/F7dzNIlCfej0QcWC7A0inTi6luGktLJt6LkQrR6VHoYnqBMSgT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCPAUwvr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ls0KFFVLWYioQbdlaZHKf81iut/kVNHK/W58E83HUf5wM0RtH9bALLyJ/SOpWRX+0FoQRreu3+cxLqIkDVKePE2y0XRWdtZ2UbOqsjLch85RCYjJKArp6CUaqWWvN39lhLZFdiF0/XHojxVqatiR7YiyjkfqMd3w2KYLfx6/Y5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R1fwl82O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCPAUwvr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8519E1F00A3A;
-	Wed, 15 Jul 2026 21:13:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R1fwl82O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452DC1F00A3D;
+	Wed, 15 Jul 2026 21:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784150038;
-	bh=DVYMaXHLKv60o4d+MPnMBk+94mBtw7abZleCh6674Ow=;
+	bh=WGVtY+id/ElKTyUn9DkyP5YUagQdiyMQf+bi8EgXOaY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cCPAUwvrpOizyUvEfHeFldqreNA2inUK7rbRwZRSBEgL2FVKqrwNxdoeE613PQFYL
-	 6peXu2Rv0s8TfgI2XqFvtYTq0cKv71kLoQUHbygae8ionRMQZiRCAyk9XjCdkKGnzV
-	 amt6AHiG2p92cAlwKJnXn5lFOKigIHnzD5ESVOEiySsPrqYiouv4alWzYUIzLTaxUO
-	 TDHq18/O1qIpdkIy5OZfIKr+Ddxt9DV9Uel+Ho+vBlmyFzVyeiyUSnzrsxyPvh52f3
-	 xFPHjAa84RkZNc6zlwAY6QghYAPxmgxj0wrI7qrVkAAXogOayi8YlxexChm5fPPfys
-	 e1ll74tL777Vg==
+	b=R1fwl82OXv2GLSfcSQBVK65dn22jt3/VMcURpbT8bIJbLojf9V5GDHJCR3uuCVlMi
+	 QaJnQfRXUu9hosNK67DLu3DMW5a4I5sGjnuC/OiZ9tJ7HUSoHQIIGfDdgbWeM+ijs5
+	 NFgCWWGpcfA9z3vUwS/WM/IVjRPyKROD0CkcMW1nnneIx9FrlVTW7OKwFz1HYwbcow
+	 n/ydZNuWJIr0hLN1VQAR6h7emYtk2nD+0xjcgAgZWPRA6YOZEUZoe7yUbvirnkdtSn
+	 HhxOCjvGJwIa4kxDP5qjq22NhsafEZsvMaDp1sKCM9gIX/QSDdP7R32lQTFXKR8HFL
+	 BeiylvHKcTqFA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pauli Virtanen <pav@iki.fi>,
+Cc: Siwei Zhang <oss@fourdim.xyz>,
+	XIAO WU <xiaowu.417@qq.com>,
 	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] Bluetooth: separate CIS_LINK and BIS_LINK link types
-Date: Wed, 15 Jul 2026 17:13:54 -0400
-Message-ID: <20260715211355.253617-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] Bluetooth: hci_conn: Fix null ptr deref in hci_abort_conn()
+Date: Wed, 15 Jul 2026 17:13:55 -0400
+Message-ID: <20260715211355.253617-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260715211355.253617-1-sashal@kernel.org>
 References: <2026071353-angular-magical-b4f5@gregkh>
@@ -46,616 +47,286 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pauli Virtanen <pav@iki.fi>
+From: Siwei Zhang <oss@fourdim.xyz>
 
-[ Upstream commit 23205562ffc8de20f57afdd984858cab29e77968 ]
+[ Upstream commit 12917f591cea1af36087dba5b9ec888652f0b42a ]
 
-Use separate link type id for unicast and broadcast ISO connections.
-These connection types are handled with separate HCI commands, socket
-API is different, and hci_conn has union fields that are different in
-the two cases, so they shall not be mixed up.
+hci_abort_conn() read hci_skb_event(hdev->sent_cmd) when a connection
+was pending, but hdev->sent_cmd can be NULL while req_status is still
+HCI_REQ_PEND, leading to a NULL pointer dereference and a general
+protection fault from the hci_rx_work() receive path.
 
-Currently in most places it is attempted to distinguish ucast by
-bacmp(&c->dst, BDADDR_ANY) but it is wrong as dst is set for bcast sink
-hci_conn in iso_conn_ready(). Additionally checking sync_handle might be
-OK, but depends on details of bcast conn configuration flow.
+Instead of inspecting hdev->sent_cmd, track the in-flight create
+connection command with a new per-connection HCI_CONN_CREATE flag and
+route all cancellation through hci_cancel_connect_sync(), which
+dispatches to a dedicated per-type cancel function. The create command
+is in exactly one of two states: still queued, or in flight. The cancel
+function holds cmd_sync_work_lock across the whole decision: the worker
+takes this lock to dequeue every entry, so while it is held a queued
+command cannot start running and an in-flight command cannot complete
+and let the next command become pending. This keeps the flag test and
+hci_cmd_sync_cancel() atomic with respect to the worker, so a queued
+command is simply dequeued, and an in-flight command owned by this
+connection is cancelled without the risk of cancelling an unrelated
+command that became pending in the meantime. CIS uses the same flag
+mechanism via HCI_CONN_CREATE_CIS but cannot be dequeued per-connection.
 
-To avoid complicating it, use separate link types.
+hci_acl_create_conn_sync() and hci_le_create_conn_sync() clear
+HCI_CONN_CREATE after the create command completes, but the command
+status handler can free conn via hci_conn_del() (for example when the
+controller rejects the connection) while the worker is still blocked on
+the connection complete event. Hold a reference on conn across the
+create command so the flag can be cleared without a use-after-free.
 
-Fixes: f764a6c2c1e4 ("Bluetooth: ISO: Add broadcast support")
-Signed-off-by: Pauli Virtanen <pav@iki.fi>
+Fixes: a13f316e90fd ("Bluetooth: hci_conn: Consolidate code for aborting connections")
+Cc: stable@vger.kernel.org
+Suggested-by: XIAO WU <xiaowu.417@qq.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Stable-dep-of: 12917f591cea ("Bluetooth: hci_conn: Fix null ptr deref in hci_abort_conn()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/bluetooth/hci.h      |  3 +-
- include/net/bluetooth/hci_core.h | 48 ++++++++++++++------------------
- net/bluetooth/hci_conn.c         | 41 ++++++++++++++++-----------
- net/bluetooth/hci_core.c         | 21 ++++++++------
- net/bluetooth/hci_event.c        | 24 ++++++++--------
- net/bluetooth/hci_sync.c         | 16 +++++++----
- net/bluetooth/iso.c              |  4 +--
- net/bluetooth/mgmt.c             |  3 +-
- 8 files changed, 87 insertions(+), 73 deletions(-)
+ include/net/bluetooth/hci_core.h |   1 +
+ net/bluetooth/hci_conn.c         |  21 +----
+ net/bluetooth/hci_sync.c         | 133 +++++++++++++++++++++++++++----
+ 3 files changed, 123 insertions(+), 32 deletions(-)
 
-diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-index 39f6f0d67d7012..673cf9e0cc3bba 100644
---- a/include/net/bluetooth/hci.h
-+++ b/include/net/bluetooth/hci.h
-@@ -558,7 +558,8 @@ enum {
- #define ESCO_LINK	0x02
- /* Low Energy links do not have defined link type. Use invented one */
- #define LE_LINK		0x80
--#define ISO_LINK	0x82
-+#define CIS_LINK	0x82
-+#define BIS_LINK	0x83
- #define INVALID_LINK	0xff
- 
- /* LMP features */
 diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index 5b738a76779f00..ab2cf7489ce783 100644
+index ab2cf7489ce783..44da2e383aaa8d 100644
 --- a/include/net/bluetooth/hci_core.h
 +++ b/include/net/bluetooth/hci_core.h
-@@ -998,7 +998,8 @@ static inline void hci_conn_hash_add(struct hci_dev *hdev, struct hci_conn *c)
- 	case ESCO_LINK:
- 		h->sco_num++;
- 		break;
--	case ISO_LINK:
-+	case CIS_LINK:
-+	case BIS_LINK:
- 		h->iso_num++;
- 		break;
- 	}
-@@ -1024,7 +1025,8 @@ static inline void hci_conn_hash_del(struct hci_dev *hdev, struct hci_conn *c)
- 	case ESCO_LINK:
- 		h->sco_num--;
- 		break;
--	case ISO_LINK:
-+	case CIS_LINK:
-+	case BIS_LINK:
- 		h->iso_num--;
- 		break;
- 	}
-@@ -1041,7 +1043,8 @@ static inline unsigned int hci_conn_num(struct hci_dev *hdev, __u8 type)
- 	case SCO_LINK:
- 	case ESCO_LINK:
- 		return h->sco_num;
--	case ISO_LINK:
-+	case CIS_LINK:
-+	case BIS_LINK:
- 		return h->iso_num;
- 	default:
- 		return 0;
-@@ -1102,7 +1105,7 @@ static inline struct hci_conn *hci_conn_hash_lookup_bis(struct hci_dev *hdev,
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (bacmp(&c->dst, ba) || c->type != ISO_LINK)
-+		if (bacmp(&c->dst, ba) || c->type != BIS_LINK)
- 			continue;
- 
- 		if (c->iso_qos.bcast.bis == bis) {
-@@ -1124,7 +1127,7 @@ hci_conn_hash_lookup_create_pa_sync(struct hci_dev *hdev)
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (c->type != ISO_LINK)
-+		if (c->type != BIS_LINK)
- 			continue;
- 
- 		if (!test_bit(HCI_CONN_CREATE_PA_SYNC, &c->flags))
-@@ -1150,8 +1153,8 @@ hci_conn_hash_lookup_per_adv_bis(struct hci_dev *hdev,
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (bacmp(&c->dst, ba) || c->type != ISO_LINK ||
--			!test_bit(HCI_CONN_PER_ADV, &c->flags))
-+		if (bacmp(&c->dst, ba) || c->type != BIS_LINK ||
-+		    !test_bit(HCI_CONN_PER_ADV, &c->flags))
- 			continue;
- 
- 		if (c->iso_qos.bcast.big == big &&
-@@ -1261,7 +1264,7 @@ static inline struct hci_conn *hci_conn_hash_lookup_cis(struct hci_dev *hdev,
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (c->type != ISO_LINK || !bacmp(&c->dst, BDADDR_ANY))
-+		if (c->type != CIS_LINK)
- 			continue;
- 
- 		/* Match CIG ID if set */
-@@ -1293,7 +1296,7 @@ static inline struct hci_conn *hci_conn_hash_lookup_cig(struct hci_dev *hdev,
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (c->type != ISO_LINK || !bacmp(&c->dst, BDADDR_ANY))
-+		if (c->type != CIS_LINK)
- 			continue;
- 
- 		if (handle == c->iso_qos.ucast.cig) {
-@@ -1316,17 +1319,7 @@ static inline struct hci_conn *hci_conn_hash_lookup_big(struct hci_dev *hdev,
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (c->type != ISO_LINK)
--			continue;
--
--		/* An ISO_LINK hcon with BDADDR_ANY as destination
--		 * address is a Broadcast connection. A Broadcast
--		 * slave connection is associated with a PA train,
--		 * so the sync_handle can be used to differentiate
--		 * from unicast.
--		 */
--		if (bacmp(&c->dst, BDADDR_ANY) &&
--		    c->sync_handle == HCI_SYNC_HANDLE_INVALID)
-+		if (c->type != BIS_LINK)
- 			continue;
- 
- 		if (handle == c->iso_qos.bcast.big) {
-@@ -1350,7 +1343,7 @@ hci_conn_hash_lookup_big_sync_pend(struct hci_dev *hdev,
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (c->type != ISO_LINK)
-+		if (c->type != BIS_LINK)
- 			continue;
- 
- 		if (handle == c->iso_qos.bcast.big && num_bis == c->num_bis) {
-@@ -1373,8 +1366,8 @@ hci_conn_hash_lookup_big_state(struct hci_dev *hdev, __u8 handle,  __u16 state)
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (bacmp(&c->dst, BDADDR_ANY) || c->type != ISO_LINK ||
--			c->state != state)
-+		if (c->type != BIS_LINK || bacmp(&c->dst, BDADDR_ANY) ||
-+		    c->state != state)
- 			continue;
- 
- 		if (handle == c->iso_qos.bcast.big) {
-@@ -1397,8 +1390,8 @@ hci_conn_hash_lookup_pa_sync_big_handle(struct hci_dev *hdev, __u8 big)
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (c->type != ISO_LINK ||
--			!test_bit(HCI_CONN_PA_SYNC, &c->flags))
-+		if (c->type != BIS_LINK ||
-+		    !test_bit(HCI_CONN_PA_SYNC, &c->flags))
- 			continue;
- 
- 		if (c->iso_qos.bcast.big == big) {
-@@ -1420,7 +1413,7 @@ hci_conn_hash_lookup_pa_sync_handle(struct hci_dev *hdev, __u16 sync_handle)
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (c->type != ISO_LINK)
-+		if (c->type != BIS_LINK)
- 			continue;
- 
- 		/* Ignore the listen hcon, we are looking
-@@ -2030,7 +2023,8 @@ static inline int hci_proto_connect_ind(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 	case ESCO_LINK:
- 		return sco_connect_ind(hdev, bdaddr, flags);
- 
--	case ISO_LINK:
-+	case CIS_LINK:
-+	case BIS_LINK:
- 		return iso_connect_ind(hdev, bdaddr, flags);
- 
- 	default:
+@@ -958,6 +958,7 @@ enum {
+ 	HCI_CONN_AUTH_FAILURE,
+ 	HCI_CONN_PER_ADV,
+ 	HCI_CONN_BIG_CREATED,
++	HCI_CONN_CREATE,
+ 	HCI_CONN_CREATE_CIS,
+ 	HCI_CONN_CREATE_BIG_SYNC,
+ 	HCI_CONN_BIG_SYNC,
 diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index d34c66b92fbc1b..2e7a2e60d8133d 100644
+index 2e7a2e60d8133d..17b0cd1c2b5241 100644
 --- a/net/bluetooth/hci_conn.c
 +++ b/net/bluetooth/hci_conn.c
-@@ -785,7 +785,7 @@ static int hci_le_big_terminate(struct hci_dev *hdev, u8 big, struct hci_conn *c
- 	d->sync_handle = conn->sync_handle;
+@@ -2921,26 +2921,11 @@ int hci_abort_conn(struct hci_conn *conn, u8 reason)
  
- 	if (test_and_clear_bit(HCI_CONN_PA_SYNC, &conn->flags)) {
--		hci_conn_hash_list_flag(hdev, find_bis, ISO_LINK,
-+		hci_conn_hash_list_flag(hdev, find_bis, BIS_LINK,
- 					HCI_CONN_PA_SYNC, d);
+ 	conn->abort_reason = reason;
  
- 		if (!d->count)
-@@ -795,7 +795,7 @@ static int hci_le_big_terminate(struct hci_dev *hdev, u8 big, struct hci_conn *c
- 	}
- 
- 	if (test_and_clear_bit(HCI_CONN_BIG_SYNC, &conn->flags)) {
--		hci_conn_hash_list_flag(hdev, find_bis, ISO_LINK,
-+		hci_conn_hash_list_flag(hdev, find_bis, BIS_LINK,
- 					HCI_CONN_BIG_SYNC, d);
- 
- 		if (!d->count)
-@@ -885,9 +885,11 @@ static void cis_cleanup(struct hci_conn *conn)
- 	/* Check if ISO connection is a CIS and remove CIG if there are
- 	 * no other connections using it.
+-	/* If the connection is pending check the command opcode since that
+-	 * might be blocking on hci_cmd_sync_work while waiting its respective
+-	 * event so we need to hci_cmd_sync_cancel to cancel it.
+-	 *
+-	 * hci_connect_le serializes the connection attempts so only one
+-	 * connection can be in BT_CONNECT at time.
++	/* Cancel the connect attempt. A return of 0 means the create command
++	 * was still queued and got dequeued, so there is nothing to disconnect.
  	 */
--	hci_conn_hash_list_state(hdev, find_cis, ISO_LINK, BT_BOUND, &d);
--	hci_conn_hash_list_state(hdev, find_cis, ISO_LINK, BT_CONNECT, &d);
--	hci_conn_hash_list_state(hdev, find_cis, ISO_LINK, BT_CONNECTED, &d);
-+	hci_conn_hash_list_state(hdev, find_cis, CIS_LINK, BT_BOUND, &d);
-+	hci_conn_hash_list_state(hdev, find_cis, CIS_LINK, BT_CONNECT,
-+				 &d);
-+	hci_conn_hash_list_state(hdev, find_cis, CIS_LINK, BT_CONNECTED,
-+				 &d);
- 	if (d.count)
- 		return;
+-	if (conn->state == BT_CONNECT && READ_ONCE(hdev->req_status) == HCI_REQ_PEND) {
+-		switch (hci_skb_event(hdev->sent_cmd)) {
+-		case HCI_EV_CONN_COMPLETE:
+-		case HCI_EV_LE_CONN_COMPLETE:
+-		case HCI_EV_LE_ENHANCED_CONN_COMPLETE:
+-		case HCI_EVT_LE_CIS_ESTABLISHED:
+-			hci_cmd_sync_cancel(hdev, ECANCELED);
+-			break;
+-		}
+-	/* Cancel connect attempt if still queued/pending */
+-	} else if (!hci_cancel_connect_sync(hdev, conn)) {
++	if (!hci_cancel_connect_sync(hdev, conn))
+ 		return 0;
+-	}
  
-@@ -910,7 +912,8 @@ static struct hci_conn *__hci_conn_add(struct hci_dev *hdev, int type, bdaddr_t
- 		if (!hdev->acl_mtu)
- 			return ERR_PTR(-ECONNREFUSED);
- 		break;
--	case ISO_LINK:
-+	case CIS_LINK:
-+	case BIS_LINK:
- 		if (hdev->iso_mtu)
- 			/* Dedicated ISO Buffer exists */
- 			break;
-@@ -975,7 +978,8 @@ static struct hci_conn *__hci_conn_add(struct hci_dev *hdev, int type, bdaddr_t
- 		hci_copy_identity_address(hdev, &conn->src, &conn->src_type);
- 		conn->mtu = hdev->le_mtu ? hdev->le_mtu : hdev->acl_mtu;
- 		break;
--	case ISO_LINK:
-+	case CIS_LINK:
-+	case BIS_LINK:
- 		/* conn->src should reflect the local identity address */
- 		hci_copy_identity_address(hdev, &conn->src, &conn->src_type);
- 
-@@ -1071,7 +1075,8 @@ static void hci_conn_cleanup_child(struct hci_conn *conn, u8 reason)
- 		if (HCI_CONN_HANDLE_UNSET(conn->handle))
- 			hci_conn_failed(conn, reason);
- 		break;
--	case ISO_LINK:
-+	case CIS_LINK:
-+	case BIS_LINK:
- 		if ((conn->state != BT_CONNECTED &&
- 		    !test_bit(HCI_CONN_CREATE_CIS, &conn->flags)) ||
- 		    test_bit(HCI_CONN_BIG_CREATED, &conn->flags))
-@@ -1146,7 +1151,8 @@ void hci_conn_del(struct hci_conn *conn)
- 			hdev->acl_cnt += conn->sent;
- 	} else {
- 		/* Unacked ISO frames */
--		if (conn->type == ISO_LINK) {
-+		if (conn->type == CIS_LINK ||
-+		    conn->type == BIS_LINK) {
- 			if (hdev->iso_pkts)
- 				hdev->iso_cnt += conn->sent;
- 			else if (hdev->le_pkts)
-@@ -1531,7 +1537,7 @@ static struct hci_conn *hci_add_bis(struct hci_dev *hdev, bdaddr_t *dst,
- 		     memcmp(conn->le_per_adv_data, base, base_len)))
- 		return ERR_PTR(-EADDRINUSE);
- 
--	conn = hci_conn_add_unset(hdev, ISO_LINK, dst, HCI_ROLE_MASTER);
-+	conn = hci_conn_add_unset(hdev, BIS_LINK, dst, HCI_ROLE_MASTER);
- 	if (IS_ERR(conn))
- 		return conn;
- 
-@@ -1740,7 +1746,7 @@ static int hci_le_create_big(struct hci_conn *conn, struct bt_iso_qos *qos)
- 	data.count = 0;
- 
- 	/* Create a BIS for each bound connection */
--	hci_conn_hash_list_state(hdev, bis_list, ISO_LINK,
-+	hci_conn_hash_list_state(hdev, bis_list, BIS_LINK,
- 				 BT_BOUND, &data);
- 
- 	cp.handle = qos->bcast.big;
-@@ -1835,12 +1841,12 @@ static bool hci_le_set_cig_params(struct hci_conn *conn, struct bt_iso_qos *qos)
- 		for (data.cig = 0x00; data.cig < 0xf0; data.cig++) {
- 			data.count = 0;
- 
--			hci_conn_hash_list_state(hdev, find_cis, ISO_LINK,
-+			hci_conn_hash_list_state(hdev, find_cis, CIS_LINK,
- 						 BT_CONNECT, &data);
- 			if (data.count)
- 				continue;
- 
--			hci_conn_hash_list_state(hdev, find_cis, ISO_LINK,
-+			hci_conn_hash_list_state(hdev, find_cis, CIS_LINK,
- 						 BT_CONNECTED, &data);
- 			if (!data.count)
- 				break;
-@@ -1892,7 +1898,8 @@ struct hci_conn *hci_bind_cis(struct hci_dev *hdev, bdaddr_t *dst,
- 	cis = hci_conn_hash_lookup_cis(hdev, dst, dst_type, qos->ucast.cig,
- 				       qos->ucast.cis);
- 	if (!cis) {
--		cis = hci_conn_add_unset(hdev, ISO_LINK, dst, HCI_ROLE_MASTER);
-+		cis = hci_conn_add_unset(hdev, CIS_LINK, dst,
-+					 HCI_ROLE_MASTER);
- 		if (IS_ERR(cis))
- 			return cis;
- 		cis->cleanup = cis_cleanup;
-@@ -1982,7 +1989,7 @@ bool hci_iso_setup_path(struct hci_conn *conn)
- 
- int hci_conn_check_create_cis(struct hci_conn *conn)
- {
--	if (conn->type != ISO_LINK || !bacmp(&conn->dst, BDADDR_ANY))
-+	if (conn->type != CIS_LINK)
- 		return -EINVAL;
- 
- 	if (!conn->parent || conn->parent->state != BT_CONNECTED ||
-@@ -2082,7 +2089,7 @@ struct hci_conn *hci_pa_create_sync(struct hci_dev *hdev, bdaddr_t *dst,
- 
- 	bt_dev_dbg(hdev, "dst %pMR type %d sid %d", dst, dst_type, sid);
- 
--	conn = hci_conn_add_unset(hdev, ISO_LINK, dst, HCI_ROLE_SLAVE);
-+	conn = hci_conn_add_unset(hdev, BIS_LINK, dst, HCI_ROLE_SLAVE);
- 	if (IS_ERR(conn))
- 		return conn;
- 
-@@ -2259,7 +2266,7 @@ struct hci_conn *hci_connect_bis(struct hci_dev *hdev, bdaddr_t *dst,
- 	 * the start periodic advertising and create BIG commands have
- 	 * been queued
- 	 */
--	hci_conn_hash_list_state(hdev, bis_mark_per_adv, ISO_LINK,
-+	hci_conn_hash_list_state(hdev, bis_mark_per_adv, BIS_LINK,
- 				 BT_BOUND, &data);
- 
- 	/* Queue start periodic advertising and create BIG */
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index d53487bcd712c5..08c45343e932b6 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -2957,12 +2957,13 @@ int hci_recv_frame(struct hci_dev *hdev, struct sk_buff *skb)
- 		break;
- 	case HCI_ACLDATA_PKT:
- 		/* Detect if ISO packet has been sent as ACL */
--		if (hci_conn_num(hdev, ISO_LINK)) {
-+		if (hci_conn_num(hdev, CIS_LINK) ||
-+		    hci_conn_num(hdev, BIS_LINK)) {
- 			__u16 handle = __le16_to_cpu(hci_acl_hdr(skb)->handle);
- 			__u8 type;
- 
- 			type = hci_conn_lookup_type(hdev, hci_handle(handle));
--			if (type == ISO_LINK)
-+			if (type == CIS_LINK || type == BIS_LINK)
- 				hci_skb_pkt_type(skb) = HCI_ISODATA_PKT;
- 		}
- 		break;
-@@ -3397,7 +3398,8 @@ static inline void hci_quote_sent(struct hci_conn *conn, int num, int *quote)
- 	case LE_LINK:
- 		cnt = hdev->le_mtu ? hdev->le_cnt : hdev->acl_cnt;
- 		break;
--	case ISO_LINK:
-+	case CIS_LINK:
-+	case BIS_LINK:
- 		cnt = hdev->iso_mtu ? hdev->iso_cnt :
- 			hdev->le_mtu ? hdev->le_cnt : hdev->acl_cnt;
- 		break;
-@@ -3411,7 +3413,7 @@ static inline void hci_quote_sent(struct hci_conn *conn, int num, int *quote)
- }
- 
- static struct hci_conn *hci_low_sent(struct hci_dev *hdev, __u8 type,
--				     int *quote)
-+				     __u8 type2, int *quote)
- {
- 	struct hci_conn_hash *h = &hdev->conn_hash;
- 	struct hci_conn *conn = NULL, *c;
-@@ -3423,7 +3425,8 @@ static struct hci_conn *hci_low_sent(struct hci_dev *hdev, __u8 type,
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(c, &h->list, list) {
--		if (c->type != type || skb_queue_empty(&c->data_q))
-+		if ((c->type != type && c->type != type2) ||
-+		    skb_queue_empty(&c->data_q))
- 			continue;
- 
- 		if (c->state != BT_CONNECTED && c->state != BT_CONFIG)
-@@ -3626,7 +3629,7 @@ static void hci_sched_sco(struct hci_dev *hdev, __u8 type)
- 	else
- 		cnt = &hdev->sco_cnt;
- 
--	while (*cnt && (conn = hci_low_sent(hdev, type, &quote))) {
-+	while (*cnt && (conn = hci_low_sent(hdev, type, type, &quote))) {
- 		while (quote-- && (skb = skb_dequeue(&conn->data_q))) {
- 			BT_DBG("skb %p len %d", skb, skb->len);
- 			hci_send_frame(hdev, skb);
-@@ -3754,12 +3757,14 @@ static void hci_sched_iso(struct hci_dev *hdev)
- 
- 	BT_DBG("%s", hdev->name);
- 
--	if (!hci_conn_num(hdev, ISO_LINK))
-+	if (!hci_conn_num(hdev, CIS_LINK) &&
-+	    !hci_conn_num(hdev, BIS_LINK))
- 		return;
- 
- 	cnt = hdev->iso_pkts ? &hdev->iso_cnt :
- 		hdev->le_pkts ? &hdev->le_cnt : &hdev->acl_cnt;
--	while (*cnt && (conn = hci_low_sent(hdev, ISO_LINK, &quote))) {
-+	while (*cnt && (conn = hci_low_sent(hdev, CIS_LINK, BIS_LINK,
-+					    &quote))) {
- 		while (quote-- && (skb = skb_dequeue(&conn->data_q))) {
- 			BT_DBG("skb %p len %d", skb, skb->len);
- 			hci_send_frame(hdev, skb);
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index 47ad62f10cef38..279b6435afc887 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -3778,7 +3778,7 @@ static void hci_unbound_cis_failed(struct hci_dev *hdev, u8 cig, u8 status)
- 	lockdep_assert_held(&hdev->lock);
- 
- 	list_for_each_entry_safe(conn, tmp, &hdev->conn_hash.list, list) {
--		if (conn->type != ISO_LINK || !bacmp(&conn->dst, BDADDR_ANY) ||
-+		if (conn->type != CIS_LINK ||
- 		    conn->state == BT_OPEN || conn->iso_qos.ucast.cig != cig)
- 			continue;
- 
-@@ -4455,7 +4455,8 @@ static void hci_num_comp_pkts_evt(struct hci_dev *hdev, void *data,
- 
- 			break;
- 
--		case ISO_LINK:
-+		case CIS_LINK:
-+		case BIS_LINK:
- 			if (hdev->iso_pkts) {
- 				hdev->iso_cnt += count;
- 				if (hdev->iso_cnt > hdev->iso_pkts)
-@@ -6422,7 +6423,8 @@ static void hci_le_pa_sync_estabilished_evt(struct hci_dev *hdev, void *data,
- 	conn->sync_handle = le16_to_cpu(ev->handle);
- 	conn->sid = HCI_SID_INVALID;
- 
--	mask |= hci_proto_connect_ind(hdev, &ev->bdaddr, ISO_LINK, &flags);
-+	mask |= hci_proto_connect_ind(hdev, &ev->bdaddr, BIS_LINK,
-+				      &flags);
- 	if (!(mask & HCI_LM_ACCEPT)) {
- 		hci_le_pa_term_sync(hdev, ev->handle);
- 		goto unlock;
-@@ -6432,7 +6434,7 @@ static void hci_le_pa_sync_estabilished_evt(struct hci_dev *hdev, void *data,
- 		goto unlock;
- 
- 	/* Add connection to indicate PA sync event */
--	pa_sync = hci_conn_add_unset(hdev, ISO_LINK, BDADDR_ANY,
-+	pa_sync = hci_conn_add_unset(hdev, BIS_LINK, BDADDR_ANY,
- 				     HCI_ROLE_SLAVE);
- 
- 	if (IS_ERR(pa_sync))
-@@ -6463,7 +6465,7 @@ static void hci_le_per_adv_report_evt(struct hci_dev *hdev, void *data,
- 
- 	hci_dev_lock(hdev);
- 
--	mask |= hci_proto_connect_ind(hdev, BDADDR_ANY, ISO_LINK, &flags);
-+	mask |= hci_proto_connect_ind(hdev, BDADDR_ANY, BIS_LINK, &flags);
- 	if (!(mask & HCI_LM_ACCEPT))
- 		goto unlock;
- 
-@@ -6754,7 +6756,7 @@ static void hci_le_cis_estabilished_evt(struct hci_dev *hdev, void *data,
- 		goto unlock;
- 	}
- 
--	if (conn->type != ISO_LINK) {
-+	if (conn->type != CIS_LINK) {
- 		bt_dev_err(hdev,
- 			   "Invalid connection link type handle 0x%4.4x",
- 			   handle);
-@@ -6872,7 +6874,7 @@ static void hci_le_cis_req_evt(struct hci_dev *hdev, void *data,
- 	if (!acl)
- 		goto unlock;
- 
--	mask = hci_proto_connect_ind(hdev, &acl->dst, ISO_LINK, &flags);
-+	mask = hci_proto_connect_ind(hdev, &acl->dst, CIS_LINK, &flags);
- 	if (!(mask & HCI_LM_ACCEPT)) {
- 		hci_le_reject_cis(hdev, ev->cis_handle);
- 		goto unlock;
-@@ -6880,8 +6882,8 @@ static void hci_le_cis_req_evt(struct hci_dev *hdev, void *data,
- 
- 	cis = hci_conn_hash_lookup_handle(hdev, cis_handle);
- 	if (!cis) {
--		cis = hci_conn_add(hdev, ISO_LINK, &acl->dst, HCI_ROLE_SLAVE,
--				   cis_handle);
-+		cis = hci_conn_add(hdev, CIS_LINK, &acl->dst,
-+				   HCI_ROLE_SLAVE, cis_handle);
- 		if (IS_ERR(cis)) {
- 			hci_le_reject_cis(hdev, ev->cis_handle);
- 			goto unlock;
-@@ -7019,7 +7021,7 @@ static void hci_le_big_sync_established_evt(struct hci_dev *hdev, void *data,
- 				bt_dev_dbg(hdev, "ignore too large handle %u", handle);
- 				continue;
- 			}
--			bis = hci_conn_add(hdev, ISO_LINK, BDADDR_ANY,
-+			bis = hci_conn_add(hdev, BIS_LINK, BDADDR_ANY,
- 					   HCI_ROLE_SLAVE, handle);
- 			if (IS_ERR(bis))
- 				continue;
-@@ -7078,7 +7080,7 @@ static void hci_le_big_info_adv_report_evt(struct hci_dev *hdev, void *data,
- 
- 	hci_dev_lock(hdev);
- 
--	mask |= hci_proto_connect_ind(hdev, BDADDR_ANY, ISO_LINK, &flags);
-+	mask |= hci_proto_connect_ind(hdev, BDADDR_ANY, BIS_LINK, &flags);
- 	if (!(mask & HCI_LM_ACCEPT))
- 		goto unlock;
- 
+ 	/* Run immediately if on cmd_sync_work since this may be called
+ 	 * as a result to MGMT_OP_DISCONNECT/MGMT_OP_UNPAIR which does
 diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index f6b70ed93c6210..f7bfc5d44b7741 100644
+index f7bfc5d44b7741..29ba5b2e91aa9f 100644
 --- a/net/bluetooth/hci_sync.c
 +++ b/net/bluetooth/hci_sync.c
-@@ -2979,7 +2979,7 @@ static int hci_le_set_ext_scan_param_sync(struct hci_dev *hdev, u8 type,
- 		if (sent) {
- 			struct hci_conn *conn;
+@@ -6568,6 +6568,11 @@ static int hci_le_create_conn_sync(struct hci_dev *hdev, void *data)
  
--			conn = hci_conn_hash_lookup_ba(hdev, ISO_LINK,
-+			conn = hci_conn_hash_lookup_ba(hdev, BIS_LINK,
- 						       &sent->bdaddr);
- 			if (conn) {
- 				struct bt_iso_qos *qos = &conn->iso_qos;
-@@ -5596,7 +5596,7 @@ static int hci_connect_cancel_sync(struct hci_dev *hdev, struct hci_conn *conn,
- 	if (conn->type == LE_LINK)
- 		return hci_le_connect_cancel_sync(hdev, conn, reason);
+ 	bt_dev_dbg(hdev, "conn %p", conn);
  
--	if (conn->type == ISO_LINK) {
-+	if (conn->type == CIS_LINK) {
- 		/* BLUETOOTH CORE SPECIFICATION Version 5.3 | Vol 4, Part E
- 		 * page 1857:
- 		 *
-@@ -5609,9 +5609,10 @@ static int hci_connect_cancel_sync(struct hci_dev *hdev, struct hci_conn *conn,
- 			return hci_disconnect_sync(hdev, conn, reason);
- 
- 		/* CIS with no Create CIS sent have nothing to cancel */
--		if (bacmp(&conn->dst, BDADDR_ANY))
--			return HCI_ERROR_LOCAL_HOST_TERM;
-+		return HCI_ERROR_LOCAL_HOST_TERM;
-+	}
- 
-+	if (conn->type == BIS_LINK) {
- 		/* There is no way to cancel a BIS without terminating the BIG
- 		 * which is done later on connection cleanup.
- 		 */
-@@ -5673,9 +5674,12 @@ static int hci_reject_conn_sync(struct hci_dev *hdev, struct hci_conn *conn,
- {
- 	struct hci_cp_reject_conn_req cp;
- 
--	if (conn->type == ISO_LINK)
-+	if (conn->type == CIS_LINK)
- 		return hci_le_reject_cis_sync(hdev, conn, reason);
- 
-+	if (conn->type == BIS_LINK)
-+		return -EINVAL;
++	/* Hold a reference so conn stays valid for the HCI_CONN_CREATE
++	 * clear_bit() at done.
++	 */
++	hci_conn_get(conn);
 +
- 	if (conn->type == SCO_LINK || conn->type == ESCO_LINK)
- 		return hci_reject_sco_sync(hdev, conn, reason);
+ 	clear_bit(HCI_CONN_SCANNING, &conn->flags);
+ 	conn->state = BT_CONNECT;
  
-@@ -7039,7 +7043,7 @@ static void create_pa_complete(struct hci_dev *hdev, void *data, int err)
- 		goto unlock;
+@@ -6580,6 +6585,7 @@ static int hci_le_create_conn_sync(struct hci_dev *hdev, void *data)
+ 		    hdev->le_scan_type == LE_SCAN_ACTIVE &&
+ 		    !hci_dev_test_flag(hdev, HCI_LE_SIMULTANEOUS_ROLES)) {
+ 			hci_conn_del(conn);
++			hci_conn_put(conn);
+ 			return -EBUSY;
+ 		}
  
- 	/* Add connection to indicate PA sync error */
--	pa_sync = hci_conn_add_unset(hdev, ISO_LINK, BDADDR_ANY,
-+	pa_sync = hci_conn_add_unset(hdev, BIS_LINK, BDADDR_ANY,
- 				     HCI_ROLE_SLAVE);
+@@ -6625,6 +6631,12 @@ static int hci_le_create_conn_sync(struct hci_dev *hdev, void *data)
+ 					     &own_addr_type);
+ 	if (err)
+ 		goto done;
++
++	/* Mark create connection in flight so hci_cancel_connect_sync() can
++	 * cancel it while blocking on the connection complete event.
++	 */
++	set_bit(HCI_CONN_CREATE, &conn->flags);
++
+ 	/* Send command LE Extended Create Connection if supported */
+ 	if (use_ext_conn(hdev)) {
+ 		err = hci_le_ext_create_conn_sync(hdev, conn, own_addr_type);
+@@ -6660,11 +6672,14 @@ static int hci_le_create_conn_sync(struct hci_dev *hdev, void *data)
+ 				       conn->conn_timeout, NULL);
  
- 	if (IS_ERR(pa_sync))
-diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-index c0530442a94b9d..348cbb01aa9b3e 100644
---- a/net/bluetooth/iso.c
-+++ b/net/bluetooth/iso.c
-@@ -2200,7 +2200,7 @@ int iso_connect_ind(struct hci_dev *hdev, bdaddr_t *bdaddr, __u8 *flags)
+ done:
++	clear_bit(HCI_CONN_CREATE, &conn->flags);
++
+ 	if (err == -ETIMEDOUT)
+ 		hci_le_connect_cancel_sync(hdev, conn, 0x00);
  
- static void iso_connect_cfm(struct hci_conn *hcon, __u8 status)
+ 	/* Re-enable advertising after the connection attempt is finished. */
+ 	hci_resume_advertising_sync(hdev);
++	hci_conn_put(conn);
+ 	return err;
+ }
+ 
+@@ -6939,10 +6954,25 @@ static int hci_acl_create_conn_sync(struct hci_dev *hdev, void *data)
+ 	else
+ 		cp.role_switch = 0x00;
+ 
+-	return __hci_cmd_sync_status_sk(hdev, HCI_OP_CREATE_CONN,
+-					sizeof(cp), &cp,
+-					HCI_EV_CONN_COMPLETE,
+-					conn->conn_timeout, NULL);
++	/* Hold a reference so conn stays valid for the HCI_CONN_CREATE
++	 * clear_bit() below.
++	 */
++	hci_conn_get(conn);
++
++	/* Mark create connection in flight so hci_cancel_connect_sync() can
++	 * cancel it while blocking on the connection complete event.
++	 */
++	set_bit(HCI_CONN_CREATE, &conn->flags);
++
++	err = __hci_cmd_sync_status_sk(hdev, HCI_OP_CREATE_CONN,
++				       sizeof(cp), &cp,
++				       HCI_EV_CONN_COMPLETE,
++				       conn->conn_timeout, NULL);
++
++	clear_bit(HCI_CONN_CREATE, &conn->flags);
++	hci_conn_put(conn);
++
++	return err;
+ }
+ 
+ int hci_connect_acl_sync(struct hci_dev *hdev, struct hci_conn *conn)
+@@ -6988,22 +7018,97 @@ int hci_connect_le_sync(struct hci_dev *hdev, struct hci_conn *conn)
+ 				       create_le_conn_complete);
+ }
+ 
+-int hci_cancel_connect_sync(struct hci_dev *hdev, struct hci_conn *conn)
++static int hci_acl_cancel_create_conn_sync(struct hci_dev *hdev,
++					   struct hci_conn *conn)
  {
--	if (hcon->type != ISO_LINK) {
-+	if (hcon->type != CIS_LINK && hcon->type != BIS_LINK) {
- 		if (hcon->type != LE_LINK)
- 			return;
+-	if (conn->state != BT_OPEN)
+-		return -EINVAL;
++	struct hci_cmd_sync_work_entry *entry;
++	int err = -EBUSY;
++
++	/* cmd_sync_work_lock makes the HCI_CONN_CREATE test and the cancel
++	 * atomic against the worker, which takes this lock to dequeue every
++	 * entry: while it is held no other command can become pending, so
++	 * hci_cmd_sync_cancel() cannot cancel an unrelated command.
++	 */
++	mutex_lock(&hdev->cmd_sync_work_lock);
++
++	/* In flight: this connection owns the pending request, cancel it. */
++	if (test_bit(HCI_CONN_CREATE, &conn->flags)) {
++		hci_cmd_sync_cancel(hdev, ECANCELED);
++		goto unlock;
++	}
++
++	/* Still queued: a successful dequeue means it never started, so there
++	 * is nothing to disconnect.
++	 */
++	entry = _hci_cmd_sync_lookup_entry(hdev, hci_acl_create_conn_sync, conn,
++					   NULL);
++	if (entry) {
++		_hci_cmd_sync_cancel_entry(hdev, entry, -ECANCELED);
++		err = 0;
++	}
++
++unlock:
++	mutex_unlock(&hdev->cmd_sync_work_lock);
++	return err;
++}
++
++static int hci_le_cancel_create_conn_sync(struct hci_dev *hdev,
++					  struct hci_conn *conn)
++{
++	struct hci_cmd_sync_work_entry *entry;
++	int err = -EBUSY;
  
-@@ -2241,7 +2241,7 @@ static void iso_connect_cfm(struct hci_conn *hcon, __u8 status)
- 
- static void iso_disconn_cfm(struct hci_conn *hcon, __u8 reason)
- {
--	if (hcon->type != ISO_LINK)
-+	if (hcon->type != CIS_LINK && hcon->type != BIS_LINK)
- 		return;
- 
- 	BT_DBG("hcon %p reason %d", hcon, reason);
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index f494eda5cc81c1..896a2970ba074d 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -3240,7 +3240,8 @@ static int disconnect(struct sock *sk, struct hci_dev *hdev, void *data,
- static u8 link_to_bdaddr(u8 link_type, u8 addr_type)
- {
- 	switch (link_type) {
--	case ISO_LINK:
-+	case CIS_LINK:
-+	case BIS_LINK:
++	/* cmd_sync_work_lock keeps the HCI_CONN_CREATE test and the cancel
++	 * atomic against the cmd_sync worker.
++	 */
++	mutex_lock(&hdev->cmd_sync_work_lock);
++
++	if (test_bit(HCI_CONN_CREATE, &conn->flags)) {
++		hci_cmd_sync_cancel(hdev, ECANCELED);
++		goto unlock;
++	}
++
++	entry = _hci_cmd_sync_lookup_entry(hdev, hci_le_create_conn_sync, conn,
++					   create_le_conn_complete);
++	if (entry) {
++		_hci_cmd_sync_cancel_entry(hdev, entry, -ECANCELED);
++		err = 0;
++	}
++
++unlock:
++	mutex_unlock(&hdev->cmd_sync_work_lock);
++	return err;
++}
++
++static int hci_cis_cancel_create_conn_sync(struct hci_dev *hdev,
++					   struct hci_conn *conn)
++{
++	/* LE Create CIS is shared by the whole CIG and cannot be dequeued
++	 * per-connection, so only an in-flight command can be cancelled.
++	 * cmd_sync_work_lock keeps the test and the cancel atomic against the
++	 * cmd_sync worker.
++	 */
++	mutex_lock(&hdev->cmd_sync_work_lock);
++
++	if (test_bit(HCI_CONN_CREATE_CIS, &conn->flags))
++		hci_cmd_sync_cancel(hdev, ECANCELED);
++
++	mutex_unlock(&hdev->cmd_sync_work_lock);
++	return -EBUSY;
++}
++
++int hci_cancel_connect_sync(struct hci_dev *hdev, struct hci_conn *conn)
++{
+ 	switch (conn->type) {
+ 	case ACL_LINK:
+-		return !hci_cmd_sync_dequeue_once(hdev,
+-						  hci_acl_create_conn_sync,
+-						  conn, NULL);
++		return hci_acl_cancel_create_conn_sync(hdev, conn);
  	case LE_LINK:
- 		switch (addr_type) {
- 		case ADDR_LE_DEV_PUBLIC:
+-		return !hci_cmd_sync_dequeue_once(hdev, hci_le_create_conn_sync,
+-						  conn, create_le_conn_complete);
++		return hci_le_cancel_create_conn_sync(hdev, conn);
++	case CIS_LINK:
++		return hci_cis_cancel_create_conn_sync(hdev, conn);
++	default:
++		return -ENOENT;
+ 	}
+-
+-	return -ENOENT;
+ }
+ 
+ int hci_le_conn_update_sync(struct hci_dev *hdev, struct hci_conn *conn,
 -- 
 2.53.0
 
