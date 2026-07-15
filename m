@@ -1,107 +1,126 @@
-Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AD443A7FB
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 09:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D6943849D;
+	Wed, 15 Jul 2026 09:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784108473; cv=none; b=Dq19SHezjEAZdGSWT/CNOJZIan2dDkA965Cmr1VaFB5PVoVp/8yC123tr/qBsGCUJ6aFCLXtUXvDBIuwOuJvkJcx+imORRqjqk+/ffx1MMXmHaFm8VRdDRqeMF9NbjVz2TQTHxABFPEXsvkRCWRpPZ12ma4QbIH2B4NSjiKruNg=
+	t=1784108738; cv=none; b=oxnemYE4bhR0QKv1oBJLxy0SNHljOVW8kilmFGW6S7xW0N77J4TIXvp9p4uS9b10F9R5NaHlkG72LU4xs7FQZsos2fc6fpRK0ug7XAfAONR5QEdvTKTn6ikQuxAOTWeR7Py6S+OnaCQxpF5zNJu0kcmVh0szj6Xa0x9jqVZe7Jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784108473; c=relaxed/simple;
-	bh=YGHRu+F97cWhGi6/KVH2KxwUVUoIhplxmVJj/OEzjb0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F7STfiCTZZ4RORNxDgub7XUVZ0mhiD7TcF0npnYcX11dMjyg0TiGUiKVfVXQS38fjy59mgzF6PeqUq1gc79dELmHhZut7LmDKgarfs4tT4TKm+fVcoQyQr4VeLz1Z/zsTqB5xL4SgspkItbY6tzehlLtCSIKayWV+v4+v7PL6s0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pishA9GC; arc=none smtp.client-ip=91.218.175.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784108738; c=relaxed/simple;
+	bh=e9EVrjo4je06jJvzKOXmUSY/lYq5x3Z/o92jN55pK0M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lePW7tnli9dpRG3XFTumiHWuYI2g0U7ypXFYik9YA3mrJwCo294rXeCNi+Ou+HtFwPyy9w0W0Rkz7sjXCunpkK3WXCYFcxMyNJNed9YteShvDOr6dLUwdTHUuipQttNg8W2T+oKWvrT7cgOIQNQcxYwtBA+yFkC9Z0qn4CbuWeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hRcI8pQr; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pishA9GC"
-Message-ID: <b2b2a0df-2164-44a5-a7a1-e7cecf1f7b86@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784108461;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9pLf70bhIsBjYYAuXnkUf9IaSpfzFW1UY6uqtiFu0Cc=;
-	b=pishA9GCA8WBAZW7KVKBT0Ofny9G+wF+WswAd6T6SRV3HSSZjsheVlF3H3Te2smds2jHX7
-	d/3Irf3H7Z+CbcsQkijkkvpR7n9cEU4Yig7ZGAITVMkmWtTTqnY6hmhogBKQQB+hmZqOLT
-	wZr6Gu+f84lxn/AB67o0IehsNJdxmPI=
-Date: Wed, 15 Jul 2026 17:40:01 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hRcI8pQr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784108727; x=1815644727;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=e9EVrjo4je06jJvzKOXmUSY/lYq5x3Z/o92jN55pK0M=;
+  b=hRcI8pQrlTnCrwB2AJQ09UUJyKdrsu7rv2O1CaLoGqMKIAL9MiOogsCr
+   muuHvRDTxJhdO7RTMMHii/MALqgVFqi6O6+KOD9hP9LfjmT4ISk9w+H/O
+   4E8wPwHtDcS6Ga554Sodv9kEFwGVz2qVIqCaRicsVewlA6qsvIyHkUZgh
+   axr5AS3fAR4WjQ7bJTbm5rjfHyWNIWoButWfX3p9rmOV7QbwSxzugmQqR
+   MRZL4nvudLhScDvxM0u63AA4DG0RyRu/H8EnigV/UG4punOntuCpuDIc5
+   1FpfURA6s60TOp3uN3FUTDIas13vKwmpAnFU1xt4Mvs+KI3zIswQQgYGh
+   A==;
+X-CSE-ConnectionGUID: aF9clrLDSdCUIl2PjrJ07A==
+X-CSE-MsgGUID: Nojr+s7ZSjKU4pRw+w5AhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="96257149"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="96257149"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 02:45:21 -0700
+X-CSE-ConnectionGUID: bS6xCzrUSFq3jpUdTo3EPQ==
+X-CSE-MsgGUID: 76+3OtpmRq6zXHTmIOx6xQ==
+X-ExtLoop1: 1
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa003.fm.intel.com with ESMTP; 15 Jul 2026 02:45:18 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 747CB95; Wed, 15 Jul 2026 11:45:17 +0200 (CEST)
+Date: Wed, 15 Jul 2026 12:45:15 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Ramesh Babu B <ramesh.babu.b@intel.com>,
+	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
+	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] drm/xe/i2c: Keep the i2c controller always enabled
+Message-ID: <aldWqyg_bnt5KsGT@kuha>
+References: <20260713155601.711389-1-heikki.krogerus@linux.intel.com>
+ <20260713155601.711389-4-heikki.krogerus@linux.intel.com>
+ <alcpuxJktaVwrIaa@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH iwl-net v2 1/2] iavf: fix ASQ command buffer leak on init
- failure
-To: "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
- "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>,
- "Kitszel, Przemyslaw" <przemyslaw.kitszel@intel.com>,
- "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- Mitch Williams <mitch.a.williams@intel.com>,
- Greg Rose <gregory.v.rose@intel.com>,
- Sudheer Mogilappagari <sudheer.mogilappagari@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20260715082548.56687-1-xuanqiang.luo@linux.dev>
- <20260715082548.56687-2-xuanqiang.luo@linux.dev>
- <MW4PR11MB5890DCEED74E887ACBC9161AF0F82@MW4PR11MB5890.namprd11.prod.outlook.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: luoxuanqiang <xuanqiang.luo@linux.dev>
-In-Reply-To: <MW4PR11MB5890DCEED74E887ACBC9161AF0F82@MW4PR11MB5890.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alcpuxJktaVwrIaa@black.igk.intel.com>
 
+On Wed, Jul 15, 2026 at 08:33:31AM +0200, Raag Jadav wrote:
+> > +/* See "Disabling DW_apb_i2c" in the DesignWare DW_abp_i2c databook. */
+> > +static void xe_i2c_disable(struct xe_i2c *i2c)
+> > +{
+> > +	int timeout = 100;
+> > +	u32 status;
+> > +
+> > +	xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 1, 0);
+> 
+> Can we use DW_IC_ENABLE_* defines?
+> 
+> > +	do {
+> > +		status = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_ENABLE_STATUS));
+> > +		if (!(status & 1))
+> 
+> Ditto for DW_IC_STATUS_*.
+> 
+> > +			return;
+> > +		/* Can't sleep here. */
+> > +		udelay(25);
+> > +	} while (timeout--);
+> > +
+> > +	dev_warn(&i2c->adapter->dev, "timeout in disabling adapter\n");
+> > +}
+> 
+> ...
+> 
+> > @@ -230,7 +260,28 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
+> >  {
+> >  	struct xe_i2c *i2c = context;
+> >  
+> > -	xe_mmio_write32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET), val);
+> > +	switch (reg) {
+> > +	case DW_IC_CON:
+> > +	case DW_IC_TAR:
+> > +	case DW_IC_SAR:
+> > +		/* Disable the controller. */
+> > +		xe_i2c_disable(i2c);
+> > +
+> > +		/* Write the register. */
+> > +		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
+> > +
+> > +		/* Enable the controller. */
+> > +		xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 0, 1);
+> 
+> Ditto.
 
-在 2026/7/15 17:28, Jagielski, Jedrzej 写道:
-> From: xuanqiang.luo@linux.dev <xuanqiang.luo@linux.dev>
-> Sent: Wednesday, July 15, 2026 10:26 AM
->
->> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
->>
->> iavf_alloc_adminq_asq_ring() allocates cmd_buf before the remaining ASQ
->> resources. If iavf_alloc_asq_bufs() or iavf_config_asq_regs() fails, the
->> unwind path elides cmd_buf while freeing the other allocations.
->>
->> The ASQ count is not set until initialization succeeds, so the shutdown
->> path cannot reclaim the buffer. Free cmd_buf in the common unwind path.
->>
->> Fixes: d358aa9a7a2d ("i40evf: init code and hardware support")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
->> ---
->> drivers/net/ethernet/intel/iavf/iavf_adminq.c | 1 +
->> 1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/net/ethernet/intel/iavf/iavf_adminq.c b/drivers/net/ethernet/intel/iavf/iavf_adminq.c
->> index 6937b7dd44cbb..40f76f9507f4b 100644
->> --- a/drivers/net/ethernet/intel/iavf/iavf_adminq.c
->> +++ b/drivers/net/ethernet/intel/iavf/iavf_adminq.c
->> @@ -60,6 +60,7 @@ static enum iavf_status iavf_alloc_adminq_arq_ring(struct iavf_hw *hw)
->>   **/
->> static void iavf_free_adminq_asq(struct iavf_hw *hw)
->> {
->> +	iavf_free_virt_mem(hw, &hw->aq.asq.cmd_buf);
->> 	iavf_free_dma_mem(hw, &hw->aq.asq.desc_buf);
->> }
->>
->> -- 
->> 2.43.0
-> Looks fine, thanks!
->
-> Reviewed-by: Jedrzej Jagielski <jedrzej.jagielski@intel.com>
->
-> One note for the future - please be aware that there is minimal time period to be
-> waited before resubmitting new patch revision, which is at least 24h for netdev/IWL
-> mailing lists
+Yes to all three. I'll fix these.
 
-Thanks for the reminder!
+Thanks,
 
-I also received a notification from netdev-bot, and I'll keep this in
-mind for future revisions.
-
+-- 
+heikki
