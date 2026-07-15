@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D38D3E51EF
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:13:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F59436BF3
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:13:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784110413; cv=none; b=bxBU8rI9Rp7s32OwUMssjtv7qS1cAv5mGsfVUtbtk0MSoasE3bjlFbR88X8iXtTydRjZmFAeC2Z+AmUeJnH5fTyqYt7mSuGtwuPUNux4NB49z07Hzb8jWvE/4tKUSMnVzreIDEei1Bgjhdu3YfP7bYiSwb9YwLuEl9AMGzvDLQM=
+	t=1784110441; cv=none; b=NmRGbf3GEKC9gMpTaxQqjO3ENgR7hjHBD2xZx7xsCLTDw7vDzWtrG5YqJSpIpBnswee5hZ2gfCqRLuyiOHpz9QJANugkhM3ebar+xj6TdSsPF5kqcaKEZCofEtCax0Lem8PZ+qXn7Ys0hM9gahHahIKjAR5e+m+WZhKFZQLmh5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784110413; c=relaxed/simple;
-	bh=Flat5DgmiUY6czxh+K3c69daNviGwg055z3yU+IzCl4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hiq9mIfoKb5zcM8W5Pnxklz8bMXOOfjvXs9FI+LvVqVFCAV9Ip4dXFKnqHZfynVfyOWf5Xh5oo8Hh5BxCGORzmeuyo1dAkORUq6GnWbEfDqgzq2Uc1oasm/Z/Gnnr+UU0C4oZqYKBmdvPXYZOVB9lnD/lnPS9rQAwOpU6xdHGck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BG19Ysjy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784110441; c=relaxed/simple;
+	bh=b6pDNDdfFfs74o5f8DtbrYyCtc1L5ICXrJkjvO/6Ym4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hEbjQgccHOtA03IdPthB1adycqxeAk6Rqey517DoMMGti4VRhaeNC24QX9tl+jBEMPIGIPPq3JhqSHHhjHhvXKNFH5RFR7ZJ5+3ABPlXZtiRZ5+xOuTt1jo+p9onh7NbykLz8r0mGvh+bDUdLaUM83EyrHHhaYm4nTIuBR/Z0Ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PfRqj3gd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BG19Ysjy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1AD1F000E9;
-	Wed, 15 Jul 2026 10:13:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PfRqj3gd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179E31F000E9;
+	Wed, 15 Jul 2026 10:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784110412;
-	bh=7ULpHFpjIFtW41zjhpZa4rrjKcLoU3BAng7Rj0m1tig=;
+	s=korg; t=1784110439;
+	bh=l959O5fK4JsOq7trArOlOPj2I4r2qmnsjzhqBNv4SwU=;
 	h=Subject:To:Cc:From:Date;
-	b=BG19Ysjy4ZqXfvtIP7uH+QZQE0gGbOw6KKiOVYP12Usq5Z4FSsAG9dgoJ2h4oZtBU
-	 pn5chojGK62VibACoqCLw/VTH3SwKm5ZS3EO0greV9EYwiUSybQ3tAl1Yi6Ax3ySk+
-	 E5K8x+JFaSoJU+zDsgdV+kBnaPSrE4F/dzPwldpo=
-Subject: FAILED: patch "[PATCH] btrfs: fix incorrect buffered IO fallback for append direct" failed to apply to 6.1-stable tree
-To: wqu@suse.com
+	b=PfRqj3gdoqG7tTqDQw1mHLtzZzj/9dAuIfLNX1ScxfZjddjxYcsZLVpn8k5WXRTt3
+	 VlybbeutjFO39Ygs9PweZpU0UqIbKLUUhsvV3d0IVYSDUFIiHMPt6GRT4MwzsxRu9c
+	 7F9F3jauXH++nWRRAS24eP08I9VI1SRZMPNRKk/A=
+Subject: FAILED: patch "[PATCH] crypto: af_alg - Remove zero-copy support from skcipher and" failed to apply to 6.1-stable tree
+To: ebiggers@kernel.org,0wn@theori.io,demiobenour@gmail.com,feng@innora.ai,herbert@gondor.apana.org.au
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 12:13:10 +0200
-Message-ID: <2026071510-legend-handled-035f@gregkh>
+Date: Wed, 15 Jul 2026 12:13:53 +0200
+Message-ID: <2026071553-sporting-waking-5c81@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ff66fe6662330226b3f486014c375538d91c44aa
+git cherry-pick -x ffdd2bc378953b525aca61902534e753f1f8e734
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071510-legend-handled-035f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071553-sporting-waking-5c81@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,195 +62,211 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ff66fe6662330226b3f486014c375538d91c44aa Mon Sep 17 00:00:00 2001
-From: Qu Wenruo <wqu@suse.com>
-Date: Thu, 4 Jun 2026 09:59:47 +0930
-Subject: [PATCH] btrfs: fix incorrect buffered IO fallback for append direct
- writes
+From ffdd2bc378953b525aca61902534e753f1f8e734 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@kernel.org>
+Date: Mon, 4 May 2026 15:53:28 -0700
+Subject: [PATCH] crypto: af_alg - Remove zero-copy support from skcipher and
+ aead
 
-[BUG]
-With the previous bug of short direct writes fixed, test case
-generic/362 (*) still fails with the following error with nodatasum
-mount option:
+The zero-copy support is one of the riskiest aspects of AF_ALG.  It
+allows userspace to request cryptographic operations directly on
+pagecache pages of files like the 'su' binary.  It also allows userspace
+to concurrently modify the memory which is being operated on, a recipe
+for TOCTOU vulnerabilities.
 
- generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
- - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
-    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
-    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:13:09.072485767 +0930
-    @@ -1,2 +1,3 @@
-     QA output created by 362
-    +Wrong file size after first write, got 8192 expected 4096
-     Silence is golden
-    ...
+While zero-copy support is more valuable in other areas of the kernel
+like the frequently used networking and file I/O code, it has far less
+value in AF_ALG, which is a niche UAPI.  AF_ALG primarily just exists
+for backwards compatibility with a small set of userspace programs such
+as 'iwd' that haven't yet been fixed to use userspace crypto code.
 
-*: If the test case has been executed before with default data checksum,
-the failure will not reproduce. Need the following fix to make it
-reliably reproducible:
-https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
+Originally AF_ALG was intended to be used to access hardware crypto
+accelerators.  However, it isn't an efficient interface for that anyway,
+and it turned out to be rarely used in this way in practice.
 
-[CAUSE]
-Inside btrfs_dio_iomap_begin() for a direct write, we increase the isize
-if it's beyond the current isize.
+Thus, the risks of the zero-copy support in AF_ALG vastly outweigh its
+benefits.  Let's just remove it.
 
-But if the direct io finished short, we do not revert the isize to the
-previous value nor to the short write end.
+This commit removes it from the "skcipher" and "aead" algorithm types.
+"hash" will be handled separately.
 
-Then if we need to fall back to buffered writes, and the write has
-IOCB_APPEND flag, then the buffered write will be positioned at the
-incorrect isize.
+This is a soft break, not a hard break.  Even after this commit, it
+still works to use splice() or sendfile() to transfer data to an AF_ALG
+request socket from a pipe or any file, respectively.  What changes is
+just that the kernel now makes an internal, stable copy of the data
+before doing the crypto operation.  So performance is slightly reduced,
+but the UAPI isn't broken.  And, very importantly, it's much safer.
 
-The call chain looks like this:
+Tested with libkcapi/test.sh.  All its test cases still pass.  I also
+verified that this would have prevented the copy.fail exploit as well.
+I also used a custom test program to verify that sendfile() still works.
 
- btrfs_direct_write(pos=0, length=4K)
- |- __iomap_dio_rw()
- |  |- iomap_iter()
- |  |  |- btrfs_dio_iomap_begin()
- |  |     |- btrfs_get_blocks_direct_write()
- |  |        |- i_size_write()
- |  |           Which updates the isize to the write end (4K).
- |  |
- |  |- iomap_dio_iter()
- |  |  Failed with -EFAULT on the first page.
- |  |
- |  |- iomap_iter()
- |  |  |- btrfs_dio_iomap_end()
- |  |     Detects a short write, return -ENOTBLK
- |  |- if (ret == -ENOTBLK) { ret = 0;}
- |     Which resets the return value.
- |
- |- ret = iomap_dio_complet()
- |  Which returns 0.
- |
- |- btrfs_buffered_write(iocb, from);
-    |- generic_write_checks()
-       |- iocb->ki_pos = i_size_read()
-          Which is still the new size (4K), other than the original
-	  isize 0.
+Fixes: 8ff590903d5f ("crypto: algif_skcipher - User-space interface for skcipher operations")
+Fixes: 400c40cf78da ("crypto: algif - add AEAD support")
+Reported-by: Taeyang Lee <0wn@theori.io>
+Link: https://copy.fail/
+Reported-by: Feng Ning <feng@innora.ai>
+Closes: https://lore.kernel.org/r/afYcc-tZFwvZZo76@ans-MacBook-Pro.local
+Reviewed-by: Demi Marie Obenour <demiobenour@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 
-[FIX]
-Introduce the following btrfs_dio_data members:
-
-- old_isize
-
-- updated_isize
-  If the direct write has enlarged the isize.
-
-Then if we got a short write, and btrfs_dio_data::updated_isize is set,
-revert to the correct isize based on old_isize and current file
-position.
-
-And here we call i_size_write() without holding an extent lock, which is
-a very special case that we're safe to do:
-
- - Only a single writer can be enlarging isize
-   Enlarging isize will take the exclusive inode lock.
-
- - Buffered readers need to wait for the OE we're holding
-   Buffered readers will lock extent and wait for OE of the folio range.
-   Sometimes we can skip the OE wait, but since all page cache is
-   invalidated, the OE wait can not be skipped.
-
-But I do not think this is the most elegant solution, nor covers all
-cases. E.g. if the bio is submitted but IO failed, we are unable to do
-the revert.
-
-I believe the more elegant one would be extend the EXTENT_DIO_LOCKED
-lifespan for direct writes, so that we can update the isize when a
-write beyond EOF finished successfully.
-
-However that change is too huge for a small bug fix.
-So only implement the minimal partial fix for now.
-
-[REASON FOR NO FIXES TAG]
-The bug is again very old, before commit f85781fb505e ("btrfs: switch to
-iomap for direct IO") we are already increasing isize without a
-proper rollback for short writes.
-
-Thus only a CC to stable.
-
-CC: stable@vger.kernel.org # 5.15+
-Reviewed-by: Boris Burkov <boris@bur.io>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-
-diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
-index 88cb2e82a507..412309825d6f 100644
---- a/fs/btrfs/direct-io.c
-+++ b/fs/btrfs/direct-io.c
-@@ -15,10 +15,12 @@
+diff --git a/Documentation/crypto/userspace-if.rst b/Documentation/crypto/userspace-if.rst
+index 2c4e9a1ac3e5..ea1b1b3f4049 100644
+--- a/Documentation/crypto/userspace-if.rst
++++ b/Documentation/crypto/userspace-if.rst
+@@ -369,33 +369,10 @@ CRYPTO_USER_API_RNG_CAVP option:
+ Zero-Copy Interface
+ -------------------
  
- struct btrfs_dio_data {
- 	ssize_t submitted;
-+	loff_t old_isize;
- 	struct extent_changeset *data_reserved;
- 	struct btrfs_ordered_extent *ordered;
- 	bool data_space_reserved;
- 	bool nocow_done;
-+	bool updated_isize;
- };
+-In addition to the send/write/read/recv system call family, the AF_ALG
+-interface can be accessed with the zero-copy interface of
+-splice/vmsplice. As the name indicates, the kernel tries to avoid a copy
+-operation into kernel space.
+-
+-The zero-copy operation requires data to be aligned at the page
+-boundary. Non-aligned data can be used as well, but may require more
+-operations of the kernel which would defeat the speed gains obtained
+-from the zero-copy interface.
+-
+-The system-inherent limit for the size of one zero-copy operation is 16
+-pages. If more data is to be sent to AF_ALG, user space must slice the
+-input into segments with a maximum size of 16 pages.
+-
+-Zero-copy can be used with the following code example (a complete
+-working example is provided with libkcapi):
+-
+-::
+-
+-    int pipes[2];
+-
+-    pipe(pipes);
+-    /* input data in iov */
+-    vmsplice(pipes[1], iov, iovlen, SPLICE_F_GIFT);
+-    /* opfd is the file descriptor returned from accept() system call */
+-    splice(pipes[0], NULL, opfd, NULL, ret, 0);
+-    read(opfd, out, outlen);
++AF_ALG used to have zero-copy support, but it was removed due to it being a
++frequent source of vulnerabilities.  For backwards compatibility the splice()
++and sendfile() system calls are still supported, but the kernel will make an
++internal copy of the data before passing it to the crypto code.
  
- struct btrfs_dio_private {
-@@ -228,6 +230,7 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
- 	bool space_reserved = false;
- 	u64 len = *lenp;
- 	u64 prev_len;
-+	loff_t old_isize;
- 	int ret = 0;
  
- 	/*
-@@ -341,8 +344,14 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
- 	 * Need to update the i_size under the extent lock so buffered
- 	 * readers will get the updated i_size when we unlock.
- 	 */
--	if (start + len > i_size_read(inode))
-+	old_isize = i_size_read(inode);
-+	if (start + len > old_isize) {
-+		if (!dio_data->updated_isize) {
-+			dio_data->old_isize = old_isize;
-+			dio_data->updated_isize = true;
-+		}
- 		i_size_write(inode, start + len);
-+	}
- out:
- 	if (ret && space_reserved) {
- 		btrfs_delalloc_release_extents(BTRFS_I(inode), len);
-@@ -625,6 +634,38 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
- 		pos += submitted;
- 		length -= submitted;
- 		if (write) {
-+			/*
-+			 * Got a short write and have updated the isize, need to
-+			 * revert the isize change.
-+			 *
-+			 * Normally we need to update isize with extent lock hold,
-+			 * but we're safe due to the following factors:
-+			 *
-+			 * - Only a single writer can be enlarging isize
-+			 *   Enlarging isize will take the exclusive inode lock.
-+			 *
-+			 * - Buffered readers need to wait for the OE we're holding
-+			 *   Buffered readers will lock extent and wait for OE
-+			 *   of the folio range, and since page cache is invalidated
-+			 *   the OE wait can not be skipped.
-+			 *
-+			 * So here we are safe to revert the isize before
-+			 * finishing the OE, and no reader of the remaining range
-+			 * can see the enlarged size.
-+			 *
-+			 * TODO: Extend the DIO_LOCKED lifespan for direct writes,
-+			 * and only enlarge isize after a successful write.
-+			 */
-+			if (dio_data->updated_isize) {
-+				u64 new_isize;
+ Setsockopt Interface
+diff --git a/crypto/af_alg.c b/crypto/af_alg.c
+index 5a00c18eb145..fce0b87c2b65 100644
+--- a/crypto/af_alg.c
++++ b/crypto/af_alg.c
+@@ -973,7 +973,7 @@ int af_alg_sendmsg(struct socket *sock, struct msghdr *msg, size_t size,
+ 		ssize_t plen;
+ 
+ 		/* use the existing memory in an allocated page */
+-		if (ctx->merge && !(msg->msg_flags & MSG_SPLICE_PAGES)) {
++		if (ctx->merge) {
+ 			sgl = list_entry(ctx->tsgl_list.prev,
+ 					 struct af_alg_tsgl, list);
+ 			sg = sgl->sg + sgl->cur - 1;
+@@ -1017,60 +1017,37 @@ int af_alg_sendmsg(struct socket *sock, struct msghdr *msg, size_t size,
+ 		if (sgl->cur)
+ 			sg_unmark_end(sg + sgl->cur - 1);
+ 
+-		if (msg->msg_flags & MSG_SPLICE_PAGES) {
+-			struct sg_table sgtable = {
+-				.sgl		= sg,
+-				.nents		= sgl->cur,
+-				.orig_nents	= sgl->cur,
+-			};
++		do {
++			struct page *pg;
++			unsigned int i = sgl->cur;
+ 
+-			plen = extract_iter_to_sg(&msg->msg_iter, len, &sgtable,
+-						  MAX_SGL_ENTS - sgl->cur, 0);
+-			if (plen < 0) {
+-				err = plen;
++			plen = min_t(size_t, len, PAGE_SIZE);
 +
-+				if (submitted == 0)
-+					new_isize = dio_data->old_isize;
-+				else
-+					new_isize = max(dio_data->old_isize, pos);
-+				i_size_write(inode, new_isize);
-+				dio_data->updated_isize = false;
++			pg = alloc_page(GFP_KERNEL);
++			if (!pg) {
++				err = -ENOMEM;
+ 				goto unlock;
+ 			}
+ 
+-			for (; sgl->cur < sgtable.nents; sgl->cur++)
+-				get_page(sg_page(&sg[sgl->cur]));
++			sg_assign_page(sg + i, pg);
++
++			err = memcpy_from_msg(page_address(sg_page(sg + i)),
++					      msg, plen);
++			if (err) {
++				__free_page(sg_page(sg + i));
++				sg_assign_page(sg + i, NULL);
++				goto unlock;
 +			}
- 			/*
- 			 * We have a short write, if there is any range
- 			 * that is submitted properly, that part will have
++
++			sg[i].length = plen;
+ 			len -= plen;
+ 			ctx->used += plen;
+ 			copied += plen;
+ 			size -= plen;
+-		} else {
+-			do {
+-				struct page *pg;
+-				unsigned int i = sgl->cur;
++			sgl->cur++;
++		} while (len && sgl->cur < MAX_SGL_ENTS);
+ 
+-				plen = min_t(size_t, len, PAGE_SIZE);
+-
+-				pg = alloc_page(GFP_KERNEL);
+-				if (!pg) {
+-					err = -ENOMEM;
+-					goto unlock;
+-				}
+-
+-				sg_assign_page(sg + i, pg);
+-
+-				err = memcpy_from_msg(
+-					page_address(sg_page(sg + i)),
+-					msg, plen);
+-				if (err) {
+-					__free_page(sg_page(sg + i));
+-					sg_assign_page(sg + i, NULL);
+-					goto unlock;
+-				}
+-
+-				sg[i].length = plen;
+-				len -= plen;
+-				ctx->used += plen;
+-				copied += plen;
+-				size -= plen;
+-				sgl->cur++;
+-			} while (len && sgl->cur < MAX_SGL_ENTS);
+-
+-			ctx->merge = plen & (PAGE_SIZE - 1);
+-		}
++		ctx->merge = plen & (PAGE_SIZE - 1);
+ 
+ 		if (!size)
+ 			sg_mark_end(sg + sgl->cur - 1);
+diff --git a/crypto/algif_aead.c b/crypto/algif_aead.c
+index cb651ab58d62..c6c2ce21895d 100644
+--- a/crypto/algif_aead.c
++++ b/crypto/algif_aead.c
+@@ -9,10 +9,10 @@
+  * The following concept of the memory management is used:
+  *
+  * The kernel maintains two SGLs, the TX SGL and the RX SGL. The TX SGL is
+- * filled by user space with the data submitted via sendmsg (maybe with
+- * MSG_SPLICE_PAGES).  Filling up the TX SGL does not cause a crypto operation
+- * -- the data will only be tracked by the kernel. Upon receipt of one recvmsg
+- * call, the caller must provide a buffer which is tracked with the RX SGL.
++ * filled by user space with the data submitted via sendmsg.  Filling up the TX
++ * SGL does not cause a crypto operation -- the data will only be tracked by the
++ * kernel. Upon receipt of one recvmsg call, the caller must provide a buffer
++ * which is tracked with the RX SGL.
+  *
+  * During the processing of the recvmsg operation, the cipher request is
+  * allocated and prepared. As part of the recvmsg operation, the processed
 
