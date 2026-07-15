@@ -1,168 +1,147 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEF842047B
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 13:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C143E5A1D;
+	Wed, 15 Jul 2026 13:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784121060; cv=none; b=faECXmklowZ6Fxl1cDYqoK2UgSojS9QJnjYZb0++cYvFc5XfuKV7UelF/uAfTGu5kR+j6pmmv0jNR/f6bXJhkmDHw5vlR8/pG6OD6T4FwNIbUjhe3NxK2YCohMcR4mVuKnbyp2yv8N2ZSVg6eXb4ffqyymFUHYRP1JZ+XamL3i8=
+	t=1784121664; cv=none; b=dE6nkms9AwRiJvFxiNjwPeywkFE0GreJoe8QdgDtq0jifAKBU86DBKIpiEVrewB9Px7vLtQFAMobFYCtl8fqCrL+5I/PiicTaST+2BtAUxEbsZaZxy1qf7Ard/iI7IOcj0RJOWkQmuob55CbRYWiFx/B/0jJFXXiKAF1evRojhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784121060; c=relaxed/simple;
-	bh=IYOu9ByE0D3xpXZcX73ITGOqwyqENpPSB8q5qtN4R8c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fu/BVZqGQa9RyCFgQoiVMX3kfEw/OSwXjxa5+IYYv2jEXY1BF9+PkaLFHXaYDeejHICRBgXZ6gMA5F81QaxI93puVyce5TBN1JPtpF0J1kxadMtJFy5LGPoxnBdCEILHMIHDuQCj9itQqPdCTjMkdRGxR6oVn36jR12kmI7fWfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=zA0J6HyX; arc=none smtp.client-ip=79.135.106.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1784121664; c=relaxed/simple;
+	bh=MWtdMZlN+f0u6zh4SIlfxR6ird2FNtEIup17wVzW3v8=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=GH4Iw8Eid8bGxkDTHZ/9dGDIrzy5QzNQpxrrbfPWwBYacbVdoCgJHkeSaEqYFnpmKQ33Dy2/17QGSzvg+L+VrKtx0k3EGVV9LdHTHGOyeq2eU0FIFYD+t/svSNAkIrFHT0/wNDofo4cYzLbgSQ2oETELJZp7JVuE1fcDE6K7D1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ryk2LkDx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="zA0J6HyX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784121051; x=1784380251;
-	bh=elEs6/r/QIGvt1rTdXTRifT6XlSg+OzMcAQsqVPf6ek=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=zA0J6HyXe+nF4sWhMD5uor/rb7+DpumqiDB3r0BDtpIo1xHNWvPVGP10d/C/J1WoL
-	 D+r8ZrG67zMVoX4UBbkeoMBwAjxpM9WAFIUX9CrOAtdaC5czD9MQN4sqaMYXggUEY4
-	 6+RG3W4BB72zL4jH8Hg+Mj4hgb1pKvEuU7OzGuys6yCQTFRyRA0mVytZNw6fVpU59I
-	 Pm5y6B14EojXFMhQQKo7Acp/ohlr0uBG7avDiBdqVTGvYM49Lr0VSYljgEAF7X9Xhu
-	 0n8g659f/obYWC1u9dw4e3rEdA5OR5AG5U0z2fpGwAwXRxwU1u0Qlp6CKDlCaq/MOj
-	 NlGF/2A5nWaPA==
-X-Pm-Submission-Id: 4h0c4573PPz1DDL5
-From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 15 Jul 2026 15:10:31 +0200
-Subject: [PATCH v2 1/3] drm/bridge: ti-sn65dsi83: Fix problem with
- premature PLL locking
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ryk2LkDx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 014EB1F000E9;
+	Wed, 15 Jul 2026 13:20:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784121653;
+	bh=AnJh4ulZ2FDQmjXmLpIokbZz9ArThgRLAhjnD2e/+74=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=Ryk2LkDxXyn3kUcpDL+0fwufrehLYg8miacUpJ3uT6cWYzFCr1oRAQjxpfzYzVrkp
+	 2lud+XhSpfDOTtptne/ZiUDz+X4NB+F6xnQVv+Zj7S8x/0Svu5XbqSqQEvP+edxEDT
+	 gcyRRQk3QU8SB77ec8Zwjpico2IA+2KzKId+ExYVeRq5iMevl0aJAAhI6phAJf3zGD
+	 mcscVZ8q/QORVOrXvevWdMij9SZQZM1BMg8Usw6heKSjiVWp7KjKb5gtmpPsTtAA8r
+	 WRqiVRtrquM4W3APc3v1Aa8LBax2ebEI4SeKFIT4oi53xd4g/nErtXGi1IZVReeWEt
+	 CxpnQiVx2dm2A==
+Message-ID: <04a332fc-2025-4a74-ae4d-1d8f30fe20bf@kernel.org>
+Date: Wed, 15 Jul 2026 15:20:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: nuvoton: npcm-video: quiesce VCD IRQ before
+ teardown in remove
+To: Fan Wu <fanwu01@zju.edu.cn>, kwliu@nuvoton.com, kflin@nuvoton.com
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260714020443.2795883-1-fanwu01@zju.edu.cn>
+Content-Language: en-US, nl
+In-Reply-To: <20260714020443.2795883-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-ti-sn65dsi83-fixes-v2-1-ebc4c3fe29b6@geanix.com>
-References: <20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com>
-In-Reply-To: <20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Linus Walleij <linusw@kernel.org>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>
-Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784121041; l=3546;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=IYOu9ByE0D3xpXZcX73ITGOqwyqENpPSB8q5qtN4R8c=;
- b=x5qV3xl8KnTmqhftnOukNeNC3aRoGFMiTHpo57aJRd6b81UH8RbcAgh6YMUFuo4bsaDIt7Pc4
- iCz5SC6kfVWD5rvZQJeWTlqhdM4Fb3xZ8aprr9grwq5Mto83x1pJmAz
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-Locking PLL requires the DSI HS clock to be running, which it might not be
-in probe(), but should be in atomic_enable().
+On 14/07/2026 04:04, Fan Wu wrote:
+> The VCD interrupt is requested with devm_request_threaded_irq() in
+> npcm_video_init(), so it stays registered until the devm release that
+> follows npcm_video_remove().  remove() itself calls kfree(video), so a
+> VCD interrupt delivered between kfree(video) and that devm release
+> dereferences freed memory: npcm_video_irq() reads VCD_STAT off
+> video->vcd_regmap before the VIDEO_STREAMING flag early-return, so the
+> use-after-free is unconditional on delivery, not gated by streaming
+> state.
+> 
+> With streaming active, stop_streaming() (run from vb2_queue_release())
+> masks VCD_INTE and resets the VCD, but an in-flight handler can
+> re-enable VCD_INTE afterward.  On a DONE or FIFO-overrun/overflow
+> interrupt the handler finishes its buffer under buffer_lock and then
+> calls npcm_video_start_frame().  start_frame() drops buffer_lock before
+> it re-enables VCD_INTE (VCD_INTE_DONE_IE) and starts the next capture
+> (npcm_video_command() with VCD_CMD_GO); it can therefore perform those
+> operations after stop_streaming() masks and resets the VCD.
+> 
+> For the re-arm to happen, start_frame() must take buffer_lock, find a
+> next queued buffer, and release the lock before stop_streaming() empties
+> the list.  Once start_frame() has released the lock, the VCD re-enable
+> and capture start that follow are outside buffer_lock, so emptying the
+> list afterwards cannot stop them.  buffer_lock protects the buffer list
+> only; it is not held for the re-arm and capture start, nor for
+> stop_streaming()'s mask and reset, so those VCD writes are not
+> serialized with each other.  start_frame() returns without re-arming
+> when no next buffer is queued, there is no video signal, or the VCD
+> stays busy past its poll timeout.
+> 
+> That capture can complete and raise VCD_STAT_DONE; with VCD_INTE
+> re-armed, a new interrupt can then fire after kfree(video), and the
+> handler dereferences the freed per-device structure.
+> 
+> Unregister the video device, then mask the VCD interrupt source and
+> unregister and drain the threaded handler with devm_free_irq() before
+> releasing the vb2 buffers, the ECE state and the per-device structure.
+> devm_free_irq() also clears the devm action, so the later devm release
+> is a no-op and does not double-free.  Gating the re-arm alone would not
+> close the window: the handler dereferences the per-device structure
+> before any streaming-flag check, so any interrupt delivered after
+> kfree(video) is fatal regardless of re-arm.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.5
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+>  drivers/media/platform/nuvoton/npcm-video.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
+> index 52505af35c08..637b1fe54824 100644
+> --- a/drivers/media/platform/nuvoton/npcm-video.c
+> +++ b/drivers/media/platform/nuvoton/npcm-video.c
+> @@ -120,6 +120,7 @@ struct npcm_video {
+>  
+>  	struct list_head buffers;
+>  	struct mutex buffer_lock; /* buffer list lock */
+> +	int irq;
+>  	unsigned long flags;
+>  	unsigned int sequence;
+>  
+> @@ -1707,6 +1708,7 @@ static int npcm_video_init(struct npcm_video *video)
+>  		dev_err(dev, "Failed to find VCD IRQ\n");
+>  		return -ENODEV;
+>  	}
+> +	video->irq = irq;
+>  
+>  	rc = devm_request_threaded_irq(dev, irq, NULL, npcm_video_irq,
+>  				       IRQF_ONESHOT, DEVICE_NAME, video);
+> @@ -1808,6 +1810,8 @@ static void npcm_video_remove(struct platform_device *pdev)
+>  	struct npcm_video *video = to_npcm_video(v4l2_dev);
+>  
+>  	video_unregister_device(&video->vdev);
+> +	regmap_write(video->vcd_regmap, VCD_INTE, 0);
+> +	devm_free_irq(dev, video->irq, video);
+>  	vb2_queue_release(&video->queue);
+>  	v4l2_ctrl_handler_free(&video->ctrl_handler);
+>  	v4l2_device_unregister(v4l2_dev);
 
-This resolves issues like this:
+I think this can be done easier: in devm_request_threaded_irq add the IRQF_NO_AUTOEN
+flag, then just call enable_irq in start_streaming and disable_irq in stop_streaming.
 
-sn65dsi83 1-002c: failed to lock PLL, ret=-110
-sn65dsi83 1-002c: Unexpected link status 0x01
-sn65dsi83 1-002c: Unexpected link status 0x01
-sn65dsi83 1-002c: reset the pipe
+In npcm_video_remove() you should replace video_unregister_device by vb2_video_unregister_device
+(as that ensures that stop_streaming is called if streaming is in progress) and drop
+vb2_queue_release (since vb2_video_unregister_device calls that).
 
-as seen with nwl-dsi bridge and others.
+I think that will be a clean approach.
 
-This is the same issue as addressed in the patch by Gary Bisson [1],
-but changing the ti-sn65dsi83 driver instead, so we don't have to change
-all other drivers that could potentially be used with this chip.
+But nuvoton devs need to test that as well to make sure it doesn't break anything.
 
-[1] https://lore.kernel.org/all/20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com/
+Regards,
 
-Fixes: ceb515ba29ba ("drm/bridge: ti-sn65dsi83: Add TI SN65DSI83 and SN65DSI84 driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 31 +++++++++++++++----------------
- 1 file changed, 15 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 42b451432bbb..b4b220eee790 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -530,7 +530,6 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 	bool test_pattern = sn65dsi83_test_pattern;
- 	bool lvds_format_24bpp;
- 	bool lvds_format_jeida;
--	unsigned int pval;
- 	__le16 le16val;
- 	u16 val;
- 	int ret;
-@@ -680,26 +679,12 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 	regmap_write(ctx->regmap, REG_VID_CHA_TEST_PATTERN,
- 		     test_pattern ? REG_VID_CHA_TEST_PATTERN_EN : 0);
- 
--	/* Enable PLL */
--	regmap_write(ctx->regmap, REG_RC_PLL_EN, REG_RC_PLL_EN_PLL_EN);
--	usleep_range(3000, 4000);
--	ret = regmap_read_poll_timeout(ctx->regmap, REG_RC_LVDS_PLL, pval,
--				       pval & REG_RC_LVDS_PLL_PLL_EN_STAT,
--				       1000, 100000);
--	if (ret) {
--		dev_err(ctx->dev, "failed to lock PLL, ret=%i\n", ret);
--		/* On failure, disable PLL again and exit. */
--		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
--		goto err_add_action;
--	}
--
- 	/* Trigger reset after CSR register update. */
- 	regmap_write(ctx->regmap, REG_RC_RESET, REG_RC_RESET_SOFT_RESET);
- 
- 	/* Wait for 10ms after soft reset as specified in datasheet */
- 	usleep_range(10000, 12000);
- 
--err_add_action:
- 	devm_add_action(ctx->dev, sn65dsi83_release_resources, ctx);
- err_exit:
- 	drm_bridge_exit(idx);
-@@ -710,11 +695,24 @@ static void sn65dsi83_atomic_enable(struct drm_bridge *bridge,
- {
- 	struct sn65dsi83 *ctx = bridge_to_sn65dsi83(bridge);
- 	unsigned int pval;
--	int idx;
-+	int idx, ret;
- 
- 	if (!drm_bridge_enter(bridge, &idx))
- 		return;
- 
-+	/* Enable PLL */
-+	regmap_write(ctx->regmap, REG_RC_PLL_EN, REG_RC_PLL_EN_PLL_EN);
-+	usleep_range(3000, 4000);
-+	ret = regmap_read_poll_timeout(ctx->regmap, REG_RC_LVDS_PLL, pval,
-+				       pval & REG_RC_LVDS_PLL_PLL_EN_STAT,
-+				       1000, 100000);
-+	if (ret) {
-+		dev_err(ctx->dev, "failed to lock PLL, ret=%i\n", ret);
-+		/* On failure, disable PLL again and exit. */
-+		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
-+		goto err_exit;
-+	}
-+
- 	/* Clear all errors that got asserted during initialization. */
- 	regmap_read(ctx->regmap, REG_IRQ_STAT, &pval);
- 	regmap_write(ctx->regmap, REG_IRQ_STAT, pval);
-@@ -734,6 +732,7 @@ static void sn65dsi83_atomic_enable(struct drm_bridge *bridge,
- 		sn65dsi83_monitor_start(ctx);
- 	}
- 
-+err_exit:
- 	drm_bridge_exit(idx);
- }
- 
-
--- 
-2.55.0
-
+	Hans
