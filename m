@@ -1,157 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB9F3A9632;
-	Wed, 15 Jul 2026 16:21:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767AC3B14C0
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 16:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784132490; cv=none; b=egNpcOHX0by/r5xwTu5jPEtUTplWTz9Dz2fvP2HZS+WU9Chsuuoj5EnvnootJKDTwIm9P4kxX27BBO9QaJbYQbNcPuwAw4LHmIBKbzKxEXwB7yLRpOw9EMGwiop8L1QZgQmIO9zFKZSkQfKwa18zXhF2DPmScNMBrrcWykNXLt4=
+	t=1784132884; cv=none; b=JhpW2Cj7JEwa9Y9rj9B4coErpp+MJQXjpcv4cL0psn0EDh+eZGKxfdLvlDZH1Lgu5SuEtp8G5wSn//ZU94dvywLO36VYk7g+AZSr/MvmyvOkvqmdSWs1WYzB+kwLdh6XW0Rg9c8VkBzzLpNKo9jKstirOtW8jccHf4L/2FXT6C8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784132490; c=relaxed/simple;
-	bh=as6wHmlbPY6yIDwvihsllvg4vwnutkUAglPVxNY10rk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VZqYlbpprK4d7HoRIG9ekdKBccRmYeLlQrAljF4NaxjQJbEYBYZKaDG4A3wwqWE4WgBfV9dCvZJ8LdHTgOnL/Crg5VpiDIq00sPg4doqsECWkPgtdOYtittaijohSas9O23olUZMhbT+b20WR2FE2QQNan48+bss1ZpWsNM2iDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4gxDzuq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784132884; c=relaxed/simple;
+	bh=whbeM1Ql/RDLLR1NnOzpt+hHqQRUALuIobIOc7I4+VE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tvXQ9+S+xMMnF/2s5itMLNMkhiZKCETBnmswP4esS5XjM8ni7RMAPujsZEF3+sLUyzDbg/d4UbFHxQVacquie9nINGCB8cKCLG5G7pS7ICdy6pJKd946KrpMDqdK5PYDs20clT1HUrhLbfGj4rjrQFaVtUNfyrONLwtWnQ9oqg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=oDyZsiG7; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4gxDzuq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B05D41F000E9;
-	Wed, 15 Jul 2026 16:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784132488;
-	bh=iFbmr1xKBDTV97iC3Cb+5mPyWuZMy4WCxAYvCPZrqco=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A4gxDzuqUQCWqzJL8K3smRzi+U9fGzjd55IkvC4H6D+Dja9ZwZfKVKmgGN2IbjNYh
-	 7ygrPlSqASFHP3oBT8sRrXbAmj0x9oLA178+U1mLioZkiE4nOcv6v7hQmDSuzGB/uT
-	 oERkWexSs8MKrIjkKAcTwjKV4BlaUSLM1/LJps0uGZP2dDxh65mkpei3YdkNPO1y4p
-	 0KSwk/GIG/4ZXG0t81asFDQxm3loWIL+MPwwqSM47lvJRAmpst0HV1/rZz2H92YT0g
-	 URBlTIq9b115EHTXNphBU/svQIhF0XdafJNbFsNvbcXX71EwjatjkpbkVIO/jhGlys
-	 2IyTXlouiiIew==
-Date: Wed, 15 Jul 2026 09:21:28 -0700
-From: Kees Cook <kees@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Russell King <linux@armlinux.org.uk>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
-	slipher <slipher@protonmail.com>,
-	Mark Rutland <mark.rutland@arm.com>, Will Deacon <will@kernel.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] ARM: breakpoint: CFI breakpoints only on demand
-Message-ID: <202607150919.32DFB37@keescook>
-References: <20260703-arm32-cfi-bug-v4-1-c26acb640a8f@kernel.org>
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="oDyZsiG7"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-476d8e647e9so5359417f8f.0
+        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 09:28:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1784132881; x=1784737681; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=whbeM1Ql/RDLLR1NnOzpt+hHqQRUALuIobIOc7I4+VE=;
+        b=oDyZsiG7wiOfWqhQ8BRe1ed0vb1ZHCXw4JU7iYbeNZs+nFCbEB0LFbiaYxvz76l0l5
+         Y+O5A9/QNrieEHrCFenP0EtJvuFMFYs4zPy5ATNHyRl3XVEN0i/ojqrMPV0iigchW6oB
+         FzAjChBFRsmXMhmHW20aa93RUJxcGG2xnfRNJ0yEnQQOnY/85J++MnjJ3pqNOmiZLIw/
+         V3XFeo5DQn+dZXcWhI+Nnqed2i2fjXMn1X6tDMNkU9Az4hyb6tIEin+57W2ig8xmzUs5
+         lnbZdA3xp4GZ80YIt2lp0HX1RJFT7OB8fTYBze/Y2b5MkInHH1o6/H+tqrte9neBbPzL
+         inuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784132881; x=1784737681;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=whbeM1Ql/RDLLR1NnOzpt+hHqQRUALuIobIOc7I4+VE=;
+        b=VcnXK0KZonuj76lKxV6VnGJru0Z7UBrghg+ulzLUP/BFxNaReC+nro1g3QukYNG5WQ
+         9lWFtbkWF37yb9J93J8yeIy3Cf5W0lwV9c7tHH7iL3//amT/6fZppZ1zlwLCfUwLvboZ
+         bd8XNWblFPytJ5ekfFcbWtAciwbyDAtdRzXhNjJbjw78OtakgOJVJ+lC75G1ofvavtvy
+         7WqgDLgY9cB4tXgzMEipneMHlQvZ0jo6Chh+acMT5brL9hjgQy6fz4VvemJokuEL+wO8
+         LCWj4BEkxhU/2MrgSXKR4Ibh7+bDU+VWNGDBKLkwzj75VXU1k7k0j2iMtzFkB9CK+47V
+         mXdg==
+X-Forwarded-Encrypted: i=1; AHgh+RqLxHLC5GQOTPIFq8qC4JchOjjQi4mRLDtwgD6a+5XDD9zJfT4s0ueE7WL1wl+H+nWEUC+EM0s=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwlDEqDEnnWbKTsgDuDxQsOj+QKiYXj9Nnr4Nw6v2xAsFP4WUEF
+	rrtwm5xnmLHd5fPS91EbMLGoUkNnOZZ+7w4f+4VLts8mLTN8YU+vs/QBcKGqqfidyMNb
+X-Gm-Gg: AfdE7ckUsmKzzGZpwXlcVRwgGQAtSdLEA4two4nlK/1H8yP9aK4eiBTd+/vjvlfQl4h
+	lwFyuBdiFTsk3v2cwYfyv5GFFr+dZs6pqvLAe1Oz38GB2MPwLFRO5sf8O0frgPMpAyk93HzzEa/
+	1Ry2lXh8ONXc5iZZ4BLo9Pch/8T+7zs0UH+qFJWBL4jGXveF4B2wRRJPTpubPyGy8Hy32X8JcHE
+	UNACnBBHb21lk3+qNrzdWu5CIb9PmdQObwdUszp8mg4S8qRl0319/VJJRSEdHSGyEazVxH/baG7
+	MwA8z0GZ9IpQC0AHtvLyIoveOpUQ/Wj1RG0AlM/MhKIzHjbeA4koua2e3kqD3n4WrFPKE6Vi8/g
+	cZQym4yp/6zHcOCwut2mI9Y1xu+t1QrypGYvHEuKB9+k1fRDffmqt9lA+wBr6rvS363PJxgibhB
+	c6B8OUq4MQQY1O6Xq0+IPMJpt1BzAsf/015fAUoS7DJjMU/t9QTK0jXdI5wXYrp7fe18Z8Yhg+P
+	Rj0nGaV4tzK/X04GyniN7asVlIccg==
+X-Received: by 2002:a5d:5f87:0:b0:47d:f445:9490 with SMTP id ffacd0b85a97d-47f488c6b08mr8260998f8f.60.1784132880500;
+        Wed, 15 Jul 2026 09:28:00 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4635a9cesm18065381f8f.14.2026.07.15.09.27.59
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 15 Jul 2026 09:28:00 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Brian Norris <briannorris@chromium.org>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: mwifiex: bound the pairwise-cipher OUI walk to the IE length
+Date: Wed, 15 Jul 2026 18:27:57 +0200
+Message-ID: <20260715162757.1886-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260715144752.GF56330@francesco-nb>
+References: <20260715144752.GF56330@francesco-nb>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260703-arm32-cfi-bug-v4-1-c26acb640a8f@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 03, 2026 at 02:25:27PM +0200, Linus Walleij wrote:
-> This removes the stub hw_breakpoint_cfi_handler() from ARM, making
-> it not steal breakpoint type 0x03 (ARM_ENTRY_CFI_BREAKPOINT) unless
-> CFI is actively used in the kernel.
-> 
-> When not instrumenting with CFI, or when a breakpoint is issued in
-> userspace, we fall through to return 1 from hw_breakpoint_pending()
-> "unhandled fault" so userspace can make use of this breakpoint.
-> 
-> Tested with LKDTM and this command line:
-> echo CFI_FORWARD_PROTO > /sys/kernel/debug/provoke-crash/DIRECT
-> still works as expected.
-> 
-> Fixes: c3f89986fde7 ("ARM: 9391/2: hw_breakpoint: Handle CFI breakpoints")
+> maybe define an intermediate variable to store `offsetof(struct ie_body, ptk_body)`
+> so that it is clear what this is, and you also can re-use it later?
 
-Reviewed-by: Kees Cook <kees@kernel.org>
+Good idea, will do in v2. Thanks.
 
-BTW, I still would like to get the decoding implemented:
-https://lore.kernel.org/lkml/20250904034656.3670313-9-kees@kernel.org/
-
-But I'll need to rework the above patch, as the breakpoint code in
-c3f89986fde7 seems to be better than the register_undef_hook() approach
-I used.
-
--Kees
-
-> Reported-by: slipher <slipher@protonmail.com>
-> Suggested-by: Mark Rutland <mark.rutland@arm.com>
-> Closes: https://lore.kernel.org/lkml/kJqktbpLphg_Pk5I5SPptgTLjl3E3eq5mN5UzCslyFj7Q1Irp-wDid4mj5eQVd2iZtRGXgeZd8goq195EkXdjyt864YMc8mVb2B9NGH91NQ=@protonmail.com/
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
-> Trying to solve the CFI bug. Let's see of this first
-> approach is acceptable for the reporter.
-> ---
-> Changes in v4:
-> - Dodge the BKPT if we are coming from userspace!
-> - Would be great if the reporter can test this with and without
->   CONFIG_CFI.
-> - Link to v3: https://patch.msgid.link/20260701-arm32-cfi-bug-v3-1-e3c37e2b80a4@kernel.org
-> 
-> Changes in v3:
-> - Actually strip the RFC prefix...
-> - Link to v2: https://patch.msgid.link/20260701-arm32-cfi-bug-v2-1-9bf922593e00@kernel.org
-> 
-> Changes in v2:
-> - Resending as non-RFC so it can be applied as a band-aid.
-> - Link to v1: https://patch.msgid.link/20260626-arm32-cfi-bug-v1-1-a467b5050c0b@kernel.org
-> 
-> To: Will Deacon <will@kernel.org>
-> To: Mark Rutland <mark.rutland@arm.com>
-> To: Russell King <linux@armlinux.org.uk>
-> To: Kees Cook <kees@kernel.org>
-> To: Sami Tolvanen <samitolvanen@google.com>
-> To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-> To: Linus Walleij <linusw@kernel.org>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-perf-users@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  arch/arm/kernel/hw_breakpoint.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm/kernel/hw_breakpoint.c b/arch/arm/kernel/hw_breakpoint.c
-> index cd4b34c96e35..38feb30dfb5f 100644
-> --- a/arch/arm/kernel/hw_breakpoint.c
-> +++ b/arch/arm/kernel/hw_breakpoint.c
-> @@ -929,10 +929,6 @@ static void hw_breakpoint_cfi_handler(struct pt_regs *regs)
->  		break;
->  	}
->  }
-> -#else
-> -static void hw_breakpoint_cfi_handler(struct pt_regs *regs)
-> -{
-> -}
->  #endif
->  
->  /*
-> @@ -964,9 +960,14 @@ static int hw_breakpoint_pending(unsigned long addr, unsigned int fsr,
->  	case ARM_ENTRY_SYNC_WATCHPOINT:
->  		watchpoint_handler(addr, fsr, regs);
->  		break;
-> +#ifdef CONFIG_CFI
->  	case ARM_ENTRY_CFI_BREAKPOINT:
-> -		hw_breakpoint_cfi_handler(regs);
-> +		if (user_mode(regs))
-> +			ret = 1; /* Don't handle userspace BKPT */
-> +		else
-> +			hw_breakpoint_cfi_handler(regs);
->  		break;
-> +#endif
->  	default:
->  		ret = 1; /* Unhandled fault. */
->  	}
-> 
-> ---
-> base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
-> change-id: 20260626-arm32-cfi-bug-10fb960749c4
-> 
-> Best regards,
-> --  
-> Linus Walleij <linusw@kernel.org>
-> 
-
--- 
-Kees Cook
+-Doruk
