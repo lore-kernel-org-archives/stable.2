@@ -1,292 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDFC34D4C9
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 02:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864B83AC0FC
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 02:59:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784083920; cv=none; b=q+CiuqhupO5oxh2R/26UKwCSslRDfS8HBn73MW6WACV08y21XQB2K7QxShTK8pAoWBEn2J7hEeIBrBc4vxn85wcN3RwgJ7SreOiAFUG9i+qL6t2K0c0GmDgixXAzGPR4WZhx7wQV/J7n2fNQsiyZsoZ0C3RgtPrJb9QHXQkd0lo=
+	t=1784084370; cv=none; b=ABn8lAvKalXQQZ5Or5ir8Ixvgb0hJUoE1/Xr9Jxtzfq7qdP809/dTzgElRi3ulVHg4p+XW7/31JYdcRK0j1smHoObO2s3uZSoErb/yXN7HwvHvt0jB/XfypFrM8h29azM5SoNzSLcNL0Fk6VAVvQPf078LsSHSV3RpjjqFnMTts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784083920; c=relaxed/simple;
-	bh=3jbeT/5EF7Dg3sZqCn9gN0epD9uda3ex5C4a6oLcMSQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mgaUU0SbNIGBhIDtXwpzbNuZnBIjx5joyuPVgbR3TUya750wmWGpC6MVDPCrp8zm5afs92eEW/ILnjONk+R+PiLCPZfDNMjea30TwO3KrrANl76dyURWR1YVBlgVeSApeYtm4KD9qiSZx190gV1a88v7gRF0pktJq1V2GxlPOdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U7sQLcER; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784084370; c=relaxed/simple;
+	bh=pz5x7Uful+e4tpdXxod5EqSQ03Jk4ZCGvC9DnrUEPWU=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=g4S8th7SpWxQ6IDi6PL2MMtsEvquEOrkRb/T/XL7DzVx2FYBlQ4mxasbfgOxEbuVCRxkz8P1QzhTPMbXvB52L3FWm82QxhxDNneydvggD3f6RqRCZaq8lbWTPJpaioSG6YmxoDfi2JhF+GvwJbwcD/SPb2K5cplhnDhl6kiXN/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Fa4VIWrw; arc=none smtp.client-ip=91.218.175.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U7sQLcER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBDDA1F000E9;
-	Wed, 15 Jul 2026 02:51:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784083918;
-	bh=SbWMDfCFvu3kvMGc2R++NFHjjFjvkoAmENtEYJ8onuw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U7sQLcERjsmDAfSJIS0hABJpf7tpQjWXnif1200cYqAR2B1e0pmifcjEWGP2u2yJ8
-	 EYcc2MhnaaMWVfNyq6TOgmMnk+uMeOOR5xRPRk64DXLOQFqgCWHwt6hvGtE19S5CNs
-	 KOnroG9ghSoyZzKQBVocL2lNq9DniwCMnblNU+meA5tDwQXWxdWSFZKVWUo9KSZE8m
-	 WwkiXkGF4UmSj82MxIPBoFQ5YJW98UEPurNU1lSsJxZLRnLjPnr3LJCGuyDb9QC/oN
-	 Lbk8jMvhLaAdIxszBi9xNhDSQuZbl6FtrecrUdsHukvmP0FMlKCl2GtErq1cqe+W3Q
-	 /Ulp1DyTAP3eQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Marco Elver <elver@google.com>,
-	Siwei Zhang <oss@fourdim.xyz>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] Bluetooth: L2CAP: Fix UAF in channel timeout by holding conn ref
-Date: Tue, 14 Jul 2026 22:51:56 -0400
-Message-ID: <20260715025156.113462-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071358-handbag-anagram-bbb3@gregkh>
-References: <2026071358-handbag-anagram-bbb3@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Fa4VIWrw"
+Message-ID: <2a1e5d38-1035-4f09-b4af-5a63ec04f1d1@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784084365;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9xtif7wKWcaLEOyxIVo71CFUEZSMX5hpVYfkaAXiiXA=;
+	b=Fa4VIWrwA70DjAtWZ6OLqi+x7I0FG2AAc4HkAt2Ya5VS11rRMFOUSxztd/U6TqXh40wKC3
+	W3aJ3vLjjPPeywQZ6wUcxbDQtgpRROjdXaSBkI8LppJ0qCd3j9bNR+6gJfhUEqDtoCq9Ay
+	MfIFCyr0D0BNc90gzhb3BTn2R2U+ANI=
+Date: Wed, 15 Jul 2026 10:58:32 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: luoxuanqiang <xuanqiang.luo@linux.dev>
+Subject: Re: [Intel-wired-lan] [PATCH iwl-net v1] ice: fix use-after-free in
+ dynamic port cleanup
+To: Marcin Szycik <marcin.szycik@linux.intel.com>,
+ intel-wired-lan@lists.osuosl.org
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, sridhar.samudrala@intel.com,
+ wojciech.drewek@intel.com, piotr.raczynski@intel.com,
+ michal.swiatkowski@linux.intel.com, jacob.e.keller@intel.com,
+ netdev@vger.kernel.org, Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20260714063937.26325-1-xuanqiang.luo@linux.dev>
+ <36c68c94-0382-4d31-b114-fde2a5ad35cf@linux.intel.com>
+In-Reply-To: <36c68c94-0382-4d31-b114-fde2a5ad35cf@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-From: Marco Elver <elver@google.com>
 
-[ Upstream commit b66774b48dd98f07254951f74ea6f513efe7ff8b ]
+在 2026/7/14 22:14, Marcin Szycik 写道:
+> On 14.07.2026 08:39,xuanqiang.luo@linux.dev wrote:
+>> From: Xuanqiang Luo<luoxuanqiang@kylinos.cn>
+>>
+>> ice_dealloc_dynamic_port() uses dyn_port->vsi->idx to erase the dynamic
+>> port from pf->dyn_ports. However, it frees the VSI before reading the
+>> index for the erase, resulting in a use-after-free.
+>>
+>> Follow the reverse of the allocation order in ice_alloc_dynamic_port()
+>> by erasing the xarray entry before freeing the VSI.
+>>
+>> Fixes: eda69d654c7e ("ice: add basic devlink subfunctions support")
+>> Cc:stable@vger.kernel.org
+>> Signed-off-by: Xuanqiang Luo<luoxuanqiang@kylinos.cn>
+> Reviewed-by: Marcin Szycik<marcin.szycik@linux.intel.com>
+>
+> Thank you!
+> I wonder how such a glaring issue survived in the codebase for so long.
+> Perhaps ice_vsi_free() exited early for some reason.
 
-l2cap_chan_timeout() runs asynchronously and accesses chan->conn. If
-the connection is torn down while the timer is running or pending,
-chan->conn can be freed, leading to a use-after-free when the timer
-worker attempts to lock conn->lock:
+Thanks for the review!
 
-| BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
-| BUG: KASAN: slab-use-after-free in atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4456 [inline]
-| BUG: KASAN: slab-use-after-free in __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
-| BUG: KASAN: slab-use-after-free in mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
-| Write of size 8 at addr ffff8881298d9550 by task kworker/2:1/83
-|
-| CPU: 2 UID: 0 PID: 83 Comm: kworker/2:1 Not tainted 7.1.0-rc6-next-20260601-dirty #6 PREEMPT(full)
-| Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-| Workqueue: events l2cap_chan_timeout
-| Call Trace:
-|  <TASK>
-|  instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
-|  atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4456 [inline]
-|  __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
-|  mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
-|  l2cap_chan_timeout+0x5d/0x1b0 net/bluetooth/l2cap_core.c:422
-|  process_one_work kernel/workqueue.c:3326 [inline]
-|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
-|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
-|  kthread+0x346/0x430 kernel/kthread.c:436
-|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
-|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-|  </TASK>
-|
-| Allocated by task 320:
-|  l2cap_conn_add+0xa7/0x820 net/bluetooth/l2cap_core.c:7075
-|  l2cap_connect_cfm+0xdb/0xd70 net/bluetooth/l2cap_core.c:7452
-|  hci_connect_cfm include/net/bluetooth/hci_core.h:2139 [inline]
-|  hci_remote_features_evt+0x52f/0x9f0 net/bluetooth/hci_event.c:3760
-|  hci_event_func net/bluetooth/hci_event.c:7796 [inline]
-|  hci_event_packet+0x561/0xa70 net/bluetooth/hci_event.c:7847
-|  hci_rx_work+0x370/0x890 net/bluetooth/hci_core.c:4040
-|  process_one_work kernel/workqueue.c:3326 [inline]
-|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
-|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
-|  kthread+0x346/0x430 kernel/kthread.c:436
-|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
-|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-|
-| Freed by task 322:
-|  hci_disconn_cfm include/net/bluetooth/hci_core.h:2154 [inline]
-|  hci_conn_hash_flush+0x101/0x1f0 net/bluetooth/hci_conn.c:2736
-|  hci_dev_close_sync+0x889/0xde0 net/bluetooth/hci_sync.c:5405
-|  hci_dev_do_close net/bluetooth/hci_core.c:502 [inline]
-|  hci_unregister_dev+0x1f7/0x370 net/bluetooth/hci_core.c:2679
-|  vhci_release+0x12a/0x180 drivers/bluetooth/hci_vhci.c:690
-|  __fput+0x369/0x890 fs/file_table.c:510
-|  task_work_run+0x160/0x1d0 kernel/task_work.c:233
-|  get_signal+0xf5b/0x1120 kernel/signal.c:2810
-|  arch_do_signal_or_restart+0x4d/0x600 arch/x86/kernel/signal.c:337
-|  __exit_to_user_mode_loop kernel/entry/common.c:64 [inline]
-|  exit_to_user_mode_loop+0x85/0x510 kernel/entry/common.c:98
-|  do_syscall_64+0x263/0x3d0 arch/x86/entry/syscall_64.c:100
-|  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-|
-| The buggy address belongs to the object at ffff8881298d9400
-|  which belongs to the cache kmalloc-512 of size 512
-| The buggy address is located 336 bytes inside of
-|  freed 512-byte region [ffff8881298d9400, ffff8881298d9600)
+Hard to say—maybe the window is quite small and the freed slab still
+holds the old idx most of the time, so nothing obvious shows up.
 
-Fix it by having chan->conn hold a reference to l2cap_conn (via
-l2cap_conn_get) when the channel is added to the connection, and
-releasing it in the channel destructor. This ensures the l2cap_conn
-remains alive as long as the channel exists.
-
-A new FLAG_DEL channel flag is introduced to indicate that the channel
-has been deleted from its connection. l2cap_chan_del() atomically sets
-this flag using test_and_set_bit() instead of setting chan->conn to
-NULL. All asynchronous workers (l2cap_chan_timeout, l2cap_ack_timeout,
-l2cap_monitor_timeout, l2cap_retrans_timeout) and l2cap_chan_send()
-check FLAG_DEL to determine whether the channel has been torn down,
-rather than testing chan->conn for NULL.
-
-Fixes: 8c8e620467a7 ("Bluetooth: L2CAP: use chan timer to close channels in cleanup_listen()")
-Cc: <stable@vger.kernel.org>
-Cc: Siwei Zhang <oss@fourdim.xyz>
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Assisted-by: Gemini:gemini-3.1-pro-preview
-Reported-by: https://sashiko.dev/#/patchset/20260521021249.3258069-1-oss%40fourdim.xyz
-Signed-off-by: Marco Elver <elver@google.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/net/bluetooth/l2cap.h |  1 +
- net/bluetooth/l2cap_core.c    | 34 ++++++++++++++++++++--------------
- 2 files changed, 21 insertions(+), 14 deletions(-)
-
-diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index bf23edb0283874..2c0356e7b57157 100644
---- a/include/net/bluetooth/l2cap.h
-+++ b/include/net/bluetooth/l2cap.h
-@@ -742,6 +742,7 @@ enum {
- 	FLAG_ECRED_CONN_REQ_SENT,
- 	FLAG_PENDING_SECURITY,
- 	FLAG_HOLD_HCI_CONN,
-+	FLAG_DEL,
- };
- 
- /* Lock nesting levels for L2CAP channels. We need these because lockdep
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 3426eedf20ad96..09e46a8e4c63be 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -411,7 +411,7 @@ static void l2cap_chan_timeout(struct work_struct *work)
- 
- 	BT_DBG("chan %p state %s", chan, state_to_string(chan->state));
- 
--	if (!conn) {
-+	if (test_bit(FLAG_DEL, &chan->flags)) {
- 		l2cap_chan_put(chan);
- 		return;
- 	}
-@@ -422,6 +422,9 @@ static void l2cap_chan_timeout(struct work_struct *work)
- 	 */
- 	l2cap_chan_lock(chan);
- 
-+	if (test_bit(FLAG_DEL, &chan->flags))
-+		goto unlock;
-+
- 	if (chan->state == BT_CONNECTED || chan->state == BT_CONFIG)
- 		reason = ECONNREFUSED;
- 	else if (chan->state == BT_CONNECT &&
-@@ -434,10 +437,10 @@ static void l2cap_chan_timeout(struct work_struct *work)
- 
- 	chan->ops->close(chan);
- 
-+unlock:
- 	l2cap_chan_unlock(chan);
--	l2cap_chan_put(chan);
--
- 	mutex_unlock(&conn->lock);
-+	l2cap_chan_put(chan);
- }
- 
- struct l2cap_chan *l2cap_chan_create(void)
-@@ -490,6 +493,9 @@ static void l2cap_chan_destroy(struct kref *kref)
- 	list_del(&chan->global_l);
- 	write_unlock(&chan_list_lock);
- 
-+	if (chan->conn)
-+		l2cap_conn_put(chan->conn);
-+
- 	kfree(chan);
- }
- 
-@@ -593,7 +599,7 @@ void __l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
- 
- 	conn->disc_reason = HCI_ERROR_REMOTE_USER_TERM;
- 
--	chan->conn = conn;
-+	chan->conn = l2cap_conn_get(conn);
- 
- 	switch (chan->chan_type) {
- 	case L2CAP_CHAN_CONN_ORIENTED:
-@@ -648,30 +654,26 @@ void l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
- 
- void l2cap_chan_del(struct l2cap_chan *chan, int err)
- {
--	struct l2cap_conn *conn = chan->conn;
--
- 	__clear_chan_timer(chan);
- 
--	BT_DBG("chan %p, conn %p, err %d, state %s", chan, conn, err,
-+	BT_DBG("chan %p, err %d, state %s", chan, err,
- 	       state_to_string(chan->state));
- 
- 	chan->ops->teardown(chan, err);
- 
--	if (conn) {
-+	if (!test_and_set_bit(FLAG_DEL, &chan->flags)) {
- 		/* Delete from channel list */
- 		list_del(&chan->list);
- 
- 		l2cap_chan_put(chan);
- 
--		chan->conn = NULL;
--
- 		/* Reference was only held for non-fixed channels or
- 		 * fixed channels that explicitly requested it using the
- 		 * FLAG_HOLD_HCI_CONN flag.
- 		 */
- 		if (chan->chan_type != L2CAP_CHAN_FIXED ||
- 		    test_bit(FLAG_HOLD_HCI_CONN, &chan->flags))
--			hci_conn_drop(conn->hcon);
-+			hci_conn_drop(chan->conn->hcon);
- 	}
- 
- 	if (test_bit(CONF_NOT_COMPLETE, &chan->conf_state))
-@@ -1888,7 +1890,7 @@ static void l2cap_monitor_timeout(struct work_struct *work)
- 
- 	l2cap_chan_lock(chan);
- 
--	if (!chan->conn) {
-+	if (test_bit(FLAG_DEL, &chan->flags)) {
- 		l2cap_chan_unlock(chan);
- 		l2cap_chan_put(chan);
- 		return;
-@@ -1909,7 +1911,7 @@ static void l2cap_retrans_timeout(struct work_struct *work)
- 
- 	l2cap_chan_lock(chan);
- 
--	if (!chan->conn) {
-+	if (test_bit(FLAG_DEL, &chan->flags)) {
- 		l2cap_chan_unlock(chan);
- 		l2cap_chan_put(chan);
- 		return;
-@@ -2524,7 +2526,7 @@ int l2cap_chan_send(struct l2cap_chan *chan, struct msghdr *msg, size_t len)
- 	int err;
- 	struct sk_buff_head seg_queue;
- 
--	if (!chan->conn)
-+	if (test_bit(FLAG_DEL, &chan->flags))
- 		return -ENOTCONN;
- 
- 	/* Connectionless channel */
-@@ -3110,12 +3112,16 @@ static void l2cap_ack_timeout(struct work_struct *work)
- 
- 	l2cap_chan_lock(chan);
- 
-+	if (test_bit(FLAG_DEL, &chan->flags))
-+		goto unlock;
-+
- 	frames_to_ack = __seq_offset(chan, chan->buffer_seq,
- 				     chan->last_acked_seq);
- 
- 	if (frames_to_ack)
- 		l2cap_send_rr_or_rnr(chan, 0);
- 
-+unlock:
- 	l2cap_chan_unlock(chan);
- 	l2cap_chan_put(chan);
- }
--- 
-2.53.0
-
+>> ---
+>>   drivers/net/ethernet/intel/ice/devlink/port.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/net/ethernet/intel/ice/devlink/port.c b/drivers/net/ethernet/intel/ice/devlink/port.c
+>> index 2a2e56777f9f7..3ede246490027 100644
+>> --- a/drivers/net/ethernet/intel/ice/devlink/port.c
+>> +++ b/drivers/net/ethernet/intel/ice/devlink/port.c
+>> @@ -590,8 +590,8 @@ static void ice_dealloc_dynamic_port(struct ice_dynamic_port *dyn_port)
+>>   
+>>   	xa_erase(&pf->sf_nums, devlink_port->attrs.pci_sf.sf);
+>>   	ice_eswitch_detach_sf(pf, dyn_port);
+>> -	ice_vsi_free(dyn_port->vsi);
+>>   	xa_erase(&pf->dyn_ports, dyn_port->vsi->idx);
+>> +	ice_vsi_free(dyn_port->vsi);
+>>   	kfree(dyn_port);
+>>   }
+>>   
