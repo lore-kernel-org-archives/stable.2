@@ -1,156 +1,209 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C52B334692
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 11:03:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0D83B42DC
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 11:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784113397; cv=none; b=CeiV0ggPwJDeYBfi3PAODYKlBNKIjbq5onbLKlzCMKDiFEc0TQb4VGScw3vO/y0YfSWe5ZnUIg7zl9ICTfubKMVKogy1Y1cDlcIN46BabmM+yFisvpDJ0r1bl4Apm2dgdHqxrZB7Wp173Al0xQGwFmQzvM+GnSOd56+WBHpwKYI=
+	t=1784114106; cv=none; b=oSvZlyHD7Fo9UMIej39mYc36UINEbxs1yY5yM2rnojMRUR8bd3VsTiL3RexF1MzWTuNGNCVhRmuMhOr5D1uWgaQ/BJq5Fv0RZElVkkfGCXXtCbKLfyOn1BLpIv6dQ3E/uNu9LL0ZzMNsxdRKRpUWkXzq5ugRd+WIw4pF3V+oWos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784113397; c=relaxed/simple;
-	bh=mkjSaBNlozbOinNvp2aFAUyG+xq5hemqxlmqqF7w+S8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kKyjV0YNxRnKNHfOTNXudDl87Qv5WqZmIDpLujTLeSmWK6rb3If1Btx/wD0oA0lzOgFi7xDdVt43kUwq8S96q9rVVvtT/XpZk+zxp/FPKLP8oe6PLAHuJCVH1fDrkXTiohhSR16wmU/kVWIggMmO/Vt/eP+Jkih6ub2PKefcZ3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=zp9S4ker; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DU86yZ9i; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=zp9S4ker; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DU86yZ9i; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1784114106; c=relaxed/simple;
+	bh=v3UXt0RlISTqt1icYNO80vxSIukB5pVSI9OnmQLcz64=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IOHEMcY2B9eGR13XVhvF5Da6cna8a4PMPrs9QDXN/s01Exuzfv+OBxTCOa35+XvrUGkhY4VxSyOA6OLIoCa8gND9bW9tpW7LF/L3kUkmwqgUKpNnTNld4vF6/kHtOVDiZDDcpnhkyQNBOB2z9JH+DHb1tY7fYEg9TXlzj3GSK4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ftq2TFKC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zp9S4ker";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DU86yZ9i";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zp9S4ker";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DU86yZ9i"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6DC773E2C;
-	Wed, 15 Jul 2026 11:03:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1784113394; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y/w0/JofSGuJID6gCR3ETcE1l/O+Ym8fL3mervCh8EY=;
-	b=zp9S4keryKvPSeo6DUINoZiYwFq/YXNK91O7BUc94CKyUaHs54bPkEIeNGlEdMWt51WpGt
-	upkGJ3Vii8D8g1m2E5jrijlbLqewYO2M29/vnyDySzbN30ieZv8VWTrrwWtgomvrV2Ru+b
-	Zp+iuUH9YSnECBdlyCt21KkXPkV1K+I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1784113394;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y/w0/JofSGuJID6gCR3ETcE1l/O+Ym8fL3mervCh8EY=;
-	b=DU86yZ9iikGFjQnG2BvTDTZqu9ae/Nrwml7rvrJ5f1gjjqLgaMZOljkqFv8Yg6EtZZ3S0I
-	04jRuyg7ww8dBECQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1784113394; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y/w0/JofSGuJID6gCR3ETcE1l/O+Ym8fL3mervCh8EY=;
-	b=zp9S4keryKvPSeo6DUINoZiYwFq/YXNK91O7BUc94CKyUaHs54bPkEIeNGlEdMWt51WpGt
-	upkGJ3Vii8D8g1m2E5jrijlbLqewYO2M29/vnyDySzbN30ieZv8VWTrrwWtgomvrV2Ru+b
-	Zp+iuUH9YSnECBdlyCt21KkXPkV1K+I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1784113394;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y/w0/JofSGuJID6gCR3ETcE1l/O+Ym8fL3mervCh8EY=;
-	b=DU86yZ9iikGFjQnG2BvTDTZqu9ae/Nrwml7rvrJ5f1gjjqLgaMZOljkqFv8Yg6EtZZ3S0I
-	04jRuyg7ww8dBECQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0D47F779AD;
-	Wed, 15 Jul 2026 11:03:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Qy1EO/BoV2oOfQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 15 Jul 2026 11:03:12 +0000
-Date: Wed, 15 Jul 2026 12:03:11 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Gregg Leventhal <gleventhal@janestreet.com>
-Cc: Matthew Wilcox <willy@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Song Liu <song@kernel.org>, 
-	Eric Hagberg <ehagberg@janestreet.com>, Zi Yan <ziy@nvidia.com>
-Subject: Re: [PATCH stable] mm/khugepaged: write all dirty file folios when
- collapsing
-Message-ID: <aldo3HN27b5PoQyz@pedro-suse.lan>
-References: <20260702165409.164568-1-pfalcato@suse.de>
- <akhYu66GmjyM8l6a@casper.infradead.org>
- <CAFN_u7HkJry=iFLbZ2vjzv5C=HnrptHfFJBLOqRq2m4LyhqV_w@mail.gmail.com>
- <ak5g9h3FuVn3bZ1G@pedro-suse>
- <CAFN_u7ExSnVo=QQBuZvRJkLR3rHo8qN96rDKYu+KNiSjk0FCHQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ftq2TFKC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B13FE1F000E9;
+	Wed, 15 Jul 2026 11:15:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784114104;
+	bh=ppZUw0fNmtwwm/CA08rIi3X8qy/NQ5NHF8lyrKk1GAk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ftq2TFKC3HCLO8ssfjy2h3kBjkrfEG68EbecusMiUQNWJLGDDAM+qkvRWgK/JSS2v
+	 kiQCAOE3tS6Pqc8h5Ib4i3AB6ADbSxGa3ehiavCXjBaf/wzpm825risrYkGBrLTNEC
+	 ptPTI2LPtpCpV1zfdMWzxOrF9NblOS5pRQmU2Eah86n3fR3l0qeXT8NmapDy+8mUPE
+	 JzJNXxfo81VmejMaQqS3TEzhqq9sDkeEQUq7NCK10ljZcAA0Ks7NHa3t7LFCwBtlXG
+	 aeM/vHmHqO4iFIZpO5QPHZ57TAtizEAjXZEBWZsXhfht5k2Ds5Xn0M8RkEgN91YnFe
+	 Cpw+rh8zT9piQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] gpio: sch: use raw_spinlock_t in the irq startup path
+Date: Wed, 15 Jul 2026 07:15:02 -0400
+Message-ID: <20260715111502.642327-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071321-providing-hatless-5452@gregkh>
+References: <2026071321-providing-hatless-5452@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFN_u7ExSnVo=QQBuZvRJkLR3rHo8qN96rDKYu+KNiSjk0FCHQ@mail.gmail.com>
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[pedro-suse.lan:mid,imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Level: 
-X-Spam-Score: -4.30
 
-On Thu, Jul 09, 2026 at 08:52:47AM -0400, Gregg Leventhal wrote:
-> Ack thanks for the update and all of your help with this!
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-You're welcome!
+[ Upstream commit 286533cb14a3c8a8bd39ff64ea2fc8e1aa0f638b ]
 
-> Obrigado pra vc (Meu esposa e Brasileira e achei que vc estava
-> Portugues da sua nome/sobrenome)!
+sch_irq_unmask() enables the GPIO IRQ and then updates the controller
+state through sch_irq_mask_unmask(), which takes sch->lock with
+spin_lock_irqsave().  The callback can be reached from irq_startup()
+while setting up a requested IRQ.  That path is not sleepable, but on
+PREEMPT_RT a regular spinlock_t becomes a sleeping lock.
 
-Hah :D
+This issue was found by our static analysis tool and then manually
+reviewed against the current tree.
 
-> 
-> On Wed, Jul 8, 2026 at 10:40 AM Pedro Falcato <pfalcato@suse.de> wrote:
-> >
-> > On Wed, Jul 08, 2026 at 10:05:43AM -0400, Gregg Leventhal wrote:
-> > > Hi there, just checking on the next steps here.
-> > >
-> > > @Pedro Falcato Are you currently working on this patch (mentioned
-> > > above, re: holding invalidate lock), or are we perhaps stalled on
-> > > something?
-> >
-> > I was waiting for some actual tags from people, but given the comments and
-> > no tags, I'll respin a v2 before sending to Greg KH.
-> >
-> > --
-> > Pedro
+The grounded PoC kept the request_threaded_irq() -> __setup_irq() ->
+irq_startup() -> sch_irq_unmask() -> sch_irq_mask_unmask() carrier and
+used the original spin_lock_irqsave(&sch->lock) edge.  Lockdep reported:
 
+  BUG: sleeping function called from invalid context
+  hardirqs last disabled at ... __setup_irq.constprop.0 ... [vuln_msv]
+  sch_rt_spin_lock_irqsave+0x1c/0x30 [vuln_msv]
+  sch_irq_mask_unmask.constprop.0+0x31/0x70 [vuln_msv]
+  __setup_irq.constprop.0+0xd/0x30 [vuln_msv]
+
+Convert the SCH controller lock to raw_spinlock_t.  The same lock is
+also used by the GPIO direction and value callbacks, but those critical
+sections only update MMIO-backed GPIO registers and do not contain
+sleepable operations.  Keeping this register lock non-sleeping is
+therefore appropriate for the irqchip callbacks and does not change the
+GPIO-side locking contract.
+
+Fixes: 7a81638485c1 ("gpio: sch: Add edge event support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Link: https://patch.msgid.link/20260617154035.1199948-2-runyu.xiao@seu.edu.cn
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+[ dropped the `return 0;` and kept sch_gpio_set()'s void signature since 6.12 lacks the GPIO setter-return-value conversion ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpio/gpio-sch.c | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpio/gpio-sch.c b/drivers/gpio/gpio-sch.c
+index ff0341b1222f7e..e45390e5857a39 100644
+--- a/drivers/gpio/gpio-sch.c
++++ b/drivers/gpio/gpio-sch.c
+@@ -39,7 +39,7 @@
+ struct sch_gpio {
+ 	struct gpio_chip chip;
+ 	void __iomem *regs;
+-	spinlock_t lock;
++	raw_spinlock_t lock;
+ 	unsigned short resume_base;
+ 
+ 	/* GPE handling */
+@@ -104,9 +104,9 @@ static int sch_gpio_direction_in(struct gpio_chip *gc, unsigned int gpio_num)
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GIO, 1);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 	return 0;
+ }
+ 
+@@ -122,9 +122,9 @@ static void sch_gpio_set(struct gpio_chip *gc, unsigned int gpio_num, int val)
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GLV, val);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ }
+ 
+ static int sch_gpio_direction_out(struct gpio_chip *gc, unsigned int gpio_num,
+@@ -133,9 +133,9 @@ static int sch_gpio_direction_out(struct gpio_chip *gc, unsigned int gpio_num,
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GIO, 0);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 
+ 	/*
+ 	 * according to the datasheet, writing to the level register has no
+@@ -195,14 +195,14 @@ static int sch_irq_type(struct irq_data *d, unsigned int type)
+ 		return -EINVAL;
+ 	}
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 
+ 	sch_gpio_reg_set(sch, gpio_num, GTPE, rising);
+ 	sch_gpio_reg_set(sch, gpio_num, GTNE, falling);
+ 
+ 	irq_set_handler_locked(d, handle_edge_irq);
+ 
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 
+ 	return 0;
+ }
+@@ -214,9 +214,9 @@ static void sch_irq_ack(struct irq_data *d)
+ 	irq_hw_number_t gpio_num = irqd_to_hwirq(d);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GTS, 1);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ }
+ 
+ static void sch_irq_mask_unmask(struct gpio_chip *gc, irq_hw_number_t gpio_num, int val)
+@@ -224,9 +224,9 @@ static void sch_irq_mask_unmask(struct gpio_chip *gc, irq_hw_number_t gpio_num,
+ 	struct sch_gpio *sch = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 	sch_gpio_reg_set(sch, gpio_num, GGPE, val);
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ }
+ 
+ static void sch_irq_mask(struct irq_data *d)
+@@ -267,12 +267,12 @@ static u32 sch_gpio_gpe_handler(acpi_handle gpe_device, u32 gpe, void *context)
+ 	int offset;
+ 	u32 ret;
+ 
+-	spin_lock_irqsave(&sch->lock, flags);
++	raw_spin_lock_irqsave(&sch->lock, flags);
+ 
+ 	core_status = ioread32(sch->regs + CORE_BANK_OFFSET + GTS);
+ 	resume_status = ioread32(sch->regs + RESUME_BANK_OFFSET + GTS);
+ 
+-	spin_unlock_irqrestore(&sch->lock, flags);
++	raw_spin_unlock_irqrestore(&sch->lock, flags);
+ 
+ 	pending = (resume_status << sch->resume_base) | core_status;
+ 	for_each_set_bit(offset, &pending, sch->chip.ngpio)
+@@ -342,7 +342,7 @@ static int sch_gpio_probe(struct platform_device *pdev)
+ 
+ 	sch->regs = regs;
+ 
+-	spin_lock_init(&sch->lock);
++	raw_spin_lock_init(&sch->lock);
+ 	sch->chip = sch_gpio_chip;
+ 	sch->chip.label = dev_name(dev);
+ 	sch->chip.parent = dev;
 -- 
-Pedro
+2.53.0
+
