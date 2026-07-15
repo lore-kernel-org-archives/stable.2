@@ -1,99 +1,118 @@
-Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864B83AC0FC
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 02:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2889C2931F1
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 03:02:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784084370; cv=none; b=ABn8lAvKalXQQZ5Or5ir8Ixvgb0hJUoE1/Xr9Jxtzfq7qdP809/dTzgElRi3ulVHg4p+XW7/31JYdcRK0j1smHoObO2s3uZSoErb/yXN7HwvHvt0jB/XfypFrM8h29azM5SoNzSLcNL0Fk6VAVvQPf078LsSHSV3RpjjqFnMTts=
+	t=1784084539; cv=none; b=OEFvXtUVNoFtbfHkuH6mEa5JLVdtKF7sysxVAQCpV4LalVFsVhKrgQD9s4K06TLllUYeR4Agc14vThCvmfjbYnH+OGF4VwtLKVf8nD8PWSz2bOo41kHEjtPvpi5l+TTSPfRnloenicVp248tzj21rZnsUNnKYu35Nm0m2he5qdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784084370; c=relaxed/simple;
-	bh=pz5x7Uful+e4tpdXxod5EqSQ03Jk4ZCGvC9DnrUEPWU=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=g4S8th7SpWxQ6IDi6PL2MMtsEvquEOrkRb/T/XL7DzVx2FYBlQ4mxasbfgOxEbuVCRxkz8P1QzhTPMbXvB52L3FWm82QxhxDNneydvggD3f6RqRCZaq8lbWTPJpaioSG6YmxoDfi2JhF+GvwJbwcD/SPb2K5cplhnDhl6kiXN/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Fa4VIWrw; arc=none smtp.client-ip=91.218.175.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784084539; c=relaxed/simple;
+	bh=Pyp2DnCViCnJgUi88+R0XBfifCiYiXiV56seNpVS6sg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HkEAZH43l23272B/mbo3ybjq43OuDO9ltEcEfMZqlAGtcjIWuusLTyGVho28RNKMLsyZR51IfvzevbuskjIG041TOcvd27tVCigZJRieW/9S3BWd8qTE6ZBsKZcq7eMylh7YKRcyN23qSdPi3DTbIwTED3Jizf4xCmBgXxxL2/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=CgJACLJ9; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Fa4VIWrw"
-Message-ID: <2a1e5d38-1035-4f09-b4af-5a63ec04f1d1@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784084365;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9xtif7wKWcaLEOyxIVo71CFUEZSMX5hpVYfkaAXiiXA=;
-	b=Fa4VIWrwA70DjAtWZ6OLqi+x7I0FG2AAc4HkAt2Ya5VS11rRMFOUSxztd/U6TqXh40wKC3
-	W3aJ3vLjjPPeywQZ6wUcxbDQtgpRROjdXaSBkI8LppJ0qCd3j9bNR+6gJfhUEqDtoCq9Ay
-	MfIFCyr0D0BNc90gzhb3BTn2R2U+ANI=
-Date: Wed, 15 Jul 2026 10:58:32 +0800
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="CgJACLJ9"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c15cd3fd760so567932766b.2
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 20:02:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1784084536; x=1784689336; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hOjABmuvBW+jCcuokYEE7Gv19LjuO15ZtZi5onZDlks=;
+        b=CgJACLJ98v8bx0a5WjsLkmXa0c45JEdSrekLF6tl5Fk22ghzpLJUvgFKQNzQTq8Ifl
+         /ETsYk5Eo6xIB43MhUwOTHfm6l/60rKnMk3z77HYo3eisYf7NRzZMM+qx11ZKE/B/IiZ
+         vklNHjKz3M8XNO8/Ulp4B/L3Ont5OEf+hb9qmZq7FfrXmYIOgTLvsYr1mcGB8om87koA
+         eNoJog5ZJsjRDPz3ZRg0hRIWoIoPBCEPrG28tjn73CcgQw9BSKK4PCVnl0TowIaMCQJl
+         cKRfYR0ykvJXtO91SW3ILye1CqC2a48Lpg1PjvVqZVEEk6hLo2Llro4s7MO2IjdwzHBW
+         PEJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784084536; x=1784689336;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hOjABmuvBW+jCcuokYEE7Gv19LjuO15ZtZi5onZDlks=;
+        b=JbdXpTRwKLIOAJap3nU6wFM2qBCfi4Qr/mP2VC7QUE7c/HT6fLomQvj2P9fEAe7OIj
+         ZdWWDtJv48PXVgsV0VXHIkKBLYiKbJ51Lm438GfKpF3QjPxPkJAKy2YpR+W8cPmcDZPU
+         Skr6XvCUoUDIMrah8iPf02Oyr8QkWBOEunE2v3F0qtMi0DvRzknYtbew91pkuHBHDNp6
+         35BRYKc44scuT+VX8P/ICcvzVWjtVGHypS6RtpGY3k6+oAO9K+uhvnYTKWjOVUvVFExX
+         T6i+m8R+94Bf0N+L5cGljEud3Tim/mgyUGysO7wwzNpeKoK2E8FgSukL3c4kGZWsDgQP
+         T1+Q==
+X-Forwarded-Encrypted: i=1; AHgh+Ro04irtM0qrWTJoKuGic1vaP0I5MDPmA45CXl7kJqOyejYZIjwrKsr6rogtlb1lKHEPzu+Hu1s=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxe/8rR6UKPI+tx6DvyR0bguiiijVwZZlbY0ppS3SCmNf87Td2Z
+	2KNWytQXIEeOnV1eRmF0UQhr1ERhSSL8SqkqobvLOQMMIVrc76DfBDrrKdv/R6yWzYg=
+X-Gm-Gg: AfdE7cnxiVpOi5k7FjOXZwnHIfbAUWZCI/u0aZPO5iE4PC7Duo9Em0bK+C/yFNre+7Q
+	q/MeHLS4d4X2NUg/xWgDhXLR0bjzG1L0bPKPqcgVqSRLhU/i32ENhAhwqGo6FQKNRnZBas9tZEe
+	zgahb5iY6IISq+QlBmUCFsBEgor1yyAawkKCc72vtTMAKKDMtWilQACgnJQRA3wADPNdlNG8Uya
+	FpirDBolawuzX9NY+JaZFJHIPbe9wmNAzWUKm2KHHeYp4wJvhDhuMXfC2lex/xnb+aBFRqWbLVQ
+	XHXGsLfPlI2wwQfnSxnQqKb7pCVFSzH08jAMD6Vc2vaTeIvyXLmN3F6/lncU4Z7hwU8Tc/EIB4d
+	iJSRIbKs1QzPJqNkoQ1cKZdaqD+1YPFa31uYQ7jX+QE/L2R1OVsCm7lsBNN43QwwcR7ojlqJlgh
+	L+rAInxVGIsO/pUTPBv66wrMf5UYACgcby
+X-Received: by 2002:a17:907:f815:b0:bb7:eb68:514e with SMTP id a640c23a62f3a-c167940e66bmr67514766b.36.1784084536316;
+        Tue, 14 Jul 2026 20:02:16 -0700 (PDT)
+Received: from u94a (27-51-89-168.adsl.fetnet.net. [27.51.89.168])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a39a4a7797sm7988739eaf.6.2026.07.14.20.02.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 20:02:14 -0700 (PDT)
+Date: Wed, 15 Jul 2026 11:02:02 +0800
+From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+To: Sun Jian <sun.jian.kdev@gmail.com>
+Cc: bpf@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
+	Andrii Nakryiko <andrii@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Jiri Olsa <jolsa@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Shuah Khan <shuah@kernel.org>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Matt Mullins <mmullins@mmlx.us>, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH bpf v5 2/2] selftests/bpf: Cover negative buffer pointer
+ offsets
+Message-ID: <alb1fmxTl6-c-HJs@u94a>
+References: <20260714093846.18159-1-sun.jian.kdev@gmail.com>
+ <20260714093846.18159-3-sun.jian.kdev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: luoxuanqiang <xuanqiang.luo@linux.dev>
-Subject: Re: [Intel-wired-lan] [PATCH iwl-net v1] ice: fix use-after-free in
- dynamic port cleanup
-To: Marcin Szycik <marcin.szycik@linux.intel.com>,
- intel-wired-lan@lists.osuosl.org
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, sridhar.samudrala@intel.com,
- wojciech.drewek@intel.com, piotr.raczynski@intel.com,
- michal.swiatkowski@linux.intel.com, jacob.e.keller@intel.com,
- netdev@vger.kernel.org, Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
- stable@vger.kernel.org
-References: <20260714063937.26325-1-xuanqiang.luo@linux.dev>
- <36c68c94-0382-4d31-b114-fde2a5ad35cf@linux.intel.com>
-In-Reply-To: <36c68c94-0382-4d31-b114-fde2a5ad35cf@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714093846.18159-3-sun.jian.kdev@gmail.com>
 
+On Tue, Jul 14, 2026 at 02:38:46AM -0700, Sun Jian wrote:
+> Add verifier coverage for constant negative offsets on PTR_TO_TP_BUFFER
+> and PTR_TO_BUF pointers. Both programs adjust the buffer pointer by -8
+> and access it at offset zero, so the negative effective start must be
+> rejected at load time.
+> 
+> Switch the raw tracepoint writable attach checks from nbd_send_request
+> to bpf_testmod_test_writable_bare_tp, avoiding a dependency on the NBD
+> tracepoint. Keep the existing past-end case and add a case with a
+> negative var_off compensated by a positive instruction offset. The
+> effective start remains non-negative, so the program loads, but its
+> access end exceeds the writable context size and
+> bpf_raw_tracepoint_open() must return -EINVAL.
+> 
+> Reported-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+> Link: https://lore.kernel.org/bpf/alRtilWhKw4zzMkI@u94a
+> Cc: stable@vger.kernel.org # 5.2.0
+...
 
-在 2026/7/14 22:14, Marcin Szycik 写道:
-> On 14.07.2026 08:39,xuanqiang.luo@linux.dev wrote:
->> From: Xuanqiang Luo<luoxuanqiang@kylinos.cn>
->>
->> ice_dealloc_dynamic_port() uses dyn_port->vsi->idx to erase the dynamic
->> port from pf->dyn_ports. However, it frees the VSI before reading the
->> index for the erase, resulting in a use-after-free.
->>
->> Follow the reverse of the allocation order in ice_alloc_dynamic_port()
->> by erasing the xarray entry before freeing the VSI.
->>
->> Fixes: eda69d654c7e ("ice: add basic devlink subfunctions support")
->> Cc:stable@vger.kernel.org
->> Signed-off-by: Xuanqiang Luo<luoxuanqiang@kylinos.cn>
-> Reviewed-by: Marcin Szycik<marcin.szycik@linux.intel.com>
->
-> Thank you!
-> I wonder how such a glaring issue survived in the codebase for so long.
-> Perhaps ice_vsi_free() exited early for some reason.
+IMO it is slightly better to split this into two. First part would be
+[1] suggested by Eduard, and the second part would be the addition of
+negative offset test.
 
-Thanks for the review!
+That said, I checked that with v5.2 we do have PTR_TO_TP_BUFFER and
+PTR_TO_BUF support already (latter as PTR_TO_RDONLY_BUF and
+PTR_TO_RDWR_BUF), so there shouldn't be a problem having these tests
+back in stable.
 
-Hard to say—maybe the window is quite small and the freed slab still
-holds the old idx most of the time, so nothing obvious shows up.
+Acked-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
 
->> ---
->>   drivers/net/ethernet/intel/ice/devlink/port.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/net/ethernet/intel/ice/devlink/port.c b/drivers/net/ethernet/intel/ice/devlink/port.c
->> index 2a2e56777f9f7..3ede246490027 100644
->> --- a/drivers/net/ethernet/intel/ice/devlink/port.c
->> +++ b/drivers/net/ethernet/intel/ice/devlink/port.c
->> @@ -590,8 +590,8 @@ static void ice_dealloc_dynamic_port(struct ice_dynamic_port *dyn_port)
->>   
->>   	xa_erase(&pf->sf_nums, devlink_port->attrs.pci_sf.sf);
->>   	ice_eswitch_detach_sf(pf, dyn_port);
->> -	ice_vsi_free(dyn_port->vsi);
->>   	xa_erase(&pf->dyn_ports, dyn_port->vsi->idx);
->> +	ice_vsi_free(dyn_port->vsi);
->>   	kfree(dyn_port);
->>   }
->>   
+1: https://lore.kernel.org/bpf/3430dc0a2a141769a596ab21d7abdd86a0a804db.camel@gmail.com/2-tp-test.diff
