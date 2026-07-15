@@ -1,104 +1,187 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CE448A2A8;
-	Wed, 15 Jul 2026 15:43:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F632EEE80;
+	Wed, 15 Jul 2026 15:49:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784130198; cv=none; b=pzdVc0jMdzVgKY0a6QOXsi42/HgC7OvJq7e43rEg/A3wjOEI++jC9o/TUK+lsSVzThhyOCChUXAiwB0vuQnMgtno3h9wJIgmBPfgxaFcXHgeq2VFJ0YHeJBXMMLLOkMxkKGtUWxDiDBMvGjJqqqfCkjcnDrkNsMZp5gbBnSAXRo=
+	t=1784130581; cv=none; b=a94mc97NIRJkUuaLw3eymK9f063snZrkaDp74WodFSFY+mxTVNRX/liUAYuf166OWFnGoEFTT8Z6+rwRts0OUPySuhcOkeiKEB8sjh/pd9zqVdvz9a5YocezlJR7dIWKvHehhcQawYaNM0/xaC4pSCF75q4Slx7fdjQmg/KZjeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784130198; c=relaxed/simple;
-	bh=KTpI4ajP7tZ+58EKrEwmElnfiNgrQmJpX5w9lLsnbVQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Qrho1c77FYVpFEyQKUS5U2UkfroSNkqCfucvgjtMsJuwe8MQ93SzTgj0h2UuX3RRAZCFogGlWbvBI5mzjX86MvGtnsVuRdn6kW7fr6zonA8Uo5H3mG9kFb2UC2CzglgbNeYfaDpH4JWESj/y/0ZKx+OzIacHTsBUtWNfEvSC0R0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=X+7QU0Mh; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1784130581; c=relaxed/simple;
+	bh=REy7UL312QrEDzK1bW0DMkqqh4m8Ol8H1Ad9I4djheA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CunHmnjtA1++LAnbMLVTpfHHMlpwi0ud0aO6pBbViRiD5j2urjProa0TjfN6wDJfX1IcNBRJCuEEFz9HDHyktZ7kS0qDyoRnR/FBQsSHPkNCruS8JJAjopGfoDXgtXfKOr20mJ5HYfBLce8tihmbx26HDtD68miR93WqVXqosNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JfStKliW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="X+7QU0Mh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=h91dzcGBqh6bO1sKLAZB47WCpn3nyQhlpwOzbbUz0dc=; b=X+7QU0MhROV6xa8PpxNNybvUWY
-	ywGBvxFFqkdz2oju4tkDDiKWZeo/aYqZLHaOBSTScig3nU6rjrQAySJ0160moz+jsZKdrMukX+4z3
-	tOr6TRzZh6V0hFtGSM6CDTVtHuuYpXAUk5y1gaVaS41Ls03LPRIzJUcwf3Si6I628xsqm3LFe51h9
-	0l01KORgxIl5vOdCsk0EGF/85xZwyiy9uiw95m7UZ5Bf57X61O2e+++SMqQfvL870EXXPiysWxUbH
-	efwSGQMPhryXSmEXIcjpbCUP1bvabH+Z1Mc6h3OZhYSE6nIm5Xin14qRlZStlzFNE6fF+ibGtJ131
-	+/7LJfxA==;
-Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
-	by fanzine2.igalia.com with utf8esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wk1lG-00FWvx-5b; Wed, 15 Jul 2026 17:43:02 +0200
-From: Luis Henriques <luis@igalia.com>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,  Miklos Szeredi
- <miklos@szeredi.hu>,  linux-fsdevel@vger.kernel.org,
-  fuse-devel@lists.linux.dev,  stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] fs: preserve ACL_DONT_CACHE state in
- forget_cached_acl()
-In-Reply-To: <20260713220932.413004-2-amir73il@gmail.com> (Amir Goldstein's
-	message of "Tue, 14 Jul 2026 00:09:31 +0200")
-References: <20260713220932.413004-1-amir73il@gmail.com>
-	<20260713220932.413004-2-amir73il@gmail.com>
-Date: Wed, 15 Jul 2026 16:43:28 +0100
-Message-ID: <871pd445sv.fsf@wotan.olymp>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JfStKliW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27E021F000E9;
+	Wed, 15 Jul 2026 15:49:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784130580;
+	bh=dppU3jext8Cfhc/a4fcob/OWEauwlB4pCHse6dF5FfE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JfStKliWix9MQgnZ5RZg9SJ72c2MTpasGugfWwP7+RJOvdJ96GK2cdQR/hyjOHt3N
+	 PoICC3f/12tQsSjwwmrk4qdrpdx1oTc2w0cCF1zgOQtDB3SYTldCH7cLg9v+LTWwhz
+	 ae8/7OsggPgfBKlm6DusfuBPm0vDTJvOIhJKlGSlqVZGP3XK5SlSJyzr1dntetduZK
+	 QL307ELqTSxqUUyNDPoqjM2I4XRG1/wxlv+2MHaJ4ORE4CwT1irifJgiPl1kCjBUZy
+	 qoHp+UfSipV3mdjpYbAVCBIMkI5oFsyDTv1YESKX7JKF2Logz1eO7y05C7pC1uVQ6a
+	 D7LztoDurYkGA==
+Date: Wed, 15 Jul 2026 18:49:30 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@suse.com>, Uladzislau Rezki <urezki@gmail.com>,
+	Toshi Kani <toshi.kani@hpe.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>,
+	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
+	abarnas@google.com
+Subject: Re: [PATCH mm-hotfixes v3 2/4] x86/mm/pat: acquire mmap lock on page
+ table free to avoid ptdump UAF
+Message-ID: <alesCtwXdIqH6bOP@kernel.org>
+References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
+ <20260714-series-vmap-race-fix-v3-2-b812eccfa0f9@kernel.org>
+ <alemS7vxeRB7NcBO@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alemS7vxeRB7NcBO@willie-the-truck>
 
-On Tue, Jul 14 2026, Amir Goldstein wrote:
+Hi Will,
 
-> The ACL_DONT_CACHE state is meant to be a constant state for the inode
-> for filesystems that want to opt out of posix acl caching.
->
-> Commit facd61053cff1 ("fuse: fixes after adapting to new posix acl api")
-> used this facility to opt out of posix acl caching for fuse inodes with
-> fuse server that does not negotiate FUSE_POSIX_ACL (fc->posix_acl).
->
-> The commit also takes care to gate the forget_all_cached_acls() call in
-> fuse_set_acl() on fc->posix_acl because there is no need for it, but
-> there are other placed in fuse code which call forget_all_cached_acls()
-> unconditional to fc->posix_acl and those cause the loss of the
-> ACL_DONT_CACHE state.
->
-> This is not only a functional bug. Properly timed, a get_acl() from this
-> fuse filesystem can return a stale cached value, as was observed in
-> tests, because set_acl() does not invalidate the unintentional acl
-> cache.
->
-> We could fix this in fuse, but it actually makes no sense for the vfs
-> helper forget_cached_acl() to invalidate the ACL_DONT_CACHE state, so
-> let it not do that to fix fuse and future users of ACL_DONT_CACHE.
->
-> Fixes: facd61053cff1 ("fuse: fixes after adapting to new posix acl api")
-> Cc: stable@vger.kernel.org Signed-off-by: Amir Goldstein
-> <amir73il@gmail.com>
-> ---
->  fs/posix_acl.c | 7 +++++++ 1 file changed, 7 insertions(+)
->
-> diff --git a/fs/posix_acl.c b/fs/posix_acl.c index
-> b4bfe4ddf64ea..3dc62c1c27087 100644 --- a/fs/posix_acl.c +++
-> b/fs/posix_acl.c @@ -93,6 +93,13 @@ static void
-> __forget_cached_acl(struct posix_acl **p)
->  {
->  	struct posix_acl *old;
->=20=20
-> + /* + * ACL_DONT_CACHE is expected to be a "const" value and xchg it
-> with + * ACL_NOT_CACHED would enable acl caching for the inode - + *
-> clearly not what the caller has intended.  + */ + if (READ_ONCE(*p) =3D=3D
-> ACL_DONT_CACHE) + return;
->  	old =3D xchg(p, ACL_NOT_CACHED); if (!is_uncached_acl(old))
->  		posix_acl_release(old);
+On Wed, Jul 15, 2026 at 04:24:59PM +0100, Will Deacon wrote:
+> Hi Lorenzo,
+> 
+> I'm certainly no x86 expert (quite the opposite!), but I was looking at
+> this with Adrian and got myself confused. See below.
+> 
+> On Tue, Jul 14, 2026 at 06:24:24PM +0100, Lorenzo Stoakes wrote:
+> > x86 implements page attribute modification using its Change Page
+> > Attributes (CPA) mechanism.
+> > 
+> > This tracks properties of ranges such as cache mode through x86 page
+> > attributes, and as part of that logic manipulates kernel page tables.
+> > 
+> > Since commit 41d88484c71c ("x86/mm/pat: restore large ROX pages after
+> > fragmentation") ranges of kernel page table entries can be collapsed into
+> > huge page table entries as part of this logic.
+> > 
+> > As part of this collapse, it frees the page tables which the collapsed
+> > entries previously pointed to, and it does so without any relevant locks
+> > being held to preclude concurrent kernel page table walkers.
+> > 
+> > The only way this code can be reached is if CPA_COLLAPSE is specified, and
+> > this is only set in set_memory_rox() via:
+> > 
+> > set_memory_rox()
+> > -> change_page_attr_set_clr()
+> > -> cpa_flush()
+> > -> cpa_collapse_large_pages()
+> > 
+> > Notable users of this are execmem and bpf when manipulating executable
+> > mappings.
+> > 
+> > However, this is problematic for ptdump as it walks ranges it does not own
+> > and thus runs the risk of a use-after-free on page tables freed underneath
+> > it.
+> > 
+> > Resolve the issue by acquiring the mmap read lock on init_mm which prevents
+> > a concurrent ptdump as it acquires the write lock.
+> > 
+> > It is safe to acquire a sleeping lock as all the callers invoke
+> > set_memory_rox() from process context and in any case,
+> > change_page_attr_set_clr() calls vm_unmap_alias() which ultimately takes a
+> > mutex, disallowing atomic context here.
+> > 
+> > Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
+> > Cc: stable@vger.kernel.org
+> > Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> > ---
+> >  arch/x86/mm/pat/set_memory.c | 14 +++++++++++---
+> >  1 file changed, 11 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+> > index d023a40a1e03..4c4b8244502f 100644
+> > --- a/arch/x86/mm/pat/set_memory.c
+> > +++ b/arch/x86/mm/pat/set_memory.c
+> > @@ -22,6 +22,7 @@
+> >  #include <linux/cc_platform.h>
+> >  #include <linux/set_memory.h>
+> >  #include <linux/memregion.h>
+> > +#include <linux/cleanup.h>
+> >  
+> >  #include <asm/e820/api.h>
+> >  #include <asm/processor.h>
+> > @@ -436,9 +437,16 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
+> >  
+> >  	flush_tlb_all();
+> >  
+> > -	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+> > -		list_del(&ptdesc->pt_list);
+> > -		pagetable_free(ptdesc);
+> > +	/*
+> > +	 * ptdump might read these page tables, so avoid a use-after-free by
+> > +	 * acquiring the mmap read lock on init_mm (ptdump acquires the mmap
+> > +	 * write lock).
+> > +	 */
+> > +	scoped_guard(mmap_read_lock, &init_mm) {
+> > +		list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+> > +			list_del(&ptdesc->pt_list);
+> > +			pagetable_free(ptdesc);
+> > +		}
+> 
+> As I understand it, the argument for taking the read lock is that we're
+> operating on a region that we "wholly own" and therefore we can happily
+> run concurrently with CPUs walking distinct parts of the page-table.
+> However, from what I can tell, the CPA collapse logic will operate on
+> regions outside of the address range being manipulated by its caller
+> because it rounds up to the PMD size.
+> 
+> As a made-up example, imagine I have a 2MiB aligned region where the
+> first 1MiB is read-only and the second 1MiB is in the default r/w state.
+> If one CPU calls set_memory_rw() on the first 1MiB while another CPU is
+> walking the second 1MiB (via some other API that doesn't take cpa_lock),
+> it looks to me like the first CPU can collapse the page-table and free
+> the unused pages under the feet of the other CPU. What prevents that
+> from happening?
 
-Nice catch!  FWIW feel free to add my
+Nothing, and there's a patch to fix that that synchronizes
+cpa_collapse_large_pages() using cpa_lock:
 
-Reviewed-by: Luis Henriques <luis@igalia.com>
+https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org
 
-Cheers,
---=20
-Lu=C3=ADs
+This still won't be enough to sync with ptdump though.
+ 
+> If all concurrent walkers have interrupts disabled, I guess the TLB
+> invalidation logic would do it, but it would be good to call this out in
+> the commit message because it's not clear to me why the read_lock is
+> sufficient for the collapsing case.
+> 
+> Cheers,
+> 
+> Will
+
+-- 
+Sincerely yours,
+Mike.
