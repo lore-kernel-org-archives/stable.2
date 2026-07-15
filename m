@@ -1,328 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011059.outbound.protection.outlook.com [40.93.194.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1123A2EEE9C;
-	Wed, 15 Jul 2026 13:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784123226; cv=none; b=kflW3jryHynAUM9QGahP5PZCh7lBu9fB0IqUblsini0viHCpXmW4bFq9iWbq2TwQFvyIWMmHxZ5/zmtp9LGY1IyQDQ/WaR7e2HSX4vAgGP1i7IFAUX6sR72dth0M1PEipIW6j3NJQWxFGA+6GUeF23Ed6lVelfZ7DQ73YaZc5Jg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784123226; c=relaxed/simple;
-	bh=utAqGF14IqKAmxjlrml7biHbjSk3cLLaKYMyaFWHUyQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l6DDSM6MImKKmvQEPtj6KP02Ak2vBvMxp3o/Kbg08MJrn14qklzHDqiOxl8JzzwmheIDpTLQxmPqDl6ejee4yW5rCBu+EIRnxzOkd3iFQxeaYEAhl9d+NhmohqmqloblmU9ZhKTns0GtbMZUU0vUGozAlT/NH1DoY4I4bgNbzag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i7A+mev9; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DDE2AE8D
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 13:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784123326; cv=fail; b=kkMsPgoSZZa1RTXcqdLblhcwgUOftPVLH3bfe/S6RkuTwC5iFna1oIsPOmMclC67lF45NYF8ZswvtEN1Oayi/NiMgfUN8cOGWkjccAO1bbmvZwbIiGgBSLn2Iu1mI2guTjqAtOC4vN5vq7/FRCOTnjHxeFJBtHCuLXKqTZ4qGXo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784123326; c=relaxed/simple;
+	bh=PQ2jrB866ns886snYA0gx9l9IAQFaC5sWohOXAP4Hgw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=H06YeFCxMTVaqbYZ85+iscqgn6VLzlPVN7ZTaPzMrD7DTGKIiQhWxqh3tFl0+yhPVhqcnrWAfrt1iyza5+aZQNG0gl0OCjPYoDSyAhc5rtCx0/rb7K3H5mNHWAiNrYNayZDH+h/2/WjEuHcqV0jriLaBmXtFpgwdhRwvW/ZXbOY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=eNIXQOiy; arc=fail smtp.client-ip=40.93.194.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i7A+mev9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82731F00A3A;
-	Wed, 15 Jul 2026 13:47:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784123224;
-	bh=aP96cxQwNvwA5luy8u1o+ZF1ybuDilkkCbV3IS4N/IM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=i7A+mev99IMS5NhE6uoqCpYFn8cTH9RCK3VXAifzAqJko4VXnsfJJ2QyNF/9FbLmg
-	 bfYcMMLi8C/1x5jYcmfAIVmT/xR+MdEBlZdY/UvFqW2FnveSNimZEiwQsW5jSB2QXD
-	 443E3IRIBWtO3tp89gm5EIGg3ewoscj0YmL3760CBlsvewBg+HxCZ126RCKGGePX1z
-	 clxKAGTwC/O8HXnLUgJfbK3Q6WEGrcKw95n8SzjNdhjQNsHXfDJgDQydx+Mt8Q/jas
-	 BQmayOGJMQCo0JDWjHOvKENRGXmyALfcFtCC5C8/afg3/o6MhIj18J99RgWb+vbjk1
-	 ooTQo2V8YBGVA==
-Message-ID: <f5700c45-9eab-47e1-946c-47d9a531bfeb@kernel.org>
-Date: Wed, 15 Jul 2026 15:47:00 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="eNIXQOiy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dOnzqGqrzTxrgO/8puH/20gs8porjVqoyQVjuYnzphehaPavYLWdEW/h26zTAitM8U7n1lTRuaMl4usaryqI7nlKnS82BK5tCtEpgDKIL+dzCQFyQOGLCHo+UNab2RJ2/FypBfQk3Dlhe3xjrR+TCQMQI1R1hnFB5YiJC7Cc1OY0orrvesAwOMvBeL+j+5aVOjw/E0wQO7SDZOazI/IlLgfBS36LTPrTGwT4i+vp3f+/+/8JilOZdhV3J9XyJilpR/WmD9KoxdicmDwgTd4wjK1P3J4QIcs2CRT1Ng6YP6CqfeTFupfquvdwNhv3iGka+71UtXMEpPnmeQs74YTKvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kbj5RkskGRsMrW0/VRu7P2GNTLBMDhfX1r6koRhU9C8=;
+ b=GV1uQuECGSHxzcLgdmuA14AicevahpWCczPS098c5qcERjRoplMDIod89LMl58JMuHCHbiwj/RZ1e0TNipluJHGzFfnxgdbzXc97fKHK5nse0LmB/WO/MxrRIJpzDW9sBGNCv13vC5MMItf7naFpS2ElI+u97dmoQMXrmjhG2hq24inP/Nb6/uEW2uVt5Yh3six3BJt2jM83IQvyblQFGNh81ZMHNDhAuxGlZrQnZwM3yv+P0BGuNbaGR77PROz9Dum6hR7aE8T+cIEazI3UmZntpJ2DElZBbNP77Nn1C09OyXBo2ijQl87BfP4VzbfSyjnSE5JjlnxuAUjQyW+5Yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kbj5RkskGRsMrW0/VRu7P2GNTLBMDhfX1r6koRhU9C8=;
+ b=eNIXQOiyQf43Lm5DT/qSuKiRl3kEoCiF4mY8Ci0J8BfJBtV2qNUUQVfiJ1+EQBQgQuLiWFvSmWylJVAuActJhibsHykEa5sikKNXE1x4glL4EdY+GPOuxF+IUaZYzWbYexCRJWYuje1mrdYpMsiMBN7lrBJ/aqEYrogXCjtYZ1E=
+Received: from SJ2P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5da::10)
+ by MN2PR12MB4359.namprd12.prod.outlook.com (2603:10b6:208:265::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Wed, 15 Jul
+ 2026 13:48:38 +0000
+Received: from SJ5PEPF000001F0.namprd05.prod.outlook.com
+ (2603:10b6:a03:5da:cafe::5c) by SJ2P220CA0002.outlook.office365.com
+ (2603:10b6:a03:5da::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.12 via Frontend Transport; Wed,
+ 15 Jul 2026 13:48:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001F0.mail.protection.outlook.com (10.167.242.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:48:37 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
+ 2026 08:48:36 -0500
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 15 Jul 2026 08:48:33 -0500
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+	Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+	<Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+	<alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
+	<Chen-Yu.Chen@amd.com>, WenTao Liang <vulab@iscas.ac.cn>,
+	<stable@vger.kernel.org>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 59/70] drm/amd/display: set new_stream to NULL after release
+Date: Wed, 15 Jul 2026 21:38:09 +0800
+Message-ID: <20260715134432.1975118-60-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260715134432.1975118-1-Wayne.Lin@amd.com>
+References: <20260715134432.1975118-1-Wayne.Lin@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for
- PMD holes
-To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org
-Cc: usama.anjum@collabora.com, peterx@redhat.com, liam@infradead.org,
- ljs@kernel.org, vbabka@kernel.org, jannh@google.com, pfalcato@suse.de,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, shuah@kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- stable@vger.kernel.org, kernel-team@meta.com
-References: <20260713091710.206548-1-kirill@shutemov.name>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260713091710.206548-1-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F0:EE_|MN2PR12MB4359:EE_
+X-MS-Office365-Filtering-Correlation-Id: d22929b7-8641-437e-2a87-08dee277c5bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|22082099003|18002099003|6133799003|56012099006|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	ME5uZ62HVSSET4yed5oPRK81HfFhqhTkoZtc3v6PMuAKPqjpCqydchQI08UzHImtFOG8Gf9Bj2ZZm+8zOlxFWzk20T+ghnUDzPNxaW/CsI4qoNLux5+U3i/8pMB4ca2huskMCRAMnnX7cohdFAG583NKY5KK8zyfoeJAgHTzwzTQamGiGW7UMWqwIwPFbYp0miaXky1/nb4wz79bCCoaq1MH2HY3RpczTp2glkrXR2Dj3efk5f1VWpjbvneDIr9dLysecWK22AN8ueKWo1mqWL3bREqAthbuXl06H6FruiUAo2JjYOscFg08Ebrd1cW0FCLs5qA8I7bWV1DvV3ZLAka7df1r8/hJ4DMCiNfAp3tfEp2fzAtb3aQVtdQvPP5fR4jLL7kO4rEAykq0xWdCad0YhMx6V9ybIxMo53ohe6X7CYG8C0nMTQbRa5gELbJb8VoTJ560PvWZuel1gunGx91DNZoAueGClZzc7LzE5/SCwNyUJfhzCptVgRMQWXeiRT3cgPnbmRgbZlDHKvoV87tV3uXw6YEINOXAhyiTZbdgy41JKM4ghRYaSkf3nesXAoIJ9uCkw//gaeRoZYhhZ4NFKPVVy4hFGZQ6lUVmRVs9fUDINkh/oxJWf8zkDK9ASZlSRQO4t3o10VyfDh3K1NTQjYzf4NP0k3b09mFKTGcCVhfhfDVco8QTdsq0Fz1ncql/IjYvjKB2CFgnOxL1SA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(22082099003)(18002099003)(6133799003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	xWafth9erGJZUH9mHph+W0NPE+1ZL78VYU9fymWgqIibkYX5u19bTrYlSH+hEMsAiKSFAePIoSXPnUCokMy1iMn5ME4wHPirtKg8XE6VzwH0osRUzGjY1/+54HChSWzq48ndJUtSOEFIGD4VMZT5VzBM5DEPgzY6ifGIpZxxwVEbpIJEhiEF4VSVyZPLwN9EVEURZS/8GrFroea+b9+cAZd6jOsO9Sx6NUalymw3R3FIwFII9hFWw4rqhM9B6m+ZV/yI92cexOYJvbeKiiOMM+PAXWNOhxr8KMAuPQLXCMIbN+yDLQPcJzQfJy/17kIdfOVHFJ4hW1OIhHNG9LBuW+Rzzi+EiF2QoJVgr7qGqLSxXLj20QCxDWcmX1cvzJxSkWXKaJ/wEyK5JXzIY89n6CFMmIcKkKl9jpTbuEVorpHdwNH+syLwe88Uznc5FYlG
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:48:37.9088
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d22929b7-8641-437e-2a87-08dee277c5bf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001F0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4359
 
-On 7/13/26 11:17, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
+From: WenTao Liang <vulab@iscas.ac.cn>
 
-Reading this, some of the details how this fits together are missing. You
-capture some of that in the comment.
+In dm_update_crtc_state(), the skip_modeset path releases new_stream
+via dc_stream_release() but does not set the pointer to NULL.
 
-> PAGEMAP_SCAN reports an unpopulated PTE in a uffd-wp VMA as written, but
-> a range with no page table at all -- a PMD hole -- is skipped:
-> pagemap_scan_pte_hole() tests p->cur_vma_category, which never carries
-> PAGE_IS_WRITTEN, so the hole is neither reported nor (under
-> PM_SCAN_WP_MATCHING) armed.
+If a later error (e.g., color management failure) triggers the fail
+label, the error path calls dc_stream_release() again on the same
+dangling pointer, causing a double release and potential use-after-free.
 
-Okay, the reason is that UFFD_FEATURE_WP_UNPOPULATED will make use of uffd
-markers when protecting a range.
+Fix this by setting new_stream to NULL after the initial release.
 
-Seeing that marker gone translates to "MADV_DONTNEED was used". At least on
-anonymous memory, looking at zap_install_uffd_wp_if_needed().
+Fixes: 9b690ef3c7042 ("drm/amd/display: Avoid full modeset when not required")
+Cc: stable@vger.kernel.org
+Reviewed-by: George Zhang <george.zhang@amd.com>
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> 
-> MADV_DONTNEED has fill-with-zeros semantics: it changes the contents of
-> the range to zeroes (a subsequent read maps the zero page), which write
-
-Only in MAP_PRIVATE | MAP_ANON mappings.
-
-For e.g., MAP_PRIVATE file/shmem it will fallback to the original pagecache page
-and there are no such guarantees.
-
-> tracking must report as written. An anonymous THP is write-protected in
-> place as a huge PMD, so a full-PMD MADV_DONTNEED clears it to pmd_none --
-> a hole -- and the zeroing goes unreported. A write-tracking
-> checkpoint/migration tool (e.g. CRIU) then treats the range as unchanged
-> and keeps its previous contents, so after restore or live migration the
-> process reads stale data instead of zeroes -- data corruption.
-
-With UFFD_FEATURE_WP_UNPOPULATED, uffd-write-protecting a range without a PMD
-table will end up allocating a page table (pgtable_populate_needed) that will be
-filled with uffd-wp markers.
-
-So what needs to happen is getting a THP collapsed there, to then zap the THP.
-
-Or, of course, zapping a THP that was uffd-wp'ed. (which is what your test case
-does IIUC)
-
-> 
-> Report a hole in a non-hugetlb uffd-wp VMA as written, matching the
-> pte_none handling in pagemap_page_category(); the existing
-> PM_SCAN_WP_MATCHING path then arms it via uffd_wp_range().
-
-About which memory backing are walking about? Anon? Shmem? Something else?
-
-> 
-> hugetlb is excluded: pagemap_hugetlb_category() reports an empty hugetlb
-> entry (huge_pte_none) as not-written, unlike pagemap_page_category(),
-> which reports pte_none as written. pagemap_scan_pte_hole() fires for a
-> hugetlb slot only when it has no page table; keeping that not-written
-> matches how an allocated-but-empty hugetlb entry reads, so the hole and
-> the empty-entry cases agree within the VMA.
-> 
-> Add a pagemap_ioctl selftest covering the anon-THP PMD-hole case.
-> 
-
-
-Do we really want to backport a test case? Usually we split them from the actual
-fix.
-
-> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260707151349.92143-1-kirill@shutemov.name
-> Fixes: 2bad466cc9d9 ("mm/uffd: UFFD_FEATURE_WP_UNPOPULATED")
-> Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-> Cc: Peter Xu <peterx@redhat.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-> Assisted-by: Claude:claude-fable-5
-> ---
-> 
-> Changes since v3 [1]:
->   - Include <linux/mman.h> for MADV_COLLAPSE; <sys/mman.h> lacks it on
->     older glibc (e.g. 2.34), breaking the selftest build. Same approach
->     as fd5295afae91 ("selftests/mm: hmm-tests: include linux/mman.h to
->     access MADV_COLLAPSE"). Reported by Zenghui Yu.
-> 
-> [1] https://lore.kernel.org/all/20260709121629.205562-1-kirill@shutemov.name/
->  fs/proc/task_mmu.c                         | 27 +++++++++-
->  tools/testing/selftests/mm/pagemap_ioctl.c | 57 +++++++++++++++++++++-
->  2 files changed, 81 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index d45c729ab6bb..03ead4184546 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -3049,12 +3049,35 @@ static int pagemap_scan_pte_hole(unsigned long addr, unsigned long end,
->  {
->  	struct pagemap_scan_private *p = walk->private;
->  	struct vm_area_struct *vma = walk->vma;
-> +	unsigned long categories;
->  	int ret, err;
->  
-> -	if (!vma || !pagemap_scan_is_interesting_page(p->cur_vma_category, p))
-> +	if (!vma)
->  		return 0;
->  
-> -	ret = pagemap_scan_output(p->cur_vma_category, p, addr, &end);
-> +	/*
-> +	 * An unpopulated range with no page table -- e.g. a 2MB anon THP
-> +	 * dropped via MADV_DONTNEED, which pagemap_page_category() never sees
-> +	 * -- reads as written on a uffd-wp VMA, matching the pte_none case
-> +	 * there. Reporting it also lets the PM_SCAN_WP_MATCHING arming below
-> +	 * install markers (uffd_wp_range() allocates the page table under
-> +	 * WP_UNPOPULATED), so the next scan sees it clean until re-written.
-> +	 *
-> +	 * hugetlb is excluded: pagemap_hugetlb_category() reports an empty
-> +	 * hugetlb entry (huge_pte_none) as not-written, unlike
-> +	 * pagemap_page_category(), which reports pte_none as written. This
-> +	 * path fires for a hugetlb slot only when it has no page table;
-> +	 * keeping that not-written matches how an allocated-but-empty
-> +	 * hugetlb entry reads, so the two agree within the VMA.
-
-Can that all be shortened?
-
-"In a uffd-wp VMA, any unpopulated range is treated as written, as uffd-wp
-registration populates page tables and installs markers with WP_UNPOPULATED. See
-pte_none() handling in pagemap_page_category().
-
-hugetlb handling differs, see pagemap_hugetlb_category().
-"
-
-> +	 */
-> +	categories = p->cur_vma_category;
-> +	if (userfaultfd_wp(vma) && !is_vm_hugetlb_page(vma))
-> +		categories |= PAGE_IS_WRITTEN;
-
-
-[...]
-
-> +/*
-> + * A 2MB anon THP dropped with MADV_DONTNEED leaves a pmd_none hole with no
-> + * page table, which pagemap_page_category() never sees. PAGEMAP_SCAN must
-> + * still report it as written on a uffd-wp VMA, via pagemap_scan_pte_hole().
-> + */
-> +static void unpopulated_thp_hole_test(void)
-> +{
-> +	long npages, written = 0, ret, i;
-> +	struct page_region regions[16];
-> +	char *area, *mem;
-> +
-> +	if (!hpage_size) {
-> +		ksft_test_result_skip("%s THP not supported\n", __func__);
-> +		return;
-> +	}
-> +	npages = hpage_size / page_size;
-> +
-> +	/* Get a PMD-aligned range so the range can be a single THP. */
-> +	area = mmap(NULL, 2 * hpage_size, PROT_READ | PROT_WRITE,
-> +		    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-> +	if (area == MAP_FAILED)
-> +		ksft_exit_fail_msg("%s mmap failed\n", __func__);
-
-Why exit the test? unpopulated_scan_test() seems to do that, but that is also
-rather suboptimal. We can easily recover and continue executing tests.
-
-
-> +	mem = (char *)(((unsigned long)area + hpage_size - 1) & ~(hpage_size - 1));
-> +
-> +	memset(mem, 1, hpage_size);
-> +	if (madvise(mem, hpage_size, MADV_COLLAPSE) ||
-> +	    !check_huge_anon(mem, 1, hpage_size)) {
-> +		ksft_test_result_skip("%s could not form a THP\n", __func__);
-> +		munmap(area, 2 * hpage_size);
-> +		return;
-> +	}
-> +
-> +	wp_init(mem, hpage_size);
-> +
-> +	/* Drop the whole PMD: it is cleared to a pmd_none hole. */
-> +	if (madvise(mem, hpage_size, MADV_DONTNEED))
-> +		ksft_exit_fail_msg("%s MADV_DONTNEED failed\n", __func__);
-> +
-> +	ret = pagemap_ioctl(mem, hpage_size, regions, 16, 0, 0,
-> +			    PAGE_IS_WRITTEN, 0, 0, PAGE_IS_WRITTEN);
-> +	if (ret < 0)
-> +		ksft_exit_fail_msg("%s scan failed\n", __func__);
-> +	for (i = 0; i < ret; i++)
-> +		written += LEN(regions[i]);
-> +
-> +	ksft_test_result(written == npages,
-> +			 "%s pmd-hole reported written (%ld of %ld)\n",
-> +			 __func__, written, npages);
-> +
-> +	wp_free(mem, hpage_size);
-> +	munmap(area, 2 * hpage_size);
-
-There is quite some overlap with unpopulated_scan_test. Primarily the THP
-allocation differs.
-
-Couldn't we make the sequence similar by
-
-(1) mmap
-(2) wp_init(mem, mem_size); -> Populates page table
-(3) memset(mem, 1, hpage_size); -> Allocates all entries
-(4) MADV_COLLAPSE -> Get a THP
-(5) MADV_DONTNEED -> Drop the THP
-
-So couldn't we reuse most of unpopulated_scan_test in a reworked way?
-
-> +}
-> +
->  int sanity_tests(void)
->  {
->  	unsigned long long mem_size, vec_size;
-> @@ -1610,7 +1664,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
->  	if (!hugetlb_setup_default(4))
->  		ksft_print_msg("HugeTLB test will be skipped\n");
->  
-> -	ksft_set_plan(118);
-> +	ksft_set_plan(119);
->  
->  	page_size = getpagesize();
->  	hpage_size = read_pmd_pagesize();
-> @@ -1790,6 +1844,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
->  
->  	/* 18. Unpopulated pte scan-path consistency */
->  	unpopulated_scan_test();
-> +	unpopulated_thp_hole_test();
-
-Any reason this is not a unpopulated_thp_scan_test ?
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 9a3f78c17a5a..5a9afc0607b2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6063,6 +6063,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	/* Release extra reference */
+ 	if (new_stream)
+ 		dc_stream_release(new_stream);
++	new_stream = NULL;
+ 
+ 	/*
+ 	 * We want to do dc stream updates that do not require a
 -- 
-Cheers,
+2.43.0
 
-David
