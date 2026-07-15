@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40A33B19A6
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 20:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B45C3B27DE
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 20:16:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784146574; cv=none; b=QBejjbH7QHSjFRjRZm4KF3muJJ+/qU9uBEOa4Y62exUAfm+FjR7/dhV188FGou4rtHMdgiJi7f9VlCSqOVkA4O7hw8RCs795XVvSHdCxE1iud9NTnRMg7dq4PHw9EpY/CnomTEOD5JbIehOJMNi4X1uMdmapIX1pO/grOInCx3k=
+	t=1784146574; cv=none; b=NLmg7ZHN9aX5o+hcXFRWJetvH0thQ4qbQcfk6ej96GOE6TSRFJurYC1HSKoHqaEeimSBzfvFe0tVNJrb1VtwHLTiZ2ywfhLuV851HIBfYJYuG5V4CNQ4wXQP9bf7/FKiyDWOSKXMDT7O6V3dfVniAz9GgXTllMg6tPRZZguFdm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784146574; c=relaxed/simple;
-	bh=mefjOLlEJ+ENJv9+suLHOxY/AM1fbUVV7qe4xvEyV2k=;
+	bh=n+bMFVao45ucm9k9YTJMvbciupuar8u/LUExW4gdqVc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nanj2dyz4OM/5nP7/UnoQXOEKBEoEg9l7NQsBkCcf9QrrN7mkJW8EYy8v6P93fLY7yIm1YTlfwRqrlGZN2W+ECmINWx9HBtNHL5ErQyfaCUwI8Tux3bgNjubBSpq3lnZwCUq/642FOkGOpjb3f9akhiD4EQMe5o8gG/b2WebpLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KZ6xtpzV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cLQNmEjNtukmlKta0LFZB92mnm09XLX4/C+jAQaoJ+MIN7DkkNJ27p3Qobcr2b0WSGszc9WDf6fJu0/DiDUJIuS1kBA53dC5vsURjC8owSgKJiKxKBVxe43Gmk5eqcHF0IcScxgbjcOBEDZqQsg5crP+nTMKwHOlXMBgOjpoQYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLAfCvqG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KZ6xtpzV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C54491F000E9;
-	Wed, 15 Jul 2026 20:16:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLAfCvqG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14A21F00A3A;
+	Wed, 15 Jul 2026 20:16:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784146572;
-	bh=VwtJCiQcltw5/pjznHvcIHUFyFWtiHNK8saIcfRrkFo=;
+	s=k20260515; t=1784146573;
+	bh=bwWYM8Bb+eutvxWySUHbUUZs+6OnH2/F2xUsMfxKhRM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KZ6xtpzVv+aWBrAwUHZFR+WbMEMVi6VkLL7Py9NmTaeYiojJQfSHTWoolihrwWtoa
-	 kpi98GF8vzY0awJPSWkyCctdqJNoz8QQ2TVnooUED0LjOW1lk+GJZ7HpS7k5wIlS/4
-	 YpviqDLud8+kiiGAs2FJnHu6txCymrnq2/j2iErJ/uP0E+PLOpMAVqhXB8ev4QujPN
-	 Eb1n7ofGR0HCdhrlcxVTs8K/B0gYb6WMs8k6DzngURattFshyQQYyID3tVVptS4XPj
-	 7YkJvAoGdqOcooSKSdADCaOaUFQIt9YcLyTsypHpvK2zO3hRK2eCrzQL9JxDRHyeTM
-	 4tN+gbmNaohpA==
+	b=ZLAfCvqGNOGzzB/5VrpXeCr3zmiEHa7DqF+6fOd5P0RyGBP4atDzzYgGHwZfJgV1y
+	 p/+gnlU71cbZXYyzdqDZHO7od8525M4uo5I9NyWEVeCRb4fzHRj8y4k0V/XgZHw8NS
+	 8AXZkhLKW9JJ7LNg7Bg2iK8Kq97U5wJcDlmIkmIbuT/EFXi6PpUOgR+c9KCXrlUhB3
+	 ANoNKmNd7KXs3baWbpZ0GjpOzRYqfE4fZ66XfDRTFC6d4uuMyncMyEmw/P+ckpYTGT
+	 RNRdH2YpxM3YQFYVE4+r12w5Hy8iNUndBuy/r+thCmE3oowXm0cx6UCECIom0/Ebc0
+	 KoG1MrNaP+a0g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Qianfeng Rong <rongqianfeng@vivo.com>,
-	Florian Westphal <fw@strlen.de>,
+Cc: Florian Westphal <fw@strlen.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] netfilter: ebtables: Use vmalloc_array() to improve code
-Date: Wed, 15 Jul 2026 16:16:09 -0400
-Message-ID: <20260715201610.64283-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] netfilter: ebtables: zero chainstack array
+Date: Wed, 15 Jul 2026 16:16:10 -0400
+Message-ID: <20260715201610.64283-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071334-dribble-bunny-03b1@gregkh>
+In-Reply-To: <20260715201610.64283-1-sashal@kernel.org>
 References: <2026071334-dribble-bunny-03b1@gregkh>
+ <20260715201610.64283-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,76 +45,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qianfeng Rong <rongqianfeng@vivo.com>
+From: Florian Westphal <fw@strlen.de>
 
-[ Upstream commit 46015e6b3ea75297b28d4806564f3f692cf11861 ]
+[ Upstream commit cbfe53599eebffd188938ab6774cc41794f6f9d5 ]
 
-Remove array_size() calls and replace vmalloc() with vmalloc_array() to
-simplify the code.  vmalloc_array() is also optimized better, uses fewer
-instructions, and handles overflow more concisely[1].
+sashiko reports:
+ looking at ebtables table
+ translation, could a sparse cpu_possible_mask lead to an uninitialized pointer
+ free?
 
-[1]: https://lore.kernel.org/lkml/abc66ec5-85a4-47e1-9759-2f60ab111971@vivo.com/
-Signed-off-by: Qianfeng Rong <rongqianfeng@vivo.com>
+ If cpu_possible_mask is sparse (for example, CPU 0 and CPU 2 are possible,
+ but CPU 1 is not), the allocation loop skips CPU 1. If vmalloc_node() fails at
+ CPU 2, the cleanup loop will blindly decrement and call vfree() on
+ newinfo->chainstack[1].
+
+Not a real-world bug, such allocation isn't expected to fail
+in the first place.
+
+Cc: stable@vger.kernel.org
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Signed-off-by: Florian Westphal <fw@strlen.de>
-Stable-dep-of: cbfe53599eeb ("netfilter: ebtables: zero chainstack array")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bridge/netfilter/ebtables.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ net/bridge/netfilter/ebtables.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/net/bridge/netfilter/ebtables.c b/net/bridge/netfilter/ebtables.c
-index 1bc7b5d8f76d7a..d8dda76ac14524 100644
+index d8dda76ac14524..7417d46af4b2b8 100644
 --- a/net/bridge/netfilter/ebtables.c
 +++ b/net/bridge/netfilter/ebtables.c
-@@ -920,8 +920,8 @@ static int translate_table(struct net *net, const char *name,
+@@ -920,8 +920,7 @@ static int translate_table(struct net *net, const char *name,
  		 * if an error occurs
  		 */
  		newinfo->chainstack =
--			vmalloc(array_size(nr_cpu_ids,
--					   sizeof(*(newinfo->chainstack))));
-+			vmalloc_array(nr_cpu_ids,
-+				      sizeof(*(newinfo->chainstack)));
+-			vmalloc_array(nr_cpu_ids,
+-				      sizeof(*(newinfo->chainstack)));
++			vcalloc(nr_cpu_ids, sizeof(*(newinfo->chainstack)));
  		if (!newinfo->chainstack)
  			return -ENOMEM;
  		for_each_possible_cpu(i) {
-@@ -938,7 +938,7 @@ static int translate_table(struct net *net, const char *name,
- 			}
- 		}
- 
--		cl_s = vmalloc(array_size(udc_cnt, sizeof(*cl_s)));
-+		cl_s = vmalloc_array(udc_cnt, sizeof(*cl_s));
- 		if (!cl_s)
- 			return -ENOMEM;
- 		i = 0; /* the i'th udc */
-@@ -1018,8 +1018,8 @@ static int do_replace_finish(struct net *net, struct ebt_replace *repl,
- 	 * the check on the size is done later, when we have the lock
- 	 */
- 	if (repl->num_counters) {
--		unsigned long size = repl->num_counters * sizeof(*counterstmp);
--		counterstmp = vmalloc(size);
-+		counterstmp = vmalloc_array(repl->num_counters,
-+					    sizeof(*counterstmp));
- 		if (!counterstmp)
- 			return -ENOMEM;
- 	}
-@@ -1386,7 +1386,7 @@ static int do_update_counters(struct net *net, const char *name,
- 	if (num_counters == 0)
- 		return -EINVAL;
- 
--	tmp = vmalloc(array_size(num_counters, sizeof(*tmp)));
-+	tmp = vmalloc_array(num_counters, sizeof(*tmp));
- 	if (!tmp)
- 		return -ENOMEM;
- 
-@@ -1526,7 +1526,7 @@ static int copy_counters_to_user(struct ebt_table *t,
- 	if (num_counters != nentries)
- 		return -EINVAL;
- 
--	counterstmp = vmalloc(array_size(nentries, sizeof(*counterstmp)));
-+	counterstmp = vmalloc_array(nentries, sizeof(*counterstmp));
- 	if (!counterstmp)
- 		return -ENOMEM;
- 
 -- 
 2.53.0
 
