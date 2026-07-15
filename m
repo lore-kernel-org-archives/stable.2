@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C96C417BC5
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:12:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D404435A8D
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:13:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784110374; cv=none; b=n2+Pa+itR3bGyF8C2VFu7yQaA1VS2bZl57LUtERtWjuznzOkkfMyqXG/xieuySmJ7uCydP1yLpX3QYt7EbK0Qmxe4LYz71cSL7qHYnkgTduqIVWkODZyKocs2IsaOH+Tvr6MxM3cXi2XOhTumWhM2+VQqtWnu+egmVpworhHtD8=
+	t=1784110397; cv=none; b=mnuPNxtnLv2YYUgylbMdKOOOUwGQlB/ww2vfr0Ux7L/bVvSPLcXAE0xeNqdJzKg5WxCh5e9LmmOvGpqnxCmdAhD7mFLkWcfZxYqObwjlDSZ12ZnVPIrHSCrZfTjQ9eiX8G8ZfVmI+bSGv4XnNNYTjPJRScTSh+DhG7uvZlZN2QA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784110374; c=relaxed/simple;
-	bh=HtVRDCCkqOEM/tmpwsrlzNe8ik14m99WWeqqS7YEix8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LyUj2R4vRUJVJaldTMZ2asJ/pzOO6xuxCDM1Q+Qe5jAdZRccDkDf5BZ1HnX/Qt+zHxCo9hadomP9+clyxDcx4LgYph/kezdo4pT+D9ZvWsyLcnSS32okrZ+Y4qVbEvPsKJ8FbIPepm+kUXpCzAb9qUTgSEmXBFhJu7GboQAEyAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oUK7TW/X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784110397; c=relaxed/simple;
+	bh=XQTfPYLdTykGtUF1laNLW/OTVir2NON6ag/W3pQ/5QI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gaHrnYp8QGc4VrJD8y1Cui4IIg0p8uAUcMAIVY5Nyiii8YAb9W8algScVef2XflYCYCc3i20CAnUX1H/UGTxDlYSjfKwNKZ7Jnqg6NrlVG5eiiha8x7GyPNkQWrx5PLZnTzaJ5TvnIZeOJm2O/gu+9SI8nND/ONNw949PRPANWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DKh0KmFJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oUK7TW/X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 280971F000E9;
-	Wed, 15 Jul 2026 10:12:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DKh0KmFJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D5D61F00A3A;
+	Wed, 15 Jul 2026 10:13:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784110372;
-	bh=kyTQZgpO9gZdkbINl7hkS20nklNCG5wStU354+yKozM=;
+	s=korg; t=1784110395;
+	bh=xO0DEbsUQ9fAZFNn7xXTopYogaSB+3fvjdo/HOpGQOU=;
 	h=Subject:To:Cc:From:Date;
-	b=oUK7TW/XQd8un0Fc+gv3Z5m57UhPWlCfcDq9MklLIkcqSnfhfa8lzr/7bymwNCdr/
-	 9vIcAdmqhB+AfSPT7QDYPMUdtd64R7B/pKHsQrWtPTX/m3XRibvfzz4kX0ON8ki0oe
-	 aP40zDGiAY3zax3wzTYC/HvvMmZrCs0Us/KS9y90=
-Subject: FAILED: patch "[PATCH] btrfs: do not trim a device which is not writeable" failed to apply to 5.10-stable tree
-To: wqu@suse.com,dsterba@suse.com,fdmanana@suse.com,glass.su@suse.com
+	b=DKh0KmFJyUZlbuQorn6WOpCXvNSSFbTArpQupKk0iKc78CY6k5sQkfP1fJFSEQ9R+
+	 NTxqPA3g4T30jIWDqpV6LOT1HRso9ZR9lBta5DspaRLZekGyuRb7aSJsZoLq7hQWIr
+	 1OMzU7HP8MTg3e6Bi9vymslOQ2QXjCZr+vu/d5Yo=
+Subject: FAILED: patch "[PATCH] btrfs: fix incorrect buffered IO fallback for append direct" failed to apply to 6.18-stable tree
+To: wqu@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 12:12:38 +0200
-Message-ID: <2026071538-darkened-frantic-7f72@gregkh>
+Date: Wed, 15 Jul 2026 12:13:09 +0200
+Message-ID: <2026071509-driveway-had-c0ca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1b1937eb08f51319bf71575484cde2b8c517aedc
+git cherry-pick -x ff66fe6662330226b3f486014c375538d91c44aa
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071538-darkened-frantic-7f72@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071509-driveway-had-c0ca@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,138 +62,195 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1b1937eb08f51319bf71575484cde2b8c517aedc Mon Sep 17 00:00:00 2001
+From ff66fe6662330226b3f486014c375538d91c44aa Mon Sep 17 00:00:00 2001
 From: Qu Wenruo <wqu@suse.com>
-Date: Tue, 2 Jun 2026 13:34:46 +0930
-Subject: [PATCH] btrfs: do not trim a device which is not writeable
+Date: Thu, 4 Jun 2026 09:59:47 +0930
+Subject: [PATCH] btrfs: fix incorrect buffered IO fallback for append direct
+ writes
 
 [BUG]
-There is a bug report that btrfs/242 can randomly fail with the
-following NULL pointer dereference:
+With the previous bug of short direct writes fixed, test case
+generic/362 (*) still fails with the following error with nodatasum
+mount option:
 
-  run fstests btrfs/242 at 2026-06-01 10:25:08
-  BTRFS: device fsid d4d7f234-487c-4787-88e4-47a8b68c9874 devid 1 transid 9 /dev/sdc (8:32) scanned by mount (122609)
-  BTRFS info (device sdc): first mount of filesystem d4d7f234-487c-4787-88e4-47a8b68c9874
-  BTRFS info (device sdc): using crc32c checksum algorithm
-  BTRFS warning (device sdc): devid 2 uuid fbe72d72-3272-482d-80fb-ab88ed398192 is missing
-  BTRFS warning (device sdc): devid 2 uuid fbe72d72-3272-482d-80fb-ab88ed398192 is missing
-  BTRFS info (device sdc): allowing degraded mounts
-  BTRFS info (device sdc): turning on async discard
-  BTRFS info (device sdc): enabling free space tree
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000018
-  user pgtable: 4k pages, 48-bit VAs, pgdp=000000013fd6b000
-  CPU: 4 UID: 0 PID: 122625 Comm: fstrim Not tainted 7.0.10-2-default #1 PREEMPT(full) openSUSE Tumbleweed e9a5f6b24978fba3bf015a992f865837fdfff3dd
-  Hardware name: QEMU KVM Virtual Machine, BIOS edk2-20250812-19.fc42 08/12/2025
-  pstate: 01400005 (nzcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
-  pc : btrfs_trim_fs+0x34c/0xa00 [btrfs]
-  lr : btrfs_trim_fs+0x1f0/0xa00 [btrfs]
-  Call trace:
-   btrfs_trim_fs+0x34c/0xa00 [btrfs f02c1d570ceea621c69d302ba75dd61868083840] (P)
-   btrfs_ioctl_fitrim+0xe8/0x178 [btrfs f02c1d570ceea621c69d302ba75dd61868083840]
-   btrfs_ioctl+0xdd4/0x2bd8 [btrfs f02c1d570ceea621c69d302ba75dd61868083840]
-   __arm64_sys_ioctl+0xac/0x108
-   invoke_syscall.constprop.0+0x5c/0xd0
-   el0_svc_common.constprop.0+0x40/0xf0
-   do_el0_svc+0x24/0x40
-   el0_svc+0x40/0x1d0
-   el0t_64_sync_handler+0xa0/0xe8
-   el0t_64_sync+0x1b0/0x1b8
-  Code: 17ffff83 f94017e0 f9002be0 f9402ea0 (f9400c00)
-  ---[ end trace 0000000000000000  ]---
+ generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
+ - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
+    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
+    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:13:09.072485767 +0930
+    @@ -1,2 +1,3 @@
+     QA output created by 362
+    +Wrong file size after first write, got 8192 expected 4096
+     Silence is golden
+    ...
 
-Also the reporter is very kind to test the following ASSERT() added to
-btrfs_trim_free_extents_throttle():
-
-	ASSERT(device->bdev,
-	       "devid=%llu path=%s dev_state=0x%lx\n",
-	       device->devid, btrfs_dev_name(device), device->dev_state);
-
-And it shows the following output:
-
-  assertion failed: device->bdev, in extent-tree.c:6630 (devid=2 path=/dev/sdd dev_state=0x82)
-
-Which means the device->bdev is NULL, and the dev_state is
-BTRFS_DEV_STATE_IN_FS_METADATA | BTRFS_DEV_STATE_ITEM_FOUND, without
-BTRFS_DEV_STATE_WRITEABLE flag set.
+*: If the test case has been executed before with default data checksum,
+the failure will not reproduce. Need the following fix to make it
+reliably reproducible:
+https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
 
 [CAUSE]
-The pc points to the following call chain:
+Inside btrfs_dio_iomap_begin() for a direct write, we increase the isize
+if it's beyond the current isize.
 
-  btrfs_trim_fs()
-  |- btrfs_trim_free_extents()
-     |- btrfs_trim_free_extents_throttle()
-        |- bdev_max_discard_sectors(device->bdev)
+But if the direct io finished short, we do not revert the isize to the
+previous value nor to the short write end.
 
-So the NULL pointer dereference is caused by device->bdev being NULL.
+Then if we need to fall back to buffered writes, and the write has
+IOCB_APPEND flag, then the buffered write will be positioned at the
+incorrect isize.
 
-This looks impossible by a quick glance, as just before calling
-btrfs_trim_free_extents_throttle(), we have skipped any device that has
-BTRFS_DEV_STATE_MISSING flag set.
+The call chain looks like this:
 
-However in this particular case, there is a window where the missing
-device is later re-scanned, causing btrfs to remove the
-BTRFS_DEV_STATE_MISSING flag:
-
-  btrfs_control_ioctl()
-  |- btrfs_scan_one_device()
-     |- device_list_add()
-        |- rcu_assign_pointer(device->name, name);
-        |  This updates the missing device's path to the new good path.
-        |
-        |- clear_bit(BTRFS_DEV_STATE_MISSING, &device->dev_state)
-           This removes the BTRFS_DEV_STATE_MISSING flag.
-
-This allows the missing device to re-appear and clear the
-BTRFS_DEV_STATE_MISSING flag.  However the device still does not have
-the BTRFS_DEV_STATE_WRITEABLE flag set, nor is its bdev pointer updated.
-
-The bdev pointer remains NULL, triggering the crash later.
+ btrfs_direct_write(pos=0, length=4K)
+ |- __iomap_dio_rw()
+ |  |- iomap_iter()
+ |  |  |- btrfs_dio_iomap_begin()
+ |  |     |- btrfs_get_blocks_direct_write()
+ |  |        |- i_size_write()
+ |  |           Which updates the isize to the write end (4K).
+ |  |
+ |  |- iomap_dio_iter()
+ |  |  Failed with -EFAULT on the first page.
+ |  |
+ |  |- iomap_iter()
+ |  |  |- btrfs_dio_iomap_end()
+ |  |     Detects a short write, return -ENOTBLK
+ |  |- if (ret == -ENOTBLK) { ret = 0;}
+ |     Which resets the return value.
+ |
+ |- ret = iomap_dio_complet()
+ |  Which returns 0.
+ |
+ |- btrfs_buffered_write(iocb, from);
+    |- generic_write_checks()
+       |- iocb->ki_pos = i_size_read()
+          Which is still the new size (4K), other than the original
+	  isize 0.
 
 [FIX]
-This is a big de-synchronization between BTRFS_DEV_STATE_MISSING and
-device->bdev pointer, and shows a gap in btrfs's re-appearing-device
-handling.
+Introduce the following btrfs_dio_data members:
 
-The proper handling of re-appearing device will need quite some extra
-work, which is out of the context of this small fix.
+- old_isize
 
-Thankfully the regular bbio submission path has already handled it well
-by checking if the device->bdev is NULL before submitting.
+- updated_isize
+  If the direct write has enlarged the isize.
 
-So here we just fix the crash by checking if the device is writeable and
-has a bdev pointer before calling bdev_max_discard_sectors().
+Then if we got a short write, and btrfs_dio_data::updated_isize is set,
+revert to the correct isize based on old_isize and current file
+position.
 
-Reported-by: Su Yue <glass.su@suse.com>
-Link: https://lore.kernel.org/linux-btrfs/wlwir19t.fsf@damenly.org/
-Fixes: 499f377f49f0 ("btrfs: iterate over unused chunk space in FITRIM")
-CC: stable@vger.kernel.org # 5.10+
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
+And here we call i_size_write() without holding an extent lock, which is
+a very special case that we're safe to do:
+
+ - Only a single writer can be enlarging isize
+   Enlarging isize will take the exclusive inode lock.
+
+ - Buffered readers need to wait for the OE we're holding
+   Buffered readers will lock extent and wait for OE of the folio range.
+   Sometimes we can skip the OE wait, but since all page cache is
+   invalidated, the OE wait can not be skipped.
+
+But I do not think this is the most elegant solution, nor covers all
+cases. E.g. if the bio is submitted but IO failed, we are unable to do
+the revert.
+
+I believe the more elegant one would be extend the EXTENT_DIO_LOCKED
+lifespan for direct writes, so that we can update the isize when a
+write beyond EOF finished successfully.
+
+However that change is too huge for a small bug fix.
+So only implement the minimal partial fix for now.
+
+[REASON FOR NO FIXES TAG]
+The bug is again very old, before commit f85781fb505e ("btrfs: switch to
+iomap for direct IO") we are already increasing isize without a
+proper rollback for short writes.
+
+Thus only a CC to stable.
+
+CC: stable@vger.kernel.org # 5.15+
+Reviewed-by: Boris Burkov <boris@bur.io>
 Signed-off-by: Qu Wenruo <wqu@suse.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
 
-diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
-index b20f5a887a53..624d76e0ca01 100644
---- a/fs/btrfs/extent-tree.c
-+++ b/fs/btrfs/extent-tree.c
-@@ -6624,12 +6624,16 @@ static int btrfs_trim_free_extents_throttle(struct btrfs_device *device,
+diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
+index 88cb2e82a507..412309825d6f 100644
+--- a/fs/btrfs/direct-io.c
++++ b/fs/btrfs/direct-io.c
+@@ -15,10 +15,12 @@
  
- 	*trimmed = 0;
+ struct btrfs_dio_data {
+ 	ssize_t submitted;
++	loff_t old_isize;
+ 	struct extent_changeset *data_reserved;
+ 	struct btrfs_ordered_extent *ordered;
+ 	bool data_space_reserved;
+ 	bool nocow_done;
++	bool updated_isize;
+ };
  
--	/* Discard not supported = nothing to do. */
--	if (!bdev_max_discard_sectors(device->bdev))
-+	/*
-+	 * The caller only filters out MISSING devices, but a device that was
-+	 * missing at mount and later rescanned has MISSING cleared while bdev
-+	 * is still NULL and WRITEABLE is still unset. Skip those here.
-+	 */
-+	if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state) || !device->bdev)
- 		return 0;
+ struct btrfs_dio_private {
+@@ -228,6 +230,7 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
+ 	bool space_reserved = false;
+ 	u64 len = *lenp;
+ 	u64 prev_len;
++	loff_t old_isize;
+ 	int ret = 0;
  
--	/* Not writable = nothing to do. */
--	if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state))
-+	/* Discard not supported = nothing to do. */
-+	if (!bdev_max_discard_sectors(device->bdev))
- 		return 0;
- 
- 	/* No free space = nothing to do. */
+ 	/*
+@@ -341,8 +344,14 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
+ 	 * Need to update the i_size under the extent lock so buffered
+ 	 * readers will get the updated i_size when we unlock.
+ 	 */
+-	if (start + len > i_size_read(inode))
++	old_isize = i_size_read(inode);
++	if (start + len > old_isize) {
++		if (!dio_data->updated_isize) {
++			dio_data->old_isize = old_isize;
++			dio_data->updated_isize = true;
++		}
+ 		i_size_write(inode, start + len);
++	}
+ out:
+ 	if (ret && space_reserved) {
+ 		btrfs_delalloc_release_extents(BTRFS_I(inode), len);
+@@ -625,6 +634,38 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
+ 		pos += submitted;
+ 		length -= submitted;
+ 		if (write) {
++			/*
++			 * Got a short write and have updated the isize, need to
++			 * revert the isize change.
++			 *
++			 * Normally we need to update isize with extent lock hold,
++			 * but we're safe due to the following factors:
++			 *
++			 * - Only a single writer can be enlarging isize
++			 *   Enlarging isize will take the exclusive inode lock.
++			 *
++			 * - Buffered readers need to wait for the OE we're holding
++			 *   Buffered readers will lock extent and wait for OE
++			 *   of the folio range, and since page cache is invalidated
++			 *   the OE wait can not be skipped.
++			 *
++			 * So here we are safe to revert the isize before
++			 * finishing the OE, and no reader of the remaining range
++			 * can see the enlarged size.
++			 *
++			 * TODO: Extend the DIO_LOCKED lifespan for direct writes,
++			 * and only enlarge isize after a successful write.
++			 */
++			if (dio_data->updated_isize) {
++				u64 new_isize;
++
++				if (submitted == 0)
++					new_isize = dio_data->old_isize;
++				else
++					new_isize = max(dio_data->old_isize, pos);
++				i_size_write(inode, new_isize);
++				dio_data->updated_isize = false;
++			}
+ 			/*
+ 			 * We have a short write, if there is any range
+ 			 * that is submitted properly, that part will have
 
