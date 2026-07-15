@@ -1,50 +1,32 @@
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6A938BF6A;
-	Wed, 15 Jul 2026 08:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327A742BC31;
+	Wed, 15 Jul 2026 08:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784104381; cv=none; b=DdOZsSC0LRGVhSJn9J1WULezogiCiy79EK2kyI0A+m0l5sOw5HpwsuzxsAkh3kDVV7zKgVEZxrYArgna6jS2NdxVYcD22Yn4VBQbfUFv9ApCMmTvBD+ShwEHMUhc0rktk1Ycrwm1SPWW9w4+6t/4lNs8nMJTc3cJFzvLs0Vc5Sk=
+	t=1784104790; cv=none; b=e1doMb9NkN9cxPfo+H03apvICxmPY9Gh7BoCSNZqVN7SV/3p9GUtCxYP7eCDubhdNSV3DEsN+R7UJKkcXGC08myzm3Bz8/5ItIODT97DOM/zficxhTTM876ntRBx0OycTUx8JMixpid+6Aqch55BhEnCvyeD8kl36V1xQRlghfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784104381; c=relaxed/simple;
-	bh=NtTqy9IIdmaODYdz283W4hYkGijeJ8iu21rtx7yC97g=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fIwfypa6BoKQUVFBQCJXQLejYUfIVahRzFxdJkaJD8Hgt53+vylQjP0cNpGWIEumnjpPS9k4NkQK0ug14kS7Ilw/1OjFWfhfqoM/D0gpkrFY3vtJaQqPBH5rb6QFb5YaY7Qgv8XTqSRBaA7XNUZW7NW7QH1OuvlInU1hCm8szHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=POHvkA16; arc=none smtp.client-ip=115.124.30.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="POHvkA16"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1784104369; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=ZS2xF3IWdReXQinPDmamEcncE7IOalmQXMqVE+vBxUw=;
-	b=POHvkA16oxoq28tNeyWj3Nz7R8tE4o6EAzubv2yYQ89+XjD5U+Q9cIfqcI9pg3K39XF0Z3bupC4pt3IqkFTD7irX35HNqw505nY5yqW59RLG3jZcXWPrZffPy9tupP4CTV809UYeHIF6W7nWqiUWzrDWfsXpXpUkOsTjBKEs7e4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=lulie@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0X78YbmC_1784104367;
-Received: from localhost(mailfrom:lulie@linux.alibaba.com fp:SMTPD_---0X78YbmC_1784104367 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 15 Jul 2026 16:32:48 +0800
-From: Philo Lu <lulie@linux.alibaba.com>
-To: stable@vger.kernel.org
-Cc: chenridong@huawei.com,
-	tj@kernel.org,
-	lulie@linux.alibaba.com,
-	lizefan.x@bytedance.com,
-	hannes@cmpxchg.org,
-	cgroups@vger.kernel.org,
+	s=arc-20240116; t=1784104790; c=relaxed/simple;
+	bh=E5EYzML7R643gT8cXq5HdAwgJAnViqY0BBoJjVXvreo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TFpKlWx/xt6JZTYC7Fbu7nN4MVnUPrJj1IKQQTIBE8n3cWP7M00bb4ndZno8u7f4GIOkQ0nPpjgFqvTnrQ6KoUVBY26WeavQa78HvED+wjpilIm5pKko0YHiEYXpGSCP9vbDmSWbLOvwCh62bs1NefsdAmDTl0RXU2mpA1GBBjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.245.140])
+	by APP-05 (Coremail) with SMTP id zQCowAB30NNRR1dqzF1HGA--.14562S2;
+	Wed, 15 Jul 2026 16:39:45 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	eadavis@qq.com,
-	chenridong@huaweicloud.com,
-	akpm@linux-foundation.org,
-	surenb@google.com,
-	dust.li@linux.alibaba.com
-Subject: [PATCH 6.12.y 2/2] sched/psi: fix race between file release and pressure write
-Date: Wed, 15 Jul 2026 16:32:45 +0800
-Message-Id: <20260715083245.32115-3-lulie@linux.alibaba.com>
-X-Mailer: git-send-email 2.32.0.3.g01195cf9f
-In-Reply-To: <20260715083245.32115-1-lulie@linux.alibaba.com>
-References: <20260715083245.32115-1-lulie@linux.alibaba.com>
+	Laura Abbott <labbott@fedoraproject.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: dvb-frontends: si2168: validate firmware record length
+Date: Wed, 15 Jul 2026 16:39:45 +0800
+Message-ID: <20260715083945.33781-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,183 +34,102 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB30NNRR1dqzF1HGA--.14562S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCF43WrWrAr1fKw48Gr17Jrb_yoW5Aw1fpF
+	Z8JF98tF4UWrW3Ca43Gay3Z3WfA393G34UGay7G3ZYgrnI9Fyrtayjg3yj9r1Ykr4Sy3yU
+	XrZ2qry8ZFy3JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjnmRU
+	UUUUU==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-From: Edward Adam Davis <eadavis@qq.com>
+The new Si2168 firmware format stores one command in each 17-byte record:
+the first byte is the command length and the remaining 16 bytes are the
+command data.
 
-commit a5b98009f16d8a5fb4a8ff9a193f5735515c38fa upstream.
+The existing check only compares the length with SI2168_ARGLEN, which
+protects the destination command array but not the current firmware record.
+A length from 17 through SI2168_ARGLEN makes cmd_init() copy from the next
+record, or past the firmware blob for the final record.  An empty firmware
+file also passes the modulo test before fw->data[0] is read.
 
-A potential race condition exists between pressure write and cgroup file
-release regarding the priv member of struct kernfs_open_file, which
-triggers the uaf reported in [1].
+Reject empty files and require each new-format command length to fit the
+16-byte payload of its record before copying it.
 
-Consider the following scenario involving execution on two separate CPUs:
-
-   CPU0					CPU1
-   ====					====
-					vfs_rmdir()
-					kernfs_iop_rmdir()
-					cgroup_rmdir()
-					cgroup_kn_lock_live()
-					cgroup_destroy_locked()
-					cgroup_addrm_files()
-					cgroup_rm_file()
-					kernfs_remove_by_name()
-					kernfs_remove_by_name_ns()
- vfs_write()				__kernfs_remove()
- new_sync_write()			kernfs_drain()
- kernfs_fop_write_iter()		kernfs_drain_open_files()
- cgroup_file_write()			kernfs_release_file()
- pressure_write()			cgroup_file_release()
- ctx = of->priv;
-					kfree(ctx);
- 					of->priv = NULL;
-					cgroup_kn_unlock()
- cgroup_kn_lock_live()
- cgroup_get(cgrp)
- cgroup_kn_unlock()
- if (ctx->psi.trigger)  // here, trigger uaf for ctx, that is of->priv
-
-The cgroup_rmdir() is protected by the cgroup_mutex, it also safeguards
-the memory deallocation of of->priv performed within cgroup_file_release().
-However, the operations involving of->priv executed within pressure_write()
-are not entirely covered by the protection of cgroup_mutex. Consequently,
-if the code in pressure_write(), specifically the section handling the
-ctx variable executes after cgroup_file_release() has completed, a uaf
-vulnerability involving of->priv is triggered.
-
-Therefore, the issue can be resolved by extending the scope of the
-cgroup_mutex lock within pressure_write() to encompass all code paths
-involving of->priv, thereby properly synchronizing the race condition
-occurring between cgroup_file_release() and pressure_write().
-
-And, if an live kn lock can be successfully acquired while executing
-the pressure write operation, it indicates that the cgroup deletion
-process has not yet reached its final stage; consequently, the priv
-pointer within open_file cannot be NULL. Therefore, the operation to
-retrieve the ctx value must be moved to a point *after* the live kn
-lock has been successfully acquired.
-
-In another situation, specifically after entering cgroup_kn_lock_live()
-but before acquiring cgroup_mutex, there exists a different class of
-race condition:
-
-CPU0: write memory.pressure               CPU1: write cgroup.pressure=0
-===========================		  =============================
-
-kernfs_fop_write_iter()
- kernfs_get_active_of(of)
- pressure_write()
-   cgroup_kn_lock_live(memory.pressure)
-     cgroup_tryget(cgrp)
-     kernfs_break_active_protection(kn)
-     ... blocks on cgroup_mutex
-
-                                     	  cgroup_pressure_write()
-                                     	  cgroup_kn_lock_live(cgroup.pressure)
-                                     	  cgroup_file_show(memory.pressure, false)
-                                     	    kernfs_show(false)
-                                     	      kernfs_drain_open_files()
-                                     	        cgroup_file_release(of)
-                                     	          kfree(ctx)
-                                     	            of->priv = NULL
-                                     	  cgroup_kn_unlock()
-
-   ... acquires cgroup_mutex
-   ctx = of->priv;        // may now be NULL
-   if (ctx->psi.trigger)  // NULL dereference
-
-Consequently, there is a possibility that of->priv is NULL, the pressure
-write needs to check for this.
-
-Now that the scope of the cgroup_mutex has been expanded, the original
-explicit cgroup_get/put operations are no longer necessary, this is
-because acquiring/releasing the live kn lock inherently executes a
-cgroup get/put operation.
-
-[1]
-BUG: KASAN: slab-use-after-free in pressure_write+0xa4/0x210 kernel/cgroup/cgroup.c:4011
-Call Trace:
- pressure_write+0xa4/0x210 kernel/cgroup/cgroup.c:4011
- cgroup_file_write+0x36f/0x790 kernel/cgroup/cgroup.c:4311
- kernfs_fop_write_iter+0x3b0/0x540 fs/kernfs/file.c:352
-
-Allocated by task 9352:
- cgroup_file_open+0x90/0x3a0 kernel/cgroup/cgroup.c:4256
- kernfs_fop_open+0x9eb/0xcb0 fs/kernfs/file.c:724
- do_dentry_open+0x83d/0x13e0 fs/open.c:949
-
-Freed by task 9353:
- cgroup_file_release+0xd6/0x100 kernel/cgroup/cgroup.c:4283
- kernfs_release_file fs/kernfs/file.c:764 [inline]
- kernfs_drain_open_files+0x392/0x720 fs/kernfs/file.c:834
- kernfs_drain+0x470/0x600 fs/kernfs/dir.c:525
-
-Fixes: 0e94682b73bf ("psi: introduce psi monitor")
-Reported-by: syzbot+33e571025d88efd1312c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=33e571025d88efd1312c
-Tested-by: syzbot+33e571025d88efd1312c@syzkaller.appspotmail.com
-Signed-off-by: Edward Adam Davis <eadavis@qq.com>
-Reviewed-by: Chen Ridong <chenridong@huaweicloud.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
+Fixes: 47810b4341ac ("[media] si2168: Bounds check firmware")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- kernel/cgroup/cgroup.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+Changes since v1:
+- Reject empty firmware blobs before reading the first record byte.
+- Name the old and new record sizes while retaining the current-record
+  payload bound.
 
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index 3ce02650f9484..693959a6b2f3e 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -3876,33 +3876,41 @@ static int cgroup_cpu_pressure_show(struct seq_file *seq, void *v)
- static ssize_t pressure_write(struct kernfs_open_file *of, char *buf,
- 			      size_t nbytes, enum psi_res res)
- {
--	struct cgroup_file_ctx *ctx = of->priv;
-+	struct cgroup_file_ctx *ctx;
- 	struct psi_trigger *new;
- 	struct cgroup *cgrp;
- 	struct psi_group *psi;
-+	ssize_t ret = 0;
+Link: https://lore.kernel.org/r/20260705084706.62129-1-pengpeng@iscas.ac.cn
+
+ drivers/media/dvb-frontends/si2168.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/dvb-frontends/si2168.c b/drivers/media/dvb-frontends/si2168.c
+index 8bc3b6eb1dd3..182c2b671508 100644
+--- a/drivers/media/dvb-frontends/si2168.c
++++ b/drivers/media/dvb-frontends/si2168.c
+@@ -11,6 +11,9 @@
  
- 	cgrp = cgroup_kn_lock_live(of->kn, false);
- 	if (!cgrp)
- 		return -ENODEV;
+ static const struct dvb_frontend_ops si2168_ops;
  
--	cgroup_get(cgrp);
--	cgroup_kn_unlock(of->kn);
-+	ctx = of->priv;
-+	if (!ctx) {
-+		ret = -ENODEV;
-+		goto out_unlock;
-+	}
- 
- 	/* Allow only one trigger per file descriptor */
- 	if (ctx->psi.trigger) {
--		cgroup_put(cgrp);
--		return -EBUSY;
-+		ret = -EBUSY;
-+		goto out_unlock;
- 	}
- 
- 	psi = cgroup_psi(cgrp);
- 	new = psi_trigger_create(psi, buf, res, of->file, of);
- 	if (IS_ERR(new)) {
--		cgroup_put(cgrp);
--		return PTR_ERR(new);
-+		ret = PTR_ERR(new);
-+		goto out_unlock;
- 	}
- 
- 	smp_store_release(&ctx->psi.trigger, new);
--	cgroup_put(cgrp);
++#define SI2168_NEW_FIRMWARE_RECORD_SIZE 17
++#define SI2168_OLD_FIRMWARE_RECORD_SIZE 8
 +
-+out_unlock:
-+	cgroup_kn_unlock(of->kn);
-+	if (ret)
-+		return ret;
+ static void cmd_init(struct si2168_cmd *cmd, const u8 *buf, int wlen, int rlen)
+ {
+ 	memcpy(cmd->args, buf, wlen);
+@@ -459,11 +462,15 @@ static int si2168_init(struct dvb_frontend *fe)
+ 	dev_info(&client->dev, "downloading firmware from file '%s'\n",
+ 			dev->firmware_name);
  
- 	return nbytes;
- }
+-	if ((fw->size % 17 == 0) && (fw->data[0] > 5)) {
++	if (fw->size &&
++	    fw->size % SI2168_NEW_FIRMWARE_RECORD_SIZE == 0 &&
++	    fw->data[0] > 5) {
+ 		/* firmware is in the new format */
+-		for (remaining = fw->size; remaining > 0; remaining -= 17) {
++		for (remaining = fw->size; remaining > 0;
++		     remaining -= SI2168_NEW_FIRMWARE_RECORD_SIZE) {
+ 			len = fw->data[fw->size - remaining];
+-			if (len > SI2168_ARGLEN) {
++			if (len > SI2168_ARGLEN ||
++			    len >= SI2168_NEW_FIRMWARE_RECORD_SIZE) {
+ 				ret = -EINVAL;
+ 				break;
+ 			}
+@@ -473,10 +480,13 @@ static int si2168_init(struct dvb_frontend *fe)
+ 			if (ret)
+ 				break;
+ 		}
+-	} else if (fw->size % 8 == 0) {
++	} else if (fw->size &&
++		   fw->size % SI2168_OLD_FIRMWARE_RECORD_SIZE == 0) {
+ 		/* firmware is in the old format */
+-		for (remaining = fw->size; remaining > 0; remaining -= 8) {
+-			cmd_init(&cmd, &fw->data[fw->size - remaining], 8, 1);
++		for (remaining = fw->size; remaining > 0;
++		     remaining -= SI2168_OLD_FIRMWARE_RECORD_SIZE) {
++			cmd_init(&cmd, &fw->data[fw->size - remaining],
++				 SI2168_OLD_FIRMWARE_RECORD_SIZE, 1);
+ 			ret = si2168_cmd_execute(client, &cmd);
+ 			if (ret)
+ 				break;
 -- 
-2.47.3
+2.43.0
 
