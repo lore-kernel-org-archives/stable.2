@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D3C441631
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:27:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCAE442103
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:27:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784111267; cv=none; b=qO3EsCG7mkVdDhT11qI3sOC8HVQJHGgjgCvP0RsR74eLG8W05c74ODi6JOsTF6GOlehRS/1zHE+rPwqEpYiROuBXXIwyAiS/Fo2Vsl4aL3XRsn+S/OYhZBlnpmMZ6mggLZXFPMLHCMl4FR5BJDV1P3NoHoXO10SdofpxGH62CSQ=
+	t=1784111270; cv=none; b=oW0tNGXYprzkozBZPqlF+gwxLHKGe97vHMSWmCtYI/x0uM/qT4oW+SAE4tg5LgRFJ9QZvr0NN9qSLS3b22AbkH8HT8DnpIR3XSMxUHftonBbVzHBwzKT+PggmZ0LTD/yj1riI6DA5Hv7f76+SoKnIc7q09oSSbhd/U+q8V1Ks8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784111267; c=relaxed/simple;
-	bh=voYtV+FKy1B94FJn0W1mf71a1cyGTLhs0TwhiGVRhTo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UIG4N5mjGz8yb+m9MIaO5Cmq+akb8s3zxgUOhPeOSGqvgkdYuu6TGIPvoVNQUJI8zdyiVuqAH36/BoHsQMnI5qzjctiTwjFYRJxDT3LNuNEWnaMm75OTFxfoSqqnfzjN1FWTqSaXoNOMbfn0Ff+j4D7dDOPzXAQZatNAIlFAkTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lZxJpkLW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784111270; c=relaxed/simple;
+	bh=c9LZMb/JrtBP2YjhWqZw4DQ1XwGJTsarncgl22Ky4u0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Jdf4TcpXV/Cp5lMnE4hnPXwEHDDcbn0R3ldQWBdokasDkqk0o9VS90rs5YoRWrT0d2ETtrHhb6bwQLc5aQCuVA/81eL7yHvDEbYpDrwNBc61lk9GGvnRr2II6vVJlvd8+Uy4G4cxIIL9xUUmtwZ7pJZQ/V6YaGo9MKTsaQ1lp5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OW7JgwO3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lZxJpkLW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0761F000E9;
-	Wed, 15 Jul 2026 10:27:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OW7JgwO3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F411F000E9;
+	Wed, 15 Jul 2026 10:27:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784111266;
-	bh=YHkPyuP5genoBIRJvd6YN1683L7/utpMIFXAPP10fPc=;
+	s=korg; t=1784111268;
+	bh=1SaIWwQEngTIi/bALFIi+nsEI9xW1JVtyJDzI6veABA=;
 	h=Subject:To:Cc:From:Date;
-	b=lZxJpkLWC6JBZ8JevO7zzwCfeAI+LNhlKwjovMuF4qIIg6vaeI4B0udwj7v9iuORF
-	 VFAKNAK5fluXoqlFa19iDLb8jWnMEfjxk9HbEK1lwNy2UpOK5LdVpICAzJWatp6YNf
-	 /r54JAUda6Ns695TRqCxZjJVWwMYpNQPnE7uYOJs=
-Subject: FAILED: patch "[PATCH] crypto: qat - validate RSA CRT component lengths" failed to apply to 5.10-stable tree
+	b=OW7JgwO39xujmp/S6rGzbgeTLV4fiUMpnqGLAVnxv8OS2MDnAcXCMMomkv2wleuE8
+	 E1P/0zdZKTM7iuuWe/Iz0e5r0VaCT/ucExg1W8y24KVZELrqg8/XBWNiTEztJN7+l4
+	 fJXU0+mYBG8Y5CyhXnXAfGoWFWfiGDPuRwTK8jJY=
+Subject: FAILED: patch "[PATCH] crypto: qat - validate RSA CRT component lengths" failed to apply to 5.15-stable tree
 To: giovanni.cabiddu@intel.com,ahsan.atta@intel.com,herbert@gondor.apana.org.au,laurent.m.coquerel@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 15 Jul 2026 12:23:50 +0200
-Message-ID: <2026071550-slacking-pants-3db9@gregkh>
+Message-ID: <2026071550-encrypt-hypnotist-52ba@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x b3ac78756588059729b9195fcc9f4b37d54057a5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071550-slacking-pants-3db9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071550-encrypt-hypnotist-52ba@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
