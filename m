@@ -1,153 +1,92 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6543438A7
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 07:09:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD5C377A82;
+	Wed, 15 Jul 2026 07:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784099350; cv=none; b=bnz9Bg4LWZ9oZ0y6euLx9VaOa8DesxfU5+8xasTTQtZqbj+vxn2oFEw34wGGZIKCEoOsjbuCaYlHm1n0EKb/xQJH79yJhO6eOwhfBO1xJZYHIB9kU5PDG+p542mmo+tWbQNFD01xo10ZTiwfoFFMj6pGhi+hr4zjsEzqTuROegQ=
+	t=1784099634; cv=none; b=LlWhYfKbtr231rdOUi9WMOc9VumXKTkqMQsSmSuq9SRbY6dAnyAXPCVvaFY2FuZV+0qYQ3Rv2FdMnY1tlh/egz230644N2oXhhyx1ECeifzjVfohoVfALB3VH3jqLifUT0u3nwOzDGhh7fBytJ4hD+NTfdjpsfYP7x/M6xQKB0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784099350; c=relaxed/simple;
-	bh=7v6dMHg7QRy+mNTrsC2NjZRxBa+V2XyO37670IsPnKY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ff8bcqfDqe/O1e4aZpOQoGKPhm0lQ62wKQhO/3Af2mgJvlp1wYHDZHKaW2yNMa02Co7hK89iHi0fiYyehTebLNHV5z+6j/a400/AgK0nIaCRQwJNz/i2sHpmRwO+hAqtFdrgjRskwL1ikBd/nwZmLc9P3Jl5oVmo9T+bY9oUG2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZExIMrst; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784099634; c=relaxed/simple;
+	bh=pZa09brkd10z0oCV2TZgsc4riiw/UWtjrPZPAyM989Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZMiOo79h+BIRDWScebbJpb/BrK/LTlbgbWmAaptoSHGAAoFxoTbwsHcmtlwEQk9Gr/h1t5Ut3ZqVtC5Ln7An/yPfEONR0j3+GTC5Xgfj3bJxhpAl4HRh8NNJNzIhl77LQ3OHs7VY9iNcd+p6tPdBME6iteBGYGx3KBMw6lzFF2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Toa4B1qb; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZExIMrst"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38511175ad3so4210808a91.2
-        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 00:09:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784099348; x=1784704148; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RDReZvwu+WACe5u1eyzBGtlH44IHKUVUwf0bKZ4XQFc=;
-        b=ZExIMrstgwr6lKCmn41WLkIID3FhssFkHUtH5S2nGTfzIteLA9PjH+DbNvOVDZ25fS
-         7WHxi9Dc51V5zI0akUAJDs07mGk5TU+mP05fPtLCvIFfbSPZvwFm3qEJNpbLCfoOVEvw
-         Lrv+TqvB7NzCjcf3CBZUSrJMeNAQlBBKWgMYHYvuHdovhmxWCghBuheYg57Tc3Pf6SUC
-         va8WR5MVgZ4UQnScuNFrmy71DFtSPnuXogBsjgLYg8XLuH57DPW3cqEbUramhDxgRGc3
-         6lJduU/hfR5IzvJcMyfcy+wxEdZqQ+5B2fohY1HSk0zqIVCqSMBiBl5asBGhncy1oWEI
-         UA/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784099348; x=1784704148;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RDReZvwu+WACe5u1eyzBGtlH44IHKUVUwf0bKZ4XQFc=;
-        b=Y9PcXijvmyukazYwNGGaZ3d3IydpuoMz6QpYCWWpmp70gC1Xr6d5BYyHRi2PPVu2FW
-         ymQRo9frlXbeRbkXoa1B5hxuZ3hSDaFck2h7iZN1DBrE2qYZxaL2SpeLgdUHuxXkF3ij
-         9WqwFDPtORqIc0XW42rX9Ap11pMGmWs6nfZmCofJtKDaexilLLgMFDCn+MChNJ5e9UxS
-         LWI2ux2fSdsJ1bH2WF1bEE9i3zWNy33paKvemHw3DbhhAS4QNFKriS0kb1332yRiadSA
-         yJ72H6fX3uOMAHeucmtXlhS0oPfaHExOMiGeDha8XPezUADaSkEv29NXWLiSTJNvB4yt
-         F7QQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoPivwBbWVzxapewE748Bli1A+Kmh34f58mJPJDHt17Q3Nx2VajJZvEBPyqWyAf4JQb5uvsY6g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUSqOV8BKdYgWl9tcD7vRyK3QNQguzjFZS6/571gp1LWxv6nE9
-	TkjAk/aZPseD1gpP0R769IL1itA1CJ0+6dBaFnsA5o8WzmAYuHYLVNDm5GvUWa9XYwhtGg==
-X-Gm-Gg: AfdE7cmBKNw4+s45sqa68wUN3nQH/1tdgrBuME2qmQEebux/ys53W20FyjEMlErEtEH
-	SxlSU7R+fbHYrxdoPgWgSEx05O/Kx3+2qVnJ21JWn7v26gMnVoNIwZ1klbyBQ41leT+tN6vYZhn
-	Gf5AeD/v7gfCPcsJ2UYyQr4wqvbZjDILItQ52JFYtgAUjVl68s4zn1gARfbK4HaN0Rne+CVDZXC
-	EhdHU8v+F0pJEgb0BePk1pRy4P7AGMuvBsb+ICVgfocdQ6i65VjY9CAM99e/uVbdeYiu+xXJS5f
-	K7aWjDMNb27zrt4MRmAq5Vh9inRHsVdcA8B9gAptLtesI09HubHV0xZVF+iCPhdwlu7aEfPC9sj
-	NcquCxk2jKE3cTthdDXRed86kqmTFoMsT0rOGB4sNVsz0JF8FQp2i5rwgqEsekzM3+4y6Tpo3SU
-	eOPGywsMCtRA==
-X-Received: by 2002:a17:90b:35c6:b0:381:2684:519c with SMTP id 98e67ed59e1d1-38e1ae5fcb0mr4594484a91.6.1784099348089;
-        Wed, 15 Jul 2026 00:09:08 -0700 (PDT)
-Received: from lgs.. ([101.76.249.46])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e174442f6sm2621595a91.10.2026.07.15.00.09.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 00:09:07 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] intel_th: fix MSC output device reference leak
-Date: Wed, 15 Jul 2026 15:08:51 +0800
-Message-ID: <20260715070851.2077965-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Toa4B1qb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784099623;
+	bh=pZa09brkd10z0oCV2TZgsc4riiw/UWtjrPZPAyM989Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=Toa4B1qbr4LtURg6wVyLmoFj1Qmtt9V0gr8pDUkw7yeSTbn6PX3geR3OGu3zBwUSE
+	 kwbcY0Kn1JVt2yT9K21cKxNQArjeZgMvIZxxmL1HjVt451Jd0lEs0E+a6h4Q2lDGQQ
+	 MzZX2ShMU4fz4rtFlFZjZm6GsKsushHtoLabkKC/Vhn1dT7rNeP8gxTom1H0n+OtMI
+	 XCQAiY+j5QwSUb+mbVcOOauTl0p+NfJrf38Zwx6yyKB7eUmWhQ5N+6ybY2PatPDLiG
+	 bzO21tH4a72Db8bIkpwXLJojUWbz2BFkQj4TBKg9XPHb5FsEoKJtAFkqgAsq8CA6KW
+	 e39fs6ayy+InA==
+Received: from fedora-2.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id CBF0B17E071A;
+	Wed, 15 Jul 2026 09:13:42 +0200 (CEST)
+Date: Wed, 15 Jul 2026 09:13:38 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Heiko Stuebner
+ <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: return error on truncated firmware
+Message-ID: <20260715091338.537b6ff8@fedora-2.home>
+In-Reply-To: <20260714163056.22329-1-osama.abdelkader@gmail.com>
+References: <20260714163056.22329-1-osama.abdelkader@gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-intel_th_output_open() looks up the output device with
-bus_find_device_by_devt(), which returns the device with a reference that
-must be dropped after use.
+On Tue, 14 Jul 2026 18:30:55 +0200
+Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
 
-commit 95fc36a234da ("intel_th: fix device leak on output open()")
-attempted to drop the reference from intel_th_output_release(). However,
-a successful open replaces file->f_op with the output driver file
-operations before returning, so close runs the output driver release
-callback instead.
+> panthor_fw_load() detects truncated firmware images, but jumps to the
+> common cleanup path without setting ret. If no previous error was recorded,
+> the function can return 0 and treat the invalid firmware as successfully
+> loaded.
+> 
+> Set ret to -EINVAL before leaving the truncated-image path.
+> 
+> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-For MSC outputs, close runs intel_th_msc_release(), which only removes
-the per-file iterator and does not drop the device reference taken by
-intel_th_output_open(). Consequently, every successful MSC output open
-leaks one device reference.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Drop the device reference from intel_th_msc_release(), which is the
-release path actually used for MSC output files. Remove the now-unused
-intel_th_output_release() callback from intel_th_output_fops.
-
-Fixes: 95fc36a234da ("intel_th: fix device leak on output open()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v3:
-  - Remove the unused intel_th_output_release() callback as suggested by
-    Johan Hovold.
-
-v2:
-  - Add Cc stable.
-  - No code changes.
-
- drivers/hwtracing/intel_th/core.c | 10 ----------
- drivers/hwtracing/intel_th/msu.c  |  2 ++
- 2 files changed, 2 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/hwtracing/intel_th/core.c b/drivers/hwtracing/intel_th/core.c
-index 3924e63e2eee..56acf31546da 100644
---- a/drivers/hwtracing/intel_th/core.c
-+++ b/drivers/hwtracing/intel_th/core.c
-@@ -843,18 +843,8 @@ static int intel_th_output_open(struct inode *inode, struct file *file)
- 	return err;
- }
- 
--static int intel_th_output_release(struct inode *inode, struct file *file)
--{
--	struct intel_th_device *thdev = file->private_data;
--
--	put_device(&thdev->dev);
--
--	return 0;
--}
--
- static const struct file_operations intel_th_output_fops = {
- 	.open	= intel_th_output_open,
--	.release = intel_th_output_release,
- 	.llseek	= noop_llseek,
- };
- 
-diff --git a/drivers/hwtracing/intel_th/msu.c b/drivers/hwtracing/intel_th/msu.c
-index a82cf74f39ad..84d99d7b1d20 100644
---- a/drivers/hwtracing/intel_th/msu.c
-+++ b/drivers/hwtracing/intel_th/msu.c
-@@ -1490,8 +1490,10 @@ static int intel_th_msc_release(struct inode *inode, struct file *file)
- {
- 	struct msc_iter *iter = file->private_data;
- 	struct msc *msc = iter->msc;
-+	struct intel_th_device *thdev = msc->thdev;
- 
- 	msc_iter_remove(iter, msc);
-+	put_device(&thdev->dev);
- 
- 	return 0;
- }
--- 
-2.43.0
+> ---
+>  drivers/gpu/drm/panthor/panthor_fw.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 986151681b24..39fff094ebb5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -829,6 +829,7 @@ static int panthor_fw_load(struct panthor_device *ptdev)
+>  	}
+>  
+>  	if (hdr.size > iter.size) {
+> +		ret = -EINVAL;
+>  		drm_err(&ptdev->base, "Firmware image is truncated\n");
+>  		goto out;
+>  	}
 
