@@ -1,111 +1,76 @@
-Received: from mail-wm1-f73.google.com (mail-wm1-f73.google.com [209.85.128.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA92B3EB810
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 09:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6D93ED5AE;
+	Wed, 15 Jul 2026 09:13:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784106254; cv=none; b=DtjT5eBMLJ9KmIo4zi7jo631KkElxc1JPRJku2aDafsOihuqLbFzrxId2PLcpHvqxxFvnTolz+k+3d9OkUNVau8acGG5FCxdje5jesgYSud3x/4yY/9u81CTqK0XTgbwEbuU0CExXAGYAJgp3/Ic+oC+ROSjqjBUD4OyPAhJcyg=
+	t=1784106786; cv=none; b=focswjSHKWpSA3v2IpHgCG4mknzxuiU/aV6SUk+xyI1K+70D8IxwjlGZRLu0bzxFAWakMnb4Bdlk5Mn0N+exGTaoHSz3Wu5cNNZVpDtyP1Ls6kIuBwuMxLaAjp0ZzZSqbYIpuzPZJXFDQV4/Yoa8o/q6GA453fp8loGsLGGSU2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784106254; c=relaxed/simple;
-	bh=T132sxp6UaJ+WwsQy/GiXCN6xCpAzZ0KSvradejtUNI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=XA53dbsZbYIO+zTFjVQACyE2zSTGQD7H+HGkIpZFVk9LDvS470IM5Z6+ePez7ULFdl3je7UuGbpS3x5pK3XPzpRSM08zV/17XLbMhPu5Iuo4z2cEzi49Wk4oTDTU71kZR4un9yHnK+HxHYBLp8vou2+RZW5Ggj1VUrobGhHfZmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jackmanb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ErZCpzGg; arc=none smtp.client-ip=209.85.128.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jackmanb.bounces.google.com
+	s=arc-20240116; t=1784106786; c=relaxed/simple;
+	bh=G/i/ewYZqYorVgWD72eYBIrVskApG5MGrO5mLrohA50=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZgFUJ4eyOigrRx8DFHo5Fhxe6tIBlZDFlkkndih9+wxZYwk2M2vTa4nWl5iMKnKdnvXEDjPSKEze7D3xjXj51exWBrHcwufxpU38qNMcBXgFVweWEElGGjkZp5QJfPagB5+sdy3T9mpGZM7R0ArBev/b3jqjo7H3fWfSICEs0Zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UGEcWL6t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ErZCpzGg"
-Received: by mail-wm1-f73.google.com with SMTP id 5b1f17b1804b1-493c526df6bso16677575e9.3
-        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 02:04:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784106245; x=1784711045; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tAjEggZE5XRXoCbkcOS6/MLSgIQDuHRdiYiNvUA8HH0=;
-        b=ErZCpzGgMGRZa9gNKYXx4yIMAVdYtEgDoNT1B0eNQDRZPo09BtN/32Wc6YLMTd8TKF
-         7qiuo3KBS1aIdDufYifiliP1CIJzzrhqKlpD2+h13w4JkrIBxNZSYqHzg1fHXeREwSXc
-         EbXhLiz6oVNxkdnu8H/hZ1zWyHOLmSYk984tnPFi88G2NloROxarRtz9/AlJvT1SgHaq
-         Q7pfHJTrjWrpWker0/QIMpWMpK3NjEWuHJJ45WUrOYQ9+DKZ9+MqaLeKpI/RmQ+5wAyO
-         rfRcRxJDzYsGfiTcnzxJ8qtr8MmPFaTJK1L8x5/FUuqNi/hzssROPAOkltOvgT8aKqOW
-         AxUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784106245; x=1784711045;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tAjEggZE5XRXoCbkcOS6/MLSgIQDuHRdiYiNvUA8HH0=;
-        b=EKOQ1GLkBQ41WGpMlBn4vS8IHgj41WScvGz32N4o0DXVM0JoMHjtZGWCWlOqYhIRKA
-         LgaaUYR+pY6ZiRWuiSbyfesZSHirAanVHSP/PQkFLZ4KVHfaWPQSQRk8utA+sTfoSwQC
-         W+7otwwssZbtGrQjQe/nqLe98hjx0gzzpgWuQZVemLRokMTPgYcyWHmi9n/OAhEbf8Xe
-         rO7LMXIlS3DcAJPt6ihkYSINz5xjAQ3mtg8HSe5sPc+2hncOhZNaUEiw0ndGoBZAhqBB
-         6zGnGAML2gRkBdvtdEoM99bhq64pDDR6vAfM2D258jmhMhjgs2PpVwUSFiLBneFcBwxE
-         snUg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3hi82oGmd322SQXwRcNhAIEZs+osJ0NPI0Vk+IbVRqN5/oAyE+V+MhZEp2rw7OBFcfITPAbE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzgEuYIPpzN5qUXf2JuXQr8q2EE2tP2k+r5MONynziS0FzOD3ma
-	HnardFXdCfn61ah9pasH1XcNHB8lwIwHsTlMJDAByGNO4drQpYNLdNlyPXmVm5IbFftgq//2PQE
-	K2R26nMq8jVA4jA==
-X-Received: from wmby15.prod.google.com ([2002:a05:600c:c04f:b0:493:bdba:620b])
- (user=jackmanb job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:8217:b0:495:3c6d:f294 with SMTP id 5b1f17b1804b1-4953cbdc7e6mr20439975e9.23.1784106244314;
- Wed, 15 Jul 2026 02:04:04 -0700 (PDT)
-Date: Wed, 15 Jul 2026 09:03:59 +0000
-In-Reply-To: <20260715-alloc-nolock-fixes-v1-0-fadc49952dda@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UGEcWL6t"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 744661F00A3A;
+	Wed, 15 Jul 2026 09:12:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784106778;
+	bh=8A0GtFmCDKrgWuU+CKyCN6c2n4MA6f/QFaIEOOO5JiU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UGEcWL6tGEBY0P9E1xk4C14Lr1AK2djarktMrhUrZPSLEnz6h5gZBpVs0VxFFp0gj
+	 ZW0P86hKC6RThgOk/YIL88SfKllxXXHZAEhVyXlGJ76od7udnEF/QSJOl/3M7r5YfU
+	 64NakHdiMBx4mDTKwpM6Z+KY/SqXdUw7mQ5NJSf8c9/LHXmlXIJ52WHqVPHbK/2Rpa
+	 hlSL6BkyKFrYSmwiMgMZs7U0Nk3wFFUTWrB1iV4FG8z+cTREqsC+jScmQizu1gk6D3
+	 Lba0anmkNuIRrzBDHKzYP2rZoH4RDc16v/IZ9eoN3dxpWgpcAJb3bIcnqQjVr1/Rb2
+	 GT+Lh0CIpAAGg==
+Date: Wed, 15 Jul 2026 11:07:30 +0200
+From: Nicolas Schier <nsc@kernel.org>
+To: Sergei Litvin <litvindev@gmail.com>
+Cc: miguel.ojeda.sandonis@gmail.com, ojeda@kernel.org, nathan@kernel.org,
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] scripts/tags.sh: Prevent binary files appearing in
+ cscope.files
+Message-ID: <aldN0jGIFcavyh56@levanger>
+Mail-Followup-To: Sergei Litvin <litvindev@gmail.com>,
+	miguel.ojeda.sandonis@gmail.com, ojeda@kernel.org,
+	nathan@kernel.org, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	stable@vger.kernel.org
+References: <CANiq72kHbVQfNrum5D2a5sCd3mFQHNtigrQxP1WW=YcggxA=WQ@mail.gmail.com>
+ <20260714083331.69482-1-litvindev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260715-alloc-nolock-fixes-v1-0-fadc49952dda@google.com>
-X-Mailer: b4 0.15.2
-Message-ID: <20260715-alloc-nolock-fixes-v1-2-fadc49952dda@google.com>
-Subject: [PATCH 2/2] mm/page_alloc: don't spin_trylock() when disallowed in free_one_page()
-From: Brendan Jackman <jackmanb@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Alexei Starovoitov <ast@kernel.org>, Harry Yoo <harry@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Brendan Jackman <jackmanb@google.com>, sashiko-bot@kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714083331.69482-1-litvindev@gmail.com>
 
-__free_frozen_pages() checks can_spin_trylock() before entering into the
-main free_frozen_page_commit()/free_one_page() path, but before this it
-can get to free_one_page() via the !pcp_allowed_order() and
-MIGRATE_ISOLATE paths.
+On Tue, Jul 14, 2026 at 10:33:31AM +0200, Sergei Litvin wrote:
+> When executing the command `make COMPILED_SOURCE=1 cscope`, the resulting
+> `cscope.files` file contains filenames with the extensions *.rlib, *.rmeta,
+> and *.so.
+> 
 
-The !pcp_allowed_order() path depends on usage by callers so might not
-be possible in practice. The MIGRATE_ISOLATE path probably means kernel
-crashes and privilege escalation if anyone ever did memory hotplug and
-BPF tracing on a PREEMPT_RT or !SMP build.
+With removed Cc trailers and adjusted line break in the commit message, applied
+to kbuild/linux.git (kbuild-next-unstable), thanks!
 
-Cc: stable@vger.kernel.org
-Fixes: 8c57b687e8331 ("mm, bpf: Introduce free_pages_nolock()")
-Reported-by: sashiko-bot@kernel.org
-Link: https://sashiko.dev/#/patchset/20260710-spin-trylock-followup-v1-0-affb5fe5ed00%40google.com?part=2
-Signed-off-by: Brendan Jackman <jackmanb@google.com>
----
- mm/page_alloc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+[1/1] scripts/tags.sh: Prevent binary files appearing in cscope.files
+      https://git.kernel.org/kbuild/c/1e5ebc3f
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 5f9873dfccc5a..46e5ea59c71df 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -1559,7 +1559,7 @@ static void free_one_page(struct zone *zone, struct page *page,
- 	unsigned long flags;
- 
- 	if (unlikely(fpi_flags & FPI_TRYLOCK)) {
--		if (!spin_trylock_irqsave(&zone->lock, flags)) {
-+		if (!can_spin_trylock() || !spin_trylock_irqsave(&zone->lock, flags)) {
- 			add_page_to_zone_llist(zone, page, order);
- 			return;
- 		}
+Please look out for regression or issue reports or other follow up
+comments, as they may result in the patch/series getting dropped,
+reverted or modified (e.g. trailers). Patches applied to the
+kbuild-next-unstable branch are accepted pending wider testing in
+linux-next and any post-commit review; they will generally be moved
+to the kbuild-next branch in about a week if no issues are found.
 
+Best regards,
 -- 
-2.54.0
-
+Nicolas
