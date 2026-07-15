@@ -1,101 +1,88 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 86771312826;
-	Wed, 15 Jul 2026 07:30:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F167E37A488;
+	Wed, 15 Jul 2026 07:31:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784100657; cv=none; b=s4rmlokvucUyIZibsGyDiY+FMQtzmZ8OfkDeJAFU7vYVqAe+W/1a3xflH6ogi+Za9ivzsjjI+MK1U4qwfYKgCfhxLroR2xbiIuYRuJdXODMEHxSJtVQ7yRnGSy0zFNBAU+ZrjzTlgkaKGbkO7GtGDEfP8RQBqgiW7wfH/8N+K4w=
+	t=1784100715; cv=none; b=PIMe2P+v2F+7cTG/z8ErrO/x9e1WoyksgEKhslCXLz4Fo0/B8TR4/w2yc/E0fgXH+kaPVnGTPWg/Xb15VrY1IuI4f+9GC3fGDtqxxG+n2nOs66GXCoAExaBKuhZ8Y25NX8j/Yi1xb/InRfGrlQgAw2+p6lXSOxwJxyuUWfR/biA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784100657; c=relaxed/simple;
-	bh=rL8hLMujvacVYSA7witLeIejqtHG7AcgFZld+ZY6lZA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=GlDlJjHlcnGtTqkAc6PdmMP4ArUBGtz6qAFpBr6m3RM6pq4Yy+i+Lo4T3cuFd3D/DpnZFVNdCgp4+wPYvT5NMK0RLUbSaDCVqneJf6UnhBu4SiPzSBdP9PBNgz5p4stU6vXc0gSG706yILa+cx6MLJv3fBQKCCLJ0LLHIMYZAkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.190.161.1])
-	by mtasvr (Coremail) with SMTP id _____wA3RhQXN1dqdhRUAA--.4770S3;
-	Wed, 15 Jul 2026 15:30:32 +0800 (CST)
-Received: from smtpclient.apple (unknown [10.190.161.1])
-	by mail-app4 (Coremail) with SMTP id zi_KCgCn2TATN1dqaLtRAg--.7181S2;
-	Wed, 15 Jul 2026 15:30:28 +0800 (CST)
-Content-Type: text/plain;
-	charset=us-ascii
+	s=arc-20240116; t=1784100715; c=relaxed/simple;
+	bh=ttq3bswJ9BjVoJk5v8fT97WX6vjQXw/yGOSE6gcg0OY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bJntPMj4fZCZHvpvIxx13h3Kh69shQ3nBqryMSmE+09uEAQgQsisccKH/yngjsermaz3ldTUG0PqcqO4fAgBvaJI2SaK6/bqFB2PEV0v+y/AdFo1BinoIHzF0BQz9GDKw9P77FJkkf3PY+Mt6q8pu9ThsZP07qedmbBiKMh0sPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XQtFsAWd; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XQtFsAWd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9801F000E9;
+	Wed, 15 Jul 2026 07:31:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784100713;
+	bh=Wv0DXBGXjlIHKPcNIJc/Uy30l+DaXgiyniMOlGcLge8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XQtFsAWd0B58XT4fIaywWdgiMuqPW4uRpcKGq5XuLC6yfnL4fKun9qp31g1kwK/ID
+	 Ez/ZmQRTIiAzKznQVq/UK7oHrZsEMZHMQebuLQ+mDBsBK7e8bo8u2F61pnUVXY36ff
+	 3SrBW7aErD8BKfRKxdw87/SM6G2bsISS8ZzOJHhmqkCrC4e7O6VXamv2r/hoaIwCe4
+	 nk4Pfl1PYmIRnsxUSUcApbaCYzQedFyE96UYugUTDXTnYXgyt8fhxrkTv5m0iuLWQS
+	 mmW2/NEFJwuOtD6grKDMvtO4izopWiXYmdxVozLBhHB8TdMFo/k2mfrhesv2fjj9J3
+	 izGtFny/GxFPw==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1wju5v-00000005pwS-1idR;
+	Wed, 15 Jul 2026 09:31:51 +0200
+Date: Wed, 15 Jul 2026 09:31:51 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] intel_th: fix MSC output device reference leak
+Message-ID: <alc3ZyzBOZa9lDz9@hovoldconsulting.com>
+References: <20260715070851.2077965-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH net] net: hip04: fix RX buffer leak on build_skb failure
-From: Fan Wu <12321260@zju.edu.cn>
-In-Reply-To: <a361aa28-7f55-4476-9072-aa392a34b735@intel.com>
-Date: Wed, 15 Jul 2026 15:30:17 +0800
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
- netdev@vger.kernel.org,
- przemyslaw.kitszel@intel.com,
- Simon Horman <horms@kernel.org>,
- shenjian15@huawei.com,
- salil.mehta@huawei.com,
- dingtianhong@huawei.com,
- andrew+netdev@lunn.ch,
- davem@davemloft.net,
- edumazet@google.com,
- kuba@kernel.org,
- pabeni@redhat.com,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <190A7669-E0EC-4257-B65E-817FFA1ACCDC@zju.edu.cn>
-References: <20260712142729.2057636-1-fanwu01@zju.edu.cn>
- <a361aa28-7f55-4476-9072-aa392a34b735@intel.com>
-To: Jacob Keller <jacob.e.keller@intel.com>
-X-Mailer: Apple Mail (2.3774.600.62)
-X-CM-TRANSID:zi_KCgCn2TATN1dqaLtRAg--.7181S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?dTAZ5wXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZzFg6QqpdDXDgMm1kEV24G8cSZoMjKBt5ZSGVWwqOiPFB+t
-	uHd4o4L3Eo6XtrIyZJQ=
-X-Coremail-Antispam: 1Uk129KBj9xXoW7XrWfGF15Ww4UJw1fWr1fXwc_yoWkGFX_u3
-	40qryUJ34kCFn7Awn5KF43AFZ7u3W09FyrZrykKwsxt348JFs8ur4vk340yrZrKw4Yyrn8
-	Cryvva4a9r13uosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbDxYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
-	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
-	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
-	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
-	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715070851.2077965-1-lgs201920130244@gmail.com>
 
-Hi Jacob,
+On Wed, Jul 15, 2026 at 03:08:51PM +0800, Guangshuo Li wrote:
+> intel_th_output_open() looks up the output device with
+> bus_find_device_by_devt(), which returns the device with a reference that
+> must be dropped after use.
+> 
+> commit 95fc36a234da ("intel_th: fix device leak on output open()")
+> attempted to drop the reference from intel_th_output_release(). However,
+> a successful open replaces file->f_op with the output driver file
+> operations before returning, so close runs the output driver release
+> callback instead.
+> 
+> For MSC outputs, close runs intel_th_msc_release(), which only removes
+> the per-file iterator and does not drop the device reference taken by
+> intel_th_output_open(). Consequently, every successful MSC output open
+> leaks one device reference.
+> 
+> Drop the device reference from intel_th_msc_release(), which is the
+> release path actually used for MSC output files. Remove the now-unused
+> intel_th_output_release() callback from intel_th_output_fops.
+> 
+> Fixes: 95fc36a234da ("intel_th: fix device leak on output open()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+> v3:
+>   - Remove the unused intel_th_output_release() callback as suggested by
+>     Johan Hovold.
+> 
+> v2:
+>   - Add Cc stable.
+>   - No code changes.
 
-Thanks for the review. I agree this is a rare allocation-failure path.
+Thanks for catching this.
 
-The leak is nevertheless deterministic from the ownership contract and
-the driver's control flow. __build_skb() documents that, on failure, it
-returns NULL without freeing the caller-provided data.
+Reviewed-by: Johan Hovold <johan@kernel.org>
 
-hip04_rx_poll() currently jumps to refill before dma_unmap_single().
-Refill then replaces rx_buf[rx_head] and rx_phys[rx_head], so the old
-fragment and its streaming DMA mapping are no longer reachable. The
-stop and free-ring paths only operate on entries still referenced by
-those arrays.
-
-The fix leaves the slot, descriptor, rx_head, and rx_cnt_remaining
-unchanged, and returns budget. This tells NAPI that RX work remains
-outstanding and retries build_skb() using the same buffer. The additional
-skb_free_frag() handles the separate case where a replacement fragment
-was allocated but dma_map_single() failed before it was installed.
-
-I hope this clarifies why the failure path is a deterministic leak even
-though I do not have a dynamic reproduction on HIP04 hardware.
-
-Thanks,
-Fan
-
+Johan
