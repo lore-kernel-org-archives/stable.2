@@ -1,105 +1,175 @@
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A22336ECF
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 22:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298CF397329;
+	Wed, 15 Jul 2026 22:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784154879; cv=none; b=E6rp8BqlLqozEVGrMJxo67EoLH+WZnQB2FElM1waybEejJU39S7aazpE1/P1j2z+QvlduSzSiyR1jGr4ITVOC9T2UK8GxPWdbDiEGfvvh9SgeDYIcWyhH4Cke9n4zCGmeJahnH5UZcbXFfLjGtEjyZPXCUh8e/4EtxjjAgqjD80=
+	t=1784155378; cv=none; b=YxD9xN0FFHGqlRqUyhtphSDmwrzz5bmtyue/VXVSQF4Tjx1njKEguyDKsJyNMwYhVJbmlxajmcDA89lEPGlNoiOFm8zyKN0YVLxmQwtt/E1WVIYsTe4oYuVLVG55+zK4IGeuGhv6SuRjR/QQwWHUkC0UQ+oB75+F8ZFouoKTNQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784154879; c=relaxed/simple;
-	bh=epCF3WAtVK+rHoAAfkpRXRa/RsXFmQXBbOeXNtNyprE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=kfZtJRxKpjruxUOpLC3d3BfKDQSi5X8CqoEiGyaQ0yO2lDQ/PV9pA7veIN7qzz/6Vcd8FRNXtFU+ZjAbMT6iohKJ8vl6+Z4s8+SKfcUK+sdIfv6vf4jexIRl+Yp6BwnQ8/S3IkQaZh1K3Hy5+1vANZeKcY97FRSQwD/1wkJ0UGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=g50754wT; arc=none smtp.client-ip=209.85.160.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1784155378; c=relaxed/simple;
+	bh=5otzStxY/gQBAUVuIRSogQQsbqBySRFnWWxlNF3kI0w=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ATjxlMsGXpvho4WDprymI93docKlscDgFy5PqeFCuxPOxt308MKcF7runCPF4PMRQZmWP/l/o7gIiASx02bVTjZfKBoKmjsO+g+ioRE7CxRO+aJbfYnaKFOAl0wlICGTJtqJILL84wvU3UkuNXX/f87DgenLg2Vik1usSMoSdHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hsoSJJ7D; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="g50754wT"
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-451d8064238so3391531fac.3
-        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 15:34:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1784154875; x=1784759675; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OMsKH9F+ormFI1Pys8jKczpMBx0PRFI2SBhZZ0ypZyA=;
-        b=g50754wT3OirDsmAblB+hhBMkqxo4Peg/u97803yY5t2xqzH/385hrjeZ+dlg5P6tE
-         5A3LfzlK+0q9Yg454PhlCQn+jOkK80KFm+3YbBVcXHRD0afc945bHTSz8c1FqdAnjV88
-         rvkX6niE0g53fPovTvhJhmoIvEj2wrHaQs1iNcNtLfjVo/EVWWI54CLPVMs+906Bv1FO
-         cDHStmT1DlZPe4x0zKWuA13EkT1m4nzoOEAlg4uGRov2gipCvTkTSTrJSdSeenfr9uyn
-         4LMWJS3Or6h2d/0loGoLJ/ImA+1ZEaeseRqjCKZafF9Ec+5OYTdSHF93jyFMw6OxZMFp
-         Dwdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784154875; x=1784759675;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OMsKH9F+ormFI1Pys8jKczpMBx0PRFI2SBhZZ0ypZyA=;
-        b=JNtHgzC5YdBoekRuAnP2BCO97mQUW6YFXRrUGlxMMhPvSgynnKSeqeTAUX/+42huUQ
-         JFtZmVuvEDJujeN3OQUgjDGpuFlOytbEXyzkAsO7spyozVA0gY3kUsw+4YBmj7ctYfaS
-         hVabDyS3JvdKR+Vbpmqjc0U3uVG/5ko8gd2vIMDOfPEB7X5W3zH93lsqyqJDbBU1ZB7n
-         ve7eMpxg0vMIuBlNOQCThZfw9d/1f8/P4C8oUkEen0/6mmuWglYszvIsiWP1dJ9Yp3wF
-         Qte8/PRtgJxRjBGrnvoFs/VnKkkOsh61PG0Ne2SKxkTt4UPc7QzWRVbNdz/5fEhdqUEg
-         ju2A==
-X-Forwarded-Encrypted: i=1; AHgh+Rq8ulMEaMmS3mQdSQL6W9l3uhKB4t4gS4yb8NO1eswk9MJ5e9YDTHns0qA4vJ29pIP2ybUq2A8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDMd/3Q8XftEpeNA/3h72UWmoebe/VPfoxKzxbdugMNOeO9jWv
-	Tcddiyp2xmnfJqiRQlWQNzMCcN9QwS27+L3vg5i7zVaQ5WPzLbI2fgOwMBWeWpuTeyVKXgN5Mom
-	8263Kk24=
-X-Gm-Gg: AfdE7clbFPk097F7FuH4i88E11P9I8aL/INRZGTTDIyy+2gORSolpzo2s5nSr4Udjgh
-	aOxMq4iVCGcmGp9ShhmpFGgv5QFJKupRHpXFryQEgIB7rMxrJJeBJHswsnvS7vkf8njijWQNU+P
-	vQWblLZXsA36yYkWnjglc9DzDHKZBPfIR9lEvXimwQ2gWEtbHUWPicheBprYy7IQPDiszc+UcT/
-	K14XHhJtRd/tom5RRhfeNE/LEYAQYBBKHUcx6Ui3ebPWOUj3+Dit27mPwsldvaZPFkMLPRE+yAr
-	d39GRnqGHBnKasDSUqvgl4ydFRlHGjua4l/EcP/Fw2p054/TEVU75ZDp+BaGxaNA0sAkIZ+iWT3
-	ant+PzXIYih+1G181hp2RMHO1ri6QSnOWtzG7kNxzUxWeggf0/oNw7cj1B+rk8m/thoVgEBzeD7
-	HwtgiWeVQh1+fZDDH1IiypzQYZ3xaTdfMzmzicjG8w3mP630A7UT6dOpY=
-X-Received: by 2002:a05:6870:65a9:b0:43b:637b:c33f with SMTP id 586e51a60fabf-455f7a2d10fmr5770132fac.6.1784154875484;
-        Wed, 15 Jul 2026 15:34:35 -0700 (PDT)
-Received: from [127.0.0.1] ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-45200b7b4c5sm14362722fac.10.2026.07.15.15.34.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 15:34:34 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: Usama Arif <usama.arif@linux.dev>, Mike Waychison <mike@waychison.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260715192950.2488921-1-mike@waychison.com>
-References: <20260715192950.2488921-1-mike@waychison.com>
-Subject: Re: [PATCH] block: fix race in blk_time_get_ns() returning 0
-Message-Id: <178415487451.159585.8139693010371927224.b4-ty@b4>
-Date: Wed, 15 Jul 2026 16:34:34 -0600
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hsoSJJ7D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784155375;
+	bh=5otzStxY/gQBAUVuIRSogQQsbqBySRFnWWxlNF3kI0w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=hsoSJJ7DwbqAQ5vfqC12sd+2OYZw7GLF14kB6Nw8pLPn/sPP9A+szeWxRQSN5ktXT
+	 P1/AuB060+ZroJUKjOeThweMLjTwTK99Iwm10ANc7YBVNblPPxSrt47YQ9iq47hHHp
+	 lXNrSHPynKqJ2CqAQ5lGjUcBlaQLz6ZOewwccuikzG3jEn5A4qNDo/ooUqEZedMn/X
+	 sqBRb6Lrf4RjiTopk4NAF3gDTaYIQ8MfjOSrR3tZlPhTmsbGptjhkUJcDesVnGGS75
+	 VwJvSDlLtAf7BnegIUCJ4AyPkY2xDV679ePI/1abIXOo1kLbJPn9TxAmlHU+jIFXPP
+	 SCXauiGEwawsQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0BBF317E0D7E;
+	Thu, 16 Jul 2026 00:42:53 +0200 (CEST)
+Message-ID: <bc9e8f84b27e72d2d8ac9d18d2add1a55affdada.camel@collabora.com>
+Subject: Re: [PATCH v2 2/3] media: v4l2-ctrls: validate HEVC EXT SPS RPS
+ counts
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>, Detlev Casanova	
+ <detlev.casanova@collabora.com>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>,  Mauro Carvalho Chehab	
+ <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Wed, 15 Jul 2026 18:42:52 -0400
+In-Reply-To: <20260527194737.1999409-3-michael.bommarito@gmail.com>
+References: <20260513181922.2075438-1-michael.bommarito@gmail.com>
+	 <20260527194737.1999409-1-michael.bommarito@gmail.com>
+	 <20260527194737.1999409-3-michael.bommarito@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-+qIqzNsQ1iNYY2ZGJeue"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+
+
+--=-+qIqzNsQ1iNYY2ZGJeue
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le mercredi 27 mai 2026 =C3=A0 15:47 -0400, Michael Bommarito a =C3=A9crit=
+=C2=A0:
+> The HEVC SPS control carries the short-term and long-term RPS counts
+> that decoder drivers use to walk the matching EXT SPS dynamic arrays.
+> Reject SPS values that exceed the HEVC limits of 64 short-term sets and
+> 32 long-term references so drivers cannot later index beyond those
+> controls.
+>=20
+> Also reject EXT SPS ST RPS entries whose negative or positive picture
+> counts exceed the 16-entry arrays, or whose combined delta-POC count
+> exceeds the HEVC DPB maximum.
+>=20
+> Fixes: c9a59dc2acc7 ("media: rkvdec: Add HEVC support for the VDPU381 var=
+iant")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Detlev Casanova <detlev.casanova@collabora.com>
+> Assisted-by: Claude:claude-opus-4-7
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
+> ---
+> =C2=A0drivers/media/v4l2-core/v4l2-ctrls-core.c | 15 +++++++++++++++
+> =C2=A01 file changed, 15 insertions(+)
+>=20
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4=
+l2-core/v4l2-ctrls-core.c
+> index 6b375720e395c..a1d773e5de20c 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> @@ -16,6 +16,9 @@
+> =C2=A0
+> =C2=A0static const union v4l2_ctrl_ptr ptr_null;
+> =C2=A0
+> +#define V4L2_HEVC_MAX_SHORT_TERM_REF_PIC_SETS	64
+> +#define V4L2_HEVC_MAX_LONG_TERM_REF_PICS_SPS	32
+> +
+> =C2=A0static void fill_event(struct v4l2_event *ev, struct v4l2_ctrl *ctr=
+l,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 changes)
+> =C2=A0{
+> @@ -1213,6 +1216,10 @@ static int std_validate_compound(const struct v4l2=
+_ctrl *ctrl, u32 idx,
+> =C2=A0	case V4L2_CTRL_TYPE_HEVC_SPS:
+> =C2=A0		p_hevc_sps =3D p;
+> =C2=A0
+> +		if (p_hevc_sps->num_short_term_ref_pic_sets >
+> +		=C2=A0=C2=A0=C2=A0 V4L2_HEVC_MAX_SHORT_TERM_REF_PIC_SETS)
+> +			return -EINVAL;
+> +
+> =C2=A0		if (!(p_hevc_sps->flags & V4L2_HEVC_SPS_FLAG_PCM_ENABLED)) {
+> =C2=A0			p_hevc_sps->pcm_sample_bit_depth_luma_minus1 =3D 0;
+> =C2=A0			p_hevc_sps->pcm_sample_bit_depth_chroma_minus1 =3D 0;
+> @@ -1223,6 +1230,9 @@ static int std_validate_compound(const struct v4l2_=
+ctrl *ctrl, u32 idx,
+> =C2=A0		if (!(p_hevc_sps->flags &
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 V4L2_HEVC_SPS_FLAG_LONG_TERM_REF_P=
+ICS_PRESENT))
+> =C2=A0			p_hevc_sps->num_long_term_ref_pics_sps =3D 0;
+> +		else if (p_hevc_sps->num_long_term_ref_pics_sps >
+> +			 V4L2_HEVC_MAX_LONG_TERM_REF_PICS_SPS)
+> +			return -EINVAL;
+> =C2=A0		break;
+> =C2=A0
+> =C2=A0	case V4L2_CTRL_TYPE_HEVC_PPS:
+> @@ -1267,6 +1277,11 @@ static int std_validate_compound(const struct v4l2=
+_ctrl *ctrl, u32 idx,
+> =C2=A0
+> =C2=A0		if (p_hevc_st_rps->flags & ~V4L2_HEVC_EXT_SPS_ST_RPS_FLAG_INTER_R=
+EF_PIC_SET_PRED)
+> =C2=A0			return -EINVAL;
+> +		if (p_hevc_st_rps->num_negative_pics > 16 ||
+> +		=C2=A0=C2=A0=C2=A0 p_hevc_st_rps->num_positive_pics > 16 ||
+> +		=C2=A0=C2=A0=C2=A0 p_hevc_st_rps->num_negative_pics +
+> +		=C2=A0=C2=A0=C2=A0 p_hevc_st_rps->num_positive_pics > 16)
+> +			return -EINVAL;
+> =C2=A0		break;
+> =C2=A0
+> =C2=A0	case V4L2_CTRL_TYPE_HEVC_EXT_SPS_LT_RPS:
+
+--=-+qIqzNsQ1iNYY2ZGJeue
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
 
+-----BEGIN PGP SIGNATURE-----
 
-On Wed, 15 Jul 2026 15:29:50 -0400, Mike Waychison wrote:
-> blk_time_get_ns() populates the per-plug cached timestamp and then
-> returns it by re-reading the field:
-> 
-> 	if (!plug->cur_ktime) {
-> 		plug->cur_ktime = ktime_get_ns();
-> 		current->flags |= PF_BLOCK_TS;
-> 	}
-> 	return plug->cur_ktime;
-> 
-> [...]
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalgM7AAKCRDZQZRRKWBy
+9CLwAQCzfhsadhxi2FhrkKM8eULKaGZqAJvx82wsbVaLtwgdWQD+MigbdDAHQRs6
+zXUQAvyGGzFompZa6a7yNqW/w6xM4g0=
+=awvS
+-----END PGP SIGNATURE-----
 
-Applied, thanks!
-
-[1/1] block: fix race in blk_time_get_ns() returning 0
-      commit: 691b052139c94ee6640ac39e0b764dd3867897c0
-
-Best regards,
--- 
-Jens Axboe
-
-
-
+--=-+qIqzNsQ1iNYY2ZGJeue--
