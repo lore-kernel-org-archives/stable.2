@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0BC48A2A7;
-	Wed, 15 Jul 2026 15:32:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E739481A94;
+	Wed, 15 Jul 2026 15:32:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784129525; cv=none; b=YFvkHczcgweM+7G3s2TbpEhroBnfmq6hqbp7nSPl0aNHLTdG65jE04CLh1dCR5igml+IoXFXnKMtcM3AGGNj+eYLDxOELqRPpAJflo6nRDSHqKsB3jQ8AhTfBbfNKEIxlJ/Uz2McIcsEzsuHrXYr2nkm/bnSDswmYBf2WsI34aU=
+	t=1784129527; cv=none; b=dzTQBptZ7sici+NFuJJzVW9XWP6RmxQV7wMAa4UmzBw4qyPV6RjEIfkw8JSZ0iapHPLRM+UibZW5w5tW9LJ4IRxgZw6Aon5r8qoF36Gcrjxl5eRMmy04rYMoawvb7nx4lLo0CBks6cfbVOBQt72WJ1jZWEjIuVk2brsSMMOkD2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784129525; c=relaxed/simple;
-	bh=Q3H/J0yO8s1F3cmseOeHXD5wSBRnWy57iRnrMKD6fJY=;
+	s=arc-20240116; t=1784129527; c=relaxed/simple;
+	bh=Lshi9sQ25US/w7mSDhEzkx95l4ZmEu9mkyA3zF2Uj9A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gkBSuxjh2qhk51Jx7Bk10VTzc5OfqsezQM19F2r8AZ4TwRTqibvgfAVZFP7k5/yVO2AVVADtHFsWe3MvQme60676WKJab29fu6x8EdjLgGwATn16sDtoqUZrAs2U+NzabpsNVoW3MMjtvY7cQ9GQzLubF14PgvoXz1suE++R7bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KTDyhsyb; arc=none smtp.client-ip=192.198.163.17
+	 MIME-Version; b=ErLDq6wuE4Gf8Rw5yVpHIWATVC7/VSfRtmSa43mZhUS90RKN2t+75FaZnP2w1Z2L9m+q8N8fXtSPLPVg2BEO4x9F9os+5QT49MD5UVCwKTSS1G62kVZPb3gmjyolXxWoGoxjv/yp+XhTJ5QIt7eTZ5kpCs2NoraVhH17fvCRQgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dgbcomzv; arc=none smtp.client-ip=192.198.163.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KTDyhsyb"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dgbcomzv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784129523; x=1815665523;
+  t=1784129526; x=1815665526;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Q3H/J0yO8s1F3cmseOeHXD5wSBRnWy57iRnrMKD6fJY=;
-  b=KTDyhsybeW390HcsUeZhmDTgZXZlqbWhllG9bDb2JS0NV17TE6CiO2ny
-   kYtHIyEa5FbgqMDtLCuGfOo8FvVXkv27btfDNSw4l+ki6RkHkAD5EZXr+
-   /JzygtdRVhDDgV52qQK45MO0X7ALUwNXXNZw+2AcsOBV+dB5IbeOz8fGf
-   TvPUx9Qzwt2bQklwtriamt55gbpcYbc6+/VorgcZ8AbucRI+SdCwW2IPH
-   ZTERCBMpqfs3O5ztsC7M1+wdgGwSUevlUui7GvMugosvkN8b2MCy7Oe5A
-   /FShoa70nxTE6LS8Xfatm37sm4u86ICYye01tXhJ3RAcP4j408jVeHkD0
+  bh=Lshi9sQ25US/w7mSDhEzkx95l4ZmEu9mkyA3zF2Uj9A=;
+  b=DgbcomzvW/sysmTMx0C372k1P3LMv52ANbcWZVrsXye/eiDxSdV1S4V8
+   7wOoWxjoBvX/4zxWOFunr8gDkY+zvqtuAww5DGFwcT1AQqm3OlU13ebiD
+   ImLktv0kqgc5cbOiZ6PuDY8vm21RJkamTsWANtBn1VUBo6R8zBCMV/yU6
+   FGBdKdiXGqoi0U2hXChAipYotDehHhrf4fVD8va0NrhBsIt5SViiGGwHT
+   n4VVmq+dsSLENXcHhwHi7WqATm8TXdXTCXIDTwsEeYU6KT22ERJ1qeac5
+   FWHgXNnNbNUl78Lq2HChboCzcVPn8+S/kC4sL91wc5bxXzhjo9okVvFiO
    w==;
-X-CSE-ConnectionGUID: WjR0PW7WQ9aHQeyJEoG+Ew==
-X-CSE-MsgGUID: 1df9CPzYQ16YRnbpIvuKpQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84654761"
+X-CSE-ConnectionGUID: yuIv5Ii1R2GkS4Il3Y38WQ==
+X-CSE-MsgGUID: aN69luQaQ0G/yLI0nN4YEg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84654767"
 X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="84654761"
+   d="scan'208";a="84654767"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 08:32:03 -0700
-X-CSE-ConnectionGUID: HKL/sFE+QSeptMko5RZcHA==
-X-CSE-MsgGUID: rEmOlYK4Qein/mn9ryi5lw==
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 08:32:06 -0700
+X-CSE-ConnectionGUID: nVExGMkHTfiG63zhnFONqw==
+X-CSE-MsgGUID: x8MZNGt4SS+r5MdIzktVBg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="255093491"
+   d="scan'208";a="255093498"
 Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa010.jf.intel.com with ESMTP; 15 Jul 2026 08:32:01 -0700
+  by orviesa010.jf.intel.com with ESMTP; 15 Jul 2026 08:32:04 -0700
 From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 To: Matthew Brost <matthew.brost@intel.com>,
 	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
@@ -56,9 +56,9 @@ Cc: Andi Shyti <andi.shyti@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	intel-xe@lists.freedesktop.org,
 	stable@vger.kernel.org
-Subject: [PATCH v5 2/3] drm/xe/i2c: Fix the interrupt handling
-Date: Wed, 15 Jul 2026 17:31:52 +0200
-Message-ID: <20260715153153.1243751-3-heikki.krogerus@linux.intel.com>
+Subject: [PATCH v5 3/3] drm/xe/i2c: Keep the i2c controller always enabled
+Date: Wed, 15 Jul 2026 17:31:53 +0200
+Message-ID: <20260715153153.1243751-4-heikki.krogerus@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260715153153.1243751-1-heikki.krogerus@linux.intel.com>
 References: <20260715153153.1243751-1-heikki.krogerus@linux.intel.com>
@@ -70,531 +70,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The platforms that support the interrupt from the I2C
-adapter can not handle the amount of interrupts the adapter
-generates because of the way the IRQ is routed in the
-hardware. The I2C controller driver has to be kept in
-polling mode because of that.
+Some platforms make an assumption that the i2c controller's
+enabled state indicates also the power state of the
+controller. This can create a problem when the controller is
+in disabled state, because the hardware may assume
+incorrectly that it is then also in low-power state.
 
-The AMC MCU can still generate critical alerts that have to
-be handled. The interrupt from SMBus Alert is left enabled
-and handled separately in the Xe. The alerts from the AMC
-will cause the device to be declared wedged for now.
+To fix this, the controller is kept enabled by taking over
+the IC_ENABLE register. The controller has to be disabled
+when the configuration is updated and when the target
+address or the slave address are assigned, so disabling it
+when IC_CON, IC_TAR or IC_SAR registers are programmed, and
+then re-enabling it again.
 
 Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
 Cc: stable@vger.kernel.org
-Co-developed-by: Ramesh Babu B <ramesh.babu.b@intel.com>
-Signed-off-by: Ramesh Babu B <ramesh.babu.b@intel.com>
 Signed-off-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 ---
- drivers/gpu/drm/xe/Makefile           |   4 +-
- drivers/gpu/drm/xe/regs/xe_i2c_regs.h |   2 +
- drivers/gpu/drm/xe/xe_amc.c           | 184 ++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_amc.h           |  25 ++++
- drivers/gpu/drm/xe/xe_i2c.c           | 120 ++++++-----------
- drivers/gpu/drm/xe/xe_i2c.h           |  13 +-
- 6 files changed, 262 insertions(+), 86 deletions(-)
- create mode 100644 drivers/gpu/drm/xe/xe_amc.c
- create mode 100644 drivers/gpu/drm/xe/xe_amc.h
+ drivers/gpu/drm/xe/xe_i2c.c | 55 +++++++++++++++++++++++++++++++++++--
+ drivers/gpu/drm/xe/xe_i2c.h |  1 +
+ 2 files changed, 54 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
-index 67ada1d6c2fb9..c92468cb9b894 100644
---- a/drivers/gpu/drm/xe/Makefile
-+++ b/drivers/gpu/drm/xe/Makefile
-@@ -153,7 +153,9 @@ xe-y += xe_bb.o \
- 	xe_wait_user_fence.o \
- 	xe_wopcm.o
- 
--xe-$(CONFIG_I2C)	+= xe_i2c.o
-+xe-$(CONFIG_I2C)	+= xe_i2c.o \
-+			   xe_amc.o
-+
- xe-$(CONFIG_DRM_XE_GPUSVM) += xe_svm.o
- xe-$(CONFIG_DRM_GPUSVM) += xe_userptr.o
- 
-diff --git a/drivers/gpu/drm/xe/regs/xe_i2c_regs.h b/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
-index f2e455e2bfe45..37550e4a20f80 100644
---- a/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
-+++ b/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
-@@ -20,4 +20,6 @@
- #define I2C_CONFIG_CMD			XE_REG(I2C_CONFIG_SPACE_OFFSET + PCI_COMMAND)
- #define I2C_CONFIG_PMCSR		XE_REG(I2C_CONFIG_SPACE_OFFSET + 0x84)
- 
-+#define I2C_REG(reg)			XE_REG((reg) + I2C_MEM_SPACE_OFFSET)
-+
- #endif /* _XE_I2C_REGS_H_ */
-diff --git a/drivers/gpu/drm/xe/xe_amc.c b/drivers/gpu/drm/xe/xe_amc.c
-new file mode 100644
-index 0000000000000..039010d79dbf3
---- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_amc.c
-@@ -0,0 +1,184 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Intel Corporation.
-+ */
-+
+diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+index 731e166e1f83d..4c26f8fdbfe83 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.c
++++ b/drivers/gpu/drm/xe/xe_i2c.c
+@@ -8,6 +8,7 @@
+ #include <drm/drm_print.h>
+ #include <linux/array_size.h>
+ #include <linux/container_of.h>
 +#include <linux/delay.h>
-+#include <linux/dev_printk.h>
-+#include <linux/i2c.h>
-+#include <linux/pci_ids.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+#include <linux/workqueue.h>
-+
-+#include "regs/xe_i2c_regs.h"
-+
-+#include "xe_amc.h"
-+#include "xe_device.h"
-+#include "xe_i2c.h"
-+#include "xe_mmio.h"
-+
-+/**
-+ * DOC: Add-In Management Controller (AMC)
-+ *
-+ * Handler for the SMBus Alerts from the AMC. All the alerts from AMC will cause
-+ * the device to be declared wedged.
-+ */
-+
-+#define AMC_COMMAND		0x0f
-+#define AMC_GPU_I2C_ADDR	0x8f
-+#define AMC_VERSION_V1		0x01
-+#define AMC_DESTINATION_ID	12
-+#define AMC_SOURCE_ID		8
-+#define AMC_FLAGS		0xc8
-+
-+#define AMC_MSG_TYPE		0x7e
-+#define AMC_GET_ALERT_REASON	0x01
-+
-+enum xe_amc_alert {
-+	AMC_ALERT_UNKNOWN,
-+	AMC_ALERT_FW_DOWNLOAD,
-+	AMC_ALERT_THERMAL_TRIP,
-+	AMC_ALERT_OOB_REQUEST,
-+	AMC_ALERT_OOB_RESET,
-+	AMC_ALERT_CATERR,
-+};
-+
-+struct xe_amc {
-+	struct xe_i2c *i2c;
-+	struct work_struct work;
-+};
-+
-+struct amc_header {
-+	u8 command;
-+	u8 len;
-+	u8 address;
-+	u8 version;
-+	u8 destination;
-+	u8 source;
-+	u8 flags;
-+};
-+
-+struct amc_message {
-+	u8 type;
-+	u16 vendor;
-+	u8 command;
-+} __packed;
-+
-+struct amc_request {
-+	struct amc_header header;
-+	struct amc_message message;
-+	u32 reserved;
-+} __packed;
-+
-+struct amc_response {
-+	struct amc_header header;
-+	struct amc_message message;
-+	u8 error;
-+	u8 value;
-+} __packed;
-+
-+static const struct amc_request amc_get_alert_reason = {
-+	.header = {
-+		.command	= AMC_COMMAND,
-+		.len		= sizeof(struct amc_request) - 2,
-+		.address	= AMC_GPU_I2C_ADDR,
-+		.version	= AMC_VERSION_V1,
-+		.destination	= AMC_DESTINATION_ID,
-+		.source		= AMC_SOURCE_ID,
-+		.flags		= AMC_FLAGS,
-+	},
-+	.message = {
-+		.type		= AMC_MSG_TYPE,
-+		.vendor		= htons(PCI_VENDOR_ID_INTEL),
-+		.command	= AMC_GET_ALERT_REASON,
-+	},
-+};
-+
-+static void xe_amc_work(struct work_struct *work)
+ #include <linux/device.h>
+ #include <linux/err.h>
+ #include <linux/i2c.h>
+@@ -214,11 +215,40 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
+ 	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
+ }
+ 
++/* See "Disabling DW_apb_i2c" in the DesignWare DW_abp_i2c databook. */
++static void xe_i2c_disable(struct xe_i2c *i2c)
 +{
-+	const struct amc_request *request = &amc_get_alert_reason;
-+	struct xe_amc *amc = from_work(amc, work, work);
-+	struct amc_response response;
-+	struct i2c_client *client;
-+	int ret;
++	int timeout = 100;
++	u32 status;
 +
-+	client = amc->i2c->client[XE_I2C_CLIENT_AMC];
-+	if (!client)
-+		goto out_reassert_interrupt;
++	xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), DW_IC_ENABLE_ENABLE, 0);
 +
-+	ret = i2c_master_send(client, (u8 *)request, sizeof(*request));
-+	if (ret < 0) {
-+		dev_err(&client->dev, "failed to send request (%d)\n", ret);
-+		goto out_reassert_interrupt;
-+	}
++	do {
++		status = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_ENABLE_STATUS));
++		if (!(status & DW_IC_ENABLE_ENABLE))
++			return;
++		/* Can't sleep here. */
++		udelay(25);
++	} while (timeout--);
 +
-+	/* AMC needs 20ms to generate the response. */
-+	fsleep(20 * USEC_PER_MSEC);
++	dev_warn(i2c->drm_dev, "timeout in disabling i2c adapter\n");
++}
 +
-+	ret = i2c_master_recv(client, (u8 *)&response, sizeof(response));
-+	if (ret < 0) {
-+		dev_err(&client->dev, "failed to read response (%d)\n", ret);
-+		goto out_reassert_interrupt;
-+	}
+ static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
+ {
+ 	struct xe_i2c *i2c = context;
+ 
+-	*val = xe_mmio_read32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET));
++	*val = xe_mmio_read32(i2c->mmio, I2C_REG(reg));
 +
-+	if (!response.header.len) {
-+		dev_err(&client->dev, "empty response from AMC\n");
-+		goto out_reassert_interrupt;
-+	}
-+
-+	if (memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
-+		dev_err(&client->dev, "response does not match the request\n");
-+		goto out_reassert_interrupt;
-+	}
-+
-+	if (response.error) {
-+		dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
-+		goto out_reassert_interrupt;
-+	}
-+
-+	dev_dbg(&client->dev, "%s: Alert reason: %d\n", __func__, response.value);
-+
-+	switch (response.value) {
-+	case AMC_ALERT_FW_DOWNLOAD:
-+	case AMC_ALERT_THERMAL_TRIP:
-+	case AMC_ALERT_OOB_REQUEST:
-+	case AMC_ALERT_OOB_RESET:
-+	case AMC_ALERT_CATERR:
-+		xe_device_declare_wedged(i2c_client_to_xe_device(client));
++	switch (reg) {
++	case DW_IC_ENABLE:
++	case DW_IC_ENABLE_STATUS:
++		FIELD_MODIFY(DW_IC_ENABLE_ENABLE, val,
++			     i2c->ic_enable & DW_IC_ENABLE_ENABLE);
 +		break;
 +	default:
 +		break;
 +	}
-+
-+out_reassert_interrupt:
-+	xe_mmio_rmw32(amc->i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
-+}
-+
-+void xe_amc_handle_alert(struct xe_i2c *i2c)
-+{
-+	queue_work(system_long_wq, &i2c->amc->work);
-+}
-+
-+int xe_amc_init(struct xe_i2c *i2c)
-+{
-+	struct xe_amc *amc;
-+
-+	amc = kzalloc(sizeof(*amc), GFP_KERNEL);
-+	if (!amc)
-+		return -ENOMEM;
-+
-+	INIT_WORK(&amc->work, xe_amc_work);
-+	i2c->amc = amc;
-+	amc->i2c = i2c;
-+
-+	return 0;
-+}
-+
-+void xe_amc_exit(struct xe_i2c *i2c)
-+{
-+	if (i2c->amc) {
-+		cancel_work_sync(&i2c->amc->work);
-+		kfree(i2c->amc);
-+	}
-+}
-diff --git a/drivers/gpu/drm/xe/xe_amc.h b/drivers/gpu/drm/xe/xe_amc.h
-new file mode 100644
-index 0000000000000..b1d5311fee536
---- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_amc.h
-@@ -0,0 +1,25 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _XE_AMC_H_
-+#define _XE_AMC_H_
-+
-+#include <linux/i2c.h>
-+
-+#include "xe_device.h"
-+
-+struct xe_i2c;
-+
-+static inline struct xe_device *i2c_adapter_to_xe_device(struct i2c_adapter *adapter)
-+{
-+	return kdev_to_xe_device(adapter->dev.parent->parent);
-+}
-+
-+static inline struct xe_device *i2c_client_to_xe_device(struct i2c_client *client)
-+{
-+	return i2c_adapter_to_xe_device(client->adapter);
-+}
-+
-+int xe_amc_init(struct xe_i2c *i2c);
-+void xe_amc_exit(struct xe_i2c *i2c);
-+void xe_amc_handle_alert(struct xe_i2c *i2c);
-+
-+#endif /* _XE_AMC_H_ */
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index bd956776b10be..731e166e1f83d 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -12,8 +12,6 @@
- #include <linux/err.h>
- #include <linux/i2c.h>
- #include <linux/ioport.h>
--#include <linux/irq.h>
--#include <linux/irqdomain.h>
- #include <linux/notifier.h>
- #include <linux/pci.h>
- #include <linux/platform_device.h>
-@@ -24,9 +22,12 @@
- #include <linux/types.h>
- #include <linux/workqueue.h>
  
-+#include <linux/designware_i2c.h>
-+
- #include "regs/xe_i2c_regs.h"
- #include "regs/xe_irq_regs.h"
- 
-+#include "xe_amc.h"
- #include "xe_device.h"
- #include "xe_i2c.h"
- #include "xe_mmio.h"
-@@ -61,16 +62,34 @@ static inline void xe_i2c_read_endpoint(struct xe_mmio *mmio, void *ep)
- 	val[1] = xe_mmio_read32(mmio, REG_SG_REMAP_ADDR_POSTFIX);
+ 	return 0;
  }
- 
-+static void xe_i2c_handle_smbus_alert(struct xe_i2c *i2c)
-+{
-+	u32 stat;
-+
-+	stat = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_SMBUS_INTR_STAT));
-+	if (!stat)
-+		return;
-+
-+	xe_mmio_write32(i2c->mmio, I2C_REG(DW_IC_CLR_SMBUS_INTR), stat);
-+
-+	xe_mmio_rmw32(i2c->mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
-+
-+	if (stat & DW_IC_SMBUS_INTR_ALERT && i2c->amc)
-+		xe_amc_handle_alert(i2c);
-+	else
-+		xe_mmio_rmw32(i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
-+}
-+
- static void xe_i2c_client_work(struct work_struct *work)
- {
- 	struct xe_i2c *i2c = container_of(work, struct xe_i2c, work);
- 	struct i2c_board_info info = {
- 		.type	= "amc",
- 		.flags	= I2C_CLIENT_HOST_NOTIFY,
--		.addr	= i2c->ep.addr[1],
-+		.addr	= i2c->ep.addr[XE_I2C_CLIENT_AMC],
- 	};
- 
--	i2c->client[0] = i2c_new_client_device(i2c->adapter, &info);
-+	i2c->client[XE_I2C_CLIENT_AMC] = i2c_new_client_device(i2c->adapter, &info);
- }
- 
- static int xe_i2c_notifier(struct notifier_block *nb, unsigned long action, void *data)
-@@ -112,16 +131,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
- 		goto err_fwnode_remove;
- 	}
- 
--	if (i2c->adapter_irq) {
--		struct resource res;
--
--		res = DEFINE_RES_IRQ_NAMED(i2c->adapter_irq, "xe_i2c");
--
--		ret = platform_device_add_resources(pdev, &res, 1);
--		if (ret)
--			goto err_pdev_put;
--	}
--
- 	pdev->dev.parent = i2c->drm_dev;
- 	pdev->dev.fwnode = fwnode;
- 	i2c->adapter_node = fwnode;
-@@ -163,7 +172,8 @@ bool xe_i2c_present(struct xe_device *xe)
- 
- static bool xe_i2c_irq_present(struct xe_device *xe)
- {
--	return xe->i2c && xe->i2c->adapter_irq;
-+	return xe->i2c && xe->i2c->ep.capabilities & XE_I2C_EP_CAP_IRQ &&
-+		!xe_survivability_mode_is_boot_enabled(xe);
- }
- 
- /**
-@@ -176,18 +186,10 @@ static bool xe_i2c_irq_present(struct xe_device *xe)
-  */
- void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
- {
--	struct xe_mmio *mmio = xe_root_tile_mmio(xe);
--
- 	if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
- 		return;
- 
--	/* Forward interrupt to I2C adapter */
--	generic_handle_irq_safe(xe->i2c->adapter_irq);
--
--	/* Deassert after I2C adapter clears the interrupt */
--	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
--	/* Reassert to allow subsequent interrupt generation */
--	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
-+	xe_i2c_handle_smbus_alert(xe->i2c);
- }
- 
- void xe_i2c_irq_reset(struct xe_device *xe)
-@@ -212,45 +214,6 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
- 	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
- }
- 
--static int xe_i2c_irq_map(struct irq_domain *h, unsigned int virq,
--			  irq_hw_number_t hw_irq_num)
--{
--	irq_set_chip_and_handler(virq, &dummy_irq_chip, handle_simple_irq);
--	return 0;
--}
--
--static const struct irq_domain_ops xe_i2c_irq_ops = {
--	.map = xe_i2c_irq_map,
--};
--
--static int xe_i2c_create_irq(struct xe_device *xe)
--{
--	struct xe_i2c *i2c = xe->i2c;
--	struct irq_domain *domain;
--
--	if (!(i2c->ep.capabilities & XE_I2C_EP_CAP_IRQ) ||
--	    xe_survivability_mode_is_boot_enabled(xe))
--		return 0;
--
--	domain = irq_domain_create_linear(dev_fwnode(i2c->drm_dev), 1, &xe_i2c_irq_ops, NULL);
--	if (!domain)
--		return -ENOMEM;
--
--	i2c->adapter_irq = irq_create_mapping(domain, 0);
--	i2c->irqdomain = domain;
--
--	return 0;
--}
--
--static void xe_i2c_remove_irq(struct xe_i2c *i2c)
--{
--	if (!i2c->irqdomain)
--		return;
--
--	irq_dispose_mapping(i2c->adapter_irq);
--	irq_domain_remove(i2c->irqdomain);
--}
--
- static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
+@@ -227,7 +257,28 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
  {
  	struct xe_i2c *i2c = context;
-@@ -307,12 +270,15 @@ static void xe_i2c_remove(void *data)
- 	struct xe_i2c *i2c = data;
- 	unsigned int i;
  
--	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++)
-+	xe_amc_exit(i2c);
+-	xe_mmio_write32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET), val);
++	switch (reg) {
++	case DW_IC_CON:
++	case DW_IC_TAR:
++	case DW_IC_SAR:
++		/* Disable the controller. */
++		xe_i2c_disable(i2c);
 +
-+	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
- 		i2c_unregister_device(i2c->client[i]);
-+		i2c->client[i] = NULL;
-+	}
- 
- 	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
- 	xe_i2c_unregister_adapter(i2c);
--	xe_i2c_remove_irq(i2c);
- }
- 
- /**
-@@ -360,22 +326,18 @@ int xe_i2c_probe(struct xe_device *xe)
- 	if (ret)
- 		return ret;
- 
--	ret = xe_i2c_create_irq(xe);
--	if (ret)
--		goto err_unregister_notifier;
--
- 	ret = xe_i2c_register_adapter(i2c);
--	if (ret)
--		goto err_remove_irq;
-+	if (ret) {
-+		bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-+		return ret;
-+	}
++		/* Write the register. */
++		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
 +
-+	ret = xe_amc_init(i2c);
-+	if (ret) {
-+		xe_i2c_remove(i2c);
-+		return ret;
++		/* Enable the controller. */
++		xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 0, DW_IC_ENABLE_ENABLE);
++		break;
++	case DW_IC_ENABLE:
++		i2c->ic_enable = val;
++		/* Other fields can be updated except the enable bit. */
++		val |= DW_IC_ENABLE_ENABLE;
++		fallthrough;
++	default:
++		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
++		break;
 +	}
  
- 	xe_i2c_irq_postinstall(xe);
- 	return devm_add_action_or_reset(drm_dev, xe_i2c_remove, i2c);
--
--err_remove_irq:
--	xe_i2c_remove_irq(i2c);
--
--err_unregister_notifier:
--	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
--
--	return ret;
+ 	return 0;
  }
 diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
-index 425d8160835f4..b200966b00484 100644
+index b200966b00484..d63adacfefe71 100644
 --- a/drivers/gpu/drm/xe/xe_i2c.h
 +++ b/drivers/gpu/drm/xe/xe_i2c.h
-@@ -11,18 +11,21 @@ struct device;
- struct fwnode_handle;
- struct i2c_adapter;
- struct i2c_client;
--struct irq_domain;
- struct platform_device;
-+struct xe_amc;
- struct xe_device;
- struct xe_mmio;
+@@ -37,6 +37,7 @@ struct xe_i2c {
+ 	struct platform_device *pdev;
+ 	struct i2c_adapter *adapter;
+ 	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
++	unsigned int ic_enable;
  
--#define XE_I2C_MAX_CLIENTS		3
--
- #define XE_I2C_EP_COOKIE_DEVICE		0xde
- 
- /* Endpoint Capabilities */
- #define XE_I2C_EP_CAP_IRQ		BIT(0)
- 
-+enum XE_I2C_CLIENT {
-+	XE_I2C_CLIENT_AMC = 1,
-+	XE_I2C_MAX_CLIENTS = 3,
-+};
-+
- struct xe_i2c_endpoint {
- 	u8 cookie;
- 	u8 capabilities;
-@@ -38,13 +41,11 @@ struct xe_i2c {
  	struct notifier_block bus_notifier;
  	struct work_struct work;
- 
--	struct irq_domain *irqdomain;
--	int adapter_irq;
--
- 	struct xe_i2c_endpoint ep;
- 	struct device *drm_dev;
- 
- 	struct xe_mmio *mmio;
-+	struct xe_amc *amc;
- };
- 
- #if IS_ENABLED(CONFIG_I2C)
 -- 
 2.50.1
 
