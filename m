@@ -1,163 +1,215 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB2342BC4C
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 05:26:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784093212; cv=pass; b=Ohrt4myRBJDpeD9xkCn/lfJ6LWJAukg64NBbKwyLWkw05ABQy8eY3g615N4UpWb4runMg6s+s/jo7Qdb3CNDeKwuslMmY3a7veaBff//F5cjTko23n0J1vwChpEIIjfHtbmYpLbusXXNJBI28hHPmGxcWDxsAniZBIBYO+ESm74=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784093212; c=relaxed/simple;
-	bh=FwwkLKfnhmi7lzE3+e+YTgEDjUkHForo8+On5/8/8vE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IH19CHtxp6JZHKnkZ2SqWQpmGl8mz/QImZhvBIBUdatw57qNQLfG24xE9ksBSRwU1Z45g0g62VuQG9ve4vmQbIK9eD+QrlAMma7KJMYag2RM3iKfMDYwTmuIiosNGljrsXvcYeF6i4N5ytVcpbL7xNZg2CzqQQ/2LOX2GSBdFLw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O1YE+nYm; arc=pass smtp.client-ip=74.125.224.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC76539CCE1
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 05:34:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784093664; cv=none; b=WsZoAXxEpZUuLnpZNG/rWwbm/6+HMMkcFMNZ91Gs9NmRDI7pL0N4qrYj15tPDAUUHShxQMuVJAkug+7z4vgn6c00nRsF6ceqNUVu39qv0mKgantup+r+JnASohcrVKmWfWID+gI80sZnJIuy6H9U3bIYy6+/GFD7afObeDenPYY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784093664; c=relaxed/simple;
+	bh=zxczRmFlgL80bpV/DYtMF+mlbt4jOVvndkOtJVGbW94=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FmJqE8LCu/bHLKq8yIcXp92j6osIC2SKAPVi0KtWkstMz9nu+CWaN60OG9ePqNrA7fMSAwIyOb8ZNQbhnC4WlPdWEdvaT5AbTHZG7LD/ezn14vH86A4TOaffwO/lAiFsQSXHfxgrhzvOxOoSRpdWASuCdA7YJgsowgxKW2RoP0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F4SsJSBa; arc=none smtp.client-ip=209.85.219.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O1YE+nYm"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-667b76205f1so1753206d50.1
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 22:26:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784093210; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DvN9WAJtwkSFmaU1kZ+wNVgzizYxRB+6itZbK2QD48We+lYwTcVA6oPit5ILY3RCQl
-         4rvhPHBD5VAWlYg8VqFG9BYiKU4esLMT/2EAUMbKXb37dq23ULYxWW9Wp7SBwOw9o/Qz
-         K8Slv6Hu0sjTFMBRgzxIu2ZymkzsiAsnmk+x73z2GEpTbjWzZDX4zuKAmKax+BssXQ+6
-         S9kNvJAyG2NygtNNjyQ5LleClQl6hsCv/5VsdqwT6alxeAmIJfzP5aMKOtRtMa/4xpWq
-         6ayCIkPBOEXMGcD5y+KZsxu93NjYhXMStyTr8pLWcaMpou+UeCZHGz/6oOh16fo0EDwG
-         YKMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wVxu7nCIPOZt/Ixky+j+5nh18mEYf8CszwHnP1+JvR8=;
-        fh=/+97KCvJNCVmMDECt85duBwcxIFbF07eZKHOT3K9+tI=;
-        b=b5U8HTrcS/HkexhBNGbpHMtCAlFLL5M3OifKM+sG87v0Rq3kIkPV5o1RzTfdGO0nvg
-         MAjiWwJkkykyZwuSKBC64sTATMXmNAz5vFPyTh7r0y0ZPYWpacMRLrQ/47Zgti72+Fg7
-         RMePwe/29LNtXNpMZrTWx4KIoRcJqIQN62ZK7HBdQrW+wHdnL0qL9PBWVPAYUm1VDPaC
-         FASimkusYSG3hymwKVyKMX4gnu1X+6px6Sv19tXIDSXMXjvvJ6+WbeteBbRaaPtOeWu6
-         zs0H0FjJa1FMYDgvP7/kEyRemQz5dXXReRwNJU2760pyUEVKBycUtcgopT5B/EXndkRK
-         CI2g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F4SsJSBa"
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8eefd0c5f59so18546026d6.3
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 22:34:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784093210; x=1784698010; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wVxu7nCIPOZt/Ixky+j+5nh18mEYf8CszwHnP1+JvR8=;
-        b=O1YE+nYmnpxNaaThc9P8EcHvkGfWA4TnTlU8nU7tVPIXsJsvgNrJ2ocE1VEuNQ0CqX
-         xD3YxDEeaq9zMs93MyEe3RC5FkdM9E05juOTTy5ySv8k+kg4soWclZa3W8ApgNwXxUrm
-         GnU/xjkQNFdJl/6NrP143/dR3Z+CRmWepUrAmqrG0JjFi4LLOJt8o5AYjo3Eb/s1UwNw
-         htuaipbdRVWP2KxlAMjiLXJeNqLzvhHUY2Gl9sgqMT9aXhQYZ6HdMUqmHf4zNcQVVaxP
-         bieSQzNwOSc4Fudw9PHOfYN1oWTbJ7QGai5Val9C1YP/Vt4LnrO3ylcL2DwOzdSkdzpb
-         iuVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784093210; x=1784698010;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1784093662; x=1784698462; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wVxu7nCIPOZt/Ixky+j+5nh18mEYf8CszwHnP1+JvR8=;
-        b=i34rWou5gCSq2gLLXGIsdxKzBc+qRBpxEqBjxAFcxI6aOeI5J3dxF844Fksg13hmKT
-         dRGkN0zNHi3IEn5qAfl4P10vcwHJPP1h9Rixaq6M66hLMxbgyvRZId7ta+CCLr0kTvwK
-         GWTOf4AE4RHoNhNsH4KBCshQAwivvA58mfIn4xNZQL+zefgbBH/iLdBfdjdFpUwE8Sg1
-         hjqfOVCZJ9A1c+8tuimx1dbozhkqVdbdvihBprVtA/M1NMb2V1S0GNAcmE4YV/8TyCrO
-         f6v9H3oOagWEClzYx4HQtBy6K8ayISgnk2Q/XFUJbY2Aj98GfaZ8lCUCox2nfP5V4kyr
-         oZeA==
-X-Forwarded-Encrypted: i=1; AHgh+RpdsZzmKackRYHgplI1TJr9XoN3LiS8S7kOfEjv9cdIifr5GO/P3nYq7yUZOW3DrPkDzdP7h+c=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfQq6ReMdKVac0bPKY9Jlkn6BhwmaSHAl2quZkSE0moMXILWqo
-	45fVmnXLhywxlkdBBohRQ9iS5yanZo/Df227OPkDTPkJuQnDFnASnuXw5zwwgZxXCSVqo17x7fA
-	iAutVDd3XccEK3y4V9A0pWlPKIRdfZ0o=
-X-Gm-Gg: AfdE7cmVpHIA6tb3FPeYm4R37Yjx8kJU/C4NCTloVR4kfY3q3QQ1DlflGUtbB+gOUGa
-	om1ky7we0w/Mb1GOquFUC+RhUDQRu0/qShTrNYpxeIbhPckYXy5R7kD6T4i2TM3JkvO3L/rSKHw
-	hCE1E9CTt4Q+O6QT9/6nL3ZCi8qKX4GmQ3vGUx/ErNrrXNEsN732p37NTu2yHpt2Fzli8a7NrS8
-	MiossYsCtz3BcENtCBL7uYhgdwp/SJo1exTngCfqvPXS/FHpe+6n3igr3jKXTYNhGGWgG5nvoUJ
-	lf4fkMP0GAXvoEsiqlhC2fhqoVOvGnX3CWBTjhWt
-X-Received: by 2002:a05:690e:454e:20b0:664:ae69:230b with SMTP id
- 956f58d0204a3-667d7cb74a6mr8345277d50.72.1784093209973; Tue, 14 Jul 2026
- 22:26:49 -0700 (PDT)
+        bh=qjHH+FMkakpyFDgNWCbAnIusGPkRsb+vc761IxBrtvA=;
+        b=F4SsJSBawelW6PWaH7d+OmZeNohJb4QWM2PfipiFmcx5DlRJKT2F5BvKLoSGud9ZKP
+         P4alw6j8JzdHhucD7ox9U6lCNC3KM9/EBLdgz3zp2T561Qg2icJq3fnqSbkqp206FYuM
+         EepdhopCfByyc53qzLdM0f+Pwk1Jmh2YyiaVLx3Gwf/9bc4GqfAtmk2Q2CecVTAVcaDe
+         g9yIs39vk7aErHHGNSumnhSwsnl8O2jJZsNXXT3VkDCbFEekTfewh9dI2kw0A5TenR45
+         x2R+gOrsUnlbaoTIh/A/WulBR4/AzEpGyl87TB+qtYKK89aAYs9+INRBKzbHAuPBi5qc
+         e3gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784093662; x=1784698462;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qjHH+FMkakpyFDgNWCbAnIusGPkRsb+vc761IxBrtvA=;
+        b=n02vo0NPLTvwsh6kTe+SN8hVylbs/pSfMvCm6/l1h3w3HaQ6kaZLIWFP65oqqvdbTm
+         DX9Y5B4Am9QtY3neBNcN4LJOWKPeXd6DN7NPeli0ksqx0o4N920nhS9zfpJwLfCF/bEM
+         6FC//kuls2GfKCS6XSxEF0u5NKwHzM08xci7NHOgy0PEFat1MCAbVV8PUsPIwu7pfcYx
+         SRMtgW1Mka6/u+WeQkkkkBbDh1g0gheLr5Q/nRZ+xXRP2Em06H6WnnVwwIuc6PwiHz9B
+         tWngvg53kl/Fxssjg2XyJQml8v2hlx/XPrsmd2PVuPlwefnBx4EkPbdEri1yXXfAfLxH
+         4uIw==
+X-Forwarded-Encrypted: i=1; AHgh+RodV+nRx9nkWnvYpEBiGDC6LEC4Udsgh9x2tHJFgzPPtiXwl5VPd3DK201l9PSjhmJvl9jeulk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLEx6s9eQH1/8unRWBgq4rxgS4gZFzCy63Yr2ymf4G5rzhoFNi
+	d+9XDQUJ2YXcnToFpK7IoVVVzrvEfRmNx1DIsdRDlUx3vCmdKLRxK5vPlQ9xMrMjm+knCfga
+X-Gm-Gg: AfdE7ckKAK3w70Kn6z7IgA+QM99w6I6qJIP1WH1IrANUcQMpNx95JuGoe6Fu8rPG32X
+	iLLe6WPbU4KXE7SBrrJTQEO6qCcL5iEZmtHGtmQQ1BAJDojZS6X/+dPnC4C6p8xwpNiC2WYF3l5
+	aZc/3J+pFK7VG0zatbB+6o65Ofgf0c+8HrH+tM8VktLYMg5B7D0C+6AG3CU/CTrMR7Mnet8tTkW
+	OZeUAUp2Vf0UMYkFbVpIGcnTZBpQTcV4VnBJCSHp2KCj2kYCkWib8EBmnAZk9wCl3ryczUsAQhZ
+	zOibY8P6Iz24dbYouvwzTaIhmq8+yLe56G0yBVtZr6aXbbCy2pKRzFCnY6tNC12hH0P+WKV+WBJ
+	nDpu8CUVHMIFbqYbeSQ/Y/REaVsDnk2eSuWMl+8qEyzU6oM9D882lgvWJMJ3CwJ8BfEPeJhuAb8
+	beOi6jnGe/knY+k6HvekAeOtkBP1kbsWPucX3w5xjdNr3Ugd2ToJQMIUw=
+X-Received: by 2002:a05:6214:3992:b0:8ee:a2f3:af32 with SMTP id 6a1803df08f44-90401578bb0mr198230206d6.38.1784093661755;
+        Tue, 14 Jul 2026 22:34:21 -0700 (PDT)
+Received: from [198.18.0.1] ([48.45.163.146])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd82e8ffdsm190584646d6.37.2026.07.14.22.34.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jul 2026 22:34:20 -0700 (PDT)
+Message-ID: <15e5b802-b43a-44c5-97b6-a599f28bdee4@gmail.com>
+Date: Wed, 15 Jul 2026 01:34:13 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714093846.18159-1-sun.jian.kdev@gmail.com>
- <20260714093846.18159-3-sun.jian.kdev@gmail.com> <alcGgfNM94zgydlK@u94a> <alcKV2MXI_5dsaez@u94a>
-In-Reply-To: <alcKV2MXI_5dsaez@u94a>
-From: sun jian <sun.jian.kdev@gmail.com>
-Date: Wed, 15 Jul 2026 13:26:40 +0800
-X-Gm-Features: AUfX_mwhT8NaoM0E4vlnZLxpbriX3wdXCL0zkk7Q3sx-cyB_tomgavh0BoCs6Fo
-Message-ID: <CABFUUZFsJsF-C5Z2gb3FkZ7WD=vBavnGdZ7veScP_+dwZLsaMg@mail.gmail.com>
-Subject: Re: [PATCH bpf v5 2/2] selftests/bpf: Cover negative buffer pointer offsets
-To: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-Cc: bpf@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Emil Tsalapatis <emil@etsalapatis.com>, Jiri Olsa <jolsa@kernel.org>, 
-	John Fastabend <john.fastabend@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Shuah Khan <shuah@kernel.org>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Matt Mullins <mmullins@mmlx.us>, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: gadget: dummy_hcd: prevent fifo_req reuse during
+ giveback
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ bigeasy@linutronix.de, eeodqql09@gmail.com, kees@kernel.org,
+ surban@surban.net, linux-kernel@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com, stable@vger.kernel.org
+References: <20260714064829.172098-1-wangjinchao600@gmail.com>
+ <c7de3923-1f68-46f9-986e-33899dce112c@rowland.harvard.edu>
+Content-Language: en-US
+From: Jinchao Wang <wangjinchao600@gmail.com>
+In-Reply-To: <c7de3923-1f68-46f9-986e-33899dce112c@rowland.harvard.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 15, 2026 at 12:23=E2=80=AFPM Shung-Hsi Yu <shung-hsi.yu@suse.co=
-m> wrote:
->
-> On Wed, Jul 15, 2026 at 12:15:07PM +0800, Shung-Hsi Yu wrote:
-> > On Tue, Jul 14, 2026 at 02:38:46AM -0700, Sun Jian wrote:
-> > > Add verifier coverage for constant negative offsets on PTR_TO_TP_BUFF=
-ER
-> > > and PTR_TO_BUF pointers. Both programs adjust the buffer pointer by -=
-8
-> > > and access it at offset zero, so the negative effective start must be
-> > > rejected at load time.
-> > [...]
-> > > +   const struct bpf_insn negative_var_off_program[] =3D {
-> > > +           BPF_LDX_MEM(BPF_DW, BPF_REG_6, BPF_REG_1, 0),
-> > > +           /* make var_off negative, but keep the effective access o=
-ffset non-negative */
-> > > +           BPF_ALU64_IMM(BPF_ADD, BPF_REG_6, -8),
-> > > +           /* one byte beyond the end of the writable context */
-> > > +           BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_6,
-> > > +                       sizeof(struct bpf_testmod_test_writable_ctx) =
-+ 8),
-> > > +           BPF_EXIT_INSN(),
-> > > +   };
-> >
-> > Come to think of it, perhaps we can add another one that test one byte
-> > *before* the start of the writable context?
-> >
-> > I understand that it won't even reach the attachment phase because afte=
-r
-> > your 1st patch is applied, access to effective negative offset of will
-> > be rejected at load time, but the one that tried to access one byte
-> > before the start of writable context was what that triggered KASAN, and
-> > would be useful to have it as a regression test.
->
-> I really should proof-read more before I send...
->
-> Since the "effective access offset non-negative" should be rejected, it
-> would not make refactoring harder, sorry. What I said below in the last
-> email is wrong.
->
-> Anyway, still recommend adding a regression test that test access to one
-> byte before the start of writable context.
->
+On 7/14/2026 5:13 PM, Alan Stern wrote:
+> On Tue, Jul 14, 2026 at 02:48:29PM +0800, Jinchao Wang wrote:
+>> dummy_hcd embeds a single shared usb_request (dum->fifo_req) that the
+>> "emulated single-request FIFO" fast-path in dummy_queue() reuses for
+>> small IN transfers: it copies the caller's request into it
+>> (req->req = *_req) and queues it, treating list_empty(&fifo_req.queue)
+>> as "the slot is free".
+>>
+>> The completion side (dummy_timer/transfer/nuke/dummy_dequeue) follows
+>> the standard pattern: list_del_init(&req->queue) unlinks the request,
+>> then the lock is dropped and usb_gadget_giveback_request() invokes
+>> req->complete().  But list_del_init() makes fifo_req.queue look empty
+>> *before* the completion callback returns, so a concurrent dummy_queue()
+>> on another CPU sees the slot as free, reuses fifo_req and runs
+>> req->req = *_req -- overwriting req->complete while dummy_timer is
+>> mid-calling it.  The indirect call then jumps to a clobbered pointer,
+>> causing a general protection fault / page fault in dummy_timer
+>> (syzkaller extid faf3a6cf579fc65591ca).  The clobbering write is an
+>> in-bounds memcpy on a live shared object, so KASAN cannot flag it.
+>>
+>> Add a fifo_req_busy bit, set across the lockless giveback window via a
+>> dummy_giveback() helper used at all four gadget-request giveback sites,
+>> and require !fifo_req_busy in the FIFO fast-path guard so the shared
+>> slot cannot be reused until its completion callback has returned.
+>>
+>> Reported-by: syzbot+faf3a6cf579fc65591ca@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=faf3a6cf579fc65591ca
+>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jinchao Wang <wangjinchao600@gmail.com>
+> 
+> Wow!  I'm impressed.  How did you figure this out?
 
-The new tracepoint_writable_reject_negative_const_offset verifier case
-already covers an access before the start of the writable context:
+With a hardware watchpoint: I armed one on the victim field
+(req->complete, at arg2+56 of usb_gadget_giveback_request) only while
+usb_gadget_giveback_request() was running, and it caught the writing
+memcpy with a full stack - usb_ep_queue <- raw_process_ep_io <-
+raw_ioctl - on the same request that crashed an instant later.
 
-    r6 =3D *(u64 *)(r1 + 0);
-    r6 +=3D -8;
-    r0 =3D *(u64 *)(r6 + 0);
+The watchpoint setup came from a small tool I am working on; I posted
+it as an RFC in case it is useful to others:
 
-Its effective access range is [-8, 0), so it is rejected at load time.
-This is the direct regression test for the negative-start case.
+https://lore.kernel.org/all/20260714182243.10687-1-wangjinchao600@gmail.com/
 
-> > Or alternatively simply change negative_var_off_program[] to be the one
-> > that test access *before* the start of context. I am not even sure if
-> > the compiler generate such pattern; if it doesn't, then this test would
-> > make future refactoring harder without much benefit.
-> >
-> > [...]
+> 
+>> ---
+>>  drivers/usb/gadget/udc/dummy_hcd.c | 40 +++++++++++++++++++++---------
+>>  1 file changed, 28 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/drivers/usb/gadget/udc/dummy_hcd.c b/drivers/usb/gadget/udc/dummy_hcd.c
+>> index f47903461ed5..fce3c3ba7a63 100644
+>> --- a/drivers/usb/gadget/udc/dummy_hcd.c
+>> +++ b/drivers/usb/gadget/udc/dummy_hcd.c
+>> @@ -278,6 +278,7 @@ struct dummy {
+>>  	unsigned			ints_enabled:1;
+>>  	unsigned			udc_suspended:1;
+>>  	unsigned			pullup:1;
+>> +	unsigned			fifo_req_busy:1;
+>>  
+>>  	/*
+>>  	 * HOST side support
+>> @@ -330,6 +331,28 @@ static inline struct dummy *gadget_dev_to_dummy(struct device *dev)
+>>  /* DEVICE/GADGET SIDE UTILITY ROUTINES */
+>>  
+>>  /* called with spinlock held */
+> 
+> That comment line is supposed to come immediately before nuke().  Your 
+> new code got inserted below the comment instead of above it.
+
+Right, will fix in v2.
+
+> 
+>> +/*
+>> + * Give back a gadget request with dum->lock dropped around the callback.
+>> + * If @req is the shared fifo_req, mark it busy across the callback so
+>> + * dummy_queue()'s FIFO fast-path (keyed on list_empty(&fifo_req.queue))
+>> + * cannot reuse it mid-giveback: list_del_init() already made the queue look
+>> + * empty, but the request is in flight until the completion callback returns.
+>> + * Caller holds dum->lock and has already done list_del_init() + status.
+>> + */
+>> +static void dummy_giveback(struct dummy *dum, struct usb_ep *_ep,
+>> +			   struct dummy_request *req)
+>> +{
+>> +	bool fifo = req == &dum->fifo_req;
+>> +
+>> +	if (fifo)
+>> +		dum->fifo_req_busy = 1;
+> 
+> Don't set the new flag here...
+> 
+>> +	spin_unlock(&dum->lock);
+>> +	usb_gadget_giveback_request(_ep, &req->req);
+>> +	spin_lock(&dum->lock);
+>> +	if (fifo)
+>> +		dum->fifo_req_busy = 0;
+>> +}
+>> +
+>>  static void nuke(struct dummy *dum, struct dummy_ep *ep)
+>>  {
+>>  	while (!list_empty(&ep->queue)) {
+> 
+>> @@ -729,6 +750,7 @@ static int dummy_queue(struct usb_ep *_ep, struct usb_request *_req,
+>>  	/* implement an emulated single-request FIFO */
+>>  	if (ep->desc && (ep->desc->bEndpointAddress & USB_DIR_IN) &&
+>>  			list_empty(&dum->fifo_req.queue) &&
+>> +			!dum->fifo_req_busy &&
+>>  			list_empty(&ep->queue) &&
+>>  			_req->length <= FIFO_SIZE) {
+>>  		req = &dum->fifo_req;
+> 
+> Set it here instead, so the flag is set during the entire time that 
+> dum->fifo_req is in use.  As a bonus, you can then remove the 
+> list_empty(&dum->fifo_req.queue) test above.
+
+Indeed better - the flag then covers the whole lifetime of the shared
+request instead of just the giveback window. Will do in v2, with the
+list_empty() test removed.
+ 
+
+> Otherwise this seems fine.
+
+Thanks for the review, v2 shortly.
+
+Thanks,
+Jinchao
+
+> 
+> Alan Stern
+
