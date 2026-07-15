@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF683B2D04
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 16:32:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7641028725B
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 16:32:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784133151; cv=none; b=p78rs89AubvuZ+LqGugON3WCc9CJA+7OO7sEN5RwVEnn6+Z/SRqJirju9J6Va1wliFsRpng57KCjd6Yej06S1R9lRQCnGwPSNkf4tmqybCUg/1eA/YCUtdL/lNksXPynlE6y+aQctewMlGqkRp2vHRqh9bbF4Jg2X2ZEXrhdBfM=
+	t=1784133154; cv=none; b=hq6QkPwFsvHtARtz0Z2DDcfdJSQp4ESzIdYlNX1xtazWHiaMQQ/cy9keUq/RgnCDohZ2Qq1QdotM6SBaRL18mtflMr9tqrd3idQaziPP/RVfsTtyxDgXCckMGDS6bjKkuD3GRozlT+Ah327L+K7KDxbKlZlGTKXAvA99f35LzrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784133151; c=relaxed/simple;
-	bh=qTXwCLEqv/IQ5hFQ+ddwAvb3/4aF1OqpZeppw0vcnV4=;
+	s=arc-20240116; t=1784133154; c=relaxed/simple;
+	bh=hQNeQu3oP+BM3KFl3zjS1RCbfKis2Bs78ZOYm9bToWs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ru4PtLTq1R8cuq2HFcIjhZHC0tuApsqH1B6FjgPVyWuhTXfTl1uTZfcGN4/7tbaaFACoGRfsOFPfEHA+YL58HvTaPR1mUPbxDEmLY/NWXGEjwg99iEItIiOq9vYDepkJv+YhCLbQw9Xtx5YfnkFKsrIHCx3yxQ6rEf4b7U7spAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KEgDE58R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NHkRyw2ViWHhPyPEyqBY7reSVLNk+G0LrED0TLj9wjzDBwya9+NRPvaMuP4aabEEo0ar79iZtXOYhMVqp3umX8VIUG+O9UU1k9G3YN74yQ0fkxMeNeQcIvkjSsFvk8/FbLVf24U8LNx8zXBghd0mtxf2WXS3ahfni9k9gFidi2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gRJ9X10P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KEgDE58R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29BC1F00A3E;
-	Wed, 15 Jul 2026 16:32:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gRJ9X10P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824A81F000E9;
+	Wed, 15 Jul 2026 16:32:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784133150;
-	bh=Gi5yX5BkgxDAu8wqQA3uIgWMaOdkDsiJ24p1mBwTl1w=;
+	s=k20260515; t=1784133153;
+	bh=Ct3qYCRuK6C1KGQnB/Go44SXHZNAA8dZ/4MoMjurzhk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KEgDE58Rngg0d6EXq+bEo244gXS9BF2DGlNsT9Uf9kvRGfHkyxNuqdPe9e8KXGdXE
-	 dOYM8gYo8qxafbE+xJChdqLQBkz8voqCOErSC8WXLSq2fXW8xTdxN7ZcdcTG+/zSmX
-	 UsyZzBve3ZwOKxpgzBnVdW+0yWW7As3Nb3Y9nel+EPXfEWrOCufhMz6K7/Ukq+QV3L
-	 G3kAKUpXT0yOHvPcpIfu4j8l5vO6qDx/dXrgBjFdAJ75/n0D2uslCC2uprw823JlW3
-	 Vtx0kJNpoHTJYecPoUt1D747zcXh9PESXvR8x8+Zd4FsY3lnalEUNmuj3p/ml0SI1q
-	 88Ki5WvKazbWg==
+	b=gRJ9X10PHZgwYeYmNFp4tgGOuBZoa+fnbLb29MfpDFlTbuL/+z6BY4TL1ftxX2tQI
+	 7VXqYmnDL75sbhPtRvxEiTKWGBcYD3EWuJonCtCiM+ZLkkl/ishzSKzYAWG5RvEvSA
+	 SgTevlZLUqmwbZoGXT+tb/7yZ5hRxE//95/p4OoK8gijDIII5OtO4QjvAr+mx05uVo
+	 OX0BprMW9BnwUdbizplpB3xEDQTTMu5LcO8c/o+UcpGEfVwfmkbpCW2awM+GWgpQiI
+	 1e6vASKqYZDflnIb8UJMLeKmsZek8K4sjs2n1lyIauSLxrZNswVLB5GnJg01xTetjz
+	 4HVnWLHHFZV/g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marco Nenciarini <mnencia@kcore.it>,
-	Bjorn Helgaas <bhelgaas@google.com>,
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 6/6] PCI: Skip Resizable BAR restore on read error
-Date: Wed, 15 Jul 2026 12:32:23 -0400
-Message-ID: <20260715163223.952417-6-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] media: nxp: imx8-isi: use devm_pm_runtime_enable() to simplify code
+Date: Wed, 15 Jul 2026 12:32:29 -0400
+Message-ID: <20260715163230.952514-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260715163223.952417-1-sashal@kernel.org>
-References: <2026071318-kettle-cringe-5d1a@gregkh>
- <20260715163223.952417-1-sashal@kernel.org>
+In-Reply-To: <2026071342-backfire-varsity-a0ef@gregkh>
+References: <2026071342-backfire-varsity-a0ef@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,60 +46,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marco Nenciarini <mnencia@kcore.it>
+From: Frank Li <Frank.Li@nxp.com>
 
-[ Upstream commit ee7471fe968d210939be9046089a924cd23c8c3b ]
+[ Upstream commit 078161dd44d6f848a62a473206d69025607736ec ]
 
-pci_restore_rebar_state() uses the Resizable BAR Control register to decide
-how many BARs to restore (nbars) and which BAR each iteration addresses
-(bar_idx).
+Use devm_pm_runtime_enable() to simplify code. Change to use
+dev_err_probe() because previous goto change to return.
 
-When a device does not respond, config reads typically return
-PCI_ERROR_RESPONSE (~0).  Both fields are 3 bits wide, so nbars and bar_idx
-both evaluate to 7, past the spec's valid ranges for both fields.
-pci_resource_n() then returns an unrelated resource slot, whose size is
-used to derive a nonsensical value written back to the Resizable BAR
-Control register.
+No functional change.
 
-Bail out if any Resizable BAR Control read returns PCI_ERROR_RESPONSE. No
-further BARs are touched, which is safe because a config read that returns
-PCI_ERROR_RESPONSE indicates the device is unreachable and restoration is
-pointless.
-
-Fixes: d3252ace0bc6 ("PCI: Restore resized BAR state on resume")
-Signed-off-by: Marco Nenciarini <mnencia@kcore.it>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/666cac19b5daa0ab0e0ab64454e76b4d24465dbd.1776429882.git.mnencia@kcore.it
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Link: https://patch.msgid.link/20260116-cam_cleanup-v4-2-29ce01640443@nxp.com
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Stable-dep-of: b670bf89824e ("media: nxp: imx8-isi: Fix use-after-free on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/rebar.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../media/platform/nxp/imx8-isi/imx8-isi-core.c  | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
-index ec449374291020..f0d3217841c0cf 100644
---- a/drivers/pci/rebar.c
-+++ b/drivers/pci/rebar.c
-@@ -130,6 +130,9 @@ void pci_restore_rebar_state(struct pci_dev *pdev)
- 		return;
+diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+index c2013995049c60..560d58ff2db8bd 100644
+--- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
++++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+@@ -472,13 +472,14 @@ static int mxc_isi_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
  
- 	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+	if (PCI_POSSIBLE_ERROR(ctrl))
-+		return;
+-	pm_runtime_enable(dev);
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
+ 
+ 	ret = mxc_isi_crossbar_init(isi);
+-	if (ret) {
+-		dev_err(dev, "Failed to initialize crossbar: %d\n", ret);
+-		goto err_pm;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "Failed to initialize crossbar\n");
+ 
+ 	for (i = 0; i < isi->pdata->num_channels; ++i) {
+ 		ret = mxc_isi_pipe_init(isi, i);
+@@ -501,8 +502,7 @@ static int mxc_isi_probe(struct platform_device *pdev)
+ 
+ err_xbar:
+ 	mxc_isi_crossbar_cleanup(&isi->crossbar);
+-err_pm:
+-	pm_runtime_disable(isi->dev);
 +
- 	nbars = FIELD_GET(PCI_REBAR_CTRL_NBAR_MASK, ctrl);
+ 	return ret;
+ }
  
- 	for (i = 0; i < nbars; i++, pos += 8) {
-@@ -137,6 +140,9 @@ void pci_restore_rebar_state(struct pci_dev *pdev)
- 		int bar_idx, size;
+@@ -521,8 +521,6 @@ static void mxc_isi_remove(struct platform_device *pdev)
  
- 		pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
-+		if (PCI_POSSIBLE_ERROR(ctrl))
-+			return;
-+
- 		bar_idx = ctrl & PCI_REBAR_CTRL_BAR_IDX;
- 		res = pdev->resource + bar_idx;
- 		size = ilog2(resource_size(res)) - 20;
+ 	mxc_isi_crossbar_cleanup(&isi->crossbar);
+ 	mxc_isi_v4l2_cleanup(isi);
+-
+-	pm_runtime_disable(isi->dev);
+ }
+ 
+ static const struct of_device_id mxc_isi_of_match[] = {
 -- 
 2.53.0
 
