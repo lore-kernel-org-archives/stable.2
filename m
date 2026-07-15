@@ -1,192 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E739481A94;
-	Wed, 15 Jul 2026 15:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CE448A2A8;
+	Wed, 15 Jul 2026 15:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784129527; cv=none; b=dzTQBptZ7sici+NFuJJzVW9XWP6RmxQV7wMAa4UmzBw4qyPV6RjEIfkw8JSZ0iapHPLRM+UibZW5w5tW9LJ4IRxgZw6Aon5r8qoF36Gcrjxl5eRMmy04rYMoawvb7nx4lLo0CBks6cfbVOBQt72WJ1jZWEjIuVk2brsSMMOkD2Y=
+	t=1784130198; cv=none; b=pzdVc0jMdzVgKY0a6QOXsi42/HgC7OvJq7e43rEg/A3wjOEI++jC9o/TUK+lsSVzThhyOCChUXAiwB0vuQnMgtno3h9wJIgmBPfgxaFcXHgeq2VFJ0YHeJBXMMLLOkMxkKGtUWxDiDBMvGjJqqqfCkjcnDrkNsMZp5gbBnSAXRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784129527; c=relaxed/simple;
-	bh=Lshi9sQ25US/w7mSDhEzkx95l4ZmEu9mkyA3zF2Uj9A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ErLDq6wuE4Gf8Rw5yVpHIWATVC7/VSfRtmSa43mZhUS90RKN2t+75FaZnP2w1Z2L9m+q8N8fXtSPLPVg2BEO4x9F9os+5QT49MD5UVCwKTSS1G62kVZPb3gmjyolXxWoGoxjv/yp+XhTJ5QIt7eTZ5kpCs2NoraVhH17fvCRQgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dgbcomzv; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784130198; c=relaxed/simple;
+	bh=KTpI4ajP7tZ+58EKrEwmElnfiNgrQmJpX5w9lLsnbVQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Qrho1c77FYVpFEyQKUS5U2UkfroSNkqCfucvgjtMsJuwe8MQ93SzTgj0h2UuX3RRAZCFogGlWbvBI5mzjX86MvGtnsVuRdn6kW7fr6zonA8Uo5H3mG9kFb2UC2CzglgbNeYfaDpH4JWESj/y/0ZKx+OzIacHTsBUtWNfEvSC0R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=X+7QU0Mh; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dgbcomzv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784129526; x=1815665526;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Lshi9sQ25US/w7mSDhEzkx95l4ZmEu9mkyA3zF2Uj9A=;
-  b=DgbcomzvW/sysmTMx0C372k1P3LMv52ANbcWZVrsXye/eiDxSdV1S4V8
-   7wOoWxjoBvX/4zxWOFunr8gDkY+zvqtuAww5DGFwcT1AQqm3OlU13ebiD
-   ImLktv0kqgc5cbOiZ6PuDY8vm21RJkamTsWANtBn1VUBo6R8zBCMV/yU6
-   FGBdKdiXGqoi0U2hXChAipYotDehHhrf4fVD8va0NrhBsIt5SViiGGwHT
-   n4VVmq+dsSLENXcHhwHi7WqATm8TXdXTCXIDTwsEeYU6KT22ERJ1qeac5
-   FWHgXNnNbNUl78Lq2HChboCzcVPn8+S/kC4sL91wc5bxXzhjo9okVvFiO
-   w==;
-X-CSE-ConnectionGUID: yuIv5Ii1R2GkS4Il3Y38WQ==
-X-CSE-MsgGUID: aN69luQaQ0G/yLI0nN4YEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84654767"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="84654767"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 08:32:06 -0700
-X-CSE-ConnectionGUID: nVExGMkHTfiG63zhnFONqw==
-X-CSE-MsgGUID: x8MZNGt4SS+r5MdIzktVBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="255093498"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa010.jf.intel.com with ESMTP; 15 Jul 2026 08:32:04 -0700
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Raag Jadav <raag.jadav@intel.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
-	Ramesh Babu B <ramesh.babu.b@intel.com>,
-	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
-	linux-kernel@vger.kernel.org,
-	intel-xe@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: [PATCH v5 3/3] drm/xe/i2c: Keep the i2c controller always enabled
-Date: Wed, 15 Jul 2026 17:31:53 +0200
-Message-ID: <20260715153153.1243751-4-heikki.krogerus@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260715153153.1243751-1-heikki.krogerus@linux.intel.com>
-References: <20260715153153.1243751-1-heikki.krogerus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="X+7QU0Mh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=h91dzcGBqh6bO1sKLAZB47WCpn3nyQhlpwOzbbUz0dc=; b=X+7QU0MhROV6xa8PpxNNybvUWY
+	ywGBvxFFqkdz2oju4tkDDiKWZeo/aYqZLHaOBSTScig3nU6rjrQAySJ0160moz+jsZKdrMukX+4z3
+	tOr6TRzZh6V0hFtGSM6CDTVtHuuYpXAUk5y1gaVaS41Ls03LPRIzJUcwf3Si6I628xsqm3LFe51h9
+	0l01KORgxIl5vOdCsk0EGF/85xZwyiy9uiw95m7UZ5Bf57X61O2e+++SMqQfvL870EXXPiysWxUbH
+	efwSGQMPhryXSmEXIcjpbCUP1bvabH+Z1Mc6h3OZhYSE6nIm5Xin14qRlZStlzFNE6fF+ibGtJ131
+	+/7LJfxA==;
+Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
+	by fanzine2.igalia.com with utf8esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wk1lG-00FWvx-5b; Wed, 15 Jul 2026 17:43:02 +0200
+From: Luis Henriques <luis@igalia.com>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,  Miklos Szeredi
+ <miklos@szeredi.hu>,  linux-fsdevel@vger.kernel.org,
+  fuse-devel@lists.linux.dev,  stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] fs: preserve ACL_DONT_CACHE state in
+ forget_cached_acl()
+In-Reply-To: <20260713220932.413004-2-amir73il@gmail.com> (Amir Goldstein's
+	message of "Tue, 14 Jul 2026 00:09:31 +0200")
+References: <20260713220932.413004-1-amir73il@gmail.com>
+	<20260713220932.413004-2-amir73il@gmail.com>
+Date: Wed, 15 Jul 2026 16:43:28 +0100
+Message-ID: <871pd445sv.fsf@wotan.olymp>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Some platforms make an assumption that the i2c controller's
-enabled state indicates also the power state of the
-controller. This can create a problem when the controller is
-in disabled state, because the hardware may assume
-incorrectly that it is then also in low-power state.
+On Tue, Jul 14 2026, Amir Goldstein wrote:
 
-To fix this, the controller is kept enabled by taking over
-the IC_ENABLE register. The controller has to be disabled
-when the configuration is updated and when the target
-address or the slave address are assigned, so disabling it
-when IC_CON, IC_TAR or IC_SAR registers are programmed, and
-then re-enabling it again.
+> The ACL_DONT_CACHE state is meant to be a constant state for the inode
+> for filesystems that want to opt out of posix acl caching.
+>
+> Commit facd61053cff1 ("fuse: fixes after adapting to new posix acl api")
+> used this facility to opt out of posix acl caching for fuse inodes with
+> fuse server that does not negotiate FUSE_POSIX_ACL (fc->posix_acl).
+>
+> The commit also takes care to gate the forget_all_cached_acls() call in
+> fuse_set_acl() on fc->posix_acl because there is no need for it, but
+> there are other placed in fuse code which call forget_all_cached_acls()
+> unconditional to fc->posix_acl and those cause the loss of the
+> ACL_DONT_CACHE state.
+>
+> This is not only a functional bug. Properly timed, a get_acl() from this
+> fuse filesystem can return a stale cached value, as was observed in
+> tests, because set_acl() does not invalidate the unintentional acl
+> cache.
+>
+> We could fix this in fuse, but it actually makes no sense for the vfs
+> helper forget_cached_acl() to invalidate the ACL_DONT_CACHE state, so
+> let it not do that to fix fuse and future users of ACL_DONT_CACHE.
+>
+> Fixes: facd61053cff1 ("fuse: fixes after adapting to new posix acl api")
+> Cc: stable@vger.kernel.org Signed-off-by: Amir Goldstein
+> <amir73il@gmail.com>
+> ---
+>  fs/posix_acl.c | 7 +++++++ 1 file changed, 7 insertions(+)
+>
+> diff --git a/fs/posix_acl.c b/fs/posix_acl.c index
+> b4bfe4ddf64ea..3dc62c1c27087 100644 --- a/fs/posix_acl.c +++
+> b/fs/posix_acl.c @@ -93,6 +93,13 @@ static void
+> __forget_cached_acl(struct posix_acl **p)
+>  {
+>  	struct posix_acl *old;
+>=20=20
+> + /* + * ACL_DONT_CACHE is expected to be a "const" value and xchg it
+> with + * ACL_NOT_CACHED would enable acl caching for the inode - + *
+> clearly not what the caller has intended.  + */ + if (READ_ONCE(*p) =3D=3D
+> ACL_DONT_CACHE) + return;
+>  	old =3D xchg(p, ACL_NOT_CACHED); if (!is_uncached_acl(old))
+>  		posix_acl_release(old);
 
-Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
----
- drivers/gpu/drm/xe/xe_i2c.c | 55 +++++++++++++++++++++++++++++++++++--
- drivers/gpu/drm/xe/xe_i2c.h |  1 +
- 2 files changed, 54 insertions(+), 2 deletions(-)
+Nice catch!  FWIW feel free to add my
 
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index 731e166e1f83d..4c26f8fdbfe83 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -8,6 +8,7 @@
- #include <drm/drm_print.h>
- #include <linux/array_size.h>
- #include <linux/container_of.h>
-+#include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/err.h>
- #include <linux/i2c.h>
-@@ -214,11 +215,40 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
- 	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
- }
- 
-+/* See "Disabling DW_apb_i2c" in the DesignWare DW_abp_i2c databook. */
-+static void xe_i2c_disable(struct xe_i2c *i2c)
-+{
-+	int timeout = 100;
-+	u32 status;
-+
-+	xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), DW_IC_ENABLE_ENABLE, 0);
-+
-+	do {
-+		status = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_ENABLE_STATUS));
-+		if (!(status & DW_IC_ENABLE_ENABLE))
-+			return;
-+		/* Can't sleep here. */
-+		udelay(25);
-+	} while (timeout--);
-+
-+	dev_warn(i2c->drm_dev, "timeout in disabling i2c adapter\n");
-+}
-+
- static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
- {
- 	struct xe_i2c *i2c = context;
- 
--	*val = xe_mmio_read32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET));
-+	*val = xe_mmio_read32(i2c->mmio, I2C_REG(reg));
-+
-+	switch (reg) {
-+	case DW_IC_ENABLE:
-+	case DW_IC_ENABLE_STATUS:
-+		FIELD_MODIFY(DW_IC_ENABLE_ENABLE, val,
-+			     i2c->ic_enable & DW_IC_ENABLE_ENABLE);
-+		break;
-+	default:
-+		break;
-+	}
- 
- 	return 0;
- }
-@@ -227,7 +257,28 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
- {
- 	struct xe_i2c *i2c = context;
- 
--	xe_mmio_write32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET), val);
-+	switch (reg) {
-+	case DW_IC_CON:
-+	case DW_IC_TAR:
-+	case DW_IC_SAR:
-+		/* Disable the controller. */
-+		xe_i2c_disable(i2c);
-+
-+		/* Write the register. */
-+		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
-+
-+		/* Enable the controller. */
-+		xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 0, DW_IC_ENABLE_ENABLE);
-+		break;
-+	case DW_IC_ENABLE:
-+		i2c->ic_enable = val;
-+		/* Other fields can be updated except the enable bit. */
-+		val |= DW_IC_ENABLE_ENABLE;
-+		fallthrough;
-+	default:
-+		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
-+		break;
-+	}
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
-index b200966b00484..d63adacfefe71 100644
---- a/drivers/gpu/drm/xe/xe_i2c.h
-+++ b/drivers/gpu/drm/xe/xe_i2c.h
-@@ -37,6 +37,7 @@ struct xe_i2c {
- 	struct platform_device *pdev;
- 	struct i2c_adapter *adapter;
- 	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
-+	unsigned int ic_enable;
- 
- 	struct notifier_block bus_notifier;
- 	struct work_struct work;
--- 
-2.50.1
+Reviewed-by: Luis Henriques <luis@igalia.com>
 
+Cheers,
+--=20
+Lu=C3=ADs
