@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DE143B6E2
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:10:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270D143B4B9
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:11:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784110252; cv=none; b=LR5sfFfaVV2pm2Hu1nD5Zz1Tr+CZwbM/DF6sMu7Pp4F+ukSWc1nOoweR9XgeE42r2twl3WUt8Hkb+EovnEvN+pnZo3hCF9k1Sm/nomzrHxVnCpELYjhFlKy5RfrGF7MSxVWdSHIoGv3ODRqlKWqM5GzNpgLvu8S5Ky1DBBe81FE=
+	t=1784110322; cv=none; b=YMyvAxSAIGuh4Zv+iWs4XDF3XosBNmgj5K4dQoqZAUSBTMJvNOmES1bOm6r2yoCG5N6GNs9yCeHQbz1BmI4zsPMWS6i4HxTODN0/0xpk6ayi23BsyNAyfE4jVdfHRUWU0rBpkn5SjFRgvlbAh16I5T/8ttxeWNg4N5VrOsaTnso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784110252; c=relaxed/simple;
-	bh=IBve9qEWj3QB6lBWg7pDqPD8F1ha1bs+tlxfsJBFjas=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jnNgbRFWZKV6vthrUy6mjfVLjKPFmjLc3vacP8UOy54OLzmdkIwfTD9TSR0iF+SRh9hLHGnHIpwuTjLR3xIJGEa2tcRHWXcJIQZ31tjLyoRvu12LNC6uvEh/W1qIIt1EOirj/9c96vqPMgWGxuXVj1ppeQwP4Fs7cwoTaBBdOOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IaxkYYWe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784110322; c=relaxed/simple;
+	bh=qhmZ//0yaVXnA+Bg7YmIW4U0V6/fBGs/uwOS8hopn44=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VC/YS58j1Ff8DKuPo3ZmfNb9db1HuDaGfVh6BDATP8txeyzJhieF68zAQKQ73xJLk3S3OY0ntdiLFtdoYtB1N9Cr4xQCEYu998aG9lZKOs2L68ttMRI7RHyTu8/MMP9GBg1eXlbEy54VoOdYnpWyHiKblVh99ZIR7Bq1nVyVijA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=n8HdnQwb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IaxkYYWe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA301F00A3E;
-	Wed, 15 Jul 2026 10:10:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="n8HdnQwb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4388E1F000E9;
+	Wed, 15 Jul 2026 10:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784110251;
-	bh=aj0TcEZZYsyb9GMQEI4Q8wUl855g6w8uobYxUwejWSI=;
+	s=korg; t=1784110319;
+	bh=nC5X7iJvvAg3C7jZgvcWDRl9yNTRweZTDHElw+cRGcg=;
 	h=Subject:To:Cc:From:Date;
-	b=IaxkYYWey6MEZFzLHuXaXERUuq3QQaQSURcpnDKHjUM1WnCObMYcuncEeTcDWahiz
-	 WoYNSpJlMwXfGXShv6hr36ypFb/JYT0/SnOSaPG11KiX5gG9x28ZTVYjoHkN3o95iC
-	 EzQZAsq7d2vVXKn4lbrE75Cv7GtJEATIuH4/fJCo=
-Subject: FAILED: patch "[PATCH] crypto: xilinx-trng - Fix return value of" failed to apply to 6.18-stable tree
-To: ebiggers@kernel.org,herbert@gondor.apana.org.au
+	b=n8HdnQwbciTmfi1/XzrBqvC22ZFc8iMoCp9hhoefNhrSn5WoqDKlP1L5s311rc0ZH
+	 t6Jpi/0AsyFbIvvW/RPn1Yv+6iSr5EHTbI4n4KxbN69CieZhsyPpfgzmSvHjnVaJQv
+	 DOy9bIuzMjM1sP9t7Off6vFEXtYjssn0mX/fTjPo=
+Subject: FAILED: patch "[PATCH] btrfs: fix false IO failure after falling back to buffered" failed to apply to 6.18-stable tree
+To: wqu@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 12:10:30 +0200
-Message-ID: <2026071530-lively-distance-841a@gregkh>
+Date: Wed, 15 Jul 2026 12:11:53 +0200
+Message-ID: <2026071553-esophagus-underpass-0b42@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2dd67774228930ccf6441e5628996021f410c4e0
+git cherry-pick -x 66ff4d366e7eb4d31813d2acabf3af512ce03aa5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071530-lively-distance-841a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071553-esophagus-underpass-0b42@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,47 +62,187 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2dd67774228930ccf6441e5628996021f410c4e0 Mon Sep 17 00:00:00 2001
-From: Eric Biggers <ebiggers@kernel.org>
-Date: Sun, 31 May 2026 12:17:36 -0700
-Subject: [PATCH] crypto: xilinx-trng - Fix return value of
- xtrng_hwrng_trng_read()
+From 66ff4d366e7eb4d31813d2acabf3af512ce03aa5 Mon Sep 17 00:00:00 2001
+From: Qu Wenruo <wqu@suse.com>
+Date: Thu, 4 Jun 2026 09:59:46 +0930
+Subject: [PATCH] btrfs: fix false IO failure after falling back to buffered
+ write
 
-Implementations of hwrng::read are expected to return the number of
-bytes generated.  Update xtrng_hwrng_trng_read() to match that.
+[BUG]
+The test case generic/362 will fail with "nodatasum" mount option (*):
 
-Fixes: 8979744aca80 ("crypto: xilinx - Add TRNG driver for Versal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+ MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
 
-diff --git a/drivers/crypto/xilinx/xilinx-trng.c b/drivers/crypto/xilinx/xilinx-trng.c
-index a35643baa489..a30b0b3b3685 100644
---- a/drivers/crypto/xilinx/xilinx-trng.c
-+++ b/drivers/crypto/xilinx/xilinx-trng.c
-@@ -239,18 +239,21 @@ static int xtrng_hwrng_trng_read(struct hwrng *hwrng, void *data, size_t max, bo
- {
- 	u8 buf[TRNG_SEC_STRENGTH_BYTES];
- 	struct xilinx_rng *rng;
--	int ret = -EINVAL, i = 0;
-+	int ret = 0, i = 0;
- 
- 	rng = container_of(hwrng, struct xilinx_rng, trng);
- 	while (i < max) {
- 		ret = xtrng_random_bytes_generate(rng, buf, TRNG_SEC_STRENGTH_BYTES, wait);
--		if (ret < 0)
-+		if (ret < 0) {
-+			if (i == 0)
-+				return ret;
- 			break;
+ generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
+    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
+    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:21:17.574771567 +0930
+    @@ -1,2 +1,3 @@
+     QA output created by 362
+    +First write failed: Input/output error
+     Silence is golden
+    ...
+
+*: If the test case has been executed before with default data checksum,
+the failure will not reproduce. Need the following fix to make it
+reliably reproducible:
+https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
+
+[CAUSE]
+Inside __iomap_dio_rw(), the -EFAULT/-ENOTBLK error is not directly returned.
+Thus we never got an error pointer from __iomap_dio_rw().
+
+The call chain looks like this:
+
+ btrfs_direct_write()
+ |- btrfs_dio_write()
+ |-  __iomap_dio_rw()
+ |  |- iomap_iter()
+ |  |  |- btrfs_dio_iomap_begin()
+ |  |     Now an ordered extent is allocated for the 4K write.
+ |  |
+ |  |- iomi.status = iomap_dio_iter()
+ |  |  Where iomap_dio_iter() returned -EFAULT.
+ |  |
+ |  |- ret = iomap_iter()
+ |  |  |- btrfs_dio_iomap_end()
+ |  |  |  |- btrfs_finish_ordered_extent(uptodate = false)
+ |  |  |  |  |- can_finish_ordered_extent()
+ |  |  |  |     |- btrfs_mark_ordered_extent_error()
+ |  |  |  |        |- mapping_set_error()
+ |  |  |  |           Now the address space is marked error.
+ |  |  |  | return -ENOTBLK
+ |  |  |- return -ENOTBLK
+ |  |- if (ret == -ENOTBLK) { ret = 0; }
+ |     Now the return value is reset to 0.
+ |     Thus no error pointer will be returned.
+ |
+ |- ret = iomap_dio_complete()
+ |  Since no byte is submitted, @ret is 0.
+ |
+ |- Fallback to buffered IO
+ |  And the buffered write finished without error
+ |
+ |- filemap_fdatawait_range()
+    |- filemap_check_errors()
+       The previous error is recorded, thus an error is returned
+
+However the buffered write is properly submitted and finished, the error
+is from the btrfs_finish_ordered_extent() call with @uptodate = false.
+
+[FIX]
+When a short dio write happened, any range that is submitted will have
+btrfs_extract_ordered_extent() to be called, thus the submitted range
+will always have an OE just covering the submitted range.
+
+The remaining OE range is never submitted, thus they should be treated
+as truncated, not an error. So that we can properly reclaim and not
+insert an unnecessary file extent item, without marking the mapping as
+error.
+
+Extract a helper, btrfs_mark_ordered_extent_truncated(), and utilize
+that helper to mark the direct IO ordered extent as truncated, so it
+won't cause failure for the later buffered fallback.
+
+[REASON FOR NO FIXES TAG]
+The bug itself is pretty old, at commit f85781fb505e ("btrfs: switch to
+iomap for direct IO") we're already passing @uptodate=false finishing
+the OE.
+But at that time OE with IOERR won't call mapping_set_error(), so it's
+not exposed.
+Later commit d61bec08b904 ("btrfs: mark ordered extent and inode with
+error if we fail to finish") finally exposed the bug, but that commit
+is doing a correct job, not the root cause.
+
+Anyway the bug is very old, dating back to 5.1x days, thus only CC to
+stable.
+
+CC: stable@vger.kernel.org # 5.15+
+Reviewed-by: Boris Burkov <boris@bur.io>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+
+diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
+index 57167d56dc72..88cb2e82a507 100644
+--- a/fs/btrfs/direct-io.c
++++ b/fs/btrfs/direct-io.c
+@@ -624,12 +624,23 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
+ 	if (submitted < length) {
+ 		pos += submitted;
+ 		length -= submitted;
+-		if (write)
++		if (write) {
++			/*
++			 * We have a short write, if there is any range
++			 * that is submitted properly, that part will have
++			 * its own OE split from the original one.
++			 *
++			 * So for the OE at dio_data->ordered, it's the part
++			 * that is not submitted, and should be marked
++			 * as fully truncated.
++			 */
++			btrfs_mark_ordered_extent_truncated(dio_data->ordered, 0);
+ 			btrfs_finish_ordered_extent(dio_data->ordered,
+-						    pos, length, false);
+-		else
++						    pos, length, true);
++		} else {
+ 			btrfs_unlock_dio_extent(&BTRFS_I(inode)->io_tree, pos,
+ 						pos + length - 1, NULL);
 +		}
- 
- 		memcpy(data + i, buf, min_t(int, ret, (max - i)));
- 		i += min_t(int, ret, (max - i));
+ 		ret = -ENOTBLK;
  	}
--	return ret;
-+	return i;
+ 	if (write) {
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 3c66853276b7..0133b688ce04 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -7590,11 +7590,7 @@ static void btrfs_invalidate_folio(struct folio *folio, size_t offset,
+ 					       EXTENT_LOCKED | EXTENT_DO_ACCOUNTING |
+ 					       EXTENT_DEFRAG, &cached_state);
+ 
+-		spin_lock(&inode->ordered_tree_lock);
+-		set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
+-		ordered->truncated_len = min(ordered->truncated_len,
+-					     cur - ordered->file_offset);
+-		spin_unlock(&inode->ordered_tree_lock);
++		btrfs_mark_ordered_extent_truncated(ordered, cur - ordered->file_offset);
+ 
+ 		/*
+ 		 * If the ordered extent has finished, we're safe to delete all
+diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+index f5f77c33cf59..b32d4eabe0ab 100644
+--- a/fs/btrfs/ordered-data.c
++++ b/fs/btrfs/ordered-data.c
+@@ -358,6 +358,18 @@ void btrfs_mark_ordered_extent_error(struct btrfs_ordered_extent *ordered)
+ 		mapping_set_error(ordered->inode->vfs_inode.i_mapping, -EIO);
  }
  
- static int xtrng_hwrng_register(struct hwrng *trng)
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len)
++{
++	struct btrfs_inode *inode = ordered->inode;
++
++	ASSERT(truncate_len <= ordered->num_bytes);
++	spin_lock(&inode->ordered_tree_lock);
++	set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
++	ordered->truncated_len = min(ordered->truncated_len, truncate_len);
++	spin_unlock(&inode->ordered_tree_lock);
++}
++
+ static void finish_ordered_fn(struct btrfs_work *work)
+ {
+ 	struct btrfs_ordered_extent *ordered_extent;
+diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
+index 03e12380a2fd..8d5d5ba1e02f 100644
+--- a/fs/btrfs/ordered-data.h
++++ b/fs/btrfs/ordered-data.h
+@@ -226,6 +226,8 @@ bool btrfs_try_lock_ordered_range(struct btrfs_inode *inode, u64 start, u64 end,
+ struct btrfs_ordered_extent *btrfs_split_ordered_extent(
+ 			struct btrfs_ordered_extent *ordered, u64 len);
+ void btrfs_mark_ordered_extent_error(struct btrfs_ordered_extent *ordered);
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len);
+ int __init ordered_data_init(void);
+ void __cold ordered_data_exit(void);
+ 
 
