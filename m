@@ -1,146 +1,218 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011059.outbound.protection.outlook.com [40.93.194.59])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DDE2AE8D
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 13:48:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784123326; cv=fail; b=kkMsPgoSZZa1RTXcqdLblhcwgUOftPVLH3bfe/S6RkuTwC5iFna1oIsPOmMclC67lF45NYF8ZswvtEN1Oayi/NiMgfUN8cOGWkjccAO1bbmvZwbIiGgBSLn2Iu1mI2guTjqAtOC4vN5vq7/FRCOTnjHxeFJBtHCuLXKqTZ4qGXo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784123326; c=relaxed/simple;
-	bh=PQ2jrB866ns886snYA0gx9l9IAQFaC5sWohOXAP4Hgw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=H06YeFCxMTVaqbYZ85+iscqgn6VLzlPVN7ZTaPzMrD7DTGKIiQhWxqh3tFl0+yhPVhqcnrWAfrt1iyza5+aZQNG0gl0OCjPYoDSyAhc5rtCx0/rb7K3H5mNHWAiNrYNayZDH+h/2/WjEuHcqV0jriLaBmXtFpgwdhRwvW/ZXbOY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=eNIXQOiy; arc=fail smtp.client-ip=40.93.194.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C22F3019D8;
+	Wed, 15 Jul 2026 14:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784124052; cv=none; b=JaWP7ETMovtex6ywdisKq1frT987oSem6iTQtqRq/aDp3HQHnbbLCbr0UDaCF466OmlQMfKgjMZGGZQwEplf2XqCTsE0ie4sDMiC/mfB9h/PG2KN+0NNqVNWsjnVz6z4QmXN4O5s4fo5RsRfpCwBWwjYwrvc2tRN3Shw36ZWogY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784124052; c=relaxed/simple;
+	bh=ukjcdgTG9XuOq7t7zom1ncaSxqFFGv0mhRH4E08Au5E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SqxSrSlF5lQSlQgkxuXs5hOpZAim7pKL09W96UPrU22SKIYorQ3vpMgNzRxef4JhqPHc5idqkqaEXL89e8Q9FD1+pk9ckPgvDgRktUWbZseVyyI62Q1xS+tV91aMTq8Xg4LTP4gY5FhlEmB5ql8JvBpTJgS+D18EZzM5i5FGoBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fsbaqvhZ; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="eNIXQOiy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dOnzqGqrzTxrgO/8puH/20gs8porjVqoyQVjuYnzphehaPavYLWdEW/h26zTAitM8U7n1lTRuaMl4usaryqI7nlKnS82BK5tCtEpgDKIL+dzCQFyQOGLCHo+UNab2RJ2/FypBfQk3Dlhe3xjrR+TCQMQI1R1hnFB5YiJC7Cc1OY0orrvesAwOMvBeL+j+5aVOjw/E0wQO7SDZOazI/IlLgfBS36LTPrTGwT4i+vp3f+/+/8JilOZdhV3J9XyJilpR/WmD9KoxdicmDwgTd4wjK1P3J4QIcs2CRT1Ng6YP6CqfeTFupfquvdwNhv3iGka+71UtXMEpPnmeQs74YTKvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kbj5RkskGRsMrW0/VRu7P2GNTLBMDhfX1r6koRhU9C8=;
- b=GV1uQuECGSHxzcLgdmuA14AicevahpWCczPS098c5qcERjRoplMDIod89LMl58JMuHCHbiwj/RZ1e0TNipluJHGzFfnxgdbzXc97fKHK5nse0LmB/WO/MxrRIJpzDW9sBGNCv13vC5MMItf7naFpS2ElI+u97dmoQMXrmjhG2hq24inP/Nb6/uEW2uVt5Yh3six3BJt2jM83IQvyblQFGNh81ZMHNDhAuxGlZrQnZwM3yv+P0BGuNbaGR77PROz9Dum6hR7aE8T+cIEazI3UmZntpJ2DElZBbNP77Nn1C09OyXBo2ijQl87BfP4VzbfSyjnSE5JjlnxuAUjQyW+5Yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kbj5RkskGRsMrW0/VRu7P2GNTLBMDhfX1r6koRhU9C8=;
- b=eNIXQOiyQf43Lm5DT/qSuKiRl3kEoCiF4mY8Ci0J8BfJBtV2qNUUQVfiJ1+EQBQgQuLiWFvSmWylJVAuActJhibsHykEa5sikKNXE1x4glL4EdY+GPOuxF+IUaZYzWbYexCRJWYuje1mrdYpMsiMBN7lrBJ/aqEYrogXCjtYZ1E=
-Received: from SJ2P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5da::10)
- by MN2PR12MB4359.namprd12.prod.outlook.com (2603:10b6:208:265::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Wed, 15 Jul
- 2026 13:48:38 +0000
-Received: from SJ5PEPF000001F0.namprd05.prod.outlook.com
- (2603:10b6:a03:5da:cafe::5c) by SJ2P220CA0002.outlook.office365.com
- (2603:10b6:a03:5da::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.12 via Frontend Transport; Wed,
- 15 Jul 2026 13:48:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001F0.mail.protection.outlook.com (10.167.242.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:48:37 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 08:48:36 -0500
-Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 15 Jul 2026 08:48:33 -0500
-From: Wayne Lin <Wayne.Lin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
-	Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
-	Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
-	<Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
-	<alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
-	<Chen-Yu.Chen@amd.com>, WenTao Liang <vulab@iscas.ac.cn>,
-	<stable@vger.kernel.org>, George Zhang <george.zhang@amd.com>
-Subject: [PATCH 59/70] drm/amd/display: set new_stream to NULL after release
-Date: Wed, 15 Jul 2026 21:38:09 +0800
-Message-ID: <20260715134432.1975118-60-Wayne.Lin@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260715134432.1975118-1-Wayne.Lin@amd.com>
-References: <20260715134432.1975118-1-Wayne.Lin@amd.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fsbaqvhZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784124051; x=1815660051;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ukjcdgTG9XuOq7t7zom1ncaSxqFFGv0mhRH4E08Au5E=;
+  b=fsbaqvhZdhmTlvgc7wrtZXMzsH5x5n0KmS8EL8Sa1Etc29pN/zXQF2vX
+   nTmddP4qk93lYp+/fxjhwC9+ix3vHYBfgOltaVHfTCn83EXZKG7fqCN8S
+   +N3L6T8dkM0QEzFBAdI/6L9Iw6EL8y4Frw0z1scnXMamSUqK2iWT9aBMs
+   yXDrGeo3JvKGLCm9nS0sod37Wkwj6r9gGr3pRyiiLblIByki9pcNeXqP0
+   Pp3TZxJWxYaPWz5v785ZExUjTbivGJIgotE9uV3vx6Qxt8J7HhuBOqhOb
+   QvSiV3Hlsq5Ec4J8iOZCopUo/cY1I178ofJd3bxPXBI4MiWmZp7dddVdP
+   g==;
+X-CSE-ConnectionGUID: lurNblnIQaqXl3mm5lQdkg==
+X-CSE-MsgGUID: 2LvZImLrR36A90OMgH9MuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84543315"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="84543315"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 07:00:51 -0700
+X-CSE-ConnectionGUID: Uh786iniRrmjo7zN+7u/3A==
+X-CSE-MsgGUID: 83FZPJTrTmSurlB6sr2Vqg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="255681857"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa008.jf.intel.com with ESMTP; 15 Jul 2026 07:00:47 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 3E21995; Wed, 15 Jul 2026 16:00:46 +0200 (CEST)
+Date: Wed, 15 Jul 2026 17:00:44 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Ramesh Babu B <ramesh.babu.b@intel.com>,
+	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
+	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] drm/xe/i2c: Fix the interrupt handling
+Message-ID: <aleSjGxhStAiqLk6@kuha>
+References: <20260713155601.711389-1-heikki.krogerus@linux.intel.com>
+ <20260713155601.711389-3-heikki.krogerus@linux.intel.com>
+ <alcoDtq2aul-tA_h@black.igk.intel.com>
+ <aldYjL2pxA7QxoLN@kuha>
+ <ald1HG6KzjWb9CUK@black.igk.intel.com>
+ <aleEReNBnQMy3-1E@kuha>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F0:EE_|MN2PR12MB4359:EE_
-X-MS-Office365-Filtering-Correlation-Id: d22929b7-8641-437e-2a87-08dee277c5bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|22082099003|18002099003|6133799003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	ME5uZ62HVSSET4yed5oPRK81HfFhqhTkoZtc3v6PMuAKPqjpCqydchQI08UzHImtFOG8Gf9Bj2ZZm+8zOlxFWzk20T+ghnUDzPNxaW/CsI4qoNLux5+U3i/8pMB4ca2huskMCRAMnnX7cohdFAG583NKY5KK8zyfoeJAgHTzwzTQamGiGW7UMWqwIwPFbYp0miaXky1/nb4wz79bCCoaq1MH2HY3RpczTp2glkrXR2Dj3efk5f1VWpjbvneDIr9dLysecWK22AN8ueKWo1mqWL3bREqAthbuXl06H6FruiUAo2JjYOscFg08Ebrd1cW0FCLs5qA8I7bWV1DvV3ZLAka7df1r8/hJ4DMCiNfAp3tfEp2fzAtb3aQVtdQvPP5fR4jLL7kO4rEAykq0xWdCad0YhMx6V9ybIxMo53ohe6X7CYG8C0nMTQbRa5gELbJb8VoTJ560PvWZuel1gunGx91DNZoAueGClZzc7LzE5/SCwNyUJfhzCptVgRMQWXeiRT3cgPnbmRgbZlDHKvoV87tV3uXw6YEINOXAhyiTZbdgy41JKM4ghRYaSkf3nesXAoIJ9uCkw//gaeRoZYhhZ4NFKPVVy4hFGZQ6lUVmRVs9fUDINkh/oxJWf8zkDK9ASZlSRQO4t3o10VyfDh3K1NTQjYzf4NP0k3b09mFKTGcCVhfhfDVco8QTdsq0Fz1ncql/IjYvjKB2CFgnOxL1SA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(22082099003)(18002099003)(6133799003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xWafth9erGJZUH9mHph+W0NPE+1ZL78VYU9fymWgqIibkYX5u19bTrYlSH+hEMsAiKSFAePIoSXPnUCokMy1iMn5ME4wHPirtKg8XE6VzwH0osRUzGjY1/+54HChSWzq48ndJUtSOEFIGD4VMZT5VzBM5DEPgzY6ifGIpZxxwVEbpIJEhiEF4VSVyZPLwN9EVEURZS/8GrFroea+b9+cAZd6jOsO9Sx6NUalymw3R3FIwFII9hFWw4rqhM9B6m+ZV/yI92cexOYJvbeKiiOMM+PAXWNOhxr8KMAuPQLXCMIbN+yDLQPcJzQfJy/17kIdfOVHFJ4hW1OIhHNG9LBuW+Rzzi+EiF2QoJVgr7qGqLSxXLj20QCxDWcmX1cvzJxSkWXKaJ/wEyK5JXzIY89n6CFMmIcKkKl9jpTbuEVorpHdwNH+syLwe88Uznc5FYlG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:48:37.9088
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d22929b7-8641-437e-2a87-08dee277c5bf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F0.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4359
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aleEReNBnQMy3-1E@kuha>
 
-From: WenTao Liang <vulab@iscas.ac.cn>
+Hi Raag,
 
-In dm_update_crtc_state(), the skip_modeset path releases new_stream
-via dc_stream_release() but does not set the pointer to NULL.
+> > > > > -	/* Forward interrupt to I2C adapter */
+> > > > > -	generic_handle_irq_safe(xe->i2c->adapter_irq);
+> > > > > +	xe_i2c_handle_smbus_alert(xe->i2c);
+> > > > 
+> > > > [1] Can we move the below re-assert code to wq now? Or do you suspect any
+> > > > side-effects?
+> > > 
+> > > I think that you know this better than I do. But at this point
+> > > interrupt is cleared, so why should we wait for the wq?
+> > 
+> > When does AMC clear the alert signal? Is it when you query from the wq?
+> > If the answer is yes, there's a possibility we might end up with an
+> > interrupt storm here.
+> > 
+> > > To play it safe, can we change this as a followup if necessary?
+> > 
+> > Sure, I'll leave it to you.
+> 
+> I'll move it to the wq. There are no side-effects.
 
-If a later error (e.g., color management failure) triggers the fail
-label, the error path calls dc_stream_release() again on the same
-dangling pointer, causing a double release and potential use-after-free.
+Can you check does this work:
 
-Fix this by setting new_stream to NULL after the initial release.
-
-Fixes: 9b690ef3c7042 ("drm/amd/display: Avoid full modeset when not required")
-Cc: stable@vger.kernel.org
-Reviewed-by: George Zhang <george.zhang@amd.com>
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-Signed-off-by: Wayne Lin <wayne.lin@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 9a3f78c17a5a..5a9afc0607b2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6063,6 +6063,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 	/* Release extra reference */
- 	if (new_stream)
- 		dc_stream_release(new_stream);
-+	new_stream = NULL;
+diff --git a/drivers/gpu/drm/xe/xe_amc.c b/drivers/gpu/drm/xe/xe_amc.c
+index b44d5765f2ed5..1a517b79d0bb3 100644
+--- a/drivers/gpu/drm/xe/xe_amc.c
++++ b/drivers/gpu/drm/xe/xe_amc.c
+@@ -11,9 +11,12 @@
+ #include <linux/string.h>
+ #include <linux/workqueue.h>
  
- 	/*
- 	 * We want to do dc stream updates that do not require a
--- 
-2.43.0
++#include "regs/xe_i2c_regs.h"
++
+ #include "xe_amc.h"
+ #include "xe_device.h"
+ #include "xe_i2c.h"
++#include "xe_mmio.h"
+ 
+ /**
+  * DOC: Add-In Management Controller (AMC)
+@@ -103,7 +106,7 @@ static void xe_amc_work(struct work_struct *work)
+        ret = i2c_master_send(client, (u8 *)request, sizeof(*request));
+        if (ret < 0) {
+                dev_err(&client->dev, "failed to send request (%d)\n", ret);
+-               return;
++               goto out_reassert_interrupt;
+        }
+ 
+        /* AMC needs 20ms to generate the response. */
+@@ -112,22 +115,22 @@ static void xe_amc_work(struct work_struct *work)
+        ret = i2c_master_recv(client, (u8 *)&response, sizeof(response));
+        if (ret < 0) {
+                dev_err(&client->dev, "failed to read response (%d)\n", ret);
+-               return;
++               goto out_reassert_interrupt;
+        }
+ 
+        if (!response.header.len) {
+                dev_err(&client->dev, "empty response from AMC\n");
+-               return;
++               goto out_reassert_interrupt;
+        }
+ 
+        if (memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
+                dev_err(&client->dev, "response does not match the request\n");
+-               return;
++               goto out_reassert_interrupt;
+        }
+ 
+        if (response.error) {
+                dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
+-               return;
++               goto out_reassert_interrupt;
+        }
+ 
+        dev_dbg(&client->dev, "%s: Alert reason: %d\n", __func__, response.value);
+@@ -143,12 +146,19 @@ static void xe_amc_work(struct work_struct *work)
+        default:
+                break;
+        }
++
++out_reassert_interrupt:
++       xe_mmio_rmw32(amc->i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
+ }
+ 
+ void xe_amc_handle_alert(struct xe_i2c *i2c)
+ {
++       xe_mmio_rmw32(i2c->mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
++
+        if (i2c->client[XE_I2C_CLIENT_AMC])
+                queue_work(system_long_wq, &i2c->amc->work);
++       else
++               xe_mmio_rmw32(i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
+ }
+ 
+ int xe_amc_init(struct xe_i2c *i2c)
+diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+index 8a978526e2b66..3859d4a9f75e4 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.c
++++ b/drivers/gpu/drm/xe/xe_i2c.c
+@@ -87,6 +87,8 @@ static void xe_i2c_client_work(struct work_struct *work)
+        };
+ 
+        i2c->client[XE_I2C_CLIENT_AMC] = i2c_new_client_device(i2c->adapter, &info);
++
++       xe_i2c_irq_postinstall(i2c_adapter_to_xe_device(i2c->adapter));
+ }
+ 
+ static int xe_i2c_notifier(struct notifier_block *nb, unsigned long action, void *data)
+@@ -183,17 +185,10 @@ static bool xe_i2c_irq_present(struct xe_device *xe)
+  */
+ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
+ {
+-       struct xe_mmio *mmio = xe_root_tile_mmio(xe);
+-
+        if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
+                return;
+ 
+        xe_i2c_handle_smbus_alert(xe->i2c);
+-
+-       /* Deassert after I2C adapter clears the interrupt */
+-       xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
+-       /* Reassert to allow subsequent interrupt generation */
+-       xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
+ }
+ 
+ void xe_i2c_irq_reset(struct xe_device *xe)
+@@ -392,6 +387,5 @@ int xe_i2c_probe(struct xe_device *xe)
+                return ret;
+        }
+ 
+-       xe_i2c_irq_postinstall(xe);
+        return devm_add_action_or_reset(drm_dev, xe_i2c_remove, i2c);
+ }
 
+Thanks,
+
+-- 
+heikki
