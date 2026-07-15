@@ -1,70 +1,42 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2470E3624C2
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 23:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703F23D7D67
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 23:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784158978; cv=none; b=aKJpA3zW8oBLeF+Nrk3R5Os3yoVKBQ0p3A17QxHNGvIxguQPp/eJBFlwOa/6hxiMuCsfvMSwtzrBXWpWS8poJ3jf6LCG77aYtICVk3DxOobsbGcsQv6tE2Y4REUUmyZThxIJQmswQayzC8tbJlVHi/GpqP72/jsFPkl0Zg1aiTY=
+	t=1784159716; cv=none; b=bGG5d3kRAd9jkuwCJ0/3XWLGqxfei9XVamU0hj1D0FZNzhEhLR3BIK1tTGYyeySOlSA8kjKkn11mPk8fIZJzkHw+CGa2mx28/BQ7aCWQzseugPjXLeBxHwnm4C860ryuVFvY5Iuz38JxpX64SUDJ0CnXaoiqgOvPZe54aOTIunU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784158978; c=relaxed/simple;
-	bh=OrkzxCHcDDLRStjuMwpLwekpeN0s3xL0An4vQ3G3Yds=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=knCSWWxPr9KWyDYM7LEQtbZW6BVlYRzZYnrlVQxN4Css3wisK2DGwi9T/X2Z9jb86U2RSYcuBpIqZSBvMdif9JhVEv04a8/+o/7HLIEFpZnu2s1QPiXATG95eZ2qWtuPxYDkNZCB98RPTtXbFpFHRziezetgmrl2nppdXW3AAv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=oB2vPP1q; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1784159716; c=relaxed/simple;
+	bh=ty4gQ2OCE1P+tuwSecPGbjJi4F6FKgGwpi3skvaVYRg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sM0Z8ekIab/aLasxQBjcpfFssBj1uTqdPpIjBOv3zek0hlqO3JDE6H5qXdmKk+S7j4TDmflIczj36ovf185aF77cO5uwKPOT9CSnU1hESRRQ0EW2qwM79KQ3NO+Q0TZRNDW2QXYnXMRMl0e4Pb4v9bwEiSwLOHq3jUyyM7HOc3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gt+fYAKk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="oB2vPP1q"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38759bcd877so5260778a91.2
-        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 16:42:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784158975; x=1784763775; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lG3C3e/88yzE+x6ag4UwFNZ0M0d22TrZt3BM1BYLYyo=;
-        b=oB2vPP1q8S7SbqYUnIkM+oM8R1U1TA4gFCCJc/cg4zpP2uSklcMVozk97BW387x5O/
-         Be2AVSA5dwjdacJb6pGUdw0Q+oe5rgq6KZmqqUHDxusjfvFIURTAw2ba9J1vtZ/qx/g6
-         uJNeX6G7Wair+1gvo30YeXFGgwp2CpqBv1o+c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784158975; x=1784763775;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lG3C3e/88yzE+x6ag4UwFNZ0M0d22TrZt3BM1BYLYyo=;
-        b=K7pKg8bhTcXBZEPUfAuamO/A1krggACHmpSAAH4okalXLr1vvOWhVcctqrGkF/Mr4r
-         eyQCZtyL1BEROQTGQAkWK4HcmlEXWerBCzEGXazkFGiPgwgz5lTSQ45GBiiSEKDzhbA7
-         tUdNgwtOh1IblqH7x7elWEWDaI2fSexPdI1yDr8VwOh15c0MGpCWZ9bl218LgC/X/RV+
-         ncFz53D2gBySAA/fKH6Du3WZ4DVbxpkueXHk0Fvg7ALKhX8hUMIFD2BVHuF63aV7zDmn
-         oy0oGSXVvcL3+374WUSCzILTp6MUN607BE6h5t5M7MrJ8HOBt1sUqtJTg2SMzAxBTKTz
-         WWXA==
-X-Gm-Message-State: AOJu0Yz9Rkh1z+4ClNebPHAuif/zNnX5AEdU2A7CvDb1KBuXqJVU+Y0F
-	moBfYknFDJavlADY12P/7Nn+R+2ZhaXHLaH9FQZK+Wv9QvRJb/4DhMfSiQ0y4dw/RQ==
-X-Gm-Gg: AfdE7cm/WY5Q7dtkBEE6TK468zOIjNYCiOmPjfK0CHWSbbS/q6bizibX4eDDNpXx+aA
-	poD8q4YS/AGXsoqMqeV3IVjwFqYcIZ3pzMHBU1Hv68zOBHb6av080k9tIHPSbO7ORO4HX8rK+0A
-	UUR1McGEmH7guLyODjV6AVjFUg/Gyx/4w0W7p2uP1yIbluvdVxju0wVJk0NvQ4FP1go8rirY53Y
-	he7XGIGJaI7wHgcz3BXMq72NOkhF8j2bMpqspWCAvHSsNQC709QpMvcP2R6fXDCv794gaoNlvsG
-	Ig48vc5NqpFaIpd1dpyT1X6vDrbb2UsVXzGXFNaRyv11znQ13Yym4XmoN0roO05GuKaOM3UQ9L3
-	CZOd5H34StUvymHdm1GdVCQH8lNd6DgtrTV8KqlsBOm/Lfv2SfAOY8ySdyF3weWEnZdn9XP1ajx
-	sjBWvs8/AfawcH/9qnyNuzQ2Wpp3SQwu3/OYy2TcDaGpjNOiU+4Ma6Ise+1PiBU4OkKJJZw+Vsx
-	kGnkdei5wsjKVTULf+IxIkqZA==
-X-Received: by 2002:a17:90b:57e5:b0:38d:e7b7:5125 with SMTP id 98e67ed59e1d1-38e2a030175mr3690032a91.17.1784158975446;
-        Wed, 15 Jul 2026 16:42:55 -0700 (PDT)
-Received: from corvallis2.c.googlers.com.com (10.77.82.34.bc.googleusercontent.com. [34.82.77.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39e0ead5sm316814a91.7.2026.07.15.16.42.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 16:42:55 -0700 (PDT)
-From: Venkatesh Srinivas <venkateshs@chromium.org>
-To: kvm@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Venkatesh Srinivas <venkateshs@chromium.org>,
-	David Matlack <dmatlack@google.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Jim Mattson <jmattson@google.com>,
-	James Houghton <jthoughton@google.com>
-Subject: [PATCH] KVM: x86: Only reset TSC Deadline Timer in apic_timer_expired on KVM_RUN
-Date: Wed, 15 Jul 2026 23:42:35 +0000
-Message-ID: <20260715234234.15382-2-venkateshs@chromium.org>
-X-Mailer: git-send-email 2.55.0.141.g00534a21ce-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gt+fYAKk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D691F000E9;
+	Wed, 15 Jul 2026 23:55:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784159715;
+	bh=Cmeqb73OqZDpTedTqdFmBo7XzjhPJQg1aNfliB4HJnQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Gt+fYAKkIncGUuPA7l54/g2fdvJ+QYhigJbl0XdXyN92pfgdiLAsXuNlO8lp8NBNR
+	 nqe8s0hBnImrdt6MXzwCKPPru3PvNq3vCkzsQxIfyrik12WinldAo4Z10U2j/5fKy9
+	 NC/ZMXoU1/K48SZpq1jAQPOQqP1w5mylONmzF1ETLLdXOwEGS7u+lHZ6fJJJJSQp3D
+	 3a9WENpbXy16NtZObcw3XUF9MAgMZhFtiNgbB0uoEuuq0i5IAx8qDI3IsW6+CeGt1v
+	 xNIc8RK7vNOBB0TYWN35EsKmbtFLK3q/8vg8wlabZ3ML7oNKR4SR3brG9nYQRpTOFo
+	 yBySgBm/lf7xg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Pauli Virtanen <pav@iki.fi>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] Bluetooth: hci_core: Enable buffer flow control for SCO/eSCO
+Date: Wed, 15 Jul 2026 19:55:09 -0400
+Message-ID: <20260715235512.524947-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071350-agent-mustard-7408@gregkh>
+References: <2026071350-agent-mustard-7408@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,51 +45,278 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fixes a lost timer interrupt issue if:
-1) We are on an Intel platform w/ a VMX preemption timer && APICv
-2) A VMM calls KVM_GET_LAPIC before KVM_GET_MSRS to save vCPU state
-3) The thread executing the two calls migrates CPUs between the two calls
+From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-After migration across CPUs, KVM_GET_MSRS calls vcpu_load, posting the
-interrupt and clearing the MSR:
-vcpu_load() ->
-  kvm_arch_vcpu_load() ->
-    kvm_lapic_restart_hv_timer() ->
-      start_hv_timer() ->
-        apic_timer_expired() ->
-          kvm_apic_inject_pending_timer_irqs()
-            . post interrupt into the LAPIC state
-            . clear IA32_TSCDEADLINE
+[ Upstream commit 13218453521d75916dfed55efb8e809bfc03cb4b ]
 
-The saved LAPIC state will be missing the pending interrupt and the saved
-MSR will be zero. Oops.
+This enables buffer flow control for SCO/eSCO
+(see: Bluetooth Core 6.0 spec: 6.22. Synchronous Flow Control Enable),
+recently this has caused the following problem and is actually a nice
+addition for the likes of Socket TX complete:
 
-Fix by only posting an interrupt when we're attempting to enter the guest
-(vcpu->wants_to_run == true), not for vcpu_load from other paths.
+< HCI Command: Read Buffer Size (0x04|0x0005) plen 0
+> HCI Event: Command Complete (0x0e) plen 11
+      Read Buffer Size (0x04|0x0005) ncmd 1
+        Status: Success (0x00)
+        ACL MTU: 1021 ACL max packet: 5
+        SCO MTU: 240  SCO max packet: 8
+...
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+> HCI Event: Hardware Error (0x10) plen 1
+        Code: 0x0a
 
-Assisted-by: gemini:gemini-3.1-pro-preview
-Debugged-by: David Matlack <dmatlack@google.com>
-Debugged-by: Sean Christopherson <seanjc@google.com>
-Debugged-by: Jim Mattson <jmattson@google.com>
-Debugged-by: James Houghton <jthoughton@google.com>
-Signed-off-by: Venkatesh Srinivas <venkateshs@chromium.org>
+To fix the code will now attempt to enable buffer flow control when
+HCI_QUIRK_SYNC_FLOWCTL_SUPPORTED is set by the driver:
+
+< HCI Command: Write Sync Fl.. (0x03|0x002f) plen 1
+        Flow control: Enabled (0x01)
+> HCI Event: Command Complete (0x0e) plen 4
+      Write Sync Flow Control Enable (0x03|0x002f) ncmd 1
+        Status: Success (0x00)
+
+On success then HCI_SCO_FLOWCTL would be set which indicates sco_cnt
+shall be used for flow contro.
+
+Fixes: 7fedd3bb6b77 ("Bluetooth: Prioritize SCO traffic")
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Tested-by: Pauli Virtanen <pav@iki.fi>
+Stable-dep-of: 12917f591cea ("Bluetooth: hci_conn: Fix null ptr deref in hci_abort_conn()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/lapic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/net/bluetooth/hci.h      | 13 +++++++
+ include/net/bluetooth/hci_core.h |  1 +
+ net/bluetooth/hci_core.c         | 62 +++++++++++++++-----------------
+ net/bluetooth/hci_event.c        |  2 ++
+ net/bluetooth/hci_sync.c         | 24 +++++++++++++
+ 5 files changed, 68 insertions(+), 34 deletions(-)
 
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index 6f30bbdddb5a..74dfdbab4ab9 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -2052,7 +2052,7 @@ static void apic_timer_expired(struct kvm_lapic *apic, bool from_timer_fn)
- 	if (apic_lvtt_tscdeadline(apic) || ktimer->hv_timer_in_use)
- 		ktimer->expired_tscdeadline = ktimer->tscdeadline;
+diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
+index b25746b91986c2..fb82d6f395d418 100644
+--- a/include/net/bluetooth/hci.h
++++ b/include/net/bluetooth/hci.h
+@@ -206,6 +206,13 @@ enum {
+ 	 */
+ 	HCI_QUIRK_WIDEBAND_SPEECH_SUPPORTED,
  
--	if (!from_timer_fn && apic->apicv_active) {
-+	if (!from_timer_fn && apic->apicv_active && vcpu->wants_to_run) {
- 		WARN_ON(kvm_get_running_vcpu() != vcpu);
- 		kvm_apic_inject_pending_timer_irqs(apic);
++	/* When this quirk is set consider Sync Flow Control as supported by
++	 * the driver.
++	 *
++	 * This quirk must be set before hci_register_dev is called.
++	 */
++	HCI_QUIRK_SYNC_FLOWCTL_SUPPORTED,
++
+ 	/* When this quirk is set, the controller has validated that
+ 	 * LE states reported through the HCI_LE_READ_SUPPORTED_STATES are
+ 	 * valid.  This mechanism is necessary as many controllers have
+@@ -416,6 +423,7 @@ enum {
+ 	HCI_WIDEBAND_SPEECH_ENABLED,
+ 	HCI_EVENT_FILTER_CONFIGURED,
+ 	HCI_PA_SYNC,
++	HCI_SCO_FLOWCTL,
+ 
+ 	HCI_DUT_MODE,
+ 	HCI_VENDOR_DIAG,
+@@ -1513,6 +1521,11 @@ struct hci_rp_read_tx_power {
+ 	__s8     tx_power;
+ } __packed;
+ 
++#define HCI_OP_WRITE_SYNC_FLOWCTL	0x0c2f
++struct hci_cp_write_sync_flowctl {
++	__u8     enable;
++} __packed;
++
+ #define HCI_OP_READ_PAGE_SCAN_TYPE	0x0c46
+ struct hci_rp_read_page_scan_type {
+ 	__u8     status;
+diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
+index a2a6fb20f49647..623323a0f07c4a 100644
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -1824,6 +1824,7 @@ void hci_conn_del_sysfs(struct hci_conn *conn);
+ #define lmp_hold_capable(dev)      ((dev)->features[0][0] & LMP_HOLD)
+ #define lmp_sniff_capable(dev)     ((dev)->features[0][0] & LMP_SNIFF)
+ #define lmp_park_capable(dev)      ((dev)->features[0][1] & LMP_PARK)
++#define lmp_sco_capable(dev)       ((dev)->features[0][1] & LMP_SCO)
+ #define lmp_inq_rssi_capable(dev)  ((dev)->features[0][3] & LMP_RSSI_INQ)
+ #define lmp_esco_capable(dev)      ((dev)->features[0][3] & LMP_ESCO)
+ #define lmp_bredr_capable(dev)     (!((dev)->features[0][4] & LMP_NO_BREDR))
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 824208a53c251e..332a7f0da47e98 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -3556,42 +3556,27 @@ static void __check_timeout(struct hci_dev *hdev, unsigned int cnt, u8 type)
+ }
+ 
+ /* Schedule SCO */
+-static void hci_sched_sco(struct hci_dev *hdev)
++static void hci_sched_sco(struct hci_dev *hdev, __u8 type)
+ {
+ 	struct hci_conn *conn;
+ 	struct sk_buff *skb;
+-	int quote;
++	int quote, *cnt;
++	unsigned int pkts = hdev->sco_pkts;
+ 
+-	BT_DBG("%s", hdev->name);
++	bt_dev_dbg(hdev, "type %u", type);
+ 
+-	if (!hci_conn_num(hdev, SCO_LINK))
++	if (!hci_conn_num(hdev, type) || !pkts)
  		return;
+ 
+-	while (hdev->sco_cnt && (conn = hci_low_sent(hdev, SCO_LINK, &quote))) {
+-		while (quote-- && (skb = skb_dequeue(&conn->data_q))) {
+-			BT_DBG("skb %p len %d", skb, skb->len);
+-			hci_send_frame(hdev, skb);
+-
+-			conn->sent++;
+-			if (conn->sent == ~0)
+-				conn->sent = 0;
+-		}
+-	}
+-}
+-
+-static void hci_sched_esco(struct hci_dev *hdev)
+-{
+-	struct hci_conn *conn;
+-	struct sk_buff *skb;
+-	int quote;
+-
+-	BT_DBG("%s", hdev->name);
+-
+-	if (!hci_conn_num(hdev, ESCO_LINK))
+-		return;
++	/* Use sco_pkts if flow control has not been enabled which will limit
++	 * the amount of buffer sent in a row.
++	 */
++	if (!hci_dev_test_flag(hdev, HCI_SCO_FLOWCTL))
++		cnt = &pkts;
++	else
++		cnt = &hdev->sco_cnt;
+ 
+-	while (hdev->sco_cnt && (conn = hci_low_sent(hdev, ESCO_LINK,
+-						     &quote))) {
++	while (*cnt && (conn = hci_low_sent(hdev, type, &quote))) {
+ 		while (quote-- && (skb = skb_dequeue(&conn->data_q))) {
+ 			BT_DBG("skb %p len %d", skb, skb->len);
+ 			hci_send_frame(hdev, skb);
+@@ -3599,8 +3584,17 @@ static void hci_sched_esco(struct hci_dev *hdev)
+ 			conn->sent++;
+ 			if (conn->sent == ~0)
+ 				conn->sent = 0;
++			(*cnt)--;
+ 		}
+ 	}
++
++	/* Rescheduled if all packets were sent and flow control is not enabled
++	 * as there could be more packets queued that could not be sent and
++	 * since no HCI_EV_NUM_COMP_PKTS event will be generated the reschedule
++	 * needs to be forced.
++	 */
++	if (!pkts && !hci_dev_test_flag(hdev, HCI_SCO_FLOWCTL))
++		queue_work(hdev->workqueue, &hdev->tx_work);
+ }
+ 
+ static void hci_sched_acl_pkt(struct hci_dev *hdev)
+@@ -3636,8 +3630,8 @@ static void hci_sched_acl_pkt(struct hci_dev *hdev)
+ 			chan->conn->sent++;
+ 
+ 			/* Send pending SCO packets right away */
+-			hci_sched_sco(hdev);
+-			hci_sched_esco(hdev);
++			hci_sched_sco(hdev, SCO_LINK);
++			hci_sched_sco(hdev, ESCO_LINK);
+ 		}
+ 	}
+ 
+@@ -3692,8 +3686,8 @@ static void hci_sched_le(struct hci_dev *hdev)
+ 			chan->conn->sent++;
+ 
+ 			/* Send pending SCO packets right away */
+-			hci_sched_sco(hdev);
+-			hci_sched_esco(hdev);
++			hci_sched_sco(hdev, SCO_LINK);
++			hci_sched_sco(hdev, ESCO_LINK);
+ 		}
+ 	}
+ 
+@@ -3738,8 +3732,8 @@ static void hci_tx_work(struct work_struct *work)
+ 
+ 	if (!hci_dev_test_flag(hdev, HCI_USER_CHANNEL)) {
+ 		/* Schedule queues and send stuff to HCI driver */
+-		hci_sched_sco(hdev);
+-		hci_sched_esco(hdev);
++		hci_sched_sco(hdev, SCO_LINK);
++		hci_sched_sco(hdev, ESCO_LINK);
+ 		hci_sched_iso(hdev);
+ 		hci_sched_acl(hdev);
+ 		hci_sched_le(hdev);
+diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
+index 4607db3037bd91..e2b9a009bf59b2 100644
+--- a/net/bluetooth/hci_event.c
++++ b/net/bluetooth/hci_event.c
+@@ -4445,9 +4445,11 @@ static void hci_num_comp_pkts_evt(struct hci_dev *hdev, void *data,
+ 			break;
+ 
+ 		case SCO_LINK:
++		case ESCO_LINK:
+ 			hdev->sco_cnt += count;
+ 			if (hdev->sco_cnt > hdev->sco_pkts)
+ 				hdev->sco_cnt = hdev->sco_pkts;
++
+ 			break;
+ 
+ 		case ISO_LINK:
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 9da2acec6f7f02..31bd230089e12d 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -3877,6 +3877,28 @@ static int hci_write_ca_timeout_sync(struct hci_dev *hdev)
+ 				     sizeof(param), &param, HCI_CMD_TIMEOUT);
+ }
+ 
++/* Enable SCO flow control if supported */
++static int hci_write_sync_flowctl_sync(struct hci_dev *hdev)
++{
++	struct hci_cp_write_sync_flowctl cp;
++	int err;
++
++	/* Check if the controller supports SCO and HCI_OP_WRITE_SYNC_FLOWCTL */
++	if (!lmp_sco_capable(hdev) || !(hdev->commands[10] & BIT(4)) ||
++	    !test_bit(HCI_QUIRK_SYNC_FLOWCTL_SUPPORTED, &hdev->quirks))
++		return 0;
++
++	memset(&cp, 0, sizeof(cp));
++	cp.enable = 0x01;
++
++	err = __hci_cmd_sync_status(hdev, HCI_OP_WRITE_SYNC_FLOWCTL,
++				    sizeof(cp), &cp, HCI_CMD_TIMEOUT);
++	if (!err)
++		hci_dev_set_flag(hdev, HCI_SCO_FLOWCTL);
++
++	return err;
++}
++
+ /* BR Controller init stage 2 command sequence */
+ static const struct hci_init_stage br_init2[] = {
+ 	/* HCI_OP_READ_BUFFER_SIZE */
+@@ -3895,6 +3917,8 @@ static const struct hci_init_stage br_init2[] = {
+ 	HCI_INIT(hci_clear_event_filter_sync),
+ 	/* HCI_OP_WRITE_CA_TIMEOUT */
+ 	HCI_INIT(hci_write_ca_timeout_sync),
++	/* HCI_OP_WRITE_SYNC_FLOWCTL */
++	HCI_INIT(hci_write_sync_flowctl_sync),
+ 	{}
+ };
+ 
 -- 
-2.55.0.141.g00534a21ce-goog
+2.53.0
 
