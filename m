@@ -1,121 +1,208 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933D3382394;
-	Wed, 15 Jul 2026 14:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0180638C2A7
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 14:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784126427; cv=none; b=XHgPXT5X5Xco01xagYMmX6x/F78vgHsGSjY8aPL8cFCsOgmUGUJF9LGdl8l9ACXdDDQTgbFDuP1mDAd6fpnK17/LYddMzVzsHmLQo4bdde10D2mPSkFbKgjz9/GDzTfVaEdPAuK0fPIx0RzaJEt0VeGKzmaeLuLEEVDhsB96KjQ=
+	t=1784126456; cv=none; b=l3arL2NsUD5ruYhus/0uPdNueEUaWNdka6JDOO3/TzuE89EKBZ64O1FRn2KkHgHzhT0kQEGUs1PYdiJdfukbww+8/s96ibmgSKOUdeJ9m1nuIAI1qSjP6YYVMEnkxAKHwW8N/KZ6YT7ejSNruuMrvT2qrPoaiJQgczklTZIVdcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784126427; c=relaxed/simple;
-	bh=6L7zLNyw2pE8kNF4I0hoWQiKZ0Ntlnm6L7nqYM5hsEE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ar3OSRXux073hq1ZA/Pp/NXP8RBrTMnkhMwpE/pnCq+6bLW/gBwwWLfWakc0igbvMBEDJSopzLcm8Lf2MDH8RNnh1FDUUHsNV5Y+owf2apYit1swVdk4UV3PhAuYlPNtiK417SgZMHIDyGl8CNLOYKwyeWY890lT34zUVvXXrXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=H5k+RAGq; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784126456; c=relaxed/simple;
+	bh=08N/Mx89mm+34lTDbW+TqEt/Wy0iFn1m8CSMmU5AQ+A=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=huxf2WmKQFw+r5wLTGqxH8WepvFa6976bgEl0DjmJuyjCDk6UjDL6x68AYV4Mj5hXp4n9aW6JZcO+W1wCmh4d6tX5fLVt4ps3SUiitkHFJYOpti1FjfcfSUDcIChOkMvBLkL3pAixdE0WJxXGCLZyhUOamW+R9HbJJ7zbWxW8b0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=scYKG06k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="H5k+RAGq"
-Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
-	by mail11.truemail.it (Postfix) with ESMTPA id 348251F8BF;
-	Wed, 15 Jul 2026 16:40:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784126423;
-	bh=3HBqysY8L8H+pbooKAQH34sou14Vctg8Aps0cc9+WE8=; h=From:To:Subject;
-	b=H5k+RAGqTClAGMuO13DgtB1rxjdvIXtEK3HngP/rbUAVtNmvWGasOOs3MOfkmgb4a
-	 l2LaBCUXt3gOAfQApmABL3PG4I3SloYiH1teg/ZewAVB4bnvSePZAcRNtLUEiH5eQo
-	 4bbAiV1GrKA0pTsniS62KQekfqCDw28izP8WX/zm35X4Vq9zl6yVAJ2dMnigoBwVfq
-	 VHUI46pqNoPiqFqm/GklnNKU5nXGcVTl7vS42uVC9Wd0Pbrh2ZMr9lyhWJ/9mp0gIs
-	 JruB3UtpFFu5WNv06j6W4aeTa73tQJ5NK5fWhw8zY/dXmNatEQFzFBIO4h50XXQEuV
-	 AwGjP1gxUzHbQ==
-Date: Wed, 15 Jul 2026 16:40:21 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Doruk Tan Ozturk <doruk@0sec.ai>
-Cc: Brian Norris <briannorris@chromium.org>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Kees Cook <kees@kernel.org>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: mwifiex: validate HT/VHT capability and operation
- IE lengths
-Message-ID: <20260715144021.GE56330@francesco-nb>
-References: <20260709100800.7026-1-doruk@0sec.ai>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="scYKG06k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3B31F00A3F;
+	Wed, 15 Jul 2026 14:40:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784126454;
+	bh=HgMADTCclYLOPFFZooxh1/24OFixl03wz7Q24/Ot57I=;
+	h=Subject:To:Cc:From:Date;
+	b=scYKG06kulkVz/4dLymrMNa+YhxVpDSBWnoaGuDE/OgCndWSCy4sggRwHei5KHYo7
+	 F+Bs/W/kUaMlyEyIa/cxVm5eVYKLq8wgKVwXOQniPgqFw7NOCytaDWy1Y6dJq5XZFI
+	 GakHBYr0N4a/M1aiLMy3F3eYagYoTIB3HmnUpFS8=
+Subject: FAILED: patch "[PATCH] iomap: consolidate bio submission" failed to apply to 7.1-stable tree
+To: hch@lst.de,brauner@kernel.org,djwong@kernel.org,joannelkoong@gmail.com,linkinjeon@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 15 Jul 2026 16:40:48 +0200
+Message-ID: <2026071548-sinister-joystick-e062@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260709100800.7026-1-doruk@0sec.ai>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 09, 2026 at 12:08:00PM +0200, Doruk Tan Ozturk wrote:
-> mwifiex_update_bss_desc_with_ie() records raw pointers to the HT
-> Capabilities, HT Operation, VHT Capabilities, VHT Operation, 20/40 BSS
-> Coexistence and Operating Mode Notification elements taken straight out
-> of a beacon/probe-response buffer, without checking that each element is
-> long enough for the fixed-size structure that later consumers read. The
-> buffer is a tight kmemdup() of the on-air IEs (beacon_buf_size ==
-> ies->len), so a truncated element placed last leaves the stored pointer
-> one past the end of the allocation.
-> 
-> At association time these pointers are dereferenced at fixed offsets
-> regardless of the on-air length: mwifiex_cmd_append_11n_tlv() memcpy()s
-> sizeof(struct ieee80211_ht_cap) (26 bytes) from bcn_ht_cap and reads
-> bcn_ht_oper->ht_param, and mwifiex_cmd_append_11ac_tlv() memcpy()s
-> sizeof(struct ieee80211_vht_cap) (12 bytes) from bcn_vht_cap and reads
-> bcn_vht_oper->chan_width. A nearby AP (rogue / evil-twin; an open SSID
-> needs no credentials) advertising a BSS with a truncated HT/VHT cap
-> element therefore triggers a slab out-of-bounds read on the victim's
-> association attempt. This out-of-bounds read is the primary issue.
-> 
-> For the HT-Cap copy the over-read bytes are additionally placed into the
-> outgoing association request, so a limited amount of adjacent heap memory
-> can leak over the air. In station mode this is small (single-digit
-> bytes), because mwifiex_fill_cap_info() rewrites most of the copied
-> HT-Cap before transmission; the leak is a secondary effect.
-> 
-> mwifiex_set_sta_ht_cap() has the same missing-length pattern: in uAP mode
-> it reads two bytes of ieee80211_ht_cap.cap_info from a
-> cfg80211_find_ie(WLAN_EID_HT_CAPABILITY) result in a client association
-> request without checking the element length, a 1-2 byte out-of-bounds
-> read (used only to select an A-MSDU size, not leaked).
-> 
-> Reject (skip) any of these elements whose payload is shorter than the
-> structure the driver later reads, matching the length validation the
-> FH/DS/CF/IBSS parameter-set cases in the same beacon parser already
-> perform.
-> 
-> No dynamic reproducer: mwifiex is a fullmac driver for Marvell hardware
-> with no mac80211_hwsim equivalent, so this was confirmed by source and
-> structure-offset analysis only.
 
-Were you able to test that this is not breaking the driver functionality?
+The patch below does not apply to the 7.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> 
-> Found by 0sec automated security-research tooling (https://0sec.ai).
-> 
-> Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: 0sec:claude-opus-4-8
-> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-> ---
->  drivers/net/wireless/marvell/mwifiex/scan.c | 12 ++++++++++++
->  drivers/net/wireless/marvell/mwifiex/util.c |  2 +-
->  2 files changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/wireless/marvell/mwifiex/scan.c b/drivers/net/wireless/marvell/mwifiex/scan.c
-> index 97c0ec3b822e..997e7e19525b 100644
-> --- a/drivers/net/wireless/marvell/mwifiex/scan.c
-> +++ b/drivers/net/wireless/marvell/mwifiex/scan.c
-> @@ -1384,6 +1384,8 @@ int mwifiex_update_bss_desc_with_ie(struct mwifiex_adapter *adapter,
->  							bss_entry->beacon_buf);
->  			break;
->  		case WLAN_EID_HT_CAPABILITY:
-> +			if (element_len < sizeof(struct ieee80211_ht_cap))
-> +				break;
+To reproduce the conflict and resubmit, you may use the following commands:
 
-why break and not return -EINVAL? (this in general, not only on this
-specific one).
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 044472d5ee7d71f918fa3f61bd65e4933a0c006e
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071548-sinister-joystick-e062@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 044472d5ee7d71f918fa3f61bd65e4933a0c006e Mon Sep 17 00:00:00 2001
+From: Christoph Hellwig <hch@lst.de>
+Date: Mon, 29 Jun 2026 14:17:38 +0200
+Subject: [PATCH] iomap: consolidate bio submission
+
+Add a iomap_bio_submit_read_endio helper factored out of
+iomap_bio_submit_read to that all ->submit_read implementations for
+iomap_read_ops that use iomap_bio_read_folio_range can shared the
+logic.
+
+Right now that logic is mostly trivial, but already has a bug for XFS
+because the XFS version is too trivial:  file system integrity validation
+needs a workqueue context and thus can't happen from the default iomap
+bi_end_io I/O handler.  Unfortunately the iomap refactoring just before
+fs integrity landed moved code around here and the call go misplaced,
+meaning it never got called.  The PI information still is verified by
+the block layer, but the offloading is less efficient (and the future
+userspace interface can't get at it).
+
+Fixes: 0b10a370529c ("iomap: support T10 protection information")
+Cc: stable@vger.kernel.org # v7.1
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20260629121750.3392300-2-hch@lst.de
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
+index 1aac38e63fe6..190fc6471f84 100644
+--- a/fs/exfat/iomap.c
++++ b/fs/exfat/iomap.c
+@@ -253,10 +253,7 @@ static void exfat_iomap_read_end_io(struct bio *bio)
+ static void exfat_iomap_bio_submit_read(const struct iomap_iter *iter,
+ 		struct iomap_read_folio_ctx *ctx)
+ {
+-	struct bio *bio = ctx->read_ctx;
+-
+-	bio->bi_end_io = exfat_iomap_read_end_io;
+-	submit_bio(bio);
++	iomap_bio_submit_read_endio(iter, ctx, exfat_iomap_read_end_io);
+ }
+ 
+ const struct iomap_read_ops exfat_iomap_bio_read_ops = {
+diff --git a/fs/iomap/bio.c b/fs/iomap/bio.c
+index 4504f4633f17..0f31e35567b4 100644
+--- a/fs/iomap/bio.c
++++ b/fs/iomap/bio.c
+@@ -78,15 +78,23 @@ u32 iomap_finish_ioend_buffered_read(struct iomap_ioend *ioend)
+ 	return __iomap_read_end_io(&ioend->io_bio, ioend->io_error);
+ }
+ 
+-static void iomap_bio_submit_read(const struct iomap_iter *iter,
+-		struct iomap_read_folio_ctx *ctx)
++void iomap_bio_submit_read_endio(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx, bio_end_io_t end_io)
+ {
+ 	struct bio *bio = ctx->read_ctx;
+ 
++	bio->bi_end_io = end_io;
+ 	if (iter->iomap.flags & IOMAP_F_INTEGRITY)
+ 		fs_bio_integrity_alloc(bio);
+ 	submit_bio(bio);
+ }
++EXPORT_SYMBOL_GPL(iomap_bio_submit_read_endio);
++
++static void iomap_bio_submit_read(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx)
++{
++	return iomap_bio_submit_read_endio(iter, ctx, iomap_read_end_io);
++}
+ 
+ static struct bio_set *iomap_read_bio_set(struct iomap_read_folio_ctx *ctx)
+ {
+@@ -127,7 +135,6 @@ static void iomap_read_alloc_bio(const struct iomap_iter *iter,
+ 	if (ctx->rac)
+ 		bio->bi_opf |= REQ_RAHEAD;
+ 	bio->bi_iter.bi_sector = iomap_sector(iomap, iter->pos);
+-	bio->bi_end_io = iomap_read_end_io;
+ 	bio_add_folio_nofail(bio, folio, plen,
+ 			offset_in_folio(folio, iter->pos));
+ 	ctx->read_ctx = bio;
+diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
+index 1fbf832ad165..f2bb56506046 100644
+--- a/fs/ntfs/aops.c
++++ b/fs/ntfs/aops.c
+@@ -38,11 +38,9 @@ static void ntfs_iomap_read_end_io(struct bio *bio)
+ }
+ 
+ static void ntfs_iomap_bio_submit_read(const struct iomap_iter *iter,
+-	struct iomap_read_folio_ctx *ctx)
++		struct iomap_read_folio_ctx *ctx)
+ {
+-	struct bio *bio = ctx->read_ctx;
+-	bio->bi_end_io = ntfs_iomap_read_end_io;
+-	submit_bio(bio);
++	iomap_bio_submit_read_endio(iter, ctx, ntfs_iomap_read_end_io);
+ }
+ 
+ static const struct iomap_read_ops ntfs_iomap_bio_read_ops = {
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index c43101cc064d..0c9bd669117d 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -608,10 +608,7 @@ static void ntfs_iomap_read_end_io(struct bio *bio)
+ static void ntfs_iomap_bio_submit_read(const struct iomap_iter *iter,
+ 		struct iomap_read_folio_ctx *ctx)
+ {
+-	struct bio *bio = ctx->read_ctx;
+-
+-	bio->bi_end_io = ntfs_iomap_read_end_io;
+-	submit_bio(bio);
++	iomap_bio_submit_read_endio(iter, ctx, ntfs_iomap_read_end_io);
+ }
+ 
+ static const struct iomap_read_ops ntfs_iomap_bio_read_ops = {
+diff --git a/fs/xfs/xfs_aops.c b/fs/xfs/xfs_aops.c
+index 2a0c54256e93..51293b6f331f 100644
+--- a/fs/xfs/xfs_aops.c
++++ b/fs/xfs/xfs_aops.c
+@@ -764,8 +764,7 @@ xfs_bio_submit_read(
+ 
+ 	/* defer read completions to the ioend workqueue */
+ 	iomap_init_ioend(iter->inode, bio, ctx->read_ctx_file_offset, 0);
+-	bio->bi_end_io = xfs_end_bio;
+-	submit_bio(bio);
++	iomap_bio_submit_read_endio(iter, ctx, xfs_end_bio);
+ }
+ 
+ static const struct iomap_read_ops xfs_iomap_read_ops = {
+diff --git a/include/linux/iomap.h b/include/linux/iomap.h
+index 3582ed1fe236..56b43d594e6e 100644
+--- a/include/linux/iomap.h
++++ b/include/linux/iomap.h
+@@ -622,6 +622,8 @@ extern struct bio_set iomap_ioend_bioset;
+ #ifdef CONFIG_BLOCK
+ int iomap_bio_read_folio_range(const struct iomap_iter *iter,
+ 		struct iomap_read_folio_ctx *ctx, size_t plen);
++void iomap_bio_submit_read_endio(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx, bio_end_io_t end_io);
+ 
+ extern const struct iomap_read_ops iomap_bio_read_ops;
+ 
 
