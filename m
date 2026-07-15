@@ -1,166 +1,199 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FE63559F2
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 12:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6527C47887A
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 12:31:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784117235; cv=none; b=KWceWc8Rf+7wsZtW1q69vGx0P0bBYtmAKAYsZi8rSU5iIyUyA2mlYactgc31aVj8Gnw9u8L6d/xd1gak/WNd2k3Nz4OG9w14lcRD9S9CbDKNs3JswuEHYmyL6OeAJrET09vcTZKx6oD1kw03RoC8QI4Y+sJ81L4uboQ+Bcf0sN4=
+	t=1784118666; cv=none; b=YJ6vn7kTrEoamRQERm/mxDgCfnbY8iywhmExfznFf7DfHTiU1tOr3/CiTUcrFsZzwQOpChHg5/BpxzKJ23K2lGHF3QX2vgwzXzGtEZDNFOWZuc/nAkpV1KbueytXDsLhj6iPsiY9FI2Y5plLNlG3TjekzyyOaNZaT064lgvFsqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784117235; c=relaxed/simple;
-	bh=iDYDSgr0CAoeWpKdzqYpe0GvsjIfU10xvCfCO8oFEq8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eDUbYJ86hF+ym7k1p31jdU09qVSVKxkDZv+oykGH1mz8tKGjE2fTEW5o1VVOLqmFoDSQRbfXGmWwA+T6p4Xcjm0kwYM8S3IQFtDz/5QbB2oOx4iGIj7+9Obb0XlkPUCNESzK2HKJQu3ZD/hKRb+fk1td9rErqrPGmsZhZJsCZf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=LFU2mATC; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1784118666; c=relaxed/simple;
+	bh=n69afPvxXMg5pJEtJyjh27rhLIgr92BGrls45LTgHSQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cldk9qMD0uChO9HXssqALbOnoDojxeM13i8rhDCH26gMiqguHV4gsHVvcMQrU20tyM/osT7ESBi4czzk9foQsWFM60Kk05H3CospyLTOK9ayO97LbqcSrrgZkrL0SepTVx+ng7SJDjxoUFtRkBcC4LcQbFYBRK9PZwqkDDWsHH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQO+FYZX; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="LFU2mATC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
-	Subject:Cc:To:From:Reply-To:Content-Type:In-Reply-To:References;
-	bh=LuK1HKc1hrlFuwJVBC01An15H8zC71Cdk1G1Ug/JvnI=; b=LFU2mATCGr2U1E5CGhFK+YMGmc
-	mtrYGgoZ/TZj1g9UngR1Oi6/HkLhDnfjfoLDpaRu72PpQ67VCn6lkc8rkZWzbuc1tC3uhbDg6/Nlw
-	U/7oWPa5x7z86hZ7CaCcg1xxxg4OgebKfhATlDlRqQMLdzXoqe/vABBmvsmgZxflyI1RcPIe3adtE
-	hTbu8VwJigwkX2t7Dm9WXm2CprEAw17HgllUW8FzoZ/A74zGESCS69F9xLd7Q6j7RVOvDXglXM5HY
-	uDd5yp/wvJO+nNzzeIB03cYn4ntXn1mPbWYitUVjhGluTp1WD008RihgPt2ybLETSO0KWImXUYkKV
-	SK+i+5aQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: stable@vger.kernel.org
-Cc: heiko@sntech.de,
-	quentin.schulz@cherry.de,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	syzbot+e809069bc15f26300526@syzkaller.appspotmail.com,
-	Eric Dumazet <edumazet@google.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Heiko Stuebner <heiko.stuebner@cherry.de>
-Subject: [PATCH 6.12.y] tcp: Add preempt_{disable,enable}_nested() in reqsk_queue_hash_req().
-Date: Wed, 15 Jul 2026 14:07:04 +0200
-Message-ID: <20260715120704.1950127-1-heiko@sntech.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQO+FYZX"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8485ef63b68so4884416b3a.1
+        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 05:31:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784118664; x=1784723464; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FL4DH6iSB8h5Gk2sonUHgNYBuRFyDX29syp4nQdWWD4=;
+        b=sQO+FYZXlXwSVXQNNzCrbDjHIO/shqU9KIXF99Rh6myELdKJ1IO2jlm/yBFPePsTqS
+         JT6S3Hj7KN8J2FO9Q0CFJH07ILf+c4OresvXfbwt0biaWf9VGTkLc/6PisFxqFmLTm2f
+         yAD+w8ETJ6XSZt1BfvGQ4pZUN1MFxuHNBvBFg9jvbmtbWF2829+SZeLH0Xli5fJV6Hpk
+         nwMIMZtCTrhvL/R44tEqWSlLiPoG5CbxqljpUeMCxFUyBVvIAlF/m49cty+i95VBAqhM
+         X4T39CmwvT9eMTn5cWbz2IsNVip7AJSrdTor4FObMg6MHrSANNyTGRsCdje4LfQ4rxNb
+         /E4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784118664; x=1784723464;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FL4DH6iSB8h5Gk2sonUHgNYBuRFyDX29syp4nQdWWD4=;
+        b=kFat56hpXRVdPk0Os0cPcS2SwNTwEDCcUgzJIdBM59Y3z7TwmKPDJNqwXmzgUmsXZ6
+         9bfMD6Pi1rlkszGM1GjYuIkzVALQogz4+9kNIqOQODy0g2KKmJHEjK8n07neLo+3EJqQ
+         19Zi9eoW6yG+vQ9d1B67oOn2fs3CwJbOtKWlOxvy059tp/bfnvRYrorGku8ZMCAvPHSd
+         MMlLLMFCviEtxV9ZSrn3YYEKiC+p3uhTbnJJuSa1lzB/HHT6Wfr9f3/+ZYXlSrJ2tcsV
+         bHJk4/alqLcF6359CV/fG00dfsIx4XnJIbqBtvttKu7Ib2XCLbV9vYGn9nhz3UBxWGd7
+         tfEw==
+X-Forwarded-Encrypted: i=1; AHgh+RrkVLeh6WeaMGqPsUbEIgJ0WeIQs+4xyQfYi9W52fqDLYVJxPbnkkQPNPcUXSkcHeaahkGXvjY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3ylMiOX8UJrFGrTOiMZmCK/amcjJkuFxVuN/kgVwQskPg5cEG
+	Qjny6tIoDU2lV0/ScsPZNlgiTf8HVmZLI3Htz8rt8b7JDgRa8N1qY9pS
+X-Gm-Gg: AfdE7cnMgLhD5gyDOFzD98FffICapj9eRyrpQmSgLFEfKQTWQCkA0e978OY6O9g8RWI
+	w7ZhHIP5BBS95gWm7jV26TS7tE7z4CRzdMHjMnoKXeQeZSnX6+fFk8+V6ikb6OKgAeMk3rKLH9D
+	jjaSEA3fZFRxJN9OUy6HXQjVmGqgEjnku6wAG4aEI/J8k5BQrY8uKCqvkiJh3xNRowCBEQB5Ogf
+	dd42lGaM0ifBTcD7mYCH8fLvh2NzfSlaOah/i/6eAjtXFftiV2c6N4UkeBGov5pnRZ1aPibKQ1b
+	JGFjkF6Pt9KIsAqm+DeGMJeAHEZihhU4QHYvbOXcDdZOEM34OHRMcK+T9ABH6EHXgkiyBtr7qxE
+	EPCfVSJznbcrzKZ+p6D/VJj+WSZGVK5B+KS5JsTnaRsnWG4PziwwEcY2fVF/XvNye6HlHXdQCGk
+	YgExp5EnEzAwGTVUAz3BrfLNHQSgH98wuJgw==
+X-Received: by 2002:a05:6a00:4612:b0:848:2f6e:e52e with SMTP id d2e1a72fcca58-84a5587a0a1mr6247775b3a.66.1784118663610;
+        Wed, 15 Jul 2026 05:31:03 -0700 (PDT)
+Received: from [10.125.192.114] ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f7dade0sm3092157b3a.46.2026.07.15.05.30.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Jul 2026 05:31:03 -0700 (PDT)
+Message-ID: <7a1fe347-7ca6-4768-9308-420bf1251f54@gmail.com>
+Date: Wed, 15 Jul 2026 20:30:43 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.15.0
+Subject: Re: [PATCH 1/2] mm/zswap: Fix global shrinker when memory cgroup is
+ disabled
+To: Andrew Morton <akpm@linux-foundation.org>, Yosry Ahmed
+ <yosry@kernel.org>, nphamcs@gmail.com
+Cc: tj@kernel.org, hannes@cmpxchg.org, shakeel.butt@linux.dev,
+ mhocko@kernel.org, mkoutny@suse.com, chengming.zhou@linux.dev,
+ muchun.song@linux.dev, roman.gushchin@linux.dev, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Hao Jia <jiahao1@lixiang.com>, stable@vger.kernel.org
+References: <20260714081510.16895-1-jiahao.kernel@gmail.com>
+ <20260714081510.16895-2-jiahao.kernel@gmail.com>
+ <CAO9r8zM5nzDqNcx5UoDgGexvR6jf8MmJV9SomM4AS7n-rZ2o5Q@mail.gmail.com>
+ <20260714193129.f81711f516504b659d544741@linux-foundation.org>
+From: Hao Jia <jiahao.kernel@gmail.com>
+In-Reply-To: <20260714193129.f81711f516504b659d544741@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Kuniyuki Iwashima <kuniyu@google.com>
 
-[ Upstream commit e10902df24488ca722303133acfc82490f7d59ad ]
 
-syzbot reported a weird reqsk->rsk_refcnt underflow in
-__inet_csk_reqsk_queue_drop().
+On 2026/7/15 10:31, Andrew Morton wrote:
+> On Tue, 14 Jul 2026 09:52:59 -0700 Yosry Ahmed <yosry@kernel.org> wrote:
+> 
+>>> When memory cgroup is disabled, mem_cgroup_iter() always returns NULL.
+>>> Therefore, the global shrinker shrink_worker() always takes the !memcg
+>>> branch. After MAX_RECLAIM_RETRIES empty walks, the worker simply gives up,
+>>> so it fails to write back anything.
+>>>
+>>> Therefore, when memory cgroup is disabled, fall through with the !memcg
+>>> branch and shrink the root memcg directly.
+>>>
+>>> With memcg disabled, shrink_memcg() only returns -ENOENT when the root
+>>> LRU is empty, which means the total pages are already below thr. The
+>>> loop then safely bails out via the zswap_total_pages() <= thr check.
+>>> For any other return value from shrink_memcg(), the loop is guaranteed
+>>> to terminate, either after MAX_RECLAIM_RETRIES failures or once the
+>>> threshold is met.
+>>>
+>>> Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
+>>> Cc: stable@vger.kernel.org
+>>> Suggested-by: Nhat Pham <nphamcs@gmail.com>
+>>> Acked-by: Nhat Pham <nphamcs@gmail.com>
+>>> Acked-by: Yosry Ahmed <yosry@kernel.org>
+>>> Reported-by: Yosry Ahmed <yosry@kernel.org>
+>>> Closes: https://lore.kernel.org/all/CAO9r8zPVzMKFbCixxD-qgtRrkFxWVrHiZZeLc=eyTPKPVQgX4g@mail.gmail.com
+>>> Signed-off-by: Hao Jia <jiahao1@lixiang.com>
+>>
+>> Patch 2 doesn't really depend on this one, right?
+>>
+>> If that's the case I think this can (and should be) picked up
+>> separately as a hotfix. Andrew, WDYT?
+> 
+> Please update the changelog to clearly describe the userspace-visible
+> effects of the bug, thanks.
 
-The captured reqsk_put() in __inet_csk_reqsk_queue_drop()
-is called only when it successfully removes reqsk from ehash.
+I am not entirely sure if my understanding is correct here, but maybe I 
+should add something like this to the commit message?
 
-Moreover, reqsk_timer_handler() calls another reqsk_put()
-after that.
+When cgroup_disable=memory is used (or with CONFIG_MEMCG=n), the global 
+shrinker fails to write back any pages. Consequently, the zswap pool 
+fills up to its limit and rejects further storage, preventing memory 
+pressure from being offloaded to the backing swap device.
 
-This indicates that the reqsk was missing both refcnts for
-ehash and the timer itself.
+> Also, AI review has flagged several possible issues, all appear to be
+> serious:
+> 	https://sashiko.dev/#/patchset/20260714081510.16895-1-jiahao.kernel@gmail.com
 
-Since all the syzbot reports had PREEMPT_RT enabled, the only
-possible scenario is that reqsk_queue_hash_req() is preempted
-after mod_timer() and before refcount_set(), and then the timer
-triggered after 1s aborts the reqsk due to its listener's close().
+For AI review comments on this patch:
+I suspect this scenario might only exist in theory. For zswap LRU to be 
+empty while zswap_total_pages() > thr holds true, it would require a 
+prolonged state where there are always more than thr zswap entries on 
+the zswap LRU whenever zswap_total_pages() > thr is evaluated, yet the 
+zswap LRU happens to be empty during shrink_memcg(root_memcg).
 
-Let's wrap mod_timer() and refcount_set() with
-preempt_disable_nested() and preempt_enable_nested().
+If we want to fix this, perhaps we could do something like this?
 
-Note that inet_ehash_insert() holds the normal spin_lock()
-(mutex in PREEMPT_RT), so it must be called outside of
-preempt_disable_nested(), but this is fine.
+Yosry, Nhat, what are your thoughts on this?
 
-The lookup path just ignores 0 sk_refcnt entries in ehash
-and tries to create another reqsk, but this will fail at
-inet_ehash_insert().
+diff --git a/mm/zswap.c b/mm/zswap.c
+index b5a17ea20237..ca71b517a58d 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1356,11 +1356,12 @@ static void shrink_worker(struct work_struct *w)
+                 } while (memcg && !mem_cgroup_tryget_online(memcg));
+                 spin_unlock(&zswap_shrink_lock);
 
-[0]:
-refcount_t: underflow; use-after-free.
-WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xb2/0x110 lib/refcount.c:28, CPU#0: ktimers/0/16
-Modules linked in:
-CPU: 0 UID: 0 PID: 16 Comm: ktimers/0 Tainted: G             L      syzkaller #0 PREEMPT_{RT,(full)}
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 04/18/2026
-RIP: 0010:refcount_warn_saturate+0xb2/0x110 lib/refcount.c:28
-Code: e4 7d d1 0a 67 48 0f b9 3a eb 4a e8 38 3d 23 fd 48 8d 3d e1 7d d1 0a 67 48 0f b9 3a eb 37 e8 25 3d 23 fd 48 8d 3d de 7d d1 0a <67> 48 0f b9 3a eb 24 e8 12 3d 23 fd 48 8d 3d db 7d d1 0a 67 48 0f
-RSP: 0000:ffffc90000157948 EFLAGS: 00010246
-RAX: ffffffff84a1301b RBX: 0000000000000003 RCX: ffff88801ca98000
-RDX: 0000000000000100 RSI: 0000000000000000 RDI: ffffffff8f72ae00
-RBP: ffffffff99ae3b01 R08: ffff88801ca98000 R09: 0000000000000005
-R10: 0000000000000100 R11: 0000000000000004 R12: ffff8880425ef568
-R13: ffff8880425ef4f8 R14: ffff8880425ef578 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888126386000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f7b46710e9c CR3: 000000000dbb6000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __refcount_sub_and_test include/linux/refcount.h:400 [inline]
- __refcount_dec_and_test include/linux/refcount.h:432 [inline]
- refcount_dec_and_test include/linux/refcount.h:450 [inline]
- reqsk_put include/net/request_sock.h:136 [inline]
- __inet_csk_reqsk_queue_drop+0x3ce/0x440 net/ipv4/inet_connection_sock.c:1007
- reqsk_timer_handler+0x651/0xdf0 net/ipv4/inet_connection_sock.c:1137
- call_timer_fn+0x192/0x5e0 kernel/time/timer.c:1748
- expire_timers kernel/time/timer.c:1799 [inline]
- __run_timers kernel/time/timer.c:2374 [inline]
- __run_timer_base+0x6a3/0x9f0 kernel/time/timer.c:2386
- run_timer_base kernel/time/timer.c:2395 [inline]
- run_timer_softirq+0x67/0x170 kernel/time/timer.c:2403
- handle_softirqs+0x1de/0x6d0 kernel/softirq.c:622
- __do_softirq kernel/softirq.c:656 [inline]
- run_ktimerd+0x69/0x100 kernel/softirq.c:1151
- smpboot_thread_fn+0x541/0xa50 kernel/smpboot.c:160
- kthread+0x388/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+-               if (!memcg) {
+-                       /*
+-                        * Continue shrinking without incrementing 
+failures if
+-                        * we found candidate memcgs in the last tree walk.
+-                        */
++               /*
++                * A NULL memcg ends a full hierarchy pass (except when 
+memcg is
++                * disabled, where it is always NULL: fall through to 
+the root LRU).
++                * Count a failure only if the last pass found no 
+candidates.
++                */
++               if (!memcg && !mem_cgroup_disabled()) {
+                         if (!attempts && ++failures == MAX_RECLAIM_RETRIES)
+                                 break;
 
-Fixes: d2d6422f8bd1 ("x86: Allow to enable PREEMPT_RT.")
-Reported-by: syzbot+e809069bc15f26300526@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a1a7bcf.0a9e871e.332604.000b.GAE@google.com/
-Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Link: https://patch.msgid.link/20260601182101.3183993-1-kuniyu@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[updated to not require timeout changes from
- commit 3ce5dd8161ec ("tcp: Remove timeout arg from reqsk_queue_hash_req()")
- DCCP was retired by commit 2a63dd0edf38 ("net: Retire DCCP socket.") after
- the release of 6.12, so the shared inet_csk_reqsk_queue_hash_add still
- requires the timout argument]
-Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
----
- net/ipv4/inet_connection_sock.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+@@ -1378,8 +1379,15 @@ static void shrink_worker(struct work_struct *w)
+                  * with pages in zswap. Skip this without incrementing 
+attempts
+                  * and failures.
+                  */
+-               if (ret == -ENOENT)
++               if (ret == -ENOENT) {
++                       /*
++                        * With memcg disabled the root LRU is the only 
+target, so
++                        * we should abort if it has no 
+writeback-candidate pages.
++                        */
++                       if (mem_cgroup_disabled())
++                               break;
+                         continue;
++               }
+                 ++attempts;
 
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index dd39cabb3900..5ff45bc85442 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -1186,6 +1186,9 @@ static bool reqsk_queue_hash_req(struct request_sock *req,
- 
- 	/* The timer needs to be setup after a successful insertion. */
- 	timer_setup(&req->rsk_timer, reqsk_timer_handler, TIMER_PINNED);
-+
-+	preempt_disable_nested();
-+
- 	mod_timer(&req->rsk_timer, jiffies + timeout);
- 
- 	/* before letting lookups find us, make sure all req fields
-@@ -1193,6 +1196,9 @@ static bool reqsk_queue_hash_req(struct request_sock *req,
- 	 */
- 	smp_wmb();
- 	refcount_set(&req->rsk_refcnt, 2 + 1);
-+
-+	preempt_enable_nested();
-+
- 	return true;
- }
- 
--- 
-2.53.0
+                 if (ret && ++failures == MAX_RECLAIM_RETRIES)
 
+
+Thanks,
+Hao
