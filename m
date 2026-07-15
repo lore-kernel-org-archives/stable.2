@@ -1,56 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E31544685C;
-	Wed, 15 Jul 2026 15:01:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE0B481AAE;
+	Wed, 15 Jul 2026 15:25:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784127698; cv=none; b=JNvQnOEx+wOSInBcBhGBA/bzy4VEVMAL6tfBrrLGV1Ezh1LjqMSBWHbQdM25/uk6+6bf7im7N310IBxBfgGiCDyqgFrKx5LfrgxtESyfh8nL4PWqd214Cx4eVtjWT2EpaQrc79AY2kuKLUIejByxpZVzFjotkz5m+MjOpYXkWNw=
+	t=1784129110; cv=none; b=i5NhLveVy71KSYi98NxjzjbhARQKNb8p5hjYrDH9yQdFvx8tU7GJ1GMOM7ENKIAEYH3wKeF8HI8itSY158pGivRWuAx1KY22/QIrFLx/e2aEYcaR8rFiyZlhtj5pHatMnQnj+QhC8+YpNx2LF+1/qcZf5ScfphUsugPDlNdnYqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784127698; c=relaxed/simple;
-	bh=kAzRGKP92JPZRRbuxgorrVVah4f5tGWg7tnMlFAPBmg=;
+	s=arc-20240116; t=1784129110; c=relaxed/simple;
+	bh=TFQwChPGGQpyD8Jb2d8bWS+39TTHhvMm1OUCTvvPIaE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A/b5ZLJd+r8+649x8VXmEDaTw0Zc5UkFu6jPBxQ6TdeZukY4yLtzhCl347ejBHOpBv6euN1857tp85ijhIFhVgJjwmT6yzGZjy5WmTMOfPHRRgdheQPZkIL+uzrAKsUVYiFryToCq281JWO2PMOWkuJQfseTKGNnC35vbf2EdRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cPiuISMO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lDXR0B2w095GrL66RAECTHMRP17V2KNDbbJaOFcu3JRJTB2nVRuJZ4eVLj0QDRiI5q0e2vmDjTSFShAE9+xsjvyHIiRBJbIV6FfM+38Bh+IPE/2eCL6gQah5ZengTXfHxo77RXAr36GU1Q+M5YKxB2hZ/+S9KLMOkuMFErBwKrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwMy915a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cPiuISMO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E95521F000E9;
-	Wed, 15 Jul 2026 15:01:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwMy915a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 964801F00A3A;
+	Wed, 15 Jul 2026 15:25:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784127696;
-	bh=9Z2zNKjRbgDz18AB/OdbEQN5wpqYTgFBDPBnDwJEk2E=;
+	s=k20260515; t=1784129108;
+	bh=qCp0Z/LIk1edhZq1e91Hff3OKVN7JtELVDWP1PDw0J0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cPiuISMOHZKbNJ/q+U6zBqKZl6i/54DB+RZCuayF6sI/kqfwtjdaALQ69uJ88Y9Tb
-	 t9oj0Gwrjx61elraU/lF3M+8XrCqQFajfZU2mv8YfRrP78r/Wx340y3KQ4iUlEGzM5
-	 eE16z35L/cQdoa8olim+hEXZt4VTFLQlzUnuc/usVzrf89juTGp0WUhVkaElN3dhQx
-	 LbUCrcNvso4ErQy0XseZ4PxpaGqrP2jfw6djWjwKyuHqNf1PD0jPkdNqnYsTErA07p
-	 qx9E+rQb+xIH6dJ9sMrZ7/kfrX+NQDC/1YbeWlscd9NRHmuuwccHGiNexKkLt5Onau
-	 bl+psB0aDqyCw==
-Date: Wed, 15 Jul 2026 16:01:18 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
-	syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com, Lance Yang <lance.yang@linux.dev>
-Subject: Re: [PATCH mm-hotfixes v2 0/4] mm: fix UAF caused by race between
- ptdump and vmap pgtable freeing
-Message-ID: <aleYrvnf4nVUCu-f@lucifer>
-References: <20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org>
- <alTn7NguEW_4bodu@thinkstation>
- <alTq4V50767L-s5H@lucifer>
- <alUNiWcygLd4rqBo@thinkstation>
- <178404602957.85099.8935151447302412515.b4-reply@b4>
- <alZm0tBf8DpMXimM@thinkstation>
+	b=VwMy915aEQWDn/J7UuYWhhXw3fAuF/NfHhCeydmjSgm8zTWdGZ07KnFIzAFCGPioU
+	 mNxRZH8SV2AisnBrgxf6GmCTn7fXNnVEc+e6DwDNpH8jpvm7hrvgYEc111EpGEewhI
+	 6h1bpyF04jdaupPip8MRN51K+CRQ7yFfolxRDo1qEZeqCY/M/SWy/xLZkfS7kJ4Glg
+	 ILmipLdPfluoX0rllpEQL22sWbqsl9tnp7m7OpLfDbSlevM6b2g8JeCQyXT/bMyIg7
+	 OOiSSVscvB13OcUayLrJJSpfisWAiHKVMx1nO7Bc9tqbk0zTWgfwXUf+nUg98nEETe
+	 O4cENe7Z0QUYQ==
+Date: Wed, 15 Jul 2026 16:24:59 +0100
+From: Will Deacon <will@kernel.org>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Toshi Kani <toshi.kani@hpe.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>,
+	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
+	abarnas@google.com
+Subject: Re: [PATCH mm-hotfixes v3 2/4] x86/mm/pat: acquire mmap lock on page
+ table free to avoid ptdump UAF
+Message-ID: <alemS7vxeRB7NcBO@willie-the-truck>
+References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
+ <20260714-series-vmap-race-fix-v3-2-b812eccfa0f9@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,61 +63,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alZm0tBf8DpMXimM@thinkstation>
+In-Reply-To: <20260714-series-vmap-race-fix-v3-2-b812eccfa0f9@kernel.org>
 
-+cc Lance for thanks :)
+Hi Lorenzo,
 
-On Tue, Jul 14, 2026 at 06:05:01PM +0100, Kiryl Shutsemau wrote:
-> On Tue, Jul 14, 2026 at 05:20:29PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Basically you need the IRQs disabled to get the semi-RCU behaviour and to
-> > be able to safely traverse page tables that way.
-> >
-> > So with CONFIG_PT_RECLAIM you're safe to RCU traverse PTEs only.
->
-> I think this is stale. Since 1fb3d8c20bfa ("mm/mmu_gather: replace IPI
-> with synchronize_rcu() when batch allocation fails") the !PT_RECLAIM
-> fallback is a real grace period -- note your own quote of
-> __tlb_remove_table_one() calls tlb_remove_table_sync_rcu(), which is
-> synchronize_rcu() nowadays, not the IPI broadcast. The name invites
-> the confusion.
+I'm certainly no x86 expert (quite the opposite!), but I was looking at
+this with Adrian and got myself confused. See below.
 
-Ahhh, nice thank you Lance :)
+On Tue, Jul 14, 2026 at 06:24:24PM +0100, Lorenzo Stoakes wrote:
+> x86 implements page attribute modification using its Change Page
+> Attributes (CPA) mechanism.
+> 
+> This tracks properties of ranges such as cache mode through x86 page
+> attributes, and as part of that logic manipulates kernel page tables.
+> 
+> Since commit 41d88484c71c ("x86/mm/pat: restore large ROX pages after
+> fragmentation") ranges of kernel page table entries can be collapsed into
+> huge page table entries as part of this logic.
+> 
+> As part of this collapse, it frees the page tables which the collapsed
+> entries previously pointed to, and it does so without any relevant locks
+> being held to preclude concurrent kernel page table walkers.
+> 
+> The only way this code can be reached is if CPA_COLLAPSE is specified, and
+> this is only set in set_memory_rox() via:
+> 
+> set_memory_rox()
+> -> change_page_attr_set_clr()
+> -> cpa_flush()
+> -> cpa_collapse_large_pages()
+> 
+> Notable users of this are execmem and bpf when manipulating executable
+> mappings.
+> 
+> However, this is problematic for ptdump as it walks ranges it does not own
+> and thus runs the risk of a use-after-free on page tables freed underneath
+> it.
+> 
+> Resolve the issue by acquiring the mmap read lock on init_mm which prevents
+> a concurrent ptdump as it acquires the write lock.
+> 
+> It is safe to acquire a sleeping lock as all the callers invoke
+> set_memory_rox() from process context and in any case,
+> change_page_attr_set_clr() calls vm_unmap_alias() which ultimately takes a
+> mutex, disallowing atomic context here.
+> 
+> Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> ---
+>  arch/x86/mm/pat/set_memory.c | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+> index d023a40a1e03..4c4b8244502f 100644
+> --- a/arch/x86/mm/pat/set_memory.c
+> +++ b/arch/x86/mm/pat/set_memory.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/cc_platform.h>
+>  #include <linux/set_memory.h>
+>  #include <linux/memregion.h>
+> +#include <linux/cleanup.h>
+>  
+>  #include <asm/e820/api.h>
+>  #include <asm/processor.h>
+> @@ -436,9 +437,16 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
+>  
+>  	flush_tlb_all();
+>  
+> -	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+> -		list_del(&ptdesc->pt_list);
+> -		pagetable_free(ptdesc);
+> +	/*
+> +	 * ptdump might read these page tables, so avoid a use-after-free by
+> +	 * acquiring the mmap read lock on init_mm (ptdump acquires the mmap
+> +	 * write lock).
+> +	 */
+> +	scoped_guard(mmap_read_lock, &init_mm) {
+> +		list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+> +			list_del(&ptdesc->pt_list);
+> +			pagetable_free(ptdesc);
+> +		}
 
+As I understand it, the argument for taking the read lock is that we're
+operating on a region that we "wholly own" and therefore we can happily
+run concurrently with CPUs walking distinct parts of the page-table.
+However, from what I can tell, the CPA collapse logic will operate on
+regions outside of the address range being manipulated by its caller
+because it rounds up to the PMD size.
 
->
-> Together with a37259732a7d ("x86/mm: Make MMU_GATHER_RCU_TABLE_FREE
-> unconditional") that means every freeing path through the generic
-> mmu_gather is genuine RCU, batched or not, all levels. A plain
-> rcu_read_lock() walker is protected; IRQs disabled is not required.
+As a made-up example, imagine I have a 2MiB aligned region where the
+first 1MiB is read-only and the second 1MiB is in the default r/w state.
+If one CPU calls set_memory_rw() on the first 1MiB while another CPU is
+walking the second 1MiB (via some other API that doesn't take cpa_lock),
+it looks to me like the first CPU can collapse the page-table and free
+the unused pages under the feet of the other CPU. What prevents that
+from happening?
 
-Lovely. I'll probably send a patch to fix the comment then :)
+If all concurrent walkers have interrupts disabled, I guess the TLB
+invalidation logic would do it, but it would be good to call this out in
+the commit message because it's not clear to me why the read_lock is
+sufficient for the collapsing case.
 
->
-> > HAVE_ARCH_TLB_REMOVE_TABLE is set for powerpc, which also enables PTDUMP :)
-> > and that's because it actually tracks multiple PTE page tables together as
-> > a fragment.
->
-> sparc also sets it with SMP. So the audit list for custom
-> tlb_remove_table() implementations is powerpc and sparc -- everything
-> else gets the generic behaviour above.
+Cheers,
 
-Yeah.
-
->
-> No disagreement on the rest: the walker needs
-> ptep_get_lockless()/pmdp_get_lockless(), and the ppc kernel-side
-> fragments need a look.
-
-Indeed.
-
-I know Suren's been taken a look at this, pinged him off-list (he's also
-cc'd) to see where he's at but I'm going to take a general look at this.
-
-I feel that RCU page table freeing is likely to be a requirement for
-scalable CoW, so directly impacts me :)
-
->
-> --
->   Kiryl Shutsemau / Kirill A. Shutemov
-
-Cheers, Lorenzo
+Will
