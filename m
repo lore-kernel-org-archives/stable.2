@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4284248DF;
-	Wed, 15 Jul 2026 20:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B414D2ED0;
+	Wed, 15 Jul 2026 20:18:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784146704; cv=none; b=g91pmEcsZyxhlY2qN4oEsgmi9nb107C+qux6GG0Q2tbPZkpbB4MCt68aaRX6fSya6W7lPy+amDeKDpGjwCLGtfNN64PbURV+vB23r4MW+fBpNuIzt7L+EdjMqGW0dw+z0/tON3wkHBiayTJFuMSxpmiN/fkz8UmKdNwPe/T42ZI=
+	t=1784146706; cv=none; b=k2n6vGnVDY3fk0j4OSWti9iAt4v4s0RRb88MmyCiNtEa1PwQE23O2S9XYZ9lpAoRcHUgeQUBZCE1UGTmi3yyXm9phP55MQ8GoMBGvYaFRIAWIryi3nB9DRWoO07/gsRponJQWu1efA7RF0mIPapSoOmsnUkclw30wQ63PPlMBjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784146704; c=relaxed/simple;
-	bh=Vp/BD8ZiK+yMr8rZuxPlFDBKTPA06ojHcI0aSpNv3YA=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=o4WD0ZgHMRu5pAMf+kzkQv8bmZ9HCkx7sRp37qcNw6gYKGS8WAc/Ji8ZNljTEhXXJDCNyOmfR+v1c22V+ezxappueMO9DK42xtyGyvFIc6EcczGouoasIl1JfnlMaE9pTnNB3B6ZAv71yiHpPLdDXA18P5u4iva/2PZEFWoKvzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KR5kFD41; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784146706; c=relaxed/simple;
+	bh=CJhV7PGj47iIAspFHu/JLaN2UhNXEyvLQbBS54wp4lE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YK/wXjgE48//Tv/fH+kk8l4qP1/zJqr/NaXN0XnrKKnVwFfHTZywdRmFFcH6aLqc13oYkb5sXuuXTGrjtLiqVocWZsXOEU0KVgt6oitgk5xcwRzit8wDyJ/yYQ+l2PWM4t93n5WYbPuuTK5fAywDMp2pLc8bv+J3v/ETrmcFh3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Swp0cKst; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KR5kFD41"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 908771F00A3D;
-	Wed, 15 Jul 2026 20:18:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Swp0cKst"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B0E1F000E9;
+	Wed, 15 Jul 2026 20:18:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784146703;
-	bh=44hytKvrMFJzw09LY48FH8rJGBfVj8HUM+EE0PN7o/0=;
-	h=From:Subject:Date:To:Cc;
-	b=KR5kFD41VCzgq1ng4j7PlRTe2Y4T8OFz0uKlehDWdQrpNYqDdOD91B8hON8YgFeR3
-	 Oic7VSlqj0O6ztz3213A0RS3BLt8iaWt1PdydiOuqRhRvTYiGgxCrYmkHfVgZRztPB
-	 y0Doh9UOCt1yggWWliflgYxQQnmshIBSsR9ceH7Y460BbHqlSBAFOdwShApccCeAos
-	 V8gdjEaaXpsifh7GKtBuw/ZSP+Jaxavwu4o49vleGXTjHbJwkFGKEXfJOucI1pnbn5
-	 iZDUVlyKgkhVIlCLwtjbZT3ypl45Xad1KufHHGB8/lyVn1ulmmBP/6RK2j742yvlZ+
-	 zFrcvy3eGXNMQ==
+	s=k20260515; t=1784146705;
+	bh=hMHXuZkbXdkLujkt+PsLDj2e6FLgA5od1ICzzv2H3ww=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Swp0cKst1yEDIbKLTlu5KOJ7TPOQhi1WF1JzbYymnI1SZXFY42kBsB/AhBPqXHI5B
+	 yGsIGVqt86tLjrPi98qQZoIEohx2YvZtZ5d2m+POb00RChZJ6yWWwRXDI+l1v35CHJ
+	 awkbiVq6bPR+jMnKACTrVztzmd7BlWFP0swDvPD2K7sV3ACgAVD9D2t1GEYMlGPypH
+	 sUJEIi+kFhZ8A8BBSDknQ+6EZGu+yrEHi31p6g9Uqz0fCtSqZM60ZFxV2cL8u74a4K
+	 Jbqr+4KYYPkLs5HiRMLJd8VUV1z5wrY3GuNK2Y8XCFLweS7tZN5y1Kh7+LLvjYBDYg
+	 5hCdkV1js4BKw==
 From: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 0/3] ASoC: tas2562: Volume setting fixes
-Date: Wed, 15 Jul 2026 21:18:08 +0100
-Message-Id: <20260715-asoc-tas2562-put-retval-v1-0-97bf467c924e@kernel.org>
+Date: Wed, 15 Jul 2026 21:18:09 +0100
+Subject: [PATCH 1/3] ASoC: tas2562: Validate values for volume writes
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,10 +37,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAADrV2oC/yXMwQqDMAyA4VeRnBeoGXW4Vxk7xDa6yFBpqgzEd
- 183j9/h/3cwSSoG92qHJJuazlNBfakgvHgaBDUWAzlq3K32yDYHzGzkG8JlzZgkb/xG9jFepXV
- 97AhKvSTp9fM/P56nbe1GCfm3g+P4AmxInGZ7AAAA
-X-Change-ID: 20260715-asoc-tas2562-put-retval-a5dd3e90fdb2
+Message-Id: <20260715-asoc-tas2562-put-retval-v1-1-97bf467c924e@kernel.org>
+References: <20260715-asoc-tas2562-put-retval-v1-0-97bf467c924e@kernel.org>
+In-Reply-To: <20260715-asoc-tas2562-put-retval-v1-0-97bf467c924e@kernel.org>
 To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
  Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
  Liam Girdwood <lgirdwood@gmail.com>
@@ -48,39 +47,52 @@ Cc: Haidar Lee <haidar.lee@adlinktech.com>, linux-sound@vger.kernel.org,
  linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=863; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Vp/BD8ZiK+yMr8rZuxPlFDBKTPA06ojHcI0aSpNv3YA=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqV+sK3BfybxM7JjCWEfGaLzV45qQ0MhGhcZe2B
- ARLpkdIPLCJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCalfrCgAKCRAk1otyXVSH
- 0ERzB/sGQjbSW0YV5gW8QjYGZzjZVHBz9wj1XzXZc0lEFqJ+m+ENNiNUKnEK5fvTDgcptEpmt1s
- f6PrSrPALC0jaCMbVsjQyuSv6miIDvasUKqw47bkSUG9ZpbmptMH6KXNE+5lo+X92RkVAAIbhrm
- I5xmiu62mFIJL9TIP39trC1w7TI/Ty+qijdZmY8+xEN+9Q4Blf9FKF38xLinbTYiyTF1YucpxoF
- BZfMMOAOx2O4UMEFo6QZZK6aPgfy13XX7QRQ5ocpROjqzs9YWKh0BousZvf3oJPYBaIxrfYXlkc
- IZwqr6KdhDxgd7ZTZwzC6NDaAQ9ZNoLi1B9VTszPrjqLU6Tt
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1325; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=CJhV7PGj47iIAspFHu/JLaN2UhNXEyvLQbBS54wp4lE=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqV+sL1V2V5bL2rzAhAL2BSwhxtsTziV8wanolv
+ G2CT2NQoY+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCalfrCwAKCRAk1otyXVSH
+ 0CxsB/sHsMw/6m6wTOFOZy28Yzk2w2w6UbGVEOgdXFQ+yYc0Xnznv17dTqTeZkRQlxJ0rW/upUr
+ lwlG2uDplsBHme1T7LnF2om4d5/xcbI1PBo+kguGgA1LidBYXtnbHYfqDSaljSM50+doU1jPwej
+ uWoW2+v7JHwMJhTSrRDSw5wHz4o+ystb0dkuns0YuDNoEtvk3/lpOMUNWHj1Mxg0fVJAfZo/WnB
+ fntesOOjUpdZHqnhM/z8hrqOEVdvLgF7bPL6lb7OVcgVde+3Idj2gJpEX2T5fFfV/5bbyLgcOHu
+ z3ZdheTxE49mtXHQ9jf/oPZ9LQgojp68Q2ridEJWU2ZWLhBa
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-While reviewing another fix for the tas2562 volume control I noticed a
-few issues with the put() operation, this series fixes them.
-
-It's also a bit weird that the volume control is defined with twice as
-many values as can actually be set, probably the best fix there is to
-regnerate the table of volume values with the intermediate values.
+tas2562_volume_control_put() does not do any validation of the control
+value written by userspace, it uses it to look up a value in a fixed
+size array which can easily be overflowed and then writes whatever value
+it gets back to the device.  Add validation that we are loading a value
+we have in the array.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
+Cc: stable@vger.kernel.org
 ---
-Mark Brown (3):
-      ASoC: tas2562: Validate values for volume writes
-      ASoC: tas2562: Fix event generation for volume control
-      ASoC: tas2562: Fix default digital volume
+ sound/soc/codecs/tas2562.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
- sound/soc/codecs/tas2562.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
----
-base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-change-id: 20260715-asoc-tas2562-put-retval-a5dd3e90fdb2
+diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
+index 2f7cfc2be970..82bc0078a5c7 100644
+--- a/sound/soc/codecs/tas2562.c
++++ b/sound/soc/codecs/tas2562.c
+@@ -471,10 +471,14 @@ static int tas2562_volume_control_put(struct snd_kcontrol *kcontrol,
+ {
+ 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+ 	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
+-	int ret;
++	int ret, index;
+ 	u32 reg_val;
+ 
+-	reg_val = float_vol_db_lookup[ucontrol->value.integer.value[0]/2];
++	index = ucontrol->value.integer.value[0] / 2;
++	if (index < 0 || index >= ARRAY_SIZE(float_vol_db_lookup))
++		return -EINVAL;
++
++	reg_val = float_vol_db_lookup[index];
+ 	ret = snd_soc_component_write(component, TAS2562_DVC_CFG4,
+ 				      (reg_val & 0xff));
+ 	if (ret)
 
-Best regards,
---  
-Mark Brown <broonie@kernel.org>
+-- 
+2.47.3
 
