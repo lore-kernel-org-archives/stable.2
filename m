@@ -1,140 +1,175 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9FC48CFC;
-	Wed, 15 Jul 2026 22:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01144DF76
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 22:54:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784155527; cv=none; b=G4S2717Xu+bVtIqeDWvm5JRa/U/SQtc0Al+d6TGOnZgNS/RR+27r+BoAefLUS0tVCd6PXmmTsDHI5iDJO6FtljsPSRayRwN8UOC6ipE2NCYqwyqQ5l8H7dRIMWJJAOSrr7Kuo9OSJx38/L2DfTi90tFDGD2aukrPoceRjRSvB0E=
+	t=1784156068; cv=none; b=RWOIR8gfxSJjO+aO2nONHlxgs3lLFw7TZUSNlyI0H/N+v9poLfwpPGnYa2e3fp/LNmDZaQXVh1YDtBb77rByWpqWpAYdOb+tx2fsB8/vUlt4b8Vfi4PBJ+kOaKzrwR032mqH3R8cysSJNTnXG0INXKac0iKpqEhJJREMz9gyRWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784155527; c=relaxed/simple;
-	bh=26FjX/e7xnbplCk23y9PjT+woZZKEcAuRBoakCUskuA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rO9aNcJ9TvwQmqmYgZWARB09GU3Ljp98pKyK2quOOPeaMTBV2U6FO2FmJW038aj1TNRaonGvpXrIF3pScKWcOc36IpbNzmpcrCTzF+aKW7Z++cuWQaza+Tx+RGWRvFdYo3uHw4oEnBx+QalJF7kBvhbXsU5HgUQrLqRf7/GfGLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=U66iHuho; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784156068; c=relaxed/simple;
+	bh=t17g0DK/hpZseMV+HjeVJ65aELOdNP7iTPxp4dVpFQ4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FLe8ew/riJY2AsYLVq283vE2U5SyOVLTdbgmiEAyobfPju0ibL0CWC0pb4vBSP00wQI+uwkkVRTToIcPliLgipS4M7njFO/0lEunQX7YiKzR2st8emY72rK/kKEbkCohFh2GFaici7bwH3dbPQG5kVhANjkJBv3LaXZq91g7oqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bsbernd.com; spf=pass smtp.mailfrom=bsbernd.com; dkim=pass (2048-bit key) header.d=bsbernd.com header.i=@bsbernd.com header.b=VhhShQXA; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DyUIpm+c; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bsbernd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bsbernd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="U66iHuho"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784155523;
-	bh=26FjX/e7xnbplCk23y9PjT+woZZKEcAuRBoakCUskuA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=U66iHuhoUjmJcChJLk3hwHFQw9zRgTFq+K7FGRAP8Dxb77tznedEUb2SjEXqj9c4p
-	 LDXBZqKaGjkAwEDjYOXP0c2QP6UNgT0xVtaWxwDWwyQQpdR/qTtNPmq7QvOi3swmlM
-	 ZOHUwoq/CIC0V5v9E0g/ck0vNX9mZ+9fAm58FbmmS25BBFVxTvJfyZVlJd/pzxl/Ka
-	 KoE6SFVtGeoqcSwynFQ4GcokCbi7uzHq9uNXnsW7d3Y7J47fMcqzzjNlE4bwPxCQne
-	 y+CaqXXMo8CsLwnEMEFgpS30DJz0bvG9oWVHYA8BdKAjeGtWh8eLvrb3pg5H+9YOCm
-	 K/ysBXrWYX3UQ==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7A9AC17E07A2;
-	Thu, 16 Jul 2026 00:45:22 +0200 (CEST)
-Message-ID: <8c5be57e8fcc088f8041bf64068575b6bb0d7fcb.camel@collabora.com>
-Subject: Re: [PATCH v2 3/3] media: rkvdec: hevc: guard
- INTER_REF_PIC_SET_PRED index underflow
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Michael Bommarito <michael.bommarito@gmail.com>, Detlev Casanova	
- <detlev.casanova@collabora.com>, Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>,  Mauro Carvalho Chehab	
- <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Wed, 15 Jul 2026 18:45:21 -0400
-In-Reply-To: <20260527194737.1999409-4-michael.bommarito@gmail.com>
-References: <20260513181922.2075438-1-michael.bommarito@gmail.com>
-	 <20260527194737.1999409-1-michael.bommarito@gmail.com>
-	 <20260527194737.1999409-4-michael.bommarito@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-I8pg+O55ZQp1VWGZyCYM"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=bsbernd.com header.i=@bsbernd.com header.b="VhhShQXA";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DyUIpm+c"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id 5649D1D000F4;
+	Wed, 15 Jul 2026 18:54:26 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Wed, 15 Jul 2026 18:54:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bsbernd.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1784156066;
+	 x=1784242466; bh=0a+YkQjy7YMepxeL4faOW0HrUO6YbTUPvLV9nR3fHJI=; b=
+	VhhShQXAK+eO9Qe9eQycIqv4mTwzoVP7ZpGs5oVd9F9fvc1DP8VR0/Jc76eXqq3+
+	li+VjXVugRJGGJDWFywfovAttr76ujsXTQrCTzyC7hcw4JxJWNYjGhvzmK/VzXX3
+	TBLHeePwa2fwI6C3Q9IX6XGKyYSML/otT55QEZA+Zn1QEDtiHBfsgvdM3VRPPW96
+	78dtbCgjOiRAjWs8RSr9pRvuABAbzCSkfkTJrhLqfAZ93h3cQXsMegdZX0rcqUUm
+	V78/jwGiKJPqks1JutYunXczuVW7qagSuw1I52Ma4dciBxeEktLcvGGCuw/T/25z
+	vr7LgbH/RtyQ4iw9ZXHCpQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784156066; x=
+	1784242466; bh=0a+YkQjy7YMepxeL4faOW0HrUO6YbTUPvLV9nR3fHJI=; b=D
+	yUIpm+cU08i1VGh9+bOgjYUZFfEC3MaLQqGVsWzLcHcIWEIuUlfJCerA0JqGR0zt
+	GCeXsnf/4rfv0IlbnhuVulxqZf2AFs/+kC0gf+k+i1E8tgSV/92xIzUYBHS/R4No
+	Mky6qMAxvRTsFLOXXTPUO2ea06ALfCsl6oicurOO1NWMJWAfI5f96BTzOnA1mPTH
+	LqPd9VD0uNScz30ry9ITFx4pboiYzk5qG0pM2KmW4qzrVTcinvgh9o/TAsxVCbjd
+	lDbh6ZWH71D3mSFBIgeCx2fJAnnc2xEadF9X9VDvfDnzVxxxnhhWgyym+KrpA3aj
+	552ReT6sbCA8x5fbVCmEg==
+X-ME-Sender: <xms:oQ9YahCw6eaIf0TgpcnGEBRYooIKTlmiqkTvP64RA7-1zPV7MBLb7Q>
+    <xme:oQ9YatVkjk23knRahW6i0ZHo_Igti8YkuIy2Zk0gseyQlQuUl4Y8WDPithFD8z8Po
+    dlr-txvPP-yFBdeMKdCpzJrss4UKLVj_FwZjTuRgvajUa468CZt>
+X-ME-Received: <xmr:oQ9YanCC1UtkHT0YOp3wkumM5mOWwJBsvj1nQdfS_PlOdXmJoCW0bS10bMTlCj__Jm0vNVF6DoD_yFathFLODpeh5RYmePjaaa3aVWMttTLTG0RL0Ng-gfsRE-SZTwg0rBM-9ONoBb0cSyVD_KHu1YCpyw>
+X-ME-Proxy-Cause: dmFkZTFbB5TZ5fPv191ED7eB2x72Kmt88XlKP46GxRDYEzpopil5skdtP39bJx3YUn8XYc
+    PpRic9PICICwgK8k9n9YcLvuUpukYeeKJX1e9sR4j42/Dg8gSbOl00X3RjQ26WPl+oU3uQ
+    6tx01YdP3fYD+8fQF374sgTbKpaywNfxwFzSbgRUxMsMtUCEhvSqgtSoybaUOoBJs1lhqk
+    3jZx3VBNiU59Jnk0CO7zRqKD6yDH6Cja2KPUAZJVHAkYa46LbOBuhynfJeZFrNox000jau
+    zJdK6X53VohaR6J7XBsQSvQhhUe4UELv0Kc5Ew+z6Yt3+6SgvZdYk6qoNfvQkZD5OYuzIW
+    aLrXHO+bBmhLtujCFjyQc3Og0h+VR4TUhEoYRFFsC//Q4We2/HvMb1l0tvqvUHK/OcfeIj
+    ZaFe+O8V3UCj37E6mOfYPVsIKplnAKgkeoCN1/bpYqhndWhGusCc0NZ/loVq1nRRUsCE/b
+    pNiYDVoTECbLdWoWKXdY7BsVszANLiD+Ah2tf7z4P5fmoRupkni9od/fsLAiAt07eBS2cw
+    xS6ohIVr+fqCEJ4mRQMrPHTn794ESri4c7yXKcuXWtWZRCOURp0V4tBVaFU4ahDi/UGyrv
+    q/Z2ZEqs+Vjn++NzjCspt4ThMYLpkjyhwLOVEVo/a6Nr6zBEyjjQJLHFyNiQ
+X-ME-Proxy: <xmx:oQ9Yao9378rBs4F23Zrub-oLLhSUhUd0M6xv33RLp67y0xZX_lE_gQ>
+    <xmx:oQ9YamF1H08JQFtTY5nPIL5CcpFuMgku0R7ALjgkDhGu6MGltmaJtg>
+    <xmx:oQ9YauMGc2JdXCVyL4aopBlMftIlRn41sxaI9t9YF2s-4bvfnV-VLQ>
+    <xmx:oQ9YaodzgBnCB-aJCYIAc3MwI3lZV8v5dLjRmYM2vTlZL4-9vbzR3A>
+    <xmx:og9Yagiyx2V1mDGir6uyPQXKZ9dloFPcZcTLsA4SmbK6SQs8z1Amcq14>
+Feedback-ID: i5c2e48a5:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 15 Jul 2026 18:54:24 -0400 (EDT)
+Message-ID: <668fa6c6-ffe0-48d1-aed6-f86a7353187b@bsbernd.com>
+Date: Thu, 16 Jul 2026 00:54:23 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-I8pg+O55ZQp1VWGZyCYM
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le mercredi 27 mai 2026 =C3=A0 15:47 -0400, Michael Bommarito a =C3=A9crit=
-=C2=A0:
-> st_ref_pic_set_prediction() computes the reference RPS index as
-> st_rps_idx - (delta_idx_minus1 + 1) per HEVC spec equation 7-59.
-> Both operands are u8, so when delta_idx_minus1 + 1 exceeds the
-> current index the subtraction wraps and the subsequent array access
-> at calculated_rps_st_sets[ref_rps_idx] reads far out of bounds.
->=20
-> A userspace V4L2 client that can open the RKVDEC m2m decoder can
-> submit an EXT_SPS_ST_RPS control with INTER_REF_PIC_SET_PRED set
-> and delta_idx_minus1 crafted to trigger the underflow.
->=20
-> Reject the entry early when the reference index would underflow.
->=20
-> Fixes: c9a59dc2acc7 ("media: rkvdec: Add HEVC support for the VDPU381 var=
-iant")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Detlev Casanova <detlev.casanova@collabora.com>
-> Assisted-by: Claude:claude-opus-4-7
-> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> ---
-> =C2=A0drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c | 3 +++
-> =C2=A01 file changed, 3 insertions(+)
->=20
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c =
-b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
-> index 3119f3bc9f98b..898d1ce74f38a 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
-> @@ -268,6 +268,9 @@ static void st_ref_pic_set_prediction(struct rkvdec_h=
-evc_run *run, int idx,
-> =C2=A0	int i, j;
-> =C2=A0	int dPoc;
-> =C2=A0
-> +	if ((unsigned int)rps_data->delta_idx_minus1 + 1 > idx)
-> +		return;
-> +
-> =C2=A0	ref_rps_idx =3D st_rps_idx - (rps_data->delta_idx_minus1 + 1); /* =
-7-59 */
-> =C2=A0	delta_rps =3D (1 - 2 * rps_data->delta_rps_sign) *
-> =C2=A0		=C2=A0=C2=A0 (rps_data->abs_delta_rps_minus1 + 1); /* 7-60 */
-
---=-I8pg+O55ZQp1VWGZyCYM
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] fuse: publish io-uring queues with release
+ semantics
+To: Joanne Koong <joannelkoong@gmail.com>, miklos@szeredi.hu
+Cc: fuse-devel@lists.linux.dev, stable@vger.kernel.org
+References: <20260715174305.336261-1-joannelkoong@gmail.com>
+ <20260715174305.336261-4-joannelkoong@gmail.com>
+From: Bernd Schubert <bernd@bsbernd.com>
+Content-Language: fr, en-US, de-DE, ru-RU
+In-Reply-To: <20260715174305.336261-4-joannelkoong@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalgNgQAKCRDZQZRRKWBy
-9GIcAP9N/ju7zuDAju1GJU3D1q50WHfd8e3K6bwTwIhCQCezRQEA/WKm8VkQAkIJ
-FGLTRoEbQCWgEcGsVv8X5CJPPWkRVAU=
-=01gk
------END PGP SIGNATURE-----
 
---=-I8pg+O55ZQp1VWGZyCYM--
+On 7/15/26 19:43, Joanne Koong wrote:
+> fuse_uring_create_queue() initializes a fuse_ring_queue and then
+> publishes the pointer into ring->queues[qid] with WRITE_ONCE() under the
+> fch->lock. There are several readers that may concurrently be fetching
+> that pointer locklessly and then deferencing it.
+> 
+> WRITE_ONCE() doesn't ensure ordering of the queue's field
+> initialization before the ring->queues[qid] pointer assignment. The
+> queue must be published with smp_store_release() so the field
+> initialization is guaranteed to happen before.
+> 
+> Readers in paths where the read may happen concurrently with the store
+> need to use READ_ONCE() because any race involving a plain access is
+> undefined.
+> 
+> Fixes: 24fe962c86f5 ("fuse: {io-uring} Handle SQEs - register commands")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+> ---
+>  fs/fuse/dev_uring.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+> index 51f985154aa1..bf9d51f2a508 100644
+> --- a/fs/fuse/dev_uring.c
+> +++ b/fs/fuse/dev_uring.c
+> @@ -321,9 +321,11 @@ static struct fuse_ring_queue *fuse_uring_create_queue(struct fuse_ring *ring,
+>  	}
+>  
+>  	/*
+> -	 * write_once and lock as the caller mostly doesn't take the lock at all
+> +	 * fch->lock serializes concurrent creators for this qid.
+> +	 * smp_store_release() are for the lockless readers who must see a
+> +	 * fully initialized queue after &ring->queues[qid] is set
+>  	 */
+> -	WRITE_ONCE(ring->queues[qid], queue);
+> +	smp_store_release(&ring->queues[qid], queue);
+>  	spin_unlock(&fch->lock);
+>  
+>  	return queue;
+> @@ -434,7 +436,7 @@ static void fuse_uring_log_ent_state(struct fuse_ring *ring)
+>  	struct fuse_ring_ent *ent;
+>  
+>  	for (qid = 0; qid < ring->nr_queues; qid++) {
+> -		struct fuse_ring_queue *queue = ring->queues[qid];
+> +		struct fuse_ring_queue *queue = READ_ONCE(ring->queues[qid]);
+>  
+>  		if (!queue)
+>  			continue;
+> @@ -967,7 +969,7 @@ static int fuse_uring_commit_fetch(struct io_uring_cmd *cmd, int issue_flags,
+>  	if (qid >= ring->nr_queues)
+>  		return -EINVAL;
+>  
+> -	queue = ring->queues[qid];
+> +	queue = READ_ONCE(ring->queues[qid]);
+>  	if (!queue)
+>  		return err;
+>  	fpq = &queue->fpq;
+> @@ -1035,7 +1037,7 @@ static bool is_ring_ready(struct fuse_ring *ring, int current_qid)
+>  		if (current_qid == qid)
+>  			continue;
+>  
+> -		queue = ring->queues[qid];
+> +		queue = READ_ONCE(ring->queues[qid]);
+>  		if (!queue) {
+>  			ready = false;
+>  			break;
+> @@ -1191,7 +1193,7 @@ static int fuse_uring_register(struct io_uring_cmd *cmd,
+>  		return -EINVAL;
+>  	}
+>  
+> -	queue = ring->queues[qid];
+> +	queue = READ_ONCE(ring->queues[qid]);
+>  	if (!queue) {
+>  		queue = fuse_uring_create_queue(ring, qid);
+>  		if (!queue)
+
+
+For consistency, maybe READ_ONCE/WRITE_ONCE in fuse_uring_destruct?
+Otherwise,
+
+Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
