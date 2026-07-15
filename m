@@ -1,147 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C143E5A1D;
-	Wed, 15 Jul 2026 13:20:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09693C584A;
+	Wed, 15 Jul 2026 13:26:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784121664; cv=none; b=dE6nkms9AwRiJvFxiNjwPeywkFE0GreJoe8QdgDtq0jifAKBU86DBKIpiEVrewB9Px7vLtQFAMobFYCtl8fqCrL+5I/PiicTaST+2BtAUxEbsZaZxy1qf7Ard/iI7IOcj0RJOWkQmuob55CbRYWiFx/B/0jJFXXiKAF1evRojhg=
+	t=1784122002; cv=none; b=mCa878/SmC9n7lCjNzeXCq4lgqiJFf4tRgrXmuphX62swi2c2U+yDTdUC/7JXIFwxPKRt3VBS4xNelnJrgIZAWhIyh/ehaFoFDrBGslax5swytQgKIU1pIfW8ukh8SwzcAEIRztPcMZJDW2MrUYFGSDVpTlJrxoGeiwY1rdDO6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784121664; c=relaxed/simple;
-	bh=MWtdMZlN+f0u6zh4SIlfxR6ird2FNtEIup17wVzW3v8=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=GH4Iw8Eid8bGxkDTHZ/9dGDIrzy5QzNQpxrrbfPWwBYacbVdoCgJHkeSaEqYFnpmKQ33Dy2/17QGSzvg+L+VrKtx0k3EGVV9LdHTHGOyeq2eU0FIFYD+t/svSNAkIrFHT0/wNDofo4cYzLbgSQ2oETELJZp7JVuE1fcDE6K7D1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ryk2LkDx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784122002; c=relaxed/simple;
+	bh=553leeckiutKczcmPf0IbB7xPYgBFvVEfa1gh+zkrlM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gpScv+8sb6TbDgLKCRl+tvYTzRcAO+JxkUb6S/JmXKT6AUuDIysxkdaDbm7tG7XqB/4cxay1l1036O5u7vy2Y1xcz6Rkcfd3bTsAKogYFfpKRALdA0KhYLp+AJWUF8i+O14BM34SnB/LAvz6G+Pthvqhu4oozjPvDUY9tDANN/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UL1oh0Eq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ryk2LkDx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 014EB1F000E9;
-	Wed, 15 Jul 2026 13:20:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UL1oh0Eq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A5C1F000E9;
+	Wed, 15 Jul 2026 13:26:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784121653;
-	bh=AnJh4ulZ2FDQmjXmLpIokbZz9ArThgRLAhjnD2e/+74=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=Ryk2LkDxXyn3kUcpDL+0fwufrehLYg8miacUpJ3uT6cWYzFCr1oRAQjxpfzYzVrkp
-	 2lud+XhSpfDOTtptne/ZiUDz+X4NB+F6xnQVv+Zj7S8x/0Svu5XbqSqQEvP+edxEDT
-	 gcyRRQk3QU8SB77ec8Zwjpico2IA+2KzKId+ExYVeRq5iMevl0aJAAhI6phAJf3zGD
-	 mcscVZ8q/QORVOrXvevWdMij9SZQZM1BMg8Usw6heKSjiVWp7KjKb5gtmpPsTtAA8r
-	 WRqiVRtrquM4W3APc3v1Aa8LBax2ebEI4SeKFIT4oi53xd4g/nErtXGi1IZVReeWEt
-	 CxpnQiVx2dm2A==
-Message-ID: <04a332fc-2025-4a74-ae4d-1d8f30fe20bf@kernel.org>
-Date: Wed, 15 Jul 2026 15:20:50 +0200
+	s=k20260515; t=1784122001;
+	bh=tmYHqq0/128SCrxfsjngrNQmfX+jHP8UqCkkUU5HEDY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UL1oh0EqJ+8kpvTbuQ0OyYXKDMTRlMW2BhHcEKRAqhLn/A30MdpJca7awDnQtdJKm
+	 eH7liGconcDiy6RyMcLyDvW9uoU86VTA2lZOsh1yEasDWDPpD7N8s3qYskStzdwLqD
+	 4SWXiIBW0RMjK2EnIHBV364zBTEvVSSvVDp12vH/56QywovkyRBj0wc9xzFjOn4bsn
+	 gLxSQajgj+bG9/w2IHFK9L63NrNB0KOl6gyVsI/tlg8KrgubxQRQYSv+TjSJ0d12si
+	 Zfay2rGl7MbF5EDY1jWwOX/+VV1iqTzk48M7rplC8Y1hyZKJNar+jpd8OqULiM6ZY5
+	 qpRpobpRFnoCA==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Fernand Sieber <sieberf@amazon.com>,
+	Leonard Foerster <foersleo@amazon.de>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
+	SeongJae Park <sjpark@amazon.de>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v1.1 0/6] mm/damon: unurgent fixes for infinite loop, NULL de-ref and races
+Date: Wed, 15 Jul 2026 06:26:32 -0700
+Message-ID: <20260715132633.32217-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260714214604.10fc4c786277eaed523d0724@linux-foundation.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH] media: nuvoton: npcm-video: quiesce VCD IRQ before
- teardown in remove
-To: Fan Wu <fanwu01@zju.edu.cn>, kwliu@nuvoton.com, kflin@nuvoton.com
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260714020443.2795883-1-fanwu01@zju.edu.cn>
-Content-Language: en-US, nl
-In-Reply-To: <20260714020443.2795883-1-fanwu01@zju.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14/07/2026 04:04, Fan Wu wrote:
-> The VCD interrupt is requested with devm_request_threaded_irq() in
-> npcm_video_init(), so it stays registered until the devm release that
-> follows npcm_video_remove().  remove() itself calls kfree(video), so a
-> VCD interrupt delivered between kfree(video) and that devm release
-> dereferences freed memory: npcm_video_irq() reads VCD_STAT off
-> video->vcd_regmap before the VIDEO_STREAMING flag early-return, so the
-> use-after-free is unconditional on delivery, not gated by streaming
-> state.
-> 
-> With streaming active, stop_streaming() (run from vb2_queue_release())
-> masks VCD_INTE and resets the VCD, but an in-flight handler can
-> re-enable VCD_INTE afterward.  On a DONE or FIFO-overrun/overflow
-> interrupt the handler finishes its buffer under buffer_lock and then
-> calls npcm_video_start_frame().  start_frame() drops buffer_lock before
-> it re-enables VCD_INTE (VCD_INTE_DONE_IE) and starts the next capture
-> (npcm_video_command() with VCD_CMD_GO); it can therefore perform those
-> operations after stop_streaming() masks and resets the VCD.
-> 
-> For the re-arm to happen, start_frame() must take buffer_lock, find a
-> next queued buffer, and release the lock before stop_streaming() empties
-> the list.  Once start_frame() has released the lock, the VCD re-enable
-> and capture start that follow are outside buffer_lock, so emptying the
-> list afterwards cannot stop them.  buffer_lock protects the buffer list
-> only; it is not held for the re-arm and capture start, nor for
-> stop_streaming()'s mask and reset, so those VCD writes are not
-> serialized with each other.  start_frame() returns without re-arming
-> when no next buffer is queued, there is no video signal, or the VCD
-> stays busy past its poll timeout.
-> 
-> That capture can complete and raise VCD_STAT_DONE; with VCD_INTE
-> re-armed, a new interrupt can then fire after kfree(video), and the
-> handler dereferences the freed per-device structure.
-> 
-> Unregister the video device, then mask the VCD interrupt source and
-> unregister and drain the threaded handler with devm_free_irq() before
-> releasing the vb2 buffers, the ECE state and the per-device structure.
-> devm_free_irq() also clears the devm action, so the later devm release
-> is a no-op and does not double-free.  Gating the re-arm alone would not
-> close the window: the handler dereferences the per-device structure
-> before any streaming-flag check, so any interrupt delivered after
-> kfree(video) is fatal regardless of re-arm.
-> 
-> This issue was found by an in-house static analysis tool.
-> 
-> Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.5
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-> ---
->  drivers/media/platform/nuvoton/npcm-video.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
-> index 52505af35c08..637b1fe54824 100644
-> --- a/drivers/media/platform/nuvoton/npcm-video.c
-> +++ b/drivers/media/platform/nuvoton/npcm-video.c
-> @@ -120,6 +120,7 @@ struct npcm_video {
->  
->  	struct list_head buffers;
->  	struct mutex buffer_lock; /* buffer list lock */
-> +	int irq;
->  	unsigned long flags;
->  	unsigned int sequence;
->  
-> @@ -1707,6 +1708,7 @@ static int npcm_video_init(struct npcm_video *video)
->  		dev_err(dev, "Failed to find VCD IRQ\n");
->  		return -ENODEV;
->  	}
-> +	video->irq = irq;
->  
->  	rc = devm_request_threaded_irq(dev, irq, NULL, npcm_video_irq,
->  				       IRQF_ONESHOT, DEVICE_NAME, video);
-> @@ -1808,6 +1810,8 @@ static void npcm_video_remove(struct platform_device *pdev)
->  	struct npcm_video *video = to_npcm_video(v4l2_dev);
->  
->  	video_unregister_device(&video->vdev);
-> +	regmap_write(video->vcd_regmap, VCD_INTE, 0);
-> +	devm_free_irq(dev, video->irq, video);
->  	vb2_queue_release(&video->queue);
->  	v4l2_ctrl_handler_free(&video->ctrl_handler);
->  	v4l2_device_unregister(v4l2_dev);
+On Tue, 14 Jul 2026 21:46:04 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
 
-I think this can be done easier: in devm_request_threaded_irq add the IRQF_NO_AUTOEN
-flag, then just call enable_irq in start_streaming and disable_irq in stop_streaming.
+> On Tue, 14 Jul 2026 20:09:55 -0700 SJ Park <sj@kernel.org> wrote:
+> 
+> > Sashiko found a few issues in DAMON that could cause infinite loop, NULL
+> > dereference and monitoring results degradation.  The first two sounds
+> > scary but the infinite loop happens only under unreasonable user setup.
+> > The NULL dereference is only in a unit test.  Monitoring results
+> > degradation is trivial since it is only best-effort, and those happens
+> > from only unlikely races.  Still those are bugs that better to fix if
+> > possible. Fix those.
+> 
+> > Subject: [PATCH v1.1 0/6] ...
+> 
+> So... what is the significance of "1.1" here?
 
-In npcm_video_remove() you should replace video_unregister_device by vb2_video_unregister_device
-(as that ensures that stop_streaming is called if streaming is in progress) and drop
-vb2_queue_release (since vb2_video_unregister_device calls that).
+As the changelog says, one more unurgent fix (patch 5 of this sereis) has added
+on top of the v1.
 
-I think that will be a clean approach.
+Maybe my versioning scheme is confusing you.  I increase minor version when it
+is purely for findings from Sashiko and if the change seems not really big.  I
+do so because I realized it is easy to get version number large in short term
+when I respect Sashiko, and it may look confusing for some people.  Maybe a
+better approach is running Sashiko in my local, but I don't have AI setup in my
+development environment...  Let me know if this only confuses and bothers you
+and you have a suggestion.
 
-But nuvoton devs need to test that as well to make sure it doesn't break anything.
 
-Regards,
-
-	Hans
+Thanks,
+SJ
