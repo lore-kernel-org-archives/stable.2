@@ -1,164 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA43E3A641D
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 14:48:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC32539448F
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 14:52:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784126933; cv=none; b=Njja3N9f+LTqXisK+haWDPCvaRdD16Daovx8LS3Swej6eaBubtN3XT1pB7yZ78Pjt7EytQ9PeiiE+pWPO0N0/ecLVghsD+C+zJow3muOGFL0aoKy53l0wBgGucGlZmB45bzm5w6YPJ51kT8Vy0rDvM888asi5pdiBCrTZ8YVbVM=
+	t=1784127173; cv=none; b=JRkJ0985lThIlQxzIPaxFO9uGhZ/Xt1xF5T4ypHlsruiLU5RS6098bNxuXYioYkISGLjeaq9qAy07Vq3tyILQ+H6fm5LHXjj1aDDTPc8w3QbunWfBo2npxRIHdbT1Jy/j1Md2rv5RNbQEn8XtJUngHMJXoTt8zq7ZAyNOz+jVco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784126933; c=relaxed/simple;
-	bh=VyBUN+/HNGAbAbgimpnUWxtGkIeH7TjXwdnfTKuUX3k=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Jz8qwQv5J6GCdLEb91n6os27OU5fviVfLrvkbmqmNcl7Z5bIyPJz+6upoBUl6mF9b0Hh1xZsgXNRLE0+ATRFkThS9OvIVVgALWMd3Cm5/tYfQRLfq5MwRkg5tpBYXQA/WHEVys5EWEJoh52ab1e9ErcXXAbv+AdlA21dOAACo+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2nhpAp2n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784127173; c=relaxed/simple;
+	bh=6639rFu/tABAbZuWi9d8hzmMJgdgeHqSgkh1Oo5sc18=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lG0gN3aaxIUBjdnQVB+KrHp9IOxKncnMCylZc3AKYQ6xcDK/au/OHrnr6kFJwp3sZiTT83lIaiutq3TkrBAiuPPZNM9U9I+xUhc+YiA1/UkjfFS/8fb1FUHqsTicdYULNrk/eh97mX11wMoi6Q/5J64ULunhJ/T6yT0gIbLzsLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lcvskxYP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2nhpAp2n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FFE81F000E9;
-	Wed, 15 Jul 2026 14:48:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784126931;
-	bh=CMiWOnlOeLqQ+Hqpb3FVO86YnwXg4Ay3IuhChKDofG4=;
-	h=Subject:To:Cc:From:Date;
-	b=2nhpAp2n89nVnNu/Q20T0bB/T78f5Mxsdin1zIbVDi0jJSUuZU/pm4DWmw9PFcmMk
-	 2gG3W46ity0NIRLQb97f5ZmWtjSpFJ2PkonD0idoUxTh3+C5axAPan93YLGtsCniKz
-	 2cBm1xyalphy5QbjM/P1prEbJ0vnmta9bbEg72yo=
-Subject: FAILED: patch "[PATCH] mm: do file ownership checks with the proper mount idmap" failed to apply to 5.15-stable tree
-To: pfalcato@suse.de,akpm@linux-foundation.org,brauner@kernel.org,david@kernel.org,jack@suse.cz,jannh@google.com,liam@infradead.org,stable@vger.kernel.org,vbabka@kernel.org,viro@zeniv.linux.org.uk,willy@infradead.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 16:48:37 +0200
-Message-ID: <2026071536-chirpy-unmindful-fd3a@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lcvskxYP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949B71F00A3D
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 14:52:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784127172;
+	bh=6639rFu/tABAbZuWi9d8hzmMJgdgeHqSgkh1Oo5sc18=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lcvskxYPn2RDnORgIZJ5C4xPoKrQp2KtLWLpWsluQYtSHiBqnXSJwhM44UtjwNR7G
+	 nMb167XGLIInq15lkOetrbhTVICkTKDpAqEOVU9QkONZd4pSU/aAfYe0NzdNlQLzse
+	 mHiZrGVS77x7/qD5lvecg2Z+ghuXXmRrWmwYo9iZyf+G/pDCULysllRyBkQjx9rtau
+	 o7wZf62qySUmj7nv/ke+itLhFRfI+mdwMiHlgppWFrk6Ug8FwvJKs8csxQDCupbZOt
+	 iLOmS7istnH6MoKZeHFdL2ky+t/1b5/n/mgHRS6JyHZUYi6/S+iD7cU2nAq9xwj2Ez
+	 XDjeW6YgMrd9w==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-69c5fda04a8so8543956a12.1
+        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 07:52:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqhbXi4ydWMzAFDeDT8JFIDPo4Xos8FZX824YRgYqsdECwO1WjhQqUvWTNH9O1MlC+CKvGkPUk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YySTHAyhhN4PmARA3bu/6MPHH6Sv1kgO4quPz/gVojFsG0PWbco
+	yd468baStzOYLGV/Q53leafGJv83mXwws5noECi1hF6tZH7IxpgXty2IN1LO46whp3SHojjAUQD
+	kV9Zjr8L7qsJjRGD3EGZAf+h4FX0MHwQ=
+X-Received: by 2002:a17:907:1c04:b0:c16:3074:6593 with SMTP id
+ a640c23a62f3a-c166161c08dmr524315666b.12.1784127171196; Wed, 15 Jul 2026
+ 07:52:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+References: <C449CC7B-A988-4DDC-B3C4-281794E6A410@nozominetworks.com>
+In-Reply-To: <C449CC7B-A988-4DDC-B3C4-281794E6A410@nozominetworks.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 15 Jul 2026 23:52:37 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_jd4WaOMGwTdAHrfKrdSNm-evBaTF=aogAknwPN4jUnA@mail.gmail.com>
+X-Gm-Features: AUfX_mzKNfYfkAnmLr-PsLVAWUX0xdUXa5W_j8dZSqUfRnv9jiMc1MMf29bBZNw
+Message-ID: <CAKYAXd_jd4WaOMGwTdAHrfKrdSNm-evBaTF=aogAknwPN4jUnA@mail.gmail.com>
+Subject: Re: [PATCH] fs/ntfs: Fix min_len for compressed/sparse attributes in ntfs_non_resident_attr_value_is_valid()
+To: =?UTF-8?Q?Alexandro_Cal=C3=B2?= <alexandro.calo@nozominetworks.com>
+Cc: "hyc.lee@gmail.com" <hyc.lee@gmail.com>, 
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x e187bc02f8fa4226d62814592cf064ee4557c470
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071536-chirpy-unmindful-fd3a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From e187bc02f8fa4226d62814592cf064ee4557c470 Mon Sep 17 00:00:00 2001
-From: Pedro Falcato <pfalcato@suse.de>
-Date: Thu, 25 Jun 2026 16:38:53 +0100
-Subject: [PATCH] mm: do file ownership checks with the proper mount idmap
-
-Ever since idmapped mounts were introduced, inode ownership checks (for
-side-channel protection) in mincore() and madvise(MADV_PAGEOUT) were done
-against the nop_mnt_idmap, which completely ignores the file's mount's
-idmap.  This results in odd edgecases like:
-
-1) mount/bind-mount with an idmap userA:userB:1
-2) userB runs an owner_or_capable() check on file that is owned by userA
-on-disk/in-memory, but owned by userB after idmap translation
-3) owner_or_capable() mysteriously fails as the correct idmap wasn't supplied
-
-In the case of mincore/madvise MADV_PAGEOUT, this is usually benign,
-because file_permission(file, MAY_WRITE) will probably succeed, as it uses
-the proper idmap internally, but it does not need to be the case on e.g a
-0444 file where even the owner itself doesn't have permissions to write to
-it.
-
-Since this is clearly not trivial to get right, introduce a
-file_owner_or_capable() that can carry the correct semantics, and switch
-the various users in mm to it.
-
-The issue was found by manual code inspection & an off-list discussion
-with Jan Kara.
-
-Link: https://lore.kernel.org/20260625153853.913949-1-pfalcato@suse.de
-Fixes: 9caccd41541a ("fs: introduce MOUNT_ATTR_IDMAP")
-Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index d10897b3a1e3..50ce731a2b78 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -2444,6 +2444,11 @@ static inline struct mnt_idmap *file_mnt_idmap(const struct file *file)
- 	return mnt_idmap(file->f_path.mnt);
- }
- 
-+static inline bool file_owner_or_capable(const struct file *file)
-+{
-+	return inode_owner_or_capable(file_mnt_idmap(file), file_inode(file));
-+}
-+
- /**
-  * is_idmapped_mnt - check whether a mount is mapped
-  * @mnt: the mount to check
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 5af62e6abca5..58eb9d240643 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -4704,7 +4704,7 @@ static inline bool can_do_cachestat(struct file *f)
- {
- 	if (f->f_mode & FMODE_WRITE)
- 		return true;
--	if (inode_owner_or_capable(file_mnt_idmap(f), file_inode(f)))
-+	if (file_owner_or_capable(f))
- 		return true;
- 	return file_permission(f, MAY_WRITE) == 0;
- }
-diff --git a/mm/madvise.c b/mm/madvise.c
-index cd9bb077072c..77552b03d318 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -336,8 +336,7 @@ static inline bool can_do_file_pageout(struct vm_area_struct *vma)
- 	 * otherwise we'd be including shared non-exclusive mappings, which
- 	 * opens a side channel.
- 	 */
--	return inode_owner_or_capable(&nop_mnt_idmap,
--				      file_inode(vma->vm_file)) ||
-+	return file_owner_or_capable(vma->vm_file) ||
- 	       file_permission(vma->vm_file, MAY_WRITE) == 0;
- }
- 
-diff --git a/mm/mincore.c b/mm/mincore.c
-index 296f2e3922b5..c8757c5085bf 100644
---- a/mm/mincore.c
-+++ b/mm/mincore.c
-@@ -227,8 +227,7 @@ static inline bool can_do_mincore(struct vm_area_struct *vma)
- 	 * for writing; otherwise we'd be including shared non-exclusive
- 	 * mappings, which opens a side channel.
- 	 */
--	return inode_owner_or_capable(&nop_mnt_idmap,
--				      file_inode(vma->vm_file)) ||
-+	return file_owner_or_capable(vma->vm_file) ||
- 	       file_permission(vma->vm_file, MAY_WRITE) == 0;
- }
- 
-
+On Tue, Jul 14, 2026 at 11:52=E2=80=AFPM Alexandro Cal=C3=B2
+<alexandro.calo@nozominetworks.com> wrote:
+>
+> From: Alexandro Calo <alexandro.calo@nozominetworks.com>
+> Date: Tue, 14 Jul 2026 16:13:51 +0200
+> Subject: [PATCH] fs/ntfs: Fix min_len for compressed/sparse attributes in=
+ ntfs_non_resident_attr_value_is_valid()
+>
+> Here the attribute validator computes a single min_len =3D 64 (as the end=
+ of
+> initialized_size) for all non-resident attributes regardless of the flags
+> field. This is correct for regular non-resident attributes but for sparse
+> or compressed non-resident attributes the fixed header is 8 bytes longer,
+> it includes a compressed_size field at bytes 64-71, min_len should be 72.
+>
+> Since the validator lets a sparse/compressed attr_record be less than the
+> correct lenght, caller's accesses to compressed_size
+> (e.g., ntfs_read_locked_inode() or ntfs_attr_update_mapping_pairs()) can
+> extend past the attribute declared boundary.
+> This can cause OOB reads or OOB writes past the MFT record buffer if the
+> attribute is positioned near the end of the MFT record.
+>
+> The compressed_size field is accessed from:
+> - ntfs_read_locked_inode()
+> - ntfs_read_locked_attr_inode()
+> - ntfs_attr_open()
+> - ntfs_attr_update_mapping_pairs()
+>
+> ntfs_attr_make_non_resident() seems to be safe.
+>
+> Fixing this by raising min_len for sparse/compressed attributes in the
+> validator.
+>
+> The OOB reads and the OOB writes require a crafted filesystem image, whic=
+h
+> is not in the kernel threat model, anyway, fixing memory errors would be
+> nice to keep things secure.
+>
+> Signed-off-by: Alexandro Calo <alexandro.calo@nozominetworks.com>
+Applied it to #ntfs-next.
+Thanks!
