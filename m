@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C4F3A83AC
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 02:46:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7723A9611
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 02:46:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784083576; cv=none; b=MZgsFG99z/MkHzFvLelU6kRL6JY3RM7iheUQmpu6QN6gLjXqJbgW+p+TQho8yzvVoPAP8RZ+9mpppPENn9/CDquw3Ov/4yBVWuPtUCumPEXNmOFwGl6Y0aEuqOGS67MLMtErWBxLHKaXMOjtTPijKwfImoBo48g8iM0tQBS5iA8=
+	t=1784083576; cv=none; b=j/aCCWsH/o0mjR/kC0dOVkZ2i+UfRKKiR725dpKnutpR70ES08kxTm9XEgGE+5DEeR/p35e97D3Ruu8bXccG3LbuPZ/8vbXfuj6JkhecitQGtBCVlKvShFELvvjjf6s497C9G8sPotKkbDDDEVLoBB0M7asd0vx8HEHSOZdwo30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784083576; c=relaxed/simple;
-	bh=bC/lUb9eEPxJVqx6xOdvCf29eUTzpupjabh/zkRffuE=;
+	bh=nQUTKUhX8xQz7AoevswVd+XEQoibfPE/W/chklriQTs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fMUSqDL36F0JyVlRkI5PmJAKbrHlcoLKGY2/VWtNdRe67ucW7uBGXshw6Bnm5vplJwNrqZ3Ni8iQyxkcwh4vmcr98okxMZcTdGLhKhEUWdQw1lI0TIZ7oEYKnJ2tbFSrRtsgwJeAcW5Z9fwE8+LlzBj20UITlSnZka+OUXv1jrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hr0woUIh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Gy50RQJiXb2esN7nVRKjLv9frUtg0EOb3bcrTPFZEC7thvImrY8cnz2ycZF/qLc/rH3rBJvqNAYFHUfit+PinzfW9nUwhL6/VCsYxlUDpeiVVkdKJ0/pCs4NHo0+Eb2IZHQiXuKyTNKY8l/l195LHrI6E4sgxb8peNuKIj/fg6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jqr4AwiV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hr0woUIh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFCEE1F00ACF;
-	Wed, 15 Jul 2026 02:46:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jqr4AwiV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCF011F00A3E;
+	Wed, 15 Jul 2026 02:46:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784083574;
-	bh=Hu1dlgzpi7YSIjsOy044WiHUgAacwCvpEUPatJkSXdM=;
+	s=k20260515; t=1784083575;
+	bh=6QCuArr+QipSeK9+zIUIMGEv5BU2d0+80PYDZCe+ZYo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hr0woUIh1b0fmvU3056JuDMNcqVE+tgDCUKZNcsgOHwWuDlqILUS+B9HMqRVQ5l7t
-	 VdEnjqY0Gjj3uYwAUYQyLX6u/6UwdWz4wW1WkYkVc6QLoX7BMovR2lNe/OHp7nBbiH
-	 2ozzWYnrM1ShJuDU8J3BYEe5ZUwMOfsO89J1kIUf+7CiBcrJlUkXvc3Ke4gPQ5pkA+
-	 O5g3oXXEYDsysris6drN3zI3cE4ii4wRd42fchgP3CsS/ys6p7sLY9BNTHWy9+ohJ8
-	 b+BjpX5G0OIoVJapIXmjVd/GfM2kRxZwTfTJ5CuPRevLnHvkluR7v9HU3yulPjwTjt
-	 nWzDpj3UoEQqA==
+	b=Jqr4AwiVEeeYNdQJzN0ZDNe2yyDhtkkJ1YuszkNvaFZAtiTQeaPbMuKeldd45xmef
+	 2TW+iR2xGz+v2z6j8TMy1QsvvTUHPM132FU/FmZ6llYR7DDUo/nMJJ+zZE5PP52cqm
+	 yVjXlgsDg3d7oVQepC8ck0KNMMJR5DOtvnujqMhpKFEt9PmtskyYoF3acS168VKWfT
+	 VNCNOae5RqdFaB7PpaGCmpuXNVAtH3nTjEWiGf7ZNdJg6JC+/T5e4eKfTBsruwZ7i5
+	 glCkMEEbHjdpGYA3VkWTwtiaDtnu1kKNEQ8cWue4Q+avhr3RL+0dTw1t5QEw3AGRXs
+	 oa0fHM/yVEGLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Fabio Aiuto <fabioaiuto83@gmail.com>,
-	Hans de Goede <hdegoede@redhat.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 08/10] staging: rtl8723bs: remove code related to unsupported channel bandwidth
-Date: Tue, 14 Jul 2026 22:46:04 -0400
-Message-ID: <20260715024606.107096-8-sashal@kernel.org>
+Subject: [PATCH 5.10.y 09/10] staging: rtl8723bs: fix camel case in IE structures
+Date: Tue, 14 Jul 2026 22:46:05 -0400
+Message-ID: <20260715024606.107096-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260715024606.107096-1-sashal@kernel.org>
 References: <2026071347-leotard-finlike-cc76@gregkh>
@@ -49,378 +48,248 @@ Content-Transfer-Encoding: 8bit
 
 From: Fabio Aiuto <fabioaiuto83@gmail.com>
 
-[ Upstream commit 33137187d3c8c82b2ae264bb8313dfa2e2f354e1 ]
+[ Upstream commit 61ba4fae0a5d81d826810a32c0b30df319d1a925 ]
 
-remove all code related to unsupported channel
-bandwidth (i.e. 80, 80+80, 160 Mhz). rtl8723bs NIC
-works only on 20 and 40 Mhz channels.
+fix camel case in IE structures all over the driver.
 
-Module parameter rtw_bw_mode can only have two
-values: 0 and 1 (20 Mhz and 40Mhz). So modify
-the default value setting to zero the 5Ghz nibble.
-
-Comments modified accordingly.
-
-Acked-by: Hans de Goede <hdegoede@redhat.com>
 Signed-off-by: Fabio Aiuto <fabioaiuto83@gmail.com>
-Link: https://lore.kernel.org/r/7b2ee7cc0abfd8744ed5ff4a654fb333fee77ec7.1624367071.git.fabioaiuto83@gmail.com
+Link: https://lore.kernel.org/r/c1b36466fb5e17aa0dbbcdf6dfef3a82f9739c00.1626874164.git.fabioaiuto83@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: 3bf39f711ff2 ("staging: rtl8723bs: fix OOB reads in is_ap_in_tkip() IE loop")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../staging/rtl8723bs/core/rtw_wlan_util.c    | 15 +-----
- drivers/staging/rtl8723bs/core/rtw_xmit.c     |  5 +-
- .../staging/rtl8723bs/hal/hal_com_phycfg.c    | 34 -------------
- drivers/staging/rtl8723bs/hal/odm.h           |  3 --
- drivers/staging/rtl8723bs/hal/odm_DIG.c       |  5 +-
- .../staging/rtl8723bs/hal/rtl8723b_hal_init.c | 31 ++----------
- .../staging/rtl8723bs/hal/rtl8723b_phycfg.c   | 48 +------------------
- drivers/staging/rtl8723bs/include/drv_types.h |  8 ++--
- drivers/staging/rtl8723bs/include/rtw_rf.h    |  4 --
- drivers/staging/rtl8723bs/os_dep/os_intfs.c   | 10 ++--
- 10 files changed, 19 insertions(+), 144 deletions(-)
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 20 ++++++-------
+ .../staging/rtl8723bs/core/rtw_wlan_util.c    | 28 +++++++++----------
+ .../staging/rtl8723bs/include/wlan_bssdef.h   | 10 +++----
+ 3 files changed, 29 insertions(+), 29 deletions(-)
 
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+index f412a9e4e2d59f..7e845e90850775 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+@@ -1631,7 +1631,7 @@ unsigned int OnAssocRsp(struct adapter *padapter, union recv_frame *precv_frame)
+ 	for (i = (6 + WLAN_HDR_A3_LEN); i < pkt_len;) {
+ 		pIE = (struct ndis_80211_var_ie *)(pframe + i);
+ 
+-		switch (pIE->ElementID) {
++		switch (pIE->element_id) {
+ 		case _VENDOR_SPECIFIC_IE_:
+ 			if (!memcmp(pIE->data, WMM_PARA_OUI, 6))	/* WMM */
+ 				WMM_param_handler(padapter, pIE);
+@@ -1652,7 +1652,7 @@ unsigned int OnAssocRsp(struct adapter *padapter, union recv_frame *precv_frame)
+ 			break;
+ 		}
+ 
+-		i += (pIE->Length + 2);
++		i += (pIE->length + 2);
+ 	}
+ 
+ 	pmlmeinfo->state &= (~WIFI_FW_ASSOC_STATE);
+@@ -3222,12 +3222,12 @@ void issue_assocreq(struct adapter *padapter)
+ 	for (i = sizeof(struct ndis_802_11_fix_ie); i < pmlmeinfo->network.IELength;) {
+ 		pIE = (struct ndis_80211_var_ie *)(pmlmeinfo->network.IEs + i);
+ 
+-		switch (pIE->ElementID) {
++		switch (pIE->element_id) {
+ 		case _VENDOR_SPECIFIC_IE_:
+ 			if ((!memcmp(pIE->data, RTW_WPA_OUI, 4)) ||
+ 					(!memcmp(pIE->data, WMM_OUI, 4)) ||
+ 					(!memcmp(pIE->data, WPS_OUI, 4))) {
+-				vs_ie_length = pIE->Length;
++				vs_ie_length = pIE->length;
+ 				if ((!padapter->registrypriv.wifi_spec) && (!memcmp(pIE->data, WPS_OUI, 4))) {
+ 					/* Commented by Kurt 20110629
+ 					 * In some older APs, WPS handshake
+@@ -3243,26 +3243,26 @@ void issue_assocreq(struct adapter *padapter)
+ 			break;
+ 
+ 		case EID_WPA2:
+-			pframe = rtw_set_ie(pframe, EID_WPA2, pIE->Length, pIE->data, &(pattrib->pktlen));
++			pframe = rtw_set_ie(pframe, EID_WPA2, pIE->length, pIE->data, &(pattrib->pktlen));
+ 			break;
+ 		case EID_HTCapability:
+ 			if (padapter->mlmepriv.htpriv.ht_option) {
+ 				if (!(is_ap_in_tkip(padapter))) {
+ 					memcpy(&(pmlmeinfo->HT_caps), pIE->data, sizeof(struct HT_caps_element));
+-					pframe = rtw_set_ie(pframe, EID_HTCapability, pIE->Length, (u8 *)(&(pmlmeinfo->HT_caps)), &(pattrib->pktlen));
++					pframe = rtw_set_ie(pframe, EID_HTCapability, pIE->length, (u8 *)(&(pmlmeinfo->HT_caps)), &(pattrib->pktlen));
+ 				}
+ 			}
+ 			break;
+ 
+ 		case EID_EXTCapability:
+ 			if (padapter->mlmepriv.htpriv.ht_option)
+-				pframe = rtw_set_ie(pframe, EID_EXTCapability, pIE->Length, pIE->data, &(pattrib->pktlen));
++				pframe = rtw_set_ie(pframe, EID_EXTCapability, pIE->length, pIE->data, &(pattrib->pktlen));
+ 			break;
+ 		default:
+ 			break;
+ 		}
+ 
+-		i += (pIE->Length + 2);
++		i += (pIE->length + 2);
+ 	}
+ 
+ 	if (pmlmeinfo->assoc_AP_vendor == HT_IOT_PEER_REALTEK)
+@@ -5887,7 +5887,7 @@ u8 join_cmd_hdl(struct adapter *padapter, u8 *pbuf)
+ 	for (i = _FIXED_IE_LENGTH_; i < pnetwork->IELength;) {
+ 		pIE = (struct ndis_80211_var_ie *)(pnetwork->IEs + i);
+ 
+-		switch (pIE->ElementID) {
++		switch (pIE->element_id) {
+ 		case _VENDOR_SPECIFIC_IE_:/* Get WMM IE. */
+ 			if (!memcmp(pIE->data, WMM_OUI, 4))
+ 				WMM_param_handler(padapter, pIE);
+@@ -5936,7 +5936,7 @@ u8 join_cmd_hdl(struct adapter *padapter, u8 *pbuf)
+ 			break;
+ 		}
+ 
+-		i += (pIE->Length + 2);
++		i += (pIE->length + 2);
+ 	}
+ 
+ 	/* check channel, bandwidth, offset and switch */
 diff --git a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
-index 836eef6397c0ba..b359a409eec4ea 100644
+index b359a409eec4ea..aa02881f4efe59 100644
 --- a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
 +++ b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
-@@ -346,9 +346,7 @@ u8 rtw_get_center_ch(u8 channel, u8 chnl_bw, u8 chnl_offset)
- {
- 	u8 center_ch = channel;
- 
--	if (chnl_bw == CHANNEL_WIDTH_80) {
--		center_ch = 7;
--	} else if (chnl_bw == CHANNEL_WIDTH_40) {
-+	if (chnl_bw == CHANNEL_WIDTH_40) {
- 		if (chnl_offset == HAL_PRIME_CHNL_OFFSET_LOWER)
- 			center_ch = channel + 2;
- 		else
-@@ -385,14 +383,6 @@ void set_channel_bwmode(struct adapter *padapter, unsigned char channel, unsigne
- 
- 	center_ch = rtw_get_center_ch(channel, bwmode, channel_offset);
- 
--	if (bwmode == CHANNEL_WIDTH_80) {
--		if (center_ch > channel)
--			chnl_offset80 = HAL_PRIME_CHNL_OFFSET_LOWER;
--		else if (center_ch < channel)
--			chnl_offset80 = HAL_PRIME_CHNL_OFFSET_UPPER;
--		else
--			chnl_offset80 = HAL_PRIME_CHNL_OFFSET_DONT_CARE;
--	}
- 
- 	/* set Channel */
- 	if (mutex_lock_interruptible(&(adapter_to_dvobj(padapter)->setch_mutex)))
-@@ -923,9 +913,6 @@ static void bwmode_update_check(struct adapter *padapter, struct ndis_80211_var_
+@@ -913,7 +913,7 @@ static void bwmode_update_check(struct adapter *padapter, struct ndis_80211_var_
  	if (phtpriv->ht_option == false)
  		return;
  
--	if (pmlmeext->cur_bwmode >= CHANNEL_WIDTH_80)
--		return;
--
- 	if (pIE->Length > sizeof(struct HT_info_element))
+-	if (pIE->Length > sizeof(struct HT_info_element))
++	if (pIE->length > sizeof(struct HT_info_element))
  		return;
  
-diff --git a/drivers/staging/rtl8723bs/core/rtw_xmit.c b/drivers/staging/rtl8723bs/core/rtw_xmit.c
-index 68a431b1f2b6da..d885778354185b 100644
---- a/drivers/staging/rtl8723bs/core/rtw_xmit.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_xmit.c
-@@ -331,15 +331,12 @@ void _rtw_free_xmit_priv(struct xmit_priv *pxmitpriv)
+ 	pHT_info = (struct HT_info_element *)pIE->data;
+@@ -1003,7 +1003,7 @@ void HT_caps_handler(struct adapter *padapter, struct ndis_80211_var_ie *pIE)
  
- u8 query_ra_short_GI(struct sta_info *psta)
- {
--	u8 sgi = false, sgi_20m = false, sgi_40m = false, sgi_80m = false;
-+	u8 sgi = false, sgi_20m = false, sgi_40m = false;
+ 	pmlmeinfo->HT_caps_enable = 1;
  
- 	sgi_20m = psta->htpriv.sgi_20m;
- 	sgi_40m = psta->htpriv.sgi_40m;
+-	for (i = 0; i < (pIE->Length); i++) {
++	for (i = 0; i < (pIE->length); i++) {
+ 		if (i != 2) {
+ 			/* 	Commented by Albert 2010/07/12 */
+ 			/* 	Got the endian issue here. */
+@@ -1081,11 +1081,11 @@ void HT_info_handler(struct adapter *padapter, struct ndis_80211_var_ie *pIE)
+ 	if (phtpriv->ht_option == false)
+ 		return;
  
- 	switch (psta->bw_mode) {
--	case CHANNEL_WIDTH_80:
--		sgi = sgi_80m;
--		break;
- 	case CHANNEL_WIDTH_40:
- 		sgi = sgi_40m;
- 		break;
-diff --git a/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c b/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c
-index b9a6dee46bbf58..69fd75306447cf 100644
---- a/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c
-+++ b/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c
-@@ -999,7 +999,6 @@ u8 PHY_GetTxPowerIndexBase(
- )
- {
- 	struct hal_com_data *pHalData = GET_HAL_DATA(padapter);
--	u8 i = 0;	/* default set to 1S */
- 	u8 txPower = 0;
- 	u8 chnlIdx = (Channel-1);
+-	if (pIE->Length > sizeof(struct HT_info_element))
++	if (pIE->length > sizeof(struct HT_info_element))
+ 		return;
  
-@@ -1039,18 +1038,6 @@ u8 PHY_GetTxPowerIndexBase(
- 				txPower += pHalData->BW40_24G_Diff[RFPath][TX_4S];
+ 	pmlmeinfo->HT_info_enable = 1;
+-	memcpy(&(pmlmeinfo->HT_info), pIE->data, pIE->Length);
++	memcpy(&(pmlmeinfo->HT_info), pIE->data, pIE->length);
+ }
  
+ void HTOnAssocRsp(struct adapter *padapter)
+@@ -1125,11 +1125,11 @@ void ERP_IE_handler(struct adapter *padapter, struct ndis_80211_var_ie *pIE)
+ 	struct mlme_ext_priv *pmlmeext = &padapter->mlmeextpriv;
+ 	struct mlme_ext_info *pmlmeinfo = &(pmlmeext->mlmext_info);
+ 
+-	if (pIE->Length > 1)
++	if (pIE->length > 1)
+ 		return;
+ 
+ 	pmlmeinfo->ERP_enable = 1;
+-	memcpy(&(pmlmeinfo->ERP_IE), pIE->data, pIE->Length);
++	memcpy(&(pmlmeinfo->ERP_IE), pIE->data, pIE->length);
+ }
+ 
+ void VCS_update(struct adapter *padapter, struct sta_info *psta)
+@@ -1391,10 +1391,10 @@ void update_beacon_info(struct adapter *padapter, u8 *pframe, uint pkt_len, stru
+ 	for (i = 0; i < len;) {
+ 		pIE = (struct ndis_80211_var_ie *)(pframe + (_BEACON_IE_OFFSET_ + WLAN_HDR_A3_LEN) + i);
+ 
+-		switch (pIE->ElementID) {
++		switch (pIE->element_id) {
+ 		case _VENDOR_SPECIFIC_IE_:
+ 			/* to update WMM parameter set while receiving beacon */
+-			if (!memcmp(pIE->data, WMM_PARA_OUI, 6) && pIE->Length == WLAN_WMM_LEN)	/* WMM */
++			if (!memcmp(pIE->data, WMM_PARA_OUI, 6) && pIE->length == WLAN_WMM_LEN)	/* WMM */
+ 				if (WMM_param_handler(padapter, pIE))
+ 					report_wmm_edca_update(padapter);
+ 
+@@ -1414,7 +1414,7 @@ void update_beacon_info(struct adapter *padapter, u8 *pframe, uint pkt_len, stru
+ 			break;
  		}
--		/*  Willis suggest adopt BW 40M power index while in BW 80 mode */
--		else if (BandWidth == CHANNEL_WIDTH_80) {
--			if ((MGN_MCS0 <= Rate && Rate <= MGN_MCS31) || (MGN_VHT1SS_MCS0 <= Rate && Rate <= MGN_VHT4SS_MCS9))
--				txPower += pHalData->BW40_24G_Diff[RFPath][TX_1S];
--			if ((MGN_MCS8 <= Rate && Rate <= MGN_MCS31) || (MGN_VHT2SS_MCS0 <= Rate && Rate <= MGN_VHT4SS_MCS9))
--				txPower += pHalData->BW40_24G_Diff[RFPath][TX_2S];
--			if ((MGN_MCS16 <= Rate && Rate <= MGN_MCS31) || (MGN_VHT3SS_MCS0 <= Rate && Rate <= MGN_VHT4SS_MCS9))
--				txPower += pHalData->BW40_24G_Diff[RFPath][TX_3S];
--			if ((MGN_MCS24 <= Rate && Rate <= MGN_MCS31) || (MGN_VHT4SS_MCS0 <= Rate && Rate <= MGN_VHT4SS_MCS9))
--				txPower += pHalData->BW40_24G_Diff[RFPath][TX_4S];
--
--		}
- 	} else {/* 3 ============================== 5 G ============================== */
- 		if (MGN_6M <= Rate)
- 			txPower = pHalData->Index5G_BW40_Base[RFPath][chnlIdx];
-@@ -1080,23 +1067,6 @@ u8 PHY_GetTxPowerIndexBase(
- 			if ((MGN_MCS24 <= Rate && Rate <= MGN_MCS31) || (MGN_VHT4SS_MCS0 <= Rate && Rate <= MGN_VHT4SS_MCS9))
- 				txPower += pHalData->BW40_5G_Diff[RFPath][TX_4S];
  
--		} else if (BandWidth == CHANNEL_WIDTH_80) { /*  BW80-1S, BW80-2S */
--			/*  <20121220, Kordan> Get the index of array "Index5G_BW80_Base". */
--			u8 channel5G_80M[CHANNEL_MAX_NUMBER_5G_80M] = {42, 58, 106, 122, 138, 155, 171};
--			for (i = 0; i < ARRAY_SIZE(channel5G_80M); ++i)
--				if (channel5G_80M[i] == Channel)
--					chnlIdx = i;
--
--			txPower = pHalData->Index5G_BW80_Base[RFPath][chnlIdx];
--
--			if ((MGN_MCS0 <= Rate && Rate <= MGN_MCS31)  || (MGN_VHT1SS_MCS0 <= Rate && Rate <= MGN_VHT4SS_MCS9))
--				txPower += + pHalData->BW80_5G_Diff[RFPath][TX_1S];
--			if ((MGN_MCS8 <= Rate && Rate <= MGN_MCS31) || (MGN_VHT2SS_MCS0 <= Rate && Rate <= MGN_VHT4SS_MCS9))
--				txPower += pHalData->BW80_5G_Diff[RFPath][TX_2S];
--			if ((MGN_MCS16 <= Rate && Rate <= MGN_MCS31) || (MGN_VHT3SS_MCS0 <= Rate && Rate <= MGN_VHT4SS_MCS9))
--				txPower += pHalData->BW80_5G_Diff[RFPath][TX_3S];
--			if ((MGN_MCS23 <= Rate && Rate <= MGN_MCS31) || (MGN_VHT4SS_MCS0 <= Rate && Rate <= MGN_VHT4SS_MCS9))
--				txPower += pHalData->BW80_5G_Diff[RFPath][TX_4S];
+-		i += (pIE->Length + 2);
++		i += (pIE->length + 2);
+ 	}
+ }
+ 
+@@ -1430,7 +1430,7 @@ unsigned int is_ap_in_tkip(struct adapter *padapter)
+ 		for (i = sizeof(struct ndis_802_11_fix_ie); i < pmlmeinfo->network.IELength;) {
+ 			pIE = (struct ndis_80211_var_ie *)(pmlmeinfo->network.IEs + i);
+ 
+-			switch (pIE->ElementID) {
++			switch (pIE->element_id) {
+ 			case _VENDOR_SPECIFIC_IE_:
+ 				if ((!memcmp(pIE->data, RTW_WPA_OUI, 4)) && (!memcmp((pIE->data + 12), WPA_TKIP_CIPHER, 4)))
+ 					return true;
+@@ -1445,7 +1445,7 @@ unsigned int is_ap_in_tkip(struct adapter *padapter)
+ 				break;
+ 			}
+ 
+-			i += (pIE->Length + 2);
++			i += (pIE->length + 2);
  		}
+ 
+ 		return false;
+@@ -1500,7 +1500,7 @@ static u32 get_realtek_assoc_AP_vender(struct ndis_80211_var_ie *pIE)
+ {
+ 	u32 Vender = HT_IOT_PEER_REALTEK;
+ 
+-	if (pIE->Length >= 5) {
++	if (pIE->length >= 5) {
+ 		if (pIE->data[4] == 1)
+ 			/* if (pIE->data[5] & RT_HT_CAP_USE_LONG_PREAMBLE) */
+ 			/* bssDesc->BssHT.RT2RT_HT_Mode |= RT_HT_CAP_USE_LONG_PREAMBLE; */
+@@ -1531,7 +1531,7 @@ unsigned char check_assoc_AP(u8 *pframe, uint len)
+ 	for (i = sizeof(struct ndis_802_11_fix_ie); i < len;) {
+ 		pIE = (struct ndis_80211_var_ie *)(pframe + i);
+ 
+-		switch (pIE->ElementID) {
++		switch (pIE->element_id) {
+ 		case _VENDOR_SPECIFIC_IE_:
+ 			if ((!memcmp(pIE->data, ARTHEROS_OUI1, 3)) || (!memcmp(pIE->data, ARTHEROS_OUI2, 3))) {
+ 				return HT_IOT_PEER_ATHEROS;
+@@ -1556,7 +1556,7 @@ unsigned char check_assoc_AP(u8 *pframe, uint len)
+ 			break;
+ 		}
+ 
+-		i += (pIE->Length + 2);
++		i += (pIE->length + 2);
  	}
  
-@@ -1516,10 +1486,6 @@ static s16 get_bandwidth_idx(const enum CHANNEL_WIDTH bandwidth)
- 		return 0;
- 	case CHANNEL_WIDTH_40:
- 		return 1;
--	case CHANNEL_WIDTH_80:
--		return 2;
--	case CHANNEL_WIDTH_160:
--		return 3;
- 	default:
- 		return -1;
- 	}
-diff --git a/drivers/staging/rtl8723bs/hal/odm.h b/drivers/staging/rtl8723bs/hal/odm.h
-index a8d232245227b2..144c1f930841f7 100644
---- a/drivers/staging/rtl8723bs/hal/odm.h
-+++ b/drivers/staging/rtl8723bs/hal/odm.h
-@@ -579,9 +579,6 @@ typedef enum tag_Security_Definition {
- typedef enum tag_Bandwidth_Definition {
- 	ODM_BW20M		= 0,
- 	ODM_BW40M		= 1,
--	ODM_BW80M		= 2,
--	ODM_BW160M		= 3,
--	ODM_BW10M		= 4,
- } ODM_BW_E;
- 
- /*  ODM_CMNINFO_BOARD_TYPE */
-diff --git a/drivers/staging/rtl8723bs/hal/odm_DIG.c b/drivers/staging/rtl8723bs/hal/odm_DIG.c
-index 40fe43c62c45d9..b63d53748a6b4d 100644
---- a/drivers/staging/rtl8723bs/hal/odm_DIG.c
-+++ b/drivers/staging/rtl8723bs/hal/odm_DIG.c
-@@ -250,8 +250,6 @@ void odm_Adaptivity(void *pDM_VOID, u8 IGI)
- 		IGI_target = pDM_Odm->IGI_Base;
- 	else if (*pDM_Odm->pBandWidth == ODM_BW40M)
- 		IGI_target = pDM_Odm->IGI_Base + 2;
--	else if (*pDM_Odm->pBandWidth == ODM_BW80M)
--		IGI_target = pDM_Odm->IGI_Base + 2;
- 	else
- 		IGI_target = pDM_Odm->IGI_Base;
- 	pDM_Odm->IGI_target = (u8) IGI_target;
-@@ -290,8 +288,7 @@ void odm_Adaptivity(void *pDM_VOID, u8 IGI)
- 		ODM_DBG_LOUD,
- 		(
- 			"BandWidth =%s, IGI_target = 0x%x, EDCCA_State =%d\n",
--			(*pDM_Odm->pBandWidth == ODM_BW80M) ? "80M" :
--			((*pDM_Odm->pBandWidth == ODM_BW40M) ? "40M" : "20M"),
-+			(*pDM_Odm->pBandWidth == ODM_BW40M) ? "40M" : "20M",
- 			IGI_target,
- 			EDCCA_State
- 		)
-diff --git a/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c b/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
-index 15654bf850ddcc..7ba83d5a80747e 100644
---- a/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
-+++ b/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
-@@ -2814,15 +2814,8 @@ u8 BWMapping_8723B(struct adapter *Adapter, struct pkt_attrib *pattrib)
- 	u8 BWSettingOfDesc = 0;
- 	struct hal_com_data *pHalData = GET_HAL_DATA(Adapter);
- 
--	if (pHalData->CurrentChannelBW == CHANNEL_WIDTH_80) {
--		if (pattrib->bwmode == CHANNEL_WIDTH_80)
--			BWSettingOfDesc = 2;
--		else if (pattrib->bwmode == CHANNEL_WIDTH_40)
--			BWSettingOfDesc = 1;
--		else
--			BWSettingOfDesc = 0;
--	} else if (pHalData->CurrentChannelBW == CHANNEL_WIDTH_40) {
--		if ((pattrib->bwmode == CHANNEL_WIDTH_40) || (pattrib->bwmode == CHANNEL_WIDTH_80))
-+	if (pHalData->CurrentChannelBW == CHANNEL_WIDTH_40) {
-+		if (pattrib->bwmode == CHANNEL_WIDTH_40)
- 			BWSettingOfDesc = 1;
- 		else
- 			BWSettingOfDesc = 0;
-@@ -2840,25 +2833,7 @@ u8 SCMapping_8723B(struct adapter *Adapter, struct pkt_attrib *pattrib)
- 	u8 SCSettingOfDesc = 0;
- 	struct hal_com_data *pHalData = GET_HAL_DATA(Adapter);
- 
--	if (pHalData->CurrentChannelBW == CHANNEL_WIDTH_80) {
--		if (pattrib->bwmode == CHANNEL_WIDTH_80) {
--			SCSettingOfDesc = VHT_DATA_SC_DONOT_CARE;
--		} else if (pattrib->bwmode == CHANNEL_WIDTH_40) {
--			if (pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER)
--				SCSettingOfDesc = VHT_DATA_SC_40_LOWER_OF_80MHZ;
--			else if (pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER)
--				SCSettingOfDesc = VHT_DATA_SC_40_UPPER_OF_80MHZ;
--		} else {
--			if ((pHalData->nCur40MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER) && (pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER))
--				SCSettingOfDesc = VHT_DATA_SC_20_LOWEST_OF_80MHZ;
--			else if ((pHalData->nCur40MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER) && (pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER))
--				SCSettingOfDesc = VHT_DATA_SC_20_LOWER_OF_80MHZ;
--			else if ((pHalData->nCur40MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER) && (pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER))
--				SCSettingOfDesc = VHT_DATA_SC_20_UPPER_OF_80MHZ;
--			else if ((pHalData->nCur40MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER) && (pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER))
--				SCSettingOfDesc = VHT_DATA_SC_20_UPPERST_OF_80MHZ;
--		}
--	} else if (pHalData->CurrentChannelBW == CHANNEL_WIDTH_40) {
-+	if (pHalData->CurrentChannelBW == CHANNEL_WIDTH_40) {
- 		if (pattrib->bwmode == CHANNEL_WIDTH_40) {
- 			SCSettingOfDesc = VHT_DATA_SC_DONOT_CARE;
- 		} else if (pattrib->bwmode == CHANNEL_WIDTH_20) {
-diff --git a/drivers/staging/rtl8723bs/hal/rtl8723b_phycfg.c b/drivers/staging/rtl8723bs/hal/rtl8723b_phycfg.c
-index 5f45195f634442..a4022aa221ebc0 100644
---- a/drivers/staging/rtl8723bs/hal/rtl8723b_phycfg.c
-+++ b/drivers/staging/rtl8723bs/hal/rtl8723b_phycfg.c
-@@ -686,11 +686,6 @@ static void phy_SetRegBW_8723B(
- 		rtw_write16(Adapter, REG_TRXPTCL_CTL_8723B, (u2tmp & 0xFEFF)); /*  BIT 7 = 1, BIT 8 = 0 */
- 		break;
- 
--	case CHANNEL_WIDTH_80:
--		u2tmp = RegRfMod_BW | BIT8;
--		rtw_write16(Adapter, REG_TRXPTCL_CTL_8723B, (u2tmp & 0xFF7F)); /*  BIT 7 = 0, BIT 8 = 1 */
--		break;
--
- 	default:
- 		break;
- 	}
-@@ -701,47 +696,7 @@ static u8 phy_GetSecondaryChnl_8723B(struct adapter *Adapter)
- 	u8 SCSettingOf40 = 0, SCSettingOf20 = 0;
- 	struct hal_com_data *pHalData = GET_HAL_DATA(Adapter);
- 
--	RT_TRACE(
--		_module_hal_init_c_,
--		_drv_info_,
--		(
--			"SCMapping: VHT Case: pHalData->CurrentChannelBW %d, pHalData->nCur80MhzPrimeSC %d, pHalData->nCur40MhzPrimeSC %d\n",
--			pHalData->CurrentChannelBW,
--			pHalData->nCur80MhzPrimeSC,
--			pHalData->nCur40MhzPrimeSC
--		)
--	);
--	if (pHalData->CurrentChannelBW == CHANNEL_WIDTH_80) {
--		if (pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER)
--			SCSettingOf40 = VHT_DATA_SC_40_LOWER_OF_80MHZ;
--		else if (pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER)
--			SCSettingOf40 = VHT_DATA_SC_40_UPPER_OF_80MHZ;
--		else
--			RT_TRACE(_module_hal_init_c_, _drv_err_, ("SCMapping: Not Correct Primary40MHz Setting\n"));
--
--		if (
--			(pHalData->nCur40MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER) &&
--			(pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER)
--		)
--			SCSettingOf20 = VHT_DATA_SC_20_LOWEST_OF_80MHZ;
--		else if (
--			(pHalData->nCur40MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER) &&
--			(pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER)
--		)
--			SCSettingOf20 = VHT_DATA_SC_20_LOWER_OF_80MHZ;
--		else if (
--			(pHalData->nCur40MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER) &&
--			(pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER)
--		)
--			SCSettingOf20 = VHT_DATA_SC_20_UPPER_OF_80MHZ;
--		else if (
--			(pHalData->nCur40MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER) &&
--			(pHalData->nCur80MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER)
--		)
--			SCSettingOf20 = VHT_DATA_SC_20_UPPERST_OF_80MHZ;
--		else
--			RT_TRACE(_module_hal_init_c_, _drv_err_, ("SCMapping: Not Correct Primary40MHz Setting\n"));
--	} else if (pHalData->CurrentChannelBW == CHANNEL_WIDTH_40) {
-+	if (pHalData->CurrentChannelBW == CHANNEL_WIDTH_40) {
- 		RT_TRACE(
- 			_module_hal_init_c_,
- 			_drv_info_,
-@@ -752,6 +707,7 @@ static u8 phy_GetSecondaryChnl_8723B(struct adapter *Adapter)
- 			)
- 		);
- 
-+
- 		if (pHalData->nCur40MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_UPPER)
- 			SCSettingOf20 = VHT_DATA_SC_20_UPPER_OF_80MHZ;
- 		else if (pHalData->nCur40MhzPrimeSC == HAL_PRIME_CHNL_OFFSET_LOWER)
-diff --git a/drivers/staging/rtl8723bs/include/drv_types.h b/drivers/staging/rtl8723bs/include/drv_types.h
-index c73f581aea064f..cc13ee47302720 100644
---- a/drivers/staging/rtl8723bs/include/drv_types.h
-+++ b/drivers/staging/rtl8723bs/include/drv_types.h
-@@ -128,9 +128,11 @@ struct registry_priv {
- 	struct wlan_bssid_ex    dev_network;
- 
- 	u8 ht_enable;
--	/*  0: 20 MHz, 1: 40 MHz, 2: 80 MHz, 3: 160MHz */
--	/*  2.4G use bit 0 ~ 3, 5G use bit 4 ~ 7 */
--	/*  0x21 means enable 2.4G 40MHz & 5G 80MHz */
-+	/*
-+	 * 0: 20 MHz, 1: 40 MHz
-+	 * 2.4G use bit 0 ~ 3
-+	 * 0x01 means enable 2.4G 40MHz
-+	 */
- 	u8 bw_mode;
- 	u8 ampdu_enable;/* for tx */
- 	u8 rx_stbc;
-diff --git a/drivers/staging/rtl8723bs/include/rtw_rf.h b/drivers/staging/rtl8723bs/include/rtw_rf.h
-index d3a8e4b7069aff..8304a6304a26e8 100644
---- a/drivers/staging/rtl8723bs/include/rtw_rf.h
-+++ b/drivers/staging/rtl8723bs/include/rtw_rf.h
-@@ -101,10 +101,6 @@ enum RF90_RADIO_PATH {
- enum CHANNEL_WIDTH {
- 	CHANNEL_WIDTH_20 = 0,
- 	CHANNEL_WIDTH_40 = 1,
--	CHANNEL_WIDTH_80 = 2,
--	CHANNEL_WIDTH_160 = 3,
--	CHANNEL_WIDTH_80_80 = 4,
--	CHANNEL_WIDTH_MAX = 5,
+ 	return HT_IOT_PEER_UNKNOWN;
+diff --git a/drivers/staging/rtl8723bs/include/wlan_bssdef.h b/drivers/staging/rtl8723bs/include/wlan_bssdef.h
+index ea370b2bb8db35..4ac3e2d28ca0a9 100644
+--- a/drivers/staging/rtl8723bs/include/wlan_bssdef.h
++++ b/drivers/staging/rtl8723bs/include/wlan_bssdef.h
+@@ -60,14 +60,14 @@ enum NDIS_802_11_NETWORK_INFRASTRUCTURE {
  };
  
- /*  Represent Extension Channel Offset in HT Capabilities */
-diff --git a/drivers/staging/rtl8723bs/os_dep/os_intfs.c b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-index eb0a49ae4b9516..4ce675403d0dc1 100644
---- a/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-+++ b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-@@ -67,10 +67,12 @@ static int rtw_uapsd_acvi_en;
- static int rtw_uapsd_acvo_en;
+ struct ndis_802_11_fix_ie {
+-	u8  Timestamp[8];
+-	u16  BeaconInterval;
+-	u16  Capabilities;
++	u8  time_stamp[8];
++	u16  beacon_interval;
++	u16  capabilities;
+ };
  
- int rtw_ht_enable = 1;
--/*  0: 20 MHz, 1: 40 MHz, 2: 80 MHz, 3: 160MHz, 4: 80+80MHz */
--/*  2.4G use bit 0 ~ 3, 5G use bit 4 ~ 7 */
--/*  0x21 means enable 2.4G 40MHz & 5G 80MHz */
--static int rtw_bw_mode = 0x21;
-+/*
-+ * 0: 20 MHz, 1: 40 MHz
-+ * 2.4G use bit 0 ~ 3
-+ * 0x01 means enable 2.4G 40MHz
-+ */
-+static int rtw_bw_mode = 0x01;
- static int rtw_ampdu_enable = 1;/* for enable tx_ampdu ,0: disable, 0x1:enable (but wifi_spec should be 0), 0x2: force enable (don't care wifi_spec) */
- static int rtw_rx_stbc = 1;/*  0: disable, 1:enable 2.4g */
- static int rtw_ampdu_amsdu;/*  0: disabled, 1:enabled, 2:auto . There is an IOT issu with DLINK DIR-629 when the flag turn on */
+ struct ndis_80211_var_ie {
+-	u8  ElementID;
+-	u8  Length;
++	u8  element_id;
++	u8  length;
+ 	u8  data[1];
+ };
+ 
 -- 
 2.53.0
 
