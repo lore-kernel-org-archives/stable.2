@@ -1,215 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE5942BC50
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 00:17:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CBD42BC44
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 00:17:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784074674; cv=none; b=BHEslgjRxhvA6eLI/ywefh+XphahNUdoqFgO9EVzkSWqZqDu+lJyRUrocEt7bTw2CyJWEs878bpYMq/tvZM6Y8Wyv40tUIO6S93bX5Nd6h64vzYFVc3eY1DjL+sBKAi4ppT+M0T/0MCFdiazuTKM+eX+WD2MbI3597zOoohkA0g=
+	t=1784074679; cv=none; b=cxOWBxahfHkhdJCq0NUtyBrHs0qaXtBfPonN+LtX9d/7OGTI8n66pJHLFULJlc2u7ZE64uqy/ymYNXGZnI+CK/islBAyB4gQLiiutmS6ySneq4Li/TYJHLsVRi/UOjFX9tqhCm036zO/NZ83pJgMeBNWXCU/rIkp4DEEmq9aBz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784074674; c=relaxed/simple;
-	bh=JT/AqSPl07c34mX3dyp4Q56wgUe/sk7D/Pv1cLKCcjI=;
+	s=arc-20240116; t=1784074679; c=relaxed/simple;
+	bh=nMeRujv2M96Z4i+CcrXnCyD52IUW5vDvXAFyIglWrfE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HTTkr9yDbiGl08+YGlFdi0dBHdhzhtOMQe2RFy69DiQ0ImlGNBesvDdHbwDtD/BN2fPYOaecTRGxycX87jdiZNWsINNFkVWgPOX2bt5e1AA3PKlY1nPPNOjBYw3BpQEV6VRtcxX51clDk/gGHZvIftIbbZPDlSxWibVNUqEMIw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMpOJfXH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=hgnw9F2+wAqU5iVvS6I5iV68Moex3h3RR6hXBs+O6VKv/G4HKiUSY1CGZtVt1VEQZEcolk+KeilioPHm1ELY2Vwea15dAMp5Lywu08hdhG2OEeae8uUpKMdzxsaOcLxHk9cw5aOZrPL/362LoM/QwLR6XvTpvOjIMkpKe6wOd94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HLtfW5QW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMpOJfXH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870C41F00A3F;
-	Wed, 15 Jul 2026 00:17:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HLtfW5QW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A28C41F000E9;
+	Wed, 15 Jul 2026 00:17:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784074673;
-	bh=KaFtyN0nibJ6yaBJCOkr9wv18N9TkYk70jrYKWixv3U=;
+	s=k20260515; t=1784074678;
+	bh=mTfXuak47zwMuvrNkoKoqa/ivtT878VcpFa/gqBR/B4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JMpOJfXHtDHaOasiJF1wTOxZ6NBrNd09E0Pq2tTUZgERoQhXlY0sEZGvyZzGmA5/T
-	 Vh/VahJYUXyKAVOTifApRhjUdc1kvaGe0Yrm8rEtHFopykdm3dEtrEx2w1gvA2pgIo
-	 wtw+rgaPaB+WEg7gI0q1eCAjYuRbpHnSco2pPKfIErA9fo3SLaAPd11z8ztezW9ZnI
-	 TwVu8213TzosDgAkssHqjfPqnPW24k/ar5/t4Tfb1/1Lu+1r0IEOHaYjxxluyhuFPa
-	 QAtWxYlnE1X694BuIZXxumJfLGNXTtUlsF8yyzxDQyMU0lBGY9oYvgDVXijX+c/YFQ
-	 wW/TYNMmwPFCw==
+	b=HLtfW5QWp4BBkIEBw3A8fhpkcw/RzQ2su670lGvSTPaNyvAdtviZ5G+7r22FdmvLJ
+	 K21xkl8tjGyUsk/1wiBTTIJ3ql/+tZ2/ibWUD6syAdqWfWI7CTa1PlzYQUKgHj+RvV
+	 ZZqq4CakXHfMN086IkzqeHL8lgKAxBLNXwUf992j/Izy/HaOz+xWaVDjuuLyXbAc1U
+	 K/kr91yXOKqggvk4jbcaGPPcppcTcpdJl83bJtqTRtPUFeQ37DfB878woSKlh8c3+n
+	 cyEnhFkgxA/Bc2ZpN1/29ozOfsqdvoZHi0GV0UvqytdsYAQxZGq36fWqrT1oBloBnn
+	 YANe89GaCNDNA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Caleb James DeLisle <cjd@cjdns.fr>,
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Simon Richter <Simon.Richter@hogyros.de>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] PCI: mediatek: Fix IRQ domain leak when port fails to enable
-Date: Tue, 14 Jul 2026 20:17:49 -0400
-Message-ID: <20260715001749.3783652-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/6] PCI: Prevent resource tree corruption when BAR resize fails
+Date: Tue, 14 Jul 2026 20:17:51 -0400
+Message-ID: <20260715001756.3783927-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260715001749.3783652-1-sashal@kernel.org>
-References: <2026071326-broker-ignition-4f69@gregkh>
- <20260715001749.3783652-1-sashal@kernel.org>
+In-Reply-To: <2026071305-gulp-reenter-fa22@gregkh>
+References: <2026071305-gulp-reenter-fa22@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+From: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-[ Upstream commit f865a57896bd92d7662eb2818d8f48872e2cbbc7 ]
+[ Upstream commit 91c4c89db41499eea1b29c56655f79c3bae66e93 ]
 
-When mtk_pcie_enable_port() fails, mtk_pcie_port_free() removes the port
-from pcie->ports and frees the port structure. However, the IRQ domains set
-up earlier by mtk_pcie_init_irq_domain() are never freed.
+pbus_reassign_bridge_resources() saves bridge windows into the saved
+list before attempting to adjust resource assignments to perform a BAR
+resize operation. If resource adjustments cannot be completed fully,
+rollback is attempted by restoring the resource from the saved list.
 
-Fix this by refactoring mtk_pcie_irq_teardown() into a per-port helper,
-mtk_pcie_irq_teardown_port(), and calling it from mtk_pcie_setup() when
-mtk_pcie_enable_port() fails. Since the IRQ teardown must only happen in
-the probe error path (during resume, child devices may have active MSI
-mappings and the NOIRQ context prohibits sleeping locks),
-mtk_pcie_enable_port() is changed to return an error code so callers can
-distinguish the two paths and act accordingly.
+The rollback, however, does not check whether the resources it restores were
+assigned by the partial resize attempt. If restore changes addresses of the
+resource, it can result in corrupting the resource tree.
 
-This issue was reported by Sashiko while reviewing the EcoNet EN7528 SoC
-support series.
+An example of a corrupted resource tree with overlapping addresses:
 
-Fixes: b099631df160 ("PCI: mediatek: Add controller support for MT2712 and MT7622")
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
-Cc: stable@vger.kernel.org # 5.10
-Cc: Caleb James DeLisle <cjd@cjdns.fr>
-Link: https://patch.msgid.link/20260521174617.17692-1-mani@kernel.org
+  6200000000000-6203fbfffffff : pciex@620c3c0000000
+    6200000000000-6203fbff0ffff : PCI Bus 0030:01
+      6200020000000-62000207fffff : 0030:01:00.0
+      6200000000000-6203fbff0ffff : PCI Bus 0030:02
+
+A resource that are assigned into the resource tree must remain
+unchanged. Thus, release such a resource before attempting to restore
+and claim it back.
+
+For simplicity, always do the release and claim back for the resource
+even in the cases where it is restored to the same address range.
+
+Note: this fix may "break" some cases where devices "worked" because
+the resource tree corruption allowed address space double counting to
+fit more resource than what can now be assigned without double
+counting. The upcoming changes to BAR resizing should address those
+scenarios (to the extent possible).
+
+Fixes: 8bb705e3e79d ("PCI: Add pci_resize_resource() for resizing BARs")
+Reported-by: Simon Richter <Simon.Richter@hogyros.de>
+Link: https://lore.kernel.org/linux-pci/67840a16-99b4-4d8c-9b5c-4721ab0970a2@hogyros.de/
+Reported-by: Alex Bennée <alex.bennee@linaro.org>
+Link: https://lore.kernel.org/linux-pci/874irqop6b.fsf@draig.linaro.org/
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Tested-by: Alex Bennée <alex.bennee@linaro.org> # AVA, AMD GPU
+Link: https://patch.msgid.link/20251113162628.5946-2-ilpo.jarvinen@linux.intel.com
+Stable-dep-of: ee7471fe968d ("PCI: Skip Resizable BAR restore on read error")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/controller/pcie-mediatek.c | 67 ++++++++++++++++----------
- 1 file changed, 42 insertions(+), 25 deletions(-)
+ drivers/pci/setup-bus.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
-index 497ce8d333be95..341c5226e14d6c 100644
---- a/drivers/pci/controller/pcie-mediatek.c
-+++ b/drivers/pci/controller/pcie-mediatek.c
-@@ -544,25 +544,29 @@ static void mtk_pcie_enable_msi(struct mtk_pcie_port *port)
- 	writel(val, port->base + PCIE_INT_MASK);
- }
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index d07c1d9ed0620c..569f1e27a07807 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2312,6 +2312,11 @@ int pci_reassign_bridge_resources(struct pci_dev *bridge, unsigned long type)
+ 		bridge = dev_res->dev;
+ 		i = res - bridge->resource;
  
--static void mtk_pcie_irq_teardown(struct mtk_pcie *pcie)
-+static void mtk_pcie_irq_teardown_port(struct mtk_pcie_port *port)
- {
--	struct mtk_pcie_port *port, *tmp;
-+	irq_set_chained_handler_and_data(port->irq, NULL, NULL);
- 
--	list_for_each_entry_safe(port, tmp, &pcie->ports, list) {
--		irq_set_chained_handler_and_data(port->irq, NULL, NULL);
-+	if (port->irq_domain)
-+		irq_domain_remove(port->irq_domain);
- 
--		if (port->irq_domain)
--			irq_domain_remove(port->irq_domain);
-+	if (IS_ENABLED(CONFIG_PCI_MSI)) {
-+		if (port->msi_domain)
-+			irq_domain_remove(port->msi_domain);
-+		if (port->inner_domain)
-+			irq_domain_remove(port->inner_domain);
-+	}
- 
--		if (IS_ENABLED(CONFIG_PCI_MSI)) {
--			if (port->msi_domain)
--				irq_domain_remove(port->msi_domain);
--			if (port->inner_domain)
--				irq_domain_remove(port->inner_domain);
--		}
-+	irq_dispose_mapping(port->irq);
-+}
- 
--		irq_dispose_mapping(port->irq);
--	}
-+static void mtk_pcie_irq_teardown(struct mtk_pcie *pcie)
-+{
-+	struct mtk_pcie_port *port, *tmp;
-+
-+	list_for_each_entry_safe(port, tmp, &pcie->ports, list)
-+		mtk_pcie_irq_teardown_port(port);
- }
- 
- static int mtk_pcie_intx_map(struct irq_domain *domain, unsigned int irq,
-@@ -843,7 +847,7 @@ static int mtk_pcie_startup_port(struct mtk_pcie_port *port)
- 	return 0;
- }
- 
--static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
-+static int mtk_pcie_enable_port(struct mtk_pcie_port *port)
- {
- 	struct mtk_pcie *pcie = port->pcie;
- 	struct device *dev = pcie->dev;
-@@ -852,7 +856,7 @@ static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
- 	err = clk_prepare_enable(port->sys_ck);
- 	if (err) {
- 		dev_err(dev, "failed to enable sys_ck%d clock\n", port->slot);
--		goto err_sys_clk;
-+		return err;
- 	}
- 
- 	err = clk_prepare_enable(port->ahb_ck);
-@@ -900,11 +904,15 @@ static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
- 		goto err_phy_on;
- 	}
- 
--	if (!pcie->soc->startup(port))
--		return;
-+	err = pcie->soc->startup(port);
-+	if (err) {
-+		dev_info(dev, "Port%d link down\n", port->slot);
-+		goto err_soc_startup;
-+	}
- 
--	dev_info(dev, "Port%d link down\n", port->slot);
-+	return 0;
- 
-+err_soc_startup:
- 	phy_power_off(port->phy);
- err_phy_on:
- 	phy_exit(port->phy);
-@@ -920,8 +928,8 @@ static void mtk_pcie_enable_port(struct mtk_pcie_port *port)
- 	clk_disable_unprepare(port->ahb_ck);
- err_ahb_clk:
- 	clk_disable_unprepare(port->sys_ck);
--err_sys_clk:
--	mtk_pcie_port_free(port);
-+
-+	return err;
- }
- 
- static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
-@@ -1089,8 +1097,13 @@ static int mtk_pcie_setup(struct mtk_pcie *pcie)
- 		return err;
- 
- 	/* enable each port, and then check link status */
--	list_for_each_entry_safe(port, tmp, &pcie->ports, list)
--		mtk_pcie_enable_port(port);
-+	list_for_each_entry_safe(port, tmp, &pcie->ports, list) {
-+		err = mtk_pcie_enable_port(port);
-+		if (err) {
-+			mtk_pcie_irq_teardown_port(port);
-+			mtk_pcie_port_free(port);
++		if (res->parent) {
++			release_child_resources(res);
++			pci_release_resource(bridge, i);
 +		}
-+	}
- 
- 	/* power down PCIe subsys if slots are all empty (link down) */
- 	if (list_empty(&pcie->ports))
-@@ -1194,14 +1207,18 @@ static int __maybe_unused mtk_pcie_resume_noirq(struct device *dev)
- {
- 	struct mtk_pcie *pcie = dev_get_drvdata(dev);
- 	struct mtk_pcie_port *port, *tmp;
-+	int err;
- 
- 	if (list_empty(&pcie->ports))
- 		return 0;
- 
- 	clk_prepare_enable(pcie->free_ck);
- 
--	list_for_each_entry_safe(port, tmp, &pcie->ports, list)
--		mtk_pcie_enable_port(port);
-+	list_for_each_entry_safe(port, tmp, &pcie->ports, list) {
-+		err = mtk_pcie_enable_port(port);
-+		if (err)
-+			mtk_pcie_port_free(port);
-+	}
- 
- 	/* In case of EP was removed while system suspend. */
- 	if (list_empty(&pcie->ports))
++
+ 		res->start = dev_res->start;
+ 		res->end = dev_res->end;
+ 		res->flags = dev_res->flags;
 -- 
 2.53.0
 
