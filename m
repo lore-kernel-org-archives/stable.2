@@ -1,36 +1,37 @@
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56458420492
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 13:10:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEF842047B
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 13:10:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784121051; cv=none; b=X6EXREXL8l7CZ3a26kA0v5evu07FZQmeIzaaKi+iJRmhcYY+9dRDKnE3TxZaxFR6zKNJOeA2MJcTdqL6TKaHeVm3mZ4Sm8fGVaZRICXmGIXYldTpKp3II65kRXZvn5HYsP+bE4cZshlm1UfaRG/66nLjvqAoOSnoxKRzk7uGSak=
+	t=1784121060; cv=none; b=faECXmklowZ6Fxl1cDYqoK2UgSojS9QJnjYZb0++cYvFc5XfuKV7UelF/uAfTGu5kR+j6pmmv0jNR/f6bXJhkmDHw5vlR8/pG6OD6T4FwNIbUjhe3NxK2YCohMcR4mVuKnbyp2yv8N2ZSVg6eXb4ffqyymFUHYRP1JZ+XamL3i8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784121051; c=relaxed/simple;
-	bh=WcNy8O4O9bQxkht4n0NcJM/yMIueXNQAgArqQj+MtEE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fDxU4j+a7gux7HP9gtr7sz+W1IwGMtBZFLGT+7REFXLLAvhZp+WMkPVvBdtCKF8xUbt40uEq+1ALTRj1BKU38czQ3KKF+WLTtvhgB/am+5qZXGIJCTMq+QhhwQFF07xd4OL5rGEHgWZTHH5ug/f8OIHIT1Ib65/WkZL1NEI1OVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=WtBkCRrf; arc=none smtp.client-ip=185.70.43.172
+	s=arc-20240116; t=1784121060; c=relaxed/simple;
+	bh=IYOu9ByE0D3xpXZcX73ITGOqwyqENpPSB8q5qtN4R8c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fu/BVZqGQa9RyCFgQoiVMX3kfEw/OSwXjxa5+IYYv2jEXY1BF9+PkaLFHXaYDeejHICRBgXZ6gMA5F81QaxI93puVyce5TBN1JPtpF0J1kxadMtJFy5LGPoxnBdCEILHMIHDuQCj9itQqPdCTjMkdRGxR6oVn36jR12kmI7fWfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=zA0J6HyX; arc=none smtp.client-ip=79.135.106.112
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="WtBkCRrf"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="zA0J6HyX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784121045; x=1784380245;
-	bh=Sgz64eBHHq6rGPJcYzXSIl/9hS6fZrrjKKEshm3RTKM=;
-	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=WtBkCRrflJM4Jx4pxo42/3TKgOzPAt0RWQxfWcTvaR55AkpNSH0nbNQi1Oy9yI1rv
-	 5wab/prRst/wXdF7Z+y6ewULViP1i1uOiEGBTssSxs7gU+Zt4uyM97hFPQ50v9XSBS
-	 XTUIlOdoabcIA73SNfdpg0CZda+hiJjhZ8mX/D/ZLcwOe3KMw53kQngbELy1WfCU/p
-	 3rCNPd4yWSNDuaJnzfoD8LV34AQ8fZkBsO8ZWybW9MIX/btx4+6GPR45X/IA/xEMEO
-	 to7U3L6oWQazjgqOLhOOCRDJbgUJRtlZs4A4Pp/nkdoDY8+mK0A6kAnQx6dAYH08nj
-	 pX0KbTsuxSn0Q==
-X-Pm-Submission-Id: 4h0c422Z6Hz1DFF5
+	s=protonmail3; t=1784121051; x=1784380251;
+	bh=elEs6/r/QIGvt1rTdXTRifT6XlSg+OzMcAQsqVPf6ek=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=zA0J6HyXe+nF4sWhMD5uor/rb7+DpumqiDB3r0BDtpIo1xHNWvPVGP10d/C/J1WoL
+	 D+r8ZrG67zMVoX4UBbkeoMBwAjxpM9WAFIUX9CrOAtdaC5czD9MQN4sqaMYXggUEY4
+	 6+RG3W4BB72zL4jH8Hg+Mj4hgb1pKvEuU7OzGuys6yCQTFRyRA0mVytZNw6fVpU59I
+	 Pm5y6B14EojXFMhQQKo7Acp/ohlr0uBG7avDiBdqVTGvYM49Lr0VSYljgEAF7X9Xhu
+	 0n8g659f/obYWC1u9dw4e3rEdA5OR5AG5U0z2fpGwAwXRxwU1u0Qlp6CKDlCaq/MOj
+	 NlGF/2A5nWaPA==
+X-Pm-Submission-Id: 4h0c4573PPz1DDL5
 From: Esben Haabendal <esben@geanix.com>
-Subject: [PATCH v2 0/3] drm/bridge: ti-sn65dsi83: Various fixes
-Date: Wed, 15 Jul 2026 15:10:30 +0200
-Message-Id: <20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com>
+Date: Wed, 15 Jul 2026 15:10:31 +0200
+Subject: [PATCH v2 1/3] drm/bridge: ti-sn65dsi83: Fix problem with
+ premature PLL locking
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,11 +40,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NTQ6CMBBGr0JmbU1bBKor72FY0HaEMbGQDhIM4
- e4WjDuXL9/PW4AxEjJcsgUiTsTUhwT6kIHrmtCiIJ8YtNSlrJQUIwkOZeGZTC7uNCML5aVB2bi
- ysjmk4RBxD9LuVn+ZX/aBbtyetkZHPPbxvVsntfV+AvVPMCkhhTcF2iI/aXs21xabQPPR9U+o1
- 3X9AB6qclzHAAAA
-X-Change-ID: 20260710-ti-sn65dsi83-fixes-1d08e0ac67b3
+Message-Id: <20260715-ti-sn65dsi83-fixes-v2-1-ebc4c3fe29b6@geanix.com>
+References: <20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com>
+In-Reply-To: <20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -57,62 +56,113 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784121041; l=2057;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784121041; l=3546;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=WcNy8O4O9bQxkht4n0NcJM/yMIueXNQAgArqQj+MtEE=;
- b=rIIUHcCBuLRWQQHBYe6XMBSX/TUT1nC0qLrhZu/URcwnXOpT8oTmYfZfURb2iPCEAD78nZk0c
- Y2PK6P4Yj1cC4dbazDMXcuY1L/n7F5HAvMchm6o5OiDldNHa4XBlPpn
+ bh=IYOu9ByE0D3xpXZcX73ITGOqwyqENpPSB8q5qtN4R8c=;
+ b=x5qV3xl8KnTmqhftnOukNeNC3aRoGFMiTHpo57aJRd6b81UH8RbcAgh6YMUFuo4bsaDIt7Pc4
+ iCz5SC6kfVWD5rvZQJeWTlqhdM4Fb3xZ8aprr9grwq5Mto83x1pJmAz
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-This small series adds support for using SN65DSI84 in single-link mode with
-output to LVDS channel B, and provides a fix for a PLL locking issue.
+Locking PLL requires the DSI HS clock to be running, which it might not be
+in probe(), but should be in atomic_enable().
 
+This resolves issues like this:
+
+sn65dsi83 1-002c: failed to lock PLL, ret=-110
+sn65dsi83 1-002c: Unexpected link status 0x01
+sn65dsi83 1-002c: Unexpected link status 0x01
+sn65dsi83 1-002c: reset the pipe
+
+as seen with nwl-dsi bridge and others.
+
+This is the same issue as addressed in the patch by Gary Bisson [1],
+but changing the ti-sn65dsi83 driver instead, so we don't have to change
+all other drivers that could potentially be used with this chip.
+
+[1] https://lore.kernel.org/all/20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com/
+
+Fixes: ceb515ba29ba ("drm/bridge: ti-sn65dsi83: Add TI SN65DSI83 and SN65DSI84 driver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
-Changes in v2:
-- Fix error handling in sn65dsi83_atomic_enable() to ensure
-  drm_brige_exit() is always called on exit.
-- Change logging level from warn to dbg for two messages in
-  sn65dsi83_parse_dt().
-- Removed trailing dot in comment lines.
-- Added patch with fix so that DRM bridge critical section is exited on
-  error in sn65dsi83_reset_work().
-- Added Fixes and Cc: stable tags to the premature PLL patch.
-- Re-ordered patch so fixes comes first.
-- Link to v1: https://patch.msgid.link/20260711-ti-sn65dsi83-fixes-v1-0-d85eb5342b98@geanix.com
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 31 +++++++++++++++----------------
+ 1 file changed, 15 insertions(+), 16 deletions(-)
 
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Linus Walleij <linusw@kernel.org>
-To: Frieder Schrempf <frieder.schrempf@kontron.de>
-To: Marek Vasut <marex@denx.de>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index 42b451432bbb..b4b220eee790 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -530,7 +530,6 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
+ 	bool test_pattern = sn65dsi83_test_pattern;
+ 	bool lvds_format_24bpp;
+ 	bool lvds_format_jeida;
+-	unsigned int pval;
+ 	__le16 le16val;
+ 	u16 val;
+ 	int ret;
+@@ -680,26 +679,12 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
+ 	regmap_write(ctx->regmap, REG_VID_CHA_TEST_PATTERN,
+ 		     test_pattern ? REG_VID_CHA_TEST_PATTERN_EN : 0);
+ 
+-	/* Enable PLL */
+-	regmap_write(ctx->regmap, REG_RC_PLL_EN, REG_RC_PLL_EN_PLL_EN);
+-	usleep_range(3000, 4000);
+-	ret = regmap_read_poll_timeout(ctx->regmap, REG_RC_LVDS_PLL, pval,
+-				       pval & REG_RC_LVDS_PLL_PLL_EN_STAT,
+-				       1000, 100000);
+-	if (ret) {
+-		dev_err(ctx->dev, "failed to lock PLL, ret=%i\n", ret);
+-		/* On failure, disable PLL again and exit. */
+-		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
+-		goto err_add_action;
+-	}
+-
+ 	/* Trigger reset after CSR register update. */
+ 	regmap_write(ctx->regmap, REG_RC_RESET, REG_RC_RESET_SOFT_RESET);
+ 
+ 	/* Wait for 10ms after soft reset as specified in datasheet */
+ 	usleep_range(10000, 12000);
+ 
+-err_add_action:
+ 	devm_add_action(ctx->dev, sn65dsi83_release_resources, ctx);
+ err_exit:
+ 	drm_bridge_exit(idx);
+@@ -710,11 +695,24 @@ static void sn65dsi83_atomic_enable(struct drm_bridge *bridge,
+ {
+ 	struct sn65dsi83 *ctx = bridge_to_sn65dsi83(bridge);
+ 	unsigned int pval;
+-	int idx;
++	int idx, ret;
+ 
+ 	if (!drm_bridge_enter(bridge, &idx))
+ 		return;
+ 
++	/* Enable PLL */
++	regmap_write(ctx->regmap, REG_RC_PLL_EN, REG_RC_PLL_EN_PLL_EN);
++	usleep_range(3000, 4000);
++	ret = regmap_read_poll_timeout(ctx->regmap, REG_RC_LVDS_PLL, pval,
++				       pval & REG_RC_LVDS_PLL_PLL_EN_STAT,
++				       1000, 100000);
++	if (ret) {
++		dev_err(ctx->dev, "failed to lock PLL, ret=%i\n", ret);
++		/* On failure, disable PLL again and exit. */
++		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
++		goto err_exit;
++	}
++
+ 	/* Clear all errors that got asserted during initialization. */
+ 	regmap_read(ctx->regmap, REG_IRQ_STAT, &pval);
+ 	regmap_write(ctx->regmap, REG_IRQ_STAT, pval);
+@@ -734,6 +732,7 @@ static void sn65dsi83_atomic_enable(struct drm_bridge *bridge,
+ 		sn65dsi83_monitor_start(ctx);
+ 	}
+ 
++err_exit:
+ 	drm_bridge_exit(idx);
+ }
+ 
 
----
-Esben Haabendal (3):
-      drm/bridge: ti-sn65dsi83: Fix problem with premature PLL locking
-      drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
-      drm/bridge: ti-sn65dsi83: Support LVDS Channel B on SN65DSI84
-
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 68 ++++++++++++++++++++---------------
- 1 file changed, 40 insertions(+), 28 deletions(-)
----
-base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
-change-id: 20260710-ti-sn65dsi83-fixes-1d08e0ac67b3
-
-Best regards,
---  
-Esben Haabendal <esben@geanix.com>
+-- 
+2.55.0
 
