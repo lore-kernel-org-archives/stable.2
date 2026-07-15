@@ -1,155 +1,170 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB17C47AF60
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 12:52:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEC140EB94;
+	Wed, 15 Jul 2026 12:59:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784119960; cv=none; b=OCvmojiDVLlhEKDmLSoN889QU5W8orx24bnnnUcXo0++s4DBWoI/fUS3RJTyVFiafh41LDziwKIORsWztQexGcQzNl/DW4Uxzh/Mjz/xCCKtMZd+OY5WG2F6uEmjr5rGveOSuvJCrRl7T61UrbBLi+rd5sDGHTfoIJqP3s7PZh4=
+	t=1784120400; cv=none; b=sZzFazWZB4E40uTanGG0MJ/Hx/9gamlMia7U1D4LBVe51cMyolyc3lwuL3Iv1ueV7YQHwO7T69x+kS3NtrM7SeFLBcS5V/kO8Msg+rl5G2xVmB9hKLPEpEmefGz04ElVvCVoYOh1ebut+3snjpmVLprV1xck97MCLRrcrdyeU/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784119960; c=relaxed/simple;
-	bh=QR1KtJH/AH6+jz+caLP1dhCtq9vx6yxL661RggMN8hI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=MJHKpdUZd/H3QoTRR8Cp4wF79I7VToyd1RjV2ymQHGrcy6SL1rcgUCdarNjHwm4xWv+HBUfm2blk6GfYOFiZX2fQRNOl1xpSpUO5RhkuBIY98HyyoOSWKn11+GYB4CA8MjtY7PnpQQyd1SHxewwQH+mp+Bcyu2Y3hK4zZ2SQDko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=R/vbPxIp; arc=none smtp.client-ip=203.254.224.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1784120400; c=relaxed/simple;
+	bh=w8aJWrF1Nf/0ERxnBiNWFSlFyI2NJKQoDJmBc7nBkSw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h2QUZA3YTTVRlf+uxyMxmNTqe1RPqhAnz+JAwnwPO4brdipCOkxZgiqqslNKWhhzB2cYFkNsOUYlO4/JpM7Q1EmKcbSE+A6H0DNMzJ8eAB4ywCX2THAfcm6kDS6IlkBTv4NgRcdZsP40qAE6W3+Z/Qu8HVnlnKjb9d1iRpbtRI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DeRW5bV/; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="R/vbPxIp"
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260715125229epoutp03d465aa836d8c5c113fd970b0dc77a1e3~Cd6QxPxmm2272222722epoutp03V
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 12:52:29 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260715125229epoutp03d465aa836d8c5c113fd970b0dc77a1e3~Cd6QxPxmm2272222722epoutp03V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1784119949;
-	bh=LnBlRGw+TZzG5V+xrdi5GyO/+gof+1IbI18UxfdZhx0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=R/vbPxIpyNCmo1xeYqjGuD25C+YBVIibaf9Hm6+BxCI/Q4bFECLtPOkjD8/P7z40B
-	 jFhrzDpi/HX96WJVx8I3OTbr+4Fu0v2MB190XYg9TmWfemS3V1n5UVVdoFipXtvn87
-	 L1LzCifAiOVEMhSMqZbfqyZ6q1tzwvJAoVrpr7+0=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260715125229epcas5p17bc009d6a530e4e0d56a91f725b0230a~Cd6QdmqTV2575225752epcas5p1Q;
-	Wed, 15 Jul 2026 12:52:29 +0000 (GMT)
-Received: from epcas5p1.samsung.com (unknown [182.195.38.89]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4h0bg035WJz2SSKX; Wed, 15 Jul
-	2026 12:52:28 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260715125228epcas5p294ba6f5661bb690be77247e881c031c0~Cd6Pci_Q30435504355epcas5p2f;
-	Wed, 15 Jul 2026 12:52:28 +0000 (GMT)
-Received: from INBRO002811.samsungds.net (unknown [107.122.5.126]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260715125227epsmtip141ff12e6f3ec6abb86b8452d7f8cb17d~Cd6O48Jmc1978619786epsmtip1A;
-	Wed, 15 Jul 2026 12:52:27 +0000 (GMT)
-From: Shashank A P <shashank.ap@samsung.com>
-To: stable@vger.kernel.org
-Cc: Shashank A P <shashank.ap@samsung.com>, Jan Kara <jack@suse.cz>
-Subject: [PATCH 6.1.y] fs: quota: create dedicated workqueue for
- quota_release_work
-Date: Wed, 15 Jul 2026 18:21:37 +0530
-Message-ID: <20260715125138.668-1-shashank.ap@samsung.com>
-X-Mailer: git-send-email 2.46.0.windows.1
-In-Reply-To: <2025101651-arrive-frail-3c0f@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DeRW5bV/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784120397; x=1815656397;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=w8aJWrF1Nf/0ERxnBiNWFSlFyI2NJKQoDJmBc7nBkSw=;
+  b=DeRW5bV/loXMAhtE2eFeBTOsYIxpk1SxY0sQ+M3uYXL9mJwcenXnn1sZ
+   i38Mp6/N1VdX6kc+0whFyrr1HMFws5GZRP+K3EOyki5MRuYZ0ku8iNDTA
+   TzlRH41Y1FRF6B3Qh3NXeUo8VV/G6XstgxDgIAuu2L6ZJzCQJg3aNn/Ma
+   pNGYVyfX5M3OvjU9exFsxh7nCLpuIMnbKmfvWOUBI7p0Pa9UY+fnQkTFc
+   9tWr7jh9w4hI4rKWiMiW6swGJl+b8/bl0fYwtGDcKpvauDpAM0dnh/pcn
+   22Hoay0qF/ergR56UZuOCWF8EzH3/QVkw+hfV9BNXDY17iwBgyiwxTnxx
+   g==;
+X-CSE-ConnectionGUID: TtrXWyg7RVu1JbnhwEfTWQ==
+X-CSE-MsgGUID: wg2f+RqWSvmIgsxKtktqbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84638190"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="84638190"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 05:59:55 -0700
+X-CSE-ConnectionGUID: s84493LkQq+LsPWRT/uq7Q==
+X-CSE-MsgGUID: x0BNHSheR9K3oRoK8oP2iw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="286246387"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa002.jf.intel.com with ESMTP; 15 Jul 2026 05:59:52 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 0ACD795; Wed, 15 Jul 2026 14:59:51 +0200 (CEST)
+Date: Wed, 15 Jul 2026 15:59:49 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Ramesh Babu B <ramesh.babu.b@intel.com>,
+	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
+	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] drm/xe/i2c: Fix the interrupt handling
+Message-ID: <aleEReNBnQMy3-1E@kuha>
+References: <20260713155601.711389-1-heikki.krogerus@linux.intel.com>
+ <20260713155601.711389-3-heikki.krogerus@linux.intel.com>
+ <alcoDtq2aul-tA_h@black.igk.intel.com>
+ <aldYjL2pxA7QxoLN@kuha>
+ <ald1HG6KzjWb9CUK@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260715125228epcas5p294ba6f5661bb690be77247e881c031c0
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260715125228epcas5p294ba6f5661bb690be77247e881c031c0
-References: <2025101651-arrive-frail-3c0f@gregkh>
-	<CGME20260715125228epcas5p294ba6f5661bb690be77247e881c031c0@epcas5p2.samsung.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ald1HG6KzjWb9CUK@black.igk.intel.com>
 
-There is a kernel panic due to WARN_ONCE when panic_on_warn is set.
+Hi Raag,
 
-This issue occurs when writeback is triggered due to sync call for an
-opened file(ie, writeback reason is WB_REASON_SYNC). When f2fs balance
-is needed at sync path, flush for quota_release_work is triggered.
-By default quota_release_work is queued to "events_unbound" queue which
-does not have WQ_MEM_RECLAIM flag. During f2fs balance "writeback"
-workqueue tries to flush quota_release_work causing kernel panic due to
-MEM_RECLAIM flag mismatch errors.
+On Wed, Jul 15, 2026 at 01:55:08PM +0200, Raag Jadav wrote:
+> On Wed, Jul 15, 2026 at 12:53:16PM +0300, Heikki Krogerus wrote:
+> > On Wed, Jul 15, 2026 at 08:26:22AM +0200, Raag Jadav wrote:
+> > > On Mon, Jul 13, 2026 at 05:56:00PM +0200, Heikki Krogerus wrote:
+> > > > The platforms that support the interrupt from the I2C
+> > > > adapter can not handle the amount of interrupts the adapter
+> > > > generates because of the way the IRQ is routed in the
+> > > > hardware. The I2C controller driver has to be kept in
+> > > > polling mode because of that.
+> > > > 
+> > > > The AMC MCU can still generate critical alerts that have to
+> > > > be handled. The interrupt from SMBus Alert is left enabled
+> > > > and handled separately in the Xe. The alerts from the AMC
+> > > > will cause the device to be declared wedged for now.
+> 
+> ...
+> 
+> > > > +	    memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
+> > > > +		dev_err(&client->dev, "response does not match the request\n");
+> 
+> Forgot add, use drm_*() variants where possible.
 
-This patch creates dedicated workqueue with WQ_MEM_RECLAIM flag
-for work quota_release_work.
+I used deliberately the dev_*() here so I can use the i2c client
+device, which to me feels more appropriate. With drm_*() I would need
+to use the drm device, right?
 
-------------[ cut here ]------------
-WARNING: CPU: 4 PID: 14867 at kernel/workqueue.c:3721 check_flush_dependency+0x13c/0x148
-Call trace:
- check_flush_dependency+0x13c/0x148
- __flush_work+0xd0/0x398
- flush_delayed_work+0x44/0x5c
- dquot_writeback_dquots+0x54/0x318
- f2fs_do_quota_sync+0xb8/0x1a8
- f2fs_write_checkpoint+0x3cc/0x99c
- f2fs_gc+0x190/0x750
- f2fs_balance_fs+0x110/0x168
- f2fs_write_single_data_page+0x474/0x7dc
- f2fs_write_data_pages+0x7d0/0xd0c
- do_writepages+0xe0/0x2f4
- __writeback_single_inode+0x44/0x4ac
- writeback_sb_inodes+0x30c/0x538
- wb_writeback+0xf4/0x440
- wb_workfn+0x128/0x5d4
- process_scheduled_works+0x1c4/0x45c
- worker_thread+0x32c/0x3e8
- kthread+0x11c/0x1b0
- ret_from_fork+0x10/0x20
-Kernel panic - not syncing: kernel: panic_on_warn set ...
+But I can change this if you still prefer the drm_*(). Let me know.
 
-Fixes: ac6f420291b3 ("quota: flush quota_release_work upon quota writeback")
-CC: stable@vger.kernel.org
-Signed-off-by: Shashank A P <shashank.ap@samsung.com>
-Link: https://patch.msgid.link/20250901092905.2115-1-shashank.ap@samsung.com
-Signed-off-by: Jan Kara <jack@suse.cz>
-(cherry picked from commit 72b7ceca857f38a8ca7c5629feffc63769638974)
----
- fs/quota/dquot.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+> > > > +		return;
+> > > > +	}
+> > > > +
+> > > > +	if (response.error) {
+> > > > +		dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
+> 
+> Ditto.
+> 
+> > > > +		return;
+> > > > +	}
+> > > > +
+> > > > +	dev_dbg(&client->dev, "%s: Alert reason: %d\n", __func__, response.value);
+> 
+> Ditto.
+> 
+> > > See below [1].
+> > > 
+> > > > +	switch (response.value) {
+> > > > +	case AMC_ALERT_FW_DOWNLOAD:
+> > > > +	case AMC_ALERT_THERMAL_TRIP:
+> > > > +	case AMC_ALERT_OOB_REQUEST:
+> > > > +	case AMC_ALERT_OOB_RESET:
+> > > > +	case AMC_ALERT_CATERR:
+> > > > +		xe_device_declare_wedged(i2c_client_to_xe_device(client));
+> > > > +		break;
+> > > > +	default:
+> > > > +		break;
+> > > > +	}
+> > > > +}
+> > > 
+> > > ...
+> > > 
+> > > > @@ -181,8 +187,7 @@ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
+> > > >  	if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
+> > > >  		return;
+> > > >  
+> > > > -	/* Forward interrupt to I2C adapter */
+> > > > -	generic_handle_irq_safe(xe->i2c->adapter_irq);
+> > > > +	xe_i2c_handle_smbus_alert(xe->i2c);
+> > > 
+> > > [1] Can we move the below re-assert code to wq now? Or do you suspect any
+> > > side-effects?
+> > 
+> > I think that you know this better than I do. But at this point
+> > interrupt is cleared, so why should we wait for the wq?
+> 
+> When does AMC clear the alert signal? Is it when you query from the wq?
+> If the answer is yes, there's a possibility we might end up with an
+> interrupt storm here.
+> 
+> > To play it safe, can we change this as a followup if necessary?
+> 
+> Sure, I'll leave it to you.
 
-diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
-index 0aa0ed754f2e..f296872efda9 100644
---- a/fs/quota/dquot.c
-+++ b/fs/quota/dquot.c
-@@ -163,6 +163,9 @@ static struct quota_module_name module_names[] = INIT_QUOTA_MODULE_NAMES;
- /* SLAB cache for dquot structures */
- static struct kmem_cache *dquot_cachep;
- 
-+/* workqueue for work quota_release_work*/
-+static struct workqueue_struct *quota_unbound_wq;
-+
- int register_quota_format(struct quota_format_type *fmt)
- {
- 	spin_lock(&dq_list_lock);
-@@ -916,7 +919,7 @@ void dqput(struct dquot *dquot)
- 	put_releasing_dquots(dquot);
- 	atomic_dec(&dquot->dq_count);
- 	spin_unlock(&dq_list_lock);
--	queue_delayed_work(system_unbound_wq, &quota_release_work, 1);
-+	queue_delayed_work(quota_unbound_wq, &quota_release_work, 1);
- }
- EXPORT_SYMBOL(dqput);
- 
-@@ -3091,6 +3094,11 @@ static int __init dquot_init(void)
- 	if (register_shrinker(&dqcache_shrinker, "dquota-cache"))
- 		panic("Cannot register dquot shrinker");
- 
-+	quota_unbound_wq = alloc_workqueue("quota_events_unbound",
-+					   WQ_UNBOUND | WQ_MEM_RECLAIM, WQ_MAX_ACTIVE);
-+	if (!quota_unbound_wq)
-+		panic("Cannot create quota_unbound_wq\n");
-+
- 	return 0;
- }
- fs_initcall(dquot_init);
+I'll move it to the wq. There are no side-effects.
+
+> > > >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
+> > > >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
+
+Thanks,
+
 -- 
-2.34.1
-
+heikki
