@@ -1,156 +1,75 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20052F83A2
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 15:53:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784130790; cv=pass; b=sJD3zvqL5PnI0dKPVxdZE5dBsBBSU5j4x432ST0q/zb9RakXIeJBAIAlNwahw55P3I+VR9twAhM0M/a6XGA3E+otG7VVBtoPRRxf+jozTdjdTiji/sB4q+2bsc7qS/ahEHO9yd6Ap8X45CtF6JsEi9mditYAE/w+qbgvrtFaNZw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784130790; c=relaxed/simple;
-	bh=q6cKBZdpYUeBw2lS1ypmmwqf8CCdyOQyy3KXC5MRLFQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jf7vUG0Q9xksEr+dq+8W0TDwSwtz9UDYjKrMFTcVgcS7Ot7wd/tMMkjpRq9xd97I1p6cHGT215RGFycPwEx0AFDkLYq/aAA+4cNMyqdnnPY24BNucIiOejRTritlezehTpBo7OhH7W3RnkalppHDh5SrFuK4HXP303Q8S3dk4Bk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DOkDxUsf; arc=pass smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DD5392831;
+	Wed, 15 Jul 2026 16:01:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784131264; cv=none; b=m2EX4l1LnFdo2Q3FU//f7vsmvsfd3FcH4kllGAU2w3JByqFa5PdHlFjQ1h7xBVA/kHl85XMDr0Ndto8WIJUZCUuHRUM3u+gLoeUy0A9DrR/3FBN36YujabD5LlAYawuRtXXmaj8kuO3ogJiufdLzDsaWdof1JxJOt7qTFmKvTpU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784131264; c=relaxed/simple;
+	bh=HL7nEZMAAgNcFtaLjWcaPJUNshIHasOvdflE1dWR3p8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Klek8d6p0xOrYNrO5Bm3EnMzBkHzwnwrcSlA31osllXXqprmO7rbgpk/fGGG4Apjb6bLOam1rWgjmDe1uDfubWd8OcMpM3/ApmxFY9jVat6MbzRxS26SOTCITZwkyOLj3E1e5kgfOl4tnLwC3y6B1oYz6DmlqzAsrbbiN0aboSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WdjXiX8Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DOkDxUsf"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47d70879764so3888798f8f.2
-        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 08:53:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784130787; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GrYsq0sLlmQSN5vsfD+EhtBdPLNHRwaFqscR/zaywlsuhUoFrB99DR9oCCWK2ILKYV
-         d56DvtLpXSMoI7AN6CDQHkmTzFUoXO6FO+7D0YglS76PtU8sjeK1Ikw2CVF9K+uqO2Et
-         zzEdSz6bZ6JQqIHiEmUEX8vZnEXqj66RFlze5XCjZi8PGnyq2IrUKldmLjX5A7usegyj
-         2A82RMMPmDCDHWgf021sv6IDygh9SSXtiFEf10MdCSom5nIa3KaOxeLq5lh4Z2kmusUF
-         N00fc6V2TxpOxwHDrDmMbaUx9/K9Oy4AbrhmrQfBUBZO6EM0G2pqL0b6z6rUtLHsXW+z
-         Idqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=q6cKBZdpYUeBw2lS1ypmmwqf8CCdyOQyy3KXC5MRLFQ=;
-        fh=yot06ohHDGxYlj8CjDInwR6x9PQSjVYTA4kD7Qz8yXg=;
-        b=oo90QWneEHmRYK8cphaqLm1R/B3KGSzMxneaGvPX/Q9mQhnsbUo6fCZjmlGzmD9y1x
-         /xTNMi9QRS8Spgo6+Rv1mnTSHuLwMpVuwHjj51q6aNv+v67w4uShXbv/bZ4NGwOflFOY
-         WGIjSr3kbHExq3Xot0k3JT5Ar4bEVtf3dJCQ9j7XP+SgW2qhfeO+AcBiTzeWRQyCs02D
-         b2nbTxK+TZLRsDryuhYqiaVcwQGBqViHKhsxAq58hX7eh3uhaUn7XEe/PMFGtqfDRwWX
-         GNZFiBa0Op0TzugFiPy2EzE06oR4HfjZNk5u8kwvg+hufxoeAGcdvd/yWEJBautgD+sZ
-         MClw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784130787; x=1784735587; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q6cKBZdpYUeBw2lS1ypmmwqf8CCdyOQyy3KXC5MRLFQ=;
-        b=DOkDxUsfNStkip3DrRDrAHdhv5rmX/EjUtCQphl/7Nj/c46xMOLfXg80Ly9foIrrkJ
-         aW4GQ+4y+lVtMM5fIiKMFT5om7Ub/ERiXAwT4/HCqC8r2zGhrP9pevxql+vdHizXfepH
-         eAtGDAr8Z9OI8kr5vvBCQ7lE7IbG9govLgeFAM1NUAZLrloTlSnVAubalL57cqhFfSA5
-         0QPrX7zMvMUgpuwq8rjIYO8S6Zh/wfCDU+qr0lzPdJGH0p/x5sy2qKOa4A1d+D5jASOT
-         IRuqO7FhIdkAFVhCiaqESBvbcjKvGIJy6doCsHGEwgkx99oY2sr57fZF6RdS2KFuc2Cn
-         rflg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784130787; x=1784735587;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q6cKBZdpYUeBw2lS1ypmmwqf8CCdyOQyy3KXC5MRLFQ=;
-        b=eFMljs8GT0nC9r+qnhIBEVMzFXd3zLQIW65La9Bxz0NReUZETKgKAMMveerzqoc+9E
-         mUClJMJnslJl3Mx6Q9kHd3MFm1a7rGKohKCB/l2R422yfhrFQi51zQkUOBUwQOgi1fY6
-         cvRV1VMEIGuHjqrI/xBw+QqeFhz/MtDjMI/L5QehNtvzH9bMxEK3y9JRxVhe2NM1A6lE
-         c6Vwq6pGoJg5HxVl31GvyXwaJdwaMARD7u82XLqOb0WCUcks6bUS66/3aQgYFlyPIcdn
-         XKT9k7xYIqJYkDstQAm0dYaFTKX1FIR3samkSPHT1Xf/1+DsZ/T9yEqv1yOUGwwOhgSh
-         buag==
-X-Forwarded-Encrypted: i=1; AHgh+RodJaWa9edT1thygozJBNp3YESYokNJp3OyeFXxnBWX0J9Tv8sx9qaMG7vAHlrtKzSjL5NWItE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAl5cByxa27G82IOUiw/MzZucn2ojorgqasT01L3hmZDAXgG9H
-	WSpeMsJ51ocGMPB73OiFqRmVFMAm+/ylcZzK3YjIu52hgVXzfkY8BvrmA9IsnCmD+YXBP193v58
-	3Rzb7OOu/tXeBc1kjqIs8Y8FPoekUwQY=
-X-Gm-Gg: AfdE7cnLkukQN7UyFgEHegwkQDWzrVcnyAyWmSs6t2BS7HQNZ5xmLksjAfXfEt4+7Cm
-	UTOy5Y6Lp9K2si5/0mPE83AAy5ZW7xlcBe58QoVoJ2+B9oKLn6bpZ44gyWz7rixAH+Qspr5wh4B
-	h/GEr9rPDiU0AFh9WF9cjZt1n8MI0nBnEy/bbLeOChv5IyfZ2s323BIN/YAOheL+8vFomGNLNxj
-	j/bIgXdhiZWsaJX6z8IJxuv7iViv+30QsMoVNl4MTM+Z0PsZonHANuC1CGL0pQXIgDlUt+K601k
-	nPYZNwBfUWK2NE1Mym4lC3nLgYulFClXvQlRnqIKzOG2S32qxJfFP2saKckJet0=
-X-Received: by 2002:a05:6000:4201:b0:475:e3fe:8ac3 with SMTP id
- ffacd0b85a97d-47f4fca86eemr3714736f8f.8.1784130787042; Wed, 15 Jul 2026
- 08:53:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WdjXiX8Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731011F000E9;
+	Wed, 15 Jul 2026 16:01:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784131262;
+	bh=FqiL/TPz9Zg7B3uOQuWSBDQK8s+wqi1hgVKaOFrfCyU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WdjXiX8ZUR9fbMyqUPf0EmeiJCY0OolHPBzLeXdRu330DwIg/dF+aItKukNIQOq85
+	 PnqcM7zAERCY6Fd+peleXqu3p63m6g5jpzQCQpWcs2jp6pVej2Xy4DReD9gspiDKJ3
+	 Ub8O6t16L5JZVvysLKBYZ9BvBQP6XomBzNSESKYtqGtqJP6wa6OC35Vfo6X2imoau9
+	 LrmEdgkNGVQMjQ0+7wSWeEjYYxvaVL8Md4hd4VFGcA40SELiUuToDrAo2qgjDso8kH
+	 WNs+DcgUaLmyzoYqYhMItCywX9DxCt//7Zbcr3dpqo4LNho3L9QFHkm+kNHjGIId6q
+	 aMpQieX3QxYLw==
+From: Kees Cook <kees@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] fortify: Disable -Wstringop-overread in tests
+Date: Wed, 15 Jul 2026 09:00:53 -0700
+Message-Id: <178413125012.626806.1119650870376955370.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260623-fix-test_fortify-for-clang-stringop-overread-v1-1-15ee8342a953@kernel.org>
+References: <20260623-fix-test_fortify-for-clang-stringop-overread-v1-1-15ee8342a953@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260713175345.2542331-1-joannelkoong@gmail.com>
- <CAJnrk1b9jjvP6a9PaYAiA0HZcJ0_dR_O2aGWPF44T2NNBJC94w@mail.gmail.com>
- <CAJnrk1Zo_j_QY9Q=jft5=fio9mU36uy5LXP3bC4=xO8DbakzrA@mail.gmail.com> <CAOQ4uxg1m0C6suUpoO8hNkgnqEH-APV3BJgzKg2biCEoC6kXVw@mail.gmail.com>
-In-Reply-To: <CAOQ4uxg1m0C6suUpoO8hNkgnqEH-APV3BJgzKg2biCEoC6kXVw@mail.gmail.com>
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Wed, 15 Jul 2026 08:52:55 -0700
-X-Gm-Features: AUfX_myi4_L8KFJGelEiwEMm_-nESlXVjSp_TxBdEh6JNd5VUFZ0yTAoUU0lPks
-Message-ID: <CAJnrk1ZBQQy5pwBQmDwKvumcGkUT5dhtQz=D8FwO-j2LWA-EJA@mail.gmail.com>
-Subject: Re: [PATCH v1 0/2] fuse: fix missing barriers in io-uring init
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: miklos@szeredi.hu, bernd@bsbernd.com, fuse-devel@lists.linux.dev, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 14, 2026 at 4:22=E2=80=AFAM Amir Goldstein <amir73il@gmail.com>=
- wrote:
->
-> On Tue, Jul 14, 2026 at 1:51=E2=80=AFAM Joanne Koong <joannelkoong@gmail.=
-com> wrote:
-> >
-> > On Mon, Jul 13, 2026 at 3:11=E2=80=AFPM Joanne Koong <joannelkoong@gmai=
-l.com> wrote:
-> > >
-> > > On Mon, Jul 13, 2026 at 10:54=E2=80=AFAM Joanne Koong <joannelkoong@g=
-mail.com> wrote:
-> > > >
-> > > > These are two pre-existing issues Sashiko reported [1] on the fuse =
-zerocopy
-> > > > series.
-> > > >
-> > > > [1] https://sashiko.dev/#/patchset/20260630211436.2062816-1-joannel=
-koong%40gmail.com
-> > >
-> > > Sashiko noted some other places that are also missing barriers [1].
-> > > Will send v2 to add these places as well.
-> >
-> > These additional ones aren't real bugs. They're not reachable on a
-> > well-behaved server and on a malicious/buggy server, the failure is
-> > benign / self-correcting.
-> >
-> > I think we need some sort of way to help Sashiko understand so it
-> > doesn't keep flagging this on every future patch anyone submits. I
-> > think there's a few other places where some of Sashiko's
-> > assumptions/analysis are wrong (eg uring-cmd sqe stability semantics
-> > [1] in the zero-copy series). I'll look into this unless anyone
-> > already knows how to do this.
->
-> You may want to talk with your colleague Chris Mason about adding review
-> prompts for FUSE, because he is also running AI analysis on existing subs=
-ystems
-> regardless of mailing list patches.
-> I didn't try, but you can probably figure out how to add FUSE specific
-> review prompts
-> to Sashiko yourself...
->
-> Thanks,
-> Amir.
+On Tue, 23 Jun 2026 13:23:46 -0700, Nathan Chancellor wrote:
+> clang recently added support for -Wstringop-overread [1], which is on by
+> default like -Wfortify-source. This breaks the usage of -Werror in the
+> fortify tests, resulting in the following false positive warnings in the
+> kernel build:
+> 
+>   warning: unsafe memcmp() usage lacked '__read_overflow2' warning in lib/test_fortify/read_overflow2-memcmp.c
+>   warning: unsafe memcmp() usage lacked '__read_overflow' warning in lib/test_fortify/read_overflow-memcmp.c
+>   warning: unsafe memchr() usage lacked '__read_overflow' warning in lib/test_fortify/read_overflow-memchr.c
+> 
+> [...]
 
-The prompts Sashiko uses are in this subdirectory, which is open
-source and anyone can contribute:
-https://github.com/sashiko-dev/sashiko/tree/main/third_party/prompts/kernel=
-/subsystem
+Applied to for-next/hardening, thanks!
 
-I added a minimal fuse prompt [1], I think we can continue improving
-on that as we go.
+[1/1] fortify: Disable -Wstringop-overread in tests
+      https://git.kernel.org/kees/c/c1f3e770eec2
 
-Thanks,
-Joanne
+Take care,
 
-[1] https://github.com/sashiko-dev/sashiko/blob/main/third_party/prompts/ke=
-rnel/subsystem/fuse.md
+-- 
+Kees Cook
+
