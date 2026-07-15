@@ -1,45 +1,59 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936B54A2E2E
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 17:55:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F7E40099F;
+	Wed, 15 Jul 2026 18:06:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784138128; cv=none; b=dE2/gXiFk9r4WvAIsACAdO9r4PpzE6ylb7YX3U9vlL1Wi5pbZlcdbluJN8tfudk8UMzxt6XfS0EeaCXd523aOQAGt4BARFkDH23Jfh2sMOJ108A8gZRHqwi9lVb9qTR8ypBnVniOCO3cV+Hw6US8Mnbc3NZ3CU2Nc2RgE3ULWfk=
+	t=1784138798; cv=none; b=OcKq7l7yoCmmT/fae9OzfuB1BRTr8OpdtRzNVqxCvII+OSsQGjD9k3tKjhYnL5J0STmxuuBUV9XL9f0MFhjW/cfBcwfxVDaTC/TbuAt6ffyOE0tYvHmBi4BCDJBuM4CKfMlDYn/Fx3LjW9z4aEnjaT5ZsWMYnTvDGiueSVwqSKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784138128; c=relaxed/simple;
-	bh=geEtkFsAkkiwkT8SA+/o9M6PqdMHBmrcNrMScmbmD98=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n6TfN5GGCXppSc8pqoiCAg+xHV6QExeby3FC4WaUTpvuelD3OZrAwc+J7w88AkTMtvB5RIj+quHy+rEo+4FGdA9DfuAxls4iyyja0JsP172AdQPYw8TAx/bHV8R/CD3ZimWKvnYuqtPYW2dPL71S5PIwyDJTtd4uQz5onU8TKZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=juQNobCr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784138798; c=relaxed/simple;
+	bh=2R7xHdLAkK6oE1u3sMq4e1CT5FMCSedKRKzElFTJ5Ts=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KqptKOJ8OhosaPANtTxsdLOlrwGFifsGI6lnQt8vdZPqqVYoNdAPVK7EJL1VdXe1D36uav2KUpHvUaumrVbcUwRqivVbuZfFALoXX9AawBtCKiJaiLKTqJZlvVWK8kchn5dHsEBQoh8BwsmYCkHMIlL1WgZRJ6qBXux12B7s9YI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VrUafhfg; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="juQNobCr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1CB1F00A3D;
-	Wed, 15 Jul 2026 17:55:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784138127;
-	bh=l571/JIkWQyplN4o8Z31Zu3NqHql6g65y0+c8nd1Dg0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=juQNobCr4n1yW8LDaboM0tyYRD6uoCkyED8SMwQgGvaMaNJBaIQbnxpjmGywIzyMD
-	 AzMEKxSRL26r4itgcFUNeJbC5v2kuw+iOcnqXDn3YUvyuT4b6YN8cHV2XyzUpU+G1G
-	 0AOS/K7HODVuiGTdPN8kIdoHXUc6EhFqWUFqYiM7BIrrHr6A09jcyHMeh5oe4Wobe3
-	 GHKKnisNeg15pPFnOk1eGsSkm589PebPsU3MT8ij2089OXFVMs0C1Hbbwmb/1yBL2V
-	 9F0e0S14tqjdwIUxRjeA5VSlkwCmIK6Jmpn+v7DH8qxp2SjwY3lzOzjmPBpDzwOYNT
-	 Jp0sDDO5EyFeA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] gpio: sch: use raw_spinlock_t in the irq startup path
-Date: Wed, 15 Jul 2026 13:55:24 -0400
-Message-ID: <20260715175524.1011791-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260715175524.1011791-1-sashal@kernel.org>
-References: <2026071322-groom-bullring-9669@gregkh>
- <20260715175524.1011791-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VrUafhfg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784138789; x=1815674789;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=2R7xHdLAkK6oE1u3sMq4e1CT5FMCSedKRKzElFTJ5Ts=;
+  b=VrUafhfge47ppPPBALyySktLYG7lt7C6ILH8xQguS29a2g7rPJtYXYwM
+   Y0Yib2SkIXhxU2CIPoCcTM7z9Z5wXKxa5HhquCJvD/9YDsEYKDsuPpAih
+   nQ7ZdzwbbikPIVa9rCTY17FAc5Tmpk3eyJISTkQYjEgqu+AuxNEPKgc6E
+   ucyyfOJ4WHZhp6uK+rr6DtCwg29vT+hDw4zKiaRFe0D9CfurSy3Hm30i9
+   N5aNRQYBcSVYTCRHPiCXh+AZsa9Z7kZqFnlx8czLjX+1zdPqiS0jkqdKS
+   gFTGTQcS1rvjUp0fWQdgSPaD3fvcZEPITN2wuRBZGCDkes6AGwh0GCzjB
+   w==;
+X-CSE-ConnectionGUID: vjHs9JyzT8iCgSEuJLmVTA==
+X-CSE-MsgGUID: SSn5fbvlR+6lf+wfu5rc/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84904254"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="84904254"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 11:06:22 -0700
+X-CSE-ConnectionGUID: fnSEMhE/T9CnWrTkeocA6g==
+X-CSE-MsgGUID: +lgknFKJSwOu2t7dybx5KA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="253650070"
+Received: from amilburn-desk.amilburn-desk (HELO kvehmane-desk1.ger.corp.intel.com) ([10.245.244.96])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 11:06:20 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: linux-sound@vger.kernel.org,
+	tiwai@suse.de
+Cc: peter.ujfalusi@linux.intel.com,
+	Uma Shankar <uma.shankar@intel.com>,
+	kai.vehmanen@linux.intel.com,
+	Alexander Kaplan <alexander.kaplan@sms-medipool.de>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: hda: codecs: hdmi: disable keep-alive before audio format change
+Date: Wed, 15 Jul 2026 21:06:10 +0300
+Message-ID: <20260715180610.1371243-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,189 +62,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+When a keep-alive (KAE) silent stream is active on an Intel HDMI/DP
+codec, opening a real PCM stream reprograms the converter format and the
+audio infoframe in snd_hda_hdmi_generic_pcm_prepare(). Part of that
+reprogramming - the converter channel count and the channel mapping in
+snd_hda_hdmi_setup_audio_infoframe() - is not safe to do while a
+keep-alive stream is active. This is most visible when switching to a
+multichannel PCM configuration, where the active channel count actually
+changes. In that case the newly opened PCM stream plays no sound.
 
-[ Upstream commit 286533cb14a3c8a8bd39ff64ea2fc8e1aa0f638b ]
+Add an optional hdmi_ops .prepare hook, called at the start of the
+PCM prepare sequence (before the format and infoframe are touched), and
+implement it for HSW+ to release keep-alive. Keep-alive is then
+re-enabled as before once the new stream has been set up, in the
+setup_stream op.
 
-sch_irq_unmask() enables the GPIO IRQ and then updates the controller
-state through sch_irq_mask_unmask(), which takes sch->lock with
-spin_lock_irqsave().  The callback can be reached from irq_startup()
-while setting up a requested IRQ.  That path is not sleepable, but on
-PREEMPT_RT a regular spinlock_t becomes a sleeping lock.
-
-This issue was found by our static analysis tool and then manually
-reviewed against the current tree.
-
-The grounded PoC kept the request_threaded_irq() -> __setup_irq() ->
-irq_startup() -> sch_irq_unmask() -> sch_irq_mask_unmask() carrier and
-used the original spin_lock_irqsave(&sch->lock) edge.  Lockdep reported:
-
-  BUG: sleeping function called from invalid context
-  hardirqs last disabled at ... __setup_irq.constprop.0 ... [vuln_msv]
-  sch_rt_spin_lock_irqsave+0x1c/0x30 [vuln_msv]
-  sch_irq_mask_unmask.constprop.0+0x31/0x70 [vuln_msv]
-  __setup_irq.constprop.0+0xd/0x30 [vuln_msv]
-
-Convert the SCH controller lock to raw_spinlock_t.  The same lock is
-also used by the GPIO direction and value callbacks, but those critical
-sections only update MMIO-backed GPIO registers and do not contain
-sleepable operations.  Keeping this register lock non-sleeping is
-therefore appropriate for the irqchip callbacks and does not change the
-GPIO-side locking contract.
-
-Fixes: 7a81638485c1 ("gpio: sch: Add edge event support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Link: https://patch.msgid.link/20260617154035.1199948-2-runyu.xiao@seu.edu.cn
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 15175a4f2bbb ("ALSA: hda/hdmi: add keep-alive support for ADL-P and DG2")
+Reported-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8412
+Tested-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- drivers/gpio/gpio-sch.c | 41 ++++++++++++++++++++---------------------
- 1 file changed, 20 insertions(+), 21 deletions(-)
+ sound/hda/codecs/hdmi/hdmi.c       |  3 +++
+ sound/hda/codecs/hdmi/hdmi_local.h |  9 ++++++++
+ sound/hda/codecs/hdmi/intelhdmi.c  | 36 +++++++++++++++++++++++++-----
+ 3 files changed, 42 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpio/gpio-sch.c b/drivers/gpio/gpio-sch.c
-index 2b19e978c034d8..fd0f0e677b2ecc 100644
---- a/drivers/gpio/gpio-sch.c
-+++ b/drivers/gpio/gpio-sch.c
-@@ -39,7 +39,7 @@
- struct sch_gpio {
- 	struct gpio_chip chip;
- 	struct irq_chip irqchip;
--	spinlock_t lock;
-+	raw_spinlock_t lock;
- 	unsigned short iobase;
- 	unsigned short resume_base;
+diff --git a/sound/hda/codecs/hdmi/hdmi.c b/sound/hda/codecs/hdmi/hdmi.c
+index 0b6816018a42..053c41d98028 100644
+--- a/sound/hda/codecs/hdmi/hdmi.c
++++ b/sound/hda/codecs/hdmi/hdmi.c
+@@ -1688,6 +1688,9 @@ int snd_hda_hdmi_generic_pcm_prepare(struct hda_pcm_stream *hinfo,
+ 		per_pin->channels = substream->runtime->channels;
+ 		per_pin->setup = true;
  
-@@ -103,9 +103,9 @@ static int sch_gpio_direction_in(struct gpio_chip *gc, unsigned int gpio_num)
- 	struct sch_gpio *sch = gpiochip_get_data(gc);
- 	unsigned long flags;
++		if (spec->ops.prepare)
++			spec->ops.prepare(codec, per_pin);
++
+ 		if (get_wcaps(codec, cvt_nid) & AC_WCAP_STRIPE) {
+ 			stripe = snd_hdac_get_stream_stripe_ctl(&codec->bus->core,
+ 								substream);
+diff --git a/sound/hda/codecs/hdmi/hdmi_local.h b/sound/hda/codecs/hdmi/hdmi_local.h
+index 548241ad3fa9..dce9a335cff2 100644
+--- a/sound/hda/codecs/hdmi/hdmi_local.h
++++ b/sound/hda/codecs/hdmi/hdmi_local.h
+@@ -74,6 +74,15 @@ struct hdmi_ops {
+ 			    hda_nid_t pin_nid, int dev_id, u32 stream_tag,
+ 			    int format);
  
--	spin_lock_irqsave(&sch->lock, flags);
-+	raw_spin_lock_irqsave(&sch->lock, flags);
- 	sch_gpio_reg_set(sch, gpio_num, GIO, 1);
--	spin_unlock_irqrestore(&sch->lock, flags);
-+	raw_spin_unlock_irqrestore(&sch->lock, flags);
- 	return 0;
++	/*
++	 * Optional hook invoked at the beginning of the PCM prepare
++	 * sequence, before the audio infoframe and stream format are
++	 * (re)programmed. Used to disable keep-alive / silent stream so
++	 * that the format change is not done while keep-alive is active.
++	 */
++	void (*prepare)(struct hda_codec *codec,
++			struct hdmi_spec_per_pin *per_pin);
++
+ 	void (*pin_cvt_fixup)(struct hda_codec *codec,
+ 			      struct hdmi_spec_per_pin *per_pin,
+ 			      hda_nid_t cvt_nid);
+diff --git a/sound/hda/codecs/hdmi/intelhdmi.c b/sound/hda/codecs/hdmi/intelhdmi.c
+index 6a7882544ab7..73141046d502 100644
+--- a/sound/hda/codecs/hdmi/intelhdmi.c
++++ b/sound/hda/codecs/hdmi/intelhdmi.c
+@@ -418,6 +418,28 @@ static void intel_not_share_assigned_cvt_nid(struct hda_codec *codec,
+ 		intel_not_share_assigned_cvt(codec, pin_nid, dev_id, mux_idx);
  }
  
-@@ -116,16 +116,14 @@ static int sch_gpio_get(struct gpio_chip *gc, unsigned int gpio_num)
- 	return sch_gpio_reg_get(sch, gpio_num, GLV);
- }
++/*
++ * prepare ops override for HSW+
++ *
++ * Disable keep-alive before the converter format and audio infoframe are
++ * reprogrammed by the PCM prepare sequence. Changing the audio format (e.g.
++ * the channel count when switching to multichannel PCM) while a keep-alive
++ * stream is active is not safe, so release keep-alive here, early in the
++ * sequence. It is re-enabled once the new stream has been set up, in
++ * i915_hsw_setup_stream().
++ */
++static void i915_hsw_prepare(struct hda_codec *codec,
++			     struct hdmi_spec_per_pin *per_pin)
++{
++	struct hdmi_spec *spec = codec->spec;
++
++	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin->silent_stream) {
++		silent_stream_set_kae(codec, per_pin, false);
++		/* wait for pending transfers in codec to clear */
++		usleep_range(100, 200);
++	}
++}
++
+ /* setup_stream ops override for HSW+ */
+ static int i915_hsw_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
+ 				 hda_nid_t pin_nid, int dev_id, u32 stream_tag,
+@@ -435,15 +457,16 @@ static int i915_hsw_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
  
--static int sch_gpio_set(struct gpio_chip *gc, unsigned int gpio_num, int val)
-+static void sch_gpio_set(struct gpio_chip *gc, unsigned int gpio_num, int val)
- {
- 	struct sch_gpio *sch = gpiochip_get_data(gc);
- 	unsigned long flags;
+ 	haswell_verify_D0(codec, cvt_nid, pin_nid);
  
--	spin_lock_irqsave(&sch->lock, flags);
-+	raw_spin_lock_irqsave(&sch->lock, flags);
- 	sch_gpio_reg_set(sch, gpio_num, GLV, val);
--	spin_unlock_irqrestore(&sch->lock, flags);
+-	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin && per_pin->silent_stream) {
+-		silent_stream_set_kae(codec, per_pin, false);
+-		/* wait for pending transfers in codec to clear */
+-		usleep_range(100, 200);
+-	}
 -
--	return 0;
-+	raw_spin_unlock_irqrestore(&sch->lock, flags);
- }
+ 	res = snd_hda_hdmi_setup_stream(codec, cvt_nid, pin_nid, dev_id,
+ 					stream_tag, format);
  
- static int sch_gpio_direction_out(struct gpio_chip *gc, unsigned int gpio_num,
-@@ -134,9 +132,9 @@ static int sch_gpio_direction_out(struct gpio_chip *gc, unsigned int gpio_num,
- 	struct sch_gpio *sch = gpiochip_get_data(gc);
- 	unsigned long flags;
++	/*
++	 * Keep-alive was disabled in i915_hsw_prepare(), re-enable it now.
++	 * The pin lookup above resolves to the same per_pin that prepare
++	 * used (pin_nid comes from that per_pin), so this stays balanced; a
++	 * NULL per_pin only occurs on a lookup failure that also implies no
++	 * active keep-alive stream to restore.
++	 */
+ 	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin && per_pin->silent_stream) {
+ 		usleep_range(100, 200);
+ 		silent_stream_set_kae(codec, per_pin, true);
+@@ -607,6 +630,7 @@ static int intel_hsw_common_init(struct hda_codec *codec, hda_nid_t vendor_nid,
+ 	codec->depop_delay = 0;
+ 	codec->auto_runtime_pm = 1;
  
--	spin_lock_irqsave(&sch->lock, flags);
-+	raw_spin_lock_irqsave(&sch->lock, flags);
- 	sch_gpio_reg_set(sch, gpio_num, GIO, 0);
--	spin_unlock_irqrestore(&sch->lock, flags);
-+	raw_spin_unlock_irqrestore(&sch->lock, flags);
- 
- 	/*
- 	 * according to the datasheet, writing to the level register has no
-@@ -147,7 +145,8 @@ static int sch_gpio_direction_out(struct gpio_chip *gc, unsigned int gpio_num,
- 	 * But we cannot prevent a short low pulse if direction is set to high
- 	 * and an external pull-up is connected.
- 	 */
--	return sch_gpio_set(gc, gpio_num, val);
-+	sch_gpio_set(gc, gpio_num, val);
-+	return 0;
- }
- 
- static int sch_gpio_get_direction(struct gpio_chip *gc, unsigned int gpio_num)
-@@ -166,7 +165,7 @@ static const struct gpio_chip sch_gpio_chip = {
- 	.direction_input	= sch_gpio_direction_in,
- 	.get			= sch_gpio_get,
- 	.direction_output	= sch_gpio_direction_out,
--	.set_rv			= sch_gpio_set,
-+	.set			= sch_gpio_set,
- 	.get_direction		= sch_gpio_get_direction,
- };
- 
-@@ -195,14 +194,14 @@ static int sch_irq_type(struct irq_data *d, unsigned int type)
- 		return -EINVAL;
- 	}
- 
--	spin_lock_irqsave(&sch->lock, flags);
-+	raw_spin_lock_irqsave(&sch->lock, flags);
- 
- 	sch_gpio_reg_set(sch, gpio_num, GTPE, rising);
- 	sch_gpio_reg_set(sch, gpio_num, GTNE, falling);
- 
- 	irq_set_handler_locked(d, handle_edge_irq);
- 
--	spin_unlock_irqrestore(&sch->lock, flags);
-+	raw_spin_unlock_irqrestore(&sch->lock, flags);
- 
- 	return 0;
- }
-@@ -214,9 +213,9 @@ static void sch_irq_ack(struct irq_data *d)
- 	irq_hw_number_t gpio_num = irqd_to_hwirq(d);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&sch->lock, flags);
-+	raw_spin_lock_irqsave(&sch->lock, flags);
- 	sch_gpio_reg_set(sch, gpio_num, GTS, 1);
--	spin_unlock_irqrestore(&sch->lock, flags);
-+	raw_spin_unlock_irqrestore(&sch->lock, flags);
- }
- 
- static void sch_irq_mask_unmask(struct irq_data *d, int val)
-@@ -226,9 +225,9 @@ static void sch_irq_mask_unmask(struct irq_data *d, int val)
- 	irq_hw_number_t gpio_num = irqd_to_hwirq(d);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&sch->lock, flags);
-+	raw_spin_lock_irqsave(&sch->lock, flags);
- 	sch_gpio_reg_set(sch, gpio_num, GGPE, val);
--	spin_unlock_irqrestore(&sch->lock, flags);
-+	raw_spin_unlock_irqrestore(&sch->lock, flags);
- }
- 
- static void sch_irq_mask(struct irq_data *d)
-@@ -251,12 +250,12 @@ static u32 sch_gpio_gpe_handler(acpi_handle gpe_device, u32 gpe, void *context)
- 	int offset;
- 	u32 ret;
- 
--	spin_lock_irqsave(&sch->lock, flags);
-+	raw_spin_lock_irqsave(&sch->lock, flags);
- 
- 	core_status = inl(sch->iobase + CORE_BANK_OFFSET + GTS);
- 	resume_status = inl(sch->iobase + RESUME_BANK_OFFSET + GTS);
- 
--	spin_unlock_irqrestore(&sch->lock, flags);
-+	raw_spin_unlock_irqrestore(&sch->lock, flags);
- 
- 	pending = (resume_status << sch->resume_base) | core_status;
- 	for_each_set_bit(offset, &pending, sch->chip.ngpio)
-@@ -322,7 +321,7 @@ static int sch_gpio_probe(struct platform_device *pdev)
- 				 pdev->name))
- 		return -EBUSY;
- 
--	spin_lock_init(&sch->lock);
-+	raw_spin_lock_init(&sch->lock);
- 	sch->iobase = res->start;
- 	sch->chip = sch_gpio_chip;
- 	sch->chip.label = dev_name(&pdev->dev);
++	spec->ops.prepare = i915_hsw_prepare;
+ 	spec->ops.setup_stream = i915_hsw_setup_stream;
+ 	spec->ops.pin_cvt_fixup = i915_pin_cvt_fixup;
+ 	spec->ops.silent_stream = i915_set_silent_stream;
+
+base-commit: 41f1f6d8d2cfaba1fba07af993c9319a1ff2c81f
 -- 
-2.53.0
+2.43.0
 
