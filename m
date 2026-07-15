@@ -1,72 +1,56 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193CA39A808;
-	Wed, 15 Jul 2026 15:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E31544685C;
+	Wed, 15 Jul 2026 15:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784127607; cv=none; b=bUFGsWQizSYG/vsli41sc85YHpyaD6dsfK234FYzKJBWXNN3Imc4srSB4OHvN+1UepWxBQsv/3sMm0M8teywAAabp8XhP1ZOpAAkcYErzly58zbkMDn5XBKakjxbQcM4dUqbR/QMDOvolspsZ5BBjMFFToeORuPZFKzoNmwFQik=
+	t=1784127698; cv=none; b=JNvQnOEx+wOSInBcBhGBA/bzy4VEVMAL6tfBrrLGV1Ezh1LjqMSBWHbQdM25/uk6+6bf7im7N310IBxBfgGiCDyqgFrKx5LfrgxtESyfh8nL4PWqd214Cx4eVtjWT2EpaQrc79AY2kuKLUIejByxpZVzFjotkz5m+MjOpYXkWNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784127607; c=relaxed/simple;
-	bh=JiXROtKbxqQGZb8SthpIP65GDaAPPh7cLSX8uJOkRsg=;
+	s=arc-20240116; t=1784127698; c=relaxed/simple;
+	bh=kAzRGKP92JPZRRbuxgorrVVah4f5tGWg7tnMlFAPBmg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NJ3ki+s0HfZBcr9/4vD5/CqknK7EnUeu4E7nI3l2Omwu+pFGgB+cgudDj5wKBeehJ6CQTNGwRBIUFrwpIhmKBapiSdsUYSGGI75NBeW36/A+3hl6S5boVbz18GxaILrplWkTZG3n9YODUF7yP5x74Qiu33t0Ce1SW4s2FpiKMzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lwhvXuEy; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=A/b5ZLJd+r8+649x8VXmEDaTw0Zc5UkFu6jPBxQ6TdeZukY4yLtzhCl347ejBHOpBv6euN1857tp85ijhIFhVgJjwmT6yzGZjy5WmTMOfPHRRgdheQPZkIL+uzrAKsUVYiFryToCq281JWO2PMOWkuJQfseTKGNnC35vbf2EdRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cPiuISMO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lwhvXuEy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784127604; x=1815663604;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JiXROtKbxqQGZb8SthpIP65GDaAPPh7cLSX8uJOkRsg=;
-  b=lwhvXuEymKWAR/SOXJss0DpSGtFHWhUo1FqQwWoUVabzq7ednnlOsZMc
-   dPrZEPOWGmXw0RN2VWUH+ToHgMtmRNmhRzralgnXeBF4krQwokx/L71Ha
-   WigBaz+dr9XwABEtvBfPvvgw7oV6Ckm86DDSV07pPAiei0zPCefnaa01B
-   VkHm/DZ+NFj2xF64aM1DOnBoIjADQdGCnGxleUYsV51/+g4CuZgtxWi/U
-   Av8zXFkxYQHGAyGfIbGUbFvmnRWHBg3Figc1GSOzfihSoPLFNA/c9W14R
-   d1YQp0tZSqEB9DGRLwo9UWmawE5yQQMQDcn9wRsRsiBrydmJAjovXwvaC
-   Q==;
-X-CSE-ConnectionGUID: yd0VjcqbTxWIkqnCAw9HVA==
-X-CSE-MsgGUID: lqhptcRQToWw2iyAtAoqOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="110314469"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="110314469"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 08:00:03 -0700
-X-CSE-ConnectionGUID: dmB0BYZpQcG2Uvu1+b/B0Q==
-X-CSE-MsgGUID: wHMEosIsQnO3xw/BilGxyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="260022398"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa004.jf.intel.com with ESMTP; 15 Jul 2026 08:00:00 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 43CAE95; Wed, 15 Jul 2026 16:59:59 +0200 (CEST)
-Date: Wed, 15 Jul 2026 17:59:57 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Raag Jadav <raag.jadav@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Ramesh Babu B <ramesh.babu.b@intel.com>,
-	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
-	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] drm/xe/i2c: Fix the interrupt handling
-Message-ID: <alegbWVPz6oI_yMA@kuha>
-References: <20260713155601.711389-1-heikki.krogerus@linux.intel.com>
- <20260713155601.711389-3-heikki.krogerus@linux.intel.com>
- <alcoDtq2aul-tA_h@black.igk.intel.com>
- <aldYjL2pxA7QxoLN@kuha>
- <ald1HG6KzjWb9CUK@black.igk.intel.com>
- <aleEReNBnQMy3-1E@kuha>
- <aleSjGxhStAiqLk6@kuha>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cPiuISMO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E95521F000E9;
+	Wed, 15 Jul 2026 15:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784127696;
+	bh=9Z2zNKjRbgDz18AB/OdbEQN5wpqYTgFBDPBnDwJEk2E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cPiuISMOHZKbNJ/q+U6zBqKZl6i/54DB+RZCuayF6sI/kqfwtjdaALQ69uJ88Y9Tb
+	 t9oj0Gwrjx61elraU/lF3M+8XrCqQFajfZU2mv8YfRrP78r/Wx340y3KQ4iUlEGzM5
+	 eE16z35L/cQdoa8olim+hEXZt4VTFLQlzUnuc/usVzrf89juTGp0WUhVkaElN3dhQx
+	 LbUCrcNvso4ErQy0XseZ4PxpaGqrP2jfw6djWjwKyuHqNf1PD0jPkdNqnYsTErA07p
+	 qx9E+rQb+xIH6dJ9sMrZ7/kfrX+NQDC/1YbeWlscd9NRHmuuwccHGiNexKkLt5Onau
+	 bl+psB0aDqyCw==
+Date: Wed, 15 Jul 2026 16:01:18 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
+	syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com, Lance Yang <lance.yang@linux.dev>
+Subject: Re: [PATCH mm-hotfixes v2 0/4] mm: fix UAF caused by race between
+ ptdump and vmap pgtable freeing
+Message-ID: <aleYrvnf4nVUCu-f@lucifer>
+References: <20260712-series-vmap-race-fix-v2-0-ad134cc3a12a@kernel.org>
+ <alTn7NguEW_4bodu@thinkstation>
+ <alTq4V50767L-s5H@lucifer>
+ <alUNiWcygLd4rqBo@thinkstation>
+ <178404602957.85099.8935151447302412515.b4-reply@b4>
+ <alZm0tBf8DpMXimM@thinkstation>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,35 +59,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aleSjGxhStAiqLk6@kuha>
+In-Reply-To: <alZm0tBf8DpMXimM@thinkstation>
 
-> Hi Raag,
-> 
-> > > > > > -	/* Forward interrupt to I2C adapter */
-> > > > > > -	generic_handle_irq_safe(xe->i2c->adapter_irq);
-> > > > > > +	xe_i2c_handle_smbus_alert(xe->i2c);
-> > > > > 
-> > > > > [1] Can we move the below re-assert code to wq now? Or do you suspect any
-> > > > > side-effects?
-> > > > 
-> > > > I think that you know this better than I do. But at this point
-> > > > interrupt is cleared, so why should we wait for the wq?
-> > > 
-> > > When does AMC clear the alert signal? Is it when you query from the wq?
-> > > If the answer is yes, there's a possibility we might end up with an
-> > > interrupt storm here.
-> > > 
-> > > > To play it safe, can we change this as a followup if necessary?
-> > > 
-> > > Sure, I'll leave it to you.
-> > 
-> > I'll move it to the wq. There are no side-effects.
-> 
-> Can you check does this work:
++cc Lance for thanks :)
 
-Nevermind. I'll send the next version.
+On Tue, Jul 14, 2026 at 06:05:01PM +0100, Kiryl Shutsemau wrote:
+> On Tue, Jul 14, 2026 at 05:20:29PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > Basically you need the IRQs disabled to get the semi-RCU behaviour and to
+> > be able to safely traverse page tables that way.
+> >
+> > So with CONFIG_PT_RECLAIM you're safe to RCU traverse PTEs only.
+>
+> I think this is stale. Since 1fb3d8c20bfa ("mm/mmu_gather: replace IPI
+> with synchronize_rcu() when batch allocation fails") the !PT_RECLAIM
+> fallback is a real grace period -- note your own quote of
+> __tlb_remove_table_one() calls tlb_remove_table_sync_rcu(), which is
+> synchronize_rcu() nowadays, not the IPI broadcast. The name invites
+> the confusion.
 
-Thanks,
+Ahhh, nice thank you Lance :)
 
--- 
-heikki
+
+>
+> Together with a37259732a7d ("x86/mm: Make MMU_GATHER_RCU_TABLE_FREE
+> unconditional") that means every freeing path through the generic
+> mmu_gather is genuine RCU, batched or not, all levels. A plain
+> rcu_read_lock() walker is protected; IRQs disabled is not required.
+
+Lovely. I'll probably send a patch to fix the comment then :)
+
+>
+> > HAVE_ARCH_TLB_REMOVE_TABLE is set for powerpc, which also enables PTDUMP :)
+> > and that's because it actually tracks multiple PTE page tables together as
+> > a fragment.
+>
+> sparc also sets it with SMP. So the audit list for custom
+> tlb_remove_table() implementations is powerpc and sparc -- everything
+> else gets the generic behaviour above.
+
+Yeah.
+
+>
+> No disagreement on the rest: the walker needs
+> ptep_get_lockless()/pmdp_get_lockless(), and the ppc kernel-side
+> fragments need a look.
+
+Indeed.
+
+I know Suren's been taken a look at this, pinged him off-list (he's also
+cc'd) to see where he's at but I'm going to take a general look at this.
+
+I feel that RCU page table freeing is likely to be a requirement for
+scalable CoW, so directly impacts me :)
+
+>
+> --
+>   Kiryl Shutsemau / Kirill A. Shutemov
+
+Cheers, Lorenzo
