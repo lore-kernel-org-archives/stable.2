@@ -1,136 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FBA3164C5;
-	Wed, 15 Jul 2026 09:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B8B2931C2;
+	Wed, 15 Jul 2026 09:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784108971; cv=none; b=Q+S5gvb7LOJVsLlqfKr2vtq9s3ydsS1oIdQZnkXyFjVUhz7RZ2ByYHaIug9azwFaT9c3oZnbL+FzNZOpqdqTm06YkaDYhLUwc47ciwVTenubWa4hGNWix5SANJchomI4oDMFsUrjodE7aAUseq2ycaTDhx/tadK1jDgbaNXuhMs=
+	t=1784109204; cv=none; b=NSsiwFfCh+rGFiey9RAbwx85PCHjjVWbmsV9v4W1PdyV6kweoutodHCNczW69ecepG/0ibxhA1c1D0G2sz0QXKU+iI/lf46BQB++PN9n7Olt9Fs+VxCL1/t8/IZCBRNk1ZI53PEK113v1b0qf8U3aZcaHinOhHT1I4MEOBP5loQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784108971; c=relaxed/simple;
-	bh=L9ZM9WGLctd1y/Irc9n+QeoIlbBDdN94DCSH+2nYh4o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c4FeDHTrKOVK3HBCqu/LdcehqL+1OE0TmHgmdUrNmez5B8TM248Co9MpYqRZU3oH0jI+wEf6rJLS2/rIr1CeJV+Ft8ISZEGy+dQDJPCWiiTrqr5xdWOpl0XvPFadSfsACMXNep/PnIy47j458JEhIyBtmNRxm16kDD5PSJwWYdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fe8kwNlI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784109204; c=relaxed/simple;
+	bh=6Th/RXyykNSrIqrevfiN5rbJul6P9tKqyVwuBd89v7E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sjNxgS80R3w6V16T6W5j8FHrjTFXZPkrq4Q9zLhNJ4Lcj21v661muvZCa90Ovw67LmNFU7LQUqhYD8KZNN7mFXLrN3vmDNHn9Bai5W3btuYW+d6FOwVeNuTWw8/7Yg4+LcOuzmaCRWq7v6SYt4+hiAQWjYtaEd0e127MZxjrJdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fJ7wLgkE; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fe8kwNlI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E183C1F000E9;
-	Wed, 15 Jul 2026 09:49:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784108970;
-	bh=MNXk5Xsq0/VzXk4rQ9wgNzCQfwCZmMN1C9U5Bm+mdc8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fe8kwNlISuqGkpWHze1UvqZvzqnDB0PrJ+TR+DVKi7YJWjOiqXbusRmpsQ486QMI5
-	 KKtKH/UZqtkBPIqT1NTCqxoG7TfdRRVldQrlXNNG9/Xz4UDziadlzRPiw12byYDxrc
-	 SCPjU2vnuHAYEJ5pbqQDS0QUZimyRWi02ajjYkcuj2m2zJS2AtvEQXKDKNn1UCZUmH
-	 HsnDa9ew2wMlP7sGr3JF106xnogYHjPAn8zp0PmuwaBDFFPaLxolwXoAo1zZTmpsk8
-	 IWsIz49cWiX3CywlsLLxXiinfxt5gtXk7QPL1kd38JbCx2e75lSEkNT6An61ooMhi/
-	 y8vONKkrt5BnQ==
-Message-ID: <abecb83f-aea8-403e-bc10-4d8d878c0d8c@kernel.org>
-Date: Wed, 15 Jul 2026 11:49:26 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fJ7wLgkE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784109203; x=1815645203;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6Th/RXyykNSrIqrevfiN5rbJul6P9tKqyVwuBd89v7E=;
+  b=fJ7wLgkEsSxJW7Ahk0BFTmzOJtD6ias4sM+mms/INe9gBPwSOxOtlt/P
+   pM1CG3LlZ5fvba39GMWBzGy7uYjx0vTkKV+HUoMVWCvt5HA2BVz7RSafb
+   cZsO/Zvjmaw9bokN7oFyUTzelHg2MzEPs3g7Q678BZHUB4zutAvBOBEJ+
+   3+/Xn+Ewfz/okZHDo0KMJc0yUFo4FXJxzsnGjC/U8Jpghyi0XAp3F8Zl4
+   2cEjcvr7rux1X25/Tt/RPT9nkXqXNFBs0EMEWk1YbAV9IlnrntG2rogr3
+   5O4TAqyopOZ4R6obtrmVKRIyP2oueqbOxxnaJNe8xbBjfaT+WSV/py+F3
+   w==;
+X-CSE-ConnectionGUID: 5ECzR+8lTN6CB7Sq9ZJf7w==
+X-CSE-MsgGUID: MFALIqcTS4u/QwDOemsAIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="88643901"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="88643901"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 02:53:22 -0700
+X-CSE-ConnectionGUID: 7KWkKS7ES2qZaJdubtX2wQ==
+X-CSE-MsgGUID: //QGPZhlQMmswNeqt5C3qw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="255627747"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa008.jf.intel.com with ESMTP; 15 Jul 2026 02:53:19 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 72A4495; Wed, 15 Jul 2026 11:53:18 +0200 (CEST)
+Date: Wed, 15 Jul 2026 12:53:16 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Ramesh Babu B <ramesh.babu.b@intel.com>,
+	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
+	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] drm/xe/i2c: Fix the interrupt handling
+Message-ID: <aldYjL2pxA7QxoLN@kuha>
+References: <20260713155601.711389-1-heikki.krogerus@linux.intel.com>
+ <20260713155601.711389-3-heikki.krogerus@linux.intel.com>
+ <alcoDtq2aul-tA_h@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] KVM: SEV: drop FOLL_WRITE for encrypted region
- registration
-To: Pankaj Gupta <pankaj.gupta@amd.com>, seanjc@google.com,
- pbonzini@redhat.com, tglx@kernel.org, bp@alien8.de, mingo@redhat.com,
- dave.hansen@linux.intel.com
-Cc: x86@kernel.org, thomas.lendacky@amd.com, hpa@zytor.com,
- yangge1116@126.com, ljs@kernel.org, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260715063626.65899-1-pankaj.gupta@amd.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260715063626.65899-1-pankaj.gupta@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alcoDtq2aul-tA_h@black.igk.intel.com>
 
-On 7/15/26 08:36, Pankaj Gupta wrote:
-> Commit 7e066cb9b71a ("KVM: SEV: Use long-term pin when registering
-> encrypted memory regions") added FOLL_LONGTERM to
-> sev_mem_enc_register_region() so anonymous guest RAM is migrated out of
-> MIGRATE_CMA/ZONE_MOVABLE before a long term pin. It also kept
-> FOLL_WRITE on the pin.
+On Wed, Jul 15, 2026 at 08:26:22AM +0200, Raag Jadav wrote:
+> On Mon, Jul 13, 2026 at 05:56:00PM +0200, Heikki Krogerus wrote:
+> > The platforms that support the interrupt from the I2C
+> > adapter can not handle the amount of interrupts the adapter
+> > generates because of the way the IRQ is routed in the
+> > hardware. The I2C controller driver has to be kept in
+> > polling mode because of that.
+> > 
+> > The AMC MCU can still generate critical alerts that have to
+> > be handled. The interrupt from SMBus Alert is left enabled
+> > and handled separately in the Xe. The alerts from the AMC
+> > will cause the device to be declared wedged for now.
 > 
-> Combining FOLL_WRITE with FOLL_LONGTERM breaks registration of file-backed
-> guest memory, such as virtio-pmem host memory-backend-file mappings
-> (MAP_SHARED). GUP rejects long-term writable pins on dirty tracked file
-> mappings since:
+> ...
 > 
-> commit 8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast writing to file-backed mappings")
-> commit a6e79df92e4a ("mm/gup: disallow FOLL_LONGTERM GUP-fast writing to file-backed mappings").
+> > +static void xe_amc_work(struct work_struct *work)
+> > +{
+> > +	struct xe_amc *amc = from_work(amc, work, work);
+> > +	struct i2c_client *client = amc->i2c->client[XE_I2C_CLIENT_AMC];
+> > +	const struct amc_request *request = &amc_get_alert_reason;
+> > +	struct amc_response response;
+> > +	int ret;
+> > +
+> > +	ret = i2c_master_send(client, (u8 *)request, sizeof(*request));
+> > +	if (ret < 0) {
+> > +		dev_err(&client->dev, "failed to send request (%d)\n", ret);
+> > +		return;
+> > +	}
+> > +
+> > +	fsleep(20 * USEC_PER_MSEC);
 > 
-> Region registration only requires long-term pin to prevent page migration and
-> does not write through this GUP pin.
+> Nit: Probably worth an explanation.
+
+Sure.
+
+> > +	ret = i2c_master_recv(client, (u8 *)&response, sizeof(response));
+> > +	if (ret < 0) {
+> > +		dev_err(&client->dev, "failed to read response (%d)\n", ret);
+> > +		return;
+> > +	}
+> > +
+> > +	if (response.header.len == 0) {
 > 
-> Drop FOLL_WRITE and pin guest memory only with FOLL_LONGTERM.
+> Nit: Perhaps !response.header.len?
 
-Worth mentioning here something like
+OK.
 
-"In the past, FOLL_WRITE was required to trigger CoW unsharing, making sure that
-we don't end up replacing the page in the page tables during a later write fault
-after already having pinned a (shared) page in MAP_PRIVATE mappings.
-FOLL_LONGTERM does that nowadays (see gup_must_unshare()) even without FOLL_WRITE.
+> > +		dev_err(&client->dev, "empty response from AMC\n");
+> > +		return;
+> > +	}
+> > +
+> > +	if (response.header.command != request->header.command ||
+> 
+> Curious, what about the rest of the header? Would it be any different?
 
-Given that SEV only pins RAM for XYZ and doesn't actually write to the pinned
-pages, we can just drop the FOLL_WRITE"
+The command is the only field that matches. But that check is not
+needed. The command is always the same. I'll drop that line.
 
-Fill out XYZ :)
+> > +	    memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
+> > +		dev_err(&client->dev, "response does not match the request\n");
+> > +		return;
+> > +	}
+> > +
+> > +	if (response.error) {
+> > +		dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
+> > +		return;
+> > +	}
+> > +
+> > +	dev_dbg(&client->dev, "%s: Alert reason: %d\n", __func__, response.value);
+> 
+> See below [1].
+> 
+> > +	switch (response.value) {
+> > +	case AMC_ALERT_FW_DOWNLOAD:
+> > +	case AMC_ALERT_THERMAL_TRIP:
+> > +	case AMC_ALERT_OOB_REQUEST:
+> > +	case AMC_ALERT_OOB_RESET:
+> > +	case AMC_ALERT_CATERR:
+> > +		xe_device_declare_wedged(i2c_client_to_xe_device(client));
+> > +		break;
+> > +	default:
+> > +		break;
+> > +	}
+> > +}
+> 
+> ...
+> 
+> > @@ -181,8 +187,7 @@ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
+> >  	if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
+> >  		return;
+> >  
+> > -	/* Forward interrupt to I2C adapter */
+> > -	generic_handle_irq_safe(xe->i2c->adapter_irq);
+> > +	xe_i2c_handle_smbus_alert(xe->i2c);
+> 
+> [1] Can we move the below re-assert code to wq now? Or do you suspect any
+> side-effects?
 
-In general, LGTM
+I think that you know this better than I do. But at this point
+interrupt is cleared, so why should we wait for the wq?
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+To play it safe, can we change this as a followup if necessary?
+
+> >  	/* Deassert after I2C adapter clears the interrupt */
+> >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
+> > @@ -212,45 +217,6 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
+> >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
+> >  }
+> 
+> ...
+> 
+> > -#define XE_I2C_MAX_CLIENTS		3
+> > -
+> >  #define XE_I2C_EP_COOKIE_DEVICE		0xde
+> >  
+> >  /* Endpoint Capabilities */
+> >  #define XE_I2C_EP_CAP_IRQ		BIT(0)
+> >  
+> > +enum XE_I2C_CLIENT {
+> > +	XE_I2C_CLIENT_AMC,
+> > +	XE_I2C_MAX_CLIENTS = 3,
+> 
+> I know it was already like this but I probably missed why do we have 3
+> (atleast from driver POV)?
+
+That is the maximum number of clients these platforms can support.
+The AMC address is actually at a fixed offset 1. I'll change this so
+that XE_I2C_CLIENT_AMC matches the offset:
+
+enum XE_I2C_CLIENT {
+	XE_I2C_CLIENT_AMC = 1,
+	XE_I2C_MAX_CLIENTS = 3,
+};
+
+That probable makes this a bit more clear (right?).
+
+Thanks,
 
 -- 
-Cheers,
-
-David
+heikki
