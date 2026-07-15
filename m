@@ -1,236 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9729F188596;
-	Wed, 15 Jul 2026 04:45:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C275188596;
+	Wed, 15 Jul 2026 04:46:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784090733; cv=none; b=D5skIixvVn5esoQA2gsiCb3O7gnfxKOELxciBZWJIXZIPcXFqK11N99ixRBVtPILCjJ9P3wgJC4pPegO7dV2fPslABiGkiUU80o9bNA3lQDBYGmKjWz8w/EImij7EDcL+pr12XBitpFMm2oBYtFcxkmLcIGp49EG8vUomjRQUeQ=
+	t=1784090766; cv=none; b=HXVId/nvYSwSWGGpV/+o3uGoESD/C27MNNxdfkuqY6ws6yhfseEq8ZhN/zx/DiGQnux+qYwVcKu8EJz5Fxj261XWtSqiiQ2qrHyXRP29vMHdY88HKnRysfOhVDKisDp9oj+Ypo1620LHBEip5SqeW4TDEsrFK1ZrU2YGKT1rhB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784090733; c=relaxed/simple;
-	bh=r3S4QHQd3VaTSbQncAc0/PibyxIV6anaRIOMCk9Cb30=;
-	h=Date:To:From:Subject:Message-Id; b=Ai4ytxRJWHY24B4azKtj93lHVdDKCWFPUxtMhPMqshq5CPY+RcfJFFxljlQGG/ptInNo9z+WVca1O3ubiWF37562i/SIUkJx+j165EjX/cUT8TK/UCsoX/zRrZAU+j1YUY4+JEF4wr2l3pu62m0Rl0Z/O3m/rACDbPXOC1DnQds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=B81GDhyr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784090766; c=relaxed/simple;
+	bh=EQs7O/KsN/wK8A+H5ZylPYHQYmQjSimXgQsiXtNU6b4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=D4HdSRmT4+uQIg4gZI9jlolevr0P0aUDkHAL4tnl1yrq1TSIvA3mYBzabCsQ934t7BgqPmS21B7pWCOZQDo26Ya5dT1586YSEYH+hc1Pd8FVnT3o0S1WmjPQgc6UTXyCPEMS9GNbzT+gLhMtFv0Y28K9Rr/YXI217Eiss6+X/zY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=q4O8mCN2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="B81GDhyr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28ADB1F000E9;
-	Wed, 15 Jul 2026 04:45:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="q4O8mCN2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0311F000E9;
+	Wed, 15 Jul 2026 04:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784090731;
-	bh=ude42ZCbR20/X7z5bIUrcIH0rUqjEMzlc5zkc7ZUOYQ=;
-	h=Date:To:From:Subject;
-	b=B81GDhyrwyqTUo49kT09rjttjuK/ea7nvhyNLeerU2ufGxYEv9VbLgWRnutih2w9v
-	 gH6ffWklHbSt31gDQ8vO1uUVVXihMQlmssY1zoKQo3ZANdzg5d1fqo0YhCRDpMvUfN
-	 UnTauKkJeK4DYEX4kgb5RPvPZ2pXf+sNOuJRbcSE=
-Date: Tue, 14 Jul 2026 21:45:30 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+	d=linux-foundation.org; s=korg; t=1784090765;
+	bh=yPSXgtZyZUjPzhY0+tGPbfG3fWnFA8alzR4dcKz8MY4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=q4O8mCN2Wldnjn2dROG4NkiHVkge2rzmi9u30M/YOygz85Hzobi2j0PY1EBOS2f75
+	 vi70A6NF+w51j7g7FpFqmM30I7/b33bWqJk8/OxKpLUoeJsckqqCxZDh9FyRENit/G
+	 2LV3lx5ZSMX8q/wLIeXQU3jBZd3EuN/KTX5kh49I=
+Date: Tue, 14 Jul 2026 21:46:04 -0700
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch added to mm-new branch
-Message-Id: <20260715044531.28ADB1F000E9@smtp.kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: stable@vger.kernel.org, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <davidgow@davidgow.net>, Fernand Sieber <sieberf@amazon.com>,
+ Leonard Foerster <foersleo@amazon.de>, Quanmin Yan
+ <yanquanmin1@huawei.com>, SeongJae Park <sjpark@amazon.de>, Shakeel Butt
+ <shakeel.butt@linux.dev>, damon@lists.linux.dev,
+ kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v1.1 0/6] mm/damon: unurgent fixes for infinite loop,
+ NULL de-ref and races
+Message-Id: <20260714214604.10fc4c786277eaed523d0724@linux-foundation.org>
+In-Reply-To: <20260715031002.108504-1-sj@kernel.org>
+References: <20260715031002.108504-1-sj@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Tue, 14 Jul 2026 20:09:55 -0700 SJ Park <sj@kernel.org> wrote:
 
-The patch titled
-     Subject: mm/damon/sysfs: read ops_id only once in damon_sysfs_apply_inputs()
-has been added to the -mm mm-new branch.  Its filename is
-     mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
+> Sashiko found a few issues in DAMON that could cause infinite loop, NULL
+> dereference and monitoring results degradation.  The first two sounds
+> scary but the infinite loop happens only under unreasonable user setup.
+> The NULL dereference is only in a unit test.  Monitoring results
+> degradation is trivial since it is only best-effort, and those happens
+> from only unlikely races.  Still those are bugs that better to fix if
+> possible. Fix those.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
+> Subject: [PATCH v1.1 0/6] ...
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/sysfs: read ops_id only once in damon_sysfs_apply_inputs()
-Date: Tue, 14 Jul 2026 20:10:01 -0700
-
-damon_sysfs_apply_inputs() reads ops_id twice.  It could race with
-ops_id_store().  As a result, the min_region_sz could wrongly be set up. 
-Read it once.
-
-The user impact is trivial.  Sane users ain't update the parameter in
-parallel.  Even if it happens, the DAMON core layer handles the wrong
-min_region_sz (!is_power_of_2()).  Even if somehow the race ended up
-making a min_region_sz that is different from the user's intention but
-still valid, only monitoring itself runs differently than expected.  No
-critical consequences like kernel panic or memory corruption happen
-
-The issue was discovered [1] by Sashiko.
-
-Link: https://lore.kernel.org/20260715031002.108504-7-sj@kernel.org
-Link: https://lore.kernel.org/20260703172417.95426-1-sj@kernel.org [1]
-Fixes: 8d009da32f13 ("mm/damon/sysfs: set damon_ctx->min_sz_region only for paddr use case")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/damon/sysfs.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
---- a/mm/damon/sysfs.c~mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs
-+++ a/mm/damon/sysfs.c
-@@ -2094,14 +2094,16 @@ static inline bool damon_sysfs_kdamond_r
- static int damon_sysfs_apply_inputs(struct damon_ctx *ctx,
- 		struct damon_sysfs_context *sys_ctx)
- {
-+	enum damon_ops_id ops_id;
- 	int err;
- 
--	err = damon_select_ops(ctx, sys_ctx->ops_id);
-+	ops_id = READ_ONCE(sys_ctx->ops_id);
-+	err = damon_select_ops(ctx, ops_id);
- 	if (err)
- 		return err;
- 	ctx->addr_unit = READ_ONCE(sys_ctx->addr_unit);
- 	/* addr_unit is respected by only DAMON_OPS_PADDR */
--	if (sys_ctx->ops_id == DAMON_OPS_PADDR)
-+	if (ops_id == DAMON_OPS_PADDR)
- 		ctx->min_region_sz = max(
- 				DAMON_MIN_REGION_SZ / ctx->addr_unit, 1);
- 	ctx->pause = sys_ctx->pause;
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-samples-damon-wsse-handle-damon_start-failure.patch
-samples-damon-prcl-handle-damon_start-failure.patch
-samples-damon-mtier-handle-damon_start-failure.patch
-samples-damon-mtier-handle-damon_stop-failure.patch
-samples-damon-wsse-stop-and-free-damon-ctx-when-damon_call-fails.patch
-samples-damon-prcl-stop-and-free-damon-ctx-when-damon_call-fails.patch
-mm-damon-sysfs-kobject_del-target-normal-context-and-kdamond-dirs.patch
-mm-damon-sysfs-kobject_del-region-and-target-error-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-region-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-filter-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-quota-goal-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-action-destination-dirs.patch
-mm-damon-sysfs-kobject_del-probe-dirs.patch
-mm-damon-sysfs-kobject_del-probe-filter-dirs.patch
-mm-damon-sysfs-kobject_del-probe-dirs-in-probes_addd_dir-error-path.patch
-mm-damon-sysfs-schemes-kobject_del-region-for-populate_region-error.patch
-docs-mm-damon-design-update-for-damos_quota_node_eligible_mem_bp.patch
-docs-abi-damon-document-probe-files.patch
-mm-damon-tests-core-kunit-test-damon_rand.patch
-selftests-damon-sysfssh-test-multiple-probe-dirs-creation.patch
-selftests-damon-sysfssh-test-coreops_filters-directories.patch
-selftests-damon-sysfssh-test-dests-dir.patch
-selftests-damon-sysfssh-test-all-files-in-quota-goal-dir.patch
-mm-damon-core-reduce-range-setup-in-damon_commit_target_regions.patch
-mm-damon-sysfs-split-probe-setup-function-out.patch
-mm-damon-sysfs-split-out-filters-setup-function.patch
-mm-damon-sysfs-fix-typos-in-probe_addrm_dirs-s-attr-probe.patch
-mm-damon-core-introduce-damon_nr_accesses_mvsum.patch
-mm-damon-tests-core-kunit-test-damon_mvsum.patch
-mm-damon-core-always-update-last_nr_accesses-for-intervals-change.patch
-mm-damon-core-handle-unreset-nr_accesses-in-damon_nr_accesses_mvsum.patch
-mm-damon-core-use-damon_nr_accesses_mvsum-in-__damos_valid_target.patch
-mm-damon-core-use-damon_nr_accesses_mvsum-for-damos-region-tracing.patch
-mm-damon-sysfs-schemes-use-damon_nr_accesses_mvsum-for-damo-regions.patch
-mm-damon-core-remove-damon_warn_fix_nr_accesses_corruption.patch
-mm-damon-core-remove-damon_verify_reset_aggregated.patch
-mm-damon-core-remove-damon_verify_merge_regions_of.patch
-mm-damon-tests-core-kunit-remove-nr_accesses_bp-setup-and-tests.patch
-selftests-damon-drgn_dump_damon_status-do-not-dump-nr_accesses_bp.patch
-mm-damon-core-remove-nr_accesses_bp-setups-and-updates.patch
-mm-damon-core-remove-attrs-param-from-damon_update_region_access_rate.patch
-mm-damon-paddr-remove-attrs-param-from-__damon_pa_check_access.patch
-mm-damon-vaddr-remove-attrs-param-from-__damon_va_check_access.patch
-mm-damon-core-remove-damon_moving_sum-and-its-unit-test.patch
-mm-damon-core-remove-damon_region-nr_accesses_bp.patch
-mm-damon-add-damon_region-last_probe_hits.patch
-mm-damon-core-introduce-damon_probe_hits_mvsum.patch
-mm-damon-sysfs-schemes-set-probe-hits-as-pseudo-moving-sums.patch
-mm-damon-core-safely-validate-src-on-damon_commit_ctx.patch
-mm-damon-core-do-parameter-testing-commit-on-damon_start.patch
-mm-damon-sysfs-remove-duplicated-commit-input-validity-check.patch
-mm-damon-reclaim-remove-duplicated-min_region_sz-power-of-2-check.patch
-mm-damon-lru_sort-remove-duplicated-min_region_sz-power_of_2-check.patch
-mm-damon-document-region-size-validation-in-damon_set_regions.patch
-mm-damon-core-remove-start-end-check-in-damon_set_region_system_rams.patch
-mm-damon-sysfs-remove-region-size-validation.patch
-mm-damon-core-stop-ctxs-in-damon_start-before-returning-an-error.patch
-samples-damon-mtier-do-not-stop-first-context-for-damon_start-failure.patch
-mm-damon-core-make-damon_stop-never-fails.patch
-mm-damon-sysfs-ignore-damon_stop-return-value.patch
-mm-damon-reclaaim-ignore-damon_stop-return-value.patch
-mm-damon-lru_sort-ignore-damon_stop-return-value.patch
-mm-damon-core-change-damon_stop-return-type-to-void.patch
-samples-damon-mtier-stop-all-contexts-with-single-damon_stop-call.patch
-mm-damon-core-wait-ctx-stop-in-damon_call-before-reruning-an-error.patch
-samples-damon-wsse-do-not-stop-ctx-for-damon_call-failure.patch
-samples-damon-prcl-do-not-stop-damon-for-damon_call-failure.patch
-mm-damon-core-remove-comment-and-test-for-nr_to_bp-divide-by-zero.patch
-mm-damon-core-s-damon_max_nr_accesses-damon_nr_samples_per_aggr.patch
-mm-damon-core-s-accesses_bp_to_nr_accesses-sample_bp_to_count.patch
-mm-damon-core-s-nr_accesses_to_accesses_bp-sample_count_to_bp.patch
-mm-damon-core-s-nr_accesses_for_new_attrs-nr_samples_for_new_attrs.patch
-mm-damon-core-update-probe-hits-for-new-parameter-commit.patch
-mm-damon-core-handle-unreset-probe_hits-in-probe_hits_mvsum.patch
-mm-damon-core-introduce-damon_probe-weight.patch
-mm-damon-core-ask-apply_probes-ops-callback-to-set-sampling-address.patch
-mm-damon-paddr-set-samples-in-apply_probes-if-requested.patch
-mm-damon-core-ask-apply_probe-to-return-max-probe-hits-weighted-sum.patch
-mm-damon-core-implement-damon_probe_hits_wsum.patch
-mm-damon-paddr-respect-return_max_wsum.patch
-mm-damon-core-use-abs_diff-instead-of-abs.patch
-mm-damon-core-extend-merge-function-to-work-with-probe-hits.patch
-mm-damon-core-disallow-probe_hits-overflow-on-attrs-only-monitoring.patch
-mm-damon-core-validate-params-for-probe-hits-weighted-sum-overflow.patch
-mm-damon-core-disable-access-monitoring-when-probe-weights-are-set.patch
-mm-damon-core-set-samples-in-apply_probes-if-probe-weights-are-set.patch
-mm-damon-core-s-max_nr_accesses-max_merge_score-in-kdamond_fn.patch
-mm-damon-core-get-merge-threshold-from-probe-hits-when-weights-are-set.patch
-mm-damon-core-implement-damon_has_probe_weight.patch
-mm-damon-sysfs-implement-probe-weight-file.patch
-docs-mm-damon-design-document-attrs-only-monitoring.patch
-docs-admin-guide-mm-damon-usage-document-weight-sysfs-file.patch
-docs-abi-damon-document-probe-weight-file.patch
-mm-damon-core-skip-aging-from-repeated-aggressive-merging.patch
-mm-damon-core-hide-private-damon_region-fields.patch
-mm-damon-core-hide-private-damon_target-fields.patch
-mm-damon-core-hide-private-damos_quota_goal-fields.patch
-mm-damon-core-hide-private-damos_quota-fields.patch
-mm-damon-core-hide-private-damos_filter-fields.patch
-mm-damon-core-hide-private-damos-fields.patch
-mm-damon-core-hide-private-damon_filter-fields.patch
-mm-damon-core-hide-private-damon_probe-fields.patch
-mm-damon-sysfs-do-not-directly-access-damon_ctx-ops.patch
-mm-damon-core-hide-core-private-damon_ctx-fields.patch
-mm-damon-core-avoid-infinite-kdamond_merge_regions-internal-loop.patch
-mm-damon-tests-core-kunit-catch-test-failure-in-test_merge_regions_of.patch
-mm-damon-vaddr-drop-last-same-folio-access-check-optimization.patch
-mm-damon-paddr-drop-last-same-folio-access-check-reuse-optimization.patch
-mm-damon-sysfs-read-addr_unit-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
-
+So... what is the significance of "1.1" here?
