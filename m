@@ -1,266 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF61C286D5E
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 01:45:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784079931; cv=none; b=iBediKAqQf2xZFQNa8l0c5GBcZTWYZQmH2BJgSXox0hIRBN52hTVMbPf8znqZ40jiPDNJaMqK2S1oaxPAdGQ/7RiiqCDHSffRUF2Owa8+EYAPPrmq8CYzHTchQQTA2vimCRNhOZzIvzNd2msUlzHnwvDChKFnp92zoPgl048Gds=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784079931; c=relaxed/simple;
-	bh=LFmD4F8cgrZXTHJD1FgCXAe3ltZ3o8vljjB8N6lps0k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QiaBbVkrPKhBaOxrbX8AEEKxLFqRZMnfjC1J8Rc/co89pAbvpYHe/1HC5CTz8fhvAztpauFbKOV+yMhpDCrxZ1i3+fHj34cpxq0V+VWx305diQrTLJEl7JGdp72W7wLbGfxo4nAARZFLDuG9nz4DvueYmOkNg8B/OnWEjRE9qQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XEQR6nYv; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F6325F984
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 01:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784079986; cv=fail; b=qT76ecznfts+vIYOuAG5kGN/Tmq2s02Y0x53YeyhT4hTaEobnNXQvJ2Ey382xMAApoUKnPsV+fMXW64PUfdBuGtKuMYykqsn09IwL6BKyyOyQIzWu2DFIyf9i4hOD/e6UHXGvKbTbCHuiCWUQu6BeC+tXloQGSwILfyBwqeZkT4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784079986; c=relaxed/simple;
+	bh=hRDkpaz08VGRfQQSFTFcaveFtlqR2oKrI4Fl3U2DGLY=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=hyqysOkEKBd1E5NNamBTaOO957RnP45Jn8Z0//BeYLHBROqXyFZCJN6yVgUePO+FSGNTPfiRVNRvrC/WB22cAJGTHjNehUZJapUrkd3JKEH7994K1/MqMBy1S43D/k6xrpnNqS4DCS6KLMqGlJviAy7cWHGk+RGgs6Rmtf6bWtk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FPG9eIW8; arc=fail smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XEQR6nYv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5127F1F000E9;
-	Wed, 15 Jul 2026 01:45:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784079929;
-	bh=efFsl2ZCjbfiaOhsteM+kvHDOosQZtcCgdYV9zUsaWE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XEQR6nYvoFSN+b8bcVw/pwctrhZkIPq9vM26mj3aUgTtT2Z1CKkmgu3LepVzd4U0I
-	 nay6tqnpJaRglAuh47ArR0nSS2x/Gx/k4IMKnYLQX1F3VjeMEVlxhxJOO/z92kqPoB
-	 UDlqHyhMLZKZhLnSDR/uxk7Io4saxAqwpE96eqbpw1r8Zsh974J4+ABF3H1zROXa5A
-	 xqHXnp/402mh+k8R45XjoP0aK1x8gnlDSk6+YOjjVng9+Q8ShghC1G9NsSJyJdw4Yc
-	 23SIYdMvYE5/2WIejRepQhzf7U+Np35zTvawRBF1VOwAaM43+vokdleVUMIgon3870
-	 nwNtQBcsUudfA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Ahsan Atta <ahsan.atta@intel.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] crypto: qat - fix VF2PF work teardown race in adf_disable_sriov()
-Date: Tue, 14 Jul 2026 21:45:27 -0400
-Message-ID: <20260715014527.4133831-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071351-gently-customary-f284@gregkh>
-References: <2026071351-gently-customary-f284@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FPG9eIW8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784079985; x=1815615985;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=hRDkpaz08VGRfQQSFTFcaveFtlqR2oKrI4Fl3U2DGLY=;
+  b=FPG9eIW8ywhpWmY8LGlOuOZrYrmj++LAZmcD9ancMA07OGqyjo6uiNUm
+   285pCmZNi9VbXP5Ie2FeKEVYeCXNDMdyQu6VVQBLbdNmrbCxvOJfldjL7
+   ZfAHvIIy2Dj6VylisLRsjFD5m1rDqyY2Nx7SOI/FQhOpCwn/X8SC6wxBh
+   Ihe35c2ECKLC1jm2h5lMCTzUPKiTcC0N7XZOkibkIjIbjNAHm+a3i//h9
+   MJyMgpM7P/8gN/5z6q5j/+jskFdj2GxmiY9cZm8CIOUxquzYANKCnYP1y
+   z7Scyw93yD4uw6hQBumpZS9wGOpe/P1HCvP7laVSkIvUcRFyGNSDVt18S
+   Q==;
+X-CSE-ConnectionGUID: bj7t35iiQKiMz9Il69ivlw==
+X-CSE-MsgGUID: OAwxVdxtS7Gl40br/kccWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84733545"
+X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; 
+   d="scan'208";a="84733545"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 18:46:23 -0700
+X-CSE-ConnectionGUID: zEWQY9q2TaiN/2iT+ZvWIA==
+X-CSE-MsgGUID: ujzBFUyJS7WHW3qkI083Xw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; 
+   d="scan'208";a="256663933"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 18:46:22 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 14 Jul 2026 18:46:22 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Tue, 14 Jul 2026 18:46:22 -0700
+Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.7) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 14 Jul 2026 18:46:22 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X8ST6W3Ov4EfVFfDvT7QEM/4zXUVu4Z9uy+tSd83FTrhQgZHecYFmNV+pkTWR0zrR9bLtIpjKjLUCHbCe380DIGqtoky0Og3y8wJ11T+YfhhReYpSPRYLVYsMXqsYepQR0p+LCcxnJwDALCaG/ius7yggvtA4kjMh6dB8rxi9/75SMLMqQU2iBURByXPelloUJBpPJeVpjLdh31bOZkqLJ0FOUUYJCGSpm9TOhvlkg4wfgXoGwY7727g1czeWSl+KkAeXpWG09MZZewrL8UKDsP+nW4fnZJ1kZVYAbMYFNjbNuXTzF9xm9YY708CQ/2hkJjRZIQafJqgrvDN+sP7yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eGT/PZXqIrHZE7habtzIvp3wAGwBa6R8P8p6PPUS0KI=;
+ b=KNKeMYuFoetzVhhmgwQM9aikAQvoye7d/9Ie/eyatTGIjEssrqHWxkldiacyT+Lbd6cJK9ew5ITsuRnULZAuJ3/fcZQIukrAARBoLDdY0n0lFsBEohnaJLeb8uIDYpL6omIrGmQp2aBexI5hrck9Cwi/NT3tPcY3ERtXto1TXLLrMkauLat9CfdSILUD+18S5ClnQGW+gV81jiCMpPcRyKXj5ZgYQr8HCmfiuqmulUbiuezIP18//BqmqBIHATq1IQ3NMOQVMdsYxISd9hACJJIUuDh+RWvNzIbkNPmADUZix/Vznb+OHkY/F6lJvcTyWuYOKhbMhHrdAd81S8VB2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by PH7PR11MB8035.namprd11.prod.outlook.com (2603:10b6:510:245::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Wed, 15 Jul
+ 2026 01:46:19 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
+ 01:46:19 +0000
+Date: Tue, 14 Jul 2026 18:46:16 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Zongyao Bai <zongyao.bai@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, Matthew Auld <matthew.auld@intel.com>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/xe/pt: Reset current_op in xe_pt_update_ops_init()
+Message-ID: <albmaGCoA32iIsvt@gsse-cloud1.jf.intel.com>
+References: <20260713230830.2662760-1-zongyao.bai@intel.com>
+ <20260714232433.2737533-1-zongyao.bai@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260714232433.2737533-1-zongyao.bai@intel.com>
+X-ClientProxiedBy: MW4P221CA0010.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:303:8b::15) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|PH7PR11MB8035:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f553597-f5e3-4181-cd6e-08dee212dddb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|56012099006|6133799003|4143699003|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: w6qLC/Dl2eHbV/y71VsCiO7cRN40BLFERMCD3uIdetZINb92Gfu72i1Bbyko/dyV9FsD7SS4pHCTGcEns0btfFYowHtaydDYesN7RPRHQ0c9ojE4CrK1QqsEX2WlYfeCp+df2vzKJ/X2w3FznI0hX7sc9TEt43jKLGFsfHMutpSVhc7e5Iv7TR1AYWtkA/kjLyqXuCQ5zvnsa9Te4PqrbXSE/mejS3Ct9SGgRM7h8FgRKTXj6OHKznzC3esfKKuaiqlFK4ORIjQbOE92vW3yD8EnPkheScIxX2ud39SZiDJGLTJcVrCZK1s6Xj7+ynRSzb8zE9gU44MCHAVHpbgW1ptI6qFer97mi85grKZManTumGAJycqTORC7AaLmcI8gz39tWqNQx/oRi+1s/oDc7dvQ9FIujslGWAIK3EthrQO2ee7pT5RK+yv3s7IgTA2QcNI+wiRpPJjooRwVKyIdaeCHTqX9t8NRdjNTacI+KmnOrPBGiuW1dKrVYBvBEVkIyOP/FtfrGVFHzgsD3aJNSY7fXHBpXG8r9L9qzt9HWRUfwu7Mp/TioNajx7EOlRGMJud55KG8FMTU5Lxm3QUDBY/wrGLoAOqDJARHk4501oK+55xiOYxj1Rd9q9tCzXS+Z+dHriJGFmJLskMivOCOglShUiyEeUQ+9P88V31kUig=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6522.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(56012099006)(6133799003)(4143699003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vhTllJNQPqFMSc/Ef/W6h05mK7gD7tHLTCF6b43lncWcH1QW6mTWC57cPEkD?=
+ =?us-ascii?Q?oDf35lmjgDSnkufTsA5+Rq6Bi5RK1LJvjHOZyZyBDGNQ/EMciWUDrTG7MVxV?=
+ =?us-ascii?Q?hgaojhS6fGHvPFHFnh1r7zJI3xoflF66XM6TiS2Rwr4TyDWT4e2FP3+ExG40?=
+ =?us-ascii?Q?jFnH8b3cRyj73cTpdERhM4WaczTuuz0V6qef88Uz+N9j6wXDPLFER7AAYQcb?=
+ =?us-ascii?Q?IvaIFSfaeovCqeUpyMKUxRPACYJLQNyjTSd1YSTqKL/tUbHRkrW7h9Cd24Gt?=
+ =?us-ascii?Q?eJhc7JcdLCdZXgveauWMb4q6nXho25WHKq54Ah2hb4nTxTD3w9EtgJ8SsU/z?=
+ =?us-ascii?Q?+TLuE1uN7T4SG7aV0H5xiDUuxLS+9wXVYoeHAj18Y6HyPPb2h/Tkp9XJ7eX1?=
+ =?us-ascii?Q?LsXw2RspHUXY7MoFCegmQxlvAlLp2vv1kWtykJAREXIeqERxS+cg3pb2ZGzT?=
+ =?us-ascii?Q?D215ggxuMpXo/jhKni/rZjwDnBFyPaUZTGk7lD5Ug8JMwza2ufJdWu4I/pUS?=
+ =?us-ascii?Q?r6K6bIZAWXGKUgelgPsfi5dT/zO46l4c2cX8BPqamxLB6q/Ci8V5a1zV7T6A?=
+ =?us-ascii?Q?xpa74V/VoDjynofBzosTqLC3YcDG3xS7PsrEd0elz/J/Le6bxeIzoALjbKuv?=
+ =?us-ascii?Q?TfsnvEAnVBv1Et2h17K98H/PGM4hF2lz36gK5ez9o9zEY0M8Wj0l1d4D36V+?=
+ =?us-ascii?Q?Jl53cXVE7/o5VrqN6ckC9pFEUJ16gjsrVywWNWd8rXAaa8aNvg4FXp0vRr08?=
+ =?us-ascii?Q?xgk+fAqR0POO5KybDzdsAsh32MuExqBhERqAzdMjAmX2jnqA6yYC0R953Gcp?=
+ =?us-ascii?Q?vd26VDxLnxICOXLvOZEKn65qTlPtnIQcxt34oD2VkEdnLtwPkwJj5wNcTRIA?=
+ =?us-ascii?Q?JjYDW7WCEir5jyGvUXhu90XhDItYJrdqs0KBshIxihBXQ9bKNAmlmqiQ4tM1?=
+ =?us-ascii?Q?fRYTbrUSQG+3vzhDzwqDPnTwFOcEgu4ue8PByY5UNmmVTLmSOir3ODAhmOTP?=
+ =?us-ascii?Q?6+0SLbZmmcRCC9p9o/k36FqwpFjQCNJnJMoNPaGDa5vhjs1LjAcGNtXDN/ar?=
+ =?us-ascii?Q?Ok2jVHUmVaS+5eIT117WudzgMdkUqgc4xZ2PM8W136TXcYX0X3zrkXipw7EH?=
+ =?us-ascii?Q?PoEpsRRGXSemOthMca9k/0vwTI1kizJgQVyRorcLZy791cpQ9I4YB/Q73B4y?=
+ =?us-ascii?Q?SOnY69lpi4+LqXpxDoBR7RQPt4uCzfOQa8UEbbcvamU0dd6qaLHaOACjasL/?=
+ =?us-ascii?Q?FyO5gFe/epJ+/wf/PJ0AJ9S0QDCWz/7Vxzf6qoDs2Lbpqnc8QLdnR/Q4h8v/?=
+ =?us-ascii?Q?XVyDs4k8TxSTM+bkY3rerYvO0+X8Rt6sYsAZVt3eqXD7B57UvP/jOtGPUWIA?=
+ =?us-ascii?Q?GySxTE3sMPpGRSyRhhwpKQqjAPxDh1QTW5VQIpUrcHeTQpOKBPg7UaXySKv3?=
+ =?us-ascii?Q?m92aaHopl5trgmGabmykTx8+ycdU5k4pncX4laWlsgaMgjnX8pzSqwhwHOE6?=
+ =?us-ascii?Q?CS4CP8AS5IB8amO4Ijeew2j5SQH+PK7sW1rK9Fce5hfxcjBjudPN24+nFQ3M?=
+ =?us-ascii?Q?vrb+qq/IG2FEDeNg9HJRC2zb0SyVAEh5briqt3K7EVLwWLfp390BxiKaoHNV?=
+ =?us-ascii?Q?E0piIAnWPe+IwAk+aPQzEEIQxnPoyYhdz36MJ2R2/QIEA7a1NL3ky+ux1cdP?=
+ =?us-ascii?Q?eSQSScHz15AN9glfE80TMaLm1LYQnth7QjiTeaZ5lKpIfxltmanI63TfDjx3?=
+ =?us-ascii?Q?9CcghUdh7w=3D=3D?=
+X-Exchange-RoutingPolicyChecked: UNxOCC6AX0KRR9/hWSmdP7g4mN8fUo3vgySBsRA86DLQLV4xToru9JvaSjkDevuaRlxSDKptrJYj00prK1sRFNmNkC3eJnz6glnVyUvdotqp0umzieLGckva62G6RImtt+b15TpcCPoSlZ1EKu8Pvubg0NnBp+86TxpuaB52/HgkzVY3OKf478fonerzeTN+35rA83Cwl9uXsVKUT73lxqxc+pzFyjQIZR73F64zDXf3MlmbUeD4LHE6MbeIikPxOVOE+C+U5nxguu7U3d6KTudXUGtMU9p1e7WGgPw+Zm7BgAaWMflEHpTcx7RbaTZAQQ1UeH3KpgGRsxO/pNayww==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f553597-f5e3-4181-cd6e-08dee212dddb
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 01:46:19.4794
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y71/b7VH/cesG1ncvrTyEq+OcD2NjaPdJLDVRiUdqe4N9Hy8SG2/VcBvCF31ZEojxn45iKslTb+g+sGrQBuv8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB8035
+X-OriginatorOrg: intel.com
 
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+On Tue, Jul 14, 2026 at 11:24:32PM +0000, Zongyao Bai wrote:
+> xe_pt_update_ops_init() fails to reset current_op to 0. On the
+> vm_bind path, ops_execute() calls xe_pt_update_ops_prepare() inside
+> the xe_validation_guard() / drm_exec_until_all_locked() loop. When
+> that loop retries due to lock contention or OOM eviction
+> (drm_exec_retry_on_contention() / xe_validation_retry_on_oom()),
+> xe_pt_update_ops_prepare() runs again on the same vops, and each
+> call to bind_op_prepare() increments current_op without resetting it.
+> 
+> After N retries current_op exceeds the array size allocated by
+> xe_vma_ops_alloc(), causing an out-of-bounds write into
+> SLUB-poisoned memory and a subsequent UAF crash in
+> xe_migrate_update_pgtables_cpu() when reading the corrupted pt_op->bind.
+> 
+> Also reset needs_svm_lock and needs_invalidation which are derived in
+> the same prepare pass and would otherwise cause wrong migrate ops
+> selection and redundant TLB invalidation on retry.
+> 
+> Fix this by resetting current_op, needs_svm_lock and needs_invalidation
+> in xe_pt_update_ops_init().
+> 
+> v2 (Matt):
+>    - Add details in commit message.
+>    - Add Fixes tag and Cc to stable@vger.kernel.org
+> 
+> Fixes: e8babb280b5e ("drm/xe: Convert multiple bind ops into single job")
+> Suggested-by: Matthew Auld <matthew.auld@intel.com>
+> Cc: stable@vger.kernel.org
+> Assisted-by: GitHub-Copilot:claude-sonnet-4.6
+> Signed-off-by: Zongyao Bai <zongyao.bai@intel.com>
 
-[ Upstream commit 277281c10c63791067d24d421f7c43a15faa9096 ]
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
-The VF2PF interrupt handler queues PF-side response work that stores a
-raw pointer to per-VF state (struct adf_accel_vf_info). Currently,
-adf_disable_sriov() destroys per-VF mutexes and frees vf_info without
-stopping new VF2PF work or waiting for in-flight workers to complete. A
-concurrently scheduled or already queued worker can then dereference
-freed memory.
-
-This manifests as a use-after-free when KASAN is enabled:
-
-  BUG: KASAN: null-ptr-deref in mutex_lock+0x76/0xe0
-  Write of size 8 at addr 0000000000000260 by task kworker/24:2/...
-  Workqueue: qat_pf2vf_resp_wq adf_iov_send_resp [intel_qat]
-  Call Trace:
-    kasan_report+0x119/0x140
-    mutex_lock+0x76/0xe0
-    adf_gen4_pfvf_send+0xd4/0x1f0 [intel_qat]
-    adf_recv_and_handle_vf2pf_msg+0x290/0x360 [intel_qat]
-    adf_iov_send_resp+0x8c/0xe0 [intel_qat]
-    process_one_work+0x6ac/0xfd0
-    worker_thread+0x4dd/0xd30
-    kthread+0x326/0x410
-    ret_from_fork+0x33b/0x670
-
-Add a PF-local flag, vf2pf_disabled, that gates work queueing, worker
-processing, and interrupt re-enabling during teardown. Set this flag
-atomically with the hardware interrupt mask inside
-adf_disable_all_vf2pf_interrupts(). After masking, synchronize the AE
-cluster MSI-X interrupt and flush the PF response workqueue before
-tearing down per-VF locks and state so all in-flight work completes
-before vf_info is destroyed.
-
-Introduce adf_enable_all_vf2pf_interrupts() to clear the flag and
-unmask all VF2PF interrupts under the same lock when SR-IOV is
-re-enabled. This ensures the software flag and hardware state transition
-atomically on both the enable and disable paths.
-
-Cc: stable@vger.kernel.org
-Fixes: ed8ccaef52fa ("crypto: qat - Add support for SRIOV")
-Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Reviewed-by: Ahsan Atta <ahsan.atta@intel.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../intel/qat/qat_common/adf_accel_devices.h  |  2 +
- .../intel/qat/qat_common/adf_common_drv.h     |  2 +
- drivers/crypto/intel/qat/qat_common/adf_isr.c | 39 +++++++++++++++++++
- .../crypto/intel/qat/qat_common/adf_sriov.c   | 20 +++++++++-
- 4 files changed, 61 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h b/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h
-index 79d5a1535eda34..658337b6aad606 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h
-+++ b/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h
-@@ -314,6 +314,8 @@ struct adf_accel_dev {
- 		struct {
- 			/* protects VF2PF interrupts access */
- 			spinlock_t vf2pf_ints_lock;
-+			/* prevents VF2PF handling from racing with VF state teardown */
-+			bool vf2pf_disabled;
- 			/* vf_info is non-zero when SR-IOV is init'ed */
- 			struct adf_accel_vf_info *vf_info;
- 		} pf;
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-index d9255b307c4b2a..2cf21f59a21c95 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-+++ b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-@@ -123,6 +123,7 @@ void qat_comp_alg_callback(void *resp);
- 
- int adf_isr_resource_alloc(struct adf_accel_dev *accel_dev);
- void adf_isr_resource_free(struct adf_accel_dev *accel_dev);
-+void adf_isr_sync_ae_cluster(struct adf_accel_dev *accel_dev);
- int adf_vf_isr_resource_alloc(struct adf_accel_dev *accel_dev);
- void adf_vf_isr_resource_free(struct adf_accel_dev *accel_dev);
- 
-@@ -195,6 +196,7 @@ void adf_misc_wq_flush(void);
- int adf_sriov_configure(struct pci_dev *pdev, int numvfs);
- void adf_disable_sriov(struct adf_accel_dev *accel_dev);
- void adf_enable_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 vf_mask);
-+void adf_enable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 num_vfs);
- void adf_disable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev);
- bool adf_recv_and_handle_pf2vf_msg(struct adf_accel_dev *accel_dev);
- bool adf_recv_and_handle_vf2pf_msg(struct adf_accel_dev *accel_dev, u32 vf_nr);
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_isr.c b/drivers/crypto/intel/qat/qat_common/adf_isr.c
-index ce7c9ef6346b39..0d34f346a38129 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_isr.c
-+++ b/drivers/crypto/intel/qat/qat_common/adf_isr.c
-@@ -62,6 +62,23 @@ void adf_enable_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 vf_mask)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	if (!READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		GET_PFVF_OPS(accel_dev)->enable_vf2pf_interrupts(pmisc_addr, vf_mask);
-+	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
-+}
-+
-+void adf_enable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 num_vfs)
-+{
-+	void __iomem *pmisc_addr = adf_get_pmisc_base(accel_dev);
-+	unsigned long flags;
-+	u32 vf_mask;
-+
-+	vf_mask = BIT_ULL(num_vfs) - 1;
-+	if (!vf_mask)
-+		return;
-+
-+	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	WRITE_ONCE(accel_dev->pf.vf2pf_disabled, false);
- 	GET_PFVF_OPS(accel_dev)->enable_vf2pf_interrupts(pmisc_addr, vf_mask);
- 	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
- }
-@@ -72,6 +89,7 @@ void adf_disable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	WRITE_ONCE(accel_dev->pf.vf2pf_disabled, true);
- 	GET_PFVF_OPS(accel_dev)->disable_all_vf2pf_interrupts(pmisc_addr);
- 	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
- }
-@@ -151,6 +169,27 @@ static irqreturn_t adf_msix_isr_ae(int irq, void *dev_ptr)
- 	return IRQ_NONE;
- }
- 
-+void adf_isr_sync_ae_cluster(struct adf_accel_dev *accel_dev)
-+{
-+	struct adf_accel_pci *pci_dev_info = &accel_dev->accel_pci_dev;
-+	struct adf_hw_device_data *hw_data = GET_HW_DATA(accel_dev);
-+	u32 num_entries = pci_dev_info->msix_entries.num_entries;
-+	struct adf_irq *irqs = pci_dev_info->msix_entries.irqs;
-+	u32 irq_idx;
-+	int irq;
-+
-+	if (!test_bit(ADF_STATUS_IRQ_ALLOCATED, &accel_dev->status) || !irqs)
-+		return;
-+
-+	irq_idx = num_entries > 1 ? hw_data->num_banks : 0;
-+	if (irq_idx >= num_entries || !irqs[irq_idx].enabled)
-+		return;
-+
-+	irq = pci_irq_vector(pci_dev_info->pci_dev, hw_data->num_banks);
-+	if (irq > 0)
-+		synchronize_irq(irq);
-+}
-+
- static void adf_free_irqs(struct adf_accel_dev *accel_dev)
- {
- 	struct adf_accel_pci *pci_dev_info = &accel_dev->accel_pci_dev;
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_sriov.c b/drivers/crypto/intel/qat/qat_common/adf_sriov.c
-index f44025bb6f995d..202c08c9d9f0d4 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_sriov.c
-+++ b/drivers/crypto/intel/qat/qat_common/adf_sriov.c
-@@ -26,18 +26,26 @@ static void adf_iov_send_resp(struct work_struct *work)
- 	u32 vf_nr = vf_info->vf_nr;
- 	bool ret;
- 
-+	if (READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		goto out;
-+
- 	ret = adf_recv_and_handle_vf2pf_msg(accel_dev, vf_nr);
- 	if (ret)
- 		/* re-enable interrupt on PF from this VF */
- 		adf_enable_vf2pf_interrupts(accel_dev, 1 << vf_nr);
- 
-+out:
- 	kfree(pf2vf_resp);
- }
- 
- void adf_schedule_vf2pf_handler(struct adf_accel_vf_info *vf_info)
- {
-+	struct adf_accel_dev *accel_dev = vf_info->accel_dev;
- 	struct adf_pf2vf_resp *pf2vf_resp;
- 
-+	if (READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		return;
-+
- 	pf2vf_resp = kzalloc(sizeof(*pf2vf_resp), GFP_ATOMIC);
- 	if (!pf2vf_resp)
- 		return;
-@@ -47,6 +55,12 @@ void adf_schedule_vf2pf_handler(struct adf_accel_vf_info *vf_info)
- 	queue_work(pf2vf_resp_wq, &pf2vf_resp->pf2vf_resp_work);
- }
- 
-+static void adf_flush_pf2vf_resp_wq(void)
-+{
-+	if (pf2vf_resp_wq)
-+		flush_workqueue(pf2vf_resp_wq);
-+}
-+
- static int adf_enable_sriov(struct adf_accel_dev *accel_dev)
- {
- 	struct pci_dev *pdev = accel_to_pci_dev(accel_dev);
-@@ -73,7 +87,7 @@ static int adf_enable_sriov(struct adf_accel_dev *accel_dev)
- 		hw_data->configure_iov_threads(accel_dev, true);
- 
- 	/* Enable VF to PF interrupts for all VFs */
--	adf_enable_vf2pf_interrupts(accel_dev, BIT_ULL(totalvfs) - 1);
-+	adf_enable_all_vf2pf_interrupts(accel_dev, totalvfs);
- 
- 	/*
- 	 * Due to the hardware design, when SR-IOV and the ring arbiter
-@@ -105,8 +119,10 @@ void adf_disable_sriov(struct adf_accel_dev *accel_dev)
- 	adf_pf2vf_notify_restarting(accel_dev);
- 	pci_disable_sriov(accel_to_pci_dev(accel_dev));
- 
--	/* Disable VF to PF interrupts */
-+	/* Block VF2PF work and disable VF to PF interrupts */
- 	adf_disable_all_vf2pf_interrupts(accel_dev);
-+	adf_isr_sync_ae_cluster(accel_dev);
-+	adf_flush_pf2vf_resp_wq();
- 
- 	/* Clear Valid bits in AE Thread to PCIe Function Mapping */
- 	if (hw_data->configure_iov_threads)
--- 
-2.53.0
-
+> ---
+>  drivers/gpu/drm/xe/xe_pt.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+> index e466f714bf86..598c6b2571e7 100644
+> --- a/drivers/gpu/drm/xe/xe_pt.c
+> +++ b/drivers/gpu/drm/xe/xe_pt.c
+> @@ -2371,8 +2371,11 @@ static void
+>  xe_pt_update_ops_init(struct xe_vm_pgtable_update_ops *pt_update_ops)
+>  {
+>  	init_llist_head(&pt_update_ops->deferred);
+> +	pt_update_ops->current_op = 0;
+>  	pt_update_ops->start = ~0x0ull;
+>  	pt_update_ops->last = 0x0ull;
+> +	pt_update_ops->needs_svm_lock = false;
+> +	pt_update_ops->needs_invalidation = false;
+>  	xe_page_reclaim_list_init(&pt_update_ops->prl);
+>  }
+>  
+> -- 
+> 2.43.0
+> 
