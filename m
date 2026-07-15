@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1F43CF204
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 23:55:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABF33D75AA
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 23:55:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784159725; cv=none; b=jm8dW4fnP1HNeYObeevEJR6sdohmOdTmS11xu/mgQgGWHBD7Dqxrv/VXkt5KeaBH6D+pIAAT6VXzXS3kvq9bYWEsjxgGLEdnAFc2OiUMkjuIYx/DWEU2ilCIzFchPodCXWV3mjKDctf+Dbk40B4Ok5G4Nk/PCnk+MGaX+sw+Bfk=
+	t=1784159726; cv=none; b=oMhoOhykEt2knVB3Z4j5iC3vxf6RSJsQXNUOIT7pWy+ZKx0stLsckwhVP0JVliF/HfXKqTcryVjtdEMZE/0++nbhK+nHC6j8Dic7pmUxF0ORDPXnX+4wVeQoKdHaAR0X8tBcr44c3El2yHU8ScmxpzPuRUqU3GSd5Vb87mVpXJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784159725; c=relaxed/simple;
-	bh=ZoP7rbJtiraXdfw81Ac6fPD09wRVTA2qajsPMHui9qA=;
+	s=arc-20240116; t=1784159726; c=relaxed/simple;
+	bh=gjAsY5WRKYvU5IxLqcvVgHbAqrZ81vZSNyeUUb72PEg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T8ulkKphdW+lZihtLIIqU1pyEe2yw17sFV/+sdPH7N35Xc6XExJa6kWZdYhIuEq+V7Ta07Se4COgMLfcvf3LE4PPcbWwGXSLJ1eWRYW/QD48Ko1Kjq3ymeJ0kB1JV8cQ+jJObLP5K74/9JGbG9LA8ymqMwY+uxDUN6fau/Nfx7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n/Eus+eX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SFoBieZVLgym/3AsNwT9dG0paitlYOdzXzZLyI4qin6PKz9i4HOZsByv2RlrmHo9e4KHyngNFr/4Q6PoxjqRuqa18aU+SxonqmjlHBUwMqo944s2Y5oDGA4nblZQX+TBi96ce6IFRoc8Hv1pgRzLyLwr6FoH+IDK07k2IL0R3ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCxOnRkU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n/Eus+eX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457CB1F00ACA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCxOnRkU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04D701F000E9;
 	Wed, 15 Jul 2026 23:55:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784159723;
-	bh=/IBimKOK9cz0eDJ4cY6DAcvLe8+lILyXLyDUdsMruvQ=;
+	s=k20260515; t=1784159724;
+	bh=d6pPstx9JKScon1AUf8yHYbTScEbfbcIBo9Ze/41ZlY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n/Eus+eXgtfgwI9aavfh3X6yF80x2AQchsVZ4Dho9bdRBmIKp6X9E/Mks0TFwZIu+
-	 G9/BfEtTu3IUloNtIWaIgdVW2Eyvf5Jpqo3IDS0mN5z57BDcLBFZRVG2DS292/fZ+L
-	 oUtJPOHr2iAgrfu5zryftrZb/utudqHWjIF0JTupq8mGgWINp4sAdwYkbZAGT1LGWH
-	 eJJrgp0iJ2tGpp1iiiFvchDOQfjk9PbhIgCxMRlMyS9j5aNIlgFZilBemaKlOmk8VS
-	 vM4oqGEt2Sa7DMfutC4gVVmBqXuUcGAk6YgoWMzb815ByO0fUR4ly38jYxsqvahW6Y
-	 JDdy0wjQMpBtA==
+	b=oCxOnRkUXSnfgCHQBpGfVrwea5qbLBY6KAJzgDUB9DWc+XV5GdTeMHogA79LMOHfG
+	 0s9r9YnaUeikREAV4Ig7IaeXTqclXdm483VQhwCj82mkSdErBRjNldRDfvNqNTn0N/
+	 xZQ6gWYntiK8SLlL4SrP7sJ5SVLiZMPHBfUzJfK3AhECRzKd2Hs6pZFDH6C2E9jSYO
+	 SnAoFPhew93ZPR0VPgQsal+MOCJkWv3nubdgSaKFHXpRfY+St1hhkXQfSomGECKA4Y
+	 7QImCBCm+959J9LFuAMtbxQLSkH2tQesIu1Ws6dTyq3wcu6sNd4Eff7U+V0vh6cd7/
+	 k1G3pASy276XQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pauli Virtanen <pav@iki.fi>,
+Cc: Siwei Zhang <oss@fourdim.xyz>,
+	stable@kernel.org,
 	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/5] Bluetooth: 6lowpan: fix cyclic locking warning on netdev unregister
-Date: Wed, 15 Jul 2026 19:55:18 -0400
-Message-ID: <20260715235519.525147-4-sashal@kernel.org>
+Subject: [PATCH 6.1.y 5/5] Bluetooth: L2CAP: Fix use-after-free in l2cap_sock_new_connection_cb()
+Date: Wed, 15 Jul 2026 19:55:19 -0400
+Message-ID: <20260715235519.525147-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260715235519.525147-1-sashal@kernel.org>
 References: <2026071307-release-elongated-f82c@gregkh>
@@ -46,100 +47,549 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pauli Virtanen <pav@iki.fi>
+From: Siwei Zhang <oss@fourdim.xyz>
 
-[ Upstream commit 9707a015fe8f3ba8ec7c270f3b2b8efb38823d6b ]
+[ Upstream commit 6fef032af0092ed5ccb767239a9ac1bc38c08a40 ]
 
-6lowpan.c has theoretically conflicting lock orderings, which lockdep
-complains about:
+l2cap_sock_new_connection_cb() returned l2cap_pi(sk)->chan after
+release_sock(parent). Once the parent lock is dropped the newly
+enqueued child socket sk is reachable via the accept queue, so another
+task can accept and free it before the callback dereferences sk,
+resulting in a use-after-free.
 
-    a) rtnl_lock > hdev->workqueue
+Rework the ->new_connection() op so the core, rather than the callback,
+owns the child channel's lifetime. The op now receives a pre-allocated
+new_chan and returns an errno instead of allocating and returning a
+channel. l2cap_new_connection() allocates the child channel and links
+it into the conn list via __l2cap_chan_add() before invoking the
+callback, so the conn-list reference keeps the channel alive once
+release_sock(parent) exposes the socket to other tasks.
 
-    from 6lowpan.c:delete_netdev -> rtnl_lock -> device_del
-    -> put_device(parent) -> hci_release_dev -> destroy_workqueue
+Channel configuration that was duplicated in l2cap_sock_init() and the
+various new_connection callbacks is consolidated into
+l2cap_chan_set_defaults(), which now inherits from the parent channel
+when one is supplied.
 
-    b) hdev->workqueue > l2cap_conn->lock > chan->lock > rtnl_lock
-
-    from hci_rx_work -> 6lowpan.c:chan_ready_cb
-    -> lowpan_register_netdev, ifup -> rtnl_lock
-
-Actual deadlock appears not possible, as hci_rx_work is disabled and
-l2cap_conn flushed already on hdev unregister. Hence, do minimal thing
-to make lockdep happy by breaking chain a) by holding hdev refcount
-until after netdev put in 6lowpan.c.
-
-Fixes the lockdep complaint:
-WARNING: possible circular locking dependency detected.
-kworker/0:1/11 is trying to acquire lock:
-ffff8880023b3940 ((wq_completion)hci0#2){+.+.}-{0:0}, at: touch_wq_lockdep_map+0x8b/0x130
-but task is already holding lock:
-ffffffff95e4f9c0 (rtnl_mutex){+.+.}-{4:4}, at: lowpan_unregister_netdev+0xd/0x30
-Workqueue: events delete_netdev
-
-Signed-off-by: Pauli Virtanen <pav@iki.fi>
+Fixes: 8ffb929098a5 ("Bluetooth: Remove parent socket usage from l2cap_core.c")
+Cc: stable@kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Stable-dep-of: 6fef032af009 ("Bluetooth: L2CAP: Fix use-after-free in l2cap_sock_new_connection_cb()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/6lowpan.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
+ include/net/bluetooth/l2cap.h |  10 ++--
+ net/bluetooth/6lowpan.c       |  18 +-----
+ net/bluetooth/l2cap_core.c    |  78 ++++++++++++++++++++-----
+ net/bluetooth/l2cap_sock.c    | 103 ++++++++++++++++------------------
+ net/bluetooth/smp.c           |  27 ++-------
+ 5 files changed, 127 insertions(+), 109 deletions(-)
 
+diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
+index eed2e2fe895a7a..d3ecbf64dc64d0 100644
+--- a/include/net/bluetooth/l2cap.h
++++ b/include/net/bluetooth/l2cap.h
+@@ -614,7 +614,8 @@ struct l2cap_chan {
+ struct l2cap_ops {
+ 	char			*name;
+ 
+-	struct l2cap_chan	*(*new_connection) (struct l2cap_chan *chan);
++	int			(*new_connection)(struct l2cap_chan *chan,
++						  struct l2cap_chan *new_chan);
+ 	int			(*recv) (struct l2cap_chan * chan,
+ 					 struct sk_buff *skb);
+ 	void			(*teardown) (struct l2cap_chan *chan, int err);
+@@ -878,9 +879,10 @@ static inline __u16 __next_seq(struct l2cap_chan *chan, __u16 seq)
+ 	return (seq + 1) % (chan->tx_win_max + 1);
+ }
+ 
+-static inline struct l2cap_chan *l2cap_chan_no_new_connection(struct l2cap_chan *chan)
++static inline int l2cap_chan_no_new_connection(struct l2cap_chan *chan,
++					       struct l2cap_chan *new_chan)
+ {
+-	return NULL;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int l2cap_chan_no_recv(struct l2cap_chan *chan, struct sk_buff *skb)
+@@ -956,7 +958,7 @@ int l2cap_chan_send(struct l2cap_chan *chan, struct msghdr *msg, size_t len);
+ void l2cap_chan_busy(struct l2cap_chan *chan, int busy);
+ void l2cap_chan_rx_avail(struct l2cap_chan *chan, ssize_t rx_avail);
+ int l2cap_chan_check_security(struct l2cap_chan *chan, bool initiator);
+-void l2cap_chan_set_defaults(struct l2cap_chan *chan);
++void l2cap_chan_set_defaults(struct l2cap_chan *chan, struct l2cap_chan *pchan);
+ int l2cap_ertm_init(struct l2cap_chan *chan);
+ void l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan);
+ void __l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan);
 diff --git a/net/bluetooth/6lowpan.c b/net/bluetooth/6lowpan.c
-index dc3d1d5326e96a..de521a3501caf3 100644
+index de521a3501caf3..c94e59b1f71335 100644
 --- a/net/bluetooth/6lowpan.c
 +++ b/net/bluetooth/6lowpan.c
-@@ -759,13 +759,33 @@ static inline struct l2cap_chan *chan_new_conn_cb(struct l2cap_chan *pchan)
- 	return chan;
+@@ -631,7 +631,7 @@ static struct l2cap_chan *chan_create(void)
+ 	if (!chan)
+ 		return NULL;
+ 
+-	l2cap_chan_set_defaults(chan);
++	l2cap_chan_set_defaults(chan, NULL);
+ 
+ 	chan->chan_type = L2CAP_CHAN_CONN_ORIENTED;
+ 	chan->mode = L2CAP_MODE_LE_FLOWCTL;
+@@ -744,21 +744,6 @@ static inline void chan_ready_cb(struct l2cap_chan *chan)
+ 	ifup(dev->netdev);
  }
  
-+static void unregister_dev(struct lowpan_btle_dev *dev)
-+{
-+	struct hci_dev *hdev = READ_ONCE(dev->hdev);
+-static inline struct l2cap_chan *chan_new_conn_cb(struct l2cap_chan *pchan)
+-{
+-	struct l2cap_chan *chan;
+-
+-	chan = chan_create();
+-	if (!chan)
+-		return NULL;
+-
+-	chan->ops = pchan->ops;
+-
+-	BT_DBG("chan %p pchan %p", chan, pchan);
+-
+-	return chan;
+-}
+-
+ static void unregister_dev(struct lowpan_btle_dev *dev)
+ {
+ 	struct hci_dev *hdev = READ_ONCE(dev->hdev);
+@@ -900,7 +885,6 @@ static long chan_get_sndtimeo_cb(struct l2cap_chan *chan)
+ 
+ static const struct l2cap_ops bt_6lowpan_chan_ops = {
+ 	.name			= "L2CAP 6LoWPAN channel",
+-	.new_connection		= chan_new_conn_cb,
+ 	.recv			= chan_recv_cb,
+ 	.close			= chan_close_cb,
+ 	.state_change		= chan_state_change_cb,
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 22672a167ef47b..4f5a928d6d8449 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -523,7 +523,10 @@ void l2cap_chan_put(struct l2cap_chan *c)
+ }
+ EXPORT_SYMBOL_GPL(l2cap_chan_put);
+ 
+-void l2cap_chan_set_defaults(struct l2cap_chan *chan)
++/* Initialise @chan with default values, inheriting from the parent channel
++ * @pchan when it is given.
++ */
++void l2cap_chan_set_defaults(struct l2cap_chan *chan, struct l2cap_chan *pchan)
+ {
+ 	chan->fcs  = L2CAP_FCS_CRC16;
+ 	chan->max_tx = L2CAP_DEFAULT_MAX_TX;
+@@ -537,6 +540,31 @@ void l2cap_chan_set_defaults(struct l2cap_chan *chan)
+ 	chan->retrans_timeout = L2CAP_DEFAULT_RETRANS_TO;
+ 	chan->monitor_timeout = L2CAP_DEFAULT_MONITOR_TO;
+ 
++	if (pchan) {
++		BT_DBG("chan %p pchan %p", chan, pchan);
 +
-+	/* If netdev holds last reference to hci_dev (its parent device), this
-+	 * leads to theoretical cyclic locking on lowpan_unregister_netdev:
-+	 *
-+	 * rtnl_lock -> put_device(parent) -> hci_release_dev ->
-+	 * destroy_workqueue -> hci_rx_work -> l2cap_recv_acldata ->
-+	 * chan_ready_cb -> ifup -> rtnl_lock
-+	 *
-+	 * However, hci_rx_work is disabled in hci_unregister_dev, so this
-+	 * should not occur. Make lockdep happy by postponing hdev release after
-+	 * netdev put.
-+	 */
-+	hci_dev_hold(hdev);
-+	lowpan_unregister_netdev(dev->netdev);
-+	hci_dev_put(hdev);
++		chan->chan_type = pchan->chan_type;
++		chan->imtu = pchan->imtu;
++		chan->omtu = pchan->omtu;
++		chan->mode = pchan->mode;
++		chan->fcs = pchan->fcs;
++		chan->max_tx = pchan->max_tx;
++		chan->tx_win = pchan->tx_win;
++		chan->tx_win_max = pchan->tx_win_max;
++		chan->sec_level = pchan->sec_level;
++		chan->conf_state = pchan->conf_state;
++		chan->flags = pchan->flags;
++		chan->tx_credits = pchan->tx_credits;
++		chan->rx_credits = pchan->rx_credits;
++
++		if (chan->chan_type == L2CAP_CHAN_FIXED) {
++			chan->scid = pchan->scid;
++			chan->dcid = pchan->scid;
++		}
++
++		return;
++	}
++
+ 	chan->conf_state = 0;
+ 	set_bit(CONF_NOT_COMPLETE, &chan->conf_state);
+ 
+@@ -3965,6 +3993,38 @@ static inline int l2cap_command_rej(struct l2cap_conn *conn,
+ 	return 0;
+ }
+ 
++/* Allocate and initialise a channel for an incoming connection.
++ *
++ * The channel inherits its configuration from @pchan and is linked into @conn
++ * before ->new_connection() runs, so the conn list reference keeps it alive if
++ * the callback exposes it (e.g. via the socket accept queue) before this
++ * returns. The l2cap_chan_create() reference is taken over by the subsystem on
++ * success and dropped here on failure.
++ */
++static struct l2cap_chan *l2cap_new_connection(struct l2cap_conn *conn,
++					       struct l2cap_chan *pchan)
++{
++	struct l2cap_chan *chan;
++
++	chan = l2cap_chan_create();
++	if (!chan)
++		return NULL;
++
++	l2cap_chan_set_defaults(chan, pchan);
++	chan->ops = pchan->ops;
++
++	__l2cap_chan_add(conn, chan);
++
++	if (pchan->ops->new_connection &&
++	    pchan->ops->new_connection(pchan, chan) < 0) {
++		l2cap_chan_del(chan, 0);
++		l2cap_chan_put(chan);
++		return NULL;
++	}
++
++	return chan;
 +}
 +
- static void delete_netdev(struct work_struct *work)
+ static void l2cap_connect(struct l2cap_conn *conn, struct l2cap_cmd_hdr *cmd,
+ 			  u8 *data, u8 rsp_code, u8 amp_id)
  {
- 	struct lowpan_btle_dev *entry = container_of(work,
- 						     struct lowpan_btle_dev,
- 						     delete_netdev);
+@@ -4012,7 +4072,7 @@ static void l2cap_connect(struct l2cap_conn *conn, struct l2cap_cmd_hdr *cmd,
+ 		goto response;
+ 	}
  
--	lowpan_unregister_netdev(entry->netdev);
-+	unregister_dev(entry);
+-	chan = pchan->ops->new_connection(pchan);
++	chan = l2cap_new_connection(conn, pchan);
+ 	if (!chan)
+ 		goto response;
  
- 	/* The entry pointer is deleted by the netdev destructor. */
+@@ -4030,8 +4090,6 @@ static void l2cap_connect(struct l2cap_conn *conn, struct l2cap_cmd_hdr *cmd,
+ 	chan->psm  = psm;
+ 	chan->dcid = scid;
+ 
+-	__l2cap_chan_add(conn, chan);
+-
+ 	dcid = chan->scid;
+ 
+ 	__set_chan_timer(chan, chan->ops->get_sndtimeo(chan));
+@@ -4937,7 +4995,7 @@ static int l2cap_le_connect_req(struct l2cap_conn *conn,
+ 		goto response_unlock;
+ 	}
+ 
+-	chan = pchan->ops->new_connection(pchan);
++	chan = l2cap_new_connection(conn, pchan);
+ 	if (!chan) {
+ 		result = L2CAP_CR_LE_NO_MEM;
+ 		goto response_unlock;
+@@ -4952,8 +5010,6 @@ static int l2cap_le_connect_req(struct l2cap_conn *conn,
+ 	chan->omtu = mtu;
+ 	chan->remote_mps = mps;
+ 
+-	__l2cap_chan_add(conn, chan);
+-
+ 	l2cap_le_flowctl_init(chan, __le16_to_cpu(req->credits));
+ 
+ 	dcid = chan->scid;
+@@ -5164,7 +5220,7 @@ static inline int l2cap_ecred_conn_req(struct l2cap_conn *conn,
+ 			continue;
+ 		}
+ 
+-		chan = pchan->ops->new_connection(pchan);
++		chan = l2cap_new_connection(conn, pchan);
+ 		if (!chan) {
+ 			result = L2CAP_CR_LE_NO_MEM;
+ 			continue;
+@@ -5179,8 +5235,6 @@ static inline int l2cap_ecred_conn_req(struct l2cap_conn *conn,
+ 		chan->omtu = mtu;
+ 		chan->remote_mps = mps;
+ 
+-		__l2cap_chan_add(conn, chan);
+-
+ 		l2cap_ecred_init(chan, __le16_to_cpu(req->credits));
+ 
+ 		/* Init response */
+@@ -7466,14 +7520,12 @@ static void l2cap_connect_cfm(struct hci_conn *hcon, u8 status)
+ 			goto next;
+ 
+ 		l2cap_chan_lock(pchan);
+-		chan = pchan->ops->new_connection(pchan);
++		chan = l2cap_new_connection(conn, pchan);
+ 		if (chan) {
+ 			bacpy(&chan->src, &hcon->src);
+ 			bacpy(&chan->dst, &hcon->dst);
+ 			chan->src_type = bdaddr_src_type(hcon);
+ 			chan->dst_type = dst_type;
+-
+-			__l2cap_chan_add(conn, chan);
+ 		}
+ 
+ 		l2cap_chan_unlock(pchan);
+diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
+index 6f32053a71c0df..e1b697c039af92 100644
+--- a/net/bluetooth/l2cap_sock.c
++++ b/net/bluetooth/l2cap_sock.c
+@@ -45,7 +45,8 @@ static struct bt_sock_list l2cap_sk_list = {
+ static const struct proto_ops l2cap_sock_ops;
+ static void l2cap_sock_init(struct sock *sk, struct sock *parent);
+ static struct sock *l2cap_sock_alloc(struct net *net, struct socket *sock,
+-				     int proto, gfp_t prio, int kern);
++				     int proto, gfp_t prio, int kern,
++				     struct l2cap_chan *chan);
+ static void l2cap_sock_cleanup_listen(struct sock *parent);
+ 
+ bool l2cap_is_socket(struct socket *sock)
+@@ -1240,6 +1241,23 @@ static int l2cap_sock_recvmsg(struct socket *sock, struct msghdr *msg,
+ 	return err;
  }
-@@ -1245,6 +1265,7 @@ static void disconnect_devices(void)
- 			break;
  
- 		new_dev->netdev = entry->netdev;
-+		new_dev->hdev = entry->hdev;
- 		INIT_LIST_HEAD(&new_dev->list);
++/* Release the sock's ref on chan and clear the pointer so that the ref is
++ * dropped exactly once even if both l2cap_sock_kill() and
++ * l2cap_sock_destruct() run. Setting chan->data to NULL first stops any other
++ * task from dereferencing the now-dead sock pointer.
++ */
++static void l2cap_sock_put_chan(struct sock *sk)
++{
++	struct l2cap_chan *chan = l2cap_pi(sk)->chan;
++
++	if (!chan)
++		return;
++
++	chan->data = NULL;
++	l2cap_pi(sk)->chan = NULL;
++	l2cap_chan_put(chan);
++}
++
+ /* Kill socket (only if zapped and orphan)
+  * Must be called on unlocked socket, with l2cap channel lock.
+  */
+@@ -1250,13 +1268,9 @@ static void l2cap_sock_kill(struct sock *sk)
  
- 		list_add_rcu(&new_dev->list, &devices);
-@@ -1256,7 +1277,7 @@ static void disconnect_devices(void)
- 		ifdown(entry->netdev);
- 		BT_DBG("Unregistering netdev %s %p",
- 		       entry->netdev->name, entry->netdev);
--		lowpan_unregister_netdev(entry->netdev);
-+		unregister_dev(entry);
- 		kfree(entry);
+ 	BT_DBG("sk %p state %s", sk, state_to_string(sk->sk_state));
+ 
+-	/* Sock is dead, so set chan data to NULL, avoid other task use invalid
+-	 * sock pointer.
+-	 */
+-	l2cap_pi(sk)->chan->data = NULL;
+-	/* Kill poor orphan */
++	l2cap_sock_put_chan(sk);
+ 
+-	l2cap_chan_put(l2cap_pi(sk)->chan);
++	/* Kill poor orphan */
+ 	sock_set_flag(sk, SOCK_DEAD);
+ 	sock_put(sk);
+ }
+@@ -1500,12 +1514,13 @@ static void l2cap_sock_cleanup_listen(struct sock *parent)
  	}
  }
+ 
+-static struct l2cap_chan *l2cap_sock_new_connection_cb(struct l2cap_chan *chan)
++static int l2cap_sock_new_connection_cb(struct l2cap_chan *chan,
++					struct l2cap_chan *new_chan)
+ {
+ 	struct sock *sk, *parent = chan->data;
+ 
+ 	if (!parent)
+-		return NULL;
++		return -EINVAL;
+ 
+ 	lock_sock(parent);
+ 
+@@ -1513,25 +1528,28 @@ static struct l2cap_chan *l2cap_sock_new_connection_cb(struct l2cap_chan *chan)
+ 	if (sk_acceptq_is_full(parent)) {
+ 		BT_DBG("backlog full %d", parent->sk_ack_backlog);
+ 		release_sock(parent);
+-		return NULL;
++		return -ENOBUFS;
+ 	}
+ 
+ 	sk = l2cap_sock_alloc(sock_net(parent), NULL, BTPROTO_L2CAP,
+-			      GFP_ATOMIC, 0);
++			      GFP_ATOMIC, 0, new_chan);
+ 	if (!sk) {
+ 		release_sock(parent);
+-		return NULL;
+-        }
++		return -ENOMEM;
++	}
+ 
+ 	bt_sock_reclassify_lock(sk, BTPROTO_L2CAP);
+ 
+ 	l2cap_sock_init(sk, parent);
+ 
++	/* The conn list reference taken by l2cap_new_connection() keeps new_chan
++	 * alive once release_sock() lets another task free this socket.
++	 */
+ 	bt_accept_enqueue(parent, sk, false);
+ 
+ 	release_sock(parent);
+ 
+-	return l2cap_pi(sk)->chan;
++	return 0;
+ }
+ 
+ static int l2cap_sock_recv_cb(struct l2cap_chan *chan, struct sk_buff *skb)
+@@ -1829,10 +1847,7 @@ static void l2cap_sock_destruct(struct sock *sk)
+ 
+ 	BT_DBG("sk %p", sk);
+ 
+-	if (l2cap_pi(sk)->chan) {
+-		l2cap_pi(sk)->chan->data = NULL;
+-		l2cap_chan_put(l2cap_pi(sk)->chan);
+-	}
++	l2cap_sock_put_chan(sk);
+ 
+ 	list_for_each_entry_safe(rx_busy, next, &l2cap_pi(sk)->rx_busy, list) {
+ 		kfree_skb(rx_busy->skb);
+@@ -1864,30 +1879,12 @@ static void l2cap_sock_init(struct sock *sk, struct sock *parent)
+ 	BT_DBG("sk %p", sk);
+ 
+ 	if (parent) {
+-		struct l2cap_chan *pchan = l2cap_pi(parent)->chan;
+-
+ 		sk->sk_type = parent->sk_type;
+ 		bt_sk(sk)->flags = bt_sk(parent)->flags;
+ 
+-		chan->chan_type = pchan->chan_type;
+-		chan->imtu = pchan->imtu;
+-		chan->omtu = pchan->omtu;
+-		chan->conf_state = pchan->conf_state;
+-		chan->mode = pchan->mode;
+-		chan->fcs  = pchan->fcs;
+-		chan->max_tx = pchan->max_tx;
+-		chan->tx_win = pchan->tx_win;
+-		chan->tx_win_max = pchan->tx_win_max;
+-		chan->sec_level = pchan->sec_level;
+-		chan->flags = pchan->flags;
+-		chan->tx_credits = pchan->tx_credits;
+-		chan->rx_credits = pchan->rx_credits;
+-
+-		if (chan->chan_type == L2CAP_CHAN_FIXED) {
+-			chan->scid = pchan->scid;
+-			chan->dcid = pchan->scid;
+-		}
+-
++		/* Channel configuration is inherited from the parent by
++		 * l2cap_new_connection().
++		 */
+ 		security_sk_clone(parent, sk);
+ 	} else {
+ 		switch (sk->sk_type) {
+@@ -1913,7 +1910,7 @@ static void l2cap_sock_init(struct sock *sk, struct sock *parent)
+ 			chan->mode = L2CAP_MODE_BASIC;
+ 		}
+ 
+-		l2cap_chan_set_defaults(chan);
++		l2cap_chan_set_defaults(chan, NULL);
+ 	}
+ 
+ 	/* Default config options */
+@@ -1932,10 +1929,10 @@ static struct proto l2cap_proto = {
+ };
+ 
+ static struct sock *l2cap_sock_alloc(struct net *net, struct socket *sock,
+-				     int proto, gfp_t prio, int kern)
++				     int proto, gfp_t prio, int kern,
++				     struct l2cap_chan *chan)
+ {
+ 	struct sock *sk;
+-	struct l2cap_chan *chan;
+ 
+ 	sk = bt_sock_alloc(net, sock, &l2cap_proto, proto, prio, kern);
+ 	if (!sk)
+@@ -1946,16 +1943,7 @@ static struct sock *l2cap_sock_alloc(struct net *net, struct socket *sock,
+ 
+ 	INIT_LIST_HEAD(&l2cap_pi(sk)->rx_busy);
+ 
+-	chan = l2cap_chan_create();
+-	if (!chan) {
+-		sk_free(sk);
+-		if (sock)
+-			sock->sk = NULL;
+-		return NULL;
+-	}
+-
+-	l2cap_chan_hold(chan);
+-
++	/* The sock takes ownership of the caller's reference on chan. */
+ 	l2cap_pi(sk)->chan = chan;
+ 
+ 	return sk;
+@@ -1965,6 +1953,7 @@ static int l2cap_sock_create(struct net *net, struct socket *sock, int protocol,
+ 			     int kern)
+ {
+ 	struct sock *sk;
++	struct l2cap_chan *chan;
+ 
+ 	BT_DBG("sock %p", sock);
+ 
+@@ -1979,10 +1968,16 @@ static int l2cap_sock_create(struct net *net, struct socket *sock, int protocol,
+ 
+ 	sock->ops = &l2cap_sock_ops;
+ 
+-	sk = l2cap_sock_alloc(net, sock, protocol, GFP_ATOMIC, kern);
+-	if (!sk)
++	chan = l2cap_chan_create();
++	if (!chan)
+ 		return -ENOMEM;
+ 
++	sk = l2cap_sock_alloc(net, sock, protocol, GFP_ATOMIC, kern, chan);
++	if (!sk) {
++		l2cap_chan_put(chan);
++		return -ENOMEM;
++	}
++
+ 	l2cap_sock_init(sk, NULL);
+ 	bt_sock_link(&l2cap_sk_list, sk);
+ 	return 0;
+diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
+index 85bd00479a74d8..1f8561112ec143 100644
+--- a/net/bluetooth/smp.c
++++ b/net/bluetooth/smp.c
+@@ -3228,34 +3228,19 @@ static const struct l2cap_ops smp_chan_ops = {
+ 	.get_sndtimeo		= l2cap_chan_no_get_sndtimeo,
+ };
+ 
+-static inline struct l2cap_chan *smp_new_conn_cb(struct l2cap_chan *pchan)
++static inline int smp_new_conn_cb(struct l2cap_chan *chan,
++				  struct l2cap_chan *new_chan)
+ {
+-	struct l2cap_chan *chan;
+-
+-	BT_DBG("pchan %p", pchan);
+-
+-	chan = l2cap_chan_create();
+-	if (!chan)
+-		return NULL;
+-
+-	chan->chan_type	= pchan->chan_type;
+-	chan->ops	= &smp_chan_ops;
+-	chan->scid	= pchan->scid;
+-	chan->dcid	= chan->scid;
+-	chan->imtu	= pchan->imtu;
+-	chan->omtu	= pchan->omtu;
+-	chan->mode	= pchan->mode;
++	new_chan->ops = &smp_chan_ops;
+ 
+ 	/* Other L2CAP channels may request SMP routines in order to
+ 	 * change the security level. This means that the SMP channel
+ 	 * lock must be considered in its own category to avoid lockdep
+ 	 * warnings.
+ 	 */
+-	atomic_set(&chan->nesting, L2CAP_NESTING_SMP);
+-
+-	BT_DBG("created chan %p", chan);
++	atomic_set(&new_chan->nesting, L2CAP_NESTING_SMP);
+ 
+-	return chan;
++	return 0;
+ }
+ 
+ static const struct l2cap_ops smp_root_chan_ops = {
+@@ -3326,7 +3311,7 @@ static struct l2cap_chan *smp_add_cid(struct hci_dev *hdev, u16 cid)
+ 
+ 	l2cap_add_scid(chan, cid);
+ 
+-	l2cap_chan_set_defaults(chan);
++	l2cap_chan_set_defaults(chan, NULL);
+ 
+ 	if (cid == L2CAP_CID_SMP) {
+ 		u8 bdaddr_type;
 -- 
 2.53.0
 
