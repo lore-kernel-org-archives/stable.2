@@ -1,186 +1,166 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373D8448CE1;
-	Wed, 15 Jul 2026 11:55:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FE63559F2
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 12:07:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784116517; cv=none; b=cFwAGXLuDxaWrTwRJfLLS0nSCV3nVcv7twP72bKX18kJGKqPA7UeiqmgwrDubscCeIDPFtoI2I62NTgHM6okcnNOLdy2DO1ci5teNuDaTejaYywgHJMu6I1vtm6esA/PuX6Ny7gDfmcooLxt36FGNRNmlQwAnqSOQqquvmFiv3k=
+	t=1784117235; cv=none; b=KWceWc8Rf+7wsZtW1q69vGx0P0bBYtmAKAYsZi8rSU5iIyUyA2mlYactgc31aVj8Gnw9u8L6d/xd1gak/WNd2k3Nz4OG9w14lcRD9S9CbDKNs3JswuEHYmyL6OeAJrET09vcTZKx6oD1kw03RoC8QI4Y+sJ81L4uboQ+Bcf0sN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784116517; c=relaxed/simple;
-	bh=NiI3H4QRbyjalnLO2FOTr0Npjt27DSj0yNz1CRgg7PU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NqPPZd3e8QarxUVjzRA4hPl5XQ79sXrDwjo53cLiqoSXKL8FePtYQJBMRYTSt4stPXFPJSV/jntJhLXsxFV7WWj4CzaE7QSW68fOer1eLDM8ww4Kr9pkBxsAxePZE+kfTtZ2OPSrW08JvqxPGcmk4BdKh1zRtjkOjYz+Lc4ttiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ciBaqtog; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784117235; c=relaxed/simple;
+	bh=iDYDSgr0CAoeWpKdzqYpe0GvsjIfU10xvCfCO8oFEq8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eDUbYJ86hF+ym7k1p31jdU09qVSVKxkDZv+oykGH1mz8tKGjE2fTEW5o1VVOLqmFoDSQRbfXGmWwA+T6p4Xcjm0kwYM8S3IQFtDz/5QbB2oOx4iGIj7+9Obb0XlkPUCNESzK2HKJQu3ZD/hKRb+fk1td9rErqrPGmsZhZJsCZf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=LFU2mATC; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ciBaqtog"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784116516; x=1815652516;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NiI3H4QRbyjalnLO2FOTr0Npjt27DSj0yNz1CRgg7PU=;
-  b=ciBaqtogFsLYqG2eILKVjBRVNBASQGvg8HH97YxUSIZggIFhNeoCxNtG
-   8tKkhJTO/0FWXkDP52yNcNzAMubQGBpPOl3BxjLoS8hfkX7vc4ZIY3v5M
-   bYwDaiu097VEDrhfFvNtVDSZSp9tUpFzwsU2M2KJBcLOWQ3d5pZAKuYb3
-   1OyIpmARXlGk/4Mea0JugvYUs64kUWEjRbtx+GQpXugMr3noOdvbotcLC
-   8bWGoWSAC5vSVAnzY2uSDdfawszMM1vTNkYuIOSQ5h1wz3vzOcIbXy2H6
-   5mNXBOHC8GidjjSKODJJ7hGDIYZTi8MBQqzCYcUdGGJbMtyvo8NUzdjND
-   A==;
-X-CSE-ConnectionGUID: /es5pajfTf6magvFzSy2QQ==
-X-CSE-MsgGUID: sF33twFTQBW9w9SgPu92Sg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84776860"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="84776860"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 04:55:14 -0700
-X-CSE-ConnectionGUID: ORXn5ai7RfmdyHT/uP2wSA==
-X-CSE-MsgGUID: Vu7QXx7TSLyLxbnbwisE6Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="261067409"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 04:55:11 -0700
-Date: Wed, 15 Jul 2026 13:55:08 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Ramesh Babu B <ramesh.babu.b@intel.com>,
-	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
-	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] drm/xe/i2c: Fix the interrupt handling
-Message-ID: <ald1HG6KzjWb9CUK@black.igk.intel.com>
-References: <20260713155601.711389-1-heikki.krogerus@linux.intel.com>
- <20260713155601.711389-3-heikki.krogerus@linux.intel.com>
- <alcoDtq2aul-tA_h@black.igk.intel.com>
- <aldYjL2pxA7QxoLN@kuha>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="LFU2mATC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
+	Subject:Cc:To:From:Reply-To:Content-Type:In-Reply-To:References;
+	bh=LuK1HKc1hrlFuwJVBC01An15H8zC71Cdk1G1Ug/JvnI=; b=LFU2mATCGr2U1E5CGhFK+YMGmc
+	mtrYGgoZ/TZj1g9UngR1Oi6/HkLhDnfjfoLDpaRu72PpQ67VCn6lkc8rkZWzbuc1tC3uhbDg6/Nlw
+	U/7oWPa5x7z86hZ7CaCcg1xxxg4OgebKfhATlDlRqQMLdzXoqe/vABBmvsmgZxflyI1RcPIe3adtE
+	hTbu8VwJigwkX2t7Dm9WXm2CprEAw17HgllUW8FzoZ/A74zGESCS69F9xLd7Q6j7RVOvDXglXM5HY
+	uDd5yp/wvJO+nNzzeIB03cYn4ntXn1mPbWYitUVjhGluTp1WD008RihgPt2ybLETSO0KWImXUYkKV
+	SK+i+5aQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: stable@vger.kernel.org
+Cc: heiko@sntech.de,
+	quentin.schulz@cherry.de,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	syzbot+e809069bc15f26300526@syzkaller.appspotmail.com,
+	Eric Dumazet <edumazet@google.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Heiko Stuebner <heiko.stuebner@cherry.de>
+Subject: [PATCH 6.12.y] tcp: Add preempt_{disable,enable}_nested() in reqsk_queue_hash_req().
+Date: Wed, 15 Jul 2026 14:07:04 +0200
+Message-ID: <20260715120704.1950127-1-heiko@sntech.de>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aldYjL2pxA7QxoLN@kuha>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 15, 2026 at 12:53:16PM +0300, Heikki Krogerus wrote:
-> On Wed, Jul 15, 2026 at 08:26:22AM +0200, Raag Jadav wrote:
-> > On Mon, Jul 13, 2026 at 05:56:00PM +0200, Heikki Krogerus wrote:
-> > > The platforms that support the interrupt from the I2C
-> > > adapter can not handle the amount of interrupts the adapter
-> > > generates because of the way the IRQ is routed in the
-> > > hardware. The I2C controller driver has to be kept in
-> > > polling mode because of that.
-> > > 
-> > > The AMC MCU can still generate critical alerts that have to
-> > > be handled. The interrupt from SMBus Alert is left enabled
-> > > and handled separately in the Xe. The alerts from the AMC
-> > > will cause the device to be declared wedged for now.
+From: Kuniyuki Iwashima <kuniyu@google.com>
 
-...
+[ Upstream commit e10902df24488ca722303133acfc82490f7d59ad ]
 
-> > > +	    memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
-> > > +		dev_err(&client->dev, "response does not match the request\n");
+syzbot reported a weird reqsk->rsk_refcnt underflow in
+__inet_csk_reqsk_queue_drop().
 
-Forgot add, use drm_*() variants where possible.
+The captured reqsk_put() in __inet_csk_reqsk_queue_drop()
+is called only when it successfully removes reqsk from ehash.
 
-> > > +		return;
-> > > +	}
-> > > +
-> > > +	if (response.error) {
-> > > +		dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
+Moreover, reqsk_timer_handler() calls another reqsk_put()
+after that.
 
-Ditto.
+This indicates that the reqsk was missing both refcnts for
+ehash and the timer itself.
 
-> > > +		return;
-> > > +	}
-> > > +
-> > > +	dev_dbg(&client->dev, "%s: Alert reason: %d\n", __func__, response.value);
+Since all the syzbot reports had PREEMPT_RT enabled, the only
+possible scenario is that reqsk_queue_hash_req() is preempted
+after mod_timer() and before refcount_set(), and then the timer
+triggered after 1s aborts the reqsk due to its listener's close().
 
-Ditto.
+Let's wrap mod_timer() and refcount_set() with
+preempt_disable_nested() and preempt_enable_nested().
 
-> > See below [1].
-> > 
-> > > +	switch (response.value) {
-> > > +	case AMC_ALERT_FW_DOWNLOAD:
-> > > +	case AMC_ALERT_THERMAL_TRIP:
-> > > +	case AMC_ALERT_OOB_REQUEST:
-> > > +	case AMC_ALERT_OOB_RESET:
-> > > +	case AMC_ALERT_CATERR:
-> > > +		xe_device_declare_wedged(i2c_client_to_xe_device(client));
-> > > +		break;
-> > > +	default:
-> > > +		break;
-> > > +	}
-> > > +}
-> > 
-> > ...
-> > 
-> > > @@ -181,8 +187,7 @@ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
-> > >  	if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
-> > >  		return;
-> > >  
-> > > -	/* Forward interrupt to I2C adapter */
-> > > -	generic_handle_irq_safe(xe->i2c->adapter_irq);
-> > > +	xe_i2c_handle_smbus_alert(xe->i2c);
-> > 
-> > [1] Can we move the below re-assert code to wq now? Or do you suspect any
-> > side-effects?
-> 
-> I think that you know this better than I do. But at this point
-> interrupt is cleared, so why should we wait for the wq?
+Note that inet_ehash_insert() holds the normal spin_lock()
+(mutex in PREEMPT_RT), so it must be called outside of
+preempt_disable_nested(), but this is fine.
 
-When does AMC clear the alert signal? Is it when you query from the wq?
-If the answer is yes, there's a possibility we might end up with an
-interrupt storm here.
+The lookup path just ignores 0 sk_refcnt entries in ehash
+and tries to create another reqsk, but this will fail at
+inet_ehash_insert().
 
-> To play it safe, can we change this as a followup if necessary?
+[0]:
+refcount_t: underflow; use-after-free.
+WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xb2/0x110 lib/refcount.c:28, CPU#0: ktimers/0/16
+Modules linked in:
+CPU: 0 UID: 0 PID: 16 Comm: ktimers/0 Tainted: G             L      syzkaller #0 PREEMPT_{RT,(full)}
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 04/18/2026
+RIP: 0010:refcount_warn_saturate+0xb2/0x110 lib/refcount.c:28
+Code: e4 7d d1 0a 67 48 0f b9 3a eb 4a e8 38 3d 23 fd 48 8d 3d e1 7d d1 0a 67 48 0f b9 3a eb 37 e8 25 3d 23 fd 48 8d 3d de 7d d1 0a <67> 48 0f b9 3a eb 24 e8 12 3d 23 fd 48 8d 3d db 7d d1 0a 67 48 0f
+RSP: 0000:ffffc90000157948 EFLAGS: 00010246
+RAX: ffffffff84a1301b RBX: 0000000000000003 RCX: ffff88801ca98000
+RDX: 0000000000000100 RSI: 0000000000000000 RDI: ffffffff8f72ae00
+RBP: ffffffff99ae3b01 R08: ffff88801ca98000 R09: 0000000000000005
+R10: 0000000000000100 R11: 0000000000000004 R12: ffff8880425ef568
+R13: ffff8880425ef4f8 R14: ffff8880425ef578 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888126386000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f7b46710e9c CR3: 000000000dbb6000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __refcount_sub_and_test include/linux/refcount.h:400 [inline]
+ __refcount_dec_and_test include/linux/refcount.h:432 [inline]
+ refcount_dec_and_test include/linux/refcount.h:450 [inline]
+ reqsk_put include/net/request_sock.h:136 [inline]
+ __inet_csk_reqsk_queue_drop+0x3ce/0x440 net/ipv4/inet_connection_sock.c:1007
+ reqsk_timer_handler+0x651/0xdf0 net/ipv4/inet_connection_sock.c:1137
+ call_timer_fn+0x192/0x5e0 kernel/time/timer.c:1748
+ expire_timers kernel/time/timer.c:1799 [inline]
+ __run_timers kernel/time/timer.c:2374 [inline]
+ __run_timer_base+0x6a3/0x9f0 kernel/time/timer.c:2386
+ run_timer_base kernel/time/timer.c:2395 [inline]
+ run_timer_softirq+0x67/0x170 kernel/time/timer.c:2403
+ handle_softirqs+0x1de/0x6d0 kernel/softirq.c:622
+ __do_softirq kernel/softirq.c:656 [inline]
+ run_ktimerd+0x69/0x100 kernel/softirq.c:1151
+ smpboot_thread_fn+0x541/0xa50 kernel/smpboot.c:160
+ kthread+0x388/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-Sure, I'll leave it to you.
+Fixes: d2d6422f8bd1 ("x86: Allow to enable PREEMPT_RT.")
+Reported-by: syzbot+e809069bc15f26300526@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a1a7bcf.0a9e871e.332604.000b.GAE@google.com/
+Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Link: https://patch.msgid.link/20260601182101.3183993-1-kuniyu@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[updated to not require timeout changes from
+ commit 3ce5dd8161ec ("tcp: Remove timeout arg from reqsk_queue_hash_req()")
+ DCCP was retired by commit 2a63dd0edf38 ("net: Retire DCCP socket.") after
+ the release of 6.12, so the shared inet_csk_reqsk_queue_hash_add still
+ requires the timout argument]
+Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
+---
+ net/ipv4/inet_connection_sock.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> > >  	/* Deassert after I2C adapter clears the interrupt */
-> > >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
-> > > @@ -212,45 +217,6 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
-> > >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
-> > >  }
-> > 
-> > ...
-> > 
-> > > -#define XE_I2C_MAX_CLIENTS		3
-> > > -
-> > >  #define XE_I2C_EP_COOKIE_DEVICE		0xde
-> > >  
-> > >  /* Endpoint Capabilities */
-> > >  #define XE_I2C_EP_CAP_IRQ		BIT(0)
-> > >  
-> > > +enum XE_I2C_CLIENT {
-> > > +	XE_I2C_CLIENT_AMC,
-> > > +	XE_I2C_MAX_CLIENTS = 3,
-> > 
-> > I know it was already like this but I probably missed why do we have 3
-> > (atleast from driver POV)?
-> 
-> That is the maximum number of clients these platforms can support.
-> The AMC address is actually at a fixed offset 1. I'll change this so
-> that XE_I2C_CLIENT_AMC matches the offset:
-> 
-> enum XE_I2C_CLIENT {
-> 	XE_I2C_CLIENT_AMC = 1,
-> 	XE_I2C_MAX_CLIENTS = 3,
-> };
-> 
-> That probable makes this a bit more clear (right?).
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index dd39cabb3900..5ff45bc85442 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -1186,6 +1186,9 @@ static bool reqsk_queue_hash_req(struct request_sock *req,
+ 
+ 	/* The timer needs to be setup after a successful insertion. */
+ 	timer_setup(&req->rsk_timer, reqsk_timer_handler, TIMER_PINNED);
++
++	preempt_disable_nested();
++
+ 	mod_timer(&req->rsk_timer, jiffies + timeout);
+ 
+ 	/* before letting lookups find us, make sure all req fields
+@@ -1193,6 +1196,9 @@ static bool reqsk_queue_hash_req(struct request_sock *req,
+ 	 */
+ 	smp_wmb();
+ 	refcount_set(&req->rsk_refcnt, 2 + 1);
++
++	preempt_enable_nested();
++
+ 	return true;
+ }
+ 
+-- 
+2.53.0
 
-With that I think these can be used as ep.addr[] indexes as well, but
-I'll leave them at your mercy.
-
-Raag
