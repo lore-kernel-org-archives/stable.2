@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0180638C2A7
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 14:40:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2A318DB01
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 14:41:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784126456; cv=none; b=l3arL2NsUD5ruYhus/0uPdNueEUaWNdka6JDOO3/TzuE89EKBZ64O1FRn2KkHgHzhT0kQEGUs1PYdiJdfukbww+8/s96ibmgSKOUdeJ9m1nuIAI1qSjP6YYVMEnkxAKHwW8N/KZ6YT7ejSNruuMrvT2qrPoaiJQgczklTZIVdcA=
+	t=1784126512; cv=none; b=CLTzKhI+sMAtRqOD/PAMUt7h/1MvW7ITQbOdqQM2dkTDEs5lvUP7RbZA5z9J6bSPqyQmvlMcQhI9YZgRwi6JwTAv/WjQVpTAe3RRddcTLWAGHVuWiTdqv8SlQAVfwg/wSIcqqyszJBTBrmg9zW7wBKfK6hXhv1V3NfJFBHWJDEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784126456; c=relaxed/simple;
-	bh=08N/Mx89mm+34lTDbW+TqEt/Wy0iFn1m8CSMmU5AQ+A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=huxf2WmKQFw+r5wLTGqxH8WepvFa6976bgEl0DjmJuyjCDk6UjDL6x68AYV4Mj5hXp4n9aW6JZcO+W1wCmh4d6tX5fLVt4ps3SUiitkHFJYOpti1FjfcfSUDcIChOkMvBLkL3pAixdE0WJxXGCLZyhUOamW+R9HbJJ7zbWxW8b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=scYKG06k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784126512; c=relaxed/simple;
+	bh=d/7N6VYQrL3qzts5IQS+MTCxNLbYmF9cR6XBZzxaCoE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Y3bT61ITn+PiiX4JbV38sgLgBNVnpzpuVdQGqOD9fNt0sJyud+woDmMyg7VsOjtv2GAoaTvrx2QyBqnMx+nGBPT09xq/oecSXar6+pqISsAKswN067vDdUJeriF4DXCuyXLIsyWG3bB4Os7Ia58DE45o4gdc4pyHfQ9Qb13UHnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xddRe2Sw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="scYKG06k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3B31F00A3F;
-	Wed, 15 Jul 2026 14:40:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xddRe2Sw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69CA91F000E9;
+	Wed, 15 Jul 2026 14:41:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784126454;
-	bh=HgMADTCclYLOPFFZooxh1/24OFixl03wz7Q24/Ot57I=;
+	s=korg; t=1784126510;
+	bh=kKOZOV2Ff9Gz+0ghacZZpd0iKlbPVrfDyQuq3Y/8ghg=;
 	h=Subject:To:Cc:From:Date;
-	b=scYKG06kulkVz/4dLymrMNa+YhxVpDSBWnoaGuDE/OgCndWSCy4sggRwHei5KHYo7
-	 F+Bs/W/kUaMlyEyIa/cxVm5eVYKLq8wgKVwXOQniPgqFw7NOCytaDWy1Y6dJq5XZFI
-	 GakHBYr0N4a/M1aiLMy3F3eYagYoTIB3HmnUpFS8=
-Subject: FAILED: patch "[PATCH] iomap: consolidate bio submission" failed to apply to 7.1-stable tree
-To: hch@lst.de,brauner@kernel.org,djwong@kernel.org,joannelkoong@gmail.com,linkinjeon@kernel.org
+	b=xddRe2Sw7L+0VM5wMoDuio9FlpVqNxPX1DY8v9zzBAA1Uf7fXuG1N3xpwXQhPd0vZ
+	 v2vuLpMsBe7eOc2NgJb/DnkXXUT6SfpjKi4M7gcPtraky244QMIuucYvLlZihHnJBt
+	 VRy/3k7TvgZP72I/iPeHqS82HAaFSUyflgM7/GwY=
+Subject: FAILED: patch "[PATCH] exfat: preserve benign secondary entries during rename and" failed to apply to 6.18-stable tree
+To: rochan.avlur@gmail.com,Yuezhang.Mo@sony.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 16:40:48 +0200
-Message-ID: <2026071548-sinister-joystick-e062@gregkh>
+Date: Wed, 15 Jul 2026 16:41:44 +0200
+Message-ID: <2026071544-outsider-rental-f09b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 044472d5ee7d71f918fa3f61bd65e4933a0c006e
+git cherry-pick -x 942296784b2a9439651750c42f540bf2579b330f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071548-sinister-joystick-e062@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071544-outsider-rental-f09b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,147 +62,339 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 044472d5ee7d71f918fa3f61bd65e4933a0c006e Mon Sep 17 00:00:00 2001
-From: Christoph Hellwig <hch@lst.de>
-Date: Mon, 29 Jun 2026 14:17:38 +0200
-Subject: [PATCH] iomap: consolidate bio submission
+From 942296784b2a9439651750c42f540bf2579b330f Mon Sep 17 00:00:00 2001
+From: Rochan Avlur <rochan.avlur@gmail.com>
+Date: Thu, 28 May 2026 07:21:37 -0700
+Subject: [PATCH] exfat: preserve benign secondary entries during rename and
+ move
 
-Add a iomap_bio_submit_read_endio helper factored out of
-iomap_bio_submit_read to that all ->submit_read implementations for
-iomap_read_ops that use iomap_bio_read_folio_range can shared the
-logic.
+Commit 8258ef28001a ("exfat: handle unreconized benign secondary
+entries") added cluster freeing for benign secondary entries inside
+exfat_remove_entries().  However, exfat_remove_entries() is also called
+from the rename and move paths (exfat_rename_file and exfat_move_file),
+where the old entry set is being relocated rather than deleted.  This
+causes benign secondary entries such as vendor extension entries to be
+silently destroyed on rename or cross-directory move, violating the
+exFAT spec requirement (section 8.2) that implementations preserve
+unrecognized benign secondary entries.
 
-Right now that logic is mostly trivial, but already has a bug for XFS
-because the XFS version is too trivial:  file system integrity validation
-needs a workqueue context and thus can't happen from the default iomap
-bi_end_io I/O handler.  Unfortunately the iomap refactoring just before
-fs integrity landed moved code around here and the call go misplaced,
-meaning it never got called.  The PI information still is verified by
-the block layer, but the offloading is less efficient (and the future
-userspace interface can't get at it).
+Fix this by adding a free_benign parameter to exfat_remove_entries()
+so callers can suppress cluster freeing during relocation, and
+extending exfat_init_ext_entry() to copy trailing benign secondary
+entries from the old entry set into the new one internally.  Also
+clean up the error paths to delete newly allocated entries on failure.
 
-Fixes: 0b10a370529c ("iomap: support T10 protection information")
-Cc: stable@vger.kernel.org # v7.1
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260629121750.3392300-2-hch@lst.de
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 8258ef28001a ("exfat: handle unreconized benign secondary entries")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/linux-fsdevel/CAG7tbBV--waov7XVu2FHQEc6paR92dufS=em9DW5Kzsrpu3iQg@mail.gmail.com/
+Signed-off-by: Rochan Avlur <rochan.avlur@gmail.com>
+Reviewed-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
-index 1aac38e63fe6..190fc6471f84 100644
---- a/fs/exfat/iomap.c
-+++ b/fs/exfat/iomap.c
-@@ -253,10 +253,7 @@ static void exfat_iomap_read_end_io(struct bio *bio)
- static void exfat_iomap_bio_submit_read(const struct iomap_iter *iter,
- 		struct iomap_read_folio_ctx *ctx)
+diff --git a/fs/exfat/dir.c b/fs/exfat/dir.c
+index 8b8f6bc0c233..5a85a8ec0cc0 100644
+--- a/fs/exfat/dir.c
++++ b/fs/exfat/dir.c
+@@ -470,32 +470,70 @@ static void exfat_free_benign_secondary_clusters(struct inode *inode,
+ 	exfat_free_cluster(inode, &dir);
+ }
+ 
++/*
++ * exfat_init_ext_entry - initialize extension entries in a directory entry set
++ * @es:          target entry set
++ * @num_entries: number of entries excluding benign secondary entries
++ * @p_uniname:   filename to store
++ * @old_es:      optional source entry set with benign secondary entries, or NULL
++ * @num_extra:   number of benign secondary entries to copy from @old_es
++ *
++ * Set up the file, stream extension, and filename entries in @es, optionally
++ * preserving @num_extra benign secondary entries from @old_es.  @es and @old_es
++ * may refer to the same entry set; excess entries are marked as deleted.
++ */
+ void exfat_init_ext_entry(struct exfat_entry_set_cache *es, int num_entries,
+-		struct exfat_uni_name *p_uniname)
++		struct exfat_uni_name *p_uniname,
++		struct exfat_entry_set_cache *old_es, int num_extra)
  {
--	struct bio *bio = ctx->read_ctx;
--
--	bio->bi_end_io = exfat_iomap_read_end_io;
--	submit_bio(bio);
-+	iomap_bio_submit_read_endio(iter, ctx, exfat_iomap_read_end_io);
- }
+-	int i;
++	int i, src_start = 0, old_num;
+ 	unsigned short *uniname = p_uniname->name;
+ 	struct exfat_dentry *ep;
  
- const struct iomap_read_ops exfat_iomap_bio_read_ops = {
-diff --git a/fs/iomap/bio.c b/fs/iomap/bio.c
-index 4504f4633f17..0f31e35567b4 100644
---- a/fs/iomap/bio.c
-+++ b/fs/iomap/bio.c
-@@ -78,15 +78,23 @@ u32 iomap_finish_ioend_buffered_read(struct iomap_ioend *ioend)
- 	return __iomap_read_end_io(&ioend->io_bio, ioend->io_error);
- }
- 
--static void iomap_bio_submit_read(const struct iomap_iter *iter,
--		struct iomap_read_folio_ctx *ctx)
-+void iomap_bio_submit_read_endio(const struct iomap_iter *iter,
-+		struct iomap_read_folio_ctx *ctx, bio_end_io_t end_io)
- {
- 	struct bio *bio = ctx->read_ctx;
- 
-+	bio->bi_end_io = end_io;
- 	if (iter->iomap.flags & IOMAP_F_INTEGRITY)
- 		fs_bio_integrity_alloc(bio);
- 	submit_bio(bio);
- }
-+EXPORT_SYMBOL_GPL(iomap_bio_submit_read_endio);
+-	es->num_entries = num_entries;
++	if (WARN_ON(num_extra < 0 || (num_extra && (!old_es ||
++		    old_es->num_entries < ES_IDX_FIRST_FILENAME + num_extra))))
++		num_extra = 0;
 +
-+static void iomap_bio_submit_read(const struct iomap_iter *iter,
-+		struct iomap_read_folio_ctx *ctx)
++	/*
++	 * Save old entry count and source position before modifying
++	 * es->num_entries, since old_es and es may point to the same
++	 * entry set.
++	 */
++	old_num = es->num_entries;
++	if (old_es && num_extra > 0)
++		src_start = old_es->num_entries - num_extra;
++
++	es->num_entries = num_entries + num_extra;
+ 	ep = exfat_get_dentry_cached(es, ES_IDX_FILE);
+-	ep->dentry.file.num_ext = (unsigned char)(num_entries - 1);
++	ep->dentry.file.num_ext = (unsigned char)(num_entries - 1 + num_extra);
+ 
+ 	ep = exfat_get_dentry_cached(es, ES_IDX_STREAM);
+ 	ep->dentry.stream.name_len = p_uniname->name_len;
+ 	ep->dentry.stream.name_hash = cpu_to_le16(p_uniname->name_hash);
+ 
++	if (old_es && num_extra > 0) {
++		for (i = 0; i < num_extra; i++)
++			*exfat_get_dentry_cached(es, num_entries + i) =
++				*exfat_get_dentry_cached(old_es, src_start + i);
++	}
++
+ 	for (i = ES_IDX_FIRST_FILENAME; i < num_entries; i++) {
+ 		ep = exfat_get_dentry_cached(es, i);
+ 		exfat_init_name_entry(ep, uniname);
+ 		uniname += EXFAT_FILE_NAME_LEN;
+ 	}
+ 
++	/* Mark excess old entries as deleted (in-place shrink) */
++	for (i = num_entries + num_extra; i < old_num; i++) {
++		ep = exfat_get_dentry_cached(es, i);
++		exfat_set_entry_type(ep, TYPE_DELETED);
++	}
++
+ 	exfat_update_dir_chksum(es);
+ }
+ 
+ void exfat_remove_entries(struct inode *inode, struct exfat_entry_set_cache *es,
+-		int order)
++		int order, bool free_benign)
+ {
+ 	int i;
+ 	struct exfat_dentry *ep;
+@@ -503,7 +541,7 @@ void exfat_remove_entries(struct inode *inode, struct exfat_entry_set_cache *es,
+ 	for (i = order; i < es->num_entries; i++) {
+ 		ep = exfat_get_dentry_cached(es, i);
+ 
+-		if (exfat_get_entry_type(ep) & TYPE_BENIGN_SEC)
++		if (free_benign && (exfat_get_entry_type(ep) & TYPE_BENIGN_SEC))
+ 			exfat_free_benign_secondary_clusters(inode, ep);
+ 
+ 		exfat_set_entry_type(ep, TYPE_DELETED);
+diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
+index 2607e51804b2..9be50949ce34 100644
+--- a/fs/exfat/exfat_fs.h
++++ b/fs/exfat/exfat_fs.h
+@@ -592,9 +592,10 @@ void exfat_init_dir_entry(struct exfat_entry_set_cache *es,
+ 		unsigned int type, unsigned int start_clu,
+ 		unsigned long long size, struct timespec64 *ts);
+ void exfat_init_ext_entry(struct exfat_entry_set_cache *es, int num_entries,
+-		struct exfat_uni_name *p_uniname);
++		struct exfat_uni_name *p_uniname,
++		struct exfat_entry_set_cache *old_es, int num_extra);
+ void exfat_remove_entries(struct inode *inode, struct exfat_entry_set_cache *es,
+-		int order);
++		int order, bool free_benign);
+ void exfat_update_dir_chksum(struct exfat_entry_set_cache *es);
+ int exfat_calc_num_entries(struct exfat_uni_name *p_uniname);
+ int exfat_find_dir_entry(struct super_block *sb, struct exfat_inode_info *ei,
+diff --git a/fs/exfat/namei.c b/fs/exfat/namei.c
+index 78f861f23246..b7d5e44ad38e 100644
+--- a/fs/exfat/namei.c
++++ b/fs/exfat/namei.c
+@@ -504,7 +504,7 @@ static int exfat_add_entry(struct inode *inode, const char *path,
+ 	 * the first cluster is not determined yet. (0)
+ 	 */
+ 	exfat_init_dir_entry(&es, type, start_clu, clu_size, &ts);
+-	exfat_init_ext_entry(&es, num_entries, &uniname);
++	exfat_init_ext_entry(&es, num_entries, &uniname, NULL, 0);
+ 
+ 	ret = exfat_put_dentry_set(&es, IS_DIRSYNC(inode));
+ 	if (ret)
+@@ -786,7 +786,7 @@ static int exfat_unlink(struct inode *dir, struct dentry *dentry)
+ 	exfat_set_volume_dirty(sb);
+ 
+ 	/* update the directory entry */
+-	exfat_remove_entries(inode, &es, ES_IDX_FILE);
++	exfat_remove_entries(inode, &es, ES_IDX_FILE, true);
+ 
+ 	err = exfat_put_dentry_set(&es, IS_DIRSYNC(inode));
+ 	if (err)
+@@ -941,7 +941,7 @@ static int exfat_rmdir(struct inode *dir, struct dentry *dentry)
+ 
+ 	exfat_set_volume_dirty(sb);
+ 
+-	exfat_remove_entries(inode, &es, ES_IDX_FILE);
++	exfat_remove_entries(inode, &es, ES_IDX_FILE, true);
+ 
+ 	err = exfat_put_dentry_set(&es, IS_DIRSYNC(dir));
+ 	if (err)
+@@ -968,6 +968,23 @@ static int exfat_rmdir(struct inode *dir, struct dentry *dentry)
+ 	return err;
+ }
+ 
++/*
++ * Count benign secondary entries beyond the filename entries.
++ * Returns the count, or -EIO if the entry set is inconsistent.
++ */
++static int exfat_count_extra_entries(struct exfat_entry_set_cache *es)
 +{
-+	return iomap_bio_submit_read_endio(iter, ctx, iomap_read_end_io);
++	struct exfat_dentry *stream;
++	unsigned int name_entries;
++	int extra;
++
++	stream = exfat_get_dentry_cached(es, ES_IDX_STREAM);
++	name_entries = EXFAT_FILENAME_ENTRY_NUM(stream->dentry.stream.name_len);
++	extra = es->num_entries - (ES_IDX_FIRST_FILENAME + name_entries);
++
++	return extra >= 0 ? extra : -EIO;
 +}
- 
- static struct bio_set *iomap_read_bio_set(struct iomap_read_folio_ctx *ctx)
++
+ static int exfat_rename_file(struct inode *parent_inode,
+ 		struct exfat_uni_name *p_uniname, struct exfat_inode_info *ei)
  {
-@@ -127,7 +135,6 @@ static void iomap_read_alloc_bio(const struct iomap_iter *iter,
- 	if (ctx->rac)
- 		bio->bi_opf |= REQ_RAHEAD;
- 	bio->bi_iter.bi_sector = iomap_sector(iomap, iter->pos);
--	bio->bi_end_io = iomap_read_end_io;
- 	bio_add_folio_nofail(bio, folio, plen,
- 			offset_in_folio(folio, iter->pos));
- 	ctx->read_ctx = bio;
-diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
-index 1fbf832ad165..f2bb56506046 100644
---- a/fs/ntfs/aops.c
-+++ b/fs/ntfs/aops.c
-@@ -38,11 +38,9 @@ static void ntfs_iomap_read_end_io(struct bio *bio)
- }
+@@ -976,6 +993,7 @@ static int exfat_rename_file(struct inode *parent_inode,
+ 	struct super_block *sb = parent_inode->i_sb;
+ 	struct exfat_entry_set_cache old_es, new_es;
+ 	int sync = IS_DIRSYNC(parent_inode);
++	unsigned int num_extra_entries, num_total_entries;
  
- static void ntfs_iomap_bio_submit_read(const struct iomap_iter *iter,
--	struct iomap_read_folio_ctx *ctx)
-+		struct iomap_read_folio_ctx *ctx)
- {
--	struct bio *bio = ctx->read_ctx;
--	bio->bi_end_io = ntfs_iomap_read_end_io;
--	submit_bio(bio);
-+	iomap_bio_submit_read_endio(iter, ctx, ntfs_iomap_read_end_io);
- }
+ 	if (unlikely(exfat_forced_shutdown(sb)))
+ 		return -EIO;
+@@ -985,19 +1003,23 @@ static int exfat_rename_file(struct inode *parent_inode,
+ 		return num_new_entries;
  
- static const struct iomap_read_ops ntfs_iomap_bio_read_ops = {
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index c43101cc064d..0c9bd669117d 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -608,10 +608,7 @@ static void ntfs_iomap_read_end_io(struct bio *bio)
- static void ntfs_iomap_bio_submit_read(const struct iomap_iter *iter,
- 		struct iomap_read_folio_ctx *ctx)
- {
--	struct bio *bio = ctx->read_ctx;
+ 	ret = exfat_get_dentry_set_by_ei(&old_es, sb, ei);
+-	if (ret) {
+-		ret = -EIO;
+-		return ret;
+-	}
++	if (ret)
++		return -EIO;
+ 
+ 	epold = exfat_get_dentry_cached(&old_es, ES_IDX_FILE);
+ 
+-	if (old_es.num_entries < num_new_entries) {
++	ret = exfat_count_extra_entries(&old_es);
++	if (ret < 0)
++		goto put_old_es;
++	num_extra_entries = ret;
++	num_total_entries = num_new_entries + num_extra_entries;
++
++	if (old_es.num_entries < num_total_entries) {
+ 		int newentry;
+ 		struct exfat_chain dir;
+ 
+ 		newentry = exfat_find_empty_entry(parent_inode, &dir,
+-				num_new_entries, &new_es);
++				num_total_entries, &new_es);
+ 		if (newentry < 0) {
+ 			ret = newentry; /* -EIO or -ENOSPC */
+ 			goto put_old_es;
+@@ -1014,13 +1036,23 @@ static int exfat_rename_file(struct inode *parent_inode,
+ 		epnew = exfat_get_dentry_cached(&new_es, ES_IDX_STREAM);
+ 		*epnew = *epold;
+ 
+-		exfat_init_ext_entry(&new_es, num_new_entries, p_uniname);
++		exfat_init_ext_entry(&new_es, num_new_entries, p_uniname,
++				     &old_es, num_extra_entries);
+ 
+ 		ret = exfat_put_dentry_set(&new_es, sync);
+-		if (ret)
++		if (ret) {
++			/* Best-effort delete to avoid duplicate entries */
++			if (!exfat_get_dentry_set(&new_es, sb,
++						  &dir, newentry,
++						  ES_ALL_ENTRIES)) {
++				exfat_remove_entries(parent_inode, &new_es,
++						    ES_IDX_FILE, false);
++				exfat_put_dentry_set(&new_es, false);
++			}
+ 			goto put_old_es;
++		}
+ 
+-		exfat_remove_entries(parent_inode, &old_es, ES_IDX_FILE);
++		exfat_remove_entries(parent_inode, &old_es, ES_IDX_FILE, false);
+ 		ei->dir = dir;
+ 		ei->entry = newentry;
+ 	} else {
+@@ -1029,8 +1061,8 @@ static int exfat_rename_file(struct inode *parent_inode,
+ 			ei->attr |= EXFAT_ATTR_ARCHIVE;
+ 		}
+ 
+-		exfat_remove_entries(parent_inode, &old_es, ES_IDX_FIRST_FILENAME + 1);
+-		exfat_init_ext_entry(&old_es, num_new_entries, p_uniname);
++		exfat_init_ext_entry(&old_es, num_new_entries, p_uniname,
++				     &old_es, num_extra_entries);
+ 	}
+ 	return exfat_put_dentry_set(&old_es, sync);
+ 
+@@ -1046,6 +1078,7 @@ static int exfat_move_file(struct inode *parent_inode,
+ 	struct exfat_dentry *epmov, *epnew;
+ 	struct exfat_entry_set_cache mov_es, new_es;
+ 	struct exfat_chain newdir;
++	unsigned int num_extra_entries, num_total_entries;
+ 
+ 	num_new_entries = exfat_calc_num_entries(p_uniname);
+ 	if (num_new_entries < 0)
+@@ -1055,8 +1088,14 @@ static int exfat_move_file(struct inode *parent_inode,
+ 	if (ret)
+ 		return -EIO;
+ 
++	ret = exfat_count_extra_entries(&mov_es);
++	if (ret < 0)
++		goto put_mov_es;
++	num_extra_entries = ret;
++	num_total_entries = num_new_entries + num_extra_entries;
++
+ 	newentry = exfat_find_empty_entry(parent_inode, &newdir,
+-			num_new_entries, &new_es);
++			num_total_entries, &new_es);
+ 	if (newentry < 0) {
+ 		ret = newentry; /* -EIO or -ENOSPC */
+ 		goto put_mov_es;
+@@ -1074,21 +1113,31 @@ static int exfat_move_file(struct inode *parent_inode,
+ 	epnew = exfat_get_dentry_cached(&new_es, ES_IDX_STREAM);
+ 	*epnew = *epmov;
+ 
+-	exfat_init_ext_entry(&new_es, num_new_entries, p_uniname);
+-	exfat_remove_entries(parent_inode, &mov_es, ES_IDX_FILE);
++	exfat_init_ext_entry(&new_es, num_new_entries, p_uniname,
++			     &mov_es, num_extra_entries);
++
++	exfat_remove_entries(parent_inode, &mov_es, ES_IDX_FILE, false);
+ 
+ 	ei->dir = newdir;
+ 	ei->entry = newentry;
+ 
+ 	ret = exfat_put_dentry_set(&new_es, IS_DIRSYNC(parent_inode));
+-	if (ret)
++	if (ret) {
++		/* Best-effort delete to avoid duplicate entries */
++		if (!exfat_get_dentry_set(&new_es, parent_inode->i_sb,
++					  &newdir, newentry,
++					  ES_ALL_ENTRIES)) {
++			exfat_remove_entries(parent_inode, &new_es,
++					    ES_IDX_FILE, false);
++			exfat_put_dentry_set(&new_es, false);
++		}
+ 		goto put_mov_es;
++	}
+ 
+ 	return exfat_put_dentry_set(&mov_es, IS_DIRSYNC(parent_inode));
+ 
+ put_mov_es:
+ 	exfat_put_dentry_set(&mov_es, false);
 -
--	bio->bi_end_io = ntfs_iomap_read_end_io;
--	submit_bio(bio);
-+	iomap_bio_submit_read_endio(iter, ctx, ntfs_iomap_read_end_io);
+ 	return ret;
  }
  
- static const struct iomap_read_ops ntfs_iomap_bio_read_ops = {
-diff --git a/fs/xfs/xfs_aops.c b/fs/xfs/xfs_aops.c
-index 2a0c54256e93..51293b6f331f 100644
---- a/fs/xfs/xfs_aops.c
-+++ b/fs/xfs/xfs_aops.c
-@@ -764,8 +764,7 @@ xfs_bio_submit_read(
+@@ -1162,7 +1211,7 @@ static int __exfat_rename(struct inode *old_parent_inode,
+ 			goto del_out;
+ 		}
  
- 	/* defer read completions to the ioend workqueue */
- 	iomap_init_ioend(iter->inode, bio, ctx->read_ctx_file_offset, 0);
--	bio->bi_end_io = xfs_end_bio;
--	submit_bio(bio);
-+	iomap_bio_submit_read_endio(iter, ctx, xfs_end_bio);
- }
+-		exfat_remove_entries(new_inode, &es, ES_IDX_FILE);
++		exfat_remove_entries(new_inode, &es, ES_IDX_FILE, true);
  
- static const struct iomap_read_ops xfs_iomap_read_ops = {
-diff --git a/include/linux/iomap.h b/include/linux/iomap.h
-index 3582ed1fe236..56b43d594e6e 100644
---- a/include/linux/iomap.h
-+++ b/include/linux/iomap.h
-@@ -622,6 +622,8 @@ extern struct bio_set iomap_ioend_bioset;
- #ifdef CONFIG_BLOCK
- int iomap_bio_read_folio_range(const struct iomap_iter *iter,
- 		struct iomap_read_folio_ctx *ctx, size_t plen);
-+void iomap_bio_submit_read_endio(const struct iomap_iter *iter,
-+		struct iomap_read_folio_ctx *ctx, bio_end_io_t end_io);
- 
- extern const struct iomap_read_ops iomap_bio_read_ops;
- 
+ 		ret = exfat_put_dentry_set(&es, IS_DIRSYNC(new_inode));
+ 		if (ret)
 
