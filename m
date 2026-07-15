@@ -1,164 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8E940EBA9
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 15:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2BA25B0BF;
+	Wed, 15 Jul 2026 15:31:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784129120; cv=none; b=ED8lknZdmC70PecQJpSXXw6WERyEA+F/TcuUCkhvhb2t9CBWvGcoxsHMTeypScZYupX/4VTRJr+i9opiXxnW6Glx9yOt++ImypCA/XJeXz/p6W95BWrST0o8C/76oKERNWwbcKEDsAVo4qT+ujP+F+WveEQzePsBwz5lkc4jZn4=
+	t=1784129519; cv=none; b=F5xpNXo811bVVZB7tWVNf9ou1iyIF0f3A8suoH27gQDvb51zRZfNaKIfW5+EVngSL6Udm7e1KW/LsEGVXRYZ7UIWn6+UWRsdpVRxgHgv8K87M5bJlZqzc/LJecLPxbKzYYta8H0VUx+lgh0ihyefW4fJH2eETeeDlMPpcBv7Qmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784129120; c=relaxed/simple;
-	bh=PFwiQ9JtVrnMLDRGDYeuyfIVx5eU4177ey0fyaBAvos=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qfRmX+OHUBD0eVuN990x9h6TOrEcnznWMZvPyQHgc1U8uP46XLeb6wLxfzrfALeuk+u1kuE9ErwBOn/kPzC08LPeVl432nnGRaMgsZOoMJWQjLGtFjaXY1I1rZzQDK75zr2cUdqNHLH/ZqQZ8gS4f6ZO8SvG5m57VAM4l2c2PnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KBiVSyV6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784129519; c=relaxed/simple;
+	bh=FBDfEbbD0ZBsCKoS9kt+d1+KGWXl4hcd6C91pS+Epmo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sNlqSAsCMJmKSFWdhZ2L9RANUv1mrEnoDibh5bqec5fn8azt4tjqlNWDCT+4OgdltVO2K56XneumPTo5nVlu6j5qFSZkpq4A6bSKGQ8FnDbx7fB/q1ZZmecgJ+m3/evTT4yRqLhGYDUU2yGgzaWMSb7UXGNgMPGopP7wyNwjAuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DMzB0g1t; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KBiVSyV6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072F21F000E9;
-	Wed, 15 Jul 2026 15:25:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784129118;
-	bh=KuQIbbZUpht6AMfj4fMgzCBJntZUSDZf8SL+IVugZ4s=;
-	h=Subject:To:Cc:From:Date;
-	b=KBiVSyV674SrR5cT7zrAaBNteJ78WKQVZPVfIYI2RQ0mnz8yPvGZXzI5fZSMd0g0j
-	 o4jUs0Hi0v4LlMeHepzBzSXdlrOdVFEHd7PRzl9f25OQWpYQ/f4bSZzR6xwkPiHiAq
-	 J+DrabFoMdmXR3ojFH9y5SBmluN5KY+0bNNDwtyY=
-Subject: FAILED: patch "[PATCH] mm: do file ownership checks with the proper mount idmap" failed to apply to 6.6-stable tree
-To: pfalcato@suse.de,akpm@linux-foundation.org,brauner@kernel.org,david@kernel.org,jack@suse.cz,jannh@google.com,liam@infradead.org,stable@vger.kernel.org,vbabka@kernel.org,viro@zeniv.linux.org.uk,willy@infradead.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 17:25:11 +0200
-Message-ID: <2026071511-chastise-overplay-bd0a@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DMzB0g1t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784129517; x=1815665517;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=FBDfEbbD0ZBsCKoS9kt+d1+KGWXl4hcd6C91pS+Epmo=;
+  b=DMzB0g1tOR9tdgCjQ/bTnuamm/6LrcngFBQFsEEE9mTig0Qq4sumPcqq
+   4x5svspEW0Oj/uOxmId3lyvvyyIG/pGI+LqVmkW6sX6c8EO4WTlNI9ARq
+   8mYcOGbelLIqFxzRwIeRdJKg1SXc7VJTCAXqL0oX7K8HzZZVruow56zN3
+   owgU53iPGIYni86+GCeQoY6ae+lT1jlOUyN54F7lKDRgcyAHC9SjZPIVe
+   JCSpjePYw/rrNofrdpWPeaC4AtlOCkWwlJSHxUxkJ33DYjf94v2xZ6AW3
+   LU6GslhLa6deUzIsDqQB17gQMqK8WhcQFLG+41/eLkjCjo25604FA0lW1
+   w==;
+X-CSE-ConnectionGUID: RI4iQOPdQiaY7AIonN18xg==
+X-CSE-MsgGUID: +M6dL+ORS227fw7nrC7+3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84654748"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="84654748"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 08:31:57 -0700
+X-CSE-ConnectionGUID: Pzqu46wTTuGKj7W3nTjyqg==
+X-CSE-MsgGUID: l9avW3+aS26/8oP/WgGbPA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="255093475"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa010.jf.intel.com with ESMTP; 15 Jul 2026 08:31:54 -0700
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Raag Jadav <raag.jadav@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Ramesh Babu B <ramesh.babu.b@intel.com>,
+	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
+	linux-kernel@vger.kernel.org,
+	intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: [PATCH v5 0/3] drm/xe/i2c: alerts and controller enabling modifications
+Date: Wed, 15 Jul 2026 17:31:50 +0200
+Message-ID: <20260715153153.1243751-1-heikki.krogerus@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+Hi,
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Changed since v4:
+- Moved the interrupt deassert/reassert to the wq.
+- Now using the DW_IC_ENABLE_*.
+- A number of cleanups proposed by Raag.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+v4: https://lists.freedesktop.org/archives/intel-xe/2026-July/133085.html
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x e187bc02f8fa4226d62814592cf064ee4557c470
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071511-chastise-overplay-bd0a@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+The hardware challenges that these patches address are so severe that I'm
+marking both of them as fixes. In both cases the GPU may silently end up in
+unresponsive state (or worse). The second patch has been refactored so that it
+includes the direct AMC alert handling in Xe instead of the normal alert handler
+registration. The subject lines were also changed to highlight the fact that
+these are fixes. Ramesh helped me with the testing and with the implementation
+for the AMC alert handling.
 
-Possible dependencies:
+Changed since v3:
+- This was sent for internal review only. I'm sorry for the messing up the
+  version.
 
+Changed since v2:
+- Added Fixes tag to both patches.
+- i2c-designware is no longer supplied with an interrupt so it will be in
+  polling mode (ACCESS_POLLING will be enabled). The IRQ path in hardware can't
+  handle the amount of interrupts the i2c controller generates. Only the
+  interrupts from the SMBus Alert line are left enabled.
+- The registration of the default smbus alert handler is dropped.
+- The AMC alerts are handled directly in Xe. All the alerts will cause the
+  device to be declared as wedged at least for now.
+- Cleanups proposed by Raag.
 
+v2: https://lore.kernel.org/lkml/20260625125939.429078-1-heikki.krogerus@linux.intel.com/
 
-thanks,
+Changed since v1:
+- Global header for the DesignWare I2C registers which meant a bit of
+  patch refactoring.
+- Selecting CONFIG_SMBUS in CONFIG_XE and handling smbus in xe_i2c.c instead of
+  separate file.
+- Storing the alert device to the client array and providing enum for the
+  clients.
+- Allowing other fields in the IC_ENABLE register to be updated except the
+  Enable bit.
+- Can't sleep in xe_i2c_disable() so using udelay().
 
-greg k-h
+v1: https://lore.kernel.org/lkml/20260622114759.3464047-1-heikki.krogerus@linux.intel.com/
 
------------------- original commit in Linus's tree ------------------
+This includes support for the SMBus alerts, and special handling for the
+IC_ENABLE register.
 
-From e187bc02f8fa4226d62814592cf064ee4557c470 Mon Sep 17 00:00:00 2001
-From: Pedro Falcato <pfalcato@suse.de>
-Date: Thu, 25 Jun 2026 16:38:53 +0100
-Subject: [PATCH] mm: do file ownership checks with the proper mount idmap
+Thanks,
 
-Ever since idmapped mounts were introduced, inode ownership checks (for
-side-channel protection) in mincore() and madvise(MADV_PAGEOUT) were done
-against the nop_mnt_idmap, which completely ignores the file's mount's
-idmap.  This results in odd edgecases like:
+Heikki Krogerus (3):
+  i2c: designware: Global register definitions
+  drm/xe/i2c: Fix the interrupt handling
+  drm/xe/i2c: Keep the i2c controller always enabled
 
-1) mount/bind-mount with an idmap userA:userB:1
-2) userB runs an owner_or_capable() check on file that is owned by userA
-on-disk/in-memory, but owned by userB after idmap translation
-3) owner_or_capable() mysteriously fails as the correct idmap wasn't supplied
+ MAINTAINERS                                |   1 +
+ drivers/gpu/drm/xe/Makefile                |   4 +-
+ drivers/gpu/drm/xe/regs/xe_i2c_regs.h      |   2 +
+ drivers/gpu/drm/xe/xe_amc.c                | 184 +++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_amc.h                |  25 +++
+ drivers/gpu/drm/xe/xe_i2c.c                | 163 +++++++++---------
+ drivers/gpu/drm/xe/xe_i2c.h                |  14 +-
+ drivers/i2c/busses/i2c-designware-common.c |   2 +
+ drivers/i2c/busses/i2c-designware-core.h   |  85 +---------
+ drivers/i2c/busses/i2c-designware-master.c |   2 +
+ drivers/i2c/busses/i2c-designware-slave.c  |   2 +
+ include/linux/designware_i2c.h             | 107 ++++++++++++
+ 12 files changed, 426 insertions(+), 165 deletions(-)
+ create mode 100644 drivers/gpu/drm/xe/xe_amc.c
+ create mode 100644 drivers/gpu/drm/xe/xe_amc.h
+ create mode 100644 include/linux/designware_i2c.h
 
-In the case of mincore/madvise MADV_PAGEOUT, this is usually benign,
-because file_permission(file, MAY_WRITE) will probably succeed, as it uses
-the proper idmap internally, but it does not need to be the case on e.g a
-0444 file where even the owner itself doesn't have permissions to write to
-it.
-
-Since this is clearly not trivial to get right, introduce a
-file_owner_or_capable() that can carry the correct semantics, and switch
-the various users in mm to it.
-
-The issue was found by manual code inspection & an off-list discussion
-with Jan Kara.
-
-Link: https://lore.kernel.org/20260625153853.913949-1-pfalcato@suse.de
-Fixes: 9caccd41541a ("fs: introduce MOUNT_ATTR_IDMAP")
-Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index d10897b3a1e3..50ce731a2b78 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -2444,6 +2444,11 @@ static inline struct mnt_idmap *file_mnt_idmap(const struct file *file)
- 	return mnt_idmap(file->f_path.mnt);
- }
- 
-+static inline bool file_owner_or_capable(const struct file *file)
-+{
-+	return inode_owner_or_capable(file_mnt_idmap(file), file_inode(file));
-+}
-+
- /**
-  * is_idmapped_mnt - check whether a mount is mapped
-  * @mnt: the mount to check
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 5af62e6abca5..58eb9d240643 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -4704,7 +4704,7 @@ static inline bool can_do_cachestat(struct file *f)
- {
- 	if (f->f_mode & FMODE_WRITE)
- 		return true;
--	if (inode_owner_or_capable(file_mnt_idmap(f), file_inode(f)))
-+	if (file_owner_or_capable(f))
- 		return true;
- 	return file_permission(f, MAY_WRITE) == 0;
- }
-diff --git a/mm/madvise.c b/mm/madvise.c
-index cd9bb077072c..77552b03d318 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -336,8 +336,7 @@ static inline bool can_do_file_pageout(struct vm_area_struct *vma)
- 	 * otherwise we'd be including shared non-exclusive mappings, which
- 	 * opens a side channel.
- 	 */
--	return inode_owner_or_capable(&nop_mnt_idmap,
--				      file_inode(vma->vm_file)) ||
-+	return file_owner_or_capable(vma->vm_file) ||
- 	       file_permission(vma->vm_file, MAY_WRITE) == 0;
- }
- 
-diff --git a/mm/mincore.c b/mm/mincore.c
-index 296f2e3922b5..c8757c5085bf 100644
---- a/mm/mincore.c
-+++ b/mm/mincore.c
-@@ -227,8 +227,7 @@ static inline bool can_do_mincore(struct vm_area_struct *vma)
- 	 * for writing; otherwise we'd be including shared non-exclusive
- 	 * mappings, which opens a side channel.
- 	 */
--	return inode_owner_or_capable(&nop_mnt_idmap,
--				      file_inode(vma->vm_file)) ||
-+	return file_owner_or_capable(vma->vm_file) ||
- 	       file_permission(vma->vm_file, MAY_WRITE) == 0;
- }
- 
+-- 
+2.50.1
 
