@@ -1,105 +1,84 @@
-Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DEA01FBEA8
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 08:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589043603D5;
+	Wed, 15 Jul 2026 08:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784104261; cv=none; b=JUyNNNEAy0WMx7JFV9uSyqHURT2YQjhlkF5ijUYHXB1o6JFBG1ipBqPqIjH9Xni2zVpAodMzpeV9jA9AXhDrQ718cKXzRKV+c2oIuYNsdcfoK0VqvggMiFYaoAv66QlEKUlazLcAAwy3iaaEy+l32Lm5KaPEMuzRP54FkIGOJa4=
+	t=1784104311; cv=none; b=TnKzvcxlgqHWzBYcAJRXxZiI61wZOzwwg6xEf6K2nUj+W7Ng/bYjIOeFiwgPA95RecX3MjlQD1h+0CYBzv6LQ/r43WfSYqhNQzqTo2epG4B76FOCphMBHBxYX+tCqA1ukByePT2u3v2vpz2zlqjqbXYgBVNJRwdqRHXozHfWbXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784104261; c=relaxed/simple;
-	bh=fsO3AO0raATK8j0HGKAwPovfT+eHZM8MEFa0Mee9Bms=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Be3yUbvoLLEVEE8g1Jy6oAyzfGx9jcFQcl6xjIh8Y+RBVw/OoleAs/3iX1G6RV9oIt2yfxHRhtCk93FK8R0it9BCDrUoKUZNEsSm51SuiJHXEm23uuVB2HGtrDnUOq5iLuuakbK2+0aAVctdKgbVZe71LZTxl5EYj+WP3uFDSHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BozRlNq8; arc=none smtp.client-ip=91.218.175.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784104311; c=relaxed/simple;
+	bh=QcqaG9bdGXl50jPu/JZyaS7ewr6T+770xaHIMx0NS0Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ybyt2qKbWOvStAzLf4p+1MGWNask0LITt0qUniTtu79nbGBJUK3VIFc68u3aex5W77ruPLB6U9VN68BxARo3TwOUhtEiTOD4y74TT7KE7+iEMSgy9r8/1xOl8Ocdy0ty0L7/7zsxh2wYOMvcIO9LkD103idiNjVMXWORPjrF2Qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XUzAtmOx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BozRlNq8"
-Message-ID: <fcd20554-beb3-4ac8-9768-14f9bb8ce8b4@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784104257;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dQrae6Cm2MY06HGEjU3/xL5rXu67Kdy2Kb+NwAvEBps=;
-	b=BozRlNq8VOl4+ctCscuxFAqWjvKWlDxZhZ0vNzXbzqpf6ftrM/RVx1jZTju87PpDmjx5oY
-	Ks1kx1HbxJeEzhhtBmOjUT2JC46bRzooaqV23riTSdmRwc0BOG4cBUU37TQXx48DqxsZHv
-	Yi0dfoPdmWHvID0sLp2lCrdZZzMkBVQ=
-Date: Wed, 15 Jul 2026 16:30:06 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XUzAtmOx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5DA41F000E9;
+	Wed, 15 Jul 2026 08:31:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784104309;
+	bh=QcqaG9bdGXl50jPu/JZyaS7ewr6T+770xaHIMx0NS0Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XUzAtmOxttpIajpYuy9PHtsD/bbW3lMFTsULGrMLvudH7saF0OU+fpWl05tOPF6R5
+	 tP3keWSIwMqQ8Qx6ee5BaOdgQLqR+bNqka/rqBZpHdQOLs2mDTSYbheNF78Igp0/HA
+	 Pf4kpQpBBTUT2RpHgFJtIwPFPjufQ170EIEbnVoLc4n8lvuzFvTQ3lsnkjcazdojkk
+	 J2AkTaVg7ZHOEBORZxSngiVqpWHUvWAOIRyRnMe3zvEJYh3TXK4bc+/Am4c5Zd1x1w
+	 uw/4/J0AllxcbikrYAIxECY8JQBp/wRGpkqQX0wQKp1p9DXCEiLP32lM18eK4CXR5n
+	 MuUZZ7YqLzzMg==
+Date: Wed, 15 Jul 2026 09:31:31 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, 
+	Ryan Roberts <ryan.roberts@arm.com>, David Carlier <devnexen@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	stable@vger.kernel.org, syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+Subject: Re: [PATCH mm-hotfixes v3 0/4] mm: fix UAF caused by race between
+ ptdump and vmap pgtable freeing
+Message-ID: <aldFYDI6LFOv3GsM@lucifer>
+References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
+ <20260714121102.9cb28d080556c94d45a6bc3e@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH iwl-net v1 1/2] iavf: fix ASQ command buffer leak on init
- failure
-To: "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
- "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>,
- "Kitszel, Przemyslaw" <przemyslaw.kitszel@intel.com>,
- "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- Mitch Williams <mitch.a.williams@intel.com>,
- Greg Rose <gregory.v.rose@intel.com>,
- Sudheer Mogilappagari <sudheer.mogilappagari@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20260715061131.34420-1-xuanqiang.luo@linux.dev>
- <20260715061131.34420-2-xuanqiang.luo@linux.dev>
- <PH0PR11MB590272FD2023440F52E95689F0F82@PH0PR11MB5902.namprd11.prod.outlook.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: luoxuanqiang <xuanqiang.luo@linux.dev>
-In-Reply-To: <PH0PR11MB590272FD2023440F52E95689F0F82@PH0PR11MB5902.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714121102.9cb28d080556c94d45a6bc3e@linux-foundation.org>
 
-
-在 2026/7/15 15:24, Jagielski, Jedrzej 写道:
-> From: xuanqiang.luo@linux.dev <xuanqiang.luo@linux.dev>
-> Sent: Wednesday, July 15, 2026 8:12 AM
+On Tue, Jul 14, 2026 at 12:11:02PM -0700, Andrew Morton wrote:
+> On Tue, 14 Jul 2026 18:24:22 +0100 Lorenzo Stoakes <ljs@kernel.org> wrote:
 >
->> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
->>
->> iavf_alloc_adminq_asq_ring() allocates cmd_buf before the remaining ASQ
->> resources. If iavf_alloc_asq_bufs() or iavf_config_asq_regs() fails, the
->> unwind path elides cmd_buf while freeing the other allocations.
->>
->> The ASQ count is not set until initialization succeeds, so the shutdown
->> path cannot reclaim the buffer. Free cmd_buf in the common unwind path.
->>
->> Fixes: d358aa9a7a2d ("i40evf: init code and hardware support")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
->> ---
->> drivers/net/ethernet/intel/iavf/iavf_adminq.c | 1 +
->> 1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/net/ethernet/intel/iavf/iavf_adminq.c b/drivers/net/ethernet/intel/iavf/iavf_adminq.c
->> index 6937b7dd44cbb..82a32f8e78c12 100644
->> --- a/drivers/net/ethernet/intel/iavf/iavf_adminq.c
->> +++ b/drivers/net/ethernet/intel/iavf/iavf_adminq.c
->> @@ -346,6 +346,7 @@ static enum iavf_status iavf_init_asq(struct iavf_hw *hw)
->> 	iavf_free_virt_mem(hw, &hw->aq.asq.dma_head);
->>
->> init_adminq_free_rings:
->> +	iavf_free_virt_mem(hw, &hw->aq.asq.cmd_buf);
-> Hi Xuanqiang
-> much thanks for the patches!
+> > Kernel page table walkers fall into two broad categories - those ranges
+> > where no exclusion is required via walk_kernel_page_table_range_lockless()
+> > and those where exclusion is required via walk_kernel_page_table_range()
+> > or walk_page_range_debug().
+> >
+> > ...
+> >
+> > This series works around this by #ifndef CONFIG_ARM64'ing the mmap read
+> > lock in vmap logic, then partially reverting commit fa93b45fd397 ("arm64:
+> > Enable vmalloc-huge with ptdump"), keeping the enablement of huge vmap
+> > support, and removing the ifdeffery with the partial revert patch.
 >
-> how about moving that line directly into iavf_free_adminq_asq()?
-> then free func would be paired 1:1 with alloc func
-
-Thanks for the suggestion!
-
-I've addressed it and sent out v2.
-
+> Thanks, I've updated mm-hotfixes-unstable.
 >
->> 	iavf_free_adminq_asq(hw);
->>
->> init_adminq_exit:
->> -- 
->> 2.43.0
+> > v3:
+> > * Rebased on latest master of Linus's tree.
+> > * Accumulated tags, thanks everybody!
+> > * Reworded commit messages as per Kiryl and Boris.
+>
+> I've confirmed that v3 introduced no code alterations.
+
+Thanks!
