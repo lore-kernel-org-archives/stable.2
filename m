@@ -1,163 +1,191 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012069.outbound.protection.outlook.com [52.101.43.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD929225413;
-	Wed, 15 Jul 2026 06:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784097527; cv=fail; b=pE4pVqB9x/LaLrroTleopM0eSzEQZfENLKto+m3tVbZFx4+DebZPIpFe5dNlKGKOSWIdqrK+RXyLypGgu67rfqX6xxnhLBOu+rvhdaTPkyIKQyy2FkL5AP6Urxd8GlqE6MDDw8PQa01VDIKY+q0Ii/biJa7Y/2U5PTG+tPOImDM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784097527; c=relaxed/simple;
-	bh=Jb+dbzwD0E9G9Iz+FzO/SxLs4qQDCX3wqJvDS9uIta4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ci3/VB/FTFCED65tITDTXtqHQkxnVX375G8MJjviDeS18CC3tKg2uOvDCDz1BwvQjHN/Uw62/K7clFg+WrMrWrZ9G77T0zSmHebhYVptgq6u9Nk3524x4asbHMNe/FwcYURSxQ0zi6Jo2c4plRcyhSf/FTnzcmP41+kCrlwi6mg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=puY0KpMX; arc=fail smtp.client-ip=52.101.43.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569E0314B95
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 06:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784098185; cv=none; b=Va0oHyvgCz4+SBfzLU23Ye6gKYZklHT4WAU053slUGEYYlAx4VwGqwZ7pdKeoWkt3hUIIgUPBp5ERWaYfLQKVPy8tQCZttHM6AtpOdfzCFFjugfeQ9ysSXXTVxp3k2wB3+pp1X6pcWFQHkwgYLbsKRDijyKC1J0p//lcSL38xGc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784098185; c=relaxed/simple;
+	bh=H3H+U00EvKmnxYu0Zr7XD5SgUBsLDMZC5MZOue8X6sk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ukyCsURbAi54eZCvPzuaYrnkhr2rfVBuJaxHdzQi10KXwh33xrXKyIQT1GD0MWi0JWv2YyrrZqCIVpEkgdF4MOmq8+28WZppnKf7KyNwaHjVPKEd1eEJ/saaNtkJ83Yk/tnV0tsFY9no1exU59TCrW3ffdcsXFt4fESAznJHiLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YyM8vA1h; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="puY0KpMX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=djgsUV1xHnjUOLqMSQc0anqHnc7d0LNqEoE9kCE47LQrDXFE6ksd+dqudi2pAZugv9bjp149ntfmJBJT2eaI5UIGc2nvX+4JnpGtILgmkuViCZxVvS7UeH0BCqLhPe4rKK1UDpVV9CeUOe0/l6FI9kiYMiHzIRyFAeR1Hr/wJhKv7sWhYocnudZXk3rAPFr+njjD9Rmo7iEPhwL6MEhZ6nU/5k2MlDeRW2/mGj+WYAOJjvAeYWZ6uoZM7aPbyG3qvUCRmN5DTLvfyQgLRPFp69tuXwoG/nMSwqU6HOeZ7ybUN8CVFJ7x1yiFpy1pHuCsIGrJVLxs6I17bDMAMZ91+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UVVICGuo72hCcnVpPnRZw9e7oJFhRFfYjIG5JZMKz5s=;
- b=srnvG6XT82f15UTDCLs6FAmWrm0ee50XO1PHeHdFRwfsy//a2LkyPChm34JD12DA1OZxM46nE6yefE4bknbaeTuCrrBS6jNnrmCMu5g/V1/6Hddz1OlYn7HhYSHZs4/m0UYHBSgy7wY1li/ic4/YkDWOQFNJtnjE3nDdeX+mZsPmMqrVdHgdrhG27wV7jYvX9JTQn0fuAn1A036GmqVZ7zD5o/UOu0IaGo4G3zVhvKGYklJAougDBMV/Aym5htfteOA7jwDfcQ/e+MS88TrPVgzdSJY22Fd3YD7l/Y1gLgFsYAsaaWfk8wjuRt/GX6pBaT9RUPTvq4m1fOG88hUKeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UVVICGuo72hCcnVpPnRZw9e7oJFhRFfYjIG5JZMKz5s=;
- b=puY0KpMXiIFEc84dK/NTwhsjfmZ99TS9QwpKNnxR1JzpCm1dExyGJpOrMCVuJG442H9wi4hZcjxrNv3UcGxvRKk7UnqN4y6e45EwcZ2Tro2B4ikU/AwPUKeapWkOaYLa/hMylFwOMSBn3/js3W0mRnJY7U+m2VIwAZCEW8XST40=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7771.namprd12.prod.outlook.com (2603:10b6:8:138::6) by
- DS0PR12MB8247.namprd12.prod.outlook.com (2603:10b6:8:f5::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.10; Wed, 15 Jul 2026 06:38:41 +0000
-Received: from DS0PR12MB7771.namprd12.prod.outlook.com
- ([fe80::9a3e:791f:33b6:3d8c]) by DS0PR12MB7771.namprd12.prod.outlook.com
- ([fe80::9a3e:791f:33b6:3d8c%5]) with mapi id 15.21.0202.014; Wed, 15 Jul 2026
- 06:38:41 +0000
-Message-ID: <17acf880-e0c7-4950-89ce-9d3b47846073@amd.com>
-Date: Wed, 15 Jul 2026 08:38:36 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: SEV: drop FOLL_LONGTERM for encrypted region
- registration
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Sean Christopherson <seanjc@google.com>, Lorenzo Stoakes <ljs@kernel.org>
-Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com,
- dave.hansen@linux.intel.com, bp@alien8.de, x86@kernel.org,
- thomas.lendacky@amd.com, hpa@zytor.com, yangge1116@126.com,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <2bd89e95-9c15-4a3a-916d-0d71a92d8b02@amd.com>
- <27ebe8f0-78b6-402a-a2e7-4e807251d20a@kernel.org> <ak-uER-RndpksnhR@lucifer>
- <58c4326d-b10d-42dc-af5d-3a5ff16c7e3e@amd.com> <ak_A6Yc5mBXCrtXr@lucifer>
- <adf66571-4ef4-4f8a-824f-fdd5ab5099ab@kernel.org> <alDtzM28CgZJn6FF@lucifer>
- <62ccb0f7-a619-41b8-944e-11ae2d0ce70c@kernel.org>
- <alEUBzV1cevuPYeD@google.com> <alEZIuJhv5ZXGQac@lucifer>
- <alEc0I0VysX1p5Nk@google.com>
- <ad784f05-b36c-4e91-9f17-4c5b826735d0@kernel.org>
-Content-Language: en-US
-From: "Gupta, Pankaj" <pankaj.gupta@amd.com>
-In-Reply-To: <ad784f05-b36c-4e91-9f17-4c5b826735d0@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0023.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c9::9) To DS0PR12MB7771.namprd12.prod.outlook.com
- (2603:10b6:8:138::6)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YyM8vA1h"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ceae1ed204so22120285ad.0
+        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 23:49:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784098183; x=1784702983; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WAxwSysnuvqpld0W2wLJvg0Kqlo0lOvRkB5I8+laT8o=;
+        b=YyM8vA1hTOu74IEVr6EYxyxWlAhoh1T7vTwQtCwuVqZLCF3UMifSDrIgBrDCt1+6Mz
+         uGeqGtNZLjRqHyyPaYC8psT2PfCALFzeSZ2MGmIi81y/8Ftm+vyXwsvmeNgIcfXcB6wB
+         vPm/t7iZpiE8tTgPuZkRGNyINWwkKge5GUQ4vklfUzQHftQR050EmmVqQnHT2xZpVCgq
+         i5E9RPj5w79abNSHMHHplzkLZPksBDyzKseitt/gYclc10nMtRPtKfS6VOZAhrj8Mbh2
+         V8W+XGlzRK0zISkw99+ZTesxnXAcLZu+Y8nRKkb/X7qaIxeuNylG0z1MZhupeVeG0Zvo
+         Xi4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784098183; x=1784702983;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=WAxwSysnuvqpld0W2wLJvg0Kqlo0lOvRkB5I8+laT8o=;
+        b=BTxC5X0UHSeWd/sG2dJjaBozg7mgMmS8sEqDJAW9FtEX1CIsK4VGeIpISXOTsLG6n3
+         +2mkU2NcyXIBD/MoKwrZm4KCMKFhViz0UJ5Yw2NMWremnf2GZ5eMSNyu5NtDEsj5y5UQ
+         vG+/G4Hp9fKe7PvsWJbFoZAq9vFeUMg52ILyASyKGkdjL8x6HKkAxZpoAgAi9Os2q5E8
+         bpjjap2aW4HKunUe9AIb7Z7JXJoid4PkO3U3ib6LtG6Vw+s4ZRB5r/uSkLSBPfg/UGEp
+         vSupgHhsARYCad5JvJuJBXubjxk2PquBSBdko+Xeifs1JYIPoNWmFaT6hDO+5yTY0oL8
+         NGDw==
+X-Forwarded-Encrypted: i=1; AHgh+RqCkjb9jv5QRXq0aZOCEt+QpSK7WLc0jEwyTnZswxK94b2Kch6/o5hwbGDLEuhvWwrm4OqawMI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFNo54Zm0UILLXhfMcty8jj27vXIv5ke7w+8XxUabZWJFDcQUI
+	5CUMnMerhJi/ly3MMiPelhGdmQ7+e5VOYmLO9jCVfyJWdPlLquoPkHij
+X-Gm-Gg: AfdE7clnB8N3d5IVAxHvVP9QCOdLUISFQxNYf/SCUitnmt2cW7c93g3xx6CyCfXoFJD
+	+bfC1n7LMtAHsG9z3LP4cm6EgBt2nllTf+l7xHFCKGxO7vVAznu/I3qjJ8gSUEfrhW6tXNJbp3z
+	j2jP0ebfBcYgiRqgfUaayHG2ohT2IEn9FdisEZFLwkVP3wu7XFx3waWR0mrL/WkKlrVzuU8GZgs
+	/EBPGCS7vaJEmDIGl/VZVRK1bU57NR+3+olpm+7BR87sq5HKO2n2neKRmc9lMZNN79XO7wXF2Oz
+	+PoGFUA/t6Z4SunAzWXHWMfLV0zJIrP5axXRA3fkLCVo1ImGrzcVF2D1aTf5Q6DJA8eNel9R8m7
+	yQ0Gt2oEqF/kN7G5SEqMnd6ShfhaVv60D74cMK5s8kJ3xwgXIXnRqVUYDRw/dUy1h1hkipad+T6
+	TGnWPZFCGP7kKDB9tGpt8twiTEBt54/qThIldQS+nW5Jva1NwGkuUEaxURS5RxEmkbuv32f0ac
+X-Received: by 2002:a17:902:f683:b0:2c9:97a7:f543 with SMTP id d9443c01a7336-2ce9f1789d4mr143177005ad.41.1784098183463;
+        Tue, 14 Jul 2026 23:49:43 -0700 (PDT)
+Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ce7b3755a3sm86051435ad.80.2026.07.14.23.49.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 23:49:42 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+Date: Wed, 15 Jul 2026 14:49:38 +0800
+Subject: [PATCH v2] wifi: brcmfmac: set F2 blocksize to 256 for BCM43752
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7771:EE_|DS0PR12MB8247:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7810bef9-d097-408f-078e-08dee23bb578
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|18002099003|22082099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	+OI2tXeyO9dT4vf1LYikzu+qGlJi5rD5Nl3pSJbnKnuyF3DzontVI7wyj+Hac2Sgwl+T3nM6t1OxNVlurrlzLNAOEpmD4XTU3cHibqsIJyC55WAjPRiTHim4IftGTpJEfjzGRuzY0AnZKF/AetE+gH7uZy92JmvMMQGJM5CrzzIXLTPiYgm/diRJ3tW4OfUsqRw16kM7SdqxLRtlYOP4Y5FV7np45RnuQsj2A4gLkqEK2BywQ0QRDB+fYfKk5p9AoDm44Ge9cCTLKjgCJ+aO72KkwU0Jg44+1VXzecqOtR7tXcucz0YviH0XbUu6ynSfM9qM2GI0kJ7BRGL4QbbN7VfTSZ6R2M2BsNdYmSqqCuOj0kbghovBzrO1DTicMLeXk8BgT6CaxyVB6BdBqnDf9o+svTaUDJ+EDhtO+XjlXQWuGESGs6eWHMD/hHf6T+0/lPatCKIRaGtpyzFPMr0kdqVqEO5zFL8NoVEgK+9WyKOKNTi5OnFjBRtBpVXQRkIp4bzjmVLNUT2RnnBWlDXhgt6VJagnXe6DteuNIbzU/OnUsueMIMNPmfrcbWVzsrMkKNgzKfiRGXXWmW67qBXFvTWaEb8FLUn53CX0UN6RtD9BzQ30VzoXKtzN0ZouFx61aRmrfVKSAV1PwXmuyMKb99Jfmz+9eRjmV91bLumHXgg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7771.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R0pBV1pqdjUzWGNtdWFTMit6YnlUQXJ2VC82UVNESGIxVWNQS2ZwdXBVOXlQ?=
- =?utf-8?B?Wng5Y1A5UXVFMWx0c2lscENtZldqWG9uWllRZitqV29RSjBtbGg0UDNEQXkw?=
- =?utf-8?B?V3NwZWVXcm1yUlh0RDhFL1I4RWhzR0dLM25DVlZLbkdhNGhhQTZNRmk2TEVw?=
- =?utf-8?B?UjRWYm93TDB3WFNscVlwRGlCdzFVUVJybTRtSlo1dDhzdW80WVZrakVTOEpr?=
- =?utf-8?B?d1cydit2THJTNWlOOG5HeHdhT3BoWDgwTk5IMnlXSXZTdkxGajBqOTNIRXlk?=
- =?utf-8?B?VmNuL2Iyd2FUSzgwOGkzYzlvWEM2dE95Uk8yMGlCckI3MzRvTGxwc2tzNVkw?=
- =?utf-8?B?T3FXOE5CZGdLNnpVY29jb3hWOHlkLy84empSYlM3VHFqSkxjckNlVW42a1l5?=
- =?utf-8?B?Q0VYOWpRVWpNK3B2SjBIOWM5ZGZkS3FJOFN2VlRmaUthcnRGa1gyME05RTRD?=
- =?utf-8?B?K2FHREVGRklzVC9sajdVbmNQd2FXQXNqQzF5OVoxeUN1UWMwU2NMQWk2cW03?=
- =?utf-8?B?WjBncnM3K0hWbTBZdTFBWms5Zm4vUUZIczlibFNralFUQ2NoNmUva2RFZHM3?=
- =?utf-8?B?ZG1lQXNvMk9Md3dzY1BlYkpjR2tVdzhuUFhkR2Q3dFlVbEZyQXBNVWowRlhz?=
- =?utf-8?B?UXFGekwrbWZsa3hVN3NxN2JieTMweGlaN2J1bzIyUEdHcWtma0JxZHZiYVlV?=
- =?utf-8?B?TFFwSklkMThtcmd5WEVoUHpUSEJxbEVmOHVia2dnQUZ3S0JabHpvWUkzcml1?=
- =?utf-8?B?bTU2bVRVNkZmaXI1M3VjdmFiWXhUWU5FLzkrckdua0dQd1pWY08wUnRYQ3Vm?=
- =?utf-8?B?cXJtSU1rMTZrM0dKQm1vWGVHMjFaaVU5VHVmMGliTVpIM05aTzlGODNaUTZz?=
- =?utf-8?B?NEhlNEJqZXVGM0pyY1hlUTc5Nno0azRvemJPY1ZCSmVKNS9ZWkQwSTVRZDcz?=
- =?utf-8?B?bStJYTBVMmRoMmNQeXNDcmxSSWtmZGxEb2VGN00rQmFHbHBHL1NMU2xON0Vs?=
- =?utf-8?B?OTFsZFo1Z3VIZS9pUXdFRjRZQXViSm56akxjMzlrNEI4c2c2cWFOaDZOUlpn?=
- =?utf-8?B?UnlSemd1emNtUUdCYkpxQm11M1FRTU5mc1ZZSFJLWVlpVTZNRXVvaUtnRk1u?=
- =?utf-8?B?WHB3cGZqeWFGRDZ6MWNHWnQxa212QmRNVzRxbE9uY2Q2QWU5d2o3T1lBaHcr?=
- =?utf-8?B?WFp4bFNQL3pRUlFmUzR5WndTd29ySWNrZG9FL2lSOHJ3S2lnSS80SHdQdEtS?=
- =?utf-8?B?blFWTWNLVitTMzFGQ0pQREFxVVV0VjZwMFM4cmF5eGMrb2xIc3dlT0c3Vnp3?=
- =?utf-8?B?S3Zwa1lMdjVnYkt0TnI2dXlJKzhGS21ncXR6YUxBQWoxRDZ4OEJrM09nLzcr?=
- =?utf-8?B?SkdkL3o0Y2NMT0gzK3R5Z0ZTUE1jdkNQdmFnWmNFUTBYa1FaVHVZZWREOE0r?=
- =?utf-8?B?RFhXb0xOOEJhOFlaeUJJNlkrTGM3bzhYckZEZStZaWtPQjJwQ1NPZHhvUUN0?=
- =?utf-8?B?Vjh6N0E5NkR5NnZSWnhuZ0ZQUkpyZ2g5RUtwOStRd0tBQjV0dUN3TGsvZ2Vh?=
- =?utf-8?B?WlU0bnZrZC9uZDJxN2o3MWhubGh1djRUZzhUVTRtN1hnK2JYY0lUQTVWOEY3?=
- =?utf-8?B?VkxwMFB3MjdjT0J0RzVOblB4L2NFejV3elk4YmJzYmNXL2M3Vm8weHBCZWF3?=
- =?utf-8?B?TnQ4S283NG1wTGVEdG5Td2FzRXZSd1lybmdnNmdsSmNZRWRxbTB1bXJtekdj?=
- =?utf-8?B?WE5CcHdJaGx0ODNjS1BjMStlVEViR1pQaDJnTFlhdUd0R3ByQXoxMDlpSU95?=
- =?utf-8?B?d2ZZRWN0MTBhbDhqRWZTOGZra3lHSWs2SmpXZ0srZlJLMG9yNUdianM3b2tk?=
- =?utf-8?B?U0gxVWdqTWgzYmZ2WUM3TkVDZlQvbDFsZW1kTWMzdG5sNDlXM2IzQStIMitT?=
- =?utf-8?B?N3J4NlI0TU4wVVBUM3FlMmhSQUljTjhJdXBrRWtHaU9IZkFNbTRBVnNVZENa?=
- =?utf-8?B?a1ZVQ2hZdEY3aDVtS1BvZWZFQ2ZTRXpYTW1FVWpPenluZGx5ZWV3TVhITzNB?=
- =?utf-8?B?cGpqZit2eHo1cUFXZ0xvYUFpZlR2SEVIRnhlbTVKWnp6L04rTnBTcFRBakY0?=
- =?utf-8?B?bTBvd2t1UjFGdmxZZFgvdUIybWRTd29QRG9sa05UMFB0dE1mOXJRY1RFcEF5?=
- =?utf-8?B?ZW1McnBRdElLc0xBYVByRHhNZFF1SkY1eUw5Tk9UbE15VlRLamtFcU9MbzE4?=
- =?utf-8?B?WGM5WW4wWk9KTnl0a09JdTE5OHlqSHNEZk41SDNGY3N6MVVXLzlESnVNb21O?=
- =?utf-8?Q?CuAUY99korQBB+P+kE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7810bef9-d097-408f-078e-08dee23bb578
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7771.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 06:38:41.1559
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kD9Js8kT6aGtt1tZlBL2OchvXFnmCg0SCv40OjmNL3NivllU8LucwX2Ymwp53PFyVzzjlnnAWjI3MGdglXGO6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8247
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260715-b43752-f2-blksz-v2-1-f9be49856050@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAIEtV2oC/3WNyw6CMBBFf4XM2jG0RSqu/A/DorRTmMjDtKZRC
+ f9uZe/ynOSeu0KkwBThUqwQKHHkZc4gDwXYwcw9IbvMIEtZl1oo7CqlTxK9xG68xw+Sd0Y4UuS
+ ogbx6BPL82ou3NvPA8bmE936QxM/+byWBAs91o731ZMhX134yPB7tMkG7bdsX39Irr64AAAA=
+X-Change-ID: 20260713-b43752-f2-blksz-efda1de3ede9
+To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
+ Kalle Valo <kvalo@kernel.org>, Angus Ainslie <angus@akkea.ca>
+Cc: Gokul Sivakumar <gokulkumar.sivakumar@infineon.com>, 
+ Wig Cheng <onlywig@gmail.com>, linux-wireless@vger.kernel.org, 
+ brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ LiangCheng Wang <zaq14760@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784098180; l=4721;
+ i=zaq14760@gmail.com; h=from:subject:message-id;
+ bh=H3H+U00EvKmnxYu0Zr7XD5SgUBsLDMZC5MZOue8X6sk=;
+ b=VN931l1m4was2Q22iLRg/8Eb8uMCk/v1EXvXXIMHef101oh3mdsnCMBnu+QE4nXo6hy4jb++h
+ aGpKCwThUUABqbOjnBsZzD7lMaydacgFqTa/kt776aaUl0CemMC7Tj7
+X-Developer-Key: i=zaq14760@gmail.com; a=ed25519;
+ pk=5IaLhzvMqasgGPT47dsa8HEpfb0/Dv2BZC0TzSLj6E0=
 
+The BCM43752 is not reliable with the default 512-byte SDIO function 2
+block size: on an i.MX8MP board with an AMPAK AP6275S module at
+SDR104 / 200 MHz, an iperf TX stress test kills WLAN within seconds:
 
-On 7/10/2026 6:38 PM, David Hildenbrand (Arm) wrote:
->>> How long ago did I break this though? Why has it taken until now for this to be
->>> reported? :) commit 8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast
->>> writing to file-backed mappings") is from May 2023 :)
->> The break didn't come from your changes, it came from commit 7e066cb9b71a ("KVM:
->> SEV: Use long-term pin when registering encrypted memory regions").  I suggested
->> falling back to a non-longterm pin, but David didn't like that idea :-)
-> Yes, a longterm pin is a longterm pin.
->
-> If we don't write to the memory, why do we need a write pin? To make sure that
-> what we pin was actually unshared?
->
-> Well, FOLL_LONGTERM does that nowadays.
->
->
-> ... so is maybe dropping the FOLL_WRITE sufficient?
+  mmc_submit_one: CMD53 sg block write failed -84
+  brcmf_sdio_dpc: failed backplane access over SDIO, halting operation
 
-Yes, All that is correct. Sent a v2.
+Commit d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
+set up the 43752 like the 4373 for the F2 watermark but missed the F2
+block size, which the 4373 limits to 256 bytes. The vendor driver
+(bcmdhd) also programs a 256-byte F2 block size for this chip and runs
+the same hardware without errors.
 
-Thank you!
+Group the 43752 with the 4373, matching the F2 watermark handling.
+With this change a 10-minute bidirectional iperf3 soak completes with
+zero SDIO errors at ~270 Mbit/s in each direction.
 
-Pankaj
+Backporting note: kernels before v6.18 name this id
+SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752, so on those trees the case
+label added by this patch must be adjusted to that name. Cherry-picking
+the rename commit 74e2ef72bd4b ("wifi: brcmfmac: fix 43752 SDIO FWVID
+incorrectly labelled as Cypress (CYW)") first is not a clean
+alternative: on trees before v6.17 its context collides with the 43751
+additions, and trees before v6.2 lack the FWVID framework it touches.
+
+Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
+Cc: stable@vger.kernel.org # see patch description, needs adjustments for <= 6.17
+Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
+---
+The failure was isolated by testing combinations of scatter-gather
+support and F2 block size, all at SDR104 / 200 MHz, with an iperf
+multi-stream stress test plus a 5-10 minute bidirectional iperf3 soak:
+
+  sg/glom  F2 blksz  result
+  on       512       fatal halt within seconds (CMD53 write -84,
+                     "failed backplane access", wlan dead)
+  txglom off, 512    survives, but ~14 recoverable CMD53 errors/min
+  rx glom on
+  off      512       firmware PSM watchdog reset after ~3 minutes
+  off      256       0 errors, but TX limited to ~142 Mbit/s
+  on       256       0 errors, RX 265 / TX 273 Mbit/s (this patch)
+
+So the corruption tracks the 512-byte block size, not scatter-gather;
+glomming only amplifies it. The vendor bcmdhd driver logging "set
+sd_f2_blocksize 256" at probe is what pointed at the missing override.
+
+The BCM43751 shares the 43752 firmware handling and F2 watermark case
+and may need the same fix, but I have no 43751 hardware to verify.
+
+Tested on:
+- i.MX8MP (usdhc SDIO host, AMPAK AP6275S module) with Linux kernel
+  6.12.34 plus this patch
+
+Gokul suggested having stable cherry-pick the 74e2ef72bd4b rename
+first. I rehearsed that on 6.12.95: the rename does not cherry-pick
+cleanly, as its context collides in four files with the 43751
+additions from v6.17. The conflicts are small and easy to resolve by
+hand, but the prerequisite tag format promises a clean cherry-pick,
+so it would not be accurate here. Moreover, the Fixes range goes back
+to v5.15, and trees before v6.2 cannot take the rename at all: its
+CYW->WCC change touches the FWVID framework, which does not exist
+there.
+
+Adjusting the single identifier in this patch instead works the same
+way on every affected tree (build-tested on 6.12.95), so I kept that
+approach: the stable tag uses the documented "needs adjustments" form
+and the details are in the patch description.
+
+Changes in v2:
+- Rewrite the stable tag in the stable-kernel-rules.rst "needs
+  adjustments" form (Arend)
+- Add a backporting note to the patch description: adjust the id name
+  for kernels before v6.18, rather than cherry-picking the rename
+  first (Gokul)
+- Link to v1: https://lore.kernel.org/r/20260713-b43752-f2-blksz-v1-1-8697fcfeaef4@gmail.com
+---
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
+index d24b80e492e084160e1d085b8c20242de3e07c28..3f7a05c4d27ad4c284a6ecc7f0b014a1e985526d 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
+@@ -911,6 +911,7 @@ int brcmf_sdiod_probe(struct brcmf_sdio_dev *sdiodev)
+ 		return ret;
+ 	}
+ 	switch (sdiodev->func2->device) {
++	case SDIO_DEVICE_ID_BROADCOM_43752:
+ 	case SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373:
+ 		f2_blksz = SDIO_4373_FUNC2_BLOCKSIZE;
+ 		break;
+
+---
+base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
+change-id: 20260713-b43752-f2-blksz-efda1de3ede9
+
+Best regards,
+-- 
+LiangCheng Wang <zaq14760@gmail.com>
 
