@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBB843B6F4
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:12:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D7443C7D1
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:12:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784110358; cv=none; b=T4rfYoh6Rv6OXVSUHE2/jyJbXkOlwjaqw5gJFx8Xg3jL+57PtixLAg22/+OkrbtIqYauC0KY55PsYD7XhSWdm5cOQjbOHIbfr4zDjQdV4MtdQcFcZq6DZHrFjSNPPeheqZDNCsA0huYHeQ17KyTwd8eqYbp64cUjshDEAS8h2C8=
+	t=1784110366; cv=none; b=Gety5wjiFYgfJh2MarNtp+ueZInTp0eI2iCMREeLFAMmZ5TNTNoxbhLOiQWt8r9lgfCnUwIxaVP+beB3CpFZTL08M2VO9jpqEVIlYfWS8kn7GLPHyTdQGaJm2pUC2JOw9FqoxmYlKB4MiCv1Qi/E8HPM6lHpatOBI744BkK17AU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784110358; c=relaxed/simple;
-	bh=26Fu0JUVTO7yLfqJW/EZ2vaGRRdZecS+q7NxtcNHpHA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=X+5gIDNKENgnggy6mFWJk+xSLyLCUDWO2ieOP5GrdhC+fVjkZQe0NyEJ8kgTbOPSgy0Olnk8zEcLUw8DyAR57WzIEgqobW9AYZiqVvsDzajqCGkNDo6kII+u/gJ5lAfaylBJJ5xlE0YSJx7qz1+VJx3BkoJfZ6vc3QYrJO/orJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oradew4P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784110366; c=relaxed/simple;
+	bh=WN+6veQ1z8BzW5CmI1CseZT8RacbKm1UzvqkqvjWqbs=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ghb2TGa7UPIGa+1taTsjuc+A3H5Txo3lS7hCyikSlRSYa6g9Vo6GXz8XLB7xr9YwaV3Iz+hloGIIyaxKA6G8SqEFCN/iHgkwTCUwSgTNA/lP5Ie+V9Z9tVxVzarq/ggkKB372/pqeEGjTd0TUkHW9DWMIzsx8f8OsxO6MPPOz6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b8VS6xz7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oradew4P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671A41F000E9;
-	Wed, 15 Jul 2026 10:12:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b8VS6xz7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 701461F000E9;
+	Wed, 15 Jul 2026 10:12:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784110354;
-	bh=bvdv12saKP88MmWGswcIDAHLmO5kexF/e0M7ldl/e5I=;
+	s=korg; t=1784110363;
+	bh=efDDrfjAHOFh+LN1IbNfTtErawdM2JhHhMUScsKQE3I=;
 	h=Subject:To:Cc:From:Date;
-	b=oradew4PEyFR5EFwfev7aqlqN40bDWAGnLWP1ZBOqyAbplx+LYHi6s9a/vSwj0llK
-	 j1O0B8nbnXl1Dan/f8kj1pmlilUKxD/DLs4yPLLwb6Cuuzgd2aQZ4CRHmIve4bI8RK
-	 +lG+7Wa9sZKWZGVZv89Ip15B82LF4yeiL4DLrgCs=
-Subject: FAILED: patch "[PATCH] btrfs: check and set EXTENT_DELALLOC_NEW before clearing" failed to apply to 6.1-stable tree
-To: wqu@suse.com,dsterba@suse.com,fdmanana@suse.com
+	b=b8VS6xz7+275IR5kqF81UKwOWgrXnuP+4BX47gy2Py/+D3d0N1J6DtQ55QctQkfit
+	 Fxm3thiT0s4j01L89dBZ26jGkfsQhgOoZN1nZP8R7vao5toAV/b70xrZn6VqebySol
+	 +AcNaTs4FeV4pYctyG7B1RQzZhB2nXFSdXAlz8Ts=
+Subject: FAILED: patch "[PATCH] btrfs: do not trim a device which is not writeable" failed to apply to 5.15-stable tree
+To: wqu@suse.com,dsterba@suse.com,fdmanana@suse.com,glass.su@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 12:12:24 +0200
-Message-ID: <2026071524-shape-unsavory-2d51@gregkh>
+Date: Wed, 15 Jul 2026 12:12:37 +0200
+Message-ID: <2026071537-wriggly-voyage-b2ec@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 95ee2231896d5f2a31760411429075a99d6045a7
+git cherry-pick -x 1b1937eb08f51319bf71575484cde2b8c517aedc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071524-shape-unsavory-2d51@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071537-wriggly-voyage-b2ec@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,267 +62,138 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 95ee2231896d5f2a31760411429075a99d6045a7 Mon Sep 17 00:00:00 2001
+From 1b1937eb08f51319bf71575484cde2b8c517aedc Mon Sep 17 00:00:00 2001
 From: Qu Wenruo <wqu@suse.com>
-Date: Mon, 20 Apr 2026 18:32:49 +0930
-Subject: [PATCH] btrfs: check and set EXTENT_DELALLOC_NEW before clearing
- EXTENT_DELALLOC
+Date: Tue, 2 Jun 2026 13:34:46 +0930
+Subject: [PATCH] btrfs: do not trim a device which is not writeable
 
-[WARNING]
-When running test cases with injected errors or shutdown, e.g.
-generic/388 or generic/475, there is a chance that the following kernel
-warning is triggered:
+[BUG]
+There is a bug report that btrfs/242 can randomly fail with the
+following NULL pointer dereference:
 
-  BTRFS info (device dm-2): first mount of filesystem d8a19a28-3232-4809-b0df-38df83e71bff
-  BTRFS info (device dm-2): using crc32c checksum algorithm
-  BTRFS info (device dm-2): checking UUID tree
-  BTRFS info (device dm-2): turning on async discard
-  BTRFS info (device dm-2): enabling free space tree
-  BTRFS critical (device dm-2 state E): emergency shutdown
-  ------------[ cut here ]------------
-  WARNING: extent_io.c:1742 at extent_writepage_io+0x437/0x520 [btrfs], CPU#2: kworker/u43:2/651591
-  CPU: 2 UID: 0 PID: 651591 Comm: kworker/u43:2 Tainted: G        W  OE       7.0.0-rc6-custom+ #365 PREEMPT(full)  5804053f02137e627472d94b5128cc9fcb110e88
-  RIP: 0010:extent_writepage_io+0x437/0x520 [btrfs]
-  Call Trace:
-   <TASK>
-   extent_write_cache_pages+0x2a5/0x820 [btrfs 70299925d0856939e93b17d480651713b3cbba58]
-   btrfs_writepages+0x74/0x130 [btrfs 70299925d0856939e93b17d480651713b3cbba58]
-   do_writepages+0xd0/0x160
-   __writeback_single_inode+0x42/0x340
-   writeback_sb_inodes+0x22d/0x580
-   wb_writeback+0xc6/0x360
-   wb_workfn+0xbd/0x470
-   process_one_work+0x198/0x3b0
-   worker_thread+0x1c8/0x330
-   kthread+0xee/0x120
-   ret_from_fork+0x2a6/0x330
-   ret_from_fork_asm+0x11/0x20
-   </TASK>
-  ---[ end trace 0000000000000000 ]---
-  BTRFS error (device dm-2 state E): root 5 ino 259 folio 1323008 is marked dirty without notifying the fs
-  BTRFS error (device dm-2 state E): failed to submit blocks, root=5 inode=259 folio=1323008 submit_bitmap=0: -117
-  BTRFS info (device dm-2 state E): last unmount of filesystem d8a19a28-3232-4809-b0df-38df83e71bff
+  run fstests btrfs/242 at 2026-06-01 10:25:08
+  BTRFS: device fsid d4d7f234-487c-4787-88e4-47a8b68c9874 devid 1 transid 9 /dev/sdc (8:32) scanned by mount (122609)
+  BTRFS info (device sdc): first mount of filesystem d4d7f234-487c-4787-88e4-47a8b68c9874
+  BTRFS info (device sdc): using crc32c checksum algorithm
+  BTRFS warning (device sdc): devid 2 uuid fbe72d72-3272-482d-80fb-ab88ed398192 is missing
+  BTRFS warning (device sdc): devid 2 uuid fbe72d72-3272-482d-80fb-ab88ed398192 is missing
+  BTRFS info (device sdc): allowing degraded mounts
+  BTRFS info (device sdc): turning on async discard
+  BTRFS info (device sdc): enabling free space tree
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000018
+  user pgtable: 4k pages, 48-bit VAs, pgdp=000000013fd6b000
+  CPU: 4 UID: 0 PID: 122625 Comm: fstrim Not tainted 7.0.10-2-default #1 PREEMPT(full) openSUSE Tumbleweed e9a5f6b24978fba3bf015a992f865837fdfff3dd
+  Hardware name: QEMU KVM Virtual Machine, BIOS edk2-20250812-19.fc42 08/12/2025
+  pstate: 01400005 (nzcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+  pc : btrfs_trim_fs+0x34c/0xa00 [btrfs]
+  lr : btrfs_trim_fs+0x1f0/0xa00 [btrfs]
+  Call trace:
+   btrfs_trim_fs+0x34c/0xa00 [btrfs f02c1d570ceea621c69d302ba75dd61868083840] (P)
+   btrfs_ioctl_fitrim+0xe8/0x178 [btrfs f02c1d570ceea621c69d302ba75dd61868083840]
+   btrfs_ioctl+0xdd4/0x2bd8 [btrfs f02c1d570ceea621c69d302ba75dd61868083840]
+   __arm64_sys_ioctl+0xac/0x108
+   invoke_syscall.constprop.0+0x5c/0xd0
+   el0_svc_common.constprop.0+0x40/0xf0
+   do_el0_svc+0x24/0x40
+   el0_svc+0x40/0x1d0
+   el0t_64_sync_handler+0xa0/0xe8
+   el0t_64_sync+0x1b0/0x1b8
+  Code: 17ffff83 f94017e0 f9002be0 f9402ea0 (f9400c00)
+  ---[ end trace 0000000000000000  ]---
+
+Also the reporter is very kind to test the following ASSERT() added to
+btrfs_trim_free_extents_throttle():
+
+	ASSERT(device->bdev,
+	       "devid=%llu path=%s dev_state=0x%lx\n",
+	       device->devid, btrfs_dev_name(device), device->dev_state);
+
+And it shows the following output:
+
+  assertion failed: device->bdev, in extent-tree.c:6630 (devid=2 path=/dev/sdd dev_state=0x82)
+
+Which means the device->bdev is NULL, and the dev_state is
+BTRFS_DEV_STATE_IN_FS_METADATA | BTRFS_DEV_STATE_ITEM_FOUND, without
+BTRFS_DEV_STATE_WRITEABLE flag set.
 
 [CAUSE]
-Inside btrfs we have the following pattern in several locations, for
-example inside btrfs_dirty_folio():
+The pc points to the following call chain:
 
-	btrfs_clear_extent_bit(&inode->io_tree, start_pos, end_of_last_block,
-			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
-			       cached);
+  btrfs_trim_fs()
+  |- btrfs_trim_free_extents()
+     |- btrfs_trim_free_extents_throttle()
+        |- bdev_max_discard_sectors(device->bdev)
 
-	ret = btrfs_set_extent_delalloc(inode, start_pos, end_of_last_block,
-					extra_bits, cached);
-	if (ret)
-		return ret;
+So the NULL pointer dereference is caused by device->bdev being NULL.
 
-However btrfs_set_extent_delalloc() can return IO errors other than -ENOMEM
-through the following callchain:
+This looks impossible by a quick glance, as just before calling
+btrfs_trim_free_extents_throttle(), we have skipped any device that has
+BTRFS_DEV_STATE_MISSING flag set.
 
- btrfs_set_extent_delalloc()
- \- btrfs_find_new_delalloc_bytes()
-    \- btrfs_get_extent()
-       \- btrfs_lookup_file_extent()
-          \- btrfs_search_slot()
+However in this particular case, there is a window where the missing
+device is later re-scanned, causing btrfs to remove the
+BTRFS_DEV_STATE_MISSING flag:
 
-When such IO error happened, the previous btrfs_clear_extent_bit() has
-cleared the EXTENT_DELALLOC for the range, and we're expecting
-btrfs_set_extent_delalloc() to re-set EXTENT_DELALLOC.
+  btrfs_control_ioctl()
+  |- btrfs_scan_one_device()
+     |- device_list_add()
+        |- rcu_assign_pointer(device->name, name);
+        |  This updates the missing device's path to the new good path.
+        |
+        |- clear_bit(BTRFS_DEV_STATE_MISSING, &device->dev_state)
+           This removes the BTRFS_DEV_STATE_MISSING flag.
 
-But since btrfs_set_extent_delalloc() failed before
-btrfs_set_extent_bit(), EXTENT_DELALLOC flag is no longer present.
+This allows the missing device to re-appear and clear the
+BTRFS_DEV_STATE_MISSING flag.  However the device still does not have
+the BTRFS_DEV_STATE_WRITEABLE flag set, nor is its bdev pointer updated.
 
-And if the folio range is dirty before entering
-btrfs_set_extent_delalloc(), we got a dirty folio but no EXTENT_DELALLOC
-flag now.
-
-Then we hit the folio writeback:
-
-  extent_writepage()
-  |- writepage_delalloc()
-  |  No ordered extent is created, as there is no EXTENT_DELALLOC set
-  |  for the folio range.
-  |  This also means the folio has no ordered flag set.
-  |
-  |- extent_writepage_io()
-     \- if (unlikely(!folio_test_ordered(folio))
-        Now we hit the warning.
+The bdev pointer remains NULL, triggering the crash later.
 
 [FIX]
-Introduce a new helper, btrfs_reset_extent_delalloc() to replace the
-currently open-coded btrfs_clear_extent_bit() +
-btrfs_set_extent_delalloc() combination.
+This is a big de-synchronization between BTRFS_DEV_STATE_MISSING and
+device->bdev pointer, and shows a gap in btrfs's re-appearing-device
+handling.
 
-Instead of calling btrfs_clear_extent_bit() first, update
-EXTENT_DELALLOC_NEW first, as that part can fail due to metadata IO,
-meanwhile btrfs_clear_extent_bit() and btrfs_set_extent_bit() won't
-return any error but retry memory allocation until succeeded.
+The proper handling of re-appearing device will need quite some extra
+work, which is out of the context of this small fix.
 
-This allows us to fail early without clearing EXTENT_DELALLOC bit, so
-even if that new btrfs_reset_extent_delalloc() failed before touching
-EXTENT_DELALLOC, the existing dirty range will still have their old
-EXTENT_DELALLOC flag present, thus avoid the warning.
+Thankfully the regular bbio submission path has already handled it well
+by checking if the device->bdev is NULL before submitting.
 
-CC: stable@vger.kernel.org # 6.1+
+So here we just fix the crash by checking if the device is writeable and
+has a bdev pointer before calling bdev_max_discard_sectors().
+
+Reported-by: Su Yue <glass.su@suse.com>
+Link: https://lore.kernel.org/linux-btrfs/wlwir19t.fsf@damenly.org/
+Fixes: 499f377f49f0 ("btrfs: iterate over unused chunk space in FITRIM")
+CC: stable@vger.kernel.org # 5.10+
 Reviewed-by: Filipe Manana <fdmanana@suse.com>
 Signed-off-by: Qu Wenruo <wqu@suse.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
 
-diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
-index 6e696b350dc5..8acfb57768a6 100644
---- a/fs/btrfs/btrfs_inode.h
-+++ b/fs/btrfs/btrfs_inode.h
-@@ -569,6 +569,8 @@ int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
- int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
- 			      unsigned int extra_bits,
- 			      struct extent_state **cached_state);
-+int btrfs_reset_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
-+				unsigned int extra_bits, struct extent_state **cached_state);
+diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+index b20f5a887a53..624d76e0ca01 100644
+--- a/fs/btrfs/extent-tree.c
++++ b/fs/btrfs/extent-tree.c
+@@ -6624,12 +6624,16 @@ static int btrfs_trim_free_extents_throttle(struct btrfs_device *device,
  
- struct btrfs_new_inode_args {
- 	/* Input */
-diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
-index 7dbba3acb674..7e08d6e53687 100644
---- a/fs/btrfs/file.c
-+++ b/fs/btrfs/file.c
-@@ -85,16 +85,8 @@ int btrfs_dirty_folio(struct btrfs_inode *inode, struct folio *folio, loff_t pos
+ 	*trimmed = 0;
  
- 	end_of_last_block = start_pos + num_bytes - 1;
- 
--	/*
--	 * The pages may have already been dirty, clear out old accounting so
--	 * we can set things up properly
--	 */
--	btrfs_clear_extent_bit(&inode->io_tree, start_pos, end_of_last_block,
--			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
--			       cached);
--
--	ret = btrfs_set_extent_delalloc(inode, start_pos, end_of_last_block,
--					extra_bits, cached);
-+	ret = btrfs_reset_extent_delalloc(inode, start_pos, end_of_last_block,
-+					  extra_bits, cached);
- 	if (ret)
- 		return ret;
- 
-@@ -1960,18 +1952,7 @@ static vm_fault_t btrfs_page_mkwrite(struct vm_fault *vmf)
- 		}
- 	}
- 
--	/*
--	 * page_mkwrite gets called when the page is firstly dirtied after it's
--	 * faulted in, but write(2) could also dirty a page and set delalloc
--	 * bits, thus in this case for space account reason, we still need to
--	 * clear any delalloc bits within this page range since we have to
--	 * reserve data&meta space before lock_page() (see above comments).
--	 */
--	btrfs_clear_extent_bit(io_tree, page_start, end,
--			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING |
--			       EXTENT_DEFRAG, &cached_state);
--
--	ret = btrfs_set_extent_delalloc(inode, page_start, end, 0, &cached_state);
-+	ret = btrfs_reset_extent_delalloc(inode, page_start, end, 0, &cached_state);
- 	if (ret < 0) {
- 		btrfs_unlock_extent(io_tree, page_start, page_end, &cached_state);
- 		goto out_unlock;
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index fd58f7792d94..e58cd85b8474 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -2809,7 +2809,13 @@ int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
- 			      unsigned int extra_bits,
- 			      struct extent_state **cached_state)
- {
--	WARN_ON(PAGE_ALIGNED(end));
-+	const u32 blocksize = inode->root->fs_info->sectorsize;
-+
-+	/* Basic alignment check. */
-+	ASSERT(IS_ALIGNED(start, blocksize), "start=%llu blocksize=%u",
-+	       start, blocksize);
-+	ASSERT(IS_ALIGNED(end + 1, blocksize), "inclusive end=%llu blocksize=%u",
-+	       end, blocksize);
- 
- 	if (start >= i_size_read(&inode->vfs_inode) &&
- 	    !(inode->flags & BTRFS_INODE_PREALLOC)) {
-@@ -2832,6 +2838,52 @@ int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
- 				    EXTENT_DELALLOC | extra_bits, cached_state);
- }
- 
-+/*
-+ * Clear the old accounting flags and set EXTENT_DELALLOC for the range.
-+ *
-+ * Return <0 for error, in that case no range has EXTENT_DELALLOC bit cleared or set.
-+ */
-+int btrfs_reset_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
-+				unsigned int extra_bits, struct extent_state **cached_state)
-+{
-+	const u32 blocksize = inode->root->fs_info->sectorsize;
-+
-+	/* The @extra_bits can only be EXTENT_NORESERVE for now. */
-+	ASSERT(!(extra_bits & ~EXTENT_NORESERVE), "extra_bits=0x%x", extra_bits);
-+
-+	/* Basic alignment check. */
-+	ASSERT(IS_ALIGNED(start, blocksize), "start=%llu blocksize=%u",
-+	       start, blocksize);
-+	ASSERT(IS_ALIGNED(end + 1, blocksize), "inclusive end=%llu blocksize=%u",
-+	       end, blocksize);
-+
+-	/* Discard not supported = nothing to do. */
+-	if (!bdev_max_discard_sectors(device->bdev))
 +	/*
-+	 * Check and set DELALLOC_NEW flag, this needs to search tree thus can
-+	 * fail early.  Thus we want to do this before clearing EXTENT_DELALLOC.
++	 * The caller only filters out MISSING devices, but a device that was
++	 * missing at mount and later rescanned has MISSING cleared while bdev
++	 * is still NULL and WRITEABLE is still unset. Skip those here.
 +	 */
-+	if (start >= i_size_read(&inode->vfs_inode) &&
-+	    !(inode->flags & BTRFS_INODE_PREALLOC)) {
-+		/*
-+		 * There can't be any extents following EOF in this case so just
-+		 * set the delalloc new bit for the range directly.
-+		 */
-+		extra_bits |= EXTENT_DELALLOC_NEW;
-+	} else {
-+		int ret;
-+
-+		ret = btrfs_find_new_delalloc_bytes(inode, start, end + 1 - start,
-+						    NULL);
-+		if (unlikely(ret))
-+			return ret;
-+	}
-+	/* Clear the old accounting as the range may already be dirty. */
-+	btrfs_clear_extent_bit(&inode->io_tree, start, end,
-+			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING |
-+			       EXTENT_DEFRAG, cached_state);
-+	return btrfs_set_extent_bit(&inode->io_tree, start, end,
-+				    EXTENT_DELALLOC | extra_bits, cached_state);
-+}
-+
- static int insert_reserved_file_extent(struct btrfs_trans_handle *trans,
- 				       struct btrfs_inode *inode, u64 file_pos,
- 				       struct btrfs_file_extent_item *stack_fi,
-@@ -4978,12 +5030,7 @@ int btrfs_truncate_block(struct btrfs_inode *inode, u64 offset, u64 start, u64 e
- 		goto again;
- 	}
++	if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state) || !device->bdev)
+ 		return 0;
  
--	btrfs_clear_extent_bit(&inode->io_tree, block_start, block_end,
--			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
--			       &cached_state);
--
--	ret = btrfs_set_extent_delalloc(inode, block_start, block_end, 0,
--					&cached_state);
-+	ret = btrfs_reset_extent_delalloc(inode, block_start, block_end, 0, &cached_state);
- 	if (ret) {
- 		btrfs_unlock_extent(io_tree, block_start, block_end, &cached_state);
- 		goto out_unlock;
-diff --git a/fs/btrfs/reflink.c b/fs/btrfs/reflink.c
-index 86fa8d92e15b..0a4628b3007d 100644
---- a/fs/btrfs/reflink.c
-+++ b/fs/btrfs/reflink.c
-@@ -95,9 +95,7 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
- 	if (ret < 0)
- 		goto out_unlock;
+-	/* Not writable = nothing to do. */
+-	if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state))
++	/* Discard not supported = nothing to do. */
++	if (!bdev_max_discard_sectors(device->bdev))
+ 		return 0;
  
--	btrfs_clear_extent_bit(&inode->io_tree, file_offset, range_end,
--			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG, NULL);
--	ret = btrfs_set_extent_delalloc(inode, file_offset, range_end, 0, NULL);
-+	ret = btrfs_reset_extent_delalloc(inode, file_offset, range_end, 0, NULL);
- 	if (ret)
- 		goto out_unlock;
- 
+ 	/* No free space = nothing to do. */
 
