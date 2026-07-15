@@ -1,75 +1,43 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACDE3242D4
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 02:46:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDFC34D4C9
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 02:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784083605; cv=none; b=pe0OHiuSaitLHG3zDXQHWChLF6jMSOtagosv+inlcWesdyvdjWd9bHL7uBAliuRb5S/xFIKDmGy1WaZUJ81dEgwg0LxvdVdtQ/1PPeZG5FZR6rXNUFMGN+Icfa9RqNuAhOj9aDgIY/2zmGqQGOSFjDCwPJEUOE/ZJu15BJRgE5E=
+	t=1784083920; cv=none; b=q+CiuqhupO5oxh2R/26UKwCSslRDfS8HBn73MW6WACV08y21XQB2K7QxShTK8pAoWBEn2J7hEeIBrBc4vxn85wcN3RwgJ7SreOiAFUG9i+qL6t2K0c0GmDgixXAzGPR4WZhx7wQV/J7n2fNQsiyZsoZ0C3RgtPrJb9QHXQkd0lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784083605; c=relaxed/simple;
-	bh=y95DrYbP/VmjOSUNzUGbzSp38YYbp8UhXE/2Bv6rCrs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EXn6Sx1YgVasKip+ycrBI1gkvpdx40ZELan/oR5zYfpNYkkb8+u26mwJKytazF5kfvZAstT/G7NbMGzVgX0QPnXdS+yM04sSVRzbS9UAXnMbK+eLh3YZjlwN3BxRwFCE7d6kIBJ/xcks7sOezSzjIW30dS8nNaOWIsHC71kVfkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QpHGXfsl; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784083920; c=relaxed/simple;
+	bh=3jbeT/5EF7Dg3sZqCn9gN0epD9uda3ex5C4a6oLcMSQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mgaUU0SbNIGBhIDtXwpzbNuZnBIjx5joyuPVgbR3TUya750wmWGpC6MVDPCrp8zm5afs92eEW/ILnjONk+R+PiLCPZfDNMjea30TwO3KrrANl76dyURWR1YVBlgVeSApeYtm4KD9qiSZx190gV1a88v7gRF0pktJq1V2GxlPOdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U7sQLcER; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QpHGXfsl"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cc7ef7ec27so57371285ad.1
-        for <stable@vger.kernel.org>; Tue, 14 Jul 2026 19:46:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784083604; x=1784688404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IgrBcgsc/jMn8PcArbo69Rr9sOwNc88jPEb6vu9Je+A=;
-        b=QpHGXfslb83Ccc2nR3Soo0LX+Pr5KmLbmE9LZwcfK4rWzMXNGWv4QoVcLKq3ZapsBO
-         shlPznte5Sh6O4F/MMfN9hg5YBEKBIjLQ385vQG7RC+bGscRLdCXUyclOdpzpiiLEUDT
-         OYQLcrpiHChxM18J/g3c1nFV/QJM/OF0fvT8wVEPJkGbFRTy5j2Vi3SCFLfijeAppcpa
-         hfumkkE/SsCFfEgAVgxB490AYYJgabY5pwvNoCd2gmVAOQnev3EqCU2Duqcn09ouiT7r
-         zrV+LczB41Rin5FMr7FhgqYihci7SYdSXQLS81QKltOwvO8GJoNMBY2JyamHobISe5n7
-         DOzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784083604; x=1784688404;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IgrBcgsc/jMn8PcArbo69Rr9sOwNc88jPEb6vu9Je+A=;
-        b=BrKoVGXqTm+UnzPBrt8ml/YXIDLG5IBsaZAhxaRDvnYy2tFubWQlMD4h/DYmrbLdeJ
-         db+iYn5PFPq5YRJSrtla+TOqncdWcoMCGiOE675ZHS7UPCcvJSltitY8260o6bhkuJdr
-         g/44gMLNWWCPNOKCuMIn/Kqxh3gVjeK65Uzg8+AuRczxAXbmv4rpSHdcpTaMxkoja034
-         1SEsYJgeEpeTNi3AaveePtXQUz3wJhIpE/jOMeNmpzZPp5xaBkfK9wZxBJ+O+xNXpHsG
-         K2cfu7LR3pvy8MSQ8cx5/nLfpw8fXyIvphM3Wkbmutf+3dCE3jemFsN2/U3ftfSriKqZ
-         sYsQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro+BTqRwe5t5yNPJCw+skAriLUyZpQlFCX4AnHZKZqrNOEbsmuDiDVhDUYJ2UUq3uIvMrrDBN4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxIda1VOjJ2qFOMl087maqjtVT00TUxt9N08LTzwn2zSl2HdjxR
-	HhLm2rRLzDvPUMOD0gl3cbxmW2e2Laea+4KFImu2FymFx8BExyiQouIA
-X-Gm-Gg: AfdE7cmPjBccIpeIpiaUnRqFplI9SJJgTC/nwuI3G2FzW7VSg4Gnqgf4vkdvCFcT8OI
-	PtTH2aA4CAir4ycYvd235DIWbk/ZoqieUdGNZwXCpgxlZwHXnqOvDMrB5B9CfmLVtLO0niaveNw
-	kTFhqPHMcUxQFf/+I0XGrIHKvxNTdWkNMfI0t5bPur6aMp5hZ1oVBtBkPTwdETALX7l+VtKnSEp
-	o2QdQNDOFXwFbYFmXG/hQ+qn2hUUEoHre0C8JYq7Amk/ePBphN0lNghsfPv0N1sHiU4DVXl7ASM
-	D+z5l1CXcG+JSQN3DAI6PFCfCgynUFUfeMk3/QYlwJvT6XZj7gQ2hsiDuQ3sU8dGP/ZSuRxRXUC
-	lZ20PaPpqCsO8vx94PlHXVsFXuo5FwY8AIlaSP91f3wLxLFMYRZ40xQhoOJ7w8WCurL8DBP1E5x
-	JDaEoJ7EqeN4Wjs2ijwPD+fw/pi8tJJujp1lg=
-X-Received: by 2002:a17:902:e787:b0:2cc:7c36:2c23 with SMTP id d9443c01a7336-2cf03d6be8amr8405355ad.43.1784083603695;
-        Tue, 14 Jul 2026 19:46:43 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d1edb0sm124530935ad.53.2026.07.14.19.46.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 19:46:42 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: Paul Moore <paul@paul-moore.com>
-Cc: Eric Paris <eparis@redhat.com>,
-	Ricardo Robaina <rrobaina@redhat.com>,
-	Richard Guy Briggs <rgb@redhat.com>,
-	audit@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] audit: fix potential integer overflow in audit_log_n_string()
-Date: Wed, 15 Jul 2026 10:46:35 +0800
-Message-ID: <20260715024635.25376-1-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U7sQLcER"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBDDA1F000E9;
+	Wed, 15 Jul 2026 02:51:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784083918;
+	bh=SbWMDfCFvu3kvMGc2R++NFHjjFjvkoAmENtEYJ8onuw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=U7sQLcERjsmDAfSJIS0hABJpf7tpQjWXnif1200cYqAR2B1e0pmifcjEWGP2u2yJ8
+	 EYcc2MhnaaMWVfNyq6TOgmMnk+uMeOOR5xRPRk64DXLOQFqgCWHwt6hvGtE19S5CNs
+	 KOnroG9ghSoyZzKQBVocL2lNq9DniwCMnblNU+meA5tDwQXWxdWSFZKVWUo9KSZE8m
+	 WwkiXkGF4UmSj82MxIPBoFQ5YJW98UEPurNU1lSsJxZLRnLjPnr3LJCGuyDb9QC/oN
+	 Lbk8jMvhLaAdIxszBi9xNhDSQuZbl6FtrecrUdsHukvmP0FMlKCl2GtErq1cqe+W3Q
+	 /Ulp1DyTAP3eQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Marco Elver <elver@google.com>,
+	Siwei Zhang <oss@fourdim.xyz>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] Bluetooth: L2CAP: Fix UAF in channel timeout by holding conn ref
+Date: Tue, 14 Jul 2026 22:51:56 -0400
+Message-ID: <20260715025156.113462-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071358-handbag-anagram-bbb3@gregkh>
+References: <2026071358-handbag-anagram-bbb3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,58 +46,247 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-audit_log_n_string() computes new_len as "slen + 3" (enclosing quotes
-plus the NUL terminator) and stores it into an int, while slen is a
-size_t.  For a sufficiently large slen the addition can overflow and/or
-the result be truncated when assigned to the int new_len, so the
-"new_len > avail" check can be bypassed and the subsequent
-memcpy(ptr, string, slen) can write past the skb tail.
+From: Marco Elver <elver@google.com>
 
-This is the same class of bug that was fixed for the hex sibling in
-commit 65dfde57d1e2 ("audit: fix potential integer overflow in
-audit_log_n_hex()"); both helpers are reached through
-audit_log_n_untrustedstring() with the same length source.
+[ Upstream commit b66774b48dd98f07254951f74ea6f513efe7ff8b ]
 
-Make new_len a size_t and use check_add_overflow() to catch the
-overflow, mirroring the audit_log_n_hex() fix.  No functional change for
-the in-tree callers, which all pass bounded lengths.
+l2cap_chan_timeout() runs asynchronously and accesses chan->conn. If
+the connection is torn down while the timer is running or pending,
+chan->conn can be freed, leading to a use-after-free when the timer
+worker attempts to lock conn->lock:
 
-Fixes: 168b7173959f ("AUDIT: Clean up logging of untrusted strings")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+| BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+| BUG: KASAN: slab-use-after-free in atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4456 [inline]
+| BUG: KASAN: slab-use-after-free in __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
+| BUG: KASAN: slab-use-after-free in mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
+| Write of size 8 at addr ffff8881298d9550 by task kworker/2:1/83
+|
+| CPU: 2 UID: 0 PID: 83 Comm: kworker/2:1 Not tainted 7.1.0-rc6-next-20260601-dirty #6 PREEMPT(full)
+| Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+| Workqueue: events l2cap_chan_timeout
+| Call Trace:
+|  <TASK>
+|  instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+|  atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4456 [inline]
+|  __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
+|  mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
+|  l2cap_chan_timeout+0x5d/0x1b0 net/bluetooth/l2cap_core.c:422
+|  process_one_work kernel/workqueue.c:3326 [inline]
+|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
+|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
+|  kthread+0x346/0x430 kernel/kthread.c:436
+|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
+|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+|  </TASK>
+|
+| Allocated by task 320:
+|  l2cap_conn_add+0xa7/0x820 net/bluetooth/l2cap_core.c:7075
+|  l2cap_connect_cfm+0xdb/0xd70 net/bluetooth/l2cap_core.c:7452
+|  hci_connect_cfm include/net/bluetooth/hci_core.h:2139 [inline]
+|  hci_remote_features_evt+0x52f/0x9f0 net/bluetooth/hci_event.c:3760
+|  hci_event_func net/bluetooth/hci_event.c:7796 [inline]
+|  hci_event_packet+0x561/0xa70 net/bluetooth/hci_event.c:7847
+|  hci_rx_work+0x370/0x890 net/bluetooth/hci_core.c:4040
+|  process_one_work kernel/workqueue.c:3326 [inline]
+|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
+|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
+|  kthread+0x346/0x430 kernel/kthread.c:436
+|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
+|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+|
+| Freed by task 322:
+|  hci_disconn_cfm include/net/bluetooth/hci_core.h:2154 [inline]
+|  hci_conn_hash_flush+0x101/0x1f0 net/bluetooth/hci_conn.c:2736
+|  hci_dev_close_sync+0x889/0xde0 net/bluetooth/hci_sync.c:5405
+|  hci_dev_do_close net/bluetooth/hci_core.c:502 [inline]
+|  hci_unregister_dev+0x1f7/0x370 net/bluetooth/hci_core.c:2679
+|  vhci_release+0x12a/0x180 drivers/bluetooth/hci_vhci.c:690
+|  __fput+0x369/0x890 fs/file_table.c:510
+|  task_work_run+0x160/0x1d0 kernel/task_work.c:233
+|  get_signal+0xf5b/0x1120 kernel/signal.c:2810
+|  arch_do_signal_or_restart+0x4d/0x600 arch/x86/kernel/signal.c:337
+|  __exit_to_user_mode_loop kernel/entry/common.c:64 [inline]
+|  exit_to_user_mode_loop+0x85/0x510 kernel/entry/common.c:98
+|  do_syscall_64+0x263/0x3d0 arch/x86/entry/syscall_64.c:100
+|  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+|
+| The buggy address belongs to the object at ffff8881298d9400
+|  which belongs to the cache kmalloc-512 of size 512
+| The buggy address is located 336 bytes inside of
+|  freed 512-byte region [ffff8881298d9400, ffff8881298d9600)
+
+Fix it by having chan->conn hold a reference to l2cap_conn (via
+l2cap_conn_get) when the channel is added to the connection, and
+releasing it in the channel destructor. This ensures the l2cap_conn
+remains alive as long as the channel exists.
+
+A new FLAG_DEL channel flag is introduced to indicate that the channel
+has been deleted from its connection. l2cap_chan_del() atomically sets
+this flag using test_and_set_bit() instead of setting chan->conn to
+NULL. All asynchronous workers (l2cap_chan_timeout, l2cap_ack_timeout,
+l2cap_monitor_timeout, l2cap_retrans_timeout) and l2cap_chan_send()
+check FLAG_DEL to determine whether the channel has been torn down,
+rather than testing chan->conn for NULL.
+
+Fixes: 8c8e620467a7 ("Bluetooth: L2CAP: use chan timer to close channels in cleanup_listen()")
+Cc: <stable@vger.kernel.org>
+Cc: Siwei Zhang <oss@fourdim.xyz>
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Assisted-by: Gemini:gemini-3.1-pro-preview
+Reported-by: https://sashiko.dev/#/patchset/20260521021249.3258069-1-oss%40fourdim.xyz
+Signed-off-by: Marco Elver <elver@google.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/audit.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ include/net/bluetooth/l2cap.h |  1 +
+ net/bluetooth/l2cap_core.c    | 34 ++++++++++++++++++++--------------
+ 2 files changed, 21 insertions(+), 14 deletions(-)
 
-diff --git a/kernel/audit.c b/kernel/audit.c
-index 562476937fa7..547ae0cebec9 100644
---- a/kernel/audit.c
-+++ b/kernel/audit.c
-@@ -2120,7 +2120,8 @@ void audit_log_n_hex(struct audit_buffer *ab, const unsigned char *buf,
- void audit_log_n_string(struct audit_buffer *ab, const char *string,
- 			size_t slen)
- {
--	int avail, new_len;
-+	int avail;
-+	size_t new_len;
- 	unsigned char *ptr;
- 	struct sk_buff *skb;
+diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
+index bf23edb0283874..2c0356e7b57157 100644
+--- a/include/net/bluetooth/l2cap.h
++++ b/include/net/bluetooth/l2cap.h
+@@ -742,6 +742,7 @@ enum {
+ 	FLAG_ECRED_CONN_REQ_SENT,
+ 	FLAG_PENDING_SECURITY,
+ 	FLAG_HOLD_HCI_CONN,
++	FLAG_DEL,
+ };
  
-@@ -2130,7 +2131,13 @@ void audit_log_n_string(struct audit_buffer *ab, const char *string,
- 	BUG_ON(!ab->skb);
- 	skb = ab->skb;
- 	avail = skb_tailroom(skb);
--	new_len = slen + 3;	/* enclosing quotes + null terminator */
+ /* Lock nesting levels for L2CAP channels. We need these because lockdep
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 3426eedf20ad96..09e46a8e4c63be 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -411,7 +411,7 @@ static void l2cap_chan_timeout(struct work_struct *work)
+ 
+ 	BT_DBG("chan %p state %s", chan, state_to_string(chan->state));
+ 
+-	if (!conn) {
++	if (test_bit(FLAG_DEL, &chan->flags)) {
+ 		l2cap_chan_put(chan);
+ 		return;
+ 	}
+@@ -422,6 +422,9 @@ static void l2cap_chan_timeout(struct work_struct *work)
+ 	 */
+ 	l2cap_chan_lock(chan);
+ 
++	if (test_bit(FLAG_DEL, &chan->flags))
++		goto unlock;
 +
-+	/* enclosing quotes + null terminator */
-+	if (check_add_overflow(slen, (size_t)3, &new_len)) {
-+		audit_log_format(ab, "\"?\"");
-+		return;
-+	}
+ 	if (chan->state == BT_CONNECTED || chan->state == BT_CONFIG)
+ 		reason = ECONNREFUSED;
+ 	else if (chan->state == BT_CONNECT &&
+@@ -434,10 +437,10 @@ static void l2cap_chan_timeout(struct work_struct *work)
+ 
+ 	chan->ops->close(chan);
+ 
++unlock:
+ 	l2cap_chan_unlock(chan);
+-	l2cap_chan_put(chan);
+-
+ 	mutex_unlock(&conn->lock);
++	l2cap_chan_put(chan);
+ }
+ 
+ struct l2cap_chan *l2cap_chan_create(void)
+@@ -490,6 +493,9 @@ static void l2cap_chan_destroy(struct kref *kref)
+ 	list_del(&chan->global_l);
+ 	write_unlock(&chan_list_lock);
+ 
++	if (chan->conn)
++		l2cap_conn_put(chan->conn);
 +
- 	if (new_len > avail) {
- 		avail = audit_expand(ab, new_len);
- 		if (!avail)
+ 	kfree(chan);
+ }
+ 
+@@ -593,7 +599,7 @@ void __l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
+ 
+ 	conn->disc_reason = HCI_ERROR_REMOTE_USER_TERM;
+ 
+-	chan->conn = conn;
++	chan->conn = l2cap_conn_get(conn);
+ 
+ 	switch (chan->chan_type) {
+ 	case L2CAP_CHAN_CONN_ORIENTED:
+@@ -648,30 +654,26 @@ void l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
+ 
+ void l2cap_chan_del(struct l2cap_chan *chan, int err)
+ {
+-	struct l2cap_conn *conn = chan->conn;
+-
+ 	__clear_chan_timer(chan);
+ 
+-	BT_DBG("chan %p, conn %p, err %d, state %s", chan, conn, err,
++	BT_DBG("chan %p, err %d, state %s", chan, err,
+ 	       state_to_string(chan->state));
+ 
+ 	chan->ops->teardown(chan, err);
+ 
+-	if (conn) {
++	if (!test_and_set_bit(FLAG_DEL, &chan->flags)) {
+ 		/* Delete from channel list */
+ 		list_del(&chan->list);
+ 
+ 		l2cap_chan_put(chan);
+ 
+-		chan->conn = NULL;
+-
+ 		/* Reference was only held for non-fixed channels or
+ 		 * fixed channels that explicitly requested it using the
+ 		 * FLAG_HOLD_HCI_CONN flag.
+ 		 */
+ 		if (chan->chan_type != L2CAP_CHAN_FIXED ||
+ 		    test_bit(FLAG_HOLD_HCI_CONN, &chan->flags))
+-			hci_conn_drop(conn->hcon);
++			hci_conn_drop(chan->conn->hcon);
+ 	}
+ 
+ 	if (test_bit(CONF_NOT_COMPLETE, &chan->conf_state))
+@@ -1888,7 +1890,7 @@ static void l2cap_monitor_timeout(struct work_struct *work)
+ 
+ 	l2cap_chan_lock(chan);
+ 
+-	if (!chan->conn) {
++	if (test_bit(FLAG_DEL, &chan->flags)) {
+ 		l2cap_chan_unlock(chan);
+ 		l2cap_chan_put(chan);
+ 		return;
+@@ -1909,7 +1911,7 @@ static void l2cap_retrans_timeout(struct work_struct *work)
+ 
+ 	l2cap_chan_lock(chan);
+ 
+-	if (!chan->conn) {
++	if (test_bit(FLAG_DEL, &chan->flags)) {
+ 		l2cap_chan_unlock(chan);
+ 		l2cap_chan_put(chan);
+ 		return;
+@@ -2524,7 +2526,7 @@ int l2cap_chan_send(struct l2cap_chan *chan, struct msghdr *msg, size_t len)
+ 	int err;
+ 	struct sk_buff_head seg_queue;
+ 
+-	if (!chan->conn)
++	if (test_bit(FLAG_DEL, &chan->flags))
+ 		return -ENOTCONN;
+ 
+ 	/* Connectionless channel */
+@@ -3110,12 +3112,16 @@ static void l2cap_ack_timeout(struct work_struct *work)
+ 
+ 	l2cap_chan_lock(chan);
+ 
++	if (test_bit(FLAG_DEL, &chan->flags))
++		goto unlock;
++
+ 	frames_to_ack = __seq_offset(chan, chan->buffer_seq,
+ 				     chan->last_acked_seq);
+ 
+ 	if (frames_to_ack)
+ 		l2cap_send_rr_or_rnr(chan, 0);
+ 
++unlock:
+ 	l2cap_chan_unlock(chan);
+ 	l2cap_chan_put(chan);
+ }
 -- 
-2.43.0
+2.53.0
 
