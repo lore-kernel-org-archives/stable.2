@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB933909A5
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 14:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA961481649
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 14:38:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784126235; cv=none; b=q6JDldtncpO+wMw1GiS1wj+VKDsEBavcSJOYckdHPvXB6lY4EhAEDBqJoNRP+Tc01Qa/Jmal4587InBNeOttwBFvxmbAf1GMexnKt1o/sR6XznxNrsC9gCxPf4/oQOqyBSFPKWfFwY7A9HI1hq1WYba/4Hoc5nbInVFiWAUvbpU=
+	t=1784126320; cv=none; b=SgCxhT9a2GQ4DqEllmuW8r6kNCc1G/r/B0T1gscCMM+x2sCE+8tRg4XYTfgXh5P7t7y4DYuPRpwYj5s3+ss5dECki+R70+iACyF3UCrZcqHOJPPnJig+WqcMlJM7xc84QQrMaIAcgtpWw6yvTN+WzxxKfuDDGPTw6GammHbOfp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784126235; c=relaxed/simple;
-	bh=1vLwkdIWCC4bcvnW0HdgMuJhpCgIpthC4ObG5KEkSmc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gFqJKVUoj8X4oQsnLo/oNJbqr5ZbE+rWucYJJmDPde1UjGMEAioA3PouDE5yvAMvW1y5UX0mr7n/pMGf8VZ2JsfpN5HEOP4ClQWaxkQch6PSP7KJPJJdxABbnYkG8aQQ+3dbJgiEk2Vcn6/Tay5d3lYXJdty35Rep5DUmHvknBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Jwncomod; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784126320; c=relaxed/simple;
+	bh=QW/4UVIEkNAYS9RckfHW/LmvFIMYUAjFQLOi9PNML/8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Sl0ibF4bAoxErT0nTS4eGpAMKeEYk5bE+Pp2WqNqD4ItWy5Ct8lx+c4vBOoaTkxo+Npe4o2NII8ADTcPz7GVILxAtMMKYz3db3bpNMBL+zmkUKk+0B2QTeJ7XiUu6uzyZ0RbLPkLMCGdu3EZJbRCeEGVRqxhdyQ73BW1WI5hkes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=w5/0NSI6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Jwncomod"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8574C1F000E9;
-	Wed, 15 Jul 2026 14:37:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="w5/0NSI6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33C121F000E9;
+	Wed, 15 Jul 2026 14:38:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784126233;
-	bh=c+NBVVzfN+fSIovb6m1n+9ySorJ2EUhAblSwZpVxFa0=;
+	s=korg; t=1784126312;
+	bh=2sCp64bTFxkyVKmb6n8srrjUx99WHs5k/Sr8wKbI1dc=;
 	h=Subject:To:Cc:From:Date;
-	b=JwncomodAqXysV7aIwfGu9TyASnA5vP+pJuolzKF1huljYJ74Xm2FJPM/IdDQ189u
-	 ZrrbEiphCHKYMLTB60v2+iqHi6ZYZ0oalSDPk5Lm5ffBeYcRZ0DjbdrCx0nWK99wUA
-	 72HI3J4W60FItSbsAgOmHaOIPE6dAo8Uw6DLZQss=
-Subject: FAILED: patch "[PATCH] liveupdate: validate session type before performing operation" failed to apply to 7.1-stable tree
-To: pratyush@kernel.org,rppt@kernel.org
+	b=w5/0NSI62hHTl/DQIYcaz6HSYSBia94jAwjGSJcrKN6p6sTeV8EkLUV5otIUp5JdU
+	 DihUuxJ+kl624r1od5q9AsnA4+DAcS198HYFPrao38iqIGzHG9IqmmGLb2ezn7RdE9
+	 5Sl4g5+YRdECXb26OMs9Q+OKy564LiaEUDoA4eMM=
+Subject: FAILED: patch "[PATCH] audit: fix potential integer overflow in audit_log_n_hex()" failed to apply to 6.6-stable tree
+To: rrobaina@redhat.com,paul@paul-moore.com,rgb@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 16:37:06 +0200
-Message-ID: <2026071506-civil-broadside-de8f@gregkh>
+Date: Wed, 15 Jul 2026 16:38:26 +0200
+Message-ID: <2026071526-tartar-ammonium-a9f0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 507e3b479f9c6d85135eb5e1a77fb3fddb259ad8
+git cherry-pick -x 65dfde57d1e29ce2b76fc23dd565eccd5c0bc0f0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071506-civil-broadside-de8f@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071526-tartar-ammonium-a9f0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,119 +62,60 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 507e3b479f9c6d85135eb5e1a77fb3fddb259ad8 Mon Sep 17 00:00:00 2001
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
-Date: Tue, 19 May 2026 14:24:26 +0200
-Subject: [PATCH] liveupdate: validate session type before performing operation
+From 65dfde57d1e29ce2b76fc23dd565eccd5c0bc0f0 Mon Sep 17 00:00:00 2001
+From: Ricardo Robaina <rrobaina@redhat.com>
+Date: Thu, 2 Jul 2026 11:04:11 -0300
+Subject: [PATCH] audit: fix potential integer overflow in audit_log_n_hex()
 
-The sessions ioctls are not applicable to all session types. PRESERVE_FD
-is only applicable to outgoing sessions. RETRIEVE_FD and FINISH are only
-valid for incoming session. Calling a incoming ioctl on an outgoing
-session is invalid and can cause file handlers to run into unexpected
-errors.
+The function calculates new_len as len << 1 for hex encoding. This
+has two overflow risks: the shift itself can overflow when len is
+large, and the result can be truncated when assigned to new_len
+(declared as int) from the size_t calculation.
 
-For example, a user can create a (outgoing) session, preserve a memfd,
-and then immediately do a retrieve without doing a kexec in between.
-This would result in memfd's retrieve handler to run. The handlers
-expects to be called from a post-kexec context, and will try to do a
-kho_restore_vmalloc() or kho_restore_folio() to try and restore memory.
+Fix by using check_shl_overflow() to catch shift overflow and
+changing new_len and loop counter i to size_t to prevent truncation.
 
-KHO catches this (thanks to KHO_PAGE_MAGIC) and returns an error, but
-since this is considered an internal error and KHO throws out a bunch of
-WARN()s.
-
-Associate a type with each ioctl op and validate the type in
-luo_session_ioctl() before dispatching the ioctl handler to make sure
-the op is being called for the right session type.
-
-Fixes: 16cec0d26521 ("liveupdate: luo_session: add ioctls for file preservation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Link: https://patch.msgid.link/20260519122428.2378446-1-pratyush@kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Fixes: 168b7173959f ("AUDIT: Clean up logging of untrusted strings")
+Reviewed-by: Richard Guy Briggs <rgb@redhat.com>
+Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
+[PM: remove vertical whitspace noise]
+Signed-off-by: Paul Moore <paul@paul-moore.com>
 
-diff --git a/kernel/liveupdate/luo_session.c b/kernel/liveupdate/luo_session.c
-index e7f27815c051..099db679bdc5 100644
---- a/kernel/liveupdate/luo_session.c
-+++ b/kernel/liveupdate/luo_session.c
-@@ -309,34 +309,60 @@ union ucmd_buffer {
- 	struct liveupdate_session_get_name get_name;
- };
+diff --git a/kernel/audit.c b/kernel/audit.c
+index feaa4e2271d7..562476937fa7 100644
+--- a/kernel/audit.c
++++ b/kernel/audit.c
+@@ -62,6 +62,7 @@
+ #include <net/ip.h>
+ #include <net/ipv6.h>
+ #include <linux/sctp.h>
++#include <linux/overflow.h>
  
-+/* Type of sessions the ioctl applies to. */
-+enum luo_ioctl_type {
-+	LUO_IOCTL_INCOMING,
-+	LUO_IOCTL_OUTGOING,
-+	LUO_IOCTL_ALL,
-+};
+ #include "audit.h"
+ 
+@@ -2080,7 +2081,8 @@ void audit_log_format(struct audit_buffer *ab, const char *fmt, ...)
+ void audit_log_n_hex(struct audit_buffer *ab, const unsigned char *buf,
+ 		size_t len)
+ {
+-	int i, avail, new_len;
++	int avail;
++	size_t i, new_len;
+ 	unsigned char *ptr;
+ 	struct sk_buff *skb;
+ 
+@@ -2090,7 +2092,12 @@ void audit_log_n_hex(struct audit_buffer *ab, const unsigned char *buf,
+ 	BUG_ON(!ab->skb);
+ 	skb = ab->skb;
+ 	avail = skb_tailroom(skb);
+-	new_len = len<<1;
 +
- struct luo_ioctl_op {
- 	unsigned int size;
- 	unsigned int min_size;
- 	unsigned int ioctl_num;
-+	enum luo_ioctl_type type;
- 	int (*execute)(struct luo_session *session, struct luo_ucmd *ucmd);
- };
- 
--#define IOCTL_OP(_ioctl, _fn, _struct, _last)                                  \
-+#define IOCTL_OP(_ioctl, _fn, _struct, _last, _type)                           \
- 	[_IOC_NR(_ioctl) - LIVEUPDATE_CMD_SESSION_BASE] = {                    \
- 		.size = sizeof(_struct) +                                      \
- 			BUILD_BUG_ON_ZERO(sizeof(union ucmd_buffer) <          \
- 					  sizeof(_struct)),                    \
- 		.min_size = offsetofend(_struct, _last),                       \
- 		.ioctl_num = _ioctl,                                           \
-+		.type = _type,                                                 \
- 		.execute = _fn,                                                \
- 	}
- 
- static const struct luo_ioctl_op luo_session_ioctl_ops[] = {
- 	IOCTL_OP(LIVEUPDATE_SESSION_FINISH, luo_session_finish,
--		 struct liveupdate_session_finish, reserved),
-+		 struct liveupdate_session_finish, reserved, LUO_IOCTL_INCOMING),
- 	IOCTL_OP(LIVEUPDATE_SESSION_PRESERVE_FD, luo_session_preserve_fd,
--		 struct liveupdate_session_preserve_fd, token),
-+		 struct liveupdate_session_preserve_fd, token, LUO_IOCTL_OUTGOING),
- 	IOCTL_OP(LIVEUPDATE_SESSION_RETRIEVE_FD, luo_session_retrieve_fd,
--		 struct liveupdate_session_retrieve_fd, token),
-+		 struct liveupdate_session_retrieve_fd, token, LUO_IOCTL_INCOMING),
- 	IOCTL_OP(LIVEUPDATE_SESSION_GET_NAME, luo_session_get_name,
--		 struct liveupdate_session_get_name, name),
-+		 struct liveupdate_session_retrieve_fd, token, LUO_IOCTL_ALL),
- };
- 
-+static bool luo_ioctl_type_valid(struct luo_session *session,
-+				 const struct luo_ioctl_op *op)
-+{
-+	switch (op->type) {
-+	case LUO_IOCTL_INCOMING:
-+		/* Retrieved is only set on incoming sessions */
-+		return session->retrieved;
-+	case LUO_IOCTL_OUTGOING:
-+		return !session->retrieved;
-+	case LUO_IOCTL_ALL:
-+		return true;
++	if (check_shl_overflow(len, 1, &new_len)) {
++		audit_log_format(ab, "?");
++		return;
 +	}
 +
-+	/* Catch-all. */
-+	return false;
-+}
-+
- static long luo_session_ioctl(struct file *filep, unsigned int cmd,
- 			      unsigned long arg)
- {
-@@ -361,6 +387,8 @@ static long luo_session_ioctl(struct file *filep, unsigned int cmd,
- 	op = &luo_session_ioctl_ops[nr - LIVEUPDATE_CMD_SESSION_BASE];
- 	if (op->ioctl_num != cmd)
- 		return -ENOIOCTLCMD;
-+	if (!luo_ioctl_type_valid(session, op))
-+		return -EINVAL;
- 	if (ucmd.user_size < op->min_size)
- 		return -EINVAL;
- 
-@@ -631,4 +659,3 @@ int luo_session_serialize(void)
- 
- 	return err;
- }
--
+ 	if (new_len >= avail) {
+ 		/* Round the buffer request up to the next multiple */
+ 		new_len = AUDIT_BUFSIZ*(((new_len-avail)/AUDIT_BUFSIZ) + 1);
 
