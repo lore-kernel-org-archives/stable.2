@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94BE42BC2D
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 01:34:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5567D13790B
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 01:34:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784079251; cv=none; b=jce67PhtnAWfEU2qEdt5a0HkawlnjpMrcjdqTHxlJV/y41km2XkpJknW71QTmPbBUsM0sH/VwrW1i12YAj0/9kyoMjqgtyhMXON/Qv5qGZ4audj9goDtWeBRL6jD5Ar9iy1KiU+Q2VQ5/xV8ug6E+RJa8qnZ1anfMAIiMxm2jmg=
+	t=1784079252; cv=none; b=ciyi2NN7/xB5ffScvlAEqVASQF640ytOq9vyCuCp6bBiGno0fCS4QYpOFVA7hYPpUPG2Ct2VTHInY6Ag7fC6dzE06OAW7ruv554wTLqdCB+TZB9fBxIBHBxAUQcWUs+psnc2zlrfVIE8UBQzAtO/Nv9x2wcLwaDfdIAS+oqYx/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784079251; c=relaxed/simple;
-	bh=hrHGYT6KctJE6w+xj/VIer9JY5sM7pRS+SNHlrA4VbA=;
+	s=arc-20240116; t=1784079252; c=relaxed/simple;
+	bh=SlK7FDyEivXps8TBU91/DflotaTTclA3wC39xO6KwuQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XiafQCSvewRbx1c4iOsbK6Pt0Qyp1lvY699ew44pq3MA/k6phvRUadr+JUNIwgHePoDbmIlKpdRdO+63u9QEEcbk54sBDWY0AiOICZxKGZEWoe8nIrQSN7kAaQUXbv8MD/eBPHrIwfgZV9TP6SDdbVyXrzfnOj79mcgrat5tOk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYbtbQjm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ANYKmFexlVTrEW3d04+vNpYO1eSw6YsfE9XD5EQRbOQLcCFmIsv5CJIutl4WdlQtuf5HK+gguEBojv1F4t7cRAvHFfonGvhYjysCLhGRKF+p3k2ErH4rDOClQlMnI7yqkbcjJ4MRKxfpF9bB2cWmp1pEfNPJcmZtvVS1ZnZHqp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iklCwbmy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYbtbQjm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF8821F000E9;
-	Wed, 15 Jul 2026 01:34:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iklCwbmy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CBE11F00A3D;
+	Wed, 15 Jul 2026 01:34:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784079250;
-	bh=IosEVQgVohH2j0Z2HIqlR4CB4erLoLrn5u/LMqxkrjk=;
+	s=k20260515; t=1784079251;
+	bh=X2h0kEhvPzHz8yEDGagucNjudePLMWpsdmTsxHb7//U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HYbtbQjmIUTldaIExQGh1puTBqlr7peH4cRdRAJwQoYLVuhQfYrYaW5kPv2NNrBV2
-	 RrP25Esz0Eod4YAPTQx+HlSGMF8sXL1Z8Y9iYK3Nqx56zGT9YrNx8XLghea1QWFaxJ
-	 Jd6iPrrlf7MNVxSTEwgze6DLy+Uwoqdu5N1RKhtmlnUdTddmTy5zuVG9u1HP9mMtsC
-	 pO5xFv9ktFY3uhVXkCpXgIz3C/1XWFVXCOffa+vA5t6dG7sRLDPdaMAr6gHK3psuPZ
-	 QO7cbu6hgvhB3BuBcPbQdMMBJO3k+DWsac3yyXjihp2JqCNaMPzQSiwLhtt8K+LIJm
-	 2s1xiK8yspKSA==
+	b=iklCwbmynKzto0BcaTS4gmh1EvOBmLWwKu5YyzO7ZyN2NF/RpRvujfmMg6t/xPunv
+	 csDa4CredMEwBQOdedzZbNuz8G2yyKCcjhlhBbi9Vmsi8Nux11GyObvHsQkOiJIlNA
+	 sPj5zPLTMbPVT+Uo7bUEXThNDIg48CWcjPqq55ck6w+ZrZ8QhTY0tfMKNizq3KAznL
+	 M44R9evyT9WEXuTcj37ZgQrXlsXHMUUllHffpk/Bo9PNnDiTnNvvVLyJt1hOfmFhRF
+	 mfiK+rA40eipQhNGZ4QpTPX0pQ/8NFqfBjYoB2RQ+fWZmaxZFI0Og1C7DZ3ieYVM14
+	 IcBpTojihy6dg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sevinj Aghayeva <sevinj.aghayeva@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/5] staging: rtl8723bs: Remove redundant else branches.
-Date: Tue, 14 Jul 2026 21:34:04 -0400
-Message-ID: <20260715013408.4110029-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/5] staging: rtl8723bs: remove redundant braces in if statements
+Date: Tue, 14 Jul 2026 21:34:05 -0400
+Message-ID: <20260715013408.4110029-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071359-gecko-previous-ef42@gregkh>
+In-Reply-To: <20260715013408.4110029-1-sashal@kernel.org>
 References: <2026071359-gecko-previous-ef42@gregkh>
+ <20260715013408.4110029-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,84 +48,71 @@ Content-Transfer-Encoding: 8bit
 
 From: Sevinj Aghayeva <sevinj.aghayeva@gmail.com>
 
-[ Upstream commit 4610e57a7d2edeef14aa852cd945f9920e1759da ]
+[ Upstream commit 94579b02720bb63096312c4bc7694fd2f6df7cbb ]
 
-This patch fixes the following checkpatch.pl warning:
+Adhere to Linux kernel coding style.
 
-WARNING: else is not generally useful after a break or return
+Reported by checkpatch:
+
+WARNING: braces {} are not necessary for single statement blocks
 
 Signed-off-by: Sevinj Aghayeva <sevinj.aghayeva@gmail.com>
-Link: https://lore.kernel.org/r/20220329140904.GA3566@ubuntu
+Link: https://lore.kernel.org/r/20220331113245.GA425141@euclid
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: 1463ca3ec660 ("staging: rtl8723bs: fix OOB reads in rtw_get_sec_ie(), rtw_get_wapi_ie(), and rtw_get_wps_attr()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../staging/rtl8723bs/core/rtw_ieee80211.c    | 27 ++++++++-----------
- 1 file changed, 11 insertions(+), 16 deletions(-)
+ drivers/staging/rtl8723bs/core/rtw_ieee80211.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
-index 666ce2f9c5270f..8932161637a65e 100644
+index 8932161637a65e..559ae13db3d362 100644
 --- a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
 +++ b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
-@@ -94,16 +94,14 @@ bool rtw_is_cckratesonly_included(u8 *rate)
+@@ -341,9 +341,8 @@ int rtw_generate_ie(struct registry_priv *pregistrypriv)
  
- int rtw_check_network_type(unsigned char *rate, int ratelen, int channel)
- {
--	if (channel > 14) {
-+	if (channel > 14)
- 		return WIRELESS_INVALID;
--	} else { /*  could be pure B, pure G, or B/G */
--		if (rtw_is_cckratesonly_included(rate))
--			return WIRELESS_11B;
--		else if (rtw_is_cckrates_included(rate))
--			return	WIRELESS_11BG;
--		else
--			return WIRELESS_11G;
+ 	ie = rtw_set_ie(ie, WLAN_EID_IBSS_PARAMS, 2, (u8 *)&(pdev_network->configuration.atim_window), &sz);
+ 
+-	if (rateLen > 8) {
++	if (rateLen > 8)
+ 		ie = rtw_set_ie(ie, WLAN_EID_EXT_SUPP_RATES, (rateLen - 8), (pdev_network->supported_rates + 8), &sz);
 -	}
-+	/* could be pure B, pure G, or B/G */
-+	if (rtw_is_cckratesonly_included(rate))
-+		return WIRELESS_11B;
-+	if (rtw_is_cckrates_included(rate))
-+		return WIRELESS_11BG;
-+	return WIRELESS_11G;
- }
  
- u8 *rtw_set_fixed_ie(unsigned char *pbuf, unsigned int len, unsigned char *source,
-@@ -155,10 +153,9 @@ u8 *rtw_get_ie(u8 *pbuf, signed int index, signed int *len, signed int limit)
- 		if (*p == index) {
- 			*len = tmp;
- 			return p;
--		} else {
--			p += (tmp + 2);
--			i += (tmp + 2);
- 		}
-+		p += (tmp + 2);
-+		i += (tmp + 2);
- 	}
- 	return NULL;
- }
-@@ -702,9 +699,8 @@ u8 *rtw_get_wps_ie(u8 *in_ie, uint in_len, u8 *wps_ie, uint *wps_ielen)
- 			cnt += in_ie[cnt+1]+2;
+ 	/* HT Cap. */
+ 	if ((pregistrypriv->wireless_mode & WIRELESS_11_24N) &&
+@@ -372,9 +371,8 @@ unsigned char *rtw_get_wpa_ie(unsigned char *pie, int *wpa_ie_len, int limit)
  
- 			break;
--		} else {
--			cnt += in_ie[cnt+1]+2; /* goto next */
+ 		if (pbuf) {
+ 			/* check if oui matches... */
+-			if (memcmp((pbuf + 2), wpa_oui_type, sizeof(wpa_oui_type))) {
++			if (memcmp((pbuf + 2), wpa_oui_type, sizeof(wpa_oui_type)))
+ 				goto check_next_ie;
+-			}
+ 
+ 			/* check version... */
+ 			memcpy((u8 *)&le_tmp, (pbuf + 6), sizeof(val16));
+@@ -499,9 +497,8 @@ int rtw_parse_wpa_ie(u8 *wpa_ie, int wpa_ie_len, int *group_cipher, int *pairwis
+ 	if (is_8021x) {
+ 		if (left >= 6) {
+ 			pos += 2;
+-			if (!memcmp(pos, SUITE_1X, 4)) {
++			if (!memcmp(pos, SUITE_1X, 4))
+ 				*is_8021x = 1;
+-			}
  		}
-+		cnt += in_ie[cnt+1]+2; /* goto next */
  	}
  
- 	return wpsie_ptr;
-@@ -753,9 +749,8 @@ u8 *rtw_get_wps_attr(u8 *wps_ie, uint wps_ielen, u16 target_attr_id, u8 *buf_att
- 				*len_attr = attr_len;
- 
- 			break;
--		} else {
--			attr_ptr += attr_len; /* goto next */
- 		}
-+		attr_ptr += attr_len; /* goto next */
+@@ -520,9 +517,8 @@ int rtw_parse_wpa2_ie(u8 *rsn_ie, int rsn_ie_len, int *group_cipher, int *pairwi
+ 		return _FAIL;
  	}
  
- 	return target_attr_ptr;
+-	if ((*rsn_ie != WLAN_EID_RSN) || (*(rsn_ie+1) != (u8)(rsn_ie_len - 2))) {
++	if ((*rsn_ie != WLAN_EID_RSN) || (*(rsn_ie+1) != (u8)(rsn_ie_len - 2)))
+ 		return _FAIL;
+-	}
+ 
+ 	pos = rsn_ie;
+ 	pos += 4;
 -- 
 2.53.0
 
