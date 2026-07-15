@@ -1,56 +1,56 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B8B2931C2;
-	Wed, 15 Jul 2026 09:53:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E8F3A5430;
+	Wed, 15 Jul 2026 10:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784109204; cv=none; b=NSsiwFfCh+rGFiey9RAbwx85PCHjjVWbmsV9v4W1PdyV6kweoutodHCNczW69ecepG/0ibxhA1c1D0G2sz0QXKU+iI/lf46BQB++PN9n7Olt9Fs+VxCL1/t8/IZCBRNk1ZI53PEK113v1b0qf8U3aZcaHinOhHT1I4MEOBP5loQ=
+	t=1784109620; cv=none; b=rr/yFh7OukY0xR94zqrKqLdiDQejsx4FoLH+ORROhRaWNPlgdjCyd4OiS2Oibb8wDyktPagvEBps+dicG2eb5s3gGZl3pZ7dVn1J5M5hWt6Bw0Rd+maNl/G1fPomLrknu6duL01iqbXQ1liT6g66Clhj2cetETUzfmhqXDtipqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784109204; c=relaxed/simple;
-	bh=6Th/RXyykNSrIqrevfiN5rbJul6P9tKqyVwuBd89v7E=;
+	s=arc-20240116; t=1784109620; c=relaxed/simple;
+	bh=v2/oeVbvWskqmg8+4PneDbKug9LAg3HtjSRz3sJ3AtU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sjNxgS80R3w6V16T6W5j8FHrjTFXZPkrq4Q9zLhNJ4Lcj21v661muvZCa90Ovw67LmNFU7LQUqhYD8KZNN7mFXLrN3vmDNHn9Bai5W3btuYW+d6FOwVeNuTWw8/7Yg4+LcOuzmaCRWq7v6SYt4+hiAQWjYtaEd0e127MZxjrJdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fJ7wLgkE; arc=none smtp.client-ip=198.175.65.14
+	 Content-Type:Content-Disposition:In-Reply-To; b=Sy2YVZjiyOPm7U4oHjt1ZT6Ejf529jai2DZR3oRMktSMJZjC0Tcpc0zKnBbq3NBQ4hdE9U7+PcchXpcAhk+wJWMnVWz+zFxHUY6MtKmQ4CynoDzjfWz9ylgdl7ycpWB3yQuTcE7rinavdZzMVrn7693o30VwcUSeS+/LctFF2O4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TRVLmt5b; arc=none smtp.client-ip=198.175.65.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fJ7wLgkE"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TRVLmt5b"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784109203; x=1815645203;
+  t=1784109618; x=1815645618;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=6Th/RXyykNSrIqrevfiN5rbJul6P9tKqyVwuBd89v7E=;
-  b=fJ7wLgkEsSxJW7Ahk0BFTmzOJtD6ias4sM+mms/INe9gBPwSOxOtlt/P
-   pM1CG3LlZ5fvba39GMWBzGy7uYjx0vTkKV+HUoMVWCvt5HA2BVz7RSafb
-   cZsO/Zvjmaw9bokN7oFyUTzelHg2MzEPs3g7Q678BZHUB4zutAvBOBEJ+
-   3+/Xn+Ewfz/okZHDo0KMJc0yUFo4FXJxzsnGjC/U8Jpghyi0XAp3F8Zl4
-   2cEjcvr7rux1X25/Tt/RPT9nkXqXNFBs0EMEWk1YbAV9IlnrntG2rogr3
-   5O4TAqyopOZ4R6obtrmVKRIyP2oueqbOxxnaJNe8xbBjfaT+WSV/py+F3
-   w==;
-X-CSE-ConnectionGUID: 5ECzR+8lTN6CB7Sq9ZJf7w==
-X-CSE-MsgGUID: MFALIqcTS4u/QwDOemsAIQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="88643901"
+  bh=v2/oeVbvWskqmg8+4PneDbKug9LAg3HtjSRz3sJ3AtU=;
+  b=TRVLmt5bM7tyufyX1mTSroa6+MsSt8tLHfexxVi0JbH/6lzOFZPx/r34
+   d16TXm1MwF6w12l79fJ17DTJf0et8MgeRNeSPisDcWYyStglzphL8LVBx
+   b2tYDGhLSCHspulHPaSXCPTwaLAA+y9ZT/q/w5hATa6eCWmkDgqGj0Fd4
+   u5tK/RDDZUTTBoL0RqCBqrgqj6z8Hp2YOz1M8KIyxROb+FGNFfxKRMWl1
+   /f2oXn5dc2b2sgQjSGf8X6a2cLCxC8IPGtDPsLYBLnlAr624bP7trc9Si
+   146xRkpdd94tdmq3tVOOXwPL2u1ux3FSc/X1UYYK/heOA8r2nw8C0cMe3
+   Q==;
+X-CSE-ConnectionGUID: ETAvC3g/QBiujBcWWU2gMA==
+X-CSE-MsgGUID: oI6K/K+0T5iPii1oQ8yWQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84939144"
 X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="88643901"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 02:53:22 -0700
-X-CSE-ConnectionGUID: 7KWkKS7ES2qZaJdubtX2wQ==
-X-CSE-MsgGUID: //QGPZhlQMmswNeqt5C3qw==
+   d="scan'208";a="84939144"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 03:00:17 -0700
+X-CSE-ConnectionGUID: pp9rFVKpTc2TN04+KzY72w==
+X-CSE-MsgGUID: 6wOowi5XQW6aIG9oSLtwkA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="255627747"
+   d="scan'208";a="256784352"
 Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa008.jf.intel.com with ESMTP; 15 Jul 2026 02:53:19 -0700
+  by orviesa009.jf.intel.com with ESMTP; 15 Jul 2026 03:00:14 -0700
 Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 72A4495; Wed, 15 Jul 2026 11:53:18 +0200 (CEST)
-Date: Wed, 15 Jul 2026 12:53:16 +0300
+	id B12D795; Wed, 15 Jul 2026 12:00:13 +0200 (CEST)
+Date: Wed, 15 Jul 2026 13:00:12 +0300
 From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Raag Jadav <raag.jadav@intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Matthew Brost <matthew.brost@intel.com>,
 	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Raag Jadav <raag.jadav@intel.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	Andi Shyti <andi.shyti@kernel.org>,
@@ -58,11 +58,11 @@ Cc: Matthew Brost <matthew.brost@intel.com>,
 	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
 	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] drm/xe/i2c: Fix the interrupt handling
-Message-ID: <aldYjL2pxA7QxoLN@kuha>
+Subject: Re: [PATCH v4 0/3] drm/xe/i2c: alerts and controller enabling
+ modifications
+Message-ID: <aldaLN5xc4GCC1_k@kuha>
 References: <20260713155601.711389-1-heikki.krogerus@linux.intel.com>
- <20260713155601.711389-3-heikki.krogerus@linux.intel.com>
- <alcoDtq2aul-tA_h@black.igk.intel.com>
+ <alZbqH51wJjm_CVC@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,143 +71,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alcoDtq2aul-tA_h@black.igk.intel.com>
+In-Reply-To: <alZbqH51wJjm_CVC@intel.com>
 
-On Wed, Jul 15, 2026 at 08:26:22AM +0200, Raag Jadav wrote:
-> On Mon, Jul 13, 2026 at 05:56:00PM +0200, Heikki Krogerus wrote:
-> > The platforms that support the interrupt from the I2C
-> > adapter can not handle the amount of interrupts the adapter
-> > generates because of the way the IRQ is routed in the
-> > hardware. The I2C controller driver has to be kept in
-> > polling mode because of that.
+Hi Rodrigo,
+
+On Tue, Jul 14, 2026 at 11:54:16AM -0400, Rodrigo Vivi kirjoitti:
+> On Mon, Jul 13, 2026 at 05:55:58PM +0200, Heikki Krogerus wrote:
+> > Hi,
 > > 
-> > The AMC MCU can still generate critical alerts that have to
-> > be handled. The interrupt from SMBus Alert is left enabled
-> > and handled separately in the Xe. The alerts from the AMC
-> > will cause the device to be declared wedged for now.
+> > The hardware challenges that these patches address are so severe that I'm
+> > marking both of them as fixes. In both cases the GPU may silently end up in
+> > unresponsive state (or worse). The second patch has been refactored so that it
+> > includes the direct AMC alert handling in Xe instead of the normal alert handler
+> > registration. The subject lines were also changed to highlight the fact that
+> > these are fixes. Ramesh helped me with the testing and with the implementation
+> > for the AMC alert handling.
+> > 
+> > Changed since v2:
+> > - Added Fixes tag to both patches.
+> > - i2c-designware is no longer supplied with an interrupt so it will be in
+> >   polling mode (ACCESS_POLLING will be enabled). The IRQ path in hardware can't
+> >   handle the amount of interrupts the i2c controller generates. Only the
+> >   interrupts from the SMBus Alert line are left enabled.
+> > - The registration of the default smbus alert handler is dropped.
+> > - The AMC alerts are handled directly in Xe. All the alerts will cause the
+> >   device to be declared as wedged at least for now.
+> > - Cleanups proposed by Raag.
+> > 
+> > v2: https://lore.kernel.org/lkml/20260625125939.429078-1-heikki.krogerus@linux.intel.com/
+> > 
+> > Changed since v1:
+> > - Global header for the DesignWare I2C registers which meant a bit of
+> >   patch refactoring.
+> > - Selecting CONFIG_SMBUS in CONFIG_XE and handling smbus in xe_i2c.c instead of
+> >   separate file.
+> > - Storing the alert device to the client array and providing enum for the
+> >   clients.
+> > - Allowing other fields in the IC_ENABLE register to be updated except the
+> >   Enable bit.
+> > - Can't sleep in xe_i2c_disable() so using udelay().
+> > 
+> > v1: https://lore.kernel.org/lkml/20260622114759.3464047-1-heikki.krogerus@linux.intel.com/
+> > 
+> > This includes support for the SMBus alerts, and special handling for the
+> > IC_ENABLE register.
+> > 
+> > Thanks,
 > 
-> ...
 > 
-> > +static void xe_amc_work(struct work_struct *work)
-> > +{
-> > +	struct xe_amc *amc = from_work(amc, work, work);
-> > +	struct i2c_client *client = amc->i2c->client[XE_I2C_CLIENT_AMC];
-> > +	const struct amc_request *request = &amc_get_alert_reason;
-> > +	struct amc_response response;
-> > +	int ret;
-> > +
-> > +	ret = i2c_master_send(client, (u8 *)request, sizeof(*request));
-> > +	if (ret < 0) {
-> > +		dev_err(&client->dev, "failed to send request (%d)\n", ret);
-> > +		return;
-> > +	}
-> > +
-> > +	fsleep(20 * USEC_PER_MSEC);
-> 
-> Nit: Probably worth an explanation.
+> Please take a look to Shashiko review and let us know in case of false positives:
+> https://sashiko.dev/#/patchset/20260713155601.711389-1-heikki.krogerus%40linux.intel.com
 
-Sure.
+The high ones are false positive.
 
-> > +	ret = i2c_master_recv(client, (u8 *)&response, sizeof(response));
-> > +	if (ret < 0) {
-> > +		dev_err(&client->dev, "failed to read response (%d)\n", ret);
-> > +		return;
-> > +	}
-> > +
-> > +	if (response.header.len == 0) {
-> 
-> Nit: Perhaps !response.header.len?
+- The SMBus interrupts are not cleared the same way as the other
+  interrupts.
+- i2c-designware driver does not modify the timings unless it is
+  supplied a clock device (struct clk).
 
-OK.
-
-> > +		dev_err(&client->dev, "empty response from AMC\n");
-> > +		return;
-> > +	}
-> > +
-> > +	if (response.header.command != request->header.command ||
-> 
-> Curious, what about the rest of the header? Would it be any different?
-
-The command is the only field that matches. But that check is not
-needed. The command is always the same. I'll drop that line.
-
-> > +	    memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
-> > +		dev_err(&client->dev, "response does not match the request\n");
-> > +		return;
-> > +	}
-> > +
-> > +	if (response.error) {
-> > +		dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
-> > +		return;
-> > +	}
-> > +
-> > +	dev_dbg(&client->dev, "%s: Alert reason: %d\n", __func__, response.value);
-> 
-> See below [1].
-> 
-> > +	switch (response.value) {
-> > +	case AMC_ALERT_FW_DOWNLOAD:
-> > +	case AMC_ALERT_THERMAL_TRIP:
-> > +	case AMC_ALERT_OOB_REQUEST:
-> > +	case AMC_ALERT_OOB_RESET:
-> > +	case AMC_ALERT_CATERR:
-> > +		xe_device_declare_wedged(i2c_client_to_xe_device(client));
-> > +		break;
-> > +	default:
-> > +		break;
-> > +	}
-> > +}
-> 
-> ...
-> 
-> > @@ -181,8 +187,7 @@ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
-> >  	if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
-> >  		return;
-> >  
-> > -	/* Forward interrupt to I2C adapter */
-> > -	generic_handle_irq_safe(xe->i2c->adapter_irq);
-> > +	xe_i2c_handle_smbus_alert(xe->i2c);
-> 
-> [1] Can we move the below re-assert code to wq now? Or do you suspect any
-> side-effects?
-
-I think that you know this better than I do. But at this point
-interrupt is cleared, so why should we wait for the wq?
-
-To play it safe, can we change this as a followup if necessary?
-
-> >  	/* Deassert after I2C adapter clears the interrupt */
-> >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
-> > @@ -212,45 +217,6 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
-> >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
-> >  }
-> 
-> ...
-> 
-> > -#define XE_I2C_MAX_CLIENTS		3
-> > -
-> >  #define XE_I2C_EP_COOKIE_DEVICE		0xde
-> >  
-> >  /* Endpoint Capabilities */
-> >  #define XE_I2C_EP_CAP_IRQ		BIT(0)
-> >  
-> > +enum XE_I2C_CLIENT {
-> > +	XE_I2C_CLIENT_AMC,
-> > +	XE_I2C_MAX_CLIENTS = 3,
-> 
-> I know it was already like this but I probably missed why do we have 3
-> (atleast from driver POV)?
-
-That is the maximum number of clients these platforms can support.
-The AMC address is actually at a fixed offset 1. I'll change this so
-that XE_I2C_CLIENT_AMC matches the offset:
-
-enum XE_I2C_CLIENT {
-	XE_I2C_CLIENT_AMC = 1,
-	XE_I2C_MAX_CLIENTS = 3,
-};
-
-That probable makes this a bit more clear (right?).
+The rest I'll check and fix as needed together with the modifications
+proposed by Raag.
 
 Thanks,
 
