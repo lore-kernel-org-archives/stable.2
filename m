@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC1330674B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC8E308F23;
 	Wed, 15 Jul 2026 06:04:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784095482; cv=none; b=tuQwEc3zK8rmRvEr6EyNwTVX8K/0rMlSJKdzR3CCK2UWxPQj9sp2H9ag4AmMfzbcW3AP0v97Nkfe4MbkMUaEnTih8DhfWGTkM9wWxoiy67LL66JyucNzA+FNLe3JtvFcrJxmJnWq79McjJmD0Fus0OPHA2Uo2C069Vlxc/Uig1s=
+	t=1784095482; cv=none; b=OwjezlouLvJ60bZtn6L2bq41skXS/LovegrjUlp52oxGj9bPLeLL90ghMxnZ5LgKTi6asL77mzrN/2aY2GDCziauUQcclOhx2wPHERopAAjoEhyYW+A2lTr/gkssTK8GFG3ejz2v1V/EFnt0qNFr6xgoDu+FBH6AhZ8+TAAqV6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784095482; c=relaxed/simple;
-	bh=Su3y5H+XropravPSwjmbGLXz02SfJzDuKDVzb682+LY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ifBdP0ElQsD9QehHpVSZKHOprfhI52a+MXDlRLV5SH6XNFwB6cU/7U/bc2/iVUfzME7Xs0iDFx+71l8tO09M58A+yHVwXJhbFKXFhMiQEzlnkoRHDa1tPWR/+5fAjjE2aEWEzGzjP605HG5269EO/gsJyO8zY43IvhqO4O/eu38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UNfd8vhp; arc=none smtp.client-ip=10.30.226.201
+	bh=p0z8OfcS1fdiYyedH2MZyLZY7VEHaJFdRELjOTQv8uA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bCG8MFdWVXDozIL1mmx2qZ7BJv2BKzR9f2M2eSM4ZFRhCfOM5pcWDs/yQ9rGBALLY33XVKwmVI33wjpzZ4cipdtLxOoeIVmBFkmAz4TzJlWaUBRndYahT0SuQjzCgkWXSPLRJcaYQ6+PjGP0Wt36sUeQoQ9Bv/M2GuQsz/ZuXLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LHY952wb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UNfd8vhp"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 248C3C2BCB7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LHY952wb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3CBF7C2BCF5;
 	Wed, 15 Jul 2026 06:04:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1784095482;
-	bh=Su3y5H+XropravPSwjmbGLXz02SfJzDuKDVzb682+LY=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=UNfd8vhpdBX4fTycTNbAQhcO0vD2VJY7FtRrsCM3eTtsTYAmAdPhe/HXzwm7v/NEe
-	 JMhFgzObWc8n9W0u/SVPb5TTkB1QQ92AJnqVSF/22KOKuOE9/Wl/Om2NXPaHv7NXDi
-	 foYe7QMYEPqZOa1Y7dIok0ZtPZ7955IRZzh2uY7WXNI6Nk12CpNnXUP2IpV4AdtNQC
-	 T/rbQ16sgow0DQ9yiDLc5aXAeqihvZYQovo6tgIhxFaVr675rhaCPEpk4dHbsN4fXO
-	 VV7RjZABnv/ah5Hy8mL24QTJazgQKln8HNVoL7ZmBTmti60RIDDD7CzJTjv3SeodHK
-	 yuvre/9evLB4w==
+	bh=p0z8OfcS1fdiYyedH2MZyLZY7VEHaJFdRELjOTQv8uA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=LHY952wbD00sIWzXEIPNLNo/4741CiFQVMFH+yoka+ROGcdwwyOAdwBFxwMtH/Rg2
+	 P1jEuWB7YUBHTg5gG5t11kTC379yR1GqjlUWHMTcMU3OJSIb5mfJZDJeM4J1GfLPPp
+	 ebUeX8d0WPfJlxcSeeMXWFthZdOGi5lXKu6ZMa9JLkUHl67Mi2q6RmW/+JpaoGGmwp
+	 j5m5uOOVu+LaVQ7HbabUvX3PqSUBoHot0aEsklwTzE7Bkme0tUIjGdMajsRlxjzHaG
+	 /x8ARK7kdAsNWkvckmy6j5rXxjW8IVRtjArnNXEiGZ9OMpsM6PFn5Li6DZakMmt4C+
+	 Vq/Kjvd1/L89A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00087C4450A;
-	Wed, 15 Jul 2026 06:04:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F46EC44508;
+	Wed, 15 Jul 2026 06:04:42 +0000 (UTC)
 From: Haidar Lee via B4 Relay <devnull+haidar.lee.adlinktech.com@kernel.org>
-Subject: [PATCH 0/2] ASoC: tas2562: fix Digital Volume Control
-Date: Wed, 15 Jul 2026 14:04:39 +0800
-Message-Id: <20260715-tas2562-dvc-fix-v1-0-072b13901b20@adlinktech.com>
+Date: Wed, 15 Jul 2026 14:04:40 +0800
+Subject: [PATCH 1/2] ASoC: tas2562: fix DVC coefficient write order
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,10 +40,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPciV2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDc0NT3ZLEYiNTMyPdlLJk3bTMCl0zU7M0E9NkExNLIyMloK6ColSgMNj
- E6FgIv7g0KSs1uQRkjFJtLQBWZWaZcwAAAA==
-X-Change-ID: 20260715-tas2562-dvc-fix-656f45c44922
+Message-Id: <20260715-tas2562-dvc-fix-v1-1-072b13901b20@adlinktech.com>
+References: <20260715-tas2562-dvc-fix-v1-0-072b13901b20@adlinktech.com>
+In-Reply-To: <20260715-tas2562-dvc-fix-v1-0-072b13901b20@adlinktech.com>
 To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
  Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -52,11 +51,11 @@ To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
 Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Haidar Lee <haidar.lee@adlinktech.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784095481; l=1287;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784095481; l=2928;
  i=haidar.lee@adlinktech.com; s=20260715; h=from:subject:message-id;
- bh=Su3y5H+XropravPSwjmbGLXz02SfJzDuKDVzb682+LY=;
- b=8ZNmVGCGjs4EH4nTMnEyEGiWmeRhO/0vN23LgLkWVjqJu3F6zGPyjoWLlBzgml3PMA/6HdQmU
- /May/zpWfATAC9uFoAweyiiWt+CS8Kj2JTHOg+t8J9MJvqWbHIqQfjw
+ bh=NrDARQuuRTnNObQOb1pPNHaoWGmUellYTb5N5X9Elwo=;
+ b=Jojabzbyv2lFEZ+hhb+FNhvvFy6aGlg1FWjgRUKsynbkhjiuLUXTy09CvpQAQFY8xgCKVnmSm
+ Q2E7sIt6QfkC/9HXXYyFL1aXKW+yliFQZNA4kFu7bWAhrtCh+aSTr38
 X-Developer-Key: i=haidar.lee@adlinktech.com; a=ed25519;
  pk=p37KzVgRl0a8om8VCM7iEwQvNuZz2fxL4lBCBp5qrno=
 X-Endpoint-Received: by B4 Relay for haidar.lee@adlinktech.com/20260715
@@ -64,34 +63,78 @@ X-Endpoint-Received: by B4 Relay for haidar.lee@adlinktech.com/20260715
 X-Original-From: Haidar Lee <haidar.lee@adlinktech.com>
 Reply-To: haidar.lee@adlinktech.com
 
-The 'Digital Volume Control' added in v5.7 has never worked correctly:
-the driver writes the 32-bit DVC coefficient LSB first, but the device
-latches the whole coefficient on the write to the last byte (DVC_CFG4),
-so every volume change applies a mix of the previous coefficient's
-upper bytes and the new LSB. Depending on the sequence of values this
-mutes the output entirely or plays at full volume regardless of the
-requested level.
+From: Haidar Lee <haidar.lee@adlinktech.com>
 
-Debugged on a TAS2562 (ADLINK OSM-520 / MT8189): traced the I2C writes
-with ftrace to confirm the driver writes the intended bytes, then
-reproduced both behaviours by writing the same coefficients manually in
-each byte order. Patch 1 fixes the write order; patch 2 fixes two wrong
-entries in the volume lookup table found while debugging this.
+The TAS2562 applies the 32-bit digital volume coefficient to the
+playback path when the last byte, DVC_CFG4 (book 0 page 2 reg 0x0F), is
+written. tas2562_volume_control_put() wrote DVC_CFG4 first and DVC_CFG1
+(the MSB) last, so every volume change latched a value made of the
+previous coefficient's upper three bytes combined with the new LSB; the
+remaining bytes only took effect on the next volume change.
 
+In practice the control was unusable: the first setting after power-on
+always played at roughly 0 dB no matter what value was requested (the
+chip's default upper bytes were still latched), and most subsequent
+changes muted the output entirely or produced a distorted, over-unity
+gain.
+
+Verified on a TAS2562 (ADLINK OSM-520 / MT8189 board) by tracing the
+I2C writes with ftrace and by writing the same coefficients manually in
+both byte orders: written MSB-first the register block behaves exactly
+as the driver expects, LSB-first reproduces the broken behaviour.
+
+Write the bytes MSB first with DVC_CFG4 last so the complete new
+coefficient is latched atomically.
+
+Fixes: bf726b1c86f2 ("ASoC: tas2562: Add support for digital volume control")
+Cc: stable@vger.kernel.org
 Signed-off-by: Haidar Lee <haidar.lee@adlinktech.com>
 ---
-Haidar Lee (2):
-      ASoC: tas2562: fix DVC coefficient write order
-      ASoC: tas2562: fix broken entries in the volume lookup table
+ sound/soc/codecs/tas2562.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
- sound/soc/codecs/tas2562.c | 30 +++++++++++++++++++-----------
- 1 file changed, 19 insertions(+), 11 deletions(-)
----
-base-commit: 58717b2a1365d06c8c64b72aa948541b53fe31eb
-change-id: 20260715-tas2562-dvc-fix-656f45c44922
+diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
+index e1d62f30418a..ec32ef0afd7e 100644
+--- a/sound/soc/codecs/tas2562.c
++++ b/sound/soc/codecs/tas2562.c
+@@ -475,20 +475,27 @@ static int tas2562_volume_control_put(struct snd_kcontrol *kcontrol,
+ 	u32 reg_val;
+ 
+ 	reg_val = float_vol_db_lookup[ucontrol->value.integer.value[0]/2];
+-	ret = snd_soc_component_write(component, TAS2562_DVC_CFG4,
+-				      (reg_val & 0xff));
+-	if (ret)
+-		return ret;
+-	ret = snd_soc_component_write(component, TAS2562_DVC_CFG3,
+-				      ((reg_val >> 8) & 0xff));
++	/*
++	 * The device applies the 32-bit coefficient to the playback path on
++	 * the write to DVC_CFG4 (the LSB, book 0 page 2 reg 0x0F), so the
++	 * bytes must be written MSB first and DVC_CFG4 last. Writing CFG4
++	 * first latches a mix of the previous coefficient's upper bytes and
++	 * the new LSB instead of the requested value.
++	 */
++	ret = snd_soc_component_write(component, TAS2562_DVC_CFG1,
++				      ((reg_val >> 24) & 0xff));
+ 	if (ret)
+ 		return ret;
+ 	ret = snd_soc_component_write(component, TAS2562_DVC_CFG2,
+ 				      ((reg_val >> 16) & 0xff));
+ 	if (ret)
+ 		return ret;
+-	ret = snd_soc_component_write(component, TAS2562_DVC_CFG1,
+-				      ((reg_val >> 24) & 0xff));
++	ret = snd_soc_component_write(component, TAS2562_DVC_CFG3,
++				      ((reg_val >> 8) & 0xff));
++	if (ret)
++		return ret;
++	ret = snd_soc_component_write(component, TAS2562_DVC_CFG4,
++				      (reg_val & 0xff));
+ 	if (ret)
+ 		return ret;
+ 
 
-Best regards,
---  
-Haidar Lee <haidar.lee@adlinktech.com>
+-- 
+2.34.1
 
 
