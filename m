@@ -1,109 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2151843C7D1
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 16:54:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9D03AD525
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 16:54:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784134456; cv=none; b=G4K9ZhykkQgBJyBfhCrg90zMwwa3KplXxgsBL0Gl9tyfxEddx1zKiUReeOb/yY/Jbu4rgHG4MdoxXuEZcFXKcdIeJ6xvEKEOSrUPyzyYzgLvsdXf/9l1D4WHzSTN7lM76UhMpZTowjlFst+VjHzjpcrYcE6GrJ9NW0SV+2/XJ0I=
+	t=1784134458; cv=none; b=QKWgFjQdOi52xXp1//Lw+jt2eqk+ucb7q7ksRsyhtxvGYj4Q3EQ0LIZ55v6eHZFQS5BrQbCGlF20zpmh1DPB4VyYTiGbcu5XRSH+oLZ5wUJW5N5aIYyLnA+WHCpHCX44QByfo7XoktbXiF/PMFMdWqOPBcwX6cwyjiYLkY6AqwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784134456; c=relaxed/simple;
-	bh=Mx1KckP9ad1N5MFeG4C803+wImi6ebQFYHy62qoTdTk=;
+	s=arc-20240116; t=1784134458; c=relaxed/simple;
+	bh=6Yf1XBh9DHlZ3jQ3M6De+M2eE1Z4qhAfs83MUZ397y0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OlvdsJb84NFO+YnJ5WRGgL+RQWYWfB4N5ewDeQ1CKYcTrXyYR5X54myFBgOUogkOjTCAmrxDdEOO9wqAwC7H0pErkCPtyDlwif0v4ym6EJDKUKNDnWpM4iBfvxFN/hJVwTaYcPElJqM/PGTCsU4/p+esJd7MU0+6FNDz76D6Bjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLZ56ewv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=M4es5R+wBE2iAxYewnIY/tZULodIkJgH7W3dd1xm3lq5Hvg48tSHJv2D89EI3/t/7/RvS4HpWJXEqaTPNKj7yGAqTXppPuWl8bsMELN6GKaVS+k/Wnt7eTmBU1GoO/rYrzh4SspokowfnDK2r5P0tG63pd4M9hKmo+wvOYAorD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rlmazt7q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLZ56ewv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20041F00A3A;
-	Wed, 15 Jul 2026 16:54:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rlmazt7q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58B001F00A3D;
+	Wed, 15 Jul 2026 16:54:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784134453;
-	bh=wIy+HrwJDVi3Oz0JWzMyNbTIqRW4UaPcuiGYpjaroSI=;
+	s=k20260515; t=1784134455;
+	bh=QwfS5ci9RzmKmRVkiUwtiECAuML8l7tS6ydimhIJ/9o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SLZ56ewvJ7ujosnbnHHjpc7BQSVsfbmTQJaig4gaCgXTxbsyDwAye1IaNC/YWXbm8
-	 4shFOEAh9tpzdhCoJVXVUYi0/0EBy1c8LFuqR6v/H9q3ln8Y+84fkK2NO/HN6xKC8K
-	 +SsyL1I8vCmJEqdlsswsdcW8UHqTzXkEa5WlDdU+mUFMpBPIWT7ieZOCDPMBkTm+I8
-	 iHOiJrS3L8NMjt7HlRNgesA+LX7WJtjr8Fi+G3krs76/9zi2wCcHEP1W62j92adnyb
-	 MSLvToxMRK8DUSZhBghZxlrlmWKcnLYA1IANcYCNjmcw0yWWfjzt1G2mdFHpl3Lq4F
-	 jzNlthVQuGawg==
+	b=Rlmazt7q+dqHH7obehx7z8eZoWD3PyxJuK15JpF+a37KdpOkwVer6G1erkMB3xUsH
+	 MTjfGL9jmrbS60hfF6QPqHXLQN3escTImgAVs/vIksgRigbRtEpsT5UMoF1hZWHRcf
+	 yKLA/c6Dn3NcxJmbwEXNuhEqukIr0Kxlb1XHCpLYH52gCxUtuc+O7dPbwTYSLHeU2Q
+	 7iTFOOCI1ouaaUX26+fCYWggIJz74cID6qNq7gZQcbzJ1b9wHbSJKOC9aY/bFI+VEF
+	 4tmtmO+HM+HbM5VuBOquHRVhJXpM5qs8CPUn3mXO9gdwcKd7UcdAl+MJk8paFr7gJ5
+	 euEeIblWHGpGg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+Cc: Xiaolei Wang <xiaolei.wang@windriver.com>,
+	Frank Li <Frank.Li@nxp.com>,
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] media: nxp: imx8-isi: Convert to platform remove callback returning void
-Date: Wed, 15 Jul 2026 12:54:08 -0400
-Message-ID: <20260715165410.963211-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] media: nxp: imx8-isi: Fix use-after-free on remove
+Date: Wed, 15 Jul 2026 12:54:10 -0400
+Message-ID: <20260715165410.963211-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071345-pureness-herald-7920@gregkh>
+In-Reply-To: <20260715165410.963211-1-sashal@kernel.org>
 References: <2026071345-pureness-herald-7920@gregkh>
+ <20260715165410.963211-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+From: Xiaolei Wang <xiaolei.wang@windriver.com>
 
-[ Upstream commit e992ee7eb56f827088f63c9d5210ab4da25a5c4d ]
+[ Upstream commit b670bf89824ede5d07d20bb9bfbafb754846081d ]
 
-The .remove() callback for a platform driver returns an int which makes
-many driver authors wrongly assume it's possible to do error handling by
-returning an error code. However the value returned is ignored (apart
-from emitting a warning) and this typically results in resource leaks.
+KASAN reports a slab-use-after-free in __media_entity_remove_link()
+during rmmod of imx8_isi:
 
-To improve here there is a quest to make the remove callback return
-void. In the first step of this quest all drivers are converted to
-.remove_new(), which already returns void. Eventually after all drivers
-are converted, .remove_new() will be renamed to .remove().
+  BUG: KASAN: slab-use-after-free in __media_entity_remove_link+0x608/0x650
+  Read of size 2 at addr ffff0000d47cb02a by task rmmod/724
 
-Trivially convert this driver from always returning zero in the remove
-callback to the void returning variant.
+  Call trace:
+   __media_entity_remove_link+0x608/0x650
+   __media_entity_remove_links+0x78/0x144
+   __media_device_unregister_entity+0x150/0x280
+   media_device_unregister_entity+0x48/0x68
+   v4l2_device_unregister_subdev+0x158/0x300
+   v4l2_async_unbind_subdev_one+0x22c/0x358
+   v4l2_async_nf_unbind_all_subdevs+0xfc/0x1c0
+   v4l2_async_nf_unregister+0x5c/0x14c
+   mxc_isi_remove+0x124/0x2a0 [imx8_isi]
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+  Allocated by task 249:
+   __kmalloc_noprof+0x27c/0x690
+   mxc_isi_crossbar_init+0x22c/0x560 [imx8_isi]
+
+  Freed by task 724:
+   kfree+0x1e4/0x5b0
+   mxc_isi_crossbar_cleanup+0x34/0x80 [imx8_isi]
+   mxc_isi_remove+0x11c/0x2a0 [imx8_isi]
+
+The problem is that mxc_isi_remove() calls mxc_isi_crossbar_cleanup()
+before mxc_isi_v4l2_cleanup(). The crossbar cleanup frees the media
+entity pads, but the subsequent v4l2 cleanup still tries to remove
+media links that reference those pads.
+
+Fix this by calling mxc_isi_v4l2_cleanup() before
+mxc_isi_crossbar_cleanup() to ensure all media entities are properly
+unregistered while the pads are still valid.
+
+Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Stable-dep-of: b670bf89824e ("media: nxp: imx8-isi: Fix use-after-free on remove")
+Link: https://patch.msgid.link/20260507041318.491594-2-xiaolei.wang@windriver.com
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-index 81be744e9f1b58..aa2da758392b06 100644
+index 8b2f91cb47ac74..a1354d40ad8eac 100644
 --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
 +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-@@ -508,7 +508,7 @@ static int mxc_isi_probe(struct platform_device *pdev)
- 	return ret;
- }
+@@ -521,8 +521,8 @@ static void mxc_isi_remove(struct platform_device *pdev)
+ 		mxc_isi_pipe_cleanup(pipe);
+ 	}
  
--static int mxc_isi_remove(struct platform_device *pdev)
-+static void mxc_isi_remove(struct platform_device *pdev)
- {
- 	struct mxc_isi_dev *isi = platform_get_drvdata(pdev);
- 	unsigned int i;
-@@ -525,8 +525,6 @@ static int mxc_isi_remove(struct platform_device *pdev)
+-	mxc_isi_crossbar_cleanup(&isi->crossbar);
  	mxc_isi_v4l2_cleanup(isi);
- 
- 	pm_runtime_disable(isi->dev);
--
--	return 0;
++	mxc_isi_crossbar_cleanup(&isi->crossbar);
  }
  
  static const struct of_device_id mxc_isi_of_match[] = {
-@@ -539,7 +537,7 @@ MODULE_DEVICE_TABLE(of, mxc_isi_of_match);
- 
- static struct platform_driver mxc_isi_driver = {
- 	.probe		= mxc_isi_probe,
--	.remove		= mxc_isi_remove,
-+	.remove_new	= mxc_isi_remove,
- 	.driver = {
- 		.of_match_table = mxc_isi_of_match,
- 		.name		= MXC_ISI_DRIVER_NAME,
 -- 
 2.53.0
 
