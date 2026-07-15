@@ -1,142 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCAE442103
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:27:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784111270; cv=none; b=oW0tNGXYprzkozBZPqlF+gwxLHKGe97vHMSWmCtYI/x0uM/qT4oW+SAE4tg5LgRFJ9QZvr0NN9qSLS3b22AbkH8HT8DnpIR3XSMxUHftonBbVzHBwzKT+PggmZ0LTD/yj1riI6DA5Hv7f76+SoKnIc7q09oSSbhd/U+q8V1Ks8c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784111270; c=relaxed/simple;
-	bh=c9LZMb/JrtBP2YjhWqZw4DQ1XwGJTsarncgl22Ky4u0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Jdf4TcpXV/Cp5lMnE4hnPXwEHDDcbn0R3ldQWBdokasDkqk0o9VS90rs5YoRWrT0d2ETtrHhb6bwQLc5aQCuVA/81eL7yHvDEbYpDrwNBc61lk9GGvnRr2II6vVJlvd8+Uy4G4cxIIL9xUUmtwZ7pJZQ/V6YaGo9MKTsaQ1lp5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OW7JgwO3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFA93AFAF9
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 10:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784111462; cv=pass; b=cyTCBcu+3v4PaJms66X2ma8mZweT0Xk9eWc+ZDPWHQbMQaKey+ChUcmBXBh19n5HsOtK2wsXfo3e+MMShvm1OmYxM3bYXPve31cFfaple54pXGWj6tU8GYiyssXDh90AOkVh1HHWEwS21HRAc4gjINq7Oz7mNyd6zaJ7yNNtDY0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784111462; c=relaxed/simple;
+	bh=zCVEWbgPtNQZ1Mf0SSgc/9MVLe94ygEvCMPHUAjF2Nc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Zg9rSTN2ajKi+iVXkIQRfeuMc+khBg4Fj4rZE5IeFhwT0AhR0ZV8RybF+w7hvu+lU0zvVR6vcEPmKjVn2LwPio4Y/OoK4YWJunY0K+Z3ilTXUQRMk94Y4X7Nxi4IDT4tGS6ycUm4yP0o/lzhtCSgNLubMicw0ghF1+5epTQA2Us=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ClVGaUhF; arc=pass smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OW7JgwO3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F411F000E9;
-	Wed, 15 Jul 2026 10:27:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784111268;
-	bh=1SaIWwQEngTIi/bALFIi+nsEI9xW1JVtyJDzI6veABA=;
-	h=Subject:To:Cc:From:Date;
-	b=OW7JgwO39xujmp/S6rGzbgeTLV4fiUMpnqGLAVnxv8OS2MDnAcXCMMomkv2wleuE8
-	 E1P/0zdZKTM7iuuWe/Iz0e5r0VaCT/ucExg1W8y24KVZELrqg8/XBWNiTEztJN7+l4
-	 fJXU0+mYBG8Y5CyhXnXAfGoWFWfiGDPuRwTK8jJY=
-Subject: FAILED: patch "[PATCH] crypto: qat - validate RSA CRT component lengths" failed to apply to 5.15-stable tree
-To: giovanni.cabiddu@intel.com,ahsan.atta@intel.com,herbert@gondor.apana.org.au,laurent.m.coquerel@intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 12:23:50 +0200
-Message-ID: <2026071550-encrypt-hypnotist-52ba@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ClVGaUhF"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cac39b729dso13625315ad.3
+        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 03:31:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784111461; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Orn1JjtFSv7P55DUwQ56ATaJNv6P29iy1YceT/7mRqjXcESnawkyvBba3i1g/jlhKU
+         ltwPzQRwnbHvoAvwMfdYhtvaiBArqGR1WTxwO5SAfxNYQ3CS4EDPZDVkH/fFJO/FHj3h
+         +bw5r5bKluOkcJ4CGj1Jp/S3ZFkurZYCktc42L2gmpjzEsOWjXnZ1jnMlMyrQHd9ldmo
+         WCfaLywtMs7oia0VfhPKbipk5Ays7C1EnYu9unR7A+DR16DuwDRsbTE8u4kLfe3QD1HF
+         gc/HayW6UrgmjpMDnXi0opkGNBuzSDBwmVs9pcrC3B/WOOgWNge/zsc5yMFw1VerM0SL
+         aYxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7I5s1r4zbwdDnFUPkYxXrynK0Xpz2B6Wc1hGmhEooeE=;
+        fh=arR+w8SttxL79ofHkC1Im39cWQRbJ+lVfoZniOyJ68g=;
+        b=OgiU8+SwAtO0ik/9jGaVB5OeuiEaRTWd7j0MQp8w65iRnnsfnQGGOmBA3vlCSdqWud
+         qoqU/uZOmA9yc4oi+suL3volCB8a4TZuooFBr60oh9GgGjjwsGYujZtOgGLshpG/FvbQ
+         W3bWC7d1iC3yZhjFIoz5LeBHoSUnPHdIcHbbR5dMx87JZqCdr0uO8dbqJkHwIqsKLylp
+         pOAd503P+Iir4iSw+4wKPWCxwJSgmXsCNBDolvT5kUBadcjTptqpuZ4Hoc6Y1N79oCmT
+         ZBbfS0GB03YzhYbBLzuieWPeMWF8MNE/u8cr3rw4HM9aflCBBYLBQ+odVrDIAfTlEUAV
+         qYdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784111461; x=1784716261; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7I5s1r4zbwdDnFUPkYxXrynK0Xpz2B6Wc1hGmhEooeE=;
+        b=ClVGaUhF6WpO8z2Yn90X89Qio7kq7FZtqBOpZGVUPZU7HvFM3y/WgL9KmcZsOHowyp
+         k59F9LwYQcihBqKg+SIN2zqg1sMQRMEPug5WP8FCbbsPIiF1cHCpynJ+7fQ1+KBuaCWR
+         Y0lx5qUE/7R7OTJrtobidRwDWwx91+WCQpX+0rMmnc76tXRkpLtnNw6j7+NjloudhhNk
+         fFfg5tSo7txJGj8hoGEcyiLGgkI1CiSxSyvRnqqw4azVUZ9husZSCD4YTrQInDM0Hoo3
+         3zszl/SfOSOemoL1qt/ygtvwmoNE1PrM5VRrW5xVoTg8LY/ZrTEQHJjUojiiDe8aLsaS
+         Ax9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784111461; x=1784716261;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7I5s1r4zbwdDnFUPkYxXrynK0Xpz2B6Wc1hGmhEooeE=;
+        b=Lqr+RDehuGPl4zIUWzJnAoDeQ9RRUBsa+gPXwFLnbGZWgK2NOtwOwxJzUD2n8Mi+Ux
+         v92MQA8bye+UtempaCTYntcuhAZupl7PIeZ1KfuelIEJLv96qsR9gykhVa74J3iEnIKU
+         3oR711iC+S+3ZBwwCnUPQyDkd69mc7NnObBfrR5S+nuhx94vLhC51Om4n/SF55KKwGji
+         LqUM7BfM2bdIYxxhwpjtfnMc66EaXRuiTD6X1HF6JJrai6DlCj3e7RxV52/IjUpV1AzM
+         lzgiY4qh9ZHcROJHD9JFTSphVASVH+o/RBzkhCfscuIV4ogc4HwRyttSgDN9DMtF3iyR
+         P/ng==
+X-Forwarded-Encrypted: i=1; AHgh+Rqt26WbiK7QqA7zOD5+UZPg+7QzKcGOTSVXHqm40HS6EZ15NkTFQxMV3+Igpu7bKpHllPmJSps=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQ84MfWgw0LyGgnr9PM3C+LVbD0fgZisUFzfyB94TxIIAbRiaV
+	AxFkkQ+gFNWcfZVPxavE2rco1tkc48d0PE5NpaOlN81Yk0tl9VjIXmojXihKMpQAHBZcteEBP/7
+	E0PH/A3DSOsF0jUbo7jr7fBeqbJs7g+c=
+X-Gm-Gg: AfdE7clECIzF2L67uF6CQyTAZ2kzV9uV09x94MH++Ld1WQSRtbSEfht33zw7jHNi7F9
+	AlvC9b5c8x5Bl2YL5HRQRndaDhK8+0VC6OaTE2koh1c9dWCkJG5or87v5Af+23HRZnw8h1gopVB
+	ICIpL5wff5iQW7v0JecDOZyYR3Ypd1KPxV0nAHqtwSMgb65wtFMr7woOfHK3J1UdC6ng+P92vej
+	ji4mHuURAk5+w8gTu8fKm9bsal0fBbYbA9HktVaiEW1yD24DYrh4lX9l79yljgx62qMTTlL9XAE
+	Dj08WyT586zIoYhfAR4MLvKq5hREtPnKygTasP/O8w83eFqOrTojgINTITTo1DBv9Jb3CknqEqb
+	Dn8g1kmPHJCDH
+X-Received: by 2002:a17:90b:4d08:b0:38d:fe7d:2a83 with SMTP id
+ 98e67ed59e1d1-38dfe7d2abfmr8330874a91.3.1784111460832; Wed, 15 Jul 2026
+ 03:31:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+References: <20260708211435.402426-1-chang.seok.bae@intel.com>
+ <CANiq72=-HjYOoJPd=B+0OYrHuyCO+NpcjRvmmhT_ecVZj8q97Q@mail.gmail.com> <b705ef27-e87e-432a-ad1a-f425fe66887f@intel.com>
+In-Reply-To: <b705ef27-e87e-432a-ad1a-f425fe66887f@intel.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 15 Jul 2026 12:30:48 +0200
+X-Gm-Features: AUfX_mxOa88utfElFRyZIrS2LgzsWoibXzzaSNpmHupISKv8tKlcaf7D0e6UA7w
+Message-ID: <CANiq72kn8F-pnd-YxBiPN9nr02jagRk4NL-3vyX1tERCQjqNHA@mail.gmail.com>
+Subject: Re: [PATCH] x86/build/64: Prevent native builds from generating APX instructions
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org, 
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+	Omar Avelar <omar.avelar@intel.com>, stable@vger.kernel.org, 
+	Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux <rust-for-linux@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Jul 15, 2026 at 12:15=E2=80=AFAM Chang S. Bae <chang.seok.bae@intel=
+.com> wrote:
+>
+>     JSON avoids the warning but Rust versions prior to 1.93 instead
+>     produce another noise:
+>
+>     '-apxf' is not a recognized feature for this target ...
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+I think that warning may be coming from LLVM, not Rust, so it may
+depend not on the Rust version, but on the LLVM backend being used
+(Rust compilers support several major LLVM versions).
 
-To reproduce the conflict and resubmit, you may use the following commands:
+So I would recommend double-checking that -- and if so, perhaps you
+may need to restrict the LLVM backend version. In case you need them,
+we have nowadays e.g.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x b3ac78756588059729b9195fcc9f4b37d54057a5
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071550-encrypt-hypnotist-52ba@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+    CONFIG_RUSTC_LLVM_VERSION
+    CONFIG_RUSTC_LLVM_MAJOR_VERSION
 
-Possible dependencies:
+Also, from that
+https://github.com/intel/apx/blob/study_rust-apxf/study_rust-apxf.md,
+I notice you checked object files, which is a good check, but what I
+meant is to check the LLVM module attributes in the LLVM IR emitted
+from the Rust compiler.
 
+For instance, if I do:
 
+  https://godbolt.org/z/sMaajjYao
 
-thanks,
+I see:
 
-greg k-h
+    +egpr,+push2pop2,+ppx,+ndd,+ccmp,+cf,+nf,+zu
 
------------------- original commit in Linus's tree ------------------
+being added to the LLVM module attributes when I pass a `+apxf`.
 
-From b3ac78756588059729b9195fcc9f4b37d54057a5 Mon Sep 17 00:00:00 2001
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Date: Thu, 28 May 2026 16:57:44 +0100
-Subject: [PATCH] crypto: qat - validate RSA CRT component lengths
+Also, I saw in your file:
 
-The generic RSA key parser (rsa_helper.c) bounds each CRT component (p,
-q, dp, dq, qinv) by the modulus size n_sz, but qat_rsa_setkey_crt()
-allocates half-size DMA buffers (key_sz / 2) and right-aligns each
-component with:
+  "The generated `rust/core.o` object was selected as the insepction target
+    because it appears to represent the core Rust support built into
+the kernel."
 
-    memcpy(dst + half_key_sz - len, src, len)
+To clarify, that object file is "just" the standard library. Which is
+definitely a good target to inspect, but since you scripted this
+anyway, I would suggest checking others. In fact, you could even
+inspect all and filter them out by the language DWARF tag. Or perhaps
+you can just do it for every single object, since the C ones are
+expected to behave the same, no?
 
-When a CRT component is larger than half_key_sz the subtraction
-underflows and memcpy writes past the DMA buffer, causing memory
-corruption.
+I hope that helps!
 
-Add a len > half_key_sz check next to the existing !len check for each
-of the five CRT components so the driver falls back to the non-CRT path
-instead of writing out of bounds.
+> Indeed. This is very helpful!
 
-Fixes: 879f77e9071f ("crypto: qat - Add RSA CRT mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Reviewed-by: Ahsan Atta <ahsan.atta@intel.com>
-Reviewed-by: Laurent M Coquerel <laurent.m.coquerel@intel.com>
-Tested-by: Laurent M Coquerel <laurent.m.coquerel@intel.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+You're welcome!
 
-diff --git a/drivers/crypto/intel/qat/qat_common/qat_asym_algs.c b/drivers/crypto/intel/qat/qat_common/qat_asym_algs.c
-index e09b9edfce42..75c15c8e41db 100644
---- a/drivers/crypto/intel/qat/qat_common/qat_asym_algs.c
-+++ b/drivers/crypto/intel/qat/qat_common/qat_asym_algs.c
-@@ -1085,7 +1085,7 @@ static void qat_rsa_setkey_crt(struct qat_rsa_ctx *ctx, struct rsa_key *rsa_key)
- 	ptr = rsa_key->p;
- 	len = rsa_key->p_sz;
- 	qat_rsa_drop_leading_zeros(&ptr, &len);
--	if (!len)
-+	if (!len || len > half_key_sz)
- 		goto err;
- 	ctx->p = dma_alloc_coherent(dev, half_key_sz, &ctx->dma_p, GFP_KERNEL);
- 	if (!ctx->p)
-@@ -1096,7 +1096,7 @@ static void qat_rsa_setkey_crt(struct qat_rsa_ctx *ctx, struct rsa_key *rsa_key)
- 	ptr = rsa_key->q;
- 	len = rsa_key->q_sz;
- 	qat_rsa_drop_leading_zeros(&ptr, &len);
--	if (!len)
-+	if (!len || len > half_key_sz)
- 		goto free_p;
- 	ctx->q = dma_alloc_coherent(dev, half_key_sz, &ctx->dma_q, GFP_KERNEL);
- 	if (!ctx->q)
-@@ -1107,7 +1107,7 @@ static void qat_rsa_setkey_crt(struct qat_rsa_ctx *ctx, struct rsa_key *rsa_key)
- 	ptr = rsa_key->dp;
- 	len = rsa_key->dp_sz;
- 	qat_rsa_drop_leading_zeros(&ptr, &len);
--	if (!len)
-+	if (!len || len > half_key_sz)
- 		goto free_q;
- 	ctx->dp = dma_alloc_coherent(dev, half_key_sz, &ctx->dma_dp,
- 				     GFP_KERNEL);
-@@ -1119,7 +1119,7 @@ static void qat_rsa_setkey_crt(struct qat_rsa_ctx *ctx, struct rsa_key *rsa_key)
- 	ptr = rsa_key->dq;
- 	len = rsa_key->dq_sz;
- 	qat_rsa_drop_leading_zeros(&ptr, &len);
--	if (!len)
-+	if (!len || len > half_key_sz)
- 		goto free_dp;
- 	ctx->dq = dma_alloc_coherent(dev, half_key_sz, &ctx->dma_dq,
- 				     GFP_KERNEL);
-@@ -1131,7 +1131,7 @@ static void qat_rsa_setkey_crt(struct qat_rsa_ctx *ctx, struct rsa_key *rsa_key)
- 	ptr = rsa_key->qinv;
- 	len = rsa_key->qinv_sz;
- 	qat_rsa_drop_leading_zeros(&ptr, &len);
--	if (!len)
-+	if (!len || len > half_key_sz)
- 		goto free_dq;
- 	ctx->qinv = dma_alloc_coherent(dev, half_key_sz, &ctx->dma_qinv,
- 				       GFP_KERNEL);
-
+Cheers,
+Miguel
