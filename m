@@ -1,268 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012026.outbound.protection.outlook.com [40.107.200.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E5926ED37
-	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 00:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784076439; cv=none; b=bIModJ7LUevd9YxeZP1D/OPO8CIr7YZl0JkexHw3mpMJTkF7HkVxv9SG5J//3hQnMZig4DASUVSGzhMsYTrroFrxGPjckJoHigxoWAIdI4MytmXwkqw6KRZHjQCjMwmo3lZAVIS4QYglFcpkWzx2QLIjus0qwxvSu2zOk7h6FO8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784076439; c=relaxed/simple;
-	bh=xALhohUmQqfNh77P7SVwGp3Zu3FHJ0z5jy5WE0nmJg4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ndM8T57ilHjyxrcMurWvtpwYurenuEGF6ceJ9vUz13wNWVfi2CrsptItlcVsc4mBxE2v39NvRf/O6LqaKH0y7oY4VBVSQfbuMbSxnScWiYRNWxrj4R3ipWXWZGh/wc5Zm7A/sCV2hnLYQt3NuDMfynHyjp9/+ZgYV+3CVuDNGp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/j58ZH/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE9F26ED37;
+	Wed, 15 Jul 2026 00:59:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784077150; cv=fail; b=nW2PE7bdbU0in6WlpLgExoxaJyb7hBGxxlMX0BqsycbFtWpRsv/nlm0MHaVXBISJcwuOK9ccooXoCttmKbTtsRrlR/7qCHZUWY1EJTJG1d77MaKWJ4g7e38UUzXV5n2Ypiw9XDu3Bafq1zWDI/QTc06T3NdIkxxJK19Z3IeAsu8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784077150; c=relaxed/simple;
+	bh=Rf4JLSGGXxa6rKHs0bpLFqtI4TBGBS40PwiLQA/PLow=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=GGCcN2N+1Sl/gBcNuzHjvJXa8lmwZ18reWk/h4fjDvREWnHtwIo8u66xh0qxzgLPZD9W/Vi6dr1S+FnXPHvAvWRn0W7vLMtOfoZmYUEY+1GypWXVd2SzhLh0EFTXC6R9oBuIjD2gR6hmyAP07lRgwrN3gf40EsOJiI1IfQKiFi4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=L14nMAX+; arc=fail smtp.client-ip=40.107.200.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/j58ZH/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF8B1F00A3E;
-	Wed, 15 Jul 2026 00:47:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784076433;
-	bh=zz6+WwqNkctYRcJMgLB3pGMxmiOn7RQq8JwnkgXzYH8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B/j58ZH/FCk7ibCHIbyRznmenezULd9bsiVE/vI02g/bwdawd6x0F1QNonCc+g9MO
-	 M9OSKSBjCzYpzkVrh+MFzEeLE+ENUGOJVF5in6HLfv8kpy2Qle6x+C4Ipt6rtUyG8T
-	 9cc0uYeOg1oOSspO5muu0oWwBwZ6aOJXZJJ8TWf9OSsXKwna64gSjdm2+OAeMPVl/u
-	 TgfDkkS6O3xoES05K/JjcBhidt1wTsclJ3EJdiTtwofC/M8jX58UIga4NVPwbvdwHd
-	 4FkBsu3Ql9bTU4warHBZTnDcLjTMEvvh7+LY8K3MmVd57Z4pRPZNwzeE+3X9NU65wT
-	 i6OPqaJq6JKQQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Ahsan Atta <ahsan.atta@intel.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] crypto: qat - fix VF2PF work teardown race in adf_disable_sriov()
-Date: Tue, 14 Jul 2026 20:47:11 -0400
-Message-ID: <20260715004711.3934675-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071350-broadside-lustrous-29ea@gregkh>
-References: <2026071350-broadside-lustrous-29ea@gregkh>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="L14nMAX+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qfufqIZIMBzqA5p67baj+ffSsRbp+KizmXkNRErEbMoPTPhOBq3AZ7gRMH4BTKqLsFLDcnoPdkVew+ECxdXUoLNpUdYiFLx2HPQo/It6OnqOIy7BZ/GvS/eOn2sta31fvx3ycrJ/X5qp0WMYs6PjnCJ3FkfK3zhH4wmbwq+psH0fkBJLo3AM4bFkMTAp+gDe46j01nllJgz7Hn78ToyEwQ6zq31hBYxp+r4B5cwoMkygOteFLadE8N+dB3+C8JqxbX9UcLQ5R2Nhvy2j0c1ree9Lq2DYseWVB6b/FKPMW7hSeWWcv2N1j2pb/HAxAitifvR+8FyRkXhC7TxQnHHZQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pL4QRcUvuMDuowkGKuS4W+H2+FEZSHtB8rw8jDOTkj0=;
+ b=EyJxBQkNbAvrGhIXZ16Z52yRWurEV/hKMeeSvyAX9KOc4i7zxTFzbOmHpzZGLEI6AcpM7GpHxQ622a4zY82jNyvth3mPULL1a/knl5ufRdc+9PB//8Ln3cN40XRWYpj5NaZCLZvvkH8tOUVEfJ7u/R6ZPxN/uqUM5rX5e6VPUdrck5SMwcMVKbtQpx4S9yqme3ucWELhjlZU/FYepstTSj4Adw5+hKTzPGRWCed/zahTowfhcgVUmhGqC+bGs9CF6vytIperwKj8fSM2jFmcnGbF+zOUYPhKUdEPeMc2HfLzExQxRHPWPhunX5I3aAZLV2+BLN3MVxUFe3ds3kk+7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=0sec.ai smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pL4QRcUvuMDuowkGKuS4W+H2+FEZSHtB8rw8jDOTkj0=;
+ b=L14nMAX+J5k2aDNL1C/5elAwB6n1fVHiatJYCxJFWE6K2IGgmwFdwpTg2KmPHwIJdoq3WGbDmG6R+9zKB2uxP2j1rKWyGfQPgzkeSva4YvY6XZRzgjqKeQ6xdKrI0iMBJjZ+Kp3mo0wrqM4QkqENKGnwVxTyFD+qeMr+qlHwlQA=
+Received: from BY1P220CA0049.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::15)
+ by BL1PR12MB5729.namprd12.prod.outlook.com (2603:10b6:208:384::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Wed, 15 Jul
+ 2026 00:58:59 +0000
+Received: from SJ1PEPF000023D2.namprd02.prod.outlook.com
+ (2603:10b6:a03:59e:cafe::71) by BY1P220CA0049.outlook.office365.com
+ (2603:10b6:a03:59e::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.10 via Frontend Transport; Wed,
+ 15 Jul 2026 00:58:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000023D2.mail.protection.outlook.com (10.167.244.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 00:58:58 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 14 Jul
+ 2026 19:58:58 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 14 Jul 2026 19:58:57 -0500
+Message-ID: <a1dd222e-10e5-4746-264e-0d3705692bf6@amd.com>
+Date: Tue, 14 Jul 2026 17:58:57 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 1/2] accel/amdxdna: reject user command submission without
+ a command BO
+Content-Language: en-US
+To: Doruk Tan Ozturk <doruk@0sec.ai>, Min Ma <mamin506@gmail.com>, Oded Gabbay
+	<ogabbay@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260713173030.87541-1-doruk@0sec.ai>
+ <20260713173030.87541-2-doruk@0sec.ai>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260713173030.87541-2-doruk@0sec.ai>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D2:EE_|BL1PR12MB5729:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75b335bd-9073-4acd-3c5c-08dee20c40ed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|13003099007|18002099003|22082099003|3023799007|6133799003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	xkWPcCm4NAkhgNoSV4g9R6cdcKpDENyCChcugTIwoAPGttXbkg1Mi26c+Udb6kQRyxG964+dxfjqj+ldN9GQqrmVISp7Ku/DMRtpT24hD0yalGjZDVkUschaizopUZ0w46rtv9FPcfBQHOAhC7OjYZY/fExqKrm6R+BnzwlNaFSu90c2HP9Ikx3qClmmBNuczr47WFZfOD0aiCvuo69oC5B9KiFYotjjmVvWx8KdXZ2ySbeSndSVQi0PwPoeumxpDAKdygn0YUhcrYHKvsVe9HOuF5GW83zmIspUFN/NykEIoaZc4GKOOyqpY6NkOKt9o/FCswomsYyVUv266Vgq0DXutvLfCrZgLCfw9ioionggFabHDOZqfXTwzaOtFFcHfT8jH5+UIqurP8bIidapuwqEsMENZQGJV9ZVQoe9qsq+FBtocX8yhQPloBRQiwbhnDT/jKOO2kI1xj1UmrPXP5jqCzfy14lgnjxDP1YjT0Km+TkO5d/UhYpoH8yGqyOILf0XTUY4uYVVvyjz5I/1Z0kbPQsM04frXrW0DqKtoef4Llt2dsK0waEMuKumKjBeKddvdklPacAVLk3tXZovns3RGUtQXq9gOKzVNQBtY0HN66iKCaclmMGvGAARPbOe896H8ZllaBoexqVcNSCNBw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(13003099007)(18002099003)(22082099003)(3023799007)(6133799003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ja+KAlhzKSf66I4+pdPGvTH20NYMiEAaBGulNZl2jd+OKPtCkNELf43vQIU6MR1kTVkbyKOCjTrpP0zl/kM7aSpLC5qIfpocNsc2nd1chCjusrEjCglR0Kl7BsXZk00j2hI0Iz/dv/FpOlFwliXJ0iBOwV1T+R76DTRqhLAeg8fMLqFjvX7M+vW+57TA9zqKFkDOw7SX2NjubQZ10v9K+pIhnBltsLpUODd0iK0TkB4Ic8cKEHsM+ZulyQXFUWNI9dCYYJ4thEvKHaEW87hTGNEtzn/O2ra7fUwi503xrE/SGk4Bw2Gy4bjd8HZUAm7rQ01r+eBuiD+0hpxIA75tJcyCyoh13Sj9SwrBxrnK2xy0aYjEkcrrKOQWzZvFsyXEhKmC69bRSJDMk7Xt5jKw497L7To3E4CYT9x8KXtg+hZi7JoJoAaHCD1yJRBh/1Ye
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 00:58:58.8618
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75b335bd-9073-4acd-3c5c-08dee20c40ed
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023D2.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5729
 
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
 
-[ Upstream commit 277281c10c63791067d24d421f7c43a15faa9096 ]
-
-The VF2PF interrupt handler queues PF-side response work that stores a
-raw pointer to per-VF state (struct adf_accel_vf_info). Currently,
-adf_disable_sriov() destroys per-VF mutexes and frees vf_info without
-stopping new VF2PF work or waiting for in-flight workers to complete. A
-concurrently scheduled or already queued worker can then dereference
-freed memory.
-
-This manifests as a use-after-free when KASAN is enabled:
-
-  BUG: KASAN: null-ptr-deref in mutex_lock+0x76/0xe0
-  Write of size 8 at addr 0000000000000260 by task kworker/24:2/...
-  Workqueue: qat_pf2vf_resp_wq adf_iov_send_resp [intel_qat]
-  Call Trace:
-    kasan_report+0x119/0x140
-    mutex_lock+0x76/0xe0
-    adf_gen4_pfvf_send+0xd4/0x1f0 [intel_qat]
-    adf_recv_and_handle_vf2pf_msg+0x290/0x360 [intel_qat]
-    adf_iov_send_resp+0x8c/0xe0 [intel_qat]
-    process_one_work+0x6ac/0xfd0
-    worker_thread+0x4dd/0xd30
-    kthread+0x326/0x410
-    ret_from_fork+0x33b/0x670
-
-Add a PF-local flag, vf2pf_disabled, that gates work queueing, worker
-processing, and interrupt re-enabling during teardown. Set this flag
-atomically with the hardware interrupt mask inside
-adf_disable_all_vf2pf_interrupts(). After masking, synchronize the AE
-cluster MSI-X interrupt and flush the PF response workqueue before
-tearing down per-VF locks and state so all in-flight work completes
-before vf_info is destroyed.
-
-Introduce adf_enable_all_vf2pf_interrupts() to clear the flag and
-unmask all VF2PF interrupts under the same lock when SR-IOV is
-re-enabled. This ensures the software flag and hardware state transition
-atomically on both the enable and disable paths.
-
-Cc: stable@vger.kernel.org
-Fixes: ed8ccaef52fa ("crypto: qat - Add support for SRIOV")
-Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Reviewed-by: Ahsan Atta <ahsan.atta@intel.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../intel/qat/qat_common/adf_accel_devices.h  |  2 +
- .../intel/qat/qat_common/adf_common_drv.h     |  2 +
- drivers/crypto/intel/qat/qat_common/adf_isr.c | 39 +++++++++++++++++++
- .../crypto/intel/qat/qat_common/adf_sriov.c   | 20 +++++++++-
- 4 files changed, 61 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h b/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h
-index 9fe3239f01143b..41f6db98cd0078 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h
-+++ b/drivers/crypto/intel/qat/qat_common/adf_accel_devices.h
-@@ -472,6 +472,8 @@ struct adf_accel_dev {
- 		struct {
- 			/* protects VF2PF interrupts access */
- 			spinlock_t vf2pf_ints_lock;
-+			/* prevents VF2PF handling from racing with VF state teardown */
-+			bool vf2pf_disabled;
- 			/* vf_info is non-zero when SR-IOV is init'ed */
- 			struct adf_accel_vf_info *vf_info;
- 		} pf;
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-index c625324bd47f95..2eb845a5449582 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-+++ b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
-@@ -118,6 +118,7 @@ void qat_comp_alg_callback(void *resp);
- 
- int adf_isr_resource_alloc(struct adf_accel_dev *accel_dev);
- void adf_isr_resource_free(struct adf_accel_dev *accel_dev);
-+void adf_isr_sync_ae_cluster(struct adf_accel_dev *accel_dev);
- int adf_vf_isr_resource_alloc(struct adf_accel_dev *accel_dev);
- void adf_vf_isr_resource_free(struct adf_accel_dev *accel_dev);
- 
-@@ -191,6 +192,7 @@ int adf_sriov_configure(struct pci_dev *pdev, int numvfs);
- void adf_disable_sriov(struct adf_accel_dev *accel_dev);
- void adf_reenable_sriov(struct adf_accel_dev *accel_dev);
- void adf_enable_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 vf_mask);
-+void adf_enable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 num_vfs);
- void adf_disable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev);
- bool adf_recv_and_handle_pf2vf_msg(struct adf_accel_dev *accel_dev);
- bool adf_recv_and_handle_vf2pf_msg(struct adf_accel_dev *accel_dev, u32 vf_nr);
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_isr.c b/drivers/crypto/intel/qat/qat_common/adf_isr.c
-index 12e5656136610c..7683f04adc5826 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_isr.c
-+++ b/drivers/crypto/intel/qat/qat_common/adf_isr.c
-@@ -62,6 +62,23 @@ void adf_enable_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 vf_mask)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	if (!READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		GET_PFVF_OPS(accel_dev)->enable_vf2pf_interrupts(pmisc_addr, vf_mask);
-+	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
-+}
-+
-+void adf_enable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev, u32 num_vfs)
-+{
-+	void __iomem *pmisc_addr = adf_get_pmisc_base(accel_dev);
-+	unsigned long flags;
-+	u32 vf_mask;
-+
-+	vf_mask = BIT_ULL(num_vfs) - 1;
-+	if (!vf_mask)
-+		return;
-+
-+	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	WRITE_ONCE(accel_dev->pf.vf2pf_disabled, false);
- 	GET_PFVF_OPS(accel_dev)->enable_vf2pf_interrupts(pmisc_addr, vf_mask);
- 	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
- }
-@@ -72,6 +89,7 @@ void adf_disable_all_vf2pf_interrupts(struct adf_accel_dev *accel_dev)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&accel_dev->pf.vf2pf_ints_lock, flags);
-+	WRITE_ONCE(accel_dev->pf.vf2pf_disabled, true);
- 	GET_PFVF_OPS(accel_dev)->disable_all_vf2pf_interrupts(pmisc_addr);
- 	spin_unlock_irqrestore(&accel_dev->pf.vf2pf_ints_lock, flags);
- }
-@@ -174,6 +192,27 @@ static irqreturn_t adf_msix_isr_ae(int irq, void *dev_ptr)
- 	return IRQ_NONE;
- }
- 
-+void adf_isr_sync_ae_cluster(struct adf_accel_dev *accel_dev)
-+{
-+	struct adf_accel_pci *pci_dev_info = &accel_dev->accel_pci_dev;
-+	struct adf_hw_device_data *hw_data = GET_HW_DATA(accel_dev);
-+	u32 num_entries = pci_dev_info->msix_entries.num_entries;
-+	struct adf_irq *irqs = pci_dev_info->msix_entries.irqs;
-+	u32 irq_idx;
-+	int irq;
-+
-+	if (!test_bit(ADF_STATUS_IRQ_ALLOCATED, &accel_dev->status) || !irqs)
-+		return;
-+
-+	irq_idx = num_entries > 1 ? hw_data->num_banks : 0;
-+	if (irq_idx >= num_entries || !irqs[irq_idx].enabled)
-+		return;
-+
-+	irq = pci_irq_vector(pci_dev_info->pci_dev, hw_data->num_banks);
-+	if (irq > 0)
-+		synchronize_irq(irq);
-+}
-+
- static void adf_free_irqs(struct adf_accel_dev *accel_dev)
- {
- 	struct adf_accel_pci *pci_dev_info = &accel_dev->accel_pci_dev;
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_sriov.c b/drivers/crypto/intel/qat/qat_common/adf_sriov.c
-index 31d1ef0cb1f52e..a95aa3e066a3e6 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_sriov.c
-+++ b/drivers/crypto/intel/qat/qat_common/adf_sriov.c
-@@ -26,6 +26,9 @@ static void adf_iov_send_resp(struct work_struct *work)
- 	u32 vf_nr = vf_info->vf_nr;
- 	bool ret;
- 
-+	if (READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		goto out;
-+
- 	mutex_lock(&vf_info->pfvf_mig_lock);
- 	ret = adf_recv_and_handle_vf2pf_msg(accel_dev, vf_nr);
- 	if (ret)
-@@ -33,13 +36,18 @@ static void adf_iov_send_resp(struct work_struct *work)
- 		adf_enable_vf2pf_interrupts(accel_dev, 1 << vf_nr);
- 	mutex_unlock(&vf_info->pfvf_mig_lock);
- 
-+out:
- 	kfree(pf2vf_resp);
- }
- 
- void adf_schedule_vf2pf_handler(struct adf_accel_vf_info *vf_info)
- {
-+	struct adf_accel_dev *accel_dev = vf_info->accel_dev;
- 	struct adf_pf2vf_resp *pf2vf_resp;
- 
-+	if (READ_ONCE(accel_dev->pf.vf2pf_disabled))
-+		return;
-+
- 	pf2vf_resp = kzalloc(sizeof(*pf2vf_resp), GFP_ATOMIC);
- 	if (!pf2vf_resp)
- 		return;
-@@ -49,6 +57,12 @@ void adf_schedule_vf2pf_handler(struct adf_accel_vf_info *vf_info)
- 	queue_work(pf2vf_resp_wq, &pf2vf_resp->pf2vf_resp_work);
- }
- 
-+static void adf_flush_pf2vf_resp_wq(void)
-+{
-+	if (pf2vf_resp_wq)
-+		flush_workqueue(pf2vf_resp_wq);
-+}
-+
- static int adf_enable_sriov(struct adf_accel_dev *accel_dev)
- {
- 	struct pci_dev *pdev = accel_to_pci_dev(accel_dev);
-@@ -75,7 +89,7 @@ static int adf_enable_sriov(struct adf_accel_dev *accel_dev)
- 		hw_data->configure_iov_threads(accel_dev, true);
- 
- 	/* Enable VF to PF interrupts for all VFs */
--	adf_enable_vf2pf_interrupts(accel_dev, BIT_ULL(totalvfs) - 1);
-+	adf_enable_all_vf2pf_interrupts(accel_dev, totalvfs);
- 
- 	/*
- 	 * Due to the hardware design, when SR-IOV and the ring arbiter
-@@ -249,8 +263,10 @@ void adf_disable_sriov(struct adf_accel_dev *accel_dev)
- 	adf_pf2vf_wait_for_restarting_complete(accel_dev);
- 	pci_disable_sriov(accel_to_pci_dev(accel_dev));
- 
--	/* Disable VF to PF interrupts */
-+	/* Block VF2PF work and disable VF to PF interrupts */
- 	adf_disable_all_vf2pf_interrupts(accel_dev);
-+	adf_isr_sync_ae_cluster(accel_dev);
-+	adf_flush_pf2vf_resp_wq();
- 
- 	/* Clear Valid bits in AE Thread to PCIe Function Mapping */
- 	if (hw_data->configure_iov_threads)
--- 
-2.53.0
-
+On 7/13/26 10:30, Doruk Tan Ozturk wrote:
+> amdxdna_drm_submit_execbuf() passes the user-supplied command BO handle
+> straight into amdxdna_cmd_submit() with drv_cmd == NULL. When the handle
+> is AMDXDNA_INVALID_BO_HANDLE (0), the block that fetches job->cmd_bo is
+> skipped, leaving it NULL, and no check rejects it on the user path (the
+> !job->cmd_bo guard lives inside the != INVALID branch).
+>
+> The job is then armed and pushed to the DRM scheduler.
+> aie2_sched_job_run() takes the drv_cmd == NULL path and calls
+> amdxdna_cmd_set_state(job->cmd_bo) -> amdxdna_gem_vmap(NULL) ->
+> to_gobj(NULL)->dev, a NULL pointer dereference in the drm_sched worker.
+> A process with access to the accel node on a system with a probed AMD NPU
+> can trigger a kernel oops with a single AMDXDNA_EXEC_CMD ioctl
+> (cmd_handles = 0).
+>
+> Only internal driver commands (SYNC_DEBUG_BO / ATTACH_DEBUG_BO)
+> legitimately pass AMDXDNA_INVALID_BO_HANDLE, and they always set drv_cmd.
+> Reject the invalid handle for user submissions (drv_cmd == NULL) at the
+> submit choke point so every user path is covered.
+>
+> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
+> Cc: stable@vger.kernel.org
+> Found by 0sec automated security-research tooling (https://0sec.ai).
+> Assisted-by: 0sec:claude-opus-4-8
+> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+> ---
+>   drivers/accel/amdxdna/amdxdna_ctx.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+> index 8f8df9d04ec5..a5c8c2c4de6d 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+> @@ -603,6 +603,16 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
+>   			ret = -EINVAL;
+>   			goto free_job;
+>   		}
+> +	} else if (!drv_cmd) {
+> +		/*
+> +		 * Only internal driver commands (drv_cmd != NULL) may omit a
+> +		 * command BO. A user command submission with the invalid handle
+> +		 * would leave job->cmd_bo NULL and later fault when the scheduler
+> +		 * dereferences it in amdxdna_cmd_set_state().
+> +		 */
+> +		XDNA_DBG(xdna, "Command BO handle required for user submission");
+> +		ret = -EINVAL;
+> +		goto free_job;
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   	}
+>   
+>   	ret = amdxdna_arg_bos_lookup(client, job, arg_bo_hdls, arg_bo_cnt);
