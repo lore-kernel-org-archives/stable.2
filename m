@@ -1,155 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E2743990C;
-	Wed, 15 Jul 2026 19:14:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8BE4248B2
+	for <stable@vger.kernel.org>; Wed, 15 Jul 2026 19:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784142900; cv=none; b=QKifNezgJ/dpgn/RVs368AdgWJ6BQviOONVyuNhXjgZiZJ1PbZYzEj1sv6Rpy3Ec22w8WVjLzHbLQdBoZRIpjn1lBTB20Ihui6f1ych5lj6Gu9W/blM6j8USIyKRCJpOfHk6Qd7Grmm0PFrlsgedc7OTRUrLYIAkipKuQn2hNVU=
+	t=1784143831; cv=none; b=CT4fWArwsjY3v53tEDsVb1vTmpmjByDCQZOrlzvRzSgfkOR61KZB6TSWDJR07DCwnbfAhicLuY+K+zmQIultHvISla6Zd8TfFncViv/PR4P6znvJRjeEWlNwE6PCIvM5JpsnttyyINUsyg/rK/WhjGFEjHCUhW/NV8n73SQwgYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784142900; c=relaxed/simple;
-	bh=BitMsdpYlmRsQ+WtZPj/BVpz8gGVy0hDB0gnkgD3yus=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=tdrgYshVQnjSHkuX9BYlKHHLOQMMPGJLhPSEsfW+Rdx78/AySJwv7+EW/J5v/PdEnOYdItNinv0WnCqpzT/8z5FLfgLcd80cHBUGy1r3xndBzbXgjhysNmxRZ9kmQjliL4PVET0angoArlAn5jW9AfuO7RjIQ1oKjVt9G52LrFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wM3fu0hQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784143831; c=relaxed/simple;
+	bh=/o2pQ6I0UNHS1txPe1Ba1QmitdEVq/qnXd8xOzN3DmI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GjtDqhizc1fgfsSLWQIp1o/u40u5mrmuwUMXXW1IHCU0+8CH51DFBxuXGKcE0B4DZH2rktuSLHctrF9VR4BUMwl1RJD9JQ+1FLTX0UbqFCpWZxFfgTNG5zVOzqW15+6oChNP6MG+lkqOoYNZYY9l6vOPf5G2SWe6WA9nf3BoqSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=waychison.com; spf=pass smtp.mailfrom=waychison.com; dkim=pass (1024-bit key) header.d=waychison.com header.i=@waychison.com header.b=CCnFbz9c; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=waychison.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=waychison.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wM3fu0hQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D151F00ADB;
-	Wed, 15 Jul 2026 19:14:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=waychison.com header.i=@waychison.com header.b="CCnFbz9c"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38759bcd877so5111466a91.2
+        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 12:30:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784142893;
-	bh=ViHw0i/Ol3YgTRIw9C4EDJ0sBKCT3F9/+wZKL98nwYI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=wM3fu0hQUE2ZXeszCzbkXLBbR0dCG5bwf0UQtBQA7nGKj9H0vkzsdRCLcRDBHDRvl
-	 oW/UCFp1zjFYwiluqA8Anl7AliHSWpMayahnYCHmlv73JUX7cea0fqZAmvYU/9P40A
-	 C3SsVY8UUbuFctRY81KY8OGqMm6+JX0KWy6eVf38=
-Date: Wed, 15 Jul 2026 12:14:52 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil
- Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, David
- Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal
- Hocko <mhocko@suse.com>, Uladzislau Rezki <urezki@gmail.com>, Toshi Kani
- <toshi.kani@hpe.com>, Dave Hansen <dave.hansen@linux.intel.com>, Andy
- Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Thomas
- Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
- <bp@alien8.de>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Catalin
- Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Dev Jain
- <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, David Carlier
- <devnexen@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- stable@vger.kernel.org,
- syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-Subject: Re: [PATCH mm-hotfixes v3 1/4] mm/vmalloc: acquire init_mm lock on
- huge vmap to avoid ptdump UAF
-Message-Id: <20260715121452.3e8047663eeaaa3048f80985@linux-foundation.org>
-In-Reply-To: <178412496800.59347.11482869717348078349.b4-reply@b4>
-References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
-	<20260714-series-vmap-race-fix-v3-1-b812eccfa0f9@kernel.org>
-	<aldhVdwj9oMRN1Lk@thinkstation>
-	<178412496800.59347.11482869717348078349.b4-reply@b4>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=waychison.com; s=google; t=1784143826; x=1784748626; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k3p19RXCQA1WgE0TNasZ3+exAMqY6Cp1IX2RpB7+gGE=;
+        b=CCnFbz9cAnqkw1I4PN/tYDRSCDtzOh/v55Hvz+ySX37+ibWMSofoHbjdtiOAc+zFue
+         bRGWDortR0NEghs8bTfOWgGEjN0HVYiQ1HihmDF62IZmSjVSqqS08CVQTqxP9TKAWNHk
+         L2f7s8pNJmLAWBqn7N/4jWiwVGD77/sJiG/9g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784143826; x=1784748626;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k3p19RXCQA1WgE0TNasZ3+exAMqY6Cp1IX2RpB7+gGE=;
+        b=QmbOtLsh84kH5bnsVriBHSnDC72KcvX+GJNPjJrHc0SnIeaM5AHTrmmxVR43pdcvyU
+         pwDQhgeW3j6Uz3MIkJNh3WHavUOxS0i/SSL9jALmqeHr6QHkZTjGPCoxnaAKhUatbHY9
+         kJAyyF35vDdU5bDp6pxlSg2pcL672QSKE7Ko+wdl6o+vasTUVODZ9pfTS6bvp6vHD/Ly
+         Kvrfi5lIMt2t60RoCr8PyrKkXmgQ4e6aowd7AFjMZ5ttlTvu3MNVqrsidq55D5LDycGa
+         hDJSFcEUCjP1iNnbEGe2SLHNCSrgFfHqk14y7H26rvcjxyoEvc37BW1IAYtlbg4YxNNS
+         mGDg==
+X-Forwarded-Encrypted: i=1; AHgh+Rqkw/OYFnUDg2a6ilDYoJxNKkJkl0oQVKL1uIG+7bGfGPsSVLvsURM4c1+aP/m23w08KDw0K+A=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzyoexKTUAdMJV31LBsekb2VH0jUP5sRne51nDEXxms50EM9Wnw
+	J65ENeZdyTHfMxBdb0aRpeI6ihvZTKnTWQpS2azKnQ2JWIvlyygUHPpPi00gVNCQAyM=
+X-Gm-Gg: AfdE7cncaX6u+D0NsmxSELVs6t4HPd8NxLidxnkAy50mVwXtZK5z7xGmPN5xEqikzTw
+	8Gv87mkQIJ97zn8czq48WdEMTY3V6plJlQMoHxjLoBT0UXs7v9fRuZ3+sYlX5uP6gIqPxWqGZA2
+	H07aDohMir5PQIqF5KbthLQyTYDo4vuJ0E0SBF4vxDNjt2Sfwef+zj3xrdSD46GyID+dnBF6TRB
+	FICQNf1Ziq/XTGndM4WmbD7sf9ZDDCXHX4a8Au0H6zyDIzymEuPhpyhuj0WOyvFZWo4HiNBMu7s
+	xQhcEgRPIgUQs2xF9ziWWMYlgynmcb82SO65Y7BPrRnwqTg1l/WtWzgAXefG0WPpQV3NVXieb7W
+	wXvtAQeZPuLWVGSkwmmxY/T10R0viwxxm4uBLLvonEYXA7DnBpMoBwbGAzgCIsxVPItx0R//Pto
+	MDjTvwY5g=
+X-Received: by 2002:a17:90b:4a04:b0:387:e0bb:5802 with SMTP id 98e67ed59e1d1-38e2a12332amr3793336a91.41.1784143825821;
+        Wed, 15 Jul 2026 12:30:25 -0700 (PDT)
+Received: from mike-yyz. ([184.175.42.134])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39e1b7adsm84595a91.7.2026.07.15.12.30.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 12:30:25 -0700 (PDT)
+From: Mike Waychison <mike@waychison.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	Usama Arif <usama.arif@linux.dev>
+Cc: linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mike Waychison <mike@waychison.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] block: fix race in blk_time_get_ns() returning 0
+Date: Wed, 15 Jul 2026 15:29:50 -0400
+Message-ID: <20260715192950.2488921-1-mike@waychison.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 15 Jul 2026 15:16:08 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+blk_time_get_ns() populates the per-plug cached timestamp and then
+returns it by re-reading the field:
 
-> On 2026-07-15 11:34 +0100, Kiryl Shutsemau wrote:
-> > On Tue, Jul 14, 2026 at 06:24:23PM +0100, Lorenzo Stoakes wrote:
-> > > Currently there is a nasty race between ptdump and vmap when attempting to
-> > > map a huge P4D, PMD or PUD entry:
-> >
-> > Nit: that's a strange order of levels :P
-> 
-> Ha, seems I couldn't decide on ordering so went with something random :P
-> 
-> Let's try 'P4D, PUD or PMD' instead :))
-> 
-> >
-> > > Fix this by holding the mmap read lock in vmap_try_huge_*() when freeing
-> > > page tables.
-> >
-> > How about adding here something like:
-> >
-> >   The read lock is sufficient: ptdump is the only walker that must be
-> >   excluded and it holds the mmap write lock. Other holders of the read
-> >   lock may run concurrently, but each exclusively owns the range it
-> >   operates on and cannot reach the page tables freed here.
-> 
-> You mean maybe I put the commit message on _too_ much of a diet? :)
-> 
-> Yeah sure, sounds good.
+	if (!plug->cur_ktime) {
+		plug->cur_ktime = ktime_get_ns();
+		current->flags |= PF_BLOCK_TS;
+	}
+	return plug->cur_ktime;
 
-I made this changelog alteration:
+This is problematic when the compiler emits the final
+"return plug->cur_ktime" as a reload from memory, after PF_BLOCK_TS has
+already been set.
 
---- a/txt/mm-vmalloc-acquire-init_mm-lock-on-huge-vmap-to-avoid-ptdump-uaf.txt
-+++ b/txt/mm-vmalloc-acquire-init_mm-lock-on-huge-vmap-to-avoid-ptdump-uaf.txt
-@@ -103,6 +103,11 @@ walk_page_range_debug(), vmap takes no relevant locks at all.
- Fix this by holding the mmap read lock in vmap_try_huge_*() when freeing
- page tables.
+Since the cached timestamp is now invalidated from finish_task_switch()
+(fad156c2af22 "block: invalidate cached plug timestamp after task
+switch"), a task preempted between setting PF_BLOCK_TS and that reload
+has plug->cur_ktime zeroed by blk_plug_invalidate_ts() when it is
+scheduled back in.  The reload then returns 0.
+
+A 0 handed back here is stored as a start timestamp -- e.g.
+blk_account_io_start() writes it to rq->start_time_ns -- and later
+subtracted from "now".  blk_account_io_done() then adds (now - 0), i.e.
+roughly the system uptime, to the per-group nsecs[] counters.  On an
+otherwise idle, healthy device this appears as sudden ~uptime-sized jumps
+in the diskstats time fields (write_ticks/discard_ticks/time_in_queue).
+
+The solution is to be explicit in our reads and writes to this field
+that is preemption volatile.  We also add a barrier() to ensure that any
+setting of PF_BLOCK_TS is ordered to happen after the cur_ktime update.
+
+This issue was discovered using AI-assisted kprobes looking for paths
+that were leaking zeroed timestamps in a live system, based on the
+observation that we were sometimes seeing uptime-sized jumps in kernel
+exported counters. This was flagged by NodeDiskIOSaturation
+prometheus alerts that started firing on all hosts post 7.1.3 kernel
+upgrade, due to node-exporter now exporting a nonsensical
+node_disk_io_time_weighted_seconds_total.
+
+Fixes: fad156c2af22 ("block: invalidate cached plug timestamp after task switch")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mike Waychison <mike@waychison.com>
+Assisted-by: Claude:claude-opus-4.8
+---
+ block/blk.h | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/block/blk.h b/block/blk.h
+index b998a7761faf..17e03656ba9a 100644
+--- a/block/blk.h
++++ b/block/blk.h
+@@ -689,6 +689,7 @@ static inline int req_ref_read(struct request *req)
+ static inline u64 blk_time_get_ns(void)
+ {
+ 	struct blk_plug *plug = current->plug;
++	u64 now;
  
-+The read lock is sufficient: ptdump is the only walker that must be
-+excluded and it holds the mmap write lock.  Other holders of the read lock
-+may run concurrently, but each exclusively owns the range it operates on
-+and cannot reach the page tables freed here.
-+
- We also hold the lock while assigning the huge page table entry, which
- means page table walkers observe only the huge or non-huge page table
- entry.
-
-> >
-> > > +	/*
-> > > +	 * Kernel page table walkers either walk ranges they own exclusively or
-> > > +	 * hold the mmap write lock on init_mm (ptdump being the motivating
-> > > +	 * case).
-> > > +	 *
-> > > +	 * Therefore, acquire the mmap read lock to prevent use-after-free when
-> > > +	 * freeing page tables.
-> > > +	 */
-> >
-> > Same for the comment, maybe:
-> >
-> >       /*
-> >        * Acquire the mmap read lock to exclude ptdump, which walks
-> >        * kernel page tables it does not own under the mmap write lock.
-> +	 *
-> >        * Concurrent read lock holders are safe: each exclusively owns
-> >        * the range it operates on and cannot reach this page table.
-> >        */
-> 
-> Yeah that's better agreed.
-> 
-> Let's replace it, but I think (being super nitty) with an extra blank line as
-> above.
-
-This?
-
---- a/mm/vmalloc.c~mm-vmalloc-acquire-init_mm-lock-on-huge-vmap-to-avoid-ptdump-uaf-fix
-+++ a/mm/vmalloc.c
-@@ -163,12 +163,11 @@ static int vmap_try_huge_pmd(pmd_t *pmd,
- 		return pmd_set_huge(pmd, phys_addr, prot);
- 
- 	/*
--	 * Kernel page table walkers either walk ranges they own exclusively or
--	 * hold the mmap write lock on init_mm (ptdump being the motivating
--	 * case).
-+	 * Acquire the mmap read lock to exclude ptdump, which walks kernel
-+	 * page tables it does not own under the mmap write lock.
- 	 *
--	 * Therefore, acquire the mmap read lock to prevent use-after-free when
--	 * freeing page tables.
-+	 * Concurrent read lock holders are safe: each exclusively owns the
-+	 * range it operates on and cannot reach this page table.
+ 	if (!plug || !in_task())
+ 		return ktime_get_ns();
+@@ -697,12 +698,18 @@ static inline u64 blk_time_get_ns(void)
+ 	 * 0 could very well be a valid time, but rather than flag "this is
+ 	 * a valid timestamp" separately, just accept that we'll do an extra
+ 	 * ktime_get_ns() if we just happen to get 0 as the current time.
++	 *
++	 * cur_ktime can be zeroed by pre-emption the moment PF_BLOCK_TS is set.
  	 */
- #ifndef CONFIG_ARM64
- 	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
-_
-
+-	if (!plug->cur_ktime) {
+-		plug->cur_ktime = ktime_get_ns();
++	now = READ_ONCE(plug->cur_ktime);
++	if (!now) {
++		now = ktime_get_ns();
++		WRITE_ONCE(plug->cur_ktime, now);
++		/* Ensure PF_BLOCK_TS is set after cur_ktime. */
++		barrier();
+ 		current->flags |= PF_BLOCK_TS;
+ 	}
+-	return plug->cur_ktime;
++	return now;
+ }
+ 
+ static inline ktime_t blk_time_get(void)
+-- 
+2.47.3
 
