@@ -1,50 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6920B757EA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6C5352021;
 	Wed, 15 Jul 2026 03:10:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784085013; cv=none; b=AYmLwX3VtLlfrVdsQjVabNlJ62A/cr+FocuBJPuAOFOgQLSsxT1lUvrV8xDSJE6AwqklCVsDjCnvcdX1gdTR6U5H1LyrB57c7p01/BUL6o7VMVkT7twf3VrE/BPmolopTnnwzidAEYAgSihg2hMt1iVRgCiSOCyVlcBHfn4t8D0=
+	t=1784085013; cv=none; b=oI89p5RqFICx2VWUIa6fdoED9c/4r72MXl6I4buQY86/nkRr8yhWiuTwDTw5mHZD8zcZ8yjX/KXMLTSrM8cQXGSvYIIPWPPtAEdklrQBfIDHWjD00jidQ9E9PtZEH5DtBZv2rYLWAivuuo5/NXnlncpSSVV6ddSESkexRKsak/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784085013; c=relaxed/simple;
-	bh=8FLrvyXbypcB7/NYujxfjOGZbZPVW048/ercppBGBe4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EU5VsiulFhJgowwqMsEBStX7mZKnBgxDWfO29N/ibzL5ArHC+RMVVOwFTxq2WNVxE6I5lLC2VO3tQw2jt2Edfh//QgbM4LlRJ6NGGMDpy68ZQkJkEivHeVX4vdIOVYX+t8pCIDWvrpdPmpc2/HoROHA4QIpK/u189uaEnjiXNAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N74Od/Ek; arc=none smtp.client-ip=100.103.45.18
+	bh=uommVYjcgv1yUQymXHLWitvXUy8HlVyIq9wOy8obzmw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GR3pj4huNzOdlZCpk+pdRmqzZAKkj+8fg3/pHJc/DrHZ5Ck1Jv1Ij8IcEo7KgGzc6U7lQPD9l/MJDFjixL7na6diNe84srdvZnoEh08E6lwJ7Ow+mNHJUeUygPytgKg14mfwhId054ZPDeiSm1fyROsJRP9xm+7jRRu8X/h/WDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJVol9+h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N74Od/Ek"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2FC1F000E9;
-	Wed, 15 Jul 2026 03:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJVol9+h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227411F00A3D;
+	Wed, 15 Jul 2026 03:10:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784085012;
-	bh=zX5F+4lmbeae1CeGb/wxT1HGr47P+pAaJ2W/OiCCHm8=;
-	h=From:To:Cc:Subject:Date;
-	b=N74Od/EkYRy+y+m8B+GCPqq9csaIQ4tdN+b70jJHtcQ6Ip5IN6BCNhhd8eM9oGIYR
-	 2z7A7HDv7NksiEeb6yv5knT0aVbUNdvOJ4NusC7po080ymGjZRsNZ7Gd5baBh6F6nV
-	 V1e6zzjHjGlhki4F8gLUEWX9NgbwNQjgKHRBmyuRJ5ajc7qjHdBhtJQg6y33Lw+2pJ
-	 iWq0bIsk2Qu21W40SJX579OPlGhA8UfhYjaC10DcD6HOhGRgDBG2Zp+mpVR9aM3gb5
-	 PZQIxBLd3cSMaXJauJC/xj6HWwS5jG9/oz/3UYd69n+/zlOIx7sIQVQ8JAINn6Qfos
-	 OsjEzZF2G0xIQ==
+	bh=Q9KjTQrAluw9j+QP6j3O8xbCeroVnCVq06v65dUktLw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EJVol9+hnUXr2MkTGjNeeTnr9zgtGiH5lhzdGvYd5zJCaySf6cSWxfS2J3u35p82W
+	 aN7k6jW22+/k8MA0TjfYViaGj0UAvcbe6CKpmzA1dp9E3K6YhK2ZdiYbQ0X7OM0XuI
+	 dl/ev0OzfVJ8SUjSrzFznTDRFzs+1NpfgomlPcRCKQO/u+Dh8IWCUwhA5ueQLIzG6L
+	 5paLEU0Opf1bam6u3Q2eugM68ni7424Ag6gCP5C41ySgpo22WQZ3rGKa8y344o1L8Y
+	 xvkVkSdvWNiU52kuxdqXM20DRFUDW71jWFix1mRQCU7heAgrJ2k910rqfYpb0g9ee5
+	 cDRNSdDPvfA/Q==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Fernand Sieber <sieberf@amazon.com>,
-	Leonard Foerster <foersleo@amazon.de>,
-	Quanmin Yan <yanquanmin1@huawei.com>,
-	SeongJae Park <sjpark@amazon.de>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
 	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH v1.1 0/6] mm/damon: unurgent fixes for infinite loop, NULL de-ref and races
-Date: Tue, 14 Jul 2026 20:09:55 -0700
-Message-ID: <20260715031002.108504-1-sj@kernel.org>
+Subject: [PATCH v1.1 1/6] mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
+Date: Tue, 14 Jul 2026 20:09:56 -0700
+Message-ID: <20260715031002.108504-2-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260715031002.108504-1-sj@kernel.org>
+References: <20260715031002.108504-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,47 +47,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Sashiko found a few issues in DAMON that could cause infinite loop, NULL
-dereference and monitoring results degradation.  The first two sounds
-scary but the infinite loop happens only under unreasonable user setup.
-The NULL dereference is only in a unit test.  Monitoring results
-degradation is trivial since it is only best-effort, and those happens
-from only unlikely races.  Still those are bugs that better to fix if
-possible. Fix those.
+Due to online parameter update like events, the number of DAMON regions
+could be higher than the user-set upper limit.  kdamond_merge_regions()
+repeats merge regions until the number meets the limit, while doubling
+the merge threshold up to the theoretical maximum threshold.  It is
+tried only up to the theoretical maximum threshold because even the
+aggressive merging can fail from reducing the number of regions under
+the user-defined upper limit.  For example, there could be many
+user-defined non-contiguous regions that cannot be merged.
 
-Changes from v1
-- v1: https://lore.kernel.org/20260714135236.92699-1-sj@kernel.org
-- Add addr_unit race fix.
-- Add Fixes: tags to the race fixes.
-- Wordsmith subjects.
-Changes from RFC v1.2
-- RFC v1.2: https://lore.kernel.org/20260713135838.32730-1-sj@kernel.org
-- Drop RFC tag.
-- Rebase to latest mm-new.
-Changes from RFC v1.1
-- RFC v1.1: https://lore.kernel.org/20260712170328.91144-1-sj@kernel.org
-- Remove same_target param from __damon_va_check_access().
-Changes from RFC
-- RFC: https://lore.kernel.org/20260711180409.82093-1-sj@kernel.org
-- Rebase to mm-new.
+The threshold based loop break condition is evaluated by comparing the
+threshold for the next merging try against the theoretical maximum
+threshold.  If max_thres is larger than UINT_MAX / 2, doubling the
+threshold could make it overflow, and bypass the loop break condition.
+In the case, if the number of regions cannot be reduced under the upper
+limit like explained above, the loop will run infinitely.
 
-SJ Park (6):
-  mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
-  mm/damon/tests/core-kunit: catch test failure in
-    test_merge_regions_of()
-  mm/damon/vaddr: drop last same folio access check optimization
-  mm/damon/paddr: drop last same folio access check reuse optimization
-  mm/damon/sysfs: read addr_unit only once in damon_sysfs_apply_inputs()
-  mm/damon/sysfs: read ops_id only once in damon_sysfs_apply_inputs()
+Prevent the case by doing the break condition check before doubling the
+threshold.  Also, prevent the threshold exceeding the maximum threshold,
+as it could overflow and apply the wrong merge threshold.
 
- mm/damon/core.c             | 13 +++++++++----
- mm/damon/paddr.c            | 20 ++++----------------
- mm/damon/sysfs.c            | 10 ++++++----
- mm/damon/tests/core-kunit.h |  3 +++
- mm/damon/vaddr.c            | 33 ++++++---------------------------
- 5 files changed, 28 insertions(+), 51 deletions(-)
+This issue is unlikely to occur in real world, since having the
+max_thres higher than UINT_MAX / 2 require unrealistically large
+aggregation intervals compared to the sampling interval.  Also, it
+requires an unrealistically large number of uncontiguous regions setup.
+Nonetheless, the consequence is bad and the fix is simple.
 
+The issue was discovered [1] by Sashiko.
 
-base-commit: 52d335d2c1de60b6184b9de5ecec634892a3e136
+[1] https://lore.kernel.org/20260709145425.96247-1-sj@kernel.org
+
+Fixes: 310d6c15e910 ("mm/damon/core: merge regions aggressively when max_nr_regions is unmet")
+Cc: <stable@vger.kernel.org> # 6.10.x
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 6c4215cc809ec..603b102ff80f9 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3372,7 +3372,7 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+ 
+ 	max_thres = c->attrs.aggr_interval /
+ 		(c->attrs.sample_interval ?  c->attrs.sample_interval : 1);
+-	do {
++	while (true) {
+ 		nr_regions = 0;
+ 		damon_for_each_target(t, c) {
+ 			damon_merge_regions_of(t, threshold, sz_limit, c,
+@@ -3380,9 +3380,14 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+ 			nr_regions += damon_nr_regions(t);
+ 		}
+ 		count_age = false;
+-		threshold = max(1, threshold * 2);
+-	} while (nr_regions > c->attrs.max_nr_regions &&
+-			threshold / 2 < max_thres);
++		if (nr_regions <= c->attrs.max_nr_regions ||
++				max_thres <= threshold)
++			break;
++		if (threshold < max_thres / 2)
++			threshold = max(1, threshold * 2);
++		else
++			threshold = max_thres;
++	}
+ }
+ 
+ #ifdef CONFIG_DAMON_DEBUG_SANITY
 -- 
 2.47.3
