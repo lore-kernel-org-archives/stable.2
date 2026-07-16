@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A193B369D68
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:40:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F971A2C25
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:40:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784202042; cv=none; b=G+p8kgm24RuwxuPX1TBh1pGDGK5yNwBZkYIpL5EnLQADP7BUU/s9ey1aXrnduLcPuBfctsYKLCfdM561JFKKPEGczqC9vfB1h3TEzLRFatbM01bZyag4TzhDq5O2+1LkzlMlBZQ+wGSmBQFG0L7x8L0Xsz5PXjBsjuzaQiKcp7E=
+	t=1784202045; cv=none; b=lxtStxAI4tVJC+QkyFugfXOD6mFhlWMUjRv08Xw9ZBxEv0ruIp5GQFUsKttombgo0ebO45IfTRSPm2ysYsW5k+na2qH8S3ZmGHoZ3Kh8v68EmAxhguClFsDdOZaDh8jUPOIxTXquo//tD17xe4z75UAs2ik/fLffM7mJov4MlUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784202042; c=relaxed/simple;
-	bh=l406b9xFGXsxmwdEsTL6EFAmuzD5w2mmjUBlbz/5GEY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eikMdoAWS3S0wlkIht5ksJ+UxtNuxRSEtE4a4IXb4YOrEsbXgF34p2+LfYkKLsui7Ynpay12aC+3gbRbMe9L2X0Ew7tfH6pPtr8ezQ6hTS0MCTqILVZ9I8ECR8XAq21HDdlSeunL2i/4Nc+UylerPddNXKxc1au923ov0NzCg+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FmlqU/C7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784202045; c=relaxed/simple;
+	bh=cfFMEAoyt6YYBYQHTT7s9GbGdD6QLv0eyuue1J912Q4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RvQnH3Mx8BkeWsX0rOfEXsuGNGo6p3TrVclQmiCPIUxlXo7xO/QqxU2FiM0bNBS6r+asS/dxExXm1bV60fG5kEFvpq9G4HEIO50c6W73wOtGVgBbKuNFun0i2Eog6iQbA2L3DHCi4AC8sebBnrjxV4OCUeulHYpZrKHOpjkB35E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aEgk6J9N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FmlqU/C7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127771F000E9;
-	Thu, 16 Jul 2026 11:40:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aEgk6J9N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9E321F000E9;
+	Thu, 16 Jul 2026 11:40:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784202041;
-	bh=f2vuHZRSzMnVWvXg8YeNy8JTzP2YSj4kSJd+nveccRM=;
+	s=korg; t=1784202044;
+	bh=+YHt9gPlUaVOTcWiVq2LaRfONoeWBUNP1YmHe4gH9KY=;
 	h=Subject:To:Cc:From:Date;
-	b=FmlqU/C7gbEwS5m9gXgeVQ3xRJV3oa1mKe6zi67bMlIPqS7xIQDVclVFb4rsZ7n6Q
-	 ykZaChUNGM5H58luUNdPSM99wKxykUPZ1adALdNZnyle2/dTHPngwQSylP40Ek3lcq
-	 qJU3Bom2/KARiaQtt2KIEbioRWq5/NbVvhlgIqs8=
-Subject: FAILED: patch "[PATCH] KVM: VMX: Handle bad values on proxied writes to LBR MSRs" failed to apply to 6.1-stable tree
+	b=aEgk6J9NPV/NF1r+Dji2XXcoTFvLULXIgaZsA1xt4NJYANb5xHvvFNsFTFmvs3ZwA
+	 SpfgiE3J31TmWbv1dXIJt9EjXT2D//zLujUeIIYl32BZvBtQ5WOOEhK5ZqcrpoT3qR
+	 yXWJPNvn0Hd5+kk2iISM+16NVpxkod7n7KHr8OH8=
+Subject: FAILED: patch "[PATCH] KVM: VMX: Handle bad values on proxied writes to LBR MSRs" failed to apply to 5.15-stable tree
 To: 1356292400@qq.com,seanjc@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 16 Jul 2026 13:40:31 +0200
-Message-ID: <2026071631-unblock-ambiguous-5bd2@gregkh>
+Message-ID: <2026071631-blinked-imprint-b996@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x ca674df13b195eb6d124ab059799d4e03fa40624
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071631-unblock-ambiguous-5bd2@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071631-blinked-imprint-b996@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
