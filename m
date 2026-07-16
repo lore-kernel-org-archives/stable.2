@@ -1,86 +1,144 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7A02DF6F4;
-	Thu, 16 Jul 2026 06:32:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064922D3733
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 06:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784183574; cv=none; b=EpVxLvR4CZ4Ui4hJHB1MuoDw2uBOa8lEvlPhAotAlAQbzyQFsBmYHBlUGiOJ5ygroeK69es9vHEhw+PILPm5i2CL4OTsnf2hvY3pADxsF5hBSCGRYn2IASGTAIb4Tx4y6sHM2c67amVtXPDT+IQW1pmo+vWm25r5zKCKaZaL/YY=
+	t=1784183595; cv=none; b=i/dAX2jHw2hEmsGhKyts44jyHKnx/T6PNdIxx9YB3xIS0p96gfDvhShNjlN+LsHXZP3miFXGYXMwfYh9CzW+OBThq+Kb3kJK/aX2mbq4JfZRgocEe9z+kCbQ4EReEqThbKs0DtE8lRnNw2HHoL0J7Qc74BKM5i2BtX67H60Z+io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784183574; c=relaxed/simple;
-	bh=lDA7uCvnT/xeTZbznuLWB9yjRaZIyZth5Q4edj9STPE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ro+DHdSdBQGiIdddgCfAhM94t6qCwTxPbYbax8w6cTA7PN8upb8/w3IwZaJKA6KIqLwZIMSkCGPzt1W0iYi/vqmpvbmViCG4BmFN5wmn0YgEi45GI/wfiblsw17g2W0MMVeQawMqXGCIa54MSnq9thkZagasS1UDU8Iza4g0S5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=GL0tSqxS; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784183595; c=relaxed/simple;
+	bh=AoCWTc3MW+swaTwkGBDulXLPXnVD3jFwnKFJQNtXxlo=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UpE407apeMxRbWctVg6m5kDfk0/1Tbpeknzs+jPPatb3Yef/7D9O09YDQyfFmz6VxU9xnak1pWBdpo5GkuD5EfO7fPlY+oOUQ/HQKLrYez/oS327dE1Tt7WStiCv02mXdm9k1Lml1z35gpyG9iVXK4P/bt1yiheJMoTBw5r7CLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SCN1W5Iu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XhghWAN9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tAoPtUKD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Lz3vlmNb; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="GL0tSqxS"
-Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
-	by mail11.truemail.it (Postfix) with ESMTPA id 1E74522924;
-	Thu, 16 Jul 2026 08:32:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784183570;
-	bh=CoCwsfMousf3sBF2a1Ij+N+podS4wPT0tmTiYv/NXgY=; h=From:To:Subject;
-	b=GL0tSqxSA7SnfbpyAmsErQKldrT3tyUoqBWFRihEQ15AmxuDWBAJhNRC+in+l2rLo
-	 myzbAnmZB8NHGJxxrqbmThqw163lgkP3WI2hbwOQq1YFUoIaV1V9T5Jbs7vm74HOfb
-	 +cYanV+u6qYUVo/K9e8lcew5CjI72Y1MY4whH0WuKqpoQEmsFGxysZb5rD5omrXjdS
-	 UwIrMdN5JdvxEFQWrmvDITkr2absnHSEc+Wi0w64PzBom8fhDG+uSoIl6HQTFWuHQW
-	 e2MyvOiR2uv+/S77+V69hEXfJsZFyQjdvcbMqO2GbXdxUqnJOMRh3g25VtfzFw8l9m
-	 JR/gg7QKck8eQ==
-Date: Thu, 16 Jul 2026 08:32:46 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Dan Carpenter <error27@gmail.com>, johannes.berg@intel.com
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Georgi Valkov <gvalkov@gmail.com>, briannorris@chromium.org,
-	kees@kernel.org, bhelgaas@google.com, s.kerkmann@pengutronix.de,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SCN1W5Iu";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XhghWAN9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tAoPtUKD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Lz3vlmNb"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id EA7A83E2F;
+	Thu, 16 Jul 2026 06:33:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1784183591; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vpEbQYgMhJXLSFQOLQNHx5VArl8HE6uzLTJ6pKi36MM=;
+	b=SCN1W5IudHYqoJGPDcpbnWB5TSpDzvaF840eG+PBwQyzezbxYCh9Qdy3iAhloC9Y32DJhs
+	JmPsyJNYtykCrKC56XSSzi9/n030mxlhXP33+qHb5WbSG8pb3mi6yD3+bcczAkJ402pdke
+	+5OPs1rVo8HhUK2cacM0YKmIr//vvWA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1784183591;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vpEbQYgMhJXLSFQOLQNHx5VArl8HE6uzLTJ6pKi36MM=;
+	b=XhghWAN9ICo8V7LFemQLudCZI1Vc5tURpPupl0gvpHOullpfSbGlvAEx8Aim4O3TgsZvBx
+	9E6/en0G32UwIPCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1784183590; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vpEbQYgMhJXLSFQOLQNHx5VArl8HE6uzLTJ6pKi36MM=;
+	b=tAoPtUKDD6tb8CzfEvQtuiFpj3Nz4FvSpphoDT3Pzfu+VOS9W1haJHfpHcox+eclJLGiT/
+	miO+BiiC93JjObtxXnU/Ed3cffYNnCvaFhduOpauv8uZWymS0qpu/EWReX2h09gREcMtMr
+	Z/U67Uye3heCrnP5fqQVegw+THAdVY0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1784183590;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vpEbQYgMhJXLSFQOLQNHx5VArl8HE6uzLTJ6pKi36MM=;
+	b=Lz3vlmNbXbwnDtyotqLiL+isPAyoQNOPRO/RLpH6x1Ms7jXasWjRIITVMpIe/MIH5M4KTP
+	lvjQqf7HW3YyWuBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A4FC6779AD;
+	Thu, 16 Jul 2026 06:33:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id OrlvJiZ7WGqmYwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 16 Jul 2026 06:33:10 +0000
+Date: Thu, 16 Jul 2026 08:33:10 +0200
+Message-ID: <874ihzwijd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: linux-sound@vger.kernel.org,
+	tiwai@suse.de,
+	peter.ujfalusi@linux.intel.com,
+	Uma Shankar <uma.shankar@intel.com>,
+	Alexander Kaplan <alexander.kaplan@sms-medipool.de>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v3] wifi: mwifiex: replace one-element arrays with
- flexible array members
-Message-ID: <20260716063246.GA17850@francesco-nb>
-References: <202607150932.F2A0836@keescook>
- <20260716001728.57799-1-gvalkov@gmail.com>
- <20260716061638.GB9973@francesco-nb>
- <alh5y74H5bJyDSSP@stanley.mountain>
+Subject: Re: [PATCH] ALSA: hda: codecs: hdmi: disable keep-alive before audio format change
+In-Reply-To: <20260715180610.1371243-1-kai.vehmanen@linux.intel.com>
+References: <20260715180610.1371243-1-kai.vehmanen@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alh5y74H5bJyDSSP@stanley.mountain>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -3.30
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Level: 
 
-On Thu, Jul 16, 2026 at 09:27:23AM +0300, Dan Carpenter wrote:
-> On Thu, Jul 16, 2026 at 08:16:38AM +0200, Francesco Dolcini wrote:
-> > On Thu, Jul 16, 2026 at 03:17:28AM +0300, Georgi Valkov wrote:
-> > > Replace deprecated one-element arrays with flexible array members.
-> > > CONFIG_FORTIFY_SOURCE reports the following warning when
-> > > one-element arrays are used as variable-length buffers:
-> > > 
-> > > sta_cmd.c:1033 mwifiex_sta_prepare_cmd
-> > > memcpy: detected field-spanning write (size 84) of single field
-> > > "domain->triplet" at .../marvell/mwifiex/sta_cmd.c:1033 (size 3)
-> > > 
-> > > Convert affected structs to use flexible array members.
-> > > - Preserve existing wire layouts.
-> > > - Use DECLARE_FLEX_ARRAY() for structs inside affected unions.
-> > > 
-> > > Tested-on: WRT3200ACM, OpenWrt
-> > > Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
-> > 
-> > Cc: stable@vger.kernel.org # 6.12+
-> > Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Wed, 15 Jul 2026 20:06:10 +0200,
+Kai Vehmanen wrote:
 > 
-> Are we CCing stable for this sort of thing?  How many FORTIFY_SOURCE
-> warnings are still remaining?
+> When a keep-alive (KAE) silent stream is active on an Intel HDMI/DP
+> codec, opening a real PCM stream reprograms the converter format and the
+> audio infoframe in snd_hda_hdmi_generic_pcm_prepare(). Part of that
+> reprogramming - the converter channel count and the channel mapping in
+> snd_hda_hdmi_setup_audio_infoframe() - is not safe to do while a
+> keep-alive stream is active. This is most visible when switching to a
+> multichannel PCM configuration, where the active channel count actually
+> changes. In that case the newly opened PCM stream plays no sound.
+> 
+> Add an optional hdmi_ops .prepare hook, called at the start of the
+> PCM prepare sequence (before the format and infoframe are touched), and
+> implement it for HSW+ to release keep-alive. Keep-alive is then
+> re-enabled as before once the new stream has been set up, in the
+> setup_stream op.
+> 
+> Fixes: 15175a4f2bbb ("ALSA: hda/hdmi: add keep-alive support for ADL-P and DG2")
+> Reported-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8412
+> Tested-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Yes, you are right, my mistake.
+Applied now.  Thanks.
 
-Johannes, please be sure to not have the stable tag in once you apply the
-patch.
 
-Francesco
-
+Takashi
