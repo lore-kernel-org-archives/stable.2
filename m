@@ -1,154 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE511388893;
-	Thu, 16 Jul 2026 06:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8396389100
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 06:06:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784181999; cv=none; b=tCdp3bnizK4gyNyUkgl+pWU/zhma0cDeZ/mhff9KdA1xqZS57Mm0kkYhMrROBReEYx6NTL161IfPwOo8CTpY0aSS5pu4ai7RgYcd3Nybl2BRBtQfeTlxnzi9BOoRDPGhD4yYXn3dGdEfokTq5qOTGIRRfYe3JxLU0v5wTdZf2Cs=
+	t=1784182003; cv=none; b=BOxkDpdp9Fx15+ea+HInsYqfKsf/tXRbGBcTUyuu41ZqpUwlwPldFSCgj2YKxdXRp+GQzFQHtCavo+jZZyeigRzcwo9kwTWp1rOfCxXinWTXdirNdpATXQqe3fCbRqrHmxNPilTC4pyGSXc2knbtZcw8OztrmrAJGgxj2HR2KW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784181999; c=relaxed/simple;
-	bh=W7zSiyWq7zLRqlS7n+NqF+e59B8FSWcP8N0IsUPo8bU=;
-	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=U+3wz2dxvxN8+6N4eFSO4cpDlS+tDiWQMUbbxeeKpWgEht9P5wlZbVfXPXy54wKMwax2Oqs+CrUeuxEnV5AZ36Esfi9p9xJnZ+bXwwbnw824rIoCYCu1PZvyUCMyGDIr4WyF2oDJvzGql6daDpA1XVzN7gWSQtGjwuAPK+mOPwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lIj2vkPs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784182003; c=relaxed/simple;
+	bh=dbXVOSGpG+ytP577TTz2cjwlzWO5l0LZk965xEyoSUw=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=REW2qNd2qOYMuLaYq/D5tJ85WfLpvDnCS379nFIDLOI3im08Y0Tqrvc9RezVEwnYJ/lmeGxl+HvhD5VPqKQp3nC3lX5lzKZxetwLuodCS2jwKl+TVs4+J7igat00u7COAWAdIr2zRcTHn3jzCkyf+r2K7R4SUkA9EuxL8FzgwDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CPd0apMa; arc=none smtp.client-ip=91.218.175.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lIj2vkPs"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 848691F000E9;
-	Thu, 16 Jul 2026 06:06:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784181998;
-	bh=h0ZdNN9ZsNMogxoYZrj02b4Khg7MMUrwfDAiOxgQuPs=;
-	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=lIj2vkPsaA9diJUcm0PA/kRz3+D9VNpV5harmFugLfR5A1rXXMiBO6j8ZG7nFc1nG
-	 JqBameOEfaCDgZgPHgL7PwD7GbYRM5zRV8JO+n4Iy/lwvOGWjT8+FDPxble8tBpIYs
-	 jmKhmyL5Ld/ESTCGz38AzLiBW0Z0JSl4cu+QdxzyNZ83+AtLQUf8ylXriySa6ztMO5
-	 oGGTkviQHA1O1/wCVrIH0FlDRtJRtLCN5xOYfSFtHdMKUPADV4PtAYXapBLDClhEAY
-	 Ub5mw2QMzvb+ltME9YLVIEQ0bWSasaUzQXP53lNrs3V7IzMjAveHo2evfqSX4Z/d9q
-	 lXByX3LqecXHg==
-Date: Wed, 15 Jul 2026 23:06:38 -0700
-Subject: [PATCH 2/6] xfs: fix transaction block reservation in xrep_rtbitmap
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: hch@lst.de, cem@kernel.org, djwong@kernel.org
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <178416797403.2008054.16457221917569138909.stgit@frogsfrogsfrogs>
-In-Reply-To: <178416797326.2008054.12517273271060887961.stgit@frogsfrogsfrogs>
-References: <178416797326.2008054.12517273271060887961.stgit@frogsfrogsfrogs>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CPd0apMa"
+Message-ID: <c5efad07-7188-4f18-bdc3-fceb8aedc9b8@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784181995;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7uhHNMGoknzcpdCX17NI7sXI5Sy8+5TFbMqGXleEpE4=;
+	b=CPd0apMauILsa0blk2Zc4Px4Ow25bSesO0rzdBGHpTKJ4yZpjwqUAkpX7TFVcZKhK6fxaR
+	AG2mg6BU/X6qqv1UFv01iPxLiwxms33oA/l21mXJ2trnE4zIM1IwnFkC2VE9oBVmK4V8YZ
+	8Oyr8gGKFp4RFowyOqGoGApS8ieFzXY=
+Date: Thu, 16 Jul 2026 14:06:27 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Cc: cui.tao@linux.dev, Muchun Song <muchun.song@linux.dev>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] mm: vmscan: fix node reclaim ignoring swappiness
+ parameter
+To: Ridong <ridong.chen@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>
+References: <20260716031729.1064007-1-ridong.chen@linux.dev>
+ <20260716031729.1064007-3-ridong.chen@linux.dev>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <20260716031729.1064007-3-ridong.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-From: Darrick J. Wong <djwong@kernel.org>
+Hi Ridong,
 
-LOLLM pointed out an inconsistency in the block reservation code in
-xrep_rtbitmap.  The first is that the reservation computation is not
-consistent between the code that sets up the repair and the code that
-tries to avoid exceeding the transaction reservation once we know how
-big the rtbitmap really must be.  As a result, the logic doesn't work.
+Reproduced the bug and verified the fix in a QEMU x86_64 guest with
+CONFIG_MEMCG disabled. Global vm.swappiness pinned to 1, then:
 
-In fixing that, a second problem emerges: if we do readjust, we ask for
-the entire reservation all over again.  We really only need the delta,
-so ask only for that.
+    echo "64M swappiness=<x>" > /sys/devices/system/node/node0/reclaim
 
-Fix all these problems by hoisting the computation to a trivial helper
-so that it gets used in both places.
+  swappiness= | buggy (anon/file)   | patched (anon/file)
+  ----------- | -------------------- | --------------------
+  max         |      0  /  16385     |  16292  /  0
+  200         |      2  /  16384     |  16837  /  0
+  1           |      0  /  16386     |      0  /  16467
 
-Cc: <stable@vger.kernel.org> # v6.14
-Fixes: 8defee8dff2b20 ("xfs: online repair of realtime bitmaps for a realtime group")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
----
- fs/xfs/scrub/rtbitmap_repair.c |   46 ++++++++++++++++++++++++----------------
- 1 file changed, 28 insertions(+), 18 deletions(-)
+Unpatched ignores the swappiness arg (always file); patched honors it.
+Matches the commit message.
 
+Tested-by: Song Hu <husong@kylinos.cn>
+Reviewed-by: Song Hu <husong@kylinos.cn>
 
-diff --git a/fs/xfs/scrub/rtbitmap_repair.c b/fs/xfs/scrub/rtbitmap_repair.c
-index dc64902d6c25a4..442a17bf972029 100644
---- a/fs/xfs/scrub/rtbitmap_repair.c
-+++ b/fs/xfs/scrub/rtbitmap_repair.c
-@@ -36,6 +36,24 @@
- 
- /* rt bitmap content repairs */
- 
-+/*
-+ * Reserve enough blocks to write out a completely new bitmap file, plus twice
-+ * as many blocks as we would need if we can only allocate one block per data
-+ * fork mapping.  This should cover the preallocation of the temporary file and
-+ * exchanging the extent mappings.
-+ *
-+ * We cannot use xfs_exchmaps_estimate because we have not yet constructed the
-+ * replacement bitmap and therefore do not know how many extents it will use.
-+ * By the time we do, we will have a dirty transaction (which we cannot drop
-+ * because we cannot drop the rtbitmap ILOCK) and cannot ask for more
-+ * reservation.
-+ */
-+static inline unsigned long long
-+xrep_rtbitmap_calc_blocks(struct xfs_mount *mp, unsigned long long blocks)
-+{
-+	return blocks + (xfs_bmbt_calc_size(mp, blocks) * 2);
-+}
-+
- /* Set up to repair the realtime bitmap for this group. */
- int
- xrep_setup_rtbitmap(
-@@ -56,20 +74,7 @@ xrep_setup_rtbitmap(
- 	if (error)
- 		return error;
- 
--	/*
--	 * Reserve enough blocks to write out a completely new bitmap file,
--	 * plus twice as many blocks as we would need if we can only allocate
--	 * one block per data fork mapping.  This should cover the
--	 * preallocation of the temporary file and exchanging the extent
--	 * mappings.
--	 *
--	 * We cannot use xfs_exchmaps_estimate because we have not yet
--	 * constructed the replacement bitmap and therefore do not know how
--	 * many extents it will use.  By the time we do, we will have a dirty
--	 * transaction (which we cannot drop because we cannot drop the
--	 * rtbitmap ILOCK) and cannot ask for more reservation.
--	 */
--	blocks += xfs_bmbt_calc_size(mp, blocks) * 2;
-+	blocks = xrep_rtbitmap_calc_blocks(mp, mp->m_sb.sb_rbmblocks);
- 	if (blocks > UINT_MAX)
- 		return -EOPNOTSUPP;
- 
-@@ -512,7 +517,7 @@ xrep_rtbitmap(
- 	struct xchk_rtbitmap	*rtb = sc->buf;
- 	struct xfs_mount	*mp = sc->mp;
- 	struct xfs_group	*xg = rtg_group(sc->sr.rtg);
--	unsigned long long	blocks = 0;
-+	unsigned long long	blocks;
- 	unsigned int		busy_gen;
- 	int			error;
- 
-@@ -532,15 +537,20 @@ xrep_rtbitmap(
- 	 * figure out if we need to adjust the block reservation in the
- 	 * transaction.
- 	 */
--	blocks = xfs_bmbt_calc_size(mp, rtb->rbmblocks);
-+	blocks = xrep_rtbitmap_calc_blocks(mp, rtb->rbmblocks);
- 	if (blocks > UINT_MAX)
- 		return -EOPNOTSUPP;
- 	if (blocks > rtb->resblks) {
--		error = xfs_trans_reserve_more(sc->tp, blocks, 0);
-+		uint64_t	delta = blocks - rtb->resblks;
-+
-+		if (delta > UINT_MAX)
-+			return -EOPNOTSUPP;
-+
-+		error = xfs_trans_reserve_more(sc->tp, delta, 0);
- 		if (error)
- 			return error;
- 
--		rtb->resblks += blocks;
-+		rtb->resblks += delta;
- 	}
- 
- 	/* Fix inode core and forks. */
+在 2026/7/16 11:17, Ridong 写道:
+> From: Ridong Chen <chenridong@xiaomi.com>
+> 
+> sc_swappiness() had two separate definitions depending on
+> CONFIG_MEMCG. The !CONFIG_MEMCG variant simply returned
+> vm_swappiness, ignoring the proactive_swappiness value passed
+> through scan_control. This caused the swappiness parameter
+> written to /sys/devices/system/node/nodeX/reclaim to have no
+> effect when CONFIG_MEMCG is disabled.
+> 
+> Fix this by consolidating sc_swappiness() into a single definition
+> that checks sc->proactive_swappiness first, then falls back to
+> mem_cgroup_swappiness() which already handles both CONFIG_MEMCG
+> and !CONFIG_MEMCG.
+> 
+> Before fix (swappiness=max ignored, mostly file pages reclaimed):
+> 
+>     # cat /proc/sys/vm/swappiness
+>     60
+>     # cat /proc/vmstat | grep pgsteal
+>     pgsteal_kswapd 0
+>     pgsteal_direct 0
+>     pgsteal_khugepaged 0
+>     pgsteal_proactive 1840
+>     pgsteal_anon 25
+>     pgsteal_file 1815
+>     # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
+>     # cat /proc/vmstat | grep pgsteal
+>     pgsteal_kswapd 0
+>     pgsteal_direct 0
+>     pgsteal_khugepaged 0
+>     pgsteal_proactive 18013
+>     pgsteal_anon 337
+>     pgsteal_file 17676
+> 
+> After fix (swappiness=max honored, anon pages reclaimed as expected):
+> 
+>     # cat /proc/vmstat | grep pgsteal
+>     pgsteal_kswapd 0
+>     pgsteal_direct 0
+>     pgsteal_khugepaged 0
+>     pgsteal_proactive 0
+>     pgsteal_anon 0
+>     pgsteal_file 0
+>     # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
+>     # cat /proc/vmstat | grep pgsteal
+>     pgsteal_kswapd 0
+>     pgsteal_direct 0
+>     pgsteal_khugepaged 0
+>     pgsteal_proactive 16283
+>     pgsteal_anon 16283
+>     pgsteal_file 0
+> 
+> Cc: stable@vger.kernel.org # 6.17+
+> Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+> Reviewed-by: Barry Song <baohua@kernel.org>
+> ---
+>  mm/vmscan.c | 19 +++++++------------
+>  1 file changed, 7 insertions(+), 12 deletions(-)
+> 
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 986dde8e7429..bd71595c8b2b 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -199,6 +199,13 @@ struct scan_control {
+>   */
+>  int vm_swappiness = 60;
+>  
+> +static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
+> +{
+> +	if (sc->proactive && sc->proactive_swappiness)
+> +		return *sc->proactive_swappiness;
+> +	return mem_cgroup_swappiness(memcg);
+> +}
+> +
+>  #ifdef CONFIG_MEMCG
+>  
+>  /* Returns true for reclaim through cgroup limits or cgroup interfaces. */
+> @@ -239,13 +246,6 @@ static bool writeback_throttling_sane(struct scan_control *sc)
+>  #endif
+>  	return false;
+>  }
+> -
+> -static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
+> -{
+> -	if (sc->proactive && sc->proactive_swappiness)
+> -		return *sc->proactive_swappiness;
+> -	return mem_cgroup_swappiness(memcg);
+> -}
+>  #else
+>  static bool cgroup_reclaim(struct scan_control *sc)
+>  {
+> @@ -261,11 +261,6 @@ static bool writeback_throttling_sane(struct scan_control *sc)
+>  {
+>  	return true;
+>  }
+> -
+> -static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
+> -{
+> -	return READ_ONCE(vm_swappiness);
+> -}
+>  #endif
+>  
+>  static void set_task_reclaim_state(struct task_struct *task,
 
