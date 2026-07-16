@@ -1,137 +1,171 @@
-Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B96424666
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:24:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72031423E99;
+	Thu, 16 Jul 2026 13:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784208286; cv=none; b=TbRjpG/wtHUfixrM0yJfjbAbypeCdkKu4CYmabkAabuAoJ750f0kBBXCuLru5uEy48Nnxp/VAtlgwL1IT58/0b4pcMriJzZ2Y2a+bv0rjx3LRBroSqAHPXfQYZnvlet2UlpLRTiWbZTdKR+iIJCRq6sGE3Tfm+hzeQm6olbuGJ8=
+	t=1784208596; cv=none; b=R196cj6iT67AW0262RNRLPm8u7dYdEGZWd8ZJ3Cz5javp9exeB/atEQSh25Ym+Rnmw2k/gbei5n+ZxRy9rDme2uS91wpK2VbQwBYiZUYLtVAyi3kXA2acbb8RVOUrG5uyoJyN//xsCU2ZSNpEJzUQGrzdifNlHVQfVgoxCu67Wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784208286; c=relaxed/simple;
-	bh=JvFqrI83C2RHykThmNFrvkcQJ1wzgyexu2ft33c5iF8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Q6uj4JPkqN7qN/iTKCB7OcJ3v6VhqDKZpG16DXYFuyc4MVfeALrWLO91QgrOTuALppsIenVJpvWgSo1YaX/p3NOlQjE3/xrFwAVlK/h7wcoGb6UJC0aLyO6s0ZyCJH5EiS344gLXjh4yzRVYl+3As3w3qzhtV95N+0av+d/hb8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=peLjuU2E; arc=none smtp.client-ip=91.218.175.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784208596; c=relaxed/simple;
+	bh=dvZgheOlOgcqazuIqGDYDOlLk6mLybAsD7IrpftMNIk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TsekKu7h0O2AzGhtK0W2prGMoDoB00u/zHnhle7TaiiVBW/WijDh70kfVGFiUglAz/zGsN7lBuN/v6MaQQyqtTEq8W59o7HMd3y3vwasRh4aHPJUoMj06c/lHrwzVzkoY66hWcSQgoSIMmRWP7XaIX96LAHFeOC+9qsewL3ZVCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jzgQwrsv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="peLjuU2E"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784208280;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SKUFZ1mie4XPvtXG3cHHSaY2hGPjC1MSjIImg1/vHCM=;
-	b=peLjuU2EIwFBDutSbMObnYvGhVbD6oO5w0gUU+UBJ/k5HtPBRdSS2VQqvSZUcoM/qElQaW
-	nca6twKghDlKD9hVCk33+gGWi3IEII6wp9gL7Rcvt37rFucrpb8C8MsudfeYGpAr5MiePY
-	neIScZAm+1YHS4vWylqWPWZN7PGYJK0=
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: stable@vger.kernel.org
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Fuad Tabba <tabba@google.com>,
-	Will Deacon <will@kernel.org>
-Subject: [PATCH 6.18.y] KVM: arm64: Bound used_lrs when flushing the pKVM hyp vCPU
-Date: Thu, 16 Jul 2026 14:24:34 +0100
-Message-Id: <20260716132434.239763-1-fuad.tabba@linux.dev>
-In-Reply-To: <2026071615-pastor-showy-ff79@gregkh>
-References: <2026071615-pastor-showy-ff79@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jzgQwrsv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C6201F000E9;
+	Thu, 16 Jul 2026 13:29:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784208595;
+	bh=uli8kho+St3ZUL1DO6L5W7brqtkQjA+CdGhvrx1RaxY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jzgQwrsv3V/tDXNyLUdumBIOaI+5zsaZdpbH1TEEgiTvTUjS1xpWTti1WSyDULhFc
+	 hJ295rAXchnFta6Mg8D7uV7YH5SVfO5a+iueHgHssi0racSeYBmIRBjp7ThZI+FtLr
+	 7XPO4AmdVTGji5tve+AryuvbNf6ET1dMOSnuOXByxXUVdBOp/dY0jzjav0Mn/a+oJs
+	 l1Ut3b+Q29v+wex5p6/jiaj9QKMDiH/JFPNxSjrNAlUIYNKFWwqvU8uoJ/wIZTuY8x
+	 LUH9+cXpct9LlCkOHXR/YtZFDRsD4fQISQOgDLa21EQGtJaZtvhfcOgtUp3MLMNT4P
+	 A4cGgcn/WXtkA==
+Date: Thu, 16 Jul 2026 14:29:38 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Suren Baghdasaryan <surenb@google.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+	Michal Hocko <mhocko@suse.com>, Uladzislau Rezki <urezki@gmail.com>, 
+	Toshi Kani <toshi.kani@hpe.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
+	abarnas@google.com
+Subject: Re: [PATCH mm-hotfixes v3 2/4] x86/mm/pat: acquire mmap lock on page
+ table free to avoid ptdump UAF
+Message-ID: <aljb7hoFxL7aUZvG@lucifer>
+References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
+ <20260714-series-vmap-race-fix-v3-2-b812eccfa0f9@kernel.org>
+ <alemS7vxeRB7NcBO@willie-the-truck>
+ <alesCtwXdIqH6bOP@kernel.org>
+ <178419641178.59347.17339330762419756196.b4-reply@b4>
+ <aljBF-am7dqqG8Gd@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aljBF-am7dqqG8Gd@willie-the-truck>
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+On Thu, Jul 16, 2026 at 12:31:35PM +0100, Will Deacon wrote:
+> On Thu, Jul 16, 2026 at 11:06:51AM +0100, Lorenzo Stoakes (ARM) wrote:
+> > On 2026-07-15 18:49 +0300, Mike Rapoport wrote:
+> > > On Wed, Jul 15, 2026 at 04:24:59PM +0100, Will Deacon wrote:
+> > > > > diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+> > > > > index d023a40a1e03..4c4b8244502f 100644
+> > > > > --- a/arch/x86/mm/pat/set_memory.c
+> > > > > +++ b/arch/x86/mm/pat/set_memory.c
+> > > > > @@ -22,6 +22,7 @@
+> > > > >  #include <linux/cc_platform.h>
+> > > > >  #include <linux/set_memory.h>
+> > > > >  #include <linux/memregion.h>
+> > > > > +#include <linux/cleanup.h>
+> > > > >
+> > > > >  #include <asm/e820/api.h>
+> > > > >  #include <asm/processor.h>
+> > > > > @@ -436,9 +437,16 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
+> > > > >
+> > > > >  	flush_tlb_all();
+> > > > >
+> > > > > -	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+> > > > > -		list_del(&ptdesc->pt_list);
+> > > > > -		pagetable_free(ptdesc);
+> > > > > +	/*
+> > > > > +	 * ptdump might read these page tables, so avoid a use-after-free by
+> > > > > +	 * acquiring the mmap read lock on init_mm (ptdump acquires the mmap
+> > > > > +	 * write lock).
+> > > > > +	 */
+> > > > > +	scoped_guard(mmap_read_lock, &init_mm) {
+> > > > > +		list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+> > > > > +			list_del(&ptdesc->pt_list);
+> > > > > +			pagetable_free(ptdesc);
+> > > > > +		}
+> > > >
+> > > > As I understand it, the argument for taking the read lock is that we're
+> > > > operating on a region that we "wholly own" and therefore we can happily
+> > > > run concurrently with CPUs walking distinct parts of the page-table.
+> > > > However, from what I can tell, the CPA collapse logic will operate on
+> > > > regions outside of the address range being manipulated by its caller
+> > > > because it rounds up to the PMD size.
+> > > >
+> > > > As a made-up example, imagine I have a 2MiB aligned region where the
+> > > > first 1MiB is read-only and the second 1MiB is in the default r/w state.
+> > > > If one CPU calls set_memory_rw() on the first 1MiB while another CPU is
+> > > > walking the second 1MiB (via some other API that doesn't take cpa_lock),
+> > > > it looks to me like the first CPU can collapse the page-table and free
+> > > > the unused pages under the feet of the other CPU. What prevents that
+> > > > from happening?
+> > >
+> > > Nothing, and there's a patch to fix that that synchronizes
+> > > cpa_collapse_large_pages() using cpa_lock:
+> > >
+> > > https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org
+>
+> Hmm, but that relies on all concurrent walkers taking cpa_lock, no? Surely
+> that's not generally the case.
+>
+> > Thanks Mike!
+> >
+> > >
+> > > This still won't be enough to sync with ptdump though.
+> >
+> > Yeah, so this patch is still necessary.
+> >
+> > But that patch conflicts with this one as it holds a spin lock over the page
+> > table freeing, which prevents taking an rwsem... :/
+> >
+> > Anyway I think this one is still fine as it seems there's not a consensus over
+> > there as there was discussion about just removing the locking anyway ([0])?
+> >
+> > So can kick that can down the road and just get these ptdump bugs fixed :)
+> >
+> > >
+> > > > If all concurrent walkers have interrupts disabled, I guess the TLB
+> > > > invalidation logic would do it, but it would be good to call this out in
+> > > > the commit message because it's not clear to me why the read_lock is
+> > > > sufficient for the collapsing case.
+> >
+> > Yeah, so this patch is _only_ fixing the ptdump case. Any existing bug must be
+> > addressed separately.
+>
+> Up to you folks, but if you took the write lock during collapse wouldn't
+> that fix it for all concurrent walkers and we wouldn't need another patch?
+>
+> I would argue that using the read lock here directly contradicts the
+> rationale for why this is safe, because this is an occurence of code
+> that operates on a range that it doesn't wholly own. It seems bizarre
+> to me to go to the effort of adding locking, but then not adding
+> sufficient locking for all concurrent walkers.
 
-flush_hyp_vcpu() copies the host vGIC state into the hyp's private vCPU
-on every run. The vGIC list register save and restore use used_lrs as
-their loop bound and expect it to stay within the number of implemented
-list registers. While this is generally the case, flush_hyp_vcpu()
-copies vgic_v3 verbatim and does not enforce this, so a value provided
-by the host is used at EL2 to index vgic_lr[] and access ICH_LR<n>_EL2
-(host -> EL2).
+Yeah good point, we could avoid the cpa spin lock altogether and guarantee that
+we're the only writer by using an mmap write lock instead.
 
-Fix by clamping used_lrs to the number of implemented list registers
-after the copy, as the trusted path already does in
-vgic_flush_lr_state(). The number of implemented list registers is
-constant after init, so it is replicated once from
-kvm_vgic_global_state.nr_lr into hyp_gicv3_nr_lr rather than read on
-every entry.
+We have to take a write lock in the ptdump reader because of non-VMA ranges for
+some architectures + munmap downgrades to a read lock on teardown (having
+already removed the VMA ranges hence non-VMA the only ones we are concerned
+about).
 
-Cc: stable@vger.kernel.org
-Fixes: be66e67f1750 ("KVM: arm64: Use the pKVM hyp vCPU structure in handle___kvm_vcpu_run()")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Reviewed-by: Fuad Tabba <tabba@google.com>
-Tested-by: Fuad Tabba <tabba@google.com>
-Link: https://patch.msgid.link/20260606175614.83273-3-imv4bel@gmail.com
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-(cherry picked from commit 8cc8bbbfab14c22c5551d0dd19b208a44b141c76)
-[ tabba: adjust context in flush_hyp_vcpu() and kvm_hyp.h ]
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/include/asm/kvm_hyp.h   | 1 +
- arch/arm64/kvm/arm.c               | 2 ++
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 9 +++++++++
- 3 files changed, 12 insertions(+)
+We take read locks for stabilisation here + in vmap code because that suffices,
+but so does a write lock.
 
-diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
-index e6be1f5d0967..8020e91b536d 100644
---- a/arch/arm64/include/asm/kvm_hyp.h
-+++ b/arch/arm64/include/asm/kvm_hyp.h
-@@ -146,5 +146,6 @@ extern u64 kvm_nvhe_sym(id_aa64smfr0_el1_sys_val);
- extern unsigned long kvm_nvhe_sym(__icache_flags);
- extern unsigned int kvm_nvhe_sym(kvm_arm_vmid_bits);
- extern unsigned int kvm_nvhe_sym(kvm_host_sve_max_vl);
-+extern unsigned int kvm_nvhe_sym(hyp_gicv3_nr_lr);
- 
- #endif /* __ARM64_KVM_HYP_H__ */
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index e59cb36b5f36..10fc6783cd60 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -2311,6 +2311,8 @@ static int __init init_subsystems(void)
- 	switch (err) {
- 	case 0:
- 		vgic_present = true;
-+		if (static_branch_unlikely(&kvm_vgic_global_state.gicv3_cpuif))
-+			kvm_nvhe_sym(hyp_gicv3_nr_lr) = kvm_vgic_global_state.nr_lr;
- 		break;
- 	case -ENODEV:
- 	case -ENXIO:
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index 29430c031095..edc4508ef2a8 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -22,6 +22,9 @@
- 
- DEFINE_PER_CPU(struct kvm_nvhe_init_params, kvm_init_params);
- 
-+/* Number of implemented GICv3 LRs. Used by flush_hyp_vcpu(). */
-+unsigned int hyp_gicv3_nr_lr;
-+
- void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
- 
- static void __hyp_sve_save_guest(struct kvm_vcpu *vcpu)
-@@ -136,6 +139,12 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 	hyp_vcpu->vcpu.arch.vsesr_el2	= host_vcpu->arch.vsesr_el2;
- 
- 	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3 = host_vcpu->arch.vgic_cpu.vgic_v3;
-+
-+	/* Bound used_lrs by the number of implemented list registers. */
-+	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs =
-+		min_t(unsigned int,
-+		      hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs,
-+		      hyp_gicv3_nr_lr);
- }
- 
- static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
--- 
-2.39.5
+I'll post on that thread and do a respin with that then.
 
+>
+> Will
+
+Cheers, Lorenzo
