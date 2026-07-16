@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0C6234994
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 02:06:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF2327FB05
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 02:06:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784167562; cv=none; b=JZOtAD7LAtM5IwatIBWazXnqq7bLMl2woKPQ9p+45e2AcFpWHTRiu3raRY7fF1He01jpM0VX70HN8cIP77iWqALGoiwdZu+r26cedhSGDvV39DtpfNjg9wpMky5plkz1N2g5NvuyiO0H4GdJeEIQOoFXdFaNiFjaMrqW1OrqEr4=
+	t=1784167563; cv=none; b=Apyp3rZ6syXpg9mKOzu8yKL0hdGhYho5yvin355E+mjXBy0Q54lmbxTf2LjRzVPg8fyl90vQYlk/0lN+JpWdF0lI/X6txrU4U/hu0pm07t04NWduZsOl583yCkFc/L+cbDU9eeUAC64Bt3pNUfjB843nd1GTzXNgUzVOhJtpc8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784167562; c=relaxed/simple;
-	bh=8v5OIivpftIF4ILzON8d4Ez0rFW1J+yQFh4oC1grSYw=;
+	s=arc-20240116; t=1784167563; c=relaxed/simple;
+	bh=7dUOnMmJWZzxri0/u9tiRRSVzwPoL7YueVwOqoQZGMk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q62M4sWenNKRM1fXjnwr1PiZiv71+mfLz7sXLTYj0AdZSjE42NH3TawhQ8EhZfylQykzR3tuZ9qfTJYRzxx3YP2piG3S07un0fixBvZ/c2n2EjnYeoxLp3CcTX+6XynmOgefZU/vzrS5vf301r5UwBidYwa4yEfuezFN7PEafEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FntDU3FN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IqZuFcti2RHmSLcNoEtkpMdAMXlYn8l6h25SpafeQA5Z4U5/uww5Axbl2C9YvscPO9cHJe5oZCG+THOD+DrjWvgV0/1JX02rCJ0LrXLNbwEWgF9L2yWusXd+bu0brk+OgCTqOFALv2OtdE+SPs1zuXnmjSPVmcqfSEbjYg2AuCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dc7rFKcm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FntDU3FN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0C91F000E9;
-	Thu, 16 Jul 2026 02:06:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dc7rFKcm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 707341F00A3A;
+	Thu, 16 Jul 2026 02:06:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784167561;
-	bh=C3nwDZMfsDjVrrxwqgn+x3OS/VzPX5YPzJc/CUwu2Hc=;
+	s=k20260515; t=1784167562;
+	bh=L7blKCtCW5pmL8TvJKI5LqvbdU1odd6W96Y15kboxO4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FntDU3FNeDX6+IrXV7N5aIppJAzecFhuFlGgwU6XYIdA/eCVSkA5MJgIFfy2RQi9b
-	 14u30y2c+qAjqCpWY8BXNR89sv5e4u0276jiH7aOvaEFnDtbeOnaPQXI893FLteL39
-	 yuN6qJPjaGh0THkd7er/Ut7jIYGAg+EraaFCPu1S4KUAD+0TAVIEIX6zgN/Q2XigAa
-	 PeZp3WRJvYcS3fejN8FHdwDKEwnSlYvambvMu7B9JM96Km9KYHNs9d4AAdPCrS84BG
-	 qTCX/dONqTkjtUJOPc58MbBIJ2lNyhqeE7vJZYaTqAqSlrqG684sjLjZF0FevqbTNj
-	 4JtaMKl6JnNrA==
+	b=Dc7rFKcmwKCoAtvpXoD+UI9RKBAC9q2MUlHn1mAZ3uuJIOoD9HzQlh31NVaM9gqFB
+	 v4M1zjxJPoiZEzo87Kt+hAqz6NKTms48/eRuKksw8xeq39qP3BORKUMmvbTUV64qHH
+	 4bNc7qtUMaSh/NX5qcTqaseeG+JhwvxWMmRweVuSz3mnc/87PM/jRot6QoLcxSQz9A
+	 IKVGwpzo8T8GJ2dxXaWCN3GgCqlzaCRUA7uVqO08ApCoQKTmXy9E66FkVF/svgOkdH
+	 EtD0N8rs1MisNJ9N2uNvL9eV85s69QGoppezVlSx3Jy+9/FET44EkDv3qDREmjgNv7
+	 kqbtndVheRRHA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: ChenXiaoSong <chenxiaosong@kylinos.cn>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Musaab Khan <musaab.khan@protonmail.com>,
 	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 1/2] smb: move compression definitions into common/fscc.h
-Date: Wed, 15 Jul 2026 22:05:57 -0400
-Message-ID: <20260716020558.818894-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 2/2] ksmbd: use opener credentials for FSCTL mutations
+Date: Wed, 15 Jul 2026 22:05:58 -0400
+Message-ID: <20260716020558.818894-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071403-easeful-customary-a1e2@gregkh>
+In-Reply-To: <20260716020558.818894-1-sashal@kernel.org>
 References: <2026071403-easeful-customary-a1e2@gregkh>
+ <20260716020558.818894-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,99 +47,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: ChenXiaoSong <chenxiaosong@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit 9d357903ec9b0da60cccc4d311f99763ba0924a2 ]
+[ Upstream commit c6394bcaf254c5baf9aff43376020be5db6d3316 ]
 
-These definitions will also be used by ksmbd, move them into
-common header file.
+SET_SPARSE, SET_ZERO_DATA and SET_COMPRESSION operate on an open SMB
+handle but call VFS xattr, fallocate or fileattr helpers with the current
+ksmbd worker credentials. Those helpers can revalidate inode permissions,
+ownership and LSM policy independently of the SMB handle access mask.
 
-Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
+Run each operation with the credentials captured in the target file when
+the handle was opened. Keep credential handling local to these single-file
+FSCTLs rather than applying session credentials to the complete IOCTL
+handler, which also contains handle-less and multi-handle operations.
+
+Cc: stable@vger.kernel.org
+Reported-by: Musaab Khan <musaab.khan@protonmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: c6394bcaf254 ("ksmbd: use opener credentials for FSCTL mutations")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/smb1pdu.h |  5 -----
- fs/smb/client/smb2pdu.h |  4 ----
- fs/smb/common/fscc.h    | 18 ++++++++++++++++++
- fs/smb/server/smb2pdu.h |  3 ---
- 4 files changed, 18 insertions(+), 12 deletions(-)
+ fs/smb/server/smb2pdu.c |  3 +++
+ fs/smb/server/vfs.c     | 20 +++++++++++++-------
+ 2 files changed, 16 insertions(+), 7 deletions(-)
 
-diff --git a/fs/smb/client/smb1pdu.h b/fs/smb/client/smb1pdu.h
-index 7584e94d9b2bfa..0870949144abf5 100644
---- a/fs/smb/client/smb1pdu.h
-+++ b/fs/smb/client/smb1pdu.h
-@@ -1211,11 +1211,6 @@ typedef struct smb_com_transaction_compr_ioctl_req {
- 	__le16 compression_state;  /* See below for valid flags */
- } __packed TRANSACT_COMPR_IOCTL_REQ;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 95d0ea045cfb09..9aa892021d9444 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -8243,6 +8243,7 @@ static inline int fsctl_set_sparse(struct ksmbd_work *work, u64 id,
+ 	if (fp->f_ci->m_fattr != old_fattr &&
+ 	    test_share_config_flag(work->tcon->share_conf,
+ 				   KSMBD_SHARE_FLAG_STORE_DOS_ATTRS)) {
++		const struct cred *saved_cred;
+ 		struct xattr_dos_attrib da;
  
--/* compression state flags */
--#define COMPRESSION_FORMAT_NONE		0x0000
--#define COMPRESSION_FORMAT_DEFAULT	0x0001
--#define COMPRESSION_FORMAT_LZNT1	0x0002
--
- typedef struct smb_com_transaction_ioctl_rsp {
- 	struct smb_hdr hdr;	/* wct = 19 */
- 	__u8 Reserved[3];
-diff --git a/fs/smb/client/smb2pdu.h b/fs/smb/client/smb2pdu.h
-index 30d70097fe2fad..b9bf2fa989d5bf 100644
---- a/fs/smb/client/smb2pdu.h
-+++ b/fs/smb/client/smb2pdu.h
-@@ -195,10 +195,6 @@ struct network_resiliency_req {
+ 		ret = ksmbd_vfs_get_dos_attrib_xattr(idmap,
+@@ -8251,9 +8252,11 @@ static inline int fsctl_set_sparse(struct ksmbd_work *work, u64 id,
+ 			goto out;
  
- #define NO_FILE_ID 0xFFFFFFFFFFFFFFFFULL /* general ioctls to srv not to file */
- 
--struct compress_ioctl {
--	__le16 CompressionState; /* See cifspdu.h for possible flag values */
--} __packed;
--
- /*
-  * Maximum number of iovs we need for an ioctl request.
-  * [0] : struct smb2_ioctl_req
-diff --git a/fs/smb/common/fscc.h b/fs/smb/common/fscc.h
-index bc3012cc295da6..859849a42fec5e 100644
---- a/fs/smb/common/fscc.h
-+++ b/fs/smb/common/fscc.h
-@@ -100,6 +100,24 @@ struct duplicate_extents_to_file_ex {
- 	__le32 Reserved;
- } __packed;
- 
-+/*
-+ * compression state flags
-+ * See MS-FSCC 2.3.18
-+ *     MS-FSCC 2.3.67
-+ *     MS-FSCC 2.4.9
-+ */
-+#define COMPRESSION_FORMAT_NONE	0x0000
-+#define COMPRESSION_FORMAT_DEFAULT	0x0001
-+#define COMPRESSION_FORMAT_LZNT1	0x0002
+ 		da.attr = le32_to_cpu(fp->f_ci->m_fattr);
++		saved_cred = override_creds(fp->filp->f_cred);
+ 		ret = ksmbd_vfs_set_dos_attrib_xattr(idmap,
+ 						     &fp->filp->f_path,
+ 						     &da, true);
++		revert_creds(saved_cred);
+ 		if (ret)
+ 			fp->f_ci->m_fattr = old_fattr;
+ 	}
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index d08973b288e581..aa7562a088e303 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -919,15 +919,21 @@ void ksmbd_vfs_set_fadvise(struct file *filp, __le32 option)
+ int ksmbd_vfs_zero_data(struct ksmbd_work *work, struct ksmbd_file *fp,
+ 			loff_t off, loff_t len)
+ {
++	const struct cred *saved_cred;
++	int err;
 +
-+/*
-+ * See MS-FSCC 2.3.18
-+ *     MS-FSCC 2.3.67
-+ */
-+struct compress_ioctl {
-+	__le16 CompressionState;
-+} __packed;
-+
- /* See MS-FSCC 2.3.20 */
- struct fsctl_get_integrity_information_rsp {
- 	__le16	ChecksumAlgorithm;
-diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
-index e7cf573e59f00c..3bed676bb5ad42 100644
---- a/fs/smb/server/smb2pdu.h
-+++ b/fs/smb/server/smb2pdu.h
-@@ -230,9 +230,6 @@ struct smb2_file_mode_info {
- 	__le32 Mode;
- } __packed;
- 
--#define COMPRESSION_FORMAT_NONE 0x0000
--#define COMPRESSION_FORMAT_LZNT1 0x0002
+ 	smb_break_all_levII_oplock(work, fp, 1);
++	saved_cred = override_creds(fp->filp->f_cred);
+ 	if (fp->f_ci->m_fattr & FILE_ATTRIBUTE_SPARSE_FILE_LE)
+-		return vfs_fallocate(fp->filp,
+-				     FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
+-				     off, len);
 -
- struct smb2_file_comp_info {
- 	__le64 CompressedFileSize;
- 	__le16 CompressionFormat;
+-	return vfs_fallocate(fp->filp,
+-			     FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE,
+-			     off, len);
++		err = vfs_fallocate(fp->filp,
++				    FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
++				    off, len);
++	else
++		err = vfs_fallocate(fp->filp,
++				    FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE,
++				    off, len);
++	revert_creds(saved_cred);
++	return err;
+ }
+ 
+ int ksmbd_vfs_fqar_lseek(struct ksmbd_file *fp, loff_t start, loff_t length,
 -- 
 2.53.0
 
