@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBBC41BA62
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:38:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575B441BA8D
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:38:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784201905; cv=none; b=lvxfK53O0fXTemEHwgHAcJPN6dOLYfHc/D1NzVzPFcFC0e3scwHswPYEhjHXf0pFVAubLx/WpOQ90YalBRoVx0YH3+IAaTNND+5UkJYk5xI3DAzs7aDGBhiGScQkHmxSDcrMLqO+W6Qix8iXlYCtxABduhfQqQ2BFv0QvVwLk7s=
+	t=1784201916; cv=none; b=myT76ppln68KqDjGrTU7e+1BhqFHcOBgfMena9Q9vUwL7fnA51d2njx2M4WNUavyN0b9/G2+zsWf9wqNWOQJFlE+8S/O64+8pdqK8XDXMbAz/4xxn2fW72NmzfHO1yXu5oCdoa0Rio7s9Qd5KE95LZwwmM+3X+XEp7uc7kxc730=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784201905; c=relaxed/simple;
-	bh=Y4FOVM3eywsQFhkBOiAF+4Slfy4/5qb+6U/bEUm91uA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JzNzUVur1+p+DJL6UaqY9fCgmmBQwSmZC06UyfokJKwv8Y3JBgX9YL7mokl/7u0N5a9Jq3dzVjQuwWTgbJ2gqKdhD9qv/2sU+XqpfoOhJU78UWfvN7gNppVkQKHEagG4giwa+iTTB2vA5gqQfxEoa3PbVrJO3K7SeE8+0yiScjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qT4pd7I0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784201916; c=relaxed/simple;
+	bh=5/KHbT/FK//A00L5cX2Ci2rgUqFgfnhTrmrnp6Y3gaM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MDzSSullYl64IzL2YAwntvnDgbIt9NQ68Fzubz6viGptSYy+wMEgpUnHP26MqOKlnV3Z4gyfEdWBjoeSyWArno5FUd+Zcxh9B8I1ato/3fOqSfGwiYWRRQCG2A31TtNwc63suWEjdrFIeRIZVrc5CU+LKprJSEAiOiOemvktCVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QcsuKwdc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qT4pd7I0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BBFD1F000E9;
-	Thu, 16 Jul 2026 11:38:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QcsuKwdc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3399F1F000E9;
+	Thu, 16 Jul 2026 11:38:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784201901;
-	bh=V22tNo/ezlLvxpLYeaqINacNW75immgZ4TIvaGQluSk=;
+	s=korg; t=1784201909;
+	bh=kk5YWzsniazyS7aqGXQS1kchgcicvVIfj4Cr1eJlWbc=;
 	h=Subject:To:Cc:From:Date;
-	b=qT4pd7I02bot+vTbvvsrUhW6Ef+S8ocEMrHmu2B8hCLIwoLpLLTkdRXUSa+dGMCyv
-	 pxObVdClTMo/2mF+LOwYZ5Lb7SlCWUsJ+QuxyxXdYv5189MZdoC4rw6rDtBNi5OFcm
-	 Wu3hisDPO4Om6FOc0PjIOvc+B0jHT6U9RoMCWfP0=
-Subject: FAILED: patch "[PATCH] selftests/landlock: Explicitly disable audit in teardowns" failed to apply to 6.18-stable tree
-To: mheyne@amazon.de,mic@digikod.net
+	b=QcsuKwdcOa4QZ5xbh1fzjwb7F4ffcJT0KJ/4QhXFrHqT5ei1LwkZLdKkNmcKmtjdO
+	 4QbMVDwwnLNJ7auk1ElUbY2rt+0aFvLIDMWkBUG06MLxbbnL+Hkt7ImSS3HbiWpU+0
+	 8KM1/ALMPRvI3WoGHooFSxwOkEBi+dyXmEMa97EE=
+Subject: FAILED: patch "[PATCH] landlock: Account all audit data allocations to user space" failed to apply to 6.18-stable tree
+To: mic@digikod.net,gnoack@google.com,paul@paul-moore.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 13:38:14 +0200
-Message-ID: <2026071614-nicotine-satisfied-6d1a@gregkh>
+Date: Thu, 16 Jul 2026 13:38:22 +0200
+Message-ID: <2026071622-boil-spotlight-afbb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0302cd72fe196aee933e3fb76f6d175d1ab0e843
+git cherry-pick -x b232bd12789fa57405b5092f28788be97aae9999
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071614-nicotine-satisfied-6d1a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071622-boil-spotlight-afbb@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,106 +62,78 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0302cd72fe196aee933e3fb76f6d175d1ab0e843 Mon Sep 17 00:00:00 2001
-From: Maximilian Heyne <mheyne@amazon.de>
-Date: Fri, 29 May 2026 20:03:41 +0000
-Subject: [PATCH] selftests/landlock: Explicitly disable audit in teardowns
+From b232bd12789fa57405b5092f28788be97aae9999 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Date: Wed, 13 May 2026 20:03:08 +0200
+Subject: [PATCH] landlock: Account all audit data allocations to user space
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-I'm seeing sporadic selftest failures, such as
+Mark the kzalloc_flex() of struct landlock_details with
+GFP_KERNEL_ACCOUNT so the allocation is charged to the calling task,
+like the other Landlock per-domain allocations which have used
+GFP_KERNEL_ACCOUNT forever.
 
-  #  RUN           scoped_audit.connect_to_child ...
-  # scoped_abstract_unix_test.c:314:connect_to_child:Expected 0 (0) == records.access (8)
-  # connect_to_child: Test failed
-  #          FAIL  scoped_audit.connect_to_child
-  not ok 19 scoped_audit.connect_to_child
+Every property of landlock_details is caller-attributable: allocated by
+landlock_restrict_self(2), owned by the caller's landlock_hierarchy,
+contents are the caller's pid, uid, comm, and exe_path, lifetime bounded
+by the caller's domain.  While the caller may not know nor control the
+size of this allocation (i.e. exe_path), this data should still be
+accounted for it.
 
-This seems similar to what commit 3647a4977fb73d ("selftests/landlock:
-Drain stale audit records on init") tried to fix. However, the added
-drain loop is not effective. When setting the AUDIT_STATUS_PID, the
-kauditd_thread is woken up starting to send messages from the hold queue
-to the netlink. Depending on scheduling of this kthread not all messages
-might be send via the netlink in the 1 us interval.
+The deciding factor is whether userspace can trigger the allocation, not
+whether the size of the data is known nor controlled by the caller.
+This aligns with the kmemcg accounting policy established by commit
+5d097056c9a0 ("kmemcg: account certain kmem allocations to memcg").
 
-Therefore, instead of trying to drain the queue, let's just disable
-audit when running non-audit tests or more precisely disable it after
-audit-tests. This way we won't generate any new audit message that could
-interfere with the other tests.
+No new failure modes: the hierarchy and ruleset are allocated before
+details and are already accounted, so landlock_restrict_self(2) already
+returns -ENOMEM under memcg pressure.  This change widens that existing
+failure window slightly; it does not introduce a new error code.
 
-The comment saying that on process exit audit will be disabled is wrong.
-The closed file descriptor just causes an auditd_reset(), not a
-disablement. So future messages will be queued in the hold queue.
-
+Cc: Günther Noack <gnoack@google.com>
+Cc: Paul Moore <paul@paul-moore.com>
 Cc: stable@vger.kernel.org
-Fixes: 6a500b22971c ("selftests/landlock: Add tests for audit flags and domain IDs")
-Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
-Link: https://patch.msgid.link/20260529-welsh-nagoya-b4d9ca60@mheyne-amazon
-[mic: Fix FD leak, update subject, call audit_cleanup() in audit_exec teardown]
+Fixes: 1d636984e088 ("landlock: Add AUDIT_LANDLOCK_DOMAIN and log domain status")
+Link: https://patch.msgid.link/20260513180309.165840-1-mic@digikod.net
 Signed-off-by: Mickaël Salaün <mic@digikod.net>
 
-diff --git a/tools/testing/selftests/landlock/audit.h b/tools/testing/selftests/landlock/audit.h
-index 936fe20f020e..f45fdef35681 100644
---- a/tools/testing/selftests/landlock/audit.h
-+++ b/tools/testing/selftests/landlock/audit.h
-@@ -553,10 +553,9 @@ static int audit_init_filter_exe(struct audit_filter *filter, const char *path)
- static int audit_cleanup(int audit_fd, struct audit_filter *filter)
- {
- 	struct audit_filter new_filter;
-+	int err = 0;
+diff --git a/security/landlock/domain.c b/security/landlock/domain.c
+index 06b6bd845060..04b69b43fbf5 100644
+--- a/security/landlock/domain.c
++++ b/security/landlock/domain.c
+@@ -90,11 +90,12 @@ static struct landlock_details *get_current_details(void)
+ 		return ERR_CAST(buffer);
  
- 	if (audit_fd < 0 || !filter) {
--		int err;
--
- 		/*
- 		 * Simulates audit_init_with_exe_filter() when called from
- 		 * FIXTURE_TEARDOWN_PARENT().
-@@ -567,23 +566,19 @@ static int audit_cleanup(int audit_fd, struct audit_filter *filter)
+ 	/*
+-	 * Create the new details according to the path's length.  Do not
+-	 * allocate with GFP_KERNEL_ACCOUNT because it is independent from the
+-	 * caller.
++	 * Create the new details according to the path's length.  Account to
++	 * the calling task's memcg, like the other Landlock per-domain
++	 * allocations, even if it may not control the related size.
+ 	 */
+-	details = kzalloc_flex(*details, exe_path, path_size);
++	details =
++		kzalloc_flex(*details, exe_path, path_size, GFP_KERNEL_ACCOUNT);
+ 	if (!details)
+ 		return ERR_PTR(-ENOMEM);
  
- 		filter = &new_filter;
- 		err = audit_init_filter_exe(filter, NULL);
--		if (err) {
--			close(audit_fd);
--			return err;
--		}
-+		if (err)
-+			goto err_close;
- 	}
- 
- 	/* Filters might not be in place. */
- 	audit_filter_exe(audit_fd, filter, AUDIT_DEL_RULE);
- 	audit_filter_drop(audit_fd, AUDIT_DEL_RULE);
- 
--	/*
--	 * Because audit_cleanup() might not be called by the test auditd
--	 * process, it might not be possible to explicitly set it.  Anyway,
--	 * AUDIT_STATUS_ENABLED will implicitly be set to 0 when the auditd
--	 * process will exit.
--	 */
--	return close(audit_fd);
-+	err = audit_set_status(audit_fd, AUDIT_STATUS_ENABLED, 0);
-+
-+err_close:
-+	close(audit_fd);
-+	return err;
- }
- 
- static int audit_init_with_exe_filter(struct audit_filter *filter)
-diff --git a/tools/testing/selftests/landlock/audit_test.c b/tools/testing/selftests/landlock/audit_test.c
-index 758cf2368281..bd9f207b36e4 100644
---- a/tools/testing/selftests/landlock/audit_test.c
-+++ b/tools/testing/selftests/landlock/audit_test.c
-@@ -850,10 +850,8 @@ FIXTURE_SETUP(audit_exec)
- FIXTURE_TEARDOWN(audit_exec)
- {
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
--	EXPECT_EQ(0, audit_filter_exe(self->audit_fd, &self->audit_filter,
--				      AUDIT_DEL_RULE));
-+	EXPECT_EQ(0, audit_cleanup(self->audit_fd, &self->audit_filter));
- 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
--	EXPECT_EQ(0, close(self->audit_fd));
- }
- 
- TEST_F(audit_exec, signal_and_open)
+diff --git a/security/landlock/domain.h b/security/landlock/domain.h
+index a9d57db0120d..35cac8f6daee 100644
+--- a/security/landlock/domain.h
++++ b/security/landlock/domain.h
+@@ -33,10 +33,7 @@ enum landlock_log_status {
+  * Rarely accessed, mainly when logging the first domain's denial.
+  *
+  * The contained pointers are initialized at the domain creation time and never
+- * changed again.  Contrary to most other Landlock object types, this one is
+- * not allocated with GFP_KERNEL_ACCOUNT because its size may not be under the
+- * caller's control (e.g. unknown exe_path) and the data is not explicitly
+- * requested nor used by tasks.
++ * changed again.
+  */
+ struct landlock_details {
+ 	/**
 
