@@ -1,80 +1,44 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B6133263E
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 19:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB4A33263B
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 19:49:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784230469; cv=none; b=DNOXG/nnXxHW+yjsUXIrvg0b7rcpP6gqPWdC0XUOzkWRbjlq+JfbCgR8GKvlXTM3Yl4zm56qtO35FlvmeArFhXvuZghU1yTof6Zjel8xkNLBHjZfKNAJjDLhRP1v92sExW+o7YbvCvmcUio+3zIUiEiQBEqKAbFZU0ko+P8/hq4=
+	t=1784231376; cv=none; b=h62KB6OTsqsFzYtycANGzX/9H6RLRv1u2Aqfbb/eenP1MJPfbiYj/eQauvq05+w9AaXJwoKjshLCv5N7fELFTB66MamYj+m7ZyVNk0wqXjsrcDvxXCHmWtvZPsu/dv88ccwLDquXGRXbFU83jAZKHyqmuP6Pqc8puiitBNasosU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784230469; c=relaxed/simple;
-	bh=6pGsiGHzTol19T8ksztlrGoKHMwqFsepeExiisUiMDQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fqDHWxyyWXEXopqoi74GgPgTAB7+nRpDqGTrEGLo6Qbstbkbi9N57qREl8i/1i7nN/HvlPIyBA/aBOc/KvM0cWxSOQzehZbmQBRtnkKUyYLh468rIl+eF0IvIZ7rZxDfyUQSvuUErhVWOy+XBolCobLlLUaOy3ybgbtXhTcBppo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=b1b4iv4f; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1784231376; c=relaxed/simple;
+	bh=XLmN9Um276mSGK/vZVDQiZXYOiUQLoLrXoW+WEItqyY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YZjwCgvQmwWCxdvUJHCBWMTunt5KmP1/gqhERj3ga+FUTBeHHyHsQl4176EbTBpVkwhvrjU6J46fzbzeAZpNk9WKVq4BNr22vXejkQLj/Xp0iwocH51HI+AG6b9Vkq/xY5JGlFn+tf4G1wHVBCUG2D6JeO19Jq0sKFLBButzi1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGOkeirJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="b1b4iv4f"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493f6de72faso6656595e9.0
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 12:34:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1784230466; x=1784835266; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=34nlX8hiehezECUHqMooipflNwUN2ehZF7eJFTVK0nA=;
-        b=b1b4iv4figVxQkq+P9wELdRPGTOl2rmsKeLw0dX42XIg4RUqOOV5Uv+dCI9kSvjpw8
-         LInuTC6n9yGirYe4aJkKUkquk/MB5rdr0q98LxOKNLkf0plZ1QgnE7MedjAfGdFK13OG
-         JIcJ4NQDaQ4v67k6YS/uEETH5wguMr8hgkYjl2z9P0cqWn0M72bE81Y2LTUBvRyIkTh1
-         k/cyI+bPLv1kdkH6IjafuEf8Sbmi9I6LK4KZan8EImkdjSNaQn8moAxOCRz6klFto5iF
-         bwxoB3jDYCZSPldDQfCNSgle6ZQWahgITI8YC+bS3gn5B2lqZUgc8W91UVfjXxX3mW6D
-         kpDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784230466; x=1784835266;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=34nlX8hiehezECUHqMooipflNwUN2ehZF7eJFTVK0nA=;
-        b=MMbH0gLQcgj+3pATalo9MDgQyx1FbueShGlEHzUs9adMN/PbaMhFpgRuKnvto9w17x
-         dSnDOHU4lBayBdp7tttD7x6v/tyO0W+4z8p+ounEXJ3XPwlZbiAIm2BqtjlPqh7qwWg9
-         FcKvOAv910gk+9lN4EaRk24kxxS3zsPQXCinEGOwe/LYlzE/+AbqXYJTmYw/Dapdwiw6
-         I91bBCeSNvQjg6z7E57jXQzklaIDQx5iObbzFJkZKccOHcNq+ycUyYzo5BHGOswjAwKT
-         mYJFjYlsxBsuEHNlBNoIf1Bs7TbMkP7pFpyEWLkAUHfpaBpps4ZuSSCgGt1mV9b2+vTV
-         46/g==
-X-Forwarded-Encrypted: i=1; AHgh+RpnGrjL/bFGwcJpn82ueCtQgKfHzPNsHU7+LwCVnUta4x3IyKVRpC5xKnLXiYYPjiGTKsJicD0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnfX+iexV5p5wJIOghAR5T7U58eLvxvq4WfsRn/S+jKh9QKTIa
-	/iLTk6r5826zxn8VtxzqleQzVCabf3m1mneTMNi9D5bxlygMBsp0rbMmz1UehEIjvn6u
-X-Gm-Gg: AfdE7ckEUerk2QWm92OXMuK1CajbZZrkh2Jtrl/an4NMYh9LocJemYh2XiJYjd0ohnk
-	9q3FTGmuTOv7rwZDm067s3cpGk28FcPDSgEbGPpMQcY8eoup+Sbb4lGM95x4AuWWGOkDQlkY5Wj
-	kd/3Tq4fNfzI9ZehyQ+EY/7JJtmYa6Yp9tzR8G4JH8Qg10zTROGjkXEAL5JGi6RCLmDA5OPV5iN
-	UwSyULdbs3GEBof9q+PZI4Qv26oBWNFqlWjKClOguvlxOV/nR0vcjs6mzvM07dhKbU5p2yToEer
-	1DFMdkfuN/p1a/C4pC+RqIbcPtXEe0f/hCcbOUP3J5IW/rzzrBDfIGwwHHY409uD3cx7mH5/2aZ
-	xzGfanPvgbrOELZGstyawq633MtwruWK0gqFYsj5yeYNitLD/k6m+BTd+3TJo6ifIjXIB3EOGZM
-	bsciDHgLUf3n9eyTmd6RS78fKWJcWXqcs8l9tK7zi3hFKfGdZwd3G2H51YONYQU1TY9aoNNl7j3
-	M+okzAVHI0WyjNOFSnWRwpT
-X-Received: by 2002:a05:600c:1f90:b0:495:3c6f:7c18 with SMTP id 5b1f17b1804b1-4954286a454mr40557495e9.3.1784230465576;
-        Thu, 16 Jul 2026 12:34:25 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49541e9425asm123759955e9.11.2026.07.16.12.34.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 16 Jul 2026 12:34:24 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: alex.aring@gmail.com,
-	stefan@datenfreihafen.org,
-	miquel.raynal@bootlin.com
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	leitao@debian.org,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] mac802154: llsec: reject frames shorter than the authentication tag
-Date: Thu, 16 Jul 2026 21:34:23 +0200
-Message-ID: <20260716193423.32498-1-doruk@0sec.ai>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGOkeirJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325D21F000E9;
+	Thu, 16 Jul 2026 19:49:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784231374;
+	bh=S/llCSpxwb/b+O18AHmZDVn/l35KcSUmVuS8zR9obn8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kGOkeirJD3jSjZYa21KVEyUuowbre44+F2Ek1u9H7GwXu9hgy2bRVfFT0jVG0z6lT
+	 YsUpEj44P6CVR9Vsha/yxeXx7WdUFzIH5s3lGLgAHfuBXUCqL1nCcJo4TAzS7DVzMz
+	 nLFunubXm35T7oqjj4l/sIr/1h/O5hKPTFSJXkdDdAB45e1YhP7HzSZ9LNrfKpdApr
+	 68ms1u4bpzqzgDE9/ZgrfONJk8oYvLY++XGVo2NKA7q/KEil6jlMuGbp4+e6INjDPe
+	 twya4z96KQ03PeUtB10m2EOumygbFo/hg/wOoD0GqGV1o7t909ExAqbzdv6jMGIQn6
+	 y6R9kZeA952CA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Tejun Heo <tj@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] writeback: fix race between cgroup_writeback_umount() and inode_switch_wbs()
+Date: Thu, 16 Jul 2026 15:49:31 -0400
+Message-ID: <20260716194931.1111583-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071447-raking-bobsled-6a58@gregkh>
+References: <2026071447-raking-bobsled-6a58@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,59 +47,148 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-llsec_do_decrypt_auth() computes the associated-data length for the
-AEAD request as
+From: Baokun Li <libaokun@linux.alibaba.com>
 
-	assoclen += datalen - authlen;
+[ Upstream commit cba38ec4cbd3a7b8b942a8d52531a05be8a9ff0d ]
 
-where datalen is the number of bytes after the MAC header and authlen
-(4, 8 or 16) is the length of the authentication tag. Nothing verifies
-that the frame actually carries at least authlen payload bytes. A
-secured frame whose payload is shorter than the tag makes
-datalen - authlen negative; assoclen is then passed to
-aead_request_set_ad() as an unsigned value close to 4 GiB, so
-crypto_aead_decrypt() walks far off the end of the scatterlist that
-only spans the real frame.
+When a container exits, the following BUG_ON() is occasionally triggered:
 
-The frame is fully attacker-controlled and reaches this path from any
-IEEE 802.15.4 peer in radio range. Reject frames whose payload is
-shorter than the authentication tag before the subtraction.
+==================================================================
+ VFS: Busy inodes after unmount of sdb (ext4)
+ ------------[ cut here ]------------
+ kernel BUG at fs/super.c:695!
+ CPU: 3 PID: 6 Comm: containerd-shim Tainted: G OE K 6.6 #1
+ pstate: 63400009 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+ pc : generic_shutdown_super+0xf0/0x100
+ lr : generic_shutdown_super+0xf0/0x100
+ Call trace:
+  generic_shutdown_super+0xf0/0x100
+  kill_block_super+0x20/0x48
+  ext4_kill_sb+0x28/0x60
+  deactivate_locked_super+0x54/0x130
+  deactivate_super+0x84/0xa0
+  cleanup_mnt+0xa4/0x140
+  __cleanup_mnt+0x18/0x28
+  task_work_run+0x78/0xe0
+  do_notify_resume+0x204/0x240
+==================================================================
 
-Dynamically reproduced on a KASAN kernel as a general-protection-fault
-in the AEAD scatterwalk, and the fix confirmed.
+The root cause is a race between cgroup_writeback_umount() and
+inode_switch_wbs()/cleanup_offline_cgwb(). There is a window between
+inode_prepare_wbs_switch() returning true and the subsequent
+wb_queue_isw() call. Following is the process that triggers the issue:
 
-Fixes: 4c14a2fb5d14 ("mac802154: add llsec decryption method")
+      CPU A (umount)           |          CPU B (writeback)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                 inode_switch_wbs/cleanup_offline_cgwb
+                                  atomic_inc(&isw_nr_in_flight)
+                                  inode_prepare_wbs_switch
+                                   -> passes SB_ACTIVE check
+                                   __iget(inode)
+ generic_shutdown_super
+  sb->s_flags &= ~SB_ACTIVE
+  cgroup_writeback_umount(sb)
+   smp_mb()
+   atomic_read(&isw_nr_in_flight)
+   rcu_barrier()
+    -> no pending RCU callbacks
+   flush_workqueue(isw_wq)
+    -> nothing queued, returns
+  evict_inodes(sb)
+   -> Inode skipped as isw still holds a ref.
+  sop->put_super(sb)
+   /* destroys percpu counters */
+  -> VFS: Busy inodes after unmount!
+                                  wb_queue_isw()
+                                   queue_work(isw_wq, ...)
+                                  /* later in work function */
+                                  inode_switch_wbs_work_fn
+                                   process_inode_switch_wbs
+                                    iput() -> evict
+                                     percpu_counter_dec() // UAF!
+
+Fix this by extending the RCU read-side critical section in
+inode_switch_wbs() and cleanup_offline_cgwb() to cover from
+inode_prepare_wbs_switch() through wb_queue_isw().  Since there is
+no sleep in this window, rcu_read_lock() can be used.  Then add a
+synchronize_rcu() in cgroup_writeback_umount() before the existing
+rcu_barrier(), so that all in-flight switchers that have passed the
+SB_ACTIVE check have completed queue_work() before flush_workqueue()
+is called.
+
+The existing rcu_barrier() is intentionally retained so this fix can
+be backported unchanged to stable kernels (5.10.y, 6.6.y, ...) that
+still queue switches via queue_rcu_work(). It is a no-op on current
+mainline (since commit e1b849cfa6b6 ("writeback: Avoid contention on
+wb->list_lock when switching inodes")) and is removed in a follow-up
+patch.
+
+Fixes: a1a0e23e4903 ("writeback: flush inode cgroup wb switches instead of pinning super_block")
 Cc: stable@vger.kernel.org
-Assisted-by: 0sec:multi-model
-Reviewed-by: Simon Horman <horms@kernel.org>
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Suggested-by: Jan Kara <jack@suse.cz>
+Link: https://lore.kernel.org/all/mxnjq2l6guusfchvauxr3v7c4bwjasybxlleqbbh4efloeqspz@iqylk76ohufz
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+Link: https://patch.msgid.link/20260521095016.2791354-2-libaokun@linux.alibaba.com
+Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ fs/fs-writeback.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-v2 (Breno Leitao review):
- - drop the redundant self-Reported-by.
- - move the length check above sg_init_one() (datalen/authlen are
-   already available there).
- - Assisted-by trailer -> 0sec:multi-model.
-Carrying Simon Horman Reviewed-by; v2 only moves the same check earlier.
- net/mac802154/llsec.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/net/mac802154/llsec.c b/net/mac802154/llsec.c
-index 5e7cc11fab3a..85452ef9a58c 100644
---- a/net/mac802154/llsec.c
-+++ b/net/mac802154/llsec.c
-@@ -891,6 +891,11 @@ llsec_do_decrypt_auth(struct sk_buff *skb, const struct mac802154_llsec *sec,
- 	data = skb_mac_header(skb) + skb->mac_len;
- 	datalen = skb_tail_pointer(skb) - data;
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index f464c9da7bc6a3..1a58b826c74ed3 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -507,12 +507,18 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
  
-+	if (datalen < authlen) {
-+		kfree_sensitive(req);
-+		return -EBADMSG;
-+	}
-+
- 	sg_init_one(&sg, skb_mac_header(skb), assoclen + datalen);
+ 	atomic_inc(&isw_nr_in_flight);
  
- 	if (!(hdr->sec.level & IEEE802154_SCF_SECLEVEL_ENC)) {
+-	/* find and pin the new wb */
++	/*
++	 * Paired with synchronize_rcu() in cgroup_writeback_umount():
++	 * holding rcu_read_lock across the SB_ACTIVE check, the inode
++	 * grab and call_rcu() ensures synchronize_rcu() cannot return
++	 * until the switch is queued, so the subsequent rcu_barrier()
++	 * and flush_workqueue() will wait for the switch.
++	 */
+ 	rcu_read_lock();
++	/* find and pin the new wb */
+ 	memcg_css = css_from_id(new_wb_id, &memory_cgrp_subsys);
+ 	if (memcg_css && !css_tryget(memcg_css))
+ 		memcg_css = NULL;
+-	rcu_read_unlock();
+ 	if (!memcg_css)
+ 		goto out_free;
+ 
+@@ -542,9 +548,11 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
+ 	 * Let's continue after I_WB_SWITCH is guaranteed to be visible.
+ 	 */
+ 	call_rcu(&isw->rcu_head, inode_switch_wbs_rcu_fn);
++	rcu_read_unlock();
+ 	return;
+ 
+ out_free:
++	rcu_read_unlock();
+ 	atomic_dec(&isw_nr_in_flight);
+ 	if (isw->new_wb)
+ 		wb_put(isw->new_wb);
+@@ -1010,6 +1018,14 @@ int cgroup_writeback_by_id(u64 bdi_id, int memcg_id, unsigned long nr,
+ void cgroup_writeback_umount(void)
+ {
+ 	if (atomic_read(&isw_nr_in_flight)) {
++		/*
++		 * Paired with rcu_read_lock() in inode_switch_wbs().
++		 * synchronize_rcu() waits for any in-flight switcher that
++		 * already passed the SB_ACTIVE check to finish calling
++		 * call_rcu(), so the rcu_barrier() and flush_workqueue()
++		 * below will then drain it.
++		 */
++		synchronize_rcu();
+ 		/*
+ 		 * Use rcu_barrier() to wait for all pending callbacks to
+ 		 * ensure that all in-flight wb switches are in the workqueue.
 -- 
-2.43.0
+2.53.0
 
