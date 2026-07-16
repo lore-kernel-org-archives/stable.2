@@ -1,152 +1,188 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.20])
+Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A9C25B0B8;
-	Thu, 16 Jul 2026 08:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784190866; cv=pass; b=Kfm+KZv1uJX4wtHAenZSQFD4C8wvavhZvEmrp4ZnK1xRxBxNqLBEMlU0vVfX0japnT8sKyaSnbFz3PMGx8s0G2DPBb679wgGVq2cF5kPO4oaZpdVooQZl/TCPvzKWESNaB9xN18JVSheJx1e8x91APYhO1AeW2EnxQmudcSANUY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784190866; c=relaxed/simple;
-	bh=B0ul3NWpSQgRWUdKpoEiF1FxO7394qh4vON5Eeb0tx8=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Rf+6VAnGA/i5SHEpZHlr3CoyoKilG9OoZgksFIP65vDvFIYMUyZKIFDpC7PgaEZHuQfqleeg96aqyEjk7blYDWppFGKitiNPLWMy3X7MqjLiY5k28gjByg8mYoFQa4jYwYDPfhM8nzUSCe4J/ruLRj356RRj4RIYX4eqNub7VS8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=iOP0IZHI; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=WiUNWe5d; arc=pass smtp.client-ip=85.215.255.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EDC3E2756
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 08:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784191375; cv=none; b=kvigMRa2UaP8v5QJdb5/FpNIRmU909npFZjoJFbzMSCm+d78628g9a1AP8T1546BEjr7IyvXyGdrfTw4fBLmEYocfPoQJv2bwEHsm9WiCLNdrc+zJhu2Ns/UKgn7NhavPbMl3WgCJMCc438tt5pPHfbS6vc458buaABTZFfdALM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784191375; c=relaxed/simple;
+	bh=go62PKRAlcngrK1Hy0d7dPJaDh5wBjvRpRw0Lx3Gbq4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ubBtI+DzX9onrGZn9HMQJjhvkclXkXXqk++rBFC1EJQUwEmAOAs4ANtAqmgfYO3ledavWg73LjXcki4/Xj6VEvmnUJ4ukhqgORintOz0D9WiKrVUPCQQsUXAI58j2djJcPyInsPDzgbbubUEIqe7FfrbFet+cYhPqMvNKs9snIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gQ3/hoSc; arc=none smtp.client-ip=95.215.58.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="iOP0IZHI";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="WiUNWe5d"
-ARC-Seal: i=1; a=rsa-sha256; t=1784190846; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=HpmUiKEpgfKW24nLQnTftZVieNEcMwzGIA28TBwLXNCcOfbJar6McQV3lB5fuLv6A/
-    wriZJWHYcPYCc1uWRIeYmMhxz2gJDruTcQXZOcWBd3Tin857KvXscJHN/jENieJ8sn6s
-    8BpBmxJqTOYxqAf3LHnoWQH/M7H2qeGPUowj7k8vOYbLCJmWlgj3RBRTIyh8ZAQeA8OA
-    h7aVb+7jVjw3/jMacPDn5uK3rIl2jGSIQTvz3yDfzZkK9R6OQNe4DCWMK++48yP5pwbU
-    LmtYdXUuMFyNMd3TageiK3MobwmxdR9bU6wSBPv1TAnv9qvIPzNSKvvqFWiSw2+NVjWN
-    sW+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784190846;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=B0ul3NWpSQgRWUdKpoEiF1FxO7394qh4vON5Eeb0tx8=;
-    b=JTST9sHFhKaQH7HftPpKdAG6lu795z8vUGlKa36xB5jFyhQSFGV3nOHbUgSXzyM9Ku
-    OO/rjX7nysVA2Zsf754lL1qF2V1VAf1qyh9BZ4jXvJPWQHmuHibA6xWSQz1nonkeSd62
-    1K2NO8KFZ+YcXXyFSRa/2jwgz8n5a4OMQovxILe4FSD/BeV0kDFM+wSJJzVGDuXw8Edv
-    sE3c4wwxtAKNXEOYN/NXaKFQ1k5PBqY6hvNowWDQ/FFpDIKMYmz6nAX6ghC2igPGO+nh
-    V5ftm1JiVEeMhMWb2y0Iii0wZ/KNaPIfMChwY/PLQ+Xj4w/QDosM5fAfj1Cg9WVy/OkJ
-    rmDg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784190846;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=B0ul3NWpSQgRWUdKpoEiF1FxO7394qh4vON5Eeb0tx8=;
-    b=iOP0IZHIZ23N2TGodRZRQVHBnuJ/AT4dU3zqSUJ8oxsrIO5fG5H8voH55BtKQDFQzB
-    X9I6oH2uTm5b/Sx3OYKXAxdy7hW46q+VgwbT3+J0mH0DLfN7jYtoH0FhLi8KSZ6g9Ur9
-    RgIqVUVsTYVdC8ZpEQ0eyYUvWWwolzx8ZKrCkf/MAXeqqqMjQsvfDHyitK6hn1S+tZXp
-    GKVVv6gR05nWTDBIUrih4PoSQKDO8nAF3Si/6OLIfXhDryWG64EZ0moVBbcjjmxjA8kq
-    WM5w1wqmEQoUaVpXQu5kP6Lg4fwrpUbVnUO86l+wwxyRoFNr212XlwU5TP9h6ptjkbKv
-    p+lQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784190846;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=B0ul3NWpSQgRWUdKpoEiF1FxO7394qh4vON5Eeb0tx8=;
-    b=WiUNWe5d5vgFQxeU6Oghy4+2exNIpA1uIhmbFrO6Jk1y6y/XG+khB1u4Ju57N7aDAF
-    J4Jd74BNAOXz0xxS+tCw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9o12DNOsPj0lFzL1yeDgZ"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.5.6 DYNA|AUTH)
-    with ESMTPSA id Q4b76426G8Y6aU6
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 16 Jul 2026 10:34:06 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gQ3/hoSc"
+Message-ID: <94a489d5-8b02-46e6-92d2-ccb85f556769@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784191371;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ja9q5YNM9G+iFAQ4USLdAyYzPDLR1TKQogJvW0VZQhg=;
+	b=gQ3/hoScl6UK3GoY+N/bQG+67l3bmhmL1Bu73KB0SK98rScna6iegHEOyxCAobOWPRp0vl
+	r9XMlh+lrfrHBX3IwPMY/80WidicA+JoNTkRjG3o6WJG/xfJEDVCdX7YNdhI+5v7gOHgnC
+	1xOcO1CsfHEPGM9ptUkYleVd1P/90i8=
+Date: Thu, 16 Jul 2026 16:42:31 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH] i2c: jz4780: Cache clock rate at probe to prevent CCF
- prepare_lock deadlock
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <aliLbNJ51Ns0dIHX@zenone.zhora.eu>
-Date: Thu, 16 Jul 2026 10:33:56 +0200
-Cc: Paul Cercueil <paul@crapouillou.net>,
- linux-mips@vger.kernel.org,
- linux-i2c@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- letux-kernel@openphoenux.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9421BB47-EFC8-4D82-989F-82A84FE46749@goldelico.com>
-References: <c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
- <alf7rSWaLBO8WBkR@zenone.zhora.eu>
- <36148F30-156F-4E74-8765-D718F6FE7E76@goldelico.com>
- <aliLbNJ51Ns0dIHX@zenone.zhora.eu>
-To: Andi Shyti <andi.shyti@kernel.org>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+MIME-Version: 1.0
+Subject: Re: [PATCH v2 2/2] mm: vmscan: fix node reclaim ignoring swappiness
+ parameter
+To: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner
+ <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>
+Cc: Muchun Song <muchun.song@linux.dev>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, cgroups@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+References: <20260716031729.1064007-1-ridong.chen@linux.dev>
+ <20260716031729.1064007-3-ridong.chen@linux.dev>
+ <7ddf3eee-5fe2-45f7-8614-c8936a039e04@linux.dev>
+ <a5eb5433-cf6c-40ee-b14e-128a8bcc85bf@linux.dev>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <a5eb5433-cf6c-40ee-b14e-128a8bcc85bf@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
 
 
-> Am 16.07.2026 um 09:43 schrieb Andi Shyti <andi.shyti@kernel.org>:
->=20
-> On Thu, Jul 16, 2026 at 07:44:20AM +0200, H. Nikolaus Schaller wrote:
->> Hi Andi,
->>=20
->>> Am 16.07.2026 um 00:07 schrieb Andi Shyti <andi.shyti@kernel.org>:
->>>=20
->>> Hi Nikolaus,
->>>=20
->>> On Fri, Jul 10, 2026 at 08:58:35AM +0200, H. Nikolaus Schaller =
-wrote:
->>>> Fix a severe AB/BA deadlock between the Common Clock Framework =
-(CCF)
->>>> and the I2C adapter lock, which triggers when an I2C-controlled =
-clock
->>>> generator (like the Si5351) is registered or modified under the =
-CCF.
->>>>=20
->>>> During a clock frequency change, the CCF acquires its global =
-'prepare_lock'
->>>> mutex and calls i2c_transfer() to update the chip registers, =
-stalling
->>>> for the adapter's I2C bus lock.
->>>=20
->>> I don't think caching the clock rate once at probe is safe.
->>=20
->> Ok, valid point to discuss.
->>=20
->>=20
->>> If the controller clock rate changes afterwards,
->>> jz4780_i2c_set_speed() will keep using the stale cached value and
->>> calculate incorrect bus timings.
->>=20
->> But: is clock rate ever changed during operation? Usually it is =
-defined
->> by the device tree constant.
->=20
-> That's what you are saying in your commit message.
+On 7/16/26 4:21 PM, Ridong Chen wrote:
+> 
+> 
+> On 7/16/2026 11:58 AM, Qi Zheng wrote:
+>> Hi Ridong,
+>>
+>> On 7/16/26 11:17 AM, Ridong wrote:
+>>> From: Ridong Chen <chenridong@xiaomi.com>
+>>>
+>>> sc_swappiness() had two separate definitions depending on
+>>> CONFIG_MEMCG. The !CONFIG_MEMCG variant simply returned
+>>> vm_swappiness, ignoring the proactive_swappiness value passed
+>>> through scan_control. This caused the swappiness parameter
+>>> written to /sys/devices/system/node/nodeX/reclaim to have no
+>>> effect when CONFIG_MEMCG is disabled.
+>>>
+>>> Fix this by consolidating sc_swappiness() into a single definition
+>>> that checks sc->proactive_swappiness first, then falls back to
+>>> mem_cgroup_swappiness() which already handles both CONFIG_MEMCG
+>>> and !CONFIG_MEMCG.
+>>>
+>>> Before fix (swappiness=max ignored, mostly file pages reclaimed):
+>>>
+>>>      # cat /proc/sys/vm/swappiness
+>>>      60
+>>>      # cat /proc/vmstat | grep pgsteal
+>>>      pgsteal_kswapd 0
+>>>      pgsteal_direct 0
+>>>      pgsteal_khugepaged 0
+>>>      pgsteal_proactive 1840
+>>>      pgsteal_anon 25
+>>>      pgsteal_file 1815
+>>>      # echo "64M swappiness=max" > /sys/devices/system/node/node0/ 
+>>> reclaim
+>>>      # cat /proc/vmstat | grep pgsteal
+>>>      pgsteal_kswapd 0
+>>>      pgsteal_direct 0
+>>>      pgsteal_khugepaged 0
+>>>      pgsteal_proactive 18013
+>>>      pgsteal_anon 337
+>>>      pgsteal_file 17676
+>>>
+>>> After fix (swappiness=max honored, anon pages reclaimed as expected):
+>>>
+>>
+>> By the way, in get_scan_count(), it seems we still reclaim file pages
+>> without swap space, even if swappiness=max (SWAPPINESS_ANON_ONLY) is
+>> set.
+>>
+>> This behavior appears to contradict the semantics of
+>> SWAPPINESS_ANON_ONLY, which probably needs a fix as well.
+>>
+> Thanks, Qi.
+> 
+> You're right. Currently, when can_reclaim_anon_pages() returns false, 
+> the reclaim logic falls back to scanning file folios even if swappiness 
+> == SWAPPINESS_ANON_ONLY is set:
+> 
+> ```
+> static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
+>                 unsigned long *nr)
+> {
+>      ....
+>      /* If we have no swap space, do not bother scanning anon folios. */
+>      if (!sc->may_swap || !can_reclaim_anon_pages(memcg, pgdat->node_id, 
+> sc)) {
+>          scan_balance = SCAN_FILE;
+>          goto out;
+>      }
+> 
+>      ...
+>      /* Proactive reclaim initiated by userspace for anonymous memory 
+> only */
+>      if (swappiness == SWAPPINESS_ANON_ONLY) {
+>          WARN_ON_ONCE(!sc->proactive);
+>          scan_balance = SCAN_ANON;
+>          goto out;
+>      }
+>      ...
+> }
+> ```
+> 
+> The !can_reclaim_anon_pages() check above takes precedence over the 
+> SWAPPINESS_ANON_ONLY branch, making the latter effectively unreachable 
+> when anonymous pages are deemed non-reclaimable.
+> 
+> To fix this, could we move the SWAPPINESS_ANON_ONLY check up before the 
+> can_reclaim_anon_pages() check?
+> 
+> ```
+> static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
+>                 unsigned long *nr)
+> {
+>      ...
+>      /* Proactive reclaim initiated by userspace for anonymous memory 
+> only */
+>      if (swappiness == SWAPPINESS_ANON_ONLY) {
+>          WARN_ON_ONCE(!sc->proactive);
+>          scan_balance = SCAN_ANON;
+>          goto out;
 
-The Si5351 clock generator driver is connected through this i2c bus. And =
-that
-is referred to by "when an I2C-controlled clock generator (like the =
-Si5351) is=20
-registered or modified under the CCF".
+For SWAPPINESS_ANON_ONLY + !can_reclaim_anon_pages, perhaps we should
+just return directly instead of goto out, since no pages can be
+reclaimed in this situation.
 
-Only then, this bug faces surface. Because that driver changes it's =
-clock through
-sending i2c commands which also ask for the lock.
+Thanks,
+Qi
 
-But again: how would you solve this?
-
-BR and thanks,
-Nikolaus
-
+>      }
+>      ....
+>      /* If we have no swap space, do not bother scanning anon folios. */
+>      if (!sc->may_swap || !can_reclaim_anon_pages(memcg, pgdat->node_id, 
+> sc)) {
+>          scan_balance = SCAN_FILE;
+>          goto out;
+>      }
+> 
+>      ...
+> }
+> ```
+> 
 
