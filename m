@@ -1,47 +1,44 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F634429CD6;
-	Thu, 16 Jul 2026 13:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44B63FF1B8
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209848; cv=none; b=Qy74RpVGeYE2Mcn3Xn5vs5pL2q+T430Mp+2jLpicfqqTQjF8kJXjR9kflCjbbDDq8+OqY/+wb8rY2qZbsjIqsxHelzw+FcfJH2s16JdQJkOvHKlz4PNTk9HtwE05Q/UDe1C341CFvBfquirpTzYhWlUCS8WqoKK/WT52VOWfrYo=
+	t=1784209849; cv=none; b=BSd+vBpKglT9FXXaw2RrQqi91kEmYmmJWuz4Pz5QFhauZ8AX8edrKSoLEQ5TA9eilQFdVR52vHzBYreg8udQo9QU7PLkxRPPJ32+YYo5jokqhM/NSy/JwmW68cNtZnPaykDBXvmjTkyu7IiDzW4C7aWeo5e9LxILRKlDfM49AJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784209848; c=relaxed/simple;
-	bh=V5hcN40Qf4FPsACNP8iTpzSwa3kwsZsEKkSavx2o1Z0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VSNMoOvpTJn7iZUXCO84sqJFhY5jso3zjwH6w6Uv3Bx7cvgiQI+EK7sG/S031a0cWrc8sjvgVzLNcsORKMfHcWEmCn9UlDNQqBNFd1Yw47ltPUDFYmSrFp4SEnSB9BSfVrQZEHSASOR/tKiLXjP+h+BzQz3Y8fTQgwa/s/zid6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z4rQEEZB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784209849; c=relaxed/simple;
+	bh=ajeHCcLvr48PdCEfUaT8cf+BJLluDDxfdXP2xPLMtX8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CI6yD6sCFKhIV4kfi9CCdhLT/JOBJkSo0NcKLoSrqaSv08vYV1ffuo9BISDFwe1JpLubbGqTqhhpkJSDwv5IHu1RvW24l9JcnSBffrPG0f5LOfPhLnXBKGItz6I5ulRsPOiwM/Zy3pQMEljr69lOe1swYZflH/H3MjZsRjNVPpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bdgUa1Rb; arc=none smtp.client-ip=91.218.175.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z4rQEEZB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FD2A1F00A3D;
-	Thu, 16 Jul 2026 13:50:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784209846;
-	bh=VftYEMQ4hRT826KU9fNX1IVMGetXoKurebZQI/Xen4k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z4rQEEZBFebfILd3F1Sk00Mtf2bxdP07Csi/kbVAkza2VYEs8IN5go5s2E6RdWagm
-	 eDHQddEJX8B7APwBqghynE78bdMH0UqxMUIvpGSHb0X1J7Y0bfRX4D7L0GOQ2UXghP
-	 OUsDWHtnntpBL58twQ6MrxRZLxSjzj5l7C0aHQaw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bdgUa1Rb"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784209844;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=StskhXf3s6M0OroRNVpwFxrMh7uUl5zq2WrwpkxAQTo=;
+	b=bdgUa1RbhgkaEX/ki76wN9X1Iw18BRd4sZ6VcPmtnmXQ2paNVZ/N1+aL6Tj9rvKYFLbSOc
+	P198wGSKf/GoAFsZ4nvibHGJJBn0P/PVcZcxRf33TDEhN7HTgbWvwLsYIRfNgLWvl2VrQZ
+	uRYh+/QU7/GwwXoXXtSKeCVpLcqQbds=
+From: Fuad Tabba <fuad.tabba@linux.dev>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sungwoo Kim <iam@sung-woo.kim>,
-	Dave Tian <daveti@purdue.edu>,
-	Weidong Zhu <weizhu@fiu.edu>,
-	Chao Shi <coshi036@gmail.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 7.1 340/518] block: skip sync_blockdev() on surprise removal in bdev_mark_dead()
-Date: Thu, 16 Jul 2026 15:30:08 +0200
-Message-ID: <20260716133055.251797092@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
-References: <20260716133047.772246337@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Fuad Tabba <tabba@google.com>,
+	Will Deacon <will@kernel.org>
+Subject: [PATCH 6.6.y] KVM: arm64: Bound used_lrs when flushing the pKVM hyp vCPU
+Date: Thu, 16 Jul 2026 14:50:36 +0100
+Message-Id: <20260716135036.302708-1-fuad.tabba@linux.dev>
+In-Reply-To: <2026071616-frustrate-unmade-d5c5@gregkh>
+References: <2026071616-frustrate-unmade-d5c5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,63 +46,93 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-------------------
+commit 8cc8bbbfab14c22c5551d0dd19b208a44b141c76 upstream.
 
-From: Chao Shi <coshi036@gmail.com>
+flush_hyp_vcpu() copies the host vGIC state into the hyp's private vCPU
+on every run. The vGIC list register save and restore use used_lrs as
+their loop bound and expect it to stay within the number of implemented
+list registers. While this is generally the case, flush_hyp_vcpu()
+copies vgic_v3 verbatim and does not enforce this, so a value provided
+by the host is used at EL2 to index vgic_lr[] and access ICH_LR<n>_EL2
+(host -> EL2).
 
-commit 49f06cff50a4ccf3b7a1a662ceb892b3b21a527a upstream.
+Fix by clamping used_lrs to the number of implemented list registers
+after the copy, as the trusted path already does in
+vgic_flush_lr_state(). The number of implemented list registers is
+constant after init, so it is replicated once from
+kvm_vgic_global_state.nr_lr into hyp_gicv3_nr_lr rather than read on
+every entry.
 
-bdev_mark_dead()'s @surprise == true means the device is already gone.
-The filesystem callback fs_bdev_mark_dead() honours this and skips
-sync_filesystem(), but the bare block device path (no ->mark_dead op)
-lost its !surprise guard when the holder ->mark_dead callback was wired
-up (see Fixes), and now calls sync_blockdev() unconditionally, which can
-hang forever waiting on writeback that can no longer complete.
-
-syzkaller hit this via nvme_reset_work()'s "I/O queues lost" path:
-nvme_mark_namespaces_dead() -> blk_mark_disk_dead() ->
-bdev_mark_dead(bdev, true) -> sync_blockdev() blocks in
-folio_wait_writeback(), wedging the reset worker and every task waiting
-on it.
-
-Skip the sync on surprise removal, matching fs_bdev_mark_dead();
-invalidate_bdev() still runs. Orderly removal (surprise == false) is
-unchanged.
-
-Found by FuzzNvme(Syzkaller with FEMU fuzzing framework).
-
-Fixes: d8530de5a6e8 ("block: call into the file system for bdev_mark_dead")
-Acked-by: Sungwoo Kim <iam@sung-woo.kim>
-Acked-by: Dave Tian <daveti@purdue.edu>
-Acked-by: Weidong Zhu <weizhu@fiu.edu>
-Signed-off-by: Chao Shi <coshi036@gmail.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260522220025.1770388-1-coshi036@gmail.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org
+Fixes: be66e67f1750 ("KVM: arm64: Use the pKVM hyp vCPU structure in handle___kvm_vcpu_run()")
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Reviewed-by: Fuad Tabba <tabba@google.com>
+Tested-by: Fuad Tabba <tabba@google.com>
+Link: https://patch.msgid.link/20260606175614.83273-3-imv4bel@gmail.com
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ tabba: adjust context in flush_hyp_vcpu() and kvm_hyp.h ]
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- block/bdev.c |    8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ arch/arm64/include/asm/kvm_hyp.h   | 1 +
+ arch/arm64/kvm/arm.c               | 2 ++
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c | 9 +++++++++
+ 3 files changed, 12 insertions(+)
 
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -1245,7 +1245,13 @@ void bdev_mark_dead(struct block_device
- 		bdev->bd_holder_ops->mark_dead(bdev, surprise);
- 	else {
- 		mutex_unlock(&bdev->bd_holder_lock);
--		sync_blockdev(bdev);
-+		/*
-+		 * On surprise removal the device is already gone; syncing is
-+		 * futile and can hang forever waiting on I/O that will never
-+		 * complete.  Match fs_bdev_mark_dead(), which also skips it.
-+		 */
-+		if (!surprise)
-+			sync_blockdev(bdev);
- 	}
+diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
+index 51cd106cd840..1b209efac972 100644
+--- a/arch/arm64/include/asm/kvm_hyp.h
++++ b/arch/arm64/include/asm/kvm_hyp.h
+@@ -146,5 +146,6 @@ extern u64 kvm_nvhe_sym(id_aa64smfr0_el1_sys_val);
+ extern unsigned long kvm_nvhe_sym(__icache_flags);
+ extern unsigned int kvm_nvhe_sym(kvm_arm_vmid_bits);
+ extern unsigned int kvm_nvhe_sym(kvm_host_sve_max_vl);
++extern unsigned int kvm_nvhe_sym(hyp_gicv3_nr_lr);
  
- 	invalidate_bdev(bdev);
-
+ #endif /* __ARM64_KVM_HYP_H__ */
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 3ae529e967c7..e49ead6d005c 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -2026,6 +2026,8 @@ static int __init init_subsystems(void)
+ 	switch (err) {
+ 	case 0:
+ 		vgic_present = true;
++		if (static_branch_unlikely(&kvm_vgic_global_state.gicv3_cpuif))
++			kvm_nvhe_sym(hyp_gicv3_nr_lr) = kvm_vgic_global_state.nr_lr;
+ 		break;
+ 	case -ENODEV:
+ 	case -ENXIO:
+diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index 163538bb4ec1..ac0d5a0de014 100644
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@ -22,6 +22,9 @@
+ 
+ DEFINE_PER_CPU(struct kvm_nvhe_init_params, kvm_init_params);
+ 
++/* Number of implemented GICv3 LRs. Used by flush_hyp_vcpu(). */
++unsigned int hyp_gicv3_nr_lr;
++
+ void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
+ 
+ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+@@ -49,6 +52,12 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 	hyp_vcpu->vcpu.arch.vsesr_el2	= host_vcpu->arch.vsesr_el2;
+ 
+ 	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3 = host_vcpu->arch.vgic_cpu.vgic_v3;
++
++	/* Bound used_lrs by the number of implemented list registers. */
++	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs =
++		min_t(unsigned int,
++		      hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs,
++		      hyp_gicv3_nr_lr);
+ }
+ 
+ static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+-- 
+2.39.5
 
