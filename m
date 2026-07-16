@@ -1,124 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F69628852E;
-	Thu, 16 Jul 2026 02:13:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DEA19ADA4;
+	Thu, 16 Jul 2026 02:14:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784168037; cv=none; b=SPyJZxDOQUQlfbV+xJSEG/R13w3LPdQhN6cZTil5YUXDnoFirQzzJw+LPUAmluQmhh/Pk4ojC2z5NJveFc9/QUgHDv75FIyP9juIlrMae4zkSUi3O61Jd6knGMZe8Y7OmTgAalA2obVHKSrpxcZxLNFjvvkTFmDYU5jHYABwVfU=
+	t=1784168097; cv=none; b=Xmn9bB40qklL7zaCB9RDwhaJknJqw/NWIHNqJZLjENjqi/cVMqlYGmL+DxjnePlhWdeo4nIpzpw66OQdyKYr0GjN8tXzkNcOYuAKRRqY6AgmJXkd+6ENuUicD4Ftc5eDV7N88gUgE9dWvPBFaxXkx1aLR3LvTcDbQijPv3DO/aU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784168037; c=relaxed/simple;
-	bh=g5F3u5HpCIVAKXXlu6lQyVffkwzqzhRodbunphDG+08=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Bg4de/GbV1el+uorggOsxFxlJGnBcsKF48PSo8ghzWZPEYGs1wDTX/Q8XYmLDGOBDRj8w31rIOk59gghnMdLHPFJPA7TV/FFMLw8yWVKS3w1qVT00toXvUeiw8Y9aVbMzvuuCB9ZvrnLoVHHWAz3T8FZ7yXxQ7HBSDcBiradiWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBjsBetT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784168097; c=relaxed/simple;
+	bh=cQAHxN97ECIu0ZseFMVT+bdB5XZM90+QEDKxfhKQ6P0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BtlknSAK8C8yG7GicVnhtQy4gzGNzBYvQr/T/b51Mun0yaJ5kXy97H7pD8A1L8pOgszV2jOlSIxKvdtIsiSmAtznDSLChcQhBeQLITXKyoGzswA040TKVwybZ8Varxg1eba8Y+V4XITmb7M+jFNYJTDi00MHyOyP2EP7sBLMG0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pGaiFEek; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBjsBetT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC3E1F000E9;
-	Thu, 16 Jul 2026 02:13:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784168036;
-	bh=g5F3u5HpCIVAKXXlu6lQyVffkwzqzhRodbunphDG+08=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EBjsBetTSLJ/PVXVrqcQdqnyDxxVDV0X2i7wsl6PjjO7XwAqHXbYMpkxNNCLqM3Ag
-	 Q7w8Gn4ODpy4hriDiT62lcx4Y99bE45MLrMFL4r2C7pyBxtEKWDVFhMbMABBPohN6x
-	 A2KNevJdgn3xL3cHRiXO2U1YEbfY1VR8wr0VV8ejaH+AnymlWRJ2u5Z5+KHf9FqkeW
-	 npmW+d2THetZb3DtPP4Kj7716QEjvgDOgqcbSpma/8XdRe/ZGz/9kAvwxx4QlQ6Nqd
-	 75tFh5B6g0eWy6tbgLp4JBH6TSPkajTMH2Rdqzvalp8eACMSLnssTJOlfo3iNK5WGP
-	 G8xcyb/3fqcGQ==
-Message-ID: <7700e867-9fec-48d0-b9b4-d48632fc4808@kernel.org>
-Date: Thu, 16 Jul 2026 11:13:46 +0900
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pGaiFEek"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784168094;
+	bh=cQAHxN97ECIu0ZseFMVT+bdB5XZM90+QEDKxfhKQ6P0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=pGaiFEekF2Z9uq/eVrJgikSLvAJ3qqdymhP7DiaFmmuDCGRmES3R/xFyOsMvEPo+w
+	 pKlsXOmFwBbT0nbivMalkQ9gmRbGUwu4WQHdk7trAjBL2DBXjdu9BMJmo22UsnpbQS
+	 cA07A9jPpgHUYswFPAdQDagSFvUBLSoYFRac74M88xobBdeD8L8YM/lozkoJCya7uC
+	 fLLpe/5se5xQdSGQEJTObD5iIx5w6MNjrhayWjZtQP8YndxeQsVq1mAEd9sN9VSSkY
+	 HTrcxsEHkUmKoiHrCBagPJCszHId15jhT7cLzu4333PZqxSDpPl9U2x4sC/5V/s28L
+	 rNBW6BDK1oubQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D011D17E0B89;
+	Thu, 16 Jul 2026 04:14:52 +0200 (CEST)
+Message-ID: <2ea957e9b2866efeda766453f1b9c83bf6f8ffee.camel@collabora.com>
+Subject: Re: [PATCH v1 6/7] media: chips-media: wave5: Fix pipeline stall
+ when queuing fails
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: "Jackson.lee" <jackson.lee@chipsnmedia.com>, mchehab@kernel.org, 
+	hverkuil-cisco@xs4all.nl, bob.beckett@collabora.com
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	lafley.kim@chipsnmedia.com, b-brnich@ti.com, hverkuil@xs4all.nl, 
+	nas.chung@chipsnmedia.com, stable@vger.kernel.org
+Date: Wed, 15 Jul 2026 22:14:51 -0400
+In-Reply-To: <20260626012232.111-7-jackson.lee@chipsnmedia.com>
+References: <20260626012232.111-1-jackson.lee@chipsnmedia.com>
+	 <20260626012232.111-7-jackson.lee@chipsnmedia.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-kXrnMCy/ac5/HMwFNi2u"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/page_alloc: don't spin_trylock() in NMI on UP
-To: Brendan Jackman <jackmanb@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Zi Yan <ziy@nvidia.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Alexei Starovoitov <ast@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- sashiko-bot@kernel.org
-References: <20260715-alloc-nolock-fixes-v1-0-fadc49952dda@google.com>
- <20260715-alloc-nolock-fixes-v1-1-fadc49952dda@google.com>
-Content-Language: en-US
-From: Harry Yoo <harry@kernel.org>
-In-Reply-To: <20260715-alloc-nolock-fixes-v1-1-fadc49952dda@google.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Ii0HwgF0oUWLgy0EetAZXxlL"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Ii0HwgF0oUWLgy0EetAZXxlL
-Content-Type: multipart/mixed; boundary="------------RMnVot6AwRKrwAyyoZv71EnF";
- protected-headers="v1"
-From: Harry Yoo <harry@kernel.org>
-To: Brendan Jackman <jackmanb@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Zi Yan <ziy@nvidia.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Alexei Starovoitov <ast@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- sashiko-bot@kernel.org
-Message-ID: <7700e867-9fec-48d0-b9b4-d48632fc4808@kernel.org>
-Subject: Re: [PATCH 1/2] mm/page_alloc: don't spin_trylock() in NMI on UP
-References: <20260715-alloc-nolock-fixes-v1-0-fadc49952dda@google.com>
- <20260715-alloc-nolock-fixes-v1-1-fadc49952dda@google.com>
-In-Reply-To: <20260715-alloc-nolock-fixes-v1-1-fadc49952dda@google.com>
 
---------------RMnVot6AwRKrwAyyoZv71EnF
-Content-Type: text/plain; charset=UTF-8
+--=-kXrnMCy/ac5/HMwFNi2u
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-
-
-On 7/15/26 6:03 PM, Brendan Jackman wrote:
-> As noted in can_spin_trylock(), using this is unsafe in this context.
-> commit 620b46ed6ae17 ("mm/page_alloc: return NULL early from
-> alloc_frozen_pages_nolock() in NMI on UP") fixed this on the alloc side=
-
-> but missed the free side.
+Le vendredi 26 juin 2026 =C3=A0 10:22 +0900, Jackson.lee a =C3=A9crit=C2=A0=
+:
+> From: Jackson Lee <jackson.lee@chipsnmedia.com>
 >=20
-> Impact: If BPF programs using these features in NMI (probably tracing)
-> are present on non-SMP builds this might crash the kernel and is
-> probably exploitable by local attackers for privilege escalation.
+> The Wave5 decoder calls v4l2_m2m_job_finish() immediately in device_run()
+> after submitting frames to firmware. When the firmware completes those
+> frames and the queue drains to zero, finish_decode() has no active M2M
+> job to finish, so v4l2_m2m_schedule_next_job() is never called and the
+> decoder stalls.
 >=20
-> Reported-by: sashiko-bot@kernel.org
-> Link: https://sashiko.dev/#/patchset/20260703-alloc-trylock-v5-0-c87b71=
-4e19d3%40google.com?part=3D18
+> Call v4l2_m2m_try_schedule() in finish_decode() when the firmware queue
+> empties to ensure the framework always schedules the next device_run().
+>=20
+> Fixes: a176ac5e701f ("media: chips-media: wave5: Improve performance of d=
+ecoder")
 > Cc: stable@vger.kernel.org
-> Fixes: 8c57b687e8331 ("mm, bpf: Introduce free_pages_nolock()")
-> Signed-off-by: Brendan Jackman <jackmanb@google.com>
+> Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
+> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
 > ---
+> =C2=A0drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c | 5 ++++-
+> =C2=A01 file changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/d=
+rivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+> index f33c00cb801b..1817b83c5884 100644
+> --- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+> +++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+> @@ -475,7 +475,10 @@ static void wave5_vpu_dec_finish_decode(struct vpu_i=
+nstance *inst)
+> =C2=A0			v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
+> =C2=A0	}
+> =C2=A0
+> -	inst->queuing_fail =3D false;
+> +	if (inst->queuing_fail) {
+> +		inst->queuing_fail =3D false;
+> +		v4l2_m2m_try_schedule(m2m_ctx);
+> +	}
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int wave5_vpu_dec_querycap(struct file *file, void *fh, stru=
+ct v4l2_capability *cap)
 
-Looks good to me, so:
-Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
-
---=20
-Cheers,
-Harry / Hyeonggon
-
---------------RMnVot6AwRKrwAyyoZv71EnF--
-
---------------Ii0HwgF0oUWLgy0EetAZXxlL
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+--=-kXrnMCy/ac5/HMwFNi2u
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCalg+WwAKCRCGXBN6rc5S
-1tMvAPsExCAfy2YFybwbgzOaolJPi/PXxIAOia72JjLQ8MaGFQEA/ZhQrf9a7VOT
-eyWvHkU7fjM2Gm70Z4h84mW204PjNA0=
-=iCHD
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalg+mwAKCRDZQZRRKWBy
+9PBSAQDNA5qz/xkLlR8vPywzfN99OpDkKMAq22haZvgkddCLzQD/S/I/iryGM8mn
+AaAb8wwemG3KoXvZQtzBYE7vXIrZLgU=
+=mm2D
 -----END PGP SIGNATURE-----
 
---------------Ii0HwgF0oUWLgy0EetAZXxlL--
+--=-kXrnMCy/ac5/HMwFNi2u--
