@@ -1,268 +1,607 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8936222590;
-	Thu, 16 Jul 2026 22:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784240980; cv=none; b=awNeF73rF/xjn4lOYqJT8CPwcQl4hTljnYoeye/KoPT9FILSQAf8Ql8VqMRZMr2VbEHRYMMIxAI6mzHs5i+nbk1Qn8g1rGAWefUHm2LZ2Zrh9qC3PExdfGI2wCTbpirSMB+5sg4MdGvOHH2hcpQMm9BGXYL9gM7MLiTb6KvIN60=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784240980; c=relaxed/simple;
-	bh=sIOgjUHXo4Ys2SsGm/2XEIS/NrzaJ6LtAZgD5ThS2PU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XZ4snI9ntX9Icy2vU2U3lnA8tLKic7mcwPhREQ34GXxgy5NJK/CUJIIkizrM2LaUmzJcWoPKE629ChCRl64vhM6cRF6mANW4YLGSqp7M4TMEptLR3Ww8oxars8/+T/N8F1LJKiHeXc6w46ZrFspgLAPiT72NUDlhmILNM38qCoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com; spf=pass smtp.mailfrom=gmx.com; dkim=pass (2048-bit key) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b=kFuCPdWb; arc=none smtp.client-ip=212.227.15.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DCE30C366;
+	Thu, 16 Jul 2026 22:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784242165; cv=fail; b=fg1dxi6wWDijGImBcEEOUOQa7ltLUeOIBAfm9FYrQKIz9GoYq6S7PMr1MZxofKCE540/4Wz76hXd/PvI8+kDgwz8s4U2HAkSo7GZ/5kIKRd8Zke8OvFqyb6Ma5JC7uiLJ0NZortl5qgOsar8RNcFsT8mXP4vlrJqr0eZGLQcpIg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784242165; c=relaxed/simple;
+	bh=HVpf7INGilvA7obYcQZGfqcnCutm4QM4mXX0YtX0HBg=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=DeQqbaXlz0X48tFDmwN7mcmmU354bccIC0k1rryoryeyGGY4fKZhuYRyx5/NfZVD24/IwBwt+/7lOgAfUxIjQKrsrYyUkIODbUbjhLHvEtXcbntZGup1tLtP6UtAsz/0JCPnokpeMXi8gEUWURyW09YctGeAiCsixkYwDtUlLig=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fnQ2iUwR; arc=fail smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b="kFuCPdWb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
-	s=s31663417; t=1784240972; x=1784845772; i=quwenruo.btrfs@gmx.com;
-	bh=3mqNUWF5337paPweqp1aqJHaHTx3FV/vi0pHLiAOlws=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=kFuCPdWbTQrlXD/ft94uQpUgVjFWInDwVoOAs8nB+MLUkjB7U/+ffppHRZnTjBvZ
-	 HfP0xpr8w3NHA/mQQ1xh5gfmipD5p9kSF1NQbwjIeFf+eNDsUo5Hmcr2+du5I1mzU
-	 WdK0TekSCKl/A5gnr3t40fr8dx7a7HX+m46pOb9PuRyTqhzvDyMySFWLGvV5WwNNq
-	 OAmelubhGMA/s1BGEd7ZeQ4rDF2zPyqQGaKHFO8Eanf1b41cKwwjuNNgrry8nf1SJ
-	 XCLXFpFVAWY5QTsIy3tMEY9N81Va/zqD+az5SxGA7s57ervDHDJ1TcxLnZWTAymL1
-	 StcR98AzhH4fNDSWag==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.184]) with ESMTPSA (Nemesis) id 1MZTqW-1wYtSf46xq-00Hg5F; Fri, 17
- Jul 2026 00:29:32 +0200
-Message-ID: <79884bc0-1a2c-4e34-b8c7-75292f3466f6@gmx.com>
-Date: Fri, 17 Jul 2026 07:59:26 +0930
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fnQ2iUwR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784242162; x=1815778162;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=HVpf7INGilvA7obYcQZGfqcnCutm4QM4mXX0YtX0HBg=;
+  b=fnQ2iUwRLBnlLm6nszsSBll5PjygDd3RzjujNvHQIHSF3ExKjdiGWATx
+   04nNQIU/Lg//xefPPeW/1LOju9KRK+lIAazSvHRGQETvGTnf2cwgQO3zB
+   Tl50xDHiaOHE+jIvMVJszPmeegpZ90IpU10q5lg+t+2vxog9NZ+byozP6
+   FFminPGPzRDFr3UDRyWS+GE8modtK+RdxX3cFCq+7y1TCz7IacxcaIuYw
+   7lbnBtWMc1fATeVb7VYkcnTBQ02FgKMPyrg/0biiJ9AGvuXzhJqhr6h2D
+   jnQvDNZq3jgMXk3JWTFs2gXQuT4I3F/RMOWjsu3Voyzzaxc/dRI2pWv2t
+   g==;
+X-CSE-ConnectionGUID: ptyQTEncSAWJc+MTNJr8eA==
+X-CSE-MsgGUID: JV2/+v+xRJq6Kc2nutrG5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="110464811"
+X-IronPort-AV: E=Sophos;i="6.25,168,1779174000"; 
+   d="scan'208";a="110464811"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 15:49:21 -0700
+X-CSE-ConnectionGUID: nBVfiZPPSaq4piuHS52QVQ==
+X-CSE-MsgGUID: UI62xNszQ06i+4/P+wnP5g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,168,1779174000"; 
+   d="scan'208";a="254850934"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 15:49:21 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 16 Jul 2026 15:49:20 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Thu, 16 Jul 2026 15:49:20 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.54) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 16 Jul 2026 15:49:19 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VqfrJFEHLy4mz+lnQlXjEKr20TKBaQ1kxmk/l8LCYDmnt1mCl9muDF1Gb7rRCTP+oRUfAEcFOLVZhF2s2AA3VFlcZcrVjebyaoynCZkl/DY6XuCUzGANel77U5AUqNifGwkPz1t7S4PyGJSkEikzHZVkkv948OlTaUMGUAa5hEnekF5IWH/H5cfCAp3AVO3f8VfVtEN7rjKkqaieBuXPEbnBARNp9qePJrRiNqrBq8xt4nlQAjlg31LkipqCDSu8H6BcKBLWxYsfdGnL79JpLpn4Zd2zr7eEn6Y77YAockWmhyQjVQVtD8cGPBkdkbS80dzb47M5aCYyKL9AOJIgiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4Sh7bMQf3K78XUuTxSe8LOw44MqdlVQe2nDvpgLLKfU=;
+ b=UWrTu53LG48iGiJKr+can+gXf/lXTYTXX8QLPrSHxJkUaCDA5WF8WRQNJvDimGU55/QYvt3oP9e73aHPomShZh2eLoDRVGfvAv1tA7sJoNO4zWtlRxwyMvA8i7czTXjaVDlm76sCrqgOeSihJlyX62cylxgWAEK6iGIz0U4wCZmNha2SlgrO0DlA8x2iAKRowbSO9t+WFK6Mz3E7Zukl3lT8JIj++hakkGEjVxJL30DweerLF4HxhAAQicxEqcylqRJ/s1eduV6DGtOE1xRUIWmqgxEfeu9F3CmMjWdW3VCSGwuf4bTdbHcJTRESQ54NsWw3WPh9A2+bgN9KPvZ4Dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
+ by LV3PR11MB8725.namprd11.prod.outlook.com (2603:10b6:408:21e::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
+ 2026 22:49:11 +0000
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
+ 22:49:11 +0000
+Date: Thu, 16 Jul 2026 15:49:06 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Christian Koenig <christian.koenig@amd.com>, Huang Rui
+	<ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+	<thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH] drm/ttm/pool: back up at native page order
+Message-ID: <allf4vE96KAowd8E@gsse-cloud1.jf.intel.com>
+References: <20260716201358.4086085-1-matthew.brost@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260716201358.4086085-1-matthew.brost@intel.com>
+X-ClientProxiedBy: SJ0PR13CA0137.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::22) To BL3PR11MB6508.namprd11.prod.outlook.com
+ (2603:10b6:208:38f::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: raid56: fix inverted bio-list check in scrub read
- assembly
-To: Mykola Lysenko <nickolay.lysenko@gmail.com>, linux-btrfs@vger.kernel.org
-Cc: clm@fb.com, josef@toxicpanda.com, dsterba@suse.com, wqu@suse.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260716174511.8738-1-nickolay.lysenko@gmail.com>
-Content-Language: en-US
-From: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNIlF1IFdlbnJ1byA8cXV3ZW5ydW8uYnRyZnNAZ214LmNvbT7CwJQEEwEIAD4CGwMFCwkI
- BwIGFQgJCgsCBBYCAwECHgECF4AWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1YAUJEP5a
- sQAKCRDCPZHzoSX+qF+mB/9gXu9C3BV0omDZBDWevJHxpWpOwQ8DxZEbk9b9LcrQlWdhFhyn
- xi+l5lRziV9ZGyYXp7N35a9t7GQJndMCFUWYoEa+1NCuxDs6bslfrCaGEGG/+wd6oIPb85xo
- naxnQ+SQtYLUFbU77WkUPaaIU8hH2BAfn9ZSDX9lIxheQE8ZYGGmo4wYpnN7/hSXALD7+oun
- tZljjGNT1o+/B8WVZtw/YZuCuHgZeaFdhcV2jsz7+iGb+LsqzHuznrXqbyUQgQT9kn8ZYFNW
- 7tf+LNxXuwedzRag4fxtR+5GVvJ41Oh/eygp8VqiMAtnFYaSlb9sjia1Mh+m+OBFeuXjgGlG
- VvQFzsBNBFnVga8BCACqU+th4Esy/c8BnvliFAjAfpzhI1wH76FD1MJPmAhA3DnX5JDORcga
- CbPEwhLj1xlwTgpeT+QfDmGJ5B5BlrrQFZVE1fChEjiJvyiSAO4yQPkrPVYTI7Xj34FnscPj
- /IrRUUka68MlHxPtFnAHr25VIuOS41lmYKYNwPNLRz9Ik6DmeTG3WJO2BQRNvXA0pXrJH1fN
- GSsRb+pKEKHKtL1803x71zQxCwLh+zLP1iXHVM5j8gX9zqupigQR/Cel2XPS44zWcDW8r7B0
- q1eW4Jrv0x19p4P923voqn+joIAostyNTUjCeSrUdKth9jcdlam9X2DziA/DHDFfS5eq4fEv
- ABEBAAHCwHwEGAEIACYCGwwWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1gQUJEP5a0gAK
- CRDCPZHzoSX+qHGpB/kB8A7M7KGL5qzat+jBRoLwB0Y3Zax0QWuANVdZM3eJDlKJKJ4HKzjo
- B2Pcn4JXL2apSan2uJftaMbNQbwotvabLXkE7cPpnppnBq7iovmBw++/d8zQjLQLWInQ5kNq
- Vmi36kmq8o5c0f97QVjMryHlmSlEZ2Wwc1kURAe4lsRG2dNeAd4CAqmTw0cMIrR6R/Dpt3ma
- +8oGXJOmwWuDFKNV4G2XLKcghqrtcRf2zAGNogg3KulCykHHripG3kPKsb7fYVcSQtlt5R6v
- HZStaZBzw4PcDiaAF3pPDBd+0fIKS6BlpeNRSFG94RYrt84Qw77JWDOAZsyNfEIEE0J6LSR/
-In-Reply-To: <20260716174511.8738-1-nickolay.lysenko@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:b2e3kDCxDD66f0n+dpM/VItp8d10vxN/slHngHbtnSQi3wEZ0ES
- VryN5YENxKPfBc9BDk4EAZnHmBNyKhmJ696Zesj1mJFGhrX9OpQUEmB25maqlqGT9SdA7VM
- 2TnxKMQx448z5kOqoDTdOPIXVmB0DPKPoKwGQZbsRqPcBzaggmyCc485hm1SxuyB4mBkxxq
- ZwUsa+hNDI5hU5Wk1OmEQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:ZgAOqQSy8Pc=;dUq8AHHDDwHVSezy4oMW00g4Xgf
- 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
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|LV3PR11MB8725:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e7bc97a-f7c7-4871-d826-08dee38c738c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|18002099003|11063799006|10067099003|6133799003|56012099006|3023799007|22082099003;
+X-Microsoft-Antispam-Message-Info: MrG5WEtiHMaf48PXXLCwKGzv+T7+EEtyWJIoMZqp7nid5C/uGzfzIYomhyU7gjKfXhFHgQmcVwd8qBwFPrdhADi7nYJW83bTIN010BuAt/7rQtNlgVh/RmEtjglvDYjvb/501SpSK4lCsgyRyOJO2iGLnYUTmN1Yq9Pt2XYRPJn5b0sB4n7X9LH2FC5Tj5ZcYrql/Nz8W4O/SFDd2LhhL+EGctLXajgbGn+qzCesBMDOg3eZ/Ack4BUMDdQ+uxxqGd14W3obx6X48yHelJr8sWTnKkmZ0ws4/vnQ0TjltfwC2YQjBQ6vu4y7Hb4Mnx4CJ33nn+4xR8wfKQropKovRHUFf9rT+OzrX87gA1360bjBZPI8sEuajFspWH2ZaQOvDsWAsJJ+PW8IQB4++xC5FalZ10nSqDJGyu49d3uDLEtHmce5ZD3WCYr26zsq8AciypVxBemWwBgRHpq0dgjmiiyhEGGxhVM/qi/mkebHF0C0sfgVgmGsv6F93UWJVnGnMxV/5HiAPYUaJSbe3TK9VqQ7pnzuWQQ315zgb4b3Aqkr2aubGY4ESjpA32QsICx1sWq5k9e3ixLorm6adq405r8CRvYO5swhF37mAusVHF6LWsZbszHJvLzozPLBflvKHVtZSsQkE3U2udrN9U7fUUEYDFyCoOuZXC8gVnTtisQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL3PR11MB6508.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(18002099003)(11063799006)(10067099003)(6133799003)(56012099006)(3023799007)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?AC0MgcTJJLVgJ9c0OMDQWqQ48IJWIrCutLAG9OdcnLd8DOUA2rCMPKZGb6?=
+ =?iso-8859-1?Q?msToo9mN2QIbzC9h65VJdWK4inNCfy3A1stPE4BDJ05uVG0cfBiDIFofqw?=
+ =?iso-8859-1?Q?LXwNCcVlZQ+d8J43MbFaJm6He4t44RAkyc3/YWPdgjkLYSsbBqQegk7lK0?=
+ =?iso-8859-1?Q?iu87+wSHpN1tdAqZq79h1b8aMGlW2l3tIl/yP4TIVDxdtLWvv3zsIkqPIe?=
+ =?iso-8859-1?Q?4kxYpvrnSzS+rH0HM4YBqrT73BXEs5+2BhrTiC/3JQt5EKq1lCDgzcWJXn?=
+ =?iso-8859-1?Q?CvQuWLHTYibiPyMGB816rOw/f5E8iUxkF5TloENIx/cRVATL1SYlU5oH2+?=
+ =?iso-8859-1?Q?ouj+IDkza6HveiNY0ZkSXL2FreAe3w5ej59N308XEeQux1fWArecjQguG3?=
+ =?iso-8859-1?Q?5hbfOW1+Eeay05sw681p09uZ4kyUckhlrRKoLsIxEfXJpq8NofPS+jH3kI?=
+ =?iso-8859-1?Q?vsRQ2KN7GFmq5EY/6d/lnMf1Q5kMXOlzOgYxebjlIPzrSWP3hucbbfiG9I?=
+ =?iso-8859-1?Q?TY7ReOY7fcqACUzHILzispNMD1Ev7oOzs1GmfYcEyqhO/0iQ5O/S3k7UL4?=
+ =?iso-8859-1?Q?7aQQojz6BHv4/EgPwNHAI6Nip+rOM2GUvYbQVHZfaPHt7lacsZOITxyokC?=
+ =?iso-8859-1?Q?VhAevAsl07XAFVaSuyWNvsCqhoR4b0/LUEFz6LtqSJXwEeqNOQaR8oQoHd?=
+ =?iso-8859-1?Q?rpMgeki6EzB5WVYmqweFJJsm+w1FICf9TuxMnWU9hty7b/rtS2H6pc4c4x?=
+ =?iso-8859-1?Q?pMLQVgEYgL0GNMYI8+gnUyoMQrd/SDLQDJf2Wm/o7D0v055Pdmsip+rwUe?=
+ =?iso-8859-1?Q?Ox6+B40/G74b7Mqt7M5a7MBV1PIxIjt6QCp6b4RWiYWLMceivLJN/FjcGV?=
+ =?iso-8859-1?Q?i6MsiW1F1P8Vqb+DIQvA27piCNMg5Sv4iL5fD0A/Bj2BAXDR/jedqTY/SJ?=
+ =?iso-8859-1?Q?ItG6DB/X1Oy0Xh8nnFYlA90+BP7ekUkuJxEaPPnP1MQWtdG9j9A3RGHUvy?=
+ =?iso-8859-1?Q?JmVT25Adeu/G4WEtOPhXl/Nz5hUMfpPnVq5qrNUhwU3oRfMMwGrI6SH30+?=
+ =?iso-8859-1?Q?JkGdf1qhovP7wJX11LsN3oeHGpleDHYEIaC+kW43iZWdife4uNacByExGT?=
+ =?iso-8859-1?Q?y4BW0Ih5NzpjOWT4xfSn2t8cp00+4Baw70B1/ljxmEiFP19uQdOEoCXEJG?=
+ =?iso-8859-1?Q?hIrfKuI7tzzxtPcOUOruhp8BfXQPtKekMXU8t6vBE0bl/aFXE6ZfyYTssX?=
+ =?iso-8859-1?Q?q5U69Rusz2QF3IAXjZH9yfLKDjkgqFF/CQeQnpEeF75+xpYCG7dBblKg1W?=
+ =?iso-8859-1?Q?SjbXVC+M+SS+THe8fKiEGtBny7pAipmOn6EvO0ngp2zw3OH4TcH0+elnCW?=
+ =?iso-8859-1?Q?k8ca4/8oTpPaJOGLR56E6glQ/17l9OVLzlgw/xm77QMLh3NOjs3x6bUkQ/?=
+ =?iso-8859-1?Q?gfmOnkKUQaPsIFHbxhsvLu1MlCGTYibgcCQRp83ij9RhtKuHY+8gyKZ7ac?=
+ =?iso-8859-1?Q?OZD4/0YQ2RqxVfeY7ofcW3vMleClcvFaiOyhzSdhN4Yj0iIo8MBmCyU2B+?=
+ =?iso-8859-1?Q?xpDTRhJ1ntfEB3kWmLFk0QMVIVLD9gVgD+bKWaDx+cLUoxRnvmwlA39spc?=
+ =?iso-8859-1?Q?JcOtzwrC/ZwW456h2bGPwDN59Ga500qFc6A4hf5X2Q92u1F+By/cPKhLsa?=
+ =?iso-8859-1?Q?VI1aCYmfjT9h3GcWAAWmuPXwjQV7ldpJ3mKPnXIaxlWh3+ppDSD4VA0Xiu?=
+ =?iso-8859-1?Q?ByL3iIKTZlIN45KsnFty9R/haakgAmtRyq3alRCMSPb2bYgMX631FlEUAe?=
+ =?iso-8859-1?Q?z3Xe2nCQhw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: qUWooVhGnRNZFY2ft0+b2leabzo8Ojw57McYX1IGqPyvsc2q5tBfGBT6sWDc+hVt0/Z4ctDBWO/Ds3maQFEraB1obXEZ7oJRH2BBtpdR0GuoQUG6OkhPuNktuICDmfGRda5bMxwfs4/grjMnGtZzW6LDeO5NFEtZynJg31d1aQsQRCI4xSz1noWljoRKDtOfOj0tA1T2V4z5HuNKsOf5t2Pw9XcXjlRM0PEZh7mS2cv8inzok6icPAX71rCp0IaW5uN1w0MeMgnuuESGHosBZxZMfIpKFuJRRGZO1wohNLSQ1gyE4/WuBsuyEVD/5lerGi4cHIhgv93VuszvQZ9ogA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e7bc97a-f7c7-4871-d826-08dee38c738c
+X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 22:49:11.1688
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GH8XfVyqHeBE9UE2Zi0QBSMLhOhM4mbwqn6HRgPrgpthS2y3v0xE60O2yyYfxNWia3F4yW60qBJMpg0ozzP89g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR11MB8725
+X-OriginatorOrg: intel.com
 
+On Thu, Jul 16, 2026 at 01:13:58PM -0700, Matthew Brost wrote:
+> ttm_pool_split_for_swap() unconditionally splits high-order pool pages
+> into order-0 pages before backup, so every compound the shrinker
+> touches is shattered even when the rest of the system would prefer it
+> stay intact. Under sustained kswapd pressure this fragments memory
+> enough to drive other parts of MM into recovery loops.
+> 
+> Back up each compound at its native order instead. In
+> ttm_pool_backup(), hand the full compound to the new
+> ttm_backup_backup_folio(), which backs up subpages to a contiguous
+> range of shmem indices and returns the base handle plus the number of
+> subpages actually backed up (@nr_backed). On full success, free the
+> compound once at its native order -- no split_page(), no per-4K
+> refcount juggling.
+> 
+> A per-folio backup can't be made fully atomic under memory pressure:
+> ttm_backup_backup_folio() must allocate shmem folios before source
+> subpages can be released, so under true OOM any subpage may fail
+> while the rest of the compound is still live. Two mechanisms handle
+> this without regressing reclaim behaviour:
+> 
+>   - alloc_gfp gets __GFP_NOMEMALLOC whenever order > 0 (cleared again
+>     for order-0), so a high-order backup fails fast with -ENOMEM
+>     instead of draining kernel reserves, leaving them for other
+>     allocations under the same pressure.
+> 
+>   - If ttm_backup_backup_folio() still returns a short @nr_backed with
+>     a valid handle for the successfully-backed prefix, split the
+>     source compound with ttm_pool_split_for_swap(), free the prefix as
+>     order-0 pages (already safely in shmem), and retry the remaining
+>     subpages at order 0, where __GFP_NOMEMALLOC is cleared and
+>     reserves may be used as a last resort.
+> 
+> This preserves the original split-on-OOM fallback while keeping the
+> common case fragmentation-free, and preserves the "partial backup is
+> allowed" contract (shrunken is incremented per subpage backed up).
+> 
+> The restore-side leftover-page split in ttm_pool_restore_commit() is
+> left as-is: it's unreachable in practice and not worth complicating
+> the restore state machine to avoid.
+> 
+> Testing: the existing backup_fault_inject point only truncated
+> tt->num_pages, which never exercised the reactive split path above
+> since it never left a compound partially backed up. Wire fault
+> injection into ttm_backup_backup_folio() itself: past the first
+> subpage of a compound, synthesize a -ENOMEM in place of
+> shmem_read_folio_gfp() when should_fail() trips, producing the same
+> short @nr_pages_backed a real failure would and forcing
+> ttm_pool_backup() through the split-and-retry path. The fault_attr
+> stays private to ttm_pool.c; ttm_backup.c reaches it through
+> ttm_backup_fault_inject_folio(), declared in ttm_pool_internal.h.
+> 
+> While converting the writeback branch to operate on the whole folio,
+> the unlock condition after shmem_writeout() also changed from `if
+> (ret)` to `if (ret == AOP_WRITEPAGE_ACTIVATE)`, matching the actual
+> contract: shmem_writeout()/swap_writeout() only leave the folio locked
+> when returning AOP_WRITEPAGE_ACTIVATE; any other return (including a
+> hard error from arch_prepare_to_swap()) means the folio was already
+> unlocked internally. The old `if (ret)` check would have double-
+> unlocked in that hard-error case.
+> 
+> Cc: Christian Koenig <christian.koenig@amd.com>
 
+@Christian - we plan on merging this unless you have any objections.
 
-=E5=9C=A8 2026/7/17 03:15, Mykola Lysenko =E5=86=99=E9=81=93:
-> Commit 5387bd958180 ("btrfs: raid56: remove sector_ptr structure")
-> converted the bio-list membership checks from sector pointers to
-> physical addresses.  The two conversions in rmw_assemble_write_bios()
-> kept their polarity (skip the sector when it is NOT in the bio list,
-> i.e. when there is nothing to write), but scrub_assemble_read_bios()
-> has the opposite polarity -- skip the sector when it IS in the bio
-> list, because then there is nothing to read -- and the conversion
-> flipped it:
->=20
-> 	-	sector =3D sector_in_rbio(rbio, stripe, sectornr, 1);
-> 	-	if (sector)
-> 	+	paddr =3D sector_paddr_in_rbio(rbio, stripe, sectornr, 1);
-> 	+	if (paddr =3D=3D INVALID_PADDR)
-> 			continue;
->=20
-> Since a parity-scrub rbio's bio list only holds the empty completion
-> bio, the result is that scrub_assemble_read_bios() submits no reads at
-> all.
+This code path is only exercised by Xe moment if that is unclear.
 
-Then you should remove the check completely, and replace it with an=20
-ASSERT() to make sure scrub should not have any bio sectors, aka,=20
-rbio->bio_paddrs[] are all INVALID_PADDR, or all bios (should be one) in=
-=20
-the bio_list are empty.
+Matt
 
-Otherwise the analyze looks good to me.
-
-> finish_parity_scrub() then compares the parity it computes from
-> the (cached, correct) data stripes against whatever happens to be in
-> the freshly allocated, uninitialized stripe pages:
->=20
->    - if the garbage differs from the computed parity, the sector is
->      "repaired" and written back -- accidentally producing the correct
->      on-disk result;
->    - if a recycled page happens to still hold the old (correct) parity
->      content, the sector is deemed clean, dropped from dbitmap, and the
->      actually-corrupt on-disk parity is left in place -- silently, with
->      every scrub error counter reading zero.
-
-Unfortunately that's by design, as scrub never reports P/Q corruptions=20
-since there is no counter for them, and there is no space left for=20
-expansion either.
-
->=20
-> The second case is intermittent because it depends on page-allocator
-> recycling.  Observed with fstests btrfs/297 (raid5, 2 devices): the
-> corrupted P stripe intermittently stays corrupt after a scrub that
-> reports no errors -- roughly 1/10 runs on x86-64 KVM and up to 7/8 on
-> a UML build whose timing favors page reuse. Instrumentation of
-> verify_one_parity_step() showed the "on disk" bytes never matching the
-> device content (stale 0xaa / zeroed pages instead of the injected
-> 0xff), and after this fix the injected corruption is read, detected
-> and repaired in every run (8/8 UML, 10/10 KVM).
->=20
-> Fixes: 5387bd958180 ("btrfs: raid56: remove sector_ptr structure")
-> CC: stable@vger.kernel.org # 7.1+
-> Signed-off-by: Mykola Lysenko <nickolay.lysenko@gmail.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
+> Suggested-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Assisted-by: Claude:claude-opus-4.6
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 > ---
-> Note 1: I found, reproduced and created a fix for this problem using AI
-> tools
-
-Not sure if we still require the disclosure of AI usage using=20
-Assisted-by: tag, but I'd prefer that to be extra clear.
-
-Thanks,
-Qu
-
->=20
-> Note 2: I am referencing UML (User-Mode Linux) above which is coming
-> from the project https://github.com/mykola-lysenko/btrfs-uml-fstests/ to
-> run xfstests in the UML. For reference only.
->=20
->   fs/btrfs/raid56.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
->=20
-> diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
-> index 00a01b97cc..93de764d70 100644
-> --- a/fs/btrfs/raid56.c
-> +++ b/fs/btrfs/raid56.c
-> @@ -2910,11 +2910,11 @@ static int scrub_assemble_read_bios(struct btrfs=
-_raid_bio *rbio)
->  =20
->   		/*
->   		 * We want to find all the sectors missing from the rbio and
-> -		 * read them from the disk. If sector_paddr_in_rbio() finds a sector
-> -		 * in the bio list we don't need to read it off the stripe.
-> +		 * read them from the disk. If sector_paddrs_in_rbio() finds a
-> +		 * sector in the bio list we don't need to read it off the
-> +		 * stripe.
->   		 */
-> -		paddrs =3D sector_paddrs_in_rbio(rbio, stripe, sectornr, 1);
-> -		if (paddrs =3D=3D NULL)
-> +		if (sector_paddrs_in_rbio(rbio, stripe, sectornr, 1))
->   			continue;
->  =20
->   		paddrs =3D rbio_stripe_paddrs(rbio, stripe, sectornr);
-
+>  drivers/gpu/drm/ttm/ttm_backup.c        | 129 ++++++++++++++++--------
+>  drivers/gpu/drm/ttm/ttm_pool.c          |  89 +++++++++++++---
+>  drivers/gpu/drm/ttm/ttm_pool_internal.h |   8 ++
+>  include/drm/ttm/ttm_backup.h            |  12 +--
+>  4 files changed, 173 insertions(+), 65 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_backup.c b/drivers/gpu/drm/ttm/ttm_backup.c
+> index 81df4cb5606b..3c067aadc52d 100644
+> --- a/drivers/gpu/drm/ttm/ttm_backup.c
+> +++ b/drivers/gpu/drm/ttm/ttm_backup.c
+> @@ -6,9 +6,10 @@
+>  #include <drm/ttm/ttm_backup.h>
+>  
+>  #include <linux/export.h>
+> -#include <linux/page-flags.h>
+>  #include <linux/swap.h>
+>  
+> +#include "ttm_pool_internal.h"
+> +
+>  /*
+>   * Need to map shmem indices to handle since a handle value
+>   * of 0 means error, following the swp_entry_t convention.
+> @@ -68,17 +69,23 @@ int ttm_backup_copy_page(struct file *backup, struct page *dst,
+>  }
+>  
+>  /**
+> - * ttm_backup_backup_page() - Backup a page
+> + * ttm_backup_backup_folio() - Backup a folio
+>   * @backup: The struct backup pointer to use.
+> - * @page: The page to back up.
+> - * @writeback: Whether to perform immediate writeback of the page.
+> + * @folio: The folio to back up.
+> + * @order: The allocation order of @folio.  Since TTM allocates higher-order
+> + *         pages without __GFP_COMP, folio_nr_pages(@folio) would always
+> + *         return 1; the caller must pass the true order explicitly.
+> + * @writeback: Whether to perform immediate writeback of the folio's pages.
+>   * This may have performance implications.
+> - * @idx: A unique integer for each page and each struct backup.
+> + * @idx: A unique integer for the first page of the folio and each struct backup.
+>   * This allows the backup implementation to avoid managing
+>   * its address space separately.
+> - * @page_gfp: The gfp value used when the page was allocated.
+> - * This is used for accounting purposes.
+> + * @folio_gfp: The gfp value used when the folio was allocated.
+> + * Currently unused.
+>   * @alloc_gfp: The gfp to be used when allocating memory.
+> + * @nr_pages_backed: Output. On a successful return, set to the number of
+> + * pages actually backed up, which may be less than (1 << @order)
+> + * if an -ENOMEM was encountered mid-folio.
+>   *
+>   * Context: If called from reclaim context, the caller needs to
+>   * assert that the shrinker gfp has __GFP_FS set, to avoid
+> @@ -87,53 +94,87 @@ int ttm_backup_copy_page(struct file *backup, struct page *dst,
+>   * that the shrinker gfp has __GFP_IO set, since without it,
+>   * we're not allowed to start backup IO.
+>   *
+> - * Return: A handle on success. Negative error code on failure.
+> - *
+> - * Note: This function could be extended to back up a folio and
+> - * implementations would then split the folio internally if needed.
+> - * Drawback is that the caller would then have to keep track of
+> - * the folio size- and usage.
+> + * Return: A handle for the first backed-up page on success (handles for
+> + * subsequent pages follow sequentially). -ENOMEM if no pages could be backed
+> + * up. Any other negative error code if a non-ENOMEM failure occurred; in that
+> + * case any pages backed up so far are truncated before returning.
+>   */
+>  s64
+> -ttm_backup_backup_page(struct file *backup, struct page *page,
+> -		       bool writeback, pgoff_t idx, gfp_t page_gfp,
+> -		       gfp_t alloc_gfp)
+> +ttm_backup_backup_folio(struct file *backup, struct folio *folio,
+> +			unsigned int order, bool writeback, pgoff_t idx,
+> +			gfp_t folio_gfp, gfp_t alloc_gfp,
+> +			pgoff_t *nr_pages_backed)
+>  {
+>  	struct address_space *mapping = backup->f_mapping;
+> -	unsigned long handle = 0;
+> +	int nr_pages = 1 << order;
+>  	struct folio *to_folio;
+> -	int ret;
+> -
+> -	to_folio = shmem_read_folio_gfp(mapping, idx, alloc_gfp);
+> -	if (IS_ERR(to_folio))
+> -		return PTR_ERR(to_folio);
+> -
+> -	folio_mark_accessed(to_folio);
+> -	folio_lock(to_folio);
+> -	folio_mark_dirty(to_folio);
+> -	copy_highpage(folio_file_page(to_folio, idx), page);
+> -	handle = ttm_backup_shmem_idx_to_handle(idx);
+> -
+> -	if (writeback && !folio_mapped(to_folio) &&
+> -	    folio_clear_dirty_for_io(to_folio)) {
+> -		folio_set_reclaim(to_folio);
+> -		ret = shmem_writeout(to_folio, NULL, NULL);
+> -		if (!folio_test_writeback(to_folio))
+> -			folio_clear_reclaim(to_folio);
+> +	int ret, i;
+> +
+> +	*nr_pages_backed = 0;
+> +
+> +	for (i = 0; i < nr_pages; ) {
+> +		int to_nr, j;
+> +
+>  		/*
+> -		 * If writeout succeeds, it unlocks the folio.	errors
+> -		 * are otherwise dropped, since writeout is only best
+> -		 * effort here.
+> +		 * Only inject past the first subpage so *nr_pages_backed is
+> +		 * always > 0 here, matching a genuine mid-compound -ENOMEM
+> +		 * and driving the caller's reactive split fallback instead
+> +		 * of an early, no-progress failure.
+>  		 */
+> -		if (ret)
+> +		if (IS_ENABLED(CONFIG_FAULT_INJECTION) && i &&
+> +		    ttm_backup_fault_inject_folio())
+> +			to_folio = ERR_PTR(-ENOMEM);
+> +		else
+> +			to_folio = shmem_read_folio_gfp(mapping, idx + i, alloc_gfp);
+> +		if (IS_ERR(to_folio)) {
+> +			int err = PTR_ERR(to_folio);
+> +
+> +			if (err == -ENOMEM && *nr_pages_backed)
+> +				return ttm_backup_shmem_idx_to_handle(idx);
+> +
+> +			if (*nr_pages_backed) {
+> +				shmem_truncate_range(file_inode(backup),
+> +						     (loff_t)idx << PAGE_SHIFT,
+> +						     ((loff_t)(idx + i) << PAGE_SHIFT) - 1);
+> +				/*
+> +				 * The pages just truncated are no longer
+> +				 * backed up; don't let the caller mistake
+> +				 * them for valid handles.
+> +				 */
+> +				*nr_pages_backed = 0;
+> +			}
+> +			return err;
+> +		}
+> +
+> +		to_nr = min_t(int, nr_pages - i,
+> +			      folio_next_index(to_folio) - (idx + i));
+> +
+> +		folio_mark_accessed(to_folio);
+> +		folio_lock(to_folio);
+> +		folio_mark_dirty(to_folio);
+> +
+> +		for (j = 0; j < to_nr; j++)
+> +			copy_highpage(folio_file_page(to_folio, idx + i + j),
+> +				      folio_page(folio, i + j));
+> +
+> +		if (writeback && !folio_mapped(to_folio) &&
+> +		    folio_clear_dirty_for_io(to_folio)) {
+> +			folio_set_reclaim(to_folio);
+> +			ret = shmem_writeout(to_folio, NULL, NULL);
+> +			if (!folio_test_writeback(to_folio))
+> +				folio_clear_reclaim(to_folio);
+> +			if (ret == AOP_WRITEPAGE_ACTIVATE)
+> +				folio_unlock(to_folio);
+> +		} else {
+>  			folio_unlock(to_folio);
+> -	} else {
+> -		folio_unlock(to_folio);
+> -	}
+> +		}
+>  
+> -	folio_put(to_folio);
+> +		folio_put(to_folio);
+> +		i += to_nr;
+> +		*nr_pages_backed = i;
+> +	}
+>  
+> -	return handle;
+> +	return ttm_backup_shmem_idx_to_handle(idx);
+>  }
+>  
+>  /**
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+> index 80d0ad41456a..1bf37023fed6 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -53,8 +53,23 @@
+>  #ifdef CONFIG_FAULT_INJECTION
+>  #include <linux/fault-inject.h>
+>  static DECLARE_FAULT_ATTR(backup_fault_inject);
+> +
+> +/*
+> + * Exposed to ttm_backup.c so a mid-compound subpage can be made to fail
+> + * with -ENOMEM, exercising the reactive split-and-retry fallback in
+> + * ttm_pool_backup() for high-order backups.
+> + */
+> +bool ttm_backup_fault_inject_folio(void)
+> +{
+> +	return should_fail(&backup_fault_inject, 1);
+> +}
+>  #else
+>  #define should_fail(...) false
+> +
+> +bool ttm_backup_fault_inject_folio(void)
+> +{
+> +	return false;
+> +}
+>  #endif
+>  
+>  /**
+> @@ -492,7 +507,7 @@ static void ttm_pool_split_for_swap(struct ttm_pool *pool, struct page *p)
+>  /**
+>   * DOC: Partial backup and restoration of a struct ttm_tt.
+>   *
+> - * Swapout using ttm_backup_backup_page() and swapin using
+> + * Swapout using ttm_backup_backup_folio() and swapin using
+>   * ttm_backup_copy_page() may fail.
+>   * The former most likely due to lack of swap-space or memory, the latter due
+>   * to lack of memory or because of signal interruption during waits.
+> @@ -1050,12 +1065,12 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+>  {
+>  	struct file *backup = tt->backup;
+>  	struct page *page;
+> -	unsigned long handle;
+>  	gfp_t alloc_gfp;
+>  	gfp_t gfp;
+>  	int ret = 0;
+>  	pgoff_t shrunken = 0;
+> -	pgoff_t i, num_pages;
+> +	pgoff_t i, j, num_pages, npages;
+> +	pgoff_t nr_backed;
+>  
+>  	if (WARN_ON(ttm_tt_is_backed_up(tt)))
+>  		return -EINVAL;
+> @@ -1133,9 +1148,11 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+>  	if (IS_ENABLED(CONFIG_FAULT_INJECTION) && should_fail(&backup_fault_inject, 1))
+>  		num_pages = DIV_ROUND_UP(num_pages, 2);
+>  
+> -	for (i = 0; i < num_pages; ++i) {
+> -		s64 shandle;
+> +	for (i = 0; i < num_pages; i += npages) {
+> +		unsigned int order;
+> +		s64 handle;
+>  
+> +		npages = 1;
+>  		page = tt->pages[i];
+>  		if (unlikely(!page))
+>  			continue;
+> @@ -1144,19 +1161,61 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+>  		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
+>  			continue;
+>  
+> -		ttm_pool_split_for_swap(pool, page);
+> +		order = ttm_pool_page_order(pool, page);
+> +		npages = 1UL << order;
+> +
+> +		/*
+> +		 * We don't allow dipping kernel reserves for high order backup
+> +		 */
+> +		if (order)
+> +			alloc_gfp |= __GFP_NOMEMALLOC;
+> +		else
+> +			alloc_gfp &= ~__GFP_NOMEMALLOC;
+> +
+> +		/*
+> +		 * Back up the compound atomically at its native order. If
+> +		 * fault injection truncated num_pages mid-compound, skip
+> +		 * the partial tail rather than splitting.
+> +		 */
+> +		if (unlikely(i + npages > num_pages))
+> +			break;
+>  
+> -		shandle = ttm_backup_backup_page(backup, page, flags->writeback, i,
+> -						 gfp, alloc_gfp);
+> -		if (shandle < 0) {
+> -			/* We allow partially shrunken tts */
+> -			ret = shandle;
+> +		handle = ttm_backup_backup_folio(backup, page_folio(page),
+> +						 order, flags->writeback, i,
+> +						 gfp, alloc_gfp,
+> +						 &nr_backed);
+> +		/*
+> +		 * Zero progress on this compound (whether order 0 or a
+> +		 * high-order compound that failed before backing up even
+> +		 * its first subpage) is unrecoverable: bail out rather than
+> +		 * looping forever with npages == nr_backed == 0 below.
+> +		 */
+> +		if (unlikely(handle < 0 && !nr_backed)) {
+> +			ret = handle;
+>  			break;
+>  		}
+> -		handle = shandle;
+> -		tt->pages[i] = ttm_backup_handle_to_page_ptr(handle);
+> -		__free_pages_gpu_account(page, 0, false);
+> -		shrunken++;
+> +
+> +		for (j = 0; j < nr_backed; j++)
+> +			tt->pages[i + j] = ttm_backup_handle_to_page_ptr(handle + j);
+> +
+> +		shrunken += nr_backed;
+> +
+> +		if (unlikely(nr_backed < npages)) {
+> +			/*
+> +			 * Partial OOM backup: split the compound and free the
+> +			 * subpages whose content is now in shmem. Continue the
+> +			 * loop from the first un-backed order-0 page.
+> +			 */
+> +			ttm_pool_split_for_swap(pool, page);
+> +			for (j = 0; j < nr_backed; j++)
+> +				__free_pages_gpu_account(page + j, 0, false);
+> +			npages = nr_backed;
+> +			continue;
+> +		}
+> +
+> +		/* Fully backed up: free at native order. */
+> +		page->private = 0;
+> +		__free_pages_gpu_account(page, order, false);
+>  	}
+>  
+>  	return shrunken ? shrunken : ret;
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+> index 24c179fd69d1..cbb17a2129fe 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
+> +++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+> @@ -22,4 +22,12 @@ static inline unsigned int ttm_pool_beneficial_order(struct ttm_pool *pool)
+>  	return pool->alloc_flags & 0xff;
+>  }
+>  
+> +/*
+> + * Implemented in ttm_pool.c, used by ttm_backup.c. Returns true if a fault
+> + * should be injected mid-compound to test the reactive split-and-retry
+> + * fallback in ttm_pool_backup(). Always returns false when
+> + * CONFIG_FAULT_INJECTION is disabled.
+> + */
+> +bool ttm_backup_fault_inject_folio(void);
+> +
+>  #endif
+> diff --git a/include/drm/ttm/ttm_backup.h b/include/drm/ttm/ttm_backup.h
+> index 29b9c855af77..49efa713e87c 100644
+> --- a/include/drm/ttm/ttm_backup.h
+> +++ b/include/drm/ttm/ttm_backup.h
+> @@ -13,9 +13,8 @@
+>   * ttm_backup_handle_to_page_ptr() - Convert handle to struct page pointer
+>   * @handle: The handle to convert.
+>   *
+> - * Converts an opaque handle received from the
+> - * ttm_backup_backup_page() function to an (invalid)
+> - * struct page pointer suitable for a struct page array.
+> + * Converts an opaque handle received from a ttm_backup_backup_*()
+> + * function to an (invalid) struct page pointer suitable for a struct page array.
+>   *
+>   * Return: An (invalid) struct page pointer.
+>   */
+> @@ -59,9 +58,10 @@ int ttm_backup_copy_page(struct file *backup, struct page *dst,
+>  			 pgoff_t handle, bool intr, gfp_t additional_gfp);
+>  
+>  s64
+> -ttm_backup_backup_page(struct file *backup, struct page *page,
+> -		       bool writeback, pgoff_t idx, gfp_t page_gfp,
+> -		       gfp_t alloc_gfp);
+> +ttm_backup_backup_folio(struct file *backup, struct folio *folio,
+> +			unsigned int order, bool writeback, pgoff_t idx,
+> +			gfp_t folio_gfp, gfp_t alloc_gfp,
+> +			pgoff_t *nr_pages_backed);
+>  
+>  void ttm_backup_fini(struct file *backup);
+>  
+> -- 
+> 2.34.1
+> 
