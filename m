@@ -1,163 +1,130 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0523D3CEC;
-	Thu, 16 Jul 2026 08:26:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784190368; cv=none; b=dWOgzkpvuJwEltHX8T+bJMCaeR++RrDS0Ycf7ItYifX5Cu6oDnj7nJig0iiKFlcCnF/8PUalsx8nocseawqRqRKdoD38ILfLeagc43DkvcfPKakYo+OFu8ii/60l8CNXTVyjckZ5VX2NhXLkgdpAOj0kb/q9NuszG+UdMcl58sg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784190368; c=relaxed/simple;
-	bh=nz62sHLjQi5CpoPoDG4kmScDPG6IyitcREyHqaX4rMY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dcyt/2d8TnBQMN/1v/IPIuPVTHQrl/5keQujAJ1ay+4q1Eixd3uKhracO+O2AJYKumeOiBP8g7fWkM/rjm5z1AlC17MKbaZmO0RcIZoVQwBXa+EEeN+7bGRn84RZlqLcaIilb8xTfwd5upLyH2dYGtMS+ym+sDdNNpKkta9UkNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f73253ec80ef11f1aa26b74ffac11d73-20260716
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:b14128e5-a760-4486-9e89-827271766f0e,IP:15,
-	URL:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:35
-X-CID-INFO: VERSION:1.3.12,REQID:b14128e5-a760-4486-9e89-827271766f0e,IP:15,UR
-	L:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:35
-X-CID-META: VersionHash:e7bac3a,CLOUDID:a4d5be2708a8940dd70dc61d4d17da1b,BulkI
-	D:260716162558JML0MJ9C,BulkQuantity:0,Recheck:0,SF:10|38|57|66|78|80|81|82
-	|102|123|127|136|841|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:11|93
-	|82|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1
-	,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f73253ec80ef11f1aa26b74ffac11d73-20260716
-X-User: zhaoguohan@kylinos.cn
-Received: from zgh-vmware-virtual-platform.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
-	(envelope-from <zhaoguohan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 894374176; Thu, 16 Jul 2026 16:25:55 +0800
-From: zhaoguohan@kylinos.cn
-To: "Rob Herring (Arm)" <robh@kernel.org>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	dri-devel@lists.freedesktop.org
-Cc: Oded Gabbay <ogabbay@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] accel/ethosu: fix job completion fence cleanup
-Date: Thu, 16 Jul 2026 16:25:30 +0800
-Message-ID: <20260716082530.1023538-4-zhaoguohan@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260716082530.1023538-1-zhaoguohan@kylinos.cn>
-References: <20260716082530.1023538-1-zhaoguohan@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521223E008F
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 08:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784190433; cv=pass; b=jpohp6mZIUKZtXdcX1znuApndwSwb8EgfgM0jTkuVjqEZQVnhHVBSSVhWfC2Ghvkn/3WSD1ibK1DTfIfVms0gpr7uXLOSyzYVPHT0m2hTgbgKYT6sol1FKwPHIRZ8vZUtwdQM40O6oDdSCFB+5E0YpNhTWDYlr+u/ZIDYQj8VNk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784190433; c=relaxed/simple;
+	bh=WFACAylUZ0HP0xKRoQatfOWkwjndONJlJvIWE6oL+4o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J2gh/2gxTCunj8FQohIyBtva5nA5C00ryDVA9+bkgmW+ysqjZKgbDhQAVJzziZLje82Xt6Hp7eKOx38gW7cBWr0NOfOoZY85eTT7WPDvwRvLt4eONt3Uc/ssE9b6KdMLarMeuPx0umt5WIDgycvULh4UzFm4+VkccmUAhxGq6jI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W6LgO2SW; arc=pass smtp.client-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W6LgO2SW"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-80c5cb9a888so56138437b3.3
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 01:27:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784190430; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a5S+12QxxFkwIoJRkKOSMFyvfQCEswcaQrwpyhZ0tFmgGkzZmsfXkj9Wiy+kg7eYNK
+         K66M65y6p6eirbZAvhRd4KDdo44BA2VMUwo+PIRgyqnva1wBwWC1Ue3w3GXv6LkF3HLK
+         ydIyefO6/MtCicK/t1aVcHyR5NS1vwuGO2pojFBPQaXyXdiyINzp8fG88Jw51GOfkyNb
+         FgEa4OwSTNQ1s6XT9Orun9TIcaeeIwk/vtL4Kf0/hAVNmVaiwIkzIsGXRxWQzmwMl/6D
+         9MgZ0xWW8cJHky2NlQuDJdHqPALIHm3nyZtUHUcChuGgX1KazIDhnulKro35inBWccgO
+         58wQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=vpauZo/tgDqjVS5OsHV+PB/DFoQC8D96R3Vc7c3M6nA=;
+        fh=tePmOakVd+0uHuJeSpcnylJLWuKfWH4EzURfkEPwVDk=;
+        b=YolZgYsBFVp4p7Xxfn5Ssxz9Jv8eASn76WIEM3ogmMbwb161KnGGusPwsvdjHgNgU5
+         nYGxP6FEbiy5fyQZ4lIPr2hpvfe4LuyIPgLwEgTWN/iOTEqeIMnCUowunExi1ZdWe/HM
+         PGqQV0HjHhy0PttgXb2gKmd3KiBELE3jJVzAJD8wZxkKgPfos1Fj+yVGqbFv2xZX1Azu
+         8SCdQsLO0PzArz38xIlEQ5OJMJWu6R8DtGdGVBo6YPomUFE2/ZyLzkai0wpCi6rsgyKf
+         s24S7qdkTAaAjoogs/Dh40NpGCqXSzif6g+7hvNeNDsBa/ZuhdantSumKcUxO0/CRspo
+         z7dg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784190430; x=1784795230; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vpauZo/tgDqjVS5OsHV+PB/DFoQC8D96R3Vc7c3M6nA=;
+        b=W6LgO2SWL5QDpZXmPfGEPy8zyeAJnEvl4LX9VwymExoOUzSiV/6/rkeklopECpqgPe
+         Fr+XGjwrkIN/e3DjlWe/z4KVf6fERyGi6ZQaQWHimrF9z2kyKSFN7QQIXoYLI8BP7V09
+         mNYs+JhHJUx3/HAprU4I1kTgvXZ5gNJlA+d+0l4t/N0gnNW1bENDXi2VNJKms6VGItaW
+         W6OZIo6HeFoqI8EyxzLfjSRSm4IRQ5gFqEYMi3JUYRIqcrSUqlusLUZ8aZrNn5e/Ezef
+         guVqcBjLAdcV1MbhJxsXdB+LuSSlZXxokTYSUSH0uWf9xNlrnKqOKVePNNA+Quk1/lCW
+         R87w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784190430; x=1784795230;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vpauZo/tgDqjVS5OsHV+PB/DFoQC8D96R3Vc7c3M6nA=;
+        b=Z24O7gdrV9gX1JBhd+wUCUqVmp7My/Ef3BzfwueFEAO9O4fI6tZGDJ//FvRfIQ81zu
+         buzY5uq9Lqdr0IIrjHx/5dT5BtAoSAo8Qsy9SeqYLeZGeYTNvyGXQaHPNr6usm/aqW6J
+         JvFWuMFdKEt0D66dlP5u667T0LXheTG/v429nwpgVOR4+QsaTq/sImA1bQueRYO15yIa
+         ukm87X5crxI1l53H3xC/+hIyoNnRqAEJqJAT5jLQ5ZRYjJS+5bJOH4e0hp0xxoQhChRe
+         k1ennUOiTfxfvsU2C5k0bYbWvTugnXl0219XCkQzKZCCiXSilO1/RsFZj0S83q550+Ja
+         hJdw==
+X-Forwarded-Encrypted: i=1; AHgh+RqlNlDcVfyMA7auwET/EY5HvmCyRgoHixlRH3FWWvnyR8Q97I8+RfshFuClVOxG9Q1jGxxEt0A=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2BGW4oIs05x96N87F9Aq20bdU0hWgl0a7TeSFoqYmJ2cojDsQ
+	WlyBX5CMd/6zOg10Je2HAtaL9t3M2E/N72KQnrW0eM3xe2qEa8+uQSY5SBXt7ScOM43UVKxmSL7
+	oMjx6Uncwjt/b8hHOi564OUNDJvJSoxQ=
+X-Gm-Gg: AfdE7cllS8vgUwsHZpt6gBtt+nNRr3c8E0UzvUSAUOLqUR5jx1izJRNs/4wuegVtv54
+	UG/Cjd8+GMEroAWMlLQFOaWZV5VnC2mydXR4QsFGXPzXdAdEFvriMHNH1i0rEfDdS29xLhu2Vv3
+	b+rkf12e8hnYF9jy8gRCMOX72kUsXRhapkbuJhkb1dMLqNlA5/JNGmkHfQV+NNi/y470sIDgSpQ
+	IyxGv3XGAAdRnG+CGANtwjym/AgMQu6wNSv6+TYtnh1W768z6v9vSl15k7cMvx5V6sNFVX66vg5
+	0m+KtbIgc7Vf2wgvPoQzl0plA2aBnlrn7O4UUAb2SDcw
+X-Received: by 2002:a05:690c:a87:b0:81e:29d9:7b13 with SMTP id
+ 00721157ae682-81ebfd71f13mr72764147b3.18.1784190430138; Thu, 16 Jul 2026
+ 01:27:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260712221709.7099-1-gvalkov@gmail.com> <20260715145228.GG56330@francesco-nb>
+In-Reply-To: <20260715145228.GG56330@francesco-nb>
+From: George Valkov <gvalkov@gmail.com>
+Date: Thu, 16 Jul 2026 11:26:54 +0300
+X-Gm-Features: AUfX_myObMt8htlBZqgfYKHId75U1l06HsPHA1lkc6D_3sDQZbIgZgIfjRPZ0W4
+Message-ID: <CADOrJmYwYs08REP3eSwiTQegcKHFLwW0gpUexhomLDtO91ASMA@mail.gmail.com>
+Subject: Re: [PATCH] wifi: mwifiex: fix freeze for 60 seconds caused by request_firmware
+To: Francesco Dolcini <francesco@dolcini.it>, johannes.berg@intel.com, 
+	Dan Carpenter <error27@gmail.com>
+Cc: briannorris@chromium.org, s.kerkmann@pengutronix.de, kees@kernel.org, 
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: GuoHan Zhao <zhaoguohan@kylinos.cn>
+Please backport to 6.18 and 6.12, which are used by OpenWrt.
+Initially I did not know that I could insert
+free text between the commit message and the patch.
+I apologise for that. I am still learning how to use git send-mail.
 
-ethosu_ioctl_submit_job() allocates done_fence before validating buffer
-handles. Errors after allocation call ethosu_job_err_cleanup(), which frees
-the job but leaks the uninitialized fence.
-
-A scheduler dependency error also lets ethosu_job_run() return before
-dma_fence_init(). Normal cleanup then passes a zeroed refcount to
-dma_fence_put().
-
-Release done_fence in the common cleanup path and use
-dma_fence_was_initialized() to distinguish initialized fences from raw
-allocations.
-
-Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260716065219.931088-1-zhaoguohan@kylinos.cn?part=1
-Signed-off-by: GuoHan Zhao <zhaoguohan@kylinos.cn>
----
-Sashiko reports:
-
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_err_cleanup() {
->         unsigned int i;
+On Wed, 15 Jul 2026 at 17:52, Francesco Dolcini <francesco@dolcini.it> wrote:
 >
->         for (i = 0; i < job->region_cnt; i++)
->                 drm_gem_object_put(job->region_bo[i]);
+> On Mon, Jul 13, 2026 at 01:17:09AM +0300, Georgi Valkov wrote:
+> > Fix regression in rgpower table loading, caused by using
+> > request_firmware(): when the requested firmware does not exist, e.g.
+> > nxp/rgpower_WW.bin does not exist on OpenWRT builds for WRT3200ACM,
+> > request_firmware() falls back to firmware_fallback_sysfs(), which expects
+> > the firmware to be provided by user space using SYSFS. No such utility is
+> > provided in this configuration, so the entire system locks up for 60
+> > seconds, until the request times out. During this time, no other log
+> > messages are observed, and the device does not respond to commands over
+> > UART.
+> >
+> > The request_firmware() call is performed in the following context:
+> > current->comm kworker/1:2  in_task 1  irqs_disabled 0  in_atomic 0
+> >
+> > Fixed by using request_firmware_direct(). This prevents fallback to SYSFS,
+> > and avoids delay. The rgpower table is optional. The driver falls back
+> > to the device tree power table if the firmware is not present.
+> >
+> > The error code is printed for debugging and returned to the caller,
+> > which only cares for success or failure, so there are no side effects.
+> >
+> > Fixes: 7b6f16a25806 ("wifi: mwifiex: add rgpower table loading support")
+> > Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
 >
->         drm_gem_object_put(job->cmd_bo);
+> Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 >
->         kfree(job);
-> }
->
-> This is a pre-existing issue, but was not introduced by this patch.
->
-> ethosu_ioctl_submit_job() allocates done_fence. If a subsequent
-> validation fails, the error path calls ethosu_job_err_cleanup().
->
-> This function frees the job structure but misses freeing job->done_fence.
->
-> Can an unprivileged user repeatedly call the submit ioctl with invalid
-> handles to trigger a done_fence leak?
-
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_run() {
->     ...
->         if (unlikely(job->base.s_fence->finished.error))
->                 return NULL;
->
->         dma_fence_init(fence, &ethosu_fence_ops, &dev->fence_lock,
->                        dev->fence_context, ++dev->emit_seqno);
->     ...
-> }
->
-> This is a pre-existing issue, but was not introduced by this patch.
->
-> If job->base.s_fence->finished.error is true, the function returns early
-> without calling dma_fence_init() on job->done_fence.
->
-> When the job is later destroyed, ethosu_job_cleanup() unconditionally
-> calls dma_fence_put() on the fence:
->
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_cleanup() {
->     ...
->         dma_fence_put(job->done_fence);
->     ...
-> }
->
-> Since the fence is zero-initialized, will calling kref_put() on it
-> violate the API and cause a refcount underflow?
-
- drivers/accel/ethosu/ethosu_job.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index b76924645aaa..be745e36f1fa 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -152,6 +152,13 @@ static void ethosu_job_err_cleanup(struct ethosu_job *job)
- 
- 	drm_gem_object_put(job->cmd_bo);
- 
-+	if (job->done_fence) {
-+		if (dma_fence_was_initialized(job->done_fence))
-+			dma_fence_put(job->done_fence);
-+		else
-+			dma_fence_free(job->done_fence);
-+	}
-+
- 	kfree(job);
- }
- 
-@@ -162,7 +169,6 @@ static void ethosu_job_cleanup(struct kref *ref)
- 
- 	pm_runtime_put_autosuspend(job->dev->base.dev);
- 
--	dma_fence_put(job->done_fence);
- 	dma_fence_put(job->inference_done_fence);
- 
- 	ethosu_job_err_cleanup(job);
--- 
-2.43.0
