@@ -1,161 +1,105 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF4133C194
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 20:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94EA31327A
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 20:05:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784232297; cv=none; b=I4x++MhdWgUay7d7akbJ7cRp0q5gO3QkF9a/64l+6EwNu8nTDWoZ6FM0PfW2sWn9au4jLJUQz9rhmHJbOpmtYrMYOB6JnfbYlATNa4i3t4jbajZ7XO0urOoFBzoGIgZRmpO/G/6zGVdC22vNbAOsaegUiAEnHpnAtRaUeZR7HM4=
+	t=1784232354; cv=none; b=WWCog842Zz+IG9iN3eSClQlwF7d0QPBxJ1+uTWnuB3d/J0gz9slJipWc1W8Y7IeBPrMpYEZUPSLemnbiGUQL9sZS3nqn9YQybYOk5TXHOm6QZRmoVkqbwjWkwabW1TM29779fDyFvyaccCOpz/SaKJusvmDM5oicuaIdeL+bthM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784232297; c=relaxed/simple;
-	bh=vth1im0y/El/KO/94DkG/bZsruCeVRbozso0j2xIFvg=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=s6p7PkOR1BwGThZlKe6t0DezKvdTnfNCnpEoUcfYd5Mf7Vt9QoXQC6cFvyb5UoOK8D0B/SsXbGywV/Yb09EyBbGvcn1yJMSLWVX6XfBOIpW00AfK12vEDca28T7+B4Ko8eIjH6nFpNSBM0A2rNjwK3UW8b5Yql/VkD2+1EH8eZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dilger.ca; spf=pass smtp.mailfrom=dilger.ca; dkim=pass (2048-bit key) header.d=dilger-ca.20251104.gappssmtp.com header.i=@dilger-ca.20251104.gappssmtp.com header.b=O1ppTyss; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dilger.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dilger.ca
+	s=arc-20240116; t=1784232354; c=relaxed/simple;
+	bh=bS9vgBmB3tygjnM6Lk0RmXc5gL4e61i98UaQtJFsyUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OVqJkz32Ho3l1uiraXJKQECfUp1lIir9uvN9FvDSq70KhdKXaDCwS+5F9TBU+UxS22m/JdU8incxQ5sf+uxiIdxBpJSQ2CFJ6gYZ9mv9FIL4a5jlxJC22a7oKFPtMQ+go+kNuiuJoiC4FGHSH4vEvkPjPdzUgkyIqX83PSpkk5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=CV8eIrsN; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dilger-ca.20251104.gappssmtp.com header.i=@dilger-ca.20251104.gappssmtp.com header.b="O1ppTyss"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ceae1ed204so45866945ad.0
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:04:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="CV8eIrsN"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38deea72eebso4894349a91.1
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:05:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dilger-ca.20251104.gappssmtp.com; s=20251104; t=1784232295; x=1784837095; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+        d=linuxtx.org; s=google; t=1784232352; x=1784837152; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=Md2qxdgf63rHDP6+RS9ok1HHPB/hbV6ffca/STkhYXQ=;
-        b=O1ppTysszucIwVtt6kmDu5DN2d4zQI0frgob5et+9S7dzK3MSBBtcrC32qj0KvWJVl
-         0goVrPVRX8oH/Foly+jIE8/tJFO76Rt08PPRNshqZcEFMfnNLtawSCi9Cc/D44Y0P7CC
-         dSksqaASiHCceFXTCrL37mA3ypdkZIwTwWBSl1WFi5ZsANzELfLByn0flJuqfNCDgXyV
-         lLf/cXQxshpExgJa0iHCxS8loXe47Ot3j9MXkw2T+vpDkEHtC9GukoGqq3dh/SxJIML3
-         kERdwffpm+x2WsBZgmos+RBsWVJX91Q5RbSRTV2ljNE52dXpc3AMpZ5NkFnGM2kEPiV/
-         MF0Q==
+        bh=FPLskKBTAYLzNg31/NHqPBNxF5CkLTQz2CVmxWqlogI=;
+        b=CV8eIrsNFv4s5SO+sPK0P1x5P2TT7sJhXu8UQPpKlwBfoRTETevfUpFqrY/Zx8hD11
+         aICF4s5oqHJpTqBeTFZoR1BJWjZBdUrrwREtMYoktfG+8Gl7rSczLP/UnbwS2i0kW8Y6
+         R2otaP0INi0BSUbr285XOuKyAModo6ch7i9JM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784232295; x=1784837095;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+        d=1e100.net; s=20251104; t=1784232352; x=1784837152;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Md2qxdgf63rHDP6+RS9ok1HHPB/hbV6ffca/STkhYXQ=;
-        b=OLKrVRMj5R1imK20PL7SSvajSesmj0Zd88N4d2EoyrGrPbth8EioZqPJpoy2xX/l34
-         HDWnc3HE9MgiToi7BR0+StD138yPPu2vtxSiRENpa3VeUpVXCDTJquSINSsTjpKSQDU1
-         LrHzd7lqd8yQ3I1GBW6gspVXr5d3isyfeuHQpeklsYq0aTrkgKL//gdxOMC4WM7aygs/
-         +887uvrXEnaMQlP1LltXWMOufvkEm28nDHGI7ztwLox4EnPYxowO7JbLOg7DB5Xbc1bV
-         JNbH+zmiH1Nrsp2cH21q4mixre+443QY3n3mTbyZoyHVMnPribTGqZ2pIC4dt7uf4KPc
-         bJ+g==
-X-Forwarded-Encrypted: i=1; AHgh+Rqw0M/brjby067hgrXlR3fHJRj0w/2Cx7coiYtPfHkm4LfNolvbqM9NQmzGeDhLnb6Genu9Qu4=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzlf6p7w9qnQlItOGTc8ptmq3DuxNjWFzdSKxmmZAAEkmgkiWxg
-	HrRVb3axNtVP8G1pGdQMw6yk9A+0/x9/0HzPZ5hoYUPx8n5HrNonzDmBILRdipGq5Ss=
-X-Gm-Gg: AfdE7cnh7z6Ioads9DlZ0XcG8+4x5LmcGL79xWflyLyEOgGYogRYJaXp3ZFCnWo2tg7
-	ih0/3wMXTYz28QQf6+EWze1YDeg/NSmjGrqsX/pUMEUgyoJsMmV1db/jnDFLqDoQ0GG9HpVkn2N
-	mu0pceeEgMKUNirWT9Z4ZO9XWUgNPNmk3f2J31KP9tIilAuSlV/vgk7AVt+zZ1DkgpzdMI7jLwj
-	Cdz0mWKVqiGt0yJvgpHNJV2R2y+pPsgmc3aGmhjYPZqlbAXgn7+KGoLDR0m5a11zZkKkx9hLNXZ
-	lFfHWOCFCzYY5AE+1OIe2RODgYIcildP8dfwa1iqxBc6ybB5dx2YkOznqYlHQq8MVi8fc9ugtYL
-	pImyJ5X6AWIhxUX6gLtlJZJOOqH6mj3o2Qu/yYyYg8bkQv2jBcu44JEShZ3sDLz7yz2OaaVWw6M
-	DYSIMBZZ+NJq0MKEMzLC8tCMajQrjenyI=
-X-Received: by 2002:a17:903:3c28:b0:2ca:4cfd:a6df with SMTP id d9443c01a7336-2cf2ec96549mr8299005ad.43.1784232295051;
-        Thu, 16 Jul 2026 13:04:55 -0700 (PDT)
-Received: from smtpclient.apple ([2604:3d09:3a84:1700:3854:7eec:417a:89dd])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf100e395csm25319995ad.17.2026.07.16.13.04.53
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 16 Jul 2026 13:04:54 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
+        bh=FPLskKBTAYLzNg31/NHqPBNxF5CkLTQz2CVmxWqlogI=;
+        b=MECxOxrla8DUQ7RKzQ8l5+0hSJfbfCE5qbZ7N0IC5lGSZc55Rx7LOmut82cMMW2adu
+         pLq5c8rnZdGK3lFJucowTEJLX/mvELNTG1Sjbx9VDlAY3S4RwS2Ge+UaqyxI/T7Hu1KF
+         J8JrHmt791OnZlFeXeueCXy2GH+fljQb6Py7GgQedYkJIsDLJUpHLeCGRX8hKf2jxPTY
+         2eypc36+qzh4pU9sUAyuV29TxytAPlmLxoO1ClceiO++JMI4N7xBIs0xHy6PgK5AtS5p
+         WUiawTAflZf+OLgUUyKxYvxYOg4ETbmshLgZIYb+xCEOMptzuQjTIwbkkGzyOfbhzX4J
+         1vkA==
+X-Gm-Message-State: AOJu0YzUJT/oxLh6tXd37AQmf6At5Eu2hfoWEVcQL4qkHlCXY+pqWrGq
+	zcZmpkDpDiTHv4RnspreR4TrPTWwMV9iV0iRpSJDFjmHGfVDrnzewvQbAh3WVkHWhg==
+X-Gm-Gg: AfdE7clQhFmSO85VKkD37n7U5x3iwEPXcw361z5Pd8JOSbPfyQ2uLAEgwdTRvbDFgoF
+	I27hG6lDjGFRHTBbOlzBz/GyDNZRcs21cjpDglnNFe7jIDgUFLgFAC6VokeWNHyhEc58J+a6b62
+	fIdalKgX3sXb6z+BvorQtOpdmfQzrvfl7F+qcnwegR59tgJBYLHUQMX6pwfQJZZkpuL9bWXMRnG
+	T9Bj5oEdXyLRnNDOaAd5+U3tz5lzAH0GyN516y47oTO+FodjvCyLcj9uaVlDLZrTaqjeuFdJ91a
+	Vhfl1c41PWbayFWnLGIfV3u3dSaE5uUd5VkWUhxrRJlZey7sKAaADlj42RtsBDURlE/C/6fvyUs
+	Pj38qAoIrxd6MHbsC+gJp+mpuhEKJrA9LLO0ARItRT0qI3csc1OhrqVUfvPLowsLGPCJYAoiDQu
+	vPUHM4Q1XXKApsHHQxsTNHNHWo+7C1Zg==
+X-Received: by 2002:a17:90b:4e90:b0:37f:d265:18c5 with SMTP id 98e67ed59e1d1-38e29ff7302mr7496601a91.18.1784232352105;
+        Thu, 16 Jul 2026 13:05:52 -0700 (PDT)
+Received: from fedora64.linuxtx.org ([98.97.105.87])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31413c78531sm12492180eec.27.2026.07.16.13.05.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 13:05:51 -0700 (PDT)
+Sender: Justin Forbes <jmforbes@linuxtx.org>
+Date: Thu, 16 Jul 2026 14:05:48 -0600
+From: Justin Forbes <jforbes@fedoraproject.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.1 000/518] 7.1.4-rc1 review
+Message-ID: <alk5nOGCzt5oAb7X@fedora64.linuxtx.org>
+References: <20260716133047.772246337@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.100.1.1.5\))
-Subject: Re: [PATCH 1/2] jbd2: check need_resched() when skipping busy
- checkpoint buffers
-From: Andreas Dilger <adilger@dilger.ca>
-In-Reply-To: <20260713102229.1598812-2-max.kellermann@ionos.com>
-Date: Thu, 16 Jul 2026 14:04:42 -0600
-Cc: tytso@mit.edu,
- jack@suse.com,
- linux-ext4@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E3B8944B-6045-49CD-A72B-0B8F6C42C713@dilger.ca>
-References: <20260713102229.1598812-1-max.kellermann@ionos.com>
- <20260713102229.1598812-2-max.kellermann@ionos.com>
-To: Max Kellermann <max.kellermann@ionos.com>
-X-Mailer: Apple Mail (2.3864.100.1.1.5)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
 
-On Jul 13, 2026, at 04:22, Max Kellermann <max.kellermann@ionos.com> =
-wrote:
->=20
-> journal_shrink_one_cp_list() skips busy checkpoint buffers when called
-> with JBD2_SHRINK_BUSY_SKIP.  The continue statement on this path also
-> skips the need_resched() check at the end of the loop body.
->=20
-> Consequently, when a checkpoint list contains mostly busy buffers, the
-> shrinker can walk the entire list while holding journal->j_list_lock,
-> even when a reschedule has been requested.  Large checkpoint lists =
-under
-> memory pressure can therefore cause long lock hold times and leave =
-other
-> CPUs spinning on j_list_lock, resulting in soft lockups or RCU stalls.
->=20
-> Route the busy-buffer path through the need_resched() check so that =
-the
-> shrinker can release j_list_lock and reschedule promptly, restoring
-> parity with the clean-buffer path, which already checks =
-need_resched().
-> This does not change which checkpoint buffers are eligible for =
-removal.
+On Thu, Jul 16, 2026 at 03:24:28PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.4 release.
+> There are 518 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sat, 18 Jul 2026 13:30:01 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.4-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-One question I had about this patch is whether the list cleanup could =
-get
-into a livelock if it becomes too large?  If the iterator is processing
-a large number of jh that cannot be freed, then `need_resched()` is hit,
-if it restarts from the beginning of the list each time without =
-processing
-at least one jh it will not make forward progress.
+Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x,
+x86_64), and boot tested x86_64. No regressions noted.
 
-Cheers, Andreas
-
-> Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
-> fs/jbd2/checkpoint.c | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
-> index 1508e2f54462..5266017565ac 100644
-> --- a/fs/jbd2/checkpoint.c
-> +++ b/fs/jbd2/checkpoint.c
-> @@ -389,7 +389,7 @@ static unsigned long =
-journal_shrink_one_cp_list(struct journal_head *jh,
->  			ret =3D jbd2_journal_try_remove_checkpoint(jh);
->  			if (ret < 0) {
->  				if (type =3D=3D JBD2_SHRINK_BUSY_SKIP)
-> -					continue;
-> +					goto next;
->  				break;
->  			}
->  		}
-> @@ -400,6 +400,7 @@ static unsigned long =
-journal_shrink_one_cp_list(struct journal_head *jh,
->  			break;
->  		}
-> =20
-> +next:
->  		if (need_resched())
->  			break;
->  	} while (jh !=3D last_jh);
-> --=20
-> 2.47.3
->=20
->=20
-
-
-Cheers, Andreas
-
-
-
-
-
+Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
