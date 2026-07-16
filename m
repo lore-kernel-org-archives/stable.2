@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649EE426429;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7AB42588D;
 	Thu, 16 Jul 2026 13:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209425; cv=none; b=UK61y2I4pF+s1UScCe1BynKM+yoHPo6nvODfH0YziY84u/mEsJuRtGcTu6iaAUD6tqgYJZpf0obodt9GDyhzea8GlbmRyzEr5O3sUhGdltZnJ8QeFXDvRHN1DR6eKIcf7QrkOxS+c/CRr5M7ZZ8CbLjQq3uypFbY+ZHPxox30tg=
+	t=1784209426; cv=none; b=AAb9DLiMIkoYb0Z/bxa3tblntw5zZI82//XZQ7cVeHc78YK2tzIzEQDCiNXi7OxUAwZZXfpk1kUxEd2UTVtirKqjvP+e08h88+lmkEvkp9DQVFyds57mr5fDVWe4p4pRLd5vO7jTTvuzvy06umORfQl8llR2S6pzfCuPZu7vMpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784209425; c=relaxed/simple;
-	bh=yulUo+3I8MUGAV+36FsuMQNUnvWos2xB92hM1y3+Xf0=;
+	s=arc-20240116; t=1784209426; c=relaxed/simple;
+	bh=x+h9c5Dd0e/r+7WyxXMj3TnEysmQmwZs7MB6FYkPS/Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kqp1X6FsgrJnL+z+zHvCXpAiXRw+Xqkw4aTFpIPQ7eIxnzZdfFsbMlOjCCn6njxRxO25F3KtbdJ3ASs10I23hyvQ6oawdghaNlquhxun2YMudkkvKN5+8PPDmkAB2eQHdfHhRnBngKVPtYTBPLzeSABExMbp7H90zueBiX7Z0Tg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W5BWnkb4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UfpQauPrKLBDpnmT+x/cPewcem4HPBycofWfNk6v83iaonRM/iAhNI+MEX6XubXz5qMyx2O6zV9PBpAhu6X9Ri25uD/iAuWyzps4GiWhZlbgPePl+R5nBswi7jK5BGFNoQflkoO4/eVyTc7HDYtxqnS3pnI7PxmZqXL640Q6B7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ub4bb/UV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W5BWnkb4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2231F01558;
-	Thu, 16 Jul 2026 13:43:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ub4bb/UV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12B3C1F000E9;
+	Thu, 16 Jul 2026 13:43:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784209418;
-	bh=RV29dvZ7CsF+U9S2nOPbpPbRTulyYwLapTEnr4VPY+Q=;
+	s=korg; t=1784209421;
+	bh=m5JGdbx2DYCeO5GDojRJ5pkNtFt9X4oulz7PBoGh4vg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W5BWnkb4vaJomTqbaXYVNza4EeMZ18L2yx7oXOxlp6azkK/MshkfaUfnk6UkZ/HiT
-	 eM+7YESKPczYmdNLywJRMUfk20PwaKOjOlmZviNTZNDGKVD784sCXCBCfVCqQIG+NF
-	 mfYuePj9lpw7pniCcOm9Qu3RIjGKHLIEYhTJQrig=
+	b=Ub4bb/UVFp+xX01EuFHsSGijRLiWCLSjKS/ZSDfBH9TwafKvJmcMfeen43Jqia6Hi
+	 SbVxxt4HPfcORqbWE/7kbPOzYDhjAr+h+7zZuseywWE6Oh/1F9/GGcosahv/UGmZRx
+	 8F3uxMYMIDHzTRqLhf3VfRRg4LSmJZZLJQ8mepl0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Valeriy Yashnikov <yashnikov.valeriy@gmail.com>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Subject: [PATCH 7.1 179/518] ntfs: avoid calling post_write_mst_fixup() for invalid index_block
-Date: Thu, 16 Jul 2026 15:27:27 +0200
-Message-ID: <20260716133051.754092805@linuxfoundation.org>
+	Koichiro Den <den@valinux.co.jp>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Dave Jiang <dave.jiang@intel.com>
+Subject: [PATCH 7.1 180/518] NTB: epf: Avoid calling pci_irq_vector() from hardirq context
+Date: Thu, 16 Jul 2026 15:27:28 +0200
+Message-ID: <20260716133051.775061538@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
 References: <20260716133047.772246337@linuxfoundation.org>
@@ -51,102 +52,73 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Valeriy Yashnikov <yashnikov.valeriy@gmail.com>
+From: Koichiro Den <den@valinux.co.jp>
 
-commit 5b6eedd7cc2936f9238e852b553a1b326105bde8 upstream.
+commit 4dcddc1c794d1c65eda68f1f8dd04a0fecc0870f upstream.
 
-ntfs_icx_ib_sync_write() calls post_write_mst_fixup() when ntfs_ib_write()
-returns an error, intending to restore the buffer after a failed write.
+ntb_epf_vec_isr() calls pci_irq_vector() in hardirq context to derive
+the vector number. pci_irq_vector() calls msi_get_virq() that takes a
+mutex and can therefore trigger "scheduling while atomic" splats:
 
-However, ntfs_ib_write() returns an error immediately if
-pre_write_mst_fixup() validation fails. The caller,
-ntfs_icx_ib_sync_write(), interprets any error as a write failure
-requiring rollback. It does not differentiate between I/O errors and
-validation failures, and calls post_write_mst_fixup() anyway.
+  BUG: scheduling while atomic: kworker/u33:0/55/0x00010001
+  ...
+  Call trace:
+   ...
+   schedule+0x38/0x110
+   schedule_preempt_disabled+0x28/0x50
+   __mutex_lock.constprop.0+0x848/0x908
+   __mutex_lock_slowpath+0x18/0x30
+   mutex_lock+0x4c/0x60
+   msi_domain_get_virq+0xe8/0x138
+   pci_irq_vector+0x2c/0x60
+   ntb_epf_vec_isr+0x28/0x120 [ntb_hw_epf]
+   __handle_irq_event_percpu+0x70/0x3a8
+   handle_irq_event+0x48/0x100
+   handle_edge_irq+0x100/0x1c8
+   ...
 
-Since post_write_mst_fixup() assumes that the index_block contents is
-correct, it doesn't perform the boundary checks, which results in
-out-of-bounds memory access.
+Cache the Linux IRQ number for vector 0 when vectors are allocated and
+use it as a base in the ISR. Running the ISR in a threaded IRQ handler
+would also avoid the problem, but that would be unnecessary here.
 
-An attacker can craft a malicious NTFS image with:
-  - large index_block.usa_ofs offset, pointing outside the ntfs_record
-  - index_block.usa_count = 0, causing integer underflow
-  - or index_block.usa_count larger than actual number of sectors in the
-    ntfs_record, causing out-of-bounds access
-
-KASAN reports describing the memory corruption:
-  ==================================================================
-  BUG: KASAN: slab-out-of-bounds in post_write_mst_fixup+0x19c/0x1d0
-  Read of size 2 at addr ffff8881586c9018 by task p/9428
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x100/0x190
-   print_report+0x139/0x4ad
-   ? post_write_mst_fixup+0x19c/0x1d0
-   ? __virt_addr_valid+0x262/0x500
-   ? post_write_mst_fixup+0x19c/0x1d0
-   kasan_report+0xe4/0x1d0
-   ? post_write_mst_fixup+0x19c/0x1d0
-   post_write_mst_fixup+0x19c/0x1d0
-   ntfs_icx_ib_sync_write+0x179/0x220
-   ntfs_inode_sync_filename+0x83d/0x1080
-   __ntfs_write_inode+0x1049/0x1480
-   ntfs_file_fsync+0x131/0x9b0
-  ==================================================================
-  BUG: KASAN: slab-out-of-bounds in post_write_mst_fixup+0x1aa/0x1d0
-  Write of size 2 at addr ffff8881586c91fe by task p/9428
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x100/0x190
-   print_report+0x139/0x4ad
-   ? post_write_mst_fixup+0x1aa/0x1d0
-   ? __virt_addr_valid+0x262/0x500
-   ? post_write_mst_fixup+0x1aa/0x1d0
-   kasan_report+0xe4/0x1d0
-   ? post_write_mst_fixup+0x1aa/0x1d0
-   post_write_mst_fixup+0x1aa/0x1d0
-   ntfs_icx_ib_sync_write+0x179/0x220
-   ntfs_inode_sync_filename+0x83d/0x1080
-   __ntfs_write_inode+0x1049/0x1480
-   ntfs_file_fsync+0x131/0x9b0
-  ==================================================================
-
-Let's move the post_write_mst_fixup() call to ntfs_ib_write().
-The ntfs_ib_write() function calls pre_write_mst_fixup() at the beginning.
-If the index_block contents is invalid, pre_write_mst_fixup() fails and
-ntfs_ib_write() returns early without calling post_write_mst_fixup() on
-bad index_block.
-
-Fixes: 0a8ac0c1fa0b ("ntfs: update directory operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Valeriy Yashnikov <yashnikov.valeriy@gmail.com>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Fixes: 812ce2f8d14e ("NTB: Add support for EPF PCI Non-Transparent Bridge")
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Cc: stable@vger.kernel.org # v5.12+
+Link: https://patch.msgid.link/20260304083028.1391068-3-den@valinux.co.jp
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/ntfs/index.c |    5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/ntb/hw/epf/ntb_hw_epf.c |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
---- a/fs/ntfs/index.c
-+++ b/fs/ntfs/index.c
-@@ -141,6 +141,10 @@ static int ntfs_ib_write(struct ntfs_ind
- 	ret = ntfs_inode_attr_pwrite(VFS_I(icx->ia_ni),
- 			ntfs_ib_vcn_to_pos(icx, vcn), icx->block_size,
- 			(u8 *)ib, icx->sync_write);
-+
-+	/* Perform data restoration before returning */
-+	post_write_mst_fixup((struct ntfs_record *)ib);
-+
- 	if (ret != icx->block_size) {
- 		ntfs_debug("Failed to write index block %lld, inode %llu",
- 				vcn, (unsigned long long)icx->idx_ni->mft_no);
-@@ -178,7 +182,6 @@ int ntfs_icx_ib_sync_write(struct ntfs_i
- 		icx->ib = NULL;
- 		icx->ib_dirty = false;
- 	} else {
--		post_write_mst_fixup((struct ntfs_record *)icx->ib);
- 		icx->sync_write = false;
+--- a/drivers/ntb/hw/epf/ntb_hw_epf.c
++++ b/drivers/ntb/hw/epf/ntb_hw_epf.c
+@@ -92,6 +92,7 @@ struct ntb_epf_dev {
+ 
+ 	int db_val;
+ 	u64 db_valid_mask;
++	int irq_base;
+ };
+ 
+ #define ntb_ndev(__ntb) container_of(__ntb, struct ntb_epf_dev, ntb)
+@@ -318,7 +319,7 @@ static irqreturn_t ntb_epf_vec_isr(int i
+ 	struct ntb_epf_dev *ndev = dev;
+ 	int irq_no;
+ 
+-	irq_no = irq - pci_irq_vector(ndev->ntb.pdev, 0);
++	irq_no = irq - ndev->irq_base;
+ 	ndev->db_val = irq_no + 1;
+ 
+ 	if (irq_no == 0)
+@@ -350,6 +351,7 @@ static int ntb_epf_init_isr(struct ntb_e
+ 		argument &= ~MSIX_ENABLE;
  	}
  
++	ndev->irq_base = pci_irq_vector(pdev, 0);
+ 	for (i = 0; i < irq; i++) {
+ 		ret = request_irq(pci_irq_vector(pdev, i), ntb_epf_vec_isr,
+ 				  0, "ntb_epf", ndev);
 
 
