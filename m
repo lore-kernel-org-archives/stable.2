@@ -1,44 +1,45 @@
-Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D03342901C
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:52:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2741742588C;
+	Thu, 16 Jul 2026 13:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209959; cv=none; b=peAILWlXXrLK6A8TWHABzkIxfcILTQBd96pC1YRzlvGkGOPtcd8I+xmJC8yIcb+Boex7kPl32o2sk46hp/TkZpyarDwBU3Fz+3FLc7wKv/rzPxnGZEWze/Vvi1M1E9J7cgSkrriM4ymlwj3h4imEQw3F8+ZLsfxGG4nnbq4BIWo=
+	t=1784209959; cv=none; b=DIGY3xa6QKORnRIONZovJviLlwFJQTjsmvGy0yvAImc7+T/Qder1kP7xphmcWh51Mg8eikr++RhmtX5w/oXR92rmRN11mVl2t8XorcNxoJbRRtDiHNuTVRlYtcaNmfFNL3ohhbHcvUQaE5SvJFx3GOJKZo8xHj0ysJ4953D0Pcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784209959; c=relaxed/simple;
-	bh=temDSYBlsiI3nlc9UG7t3/YuwmsZKvl+1JSacrF40c0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=e0TccmGd2Cg0KZheGB9OFj2yYu9Gfx3o1fIxTMQMTw+Oc3bs2WHxEldyrvwdmxM/kFpeszPD7G1JefnqXVxPBplLaUV/f/eiAsvkjwyt0AMp22bqsRPhGy8PZbb6HGDksSDUH2yJSotrpPjM1CDxSzbPBXzFuOs41uCVRtVAvcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NSSImxqK; arc=none smtp.client-ip=91.218.175.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=Q/i3XBzs2N05uMJx/9Iyi3cwmnC7ahy1Co3XC3eOb+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r/7ysGEQlWSrh8HOUcP0YpdmAasHBjg/o1AbGFynbpR4Mk8IlNmhGhD4LJofD5VGYD2LDML3XODM4kU2VlIttIcIqRNpb6AFzQUmqfbJwlWr35zIzFNokbyhqSnX9mfReIHpb0cLYNjaXUS7xI+IVJslvTVneAu2pekmsdynjAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZMMMVUar; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NSSImxqK"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784209949;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xxtMN5a0sIwpJBRHaFYStTo2DpCPBes4d9mSPpEYnSw=;
-	b=NSSImxqKM9MfKBYCS/7y6cmd3Uq4fEO22mGGhcs52HtZAQa6xiNFDAXCjbonYCUJNCj0Gr
-	inXAf1Jqe2XZ46CwPwINZMivcloWamXHnXZF1ddNy9O3EWeeL+2E7Al2Xcl/ER96gvKLiX
-	HbFQXnBrVbp5/6quFMoLF9N25ZMjYbo=
-From: Fuad Tabba <fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZMMMVUar"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FD401F00A3E;
+	Thu, 16 Jul 2026 13:52:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784209951;
+	bh=rA4iuR/hI1Q/Lfk8aOk5St8hDbgGXmA72PjlQNvW+YU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZMMMVUar+Y0q1ml4T6rNHt7zNvwjVUVBFRr6jdnaSbeVmeEl/iD8QifY2mdtYb8R2
+	 uTFYqOUkfEPDxEwr/4U8r4fbG3m2EB39qM/LokwvHN84jh9lHgTqzJ5GS7BGv8jKU4
+	 1DkicJnawe79xoUlvCrsms0tDmouJG+QG1ghTrAg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Fuad Tabba <tabba@google.com>,
-	Will Deacon <will@kernel.org>
-Subject: [PATCH 6.12.y] KVM: arm64: Bound used_lrs when flushing the pKVM hyp vCPU
-Date: Thu, 16 Jul 2026 14:51:57 +0100
-Message-Id: <20260716135157.302917-1-fuad.tabba@linux.dev>
-In-Reply-To: <2026071616-oozy-hassle-a3d4@gregkh>
-References: <2026071616-oozy-hassle-a3d4@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Ahsan Atta <ahsan.atta@intel.com>,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Subject: [PATCH 7.1 380/518] crypto: qat - centralize bus master enable
+Date: Thu, 16 Jul 2026 15:30:48 +0200
+Message-ID: <20260716133056.139600595@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
+References: <20260716133047.772246337@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,93 +47,202 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-commit 8cc8bbbfab14c22c5551d0dd19b208a44b141c76 upstream.
+------------------
 
-flush_hyp_vcpu() copies the host vGIC state into the hyp's private vCPU
-on every run. The vGIC list register save and restore use used_lrs as
-their loop bound and expect it to stay within the number of implemented
-list registers. While this is generally the case, flush_hyp_vcpu()
-copies vgic_v3 verbatim and does not enforce this, so a value provided
-by the host is used at EL2 to index vgic_lr[] and access ICH_LR<n>_EL2
-(host -> EL2).
+From: Ahsan Atta <ahsan.atta@intel.com>
 
-Fix by clamping used_lrs to the number of implemented list registers
-after the copy, as the trusted path already does in
-vgic_flush_lr_state(). The number of implemented list registers is
-constant after init, so it is replicated once from
-kvm_vgic_global_state.nr_lr into hyp_gicv3_nr_lr rather than read on
-every entry.
+commit e5712ff82947dd02d118cee119ed36cec671d814 upstream.
+
+QAT driver currently toggles PCI bus mastering in multiple places
+(probe paths, and reset callbacks). This makes BME state depend on
+call ordering and on what PCI command bits were captured in saved PCI
+config state.
+
+Make BME control explicit and deterministic:
+- remove pci_set_master() from device-specific probe paths
+- add adf_set_bme() and call it from adf_dev_init() so BME is enabled
+  at one point before device bring-up
+- drop redundant pci_set_master() and pci_clear_master from adf_aer.c
+  and rely on the unified init path for BME enablement
+
+This is in preparation for adding reset_prepare() and reset_done()
+hooks. In the PCI reset callback flow, the PCI core saves and
+restores device configuration state around reset_prepare() and
+reset_done(). This change is needed to ensure that we are able to
+properly shutdown or reinitialize the device post sysfs triggered
+resets.
 
 Cc: stable@vger.kernel.org
-Fixes: be66e67f1750 ("KVM: arm64: Use the pKVM hyp vCPU structure in handle___kvm_vcpu_run()")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Reviewed-by: Fuad Tabba <tabba@google.com>
-Tested-by: Fuad Tabba <tabba@google.com>
-Link: https://patch.msgid.link/20260606175614.83273-3-imv4bel@gmail.com
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ tabba: adjust context in flush_hyp_vcpu() and kvm_hyp.h ]
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Ahsan Atta <ahsan.atta@intel.com>
+Reviewed-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/arm64/include/asm/kvm_hyp.h   | 1 +
- arch/arm64/kvm/arm.c               | 2 ++
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 9 +++++++++
- 3 files changed, 12 insertions(+)
+ drivers/crypto/intel/qat/qat_420xx/adf_drv.c         |    2 --
+ drivers/crypto/intel/qat/qat_4xxx/adf_drv.c          |    2 --
+ drivers/crypto/intel/qat/qat_6xxx/adf_drv.c          |    2 --
+ drivers/crypto/intel/qat/qat_c3xxx/adf_drv.c         |    1 -
+ drivers/crypto/intel/qat/qat_c3xxxvf/adf_drv.c       |    1 -
+ drivers/crypto/intel/qat/qat_c62x/adf_drv.c          |    1 -
+ drivers/crypto/intel/qat/qat_c62xvf/adf_drv.c        |    1 -
+ drivers/crypto/intel/qat/qat_common/adf_aer.c        |   10 +++++++---
+ drivers/crypto/intel/qat/qat_common/adf_common_drv.h |    1 +
+ drivers/crypto/intel/qat/qat_common/adf_init.c       |    2 ++
+ drivers/crypto/intel/qat/qat_dh895xcc/adf_drv.c      |    1 -
+ drivers/crypto/intel/qat/qat_dh895xccvf/adf_drv.c    |    1 -
+ 12 files changed, 10 insertions(+), 15 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
-index c838309e4ec4..19b8843374d0 100644
---- a/arch/arm64/include/asm/kvm_hyp.h
-+++ b/arch/arm64/include/asm/kvm_hyp.h
-@@ -144,5 +144,6 @@ extern u64 kvm_nvhe_sym(id_aa64smfr0_el1_sys_val);
- extern unsigned long kvm_nvhe_sym(__icache_flags);
- extern unsigned int kvm_nvhe_sym(kvm_arm_vmid_bits);
- extern unsigned int kvm_nvhe_sym(kvm_host_sve_max_vl);
-+extern unsigned int kvm_nvhe_sym(hyp_gicv3_nr_lr);
+--- a/drivers/crypto/intel/qat/qat_420xx/adf_drv.c
++++ b/drivers/crypto/intel/qat/qat_420xx/adf_drv.c
+@@ -146,8 +146,6 @@ static int adf_probe(struct pci_dev *pde
+ 		}
+ 	}
  
- #endif /* __ARM64_KVM_HYP_H__ */
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 3753ef782e98..a713f32a6545 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -2313,6 +2313,8 @@ static int __init init_subsystems(void)
- 	switch (err) {
- 	case 0:
- 		vgic_present = true;
-+		if (static_branch_unlikely(&kvm_vgic_global_state.gicv3_cpuif))
-+			kvm_nvhe_sym(hyp_gicv3_nr_lr) = kvm_vgic_global_state.nr_lr;
- 		break;
- 	case -ENODEV:
- 	case -ENXIO:
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index eec36c46ce29..72384712377d 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -22,6 +22,9 @@
+-	pci_set_master(pdev);
+-
+ 	if (pci_save_state(pdev)) {
+ 		dev_err(&pdev->dev, "Failed to save pci state.\n");
+ 		ret = -ENOMEM;
+--- a/drivers/crypto/intel/qat/qat_4xxx/adf_drv.c
++++ b/drivers/crypto/intel/qat/qat_4xxx/adf_drv.c
+@@ -148,8 +148,6 @@ static int adf_probe(struct pci_dev *pde
+ 		}
+ 	}
  
- DEFINE_PER_CPU(struct kvm_nvhe_init_params, kvm_init_params);
+-	pci_set_master(pdev);
+-
+ 	if (pci_save_state(pdev)) {
+ 		dev_err(&pdev->dev, "Failed to save pci state.\n");
+ 		ret = -ENOMEM;
+--- a/drivers/crypto/intel/qat/qat_6xxx/adf_drv.c
++++ b/drivers/crypto/intel/qat/qat_6xxx/adf_drv.c
+@@ -189,8 +189,6 @@ static int adf_probe(struct pci_dev *pde
+ 		}
+ 	}
  
-+/* Number of implemented GICv3 LRs. Used by flush_hyp_vcpu(). */
-+unsigned int hyp_gicv3_nr_lr;
-+
- void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
+-	pci_set_master(pdev);
+-
+ 	/*
+ 	 * The PCI config space is saved at this point and will be restored
+ 	 * after a Function Level Reset (FLR) as the FLR does not completely
+--- a/drivers/crypto/intel/qat/qat_c3xxx/adf_drv.c
++++ b/drivers/crypto/intel/qat/qat_c3xxx/adf_drv.c
+@@ -167,7 +167,6 @@ static int adf_probe(struct pci_dev *pde
+ 			goto out_err_free_reg;
+ 		}
+ 	}
+-	pci_set_master(pdev);
  
- static void __hyp_sve_save_guest(struct kvm_vcpu *vcpu)
-@@ -119,6 +122,12 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 	hyp_vcpu->vcpu.arch.vsesr_el2	= host_vcpu->arch.vsesr_el2;
+ 	if (pci_save_state(pdev)) {
+ 		dev_err(&pdev->dev, "Failed to save pci state\n");
+--- a/drivers/crypto/intel/qat/qat_c3xxxvf/adf_drv.c
++++ b/drivers/crypto/intel/qat/qat_c3xxxvf/adf_drv.c
+@@ -163,7 +163,6 @@ static int adf_probe(struct pci_dev *pde
+ 			goto out_err_free_reg;
+ 		}
+ 	}
+-	pci_set_master(pdev);
+ 	/* Completion for VF2PF request/response message exchange */
+ 	init_completion(&accel_dev->vf.msg_received);
  
- 	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3 = host_vcpu->arch.vgic_cpu.vgic_v3;
-+
-+	/* Bound used_lrs by the number of implemented list registers. */
-+	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs =
-+		min_t(unsigned int,
-+		      hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs,
-+		      hyp_gicv3_nr_lr);
+--- a/drivers/crypto/intel/qat/qat_c62x/adf_drv.c
++++ b/drivers/crypto/intel/qat/qat_c62x/adf_drv.c
+@@ -167,7 +167,6 @@ static int adf_probe(struct pci_dev *pde
+ 			goto out_err_free_reg;
+ 		}
+ 	}
+-	pci_set_master(pdev);
+ 
+ 	if (pci_save_state(pdev)) {
+ 		dev_err(&pdev->dev, "Failed to save pci state\n");
+--- a/drivers/crypto/intel/qat/qat_c62xvf/adf_drv.c
++++ b/drivers/crypto/intel/qat/qat_c62xvf/adf_drv.c
+@@ -163,7 +163,6 @@ static int adf_probe(struct pci_dev *pde
+ 			goto out_err_free_reg;
+ 		}
+ 	}
+-	pci_set_master(pdev);
+ 	/* Completion for VF2PF request/response message exchange */
+ 	init_completion(&accel_dev->vf.msg_received);
+ 
+--- a/drivers/crypto/intel/qat/qat_common/adf_aer.c
++++ b/drivers/crypto/intel/qat/qat_common/adf_aer.c
+@@ -41,7 +41,6 @@ static pci_ers_result_t adf_error_detect
+ 	adf_error_notifier(accel_dev);
+ 	adf_pf2vf_notify_fatal_error(accel_dev);
+ 	adf_dev_restarting_notify(accel_dev);
+-	pci_clear_master(pdev);
+ 	adf_dev_down(accel_dev);
+ 
+ 	return PCI_ERS_RESULT_NEED_RESET;
+@@ -106,6 +105,13 @@ void adf_dev_restore(struct adf_accel_de
+ 	}
  }
  
- static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
--- 
-2.39.5
++void adf_set_bme(struct adf_accel_dev *accel_dev)
++{
++	struct pci_dev *pdev = accel_to_pci_dev(accel_dev);
++
++	pci_set_master(pdev);
++}
++
+ static void adf_device_sriov_worker(struct work_struct *work)
+ {
+ 	struct adf_sriov_dev_data *sriov_data =
+@@ -198,8 +204,6 @@ static pci_ers_result_t adf_slot_reset(s
+ 		return PCI_ERS_RESULT_DISCONNECT;
+ 	}
+ 
+-	if (!pdev->is_busmaster)
+-		pci_set_master(pdev);
+ 	pci_restore_state(pdev);
+ 	res = adf_dev_up(accel_dev, false);
+ 	if (res && res != -EALREADY)
+--- a/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
++++ b/drivers/crypto/intel/qat/qat_common/adf_common_drv.h
+@@ -84,6 +84,7 @@ extern const struct pci_error_handlers a
+ void adf_reset_sbr(struct adf_accel_dev *accel_dev);
+ void adf_reset_flr(struct adf_accel_dev *accel_dev);
+ void adf_dev_restore(struct adf_accel_dev *accel_dev);
++void adf_set_bme(struct adf_accel_dev *accel_dev);
+ int adf_init_aer(void);
+ void adf_exit_aer(void);
+ int adf_init_arb(struct adf_accel_dev *accel_dev);
+--- a/drivers/crypto/intel/qat/qat_common/adf_init.c
++++ b/drivers/crypto/intel/qat/qat_common/adf_init.c
+@@ -74,6 +74,8 @@ static int adf_dev_init(struct adf_accel
+ 		return -EFAULT;
+ 	}
+ 
++	adf_set_bme(accel_dev);
++
+ 	if (!test_bit(ADF_STATUS_CONFIGURED, &accel_dev->status) &&
+ 	    !accel_dev->is_vf) {
+ 		dev_err(&GET_DEV(accel_dev), "Device not configured\n");
+--- a/drivers/crypto/intel/qat/qat_dh895xcc/adf_drv.c
++++ b/drivers/crypto/intel/qat/qat_dh895xcc/adf_drv.c
+@@ -167,7 +167,6 @@ static int adf_probe(struct pci_dev *pde
+ 			goto out_err_free_reg;
+ 		}
+ 	}
+-	pci_set_master(pdev);
+ 
+ 	if (pci_save_state(pdev)) {
+ 		dev_err(&pdev->dev, "Failed to save pci state\n");
+--- a/drivers/crypto/intel/qat/qat_dh895xccvf/adf_drv.c
++++ b/drivers/crypto/intel/qat/qat_dh895xccvf/adf_drv.c
+@@ -163,7 +163,6 @@ static int adf_probe(struct pci_dev *pde
+ 			goto out_err_free_reg;
+ 		}
+ 	}
+-	pci_set_master(pdev);
+ 	/* Completion for VF2PF request/response message exchange */
+ 	init_completion(&accel_dev->vf.msg_received);
+ 
+
 
