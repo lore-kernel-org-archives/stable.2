@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3323B7B76
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:38:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AD541B8E4
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:38:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784201885; cv=none; b=fNp6i1mEBY5FkQyKmLsdyQFLPKe1BNy36QFATl1hYk1Lo6tp/L6Qde4Cu3kiOKloj4uQKPHIjuM8e367ZxwGg5LRZayTFLmj1svf4MOUfhJzX7+wnI/kHKWCIDINwj+tJnR4exlRIg5/vhf6syTaihvcBotcVKDn6JCoian84KE=
+	t=1784201889; cv=none; b=BsugdHntQGneJCqigjNU+orBk2ZB2CGbPaLBuTR2bP54QCHgy0CuD6IeF6qhswJk3jx5djY04KqTiSETA0esIinl5ocG2TJzkCqK3cBvJIZIslZuRRQLDmBUxN/NTIPNhtvvHxBgYtAGLQJGZrH8O5hLzYzel0TDwry89ONU4d0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784201885; c=relaxed/simple;
-	bh=WkmL6MHtCoDzL9x/zwIJfMV3CIAX63vNSJL6io3YxNc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VkBaiOwcwtNcD+xKvJZTUpHV+4gVoKYrv7xMgTru+zWpECNNwMa83vGRLz9etpIbJ+SJpPL2CjPo58Fukb7e2wuqJeGoNN+qfI7TVF5QTlqjwEqARj1KMyD8OGpBCk05n/miIE6RWaU4e4r8vSdBUciw9tV92kzV1IdnHZ1Pjfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NC6n6mFM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784201889; c=relaxed/simple;
+	bh=cn1BCI5tgb3ZsMHHpcs9XX2q1KHKp36/sFMGXGTmPQg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bDBRZZApWvgJnt21T451ZfLnMqX+r/bcrLecEtC3fcz9winRBWFqdGP2s5KEjqBIaPttwRvqaSrMWgDQORTmAm7Dxrdf0tl9wZK8w6wfmy62VTi95iTTvQKBCMvMgYweFFIb9BmRBfJaAgmKE2CgXdoewA38V0sLqPn1e/uChOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A87Rmc7x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NC6n6mFM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE87C1F00A3D;
-	Thu, 16 Jul 2026 11:38:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A87Rmc7x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 636B91F000E9;
+	Thu, 16 Jul 2026 11:38:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784201881;
-	bh=bUMP9vxIOSHWOiZdscFx2040cZonG4mUSWEZxcZpBJ8=;
+	s=korg; t=1784201883;
+	bh=9O8DUAFFmO03Q82d4xwMNIxzdJY6sR15TrCKEEcoTyw=;
 	h=Subject:To:Cc:From:Date;
-	b=NC6n6mFMROu0HVxZKKyKJcIm/wnWOSQqAIa6E7vHBETRyGdXa6CemRA96GGbtjgwP
-	 cSRnzYKYUZKtIre3XrysTZKplATqEA2vk0K7502hOf2sjmlBslJPdZNsv+p0HxVOWI
-	 od9Sk+M6hcfVfMtIei16CT/R7E7oxuWnA2kn3k8w=
-Subject: FAILED: patch "[PATCH] audit: fix recursive locking deadlock in audit_dupe_exe()" failed to apply to 6.12-stable tree
+	b=A87Rmc7xy4CxaFxz7urWnoa4k1r57GhdJGQL+qVCpkMRlIiY2tF8FjcYiZ6QEpxoP
+	 I/hahlQ3GOij9/8pyeQk7Km3uwbZzibwNYpeHFoNE8PqoRx1D/xWIRbzkcA8qGAc4w
+	 PN6ohS/9zFIz7aXPPz51CLnTybrgd6EfGtmAhwk8=
+Subject: FAILED: patch "[PATCH] audit: fix recursive locking deadlock in audit_dupe_exe()" failed to apply to 6.6-stable tree
 To: rrobaina@redhat.com,longman@redhat.com,nathan@kernel.org,paul@paul-moore.com,rgb@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 13:37:50 +0200
-Message-ID: <2026071650-cycle-stray-bbb5@gregkh>
+Date: Thu, 16 Jul 2026 13:37:51 +0200
+Message-ID: <2026071651-dismount-trapped-aafe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 81905b5acbe77284734438df3fbec1158e6429a3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071650-cycle-stray-bbb5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071651-dismount-trapped-aafe@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
