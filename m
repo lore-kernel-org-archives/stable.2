@@ -1,90 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DF733DEDD
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 19:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF4133C194
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 20:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784231667; cv=none; b=NYtLGW+EDa/vSlfTnCctz9qnH8UTdU2UUebWXE+OlXszpCPSkPlh13P+VFQKuW0X4tRTqrwazVvmCyfa6R2F4fZ/5wrY0/hlD1+f3o9YQf7JXcXrnzBF0MfAjEA+gb6wkUSGV04XoM7sFhDccqE88hLPja4GxzHrASmio9p78RQ=
+	t=1784232297; cv=none; b=I4x++MhdWgUay7d7akbJ7cRp0q5gO3QkF9a/64l+6EwNu8nTDWoZ6FM0PfW2sWn9au4jLJUQz9rhmHJbOpmtYrMYOB6JnfbYlATNa4i3t4jbajZ7XO0urOoFBzoGIgZRmpO/G/6zGVdC22vNbAOsaegUiAEnHpnAtRaUeZR7HM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784231667; c=relaxed/simple;
-	bh=XSEsEgNlwWPvDsdw1SmXQc6lSpmBAnebdVFgAvN6ddM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XaKkEY/n/eI4cVM/t/vTD6vW01okRqPpO/t5OZvjZwzHUvZkmrKOwV2DgViWTURPr9FyaagoXWbny7bPhhtWW9rvbSGc6s1lkuKncDHfUfsQpdQ8sxfm/4VNQiW02L56Fo/0rMGbwvqg051IlQleC7CJXaxhsG6dTA47aCIveVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VdwdxFTe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784232297; c=relaxed/simple;
+	bh=vth1im0y/El/KO/94DkG/bZsruCeVRbozso0j2xIFvg=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=s6p7PkOR1BwGThZlKe6t0DezKvdTnfNCnpEoUcfYd5Mf7Vt9QoXQC6cFvyb5UoOK8D0B/SsXbGywV/Yb09EyBbGvcn1yJMSLWVX6XfBOIpW00AfK12vEDca28T7+B4Ko8eIjH6nFpNSBM0A2rNjwK3UW8b5Yql/VkD2+1EH8eZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dilger.ca; spf=pass smtp.mailfrom=dilger.ca; dkim=pass (2048-bit key) header.d=dilger-ca.20251104.gappssmtp.com header.i=@dilger-ca.20251104.gappssmtp.com header.b=O1ppTyss; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dilger.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dilger.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VdwdxFTe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D7841F000E9;
-	Thu, 16 Jul 2026 19:54:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784231666;
-	bh=/Pbz57vgSSvpW4MaE+HoWOZ7XihtFdszrTHbyvVHM8I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VdwdxFTeItxu8670s2NDAysFklWItFzRULUrrcEwTnRxj1VEoZnl5D93rfvSGxK0t
-	 3rcbBqtLvw7DUgzBwD4byk1BswZrOhNS6gU3uEtmsAdFCKf8OHSN0eJo3KcOwzTNjz
-	 LmJQH3+E8v/8ZkKfWqH6yt/WK7Lfn1T0xclgh7UTZ9f4qr3mNFL+pYIjJLFOTrzLZ/
-	 vQb2MNnH2wptkPAIz8tQK1ZFeGrbkCjRa+RpmbiGewgmjzpEifWFJPQZO9z7fjb0/y
-	 GHOttGzBLWRSKP7xIrznssCk9KKd1lHUKUaqemQ1uBJbP9khvo65DtArHpmVCG+1Mr
-	 17oybkwKjTO6Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Lukas Wunner <lukas@wunner.de>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Ignat Korchagin <ignat@linux.win>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] X.509: Fix validation of ASN.1 certificate header
-Date: Thu, 16 Jul 2026 15:54:23 -0400
-Message-ID: <20260716195423.1113794-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071443-shed-dipper-bf70@gregkh>
-References: <2026071443-shed-dipper-bf70@gregkh>
+	dkim=pass (2048-bit key) header.d=dilger-ca.20251104.gappssmtp.com header.i=@dilger-ca.20251104.gappssmtp.com header.b="O1ppTyss"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ceae1ed204so45866945ad.0
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:04:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dilger-ca.20251104.gappssmtp.com; s=20251104; t=1784232295; x=1784837095; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Md2qxdgf63rHDP6+RS9ok1HHPB/hbV6ffca/STkhYXQ=;
+        b=O1ppTysszucIwVtt6kmDu5DN2d4zQI0frgob5et+9S7dzK3MSBBtcrC32qj0KvWJVl
+         0goVrPVRX8oH/Foly+jIE8/tJFO76Rt08PPRNshqZcEFMfnNLtawSCi9Cc/D44Y0P7CC
+         dSksqaASiHCceFXTCrL37mA3ypdkZIwTwWBSl1WFi5ZsANzELfLByn0flJuqfNCDgXyV
+         lLf/cXQxshpExgJa0iHCxS8loXe47Ot3j9MXkw2T+vpDkEHtC9GukoGqq3dh/SxJIML3
+         kERdwffpm+x2WsBZgmos+RBsWVJX91Q5RbSRTV2ljNE52dXpc3AMpZ5NkFnGM2kEPiV/
+         MF0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784232295; x=1784837095;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Md2qxdgf63rHDP6+RS9ok1HHPB/hbV6ffca/STkhYXQ=;
+        b=OLKrVRMj5R1imK20PL7SSvajSesmj0Zd88N4d2EoyrGrPbth8EioZqPJpoy2xX/l34
+         HDWnc3HE9MgiToi7BR0+StD138yPPu2vtxSiRENpa3VeUpVXCDTJquSINSsTjpKSQDU1
+         LrHzd7lqd8yQ3I1GBW6gspVXr5d3isyfeuHQpeklsYq0aTrkgKL//gdxOMC4WM7aygs/
+         +887uvrXEnaMQlP1LltXWMOufvkEm28nDHGI7ztwLox4EnPYxowO7JbLOg7DB5Xbc1bV
+         JNbH+zmiH1Nrsp2cH21q4mixre+443QY3n3mTbyZoyHVMnPribTGqZ2pIC4dt7uf4KPc
+         bJ+g==
+X-Forwarded-Encrypted: i=1; AHgh+Rqw0M/brjby067hgrXlR3fHJRj0w/2Cx7coiYtPfHkm4LfNolvbqM9NQmzGeDhLnb6Genu9Qu4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzlf6p7w9qnQlItOGTc8ptmq3DuxNjWFzdSKxmmZAAEkmgkiWxg
+	HrRVb3axNtVP8G1pGdQMw6yk9A+0/x9/0HzPZ5hoYUPx8n5HrNonzDmBILRdipGq5Ss=
+X-Gm-Gg: AfdE7cnh7z6Ioads9DlZ0XcG8+4x5LmcGL79xWflyLyEOgGYogRYJaXp3ZFCnWo2tg7
+	ih0/3wMXTYz28QQf6+EWze1YDeg/NSmjGrqsX/pUMEUgyoJsMmV1db/jnDFLqDoQ0GG9HpVkn2N
+	mu0pceeEgMKUNirWT9Z4ZO9XWUgNPNmk3f2J31KP9tIilAuSlV/vgk7AVt+zZ1DkgpzdMI7jLwj
+	Cdz0mWKVqiGt0yJvgpHNJV2R2y+pPsgmc3aGmhjYPZqlbAXgn7+KGoLDR0m5a11zZkKkx9hLNXZ
+	lFfHWOCFCzYY5AE+1OIe2RODgYIcildP8dfwa1iqxBc6ybB5dx2YkOznqYlHQq8MVi8fc9ugtYL
+	pImyJ5X6AWIhxUX6gLtlJZJOOqH6mj3o2Qu/yYyYg8bkQv2jBcu44JEShZ3sDLz7yz2OaaVWw6M
+	DYSIMBZZ+NJq0MKEMzLC8tCMajQrjenyI=
+X-Received: by 2002:a17:903:3c28:b0:2ca:4cfd:a6df with SMTP id d9443c01a7336-2cf2ec96549mr8299005ad.43.1784232295051;
+        Thu, 16 Jul 2026 13:04:55 -0700 (PDT)
+Received: from smtpclient.apple ([2604:3d09:3a84:1700:3854:7eec:417a:89dd])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf100e395csm25319995ad.17.2026.07.16.13.04.53
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 16 Jul 2026 13:04:54 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.100.1.1.5\))
+Subject: Re: [PATCH 1/2] jbd2: check need_resched() when skipping busy
+ checkpoint buffers
+From: Andreas Dilger <adilger@dilger.ca>
+In-Reply-To: <20260713102229.1598812-2-max.kellermann@ionos.com>
+Date: Thu, 16 Jul 2026 14:04:42 -0600
+Cc: tytso@mit.edu,
+ jack@suse.com,
+ linux-ext4@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <E3B8944B-6045-49CD-A72B-0B8F6C42C713@dilger.ca>
+References: <20260713102229.1598812-1-max.kellermann@ionos.com>
+ <20260713102229.1598812-2-max.kellermann@ionos.com>
+To: Max Kellermann <max.kellermann@ionos.com>
+X-Mailer: Apple Mail (2.3864.100.1.1.5)
 
-From: Lukas Wunner <lukas@wunner.de>
+On Jul 13, 2026, at 04:22, Max Kellermann <max.kellermann@ionos.com> =
+wrote:
+>=20
+> journal_shrink_one_cp_list() skips busy checkpoint buffers when called
+> with JBD2_SHRINK_BUSY_SKIP.  The continue statement on this path also
+> skips the need_resched() check at the end of the loop body.
+>=20
+> Consequently, when a checkpoint list contains mostly busy buffers, the
+> shrinker can walk the entire list while holding journal->j_list_lock,
+> even when a reschedule has been requested.  Large checkpoint lists =
+under
+> memory pressure can therefore cause long lock hold times and leave =
+other
+> CPUs spinning on j_list_lock, resulting in soft lockups or RCU stalls.
+>=20
+> Route the busy-buffer path through the need_resched() check so that =
+the
+> shrinker can release j_list_lock and reschedule promptly, restoring
+> parity with the clean-buffer path, which already checks =
+need_resched().
+> This does not change which checkpoint buffers are eligible for =
+removal.
 
-[ Upstream commit 3b626ba431c4501512ad07549310685e07fe4706 ]
+One question I had about this patch is whether the list cleanup could =
+get
+into a livelock if it becomes too large?  If the iterator is processing
+a large number of jh that cannot be freed, then `need_resched()` is hit,
+if it restarts from the beginning of the list each time without =
+processing
+at least one jh it will not make forward progress.
 
-x509_load_certificate_list() seeks to enforce that a certificate starts
-with 0x30 0x82 (ASN.1 SEQUENCE tag followed by a length of more than 256
-and less than 65535 bytes).
+Cheers, Andreas
 
-But it only enforces that *either* of those two byte values are present,
-instead of checking for the *conjunction* of the two values.  Fix it.
+> Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+> ---
+> fs/jbd2/checkpoint.c | 3 ++-
+> 1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
+> index 1508e2f54462..5266017565ac 100644
+> --- a/fs/jbd2/checkpoint.c
+> +++ b/fs/jbd2/checkpoint.c
+> @@ -389,7 +389,7 @@ static unsigned long =
+journal_shrink_one_cp_list(struct journal_head *jh,
+>  			ret =3D jbd2_journal_try_remove_checkpoint(jh);
+>  			if (ret < 0) {
+>  				if (type =3D=3D JBD2_SHRINK_BUSY_SKIP)
+> -					continue;
+> +					goto next;
+>  				break;
+>  			}
+>  		}
+> @@ -400,6 +400,7 @@ static unsigned long =
+journal_shrink_one_cp_list(struct journal_head *jh,
+>  			break;
+>  		}
+> =20
+> +next:
+>  		if (need_resched())
+>  			break;
+>  	} while (jh !=3D last_jh);
+> --=20
+> 2.47.3
+>=20
+>=20
 
-Fixes: 631cc66eb9ea ("MODSIGN: Provide module signing public keys to the kernel")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/20260508033917.B5873C2BCB0@smtp.kernel.org/
-Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Cc: stable@vger.kernel.org # v3.7+
-Reviewed-by: Ignat Korchagin <ignat@linux.win>
-Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- certs/common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/certs/common.c b/certs/common.c
-index 16a220887a53e8..c7bcf3f6a77e39 100644
---- a/certs/common.c
-+++ b/certs/common.c
-@@ -20,7 +20,7 @@ int load_certificate_list(const u8 cert_list[],
- 		 */
- 		if (end - p < 4)
- 			goto dodgy_cert;
--		if (p[0] != 0x30 &&
-+		if (p[0] != 0x30 ||
- 		    p[1] != 0x82)
- 			goto dodgy_cert;
- 		plen = (p[2] << 8) | p[3];
--- 
-2.53.0
+Cheers, Andreas
+
+
+
+
 
