@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ACDF3019D8
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 15:36:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF27303C8A
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 15:37:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784216210; cv=none; b=IFBHOjRum8YFozYY3gYufZuouJ8UEHl6ucBwYjvCsw1W8wu60HlkutCXRiokL0LqiRDwyrMj5sAv/uWvNY9fjuoWKsNmF0RCIs2cVLLDK65FEKqe3H+kWoaGH+C5yBkzBu5wCX6CYPrrsT3ZTnrMUDc0V+o72UVF55RU0S2At7o=
+	t=1784216222; cv=none; b=kd8enyZa1125QC+WXrX74HNL+SQJii8PEYRvR7CFBfPCVpGmmB0iK9fTr4K59Rfh4JzvjT5deenX+IKvBuXxfL4CpZkD1njGcq6RaD3BMWOCuA7ItlXPV37pD58uQiPm2AvxY7fxjpG9gjtHwRAwV/+6b5TVMmDyO5Tr/jHr+eA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784216210; c=relaxed/simple;
-	bh=42WuOoI9m4tC/VpBQFCRDNtSBFQQO2vLGq3mfS/xLuo=;
+	s=arc-20240116; t=1784216222; c=relaxed/simple;
+	bh=LNI2yy99ut+xgvF0WsUNoCcduezAo4257NFXm5MdTuw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kMKzohsGDAk2zH8ng5x3OuHNXN9tWbmnDFtllVuLB9lSAcFZrZaThas7ovbz7KCMwsMqzm/lObRjI3zNDK1X2phFbe98sh3TYf1FiUlrVLVj7DQ69CWhMEsjzT4zRnBQ2OwDQseBTTiHgdOtgN+UPR46R/Jki3sgUHzN6UTHgVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXmG6stk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cPV79+AOxsZpEWjEfZoIHYVNhHiHzOUlLR0vqHYcm4m6J+ozjPG743NPFPEFXt0B0k5MCmS9293ZaamSCBn2Nt346R6Dr5JfB72i0QP2YE7fc92b8xxdVbDIZW5cbJO1Ke9q7YcTGWODq8p/w30weHOa4xRflPoSma3+lpHHqPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeJZbXeZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXmG6stk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 764561F00A3D;
-	Thu, 16 Jul 2026 15:36:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeJZbXeZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6044F1F00A3E;
+	Thu, 16 Jul 2026 15:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784216207;
-	bh=GepzK8kHD2gcGGG6CShc6qJgFeeD0m2xoG1oq4Nt0Zs=;
+	s=k20260515; t=1784216220;
+	bh=y7pSb9y7IZb3fsiA4Hxbkr342UqB8CMTLZ5UBC+hwOA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RXmG6stkU5spx+EyoEGwokZAXRlFhjeb9M92PL35UORI7+D9f8ZOKFEj5qxVH83Kx
-	 cluBKEijZTiOSuTvO//HXifkmmbG5GCvME0ZUtW+cgJKSRHXdmMnc0zzwwiuMexWxV
-	 WlRPNxZ/zMv9/p+fULKnvUacAqo02TsY/qho55cpjEDH5PkARA0W3h6/3vb4CQEPTy
-	 1dv4lsDUcMHhVqZbrGRiNldXCwj6aYAsYTqlDg4WN4p+9BkpJZR7hgyp6IV9bVLguv
-	 SIVj9ypjKL8RLziz2A9Ox2uyCnOjMdprzX7KEFVPuBeIcZD2Rtv4x8WfQAiARf/e25
-	 v7rfEsbRnyC7w==
+	b=oeJZbXeZk4/mfX9icSxvU2v3UT1ij8ch05mhqmoKASMFt1Z+7PWjyIc2pSfvQMWl1
+	 iVFE3f21/EfyQ+KBlXsitZ10JDzKnK4QdEogWM7Xs23t5jKvY2+wZsAcD5qCLvcYFH
+	 F9zLVVM1Hvc43aJlcJRqNQjLvA1+7lgk1gxwTN8V3SSPjVYDQFH6tdWsGTTdLqqKGW
+	 Gg5eOi6RKKHql3NLkf2Vd5jo+30s4z4TC8dfsUILm5d6RsQ5V9MCFWrxkhx1XByVqr
+	 ygemv011KXrx1BdQyGGweBpjCoTHEW3u/41aRf6sEsILqoeLXIKsXBWSzzjapgpoAQ
+	 yzUTWKHYst9UQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
+Cc: Haoxiang Li <haoxiang_li2024@163.com>,
 	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] smb: client: resolve SWN tcon from live registrations
-Date: Thu, 16 Jul 2026 11:36:44 -0400
-Message-ID: <20260716153644.582614-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] smb: client: Fix next buffer leak in receive_encrypted_standard()
+Date: Thu, 16 Jul 2026 11:36:57 -0400
+Message-ID: <20260716153657.582978-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260716153644.582614-1-sashal@kernel.org>
-References: <2026071416-veal-lunchroom-f691@gregkh>
- <20260716153644.582614-1-sashal@kernel.org>
+In-Reply-To: <20260716153657.582978-1-sashal@kernel.org>
+References: <2026071454-rotten-imitate-b195@gregkh>
+ <20260716153657.582978-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,624 +46,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+From: Haoxiang Li <haoxiang_li2024@163.com>
 
-cifs_swn_notify() looks up a witness registration by id under
-cifs_swnreg_idr_mutex, drops the mutex, and then uses the registration's
-cached tcon pointer.  That pointer is not a lifetime reference, and it is
-not a stable representative once cifs_get_swn_reg() lets multiple tcons
-for the same net/share name share one registration id.
+[ Upstream commit 1c6267a1d5cf4c73b656f8181b310cbbb3e4767b ]
 
-A same-share second mount can keep the cifs_swn_reg alive after the first
-tcon unregisters and is freed.  The registration then still points at the
-freed first tcon, so taking tc_lock or incrementing tc_count through
-swnreg->tcon only moves the use-after-free earlier.  Taking tc_lock while
-holding cifs_swnreg_idr_mutex also violates the documented CIFS lock
-order.
+receive_encrypted_standard() allocates next_buffer before checking
+whether the number of compound PDUs already reached MAX_COMPOUND. If
+the limit check fails, the function returns immediately and the newly
+allocated next_buffer is not assigned to server->smallbuf/server->bigbuf,
+making it leaked.
 
-Fix this by making the registration store only the stable witness
-identity: id, net name, share name, and notify flags.  When a notify
-arrives, copy that identity under cifs_swnreg_idr_mutex, drop the mutex,
-then find and pin a live witness tcon that currently matches the net/share
-pair under the normal cifs_tcp_ses_lock -> tc_lock order.  The notification
-path uses that pinned tcon directly and drops the reference when done.
+Move the MAX_COMPOUND check before allocating next_buffer.
 
-Registration and unregister messages now use the live tcon passed by the
-caller instead of a cached tcon in the registration.  The final unregister
-send is folded into cifs_swn_unregister() while the registration is still
-protected by cifs_swnreg_idr_mutex.  This removes the previous
-find/drop/reacquire raw-pointer window.  The release path only removes the
-idr entry and frees the stable identity strings.
-
-This preserves the intended one-registration/many-tcon behavior: a
-registration id represents a net/share pair, and notify handling acts on a
-live representative selected at use time.  It also preserves CLIENT_MOVE
-ordering for the representative tcon because the old-IP unregister is sent
-before cifs_swn_register() sends the new-IP register.
-
-Fixes: fed979a7e082 ("cifs: Set witness notification handler for messages from userspace daemon")
+Fixes: b24df3e30cbf ("cifs: update receive_encrypted_standard to handle compounded responses")
 Cc: stable@vger.kernel.org
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
 Signed-off-by: Steve French <stfrench@microsoft.com>
-(cherry picked from commit ec457f9afe5ae9538bdcd58fd4cb442b9787e183)
-
-[ sashal: 5.15 adaptations: cifs_swn_resource_state_changed() keeps the
-  per-channel GlobalMid_Lock tcpStatus reconnect loop (5.15 lacks
-  cifs_signal_cifsd_for_reconnect(), v5.17), switched from swnreg->tcon
-  to the tcon argument; cifs_swn_get_tcon() drops the tc_lock pair and
-  checks tcon->tidStatus == CifsExiting instead of
-  tcon->status == TID_EXITING -- 5.15 has no tc_lock, tc_count and
-  tidStatus are protected by the already-held cifs_tcp_ses_lock;
-  tcon->tree_name is tcon->treeName in 5.15; trace.h hunks applied to
-  fs/cifs/trace.h (pre fs/smb/client move) ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/cifs_swn.c | 318 ++++++++++++++++++++++++++++++++++++---------
- fs/cifs/trace.h    |   2 +
- 2 files changed, 262 insertions(+), 58 deletions(-)
+ fs/cifs/smb2ops.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/fs/cifs/cifs_swn.c b/fs/cifs/cifs_swn.c
-index b5b7611ab15d20..bfd17ca309df3d 100644
---- a/fs/cifs/cifs_swn.c
-+++ b/fs/cifs/cifs_swn.c
-@@ -28,10 +28,54 @@ struct cifs_swn_reg {
- 	bool net_name_notify;
- 	bool share_name_notify;
- 	bool ip_notify;
-+};
- 
--	struct cifs_tcon *tcon;
-+struct cifs_swn_reg_info {
-+	int id;
-+	unsigned int ref_count;
-+	const char *net_name;
-+	const char *share_name;
-+	bool net_name_notify;
-+	bool share_name_notify;
-+	bool ip_notify;
- };
- 
-+static void cifs_swn_snapshot_reg(struct cifs_swn_reg *swnreg,
-+				  struct cifs_swn_reg_info *info)
-+{
-+	info->id = swnreg->id;
-+	info->ref_count = kref_read(&swnreg->ref_count);
-+	info->net_name = swnreg->net_name;
-+	info->share_name = swnreg->share_name;
-+	info->net_name_notify = swnreg->net_name_notify;
-+	info->share_name_notify = swnreg->share_name_notify;
-+	info->ip_notify = swnreg->ip_notify;
-+}
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index e1bd7b070535a5..022e99d1241b1b 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -4961,6 +4961,12 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
+ one_more:
+ 	shdr = (struct smb2_hdr *)buf;
+ 	next_cmd = le32_to_cpu(shdr->NextCommand);
 +
-+static int cifs_swn_dup_reg(struct cifs_swn_reg *swnreg,
-+			    struct cifs_swn_reg_info *info)
-+{
-+	cifs_swn_snapshot_reg(swnreg, info);
-+
-+	info->net_name = kstrdup(swnreg->net_name, GFP_KERNEL);
-+	if (!info->net_name)
-+		return -ENOMEM;
-+
-+	info->share_name = kstrdup(swnreg->share_name, GFP_KERNEL);
-+	if (!info->share_name) {
-+		kfree(info->net_name);
-+		return -ENOMEM;
++	if (*num_mids >= MAX_COMPOUND) {
++		cifs_server_dbg(VFS, "too many PDUs in compound\n");
++		return -1;
 +	}
 +
-+	return 0;
-+}
-+
-+static void cifs_swn_free_reg_info(struct cifs_swn_reg_info *info)
-+{
-+	kfree(info->net_name);
-+	kfree(info->share_name);
-+}
-+
- static int cifs_swn_auth_info_krb(struct cifs_tcon *tcon, struct sk_buff *skb)
- {
- 	int ret;
-@@ -73,7 +117,8 @@ static int cifs_swn_auth_info_ntlm(struct cifs_tcon *tcon, struct sk_buff *skb)
-  * The authentication information to connect to the witness service is bundled
-  * into the message.
-  */
--static int cifs_swn_send_register_message(struct cifs_swn_reg *swnreg)
-+static int cifs_swn_send_register_message(struct cifs_swn_reg_info *swnreg,
-+					  struct cifs_tcon *tcon)
- {
- 	struct sk_buff *skb;
- 	struct genlmsghdr *hdr;
-@@ -111,10 +156,10 @@ static int cifs_swn_send_register_message(struct cifs_swn_reg *swnreg)
- 	 * told to switch to it (client move message). In these cases we unregister from the
- 	 * server address and register to the new address when we receive the notification.
- 	 */
--	if (swnreg->tcon->ses->server->use_swn_dstaddr)
--		addr = &swnreg->tcon->ses->server->swn_dstaddr;
-+	if (tcon->ses->server->use_swn_dstaddr)
-+		addr = &tcon->ses->server->swn_dstaddr;
- 	else
--		addr = &swnreg->tcon->ses->server->dstaddr;
-+		addr = &tcon->ses->server->dstaddr;
- 
- 	ret = nla_put(skb, CIFS_GENL_ATTR_SWN_IP, sizeof(struct sockaddr_storage), addr);
- 	if (ret < 0)
-@@ -138,10 +183,10 @@ static int cifs_swn_send_register_message(struct cifs_swn_reg *swnreg)
- 			goto nlmsg_fail;
+ 	if (next_cmd) {
+ 		if (WARN_ON_ONCE(next_cmd > pdu_length))
+ 			return -1;
+@@ -4984,10 +4990,6 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
+ 		mid_entry->resp_buf_size = server->pdu_size;
  	}
  
--	authtype = cifs_select_sectype(swnreg->tcon->ses->server, swnreg->tcon->ses->sectype);
-+	authtype = cifs_select_sectype(tcon->ses->server, tcon->ses->sectype);
- 	switch (authtype) {
- 	case Kerberos:
--		ret = cifs_swn_auth_info_krb(swnreg->tcon, skb);
-+		ret = cifs_swn_auth_info_krb(tcon, skb);
- 		if (ret < 0) {
- 			cifs_dbg(VFS, "%s: Failed to get kerberos auth info: %d\n", __func__, ret);
- 			goto nlmsg_fail;
-@@ -149,7 +194,7 @@ static int cifs_swn_send_register_message(struct cifs_swn_reg *swnreg)
- 		break;
- 	case NTLMv2:
- 	case RawNTLMSSP:
--		ret = cifs_swn_auth_info_ntlm(swnreg->tcon, skb);
-+		ret = cifs_swn_auth_info_ntlm(tcon, skb);
- 		if (ret < 0) {
- 			cifs_dbg(VFS, "%s: Failed to get NTLM auth info: %d\n", __func__, ret);
- 			goto nlmsg_fail;
-@@ -179,7 +224,8 @@ static int cifs_swn_send_register_message(struct cifs_swn_reg *swnreg)
- /*
-  * Sends an uregister message to the userspace daemon based on the registration
-  */
--static int cifs_swn_send_unregister_message(struct cifs_swn_reg *swnreg)
-+static int cifs_swn_send_unregister_message(struct cifs_swn_reg_info *swnreg,
-+					    struct cifs_tcon *tcon)
- {
- 	struct sk_buff *skb;
- 	struct genlmsghdr *hdr;
-@@ -208,7 +254,7 @@ static int cifs_swn_send_unregister_message(struct cifs_swn_reg *swnreg)
- 		goto nlmsg_fail;
+-	if (*num_mids >= MAX_COMPOUND) {
+-		cifs_server_dbg(VFS, "too many PDUs in compound\n");
+-		return -1;
+-	}
+ 	bufs[*num_mids] = buf;
+ 	mids[(*num_mids)++] = mid_entry;
  
- 	ret = nla_put(skb, CIFS_GENL_ATTR_SWN_IP, sizeof(struct sockaddr_storage),
--			&swnreg->tcon->ses->server->dstaddr);
-+			&tcon->ses->server->dstaddr);
- 	if (ret < 0)
- 		goto nlmsg_fail;
- 
-@@ -244,6 +290,84 @@ static int cifs_swn_send_unregister_message(struct cifs_swn_reg *swnreg)
- 	return ret;
- }
- 
-+/*
-+ * Allocation-free mirror of extract_hostname() + extract_sharename() from
-+ * fs/cifs/unc.c.  Those helpers kmalloc(GFP_KERNEL); this runs under the
-+ * cifs_tcp_ses_lock spinlock, so we mirror their parsing in place against
-+ * the caller's stable net_name/share_name strings.
-+ * Keep in sync with unc.c.
-+ */
-+static bool cifs_swn_tcon_matches(struct cifs_tcon *tcon,
-+				  const char *net_name,
-+				  const char *share_name)
-+{
-+	const char *unc = tcon->treeName;
-+	const char *host, *share, *delim;
-+	size_t host_len, share_len;
-+
-+	if (!tcon->use_witness)
-+		return false;
-+
-+	/* extract_hostname: require strlen(unc) >= 3 */
-+	if (strnlen(unc, 3) < 3)
-+		return false;
-+	/* extract_hostname: skip all leading '\' characters */
-+	for (host = unc; *host == '\\'; host++)
-+		;
-+	if (!*host)
-+		return false;
-+	delim = strchr(host, '\\');
-+	if (!delim)
-+		return false;
-+	host_len = delim - host;
-+	if (strlen(net_name) != host_len ||
-+	    strncasecmp(host, net_name, host_len))
-+		return false;
-+
-+	/* extract_sharename: start at unc + 2, then first '\' onward */
-+	share = unc + 2;
-+	delim = strchr(share, '\\');
-+	if (!delim)
-+		return false;
-+	share = delim + 1;
-+	share_len = strlen(share);
-+
-+	return strlen(share_name) == share_len &&
-+	       !strncasecmp(share, share_name, share_len);
-+}
-+
-+/*
-+ * One SWN registration id represents one net/share name pair.  Multiple
-+ * mounted tcons can therefore share the id.  Pick a live representative at
-+ * use time instead of caching the first tcon pointer in the registration.
-+ */
-+static struct cifs_tcon *cifs_swn_get_tcon(struct cifs_swn_reg_info *swnreg)
-+{
-+	struct TCP_Server_Info *server;
-+	struct cifs_ses *ses;
-+	struct cifs_tcon *tcon;
-+
-+	spin_lock(&cifs_tcp_ses_lock);
-+	list_for_each_entry(server, &cifs_tcp_ses_list, tcp_ses_list) {
-+		list_for_each_entry(ses, &server->smb_ses_list, smb_ses_list) {
-+			list_for_each_entry(tcon, &ses->tcon_list, tcon_list) {
-+				if (tcon->tidStatus == CifsExiting ||
-+				    !cifs_swn_tcon_matches(tcon, swnreg->net_name,
-+							   swnreg->share_name))
-+					continue;
-+				++tcon->tc_count;
-+				trace_smb3_tcon_ref(tcon->debug_id,
-+						    tcon->tc_count,
-+						    netfs_trace_tcon_ref_get_swn_notify);
-+				spin_unlock(&cifs_tcp_ses_lock);
-+				return tcon;
-+			}
-+		}
-+	}
-+	spin_unlock(&cifs_tcp_ses_lock);
-+	return NULL;
-+}
-+
- /*
-  * Try to find a matching registration for the tcon's server name and share name.
-  * Calls to this function must be protected by cifs_swnreg_idr_mutex.
-@@ -350,8 +474,6 @@ static struct cifs_swn_reg *cifs_get_swn_reg(struct cifs_tcon *tcon)
- 	reg->net_name_notify = true;
- 	reg->share_name_notify = true;
- 	reg->ip_notify = (tcon->capabilities & SMB2_SHARE_CAP_SCALEOUT);
--
--	reg->tcon = tcon;
- unlock:
- 	mutex_unlock(&cifs_swnreg_idr_mutex);
- 
-@@ -371,11 +493,6 @@ static struct cifs_swn_reg *cifs_get_swn_reg(struct cifs_tcon *tcon)
- static void cifs_swn_reg_release(struct kref *ref)
- {
- 	struct cifs_swn_reg *swnreg = container_of(ref, struct cifs_swn_reg, ref_count);
--	int ret;
--
--	ret = cifs_swn_send_unregister_message(swnreg);
--	if (ret < 0)
--		cifs_dbg(VFS, "%s: Failed to send unregister message: %d\n", __func__, ret);
- 
- 	idr_remove(&cifs_swnreg_idr, swnreg->id);
- 	kfree(swnreg->net_name);
-@@ -383,33 +500,43 @@ static void cifs_swn_reg_release(struct kref *ref)
- 	kfree(swnreg);
- }
- 
--static void cifs_put_swn_reg(struct cifs_swn_reg *swnreg)
-+static void cifs_put_swn_reg_locked(struct cifs_swn_reg *swnreg,
-+				    struct cifs_tcon *tcon)
- {
--	mutex_lock(&cifs_swnreg_idr_mutex);
-+	if (kref_read(&swnreg->ref_count) == 1) {
-+		struct cifs_swn_reg_info swnreg_info;
-+		int ret;
-+
-+		cifs_swn_snapshot_reg(swnreg, &swnreg_info);
-+		ret = cifs_swn_send_unregister_message(&swnreg_info, tcon);
-+		if (ret < 0)
-+			cifs_dbg(VFS, "%s: Failed to send unregister message: %d\n",
-+				 __func__, ret);
-+	}
-+
- 	kref_put(&swnreg->ref_count, cifs_swn_reg_release);
--	mutex_unlock(&cifs_swnreg_idr_mutex);
- }
- 
--static int cifs_swn_resource_state_changed(struct cifs_swn_reg *swnreg, const char *name, int state)
-+static int cifs_swn_resource_state_changed(struct cifs_tcon *tcon, const char *name, int state)
- {
- 	int i;
- 
- 	switch (state) {
- 	case CIFS_SWN_RESOURCE_STATE_UNAVAILABLE:
- 		cifs_dbg(FYI, "%s: resource name '%s' become unavailable\n", __func__, name);
--		for (i = 0; i < swnreg->tcon->ses->chan_count; i++) {
-+		for (i = 0; i < tcon->ses->chan_count; i++) {
- 			spin_lock(&GlobalMid_Lock);
--			if (swnreg->tcon->ses->chans[i].server->tcpStatus != CifsExiting)
--				swnreg->tcon->ses->chans[i].server->tcpStatus = CifsNeedReconnect;
-+			if (tcon->ses->chans[i].server->tcpStatus != CifsExiting)
-+				tcon->ses->chans[i].server->tcpStatus = CifsNeedReconnect;
- 			spin_unlock(&GlobalMid_Lock);
- 		}
- 		break;
- 	case CIFS_SWN_RESOURCE_STATE_AVAILABLE:
- 		cifs_dbg(FYI, "%s: resource name '%s' become available\n", __func__, name);
--		for (i = 0; i < swnreg->tcon->ses->chan_count; i++) {
-+		for (i = 0; i < tcon->ses->chan_count; i++) {
- 			spin_lock(&GlobalMid_Lock);
--			if (swnreg->tcon->ses->chans[i].server->tcpStatus != CifsExiting)
--				swnreg->tcon->ses->chans[i].server->tcpStatus = CifsNeedReconnect;
-+			if (tcon->ses->chans[i].server->tcpStatus != CifsExiting)
-+				tcon->ses->chans[i].server->tcpStatus = CifsNeedReconnect;
- 			spin_unlock(&GlobalMid_Lock);
- 		}
- 		break;
-@@ -520,7 +647,7 @@ static int cifs_swn_reconnect(struct cifs_tcon *tcon, struct sockaddr_storage *a
- 	return ret;
- }
- 
--static int cifs_swn_client_move(struct cifs_swn_reg *swnreg, struct sockaddr_storage *addr)
-+static int cifs_swn_client_move(struct cifs_tcon *tcon, struct sockaddr_storage *addr)
- {
- 	struct sockaddr_in *ipv4 = (struct sockaddr_in *)addr;
- 	struct sockaddr_in6 *ipv6 = (struct sockaddr_in6 *)addr;
-@@ -530,14 +657,17 @@ static int cifs_swn_client_move(struct cifs_swn_reg *swnreg, struct sockaddr_sto
- 	else if (addr->ss_family == AF_INET6)
- 		cifs_dbg(FYI, "%s: move to %pI6\n", __func__, &ipv6->sin6_addr);
- 
--	return cifs_swn_reconnect(swnreg->tcon, addr);
-+	return cifs_swn_reconnect(tcon, addr);
- }
- 
- int cifs_swn_notify(struct sk_buff *skb, struct genl_info *info)
- {
- 	struct cifs_swn_reg *swnreg;
-+	struct cifs_swn_reg_info swnreg_info;
-+	struct cifs_tcon *tcon;
- 	char name[256];
- 	int type;
-+	int ret = 0;
- 
- 	if (info->attrs[CIFS_GENL_ATTR_SWN_REGISTRATION_ID]) {
- 		int swnreg_id;
-@@ -545,21 +675,34 @@ int cifs_swn_notify(struct sk_buff *skb, struct genl_info *info)
- 		swnreg_id = nla_get_u32(info->attrs[CIFS_GENL_ATTR_SWN_REGISTRATION_ID]);
- 		mutex_lock(&cifs_swnreg_idr_mutex);
- 		swnreg = idr_find(&cifs_swnreg_idr, swnreg_id);
--		mutex_unlock(&cifs_swnreg_idr_mutex);
- 		if (swnreg == NULL) {
-+			mutex_unlock(&cifs_swnreg_idr_mutex);
- 			cifs_dbg(FYI, "%s: registration id %d not found\n", __func__, swnreg_id);
- 			return -EINVAL;
- 		}
-+		ret = cifs_swn_dup_reg(swnreg, &swnreg_info);
-+		mutex_unlock(&cifs_swnreg_idr_mutex);
-+		if (ret)
-+			return ret;
- 	} else {
- 		cifs_dbg(FYI, "%s: missing registration id attribute\n", __func__);
- 		return -EINVAL;
- 	}
- 
-+	tcon = cifs_swn_get_tcon(&swnreg_info);
-+	if (!tcon) {
-+		cifs_dbg(FYI, "%s: registration id %d has no live tcon\n",
-+			 __func__, swnreg_info.id);
-+		ret = -ENODEV;
-+		goto free_info;
-+	}
-+
- 	if (info->attrs[CIFS_GENL_ATTR_SWN_NOTIFICATION_TYPE]) {
- 		type = nla_get_u32(info->attrs[CIFS_GENL_ATTR_SWN_NOTIFICATION_TYPE]);
- 	} else {
- 		cifs_dbg(FYI, "%s: missing notification type attribute\n", __func__);
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto out;
- 	}
- 
- 	switch (type) {
-@@ -571,15 +714,18 @@ int cifs_swn_notify(struct sk_buff *skb, struct genl_info *info)
- 					sizeof(name));
- 		} else {
- 			cifs_dbg(FYI, "%s: missing resource name attribute\n", __func__);
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto out;
- 		}
- 		if (info->attrs[CIFS_GENL_ATTR_SWN_RESOURCE_STATE]) {
- 			state = nla_get_u32(info->attrs[CIFS_GENL_ATTR_SWN_RESOURCE_STATE]);
- 		} else {
- 			cifs_dbg(FYI, "%s: missing resource state attribute\n", __func__);
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto out;
- 		}
--		return cifs_swn_resource_state_changed(swnreg, name, state);
-+		ret = cifs_swn_resource_state_changed(tcon, name, state);
-+		break;
- 	}
- 	case CIFS_SWN_NOTIFICATION_CLIENT_MOVE: {
- 		struct sockaddr_storage addr;
-@@ -588,28 +734,36 @@ int cifs_swn_notify(struct sk_buff *skb, struct genl_info *info)
- 			nla_memcpy(&addr, info->attrs[CIFS_GENL_ATTR_SWN_IP], sizeof(addr));
- 		} else {
- 			cifs_dbg(FYI, "%s: missing IP address attribute\n", __func__);
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto out;
- 		}
--		return cifs_swn_client_move(swnreg, &addr);
-+		ret = cifs_swn_client_move(tcon, &addr);
-+		break;
- 	}
- 	default:
- 		cifs_dbg(FYI, "%s: unknown notification type %d\n", __func__, type);
- 		break;
- 	}
- 
--	return 0;
-+out:
-+	cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_swn_notify);
-+free_info:
-+	cifs_swn_free_reg_info(&swnreg_info);
-+	return ret;
- }
- 
- int cifs_swn_register(struct cifs_tcon *tcon)
- {
- 	struct cifs_swn_reg *swnreg;
-+	struct cifs_swn_reg_info swnreg_info;
- 	int ret;
- 
- 	swnreg = cifs_get_swn_reg(tcon);
- 	if (IS_ERR(swnreg))
- 		return PTR_ERR(swnreg);
- 
--	ret = cifs_swn_send_register_message(swnreg);
-+	cifs_swn_snapshot_reg(swnreg, &swnreg_info);
-+	ret = cifs_swn_send_register_message(&swnreg_info, tcon);
- 	if (ret < 0) {
- 		cifs_dbg(VFS, "%s: Failed to send swn register message: %d\n", __func__, ret);
- 		/* Do not put the swnreg or return error, the echo task will retry */
-@@ -630,35 +784,68 @@ int cifs_swn_unregister(struct cifs_tcon *tcon)
- 		return PTR_ERR(swnreg);
- 	}
- 
-+	cifs_put_swn_reg_locked(swnreg, tcon);
- 	mutex_unlock(&cifs_swnreg_idr_mutex);
- 
--	cifs_put_swn_reg(swnreg);
--
- 	return 0;
- }
- 
--void cifs_swn_dump(struct seq_file *m)
-+/*
-+ * Snapshot one registration under cifs_swnreg_idr_mutex and return.  Callers
-+ * intentionally do the per-registration network/genlmsg work without the
-+ * mutex held, both to keep the critical section short and to avoid nesting
-+ * cifs_swnreg_idr_mutex inside the higher cifs_tcp_ses_lock when a live
-+ * tcon is then pinned for the send.
-+ */
-+static int cifs_swn_get_next_reg_info(int *id, struct cifs_swn_reg_info *info)
- {
- 	struct cifs_swn_reg *swnreg;
-+	int ret = 0;
-+
-+	mutex_lock(&cifs_swnreg_idr_mutex);
-+	swnreg = idr_get_next(&cifs_swnreg_idr, id);
-+	if (swnreg) {
-+		ret = cifs_swn_dup_reg(swnreg, info);
-+		if (!ret) {
-+			*id = swnreg->id + 1;
-+			ret = 1;
-+		}
-+	}
-+	mutex_unlock(&cifs_swnreg_idr_mutex);
-+
-+	return ret;
-+}
-+
-+void cifs_swn_dump(struct seq_file *m)
-+{
-+	struct cifs_swn_reg_info swnreg_info;
-+	struct cifs_tcon *tcon;
- 	struct sockaddr_in *sa;
- 	struct sockaddr_in6 *sa6;
--	int id;
-+	int id = 0;
-+	int ret;
- 
- 	seq_puts(m, "Witness registrations:");
- 
--	mutex_lock(&cifs_swnreg_idr_mutex);
--	idr_for_each_entry(&cifs_swnreg_idr, swnreg, id) {
-+	while ((ret = cifs_swn_get_next_reg_info(&id, &swnreg_info)) > 0) {
- 		seq_printf(m, "\nId: %u Refs: %u Network name: '%s'%s Share name: '%s'%s Ip address: ",
--				id, kref_read(&swnreg->ref_count),
--				swnreg->net_name, swnreg->net_name_notify ? "(y)" : "(n)",
--				swnreg->share_name, swnreg->share_name_notify ? "(y)" : "(n)");
--		switch (swnreg->tcon->ses->server->dstaddr.ss_family) {
-+			   swnreg_info.id, swnreg_info.ref_count,
-+			   swnreg_info.net_name, swnreg_info.net_name_notify ? "(y)" : "(n)",
-+			   swnreg_info.share_name, swnreg_info.share_name_notify ? "(y)" : "(n)");
-+
-+		tcon = cifs_swn_get_tcon(&swnreg_info);
-+		if (!tcon) {
-+			seq_puts(m, "(no live tcon)");
-+			goto next;
-+		}
-+
-+		switch (tcon->ses->server->dstaddr.ss_family) {
- 		case AF_INET:
--			sa = (struct sockaddr_in *) &swnreg->tcon->ses->server->dstaddr;
-+			sa = (struct sockaddr_in *)&tcon->ses->server->dstaddr;
- 			seq_printf(m, "%pI4", &sa->sin_addr.s_addr);
- 			break;
- 		case AF_INET6:
--			sa6 = (struct sockaddr_in6 *) &swnreg->tcon->ses->server->dstaddr;
-+			sa6 = (struct sockaddr_in6 *)&tcon->ses->server->dstaddr;
- 			seq_printf(m, "%pI6", &sa6->sin6_addr.s6_addr);
- 			if (sa6->sin6_scope_id)
- 				seq_printf(m, "%%%u", sa6->sin6_scope_id);
-@@ -666,23 +853,38 @@ void cifs_swn_dump(struct seq_file *m)
- 		default:
- 			seq_puts(m, "(unknown)");
- 		}
--		seq_printf(m, "%s", swnreg->ip_notify ? "(y)" : "(n)");
-+		cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_swn_notify);
-+next:
-+		seq_printf(m, "%s", swnreg_info.ip_notify ? "(y)" : "(n)");
-+		cifs_swn_free_reg_info(&swnreg_info);
- 	}
--	mutex_unlock(&cifs_swnreg_idr_mutex);
-+	if (ret < 0)
-+		seq_printf(m, "\nFailed to snapshot witness registration: %d", ret);
- 	seq_puts(m, "\n");
- }
- 
- void cifs_swn_check(void)
- {
--	struct cifs_swn_reg *swnreg;
--	int id;
-+	struct cifs_swn_reg_info swnreg_info;
-+	struct cifs_tcon *tcon;
-+	int id = 0;
- 	int ret;
- 
--	mutex_lock(&cifs_swnreg_idr_mutex);
--	idr_for_each_entry(&cifs_swnreg_idr, swnreg, id) {
--		ret = cifs_swn_send_register_message(swnreg);
-+	while ((ret = cifs_swn_get_next_reg_info(&id, &swnreg_info)) > 0) {
-+		tcon = cifs_swn_get_tcon(&swnreg_info);
-+		if (!tcon) {
-+			cifs_dbg(FYI, "%s: registration id %d has no live tcon\n",
-+				 __func__, swnreg_info.id);
-+			goto free_info;
-+		}
-+
-+		ret = cifs_swn_send_register_message(&swnreg_info, tcon);
- 		if (ret < 0)
- 			cifs_dbg(FYI, "%s: Failed to send register message: %d\n", __func__, ret);
-+		cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_swn_notify);
-+free_info:
-+		cifs_swn_free_reg_info(&swnreg_info);
- 	}
--	mutex_unlock(&cifs_swnreg_idr_mutex);
-+	if (ret < 0)
-+		cifs_dbg(FYI, "%s: Failed to snapshot registration: %d\n", __func__, ret);
- }
-diff --git a/fs/cifs/trace.h b/fs/cifs/trace.h
-index 4e66ca4c16517f..787b5b3c57f34a 100644
---- a/fs/cifs/trace.h
-+++ b/fs/cifs/trace.h
-@@ -30,6 +30,7 @@
- 	EM(netfs_trace_tcon_ref_get_find,		"GET Find  ") \
- 	EM(netfs_trace_tcon_ref_get_find_sess_tcon,	"GET FndSes") \
- 	EM(netfs_trace_tcon_ref_get_reconnect_server,	"GET Reconn") \
-+	EM(netfs_trace_tcon_ref_get_swn_notify,		"GET SwnNot") \
- 	EM(netfs_trace_tcon_ref_new,			"NEW       ") \
- 	EM(netfs_trace_tcon_ref_new_ipc,		"NEW Ipc   ") \
- 	EM(netfs_trace_tcon_ref_new_reconnect_server,	"NEW Reconn") \
-@@ -39,6 +40,7 @@
- 	EM(netfs_trace_tcon_ref_put_mnt_ctx,		"PUT MntCtx") \
- 	EM(netfs_trace_tcon_ref_put_dfs_refer,		"PUT DfsRfr") \
- 	EM(netfs_trace_tcon_ref_put_reconnect_server,	"PUT Reconn") \
-+	EM(netfs_trace_tcon_ref_put_swn_notify,		"PUT SwnNot") \
- 	EM(netfs_trace_tcon_ref_put_tlink,		"PUT Tlink ") \
- 	EM(netfs_trace_tcon_ref_see_cancelled_close,	"SEE Cn-Cls") \
- 	EM(netfs_trace_tcon_ref_see_fscache_collision,	"SEE FV-CO!") \
 -- 
 2.53.0
 
