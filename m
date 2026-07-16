@@ -1,256 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF3E379C3F
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 16:59:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA85437856
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 17:03:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784221145; cv=none; b=tgUFuH/NqGEnCpkU26EECfq4QCnxdON/9yIbxLrBj5EaBx9rB0JO20Q7WZyhr30C9rVsv92vEROo+dlbqXI3jtUO84aYQEFJOsZ5c04N0kEv+uNqz/79eDkDv0JfAd/FZRSqNSK3jVv38PuE9c13hbTcdxiOuCvPY2+lFRsS07M=
+	t=1784221419; cv=none; b=YgBVTELMbsFC+gW7nQ/pkIZPyzYeXMLvLTFpmI8/27d9iwOMPor62DxOFtCpTuURARx0OxiP9jtjU6O4repw4xjd8uWH/IIMwXtK6hZZmMaXUMuEB9gIazVvocVizizPY2ajKKRSmqcDO1AkDRrY6VUGDjQpk1u65uqmH8SFgLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784221145; c=relaxed/simple;
-	bh=BXL1zj5orfRtVARKxiiVUwTv4nJkwCI+FgMtXy1vv30=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dnHfQRyEuL4kiPWmLs4XvQAxlz+kvJjMpxpJ8ibsSrRZKEtKeSCgifLQMpXk2if1EWgJvao5cmPe44mrh5y2KWgrnfgvAUCTUzQj/eHbI2Jy3prjnjZJpnB+f4bL/WK4VK/ewXeO7F2OPBoDTGk2KBV+ov8cMT86LNETsp2g95A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQfD9NBW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784221419; c=relaxed/simple;
+	bh=EIqvPqeCjm5Dc9Jmv5QrM5AqpBkwUJmjdkmGX6+T5qI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=piYc5ch78VIB359lGffNkfBA6E0pbj3AHUEGeqCN5GopB/nQpax5MkuaywY1zRbdPv9O8+Rv1skn1AA5R2Pkawy6WklysHPDe4c+AioHNgzNKjdszUrKUHcW/2wIuaM3pJaGZHT4vhfWQy+w6xK/e59KuA2hMnDLC1gwOwRr3nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tq8e1K6j; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQfD9NBW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5D51F000E9;
-	Thu, 16 Jul 2026 16:58:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784221139;
-	bh=x+MELC6hlZolg3ShskcYJuoSbfuKF0281RcqMdY4XzU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MQfD9NBWYiX+ZQdZpYUl9r+RHWSDM8AaBZKDeoPlb+vizrgoM2vRfiT+2AjwzzgUg
-	 T7dxmYR/amJbJWfaYwnDzFwD/y+52rYRpHd9tP2HQLisXywko+4FVvE7n+zUJjrM3y
-	 CMQCD2rz2dkgKjXrncva86mtqE/tqGuogEbhjRK0UpLp7XjmXUIzr2UrR+cXIWMnvn
-	 fulcD/5rD0pLo+plkVDD00D2Je725E/OhqOolfo4WhaKrVQcc2qC35MWlwEnP63Dfv
-	 dOho2/s20azY92QwOouJI1uc983QsmqL+CLV+CZT9NVK9aeDZBewcHbD2zLN5tQ5hQ
-	 g/l5deCof7YVg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>,
-	Jan Kara <jack@suse.cz>,
-	Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] proc: rename proc_setattr to proc_nochmod_setattr
-Date: Thu, 16 Jul 2026 12:58:55 -0400
-Message-ID: <20260716165856.683482-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071446-vitality-excretion-f7c6@gregkh>
-References: <2026071446-vitality-excretion-f7c6@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tq8e1K6j"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ce87c7e3bbso76722885ad.1
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 10:03:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784221414; x=1784826214; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UKtPinLhhVEt3RyIPNlUBx5bJFVV9VU0HPG4/JBg7mQ=;
+        b=Tq8e1K6jwDOwheo2CX7TXvVdEJfcDGhDvLWH94TgHH5igv4RFhrzjygGEGYU6x1x6w
+         J0Q7pUjWWU+M228E/7guNSqmWZ7QX4D/llKkDcOLRXM63GGJ06yU7I1LYurL7CnFBB77
+         kvO42DA2xd+/fMG6tTZ+/Xu8Js98WiheJfZtR0Jzj1hOBex+6g1VUJCXhyDT4BizA5us
+         B/u7eb4PwmrwAY0LN71nH6T837J7K8pjcNuBcuz/SOVDha8dx06oriMJMSVmSLAM1OpG
+         XfBl/X/AtcAArSsv2pjvvazirQB+tnh1oVBy+txkngHOPkiWLg3Vd39NcrMoL9ZJKG/9
+         qFMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784221414; x=1784826214;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UKtPinLhhVEt3RyIPNlUBx5bJFVV9VU0HPG4/JBg7mQ=;
+        b=U8mqefCv8rTKaCpGR95iGFdwMAjPMIbIlSr6RPHgtLh7JNU0lFNIu6UI8Pz3/Chg2R
+         raCxN27l9aVTeiinvGwhpQCLlcOz9V7OM3EQeHOYo0L9PC93q9a3AOz9+2s/Aem9ampe
+         mqSMOI0I6ut5juIzSocmHHDU00sxwj0uOP008fz0BT3kmkA6JIzpyrzDeyh8R2qgU2S8
+         lO9Al5+gD6D2wv6SZOzR9j/GcdTJtQLEvX6Ap4pQXcDp98cxda0Y90XGwEJ5EVoOwC86
+         gBYn8XNg5rAoiCv2Nwy6VSEtkyH2b79lFocFekgCIeHdzfNzX3j5nv7RNGitQgoiubBi
+         ZTqQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpCDT5EnMWKhwezZv9IW4opxHtQ6nErJmSUzRruwFy8vWSYS0Mmxm/mDLiPPoJwMrBYXpC7/3I=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywxb1+XhIqcSeH2BOaZuaHzMTEUAXZQHOnBvLaj74ezjXMaa4RO
+	xWaSYh0uIn4RQfpuOLFn2+7/xOIgg2pvYSmnJNDWTUzAk76rw8jNM+/h
+X-Gm-Gg: AfdE7clY+MehmkWpSA2myOP7csdySTM2vVPOTW3LpGzxdLq5AdJD/OoBKm+cAsfxU9n
+	rvd5DFhjyGkOkxbyopVAhQN/8G/fZyPolXA3h0Hy7P3+S39L0RcgwJ3Ja/+QjEKzYu7uK7KcPrF
+	j8Ds5cQPBSugeKoUrRIoz/C1z3egEWWeBCSuvQasTundSb7lMG/+fhugRx1pzjJj0pXzZI8mCna
+	yNfagrrebed+Ha49yhXni4ECrpvKePkVP9vntdJmJZ9OhaG3cJpiHxnG6JDMuPHqm2qd541m47e
+	tVxYAshs1+R/oY2fHbKK51XXlQuE3AZuFQhkL3Nw+dE24nI5UyCT12tdiircxeIFKW/YIQGj0GX
+	BMfhtHYtTzRfKRSXPpXGiqoT7eEcI2uDaWujJYugITqCF4v0wTxLQgunlY3cTkUC2PgeDYlOgxG
+	5ARkH18A2g5eejy0QrQHr4OYBmZZSKPg1rUqByDJA=
+X-Received: by 2002:a17:903:1a2d:b0:2cc:5f48:5764 with SMTP id d9443c01a7336-2cee9bacb60mr142293835ad.44.1784221414399;
+        Thu, 16 Jul 2026 10:03:34 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf1012c343sm23542985ad.25.2026.07.16.10.03.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 16 Jul 2026 10:03:33 -0700 (PDT)
+Message-ID: <c577fafd-c2ff-400e-962a-f9e77de3c434@gmail.com>
+Date: Thu, 16 Jul 2026 10:03:30 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/349] 6.12.96-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260716133033.287196923@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260716133033.287196923@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Christoph Hellwig <hch@lst.de>
+On 7/16/26 06:28, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.96 release.
+> There are 349 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sat, 18 Jul 2026 13:30:01 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.96-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-[ Upstream commit 690005b0b1e6b567c88b7790e6d90d4d6c9e09cc ]
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-What is currently proc_setattr is a special version added after the more
-general procfs ->seattr in commit 6d76fa58b050 ("Don't allow chmod() on
-the /proc/<pid>/ files").  Give it a name that reflects that to free the
-proc_setattr name and better describe what is doing.
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260325063711.3298685-5-hch@lst.de
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 6255da28d4bb ("proc: protect ptrace_may_access() with exec_update_lock (FD links)")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/proc/base.c       | 22 +++++++++++-----------
- fs/proc/fd.c         |  6 +++---
- fs/proc/internal.h   |  4 ++--
- fs/proc/namespaces.c |  4 ++--
- fs/proc/proc_net.c   |  2 +-
- 5 files changed, 19 insertions(+), 19 deletions(-)
-
-diff --git a/fs/proc/base.c b/fs/proc/base.c
-index d444155581cabc..2c32cf455fcfc7 100644
---- a/fs/proc/base.c
-+++ b/fs/proc/base.c
-@@ -721,7 +721,7 @@ static bool proc_fd_access_allowed(struct inode *inode)
- 	return allowed;
- }
- 
--int proc_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+int proc_nochmod_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
- 		 struct iattr *attr)
- {
- 	int error;
-@@ -794,7 +794,7 @@ static int proc_pid_permission(struct mnt_idmap *idmap,
- 
- 
- static const struct inode_operations proc_def_inode_operations = {
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
- 
- static int proc_single_show(struct seq_file *m, void *v)
-@@ -1867,7 +1867,7 @@ static int proc_pid_readlink(struct dentry * dentry, char __user * buffer, int b
- const struct inode_operations proc_pid_link_inode_operations = {
- 	.readlink	= proc_pid_readlink,
- 	.get_link	= proc_pid_get_link,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
- 
- 
-@@ -2317,7 +2317,7 @@ proc_map_files_get_link(struct dentry *dentry,
- static const struct inode_operations proc_map_files_link_inode_operations = {
- 	.readlink	= proc_pid_readlink,
- 	.get_link	= proc_map_files_get_link,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
- 
- static struct dentry *
-@@ -2396,7 +2396,7 @@ static struct dentry *proc_map_files_lookup(struct inode *dir,
- static const struct inode_operations proc_map_files_inode_operations = {
- 	.lookup		= proc_map_files_lookup,
- 	.permission	= proc_fd_permission,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
- 
- static int
-@@ -2892,7 +2892,7 @@ static struct dentry *proc_##LSM##_attr_dir_lookup(struct inode *dir, \
- static const struct inode_operations proc_##LSM##_attr_dir_inode_ops = { \
- 	.lookup		= proc_##LSM##_attr_dir_lookup, \
- 	.getattr	= pid_getattr, \
--	.setattr	= proc_setattr, \
-+	.setattr	= proc_nochmod_setattr, \
- }
- 
- #ifdef CONFIG_SECURITY_SMACK
-@@ -2951,7 +2951,7 @@ static struct dentry *proc_attr_dir_lookup(struct inode *dir,
- static const struct inode_operations proc_attr_dir_inode_operations = {
- 	.lookup		= proc_attr_dir_lookup,
- 	.getattr	= pid_getattr,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
- 
- #endif
-@@ -3444,7 +3444,7 @@ static struct dentry *proc_tgid_base_lookup(struct inode *dir, struct dentry *de
- static const struct inode_operations proc_tgid_base_inode_operations = {
- 	.lookup		= proc_tgid_base_lookup,
- 	.getattr	= pid_getattr,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- 	.permission	= proc_pid_permission,
- };
- 
-@@ -3644,7 +3644,7 @@ static int proc_tid_comm_permission(struct mnt_idmap *idmap,
- }
- 
- static const struct inode_operations proc_tid_comm_inode_operations = {
--		.setattr	= proc_setattr,
-+		.setattr	= proc_nochmod_setattr,
- 		.permission	= proc_tid_comm_permission,
- };
- 
-@@ -3775,7 +3775,7 @@ static const struct file_operations proc_tid_base_operations = {
- static const struct inode_operations proc_tid_base_inode_operations = {
- 	.lookup		= proc_tid_base_lookup,
- 	.getattr	= pid_getattr,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
- 
- static struct dentry *proc_task_instantiate(struct dentry *dentry,
-@@ -3973,7 +3973,7 @@ static int proc_task_getattr(struct mnt_idmap *idmap,
- static const struct inode_operations proc_task_inode_operations = {
- 	.lookup		= proc_task_lookup,
- 	.getattr	= proc_task_getattr,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- 	.permission	= proc_pid_permission,
- };
- 
-diff --git a/fs/proc/fd.c b/fs/proc/fd.c
-index 4297287f6ca09d..361833920c1836 100644
---- a/fs/proc/fd.c
-+++ b/fs/proc/fd.c
-@@ -104,7 +104,7 @@ static int proc_fdinfo_permission(struct mnt_idmap *idmap, struct inode *inode,
- 
- static const struct inode_operations proc_fdinfo_file_inode_operations = {
- 	.permission	= proc_fdinfo_permission,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
- 
- static const struct file_operations proc_fdinfo_file_operations = {
-@@ -374,7 +374,7 @@ const struct inode_operations proc_fd_inode_operations = {
- 	.lookup		= proc_lookupfd,
- 	.permission	= proc_fd_permission,
- 	.getattr	= proc_fd_getattr,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
- 
- static struct dentry *proc_fdinfo_instantiate(struct dentry *dentry,
-@@ -415,7 +415,7 @@ static int proc_readfdinfo(struct file *file, struct dir_context *ctx)
- const struct inode_operations proc_fdinfo_inode_operations = {
- 	.lookup		= proc_lookupfdinfo,
- 	.permission	= proc_fdinfo_permission,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
- 
- const struct file_operations proc_fdinfo_operations = {
-diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index fe378136012076..16b1d968edfabc 100644
---- a/fs/proc/internal.h
-+++ b/fs/proc/internal.h
-@@ -183,8 +183,8 @@ extern int proc_pid_statm(struct seq_file *, struct pid_namespace *,
- extern const struct dentry_operations pid_dentry_operations;
- extern int pid_getattr(struct mnt_idmap *, const struct path *,
- 		       struct kstat *, u32, unsigned int);
--extern int proc_setattr(struct mnt_idmap *, struct dentry *,
--			struct iattr *);
-+int proc_nochmod_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+			struct iattr *attr);
- extern void proc_pid_evict_inode(struct proc_inode *);
- extern struct inode *proc_pid_make_inode(struct super_block *, struct task_struct *, umode_t);
- extern void pid_update_inode(struct task_struct *, struct inode *);
-diff --git a/fs/proc/namespaces.c b/fs/proc/namespaces.c
-index 8e159fc78c0a12..a28b47bd87cf14 100644
---- a/fs/proc/namespaces.c
-+++ b/fs/proc/namespaces.c
-@@ -92,7 +92,7 @@ static int proc_ns_readlink(struct dentry *dentry, char __user *buffer, int bufl
- static const struct inode_operations proc_ns_link_inode_operations = {
- 	.readlink	= proc_ns_readlink,
- 	.get_link	= proc_ns_get_link,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
- 
- static struct dentry *proc_ns_instantiate(struct dentry *dentry,
-@@ -179,5 +179,5 @@ static struct dentry *proc_ns_dir_lookup(struct inode *dir,
- const struct inode_operations proc_ns_dir_inode_operations = {
- 	.lookup		= proc_ns_dir_lookup,
- 	.getattr	= pid_getattr,
--	.setattr	= proc_setattr,
-+	.setattr	= proc_nochmod_setattr,
- };
-diff --git a/fs/proc/proc_net.c b/fs/proc/proc_net.c
-index 2ba31b6d68c077..39328b507245af 100644
---- a/fs/proc/proc_net.c
-+++ b/fs/proc/proc_net.c
-@@ -321,7 +321,7 @@ static int proc_tgid_net_getattr(struct mnt_idmap *idmap,
- const struct inode_operations proc_net_inode_operations = {
- 	.lookup		= proc_tgid_net_lookup,
- 	.getattr	= proc_tgid_net_getattr,
--	.setattr        = proc_setattr,
-+	.setattr        = proc_nochmod_setattr,
- };
- 
- static int proc_tgid_net_readdir(struct file *file, struct dir_context *ctx)
+There is still a fix needed to get perf to build with older kernel 
+headers that I will submit shortly.
 -- 
-2.53.0
-
+Florian
