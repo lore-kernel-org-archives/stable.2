@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E293BCD11
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 14:07:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A473161AD;
+	Thu, 16 Jul 2026 14:07:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784210870; cv=none; b=DVe3M3zAkveEKaq3ELu79pYh3fUuOF8t9TI363u4EnCE93209cktgDy9uo8GCEFsRRJ/kxE9N6R4Qe3GD74klmg8PcJt31Ohq0ng/SvUGLvgEgGIn2zvURG2nS3z0WoHSyfwaxxLNdnwzRQAuUHdeFlkyfeh/fwa/CtDsv7KgtE=
+	t=1784210872; cv=none; b=TfY/0AqFs4obF/VxH0SFp6hhrI3NBBDy3t65adVFT7ux2gj1NvlRTGnntH7LfTR0CYCyJwWcFWErtMvkftZytzTtPTvOc1WuYWlFGlD+H88q4aGeS0nCNpKJJ60D15RVCMSkEsqiQfJWdQByxkTXyulAVEBlYmL/rwr1jLJwQ4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784210870; c=relaxed/simple;
-	bh=fThGjJOJ8f0DWLoEyF4hGVM3moP3zmrcdgySF9cPdsk=;
+	s=arc-20240116; t=1784210872; c=relaxed/simple;
+	bh=+m65FkVTIB5JAk8UEQvkBTUz1Tdltl9aRdEC2wEXRp8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kOJxD1hcUWNoGd0zmjNgkVyf9k4wTpsuhr0mUe3GHZHSCo+nOcigL/pwGoLD80eWlmFZS6H11Knb58d7sZD4fEU2dkd+Oq86wpr/2QhQDb09IMpS75iJcJd1tn99I01nBe+Cjt1veaPF50S/3cMLwMBDYYDPaHVbjdA07pDF9aA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n+SGQYb5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lAOTS0nuFsC71nLs4w/+2bRTPS+2AKhNZtuLsHTU8e0He6CKgH8KWE5cYG+tM6DKEf1hOfLfqkTvkt8FEfvGEdaEiMIV9L1lb6bThaTB6A4RqWAhqhfob0PhN4E61t//eH/DgMU5kvbMisW/NLjEoK/+snnQyuEXMYi+E8foXwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=z2cdBhJH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n+SGQYb5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6E381F00A3A;
-	Thu, 16 Jul 2026 14:07:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784210869;
-	bh=ga2pH/3HRLUzY7302gjfBc5xIf4Axoatff518rTt5RY=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z2cdBhJH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F7891F000E9;
+	Thu, 16 Jul 2026 14:07:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784210870;
+	bh=bPb6g+4/cE1/QiKnhj7UTjwgqe/+v2WjaqEjKycJEOs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n+SGQYb5j3dewJ6VmDxWN7ji28/kGYnonAsBxpoOb/k/ZvlSnJi/SSSVzMH29fvYM
-	 UyH2WDBv1oYzp6GHfhqsqTzdK9JJmgggXANy45lXc04SowOQKhTuepxtCW0sxOr70R
-	 mI9rd1FNVlncxilFgqqYzrTpHyxcuvhF5JweKVhiktx+n5auUCJYrtoP6C9U5xSNXb
-	 9zBLw5xfZTR7C3OT+pjovDnyxWXtV2cHIAA8tasm8uCEVGLL13mfknXuOrbf688URx
-	 kGDI5BbFBWRYCk4oxK6ApOTNDZ1DEGeXKebLQCt/QnZc8119rtFOTmsKhvAUq/Qdbf
-	 DWCizJWJkiv3g==
-From: Sasha Levin <sashal@kernel.org>
+	b=z2cdBhJHirRGlNPIiFeRBNRUYDwa5qsvE1NQ1sdOlhS5+IudGSjYHV6ruP1EUn9x+
+	 pkqy6/Wdk6Hn/EaDz7To/xHEzzvqtoUrrC4NKavMEgbGyGw/cJ9pyVEK7ioZYtVVRX
+	 qVNVsl0cBEQLZ8E4FkUIv0U97LrHZtL1cNwOVxN4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Musaab Khan <musaab.khan@protonmail.com>,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ksmbd: use opener credentials for FSCTL mutations
-Date: Thu, 16 Jul 2026 10:07:47 -0400
-Message-ID: <20260716140747.405713-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071404-shirt-hesitant-d526@gregkh>
-References: <2026071404-shirt-hesitant-d526@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Breno Leitao <leitao@debian.org>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.18 185/480] netpoll: fix a use-after-free on shutdown path
+Date: Thu, 16 Jul 2026 15:28:52 +0200
+Message-ID: <20260716133048.730307384@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260716133044.672218725@linuxfoundation.org>
+References: <20260716133044.672218725@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,87 +47,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit c6394bcaf254c5baf9aff43376020be5db6d3316 ]
+------------------
 
-SET_SPARSE, SET_ZERO_DATA and SET_COMPRESSION operate on an open SMB
-handle but call VFS xattr, fallocate or fileattr helpers with the current
-ksmbd worker credentials. Those helpers can revalidate inode permissions,
-ownership and LSM policy independently of the SMB handle access mask.
+From: Breno Leitao <leitao@debian.org>
 
-Run each operation with the credentials captured in the target file when
-the handle was opened. Keep credential handling local to these single-file
-FSCTLs rather than applying session credentials to the complete IOCTL
-handler, which also contains handle-less and multi-handle operations.
+commit 45f1458a85017a023f138b22ac5c76abd477db42 upstream.
+
+There is a use-after-free error on netpoll, which is clearly detected by
+KASAN.
+
+      BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x3b/0x80
+      Read of size 1 at addr ... by task kworker/9:1
+      Workqueue: events queue_process
+      Call Trace:
+       skb_dequeue+0x1e/0xb0
+       queue_process+0x2c/0x600
+       process_scheduled_works+0x4b6/0x850
+       worker_thread+0x414/0x5a0
+      Allocated by task 242:
+       __netpoll_setup+0x201/0x4a0
+       netpoll_setup+0x249/0x550
+       enabled_store+0x32f/0x380
+      Freed by task 0:
+       kfree+0x1b7/0x540
+       rcu_core+0x3f8/0x7a0
+
+The problem happens when there is a pending TX worker running in
+parallel with the cleanup path.
+
+This is what happens on netpoll shutdown path:
+
+1) __netpoll_cleanup() is called
+2) set dev->npinfo to NULL
+3) call_rcu() with rcu_cleanup_netpoll_info()
+  3.1) rcu_cleanup_netpoll_info() tries to cancel all workers with
+       cancel_delayed_work(), but doesn't wait for the worker to finish
+4) and kfree(npinfo);
+
+Because 3.1) doesn't really cancel the work, as the comment says "we
+can't call cancel_delayed_work_sync here, as we are in softirq", the TX
+worker can run after 4).
+
+Tl;DR: queue_process() is not an RCU reader, it reaches npinfo through
+the work item via container_of().
+
+Use disable_delayed_work_sync() to ensure the worker is completely
+stopped and prevent any future re-arming attempts. Once npinfo is set
+to NULL, senders will bail out and not queue new work. The disable flag
+ensures any in-flight re-arming attempts also fail silently.
+
+In the future, we can do the cleanup inline here without needing the
+npinfo->rcu rcu_head, but that is net-next material.
 
 Cc: stable@vger.kernel.org
-Reported-by: Musaab Khan <musaab.khan@protonmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 38e6bc185d95 ("netpoll: make __netpoll_cleanup non-block")
+Reviewed-by: Pavan Chebbi <pavan.chebbi@broadcom.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/20260625-netpoll_rcu_fix-v2-1-0748ffac1e98@debian.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/smb/server/smb2pdu.c |  3 +++
- fs/smb/server/vfs.c     | 20 +++++++++++++-------
- 2 files changed, 16 insertions(+), 7 deletions(-)
+ net/core/netpoll.c |    9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 1d49439035d22f..f6fb391178b8c6 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -7716,6 +7716,7 @@ static inline int fsctl_set_sparse(struct ksmbd_work *work, u64 id,
- 	if (fp->f_ci->m_fattr != old_fattr &&
- 	    test_share_config_flag(work->tcon->share_conf,
- 				   KSMBD_SHARE_FLAG_STORE_DOS_ATTRS)) {
-+		const struct cred *saved_cred;
- 		struct xattr_dos_attrib da;
+--- a/net/core/netpoll.c
++++ b/net/core/netpoll.c
+@@ -812,14 +812,6 @@ static void rcu_cleanup_netpoll_info(str
+ 			container_of(rcu_head, struct netpoll_info, rcu);
  
- 		ret = ksmbd_vfs_get_dos_attrib_xattr(user_ns,
-@@ -7724,9 +7725,11 @@ static inline int fsctl_set_sparse(struct ksmbd_work *work, u64 id,
- 			goto out;
- 
- 		da.attr = le32_to_cpu(fp->f_ci->m_fattr);
-+		saved_cred = override_creds(fp->filp->f_cred);
- 		ret = ksmbd_vfs_set_dos_attrib_xattr(user_ns,
- 						     &fp->filp->f_path,
- 						     &da, true);
-+		revert_creds(saved_cred);
- 		if (ret)
- 			fp->f_ci->m_fattr = old_fattr;
- 	}
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 723f090458e7f8..1834dd4f255ec9 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -991,15 +991,21 @@ void ksmbd_vfs_set_fadvise(struct file *filp, __le32 option)
- int ksmbd_vfs_zero_data(struct ksmbd_work *work, struct ksmbd_file *fp,
- 			loff_t off, loff_t len)
- {
-+	const struct cred *saved_cred;
-+	int err;
-+
- 	smb_break_all_levII_oplock(work, fp, 1);
-+	saved_cred = override_creds(fp->filp->f_cred);
- 	if (fp->f_ci->m_fattr & FILE_ATTRIBUTE_SPARSE_FILE_LE)
--		return vfs_fallocate(fp->filp,
--				     FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
--				     off, len);
+ 	skb_queue_purge(&npinfo->txq);
 -
--	return vfs_fallocate(fp->filp,
--			     FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE,
--			     off, len);
-+		err = vfs_fallocate(fp->filp,
-+				    FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
-+				    off, len);
-+	else
-+		err = vfs_fallocate(fp->filp,
-+				    FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE,
-+				    off, len);
-+	revert_creds(saved_cred);
-+	return err;
+-	/* we can't call cancel_delayed_work_sync here, as we are in softirq */
+-	cancel_delayed_work(&npinfo->tx_work);
+-
+-	/* clean after last, unfinished work */
+-	__skb_queue_purge(&npinfo->txq);
+-	/* now cancel it again */
+-	cancel_delayed_work(&npinfo->tx_work);
+ 	kfree(npinfo);
  }
  
- int ksmbd_vfs_fqar_lseek(struct ksmbd_file *fp, loff_t start, loff_t length,
--- 
-2.53.0
+@@ -843,6 +835,7 @@ static void __netpoll_cleanup(struct net
+ 			ops->ndo_netpoll_cleanup(np->dev);
+ 
+ 		RCU_INIT_POINTER(np->dev->npinfo, NULL);
++		disable_delayed_work_sync(&npinfo->tx_work);
+ 		call_rcu(&npinfo->rcu, rcu_cleanup_netpoll_info);
+ 	}
+ 
+
 
