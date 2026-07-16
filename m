@@ -1,140 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D7B346E44;
-	Thu, 16 Jul 2026 21:47:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00B937E5F6;
+	Thu, 16 Jul 2026 21:50:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784238443; cv=none; b=qK3s2R3VplYR+BAt3RP1fuTBCwU31wRbfK7ujt/ZL57zkMa3CB+EF3hl9Ssi9gQZlUEXjriG8C+vbA9b/eLdjqBpjP+9MNbfdjihJ8FSRj1VmG2Sfhdi51VpaT0wSuYdhwGKtYGgruZqPtRZ0QN8UrcE0TJYgE+cOjRemUmyqb0=
+	t=1784238638; cv=none; b=Vu7biPieJLy+gj68a+XYivCXnlr3ufDp7Ex33xXGHrIYyKLjKhadwYRvaIgLJ7f9yUTx2D4rfAS5MvrBMkV0UHYP/u8eDknNHMRdDjLrgK9TpMVLbbzj1NFfNPZZqsmaifoXiOvzPHCnn/A3vcMVq5wWXo7rZm9OkJwPO6JTdt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784238443; c=relaxed/simple;
-	bh=DWhKi7C+BB+k+QsbdQCvFTRoYhaYlakhULC2G3Dv9Yg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=odiDcoq4oh2GAl6mqWqiZNLZG8lyV3GQ1vfzFqE0Leameuf+2VwzECj5uaWglVuu3EQYwlpW56ymaqM10/4APw/UsN31sKD3Etiss4PUJI2hFTUJMgKp2uK440VS0JUmpmnTolc3+ToqqrC4H+YcwuA4nHg5505npcP5l7z1n94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfraN4+3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784238638; c=relaxed/simple;
+	bh=V2Vr7s5c/DktYXLwFcpnq4Xzb0Lv1MO3jn1dqzr24CU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ovz9RmHlaLKNZOLmIn8UG4YrjkDIo/3WrnWO1TmQvezbZZLFgzm3+lLxMYZne4aLfbmizZq1QRZsZMsccX2BL1Gp3iQiVDxDv/HpAf+s2HHeKYrDv81MWX+kJKukAgovEsLBbFe9p3YLPaaXmeR4kn/GX1WQYdQ99nxO51OTGZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6Jjh3s/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfraN4+3"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 83C5A1F00A3A;
-	Thu, 16 Jul 2026 21:47:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6Jjh3s/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 794861F000E9;
+	Thu, 16 Jul 2026 21:50:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784238441;
-	bh=t479Evlyn6X+sGTZ+1ln5nHRNoIT2kSoFnTL7kjYTpw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UfraN4+3jYkrRYXRzeMS1Y8Aao0zdEkZd5ekH83s2+goHzEqiybTLVpZf2fUVMiFg
-	 YxeeMRCsqx+SLXXCtoGFQbemazn8kIBluzTtYRFRJRFaJQdBxhA2A9kWc8JsVtCwRX
-	 UvK4DqgXDxd3HugqI4xCPlp7UfilUKeI2lgPmJK9L8uk28OhdXYt9UpselGfuRFfrj
-	 GIyhHiolU35HzjFjxh/Ysq8Fc8VSoIYcThe0tRkFoP+u6E8PFvTz7BNAsrusIHKjB6
-	 nYaWwlsmIpuTLqMUueK+pIVizMUGljXH45UAVV2bhfHtC8HuHndDwwqq8KiL5Nzr2X
-	 bzXIj0QA+YEbA==
-Date: Thu, 16 Jul 2026 14:47:20 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 6/6] xfs: don't livelock in scrub on a circular unlinked
- list
-Message-ID: <20260716214720.GR7380@frogsfrogsfrogs>
-References: <178416797326.2008054.12517273271060887961.stgit@frogsfrogsfrogs>
- <178416797487.2008054.2580454314921003800.stgit@frogsfrogsfrogs>
- <20260716082421.GH12330@lst.de>
+	s=k20260515; t=1784238637;
+	bh=On59Ed+6z5FwuPewVYmVjD+eEBTPHmsepnmu8ecs534=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=h6Jjh3s/LxycVmB2yN0V6QXNkHXJ+bEXH2VPxBUoyZgIz1q1YyaAdZIQAUivqyao0
+	 +beNYCJs4iWLjr2o+4Iuk7mOMWGkTtuluBTalQeDAmxgROAO/1UrUI/HyADf7NgwbP
+	 xYaP0/9pUXhOMNbAFWe0SIXKIB/dNCekHLLZW4IXAp+GOEQtCgMYzcQJKh3qIV7TH5
+	 bnSXbWsJKeNW6ISqKom6T7bE752N9nyjlWciWunTL1C/3T+eW9xcf6RBj/7ofEbBf1
+	 Z6SDJ8GWqcs3zSCkSRApnXGeftYnhXOLy0XZB/NaP3I3Qd1m2ADIOGU8WUOFtCm6gS
+	 TDf0pP1oWU+9Q==
+Message-ID: <082227b8-7df9-4d0e-8ec9-c0e3cb751a78@kernel.org>
+Date: Thu, 16 Jul 2026 22:50:35 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260716082421.GH12330@lst.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvmem: brcm_nvram: validate cached NVRAM length
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>, srini@kernel.org
+Cc: rafal@milecki.pl, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260715084504.43774-1-pengpeng@iscas.ac.cn>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260715084504.43774-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 16, 2026 at 10:24:21AM +0200, Christoph Hellwig wrote:
-> On Wed, Jul 15, 2026 at 11:07:40PM -0700, Darrick J. Wong wrote:
-> > From: Darrick J. Wong <djwong@kernel.org>
-> > 
-> > LOLLM points out that online fsck can livelock if an unlinked inode list
-> > contains a loop.  Use a bitmap to detect cycles.
-> 
-> Didn't we recently have some AI generated patch for the same thing?
 
-Yes.
 
-> Either way, this does actually look reasonable.  But also complex
-> enough that I really want a test case that creates an image with
-> such a corruption to test this case before we merge the kernel code
-> as this is something that basically requires a maliciously crafted
-> image, and we trade new otherwise untested code for a theoretical
-> bug.
+On 7/15/26 9:45 AM, Pengpeng Hou wrote:
+> The cached-content conversion stops at the partition padding.  Therefore,
+> data_len may be smaller than nvmem_size.  brcm_nvram_parse() checks
+> header->len against nvmem_size, then passes that length to
+> brcm_nvram_add_cells(), which temporarily writes data[len - 1] and parses
+> NUL-separated entries.
+> 
+> A corrupted header can declare a length that fits the MMIO resource but
+> exceeds the cached allocation.  Also reject a cached object that is too
+> small for the header, and reject declared lengths shorter than the header.
+> 
+> Validate the declaration against data_len, which bounds the parsed object.
+> 
+> Fixes: 1e37bf84afac ("nvmem: brcm_nvram: store a copy of NVRAM content")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-I'll try to work on that one today.
+There are already few patches on the list which are doing pretty much
+same changes, i have applied them which should appear in linux-next in a
+day.
 
-> > +static int
-> > +xchk_iunlink_bucket(
-> > +	struct xfs_scrub	*sc,
-> > +	unsigned int		bucket,
-> > +	xfs_agino_t		agino)
-> 
-> Maybe add a comment what this function tests?
+https://lkml.org/lkml/2026/7/3/2291
 
-/*
- * Walk the incore unlinked list for a particular AGI bucket to construct
- * the unlinked inode bitmap for later reconstruction of the unlinked list.
- * Returns 1 if we should keep checking, 0 to stop checking, or a negative
- * errno.
- */
+--srini
+> ---
+>  drivers/nvmem/brcm_nvram.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/nvmem/brcm_nvram.c b/drivers/nvmem/brcm_nvram.c
+> index aaa6537798bf..4701772cfa47 100644
+> --- a/drivers/nvmem/brcm_nvram.c
+> +++ b/drivers/nvmem/brcm_nvram.c
+> @@ -181,15 +181,21 @@ static int brcm_nvram_parse(struct brcm_nvram *priv)
+>  	size_t len;
+>  	int err;
+>  
+> +	if (priv->data_len < sizeof(*header)) {
+> +		dev_err(dev, "NVRAM content (%zu) is smaller than header (%zu)\n",
+> +			priv->data_len, sizeof(*header));
+> +		return -EINVAL;
+> +	}
+> +
+>  	if (memcmp(header->magic, NVRAM_MAGIC, 4)) {
+>  		dev_err(dev, "Invalid NVRAM magic\n");
+>  		return -EINVAL;
+>  	}
+>  
+>  	len = le32_to_cpu(header->len);
+> -	if (len > priv->nvmem_size) {
+> -		dev_err(dev, "NVRAM length (%zd) exceeds mapped size (%zd)\n", len,
+> -			priv->nvmem_size);
+> +	if (len < sizeof(*header) || len > priv->data_len) {
+> +		dev_err(dev, "NVRAM length (%zu) is outside cached content (%zu)\n",
+> +			len, priv->data_len);
+>  		return -EINVAL;
+>  	}
+>  
 
-> 
-> > +{
-> > +	struct xagino_bitmap	seen;
-> > +	struct xfs_inode	*ip;
-> > +	int			ret = 0;
-> > +
-> > +	xagino_bitmap_init(&seen);
-> > +
-> > +	while (agino != NULLAGINO) {
-> > +		unsigned int	len = 1;
-> > +
-> > +		if (agino % XFS_AGI_UNLINKED_BUCKETS != bucket) {
-> > +			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
-> > +			goto bad;
-> > +		}
-> 
-> Handle entries that should not be here, makes sense.
-> 
-> > +
-> > +		if (xagino_bitmap_test(&seen, agino, &len)) {
-> > +			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
-> > +			goto bad;
-> > +		}
-> 
-> Check that we don't have duplicates, makes sense.
-> 
-> > +		ip = xfs_iunlink_lookup(sc->sa.pag, agino);
-> > +		if (!ip) {
-> > +			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
-> > +			goto bad;
-> > +		}
-> > +
-> > +		if (!xfs_inode_on_unlinked_list(ip)) {
-> > +			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
-> > +			goto bad;
-> > +		}
-> 
-> The that that the inode actually is on the unlinked list, makes
-> sense.
-> 
-> >  	for (i = 0; i < XFS_AGI_UNLINKED_BUCKETS; i++) {
-> > -		xfs_agino_t	agino = be32_to_cpu(agi->agi_unlinked[i]);
-> > +		int		ret;
-> >  
-> > -		while (agino != NULLAGINO) {
-> > -			if (agino % XFS_AGI_UNLINKED_BUCKETS != i) {
-> > -				xchk_block_set_corrupt(sc, sc->sa.agi_bp);
-> > -				return;
-> > -			}
-> 
-> Ahh, and this is mostly existing code...
-> 
-> Maybe split the reactoring into a separate helper into a prep patch?
-
-Ok will do.
-
---D
