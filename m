@@ -1,119 +1,155 @@
-Received: from mailer241.gate86.rs.smtp.com (mailer241.gate86.rs.smtp.com [74.91.86.241])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EDC4357D03
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.91.86.241
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9635141F5FE
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:09:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784207168; cv=none; b=gevM719WZd+7fHPvDeC//9sb+9/O9Z7gYyvpCx4X9Lhjmto/XLK3fpkEOKKYPQYVRJlMoonOcXLW+02CkuQqNAC32ncgwiC9tuxSQwxPELlVmO8qgJbT6JHv0qNnfwHHr/lAQsaGFERy/4Mld95de2PqpQxYFAxu+04wKHSHH5I=
+	t=1784207375; cv=none; b=lzEe37jbEOBrQyl+wyNc6+ff3Vtgli/zrg1qOY32EBA5nOYYtj4u3CfSPjf6emHd/YUIC0QN/r+dEF+PEDWwx+WY4n4+4L94SwQ2DADTyGvDDMqBgVSgT78JDQMwBWYlBDgr+Cg81k0jQcmO87rHEQT+o2wTkHc9+omYIN5T2a4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784207168; c=relaxed/simple;
-	bh=Rn89dfL6FWPUehEVjmWIx5moDiRsrqTA+wfW2mcNVN0=;
-	h=From:Subject:To:Content-Type:Date:Message-Id; b=BT+Y1N1rRhCvR9RQO6rWeKp8WF+ELWsSHtrZalNwof0hw5/YE901O1Xy5YJhATY0+niVJlNYfEKtZ+TytO/UXhTnS9ZHg8tlDGy4sYWSAOUhd6KnDj6DUk/rn7qNr4ZSaBQB4dATIe/ZJu37pIOr1qoIRWUgjveMYzScvdkojDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=computergamingpc.com; spf=pass smtp.mailfrom=computergamingpc.com; dkim=pass (2048-bit key) header.d=computergamingpc.com header.i=@computergamingpc.com header.b=cVThmWEr; dkim=pass (2048-bit key) header.d=smtpmessage.com header.i=@smtpmessage.com header.b=huMBrnLK; arc=none smtp.client-ip=74.91.86.241
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=computergamingpc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=computergamingpc.com
+	s=arc-20240116; t=1784207375; c=relaxed/simple;
+	bh=67oxrlItzAMEW00Z24tqO5K4br28CP9ga4xtPH0g7RE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DqjTv1IUnFJCoClDeMHFZkxJ31nT0DFxnCpm7kzwqc619Yhm5Iiv6dMJtzZ6XBmJKOCB7LbejP6goJWE+ihL6UBLyw0eKyrXwOV4ZtaIIBcGhYDE+8Dk7PPUCFODmeEbKHhEGMH0XJ9aKpf2vKqXzcOxKlcU3nt0m6UBL4z14z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dW3hkMcV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=computergamingpc.com header.i=@computergamingpc.com header.b="cVThmWEr";
-	dkim=pass (2048-bit key) header.d=smtpmessage.com header.i=@smtpmessage.com header.b="huMBrnLK"
-X-Report-Abuse: SMTP.com is an email service provider. Our abuse team cares
- about your feedback. Please contact abuse@smtp.com for further investigation.
-Received: from [10.0.16.30] (unknown [10.138.12.210])
-	by mtl-mta02-out1 (Halon) with ESMTP
-	id d60737da-1e54-4b4a-9922-cff87e56355a;
-	Thu, 16 Jul 2026 12:45:59 +0000 (UTC)
-Received: Received from 10.138.12.169 by Caffeine
- (s0-aws-app2-swarm-manager-5) with SMTP id
- 9da6c34c-6587-4c25-b854-195db5d9ee51  for stable@vger.kernel.org;
-  Thu, 16 Jul 2026 12:45:11 +0000 (UTC)
-Feedback-ID: 9194450:SMTPCOM
-Received: from ObaTech (unknown [191.177.193.228])
-	by s0-aws-app2-mta-in-2 (Halon) with ESMTPSA
-	id 9da6c34c-6587-4c25-b854-195db5d9ee51;
-	Thu, 16 Jul 2026 12:45:11 +0000 (UTC)
-From: "Computer Gaming pc" <sales@computergamingpc.com>
-Subject: Current Inventory Update: GPUs & Enterprise SSDs Available
-To: <stable@vger.kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Reply-To: <sales@computergamingpc.com>
-Date: Thu, 16 Jul 2026 13:45:12 +0100
-Priority: urgent
-X-Priority: 1
-Importance: high
-Message-Id: <2026160713451108F3D8BC42$C1A36F3E5D@computergamingpc.com>
-X-SMTPCOM-Sender-ID: 9194450
-X-SMTPCOM-Tracking-Number: 9da6c34c-6587-4c25-b854-195db5d9ee51
-X-SMTPCOM-Message-ID: dcddf191-fd1c-40e5-bcea-65007b6648ad
-X-SMTPCOM-Payload: 
- URsNS4f5Ygq8kSJUs5lFR_vLcmj43O6glhoZIZ9wUBQV02YOiAv8OwP56z_OM7gDspqS7yiFvmqgz5FgaJbQV8lklqYVd4MX2ADNTExEczMW5tt5Xd5UJ4-H1qAovySGiZxG12-BKdDqz60Q3L9dJJ4wra_vl2uxVwur9EsWAlOLm4C8OxmMdKxso54D8Gkx
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=computergamingpc.com; i=@computergamingpc.com; q=dns/txt; s=smtpkey;
- t=1784205937; h=feedback-id : from : subject : to : content-type :
- content-transfer-encoding : reply-to : date : message-id :
- list-unsubscribe : list-unsubscribe-post : from : subject : to : date;
- bh=Rn89dfL6FWPUehEVjmWIx5moDiRsrqTA+wfW2mcNVN0=;
- b=cVThmWEr2gSLKphxaxF2g11l0OAm/l7w8QRKJ8Qb7WXiq9v3AlIKjj9+owQsME0Lmh1Ke
- DFyMnY4THYh/H4BnX83m9OaJj8AVmuEpAKkUFEqa2TH5NqHqWEKPyheOKFr6pib+GUO4IJC
- pgeVJCCeZGbsfDoZ4m5axwMju4SdRAX+SHSbIpYLkLD5qAftnCb1Vx2dbtq8gIQuuWnOdei
- NEQLzrvtxw7RpgF337cjU3GnynVcZHvGz/tHAFR5LQBMNzPI11kSHuBHHOVoZQZLxm3Ek2d
- Z3lN3jEnIopwsZA4cSWlCyZYhO4Eh4jwWZFpLopZRvhq/dV+LqQGlKHkFrOQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=smtpmessage.com;
- i=@smtpmessage.com; q=dns/txt; s=smtpcustomer; t=1784205937;
- h=feedback-id : from : subject : to : content-type :
- content-transfer-encoding : reply-to : date : message-id :
- list-unsubscribe : list-unsubscribe-post : from : subject : to : date;
- bh=Rn89dfL6FWPUehEVjmWIx5moDiRsrqTA+wfW2mcNVN0=;
- b=huMBrnLKRrD9MkNa160Jow+W8vtq5meq5F56DBsDFyNmJoh2Vao6bIOQ9iFX12BmBULKI
- fKE9wCrqBqqm/zVCyDgBqmNMx0xWqQlDPjMQZjCwIDo18z9J5cO0/R5b7P/MXNCCjCNRKGM
- iBPbcG0Saq7yRknLHf51v2ZW9TQpfJI36E9vmbVUEF0HtIRhm8WA1mLwddADQ1LE8Owbpc0
- StkpAC0gJ9p+a1veISxi08r5MkpmUMbtxg3gfQXysEClJKlY4sfrohk6d6c5eBhRGfE8+W8
- 3Zc7Eb+nIW0gdGYTYLVd4KsDyJEiPYH77T2IYFkEPaYCfgojkQWjAjg5ZgQw==
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dW3hkMcV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9C821F000E9;
+	Thu, 16 Jul 2026 13:09:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784207374;
+	bh=XMCPHMHJABADHDP3wudICc+0DZMU2dKd4CXtj3yQjNA=;
+	h=Subject:To:Cc:From:Date;
+	b=dW3hkMcVqLb/6U+37xzvVI7U0gPJbZMJ2W99vm2mb7AgzpPF452/w3Zy6kZ8QsKJX
+	 6djOOpEfcOUmLuJCjIlPW+sPe5orHsavCymXjkq95k3ExiyXpbRhi97t0u5/wySc8B
+	 LaD33CZCR9ndZ8nqQIvmWk1YjpHbcIOt87UvpD0g=
+Subject: FAILED: patch "[PATCH] fuse-uring: fix race between registration and connection" failed to apply to 7.1-stable tree
+To: joannelkoong@gmail.com,bernd@bsbernd.com,mszeredi@redhat.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 16 Jul 2026 15:09:27 +0200
+Message-ID: <2026071627-appendage-diabolic-1e66@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hi
-Quick update — these units are in stock and can ship today:
 
-Memory Modules
-* 128GB 4DRx4 DDR4 PC4-2933Y REG ECC LRDIMM (Qty: 980) – $140.00
-* 32GB Dual Rank x4 DDR4-2933 CAS-21 (Qty: 1,500) – $140.00
-* 64GB Dual Rank x4 DDR4-2933 CAS-21 (Qty: 1,200) – $450.00
-* 32GB Dual Rank x4 DDR4-3200 CAS-22 (Qty: 1,500) – $150.00
-* 64GB Dual Rank x4 DDR4-3200 CAS-22 (Qty: 1,100) – $450.00
-* 32GB 2Rx4 PC4-2400T (Qty: 1,500) – $45.00
-* 32GB 2Rx4 PC4-3200AA (Qty: 1,500) – $45.00
-* 16GB 2Rx8 PC4-3200AA (Qty: 1,500) – $20.00
+The patch below does not apply to the 7.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Solid State Drives
-- SSD SATA 6G 3.84TB SFF (Qty: 450) – $120.00
-- SSD SAS 12G 960GB SFF (Qty: 470) – $300.00
-- SSD SAS 12G 1.92TB SFF (Qty: 560) – $350.00
-- SSD SAS 12G 3.84TB SFF (Qty: 560) – $150.00
-- SSD SATA 6G 1.92TB SFF (Qty: 450) – $100.00
-- Samsung 990 PRO 1TB NVME SSD QTY:410 - $150
+To reproduce the conflict and resubmit, you may use the following commands:
 
-- HP (HPE) P43331-B21 64GB DDR5-4800 RDIMM QTY: 390 - $750
-- DDR5 64GB 4800Mhz ECC RDimm 2Rx4 P43331-B21 (Qty: 500) – $750.00
-- DDR5 64GB 5600Mhz ECC RDimm 2Rx4 P64707-B21 (Qty: 500) – $750.00
-- DDR4 64GB 3200Mhz ECC RDimm 2Rx4 SK Hynix (Qty: 500) – $450.00
-- DDR5 64GB 4800Mhz ECC RDimm 2Rx4 Samsung (Qty: 500) – $450.00
-- DDR5 64GB 5600Mhz ECC RDimm 2Rx4 SK Hynix (Qty: 500) – $550.00
-- Intel Xeon Silver 4214R - QTY: 420 $350.00
-- Intel Xeon Gold 5220R - QTY: 410 - $450.00
-- Intel Xeon Platinum 8380: $450.00 QTY: 410
-- AMD EPYC 7542 - QTY: 490-- $380.00
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 952b5d36f6a298f57c52a59e72076c69386a8aaf
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071627-appendage-diabolic-1e66@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
-For quotes, availability, or inspection scheduling, please reach out 
-directly:
-sales@computergamingpc.com Call or WhatsApp: +1(774) 559-1248 | +1 (641)232-
-4364
-Thank you for your continued partnership.
-Ann Kamila
-Computer Gaming PC Trading
-2500 US-6, Iowa City, IA 52240, USA.
-To opt out of future updates, reply with “REMOVE” in the subject line.
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 952b5d36f6a298f57c52a59e72076c69386a8aaf Mon Sep 17 00:00:00 2001
+From: Joanne Koong <joannelkoong@gmail.com>
+Date: Mon, 8 Jun 2026 12:21:47 -0700
+Subject: [PATCH] fuse-uring: fix race between registration and connection
+ abortion
+
+This fixes this race:
+- thread a: io_uring_enter -> register sqe ->
+  fuse_uring_create_ring_ent -> allocate ent but doesn't grab queue_ref
+  yet
+- thread b: fuse_conn_destroy() -> fuse_chan_abort() ->
+  fuse_uring_abort() is a no-op due to queue ref being 0
+- thread a: grabs the queue_ref, queue_ref is now 1, rest of
+  fuse_uring_do_register() logic executes
+- thread b: fuse_chan_abort() returns, fuse_chan_wait_aborted() now runs
+  and calls
+  "wait_event(ring->stop_waitq, atomic_read(&ring->queue_refs) == 0);"
+The abort/unmount thread will hang indefinitely in unkillable state as
+nothing will decrement queue_refs or wake stop_waitq, and the ring,
+queue, and ent are leaked.
+
+Fix this by checking fch->connected under fch->lock after the created
+ent has grabbed a ref count on the queue. This ensures that in the
+scenario above, it is guaranteed that we either release the queue ref
+and wake up stop_waitq (in case fuse_chan_wait_aborted() is already
+waiting) in fuse_uring_do_register() when we detect !fch->connected, or
+if the connection is aborted after the check, it is guaranteed that the
+async teardown worker will be running in the background cleaning up ents
+and decrementing the ent's ref on the queue, which will unblock the
+eventual queue and ring teardown.
+
+Fixes: 24fe962c86f5 ("fuse: {io-uring} Handle SQEs - register commands")
+Cc: stable@vger.kernel.org
+Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
+Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+
+diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+index 33b9fcee4fc3..16b9229c2dbd 100644
+--- a/fs/fuse/dev_uring.c
++++ b/fs/fuse/dev_uring.c
+@@ -972,15 +972,26 @@ static bool is_ring_ready(struct fuse_ring *ring, int current_qid)
+ /*
+  * fuse_uring_req_fetch command handling
+  */
+-static void fuse_uring_do_register(struct fuse_ring_ent *ent,
+-				   struct io_uring_cmd *cmd,
+-				   unsigned int issue_flags)
++static int fuse_uring_do_register(struct fuse_ring_ent *ent,
++				  struct io_uring_cmd *cmd,
++				  unsigned int issue_flags)
+ {
+ 	struct fuse_ring_queue *queue = ent->queue;
+ 	struct fuse_ring *ring = queue->ring;
+ 	struct fuse_conn *fc = ring->fc;
+ 	struct fuse_iqueue *fiq = &fc->iq;
+ 
++	spin_lock(&fch->lock);
++	/* abort teardown path is running or has run */
++	if (!fch->connected) {
++		spin_unlock(&fch->lock);
++		if (atomic_dec_and_test(&ring->queue_refs))
++			wake_up_all(&ring->stop_waitq);
++		kfree(ent);
++		return -ECONNABORTED;
++	}
++	spin_unlock(&fch->lock);
++
+ 	fuse_uring_prepare_cancel(cmd, issue_flags, ent);
+ 
+ 	spin_lock(&queue->lock);
+@@ -997,6 +1008,7 @@ static void fuse_uring_do_register(struct fuse_ring_ent *ent,
+ 			wake_up_all(&fc->blocked_waitq);
+ 		}
+ 	}
++	return 0;
+ }
+ 
+ /*
+@@ -1113,9 +1125,7 @@ static int fuse_uring_register(struct io_uring_cmd *cmd,
+ 	if (IS_ERR(ent))
+ 		return PTR_ERR(ent);
+ 
+-	fuse_uring_do_register(ent, cmd, issue_flags);
+-
+-	return 0;
++	return fuse_uring_do_register(ent, cmd, issue_flags);
+ }
+ 
+ /*
+
