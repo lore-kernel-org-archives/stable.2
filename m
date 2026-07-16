@@ -1,167 +1,250 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273291D435F
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 16:33:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784219592; cv=pass; b=ZT4YHpsTgbxDdzFRYnJ6wnfUotTQi8pwvarxr3OD8r5uy8umhuN0qG5A4Dd//VB3ly1CjWXmSp5HWleGxWHAPAoM8/cMsa0RSWsvESbMl9sMnvML23bYrr+akt0lF4pkeLUvBzRJG7dSU4slHVLV8j+vwsaYVni69YPf2+iKRM0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784219592; c=relaxed/simple;
-	bh=tNGDQpr2wtelauRkyEV1WYWMk9U58mWKPY6Z5KYDsrw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=krGjr/qlyo/cFLXagwX7tgxoe0nx9nX4jpxXbkg0030MzcfZW63/6OVUsF5VOtsatBpFNBQP0i1FDLcmurcIPrRRGuaMFBYla8O7IbcWT9hgjF/lKq8icJ3Px5M0faZCtsPqT4hFMw/aphY7qY1dRZQnKAwEJkrytRWQfS1FBf8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dGJZKwc8; arc=pass smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910553BE652
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 16:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784219870; cv=none; b=IqEHc3QJ2n/HVwo3ISPMTGe1yL8e1//xg6BT65NZuoXfege+wEhhKSSxuYlTC6koMXqgx9hiyuiL5I3Sj6ctrG8Uvvx6oUbMgDrxw+spQiR3QGeUUNWjC2SgpB5Z2jJm+/OfJcLa6UBdHvOIHD8m7JDmlt8r39qIj1JGaJ4IUtQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784219870; c=relaxed/simple;
+	bh=o/HwCVgYgQFkz0/ODb7pKMxQLGAduLjD199HG59bSMo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pwBX3FuPHDomhKGq8vNL50qltCkynyw8X2yFVzXD1rmMp8gnDFiWf0jRnMfvUOGVjEaWgtS1wrKxIH5+cLuZtMotS/DSJACOcfHs8UYQGyeqLPG+4f3qPgYunj0V3ixUZdY7dT7tKlVNAayQYxzO5t73ENCVBUO6mPB8dDb7ezg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M7f48cp4; arc=none smtp.client-ip=209.85.167.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dGJZKwc8"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c9d290216d0so330314a12.3
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 09:33:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784219586; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JaUtAk2epeO4eZeDrpHFW1i4ZAYCy3kQH2nV/O1Q8Olcv/QHqwJHWWXBrjdUMCL95B
-         43PywOMpi3t09lOZ6YGM8o2nLmzDQUIf/ZL/l0Ucu69YjGLIuidL/YWeOajhhY8vxHmp
-         KEyp4gYFusf+BFZy73TY/0BmGtGbDoi5rPlfWONghV1feLlcW3hFMEDMH+f27Mg0B55C
-         pv/Nd0kh2KIO47x8TOuyCA2ZO7E+8JQjj80hULHidX0gYnS9w/XCah7cFnIClDWfHCXw
-         t5DAqW8SlvhhIc8W4aPmGZJQvd/by5rb2aaPpkYYL+pXZ4yR+duPN3vRNjMgyqEU0xOG
-         CiGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t1C5iI6y//WyP3i7clmyabllqAGFWRzFp8nqIFUV6NQ=;
-        fh=3RxY87jZiGP83UpRZyLeKmZqCXOsGyr8qHqjiWyNt18=;
-        b=EKomIv3ss/O6Cxk0o515MS6VquOuwW4f5CT2cBpV3iRlpDo0DUD6faywRNr0HQ8vAk
-         ER4WL6zMddCt3iCoOZigaKSkJVZalj8Fitfv9PXLMX4rD2tH4Wii1prxWSN7qYHsnz9i
-         OwUjxK90pd7pSO4k9TRhc6oA5Br53Wj+OY7e7Ld/DVI4TvmlS0rlt6uUF+yVfNCyY5dM
-         yAvwPcJC13+QpuivZWih3OaXigE0belMSyOJO/yOc27GX7QRuc2QGVKoOfk5xhKZfVvK
-         ms4+ndZfPJwHJoYNnwUeAUbYlYuBOK+rDNld0AWWw+gg/H/J/PwSSVvCXXgJWOcynwqW
-         6P1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M7f48cp4"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b0117d49dcso6590459e87.3
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 09:37:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784219586; x=1784824386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t1C5iI6y//WyP3i7clmyabllqAGFWRzFp8nqIFUV6NQ=;
-        b=dGJZKwc8+Qh/R4dvnGAFK+yhTc330EbPYfh9yBTsbNRAtzo3GO3fg1In0C89Rasjph
-         JwMHAgpyhOhQkyrgkqgjagYttBl9vNiL1t0MUS2AuoQ9krKgKQR3a/dkeLHmHc3hbyKI
-         7cRsH5YJiVuSpF/duZL6Adw22LK1aL9rGoWaZOfPGsPZ2f030Q5TlIuMvftYt1MBxCJT
-         ycFviZQH6Zku/v0P3746enkUHj6PU6y+bMhIxHU2rgfE1E/wyrqCIEfQc5pT46F3UPkb
-         xsUV3EKSqZw3p7LYXIO13gDtbYGPg9ZV9sDDTKzz7qL9/U++ydfoNCdtMXjbyHkCNds2
-         5eWA==
+        d=gmail.com; s=20251104; t=1784219862; x=1784824662; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7CwBdf7YTl0lNtDo3SBe9j9ZzLE2uAoBiUh1WwfPJrk=;
+        b=M7f48cp4I0hteFI5/USpDZwKw8qvmCAzFC8n/QB7fNdDX95CxoWBuu80JmXBzvpQL5
+         +A1XWjIq+J8JdgUGBDIYvWTLthSNeQx2fvuvkr6bI8TBslhO/rjk0G1yoad7VM2OWv3n
+         gh4J5gDfSLKeLCtuF/nj8zd/lT6mdhwwSr03sdkm3y4HTZD/kLDqVhYgvZdpZeEkV+iO
+         4TrnEaKTvbopKIB7Ph8OZLM3r4ncsqPoVGkTa9GtHgp5RBl5o4coht+cD6eZDA0Z3uY5
+         37RTWcQ/eqj15gEomEcIA+lVZP8yL8W4zf2auHajOx4rfbeViVscHWAZRLldN/TgWUSL
+         wEVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784219586; x=1784824386;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t1C5iI6y//WyP3i7clmyabllqAGFWRzFp8nqIFUV6NQ=;
-        b=hSV9bxerU22+e3/FGwHCNjNv1UOTZUxYHLjZj/K8WA1QJGycX6v/m55u2ny8sLcXfU
-         QujllQ4+BoCWNtzDncQdCdyPDviVp481OfwzJsgIuwm946cyIKxVs4U64v9b1ZSDmPgz
-         y4vswVzj6GXSLBLcPe3KcGaeVkw/uUiyREAPz2whXt+qzVUKLErBizRPqZQ4Md4eKIPY
-         n+olVLADiq9Wtkd1ZYeKRpScoawGdLazGyOTzGjC0runIoAs38lFvp3oV5seQfw5zq/s
-         2hfkE6f09gvLobD9aYyjnxzN5eQ7zZ0FGlEzBjUiSQ/kbVDJ6gMPfoOBfFz8+rzo9Sxo
-         F0Aw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq2SB4pKDjp3Mf+3iL424wK9B/xcPMCz04AUzRsyBLplRzbit3kgXSVH31Mnp3aztGkezLe3XE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyAKmiuiEHFCPTaOgKg3uN75c7ZWg4OjICABXRjsc6rNWZFvzCn
-	RC4qcWLRbQsIpivd6x/APHiEanRh/lCu7rlg7tisiUvFcd7A+83v8arX9L84uHZE8NE+3hzSNkK
-	gxpn1hvG/9Z3tFB6Wc78Krv4kKdqz/AM=
-X-Gm-Gg: AfdE7cmXM/sSeqhqFMU0CS1sU0URRdlhJlGkg7C0nyH64ubu3oSWlr33dYxJyIkkhe9
-	egOhAUzeWgGXI7yHMntD7FfODfCuEkg9BCYUHm4v0Y57Tg4dzEIwTyptuGxGBe8NzSh9MEoejFk
-	Liup3cS1zZv7kdX3JpPJISeXhYvv+Gw1uf45TxTk//yC7ZRCwuvSPEADSaW/Mf/KeiZYHV/vyYX
-	mNyapxmc+EddUvAIXJGGNhMmxgdGPTHPf4LILiti4eAPSBJPkbonlbw1F12rhpTJcMtD8kDmOZZ
-	oBDV7HXgpIpz4GZ+Cx9sJjYqFwa6ZMKD9oHygGeE2ILpfv4Uh2xnDIu9a1smMbL7/PtsTROw7fG
-	Glw==
-X-Received: by 2002:a17:90b:4c02:b0:38e:bfe:81e6 with SMTP id
- 98e67ed59e1d1-38e1a9d90f9mr7810297a91.1.1784219585950; Thu, 16 Jul 2026
- 09:33:05 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784219862; x=1784824662;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7CwBdf7YTl0lNtDo3SBe9j9ZzLE2uAoBiUh1WwfPJrk=;
+        b=nki5UWwrw0opLGQ1YEhmorCrgR+gqAKChUxha6Ws9urARXftYKyXyoziRfxRS4oNF/
+         XZ3ap9tx8jTWdkB+4mz69gzQcY9yv9PNQ/SFogCZ0TgpFX4m67jNA2BkJD5Bin0+Xost
+         rrSIPGA3A5z78PzyCcyEQUv7FqWvXZZbHn2/6qa6nFCnaRpb5gMpersNM4Vt8g+FGOck
+         SiKYlTFA/akXiXWhLWFUNO6+gmLpBMVur0DArmSsUY3Gl2odExpBU9C+RW4675UhA7eX
+         CrFtd/oG6X6S882hxe97/10IeeP6kfwIxNbFPCkL2MxCTY+hS6lFzDYyaJHc2JSDkhut
+         /p5Q==
+X-Gm-Message-State: AOJu0YzDVcpQE+iQsMklj1/1Nh4j2hRLPHH3pYWDJTQLEtHEhuJfiAmw
+	g/I04SSyslMc7iuYf9WA2Vz+puUXunH9ZIEjfC8NuWkiLXsOo8ParAXBtUleTjo4
+X-Gm-Gg: AfdE7ckuizs2GyUvyxl4fPhUrmGdQJv5GW7ifzfCXTt3vQi0z0gMj2pPfHc025Bo4bT
+	01QpuQU8AJbsjZ9qAm4HlL/ORFX7j9vuS4iyuy/l7LqTQqKH03bw6zSYzY0rSHwbY+WSSrvAlIx
+	nwLrFaDN9viM/eqgYJ3iZuWdcdpaGO4UUvwP+mqxpiws8q1TiGLTQg4qNVsVlMwFVVaHejMPixC
+	6l13IR/NwBl0dCSn+eb0qGhnk9D7QTaOZKdQD7emBJVRuXLu4L9naXl/RX7XedF10b0FWsE1GVr
+	mlA605XlzdcalU63KtZQbxUdX+yDNOm8UOA0aUtpXUFeAFOjberxsfYylLFrrQjG1HBVXzQmmUb
+	SvkhSQtjL/TR77B6QMPG/cOgXUSwysF98SqFe8bzon+xRDvAf5yTMju3r5jtnZN+FXm0OAYSpTD
+	o+QfzBoPW/
+X-Received: by 2002:a05:6512:3b20:b0:5b0:21e3:672a with SMTP id 2adb3069b0e04-5b159b8b887mr2052865e87.56.1784219862231;
+        Thu, 16 Jul 2026 09:37:42 -0700 (PDT)
+Received: from grower.astralinux.ru ([81.9.21.4])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b01caaf468sm5164318e87.68.2026.07.16.09.37.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 09:37:40 -0700 (PDT)
+From: Alexander Martyniuk <alexevgmart@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
+	lvc-project@linuxtesting.org,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Arseniy Krasnov <avkrasnov@salutedevices.com>,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Maher Azzouzi <maherazz04@gmail.com>
+Subject: [PATCH 6.12] vsock/virtio: fix zerocopy completion for multi-skb sends
+Date: Thu, 16 Jul 2026 19:35:59 +0300
+Message-ID: <20260716163600.115458-1-alexevgmart@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716-device-trail-semicolon-v1-1-f48e9dcfae15@google.com>
-In-Reply-To: <20260716-device-trail-semicolon-v1-1-f48e9dcfae15@google.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 16 Jul 2026 18:32:51 +0200
-X-Gm-Features: AUfX_mxPokx3GaYpNkBp6-lei8Fb7lN_DjgdfGHoMR0h4GDo2j-4L4nqakTib6U
-Message-ID: <CANiq72nhRy+LfZbEZt10artNGkpw7x8c9P3yMBrQiLEGv22ncQ@mail.gmail.com>
-Subject: Re: [PATCH] rust: device: avoid trailing ; in printing macros
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, driver-core@lists.linux.dev, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 16, 2026 at 12:22=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> =
-wrote:
->
-> These macros are used like expressions, so they should must not emit a
-> semicolon. This is being turned into a hard error in a future release of
-> Rust.
->
-> error: trailing semicolon in macro used in expression position
->   --> drivers/gpu/nova-core/firmware/fsp.rs:79:34
->    |
-> 79 |                 .inspect_err(|_| dev_err!(dev, "FMC firmware missing=
- '{}' section\n", name))
->    |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^^^^^^^^^^^^^^^^^^^^^
->    |
->    =3D warning: this was previously accepted by the compiler but is being=
- phased out; it will become a hard error in a future release!
->    =3D note: for more information, see issue #79813 <https://github.com/r=
-ust-lang/rust/issues/79813>
->    =3D note: this error originates in the macro `dev_err` (in Nightly bui=
-lds, run with -Z macro-backtrace for more info)
->
-> Cc: stable@vger.kernel.org
-> Fixes: 5c7ca6fa603f ("rust: add `dev_*` print macros.")
-> Link: https://github.com/rust-lang/rust/issues/79813
-> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+From: Stefano Garzarella <sgarzare@redhat.com>
 
-Applied to `rust-fixes` -- thanks everyone!
+commit ae38d9179190a956e2a87a69ef1dd6f451b51c4d upstream.
 
-    [ I was doubly surprised since upstream made it a deny-by-default lint
-      a year ago for Rust 1.91.0, and yet we didn't see it; plus I hadn't
-      seen this in my CI even yesterday.
+When a large message is fragmented into multiple skbs, the zerocopy
+uarg is only allocated and attached to the last skb in the loop.
+Non-final skbs carry pinned user pages with no completion tracking,
+so the kernel has no way to notify userspace when those pages are safe
+to reuse. If the loop breaks early the uarg is never allocated at all,
+leaking pinned pages with no completion notification.
 
-      It turns out this just landed into today's nightly (nightly-2026-07-1=
-6,
-      using upstream commit d0babd8b6):
+Fix this by following the approach used by TCP: allocate the zerocopy
+uarg (if not provided by the caller) before the send loop and attach
+it to every skb via skb_zcopy_set(), which takes a reference per skb.
+Each skb's completion properly decrements the refcount, and the
+notification only fires after the last skb is freed.
+On failure, if no data was sent, the uarg is cleanly aborted via
+net_zcopy_put_abort().
 
-        Link: https://github.com/rust-lang/rust/pull/159222
+This issue was initially discovered by sashiko while reviewing commit
+1cb36e252211 ("vsock/virtio: fix MSG_ZEROCOPY pinned-pages accounting")
+but was pre-existing.
 
-      which says:
+Fixes: 581512a6dc93 ("vsock/virtio: MSG_ZEROCOPY flag support")
+Closes: https://sashiko.dev/#/patchset/20260420132051.217589-1-sgarzare%40redhat.com
+Reported-by: Maher Azzouzi <maherazz04@gmail.com>
+Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+Acked-by: Michael S. Tsirkin <mst@redhat.com>
+Acked-by: Arseniy Krasnov <avkrasnov@salutedevices.com>
+Link: https://patch.msgid.link/20260514092948.268720-1-sgarzare@redhat.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
+---
+Backport fix for CVE-2026-53365
+ net/vmw_vsock/virtio_transport_common.c | 78 +++++++++++--------------
+ 1 file changed, 34 insertions(+), 44 deletions(-)
 
-        "The `semicolon_in_expressions_from_macros` lint previously
-         suppressed warnings about non-local macros. This masks
-         a lint that will subsequently become a hard error."
+diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+index 95170c7be758..aeb205e84bd3 100644
+--- a/net/vmw_vsock/virtio_transport_common.c
++++ b/net/vmw_vsock/virtio_transport_common.c
+@@ -72,35 +72,6 @@ static bool virtio_transport_can_zcopy(const struct virtio_transport *t_ops,
+ 	return true;
+ }
+ 
+-static int virtio_transport_init_zcopy_skb(struct vsock_sock *vsk,
+-					   struct sk_buff *skb,
+-					   struct msghdr *msg,
+-					   bool zerocopy)
+-{
+-	struct ubuf_info *uarg;
+-
+-	if (msg->msg_ubuf) {
+-		uarg = msg->msg_ubuf;
+-		net_zcopy_get(uarg);
+-	} else {
+-		struct iov_iter *iter = &msg->msg_iter;
+-		struct ubuf_info_msgzc *uarg_zc;
+-
+-		uarg = msg_zerocopy_realloc(sk_vsock(vsk),
+-					    iter->count,
+-					    NULL);
+-		if (!uarg)
+-			return -1;
+-
+-		uarg_zc = uarg_to_msgzc(uarg);
+-		uarg_zc->zerocopy = zerocopy ? 1 : 0;
+-	}
+-
+-	skb_zcopy_init(skb, uarg);
+-
+-	return 0;
+-}
+-
+ static int virtio_transport_fill_skb(struct sk_buff *skb,
+ 				     struct virtio_vsock_pkt_info *info,
+ 				     size_t len,
+@@ -321,8 +292,10 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
+ 	u32 src_cid, src_port, dst_cid, dst_port;
+ 	const struct virtio_transport *t_ops;
+ 	struct virtio_vsock_sock *vvs;
++	struct ubuf_info *uarg = NULL;
+ 	u32 pkt_len = info->pkt_len;
+ 	bool can_zcopy = false;
++	bool have_uref = false;
+ 	u32 rest_len;
+ 	int ret;
+ 
+@@ -364,6 +337,25 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
+ 		if (can_zcopy)
+ 			max_skb_len = min_t(u32, VIRTIO_VSOCK_MAX_PKT_BUF_SIZE,
+ 					    (MAX_SKB_FRAGS * PAGE_SIZE));
++
++		if (info->msg->msg_flags & MSG_ZEROCOPY &&
++		    info->op == VIRTIO_VSOCK_OP_RW) {
++			uarg = info->msg->msg_ubuf;
++
++			if (!uarg) {
++				uarg = msg_zerocopy_realloc(sk_vsock(vsk),
++							    pkt_len, NULL);
++				if (!uarg) {
++					virtio_transport_put_credit(vvs, pkt_len);
++					return -ENOMEM;
++				}
++
++				if (!can_zcopy)
++					uarg_to_msgzc(uarg)->zerocopy = 0;
++
++				have_uref = true;
++			}
++		}
+ 	}
+ 
+ 	rest_len = pkt_len;
+@@ -382,21 +374,7 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
+ 			break;
+ 		}
+ 
+-		/* We process buffer part by part, allocating skb on
+-		 * each iteration. If this is last skb for this buffer
+-		 * and MSG_ZEROCOPY mode is in use - we must allocate
+-		 * completion for the current syscall.
+-		 */
+-		if (info->msg && info->msg->msg_flags & MSG_ZEROCOPY &&
+-		    skb_len == rest_len && info->op == VIRTIO_VSOCK_OP_RW) {
+-			if (virtio_transport_init_zcopy_skb(vsk, skb,
+-							    info->msg,
+-							    can_zcopy)) {
+-				kfree_skb(skb);
+-				ret = -ENOMEM;
+-				break;
+-			}
+-		}
++		skb_zcopy_set(skb, uarg, NULL);
+ 
+ 		virtio_transport_inc_tx_pkt(vvs, skb);
+ 
+@@ -420,6 +398,18 @@ static int virtio_transport_send_pkt_info(struct vsock_sock *vsk,
+ 
+ 	virtio_transport_put_credit(vvs, rest_len);
+ 
++	/* msg_zerocopy_realloc() initializes the ubuf_info refcnt to 1.
++	 * skb_zcopy_set() increases it for each skb, so we can drop that
++	 * initial reference to keep it balanced.
++	 */
++	if (have_uref) {
++		if (rest_len == pkt_len)
++			/* No data sent, abort the notification. */
++			net_zcopy_put_abort(uarg, true);
++		else
++			net_zcopy_put(uarg);
++	}
++
+ 	/* Return number of bytes, if any data has been sent. */
+ 	if (rest_len != pkt_len)
+ 		ret = pkt_len - rest_len;
+-- 
+2.43.0
 
-      So that explains it. And this is the PR that will make it a hard erro=
-r
-      at some point in the future:
-
-        Link: https://github.com/rust-lang/rust/pull/159218
-
-      Thus starting with Rust 1.99.0 (expected 2026-10-01), we will be
-      seeing the deny-by-default lint above, so clean it up already.
-
-        - Miguel ]
-
-    [ Fixed typo. ]
-
-    Cc: stable@vger.kernel.org # Needed in 6.18.y and later.
-
-Cheers,
-Miguel
