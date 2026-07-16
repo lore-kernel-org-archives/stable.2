@@ -1,85 +1,144 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C85241A79A;
-	Thu, 16 Jul 2026 13:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002662DF137;
+	Thu, 16 Jul 2026 13:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209239; cv=none; b=skskKHaZ2tbgtlr6HgWZARc6Um5nqCsmw/i11SVlWa6lgzHOBbN/jVO0T+scENxVS9shHekHRBzUeaAxZOxByXpUQcVz0QHdDGbeeyJ6eIVHVS4pOJ/1dHwyUIfxPth2+jXvInVSlirXnjK37JZol3YrFJUfK6QaYdrZHHf6pUk=
+	t=1784209241; cv=none; b=W4sOlmwmUPF4ogrg5eq2L0wdiBGvicXY2CM1B8aesxQWa4z2fmurYHv4OWHYReIJbMFEJp5tV1RxWM2oSNv0WM6N8tByC9zD0QW+DBaTw2yzXzLmTPWJYKl1oapECFBXBa9fQG1qOGNspmwySSsorxyi6E6ovaBcOUVMKtnufxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784209239; c=relaxed/simple;
-	bh=5vRyDDN9o33vCzXREfskTdWxCISaSTHgmensnkLeAJw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I4Vh3tQb1hCSTT/1UsFx7K9f1yoLsDmTruqaM2AbRfT64t2eXBzkYutaCgnUqZxYxjotjBcuR+u3LELN46fCmxv87IkBlBUH1f6GAwuInO20CY2EX/d//utaFv7Vm2ycvT4s8YcvAGEhh86niVCP6If9qbFsEIn3R31t6VW8BqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=E6B3VSnt; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1784209241; c=relaxed/simple;
+	bh=7jF1x1eZdmJpHeBOohuSRmaEpgtnbauYkzE1ZiO3zes=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=joFhHkGpm/IXLsIa2NujwG1HJNAg2p9eftfhxkOeA+6xhDC443HkmKwAqYrUIDzP8WwhzUO8YkZgW4Tbm7pUIwyjd7hhU+L0V8lL1b1ZIgx7zSyB6yG8NSRYOZwp62xkBnEezMMHtpJ3M99sfw9dPO7j8QMC3GNocwTCjcRbDgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lGiAmt6F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="E6B3VSnt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=IiOLFpPJEdQPABwKQzXpqhuXuZFKPhpE3SVrXAZwnww=; b=E6B3VSntferwOj4Y/u0/R1ul4o
-	s2+zT+XIM/AN42GVotThn8bT3SAqwB9SmyUPiELBf6B3fk2hbWTyJ7E+FrSieAG9Lt1fue+pP1AnT
-	6ajgcIuiQGEC4lapgOlCAGqXBe/7fUW5QbnBf6G78c4adF4+w2aY/1oeRQ4Ynk69R2IjPkEQPN0eh
-	Ob65/3dSeyeRxgR0cq+swhl3Wa1KAPJnXGtxBfkwdv5CCD9rJql3isgh3UqpawCBzVEUfaZVV5Ysg
-	hZko1teGmVlDAX7gjuBfo4slKYxygBOZjsPw+UYF0ZWanEEYLtrvP6n4DH/KpPQSl+pk9Km3kT8qW
-	r4Q1CMGg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1wkMKC-003rU3-0F;
-	Thu, 16 Jul 2026 13:40:28 +0000
-Date: Thu, 16 Jul 2026 06:40:23 -0700
-From: Breno Leitao <leitao@debian.org>
-To: SeongJae Park <sj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Michal Hocko <mhocko@suse.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm: memcg: initialize *locked in memcg1_oom_prepare()
- stub
-Message-ID: <alje3jH32jS6D4H-@gmail.com>
-References: <aj7KoDXJv3NByGUm@cmpxchg.org>
- <20260627000445.85650-1-sj@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lGiAmt6F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6637D1F000E9;
+	Thu, 16 Jul 2026 13:40:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784209239;
+	bh=MHSsUd75Bogoj9NhxAX+WjuyFX/tLXrW6Pvr26EBphE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lGiAmt6FDb2sDrQPvbVWZQ0Be7LRIfdWPsNBjw49eSiVquIuNmkqXJzpS3HNTm3y4
+	 ghZDVEr33VDntps9U3yIAmD7Cq5iP7+MHo7XEEw6UZ24gyBFEnqNuYoKrsDtLUFLj7
+	 /195IuZFgbGkDqEHnXsxpRJL0brs+S2sCcqRQsXo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Alex Williamson <alex.williamson@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Alex Williamson <alex@shazbot.org>
+Subject: [PATCH 7.1 109/518] vfio/pci: Fix racy bitfields and tighten struct layout
+Date: Thu, 16 Jul 2026 15:26:17 +0200
+Message-ID: <20260716133050.239100645@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
+References: <20260716133047.772246337@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260627000445.85650-1-sj@kernel.org>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jun 26, 2026 at 05:04:45PM -0700, SeongJae Park wrote:
-> On Fri, 26 Jun 2026 14:53:20 -0400 Johannes Weiner <hannes@cmpxchg.org> wrote:
-> >
-> > Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-> > 
-> > I prefer this way over the idea to initialize in the caller. For the
-> > actual implementation, the protocol is that the thing is initialized
-> > when the function returns true. This version of the fix maintains that
-> > for the dummy as well:
-> 
-> I agree.  I also feel the caller code is _slightly_ easier to read as is, than
-> adding the initialization there.  If it is initialized there, I would assume it
-> will be used somewhere.  But after finding out it is not used for early return
-> cases including memcg1_oom_prepare() reuturning false case, I would be confused
-> about the inefficiency.  Using a variable after passing its pointer to a
-> function depending on the function's return value makes me assume the variable
-> will be set inside the function.
-> 
-> The code is simple enough to read in any way, and my taste is sometimes just
-> weird, though.
-> 
-> Anyway nice fix, thank you!
-> 
-> Reviewed-by: SeongJae Park <sj@kernel.org>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-Thanks! I'll respin with the Reviewed-by tags to reflect that these
-points have been addressed.
+------------------
+
+From: Alex Williamson <alex.williamson@nvidia.com>
+
+commit e73638e55f861758d49f14d7bb5dba3035981cd7 upstream.
+
+Bitfield operations are not atomic, they use a read-modify-write
+pattern, therefore we should be careful not to pack bitfields that
+can be concurrently updated into the same storage unit.
+
+This split takes a binary approach: flags that are only modified
+pre/post open/close remain bitfields, flags modified from user
+action, including actions that reach across to another device (ex.
+reset) use dedicated storage units.
+
+Note that the virq_disabled and bardirty flags are relocated to fill
+an existing hole in the structure.
+
+Bitfield justifications:
+
+  has_dyn_msix: written only in vfio_pci_core_enable()
+  pci_2_3: written only in vfio_pci_core_enable()
+  reset_works: written only in vfio_pci_core_enable()
+  extended_caps: written only in vfio_cap_len() under vfio_config_init()
+  has_vga: written only in vfio_pci_core_enable()
+  nointx: written only in vfio_pci_core_enable()
+  needs_pm_restore: written only in vfio_pci_probe_power_state()
+  disable_idle_d3: written only at .init in vfio_pci_core_init_dev()
+
+Dedicated storage units:
+
+  virq_disabled: written by guest INTx command writes in
+                 vfio_basic_config_write() while the device is open
+  bardirty: written by guest BAR writes in vfio_basic_config_write()
+            while the device is open
+  pm_intx_masked: written in the runtime-PM suspend path.
+  pm_runtime_engaged: written by low-power feature entry/exit paths
+  needs_reset: set in vfio_pci_core_disable() and cleared for devices in
+               the set by vfio_pci_dev_set_try_reset()
+  sriov_active: written by vfio_pci_core_sriov_configure() via sysfs
+                sriov_numvfs while bound.
+
+Fixes: 9cd0f6d5cbb6 ("vfio/pci: Use bitfield for struct vfio_pci_core_device flags")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Link: https://lore.kernel.org/r/20260615191241.688297-4-alex.williamson@nvidia.com
+Signed-off-by: Alex Williamson <alex@shazbot.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ include/linux/vfio_pci_core.h |   13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+--- a/include/linux/vfio_pci_core.h
++++ b/include/linux/vfio_pci_core.h
+@@ -101,6 +101,9 @@ struct vfio_pci_core_device {
+ 	const struct vfio_pci_device_ops *pci_ops;
+ 	void __iomem		*barmap[PCI_STD_NUM_BARS];
+ 	bool			bar_mmap_supported[PCI_STD_NUM_BARS];
++	/* Flags modified at runtime - dedicated storage unit */
++	bool			virq_disabled;
++	bool			bardirty;
+ 	u8			*pci_config_map;
+ 	u8			*vconfig;
+ 	struct perm_bits	*msi_perm;
+@@ -115,19 +118,19 @@ struct vfio_pci_core_device {
+ 	u16			msix_size;
+ 	u32			msix_offset;
+ 	u32			rbar[7];
++	/* Flags only modified on setup/release - bitfield ok */
+ 	bool			has_dyn_msix:1;
+ 	bool			pci_2_3:1;
+-	bool			virq_disabled:1;
+ 	bool			reset_works:1;
+ 	bool			extended_caps:1;
+-	bool			bardirty:1;
+ 	bool			has_vga:1;
+-	bool			needs_reset:1;
+ 	bool			nointx:1;
+ 	bool			needs_pm_restore:1;
+-	bool			pm_intx_masked:1;
+-	bool			pm_runtime_engaged:1;
+ 	bool			disable_idle_d3:1;
++	/* Flags modified at runtime - dedicated storage unit */
++	bool			needs_reset;
++	bool			pm_intx_masked;
++	bool			pm_runtime_engaged;
+ 	bool			sriov_active;
+ 	struct pci_saved_state	*pci_saved_state;
+ 	struct pci_saved_state	*pm_save;
+
+
