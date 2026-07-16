@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CDA82DF134
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 12:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6765420872
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 12:44:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784205779; cv=none; b=VhKtMafxa7Q/RNU0W/yeTkYljGZinZdoH0UZ8VsjYwK0jyuFtUsH4Ka72P4OcU0kan+bZsm0s+dQj1BEfdYywJY3+azhuItipOuagSXeit8ym7sypsurkXk4JuuKBaLMy/3jwcmc6gPomJk+hEIwoUuFdsJzJ5ECc4IuMc45x1c=
+	t=1784205858; cv=none; b=dS7Acw3ZJpZDT1H5BZeIKjSjb5U9gn1oy+OlvG8UTZfDNXR/RL/GYSYWgK0qPkzD4b3a4jMmV1zXnvZ5SwqL2ECQHbBgsXjJF62nGqUvHTjrfd2y5lI4CSldrfaFuFrMvoJAFJwQqcfn2IdD0NM72ePozfMJ8bblIBOsgg4S/cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784205779; c=relaxed/simple;
-	bh=C7odCVjCERXzRbvCK4N7dd/JoVlhWz8uMsKI32wIfIc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LFw55fReo16YUD9IttFi6cVl8nqUr/J/SjarbwJJH94W71WAYdF0ZF2j2D/cdBEuUGxng/cNN2y1/6oM6s0l9VyMLlSN7j+ZeuHecyghuH1VvwOMgtkTrVz4rXBS0ghcndYAIkmsQi72YXg+wbqLsFw2RRhVjU7lVSWd9WI0VhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OEv7MZvS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784205858; c=relaxed/simple;
+	bh=cNowjEON6ffypWj/iNm1zS9DGQw6u6Zuz4twVUECrDY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UA2Pt9zA0YYzA3qYJvObRP+58lDjY15C5YFEJtrcOmh4Tjjsi5ipjPqG7dv4S4/TL2PyPCd21XEwJeeEbLbvOwmUrj0CalJzyhrYzNs5ambB9dQB/QNEKuWI8zhMikQ4fY0wEK7JWLBljvULG86SUrJGPxDE0Y/sHjXgBs3cYjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uLeykv9y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OEv7MZvS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DA6B1F00A3A;
-	Thu, 16 Jul 2026 12:42:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uLeykv9y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361991F000E9;
+	Thu, 16 Jul 2026 12:44:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784205778;
-	bh=tRG97W1iURJ7VBfdNUvsXd6b7HvKo8s536jMJQIXD5o=;
+	s=korg; t=1784205856;
+	bh=8dzB1RQiGehJbCIwFfm2ar3h86S6vsXHVhvDaC3iGNQ=;
 	h=Subject:To:Cc:From:Date;
-	b=OEv7MZvS7yHpOUApYJfXKzrD0nF7BNXC+ys233ET2L+ieF44/Z9W2F/jo3eZMgPY1
-	 kulxsCxb8RjzSqohgs9lz+0N07jmakYKdZAtd4JdFt49FckrueEayzTm8N61xVnRL/
-	 IIjH0FciymdMs+0kKQMq5Ua+veXgnUWKFWfNVLlo=
-Subject: FAILED: patch "[PATCH] i2c: i801: fix hardware state machine corruption in error" failed to apply to 6.6-stable tree
-To: 25181214217@stu.xidian.edu.cn,andi.shyti@kernel.org,stable@vger.kernel.org
+	b=uLeykv9yD3kSZ5sPpo/uKQIH23CxxotC/gYabtaayvW+7BIhprpeIVn4ZDG9YKmh7
+	 gWHkxOR+QY+RG/to+qC9HId3diT3rQxHIyqxldjBFLGhFMobarJD+d6gTsSHXr0wK5
+	 z9bJhaZrvFg8WPNa0472fPPt7wYsRG0DDtWuBTqE=
+Subject: FAILED: patch "[PATCH] Input: mms114 - fix touch indexing for MMS134S and MMS136" failed to apply to 6.1-stable tree
+To: dmitry.torokhov@gmail.com,hexlabsecurity@proton.me
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 14:42:43 +0200
-Message-ID: <2026071643-unnoticed-jitters-56c2@gregkh>
+Date: Thu, 16 Jul 2026 14:44:09 +0200
+Message-ID: <2026071609-hazily-written-307d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 10dd1a736d557e310a77117832874729a0175d57
+git cherry-pick -x a6ac4e24c1a8a533bb61035184fdcc7eede4cc8d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071643-unnoticed-jitters-56c2@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071609-hazily-written-307d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,63 +62,83 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 10dd1a736d557e310a77117832874729a0175d57 Mon Sep 17 00:00:00 2001
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Date: Tue, 12 May 2026 17:35:34 +0800
-Subject: [PATCH] i2c: i801: fix hardware state machine corruption in error
- path
+From a6ac4e24c1a8a533bb61035184fdcc7eede4cc8d Mon Sep 17 00:00:00 2001
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Mon, 22 Jun 2026 22:35:18 -0700
+Subject: [PATCH] Input: mms114 - fix touch indexing for MMS134S and MMS136
 
-A severe livelock and subsequent Hung Task panic were observed in the
-i2c-i801 driver during concurrent Fuzzing. The crash is caused by an
-unconditional hardware register cleanup in the error handling path of
-i801_access().
+The MMS134S and MMS136 touch controllers have an event size of 6 bytes
+rather than 8 bytes. When __mms114_read_reg() reads the touch data
+packet from the device into the touch buffer, the events are packed
+tightly at 6-byte intervals. However, the driver iterates through the
+events using standard C array indexing (touch[index]), where each
+element is sizeof(struct mms114_touch) (8 bytes) apart. As a result, any
+touch events beyond the first one are read from incorrect offsets and
+parsed improperly.
 
-When i801_check_pre() fails (e.g., returning -EBUSY because the SMBus
-controller is actively used by BIOS/ACPI), the kernel does not actually
-acquire the hardware ownership. However, the code jumps to the 'out'
-label and executes:
+Fix this by explicitly calculating the byte offset for each touch event
+based on the device's specific event size.
 
-    iowrite8(SMBHSTSTS_INUSE_STS | STATUS_FLAGS, SMBHSTSTS(priv));
+Fixes: 53fefdd1d3a3 ("Input: mms114 - support MMS136")
+Fixes: ab108678195f ("Input: mms114 - support MMS134S")
+Reported-by: sashiko-bot@kernel.org
+Assisted-by: Antigravity:gemini-3.5-flash
+Reviewed-by: Bryam Vargas <hexlabsecurity@proton.me>
+Link: https://patch.msgid.link/20260616050912.1531241-1-dmitry.torokhov@gmail.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-This forcefully clears the INUSE_STS lock and resets the hardware status
-flags without owning the controller. Doing so interrupts ongoing BIOS/ACPI
-transactions and totally corrupts the SMBus hardware state machine.
-
-Consequently, all subsequent i801_access() calls fail at the pre-check
-stage, triggering an endless stream of "SMBus is busy, can't use it!"
-error logs. Over a slow serial console, this printk flood monopolizes
-the CPU (Console Livelock), starving other processes trying to acquire
-the mmap_lock down_read semaphore, ultimately triggering the hung task
-watchdog.
-
-Fix this by moving the 'out' label below the hardware register cleanup.
-If i801_check_pre() fails, we safely bypass the iowrite8() and only
-release the software locks (pm_runtime and mutex), strictly adhering to
-the rule of not releasing resources that were never acquired.
-
-Fixes: 1f760b87e54c ("i2c: i801: Call i801_check_pre() from i801_access()")
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Cc: <stable@vger.kernel.org> # v6.3+
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260512093534.348655-1-w15303746062@163.com
-
-diff --git a/drivers/i2c/busses/i2c-i801.c b/drivers/i2c/busses/i2c-i801.c
-index 32a3cef02c7b..b29c99ed3883 100644
---- a/drivers/i2c/busses/i2c-i801.c
-+++ b/drivers/i2c/busses/i2c-i801.c
-@@ -931,13 +931,13 @@ static s32 i801_access(struct i2c_adapter *adap, u16 addr,
- 	 */
- 	if (hwpec)
- 		iowrite8(ioread8(SMBAUXCTL(priv)) & ~SMBAUXCTL_CRC, SMBAUXCTL(priv));
--out:
- 	/*
- 	 * Unlock the SMBus device for use by BIOS/ACPI,
- 	 * and clear status flags if not done already.
- 	 */
- 	iowrite8(SMBHSTSTS_INUSE_STS | STATUS_FLAGS, SMBHSTSTS(priv));
+diff --git a/drivers/input/touchscreen/mms114.c b/drivers/input/touchscreen/mms114.c
+index 4d748a13408d..53ad35d61d47 100644
+--- a/drivers/input/touchscreen/mms114.c
++++ b/drivers/input/touchscreen/mms114.c
+@@ -217,7 +217,9 @@ static irqreturn_t mms114_interrupt(int irq, void *dev_id)
+ 	struct mms114_data *data = dev_id;
+ 	struct i2c_client *client = data->client;
+ 	struct mms114_touch touch[MMS114_MAX_TOUCH];
++	struct mms114_touch *t;
+ 	int packet_size;
++	int event_size;
+ 	int touch_size;
+ 	int index;
+ 	int error;
+@@ -234,9 +236,11 @@ static irqreturn_t mms114_interrupt(int irq, void *dev_id)
  
-+out:
- 	pm_runtime_put_autosuspend(&priv->pci_dev->dev);
- 	mutex_unlock(&priv->acpi_lock);
- 	return ret;
+ 	/* MMS136 has slightly different event size */
+ 	if (data->type == TYPE_MMS134S || data->type == TYPE_MMS136)
+-		touch_size = packet_size / MMS136_EVENT_SIZE;
++		event_size = MMS136_EVENT_SIZE;
+ 	else
+-		touch_size = packet_size / MMS114_EVENT_SIZE;
++		event_size = MMS114_EVENT_SIZE;
++
++	touch_size = packet_size / event_size;
+ 
+ 	error = __mms114_read_reg(data, MMS114_INFORMATION, packet_size,
+ 			(u8 *)touch);
+@@ -244,18 +248,20 @@ static irqreturn_t mms114_interrupt(int irq, void *dev_id)
+ 		goto out;
+ 
+ 	for (index = 0; index < touch_size; index++) {
+-		switch (touch[index].type) {
++		t = (struct mms114_touch *)((u8 *)touch + index * event_size);
++
++		switch (t->type) {
+ 		case MMS114_TYPE_TOUCHSCREEN:
+-			mms114_process_mt(data, touch + index);
++			mms114_process_mt(data, t);
+ 			break;
+ 
+ 		case MMS114_TYPE_TOUCHKEY:
+-			mms114_process_touchkey(data, touch + index);
++			mms114_process_touchkey(data, t);
+ 			break;
+ 
+ 		default:
+ 			dev_err(&client->dev, "Wrong touch type (%d)\n",
+-				touch[index].type);
++				t->type);
+ 			break;
+ 		}
+ 	}
 
