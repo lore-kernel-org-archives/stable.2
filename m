@@ -1,322 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1816405F7
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 01:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B4028505E
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 01:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784164567; cv=none; b=p0j+NmadoFefZvKlgYIrMn58PVyL0sINFLu8uNOcMV0gsrtEFDddXAxpepMKKgNHEScaIkg6F8f+Vs+fHwhMi2S6rKupLEKTsr7yNMQYd5bMuvGVJ1r2PEG6ZEvg4SlJ5xTW/8WmldZGH2eydg/OQg8gqGqPHBzOMKqO6zOm5Pc=
+	t=1784164636; cv=none; b=Gn/TIDbq5Xka0AFUfKenBYa5LUgsQ63jqhdWIRBG+umrzqhp6+nH/Won9Zsuah7fLeehFGw4J1Zi8dZkrxrxd3I1ffyEoQeDqJJTD23ksi3QJqlkZqzrQU8K6PqkY0iZdVZpKE6V9UOQGbmIbBcRhO5YkQpO5pj5gegSOSoXh8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784164567; c=relaxed/simple;
-	bh=dPMiT+Oltb90uMSZK0iBYyAPRJs/3lJ9vMkIIX2h93M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vr0tjWU4EnXebBSYlGav1GQoyI7Tom2GVC0L578domhog0+exRzzoJoR6SHuCWPYWD4mkIkE0HjxT/RYZqcVRz6LfcWjhqgZ4LS8QmC0Vzzb21252r4Dc2H93ojuB9JyNqUvo4K/1Vzc6Ph1mgpphVK21+462g5MJ2SNq7+JUro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egyLLYsN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784164636; c=relaxed/simple;
+	bh=4gjINh65ZZwX5uEjIdDWnnxpUrNUUlM/wkLHg4zBaGU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Z3NPAt4yygTo2+RTQ3dJdle1JAeokOqYxRdZSVpj7tQtm3D8BHLdzkHiYE2t5jbsu5HnqvLKYRBCoP55zUnTARFrUAShZYidaiAV2/DNr/HOBDGSespwvdoVk9fUsLYw1kT3m6KcvNmHELsXdhGHQmKgc31Yu2CjnQvd1hyHxYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=r+hHIvjS; arc=none smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egyLLYsN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8081F000E9;
-	Thu, 16 Jul 2026 01:16:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784164565;
-	bh=QbveQBvh6/K8KhrN5y5DIQ8b3CtSurfSvPUpYbZ2UCc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=egyLLYsN/CvCJFLP7rXz7E+BSqfDt6yB9pn6iKnK6DIjNLmGb3EwP7Q4ctc09Qzdq
-	 DRSZyrc2Jvtnmhuxt5spVcXJyk8+LO3GeEAcLdIgVnumDOIVYkP8OPMWAsXgUccMNU
-	 lpmw2Xjvgq5RHlzOHkbElj4LGHiOi19vrnem/siPilzLO/IlpV5pZXfwRiGZmx95QF
-	 rnNVO2qXSgCG7nXK3iFTGeDkk2Iw/hlUG8g8e+o/qj+kI+orScCkZ5SEVqWeRe9aoV
-	 ZjCJfSK7OY257ToTaDvccJ+SqxT7FWS+TITS4v/anojOyVWMlYTOgdi+WVEy/dA2gb
-	 2Rrcrxrrri5LQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Pauli Virtanen <pav@iki.fi>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] Bluetooth: hci_core: Enable buffer flow control for SCO/eSCO
-Date: Wed, 15 Jul 2026 21:16:03 -0400
-Message-ID: <20260716011603.683516-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071351-runaround-unsaddle-5e3a@gregkh>
-References: <2026071351-runaround-unsaddle-5e3a@gregkh>
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="r+hHIvjS"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-8e5be46f663so19270946d6.0
+        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 18:17:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784164633; x=1784769433; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U/oN1wSwP4UvaqVHTQHo6/s99KohGdqm9m0b1NPOizY=;
+        b=r+hHIvjSq3AHvSMDB0U6stKDGXNR4CyF7jKPO/CqAi1E4dnUuW1i6ifY8CIL/d308+
+         0x09j4WnOjEMtHIGtJWNrki5CfaBGf5cfZXPWkL5dG8VPcyTkBQuM/3PX939+X0CMmoC
+         B3T0LP1PfxXjwRbvKDbKt+F41oiJeiMzRTd9h0bkOFJYzEymMN4nkAzRHqPRC0lhddij
+         L/FNYQcfr+2aQmAjz0zsxlnJqUpjJo+LoUKGGpZykoUa+YCMk9PZO896PQNNGoFTEnf9
+         OCspcfzZZTI9E9rZc0U1yqwOWQ2eNvXTJpiHd3uH+PIEUwn+vJXT6gYk8AZhdNF9STW+
+         0Drw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784164633; x=1784769433;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U/oN1wSwP4UvaqVHTQHo6/s99KohGdqm9m0b1NPOizY=;
+        b=YPCGcX5jqX3xa9Sg0yKWs4pWRcf8wWZ9M0DzMcafWDIj+2LExfAHRUm6ITKh2xORo6
+         1wkvxlvPeqH8x0BhCj+wHLvBAFOOpn2PvwLaje8xGsv3xcyVz/PUa6IV3emWOESPUKLJ
+         4qJyqU2qok8Xmw7Ge7wTznjwxTpFm6mrMQt11hFcSaVWZm/SiRLz9SdC5UpMFFbVXDBl
+         HjWD6u+z4tLmKygSkeuEHrlGLOneTTzsP9Jq4SfByIAJYw1O2BAwq/shhkY4RHD2lo7k
+         j2Pt7RUlyYStguP8SnuUoFGpxrnBcw/Ype5DrkzH3x57N5IwuShQC+s/2/bBtBUyLHib
+         nYVQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqEYXwHaZTFa14xN7W3FKclxE58audlgXeN2Mj9hFyh/13emhHrvVXGUtuGaGZVdeKGE6lW0Tk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyH161aYyyZCO45nxmiI6S91UyzTNJvONqfdGVvh4khC9ek3Yny
+	hwoy6V1rD/gwSjiJx2m5wGqhcFlF9dwhuVpp7TiXBukTAcmHDGRsSGxVLEhH8nwu09E=
+X-Gm-Gg: AfdE7cmnuMSWIDU0Gvwq9saEPvwS+fRchSSdRezkYx2k6r0UYtHeCIA39SMYSJoKg/O
+	PYQuEaw0q8GmBuAbgmTQ4iSjGC1U5CPXfJcUjtd2gw7sJt4HdRa04egIDfSkFmOMKNtqgdhRKAN
+	Xg8xMWh3W0nTHgDI8TivX47qoeo2yK/oSlq8Uw1t+1jdsomNW67m7WUsGUMCfy52KWLTMl+gNcn
+	Yjom+kP3IuKE28FgCB3iukPjVjFnyhle60hoWk3NLPChWex0xuTEuzklYGzGB2rhsuCVSrCcZ9Q
+	SnkvPlnsZ4xgoY5W7w2E/SOPc6wfTccXuALIrNm+GcNtxOLKDRzEduuxJzgZqV2CiwPDRV1w1zJ
+	OA/N7jdx9/j8Y3/Zi6JWhwkWPgbCSmJkpwF0sll8+gKJybIv/ChM75MCkUU/8uChTl6ilOBrd1m
+	6DW4D+7tM=
+X-Received: by 2002:a05:6214:568e:b0:8ef:a4d5:1523 with SMTP id 6a1803df08f44-904011898f8mr225409936d6.42.1784164633345;
+        Wed, 15 Jul 2026 18:17:13 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e06b::5ac? ([2606:6d00:15:e06b::5ac])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd56c4cd1sm206194006d6.16.2026.07.15.18.17.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 18:17:12 -0700 (PDT)
+Message-ID: <d4676bc9095c2c1efcd2c0f5ff4559bac7d1e47b.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: mediatek: vcodec: fix use-after-free in decoder
+ release path
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Doruk Tan Ozturk <doruk@0sec.ai>, tiffany.lin@mediatek.com, 
+	andrew-ct.chen@mediatek.com, yunfei.dong@mediatek.com, mchehab@kernel.org, 
+	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com
+Cc: hverkuil+cisco@kernel.org, linux-media@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 15 Jul 2026 21:17:10 -0400
+In-Reply-To: <20260615140526.52617-1-doruk@0sec.ai>
+References: <20260615140526.52617-1-doruk@0sec.ai>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-Mck6WrMHKU/Fcl8cNGIP"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-[ Upstream commit 13218453521d75916dfed55efb8e809bfc03cb4b ]
+--=-Mck6WrMHKU/Fcl8cNGIP
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This enables buffer flow control for SCO/eSCO
-(see: Bluetooth Core 6.0 spec: 6.22. Synchronous Flow Control Enable),
-recently this has caused the following problem and is actually a nice
-addition for the likes of Socket TX complete:
+Le lundi 15 juin 2026 =C3=A0 16:05 +0200, Doruk Tan Ozturk a =C3=A9crit=C2=
+=A0:
+> fops_vcodec_release() frees the decoder context with kfree(ctx) but
+> never cancels the per-context decode_work worker first. Although
+> v4l2_m2m_ctx_release() waits for any in-flight m2m job to finish, the
+> workqueue handler (mtk_vdec_worker) may still be running and accessing
+> the context after v4l2_m2m_job_finish() returns. Once kfree(ctx) runs,
+> that worker dereferences freed memory, resulting in a use-after-free.
+>=20
+> Cancel the pending decode work with cancel_work_sync(&ctx->decode_work)
+> after the controls and m2m context are torn down and before kfree(ctx),
+> mirroring the fix already applied to the encoder release path in
+> commit 76e35091ffc7 ("media: mediatek: vcodec: fix use-after-free in enco=
+der release path").
+>=20
+> decode_work is always initialised before release can run:
+> fops_vcodec_open() calls mtk_vcodec_dec_set_default_params() (its only
+> caller) unconditionally after a successful v4l2_m2m_ctx_init(), and that
+> function runs INIT_WORK(&ctx->decode_work, ...). A context can only reach
+> fops_vcodec_release() via an open() that returned 0, i.e. one that passed
+> that INIT_WORK. cancel_work_sync() on a properly initialised work_struct
+> is therefore always safe, even if the work was never queued. This is
+> unlike the 2023 msg_queue->core_work regression, where the work item
+> could be uninitialised at cancel time.
+>=20
+> Fixes: 590577a4e525 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video D=
+ecoder Driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+> ---
+> =C2=A0.../mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 9 +++++++++
+> =C2=A01 file changed, 9 insertions(+)
+>=20
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
+c_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv=
+.c
+> index e936ed8dffbaf..30906b24c608a 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+> @@ -313,6 +313,15 @@ static int fops_vcodec_release(struct file *file)
+> =C2=A0	v4l2_fh_exit(&ctx->fh);
+> =C2=A0	v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
+> =C2=A0
+> +	/*
+> +	 * Cancel any pending decode work before freeing the context.
+> +	 * Although v4l2_m2m_ctx_release() waits for m2m job completion,
+> +	 * the workqueue handler (mtk_vdec_worker) may still be accessing
+> +	 * the context after v4l2_m2m_job_finish() returns. Without this,
+> +	 * a use-after-free occurs when the worker accesses ctx after kfree.
+> +	 */
+> +	cancel_work_sync(&ctx->decode_work);
 
-< HCI Command: Read Buffer Size (0x04|0x0005) plen 0
-> HCI Event: Command Complete (0x0e) plen 11
-      Read Buffer Size (0x04|0x0005) ncmd 1
-        Status: Success (0x00)
-        ACL MTU: 1021 ACL max packet: 5
-        SCO MTU: 240  SCO max packet: 8
-...
-< SCO Data TX: Handle 257 flags 0x00 dlen 120
-< SCO Data TX: Handle 257 flags 0x00 dlen 120
-< SCO Data TX: Handle 257 flags 0x00 dlen 120
-< SCO Data TX: Handle 257 flags 0x00 dlen 120
-< SCO Data TX: Handle 257 flags 0x00 dlen 120
-< SCO Data TX: Handle 257 flags 0x00 dlen 120
-< SCO Data TX: Handle 257 flags 0x00 dlen 120
-< SCO Data TX: Handle 257 flags 0x00 dlen 120
-< SCO Data TX: Handle 257 flags 0x00 dlen 120
-> HCI Event: Hardware Error (0x10) plen 1
-        Code: 0x0a
+The worker is active if there is a job active, but v4l2_m2m_ctx_release() w=
+ill
+exit this condition by synchronously waiting for jobs to finish. This is co=
+mmon
+mistake in AI code reviews.
 
-To fix the code will now attempt to enable buffer flow control when
-HCI_QUIRK_SYNC_FLOWCTL_SUPPORTED is set by the driver:
+Since this is redundant, NAK
 
-< HCI Command: Write Sync Fl.. (0x03|0x002f) plen 1
-        Flow control: Enabled (0x01)
-> HCI Event: Command Complete (0x0e) plen 4
-      Write Sync Flow Control Enable (0x03|0x002f) ncmd 1
-        Status: Success (0x00)
+Nicolas
 
-On success then HCI_SCO_FLOWCTL would be set which indicates sco_cnt
-shall be used for flow contro.
+> +
+> =C2=A0	mtk_vcodec_dbgfs_remove(dev, ctx->id);
+> =C2=A0	spin_lock_irqsave(&dev->dev_ctx_lock, flags);
+> =C2=A0	list_del_init(&ctx->list);
 
-Fixes: 7fedd3bb6b77 ("Bluetooth: Prioritize SCO traffic")
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Tested-by: Pauli Virtanen <pav@iki.fi>
-Stable-dep-of: 12917f591cea ("Bluetooth: hci_conn: Fix null ptr deref in hci_abort_conn()")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/net/bluetooth/hci.h      | 13 +++++++
- include/net/bluetooth/hci_core.h |  1 +
- net/bluetooth/hci_core.c         | 62 +++++++++++++++-----------------
- net/bluetooth/hci_event.c        |  2 ++
- net/bluetooth/hci_sync.c         | 24 +++++++++++++
- 5 files changed, 68 insertions(+), 34 deletions(-)
+--=-Mck6WrMHKU/Fcl8cNGIP
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-index 018fc64329fc68..365795bf2838cd 100644
---- a/include/net/bluetooth/hci.h
-+++ b/include/net/bluetooth/hci.h
-@@ -228,6 +228,13 @@ enum {
- 	 */
- 	HCI_QUIRK_WIDEBAND_SPEECH_SUPPORTED,
- 
-+	/* When this quirk is set consider Sync Flow Control as supported by
-+	 * the driver.
-+	 *
-+	 * This quirk must be set before hci_register_dev is called.
-+	 */
-+	HCI_QUIRK_SYNC_FLOWCTL_SUPPORTED,
-+
- 	/* When this quirk is set, the controller has validated that
- 	 * LE states reported through the HCI_LE_READ_SUPPORTED_STATES are
- 	 * valid.  This mechanism is necessary as many controllers have
-@@ -397,6 +404,7 @@ enum {
- 	HCI_WIDEBAND_SPEECH_ENABLED,
- 	HCI_EVENT_FILTER_CONFIGURED,
- 	HCI_PA_SYNC,
-+	HCI_SCO_FLOWCTL,
- 
- 	HCI_DUT_MODE,
- 	HCI_VENDOR_DIAG,
-@@ -1539,6 +1547,11 @@ struct hci_rp_read_tx_power {
- 	__s8     tx_power;
- } __packed;
- 
-+#define HCI_OP_WRITE_SYNC_FLOWCTL	0x0c2f
-+struct hci_cp_write_sync_flowctl {
-+	__u8     enable;
-+} __packed;
-+
- #define HCI_OP_READ_PAGE_SCAN_TYPE	0x0c46
- struct hci_rp_read_page_scan_type {
- 	__u8     status;
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index 2775752a4e4fcf..35587f40a68c25 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -1655,6 +1655,7 @@ void hci_conn_del_sysfs(struct hci_conn *conn);
- #define lmp_hold_capable(dev)      ((dev)->features[0][0] & LMP_HOLD)
- #define lmp_sniff_capable(dev)     ((dev)->features[0][0] & LMP_SNIFF)
- #define lmp_park_capable(dev)      ((dev)->features[0][1] & LMP_PARK)
-+#define lmp_sco_capable(dev)       ((dev)->features[0][1] & LMP_SCO)
- #define lmp_inq_rssi_capable(dev)  ((dev)->features[0][3] & LMP_RSSI_INQ)
- #define lmp_esco_capable(dev)      ((dev)->features[0][3] & LMP_ESCO)
- #define lmp_bredr_capable(dev)     (!((dev)->features[0][4] & LMP_NO_BREDR))
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index c6dec3c82f760f..a9b60eeec6250e 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -3583,42 +3583,27 @@ static void __check_timeout(struct hci_dev *hdev, unsigned int cnt, u8 type)
- }
- 
- /* Schedule SCO */
--static void hci_sched_sco(struct hci_dev *hdev)
-+static void hci_sched_sco(struct hci_dev *hdev, __u8 type)
- {
- 	struct hci_conn *conn;
- 	struct sk_buff *skb;
--	int quote;
-+	int quote, *cnt;
-+	unsigned int pkts = hdev->sco_pkts;
- 
--	BT_DBG("%s", hdev->name);
-+	bt_dev_dbg(hdev, "type %u", type);
- 
--	if (!hci_conn_num(hdev, SCO_LINK))
-+	if (!hci_conn_num(hdev, type) || !pkts)
- 		return;
- 
--	while (hdev->sco_cnt && (conn = hci_low_sent(hdev, SCO_LINK, &quote))) {
--		while (quote-- && (skb = skb_dequeue(&conn->data_q))) {
--			BT_DBG("skb %p len %d", skb, skb->len);
--			hci_send_frame(hdev, skb);
--
--			conn->sent++;
--			if (conn->sent == ~0)
--				conn->sent = 0;
--		}
--	}
--}
--
--static void hci_sched_esco(struct hci_dev *hdev)
--{
--	struct hci_conn *conn;
--	struct sk_buff *skb;
--	int quote;
--
--	BT_DBG("%s", hdev->name);
--
--	if (!hci_conn_num(hdev, ESCO_LINK))
--		return;
-+	/* Use sco_pkts if flow control has not been enabled which will limit
-+	 * the amount of buffer sent in a row.
-+	 */
-+	if (!hci_dev_test_flag(hdev, HCI_SCO_FLOWCTL))
-+		cnt = &pkts;
-+	else
-+		cnt = &hdev->sco_cnt;
- 
--	while (hdev->sco_cnt && (conn = hci_low_sent(hdev, ESCO_LINK,
--						     &quote))) {
-+	while (*cnt && (conn = hci_low_sent(hdev, type, &quote))) {
- 		while (quote-- && (skb = skb_dequeue(&conn->data_q))) {
- 			BT_DBG("skb %p len %d", skb, skb->len);
- 			hci_send_frame(hdev, skb);
-@@ -3626,8 +3611,17 @@ static void hci_sched_esco(struct hci_dev *hdev)
- 			conn->sent++;
- 			if (conn->sent == ~0)
- 				conn->sent = 0;
-+			(*cnt)--;
- 		}
- 	}
-+
-+	/* Rescheduled if all packets were sent and flow control is not enabled
-+	 * as there could be more packets queued that could not be sent and
-+	 * since no HCI_EV_NUM_COMP_PKTS event will be generated the reschedule
-+	 * needs to be forced.
-+	 */
-+	if (!pkts && !hci_dev_test_flag(hdev, HCI_SCO_FLOWCTL))
-+		queue_work(hdev->workqueue, &hdev->tx_work);
- }
- 
- static void hci_sched_acl_pkt(struct hci_dev *hdev)
-@@ -3663,8 +3657,8 @@ static void hci_sched_acl_pkt(struct hci_dev *hdev)
- 			chan->conn->sent++;
- 
- 			/* Send pending SCO packets right away */
--			hci_sched_sco(hdev);
--			hci_sched_esco(hdev);
-+			hci_sched_sco(hdev, SCO_LINK);
-+			hci_sched_sco(hdev, ESCO_LINK);
- 		}
- 	}
- 
-@@ -3785,8 +3779,8 @@ static void hci_sched_le(struct hci_dev *hdev)
- 			chan->conn->sent++;
- 
- 			/* Send pending SCO packets right away */
--			hci_sched_sco(hdev);
--			hci_sched_esco(hdev);
-+			hci_sched_sco(hdev, SCO_LINK);
-+			hci_sched_sco(hdev, ESCO_LINK);
- 		}
- 	}
- 
-@@ -3831,8 +3825,8 @@ static void hci_tx_work(struct work_struct *work)
- 
- 	if (!hci_dev_test_flag(hdev, HCI_USER_CHANNEL)) {
- 		/* Schedule queues and send stuff to HCI driver */
--		hci_sched_sco(hdev);
--		hci_sched_esco(hdev);
-+		hci_sched_sco(hdev, SCO_LINK);
-+		hci_sched_sco(hdev, ESCO_LINK);
- 		hci_sched_iso(hdev);
- 		hci_sched_acl(hdev);
- 		hci_sched_le(hdev);
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index d572ce3061cf92..7ece0f37fa341e 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -4459,9 +4459,11 @@ static void hci_num_comp_pkts_evt(struct hci_dev *hdev, void *data,
- 			break;
- 
- 		case SCO_LINK:
-+		case ESCO_LINK:
- 			hdev->sco_cnt += count;
- 			if (hdev->sco_cnt > hdev->sco_pkts)
- 				hdev->sco_cnt = hdev->sco_pkts;
-+
- 			break;
- 
- 		case ISO_LINK:
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 9e802d47965706..81c0589554a82c 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -3854,6 +3854,28 @@ static int hci_write_ca_timeout_sync(struct hci_dev *hdev)
- 				     sizeof(param), &param, HCI_CMD_TIMEOUT);
- }
- 
-+/* Enable SCO flow control if supported */
-+static int hci_write_sync_flowctl_sync(struct hci_dev *hdev)
-+{
-+	struct hci_cp_write_sync_flowctl cp;
-+	int err;
-+
-+	/* Check if the controller supports SCO and HCI_OP_WRITE_SYNC_FLOWCTL */
-+	if (!lmp_sco_capable(hdev) || !(hdev->commands[10] & BIT(4)) ||
-+	    !test_bit(HCI_QUIRK_SYNC_FLOWCTL_SUPPORTED, &hdev->quirks))
-+		return 0;
-+
-+	memset(&cp, 0, sizeof(cp));
-+	cp.enable = 0x01;
-+
-+	err = __hci_cmd_sync_status(hdev, HCI_OP_WRITE_SYNC_FLOWCTL,
-+				    sizeof(cp), &cp, HCI_CMD_TIMEOUT);
-+	if (!err)
-+		hci_dev_set_flag(hdev, HCI_SCO_FLOWCTL);
-+
-+	return err;
-+}
-+
- /* BR Controller init stage 2 command sequence */
- static const struct hci_init_stage br_init2[] = {
- 	/* HCI_OP_READ_BUFFER_SIZE */
-@@ -3872,6 +3894,8 @@ static const struct hci_init_stage br_init2[] = {
- 	HCI_INIT(hci_clear_event_filter_sync),
- 	/* HCI_OP_WRITE_CA_TIMEOUT */
- 	HCI_INIT(hci_write_ca_timeout_sync),
-+	/* HCI_OP_WRITE_SYNC_FLOWCTL */
-+	HCI_INIT(hci_write_sync_flowctl_sync),
- 	{}
- };
- 
--- 
-2.53.0
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalgxFgAKCRDZQZRRKWBy
+9Dh4AQCTKUlNcYoVspmnfPi3kRDiedLAR04fgYSBHBeC17x6BQEA2KPgwYaGAl39
+qG4Hzu4Df7JcnRfEiS0whfRNWQzYewQ=
+=gnTg
+-----END PGP SIGNATURE-----
+
+--=-Mck6WrMHKU/Fcl8cNGIP--
