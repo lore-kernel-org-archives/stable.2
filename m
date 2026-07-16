@@ -1,74 +1,323 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CDFB38F24F;
-	Thu, 16 Jul 2026 16:53:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7EB38C43A
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 16:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784220800; cv=none; b=idZsH1LFxwCfH59ShoMrexPhhb0JeSQh0qy3ZSxcsvEjGSmdt+I6lNe58/jjCu86eDNqU1w1hw8otgWsZ2hpQJDDNgmDu01qjblqI+oikWf/ya6vvRhHQcZho9p9l3hIYPs6kCN9q8R1rsdko8AfH8O4vhPnC4cCn7H2xTiomRk=
+	t=1784221146; cv=none; b=jQN0hQdW7xsIZyyE5JFYNK4UP3+NWHCPCwbcVYrC+hfMiHcT5ql78q7JZYq/zcUYS7VbBJAbnJW/BOidYLjp5nPaKpTW8M+AWLXcBxigMU/w/mRA5brI2aryTgoAfN4YN/+kw2FZ2TmhvMKaEsf8p4n8WeMW3YjaPPrBfXSVeFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784220800; c=relaxed/simple;
-	bh=rRL3aDuoPxiaKhqeD5yE4i1nBA5bgyn2hTSGJZykS54=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=DsQRQ9V689pV3cRYxBE40bg9kic2NT5z3zx15TPTbhda83nCYKYVKZBYJK/LuyR6VhF1CMAoevzT0jlVof5708Fn0TYab5jItuZMARSFtFAA5X1E9zkT6CQBWGN4YHMyCX+lpDRrMZPYdXqRU40lWJIqz+BKtQqnffuG4c0JLBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FcTXFE11; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784221146; c=relaxed/simple;
+	bh=XVHqSpPCL01vfdk7xLS2Vp3wcICt+acU/LxE2OyEoaE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fQfP3DcdocGO9RWxxBt5YYc8Q7bz5NTuEQ6YpLMAmSEuTMqftLiWeudVrqknN/BrZKIyF2xaqOJzKqHlhjFm7mBx0QGEY8juj9lrHjYB26YHnNmF5pirwL64bPHe/gRVlY6BgTo+nThVFwl6jZGxDtK+QESeSigiHLFpWAa0xWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DLTCobAt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FcTXFE11"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985E91F000E9;
-	Thu, 16 Jul 2026 16:53:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DLTCobAt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 470CB1F00A3A;
+	Thu, 16 Jul 2026 16:58:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784220798;
-	bh=UguD3qkiJGbI87+Av0EcwBEa3lW7uKxy+m4ANw9z4Qc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=FcTXFE114d+ckzWIzEadZ0UB7Qt6lqvotoY/ZaRtji6g8wBAUuP06MLc/mNM4IVBp
-	 pcBQTywfaE8/6I8xQPlz6jZk3RzLqY1rEIhnFjy1U/Chtt6VWCND5/+vN8+SJV5rZq
-	 jP1gwivXKrHHVWFmfU+15k2zo3SccPCStu9bKmfgFFJMsad4vRFJz1rEt2KwBRJGK4
-	 bSkyWZslIVrg0Q7VYMTeYOUnc+Ovv5kBkOefUwP77bhR/S/mz5ET+D4uOB3t3rwe30
-	 Z19iBmCNwenclpfbj9JmyPapSK559XeCYLUGk0PgyRVh0rvJyklHINPUp26XcT8PIn
-	 bSQqDaY2q1IcQ==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Kevin Xie <kevin.xie@starfivetech.com>, 
- Ali Tariq <alitariq45892@gmail.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Markus Elfring <Markus.Elfring@web.de>, stable@vger.kernel.org
-In-Reply-To: <20260716102053.185276-1-alitariq45892@gmail.com>
-References: <20260716102053.185276-1-alitariq45892@gmail.com>
-Subject: Re: [PATCH v3] PCI: starfive: Fix resource leaks on error paths in
- host_init()
-Message-Id: <178422079520.175592.708202335281352614.b4-ty@b4>
-Date: Thu, 16 Jul 2026 18:53:15 +0200
+	s=k20260515; t=1784221139;
+	bh=aq4SVOnKV0SaUkmXuAzQ0mS6/fjZXD12JJfSiIDG5xg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DLTCobAtQxS+32Wj52cKCsfI+qfqIgxKi/VIluUWzz0uxWxUkxZK8zDgkVSCxHnXN
+	 UsBdwnJUQ6wAEVaAsTs+L6NoPxEB2ElTSyoHxFECGK1uarkcoYw4DdfyictGGq7gWX
+	 qpsLfRvdc4ugaHz4nE8F7S5BP6jfOGkWNZ4Byx9XTM0jV67MFRtFBU+hmh/0lPIbhI
+	 6Yd/aOslc1G51mLIC9YRwg+CaWuia3HFKHzLEfflDSZdiXYqcR3AyVNs/vB3XTmov5
+	 5xRbothab5zdA9SR2dwZ4CkLoRu6PQRVAKKGEl1NYcXFr9XUu2UyWcSx19I0kV85xN
+	 S1brIvfNf11BQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] proc: protect ptrace_may_access() with exec_update_lock (FD links)
+Date: Thu, 16 Jul 2026 12:58:56 -0400
+Message-ID: <20260716165856.683482-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260716165856.683482-1-sashal@kernel.org>
+References: <2026071446-vitality-excretion-f7c6@gregkh>
+ <20260716165856.683482-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.15.2
 
+From: Jann Horn <jannh@google.com>
 
-On Thu, 16 Jul 2026 15:20:53 +0500, Ali Tariq wrote:
-> starfive_pcie_host_init() acquires the PHY, clocks/resets, and an
-> optional regulator in sequence, but does not correctly unwind these
-> resources when a later step fails.
-> 
-> If starfive_pcie_clk_rst_init() fails after the PHY has already been
-> successfully enabled, the function returns directly without disabling
-> the PHY, leaking it and leaving it powered.
-> 
-> [...]
+[ Upstream commit 6255da28d4bb5349fe18e84cb043ccd394eba75d ]
 
-Applied, thanks!
+proc_pid_get_link() and proc_pid_readlink() currently look up the task from
+the pid once, then do the ptrace access check on that task, then look up
+the task from the pid a second time to do the actual access.
+That's racy in several ways.
 
-[1/1] PCI: starfive: Fix resource leaks on error paths in host_init()
-      commit: 22877a061f81c5d58041e384b3131684bec636b9
+To fix it, pass the task to the ->proc_get_link() handler, and instead of
+proc_fd_access_allowed(), introduce a new helper call_proc_get_link() that
+looks up and locks the task, does the access check, and calls
+->proc_get_link().
 
-Best regards,
+Fixes: 778c1144771f ("[PATCH] proc: Use sane permission checks on the /proc/<pid>/fd/ symlinks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jann Horn <jannh@google.com>
+Link: https://patch.msgid.link/20260518-procfs-lockfix-part1-v1-2-5c3d20e0ac33@google.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/proc/base.c     | 119 ++++++++++++++++++---------------------------
+ fs/proc/fd.c       |  27 +++++-----
+ fs/proc/internal.h |   2 +-
+ 3 files changed, 59 insertions(+), 89 deletions(-)
+
+diff --git a/fs/proc/base.c b/fs/proc/base.c
+index 2c32cf455fcfc7..8529a94c1c6cb8 100644
+--- a/fs/proc/base.c
++++ b/fs/proc/base.c
+@@ -218,33 +218,24 @@ static int get_task_root(struct task_struct *task, struct path *root)
+ 	return result;
+ }
+ 
+-static int proc_cwd_link(struct dentry *dentry, struct path *path)
++static int proc_cwd_link(struct dentry *dentry, struct path *path,
++			 struct task_struct *task)
+ {
+-	struct task_struct *task = get_proc_task(d_inode(dentry));
+ 	int result = -ENOENT;
+ 
+-	if (task) {
+-		task_lock(task);
+-		if (task->fs) {
+-			get_fs_pwd(task->fs, path);
+-			result = 0;
+-		}
+-		task_unlock(task);
+-		put_task_struct(task);
++	task_lock(task);
++	if (task->fs) {
++		get_fs_pwd(task->fs, path);
++		result = 0;
+ 	}
++	task_unlock(task);
+ 	return result;
+ }
+ 
+-static int proc_root_link(struct dentry *dentry, struct path *path)
++static int proc_root_link(struct dentry *dentry, struct path *path,
++			  struct task_struct *task)
+ {
+-	struct task_struct *task = get_proc_task(d_inode(dentry));
+-	int result = -ENOENT;
+-
+-	if (task) {
+-		result = get_task_root(task, path);
+-		put_task_struct(task);
+-	}
+-	return result;
++	return get_task_root(task, path);
+ }
+ 
+ /*
+@@ -704,23 +695,6 @@ static int proc_pid_syscall(struct seq_file *m, struct pid_namespace *ns,
+ /*                       Here the fs part begins                        */
+ /************************************************************************/
+ 
+-/* permission checks */
+-static bool proc_fd_access_allowed(struct inode *inode)
+-{
+-	struct task_struct *task;
+-	bool allowed = false;
+-	/* Allow access to a task's file descriptors if it is us or we
+-	 * may use ptrace attach to the process and find out that
+-	 * information.
+-	 */
+-	task = get_proc_task(inode);
+-	if (task) {
+-		allowed = ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS);
+-		put_task_struct(task);
+-	}
+-	return allowed;
+-}
+-
+ int proc_nochmod_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct iattr *attr)
+ {
+@@ -1778,16 +1752,12 @@ static const struct file_operations proc_pid_set_comm_operations = {
+ 	.release	= single_release,
+ };
+ 
+-static int proc_exe_link(struct dentry *dentry, struct path *exe_path)
++static int proc_exe_link(struct dentry *dentry, struct path *exe_path,
++			 struct task_struct *task)
+ {
+-	struct task_struct *task;
+ 	struct file *exe_file;
+ 
+-	task = get_proc_task(d_inode(dentry));
+-	if (!task)
+-		return -ENOENT;
+ 	exe_file = get_task_exe_file(task);
+-	put_task_struct(task);
+ 	if (exe_file) {
+ 		*exe_path = exe_file->f_path;
+ 		path_get(&exe_file->f_path);
+@@ -1797,26 +1767,42 @@ static int proc_exe_link(struct dentry *dentry, struct path *exe_path)
+ 		return -ENOENT;
+ }
+ 
++static int call_proc_get_link(struct dentry *dentry, struct inode *inode, struct path *path_out)
++{
++	struct task_struct *task;
++	int ret;
++
++	task = get_proc_task(inode);
++	if (!task)
++		return -ENOENT;
++	ret = down_read_killable(&task->signal->exec_update_lock);
++	if (ret)
++		goto out_put_task;
++	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS)) {
++		ret = -EACCES;
++		goto out;
++	}
++	ret = PROC_I(inode)->op.proc_get_link(dentry, path_out, task);
++
++out:
++	up_read(&task->signal->exec_update_lock);
++out_put_task:
++	put_task_struct(task);
++	return ret;
++}
++
+ static const char *proc_pid_get_link(struct dentry *dentry,
+ 				     struct inode *inode,
+ 				     struct delayed_call *done)
+ {
+ 	struct path path;
+-	int error = -EACCES;
++	int error;
+ 
+ 	if (!dentry)
+ 		return ERR_PTR(-ECHILD);
+-
+-	/* Are we allowed to snoop on the tasks file descriptors? */
+-	if (!proc_fd_access_allowed(inode))
+-		goto out;
+-
+-	error = PROC_I(inode)->op.proc_get_link(dentry, &path);
+-	if (error)
+-		goto out;
+-
+-	error = nd_jump_link(&path);
+-out:
++	error = call_proc_get_link(dentry, inode, &path);
++	if (!error)
++		error = nd_jump_link(&path);
+ 	return ERR_PTR(error);
+ }
+ 
+@@ -1850,17 +1836,11 @@ static int proc_pid_readlink(struct dentry * dentry, char __user * buffer, int b
+ 	struct inode *inode = d_inode(dentry);
+ 	struct path path;
+ 
+-	/* Are we allowed to snoop on the tasks file descriptors? */
+-	if (!proc_fd_access_allowed(inode))
+-		goto out;
+-
+-	error = PROC_I(inode)->op.proc_get_link(dentry, &path);
+-	if (error)
+-		goto out;
+-
+-	error = do_proc_readlink(&path, buffer, buflen);
+-	path_put(&path);
+-out:
++	error = call_proc_get_link(dentry, inode, &path);
++	if (!error) {
++		error = do_proc_readlink(&path, buffer, buflen);
++		path_put(&path);
++	}
+ 	return error;
+ }
+ 
+@@ -2248,21 +2228,16 @@ static const struct dentry_operations tid_map_files_dentry_operations = {
+ 	.d_delete	= pid_delete_dentry,
+ };
+ 
+-static int map_files_get_link(struct dentry *dentry, struct path *path)
++static int map_files_get_link(struct dentry *dentry, struct path *path,
++			      struct task_struct *task)
+ {
+ 	unsigned long vm_start, vm_end;
+ 	struct vm_area_struct *vma;
+-	struct task_struct *task;
+ 	struct mm_struct *mm;
+ 	int rc;
+ 
+ 	rc = -ENOENT;
+-	task = get_proc_task(d_inode(dentry));
+-	if (!task)
+-		goto out;
+-
+ 	mm = get_task_mm(task);
+-	put_task_struct(task);
+ 	if (!mm)
+ 		goto out;
+ 
+diff --git a/fs/proc/fd.c b/fs/proc/fd.c
+index 361833920c1836..ab37819bc87538 100644
+--- a/fs/proc/fd.c
++++ b/fs/proc/fd.c
+@@ -172,24 +172,19 @@ static const struct dentry_operations tid_fd_dentry_operations = {
+ 	.d_delete	= pid_delete_dentry,
+ };
+ 
+-static int proc_fd_link(struct dentry *dentry, struct path *path)
++static int proc_fd_link(struct dentry *dentry, struct path *path,
++			struct task_struct *task)
+ {
+-	struct task_struct *task;
+ 	int ret = -ENOENT;
+-
+-	task = get_proc_task(d_inode(dentry));
+-	if (task) {
+-		unsigned int fd = proc_fd(d_inode(dentry));
+-		struct file *fd_file;
+-
+-		fd_file = fget_task(task, fd);
+-		if (fd_file) {
+-			*path = fd_file->f_path;
+-			path_get(&fd_file->f_path);
+-			ret = 0;
+-			fput(fd_file);
+-		}
+-		put_task_struct(task);
++	unsigned int fd = proc_fd(d_inode(dentry));
++	struct file *fd_file;
++
++	fd_file = fget_task(task, fd);
++	if (fd_file) {
++		*path = fd_file->f_path;
++		path_get(&fd_file->f_path);
++		ret = 0;
++		fput(fd_file);
+ 	}
+ 
+ 	return ret;
+diff --git a/fs/proc/internal.h b/fs/proc/internal.h
+index 16b1d968edfabc..b902ba0ebe9cf3 100644
+--- a/fs/proc/internal.h
++++ b/fs/proc/internal.h
+@@ -107,7 +107,7 @@ extern struct kmem_cache *proc_dir_entry_cache;
+ void pde_free(struct proc_dir_entry *pde);
+ 
+ union proc_op {
+-	int (*proc_get_link)(struct dentry *, struct path *);
++	int (*proc_get_link)(struct dentry *, struct path *, struct task_struct *);
+ 	int (*proc_show)(struct seq_file *m,
+ 		struct pid_namespace *ns, struct pid *pid,
+ 		struct task_struct *task);
 -- 
-மணிவண்ணன் சதாசிவம்
-
+2.53.0
 
