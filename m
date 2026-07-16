@@ -1,272 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC0941BA6F
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770A541BA86;
+	Thu, 16 Jul 2026 11:39:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784201932; cv=none; b=g5Prn7aW+i6ufIbHCDwC0XVxuMglfhvYypkv49uUfR6kOQN6HnZ86sXQHrS3VBtYSZ4v+DgJIqpPm6xhcbgBlOHijuREMxdQtCQ/h2woS8tU1lTeRUud/RoggKYJFY349X6YcubjiMJ+Bz10z2thVBcrI8kOfRCqeVeGwofVpNU=
+	t=1784201963; cv=none; b=VrhprYOFFhc5d+rvtckaWdqFtmrAeOJV5AyXSUSBcgiJ0tjMnF0Op0+6x0pmmT2PxHQHCxc3eN+4LaBWCyQosUoG3NwHER1+Aca7yWCT8IyNKFWKmhKnx3Q1whp0NVGoTOZlG7NmJltLq97c32ChpslJPpgf/nkLjOSqnnbkot8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784201932; c=relaxed/simple;
-	bh=MYoKSrgmVaNzPOJv49M8mYRzxngSusZnVmPplKn0GC0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CcZoBgCnwjcCmcsq5Z07+S5ClxSyH5Lm9nMMheBR2kRtJE00gMCwxljyHPvGzQr/DF6xP2mubNz/05glqSyDNsN+PbhuK/toGoxbVC0DnVGS6dvMTXTm0iHZq19QJd3NCEjTBK2ZGv9jGgF+Gjz0UCI0q9BYW1ChXf68Nt/d+0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UmzQdmgP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784201963; c=relaxed/simple;
+	bh=xhvo0TssXigBZEtmj8shKdLhEgk1c6KWckqcsGkEVRA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hnGdzAEqjbM9oE3y0F9i7QcdkA3qrCfo5TMnuy3OLOMFrik5mAmQ2eI18V0yjjYxxhe7X/aAaz3fvmWVb0N/QEJWPJts8hMW1Fk6zdnCukLAK/fnyLtA3LJaz56grYo7ALwzGQE/4M+ds+tmf33nRkQdyFmsCPq0OOXdoQ6D0Z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tencent.com; spf=pass smtp.mailfrom=tencent.com; dkim=pass (1024-bit key) header.d=tencent.com header.i=@tencent.com header.b=lZOJpPFu; arc=none smtp.client-ip=18.132.163.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tencent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tencent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UmzQdmgP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBB401F000E9;
-	Thu, 16 Jul 2026 11:38:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784201928;
-	bh=xaLR5eihh6jcw3EOGNh3AHvnnBJKhbimTHRACnMbTSQ=;
-	h=Subject:To:Cc:From:Date;
-	b=UmzQdmgPGJuQsIWojIFxUCckGVS2DkBWnG3iz15w8/uPjhKpU7N6mvnVW9z7Q1dl0
-	 rEZKg2joilAu/fvBrpQyIozSzhimTrQciWmhHdw1UP4IweRtIVJ49+p6wkH1gOtsVR
-	 ClDhKc41v/bDJo3RP0JVnFQuOkkbw89dyv06Podg=
-Subject: FAILED: patch "[PATCH] selftests/landlock: Increase default audit socket timeout" failed to apply to 6.18-stable tree
-To: mic@digikod.net,gnoack3000@gmail.com,gnoack@google.com,oliver.sang@intel.com,thomas.weissschuh@linutronix.de
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 13:38:41 +0200
-Message-ID: <2026071641-mumbling-antelope-1f0e@gregkh>
+	dkim=pass (1024-bit key) header.d=tencent.com header.i=@tencent.com header.b="lZOJpPFu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tencent.com;
+	s=s201512; t=1784201949;
+	bh=tXkMwg9Ltdv9kC1EmbDQ6kbQY/ZIImE6dQ3kuFrs3do=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=lZOJpPFu1MFR/JC8z+Npj0y6F7Zzt3kEIRVcRZngn6dyNnu2OuKZTCC/sy5NDSrlF
+	 VDfCAI8r72X3N2mcl9DvH5DVqunb0al7a/jlX8dDYoHuX8IfnrgFv0eB14Ew+cLv1y
+	 51jCg2Yf8v9nI3lfP7JKYLMzZIMugzDeteX5DXbQ=
+X-QQ-mid: esmtpgz14t1784201948te6fea8b8
+X-QQ-Originating-IP: 3KJDf4wvd+SARAxlsRTdD/N9bosazwthnDKhH80Xl5c=
+Received: from JUNVYYANG-MC1.tencent.com ( [21.36.98.78])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 16 Jul 2026 19:39:06 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 11546903899262708686
+X-QQ-CSender: aigbot@tencent.com
+Sender: aigbot@tencent.com
+From: "=?gb18030?B?1uzIuMC2vvxBSUdCb3TTys/k?=" <aigbot@tencent.com>
+To: netdev@vger.kernel.org
+Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-sctp@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@kernel.org,
+	Jun Yang <junvyyang@tencent.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] sctp: don't free the ASCONF's own transport in DEL-IP processing
+Date: Thu, 16 Jul 2026 19:39:04 +0800
+Message-ID: <64BCFE010EC8ABF4+20260716113904.33080-1-junvyyang@tencent.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:tencent.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NUTz4BkILuKLphSou9uUGeLyGG0ftyhAepKiKSYydMvLCev82HHq8NCm
+	1UwmDtsZAq8Qcvpj9mMLhJMHRKHclJcsd0ZPZwZTEOZ3FfSnG29gozzRXjJLBoCMpWf9F4J
+	ryVjSmJuCUwKd1mUJdFx81bou+QisaAja9UJZFpRznkUqpmGECoCDjKwWqaiPyJ6GS8kUHF
+	TDfQv8fg/QbSa5PjWtbonuQkfXfZHL6cbBd9tPkLEnpuUR7i3KxIOmGM4CYxEpuyCAd40Ky
+	3sk0PFMyzPsEUTvJsB/AtJER5BM/lDJB3mSr4Lg9x1Ut+hrv8mkncNzIKsZoAQBcqxqtE22
+	6K9ducaVqph/pWAMn9W/X7NR0y25MO3CUVUIJys/BChaZoGQM916bXyzAIG1cVXJq7XMCnK
+	UZPhh241G4+T9IuBRc334qQ2+yDoABNJVlG+eFXTK4InIAOCQF2GzQr6ujLalpHsWxLPqj1
+	QP7nueaQF1unZV2QcgY0CFzFeuU4FWIREr7VcFSweqkpcqN8/RKBtSMMs74FD9cZ+caLHiw
+	Q5weVy9hwJl6iVkQ86oHxxJLoyTGGtOz1X5b8TkZqd+CFKUx+vdnpAWkqnVYeRCmLf78pME
+	1YLeUPYYMQBiswxAC1g3ryCxsKyGmL+ngGYBscIy9HE75ct0rD7lSqRob5tYoEGnSORY5NK
+	xQsGvOxTsgCP8sn41bsqylM/Cz73BTMRm/o5qJPkQlmBIxtek8zNEWDVBrR2v3sElG8NjfW
+	tnKlyzLGoNt7Zb2RC+ZRgSpKPRRCLL57XF8wbPRs+sNlPgvSoBIQgr6ThQE1nBKsKgGuTuQ
+	wfa6ZnTE+fx2Lwx2EbqMDX3ti71+8YweDbualgnnO5EzVr1vfn4QxX96k8l42RoGx5DOQ0y
+	/24Dhuu/pCKwckGba4twin2lluQk0rtiL5e54kJOUTtZ5UDMvIFSPy32iahc6gOvCzIZ1Jp
+	bHUx6ArUpyVn6iGoz0N44NtveLx2VxvHX8+J06qho42Pm4AqjMPPTCjGwKfGaoSo7w2yp8E
+	POaEfArux64OZrCHhiEbkn535I7a75s7vwU5u4MQ==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
+sctp_process_asconf() caches the transport the ASCONF chunk is processed
+against in asconf->transport (== chunk->transport, set once in sctp_rcv()).
+For an ASCONF located through its Address Parameter by
+__sctp_rcv_asconf_lookup(), that cached transport corresponds to the
+Address Parameter, which need not be the packet's source address.
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+sctp_process_asconf_param() rejects a DEL-IP for the packet source address
+(ADDIP D8, SCTP_ERROR_DEL_SRC_IP), but nothing protects asconf->transport.
+A single ASCONF can therefore carry, in order:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+    [Address Parameter L] [DEL-IP L] [DEL-IP 0.0.0.0]
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x d8dfb4c7faa87c3e41a8678f38f136c2c7c036fa
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071641-mumbling-antelope-1f0e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+where L differs from the source. The DEL-IP for L passes the D8 check and
+calls sctp_assoc_rm_peer() on the transport that asconf->transport still
+points at, freeing it (RCU-deferred). The following wildcard DEL-IP then
+reuses the now-dangling asconf->transport in sctp_assoc_set_primary() and
+sctp_assoc_del_nonprimary_peers(): set_primary() dereferences the freed
+transport (->ipaddr, ->state) and plants the dangling pointer into
+asoc->peer.primary_path / active_path, and del_nonprimary_peers(), keeping
+only the pointer that is no longer on the list, removes every real
+transport, leaving the association with a transport_count of 0 and
+primary_path/active_path pointing at freed memory.
 
-Possible dependencies:
+Reject a DEL-IP that targets the transport the ASCONF is being processed
+against, mirroring the existing source-address guard, so the wildcard
+branch can never reuse a freed transport.
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From d8dfb4c7faa87c3e41a8678f38f136c2c7c036fa Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Date: Wed, 13 May 2026 12:51:09 +0200
-Subject: [PATCH] selftests/landlock: Increase default audit socket timeout
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-matches_log_fs() and other audit_match_record() callers intermittently
-return -EAGAIN under heavy debug configs (KASAN, lockdep).  The audit
-record delivery pipeline is asynchronous: landlock_log_denial() queues
-the record to audit_queue, and kauditd_thread dequeues and delivers via
-netlink.  Under debug configs, kauditd scheduling between
-audit_log_end() and netlink_unicast() can exceed a syscall round trip
-(more than 1 usec), which was the value of the socket timeout used for
-the recvfrom() calls.
-
-The observed failure [1] is an EAGAIN error code (-11) which means that
-the access record had not arrived within the 1 usec timeout of
-recvfrom().  The expected record does arrive, but only after
-matches_log_fs() has already returned.  It is then consumed by a later
-audit_count_records() call, making records.access == 1 instead of 0.
-
-Switch the default socket timeout to the slow value (1 second) so all
-audit_match_record() callers wait long enough for kauditd delivery, and
-lower it to the fast value (1 usec) only on the two paths that expect no
-record: audit_count_records() and the expected_domain_id == 0 probe in
-matches_log_domain_deallocated().  audit_init() drains stale records
-with the fast timeout (terminating on -EAGAIN once the backlog is empty)
-and switches to the patient default before returning.  1 second gives
-~10x margin over the observed maximum (~100 ms, while the happy path is
-~23 us).
-
-Rename the timeval constants to reflect their new roles:
-- audit_tv_dom_drop (1 second) -> audit_tv_default: default socket
-  timeout, patient enough for asynchronous kauditd delivery.
-- audit_tv_default (1 usec) -> audit_tv_fast: fast timeout for paths
-  that expect no record (drain, audit_count_records(), probes).
-
-Invert the conditional in matches_log_domain_deallocated().  Check
-setsockopt returns on both the lower and restore paths; preserve the
-first error via !err when the restore fails after a prior error so the
-actionable return code is not masked by a bookkeeping failure.
-
-Cc: Günther Noack <gnoack@google.com>
-Cc: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Fixes: 42e30bf3463c ("[SCTP]: Handle the wildcard ADD-IP Address parameter")
 Cc: stable@vger.kernel.org
-Depends-on: 07c2572a8757 ("selftests/landlock: Skip stale records in audit_match_record()")
-Fixes: 6a500b22971c ("selftests/landlock: Add tests for audit flags and domain IDs")
-Reported-by: Günther Noack <gnoack3000@gmail.com>
-Closes: https://lore.kernel.org/r/20260402.eb5c4e85f472@gnoack.org [1]
-Reported-by: kernel test robot <oliver.sang@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202605111649.a8b30a62-lkp@intel.com
-Closes: https://lore.kernel.org/oe-lkp/202604300436.a07fae12-lkp@intel.com
-Tested-by: Günther Noack <gnoack3000@gmail.com>
-Link: https://patch.msgid.link/20260513105112.140137-2-mic@digikod.net
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Signed-off-by: Jun Yang <junvyyang@tencent.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+---
+v2: add [net] subject prefix to target the net tree.
 
-diff --git a/tools/testing/selftests/landlock/audit.h b/tools/testing/selftests/landlock/audit.h
-index 699aed5ffab4..936fe20f020e 100644
---- a/tools/testing/selftests/landlock/audit.h
-+++ b/tools/testing/selftests/landlock/audit.h
-@@ -45,17 +45,25 @@ struct audit_message {
- 	};
- };
- 
--static const struct timeval audit_tv_dom_drop = {
-+static const struct timeval audit_tv_default = {
- 	/*
--	 * Because domain deallocation is tied to asynchronous credential
--	 * freeing, receiving such event may take some time.  In practice,
--	 * on a small VM, it should not exceed 100k usec, but let's wait up
--	 * to 1 second to be safe.
-+	 * Default socket timeout for audit_match_record() callers that expect a
-+	 * record to arrive.  Asynchronous kauditd delivery can exceed 1 usec
-+	 * under heavy debug configs (KASAN, lockdep), where kauditd_thread
-+	 * scheduling between audit_log_end() and netlink_unicast() takes longer
-+	 * than the previous 1 usec timeout. 1 second is a generous ceiling: on
-+	 * the happy path, kauditd delivers within dozens of usec.
- 	 */
- 	.tv_sec = 1,
- };
- 
--static const struct timeval audit_tv_default = {
-+static const struct timeval audit_tv_fast = {
-+	/*
-+	 * Fast timeout for paths that expect no record (audit_init() drain,
-+	 * audit_count_records(), probes).  Causes audit_recv() to return
-+	 * -EAGAIN once the socket buffer is empty, naturally terminating the
-+	 * read loop.
-+	 */
- 	.tv_usec = 1,
- };
- 
-@@ -334,8 +342,13 @@ static int __maybe_unused matches_log_domain_allocated(int audit_fd, pid_t pid,
-  * Matches a domain deallocation record.  When expected_domain_id is non-zero,
-  * the pattern includes the specific domain ID so that stale deallocation
-  * records from a previous test (with a different domain ID) are skipped by
-- * audit_match_record(), and the socket timeout is temporarily increased to
-- * audit_tv_dom_drop to wait for the asynchronous kworker deallocation.
-+ * audit_match_record(), waiting for the asynchronous kworker deallocation with
-+ * the default patient timeout.
-+ *
-+ * When expected_domain_id is zero, the caller is probing for any dealloc record
-+ * that may or may not arrive.  Temporarily lowers the socket timeout to
-+ * audit_tv_fast for this probe so it returns promptly when no record is
-+ * pending; restores audit_tv_default after.
-  */
- static int __maybe_unused
- matches_log_domain_deallocated(int audit_fd, unsigned int num_denials,
-@@ -361,16 +374,21 @@ matches_log_domain_deallocated(int audit_fd, unsigned int num_denials,
- 	if (log_match_len >= sizeof(log_match))
- 		return -E2BIG;
- 
--	if (expected_domain_id)
--		setsockopt(audit_fd, SOL_SOCKET, SO_RCVTIMEO,
--			   &audit_tv_dom_drop, sizeof(audit_tv_dom_drop));
-+	if (!expected_domain_id) {
-+		if (setsockopt(audit_fd, SOL_SOCKET, SO_RCVTIMEO,
-+			       &audit_tv_fast, sizeof(audit_tv_fast)))
-+			return -errno;
-+	}
- 
- 	err = audit_match_record(audit_fd, AUDIT_LANDLOCK_DOMAIN, log_match,
- 				 domain_id);
- 
--	if (expected_domain_id)
--		setsockopt(audit_fd, SOL_SOCKET, SO_RCVTIMEO, &audit_tv_default,
--			   sizeof(audit_tv_default));
-+	if (!expected_domain_id) {
-+		if (setsockopt(audit_fd, SOL_SOCKET, SO_RCVTIMEO,
-+			       &audit_tv_default, sizeof(audit_tv_default)) &&
-+		    !err)
-+			err = -errno;
-+	}
- 
- 	return err;
- }
-@@ -387,6 +405,11 @@ struct audit_records {
-  * audit_init() and after the preceding audit_match_record() call.  Allocation
-  * records are emitted synchronously during landlock_log_denial() in the current
-  * test's syscall context, so only those are counted in records->domain.
-+ *
-+ * Temporarily lowers SO_RCVTIMEO to audit_tv_fast for the read loop: this is a
-+ * "no record expected" path that should terminate on the first -EAGAIN.  The
-+ * default patient timeout is restored on exit for subsequent
-+ * audit_match_record() callers.
-  */
- static int audit_count_records(int audit_fd, struct audit_records *records)
- {
-@@ -403,6 +426,12 @@ static int audit_count_records(int audit_fd, struct audit_records *records)
- 	records->access = 0;
- 	records->domain = 0;
- 
-+	if (setsockopt(audit_fd, SOL_SOCKET, SO_RCVTIMEO, &audit_tv_fast,
-+		       sizeof(audit_tv_fast))) {
-+		err = -errno;
-+		goto out;
-+	}
-+
- 	do {
- 		memset(&msg, 0, sizeof(msg));
- 		err = audit_recv(audit_fd, &msg);
-@@ -429,6 +458,10 @@ static int audit_count_records(int audit_fd, struct audit_records *records)
- 	} while (true);
- 
- out:
-+	if (setsockopt(audit_fd, SOL_SOCKET, SO_RCVTIMEO, &audit_tv_default,
-+		       sizeof(audit_tv_default)) &&
-+	    !err)
-+		err = -errno;
- 	regfree(&dealloc_re);
- 	return err;
- }
-@@ -449,9 +482,9 @@ static int audit_init(void)
- 	if (err)
- 		goto err_close;
- 
--	/* Sets a timeout for negative tests. */
--	err = setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &audit_tv_default,
--			 sizeof(audit_tv_default));
-+	/* Uses the fast timeout to drain stale records below. */
-+	err = setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &audit_tv_fast,
-+			 sizeof(audit_tv_fast));
- 	if (err) {
- 		err = -errno;
- 		goto err_close;
-@@ -467,6 +500,19 @@ static int audit_init(void)
- 	while (audit_recv(fd, NULL) == 0)
- 		;
- 
-+	/*
-+	 * Restores the default timeout for audit_match_record() callers that
-+	 * expect a record to arrive.  Paths that expect no record restore the
-+	 * fast timeout locally (audit_count_records(), the expected_domain_id
-+	 * == 0 probe in matches_log_domain_deallocated()).
-+	 */
-+	err = setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &audit_tv_default,
-+			 sizeof(audit_tv_default));
-+	if (err) {
-+		err = -errno;
-+		goto err_close;
-+	}
-+
- 	return fd;
- 
- err_close:
+ net/sctp/sm_make_chunk.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index 8adac9e0cd66..b14251214896 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -3153,6 +3153,12 @@ static __be16 sctp_process_asconf_param(struct sctp_association *asoc,
+ 		if (!peer)
+ 			return SCTP_ERROR_DNS_FAILED;
+
++		/* Don't free asconf->transport; a later wildcard DEL-IP
++		 * parameter reuses it.
++		 */
++		if (peer == asconf->transport)
++			return SCTP_ERROR_DEL_SRC_IP;
++
+ 		sctp_assoc_rm_peer(asoc, peer);
+ 		break;
+ 	case SCTP_PARAM_SET_PRIMARY:
+--
+2.55.0
