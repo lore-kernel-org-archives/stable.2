@@ -1,206 +1,121 @@
-Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com [209.85.221.74])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915BC4028F7
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 10:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB563F926B
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 10:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784197378; cv=none; b=HPpUx8/u+XKK6bvhtGEqsjNLs3y3tCiA45hhPsAdqqyTDyYein+9httKEGFxs+8etuPAtMktNcGyhvBXBUn+PciTrVYVtStATV663nL3kzkbQeCQnoHhNAUt28YbUjXIogncYBzK+ClHqvRmqexwTWboMEQYwQM3X0ze6yZDHVg=
+	t=1784197848; cv=none; b=PqQ9qMj21LW2UF8dhNYNYNe90EXjWEWZ0l/A8cF4SGsS+dgA6rZSpoTYet+OyJQYxgd4+grJ/nO7e5ftBGFIHyFS9RvlanT21CYHdueGRKmzpz9qUsPcoBMOjYsoMgWppRTjXXpnsBmhVoo3R+VVxQ10n6llFUX5719U+eq6JCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784197378; c=relaxed/simple;
-	bh=CEB7cSB5VZeuvZcE2U7qcb4DmzUSxIr4fcv6Fn/xfYs=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=SUMqDD1C9x55X23f7mao2p3pqWg5cC58ntyZrE+dLsyViy6zKw1o7KPE8eIpuCWL3InSppb5Nhz95kptQq125qQDptuAqvf0QRwTEfpA4BeCwYRzJTcGRSRlu0hlQG+zjnuDuCgYMUDMy5kgjDWCZK3CTdELbmguJF/yoIlx7Qs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eEeMxfUK; arc=none smtp.client-ip=209.85.221.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1784197848; c=relaxed/simple;
+	bh=jHxMxHF6q+AqqNr4U2IcpOC6OPKostUFnRX9P65WGs8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZlZGn7eYwLmUPFohxHoV0vxkRJtLtKGNhasZr6O+xwu8ynjVO+14qIkHzWX65vN4+Je4N68BXH7zZqp9Exw9w9vAGsxXTgyk1WII1TXud9eIvPcWC8tShkx6GmnhgRp7piEEuPdsRkc5TZ9iu6gh5pRpMJGkiv63VtdwZ6bOYkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=ZyY5NCGG; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eEeMxfUK"
-Received: by mail-wr1-f74.google.com with SMTP id ffacd0b85a97d-4629f312a67so5451498f8f.2
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 03:22:55 -0700 (PDT)
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="ZyY5NCGG"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493bfe9f886so35054575e9.0
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 03:30:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784197374; x=1784802174; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l4LZHVP1BW407EGuW6dnUL3Kfk1zeC5bbxSp3F5DgwI=;
-        b=eEeMxfUKZRFpGDwBA+/+75OMMPjtzk4qT9W7gqxyIV0c8QF5UvFLYJaYHfRM8NRMs5
-         W/T/FgIj4Gmouj7epNXI/5F/HSmavshBazBObcelfxHkDLCv+grNThUG+1Y9ppRoc79K
-         dEs0ZVUc4NIWG0FwCAlDOuvtuC2VMjrSulhTmOgjAK024VGkkcocCK/hPAr/EHHDjUH7
-         9KYQUW0akbBP2dugT0YnA9Rnf8kmTD1ADNCCa/GeHBUmvUuKoyMsmRTE+Dc1JJvaPNVP
-         ZqfNQ1aRRjRwaffDie4OPxzHg5CirByeyS/woNCkJV+5GtMYhll/CdaTpJnWMdELnPpM
-         ynnw==
+        d=0sec.ai; s=google; t=1784197845; x=1784802645; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gWJAyUbafyywGmXpBH2PyYDaC3fadnaJ7OKPoatVSfQ=;
+        b=ZyY5NCGGvLWYoPqJ1eloYg0DbLWDTV9g6Ds3lILfonOWeM8vrOi1P3hQINF7haqZ4s
+         v4fj6LG4SzMEdgke3YPtwQPZhYM8w+HkKzrGh06khYp3QBsWD6Ox6EQI6R8hiH/JKOEe
+         qtzLoQ3yq0qmklR3nugGvg1SOkecaxRNzdjrClY+Ui0pbxD02uIO9UG31jua4zc7WGlp
+         DrIKIRwnG3j3VUZfn7+T2fq4VAFMNdHZI84KsvWXflIBU3JOP/dhHx7eXCJHV+u6rdIC
+         vImB8AQioWFoAL3a6K+U8F3Ruv2m/+0pTn3HG+cpwqYc/vAXK7xNdUwTXReHomgr1HTJ
+         x61w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784197374; x=1784802174;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l4LZHVP1BW407EGuW6dnUL3Kfk1zeC5bbxSp3F5DgwI=;
-        b=W/mfUXiZ+VSYWrbvsns0NfJGpPFvLZgUwIaGGdnzi+AiqIntMC4AcNYJ6GWULbnQrK
-         9VfwD30mDteQEgmTiRVDiNRR+kHUxwx8vp+VJgCq+QO7/SN2evuBlXaw5ygVnmdwopVM
-         BynKcLqTieArJq1N2ekkcSIWdzEOs2DntS3C4H9+zkjFbEn3ajAHbjFVg+cusoW6xQHF
-         oYJK6lvHEWPx8w/u4W9UflOmiZlOFxMFvJ2/nGA32g5btOz21/N1MLhUmJ+GyTfJawU5
-         BjpxjpDtdWhnCqBkA+qbHam5ZMVrvmJRs2zaEHW6OyMhXHnZ1kW/dN3kvOLSTKzvTQ4Q
-         ir9Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrwzmUiO+Qa6ADD0Sbj/+ok4asLShD5ulsVAC6wMZEX9bDGzWQZnzh1J87axT0yWM1CZAQfr+g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwhGrS57NA2E4COTH7uIXrmSQSS2h4Hi0Mz6K5wl4WgrlZJSiU7
-	Lm8y/PfvkdKXqpARXsGJ6c6BURVzzbEWRrY6DUG3zRDt8Oo36Su/uxPvMatwRfqyjimLV2CMo0m
-	w3zeGvH0D/uEXkQti2Q==
-X-Received: from wrwa16.prod.google.com ([2002:a5d:53d0:0:b0:478:b7dc:65f])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a5d:64e5:0:b0:47e:81aa:3822 with SMTP id ffacd0b85a97d-47f4fd1fe44mr7437542f8f.42.1784197373274;
- Thu, 16 Jul 2026 03:22:53 -0700 (PDT)
-Date: Thu, 16 Jul 2026 10:22:43 +0000
+        d=1e100.net; s=20251104; t=1784197845; x=1784802645;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gWJAyUbafyywGmXpBH2PyYDaC3fadnaJ7OKPoatVSfQ=;
+        b=eo+bS9l27vEKi0aro5Ek3aQrcNt3m7lQ0gOrBMNwLZX+pdgVySADPi5TR9od7/fcj3
+         VauV2FVoEvQJDjlrsYVdtmhaGOMEfg2MHhoSW5ZUEkIzJ+dW7yZRltSdUJLQvowIuKzw
+         M41O/UEiic0hfqfxIXI8lUTco5P4wrk98G4rXgUPsL3OTyJ5ZcaH35LeZSGtGXxByHSo
+         QRPr9hosKl0pJbd8FCJ4nTtw6TxBsliDQ4HTrSWylLQdabH5VJxRcBhUW/Ll4RdpBYT3
+         EwPxL0H9SBuqH/P6rrjZbg1GF8CHstwB4l62IkcIuLrbKw2PwQFmW/45tO0g4UhkgB7g
+         wPCA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp87SgmaJvJv8waamUdcXnl5NKWL5MLHrO2L4Ygyd/acRVnswVl3GSqxd0sA5yagLzXIKF+LUM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzpZoGSDGfWp06MYbL59vAuVX8UIkiqO2RfO2nyTQVDgfhBZ9j6
+	SOs7/vWgkbsmOXzHzFTJm5DeAQEbldc8VrczDmfSenjY4n/B2aRRQCyi++bCLJVbPmFP
+X-Gm-Gg: AfdE7clNjpCAoWitEdhD6VU1zqr18RrubJU/2Vs4zod15y1YGhBnHpLoh8UHsr+4LRp
+	dIV2CR5Gs3L7GDuZ/kfvbzH79auMXsZjMOSf6pJIhyXl9zxSSslDAFQbPpGCuSWUaL8u5KjvUhV
+	6/+d4RGuQEVXj/8JUx2lKW5zpW34jJnUV4lJVmaJ4pHigA6+zyehc7JQdAeCuGY3CUdyv4s8d1u
+	i+lQd+eWgPUKPns0EeqTHrzhCu9xI81nRs4qxB0J9SRBRFbc6F2J91oZ/XeKWYmb9QAIIgyiW5I
+	BIdOGaVslE29Td7oA4dOtwDM3MttLJJgWUT78of49vA+SY88hu9SOPzKWO7QXCAe/XquzYvgN4y
+	o8AH9LhkKg8INP26+GtoZGihTaJjoQ1yMgm4UK6NWq4FoITo5BnFY3WDbdGf5lR9KcuMh353uB3
+	nFiqre8RpS90PX4LqvdxpEUN1xtjUTIQFz3OEzETOCjRbz7a17f3nX/i3hqM0ajlNrMJ+byLkdI
+	OwjhoKOwTaym3aE5QDRNv4z
+X-Received: by 2002:a05:600c:4fd3:b0:495:4593:bcb5 with SMTP id 5b1f17b1804b1-4954593bd26mr4811145e9.34.1784197845285;
+        Thu, 16 Jul 2026 03:30:45 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49541eb85dcsm49129325e9.12.2026.07.16.03.30.43
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 16 Jul 2026 03:30:44 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: briannorris@chromium.org
+Cc: francesco@dolcini.it,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: mwifiex: fix NULL dereference when the AP has HT-cap but no HT-oper
+Date: Thu, 16 Jul 2026 12:30:42 +0200
+Message-ID: <20260716103042.88469-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAPKwWGoC/x2MwQqAIBAFfyX23IJ6KOpXooNsr1ooDY0Ion9PO
- g7MzEMZSZGprx5KuDRrDAVsXZGsPixgnQqTM64xrW14KpKAz+R144xdJW4xsBXj4Dp4KzOV+Ei Y9f7Hw/i+H7ui3LFoAAAA
-X-Change-Id: 20260716-device-trail-semicolon-1c02e29ea1cf
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4264; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=CEB7cSB5VZeuvZcE2U7qcb4DmzUSxIr4fcv6Fn/xfYs=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqWLD1ZEdWyiv8/XGg2gs9Lu+iwlm/WL70pP1cZ
- /pV+LIAqbCJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCaliw9QAKCRAEWL7uWMY5
- Rk6jEACcW8b4A/RlINCpHGoMmXGQcgHokZ8vPjmXpT9qRxwwmJE83jpOLI+MPs584bexMND7BP0
- m4poFxC9crPBJcsIGBUepVSsjH61PFcD6nTLnP2EZTjeQY5LYrSWjq+n4uDee6kqQceqHiiq0nL
- wk8JXBN5ijd24PXxo4tonmxfVWiwCXkuBewwDNfiBrDoFTdDxB2bl+fQYglhz+8+Re8qSYanve+
- D1ONODxgnK6pNq1qh/hFlr1UisNsM8iuqTUdaxD1q7Szc7SkLNz/tyPiP+dmc8pZJ+OU+LHsRwF
- jm3H/mG9xzWkxIeMhNiBvbw4lqISgpgUv9tLcyjZtYTt92XrR5gzjgCJPbxlm4mxQbQg5mCoDh6
- 5Na2xrtLZXiziyI1t08go0olRltnhWq0tHgOrg26gw2contCSpehq0tQq5cZ1IRO0K6Zk1oIQkW
- YQWk0Thc0GdZoYZPtcQpD5Uaew4Vb7Cm+uPK9vhbAKls/nSsAVqLtYTd6g3hJ4FnFQcuvn2R9cj
- +PIrDAQdTywUe3s5uaupHRGQTie/QP9qhIrdv8VrLV/Coqk6jqpxshtWhHs0MHh3QdPZYUfwKza
- t2Qrv8MVTp0jCxigYYlcWjPAr34FiF1C38Mw6d6tZEo412IAQQuuJHR40wo480sUmovZH+IF4Cl FzbB+ES4KqcHlTg==
-X-Mailer: b4 0.14.3
-Message-ID: <20260716-device-trail-semicolon-v1-1-f48e9dcfae15@google.com>
-Subject: [PATCH] rust: device: avoid trailing ; in printing macros
-From: Alice Ryhl <aliceryhl@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>
-Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-These macros are used like expressions, so they should must not emit a
-semicolon. This is being turned into a hard error in a future release of
-Rust.
+mwifiex_tdls_add_ht_oper() gates its follow-the-AP-bandwidth path on
+bss_desc->bcn_ht_cap being present, but then dereferences a different
+pointer, bss_desc->bcn_ht_oper:
 
-error: trailing semicolon in macro used in expression position
-  --> drivers/gpu/nova-core/firmware/fsp.rs:79:34
-   |
-79 |                 .inspect_err(|_| dev_err!(dev, "FMC firmware missing '{}' section\n", name))
-   |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = warning: this was previously accepted by the compiler but is being phased out; it will become a hard error in a future release!
-   = note: for more information, see issue #79813 <https://github.com/rust-lang/rust/issues/79813>
-   = note: this error originates in the macro `dev_err` (in Nightly builds, run with -Z macro-backtrace for more info)
+	if (ISSUPP_CHANWIDTH40(priv->adapter->hw_dot_11n_dev_cap) &&
+	    bss_desc->bcn_ht_cap &&
+	    ISALLOWED_CHANWIDTH40(bss_desc->bcn_ht_oper->ht_param))
 
+bcn_ht_cap and bcn_ht_oper are populated independently while parsing the
+associated AP's beacon in mwifiex_update_bss_desc_with_ie(): an AP that
+advertises an HT Capabilities element but no HT Operation element leaves
+bcn_ht_cap non-NULL and bcn_ht_oper NULL. Setting up a TDLS link to a
+peer while associated to such an AP then dereferences the NULL
+bcn_ht_oper and crashes the kernel. Every other bcn_ht_oper user in the
+driver NULL-checks it first.
+
+Guard on the pointer that is actually dereferenced.
+
+Found by 0sec automated security-research tooling (https://0sec.ai).
+
+Fixes: 396939f94084 ("mwifiex: add HT operation IE in TDLS setup confirm")
 Cc: stable@vger.kernel.org
-Fixes: 5c7ca6fa603f ("rust: add `dev_*` print macros.")
-Link: https://github.com/rust-lang/rust/issues/79813
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+Assisted-by: 0sec:multi-model
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
- rust/kernel/device.rs | 20 +++++++++-----------
- 1 file changed, 9 insertions(+), 11 deletions(-)
+ drivers/net/wireless/marvell/mwifiex/tdls.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/rust/kernel/device.rs b/rust/kernel/device.rs
-index 645afc49a27d..1a38b3bbdfb7 100644
---- a/rust/kernel/device.rs
-+++ b/rust/kernel/device.rs
-@@ -708,9 +708,7 @@ macro_rules! impl_device_context_into_aref {
- #[macro_export]
- macro_rules! dev_printk {
-     ($method:ident, $dev:expr, $($f:tt)*) => {
--        {
--            $crate::device::Device::$method($dev.as_ref(), $crate::prelude::fmt!($($f)*))
--        }
-+        $crate::device::Device::$method($dev.as_ref(), $crate::prelude::fmt!($($f)*))
-     }
- }
+diff --git a/drivers/net/wireless/marvell/mwifiex/tdls.c b/drivers/net/wireless/marvell/mwifiex/tdls.c
+index 845f2a22e071..c71ffe8399e4 100644
+--- a/drivers/net/wireless/marvell/mwifiex/tdls.c
++++ b/drivers/net/wireless/marvell/mwifiex/tdls.c
+@@ -215,7 +215,7 @@ mwifiex_tdls_add_ht_oper(struct mwifiex_private *priv, const u8 *mac,
  
-@@ -737,7 +735,7 @@ macro_rules! dev_printk {
- /// ```
- #[macro_export]
- macro_rules! dev_emerg {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_emerg, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_emerg, $($f)*) }
- }
+ 	/* follow AP's channel bandwidth */
+ 	if (ISSUPP_CHANWIDTH40(priv->adapter->hw_dot_11n_dev_cap) &&
+-	    bss_desc->bcn_ht_cap &&
++	    bss_desc->bcn_ht_oper &&
+ 	    ISALLOWED_CHANWIDTH40(bss_desc->bcn_ht_oper->ht_param))
+ 		ht_oper->ht_param = bss_desc->bcn_ht_oper->ht_param;
  
- /// Prints an alert-level message (level 1) prefixed with device information.
-@@ -763,7 +761,7 @@ macro_rules! dev_emerg {
- /// ```
- #[macro_export]
- macro_rules! dev_alert {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_alert, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_alert, $($f)*) }
- }
- 
- /// Prints a critical-level message (level 2) prefixed with device information.
-@@ -789,7 +787,7 @@ macro_rules! dev_alert {
- /// ```
- #[macro_export]
- macro_rules! dev_crit {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_crit, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_crit, $($f)*) }
- }
- 
- /// Prints an error-level message (level 3) prefixed with device information.
-@@ -815,7 +813,7 @@ macro_rules! dev_crit {
- /// ```
- #[macro_export]
- macro_rules! dev_err {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_err, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_err, $($f)*) }
- }
- 
- /// Prints a warning-level message (level 4) prefixed with device information.
-@@ -841,7 +839,7 @@ macro_rules! dev_err {
- /// ```
- #[macro_export]
- macro_rules! dev_warn {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_warn, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_warn, $($f)*) }
- }
- 
- /// Prints a notice-level message (level 5) prefixed with device information.
-@@ -867,7 +865,7 @@ macro_rules! dev_warn {
- /// ```
- #[macro_export]
- macro_rules! dev_notice {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_notice, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_notice, $($f)*) }
- }
- 
- /// Prints an info-level message (level 6) prefixed with device information.
-@@ -893,7 +891,7 @@ macro_rules! dev_notice {
- /// ```
- #[macro_export]
- macro_rules! dev_info {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_info, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_info, $($f)*) }
- }
- 
- /// Prints a debug-level message (level 7) prefixed with device information.
-@@ -919,5 +917,5 @@ macro_rules! dev_info {
- /// ```
- #[macro_export]
- macro_rules! dev_dbg {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_dbg, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_dbg, $($f)*) }
- }
-
----
-base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-change-id: 20260716-device-trail-semicolon-1c02e29ea1cf
-
-Best regards,
 -- 
-Alice Ryhl <aliceryhl@google.com>
+2.43.0
 
