@@ -1,124 +1,150 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBC8435AA8
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 14:29:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784212149; cv=pass; b=qVpic+fzOOlbNyi3oR3TZ5/7hNyX6j9fdu+FJnmdUji/a6ZFLhfPZTWInK2LMv2gVdElemNz9wM0bR9V8R6nuTT7BbjRT8VpB2Kz/028cCTfh82m+l8kF6Fl20eiulSCedSxtlC2MpdT36nT1FLfW1CePuRvjN0UjespTXNRRA8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784212149; c=relaxed/simple;
-	bh=0EQNb5xuuVXTap9WsSSYcCI5990Gc5XWs1gKOF/9wiM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q8kzLvLqlG7RpM9DzKpnQUD8KgBKCrDeqm2dCzf8WutUKSG24M06Xv0Cuvp1AiDf4ZyVUdqH90Bcb9KCSlX0AoC7G/B3ik8eHVQUznJKuYcofo4LUhMnAIA6p7dBWMFjKHdcC0J08BKOkXaax2djpXryhwhQvFvmDKEK7RCt6cQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DXFrccJ+; arc=pass smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACDFD42FCD4;
+	Thu, 16 Jul 2026 14:29:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784212150; cv=none; b=gqIMR5rfzlNlbA8LG08OAN7tFkF+y6t7aFBxg3QIcx8Ggb3fzGSdhAiABjowGJSR80nCXmIJncEGoKbp2cEYkJdsgRHBz05PHlh3bASHufLKqDbXwY5IjMaSUwMr96P9Cdg+Hg4gKDQhY7+1WTU7aYV71FOBQj/bYNs/9goO47I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784212150; c=relaxed/simple;
+	bh=x4SWN3Zflv2sXCtHDHmgnrer88e6vOSA1vXnw/TYPFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=h3WgiZdRN24LG1Pou1sTGpdHX9g/7klpbxyMP5VT1WIaV59IMdDcvy1mxhHy7gFL44ZI1b/VwRJ9VViRfrMAOe8u82CvRxeMoCBQaSunFp7q9lkjVHmoEeXtFcIu27U9MiuLUOs6Ce6spgI5aDWQP7kLTa6aztNkpOgsKdP96gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sgAl5V02; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DXFrccJ+"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3856d4015e0so960278a91.2
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 07:29:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784212148; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aGszNpENDL5rPiECTDCkBjVSbcXfmd4GZ3VzSt/Jqctgl8jW/Ycq4ihiFniwa9ecJZ
-         /Jcb1p8af11g1IwcZ+7HQLTRdHWONskaSBGdepULKHMewQPP/VgAWvenYJGuOTnwgk/c
-         Akd5ZJ24bPjdbEPQZ7D/bjpN0igXDMNgM1AcwhIW70hU/ipU2U27B9Ha3eIr4T7IXYS/
-         HbK6tGvnY08FckP36O1ENIprAz19Y1FAsVetucEF8Ds3YymbGbj/7xaC48Md/PehU5al
-         10UyiBHRGodK2YZ2Oq6Lv2AaGgO/IHWNnZM92vGsDf76znkq8gqQiMcYdE9GD0wyajpZ
-         ZW7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0EQNb5xuuVXTap9WsSSYcCI5990Gc5XWs1gKOF/9wiM=;
-        fh=GoplGcBMhW0P+Nakge7WJH2NoDNq2LyABLkxEIvrk2w=;
-        b=GCj8jGaLdgw3tHCmTZ1abLQRcIr8D+DFI26b56JVhFW8AeRb7y1FjzK4VSNMnWDYTw
-         p0eRAWCwerxg18GkA2B85cvDG43pq515EhP2aSM3y3qI8mpSeFLZEN102j6D5kNgjvIR
-         jRApB/FI0LdC/gi4+zFnNzSW6eFIH3wcN5Tyb9NZr+lWn4ZS8tnfvwQUlmXZ2D+pQqA3
-         CW7Wi+XyIgNdl1Dyg3EPARBQ6RMU9z7XMDRbqxshLC8w0OYEpReH4O68VVAI4oIkmaq5
-         lUaaUB94Z2AIME9z2XYqccL9xh9eAECWvET+jfBTy+GDcG3s5EdTj6fcBpkXxMLc6tU2
-         goEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784212148; x=1784816948; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0EQNb5xuuVXTap9WsSSYcCI5990Gc5XWs1gKOF/9wiM=;
-        b=DXFrccJ+h9YSX2h4l0RjuVikmiOjWczAhj9t5M6lxZhmBUBd50vS/GEOuw19CR4eQ1
-         CPyOeGfxsJB94m5IIxbuo3V7zCBopCILxURqGqEu6s8OaCM9juxBMS37d+zqXDqVxnP9
-         PdDIAGdMe9LXYcN+Bi4Rhv2yb1Vzm0Cjy55sOZ+LRiUJtVMcIdrPqiq0U0DKT3blE+Ee
-         4QMg/hlGUPF74M7nVRAQ4IHmIFbJBDbFTa1HFnQ6THGldCShQUoTMG0qYMGDDlYgQBCW
-         E9+mbRpinJdRek6ihgwKZ3cusUyi0PZG6F/RCRFvbaM2tE2CZfrnUz8M1F85FKMxuBlF
-         HK7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784212148; x=1784816948;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0EQNb5xuuVXTap9WsSSYcCI5990Gc5XWs1gKOF/9wiM=;
-        b=Aagv8uzqi/AZFn5I7aYMLbyM++ZDCHrHN7xPCrS0uyoRuLp3SpVzSJa2OU6gBFii/e
-         hCCHveFAJAfGL6vK+Mli87oKUnrSfSem5ZpxDB/mQ4rj6K76Z/k8MVQsnuRvs3WvDhlr
-         Vv8oHJM6bu504gsauTT6+AYAnAcqQH66ytepgv4wScBT6xYS7zHoXg6vd/0UtGN1uXnp
-         H0EMkmxCIZVmp1F9+SWZCJLh3EDuNv9P1E989ry2xAGh76HtoAwsdloRH/nrYL9W6msB
-         zvhGeE28SVb92zzaAh9yStbu7HNk+CSqoywfSQ/v7kjyccjzwN2qq8rpWsibABp+HMDa
-         yVBg==
-X-Forwarded-Encrypted: i=1; AHgh+RrfZZqTiQbBfDz5FqxLvAa9ZSv6IBhVOZ8yOHQHTWmgm39tbVC+ik0xvmALt3jehU1HSnFitng=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzXV6nOpCgFBfDSx+d4wq3oHqTxeYm/OmyN+Ouby3cjwFiTxzXr
-	gP4id6UsSfFgSED1mr9KbEdJq08e+A1rfXpAOs0AUytBZ3jiXSuOQY/Tep4jPVML0f9P/goB89t
-	imhtYskYgcsDLrePJzIqkojXQEPy+wto=
-X-Gm-Gg: AfdE7cnD907VZrHKJMCWE/2fVJn+vdxDtytGhgpM16p0DIG/9phFNxFkqx8Wz7bZwjg
-	fqvCzIicGghOvODQpDA91TH//573Imdmj3KfRRupCgbeGTdBEAZkM4drfd25F9z1NczpjNSkz6o
-	r4oyhJT3IZTvk7eTXg4YocbOmsrZRIJq1J3ciPwLFsMrBO7LWIS77kvGtW6GmAJuuE9JvWVVDYC
-	rb0L98rtjdw3krwoW0udhY/Nbm01V63f4GlAP5vYnwSicnGh6q3mvHG1csUuYP7F+Sw6Gyw2GdF
-	T+meohnJtGcAuOu0d85PmdnL7CYuVgQH6GuZTy3K/FYTBpXolmskqOuYEzKhpV5MgtqBbuo0ITM
-	FD7O27W7XGjGo
-X-Received: by 2002:a17:90b:4f81:b0:381:77cd:38ca with SMTP id
- 98e67ed59e1d1-38dc7bd893cmr13870734a91.4.1784212147800; Thu, 16 Jul 2026
- 07:29:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sgAl5V02"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EC241F00ADF;
+	Thu, 16 Jul 2026 14:29:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784212149;
+	bh=z+wd7aOZmGyo9tREOha7bW/Bxy97m9rJYwQk08csWMo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=sgAl5V02zuNm9EzBMD/2IEMk+kXbv8JnM+VYl1pK8hq9WwG5CL+iworGSTFTMwU2V
+	 xLyw+XLneYrsFmcAOo29WGrbJxXRSG8aSlbcK73XW7u0NkMdwXgoXHUb2VaN9q6IDN
+	 o0yM0O8LXDFjs19CFw+cROR3xNa5BE1PAeWpZyjw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Tejun Heo <tj@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>
+Subject: [PATCH 6.12 191/349] sched/rt: Have RT_PUSH_IPI be default off for non PREEMPT_RT
+Date: Thu, 16 Jul 2026 15:32:05 +0200
+Message-ID: <20260716133037.651623581@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260716133033.287196923@linuxfoundation.org>
+References: <20260716133033.287196923@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716-device-trail-semicolon-v1-1-f48e9dcfae15@google.com> <DK01SW0X7PXH.15BGNJS3Q18BL@garyguo.net>
-In-Reply-To: <DK01SW0X7PXH.15BGNJS3Q18BL@garyguo.net>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 16 Jul 2026 16:28:52 +0200
-X-Gm-Features: AUfX_my1-7SKStDwlC89EJwJoC2eX-6QOKiEcBN7hBCAlw_VWUDv1UPyakhGdVI
-Message-ID: <CANiq72mZuFsb_Otu2fUSBHQ+oC6TrhnM6-BzZB7KcqV97yq0eg@mail.gmail.com>
-Subject: Re: [PATCH] rust: device: avoid trailing ; in printing macros
-To: Gary Guo <gary@garyguo.net>
-Cc: Alice Ryhl <aliceryhl@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, driver-core@lists.linux.dev, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 16, 2026 at 4:00=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
->
-> I suppose this can also be argued to be a fix to the user that use them i=
-n
-> non-statement positions (by saying that original implementation is for
-> statement-position only and expression-position usage is an improvement).
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Yeah, normally I don't put that tag for these, because there is no
-actual bug being fixed.
+------------------
 
-Instead, I normally say something like:
+From: Steven Rostedt <rostedt@goodmis.org>
 
-Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is
-pinned in older LTSs).
+commit dd29c017aed628076e915fe4cdfb5392fd4c5cab upstream.
 
-I will do that.
+RT migration is done aggressively. When a CPU schedules out a high
+priority RT task for a lower priority task, it will look to see if there's
+any RT tasks that are waiting to run on another CPU that is of higher
+priority than the task this CPU is about to run. If it finds one, it will
+pull that task over to the CPU and allow it to run there instead.
 
-Cheers,
-Miguel
+Normally, this pulling is done by looking at the RT overloaded mask (rto)
+which contains all the CPUs in the scheduler domain with RT tasks that are
+waiting to run due to a higher priority RT task currently running on their
+CPU. The CPU that is about to schedule a lower priority task will grab the
+rq lock of the overloaded CPU and move the RT task from that CPU's runqueue
+to the local one and schedule the higher priority RT task.
+
+This caused issues when a lot of CPUs would schedule a lower priority task
+at the same time. They would all try to grab the same runqueue lock of
+the CPU with the overloaded RT tasks. Only the first CPU that got in will
+get that task. All the others would wait until they got the runqueue lock
+and see there's nothing to pull and do nothing. On systems with lots of
+CPUs, this caused a large latency (up to 500us) which is beyond what
+PREEMPT_RT is to allow.
+
+The solution to that was to create an RT_PUSH_IPI logic. When any CPU
+wanted to pull a task, instead of grabbing the runqueue lock of the
+overloaded CPU, it would start by sending an IPI to the overloaded CPU,
+and that IPI handler would have the CPU with the waiting RT task do a push
+instead. Then that handler would send an IPI to the next CPU with
+overloaded RT tasks, and so on. Note, after the first CPU starts this
+process, if another CPU wanted to do a pull, it would see that the process
+has already begun and would only increment a counter to have the IPIs
+continue again.
+
+The RT_PUSH_IPI solved the latency problem with PREEMPT_RT but could cause
+a new issue with non PREEMPT_RT. Namely, softirqs run in a threaded
+context on PREEMPT_RT but they can run in an interrupt context in non-RT.
+
+If an IPI lands on a CPU that has just woken up multiple RT tasks and the
+current CPU is running a non RT or a low priority RT task, instead of
+doing a push, it would simply do a schedule on that CPU. But if a softirq
+was also executing on this CPU, the schedule would need to wait until the
+softirq finished. Until then, the CPU would still be considered overloaded
+as there are RT tasks still waiting to run on it.
+
+A live lock occurred on a workload that was doing heavy networking traffic
+on a large machine where the softirqs would run 500us out of 750us. And it
+would also be waking up RT tasks, causing the RT pull logic to be
+constantly executed.
+
+When a softirq triggered on a CPU with RT tasks queued but not running
+yet, and the other CPUs would see this CPU as being overloaded, they would
+send an IPI over to it. The CPU would notice that the waiting RT tasks are
+of higher priority than the currently running task and simply schedule
+that CPU instead. But because the softirq was executing, before it could
+schedule, it would receive another IPI to do the same. The amount of IPIs
+would slow down the currently running softirq so much that before it could
+return back to task context, it would execute another softirq never
+allowing the CPU to schedule. This live locked that CPU.
+
+As RT_PUSH_IPI was created to help PREEMPT_RT, make it default off if
+PREEMPT_RT is not enabled.
+
+Fixes: b6366f048e0c ("sched/rt: Use IPI to trigger RT task push migration instead of pulling")
+Closes: https://lore.kernel.org/all/20260506235716.2530720-1-tj@kernel.org/
+Reported-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260515103740.25ccbed8@gandalf.local.home
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ kernel/sched/features.h |    8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+--- a/kernel/sched/features.h
++++ b/kernel/sched/features.h
+@@ -104,8 +104,16 @@ SCHED_FEAT(WARN_DOUBLE_CLOCK, false)
+  * rq lock and possibly create a large contention, sending an
+  * IPI to that CPU and let that CPU push the RT task to where
+  * it should go may be a better scenario.
++ *
++ * This is best for PREEMPT_RT, but for non-RT it can cause issues
++ * when preemption is disabled for long periods of time. Have
++ * it only default enabled for PREEMPT_RT.
+  */
++# ifdef CONFIG_PREEMPT_RT
+ SCHED_FEAT(RT_PUSH_IPI, true)
++# else
++SCHED_FEAT(RT_PUSH_IPI, false)
++# endif
+ #endif
+ 
+ SCHED_FEAT(RT_RUNTIME_SHARE, false)
+
+
