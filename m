@@ -1,201 +1,179 @@
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854573F1AA6;
-	Thu, 16 Jul 2026 09:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04443F39E2;
+	Thu, 16 Jul 2026 09:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784195673; cv=none; b=XliaFRds5fl62hYXFM9LcZJap4whbbtNgnxtNChI/mwmGspno3Omx8hLmNrjbVNMm9nY/TNXgiNJHD/ZZFKJRMSkUOifoHN4xym32r6h1LK0PImtUP9fZN/WwaR9f8cc6BD2KEAevDgQ/89kEkzx6+zQ4hNhLQB0pT5Fl3rrrHI=
+	t=1784195705; cv=none; b=uV3jOhKpWVmEv8dTSjyMLhrsGoejCGVLBI2Ihk1/EOT/NYrcxPXkIGs2/cuh7PNllJuY167PcHFEj6EwUQ6PToFcDLJCl5G4+QSOlu28jWKLIvmSoVLV3/2obAg89GS0rewrA5Q8i819OE2v4o65pfSuM2UcSf5q9aZJMxrkE5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784195673; c=relaxed/simple;
-	bh=ogh2KhpcCtTm1TaSaOWZEZ+PPOTBaLd5tkqe2zydFpU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DF3NF2n/NGwAebWgsV8j3akc6hOBpDTmpAqwoPX2LlgT1ndvxtCoK2QiAqZtfgnTHR8OMSwUE2hA74K+XHpInyU69R9YAtbFVoa1Z3m8+QMTxJ7eJcNSLdqB84Cy0kX9zeyoll7I3x8Kwa29zvAuJgGBlBcQLeVG77QCRnI99jY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=VPdM28X0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IDBMZLAk; arc=none smtp.client-ip=103.168.172.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1784195705; c=relaxed/simple;
+	bh=a3CCqUij9CeairDpkpveB5vWdZj6OHQzdpzaVSurYpQ=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=ONp/TVdql3Jo1qo8HeAOmycNyzDOvPKR/aPJ+f80yPPIYJshY54DTnDSvwUwq0G+ua8EojRlFW/Klurb5MpyhOtoPZvf5QKjRG4R8iYHuzTap8IjvwXltTNe62JrpZXpi/yl68dEZmcjmOC99YuwBodibuwRpCr4hxtemZns5fM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ox/bS8GO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="VPdM28X0";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IDBMZLAk"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 771EDEC0175;
-	Thu, 16 Jul 2026 05:54:29 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Thu, 16 Jul 2026 05:54:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1784195669; x=1784282069; bh=t8G5lsIKKp
-	va0znbYyGiKU/6r4uVYEwGmeoiyfav03A=; b=VPdM28X0ewdlGKE+UspBf3FiMr
-	/YOs2e4VnHhivUcMVDEjinvSwDxKivB6AW27+BChqAfXgIvx4o9yuR2VJj94MH+9
-	fgOky4HwZf9fIZlAOswZKTmMD1MAbWL5S5YygEkap3MPH80/6wEJmLsVL5QrjTQP
-	vFv6J9XjSSWOqG0ZOLkKb8HXNi9SB6z1Y/39k61JbVyHOWHkRrj029NAOaJVhCjO
-	Orecw1nHKvrNkc9Gp/bPFLDyXqUR+RNDjc68X+DrGbAzfwoZxq1Gqu2DaI7Tt72z
-	Y9DXf/8T/GreMP6F78kbos2n8LMy7ez4r8UYaPwecYk6q98X0wtZCySDHQUA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1784195669; x=1784282069; bh=t8G5lsIKKpva0znbYyGiKU/6r4uVYEwGmeo
-	iyfav03A=; b=IDBMZLAkWJJ70cc96aMS6cZ4r8pcETBBI+xIPraKrVfcdETV/9A
-	RynIyMJqYpSq88f4LawBBCKoxySp0ca/w4wzmyoPhQJ4RMc4wnmXLelEzrWgRkl7
-	3ZPLofRkmAxTghbLnxy5tcBTAEsu3gOrJ+I7S1P489UyoIlNRJKpDRhTPPwpjUoq
-	htS5vztFcFYhfhLG/FgAGXxldIJXF3//9TMM1a7vxN/h8d92cIGTGFsjdQJD+79r
-	bCyOJ/gee+/+lRP1wzHSMSWcGPKVD4LprAE8DrHthZFxpZ3WdGXjaj2GMTCuAtgn
-	hvskGuevMRAUErX/nIJas1n53rTyCt/PWwQ==
-X-ME-Sender: <xms:U6pYar0Arx2oXk9M4F1WQrJSbx85RZQXbP_7_UWLAlAnFYAutnXokA>
-    <xme:U6pYau_1Ou_WNVDaXpDbzYF1bc_FJZDW6YSD-QvR3dqC1mFMdLUE5-A2_fRZa-9ne
-    1lKKH5yZzWMXNK8orbvXAosOI63D86P8hePqE1B1HpEM5J787dtTow>
-X-ME-Received: <xmr:U6pYake5rwIpIOfaDqEVw_H24FnUzlD4yRmbIcZWJkka8PZQyXJ8KLXXLdNJ5g>
-X-ME-Proxy-Cause: dmFkZTF+CYkUYldUcjhegyiuGvzrP4J+tflPEv+hUKqI/6hhNyOBudvlQYE+Ipk0aE1Xm9
-    FZI4wc+pjIeyYENfLoy5GGLnnDXAsWOJpRYWAe1FggnGQs312LLvb+tGAPqIYpUY3+1kB3
-    JqnUm0rg050bRxyFoLLwXzlrCU0fgMYi9w+86HcHDy25ToZdlVm/UhdLctff0r9LdC4gWT
-    8tB7TyorVAPBJLAMg5RHqfSQ05JSLR44Bd0yaYKc5y3UgnX0ZQlRpB+IYtVEEVC6FzvhtC
-    CMX7tb+6HxUpkpZAbf7FGQj9zPA/Rj6S5+JEqw9L1bOSUQYsxItgWeA1vhgwpBsfpxJGGf
-    b9C2HWNm++KFq0UwlGMjeteiRgMiMQ/HkasAdHkHa5Dzy7pOGDRzr2SoSpqJiflzfzBzi1
-    TCei9blgdpYrP6DdNC5B4iaKS/l7ooO3BoNhGzwPzt91pAnyKl560BE1GhLucUAS1kit+q
-    elOmU4wpab12OsstkdRNeB1JL2ctun60vwaRe0CQTMdqxoZTkMIANfJZVI8aUVSHFSoN2Z
-    ff/GQ3wCPZOmwleiAKootnMrihsUM/5RA/ZwPp0Y0ymFWkIooOpl6A8OM5/V9mPTv15m8e
-    nbDBerKpdrb2OqYlAFcQQWWu/67ZrJ0ho/GJwga76F/OCYmXL5SVSSal80Ug
-X-ME-Proxy: <xmx:U6pYaiH8vkBlepdBOU81EFyQCPV8TC5LK6nEdax0OaqxBp8iCNOjmg>
-    <xmx:U6pYahDnVj1xyxd5tE4aLUA5usksTmInZ5LUSTmIihtvgJ1CbZpy_g>
-    <xmx:U6pYat6ry2f2VmzR2zXRZwK8WvarHnpCaN2vMQHjD8wGtnhxWgX3Pw>
-    <xmx:U6pYaolaNZ49x1xZ7GIJjU0l3j-apAvr_aJXhujtQofPk1IniizMuQ>
-    <xmx:VapYahmng1JV2-TjOArE1jyeTb1LObZ-tp0jW-nPNzs2ws4zEOK83a72>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 Jul 2026 05:54:27 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Nico Pache <npache@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Hao Zhang <zhanghao1@kylinos.cn>,
-	Hao Zhang <hao_zhang_kdev@163.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] mm/huge_memory: unlock i_mmap_rwsem before releasing after-split folios
-Date: Thu, 16 Jul 2026 10:54:24 +0100
-Message-ID: <20260716095424.471052-1-kirill@shutemov.name>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ox/bS8GO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9905A1F000E9;
+	Thu, 16 Jul 2026 09:54:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784195702;
+	bh=0/SyxMPIaPUuP8evJ5FrQ+d3a/rGOBD7f2mYFAW4BZY=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=ox/bS8GOAiz3ddOEb5s6tXfBT47YKSkPHImeTD5McWUIQJirA93UP+YdQ+CCxYrK2
+	 XadnBH1n9BEZu6pLviso5nDeoDyb5gOcCHLglh0iALbqqZIJtRIXhjeom4dIyqFJ/y
+	 lXBichlZN0LXLt4LEVvE03cOWN2fcl+R6f2M6pvJpiXppA9EjknjVsmlbEfngNR8YR
+	 p3GPYWk11s9QCNhy6RyoZ0mxvIYPsRbrdczK9NJJ1XeUHWBjKGIt8nfaBNo6wM6T+T
+	 YCBfEGG+CUxhcq/+psTJ5H3Nc0rnt60cd8gRWf1EdOLExy4mkNiuxOEimRxbP3sPXz
+	 k8iCp344bixkg==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH mm-hotfixes v3 1/4] mm/vmalloc: acquire init_mm lock on
+ huge vmap to avoid ptdump UAF
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Kiryl Shutsemau <kas@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, David Carlier <devnexen@gmail.com>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
+ syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+In-Reply-To: <20260715121452.3e8047663eeaaa3048f80985@linux-foundation.org>
+References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
+ <20260714-series-vmap-race-fix-v3-1-b812eccfa0f9@kernel.org>
+ <aldhVdwj9oMRN1Lk@thinkstation>
+ <178412496800.59347.11482869717348078349.b4-reply@b4>
+ <20260715121452.3e8047663eeaaa3048f80985@linux-foundation.org>
+Date: Thu, 16 Jul 2026 10:54:42 +0100
+Message-Id: <178419568212.59347.281101439296944826.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3870; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=a3CCqUij9CeairDpkpveB5vWdZj6OHQzdpzaVSurYpQ=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIiViXLzvfdvWpHXm8JowZLd/gCGQaViuLTDDPKU/ksu
+ sW/7D/XUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgIvsZWSYO3PrIh6mG7LObzIv
+ HPh0fdN9HnOOArWtLj9q3VIWL7rTwMhwm88zw6rY416zv/DxR1f+PW27sGV/znlhyxOv5CXOWpW
+ xAgA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On 2026-07-15 12:14 -0700, Andrew Morton wrote:
+> On Wed, 15 Jul 2026 15:16:08 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+>
+> > On 2026-07-15 11:34 +0100, Kiryl Shutsemau wrote:
+> > > On Tue, Jul 14, 2026 at 06:24:23PM +0100, Lorenzo Stoakes wrote:
+> > > > Currently there is a nasty race between ptdump and vmap when attempting to
+> > > > map a huge P4D, PMD or PUD entry:
+> > >
+> > > Nit: that's a strange order of levels :P
+> >
+> > Ha, seems I couldn't decide on ordering so went with something random :P
+> >
+> > Let's try 'P4D, PUD or PMD' instead :))
+> >
+> > >
+> > > > Fix this by holding the mmap read lock in vmap_try_huge_*() when freeing
+> > > > page tables.
+> > >
+> > > How about adding here something like:
+> > >
+> > >   The read lock is sufficient: ptdump is the only walker that must be
+> > >   excluded and it holds the mmap write lock. Other holders of the read
+> > >   lock may run concurrently, but each exclusively owns the range it
+> > >   operates on and cannot reach the page tables freed here.
+> >
+> > You mean maybe I put the commit message on _too_ much of a diet? :)
+> >
+> > Yeah sure, sounds good.
+>
+> I made this changelog alteration:
+>
+> --- a/txt/mm-vmalloc-acquire-init_mm-lock-on-huge-vmap-to-avoid-ptdump-uaf.txt
+> +++ b/txt/mm-vmalloc-acquire-init_mm-lock-on-huge-vmap-to-avoid-ptdump-uaf.txt
+> @@ -103,6 +103,11 @@ walk_page_range_debug(), vmap takes no relevant locks at all.
+>  Fix this by holding the mmap read lock in vmap_try_huge_*() when freeing
+>  page tables.
+>
+> +The read lock is sufficient: ptdump is the only walker that must be
+> +excluded and it holds the mmap write lock.  Other holders of the read lock
+> +may run concurrently, but each exclusively owns the range it operates on
+> +and cannot reach the page tables freed here.
+> +
+>  We also hold the lock while assigning the huge page table entry, which
+>  means page table walkers observe only the huge or non-huge page table
+>  entry.
 
-__folio_split() keeps dereferencing the mapping after the split:
-shmem_uncharge(mapping->host) and remap_page() while the folios are still
-frozen/locked, and i_mmap_unlock_read(mapping) at the very end, after the
-after-split folios have been unlocked and freed.
+Perfect, thanks!
 
-Nothing holds an inode reference across that. The split relies on @folio
--- which the beyond-EOF drop loop never removes, as it starts at
-folio_next(folio) -- staying locked and in the page cache to hold off
-eviction. But the unlock loop unlocks @folio before i_mmap_unlock_read()
-runs. If the caller's @lock_at is a tail beyond EOF, as memory_failure()
-passes when splitting a poisoned tail of a shmem THP that reaches past
-i_size during truncation, it too is gone from the page cache; so once
-@folio is unlocked no locked, in-cache folio pins the inode, and a
-concurrent final iput() can evict and RCU-free it before
-i_mmap_unlock_read() touches i_mmap_rwsem:
+>
+> > >
+> > > > +	/*
+> > > > +	 * Kernel page table walkers either walk ranges they own exclusively or
+> > > > +	 * hold the mmap write lock on init_mm (ptdump being the motivating
+> > > > +	 * case).
+> > > > +	 *
+> > > > +	 * Therefore, acquire the mmap read lock to prevent use-after-free when
+> > > > +	 * freeing page tables.
+> > > > +	 */
+> > >
+> > > Same for the comment, maybe:
+> > >
+> > >       /*
+> > >        * Acquire the mmap read lock to exclude ptdump, which walks
+> > >        * kernel page tables it does not own under the mmap write lock.
+> > +	 *
+> > >        * Concurrent read lock holders are safe: each exclusively owns
+> > >        * the range it operates on and cannot reach this page table.
+> > >        */
+> >
+> > Yeah that's better agreed.
+> >
+> > Let's replace it, but I think (being super nitty) with an extra blank line as
+> > above.
+>
+> This?
+>
+> --- a/mm/vmalloc.c~mm-vmalloc-acquire-init_mm-lock-on-huge-vmap-to-avoid-ptdump-uaf-fix
+> +++ a/mm/vmalloc.c
+> @@ -163,12 +163,11 @@ static int vmap_try_huge_pmd(pmd_t *pmd,
+>  		return pmd_set_huge(pmd, phys_addr, prot);
+>
+>  	/*
+> -	 * Kernel page table walkers either walk ranges they own exclusively or
+> -	 * hold the mmap write lock on init_mm (ptdump being the motivating
+> -	 * case).
+> +	 * Acquire the mmap read lock to exclude ptdump, which walks kernel
+> +	 * page tables it does not own under the mmap write lock.
+>  	 *
+> -	 * Therefore, acquire the mmap read lock to prevent use-after-free when
+> -	 * freeing page tables.
+> +	 * Concurrent read lock holders are safe: each exclusively owns the
+> +	 * range it operates on and cannot reach this page table.
+>  	 */
 
-  BUG: KASAN: slab-use-after-free in __up_read+0x634/0x790
-   i_mmap_unlock_read include/linux/fs.h:537 [inline]
-   __folio_split+0x732/0x1640 mm/huge_memory.c:4100
-   try_to_split_thp_page+0xab/0x390 mm/memory-failure.c:1675
-   memory_failure+0x1394/0x26e0 mm/memory-failure.c:2470
+Yes that's great thanks!
 
-  Freed by task 4601:
-   shmem_free_in_core_inode+0x54/0xb0 mm/shmem.c:5177
-   evict+0x57f/0xac0 fs/inode.c:870
+>  #ifndef CONFIG_ARM64
+>  	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
+> _
+>
+>
+>
 
-Do every mapping dereference while @folio still pins the inode: drop
-i_mmap_rwsem right after remap_page(), before the loop that unlocks and
-frees the after-split folios, and clear @mapping so the exit path does not
-unlock it again. shmem_uncharge() and remap_page() already run before that
-point, so after this nothing past the unlock loop touches the inode or the
-mapping.
-
-This is now a rule the split depends on, alongside keeping @folio frozen
-until the page cache is updated: no inode or mapping dereference once the
-after-split folios start being unlocked.
-
-Reported-by: Hao Zhang <zhanghao1@kylinos.cn>
-Closes: https://lore.kernel.org/linux-mm/20260710071344.GA106129@zh-pc
-Fixes: baa355fd3314 ("thp: file pages support for split_huge_page()")
-Cc: <stable@vger.kernel.org>
-Co-developed-by: Hao Zhang <zhanghao1@kylinos.cn>
-Signed-off-by: Hao Zhang <zhanghao1@kylinos.cn>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
-
-Same patch as posted in the v2 discussion [1], now with tags collected.
-
-v3:
- - Move i_mmap_unlock_read() before the after-split unlock loop instead
-   of pinning the inode or refusing the split; based on Hao's original
-   patch [2] with the race analysis corrected.
-v2 [3]:
- - Anchor the split on the head in memory_failure() (broken: the caller's
-   reference must land on the poisoned page) + -EBUSY guard in
-   __folio_split() (over-rejects for new_order > 0).
-v1 [4]:
- - igrab()/iput() around the split (self-deadlocks on final iput() under
-   the folio lock).
-
-[1] https://lore.kernel.org/linux-mm/aldjhtfVByHDQXe6@thinkstation
-[2] https://lore.kernel.org/linux-mm/20260710071344.GA106129@zh-pc
-[3] https://lore.kernel.org/linux-mm/20260714122344.351895-1-kirill@shutemov.name
-[4] https://lore.kernel.org/linux-mm/20260713170915.239819-1-kirill@shutemov.name
-
- mm/huge_memory.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 2bccb0a53a0a..abaea34ef558 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4109,6 +4109,18 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 
- 	remap_page(folio, 1 << old_order, ttu_flags);
- 
-+	/*
-+	 * Drop the mapping while the inode is still pinned. @folio stays
-+	 * locked and present in the page cache until the loop below, so
-+	 * eviction cannot free the inode yet; @lock_at is not enough, it may
-+	 * be a tail beyond EOF that the split already dropped from the page
-+	 * cache. Nothing past this point may touch the inode or the mapping.
-+	 */
-+	if (mapping) {
-+		i_mmap_unlock_read(mapping);
-+		mapping = NULL;
-+	}
-+
- 	/*
- 	 * Unlock all after-split folios except the one containing
- 	 * @lock_at page. If @folio is not split, it will be kept locked.
-
-base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
--- 
-2.54.0
+Cheers, Lorenzo
 
