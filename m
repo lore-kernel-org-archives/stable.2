@@ -1,121 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailer241.gate86.rs.smtp.com (mailer241.gate86.rs.smtp.com [74.91.86.241])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A1341D63A
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EDC4357D03
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:06:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.91.86.241
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784207058; cv=none; b=k19naJMm4bF290C0r74QkQwtFLswl3x5VUvghKAy7V37IgF4RShXLdbYFN5NkPgwZmTLhvA36NauMZfKd+h5E+U4xHQR+FaU2o2t3IIiDWUgx5D0E/hR8XhynolrMBB0abTzJQgHCz07SxCbNrnBdWyW3EnA4gl4RpkTWJFUPnc=
+	t=1784207168; cv=none; b=gevM719WZd+7fHPvDeC//9sb+9/O9Z7gYyvpCx4X9Lhjmto/XLK3fpkEOKKYPQYVRJlMoonOcXLW+02CkuQqNAC32ncgwiC9tuxSQwxPELlVmO8qgJbT6JHv0qNnfwHHr/lAQsaGFERy/4Mld95de2PqpQxYFAxu+04wKHSHH5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784207058; c=relaxed/simple;
-	bh=LNd1lskcqll4Yp9NKwpDx7XKmKvMyVJhLiwxX+qRwEU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=j2hRf+uIaVm3fSKGgszniCCYbrPcd9xAymxzuCs0ezHzH0Y6LnlOzb484lHldWg719Ynbx7U+qDWOQrFUcRe9dJx6Jvtw6feOxkhav2AZn8wurjVjosrWW7eSQ0W4DIVgEjU8ANIgiH5dDH900l/63iwVOfhXU9+NUlFbAJXmOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MBHHCfMx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784207168; c=relaxed/simple;
+	bh=Rn89dfL6FWPUehEVjmWIx5moDiRsrqTA+wfW2mcNVN0=;
+	h=From:Subject:To:Content-Type:Date:Message-Id; b=BT+Y1N1rRhCvR9RQO6rWeKp8WF+ELWsSHtrZalNwof0hw5/YE901O1Xy5YJhATY0+niVJlNYfEKtZ+TytO/UXhTnS9ZHg8tlDGy4sYWSAOUhd6KnDj6DUk/rn7qNr4ZSaBQB4dATIe/ZJu37pIOr1qoIRWUgjveMYzScvdkojDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=computergamingpc.com; spf=pass smtp.mailfrom=computergamingpc.com; dkim=pass (2048-bit key) header.d=computergamingpc.com header.i=@computergamingpc.com header.b=cVThmWEr; dkim=pass (2048-bit key) header.d=smtpmessage.com header.i=@smtpmessage.com header.b=huMBrnLK; arc=none smtp.client-ip=74.91.86.241
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=computergamingpc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=computergamingpc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MBHHCfMx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEED81F000E9;
-	Thu, 16 Jul 2026 13:04:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784207057;
-	bh=gAFlZvc2EuJvKAsbmMlnTi0pdL/Q/126Pn7Mk3Uk2/8=;
-	h=Subject:To:Cc:From:Date;
-	b=MBHHCfMxrsa40CGtLMGL1nYapgWp5jA2whDQ0phCKd+J3AHeka/M3On+dHd2ppTgg
-	 49LjCsmXvsGl8Kv4ksiBfsJzX+LJac9H81mmhikImHUHO/PXI/X8zV0VBGljVt/UHI
-	 jaLLB/WtdY6aHT36WnSPMkDVsAf33qw9ZbSKdVFg=
-Subject: FAILED: patch "[PATCH] Input: mms114 - reject an oversized device packet size" failed to apply to 5.15-stable tree
-To: hexlabsecurity@proton.me,dmitry.torokhov@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 15:01:45 +0200
-Message-ID: <2026071645-latch-matchless-9242@gregkh>
+	dkim=pass (2048-bit key) header.d=computergamingpc.com header.i=@computergamingpc.com header.b="cVThmWEr";
+	dkim=pass (2048-bit key) header.d=smtpmessage.com header.i=@smtpmessage.com header.b="huMBrnLK"
+X-Report-Abuse: SMTP.com is an email service provider. Our abuse team cares
+ about your feedback. Please contact abuse@smtp.com for further investigation.
+Received: from [10.0.16.30] (unknown [10.138.12.210])
+	by mtl-mta02-out1 (Halon) with ESMTP
+	id d60737da-1e54-4b4a-9922-cff87e56355a;
+	Thu, 16 Jul 2026 12:45:59 +0000 (UTC)
+Received: Received from 10.138.12.169 by Caffeine
+ (s0-aws-app2-swarm-manager-5) with SMTP id
+ 9da6c34c-6587-4c25-b854-195db5d9ee51  for stable@vger.kernel.org;
+  Thu, 16 Jul 2026 12:45:11 +0000 (UTC)
+Feedback-ID: 9194450:SMTPCOM
+Received: from ObaTech (unknown [191.177.193.228])
+	by s0-aws-app2-mta-in-2 (Halon) with ESMTPSA
+	id 9da6c34c-6587-4c25-b854-195db5d9ee51;
+	Thu, 16 Jul 2026 12:45:11 +0000 (UTC)
+From: "Computer Gaming pc" <sales@computergamingpc.com>
+Subject: Current Inventory Update: GPUs & Enterprise SSDs Available
+To: <stable@vger.kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Reply-To: <sales@computergamingpc.com>
+Date: Thu, 16 Jul 2026 13:45:12 +0100
+Priority: urgent
+X-Priority: 1
+Importance: high
+Message-Id: <2026160713451108F3D8BC42$C1A36F3E5D@computergamingpc.com>
+X-SMTPCOM-Sender-ID: 9194450
+X-SMTPCOM-Tracking-Number: 9da6c34c-6587-4c25-b854-195db5d9ee51
+X-SMTPCOM-Message-ID: dcddf191-fd1c-40e5-bcea-65007b6648ad
+X-SMTPCOM-Payload: 
+ URsNS4f5Ygq8kSJUs5lFR_vLcmj43O6glhoZIZ9wUBQV02YOiAv8OwP56z_OM7gDspqS7yiFvmqgz5FgaJbQV8lklqYVd4MX2ADNTExEczMW5tt5Xd5UJ4-H1qAovySGiZxG12-BKdDqz60Q3L9dJJ4wra_vl2uxVwur9EsWAlOLm4C8OxmMdKxso54D8Gkx
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=computergamingpc.com; i=@computergamingpc.com; q=dns/txt; s=smtpkey;
+ t=1784205937; h=feedback-id : from : subject : to : content-type :
+ content-transfer-encoding : reply-to : date : message-id :
+ list-unsubscribe : list-unsubscribe-post : from : subject : to : date;
+ bh=Rn89dfL6FWPUehEVjmWIx5moDiRsrqTA+wfW2mcNVN0=;
+ b=cVThmWEr2gSLKphxaxF2g11l0OAm/l7w8QRKJ8Qb7WXiq9v3AlIKjj9+owQsME0Lmh1Ke
+ DFyMnY4THYh/H4BnX83m9OaJj8AVmuEpAKkUFEqa2TH5NqHqWEKPyheOKFr6pib+GUO4IJC
+ pgeVJCCeZGbsfDoZ4m5axwMju4SdRAX+SHSbIpYLkLD5qAftnCb1Vx2dbtq8gIQuuWnOdei
+ NEQLzrvtxw7RpgF337cjU3GnynVcZHvGz/tHAFR5LQBMNzPI11kSHuBHHOVoZQZLxm3Ek2d
+ Z3lN3jEnIopwsZA4cSWlCyZYhO4Eh4jwWZFpLopZRvhq/dV+LqQGlKHkFrOQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=smtpmessage.com;
+ i=@smtpmessage.com; q=dns/txt; s=smtpcustomer; t=1784205937;
+ h=feedback-id : from : subject : to : content-type :
+ content-transfer-encoding : reply-to : date : message-id :
+ list-unsubscribe : list-unsubscribe-post : from : subject : to : date;
+ bh=Rn89dfL6FWPUehEVjmWIx5moDiRsrqTA+wfW2mcNVN0=;
+ b=huMBrnLKRrD9MkNa160Jow+W8vtq5meq5F56DBsDFyNmJoh2Vao6bIOQ9iFX12BmBULKI
+ fKE9wCrqBqqm/zVCyDgBqmNMx0xWqQlDPjMQZjCwIDo18z9J5cO0/R5b7P/MXNCCjCNRKGM
+ iBPbcG0Saq7yRknLHf51v2ZW9TQpfJI36E9vmbVUEF0HtIRhm8WA1mLwddADQ1LE8Owbpc0
+ StkpAC0gJ9p+a1veISxi08r5MkpmUMbtxg3gfQXysEClJKlY4sfrohk6d6c5eBhRGfE8+W8
+ 3Zc7Eb+nIW0gdGYTYLVd4KsDyJEiPYH77T2IYFkEPaYCfgojkQWjAjg5ZgQw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
 
+Hi
+Quick update — these units are in stock and can ship today:
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Memory Modules
+* 128GB 4DRx4 DDR4 PC4-2933Y REG ECC LRDIMM (Qty: 980) – $140.00
+* 32GB Dual Rank x4 DDR4-2933 CAS-21 (Qty: 1,500) – $140.00
+* 64GB Dual Rank x4 DDR4-2933 CAS-21 (Qty: 1,200) – $450.00
+* 32GB Dual Rank x4 DDR4-3200 CAS-22 (Qty: 1,500) – $150.00
+* 64GB Dual Rank x4 DDR4-3200 CAS-22 (Qty: 1,100) – $450.00
+* 32GB 2Rx4 PC4-2400T (Qty: 1,500) – $45.00
+* 32GB 2Rx4 PC4-3200AA (Qty: 1,500) – $45.00
+* 16GB 2Rx8 PC4-3200AA (Qty: 1,500) – $20.00
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Solid State Drives
+- SSD SATA 6G 3.84TB SFF (Qty: 450) – $120.00
+- SSD SAS 12G 960GB SFF (Qty: 470) – $300.00
+- SSD SAS 12G 1.92TB SFF (Qty: 560) – $350.00
+- SSD SAS 12G 3.84TB SFF (Qty: 560) – $150.00
+- SSD SATA 6G 1.92TB SFF (Qty: 450) – $100.00
+- Samsung 990 PRO 1TB NVME SSD QTY:410 - $150
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 66725039f7090afe14c31bd259e2059a68f04023
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071645-latch-matchless-9242@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+- HP (HPE) P43331-B21 64GB DDR5-4800 RDIMM QTY: 390 - $750
+- DDR5 64GB 4800Mhz ECC RDimm 2Rx4 P43331-B21 (Qty: 500) – $750.00
+- DDR5 64GB 5600Mhz ECC RDimm 2Rx4 P64707-B21 (Qty: 500) – $750.00
+- DDR4 64GB 3200Mhz ECC RDimm 2Rx4 SK Hynix (Qty: 500) – $450.00
+- DDR5 64GB 4800Mhz ECC RDimm 2Rx4 Samsung (Qty: 500) – $450.00
+- DDR5 64GB 5600Mhz ECC RDimm 2Rx4 SK Hynix (Qty: 500) – $550.00
+- Intel Xeon Silver 4214R - QTY: 420 $350.00
+- Intel Xeon Gold 5220R - QTY: 410 - $450.00
+- Intel Xeon Platinum 8380: $450.00 QTY: 410
+- AMD EPYC 7542 - QTY: 490-- $380.00
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 66725039f7090afe14c31bd259e2059a68f04023 Mon Sep 17 00:00:00 2001
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Sun, 14 Jun 2026 14:19:43 -0700
-Subject: [PATCH] Input: mms114 - reject an oversized device packet size
-
-mms114_interrupt() reads a packet of touch data from the device into a
-fixed-size on-stack buffer
-
-	struct mms114_touch touch[MMS114_MAX_TOUCH];
-
-which holds MMS114_MAX_TOUCH (10) events of MMS114_EVENT_SIZE (8) bytes,
-i.e. 80 bytes. The length of the I2C read into it is taken verbatim from
-the device:
-
-	packet_size = mms114_read_reg(data, MMS114_PACKET_SIZE);
-	if (packet_size <= 0)
-		goto out;
-	...
-	error = __mms114_read_reg(data, MMS114_INFORMATION, packet_size,
-			(u8 *)touch);
-
-packet_size is a single device register byte (0x0F) and the only check
-is the lower bound packet_size <= 0; it is never bounded against the
-size of touch[]. A malfunctioning, malicious or counterfeit controller
-(or an attacker tampering with the I2C bus) can report a packet_size of
-up to 255, so __mms114_read_reg() writes up to 175 bytes past the end of
-touch[] on the IRQ-thread stack: a stack out-of-bounds write that can
-overwrite the stack canary, saved registers and the return address.
-
-A well-formed device never reports more than the buffer holds, so reject
-an oversized packet and drop the report, consistent with the handler's
-other error paths, rather than reading past the buffer.
-
-Fixes: 07b8481d4aff ("Input: add MELFAS mms114 touchscreen driver")
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260612-b4-disp-dc4b8dc4-v1-1-d7cb0a828d92@proton.me
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-
-diff --git a/drivers/input/touchscreen/mms114.c b/drivers/input/touchscreen/mms114.c
-index 9597214d9d3c..4d748a13408d 100644
---- a/drivers/input/touchscreen/mms114.c
-+++ b/drivers/input/touchscreen/mms114.c
-@@ -226,6 +226,12 @@ static irqreturn_t mms114_interrupt(int irq, void *dev_id)
- 	if (packet_size <= 0)
- 		goto out;
- 
-+	if (packet_size > sizeof(touch)) {
-+		dev_err(&client->dev, "Invalid packet size %d (max %zu)\n",
-+			packet_size, sizeof(touch));
-+		goto out;
-+	}
-+
- 	/* MMS136 has slightly different event size */
- 	if (data->type == TYPE_MMS134S || data->type == TYPE_MMS136)
- 		touch_size = packet_size / MMS136_EVENT_SIZE;
-
+For quotes, availability, or inspection scheduling, please reach out 
+directly:
+sales@computergamingpc.com Call or WhatsApp: +1(774) 559-1248 | +1 (641)232-
+4364
+Thank you for your continued partnership.
+Ann Kamila
+Computer Gaming PC Trading
+2500 US-6, Iowa City, IA 52240, USA.
+To opt out of future updates, reply with “REMOVE” in the subject line.
