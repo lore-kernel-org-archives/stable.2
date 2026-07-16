@@ -1,90 +1,123 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4841E0B9C;
-	Thu, 16 Jul 2026 06:52:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B9F3246ED
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 06:55:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784184771; cv=none; b=rgqfHgKWIpJZpLTZjlrrnO0MRFp8nN/pF5P762gga82fLBY9vcxzp0WgMTMhIsYJKMzBmVBLz8ooYWklI4T27lvI6N6GIv83SR1gAD8F0FirYwWpoegFCVvTecUmy6MWI5cwUkpetRzpz3+SBo/cDudHBOrO+IGHOGKTqZXlWKI=
+	t=1784184948; cv=none; b=Irwj30/4Ojt2aQinN9u2xIl3JoM3dM9KW+hiYCIwH1KmIoLWtzT01z5wuEa6mi5tJDt+4RBkgzaf6vzrXIHiaO19vXeiRiapJpn/O/dpQrW1AM8XMrx3INwbe0ab9v1wRQyqALD474OGMevIIjI8mfQvyZWlbrguLGhcGSpFDoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784184771; c=relaxed/simple;
-	bh=PI4Pw1JdNE2yGPDler11rAGo5jXk9osC7hMgOAM0zrA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lVpHGa0E6u/PeFhyUshk68/KS4XLRwWd54KSUHql72WM+T8aJZq/ZcEhwWMwpfP9TWD4DL6lQXjnjGuPI5yxUmOIiwax7QFkXWxw6ApobiGH0fFcyhlt9eHfIi1fLM1XDOJGyV/v2uxphUG7CS7vjvhKijC0jUfkgpniSFlnVww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f16629a080e211f1aa26b74ffac11d73-20260716
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:b851bdb5-e949-4d71-8483-07a832b03d0c,IP:15,
-	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:10
-X-CID-INFO: VERSION:1.3.12,REQID:b851bdb5-e949-4d71-8483-07a832b03d0c,IP:15,UR
-	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:10
-X-CID-META: VersionHash:e7bac3a,CLOUDID:8535b07d34f1815adba18499d605d937,BulkI
-	D:260716145245NEMXN3OL,BulkQuantity:0,Recheck:0,SF:10|38|66|78|102|123|127
-	|136|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bul
-	k:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0
-	,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f16629a080e211f1aa26b74ffac11d73-20260716
-X-User: zhaoguohan@kylinos.cn
-Received: from zgh-vmware-virtual-platform.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
-	(envelope-from <zhaoguohan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 586882134; Thu, 16 Jul 2026 14:52:42 +0800
-From: zhaoguohan@kylinos.cn
-To: "Rob Herring (Arm)" <robh@kernel.org>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	dri-devel@lists.freedesktop.org
-Cc: Oded Gabbay <ogabbay@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] accel/ethosu: check MMIO mapping errors in probe
-Date: Thu, 16 Jul 2026 14:52:19 +0800
-Message-ID: <20260716065219.931088-1-zhaoguohan@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1784184948; c=relaxed/simple;
+	bh=5aFC7UIJ/0MkSOfFxU38E5MSc5aE2gJ8tn1j4wAS9QE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LsIj6tLMtjj+BY5IPB5E6seCluaKAskKg6AdBA6wCz2fosG/6COGl7l34T41ZGnyRWZ/gVRwD8vgkhX0TWjoxPzYs5WC/BVsBqym58XdurqbKU6RPuyEw4G0p0IrMi7dGzZMyWln/o4GJ+WkEHWS/CzSjurXNxoLI7LyRj0vDSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jZAcXk3M; arc=none smtp.client-ip=209.85.167.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jZAcXk3M"
+Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4896ae35be9so2597642b6e.0
+        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 23:55:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784184945; x=1784789745; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CzxD1cLTPriwoM1nM4cGtIKasJcP9ac2Us6YiJuTHfo=;
+        b=jZAcXk3MAaUJmUxp74zjuT734o8Er8twcjEMhjwQ0Pi3ZGPLvOfmPPyefcxOqLeBA2
+         F5lqsitTzAFoxnZPsGhxMJrLXjIxuFZ4ymGVCm/DY+wmwCEckGd9NeC2s1Uef6NODJ1S
+         VaWZ/laXr24jCVzja7+4SbYXmlEJtU+NLvKr/0fN185cnuYkwTpO5F9QqTbOq1RnxRuQ
+         XlF7r2OGq9PobprhKlIBnC1fdAGZvAfQLERI54vKR3ooLxYSFaStT9B+ndOLN7EYU8ke
+         rj7JWZk2INDuR0tWDxwIJPLhxFlVSri3wSM8yflFs6mbR2w57QsOC3me3BcAk2OAeMCC
+         tDWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784184945; x=1784789745;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CzxD1cLTPriwoM1nM4cGtIKasJcP9ac2Us6YiJuTHfo=;
+        b=jDIQP6MghkM1DI3l6WIk5WXr6xQOUcKKTpsPVQJvufnyzqKlnICAZuovOgeMGjFdC3
+         roSdX5l7qgBMN69FKGQ2d0e38PKXAGL2DKdEhhwJeookaWDzWx0uMOPf5+BlMEIaELFx
+         BdRi+JkO287CnBllSu5jPd1aoDh5tAnNBdZATh6uu8JTBeYw1sqK5ehiRUq1qb+v8+Td
+         tB2BJ3hb0P1olhR0//qYxPDr0rUSa9SoLCgBaz8UWxQ9B3fCgQNLTE8q8/e7sEdErzvH
+         B9ooaKlbAIxNZ3+mfh3Mi/UEjxJNpvkeuwk172FpCIBN3pgZeVyWlFKdT5HRhZsraKmO
+         egFg==
+X-Forwarded-Encrypted: i=1; AHgh+RqsAa/l4IDHgSbmMAEkirqJeGUttbYKV9U5tVbWlXIIiQz8efPWRu5PDqE0qeq/wkvUX9zuJNU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGBQzaNNCwVIez5bQP52N9sYjwJIa/D9OaOdvs5aR6P+Uaypa4
+	W8jFx9EJR/L4aUy2rHiTHjBps6vSVXtZ2eno9/rnNIBljAxHtt3F56Sl
+X-Gm-Gg: AfdE7cmD0SVY/sijtUsaVvtM02OzW3ftkYp/Cl6LMZ/H/6LJqGU0jAWKFMS/TtjzvkY
+	B+d3RtTOTexFW7EqrG28mlBwojwczvNhHAu5F9VbsIYU65yJuVjO6tFLBEV1OPwqktnQPUOMPTe
+	Mh2QGys8MzWQNWHbjSCtZrNPz2cC/ueHfrL3Yh/l+Yr3ntpnaGbLADnQ/nGv5WeTnYUOa3cTxdi
+	qd9L2x8+BBtUwcE824U0F+uYiPE0f2Xr714gBGkdvs8GBztKOIyKeWEVujwmowRHQlU4ivRP/bx
+	/vjAKSaHlDj00z6V/7P/swkqhtRwyJ//G6KAvsOypEi2ssfDcjaUspLtH0DD+HqFl3rBRix3+Eu
+	DVc0FuKhB4s1HkdT9Oa/Q0mtu4INTw2piwhspOkkGk1gUVIYWqKS88NCuNAho5QZ4yDObwXQdMf
+	n7BhZx
+X-Received: by 2002:a05:6808:8947:b0:492:285c:4da8 with SMTP id 5614622812f47-4a495eab7b6mr4246595b6e.13.1784184944575;
+        Wed, 15 Jul 2026 23:55:44 -0700 (PDT)
+Received: from localhost ([74.80.182.90])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4a42ae81f1esm11281900b6e.11.2026.07.15.23.55.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 23:55:43 -0700 (PDT)
+Date: Thu, 16 Jul 2026 09:55:36 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: johannes.berg@intel.com, Georgi Valkov <gvalkov@gmail.com>,
+	briannorris@chromium.org, kees@kernel.org, bhelgaas@google.com,
+	s.kerkmann@pengutronix.de, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] wifi: mwifiex: replace one-element arrays with
+ flexible array members
+Message-ID: <aliAaHF3NgwAZ60v@stanley.mountain>
+References: <202607150932.F2A0836@keescook>
+ <20260716001728.57799-1-gvalkov@gmail.com>
+ <20260716061638.GB9973@francesco-nb>
+ <alh5y74H5bJyDSSP@stanley.mountain>
+ <20260716063246.GA17850@francesco-nb>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260716063246.GA17850@francesco-nb>
 
-From: GuoHan Zhao <zhaoguohan@kylinos.cn>
+On Thu, Jul 16, 2026 at 08:32:46AM +0200, Francesco Dolcini wrote:
+> On Thu, Jul 16, 2026 at 09:27:23AM +0300, Dan Carpenter wrote:
+> > On Thu, Jul 16, 2026 at 08:16:38AM +0200, Francesco Dolcini wrote:
+> > > On Thu, Jul 16, 2026 at 03:17:28AM +0300, Georgi Valkov wrote:
+> > > > Replace deprecated one-element arrays with flexible array members.
+> > > > CONFIG_FORTIFY_SOURCE reports the following warning when
+> > > > one-element arrays are used as variable-length buffers:
+> > > > 
+> > > > sta_cmd.c:1033 mwifiex_sta_prepare_cmd
+> > > > memcpy: detected field-spanning write (size 84) of single field
+> > > > "domain->triplet" at .../marvell/mwifiex/sta_cmd.c:1033 (size 3)
+> > > > 
+> > > > Convert affected structs to use flexible array members.
+> > > > - Preserve existing wire layouts.
+> > > > - Use DECLARE_FLEX_ARRAY() for structs inside affected unions.
+> > > > 
+> > > > Tested-on: WRT3200ACM, OpenWrt
+> > > > Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+> > > 
+> > > Cc: stable@vger.kernel.org # 6.12+
+> > > Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > 
+> > Are we CCing stable for this sort of thing?  How many FORTIFY_SOURCE
+> > warnings are still remaining?
+> 
+> Yes, you are right, my mistake.
+> 
+> Johannes, please be sure to not have the stable tag in once you apply the
+> patch.
 
-devm_platform_ioremap_resource() returns an error pointer when the register
-resource cannot be mapped. ethosu_probe() stores it and continues until
-initialization dereferences it through MMIO accessors.
+Wait...  No no.  It was a serious question.  I guess these warnings
+are pretty annoying for a real user on WRT so it's fine to CC stable.
+I just assumed these warnings were more common still.
 
-Return the mapping error before initializing the device.
-
-Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: GuoHan Zhao <zhaoguohan@kylinos.cn>
----
- drivers/accel/ethosu/ethosu_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index ed9c748a54ad..b2901eb8a7a0 100644
---- a/drivers/accel/ethosu/ethosu_drv.c
-+++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -342,6 +342,8 @@ static int ethosu_probe(struct platform_device *pdev)
- 	dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(40));
- 
- 	ethosudev->regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(ethosudev->regs))
-+		return PTR_ERR(ethosudev->regs);
- 
- 	ethosudev->num_clks = devm_clk_bulk_get_all(&pdev->dev, &ethosudev->clks);
- 	if (ethosudev->num_clks < 0)
--- 
-2.43.0
+regards,
+dan carpenter
 
