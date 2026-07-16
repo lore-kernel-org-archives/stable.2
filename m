@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB4A33263B
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 19:49:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862A2331EB8
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 19:49:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784231376; cv=none; b=h62KB6OTsqsFzYtycANGzX/9H6RLRv1u2Aqfbb/eenP1MJPfbiYj/eQauvq05+w9AaXJwoKjshLCv5N7fELFTB66MamYj+m7ZyVNk0wqXjsrcDvxXCHmWtvZPsu/dv88ccwLDquXGRXbFU83jAZKHyqmuP6Pqc8puiitBNasosU=
+	t=1784231382; cv=none; b=jWMwDLzvrTpucvv9iZUXcgRY8cfieR6koRZksyjuwcoLDqMXZ72k4u0n+9zVsmsK8TEjylynnM+6kcezceKQ3IwOK18UHrfyrR7BL+fVkrTSFRRIIRaQ01GF0BEkycWnFl/SJsP/MBI0VtpLtbpqZhMwvYPH3NQIjtiX56fbknA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784231376; c=relaxed/simple;
-	bh=XLmN9Um276mSGK/vZVDQiZXYOiUQLoLrXoW+WEItqyY=;
+	s=arc-20240116; t=1784231382; c=relaxed/simple;
+	bh=XSEsEgNlwWPvDsdw1SmXQc6lSpmBAnebdVFgAvN6ddM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YZjwCgvQmwWCxdvUJHCBWMTunt5KmP1/gqhERj3ga+FUTBeHHyHsQl4176EbTBpVkwhvrjU6J46fzbzeAZpNk9WKVq4BNr22vXejkQLj/Xp0iwocH51HI+AG6b9Vkq/xY5JGlFn+tf4G1wHVBCUG2D6JeO19Jq0sKFLBButzi1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGOkeirJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mPldzzuaWR3IN6C9nk5TAy8DY4uNHsbXiDvHDREBbcf+O5WFf7Jojzoj5M1JXO05kBDlwgfupTll4tBog37/oEnpjNdpSXLCBOWcGKQWK8SDgnP9Ihhcs+ukymAsd++09PXghZmw7xoJqrOnrphA1GCSHTBMm5yKJxg0M1H2I1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3jYvRnt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGOkeirJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325D21F000E9;
-	Thu, 16 Jul 2026 19:49:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3jYvRnt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E1B21F000E9;
+	Thu, 16 Jul 2026 19:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784231374;
-	bh=S/llCSpxwb/b+O18AHmZDVn/l35KcSUmVuS8zR9obn8=;
+	s=k20260515; t=1784231381;
+	bh=/Pbz57vgSSvpW4MaE+HoWOZ7XihtFdszrTHbyvVHM8I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kGOkeirJD3jSjZYa21KVEyUuowbre44+F2Ek1u9H7GwXu9hgy2bRVfFT0jVG0z6lT
-	 YsUpEj44P6CVR9Vsha/yxeXx7WdUFzIH5s3lGLgAHfuBXUCqL1nCcJo4TAzS7DVzMz
-	 nLFunubXm35T7oqjj4l/sIr/1h/O5hKPTFSJXkdDdAB45e1YhP7HzSZ9LNrfKpdApr
-	 68ms1u4bpzqzgDE9/ZgrfONJk8oYvLY++XGVo2NKA7q/KEil6jlMuGbp4+e6INjDPe
-	 twya4z96KQ03PeUtB10m2EOumygbFo/hg/wOoD0GqGV1o7t909ExAqbzdv6jMGIQn6
-	 y6R9kZeA952CA==
+	b=S3jYvRnt8cRcAnaJQlX2x1m2GWFLw3YsDLsA8btYwDc4VjkJnIw7H2kxIBf05js/q
+	 512hDV7xsG7o1FqMbXP//vVMvjV7TW7A9Yi1K4Ckp+pOO9JYm8YYn4/t9IrAXOYmrm
+	 P4+eYcjJBdYJiV3LDUjdsmR4WHeL06MNAHog/xZaXNtLI4IHU5adBQlaoxlIjALM+e
+	 uJziM155MNZIal4lcLdBRwj7txER9CYrfW5BVcjtYa5eoZhX4WGZFTX33MFvznw3ff
+	 uF+ef3fbRIV1XsoKUg7bge7GxcGzD5ckfpZ+O2L8fxBgRLH8vKic9oRrr9vD8s+4NN
+	 84LzVAknpu+cQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Tejun Heo <tj@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Lukas Wunner <lukas@wunner.de>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Ignat Korchagin <ignat@linux.win>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] writeback: fix race between cgroup_writeback_umount() and inode_switch_wbs()
-Date: Thu, 16 Jul 2026 15:49:31 -0400
-Message-ID: <20260716194931.1111583-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] X.509: Fix validation of ASN.1 certificate header
+Date: Thu, 16 Jul 2026 15:49:38 -0400
+Message-ID: <20260716194938.1111666-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071447-raking-bobsled-6a58@gregkh>
-References: <2026071447-raking-bobsled-6a58@gregkh>
+In-Reply-To: <2026071443-crouton-afterlife-63a4@gregkh>
+References: <2026071443-crouton-afterlife-63a4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,148 +48,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Baokun Li <libaokun@linux.alibaba.com>
+From: Lukas Wunner <lukas@wunner.de>
 
-[ Upstream commit cba38ec4cbd3a7b8b942a8d52531a05be8a9ff0d ]
+[ Upstream commit 3b626ba431c4501512ad07549310685e07fe4706 ]
 
-When a container exits, the following BUG_ON() is occasionally triggered:
+x509_load_certificate_list() seeks to enforce that a certificate starts
+with 0x30 0x82 (ASN.1 SEQUENCE tag followed by a length of more than 256
+and less than 65535 bytes).
 
-==================================================================
- VFS: Busy inodes after unmount of sdb (ext4)
- ------------[ cut here ]------------
- kernel BUG at fs/super.c:695!
- CPU: 3 PID: 6 Comm: containerd-shim Tainted: G OE K 6.6 #1
- pstate: 63400009 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
- pc : generic_shutdown_super+0xf0/0x100
- lr : generic_shutdown_super+0xf0/0x100
- Call trace:
-  generic_shutdown_super+0xf0/0x100
-  kill_block_super+0x20/0x48
-  ext4_kill_sb+0x28/0x60
-  deactivate_locked_super+0x54/0x130
-  deactivate_super+0x84/0xa0
-  cleanup_mnt+0xa4/0x140
-  __cleanup_mnt+0x18/0x28
-  task_work_run+0x78/0xe0
-  do_notify_resume+0x204/0x240
-==================================================================
+But it only enforces that *either* of those two byte values are present,
+instead of checking for the *conjunction* of the two values.  Fix it.
 
-The root cause is a race between cgroup_writeback_umount() and
-inode_switch_wbs()/cleanup_offline_cgwb(). There is a window between
-inode_prepare_wbs_switch() returning true and the subsequent
-wb_queue_isw() call. Following is the process that triggers the issue:
-
-      CPU A (umount)           |          CPU B (writeback)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                 inode_switch_wbs/cleanup_offline_cgwb
-                                  atomic_inc(&isw_nr_in_flight)
-                                  inode_prepare_wbs_switch
-                                   -> passes SB_ACTIVE check
-                                   __iget(inode)
- generic_shutdown_super
-  sb->s_flags &= ~SB_ACTIVE
-  cgroup_writeback_umount(sb)
-   smp_mb()
-   atomic_read(&isw_nr_in_flight)
-   rcu_barrier()
-    -> no pending RCU callbacks
-   flush_workqueue(isw_wq)
-    -> nothing queued, returns
-  evict_inodes(sb)
-   -> Inode skipped as isw still holds a ref.
-  sop->put_super(sb)
-   /* destroys percpu counters */
-  -> VFS: Busy inodes after unmount!
-                                  wb_queue_isw()
-                                   queue_work(isw_wq, ...)
-                                  /* later in work function */
-                                  inode_switch_wbs_work_fn
-                                   process_inode_switch_wbs
-                                    iput() -> evict
-                                     percpu_counter_dec() // UAF!
-
-Fix this by extending the RCU read-side critical section in
-inode_switch_wbs() and cleanup_offline_cgwb() to cover from
-inode_prepare_wbs_switch() through wb_queue_isw().  Since there is
-no sleep in this window, rcu_read_lock() can be used.  Then add a
-synchronize_rcu() in cgroup_writeback_umount() before the existing
-rcu_barrier(), so that all in-flight switchers that have passed the
-SB_ACTIVE check have completed queue_work() before flush_workqueue()
-is called.
-
-The existing rcu_barrier() is intentionally retained so this fix can
-be backported unchanged to stable kernels (5.10.y, 6.6.y, ...) that
-still queue switches via queue_rcu_work(). It is a no-op on current
-mainline (since commit e1b849cfa6b6 ("writeback: Avoid contention on
-wb->list_lock when switching inodes")) and is removed in a follow-up
-patch.
-
-Fixes: a1a0e23e4903 ("writeback: flush inode cgroup wb switches instead of pinning super_block")
-Cc: stable@vger.kernel.org
-Suggested-by: Jan Kara <jack@suse.cz>
-Link: https://lore.kernel.org/all/mxnjq2l6guusfchvauxr3v7c4bwjasybxlleqbbh4efloeqspz@iqylk76ohufz
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
-Link: https://patch.msgid.link/20260521095016.2791354-2-libaokun@linux.alibaba.com
-Acked-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 631cc66eb9ea ("MODSIGN: Provide module signing public keys to the kernel")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/20260508033917.B5873C2BCB0@smtp.kernel.org/
+Signed-off-by: Lukas Wunner <lukas@wunner.de>
+Cc: stable@vger.kernel.org # v3.7+
+Reviewed-by: Ignat Korchagin <ignat@linux.win>
+Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fs-writeback.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ certs/common.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-index f464c9da7bc6a3..1a58b826c74ed3 100644
---- a/fs/fs-writeback.c
-+++ b/fs/fs-writeback.c
-@@ -507,12 +507,18 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
- 
- 	atomic_inc(&isw_nr_in_flight);
- 
--	/* find and pin the new wb */
-+	/*
-+	 * Paired with synchronize_rcu() in cgroup_writeback_umount():
-+	 * holding rcu_read_lock across the SB_ACTIVE check, the inode
-+	 * grab and call_rcu() ensures synchronize_rcu() cannot return
-+	 * until the switch is queued, so the subsequent rcu_barrier()
-+	 * and flush_workqueue() will wait for the switch.
-+	 */
- 	rcu_read_lock();
-+	/* find and pin the new wb */
- 	memcg_css = css_from_id(new_wb_id, &memory_cgrp_subsys);
- 	if (memcg_css && !css_tryget(memcg_css))
- 		memcg_css = NULL;
--	rcu_read_unlock();
- 	if (!memcg_css)
- 		goto out_free;
- 
-@@ -542,9 +548,11 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
- 	 * Let's continue after I_WB_SWITCH is guaranteed to be visible.
- 	 */
- 	call_rcu(&isw->rcu_head, inode_switch_wbs_rcu_fn);
-+	rcu_read_unlock();
- 	return;
- 
- out_free:
-+	rcu_read_unlock();
- 	atomic_dec(&isw_nr_in_flight);
- 	if (isw->new_wb)
- 		wb_put(isw->new_wb);
-@@ -1010,6 +1018,14 @@ int cgroup_writeback_by_id(u64 bdi_id, int memcg_id, unsigned long nr,
- void cgroup_writeback_umount(void)
- {
- 	if (atomic_read(&isw_nr_in_flight)) {
-+		/*
-+		 * Paired with rcu_read_lock() in inode_switch_wbs().
-+		 * synchronize_rcu() waits for any in-flight switcher that
-+		 * already passed the SB_ACTIVE check to finish calling
-+		 * call_rcu(), so the rcu_barrier() and flush_workqueue()
-+		 * below will then drain it.
-+		 */
-+		synchronize_rcu();
- 		/*
- 		 * Use rcu_barrier() to wait for all pending callbacks to
- 		 * ensure that all in-flight wb switches are in the workqueue.
+diff --git a/certs/common.c b/certs/common.c
+index 16a220887a53e8..c7bcf3f6a77e39 100644
+--- a/certs/common.c
++++ b/certs/common.c
+@@ -20,7 +20,7 @@ int load_certificate_list(const u8 cert_list[],
+ 		 */
+ 		if (end - p < 4)
+ 			goto dodgy_cert;
+-		if (p[0] != 0x30 &&
++		if (p[0] != 0x30 ||
+ 		    p[1] != 0x82)
+ 			goto dodgy_cert;
+ 		plen = (p[2] << 8) | p[3];
 -- 
 2.53.0
 
