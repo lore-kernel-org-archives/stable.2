@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C9B446840
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 18:22:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C489243785D
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 18:22:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784226139; cv=none; b=pokE9QX1s6Unfz0o1KPA+HcUbPhazP/aCzdKDxE0AjXUw5DBB93AODUiBskRICiQKhMhKbk3KQ+P+MASuZUj+sw3stOO6kx4Vxq7+H2PO4q4s4AydcfVCDSNhVgXRwgEb3wOGd60ot33P4ITBYryFztz2ziufW1CrKjOqpO7ybw=
+	t=1784226139; cv=none; b=tujcmbukrmoJ8KtiPh+2OxvomneacOgZqZYmulU4WRcdaYyfoLLMz9b0abrADRVw4oy7p/lltaDn1W9DZvCUJgL3y8KwIKkWQpJgkiFXUH0yeSgYfHS6oE8RQNuCrHyEopJIIInP5c4aBUInjX+rJ4DR9miWKtcuLIN8bAqAxeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784226139; c=relaxed/simple;
-	bh=JW5lV6QzR/gz/VxJKF/ysWJ2BV0tccL2n6Wk/Jj8wFk=;
+	bh=cViwmYAJmlWYnpVRql5SRECqnt/U+vNNneWFyFTYKx4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mac4sMlFcgMEqk8GqaoN1SdBTAKS/Lgz9WWf2kfEGQCdSUMdIMWUd9HG1YrUSzlVuSJ7TVQgqmRMaruQakhGM1qYU7UDaZt73X5b5a3UCOFSCy1G4o/W+0tuPhwM59urr8f2ZWbbh/UTEUq4HTPGENDc/JQZG0XnS+ORjuWCX+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=klJj4ey1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cKL12GteP9ivML+BQAOJICe0nMmp4isgmAV6q6LHmBn9UCC1XzJ5lIshcEoK4ijZvj4UZUIKNTPYiScygLEsoajD7m5B2ZKTnEfDaQ1LE3qOrhl2vD3zXUZUMO9m5vHTCu9kdwFz8Mt6TZAjPy+efmWtcE/yptZg3adyLSbeBZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=infC7j61; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="klJj4ey1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E69981F00ACA;
-	Thu, 16 Jul 2026 18:22:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="infC7j61"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2632E1F00A3F;
+	Thu, 16 Jul 2026 18:22:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784226129;
-	bh=1yowg+baIjA+VCzswIiTxD4UxnRCeeyBiXXIKQbzYHs=;
+	s=k20260515; t=1784226127;
+	bh=S3NYo/3awEhjTfuE3VxeGUo3M2/l/GktH7GMLs2NSqo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=klJj4ey1hOxkcw4zdRJvn0152YD7tpF8wDS5QYk8ZWZtXK8q1Mp+J5X5L8eoXs9hv
-	 Ymo4rjVL2TV3EIuU6+iuFxdsyXIBhWL/EzdwZ/j5L5DwoqFKpDJyiqMsRaPTRg+pkf
-	 w/dxGAc0F6CXFRQwtxZFZx4rIddiVTESs5L9gGWIJT3KaA2iTAzmuCYZUm4uyAzJc5
-	 xUNGPwFOuP5lJznw5YFcGtFFHSHtFuqlnPjFBuaPRJIDeXKWvYjoXaIuhfzJGDSbJ5
-	 W1NxGHFU+9bmlMRznwOLOm52X7Cv9480VUW+xjct5GOeiy24vcRRDkmQ7K0JC0lpBD
-	 LeaZikHrv9J8w==
+	b=infC7j61Gt+ROM9k3uKRBnUUM7gIFQpYKG5yFdIgq4FcJ4pkFptdz10Q2AvRZch4F
+	 eDCD8jnsRJGcdWPb1u3wM+Xy2P/bxKR7bFKef+ayNUnTv9MnH8al+Q0xfBbA4yawu3
+	 7JSq3pyCEv8T1J5ryzRRB/MJbfsvgJs2rCKrdCqYGioX4mzyW57uTJBk+oZiNI73OV
+	 sd3oKtACZ0DJru8rxQAVbfkGEqPnl1UsYNjqyu6SscFjp476tLl+OI7YG4HIsN6L8h
+	 BApdA7nanB3ctDC6Qd8hxiiTCRN4c1MxiwvG6kMEJhZ/PsOv9ZKUyEBnGmatiY/jFj
+	 JGDjPLHmXPD9A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	munan Huang <munanevil@gmail.com>,
+Cc: ZhangGuoDong <zhangguodong@kylinos.cn>,
 	ChenXiaoSong <chenxiaosong@kylinos.cn>,
 	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/7] ksmbd: fix use-after-free in __ksmbd_close_fd() via durable scavenger
-Date: Thu, 16 Jul 2026 14:22:01 -0400
-Message-ID: <20260716182205.921233-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/7] smb: move some duplicate definitions to common/cifsglob.h
+Date: Thu, 16 Jul 2026 14:21:59 -0400
+Message-ID: <20260716182205.921233-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260716182205.921233-1-sashal@kernel.org>
+In-Reply-To: <2026071415-rambling-chooser-b760@gregkh>
 References: <2026071415-rambling-chooser-b760@gregkh>
- <20260716182205.921233-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,66 +46,170 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: ZhangGuoDong <zhangguodong@kylinos.cn>
 
-[ Upstream commit 235e32320a470fcd3998fb3774f2290a0eb302a1 ]
+[ Upstream commit d877470b59910b5c50383d634dda3782386bba51 ]
 
-When a durable file handle survives session disconnect (TCP close without
-SMB2_LOGOFF), session_fd_check() sets fp->conn = NULL to preserve the
-handle for later reconnection. However, it did not clean up the byte-range
-locks on fp->lock_list.
+In order to maintain the code more easily, move duplicate definitions to
+new common header file.
 
-Later, when the durable scavenger thread times out and calls
-__ksmbd_close_fd(NULL, fp), the lock cleanup loop did:
-
-    spin_lock(&fp->conn->llist_lock);
-
-This caused a slab use-after-free because fp->conn was NULL and the
-original connection object had already been freed by
-ksmbd_tcp_disconnect().
-
-The root cause is asymmetric cleanup: lock entries (smb_lock->clist) were
-left dangling on the freed conn->lock_list while fp->conn was nulled out.
-
-To fix this issue properly, we need to handle the lifetime of
-smb_lock->clist across three paths:
- - Safely skip clist deletion when list is empty and fp->conn is NULL.
- - Remove the lock from the old connection's lock_list in
-   session_fd_check()
- - Re-add the lock to the new connection's lock_list in
-   ksmbd_reopen_durable_fd().
-
-Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
-Co-developed-by: munan Huang <munanevil@gmail.com>
-Signed-off-by: munan Huang <munanevil@gmail.com>
-Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Co-developed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: ZhangGuoDong <zhangguodong@kylinos.cn>
 Signed-off-by: Steve French <stfrench@microsoft.com>
 Stable-dep-of: c1016dd1d8b2 ("ksmbd: track the connection owning a byte-range lock")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ksmbd/vfs_cache.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ fs/cifs/cifsglob.h         | 18 +-----------------
+ fs/ksmbd/smb_common.h      | 14 +-------------
+ fs/smbfs_common/cifsglob.h | 30 ++++++++++++++++++++++++++++++
+ 3 files changed, 32 insertions(+), 30 deletions(-)
+ create mode 100644 fs/smbfs_common/cifsglob.h
 
-diff --git a/fs/ksmbd/vfs_cache.c b/fs/ksmbd/vfs_cache.c
-index 2528ce8aeebbef..65dd85668cee24 100644
---- a/fs/ksmbd/vfs_cache.c
-+++ b/fs/ksmbd/vfs_cache.c
-@@ -317,9 +317,11 @@ static void __ksmbd_close_fd(struct ksmbd_file_table *ft, struct ksmbd_file *fp)
- 	 * there are not accesses to fp->lock_list.
- 	 */
- 	list_for_each_entry_safe(smb_lock, tmp_lock, &fp->lock_list, flist) {
--		spin_lock(&fp->conn->llist_lock);
--		list_del(&smb_lock->clist);
--		spin_unlock(&fp->conn->llist_lock);
-+		if (!list_empty(&smb_lock->clist) && fp->conn) {
-+			spin_lock(&fp->conn->llist_lock);
-+			list_del(&smb_lock->clist);
-+			spin_unlock(&fp->conn->llist_lock);
-+		}
+diff --git a/fs/cifs/cifsglob.h b/fs/cifs/cifsglob.h
+index 68b9b382d44bf2..f8b869a6231df3 100644
+--- a/fs/cifs/cifsglob.h
++++ b/fs/cifs/cifsglob.h
+@@ -22,6 +22,7 @@
+ #include <crypto/internal/hash.h>
+ #include <linux/scatterlist.h>
+ #include <uapi/linux/cifs/cifs_mount.h>
++#include "../smbfs_common/cifsglob.h"
+ #include "smb2pdu.h"
+ #include "smb2glob.h"
  
- 		list_del(&smb_lock->flist);
- 		locks_free_lock(smb_lock->fl);
+@@ -566,12 +567,6 @@ get_rfc1002_length(void *buf)
+ 	return be32_to_cpu(*((__be32 *)buf)) & 0xffffff;
+ }
+ 
+-static inline void
+-inc_rfc1001_len(void *buf, int count)
+-{
+-	be32_add_cpu((__be32 *)buf, count);
+-}
+-
+ struct TCP_Server_Info {
+ 	struct list_head tcp_ses_list;
+ 	struct list_head smb_ses_list;
+@@ -842,7 +837,6 @@ compare_mid(__u16 mid, const struct smb_hdr *smb)
+  * pages in a single call. With PAGE_SIZE == 4k, this means we can fill
+  * a single wsize request with a single call.
+  */
+-#define CIFS_DEFAULT_IOSIZE (1024 * 1024)
+ #define SMB3_DEFAULT_IOSIZE (4 * 1024 * 1024)
+ 
+ /*
+@@ -1905,30 +1899,20 @@ extern __u32 cifs_lock_secret;
+ extern mempool_t *cifs_mid_poolp;
+ 
+ /* Operations for different SMB versions */
+-#define SMB1_VERSION_STRING	"1.0"
+-#define SMB20_VERSION_STRING    "2.0"
+ #ifdef CONFIG_CIFS_ALLOW_INSECURE_LEGACY
+ extern struct smb_version_operations smb1_operations;
+ extern struct smb_version_values smb1_values;
+ extern struct smb_version_operations smb20_operations;
+ extern struct smb_version_values smb20_values;
+ #endif /* CIFS_ALLOW_INSECURE_LEGACY */
+-#define SMB21_VERSION_STRING	"2.1"
+ extern struct smb_version_operations smb21_operations;
+ extern struct smb_version_values smb21_values;
+-#define SMBDEFAULT_VERSION_STRING "default"
+ extern struct smb_version_values smbdefault_values;
+-#define SMB3ANY_VERSION_STRING "3"
+ extern struct smb_version_values smb3any_values;
+-#define SMB30_VERSION_STRING	"3.0"
+ extern struct smb_version_operations smb30_operations;
+ extern struct smb_version_values smb30_values;
+-#define SMB302_VERSION_STRING	"3.02"
+-#define ALT_SMB302_VERSION_STRING "3.0.2"
+ /*extern struct smb_version_operations smb302_operations;*/ /* not needed yet */
+ extern struct smb_version_values smb302_values;
+-#define SMB311_VERSION_STRING	"3.1.1"
+-#define ALT_SMB311_VERSION_STRING "3.11"
+ extern struct smb_version_operations smb311_operations;
+ extern struct smb_version_values smb311_values;
+ 
+diff --git a/fs/ksmbd/smb_common.h b/fs/ksmbd/smb_common.h
+index c4978579c5412b..9d8cf9facf3d3d 100644
+--- a/fs/ksmbd/smb_common.h
++++ b/fs/ksmbd/smb_common.h
+@@ -10,6 +10,7 @@
+ 
+ #include "glob.h"
+ #include "nterr.h"
++#include "../smbfs_common/cifsglob.h"
+ #include "smb2pdu.h"
+ 
+ /* ksmbd's Specific ERRNO */
+@@ -25,13 +26,6 @@
+ #define SMB311_PROT		6
+ #define BAD_PROT		0xFFFF
+ 
+-#define SMB1_VERSION_STRING	"1.0"
+-#define SMB20_VERSION_STRING	"2.0"
+-#define SMB21_VERSION_STRING	"2.1"
+-#define SMB30_VERSION_STRING	"3.0"
+-#define SMB302_VERSION_STRING	"3.02"
+-#define SMB311_VERSION_STRING	"3.1.1"
+-
+ /* Dialects */
+ #define SMB10_PROT_ID		0x00
+ #define SMB20_PROT_ID		0x0202
+@@ -45,7 +39,6 @@
+ 
+ #define SMB_ECHO_INTERVAL	(60 * HZ)
+ 
+-#define CIFS_DEFAULT_IOSIZE	(64 * 1024)
+ #define MAX_CIFS_SMALL_BUFFER_SIZE 448 /* big enough for most */
+ 
+ #define MAX_STREAM_PROT_LEN	0x00FFFFFF
+@@ -507,9 +500,4 @@ static inline unsigned int get_rfc1002_len(void *buf)
+ {
+ 	return be32_to_cpu(*((__be32 *)buf)) & 0xffffff;
+ }
+-
+-static inline void inc_rfc1001_len(void *buf, int count)
+-{
+-	be32_add_cpu((__be32 *)buf, count);
+-}
+ #endif /* __SMB_COMMON_H__ */
+diff --git a/fs/smbfs_common/cifsglob.h b/fs/smbfs_common/cifsglob.h
+new file mode 100644
+index 00000000000000..00fd215e3eb547
+--- /dev/null
++++ b/fs/smbfs_common/cifsglob.h
+@@ -0,0 +1,30 @@
++/* SPDX-License-Identifier: LGPL-2.1 */
++/*
++ *
++ *   Copyright (C) International Business Machines  Corp., 2002,2008
++ *   Author(s): Steve French (sfrench@us.ibm.com)
++ *              Jeremy Allison (jra@samba.org)
++ *
++ */
++#ifndef _COMMON_CIFS_GLOB_H
++#define _COMMON_CIFS_GLOB_H
++
++static inline void inc_rfc1001_len(void *buf, int count)
++{
++	be32_add_cpu((__be32 *)buf, count);
++}
++
++#define SMB1_VERSION_STRING	"1.0"
++#define SMB20_VERSION_STRING    "2.0"
++#define SMB21_VERSION_STRING	"2.1"
++#define SMBDEFAULT_VERSION_STRING "default"
++#define SMB3ANY_VERSION_STRING "3"
++#define SMB30_VERSION_STRING	"3.0"
++#define SMB302_VERSION_STRING	"3.02"
++#define ALT_SMB302_VERSION_STRING "3.0.2"
++#define SMB311_VERSION_STRING	"3.1.1"
++#define ALT_SMB311_VERSION_STRING "3.11"
++
++#define CIFS_DEFAULT_IOSIZE (1024 * 1024)
++
++#endif	/* _COMMON_CIFS_GLOB_H */
 -- 
 2.53.0
 
