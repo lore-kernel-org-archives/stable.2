@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0064279907
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:36:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9EC41736D
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:36:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784201770; cv=none; b=OeQTKLyXOaW2Oji50lt9zdHSIE4hTr8dfhNoOSD8cn4lyFTubaG92vpnsbVf+LR3qYbpWmi0ao0V9ADwFVsN8/v4C6QxMg+8WzHgX/9h9LEhNRlwihFY0lE3StKw0evoYxVOylqJeSiOoRmaMez1iLj2JkqHqlsITCz+awPZH2E=
+	t=1784201792; cv=none; b=lo9zbLXnpo7+TlaBS01Hd+zMFgn7dFu+mmQisVPHbSlNeo7+bPpuDtrda58bhjRGunPCKtChiLWNUbxi4Oulg5jQopvi3i44mqc1LL06j7qx5aJ1Yq5SHCIkvfg8MYzuEC4PALSLkFsx/uCblK0iZWgZYTiau+N6OOfraL6qmDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784201770; c=relaxed/simple;
-	bh=GbxyAZgPTGNl5ONYEPJ/o/QoXWaHvZhD5MgJ8nnytS8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=O4Ry94+hMDR/Wh4xGz5XA9LOt2xS623chLiSeVrtmE3mxkKarhgRqQCO3SQXhen7rEulrcgZLE1X3v5/XIsVQJYQcobtnqgaqmBahazvUtYVM6oKS8MA0s64QYisxxWO4jJiD01z6+yWyI797Iz/fJ8dkNAJPw05DVg9Uy0JClo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NX9NvPyu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784201792; c=relaxed/simple;
+	bh=OQ1eJdOWUPn/6s1MorQrx171PdB3mnmmL/bUc2nnrDY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TI4Txv00vHZmN5PzEFTz9Ow109cHQzn5mEcUIncRvuIWRSw6fzjAkM9yNgmj/89rCNGOhDmjLMnmb+hQla5rtFHySS3R7Zg4j7MOrq6cXTLsTR5rEAgN5DERRThW+ZcaaB96OmEY+XQLodDJtXqU1BedVtqIon+NMXLz4MAk3A4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zN4s8eXp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NX9NvPyu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080801F000E9;
-	Thu, 16 Jul 2026 11:36:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zN4s8eXp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3703A1F000E9;
+	Thu, 16 Jul 2026 11:36:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784201768;
-	bh=8sqBJWEOmsZd8D36rccZ9FeiVPjl1h+5JfZ0UvY8rd4=;
+	s=korg; t=1784201788;
+	bh=E25Lw7Gv8s0oCieL4IYkAJLxvueefshhqJ5YwvogB64=;
 	h=Subject:To:Cc:From:Date;
-	b=NX9NvPyunRqzmCenphseF5YrjumWPHLknmQ6bfoaeOFZH/Ffd2D7tqH00XBxj25SB
-	 ZM0XeZaqMeiLDksk4Rni/TT0xmJGZJLYmOn5gv4NEHTEmX+xWFQnduGHdUOMebAkPz
-	 40K/mlDU/Qx6knIw2wddFIvw0/zkQqfyJzqg2bDw=
-Subject: FAILED: patch "[PATCH] iommu/amd: Don't split flush for amd_iommu_domain_flush_all()" failed to apply to 5.10-stable tree
-To: wnliu@google.com,jgg@nvidia.com,joerg.roedel@amd.com,josef@toxicpanda.com,skhawaja@google.com,suravee.suthikulpanit@amd.com,vasant.hegde@amd.com,wei.w.wang@hotmail.com
+	b=zN4s8eXp9dOr0ysQ4LLhNOHTiMbFM3lpUzDNgf40M7+xvxVel5YM2WMBPBVqC6rAo
+	 qfbteBaV6rPKeowKMbWa8eF4a1/Tuk/oWxZOD14pqVufjT1w1FucsZvRhYH2gHCuf5
+	 +PeoTt9rSP4TGZBsLxUBXDlHl6KWtk7c9UaXk/bU=
+Subject: FAILED: patch "[PATCH] iommufd: Move vevent memory allocation outside spinlock" failed to apply to 6.18-stable tree
+To: nicolinc@nvidia.com,jgg@nvidia.com,kevin.tian@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 13:35:49 +0200
-Message-ID: <2026071649-fading-sensually-6e97@gregkh>
+Date: Thu, 16 Jul 2026 13:36:21 +0200
+Message-ID: <2026071621-gentleman-famine-b64d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 69fe699afe1afcb730164b86c228483c2da05f94
+git cherry-pick -x 47443565d10c51366c9382dbc8597cd6c460b8a2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071649-fading-sensually-6e97@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071621-gentleman-famine-b64d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,59 +62,61 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 69fe699afe1afcb730164b86c228483c2da05f94 Mon Sep 17 00:00:00 2001
-From: Weinan Liu <wnliu@google.com>
-Date: Thu, 28 May 2026 22:31:47 +0000
-Subject: [PATCH] iommu/amd: Don't split flush for amd_iommu_domain_flush_all()
+From 47443565d10c51366c9382dbc8597cd6c460b8a2 Mon Sep 17 00:00:00 2001
+From: Nicolin Chen <nicolinc@nvidia.com>
+Date: Thu, 21 May 2026 17:36:33 -0700
+Subject: [PATCH] iommufd: Move vevent memory allocation outside spinlock
 
-We have observed multiple full invalidations occurring during device
-detach when we are done using the vfio-device.
+The veventq memory allocation happens inside the spinlock. Given its depth
+is decided by the user space, this leaves a vulnerability, where userspace
+can allocate large queues to exhaust atomic memory reserves.
 
-blocked_domain_attach_device()
-  -> detach_device()
-    -> amd_iommu_domain_flush_all()
-      -> amd_iommu_domain_flush_pages(..., CMD_INV_IOMMU_ALL_PAGES_ADDRESS)
+Move the allocation outside the spinlock and use GFP_NOWAIT, which can fail
+fast under memory pressure without dipping into the GFP_ATOMIC reserves or
+direct-reclaiming from the threaded IRQ handler. On allocation failure,
+queue the lost_events_header (so userspace learns of the drop) and return
+-ENOMEM so the caller learns of the kernel-side memory pressure.
 
-      	while (size != 0) {
+This is intentionally distinct from the queue-overflow path, which also
+queues the lost_events_header but returns 0: a full queue is an expected
+userspace-pacing condition rather than a kernel error.
 
-          -> __domain_flush_pages( flush_size /* power of 2 flush_size */)
-            -> domain_flush_pages_v1()
-              -> build_inv_iommu_pages()
-                -> build_inv_address()
+A subsequent change will cap the upper bound of the veventq_depth.
 
-         }
-
-build_inv_address() will trigger a full invalidation  if the chunk
-size > (1 << 51). Consequently, the guest will issue multiple full
-invalidations for a single call to  amd_iommu_domain_flush_all()
-
-Without this patch, we will see 10 time instead of 1 time full
-invalidations for every amd_iommu_domain_flush_all().
-
+Fixes: e36ba5ab808e ("iommufd: Add IOMMUFD_OBJ_VEVENTQ and IOMMUFD_CMD_VEVENTQ_ALLOC")
+Link: https://patch.msgid.link/r/5ff36b5d80f7f6299f851be532a5195c1d2f1dae.1779408671.git.nicolinc@nvidia.com
 Cc: stable@vger.kernel.org
-Fixes: a270be1b3fdf ("iommu/amd: Use only natural aligned flushes in a VM")
-Suggested-by: Josef Bacik <josef@toxicpanda.com>
-Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Weinan Liu <wnliu@google.com>
-Reviewed-by: Wei Wang <wei.w.wang@hotmail.com>
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
-Reviewed-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
-Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index f1333071da10..0c042668b32d 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -1770,7 +1770,8 @@ void amd_iommu_domain_flush_pages(struct protection_domain *domain,
- {
- 	lockdep_assert_held(&domain->lock);
+diff --git a/drivers/iommu/iommufd/driver.c b/drivers/iommu/iommufd/driver.c
+index 61e6b02601d1..3b8067976eac 100644
+--- a/drivers/iommu/iommufd/driver.c
++++ b/drivers/iommu/iommufd/driver.c
+@@ -149,15 +149,18 @@ int iommufd_viommu_report_event(struct iommufd_viommu *viommu,
+ 		goto out_unlock_veventqs;
+ 	}
  
--	if (likely(!amd_iommu_np_cache)) {
-+	if (likely(!amd_iommu_np_cache) ||
-+		size >= (1ULL<<52)) {
- 		__domain_flush_pages(domain, address, size);
+-	spin_lock(&veventq->common.lock);
+-	if (veventq->num_events == veventq->depth) {
++	/* Pre-allocate to avoid GFP_ATOMIC; use GFP_NOWAIT to avoid sleeping */
++	vevent = kzalloc_flex(*vevent, event_data, data_len, GFP_NOWAIT);
++	if (!vevent) {
++		spin_lock(&veventq->common.lock);
+ 		vevent = &veventq->lost_events_header;
++		rc = -ENOMEM;
+ 		goto out_set_header;
+ 	}
  
- 		/* Wait until IOMMU TLB and all device IOTLB flushes are complete */
+-	vevent = kzalloc_flex(*vevent, event_data, data_len, GFP_ATOMIC);
+-	if (!vevent) {
+-		rc = -ENOMEM;
++	spin_lock(&veventq->common.lock);
++	if (veventq->num_events == veventq->depth) {
++		kfree(vevent);
+ 		vevent = &veventq->lost_events_header;
+ 		goto out_set_header;
+ 	}
 
