@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A43405F7
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 01:16:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1816405F7
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 01:16:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784164563; cv=none; b=J/5Y9ptMZQy3GmxSuIYmvKYjogc9bZyMLzhd7uUqfp/jHWEgYy7NT6dGGiSoG2WtGiUMC3ScRHnlnnAozNq7Na15EZbYcPdRo/IfrNPX7aWTLXseBnZZR2l1KH+iio8pO94ZPn1GdPWBURjpOnot6AkXt+R7en7abrG7u8Tzvcc=
+	t=1784164567; cv=none; b=p0j+NmadoFefZvKlgYIrMn58PVyL0sINFLu8uNOcMV0gsrtEFDddXAxpepMKKgNHEScaIkg6F8f+Vs+fHwhMi2S6rKupLEKTsr7yNMQYd5bMuvGVJ1r2PEG6ZEvg4SlJ5xTW/8WmldZGH2eydg/OQg8gqGqPHBzOMKqO6zOm5Pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784164563; c=relaxed/simple;
-	bh=N1Yrj3ITBKIrpDn9y/nOuUqoInsm+wr1dBEzArwfD7Y=;
+	s=arc-20240116; t=1784164567; c=relaxed/simple;
+	bh=dPMiT+Oltb90uMSZK0iBYyAPRJs/3lJ9vMkIIX2h93M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N9CC2TfpaiH1SfxYtBf3Fzs0BPQjTZrLEO8NZMJIlXv6cRTc8uZnlecz+ZmDjCdUPVcwBkjbXaUQZocAEyjhlCEM3Nto9AMp8cJvw0GoVX6cqZLCIz7w380lwjcPvBVip/MQG3PyL9YExtcc4yLtWHrng00WoEAMSOY9PfqokXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZTaYUt45; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Vr0tjWU4EnXebBSYlGav1GQoyI7Tom2GVC0L578domhog0+exRzzoJoR6SHuCWPYWD4mkIkE0HjxT/RYZqcVRz6LfcWjhqgZ4LS8QmC0Vzzb21252r4Dc2H93ojuB9JyNqUvo4K/1Vzc6Ph1mgpphVK21+462g5MJ2SNq7+JUro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egyLLYsN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZTaYUt45"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA81A1F00A3A;
-	Thu, 16 Jul 2026 01:16:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egyLLYsN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8081F000E9;
+	Thu, 16 Jul 2026 01:16:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784164561;
-	bh=3IWKRHwW9hb4wuhpqu8xHgU5m+60pTXDjIDaUSGxev4=;
+	s=k20260515; t=1784164565;
+	bh=QbveQBvh6/K8KhrN5y5DIQ8b3CtSurfSvPUpYbZ2UCc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZTaYUt45t0gc5J+wbIFPZPxF7a0Uvdp6IV+ErsFLQBc6zQ9bOU6tab59RRWlAFBaz
-	 27CHnKTfy9jchRAtCRDYr9DCL1OSyoC3RyR6FhxxSXkfDSRPz3IALCRr/vY1YqNM3N
-	 AE8rhuY6giQaby3z5y3cEpWsWEPL54KjLp83H2fXynYvaYVpAui8cXq9vpm52D78si
-	 8tRKY9nXCkho86qB2auymK0/C2yzVqeQ6Uvqh6RoEb4aWAoDw9QfuNKzhhHarYEi26
-	 tJtQslD1uVtTz8Pi99jV/fV3+d14Rav9VQs/Be8lsEYou7H0FdacPNNeVOTteGu8Jl
-	 1iP3cbQxKlrFA==
+	b=egyLLYsN/CvCJFLP7rXz7E+BSqfDt6yB9pn6iKnK6DIjNLmGb3EwP7Q4ctc09Qzdq
+	 DRSZyrc2Jvtnmhuxt5spVcXJyk8+LO3GeEAcLdIgVnumDOIVYkP8OPMWAsXgUccMNU
+	 lpmw2Xjvgq5RHlzOHkbElj4LGHiOi19vrnem/siPilzLO/IlpV5pZXfwRiGZmx95QF
+	 rnNVO2qXSgCG7nXK3iFTGeDkk2Iw/hlUG8g8e+o/qj+kI+orScCkZ5SEVqWeRe9aoV
+	 ZjCJfSK7OY257ToTaDvccJ+SqxT7FWS+TITS4v/anojOyVWMlYTOgdi+WVEy/dA2gb
+	 2Rrcrxrrri5LQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Pauli Virtanen <pav@iki.fi>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] smb: client: resolve SWN tcon from live registrations
-Date: Wed, 15 Jul 2026 21:15:58 -0400
-Message-ID: <20260716011558.683323-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] Bluetooth: hci_core: Enable buffer flow control for SCO/eSCO
+Date: Wed, 15 Jul 2026 21:16:03 -0400
+Message-ID: <20260716011603.683516-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260716011558.683323-1-sashal@kernel.org>
-References: <2026071415-silencer-euphemism-ea0d@gregkh>
- <20260716011558.683323-1-sashal@kernel.org>
+In-Reply-To: <2026071351-runaround-unsaddle-5e3a@gregkh>
+References: <2026071351-runaround-unsaddle-5e3a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,605 +45,278 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-[ Upstream commit ec457f9afe5ae9538bdcd58fd4cb442b9787e183 ]
+[ Upstream commit 13218453521d75916dfed55efb8e809bfc03cb4b ]
 
-cifs_swn_notify() looks up a witness registration by id under
-cifs_swnreg_idr_mutex, drops the mutex, and then uses the registration's
-cached tcon pointer.  That pointer is not a lifetime reference, and it is
-not a stable representative once cifs_get_swn_reg() lets multiple tcons
-for the same net/share name share one registration id.
+This enables buffer flow control for SCO/eSCO
+(see: Bluetooth Core 6.0 spec: 6.22. Synchronous Flow Control Enable),
+recently this has caused the following problem and is actually a nice
+addition for the likes of Socket TX complete:
 
-A same-share second mount can keep the cifs_swn_reg alive after the first
-tcon unregisters and is freed.  The registration then still points at the
-freed first tcon, so taking tc_lock or incrementing tc_count through
-swnreg->tcon only moves the use-after-free earlier.  Taking tc_lock while
-holding cifs_swnreg_idr_mutex also violates the documented CIFS lock
-order.
+< HCI Command: Read Buffer Size (0x04|0x0005) plen 0
+> HCI Event: Command Complete (0x0e) plen 11
+      Read Buffer Size (0x04|0x0005) ncmd 1
+        Status: Success (0x00)
+        ACL MTU: 1021 ACL max packet: 5
+        SCO MTU: 240  SCO max packet: 8
+...
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+< SCO Data TX: Handle 257 flags 0x00 dlen 120
+> HCI Event: Hardware Error (0x10) plen 1
+        Code: 0x0a
 
-Fix this by making the registration store only the stable witness
-identity: id, net name, share name, and notify flags.  When a notify
-arrives, copy that identity under cifs_swnreg_idr_mutex, drop the mutex,
-then find and pin a live witness tcon that currently matches the net/share
-pair under the normal cifs_tcp_ses_lock -> tc_lock order.  The notification
-path uses that pinned tcon directly and drops the reference when done.
+To fix the code will now attempt to enable buffer flow control when
+HCI_QUIRK_SYNC_FLOWCTL_SUPPORTED is set by the driver:
 
-Registration and unregister messages now use the live tcon passed by the
-caller instead of a cached tcon in the registration.  The final unregister
-send is folded into cifs_swn_unregister() while the registration is still
-protected by cifs_swnreg_idr_mutex.  This removes the previous
-find/drop/reacquire raw-pointer window.  The release path only removes the
-idr entry and frees the stable identity strings.
+< HCI Command: Write Sync Fl.. (0x03|0x002f) plen 1
+        Flow control: Enabled (0x01)
+> HCI Event: Command Complete (0x0e) plen 4
+      Write Sync Flow Control Enable (0x03|0x002f) ncmd 1
+        Status: Success (0x00)
 
-This preserves the intended one-registration/many-tcon behavior: a
-registration id represents a net/share pair, and notify handling acts on a
-live representative selected at use time.  It also preserves CLIENT_MOVE
-ordering for the representative tcon because the old-IP unregister is sent
-before cifs_swn_register() sends the new-IP register.
+On success then HCI_SCO_FLOWCTL would be set which indicates sco_cnt
+shall be used for flow contro.
 
-Fixes: fed979a7e082 ("cifs: Set witness notification handler for messages from userspace daemon")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Assisted-by: Claude:claude-opus-4-7
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Fixes: 7fedd3bb6b77 ("Bluetooth: Prioritize SCO traffic")
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Tested-by: Pauli Virtanen <pav@iki.fi>
+Stable-dep-of: 12917f591cea ("Bluetooth: hci_conn: Fix null ptr deref in hci_abort_conn()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifs_swn.c | 314 ++++++++++++++++++++++++++++++++-------
- fs/smb/client/trace.h    |   2 +
- 2 files changed, 262 insertions(+), 54 deletions(-)
+ include/net/bluetooth/hci.h      | 13 +++++++
+ include/net/bluetooth/hci_core.h |  1 +
+ net/bluetooth/hci_core.c         | 62 +++++++++++++++-----------------
+ net/bluetooth/hci_event.c        |  2 ++
+ net/bluetooth/hci_sync.c         | 24 +++++++++++++
+ 5 files changed, 68 insertions(+), 34 deletions(-)
 
-diff --git a/fs/smb/client/cifs_swn.c b/fs/smb/client/cifs_swn.c
-index 35a3e73c195806..693f609512e6b5 100644
---- a/fs/smb/client/cifs_swn.c
-+++ b/fs/smb/client/cifs_swn.c
-@@ -28,10 +28,54 @@ struct cifs_swn_reg {
- 	bool net_name_notify;
- 	bool share_name_notify;
- 	bool ip_notify;
-+};
+diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
+index 018fc64329fc68..365795bf2838cd 100644
+--- a/include/net/bluetooth/hci.h
++++ b/include/net/bluetooth/hci.h
+@@ -228,6 +228,13 @@ enum {
+ 	 */
+ 	HCI_QUIRK_WIDEBAND_SPEECH_SUPPORTED,
  
--	struct cifs_tcon *tcon;
-+struct cifs_swn_reg_info {
-+	int id;
-+	unsigned int ref_count;
-+	const char *net_name;
-+	const char *share_name;
-+	bool net_name_notify;
-+	bool share_name_notify;
-+	bool ip_notify;
++	/* When this quirk is set consider Sync Flow Control as supported by
++	 * the driver.
++	 *
++	 * This quirk must be set before hci_register_dev is called.
++	 */
++	HCI_QUIRK_SYNC_FLOWCTL_SUPPORTED,
++
+ 	/* When this quirk is set, the controller has validated that
+ 	 * LE states reported through the HCI_LE_READ_SUPPORTED_STATES are
+ 	 * valid.  This mechanism is necessary as many controllers have
+@@ -397,6 +404,7 @@ enum {
+ 	HCI_WIDEBAND_SPEECH_ENABLED,
+ 	HCI_EVENT_FILTER_CONFIGURED,
+ 	HCI_PA_SYNC,
++	HCI_SCO_FLOWCTL,
+ 
+ 	HCI_DUT_MODE,
+ 	HCI_VENDOR_DIAG,
+@@ -1539,6 +1547,11 @@ struct hci_rp_read_tx_power {
+ 	__s8     tx_power;
+ } __packed;
+ 
++#define HCI_OP_WRITE_SYNC_FLOWCTL	0x0c2f
++struct hci_cp_write_sync_flowctl {
++	__u8     enable;
++} __packed;
++
+ #define HCI_OP_READ_PAGE_SCAN_TYPE	0x0c46
+ struct hci_rp_read_page_scan_type {
+ 	__u8     status;
+diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
+index 2775752a4e4fcf..35587f40a68c25 100644
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -1655,6 +1655,7 @@ void hci_conn_del_sysfs(struct hci_conn *conn);
+ #define lmp_hold_capable(dev)      ((dev)->features[0][0] & LMP_HOLD)
+ #define lmp_sniff_capable(dev)     ((dev)->features[0][0] & LMP_SNIFF)
+ #define lmp_park_capable(dev)      ((dev)->features[0][1] & LMP_PARK)
++#define lmp_sco_capable(dev)       ((dev)->features[0][1] & LMP_SCO)
+ #define lmp_inq_rssi_capable(dev)  ((dev)->features[0][3] & LMP_RSSI_INQ)
+ #define lmp_esco_capable(dev)      ((dev)->features[0][3] & LMP_ESCO)
+ #define lmp_bredr_capable(dev)     (!((dev)->features[0][4] & LMP_NO_BREDR))
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index c6dec3c82f760f..a9b60eeec6250e 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -3583,42 +3583,27 @@ static void __check_timeout(struct hci_dev *hdev, unsigned int cnt, u8 type)
+ }
+ 
+ /* Schedule SCO */
+-static void hci_sched_sco(struct hci_dev *hdev)
++static void hci_sched_sco(struct hci_dev *hdev, __u8 type)
+ {
+ 	struct hci_conn *conn;
+ 	struct sk_buff *skb;
+-	int quote;
++	int quote, *cnt;
++	unsigned int pkts = hdev->sco_pkts;
+ 
+-	BT_DBG("%s", hdev->name);
++	bt_dev_dbg(hdev, "type %u", type);
+ 
+-	if (!hci_conn_num(hdev, SCO_LINK))
++	if (!hci_conn_num(hdev, type) || !pkts)
+ 		return;
+ 
+-	while (hdev->sco_cnt && (conn = hci_low_sent(hdev, SCO_LINK, &quote))) {
+-		while (quote-- && (skb = skb_dequeue(&conn->data_q))) {
+-			BT_DBG("skb %p len %d", skb, skb->len);
+-			hci_send_frame(hdev, skb);
+-
+-			conn->sent++;
+-			if (conn->sent == ~0)
+-				conn->sent = 0;
+-		}
+-	}
+-}
+-
+-static void hci_sched_esco(struct hci_dev *hdev)
+-{
+-	struct hci_conn *conn;
+-	struct sk_buff *skb;
+-	int quote;
+-
+-	BT_DBG("%s", hdev->name);
+-
+-	if (!hci_conn_num(hdev, ESCO_LINK))
+-		return;
++	/* Use sco_pkts if flow control has not been enabled which will limit
++	 * the amount of buffer sent in a row.
++	 */
++	if (!hci_dev_test_flag(hdev, HCI_SCO_FLOWCTL))
++		cnt = &pkts;
++	else
++		cnt = &hdev->sco_cnt;
+ 
+-	while (hdev->sco_cnt && (conn = hci_low_sent(hdev, ESCO_LINK,
+-						     &quote))) {
++	while (*cnt && (conn = hci_low_sent(hdev, type, &quote))) {
+ 		while (quote-- && (skb = skb_dequeue(&conn->data_q))) {
+ 			BT_DBG("skb %p len %d", skb, skb->len);
+ 			hci_send_frame(hdev, skb);
+@@ -3626,8 +3611,17 @@ static void hci_sched_esco(struct hci_dev *hdev)
+ 			conn->sent++;
+ 			if (conn->sent == ~0)
+ 				conn->sent = 0;
++			(*cnt)--;
+ 		}
+ 	}
++
++	/* Rescheduled if all packets were sent and flow control is not enabled
++	 * as there could be more packets queued that could not be sent and
++	 * since no HCI_EV_NUM_COMP_PKTS event will be generated the reschedule
++	 * needs to be forced.
++	 */
++	if (!pkts && !hci_dev_test_flag(hdev, HCI_SCO_FLOWCTL))
++		queue_work(hdev->workqueue, &hdev->tx_work);
+ }
+ 
+ static void hci_sched_acl_pkt(struct hci_dev *hdev)
+@@ -3663,8 +3657,8 @@ static void hci_sched_acl_pkt(struct hci_dev *hdev)
+ 			chan->conn->sent++;
+ 
+ 			/* Send pending SCO packets right away */
+-			hci_sched_sco(hdev);
+-			hci_sched_esco(hdev);
++			hci_sched_sco(hdev, SCO_LINK);
++			hci_sched_sco(hdev, ESCO_LINK);
+ 		}
+ 	}
+ 
+@@ -3785,8 +3779,8 @@ static void hci_sched_le(struct hci_dev *hdev)
+ 			chan->conn->sent++;
+ 
+ 			/* Send pending SCO packets right away */
+-			hci_sched_sco(hdev);
+-			hci_sched_esco(hdev);
++			hci_sched_sco(hdev, SCO_LINK);
++			hci_sched_sco(hdev, ESCO_LINK);
+ 		}
+ 	}
+ 
+@@ -3831,8 +3825,8 @@ static void hci_tx_work(struct work_struct *work)
+ 
+ 	if (!hci_dev_test_flag(hdev, HCI_USER_CHANNEL)) {
+ 		/* Schedule queues and send stuff to HCI driver */
+-		hci_sched_sco(hdev);
+-		hci_sched_esco(hdev);
++		hci_sched_sco(hdev, SCO_LINK);
++		hci_sched_sco(hdev, ESCO_LINK);
+ 		hci_sched_iso(hdev);
+ 		hci_sched_acl(hdev);
+ 		hci_sched_le(hdev);
+diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
+index d572ce3061cf92..7ece0f37fa341e 100644
+--- a/net/bluetooth/hci_event.c
++++ b/net/bluetooth/hci_event.c
+@@ -4459,9 +4459,11 @@ static void hci_num_comp_pkts_evt(struct hci_dev *hdev, void *data,
+ 			break;
+ 
+ 		case SCO_LINK:
++		case ESCO_LINK:
+ 			hdev->sco_cnt += count;
+ 			if (hdev->sco_cnt > hdev->sco_pkts)
+ 				hdev->sco_cnt = hdev->sco_pkts;
++
+ 			break;
+ 
+ 		case ISO_LINK:
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 9e802d47965706..81c0589554a82c 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -3854,6 +3854,28 @@ static int hci_write_ca_timeout_sync(struct hci_dev *hdev)
+ 				     sizeof(param), &param, HCI_CMD_TIMEOUT);
+ }
+ 
++/* Enable SCO flow control if supported */
++static int hci_write_sync_flowctl_sync(struct hci_dev *hdev)
++{
++	struct hci_cp_write_sync_flowctl cp;
++	int err;
++
++	/* Check if the controller supports SCO and HCI_OP_WRITE_SYNC_FLOWCTL */
++	if (!lmp_sco_capable(hdev) || !(hdev->commands[10] & BIT(4)) ||
++	    !test_bit(HCI_QUIRK_SYNC_FLOWCTL_SUPPORTED, &hdev->quirks))
++		return 0;
++
++	memset(&cp, 0, sizeof(cp));
++	cp.enable = 0x01;
++
++	err = __hci_cmd_sync_status(hdev, HCI_OP_WRITE_SYNC_FLOWCTL,
++				    sizeof(cp), &cp, HCI_CMD_TIMEOUT);
++	if (!err)
++		hci_dev_set_flag(hdev, HCI_SCO_FLOWCTL);
++
++	return err;
++}
++
+ /* BR Controller init stage 2 command sequence */
+ static const struct hci_init_stage br_init2[] = {
+ 	/* HCI_OP_READ_BUFFER_SIZE */
+@@ -3872,6 +3894,8 @@ static const struct hci_init_stage br_init2[] = {
+ 	HCI_INIT(hci_clear_event_filter_sync),
+ 	/* HCI_OP_WRITE_CA_TIMEOUT */
+ 	HCI_INIT(hci_write_ca_timeout_sync),
++	/* HCI_OP_WRITE_SYNC_FLOWCTL */
++	HCI_INIT(hci_write_sync_flowctl_sync),
+ 	{}
  };
  
-+static void cifs_swn_snapshot_reg(struct cifs_swn_reg *swnreg,
-+				  struct cifs_swn_reg_info *info)
-+{
-+	info->id = swnreg->id;
-+	info->ref_count = kref_read(&swnreg->ref_count);
-+	info->net_name = swnreg->net_name;
-+	info->share_name = swnreg->share_name;
-+	info->net_name_notify = swnreg->net_name_notify;
-+	info->share_name_notify = swnreg->share_name_notify;
-+	info->ip_notify = swnreg->ip_notify;
-+}
-+
-+static int cifs_swn_dup_reg(struct cifs_swn_reg *swnreg,
-+			    struct cifs_swn_reg_info *info)
-+{
-+	cifs_swn_snapshot_reg(swnreg, info);
-+
-+	info->net_name = kstrdup(swnreg->net_name, GFP_KERNEL);
-+	if (!info->net_name)
-+		return -ENOMEM;
-+
-+	info->share_name = kstrdup(swnreg->share_name, GFP_KERNEL);
-+	if (!info->share_name) {
-+		kfree(info->net_name);
-+		return -ENOMEM;
-+	}
-+
-+	return 0;
-+}
-+
-+static void cifs_swn_free_reg_info(struct cifs_swn_reg_info *info)
-+{
-+	kfree(info->net_name);
-+	kfree(info->share_name);
-+}
-+
- static int cifs_swn_auth_info_krb(struct cifs_tcon *tcon, struct sk_buff *skb)
- {
- 	int ret;
-@@ -73,7 +117,8 @@ static int cifs_swn_auth_info_ntlm(struct cifs_tcon *tcon, struct sk_buff *skb)
-  * The authentication information to connect to the witness service is bundled
-  * into the message.
-  */
--static int cifs_swn_send_register_message(struct cifs_swn_reg *swnreg)
-+static int cifs_swn_send_register_message(struct cifs_swn_reg_info *swnreg,
-+					  struct cifs_tcon *tcon)
- {
- 	struct sk_buff *skb;
- 	struct genlmsghdr *hdr;
-@@ -111,10 +156,10 @@ static int cifs_swn_send_register_message(struct cifs_swn_reg *swnreg)
- 	 * told to switch to it (client move message). In these cases we unregister from the
- 	 * server address and register to the new address when we receive the notification.
- 	 */
--	if (swnreg->tcon->ses->server->use_swn_dstaddr)
--		addr = &swnreg->tcon->ses->server->swn_dstaddr;
-+	if (tcon->ses->server->use_swn_dstaddr)
-+		addr = &tcon->ses->server->swn_dstaddr;
- 	else
--		addr = &swnreg->tcon->ses->server->dstaddr;
-+		addr = &tcon->ses->server->dstaddr;
- 
- 	ret = nla_put(skb, CIFS_GENL_ATTR_SWN_IP, sizeof(struct sockaddr_storage), addr);
- 	if (ret < 0)
-@@ -138,10 +183,10 @@ static int cifs_swn_send_register_message(struct cifs_swn_reg *swnreg)
- 			goto nlmsg_fail;
- 	}
- 
--	authtype = cifs_select_sectype(swnreg->tcon->ses->server, swnreg->tcon->ses->sectype);
-+	authtype = cifs_select_sectype(tcon->ses->server, tcon->ses->sectype);
- 	switch (authtype) {
- 	case Kerberos:
--		ret = cifs_swn_auth_info_krb(swnreg->tcon, skb);
-+		ret = cifs_swn_auth_info_krb(tcon, skb);
- 		if (ret < 0) {
- 			cifs_dbg(VFS, "%s: Failed to get kerberos auth info: %d\n", __func__, ret);
- 			goto nlmsg_fail;
-@@ -149,7 +194,7 @@ static int cifs_swn_send_register_message(struct cifs_swn_reg *swnreg)
- 		break;
- 	case NTLMv2:
- 	case RawNTLMSSP:
--		ret = cifs_swn_auth_info_ntlm(swnreg->tcon, skb);
-+		ret = cifs_swn_auth_info_ntlm(tcon, skb);
- 		if (ret < 0) {
- 			cifs_dbg(VFS, "%s: Failed to get NTLM auth info: %d\n", __func__, ret);
- 			goto nlmsg_fail;
-@@ -179,7 +224,8 @@ static int cifs_swn_send_register_message(struct cifs_swn_reg *swnreg)
- /*
-  * Sends an uregister message to the userspace daemon based on the registration
-  */
--static int cifs_swn_send_unregister_message(struct cifs_swn_reg *swnreg)
-+static int cifs_swn_send_unregister_message(struct cifs_swn_reg_info *swnreg,
-+					    struct cifs_tcon *tcon)
- {
- 	struct sk_buff *skb;
- 	struct genlmsghdr *hdr;
-@@ -208,7 +254,7 @@ static int cifs_swn_send_unregister_message(struct cifs_swn_reg *swnreg)
- 		goto nlmsg_fail;
- 
- 	ret = nla_put(skb, CIFS_GENL_ATTR_SWN_IP, sizeof(struct sockaddr_storage),
--			&swnreg->tcon->ses->server->dstaddr);
-+			&tcon->ses->server->dstaddr);
- 	if (ret < 0)
- 		goto nlmsg_fail;
- 
-@@ -244,6 +290,88 @@ static int cifs_swn_send_unregister_message(struct cifs_swn_reg *swnreg)
- 	return ret;
- }
- 
-+/*
-+ * Allocation-free mirror of extract_hostname() + extract_sharename() from
-+ * fs/smb/client/unc.c.  Those helpers kmalloc(GFP_KERNEL); this runs under
-+ * cifs_tcp_ses_lock and tcon->tc_lock, both spinlocks, so we mirror their
-+ * parsing in place against the caller's stable net_name/share_name strings.
-+ * Keep in sync with unc.c.
-+ */
-+static bool cifs_swn_tcon_matches(struct cifs_tcon *tcon,
-+				  const char *net_name,
-+				  const char *share_name)
-+{
-+	const char *unc = tcon->tree_name;
-+	const char *host, *share, *delim;
-+	size_t host_len, share_len;
-+
-+	if (!tcon->use_witness)
-+		return false;
-+
-+	/* extract_hostname: require strlen(unc) >= 3 */
-+	if (strnlen(unc, 3) < 3)
-+		return false;
-+	/* extract_hostname: skip all leading '\' characters */
-+	for (host = unc; *host == '\\'; host++)
-+		;
-+	if (!*host)
-+		return false;
-+	delim = strchr(host, '\\');
-+	if (!delim)
-+		return false;
-+	host_len = delim - host;
-+	if (strlen(net_name) != host_len ||
-+	    strncasecmp(host, net_name, host_len))
-+		return false;
-+
-+	/* extract_sharename: start at unc + 2, then first '\' onward */
-+	share = unc + 2;
-+	delim = strchr(share, '\\');
-+	if (!delim)
-+		return false;
-+	share = delim + 1;
-+	share_len = strlen(share);
-+
-+	return strlen(share_name) == share_len &&
-+	       !strncasecmp(share, share_name, share_len);
-+}
-+
-+/*
-+ * One SWN registration id represents one net/share name pair.  Multiple
-+ * mounted tcons can therefore share the id.  Pick a live representative at
-+ * use time instead of caching the first tcon pointer in the registration.
-+ */
-+static struct cifs_tcon *cifs_swn_get_tcon(struct cifs_swn_reg_info *swnreg)
-+{
-+	struct TCP_Server_Info *server;
-+	struct cifs_ses *ses;
-+	struct cifs_tcon *tcon;
-+
-+	spin_lock(&cifs_tcp_ses_lock);
-+	list_for_each_entry(server, &cifs_tcp_ses_list, tcp_ses_list) {
-+		list_for_each_entry(ses, &server->smb_ses_list, smb_ses_list) {
-+			list_for_each_entry(tcon, &ses->tcon_list, tcon_list) {
-+				spin_lock(&tcon->tc_lock);
-+				if (tcon->status == TID_EXITING ||
-+				    !cifs_swn_tcon_matches(tcon, swnreg->net_name,
-+							   swnreg->share_name)) {
-+					spin_unlock(&tcon->tc_lock);
-+					continue;
-+				}
-+				++tcon->tc_count;
-+				trace_smb3_tcon_ref(tcon->debug_id,
-+						    tcon->tc_count,
-+						    netfs_trace_tcon_ref_get_swn_notify);
-+				spin_unlock(&tcon->tc_lock);
-+				spin_unlock(&cifs_tcp_ses_lock);
-+				return tcon;
-+			}
-+		}
-+	}
-+	spin_unlock(&cifs_tcp_ses_lock);
-+	return NULL;
-+}
-+
- /*
-  * Try to find a matching registration for the tcon's server name and share name.
-  * Calls to this function must be protected by cifs_swnreg_idr_mutex.
-@@ -350,8 +478,6 @@ static struct cifs_swn_reg *cifs_get_swn_reg(struct cifs_tcon *tcon)
- 	reg->net_name_notify = true;
- 	reg->share_name_notify = true;
- 	reg->ip_notify = (tcon->capabilities & SMB2_SHARE_CAP_SCALEOUT);
--
--	reg->tcon = tcon;
- unlock:
- 	mutex_unlock(&cifs_swnreg_idr_mutex);
- 
-@@ -371,11 +497,6 @@ static struct cifs_swn_reg *cifs_get_swn_reg(struct cifs_tcon *tcon)
- static void cifs_swn_reg_release(struct kref *ref)
- {
- 	struct cifs_swn_reg *swnreg = container_of(ref, struct cifs_swn_reg, ref_count);
--	int ret;
--
--	ret = cifs_swn_send_unregister_message(swnreg);
--	if (ret < 0)
--		cifs_dbg(VFS, "%s: Failed to send unregister message: %d\n", __func__, ret);
- 
- 	idr_remove(&cifs_swnreg_idr, swnreg->id);
- 	kfree(swnreg->net_name);
-@@ -383,23 +504,33 @@ static void cifs_swn_reg_release(struct kref *ref)
- 	kfree(swnreg);
- }
- 
--static void cifs_put_swn_reg(struct cifs_swn_reg *swnreg)
-+static void cifs_put_swn_reg_locked(struct cifs_swn_reg *swnreg,
-+				    struct cifs_tcon *tcon)
- {
--	mutex_lock(&cifs_swnreg_idr_mutex);
-+	if (kref_read(&swnreg->ref_count) == 1) {
-+		struct cifs_swn_reg_info swnreg_info;
-+		int ret;
-+
-+		cifs_swn_snapshot_reg(swnreg, &swnreg_info);
-+		ret = cifs_swn_send_unregister_message(&swnreg_info, tcon);
-+		if (ret < 0)
-+			cifs_dbg(VFS, "%s: Failed to send unregister message: %d\n",
-+				 __func__, ret);
-+	}
-+
- 	kref_put(&swnreg->ref_count, cifs_swn_reg_release);
--	mutex_unlock(&cifs_swnreg_idr_mutex);
- }
- 
--static int cifs_swn_resource_state_changed(struct cifs_swn_reg *swnreg, const char *name, int state)
-+static int cifs_swn_resource_state_changed(struct cifs_tcon *tcon, const char *name, int state)
- {
- 	switch (state) {
- 	case CIFS_SWN_RESOURCE_STATE_UNAVAILABLE:
- 		cifs_dbg(FYI, "%s: resource name '%s' become unavailable\n", __func__, name);
--		cifs_signal_cifsd_for_reconnect(swnreg->tcon->ses->server, true);
-+		cifs_signal_cifsd_for_reconnect(tcon->ses->server, true);
- 		break;
- 	case CIFS_SWN_RESOURCE_STATE_AVAILABLE:
- 		cifs_dbg(FYI, "%s: resource name '%s' become available\n", __func__, name);
--		cifs_signal_cifsd_for_reconnect(swnreg->tcon->ses->server, true);
-+		cifs_signal_cifsd_for_reconnect(tcon->ses->server, true);
- 		break;
- 	case CIFS_SWN_RESOURCE_STATE_UNKNOWN:
- 		cifs_dbg(FYI, "%s: resource name '%s' changed to unknown state\n", __func__, name);
-@@ -505,7 +636,7 @@ static int cifs_swn_reconnect(struct cifs_tcon *tcon, struct sockaddr_storage *a
- 	return ret;
- }
- 
--static int cifs_swn_client_move(struct cifs_swn_reg *swnreg, struct sockaddr_storage *addr)
-+static int cifs_swn_client_move(struct cifs_tcon *tcon, struct sockaddr_storage *addr)
- {
- 	struct sockaddr_in *ipv4 = (struct sockaddr_in *)addr;
- 	struct sockaddr_in6 *ipv6 = (struct sockaddr_in6 *)addr;
-@@ -515,14 +646,17 @@ static int cifs_swn_client_move(struct cifs_swn_reg *swnreg, struct sockaddr_sto
- 	else if (addr->ss_family == AF_INET6)
- 		cifs_dbg(FYI, "%s: move to %pI6\n", __func__, &ipv6->sin6_addr);
- 
--	return cifs_swn_reconnect(swnreg->tcon, addr);
-+	return cifs_swn_reconnect(tcon, addr);
- }
- 
- int cifs_swn_notify(struct sk_buff *skb, struct genl_info *info)
- {
- 	struct cifs_swn_reg *swnreg;
-+	struct cifs_swn_reg_info swnreg_info;
-+	struct cifs_tcon *tcon;
- 	char name[256];
- 	int type;
-+	int ret = 0;
- 
- 	if (info->attrs[CIFS_GENL_ATTR_SWN_REGISTRATION_ID]) {
- 		int swnreg_id;
-@@ -530,21 +664,34 @@ int cifs_swn_notify(struct sk_buff *skb, struct genl_info *info)
- 		swnreg_id = nla_get_u32(info->attrs[CIFS_GENL_ATTR_SWN_REGISTRATION_ID]);
- 		mutex_lock(&cifs_swnreg_idr_mutex);
- 		swnreg = idr_find(&cifs_swnreg_idr, swnreg_id);
--		mutex_unlock(&cifs_swnreg_idr_mutex);
- 		if (swnreg == NULL) {
-+			mutex_unlock(&cifs_swnreg_idr_mutex);
- 			cifs_dbg(FYI, "%s: registration id %d not found\n", __func__, swnreg_id);
- 			return -EINVAL;
- 		}
-+		ret = cifs_swn_dup_reg(swnreg, &swnreg_info);
-+		mutex_unlock(&cifs_swnreg_idr_mutex);
-+		if (ret)
-+			return ret;
- 	} else {
- 		cifs_dbg(FYI, "%s: missing registration id attribute\n", __func__);
- 		return -EINVAL;
- 	}
- 
-+	tcon = cifs_swn_get_tcon(&swnreg_info);
-+	if (!tcon) {
-+		cifs_dbg(FYI, "%s: registration id %d has no live tcon\n",
-+			 __func__, swnreg_info.id);
-+		ret = -ENODEV;
-+		goto free_info;
-+	}
-+
- 	if (info->attrs[CIFS_GENL_ATTR_SWN_NOTIFICATION_TYPE]) {
- 		type = nla_get_u32(info->attrs[CIFS_GENL_ATTR_SWN_NOTIFICATION_TYPE]);
- 	} else {
- 		cifs_dbg(FYI, "%s: missing notification type attribute\n", __func__);
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto out;
- 	}
- 
- 	switch (type) {
-@@ -556,15 +703,18 @@ int cifs_swn_notify(struct sk_buff *skb, struct genl_info *info)
- 					sizeof(name));
- 		} else {
- 			cifs_dbg(FYI, "%s: missing resource name attribute\n", __func__);
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto out;
- 		}
- 		if (info->attrs[CIFS_GENL_ATTR_SWN_RESOURCE_STATE]) {
- 			state = nla_get_u32(info->attrs[CIFS_GENL_ATTR_SWN_RESOURCE_STATE]);
- 		} else {
- 			cifs_dbg(FYI, "%s: missing resource state attribute\n", __func__);
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto out;
- 		}
--		return cifs_swn_resource_state_changed(swnreg, name, state);
-+		ret = cifs_swn_resource_state_changed(tcon, name, state);
-+		break;
- 	}
- 	case CIFS_SWN_NOTIFICATION_CLIENT_MOVE: {
- 		struct sockaddr_storage addr;
-@@ -573,28 +723,36 @@ int cifs_swn_notify(struct sk_buff *skb, struct genl_info *info)
- 			nla_memcpy(&addr, info->attrs[CIFS_GENL_ATTR_SWN_IP], sizeof(addr));
- 		} else {
- 			cifs_dbg(FYI, "%s: missing IP address attribute\n", __func__);
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto out;
- 		}
--		return cifs_swn_client_move(swnreg, &addr);
-+		ret = cifs_swn_client_move(tcon, &addr);
-+		break;
- 	}
- 	default:
- 		cifs_dbg(FYI, "%s: unknown notification type %d\n", __func__, type);
- 		break;
- 	}
- 
--	return 0;
-+out:
-+	cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_swn_notify);
-+free_info:
-+	cifs_swn_free_reg_info(&swnreg_info);
-+	return ret;
- }
- 
- int cifs_swn_register(struct cifs_tcon *tcon)
- {
- 	struct cifs_swn_reg *swnreg;
-+	struct cifs_swn_reg_info swnreg_info;
- 	int ret;
- 
- 	swnreg = cifs_get_swn_reg(tcon);
- 	if (IS_ERR(swnreg))
- 		return PTR_ERR(swnreg);
- 
--	ret = cifs_swn_send_register_message(swnreg);
-+	cifs_swn_snapshot_reg(swnreg, &swnreg_info);
-+	ret = cifs_swn_send_register_message(&swnreg_info, tcon);
- 	if (ret < 0) {
- 		cifs_dbg(VFS, "%s: Failed to send swn register message: %d\n", __func__, ret);
- 		/* Do not put the swnreg or return error, the echo task will retry */
-@@ -615,35 +773,68 @@ int cifs_swn_unregister(struct cifs_tcon *tcon)
- 		return PTR_ERR(swnreg);
- 	}
- 
-+	cifs_put_swn_reg_locked(swnreg, tcon);
- 	mutex_unlock(&cifs_swnreg_idr_mutex);
- 
--	cifs_put_swn_reg(swnreg);
--
- 	return 0;
- }
- 
--void cifs_swn_dump(struct seq_file *m)
-+/*
-+ * Snapshot one registration under cifs_swnreg_idr_mutex and return.  Callers
-+ * intentionally do the per-registration network/genlmsg work without the
-+ * mutex held, both to keep the critical section short and to avoid nesting
-+ * cifs_swnreg_idr_mutex inside the higher tc_lock when a live tcon is then
-+ * pinned for the send.
-+ */
-+static int cifs_swn_get_next_reg_info(int *id, struct cifs_swn_reg_info *info)
- {
- 	struct cifs_swn_reg *swnreg;
-+	int ret = 0;
-+
-+	mutex_lock(&cifs_swnreg_idr_mutex);
-+	swnreg = idr_get_next(&cifs_swnreg_idr, id);
-+	if (swnreg) {
-+		ret = cifs_swn_dup_reg(swnreg, info);
-+		if (!ret) {
-+			*id = swnreg->id + 1;
-+			ret = 1;
-+		}
-+	}
-+	mutex_unlock(&cifs_swnreg_idr_mutex);
-+
-+	return ret;
-+}
-+
-+void cifs_swn_dump(struct seq_file *m)
-+{
-+	struct cifs_swn_reg_info swnreg_info;
-+	struct cifs_tcon *tcon;
- 	struct sockaddr_in *sa;
- 	struct sockaddr_in6 *sa6;
--	int id;
-+	int id = 0;
-+	int ret;
- 
- 	seq_puts(m, "Witness registrations:");
- 
--	mutex_lock(&cifs_swnreg_idr_mutex);
--	idr_for_each_entry(&cifs_swnreg_idr, swnreg, id) {
-+	while ((ret = cifs_swn_get_next_reg_info(&id, &swnreg_info)) > 0) {
- 		seq_printf(m, "\nId: %u Refs: %u Network name: '%s'%s Share name: '%s'%s Ip address: ",
--				id, kref_read(&swnreg->ref_count),
--				swnreg->net_name, swnreg->net_name_notify ? "(y)" : "(n)",
--				swnreg->share_name, swnreg->share_name_notify ? "(y)" : "(n)");
--		switch (swnreg->tcon->ses->server->dstaddr.ss_family) {
-+			   swnreg_info.id, swnreg_info.ref_count,
-+			   swnreg_info.net_name, swnreg_info.net_name_notify ? "(y)" : "(n)",
-+			   swnreg_info.share_name, swnreg_info.share_name_notify ? "(y)" : "(n)");
-+
-+		tcon = cifs_swn_get_tcon(&swnreg_info);
-+		if (!tcon) {
-+			seq_puts(m, "(no live tcon)");
-+			goto next;
-+		}
-+
-+		switch (tcon->ses->server->dstaddr.ss_family) {
- 		case AF_INET:
--			sa = (struct sockaddr_in *) &swnreg->tcon->ses->server->dstaddr;
-+			sa = (struct sockaddr_in *)&tcon->ses->server->dstaddr;
- 			seq_printf(m, "%pI4", &sa->sin_addr.s_addr);
- 			break;
- 		case AF_INET6:
--			sa6 = (struct sockaddr_in6 *) &swnreg->tcon->ses->server->dstaddr;
-+			sa6 = (struct sockaddr_in6 *)&tcon->ses->server->dstaddr;
- 			seq_printf(m, "%pI6", &sa6->sin6_addr.s6_addr);
- 			if (sa6->sin6_scope_id)
- 				seq_printf(m, "%%%u", sa6->sin6_scope_id);
-@@ -651,23 +842,38 @@ void cifs_swn_dump(struct seq_file *m)
- 		default:
- 			seq_puts(m, "(unknown)");
- 		}
--		seq_printf(m, "%s", swnreg->ip_notify ? "(y)" : "(n)");
-+		cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_swn_notify);
-+next:
-+		seq_printf(m, "%s", swnreg_info.ip_notify ? "(y)" : "(n)");
-+		cifs_swn_free_reg_info(&swnreg_info);
- 	}
--	mutex_unlock(&cifs_swnreg_idr_mutex);
-+	if (ret < 0)
-+		seq_printf(m, "\nFailed to snapshot witness registration: %d", ret);
- 	seq_puts(m, "\n");
- }
- 
- void cifs_swn_check(void)
- {
--	struct cifs_swn_reg *swnreg;
--	int id;
-+	struct cifs_swn_reg_info swnreg_info;
-+	struct cifs_tcon *tcon;
-+	int id = 0;
- 	int ret;
- 
--	mutex_lock(&cifs_swnreg_idr_mutex);
--	idr_for_each_entry(&cifs_swnreg_idr, swnreg, id) {
--		ret = cifs_swn_send_register_message(swnreg);
-+	while ((ret = cifs_swn_get_next_reg_info(&id, &swnreg_info)) > 0) {
-+		tcon = cifs_swn_get_tcon(&swnreg_info);
-+		if (!tcon) {
-+			cifs_dbg(FYI, "%s: registration id %d has no live tcon\n",
-+				 __func__, swnreg_info.id);
-+			goto free_info;
-+		}
-+
-+		ret = cifs_swn_send_register_message(&swnreg_info, tcon);
- 		if (ret < 0)
- 			cifs_dbg(FYI, "%s: Failed to send register message: %d\n", __func__, ret);
-+		cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_swn_notify);
-+free_info:
-+		cifs_swn_free_reg_info(&swnreg_info);
- 	}
--	mutex_unlock(&cifs_swnreg_idr_mutex);
-+	if (ret < 0)
-+		cifs_dbg(FYI, "%s: Failed to snapshot registration: %d\n", __func__, ret);
- }
-diff --git a/fs/smb/client/trace.h b/fs/smb/client/trace.h
-index bd6e59b70872e4..036c7966e26009 100644
---- a/fs/smb/client/trace.h
-+++ b/fs/smb/client/trace.h
-@@ -35,6 +35,7 @@
- 	EM(netfs_trace_tcon_ref_get_find,		"GET Find  ") \
- 	EM(netfs_trace_tcon_ref_get_find_sess_tcon,	"GET FndSes") \
- 	EM(netfs_trace_tcon_ref_get_reconnect_server,	"GET Reconn") \
-+	EM(netfs_trace_tcon_ref_get_swn_notify,		"GET SwnNot") \
- 	EM(netfs_trace_tcon_ref_new,			"NEW       ") \
- 	EM(netfs_trace_tcon_ref_new_ipc,		"NEW Ipc   ") \
- 	EM(netfs_trace_tcon_ref_new_reconnect_server,	"NEW Reconn") \
-@@ -46,6 +47,7 @@
- 	EM(netfs_trace_tcon_ref_put_mnt_ctx,		"PUT MntCtx") \
- 	EM(netfs_trace_tcon_ref_put_dfs_refer,		"PUT DfsRfr") \
- 	EM(netfs_trace_tcon_ref_put_reconnect_server,	"PUT Reconn") \
-+	EM(netfs_trace_tcon_ref_put_swn_notify,		"PUT SwnNot") \
- 	EM(netfs_trace_tcon_ref_put_tlink,		"PUT Tlink ") \
- 	EM(netfs_trace_tcon_ref_see_cancelled_close,	"SEE Cn-Cls") \
- 	EM(netfs_trace_tcon_ref_see_fscache_collision,	"SEE FV-CO!") \
 -- 
 2.53.0
 
