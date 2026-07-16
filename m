@@ -1,181 +1,157 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CF2318ECD
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 02:21:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19CF72F5498;
+	Thu, 16 Jul 2026 02:22:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784168493; cv=none; b=QlK6SvMezrTHxZWn0Jopi1r/HmGbC6CZKwm4ZLKBS0ryUmvQ6qMa5PEba/ADwEBU8Q9m36qWHFZBFsxcdBRaap93scfjBMVDXnq6JtWwDoRNW/nOvwc4pmFJDZsdJFsSQyv1LxRT+FuJ9dyJvrkjjwqwFN6Xn0lVwnoIny60C4Q=
+	t=1784168557; cv=none; b=NPfHhr8vXlOzwJ6h3qs3oZ33SmjpKZZ/9UuPfqTIyEJby06UDjyeCOm+R6YutWNdJOICsAT26xs3gsNqwqKRIirJPc5t+cYnEyD4NgSbB4jzuVRA/SMvd1oKKEm8z0lNIKhyQNYesUP91R7n69VJv4TRzlMMF/Qh1y2FwJUYbMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784168493; c=relaxed/simple;
-	bh=4xnAas/mNVP8Dx0YmUY95pU1rpf60kqOtiatCadZ/LY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nax4ogYkWiDa6FvmgbyaJa5V1fE+8wnXaSnEQBN4bPS+8w2JbnB8jFXVnEM+AbUNqz1JMs7NqtVwROG7gYnnq2K5PODr5zF+t/3WhAVE/SqiY/+H2Q+JRZvNVuaCst2OC1NrijhImN9c66SXlIF4XTRCZROeAveejI6IizLixBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mUlOuah+; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mUlOuah+"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3810c5d691bso4777246a91.1
-        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 19:21:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784168492; x=1784773292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hEDMeStux/KKDKh9A+CKQwEHTpzd0skTIZYkeBHU1Ew=;
-        b=mUlOuah+9/NZ8kbceCHa04FhwXAqj6h7+OMKY9WX9ix1XarDnIvxYe9eO8O6da4F1c
-         itnaPJu3N0qHo/Pk3Cb5jmI+GBZW+PSackISqMw0iWccViXjd1bITFnK/k+pA3EA8arN
-         B1xjMOs+6iR4qqyD8ASBqI7wTig0q3IYRP3rKRrIS2QFtzzXQHoKGzaqBU2zBhqdFkTK
-         vZWiYdGC/q1+ElQvrw1ONbA0tzVh4x6H0oUPlHSU/LRuCM36dVJgyAJNYnSbBETG8Rzq
-         GRvGif8I7g9Syx1dRoUEnJGuKia1RAB4dVi7LsCuqvwHssgobIPg5UD7brUlZhgmo4fU
-         LDBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784168492; x=1784773292;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hEDMeStux/KKDKh9A+CKQwEHTpzd0skTIZYkeBHU1Ew=;
-        b=jiFB7hipFOuIzhlergFtJ1gJbSrDtMYBQtC+WgnIsm7hXdJTKY5ZalqJZMn6uxzn4W
-         //mrIz7LuePe1kh1/ZIeyy2/LTXDPJD+yMLsgjxO8OkkD276V2m7Y87MB9xu+zyg2A8X
-         N4comb3vc6qvKzyWLO4asBJejCR0pSElr4NAAFu88xrqfZnnKk/FJ4ink2tW64g3N44g
-         VqIc7s0e2nN7FcbA+ARkPiT5c75Kew6h5sBPrAaGneQYdT6pG/8oFuB2eGgkPFDgqwbQ
-         FEtL9wZ3SlLZHj1k45uDoj7nPqq9ycF2SnItlRpCDqkc+EJ7f6mjO/qKLSAudJ/S4jGj
-         GILA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqn6YLEcUiFyWVmewccIyERMtHpayzVvH5+CtpEkImvIJwpFGzpMYOlORtUQZXGCCCHmu+IrDA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx44Lv6T6IKe87xL/X+OcoXxvB1++PQNCW9CYeuHVcQVRBhEjAq
-	d/YFUzp/ytXuWzXxuyF6Nsn2cxYymjo+4xuNbqgJgl45WkY9BtthTVIQ
-X-Gm-Gg: AfdE7clRDHdOXlnhmubCRPiQJdvw2nzHzkZ3Od/y/l1m5IF3IDNeXMLEkFSnWc343VA
-	GD7yVyfKZedlKeB5nXjWPvXNZYCyRGMRmbRFtgZ3PRDBoVh/QiNGInGC7gsaVmjxMDorBvdayHD
-	5B/Ys7kjuG4cfafIpQM9JVsxrMPaDA8T/fxMnAF6ME7OLmh5DZ509WSaV7mjkdbnEFDLdZ9RhBJ
-	6/dTAsM5rr1uCAqehD3tl+fkP7MQIu5/FDHsorMhhYCDSKunnPGbCMu1E4vthyn5bqGdQ3iqEcX
-	39R1W4n2zoMyjvojHB8l52SX6LoI7D7yCpCKwZtsJMPKRWH7Qv7Y+9DlfG++a93WndNEGzg8LOo
-	EBu1PFsyFQBEz1CNX3L7rRdT0jZfnrj6Kv0/Tfd6oAtVS+ePfjS13ptwlIk6KZQyPn2zlWuXgsl
-	mUtrSBpiCg2Kg2aUSEEnZzWSvT4+I6TkGoFQ==
-X-Received: by 2002:a17:90b:3c43:b0:38d:f94d:4c6e with SMTP id 98e67ed59e1d1-38e1ae56689mr8553199a91.17.1784168491732;
-        Wed, 15 Jul 2026 19:21:31 -0700 (PDT)
-Received: from [10.125.192.114] ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e3a100753sm459147a91.13.2026.07.15.19.21.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Jul 2026 19:21:31 -0700 (PDT)
-Message-ID: <7b35fd4e-7662-10ae-159b-303350e4e59c@gmail.com>
-Date: Thu, 16 Jul 2026 10:21:10 +0800
+	s=arc-20240116; t=1784168557; c=relaxed/simple;
+	bh=0qT860YvBU4ZhzEO8kFzG0HSKPJyOYxfALdSrDuRZYw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HFWqAmVUFC/Xo1FZIkStZpwDbcaCfvEzn6ypfxo4Lsg1dj0vG2YtnCL6xC72Ciqq0Mkx0qBVhx+MQp3FwhPylaLF5JS09M1vh/5Bfcb0Z0GfKRQTiJ7fko0KU+0c9dk/WJ1xgYZ+4mHU+ohxIDyH7bdsNPQgTgDb9W2wAJiZ8Q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 2baef98280bd11f1aa26b74ffac11d73-20260716
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:7ec58597-f703-4c1f-93d6-3552060a0538,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:c2844ba695a91a4dcb254c6bc7655fcd,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2baef98280bd11f1aa26b74ffac11d73-20260716
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <yijiangshan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1615196625; Thu, 16 Jul 2026 10:22:19 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: sfrench@samba.org
+Cc: pc@manguebit.org,
+	ronniesahlberg@gmail.com,
+	sprasad@microsoft.com,
+	tom@talpey.com,
+	bharathsm@microsoft.com,
+	akpm@linux-foundation.org,
+	jlayton@kernel.org,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org,
+	13667453960@163.com,
+	Jiangshan Yi <yijiangshan@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
+Date: Thu, 16 Jul 2026 10:22:14 +0800
+Message-Id: <20260716022214.2727070-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.15.0
-Subject: Re: [PATCH 1/2] mm/zswap: Fix global shrinker when memory cgroup is
- disabled
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, nphamcs@gmail.com,
- tj@kernel.org, hannes@cmpxchg.org, shakeel.butt@linux.dev,
- mhocko@kernel.org, mkoutny@suse.com, chengming.zhou@linux.dev,
- muchun.song@linux.dev, roman.gushchin@linux.dev, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Hao Jia <jiahao1@lixiang.com>, stable@vger.kernel.org
-References: <20260714081510.16895-1-jiahao.kernel@gmail.com>
- <20260714081510.16895-2-jiahao.kernel@gmail.com>
- <CAO9r8zM5nzDqNcx5UoDgGexvR6jf8MmJV9SomM4AS7n-rZ2o5Q@mail.gmail.com>
- <20260714193129.f81711f516504b659d544741@linux-foundation.org>
- <7a1fe347-7ca6-4768-9308-420bf1251f54@gmail.com>
- <CAO9r8zMDndmoxi_XvQv3rkkhCfb+aW3=8JdE3gAv2YOKiyiFSA@mail.gmail.com>
-From: Hao Jia <jiahao.kernel@gmail.com>
-In-Reply-To: <CAO9r8zMDndmoxi_XvQv3rkkhCfb+aW3=8JdE3gAv2YOKiyiFSA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+When a file has the setuid or setgid bit set and is written to, the VFS
+strips those bits and issues a setattr with ATTR_KILL_SUID/ATTR_KILL_SGID
+together with an ATTR_MODE carrying the already-cleared mode.
 
+Both cifs_setattr_unix() and cifs_setattr_nounix() unconditionally dropped
+ATTR_MODE in that case:
 
-On 2026/7/16 00:13, Yosry Ahmed wrote:
-> On Wed, Jul 15, 2026 at 5:31 AM Hao Jia <jiahao.kernel@gmail.com> wrote:
->>
->>
->>
->> On 2026/7/15 10:31, Andrew Morton wrote:
->>> On Tue, 14 Jul 2026 09:52:59 -0700 Yosry Ahmed <yosry@kernel.org> wrote:
->>>
->>>>> When memory cgroup is disabled, mem_cgroup_iter() always returns NULL.
->>>>> Therefore, the global shrinker shrink_worker() always takes the !memcg
->>>>> branch. After MAX_RECLAIM_RETRIES empty walks, the worker simply gives up,
->>>>> so it fails to write back anything.
->>>>>
->>>>> Therefore, when memory cgroup is disabled, fall through with the !memcg
->>>>> branch and shrink the root memcg directly.
->>>>>
->>>>> With memcg disabled, shrink_memcg() only returns -ENOENT when the root
->>>>> LRU is empty, which means the total pages are already below thr. The
->>>>> loop then safely bails out via the zswap_total_pages() <= thr check.
->>>>> For any other return value from shrink_memcg(), the loop is guaranteed
->>>>> to terminate, either after MAX_RECLAIM_RETRIES failures or once the
->>>>> threshold is met.
->>>>>
->>>>> Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
->>>>> Cc: stable@vger.kernel.org
->>>>> Suggested-by: Nhat Pham <nphamcs@gmail.com>
->>>>> Acked-by: Nhat Pham <nphamcs@gmail.com>
->>>>> Acked-by: Yosry Ahmed <yosry@kernel.org>
->>>>> Reported-by: Yosry Ahmed <yosry@kernel.org>
->>>>> Closes: https://lore.kernel.org/all/CAO9r8zPVzMKFbCixxD-qgtRrkFxWVrHiZZeLc=eyTPKPVQgX4g@mail.gmail.com
->>>>> Signed-off-by: Hao Jia <jiahao1@lixiang.com>
->>>>
->>>> Patch 2 doesn't really depend on this one, right?
->>>>
->>>> If that's the case I think this can (and should be) picked up
->>>> separately as a hotfix. Andrew, WDYT?
->>>
->>> Please update the changelog to clearly describe the userspace-visible
->>> effects of the bug, thanks.
->>
->> I am not entirely sure if my understanding is correct here, but maybe I
->> should add something like this to the commit message?
->>
->> When cgroup_disable=memory is used (or with CONFIG_MEMCG=n), the global
->> shrinker fails to write back any pages. Consequently, the zswap pool
->> fills up to its limit and rejects further storage, preventing memory
->> pressure from being offloaded to the backing swap device.
-> 
-> I think you can simply write that zswap writeback when the limit is
-> hit is broken when memcg is disabled.
-Will do. Thanks!
+	/* skip mode change if it's just for clearing setuid/setgid */
+	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
+		attrs->ia_valid &= ~ATTR_MODE;
 
-> 
->>
->>> Also, AI review has flagged several possible issues, all appear to be
->>> serious:
->>>        https://sashiko.dev/#/patchset/20260714081510.16895-1-jiahao.kernel@gmail.com
->>
->> For AI review comments on this patch:
->> I suspect this scenario might only exist in theory. For zswap LRU to be
->> empty while zswap_total_pages() > thr holds true, it would require a
->> prolonged state where there are always more than thr zswap entries on
->> the zswap LRU whenever zswap_total_pages() > thr is evaluated, yet the
->> zswap LRU happens to be empty during shrink_memcg(root_memcg).
->>
->> If we want to fix this, perhaps we could do something like this?
->>
->> Yosry, Nhat, what are your thoughts on this?
-> 
-> Do we need to do this? The last paragraph in your changelog explains
-> why this can't happen because zswap_total_pages() should be 0 in this
-> case. Did I miss something?
+This is fine for the default mount, where the mode is only emulated via
+the DOS read-only attribute and cannot represent the setuid/setgid bits
+anyway.  However, with the "cifsacl" or "modefromsid" mount options the
+mode is stored on the server through an ACL (id_mode_to_cifs_acl()), with
+the SMB3.1.1 POSIX extensions the mode is sent to the server directly,
+and with the SMB1 Unix extensions (cifs_setattr_unix) the mode is sent
+via CIFSSMBUnixSetPathInfo().  In all those cases dropping ATTR_MODE means
+the cleared mode is never pushed to the server, so the setuid/setgid bit
+survives the write.
 
-The loop would require the following sequence to repeat indefinitely:
+This is a security issue: on local filesystems the setuid bit is stripped
+when a file is written, but over these cifs.ko mounts the bit persists on
+the server, potentially allowing an unexpected privilege escalation on
+subsequent execution.
 
-1、zswap_total_pages() > thr evaluates to true.
-2、During shrink_memcg(root_memcg), the zswap LRU is concurrently drained 
-to empty.
-3、Before zswap_total_pages() > thr is evaluated again, the zswap LRU is 
-heavily refilled such that zswap_total_pages() > thr holds true once more.
+Fix this in two places:
 
-For our case to manifest, it would require zswap_total_pages() and the 
-zswap LRU state to repeatedly hit this exact window with perfect 
-alignment over a **prolonged period**. Therefore, I suspect this 
-scenario might only exist in theory.
+  1. cifs_setattr_nounix(): only take the "skip mode change" shortcut
+     when the mode is emulated via the DOS read-only attribute (i.e.
+     neither cifsacl/modefromsid nor the SMB3.1.1 POSIX extensions are
+     in effect), so that the cleared mode is propagated to the server
+     in the ACL / POSIX cases.
 
-Thanks,
-Hao
+  2. cifs_setattr_unix(): this function is only called when Unix
+     extensions are in effect, so the mode is always stored on the
+     server.  Remove the shortcut entirely so that the cleared mode is
+     always pushed.
+
+Fixes: d32c4f2626ac ("CIFS: ignore mode change if it's just for clearing setuid/setgid bits")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+---
+ fs/smb/client/inode.c | 29 ++++++++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
+
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index deed04dd9b91..e1cecd58ea9d 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -3200,9 +3200,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
+ 		attrs->ia_valid &= ~(ATTR_CTIME | ATTR_MTIME);
+ 	}
+ 
+-	/* skip mode change if it's just for clearing setuid/setgid */
+-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
+-		attrs->ia_valid &= ~ATTR_MODE;
++	/*
++	 * This function is only called when Unix extensions are in effect,
++	 * so the mode is always sent to and stored on the server.  Do not
++	 * skip the mode change when clearing setuid/setgid bits: dropping
++	 * ATTR_MODE here would leave those bits set on the server after a
++	 * write, which is a security issue.
++	 */
+ 
+ 	args = kmalloc_obj(*args);
+ 	if (args == NULL) {
+@@ -3400,8 +3404,23 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+ 		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
+ 	}
+ 
+-	/* skip mode change if it's just for clearing setuid/setgid */
+-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
++	/*
++	 * Skip the mode change if it is only being done to clear the
++	 * setuid/setgid bits *and* the mode is emulated via the DOS
++	 * read-only attribute (the default, non-ACL case), which cannot
++	 * represent the setuid/setgid bits anyway.
++	 *
++	 * When the mode is instead stored on the server - i.e. with the
++	 * cifsacl or modefromsid mount options (via an ACL) or with the
++	 * SMB3.1.1 POSIX extensions - the cleared mode must be pushed to
++	 * the server.  Dropping ATTR_MODE here would leave the setuid/
++	 * setgid bit set on the server after a write, which is a security
++	 * issue (the bits are not stripped as they are on local
++	 * filesystems).
++	 */
++	if ((attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID)) &&
++	    !((sbflags & (CIFS_MOUNT_CIFS_ACL | CIFS_MOUNT_MODE_FROM_SID)) ||
++	      cifs_sb_master_tcon(cifs_sb)->posix_extensions))
+ 		attrs->ia_valid &= ~ATTR_MODE;
+ 
+ 	if (attrs->ia_valid & ATTR_MODE) {
+-- 
+2.25.1
+
