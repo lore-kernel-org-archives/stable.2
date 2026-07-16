@@ -1,30 +1,30 @@
-Received: from outbound.ms.icloud.com (ms-2001c-snip4-11.eps.apple.com [57.103.73.161])
+Received: from outbound.ms.icloud.com (ms-2002f-snip4-11.eps.apple.com [57.103.74.63])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6F13955CD
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 20:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.73.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2079395276
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 20:39:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.63
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784234341; cv=none; b=m7swSegQ6PbeUpCKddxOOXGe0F/ywFZ6+vsCeegiTC3R7OITKIgBtD1MEpPpxEpI/mgtYzDHzc+jp2tqze3y9LFVVCcQfrTo8jNhYU4TrHehyKayJsCMTFIQqdN6zMk7FKtRmUwyueBAW333T1X5ZLy658N7sYX77q1zGXApoyg=
+	t=1784234343; cv=none; b=RgXSWCuRTWeszWRV5JLjriCJMHyU2dh/KbZVBA3ZT0eQmFXuMLU4uyGKL8ZNZrj+B/UJm5bw+OU+k52Udq8iGNZj2uJXVjPD4zXlm/DSoo0X1rE6z4HRyGUicRXUh8l2nj0sClfEnsRgjH12xbP7pBO09n0aT7ZprT0fZlF93ZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784234341; c=relaxed/simple;
-	bh=2YpoC1w8MymEsGC3f2EZcl+ONyE/KISvMawo7ICTvC8=;
+	s=arc-20240116; t=1784234343; c=relaxed/simple;
+	bh=ZXMj7j4SvtIlooZw6oHTX4T2Cfd9sibX4rMOUWsya6s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KhgWpIQPIdyc6hzk5HE28lS55C21/6BUvnrrNKOT69M0WB7K3+kr/P74nypdkWNenaELGbRC0ujbaK+cSsOqzrVjKtbrZi4y7WW4QSS89QN8FGEGwkJF0GBamAi6/cT6Zj315GNQ3ZP9VogQQJxaphM1n8mr4bEqc7Qwep4iS0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=Q9Z3m1Qb; arc=none smtp.client-ip=57.103.73.161
+	 MIME-Version:Content-Type; b=iW9mzAp2zgfWsrI+mu9IY+2HmoAfIr5uK8q28nKP5EDv8MkngYEXCuRCpjohn/6rKjnvqJIR5zoLmXO7bbRot+RQX0RPst5pXys1ORqwPqhikfgfARlQZmueZVjoeWjtpq9kFWeOylA8/mca/eGyOMC5K00tLa2B8W5pNSruZPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=LA00K0kC; arc=none smtp.client-ip=57.103.74.63
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="Q9Z3m1Qb"
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="LA00K0kC"
 Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-9 (Postfix) with ESMTPS id BEA3F180011D;
-	Thu, 16 Jul 2026 20:38:55 +0000 (UTC)
-X-ICL-RepId: 019f6ca7-5df2-7834-a6ca-664ee7da700c
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQ1OHVQORQBEF0kDXRcOVk1KFlwaQAdTG1w4Wg5bBEcUFxtcABcNVk1QG18CQg8cE1YVEx9UVgNCGRBWAVhWXQVNGlwYWQ8cHUpWWg5bBEcUFxtcABcbRgIEIwJfAEUCXglWATAXD1ZNUBtfAkIPHBNWFRMAXg8PTAtIAVsHXANGC0gAWAdcHEcKSgtABEZBHlYPRAFWAFcwUBtfAkIPHBNWFQ1NQxJCFQQRUAFYHlY=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1784234338; x=1786826338; bh=iNQl4aDXhtd+3bP/dWxWG09zS+iaWusBho5sejLPMD8=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=Q9Z3m1QbMtr9SPY7htMAMO5BaHxXtZnbskhUgwyxO3syHM4OuZI2pmOsAJk7OK9Hc+KFWZzrBhLuXXlmWBGRu3QlF0GLuCmTi+pOH2Oy8OnTKcmKWSDbfMlz17/adonWRym1jnYdV7wVKob/6Y2E54UNiU8ecqeW8jQ2RMByBU6OwO9a4hTSScPugGCv1Zgx/+bMXginq4saJQTCEGXT4CfW5Z14Dif7fWi+7IQXTa6HOpKe2t/Agc1qnyaXRl2fqtzqc6GmbcvBC++UlPjoKtjd2+XjUc6oWWO4ksGopia+87Vu+ssajXXh1hJZbJZmBsMrr5gkdM9fz3kRWIUxow==
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-9 (Postfix) with ESMTPS id 8274918000A3;
+	Thu, 16 Jul 2026 20:38:59 +0000 (UTC)
+X-ICL-RepId: 019f6ca7-6ca6-789f-a1a7-2cc13234eca1
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQ1OHVQORQBEF0kDXRcOVk1KFlwaQAdTG1w4Wg5bBEcUFxtcABcNVk1QG18CQg8cE1YVEx9UVgNCGRBWAVhWXQVNGlwYWQ8cHUpWWg5bBEcUFxtcABcbRgIEIwJfAEUCXglWATAXD1ZNUBtfAkIPHBNWFRMAXg8PTAtIAVsHXANGC0gAWAdcHEcKSgtAA0ZBHlYPRAFWAFcwUBtfAkIPHBNWFQ1NQxJCFQQRUAFYHlY=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1784234341; x=1786826341; bh=8OvF2t9Knv6wVrLJXD0bfcxWgVoFxiuNJpZwphKMgxk=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=LA00K0kCZZU3j7s7oXN9SqSHqRsbGnESO8mU63WkUzZaoiAMIlzEteuh9WkYnreCHuYO/5na9CoavgTE51OMHnDez0MZ+vGW0KrDO8DE6igiP3IguVm6dWjPjiSvcOW6pBbRBD4WXlz0dTpMg1SLSe0AwxhsIXV81rYWU2DKoiVFPy+uZFKeInjo01Mo5p4HFtM75W0VOJ8Js9GFtJdP8nKuQdCl8+wXC9Jk3361M4dC1a2tcXB0yYlc4hbmHMQKnxl0w/eQLdwiffPrjH1rvmBwGRBkFX6vHiTu4zqooG7JlFadRTOwl1C2rrYoHv4ReIBcJVagcEC3gANgXe8rug==
 Received: from mainframe.tailfb0f7b.ts.net (unknown [17.57.154.37])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-9 (Postfix) with ESMTPSA id E5EAA180026F;
-	Thu, 16 Jul 2026 20:38:52 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-9 (Postfix) with ESMTPSA id C45711800119;
+	Thu, 16 Jul 2026 20:38:56 +0000 (UTC)
 From: =?UTF-8?q?Lek=C3=AB=20Hap=C3=A7iu?= <snowwlake@icloud.com>
 To: David Heidelberg <david+nfc@ixit.cz>
 Cc: davem@davemloft.net,
@@ -38,9 +38,9 @@ Cc: davem@davemloft.net,
 	oe-linux-nfc@lists.linux.dev,
 	=?UTF-8?q?Lek=C3=AB=20Hap=C3=A7iu?= <snowwlake@icloud.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v5 2/3] nfc: llcp: fix OOB read of DM reason byte in nfc_llcp_recv_dm
-Date: Thu, 16 Jul 2026 22:35:06 +0200
-Message-ID: <20260716203507.7328-3-snowwlake@icloud.com>
+Subject: [PATCH net v5 3/3] nfc: llcp: fix TLV parsing OOB in nfc_llcp_connect_sn
+Date: Thu, 16 Jul 2026 22:35:07 +0200
+Message-ID: <20260716203507.7328-4-snowwlake@icloud.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260716203507.7328-1-snowwlake@icloud.com>
 References: <20260716203507.7328-1-snowwlake@icloud.com>
@@ -52,46 +52,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDIxMSBTYWx0ZWRfX2VpzkD8xyBLi
- EB5cdnDchC0l4/0vWU0BgU0BYkE0QhI5K3bt69bS+Db+rlORNvHsperNF3WBwiPARXaNB3tV9vX
- qhsNKXGviGDnYeDG+BsiQXFKXopUx4Slbbvb6hhmpF2GsWHIekrnfxB243iKf3lILuKQXkHOzjz
- c02n7k1sqsfAltDZybiKgd0b5hQnK8M2RXVcSfAq6eRRwG57VbId14F5rza6j+sznFo93G32gfh
- dcY1rHTmkAtBOaaxbY8l9OeWQDbaex6ZjtZskbcOAtaWl1EiyAySwrmXNnO5dGagKFXWqWnpcAf
- i4cRvC5Y6q+alfycl9N
-X-Proofpoint-GUID: tk1yGV0NFMV-I3jbj_E8ekG7X5Dw66MN
-X-Proofpoint-ORIG-GUID: tk1yGV0NFMV-I3jbj_E8ekG7X5Dw66MN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDIxMSBTYWx0ZWRfX7T+Q3WICJ8V6
+ 4XRoFM3eVJLn/uagEU399T5uEyNkhcRK9hsAq8AnE9tZFaE3+TVnk1TjKRvCYNJ+5uwaMrdVMJ3
+ 5RpK5jqAOu+xNmmOuGt/FUVsmKu+/RYg2wMypRkO9QV1vM4oo2L3j+8mHH+bg3lk7WBVENBT675
+ J8V/vzCey9SuESHr0C9nwik3VdOH8ezkNQBxD+FbUqAB0ysJJ0jgAF6/+lU0JKMjk08jgpMS9+8
+ wLI8OqiW+juUSvfD0cLw6Ik7RJ2oMGMpL5MNmMKDc9SAOxelxi8Xn3humvm5rEOPr52prDAv8Y9
+ 967Aw8/2OY9GcmuNiqI
+X-Proofpoint-ORIG-GUID: eBNGzKzhwQtf2IeBD0CHpOj0Qd_wqYC4
+X-Proofpoint-GUID: eBNGzKzhwQtf2IeBD0CHpOj0Qd_wqYC4
 
-nfc_llcp_recv_dm() reads skb->data[2] (the DM reason byte) without
-first verifying that skb->len is at least LLCP_HEADER_SIZE + 1.  A DM
-PDU carrying only the 2-byte LLCP header from a rogue peer therefore
-triggers a 1-byte OOB read.
+nfc_llcp_connect_sn() walks the TLV array of an LLCP CONNECT PDU
+looking for the Service Name TLV, but shares the same class of bugs
+as nfc_llcp_recv_snl() / nfc_llcp_parse_gb_tlv():
 
-Add the minimum-length guard at function entry, matching the pattern
-used by nfc_llcp_recv_snl() and nfc_llcp_recv_agf().
+ 1. tlv_array_len = skb->len - LLCP_HEADER_SIZE wraps when skb->len
+    is 0 or 1.  The subsequent loop then runs far past the buffer.
 
-Fixes: 5c0560b7a5c6 ("NFC: Handle LLCP Disconnected Mode frames")
+ 2. The per-iteration guard `offset < tlv_array_len` only proves one
+    byte is available, but the body reads both tlv[0] (type) and
+    tlv[1] (length).
+
+ 3. The peer-supplied `length` field is used to advance `tlv` without
+    being checked against the remaining array space, so a crafted
+    length walks `tlv` past the buffer.  On the following iteration
+    tlv[0]/tlv[1] are read from adjacent memory.
+
+ 4. When an LLCP_TLV_SN is found, the function returns &tlv[2] with
+    *sn_len = length but without verifying that `length` bytes at
+    tlv[2..] are still inside the TLV array.  The caller in
+    nfc_llcp_recv_connect() then uses this (pointer, length) pair as
+    a service name, so it may read past the PDU.
+
+Fix: reject frames smaller than LLCP_HEADER_SIZE up front; add TLV
+header and TLV value guards at the top of each iteration.  The value
+guard also ensures that the (&tlv[2], length) pair returned on
+LLCP_TLV_SN lies fully inside the TLV array.
+
+Also use LLCP_HEADER_SIZE instead of the magic literal `2` to match
+the style of neighbouring LLCP receive paths.
+
+Reported-by: Simon Horman <horms@kernel.org>
+Closes: https://lore.kernel.org/netdev/20260417160438.GH31784@horms.kernel.org/
+Fixes: d646960f7986 ("NFC: Initial LLCP support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Lekë Hapçiu <snowwlake@icloud.com>
 ---
- net/nfc/llcp_core.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ net/nfc/llcp_core.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-index aed5fe1afef0..edec2fd83f79 100644
+index edec2fd83f79..c4dda8e7cfcf 100644
 --- a/net/nfc/llcp_core.c
 +++ b/net/nfc/llcp_core.c
-@@ -1250,6 +1250,11 @@ static void nfc_llcp_recv_dm(struct nfc_llcp_local *local,
- 	struct sock *sk;
- 	u8 dsap, ssap, reason;
- 
-+	if (skb->len < LLCP_HEADER_SIZE + 1) {
-+		pr_err("Malformed DM PDU\n");
-+		return;
-+	}
+@@ -849,12 +849,22 @@ static struct nfc_llcp_sock *nfc_llcp_sock_get_sn(struct nfc_llcp_local *local,
+ static const u8 *nfc_llcp_connect_sn(const struct sk_buff *skb, size_t *sn_len)
+ {
+ 	u8 type, length;
+-	const u8 *tlv = &skb->data[2];
+-	size_t tlv_array_len = skb->len - LLCP_HEADER_SIZE, offset = 0;
++	const u8 *tlv;
++	size_t tlv_array_len, offset = 0;
 +
- 	dsap = nfc_llcp_dsap(skb);
- 	ssap = nfc_llcp_ssap(skb);
- 	reason = skb->data[2];
++	if (skb->len < LLCP_HEADER_SIZE)
++		return NULL;
++
++	tlv = &skb->data[LLCP_HEADER_SIZE];
++	tlv_array_len = skb->len - LLCP_HEADER_SIZE;
+ 
+ 	while (offset < tlv_array_len) {
++		if (tlv_array_len - offset < 2)
++			break;
+ 		type = tlv[0];
+ 		length = tlv[1];
++		if (tlv_array_len - offset - 2 < length)
++			break;
+ 
+ 		pr_debug("type 0x%x length %d\n", type, length);
+ 
 -- 
 2.51.0
 
