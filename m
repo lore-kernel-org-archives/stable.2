@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1A31A2C25
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:40:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB51141A92C
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:40:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784202022; cv=none; b=Km/0+ppNugitBlQQYf10/T+iHZd97n5/ak0Mb5gyqz8sRQyYiB6ph7/oUSfhI+MuduhJCQu3a9jeltg/xTCoemo0rx8Jo/AgHauj8OJOo5f6kUJeQoso5NIDASpjufRzjlbFN+1WzoOKzIv5pnkQCYJt7Yk7jsMN4uFM0bQxYAs=
+	t=1784202024; cv=none; b=kqgMdEuIGBA+rwkV0mYeMp53Df8U5VhKjlLtTSrojBvf0QYGVxXnWaRsI9vM+5aveN3WpTXH7iI1L++ONsZwbs5B0XrMcaAed+ixQSorTjim8nkvCQnY5P0cRKi/QsofSsobxdbjD8EhOJZWgPAHZxtAMdal1tnznskPpCV4FLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784202022; c=relaxed/simple;
-	bh=IaV8LrG3x3KB0KpPSqNdlxEvNxlTQkBFFZPWof5VjNE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GHbU4MKZEw/++siPQnRdXMlFlJwFBcHoZqJzBNeAvr6gwWASmTOF8lK9RZ4eBKbnCXNuPdTh9fqiDbe9eLk1k2Yg+7NMfhGXGTynOuj2ikAt9L372GMDUcv+DuWpAnarxp5bYX8PTdXyep4XcUBTMyrxA/iyfiweU8hk/p0Uxic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Dc9dDG6W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784202024; c=relaxed/simple;
+	bh=HgkUTzAy+wfg1yEgj4Bijv2ieNjJTJ9YXqp13MXiGes=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=X9LUXefIi3QuCAdz5J3Z1Yr7hueRXj7cIhKdMTqIyOrN7JfQZBT1+bu7Wju3DMVI7G6EIAqYssjBVpprGNLdztasNgQyoGUOBj78Uiu30Jrm5TSQ3UHOtp9fYZnFkCLFf8jdbE3O+BBOfSPCJuNn+ER3vwynShbS2DTmJWNfC5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IGP5G5Cr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Dc9dDG6W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99F61F00A3E;
-	Thu, 16 Jul 2026 11:40:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IGP5G5Cr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69E961F000E9;
+	Thu, 16 Jul 2026 11:40:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784202017;
-	bh=Xn6e+d8IFyFMMNoQxInvNgbgqcuQKNkCGM2Q1U4llEc=;
+	s=korg; t=1784202020;
+	bh=I7v+7J4+lypXmSISjnlQzssZGWSiDEE1oMJjMfOfib8=;
 	h=Subject:To:Cc:From:Date;
-	b=Dc9dDG6WTFsJfRCt3aL/Yq14aPZq7M2j3crlFRdtF9h5Q6saNNiFfTR3MqqXlfO78
-	 oQC+cW5fNArGvhzQf6uypHE6goKHaVoU1lkIMZOP7KD8nNIua0XiIsto+cmlAAhZDO
-	 0c6z3gmkTLveHNYHp5RTw4ySaQoEkH34TV09uoSM=
-Subject: FAILED: patch "[PATCH] KVM: SVM: Only disable x2AVIC WRMSR interception for MSRs" failed to apply to 6.6-stable tree
-To: seanjc@google.com,naveen@kernel.org
+	b=IGP5G5CrgYldH7aEOKUg3Mg0F72gsC5WOMYjGl/3wBZuiIKThgv712jNYnek4uV20
+	 B1Cd9OTSvYhjzNWFBIXhrO8bT6ZvTYpE0XTPTUUQ2QHjLHBnDT+4jCi3KtIoyOUi6w
+	 1WL3YwBHRri6qs/O3A/j8hMMRWR9ssyl9q3kD/QE=
+Subject: FAILED: patch "[PATCH] KVM: VMX: Refresh GUEST_PENDING_DBG_EXCEPTIONS.BS on all" failed to apply to 5.10-stable tree
+To: seanjc@google.com,houwenlong.hwl@antgroup.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 13:39:58 +0200
-Message-ID: <2026071658-overfeed-duplicity-7343@gregkh>
+Date: Thu, 16 Jul 2026 13:40:12 +0200
+Message-ID: <2026071612-entree-unsalted-4bba@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8c63179d975f2029c948ecce622f72af616dbff7
+git cherry-pick -x c5bad4fa2d5dfd8c25140051a9807eba387a19b8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071658-overfeed-duplicity-7343@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071612-entree-unsalted-4bba@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,99 +62,97 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8c63179d975f2029c948ecce622f72af616dbff7 Mon Sep 17 00:00:00 2001
+From c5bad4fa2d5dfd8c25140051a9807eba387a19b8 Mon Sep 17 00:00:00 2001
 From: Sean Christopherson <seanjc@google.com>
-Date: Thu, 14 May 2026 14:31:15 -0700
-Subject: [PATCH] KVM: SVM: Only disable x2AVIC WRMSR interception for MSRs
- that are accelerated
+Date: Fri, 15 May 2026 15:26:29 -0700
+Subject: [PATCH] KVM: VMX: Refresh GUEST_PENDING_DBG_EXCEPTIONS.BS on all
+ injected #DBs
 
-When x2AVIC is enabled, disable WRMSR interception only for MSRs that are
-actually accelerated by hardware.  Disabling interception for MSRs that
-aren't accelerated is functionally "fine", and in some cases a weird "win"
-for performance, but only for cases that should never be triggered by a
-well-behaved VM (writes to read-only registers; the #GP will typically
-occur in the guest without taking a #VMEXIT, even for fault-like exits).
+Move KVM's stuffing of GUEST_PENDING_DBG_EXCEPTIONS.BS when RFLAGS.TF=1 and
+MOV/POP SS or STI blocking is active into the exception injection code so
+that KVM fixes up the VMCS for all injected #DBs, not only those that are
+reflected back into the guest after #DB interception.  E.g. if KVM queues
+a #DB in the emulator, or more importantly if userspace does save/restore
+exactly on the #DB+shadow boundary, then KVM needs to massage the VMCS to
+avoid the VM-Entry consistency check.
 
-But overall, disabling interception for MSRs that aren't accelerated is at
-best confusing and unintuitive, and at worst introduces avoidable risk, as
-the APM's documentation is imperfect and contradictory.  The table in
-"15.29.3.1 Virtual APIC Register Accesses" of simply states that such
-writes generate exits, where as "Section 15.29.10 x2AVIC" says:
+Opportunistically update the wording of the comment to describe the
+behavior as a workaround of flawed CPU behavior/architecture, to make it
+clear that the *only* thing KVM is doing is fudging around a consistency
+check.  Per the SDM:
 
-  x2APIC MSR intercept checks and access checks have higher priority than
-  AVIC access permission checks.
+  There are no pending debug exceptions after VM entry if any of the
+  following are true:
 
-CPU behavior follows the latter (which makes perfect sense), but all in
-all there's simply no reason to disable interception just to make a #GP
-faster.
+    * The VM entry is vectoring with one of the following interruption
+      types: external interrupt, non-maskable interrupt (NMI), hardware
+      exception, or privileged software exception.
 
-Note, the set of MSRs that are passed through for write is identical to
-VMX's set when IPI virtualization is enabled.  This is not a coincidence,
-and is another motiviating factor for cleaning up the intercepts, as x2AVIC
-is functionally equivalent to APICv+IPIv.
+I.e. forcing GUEST_PENDING_DBG_EXCEPTIONS.BS does *not* impact guest-
+visible behavior.
 
-Fixes: 4d1d7942e36a ("KVM: SVM: Introduce logic to (de)activate x2AVIC mode")
+Fixes: b9bed78e2fa9 ("KVM: VMX: Set vmcs.PENDING_DBG.BS on #DB in STI/MOVSS blocking shadow")
 Cc: stable@vger.kernel.org
-Reviewed-by: Naveen N Rao (AMD) <naveen@kernel.org>
-Link: https://patch.msgid.link/20260514213115.1637082-4-seanjc@google.com
+Reported-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+Closes: https://lore.kernel.org/all/b1a294bc9ed4dae532474a5dc6c8cb6e5962de7c.1757416809.git.houwenlong.hwl@antgroup.com
+Reviewed-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+Link: https://patch.msgid.link/20260515222638.1949982-2-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-diff --git a/arch/x86/kvm/svm/avic.c b/arch/x86/kvm/svm/avic.c
-index 8e4926c7b8dc..724a45c2aa23 100644
---- a/arch/x86/kvm/svm/avic.c
-+++ b/arch/x86/kvm/svm/avic.c
-@@ -124,39 +124,6 @@ static void avic_set_x2apic_msr_interception(struct vcpu_svm *svm,
- {
- 	struct kvm_vcpu *vcpu = &svm->vcpu;
- 	u64 rd_regs;
--
--	static const u32 x2avic_passthrough_msrs[] = {
--		X2APIC_MSR(APIC_ID),
--		X2APIC_MSR(APIC_LVR),
--		X2APIC_MSR(APIC_TASKPRI),
--		X2APIC_MSR(APIC_ARBPRI),
--		X2APIC_MSR(APIC_PROCPRI),
--		X2APIC_MSR(APIC_EOI),
--		X2APIC_MSR(APIC_RRR),
--		X2APIC_MSR(APIC_LDR),
--		X2APIC_MSR(APIC_DFR),
--		X2APIC_MSR(APIC_SPIV),
--		X2APIC_MSR(APIC_ISR),
--		X2APIC_MSR(APIC_TMR),
--		X2APIC_MSR(APIC_IRR),
--		X2APIC_MSR(APIC_ESR),
--		X2APIC_MSR(APIC_ICR),
--		X2APIC_MSR(APIC_ICR2),
--
--		/*
--		 * Note!  Always intercept LVTT, as TSC-deadline timer mode
--		 * isn't virtualized by hardware, and the CPU will generate a
--		 * #GP instead of a #VMEXIT.
--		 */
--		X2APIC_MSR(APIC_LVTTHMR),
--		X2APIC_MSR(APIC_LVTPC),
--		X2APIC_MSR(APIC_LVT0),
--		X2APIC_MSR(APIC_LVT1),
--		X2APIC_MSR(APIC_LVTERR),
--		X2APIC_MSR(APIC_TMICT),
--		X2APIC_MSR(APIC_TMCCT),
--		X2APIC_MSR(APIC_TDCR),
--	};
- 	int i;
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index d81b22359918..cf9f2f55f569 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -1909,6 +1909,24 @@ void vmx_inject_exception(struct kvm_vcpu *vcpu)
+ 	u32 intr_info = ex->vector | INTR_INFO_VALID_MASK;
+ 	struct vcpu_vmx *vmx = to_vmx(vcpu);
  
- 	if (intercept == svm->x2avic_msrs_intercepted)
-@@ -171,9 +138,10 @@ static void avic_set_x2apic_msr_interception(struct vcpu_svm *svm,
- 		svm_set_intercept_for_msr(vcpu, APIC_BASE_MSR + i,
- 					  MSR_TYPE_R, intercept);
++	/*
++	 * When injecting a #DB, single-stepping is enabled in RFLAGS, and STI
++	 * or MOV-SS blocking is active, set vmcs.PENDING_DBG_EXCEPTIONS.BS to
++	 * prevent a false positive from VM-Entry consistency check.  VM-Entry
++	 * asserts that a single-step #DB _must_ be pending in this scenario,
++	 * as the previous instruction cannot have toggled RFLAGS.TF 0=>1
++	 * (because STI and POP/MOV don't modify RFLAGS), therefore the one
++	 * instruction delay when activating single-step breakpoints must have
++	 * already expired.  However, the CPU isn't smart enough to peek at
++	 * vmcs.VM_ENTRY_INTR_INFO_FIELD and so doesn't realize that yes, there
++	 * is indeed a #DB pending/imminent.
++	 */
++	if (ex->vector == DB_VECTOR &&
++	    (vmx_get_rflags(vcpu) & X86_EFLAGS_TF) &&
++	    vmx_get_interrupt_shadow(vcpu))
++		vmcs_writel(GUEST_PENDING_DBG_EXCEPTIONS,
++			    vmcs_readl(GUEST_PENDING_DBG_EXCEPTIONS) | DR6_BS);
++
+ 	kvm_deliver_exception_payload(vcpu, ex);
  
--	for (i = 0; i < ARRAY_SIZE(x2avic_passthrough_msrs); i++)
--		svm_set_intercept_for_msr(vcpu, x2avic_passthrough_msrs[i],
--					  MSR_TYPE_W, intercept);
-+	svm_set_intercept_for_msr(vcpu, X2APIC_MSR(APIC_TASKPRI), MSR_TYPE_W, intercept);
-+	svm_set_intercept_for_msr(vcpu, X2APIC_MSR(APIC_EOI), MSR_TYPE_W, intercept);
-+	svm_set_intercept_for_msr(vcpu, X2APIC_MSR(APIC_SELF_IPI), MSR_TYPE_W, intercept);
-+	svm_set_intercept_for_msr(vcpu, X2APIC_MSR(APIC_ICR), MSR_TYPE_W, intercept);
+ 	if (ex->has_error_code) {
+@@ -5485,26 +5503,9 @@ static int handle_exception_nmi(struct kvm_vcpu *vcpu)
+ 			 * avoid single-step #DB and MTF updates, as ICEBP is
+ 			 * higher priority.  Note, skipping ICEBP still clears
+ 			 * STI and MOVSS blocking.
+-			 *
+-			 * For all other #DBs, set vmcs.PENDING_DBG_EXCEPTIONS.BS
+-			 * if single-step is enabled in RFLAGS and STI or MOVSS
+-			 * blocking is active, as the CPU doesn't set the bit
+-			 * on VM-Exit due to #DB interception.  VM-Entry has a
+-			 * consistency check that a single-step #DB is pending
+-			 * in this scenario as the previous instruction cannot
+-			 * have toggled RFLAGS.TF 0=>1 (because STI and POP/MOV
+-			 * don't modify RFLAGS), therefore the one instruction
+-			 * delay when activating single-step breakpoints must
+-			 * have already expired.  Note, the CPU sets/clears BS
+-			 * as appropriate for all other VM-Exits types.
+ 			 */
+ 			if (is_icebp(intr_info))
+ 				WARN_ON(!skip_emulated_instruction(vcpu));
+-			else if ((vmx_get_rflags(vcpu) & X86_EFLAGS_TF) &&
+-				 (vmcs_read32(GUEST_INTERRUPTIBILITY_INFO) &
+-				  (GUEST_INTR_STATE_STI | GUEST_INTR_STATE_MOV_SS)))
+-				vmcs_writel(GUEST_PENDING_DBG_EXCEPTIONS,
+-					    vmcs_readl(GUEST_PENDING_DBG_EXCEPTIONS) | DR6_BS);
  
- 	svm->x2avic_msrs_intercepted = intercept;
- }
+ 			kvm_queue_exception_p(vcpu, DB_VECTOR, dr6);
+ 			return 1;
 
