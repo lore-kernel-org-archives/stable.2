@@ -1,44 +1,44 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516D93FCB2D;
-	Thu, 16 Jul 2026 13:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D03342901C
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209955; cv=none; b=luiW7wLrdslVF1aQvpeTfAGE6oR8+a/m5+IvvSsCpvohWX2dUviJJXpD/8YKC959mtkX1hTqLRPt21IEEmA9fcIQoJ6JWDWx23JMry7CspvoyUKUmm9GWIBfgUjE21GUHqRYfJJzGBiR+hW7sxxiu2Uqa8kArTr0fMnKOAhgsUk=
+	t=1784209959; cv=none; b=peAILWlXXrLK6A8TWHABzkIxfcILTQBd96pC1YRzlvGkGOPtcd8I+xmJC8yIcb+Boex7kPl32o2sk46hp/TkZpyarDwBU3Fz+3FLc7wKv/rzPxnGZEWze/Vvi1M1E9J7cgSkrriM4ymlwj3h4imEQw3F8+ZLsfxGG4nnbq4BIWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784209955; c=relaxed/simple;
-	bh=3nkxVlC2WFtIbxumZ1osVphIlRXiy4+METoaYhK8X40=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MKnPwEaH1etWRRYDrErhxd0E+3CwreM995cP5m/WWWpz8tdSNPNgCGF6JzImwQ+FGNeG5k63FcycUe/2bZdKJ7qEQQ5TlSSJXza3EDDlGQ9zNMrGd4Tb8uA4dF1hJkjdU2xUGZzPcZ2uZn/1V9PipSP7XuSVSqB5w+ThV9lovYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ErC8hb3U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784209959; c=relaxed/simple;
+	bh=temDSYBlsiI3nlc9UG7t3/YuwmsZKvl+1JSacrF40c0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=e0TccmGd2Cg0KZheGB9OFj2yYu9Gfx3o1fIxTMQMTw+Oc3bs2WHxEldyrvwdmxM/kFpeszPD7G1JefnqXVxPBplLaUV/f/eiAsvkjwyt0AMp22bqsRPhGy8PZbb6HGDksSDUH2yJSotrpPjM1CDxSzbPBXzFuOs41uCVRtVAvcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NSSImxqK; arc=none smtp.client-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ErC8hb3U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD2731F000E9;
-	Thu, 16 Jul 2026 13:52:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784209949;
-	bh=EIVZDAAHhw/kCg+sjNc+cyB23ohllmpLaj6CA/tfTr8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ErC8hb3Unf8lx+xQEQ4+y1yHANmciOUyu39vbazuDPXHciha5IP+5Cn5mmYdJFUR1
-	 MWehiMXxidqopDevhycIXOgu28T4iXvY8XIaJaM99cO/2HSLiIjuzHV7FPwYfUSKdA
-	 0MimGnxJ71g1YO3kay7x/Vs+Db4zS2P4SWKuuxH8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NSSImxqK"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784209949;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xxtMN5a0sIwpJBRHaFYStTo2DpCPBes4d9mSPpEYnSw=;
+	b=NSSImxqKM9MfKBYCS/7y6cmd3Uq4fEO22mGGhcs52HtZAQa6xiNFDAXCjbonYCUJNCj0Gr
+	inXAf1Jqe2XZ46CwPwINZMivcloWamXHnXZF1ddNy9O3EWeeL+2E7Al2Xcl/ER96gvKLiX
+	HbFQXnBrVbp5/6quFMoLF9N25ZMjYbo=
+From: Fuad Tabba <fuad.tabba@linux.dev>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Boris Burkov <boris@bur.io>,
-	Qu Wenruo <wqu@suse.com>,
-	David Sterba <dsterba@suse.com>
-Subject: [PATCH 7.1 353/518] btrfs: fix false IO failure after falling back to buffered write
-Date: Thu, 16 Jul 2026 15:30:21 +0200
-Message-ID: <20260716133055.548509063@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
-References: <20260716133047.772246337@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Fuad Tabba <tabba@google.com>,
+	Will Deacon <will@kernel.org>
+Subject: [PATCH 6.12.y] KVM: arm64: Bound used_lrs when flushing the pKVM hyp vCPU
+Date: Thu, 16 Jul 2026 14:51:57 +0100
+Message-Id: <20260716135157.302917-1-fuad.tabba@linux.dev>
+In-Reply-To: <2026071616-oozy-hassle-a3d4@gregkh>
+References: <2026071616-oozy-hassle-a3d4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,190 +46,93 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-------------------
+commit 8cc8bbbfab14c22c5551d0dd19b208a44b141c76 upstream.
 
-From: Qu Wenruo <wqu@suse.com>
+flush_hyp_vcpu() copies the host vGIC state into the hyp's private vCPU
+on every run. The vGIC list register save and restore use used_lrs as
+their loop bound and expect it to stay within the number of implemented
+list registers. While this is generally the case, flush_hyp_vcpu()
+copies vgic_v3 verbatim and does not enforce this, so a value provided
+by the host is used at EL2 to index vgic_lr[] and access ICH_LR<n>_EL2
+(host -> EL2).
 
-commit 66ff4d366e7eb4d31813d2acabf3af512ce03aa5 upstream.
+Fix by clamping used_lrs to the number of implemented list registers
+after the copy, as the trusted path already does in
+vgic_flush_lr_state(). The number of implemented list registers is
+constant after init, so it is replicated once from
+kvm_vgic_global_state.nr_lr into hyp_gicv3_nr_lr rather than read on
+every entry.
 
-[BUG]
-The test case generic/362 will fail with "nodatasum" mount option (*):
-
- MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
-
-# generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
-#    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
-#    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:21:17.574771567 +0930
-#    @@ -1,2 +1,3 @@
-#     QA output created by 362
-#    +First write failed: Input/output error
-#     Silence is golden
-#    ...
-
-*: If the test case has been executed before with default data checksum,
-the failure will not reproduce. Need the following fix to make it
-reliably reproducible:
-https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
-
-[CAUSE]
-Inside __iomap_dio_rw(), the -EFAULT/-ENOTBLK error is not directly returned.
-Thus we never got an error pointer from __iomap_dio_rw().
-
-The call chain looks like this:
-
- btrfs_direct_write()
- |- btrfs_dio_write()
- |-  __iomap_dio_rw()
- |  |- iomap_iter()
- |  |  |- btrfs_dio_iomap_begin()
- |  |     Now an ordered extent is allocated for the 4K write.
- |  |
- |  |- iomi.status = iomap_dio_iter()
- |  |  Where iomap_dio_iter() returned -EFAULT.
- |  |
- |  |- ret = iomap_iter()
- |  |  |- btrfs_dio_iomap_end()
- |  |  |  |- btrfs_finish_ordered_extent(uptodate = false)
- |  |  |  |  |- can_finish_ordered_extent()
- |  |  |  |     |- btrfs_mark_ordered_extent_error()
- |  |  |  |        |- mapping_set_error()
- |  |  |  |           Now the address space is marked error.
- |  |  |  | return -ENOTBLK
- |  |  |- return -ENOTBLK
- |  |- if (ret == -ENOTBLK) { ret = 0; }
- |     Now the return value is reset to 0.
- |     Thus no error pointer will be returned.
- |
- |- ret = iomap_dio_complete()
- |  Since no byte is submitted, @ret is 0.
- |
- |- Fallback to buffered IO
- |  And the buffered write finished without error
- |
- |- filemap_fdatawait_range()
-    |- filemap_check_errors()
-       The previous error is recorded, thus an error is returned
-
-However the buffered write is properly submitted and finished, the error
-is from the btrfs_finish_ordered_extent() call with @uptodate = false.
-
-[FIX]
-When a short dio write happened, any range that is submitted will have
-btrfs_extract_ordered_extent() to be called, thus the submitted range
-will always have an OE just covering the submitted range.
-
-The remaining OE range is never submitted, thus they should be treated
-as truncated, not an error. So that we can properly reclaim and not
-insert an unnecessary file extent item, without marking the mapping as
-error.
-
-Extract a helper, btrfs_mark_ordered_extent_truncated(), and utilize
-that helper to mark the direct IO ordered extent as truncated, so it
-won't cause failure for the later buffered fallback.
-
-[REASON FOR NO FIXES TAG]
-The bug itself is pretty old, at commit f85781fb505e ("btrfs: switch to
-iomap for direct IO") we're already passing @uptodate=false finishing
-the OE.
-But at that time OE with IOERR won't call mapping_set_error(), so it's
-not exposed.
-Later commit d61bec08b904 ("btrfs: mark ordered extent and inode with
-error if we fail to finish") finally exposed the bug, but that commit
-is doing a correct job, not the root cause.
-
-Anyway the bug is very old, dating back to 5.1x days, thus only CC to
-stable.
-
-CC: stable@vger.kernel.org # 5.15+
-Reviewed-by: Boris Burkov <boris@bur.io>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org
+Fixes: be66e67f1750 ("KVM: arm64: Use the pKVM hyp vCPU structure in handle___kvm_vcpu_run()")
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Reviewed-by: Fuad Tabba <tabba@google.com>
+Tested-by: Fuad Tabba <tabba@google.com>
+Link: https://patch.msgid.link/20260606175614.83273-3-imv4bel@gmail.com
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ tabba: adjust context in flush_hyp_vcpu() and kvm_hyp.h ]
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- fs/btrfs/direct-io.c    |   17 ++++++++++++++---
- fs/btrfs/inode.c        |    6 +-----
- fs/btrfs/ordered-data.c |   12 ++++++++++++
- fs/btrfs/ordered-data.h |    2 ++
- 4 files changed, 29 insertions(+), 8 deletions(-)
+ arch/arm64/include/asm/kvm_hyp.h   | 1 +
+ arch/arm64/kvm/arm.c               | 2 ++
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c | 9 +++++++++
+ 3 files changed, 12 insertions(+)
 
---- a/fs/btrfs/direct-io.c
-+++ b/fs/btrfs/direct-io.c
-@@ -624,12 +624,23 @@ static int btrfs_dio_iomap_end(struct in
- 	if (submitted < length) {
- 		pos += submitted;
- 		length -= submitted;
--		if (write)
-+		if (write) {
-+			/*
-+			 * We have a short write, if there is any range
-+			 * that is submitted properly, that part will have
-+			 * its own OE split from the original one.
-+			 *
-+			 * So for the OE at dio_data->ordered, it's the part
-+			 * that is not submitted, and should be marked
-+			 * as fully truncated.
-+			 */
-+			btrfs_mark_ordered_extent_truncated(dio_data->ordered, 0);
- 			btrfs_finish_ordered_extent(dio_data->ordered,
--						    pos, length, false);
--		else
-+						    pos, length, true);
-+		} else {
- 			btrfs_unlock_dio_extent(&BTRFS_I(inode)->io_tree, pos,
- 						pos + length - 1, NULL);
-+		}
- 		ret = -ENOTBLK;
- 	}
- 	if (write) {
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -7776,11 +7776,7 @@ static void btrfs_invalidate_folio(struc
- 					       EXTENT_LOCKED | EXTENT_DO_ACCOUNTING |
- 					       EXTENT_DEFRAG, &cached_state);
+diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
+index c838309e4ec4..19b8843374d0 100644
+--- a/arch/arm64/include/asm/kvm_hyp.h
++++ b/arch/arm64/include/asm/kvm_hyp.h
+@@ -144,5 +144,6 @@ extern u64 kvm_nvhe_sym(id_aa64smfr0_el1_sys_val);
+ extern unsigned long kvm_nvhe_sym(__icache_flags);
+ extern unsigned int kvm_nvhe_sym(kvm_arm_vmid_bits);
+ extern unsigned int kvm_nvhe_sym(kvm_host_sve_max_vl);
++extern unsigned int kvm_nvhe_sym(hyp_gicv3_nr_lr);
  
--		spin_lock(&inode->ordered_tree_lock);
--		set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
--		ordered->truncated_len = min(ordered->truncated_len,
--					     cur - ordered->file_offset);
--		spin_unlock(&inode->ordered_tree_lock);
-+		btrfs_mark_ordered_extent_truncated(ordered, cur - ordered->file_offset);
+ #endif /* __ARM64_KVM_HYP_H__ */
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 3753ef782e98..a713f32a6545 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -2313,6 +2313,8 @@ static int __init init_subsystems(void)
+ 	switch (err) {
+ 	case 0:
+ 		vgic_present = true;
++		if (static_branch_unlikely(&kvm_vgic_global_state.gicv3_cpuif))
++			kvm_nvhe_sym(hyp_gicv3_nr_lr) = kvm_vgic_global_state.nr_lr;
+ 		break;
+ 	case -ENODEV:
+ 	case -ENXIO:
+diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index eec36c46ce29..72384712377d 100644
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@ -22,6 +22,9 @@
  
- 		/*
- 		 * If the ordered extent has finished, we're safe to delete all
---- a/fs/btrfs/ordered-data.c
-+++ b/fs/btrfs/ordered-data.c
-@@ -357,6 +357,18 @@ void btrfs_mark_ordered_extent_error(str
- 		mapping_set_error(ordered->inode->vfs_inode.i_mapping, -EIO);
+ DEFINE_PER_CPU(struct kvm_nvhe_init_params, kvm_init_params);
+ 
++/* Number of implemented GICv3 LRs. Used by flush_hyp_vcpu(). */
++unsigned int hyp_gicv3_nr_lr;
++
+ void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
+ 
+ static void __hyp_sve_save_guest(struct kvm_vcpu *vcpu)
+@@ -119,6 +122,12 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 	hyp_vcpu->vcpu.arch.vsesr_el2	= host_vcpu->arch.vsesr_el2;
+ 
+ 	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3 = host_vcpu->arch.vgic_cpu.vgic_v3;
++
++	/* Bound used_lrs by the number of implemented list registers. */
++	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs =
++		min_t(unsigned int,
++		      hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs,
++		      hyp_gicv3_nr_lr);
  }
  
-+void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
-+					 u64 truncate_len)
-+{
-+	struct btrfs_inode *inode = ordered->inode;
-+
-+	ASSERT(truncate_len <= ordered->num_bytes);
-+	spin_lock(&inode->ordered_tree_lock);
-+	set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
-+	ordered->truncated_len = min(ordered->truncated_len, truncate_len);
-+	spin_unlock(&inode->ordered_tree_lock);
-+}
-+
- static void finish_ordered_fn(struct btrfs_work *work)
- {
- 	struct btrfs_ordered_extent *ordered_extent;
---- a/fs/btrfs/ordered-data.h
-+++ b/fs/btrfs/ordered-data.h
-@@ -226,6 +226,8 @@ bool btrfs_try_lock_ordered_range(struct
- struct btrfs_ordered_extent *btrfs_split_ordered_extent(
- 			struct btrfs_ordered_extent *ordered, u64 len);
- void btrfs_mark_ordered_extent_error(struct btrfs_ordered_extent *ordered);
-+void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
-+					 u64 truncate_len);
- int __init ordered_data_init(void);
- void __cold ordered_data_exit(void);
- 
-
+ static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+-- 
+2.39.5
 
