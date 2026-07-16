@@ -1,65 +1,138 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DE23CDBD3;
-	Thu, 16 Jul 2026 09:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622A93F39DC
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 09:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784192413; cv=none; b=n/oVL0eBnl1yCrccuKKevLTVL7ysUos0ttrB+4BC6XFPOgMkwJJJvSCTwFvCQUdrYS0SuyuODcsVgWHeHpz9BFT6TjyQSlWIuu/dcKr6HRhguJab6lgYvdtVzE6j7dTPOKw3BPV4OHjB9EWOEXSHfexUqhqQyAzpSUHwOE8I1D4=
+	t=1784192564; cv=none; b=itk7SkxI9XPr1Ksy7X3iD2tX2mKwyQqXN4WlYfWJeRzorfH2xZE+hFIODkXZoGfdmPa5RD690rG3rlfCksYBTA3cq8X0r6dLzyqr/wSaifmFqLjsW4hzTVpt60e+pAiCMup/Pgbeda32MeAcGo4PaAjXZIbkVfggUlkZPpzTbJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784192413; c=relaxed/simple;
-	bh=fAISxBfCHu/Lz8kZZfFWQ1ZNu8lOMfcH8TVMQdRNR8Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i2Yvuo7iWWOrUXyBw/uhw1Vlp7PYjhBeWP860o/FR/MQ6rpjvDIeA63A8qSeBMlbFK8/obzPuYWQRYMxh0PpZMjuw0cmg82Qxp84amQKkjXjnvImthBra8MQyfQZKVBXzdjp36LQDJi0tKogtjH9vesXkAYvbIystf82rqt4Vws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=noNfZIRr; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784192564; c=relaxed/simple;
+	bh=qArU7jGvFOZuD/4gdttHvUBeXvJ2+m/yQhcjCEo7q6U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jyWNyineRvPLG9WsecXz2QH6htrhCAOHyNVdXHvEdV41CUho3IyeshzareDG9MqDzRPUVe72qxkw6pGL44IOtMY3p78SLD05RXWzxDM7I9h4dGxt/CEGQM5j9VvnJK/s8D31aL7Y7OrhpVFf/JwkzoVuzrs6NMZj4jl/uXqNql0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GCgdSxD4; arc=none smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="noNfZIRr"
-Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
-	by mail11.truemail.it (Postfix) with ESMTPA id B7B3622911;
-	Thu, 16 Jul 2026 11:00:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784192403;
-	bh=fAISxBfCHu/Lz8kZZfFWQ1ZNu8lOMfcH8TVMQdRNR8Q=; h=From:To:Subject;
-	b=noNfZIRrl2EwUPWE+pRvyCJsUMmppBVJ6mn93bd5MiIqrovXApk6Jp1OJyxqPcONQ
-	 PIanDY0+JlqiRRidr1i4pFfpHcUdrkZ/QrwOBM7qokFn6wpps7OAE+ppAlOZi6uizj
-	 AM/V00dRl8Yh5kMmP7lQdETeirdkjgUQt5rJb+bkJsrIKA0yrtFlZohhIdgvNjgIOs
-	 /eD0Nctx9kzmwQhFlg36ubqtg9+ha//n5126M8PGsT2j+Zqx+ncBRM55VeCu/vE63o
-	 lsYGPWSFfLwOPmLN4f5+2PQwXE1XAigfXGJMLWvSO9u5+NgFiq/M3qTBBrbiDHI0V6
-	 q7C46gT2SFf7A==
-Date: Thu, 16 Jul 2026 10:59:59 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: George Valkov <gvalkov@gmail.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, johannes.berg@intel.com,
-	Dan Carpenter <error27@gmail.com>, briannorris@chromium.org,
-	s.kerkmann@pengutronix.de, kees@kernel.org,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: mwifiex: fix freeze for 60 seconds caused by
- request_firmware
-Message-ID: <20260716085942.GA99146@francesco-nb>
-References: <20260712221709.7099-1-gvalkov@gmail.com>
- <20260715145228.GG56330@francesco-nb>
- <CADOrJmYwYs08REP3eSwiTQegcKHFLwW0gpUexhomLDtO91ASMA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GCgdSxD4"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39c86945164so54162791fa.1
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 02:02:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784192558; x=1784797358; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kn7GeBfx/Msft0TxexvhlKJDP63ENruWeUlNuJK7TPE=;
+        b=GCgdSxD4Ye1wQdVXR0qjJTyhGmbKcFhkB9MXXawuRaIClmzQL+rqHb8htKIk4BDIR9
+         74lD/frL585vQN4JjGmzls9hfCzPBXqUIYqj7hhWM9wSRanY5Wh9tERrDxOa6y34oOrb
+         J1IzJggI+B6y1zE4XHlnmpvFTWIR+ERIW8t7lIORg31SxZsbL41V92sOnmgp46292lhA
+         /66rSnmKQlz5qMZABpekG9S0vi6FxcgMO2dOhFoJyL1ZcedEOsouRltDPA8DyF5Wtofo
+         T95Za7qDhof/Vw6zJfJuGXT1LOiPyZWjJhhsoYAMEWoSshuT+ULrk4WXJ3RCShxJNbNK
+         ZN1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784192558; x=1784797358;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kn7GeBfx/Msft0TxexvhlKJDP63ENruWeUlNuJK7TPE=;
+        b=V4xIWmSRXZNp2HXQvePojEpTPKstBcdz/tdWqRs5U0AuJVPuHS9eWpSKNihqXA/Pdy
+         FHfa9EMxFG0tMthHNZNVKe0hrliXyS8Pql9y3IUAdt+wp2TFryjRcszwe+luDMT1UeJy
+         gpFaW/nhXjdbss6YTQhCnXtvP3BWg+b4o4QM2PseuwDVf4vYg8pOa5aSGe0Ni7Dgm7QJ
+         OgEtZuw+VVhkg/+rbBjiKJclxg4uWLQVzXLUL5+d+9bMHJHuosR+NvmZD6IzuWidFQ8R
+         GPqyCTRUTJyIdtNZY18z2IqqH2OtwpUjdLrOjcC9qr5ZG8uCDlpjSsq+5LlAQrMGX8bf
+         MJng==
+X-Gm-Message-State: AOJu0Yy+anl+Hnb6X6ZvswKphUs2EdAzAxcNVFXWxFXTNrY81PShBMKu
+	WuS0+Kxr2JzJ5TJUM2K+pMVAXJo8Zw7ItU8C6cq/STxRfAlR8K3X/R/FLj6+VxpSPlM=
+X-Gm-Gg: AfdE7cniQXrpaOCUJfovbRGfyq8DNtS000cZLHL9rTHiMjaNNNTgu11sgsC7i1CFkZH
+	ZACg/PsnH497X2FkUE0gn1p/sUNQ8PwZQQIL7oDyU3UhldnpLPwJhOw74n1frP+xF+/C/ssNcpP
+	YEoHD0xsDo/Bre3nQteGNDE+7PRb/XOvt44vfYHBdcSlGjn+dwaHjUpqyVqsQ1PRNZSB0y39tsa
+	AtkF1Kosi3vdYIdcDaUHM2griuwGBZfiIFoXw+TLlbGOdL7McnYNeW0PpUGvRZxoQ9oo+80D+Ii
+	QmvovrmOtEZYtol/M3XJk4oG3XtsAw2xK6jgWpsZUsrPEfDkDrni7g/crVFTs9m+U4XywRNc0Er
+	GhJWBihIgLedVLu2zEsdiY8ZPFQXvnQ6o65i18sMiucr/VFTvd/94VDsvq+ig+OhSW7EWPUIiwI
+	y3XdEoXD+b
+X-Received: by 2002:a05:651c:50d:b0:39c:9dbf:f7b3 with SMTP id 38308e7fff4ca-39db69fa9cfmr13309161fa.0.1784192556314;
+        Thu, 16 Jul 2026 02:02:36 -0700 (PDT)
+Received: from grower.astralinux.ru ([81.9.21.4])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39c84b1c943sm41222011fa.18.2026.07.16.02.02.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 02:02:34 -0700 (PDT)
+From: Alexander Martyniuk <alexevgmart@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+	David Ahern <dsahern@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Jungwoo Lee <jwlee2217@gmail.com>,
+	Wongi Lee <qw3rtyp0@gmail.com>,
+	Ido Schimmel <idosch@nvidia.com>
+Subject: [PATCH 6.1] ipv4: account for fraggap on the paged allocation path
+Date: Thu, 16 Jul 2026 12:01:45 +0300
+Message-ID: <20260716090147.17201-1-alexevgmart@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADOrJmYwYs08REP3eSwiTQegcKHFLwW0gpUexhomLDtO91ASMA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 16, 2026 at 11:26:54AM +0300, George Valkov wrote:
-> Please backport to 6.18 and 6.12, which are used by OpenWrt.
-> Initially I did not know that I could insert
-> free text between the commit message and the patch.
-> I apologise for that. I am still learning how to use git send-mail.
+From: Wongi Lee <qw3rtyp0@gmail.com>
 
-Please see Documentation/process/stable-kernel-rules.rst
-It should explain everything you need on this regard.
+commit eca856950f7cb1a221e02b99d758409f2c5cec42 upstream.
 
-Francesco
+In __ip_append_data(), when the paged-allocation branch is taken,
+alloclen and pagedlen are computed as
+
+	alloclen = fragheaderlen + transhdrlen;
+	pagedlen = datalen - transhdrlen;
+
+datalen already includes fraggap, but the fraggap bytes carried over
+from the previous skb are copied into the new skb's linear area at
+offset transhdrlen by the subsequent skb_copy_and_csum_bits(). The
+linear area is therefore undersized by fraggap bytes while pagedlen is
+overstated by the same amount.
+
+The non-paged branch sets alloclen to fraglen, which already accounts
+for fraggap because datalen does. Bring the paged branch in line by
+adding fraggap to alloclen and subtracting it from pagedlen.
+
+After this adjustment, copy no longer collapses to -fraggap on the
+paged path, so remove the stale comment describing that old arithmetic.
+
+Fixes: 8eb77cc73977 ("ipv4: avoid partial copy for zc")
+Signed-off-by: Jungwoo Lee <jwlee2217@gmail.com>
+Signed-off-by: Wongi Lee <qw3rtyp0@gmail.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/ajFR1eLAIs42TN3g@DESKTOP-19IMU7U.localdomain
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
+---
+ net/ipv4/ip_output.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
+index f5a2ad2b2dbd..778214137e4a 100644
+--- a/net/ipv4/ip_output.c
++++ b/net/ipv4/ip_output.c
+@@ -1117,8 +1117,8 @@ static int __ip_append_data(struct sock *sk,
+ 				  !(rt->dst.dev->features & NETIF_F_SG)))
+ 				alloclen = fraglen;
+ 			else {
+-				alloclen = fragheaderlen + transhdrlen;
+-				pagedlen = datalen - transhdrlen;
++				alloclen = fragheaderlen + transhdrlen + fraggap;
++				pagedlen = datalen - transhdrlen - fraggap;
+ 			}
+ 
+ 			alloclen += alloc_extra;
+-- 
+2.43.0
 
