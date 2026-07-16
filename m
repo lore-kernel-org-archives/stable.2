@@ -1,162 +1,216 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A253B19E7F7
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 10:06:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF6A31716D;
+	Thu, 16 Jul 2026 10:07:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784196375; cv=none; b=h3vQEpbIYGFMKtnSETYbWEbkUFhHwcxubUFX7M6hNOQcRj//FOmUWHZrJ4F/QaJzyMIX07hJAszvstBEFxvifjLn6GiySsQMTU7idEYJIV3iiv9BN97kZx8v1zX2XJ2BSs2lT1EsVqnBLWQF55wfhACL78wvihnaeAeHlV4aRj4=
+	t=1784196434; cv=none; b=Ty0GqsHD3lEErUlsrv/fvUvDUtlQBXJrqUo7WueGGHcTwWIG5jbPiJpuB7cVHNFlakJc2N1tOxJerM9Ps4RGmxIp3F+QDbhYGv2Pn7zr577UqeefT8qAvXiggsVYNXZ1XhhjwRYUcsZTR+Z7ZnwstyZe0WY3d2rnycdMCoJJprs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784196375; c=relaxed/simple;
-	bh=+ammkv9WmlsXieg1M/BdCjHugEumXiLSHhThR842jLU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qt9Hxurv0YqJke54R+tZcRpd3gKNXwFwaVRDFqO1eO9m8kgMxzdjP1Io50vr009y1zGUgffHAj2DnslXPbXaC6DhwLMWXAnWlFbUfGo1lkUPthfv1Xa9q24EOWA6MeDsedyLBX9KhrWrmRa8X1THQe6dXimYp19ywr1aHU2y+ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=xVvLpbvZ; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
+	s=arc-20240116; t=1784196434; c=relaxed/simple;
+	bh=JU1Y4eHM5POzYbA0Sr4DJu8EPkBOGBT027UhQoiCNW0=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=rqePGkKi0dtgXlVgWni1jl4xuIZI2l9w1knP3oYCPIqErqPns/5RDQcQZhN2zrwYhzNv+QEcAuhIOlIbuaGzsqWNbnQ0xt1blhnOhwlpGXb188+I7IN9RZu6EraNQ4BtO0H1inyM+lFTQpGGx9Rr9jhhK6bjYVNkFrro8nN7YJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JEdUlVQ+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="xVvLpbvZ"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493c7902f47so51098515e9.1
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 03:06:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1784196371; x=1784801171; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4zobRwr1il7Vi209UdGxxH04APhzDHoeOJcQfGK80zc=;
-        b=xVvLpbvZjS0j2PNK/QyhcNZgHnw4TrJzIDpIDChWZMxYmj5VHp0eN3L7mNrdmTEBho
-         Gg9P+v92+pBSZtWGnPANDjWx5BInUa8EpexLHDtjueN1pxo1aqh95uzCQ0azuOiE9mJ5
-         QJlu4KqY55RO5/Hw4NONkBphcR+2/fWaqqWJkRD1b6dWGyuHI8Hm0eOKLCYbA6MIu2AW
-         7KT0Ddovk4UWzkFqeQp8xo3x9KCKAGg+ZW9B6GHFNZ7AmFZjMfLVJy/6NkyAhj02WCGG
-         gyQeck8wzfLnY3Dk99IDq2r5dhBIYdL5k4qvZ0L8Yr8Jerd//umwLQLPAQmgNUJxT0vo
-         4Tbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784196371; x=1784801171;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4zobRwr1il7Vi209UdGxxH04APhzDHoeOJcQfGK80zc=;
-        b=NCiIXVBuEFLwI9yxAhO1P3wZifS/lH2Tb4nmMkR1pMJVRwOzueIpP6t3cTbtWYQGeI
-         sDjMI9nsDV473/WcKw57gnZuK1DuCI4xDkeVxZZnGNInYz4ugkwhcAP8f4p/ck2krEgs
-         8clQmc86HZRiX4zC+eIFPWGm1XfffBTmEoDi6YNAWdRxVjidGLQ4WmiI5jKs8dPybvFo
-         8QpXVqtx0lrLXNswyo4iZoH+ZRY/Z9XDTGjfbQOsG+Get7lBeCvsabg2fSFfll7LdSwK
-         w74r8HN4rNQZKQWa2Tn7tSRWbdgGjryLJaEdfN22L4bbTz43RDtgrY0Mh6tdbjsd5aXf
-         260A==
-X-Forwarded-Encrypted: i=1; AHgh+RqbL2YSpgI222HfT8B/KUWBV0ofuTCv0/bcaa23ngziJlG3KWxL/+CI122LwB8Gd7sQsemW9Eg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzxvCJPbb6Lx8i2lgHBc7Tfm6br5Doh8FFGRmNLoeYMjWzGr5zA
-	GjsFwYno5dr/ydhQackOBIos0SsOuHwKNFETHLoDex/605ABvZESmMzokOIs77qSpPE=
-X-Gm-Gg: AfdE7cldkiWHmf9jEP4YGLmTD7COADlC1ehs4jQbdIZkDCH3QEHdeRXUYGAhZwf8Oow
-	4serIsgEn43U0rkcpQi1AI2x68zvG7sk4L1yfX5f8IE13bR2bXRRefbiiC5US5vephL+TQ5Lomy
-	aJ4fidra7HZj+nORqNMTIiwTkY7tSRTq0EtQZLI5BQN3JpcFetskWi0iHJT4gRGG+n5H69dDiFS
-	iRauq7xl5uU++scTE5cJfokZI3TGUC/8jRAoNCBCQRZxd0KrOyj74yL2BG6kak1b2ON9+0qtWwt
-	AAye+tYcAqbpBwSpJSpfVBHnR1WN7pHgjzAiVBjDjoCTSE6BeOur/+oeSQTgiOw0Cmg1bhAHphD
-	I/KlWm3m3qPsD1ANQ6ig+SZ5XFpjGgtTUfZ00tEn7mIzZ7KWai5/0GOHS/rnI9uTNK0b5yN7jaK
-	DAapBN
-X-Received: by 2002:a05:600c:c83:b0:493:c84c:2b57 with SMTP id 5b1f17b1804b1-4953c28b1a6mr63914085e9.29.1784196370491;
-        Thu, 16 Jul 2026 03:06:10 -0700 (PDT)
-Received: from matt-Precision-5490.. ([2a09:bac6:37a8:2696::3d8:30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49541e9a7bbsm46976365e9.13.2026.07.16.03.06.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 03:06:09 -0700 (PDT)
-From: Matt Fleming <matt@readmodwrite.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org,
-	kernel-team@cloudflare.com,
-	Matt Fleming <mfleming@cloudflare.com>
-Subject: [PATCH bpf] veth: convert frag_list skbs before running XDP
-Date: Thu, 16 Jul 2026 11:06:05 +0100
-Message-ID: <20260716100605.939654-1-matt@readmodwrite.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JEdUlVQ+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792BF1F00A3A;
+	Thu, 16 Jul 2026 10:07:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784196432;
+	bh=5tKcp++W9RRjEDy+R6pD5foQbNdJ0IxaBoDOKU7PrwI=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=JEdUlVQ+VeJPhPWILa33JXb+YRo/px2dEU3YC8KSVNGdSvjaYzyF2z2U+H6ki9bZR
+	 LxKbP7xW3TQtZBKR5jPGHOsCEShYvquhCgqyUE4xk3ztbXPhtq7dpLf2G6y/kzCcv1
+	 5AQr412nCyxL9pSSP321S5acvE9GsjldBcNphWA6VDNwdtUPWua5Jhwg0KrODCEfzF
+	 1vWb2OmmT19Q1Bh+nhWQeVhQ++ccZTfjn9PVB8XxswoSkeSCiuq43Wbt7CDRkp+rLy
+	 WfUy66rMm0sUWcJT5ydx+4F6JuorMNK2T0HXqgn85H9J2zYhk4AkdlujUdTSOiWcvC
+	 FnJ2JspcGBDZQ==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH mm-hotfixes v3 2/4] x86/mm/pat: acquire mmap lock on
+ page table free to avoid ptdump UAF
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Will Deacon <will@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+ Michal Hocko <mhocko@suse.com>, Uladzislau Rezki <urezki@gmail.com>, 
+ Toshi Kani <toshi.kani@hpe.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, David Carlier <devnexen@gmail.com>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
+ abarnas@google.com
+In-Reply-To: <alesCtwXdIqH6bOP@kernel.org>
+References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
+ <20260714-series-vmap-race-fix-v3-2-b812eccfa0f9@kernel.org>
+ <alemS7vxeRB7NcBO@willie-the-truck> <alesCtwXdIqH6bOP@kernel.org>
+Date: Thu, 16 Jul 2026 11:06:51 +0100
+Message-Id: <178419641178.59347.17339330762419756196.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5764; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=JU1Y4eHM5POzYbA0Sr4DJu8EPkBOGBT027UhQoiCNW0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIi1tqWT05a/ZR/x7U50U+uONccT2t7pis3gctKOVbhg
+ cfeOa91OkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARLReG/9k3Wf2uzuLtz3Lp
+ Umsv1v08R/Z0rwDbPqkiUV6HU5y7bRkZ5i45+ZexT9fI/E1qm2nej3ClsgC5Sb32az49OT7PnOs
+ KOwA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Matt Fleming <mfleming@cloudflare.com>
+On 2026-07-15 18:49 +0300, Mike Rapoport wrote:
+> Hi Will,
+>
+> On Wed, Jul 15, 2026 at 04:24:59PM +0100, Will Deacon wrote:
+> > Hi Lorenzo,
+> >
+> > I'm certainly no x86 expert (quite the opposite!), but I was looking at
+> > this with Adrian and got myself confused. See below.
+> >
+> > On Tue, Jul 14, 2026 at 06:24:24PM +0100, Lorenzo Stoakes wrote:
+> > > x86 implements page attribute modification using its Change Page
+> > > Attributes (CPA) mechanism.
+> > >
+> > > This tracks properties of ranges such as cache mode through x86 page
+> > > attributes, and as part of that logic manipulates kernel page tables.
+> > >
+> > > Since commit 41d88484c71c ("x86/mm/pat: restore large ROX pages after
+> > > fragmentation") ranges of kernel page table entries can be collapsed into
+> > > huge page table entries as part of this logic.
+> > >
+> > > As part of this collapse, it frees the page tables which the collapsed
+> > > entries previously pointed to, and it does so without any relevant locks
+> > > being held to preclude concurrent kernel page table walkers.
+> > >
+> > > The only way this code can be reached is if CPA_COLLAPSE is specified, and
+> > > this is only set in set_memory_rox() via:
+> > >
+> > > set_memory_rox()
+> > > -> change_page_attr_set_clr()
+> > > -> cpa_flush()
+> > > -> cpa_collapse_large_pages()
+> > >
+> > > Notable users of this are execmem and bpf when manipulating executable
+> > > mappings.
+> > >
+> > > However, this is problematic for ptdump as it walks ranges it does not own
+> > > and thus runs the risk of a use-after-free on page tables freed underneath
+> > > it.
+> > >
+> > > Resolve the issue by acquiring the mmap read lock on init_mm which prevents
+> > > a concurrent ptdump as it acquires the write lock.
+> > >
+> > > It is safe to acquire a sleeping lock as all the callers invoke
+> > > set_memory_rox() from process context and in any case,
+> > > change_page_attr_set_clr() calls vm_unmap_alias() which ultimately takes a
+> > > mutex, disallowing atomic context here.
+> > >
+> > > Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
+> > > Cc: stable@vger.kernel.org
+> > > Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> > > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> > > ---
+> > >  arch/x86/mm/pat/set_memory.c | 14 +++++++++++---
+> > >  1 file changed, 11 insertions(+), 3 deletions(-)
+> > >
+> > > diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+> > > index d023a40a1e03..4c4b8244502f 100644
+> > > --- a/arch/x86/mm/pat/set_memory.c
+> > > +++ b/arch/x86/mm/pat/set_memory.c
+> > > @@ -22,6 +22,7 @@
+> > >  #include <linux/cc_platform.h>
+> > >  #include <linux/set_memory.h>
+> > >  #include <linux/memregion.h>
+> > > +#include <linux/cleanup.h>
+> > >
+> > >  #include <asm/e820/api.h>
+> > >  #include <asm/processor.h>
+> > > @@ -436,9 +437,16 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
+> > >
+> > >  	flush_tlb_all();
+> > >
+> > > -	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+> > > -		list_del(&ptdesc->pt_list);
+> > > -		pagetable_free(ptdesc);
+> > > +	/*
+> > > +	 * ptdump might read these page tables, so avoid a use-after-free by
+> > > +	 * acquiring the mmap read lock on init_mm (ptdump acquires the mmap
+> > > +	 * write lock).
+> > > +	 */
+> > > +	scoped_guard(mmap_read_lock, &init_mm) {
+> > > +		list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+> > > +			list_del(&ptdesc->pt_list);
+> > > +			pagetable_free(ptdesc);
+> > > +		}
+> >
+> > As I understand it, the argument for taking the read lock is that we're
+> > operating on a region that we "wholly own" and therefore we can happily
+> > run concurrently with CPUs walking distinct parts of the page-table.
+> > However, from what I can tell, the CPA collapse logic will operate on
+> > regions outside of the address range being manipulated by its caller
+> > because it rounds up to the PMD size.
+> >
+> > As a made-up example, imagine I have a 2MiB aligned region where the
+> > first 1MiB is read-only and the second 1MiB is in the default r/w state.
+> > If one CPU calls set_memory_rw() on the first 1MiB while another CPU is
+> > walking the second 1MiB (via some other API that doesn't take cpa_lock),
+> > it looks to me like the first CPU can collapse the page-table and free
+> > the unused pages under the feet of the other CPU. What prevents that
+> > from happening?
+>
+> Nothing, and there's a patch to fix that that synchronizes
+> cpa_collapse_large_pages() using cpa_lock:
+>
+> https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org
 
-A frag_list skb can reach veth with data_len set but nr_frags zero.
-veth_convert_skb_to_xdp_buff() only converts skbs that are shared,
-locked, have frags[], or do not have enough headroom. It later uses
-skb_is_nonlinear() to decide whether to set XDP_FLAGS_HAS_FRAGS and
-xdp_frags_size.
+Thanks Mike!
 
-That exposes frag_list data to XDP as if it were stored in frags[], but
-frags[] is empty. AF_XDP copy mode can then trust the bogus XDP fragment
-metadata, walk an empty fragment entry, and crash in memcpy() from
-__xsk_rcv().
+>
+> This still won't be enough to sync with ptdump though.
 
-Route frag_list skbs through skb_pp_cow_data() before exposing them to
-XDP, and only advertise XDP frags when the resulting skb has frags[].
-skb_copy_bits() already handles frag_list input, and skb_pp_cow_data()
-builds frags[] output with skb_add_rx_frag(), which is the representation
-XDP multi-buffer expects.
+Yeah, so this patch is still necessary.
 
-Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept non-linear skb")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
----
- drivers/net/veth.c | 4 ++--
- net/core/skbuff.c  | 9 ++++-----
- 2 files changed, 6 insertions(+), 7 deletions(-)
+But that patch conflicts with this one as it holds a spin lock over the page
+table freeing, which prevents taking an rwsem... :/
 
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 1c5142149175..efb24aae1f26 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -756,7 +756,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	u32 frame_sz;
- 
- 	if (skb_shared(skb) || skb_head_is_locked(skb) ||
--	    skb_shinfo(skb)->nr_frags ||
-+	    skb_shinfo(skb)->nr_frags || skb_has_frag_list(skb) ||
- 	    skb_headroom(skb) < XDP_PACKET_HEADROOM) {
- 		if (skb_pp_cow_data(rq->page_pool, pskb, XDP_PACKET_HEADROOM))
- 			goto drop;
-@@ -771,7 +771,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	xdp_prepare_buff(xdp, skb->head, skb_headroom(skb),
- 			 skb_headlen(skb), true);
- 
--	if (skb_is_nonlinear(skb)) {
-+	if (skb_shinfo(skb)->nr_frags) {
- 		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
- 		xdp_buff_set_frags_flag(xdp);
- 	} else {
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 18dabb4e9cfa..1e837d01a908 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -936,12 +936,11 @@ int skb_pp_cow_data(struct page_pool *pool, struct sk_buff **pskb,
- 	int err, i, head_off;
- 	void *data;
- 
--	/* XDP does not support fraglist so we need to linearize
--	 * the skb.
-+	/*
-+	 * skb_copy_bits() handles both frags[] and frag_list input. If the
-+	 * copied skb remains non-linear, it uses frags[], which is the
-+	 * representation used by XDP multi-buffer.
- 	 */
--	if (skb_has_frag_list(skb))
--		return -EOPNOTSUPP;
--
- 	max_head_size = SKB_WITH_OVERHEAD(PAGE_SIZE - headroom);
- 	if (skb->len > max_head_size + MAX_SKB_FRAGS * PAGE_SIZE)
- 		return -ENOMEM;
--- 
-2.43.0
+Anyway I think this one is still fine as it seems there's not a consensus over
+there as there was discussion about just removing the locking anyway ([0])?
+
+So can kick that can down the road and just get these ptdump bugs fixed :)
+
+>
+> > If all concurrent walkers have interrupts disabled, I guess the TLB
+> > invalidation logic would do it, but it would be good to call this out in
+> > the commit message because it's not clear to me why the read_lock is
+> > sufficient for the collapsing case.
+
+Yeah, so this patch is _only_ fixing the ptdump case. Any existing bug must be
+addressed separately.
+
+> >
+> > Cheers,
+> >
+> > Will
+>
+> --
+> Sincerely yours,
+> Mike.
+>
+
+Cheers, Lorenzo
+
+[0]:https://lore.kernel.org/all/aab44f08-89f8-47fe-bee4-0ab6b25968c6@intel.com/
 
