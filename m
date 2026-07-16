@@ -1,199 +1,227 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAC1446042
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 18:21:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784226090; cv=pass; b=ta5fKuZRglTdVQ/sYTOCS4iumW9qzF+0z71lj7v2dgUhYukK3Rl5laBt69kcHKoUQlu5G6gb9a0ZXX0NIGN+U8updCtj237ZQ5qMzER9KjGoVbFVncM3ZyNxASzlyWZRVHHgweGp+69zptV3r41ORwJVN5+7eIxepxXTJvwkeoQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784226090; c=relaxed/simple;
-	bh=EED7I6Cgzn4Siqa2KZnQb+9Uj22ntNVGfKi9KJsb2QI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t5eenrqVhHKcE+/sJHVUGF3L3QSlQ+bTQYVKE5+JGa1m2lhVsnaOjF3s4IKlqTkdwzNR1IWAP9cfUJBmTx09732jTTbdT6bmRxKrUqG5fuky8FZJ4Zn6JLwB3N3LmlAwxOv4J2MJUkGvoymKlHjYCCL20+GrtmA28iMHgrPtJMI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oe5dnp+g; arc=pass smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A90443E3E
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 18:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784226129; cv=none; b=QWS7X+rEHFDAy4pCgCo5v0bk3uKP2yD0a0imKPNMxJxgBMvNjA2HopZOCp+NZ88cE5QWK+jJ7NCk/tnWxZVYRyzpz1eUKfuIQgJVg2nj+T/ji8qY1PAYg2QyKUIf5ymp2Yn4NAB6y1KpkkoVBS5OGK5xRN8TnLWM7MNOByXwMfU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784226129; c=relaxed/simple;
+	bh=xzIbPBW71qGQKCfqsnXwH08537ErJsY/Vz8154lbBIc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TOH+hnSQse486gVuQq6nHh+PoK11RFyD4oDEZLTmNhV9ULhSpr1d1eSOrIMI1uMWa/aMWqH+2e0kespiehvIMou89+CYhpNKWryy8UMBQyjVMpcvsIIzOsp6GQ+zLStGL7rvF+HO0F1bLkM/W2kkTKeXDRGr7p8UxJtopAsrJ+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQjfUVxI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oe5dnp+g"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-493f45e206dso4055125e9.1
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:21:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784226083; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Fj36skaD3Fy30hgxp3/be5jOKqXYKdEECgZ17u3RdPhaV22AbGkeCMOsG2Dc4xbczq
-         CD/4J+bY2f+dJTRzXDmA/9ei5OvGik37frIjKWgB9r1HSoLwrQbbez0zNOJst0pgQjrN
-         JraxbEJ50l/8q0PcxshKJEAuRZ0sSUPY+m3NwdJAlcCYiAbIJl8ZOdF4d47i8hHnF2hH
-         dT/3agn3UPAoyEGaq5aEkgWasrrR+pvB9bxpr80CD1XvsSq8sHlxAKR1tsexpS8xseAP
-         QecW0D6qGVDk+3vrnqO7R/9W8qt3BxkQ2ye4IIclFhmfCbLpDLvbjAYtaZGLEkJhsKYv
-         VvIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CCALGBJmvNhpJ4X8shKHWQmC/dAzM5grVkNM/sgcff0=;
-        fh=RkkLPc/scOAwVEq5q20D3Xy5WktYTVelNMyOUN4ctxE=;
-        b=RzotW4bzeqAut4IJs36mTc0aCYMw32XhQZXDPZTHaLImJQReoErhSKv424LKJdL6T1
-         aVWXWjXi3ueUgK5p45CyzyLzInGiMQ8SpzeUgmuPkuSv320reFVWIIfGO3edVqObfSyA
-         xRJG0pgbICFOkTaUce7JWcaRh87t41RLbM9/sYxhn2TPHTev4DKiN9+XbrZ290/ZBG6Q
-         5+L4a0NO1A4CqIJzHeuTi4DTdIIBGJOu0n9amhIWW+RYzfZpUGtMflbo2Q5tgcpPcylo
-         3GdyJiTKLI67i06tS0fW+kDhIDxWfCV9X/4DGs1KJ8zSppfJqz6YKVWCTveJPLRuC0VO
-         70+g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784226083; x=1784830883; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CCALGBJmvNhpJ4X8shKHWQmC/dAzM5grVkNM/sgcff0=;
-        b=Oe5dnp+gRPMhlEkPa7RPST71jIx5lQmOsjMTHSnN4PNDRtDrNKPk0wBj9OdWn7RaTG
-         +N5P55dUoTo7xuzWfWVqMTjfa1LdG8m+bj+wrq2WFukyL4t9/4ANnpXyarwfD6ULJEMg
-         OpLQVu1VHZRj2UqX98k69N4Mp7xpEFmWi5q8gXFShPZCwNQ9zRAbPNRZ52A8enoAx9iv
-         KWR2fCZZO5cUSTgPxDKDKwE0lEAoqlf1SO2h4savrZ/w6L9LiKUwStQ374dx1JDJ2Dgk
-         3xY3AqTlWv5uTwMhNQrHDGAYmJy0pKyrOAf92ny8FxAnphePYBBgH/lKDzRq9nMV7At/
-         t4+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784226083; x=1784830883;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CCALGBJmvNhpJ4X8shKHWQmC/dAzM5grVkNM/sgcff0=;
-        b=lvHhtGSB+d3y6K6tLALhhLWn4cq1DhcbND0L94sezZIYwtMeeI/nczbxubpozqZgR8
-         WwzzAuweFCvV83r9EGTsiduAlXKoqOBbem5Mb0qjB9VRzBYnS/hUxDA0GDI4OpVf2+XC
-         csz5zxwvLbxV9pIqyYIM74X2o65ILcX+vuKo1KuXXikTkqQ0OYSloV88Wyq1z9zuP6ML
-         ubIn4k655pzWRfV7CPkUXsVYadcvyF7CgP4pFidwyygPupfj8Sp5x7atdd4XyMSfsiBW
-         HvoGJne4wY50lIcNh33E9jTT8zs7cjz5wxSkKKdjrh1eZKeBmlPVhNi5Ujesg2KwXVto
-         uCDw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro267tRWrlEZRdIBRQEkmMgyyW4hH6t1HdD/OTwOkqTBYY/GVuQ+Cz1zcFXvOLqfyifdALAQW4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoT4Gzj0Z8iA3YCSm/pGVLsynXzZGkwcKDzZC3b6LqjFUpUeaE
-	tsMYe2KGLNpwoJGoLpjURKYCwc9RIiycRDn8zTN2txZzGEpbJyk6VurVo52PAq01qScp8McANjT
-	ukT9ngjs84+YHsXSD78kdHDUPD0KM4sI=
-X-Gm-Gg: AfdE7cl4FKt3Dr3aFP268Ubej/vp6KuMYhfrp5HNx3BsrETNj8VrhG7dJ/Fx6cM5USn
-	LMuCHAcuyaSpAoFxChJ3kULmNv6M1CMAQNVLtEnXy68BiVI8e0c/Uu5u/hrT4hTthRNq+ILjbVr
-	n9g1JhllFVkzmA7udbo40yoqBsJcfXvY6p1iDXP1h572hZcMVD9VppE84aeS1wS3fd9S5rKYPbd
-	hyUwj75G18q5zoIsGLPNrKJYr4nKdlpGQ62QBY3rov2RMzhYRU4TmeqlG3dLd0fG2HvuKpWLAUt
-	cFrOEIwVzkVBw2Y10ecH5Pzk1hph+3wNhgfKl0M8+A==
-X-Received: by 2002:a05:600d:104:b0:493:e49f:1541 with SMTP id
- 5b1f17b1804b1-4954288e0d9mr33683575e9.6.1784226083225; Thu, 16 Jul 2026
- 11:21:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQjfUVxI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7881F00A3D;
+	Thu, 16 Jul 2026 18:22:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784226121;
+	bh=eGsNNWO0LaJUJpC837/6M7A0XOVwxMlRmZrigyLuP6A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jQjfUVxImGhrl2wzc/Yb53Kjpii1jAyjUS2qvRP0t68j6C82r6RVK9G2ssRb6cJQf
+	 DB9c1DP4XuAUq9lgsWzYpHnzp+CJf9eiWcZaCtEZKQz6U059PPbpkGqhhV/vsoYBot
+	 5qjWTUYDrJA238zhRf7NSa2vz9F2lebXUJrgxSFO9tlhKK0JKEWp9TVoin+9KOzML7
+	 bu4goLMnxU9AXs/veR3TdgRGoX9bp1hiUovWQvCyZ37H6K4Vjlq4bIm3zgtMFPNgzY
+	 /zTTkqQVzqp9Ic2dyaursgqgR68wMeFUWQjwC0Gl5hRBSZ7lASlONg05lyjwo7dCtv
+	 39ygBkqk9LiVQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Tejun Heo <tj@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] writeback: fix race between cgroup_writeback_umount() and inode_switch_wbs()
+Date: Thu, 16 Jul 2026 14:21:58 -0400
+Message-ID: <20260716182158.920140-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260716182158.920140-1-sashal@kernel.org>
+References: <2026071446-twins-thumping-9247@gregkh>
+ <20260716182158.920140-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260715174305.336261-1-joannelkoong@gmail.com>
- <20260715174305.336261-4-joannelkoong@gmail.com> <668fa6c6-ffe0-48d1-aed6-f86a7353187b@bsbernd.com>
-In-Reply-To: <668fa6c6-ffe0-48d1-aed6-f86a7353187b@bsbernd.com>
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Thu, 16 Jul 2026 11:21:10 -0700
-X-Gm-Features: AUfX_mzTmBWvWvRDl--8ldti_PXiikTVNGTCFrDr1F8x_VSuZf0_na-Eu9y__mA
-Message-ID: <CAJnrk1YCSmK=7UwCsm8KF5kvndk+zM655whcHt85oKbpse8XYw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] fuse: publish io-uring queues with release semantics
-To: Bernd Schubert <bernd@bsbernd.com>
-Cc: miklos@szeredi.hu, fuse-devel@lists.linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 15, 2026 at 3:54=E2=80=AFPM Bernd Schubert <bernd@bsbernd.com> =
-wrote:
->
->
->
-> On 7/15/26 19:43, Joanne Koong wrote:
-> > fuse_uring_create_queue() initializes a fuse_ring_queue and then
-> > publishes the pointer into ring->queues[qid] with WRITE_ONCE() under th=
-e
-> > fch->lock. There are several readers that may concurrently be fetching
-> > that pointer locklessly and then deferencing it.
-> >
-> > WRITE_ONCE() doesn't ensure ordering of the queue's field
-> > initialization before the ring->queues[qid] pointer assignment. The
-> > queue must be published with smp_store_release() so the field
-> > initialization is guaranteed to happen before.
-> >
-> > Readers in paths where the read may happen concurrently with the store
-> > need to use READ_ONCE() because any race involving a plain access is
-> > undefined.
-> >
-> > Fixes: 24fe962c86f5 ("fuse: {io-uring} Handle SQEs - register commands"=
-)
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-> > ---
-> >  fs/fuse/dev_uring.c | 14 ++++++++------
-> >  1 file changed, 8 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-> > index 51f985154aa1..bf9d51f2a508 100644
-> > --- a/fs/fuse/dev_uring.c
-> > +++ b/fs/fuse/dev_uring.c
-> > @@ -321,9 +321,11 @@ static struct fuse_ring_queue *fuse_uring_create_q=
-ueue(struct fuse_ring *ring,
-> >       }
-> >
-> >       /*
-> > -      * write_once and lock as the caller mostly doesn't take the lock=
- at all
-> > +      * fch->lock serializes concurrent creators for this qid.
-> > +      * smp_store_release() are for the lockless readers who must see =
-a
-> > +      * fully initialized queue after &ring->queues[qid] is set
-> >        */
-> > -     WRITE_ONCE(ring->queues[qid], queue);
-> > +     smp_store_release(&ring->queues[qid], queue);
-> >       spin_unlock(&fch->lock);
-> >
-> >       return queue;
-> > @@ -434,7 +436,7 @@ static void fuse_uring_log_ent_state(struct fuse_ri=
-ng *ring)
-> >       struct fuse_ring_ent *ent;
-> >
-> >       for (qid =3D 0; qid < ring->nr_queues; qid++) {
-> > -             struct fuse_ring_queue *queue =3D ring->queues[qid];
-> > +             struct fuse_ring_queue *queue =3D READ_ONCE(ring->queues[=
-qid]);
-> >
-> >               if (!queue)
-> >                       continue;
-> > @@ -967,7 +969,7 @@ static int fuse_uring_commit_fetch(struct io_uring_=
-cmd *cmd, int issue_flags,
-> >       if (qid >=3D ring->nr_queues)
-> >               return -EINVAL;
-> >
-> > -     queue =3D ring->queues[qid];
-> > +     queue =3D READ_ONCE(ring->queues[qid]);
-> >       if (!queue)
-> >               return err;
-> >       fpq =3D &queue->fpq;
-> > @@ -1035,7 +1037,7 @@ static bool is_ring_ready(struct fuse_ring *ring,=
- int current_qid)
-> >               if (current_qid =3D=3D qid)
-> >                       continue;
-> >
-> > -             queue =3D ring->queues[qid];
-> > +             queue =3D READ_ONCE(ring->queues[qid]);
-> >               if (!queue) {
-> >                       ready =3D false;
-> >                       break;
-> > @@ -1191,7 +1193,7 @@ static int fuse_uring_register(struct io_uring_cm=
-d *cmd,
-> >               return -EINVAL;
-> >       }
-> >
-> > -     queue =3D ring->queues[qid];
-> > +     queue =3D READ_ONCE(ring->queues[qid]);
-> >       if (!queue) {
-> >               queue =3D fuse_uring_create_queue(ring, qid);
-> >               if (!queue)
->
->
-> For consistency, maybe READ_ONCE/WRITE_ONCE in fuse_uring_destruct?
+From: Baokun Li <libaokun@linux.alibaba.com>
 
-I didn't add it because I don't think it's necessary (because
-fuse_uring_destruct can only run after the queue has been created),
-but I can add it to make things more uniform, if you have a preference
-for one way or the other. I'll send out v3 with this change.
+[ Upstream commit cba38ec4cbd3a7b8b942a8d52531a05be8a9ff0d ]
 
-Thanks,
-Joanne
+When a container exits, the following BUG_ON() is occasionally triggered:
+
+==================================================================
+ VFS: Busy inodes after unmount of sdb (ext4)
+ ------------[ cut here ]------------
+ kernel BUG at fs/super.c:695!
+ CPU: 3 PID: 6 Comm: containerd-shim Tainted: G OE K 6.6 #1
+ pstate: 63400009 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+ pc : generic_shutdown_super+0xf0/0x100
+ lr : generic_shutdown_super+0xf0/0x100
+ Call trace:
+  generic_shutdown_super+0xf0/0x100
+  kill_block_super+0x20/0x48
+  ext4_kill_sb+0x28/0x60
+  deactivate_locked_super+0x54/0x130
+  deactivate_super+0x84/0xa0
+  cleanup_mnt+0xa4/0x140
+  __cleanup_mnt+0x18/0x28
+  task_work_run+0x78/0xe0
+  do_notify_resume+0x204/0x240
+==================================================================
+
+The root cause is a race between cgroup_writeback_umount() and
+inode_switch_wbs()/cleanup_offline_cgwb(). There is a window between
+inode_prepare_wbs_switch() returning true and the subsequent
+wb_queue_isw() call. Following is the process that triggers the issue:
+
+      CPU A (umount)           |          CPU B (writeback)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                 inode_switch_wbs/cleanup_offline_cgwb
+                                  atomic_inc(&isw_nr_in_flight)
+                                  inode_prepare_wbs_switch
+                                   -> passes SB_ACTIVE check
+                                   __iget(inode)
+ generic_shutdown_super
+  sb->s_flags &= ~SB_ACTIVE
+  cgroup_writeback_umount(sb)
+   smp_mb()
+   atomic_read(&isw_nr_in_flight)
+   rcu_barrier()
+    -> no pending RCU callbacks
+   flush_workqueue(isw_wq)
+    -> nothing queued, returns
+  evict_inodes(sb)
+   -> Inode skipped as isw still holds a ref.
+  sop->put_super(sb)
+   /* destroys percpu counters */
+  -> VFS: Busy inodes after unmount!
+                                  wb_queue_isw()
+                                   queue_work(isw_wq, ...)
+                                  /* later in work function */
+                                  inode_switch_wbs_work_fn
+                                   process_inode_switch_wbs
+                                    iput() -> evict
+                                     percpu_counter_dec() // UAF!
+
+Fix this by extending the RCU read-side critical section in
+inode_switch_wbs() and cleanup_offline_cgwb() to cover from
+inode_prepare_wbs_switch() through wb_queue_isw().  Since there is
+no sleep in this window, rcu_read_lock() can be used.  Then add a
+synchronize_rcu() in cgroup_writeback_umount() before the existing
+rcu_barrier(), so that all in-flight switchers that have passed the
+SB_ACTIVE check have completed queue_work() before flush_workqueue()
+is called.
+
+The existing rcu_barrier() is intentionally retained so this fix can
+be backported unchanged to stable kernels (5.10.y, 6.6.y, ...) that
+still queue switches via queue_rcu_work(). It is a no-op on current
+mainline (since commit e1b849cfa6b6 ("writeback: Avoid contention on
+wb->list_lock when switching inodes")) and is removed in a follow-up
+patch.
+
+Fixes: a1a0e23e4903 ("writeback: flush inode cgroup wb switches instead of pinning super_block")
+Cc: stable@vger.kernel.org
+Suggested-by: Jan Kara <jack@suse.cz>
+Link: https://lore.kernel.org/all/mxnjq2l6guusfchvauxr3v7c4bwjasybxlleqbbh4efloeqspz@iqylk76ohufz
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+Link: https://patch.msgid.link/20260521095016.2791354-2-libaokun@linux.alibaba.com
+Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/fs-writeback.c | 31 +++++++++++++++++++++++++++++--
+ 1 file changed, 29 insertions(+), 2 deletions(-)
+
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index f84bc8a5d9d0cc..650ca25bc274c9 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -623,12 +623,19 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
+ 
+ 	atomic_inc(&isw_nr_in_flight);
+ 
+-	/* find and pin the new wb */
++	/*
++	 * Paired with synchronize_rcu() in cgroup_writeback_umount():
++	 * holding rcu_read_lock across inode_prepare_wbs_switch()
++	 * (covering the SB_ACTIVE check and the inode grab) and
++	 * wb_queue_isw() ensures synchronize_rcu() cannot return until
++	 * the work is queued, so the subsequent flush_workqueue() will
++	 * wait for the switch.
++	 */
+ 	rcu_read_lock();
++	/* find and pin the new wb */
+ 	memcg_css = css_from_id(new_wb_id, &memory_cgrp_subsys);
+ 	if (memcg_css && !css_tryget(memcg_css))
+ 		memcg_css = NULL;
+-	rcu_read_unlock();
+ 	if (!memcg_css)
+ 		goto out_free;
+ 
+@@ -643,9 +650,11 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
+ 	isw->inodes[0] = inode;
+ 
+ 	wb_queue_isw(new_wb, isw);
++	rcu_read_unlock();
+ 	return;
+ 
+ out_free:
++	rcu_read_unlock();
+ 	atomic_dec(&isw_nr_in_flight);
+ 	if (new_wb)
+ 		wb_put(new_wb);
+@@ -704,6 +713,14 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+ 		new_wb = &wb->bdi->wb; /* wb_get() is noop for bdi's wb */
+ 
+ 	nr = 0;
++	/*
++	 * Paired with synchronize_rcu() in cgroup_writeback_umount().
++	 * Holding rcu_read_lock across the SB_ACTIVE check, the inode grab
++	 * and wb_queue_isw() ensures synchronize_rcu() cannot return until
++	 * the work is queued, so the subsequent flush_workqueue() will wait
++	 * for the switch.
++	 */
++	rcu_read_lock();
+ 	spin_lock(&wb->list_lock);
+ 	/*
+ 	 * In addition to the inodes that have completed writeback, also switch
+@@ -721,6 +738,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+ 
+ 	/* no attached inodes? bail out */
+ 	if (nr == 0) {
++		rcu_read_unlock();
+ 		atomic_dec(&isw_nr_in_flight);
+ 		wb_put(new_wb);
+ 		kfree(isw);
+@@ -728,6 +746,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+ 	}
+ 
+ 	wb_queue_isw(new_wb, isw);
++	rcu_read_unlock();
+ 
+ 	return restart;
+ }
+@@ -1158,6 +1177,14 @@ void cgroup_writeback_umount(void)
+ 	smp_mb();
+ 
+ 	if (atomic_read(&isw_nr_in_flight)) {
++		/*
++		 * Paired with rcu_read_lock() in inode_switch_wbs() and
++		 * cleanup_offline_cgwb().  synchronize_rcu() waits for any
++		 * in-flight switcher that already passed the SB_ACTIVE check
++		 * to finish queueing its work, so flush_workqueue() below
++		 * will then drain it.
++		 */
++		synchronize_rcu();
+ 		/*
+ 		 * Use rcu_barrier() to wait for all pending callbacks to
+ 		 * ensure that all in-flight wb switches are in the workqueue.
+-- 
+2.53.0
+
