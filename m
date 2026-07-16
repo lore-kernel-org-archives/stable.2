@@ -1,216 +1,190 @@
-Received: from mout.web.de (mout.web.de [212.227.17.11])
+Received: from mout.web.de (mout.web.de [212.227.15.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14586222590;
-	Thu, 16 Jul 2026 21:41:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA363C9ED0;
+	Thu, 16 Jul 2026 21:45:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784238111; cv=none; b=aNrguNs4L8oKW9yOHcS2zqe8L9NdSeSGzYMledyDzImk07uViU5gE4QUwmpEKsdo06/VHxWwX32vNfAFAl/hZCTkAO8keXSlMUQvpP9VkJ3+oju/RV65hK90D20XmeoSIYU/QWKpnHrKn/b5zlrh9GwT7Co+gj4eJLlWHDSfzuU=
+	t=1784238314; cv=none; b=MaESoFhaPwSFWCssZU3DOFCtpXGp0lc3HweTrefQxuiymsTHCH9SCMXl8lfTHjn1l7z0VXzmq5gwQBJecnLWSOsIAYCx7x/lfpzqk+MVPnnOVFt3s1k+GhToVudIR8hb98KTrollxzKqZaIjMzoO9Qt9vO/NI+cPPDQej/eYhn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784238111; c=relaxed/simple;
-	bh=eXq6soXBh3V0gnM/g0EjGjq5x/js9iF8I85x5ufcvfg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IajCYi6/VrqG4cbMi4jnIGqaj3Pxt0ZnoeyfQpLYf7Bt7XnEppz70IoBmGxJdQvvy0hlkxFxpEF7Vf2m5XkQaqynBfu3+dc1ObE5lAyuTQr8GT/d4SOnQtA/kto0j/jz1Q1S2X4OJpzUjPWizrF3lJbRqX5T44NJ4PoDmxmxPNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=smoch@web.de header.b=iF7dA3HL; arc=none smtp.client-ip=212.227.17.11
+	s=arc-20240116; t=1784238314; c=relaxed/simple;
+	bh=4wkUo21Kijbk19y3LtsH4krE8n8Lf10gQCBe9Cww2EU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HkwGXN2cr2P3SdQHQmkgtowDysGB3521yAVTkdPYnD4qSEkN3Jm4iZVQ74otcfupeLEsJZSYH8Vs8uBfwYBnhfzu8Ipvw69EnVeymwZDnEI9FMO7imPu7HiWKqpxplFfvgiKf4Oxz5uQ+TDrsC6gGCVSpBh5e/EvqHKjsWeZCIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=smoch@web.de header.b=DXK1SF2F; arc=none smtp.client-ip=212.227.15.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=smoch@web.de header.b="iF7dA3HL"
+	dkim=pass (2048-bit key) header.d=web.de header.i=smoch@web.de header.b="DXK1SF2F"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1784238081; x=1784842881; i=smoch@web.de;
-	bh=8yF4WllWvs9Iw8iHl81Wlx3j0QzQ0MziWfuhUjP2AqQ=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=iF7dA3HLIm3DnCt1zbbqrldSx2qZzx6SYGNmilO37PkpG5FDSzOg8sO9EA4onmaG
-	 VYtPewG2nAUwhaOhIMaoIiDOd+DNiVXTPABl0oKY82yamQDrvg+Vs17ik3quSHb0K
-	 V900OqR2nocrgbp8J51f0qTnaIhrFoK7Wbq/7SYnsXN4rQfLcbW1rqg0YGI5p7SfC
-	 mFlwGPq2zUuH9HcKkZDoq18xiPwy0df/k6W0rU12k7iBbxBgIPsmllsa70LV4/9yE
-	 wPJNXF/gMwzHJKqmlogkNcvfjlWbRrPUwPP4Zjkrjev8zk9P1ON93ACFl8cbqkkQA
-	 97fj1MkkpnOb1i3EGQ==
+	s=s29768273; t=1784238293; x=1784843093; i=smoch@web.de;
+	bh=4wkUo21Kijbk19y3LtsH4krE8n8Lf10gQCBe9Cww2EU=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=DXK1SF2FLB2/KCdRwQZyezgLfhV4kb6+FKpB79mLk5iPKejbVZ+FwEc+Lsi308KC
+	 dH6juxZ/r4bHeZzFuqeOR90yn1ksinpRBrZa+4uMVZ616aEsG8snHyXDIXNs3gVHr
+	 QQqlT/gf5WS8N7EeEVIs4DRvmph7WOYDIvnPHfOzW3wny07NG0QcYu/IYsoiPlYRI
+	 B6JdBRdafzyQnSg9qAxXUQAFlyCv7F3MZDZ6iUVW5PYxnMYCQn7TYLBUGFjHALWFT
+	 u37RPn0zV75z8RcEJD4+777wEhTYJxYUwayVCKREqe/HjHlxxkdncexdaTURVFAn5
+	 6sPE4nt7OasuVW3Lzg==
 X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MS17h-1wZjYJ3nNj-00HpYs; Thu, 16
- Jul 2026 23:41:21 +0200
-From: Soeren Moch <smoch@web.de>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Soeren Moch <smoch@web.de>,
-	stable@vger.kernel.org,
-	Richard Zhu <hongxing.zhu@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] PCI: imx6: Keep Root Port MSI capability also for i.MX6Q
-Date: Thu, 16 Jul 2026 23:40:54 +0200
-Message-ID: <20260716214054.47372-1-smoch@web.de>
-X-Mailer: git-send-email 2.43.0
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1Ml4B6-1xRYwi3xO8-00eVYw; Thu, 16
+ Jul 2026 23:44:53 +0200
+Message-ID: <b19f5c27-cd0f-4000-91cb-5ebf1c119d45@web.de>
+Date: Thu, 16 Jul 2026 23:44:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:wuMJ5Q9l/R81+6rIGhVsO12/EYdE7EMrGyKSOr7MoALu/MjQ+lX
- FP9IkmKiePO//uD5tcp5Ddtj9IAFK3PqwGdmZbMk8XL8Hquc159g/uflD1Ie/VlfMhXBi3l
- isgZDJkoaJ8fvJUv7oNOlQfnjFMBESGZkeCz//70vknZZ6lYhkA4ygMlFIuV/e4tvmX48Q4
- DGxV8sy4VAzgDulUF2aVQ==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: imx6: Keep Root Port MSI capability also for i.MX6Q
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Richard Zhu <hongxing.zhu@nxp.com>,
+ stable@vger.kernel.org, Lucas Stach <l.stach@pengutronix.de>,
+ Frank Li <Frank.Li@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev, linux-kernel@vger.kernel.org, Soeren Moch <smoch@web.de>
+References: <20260427115804.134231-1-smoch@web.de>
+ <2cbqhvfjszzuanp4i3rohntkxpfgftfjvzt66te3wkohsvw26g@yv4txuy74tvu>
+ <465b1dcc-8e96-4edb-aebd-52937b8076d0@web.de>
+ <6ayf4vt5wiftgz4myxpyze2wmmuxf5miakq6ffz2k3r6beiztu@lh5z5zjnljad>
+Content-Language: en-US, de-DE
+From: Soeren Moch <smoch@web.de>
+In-Reply-To: <6ayf4vt5wiftgz4myxpyze2wmmuxf5miakq6ffz2k3r6beiztu@lh5z5zjnljad>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:hVG8vXu7T1C2kr8YJru8+r3Mj8ICajKhvDroMCNdjuJLf45oNPe
+ wyo8IsRedGGdsAwxg0RyczZMQ5m5s00woAgG2HUbBxscyVmyJF1QiOY9wM1K7VS7XgWcOW0
+ 9AbgjTgH44O6chjYV/6acQGCjsgELZ3OvR8Ca8BJLlH98572MlphVlBLKbYoo5Pas/lxIM+
+ HBHUUtnPWkeG1bbrRkm+Q==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:vXDL+/9DMNs=;nQ/O1rgyPbGKxsEiQHq9tUokA/F
- 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
- qCFtsVqejJn3x5nwaHM0+S+S+wB8Mh8jMw==
+UI-OutboundReport: notjunk:1;M01:P0:TuD9fFAk0O8=;h1XMfjGRJ44wAJze0yBhUaOj1Vv
+ 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
+ FDiFvp+PiSdE
 
-On the NXP i.MX6Q chipset MSIs from the endpoints won't be received by
-the iMSI-RX MSI controller if the Root Port MSI capability is disabled.
 
-Even though the Root Port MSIs won't be received by the iMSI-RX controller
-due to design, this chipset has some weird hardware bug that prevents
-the endpoint MSIs from reaching when the Root Port MSI capability is
-disabled.
 
-Hence, always keep the Root Port MSI capability for this chipset.
+On 15.07.26 07:40, Manivannan Sadhasivam wrote:
+> On Wed, Jul 08, 2026 at 10:52:22AM +0200, Soeren Moch wrote:
+>> On 06.07.26 12:29, Manivannan Sadhasivam wrote:
+>>> On Mon, Apr 27, 2026 at 01:58:04PM +0200, Soeren Moch wrote:
+>>>> Also on the NXP i.MX6Q chipset MSIs from the endpoints won't be received by
+>>>> the iMSI-RX MSI controller if the Root Port MSI capability is disabled.
+>>>>
+>>>> Even though the Root Port MSIs won't be received by the iMSI-RX controller
+>>>> due to design, this chipset has some weird hardware bug that prevents
+>>>> the endpoint MSIs from reaching when the Root Port MSI capability is
+>>>> disabled.
+>>>>
+>>>> Hence, always keep the Root Port MSI capability for this chipset.
+>>>>
+>>>> Note that by keeping Root Port MSI capability, Root Port MSIs such as AER,
+>>>> PME and others won't be received by default. So users need to use
+>>>> workarounds such as passing 'pcie_pme=nomsi' cmdline param.
+>>>>
+>>>> Fixes: 3a4e8302e72f ("PCI: imx6: Keep Root Port MSI capability with iMSI-RX to work around hardware bug")
+>>> This is not the correct fixes tag. Correct one is:
+>>> f5cd8a929c825 ("PCI: dwc: Remove MSI/MSIX capability for Root Port if iMSI-RX is used as MSI controller")
+>> Thanks for the fix of the fixes tag!
+>>>> Cc: <stable@vger.kernel.org> # 7.0.x
+>>>> Signed-off-by: Soeren Moch <smoch@web.de>
+>>> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+>>>
+>>> @Bjorn: Can you merge this patch for 7.2-rcS with correct fixes tag?
+>> I can send a v2 of the patch if you prefer.
+>>
+> That'll help.
+>
+> - Mani
+OK, I sent a v2:
+https://lkml.org/lkml/2026/7/16/2092
 
-Note that by keeping Root Port MSI capability, Root Port MSIs such as AER,
-PME and others won't be received by default. So users need to use
-workarounds such as passing 'pcie_pme=3Dnomsi' cmdline param.
-
-Fixes: f5cd8a929c825 ("PCI: dwc: Remove MSI/MSIX capability for Root Port =
-if iMSI-RX is used as MSI controller")
-Cc: <stable@vger.kernel.org> # 7.0+
-Signed-off-by: Soeren Moch <smoch@web.de>
-Acked-by: Richard Zhu <hongxing.zhu@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-=2D--
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Richard Zhu <hongxing.zhu@nxp.com>
-Cc: Lucas Stach <l.stach@pengutronix.de>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: linux-pci@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: imx@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org
-
-This patch is similar to
-3a4e8302e72f ("PCI: imx6: Keep Root Port MSI capability with iMSI-RX to wo=
-rk around hardware bug")
-
-Tested on a tbs2910 board [1]
-[1] arch/arm/boot/dts/nxp/imx/imx6q-tbs2910.dts
-
-changes in v2:
-- collect a-b and r-b tags
-- use correct fixes tag (Manivannan)
-  (reference commit that introduced the bug, not the incomplete fix)
-
-Since this is a fix for a regression in linux-7.0+, can this still be merg=
-ed for 7.2-rcS ?
-=2D--
- drivers/pci/controller/dwc/pci-imx6.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controlle=
-r/dwc/pci-imx6.c
-index 98e1db751132..8130cf93c2bb 100644
-=2D-- a/drivers/pci/controller/dwc/pci-imx6.c
-+++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -1995,7 +1995,8 @@ static const struct imx_pcie_drvdata drvdata[] =3D {
- 		.flags =3D IMX_PCIE_FLAG_IMX_PHY |
- 			 IMX_PCIE_FLAG_SPEED_CHANGE_WORKAROUND |
- 			 IMX_PCIE_FLAG_BROKEN_SUSPEND |
--			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND,
-+			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND |
-+			 IMX_PCIE_FLAG_KEEP_MSI_CAP,
- 		.dbi_length =3D 0x200,
- 		.gpr =3D "fsl,imx6q-iomuxc-gpr",
- 		.ltssm_off =3D IOMUXC_GPR12,
-=2D-=20
-2.43.0
+Thanks,
+Soeren
 
