@@ -1,200 +1,85 @@
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F0B23536B
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:17:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D5623536B
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784200663; cv=none; b=i+Xsqgmqd0fH/hVhhA3ZfL1K/B1xDXjzsOsXoXojO9XA0Z3ZI8IcrL07lq3mNjQxUoVRRIyKPM54VFpmhZbzRbyx+yko+pMWbMswIsxiMGwXPxFbKmYlglPSmkwTd9IjV6nqa/lZICVjbIhfoIIIDm4wNZA1gF9QHmUQcmKEY0U=
+	t=1784200848; cv=none; b=LySBXWSGqEuWDpE8/f354mzNKX12dERhNU9nkfFU3+ZUgkIJqRsd21i2AnGEoHy3KdMJyqV1FbbcNLKe2IgxSeqsi94AVAE6aZrbyKLLZEn59wYivT/8np4DJQ+N3SIaPrWDKnEXiMJe6Tzf3CrpTFgUeboFW4en0iIN8WQ3D6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784200663; c=relaxed/simple;
-	bh=7kl6bwyaVgSrLTnoWraAKy7A1ORdxO4LmRRsCznSOU4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pCWrqwSKFN21+K/PT76UbRfbQ5i7tLUHBdxzVF/nObbfy/b90ScgYd2Mln6txBkUpKpbhd25XUa27WAZFT+80YAhn4fHvEcS86RCr5mKx7nYpsy0a4A2LyvfLQW/XN1pYZ+Nk5VQBYrjaJg0MOYzSC7YMOGedRrA+c8Ulq13zyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iw2ftw/N; arc=none smtp.client-ip=91.218.175.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784200848; c=relaxed/simple;
+	bh=uFIxZogsCMPPblt7t3e9ZnJgdtq8ReFnbVz8ZGkQ1+M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=thjF6nT7mKTm0Hx8gWDGFKXD/TzoeRAN76TC09J29rMpXP76o9FkfaBGCql91V00E3yce6hfOfjzEvnEMlaoXGrBTCKvXFm8g6Lk+EOIciGo4qPQSqTMJxtQE2Kdr8TZWJhn+T+RWNEkfjgvDyTb9guB+62TKyr97peQJ2QJBoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k3d4mjQ4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iw2ftw/N"
-Message-ID: <65305712-8598-46aa-822b-914298277b64@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784200638;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hTG6hGzVl0dWfit8w/MB62E4ZbeaEHmlylI6bepXRC8=;
-	b=iw2ftw/NK2C6aLDREmrqRB3OjKsp0m0NcDAUexkCvaS+1CoWYFdLyp3g94WH+U7yxEgSiM
-	lGZoR+GtGUfnBlAM39TYcBixAEmtd9mi5XewkykQWHEgkw7LVMayH0akxk3gu2SaXH9Sp5
-	w0xjNbEHkRdLLMISoubCAbwZcP3ZMYQ=
-Date: Thu, 16 Jul 2026 19:17:03 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k3d4mjQ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79C931F000E9;
+	Thu, 16 Jul 2026 11:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784200846;
+	bh=l7MOk5pGF3JykyNMbehVAEnsm2wMl2aKoJOI+dCh3BY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=k3d4mjQ4vtQnx4FCR/gK6KDrIRizkY9UchBW3/FGy5PvLs0VLDdQ8FgIKgVrBohvV
+	 uegsFeZ5rlsSgu8cIK7iRwmmDM1dKi/LOc/XxMPFkMtq18aDhU6cSCzQoEagDkTBZC
+	 ZhMPORbdMsejbhTo2TIFH99hPSaWqJbSFXAQJRHQh75CnxNj/u+9HjGiEVWTnTob8t
+	 yMXFerXzj/ACFnyAHbEUva2/uMr3+83n9dF0Q4jZ/29cJUuUzmeQcbLPz6paVOEHIr
+	 qd/zV+5tRO+NDOwW68etev0DN2m6auEGbXKGXeX/hfZRDmCOvgK7AwbsIzB33KQee4
+	 YbRNGfi2rMf5A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] ksmbd_vfs_rename(): vfs_path_parent_lookup() accepts ERR_PTR() as name
+Date: Thu, 16 Jul 2026 07:20:41 -0400
+Message-ID: <20260716112043.1732826-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071450-trespass-dispense-fb1b@gregkh>
+References: <2026071450-trespass-dispense-fb1b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 2/2] mm: vmscan: fix node reclaim ignoring swappiness
- parameter
-To: Qi Zheng <qi.zheng@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>
-Cc: Muchun Song <muchun.song@linux.dev>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Davidlohr Bueso <dave@stgolabs.net>, cgroups@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
-References: <20260716031729.1064007-1-ridong.chen@linux.dev>
- <20260716031729.1064007-3-ridong.chen@linux.dev>
- <7ddf3eee-5fe2-45f7-8614-c8936a039e04@linux.dev>
- <a5eb5433-cf6c-40ee-b14e-128a8bcc85bf@linux.dev>
- <94a489d5-8b02-46e6-92d2-ccb85f556769@linux.dev>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <94a489d5-8b02-46e6-92d2-ccb85f556769@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
+From: Al Viro <viro@zeniv.linux.org.uk>
 
+[ Upstream commit ba33ac100d3feb1efb43b32e63cc0c6430936aa3 ]
 
-On 7/16/2026 4:42 PM, Qi Zheng wrote:
-> 
-> 
-> On 7/16/26 4:21 PM, Ridong Chen wrote:
->>
->>
->> On 7/16/2026 11:58 AM, Qi Zheng wrote:
->>> Hi Ridong,
->>>
->>> On 7/16/26 11:17 AM, Ridong wrote:
->>>> From: Ridong Chen <chenridong@xiaomi.com>
->>>>
->>>> sc_swappiness() had two separate definitions depending on
->>>> CONFIG_MEMCG. The !CONFIG_MEMCG variant simply returned
->>>> vm_swappiness, ignoring the proactive_swappiness value passed
->>>> through scan_control. This caused the swappiness parameter
->>>> written to /sys/devices/system/node/nodeX/reclaim to have no
->>>> effect when CONFIG_MEMCG is disabled.
->>>>
->>>> Fix this by consolidating sc_swappiness() into a single definition
->>>> that checks sc->proactive_swappiness first, then falls back to
->>>> mem_cgroup_swappiness() which already handles both CONFIG_MEMCG
->>>> and !CONFIG_MEMCG.
->>>>
->>>> Before fix (swappiness=max ignored, mostly file pages reclaimed):
->>>>
->>>>      # cat /proc/sys/vm/swappiness
->>>>      60
->>>>      # cat /proc/vmstat | grep pgsteal
->>>>      pgsteal_kswapd 0
->>>>      pgsteal_direct 0
->>>>      pgsteal_khugepaged 0
->>>>      pgsteal_proactive 1840
->>>>      pgsteal_anon 25
->>>>      pgsteal_file 1815
->>>>      # echo "64M swappiness=max" > /sys/devices/system/node/node0/ 
->>>> reclaim
->>>>      # cat /proc/vmstat | grep pgsteal
->>>>      pgsteal_kswapd 0
->>>>      pgsteal_direct 0
->>>>      pgsteal_khugepaged 0
->>>>      pgsteal_proactive 18013
->>>>      pgsteal_anon 337
->>>>      pgsteal_file 17676
->>>>
->>>> After fix (swappiness=max honored, anon pages reclaimed as expected):
->>>>
->>>
->>> By the way, in get_scan_count(), it seems we still reclaim file pages
->>> without swap space, even if swappiness=max (SWAPPINESS_ANON_ONLY) is
->>> set.
->>>
->>> This behavior appears to contradict the semantics of
->>> SWAPPINESS_ANON_ONLY, which probably needs a fix as well.
->>>
->> Thanks, Qi.
->>
->> You're right. Currently, when can_reclaim_anon_pages() returns false, 
->> the reclaim logic falls back to scanning file folios even if 
->> swappiness == SWAPPINESS_ANON_ONLY is set:
->>
->> ```
->> static void get_scan_count(struct lruvec *lruvec, struct scan_control 
->> *sc,
->>                 unsigned long *nr)
->> {
->>      ....
->>      /* If we have no swap space, do not bother scanning anon folios. */
->>      if (!sc->may_swap || !can_reclaim_anon_pages(memcg, pgdat- 
->> >node_id, sc)) {
->>          scan_balance = SCAN_FILE;
->>          goto out;
->>      }
->>
->>      ...
->>      /* Proactive reclaim initiated by userspace for anonymous memory 
->> only */
->>      if (swappiness == SWAPPINESS_ANON_ONLY) {
->>          WARN_ON_ONCE(!sc->proactive);
->>          scan_balance = SCAN_ANON;
->>          goto out;
->>      }
->>      ...
->> }
->> ```
->>
->> The !can_reclaim_anon_pages() check above takes precedence over the 
->> SWAPPINESS_ANON_ONLY branch, making the latter effectively unreachable 
->> when anonymous pages are deemed non-reclaimable.
->>
->> To fix this, could we move the SWAPPINESS_ANON_ONLY check up before 
->> the can_reclaim_anon_pages() check?
->>
->> ```
->> static void get_scan_count(struct lruvec *lruvec, struct scan_control 
->> *sc,
->>                 unsigned long *nr)
->> {
->>      ...
->>      /* Proactive reclaim initiated by userspace for anonymous memory 
->> only */
->>      if (swappiness == SWAPPINESS_ANON_ONLY) {
->>          WARN_ON_ONCE(!sc->proactive);
->>          scan_balance = SCAN_ANON;
->>          goto out;
-> 
-> For SWAPPINESS_ANON_ONLY + !can_reclaim_anon_pages, perhaps we should
-> just return directly instead of goto out, since no pages can be
-> reclaimed in this situation.
-> 
+no need to check in the caller
 
-Much better.
-Would you mind if I send a separate patch to fix this issue?
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Stable-dep-of: 1c8951963d8e ("ksmbd: fix path resolution in ksmbd_vfs_kern_path_create")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/server/vfs.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-> 
->>      }
->>      ....
->>      /* If we have no swap space, do not bother scanning anon folios. */
->>      if (!sc->may_swap || !can_reclaim_anon_pages(memcg, pgdat- 
->> >node_id, sc)) {
->>          scan_balance = SCAN_FILE;
->>          goto out;
->>      }
->>
->>      ...
->> }
->> ```
->>
-> 
-
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index eec509d3a7fa01..a630994187a775 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -708,10 +708,6 @@ int ksmbd_vfs_rename(struct ksmbd_work *work, const struct path *old_path,
+ 		return -ENOMEM;
+ 
+ 	to = getname_kernel(newname);
+-	if (IS_ERR(to)) {
+-		err = PTR_ERR(to);
+-		goto revert_fsids;
+-	}
+ 
+ retry:
+ 	err = vfs_path_parent_lookup(to, lookup_flags | LOOKUP_BENEATH,
+@@ -812,7 +808,6 @@ int ksmbd_vfs_rename(struct ksmbd_work *work, const struct path *old_path,
+ 	}
+ out1:
+ 	putname(to);
+-revert_fsids:
+ 	ksmbd_revert_fsids(work);
+ 	return err;
+ }
 -- 
-Best regards
-Ridong
+2.53.0
 
