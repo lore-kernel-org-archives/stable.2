@@ -1,77 +1,81 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317B940A934
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 10:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FFC3FA5FD
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 10:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784197927; cv=none; b=eAzodciX8dhmK4JH+Aq5AtUg4s5morYXgiZjfHxOtn7Jamw+xg3Kkh0Xo1CWHLWrS5c/MlwTf2nkY9f4K903k+2xJGo2e2+q3/xvDIFLeuro0jFNnMRXin3/SEUZKZy38e/Umwog3GIkWBC7m3wBi1yJ9tcPHiXd9Xr/GZrHHck=
+	t=1784198554; cv=none; b=gP5Sd3P7NXJIf2c2Xnarls0kHnJniB4pxVac5iGEdwfJ+YpKg1zpGDsA7Qu6hjqlNv66f27HjY+DGgZmxdRc1zocqX+t64mNumcaNnAhirsVa5fW90TiF2fDnFSphh4arCzDgWGf4Vv27eP/IDkS2I2cqGfpXdp6jhskETKH0cA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784197927; c=relaxed/simple;
-	bh=MELxpiVsjg54SuqERnFOBoWpwSE25FVW/pm5aIULwfc=;
+	s=arc-20240116; t=1784198554; c=relaxed/simple;
+	bh=Gk998eYN7gUwcRYe8PxnBJe6Xr7AbEqyGz3sBixO3B4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jXV1pIPXXcuJDpflNtbUTaGbIXxZhquL6CQrxCkuET8tDcCudKtPN0vHef5gfOtWKFH7NinJDn5sLDsrqpQwuu4eat4ao0SFwELp+6/yG4N4bP77qbcSY0FA8XfY5nXY25ym8RBaYm+wUqzkdOtsLoWhqNhWA0l2ytKqzQkcvQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OwKHcxIu; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=BbohL1m+Tl9ovdUhVnwZlnc1AhR72zQtNpS8CKdvy1932+YISDIIjWwGdvMSRqiZkvGGroE2jfW7g9LE41ku5hPsP+tpR3ZVYjrmrypNFfaVECrDhwAmXUvF57lOADfug5ppyOBhS7FW6lK3dl3AbAeELEIDViRGzbE4UgUtmQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XnsQklVu; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OwKHcxIu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784197920;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9RuMIYaYxQ3aZE1J/C1CbAmhDK6Ryjd7CE/reIVD6Co=;
-	b=OwKHcxIuGzSCEtA2m493uzuTRZ7phgk5pFNDfkhx5cSkGcvJv3lgrb++h5dSrtZGDuyT1t
-	URIfUE+aflyz+mvVRG9udjTS4AsOuB+9uAHX/fbgVwzjhNihBTx6zucw4Ux7Hn/IHeBsdg
-	kuujHXGTXScdZWP4exkRNB6XqwbEYRc=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-562-jrktmlciO6-DTPN_f8ZiAA-1; Thu,
- 16 Jul 2026 06:31:57 -0400
-X-MC-Unique: jrktmlciO6-DTPN_f8ZiAA-1
-X-Mimecast-MFC-AGG-ID: jrktmlciO6-DTPN_f8ZiAA_1784197914
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3F07A18002C2;
-	Thu, 16 Jul 2026 10:31:54 +0000 (UTC)
-Received: from warthog.procyon.org.com (unknown [10.44.33.159])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1D1BE1956042;
-	Thu, 16 Jul 2026 10:31:47 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>,
-	Matthew Wilcox <willy@infradead.org>,
-	Christoph Hellwig <hch@infradead.org>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Leon Romanovsky <leon@kernel.org>,
-	Steve French <sfrench@samba.org>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-erofs@lists.ozlabs.org,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XnsQklVu"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38759bcd877so5626554a91.2
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 03:42:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784198552; x=1784803352; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wTeYglMh2Ky0UImAmNlYDWZ+C9HdKGNWJyEuofDOr2k=;
+        b=XnsQklVuQ++rpvMOCbBs31KZAAIj7Umua3AVh/yHgrLbD15zp7oFE9aV9sved6ntRR
+         QJgNKMc5SrPO7RTNXMDzZKvGpj4d3MQV/CNLvRaXkrSHoG94t2NUu8reMGm0OQ6Tx1uA
+         tuVolCxmI01eIksFv/iHY9lSguwXmk1LK4HtC7fKCabRJV69rizQ5eWZprACrHyMQs1R
+         Q2P0lJQoR8F9UOAWgDUn6gnze8B/rFqktINhhDjexh0oOH6BVjaIs01eYNwnHYlaZPf3
+         QBXNhUKNPPTPjg27LBV9UdcsPYXj7I225uACp0HSMFMoa0t3UF5cd6okznHhMdFAaYkf
+         AH9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784198552; x=1784803352;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wTeYglMh2Ky0UImAmNlYDWZ+C9HdKGNWJyEuofDOr2k=;
+        b=C01yX/A9nkJ+xKqoQsG4hhZnnDn1n2x4McgnJq8AfDh4o9pVMC2O/xFlMzf+6/MFJH
+         J3EENXr7KMgRiPebTmsPONjx503oUbH7vgGOowQ7U22ptc/FG/x5tYFrooPzdSWn0k2F
+         aa1cDMunL39R5vUAVUcBF3uWNeBpB6sWRe5Gh8iRb4RgdcLtA2l+OhN3xFtA6SzxZAX1
+         OT9tf0P07YjCf/B9anNmIu+phc4d3PPZIKZqKhmJ+54Jv20u+SeH0EA5+yIx1Sq3BL68
+         pXfg+ubt6FkAnZcTdl2oyESFt9wFgx3luV5nUM4SbUjDXL9qWQqPnfwrHwHpnoYgY+Re
+         SQYg==
+X-Forwarded-Encrypted: i=1; AHgh+RpTJ4koYW1XZ4xoWy97XQrYS3A6FoRp3WnuhblqmtohaX0QRWeX1OUxaJYSRyeF3N0I5yUFSM8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzdb7r5ahOZdJAmuVnzHx+4GXNGraY6fAYqc7tmpqb1G0pf/PKZ
+	7NiEeJ8u4JjSotPM3due1gEjhkhn99UDUwQSyXjYCkTq8ISowr0PAwXx
+X-Gm-Gg: AfdE7cmeFXsiUO2d9uY/T1Y1XDkT0dO3aGp1KPZQzzbmPnmL5hklnHTbpTJhBxtjW0u
+	1gMAEWSax3kn2YMuF92ZH0p2Ky9eWfjCBHvad0fvee7kikiJOAMEZsj0o3gfaf8dRrUYeVbgQZd
+	3wVgl2nRRhoVPxTwD5+z8JHACSGulT54jpotGhS3vzChEtBHu5K6oMmEChJ1Ywus4H0IUy0twbl
+	lrTNbOP7Th8cdvPolttcQJOW0PnkuqcxLquhEvXBRvHO+JUxIHKdF2dw3Bn35Z2m/rC7+3famnI
+	/hBVgV0xDJfFlN2VBhQN/twVntk7/1pXQuX92APLjPqBn9GgpGud6C05cclnoO2YT9KWw3K9Qzr
+	1EvYB7L3UqjDFzCmS/rLZ94582+CNu7wD4kEeGIMRmnMGfgtYF5zJtAdakDPQiSuCevaTMLEzbe
+	SFiw==
+X-Received: by 2002:a17:90b:2650:b0:37f:ef32:d444 with SMTP id 98e67ed59e1d1-38e29ff9805mr5615043a91.1.1784198551431;
+        Thu, 16 Jul 2026 03:42:31 -0700 (PDT)
+Received: from localhost ([144.24.58.22])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3140e6a4779sm13552089eec.17.2026.07.16.03.42.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 03:42:31 -0700 (PDT)
+From: Jinchao Wang <wangjinchao600@gmail.com>
+To: gregkh@linuxfoundation.org,
+	stern@rowland.harvard.edu
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	eeodqql09@gmail.com,
+	surban@surban.net,
+	bigeasy@linutronix.de,
+	kees@kernel.org,
+	Jinchao Wang <wangjinchao600@gmail.com>,
+	syzbot+faf3a6cf579fc65591ca@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v6 08/24] afs: Fix afs_edit_dir_remove() to get, not find, block 0
-Date: Thu, 16 Jul 2026 11:30:07 +0100
-Message-ID: <20260716103030.3065561-9-dhowells@redhat.com>
-In-Reply-To: <20260716103030.3065561-1-dhowells@redhat.com>
-References: <20260716103030.3065561-1-dhowells@redhat.com>
+Subject: [PATCH v2] usb: gadget: dummy_hcd: prevent fifo_req reuse during giveback
+Date: Thu, 16 Jul 2026 06:42:17 -0400
+Message-ID: <5db8bba5b3499a86cd2e776f9918126b68b2508b.1784198306.git.wangjinchao600@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260714064829.172098-1-wangjinchao600@gmail.com>
+References: <20260714064829.172098-1-wangjinchao600@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,37 +83,149 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Fix afs_edit_dir_remove() to use afs_dir_get_block() to get block 0 rather
-than afs_dir_find_block() as the latter caches the found block in the
-afs_dir_iter and may[*] switch out the page it's on if another
-afs_dir_find_block() is done.  This parallels what afs_edit_dir_add() does.
+dummy_hcd embeds a single shared usb_request (dum->fifo_req) that the
+"emulated single-request FIFO" fast-path in dummy_queue() reuses for
+small IN transfers: it copies the caller's request into it
+(req->req = *_req) and queues it, treating list_empty(&fifo_req.queue)
+as "the slot is free".
 
-[*] There's more than one block per page.
+The completion side (dummy_timer/transfer/nuke/dummy_dequeue) follows
+the standard pattern: list_del_init(&req->queue) unlinks the request,
+then the lock is dropped and usb_gadget_giveback_request() invokes
+req->complete().  But list_del_init() makes fifo_req.queue look empty
+*before* the completion callback returns, so a concurrent dummy_queue()
+on another CPU sees the slot as free, reuses fifo_req and runs
+req->req = *_req -- overwriting req->complete while dummy_timer is
+mid-calling it.  The indirect call then jumps to a clobbered pointer,
+causing a general protection fault / page fault in dummy_timer
+(syzkaller extid faf3a6cf579fc65591ca).  The clobbering write is an
+in-bounds memcpy on a live shared object, so KASAN cannot flag it.
 
-Fixes: a5b5beebcf96 ("afs: Use the contained hashtable to search a directory")
-Closes: https://sashiko.dev/#/patchset/20260706153408.1231650-1-dhowells%40redhat.com
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: linux-afs@lists.infradead.org
-cc: linux-fsdevel@vger.kernel.org
-cc: stable@vger.kernel.org
+Add a fifo_req_busy bit covering the shared request's whole lifetime:
+set it in dummy_queue() when the FIFO fast-path takes fifo_req (making
+it the fast-path guard, replacing the list_empty(&fifo_req.queue)
+test), and clear it after the completion callback has returned, via a
+dummy_giveback() helper used at all four gadget-request giveback
+sites.  The shared slot can no longer be reused until its completion
+callback has finished.
+
+Reported-by: syzbot+faf3a6cf579fc65591ca@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=faf3a6cf579fc65591ca
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jinchao Wang <wangjinchao600@gmail.com>
 ---
- fs/afs/dir_edit.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2 (per Alan Stern's review of v1 [1]):
 
-diff --git a/fs/afs/dir_edit.c b/fs/afs/dir_edit.c
-index fd3aa9f97ce6..3ead36a07048 100644
---- a/fs/afs/dir_edit.c
-+++ b/fs/afs/dir_edit.c
-@@ -415,7 +415,7 @@ void afs_edit_dir_remove(struct afs_vnode *vnode,
- 	if (!afs_dir_init_iter(&iter, name))
- 		return;
+- Move dummy_giveback() above the "/* called with spinlock held */"
+  comment so the comment is again immediately before nuke().
+- Set fifo_req_busy in dummy_queue() when the FIFO fast-path takes the
+  shared request (covering its whole in-use lifetime) instead of in
+  dummy_giveback(), and drop the now-redundant
+  list_empty(&fifo_req.queue) test from the fast-path guard.
+
+[1] https://lore.kernel.org/all/20260714064829.172098-1-wangjinchao600@gmail.com/
+
+ drivers/usb/gadget/udc/dummy_hcd.c | 40 ++++++++++++++++++++----------
+ 1 file changed, 27 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/usb/gadget/udc/dummy_hcd.c b/drivers/usb/gadget/udc/dummy_hcd.c
+index f47903461ed5..c0e40fa6dde5 100644
+--- a/drivers/usb/gadget/udc/dummy_hcd.c
++++ b/drivers/usb/gadget/udc/dummy_hcd.c
+@@ -278,6 +278,7 @@ struct dummy {
+ 	unsigned			ints_enabled:1;
+ 	unsigned			udc_suspended:1;
+ 	unsigned			pullup:1;
++	unsigned			fifo_req_busy:1;
  
--	meta = afs_dir_find_block(&iter, 0);
-+	meta = afs_dir_get_block(&iter, 0);
- 	if (!meta)
- 		return;
+ 	/*
+ 	 * HOST side support
+@@ -329,6 +330,26 @@ static inline struct dummy *gadget_dev_to_dummy(struct device *dev)
  
+ /* DEVICE/GADGET SIDE UTILITY ROUTINES */
+ 
++/*
++ * Give back a gadget request with dum->lock dropped around the callback.
++ * If @req is the shared fifo_req, clear fifo_req_busy afterward: the flag
++ * was set in dummy_queue() when the shared request was taken and must stay
++ * set until its completion callback has returned; list_del_init() alone
++ * makes the request look idle while the callback is still running.
++ * Caller holds dum->lock and has already done list_del_init() + status.
++ */
++static void dummy_giveback(struct dummy *dum, struct usb_ep *_ep,
++			   struct dummy_request *req)
++{
++	bool fifo = req == &dum->fifo_req;
++
++	spin_unlock(&dum->lock);
++	usb_gadget_giveback_request(_ep, &req->req);
++	spin_lock(&dum->lock);
++	if (fifo)
++		dum->fifo_req_busy = 0;
++}
++
+ /* called with spinlock held */
+ static void nuke(struct dummy *dum, struct dummy_ep *ep)
+ {
+@@ -339,9 +360,7 @@ static void nuke(struct dummy *dum, struct dummy_ep *ep)
+ 		list_del_init(&req->queue);
+ 		req->req.status = -ESHUTDOWN;
+ 
+-		spin_unlock(&dum->lock);
+-		usb_gadget_giveback_request(&ep->ep, &req->req);
+-		spin_lock(&dum->lock);
++		dummy_giveback(dum, &ep->ep, req);
+ 	}
+ }
+ 
+@@ -728,10 +747,11 @@ static int dummy_queue(struct usb_ep *_ep, struct usb_request *_req,
+ 
+ 	/* implement an emulated single-request FIFO */
+ 	if (ep->desc && (ep->desc->bEndpointAddress & USB_DIR_IN) &&
+-			list_empty(&dum->fifo_req.queue) &&
++			!dum->fifo_req_busy &&
+ 			list_empty(&ep->queue) &&
+ 			_req->length <= FIFO_SIZE) {
+ 		req = &dum->fifo_req;
++		dum->fifo_req_busy = 1;
+ 		req->req = *_req;
+ 		req->req.buf = dum->fifo_buf;
+ 		memcpy(dum->fifo_buf, _req->buf, _req->length);
+@@ -785,9 +805,7 @@ static int dummy_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 		dev_dbg(udc_dev(dum),
+ 				"dequeued req %p from %s, len %d buf %p\n",
+ 				req, _ep->name, _req->length, _req->buf);
+-		spin_unlock(&dum->lock);
+-		usb_gadget_giveback_request(_ep, _req);
+-		spin_lock(&dum->lock);
++		dummy_giveback(dum, _ep, req);
+ 	}
+ 	spin_unlock_irqrestore(&dum->lock, flags);
+ 	return retval;
+@@ -1523,9 +1541,7 @@ static int transfer(struct dummy_hcd *dum_hcd, struct urb *urb,
+ 		if (req->req.status != -EINPROGRESS) {
+ 			list_del_init(&req->queue);
+ 
+-			spin_unlock(&dum->lock);
+-			usb_gadget_giveback_request(&ep->ep, &req->req);
+-			spin_lock(&dum->lock);
++			dummy_giveback(dum, &ep->ep, req);
+ 
+ 			/* requests might have been unlinked... */
+ 			rescan = 1;
+@@ -1910,9 +1926,7 @@ static enum hrtimer_restart dummy_timer(struct hrtimer *t)
+ 				dev_dbg(udc_dev(dum), "stale req = %p\n",
+ 						req);
+ 
+-				spin_unlock(&dum->lock);
+-				usb_gadget_giveback_request(&ep->ep, &req->req);
+-				spin_lock(&dum->lock);
++				dummy_giveback(dum, &ep->ep, req);
+ 				ep->already_seen = 0;
+ 				goto restart;
+ 			}
+-- 
+2.53.0
 
