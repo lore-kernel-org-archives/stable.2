@@ -1,41 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8949F42901C;
-	Thu, 16 Jul 2026 13:47:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFB141DEF6;
+	Thu, 16 Jul 2026 13:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209685; cv=none; b=oSmSFA1cePzzqHjvoKM1dmu8DP+KWEu8JVj2xLL5JjHQ2+MBSn8YhUEDJ6GvxEKgBUp5FTyjNi+71GNzBXs5Zxi2sa4yl2bIWM9ju40ukGYCAQJflGySmgCc0mn6AS8ODjuy7bum2dhdedt4FLz8se1IiL5EAJDdIYQIgufOksY=
+	t=1784209690; cv=none; b=sjTcSp4kS5GJM0fi/cUuk2zDG6YsWyAnI5uTGW4/gdgpYwPmkiaZXrOYI7mzyCy/DeVPRLOqx6QsFUzkkyviUDE3+KOeKftTPvK6WhqPV68Gh6IHyq/GyCoKNIUreKV/dEetz8rasc5rBzY1nj2C6TQNCC2BOYewElWD42IlYEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784209685; c=relaxed/simple;
-	bh=1Zb8/Tpo4KswQ/EqtFyiqYRllsAC90diMBApEBfobrk=;
+	s=arc-20240116; t=1784209690; c=relaxed/simple;
+	bh=4EmMSUvfSgBqfF+yzATog4tlCa2FwcD5SoK/Qz2rTmU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z23NdJbmPXb632HIHTsKjvV0wP9JlSZyO+Vbuk+vRXezS2oKVpfhbSGtReAiLc05nzdRInOWilamPR6vroLYKnB8Me2WEdXSqG1BE8EZeXkTPfMFBCzPmewlFhnXq2nWuJ67ZR4vl/rvaRi8nME5DbUu05aEi/9NedKmz4PEfig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=F5mEG0ef; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qC7hDngdhjLSFND/vStvgEKWeKMflg500tcx6cd5BtEWofPO81jNC/tjEusOWh0qvY9rJnhnw+SeeQgh85h1T6g3nMBRJI1XPBmu0ePYA2SBKTvji7/eVsW34Fjx711iTA96KkiD6bwWlaK2kM+1VgZnejBox0+rDyPJ6Old2wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jfyFw8m/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="F5mEG0ef"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6EF31F000E9;
-	Thu, 16 Jul 2026 13:47:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jfyFw8m/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2866E1F00AC4;
+	Thu, 16 Jul 2026 13:47:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784209673;
-	bh=JoTf/J1z9qcXCZBGeO6oBPC24zTmOkZjzJuk9EJXcoA=;
+	s=korg; t=1784209678;
+	bh=2NZDtjA2Y8t6c2ipNUYA9DgSmX+6tWUW2/NGmuqe8dc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F5mEG0ef8SSwBqmhu/tM+osCDtnmSFh3Emk9SsLkJyMNsqjGb2IaNVtRe6K+erXwN
-	 dnu7a3IkgyNZh2isK5M/EdiUeVC1FSi2/hZjn/wjbzU0RKpte+3At+6+QTnl4CASHo
-	 YoLT5VrztXG4FfqbB9yvHpoELJ+JRuLOm+bPHbnE=
+	b=jfyFw8m/iFPO37e1tVnTDJac9m7Tz8fWSo+Amd2KUaNFHYOMHAevwQchVShDFAwV5
+	 oul02LTrfnY01ORcHF+oMlXeSeZpokhvYRuU+p/LDB2Blof/pV0cEVLKLA5EZL5nWA
+	 h1HEKMIPaDh5e/yfora3dWN+lkeg1pKQn5KnxXFw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Zhang Lixu <lixu.zhang@intel.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>
-Subject: [PATCH 7.1 276/518] HID: sensor-hub: Add sensor_hub_input_attr_read_values() for multi-byte reads
-Date: Thu, 16 Jul 2026 15:29:04 +0200
-Message-ID: <20260716133053.853694083@linuxfoundation.org>
+	syzbot+6df204b70bf3261691c5@syzkaller.appspotmail.com,
+	syzbot+e76bf3d19b85350571ac@syzkaller.appspotmail.com,
+	Tristan Madani <tristan@talencesecurity.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Subject: [PATCH 7.1 277/518] hfs/hfsplus: fix u32 overflow in check_and_correct_requested_length
+Date: Thu, 16 Jul 2026 15:29:05 +0200
+Message-ID: <20260716133053.875141554@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
 References: <20260716133047.772246337@linuxfoundation.org>
@@ -54,179 +52,65 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+From: Tristan Madani <tristan@talencesecurity.com>
 
-commit f784fcea450617055d2d12eec5b2f6e0e38bf878 upstream.
+commit 966cb76fb2857a4242cab6ea2ea17acf818a3da7 upstream.
 
-sensor_hub_input_attr_get_raw_value() is limited to returning a single
-32-bit value, which is insufficient for sensors that report data larger
-than 32 bits, such as a quaternion with four s16 elements.
+check_and_correct_requested_length() compares (off + len) against
+node_size using u32 arithmetic.  When the caller passes a large len
+value (e.g. from an underflowed subtraction in hfs_brec_remove()),
+off + len can wrap past 2^32 and produce a small result, causing the
+bounds check to pass when it should fail.
 
-Add sensor_hub_input_attr_read_values() that accepts a caller-provided
-buffer and accumulates incoming data until the buffer is full. The two
-paths are distinguished in sensor_hub_raw_event() by pending.max_raw_size
-being non-zero, preserving backward compatibility.
+For example, with off=14 and len=0xFFFFFFF2 (underflowed from
+data_off - keyoffset - size in hfs_brec_remove), off + len wraps to 6,
+which is less than a typical node_size of 512, so the check passes and
+the subsequent memmove reads ~4GB past the node buffer.
 
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Co-developed-by: Zhang Lixu <lixu.zhang@intel.com>
-Signed-off-by: Zhang Lixu <lixu.zhang@intel.com>
-Acked-by: Jiri Kosina <jkosina@suse.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Fix this by widening the addition to u64 before comparing against
+node_size.  This prevents the u32 wrap while keeping the logic
+straightforward.
+
+Reported-by: syzbot+6df204b70bf3261691c5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6df204b70bf3261691c5
+Tested-by: syzbot+6df204b70bf3261691c5@syzkaller.appspotmail.com
+Reported-by: syzbot+e76bf3d19b85350571ac@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e76bf3d19b85350571ac
+Tested-by: syzbot+e76bf3d19b85350571ac@syzkaller.appspotmail.com
+Fixes: a431930c9bac ("hfs: fix slab-out-of-bounds in hfs_bnode_read()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Link: https://lore.kernel.org/r/20260505111300.3592757-2-tristmd@gmail.com
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/hid/hid-sensor-hub.c   |   77 +++++++++++++++++++++++++++++++++++++----
- include/linux/hid-sensor-hub.h |   25 +++++++++++++
- 2 files changed, 96 insertions(+), 6 deletions(-)
+ fs/hfs/bnode.c          |    2 +-
+ fs/hfsplus/hfsplus_fs.h |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
---- a/drivers/hid/hid-sensor-hub.c
-+++ b/drivers/hid/hid-sensor-hub.c
-@@ -286,6 +286,54 @@ done_proc:
- }
- EXPORT_SYMBOL_GPL(sensor_hub_get_feature);
+--- a/fs/hfs/bnode.c
++++ b/fs/hfs/bnode.c
+@@ -41,7 +41,7 @@ u32 check_and_correct_requested_length(s
  
-+int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
-+				      u32 usage_id, u32 attr_usage_id,
-+				      u32 report_id,
-+				      enum sensor_hub_read_flags flag,
-+				      u32 buffer_size, u8 *buffer)
-+{
-+	struct sensor_hub_data *data = hid_get_drvdata(hsdev->hdev);
-+	struct hid_report *report;
-+	unsigned long flags;
-+	long cycles;
-+	int ret;
-+
-+	report = sensor_hub_report(report_id, hsdev->hdev, HID_INPUT_REPORT);
-+	if (!report)
-+		return -EINVAL;
-+
-+	mutex_lock(hsdev->mutex_ptr);
-+	if (flag == SENSOR_HUB_SYNC) {
-+		memset(&hsdev->pending, 0, sizeof(hsdev->pending));
-+		init_completion(&hsdev->pending.ready);
-+		hsdev->pending.usage_id = usage_id;
-+		hsdev->pending.attr_usage_id = attr_usage_id;
-+		hsdev->pending.max_raw_size = buffer_size;
-+		hsdev->pending.raw_data = buffer;
-+
-+		spin_lock_irqsave(&data->lock, flags);
-+		hsdev->pending.status = true;
-+		spin_unlock_irqrestore(&data->lock, flags);
-+	}
-+	mutex_lock(&data->mutex);
-+	hid_hw_request(hsdev->hdev, report, HID_REQ_GET_REPORT);
-+	mutex_unlock(&data->mutex);
-+	ret = 0;
-+	if (flag == SENSOR_HUB_SYNC) {
-+		cycles = wait_for_completion_interruptible_timeout(&hsdev->pending.ready,
-+								   HZ * 5);
-+		if (cycles == 0)
-+			ret = -ETIMEDOUT;
-+		else if (cycles < 0)
-+			ret = cycles;
-+
-+		hsdev->pending.status = false;
-+	}
-+	mutex_unlock(hsdev->mutex_ptr);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(sensor_hub_input_attr_read_values);
+ 	node_size = node->tree->node_size;
  
- int sensor_hub_input_attr_get_raw_value(struct hid_sensor_hub_device *hsdev,
- 					u32 usage_id,
-@@ -478,6 +526,8 @@ static int sensor_hub_raw_event(struct h
- 	struct hid_collection *collection = NULL;
- 	void *priv = NULL;
- 	struct hid_sensor_hub_device *hsdev = NULL;
-+	u32 copy_size;
-+	u32 avail;
+-	if ((off + len) > node_size) {
++	if ((u64)off + len > node_size) {
+ 		u32 new_len = node_size - off;
  
- 	hid_dbg(hdev, "sensor_hub_raw_event report id:0x%x size:%d type:%d\n",
- 			 report->id, size, report->type);
-@@ -518,12 +568,27 @@ static int sensor_hub_raw_event(struct h
- 					      hsdev->pending.attr_usage_id ==
- 					      report->field[i]->logical)) {
- 			hid_dbg(hdev, "data was pending ...\n");
--			hsdev->pending.raw_data = kmemdup(ptr, sz, GFP_ATOMIC);
--			if (hsdev->pending.raw_data)
--				hsdev->pending.raw_size = sz;
--			else
--				hsdev->pending.raw_size = 0;
--			complete(&hsdev->pending.ready);
-+			if (hsdev->pending.max_raw_size) {
-+				if (hsdev->pending.index < hsdev->pending.max_raw_size) {
-+					avail = hsdev->pending.max_raw_size - hsdev->pending.index;
-+					copy_size = clamp(sz, 0U, avail);
-+
-+					memcpy(hsdev->pending.raw_data + hsdev->pending.index,
-+					       ptr, copy_size);
-+					hsdev->pending.index += copy_size;
-+					if (hsdev->pending.index >= hsdev->pending.max_raw_size) {
-+						hsdev->pending.raw_size = hsdev->pending.index;
-+						complete(&hsdev->pending.ready);
-+					}
-+				}
-+			} else {
-+				hsdev->pending.raw_data = kmemdup(ptr, sz, GFP_ATOMIC);
-+				if (hsdev->pending.raw_data)
-+					hsdev->pending.raw_size = sz;
-+				else
-+					hsdev->pending.raw_size = 0;
-+				complete(&hsdev->pending.ready);
-+			}
- 		}
- 		if (callback->capture_sample) {
- 			if (report->field[i]->logical)
---- a/include/linux/hid-sensor-hub.h
-+++ b/include/linux/hid-sensor-hub.h
-@@ -43,6 +43,8 @@ struct hid_sensor_hub_attribute_info {
-  * @attr_usage_id:	Usage Id of a field, e.g. X-axis for a gyro.
-  * @raw_size:		Response size for a read request.
-  * @raw_data:		Place holder for received response.
-+ * @index:		Current write index into raw_data for multi-byte reads.
-+ * @max_raw_size:	Total buffer size for multi-byte reads; 0 for single-value reads.
-  */
- struct sensor_hub_pending {
- 	bool status;
-@@ -51,6 +53,8 @@ struct sensor_hub_pending {
- 	u32 attr_usage_id;
- 	int raw_size;
- 	u8  *raw_data;
-+	u32 index;
-+	u32 max_raw_size;
- };
+ 		pr_err("requested length has been corrected: "
+--- a/fs/hfsplus/hfsplus_fs.h
++++ b/fs/hfsplus/hfsplus_fs.h
+@@ -600,7 +600,7 @@ u32 check_and_correct_requested_length(s
  
- /**
-@@ -184,6 +188,27 @@ int sensor_hub_input_attr_get_raw_value(
- );
+ 	node_size = node->tree->node_size;
  
- /**
-+ * sensor_hub_input_attr_read_values() - Synchronous multi-byte read request
-+ * @hsdev:		Hub device instance.
-+ * @usage_id:		Attribute usage id of parent physical device as per spec
-+ * @attr_usage_id:	Attribute usage id as per spec
-+ * @report_id:		Report id to look for
-+ * @flag:		Synchronous or asynchronous read
-+ * @buffer_size:	Size of the buffer in bytes
-+ * @buffer:		Buffer to store the read data
-+ *
-+ * Issues a synchronous or asynchronous read request for an input attribute,
-+ * accumulating data into the provided buffer until it is full.
-+ * Return: 0 on success, -ETIMEDOUT if the device did not respond, or a
-+ * negative error code.
-+ */
-+int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
-+				      u32 usage_id, u32 attr_usage_id,
-+				      u32 report_id,
-+				      enum sensor_hub_read_flags flag,
-+				      u32 buffer_size, u8 *buffer);
-+
-+/**
- * sensor_hub_set_feature() - Feature set request
- * @hsdev:	Hub device instance.
- * @report_id:	Report id to look for
+-	if ((off + len) > node_size) {
++	if ((u64)off + len > node_size) {
+ 		u32 new_len = node_size - off;
+ 
+ 		pr_err("requested length has been corrected: "
 
 
