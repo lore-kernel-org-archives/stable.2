@@ -1,33 +1,33 @@
-Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546A731A570
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 03:26:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720C6303CAE
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 03:59:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784172392; cv=none; b=MXpSY9n9lZR6BbKB85ouROz2odzHFGL35eESYyPs3ZOr799mhgpf8Gertapoqb1veacM2luR8Fx2afVBCxXEbDLW1Z50vFbwjXyM7+fLGXzdE432L+Vac7/p6gF3rmwiw/HA3I03wJdIspCtO9XROm3aKjjipm/xGkSkadOJ37k=
+	t=1784174343; cv=none; b=ryiFXK+hnVUcUS6n0y2z9WA8hoPVxQ/6+wiRAQ1oR+aAttkPeVNspUz31cYaXK3N1tW0dSflryFKr1WeC5ZaIma7eJiLFs/p6O9kwU0Tb3HLnxcxOqcvjWn6+hKujTlKrwPH/oKGba1UI4AHmTQJ8c9nF/v35jctdhlmo/lbhHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784172392; c=relaxed/simple;
-	bh=WA917DKAKOwQI8iWYO+lgG3B+zDmXKZrt1gj1VohUHM=;
+	s=arc-20240116; t=1784174343; c=relaxed/simple;
+	bh=zyCm0QK4BCMch1rnvE4tLgyccRo/yRLYbVBtxwh/bNA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FFUiTUgYVUNFy0UHgie3ZDhR1Ij13CI4/zMR5U1890O2zbNAK1aaQxoywBZrgC/5YLf8DSpjKSeZkrcf1CslDBgZsqJ3XESCmRCXOP0lK+Z+QGmP3GvHQB3fKoSewi0OFUydxVUVC2e+Y/oWJ+ELLgu9YonGqkWskjImEM+mtdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Kzs63WiC; arc=none smtp.client-ip=95.215.58.178
+	 In-Reply-To:Content-Type; b=gnxZibllNqx/Gi9XV9XVbGwsGMp8rdObURxoZgf38EeQBKXPqMT1QwBz9wRvdKF5U8hcUgq6ByG1C+g34csEEbIsqQwuA9DKx/H1ByeDg/iTWGJfapmr+tzdIUhPgIWaSNRMqOwy9+KuJjxCC5cAtDH83kRBC20d9HqawEeJlwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=j/33hv/2; arc=none smtp.client-ip=95.215.58.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Kzs63WiC"
-Message-ID: <688a39f3-4539-4916-80f7-67456a514169@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="j/33hv/2"
+Message-ID: <7ddf3eee-5fe2-45f7-8614-c8936a039e04@linux.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784172378;
+	t=1784174329;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NnyjyDapX7AyGQm2q6tRWBOCLxlc24/i4a9N09iebLA=;
-	b=Kzs63WiC192zhPydLmoGCNFB5idBm5wsZX6Yu30ywryMazQ5LAAcUpixyDemD8ow/Dz580
-	GT8Uhnk07l0TiaOF3IiOBWY8H1b6CE0TRhhwxhXUAY054weucbAwW1g7z7pz+3kkkokWnh
-	pm3kdP5i5fgXXSZAJ/KYmvM3jEKx/qU=
-Date: Thu, 16 Jul 2026 11:25:58 +0800
+	bh=0AnN8e1EWqqeefGMv/bid+J5xVgBNkpn/GD6NfmL8Ms=;
+	b=j/33hv/23oaQQSAejzxu8OIEdjmzkl12BiowWWlgn26wVQRMjzYs439/J9IDkjKukuMLsX
+	53VgUfAUpxv31jx++lcI1MJVRKqsxEYpkptZDceICJrWs33g0AzVm4G13AuMlubGJ00hUY
+	kLDej4Qt+xXRWPGtDkJzH2n+pprSi0w=
+Date: Thu, 16 Jul 2026 11:58:33 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,7 +59,7 @@ Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Migadu-Flow: FLOW_OUT
 
-
+Hi Ridong,
 
 On 7/16/26 11:17 AM, Ridong wrote:
 > From: Ridong Chen <chenridong@xiaomi.com>
@@ -98,33 +98,14 @@ On 7/16/26 11:17 AM, Ridong wrote:
 > 
 > After fix (swappiness=max honored, anon pages reclaimed as expected):
 > 
->      # cat /proc/vmstat | grep pgsteal
->      pgsteal_kswapd 0
->      pgsteal_direct 0
->      pgsteal_khugepaged 0
->      pgsteal_proactive 0
->      pgsteal_anon 0
->      pgsteal_file 0
->      # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
->      # cat /proc/vmstat | grep pgsteal
->      pgsteal_kswapd 0
->      pgsteal_direct 0
->      pgsteal_khugepaged 0
->      pgsteal_proactive 16283
->      pgsteal_anon 16283
->      pgsteal_file 0
-> 
-> Cc: stable@vger.kernel.org # 6.17+
-> Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> ---
->   mm/vmscan.c | 19 +++++++------------
->   1 file changed, 7 insertions(+), 12 deletions(-)
 
-Thanks for fixing this!
+By the way, in get_scan_count(), it seems we still reclaim file pages
+without swap space, even if swappiness=max (SWAPPINESS_ANON_ONLY) is
+set.
 
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
+This behavior appears to contradict the semantics of
+SWAPPINESS_ANON_ONLY, which probably needs a fix as well.
 
+Thanks,
+Qi
 
