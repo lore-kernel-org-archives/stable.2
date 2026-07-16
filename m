@@ -1,187 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693C52D0C92
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:52:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31D4D41DDFB;
+	Thu, 16 Jul 2026 12:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784202755; cv=none; b=lBKbGfxo+QhFW51RyQXFmihv2OyS5xTrLWm4dJWfr9p5pIWgY8snIVHm+EAqtFO4eEc2kJ5ymXot2ca49qOXLQ0xj2Saf2RnRvZqs+blGZqMG+oXdh7b5fm312zIBHz5aLE8OaSnFLL/QtYSlK/uNMUifk+/Mxm5Efl4e73OVRw=
+	t=1784203564; cv=none; b=FqkOrMKJR0VnxkWM5H8Hu5XSD5RnUx7ZMaGW7je5/FVVmJqOJIlSkTlkxDUkj9lWR3TdRRYuRykAHFDdmQL6DqcrvSMZ+CXSvzPoMLTW4/CLu5Xa6lZ4hCR6CZ3WMjG+mwDa5eidp6vXKgWwZPnMZrqLv/H62FyQC4y3pQcxdvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784202755; c=relaxed/simple;
-	bh=8HE3lsf5skg0O2TKiQ/Y2vk1EZwA7w/bgbZdjYtqS98=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=obb8CtvrfZAeK65Uqok4GG1/Hg6LDH/UuMpjQ/zuZ9yjxue/xxGU9O6neESo8WhS0soBEbjpr71KToH4z/ehyINUky+G0qCT5gPXTOcWbyLdXC+e09mpwHZYlF6v44wQPU9dMV4Ld9QA4HdBcYUKRW1V2hAUB7Xhr40sRgPkC8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJ8ECrxJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784203564; c=relaxed/simple;
+	bh=/mFYnjr+W+GGLhCxediJonaDsPlqf06MZJN8QLoqaUg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mibfY+gNDbOmKW5WTQvPj+dICsC0a6RNvGdl/enbSeqjMsWRUFsi12lljztkbiTQCuYWsknOY0sjCsp8uYGn3kU7XwTTuZJCYkxXm+zJ2i4htfvrOSi6giCI6Sz02y1QmgJZEmDe4sv9kvX9h20Nf4ySf8SbugKi5iZcyYsnwgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fEp8RjkE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJ8ECrxJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD90A1F00A3D;
-	Thu, 16 Jul 2026 11:52:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784202754;
-	bh=XxU4byAqPUy8muXSusHOd3RepXmzYmBnD1hrrHDYx0M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fJ8ECrxJinwRNFg9EMtZ94LDq5SAnanq4EddtpcnpE5VeZGGBKCORWYqZZ1aSa7mE
-	 osGciCoqLDl58WPBLO0zubKo6UziaNqddp9rJECN55diihxONz4zRWZwKUtuovBetw
-	 UYfwKM0CXsGglFHMKkWspCwC21eya9rMWgQUBSmlTQSmbxHp09xs2dxW3SUVDYzlIW
-	 ViiAnBJoXu8QSMf0Oejy2mvjTDfifyzVIw8BwLjZr8TO8MHC2FkG1dzdSpQwl/+dT9
-	 Mq62qsf6SpSFliXc89VTjLJ5BpvLwrFykU4nnEFdqb926WJ2ZJCjUqU1rMmjFlkcIS
-	 +F7AE7cYEbaoA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Musaab Khan <musaab.khan@protonmail.com>,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ksmbd: track the connection owning a byte-range lock
-Date: Thu, 16 Jul 2026 07:52:31 -0400
-Message-ID: <20260716115231.1785404-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260716115231.1785404-1-sashal@kernel.org>
-References: <2026071413-detection-unexposed-321e@gregkh>
- <20260716115231.1785404-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fEp8RjkE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E60901476;
+	Thu, 16 Jul 2026 05:05:56 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D46693F7B4;
+	Thu, 16 Jul 2026 05:05:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1784203561; bh=/mFYnjr+W+GGLhCxediJonaDsPlqf06MZJN8QLoqaUg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fEp8RjkE+6V5s/hpvJglRewSA35fmUZj5Mt0gaA5XnWwBcAgzygFjCUuOIGObqMAA
+	 5dxih9o81mxuWjT8rVQhwpVEuOqzNdUI9yV7bpa5pnFbg0kLu6fDk8HSUHmXibekHh
+	 8sjK0bNmDE0zOfNl0vSNXZr2v+5dX0E22Ax8J/wA=
+Message-ID: <0f5ef1fe-7d15-4354-90eb-a7e42623ae94@arm.com>
+Date: Thu, 16 Jul 2026 13:05:57 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] iommu/msm: Fix dangling list entry on probe failure
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Weimin Xiong <xiongwm2026@163.com>
+Cc: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, robin.clark@oss.qualcomm.com,
+ joro@8bytes.org, will@kernel.org, linux-arm-msm@vger.kernel.org,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260716013229.91014-1-xiongwm2026@163.com>
+ <20260716085313.207069-1-xiongwm2026@163.com>
+ <6caf8ca0-8be5-4935-9766-10d21c71ac37@oss.qualcomm.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <6caf8ca0-8be5-4935-9766-10d21c71ac37@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+On 16/07/2026 10:42 am, Konrad Dybcio wrote:
+> On 7/16/26 10:53 AM, Weimin Xiong wrote:
+>> Move the list_add() call to the end of msm_iommu_probe() instead of
+>> adding cleanup paths, which avoids the dangling list entry problem
+>> entirely (suggested by Mukesh Ojha).
+>>
+>> This approach simplifies the code by ensuring the iommu device is
+>> never added to the global list until after all potential failure
+>> points have passed.
+>>
+>> Changes in v3:
+>> - Move list_add() to the end instead of adding cleanup labels
+>>    (suggested by Mukesh Ojha)
+> 
+> I think this approach introduces a race condition, because e.g.
+> iommu_ops->of_xlate() depends on the item being present in this list
 
-[ Upstream commit c1016dd1d8b2bcd1158bbaabe94a31bb7e7431fb ]
+Yes, the IOMMU instance must be ready to be fully functional *before* 
+calling iommu_device_register(), since that can start probing and 
+attaching client devices before it returns.
 
-SMB2_LOCK adds each granted byte-range lock to both the file lock list
-and the lock list of the connection which handled the request.  The
-final close and durable handle paths, however, remove the connection
-list entry while holding fp->conn->llist_lock.
-
-With SMB3 multichannel, the connection handling the LOCK request can be
-different from the connection which opened the file.  The entry can
-therefore be removed under a different spinlock from the one protecting
-the list it belongs to.  A concurrent traversal can then access freed
-struct ksmbd_lock and struct file_lock objects.
-
-Record the connection owning each lock's clist entry and hold a
-reference to it while the entry is linked.  Use that connection and its
-llist_lock for unlock, rollback, close, and durable preserve.  Durable
-reconnect assigns the new connection as the owner when publishing the
-locks again.
-
-Fixes: f5a544e3bab7 ("ksmbd: add support for SMB3 multichannel")
-Cc: stable@vger.kernel.org
-Reported-by: Musaab Khan <musaab.khan@protonmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/server/smb2pdu.c   | 10 ++++++++--
- fs/smb/server/vfs_cache.c | 23 +++++++++++++++++------
- fs/smb/server/vfs_cache.h |  1 +
- 3 files changed, 26 insertions(+), 8 deletions(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 162bcd46100e74..e4d32671b5bcbf 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -7571,9 +7571,11 @@ int smb2_lock(struct ksmbd_work *work)
- 						nolock = 0;
- 						list_del(&cmp_lock->flist);
- 						list_del(&cmp_lock->clist);
-+						cmp_lock->conn = NULL;
- 						spin_unlock(&conn->llist_lock);
- 						up_read(&conn_list_lock);
- 
-+						ksmbd_conn_put(conn);
- 						locks_free_lock(cmp_lock->fl);
- 						kfree(cmp_lock);
- 						goto out_check_cl;
-@@ -7710,6 +7712,7 @@ int smb2_lock(struct ksmbd_work *work)
- 				goto retry;
- 			} else if (!rc) {
- 				list_add(&smb_lock->llist, &rollback_list);
-+				smb_lock->conn = ksmbd_conn_get(work->conn);
- 				spin_lock(&work->conn->llist_lock);
- 				list_add_tail(&smb_lock->clist,
- 					      &work->conn->lock_list);
-@@ -7764,11 +7767,14 @@ int smb2_lock(struct ksmbd_work *work)
- 		}
- 
- 		list_del(&smb_lock->llist);
--		spin_lock(&work->conn->llist_lock);
-+		conn = smb_lock->conn;
-+		spin_lock(&conn->llist_lock);
- 		if (!list_empty(&smb_lock->flist))
- 			list_del(&smb_lock->flist);
- 		list_del(&smb_lock->clist);
--		spin_unlock(&work->conn->llist_lock);
-+		smb_lock->conn = NULL;
-+		spin_unlock(&conn->llist_lock);
-+		ksmbd_conn_put(conn);
- 
- 		locks_free_lock(smb_lock->fl);
- 		if (rlock)
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index ef81b033d33e2c..8d275787fd98d0 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -387,10 +387,14 @@ static void __ksmbd_close_fd(struct ksmbd_file_table *ft, struct ksmbd_file *fp)
- 	 * there are not accesses to fp->lock_list.
- 	 */
- 	list_for_each_entry_safe(smb_lock, tmp_lock, &fp->lock_list, flist) {
--		if (!list_empty(&smb_lock->clist) && fp->conn) {
--			spin_lock(&fp->conn->llist_lock);
--			list_del(&smb_lock->clist);
--			spin_unlock(&fp->conn->llist_lock);
-+		struct ksmbd_conn *conn = smb_lock->conn;
-+
-+		if (conn) {
-+			spin_lock(&conn->llist_lock);
-+			list_del_init(&smb_lock->clist);
-+			smb_lock->conn = NULL;
-+			spin_unlock(&conn->llist_lock);
-+			ksmbd_conn_put(conn);
- 		}
- 
- 		list_del(&smb_lock->flist);
-@@ -1070,9 +1074,15 @@ static bool session_fd_check(struct ksmbd_tree_connect *tcon,
- 	up_write(&ci->m_lock);
- 
- 	list_for_each_entry_safe(smb_lock, tmp_lock, &fp->lock_list, flist) {
--		spin_lock(&conn->llist_lock);
-+		struct ksmbd_conn *lock_conn = smb_lock->conn;
-+
-+		if (!lock_conn)
-+			continue;
-+		spin_lock(&lock_conn->llist_lock);
- 		list_del_init(&smb_lock->clist);
--		spin_unlock(&conn->llist_lock);
-+		smb_lock->conn = NULL;
-+		spin_unlock(&lock_conn->llist_lock);
-+		ksmbd_conn_put(lock_conn);
- 	}
- 
- 	fp->conn = NULL;
-@@ -1193,6 +1203,7 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 	}
- 
- 	list_for_each_entry(smb_lock, &fp->lock_list, flist) {
-+		smb_lock->conn = ksmbd_conn_get(conn);
- 		spin_lock(&conn->llist_lock);
- 		list_add_tail(&smb_lock->clist, &conn->lock_list);
- 		spin_unlock(&conn->llist_lock);
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index 1b2a947490ca5e..a11ba286983932 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -31,6 +31,7 @@ struct ksmbd_session;
- 
- struct ksmbd_lock {
- 	struct file_lock *fl;
-+	struct ksmbd_conn *conn;
- 	struct list_head clist;
- 	struct list_head flist;
- 	struct list_head llist;
--- 
-2.53.0
-
+Thanks,
+Robin.
