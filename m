@@ -1,44 +1,49 @@
-Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44B63FF1B8
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F7942B30E;
+	Thu, 16 Jul 2026 13:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209849; cv=none; b=BSd+vBpKglT9FXXaw2RrQqi91kEmYmmJWuz4Pz5QFhauZ8AX8edrKSoLEQ5TA9eilQFdVR52vHzBYreg8udQo9QU7PLkxRPPJ32+YYo5jokqhM/NSy/JwmW68cNtZnPaykDBXvmjTkyu7IiDzW4C7aWeo5e9LxILRKlDfM49AJE=
+	t=1784209851; cv=none; b=mTcvHnx73xze2kJy8w8+GKtTRCidJHCBSy9/qtug0ix9u/62MiXl02Jqa8GT0nsFH5fRHCQ9ucDBozUKZ+XncG3kmTxJhTd3EETMFMnnefFKLQrcKu0WBwR3EMvQHFGj+SydCC51P9XCaEEPCcCNyNP9O9F9k0gMybc2VEe6jgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784209849; c=relaxed/simple;
-	bh=ajeHCcLvr48PdCEfUaT8cf+BJLluDDxfdXP2xPLMtX8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CI6yD6sCFKhIV4kfi9CCdhLT/JOBJkSo0NcKLoSrqaSv08vYV1ffuo9BISDFwe1JpLubbGqTqhhpkJSDwv5IHu1RvW24l9JcnSBffrPG0f5LOfPhLnXBKGItz6I5ulRsPOiwM/Zy3pQMEljr69lOe1swYZflH/H3MjZsRjNVPpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bdgUa1Rb; arc=none smtp.client-ip=91.218.175.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784209851; c=relaxed/simple;
+	bh=ArQ9rnSUSjcxyZ9hC0q3vbQCYjgtKW6jRL5a9sR+oWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Hw3NKiIf37fgqLAejgyNDa9iHb9yphwt5AR966uyI/UqSlPiq8xgwaUmDZFjCn4TbYrEbkUrsMUu40ebJDBGV2D8mOGjlHSzoUY64wIA8DDF93iHb5uAtFajNZiK7LtjH0YdXyX8NYcaEAq6Do9qPWK7945ei9dgdEPnD7ioemo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cHRF9DY7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bdgUa1Rb"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784209844;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=StskhXf3s6M0OroRNVpwFxrMh7uUl5zq2WrwpkxAQTo=;
-	b=bdgUa1RbhgkaEX/ki76wN9X1Iw18BRd4sZ6VcPmtnmXQ2paNVZ/N1+aL6Tj9rvKYFLbSOc
-	P198wGSKf/GoAFsZ4nvibHGJJBn0P/PVcZcxRf33TDEhN7HTgbWvwLsYIRfNgLWvl2VrQZ
-	uRYh+/QU7/GwwXoXXtSKeCVpLcqQbds=
-From: Fuad Tabba <fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cHRF9DY7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35751F00A3A;
+	Thu, 16 Jul 2026 13:50:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784209849;
+	bh=sQXyXktmRwdV28xpGceshEF/JNFts0ziqizCyo4+KEI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cHRF9DY7OUMbIUxRihEmpqEfoiWBHuUGaQ43J8L0+mMJWNihEwvSpPVR7ZW74AWrQ
+	 QSb2JWtDXAqc9IzHoUr67567XT4qREwC+l4Wxfaxemfv1AOoYwHQgre1xEbDR5dUm9
+	 RRzPAbVGMRqWtWuC+PdaUHv4a7T1abVA1KnwtN0o=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Fuad Tabba <tabba@google.com>,
-	Will Deacon <will@kernel.org>
-Subject: [PATCH 6.6.y] KVM: arm64: Bound used_lrs when flushing the pKVM hyp vCPU
-Date: Thu, 16 Jul 2026 14:50:36 +0100
-Message-Id: <20260716135036.302708-1-fuad.tabba@linux.dev>
-In-Reply-To: <2026071616-frustrate-unmade-d5c5@gregkh>
-References: <2026071616-frustrate-unmade-d5c5@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Bongani Hlope <developer@hlope.org.za>,
+	Arjan van de Ven <arjan@linux.intel.com>,
+	linux-wireless@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1 341/518] wifi: mt76: mt7921/mt7925: fix NULL dereference in CSA beacon
+Date: Thu, 16 Jul 2026 15:30:09 +0200
+Message-ID: <20260716133055.277340106@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
+References: <20260716133047.772246337@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,93 +51,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-commit 8cc8bbbfab14c22c5551d0dd19b208a44b141c76 upstream.
+------------------
 
-flush_hyp_vcpu() copies the host vGIC state into the hyp's private vCPU
-on every run. The vGIC list register save and restore use used_lrs as
-their loop bound and expect it to stay within the number of implemented
-list registers. While this is generally the case, flush_hyp_vcpu()
-copies vgic_v3 verbatim and does not enforce this, so a value provided
-by the host is used at EL2 to index vgic_lr[] and access ICH_LR<n>_EL2
-(host -> EL2).
+From: Arjan van de Ven <arjan@linux.intel.com>
 
-Fix by clamping used_lrs to the number of implemented list registers
-after the copy, as the trusted path already does in
-vgic_flush_lr_state(). The number of implemented list registers is
-constant after init, so it is replicated once from
-kvm_vgic_global_state.nr_lr into hyp_gicv3_nr_lr rather than read on
-every entry.
+[ Upstream commit 351dd7d2c80d23e56dcce6faa4e62bea5b0877c7 ]
 
-Cc: stable@vger.kernel.org
-Fixes: be66e67f1750 ("KVM: arm64: Use the pKVM hyp vCPU structure in handle___kvm_vcpu_run()")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Reviewed-by: Fuad Tabba <tabba@google.com>
-Tested-by: Fuad Tabba <tabba@google.com>
-Link: https://patch.msgid.link/20260606175614.83273-3-imv4bel@gmail.com
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ tabba: adjust context in flush_hyp_vcpu() and kvm_hyp.h ]
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+This patch is based on a BUG as reported by Bongani Hlope at
+https://lore.kernel.org/all/20260502125824.425d7159@bongani-mini.home.org.za/
+
+When a channel-switch announcement (CSA) beacon is received,
+cfg80211 queues a wiphy work item that eventually calls
+mt7921_channel_switch_rx_beacon(). If the station disconnects
+(or the channel context is otherwise torn down) between the
+time the work is queued and the time it runs, the driver's
+dev->new_ctx pointer can already have been cleared to NULL.
+mt7921_channel_switch_rx_beacon() then dereferences new_ctx
+unconditionally, triggering a NULL pointer dereference at
+address 0x0:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:mt7921_channel_switch_rx_beacon+0x1f/0x100 [mt7921_common]
+
+The same missing guard exists in mt7925_channel_switch_rx_beacon(),
+which shares the same code pattern introduced by the same commit.
+
+Add an early-return NULL check for dev->new_ctx in both
+mt7921_channel_switch_rx_beacon() and
+mt7925_channel_switch_rx_beacon(). When new_ctx is NULL there is
+no pending channel switch to process, so returning immediately is
+the correct and safe action.
+
+Fixes: 8aa2f59260eb ("wifi: mt76: mt7921: introduce CSA support")
+Reported-by: Bongani Hlope <developer@hlope.org.za>
+Oops-Analysis: http://oops.fenrus.org/reports/lkml/20260502125824.425d7159@bongani-mini.home.org.za/report.html
+Link: https://lore.kernel.org/all/20260502125824.425d7159@bongani-mini.home.org.za/
+Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
+Cc: linux-wireless@vger.kernel.org
+Cc: linux-mediatek@lists.infradead.org
+Cc: Felix Fietkau <nbd@nbd.name>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Ryder Lee <ryder.lee@mediatek.com>
+Link: https://patch.msgid.link/20260504145107.1329197-1-arjan@linux.intel.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/include/asm/kvm_hyp.h   | 1 +
- arch/arm64/kvm/arm.c               | 2 ++
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 9 +++++++++
- 3 files changed, 12 insertions(+)
+ drivers/net/wireless/mediatek/mt76/mt7921/main.c | 3 +++
+ drivers/net/wireless/mediatek/mt76/mt7925/main.c | 3 +++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
-index 51cd106cd840..1b209efac972 100644
---- a/arch/arm64/include/asm/kvm_hyp.h
-+++ b/arch/arm64/include/asm/kvm_hyp.h
-@@ -146,5 +146,6 @@ extern u64 kvm_nvhe_sym(id_aa64smfr0_el1_sys_val);
- extern unsigned long kvm_nvhe_sym(__icache_flags);
- extern unsigned int kvm_nvhe_sym(kvm_arm_vmid_bits);
- extern unsigned int kvm_nvhe_sym(kvm_host_sve_max_vl);
-+extern unsigned int kvm_nvhe_sym(hyp_gicv3_nr_lr);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/main.c b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
+index 3d74fabe74085e..a326f4c95c7c86 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
+@@ -1508,6 +1508,9 @@ static void mt7921_channel_switch_rx_beacon(struct ieee80211_hw *hw,
+ 	struct mt792x_vif *mvif = (struct mt792x_vif *)vif->drv_priv;
+ 	u16 beacon_interval = vif->bss_conf.beacon_int;
  
- #endif /* __ARM64_KVM_HYP_H__ */
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 3ae529e967c7..e49ead6d005c 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -2026,6 +2026,8 @@ static int __init init_subsystems(void)
- 	switch (err) {
- 	case 0:
- 		vgic_present = true;
-+		if (static_branch_unlikely(&kvm_vgic_global_state.gicv3_cpuif))
-+			kvm_nvhe_sym(hyp_gicv3_nr_lr) = kvm_vgic_global_state.nr_lr;
- 		break;
- 	case -ENODEV:
- 	case -ENXIO:
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index 163538bb4ec1..ac0d5a0de014 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -22,6 +22,9 @@
- 
- DEFINE_PER_CPU(struct kvm_nvhe_init_params, kvm_init_params);
- 
-+/* Number of implemented GICv3 LRs. Used by flush_hyp_vcpu(). */
-+unsigned int hyp_gicv3_nr_lr;
++	if (!dev->new_ctx)
++		return;
 +
- void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
+ 	if (cfg80211_chandef_identical(&chsw->chandef,
+ 				       &dev->new_ctx->def) &&
+ 				       chsw->count) {
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/main.c b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+index 79cc30a3b29efc..9dc5ee51eb9f96 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+@@ -2403,6 +2403,9 @@ static void mt7925_channel_switch_rx_beacon(struct ieee80211_hw *hw,
+ 	if (ieee80211_vif_is_mld(vif))
+ 		return;
  
- static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
-@@ -49,6 +52,12 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 	hyp_vcpu->vcpu.arch.vsesr_el2	= host_vcpu->arch.vsesr_el2;
- 
- 	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3 = host_vcpu->arch.vgic_cpu.vgic_v3;
++	if (!dev->new_ctx)
++		return;
 +
-+	/* Bound used_lrs by the number of implemented list registers. */
-+	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs =
-+		min_t(unsigned int,
-+		      hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs,
-+		      hyp_gicv3_nr_lr);
- }
+ 	beacon_interval = vif->bss_conf.beacon_int;
  
- static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 	if (cfg80211_chandef_identical(&chsw->chandef,
 -- 
-2.39.5
+2.53.0
+
+
 
