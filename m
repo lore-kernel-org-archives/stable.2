@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909661A2C25
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:41:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B4641A795
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:42:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784202108; cv=none; b=Gk+4CtF8WEWofrtt9hb3VTW+ObaAw3AG2vWWKl+en1TgIaOaLDxWczTnHdSWjx7UfGjP3J8wndonfqvQpneMhp+PgejmSFrUAXMO2x6t1jj7wiFjiLUsU7urn0HHtGdbE/4sFALQNgYB8oBPf9/b7tPH1i5z1NZ0qiYgh22cdEQ=
+	t=1784202181; cv=none; b=Tkk/bf9c0w7/LJNDIqQBCKPOoD4Xa61Rb+naKK4CLe7pPuo6UpTTdiH20wENqbusC2nKOJdwvzpm+LJnAS0dn/adPtn3DyUberAI1HLTrwO47qQNeZuSIaAEv+sXgKzJ2jGie97aqXsNLKIj+WXekZ0jhHc9SBKkRjQMU0sai3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784202108; c=relaxed/simple;
-	bh=UfvO+VHOcqsHwd+13kpisT0K1cMd+9gvcSLH4px0Hnc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FSLOOmwAmnUom8dQ8JnCqx0ZN01vUCP1dprgIEFZI71jY643vLURUVplowFV1zW2V18qyP+fABbUhTQgmoErhIlYndUnSMPOpyKbXgCqOWih7KZZpn0OBwzaUhEhbTUE98q7w/LXz86bpRRUSzMLopCzFDyVphXL5YwxFDEQKPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jn5YUwVQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784202181; c=relaxed/simple;
+	bh=W1t4EN1pEr1A9vmeHgqHTXAlzgYQpK0uUduE9QytYsE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Fx3Ww6j8S0TnV7omNbWaU5JykjVajcfHp/seT1z+z50Ky1i60nkCjoUBfjf2cEQVggFx2WOKl7IH1Y8jNgAEhgfK045+rUPbc9r4I7P1vPa4hmd1KwXNzRoZx9m2hdqD9fYYhufY9nlPHKrNgV1+Kaa237uMdbcRlDWtMJJjA0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N9YUsjag; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jn5YUwVQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0401F000E9;
-	Thu, 16 Jul 2026 11:41:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N9YUsjag"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9AD1F00A3A;
+	Thu, 16 Jul 2026 11:42:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784202107;
-	bh=QC1HzxiinG2FqBjoegYThHxta6ctysMbudjBXc+JJAw=;
+	s=korg; t=1784202178;
+	bh=82SMkYyX8bReDzj1BJ76i81cMk6MAPq9XEWM5yxnyuM=;
 	h=Subject:To:Cc:From:Date;
-	b=jn5YUwVQVcZCPeLlnIKEM4PLCsNGcjP0ivvqh8/aXHHcvAoSbMsIWRbJOiGuX1q/I
-	 HXl5AHrdI6qp79/AkpOErBD3q1g/94WY8pFbD3CdWdtqWYxCpFDhrYKDEmptwE6GyJ
-	 1VyrC/7BZWnsDtNLG5hgN3i7QqWgbJ+dP3RxTKyE=
-Subject: FAILED: patch "[PATCH] KVM: x86: Unconditionally recompute CR8 intercept on PPR" failed to apply to 5.10-stable tree
-To: clopez@suse.de,pbonzini@redhat.com,seanjc@google.com,sgarzare@redhat.com
+	b=N9YUsjagoWiWOw/9e971nFQ4gHZDSfn3/EP0ziwfge2JlsM2QXHdN/gt36JbSrmXs
+	 yIkSLlDepo6ivmv8IYvhYKoHmHVlsWf9y69lRjNb9M9okdVIyN2QyRb2kt0ZGTj4Nh
+	 raIP7nSTnzQN5y0UZW3qdystu/8nsJ4FvF0ibjrA=
+Subject: FAILED: patch "[PATCH] dma-buf/udmabuf: skip redundant cpu sync to fix cacheline" failed to apply to 6.6-stable tree
+To: mikhail.v.gavrilov@gmail.com,vivek.kasireddy@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 13:41:32 +0200
-Message-ID: <2026071632-puzzle-oblivion-cde0@gregkh>
+Date: Thu, 16 Jul 2026 13:42:51 +0200
+Message-ID: <2026071651-preorder-shawl-7dbc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x bb365a506b1e6fb050c0fceaad354fe395385ef0
+git cherry-pick -x 504e2b4ab97a51d56d966cd36d0997ad30b65b2d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071632-puzzle-oblivion-cde0@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071651-preorder-shawl-7dbc@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,104 +62,80 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From bb365a506b1e6fb050c0fceaad354fe395385ef0 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
-Date: Thu, 18 Jun 2026 10:43:47 -0700
-Subject: [PATCH] KVM: x86: Unconditionally recompute CR8 intercept on PPR
- update
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 504e2b4ab97a51d56d966cd36d0997ad30b65b2d Mon Sep 17 00:00:00 2001
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Tue, 31 Mar 2026 11:16:57 +0500
+Subject: [PATCH] dma-buf/udmabuf: skip redundant cpu sync to fix cacheline
+ EEXIST warning
 
-The TPR_THRESHOLD field in the VMCS is used by VMX to induce VM exits
-when the guest's virtual TPR falls under the specified threshold,
-allowing KVM to inject previously masked interrupts.
+When CONFIG_DMA_API_DEBUG_SG is enabled, importing a udmabuf into a DRM
+driver (e.g. amdgpu for video playback in GNOME Videos / Showtime)
+triggers a spurious warning:
 
-KVM handles these VM exits in handle_tpr_below_threshold().
-Commit eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
-optimized this function by calling apic_update_ppr() instead of raising
-KVM_REQ_EVENT. apic_update_ppr() then raises KVM_REQ_EVENT if there is
-a pending, deliverable interrupt.
+  DMA-API: amdgpu 0000:03:00.0: cacheline tracking EEXIST, \
+      overlapping mappings aren't supported
+  WARNING: kernel/dma/debug.c:619 at add_dma_entry+0x473/0x5f0
 
-However, if there are no new interrupts pending, apic_update_ppr() does
-not issue the request. Thus, kvm_lapic_update_cr8_intercept() and
-vmx_update_cr8_intercept() are not called before VM entry, which results
-in a high, stale TPR_THRESHOLD. This is problematic due to the following
-sentence in 28.2.1.1 "VM-Execution Control Fields" in the SDM:
+The call chain is:
 
-  The following check is performed if the “use TPR shadow” VM-execution
-  control is 1 and the “virtualize APIC accesses” and “virtual-interrupt
-  delivery” VM-execution controls are both 0: the value of bits 3:0 of
-  the TPR threshold VM-execution control field should not be greater
-  than the value of bits 7:4 of VTPR.
+  amdgpu_cs_ioctl
+   -> amdgpu_ttm_backend_bind
+    -> dma_buf_map_attachment
+     -> [udmabuf] map_udmabuf -> get_sg_table
+      -> dma_map_sgtable(dev, sg, direction, 0)  // attrs=0
+       -> debug_dma_map_sg -> add_dma_entry -> EEXIST
 
-This error condition is typically not observed when KVM runs on a bare
-metal system because modern processors support APICv, which enables
-virtual-interrupt delivery, and which KVM uses when possible. This
-causes the processor to no longer generate TPR-below-threshold exits
-and to no longer check TPR_THRESHOLD on entry. However, when running
-on older platforms, or under nested virtualization on a hypervisor that
-does not support virtual-interrupt delivery and enforces this check
-(like Hyper-V) this can cause a VM entry failure with hardware error
-0x7, as seen in [1].
+This happens because udmabuf builds a per-page scatter-gather list via
+sg_set_folio().  When begin_cpu_udmabuf() has already created an sg
+table mapped for the misc device, and an importer such as amdgpu maps
+the same pages for its own device via map_udmabuf(), the DMA debug
+infrastructure sees two active mappings whose physical addresses share
+cacheline boundaries and warns about the overlap.
 
-Call kvm_lapic_update_cr8_intercept() if apic_update_ppr() does not
-find a deliverable interrupt (and thus does not raise KVM_REQ_EVENT).
-Remove calls to kvm_lapic_update_cr8_intercept() on paths that end up in
-apic_update_ppr(), as they now become redundant. This ensures that any
-path that updates the guest's PPR also figures out if KVM needs to wait
-for a TPR change (using TPR_THRESHOLD on VMX or CR8 intercepts on SVM).
+The DMA_ATTR_SKIP_CPU_SYNC flag suppresses this check in
+add_dma_entry() because it signals that no CPU cache maintenance is
+performed at map/unmap time, making the cacheline overlap harmless.
 
-Link: https://github.com/coconut-svsm/svsm/issues/1081 [1]
-Tested-by: Stefano Garzarella <sgarzare@redhat.com>
+All other major dma-buf exporters already pass this flag:
+  - drm_gem_map_dma_buf() passes DMA_ATTR_SKIP_CPU_SYNC
+  - amdgpu_dma_buf_map() passes DMA_ATTR_SKIP_CPU_SYNC
+
+The CPU sync at map/unmap time is also redundant for udmabuf:
+begin_cpu_udmabuf() and end_cpu_udmabuf() already perform explicit
+cache synchronization via dma_sync_sgtable_for_cpu/device() when CPU
+access is requested through the dma-buf interface.
+
+Pass DMA_ATTR_SKIP_CPU_SYNC to dma_map_sgtable() and
+dma_unmap_sgtable() in udmabuf to suppress the spurious warning and
+skip the redundant sync.
+
+Fixes: 284562e1f348 ("udmabuf: implement begin_cpu_access/end_cpu_access hooks")
 Cc: stable@vger.kernel.org
-Fixes: eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
-Signed-off-by: Carlos López <clopez@suse.de>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260618174347.1981064-3-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Acked-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Link: https://patch.msgid.link/20260331061657.79983-1-mikhail.v.gavrilov@gmail.com
 
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index e733ca6b9792..6f30bbdddb5a 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -980,6 +980,8 @@ static void apic_update_ppr(struct kvm_lapic *apic)
- 	if (__apic_update_ppr(apic, &ppr) &&
- 	    apic_has_interrupt_for_ppr(apic, ppr) != -1)
- 		kvm_make_request(KVM_REQ_EVENT, apic->vcpu);
-+	else
-+		kvm_lapic_update_cr8_intercept(apic->vcpu);
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 94b26ea706a3..bced421c0d65 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -145,7 +145,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ 	if (ret < 0)
+ 		goto err_alloc;
+ 
+-	ret = dma_map_sgtable(dev, sg, direction, 0);
++	ret = dma_map_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
+ 	if (ret < 0)
+ 		goto err_map;
+ 	return sg;
+@@ -160,7 +160,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ static void put_sg_table(struct device *dev, struct sg_table *sg,
+ 			 enum dma_data_direction direction)
+ {
+-	dma_unmap_sgtable(dev, sg, direction, 0);
++	dma_unmap_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
+ 	sg_free_table(sg);
+ 	kfree(sg);
  }
- 
- void kvm_apic_update_ppr(struct kvm_vcpu *vcpu)
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index d9d51803b7b2..96c465040756 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -5317,7 +5317,6 @@ static int kvm_vcpu_ioctl_set_lapic(struct kvm_vcpu *vcpu,
- 	r = kvm_apic_set_state(vcpu, s);
- 	if (r)
- 		return r;
--	kvm_lapic_update_cr8_intercept(vcpu);
- 
- 	return 0;
- }
-@@ -12418,8 +12417,6 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
- 	kvm_register_mark_dirty(vcpu, VCPU_REG_CR3);
- 	kvm_x86_call(post_set_cr3)(vcpu, sregs->cr3);
- 
--	kvm_set_cr8(vcpu, sregs->cr8);
--
- 	*mmu_reset_needed |= vcpu->arch.efer != sregs->efer;
- 	kvm_x86_call(set_efer)(vcpu, sregs->efer);
- 
-@@ -12448,7 +12445,7 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
- 	kvm_set_segment(vcpu, &sregs->tr, VCPU_SREG_TR);
- 	kvm_set_segment(vcpu, &sregs->ldt, VCPU_SREG_LDTR);
- 
--	kvm_lapic_update_cr8_intercept(vcpu);
-+	kvm_set_cr8(vcpu, sregs->cr8);
- 
- 	/* Older userspace won't unhalt the vcpu on reset. */
- 	if (kvm_vcpu_is_bsp(vcpu) && kvm_rip_read(vcpu) == 0xfff0 &&
 
