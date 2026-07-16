@@ -1,175 +1,107 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.24])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341B82E7380;
-	Thu, 16 Jul 2026 15:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784216836; cv=pass; b=ekJk3aw886JzntUSOm2u0n33yh2kszMlxRmWecsFyNpDhpUl4+Nc7PRC/0EnlCqMHV+9aVCaTy/u1GJbqf4awH7VuvAfp5h/wZ1VGU89k6H4hxQLc081UapME4COEnhGDbAFhdsKBFrCT4wG8m9z0GCbIA1hdV5Tq7GWFQN9xyg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784216836; c=relaxed/simple;
-	bh=1hx0yJ3jK10AJqygvr6+N5F6p5W+b8ub4oFkklGbOic=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=g5H0suVRa92nCLs+/b1MYujIV+nyd6KJwXYz7dWNYW1Hd9Buik3I4omGwkduEfjt5xVyFTcUtZs73sDoLYDZv4VBt7HpnjBoDxyspq2G46Wmir3CQ4DPwGCJPeA95D07FoqskPXnkpUNHp7jNaWrrmToJZbUGcm1ugTOkqVv8ug=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=mjqSGiud; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=FcBIuHc0; arc=pass smtp.client-ip=85.215.255.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="mjqSGiud";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="FcBIuHc0"
-ARC-Seal: i=1; a=rsa-sha256; t=1784216815; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Fr0A8QF6exF9BrO52nCOudGott7I46BY5pF4KoX5RNJXLeDFgrNaEhqD3MAbu+sdg6
-    GAFvPKgc5C3x6r77f+dGBCIYior1+SJumo+6W8QlbD1koYlhKgxB4GUGFb2jJZHacUCk
-    te6B9v+AMDqbt6YuxUSKXiEivCH405D33cQh2yXSQd2d9AOJ5Ajfr2dIh71D4CbgvaUR
-    AR3LCJBgp1vqeLDKNtnemvz77IqMsOkgtwU/yz205+uFwGUd2ohNThAH2IgIMvo+7oDc
-    KUskB7RqruaB7/xcRo0TsY/b+AHhcNj3RLNXyA2J0svR+Ri34r2QbQzR7aFcoWyNPN0G
-    NpTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784216815;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=1hx0yJ3jK10AJqygvr6+N5F6p5W+b8ub4oFkklGbOic=;
-    b=eAaBVm+DjzCglKmE13m8Fg+sM13OJti6i3k+arctcU2o4XQn4G+khGnBz9lLGrEkAk
-    79hmxvAHhe08ZPgQB195pERIo293eckOCoTu6chUio9+7uY3NfEgigFBQ1SqheC1aOyY
-    glnExQjxAXsNKzLqG9ravheUR9GhJY4GYxxaxonE+wvrkQEV7KOwUpTipIM6B85wMNNp
-    p9bDAqnIi03aBrIkJIEkmp34jam9B7GA5aVRyJ9NuvvMn9X/qyxV1Q1GA2tfwDO/yvmi
-    yUQ7d5SpuxiUKs+MWgD1QOOznY5yJdXptnN0+6NC4fmbtyIefNcTdhH71vDQrkqFg+yF
-    p4QA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784216815;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=1hx0yJ3jK10AJqygvr6+N5F6p5W+b8ub4oFkklGbOic=;
-    b=mjqSGiud2i1J/Yj6vs5ngW6IPXFc/DIP1ecFj0R1nue5VnJSYkIDsgQ5bHbCvzEgMJ
-    c4FnHdr70uPrHY1BxV6zDU28ZXOx5xg6HET6Z/7ke4M7OCj3/I1HvnYg8I1m0tk+/bEv
-    1UWEA6PEYB9RxNDuxwytwCzUzNBLSjMIHU4/L3GBgfbu8N4Q7F4WudXajD+WCU9S5yti
-    n9wxC50ElR/2VF7UuemJTU4MZsOdyAWAd+TcGBVzZ0AJsDiisbJoxihmtxb3XwtOFaD6
-    WDStYDc/O9Xtr1RJ0pa4XsA5XHA1f+RGAXN+9LgW5B3HvRMBnioku76JIkzPruiD3QIP
-    ssEQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784216815;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=1hx0yJ3jK10AJqygvr6+N5F6p5W+b8ub4oFkklGbOic=;
-    b=FcBIuHc0zUlFJAoaznz6KUp55qwySNpzYaiA3dJGUp+YwTvbkjtgtXo6UyaJuXFZAv
-    03Gy9fIBD2bSPtpFmPCg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS0JpbnciN91aF+UY0Pm4r8tXCtzZjxu6AAT8="
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.5.6 AUTH)
-    with ESMTPSA id Q4b76426GFktcVp
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 16 Jul 2026 17:46:55 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244C53D9541;
+	Thu, 16 Jul 2026 15:56:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784217411; cv=none; b=BIfjmTnMY56ig6IK6x5hO2tBux16Nf2qE4MmXV0KtMb35t4KiG7bdgvtdfTTeEnn3PujHsMxO02448xFr19sojoJUX1i4iY90J3aUuXredNS10YbTJ6F3der1DTGIgctWv4R3DJciGTTktPN83IqgDgb0PH/LbAZjD5G+a945bU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784217411; c=relaxed/simple;
+	bh=fu5qOLGRy83hb1IQXBKzm1GdxcWHvMqQyapA/82KtMU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BM8uoBbc9JHMCZ2qdHzV6NtunSG5PfnAWmsVFL05EMhgt8+rgzHIGJIe+uCUnNt90jnfa3YbQxdd7bA1r6WkmajYKH8mfhSZY/dEjHb4ULv7gekxml0rufg7wUtFoK8tfuAxnk2SeKWDS4sJJyzzJAJD8OeG5zfrbspP6K4IJ+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6304E202283;
+	Thu, 16 Jul 2026 17:56:24 +0200 (CEST)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1wkORj-0027oe-3A;
+	Thu, 16 Jul 2026 17:56:24 +0200
+Received: from blackshift.org (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 4900F56C3D3;
+	Thu, 16 Jul 2026 15:55:31 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	linux-can@vger.kernel.org,
+	kernel@pengutronix.de,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net 02/19] can: esd_usb: kill anchored URBs before freeing netdevs
+Date: Thu, 16 Jul 2026 17:47:27 +0200
+Message-ID: <20260716155528.809908-3-mkl@pengutronix.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260716155528.809908-1-mkl@pengutronix.de>
+References: <20260716155528.809908-1-mkl@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [Letux-kernel] [PATCH] i2c: jz4780: Cache clock rate at probe to
- prevent CCF prepare_lock deadlock
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <aljysQFgUHuVDAgK@zenone.zhora.eu>
-Date: Thu, 16 Jul 2026 17:46:44 +0200
-Cc: linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- linux-mips@vger.kernel.org,
- Paul Cercueil <paul@crapouillou.net>,
- linux-i2c@vger.kernel.org,
- Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <2ADBFA2C-92EA-4930-89CB-A6C52E1E61C7@goldelico.com>
-References: <c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
- <alf7rSWaLBO8WBkR@zenone.zhora.eu>
- <36148F30-156F-4E74-8765-D718F6FE7E76@goldelico.com>
- <aliLbNJ51Ns0dIHX@zenone.zhora.eu>
- <9421BB47-EFC8-4D82-989F-82A84FE46749@goldelico.com>
- <aljCGkhZEQHzZVSW@zenone.zhora.eu>
- <500EE2C0-B916-47DF-874F-EBB2CF1C779D@goldelico.com>
- <aljysQFgUHuVDAgK@zenone.zhora.eu>
-To: Andi Shyti <andi.shyti@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Andi,
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-> Am 16.07.2026 um 17:08 schrieb Andi Shyti <andi.shyti@kernel.org>:
->=20
-> Nikolaus,
->=20
->> Therefore I consider this as a fundamental design flaw which is =
-solved
->> by this patch.
->=20
-> I'm not arguing the patch here. I haven't even mentioned a single
-> line from the code. I made a simple question and you keep
+esd_usb_disconnect() frees each CAN netdev with free_candev() inside
+its per-netdev loop and only calls unlink_all_urbs(dev) afterwards.
+The per-netdev private data (struct esd_usb_net_priv) is embedded in
+the net_device allocation returned by alloc_candev(), so once
+free_candev() has run, dev->nets[i] points to freed memory.
+unlink_all_urbs() then dereferences the freed dev->nets[i] to kill the
+per-netdev TX anchor (usb_kill_anchored_urbs(&priv->tx_submitted)),
+clear active_tx_jobs, and reset priv->tx_contexts[].
 
-Sorry, but I did not read this as a question but an argument against the =
-patch itself:
+Reorder the teardown so the anchored URBs are killed before the netdevs
+are freed, matching other CAN/USB drivers in the same directory such as
+ems_usb, usb_8dev and mcba_usb, which unregister, then unlink, then
+free: unregister the netdevs first (which stops their TX queues), call
+unlink_all_urbs(dev) once, then free the netdevs.
 
-"I don't think caching the clock rate once at probe is safe."
+This issue was found by an in-house static analysis tool.
 
-This can be read as a "nack" and request to fundamentally change the =
-code. Therefore,
-I asked for suggestions how to solve differently.
+Fixes: 96d8e90382dc ("can: Add driver for esd CAN-USB/2 device")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260709164159.497640-1-fanwu01@zju.edu.cn
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ drivers/net/can/usb/esd_usb.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> If the commit message is leaving room for questions then you need
-> to make your commit message clearer.
-
-It took me long to understand your misunderstanding, and now I believe I =
-have found it.
-It is because there are two clocks involved which can be mixed up.
-
-
-So would you be more happy with:
-
-[PATCH v2] i2c: jz4780: Cache host clock rate at probe to prevent CCF =
-prepare_lock deadlock
-
-Fix a severe AB/BA deadlock between the Common Clock Framework (CCF)
-and the I2C adapter lock, which triggers when an I2C-controlled clock
-generator client (like the Si5351) is registered or modified under the =
-CCF.
-
-During an i2c client clock (generator) frequency change, the CCF =
-acquires its global
-'prepare_lock' mutex and calls i2c_transfer() to update the client's =
-chip registers,
-stalling for the adapter's I2C bus lock.
-
-Concurrently, an independent, parallel transfer on the same bus (e.g., a =
-GPIO=20
-expander handling LEDs) can hold the I2C adapter lock. Inside this =
-parallel=20
-transfer path, jz4780_i2c_set_speed() calls clk_get_rate() on the host=20=
-
-controller's input clock to calculate bus timings. This call attempts to =
-acquire=20
-the blocked CCF 'prepare_lock', creating a circular dependency that =
-freezes=20
-the system.
-
-The jz4780 host controller clock itself is static and never changes at =
-runtime.=20
-However, calling clk_get_rate() inside the active transfer path =
-introduces=20
-an unnecessary dependency on the CCF internal locks.
-
-Eliminate the synchronous clk_get_rate() call from the active transfer
-path by caching the static host peripheral clock rate once - inside the =
-private
-jz4780_i2c structure during jz4780_i2c_probe(). Update =
-jz4780_i2c_set_speed()
-to use this cached value, safely decoupling active I2C transactions from =
-the
-CCF internal locks without any risk of stale timings.
-
-BR and thanks,
-Nikolaus
+diff --git a/drivers/net/can/usb/esd_usb.c b/drivers/net/can/usb/esd_usb.c
+index d257440fa01f..f41d4a0d140f 100644
+--- a/drivers/net/can/usb/esd_usb.c
++++ b/drivers/net/can/usb/esd_usb.c
+@@ -1390,10 +1390,13 @@ static void esd_usb_disconnect(struct usb_interface *intf)
+ 				netdev = dev->nets[i]->netdev;
+ 				netdev_info(netdev, "unregister\n");
+ 				unregister_netdev(netdev);
+-				free_candev(netdev);
+ 			}
+ 		}
+ 		unlink_all_urbs(dev);
++		for (i = 0; i < dev->net_count; i++) {
++			if (dev->nets[i])
++				free_candev(dev->nets[i]->netdev);
++		}
+ 		kfree(dev);
+ 	}
+ }
+-- 
+2.53.0
 
