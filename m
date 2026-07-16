@@ -1,79 +1,68 @@
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B9F3246ED
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 06:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B696364028;
+	Thu, 16 Jul 2026 07:15:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784184948; cv=none; b=Irwj30/4Ojt2aQinN9u2xIl3JoM3dM9KW+hiYCIwH1KmIoLWtzT01z5wuEa6mi5tJDt+4RBkgzaf6vzrXIHiaO19vXeiRiapJpn/O/dpQrW1AM8XMrx3INwbe0ab9v1wRQyqALD474OGMevIIjI8mfQvyZWlbrguLGhcGSpFDoM=
+	t=1784186119; cv=none; b=cfRORJGUr7H6EMZD79bGBRGfqdJe7GxII1SBWtD2FFeOY9PTRKgeRlTbh8icn6/RJfv4mMfQjnBzKZzA/YhQxjaozPN7WhzPUuVIRzgyZP+qwXa7cmCJiDcWtv+3Mpt/H98I0vJ6RcFPmKbDrLAumTsXA2BoSl9qQ7AUjcaPVCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784184948; c=relaxed/simple;
-	bh=5aFC7UIJ/0MkSOfFxU38E5MSc5aE2gJ8tn1j4wAS9QE=;
+	s=arc-20240116; t=1784186119; c=relaxed/simple;
+	bh=fZ9jkEIIDI95EUv84Hol6amGjcZYiFvAT6WEG3UYbiM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LsIj6tLMtjj+BY5IPB5E6seCluaKAskKg6AdBA6wCz2fosG/6COGl7l34T41ZGnyRWZ/gVRwD8vgkhX0TWjoxPzYs5WC/BVsBqym58XdurqbKU6RPuyEw4G0p0IrMi7dGzZMyWln/o4GJ+WkEHWS/CzSjurXNxoLI7LyRj0vDSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jZAcXk3M; arc=none smtp.client-ip=209.85.167.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lbcCiEx/Cn5CYJzaPNj4V+Y+Dut53TslZ+cwbuY5KqPX42KpDJKd40Ft7A82RZgJlNZBLDs6StSeYVUCigi3iYqp9OskYxTMgWWK48LERON93pkSLFLCO4Ao/l0O82611JA1dFVQVWpJ4HCNJ11SVwDNwkK2xlzb2u39rhie2Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GGUb5H8M; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jZAcXk3M"
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4896ae35be9so2597642b6e.0
-        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 23:55:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784184945; x=1784789745; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CzxD1cLTPriwoM1nM4cGtIKasJcP9ac2Us6YiJuTHfo=;
-        b=jZAcXk3MAaUJmUxp74zjuT734o8Er8twcjEMhjwQ0Pi3ZGPLvOfmPPyefcxOqLeBA2
-         F5lqsitTzAFoxnZPsGhxMJrLXjIxuFZ4ymGVCm/DY+wmwCEckGd9NeC2s1Uef6NODJ1S
-         VaWZ/laXr24jCVzja7+4SbYXmlEJtU+NLvKr/0fN185cnuYkwTpO5F9QqTbOq1RnxRuQ
-         XlF7r2OGq9PobprhKlIBnC1fdAGZvAfQLERI54vKR3ooLxYSFaStT9B+ndOLN7EYU8ke
-         rj7JWZk2INDuR0tWDxwIJPLhxFlVSri3wSM8yflFs6mbR2w57QsOC3me3BcAk2OAeMCC
-         tDWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784184945; x=1784789745;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CzxD1cLTPriwoM1nM4cGtIKasJcP9ac2Us6YiJuTHfo=;
-        b=jDIQP6MghkM1DI3l6WIk5WXr6xQOUcKKTpsPVQJvufnyzqKlnICAZuovOgeMGjFdC3
-         roSdX5l7qgBMN69FKGQ2d0e38PKXAGL2DKdEhhwJeookaWDzWx0uMOPf5+BlMEIaELFx
-         BdRi+JkO287CnBllSu5jPd1aoDh5tAnNBdZATh6uu8JTBeYw1sqK5ehiRUq1qb+v8+Td
-         tB2BJ3hb0P1olhR0//qYxPDr0rUSa9SoLCgBaz8UWxQ9B3fCgQNLTE8q8/e7sEdErzvH
-         B9ooaKlbAIxNZ3+mfh3Mi/UEjxJNpvkeuwk172FpCIBN3pgZeVyWlFKdT5HRhZsraKmO
-         egFg==
-X-Forwarded-Encrypted: i=1; AHgh+RqsAa/l4IDHgSbmMAEkirqJeGUttbYKV9U5tVbWlXIIiQz8efPWRu5PDqE0qeq/wkvUX9zuJNU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGBQzaNNCwVIez5bQP52N9sYjwJIa/D9OaOdvs5aR6P+Uaypa4
-	W8jFx9EJR/L4aUy2rHiTHjBps6vSVXtZ2eno9/rnNIBljAxHtt3F56Sl
-X-Gm-Gg: AfdE7cmD0SVY/sijtUsaVvtM02OzW3ftkYp/Cl6LMZ/H/6LJqGU0jAWKFMS/TtjzvkY
-	B+d3RtTOTexFW7EqrG28mlBwojwczvNhHAu5F9VbsIYU65yJuVjO6tFLBEV1OPwqktnQPUOMPTe
-	Mh2QGys8MzWQNWHbjSCtZrNPz2cC/ueHfrL3Yh/l+Yr3ntpnaGbLADnQ/nGv5WeTnYUOa3cTxdi
-	qd9L2x8+BBtUwcE824U0F+uYiPE0f2Xr714gBGkdvs8GBztKOIyKeWEVujwmowRHQlU4ivRP/bx
-	/vjAKSaHlDj00z6V/7P/swkqhtRwyJ//G6KAvsOypEi2ssfDcjaUspLtH0DD+HqFl3rBRix3+Eu
-	DVc0FuKhB4s1HkdT9Oa/Q0mtu4INTw2piwhspOkkGk1gUVIYWqKS88NCuNAho5QZ4yDObwXQdMf
-	n7BhZx
-X-Received: by 2002:a05:6808:8947:b0:492:285c:4da8 with SMTP id 5614622812f47-4a495eab7b6mr4246595b6e.13.1784184944575;
-        Wed, 15 Jul 2026 23:55:44 -0700 (PDT)
-Received: from localhost ([74.80.182.90])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4a42ae81f1esm11281900b6e.11.2026.07.15.23.55.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 23:55:43 -0700 (PDT)
-Date: Thu, 16 Jul 2026 09:55:36 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: johannes.berg@intel.com, Georgi Valkov <gvalkov@gmail.com>,
-	briannorris@chromium.org, kees@kernel.org, bhelgaas@google.com,
-	s.kerkmann@pengutronix.de, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] wifi: mwifiex: replace one-element arrays with
- flexible array members
-Message-ID: <aliAaHF3NgwAZ60v@stanley.mountain>
-References: <202607150932.F2A0836@keescook>
- <20260716001728.57799-1-gvalkov@gmail.com>
- <20260716061638.GB9973@francesco-nb>
- <alh5y74H5bJyDSSP@stanley.mountain>
- <20260716063246.GA17850@francesco-nb>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GGUb5H8M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784186118; x=1815722118;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fZ9jkEIIDI95EUv84Hol6amGjcZYiFvAT6WEG3UYbiM=;
+  b=GGUb5H8Mc8wfxyJ8r+zM7hmIQEltSmAE57aH6U5o/NJspYawkawPbEAr
+   8ZSby7GIhHqYeWwhp1Zf3xrO8tywxgVACHNePFDYQy4TuFg2jsMKp4GaF
+   TKUeCgGF1rrajgRrPozH7cYP8PIQeeJY3ctfqHcSj9hhS3qZQDucTWdU3
+   o5Kxjgwsb/1AabwU4xYff2OUkEP+Yx+lxXEtddZEdJNzNi9Fw7tWCffKO
+   xLTbTDqtyDB39mI6/0sfQRvwxYgfqCfE9kMepPDkBddB3lEV3SausJ3w/
+   +nwPh2lSWJQPaPAiH738CHKKCE1FUncFsN8M6XE8n2TaM1TinGgKwflVm
+   w==;
+X-CSE-ConnectionGUID: KCl7h9pWQta/3T//MshbPg==
+X-CSE-MsgGUID: 2Q6PowAvSQufCfBk7Fq7rg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="83819873"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="83819873"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 00:14:55 -0700
+X-CSE-ConnectionGUID: bB0SV7T3SdaiWQ7hk9SawA==
+X-CSE-MsgGUID: cClT5lkESMejgNrsaQT3hg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="259995188"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa003.jf.intel.com with ESMTP; 16 Jul 2026 00:14:52 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 7671D95; Thu, 16 Jul 2026 09:14:51 +0200 (CEST)
+Date: Thu, 16 Jul 2026 10:14:49 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Ramesh Babu B <ramesh.babu.b@intel.com>,
+	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
+	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] drm/xe/i2c: Fix the interrupt handling
+Message-ID: <aliE6bZI_1fzA_xi@kuha>
+References: <20260715153153.1243751-1-heikki.krogerus@linux.intel.com>
+ <20260715153153.1243751-3-heikki.krogerus@linux.intel.com>
+ <alhuIcCmf3Pu31t1@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,42 +71,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260716063246.GA17850@francesco-nb>
+In-Reply-To: <alhuIcCmf3Pu31t1@black.igk.intel.com>
 
-On Thu, Jul 16, 2026 at 08:32:46AM +0200, Francesco Dolcini wrote:
-> On Thu, Jul 16, 2026 at 09:27:23AM +0300, Dan Carpenter wrote:
-> > On Thu, Jul 16, 2026 at 08:16:38AM +0200, Francesco Dolcini wrote:
-> > > On Thu, Jul 16, 2026 at 03:17:28AM +0300, Georgi Valkov wrote:
-> > > > Replace deprecated one-element arrays with flexible array members.
-> > > > CONFIG_FORTIFY_SOURCE reports the following warning when
-> > > > one-element arrays are used as variable-length buffers:
-> > > > 
-> > > > sta_cmd.c:1033 mwifiex_sta_prepare_cmd
-> > > > memcpy: detected field-spanning write (size 84) of single field
-> > > > "domain->triplet" at .../marvell/mwifiex/sta_cmd.c:1033 (size 3)
-> > > > 
-> > > > Convert affected structs to use flexible array members.
-> > > > - Preserve existing wire layouts.
-> > > > - Use DECLARE_FLEX_ARRAY() for structs inside affected unions.
-> > > > 
-> > > > Tested-on: WRT3200ACM, OpenWrt
-> > > > Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
-> > > 
-> > > Cc: stable@vger.kernel.org # 6.12+
-> > > Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Thu, Jul 16, 2026 at 07:37:37AM +0200, Raag Jadav wrote:
+> On Wed, Jul 15, 2026 at 05:31:52PM +0200, Heikki Krogerus wrote:
+> > The platforms that support the interrupt from the I2C
+> > adapter can not handle the amount of interrupts the adapter
+> > generates because of the way the IRQ is routed in the
+> > hardware. The I2C controller driver has to be kept in
+> > polling mode because of that.
 > > 
-> > Are we CCing stable for this sort of thing?  How many FORTIFY_SOURCE
-> > warnings are still remaining?
+> > The AMC MCU can still generate critical alerts that have to
+> > be handled. The interrupt from SMBus Alert is left enabled
+> > and handled separately in the Xe. The alerts from the AMC
+> > will cause the device to be declared wedged for now.
 > 
-> Yes, you are right, my mistake.
+> ...
 > 
-> Johannes, please be sure to not have the stable tag in once you apply the
-> patch.
+> > +static void xe_amc_work(struct work_struct *work)
+> > +{
+> > +	const struct amc_request *request = &amc_get_alert_reason;
+> > +	struct xe_amc *amc = from_work(amc, work, work);
+> > +	struct amc_response response;
+> > +	struct i2c_client *client;
+> > +	int ret;
+> > +
+> > +	client = amc->i2c->client[XE_I2C_CLIENT_AMC];
+> > +	if (!client)
+> > +		goto out_reassert_interrupt;
+> > +
+> > +	ret = i2c_master_send(client, (u8 *)request, sizeof(*request));
+> > +	if (ret < 0) {
+> > +		dev_err(&client->dev, "failed to send request (%d)\n", ret);
+> > +		goto out_reassert_interrupt;
+> > +	}
+> > +
+> > +	/* AMC needs 20ms to generate the response. */
+> > +	fsleep(20 * USEC_PER_MSEC);
+> > +
+> > +	ret = i2c_master_recv(client, (u8 *)&response, sizeof(response));
+> > +	if (ret < 0) {
+> > +		dev_err(&client->dev, "failed to read response (%d)\n", ret);
+> > +		goto out_reassert_interrupt;
+> > +	}
+> > +
+> > +	if (!response.header.len) {
+> > +		dev_err(&client->dev, "empty response from AMC\n");
+> > +		goto out_reassert_interrupt;
+> > +	}
+> > +
+> > +	if (memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
+> > +		dev_err(&client->dev, "response does not match the request\n");
+> > +		goto out_reassert_interrupt;
+> > +	}
+> > +
+> > +	if (response.error) {
+> > +		dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
+> > +		goto out_reassert_interrupt;
+> > +	}
+> 
+> [1] See below.
+> 
+> > +	dev_dbg(&client->dev, "%s: Alert reason: %d\n", __func__, response.value);
+> > +
+> > +	switch (response.value) {
+> > +	case AMC_ALERT_FW_DOWNLOAD:
+> > +	case AMC_ALERT_THERMAL_TRIP:
+> > +	case AMC_ALERT_OOB_REQUEST:
+> > +	case AMC_ALERT_OOB_RESET:
+> > +	case AMC_ALERT_CATERR:
+> > +		xe_device_declare_wedged(i2c_client_to_xe_device(client));
+> > +		break;
+> > +	default:
+> > +		break;
+> > +	}
+> > +
+> > +out_reassert_interrupt:
+> > +	xe_mmio_rmw32(amc->i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
+> 
+> One of the rules of wedging is that it's a last resort and there shouldn't
+> be any hardware access afterwards, so I think a more suitable place for
+> re-assert is before[1] we process the response.
 
-Wait...  No no.  It was a serious question.  I guess these warnings
-are pretty annoying for a real user on WRT so it's fine to CC stable.
-I just assumed these warnings were more common still.
+Makes sense. I'll fix this.
 
-regards,
-dan carpenter
+> > +}
+> 
+> ...
+> 
+> > +static void xe_i2c_handle_smbus_alert(struct xe_i2c *i2c)
+> > +{
+> > +	u32 stat;
+> > +
+> > +	stat = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_SMBUS_INTR_STAT));
+> > +	if (!stat)
+> > +		return;
+> > +
+> > +	xe_mmio_write32(i2c->mmio, I2C_REG(DW_IC_CLR_SMBUS_INTR), stat);
+> > +
+> > +	xe_mmio_rmw32(i2c->mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
+> 
+> As per updated arch, this is now taken care by the firmware and can be
+> dropped.
 
+Okay, good. I wanted to ask you why we do that after the i2c adapter
+interrupt is cleared instead of before that, but now it does not
+matter :)
+
+Thanks Raag!
+
+-- 
+heikki
