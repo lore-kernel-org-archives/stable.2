@@ -1,141 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2C0367B86;
-	Thu, 16 Jul 2026 20:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC42938D414;
+	Thu, 16 Jul 2026 20:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784234956; cv=none; b=X3Er+uju0XjDmlKCWcQLCB9JoPNTYlGDIbWXfL4sPYVHqvFJRnJwNsxF+l4ted4cS0YMTu39cnFizjt3jJjbpnlParAd+2xV5WRO19gLtOy3YLrgphi16b27mQ0WEXNVsKIQ+oVUZylDmrGk8BSt6xToIG6A9wqVHb6CfXn/ZVs=
+	t=1784235317; cv=none; b=lU9ROSma+SYqDeQ2FIJn2nLXxQImZIBn0bhpw0Y5Z7LrdgG27W6kir475yzGjfHjBYkHy8Mee0tuimRrhafsgILqzQ0gkTqwauBFU29/C5lO29jgQDhr9Eg1m3yLp5drQwrWHFjh9tmh1H3Q8ykQ4/d0SFjqb7JHX3RaDzbtUNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784234956; c=relaxed/simple;
-	bh=SrjnLYLum9Z46rma6nqV2wDFJDz5Q6fyW7Z2D3kDqJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S5T/BFPoqmzEUN6YIep4nlhtWBz8Hp8i8Oqe2e6d8YbEafUQIN4KjEXE/a3gMa99XsMDxYIe4kyqlrfLTI7PsP4yj+rzHiebZ5FcvijrZgo2+jftY908P7fPZxFqAIIkBBEdHCzr/pe6vg672C+13o2UaFao7bGjqqvS8V080M0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WuGvw+A0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784235317; c=relaxed/simple;
+	bh=/jYjeSXcOT3X5lsTrlA4VeJ2bkToZrgAD9L5OpajHv0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nmvw5EtLIC9ZSI013uDEhHRlnTQZaxufQnUte3tvGvbTPuIqg9oJXes8fVzl3oZqkfFyUU9cvP0YZK7p0WEUvyXluZX0vC9gTqMv+q/7p/DDs0xDCwvxMUr8mBIYe0QieUF19Qf4sRh5dVfDb4GRQ9gBL0lmkihz6ZxbNqOy9PQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=LappT5Ev; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SKpaO5xr; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WuGvw+A0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54E41F000E9;
-	Thu, 16 Jul 2026 20:49:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784234954;
-	bh=/auF3QwCn6DkvYe4mWReEKGzDw3FjlfykMkHq6oG8O8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WuGvw+A09QbHon0C2djMML9mRJR6ScHWGLqGNZ2+u9LO1LCoEz+Y0Qwn9vwK3+dst
-	 iEs945e3WU++xoimCWIpmsIisL2Z8Och/YiaBJOyjdT42ivKWsurQuyA6gv1Mtk3Z8
-	 gJeitL5/8EcgudG0kA48HM+JNch8eewsA9+jmpn6Tzlnizr+YPgmphao0zeVEdxTLZ
-	 dARqg17l3yc7unnd086hSSpZcPtzCnw/U8eM8CpjUziFkLPC6Ye7fmISiFiVjxeqIA
-	 ilVU5t8gRbGgXrbZtC9h4QZTywvR43gNawR58Zlbj4bB2fIRZiAP27EuqLIC/BgtrK
-	 7nPMMLS85ultQ==
-Date: Thu, 16 Jul 2026 15:49:14 -0500
-From: Rob Herring <robh@kernel.org>
-To: Carlo Caione <ccaione@baylibre.com>
-Cc: saravanak@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] of/address: Fix NULL bus dereference in
- of_pci_range_parser_one()
-Message-ID: <20260716204914.GA1262499-robh@kernel.org>
-References: <20260706114731.57353-1-ccaione@baylibre.com>
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="LappT5Ev";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SKpaO5xr"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 4B9FA1D000D4;
+	Thu, 16 Jul 2026 16:55:12 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Thu, 16 Jul 2026 16:55:12 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm3; t=1784235312; x=1784321712; bh=OYy1tfJZXR
+	2TVEr/O4x4hI/z5S9nXSQdWXW3Zvav3OE=; b=LappT5Evn5BiYjBdwTkRCj55Ww
+	/UAwuAZkARNs3X+42FnBKa0bVXP4Z6tFOzMWCIaiz/D4pIRQP1DsqN++uGnYB6ps
+	fTjY+mSYvpDvHcPHp6EUleosFRFOMGM6Oh+ymM2fAGaWp3t9pYBRw8gjnW95csT0
+	/882UB3NTI113430X32JbbibXV1UMhvgOG7zTsIW+WQKbGvMB3it6X7+GzLlTIm+
+	YFt6a/m0WdYNLzs6wUZZQDU683J9JeuZhNVBuPJeCMXV1uwULSa5Q1bi52Smz5tn
+	JCbM6pxP20Msyq0paDKggKStDq2KV2YDq6Zj/qLPEdNVXehzsmzQsjqKYe9Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1784235312; x=1784321712; bh=OYy1tfJZXR2TVEr/O4x4hI/z5S9nXSQdWXW
+	3Zvav3OE=; b=SKpaO5xrkvpvO+ahYfahkuR8q/8HL/b66VH8TfNoty9c0P4CIo+
+	ug8tHs62GgCsOZ55JxAZj60OpZ+RaoaJKsoGxg2xvx875AJZOwitvj3Q/kRTOdp4
+	+JyGNzHNlT7qqo5yNHk5kz/eyBCnBTgBQub1efcU9qT9rrRRXQkoNsRzVT0LkY1o
+	1lob/M+Y1tp5b7hr7NtDn4sjAMt002LA1+Nwv+cXnCAWNqeD/b7gfHGdcJfADaTP
+	LnHW5sy7e4hCiQ+hGy5PzyjdDTqiSwfXikJM49h6c77EDRQv9CT78603E2GQMKtT
+	FIN35g1Yk/RVh7dWpL/m8DC0pJdtj0JY0+w==
+X-ME-Sender: <xms:LkVZatnSGPXHgOtP5mGZRJwVYo4BLTf0DvFQcLVeP6JdQWOoR9GGkw>
+    <xme:LkVZan63dcXku7U8P6n9z4Sg_vguurKKQZfAzIGapbHmMYEdenVt169v24ybVEGzF
+    8HckIOC4xxCURyn2mGdwHP7CRm6Ash19n3MW64cNncRQN5yTYrJrqs>
+X-ME-Received: <xmr:LkVZap0Sr9Xw7B4T9ZCzb42uyxr27U722QwDpAG8IFCEVy4y4onDZ6fto2kZIHDIYMz5dErpT4bDDKPHAEnsGMgZqsQUTk_z>
+X-ME-Proxy-Cause: dmFkZTFnL8Z0ImdM+oE12G/gCpjnnlxANVgwjXf6yX+nI9cmWhvgDHv8JAC5kGzBVRZrmo
+    skBj6p+tOUDoxVvdB7lFEaYvL4A7NtsAX4BSTXRBmF/1Cex8moWBM/BkMnHNI/2YDRXf/g
+    31dC4YpopPx+WjICE/Eckixxg5PGf8qzZXfMWAUbgxjSfhEDBHtLf4mO1N0M0MPm6C5C0V
+    0JODzJzEWlpiK4YjT+GhcX1O5C8pTe2OYWqJtwuwNV7eoJdCRo7Ar1kMRN87FnL9M6Ya6Y
+    uWjVwRN94miv9DJl2PdB+LSNi413Ef+7acgnia5gR40rGoSALm2OjBeWSnAeZWnK79puEk
+    lqqtPVnIERQdl9fhODqBSkSm7Q50ZU9LLJUuUST4AvBmYgj4WqhOSWyq5hfyPWZOeNn6ff
+    xUcBgIxsjxnubmkQR8YHSr4COOXzBSGO6yfoTN7QE8UnLtwWiQjgDKJAF+FfQeUkkMW+Wz
+    rmhMmylm2x/5rLfcl7tPgGRcX056PWwSVdG1iEEudOHe0XKINh3JRSmugrgWkKDrd2SNkm
+    8Z2J0JKYPYymi6h9UDTiWDhF1v1mcJctEQgz26D41nmCRFKajTiNkULYQ0H/56/tACMwec
+    p+FeDvD5uXF5H1/oJcIezLGqtE1xOvxO3CtIIn9nQkzpN2eqphoUfIvv5u7A
+X-ME-Proxy: <xmx:LkVZaqEY6QmrUqdu2_N5oWDkzLy3XovlYGX5vG2joBrKQ5F82g18DQ>
+    <xmx:LkVZagixCh_iTkV180UBweeqDUBUyZ__730Ng2QN_7mvfViD9mqViA>
+    <xmx:LkVZalCOstYraig59tv5Igdif5_2qHGJO_niOQH9_d-c4bUftpn_YQ>
+    <xmx:LkVZaqTIZepf3DcJiRsfeGeJNZamy80oX8Dlar5LA4ISXU8CjsS5XQ>
+    <xmx:MEVZauy1BayoYwFnjVNb9Lvf0zGSl4nC6118WTAfGzRBjv37b9CGzIau>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 16 Jul 2026 16:55:09 -0400 (EDT)
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: netdev@vger.kernel.org
+Cc: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Breno Leitao <leitao@debian.org>,
+	stable@vger.kernel.org,
+	zdi-disclosures@trendmicro.com
+Subject: [PATCH v2 ipsec] xfrm: espintcp: fix UAF during close
+Date: Thu, 16 Jul 2026 22:54:59 +0200
+Message-ID: <a62857f72af228a0781a5c0cc0f8d898d9e0d7be.1784234935.git.sd@queasysnail.net>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260706114731.57353-1-ccaione@baylibre.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 06, 2026 at 01:47:17PM +0200, Carlo Caione wrote:
-> The bus matching rework made of_match_bus() return NULL for nodes
-> with ranges/dma-ranges but no local #address-cells. parser_init()
-> stored that NULL bus, and the range iterator later dereferenced it.
-> 
-> Reject such nodes in parser_init(), leaving an explicit empty iterator
-> for callers that ignore the init return. Keep the DMA limit walk guarded
-> by a non-empty dma-ranges property, and only clamp the limit when at
-> least one complete range was parsed.
-> 
-> Fixes: 64ee3cf096ac ("of/address: Rework bus matching to avoid warnings")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
-> 
-> ---
-> Changes in v2:
-> - Validate na/pna/ns in parser_init() with OF_CHECK_COUNTS() /
->   OF_CHECK_ADDR_COUNT()
-> - Link to v1: https://lore.kernel.org/r/20260706095651.48839-1-ccaione@baylibre.com
-> ---
->  drivers/of/address.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/of/address.c b/drivers/of/address.c
-> index cf4aab11e9b1..fd2468b89579 100644
-> --- a/drivers/of/address.c
-> +++ b/drivers/of/address.c
-> @@ -753,6 +753,7 @@ EXPORT_SYMBOL(of_property_read_reg);
->  static int parser_init(struct of_pci_range_parser *parser,
->  			struct device_node *node, const char *name)
->  {
-> +	const __be32 *range;
->  	int rlen;
->  
->  	parser->node = node;
-> @@ -761,12 +762,20 @@ static int parser_init(struct of_pci_range_parser *parser,
->  	parser->ns = of_bus_n_size_cells(node);
->  	parser->dma = !strcmp(name, "dma-ranges");
->  	parser->bus = of_match_bus(node);
-> +	parser->range = NULL;
-> +	parser->end = NULL;
->  
-> -	parser->range = of_get_property(node, name, &rlen);
-> -	if (parser->range == NULL)
-> +	range = of_get_property(node, name, &rlen);
-> +	if (!range)
->  		return -ENOENT;
->  
-> -	parser->end = parser->range + rlen / sizeof(__be32);
-> +	if (!parser->bus ||
-> +	    !OF_CHECK_COUNTS(parser->na, parser->ns) ||
-> +	    !OF_CHECK_ADDR_COUNT(parser->pna))
-> +		return -EINVAL;
-> +
-> +	parser->range = range;
-> +	parser->end = range + rlen / sizeof(__be32);
->  
->  	return 0;
->  }
-> @@ -792,7 +801,7 @@ struct of_pci_range *of_pci_range_parser_one(struct of_pci_range_parser *parser,
->  	int na = parser->na;
->  	int ns = parser->ns;
->  	int np = parser->pna + na + ns;
-> -	int busflag_na = parser->bus->flag_cells;
-> +	int busflag_na;
->  
->  	if (!range)
->  		return NULL;
-> @@ -800,6 +809,8 @@ struct of_pci_range *of_pci_range_parser_one(struct of_pci_range_parser *parser,
->  	if (!parser->range || parser->range + np > parser->end)
->  		return NULL;
->  
-> +	busflag_na = parser->bus->flag_cells;
-> +
->  	range->flags = parser->bus->get_flags(parser->range);
->  
->  	range->bus_addr = of_read_number(parser->range + busflag_na, na - busflag_na);
-> @@ -976,8 +987,8 @@ phys_addr_t __init of_dma_get_max_cpu_address(struct device_node *np)
->  		np = of_root;
->  
->  	ranges = of_get_property(np, "dma-ranges", &len);
-> -	if (ranges && len) {
-> -		of_dma_range_parser_init(&parser, np);
-> +	if (ranges && len && !of_dma_range_parser_init(&parser, np) &&
-> +	    of_range_count(&parser)) {
+ZDI reported and analyzed a race condition during close for espintcp
+sockets:
 
-Why do we need of_range_count() here?
+    espintcp_close() frees emsg->skb via kfree_skb() without holding
+    any socket lock. Concurrently, the xfrm_trans_reinject work queue
+    invokes esp_output_tcp_finish() -> espintcp_push_skb() ->
+    espintcp_push_msgs() -> skb_send_sock_locked(), which reads the
+    same skb as a data source.
 
->  		for_each_of_range(&parser, &range)
->  			if (range.cpu_addr + range.size > cpu_end)
->  				cpu_end = range.cpu_addr + range.size - 1;
-> -- 
-> 2.55.0
-> 
+Fix this by adding a synchronize_rcu() call after resetting sk_prot,
+since esp_output_tcp_finish() runs under RCU and won't use a socket
+with sk_prot == &tcp_prot.  Simply taking the socket lock in
+espintcp_close() could lead to leaks, if esp_output_tcp_finish()
+re-adds an skb in the slot we just freed. After this, the existing
+barrier() is no longer needed.
+
+Cc: stable@vger.kernel.org
+Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
+Reported-by: zdi-disclosures@trendmicro.com
+Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
+---
+v2: remove the unnecessary barrier()
+v1: https://lore.kernel.org/netdev/50e2ab4348eb8177581058f0152394cfae6a8d27.1783071494.git.sd@queasysnail.net/
+
+ net/xfrm/espintcp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
+index 374e1b964438..cd817b855ba1 100644
+--- a/net/xfrm/espintcp.c
++++ b/net/xfrm/espintcp.c
+@@ -515,7 +515,8 @@ static void espintcp_close(struct sock *sk, long timeout)
+ 	strp_stop(&ctx->strp);
+ 
+ 	sk->sk_prot = &tcp_prot;
+-	barrier();
++
++	synchronize_rcu();
+ 
+ 	disable_work_sync(&ctx->work);
+ 	strp_done(&ctx->strp);
+-- 
+2.54.0
+
