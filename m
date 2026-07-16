@@ -1,43 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F3819E7F7
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 10:18:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDA640860C
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 10:21:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784197133; cv=none; b=rvvle75iiMJtaCMlWBEVFquypsrRLjQ6zIdLX/fvqg86uJr1KXdmzaiTSwtQy8INzAAYujJQ194YGlfyWhDsU+UeGBIwWTHIUb+rR1lW4IhoO+11u30b5pBgw9YUutpwtqPsyK2jOdYD6cukFE0YGbz5viGliJKw0Do+ZR9hjGo=
+	t=1784197280; cv=none; b=oM4alSZHKWGB02D8ZECF38JVFQdCzM/lm92CWjPGpq47Gssx+9qRvfA2xiNByt2wWxgbyYaxhIfDA4uQJaDbW5RnBWThWOtpfMSbGagLpNTZCLjoCGesHasLiBXVxMJnqkpqhH3gQHxr0sqaru4fw0uFgZBu7o+Rs7R03MW0lvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784197133; c=relaxed/simple;
-	bh=i8iUZ03MhoflQ7se+fZr6o7+3t4XyMQJ+t9HIsRlT0M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tYke5MOy1knKILz86UQsG4dE1FgFF/RuQv7VYIgfym9f6ZaD2MRV8Dlp71VNd5hAlMXdyGqwoo0D6eJFpJtTpqqvYB2krvvPI3liJhmLe+GSEh/NnUGu8Y5t4p3Ak84iH3gICkR51A/LGIBaaFkpWNWE9WC6zWmYyd5FjSs9a8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ft36y/Pz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784197280; c=relaxed/simple;
+	bh=hY65Q8DL8UNfZVFsi0xMC3qLRY+v4k3EZLpVlcQ75ks=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ifhPYFR1ZS32LwtiqoSLNrOxgtSpOtE8z2gnu/5wSxFsO5nASDzLYtsU5vZKMmyXlKHos/cUO5zsoViMZYPM6klL7LBKlyrOvsE3zveXGiM9xa0AMpXYmEkIFbMbUNIny+EARsj9fgHo8CpGTg7rr04+yXLX3H2SNH5/5iA2uK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QgQ6FmV0; arc=none smtp.client-ip=74.125.227.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ft36y/Pz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2EE1F00A3A;
-	Thu, 16 Jul 2026 10:18:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784197131;
-	bh=cdcv84rB6skoOKanhi+xKmStkreqEwoMMuatm/lpVWc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ft36y/PzrtCwtlfuKLx0V7lxN19ZBO4jrn4ej1KIcBGihW6YHdWMgzKUKUeFEHFJb
-	 9w9onrB+wkEkhUKbrc89SGOLQ8oybxuaBROw/Yp1OFna5sUlHQCSvAkOxyHovwA8/8
-	 9S52nyEaHSDcP5NOOWtOGpHHlDajHI4mdZqCyUtC4U/R49rFwjrNwl1djnFK4ASIUx
-	 IcqKh9DAcDcZNjkep4oPn6bA0tZtkFBq8pLNbwfU/R+G8KCCgdU8N3X5eD4A0FT+PB
-	 Hu3yyNVD63kID4r/tLzNkt1n9Yc0pEYAx6rKGdduHj5/RgKw5KyEt03ygrpmLMfXjk
-	 5NvZMLZd9EwWg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Davide Ornaghi <d.ornaghi97@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ksmbd: fix path resolution in ksmbd_vfs_kern_path_create
-Date: Thu, 16 Jul 2026 06:18:49 -0400
-Message-ID: <20260716101849.1464192-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071458-clerk-silly-d22d@gregkh>
-References: <2026071458-clerk-silly-d22d@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QgQ6FmV0"
+Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-38dc7618a1dso2292416a91.0
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 03:21:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784197278; x=1784802078; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cFSo7gayLvsIlyLfjq185Phbk4IPPO2uTWuq5Wwy6eg=;
+        b=QgQ6FmV0+eXlDrF8KE4QaM5L9xxIu90VSkWgXNTNfnHBdegsrdvvD8rE2g93lB9xhh
+         aBS6N6WH5zlI0nSGSUzvuEjMmeVFh3VgzOuLaZjUqa5Oo2oBQ3nW1+JJfhMmD065gq7e
+         xcIJmnKBGu49avtnXkvTlV/CgF41dZ0yOHeplGLhkA2MSBNqiI0QbFYGXydyPM0/6T5l
+         L4JsLXSDayJhAhxClKGQWOphMDzDPsumfqaC3MEb9DYrBVIzoogVlp1XRmu6ByBcI7Z5
+         2+11dDYgUR/EuT9CoZMOYeJwsKXkgZ0ecJ+sKE1S7Wym/b4IZSg/tOKaiXXzfwbmNczg
+         jg2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784197278; x=1784802078;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cFSo7gayLvsIlyLfjq185Phbk4IPPO2uTWuq5Wwy6eg=;
+        b=pOa+vU705hmS2Q63iIUFjogbJ4Xh3wpg86F0d+d1UXijVDihTzyqbmCsPMMIZVp7aB
+         TrqQWFw/3aEBywmlqgC7R4GHZMcjLWT/EJG2J8YOVkQ43oKBl2segZfmdq00FUivw5qq
+         Va2ShwZarA4ebWW9wKVXZAouU0Pf3YuFYWePGrO+cZFMRzbcR0ljDc5T543TGkJl3Q4Q
+         z+6w/OiutVA9h5LfaX1T1RO+S62X7UZmHeibU2B0+n/ZYQLnYbD8zcX38bBe7bvQ/2RS
+         vzpA+DPThClvpFG7WeDZ9zZ5WxZeN38y4HqFArDD4ozJaZ/rEo9I5rYLTdjCjXEtHG8P
+         vK5A==
+X-Forwarded-Encrypted: i=1; AHgh+RofUXMyJ8h2G1IowIajK+S8TKtaLSZk216SQ05ldbGB6AHDfGop/jpoFAuBEgJY+YpUgiphNgM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJGCoypcEXx8/FFywHbU8+pr4dzLtRHuYR5nK9jZbZg4PXkKeb
+	kjHDpZ3ShpV/eQyBhRslk+BJxYnRCzivLcHtsjCUhsF0e4DvBG6feBba
+X-Gm-Gg: AfdE7cnKFUQIHNR0WpeBPhg+Rx5Zst3e0YtUp9PbP4F48S2s6RONYKfCn6oJSqVigZj
+	QKb93fOmy2eI3V8GmP5gtKvUTsXIIm9LuhoarJ5s/pW+WafMy+NwgRXnyMqL1cRuE6jZIOB+MbB
+	YpV7EkSIMXoxfXcc28ahaCNZ4NXCcKRY7GLfIGFy2yT6Gm74Rqs8B+lMd2qKftKW4Jt0p/KheFY
+	6Q3mHAnyL9yTq1ppL/onBbCWGhOUlJF9Ao+WXWArTE4IBX0ZRodoisXs+vUZjFT9EtpgOSyIFrB
+	AZhW+FotMKJK2mh6+jfzGxRXehkK9+Qs1u6y+6O49iTf7MXJRZWXYtJKyyn3BdU0KzB9b/UL+H2
+	nMeeCgC51TeNByBEYHSit6xeWrqVYKdXlKrSMWCo1C5+MxHeTNaStQXFVkzsAvKc95s6tvTDTq3
+	Y85foxR+lx
+X-Received: by 2002:a17:90b:5863:b0:36d:b424:4f17 with SMTP id 98e67ed59e1d1-38dc73bcfdfmr19331163a91.1.1784197277956;
+        Thu, 16 Jul 2026 03:21:17 -0700 (PDT)
+Received: from workstation.. ([182.180.105.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3140e500e8fsm11626180eec.6.2026.07.16.03.21.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 03:21:17 -0700 (PDT)
+From: Ali Tariq <alitariq45892@gmail.com>
+To: Kevin Xie <kevin.xie@starfivetech.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Markus Elfring <Markus.Elfring@web.de>,
+	Ali Tariq <alitariq45892@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] PCI: starfive: Fix resource leaks on error paths in host_init()
+Date: Thu, 16 Jul 2026 15:20:53 +0500
+Message-Id: <20260716102053.185276-1-alitariq45892@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260714113029.326207-1-alitariq45892@gmail.com>
+References: <20260714113029.326207-1-alitariq45892@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,148 +84,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Davide Ornaghi <d.ornaghi97@gmail.com>
+starfive_pcie_host_init() acquires the PHY, clocks/resets, and an
+optional regulator in sequence, but does not correctly unwind these
+resources when a later step fails.
 
-[ Upstream commit 1c8951963d8ed357f70f59e0ad4ddce2199d2016 ]
+If starfive_pcie_clk_rst_init() fails after the PHY has already been
+successfully enabled, the function returns directly without disabling
+the PHY, leaking it and leaving it powered.
 
-The SMB2 open lookup is rooted at the share with LOOKUP_BENEATH, but the
-create/mkdir/hardlink sink is not: ksmbd_vfs_kern_path_create() builds an
-absolute path with convert_to_unix_name() and resolves it from AT_FDCWD
-via start_creating_path(), so a ".." component is walked from the real
-filesystem root and escapes the export.
+If regulator_enable() fails for the optional vpcie3v3 regulator, the
+failure is only logged; the function falls through and returns
+success, leaving the driver believing the regulator is enabled while
+continuing to configure PCIe hardware that may be unpowered. This
+also leaves the clocks and PHY enabled with nothing to clean them up.
 
-An authenticated client races a missing path component so the rooted open
-lookup returns -ENOENT (taking the create branch) while the same component
-is present (a directory) when the create walk runs; the create then
-resolves ".." out of the share.
+Disable the PHY on the clk/reset failure path, and disable the
+clocks/resets and PHY, then return the error, if the regulator fails
+to enable.
 
-Root the create walk at the share like the lookup and rename paths already
-are: resolve the parent with vfs_path_parent_lookup(..., LOOKUP_BENEATH,
-&share_conf->vfs_path) and create the final component with
-start_creating_noperm(). convert_to_unix_name() then has no callers and is
-removed.
+Build-tested and boot-tested on StarFive VisionFive 2 v1.2A
 
-Fixes: 265fd1991c1d ("ksmbd: use LOOKUP_BENEATH to prevent the out of share access")
+Fixes: 05a75df4182e ("PCI: starfive: Use regulator APIs to control the 3v3 power supply of PCIe slots")
+Fixes: 39b91eb40c6a ("PCI: starfive: Add JH7110 PCIe controller")
+Signed-off-by: Ali Tariq <alitariq45892@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-[ replaced start_creating_noperm() and CLASS(filename_kernel) with open-coded getname_kernel()/inode_lock_nested()/lookup_one_qstr_excl() equivalents absent in 6.18 ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/misc.c | 33 ---------------------------------
- fs/smb/server/misc.h |  1 -
- fs/smb/server/vfs.c  | 38 ++++++++++++++++++++++++++++++++------
- 3 files changed, 32 insertions(+), 40 deletions(-)
+Changes in v3:
+- Add Fixes: tags for both introducing commits
+- Add Cc: stable@vger.kernel.org
 
-diff --git a/fs/smb/server/misc.c b/fs/smb/server/misc.c
-index cb2a11ffb23fe3..53ddcae31f7194 100644
---- a/fs/smb/server/misc.c
-+++ b/fs/smb/server/misc.c
-@@ -278,39 +278,6 @@ char *ksmbd_extract_sharename(struct unicode_map *um, const char *treename)
- 	return ksmbd_casefold_sharename(um, name);
+Changes in v2:
+- Use a shared error-handling label instead of duplicating cleanup code
+---
+ drivers/pci/controller/plda/pcie-starfive.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pci/controller/plda/pcie-starfive.c b/drivers/pci/controller/plda/pcie-starfive.c
+index ba8ef7842e35..fab44054a5de 100644
+--- a/drivers/pci/controller/plda/pcie-starfive.c
++++ b/drivers/pci/controller/plda/pcie-starfive.c
+@@ -304,12 +304,14 @@ static int starfive_pcie_host_init(struct plda_pcie_rp *plda)
+ 
+ 	ret = starfive_pcie_clk_rst_init(pcie);
+ 	if (ret)
+-		return ret;
++		goto err_disable_phy;
+ 
+ 	if (pcie->vpcie3v3) {
+ 		ret = regulator_enable(pcie->vpcie3v3);
+-		if (ret)
++		if (ret) {
+ 			dev_err_probe(dev, ret, "failed to enable vpcie3v3 regulator\n");
++			goto err_clk_rst;
++		}
+ 	}
+ 
+ 	if (pcie->reset_gpio)
+@@ -379,6 +381,13 @@ static int starfive_pcie_host_init(struct plda_pcie_rp *plda)
+ 		dev_info(dev, "port link down\n");
+ 
+ 	return 0;
++
++err_clk_rst:
++	starfive_pcie_clk_rst_deinit(pcie);
++err_disable_phy:
++	starfive_pcie_disable_phy(pcie);
++
++	return ret;
  }
  
--/**
-- * convert_to_unix_name() - convert windows name to unix format
-- * @share:	ksmbd_share_config pointer
-- * @name:	file name that is relative to share
-- *
-- * Return:	converted name on success, otherwise NULL
-- */
--char *convert_to_unix_name(struct ksmbd_share_config *share, const char *name)
--{
--	int no_slash = 0, name_len, path_len;
--	char *new_name;
--
--	if (name[0] == '/')
--		name++;
--
--	path_len = share->path_sz;
--	name_len = strlen(name);
--	new_name = kmalloc(path_len + name_len + 2, KSMBD_DEFAULT_GFP);
--	if (!new_name)
--		return new_name;
--
--	memcpy(new_name, share->path, path_len);
--	if (new_name[path_len - 1] != '/') {
--		new_name[path_len] = '/';
--		no_slash = 1;
--	}
--
--	memcpy(new_name + path_len + no_slash, name, name_len);
--	path_len += name_len + no_slash;
--	new_name[path_len] = 0x00;
--	return new_name;
--}
--
- char *ksmbd_convert_dir_info_name(struct ksmbd_dir_info *d_info,
- 				  const struct nls_table *local_nls,
- 				  int *conv_len)
-diff --git a/fs/smb/server/misc.h b/fs/smb/server/misc.h
-index 1facfcd21200fd..53282a6d2436ca 100644
---- a/fs/smb/server/misc.h
-+++ b/fs/smb/server/misc.h
-@@ -22,7 +22,6 @@ void ksmbd_strip_last_slash(char *path);
- void ksmbd_conv_path_to_windows(char *path);
- char *ksmbd_casefold_sharename(struct unicode_map *um, const char *name);
- char *ksmbd_extract_sharename(struct unicode_map *um, const char *treename);
--char *convert_to_unix_name(struct ksmbd_share_config *share, const char *name);
- 
- #define KSMBD_DIR_INFO_ALIGNMENT	8
- struct ksmbd_dir_info;
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 90e693e4e41497..c70c4670778de1 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -1322,15 +1322,41 @@ struct dentry *ksmbd_vfs_kern_path_create(struct ksmbd_work *work,
- 					  unsigned int flags,
- 					  struct path *path)
- {
--	char *abs_name;
-+	struct ksmbd_share_config *share_conf = work->tcon->share_conf;
-+	struct filename *filename __free(putname) = NULL;
-+	struct qstr last;
- 	struct dentry *dent;
-+	int err, type;
-+
-+	/* resolve the name beneath the share root so ".." cannot escape */
-+	filename = getname_kernel(name);
-+	if (IS_ERR(filename))
-+		return ERR_CAST(filename);
-+
-+	err = vfs_path_parent_lookup(filename, flags | LOOKUP_BENEATH,
-+				     path, &last, &type,
-+				     &share_conf->vfs_path);
-+	if (err)
-+		return ERR_PTR(err);
-+
-+	if (unlikely(type != LAST_NORM)) {
-+		path_put(path);
-+		return ERR_PTR(-EINVAL);
-+	}
- 
--	abs_name = convert_to_unix_name(work->tcon->share_conf, name);
--	if (!abs_name)
--		return ERR_PTR(-ENOMEM);
-+	err = mnt_want_write(path->mnt);
-+	if (err) {
-+		path_put(path);
-+		return ERR_PTR(err);
-+	}
- 
--	dent = start_creating_path(AT_FDCWD, abs_name, path, flags);
--	kfree(abs_name);
-+	inode_lock_nested(path->dentry->d_inode, I_MUTEX_PARENT);
-+	dent = lookup_one_qstr_excl(&last, path->dentry, LOOKUP_CREATE);
-+	if (IS_ERR(dent)) {
-+		inode_unlock(path->dentry->d_inode);
-+		mnt_drop_write(path->mnt);
-+		path_put(path);
-+	}
- 	return dent;
- }
- 
+ static const struct plda_pcie_host_ops sf_host_ops = {
 -- 
-2.53.0
+2.34.1
 
