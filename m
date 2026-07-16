@@ -1,72 +1,77 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB563F926B
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 10:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317B940A934
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 10:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784197848; cv=none; b=PqQ9qMj21LW2UF8dhNYNYNe90EXjWEWZ0l/A8cF4SGsS+dgA6rZSpoTYet+OyJQYxgd4+grJ/nO7e5ftBGFIHyFS9RvlanT21CYHdueGRKmzpz9qUsPcoBMOjYsoMgWppRTjXXpnsBmhVoo3R+VVxQ10n6llFUX5719U+eq6JCk=
+	t=1784197927; cv=none; b=eAzodciX8dhmK4JH+Aq5AtUg4s5morYXgiZjfHxOtn7Jamw+xg3Kkh0Xo1CWHLWrS5c/MlwTf2nkY9f4K903k+2xJGo2e2+q3/xvDIFLeuro0jFNnMRXin3/SEUZKZy38e/Umwog3GIkWBC7m3wBi1yJ9tcPHiXd9Xr/GZrHHck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784197848; c=relaxed/simple;
-	bh=jHxMxHF6q+AqqNr4U2IcpOC6OPKostUFnRX9P65WGs8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZlZGn7eYwLmUPFohxHoV0vxkRJtLtKGNhasZr6O+xwu8ynjVO+14qIkHzWX65vN4+Je4N68BXH7zZqp9Exw9w9vAGsxXTgyk1WII1TXud9eIvPcWC8tShkx6GmnhgRp7piEEuPdsRkc5TZ9iu6gh5pRpMJGkiv63VtdwZ6bOYkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=ZyY5NCGG; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1784197927; c=relaxed/simple;
+	bh=MELxpiVsjg54SuqERnFOBoWpwSE25FVW/pm5aIULwfc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jXV1pIPXXcuJDpflNtbUTaGbIXxZhquL6CQrxCkuET8tDcCudKtPN0vHef5gfOtWKFH7NinJDn5sLDsrqpQwuu4eat4ao0SFwELp+6/yG4N4bP77qbcSY0FA8XfY5nXY25ym8RBaYm+wUqzkdOtsLoWhqNhWA0l2ytKqzQkcvQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OwKHcxIu; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="ZyY5NCGG"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493bfe9f886so35054575e9.0
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 03:30:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1784197845; x=1784802645; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gWJAyUbafyywGmXpBH2PyYDaC3fadnaJ7OKPoatVSfQ=;
-        b=ZyY5NCGGvLWYoPqJ1eloYg0DbLWDTV9g6Ds3lILfonOWeM8vrOi1P3hQINF7haqZ4s
-         v4fj6LG4SzMEdgke3YPtwQPZhYM8w+HkKzrGh06khYp3QBsWD6Ox6EQI6R8hiH/JKOEe
-         qtzLoQ3yq0qmklR3nugGvg1SOkecaxRNzdjrClY+Ui0pbxD02uIO9UG31jua4zc7WGlp
-         DrIKIRwnG3j3VUZfn7+T2fq4VAFMNdHZI84KsvWXflIBU3JOP/dhHx7eXCJHV+u6rdIC
-         vImB8AQioWFoAL3a6K+U8F3Ruv2m/+0pTn3HG+cpwqYc/vAXK7xNdUwTXReHomgr1HTJ
-         x61w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784197845; x=1784802645;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gWJAyUbafyywGmXpBH2PyYDaC3fadnaJ7OKPoatVSfQ=;
-        b=eo+bS9l27vEKi0aro5Ek3aQrcNt3m7lQ0gOrBMNwLZX+pdgVySADPi5TR9od7/fcj3
-         VauV2FVoEvQJDjlrsYVdtmhaGOMEfg2MHhoSW5ZUEkIzJ+dW7yZRltSdUJLQvowIuKzw
-         M41O/UEiic0hfqfxIXI8lUTco5P4wrk98G4rXgUPsL3OTyJ5ZcaH35LeZSGtGXxByHSo
-         QRPr9hosKl0pJbd8FCJ4nTtw6TxBsliDQ4HTrSWylLQdabH5VJxRcBhUW/Ll4RdpBYT3
-         EwPxL0H9SBuqH/P6rrjZbg1GF8CHstwB4l62IkcIuLrbKw2PwQFmW/45tO0g4UhkgB7g
-         wPCA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp87SgmaJvJv8waamUdcXnl5NKWL5MLHrO2L4Ygyd/acRVnswVl3GSqxd0sA5yagLzXIKF+LUM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzpZoGSDGfWp06MYbL59vAuVX8UIkiqO2RfO2nyTQVDgfhBZ9j6
-	SOs7/vWgkbsmOXzHzFTJm5DeAQEbldc8VrczDmfSenjY4n/B2aRRQCyi++bCLJVbPmFP
-X-Gm-Gg: AfdE7clNjpCAoWitEdhD6VU1zqr18RrubJU/2Vs4zod15y1YGhBnHpLoh8UHsr+4LRp
-	dIV2CR5Gs3L7GDuZ/kfvbzH79auMXsZjMOSf6pJIhyXl9zxSSslDAFQbPpGCuSWUaL8u5KjvUhV
-	6/+d4RGuQEVXj/8JUx2lKW5zpW34jJnUV4lJVmaJ4pHigA6+zyehc7JQdAeCuGY3CUdyv4s8d1u
-	i+lQd+eWgPUKPns0EeqTHrzhCu9xI81nRs4qxB0J9SRBRFbc6F2J91oZ/XeKWYmb9QAIIgyiW5I
-	BIdOGaVslE29Td7oA4dOtwDM3MttLJJgWUT78of49vA+SY88hu9SOPzKWO7QXCAe/XquzYvgN4y
-	o8AH9LhkKg8INP26+GtoZGihTaJjoQ1yMgm4UK6NWq4FoITo5BnFY3WDbdGf5lR9KcuMh353uB3
-	nFiqre8RpS90PX4LqvdxpEUN1xtjUTIQFz3OEzETOCjRbz7a17f3nX/i3hqM0ajlNrMJ+byLkdI
-	OwjhoKOwTaym3aE5QDRNv4z
-X-Received: by 2002:a05:600c:4fd3:b0:495:4593:bcb5 with SMTP id 5b1f17b1804b1-4954593bd26mr4811145e9.34.1784197845285;
-        Thu, 16 Jul 2026 03:30:45 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49541eb85dcsm49129325e9.12.2026.07.16.03.30.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 16 Jul 2026 03:30:44 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: briannorris@chromium.org
-Cc: francesco@dolcini.it,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OwKHcxIu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784197920;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9RuMIYaYxQ3aZE1J/C1CbAmhDK6Ryjd7CE/reIVD6Co=;
+	b=OwKHcxIuGzSCEtA2m493uzuTRZ7phgk5pFNDfkhx5cSkGcvJv3lgrb++h5dSrtZGDuyT1t
+	URIfUE+aflyz+mvVRG9udjTS4AsOuB+9uAHX/fbgVwzjhNihBTx6zucw4Ux7Hn/IHeBsdg
+	kuujHXGTXScdZWP4exkRNB6XqwbEYRc=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-562-jrktmlciO6-DTPN_f8ZiAA-1; Thu,
+ 16 Jul 2026 06:31:57 -0400
+X-MC-Unique: jrktmlciO6-DTPN_f8ZiAA-1
+X-Mimecast-MFC-AGG-ID: jrktmlciO6-DTPN_f8ZiAA_1784197914
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3F07A18002C2;
+	Thu, 16 Jul 2026 10:31:54 +0000 (UTC)
+Received: from warthog.procyon.org.com (unknown [10.44.33.159])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1D1BE1956042;
+	Thu, 16 Jul 2026 10:31:47 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>,
+	Matthew Wilcox <willy@infradead.org>,
+	Christoph Hellwig <hch@infradead.org>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Leon Romanovsky <leon@kernel.org>,
+	Steve French <sfrench@samba.org>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-erofs@lists.ozlabs.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] wifi: mwifiex: fix NULL dereference when the AP has HT-cap but no HT-oper
-Date: Thu, 16 Jul 2026 12:30:42 +0200
-Message-ID: <20260716103042.88469-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH v6 08/24] afs: Fix afs_edit_dir_remove() to get, not find, block 0
+Date: Thu, 16 Jul 2026 11:30:07 +0100
+Message-ID: <20260716103030.3065561-9-dhowells@redhat.com>
+In-Reply-To: <20260716103030.3065561-1-dhowells@redhat.com>
+References: <20260716103030.3065561-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,48 +79,37 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-mwifiex_tdls_add_ht_oper() gates its follow-the-AP-bandwidth path on
-bss_desc->bcn_ht_cap being present, but then dereferences a different
-pointer, bss_desc->bcn_ht_oper:
+Fix afs_edit_dir_remove() to use afs_dir_get_block() to get block 0 rather
+than afs_dir_find_block() as the latter caches the found block in the
+afs_dir_iter and may[*] switch out the page it's on if another
+afs_dir_find_block() is done.  This parallels what afs_edit_dir_add() does.
 
-	if (ISSUPP_CHANWIDTH40(priv->adapter->hw_dot_11n_dev_cap) &&
-	    bss_desc->bcn_ht_cap &&
-	    ISALLOWED_CHANWIDTH40(bss_desc->bcn_ht_oper->ht_param))
+[*] There's more than one block per page.
 
-bcn_ht_cap and bcn_ht_oper are populated independently while parsing the
-associated AP's beacon in mwifiex_update_bss_desc_with_ie(): an AP that
-advertises an HT Capabilities element but no HT Operation element leaves
-bcn_ht_cap non-NULL and bcn_ht_oper NULL. Setting up a TDLS link to a
-peer while associated to such an AP then dereferences the NULL
-bcn_ht_oper and crashes the kernel. Every other bcn_ht_oper user in the
-driver NULL-checks it first.
-
-Guard on the pointer that is actually dereferenced.
-
-Found by 0sec automated security-research tooling (https://0sec.ai).
-
-Fixes: 396939f94084 ("mwifiex: add HT operation IE in TDLS setup confirm")
-Cc: stable@vger.kernel.org
-Assisted-by: 0sec:multi-model
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Fixes: a5b5beebcf96 ("afs: Use the contained hashtable to search a directory")
+Closes: https://sashiko.dev/#/patchset/20260706153408.1231650-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: linux-afs@lists.infradead.org
+cc: linux-fsdevel@vger.kernel.org
+cc: stable@vger.kernel.org
 ---
- drivers/net/wireless/marvell/mwifiex/tdls.c | 2 +-
+ fs/afs/dir_edit.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/marvell/mwifiex/tdls.c b/drivers/net/wireless/marvell/mwifiex/tdls.c
-index 845f2a22e071..c71ffe8399e4 100644
---- a/drivers/net/wireless/marvell/mwifiex/tdls.c
-+++ b/drivers/net/wireless/marvell/mwifiex/tdls.c
-@@ -215,7 +215,7 @@ mwifiex_tdls_add_ht_oper(struct mwifiex_private *priv, const u8 *mac,
+diff --git a/fs/afs/dir_edit.c b/fs/afs/dir_edit.c
+index fd3aa9f97ce6..3ead36a07048 100644
+--- a/fs/afs/dir_edit.c
++++ b/fs/afs/dir_edit.c
+@@ -415,7 +415,7 @@ void afs_edit_dir_remove(struct afs_vnode *vnode,
+ 	if (!afs_dir_init_iter(&iter, name))
+ 		return;
  
- 	/* follow AP's channel bandwidth */
- 	if (ISSUPP_CHANWIDTH40(priv->adapter->hw_dot_11n_dev_cap) &&
--	    bss_desc->bcn_ht_cap &&
-+	    bss_desc->bcn_ht_oper &&
- 	    ISALLOWED_CHANWIDTH40(bss_desc->bcn_ht_oper->ht_param))
- 		ht_oper->ht_param = bss_desc->bcn_ht_oper->ht_param;
+-	meta = afs_dir_find_block(&iter, 0);
++	meta = afs_dir_get_block(&iter, 0);
+ 	if (!meta)
+ 		return;
  
--- 
-2.43.0
 
