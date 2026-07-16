@@ -1,136 +1,81 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC765A79B;
-	Thu, 16 Jul 2026 16:11:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33D637A842
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 16:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784218306; cv=none; b=Bo0l0cGCNOBf78TR5AUCD/vWInIE6GwuPRDjLsnJEVv8HYwCzHrRuCHcqqWK6rpKfej1VKeTwPSROYH+dGI5fA9pgKoZoyz8gxKjf99aIIUml1QBFb71+Gxqak52c0M1+KKfS7xz4evFXwX9poKEto2ItHTvYJAZpgk5MePIjrk=
+	t=1784219297; cv=none; b=QwEPe9KZfv+GSgkbe69m1ul0ze5Cuy32pnW9TkI18KgOeYBDmyZUYnDGcggE3ifx1dpOLLd2zJNZQ+VH2S9xlGgkQsfk86ZRJ3mvI2Qje72JA9P3B5wUo+D4SkmawnBdhDb454R+xCPb2a35Pm/i6QqOHM2p+FbaVlEziibvVS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784218306; c=relaxed/simple;
-	bh=EeJG6i8FQ9x+3Q+k+4Wemjp63iHAulxRHU2HGhD3XYg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PObUaCe8ZHNpKgi5jwrWwIixL4C8hh3xsP9FKnOgOrC2Tzcc9H6n1UmCenvaYK5y0cWfyWitAToE1lfKKvFOWpAeGTXxrM8Oq8LHxM53TTK7v0n+7jfHMJ+Syq2KwME407hL38PCtWH3PnIQDM1e06P/RmSXqhtMf7XlKwHqa70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=m3nD08oj; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784219297; c=relaxed/simple;
+	bh=fUr7ixu183sGMGJenCMYJCI8Lxg33qiUENi+1VzbX6E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XSHXmevrinxLkdBu1QvCKPBTQLznCG57IQtFrASUJbKcU2vO0INBm5xXuQAe+PtHRi5mhbwWgb2BO0Fno90s16LGA3cS3/hElNvRg1SfzeN9CwaneQhZe4OP+shwZKblrdS1teffyvFuPoGGUzmdUbVMs//cgojU1svGsIvoHAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FW7fBtox; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="m3nD08oj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784218303;
-	bh=EeJG6i8FQ9x+3Q+k+4Wemjp63iHAulxRHU2HGhD3XYg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=m3nD08ojnKwsVuhEI7u4R3vDJpaOjCA42FKDAx82px7QkjTjEL/viE0rAK1ww1QxI
-	 UsvwTQbo7JzBcabWvzCqj52r6SpUw/3g+KdxgzdOu20bqheUJDIGImC7X2HVxFRuaD
-	 j8sI+FTsWVi30n1TTVZlw/cu9boLwo6iQOMEyHH/MWsrEOtkIXrVDttI09JlQA9QIk
-	 PZQtBmSGHwQRPaSqOUp9hiriT7PcLh34cHZI6WA8bJY7wU2Oj6o18wb7xqBkNJw9lP
-	 PXDXFYsBxCRCRj2nsxclfvvcC926QrKIxzLFkCsPipDMwkWvIw5WC5jj/L5DePO63B
-	 RcGccIYV/RbMA==
-Received: from fedora-2.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id BF17C17E0177;
-	Thu, 16 Jul 2026 18:11:42 +0200 (CEST)
-Date: Thu, 16 Jul 2026 18:11:37 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Heiko Stuebner
- <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: reject firmware sections with oversized
- data
-Message-ID: <20260716181137.5005eb02@fedora-2.home>
-In-Reply-To: <20260716143939.21903-1-osama.abdelkader@gmail.com>
-References: <20260716143939.21903-1-osama.abdelkader@gmail.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FW7fBtox"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80671F000E9;
+	Thu, 16 Jul 2026 16:28:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784219296;
+	bh=HFsUU1nBStxYRi5XCnsXThTh43emlFk+tsmZ1UUcHT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FW7fBtoxlB3SpHE5ecIGe2iAStIpGluffZOvnqp1E3rAWZHEFB/8cmKfY6deMvbKp
+	 T91Y2f7ltkob6H4MbCx4XSUwe4MAtWo5fyfTxeomMpTIcavepxe/ltY0LrHfSqitfh
+	 VzzHzi1eNmYqeomNlCPsvIGdWuU7kEXeRxFiZXw7UDhCBCTa+X3KYbZw8r1B5Znb+H
+	 9BUCMsE+FsMqdlrQm49WFNHlEmK8doyh60AhR9KSlJU58LY2NxcOhrU7Ze9ue6FOqC
+	 YXaDCtrA0/YLRez/tjZbPr/M3mNsFXpWHPpkkWjupRp3eZ8GtdwgQNbdcc24mRfOeb
+	 gzr5AlnrT22zA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Norbert Manthey <nmanthey@amazon.de>,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] smb: client: mask server-provided mode to 07777 in modefromsid
+Date: Thu, 16 Jul 2026 12:28:08 -0400
+Message-ID: <20260716162808.635328-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071454-prowler-bucktooth-a71f@gregkh>
+References: <2026071454-prowler-bucktooth-a71f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 16 Jul 2026 16:39:38 +0200
-Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
+From: Norbert Manthey <nmanthey@amazon.de>
 
-> In panthor_fw_load_section_entry(), the data size to copy is calculated
-> without validating it against the allocated section_size:
-> 
->     section->data.size = hdr.data.end - hdr.data.start;
-> 
-> If a crafted firmware sets data.size larger than the allocated memory,
-> this could cause a heap buffer overflow in panthor_fw_init_section_mem()
-> 
->     memcpy(section->mem->kmap, section->data.buf, section->data.size);
-> 
-> Additionally, if the section->data.size exceeds the BO size, could this
-> memset underflow the size calculation, leading to a massive out-of-bounds
-> zeroing of kernel memory?
-> 
->     memset(section->mem->kmap + section->data.size, 0,
->            panthor_kernel_bo_size(section->mem) - section->data.size);
-> 
-> Reject section entries whose initial data is larger than the section size.
-> 
-> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+[ Upstream commit e3d9c7160d483fc8f9e225aafad8ecbbc43f3151 ]
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+When modefromsid is active, parse_dacl() applies the server-provided
+sub_auth[2] value from the NFS mode SID to cf_mode without masking to
+07777. Apply the correct masking, same as in the read path.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index 986151681b24..a338c4f0a7f5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -545,6 +545,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
->  	struct panthor_fw_binary_section_entry_hdr hdr;
->  	struct panthor_fw_section *section;
->  	u32 section_size;
-> +	u32 data_size;
->  	u32 name_len;
->  	int ret;
->  
-> @@ -595,6 +596,13 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
->  		return -EINVAL;
->  	}
->  
-> +	section_size = hdr.va.end - hdr.va.start;
-> +	data_size = hdr.data.end - hdr.data.start;
-> +	if (data_size > section_size) {
-> +		drm_err(&ptdev->base, "Firmware corrupted, section data exceeds section size\n");
-> +		return -EINVAL;
-> +	}
-> +
->  	name_len = iter->size - iter->offset;
->  
->  	section = drmm_kzalloc(&ptdev->base, sizeof(*section), GFP_KERNEL);
-> @@ -603,7 +611,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
->  
->  	list_add_tail(&section->node, &ptdev->fw->sections);
->  	section->flags = hdr.flags;
-> -	section->data.size = hdr.data.end - hdr.data.start;
-> +	section->data.size = data_size;
->  
->  	if (section->data.size > 0) {
->  		void *data = drmm_kmalloc(&ptdev->base, section->data.size, GFP_KERNEL);
-> @@ -626,7 +634,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
->  		section->name = name;
->  	}
->  
-> -	section_size = hdr.va.end - hdr.va.start;
->  	if (section_size) {
->  		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
->  		struct panthor_gem_object *bo;
+Fixes: e2f8fbfb8d09c ("cifs: get mode bits from special sid on stat")
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+Assisted-by: Kiro:claude-opus-4.6
+Cc: stable@vger.kernel.org
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/cifs/cifsacl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/cifs/cifsacl.c b/fs/cifs/cifsacl.c
+index 472a110158eca6..c8a0a2edc6500a 100644
+--- a/fs/cifs/cifsacl.c
++++ b/fs/cifs/cifsacl.c
+@@ -767,7 +767,7 @@ static void parse_dacl(struct cifs_acl *pdacl, char *end_of_acl,
+ 				 */
+ 				fattr->cf_mode &= ~07777;
+ 				fattr->cf_mode |=
+-					le32_to_cpu(ppace[i]->sid.sub_auth[2]);
++					le32_to_cpu(ppace[i]->sid.sub_auth[2]) & 07777;
+ 				break;
+ 			} else if (compare_sids(&(ppace[i]->sid), pownersid) == 0)
+ 				access_flags_to_mode(ppace[i]->access_req,
+-- 
+2.53.0
 
