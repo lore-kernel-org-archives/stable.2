@@ -1,44 +1,45 @@
-Received: from out-179.mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CFA427F97
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A823642903B;
+	Thu, 16 Jul 2026 13:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209921; cv=none; b=YnNTvV8HtufHC1D/Kl8ECRdVi06IM21q4Z+JT+0pL6bv7SymNJvtaPZVKVZ4/HBvBCtvzXdEhQlr8Az9l4Lwv7ydeMcmsAYlYvT0O4mTJ4Twl+lSaPioGaxM3l1Wya6dZg0c1tVaJiYotnRcnuimPSiPkjy5coQiYb6+IZVogWw=
+	t=1784209921; cv=none; b=kPirFTT6PjmGqdMIR/ISzASuYw7kCXAN3Q6/1WJtF9W7KJsVBzUt/3A3BVwAz/c/YrbfUv6DBIHEdcpS4irobENoQ6HrlqGEM5wCHgzMa3LLZ3oJCctDbQmgGJ7upkFqVOHNBRJrkAYq5aqwGVa/nbOp2bXkZL/iyrrepi2RKXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784209921; c=relaxed/simple;
-	bh=M8suXWeYgfmaIuVw7umXQNd0abJwQJGQsZr268TEczM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QAxKVNceKMyvNxG3YTvNGprRtkWw+qHC5bacJdW6+QYC2StDzKqZ+EzLrQWjRTlOAiCK0c+wFwPos3qpcrwjKW35qvK7FjCdlReN9SdKpyklMVlAGSfc6/FAapurl0aTpPmxcC7cuVA7jpdZuhgQqGXvojZdT9FVmf4pr7ZH+dU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q5IVRAUs; arc=none smtp.client-ip=95.215.58.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=xJvCso6Ex4WOt0nUTKBh0SGms7lpJsuudCNMeA7peWw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gcN1DnSLVWD50AAybKu3DB+J1BZzvpAFZxmkbhUWnqJxwUnim7y7QCeEjjBy2S1SvNWKiV8TpM33bdo6c0NhyYsViSBFshMofZ6QEwG1s8JX60xfmsfndBsl5VGxOuLrF1X+wrdjkTV/vKwlXMIpWpy/HAyDH70skwgzlA4K1uQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dvq0diHj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q5IVRAUs"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784209917;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DmVCwpsSSXUTG3Z0wZNNZ5nd72RAkiSIdT82QDdRgI4=;
-	b=q5IVRAUsGkM2xV2C0/7eOA71dstGF+QZBFW8OVEY0zTkda40Rhur7yJu0UKvjKX2vtoerb
-	5lF+QCjByRaf1kid/IHUXSBwIiAzlQe688/xqeqWOgjHA76jLXuOSCU4ESApoXdyjGjOjm
-	zirN255iuZu6lpblyHwPiIQJ6ThTMXk=
-From: Fuad Tabba <fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dvq0diHj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48F51F00A3A;
+	Thu, 16 Jul 2026 13:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784209920;
+	bh=TwKtKc8G3rDFQY27oU/jDypEb0n6W5iUqeDqGQQQwSk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dvq0diHjJr/i1LizPXVIEui0QVp/19gD2pGLqrUuQSdyJOye5o0Jb9EMU34m8yj0w
+	 waN/I6rjXiHpTOpqiOxThM5ylmzcqRz7M4BCp/Bxf2mGMKZ088ZpEoaCt7sWyltNG3
+	 pOTtoTgDzyBqm/lOMrcPoOJWUhecTnxoN/G/Pyro=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Fuad Tabba <tabba@google.com>,
-	Will Deacon <will@kernel.org>
-Subject: [PATCH 6.12.y] KVM: arm64: Clear __hyp_running_vcpu when flushing the pKVM hyp vCPU
-Date: Thu, 16 Jul 2026 14:51:25 +0100
-Message-Id: <20260716135125.302899-1-fuad.tabba@linux.dev>
-In-Reply-To: <2026071626-cattail-yippee-a1e7@gregkh>
-References: <2026071626-cattail-yippee-a1e7@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Bryam Vargas <hexlabsecurity@proton.me>,
+	Keith Busch <kbusch@kernel.org>
+Subject: [PATCH 7.1 352/518] nvmet: fix pre-auth out-of-bounds heap read in Discovery Get Log Page
+Date: Thu, 16 Jul 2026 15:30:20 +0200
+Message-ID: <20260716133055.526538397@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
+References: <20260716133047.772246337@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,49 +47,106 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-commit e8042f6e1d7befb2fb6b10a75918642bcd0acf9a upstream.
+------------------
 
-flush_hyp_vcpu() copies the host vCPU context into the hyp's private
-vCPU on every run. ctxt_to_vcpu() expects a guest context to have a
-NULL __hyp_running_vcpu, which is only ever set on the host context, so
-that it resolves the vCPU via container_of(). While this is generally
-the case, flush_hyp_vcpu() copies the context verbatim and does not
-enforce this, so a value provided by the host is dereferenced at EL2
-(host -> EL2).
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-Fix by clearing __hyp_running_vcpu after the copy.
+commit 53cd102a7a56079b11b897835bd9b94c14e6322c upstream.
 
+nvmet_execute_disc_get_log_page() validates only the dword alignment
+of the host-supplied Log Page Offset (lpo).  The 64-bit offset is then
+added to a small kzalloc'd buffer that holds the discovery log page
+and the result is passed straight to nvmet_copy_to_sgl(), which
+memcpy()s data_len bytes out to the host with no source-side bound
+check:
+
+    u64 offset      = nvmet_get_log_page_offset(req->cmd);  /* 64-bit host */
+    size_t data_len = nvmet_get_log_page_len(req->cmd);     /* 32-bit host */
+    ...
+    if (offset & 0x3) { ... }                               /* only check */
+    ...
+    alloc_len = sizeof(*hdr) + entry_size * discovery_log_entries(req);
+    buffer = kzalloc(alloc_len, GFP_KERNEL);
+    ...
+    status = nvmet_copy_to_sgl(req, 0, buffer + offset, data_len);
+
+The Discovery controller is unauthenticated -- nvmet_host_allowed()
+returns true unconditionally for the discovery subsystem -- so the call
+is reachable pre-authentication by any TCP/RDMA/FC peer that can reach
+the nvmet target.  With a discovery log page of ~1 KiB, an attacker
+requesting up to 4 KiB starting at offset == alloc_len reads the next
+slab page out and gets its content returned over the fabric (an
+empirical run on a default nvmet-tcp loopback target leaked 81
+canonical kernel pointers in one Get Log Page response).  Pointing the
+offset at unmapped kernel memory faults the in-kernel memcpy and
+crashes (or panics, on panic_on_oops=1) the target host instead.
+
+The attacker-controlled source-side offset pattern
+"nvmet_copy_to_sgl(req, 0, buffer + ATTACKER_OFFSET, ...)" is unique
+to nvmet_execute_disc_get_log_page in the entire nvmet codebase: every
+other Get Log Page handler in admin-cmd.c either ignores lpo (and
+silently starts every response at offset 0) or tracks a local
+destination offset with a fixed source pointer.
+
+Validate the host-supplied offset against the log page size, cap the
+copy length to what is actually available, and zero-fill any remainder
+of the host transfer buffer.  The zero-fill matches the existing
+short-response pattern in nvmet_execute_get_log_changed_ns()
+(admin-cmd.c) and prevents leaking transport SGL contents when the
+host asks for more bytes than the log page contains.
+
+Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
 Cc: stable@vger.kernel.org
-Fixes: be66e67f1750 ("KVM: arm64: Use the pKVM hyp vCPU structure in handle___kvm_vcpu_run()")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Reviewed-by: Fuad Tabba <tabba@google.com>
-Tested-by: Fuad Tabba <tabba@google.com>
-Link: https://patch.msgid.link/20260606175614.83273-2-imv4bel@gmail.com
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ tabba: adjust flush_hyp_vcpu() context ]
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/nvme/target/discovery.c |   23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index 75f7e386de75..eec36c46ce29 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -100,6 +100,9 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+--- a/drivers/nvme/target/discovery.c
++++ b/drivers/nvme/target/discovery.c
+@@ -166,6 +166,7 @@ static void nvmet_execute_disc_get_log_p
+ 	u64 offset = nvmet_get_log_page_offset(req->cmd);
+ 	size_t data_len = nvmet_get_log_page_len(req->cmd);
+ 	size_t alloc_len;
++	size_t copy_len;
+ 	struct nvmet_subsys_link *p;
+ 	struct nvmet_port *r;
+ 	u32 numrec = 0;
+@@ -242,7 +243,27 @@ static void nvmet_execute_disc_get_log_p
  
- 	hyp_vcpu->vcpu.arch.ctxt	= host_vcpu->arch.ctxt;
+ 	up_read(&nvmet_config_sem);
  
-+	/* __hyp_running_vcpu must be NULL in a guest context. */
-+	hyp_vcpu->vcpu.arch.ctxt.__hyp_running_vcpu = NULL;
+-	status = nvmet_copy_to_sgl(req, 0, buffer + offset, data_len);
++	/*
++	 * Validate the host-supplied log page offset before copying out.
++	 * Without this check, the host controls a 64-bit byte offset into
++	 * a small kzalloc'd buffer: a value past the log page lets the
++	 * subsequent memcpy read adjacent kernel heap, and a value aimed
++	 * at unmapped kernel memory faults the in-kernel copy and crashes
++	 * the target host. The Discovery controller is unauthenticated,
++	 * so the bug is reachable from any reachable fabric peer.
++	 */
++	if (offset > alloc_len) {
++		req->error_loc =
++			offsetof(struct nvme_get_log_page_command, lpo);
++		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
++		goto out_free_buffer;
++	}
 +
- 	hyp_vcpu->vcpu.arch.sve_state	= kern_hyp_va(host_vcpu->arch.sve_state);
- 	/* Limit guest vector length to the maximum supported by the host.  */
- 	hyp_vcpu->vcpu.arch.sve_max_vl	= min(host_vcpu->arch.sve_max_vl, kvm_host_sve_max_vl);
--- 
-2.39.5
++	copy_len = min_t(size_t, data_len, alloc_len - offset);
++	status = nvmet_copy_to_sgl(req, 0, buffer + offset, copy_len);
++	if (!status && copy_len < data_len)
++		status = nvmet_zero_sgl(req, copy_len, data_len - copy_len);
++out_free_buffer:
+ 	kfree(buffer);
+ out:
+ 	nvmet_req_complete(req, status);
+
 
