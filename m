@@ -1,110 +1,65 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD33A2E738F;
-	Thu, 16 Jul 2026 08:53:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DE23CDBD3;
+	Thu, 16 Jul 2026 09:00:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784192043; cv=none; b=hsmRRqKOE6Xg6wwzQ4JmjMXnK4ySnsRRlfbXZZsDGXE2QfVuhMtje81GacniYWIlXX+NChfPAP3xdyfGUNGrXUQN5V2hK57lTH2bE9iIPCgJ/7UCzfbLrkd+HOO7K6I/nrvVdZn6onRjFAbUADrgmdxhMBOtdJjd4tj4pHqY+dg=
+	t=1784192413; cv=none; b=n/oVL0eBnl1yCrccuKKevLTVL7ysUos0ttrB+4BC6XFPOgMkwJJJvSCTwFvCQUdrYS0SuyuODcsVgWHeHpz9BFT6TjyQSlWIuu/dcKr6HRhguJab6lgYvdtVzE6j7dTPOKw3BPV4OHjB9EWOEXSHfexUqhqQyAzpSUHwOE8I1D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784192043; c=relaxed/simple;
-	bh=kMR8NIzajtWQFwhUYgzdGr+Ajd3kQ1pJ8pfsuDVwc+Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lGZGyuB2nD5ZrHVIGJrqcx7vExrdNxvXrH2ynVxPe55Hmyx/KFIyD5bweiT7IkHOPprYE0WLvIkWBBncmTmItT0EoKt2A7yw3034lsPnXbVz2mvbzztE2zrYRwu522vXVbIjAkbBq1ehd31YaUsPIm8c2k1VuThRQsJioMcCrS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=h1OghJ4o; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1784192413; c=relaxed/simple;
+	bh=fAISxBfCHu/Lz8kZZfFWQ1ZNu8lOMfcH8TVMQdRNR8Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i2Yvuo7iWWOrUXyBw/uhw1Vlp7PYjhBeWP860o/FR/MQ6rpjvDIeA63A8qSeBMlbFK8/obzPuYWQRYMxh0PpZMjuw0cmg82Qxp84amQKkjXjnvImthBra8MQyfQZKVBXzdjp36LQDJi0tKogtjH9vesXkAYvbIystf82rqt4Vws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=noNfZIRr; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="h1OghJ4o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Pa
-	gnMdLTxdPZ3VTSKDDLFfBMbfc8AaC+chKNmgfLf2w=; b=h1OghJ4oFmSa9fYmqd
-	BxkvLpGcxfNXxZv6mHhxx8K11zqCHeiVZQ0YhNIv0UjsSwQFubvbnoC6fD8cw7nj
-	aRNBB+kM2q0xLci7pKnBE/39+OEZRoll/SKRCaiNZBmp4vRGBrVcpHQyhpxUXriP
-	q0kacaKbXkPm8XQR7+gMppSDw=
-Received: from xwm-TianYi510Pro-14IMB.. (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDnRs7zm1hqNOsPIA--.46301S2;
-	Thu, 16 Jul 2026 16:53:07 +0800 (CST)
-From: Weimin Xiong <xiongwm2026@163.com>
-To: xiongwm2026@163.com
-Cc: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	robin.clark@oss.qualcomm.com,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	linux-arm-msm@vger.kernel.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="noNfZIRr"
+Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
+	by mail11.truemail.it (Postfix) with ESMTPA id B7B3622911;
+	Thu, 16 Jul 2026 11:00:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1784192403;
+	bh=fAISxBfCHu/Lz8kZZfFWQ1ZNu8lOMfcH8TVMQdRNR8Q=; h=From:To:Subject;
+	b=noNfZIRrl2EwUPWE+pRvyCJsUMmppBVJ6mn93bd5MiIqrovXApk6Jp1OJyxqPcONQ
+	 PIanDY0+JlqiRRidr1i4pFfpHcUdrkZ/QrwOBM7qokFn6wpps7OAE+ppAlOZi6uizj
+	 AM/V00dRl8Yh5kMmP7lQdETeirdkjgUQt5rJb+bkJsrIKA0yrtFlZohhIdgvNjgIOs
+	 /eD0Nctx9kzmwQhFlg36ubqtg9+ha//n5126M8PGsT2j+Zqx+ncBRM55VeCu/vE63o
+	 lsYGPWSFfLwOPmLN4f5+2PQwXE1XAigfXGJMLWvSO9u5+NgFiq/M3qTBBrbiDHI0V6
+	 q7C46gT2SFf7A==
+Date: Thu, 16 Jul 2026 10:59:59 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: George Valkov <gvalkov@gmail.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, johannes.berg@intel.com,
+	Dan Carpenter <error27@gmail.com>, briannorris@chromium.org,
+	s.kerkmann@pengutronix.de, kees@kernel.org,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3] iommu/msm: Fix dangling list entry on probe failure
-Date: Thu, 16 Jul 2026 16:53:12 +0800
-Message-ID: <20260716085313.207069-1-xiongwm2026@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260716013229.91014-1-xiongwm2026@163.com>
-References: <20260716013229.91014-1-xiongwm2026@163.com>
+Subject: Re: [PATCH] wifi: mwifiex: fix freeze for 60 seconds caused by
+ request_firmware
+Message-ID: <20260716085942.GA99146@francesco-nb>
+References: <20260712221709.7099-1-gvalkov@gmail.com>
+ <20260715145228.GG56330@francesco-nb>
+ <CADOrJmYwYs08REP3eSwiTQegcKHFLwW0gpUexhomLDtO91ASMA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDnRs7zm1hqNOsPIA--.46301S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KrW3Gr4fJw1fJryUAw4UXFb_yoW8ArWfpF
-	yUWFZ8KrWUG3WxKF4UAa1Uur92vrsFya4FvF4rJayq9w45ZrW8Jas2ya48tr1rArZ5Ga17
-	ta4ftr4v9r4rJr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U85r7UUUUU=
-X-CM-SenderInfo: x0lr0wdzpsijqw6rljoofrz/xtbC7xPTY2pYm-MmZAAA3U
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CADOrJmYwYs08REP3eSwiTQegcKHFLwW0gpUexhomLDtO91ASMA@mail.gmail.com>
 
-Move the list_add() call to the end of msm_iommu_probe() instead of
-adding cleanup paths, which avoids the dangling list entry problem
-entirely (suggested by Mukesh Ojha).
+On Thu, Jul 16, 2026 at 11:26:54AM +0300, George Valkov wrote:
+> Please backport to 6.18 and 6.12, which are used by OpenWrt.
+> Initially I did not know that I could insert
+> free text between the commit message and the patch.
+> I apologise for that. I am still learning how to use git send-mail.
 
-This approach simplifies the code by ensuring the iommu device is
-never added to the global list until after all potential failure
-points have passed.
+Please see Documentation/process/stable-kernel-rules.rst
+It should explain everything you need on this regard.
 
-Changes in v3:
-- Move list_add() to the end instead of adding cleanup labels
-  (suggested by Mukesh Ojha)
-
-Changes in v2:
-- Resend the former patch 4/4 independently; patches 1-3 from v1
-  are dropped.
-- Explain the dangling list entry and stale sysfs device consequences.
-- Add Fixes and stable tags.
-- No code changes.
-
-Fixes: 42df43b36163 ("iommu/msm: Make use of iommu_device_register interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Weimin Xiong <xiongwm2026@163.com>
----
-diff --git a/drivers/iommu/msm_iommu.c b/drivers/iommu/msm_iommu.c
-index 0ad5ff431..9da650a82 100644
---- a/drivers/iommu/msm_iommu.c
-+++ b/drivers/iommu/msm_iommu.c
-@@ -778,8 +778,6 @@ static int msm_iommu_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	list_add(&iommu->dev_node, &qcom_iommu_devices);
--
- 	ret = iommu_device_sysfs_add(&iommu->iommu, iommu->dev, NULL,
- 				     "msm-smmu.%pa", &ioaddr);
- 	if (ret) {
-@@ -790,9 +788,12 @@ static int msm_iommu_probe(struct platform_device *pdev)
- 	ret = iommu_device_register(&iommu->iommu, &msm_iommu_ops, &pdev->dev);
- 	if (ret) {
- 		pr_err("Could not register msm-smmu at %pa\n", &ioaddr);
-+		iommu_device_sysfs_remove(&iommu->iommu);
- 		return ret;
- 	}
- 
-+	list_add(&iommu->dev_node, &qcom_iommu_devices);
-+
- 	pr_info("device mapped at %p, irq %d with %d ctx banks\n",
- 		iommu->base, iommu->irq, iommu->ncb);
- 
--- 
-2.34.1
+Francesco
 
