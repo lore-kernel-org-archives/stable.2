@@ -1,219 +1,163 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.20])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B72134040E;
-	Thu, 16 Jul 2026 12:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784204360; cv=pass; b=DAk+sId4kRj9m+n4ky6DjYujeI3VrdtZpS1y9ipkild0zcFIBZJuhSEPy8303V+DGv4JdzwPp1LdGMWl+Svo132tMNEbgwuaL89s+/Sfl0I3aDapwtcGs4wXwl8xC9cnENyfrTJXWspynWdeuk0DvUxXk/7pH+iQGeXpFFYmUYU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784204360; c=relaxed/simple;
-	bh=86ktuEqjR97JcjqSyoT6TZbOAkVWaTCAmVx1ddVDk/s=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Xi2qQVC/N/Y8C00TdOCUf0uB51wA39e6/OO7rzSvnsxsFpnhuKmS7MTKlkGPN44CEggLfzIf6zs/Esn4rCbldi977H0nEUtyEedI4sDBE9kkvYvZGk+uX9znJWMM89mVo55/61cBKSjgz81aaO01R0zviSk40y3hxsfXfI4cR04=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=OiE+KeNG; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=iyZKomec; arc=pass smtp.client-ip=85.215.255.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C8D41DEC8
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 12:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784204405; cv=none; b=BVQ58KpfNFobm/Mt4a/dLDoM0Et8Pzy9Cuo0TdxqQwhhj8rzQCgCN0o7xDdoNrSFnd5IVjakyF2Lc5vKSNRXbdrIZduaeGzhmJuXucXf4KW9b6gDGiYIANXvymShKwd6cvp5mUhzeZUMQM04Bma+dPr8sCxshpQrD9roO0ogmnE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784204405; c=relaxed/simple;
+	bh=IvihLxTzJw1YuxfZsmv2OMWXoTk1psFfLCiJdYU77uo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bm7+vsoVydgjUgCfElMqsjOvXTrFOCfjwd1q275RMqzrgivPNZCL4vGDdjClYOkpLUXTFGiie0f2YQkKJv6zXPFZ8zu0wEXXzQOJ06TFR+cu04RyItvAzvBr8raafFMjsLmoDrtjmlU/b24TD4fzvB/Rqer8RjNjgOem85C2/3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Oo8ny8Zo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NFIL2xiG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="OiE+KeNG";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="iyZKomec"
-ARC-Seal: i=1; a=rsa-sha256; t=1784204340; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Tzw9DS5+HRIniAteMyAK3e0Bpuzg7FXjz3eTYXmf4yIK5Up+mVNJzidMUnioYsgi+f
-    UYGqxv/sMqpeihkPL2b9DFPt7t9ECx7Hn4UhdXcmbEKVzOWn+fb4cpJLZzkAepUIsUrD
-    JnLgHEitJ4iuQshZ13f/P6jkJSqBK6ekVt67gUhV4WIGvAus8/u4KIy4AtwIZs3QauOj
-    FTz9XNyj20H55LZNCT5VFes0xuEFjxvtGCC0PVNzSYE6byH9AG23wAE9vuQyuL58Y0Aj
-    FjNlWL5gfKYNzV9C/+XMSI8r6RyVLrIX2VPHCcKbYmeaWbVHl61l4bI7bALZ1M0/tAX3
-    2Vdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784204340;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=86ktuEqjR97JcjqSyoT6TZbOAkVWaTCAmVx1ddVDk/s=;
-    b=tIAgvq7qXcsQ/lQVG6HVVqTeePbnD7cPkHrBjAmNwmFzL+QJ6LeEAN89hlgX+rYK5S
-    /qiEs72JuHkklF+5e4HpXNcv3mxZnrZVoObqaYvwnCEL3UPZW2nllznefZHdwqx6Ikfg
-    ZwC4P3HTHNit1mlmh9QYItzv6LA+pTleKmB3/+JQFl88Xt0G5Qnq7I42t3lyq/lFQMhA
-    R0O9CIFa234DyQzuddsCaNT/UcCYj8Ez4/46EnATLhUOZPXL7jlBUuzcW1AUrvJDpcs8
-    rX8JDOtYGvUJ6Lvz+l0inHDoqjp2uNV8+zbVZqWs0crtI8MWGDMHhaJMV0BSyLwoIdR6
-    wFIA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784204340;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=86ktuEqjR97JcjqSyoT6TZbOAkVWaTCAmVx1ddVDk/s=;
-    b=OiE+KeNGnXaSILHJhsaO+DbH4UIGX5PwZOB3inV72i6SoLnuwTC9GS+W3ZthVl6+Mt
-    fkBXz8TkOl/w0HgZbeQSdlDTKgqgNo4ojN4loIjedt/iytmb0mvRV+mWWOMO0VAsMG72
-    AsH/4zc9IAaTiro0UGEMhxFPn9i5oAlgacQeYll/ch1Ai6BGXO+bJWNeBnNHBinoSMPC
-    Qjn83lW/Jb3eUZ8DcU3LNB2MRscIYvN8s4H9YN8fVnzeO63j4yFWtapbiJUqFJ8j5DPg
-    freZjgEYt85XwufsG4Qd7CXmpfHf6uGCCjSHfnK/0gSVGm0dyzJngKSysRaC/0xmtC6V
-    hFfg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784204340;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=86ktuEqjR97JcjqSyoT6TZbOAkVWaTCAmVx1ddVDk/s=;
-    b=iyZKomecSnhxzvdpaC79o19OPcENwSSBAQwnuGdq6rdJG4diym77S1WKg60I30UkRE
-    xyPRef7nr0DBVNlRoqCA==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS0JpbnciN91aF+UY0Pm4r8tXCtzZjxu6AAT8="
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.5.6 AUTH)
-    with ESMTPSA id Q4b76426GCJ0bfR
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 16 Jul 2026 14:19:00 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Oo8ny8Zo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NFIL2xiG"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GBiKrV2678168
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 12:20:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=gnfV8mXoh8bJi/aMBOJjTI3s
+	rvXjZPgofaMn/qDqyNA=; b=Oo8ny8ZocNouag3A4omFy8V+TOzzij2pOY5yAJ/G
+	5kmCXudd6cVjO6qO8hS/VrMwcaB3QjXMpuDvCxx4Ozup9nV52IQdqSe3Eq8JX0eb
+	5W+vlORkhKU0KbHu80oYT9560uQuQy8aBCIvN9hj+xiiHdBWXJtqnA4MYvghPY3b
+	xb4f4LquG1ga3qzdHrf11TIDxgT2INR4RYwvQmqfMbTk8dqgKk+6+WTK7+gQYphQ
+	qjFC5orxY29bcCjFHDPfLb+pQtVlzuJm2Srh9RVqjR89+7mH2qGgZPJrEFjBW1B8
+	tAfkeMHdOmi9hfwM9aH5bkRdC1t33yvJ++os3qTYQ0wwtg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feve1rtme-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 12:20:00 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso83848665ad.0
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 05:20:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784204400; x=1784809200; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gnfV8mXoh8bJi/aMBOJjTI3srvXjZPgofaMn/qDqyNA=;
+        b=NFIL2xiGDZ6qm8gVvnWfGOWxDbeX3wZbW3CfDqRpgQwqK69c3YDBCIfNht+TCJT4Xk
+         MrDetGgV6Ms/fzLEW7Vku6NxM4OCxYuhBUH/r571m1k34Rhm3nObP4COD3vHn4Sd0in/
+         WjjGPTy+TwmlWJaMXjL0dV0AlqW/WtX5jQiHHU0BMHNZ9fCd8/38ZkBSDUS4QXf2bl6x
+         qYGd8HWH9gODGki2kEr766aldZjSnd6gSkH0ultmNOTTvVfJK8zmYGmhHsOVDlP4TtKU
+         OdKE4n876Y2jK/tVJZTByRGAOFKd73QdvR14SER43QOOAoPPQ0UH0l4fgzDIUCntUjUG
+         aKWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784204400; x=1784809200;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gnfV8mXoh8bJi/aMBOJjTI3srvXjZPgofaMn/qDqyNA=;
+        b=HmLU7Ojx1Ta6/JiT+tYzXmafSXgF2n9JPPA0VsDkJYR/LL4IPz0W3wqd1G1uzxcCfN
+         jBFccwKaxsuiQklEJYEw5YuxetEgdmeT66E/4rKu9Rb754cxup0HtyvGI+E0K/txrysh
+         p9kfwY2Vnwbea9tcNKVKTAGYA2omjcUua1A7pt+r1dwsjyDPTNeNl+P9tapwteGAdf7+
+         PjbukVAo+TJM2YbARcmYU408QUbeuVKP2PoN/dKFV6O+rHErqrCnY9euGFMIopW83O8u
+         w2trsbgvQ6FCA9ha4AchYtcMvcd06YyiGajLGi8ajrmCfgK+nr7oiSCvTk+zxMV588o9
+         vr8A==
+X-Forwarded-Encrypted: i=1; AHgh+RrhwxNxF7KoCGE15R/oNCZ/WneeorXxbSsfk7+Mfcs0rSMAvurN9VXT/RJAcB3dkqBSMXU67l0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHhOfdRUlQbYA8MJ3MVNWDbA7AQ9LE+D8L2KnHvDTBaKNtsqVx
+	6vZzR2Sd6c3SceFyXdhdPw5UQ9Bx6wh/h/LmBSBaSojd/8z8VeLPtkVD9uH2ZL3dPjInb7D/Hk6
+	C5WEmv+LBQrqogP6KPcWlrUv17LDYKIq6lLN81kKtwXv4MOul2oCvGhzukos=
+X-Gm-Gg: AfdE7cnEb+HAo28Ahl/bqPwvp1o9rBftzsjwU/oEqX0XgYDS0OVBXdTaOMc55S9eg0E
+	cwq2RB+wCfmrw7bDDwxTNSKA3lMm6F1DKdNmps+/eA4kkQePNZUm1zJwvdj5ckyQXO2pRO7FqFR
+	8aXrOBGNFwqwLNfPetHHLUzeY4zM/3nfEW3U7ox4LQUxEpTz1tXHKQt1pIIvWu8RBynjB5n3Huu
+	sYA/Za0KKpUj2m48AYcoHcB/6hWK+Gfz0XifKbgAHWwX9J7rRbjc9cqgwtdXVDEbMwlauYyAwmU
+	JfbsTO8QZrfYb45nBIbWRILMle3FDmIgLoiAheZ2/VRNoXqzfPcXmYch5a9LPgSWEV5TWUwrT2l
+	JCmYxdGFkdzIUcVVViH1zt9gxoQg=
+X-Received: by 2002:a05:6a20:c786:b0:3c3:9ed1:2549 with SMTP id adf61e73a8af0-3c39ed1356dmr135368637.41.1784204399457;
+        Thu, 16 Jul 2026 05:19:59 -0700 (PDT)
+X-Received: by 2002:a05:6a20:c786:b0:3c3:9ed1:2549 with SMTP id adf61e73a8af0-3c39ed1356dmr135323637.41.1784204398889;
+        Thu, 16 Jul 2026 05:19:58 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13cdc4accf4sm2336066c88.10.2026.07.16.05.19.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 05:19:58 -0700 (PDT)
+Date: Thu, 16 Jul 2026 17:49:52 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Weimin Xiong <xiongwm2026@163.com>, robin.clark@oss.qualcomm.com,
+        joro@8bytes.org, will@kernel.org, linux-arm-msm@vger.kernel.org,
+        iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH v3] iommu/msm: Fix dangling list entry on probe failure
+Message-ID: <20260716121952.rccgie7y7ymkuh54@hu-mojha-hyd.qualcomm.com>
+References: <20260716013229.91014-1-xiongwm2026@163.com>
+ <20260716085313.207069-1-xiongwm2026@163.com>
+ <6caf8ca0-8be5-4935-9766-10d21c71ac37@oss.qualcomm.com>
+ <0f5ef1fe-7d15-4354-90eb-a7e42623ae94@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [Letux-kernel] [PATCH] i2c: jz4780: Cache clock rate at probe to
- prevent CCF prepare_lock deadlock
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <aljCGkhZEQHzZVSW@zenone.zhora.eu>
-Date: Thu, 16 Jul 2026 14:18:49 +0200
-Cc: linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- linux-mips@vger.kernel.org,
- Paul Cercueil <paul@crapouillou.net>,
- linux-i2c@vger.kernel.org,
- Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <500EE2C0-B916-47DF-874F-EBB2CF1C779D@goldelico.com>
-References: <c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
- <alf7rSWaLBO8WBkR@zenone.zhora.eu>
- <36148F30-156F-4E74-8765-D718F6FE7E76@goldelico.com>
- <aliLbNJ51Ns0dIHX@zenone.zhora.eu>
- <9421BB47-EFC8-4D82-989F-82A84FE46749@goldelico.com>
- <aljCGkhZEQHzZVSW@zenone.zhora.eu>
-To: Andi Shyti <andi.shyti@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0f5ef1fe-7d15-4354-90eb-a7e42623ae94@arm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDEyNyBTYWx0ZWRfX2avwRPNFmnsf
+ a1odLbVKxOnn5yEcBoWWaOilZD6/UOkm6PvKTlmWVMVyGLVnO2jHruedWe53JL2HSj+hfdNxLoc
+ 4Frv742oNsDJH+xqOKTUmuQXotL8XZoqvZ9lLHgfS4xl5evL1Ty3y6idQYVCmMfSnR1Trgar9JQ
+ ymp0F3TbsjXjtz7xOwnXNsHkmsY3ss5sot2hucmjHEmIM/DAowwldEcIpYDpguXYQYCEG/8smZE
+ 7qvWLc1GPOyETE5lJ8hmsCn20cUDH0NrttfOMUqD00zqkGd81iMXDF7fK/1kTRoJNGYmSHFidpI
+ 2sRg4Rtqd2pCZRZX/ToGD4azmL7xe5k9ixJlOHQwHeiek99jZKZZ5RKcwtdoCnT9ddmV1A+W8g2
+ QJBAjlWLAEqJ2FhGqGbfaSnIkyTqKQ/Tv0mc6pWEJBhCttPfeTbGIzbapqVIFcX1UiL4tbwbfQj
+ LuVte3AF3Jf6x6oBJ/w==
+X-Authority-Analysis: v=2.4 cv=DvpmPm/+ c=1 sm=1 tr=0 ts=6a58cc70 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=3MspdcVbyA1qY6HslxQA:9 a=CjuIK1q_8ugA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: xSxRMqn2F2q0xV9CkyVj4nMAiRQdLcxY
+X-Proofpoint-ORIG-GUID: xSxRMqn2F2q0xV9CkyVj4nMAiRQdLcxY
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDEyNyBTYWx0ZWRfX3OrhgDm2rDxh
+ aG/bmAGA+srYOQ6WSJjSlfc8eFuvJnsuKuCp2WDhzCaPKTlmL9JAuXKPM2hLa5s/jIR7ihKAV+7
+ CcYV0V5HgHWujVzxEHLCKgkL125Olvg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-16_04,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607160127
 
-Hi Andi,
+On Thu, Jul 16, 2026 at 01:05:57PM +0100, Robin Murphy wrote:
+> On 16/07/2026 10:42 am, Konrad Dybcio wrote:
+> > On 7/16/26 10:53 AM, Weimin Xiong wrote:
+> > > Move the list_add() call to the end of msm_iommu_probe() instead of
+> > > adding cleanup paths, which avoids the dangling list entry problem
+> > > entirely (suggested by Mukesh Ojha).
+> > > 
+> > > This approach simplifies the code by ensuring the iommu device is
+> > > never added to the global list until after all potential failure
+> > > points have passed.
+> > > 
+> > > Changes in v3:
+> > > - Move list_add() to the end instead of adding cleanup labels
+> > >    (suggested by Mukesh Ojha)
+> > 
+> > I think this approach introduces a race condition, because e.g.
+> > iommu_ops->of_xlate() depends on the item being present in this list
+> 
+> Yes, the IOMMU instance must be ready to be fully functional *before*
+> calling iommu_device_register(), since that can start probing and attaching
+> client devices before it returns.
 
-> Am 16.07.2026 um 13:41 schrieb Andi Shyti <andi.shyti@kernel.org>:
->=20
-> On Thu, Jul 16, 2026 at 10:33:56AM +0200, H. Nikolaus Schaller wrote:
->>> Am 16.07.2026 um 09:43 schrieb Andi Shyti <andi.shyti@kernel.org>:
->>> On Thu, Jul 16, 2026 at 07:44:20AM +0200, H. Nikolaus Schaller =
-wrote:
->>>>> Am 16.07.2026 um 00:07 schrieb Andi Shyti <andi.shyti@kernel.org>:
->>>>> On Fri, Jul 10, 2026 at 08:58:35AM +0200, H. Nikolaus Schaller =
-wrote:
->>>>>> Fix a severe AB/BA deadlock between the Common Clock Framework =
-(CCF)
->>>>>> and the I2C adapter lock, which triggers when an I2C-controlled =
-clock
->>>>>> generator (like the Si5351) is registered or modified under the =
-CCF.
->>>>>>=20
->>>>>> During a clock frequency change, the CCF acquires its global =
-'prepare_lock'
->>>>>> mutex and calls i2c_transfer() to update the chip registers, =
-stalling
->>>>>> for the adapter's I2C bus lock.
->>>>>=20
->>>>> I don't think caching the clock rate once at probe is safe.
->>>>=20
->>>> Ok, valid point to discuss.
->>>>=20
->>>>=20
->>>>> If the controller clock rate changes afterwards,
->>>>> jz4780_i2c_set_speed() will keep using the stale cached value and
->>>>> calculate incorrect bus timings.
->>>>=20
->>>> But: is clock rate ever changed during operation? Usually it is =
-defined
->>>> by the device tree constant.
->>>=20
->>> That's what you are saying in your commit message.
->>=20
->> The Si5351 clock generator driver is connected through this i2c bus. =
-And that
->> is referred to by "when an I2C-controlled clock generator (like the =
-Si5351) is=20
->> registered or modified under the CCF".
->>=20
->> Only then, this bug faces surface. Because that driver changes it's =
-clock through
->> sending i2c commands which also ask for the lock.
->=20
-> If you make a claim in the commit message, I expect the code to
-> support it.
+Right..I overlooked it.
 
-I still do not see where you read the claim you criticize.
+v2 is fine ..
 
-The commit messages says:
 
-> Fix a severe AB/BA deadlock between the Common Clock Framework (CCF)
-> and the I2C adapter lock, which triggers when an I2C-controlled clock
-> generator (like the Si5351) is registered or modified under the CCF.
+@Weimin,  JFYI, Always send patch revision as a new thread not as a reply of
+previous version.
 
-This clearly says that the clock generator is I2C controlled.
-
-And that the problem arises if the frequency *of the clock generator* is =
-changed.
-
-It does not say anything about *changing the I2C bus clock* itself.
-
-> During a clock frequency change, the CCF acquires its global =
-'prepare_lock'
-> mutex and calls i2c_transfer() to update the chip registers, stalling
-> for the adapter's I2C bus lock.
-
-This describes what happens in the current code:
-- someone wants to change the clock frequency of the Si5321
-- this acquires the CCF lock for this change
-- the driver tries to read/write some registers from the i2c chip
-- for this it does some I2C transfer
-- which locks the I2C bus
-- the jz4780 driver tries to read the I2C frequency in its I2C bus =
-driver
-- and the system (including I2C) hangs
-
-What is not clear here?
-
-The patch fixes this by caching the i2c clock rate and avoiding that
-an i2c transfer asks the CCF for anything.
-
->=20
-> You say that the clock rate can change, but then you store it
-> only once at probe time. That immediately suggests that later
-> rate changes will be ignored by the transfer path.
-
-Where does the commit message say that the *I2C clock rate* is changed
-or can change?
-
-It can't be changed by standard API and therefore its clock rate can be
-cached as proposed during probe of the jz4780 bus driver.
-
->=20
->> But again: how would you solve this?
->=20
-> It's not my role to give you a solution. I'm just commenting on
-> what I see.
-
-If you can comment, I simply expect you to have experience to give
-a hint how to solve it differently.
-
-> Besides that, is that an issue you have encountered yourself? Is
-> it a frequent issue?
-
-Yes. It comes 100% if you connect an Si5351 to the CI20 board or
-others board which use the same driver (e.g. some X1600 based one).
-
-It is likely that any other i2c connected device which registers some
-clocks is running into the same problem.
-
-Therefore I consider this as a fundamental design flaw which is solved
-by this patch.
-
-BR and thanks,
-Nikolaus
-
+-- 
+-Mukesh Ojha
