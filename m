@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803121A2C25
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:40:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD26369D68
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:41:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784202054; cv=none; b=YfxLw1jC/kiesFhZSI0jy/RVZ+5GDisfFprTUA+jVQCGMdyz8dYfx3AjtxRGL+LNeXcTOhuINt6+QAi80ddbYNUofdrUJikGXsvMc1t+gcdXV6G7eEZv9csiLllxTolZzu0JDDoMQiTJjAIoJsuK4PgNK4GtR6D7qxWbFaEzDeY=
+	t=1784202068; cv=none; b=PbCHR+wwbJvzTEiwyJiaaG3wSLtd3EC66PmVgFQgnn3L7SK9hydxYTfZAqRkz0VCotlvtOOAy0YYfa+dt+yb6O0Z5MMiCwVVHS8GpJ7RAq8UdbGjsaaBweYM9s5Fxsu8zf9Va8zeCxXIdwZBGlGiRuAxM6qC76t9PX+jgoy6zuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784202054; c=relaxed/simple;
-	bh=hZgCgOCoornqt8Ct82L4jbRel5wqHjB5fS/HgAzjx8c=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FhHx32TrobAKv4aP49lAru1bjD9lR35mTbf9xaCZ+PMpWwPA5ZzNdZZSSxqfGHwOgoUjd4G8uZ/gOYcUG71zsWPRCZ8hoJppDuvoNgPVDuZ1MhvhcwdrDSo8NJsxz3aT0dzcKOimsBet6UKK8SHoS8MyhB0gfecmHQveP4q+TxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Hes7pwn6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784202068; c=relaxed/simple;
+	bh=G/Yv7cIgA+1E8wyT/RAGkjKkSjQ0CI0ncP3zmq7Oi3U=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YiBFiUaWHAWIVIsrqX78YRoR+dRqVvoUs3NdtdlBsuW0WA/KZ7J1hiq/65eX93rYHWPDMoH+I0V77MSNVoQlkz5DZ1blShMXYuYeWseOwTBS1c56mopBO6agEpNJTqDOAzl9cgEPX14cV/6NOs2piJsG0abjs8pqJ6C0QVHuHZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MhP3gbOG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Hes7pwn6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E39A01F000E9;
-	Thu, 16 Jul 2026 11:40:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MhP3gbOG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0721F000E9;
+	Thu, 16 Jul 2026 11:41:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784202053;
-	bh=Pv6/N2g+IHIoj4eU60wIDyq8fKJOuxF9LLk4jwugN+Q=;
+	s=korg; t=1784202066;
+	bh=1kC7rL87eoLWCUiZvAwnIi3ReYcUrmBcSsQwGlM0lxs=;
 	h=Subject:To:Cc:From:Date;
-	b=Hes7pwn6AkxJR5h8GjPY2mcpXj3sxEU8PhgFaI+1eJ9M94bOThzfZPWCBXcxMLwk5
-	 ij+8RYz+q+1fzngdjyWERg3OIvurPVpZBiWHHnoJWSQrRaxYBPzHI/7uYmcTney6pj
-	 +4dV+jOpu6uK2d5Hq/+P/p7CzWIJbWTBjd2BtMbc=
-Subject: FAILED: patch "[PATCH] KVM: TDX: Account all non-transient page allocations for" failed to apply to 6.18-stable tree
-To: seanjc@google.com,kai.huang@intel.com,rick.p.edgecombe@intel.com
+	b=MhP3gbOG5XrFE+boogjyBl7/t8T/iJodz2IYtcoiFPh9piS5AxhN1JTrR3CZ27k42
+	 r+Cjyd3ByNRYgXL7tx+sTpe8NRAKjfJBXF3WjiW3pQf5sxl/jOe+VqcWFihyNuAfHs
+	 NPEyBkRch/sYbdbN41GIhzrfsG6R1saYeq9iv5N0=
+Subject: FAILED: patch "[PATCH] KVM: guest_memfd: Treat memslot binding offset+size as" failed to apply to 6.18-stable tree
+To: seanjc@google.com,ackerleytng@google.com,michael.roth@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 13:40:41 +0200
-Message-ID: <2026071641-falsify-antiquely-4d9a@gregkh>
+Date: Thu, 16 Jul 2026 13:40:59 +0200
+Message-ID: <2026071659-echo-antitoxic-8ca1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x a8b2924676ec42d76597f849baba31acc3ba1bfc
+git cherry-pick -x eba85fee7fc6cf28fec38a5bf3c378bef9a79ca6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071641-falsify-antiquely-4d9a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071659-echo-antitoxic-8ca1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,80 +62,126 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a8b2924676ec42d76597f849baba31acc3ba1bfc Mon Sep 17 00:00:00 2001
+From eba85fee7fc6cf28fec38a5bf3c378bef9a79ca6 Mon Sep 17 00:00:00 2001
 From: Sean Christopherson <seanjc@google.com>
-Date: Wed, 28 Jan 2026 17:14:35 -0800
-Subject: [PATCH] KVM: TDX: Account all non-transient page allocations for
- per-TD structures
+Date: Tue, 2 Jun 2026 10:09:19 -0700
+Subject: [PATCH] KVM: guest_memfd: Treat memslot binding offset+size as
+ unsigned values
 
-Account all non-transient allocations associated with a single TD (or its
-vCPUs), as KVM's ABI is that allocations that are active for the lifetime
-of a VM are accounted.  Leave temporary allocations, i.e. allocations that
-are freed within a single function/ioctl, unaccounted, to again align with
-KVM's existing behavior, e.g. see commit dd103407ca31 ("KVM: X86: Remove
-unnecessary GFP_KERNEL_ACCOUNT for temporary variables").
+When binding a memslot to a guest_memfd file, treat the offset and size as
+unsigned values to fix a bug where the sum of the two can result in a false
+negative when checking for overflow against the size of the file.  Passing
+unsigned values also avoids relying on somewhat obscure checks in other
+flows for safety, and tracks the offset and size as they are intended to be
+tracked, as unsigned values.
 
-Fixes: 8d032b683c29 ("KVM: TDX: create/destroy VM structure")
-Fixes: a50f673f25e0 ("KVM: TDX: Do TDX specific vcpu initialization")
+On 64-bit kernels, the number of pages a memslot contains and thus the size
+(and offset) of its guest_memfd binding are unsigned 64-bit values.  Taking
+the offset+size as an loff_t instead of a uoff_t inadvertently converts
+the unsigned value to a signed value if the offset and/or size is massive.
+
+Locally storing the offset and size as signed values is benign in and of
+itself (though even that is *extremely* difficult to discern), but
+operating on their sum is not.
+
+For the offset, KVM explicitly checks against a negative value, which might
+seem like a bug as KVM could incorrectly reject a legitimate binding, but
+that's not actually the case as KVM_CREATE_GUEST_MEMFD takes a signed value
+for its size, i.e. a would-be-negative offset is also greater than the
+maximum possible size of any guest_memfd file.
+
+Regarding the size, while KVM lacks an explicit check for a negative value,
+i.e. seemingly has a flawed overflow check, KVM restricts the number of
+pages in a single memslot to the largest positive signed 32-bit value:
+
+        if (id < KVM_USER_MEM_SLOTS &&
+            (mem->memory_size >> PAGE_SHIFT) > KVM_MEM_MAX_NR_PAGES)
+                return -EINVAL;
+
+and so that maximum "size" will ever be is 0x7fffffff000.
+
+The sum of the two is, however, problematic.  While the size is restricted
+by KVM's memslot logic, the offset is not, i.e. the offset is completely
+unchecked until the "offset + size > i_size_read(inode)" check.  If the
+offset is the (nearly) largest possible _positive_ value, then adding size
+to the offset can result in a signed, negative 64-bit value.  When compared
+against the size of the file (guaranteed to be positive), the negative sum
+is always smaller, and KVM incorrectly allows the absurd offset.
+
+Opportunistically add missing includes in kvm_mm.h (instead of relying on
+its parents).
+
+Fixes: a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
 Cc: stable@vger.kernel.org
-Reviewed-by: Kai Huang <kai.huang@intel.com>
-Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Link: https://patch.msgid.link/20260129011517.3545883-4-seanjc@google.com
+Cc: Ackerley Tng <ackerleytng@google.com>
+Reviewed-by: Michael Roth <michael.roth@amd.com>
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Link: https://patch.msgid.link/20260602170921.1304394-2-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index 04aecdd3a6c0..72d916c957bc 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -2384,20 +2384,20 @@ static int __tdx_td_init(struct kvm *kvm, struct td_params *td_params,
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 46727539d08a..f54502640b08 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -640,15 +640,16 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
+ }
  
- 	ret = -ENOMEM;
+ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+-		  unsigned int fd, loff_t offset)
++		  unsigned int fd, uoff_t offset)
+ {
+-	loff_t size = slot->npages << PAGE_SHIFT;
++	uoff_t size = slot->npages << PAGE_SHIFT;
+ 	unsigned long start, end;
+ 	struct gmem_file *f;
+ 	struct inode *inode;
+ 	struct file *file;
+ 	int r = -EINVAL;
  
--	tdr_page = alloc_page(GFP_KERNEL);
-+	tdr_page = alloc_page(GFP_KERNEL_ACCOUNT);
- 	if (!tdr_page)
- 		goto free_hkid;
++	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+ 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
  
- 	kvm_tdx->td.tdcs_nr_pages = tdx_sysinfo->td_ctrl.tdcs_base_size / PAGE_SIZE;
- 	/* TDVPS = TDVPR(4K page) + TDCX(multiple 4K pages), -1 for TDVPR. */
- 	kvm_tdx->td.tdcx_nr_pages = tdx_sysinfo->td_ctrl.tdvps_base_size / PAGE_SIZE - 1;
--	tdcs_pages = kzalloc_objs(*kvm_tdx->td.tdcs_pages,
--				  kvm_tdx->td.tdcs_nr_pages);
-+	tdcs_pages = kzalloc_objs(*kvm_tdx->td.tdcs_pages, kvm_tdx->td.tdcs_nr_pages,
-+				  GFP_KERNEL_ACCOUNT);
- 	if (!tdcs_pages)
- 		goto free_tdr;
+ 	file = fget(fd);
+@@ -664,8 +665,7 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
  
- 	for (i = 0; i < kvm_tdx->td.tdcs_nr_pages; i++) {
--		tdcs_pages[i] = alloc_page(GFP_KERNEL);
-+		tdcs_pages[i] = alloc_page(GFP_KERNEL_ACCOUNT);
- 		if (!tdcs_pages[i])
- 			goto free_tdcs;
- 	}
-@@ -2872,7 +2872,7 @@ static int tdx_td_vcpu_init(struct kvm_vcpu *vcpu, u64 vcpu_rcx)
- 	int ret, i;
- 	u64 err;
+ 	inode = file_inode(file);
  
--	page = alloc_page(GFP_KERNEL);
-+	page = alloc_page(GFP_KERNEL_ACCOUNT);
- 	if (!page)
- 		return -ENOMEM;
- 	tdx->vp.tdvpr_page = page;
-@@ -2885,14 +2885,14 @@ static int tdx_td_vcpu_init(struct kvm_vcpu *vcpu, u64 vcpu_rcx)
- 	tdx->vp.tdvpr_pa = page_to_phys(tdx->vp.tdvpr_page);
+-	if (offset < 0 || !PAGE_ALIGNED(offset) ||
+-	    offset + size > i_size_read(inode))
++	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
+ 		goto err;
  
- 	tdx->vp.tdcx_pages = kcalloc(kvm_tdx->td.tdcx_nr_pages, sizeof(*tdx->vp.tdcx_pages),
--			       	     GFP_KERNEL);
-+				     GFP_KERNEL_ACCOUNT);
- 	if (!tdx->vp.tdcx_pages) {
- 		ret = -ENOMEM;
- 		goto free_tdvpr;
- 	}
+ 	filemap_invalidate_lock(inode->i_mapping);
+diff --git a/virt/kvm/kvm_mm.h b/virt/kvm/kvm_mm.h
+index 9fcc5d5b7f8d..7510ca915dd1 100644
+--- a/virt/kvm/kvm_mm.h
++++ b/virt/kvm/kvm_mm.h
+@@ -3,6 +3,9 @@
+ #ifndef __KVM_MM_H__
+ #define __KVM_MM_H__ 1
  
- 	for (i = 0; i < kvm_tdx->td.tdcx_nr_pages; i++) {
--		page = alloc_page(GFP_KERNEL);
-+		page = alloc_page(GFP_KERNEL_ACCOUNT);
- 		if (!page) {
- 			ret = -ENOMEM;
- 			goto free_tdcx;
++#include <linux/kvm.h>
++#include <linux/kvm_types.h>
++
+ /*
+  * Architectures can choose whether to use an rwlock or spinlock
+  * for the mmu_lock.  These macros, for use in common code
+@@ -72,7 +75,7 @@ int kvm_gmem_init(struct module *module);
+ void kvm_gmem_exit(void);
+ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
+ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+-		  unsigned int fd, loff_t offset);
++		  unsigned int fd, uoff_t offset);
+ void kvm_gmem_unbind(struct kvm_memory_slot *slot);
+ #else
+ static inline int kvm_gmem_init(struct module *module)
+@@ -82,7 +85,7 @@ static inline int kvm_gmem_init(struct module *module)
+ static inline void kvm_gmem_exit(void) {};
+ static inline int kvm_gmem_bind(struct kvm *kvm,
+ 					 struct kvm_memory_slot *slot,
+-					 unsigned int fd, loff_t offset)
++					 unsigned int fd, uoff_t offset)
+ {
+ 	WARN_ON_ONCE(1);
+ 	return -EIO;
 
