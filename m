@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2D2426429;
-	Thu, 16 Jul 2026 13:48:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30411429827;
+	Thu, 16 Jul 2026 13:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209698; cv=none; b=Ne61qJfcm/ztPl+TUXNTa9uXo2eRLe75XgYIcs2QM2BUqf7Ps80jKxSDKOPQZ8aPLf2sq/qxahpbOraze9uGsw/6H/yARZfdpVcK32ftU5C6e4Hk3OjEUjBlQxiOt4WGqYLdc7ACjuYR0s+UZObxKr0DL7EfkDs/k0LoUaAtG6I=
+	t=1784209704; cv=none; b=WvGSiFQj7v7JwOS4AxyOOnGsnauePC3+PVMpjYRXDJKOguDnsmCSF4yrtYk0YB5hNA5Oq5Ph378D9m/0GnH7aCUAvbmdkJcTGukmx1EvIut5iNNx3oeE+wzfpydu/3EemP3pOXLsGMRTPmyW1+iph8SwLVGQQjAxy63L95CRIY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784209698; c=relaxed/simple;
-	bh=LCWrTm2PSDuEfpZUBTZWbnPOl5hZbgbjnb/ERL5kIfU=;
+	s=arc-20240116; t=1784209704; c=relaxed/simple;
+	bh=Okmjc+ynlik/jsDVoPk8QH7P3DmK59MQtq8JFLkaoyw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VIckH7qvt9blSMEaIQx04HJVX2JZ9MZhXniJHqkpFqPdeDCkgWYvJs4Ujg2n6Q/TzcBfO57HWdGiMayeIxtPa5hsbbR0sTY9Z74R44WirS8zKMeXLbE2g/zdwWSz1OOOoHzTyDHxFmHLZNbSnGRBqkIkVmNVBAkHL4wUkrw/nOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=l06JHXNH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IV9JN0Sa1nLT0gf8HY/i598/YuSA/CfYUPq8bZNijsZOi0w0g98T/0rD5P1XptruIcv2NOXvAE3DMaokjlkwTKDantAhpC3yGy3lgbdN6qkGA7Q70Oknmr+wP3Hr4/M0DuSM0yKVOL6rPMgWARrgqVPRDUniQbQ/j9iWf7MoPK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FQ/8n7Fn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="l06JHXNH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B6C31F00ACA;
-	Thu, 16 Jul 2026 13:48:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FQ/8n7Fn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1261F00AC4;
+	Thu, 16 Jul 2026 13:48:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784209683;
-	bh=7FkMH3amQFJ/C/sAaFZZu98QgnAYkxwB3wVP/yPRMgc=;
+	s=korg; t=1784209694;
+	bh=emxHuIOipVWpy+6AzFWfHygviu2kb+GTAnPpDZVlbA0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l06JHXNHV7JzMwEq0dYSZ5CT3U2um10fUf6WrgHmUduM2pDoYm6fuYQm8kko8xa2+
-	 Eppx4h5y8Genfc3w8RkiOhtErGHS4+G+PM9saTdDKGfujVYnHjh6DKECX9CZUGNVeJ
-	 020bRjW0WlGSMvXcrSAfHQJw0sJCBduCYuT7Mwbw=
+	b=FQ/8n7FnIkPnkE1kWC3MKTUXDC+2x8HcgbKRg2gC802bnSP099sQJe18LqdJzO063
+	 ZWVkcQofwL5NfnUJZNoFs3CLSNtqnV9pTgLAaY6Ug2FRpmSg40rqJIM/UI8XQkOdRZ
+	 IqbX5+4+qatUVlBaze49JLevfl6V45/44qvPXD9I=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+62f0f99d2f2bb8e3bbd7@syzkaller.appspotmail.com,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH 7.1 279/518] nilfs2: reject CLEAN_SEGMENTS ioctl with out-of-range segment numbers
-Date: Thu, 16 Jul 2026 15:29:07 +0200
-Message-ID: <20260716133053.918305719@linuxfoundation.org>
+	Yingjie Gao <gaoyingjie@uniontech.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>
+Subject: [PATCH 7.1 283/518] xfs: release dquot buffer after dqflush failure
+Date: Thu, 16 Jul 2026 15:29:11 +0200
+Message-ID: <20260716133054.006441871@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
 References: <20260716133047.772246337@linuxfoundation.org>
@@ -52,114 +51,42 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Deepanshu Kartikey <kartikey406@gmail.com>
+From: Yingjie Gao <gaoyingjie@uniontech.com>
 
-commit 0e7a690fe435f8d5ea3feb7c1d8d73ba7e8b8aa9 upstream.
+commit 0c1b3a823a22af623d55f225fe2ac7e8b9052821 upstream.
 
-Syzbot reported a hung task in nilfs_transaction_begin() where multiple
-tasks performing chmod() on a nilfs2 mount blocked for over 143 seconds
-waiting to acquire ns_segctor_sem for read:
+xfs_qm_dqpurge() gets a locked buffer from xfs_dquot_use_attached_buf().
+If xfs_qm_dqflush() fails, the error path skips xfs_buf_relse() and then
+calls xfs_dquot_detach_buf(), which tries to lock the same buffer again.
 
-  INFO: task syz.0.17:5918 blocked for more than 143 seconds.
-  Call Trace:
-   schedule+0x164/0x360
-   rwsem_down_read_slowpath+0x6d9/0x940
-   down_read+0x99/0x2e0
-   nilfs_transaction_begin+0x364/0x710 fs/nilfs2/segment.c:221
-   nilfs_setattr+0x124/0x2c0 fs/nilfs2/inode.c:921
-   notify_change+0xc1a/0xf40
-   chmod_common+0x273/0x4a0
-   do_fchmodat+0x12d/0x230
+Release the buffer after xfs_qm_dqflush() returns so the error path drops
+the caller hold and unlocks the buffer before the dquot is detached,
+matching the other dqflush callers.
 
-The writer holding ns_segctor_sem was a concurrent
-NILFS_IOCTL_CLEAN_SEGMENTS caller, stuck inside printk while emitting
-per-element warnings from nilfs_sufile_updatev():
-
-   __nilfs_msg+0x373/0x450 fs/nilfs2/super.c:78
-   nilfs_sufile_updatev+0x21c/0x6d0 fs/nilfs2/sufile.c:186
-   nilfs_sufile_freev fs/nilfs2/sufile.h:93 [inline]
-   nilfs_free_segments fs/nilfs2/segment.c:1140 [inline]
-   nilfs_segctor_collect_blocks fs/nilfs2/segment.c:1261 [inline]
-   nilfs_segctor_do_construct+0x1f55/0x76c0
-   nilfs_clean_segments+0x3bd/0xa50
-   nilfs_ioctl_clean_segments fs/nilfs2/ioctl.c:922 [inline]
-   nilfs_ioctl+0x261f/0x2780
-
-The root cause is that user-supplied segment numbers are not validated
-before nilfs_clean_segments() begins doing work; the range check on
-each segnum is performed deep inside the call chain by
-nilfs_sufile_updatev(), which emits a nilfs_warn() per invalid entry
-while still holding the segctor lock and the sufile mi_sem.  Under load
-(repeated invocations across multiple mounts saturating the global
-printk path), the cumulative printk latency keeps ns_segctor_sem held
-long enough to trip the hung_task watchdog, blocking concurrent
-operations such as chmod() that need ns_segctor_sem for read.
-
-Fix by validating the contents of kbufs[4] in nilfs_clean_segments()
-immediately after acquiring ns_segctor_sem via nilfs_transaction_lock().
-Holding ns_segctor_sem serializes the check against
-nilfs_ioctl_resize(), which can modify ns_nsegments, so the validation
-uses a consistent value.  Out-of-range segment numbers are rejected
-with -EINVAL before any segment-cleaning work begins, so the bad
-entries never reach the per-element diagnostic path inside
-nilfs_sufile_updatev().
-
-Reported-by: syzbot+62f0f99d2f2bb8e3bbd7@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=62f0f99d2f2bb8e3bbd7
-Tested-by: syzbot+62f0f99d2f2bb8e3bbd7@syzkaller.appspotmail.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-Fixes: 071cb4b81987 ("nilfs2: eliminate removal list of segments")
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Fixes: a40fe30868ba ("xfs: separate dquot buffer reads from xfs_dqflush")
+Cc: stable@vger.kernel.org # v6.13+
+Signed-off-by: Yingjie Gao <gaoyingjie@uniontech.com>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/nilfs2/segment.c |   22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ fs/xfs/xfs_qm.c |    5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -2512,12 +2512,33 @@ int nilfs_clean_segments(struct super_bl
- 	struct nilfs_sc_info *sci = nilfs->ns_writer;
- 	struct nilfs_transaction_info ti;
- 	int err;
-+	size_t i, nfreesegs = argv[4].v_nmembs;
-+	__u64 *segnumv = kbufs[4];
- 
- 	if (unlikely(!sci))
- 		return -EROFS;
- 
- 	nilfs_transaction_lock(sb, &ti, 1);
- 
-+	/*
-+	 * Validate segment numbers under ns_segctor_sem (held for write
-+	 * by nilfs_transaction_lock above) so the check is serialized
-+	 * against nilfs_ioctl_resize(), which can modify ns_nsegments.
-+	 * Rejecting bad input here, before any segment-cleaning work
-+	 * begins, avoids the per-element diagnostic path inside
-+	 * nilfs_sufile_updatev() that would otherwise run under this
-+	 * same lock and stall concurrent readers.
-+	 */
-+	for (i = 0; i < nfreesegs; i++) {
-+		if (segnumv[i] >= nilfs->ns_nsegments) {
-+			nilfs_err(sb,
-+				 "Segment number %llu to be freed is out of range",
-+				 (unsigned long long)segnumv[i]);
-+			err = -EINVAL;
-+			goto bail_unlock;
-+		}
-+	}
-+
- 	err = nilfs_mdt_save_to_shadow_map(nilfs->ns_dat);
- 	if (unlikely(err))
- 		goto out_unlock;
-@@ -2558,6 +2579,7 @@ int nilfs_clean_segments(struct super_bl
- 	sci->sc_freesegs = NULL;
- 	sci->sc_nfreesegs = 0;
- 	nilfs_mdt_clear_shadow_map(nilfs->ns_dat);
-+ bail_unlock:
- 	nilfs_transaction_unlock(sb);
- 	return err;
- }
+--- a/fs/xfs/xfs_qm.c
++++ b/fs/xfs/xfs_qm.c
+@@ -166,10 +166,9 @@ xfs_qm_dqpurge(
+ 		 * does it on success.
+ 		 */
+ 		error = xfs_qm_dqflush(dqp, bp);
+-		if (!error) {
++		if (!error)
+ 			error = xfs_bwrite(bp);
+-			xfs_buf_relse(bp);
+-		}
++		xfs_buf_relse(bp);
+ 		xfs_dqflock(dqp);
+ 	}
+ 	xfs_dquot_detach_buf(dqp);
 
 
