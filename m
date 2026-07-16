@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFEA2D0C92;
-	Thu, 16 Jul 2026 09:59:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790133B14DE;
+	Thu, 16 Jul 2026 10:00:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784195964; cv=none; b=Z0xN/IQ3Mq4qOO7bfxAhvoTzkrsRVfoaUtd6s/1HcQRp7auWt9sDHHL2ZvvYaBZY6PmlQwlDmAtG++OursQl/tu8+Z+kcIxInYBN8icfHu6q2Gbcpdeb9QUyzQI3lM4zXpx2GSs9HWjx/k7G4dV3pTdv0B1QVoRXt+0s6i0stW4=
+	t=1784196031; cv=none; b=l2UsyV17AS4zKtuk5qemPosiWY/5IrqL5Q6JmhjdGr9qganEvP33lMu6lt72GJiiPemiBEypKo60bnuk+gKjVFBkAn6G4Pmz8iyuATM31oUXlk7APFXaYNKpBn7ycJctZyctHdRZt6TXfYJuDrIWbQeEcsqE5aOf/fDAVm3cMBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784195964; c=relaxed/simple;
-	bh=pyo7n+Gf0pvlf9FMLph1G8XcYzzjOWZLT4B3ZQq+Z3w=;
+	s=arc-20240116; t=1784196031; c=relaxed/simple;
+	bh=WN5xeNdg9y486ULQJha2uoCz19djnmzOQqIVYtTEUkU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uTpFVvOkWm1BwZrNPxcLexK19/jeMX7L33spHTi14LBxZ3po7cgxDY3M3WxC7tk5YtunMekFsPFEFCLNRGOsoyZQONegibSnZsorIFfFTLkFZH/dDQio76UDPebiMQdWPU8Nnw2tiTpbSeNv8w0hEx/iObT6c+LtmPgZBxrdGTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8eu0hFm; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=UPhkQ5VSwmb0VOhtyqfKfQZ3UJBn0eALHpdW7kqHPPWJHHJOnFlHe1wGs67+/2oCkL7jY/sUjVn35UVEV/xJw8EBIJofdQDQttl5MmOND56E6UL89Y5z0DKmfiMIohEGfjqyQcaCsB8NHWxxR6X15Qu9eD1n+BkSBz0rDC+iVGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eHjK6gI1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8eu0hFm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D171F000E9;
-	Thu, 16 Jul 2026 09:59:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eHjK6gI1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19A231F000E9;
+	Thu, 16 Jul 2026 10:00:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784195960;
-	bh=40RDzxBLPZLG4s+zCNW0yAczdYUPfSS5EmHAfRZ6BKs=;
+	s=k20260515; t=1784196027;
+	bh=eUkl12tYXc68HT6B6jkk0ph9Y24lWQnR5gw0uUTHbXY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=G8eu0hFmVtMKSxK76aiM92Dgx7HxClVkSGA0Dpqbwu8GwWEgY6QOUvxu2PKesN74C
-	 suUeiDho4917jBr7cIl4jSg30AMHviaD52wU6XX5Q1YzEg7zAa/p06LIQSD//romgZ
-	 SmONNgxqYBVWbJaKdWx9hwzni5AdCdkLSrRHgOmGssgEOA3fAKGw2Iu9TeUEPaBnvB
-	 B+rPwA7XgEU40hhWJpztZTYrcAWyjU4sAcmoJfWPrL9o78I/n+UG5SuvzWy5LBKkIR
-	 cRau4K5Tcqm3sFusD9FuWaZRyLQAzX/ZyewlUrY89KMpcqcsr+/081DWb/hPncpzTL
-	 1i2GKqIQ2c2sA==
-Message-ID: <e634c6bc-1c6f-4457-af99-5eddc2b4d648@kernel.org>
-Date: Thu, 16 Jul 2026 11:59:14 +0200
+	b=eHjK6gI12qlrgtxnxiyKQwWLfI2f5VWylwYf7aUrRc1PGkm+W0BEzI47+uLO4oArG
+	 WGa5Vq4gMgWMlMe43/K5YIhs4zY8aXACnDrbcAun7R0o7JbAI/zmx+pmAcEmPIYeGo
+	 p5wuAv1DTQNyyYpPpLSvTNufY0LfaQsTznX+jdiB8M+Ywv8v3fV4CbACnPCMgN3bjI
+	 co0gDEyTCRHyi2o697zvXF4ZTk8Bs4pp6Mx8b1d16sY4dL9Fvq9z4XU4AkfF343blQ
+	 Nu6IEXLAekPzx2Gr97uTQlyOk/FKttNPH23OJ4ia0IX0EROIsok8GsfsEdGk+V8ZK+
+	 NGFUMWDR3Ju0A==
+Message-ID: <75f22aba-69ed-4979-8589-b38462e8e03a@kernel.org>
+Date: Thu, 16 Jul 2026 12:00:22 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH mm-hotfixes v3 3/4] mm/ptdump: always stabilise against
- page table freeing using init_mm
+Subject: Re: [PATCH mm-hotfixes v3 4/4] arm64: remove redundant concurrent
+ ptdump UAF mitigation
 To: Lorenzo Stoakes <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
@@ -54,7 +54,7 @@ Cc: David Carlier <devnexen@gmail.com>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
 References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
- <20260714-series-vmap-race-fix-v3-3-b812eccfa0f9@kernel.org>
+ <20260714-series-vmap-race-fix-v3-4-b812eccfa0f9@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -101,46 +101,32 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260714-series-vmap-race-fix-v3-3-b812eccfa0f9@kernel.org>
+In-Reply-To: <20260714-series-vmap-race-fix-v3-4-b812eccfa0f9@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 7/14/26 19:24, Lorenzo Stoakes wrote:
-> Previous commits have established the invariant that kernel page table
-> freeing is performed while an mmap read lock on init_mm is held, which
-> fixes races between ptdump and kernel page table freeing over init_mm.
+> This partially reverts commit fa93b45fd397 ("arm64: Enable vmalloc-huge
+> with ptdump"), retaining vmalloc-huge support but eliminating the now
+> redundant mitigation against a race between huge vmap page table freeing
+> and ptdump, as this issue has now been fixed at core.
 > 
-> However, x86 and arm64 can perform a ptdump over an mm other than init_mm
-> via ptdump_walk_pgd() and since kernel memory ranges are shared across
-> non-kernel mm's, this means that the race still exists for these cases.
+> We also simultaneously remove the arm64 if-deffery when acquiring the mmap
+> read lock upon vmap huge page table promotion as it is no longer required.
 > 
-> Fix this by acquiring a nested mmap write lock for init_mm in
-> ptdump_walk_pgd().
+> Note that this patch relies on the preceding vmalloc patch, and should not
+> be backported alone.
 > 
-> This is safe as we take this after mmap write locking the mm, and nothing
-> acquires the init_mm lock first before locking an arbitrary mm, so no
-> deadlock is possible.
-> 
-> Also update walk_page_range_debug() to assert that init_mm is write locked,
-> add a comment explaining why and remove some redundant code, and eliminate
-> the unnecessary and confusing invocation of walk_kernel_page_table_range().
-> 
-> We can safely remove the non-NULL check for walk.mm, as the mmap lock
-> asserts would NULL pointer deref if it was (and of course no callers do
-> this).
-> 
-> The first point at which ptdump can race kernel page table freeing is
-> commit b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page
-> table"), so we target this in the Fixes tag.
-> 
-> Fixes: b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
+> Fixes: fa93b45fd397 ("arm64: Enable vmalloc-huge with ptdump")
 > Cc: stable@vger.kernel.org
-> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Reviewed-by: Dev Jain <dev.jain@arm.com>
+> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Acked-by: Will Deacon <will@kernel.org>
+> ---
 
-All that complexity for a debug feature :)
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
