@@ -1,175 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6B8432E60;
-	Thu, 16 Jul 2026 17:19:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B372B433034
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 17:20:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784222383; cv=none; b=EPfieJ3RRGECtVdQfFoUaB3u7VQGjp02rXS/BfBkEUs3deCgj12ZYN5iYqQN36xmNr8OLVUCPXP6EAg2FuUTN17mhQpaWdo5UV/0I7wITcdgEQtCGqCJici2VzbMX/gbmXOA8RpIztY7M5wP5eeqHMO6awbVLHsVIOWakMjC4eY=
+	t=1784222446; cv=none; b=sdeHiGP4NAlC1OQEDua8cU7q/U9yOY34yOe1b6jBsC04T52hdhlkNxPeL+u+HbfacC/CSUINenTXZXOk6UBN7w1CvrLr/Gal4MzXqr//ZYhYBg7RNiFsE6/cgB0orilMoASQLhYroM09Rxfvw1CrhpOyFo0+uKETAIN2bxVCxgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784222383; c=relaxed/simple;
-	bh=2R3Zy3Oc2F9nEYce8EZ7zSOxqiiE9SXDn4tkjFJb78k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oBFI3AyuCBrgqt+prtLiTwOONZsWeFVjrI/Am0DIXt+yigJK6sNvNaVg08I3gr3zQYzpVAuxgxEjXZDxLls7JeFtSSjaicQX640C8U2CecB8E4xCtWu8lO+SGEJE105KA69w0CJW0A6dOozXQhvPL01NGQKZ3vPTUk5jWWXTTSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWk/L63J; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWk/L63J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B6E1F000E9;
-	Thu, 16 Jul 2026 17:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784222380;
-	bh=VvXD7P2U6C3fS9i7YGrQQGTQ6ENKTQ3zgNTKJ4lXVL4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bWk/L63JsjQYpZCAXpVLAyL7khKgtTCVSdT80jfQSVtD0qDMAdg1yVaZClfweL8RB
-	 W8RhwpHNOuQ2YTrOzQk2vpZJKIBhZm8YX7n9izlRbfiROYq6uXGxZ+nodWZ1iZnvBm
-	 59mzs6ccilIzgnosJF0UYABHwoAx4OgYq6xuzK9cIH/g9PVDhxGMm23jYQS5gJ4aJC
-	 y4v20g0h6Hv3080GY/IZaVjyG1JjAzdmwz0mVRh1KkRQeWMNsKICZHna7O4Czta4Ih
-	 wqabfYGC+slIX6KI3zT55/w/9Y/pXb4hf8ti5IywKx8+nTUB7j2kmF2s+2YmbSkVuh
-	 9gexAZh2JGczQ==
-From: Simon Horman <horms@kernel.org>
-To: doruk@0sec.ai
-Cc: Simon Horman <horms@kernel.org>,
-	chandrashekar.devegowda@intel.com,
-	ricardo.martinez@linux.intel.com,
-	haijun.liu@mediatek.com,
-	loic.poulain@oss.qualcomm.com,
-	ryazanov.s.a@gmail.com,
-	johannes@sipsolutions.net,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] net: wwan: t7xx: validate control-message data_length against the skb
-Date: Thu, 16 Jul 2026 18:17:38 +0100
-Message-ID: <20260716171737.372991-2-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260711071338.58345-1-doruk@0sec.ai>
-References: <20260711071338.58345-1-doruk@0sec.ai>
+	s=arc-20240116; t=1784222446; c=relaxed/simple;
+	bh=YhqI2NdXM75EMJ9o1ZhOgMLjtqSSEa4pHSQLKfB4X44=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZixRr3dvSi7DucJ4QAtdC8l9T2XSmYedG/ATL6M4NKHUiBRQojflsjXdCL13iF2TVadj2jbouy+lR5YGC76mKAWXD8pMMJt/j18I9kEY+76wdBLx5yhqphi7P+7XVxsNcZNZUonqEi5hhmcVhaAb4LWfMFOG2ScbRpkWRuwwblQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [192.168.0.110] (unknown [123.116.46.73])
+	by APP-01 (Coremail) with SMTP id qwCowACXbfHkEllqgIglAA--.13292S2;
+	Fri, 17 Jul 2026 01:20:37 +0800 (CST)
+Message-ID: <777f4850-cfa8-4751-b3cd-2875f55c20e6@iscas.ac.cn>
+Date: Fri, 17 Jul 2026 01:20:36 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 310/349] riscv: mm: Define DIRECT_MAP_PHYSMEM_END
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Paul Walmsley <pjw@kernel.org>,
+ Han Gao <gaohan@iscas.ac.cn>
+References: <20260716133033.287196923@linuxfoundation.org>
+ <20260716133040.256132969@linuxfoundation.org>
+Content-Language: en-US
+From: Vivian Wang <wangruikang@iscas.ac.cn>
+In-Reply-To: <20260716133040.256132969@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:qwCowACXbfHkEllqgIglAA--.13292S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JrW7CrWrXF43Gry3tFW3GFg_yoWkCrX_Xa
+	ykW3ZrZFy7JFn2qayayrn3Zr4I934DGr15Crn2qrZYk3s3J3sxGFs0yFZavw1UW347AF13
+	trZ8Zr4q9rnIkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb7AYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z2
+	80aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k2
+	0xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI
+	8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41l
+	IxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIx
+	AIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
+	jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Jku7UUUUU==
+X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://sashiko.dev
----
---- Patch [1]: [PATCH] net: wwan: t7xx: validate control-message data_length against the skb ---
-commit d01ff7bcea9777a110312cfd4a96824ff782a70a
-Author: Doruk Tan Ozturk <doruk@0sec.ai>
+On 7/16/26 21:34, Greg Kroah-Hartman wrote:
 
-net: wwan: t7xx: validate control-message data_length against the skb
-    
-control_msg_handler() handles a CTL_ID_HS2_MSG control message by pulling
-the ctrl_msg_header and passing the modem-supplied data_length as the
-length of the handshake-2 payload to t7xx_fsm_append_event(). This commit
-rejects a data_length that exceeds the received payload.
+> 6.12-stable review patch.  If anyone has any objections, please let me know.
+>
+> ------------------
+>
+> From: Vivian Wang <wangruikang@iscas.ac.cn>
+>
+> commit f3336b48cf9d3f2d1fc78e3289c0ded2f00876ee upstream.
+>
+> On RISC-V, the actual mappable range of physical address space is
+> dependent on the current MMU mode i.e. satp_mode (See
+> Documentation/arch/riscv/vm-layout.rst).
+>
+> Define the DIRECT_MAP_PHYSMEM_END macro based on the existing virtual
+> address space layout macros to expose this information to
+> get_free_mem_region(). Otherwise, it returns a region that couldn't be
+> mapped, which breaks ZONE_DEVICE.
+>
+> Cc: stable@vger.kernel.org # v6.13+
 
-> diff --git a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-> index f869e4ed9ee9a..871ed63d3c4d2 100644
-> --- a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-> +++ b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-> @@ -186,10 +186,15 @@ static int control_msg_handler(struct t7xx_port *port, struct sk_buff *skb)
->  			int event = port_conf->rx_ch == PORT_CH_CONTROL_RX ?
->  				    FSM_EVENT_MD_HS2 : FSM_EVENT_AP_HS2;
->  
-> -			ret = t7xx_fsm_append_event(ctl, event, skb->data,
-> -						    le32_to_cpu(ctrl_msg_h->data_length));
-> -			if (ret)
-> -				dev_err(port->dev, "Failed to append Handshake 2 event");
-> +			if (le32_to_cpu(ctrl_msg_h->data_length) > skb->len) {
-> +				dev_err(port->dev, "Invalid Handshake 2 data length\n");
-> +				ret = -EINVAL;
-> +			} else {
-> +				ret = t7xx_fsm_append_event(ctl, event, skb->data,
-> +							    le32_to_cpu(ctrl_msg_h->data_length));
-> +				if (ret)
-> +					dev_err(port->dev, "Failed to append Handshake 2 event");
-> +			}
->  		}
->  
->  		dev_kfree_skb_any(skb);
+Please drop for all <= 6.12 (so, keep for 6.18.y, 7.1.y; drop for
+6.12.y, 6.6.y, 6.1.y, 5.15.y).
 
-[Severity: High]
-This is a pre-existing issue, but I noticed that earlier in this function
-we call skb_pull() without validating the header size against skb->len:
+The name DIRECT_MAP_PHYSMEM_END is only in use since 6.13 (commit
+afe789b7367a ("kaslr: rename physmem_end and PHYSMEM_END to
+direct_map_physmem_end")). It does nothing for earlier versions. I also
+don't think it's important enough to be worth backporting for these
+older branches.
 
-drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c:control_msg_handler() {
-    ...
-	ctrl_msg_h = (struct ctrl_msg_header *)skb->data;
-	switch (le32_to_cpu(ctrl_msg_h->ctrl_msg_id)) {
-	case CTL_ID_HS2_MSG:
-		skb_pull(skb, sizeof(*ctrl_msg_h));
-    ...
-}
+Vivian "dramforever" Wang
 
-Because skb_pull() fails silently if the length is insufficient, could this
-lead to out-of-bounds reads and processing of uninitialized memory if the
-modem sends a packet smaller than sizeof(struct ctrl_msg_header)?
-
-I found a similar pattern in t7xx_port_proxy_recv_skb() where we read
-ccci_header and call skb_pull() without checking if skb->len is large enough:
-
-drivers/net/wwan/t7xx/t7xx_port_proxy.c:t7xx_port_proxy_recv_skb() {
-    ...
-	struct ccci_header *ccci_h = (struct ccci_header *)skb->data;
-	...
-	channel = FIELD_GET(CCCI_H_CHN_FLD, le32_to_cpu(ccci_h->status));
-	...
-	skb_pull(skb, sizeof(*ccci_h));
-    ...
-}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I found an issue in the
-HIF CLDMA receive path where an unchecked modem-provided length is passed
-directly to skb_put():
-
-drivers/net/wwan/t7xx/t7xx_hif_cldma.c:t7xx_cldma_gpd_rx_from_q() {
-    ...
-	skb_put(skb, le16_to_cpu(gpd->data_buff_len));
-    ...
-}
-
-If the modem provides a gpd->data_buff_len larger than the dynamically
-allocated SKB's tailroom, wouldn't this trigger an skb_over_panic() and
-cause a system denial of service?
-
-[Severity: High]
-This is a pre-existing issue, but it looks like we might be missing a read
-memory barrier in the same receive path:
-
-drivers/net/wwan/t7xx/t7xx_hif_cldma.c:t7xx_cldma_gpd_rx_from_q() {
-    ...
-	if ((gpd->flags & GPD_FLAGS_HWO) || !req->skb) {
-		...
-	}
-	...
-	skb_put(skb, le16_to_cpu(gpd->data_buff_len));
-    ...
-}
-
-Since we poll for the hardware ownership flag (GPD_FLAGS_HWO) and then
-read the data_buff_len without an intervening dma_rmb(), could the CPU
-speculatively reorder the read of the descriptor's payload fields to occur
-before the ownership flag check is globally visible?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a missing write
-memory barrier in the transmission path when setting the ownership flag:
-
-drivers/net/wwan/t7xx/t7xx_hif_cldma.c:t7xx_cldma_gpd_handle_tx_request() {
-    ...
-	gpd->data_buff_len = cpu_to_le16(skb->len);
-
-	spin_lock_irqsave(&md_ctrl->cldma_lock, flags);
-	if (md_ctrl->txq_active & BIT(queue->index))
-		gpd->flags |= GPD_FLAGS_HWO;
-    ...
-}
-
-Because spin_lock_irqsave() only provides ACQUIRE semantics, could the
-memory writes for data_buff_len be delayed past the lock and become
-visible to the hardware after the GPD_FLAGS_HWO flag is set?
