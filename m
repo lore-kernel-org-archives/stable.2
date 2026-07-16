@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96F942A7A4;
-	Thu, 16 Jul 2026 13:48:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A966A425894;
+	Thu, 16 Jul 2026 13:49:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209741; cv=none; b=uAPwb0R/c2sfiZXDMrQq7yhLR7f3OegbhSfjQaeNrYvcaeemj91mbvbqtEEiSj8cQCMv1fjbBt2kG5REuiFzHEWrMqRLrFZWlENiB3JcqbVbZXZqMShTwWiGCISE6bjgkGYIpDChDPGO8T6BoDrs93dGrIe6IMAshFksswwq7s8=
+	t=1784209746; cv=none; b=dh2jIF/Q18CHvHZWwO4dOPpjrEHUCBlpi5Fh8uUgH/FHpm5gXvv2CAa3bSEhVVrt5DbrXgZbvWW7urOdmVAtIPA86zactVpN5RDdxeF1ej+1nh/3yHQOutg82EK2ivpUb9oH/Odh5jvT5GiWn+KUJo+1heKfiaXvN4ZlJbbnCfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784209741; c=relaxed/simple;
-	bh=nlr1YB8YCz84FieOFzF/o6EouMQdN7aADsTlXhDOXdg=;
+	s=arc-20240116; t=1784209746; c=relaxed/simple;
+	bh=/HhEYZHw2qpt1/uwZNlwswmWGbkqVauiTOcW2SS6u2s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RccCmvfN1unHv6GkhwDnTcmopb14HY3jhQaaG+4EWcPBOzl2NworWDJ1jBU73ajMlkBF5+d7Vr18AuYY6a9Yzg8cPeovEF97DBXGRZrohKdcUJM6rrkv1EKyvInK22S2lpEvshe0bj2Yfk3NXhzZ0TeaKoSrb8j7DSUCuENJ4OM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=he1cTQ01; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ikk2CRprnqCsifFBwrRohqF/L+fI8N9W047CgTsC2EwvJAleByYsA7VbMeZ8jImdkFPFB0F97JtYkK7UnE5THaJJ21ARXyNiYR/fGaPBBBMWs93nZlkss1BTIKw30m3+SkbUueKkjWpMPCdiMe3JFUtb8t8wiJBB8JiNSbP+Dcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OlOLjeht; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="he1cTQ01"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DABE21F000E9;
-	Thu, 16 Jul 2026 13:48:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OlOLjeht"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA921F00A3F;
+	Thu, 16 Jul 2026 13:49:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784209736;
-	bh=tNP2+/mAJeTBvaa4LgLYX7OPDOi6GYu2pLa1j1MUsBY=;
+	s=korg; t=1784209741;
+	bh=0hYFyhxLzbPhGfapFZeNO8Yz9EyvIDzinI2d2iH38xs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=he1cTQ01zpJs+EoLbcvRUJQimGV7Oq8jEcrliapUMV/zXa0i6N7u0MNePVAAoZTyn
-	 4KtgX5u0IqEJ7lTaC6cjpzdYF8YEzpwTJLqjM7MGLMypjl1ppMHY1w21FGaLidBX+s
-	 aZhnWxHX2ZRtY4q31sv8xbzrceZCvCr/BaqNga00=
+	b=OlOLjehtf5hwAQCPbIL0sb3gT/1XH0IRpRsHQUCSMckVDwqtH149l1PZz/nsIHGai
+	 EGV2j+Vv6kblm9Y6xute13COYZqC7H05pYzZJCsgjst4MD+7KV1TgPDg8Cdr3KKqua
+	 n+aFuJfNCPtVJXDzY0YpXRejUdLH0UjfxxFN5YBo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
 	stable <stable@kernel.org>,
-	Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Subject: [PATCH 7.1 297/518] Revert "usb: typec: mux: avoid duplicated mux switches"
-Date: Thu, 16 Jul 2026 15:29:25 +0200
-Message-ID: <20260716133054.316518098@linuxfoundation.org>
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	Peter Chen <peter.chen@kernel.org>
+Subject: [PATCH 7.1 299/518] usb: cdnsp: fix stream context array leak in cdnsp_alloc_stream_info()
+Date: Thu, 16 Jul 2026 15:29:27 +0200
+Message-ID: <20260716133054.359495593@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
 References: <20260716133047.772246337@linuxfoundation.org>
@@ -51,75 +51,38 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+From: Haoxiang Li <haoxiang_li2024@163.com>
 
-commit f576c75f95a52c71b30167d7efb6d47148f9c279 upstream.
+commit 3348f444a4ce43dd5c2d1aa41634cb6eff33aa64 upstream.
 
-This reverts commit b145c3f29d62f71cc9d2d714e2d4ae4c8d3f863d.
+cdnsp_alloc_stream_info() allocates stream_info->stream_ctx_array with
+cdnsp_alloc_stream_ctx(). If a later stream ring allocation or stream
+mapping update fails, the error path frees the allocated stream rings
+and stream_rings array, but leaves stream_ctx_array allocated.
 
-The deduplication logic appears to cause issues with separate
-SBU muxes. The mode-switch call on these (like gpio-sbu-mux)
-never appeared, so no successful mode-switch happened. The more
-high-end Parade PS883X redrivers are not affected due to being
-retimer-switch. The revert fixes dp altmode mode-switch for both.
+Free the stream context array before falling through to the stream_rings
+cleanup path.
 
-Tested on:
-  Lenovo Thinkbook 16 G7 QOY
-  Lenovo Ideapad 5 2in1 14Q8X9
-  Microsoft Windows Dev Kit 2023 (Blackrock)
-  Lenovo Thinkpad T14s G6
-
-Fixes: b145c3f29d62 ("usb: typec: mux: avoid duplicated mux switches")
+Fixes: 3d82904559f4 ("usb: cdnsp: cdns3 Add main part of Cadence USBSSP DRD Driver")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20260530-typc-mux-modeset-v1-1-64b0281e2cd6@oldschoolsolutions.biz
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Acked-by: Peter Chen <peter.chen@kernel.org>
+Link: https://patch.msgid.link/20260622052627.696373-1-haoxiang_li2024@163.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/typec/mux.c | 13 +------------
- 1 file changed, 1 insertion(+), 12 deletions(-)
+ drivers/usb/cdns3/cdnsp-mem.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/usb/typec/mux.c b/drivers/usb/typec/mux.c
-index db5e4a4c0a99..9b908c46bd7d 100644
---- a/drivers/usb/typec/mux.c
-+++ b/drivers/usb/typec/mux.c
-@@ -275,9 +275,7 @@ static int mux_fwnode_match(struct device *dev, const void *fwnode)
- static void *typec_mux_match(const struct fwnode_handle *fwnode,
- 			     const char *id, void *data)
- {
--	struct typec_mux_dev **mux_devs = data;
- 	struct device *dev;
--	int i;
+--- a/drivers/usb/cdns3/cdnsp-mem.c
++++ b/drivers/usb/cdns3/cdnsp-mem.c
+@@ -631,6 +631,8 @@ cleanup_rings:
+ 		}
+ 	}
  
- 	/*
- 	 * Device graph (OF graph) does not give any means to identify the
-@@ -293,14 +291,6 @@ static void *typec_mux_match(const struct fwnode_handle *fwnode,
- 	dev = class_find_device(&typec_mux_class, NULL, fwnode,
- 				mux_fwnode_match);
++	cdnsp_free_stream_ctx(pdev, pep);
++
+ cleanup_stream_rings:
+ 	kfree(pep->stream_info.stream_rings);
  
--	/* Skip duplicates */
--	for (i = 0; i < TYPEC_MUX_MAX_DEVS; i++)
--		if (to_typec_mux_dev(dev) == mux_devs[i]) {
--			put_device(dev);
--			return NULL;
--		}
--
--
- 	return dev ? to_typec_mux_dev(dev) : ERR_PTR(-EPROBE_DEFER);
- }
- 
-@@ -326,8 +316,7 @@ struct typec_mux *fwnode_typec_mux_get(struct fwnode_handle *fwnode)
- 		return ERR_PTR(-ENOMEM);
- 
- 	count = fwnode_connection_find_matches(fwnode, "mode-switch",
--					       (void **)mux_devs,
--					       typec_mux_match,
-+					       NULL, typec_mux_match,
- 					       (void **)mux_devs,
- 					       ARRAY_SIZE(mux_devs));
- 	if (count <= 0) {
--- 
-2.55.0
-
 
 
