@@ -1,90 +1,114 @@
-Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94E53D0936
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 08:23:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7083D9048;
+	Thu, 16 Jul 2026 08:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784190229; cv=none; b=h7nPRDbJ7fMEp0HKqIzYZ+RMRBoDb8XTbHY7zaURvfExmdb2Y+UmenvQAv5sVTPxIcu+WlkkvD1gdZnJUqvPMAr83sbu0cs+uzIYkOA2cWfvBJCKd5FPaQHiJiZ2jrc/1jnsohGipIFEAcZT7CM5iXhrWkP0mmoYyymzNaWK5UI=
+	t=1784190271; cv=none; b=OGJNySze3vFRbhG1pXMHYL6O9IV5RuQYC+XaTZZSwDlo0iypm3BnbGpc5xTfxOB0AzPuz2WYgcW6HNDCn8Vh2icXw8K94Wca8P8FqGyJJ5xhqi4Inqznq1Tq7ND8RYIoaoB2kM2QF184uq/ii8WdLlOF8XMQbnO33aD/nydOJkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784190229; c=relaxed/simple;
-	bh=OqI4WMNgYIsd+7+h1pcgjDmt8GV93rtfpTA8yRBccbc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iE6ehZu6B4cP5nEcrliUHbZYF75x6Y+YSaaJVVtRVEswdh5JhX720/p0FEmRQuhbK8jv7ZCOT+cBn/IOLj2odVHEJMb0Uh7vNVXLPRHmcHDSWZtgwPbCY6whNqvxM1qQXblbJg5GdAkJmBE9zNswuD7ltvWLalbB/D5sPe1toHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Op6V0AuF; arc=none smtp.client-ip=91.218.175.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Op6V0AuF"
-Message-ID: <e1cb2692-166d-47d9-9296-d49f208f7290@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784190223;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UIaszBeUoTnjcZ9764rp1WBJk9UH/ENIc9gpm/gy/NI=;
-	b=Op6V0AuF4XlLT+MZsRSab/NCi9drrN/5EZf8hapHnyZ1epDk8IaaOQyWMrbrxKL+xLYono
-	yq00msQf8VHcQcEQPS6YRrcrRYPsD/i4EuCqgsqHAjoY4PIc9kUs7LeWkqKnOHwaqGRtKn
-	gZ8AagocXhquwlAfqxnYYiLFPsELhFA=
-Date: Thu, 16 Jul 2026 16:23:31 +0800
+	s=arc-20240116; t=1784190271; c=relaxed/simple;
+	bh=xZhfIBtPPtuuuFCvnyWBR9kUG8ZRnrbdAiQP6va7zUU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PFJjVurS0TEaDCt+y+Si+pYo9QixCTJ3akcrUeKtfWjXLPLlw9SRcjdEF/tp2x/7FXh3qOCG9Rn5DBjZ8twzN9KQfpdLC0O+HmE/zTx3FBAgm3fdOe5Z5dp/9dxUyM5hAXnkjXSFJ1Ps82G0yXgDxl7DDWZkgDS9XHP3in4TQEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 981176732A; Thu, 16 Jul 2026 10:24:21 +0200 (CEST)
+Date: Thu, 16 Jul 2026 10:24:21 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: hch@lst.de, cem@kernel.org, stable@vger.kernel.org,
+	linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 6/6] xfs: don't livelock in scrub on a circular
+ unlinked list
+Message-ID: <20260716082421.GH12330@lst.de>
+References: <178416797326.2008054.12517273271060887961.stgit@frogsfrogsfrogs> <178416797487.2008054.2580454314921003800.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 2/2] mm: vmscan: fix node reclaim ignoring swappiness
- parameter
-To: Tao Cui <cui.tao@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>
-Cc: Muchun Song <muchun.song@linux.dev>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
-References: <20260716031729.1064007-1-ridong.chen@linux.dev>
- <20260716031729.1064007-3-ridong.chen@linux.dev>
- <c5efad07-7188-4f18-bdc3-fceb8aedc9b8@linux.dev>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <c5efad07-7188-4f18-bdc3-fceb8aedc9b8@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178416797487.2008054.2580454314921003800.stgit@frogsfrogsfrogs>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
+On Wed, Jul 15, 2026 at 11:07:40PM -0700, Darrick J. Wong wrote:
+> From: Darrick J. Wong <djwong@kernel.org>
+> 
+> LOLLM points out that online fsck can livelock if an unlinked inode list
+> contains a loop.  Use a bitmap to detect cycles.
 
+Didn't we recently have some AI generated patch for the same thing?
 
-On 7/16/2026 2:06 PM, Tao Cui wrote:
-> Hi Ridong,
-> 
-> Reproduced the bug and verified the fix in a QEMU x86_64 guest with
-> CONFIG_MEMCG disabled. Global vm.swappiness pinned to 1, then:
-> 
->      echo "64M swappiness=<x>" > /sys/devices/system/node/node0/reclaim
-> 
->    swappiness= | buggy (anon/file)   | patched (anon/file)
->    ----------- | -------------------- | --------------------
->    max         |      0  /  16385     |  16292  /  0
->    200         |      2  /  16384     |  16837  /  0
->    1           |      0  /  16386     |      0  /  16467
-> 
-> Unpatched ignores the swappiness arg (always file); patched honors it.
-> Matches the commit message.
-> 
-> Tested-by: Song Hu <husong@kylinos.cn>
-> Reviewed-by: Song Hu <husong@kylinos.cn>
-> 
-Thanks.
+Either way, this does actually look reasonable.  But also complex
+enough that I really want a test case that creates an image with
+such a corruption to test this case before we merge the kernel code
+as this is something that basically requires a maliciously crafted
+image, and we trade new otherwise untested code for a theoretical
+bug.
 
--- 
-Best regards
-Ridong
+> +static int
+> +xchk_iunlink_bucket(
+> +	struct xfs_scrub	*sc,
+> +	unsigned int		bucket,
+> +	xfs_agino_t		agino)
+
+Maybe add a comment what this function tests?
+
+> +{
+> +	struct xagino_bitmap	seen;
+> +	struct xfs_inode	*ip;
+> +	int			ret = 0;
+> +
+> +	xagino_bitmap_init(&seen);
+> +
+> +	while (agino != NULLAGINO) {
+> +		unsigned int	len = 1;
+> +
+> +		if (agino % XFS_AGI_UNLINKED_BUCKETS != bucket) {
+> +			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
+> +			goto bad;
+> +		}
+
+Handle entries that should not be here, makes sense.
+
+> +
+> +		if (xagino_bitmap_test(&seen, agino, &len)) {
+> +			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
+> +			goto bad;
+> +		}
+
+Check that we don't have duplicates, makes sense.
+
+> +		ip = xfs_iunlink_lookup(sc->sa.pag, agino);
+> +		if (!ip) {
+> +			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
+> +			goto bad;
+> +		}
+> +
+> +		if (!xfs_inode_on_unlinked_list(ip)) {
+> +			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
+> +			goto bad;
+> +		}
+
+The that that the inode actually is on the unlinked list, makes
+sense.
+
+>  	for (i = 0; i < XFS_AGI_UNLINKED_BUCKETS; i++) {
+> -		xfs_agino_t	agino = be32_to_cpu(agi->agi_unlinked[i]);
+> +		int		ret;
+>  
+> -		while (agino != NULLAGINO) {
+> -			if (agino % XFS_AGI_UNLINKED_BUCKETS != i) {
+> -				xchk_block_set_corrupt(sc, sc->sa.agi_bp);
+> -				return;
+> -			}
+
+Ahh, and this is mostly existing code...
+
+Maybe split the reactoring into a separate helper into a prep patch?
 
