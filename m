@@ -1,126 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9A62931C5
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 12:47:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945C141D63D;
+	Thu, 16 Jul 2026 12:49:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784206027; cv=none; b=C5vWwzyPu0uS+UuWY2cJPqAV7DtB1Kkg962dBFZ1hsRrUj43SuckfkD3Kt4EKoYjhKL60PQSGjdBkGo4XrdbArFiHcGCt7FjDoqyvPmASGjKNeObHtnqHzAwJtraENRaY3MExzwnfJgGnCNfErBIAZRFFNGIW7HDmiMtX995jIQ=
+	t=1784206163; cv=none; b=fHL98f/6/jn6CvM04qprZ9QG/p3o7fVgeNU4rXxGBfENSBMWDaZDsmI4+DEBphV8cYdfjM2ti4SrMIzEdbIWBxm/xmRBv0lFN535odUAid3Hu5dYunPuoAdiwjiXEYGxH5/5SmFcbbFqAq/S548/1/yYdRL9Db5ufdYhQEypb+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784206027; c=relaxed/simple;
-	bh=TXpl6XrTo2u1RMC9H/TQc0G/a4g6RohRr0AClW0qIdg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uPM9UKpePSvgPj7jW+REP0FsOhpPOzLrixz18TBREBm61IMGbrRmqGiQW1c53QER5bUW7gd7mw/i5WZ1MOUr9AvS3P+xkmBTz2GK3Ehte6m2jy1T5CVfhPuTGNSPy4r/erTI2fVggT55QmyazEeIJFVML3CmkmNOneC3e1CvL90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2u5LhBsG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784206163; c=relaxed/simple;
+	bh=Bus2ruuxt4jS5897GqFvCmeDlh5ATzw9taggVhAgYRc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E2QIXk39mC7GIY2mqmWCOW5Cu0Ic0XxazHuaemtlVpi+l/FEDxN5SJVPDre3VPLkY6Cdk8D1zGP/Zu8pHs/1JXckYXDIUPdpRvriBrgWuhSX4m55XUm9p8hX8RhUBCb8PeMR7wyHHxOH1tQHSI0rRaxfmueAS4tzEvxcKvgsFAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBTnCvJ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2u5LhBsG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 178FF1F000E9;
-	Thu, 16 Jul 2026 12:47:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784206025;
-	bh=Ban+JBJVplb3rHDbfDuVnKW+ypfuwRuKTvf4sDUh664=;
-	h=Subject:To:Cc:From:Date;
-	b=2u5LhBsGEHG1B8+iaFhG3Z7dT1WfRk+vVOxVMT6Gf9LfQ55rq0mCpNSEAkTYt+Huk
-	 CdlPr0zCSpWYqfUeE6VUIv9HlXD82sTW2ioKRmqNLpkUAVDPFopjfJVYlOe38AS+kY
-	 cswwD37Ja0Pe8wo7Jp9kvY1IDBZxm0Dgv/zsE/DE=
-Subject: FAILED: patch "[PATCH] RDMA/rtrs-srv: Bound RDMA-Write length to chunk size in" failed to apply to 5.10-stable tree
-To: whi4ed0g@gmail.com,danisjiang@gmail.com,haris.iqbal@ionos.com,jgg@nvidia.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 14:46:58 +0200
-Message-ID: <2026071658-gone-jawless-67b1@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBTnCvJ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8401F000E9;
+	Thu, 16 Jul 2026 12:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784206162;
+	bh=hPC4/bkySYuEIDm7sSNDHaTK4nJg9WPIz/TBHjyeJK0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EBTnCvJ9LBKnvWT6txkoqJfPx80j2qmCPPgtys2eexys61AqRBL/PikdcJ6hRJAu9
+	 N/7/eAlmSuk+e3pdfg1br9QTOhJW2GGB9kHXTsWQFNTHz0JCZ97PbPUW/LdJ4+wRy/
+	 +XTaRU6ByVV8cgDQ/Y8URNaE9ixhEq3zlBP78l090NnAF3jztLYymQ9AP81piPIYAS
+	 +eLW/SudvgS/2t8T899cAQ7pEdr9DwlUjvvFQEk6oEwv3wdptotD0TLRa6MM1FffAR
+	 YHD2d42XYxRErp70skW71CAatVzJVw6VUlhs8jh9r8ff+ImW/liW57cAnWmulaWueU
+	 l0WsUaQ0QduBw==
+Date: Thu, 16 Jul 2026 13:49:12 +0100
+From: Will Deacon <will@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org
+Cc: Dev Jain <dev.jain@arm.com>, muchun.song@linux.dev, osalvador@suse.de,
+	ljs@kernel.org, liam@infradead.org, riel@surriel.com,
+	vbabka@kernel.org, harry@kernel.org, jannh@google.com,
+	lance.yang@linux.dev, kas@kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, apopple@nvidia.com,
+	rcampbell@nvidia.com, ziy@nvidia.com, matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com,
+	gourry@gourry.net, ying.huang@linux.alibaba.com, ak@linux.intel.com,
+	nao.horiguchi@gmail.com, mel@csn.ul.ie, j-nomura@ce.jp.nec.com,
+	pfalcato@suse.de, tglx@kernel.org, dave.hansen@intel.com,
+	jpoimboe@kernel.org, catalin.marinas@arm.com,
+	linux-arm-kernel@lists.infradead.org, ryan.roberts@arm.com,
+	anshuman.khandual@arm.com, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/6] arm64: make huge_ptep_get handled unaligned
+ addresses
+Message-ID: <aljTSN3yGRv1OoUN@willie-the-truck>
+References: <20260703114202.365553-1-dev.jain@arm.com>
+ <20260703114202.365553-2-dev.jain@arm.com>
+ <20260705003559.8b124d2b94b685cc2e4e77ae@linux-foundation.org>
+ <8fdbe0d6-87fd-441c-b6d2-baac380f6fb3@arm.com>
+ <4b4e8007-3747-457a-85cc-d1003e1c8fe2@kernel.org>
+ <39a13445-dc6f-4a75-92b8-f4a122c63b89@arm.com>
+ <7ac558fd-1081-456b-b997-c7321241cf8c@arm.com>
+ <2b9d60a2-8698-46b0-80ae-b8747a66a85b@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2b9d60a2-8698-46b0-80ae-b8747a66a85b@kernel.org>
 
+On Mon, Jul 06, 2026 at 04:04:40PM +0200, David Hildenbrand (Arm) wrote:
+> On 7/6/26 12:54, Dev Jain wrote:
+> > 
+> > 
+> > On 06/07/26 4:22 pm, Dev Jain wrote:
+> >>
+> >>
+> >> On 06/07/26 2:15 pm, David Hildenbrand (Arm) wrote:
+> >>>
+> >>> Even worse, right? We could walk 128 entries, when we really should just walk 16
+> >>> (IIRC) entries, possibly reading garbage or even worse, into a memory hole at
+> >>> the end of memory?
+> >>
+> >> Hmm I was thinking that the checks pte_dirty() and pte_young() wouldn't care whether
+> >> the pte is garbage. But, we could actually dereference a ptep pointer not having
+> >> backing memory at all.
+> >>
+> >> Does the following sound good?
+> >>
+> >> "On systems where CONT_PTES != CONT_PMDS (meaning page size is 16K), we could collect
+> >> excess a/d bit state, meaning extra work for the kernel. Even worse, we may iterate
+> >> beyond the PTE table and dereference a garbage ptep pointer to access physical
+> >> memory we don't own. Since the ptep pointer is a linear map address, we may run off
+> >> the end of the linear map, dereference a VA not mapped into the kernel pgtables and
+> >> cause kernel panic."
+> >>
+> >> Although I checked on arm64, there is no case in which there is a hole after the
+> >> linear map, but still that assumption shouldn't be made.
+> > 
+> > Oh but we could access a linear map address which corresponds to a DRAM hole, meaning
+> > there is no entry in the kernel pgtable.
+> 
+> Yes, exactly. With debug-pagealloc and things like that we might have many holes
+> in the direct map.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+I think this one patch should go in as a fix.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Andrew, do you mind if I pick it via arm64? If you'd rather manage the
+whole lot, please can you send just this one as a fix for this cycle?
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 963af8d97a8c6a117134a8d0db1415e0489200b1
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071658-gone-jawless-67b1@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Thanks,
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 963af8d97a8c6a117134a8d0db1415e0489200b1 Mon Sep 17 00:00:00 2001
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Fri, 12 Jun 2026 01:15:54 +0800
-Subject: [PATCH] RDMA/rtrs-srv: Bound RDMA-Write length to chunk size in
- rdma_write_sg
-
-When the server answers an RTRS READ, rdma_write_sg() builds the source
-scatter/gather entry for the IB_WR_RDMA_WRITE that returns data to the
-peer. Its length is taken directly from the wire descriptor:
-
-  plist->length = le32_to_cpu(id->rd_msg->desc[0].len);
-
-rd_msg points into the chunk buffer that the remote peer filled via
-RDMA-WRITE-WITH-IMM (rtrs_srv_rdma_done() -> process_io_req() ->
-process_read()), so desc[0].len is attacker-controlled and, before this
-change, was only rejected when zero. The source address is the fixed
-chunk start (dma_addr[msg_id]) and the source lkey is the PD-wide
-local_dma_lkey, which is not tied to the chunk's MR mapping, so the verbs
-layer does not constrain the transfer length to max_chunk_size. msg_id
-and off are bounded against queue_depth and max_chunk_size in
-rtrs_srv_rdma_done(), but desc[0].len is a separate field that was not
-checked against the chunk size.
-
-A peer that advertises desc[0].len larger than max_chunk_size can make
-the posted RDMA write read past the chunk's mapped region. The resulting
-behaviour depends on the IOMMU configuration: with no IOMMU or in
-passthrough mode the read may extend into memory adjacent to the chunk
-and be returned to the peer, which can disclose host memory; with a
-translating IOMMU the out-of-range access is expected to fault and abort
-the connection. In either case the transfer exceeds what the protocol
-permits and is driven by a remote peer.
-
-Reject a descriptor length above max_chunk_size, mirroring the existing
-off >= max_chunk_size bound in rtrs_srv_rdma_done(). Legitimate clients
-do not exceed it: the client sets desc[0].len to its MR length, which is
-capped at the negotiated max_io_size (max_chunk_size - MAX_HDR_SIZE).
-
-Fixes: 9cb837480424 ("RDMA/rtrs: server: main functionality")
-Link: https://patch.msgid.link/r/20260612-master-v1-1-70cde5c6fdc9@gmail.com
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
-Reviewed-by: Md Haris Iqbal <haris.iqbal@ionos.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-
-diff --git a/drivers/infiniband/ulp/rtrs/rtrs-srv.c b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-index f2fd80c8a044..7d8e4422cc57 100644
---- a/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-+++ b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-@@ -225,8 +225,9 @@ static int rdma_write_sg(struct rtrs_srv_op *id)
- 	/* WR will fail with length error
- 	 * if this is 0
- 	 */
--	if (plist->length == 0) {
--		rtrs_err(s, "Invalid RDMA-Write sg list length 0\n");
-+	if (plist->length == 0 || plist->length > max_chunk_size) {
-+		rtrs_err(s, "Invalid RDMA-Write sg list length %u\n",
-+			 plist->length);
- 		return -EINVAL;
- 	}
- 
-
+Will
