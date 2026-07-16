@@ -1,141 +1,85 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5613423763
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 14:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDFE324B2C;
+	Thu, 16 Jul 2026 14:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784213760; cv=none; b=BVUOAQSEXvUZWxIEAcBHByf1Pi/KPznDBH+Ib9WIqrjMNmKEeHnSXzu/Ng7vTtMaFHYFuDjmLnr9WpKqNgDOYSQYDzxUeQ/rPHPDmtUVU3oX0GlXpu0z4EjmFHi1UIfWtvudf3WGMEGOERoGgHB4/jHf1FxPJCvw3xMm8D4Ctpk=
+	t=1784213932; cv=none; b=M3RxneinyI6YyngxpbQvRHqu4jiiGUvwA3uQAnifu4vf+LOSlDQXXLTZB0Dmqh/JByJsnbTTKhPNBosrUKgz2YqH0z/+w7g60QNg8tqmE002ScjQcJKl7nZBeHf0/nBXOBtz81/JmDM6tlKFyuNIf+aGW53O12nXvw8MGaddwM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784213760; c=relaxed/simple;
-	bh=pc7NSyXUa2dRxQ+Ye8ddqTw3582ro7LVRcHjsWqLW88=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b9BvWGjjTPGHoEz4V2Qr0JUPOSnDYppA7H7ha2wDlMzK0wSwgbjCIq2g1axcmpbF8vUbtNxdSuThO65IdWeWsAHkmh91bMJHrlx1zhUs5PV7tjYi0EVwhoQ87aVe+XNE7i1+wxDef17yDiuLoJNyTzMXEGbgYBYXfDs2pFBSGbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4EEBE3E41;
-	Thu, 16 Jul 2026 14:55:57 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3FBF0779AF;
-	Thu, 16 Jul 2026 14:55:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oo2GD/3wWGrqXQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 16 Jul 2026 14:55:57 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 731E2A09B7; Thu, 16 Jul 2026 16:55:52 +0200 (CEST)
-From: Jan Kara <jack@suse.cz>
-To: <linux-fsdevel@vger.kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	aivazian.tigran@gmail.com,
-	Ted Tso <tytso@mit.edu>,
-	<linux-ext4@vger.kernel.org>,
-	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
-	Jan Kara <jack@suse.cz>,
+	s=arc-20240116; t=1784213932; c=relaxed/simple;
+	bh=YYT94eJBx3or6U8w7zZRBnkxg9IlWo3HIkdU+D5Oy64=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k9epjq9rS/Q0rFulbZE+nkpZ82G8A/RdGxy5f8xV9E//1v0Zv6CJJ87bAWP0Ox7yhBwoFDxm5wK4XAt7qQqxZrRBMQnlageuNWisBulrPNfeETDZNiszu5BrBJsVQygM0IDG7NUtkpfuuJohpBw01Pz/zwIw+elnaiXafkt6MFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDzjhTht; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDzjhTht"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44CD61F000E9;
+	Thu, 16 Jul 2026 14:58:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784213930;
+	bh=hdWH9w598lMkzkulklCO/KS15UEmhMIp1D6LdV+8aeE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BDzjhThtK1/9Sqzw/sdNqD/B1Xkb00unxro5KoRg3X9wygMUVkVSeGfMPiriSa+Xr
+	 WUoQzgipCowDu/JyYB3i9nkUxvJmWi926tiEq7XVhtR0DNSqyrIrSUYid8to2wM3C4
+	 4eza1I9zEHFFvbaIci2qJHiSZk0nnnBT4k7gjNUmXYH4VmBDq795C0ajBWrn6IAC8v
+	 42HP1J036cbGORM+DnOx4FYMdUn8NlBuR1VGpnjXloek7ojMGZyYICPTKcpxjSPnsd
+	 mc4Vs3L5iPMKNFAe9zJLZBP94tBsgHrjlXiRZXz5U5eVOZjq9MOOZWl2j9I2TEvQIa
+	 7Mw0e9aBcTjvg==
+Date: Thu, 16 Jul 2026 15:58:46 +0100
+From: Simon Horman <horms@kernel.org>
+To: Doruk Tan Ozturk <doruk@0sec.ai>
+Cc: David Heidelberg <david@ixit.cz>, oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v4 06/21] ext2: Fix lost inode updates for IS_SYNC inodes
-Date: Thu, 16 Jul 2026 16:55:28 +0200
-Message-ID: <20260716145527.3580300-27-jack@suse.cz>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260716145359.28639-1-jack@suse.cz>
-References: <20260716145359.28639-1-jack@suse.cz>
+Subject: Re: [PATCH net] nfc: st21nfca: validate ATR_REQ length against the
+ received frame
+Message-ID: <20260716145846.GM95246@horms.kernel.org>
+References: <20260711071301.58071-1-doruk@0sec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1941; i=jack@suse.cz; h=from:subject; bh=pc7NSyXUa2dRxQ+Ye8ddqTw3582ro7LVRcHjsWqLW88=; b=owEBbQGS/pANAwAIAZydqgc/ZEDZAcsmYgBqWPDk+stpQtY37/eaHutcWJHpabz5KYFr/6V2Y fcUiRSRn7OJATMEAAEIAB0WIQSrWdEr1p4yirVVKBycnaoHP2RA2QUCaljw5AAKCRCcnaoHP2RA 2TnNB/9qOc8a0qJWhcohEex1kd1fUPbRe7DhfmlsQSxP4ovmZCbCV08f3+KQJQqUyb7vd5iMBq4 BWykjRRVqJhAgc/iYlLwUFV06ncCWCLkKUKwpueaUqd5M90xFJfZs9hEidQSz0JiwuYlQ/3EDPw 12Im6Pekrqr2+OwUX5LY+oqzvWBuo+gofhnHRP07yZwZMp8S+HqbF+CQ15xDorG7mlnchQWcP/p TAhqUKwq9FiyXx1pSGS8aF4BA4Qi/+Z0iw4/geGmvWLo340z2EXi51wAJm6sXscVBO3SJE3LhGq PL2m1KyWvtWxV97YAnke010I8404ZaWDyHBj/719YNchHzdM
-X-Developer-Key: i=jack@suse.cz; a=openpgp; fpr=93C6099A142276A28BBE35D815BC833443038D8C
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Spam-Flag: NO
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[];
-	TAGGED_RCPT(0.00)[]
-X-Rspamd-Queue-Id: 4EEBE3E41
-X-Rspamd-Action: no action
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260711071301.58071-1-doruk@0sec.ai>
 
-ext2_setsize() and ext2_xattr_set2() had a construct like:
+On Sat, Jul 11, 2026 at 09:13:01AM +0200, Doruk Tan Ozturk wrote:
+> st21nfca_tm_recv_atr_req() checks that the received ATR_REQ frame is at
+> least ST21NFCA_ATR_REQ_MIN_SIZE and that the self-declared atr_req->length
+> is at least sizeof(struct st21nfca_atr_req), but never checks that
+> atr_req->length does not exceed the actual received length (skb->len).
+> 
+> st21nfca_tm_send_atr_res() then trusts the declared length:
+> 
+> 	gb_len = atr_req->length - sizeof(struct st21nfca_atr_req);
+> 	...
+> 	memcpy(atr_res->gbi, atr_req->gbi, gb_len);
+> 
+> so an RF peer that sends a short frame but sets atr_req->length larger
+> than the frame makes gb_len exceed the general bytes actually present,
+> and the memcpy reads out of bounds past the received skb. Those bytes are
+> placed in the ATR_RES and sent back to the peer (kernel-memory disclosure
+> to a proximity attacker); a larger declared length is an out-of-bounds
+> read (DoS).
+> 
+> Reject frames whose declared length exceeds the received length. The
+> adjacent nfc_tm_activated() path in the same function already derives its
+> general-bytes length from skb->len rather than the declared field.
+> 
+> Found by 0sec (https://0sec.ai) using automated source analysis; the
+> missing bound is evident from source. Compile-tested.
+> 
+> Fixes: 1892bf844ea0 ("NFC: st21nfca: Adding P2P support to st21nfca in Initiator & Target mode")
+> Cc: stable@vger.kernel.org
+> Assisted-by: 0sec:claude-opus-4-8
+> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 
-	if (IS_SYNC(inode)) {
-		sync_inode_metadata(inode, 1);
-	} else {
-		mark_inode_dirty(inode);
-	}
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-which leads to lost inode updates for IS_SYNC inodes because
-sync_inode_metadata() does anything only if the inode is already dirty
-and hence inode updates may be simply lost. Fix the problem by
-unconditionally marking the inode dirty and *then* call
-sync_inode_metadata().
-
-CC: stable@vger.kernel.org
-Signed-off-by: Jan Kara <jack@suse.cz>
----
- fs/ext2/inode.c | 7 ++-----
- fs/ext2/xattr.c | 4 ++--
- 2 files changed, 4 insertions(+), 7 deletions(-)
-
-diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
-index 29808629cce5..269b1c9fba5f 100644
---- a/fs/ext2/inode.c
-+++ b/fs/ext2/inode.c
-@@ -1258,12 +1258,9 @@ static int ext2_setsize(struct inode *inode, loff_t newsize)
- 	filemap_invalidate_unlock(inode->i_mapping);
- 
- 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
--	if (inode_needs_sync(inode)) {
--		mmb_sync(&EXT2_I(inode)->i_metadata_bhs);
-+	mark_inode_dirty(inode);
-+	if (inode_needs_sync(inode))
- 		sync_inode_metadata(inode, 1);
--	} else {
--		mark_inode_dirty(inode);
--	}
- 
- 	return 0;
- }
-diff --git a/fs/ext2/xattr.c b/fs/ext2/xattr.c
-index e55d16abf422..be63f89402a3 100644
---- a/fs/ext2/xattr.c
-+++ b/fs/ext2/xattr.c
-@@ -777,6 +777,7 @@ ext2_xattr_set2(struct inode *inode, struct buffer_head *old_bh,
- 	/* Update the inode. */
- 	EXT2_I(inode)->i_file_acl = new_bh ? new_bh->b_blocknr : 0;
- 	inode_set_ctime_current(inode);
-+	mark_inode_dirty(inode);
- 	if (IS_SYNC(inode)) {
- 		error = sync_inode_metadata(inode, 1);
- 		/* In case sync failed due to ENOSPC the inode was actually
-@@ -789,8 +790,7 @@ ext2_xattr_set2(struct inode *inode, struct buffer_head *old_bh,
- 			}
- 			goto cleanup;
- 		}
--	} else
--		mark_inode_dirty(inode);
-+	}
- 
- 	error = 0;
- 	if (old_bh && old_bh != new_bh) {
--- 
-2.51.0
-
+FTR, the AI-generated review of this patch on sashiko.dev does seem to
+raise legitimate pre-existing issues which relate closely to this patch.
+But I think they can be treated as potential follow-up rather than impeding
+progress of this patch.
