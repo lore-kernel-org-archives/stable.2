@@ -1,44 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A2D446822
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 18:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592222EEE82
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 18:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784226142; cv=none; b=mUueeJ0g8uR6uAwLBbn7S29o+GUMCo5Yo7TEsA6lxvhZUWSW3MhxJrh04ooOZAhnUM+CIsUp8djVsLxEvYGGZ8LTQOMM8miI8bQuciAF2AjwUW4/FSmy3P0kXL8GkgcHbILbjBaFbjgmP2EDS8cJD2lLFhtFouHK7YKWUlH9PaA=
+	t=1784226721; cv=none; b=gjEqRuBqSc1OrLVA57gTATLBgXdXTNl+TGzImRZYfI5qf8Dkax/Kc6eps+7VKccH4k6x67fyIuebimeMqK2I6SnRLQbvjVyPf9BQWvh76nWKinoogfXzAF6ls9vyRp8tQBeGA5A4u78SMBEsGCpXVGB5Ri94pyIrTxA5vXKVmQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784226142; c=relaxed/simple;
-	bh=Npz7CGVRBZFgnil2Sid2aHvCrb6xmFaRb7LiMpbZkWw=;
+	s=arc-20240116; t=1784226721; c=relaxed/simple;
+	bh=VT18DXOtgt7oi0I3B0HOPYZr70omh2IjfVSy6WXbX+A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VtZyTLy9W0ju4ygxnxMmqS+PKbDBBNWdRfhdWpxNI9/5p9r7yQLeHVwmGYYOUeU3Gh+9Y8+2NaXpqzqq4Lq89OoJ6hjsSReHAweX4i9eNbSzIEw0HXdQvY6QHVEI79tLgxhuXPuGGz1a55oToh9G6hbWxg4ozKIY2Wqat1YUQJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o3jno0gC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fpuWR7lrMf7KmEablR/4n34aK3sfLn9aykgjQsE/40ZQ8dhWKBx0M7rOz+gsHTrmqXFfxxCWQc3Hp67xTRGFHJ+5ZLHsoE/x8LNHGAUIQH6v1NlKkPhqa2gxJVhVLVOgMDo2IowRqC1w6XeXWsNzZ+OlH2ZRiEwq3Me/PGWcAUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TyRLJuW1; arc=none smtp.client-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o3jno0gC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAE711F00ADE;
-	Thu, 16 Jul 2026 18:22:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784226132;
-	bh=TL64kT1pZwuvf431SVoYOfaK+pluZ5hbIq1PSNW0iqg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o3jno0gCnI1ZMifZF2EEsiEZJb/hl/EBXc5UF/+wWbkmIRhm+pmkun4fiwItfDwW1
-	 H7MIBFFrQAvMYf2JJ4A/KaPoXnvABAvhfclScqJiWoflkHaksCb/8m9ONP1u1SFpdh
-	 BJzdxsBTCFIcvDxplyYEew7NUyxre/9t1gSe+LCES5gH9n1HJBcwh/LZYuujWb1Z6b
-	 gpFNyDP0Kajc1pcLpD6wqNbJ4HMO9ddpBw2c/SdW33nE6fwnJsc5VpzL21k+/xkgaz
-	 CFZDJv04HgOUqbKVClQ2n7zfhY3mHjNx/R7Ahaaazizuxz25F3C2H3O40NuFOrhO+H
-	 tCTtCrxvr4vOg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: DaeMyung Kang <charsyam@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 6/7] ksmbd: centralize ksmbd_conn final release to plug transport leak
-Date: Thu, 16 Jul 2026 14:22:04 -0400
-Message-ID: <20260716182205.921233-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260716182205.921233-1-sashal@kernel.org>
-References: <2026071415-rambling-chooser-b760@gregkh>
- <20260716182205.921233-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TyRLJuW1"
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-447a81776e9so2587719fac.0
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:32:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784226719; x=1784831519; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OHB0+oZfaIMt3j2ttBM/Bcj/urTp1/X6MkZ1JSUewnc=;
+        b=TyRLJuW1RJ78SA/MOZVJuliwWqKALsAznjaPeurYARCZ5EBOSGhQNf0aQ7T+TJ23h3
+         iqeklN0ap///nOMCJgKmDbCmaTSkgzr2s+LN8GLwA+WLCo+zQ5582b+9VQtW5Hhs1ZA0
+         hmS6ebwwiYaiud4dWNY00NCwOvRwdwL9Vr5hh8Yo8zc4w9G1WVIdAeQZaqqLuwPefnBL
+         qY9eArr5DU1qQ8QSG20LN4YCNEop78NpPlIrQTJp2ZfrR+wftSJbUtOKP6uBb7/bq56r
+         KT2tMUSJdbc7xMx4Rtj1BfbiOIY7u7WwhDLk/iAKgIn7QVZb5qjqWkrbCaoH1vItwnzB
+         RyXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784226719; x=1784831519;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OHB0+oZfaIMt3j2ttBM/Bcj/urTp1/X6MkZ1JSUewnc=;
+        b=F/8hsVpbW0SmVqsk+Hsb8XC5jQbamve9dXRkAZlWKzGc+yh3/Sp/HB1krikxapM2wu
+         f7t6uiw85QY9wlcQmsDlgkHvGgwi9Jo1TReoj2iRjWrSwvGaIxWDX/LdugE3PNA7PLHs
+         ezFyjVW7fsz+LHptZKnGGrSl2V0wFVokm8jD+THBfFS2FE2d7KDmLZA02CJ1nwzZ5txd
+         YegM7vLe0vYJbr5o7m4iZ4jOAL2J4iQlYaoqPInrs95ouzINkmmlNrushjzDGIb/4m9O
+         h6Q6BWRHWqQ0Bq4M3+zlPms51ad1b7UOGbU0qvi0VIVRMiGqhnEfLL/PRLKTfv7uBzIC
+         LpJA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro5mm6K3/02aYjEHLJd1DSO5oVA5zaMFnQo+m6rx0MGZIJvof7sLIAZBUhndViUadO8+WBybr4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5BpPD5A7EfcUnWe5CtOlnPNjw6Aujza3ixaN9uiFtFNSPFVxp
+	SrwK0n4Flho/yKCRfMblCspE3xXgpTHXDA6FP6/XWO7sWmtlDI8wLxup
+X-Gm-Gg: AfdE7ckVNAbd85qDORxZUxP11w2SZ5E7LK0XwFwvEhVq2sJbQ/l65+u3ZOh9Yrc3i4K
+	jraUtGuKPlnBYFNL2ibO/Ed3wBN/GjUgdBwI3IqkC14MuNx8L3JsMSE2lMOyoHE4uiRW9QpDc8A
+	pO111v/Sxa4izezBFqQI3l0ySg2oK90KhPIiC6re7j1THSN2BjULMivQ06ZFHYO0h1QsjWTBeMX
+	lLpgrReSCmMnNlkx+iSArgZDFkMgDzi2jQGMqn4jESxzDDMvTLTz60iimAK/1UUS2KrMuQnLX4w
+	2TZnDS9MtyAHdRi2RB4SkKvZM7Q58Tv6xDUIwMh+2j9yu0PDh+91i1GWu3YLO5VdlNU3RdMzOz/
+	9pDdgavSQHb18fTFVlg8in49hafkElkH1GMvuYw9g8UZu7AY6FQurFTOA6RIwmzNw8glJkO1s/3
+	hmovipfREUZxkQ7jTWM+pVeihXlJ3VhmkaA422RoEHqYMxE0kDCxF8
+X-Received: by 2002:a05:6870:e99f:b0:43d:20f3:bc86 with SMTP id 586e51a60fabf-4560aea3309mr6716076fac.0.1784226718966;
+        Thu, 16 Jul 2026 11:31:58 -0700 (PDT)
+Received: from localhost ([2a03:2880:ff:8::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4519d89f7desm20985156fac.7.2026.07.16.11.31.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 11:31:58 -0700 (PDT)
+From: Joanne Koong <joannelkoong@gmail.com>
+To: miklos@szeredi.hu,
+	bernd@bsbernd.com
+Cc: fuse-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/3] fuse: fix missing barrier when checking io-uring readiness
+Date: Thu, 16 Jul 2026 11:31:42 -0700
+Message-ID: <20260716183144.2710480-2-joannelkoong@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260716183144.2710480-1-joannelkoong@gmail.com>
+References: <20260716183144.2710480-1-joannelkoong@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,261 +77,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: DaeMyung Kang <charsyam@gmail.com>
+fuse_block_alloc() reads fch->initialized and then fch->io_uring.
+fch->io_uring is set before fch->initialized, ordered by the smp_wmb()
+in fuse_chan_set_intialized(), but fuse_block_alloc() has no matching
+read barrier between the two loads.
 
-[ Upstream commit b1f1e80620deb49daf63c2e677046599b693dc1f ]
+This may lead a CPU to observe fch->initialized=1 but fch->io_uring=0,
+and skip the check that blocks request allocation until the io-uring
+queues are ready. This can reintroduce the lock-order inversion deadlock
+that commit 3393ff964e0f prevents.
 
-ksmbd_conn_free() is one of four sites that can observe the last
-refcount drop of a struct ksmbd_conn.  The other three
+Add an smp_rmb() barrier to pair with the smp_wmb() in
+fuse_chan_set_initialized() to prevent this.
 
-    fs/smb/server/connection.c    ksmbd_conn_r_count_dec()
-    fs/smb/server/oplock.c        __free_opinfo()
-    fs/smb/server/vfs_cache.c     session_fd_check()
-
-end the conn with a bare kfree(), skipping
-ida_destroy(&conn->async_ida) and
-conn->transport->ops->free_transport(conn->transport).  Whenever one
-of them is the last putter, the embedded async_ida and the entire
-transport struct leak -- for TCP, that is also the struct socket and
-the kvec iov.
-
-__free_opinfo() being a final putter is not theoretical.  opinfo_put()
-queues the callback via call_rcu(&opinfo->rcu, free_opinfo_rcu), so
-ksmbd_server_terminate_conn() can deposit N opinfo releases in RCU and
-have ksmbd_conn_free() run in the handler thread before any of them
-fire.  ksmbd_conn_free() then observes refcnt > 0 and short-circuits;
-the last RCU-delivered __free_opinfo() falls onto its bare kfree(conn)
-branch and the transport is lost.
-
-A/B validation in a QEMU/virtme guest, mounting //127.0.0.1/testshare:
-each iteration holds 8 files open via sleep processes, force-closes
-TCP with "ss -K sport = :445", kills the holders, lazy-umounts;
-repeated 10 times, then ksmbd shutdown and kmemleak scan.
-
-    state         conn_alloc  conn_free  tcp_free  opi_rcu  kmemleak
-    ----------    ----------  ---------  --------  -------  --------
-    pre-patch         20          20        10       160        7
-    with patch        20          20        20       160        0
-
-Pre-patch conn_free=20 with tcp_free=10 directly demonstrates the
-bare-kfree paths skipping transport cleanup; kmemleak backtraces point
-into struct tcp_transport / iov.  With this patch tcp_free matches
-conn_free at 20/20 and kmemleak is clean.
-
-Move the per-struct final release into __ksmbd_conn_release_work() and
-route the three bare-kfree final-put sites through a new
-ksmbd_conn_put().  Those sites now pair ida_destroy() and
-free_transport() with kfree(conn) regardless of which holder happens
-to release the last reference.  stop_sessions() only triggers the
-transport shutdown and does not itself drop the last conn reference,
-so it is unaffected.
-
-The centralized release reaches sock_release() -> tcp_close() ->
-lock_sock_nested() (might_sleep) from every final putter, including
-__free_opinfo() invoked from an RCU softirq callback, which trips
-CONFIG_DEBUG_ATOMIC_SLEEP.  Defer the release to a dedicated
-ksmbd_conn_wq workqueue so ksmbd_conn_put() is safe from any
-non-sleeping context.
-
-Make ksmbd_file own a strong connection reference while fp->conn is
-non-NULL so durable-preserve and final-close paths cannot dereference
-a stale connection.  ksmbd_open_fd() and ksmbd_reopen_durable_fd()
-take the reference via ksmbd_conn_get() (the latter also reorders the
-fp->conn / fp->tcon assignments before __open_id() so the published fp
-is never observed with fp->conn == NULL); session_fd_check() and
-__ksmbd_close_fd() drop it via ksmbd_conn_put().  With that invariant,
-session_fd_check() can take a local conn pointer once and use it
-across the m_op_list and lock_list iterations even though op->conn
-puts may otherwise drop the last reference.
-
-At module exit the workqueue is flushed and destroyed after
-rcu_barrier(), so any release queued by a trailing RCU callback is
-drained before the inode hash and module text go away.
-
-Fixes: ee426bfb9d09 ("ksmbd: add refcnt to ksmbd_conn struct")
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: c1016dd1d8b2 ("ksmbd: track the connection owning a byte-range lock")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 3393ff964e0f ("fuse: block request allocation until io-uring init is complete")
+Cc: stable@vger.kernel.org
+Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
+Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
 ---
- fs/ksmbd/connection.c | 49 +++++++++++++++++++++++++++++++++++++++++--
- fs/ksmbd/connection.h |  3 +++
- fs/ksmbd/oplock.c     |  4 ++--
- fs/ksmbd/vfs_cache.c  | 18 +++++++++++++++-
- 4 files changed, 69 insertions(+), 5 deletions(-)
+ fs/fuse/dev.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ksmbd/connection.c b/fs/ksmbd/connection.c
-index bfc3154175c77d..76afa733351a2b 100644
---- a/fs/ksmbd/connection.c
-+++ b/fs/ksmbd/connection.c
-@@ -22,6 +22,43 @@ static struct ksmbd_conn_ops default_conn_ops;
- LIST_HEAD(conn_list);
- DECLARE_RWSEM(conn_list_lock);
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 5763a7cd3b37..bd3b48c4fdff 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -85,7 +85,13 @@ void fuse_chan_set_initialized(struct fuse_chan *fch, struct fuse_chan_param *pa
  
-+/**
-+ * ksmbd_conn_get() - take a reference on @conn and return it.
-+ *
-+ * Returns @conn unchanged so callers can write
-+ * "fp->conn = ksmbd_conn_get(work->conn);" in one expression.  Returns NULL
-+ * if @conn is NULL.
-+ */
-+struct ksmbd_conn *ksmbd_conn_get(struct ksmbd_conn *conn)
-+{
-+	if (!conn)
-+		return NULL;
+ static bool fuse_block_alloc(struct fuse_chan *fch, bool for_background)
+ {
+-	return !fch->initialized || (for_background && fch->blocked) ||
++	if (!fch->initialized)
++		return true;
 +
-+	atomic_inc(&conn->refcnt);
-+	return conn;
-+}
++	/* Pairs with smp_wmb() in fuse_chan_set_initialized() */
++	smp_rmb();
 +
-+/**
-+ * ksmbd_conn_put() - drop a reference and, if it was the last, perform the
-+ * final, once-per-struct release of a ksmbd_conn.
-+ *
-+ * The transport is not released here: free_transport() releases it after
-+ * calling ksmbd_conn_free().  The final release therefore only pairs
-+ * ida_destroy() with kfree(), reaches no sleeping teardown and is safe
-+ * from any context, including the RCU callback that frees an opinfo
-+ * holding a connection reference.
-+ */
-+void ksmbd_conn_put(struct ksmbd_conn *conn)
-+{
-+	if (!conn)
-+		return;
-+
-+	if (atomic_dec_and_test(&conn->refcnt)) {
-+		ida_destroy(&conn->async_ida);
-+		kfree(conn);
-+	}
-+}
-+
- /**
-  * ksmbd_conn_free() - free resources of the connection instance
-  *
-@@ -36,12 +73,19 @@ void ksmbd_conn_free(struct ksmbd_conn *conn)
- 	list_del(&conn->conns_list);
- 	up_write(&conn_list_lock);
- 
-+	/*
-+	 * request_buf / preauth_info / mechToken are only ever accessed by the
-+	 * connection handler thread that owns @conn.  ksmbd_conn_free() is
-+	 * called from the transport free_transport() path when that thread is
-+	 * exiting, so it is safe to release them unconditionally even when
-+	 * ksmbd_conn_put() below is not the final putter (oplock / ksmbd_file
-+	 * holders only retain the conn pointer, not these per-thread buffers).
-+	 */
- 	xa_destroy(&conn->sessions);
- 	kvfree(conn->request_buf);
- 	kfree(conn->preauth_info);
- 	kfree(conn->mechToken);
--	ida_destroy(&conn->async_ida);
--	kfree(conn);
-+	ksmbd_conn_put(conn);
++	return (for_background && fch->blocked) ||
+ 	       (fch->io_uring && fch->connected && !fuse_uring_ready(fch));
  }
  
- /**
-@@ -70,6 +114,7 @@ struct ksmbd_conn *ksmbd_conn_alloc(void)
- 		conn->um = NULL;
- 	atomic_set(&conn->req_running, 0);
- 	atomic_set(&conn->r_count, 0);
-+	atomic_set(&conn->refcnt, 1);
- 	conn->total_credits = 1;
- 	conn->outstanding_credits = 0;
- 
-diff --git a/fs/ksmbd/connection.h b/fs/ksmbd/connection.h
-index 0e04cf8b1d896a..66815e56223f11 100644
---- a/fs/ksmbd/connection.h
-+++ b/fs/ksmbd/connection.h
-@@ -106,6 +106,7 @@ struct ksmbd_conn {
- 	bool				signing_negotiated;
- 	__le16				signing_algorithm;
- 	bool				binding;
-+	atomic_t			refcnt;
- };
- 
- struct ksmbd_conn_ops {
-@@ -148,6 +149,8 @@ bool ksmbd_conn_alive(struct ksmbd_conn *conn);
- void ksmbd_conn_wait_idle(struct ksmbd_conn *conn, u64 sess_id);
- struct ksmbd_conn *ksmbd_conn_alloc(void);
- void ksmbd_conn_free(struct ksmbd_conn *conn);
-+struct ksmbd_conn *ksmbd_conn_get(struct ksmbd_conn *conn);
-+void ksmbd_conn_put(struct ksmbd_conn *conn);
- bool ksmbd_conn_lookup_dialect(struct ksmbd_conn *c);
- int ksmbd_conn_write(struct ksmbd_work *work);
- int ksmbd_conn_rdma_read(struct ksmbd_conn *conn,
-diff --git a/fs/ksmbd/oplock.c b/fs/ksmbd/oplock.c
-index 9fcdcea0e6bd84..6cfdf3fb586fa3 100644
---- a/fs/ksmbd/oplock.c
-+++ b/fs/ksmbd/oplock.c
-@@ -30,7 +30,6 @@ static DEFINE_RWLOCK(lease_list_lock);
- static struct oplock_info *alloc_opinfo(struct ksmbd_work *work,
- 					u64 id, __u16 Tid)
- {
--	struct ksmbd_conn *conn = work->conn;
- 	struct ksmbd_session *sess = work->sess;
- 	struct oplock_info *opinfo;
- 
-@@ -39,7 +38,7 @@ static struct oplock_info *alloc_opinfo(struct ksmbd_work *work,
- 		return NULL;
- 
- 	opinfo->sess = sess;
--	opinfo->conn = conn;
-+	opinfo->conn = ksmbd_conn_get(work->conn);
- 	opinfo->level = SMB2_OPLOCK_LEVEL_NONE;
- 	opinfo->op_state = OPLOCK_STATE_NONE;
- 	opinfo->pending_break = 0;
-@@ -124,6 +123,7 @@ static void free_opinfo(struct oplock_info *opinfo)
- {
- 	if (opinfo->is_lease)
- 		free_lease(opinfo);
-+	ksmbd_conn_put(opinfo->conn);
- 	kfree(opinfo);
- }
- 
-diff --git a/fs/ksmbd/vfs_cache.c b/fs/ksmbd/vfs_cache.c
-index 65dd85668cee24..4e7a259964a15f 100644
---- a/fs/ksmbd/vfs_cache.c
-+++ b/fs/ksmbd/vfs_cache.c
-@@ -328,6 +328,14 @@ static void __ksmbd_close_fd(struct ksmbd_file_table *ft, struct ksmbd_file *fp)
- 		kfree(smb_lock);
+@@ -120,9 +126,6 @@ static struct fuse_req *fuse_get_req(struct fuse_chan *fch, bool for_background)
+ 			goto out;
  	}
  
-+	/*
-+	 * Drop fp's strong reference on conn (taken in ksmbd_open_fd()).
-+	 */
-+	if (fp->conn) {
-+		ksmbd_conn_put(fp->conn);
-+		fp->conn = NULL;
-+	}
-+
- 	if (ksmbd_stream_fd(fp))
- 		kfree(fp->stream.name);
- 	kmem_cache_free(filp_cache, fp);
-@@ -579,7 +587,13 @@ struct ksmbd_file *ksmbd_open_fd(struct ksmbd_work *work, struct file *filp)
- 	atomic_set(&fp->refcount, 1);
- 
- 	fp->filp		= filp;
--	fp->conn		= work->conn;
-+	/*
-+	 * fp owns a strong reference on fp->conn for as long as fp->conn is
-+	 * non-NULL, so __ksmbd_close_fd() never dereferences a dangling
-+	 * pointer.  Paired with ksmbd_conn_put() in __ksmbd_close_fd()
-+	 * (final close) and on the error paths below.
-+	 */
-+	fp->conn		= ksmbd_conn_get(work->conn);
- 	fp->tcon		= work->tcon;
- 	fp->volatile_id		= KSMBD_NO_FID;
- 	fp->persistent_id	= KSMBD_NO_FID;
-@@ -601,6 +615,8 @@ struct ksmbd_file *ksmbd_open_fd(struct ksmbd_work *work, struct file *filp)
- 	return fp;
- 
- err_out:
-+	/* fp->conn was set and refcounted before every branch here. */
-+	ksmbd_conn_put(fp->conn);
- 	kmem_cache_free(filp_cache, fp);
- 	return ERR_PTR(ret);
- }
+-	/* Matches smp_wmb() in fuse_chan_set_initialized() */
+-	smp_rmb();
+-
+ 	err = -ENOTCONN;
+ 	if (!fch->connected)
+ 		goto out;
 -- 
-2.53.0
+2.52.0
 
