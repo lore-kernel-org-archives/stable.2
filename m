@@ -1,92 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE0B30D3F6
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 16:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC765A79B;
+	Thu, 16 Jul 2026 16:11:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784217867; cv=none; b=n5DXfm3Esmrv9xHTB9LGkKhTML6cXovNJqfSpgeR6yDJRuZtbxOyBSbZFxRWvyECCzEnFykW8h9l/596e7ke1X7bquLhN4geu0ChpFydBo1PjequnBt5PesTFtXURCx0AxIZDN5uCRwSrg82jCFPSB6QfU6WAJEQOT6CeveD19w=
+	t=1784218306; cv=none; b=Bo0l0cGCNOBf78TR5AUCD/vWInIE6GwuPRDjLsnJEVv8HYwCzHrRuCHcqqWK6rpKfej1VKeTwPSROYH+dGI5fA9pgKoZoyz8gxKjf99aIIUml1QBFb71+Gxqak52c0M1+KKfS7xz4evFXwX9poKEto2ItHTvYJAZpgk5MePIjrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784217867; c=relaxed/simple;
-	bh=CdF62TKB2sQLZl0/JZGZZOCwxzxKc329OtxuHNhDjgA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UzDHY5dxYAg+tMN8+FKFv/f8mTdVQb3F7N/FGmS3bNtcm4GalvWsm2t8HKHFc2w12fkiIsfMkhs2NVH2fH6rvaYuC3bAeolNeXikayeiMzNniFkXu6O6fMw+1KlalA/6TAsNHufvgzfYF2rR4eZPJpaDGSonX0z4UF145lNZ9G0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LbCYMrHW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784218306; c=relaxed/simple;
+	bh=EeJG6i8FQ9x+3Q+k+4Wemjp63iHAulxRHU2HGhD3XYg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PObUaCe8ZHNpKgi5jwrWwIixL4C8hh3xsP9FKnOgOrC2Tzcc9H6n1UmCenvaYK5y0cWfyWitAToE1lfKKvFOWpAeGTXxrM8Oq8LHxM53TTK7v0n+7jfHMJ+Syq2KwME407hL38PCtWH3PnIQDM1e06P/RmSXqhtMf7XlKwHqa70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=m3nD08oj; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LbCYMrHW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B721F000E9;
-	Thu, 16 Jul 2026 16:04:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784217866;
-	bh=9RUSwf7EAs1Wp1sn3EpfmRTiI9ePxRcOrVFxVWA1n4Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LbCYMrHW3xhue8F/+Uy3glhtLcCwHReYTiad2cVgpwjty23WA7apaM7Irwbe1RYPu
-	 iHoB3Nv1IUHHo2ut0tqEBJPV1VvcPwi/S+7mfSfAY8h67lVopSZfYUD4y7iaFQRZqK
-	 cvqnB/AtrauOwbOrEi6wHXSQ3qR/+gPuiVAH+bf06WS0lNzf7Oe8RhXHzJsbuee9DY
-	 6R2wwqA05WAxbCNidTDSwAXjHY7SKk973KeWfFwAcepNCF47FkhrIt5kUQnV3URTHX
-	 49iu/pymZT2uSmUfQuR4yvn3t8k49xQ+O8jxNXH1RrViBPj0J3m9JHxKfPyxtpthx6
-	 sH6DQEqMzVPrQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zihan Xi <xizh2024@lzu.edu.cn>,
-	Yuan Tan <yuantan098@gmail.com>,
-	Yifan Wu <yifanwucs@gmail.com>,
-	Juefei Pu <tomapufckgml@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
-	Ren Wei <n05ec@lzu.edu.cn>,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: harden POSIX SID length parsing
-Date: Thu, 16 Jul 2026 12:04:23 -0400
-Message-ID: <20260716160423.620093-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071425-retiree-hydrant-f109@gregkh>
-References: <2026071425-retiree-hydrant-f109@gregkh>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="m3nD08oj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784218303;
+	bh=EeJG6i8FQ9x+3Q+k+4Wemjp63iHAulxRHU2HGhD3XYg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=m3nD08ojnKwsVuhEI7u4R3vDJpaOjCA42FKDAx82px7QkjTjEL/viE0rAK1ww1QxI
+	 UsvwTQbo7JzBcabWvzCqj52r6SpUw/3g+KdxgzdOu20bqheUJDIGImC7X2HVxFRuaD
+	 j8sI+FTsWVi30n1TTVZlw/cu9boLwo6iQOMEyHH/MWsrEOtkIXrVDttI09JlQA9QIk
+	 PZQtBmSGHwQRPaSqOUp9hiriT7PcLh34cHZI6WA8bJY7wU2Oj6o18wb7xqBkNJw9lP
+	 PXDXFYsBxCRCRj2nsxclfvvcC926QrKIxzLFkCsPipDMwkWvIw5WC5jj/L5DePO63B
+	 RcGccIYV/RbMA==
+Received: from fedora-2.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BF17C17E0177;
+	Thu, 16 Jul 2026 18:11:42 +0200 (CEST)
+Date: Thu, 16 Jul 2026 18:11:37 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Heiko Stuebner
+ <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: reject firmware sections with oversized
+ data
+Message-ID: <20260716181137.5005eb02@fedora-2.home>
+In-Reply-To: <20260716143939.21903-1-osama.abdelkader@gmail.com>
+References: <20260716143939.21903-1-osama.abdelkader@gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Zihan Xi <xizh2024@lzu.edu.cn>
+On Thu, 16 Jul 2026 16:39:38 +0200
+Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
 
-[ Upstream commit 7ad2bcf2441430bb2e918fb3ef9a90d775a6e422 ]
+> In panthor_fw_load_section_entry(), the data size to copy is calculated
+> without validating it against the allocated section_size:
+> 
+>     section->data.size = hdr.data.end - hdr.data.start;
+> 
+> If a crafted firmware sets data.size larger than the allocated memory,
+> this could cause a heap buffer overflow in panthor_fw_init_section_mem()
+> 
+>     memcpy(section->mem->kmap, section->data.buf, section->data.size);
+> 
+> Additionally, if the section->data.size exceeds the BO size, could this
+> memset underflow the size calculation, leading to a massive out-of-bounds
+> zeroing of kernel memory?
+> 
+>     memset(section->mem->kmap + section->data.size, 0,
+>            panthor_kernel_bo_size(section->mem) - section->data.size);
+> 
+> Reject section entries whose initial data is larger than the section size.
+> 
+> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-posix_info_sid_size() reads sid[1] to obtain the subauthority count,
-but its existing boundary check still accepts buffers with only one
-remaining byte. Require two bytes before reading sid[1] so all client
-paths that reuse the helper reject truncated POSIX SIDs safely.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Fixes: 349e13ad30b4 ("cifs: add smb2 POSIX info level")
-Cc: stable@vger.kernel.org
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zihan Xi <xizh2024@lzu.edu.cn>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cifs/smb2pdu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/cifs/smb2pdu.c b/fs/cifs/smb2pdu.c
-index 302c08dfb686dc..afa7197413db9a 100644
---- a/fs/cifs/smb2pdu.c
-+++ b/fs/cifs/smb2pdu.c
-@@ -4592,7 +4592,7 @@ int posix_info_sid_size(const void *beg, const void *end)
- 	size_t subauth;
- 	int total;
- 
--	if (beg + 1 > end)
-+	if (beg + 2 > end)
- 		return -1;
- 
- 	subauth = *(u8 *)(beg+1);
--- 
-2.53.0
+> ---
+>  drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 986151681b24..a338c4f0a7f5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -545,6 +545,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  	struct panthor_fw_binary_section_entry_hdr hdr;
+>  	struct panthor_fw_section *section;
+>  	u32 section_size;
+> +	u32 data_size;
+>  	u32 name_len;
+>  	int ret;
+>  
+> @@ -595,6 +596,13 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  		return -EINVAL;
+>  	}
+>  
+> +	section_size = hdr.va.end - hdr.va.start;
+> +	data_size = hdr.data.end - hdr.data.start;
+> +	if (data_size > section_size) {
+> +		drm_err(&ptdev->base, "Firmware corrupted, section data exceeds section size\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	name_len = iter->size - iter->offset;
+>  
+>  	section = drmm_kzalloc(&ptdev->base, sizeof(*section), GFP_KERNEL);
+> @@ -603,7 +611,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  
+>  	list_add_tail(&section->node, &ptdev->fw->sections);
+>  	section->flags = hdr.flags;
+> -	section->data.size = hdr.data.end - hdr.data.start;
+> +	section->data.size = data_size;
+>  
+>  	if (section->data.size > 0) {
+>  		void *data = drmm_kmalloc(&ptdev->base, section->data.size, GFP_KERNEL);
+> @@ -626,7 +634,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  		section->name = name;
+>  	}
+>  
+> -	section_size = hdr.va.end - hdr.va.start;
+>  	if (section_size) {
+>  		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
+>  		struct panthor_gem_object *bo;
 
