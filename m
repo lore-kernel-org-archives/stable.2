@@ -1,63 +1,63 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944E732F75B
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 02:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103E833372A
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 02:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784170771; cv=none; b=O6o2NFQBStoxox/uw2r9JeDU3qASVdmbq3JsOxmWPG3uOzVreK3+a0794ysDN6H0mJOR62EdnAL4U7w1CR0H4MptK5dZuqOj8lmtRikz4EBiVXBBxhkmtCpRWIDh2cJmqu9mQ/AxxWuSVTRSlh72rl7GaLLUGyojSk/xrPKpj9A=
+	t=1784170772; cv=none; b=aFlHRU+mTjHkVioIi1lnfKRY4LQ30AhxcDiDo/1W21Do4wrknjt4lY12MiRdSlVqofP5KsE/rQ5DNEdG2b3WhPO9gnBixJLB1qQl6RZuwvx1OH9TZbwRIStLE1//u7+CBIQtLotCniG+ypN1VTTcZQCOyh/+lHqbbZOQMqACPwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784170771; c=relaxed/simple;
-	bh=o+gcfN85LsX8ZnGSBMnx913A8Bs8vNEZFqNxdIb/HkU=;
+	s=arc-20240116; t=1784170772; c=relaxed/simple;
+	bh=w7j+Vm3kZqMczU8ZHtd0epQoAcD/4BZM+sBCeTyPK3M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=P6f8/KfnMtV/0C9Qew8eSs9l/VNC88qepK8A9mdC8atmPsQRqaj6ZUw0ijvtnjYiJWuwGe3IrIQWmpUri7wBNRGVit7iYLWRWHvSE5Xm8QFEtTU1R4G7Cts2YhjyAfr9lq/jPV9nnr3XONPYosQtcZjrUihNVlG8Zu5c5EaNBYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H1tG6Ib8; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version:Content-Type; b=m3Os5Jdq/yni/Iis4kiZBrDHShBv1JIEDUwKrra1zkEVXL2ezOSjrIxGVklozY5QpI2I8EDzBgpjUUv6w5wx5ofIWMEsQHhaRMyHc/J6HNY/SCrhWtrWQdDQDLdVF0QT9lwWC6lNzzBVCGNZXW5VFT6v8O01d52/aBE3J4m+a7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OkCihjtp; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H1tG6Ib8"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-476d8e647e9so5700458f8f.0
-        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 19:59:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OkCihjtp"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47f365afc5aso2416971f8f.0
+        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 19:59:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784170767; x=1784775567; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784170769; x=1784775569; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=rlb58YPR7XEeexQL53rN3fWKrWk89Y7Yin8GxLtiR1I=;
-        b=H1tG6Ib84Z0a0e8rqu5taEsakau01i8X/ezrbgGZxS8kFi/CiTJptVXtiwKve6bUqR
-         jxYyMXHRdTGgWmZ0NBkNmnfHlGL5se1CVzDpXCcxJVkXyNjppTQEPUMwOS7HluLmBaRd
-         GqgbyXWzB4pW8h6g3xBpJT8/PRURvl1DpJkrPf4efqlOe1ic9ozeazFIA6rkGKyzImzk
-         2x3uv64Ll4k/oqyE+kSzEHH8T3ssjgWpU1VxkyFdKMPddrnG2QmUKLcHfWlxs5bBx5mT
-         mkLUg/eWt7azc85q39btxoCz+W2efmA7gOGZ+pjJ3lzfDM1h0wHBV6P3Yl1OMCzNlJGB
-         TVew==
+        bh=1nOKM+Rfi7StoXhPr4qCYyTxDdt5ZD1sUwH98ej3Ong=;
+        b=OkCihjtpyeULUITV0uyciLR3d0X9wB4h7k7gVa7J/g6XJCtTmzEuhpCBh4PGBQI5ih
+         M2s4uvHes8Bcy4E4hbcR6UiyoSk71rB53ewkGz4JHjmFLjq5YuBHLfOX31RZpcN5oXHU
+         To4T15rMAIGoMO1HBDxhMA3i7mJnSoc+jLwuwtq73/D610Iv7D29UD+QMO4B39hBXcnJ
+         sLHlxHCIQD49Nhx9JC5zTfxnu2s90YeN0rRJXdBr9peXD/CCNYahKcXuILgRG9mmyQyL
+         1I9VQkqHqKVZZAEAphzefZyrexkgC8sVlLMaKXqQAORTPao+cxnlmn+mQlDWXHOhKuX7
+         1RTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784170767; x=1784775567;
+        d=1e100.net; s=20251104; t=1784170769; x=1784775569;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rlb58YPR7XEeexQL53rN3fWKrWk89Y7Yin8GxLtiR1I=;
-        b=nmFXhNJZoqUw2zh2Qr+H3V2Z62lBzc0/r8KwVGmOdE4PMF+/Vageq07ZWIP5vDPJh2
-         LGAP+l46VclvpGLcC1f2/I4PNIXarE1e/+FvVwpEfX1o1I/KuFjcbxoVoF2KEc+t6YIl
-         4YwQGi9UNX2AsuTQk6jCyTu498vy9v/ircXLwm5bsKB3dN9cL1GpUHXvd2PEp+4ZhYis
-         2Mo7NIR3coL8Pq6/Lko1Bl1S/AH40LSc4Y2e3hHeIXijKm+OxCT2oEh50NQ63OyDkP63
-         kSyuJxeXq5Ql4dHQuh/DHOk7xKFpHnHPXZVHYkoBy5R/LtUaGPnCBMaNLdlmQmCbxVCy
-         /xdw==
-X-Gm-Message-State: AOJu0YzcV9EQhVOC2gQuJ1eGAdq2m3ZuvT/6iMGzMiXWC1v9oK+vQMhr
-	3bmn9qv3sT01XKlQqtJ84ZC02imph2lCFE3RDMbu48RPs6vReeY13WDDE86HrAqx
-X-Gm-Gg: AfdE7clkeupfB6R3GN/dzv85ZosTbBCzPcf/krcEsxLuZYZ7bMf8BareVMA93t+DFca
-	OqGZ6mhzvtPSK28v88ZDVfTn9QK2PvxAOtF1quS2WbCezkd/b/YcshpnVQH99wB04hrL+bPX8C2
-	l92Y3u7ezW+Or8EgMEM3hMCATl/M6XSjYUazu9rGjm4YzlMSjLsn6EIX2hs70XwFG73DQa3OTo+
-	5PbKze/7YyPyoXfx9ng7zUlstVzHwKaJizc3CGH3o6B287aKXToDN4594/sBkFilPGAL863EqOO
-	h2orwme4q9lWo7RnKycojcimr6SvgfjOXKfGGWYc/y2UZti2Eh9GA2R8Zv9gp74LnRvJ69P3bFS
-	ZonPONjiw+uqb3dF+crw/KHnu0I/Nh7wjRUO9v1qvk8kxipUMO/MnBnMqhUDFBBsqjGbqnQpcQa
-	KWLDeite786TbyM2g=
-X-Received: by 2002:a05:6000:310d:b0:474:83d4:9916 with SMTP id ffacd0b85a97d-47f4885698emr11121743f8f.17.1784170766798;
-        Wed, 15 Jul 2026 19:59:26 -0700 (PDT)
+        bh=1nOKM+Rfi7StoXhPr4qCYyTxDdt5ZD1sUwH98ej3Ong=;
+        b=M7Ee5T6Y+LNAVUlh7C7BpdA94rnTypuXG7UILq1Ksy8Ob+xmR5ff2rDJGEueljXTpn
+         cDUiB+ujCoX0em6DSJGa5ubfsFpzktbnqpqNLxV4Hxz1u82CxobF5GCbZZWPVcPP+LmU
+         1fICwPnW9ZHVpSNOG95cEMuuNpGABwsXQmoKyFzR3YxPFKs4Sq++xuPmqOtxOHImEkXX
+         tjz0AvWdNnwvah2SGymnkYZRXRgAxIO+mxJdi1pfJilybEb/h0KpueK4JjHGbzDwYXtz
+         8oiMgbJ4WPIgU6W6mvnR+hvuGfhLaYthbq6Y30kjfcQBXj0EbGXryRasiWKntiXHoAX9
+         CRYw==
+X-Gm-Message-State: AOJu0YxHyKRH9XIfNmLJK+sfJ0RD3GSHvK5c3i0PCNYBSF5XyiXcOFkt
+	ybjnllj7mVaHgMTXZlacpcbLweOqge9wmFEVTouVEpj24kjcx+UcOLwTK8k5X4uy
+X-Gm-Gg: AfdE7cl5IhRfVPYDUpuzVL97nwxu7Shglsz69ksi7LN4mZJRSUyJZ/Qc0J9Zg900LeW
+	35xPGdQIf1vCWO5Oi5/qSzqia7Rg1Dz2EMGIrM5IiF1/fZ3owXt5XPX8zcqDwojaN/k3flN2CWc
+	hFo97g5HRDduPB15MZhBUY0Su4mZdrX4cuU6ePsNNnRzM0jF70P/7xYjFlE1B7kpyzAHzUB7xY7
+	hATycG6roQ77IKEDRu1LkHA+XxSYG9BbUUz/OyGLSTFZFWOxzGevgQPSRGnbMai/BnvvalrxbCU
+	cVi8LjZX8TXVpc7UMx1IgLkk5rimhxjYpBuVZZA3wzWeAyrwFxRQZwCikAQhfE1Tg5USRl2pxiu
+	KyslYrtKSsf1La0MOPiDUJBYqhktsdq8RiGQAaenaSuPEQHxy4qfK2LBSQLY+t4DinjCk4yl1Kt
+	J9X+VtodS5syp/lRjqoY/IhZPJ3w==
+X-Received: by 2002:a05:6000:40cc:b0:472:aaba:faed with SMTP id ffacd0b85a97d-47f488b2472mr11522349f8f.31.1784170769025;
+        Wed, 15 Jul 2026 19:59:29 -0700 (PDT)
 Received: from tt.. ([31.223.44.97])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4635a940sm19511108f8f.12.2026.07.15.19.59.24
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4635a940sm19511108f8f.12.2026.07.15.19.59.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 19:59:25 -0700 (PDT)
+        Wed, 15 Jul 2026 19:59:27 -0700 (PDT)
 From: =?UTF-8?q?Muhammet=20Kaan=20KILIN=C3=87?= <muhammetkaankilinc@gmail.com>
 To: stable@vger.kernel.org,
 	gregkh@linuxfoundation.org,
@@ -66,9 +66,9 @@ Cc: linux-crypto@vger.kernel.org,
 	herbert@gondor.apana.org.au,
 	ebiggers@kernel.org,
 	=?UTF-8?q?Muhammet=20Kaan=20KILIN=C3=87?= <muhammetkaankilinc@gmail.com>
-Subject: [PATCH v3 1/2] crypto: algif_skcipher - force synchronous processing
-Date: Thu, 16 Jul 2026 02:58:36 +0000
-Message-ID: <20260716025838.2672-2-muhammetkaankilinc@gmail.com>
+Subject: [PATCH v3 2/2] crypto: algif_skcipher - force synchronous processing on trees without ctx->state
+Date: Thu, 16 Jul 2026 02:58:37 +0000
+Message-ID: <20260716025838.2672-3-muhammetkaankilinc@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260716025838.2672-1-muhammetkaankilinc@gmail.com>
 References: <20260716025838.2672-1-muhammetkaankilinc@gmail.com>
@@ -83,93 +83,60 @@ Content-Transfer-Encoding: 8bit
 
 The AIO/async path in skcipher_recvmsg() passes the socket-wide ctx->iv
 directly into the skcipher request. After io_submit() the socket lock is
-dropped and the request is processed asynchronously by a worker (e.g.
-cryptd), which dereferences ctx->iv only later.
-
-A concurrent sendmsg(ALG_SET_IV) on the same socket can overwrite ctx->iv
-inside this window, so the in-flight request runs under an
-attacker-controlled IV. For CTR and other stream modes this causes
-IV/keystream reuse and allows an unprivileged user to recover the
-plaintext of a concurrent operation.
+dropped and the request is processed asynchronously, so a concurrent
+sendmsg(ALG_SET_IV) can overwrite ctx->iv and make the in-flight request
+run under an attacker-controlled IV. For CTR/stream modes this is
+IV/keystream reuse and lets an unprivileged user recover the plaintext of
+a concurrent operation.
 
 Snapshotting ctx->iv into per-request storage for the async path is not
-sufficient here. For ciphers with statesize == 0 - which includes cbc
-and ctr - skcipher_prepare_alg() installs skcipher_noimport()/
-skcipher_noexport(), so ctx->state carries nothing and the MSG_MORE
-inter-chunk IV chaining is carried solely by the in-place req->iv
-writeback. A snapshot redirects that writeback into per-request memory
-that af_alg_free_resources() releases on completion, so AIO + MSG_MORE
-with cbc/ctr would silently produce wrong output. Writing the IV back
-from the completion callback instead is not possible either: that would
-require lock_sock() there, but the callback can run in softirq/atomic
-context, so it must not sleep.
+sufficient. For ciphers with statesize == 0 - which includes cbc and ctr -
+the MSG_MORE inter-chunk IV chaining is carried solely by the in-place
+req->iv writeback, which a snapshot redirects into per-request memory that
+af_alg_free_resources() releases on completion, silently producing wrong
+output. Writing the IV back from the completion callback instead is not
+possible either: that would require lock_sock() there, but the callback can
+run in softirq/atomic context, so it must not sleep.
 
-Make the operation synchronous instead. ctx->iv is then only ever
-dereferenced under the socket lock held by recvmsg(), which removes the
-race, and the req->iv writeback lands in ctx->iv as before, which keeps
-MSG_MORE chaining intact for statesize == 0 ciphers. The ctx->state
-import/export path is unchanged for ciphers that do have state.
-
-This is equivalent to the upstream resolution: commit fcc77d33a34c
-("net: Remove support for AIO on sockets") removed the AIO socket path
-across net/ entirely, producing the same end state for this file -
-algif_skcipher never processes an AIO request asynchronously. After this
-patch, _skcipher_recvmsg() matches mainline's crypto/algif_skcipher.c as
-it stands today, including the same now-dead -EIOCBQUEUED check. This
-patch deviates from that commit deliberately: rather than removing AIO
-socket support tree-wide, which would be far too invasive for stable, it
-removes only the AIO branch in crypto/algif_skcipher.c. io_submit() now
-completes synchronously, which is valid for the AIO interface; AF_ALG
-async is rarely used in practice.
+Make the operation synchronous instead, which removes both the IV race and
+any writeback race. This is equivalent to the upstream resolution, commit
+fcc77d33a34c ("net: Remove support for AIO on sockets"), which removed the
+AIO socket path across net/ entirely and so produces the same end state for
+this file. This patch deviates from that commit deliberately: rather than
+removing AIO socket support tree-wide, which would be far too invasive for
+stable, it removes only the AIO branch in crypto/algif_skcipher.c.
+io_submit() now completes synchronously; AF_ALG async is rarely used in
+practice.
 
 The -EIOCBQUEUED check in skcipher_recvmsg() is now dead but harmless,
 and is left alone to keep the fix minimal.
 
+Tested on 6.6.y: attacker IV injection dropped from 2296/200000 to 0/200000
+after the change; MSG_MORE chunked CTR output bit-identical to single-shot.
+
+Reported-by: Muhammet Kaan KILINÇ <muhammetkaankilinc@gmail.com>
 Fixes: e870456d8e7c ("crypto: algif_skcipher - overhaul memory management")
 Cc: <stable@vger.kernel.org>
-Reported-by: Muhammet Kaan KILINÇ <muhammetkaankilinc@gmail.com>
 Signed-off-by: Muhammet Kaan KILINÇ <muhammetkaankilinc@gmail.com>
 ---
-v3: Replaces the v2 per-request IV snapshot with forced synchronous
-    processing, after Sasha Levin pointed out that the snapshot silently
-    breaks MSG_MORE IV chaining for statesize == 0 ciphers (cbc, ctr).
-    The v2 framing of this as the counterpart of 5aa58c3a572b ("crypto:
-    algif_aead - snapshot IV for async AEAD requests") was wrong: aead
-    has no inter-request IV chaining, skcipher does.
+v3: No functional change to this patch. Patch 1 now uses the same
+    force-sync approach after Sasha Levin pointed out that the v2
+    snapshot silently breaks MSG_MORE IV chaining for statesize == 0
+    ciphers. The two patches remain separate only because the
+    surrounding code differs: 7.1.y, 6.18.y and 6.12.y have ctx->state,
+    cflags and algif_skcipher_export(); 6.6.y, 6.1.y, 5.15.y and 5.10.y
+    do not, so the diffs do not apply across both.
 
 No Closes: tag: the underlying vulnerability was reported privately to
 security@kernel.org (2026-06-07), so there is no public report URL.
- crypto/algif_skcipher.c | 75 +++++++++++++----------------------------
- 1 file changed, 24 insertions(+), 51 deletions(-)
+ crypto/algif_skcipher.c | 49 +++++++++++++++--------------------------
+ 1 file changed, 18 insertions(+), 31 deletions(-)
 
 diff --git a/crypto/algif_skcipher.c b/crypto/algif_skcipher.c
-index ba0a17f..35ebc3e 100644
+index e31b1da58..b12df4544 100644
 --- a/crypto/algif_skcipher.c
 +++ b/crypto/algif_skcipher.c
-@@ -79,20 +79,6 @@ static int algif_skcipher_export(struct sock *sk, struct skcipher_request *req)
- 	return err;
- }
- 
--static void algif_skcipher_done(void *data, int err)
--{
--	struct af_alg_async_req *areq = data;
--	struct sock *sk = areq->sk;
--
--	if (err)
--		goto out;
--
--	err = algif_skcipher_export(sk, &areq->cra_u.skcipher_req);
--
--out:
--	af_alg_async_cb(data, err);
--}
--
- static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
- 			     size_t ignored, int flags)
- {
-@@ -171,43 +157,30 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
- 		cflags |= CRYPTO_SKCIPHER_REQ_CONT;
- 	}
+@@ -109,33 +109,20 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
  
 -	if (msg->msg_iocb && !is_sync_kiocb(msg->msg_iocb)) {
 -		/* AIO operation */
@@ -180,9 +147,8 @@ index ba0a17f..35ebc3e 100644
 -		areq->outlen = len;
 -
 -		skcipher_request_set_callback(&areq->cra_u.skcipher_req,
--					      cflags |
 -					      CRYPTO_TFM_REQ_MAY_SLEEP,
--					      algif_skcipher_done, areq);
+-					      af_alg_async_cb, areq);
 -		err = ctx->enc ?
 -			crypto_skcipher_encrypt(&areq->cra_u.skcipher_req) :
 -			crypto_skcipher_decrypt(&areq->cra_u.skcipher_req);
@@ -195,7 +161,6 @@ index ba0a17f..35ebc3e 100644
 -	} else {
 -		/* Synchronous operation */
 -		skcipher_request_set_callback(&areq->cra_u.skcipher_req,
--					      cflags |
 -					      CRYPTO_TFM_REQ_MAY_SLEEP |
 -					      CRYPTO_TFM_REQ_MAY_BACKLOG,
 -					      crypto_req_done, &ctx->wait);
@@ -203,38 +168,26 @@ index ba0a17f..35ebc3e 100644
 -			crypto_skcipher_encrypt(&areq->cra_u.skcipher_req) :
 -			crypto_skcipher_decrypt(&areq->cra_u.skcipher_req),
 -						 &ctx->wait);
--
--		if (!err)
--			err = algif_skcipher_export(
--				sk, &areq->cra_u.skcipher_req);
 -	}
 +	/*
 +	 * Force synchronous processing.  The async (AIO) path passed the
 +	 * socket-wide ctx->iv into the request, which the worker
-+	 * dereferenced after the socket lock had been dropped, letting a
++	 * dereferenced after the socket lock was dropped, letting a
 +	 * concurrent sendmsg(ALG_SET_IV) inject an attacker IV.  Mainline
 +	 * removed the AIO socket path in commit fcc77d33a34c ("net: Remove
-+	 * support for AIO on sockets"); the minimal stable fix is to always
-+	 * complete synchronously, so ctx->iv is only ever dereferenced under
-+	 * the socket lock.  This also keeps the IV chaining intact: for
-+	 * ciphers with statesize == 0 (e.g. ctr, cbc) the chained IV is
-+	 * carried by the req->iv writeback into ctx->iv, which is only
-+	 * consistent on the synchronous path.
++	 * support for AIO on sockets"); these stable trees lack the
++	 * per-request ctx->state used by newer kernels, so the minimal safe
++	 * fix is to always complete synchronously.
 +	 */
 +	skcipher_request_set_callback(&areq->cra_u.skcipher_req,
-+				      cflags |
 +				      CRYPTO_TFM_REQ_MAY_SLEEP |
 +				      CRYPTO_TFM_REQ_MAY_BACKLOG,
 +				      crypto_req_done, &ctx->wait);
 +	err = crypto_wait_req(ctx->enc ?
 +		crypto_skcipher_encrypt(&areq->cra_u.skcipher_req) :
 +		crypto_skcipher_decrypt(&areq->cra_u.skcipher_req),
-+				 &ctx->wait);
-+	if (!err)
-+		err = algif_skcipher_export(sk, &areq->cra_u.skcipher_req);
++				      &ctx->wait);
  
- free:
- 	af_alg_free_resources(areq);
 -- 
 2.43.0
 
