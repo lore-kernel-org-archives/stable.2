@@ -1,160 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AA43502A9;
-	Thu, 16 Jul 2026 11:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A29F3D5C0B;
+	Thu, 16 Jul 2026 11:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784201505; cv=none; b=tj3rmcMBZi4oM9V5GEFDrTSR6/6YUNcvaMERvSf9Y1swa2EeGfxl5Ji6KC+lOO9oOSumOy7ucHwRkW7nsMH0IcPqT77/tRT2L4AaEQxPOKs2HFhiw3rACnXDbZ8nUgXMyDwNGFMMSz/rkcbzyXuxWb0SRf68O+9eT3Tng18ZmXE=
+	t=1784201624; cv=none; b=B8JIcXVCNq0ZgFES5kFodOOBUxOzhmG0m95oV12Co6g8Jk0IoBLbBU3mhN+It8Sd7zZIeelxN6kJtEXLMKz8X5hG6uR+qsLso/Wol3U7gtZa4EMajsouQ09D03MPF6tqIAxCorzOorHXr9+3HD40IMHSMICjfCdnnU8cxva8uxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784201505; c=relaxed/simple;
-	bh=snEacmZNAlbxjOEuzNdvq+Xo8Dyw2gWqhXlIQWZzwAs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QoPJWFinQm1WzxGy3UaCv1daZzKhJ4Fx5avlQTgU+KiVxSui40emuyJZ+9GWgOa+BOnJ9Q7Tu4igYZ1XmnEtM4sgDmPGD+a2LyRIH/eheja2IogKRcKMPoZzcfeXirGnNNFSwoKiiAafRlsUszcDvuqmT2Yi4smZzSl2Ppp3wrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CU8PyQnp; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CU8PyQnp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AECA71F00A3A;
-	Thu, 16 Jul 2026 11:31:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784201503;
-	bh=ZhTPrG3YQEfBVn0yyzrLN6C3o96SAGlfQ2/4r1lWCWQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CU8PyQnpbvCRE3vUmMHtzieTpGX2UBTMwb0mi88LgLxkSs8B/ksftCcM5iz3NUd7A
-	 fb8sHvnwCl7Rr4+CQEHwLGQjWOD3HXM5jPd5Cc8rCwwABcs8eQ+BKe0BjntQ/EVekx
-	 dCYd2NVN2TxTIh+bleHc9Mrq3zRtYkVxaE0UqGfb4CkNFltxw8JAppM9iqDmYpCTt0
-	 gr4x6uAHVmNLV4MlaNFHizKmi/tvmxJdDgxQqcFCa06FzxAgCNdY51pKLaGwJPAlOY
-	 1KPwHyfp5KJywmQSfRSQ0QHUlhb6Srefcz+e9NxqkaeYr/Q75MW2N2bjgJnsxF9rfo
-	 ndpfdliuZ0loQ==
-Date: Thu, 16 Jul 2026 12:31:35 +0100
-From: Will Deacon <will@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@suse.com>, Uladzislau Rezki <urezki@gmail.com>,
-	Toshi Kani <toshi.kani@hpe.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>,
-	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
-	abarnas@google.com
-Subject: Re: [PATCH mm-hotfixes v3 2/4] x86/mm/pat: acquire mmap lock on page
- table free to avoid ptdump UAF
-Message-ID: <aljBF-am7dqqG8Gd@willie-the-truck>
-References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
- <20260714-series-vmap-race-fix-v3-2-b812eccfa0f9@kernel.org>
- <alemS7vxeRB7NcBO@willie-the-truck>
- <alesCtwXdIqH6bOP@kernel.org>
- <178419641178.59347.17339330762419756196.b4-reply@b4>
+	s=arc-20240116; t=1784201624; c=relaxed/simple;
+	bh=6fr47kLJuvDzx9THgVPea8JKczKVtXdRPptJqq93sIM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CrGTah/3CQ8HX4vQ99lg087HtpuegqnIDHVaIS7anquT7tJTqVRKXRfaNglbydFL+JkQ91oU4xoszU4GjdAOzsS5m3OY80jv5l+dWu/svD91gPzI2i26WD17zNkzZKphRvn0P/l1BwBNTCAmk4jv06KKxrKf0JVZp/nVqq3woyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDnYfyGwVhqvDJfAA--.24087S3;
+	Thu, 16 Jul 2026 19:33:27 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgDXadCFwVhqsW3wAg--.63253S2;
+	Thu, 16 Jul 2026 19:33:25 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org
+Cc: y-abhilashchandra@ti.com,
+	bparrot@ti.com,
+	dale@farnsworth.org,
+	dagriego@biglakesoftware.com,
+	sbellary@baylibre.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] media: ti: vpe: quiesce overflow recovery before freeing streams
+Date: Thu, 16 Jul 2026 11:32:30 +0000
+Message-Id: <20260716113230.3131086-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <801025b7-a3b8-4655-af49-f9bb65254170@kernel.org>
+References: <801025b7-a3b8-4655-af49-f9bb65254170@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178419641178.59347.17339330762419756196.b4-reply@b4>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgDXadCFwVhqsW3wAg--.63253S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?vBJ5GAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI0xPAQCwWO2pVhAwqD+sIzxQW78zoMDftY1wSw0eA+KHkhq
+	coeV5GNxBiZVRkxxB8fN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoW3Ary8Jw4kuF4kWF1DKFWxGrX_yoWxuFW5pF
+	Z5t34FkrZ7XF40vF4UAw13tFy5CrWvv3yjyry8u343Aw45tryYvF1xKF10vF97Gryvva42
+	yrs8J3y7ur45JrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
+	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-On Thu, Jul 16, 2026 at 11:06:51AM +0100, Lorenzo Stoakes (ARM) wrote:
-> On 2026-07-15 18:49 +0300, Mike Rapoport wrote:
-> > On Wed, Jul 15, 2026 at 04:24:59PM +0100, Will Deacon wrote:
-> > > > diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> > > > index d023a40a1e03..4c4b8244502f 100644
-> > > > --- a/arch/x86/mm/pat/set_memory.c
-> > > > +++ b/arch/x86/mm/pat/set_memory.c
-> > > > @@ -22,6 +22,7 @@
-> > > >  #include <linux/cc_platform.h>
-> > > >  #include <linux/set_memory.h>
-> > > >  #include <linux/memregion.h>
-> > > > +#include <linux/cleanup.h>
-> > > >
-> > > >  #include <asm/e820/api.h>
-> > > >  #include <asm/processor.h>
-> > > > @@ -436,9 +437,16 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
-> > > >
-> > > >  	flush_tlb_all();
-> > > >
-> > > > -	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
-> > > > -		list_del(&ptdesc->pt_list);
-> > > > -		pagetable_free(ptdesc);
-> > > > +	/*
-> > > > +	 * ptdump might read these page tables, so avoid a use-after-free by
-> > > > +	 * acquiring the mmap read lock on init_mm (ptdump acquires the mmap
-> > > > +	 * write lock).
-> > > > +	 */
-> > > > +	scoped_guard(mmap_read_lock, &init_mm) {
-> > > > +		list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
-> > > > +			list_del(&ptdesc->pt_list);
-> > > > +			pagetable_free(ptdesc);
-> > > > +		}
-> > >
-> > > As I understand it, the argument for taking the read lock is that we're
-> > > operating on a region that we "wholly own" and therefore we can happily
-> > > run concurrently with CPUs walking distinct parts of the page-table.
-> > > However, from what I can tell, the CPA collapse logic will operate on
-> > > regions outside of the address range being manipulated by its caller
-> > > because it rounds up to the PMD size.
-> > >
-> > > As a made-up example, imagine I have a 2MiB aligned region where the
-> > > first 1MiB is read-only and the second 1MiB is in the default r/w state.
-> > > If one CPU calls set_memory_rw() on the first 1MiB while another CPU is
-> > > walking the second 1MiB (via some other API that doesn't take cpa_lock),
-> > > it looks to me like the first CPU can collapse the page-table and free
-> > > the unused pages under the feet of the other CPU. What prevents that
-> > > from happening?
-> >
-> > Nothing, and there's a patch to fix that that synchronizes
-> > cpa_collapse_large_pages() using cpa_lock:
-> >
-> > https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org
+The VIP overflow recovery worker is armed from the hardirq handler when a
+FIFO overflow is detected, and the list-complete path looks the stream up
+through the VPDMA list private pointer. Both keep touching stream, port
+and device state; the recovery worker also resets the parser and VPDMA,
+repopulates the descriptor list, and re-enables the per-list IRQs.
 
-Hmm, but that relies on all concurrent walkers taking cpa_lock, no? Surely
-that's not generally the case.
+vip_stop_streaming() masks and clears the per-list IRQs, but it neither
+synchronizes the hardirq handler nor disables recovery_work. An overflow
+IRQ that has already queued recovery_work, or a list-complete IRQ in
+flight when the stream is torn down, can therefore still dereference the
+stream after its resources are released: the descriptor list is freed by
+vip_release_stream() on file release, and the stream itself by
+free_stream() on unbind/remove.
 
-> Thanks Mike!
-> 
-> >
-> > This still won't be enough to sync with ptdump though.
-> 
-> Yeah, so this patch is still necessary.
-> 
-> But that patch conflicts with this one as it holds a spin lock over the page
-> table freeing, which prevents taking an rwsem... :/
-> 
-> Anyway I think this one is still fine as it seems there's not a consensus over
-> there as there was discussion about just removing the locking anyway ([0])?
-> 
-> So can kick that can down the road and just get these ptdump bugs fixed :)
-> 
-> >
-> > > If all concurrent walkers have interrupts disabled, I guess the TLB
-> > > invalidation logic would do it, but it would be good to call this out in
-> > > the commit message because it's not clear to me why the read_lock is
-> > > sufficient for the collapsing case.
-> 
-> Yeah, so this patch is _only_ fixing the ptdump case. Any existing bug must be
-> addressed separately.
+Drain the recovery worker and the IRQ handler at both teardown points
+through a shared vip_quiesce_stream() helper, before any stream-owned
+resource is released. disable_work_sync() cancels pending recovery_work,
+drains a running instance, and raises its disable depth, so a subsequent
+schedule_work() issued by a racing IRQ handler is rejected at the
+workqueue scheduler: recovery_work cannot be requeued after
+disable_work_sync() takes effect. The worker may still re-enable the
+per-list IRQs before disable_work_sync() returns; disable_irqs() then
+masks those sources and synchronize_irq() waits for any in-flight handler
+that still dereferences stream state. In vip_stop_streaming() the helper
+runs before the parser is stopped, since a worker drained by
+disable_work_sync() may re-enable the parser before exiting and would
+otherwise undo the stop. recovery_work is created disabled and enabled in
+vip_start_streaming() before IRQs, pairing the enable with the teardown
+disable across the streaming lifecycle.
 
-Up to you folks, but if you took the write lock during collapse wouldn't
-that fix it for all concurrent walkers and we wouldn't need another patch?
+This issue was found by an in-house static analysis tool and confirmed
+by manual code review.
 
-I would argue that using the read lock here directly contradicts the
-rationale for why this is safe, because this is an occurence of code
-that operates on a range that it doesn't wholly own. It seems bizarre
-to me to go to the effort of adding locking, but then not adding
-sufficient locking for all concurrent walkers.
+Fixes: fc2873aa4a21 ("media: ti: vpe: Add the VIP driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+Changes in v4:
+- Drop the unrelated vpdma_hwlist_release() cleanup from this fix (Hans
+  Verkuil).
+- In free_stream(), call vip_quiesce_stream() before clearing
+  cap_streams[], so the stream remains published while in-flight IRQ
+  handling is drained (Hans Verkuil).
 
-Will
+Changes in v3:
+- Replace the per-stream irq_rearm_allowed flag and the repeated IRQ
+  disable/synchronize_irq() in vip_quiesce_stream() with the workqueue
+  disable-depth API (disable_work_sync/enable_work/disable_work), as
+  suggested by Yemike Abhilash Chandra. This also closes a window the v2
+  double-drain left open, where its second synchronize_irq() waited for
+  the in-flight handler but did not cancel the recovery_work it had
+  requeued, so that work could run after free.
+- Create recovery_work disabled and enable it in vip_start_streaming()
+  before IRQs.
+- In vip_stop_streaming(), quiesce before stopping the parser: a worker
+  drained by disable_work_sync() may re-enable the parser before exiting,
+  so stopping the parser first would be undone.
+
+Changes in v2:
+- Drain the overflow recovery worker at both teardown points through a
+  shared vip_quiesce_stream() helper: vip_stop_streaming() (file release
+  path) and free_stream() (unbind/remove). v1 drained only in
+  free_stream().
+- Document how the issue was found and that the patch was prepared with
+  LLM assistance (Assisted-by trailer and body note).
+
+Link: https://lore.kernel.org/r/20260708013738.110752-1-fanwu01@zju.edu.cn/
+---
+ drivers/media/platform/ti/vpe/vip.c | 37 +++++++++++++++++++++++++----
+ 1 file changed, 33 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
+index cb0a5a07a3d4..673f9addfade 100644
+--- a/drivers/media/platform/ti/vpe/vip.c
++++ b/drivers/media/platform/ti/vpe/vip.c
+@@ -814,6 +814,22 @@ static void clear_irqs(struct vip_dev *dev, int irq_num, int list_num)
+ 	vpdma_clear_list_stat(dev->shared->vpdma, irq_num, dev->slice_id);
+ }
+ 
++/*
++ * Quiesce recovery work and per-list IRQs before releasing stream resources.
++ * disable_work_sync() prevents the overflow handler from requeueing recovery
++ * work. Mask and synchronize IRQs afterwards because a running worker may
++ * have re-enabled them before exiting.
++ */
++static void vip_quiesce_stream(struct vip_stream *stream)
++{
++	struct vip_dev *dev = stream->port->dev;
++
++	disable_work_sync(&stream->recovery_work);
++	disable_irqs(dev, dev->slice_id, stream->list_num);
++	clear_irqs(dev, dev->slice_id, stream->list_num);
++	synchronize_irq(dev->irq);
++}
++
+ static void populate_desc_list(struct vip_stream *stream)
+ {
+ 	struct vip_port *port = stream->port;
+@@ -2428,6 +2444,7 @@ static int vip_start_streaming(struct vb2_queue *vq, unsigned int count)
+ 		goto err;
+ 
+ 	stream->num_recovery = 0;
++	enable_work(&stream->recovery_work);
+ 
+ 	clear_irqs(dev, dev->slice_id, stream->list_num);
+ 	enable_irqs(dev, dev->slice_id, stream->list_num);
+@@ -2452,13 +2469,17 @@ static void vip_stop_streaming(struct vb2_queue *vq)
+ 	struct vip_dev *dev = port->dev;
+ 	int ret;
+ 
++	/*
++	 * A running recovery worker may re-enable the parser, so quiesce it
++	 * and its IRQ handler before stopping the parser or releasing the
++	 * descriptor list.
++	 */
++	vip_quiesce_stream(stream);
++
+ 	vip_parser_stop_imm(port, true);
+ 	vip_enable_parser(port, false);
+ 	unset_fmt_params(stream);
+ 
+-	disable_irqs(dev, dev->slice_id, stream->list_num);
+-	clear_irqs(dev, dev->slice_id, stream->list_num);
+-
+ 	if (port->subdev) {
+ 		ret = v4l2_subdev_call(port->subdev, video, s_stream, 0);
+ 		if (ret)
+@@ -3074,6 +3095,8 @@ static int alloc_stream(struct vip_port *port, int stream_id, int vfl_type)
+ 		goto do_free_hwlist;
+ 
+ 	INIT_WORK(&stream->recovery_work, vip_overflow_recovery_work);
++	/* Start disabled; vip_start_streaming() enables it before IRQs. */
++	disable_work(&stream->recovery_work);
+ 
+ 	INIT_LIST_HEAD(&stream->vidq);
+ 
+@@ -3139,6 +3162,13 @@ static void free_stream(struct vip_stream *stream)
+ 		return;
+ 
+ 	dev = stream->port->dev;
++	/*
++	 * Quiesce the IRQ handler and recovery worker, then drop the stream
++	 * from cap_streams[], before releasing stream-owned resources.
++	 */
++	vip_quiesce_stream(stream);
++	stream->port->cap_streams[stream->stream_id] = NULL;
++
+ 	/* Free up the Drop queue */
+ 	list_for_each_safe(pos, q, &stream->dropq) {
+ 		buf = list_entry(pos,
+@@ -3150,7 +3180,6 @@ static void free_stream(struct vip_stream *stream)
+ 
+ 	video_unregister_device(stream->vfd);
+ 	vpdma_hwlist_release(dev->shared->vpdma, stream->list_num);
+-	stream->port->cap_streams[stream->stream_id] = NULL;
+ 	kfree(stream);
+ }
+ 
+-- 
+2.34.1
+
