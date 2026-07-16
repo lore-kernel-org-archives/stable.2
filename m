@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1087C384CF7
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 16:45:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5BF3433BDE
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 16:49:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784220326; cv=none; b=q7SNoDXg8q8gTXUKMjy6qaMGdXYqYICITCBHqCGvxrqqTJr9aw7Ac3dOW07H5z2XGBnQ+sPsZbR91kaf+vtfQLUU/+yLOOPB20FYz7hB+ePqGSMyx0vyyMshbCi503AJy4enHwlAVmCriXygrZbb40dn+EejNkgBHArlMSNR528=
+	t=1784220579; cv=none; b=tPZPIPmyASh2VrUwhoMBqskDyAym6+Q1jIPqzgqlTSIGRY9PqIrJG8fmERQgq3q0ZyBP2w+eNFdsPIZtKTSzBZtbP2Ono3Wazi/zzwNCeUZBECxTnkLNQyCdOr9kVOn+7bVBHwUhtWFf871VlmLi4KoWNOPrp95Witqp0akLpcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784220326; c=relaxed/simple;
-	bh=ytvR8/Z12x1Q09JvbMCym81pQeD1BjTGyn9J7l7wCus=;
+	s=arc-20240116; t=1784220579; c=relaxed/simple;
+	bh=F4q7EO3wL0+Y96PPu7bjca5Qqj69pVlrnSvQakdPvwU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HgOWTIEcJyChIPPZZiUsw1b6zPHdiAqWPsJl2aIIQSuXmmJes2hR6xlqmzTQ/hwESBcvkOfF6tpA/5Jfy+Pg66QrvStujVX+UxU43cURZC35LSYDZrhgVuXZyQkBt6WjbxRY17cwNjg+/YH0s4A1Il3fV+tLtbjfBiSvAbefzqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jyIqSW/L; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=P3nIiS6YbR+u4MHp2NyVh20bTO6o0ZTh7cgpXZquNdv27pjtz9rcvDgGqfQXKjUQdTsjObODkuIoMEEdmujKbdeqPh0OKT0gia6HvUfxcjfGjEJd6Xg5uPmK+j0YAgYurRTkFvRV2BPwsgoJH9twfb+909mfnvYwVm7oILtYBs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VSxrguAO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jyIqSW/L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E86811F000E9;
-	Thu, 16 Jul 2026 16:45:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VSxrguAO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12C11F000E9;
+	Thu, 16 Jul 2026 16:49:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784220316;
-	bh=91DP6tTRKG/zrFEmFAjbIXgSBBKzelM4cLJS9631CVw=;
+	s=k20260515; t=1784220568;
+	bh=dCBwG/3e0Oy/8ILgxWy3F5J5fWpqZjAnl6BiP9xxnZs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jyIqSW/LZgB791bFGQnbsrQdFOXDd+3L3KX/+wPPEkRg+pZHbZhLenEAzpgiDwTSD
-	 hbCrVDzu8M0PUb2oWgDaKTQNQsCjgQdZsWM3BboAKg4gS0e5NzzMcZKYpOk9wea0aV
-	 wf4HfS/Axm8JvDDMr4Zpr7QvlI6t3R//3Hf5ANymdPIVp4wupe5aaTcNZo7wyDXyGH
-	 Izv1iC6SfhPbIBZqsSQiRVgr92AQwfWFWFla0577elqo6hL8A47IuQcVUuzNTTneX2
-	 DOPdZGBq5GRyceA3wEqsJqZ/hUCJG4vEYZ6Y6MgodlUk+R6vTBGMCv1FHEwWPnC7Jz
-	 nPKrzTu9p8trg==
+	b=VSxrguAO9oHQIDdUvVfREocCY4aT0djJTUTepjIY6OXjj62VBqkQm72yl0rD5IHso
+	 fGOFQGFA/wauLuK+JKLGSGYoeLFT1LhXd78ajnXZykJr0UFmT0HnMnYfXqgigJFJMT
+	 2XYTArYRWGGR/6w5IkFKD652jNvFFbJ0BEdr7jXS3gyer4K+WQF1Onf0bqF3hGWMyf
+	 lH4U73sWygw3MpqElE2JkEXbEQCVTQYakKdi2A7jK6u26+6hSHt8gHJgOAZbLSf+fB
+	 hrVh5O1igbQqfh0az/4k9MgJJ7c85CHzQYyBWkfEYIIIYmz3TiL/clsG45MHZLE8FK
+	 2fF08zmEdZ8HA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christoph Hellwig <hch@lst.de>,
 	Jan Kara <jack@suse.cz>,
 	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] proc: rename proc_setattr to proc_nochmod_setattr
-Date: Thu, 16 Jul 2026 12:45:13 -0400
-Message-ID: <20260716164514.668766-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] proc: rename proc_setattr to proc_nochmod_setattr
+Date: Thu, 16 Jul 2026 12:49:25 -0400
+Message-ID: <20260716164926.673440-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071446-art-flip-74fe@gregkh>
-References: <2026071446-art-flip-74fe@gregkh>
+In-Reply-To: <2026071446-spider-venus-76ed@gregkh>
+References: <2026071446-spider-venus-76ed@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,7 +70,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  5 files changed, 19 insertions(+), 19 deletions(-)
 
 diff --git a/fs/proc/base.c b/fs/proc/base.c
-index a314fd9af17c08..998c6cce77c192 100644
+index 704cf6a0612ede..8a22a18659c0cf 100644
 --- a/fs/proc/base.c
 +++ b/fs/proc/base.c
 @@ -721,7 +721,7 @@ static bool proc_fd_access_allowed(struct inode *inode)
@@ -91,7 +91,7 @@ index a314fd9af17c08..998c6cce77c192 100644
  };
  
  static int proc_single_show(struct seq_file *m, void *v)
-@@ -1866,7 +1866,7 @@ static int proc_pid_readlink(struct dentry * dentry, char __user * buffer, int b
+@@ -1867,7 +1867,7 @@ static int proc_pid_readlink(struct dentry * dentry, char __user * buffer, int b
  const struct inode_operations proc_pid_link_inode_operations = {
  	.readlink	= proc_pid_readlink,
  	.get_link	= proc_pid_get_link,
@@ -100,7 +100,7 @@ index a314fd9af17c08..998c6cce77c192 100644
  };
  
  
-@@ -2319,7 +2319,7 @@ proc_map_files_get_link(struct dentry *dentry,
+@@ -2315,7 +2315,7 @@ proc_map_files_get_link(struct dentry *dentry,
  static const struct inode_operations proc_map_files_link_inode_operations = {
  	.readlink	= proc_pid_readlink,
  	.get_link	= proc_map_files_get_link,
@@ -109,7 +109,7 @@ index a314fd9af17c08..998c6cce77c192 100644
  };
  
  static struct dentry *
-@@ -2398,7 +2398,7 @@ static struct dentry *proc_map_files_lookup(struct inode *dir,
+@@ -2394,7 +2394,7 @@ static struct dentry *proc_map_files_lookup(struct inode *dir,
  static const struct inode_operations proc_map_files_inode_operations = {
  	.lookup		= proc_map_files_lookup,
  	.permission	= proc_fd_permission,
@@ -118,7 +118,7 @@ index a314fd9af17c08..998c6cce77c192 100644
  };
  
  static int
-@@ -2885,7 +2885,7 @@ static struct dentry *proc_##LSM##_attr_dir_lookup(struct inode *dir, \
+@@ -2890,7 +2890,7 @@ static struct dentry *proc_##LSM##_attr_dir_lookup(struct inode *dir, \
  static const struct inode_operations proc_##LSM##_attr_dir_inode_ops = { \
  	.lookup		= proc_##LSM##_attr_dir_lookup, \
  	.getattr	= pid_getattr, \
@@ -127,7 +127,7 @@ index a314fd9af17c08..998c6cce77c192 100644
  }
  
  #ifdef CONFIG_SECURITY_SMACK
-@@ -2944,7 +2944,7 @@ static struct dentry *proc_attr_dir_lookup(struct inode *dir,
+@@ -2949,7 +2949,7 @@ static struct dentry *proc_attr_dir_lookup(struct inode *dir,
  static const struct inode_operations proc_attr_dir_inode_operations = {
  	.lookup		= proc_attr_dir_lookup,
  	.getattr	= pid_getattr,
@@ -136,7 +136,7 @@ index a314fd9af17c08..998c6cce77c192 100644
  };
  
  #endif
-@@ -3460,7 +3460,7 @@ static struct dentry *proc_tgid_base_lookup(struct inode *dir, struct dentry *de
+@@ -3454,7 +3454,7 @@ static struct dentry *proc_tgid_base_lookup(struct inode *dir, struct dentry *de
  static const struct inode_operations proc_tgid_base_inode_operations = {
  	.lookup		= proc_tgid_base_lookup,
  	.getattr	= pid_getattr,
@@ -145,7 +145,7 @@ index a314fd9af17c08..998c6cce77c192 100644
  	.permission	= proc_pid_permission,
  };
  
-@@ -3659,7 +3659,7 @@ static int proc_tid_comm_permission(struct mnt_idmap *idmap,
+@@ -3654,7 +3654,7 @@ static int proc_tid_comm_permission(struct mnt_idmap *idmap,
  }
  
  static const struct inode_operations proc_tid_comm_inode_operations = {
@@ -154,7 +154,7 @@ index a314fd9af17c08..998c6cce77c192 100644
  		.permission	= proc_tid_comm_permission,
  };
  
-@@ -3788,7 +3788,7 @@ static const struct file_operations proc_tid_base_operations = {
+@@ -3785,7 +3785,7 @@ static const struct file_operations proc_tid_base_operations = {
  static const struct inode_operations proc_tid_base_inode_operations = {
  	.lookup		= proc_tid_base_lookup,
  	.getattr	= pid_getattr,
@@ -163,7 +163,7 @@ index a314fd9af17c08..998c6cce77c192 100644
  };
  
  static struct dentry *proc_task_instantiate(struct dentry *dentry,
-@@ -4001,7 +4001,7 @@ static loff_t proc_dir_llseek(struct file *file, loff_t offset, int whence)
+@@ -3999,7 +3999,7 @@ static loff_t proc_dir_llseek(struct file *file, loff_t offset, int whence)
  static const struct inode_operations proc_task_inode_operations = {
  	.lookup		= proc_task_lookup,
  	.getattr	= proc_task_getattr,
@@ -173,7 +173,7 @@ index a314fd9af17c08..998c6cce77c192 100644
  };
  
 diff --git a/fs/proc/fd.c b/fs/proc/fd.c
-index 9eeccff49b2abf..8a48ff4a19ecb3 100644
+index 5e391cbca7a3be..4814fc0a376508 100644
 --- a/fs/proc/fd.c
 +++ b/fs/proc/fd.c
 @@ -102,7 +102,7 @@ static int proc_fdinfo_permission(struct mnt_idmap *idmap, struct inode *inode,
@@ -185,7 +185,7 @@ index 9eeccff49b2abf..8a48ff4a19ecb3 100644
  };
  
  static const struct file_operations proc_fdinfo_file_operations = {
-@@ -361,7 +361,7 @@ const struct inode_operations proc_fd_inode_operations = {
+@@ -375,7 +375,7 @@ const struct inode_operations proc_fd_inode_operations = {
  	.lookup		= proc_lookupfd,
  	.permission	= proc_fd_permission,
  	.getattr	= proc_fd_getattr,
@@ -194,7 +194,7 @@ index 9eeccff49b2abf..8a48ff4a19ecb3 100644
  };
  
  static struct dentry *proc_fdinfo_instantiate(struct dentry *dentry,
-@@ -402,7 +402,7 @@ static int proc_fdinfo_iterate(struct file *file, struct dir_context *ctx)
+@@ -416,7 +416,7 @@ static int proc_fdinfo_iterate(struct file *file, struct dir_context *ctx)
  const struct inode_operations proc_fdinfo_inode_operations = {
  	.lookup		= proc_lookupfdinfo,
  	.permission	= proc_fdinfo_permission,
@@ -204,10 +204,10 @@ index 9eeccff49b2abf..8a48ff4a19ecb3 100644
  
  const struct file_operations proc_fdinfo_operations = {
 diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index d1598576506c1e..2807306004e5e6 100644
+index edd4eb6fa12ac0..2ad2e6a778faa9 100644
 --- a/fs/proc/internal.h
 +++ b/fs/proc/internal.h
-@@ -257,8 +257,8 @@ extern int proc_pid_statm(struct seq_file *, struct pid_namespace *,
+@@ -215,8 +215,8 @@ extern int proc_pid_statm(struct seq_file *, struct pid_namespace *,
  extern const struct dentry_operations pid_dentry_operations;
  extern int pid_getattr(struct mnt_idmap *, const struct path *,
  		       struct kstat *, u32, unsigned int);
@@ -219,7 +219,7 @@ index d1598576506c1e..2807306004e5e6 100644
  extern struct inode *proc_pid_make_inode(struct super_block *, struct task_struct *, umode_t);
  extern void pid_update_inode(struct task_struct *, struct inode *);
 diff --git a/fs/proc/namespaces.c b/fs/proc/namespaces.c
-index ea2b597fd92cdb..39f4169f669f63 100644
+index 8e159fc78c0a12..a28b47bd87cf14 100644
 --- a/fs/proc/namespaces.c
 +++ b/fs/proc/namespaces.c
 @@ -92,7 +92,7 @@ static int proc_ns_readlink(struct dentry *dentry, char __user *buffer, int bufl
@@ -231,7 +231,7 @@ index ea2b597fd92cdb..39f4169f669f63 100644
  };
  
  static struct dentry *proc_ns_instantiate(struct dentry *dentry,
-@@ -178,5 +178,5 @@ static struct dentry *proc_ns_dir_lookup(struct inode *dir,
+@@ -179,5 +179,5 @@ static struct dentry *proc_ns_dir_lookup(struct inode *dir,
  const struct inode_operations proc_ns_dir_inode_operations = {
  	.lookup		= proc_ns_dir_lookup,
  	.getattr	= pid_getattr,
