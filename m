@@ -1,144 +1,132 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064922D3733
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 06:33:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0197434574B
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 06:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784183595; cv=none; b=i/dAX2jHw2hEmsGhKyts44jyHKnx/T6PNdIxx9YB3xIS0p96gfDvhShNjlN+LsHXZP3miFXGYXMwfYh9CzW+OBThq+Kb3kJK/aX2mbq4JfZRgocEe9z+kCbQ4EReEqThbKs0DtE8lRnNw2HHoL0J7Qc74BKM5i2BtX67H60Z+io=
+	t=1784184177; cv=none; b=gXxFOJeVCg2YGmJDwipGBaPZXGfX1Il+fG5GhPGTRZPK1H1ic35qpKDgLQR3lelIBi+2CO/l4Kp6pEcZKLGYRYimgTKDM1nHpUuH5hLa1eKhB/97T6uxLiEB4bKN3f7cVGSojbeJZg9ux6uJ4gxDqby4ldyKBWcQUSjT2cC/elI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784183595; c=relaxed/simple;
-	bh=AoCWTc3MW+swaTwkGBDulXLPXnVD3jFwnKFJQNtXxlo=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UpE407apeMxRbWctVg6m5kDfk0/1Tbpeknzs+jPPatb3Yef/7D9O09YDQyfFmz6VxU9xnak1pWBdpo5GkuD5EfO7fPlY+oOUQ/HQKLrYez/oS327dE1Tt7WStiCv02mXdm9k1Lml1z35gpyG9iVXK4P/bt1yiheJMoTBw5r7CLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SCN1W5Iu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XhghWAN9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tAoPtUKD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Lz3vlmNb; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1784184177; c=relaxed/simple;
+	bh=bxP+Iob0uYXZx1jF+aVrA8SMBuKJ+8H47+0ZSsb5mBg=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=MVC3mmPqyUDMPBcuvjKR16uO/Gt5dKkXUXk0QgtVUNqXyLdlzCtw8e2Lygdeya3XbJ1FJCFc43FPw6oEI7Na/9M6N6ivPl0gGuDJq9beek6rpvydRxN2Lb362l4bWj3tTMQNpBHLjjsh8zyU+jz5IF8LSi9dqlc+1VderiNCWgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dQhH76x1; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SCN1W5Iu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XhghWAN9";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tAoPtUKD";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Lz3vlmNb"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EA7A83E2F;
-	Thu, 16 Jul 2026 06:33:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1784183591; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vpEbQYgMhJXLSFQOLQNHx5VArl8HE6uzLTJ6pKi36MM=;
-	b=SCN1W5IudHYqoJGPDcpbnWB5TSpDzvaF840eG+PBwQyzezbxYCh9Qdy3iAhloC9Y32DJhs
-	JmPsyJNYtykCrKC56XSSzi9/n030mxlhXP33+qHb5WbSG8pb3mi6yD3+bcczAkJ402pdke
-	+5OPs1rVo8HhUK2cacM0YKmIr//vvWA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1784183591;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vpEbQYgMhJXLSFQOLQNHx5VArl8HE6uzLTJ6pKi36MM=;
-	b=XhghWAN9ICo8V7LFemQLudCZI1Vc5tURpPupl0gvpHOullpfSbGlvAEx8Aim4O3TgsZvBx
-	9E6/en0G32UwIPCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1784183590; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vpEbQYgMhJXLSFQOLQNHx5VArl8HE6uzLTJ6pKi36MM=;
-	b=tAoPtUKDD6tb8CzfEvQtuiFpj3Nz4FvSpphoDT3Pzfu+VOS9W1haJHfpHcox+eclJLGiT/
-	miO+BiiC93JjObtxXnU/Ed3cffYNnCvaFhduOpauv8uZWymS0qpu/EWReX2h09gREcMtMr
-	Z/U67Uye3heCrnP5fqQVegw+THAdVY0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1784183590;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vpEbQYgMhJXLSFQOLQNHx5VArl8HE6uzLTJ6pKi36MM=;
-	b=Lz3vlmNbXbwnDtyotqLiL+isPAyoQNOPRO/RLpH6x1Ms7jXasWjRIITVMpIe/MIH5M4KTP
-	lvjQqf7HW3YyWuBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A4FC6779AD;
-	Thu, 16 Jul 2026 06:33:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id OrlvJiZ7WGqmYwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 16 Jul 2026 06:33:10 +0000
-Date: Thu, 16 Jul 2026 08:33:10 +0200
-Message-ID: <874ihzwijd.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Cc: linux-sound@vger.kernel.org,
-	tiwai@suse.de,
-	peter.ujfalusi@linux.intel.com,
-	Uma Shankar <uma.shankar@intel.com>,
-	Alexander Kaplan <alexander.kaplan@sms-medipool.de>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda: codecs: hdmi: disable keep-alive before audio format change
-In-Reply-To: <20260715180610.1371243-1-kai.vehmanen@linux.intel.com>
-References: <20260715180610.1371243-1-kai.vehmanen@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dQhH76x1"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47df440fcd5so3457280f8f.3
+        for <stable@vger.kernel.org>; Wed, 15 Jul 2026 23:42:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784184174; x=1784788974; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bxP+Iob0uYXZx1jF+aVrA8SMBuKJ+8H47+0ZSsb5mBg=;
+        b=dQhH76x1GdkpGTgqIrHGy4i4mj8SgO5hRt3kCUa0VhcPN9Mvg972W4qGfidk30cFUg
+         zqToWIek55URk5P+rHJFVXjenBxeiuO7ZTDxc+bGpQ8fqufInUOQAwcTsdUy3vGyhp9i
+         g09EE4+hVtwwFjuSNShDvnwXKbNyuJo5CScpv76Tpe8umDGsVU2knWXBfFXWf1WVbGB6
+         zpv/8A3vRiTYMJa2Bl3KJgAJPjhBIKeK1GqFXlOOm3FOnTmcpt1mV5cnk9s2mn7FNfxW
+         KAZk5b3asFkcwqxEFZQj8t/EIJbTVH0wtDFj2qXVk+4R6h2w/FoZ+WvpjAiGodZM81VE
+         YM6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784184174; x=1784788974;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bxP+Iob0uYXZx1jF+aVrA8SMBuKJ+8H47+0ZSsb5mBg=;
+        b=U0196aBGXfAWd7b+lshKBAolo442zQGhZRPfyC5aB+SgXP+0xsbELYK77kryRQoqQJ
+         rMhLBdlXUgb1wVtqLa2kmMywHGppyIPkl6ebexZbbxOgW6or0qOCuTQHIIdav0tda7p5
+         E0rc3tTdmZcANTXKHhpIl9YOvfTfwchm0e3ODPkqUSwXlVW9nc5JYOUdyWSMMC13PZDV
+         Io/w66Zqk8MmTnJNTDZmy7Xjs3cGYfD38k2e+SeqJTbSm5sy0nkiWGXgON2nUUJEhc+/
+         t2KGjSNBC3oNe5p+7dBN/jvK/k2YcXHCwKSaAtdjRyrZ4PhTlLx/n+2fkBzgLNbCc6Pa
+         gUBQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoVl81Fj+5wBdJ0VppBd2Y89KpIoTwaIJuy4LWQkYYoGVXeo8bu4zBClZoo2j9oK+LpqPHBpiM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwPsABy1xOefc69veZ29f+1qpCqcReWpFDakRm0oAAVH6xyEFmz
+	mWQd54L75BY8+W0dUTb/CFhlkb6WJX2qE5JlQbIdC5Qv1eoxZejwU0Iu
+X-Gm-Gg: AfdE7cnNweBL2nWujzYWz+bW4JugmcQnQ835Mbolc0i5xJTlWp0wkRc2+k5JL2+tCtk
+	eTC+dhFKDDzTTjnVe3XyV5/LIxoyPZXVn2rmE3Aq8VVng012d4gSyfB0teyrkBIpk1HNm0zDaP3
+	Nu/vC03GaYT3uLj6FVZd8xHODIgZLPFonjZaOjRori97Zd+zTDsfhImx+G+ubiFVnmVFJyIJxdm
+	cOLn+TpNchJ4hEGziW5vvpwID08KcBlLr3n4Xs554s97T7oWMxA0QOBiIYnhDwfMTwxW3mbCIdN
+	S+K0iG5QqCNOg+b/gVQJDTXRDjBL6cTZgRoxJmA5tr10PvWg3+APa4v7kNRj/apD/PA/haIN/OB
+	gBCGty9aDhaXXBVOTpYT2HYfvGOwBv5N6eFlHAJOXr/MMejJy63BS1tVTgIMfLP2PSc8wA5KcOO
+	fRbBuVbuNpkSUKWMZRubAIfS+1reeehbt5GMHlyhZPJFCzgI6vQFTFGM86iGvJOsk1j2wlyseV
+X-Received: by 2002:a05:6000:288a:b0:470:3edf:e2a7 with SMTP id ffacd0b85a97d-47f4fce455dmr6663447f8f.37.1784184174035;
+        Wed, 15 Jul 2026 23:42:54 -0700 (PDT)
+Received: from smtpclient.apple ([151.251.247.26])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4635c86csm22075375f8f.16.2026.07.15.23.42.52
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 15 Jul 2026 23:42:53 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,imap1.dmz-prg2.suse.org:helo,suse.de:mid]
-X-Spam-Level: 
-
-On Wed, 15 Jul 2026 20:06:10 +0200,
-Kai Vehmanen wrote:
-> 
-> When a keep-alive (KAE) silent stream is active on an Intel HDMI/DP
-> codec, opening a real PCM stream reprograms the converter format and the
-> audio infoframe in snd_hda_hdmi_generic_pcm_prepare(). Part of that
-> reprogramming - the converter channel count and the channel mapping in
-> snd_hda_hdmi_setup_audio_infoframe() - is not safe to do while a
-> keep-alive stream is active. This is most visible when switching to a
-> multichannel PCM configuration, where the active channel count actually
-> changes. In that case the newly opened PCM stream plays no sound.
-> 
-> Add an optional hdmi_ops .prepare hook, called at the start of the
-> PCM prepare sequence (before the format and infoframe are touched), and
-> implement it for HSW+ to release keep-alive. Keep-alive is then
-> re-enabled as before once the new stream has been set up, in the
-> setup_stream op.
-> 
-> Fixes: 15175a4f2bbb ("ALSA: hda/hdmi: add keep-alive support for ADL-P and DG2")
-> Reported-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
-> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8412
-> Tested-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-
-Applied now.  Thanks.
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH v3] wifi: mwifiex: replace one-element arrays with
+ flexible array members
+From: George Valkov <gvalkov@gmail.com>
+In-Reply-To: <alh5y74H5bJyDSSP@stanley.mountain>
+Date: Thu, 16 Jul 2026 09:42:42 +0300
+Cc: briannorris@chromium.org,
+ kees@kernel.org,
+ bhelgaas@google.com,
+ s.kerkmann@pengutronix.de,
+ linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <55FE8005-625D-43FF-BA57-E2E94C6EF694@gmail.com>
+References: <202607150932.F2A0836@keescook>
+ <20260716001728.57799-1-gvalkov@gmail.com>
+ <20260716061638.GB9973@francesco-nb> <alh5y74H5bJyDSSP@stanley.mountain>
+To: Dan Carpenter <error27@gmail.com>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ johannes.berg@intel.com
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 
 
-Takashi
+
+
+
+> On 16 Jul 2026, at 9:27=E2=80=AFAM, Dan Carpenter <error27@gmail.com> =
+wrote:
+>=20
+> On Thu, Jul 16, 2026 at 08:16:38AM +0200, Francesco Dolcini wrote:
+>> On Thu, Jul 16, 2026 at 03:17:28AM +0300, Georgi Valkov wrote:
+>>> Replace deprecated one-element arrays with flexible array members.
+>>> CONFIG_FORTIFY_SOURCE reports the following warning when
+>>> one-element arrays are used as variable-length buffers:
+>>>=20
+>>> sta_cmd.c:1033 mwifiex_sta_prepare_cmd
+>>> memcpy: detected field-spanning write (size 84) of single field
+>>> "domain->triplet" at .../marvell/mwifiex/sta_cmd.c:1033 (size 3)
+>>>=20
+>>> Convert affected structs to use flexible array members.
+>>> - Preserve existing wire layouts.
+>>> - Use DECLARE_FLEX_ARRAY() for structs inside affected unions.
+>>>=20
+>>> Tested-on: WRT3200ACM, OpenWrt
+>>> Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+>>=20
+>> Cc: stable@vger.kernel.org # 6.12+
+>> Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+>=20
+> Are we CCing stable for this sort of thing?
+
+Yes, please add stable if possible.
+I am new to this process and still learning the rules.
+
+
+> How many FORTIFY_SOURCE
+> warnings are still remaining?
+
+So far I have observed only the warning on sta_cmd.c:1033.
+I made the rest of the changes as preventative measures,
+because they are flexible arrays used in the same way.
+
+Georgi Valkov=
