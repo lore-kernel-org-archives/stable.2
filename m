@@ -1,161 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61873064B2
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 15:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784216233; cv=none; b=OgriGHcItCwtIXYN7NqC68UFJpuL5yv49gUX1BRb6aQt7axHH/KlGq5pntUlM6mVE1l1QpTsrM1H9qAbm2sOhYIiEIdNni1bFKteMrbRnr+WvpKoXXg58YdvsAB5ovLT13/vE32KWlIGlJo1MfapR1H1/oYJikX8IsZRkjqe+Zs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784216233; c=relaxed/simple;
-	bh=iBP1qsfLvw7zdHyOow7mrLnBAgpGJJ+sBSTTSxafzTw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p0W9e6Yp4esNbDp7RoLGYgz2MJMgsY/ayydCJpuRU4fXCn9suJSP7EQ+S48M47TZPNOQWqmCvbZXf5R6HDWuhk0DpbbmVZn0MtChY4/pCWjs3+9q9SPPTFlNFpIT5pcYOb+syGMEGDLihna8eia3gui1ugRsDutfDxsIlLKPPzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CtPfEU6y; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341B82E7380;
+	Thu, 16 Jul 2026 15:47:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784216836; cv=pass; b=ekJk3aw886JzntUSOm2u0n33yh2kszMlxRmWecsFyNpDhpUl4+Nc7PRC/0EnlCqMHV+9aVCaTy/u1GJbqf4awH7VuvAfp5h/wZ1VGU89k6H4hxQLc081UapME4COEnhGDbAFhdsKBFrCT4wG8m9z0GCbIA1hdV5Tq7GWFQN9xyg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784216836; c=relaxed/simple;
+	bh=1hx0yJ3jK10AJqygvr6+N5F6p5W+b8ub4oFkklGbOic=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=g5H0suVRa92nCLs+/b1MYujIV+nyd6KJwXYz7dWNYW1Hd9Buik3I4omGwkduEfjt5xVyFTcUtZs73sDoLYDZv4VBt7HpnjBoDxyspq2G46Wmir3CQ4DPwGCJPeA95D07FoqskPXnkpUNHp7jNaWrrmToJZbUGcm1ugTOkqVv8ug=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=mjqSGiud; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=FcBIuHc0; arc=pass smtp.client-ip=85.215.255.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CtPfEU6y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2521F00A3A;
-	Thu, 16 Jul 2026 15:37:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784216231;
-	bh=ndbtHCKUieGBiX8/XC8QOhS+Nnnrtnssbfeo7oloFbU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CtPfEU6y7/qwNPnTAZTm9V7ENpvvOzHCFqNm2mvLXZxWMOfaLDrAlj1ONGWH7Wwd9
-	 X9rvog55cECzRMcCWzcmUKs8EtPQvFXOgKAgdr5JJ7hkDW5Wv8inZFjSBXbEE2zJmk
-	 rDA1+7cyCJai7d0cYxMmVUvGjezgu0Lcyk9fIIZ/IWcvJyRURHp4OQ5VAjIskhGkj7
-	 YKnCAkBQHz3JMnc5pZAvQObyJqpZuu9adeQ4OgmfP0Bim0BEwqxQsSAUCXbSkvmy/U
-	 Tb1bBWlouFmpP+YKUEzCEwMgC1ozTFOSVM7XUoITx8/X8sJxiqj4JqXtHlT/dZDZOy
-	 V0nC4eJblPfbQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Musaab Khan <musaab.khan@protonmail.com>,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 7/7] ksmbd: track the connection owning a byte-range lock
-Date: Thu, 16 Jul 2026 11:37:04 -0400
-Message-ID: <20260716153704.583869-7-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260716153704.583869-1-sashal@kernel.org>
-References: <2026071414-kosher-parsley-920b@gregkh>
- <20260716153704.583869-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="mjqSGiud";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="FcBIuHc0"
+ARC-Seal: i=1; a=rsa-sha256; t=1784216815; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Fr0A8QF6exF9BrO52nCOudGott7I46BY5pF4KoX5RNJXLeDFgrNaEhqD3MAbu+sdg6
+    GAFvPKgc5C3x6r77f+dGBCIYior1+SJumo+6W8QlbD1koYlhKgxB4GUGFb2jJZHacUCk
+    te6B9v+AMDqbt6YuxUSKXiEivCH405D33cQh2yXSQd2d9AOJ5Ajfr2dIh71D4CbgvaUR
+    AR3LCJBgp1vqeLDKNtnemvz77IqMsOkgtwU/yz205+uFwGUd2ohNThAH2IgIMvo+7oDc
+    KUskB7RqruaB7/xcRo0TsY/b+AHhcNj3RLNXyA2J0svR+Ri34r2QbQzR7aFcoWyNPN0G
+    NpTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784216815;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=1hx0yJ3jK10AJqygvr6+N5F6p5W+b8ub4oFkklGbOic=;
+    b=eAaBVm+DjzCglKmE13m8Fg+sM13OJti6i3k+arctcU2o4XQn4G+khGnBz9lLGrEkAk
+    79hmxvAHhe08ZPgQB195pERIo293eckOCoTu6chUio9+7uY3NfEgigFBQ1SqheC1aOyY
+    glnExQjxAXsNKzLqG9ravheUR9GhJY4GYxxaxonE+wvrkQEV7KOwUpTipIM6B85wMNNp
+    p9bDAqnIi03aBrIkJIEkmp34jam9B7GA5aVRyJ9NuvvMn9X/qyxV1Q1GA2tfwDO/yvmi
+    yUQ7d5SpuxiUKs+MWgD1QOOznY5yJdXptnN0+6NC4fmbtyIefNcTdhH71vDQrkqFg+yF
+    p4QA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784216815;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=1hx0yJ3jK10AJqygvr6+N5F6p5W+b8ub4oFkklGbOic=;
+    b=mjqSGiud2i1J/Yj6vs5ngW6IPXFc/DIP1ecFj0R1nue5VnJSYkIDsgQ5bHbCvzEgMJ
+    c4FnHdr70uPrHY1BxV6zDU28ZXOx5xg6HET6Z/7ke4M7OCj3/I1HvnYg8I1m0tk+/bEv
+    1UWEA6PEYB9RxNDuxwytwCzUzNBLSjMIHU4/L3GBgfbu8N4Q7F4WudXajD+WCU9S5yti
+    n9wxC50ElR/2VF7UuemJTU4MZsOdyAWAd+TcGBVzZ0AJsDiisbJoxihmtxb3XwtOFaD6
+    WDStYDc/O9Xtr1RJ0pa4XsA5XHA1f+RGAXN+9LgW5B3HvRMBnioku76JIkzPruiD3QIP
+    ssEQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784216815;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=1hx0yJ3jK10AJqygvr6+N5F6p5W+b8ub4oFkklGbOic=;
+    b=FcBIuHc0zUlFJAoaznz6KUp55qwySNpzYaiA3dJGUp+YwTvbkjtgtXo6UyaJuXFZAv
+    03Gy9fIBD2bSPtpFmPCg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS0JpbnciN91aF+UY0Pm4r8tXCtzZjxu6AAT8="
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.5.6 AUTH)
+    with ESMTPSA id Q4b76426GFktcVp
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Thu, 16 Jul 2026 17:46:55 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [Letux-kernel] [PATCH] i2c: jz4780: Cache clock rate at probe to
+ prevent CCF prepare_lock deadlock
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <aljysQFgUHuVDAgK@zenone.zhora.eu>
+Date: Thu, 16 Jul 2026 17:46:44 +0200
+Cc: linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>,
+ linux-i2c@vger.kernel.org,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <2ADBFA2C-92EA-4930-89CB-A6C52E1E61C7@goldelico.com>
+References: <c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
+ <alf7rSWaLBO8WBkR@zenone.zhora.eu>
+ <36148F30-156F-4E74-8765-D718F6FE7E76@goldelico.com>
+ <aliLbNJ51Ns0dIHX@zenone.zhora.eu>
+ <9421BB47-EFC8-4D82-989F-82A84FE46749@goldelico.com>
+ <aljCGkhZEQHzZVSW@zenone.zhora.eu>
+ <500EE2C0-B916-47DF-874F-EBB2CF1C779D@goldelico.com>
+ <aljysQFgUHuVDAgK@zenone.zhora.eu>
+To: Andi Shyti <andi.shyti@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+Hi Andi,
 
-[ Upstream commit c1016dd1d8b2bcd1158bbaabe94a31bb7e7431fb ]
+> Am 16.07.2026 um 17:08 schrieb Andi Shyti <andi.shyti@kernel.org>:
+>=20
+> Nikolaus,
+>=20
+>> Therefore I consider this as a fundamental design flaw which is =
+solved
+>> by this patch.
+>=20
+> I'm not arguing the patch here. I haven't even mentioned a single
+> line from the code. I made a simple question and you keep
 
-SMB2_LOCK adds each granted byte-range lock to both the file lock list
-and the lock list of the connection which handled the request.  The
-final close and durable handle paths, however, remove the connection
-list entry while holding fp->conn->llist_lock.
+Sorry, but I did not read this as a question but an argument against the =
+patch itself:
 
-With SMB3 multichannel, the connection handling the LOCK request can be
-different from the connection which opened the file.  The entry can
-therefore be removed under a different spinlock from the one protecting
-the list it belongs to.  A concurrent traversal can then access freed
-struct ksmbd_lock and struct file_lock objects.
+"I don't think caching the clock rate once at probe is safe."
 
-Record the connection owning each lock's clist entry and hold a
-reference to it while the entry is linked.  Use that connection and its
-llist_lock for unlock, rollback, close, and durable preserve.  Durable
-reconnect assigns the new connection as the owner when publishing the
-locks again.
+This can be read as a "nack" and request to fundamentally change the =
+code. Therefore,
+I asked for suggestions how to solve differently.
 
-Fixes: f5a544e3bab7 ("ksmbd: add support for SMB3 multichannel")
-Cc: stable@vger.kernel.org
-Reported-by: Musaab Khan <musaab.khan@protonmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/server/smb2pdu.c   | 10 ++++++++--
- fs/smb/server/vfs_cache.c | 12 ++++++++----
- fs/smb/server/vfs_cache.h |  1 +
- 3 files changed, 17 insertions(+), 6 deletions(-)
+> If the commit message is leaving room for questions then you need
+> to make your commit message clearer.
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index e0f0e738a2e49f..54ad0852850ea5 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -7111,9 +7111,11 @@ int smb2_lock(struct ksmbd_work *work)
- 						nolock = 0;
- 						list_del(&cmp_lock->flist);
- 						list_del(&cmp_lock->clist);
-+						cmp_lock->conn = NULL;
- 						spin_unlock(&conn->llist_lock);
- 						up_read(&conn_list_lock);
- 
-+						ksmbd_conn_put(conn);
- 						locks_free_lock(cmp_lock->fl);
- 						kfree(cmp_lock);
- 						goto out_check_cl;
-@@ -7250,6 +7252,7 @@ int smb2_lock(struct ksmbd_work *work)
- 				goto retry;
- 			} else if (!rc) {
- 				list_add(&smb_lock->llist, &rollback_list);
-+				smb_lock->conn = ksmbd_conn_get(work->conn);
- 				spin_lock(&work->conn->llist_lock);
- 				list_add_tail(&smb_lock->clist,
- 					      &work->conn->lock_list);
-@@ -7304,11 +7307,14 @@ int smb2_lock(struct ksmbd_work *work)
- 		}
- 
- 		list_del(&smb_lock->llist);
--		spin_lock(&work->conn->llist_lock);
-+		conn = smb_lock->conn;
-+		spin_lock(&conn->llist_lock);
- 		if (!list_empty(&smb_lock->flist))
- 			list_del(&smb_lock->flist);
- 		list_del(&smb_lock->clist);
--		spin_unlock(&work->conn->llist_lock);
-+		smb_lock->conn = NULL;
-+		spin_unlock(&conn->llist_lock);
-+		ksmbd_conn_put(conn);
- 
- 		locks_free_lock(smb_lock->fl);
- 		if (rlock)
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 4e7a259964a15f..201ed5055aa084 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -317,10 +317,14 @@ static void __ksmbd_close_fd(struct ksmbd_file_table *ft, struct ksmbd_file *fp)
- 	 * there are not accesses to fp->lock_list.
- 	 */
- 	list_for_each_entry_safe(smb_lock, tmp_lock, &fp->lock_list, flist) {
--		if (!list_empty(&smb_lock->clist) && fp->conn) {
--			spin_lock(&fp->conn->llist_lock);
--			list_del(&smb_lock->clist);
--			spin_unlock(&fp->conn->llist_lock);
-+		struct ksmbd_conn *conn = smb_lock->conn;
-+
-+		if (conn) {
-+			spin_lock(&conn->llist_lock);
-+			list_del_init(&smb_lock->clist);
-+			smb_lock->conn = NULL;
-+			spin_unlock(&conn->llist_lock);
-+			ksmbd_conn_put(conn);
- 		}
- 
- 		list_del(&smb_lock->flist);
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index a528f0cc775ae0..cd61c0b85e4d63 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -30,6 +30,7 @@ struct ksmbd_session;
- 
- struct ksmbd_lock {
- 	struct file_lock *fl;
-+	struct ksmbd_conn *conn;
- 	struct list_head clist;
- 	struct list_head flist;
- 	struct list_head llist;
--- 
-2.53.0
+It took me long to understand your misunderstanding, and now I believe I =
+have found it.
+It is because there are two clocks involved which can be mixed up.
+
+
+So would you be more happy with:
+
+[PATCH v2] i2c: jz4780: Cache host clock rate at probe to prevent CCF =
+prepare_lock deadlock
+
+Fix a severe AB/BA deadlock between the Common Clock Framework (CCF)
+and the I2C adapter lock, which triggers when an I2C-controlled clock
+generator client (like the Si5351) is registered or modified under the =
+CCF.
+
+During an i2c client clock (generator) frequency change, the CCF =
+acquires its global
+'prepare_lock' mutex and calls i2c_transfer() to update the client's =
+chip registers,
+stalling for the adapter's I2C bus lock.
+
+Concurrently, an independent, parallel transfer on the same bus (e.g., a =
+GPIO=20
+expander handling LEDs) can hold the I2C adapter lock. Inside this =
+parallel=20
+transfer path, jz4780_i2c_set_speed() calls clk_get_rate() on the host=20=
+
+controller's input clock to calculate bus timings. This call attempts to =
+acquire=20
+the blocked CCF 'prepare_lock', creating a circular dependency that =
+freezes=20
+the system.
+
+The jz4780 host controller clock itself is static and never changes at =
+runtime.=20
+However, calling clk_get_rate() inside the active transfer path =
+introduces=20
+an unnecessary dependency on the CCF internal locks.
+
+Eliminate the synchronous clk_get_rate() call from the active transfer
+path by caching the static host peripheral clock rate once - inside the =
+private
+jz4780_i2c structure during jz4780_i2c_probe(). Update =
+jz4780_i2c_set_speed()
+to use this cached value, safely decoupling active I2C transactions from =
+the
+CCF internal locks without any risk of stale timings.
+
+BR and thanks,
+Nikolaus
 
