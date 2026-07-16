@@ -1,224 +1,137 @@
-Received: from mx0b-00756801.pphosted.com (mx0b-00756801.pphosted.com [205.220.182.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578D73F8224;
-	Thu, 16 Jul 2026 09:46:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.182.195
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784195214; cv=fail; b=ND0x6i7xRqZ9ekgV4YPbsmw3VDU+N5Aw/GmWYwJnPtYO/Rokk9kXwDABz1bje4Ryz7Br5ZoQIrsShy/349Eo0Ozde3CZ3c5eJMJxgVBicPB4JNF5g5SWKFxSThZLOdQn4buRmHP7OgHFb2gi+2meqvYocA8WGPVzGrzRZJ0vXqM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784195214; c=relaxed/simple;
-	bh=n0uD1bh/Z94A8Xc1lflGqU6P75ZiH/ZK8Qrk+Cp2hr8=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=RIL5eykBa52dI8QyRVcC2SAovCHndvYhnkbvxQ4ebA+zYGe71u1PcnwuN/PKgtMRPAsHEU2pa7xpVRNLB62lVeoMv1b2g2upI1XAXJlcFocddLVD66zJyQxeu6GW+EWeQgT9A0Q7uYBn0op3hYF+BOb2eEKj6OvjckldlfdlGls=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nozominetworks.com; spf=pass smtp.mailfrom=nozominetworks.com; dkim=pass (1024-bit key) header.d=nozominetworks.com header.i=@nozominetworks.com header.b=PD7io+97; arc=fail smtp.client-ip=205.220.182.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nozominetworks.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nozominetworks.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C7436A004;
+	Thu, 16 Jul 2026 09:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784195637; cv=none; b=JvjEK3J2SBwubLiI/+I/AP5THvWCrrACBVEY/QFxPkYQTznUJ3Y+1k6yBqweS4lWM0LXfpadcHY1bvpI8Qy0fIN+33/9noYRBiqAsUB6eRrowloOM1dyfzLPjAeE3DbRxlSzD+BX3QHvUde5MeWvdWMCHzCc9jzxFwbK/j3nlBU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784195637; c=relaxed/simple;
+	bh=tphUPqccDpxlso3K57MpQLL/yAPpciraKZaOvZWaeCQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J2ujoyrGly94LzfJnfVUJ9sHA6qsilBy+sMA7CI4oU0KeYnnkr2TZab8oqsH+XYzO7eF3OSCp30ea682hc2Gvl980qUXy1YRhZU7qPMdIIIIRVceIR3N+yVrG5MOv1Uxz5C70zrf9mN5Pn97MYtf/8gs7erx9WYPxGrHND39OGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3XW/P6j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=nozominetworks.com header.i=@nozominetworks.com header.b="PD7io+97"
-Received: from pps.filterd (m0297687.ppops.net [127.0.0.1])
-	by mx0a-00756801.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66G7HIVR1248865;
-	Thu, 16 Jul 2026 02:46:36 -0700
-Received: from am0pr02cu008.outbound.protection.outlook.com (mail-westeuropeazon11023135.outbound.protection.outlook.com [52.101.72.135])
-	by mx0a-00756801.pphosted.com (PPS) with ESMTPS id 4fbjsvd3gx-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 16 Jul 2026 02:46:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ma6+5clWM9Liq7vkX3wkr9Ew9dZLEMN1Q4K6Bm3JwuwSyn9/eQjNJuwxbuzdHo7WpsyCzc0JxN4jazoIFRcyBGyxHHSg9QLzcV4URptZLH9D2yORjTM2cSs34y6lSmgYwfxCY2B702aZiv1CAIgXGtgTHGG9bzDakrLPF04kbMs9naSUEM8C7EEZYLVIRsxSCG98rDyFyaww8GHcekBmt/kCMOV5tOSb6AY9ttuneglNIkmkJfrigxmoKvywfU2ra2eLemDt6zmdRcONPTXM86LRSE+6K/N2kKDdrS/jgUW9We0IkxLELzpVh3OZ5Q82xaMxOHjrQoZAKBAAmDJYYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xW+g/ohPqeRyadR8ryWCp7fTGcSabXxb9+V2wLzdBq0=;
- b=yAglTehyBsF7G7RvkmLf8BROCp8m58WteeoCHn/dEIyl5NsCdRMgyTDR3yeZZsTg8ZQ5C4CzNGbPfyhwJGsaRc7ersX6K0/c/tMEyjC1hZ7f2ZwHgC3K+RER1mQR3sbsymx4+300sfeTyiJ6G/HzSPgAueqFwCrSdp40vu6Q3S9hefQVH9E6s8hknyPko5Fs07rYNNjAlteYOKllDo1Xxph+LStTH+gFdQNR3xr9nKYlB5C1/SRLgnROpdKgGwVF9L3JrQyMFW2EPSdyDY4TQ+bM9hf1JbXTfI1Y6xM9TfuzoHvT+wE3vq/Wpq81DzbnDWKZnnkNxuqtllo18Ucaow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nozominetworks.com; dmarc=pass action=none
- header.from=nozominetworks.com; dkim=pass header.d=nozominetworks.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozominetworks.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xW+g/ohPqeRyadR8ryWCp7fTGcSabXxb9+V2wLzdBq0=;
- b=PD7io+97uOhAdqVC+/N1S+GVKBJCe/EHnBn0SUR3hmot0/77knWVK9IqzJU8uUAOG/jcQ3lJiZ9IZDrjhvFIiqCD+ghJegCdYIuTxTRL6XNImfL77hLOsj2Sznyf9Z9baZGK/4JnIPUgezZhSaHm0GBC9MSYO1Hmgl1FScwStBs=
-Received: from VI0PR03MB11174.eurprd03.prod.outlook.com
- (2603:10a6:800:2f8::12) by AM9PR03MB7506.eurprd03.prod.outlook.com
- (2603:10a6:20b:262::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
- 2026 09:46:33 +0000
-Received: from VI0PR03MB11174.eurprd03.prod.outlook.com
- ([fe80::478a:c992:bbc3:ca3f]) by VI0PR03MB11174.eurprd03.prod.outlook.com
- ([fe80::478a:c992:bbc3:ca3f%6]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
- 09:46:33 +0000
-From: =?iso-8859-1?Q?Alexandro_Cal=F2?= <alexandro.calo@nozominetworks.com>
-To: "linkinjeon@kernel.org" <linkinjeon@kernel.org>,
-        "hyc.lee@gmail.com"
-	<hyc.lee@gmail.com>
-CC: "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        "stable@vger.kernel.org" <stable@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] fs/ntfs: Fix index_root heap OOB write in ntfs_ir_to_ib()
-Thread-Topic: [PATCH] fs/ntfs: Fix index_root heap OOB write in
- ntfs_ir_to_ib()
-Thread-Index: AQHdFQf8pctdjMaGQUyt24yNAfW4RQ==
-Date: Thu, 16 Jul 2026 09:46:33 +0000
-Message-ID: <714A2D6E-5B61-4185-AD6C-328250C8E040@nozominetworks.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: VI0PR03MB11174:EE_|AM9PR03MB7506:EE_
-x-ms-office365-filtering-correlation-id: 17f1209a-f82f-4cb7-8c0c-08dee31f1f23
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|38070700021|6133799003|11063799006|56012099006|10067099003|18002099003;
-x-microsoft-antispam-message-info:
- xbYwMVr2MnX62vTIRg4zsxboXYFfQ3zypnLvEknRJJUlG4ySSKFgrpA+eCmB7O/BJVb2LxSZ+WfBooRh3qXwTsrQmZJDbUfz+afvGWUVRP59RbaR5X0DzQ2vm9yWQTnX4WV0pqmQkiLT3qsjxCnOIrGzhtt+g2s4P68JpliMmt9fWln95Z2CEeAUlz4qSki1geVZihQO8UnV3QqWFBo4sMDJfgG5insct/SWCHVRhydGZ/C1WqHxpU1/00lx2xqILvQ2LEUF6sH6RaK6e8rT8m9uT53mq1cADz7PEfGnXuT6RvdOei6O35uErDnc64kY+CD2vuWJCvC6uYt8f7uo43sy4m9BiGtR/XUqi3RQkRCYW3/rMP/WSIgcse9N7q2/yz2Vxd5qvvnJJy2PJRHu0BTr7yY92neLKtrBBifHpOo18DxUMXm7vX8jSm3P7BtGDfwpR/cz+JRkfDNIEdWapbyPvoR1OGCBU6MaaU+v9LqgF0+QXXjZvSvTUVI9Y/K44erZHxvSvkHZskkMOlihMtI40jJnGKI0oDYmlZ9vRqz3E829H2HSmH9kX1B87dD4RpuRpY5ID3/U4dBWatFG6HSUrY+hya4zf8oXUBG2a6XpA08wWYRx8awmOSjZRtsKvU1NaMRXUtopRPIzjfBPHiHAAN4ZweCoVXemdK1InOR0buJ8eNRjuKRF79721k+RR4RHQvDvrxUSK+/vhZEBbVoRzMqKt7t2iLjsnroc1eE=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR03MB11174.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(38070700021)(6133799003)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?gDRNXNBTrq3K+ViJEaWeu2hC3dE+gZwiwmiyHTbN0s1b+SQ/Pwi6sefXqg?=
- =?iso-8859-1?Q?XM3CBXQhNHKMUIab5d7vEE9u/6bvty1flDgTGAw5JukkQ4oeRMBMTeztW1?=
- =?iso-8859-1?Q?8naGAtx0YIrmSOOiP9Af4skITtwo+50t9PmNw7Ll21TvdDSaL5swnQZX7E?=
- =?iso-8859-1?Q?yspduW7H9st5p20YnGRwidj4SRu8dCXbmwYhHooHY8lS/FIk3DajScSZoz?=
- =?iso-8859-1?Q?yvwK/Z9eRRgrjiSlO/niFauPPM+J+VhDvmPTqZUgQc/BBJ6aLh0jlThi/B?=
- =?iso-8859-1?Q?vW58P53RkhNYKnr1AXD6EVSUxEWzv1PBHVbyHbrj91wvIOL7h0zbrWdKmk?=
- =?iso-8859-1?Q?S5EjpjWBb7fKw8BZ429gecmm+M6GLheZ8FQtEAHCS3KqL4QlH9rhHh99LU?=
- =?iso-8859-1?Q?NU9il9uv3wYglkDX0YU00fBl/GS6tAL0595mMxKyTCilT7/Gr7V+iteQqn?=
- =?iso-8859-1?Q?UQz/+jNUYiUE0AzcKrwW9zxvzmz3e5brh7oQo5OkT4Jp08YplhmAe+qf8E?=
- =?iso-8859-1?Q?thbH+W1T63OUt96MHto569gelhNZwVUoE3Tq0wI+TM/rVdimLuw9Q0H8m0?=
- =?iso-8859-1?Q?0EzkNqLj50jtiTZIEnLL7wrADnPNmKWbLt1m1S0ZwgzG10ZfLV88vFCWNA?=
- =?iso-8859-1?Q?uaR7SgmKumBJu72y7bt+q/s30r/3EaIDKG8z46Aq6i+iItX6jxhH9DqvXb?=
- =?iso-8859-1?Q?H5sFc4a2zK+5ztQc1fTLLSshDbVzpQBogs7VqD+EKkYcnRgw256lDNvxuZ?=
- =?iso-8859-1?Q?amYtXdslzqJeNrCvzH53ja2ppP1t5QPHVJXQr0K4myPK+AAp90Hdz8Qiy8?=
- =?iso-8859-1?Q?5yIiruGruvNB1PzV6m9KqOTEKygV06sYrxlpsRAuzQpkKK7wdXsx4Po8C3?=
- =?iso-8859-1?Q?ry03apdZ+CkLjIsCU7GQJmqFt9VYJAWRDr/71HUPhLUpAzJvr1I4VIdxAM?=
- =?iso-8859-1?Q?S7rOKyC7ye/4+jrOVenyNvF68+65WqizKWP1hIKnE7QPEb9F/r5w3sxN2A?=
- =?iso-8859-1?Q?sVp0G5DezMS7ZJQ3eTxLqmPUUy9M+8OFgGb/kD8yFJq06AhRF4c1J7OW3N?=
- =?iso-8859-1?Q?gnwZmps79OwV0dqxPl6d2cYFtl2zbLDz4KcO9Qc7f2W/09dTn01aAcW6Xz?=
- =?iso-8859-1?Q?RxgIJ6JVy5DyF/C/NzLccVUNGpHYAKI7InBe1M3+MxBqNZYq8LAZ/OirkJ?=
- =?iso-8859-1?Q?8Ep9FB8iLBe068zOCOCxgHC5QpbIJl+8u7NW0nqh+A9y6OVKHTA7NXDUkK?=
- =?iso-8859-1?Q?TkTRgRPoLd8ihQMonQreiEbZpCvaKkEmOTFW5V8e0Iv68LXg/G2hCZP5Vw?=
- =?iso-8859-1?Q?ekf0GavDfZzhUFAV33dGEOj0P9eAVpMm6LglYEUAuJwCBzchY5GnCqzd6p?=
- =?iso-8859-1?Q?RYpf7RNbwc+vlmQHRF8hZfdM9sfavGEjpEd0LuvC2Y3ncJuuelbu8/bn94?=
- =?iso-8859-1?Q?hbsKMrEhWfVRDzPCxqRrK8Lq7bqzwv6ze3gvFv7i8EmlARuzLbmQSlNHMo?=
- =?iso-8859-1?Q?vUn2s3FTGrVt1XdY4d16GOWt9SvMqI7ByWGxtCkwD4Z5nGXUvJy7aKl18o?=
- =?iso-8859-1?Q?8gQqnneDQ55oNbW6EIiDVmoIrCnU75//+PLEKPYnXbJqR5dPzRa2Mvy7iq?=
- =?iso-8859-1?Q?1YYXGb1WVnXLJS9dYZVS0wdZkU7rl+1Vvua5GAWi9Ctp10bPvfmbBzje+l?=
- =?iso-8859-1?Q?9xkXK6a9nwhwsK6Rwip4ldv4xkGBzODH4CmTWh/VaeO+IyrqeSZUeEr/TE?=
- =?iso-8859-1?Q?hJM6b46sDplveCduwON4DRzvU8QHw1KJugAClyZ3PHMZWEdr6aMHs3eATi?=
- =?iso-8859-1?Q?ekrG/t8MbTxc60wiK2WWL3400lXIWju4o7qNr60FWqZwO8ujMKSX?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <B2EF96EE44E130489D7C65398F55A662@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3XW/P6j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C82D1F000E9;
+	Thu, 16 Jul 2026 09:53:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784195635;
+	bh=n5CfasO0ETUI94CdcqzUm6T818X9OnbwiUpuYudmGo4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=K3XW/P6jR69B+V3zWrDch4hnyiDtsUokJ3l9UXrsgWNKDm2q3udtHcv9YpJsc90Xh
+	 BafM3EAgQNOyRBedUMQGJ7hTMB38nVj0T01CciUd6GTl0dyDAgaP0ya8fhmstt2/65
+	 CYyaUZccojmQeQmVreMz5ZXzvqQy8nWhtAArnB35+kGfXw9DyXDmcukdISl+p0fhwW
+	 uo5J1K+o2oeydrd1H3HMpDt8X8jTuXi1ypTDfozGLJfW4uAW+wApocjL4EWnyMAtUe
+	 w8grc7uuqCwT+40ph/zUBfuAmqd/5mYy5jOrE1uk4pOwoYbJID+lX4W4dJpo3zyta/
+	 n1e/VyPBzAM/w==
+Message-ID: <d3b07e20-fa35-41c7-ac40-11614f7a3b2e@kernel.org>
+Date: Thu, 16 Jul 2026 11:53:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	ZYAz5yTvX6AY0LCzB1HPJG9jX0nyb/1dciX2ILZ70GLMMnTiYeSyLmBEX1KOqotXXCg+U5B5yNO6ruWUOp47wuO5Q+FEnEML7Y4bZGrurzl4NvQRcvtSZvWvt3VhY0RCJx/p2sqaCnbAcTFRxIZLZkkNnJ3RqeYsO7uMtX7hdIbwJeMjTcEvIIb7hV1BacEyexrqNwbjJnEfi0UbATakWd4WvXSsL1Hg1R5NcGwyMsUlWjfL/bEvPVJC/Wc4laoIW0Fsj6USKILU7P/jshiVUmifkj6B7lT+xhPb1SOBfY8vxNMg5nC4Bwd2ZhbEhz3lvBAeb8qlnEFl1OL7L0AL3Q==
-X-OriginatorOrg: nozominetworks.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VI0PR03MB11174.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17f1209a-f82f-4cb7-8c0c-08dee31f1f23
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2026 09:46:33.8314
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 6f04d14b-0796-4b81-b7fd-779778e05341
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sqoot1YSjcDauZsDE9aBSFJ2aWh88PfWZmkaO+cOcCzcj1VYuUDaB2ZoZ4iA+XIl44ejfA7HqovV+sSebvChZ5hSOcPyeOkKGcWyjHDkGzG4fklR+L7U2tnMzkf3QMbU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7506
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDEwMCBTYWx0ZWRfX/y/d7cYsCVyX
- Gn3Lo2fG2HVlp8XsesMmcUvMEcos2qTixtgRWMS7Hk0IObYF8sqL6xHtQ4/4+HWaYAlGH0mVBiF
- T/uVsnLT1XxFSe7Ofo+S8CJj/nyzYfU6BrrSx6mEn2fzZEep0IRu
-X-Authority-Analysis: v=2.4 cv=NdHWEWD4 c=1 sm=1 tr=0 ts=6a58a87c cx=c_pps
- a=zd2gtXrgLElDIDyHc0M0PA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=RAioF0-LDSMA:10 a=LLPZWm0_0O8A:10 a=nBHfkqHukZMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7VS2YgxpqphC4cixgVMD:22 a=sCtaNhFbwZJXAHy4C4eS:22
- a=GqK9ZfNKAAAA:8 a=VJParumXg7svP2lGl5kA:9 a=wPNLvfGTeEIA:10
- a=BFatPaWxP-aY11LYkd1a:22
-X-Proofpoint-ORIG-GUID: uWTeURwEYw0T7hEQT15oHCrze-m7Huq8
-X-Proofpoint-GUID: uWTeURwEYw0T7hEQT15oHCrze-m7Huq8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDEwMCBTYWx0ZWRfXwpev884aaZ4Z
- YTzwuLlwIfnlqFmEgKLp299CSgGL8PUacpH9J4T4FTatAcnJD3wEaQyzlHmzjdDfMwVzgcvIEH8
- aqyH2u9MPtUlhCECXlgS5NDxyptIfRl815HbHAO3z0+orUkfXJO+o1X6Sh9KBNiZjYvuB4ytl70
- v61iFDjuEUgrot0qp+FTj3JLeyWr4kZC2jHsJJNBx1QPb8dp3aSvbbxAFwc4pJ+WNa1ZDkuJihs
- O3r1mCHguRmr2xqvbGnswii8+tpZHLWnry+XvO1LlfYxrXc8MQHnZO1X2pxTUlz0VsFoGtrFn+s
- l5rCmZSo0feYjWxT2Ufubr6Ooepjx1LgBBiazyP3gARNTpMuovrYixy2rmJuJfTulGcQLdPpqWc
- kWAAcu20EJxs9VMyTLLuikaBfZOcKruSblNCpXkyxrNmBy3Z7w+Tk3/HF4Itc2r3X9jfkZmYlq2
- +cTgDbVkn3URoHQUeYA==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH mm-hotfixes v3 1/4] mm/vmalloc: acquire init_mm lock on
+ huge vmap to avoid ptdump UAF
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Toshi Kani <toshi.kani@hpe.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>
+Cc: David Carlier <devnexen@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
+ syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+References: <20260714-series-vmap-race-fix-v3-0-b812eccfa0f9@kernel.org>
+ <20260714-series-vmap-race-fix-v3-1-b812eccfa0f9@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260714-series-vmap-race-fix-v3-1-b812eccfa0f9@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Alexandro Calo <alexandro.calo@nozominetworks.com>
-Date: Thu, 16 Jul 2026 11:30:04 +0200
-Subject: [PATCH] fs/ntfs: Fix index_root heap OOB write in ntfs_ir_to_ib()
 
-ntfs_ir_to_ib copies all entries from index_root into a freshly allocated
-index_block_size-byte buffer without verifying that the entries fit in the=
-=20
-available space. The entries in index_root may be larger than the usable
-entry space in the index block.
+>  
+>  #define CREATE_TRACE_POINTS
+>  #include <trace/events/vmalloc.h>
+> @@ -158,10 +159,25 @@ static int vmap_try_huge_pmd(pmd_t *pmd, unsigned long addr, unsigned long end,
+>  	if (!IS_ALIGNED(phys_addr, PMD_SIZE))
+>  		return 0;
+>  
+> -	if (pmd_present(*pmd) && !pmd_free_pte_page(pmd, addr))
+> -		return 0;
+> +	if (!pmd_present(*pmd))
+> +		return pmd_set_huge(pmd, phys_addr, prot);
+>  
+> -	return pmd_set_huge(pmd, phys_addr, prot);
+> +	/*
+> +	 * Kernel page table walkers either walk ranges they own exclusively or
+> +	 * hold the mmap write lock on init_mm (ptdump being the motivating
+> +	 * case).
+> +	 *
+> +	 * Therefore, acquire the mmap read lock to prevent use-after-free when
+> +	 * freeing page tables.
+> +	 */
 
-This can cause OOB writes past the end of the allocation.
+Can you spell out here why arm64 is special?
 
-The validator ntfs_index_root_inconsistent() checks that entries are
-self-consistent within the IR value, but never cross-checks them against
-index_block_size. There is no bounds check in ntfs_ir_to_ib() before the
-memcpy.
+-- 
+Cheers,
 
-Fixing this at the sink in ntfs_ir_to_ib() since=20
-ntfs_index_root_inconsistent() validates the logical consistency of
-index_root as a structure and a root with large entries is a structurally=20
-valid root. The bug is a size conflict of ntfs_ir_to_ib().
-Also, the validator is called once per inode load in
-ntfs_read_locked_inode() while ntfs_ir_to_ib() is only called during a
-reparent, a check there adds no overhead to the common path.
-Moreover, even a future call path that bypasses the validator would still
-be protected.=20
-
-This heap out-of-bounds write is triggered by a crafted filesystem image,
-which is not in the kernel threat model, anyway, fixing memory errors would
-be nice to keep  things secure.
-
-Signed-off-by: Alexandro Calo <alexandro.calo@nozominetworks.com>
----
- fs/ntfs/index.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/fs/ntfs/index.c b/fs/ntfs/index.c
-index faa7ee920a3a..529697b5891e 100644
---- a/fs/ntfs/index.c
-+++ b/fs/ntfs/index.c
-@@ -1112,6 +1112,7 @@ static struct index_block *ntfs_ir_to_ib(struct index=
-_root *ir, s64 ib_vcn)
- 	struct index_entry *ie_last;
- 	char *ies_start, *ies_end;
- 	int i;
-+	u32 ib_cap;
-=20
- 	ntfs_debug("Entering\n");
-=20
-@@ -1127,6 +1128,15 @@ static struct index_block *ntfs_ir_to_ib(struct inde=
-x_root *ir, s64 ib_vcn)
- 	 * as well, which can never have any data.
- 	 */
- 	i =3D (char *)ie_last - ies_start + le16_to_cpu(ie_last->length);
-+
-+	/* Entries must fit in the allocated index block */
-+	ib_cap =3D le32_to_cpu(ib->index.allocated_size)
-+		- le32_to_cpu(ib->index.entries_offset);
-+	if ((u32)i > ib_cap) {
-+		kvfree(ib);
-+		return NULL;
-+	}
-+
- 	memcpy(ntfs_ie_get_first(&ib->index), ies_start, i);
-=20
- 	ib->index.flags =3D ir->index.flags;
-
-base-commit: 37e2f878a7a660a216cc7a60459995fefd150f25
---=20
-2.47.3
-
+David
