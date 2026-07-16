@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003A732F748
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 12:41:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1A041E6A5
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 12:41:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784205663; cv=none; b=GqD99Jdr4atUvYOB4/p4CcAwxYUKgcAnbxqL9yt9cy/Xw1LdGwpFIcIrFv5wwtN1z8CVIAXUGyatWfM09oh94nH0jdkWmHJCoEvtTGX6zJZGHUEwFTGh72KvndKeWH41Lg3MHS6ARGuf4qqqNHx99tJB8hwzypx9Jg4WBpXBVyI=
+	t=1784205665; cv=none; b=mm1Iibjkd4tOeV2VJMAyVI3Iiy73cr/6v229s97otJI4z8YA66pRGf2e4xKLkrIusWCtyJV0aOuPfdnWxhZwJ4g4dqELBiFuadrw0LGdW/VIZdZDytiT4wE3RRkvLN7apmQMNRBGCf4xm5wFkTSpcFl9520KgW+SoqtONmrdZPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784205663; c=relaxed/simple;
-	bh=4bxClnz7eqpF3GVkmNXTMi78mG5e305OEA4Z/XmfeHE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=czZ5JIO0M7YYQ3qMLhmuAIWTVHMuexQ37Zc5ToYNc3BH++8zDD66EePdyZE+tDmxRnkXbZxlxmWYuSAOMbeMigSViXT8yTxYROsWLKj5vIGs9v2RtlwhwLXREGH9E/xdexn2xv5GQZrn87MBGgsiWlnwLoNur3TWmvdATjfMjPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x4YFrHNI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784205665; c=relaxed/simple;
+	bh=pY/qD2v6fgrqccASF+4TdWK4Pn2IbCRiyYHfpJT9swU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PQMhBeYza9O2io2YWIkr0eIPY3FEnjnoXRTY9CIsg7/kf5aXeosaOLRb0ZNryfXnkOi4ziGRgS0pOoAh/NYrRqCFEWj4RV1g/1cnC7ySc87/ZFa59+z5FEFtJEml87NSuR2CIIywHGu0sXgAfDRa7pmTgtZyKES7gOsY+AkYO8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1aCkJdhm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x4YFrHNI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8861F000E9;
-	Thu, 16 Jul 2026 12:41:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1aCkJdhm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B868B1F000E9;
+	Thu, 16 Jul 2026 12:41:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784205661;
-	bh=Ld9WMHaziqiryaujK9TLYL0BAwtRCzq+XwNBlrdFuS0=;
+	s=korg; t=1784205664;
+	bh=S1ZTfVD4Ep69Zqdn0sgriIVAe8WFE/bkzSYyNt1X0MI=;
 	h=Subject:To:Cc:From:Date;
-	b=x4YFrHNIBN6fNDRjn+JqMK0eo9Xp2g5xZGJrJvdKFDONL191ldAz1xpqnP4ca0T/m
-	 U2Y4CPO6jY/6Idtw7drwmLprC1LYlJsGGI/+xJUrcTOXQTrwqQsNjJ+UFLOFk1pJnq
-	 M0LzIBP/PeBW8hZf+rqTdey+mXhmrAZILFBz94e8=
-Subject: FAILED: patch "[PATCH] i2c: core: fix adapter debugfs creation" failed to apply to 6.1-stable tree
-To: johan@kernel.org,wsa+renesas@sang-engineering.com
+	b=1aCkJdhm6L6w0cLegm5FC79xpMSxO7cpnd1Va0mqkAwyonIlgvo8lC2Q+z5VLOsXC
+	 YTKFP0XyBvahzFUAND1BMemF+bfd5X3L+wq+UqldNJDqCt4UiH1svINzEZR4AENbxB
+	 t4DRTSVnbOE9tMGEUERDPmADoUqf5K946Mgf+4/g=
+Subject: FAILED: patch "[PATCH] i2c: core: fix adapter probe deferral loop" failed to apply to 6.1-stable tree
+To: johan@kernel.org,codrin.ciubotariu@microchip.com,wsa+renesas@sang-engineering.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Jul 2026 14:40:37 +0200
-Message-ID: <2026071636-deceiver-subzero-c7fe@gregkh>
+Date: Thu, 16 Jul 2026 14:40:56 +0200
+Message-ID: <2026071656-trivial-state-54ad@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 07d5fb537928aad4369aaff0cbae73ba38a719af
+git cherry-pick -x 158efa411c57111d87bf265a3776614f32d70007
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071636-deceiver-subzero-c7fe@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071656-trivial-state-54ad@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,78 +62,48 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 07d5fb537928aad4369aaff0cbae73ba38a719af Mon Sep 17 00:00:00 2001
+From 158efa411c57111d87bf265a3776614f32d70007 Mon Sep 17 00:00:00 2001
 From: Johan Hovold <johan@kernel.org>
-Date: Mon, 11 May 2026 16:37:10 +0200
-Subject: [PATCH] i2c: core: fix adapter debugfs creation
+Date: Mon, 11 May 2026 16:37:09 +0200
+Subject: [PATCH] i2c: core: fix adapter probe deferral loop
 
-Clients can be registered from bus notifier callbacks so the debugfs
-directory needs to be created before registering the adapter as clients
-use that directory as their debugfs parent.
+Drivers must not probe defer after having registered devices as that
+will trigger a probe loop if the devices bind to a driver (cf. commit
+fbc35b45f9f6 ("Add documentation on meaning of -EPROBE_DEFER")).
 
-Move debugfs creation before adapter registration to avoid having
-clients create their debugfs directories in the debugfs root (which is
-also more likely to fail due to name collisions).
+Move the recovery initialisation, where the GPIO lookup may fail, before
+registering the adapter to prevent this.
 
-Note that failure to allocate the adapter name must now be handled
-explicitly as debugfs_create_dir() cannot handle a NULL name (unlike
-device_add() which returns an error).
-
-Fixes: 73febd775bdb ("i2c: create debugfs entry per adapter")
-Cc: stable@vger.kernel.org	# 6.8
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Fixes: 75820314de26 ("i2c: core: add generic I2C GPIO recovery")
+Cc: stable@vger.kernel.org	# 5.9
+Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 Signed-off-by: Johan Hovold <johan@kernel.org>
 Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
 diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 1caaa3b3ee10..25d66de41287 100644
+index fa9db415e219..1caaa3b3ee10 100644
 --- a/drivers/i2c/i2c-core-base.c
 +++ b/drivers/i2c/i2c-core-base.c
-@@ -1557,7 +1557,10 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 		goto out_list;
- 	}
- 
--	dev_set_name(&adap->dev, "i2c-%d", adap->nr);
-+	res = dev_set_name(&adap->dev, "i2c-%d", adap->nr);
-+	if (res)
-+		goto err_remove_irq_domain;
-+
- 	adap->dev.bus = &i2c_bus_type;
+@@ -1562,6 +1562,10 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
  	adap->dev.type = &i2c_adapter_type;
  	device_initialize(&adap->dev);
-@@ -1575,14 +1578,14 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 	pm_suspend_ignore_children(&adap->dev, true);
- 	pm_runtime_enable(&adap->dev);
  
-+	adap->debugfs = debugfs_create_dir(dev_name(&adap->dev), i2c_debugfs_root);
++	res = i2c_init_recovery(adap);
++	if (res == -EPROBE_DEFER)
++		goto err_put_adap;
 +
- 	res = device_add(&adap->dev);
- 	if (res) {
- 		pr_err("adapter '%s': can't register device (%d)\n", adap->name, res);
--		goto err_put_adap;
-+		goto err_remove_debugfs;
- 	}
- 
--	adap->debugfs = debugfs_create_dir(dev_name(&adap->dev), i2c_debugfs_root);
--
- 	res = i2c_setup_smbus_alert(adap);
+ 	/*
+ 	 * This adapter can be used as a parent immediately after device_add(),
+ 	 * setup runtime-pm (especially ignore-children) before hand.
+@@ -1583,10 +1587,6 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
  	if (res)
  		goto out_reg;
-@@ -1606,13 +1609,14 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
  
- out_reg:
- 	i2c_deregister_clients(adap);
--	debugfs_remove_recursive(adap->debugfs);
- 	device_del(&adap->dev);
-+err_remove_debugfs:
-+	debugfs_remove_recursive(adap->debugfs);
- err_put_adap:
- 	init_completion(&adap->dev_released);
- 	put_device(&adap->dev);
- 	wait_for_completion(&adap->dev_released);
+-	res = i2c_init_recovery(adap);
+-	if (res == -EPROBE_DEFER)
+-		goto out_reg;
 -
-+err_remove_irq_domain:
- 	i2c_host_notify_irq_teardown(adap);
- out_list:
- 	mutex_lock(&core_lock);
+ 	dev_dbg(&adap->dev, "adapter [%s] registered\n", adap->name);
+ 
+ 	/* create pre-declared device nodes */
 
