@@ -1,188 +1,168 @@
-Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EDC3E2756
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 08:42:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639953F44FC;
+	Thu, 16 Jul 2026 08:48:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784191375; cv=none; b=kvigMRa2UaP8v5QJdb5/FpNIRmU909npFZjoJFbzMSCm+d78628g9a1AP8T1546BEjr7IyvXyGdrfTw4fBLmEYocfPoQJv2bwEHsm9WiCLNdrc+zJhu2Ns/UKgn7NhavPbMl3WgCJMCc438tt5pPHfbS6vc458buaABTZFfdALM=
+	t=1784191701; cv=none; b=hPUSIETtmT0B5hAv4OXjlm5FwBO2qx3Gc1pXzgToLSerMJO+/B8RWdtfvPDd2jrZTKmCucCqYj8dtAfCuj18+ohYqGvG612KIAcxIFhEGm69C0GY8gF9rxz0/pf4K7p85ZktFcd58c7jNV5MvK0j0goWIycM8DfWPH+ybkXlPrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784191375; c=relaxed/simple;
-	bh=go62PKRAlcngrK1Hy0d7dPJaDh5wBjvRpRw0Lx3Gbq4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ubBtI+DzX9onrGZn9HMQJjhvkclXkXXqk++rBFC1EJQUwEmAOAs4ANtAqmgfYO3ledavWg73LjXcki4/Xj6VEvmnUJ4ukhqgORintOz0D9WiKrVUPCQQsUXAI58j2djJcPyInsPDzgbbubUEIqe7FfrbFet+cYhPqMvNKs9snIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gQ3/hoSc; arc=none smtp.client-ip=95.215.58.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784191701; c=relaxed/simple;
+	bh=mjTfFzJrauUQA1xVM8m5gcIk3A+LbENrAnTOzBdUjAk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=f5ug5n9YX2M0yXMcv5XBSNYRVDN0MXDQYr7kgLOHfSFStQshlVK3rasU0bjN1qIu82mvC3Sk0r+A59dnyFlO7TkBtUYMl3u2mvVufjJStfrGHPEem3JWEhIxU0/4Rz/xS5H7jPJUCGwH1FqbJ0UC5ulVx1+bcl3gPrESdZR95Xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hr/3Bnvf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gQ3/hoSc"
-Message-ID: <94a489d5-8b02-46e6-92d2-ccb85f556769@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784191371;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ja9q5YNM9G+iFAQ4USLdAyYzPDLR1TKQogJvW0VZQhg=;
-	b=gQ3/hoScl6UK3GoY+N/bQG+67l3bmhmL1Bu73KB0SK98rScna6iegHEOyxCAobOWPRp0vl
-	r9XMlh+lrfrHBX3IwPMY/80WidicA+JoNTkRjG3o6WJG/xfJEDVCdX7YNdhI+5v7gOHgnC
-	1xOcO1CsfHEPGM9ptUkYleVd1P/90i8=
-Date: Thu, 16 Jul 2026 16:42:31 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hr/3Bnvf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C891F000E9;
+	Thu, 16 Jul 2026 08:48:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784191694;
+	bh=J69pzAUYwWIM1Pkegk53G1F9wO482+lM/1bllFaCuPk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hr/3Bnvf0FHm62fS80bjqmt1R+ZzB7JnsH9GQxW4IESwbCgeUZlNOuvRzXFnK87kZ
+	 gO6i5ikGAtFlE2Uei5/3NwWTwGYDLJwxkmarNNbnIf4ENyua5K85WXjlDEknV3wn+8
+	 0ssezpfBFLRlQqRjEsetOjKdFP6XekJw8dO+ITM2/J3oK9wK3atLNcTebdCEYge4Nr
+	 UmDfh2cCaCtURKKt985Kkx2L2+ttYxhfooW7In2BH3EyJETR/bZ9TlYA7icyD+c2B/
+	 groUcobD4hHvxRgNk5zI8+c+AJy0VwheS4VC8RvVs9ly8mFkNG8phm3hIJFQxwprfX
+	 hQ0PafrJ4Wb0g==
+From: Simon Horman <horms@kernel.org>
+To: nagarevaibhav@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	matvey.kovalev@ispras.ru,
+	Pavel.Zhigulin@kaspersky.com,
+	aelior@marvell.com,
+	manishc@marvell.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	vnagare@redhat.com
+Subject: Re: [PATCH net] qede: Fix NULL pointer dereference in TPA fragment processing
+Date: Thu, 16 Jul 2026 09:47:46 +0100
+Message-ID: <20260716084746.212045-1-horms@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260709044704.141507-1-vnagare@redhat.com>
+References: <20260709044704.141507-1-vnagare@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 2/2] mm: vmscan: fix node reclaim ignoring swappiness
- parameter
-To: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner
- <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>
-Cc: Muchun Song <muchun.song@linux.dev>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Davidlohr Bueso <dave@stgolabs.net>, cgroups@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
-References: <20260716031729.1064007-1-ridong.chen@linux.dev>
- <20260716031729.1064007-3-ridong.chen@linux.dev>
- <7ddf3eee-5fe2-45f7-8614-c8936a039e04@linux.dev>
- <a5eb5433-cf6c-40ee-b14e-128a8bcc85bf@linux.dev>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <a5eb5433-cf6c-40ee-b14e-128a8bcc85bf@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://sashiko.dev
+---
+--- Patch [1]: [PATCH net] qede: Fix NULL pointer dereference in TPA fragment processing ---
+commit 437c90c9a6930fba111f83e319f598fb4b80193c
+Author: Vaibhav Nagare <nagarevaibhav@gmail.com>
 
+qede: Fix NULL pointer dereference in TPA fragment processing
 
-On 7/16/26 4:21 PM, Ridong Chen wrote:
-> 
-> 
-> On 7/16/2026 11:58 AM, Qi Zheng wrote:
->> Hi Ridong,
->>
->> On 7/16/26 11:17 AM, Ridong wrote:
->>> From: Ridong Chen <chenridong@xiaomi.com>
->>>
->>> sc_swappiness() had two separate definitions depending on
->>> CONFIG_MEMCG. The !CONFIG_MEMCG variant simply returned
->>> vm_swappiness, ignoring the proactive_swappiness value passed
->>> through scan_control. This caused the swappiness parameter
->>> written to /sys/devices/system/node/nodeX/reclaim to have no
->>> effect when CONFIG_MEMCG is disabled.
->>>
->>> Fix this by consolidating sc_swappiness() into a single definition
->>> that checks sc->proactive_swappiness first, then falls back to
->>> mem_cgroup_swappiness() which already handles both CONFIG_MEMCG
->>> and !CONFIG_MEMCG.
->>>
->>> Before fix (swappiness=max ignored, mostly file pages reclaimed):
->>>
->>>      # cat /proc/sys/vm/swappiness
->>>      60
->>>      # cat /proc/vmstat | grep pgsteal
->>>      pgsteal_kswapd 0
->>>      pgsteal_direct 0
->>>      pgsteal_khugepaged 0
->>>      pgsteal_proactive 1840
->>>      pgsteal_anon 25
->>>      pgsteal_file 1815
->>>      # echo "64M swappiness=max" > /sys/devices/system/node/node0/ 
->>> reclaim
->>>      # cat /proc/vmstat | grep pgsteal
->>>      pgsteal_kswapd 0
->>>      pgsteal_direct 0
->>>      pgsteal_khugepaged 0
->>>      pgsteal_proactive 18013
->>>      pgsteal_anon 337
->>>      pgsteal_file 17676
->>>
->>> After fix (swappiness=max honored, anon pages reclaimed as expected):
->>>
->>
->> By the way, in get_scan_count(), it seems we still reclaim file pages
->> without swap space, even if swappiness=max (SWAPPINESS_ANON_ONLY) is
->> set.
->>
->> This behavior appears to contradict the semantics of
->> SWAPPINESS_ANON_ONLY, which probably needs a fix as well.
->>
-> Thanks, Qi.
-> 
-> You're right. Currently, when can_reclaim_anon_pages() returns false, 
-> the reclaim logic falls back to scanning file folios even if swappiness 
-> == SWAPPINESS_ANON_ONLY is set:
-> 
-> ```
-> static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
->                 unsigned long *nr)
-> {
->      ....
->      /* If we have no swap space, do not bother scanning anon folios. */
->      if (!sc->may_swap || !can_reclaim_anon_pages(memcg, pgdat->node_id, 
-> sc)) {
->          scan_balance = SCAN_FILE;
->          goto out;
->      }
-> 
->      ...
->      /* Proactive reclaim initiated by userspace for anonymous memory 
-> only */
->      if (swappiness == SWAPPINESS_ANON_ONLY) {
->          WARN_ON_ONCE(!sc->proactive);
->          scan_balance = SCAN_ANON;
->          goto out;
->      }
->      ...
-> }
-> ```
-> 
-> The !can_reclaim_anon_pages() check above takes precedence over the 
-> SWAPPINESS_ANON_ONLY branch, making the latter effectively unreachable 
-> when anonymous pages are deemed non-reclaimable.
-> 
-> To fix this, could we move the SWAPPINESS_ANON_ONLY check up before the 
-> can_reclaim_anon_pages() check?
-> 
-> ```
-> static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
->                 unsigned long *nr)
-> {
->      ...
->      /* Proactive reclaim initiated by userspace for anonymous memory 
-> only */
->      if (swappiness == SWAPPINESS_ANON_ONLY) {
->          WARN_ON_ONCE(!sc->proactive);
->          scan_balance = SCAN_ANON;
->          goto out;
+This commit attempts to fix a NULL pointer dereference under memory pressure
+by adding validation in qede_fill_frag_skb() and checking the aggregation
+state early in qede_tpa_end() and qede_tpa_cont().
 
-For SWAPPINESS_ANON_ONLY + !can_reclaim_anon_pages, perhaps we should
-just return directly instead of goto out, since no pages can be
-reclaimed in this situation.
+> diff --git a/drivers/net/ethernet/qlogic/qede/qede_fp.c b/drivers/net/ethernet/qlogic/qede/qede_fp.c
+> index c11e0d8f98aa5..18a3167b35c84 100644
+> --- a/drivers/net/ethernet/qlogic/qede/qede_fp.c
+> +++ b/drivers/net/ethernet/qlogic/qede/qede_fp.c
+> @@ -670,13 +670,22 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
+>  							 NUM_RX_BDS_MAX];
+>  	struct qede_agg_info *tpa_info = &rxq->tpa_info[tpa_agg_index];
+>  	struct sk_buff *skb = tpa_info->skb;
+> +	struct page *page = current_bd->data;
+>  
+>  	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START))
+>  		goto out;
+>  
+> +	/* Avoid NULL pointer dereference when under severe memory pressure */
+> +	if (unlikely(!page)) {
+> +		DP_NOTICE(edev,
+> +			  "Failed to allocate RX buffer for TPA agg %u\n",
+> +			  tpa_agg_index);
 
-Thanks,
-Qi
+[Severity: Medium]
+Since this function executes per-fragment inside the fast-path NAPI poll
+loop, could this unconditional DP_NOTICE cause a printk storm under memory
+pressure?
 
->      }
->      ....
->      /* If we have no swap space, do not bother scanning anon folios. */
->      if (!sc->may_swap || !can_reclaim_anon_pages(memcg, pgdat->node_id, 
-> sc)) {
->          scan_balance = SCAN_FILE;
->          goto out;
->      }
-> 
->      ...
-> }
-> ```
-> 
+If a TPA event has multiple fragments, this might flood the kernel buffer
+and potentially cause soft lockups. Should this be a rate-limited print?
 
+> +		goto out;
+
+[Severity: Critical]
+This is a pre-existing issue, but does jumping to the out label when page is
+NULL actually fix the crash, or just delay it?
+
+Looking at the error path:
+
+qede_fill_frag_skb() {
+...
+out:
+	tpa_info->state = QEDE_AGG_STATE_ERROR;
+	qede_recycle_rx_bd_ring(rxq, 1);
+...
+}
+
+This blindly recycles the poisoned BD via qede_recycle_rx_bd_ring(), placing
+the NULL page pointer back into the software ring instead of dropping it.
+
+When a subsequent normal packet arrives, won't the driver panic when
+qede_rx_build_skb() calls skb_put_data(skb, page_address(bd->data) + offset)?
+
+The NULL pointer appears to be introduced earlier in qede_tpa_start() when it
+copies the mapping and page_offset on failure, but does not copy the data
+pointer. Later, qede_tpa_end() calls qede_reuse_page(), pushing this defective
+buffer into the active RX ring.
+
+> +	}
+> +
+>  	/* Add one frag and update the appropriate fields in the skb */
+>  	skb_fill_page_desc(skb, tpa_info->frag_id++,
+> -			   current_bd->data,
+> +			   page,
+>  			   current_bd->page_offset + rxq->rx_headroom,
+>  			   len_on_bd);
+
+[ ... ]
+
+> @@ -987,6 +1004,10 @@ static int qede_tpa_end(struct qede_dev *edev,
+>  	tpa_info = &rxq->tpa_info[cqe->tpa_agg_index];
+>  	skb = tpa_info->skb;
+>  
+> +	/* Drop the packet if TPA start failed */
+> +	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START || !skb))
+> +		goto err;
+> +
+
+[Severity: Critical]
+By adding this early exit to the err label, do we bypass the teardown steps
+required to keep the software and hardware rings in sync?
+
+If a TPA aggregation starts successfully but fails later, tpa_info->state is
+set to QEDE_AGG_STATE_ERROR. When the hardware subsequently delivers the
+TPA_END completion, this early exit will skip the dma_unmap_page() call
+for the initial tpa_info->buffer.
+
+It also skips the loop over cqe->len_list:
+
+	for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
+		qede_fill_frag_skb(...);
+
+Unlike the fix in qede_tpa_cont() which manually recycles the BDs, skipping
+this abandons the BDs used by the hardware. Won't this permanently
+desynchronize the software RX consumer index (sw_rx_cons) from the hardware
+producer index, leading to out-of-bounds memory accesses?
+
+>  	if (tpa_info->buffer.page_offset == PAGE_SIZE)
+>  		dma_unmap_page(rxq->dev, tpa_info->buffer.mapping,
+>  			       PAGE_SIZE, rxq->data_direction);
