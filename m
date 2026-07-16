@@ -1,153 +1,199 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608534446F8;
-	Thu, 16 Jul 2026 18:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784226011; cv=none; b=lYQ0wtMn3NvJ2WLTQ1J8TT4aF1/PWg2rk/Ipf5IyA16dXP8ujR1lPF/I6IHVh0iFW3VUJ/KjAVV33VT+M+V1kjIK6L6kZVjQdp7brMcIr0ODbJGlJzZCfkwFcyTMD/2jHUHqjYsCOUEHTjUJG6fBiqQR8Iksq3VAAMTHtgC0vlk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784226011; c=relaxed/simple;
-	bh=7DlLjnGAfqXDPXcm3OLtZobRyeMxl4go2FnFM3NtNRY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nz1MY/umRnS8VOYD6cq6IzQQY4cQCwhjPLyVNR0IreuWA8h2anwJJJvGuI1Om1WiURX0fZuHyZCeQ+s+znFpUxMo5tuq646CorvFnG5PQNh89dz1PmPXsxuQ5/BvcwFMH3ZxglE3q5sFZLXHu99qjXUcC+JrCPS2sBPT79yYwys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Y/8Ip34k; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAC1446042
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 18:21:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784226090; cv=pass; b=ta5fKuZRglTdVQ/sYTOCS4iumW9qzF+0z71lj7v2dgUhYukK3Rl5laBt69kcHKoUQlu5G6gb9a0ZXX0NIGN+U8updCtj237ZQ5qMzER9KjGoVbFVncM3ZyNxASzlyWZRVHHgweGp+69zptV3r41ORwJVN5+7eIxepxXTJvwkeoQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784226090; c=relaxed/simple;
+	bh=EED7I6Cgzn4Siqa2KZnQb+9Uj22ntNVGfKi9KJsb2QI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=t5eenrqVhHKcE+/sJHVUGF3L3QSlQ+bTQYVKE5+JGa1m2lhVsnaOjF3s4IKlqTkdwzNR1IWAP9cfUJBmTx09732jTTbdT6bmRxKrUqG5fuky8FZJ4Zn6JLwB3N3LmlAwxOv4J2MJUkGvoymKlHjYCCL20+GrtmA28iMHgrPtJMI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oe5dnp+g; arc=pass smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Y/8Ip34k"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GGg0tO3755250;
-	Thu, 16 Jul 2026 18:20:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=7mGCqc
-	rHEAISj9C7X36f74R40lZRj/Ex+1iMjRAaObI=; b=Y/8Ip34kz7NWlA8vhZ07ci
-	0+aa05U7Wm5x+YGRfNjdHE+FfJPbT+oxOJS0ruhNmajTg7+P51d/XXWHWbcAp+yR
-	BldtCsQkePW49ISYT3f6M8IKBgBDeUlwjVau1G6ohHy9vCPHxlA6tdFP5GoeGLZG
-	DVqlLraHKOrhAhyJBy2uZqY5UoVd8ck3OVqqX27/RNQFuOX+TJX6jptbH/wj5yEH
-	wMBieaIMU3we97rJ1nOOUfa8956onJcrp8kEmRM/KoSwmhGmeu2WzbWCERIfSnul
-	bt0+ktfDa92kcbTYHrUMcQnmHEHT2W0KmpdWG34yWLZWcvcRPGGE+r/UEk3by3Pg
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fbepxtd9m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 16 Jul 2026 18:20:02 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66GIJbBr022735;
-	Thu, 16 Jul 2026 18:20:01 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fc2cgp2ug-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 16 Jul 2026 18:20:01 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66GIJlGL20579034
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 16 Jul 2026 18:19:47 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6042758055;
-	Thu, 16 Jul 2026 18:19:47 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C5CA758043;
-	Thu, 16 Jul 2026 18:19:46 +0000 (GMT)
-Received: from [9.61.241.122] (unknown [9.61.241.122])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 16 Jul 2026 18:19:46 +0000 (GMT)
-Message-ID: <04d517ac-26a0-4572-8ccd-f1de4c8dd2ea@linux.ibm.com>
-Date: Thu, 16 Jul 2026 11:19:46 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oe5dnp+g"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-493f45e206dso4055125e9.1
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 11:21:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784226083; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Fj36skaD3Fy30hgxp3/be5jOKqXYKdEECgZ17u3RdPhaV22AbGkeCMOsG2Dc4xbczq
+         CD/4J+bY2f+dJTRzXDmA/9ei5OvGik37frIjKWgB9r1HSoLwrQbbez0zNOJst0pgQjrN
+         JraxbEJ50l/8q0PcxshKJEAuRZ0sSUPY+m3NwdJAlcCYiAbIJl8ZOdF4d47i8hHnF2hH
+         dT/3agn3UPAoyEGaq5aEkgWasrrR+pvB9bxpr80CD1XvsSq8sHlxAKR1tsexpS8xseAP
+         QecW0D6qGVDk+3vrnqO7R/9W8qt3BxkQ2ye4IIclFhmfCbLpDLvbjAYtaZGLEkJhsKYv
+         VvIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CCALGBJmvNhpJ4X8shKHWQmC/dAzM5grVkNM/sgcff0=;
+        fh=RkkLPc/scOAwVEq5q20D3Xy5WktYTVelNMyOUN4ctxE=;
+        b=RzotW4bzeqAut4IJs36mTc0aCYMw32XhQZXDPZTHaLImJQReoErhSKv424LKJdL6T1
+         aVWXWjXi3ueUgK5p45CyzyLzInGiMQ8SpzeUgmuPkuSv320reFVWIIfGO3edVqObfSyA
+         xRJG0pgbICFOkTaUce7JWcaRh87t41RLbM9/sYxhn2TPHTev4DKiN9+XbrZ290/ZBG6Q
+         5+L4a0NO1A4CqIJzHeuTi4DTdIIBGJOu0n9amhIWW+RYzfZpUGtMflbo2Q5tgcpPcylo
+         3GdyJiTKLI67i06tS0fW+kDhIDxWfCV9X/4DGs1KJ8zSppfJqz6YKVWCTveJPLRuC0VO
+         70+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784226083; x=1784830883; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CCALGBJmvNhpJ4X8shKHWQmC/dAzM5grVkNM/sgcff0=;
+        b=Oe5dnp+gRPMhlEkPa7RPST71jIx5lQmOsjMTHSnN4PNDRtDrNKPk0wBj9OdWn7RaTG
+         +N5P55dUoTo7xuzWfWVqMTjfa1LdG8m+bj+wrq2WFukyL4t9/4ANnpXyarwfD6ULJEMg
+         OpLQVu1VHZRj2UqX98k69N4Mp7xpEFmWi5q8gXFShPZCwNQ9zRAbPNRZ52A8enoAx9iv
+         KWR2fCZZO5cUSTgPxDKDKwE0lEAoqlf1SO2h4savrZ/w6L9LiKUwStQ374dx1JDJ2Dgk
+         3xY3AqTlWv5uTwMhNQrHDGAYmJy0pKyrOAf92ny8FxAnphePYBBgH/lKDzRq9nMV7At/
+         t4+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784226083; x=1784830883;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CCALGBJmvNhpJ4X8shKHWQmC/dAzM5grVkNM/sgcff0=;
+        b=lvHhtGSB+d3y6K6tLALhhLWn4cq1DhcbND0L94sezZIYwtMeeI/nczbxubpozqZgR8
+         WwzzAuweFCvV83r9EGTsiduAlXKoqOBbem5Mb0qjB9VRzBYnS/hUxDA0GDI4OpVf2+XC
+         csz5zxwvLbxV9pIqyYIM74X2o65ILcX+vuKo1KuXXikTkqQ0OYSloV88Wyq1z9zuP6ML
+         ubIn4k655pzWRfV7CPkUXsVYadcvyF7CgP4pFidwyygPupfj8Sp5x7atdd4XyMSfsiBW
+         HvoGJne4wY50lIcNh33E9jTT8zs7cjz5wxSkKKdjrh1eZKeBmlPVhNi5Ujesg2KwXVto
+         uCDw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro267tRWrlEZRdIBRQEkmMgyyW4hH6t1HdD/OTwOkqTBYY/GVuQ+Cz1zcFXvOLqfyifdALAQW4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzoT4Gzj0Z8iA3YCSm/pGVLsynXzZGkwcKDzZC3b6LqjFUpUeaE
+	tsMYe2KGLNpwoJGoLpjURKYCwc9RIiycRDn8zTN2txZzGEpbJyk6VurVo52PAq01qScp8McANjT
+	ukT9ngjs84+YHsXSD78kdHDUPD0KM4sI=
+X-Gm-Gg: AfdE7cl4FKt3Dr3aFP268Ubej/vp6KuMYhfrp5HNx3BsrETNj8VrhG7dJ/Fx6cM5USn
+	LMuCHAcuyaSpAoFxChJ3kULmNv6M1CMAQNVLtEnXy68BiVI8e0c/Uu5u/hrT4hTthRNq+ILjbVr
+	n9g1JhllFVkzmA7udbo40yoqBsJcfXvY6p1iDXP1h572hZcMVD9VppE84aeS1wS3fd9S5rKYPbd
+	hyUwj75G18q5zoIsGLPNrKJYr4nKdlpGQ62QBY3rov2RMzhYRU4TmeqlG3dLd0fG2HvuKpWLAUt
+	cFrOEIwVzkVBw2Y10ecH5Pzk1hph+3wNhgfKl0M8+A==
+X-Received: by 2002:a05:600d:104:b0:493:e49f:1541 with SMTP id
+ 5b1f17b1804b1-4954288e0d9mr33683575e9.6.1784226083225; Thu, 16 Jul 2026
+ 11:21:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 1/4] PCI: Allow per function PCI slots to fix slot
- reset on s390
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org, alex@shazbot.org, schnelle@linux.ibm.com,
-        mjrosato@linux.ibm.com, stable@vger.kernel.org
-References: <20260715233408.GA271741@bhelgaas>
-Content-Language: en-US
-From: Farhan Ali <alifm@linux.ibm.com>
-In-Reply-To: <20260715233408.GA271741@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: r8dbtkvE0V1JuIPXPWML-marVsVwRveH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDE4NyBTYWx0ZWRfX3GHDD0FhSAD7
- xWRE1uzLxvZEJeX8tvIbxTZgRelPBx8CimRcPVS8EX/HjuGMH+VIwKCLiMoYBfveWFAHzeQd8RM
- 1pjygmBFSBhSxGswQyWlS35tqCReFVc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDE4NyBTYWx0ZWRfX9BImfSN1Dzfw
- pYp0Kf1D03eAqAjxoHqpLzlBkjPnw2DwYqb50Cdc1C7nbOBxEirryP8cqcuI7n+j+ML/2uVp37A
- fKP4l5PBtgLbnHh4RnuqaXKtFL7eV1uay3LbPF+GaNi71JeQ0/7e22iXi2wIn4qaZPkjjlzvAr2
- hQ8jT88WcGZgvh9pmD3qGnfUBKNQQ9hxxMPf0dAfKOEQk6XKJ1VuJAI+XvMURbg5OBU56NwwKgS
- OJGocI3XMUwF5MPfKfmTMTH/E3KWf7ce4dmUpJQZgsdu8D4CB7XyNIkKRaasAGYCtL+tZs3gRIA
- 0xFwfENvq1qjgWyvHvy8boOBN11cifAIygorrCcMNh2Ihgi2hfMKKDGn7OLBW1qNI1OyUt/QW5v
- 68HRjl1jWhFX4V2Bhl/keItDXHYVDUervhcEjwT+nPWdrNFGff5zFs3mjXTBLGQ2LKO0RKag1R3
- PUWDA72b2kHunmY9wdw==
-X-Authority-Analysis: v=2.4 cv=XbS5Co55 c=1 sm=1 tr=0 ts=6a5920d2 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=11Pa_eY96Gjh7PQ_0wAA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: r8dbtkvE0V1JuIPXPWML-marVsVwRveH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-16_06,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 spamscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160187
+References: <20260715174305.336261-1-joannelkoong@gmail.com>
+ <20260715174305.336261-4-joannelkoong@gmail.com> <668fa6c6-ffe0-48d1-aed6-f86a7353187b@bsbernd.com>
+In-Reply-To: <668fa6c6-ffe0-48d1-aed6-f86a7353187b@bsbernd.com>
+From: Joanne Koong <joannelkoong@gmail.com>
+Date: Thu, 16 Jul 2026 11:21:10 -0700
+X-Gm-Features: AUfX_mzTmBWvWvRDl--8ldti_PXiikTVNGTCFrDr1F8x_VSuZf0_na-Eu9y__mA
+Message-ID: <CAJnrk1YCSmK=7UwCsm8KF5kvndk+zM655whcHt85oKbpse8XYw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] fuse: publish io-uring queues with release semantics
+To: Bernd Schubert <bernd@bsbernd.com>
+Cc: miklos@szeredi.hu, fuse-devel@lists.linux.dev, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 7/15/2026 4:34 PM, Bjorn Helgaas wrote:
->> On s390 systems, which use a machine level hypervisor, PCI devices are
->> always accessed through a form of PCI pass-through which fundamentally
->> operates on a per PCI function granularity. This is also reflected in the
->> s390 PCI hotplug driver which creates hotplug slots for individual PCI
->> functions. Its reset_slot() function, which is a wrapper for
->> zpci_hot_reset_device(), thus also resets individual functions.
->>
->> Currently, the kernel's PCI_SLOT() macro assigns the same pci_slot object
->> to multifunction devices.
-> PCI_SLOT() doesn't assign pci_slot objects; I guess they're assigned
-> by some code that*uses* PCI_SLOT().  Since this says "currently," I
-> assume you're changing that code, so we should mention where it is to
-> help readers out.
-
-Thanks for your response! I can re-word the commit message, how about 
-something like this:
-
-Currently, the pci_create_slot() assigns the same pci_slot object to 
-multifunction devices.
-
-
+On Wed, Jul 15, 2026 at 3:54=E2=80=AFPM Bernd Schubert <bernd@bsbernd.com> =
+wrote:
 >
-> I see some Sashiko comments; those also need to be addressed or
-> explained away.
+>
+>
+> On 7/15/26 19:43, Joanne Koong wrote:
+> > fuse_uring_create_queue() initializes a fuse_ring_queue and then
+> > publishes the pointer into ring->queues[qid] with WRITE_ONCE() under th=
+e
+> > fch->lock. There are several readers that may concurrently be fetching
+> > that pointer locklessly and then deferencing it.
+> >
+> > WRITE_ONCE() doesn't ensure ordering of the queue's field
+> > initialization before the ring->queues[qid] pointer assignment. The
+> > queue must be published with smp_store_release() so the field
+> > initialization is guaranteed to happen before.
+> >
+> > Readers in paths where the read may happen concurrently with the store
+> > need to use READ_ONCE() because any race involving a plain access is
+> > undefined.
+> >
+> > Fixes: 24fe962c86f5 ("fuse: {io-uring} Handle SQEs - register commands"=
+)
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+> > ---
+> >  fs/fuse/dev_uring.c | 14 ++++++++------
+> >  1 file changed, 8 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+> > index 51f985154aa1..bf9d51f2a508 100644
+> > --- a/fs/fuse/dev_uring.c
+> > +++ b/fs/fuse/dev_uring.c
+> > @@ -321,9 +321,11 @@ static struct fuse_ring_queue *fuse_uring_create_q=
+ueue(struct fuse_ring *ring,
+> >       }
+> >
+> >       /*
+> > -      * write_once and lock as the caller mostly doesn't take the lock=
+ at all
+> > +      * fch->lock serializes concurrent creators for this qid.
+> > +      * smp_store_release() are for the lockless readers who must see =
+a
+> > +      * fully initialized queue after &ring->queues[qid] is set
+> >        */
+> > -     WRITE_ONCE(ring->queues[qid], queue);
+> > +     smp_store_release(&ring->queues[qid], queue);
+> >       spin_unlock(&fch->lock);
+> >
+> >       return queue;
+> > @@ -434,7 +436,7 @@ static void fuse_uring_log_ent_state(struct fuse_ri=
+ng *ring)
+> >       struct fuse_ring_ent *ent;
+> >
+> >       for (qid =3D 0; qid < ring->nr_queues; qid++) {
+> > -             struct fuse_ring_queue *queue =3D ring->queues[qid];
+> > +             struct fuse_ring_queue *queue =3D READ_ONCE(ring->queues[=
+qid]);
+> >
+> >               if (!queue)
+> >                       continue;
+> > @@ -967,7 +969,7 @@ static int fuse_uring_commit_fetch(struct io_uring_=
+cmd *cmd, int issue_flags,
+> >       if (qid >=3D ring->nr_queues)
+> >               return -EINVAL;
+> >
+> > -     queue =3D ring->queues[qid];
+> > +     queue =3D READ_ONCE(ring->queues[qid]);
+> >       if (!queue)
+> >               return err;
+> >       fpq =3D &queue->fpq;
+> > @@ -1035,7 +1037,7 @@ static bool is_ring_ready(struct fuse_ring *ring,=
+ int current_qid)
+> >               if (current_qid =3D=3D qid)
+> >                       continue;
+> >
+> > -             queue =3D ring->queues[qid];
+> > +             queue =3D READ_ONCE(ring->queues[qid]);
+> >               if (!queue) {
+> >                       ready =3D false;
+> >                       break;
+> > @@ -1191,7 +1193,7 @@ static int fuse_uring_register(struct io_uring_cm=
+d *cmd,
+> >               return -EINVAL;
+> >       }
+> >
+> > -     queue =3D ring->queues[qid];
+> > +     queue =3D READ_ONCE(ring->queues[qid]);
+> >       if (!queue) {
+> >               queue =3D fuse_uring_create_queue(ring, qid);
+> >               if (!queue)
+>
+>
+> For consistency, maybe READ_ONCE/WRITE_ONCE in fuse_uring_destruct?
 
-Regarding Sashiko's comments for this patch, it mentions 2 issues:
+I didn't add it because I don't think it's necessary (because
+fuse_uring_destruct can only run after the queue has been created),
+but I can add it to make things more uniform, if you have a preference
+for one way or the other. I'll send out v3 with this change.
 
-New issues: - [High] Unconditional enablement of `per_func_slot` on S390 
-breaks standard PCI hotplug (e.g., pciehp, shpchp) slot matching and 
-resets.
-
-I believe this is not applicable as on s390 we don't support any other 
-PCI hotplug drivers given the unique nature of zPCI architecture.
-
-Pre-existing issues:
-- [High] Lockless access to `dev->slot` in `pci_dev_reset_slot_function` 
-can lead to Use-After-Free if a hotplug driver is concurrently unbound.
-
-Sashiko identified this as a pre-existing issue, so I don't think should 
-be addressed with this patch.
-
-
-Thanks
-
-Farhan
-
-
+Thanks,
+Joanne
