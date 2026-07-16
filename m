@@ -1,109 +1,74 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A01E337E5E9
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 20:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A663BCD1A;
+	Thu, 16 Jul 2026 21:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784235414; cv=none; b=WpJe7eg9AeTe9yankLRFaIEW52/T+eNrVCCgznA2qXOeC+AcYJrbo0z5vRrkDOFSZNRA6JVo3rDVIMImmTRyR2YTO3X0bZPqIDfkxL4aSFNW7x7dlvFiD1ipFweKNGU0Sj/buiumNSRRlRA9vJnIKkoByg1XHPZaGRZkfKFR9JM=
+	t=1784235785; cv=none; b=frMoPMiZ85fuMeQ49ZY4h+2VkhpPE3LeoeFgWxWN+VL7XTBj+zvKIgrGXczl144C3/5uDCaAgUYxiWSpSt67Uqk6BIz/v2bYCARG77g6uXSDFJiyHAzf13+uwCCGSQH8Fh8qaANhLrmitIvGgIX6zLINuuCcQKhGO93N9ERlGM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784235414; c=relaxed/simple;
-	bh=OzPUmT5iaZU1b+BnKa0fn5eBg8gtXay07Y7zCPI/gnU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IHE76MCjPCw/qBoZhT8OmwldXRuq4TXendP/a3iUG40TmtcHvENycbQkw6dpXfwQFYThpfAunfo5pINkdECp/TRIYTzCD5Swv/ZOiO1cr9bblr/XwhUkL/lM4HqQxs0xLTYsKxrsnLsSl09rLxS2hfv8aSKWt5gp8RuF4+Tc5Kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=Y/PEptcN; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1784235785; c=relaxed/simple;
+	bh=gURF/f26LtgYi+6R0afhLgaUW3MQbcR7pLq89FPcdsE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Dtu4dbT3Ba+qN46/v7bsDAkhC6qMNHLSew1gdNAxFa7YZEwUV9MAvBNQQmhroxC/SYbPITVe12UbW+yAu+E3Fejpc+iWc27hCPtnpuEv2rWa6BXb4U4p/jHNGkrGoCXyxv0CWjL4pgu52ojS2YRNtp5oxszfpfXG8jOz/f6Qia0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=noHJF1qe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="Y/PEptcN"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493f4638f4aso31821445e9.3
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 13:56:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1784235411; x=1784840211; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MDJbJlewyjq6vxesHaZ1UyIxdgRbYxt4PQHjBK/r5VY=;
-        b=Y/PEptcNSmj7LqTpimB6cCvWuGy9GAsjUikllKaYu1/pJbrC5sy653HJHUGlqFOPmg
-         W/U0D9a+ffhVu5ufGHeArYoZ54qUbvfjSRZ8fWUYh8I+zJUALO6XM+wJC0UrEjNsnsI9
-         OZOULOrFCKhBZNrHKDOJQG8ip4QpcbbK8Usj439lGK763q+t7d0iBn8Ft9rkd/WGUMuH
-         bWfKxehhPqsf5eWoou7w63SCjqES+jQTt6ejYXtt8rEIXT2Jmq2pQ/xDs7Io2KjB7+AC
-         tHopgcCLaqtGAVuaSh2CtMln2zlrMUBvL2gboeb764Mz66R3kNr7m6/9nYrXgTYcCIE9
-         CVXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784235411; x=1784840211;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MDJbJlewyjq6vxesHaZ1UyIxdgRbYxt4PQHjBK/r5VY=;
-        b=iLAU1OT4Pupy9H3+weDPNzKCqXicbUkW5ydWr5sdnPzlJe8M7572qoBWdwEMEWsGPA
-         WUJ9GBG2SeCHrWa+w0QZFTyT1FU0FNog5odOGWfZh2Cfhsjwka5/E1zBY60tHWlHLldh
-         is4vCKOsVofwmVKecxtSd6uqz0kTjostEoXhC9r17vm0COc/sfMPvR0TOr7Lbv4j8qix
-         vRBu8aZmGYuXiHM9y22o4sUWXfKNNqvrRhAkwwkAjJMzPBBeOfYXh7jKE1onhqkQXQW3
-         kc5Ja/I63z9FOL3GegyKsVfvmSPoJB36aZcQbyM3RjfvnJzmHUSeyNBc+LCiDuAXgdfL
-         NpyA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpd0ZkOsKj+g6VZ+JBYXt8CBqJ6z3HM8iXTL/9RSUs1Cbtp1iLXzQJiA9MJWnaVLnEIFTW6uNQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZBmPGymmoqLz7woDWORUDG0el2z1uBWgQnFI92gpsbmwytt9h
-	wTZUkTMmAynKKJ1hoAmCP6X/hr53y3In5DiNVjGwkuC0poUgtuAC4EY=
-X-Gm-Gg: AfdE7cnV9lJavb2N0ADvfSjqHOvqXrGuK7Jt8DoA0Sp6XW4V+NYiYjCNAUwG2IPVH5w
-	ENUF66sjZOLFYJV9B3FGj35pFMPhwDDpWb9cptGzuqwus/0BBttvJWBanwJpPIlpBEVHK6eirzW
-	4/dXpB+OVToi6UwIdRHR+ain72j0G/9LiFIkOzoCA8VMxBFE+fURdCkKZloCLaUo6DH1vVEebP+
-	IJnTcxUvI5JB0ROMCR2aCZdhedEwzc9NrnTXDYiZCwQrs7NSQ538nuHftCt1XS/vj1tVZzRE50M
-	0h9cuJbvkdP0u1Zp4n+nEnI52ZFSbhIxcNsjo5o94uQF89LHkFz4oXfO+GcjfQ4yL19zzToFNma
-	XSUPbNqX8r29JUtFGjAG5tWqbbntqoT3T5Y4a+u4IcX27d0AknG5N/Ni9GKeTICR9kO9c987jFX
-	m4cZzstpsx8vF+Sl+7s5LH33MlGPt76vT+J/MV7ggq3jVpOWsKkiaPYg==
-X-Received: by 2002:a05:600c:350f:b0:493:f7bc:26e4 with SMTP id 5b1f17b1804b1-495483bff09mr9132235e9.31.1784235410739;
-        Thu, 16 Jul 2026 13:56:50 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2b44d3.dip0.t-ipconnect.de. [91.43.68.211])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464caeffsm25298782f8f.36.2026.07.16.13.56.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Jul 2026 13:56:50 -0700 (PDT)
-Message-ID: <dab0da1e-1e33-4414-932a-0c99c0a58318@googlemail.com>
-Date: Thu, 16 Jul 2026 22:56:49 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="noHJF1qe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85DA31F000E9;
+	Thu, 16 Jul 2026 21:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784235784;
+	bh=pKdQgrIHceIREIVVGmwICTro/Yl0whar3mIxzUvC2EQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=noHJF1qed21YcW2RCttyeswAkDNRSam4Smt5cM2wpzo8VYpTv22oZ2+GNHdD+pgnG
+	 xzLmUe00opKKpwEkmGTsdxs84jodvuYUGg+jZRCkh+Ug8IzuzvaUohAWdy/8fEWxsv
+	 nCXZUalcG8qYFaAXX4iqgdgTQJ331ETw9spLLm1mFS1k7LkSdWeysmOJxUIFxsIlAL
+	 pwib5jEAHKkjknhbD9bzIz9ihiqVYXfSQ3E7/oxlDeXEvixtCzj4Ph2Mzrkra3uEB7
+	 OS4soAVuw38ALp+fVN2oNTWeSQUxP3dSHw/6bvzAnuXpZS+eGjx96vbmEf37SSpp8H
+	 /bHIP2DflS8Wg==
+From: Srinivas Kandagatla <srini@kernel.org>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Sasha Finkelstein <k@chaosmail.tech>, Hector Martin <marcan@marcan.st>, 
+ Aelin Reidel <aelin@mainlining.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Clayton Craft <craftyguy@postmarketos.org>, 
+ stable@vger.kernel.org
+In-Reply-To: <20260611-apple-spmi-nvmem-cfi-v1-1-9dd90938ef4a@mainlining.org>
+References: <20260611-apple-spmi-nvmem-cfi-v1-1-9dd90938ef4a@mainlining.org>
+Subject: Re: [PATCH RESEND] nvmem: apple-spmi-nvmem: wrap regmap calls to
+ satisfy CFI
+Message-Id: <178423578232.378288.5894319743008111004.b4-ty@kernel.org>
+Date: Thu, 16 Jul 2026 22:03:02 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 7.1 000/518] 7.1.4-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260716133047.772246337@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 16.07.2026 um 15:24 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 7.1.4 release.
-> There are 518 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
-
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
 
-Beste Grüße,
-Peter Schneider
+On Thu, 11 Jun 2026 05:46:48 +0200, Aelin Reidel wrote:
+> The Apple SPMI NVMEM driver previously cast regmap_bulk_read/write to
+> void * when assigning them to nvmem_config's reg_read/reg_write
+> function pointers.
+> 
+> This cast breaks the expected function signature of nvmem_reg_read_t
+> and nvmem_reg_write_t. With CFI enabled, indirect calls through
+> these pointers fail:
+> 
+> [...]
 
+Applied, thanks!
+
+[1/1] nvmem: apple-spmi-nvmem: wrap regmap calls to satisfy CFI
+      commit: 7089170e1df160f5f8fb395bc5aa2e2697b4e896
+
+Best regards,
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+Srinivas Kandagatla <srini@kernel.org>
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
