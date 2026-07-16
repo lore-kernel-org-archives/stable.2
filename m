@@ -1,155 +1,156 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E3E3C81A9;
-	Thu, 16 Jul 2026 14:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B741431488
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 14:40:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784212664; cv=none; b=DB8W3JudeXHORb/T1kQvLeOWlc11lD4mHPjRK4JZKacgLkio9giEF8My8qRMILz6Yy9FVVbQh36cNVat8PV58kg5PMdjndLnkwTVVqqFur31qY+Nkuhjfn/7nTT5BOJOZQeLkmHeD4sxc4icfmp66NB1df8sq1dy/hvM5htN4tE=
+	t=1784212836; cv=none; b=SFK52XUTMYvQFA8u5fLofUpmF06z5uEKOLPEYh3E61RbqkWELxsiJMOnBS0CqcQnzNhBDmqioC3k2bnEcIVul4A+qtXUZrQ9gazxkMpE3+rV4dzHKxUEcU8lze6cLUTrODMNGC+t61CrXkioASXVQiZ+f+9w1ymT6ZtdDzzJ8Ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784212664; c=relaxed/simple;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UPWQ4pN7dh725SRjMiWOC9Hslb+nUnd9+1lGqKdWoG/2Pv3B7ZzygcSHQEdtLEK13HqYMQk5SsUVEJHR1utTGmYqTNTd4145UQbw0i2+1PMewOR776sDbj4NYGA0R7Qywu1J/Pl6z+XpxaDqLU8xOdqe1dMtO6oiX84fQ49mETM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=hG/WTO41; arc=none smtp.client-ip=212.227.15.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1784212836; c=relaxed/simple;
+	bh=jTPed7eE035vhQ8rlC8ZfmFszbglDwnM4zRLkO9bRZM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GtqkMIHL+n6TSckVSWk0L5PURWMBbymzt66j2G9639ModgDCpUjZySz7skdwBjP+LfinKJy8hwO5FHfFSXB29NWKfDpA+xLAt/YXNeXAErMKNOT/3O2yASkeuqg94ChQNLPEWO5flE+4j3PLPj7VwFJUJZTJn5lWiUa+ZrasihY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e8g8IaGv; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="hG/WTO41"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1784212647; x=1784817447; i=rwarsow@gmx.de;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=hG/WTO41OhYoD2cYcwMOvqqm+r3TiujZ9hYWnH/J5HIEP4kaKDmrtygN1INHh7Xx
-	 Qj2LZZCPRttUuHdMETGdK0x1KMzdiYO07BmlNUmxz+8RS21ajff/8dXi1qt7uF1ny
-	 bOtwH9hH66EJunZiCsArUGgPeLFTmDtv1a2UfR+MmlEEa5eBqYjzn/pPWiGMNBhw4
-	 oSQAD6fLZjxWwKkCj68gGOe4mMiOMKdumjLweCplfhujvH1fBa2DhYHxTA92zfroS
-	 CxGgX5wBWuuU+EV1tSMsv4WO/k1Umv2iYF3fWlt8PTcfHIJPVaOeJLCLAz6B4NIfs
-	 CvI/92/PrlTyMOoNwA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MowGa-1xNFrl1P9q-00cPch; Thu, 16
- Jul 2026 16:37:27 +0200
-Message-ID: <01447a28-78a7-410c-b46c-ef7de6266f29@gmx.de>
-Date: Thu, 16 Jul 2026 16:37:25 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e8g8IaGv"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493b1710405so37304445e9.2
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 07:40:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784212833; x=1784817633; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mpcBzLLGhgmpRm2ChWHisnZOSJCjUEDvDGQ4AxFAGiU=;
+        b=e8g8IaGv/+dOx/xAX1D9i0IZ6Zc5MgwrnMDSnhurS1H+g5srub9iSnGtEFeALeoNGX
+         56T/YAD7mH1ZLD8sxYJlZ9JmPH+TtrC6d4ThTab1+BrRGHQ8pl4frhMByxr+kqrJyx9E
+         jqQanBAE2aqZ2NqrT3ejtwdsaErb54DgBqBm3ctB023OToUfqy4v1n2OOKBmbuSOQGmI
+         996yiHHFYZpbQWwx6Z8Lpc7cnR43INknYp9zM4uotrAaiG3BwTkubSs+Q8D1/BoqNaGE
+         H3gA07L0vj7K/lYo6JJ80BIiVweueNrey20AY1YkOj5aQHDcHueKSHvvLGCgLsZyIvTL
+         l1vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784212833; x=1784817633;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mpcBzLLGhgmpRm2ChWHisnZOSJCjUEDvDGQ4AxFAGiU=;
+        b=qKgF4gLTJbq8ZFAhQxH+Srih+zLL1eN6iuwnjCXznWfw8L2CkTcPSJ5vvYRU5YtxxH
+         my38HD8Eu1ax/uXU4KfKVdFE/WGpOmHGUFFbl/vpA8KxM+J0k0AzwVWtLmZJDbmeSxFm
+         S1t1FotiYSk4LwoagqUzvOnl0okHSe0DaTZ3ffI8CMi9r2nhh14SlDTGjWO5Tbks7RAp
+         S1QC80Yv91Makh8boMwdgB8CjDjnaQNEQAMyX3IrjBYYP1Wd87PcyJp0XGBd+7DkMDij
+         Ktt6PPkxryyTHA+QSGtk3nCj6ByZxDH9LZJU6FZM0SsWGpKwMdzquj/l9JfDSOz4TOHu
+         +8SQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqgpKJU15Dk1/jovJfuo4bSf44XBVhGruVv+AX+rQi6hT2WYk1RyTKjmkXsb7jii7cEMPmv59g=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXSrwjvHsC6QWN+4KUzL6VVMrBq71i9zV01eV2G8T1BlsuCRpy
+	JJSj7E9DJSKVxqAPP8EzHGVABXSW6cl6i3HCT82NPP6lmY/5PTi+maqX
+X-Gm-Gg: AfdE7cnaQxmvLbjz5PFAMb5z6vpmkHCoBGEVKAqmBmF9mHHDgy6A8ZALPIUHE1XP2cj
+	n6XAZNBWGnWAFpoq1/iSAFYdL7wg4nBQpSi7Fi0IisOvsLVsZnSMMWbiVbzNpkukSG1QfrZxXJJ
+	ilBxFyOI4Ou81cgHAu/C+bFEdAY1+NJCAyykBCoRnChODsJsT8NAR2SkEIJOKZsFveTIRO841CH
+	ATK2RwPgHM767TI4DJ7XVlID0Ew1GsblfjMo6IorpxfnNobgDNYygqgjYQkZQ+toWDPq67HRILL
+	9vTGGJmBPAk5gNPS9TsorVf8FfimzBDyH1qN4/4II+Vq99wMi2rgiU5t0BRdjPW+gjUqH6eARzE
+	tVZiuwbsBNJ20dqgbzPiEJ4KBd+Slu9uVHPzCniUn2HfnsaMoz9r+Z7jjXv1JLZh143VkeJKMSJ
+	dmvHVALcYXazKQ9EsqEsylfyK1nx+K6zIHO1Ac
+X-Received: by 2002:a05:600d:6443:10b0:493:f762:45d4 with SMTP id 5b1f17b1804b1-495158c693bmr120308635e9.2.1784212832541;
+        Thu, 16 Jul 2026 07:40:32 -0700 (PDT)
+Received: from osama.. ([2a02:908:185:7e40:8529:198:eaf9:708])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49541eb7372sm85145815e9.13.2026.07.16.07.40.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 07:40:32 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panthor: reject firmware sections with oversized data
+Date: Thu, 16 Jul 2026 16:39:38 +0200
+Message-ID: <20260716143939.21903-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 000/518] 7.1.4-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260716133047.772246337@linuxfoundation.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:OvQlS2D0hQCNrs7pj6SaW+ULEoB7+fQe0KI/QxKKpI2grimP7n/
- SZcfzPR7svwS58iKJIf39aB4PyNsbOR5vC+VuoRDCIYjgI8COV2K/T+J+qWlLsR9w8ZFlgJ
- eZvyN6u1yIvDMnq0MyGhs2Oj+RiyvIWfpPlaM/iyInIWAc2MpaJxIVUgG/Ts503n4M0KWw9
- o+lw+ZdRnvLRWSyiIKA7w==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:kcBhRKukgw8=;2c3xGxxJKyBu9+5VnpShvVXz8zb
- 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
- 208Wa7RHl3fK0fvhj8=
+Content-Transfer-Encoding: 8bit
 
-Hi
+In panthor_fw_load_section_entry(), the data size to copy is calculated
+without validating it against the allocated section_size:
 
-kernel build / boot test on x86_64 (Intel).
+    section->data.size = hdr.data.end - hdr.data.start;
 
-No regressions here.
+If a crafted firmware sets data.size larger than the allocated memory,
+this could cause a heap buffer overflow in panthor_fw_init_section_mem()
 
-Thanks
+    memcpy(section->mem->kmap, section->data.buf, section->data.size);
 
-Tested-by: Ronald Warsow <rwarsow@gmx.de>
+Additionally, if the section->data.size exceeds the BO size, could this
+memset underflow the size calculation, leading to a massive out-of-bounds
+zeroing of kernel memory?
+
+    memset(section->mem->kmap + section->data.size, 0,
+           panthor_kernel_bo_size(section->mem) - section->data.size);
+
+Reject section entries whose initial data is larger than the section size.
+
+Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+Cc: stable@vger.kernel.org
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+ drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index 986151681b24..a338c4f0a7f5 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -545,6 +545,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 	struct panthor_fw_binary_section_entry_hdr hdr;
+ 	struct panthor_fw_section *section;
+ 	u32 section_size;
++	u32 data_size;
+ 	u32 name_len;
+ 	int ret;
+ 
+@@ -595,6 +596,13 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 		return -EINVAL;
+ 	}
+ 
++	section_size = hdr.va.end - hdr.va.start;
++	data_size = hdr.data.end - hdr.data.start;
++	if (data_size > section_size) {
++		drm_err(&ptdev->base, "Firmware corrupted, section data exceeds section size\n");
++		return -EINVAL;
++	}
++
+ 	name_len = iter->size - iter->offset;
+ 
+ 	section = drmm_kzalloc(&ptdev->base, sizeof(*section), GFP_KERNEL);
+@@ -603,7 +611,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 
+ 	list_add_tail(&section->node, &ptdev->fw->sections);
+ 	section->flags = hdr.flags;
+-	section->data.size = hdr.data.end - hdr.data.start;
++	section->data.size = data_size;
+ 
+ 	if (section->data.size > 0) {
+ 		void *data = drmm_kmalloc(&ptdev->base, section->data.size, GFP_KERNEL);
+@@ -626,7 +634,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 		section->name = name;
+ 	}
+ 
+-	section_size = hdr.va.end - hdr.va.start;
+ 	if (section_size) {
+ 		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
+ 		struct panthor_gem_object *bo;
+-- 
+2.43.0
+
