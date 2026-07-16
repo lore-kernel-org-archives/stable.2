@@ -1,186 +1,163 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F0A3563D4
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 23:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784244398; cv=pass; b=Sj4vnkXEA67k1CazAKX5meDrzsA/G6wlQA6y73rzTFqcGMDxTHo8a8gW/9uLfq0itehtsNciH5jZqjMyYLF6PxU0T64Reppr2y0LSIFjDLZpFiQxd53g3+Me82+KvgrgfWTN3mJ+spjBfOHJx3CDagDJT7YaGd+wODo7BN+spa0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784244398; c=relaxed/simple;
-	bh=g+zbN7i0Ld0/5VxtaP8iuYmbfEiLGqlXkkdPJoQb1c0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GYhlfeO+SbBQvoGAMRXLQitt3Z0lRT7utIC2hCVR9JkOsW0+xPz9iYizXS/oMyL78D03otN1JCNhk7W36/HRinj3l11J21PX4S6bU2KCu0lKwWtWlKLkjgdPNIPENv/I0IX/5S6Hqkk6k8nDYiw9kZAuE0vF1T9TgHH1tskWIH4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FfvxGUUW; arc=pass smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370582D47E9;
+	Thu, 16 Jul 2026 23:41:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784245302; cv=none; b=Xt6KzzqK9Q5lF2Kw1VRkjjopDuJU1+dR1+K7lXFVWDPxZJBd8mMZQSC+BJQ+NfE+mYwPFEnugdw7v7ZgWaor3sdrAp/Owk2ZkqnETBcTnU/pd/jvvnytXsNhS/LYlHp6hrpL8w6TWH37nB3/JOMyv9XN94tE/rGDdJfmuPowV88=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784245302; c=relaxed/simple;
+	bh=005kKT4euDjnh2730Q5gBP/6ni43Mg9y9bJoGxfPaG8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=lcu7YDZ5zPZe5uvrz9qwCiE/NLJjEe5iKWrFbgxArQL3b/Eaq+TxPzqXO3kZmw+sP3Rjl+0aqA3+m58oVFarIwNfhCDOeIexQaDeZv+6jhR1qBm+wxr3KisX7MDBKhIkD3NAJrQ9mwcshmX1LPyoeiDoG0Dz6XNFRe22dFyGP78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GWrE81Xl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FfvxGUUW"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b013aa02b2so895981e87.0
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 16:26:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784244395; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GqSIdid7UFWLaEQUrCxH18BrGjlOjQBbS0HvlM16CrnlIIIbNSKLXRQdWHEgzbmsYv
-         VB0NlZJWnxyiE3BNWiuDHB3gUUUmc2rpUG4+VzIyxJlxPwgoZBQCVHNI7c6hNiw7Rggo
-         QE5+oddxh32BTQ3XTxH0jJHhE0wecajVzXpklYaqn9h2FrWVBYL8EsL9OUmk+HTqcxdJ
-         8QyAd5k+Vez46d7XFi0iiMmKfUvMv5XjMVXa8eYM/7qRxOuwgvNN8wBUD+L8CkYTmTJT
-         eUNYmZZhveNPQS6t0qU2fHCWqcvhyq/rX3l3lgzZQAp7mT9d5YbXiuY4S3wkjDg0XBrc
-         KHRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TUDZG6t3tBj+v+xcwcH2u+ZyuWYZ6P6HE5tnGyLIGcI=;
-        fh=FSbZmTMLfXJ7p31oQhNnTR72TUVZdJFXsVw4J9+RQi0=;
-        b=A6DiUM5wDQXsEbemuL5xeWNE/EhuEoK9sL7HVEL7063mQbPhrlsrC9d8+kppr5gBzZ
-         2gI8IjaLnppvBdPRi9RSu9sKsRh4XHxIk8fAXlMjx+gY6A70nUxLwHB6hC4BE/RQSyIg
-         I04/+fPz2I1UrKPzc8mHklHaDFfosq42qtH6H4TKRk2FJkP36p+RjKIvbHno2+SqHVqD
-         Yerdz1vnQHAD18qXug2LgOP8Xg4XHqBU0fiuz6dPgh8qd0cIgiG0k7W9pBAzztAmmhW1
-         8ihu7JiCZMHYI5idaQua/vlmq/1ggRRuZ/SGHdBd/DIU65421C8gcmYGLPYl3uFgRMFa
-         Wktg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GWrE81Xl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05ED01F000E9;
+	Thu, 16 Jul 2026 23:41:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784244395; x=1784849195; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TUDZG6t3tBj+v+xcwcH2u+ZyuWYZ6P6HE5tnGyLIGcI=;
-        b=FfvxGUUWz88xMIyR/P65lKvhJUVGzZRh1xRb3LK8gNM8rbyfmmD24V6PKs/yt7sBzb
-         qTZL0SYZ9shXd1wSwj6/jl8rttXVBKbr6RwfV58w+vb1em/4AVFGAttjqR52t9+/+Kxu
-         D/HL3+K/sOegCtjfy2XO22/BCpuw9JMLVOcr0EL+83E8XSHvCLXpTYh5Ejk8Dh69LvtW
-         bTrroFmo9D0xa94ecRtZnBCjmfQWkXJTVAL+7885Fff4G7J7AUIjW63F+9Vbd3r0tzeh
-         GHbWYttEvqTzZoo/c+tvEz6HdrBDejW/eL+GSUhjDJMIY9yl73ywzNF3Coa35zMEwkk7
-         Q+Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784244395; x=1784849195;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TUDZG6t3tBj+v+xcwcH2u+ZyuWYZ6P6HE5tnGyLIGcI=;
-        b=LVQLBiF4Xui0eh4PPx84QnD3fIS26SVzgNh4sUis00xJBnozGmWfS1QrmFtDULoTOu
-         2ywJ7bsYRbFiy3AojMMx21nEC2OiMgxEkqL/5GRgmu4woa9JvIboWjvNcZjS5oso/r1x
-         LJPL6R459zyC46+b2EV7LWRntbsET74wXVSXDX7lAW01ksiREWZrgIzoMbl4p7uA4aP4
-         oTSPyMUhmn4jrwf7Wc0QnazsaoWtVCRqLXqpaWfBf5LodvTHy0zEl3F5jtitWXe0/HxF
-         Qeq8qsMWNe8sBHPX43vkg8c73jQtistXSmyVFlixWpU/WS1ygryYpEriOTtWnzp8Jssr
-         sERw==
-X-Forwarded-Encrypted: i=1; AHgh+Rot6vAFX2ThzP4jaQpoSxPjbIs/ZxJC4HwHo/AikYtrbFUQ6S4HMumAGBohFQ6EY00Ill2iUkA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyGC00nYxH0mkr/Nip4sz8G5PrDzru3UPdGNfMOfH8sT57dvGaI
-	IeQ8+qBrxnFAxv1vhj446aZXJce7YVMttbIOAxYnOz2IFubGn6XoxDHAN53waM0WbcF6vVCcxbx
-	NpVVSdyNHLcXaRRizY42SLLA1khHsSGw=
-X-Gm-Gg: AfdE7ck760BJNytwOH24ZeeHFBjUbH61j7cXMzFk9FqPEfUrAiqqsW1uw5dxy7dizEi
-	Md6gE9hKVZhbw2sG9ey0uhyU3RvujgQpmUCRKtlBWKjJzBg1dSvllOthV9r4sd5agUIWzOh6X0K
-	NaFD/fXNl08ns35+nX941fLI1PkPsEBk7QcWbvsUXcsPXB7HUiXLWYRLl+eiszLJMjIaIlY+nJv
-	Bk+1YSArI1wKNljY7nyAwdWO8nBgg+bEc2XJVDmV0WkzHCpNSTjrFryx4eaOhw=
-X-Received: by 2002:a05:6512:1253:b0:5ae:badc:47d3 with SMTP id
- 2adb3069b0e04-5b28a1bb566mr937877e87.28.1784244395307; Thu, 16 Jul 2026
- 16:26:35 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1784245300;
+	bh=S/howEIvgndH8o3pTfe48AeTP4vfYaSSQLtkWDw5tX8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GWrE81XllWQl5SeoAjAivl6b6wYYesCrb3N/mzexAllJ4UnlAwuaaRX7GYBfNhYIr
+	 rUzjVX8SFgudmVpquJg4CpGAaGpYbm4V4SpJVtnrB0p3D/HJCveyAZSGNKLNPTz3Qn
+	 +RaTiHE7dRlrCVuMrmUyMzGB6SBYcoddUR9tNrCE=
+Date: Thu, 16 Jul 2026 16:41:39 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt
+ <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Uladzislau
+ Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, Dave Hansen
+ <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, Peter
+ Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo
+ Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, Catalin
+ Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Dev Jain
+ <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, David Carlier
+ <devnexen@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, "Denis V. Lunev"
+ <den@virtuozzo.com>, stable@vger.kernel.org,
+ syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+Subject: Re: [PATCH mm-hotfixes v4 0/4] mm: fix UAF caused by race between
+ ptdump and vmap pgtable freeing
+Message-Id: <20260716164139.0b447152db49db857cc73037@linux-foundation.org>
+In-Reply-To: <20260716-series-vmap-race-fix-v4-0-8c108c4317df@kernel.org>
+References: <20260716-series-vmap-race-fix-v4-0-8c108c4317df@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <714A2D6E-5B61-4185-AD6C-328250C8E040@nozominetworks.com>
-In-Reply-To: <714A2D6E-5B61-4185-AD6C-328250C8E040@nozominetworks.com>
-From: Hyunchul Lee <hyc.lee@gmail.com>
-Date: Fri, 17 Jul 2026 08:26:22 +0900
-X-Gm-Features: AUfX_mzpJvJDTCE5ql8NEhcy82qiN6QH2IrJOqE6Gxg5V3dZK23CkDPcqz3eTvo
-Message-ID: <CANFS6bbAW=XRf=d5Pb6zkyoJkAOQM1H3Wu6F5T31s8j664L52A@mail.gmail.com>
-Subject: Re: [PATCH] fs/ntfs: Fix index_root heap OOB write in ntfs_ir_to_ib()
-To: =?UTF-8?Q?Alexandro_Cal=C3=B2?= <alexandro.calo@nozominetworks.com>
-Cc: "linkinjeon@kernel.org" <linkinjeon@kernel.org>, 
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-2026=EB=85=84 7=EC=9B=94 16=EC=9D=BC (=EB=AA=A9) =EC=98=A4=ED=9B=84 6:46, A=
-lexandro Cal=C3=B2
-<alexandro.calo@nozominetworks.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> From: Alexandro Calo <alexandro.calo@nozominetworks.com>
-> Date: Thu, 16 Jul 2026 11:30:04 +0200
-> Subject: [PATCH] fs/ntfs: Fix index_root heap OOB write in ntfs_ir_to_ib(=
-)
->
-> ntfs_ir_to_ib copies all entries from index_root into a freshly allocated
-> index_block_size-byte buffer without verifying that the entries fit in th=
-e
-> available space. The entries in index_root may be larger than the usable
-> entry space in the index block.
->
-> This can cause OOB writes past the end of the allocation.
->
-> The validator ntfs_index_root_inconsistent() checks that entries are
-> self-consistent within the IR value, but never cross-checks them against
-> index_block_size. There is no bounds check in ntfs_ir_to_ib() before the
-> memcpy.
->
-> Fixing this at the sink in ntfs_ir_to_ib() since
-> ntfs_index_root_inconsistent() validates the logical consistency of
-> index_root as a structure and a root with large entries is a structurally
-> valid root. The bug is a size conflict of ntfs_ir_to_ib().
-> Also, the validator is called once per inode load in
-> ntfs_read_locked_inode() while ntfs_ir_to_ib() is only called during a
-> reparent, a check there adds no overhead to the common path.
-> Moreover, even a future call path that bypasses the validator would still
-> be protected.
->
-> This heap out-of-bounds write is triggered by a crafted filesystem image,
-> which is not in the kernel threat model, anyway, fixing memory errors wou=
-ld
-> be nice to keep  things secure.
->
-> Signed-off-by: Alexandro Calo <alexandro.calo@nozominetworks.com>
-> ---
->  fs/ntfs/index.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/fs/ntfs/index.c b/fs/ntfs/index.c
-> index faa7ee920a3a..529697b5891e 100644
-> --- a/fs/ntfs/index.c
-> +++ b/fs/ntfs/index.c
-> @@ -1112,6 +1112,7 @@ static struct index_block *ntfs_ir_to_ib(struct ind=
-ex_root *ir, s64 ib_vcn)
->         struct index_entry *ie_last;
->         char *ies_start, *ies_end;
->         int i;
-> +       u32 ib_cap;
->
->         ntfs_debug("Entering\n");
->
-> @@ -1127,6 +1128,15 @@ static struct index_block *ntfs_ir_to_ib(struct in=
-dex_root *ir, s64 ib_vcn)
->          * as well, which can never have any data.
->          */
->         i =3D (char *)ie_last - ies_start + le16_to_cpu(ie_last->length);
-> +
-> +       /* Entries must fit in the allocated index block */
-> +       ib_cap =3D le32_to_cpu(ib->index.allocated_size)
-> +               - le32_to_cpu(ib->index.entries_offset);
-> +       if ((u32)i > ib_cap) {
-> +               kvfree(ib
+On Thu, 16 Jul 2026 22:31:11 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-Could you add an error message?
-Other than that, it looks good to me.
+> Kernel page table walkers fall into two broad categories - those ranges
+> where no exclusion is required via walk_kernel_page_table_range_lockless()
+> and those where exclusion is required via walk_kernel_page_table_range()
+> or walk_page_range_debug().
+> 
+> ...
+> 
+> This series works around this by #ifndef CONFIG_ARM64'ing the mmap read
+> lock in vmap logic, then partially reverting commit fa93b45fd397 ("arm64:
+> Enable vmalloc-huge with ptdump"), keeping the enablement of huge vmap
+> support, and removing the ifdeffery with the partial revert patch.
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+Thanks, I've updated mm.git's mm-hotfixes-unstable branch to this
+version.
 
-> +               return NULL;
-> +       }
-> +
->         memcpy(ntfs_ie_get_first(&ib->index), ies_start, i);
->
->         ib->index.flags =3D ir->index.flags;
->
-> base-commit: 37e2f878a7a660a216cc7a60459995fefd150f25
-> --
-> 2.47.3
->
+> v4:
+> * Rebased on latest master of Linus's tree.
+> * Accumulated tags, thanks everybody!
+> * Updated commit messages further as per Kiryl.
+> * Took the mmap write lock across the whole CPA operation as per Will.
+
+Here's how v4 altered mm.git:
 
 
---=20
-Thanks,
-Hyunchul
+ arch/x86/mm/pat/set_memory.c |   25 +++++++++++++++----------
+ include/linux/mmap_lock.h    |    2 ++
+ mm/vmalloc.c                 |    8 ++++----
+ 3 files changed, 21 insertions(+), 14 deletions(-)
+
+--- a/arch/x86/mm/pat/set_memory.c~b
++++ a/arch/x86/mm/pat/set_memory.c
+@@ -411,7 +411,7 @@ static void __cpa_flush_tlb(void *data)
+ 
+ static int collapse_large_pages(unsigned long addr, struct list_head *pgtables);
+ 
+-static void cpa_collapse_large_pages(struct cpa_data *cpa)
++static void __cpa_collapse_large_pages(struct cpa_data *cpa)
+ {
+ 	unsigned long start, addr, end;
+ 	struct ptdesc *ptdesc, *tmp;
+@@ -437,17 +437,22 @@ static void cpa_collapse_large_pages(str
+ 
+ 	flush_tlb_all();
+ 
++	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
++		list_del(&ptdesc->pt_list);
++		pagetable_free(ptdesc);
++	}
++}
++
++static void cpa_collapse_large_pages(struct cpa_data *cpa)
++{
+ 	/*
+-	 * ptdump might read these page tables, so avoid a use-after-free by
+-	 * acquiring the mmap read lock on init_mm (ptdump acquires the mmap
+-	 * write lock).
++	 * Take the mmap write lock on init_mm to:
++	 * - Avoid a use-after-free if raced by ptdump (which takes its own
++	 *   write lock on init_mm).
++	 * - Serialise concurrent CPA walkers.
+ 	 */
+-	scoped_guard(mmap_read_lock, &init_mm) {
+-		list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+-			list_del(&ptdesc->pt_list);
+-			pagetable_free(ptdesc);
+-		}
+-	}
++	scoped_guard(mmap_write_lock, &init_mm)
++		__cpa_collapse_large_pages(cpa);
+ }
+ 
+ static void cpa_flush(struct cpa_data *cpa, int cache)
+--- a/include/linux/mmap_lock.h~b
++++ a/include/linux/mmap_lock.h
+@@ -621,6 +621,8 @@ static inline void mmap_read_unlock(stru
+ 
+ DEFINE_GUARD(mmap_read_lock, struct mm_struct *,
+ 	     mmap_read_lock(_T), mmap_read_unlock(_T))
++DEFINE_GUARD(mmap_write_lock, struct mm_struct *,
++	     mmap_write_lock(_T), mmap_write_unlock(_T))
+ DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
+ 
+ static inline void mmap_read_unlock_non_owner(struct mm_struct *mm)
+--- a/mm/vmalloc.c~b
++++ a/mm/vmalloc.c
+@@ -163,11 +163,11 @@ static int vmap_try_huge_pmd(pmd_t *pmd,
+ 		return pmd_set_huge(pmd, phys_addr, prot);
+ 
+ 	/*
+-	 * Acquire the mmap read lock to exclude ptdump, which walks kernel
+-	 * page tables it does not own under the mmap write lock.
++	 * Acquire the mmap read lock to exclude ptdump, which walks
++	 * kernel page tables it does not own under the mmap write lock.
+ 	 *
+-	 * Concurrent read lock holders are safe: each exclusively owns the
+-	 * range it operates on and cannot reach this page table.
++	 * Concurrent read lock holders are safe: each exclusively owns
++	 * the range it operates on and cannot reach this page table.
+ 	 */
+ 	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm) {
+ 		if (!pmd_free_pte_page(pmd, addr))
+_
+
