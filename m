@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBA8319601;
-	Thu, 16 Jul 2026 14:07:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E293BCD11
+	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 14:07:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784210869; cv=none; b=R8mpn0l9qrQ9nAqO3r3uLwvECTzrN+2hbPPhpg5thTN2nbAETfu7YVsBXlqhnR/PWei1SuYXE/4xylzR0LuD74xNYeGmkpTpDFaVT29uq6QTwqo8qtfS53D/hioGp2AG0TlzQo5hfQ54IGMUc2d6Zo2l7PGdk2A+NHPgm/B8Wtc=
+	t=1784210870; cv=none; b=DVe3M3zAkveEKaq3ELu79pYh3fUuOF8t9TI363u4EnCE93209cktgDy9uo8GCEFsRRJ/kxE9N6R4Qe3GD74klmg8PcJt31Ohq0ng/SvUGLvgEgGIn2zvURG2nS3z0WoHSyfwaxxLNdnwzRQAuUHdeFlkyfeh/fwa/CtDsv7KgtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784210869; c=relaxed/simple;
-	bh=8rI7ivR3QuRGS3ov09B7H4WLidTUeUr+GAc6FtMl08k=;
+	s=arc-20240116; t=1784210870; c=relaxed/simple;
+	bh=fThGjJOJ8f0DWLoEyF4hGVM3moP3zmrcdgySF9cPdsk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j/+CTfEDSVg1Hzn/dfCVabI34c4oTiGRSKgZIpfmp1B1JobnseVTFjRUobZgEfXmDMI2pecUvsFmOVprxlhQ+M+08lmCB+8F+5QwtDUVru3dI1Oa8DJ162kT+bKQK9RLrBraxk2SDHKFUw4Sgp12JApOsovuWihFiRT/f/4OjiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qn64Gehv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kOJxD1hcUWNoGd0zmjNgkVyf9k4wTpsuhr0mUe3GHZHSCo+nOcigL/pwGoLD80eWlmFZS6H11Knb58d7sZD4fEU2dkd+Oq86wpr/2QhQDb09IMpS75iJcJd1tn99I01nBe+Cjt1veaPF50S/3cMLwMBDYYDPaHVbjdA07pDF9aA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n+SGQYb5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qn64Gehv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4161F000E9;
-	Thu, 16 Jul 2026 14:07:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784210867;
-	bh=cPNrY9Oap8GT3FQ/FDiSsTM2cc6s48ium5rfCEALcHk=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n+SGQYb5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6E381F00A3A;
+	Thu, 16 Jul 2026 14:07:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784210869;
+	bh=ga2pH/3HRLUzY7302gjfBc5xIf4Axoatff518rTt5RY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qn64GehvHCvRSOIB7HE47nknfWqfoc4xfo5+/h+WfyuxlNTfUPeAcqlVRopg6Rk6y
-	 wo6a3ETcG3yWAFg61nFbqQ50ZTPGUp+4djC6wV73hlg+gw97bE7eww2gclKTMEawy/
-	 9j47p5hVIOy9BMyhoh5KiT5vbq9nd9fneT+zd3Bs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=n+SGQYb5j3dewJ6VmDxWN7ji28/kGYnonAsBxpoOb/k/ZvlSnJi/SSSVzMH29fvYM
+	 UyH2WDBv1oYzp6GHfhqsqTzdK9JJmgggXANy45lXc04SowOQKhTuepxtCW0sxOr70R
+	 mI9rd1FNVlncxilFgqqYzrTpHyxcuvhF5JweKVhiktx+n5auUCJYrtoP6C9U5xSNXb
+	 9zBLw5xfZTR7C3OT+pjovDnyxWXtV2cHIAA8tasm8uCEVGLL13mfknXuOrbf688URx
+	 kGDI5BbFBWRYCk4oxK6ApOTNDZ1DEGeXKebLQCt/QnZc8119rtFOTmsKhvAUq/Qdbf
+	 DWCizJWJkiv3g==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Musaab Khan <musaab.khan@protonmail.com>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 211/480] fs/ntfs3: fsync files by syncing parent inodes
-Date: Thu, 16 Jul 2026 15:29:18 +0200
-Message-ID: <20260716133049.295508872@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260716133044.672218725@linuxfoundation.org>
-References: <20260716133044.672218725@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.1.y] ksmbd: use opener credentials for FSCTL mutations
+Date: Thu, 16 Jul 2026 10:07:47 -0400
+Message-ID: <20260716140747.405713-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071404-shirt-hesitant-d526@gregkh>
+References: <2026071404-shirt-hesitant-d526@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,171 +46,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-------------------
+[ Upstream commit c6394bcaf254c5baf9aff43376020be5db6d3316 ]
 
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+SET_SPARSE, SET_ZERO_DATA and SET_COMPRESSION operate on an open SMB
+handle but call VFS xattr, fallocate or fileattr helpers with the current
+ksmbd worker credentials. Those helpers can revalidate inode permissions,
+ownership and LSM policy independently of the SMB handle access mask.
 
-[ Upstream commit dcd9d6a47199565d83d61a11bbf91fa2ade4d676 ]
+Run each operation with the credentials captured in the target file when
+the handle was opened. Keep credential handling local to these single-file
+FSCTLs rather than applying session credentials to the complete IOCTL
+handler, which also contains handle-less and multi-handle operations.
 
-Some xfstests expect fsync() on a file or directory to also persist
-directory metadata up the parent chain. Using generic_file_fsync() is not
-sufficient for ntfs, because parent directories are not explicitly
-written out.
-
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Stable-dep-of: d7ea8495fd30 ("fs/ntfs3: fix missing run load for vcn0 in attr_data_get_block_locked()")
+Cc: stable@vger.kernel.org
+Reported-by: Musaab Khan <musaab.khan@protonmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/dir.c     |  2 +-
- fs/ntfs3/file.c    | 30 ++++++++++++++++++++++++---
- fs/ntfs3/frecord.c | 51 ++++++++++++++++++++++++++++++++++++++++++++++
- fs/ntfs3/ntfs_fs.h |  2 ++
- 4 files changed, 81 insertions(+), 4 deletions(-)
+ fs/smb/server/smb2pdu.c |  3 +++
+ fs/smb/server/vfs.c     | 20 +++++++++++++-------
+ 2 files changed, 16 insertions(+), 7 deletions(-)
 
-diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
-index 460df046482c73..d41d02372c747b 100644
---- a/fs/ntfs3/dir.c
-+++ b/fs/ntfs3/dir.c
-@@ -624,7 +624,7 @@ const struct file_operations ntfs_dir_operations = {
- 	.llseek		= generic_file_llseek,
- 	.read		= generic_read_dir,
- 	.iterate_shared	= ntfs_readdir,
--	.fsync		= generic_file_fsync,
-+	.fsync		= ntfs_file_fsync,
- 	.open		= ntfs_file_open,
- 	.unlocked_ioctl = ntfs_ioctl,
- #ifdef CONFIG_COMPAT
-diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
-index 5042eb321eb891..6a19bb04220809 100644
---- a/fs/ntfs3/file.c
-+++ b/fs/ntfs3/file.c
-@@ -1378,13 +1378,37 @@ static ssize_t ntfs_file_splice_write(struct pipe_inode_info *pipe,
- /*
-  * ntfs_file_fsync - file_operations::fsync
-  */
--static int ntfs_file_fsync(struct file *file, loff_t start, loff_t end, int datasync)
-+int ntfs_file_fsync(struct file *file, loff_t start, loff_t end, int datasync)
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 1d49439035d22f..f6fb391178b8c6 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -7716,6 +7716,7 @@ static inline int fsctl_set_sparse(struct ksmbd_work *work, u64 id,
+ 	if (fp->f_ci->m_fattr != old_fattr &&
+ 	    test_share_config_flag(work->tcon->share_conf,
+ 				   KSMBD_SHARE_FLAG_STORE_DOS_ATTRS)) {
++		const struct cred *saved_cred;
+ 		struct xattr_dos_attrib da;
+ 
+ 		ret = ksmbd_vfs_get_dos_attrib_xattr(user_ns,
+@@ -7724,9 +7725,11 @@ static inline int fsctl_set_sparse(struct ksmbd_work *work, u64 id,
+ 			goto out;
+ 
+ 		da.attr = le32_to_cpu(fp->f_ci->m_fattr);
++		saved_cred = override_creds(fp->filp->f_cred);
+ 		ret = ksmbd_vfs_set_dos_attrib_xattr(user_ns,
+ 						     &fp->filp->f_path,
+ 						     &da, true);
++		revert_creds(saved_cred);
+ 		if (ret)
+ 			fp->f_ci->m_fattr = old_fattr;
+ 	}
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 723f090458e7f8..1834dd4f255ec9 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -991,15 +991,21 @@ void ksmbd_vfs_set_fadvise(struct file *filp, __le32 option)
+ int ksmbd_vfs_zero_data(struct ksmbd_work *work, struct ksmbd_file *fp,
+ 			loff_t off, loff_t len)
  {
- 	struct inode *inode = file_inode(file);
--	if (unlikely(ntfs3_forced_shutdown(inode->i_sb)))
-+	struct super_block *sb = inode->i_sb;
-+	struct ntfs_sb_info *sbi = sb->s_fs_info;
-+	int err, ret;
++	const struct cred *saved_cred;
++	int err;
 +
-+	if (unlikely(ntfs3_forced_shutdown(sb)))
- 		return -EIO;
- 
--	return generic_file_fsync(file, start, end, datasync);
-+	ret = file_write_and_wait_range(file, start, end);
-+	if (ret)
-+		return ret;
-+
-+	ret = write_inode_now(inode, !datasync);
-+
-+	if (!ret) {
-+		ret = ni_write_parents(ntfs_i(inode), !datasync);
-+	}
-+
-+	if (!ret) {
-+		ntfs_set_state(sbi, NTFS_DIRTY_CLEAR);
-+		ntfs_update_mftmirr(sbi, false);
-+	}
-+
-+	err = sync_blockdev(sb->s_bdev);
-+	if (unlikely(err && !ret))
-+		ret = err;
-+	if (!ret)
-+		blkdev_issue_flush(sb->s_bdev);
-+	return ret;
- }
- 
- // clang-format off
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index 480f2ed518a783..e904c5da919222 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -3090,6 +3090,57 @@ bool ni_is_dirty(struct inode *inode)
- 	return false;
- }
- 
-+/*
-+ * ni_write_parents
-+ *
-+ * Helper function for ntfs_file_fsync.
-+ */
-+int ni_write_parents(struct ntfs_inode *ni, int sync)
-+{
-+	int err = 0;
-+	struct ATTRIB *attr = NULL;
-+	struct ATTR_LIST_ENTRY *le = NULL;
-+	struct ntfs_sb_info *sbi = ni->mi.sbi;
-+	struct super_block *sb = sbi->sb;
-+
-+	while ((attr = ni_find_attr(ni, attr, &le, ATTR_NAME, NULL, 0, NULL,
-+				    NULL))) {
-+		struct inode *dir;
-+		struct ATTR_FILE_NAME *fname;
-+
-+		fname = resident_data_ex(attr, SIZEOF_ATTRIBUTE_FILENAME);
-+		if (!fname)
-+			continue;
-+
-+		/* Check simple case when parent inode equals current inode. */
-+		if (ino_get(&fname->home) == ni->vfs_inode.i_ino) {
-+			if (MFT_REC_ROOT != ni->vfs_inode.i_ino) {
-+				ntfs_set_state(sbi, NTFS_DIRTY_ERROR);
-+				err = -EINVAL;
-+			}
-+			continue;
-+		}
-+
-+		dir = ntfs_iget5(sb, &fname->home, NULL);
-+		if (IS_ERR(dir)) {
-+			ntfs_inode_warn(
-+				&ni->vfs_inode,
-+				"failed to open parent directory r=%lx to write",
-+				(long)ino_get(&fname->home));
-+			continue;
-+		}
-+
-+		if (!is_bad_inode(dir)) {
-+			int err2 = write_inode_now(dir, sync);
-+			if (!err)
-+				err = err2;
-+		}
-+		iput(dir);
-+	}
-+
+ 	smb_break_all_levII_oplock(work, fp, 1);
++	saved_cred = override_creds(fp->filp->f_cred);
+ 	if (fp->f_ci->m_fattr & FILE_ATTRIBUTE_SPARSE_FILE_LE)
+-		return vfs_fallocate(fp->filp,
+-				     FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
+-				     off, len);
+-
+-	return vfs_fallocate(fp->filp,
+-			     FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE,
+-			     off, len);
++		err = vfs_fallocate(fp->filp,
++				    FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
++				    off, len);
++	else
++		err = vfs_fallocate(fp->filp,
++				    FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE,
++				    off, len);
++	revert_creds(saved_cred);
 +	return err;
-+}
-+
- /*
-  * ni_update_parent
-  *
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index a4466e9641f65d..7fb08bff025491 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -510,6 +510,7 @@ int ntfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
- int ntfs_file_open(struct inode *inode, struct file *file);
- int ntfs_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
- 		__u64 start, __u64 len);
-+int ntfs_file_fsync(struct file *file, loff_t start, loff_t end, int datasync);
- long ntfs_ioctl(struct file *filp, u32 cmd, unsigned long arg);
- long ntfs_compat_ioctl(struct file *filp, u32 cmd, unsigned long arg);
- extern const struct inode_operations ntfs_special_inode_operations;
-@@ -587,6 +588,7 @@ int ni_rename(struct ntfs_inode *dir_ni, struct ntfs_inode *new_dir_ni,
- 	      struct ntfs_inode *ni, struct NTFS_DE *de, struct NTFS_DE *new_de);
+ }
  
- bool ni_is_dirty(struct inode *inode);
-+int ni_write_parents(struct ntfs_inode *ni, int sync);
- 
- /* Globals from fslog.c */
- bool check_index_header(const struct INDEX_HDR *hdr, size_t bytes);
+ int ksmbd_vfs_fqar_lseek(struct ksmbd_file *fp, loff_t start, loff_t length,
 -- 
 2.53.0
-
-
 
