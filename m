@@ -1,153 +1,219 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7AB33262B
-	for <stable@vger.kernel.org>; Thu, 16 Jul 2026 12:18:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B72134040E;
+	Thu, 16 Jul 2026 12:19:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.20
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784204299; cv=pass; b=ddDQyfoaIEnGjWh5708SmeFjjSfFUyDcsTw1dk1fiSU7opbS11CSF9IEQhgtL9ar48uW8/MymPzjCGLiloKJt1JiBSfx5wwvN6Adboq4KOyKnpesL7mf5a0PFA2W3SD4QnHmHquh3NLLNsv+PzCt+QzJHxTDoJpxZPcsIgTvbcg=
+	t=1784204360; cv=pass; b=DAk+sId4kRj9m+n4ky6DjYujeI3VrdtZpS1y9ipkild0zcFIBZJuhSEPy8303V+DGv4JdzwPp1LdGMWl+Svo132tMNEbgwuaL89s+/Sfl0I3aDapwtcGs4wXwl8xC9cnENyfrTJXWspynWdeuk0DvUxXk/7pH+iQGeXpFFYmUYU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784204299; c=relaxed/simple;
-	bh=qeCZE0Y3mr/J0JsfPOHL/DiAQ1YvkRmztyR1MwtxFq0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Flm5y5/xDlzk9qyqmEwYSD4XHxyWDHR3J0cB3jtstO8QvCWhKHA0pZvYj3b4OhjUCOqDW/5jhpzdGIX/JMT0tve4+9L+Fe0mFfaEowLOL4d3tLsqhuaDYzLNZTkcq2ejO8j12b/8A1v2IfYvjm1d6eCSYqMpdOcsbSfKvWquWqA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZHbCgSVA; arc=pass smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784204360; c=relaxed/simple;
+	bh=86ktuEqjR97JcjqSyoT6TZbOAkVWaTCAmVx1ddVDk/s=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=Xi2qQVC/N/Y8C00TdOCUf0uB51wA39e6/OO7rzSvnsxsFpnhuKmS7MTKlkGPN44CEggLfzIf6zs/Esn4rCbldi977H0nEUtyEedI4sDBE9kkvYvZGk+uX9znJWMM89mVo55/61cBKSjgz81aaO01R0zviSk40y3hxsfXfI4cR04=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=OiE+KeNG; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=iyZKomec; arc=pass smtp.client-ip=85.215.255.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZHbCgSVA"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ca6d9c91206so543663a12.2
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 05:18:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784204293; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gWXNt/Wea/ak/kra/cOJX4u4fzhobitE9tq5uhlclKHxN151mt+pXB/1g1e0offuHH
-         PYdg0qDv/k0lnOGfbtaJ5+GvCCcpZebSXyGycGyLrm57Q+Sg9itDufo5CnS/+y2tPLGn
-         bw+EmAYyiq8RvCeW+bHwd7J5p+gXop7+uGc2b4hyvodaSQl4MA1LupvrQOECPX+Qfp/u
-         jydpmuZXDvQoVbQpw9HWrY9T/U59CtH/f102ByVpf/SDIxoCWe7krIoa+0hMTQ6UWUk4
-         Wp0PAqonvuG+lud65MmajsBcIMbQJzaTNnwWzYSOO2rjuWp9sC+q8Yum51oxLpevr2Xd
-         ZBTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=c918aQ7k7uX1GyNkZQnbAfatOcsaumnLiScuoFWDMmw=;
-        fh=GVIeFBi1oar/IXyenBJlH8vDKZjb5Ry8bfq5znFZ+Xo=;
-        b=UbzDRVmtZEKozpJuFbatyf4n3qA531gBsHlu6FTs0CGFwmTx2w3wxD8x45m1WMFIE4
-         /lL1YdupbNNHp3TsFHaruHbVOefW5wpm3hzJa/ACTOewwudMohmjBLr669lJmzm2mAHN
-         Tz3T/086jrnwqkoTypXsOjEC0kwcyJw1RCRMUAWIUCt80LjvzAKbYiWNM/uZneI4qwFb
-         RgwlL5jW4NBZf7X422AFWD1Lt05/XPjD2V9+BfYXxSxOw3DKUDqqFW+aKuGQ5tVWpAYP
-         Jie5/0Ul/UIFca8p5/HEfAQUEs7Js6cUjCEfc5C8of7uRLX2F6pXafXjLv5pFYNok9kL
-         Ds4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784204293; x=1784809093; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c918aQ7k7uX1GyNkZQnbAfatOcsaumnLiScuoFWDMmw=;
-        b=ZHbCgSVAJRrVDroM61OXejFv+TyuGWsK1WmjIl4p8ZcpGbCui6F/ZrCZGkA79NPPsx
-         CJoI5KgS+ERcRu5tQoDdC4j7ng54hQkmg0wzqIqkdAp10iFVBPSLUU1+Ab/+vNolC1Kq
-         rE75g9sgxJqMTiT/wF3GG7+UQJaAmlpaSACExKryBiBNX17/7ukvn2H/Vc90Fd6ERqqR
-         MCTRo1ermQcG004GyEEjuE5rg3cG6YHQGFJNFKE01+OEqpoAygK/TZX9AePm2IZy1Lx8
-         nYCsq2UmLJ9pczZuNE7hSVtR4DA9uUhyrXvJkBJiTskVpTEbgl9XPAp2JEtrNRehtK0o
-         SiXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784204293; x=1784809093;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c918aQ7k7uX1GyNkZQnbAfatOcsaumnLiScuoFWDMmw=;
-        b=sv8cx18SE37qOtOzEK8NY9pdHhCj5PflGQbe2oFeAo/g21NqQ5XuVsBi3URUH1dseg
-         vuf5hm8rJ1nFtM6GFjCP8UPnHPETgWPHQ0YzikFFBhmWGb8L2fwhHfPPsLb2lXo/oxi4
-         Yo/8TW3qWkGSy5PrTIPCCHaSVzw5noRgSav4AC5fqTql4iTL3P3bjqvbODhZBBxJH1yK
-         VMma9vJ/7d85y259IAsoURCZZL3PpEfrKehkAte9TBuBKdNfexcXKVtNOedJIT3nDo2K
-         S/EIN2sCD1iVHRJb29usJ4SJ4zslknw/xFu89rm9jILUOXl2I+8GiSz52JtdwwiNgbHP
-         cIRg==
-X-Forwarded-Encrypted: i=1; AHgh+RqbRRDeE+kO1cOCTLuEV4R+/ApXkLP2b19M8n1WXB4yj/6TGN+Xtuco6hb2DaIWMjFNe2c+ukk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZxEElT80q0cVZisnBEcaszLBvS8YUph8J78Bm9LVqGCiEmV18
-	p6Ua8WUW0nZGGW2RwdfLGQ6YP6eaojJU0WSVR90J0B23fd0xYQMwDUow7Fnto9AiiX2sb7M3tqy
-	Zpt+6Wb2WhWLTSJRVEaF4wZV/A2YaCk4=
-X-Gm-Gg: AfdE7cn1tyRc7lGKOLlHL7yVLkb5qM7GwgQF/Er5k+4l8EOwSM922v7k0W9GYXnZxvz
-	O9Ea1VZg2pEVvmz49dit/khUMAKn1B77ZjaFcI9zxqhpjYq0ec6ij+EB1HapgpZ1z24BLidKQx5
-	zHAGhipXx6vOjkfL9ou3FR0n5df9DQRT1fN+AWaxORP1DJ/IiMJXWWWKpYk/q3bjY3HRxeiSYCm
-	sIQhnz4kRMyGIR8d27iTBatoD6txCEhh5seXYKj71Q5/uONqnyVBeVUKtOEXP+p6fIOgrHpRjiu
-	b4TtqKFkno2UZ34DKnu7GuD/b9W6OF1Yp2JjvZSTWZTyUeXj3F16YpMZUGnh5C61RqTy4WvPE9y
-	ApQ==
-X-Received: by 2002:a17:90b:4c0f:b0:37d:f70f:fbf8 with SMTP id
- 98e67ed59e1d1-38dc76069b8mr14068130a91.0.1784204292951; Thu, 16 Jul 2026
- 05:18:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="OiE+KeNG";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="iyZKomec"
+ARC-Seal: i=1; a=rsa-sha256; t=1784204340; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Tzw9DS5+HRIniAteMyAK3e0Bpuzg7FXjz3eTYXmf4yIK5Up+mVNJzidMUnioYsgi+f
+    UYGqxv/sMqpeihkPL2b9DFPt7t9ECx7Hn4UhdXcmbEKVzOWn+fb4cpJLZzkAepUIsUrD
+    JnLgHEitJ4iuQshZ13f/P6jkJSqBK6ekVt67gUhV4WIGvAus8/u4KIy4AtwIZs3QauOj
+    FTz9XNyj20H55LZNCT5VFes0xuEFjxvtGCC0PVNzSYE6byH9AG23wAE9vuQyuL58Y0Aj
+    FjNlWL5gfKYNzV9C/+XMSI8r6RyVLrIX2VPHCcKbYmeaWbVHl61l4bI7bALZ1M0/tAX3
+    2Vdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784204340;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=86ktuEqjR97JcjqSyoT6TZbOAkVWaTCAmVx1ddVDk/s=;
+    b=tIAgvq7qXcsQ/lQVG6HVVqTeePbnD7cPkHrBjAmNwmFzL+QJ6LeEAN89hlgX+rYK5S
+    /qiEs72JuHkklF+5e4HpXNcv3mxZnrZVoObqaYvwnCEL3UPZW2nllznefZHdwqx6Ikfg
+    ZwC4P3HTHNit1mlmh9QYItzv6LA+pTleKmB3/+JQFl88Xt0G5Qnq7I42t3lyq/lFQMhA
+    R0O9CIFa234DyQzuddsCaNT/UcCYj8Ez4/46EnATLhUOZPXL7jlBUuzcW1AUrvJDpcs8
+    rX8JDOtYGvUJ6Lvz+l0inHDoqjp2uNV8+zbVZqWs0crtI8MWGDMHhaJMV0BSyLwoIdR6
+    wFIA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784204340;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=86ktuEqjR97JcjqSyoT6TZbOAkVWaTCAmVx1ddVDk/s=;
+    b=OiE+KeNGnXaSILHJhsaO+DbH4UIGX5PwZOB3inV72i6SoLnuwTC9GS+W3ZthVl6+Mt
+    fkBXz8TkOl/w0HgZbeQSdlDTKgqgNo4ojN4loIjedt/iytmb0mvRV+mWWOMO0VAsMG72
+    AsH/4zc9IAaTiro0UGEMhxFPn9i5oAlgacQeYll/ch1Ai6BGXO+bJWNeBnNHBinoSMPC
+    Qjn83lW/Jb3eUZ8DcU3LNB2MRscIYvN8s4H9YN8fVnzeO63j4yFWtapbiJUqFJ8j5DPg
+    freZjgEYt85XwufsG4Qd7CXmpfHf6uGCCjSHfnK/0gSVGm0dyzJngKSysRaC/0xmtC6V
+    hFfg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784204340;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=86ktuEqjR97JcjqSyoT6TZbOAkVWaTCAmVx1ddVDk/s=;
+    b=iyZKomecSnhxzvdpaC79o19OPcENwSSBAQwnuGdq6rdJG4diym77S1WKg60I30UkRE
+    xyPRef7nr0DBVNlRoqCA==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS0JpbnciN91aF+UY0Pm4r8tXCtzZjxu6AAT8="
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.5.6 AUTH)
+    with ESMTPSA id Q4b76426GCJ0bfR
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Thu, 16 Jul 2026 14:19:00 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260716-device-trail-semicolon-v1-1-f48e9dcfae15@google.com>
-In-Reply-To: <20260716-device-trail-semicolon-v1-1-f48e9dcfae15@google.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 16 Jul 2026 14:17:59 +0200
-X-Gm-Features: AUfX_myevnsR5Su-h4NLGTu3-mxvvsCDC3uCj12Aik5QGhF3XPcyxIyrYw2aShM
-Message-ID: <CANiq72n3BYGfB9VvLk4-bBQzGy9YhDxFvCrjkjJqBbcJa5YRYw@mail.gmail.com>
-Subject: Re: [PATCH] rust: device: avoid trailing ; in printing macros
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, driver-core@lists.linux.dev, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [Letux-kernel] [PATCH] i2c: jz4780: Cache clock rate at probe to
+ prevent CCF prepare_lock deadlock
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <aljCGkhZEQHzZVSW@zenone.zhora.eu>
+Date: Thu, 16 Jul 2026 14:18:49 +0200
+Cc: linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>,
+ linux-i2c@vger.kernel.org,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <500EE2C0-B916-47DF-874F-EBB2CF1C779D@goldelico.com>
+References: <c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
+ <alf7rSWaLBO8WBkR@zenone.zhora.eu>
+ <36148F30-156F-4E74-8765-D718F6FE7E76@goldelico.com>
+ <aliLbNJ51Ns0dIHX@zenone.zhora.eu>
+ <9421BB47-EFC8-4D82-989F-82A84FE46749@goldelico.com>
+ <aljCGkhZEQHzZVSW@zenone.zhora.eu>
+To: Andi Shyti <andi.shyti@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 
-On Thu, Jul 16, 2026 at 12:22=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> =
+Hi Andi,
+
+> Am 16.07.2026 um 13:41 schrieb Andi Shyti <andi.shyti@kernel.org>:
+>=20
+> On Thu, Jul 16, 2026 at 10:33:56AM +0200, H. Nikolaus Schaller wrote:
+>>> Am 16.07.2026 um 09:43 schrieb Andi Shyti <andi.shyti@kernel.org>:
+>>> On Thu, Jul 16, 2026 at 07:44:20AM +0200, H. Nikolaus Schaller =
 wrote:
->
-> These macros are used like expressions, so they should must not emit a
-> semicolon. This is being turned into a hard error in a future release of
-> Rust.
->
-> error: trailing semicolon in macro used in expression position
->   --> drivers/gpu/nova-core/firmware/fsp.rs:79:34
->    |
-> 79 |                 .inspect_err(|_| dev_err!(dev, "FMC firmware missing=
- '{}' section\n", name))
->    |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^^^^^^^^^^^^^^^^^^^^^
->    |
->    =3D warning: this was previously accepted by the compiler but is being=
- phased out; it will become a hard error in a future release!
->    =3D note: for more information, see issue #79813 <https://github.com/r=
-ust-lang/rust/issues/79813>
->    =3D note: this error originates in the macro `dev_err` (in Nightly bui=
-lds, run with -Z macro-backtrace for more info)
->
-> Cc: stable@vger.kernel.org
-> Fixes: 5c7ca6fa603f ("rust: add `dev_*` print macros.")
-> Link: https://github.com/rust-lang/rust/issues/79813
-> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+>>>>> Am 16.07.2026 um 00:07 schrieb Andi Shyti <andi.shyti@kernel.org>:
+>>>>> On Fri, Jul 10, 2026 at 08:58:35AM +0200, H. Nikolaus Schaller =
+wrote:
+>>>>>> Fix a severe AB/BA deadlock between the Common Clock Framework =
+(CCF)
+>>>>>> and the I2C adapter lock, which triggers when an I2C-controlled =
+clock
+>>>>>> generator (like the Si5351) is registered or modified under the =
+CCF.
+>>>>>>=20
+>>>>>> During a clock frequency change, the CCF acquires its global =
+'prepare_lock'
+>>>>>> mutex and calls i2c_transfer() to update the chip registers, =
+stalling
+>>>>>> for the adapter's I2C bus lock.
+>>>>>=20
+>>>>> I don't think caching the clock rate once at probe is safe.
+>>>>=20
+>>>> Ok, valid point to discuss.
+>>>>=20
+>>>>=20
+>>>>> If the controller clock rate changes afterwards,
+>>>>> jz4780_i2c_set_speed() will keep using the stale cached value and
+>>>>> calculate incorrect bus timings.
+>>>>=20
+>>>> But: is clock rate ever changed during operation? Usually it is =
+defined
+>>>> by the device tree constant.
+>>>=20
+>>> That's what you are saying in your commit message.
+>>=20
+>> The Si5351 clock generator driver is connected through this i2c bus. =
+And that
+>> is referred to by "when an I2C-controlled clock generator (like the =
+Si5351) is=20
+>> registered or modified under the CCF".
+>>=20
+>> Only then, this bug faces surface. Because that driver changes it's =
+clock through
+>> sending i2c commands which also ask for the lock.
+>=20
+> If you make a claim in the commit message, I expect the code to
+> support it.
 
-I was doubly surprised since upstream made it a warning by default a
-long time ago, and yet we didn't see it; and since I hadn't seen in my
-CI even yesterday.
+I still do not see where you read the claim you criticize.
 
-It turns out this just landed into today's nightly:
+The commit messages says:
 
-Link: https://github.com/rust-lang/rust/pull/159222
+> Fix a severe AB/BA deadlock between the Common Clock Framework (CCF)
+> and the I2C adapter lock, which triggers when an I2C-controlled clock
+> generator (like the Si5351) is registered or modified under the CCF.
 
-  The semicolon_in_expressions_from_macros lint previously
-  suppressed warnings about non-local macros. This masks
-  a lint that will subsequently become a hard error.
+This clearly says that the clock generator is I2C controlled.
 
-So that explains it. And this is the one that will make it a hard error:
+And that the problem arises if the frequency *of the clock generator* is =
+changed.
 
-Link: https://github.com/rust-lang/rust/pull/159218
+It does not say anything about *changing the I2C bus clock* itself.
 
-Ok, I will land this into `rust-fixes` then, and send the PR during
-the weekend after tomorrow's -next.
+> During a clock frequency change, the CCF acquires its global =
+'prepare_lock'
+> mutex and calls i2c_transfer() to update the chip registers, stalling
+> for the adapter's I2C bus lock.
 
-Cheers,
-Miguel
+This describes what happens in the current code:
+- someone wants to change the clock frequency of the Si5321
+- this acquires the CCF lock for this change
+- the driver tries to read/write some registers from the i2c chip
+- for this it does some I2C transfer
+- which locks the I2C bus
+- the jz4780 driver tries to read the I2C frequency in its I2C bus =
+driver
+- and the system (including I2C) hangs
+
+What is not clear here?
+
+The patch fixes this by caching the i2c clock rate and avoiding that
+an i2c transfer asks the CCF for anything.
+
+>=20
+> You say that the clock rate can change, but then you store it
+> only once at probe time. That immediately suggests that later
+> rate changes will be ignored by the transfer path.
+
+Where does the commit message say that the *I2C clock rate* is changed
+or can change?
+
+It can't be changed by standard API and therefore its clock rate can be
+cached as proposed during probe of the jz4780 bus driver.
+
+>=20
+>> But again: how would you solve this?
+>=20
+> It's not my role to give you a solution. I'm just commenting on
+> what I see.
+
+If you can comment, I simply expect you to have experience to give
+a hint how to solve it differently.
+
+> Besides that, is that an issue you have encountered yourself? Is
+> it a frequent issue?
+
+Yes. It comes 100% if you connect an Si5351 to the CI20 board or
+others board which use the same driver (e.g. some X1600 based one).
+
+It is likely that any other i2c connected device which registers some
+clocks is running into the same problem.
+
+Therefore I consider this as a fundamental design flaw which is solved
+by this patch.
+
+BR and thanks,
+Nikolaus
+
