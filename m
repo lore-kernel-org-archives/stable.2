@@ -1,80 +1,99 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAB8372EF3
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 15:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A47314D35
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 15:51:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784303449; cv=none; b=OY/ypSTVPNvFn27q5AhfNzMmASlsTHGLAUu7cSJzd1XaYlZvYcFiXzG6o2DIQwyR7Vq3aj4uvbG/hOaR2MU2yj+d2x9Mr5RjKInqvYkeZ+nEQ5JWLe0jVDX3lJYfkF5k6YomY8f160UIn6AC9DxsDRFTwAkGCGTFydUmhDRjlsM=
+	t=1784303475; cv=none; b=ABKQxywhA82X+LCnSSplx9XB18idR9pdiw0OYdI7pfIMfM9kNqAiJ5NfQ17lWmT5Yp++ra8Ai3CasdmYUogYBY19i9k9br5EfcZ8ZGZhYCVUoyRpgi5iPa99RBaXTlN42b+lhLLSNtLOA+6Hg68xBAzfWrJfUzThOSASLwxvvKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784303449; c=relaxed/simple;
-	bh=yWRh2ATa6DlWCmB29X6GEdezVqc0OLUGifFyAU50Xvk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=G1BwW4/uSUMuLT9w6yGbDlWs5clWSJIFm7sQcD+ZJZs3Lao8STmkIPjvrtJVV/XQ7hwPSYDa5M/gmx9JIkKbltOYRaWQUfbvcHUpKQu7zvnw7wgvgIVlbk2/c8aF/Z4P3v/xavC2ALVLOOaum0+gyET/kS+GOhfE42yyKGnEIYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LLJ8pPhy; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784303475; c=relaxed/simple;
+	bh=GYJP/Qkkuv8SC1nesZ+zygEQnpqogv4O8mP20JmumIg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PVDzwuLo97kXsRU9M8iF0uJBScVONa8qE5Lh706X1JvE9Yme4DaTr8yCNDQyuqhpLiuN7xGikJ88Q/mKNsBTMMnMz7uy/3PKCgQHxQzec4zTMxb7KGKDOEhjzWnwYx1SVttikrQ1eUD8Zy1SHhpdBfd3a2DuESvuWh8001wJIZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DVsv/XcZ; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LLJ8pPhy"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 608A51A106A;
-	Fri, 17 Jul 2026 15:50:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 35F5260361;
-	Fri, 17 Jul 2026 15:50:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3AB3511BD091E;
-	Fri, 17 Jul 2026 17:50:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784303445; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=zHJZHOXUegGzTwvPHuKaTnOorkibtpxMhJXaYRbttLI=;
-	b=LLJ8pPhy2IQAdaZDjmGTRfcdinAtyzSd5tGt7HBYzzMXRdLRaD4HipVVDKrdg1/HxUFDnk
-	7TO7uBLWIipCbO+RgfWoDzN/FavUecAHUjSdGgLtsYPXTSWPCQtUnVWTVqgKKCYe1OYRLK
-	Bbb/ezYaxdCqSPAfr1vWMsoMik3kOBpGz3VCkoTjeYEZnqKkSlrpmPJXUBLJBBae7hjWz6
-	OUWO1svZmpxfSJtzAxshZHjJpPX58xzfIdotd3Ijc+v3E5VGAZrUTl5MIYI03di2pb+NDH
-	AFXuru5JPz7Lbk3rPnYwz+QLZR+69JFP+ahBlfHICmvJtUQfwB797PxU/B/aHw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: richard@nod.at, vigneshr@ti.com, linux-mtd@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <11D80ECD6F2BBA62+20260713052203.3130998-1-raoxu@uniontech.com>
-References: <11D80ECD6F2BBA62+20260713052203.3130998-1-raoxu@uniontech.com>
-Subject: Re: [PATCH] mtd: mtdoops: free page bitmap when the backing MTD is
- removed
-Message-Id: <178430344401.4129650.3604183866653317016.b4-ty@bootlin.com>
-Date: Fri, 17 Jul 2026 17:50:44 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DVsv/XcZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784303473; x=1815839473;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=GYJP/Qkkuv8SC1nesZ+zygEQnpqogv4O8mP20JmumIg=;
+  b=DVsv/XcZMtxM+DT0l5WQNZjQ7iRbsrxicVgnMCjUurmIixEsrhnecbat
+   JXkR00azxQH6aggPQ8yonltu55EutQ6sr32FSFxLEpq9t1ryIEQj0FpIO
+   fB758zN9oZ9jVX9o+c8ai+fWqMRGidoDETjogSRmIfKsSi0MIYVqKu0Xj
+   EXpAfVCq8I6Nfa5ej9iNPSycV6P1G3aMguA59lTXs/tKam/YRBYpo4nCr
+   uT9Tjx9kiqppdXRfDt4r6cxSWre6SoG75D4kvP3bLJ9zyutW0V8Pc2l91
+   9zSFppgvMXntFOfoJmMfxElqhTOxQvdF5jYDrqJEjqvo1x2/Nq2ni02db
+   A==;
+X-CSE-ConnectionGUID: 3onBN8tzT1uIBs4uuRLT3w==
+X-CSE-MsgGUID: HOcbt2q8SxOFHJoVckmfUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="96112550"
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
+   d="scan'208";a="96112550"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 08:51:12 -0700
+X-CSE-ConnectionGUID: 05KjFR8HTwO1JHWIrXr50g==
+X-CSE-MsgGUID: nAsNTk8cRAmFYlI9eCCxng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
+   d="scan'208";a="257452336"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.241])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 08:51:10 -0700
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] drm/i915/cdclk: Avoid spurious cdclk sanitization on PTL+
+Date: Fri, 17 Jul 2026 18:51:06 +0300
+Message-ID: <20260717155107.17801-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 13 Jul 2026 13:22:03 +0800, raoxu wrote:
-> mtdoops_notify_add() allocates oops_page_used when the configured MTD
-> device is registered.  mtdoops_notify_remove() detaches from that device
-> but leaves the bitmap allocated.  If the same MTD device is later
-> registered again, the add path allocates a new bitmap and overwrites the
-> old pointer, leaking one vmalloc allocation per remove/add cycle.
-> 
-> This is only visible when the backing MTD device can disappear and be
-> registered again while mtdoops remains loaded, so the usual static MTD
-> case does not expose it.
-> 
-> [...]
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Applied to mtd/next, thanks!
+Apparently PTL+ no longer has the cd2x pipe select field in
+CDCLK_CTL. Take that into account during CDCLK sanitization.
 
-[1/1] mtd: mtdoops: free page bitmap when the backing MTD is removed
-      commit: 956e7da12c114f13c63d126ab1d79c3b6a819060
+This currently triggers a spurious CDCLK sanitization during
+driver load on PTL+ which will causes a visible glitch on all
+active displays.
 
-Patche(s) should be available on mtd/linux.git and will be
-part of the next PR (provided that no robot complains by then).
+Cc: stable@vger.kernel.org
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8550
+Fixes: 3f9de66f8acb ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Kind regards,
-Miquèl
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index a53d88727177..9e5e15b0c4d1 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2381,8 +2381,10 @@ static void bxt_sanitize_cdclk(struct intel_display *display)
+ 	 * dividers both syncing to an active pipe, or asynchronously
+ 	 * (PIPE_NONE).
+ 	 */
+-	cdctl &= ~bxt_cdclk_cd2x_pipe_mask(display);
+-	cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
++	if (DISPLAY_VER(display) < 30) {
++		cdctl &= ~bxt_cdclk_cd2x_pipe_mask(display);
++		cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
++	}
+ 
+ 	if (cdctl != expected) {
+ 		if (DISPLAY_VER(display) < 20) {
+-- 
+2.54.0
 
