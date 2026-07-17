@@ -1,71 +1,71 @@
-Received: from mail-ej2-f1.google.com (mail-ej2-f1.google.com [74.125.228.129])
+Received: from mail-ej2-f3.google.com (mail-ej2-f3.google.com [74.125.228.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BAF9314A6B
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 04:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88132C21D8
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 04:48:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784263688; cv=none; b=C4D9aqRf0vuisKG7ckktJqpwZxWb6gphCVi6iH9CobzYfUtgsGEkmvnddLICBys0sN/t4dho0qDSHet1H5rD37w5dawCHYNjIwcvY7CO7vUpDrkWIgwYMwYz+efhk+pBiALqzSlZ8InlSDMc+gOKr+RBY1tzPbgKZpZR+q3651I=
+	t=1784263694; cv=none; b=a12VbvvAfp+HPpmE7uMmrdr7eMapuFoI69QITJKcsLmWPrQlJ4wx7K8K8EZAijwkF1YdOaAXpiphrfxPSJwoH/HkzzMKhz6diCZy91Vz8WmdBej5mYjJemAWVjWjpLEuPfoqnPv7o/dnKvDShQ8yAEVw6Q2nvyh14UD6Tl6c3V8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784263688; c=relaxed/simple;
-	bh=t8oyTuvaF/0pimcRUR2qFP1YFH9GpKb/3qdtOa8Ngfg=;
+	s=arc-20240116; t=1784263694; c=relaxed/simple;
+	bh=+nV2dDrWsgUKgd4WW4vC1cDi15fKvgLtIdpTrbrkMe4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y1SyIMhS2eb1gvezHCQgIM+7Hf9RSLb2nHTfnyLDagLsv8MSOV4eRBpLErnnpH2MTbOmne0v15qbvVdO2/IJQ7qtM2100xWbtHAQ0I2xIidk9D7W4VZWudNUKKAg5x9glNXkPGD2gHDBUwvWrePcmMPlH4vT4KsY2rAOcJ90Efc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DQAv3DvJ; arc=none smtp.client-ip=74.125.228.129
+	 MIME-Version; b=cOlFzV2nFPly4oZv0TL2NkNOiPQQU/DSOBe2BkcUajrXcFxOeNHQysUI+ZSOAaGOpMoKKoLOjPhsAljStTi2bRP2onY1PzskHldpJfHDL55czI02HLu5YSBDxJlgZogCXmYml73lisdSKHB7GBfjWEZ+yyVRM96bqSpk+QECxRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Zp118/z1; arc=none smtp.client-ip=74.125.228.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DQAv3DvJ"
-Received: by mail-ej2-f1.google.com with SMTP id a640c23a62f3a-c15be76348eso175885766b.1
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 21:48:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Zp118/z1"
+Received: by mail-ej2-f3.google.com with SMTP id a640c23a62f3a-c15ec8d6663so283468866b.1
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 21:48:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784263685; x=1784868485; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1784263691; x=1784868491; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9DPZW1hM7MByYiVqSKyEum0NYnmYHvi3g+Mja2JvdDs=;
-        b=DQAv3DvJBT1nbc8PIEA3VO/3dsJlM2gx4Kp0JdXInCsWhhkrb8G8s4i1tDv79qhp12
-         jSifuNBbV6SGs2J6T7LzfkQkBCbwIbRHg84qZLVWIjqIWvZ9vRd8cFidZWWyrnARasmp
-         QVQR1FhWCRGcW8Sbrxa3AiaKo8A9USl/qoe2G48x9R8qQjCSrz5cm/hjdw71VR+OYUIA
-         lVvfizunx2jpMxiFvEKWj0px7fMNBtST4KrTpJ9IDlfkX+mdVA/yDsPEC9Hwn8Qp7L3y
-         jZTdD4rG6tgufiaroN2By3J1POLeSoxIwDEiThapYxl7bh6ipsqxeRL/gEkIx9Ab/PBZ
-         Dc7w==
+        bh=1L1GjsHLmGk58BggPrtZj3cGawb4i1fhYZ+TPnSPmbs=;
+        b=Zp118/z1IVfh8hXZeG9xKtML4TzvEwecVVNG+Xt6C5qNSXrPXCHVFqk6Dcfd6lAr8K
+         cYj1++RIsCIH2ChzSoE7u82cLbwL5AZnynesMzL3Kvk2GqMboAo3MHbAnyJR3aErjWyh
+         06WoFDPtQTP25p9cvAaSls8xQEir+nxA55xE8mM0hOLXo6NEKzWLRR3rqa4K+xnjL5ex
+         kBaI60nSI98Up7rcoo7YmZ7/rx6ZJIitmmP2RhcSBAjSMCdYsQCb4XCdsAbViQ8CotSi
+         KssN9NKWMxxSId94Vf4HKiGSujsdEYbCVzzv2g5NPeaOE9i+Ujk1NzjT/eItLlBnxBLx
+         bCtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784263685; x=1784868485;
+        d=1e100.net; s=20251104; t=1784263691; x=1784868491;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9DPZW1hM7MByYiVqSKyEum0NYnmYHvi3g+Mja2JvdDs=;
-        b=O5RAklYyfm5Tx4L4OY0o3HIkH2cZyu+F94mqvp9YBc2T+ugBynCSbdcPqkSAPYFV37
-         tmWWBt8wYmSGp/bXSGY5O4cuxITUdXQYMlnurGJP5i9P9GYSnLMXdrZDO4hD0jw0venN
-         JuamKVNVcV0GoqQ4WRas3DWGHj2teTQZQDegPAcD1OvJ5i42jxxNcY01MEnedwOV6jsx
-         faikT4clHokEdN49gsKwYh9+Px2nzSFmyGHPnIYeZOUND6A1R7Wdk86BZh5MB1YStGpV
-         k+wOEOS9KJmCnzrvBjvU/R13SpPrs0BvcqVqm/aELCNHXS4DRD1amh6B70xDr5dqgYGM
-         cY1A==
-X-Gm-Message-State: AOJu0YxyfMnmfYrq/DnOqYaN8ZQnvzSrI6YiKuCYEuSvpRUDPlCvT08J
-	N6UDWCQqvg/Z6A1eruivmn8/mWmY2R8nJq6GGhP815l1/6idkCiaINasNXC7hT1UAWHVhedDcrf
-	+skYQ+KycaUMp
-X-Gm-Gg: AfdE7ckHuO7JfcnG9AUT/CdNXpwgxGaVSGjc+MWfz2iy3KmvpG5NZIh1zXkfTbDon1d
-	adis64C5tNFat9/Ckd0kfoxfJl0VjW4wNZjRJYvu9pG9GypKUctA2iGLvt6Dq3v+W/akDx/RmP3
-	tHRuJHHITCmNjAgWWNZpno90++AgklCm1+BELaDTUDLR0TuzYYZv4d7qleHMzL5W1sUW2VklhVj
-	okQ4LcqzvooYCadyi3w4YnBD+essUKPSf+h1FKx1UHDqsikr4NqUHrDu+2IWmbjuxmNqg93s0pf
-	9sKQAo/wtcyXZDWfoAbS5YAdcMsG9spi00fmwHAAxNVRJHTziti2W3F8MV7Uu8zaOQct2T2hSmH
-	bI8uzz2QtZANxetHhVdNzToKlsMouotIVOj/VeAX66xNtpWPbUqpWM4/FSo1g5060J/fySTbB7j
-	d0JK56o9OD3cH+oPncz6QR4at3OhSja6c=
-X-Received: by 2002:a17:907:708:b0:c16:6dac:a004 with SMTP id a640c23a62f3a-c16b4738764mr32940266b.24.1784263685292;
-        Thu, 16 Jul 2026 21:48:05 -0700 (PDT)
+        bh=1L1GjsHLmGk58BggPrtZj3cGawb4i1fhYZ+TPnSPmbs=;
+        b=HwdjAl/lhgkr3WnvlzVqgfg8dwFjxRzgoObs1qSoRfm09kqBcQg7wrpuc3wx1Zt5Lv
+         d0zEXayT9fK6lXzLNiZaAIsFi0USAyMUcJeEi0iIXNFt3ZUcRQbDA9AsWCfdsBJyt2s6
+         Wh60kMWe9sGtn/oNNAme+D7UI1OQ8/V1POSvOab8YpiEbAN7pgDNed7ZqyVAlEP0iqrR
+         spaQTxtc2Wt0yOVh09evlWqWb7Xay3X06XWWDF1F0bCPIS3H84ErRLO+7DnyI5ic8ESS
+         CU0DNOu1/61ZdpjURJ///RkwrQVpPH461Oc541LPmgtZIntsiGinFdh67wwT2BxtM/G4
+         CdCg==
+X-Gm-Message-State: AOJu0YyMMtkrqxLqiK9xkFPzgwCsekuzoChOM1Hh+G611gX54xFRCGYF
+	ksduZfynhiD3Ql6yqoyFr2cf0JfT1aBaUbXdM91z0OKN3oVqtZUuStWEsdV67J2ZxpgPNASO1o0
+	UdIP+RJn7lMj0
+X-Gm-Gg: AfdE7cnPqIK0M7dBkH9BuAeos1C/se8ZBkL+tRSXQqVkqY3HZO7vH6t5Ll4WE7w/MrO
+	WZ4g97yzTrxGranRoRz0a/8SbYlPNXpCfNHrLMeigbCSlHzKMc+6HZrHRq+PmEEQxqsiQVgYVQA
+	Mvbs7gdbx3rIr1prxvcZJFfSglq299tSGkX6xXxqvlKBRdOLu6Lm14vmSc+t1xLock75Zs0HYk2
+	LMlqBacgoklXwprCcxqCwX5qgQHInmH0f83weQ+50vknGEwFDkeSaVNaaj0nMLW+//5Jft0EbjI
+	MB41kGkGIQcf+qZwH4XEtzGPKoQpkStH7aDKf45iaAxD9SO1HJT8RiM4HHxAt8xvSSUwJr6L6Gm
+	Hunkc06o7pCv23NIFaheqphUtfXAxmxBCWw0PZV2Bpkszu19lYNzSKmJIclMWJPsxDYIaHqKJSh
+	Tgwyf31pBent0QBNOn48SpPrLkGHOHWoY=
+X-Received: by 2002:a17:907:961c:b0:c15:d6c8:2816 with SMTP id a640c23a62f3a-c16b47b6440mr36815466b.27.1784263691088;
+        Thu, 16 Jul 2026 21:48:11 -0700 (PDT)
 Received: from localhost (106-64-25-226.adsl.fetnet.net. [106.64.25.226])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3448fba7sm3601325ad.6.2026.07.16.21.48.02
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf345110besm3623515ad.36.2026.07.16.21.48.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 21:48:03 -0700 (PDT)
+        Thu, 16 Jul 2026 21:48:09 -0700 (PDT)
 From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
 To: stable@vger.kernel.org
 Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
 	Daniel Borkmann <daniel@iogearbox.net>,
 	Alexei Starovoitov <ast@kernel.org>
-Subject: [PATCH stable 6.18 5/6] selftests/bpf: Add tests for delta tracking when src_reg == dst_reg
-Date: Fri, 17 Jul 2026 12:47:28 +0800
-Message-ID: <20260717044731.121353-6-shung-hsi.yu@suse.com>
+Subject: [PATCH stable 6.18 6/6] selftests/bpf: Add tests for stale delta leaking through id reassignment
+Date: Fri, 17 Jul 2026 12:47:29 +0800
+Message-ID: <20260717044731.121353-7-shung-hsi.yu@suse.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260717044731.121353-1-shung-hsi.yu@suse.com>
 References: <20260717044731.121353-1-shung-hsi.yu@suse.com>
@@ -79,9 +79,9 @@ Content-Transfer-Encoding: 8bit
 
 From: Daniel Borkmann <daniel@iogearbox.net>
 
-commit ed2eecdc0c6613353bc1565e900d2b23237713da upstream.
+commit cac16ce1e3786bd98cec0c108e3bc06ed3d3c6a9 upstream.
 
-Extend the verifier_linked_scalars BPF selftest with a rX += rX test
+Extend the verifier_linked_scalars BPF selftest with a stale delta test
 such that the div-by-zero path is rejected in the fixed case.
 
   # LDLIBS=-static PKG_CONFIG='pkg-config --static' ./vmtest.sh -- ./test_progs -t verifier_linked_scalars
@@ -108,49 +108,48 @@ such that the div-by-zero path is rejected in the fixed case.
   #612/19  verifier_linked_scalars/spurious_precision_marks:OK
   #612/20  verifier_linked_scalars/scalars_self_add_clears_id:OK
   #612/21  verifier_linked_scalars/scalars_self_add_alu32_clears_id:OK
+  #612/22  verifier_linked_scalars/scalars_stale_delta_from_cleared_id:OK
+  #612/23  verifier_linked_scalars/scalars_stale_delta_from_cleared_id_alu32:OK
   #612     verifier_linked_scalars:OK
-  Summary: 1/21 PASSED, 0 SKIPPED, 0 FAILED
+  Summary: 1/23 PASSED, 0 SKIPPED, 0 FAILED
 
 Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/r/20260407192421.508817-3-daniel@iogearbox.net
+Link: https://lore.kernel.org/r/20260407192421.508817-4-daniel@iogearbox.net
 Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-[shung-hsi.yu: missing context from commit 223ffb6a3d05 ("selftests/bpf: add
-reproducer for spurious precision propagation through calls").]
 Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
 ---
- .../bpf/progs/verifier_linked_scalars.c       | 57 +++++++++++++++++++
- 1 file changed, 57 insertions(+)
+ .../bpf/progs/verifier_linked_scalars.c       | 55 +++++++++++++++++++
+ 1 file changed, 55 insertions(+)
 
 diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-index 87930b5e7b78..8741238b2ebd 100644
+index 8741238b2ebd..3b0c300c9cbd 100644
 --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
 +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-@@ -471,4 +471,61 @@ void alu32_negative_offset(void)
- 	__sink(path[0]);
+@@ -528,4 +528,59 @@ l_exit_%=:							\
+ 	: __clobber_all);
  }
  
 +/*
-+ * Test that r += r (self-add, src_reg == dst_reg) clears the scalar ID
-+ * so that sync_linked_regs() does not propagate an incorrect delta.
++ * Test that stale delta from a cleared BPF_ADD_CONST does not leak
++ * through assign_scalar_id_before_mov() into a new id, causing
++ * sync_linked_regs() to compute an incorrect offset.
 + */
 +SEC("socket")
 +__failure
 +__msg("div by zero")
-+__naked void scalars_self_add_clears_id(void)
++__naked void scalars_stale_delta_from_cleared_id(void)
 +{
 +	asm volatile ("						\
 +	call %[bpf_get_prandom_u32];				\
-+	r6 = r0;		/* r6 unknown, id A */		\
-+	r7 = r6;		/* r7 linked to r6, id A */	\
-+	call %[bpf_get_prandom_u32];				\
-+	r8 = r0;		/* r8 unknown, id B */		\
-+	r9 = r8;		/* r9 linked to r8, id B */	\
-+	if r7 != 1 goto l_exit_%=;				\
-+	/* r7 == 1; sync propagates: r6 = 1 (known, id A) */	\
-+	r6 += r6;		/* r6 = 2; should clear id */	\
-+	if r7 == r9 goto l_exit_%=;				\
-+	/* Bug: r6 synced to r7(1)+delta(2)=3; Fix: r6 = 2 */	\
-+	if r6 == 3 goto l_exit_%=;				\
++	r6 = r0;		/* r6 unknown, gets id A */	\
++	r6 += 5;		/* id A|ADD_CONST, delta 5 */	\
++	r6 ^= 0;		/* id cleared; delta stays 5 */	\
++	r8 = r6;		/* new id B, stale delta 5 */	\
++	r8 += 3;		/* id B|ADD_CONST, delta 3 */	\
++	r9 = r6;		/* id B, stale delta 5 */	\
++	if r9 != 10 goto l_exit_%=;				\
++	/* Bug: r8 = 10+(3-5) = 8; Fix: r8 = 10+(3-0) = 13 */	\
++	if r8 == 8 goto l_exit_%=;				\
 +	r0 /= 0;						\
 +l_exit_%=:							\
 +	r0 = 0;							\
@@ -160,23 +159,22 @@ index 87930b5e7b78..8741238b2ebd 100644
 +	: __clobber_all);
 +}
 +
-+/* Same as above but with alu32 such that w6 += w6 also clears id. */
++/* Same as above but with alu32. */
 +SEC("socket")
 +__failure
 +__msg("div by zero")
-+__naked void scalars_self_add_alu32_clears_id(void)
++__naked void scalars_stale_delta_from_cleared_id_alu32(void)
 +{
 +	asm volatile ("						\
 +	call %[bpf_get_prandom_u32];				\
 +	w6 = w0;						\
-+	w7 = w6;						\
-+	call %[bpf_get_prandom_u32];				\
-+	w8 = w0;						\
-+	w9 = w8;						\
-+	if w7 != 1 goto l_exit_%=;				\
-+	w6 += w6;						\
-+	if w7 == w9 goto l_exit_%=;				\
-+	if w6 == 3 goto l_exit_%=;				\
++	w6 += 5;						\
++	w6 ^= 0;						\
++	w8 = w6;						\
++	w8 += 3;						\
++	w9 = w6;						\
++	if w9 != 10 goto l_exit_%=;				\
++	if w8 == 8 goto l_exit_%=;				\
 +	r0 /= 0;						\
 +l_exit_%=:							\
 +	r0 = 0;							\
