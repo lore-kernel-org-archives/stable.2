@@ -1,112 +1,100 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1000351C22
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 19:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932AC344DB7
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 19:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784316086; cv=none; b=C8t25YsBMnBcJemTnXN6wtfjdWfob/MVR/V8M459uYRsfm3rXFaCS2hsxwBSplUPxBNRODXByIX4kXT8AcYoSQCc5g/OQhCEiz9UYQ6li3qxFpKpehkcEIedGpBxC4+10e4BDNGLPx2Qjn8izb+nMBbeZFJQY2aHJNq3gT3Fg2M=
+	t=1784316231; cv=none; b=dZ0lQwYKzyvO/P2h27rNSs2UsJxYKD54FqFzdDsuPp2Q8IDGjWR+CWBWi3eL0ey9zJpBb+Smukkv7Lk4nKW5J8XyBPcl3jIECH3ZF5Kig2gmm4AlWPQca6nz4h8+mJuUkoOT7d7iObYSLNvL5UvMj1S5BAx40DXz7ardXfItpRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784316086; c=relaxed/simple;
-	bh=TNZU/YiFC+FsIbAl1irw5ZUIraHra9PmNSU39qnz7m0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UJ6KVXNtH77kXJO5cb7hwJt+baMdjVjNssoZXaEyCKYr7OhImR/g9j9KyBj6BwAKP40xXQabMLt+77urisTehxFWAj6ngQJuEaUvlDjzFCzuhe92oDSPe+Kqqn1myi6dmCY3vEhSVDE6gzXwLqW2BN5TVagsF09ow59nfSsIctA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dn84AMpC; arc=none smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784316231; c=relaxed/simple;
+	bh=Rkus7gJPxCDTG3JKcXqPf7at7G8dXuHvvlL0T5XvC98=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=l2WIXebHyfYwlpa+5Wa+GIlGJn7Hx35mI0gJhXteSe3aaxA401a8yP+TXf0aG+0x30CCZ1szORzwajYO951sU5rnBeY+RldwdCRPenCmON1QWDsNlYKzvO6bZkVzDfLm5BmNTp2+rXumA7om/f368e+z9B8btm4UrK90U6EUwts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gTQL74Nr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dn84AMpC"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e7632b193so512918385a.2
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:21:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784316083; x=1784920883; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CDkCqE8cWXVEopMtK+O2wnclYWikImjloNtGs1ltFx8=;
-        b=dn84AMpCmIE0Sizl9oBdUuxUvtRO6bRgik8qj9BapqnS41D5+kGsvAuSQJ6tTNJOL7
-         sltUwGxYfh55k+uSgi+E05k8rnhVhdUZ/l5coFGGLkR2vdoEO+RWRkPoo2PcYGoGy8UJ
-         5nQ4pHUaA4bczP/V7ErjkdejpOEB5UidNzZ5EAJpIgFTc+A9WTerdZqE51YobSjEnQyy
-         s3uUKPc0sOXHuJLTyg8YArfZkInPS+lAIuJDeexK1VEt+fDISS+QJLqkLeXT8paT8Fih
-         E0xT8flaRuCYwCp/5rIH2MFbELX/GZ5uPT+N1HfCwLIsWF/AdauxBULnXWxnKY+vlZ/5
-         rz9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784316083; x=1784920883;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CDkCqE8cWXVEopMtK+O2wnclYWikImjloNtGs1ltFx8=;
-        b=dYcBoJya1dcQ7PWqSNB6wn2Vbz5/faTF2i+JRn72T4s96I88PdMdGajgvXP7iV1nbT
-         E0IPQ6uRCyaq3dgceQbsNGViK0Gt4MfRfjbYanCr4/ZZ7KI1k/LnqZg5IOiHcvuKmA5V
-         M+KYg10Giv8FIGYTRWf24U+HI671VoWIEHJ1B9uI1bKB6ugDYdSbpMK/4LSZIDTALomy
-         BOwQwRsUqhG6oB5NBSFrnwFXsVZUg9JWjzPbkyFsV4u8sFE03gMvgP56fh91dZsU57m1
-         oAdNbAeacGG7hLpxeFLzY1ShqbEsfC3/U5o5WvJPCSHSlXFtKKV2Yy4BQvY+svB33udr
-         K/nQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpBd2KnVhfNEspmhe5b8q88cqRchejp1rl+7b3e13qCbomqGNfQVGafn42jyam7BY1LVWupcPE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx7C9GHwQ55mM1tiTwQhoZOo7m8k6kLQ5bMMGbolmkzCcbx26GJ
-	NIpLOGAmVTrEq9/tnpe1pmt1zF3Whf0bjgWtQcpSMxfHlj0Oiqqsum/x
-X-Gm-Gg: AfdE7cmEoV/2gjq1dhrOIRVXnWyGUHsg6Beg0zD1IhlGS4QDW5AjBbrFkI8F4AzEfbA
-	nY0J6LC3ED8YikkZrDIuvWLSN5I9oaAtLkyRSEKXu9+h8MYggZdvbv81ScuKIiI3TC5TjKuOsto
-	Z0tF4vdFdyGeItaDBr1Sr+4mP07t8KxI/otPLaomMbo5St+YetvuRFPTaBwEf892YysIsOYMiSH
-	xtMATXrDyOKOfEnqfwlklsrZJvk5g90M1JG+Zc0+wFEYKoDiAbwj9DzZwX0gTQHcf4NF9FWh/1p
-	G7wPVuyMp5Yp/ORdpjyC63yxJ2PQlxMUogV3++jmJQAf80gASQsGXkW91i4XE0p+rKfky/y2irA
-	jNSRpAmwErla6CDWJHKsrOm2EMfqp3c5h/fs67UMGm7LNszTI5eqGUgk5ZZYYPDeJSifnCKiQ15
-	5MC75VWxOmYWO589tLIDyG0itmuQrE
-X-Received: by 2002:a05:620a:2246:10b0:930:bb30:6921 with SMTP id af79cd13be357-930bb30701dmr197590085a.29.1784316083411;
-        Fri, 17 Jul 2026 12:21:23 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930b5494cf0sm229407685a.46.2026.07.17.12.21.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 12:21:22 -0700 (PDT)
-Message-ID: <3caf8d09-8c05-40ff-bfbc-2c3695d10bf5@gmail.com>
-Date: Fri, 17 Jul 2026 12:21:20 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gTQL74Nr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B741C1F000E9;
+	Fri, 17 Jul 2026 19:23:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784316230;
+	bh=lZSvbRtINwJ5M5FQ4uKgY+WEb5VgqOKOsLYN34Q7qgo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gTQL74NrZK6INrEdn0W3Jy1AOysjXZqKAn30CCDub0x92fdEHxmMPCMJe2P0bpuYW
+	 mZnP34Gr6Q3W0xekvVp6tuVWFOpB8+RfVzAn95AIKZtImQm/ay07p/9fJyT7dt43Vk
+	 8xjS4Iz3DSNbBXo9TVyy70sFh+18IjRp0fnKDtPmONeO7LVjHYUmN9660vmDv5aC3b
+	 XpNM6RMa5pREOUdQoX1haywKim571vSxk/CVjueA0sZ4rtSNyegORYFKdzCw7MWWzD
+	 yN3O6Qw2jcuBjAztJEjAqZ+6Nf3djDY+nNYnSlHVENilcYQeUJ1CiCMtuf4eUvPZ21
+	 Q/6jFMGpKyHJQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Fushuai Wang <wangfushuai@baidu.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] cpufreq: intel_pstate: Sync policy->cur during CPU offline
+Date: Fri, 17 Jul 2026 15:23:48 -0400
+Message-ID: <20260717192348.2131400-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071452-shimmer-reformer-0bc4@gregkh>
+References: <2026071452-shimmer-reformer-0bc4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 000/533] 7.1.4-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260717101912.682013354@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260717101912.682013354@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/17/26 03:41, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.4 release.
-> There are 533 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 19 Jul 2026 10:18:26 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.4-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Fushuai Wang <wangfushuai@baidu.com>
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+[ Upstream commit bcbdaa1086c25a8a5d48e04e1b82fdfb0682b681 ]
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+When a CPU goes offline with HWP disabled, intel_pstate_set_min_pstate()
+sets the MSR_IA32_PERF_CTL to minimum frequency to prevent SMT siblings
+from being restricted. However, the policy->cur value was not updated,
+leaving it at the previous value.
+
+When the CPU comes back online, governor->limits() checks if target_freq
+equals policy->cur and skips the frequency adjustment if they match. Since
+policy->cur still holds the previous value, the governor does not call
+cpufreq_driver->target to update MSR_IA32_PERF_CTL.
+
+Fix this by synchronizing policy->cur with the hardware state when setting
+minimum pstate during CPU offline.
+
+Fixes: bb18008f8086 ("intel_pstate: Set core to min P state during core offline")
+Cc: stable@vger.kernel.org # 3.15+
+Suggested-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Signed-off-by: Fushuai Wang <wangfushuai@baidu.com>
+[ rjw: Subject refinement ]
+Link: https://patch.msgid.link/20260520032119.30615-1-fushuai.wang@linux.dev
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+[ replaced `cpu->pstate.min_freq` with `cpu->pstate.min_pstate * cpu->pstate.scaling` since 5.10 lacks the min_freq field ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/cpufreq/intel_pstate.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
+index e0a7d580d48729..8dc11d5fed17b6 100644
+--- a/drivers/cpufreq/intel_pstate.c
++++ b/drivers/cpufreq/intel_pstate.c
+@@ -2355,10 +2355,12 @@ static int intel_pstate_cpu_offline(struct cpufreq_policy *policy)
+ 	 * from getting to lower performance levels, so force the minimum
+ 	 * performance on CPU offline to prevent that from happening.
+ 	 */
+-	if (hwp_active)
++	if (hwp_active) {
+ 		intel_pstate_hwp_offline(cpu);
+-	else
++	} else {
+ 		intel_pstate_set_min_pstate(cpu);
++		policy->cur = cpu->pstate.min_pstate * cpu->pstate.scaling;
++	}
+ 
+ 	intel_pstate_exit_perf_limits(policy);
+ 
 -- 
-Florian
+2.53.0
+
