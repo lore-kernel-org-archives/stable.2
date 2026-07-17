@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B70D13C13EC;
-	Fri, 17 Jul 2026 09:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C383C1961
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 09:31:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784280650; cv=none; b=Uhgw9kHElsZ+C6+t//cyMKFOSkehfkbLJe2SjqIRrycLZ1mBIY+z6UU41UBuH5+Ix13PaoRCB8cvikEJ0i6WrI4GhGwxRfCTh2H4LYB6Ntv1msjdPORwyHZ/sFbOztIjNbEoEN0raR2hIj3yqJQhC4NeAf1jCUb/IwsElCtt9OI=
+	t=1784280668; cv=none; b=AiP/KfdIIMAbE26WqWm4smpy+d+uZ03eLQlJu3rkQlP6FDGinp/gIP4J1hbQJuoEhAiRQAAmytKykma6HSL34/hAkR3cW4+viorSIpT3bAOhqTQIwr1AhyeL25BU+9Ea9AQozel8lN7ez88IQg86/twXamPMzbzftgmjVkbsFxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784280650; c=relaxed/simple;
-	bh=H0m7Dhsc6cwDcDYsUUUUbqxe1OtV0o41W4yfsJtaFbs=;
+	s=arc-20240116; t=1784280668; c=relaxed/simple;
+	bh=KLQicBeZx0Z69urp/IOAXMYEPDKZvOhCcrX1HF6jdio=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QTCEbKIzofZ87EDGTCN+4I/I1/DVOQSRkS0veimvumvKDTfkgOkwl36jUZtpBvT21roxR/VeXvoilm+aRIsSz4KS60VZVOT/3LmKNhhnH5jIfHrmiUnztwYzW7y0HfXv1OBTB3vsWdcUiO9yGPJe4EJdCovrLM3yOBeSDQONf34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hage0qV8; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=AkVgPxmvB0zO5Cs754tf1hgMiWU8YzPbB/G9+zPJ7HMlMvFcS21LX0ZEOBF+7T5sJlcSZrp0Nctf4MqPtFyh66lw6MIIAgcylGiKDvgcOCgpkXn8LuF8q/K3+AgapZoDuekznOVl76Rc+DKXsX2OTeIzbYIeSk3ybjc3hK1NEEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oRtCgrBR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FnXmNwfJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hage0qV8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2271F00A3A;
-	Fri, 17 Jul 2026 09:30:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784280649;
-	bh=+h4zaoETmq00jhyGu87oodp647btHp8I04KMGFhKvoo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Hage0qV8ov+h4bSwo/DoSdw1TKcPMsFVyHqX5SpTN5Lm21Gkps841nn/zy7EhlTqi
-	 0Xr9CGqPdxEUBi2+R0hCiDbVmdzua4kW7m5QwxQECmSCsB1Y3GM5jSNXBpjsK3bjO8
-	 SdEitfxn/E+EOpShC2Y2c8vGlf6/P899q5r3MC0dYpNQ9c9pOv8LSohf4pXiEUL667
-	 O2pS/yztfhp+Rt/OzRSCeyOwLwhM8xI6t/OVcMKI8u0bZcoo3fuTDGGUU6xRm/vsIl
-	 rn9zc+LXhKeA7YIJeOHfYWo+CFjb/0Ru/c4jx0LAKl9Esy9+lf8VlcXt563pIv9EZl
-	 7hYxG1sVagwXw==
-Message-ID: <29457fe7-0fe6-4bc0-81a8-9e67f85b3a3a@kernel.org>
-Date: Fri, 17 Jul 2026 11:30:44 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oRtCgrBR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FnXmNwfJ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H9LQhV1461966
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 09:31:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	aM5py9i2hJf4DZx69ahJpSCbCz3n48OjyDSAbOkMjFM=; b=oRtCgrBRdHoViwzM
+	LG5fZ3Qtm/T9lqDjRRsho928cj4yGFjiZ7ocnfWG4g2jGu4LouKj4drIxODGmCDN
+	hk155wgwaa3EzVCXb+PyRUhCiixVOnUTOmGpR8o9zPXE3tDpGcIaIEZPm3RNOoyU
+	jugju53PopccCKOVpTtElrL8knYVkeSqimN5ezE1x/T0VmCSOyPQfKbofY+k4ap4
+	9/hIbcGQagEL23n5XDL4gwg9Yszx7jLoBR/pwjXUAFxFr0/Q5tQNxIo5Aw2cGgHq
+	NKomTPiwTAFg9LW2R5WwsTRPLS7bCFG5WDfrcZH9hpmQcESIXzn4xMeP2x6rO09n
+	ITe7tw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffhpfg16k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 09:31:05 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c21be5bb4so24121221cf.0
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 02:31:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784280665; x=1784885465; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aM5py9i2hJf4DZx69ahJpSCbCz3n48OjyDSAbOkMjFM=;
+        b=FnXmNwfJIwmZsItyOpo25TClwFJWwrdwDTgmlRxjg2R5d2Z8tntsynDPsO3d7mypUM
+         t29M/ffx49FSmqX67D4whGn9vhWJylqGPl5HWdfv/K3WoUmJKpzZQwVokuNs5wu07fjZ
+         Mc7AIzrwmlobOTyvj7OokTLY0/FJdlaBXuNnXxCKIdvuJRjFizNTbPswLrndfZhtCJhG
+         Nb5LoeM/GcEdRnDInMbhBAacB1q7tjJ+OBl+LI4gu/8puqU4TMYBFBDSL30NUvJxdLC1
+         r2znulH6QaacJCDy8s7nZwAi3wa7WjjA1NLPIv06yUXx3Qtz6TvbMs3pCawC9N/xeKbz
+         QCNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784280665; x=1784885465;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aM5py9i2hJf4DZx69ahJpSCbCz3n48OjyDSAbOkMjFM=;
+        b=Tn1YvBcfRduPpOrp/p1paOi81TVyOhMiWzB93O/DkKWB5WKHIDQ8lId+pE0vnJ6ndy
+         ZYAylwSdBG8tjPXIiQ1YKjr1fI1wdMLHwBdRWAiEmqaSGFh7LI2wTVYB6jNhnUBQllqk
+         yTQ4iBAl91w3WxPDEkXowzxHBhmitmsXoa9pfwzv9zeiUPxFAFn0DU+6ZDnmLbwrcwo8
+         yQg113I07Wy678JImcwGU8i0Ce6Pk1AG3mRYh/M7QAkNsNXj6MyBWL4V0JW5R2nRYT5I
+         NQ1n42qW8QBaceGu3niHV9PXUuVituVw97qmzdM3yyjZyYj41Zu9V7h0HO7/u0JjwJRr
+         S/mQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpDsc7JmFG7Rj+nodSAAUbSn+nGQREff1ciKBUhvpztt/k7dAPvma+gDP+EXXfauE0bOXWt3z4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSKgkp/WO0v+GWV6KyLBrcvelGDwvC1WBWUR9q1HfADnzqPhGn
+	ehZblLHWVnxcLOdDx/M8G8lWIJoaseOKjnf1p8m8EF2MXtwG56fXUGSmC/iJHXcdBPe5sEnhEaS
+	7SGmu3ZkJpfSQFqMoO86SDrTYcEMkm2meNHJOiuwR/VoBRMD3eo22hKOIpeo=
+X-Gm-Gg: AfdE7cmvj3ieQJEfABBkHWnsomMhIiT4iWjs9x7ShpMY00H5L4VARB9txevKGe98J2a
+	fIoPoQCVbMfqLcpBz0mMIMGRWL8RiMi9J8xb7IcVLYfxmN5SESAdYARg/qkPF2dbANAjgL5TRMP
+	8otajc9RQFkcW64lpPQzSdiufzTbgEECbj4UH4pz6sTTDUR9wpFGKloMt4ekPCTMEFhXehcw333
+	fYuaTZBu1yyHcmvJDAGtQ6zJqmWj2tF7ZdJN33sq610WUYkTLN7iBF8iwYYKg75U/dIQBnFCIzd
+	Q3RTlMn2HWoQL3BO4I3GVy2rwGRbzHa5YQpCdNQCUykZ/oV5/yLRlnTdFSOxjbrGDH9pIQES+U9
+	QN67PeD40rdbKmuLSsId9aSdH
+X-Received: by 2002:ac8:6145:0:20b0:51a:88bd:95a0 with SMTP id d75a77b69052e-5213c109e32mr8622911cf.1.1784280665442;
+        Fri, 17 Jul 2026 02:31:05 -0700 (PDT)
+X-Received: by 2002:ac8:6145:0:20b0:51a:88bd:95a0 with SMTP id d75a77b69052e-5213c109e32mr8622751cf.1.1784280665011;
+        Fri, 17 Jul 2026 02:31:05 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1712a63ae0sm46622166b.33.2026.07.17.02.31.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Jul 2026 02:31:04 -0700 (PDT)
+Message-ID: <bc13f78b-287c-4832-b2f1-a68e7b35b57d@oss.qualcomm.com>
+Date: Fri, 17 Jul 2026 11:31:02 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,127 +89,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] virtio_balloon: avoid shrinker execution during PM
- suspend
-To: Link Lin <linkl@google.com>, Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, "Michael S . Tsirkin" <mst@redhat.com>
-Cc: virtualization@lists.linux.dev, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, prasin@google.com, rientjes@google.com,
- duenwen@google.com, jasowang@redhat.com, xuanzhuo@linux.alibaba.com,
- Ammar Faizi <ammarfaizi2@openresty.com>, jiaqiyan@google.com,
- ahwilkins@google.com, Greg Thelen <gthelen@google.com>,
- Alexander Duyck <alexander.duyck@gmail.com>, jthoughton@google.com,
- stable@vger.kernel.org
-References: <20260717002311.681748-1-linkl@google.com>
- <20260717002311.681748-3-linkl@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH] remoteproc: qcom_q6v5_mss: Fix off-by-one error in
+ regulator error cleanup
+To: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>, andersson@kernel.org,
+        mathieu.poirier@linaro.org
+Cc: quic_akdwived@quicinc.com, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260710194638.1502-1-saileshnandanavanam@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260717002311.681748-3-linkl@google.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260710194638.1502-1-saileshnandanavanam@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDA5NCBTYWx0ZWRfXypu4oXFVwz9o
+ gpqgUjp0FdsU1nyQ4nT5j3oLx5IpqDWZwOWcQj3GW8RfphqBBhpDmhqcMU+POFnaOrnfwjZl/jR
+ OA29hwmea6IvCaN5cGR7riTx3PYHA7mePvtdZRl2faG9JYU9xj+VQtziCYI0Ks0MFYIyplyYNh6
+ YAo4IcvHGSOiECcr+RkAitVSN97/MHhhDGppnjAHEQGvTNq4uQbQsuiiKwsSWK7/lPAOwANibzk
+ MYLO5r6/bGfky7OYLjS9t3jl/Rj2oTk8v3mDWZo6LeWjE5szh/4VFlz412vvSC/TUtgTCkcaV8g
+ s5RIhQaP37eyTeusjfOnX7ofjhD/DKFaGZ3Yf8mrCQ0ieuEgoMqjNDkYk8li+CNC+aXMbzb0YAt
+ FTyl9VSIYXleaUAZqrE/f44p92UXLg6T6a0ZK7WcrXtMM46YMLpNwrRlrrxuLWUxkCac85/Gad+
+ P8dau/hGSO6tUSSgdLg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDA5NCBTYWx0ZWRfXxHzZgxSPMDQ6
+ uZxE+nWjKMudR8ZfYcUHNajismzyychm05Fu/HlxkgBep7Sfypf9C+QjqI78xTAEzzxv/h8TwRt
+ wgdviqzK1R1l1ipaP/rVN4zP8rewFn0=
+X-Authority-Analysis: v=2.4 cv=YeWNIQRf c=1 sm=1 tr=0 ts=6a59f65a cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=hI5qLSgjwfH9RGL9AckA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: hXePVweQep3Ckgo0w0xceFcE2Si5F0ON
+X-Proofpoint-ORIG-GUID: hXePVweQep3Ckgo0w0xceFcE2Si5F0ON
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170094
 
-On 7/17/26 02:22, Link Lin wrote:
-> During PM freeze (e.g. S4 hibernation), virtballoon_freeze() calls
-> remove_common() which resets the virtio device and deletes all virtqueues.
-> However, the balloon shrinker remains registered with core MM.
+On 7/10/26 9:46 PM, Sailesh Nandanavanam wrote:
+> In q6v5_regulator_enable(), when any operation fails for regulator at
+> index 'i', the error cleanup path unconditionally calls
+> regulator_disable() starting from index 'i'. However, regulator 'i'
+> was never successfully enabled at this point, resulting in an
+> unbalanced disable.
 > 
-> If memory pressure occurs during S4 hibernation image creation/saving, MM
-> invokes virtio_balloon_shrinker_scan(), which attempts to reclaim free
-> pages. Although return_free_pages_to_mm() only frees pages back to MM,
-> reclaiming free pages under memory pressure can trigger page reporting
-> which might access the deleted reporting virtqueue if it is not yet
-> frozen, or interact with other parts of the driver in a teardown state.
+> There are three distinct failure points:
+> - regulator_set_voltage() failure: voltage was never set, load was
+> never set, regulator was never enabled.
+> - regulator_set_load() failure: voltage was set, but regulator was
+> never enabled.
+> - regulator_enable() failure: voltage and load were set, but
+> regulator was never enabled.
+> 
+> Fix this by introducing three separate error labels to handle each
+> failure point correctly. For the failing regulator at index 'i',
+> only reset the resources that were actually configured, without
+> calling regulator_disable(). Then roll back all previously enabled
+> regulators using 'i--' in the for loop initializer to skip the
+> never-enabled regulator.
+> 
+> Fixes: 19f902b53b47 ("remoteproc: qcom: Initialize and enable proxy and active regulators.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>
+> ---
 
-Yes, this does seem possible.
+[...]
 
-> +
->  static void virtio_balloon_queue_free_page_work(struct virtio_balloon *vb)
->  {
->  	if (!virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
-> @@ -871,6 +887,9 @@ static unsigned long virtio_balloon_shrinker_scan(struct shrinker *shrinker,
->  {
->  	struct virtio_balloon *vb = shrinker->private_data;
->  
-> +	if (READ_ONCE(vb->suspended))
-> +		return 0;
-> +
->  	return shrink_free_pages(vb, sc->nr_to_scan);
->  }
->  
-> @@ -879,6 +898,9 @@ static unsigned long virtio_balloon_shrinker_count(struct shrinker *shrinker,
->  {
->  	struct virtio_balloon *vb = shrinker->private_data;
->  
-> +	if (READ_ONCE(vb->suspended))
-> +		return 0;
-> +
->  	return vb->num_free_page_blocks * VIRTIO_BALLOON_HINT_BLOCK_PAGES;
->  }
->  
-> @@ -1089,8 +1111,11 @@ static void remove_common(struct virtio_balloon *vb)
->  	update_balloon_size(vb);
->  
->  	/* There might be free pages that are being reported: release them. */
-> -	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
-> -		return_free_pages_to_mm(vb, ULONG_MAX);
-> +	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT)) {
-> +		spin_lock_irq(&vb->free_page_list_lock);
-> +		__return_free_pages_to_mm(vb, ULONG_MAX);
-> +		spin_unlock_irq(&vb->free_page_list_lock);
-> +	}
+> -err:
+> -	for (; i >= 0; i--) {
+> +err_enable:
+> +	if (regs[i].uA > 0)
+> +		regulator_set_load(regs[i].reg, 0);
+> +err_set_load:
+> +	if (regs[i].uV > 0)
+> +		regulator_set_voltage(regs[i].reg, 0, INT_MAX);
 
-Why not set the boolean immediately after this, and call it "shrinker_disabled"
-instead of "suspended"?
+The first two labels only unwind a single regulator
 
-Then you can keep calling "return_free_pages_to_mm(vb, ULONG_MAX);" here.
-
-
-
--- 
-Cheers,
-
-David
+Konrad
