@@ -1,58 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5174363B9;
-	Fri, 17 Jul 2026 00:47:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961E620DD51;
+	Fri, 17 Jul 2026 01:05:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784249277; cv=none; b=i6OGb1rbzFniSp1xA5/rxyHGbVpGtPuM+On3HRPrQAKMKi3pYlKeeXD7OErTSwwswO3cZd3+2a1Km6CEuOJ6Q2/r0EYmv4cHP/3cpjElLrrD6xYD15ZxD9bmED1AcOQFrsUape2sj5V+1wfkihj+kvQoWMud+riar8ZcZBa4/0U=
+	t=1784250344; cv=none; b=auMXf8mgDcMh9BSpk/QdNsBQLvb1pnCmi6YkFY2MaVQLgZnygM1q79ioyo0Bvp7tJeQWMLR9BzdaMCBhtdGRk7zw19sacne3+KU+jEjbBk32wg0+ZIZcT0PG7qQI1pHXAJ2EFQxh3j/n9TGuINenhY2+2dFhe7eo1QrY1cz1fhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784249277; c=relaxed/simple;
-	bh=EQXEOQC0cuVVagSCzOZ1ZaotDMk6SnYEtuVz+ift27s=;
+	s=arc-20240116; t=1784250344; c=relaxed/simple;
+	bh=+iH7krM+V3fHbXOuys4lhWfe5Pyuue+V6hAqRtGjiqQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KTc6g/L+0656GWdsyjszL4JJz3u3Kj4oZ3TCHHc7eYAP7F/YQ1FFs0Iy+MDkyufeEYpmw7a/IKqDh9XhTc5xAl3LSu7GSN8o9eB7KIadSUAa1J6WE6JrVQrba13s0+d7zbIuJ5QPoSeCVIPKHfJlCGmALRIJL5UcBAJCH5XssQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bnR4g/lb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=K4K9aKAeBJvCEqgTV1g8bMr0roHXcQyfmW2xyIONsEf0+6IFawfpae+aLv22BcEH/yYWG/yRvRCUhb/pBOxWJmX9zYTGBiChwFIHKIDFjB4CZVcpQgWOFtJSAPnWoQ3uz4rrq2ZwPBC16jB4GhGH3rxLvOUkf/MT6soNJfFNTnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tt9MXMZ7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bnR4g/lb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D06F1F000E9;
-	Fri, 17 Jul 2026 00:47:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tt9MXMZ7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B5D1F000E9;
+	Fri, 17 Jul 2026 01:05:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784249275;
-	bh=GYSWJd8UeOFdE1w+h71X9xJp2/mCnu5EoOrvBVX2vTI=;
+	s=k20260515; t=1784250343;
+	bh=ogjg6JXEwNAVi6wkR63GVRchcCh3t5yDoHZWaPgOSMg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bnR4g/lb0RSoxC8eGprzH27B3pNBIslVA8folhZOd6dnCwxuz6f7R7a6uwsmbO9Jo
-	 RVKIq8bt0sJvwawTOZFaCv8ZG642/uKstorF0wiP8o95bLundb+tycje5cSh99JgX5
-	 nddsPiu6KoDDIc2op0QdX1e8ns1i2zKNyjVSTaBRG2u0ggS7UqC2WY3wJB67Nh0892
-	 DI/vqbpxtQx+q8npNa5kl7Hi4Knzi7CG2fjmfSgdwMhx62D09V6vFxcCQ1SlySqKDB
-	 qJUL4F7svHzJ3D7tU3oa5YvPTtQpFJ7nRU3utFVkEKcG/TYDgl4B2oR2PR7xHAJrQY
-	 3OoYmjiPr3NFw==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
+	b=Tt9MXMZ7UaIQGJ5YgFFiAgmg2HPQANPh9gIj501W+lsWeY7HACMtll2wRe9RlReY7
+	 JHu55b86htSwk3a+v1v5/nG1uMmHEBKPRBdbZkpuJLt4shx4k4U2VEiduNlz8iNsmT
+	 5rgEfgeaSvwRyVsqn0OP2HpYJEpJFM0NEDzqQChuouYDmnUA4FBM1sxl5MVq35ZPGs
+	 Or6EwYTPig2K3jjoyMi9dg3ZqgbsGzbFVtWQb+uN1h7DRJhft1uUINxh2F9XfjRXEv
+	 znJS85XcHauSiqhyoVtN+EsyDHdKF1bsifEmQWQrSMQ163T2124iN+dgTkNMRYZA4G
+	 6lKb9XC4myPEw==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	SeongJae Park <sjpark@amazon.de>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 6.12 000/349] 6.12.96-rc1 review
-Date: Fri, 17 Jul 2026 02:47:43 +0200
-Message-ID: <20260717004743.134309-1-ojeda@kernel.org>
-In-Reply-To: <20260716133033.287196923@linuxfoundation.org>
-References: <20260716133033.287196923@linuxfoundation.org>
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 0/7] mm/damon: fix uninitialized DAMOS field and kunit exec expectation bugs
+Date: Thu, 16 Jul 2026 18:05:33 -0700
+Message-ID: <20260717010533.120368-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260717003022.119437-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,22 +52,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, 16 Jul 2026 15:28:54 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 6.12.96 release.
-> There are 349 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 18 Jul 2026 13:30:01 +0000.
-> Anything received after that time might be too late.
+On Thu, 16 Jul 2026 17:30:14 -0700 SJ Park <sj@kernel.org> wrote:
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64:
+> Fix a few Sashiko-found unurgent bugs.  Patch 1 fixes use of
+> uninitialized damos->last_applied field.  Patches 2-7 fix DAMON kunit
+> tests that do invalid memory access under test failures.
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+This was meant to be RFC, but I forgot adding the tag.  Andrew, please don't
+merge this as is.  Sorry for confusing people.
 
-Thanks!
 
-Cheers,
-Miguel
+Thanks,
+SJ
+
+[...]
