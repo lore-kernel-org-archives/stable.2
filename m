@@ -1,77 +1,80 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E192EF67A
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 19:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDBF3914EE
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 19:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784317514; cv=none; b=ORvK/yAFGEmT2KbBJdO/AYgqjhRERvnfrM37QwBjifc9wibWpq0idd0onpPLi6519oTkHxu5WjvWLI01K1ZH0F4YBdx9N+uZpb8BRxtuHdeIPNjZnFK1GPoSJvsuWE7k2xwB/VJwh41xBJJH1RX56scx4ctgG3I7gV0UIJfYLy8=
+	t=1784318046; cv=none; b=SliFng9BCIPC3rTeaP97mDmZFuWCVjzZkEIpLIJO3f5Ovlaux2EJOYquyjiBEYl/IEgCqs2+TUpF5RzRxG9uMgdOSrM6+4iATA9S95gCufLTQhn8thfmMqk2boeGoFmBqOV1bN7luCaDPlN2FyiOArQwoaeInbGv1zNWjsp+L7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784317514; c=relaxed/simple;
-	bh=RxkvEXDx8KlyCHd2+X+HZ/CkG1k2fbI1E4IJ9wEZVew=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uN5vWKtMvUcpest61zNhWhkYQsCTHHwrDjOqfqFi1FWueV0WYsKC6PEJ89jL/5CEKKqddEAUNvGIozKO2kbqvB4qIvQ/dlfqhrQyBT1gLZWkuigFoOfjzqCJ1MGvv95E278ZXb4NPA+Ch0Fe+dNaguxg39edfRoml5dP78UyBNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AtRcqkAs; arc=none smtp.client-ip=209.85.160.179
+	s=arc-20240116; t=1784318046; c=relaxed/simple;
+	bh=qDEL+NdYHAMBArrfQo7xo37wngGQUozp4Fd2l50ofPs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dEv9DNljFqIdxWvjGms07Y7zG5JThKBnzLZo85oYbmNhYMb2hNbtCvG/2kV2ee+/IXVWr0t6Bk3x+hqQjqp4dPKiVtHQ/tbZINLryj/gYecW9oamnBa4XBgKQLqI0w/sfi23Ea+6f6f+c+A82RaMHfY0x8Xt8UGk4yDmdOrqz8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+uxy9AU; arc=none smtp.client-ip=209.85.215.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AtRcqkAs"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-51bfad59921so71116071cf.0
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:45:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+uxy9AU"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cb5a6aa8760so334621a12.1
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:54:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784317512; x=1784922312; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784318045; x=1784922845; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=40Iwwbwi3zfzgUmW087PtCRLpD5oHv9m7czWAQxS6Q0=;
-        b=AtRcqkAscq9IJlcXd6onOKWeR6ZsfZf02iDmtSlNGJtV1pgonpzHcTAI9JMxN+gti1
-         2dzLx2zksI3oaj0V/lJDY30K50FxU1TDMv4Pqwh9GHN3Nfx6B+lZN7RTCORX+YP6VjJT
-         cAZTmTb22fDsySjJoosrG7w8rf92yrtpK03fmNgrPR591VtiMm+Q5AI93xis5H+h0hcn
-         6Vw9+TY8SKyQrUg0YzH4hh83lO+r2i+umE4sr2jh110cgDfF7YyaxLhiAhspkRNFRwlx
-         Jo7NX1xS5VRuV4upfXRcGQkzKp7GUjxrWhJFxwPqaa6Q0ZxN1Sjh4nIvm6v7yBok67Yb
-         N3iw==
+        bh=OErWzxQXSQHPfYViK6AsSVvyH9H9J8o7igncn0U/Abc=;
+        b=L+uxy9AUZC3kEidm+53y3EJTc7PQo7VYY36st+YyDjSGKiA59gU1ARKuXr93lIvTuS
+         9LoCifD3NuTzEWYiY3B2v7f09wUfe9SLBRbhv0xAeC1DUPKMJ/HIRYweobUd6rx5a6JW
+         i0vk/u+gGJoGWkd7/iaPFH5UPX8+4hezyzMjGfVCuZRzEMLU9HZKJQK/A9a1qBnUmccy
+         ARbITB2d8E4nPPl5432QId6U59i0Op45A3C0thrkNKoRDaua+3ks/LJE2yjXqwe/KDbO
+         l9H9zKCFV9BCMRVSIuZmI4tHrFFXRwqLDh/4PcuHaIxwfUUgniRL3L1bLx2H67gagbTo
+         wGeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784317512; x=1784922312;
+        d=1e100.net; s=20251104; t=1784318045; x=1784922845;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=40Iwwbwi3zfzgUmW087PtCRLpD5oHv9m7czWAQxS6Q0=;
-        b=Rb9geKXGqPRppCdy8E5Lfki1CkwamnggCG1UKTXb8LZMNMk2KlptiC0XCVjcDWljEe
-         wIsye5sKEhQu2P2G+1cO/ph4ashRqaxKT9pTEwme8ar2rhKi9hv5TQ5pHfF6nyfU7R1+
-         KboKAgJn1oLfVKPDdVHRrtPSSSRl1kZ0PyATGTogCNHegGueteMCrRJJxC2xom/bwDmE
-         lZhqgZsFV59HcBQsc/9iipMk7Brpj//lA0DQKprQzrVB9jMWpB7RCbYmujVjQEip3e7M
-         Yve6EmWEemkt/u+dPi8A95AbhXoEv9EDmhWsiDQm2Qk0oV/jyGv8K3cRjwjAuqrZQ6qA
-         Zbeg==
-X-Forwarded-Encrypted: i=1; AHgh+RqKQgPia2NGaw0Sm/3xsaxI6NRk8YYx+t6RlBeS7yjOMYqbZEueXdPNoFLP6VTEmDBbm214Jqc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCYUnY2L0whliTZINBzg3KgfGrHvqZQVzGoPHzr5F4ZgExf/7x
-	SUS2rGSk5piQP4GBdrFZJKIfKbC8ZhLFHsS7dpK/z2eXTWwfTqu6XI61
-X-Gm-Gg: AfdE7ck+Ln84BqR4DbkmFpH6P3myM8b6Pcs1/dUPpxbO+jL/lO45eD/hpfuAfwxLXZe
-	93tp3E2OJYYyWm14le/Wec//IoAqiwBEnhkiMXyCDTi6GNa5iEq2N4Wu+S8kpv5QiFAToLai7TX
-	pcjHsIf8/jm0b+WNK+ApcbStEyxIfUBwj8zldpayJNCzcS1LSJE14lolpd4siFFC37OjFmSQG2l
-	zH9oFxSvgPNRnDRkPPpBFO/kyDKA3ak/pYnQ06r2q/4QmCqPhIQkdjrrp7fp/shR9dOjwDguD3c
-	8VM7K6YVHdkhxRWrRlQQRDnnI3AFx4qMsx5Dy13gRKr0F+dguZE3w0VGUkMLb96d1s6cE1nwqR0
-	Fv7abDZ5EY7/tPSAE9BZkTv/FGBgRIt9sJ3osABIEflDq60XIPTAXNJqQVIVnm9fP8jXQDVpCzw
-	xQa9RYo21m6hu2mgAQK2BowXjnVfOh1ys=
-X-Received: by 2002:a05:622a:1:b0:517:6b9c:58e4 with SMTP id d75a77b69052e-5213e28ff1fmr41926781cf.51.1784317511770;
-        Fri, 17 Jul 2026 12:45:11 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5214f5fb88esm19766811cf.21.2026.07.17.12.45.11
+        bh=OErWzxQXSQHPfYViK6AsSVvyH9H9J8o7igncn0U/Abc=;
+        b=R2FqG3J11UNHnmES5+guzQ8o6lEAxZ+j178g8bj2fEYPuDVbUANB3Ztav+EvTqZVRg
+         HFflBhxkN+lByvq+AM+5teXJ5Oto+sUKZg5wRpOd47r0y+LiryUQQJbNd7oPp+JechOx
+         T5rle8sp29nTfKnxLKUNAiAi1tL+3fTKjg+JxkXJErt56j/abhBweIIJdeQPr39Rl32s
+         D21pXkuY7+vVPEPJENBRStPrqUySBcireZRS2goPpbGbK3+o/GDxFu4OdQaYKfFZUc5J
+         nmTtDtH/MvyvD13WVhIPX5OeLfeasoziJ0z5EgJXzHwuE9sqO0EdWpINuYlleheKC2GS
+         hA5w==
+X-Forwarded-Encrypted: i=1; AHgh+RpwTDEV6+9UHpaqdwX2slMcInDOOFLccZoG/mUi9+lf6SeB5HlgjueJVkXEq2sfE9t/Tu3m08U=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy7SL/P7idUlNALBy5kiwJBgr1dgkxqwsQpzE7+co616mI1Jo7A
+	M8IhdAg0ks61MEz6T9C0kedUPe6WTyz6ZAHuVQWlU/L1S65p1BTnX+P4
+X-Gm-Gg: AfdE7cmBP64siH0TGik2F0L4OLHqqOAZlYDMhIUbHYbIrxa6RKpJ/Z1Yr84crkaTjan
+	NeLHGrJdNOKUV9eH02wxa464QvE7/ZhJRbzLeL/+uZMUKO0rWK+iQP05lgcwhwdsrP+dLa/SL2Y
+	EWUyggWOqIcRikhlhqlnQ6QQtU/u5Xx84V/GBWr2G6PZ1tVCjVgRYUXgDwP0LRniUB1Y+UO8VPr
+	9uBNumDoSRlVObPmx9uasyg6NNrHyauNIUNlRiyIT0sCNMhiajinY3x3k9F5MwMoYuKc4FdW/QM
+	erCUNNisw8bjkosw7J+s6Shv97d0oTrLawe+QY8fiFpEYQiTCIPBhaKYRsFdO6fV33ALoqVaFhA
+	hrXO77ftwKqUXXYSVPVO9uhvL0tLu1mwGUUwa9KCkzpf9KfKZ0NcVhuqgks0/i6QSQZALTaQxG9
+	Cz8PEglyW3gjogdNtYs17xqDpnF5jUd42wuQvUQCUkEUDXt7quRqyfOPGe/3TlRJvYROwAanjeF
+	bQg
+X-Received: by 2002:a05:6a21:6813:b0:3c0:9c19:b27d with SMTP id adf61e73a8af0-3c3adb1f025mr4919860637.75.1784318045058;
+        Fri, 17 Jul 2026 12:54:05 -0700 (PDT)
+Received: from ghost.localdomain ([103.170.252.7])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13ce29c2dcdsm7103119c88.1.2026.07.17.12.53.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 12:45:11 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	elic@nvidia.com,
-	jiri@resnulli.us,
-	netdev@vger.kernel.org,
+        Fri, 17 Jul 2026 12:54:04 -0700 (PDT)
+Received: from ghost.localdomain (ip6-localhost [::1])
+	by ghost.localdomain (OpenSMTPD) with ESMTP id 7fc67677;
+	Fri, 17 Jul 2026 19:53:56 +0000 (UTC)
+From: Nikhil Solanke <nikhilsolanke5@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
 	linux-kernel@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: flow_offload: clean up indirect flow block on bind failure
-Date: Fri, 17 Jul 2026 15:44:55 -0400
-Message-ID: <20260717194455.1734974-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	stern@rowland.harvard.edu,
+	michal.pecio@gmail.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	linux-doc@vger.kernel.org,
+	stable@vger.kernel.org,
+	Nikhil Solanke <nikhilsolanke5@gmail.com>
+Subject: [PATCH 0/2] usbcore: Add quirk for 255-byte initial config read
+Date: Sat, 18 Jul 2026 01:23:34 +0530
+Message-ID: <20260717195336.98500-1-nikhilsolanke5@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,82 +83,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-flow_indr_dev_setup_offload() records FLOW_BLOCK_BIND requests in
-flow_indir_dev_list before it calls registered indirect providers. When no
-registered provider binds the block, it returns -EOPNOTSUPP. The replay
-entry is left behind.
+This series adds a quirk for USB devices that fail enumeration when
+the initial GET_DESCRIPTOR(CONFIGURATION) request uses wLength=9.
 
-One affected path is nftables netdev offload. A netdev base chain on a
-device without ndo_setup_tc can take the indirect path if an indirect
-provider is registered. If none of the registered providers binds the
-block, the operation fails with -EOPNOTSUPP.
+Patch 1 adds USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE which causes
+usb_get_configuration() to use wLength=255 for the initial config
+descriptor request, mirroring long-standing Windows behavior.
 
-The failed NEWCHAIN transaction can then abort and free the nft_base_chain,
-while the replay entry still points at that basechain and its flow_block
-cb_list. If another provider is registered later, the stale entry is
-replayed, potentially passing freed data to the provider callback or
-splicing callback entries into freed memory.
+Patch 2 splits announce_device() to log device identity before
+enumeration, improving failure diagnosis.
 
-Use the return value of indir_dev_add() only to track ownership of the
-replay entry. Preserve the existing behavior of not propagating -EEXIST
-or -ENOMEM. If this invocation inserted an entry, remove it again when
-the bind fails.
+Nikhil Solanke (2):
+  usbcore: Add quirk for 255-bytes initial config read
+  USB: hub: Split announce_device() to log device identity before
+    enumeration
 
-Fixes: 74fc4f828769 ("net: Fix offloading indirect devices dependency on qdisc order creation")
+ .../admin-guide/kernel-parameters.txt         | 10 +++++
+ drivers/usb/core/config.c                     | 39 +++++++++++++++----
+ drivers/usb/core/hub.c                        | 16 ++++++--
+ drivers/usb/core/quirks.c                     |  4 ++
+ include/linux/usb/quirks.h                    |  3 ++
+ 5 files changed, 61 insertions(+), 11 deletions(-)
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- net/core/flow_offload.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
-
-diff --git a/net/core/flow_offload.c b/net/core/flow_offload.c
-index 5071d7fe6ce2..5fbb1ae4679d 100644
---- a/net/core/flow_offload.c
-+++ b/net/core/flow_offload.c
-@@ -606,15 +606,20 @@ int flow_indr_dev_setup_offload(struct net_device *dev,	struct Qdisc *sch,
- 				void (*cleanup)(struct flow_block_cb *block_cb))
- {
- 	struct flow_indr_dev *this;
-+	bool replay_added = false;
- 	u32 count = 0;
- 	int err;
- 
- 	mutex_lock(&flow_indr_block_lock);
- 	if (bo) {
--		if (bo->command == FLOW_BLOCK_BIND)
--			indir_dev_add(data, dev, sch, type, cleanup, bo);
--		else if (bo->command == FLOW_BLOCK_UNBIND)
-+		if (bo->command == FLOW_BLOCK_BIND) {
-+			int add_err;
-+
-+			add_err = indir_dev_add(data, dev, sch, type, cleanup, bo);
-+			replay_added = add_err == 0;
-+		} else if (bo->command == FLOW_BLOCK_UNBIND) {
- 			indir_dev_remove(data);
-+		}
- 	}
- 
- 	list_for_each_entry(this, &flow_block_indr_dev_list, list) {
-@@ -623,9 +628,17 @@ int flow_indr_dev_setup_offload(struct net_device *dev,	struct Qdisc *sch,
- 			count++;
- 	}
- 
-+	if (bo && list_empty(&bo->cb_list)) {
-+		if (replay_added)
-+			indir_dev_remove(data);
-+		err = -EOPNOTSUPP;
-+	} else {
-+		err = count;
-+	}
-+
- 	mutex_unlock(&flow_indr_block_lock);
- 
--	return (bo && list_empty(&bo->cb_list)) ? -EOPNOTSUPP : count;
-+	return err;
- }
- EXPORT_SYMBOL(flow_indr_dev_setup_offload);
- 
 -- 
-2.43.0
+2.55.0
 
