@@ -1,49 +1,46 @@
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD8D346E55;
-	Fri, 17 Jul 2026 08:05:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0169443F0B5;
+	Fri, 17 Jul 2026 08:06:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784275549; cv=none; b=rMHLzz6ENcxwj+f7kvNOEytLb9o1FQcdrgth9G17I2MHrCihKaS0ONIPUxIwweu79MB9Fs41XM13xu1hgj8mCkemv23kI9F2mA2lGm1xBmG6Sst+9YZE1mTJh2jZM1KdpPhk/wluZf+C8XQbL7JNEVGkxuSo7SyDuCH+rQuwVwc=
+	t=1784275600; cv=none; b=ENyudNhxEp8u5uYgs5RZy+Bhnjr1DI0aLz4G7xgqk5X9xpRMJpJBYMF9qcuY3CJjEXBkFvHS8Tji1HMgKXdv+O6vPJx7dXyskTr5E4OA3Hm3z7UEmQ/tb6onhZczImmD88phYfIXKSFQUidGwV1pRtj3PpsjucBWFPcOeREQk7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784275549; c=relaxed/simple;
-	bh=WUYI7873/7p7398lJM8uEipYVBDobCyWOfNN5wilXHg=;
+	s=arc-20240116; t=1784275600; c=relaxed/simple;
+	bh=15qUkPp5HQtWJu75/V5fmaYTxyKfq3G+IWIiQnmuMRE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BIJeNNZc7K05r4qQpjm2yuT7bb1lYA0v2LHD8NlltgkbcJtJ5NZN8z4jg+zXB8zb9dGXNLfSkoDl7YN+WVwNxDb1Qp22iI5113EElwTPPDZFcgNCuylFxSNseoftG/2xP8K/1RcjC9r0k4KUXNZWcx6mydI692fiMRN5XFVc/t8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=tJYfOtIn; arc=none smtp.client-ip=82.195.75.108
+	 Content-Type:Content-Disposition:In-Reply-To; b=gZI7pJQKy6KdXUE1XEYLYEQ/LZnAbSrlahYvOcMgThUax71ehBcxWR7iKv6G+BV+nhZFRIEkff0tbHNEwfBHt6tV9ADmaIg2PJAUuug39LGZefxe+n9ie6y8tHpWfYlbtyuc+SfEPZf3CllMsQHgTjeakQtNrcDIVbXdofpfARE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=HFtkzazX; arc=none smtp.client-ip=82.195.75.108
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="tJYfOtIn"
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="HFtkzazX"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
 	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=2ldB1QimwkHy+7qBFVXqF6nsMvg3QMUrl4YqPwF9byM=; b=tJYfOtInD5XPdKbAxU+3ZpYVzT
-	zpQDseqzrBvUqzOqemJ5xR8cdoOWh3IOrh4SRPM2FofmO0G7t1x0w+Y/tYvNegXeSrMPmkYrybQmN
-	NsPZ5t9O5SLViv4mN8epdhMbED86zFKQRnLAcRp5QnJ2Ejb+TtjZO5jSB3ttjS6T/khB6pgHCIPbQ
-	jz8Sr3a2NEnJMyNKgjFuQ8GlLt7p2L+y3svwaAYmFhDqbzcDswo7wFmYXc8qro4CktaVbuNA4cdiM
-	BtPZJ8tCpldWTJ0fhBLDeRA8O14yPQiY4PjRtlPjI+JKUKyw5OI/vX/FgsalB3eFhgs/YZN0WCJp5
-	OU29ySIw==;
+	bh=xxOMUzehe95KNEii0uEksq1dvZVX0jr/h3sQAwlrmbI=; b=HFtkzazXxq1N/WloVcJxpXwhZH
+	EWr52p3vkewYnHnYpJmhT52jtoFjzOsLItNGLmqySQ+Cr/EZW5ZYRyIrRKua0ztWfmK9Y0Knvn9U+
+	OzZza6xQY1S0dfn0BEYCtLEcwAJUDR6pnhYS9ZreUIwz8mKc35N6CsNRimAnqrAti1JAyOBRCU/gR
+	oMbdHv98Qb3yiUEYLglklxhdPHuxagwxpAmL4djO8aBNdHtFtE71X4ZZRHQ6XQIB7Pq2VZLCGy5N2
+	h32lMst17E2mifRKfxzENTrSUINntx99XDY0KrrkdsNvDuTO9ejuH7RtAsXernX6iSLGTQnEcJjdp
+	wKy2APKg==;
 Received: from authenticated-user
 	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
 	(envelope-from <leitao@debian.org>)
-	id 1wkdZR-004SCd-0p;
-	Fri, 17 Jul 2026 08:05:21 +0000
-Date: Fri, 17 Jul 2026 01:05:15 -0700
+	id 1wkdad-004SE0-2T;
+	Fri, 17 Jul 2026 08:06:36 +0000
+Date: Fri, 17 Jul 2026 01:06:31 -0700
 From: Breno Leitao <leitao@debian.org>
-To: Doruk Tan Ozturk <doruk@0sec.ai>
-Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, 
-	miquel.raynal@bootlin.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, linux-wpan@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] mac802154: llsec: reject frames shorter than the
- authentication tag
-Message-ID: <alniMI0L968UYhkq@gmail.com>
-References: <20260709131246.44517-1-doruk@0sec.ai>
- <20260716193106.30607-1-doruk@0sec.ai>
+To: Sabrina Dubroca <sd@queasysnail.net>
+Cc: netdev@vger.kernel.org, 
+	Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu <herbert@gondor.apana.org.au>, stable@vger.kernel.org, 
+	zdi-disclosures@trendmicro.com
+Subject: Re: [PATCH v2 ipsec] xfrm: espintcp: fix UAF during close
+Message-ID: <alnidhftTfUNqnlS@gmail.com>
+References: <a62857f72af228a0781a5c0cc0f8d898d9e0d7be.1784234935.git.sd@queasysnail.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,35 +49,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260716193106.30607-1-doruk@0sec.ai>
+In-Reply-To: <a62857f72af228a0781a5c0cc0f8d898d9e0d7be.1784234935.git.sd@queasysnail.net>
 X-Debian-User: leitao
 
-On Thu, Jul 16, 2026 at 09:31:06PM +0200, Doruk Tan Ozturk wrote:
-> llsec_do_decrypt_auth() computes the associated-data length for the
-> AEAD request as
+On Thu, Jul 16, 2026 at 10:54:59PM +0200, Sabrina Dubroca wrote:
+> ZDI reported and analyzed a race condition during close for espintcp
+> sockets:
 > 
-> 	assoclen += datalen - authlen;
+>     espintcp_close() frees emsg->skb via kfree_skb() without holding
+>     any socket lock. Concurrently, the xfrm_trans_reinject work queue
+>     invokes esp_output_tcp_finish() -> espintcp_push_skb() ->
+>     espintcp_push_msgs() -> skb_send_sock_locked(), which reads the
+>     same skb as a data source.
 > 
-> where datalen is the number of bytes after the MAC header and authlen
-> (4, 8 or 16) is the length of the authentication tag. Nothing verifies
-> that the frame actually carries at least authlen payload bytes. A
-> secured frame whose payload is shorter than the tag makes
-> datalen - authlen negative; assoclen is then passed to
-> aead_request_set_ad() as an unsigned value close to 4 GiB, so
-> crypto_aead_decrypt() walks far off the end of the scatterlist that
-> only spans the real frame.
+> Fix this by adding a synchronize_rcu() call after resetting sk_prot,
+> since esp_output_tcp_finish() runs under RCU and won't use a socket
+> with sk_prot == &tcp_prot.  Simply taking the socket lock in
+> espintcp_close() could lead to leaks, if esp_output_tcp_finish()
+> re-adds an skb in the slot we just freed. After this, the existing
+> barrier() is no longer needed.
 > 
-> The frame is fully attacker-controlled and reaches this path from any
-> IEEE 802.15.4 peer in radio range. Reject frames whose payload is
-> shorter than the authentication tag before the subtraction.
-> 
-> Dynamically reproduced on a KASAN kernel as a general-protection-fault
-> in the AEAD scatterwalk, and the fix confirmed.
-> 
-> Fixes: 4c14a2fb5d14 ("mac802154: add llsec decryption method")
 > Cc: stable@vger.kernel.org
-> Assisted-by: 0sec:multi-model
-> Reviewed-by: Simon Horman <horms@kernel.org>
-> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+> Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
+> Reported-by: zdi-disclosures@trendmicro.com
+> Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
 
-Reviwed-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Breno Leitao <leitao@debian.org>
