@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1916E2EAB6F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0175344044
 	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 18:12:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784311923; cv=none; b=S7Ki/8Je05pCZU2jXYxy04dB7iPWH/PSbKWciRW/oP6yqsU/gpTe5V8uuE77qwf0RbR5gjw/npQVlg0/AbRAxiglnGCZo85IQKacE7naQFGn7AyabplRnMr9gQciTTFri5OKciEeaUz3Y/QHtEdcZwEU1m81uYPEb8ukBTrV37E=
+	t=1784311924; cv=none; b=IcFrSi4pvocTmkuGoQtQhtzoOEMuvehwk/tG4ezESHnwRcD2qGjLzx62Hgb4JmqsU4Fnj82vkVYgowz05xQYm5R7ccR87PqnPnMwjjhIdZ6lpH/5pbg0vqeW4mO+0EviTvfYPJRIg7sqj+TmImUKZ868SdwHboAb3P0Un9rfGHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784311923; c=relaxed/simple;
-	bh=JwnZL+YCwllclzay+NAvX531J2L0uvIGoYbc+fni1AA=;
+	s=arc-20240116; t=1784311924; c=relaxed/simple;
+	bh=LSlC977RRp02L9noalefMFM4zlkQDvQDtVLsBnUdElQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SaTm7qvm3SVfRb9aHbuRazwsN3rxfpi8LWvKqoD1PPGkNf6/67VnwCv0Dy/PtTqaZr23TWTJswgWnlkohAWrQ7V/UrP61VeTpplT87TSZdbW8a2icRBp/AK1xDax1/+zfBzsMiApldtA8kiOhzDr4IZ2RW1+36j5/s1/BzieEMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/ap5/Xl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Na5CgRx5acwr5/EaqWhabbfT8o8SHhBeT5tbH+9Ti6CcjzL3v4x6rqM0BYf2zucj4jhlKaxRHj0KFHF69/xA4z1yOlAZis7gUd17VcD20smWTxMciTuwBScxVQZe/7nUBbwkrs2oKcb/AoroKpHjv+ZbJB/dJREaYdL5DP0gOkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PqObCgMy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/ap5/Xl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736751F000E9;
-	Fri, 17 Jul 2026 18:12:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PqObCgMy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325D61F00A3E;
+	Fri, 17 Jul 2026 18:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784311921;
-	bh=fmR4VEhcoV4cTfcr6MRsWAiofxCIXhD3woZ+A7YVLhc=;
+	s=k20260515; t=1784311922;
+	bh=yK0u57TPcBHk6spoRdLlIBTs4sbYa/eZIiO4+8GLdbs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F/ap5/XlBIOKv7ojNOSs1mKBpVLpr08K8G84hIqHvA3fizl87H541pe+gJbpZ31EE
-	 SQpT0UTbjy0yYclL7Rxpf6XeBvUOIynma6G4N/+oTtH+Ei9HDsHzr0fBIX/MTUQmeM
-	 0b1b8gtSK4UwpVt7bQc6m3OXv+pVpPBnPWhPpD4T05/Zx5RU6VtkiY3UVHbeo0Obt6
-	 EfFqd8PiTjX8edXC0X6hVuXI9UXFTn3VSew90GmPNzs/9G9eCDZTvHE+9834+JgYPj
-	 PI9RVHY5b5emG5+W0aU12oVSV0O/Fh8pv/i8gEmkQy8Hwpoiy6AZYjGH2Q+KTHA1+b
-	 k3T8E3QBJ7yVQ==
+	b=PqObCgMyO+4i36Xbd8tcuPQ5bX5HBLJPuQc0rbBlYiMgfw/gHxTmCYfFBUWKoOLyG
+	 bbaO7LHcLfxaaSjyq5EPahmSSXovrqQyLF4KXbQQw6yRaFkDIAm4HRw1VtGK+aFdYB
+	 D4FA1D0MzYcwIUwZi6eXjO4IYLk6iJmVwh1tCDx8edDLxWlteDFiTRj4eZk54QFwBl
+	 Of9aoncfhRwlwzh1vwcP3C8it1IOZCQrKaVtFXe0orMoe7o1Fv6RX9sHMLaezlK7Dm
+	 LcXdyoYbnwRbtJgCCRT/kEsTOw20WZiF24RwPxHOI+G4UQ5HijTUqepk4QvFIVHTfx
+	 3MrHUGcmeYykQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@kernel.org>,
+Cc: Manish Khadka <maskmemanish@gmail.com>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] treewide: Switch/rename to timer_delete[_sync]()
-Date: Fri, 17 Jul 2026 14:11:58 -0400
-Message-ID: <20260717181159.2086971-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] HID: appleir: fix UAF on pending key_up_timer in remove()
+Date: Fri, 17 Jul 2026 14:11:59 -0400
+Message-ID: <20260717181159.2086971-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071430-excavate-prayer-7d7c@gregkh>
+In-Reply-To: <20260717181159.2086971-1-sashal@kernel.org>
 References: <2026071430-excavate-prayer-7d7c@gregkh>
+ <20260717181159.2086971-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,33 +46,146 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Gleixner <tglx@linutronix.de>
+From: Manish Khadka <maskmemanish@gmail.com>
 
-[ Upstream commit 8fa7292fee5c5240402371ea89ab285ec856c916 ]
+[ Upstream commit 75fe87e19d8aff81eb2c64d15d244ab8da4de945 ]
 
-timer_delete[_sync]() replaces del_timer[_sync](). Convert the whole tree
-over and remove the historical wrapper inlines.
+appleir_remove() runs hid_hw_stop() before timer_delete_sync().
+hid_hw_stop() synchronously unregisters the HID input device via
+hid_disconnect() -> hidinput_disconnect() -> input_unregister_device(),
+which drops the last reference and frees the underlying input_dev when
+no userspace handle holds it open.
 
-Conversion was done with coccinelle plus manual fixups where necessary.
+key_up_tick() reads appleir->input_dev and calls input_report_key() /
+input_sync() on it.  The timer is armed from appleir_raw_event() with
+a HZ/8 (~125 ms) timeout on every keydown and key-repeat report.  If a
+key was pressed shortly before the device is disconnected, the timer
+can fire after hid_hw_stop() has freed input_dev but before the
+teardown drains it.
 
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Stable-dep-of: 75fe87e19d8a ("HID: appleir: fix UAF on pending key_up_timer in remove()")
+A simple reorder is not sufficient.  Putting the timer drain first
+still leaves a window where a USB URB completion (raw_event) running
+during hid_hw_stop() can call mod_timer() and re-arm the timer, which
+then fires after hidinput_disconnect() has freed input_dev.  The same
+URB-completion window also lets raw_event() reach key_up(), key_down()
+and battery_flat() directly, all of which dereference
+appleir->input_dev.
+
+Introduce a 'removing' flag on struct appleir, gated by the existing
+spinlock.  appleir_remove() sets the flag under the lock and then
+shuts down the timer with timer_shutdown_sync(), which both drains any
+in-flight callback and permanently disables further mod_timer() calls.
+appleir_raw_event() and key_up_tick() bail out early if the flag is
+set, so no path can arm or run the timer, or dereference
+appleir->input_dev, after remove() has started tearing down.
+
+The keyrepeat and flatbattery branches of appleir_raw_event()
+previously called into the input layer without holding the spinlock;
+take it now so the flag check is well-defined.  This incidentally
+closes a pre-existing read-side race on appleir->current_key in the
+keyrepeat branch.
+
+This bug is structurally a sibling of commit 4db2af929279 ("HID:
+appletb-kbd: fix UAF in inactivity-timer cleanup path") and has been
+present since the driver was introduced.
+
+Fixes: 9a4a5574ce42 ("HID: appleir: add support for Apple ir devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Manish Khadka <maskmemanish@gmail.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-appleir.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hid/hid-appleir.c | 45 ++++++++++++++++++++++++++++++---------
+ 1 file changed, 35 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/hid/hid-appleir.c b/drivers/hid/hid-appleir.c
-index c45e5aa569d25f..bb7db9ae41c249 100644
+index bb7db9ae41c249..7a3fcdf7cd1460 100644
 --- a/drivers/hid/hid-appleir.c
 +++ b/drivers/hid/hid-appleir.c
-@@ -319,7 +319,7 @@ static void appleir_remove(struct hid_device *hid)
+@@ -109,9 +109,10 @@ struct appleir {
+ 	struct hid_device *hid;
+ 	unsigned short keymap[ARRAY_SIZE(appleir_key_table)];
+ 	struct timer_list key_up_timer;	/* timer for key up */
+-	spinlock_t lock;		/* protects .current_key */
++	spinlock_t lock;		/* protects .current_key, .removing */
+ 	int current_key;		/* the currently pressed key */
+ 	int prev_key_idx;		/* key index in a 2 packets message */
++	bool removing;			/* set during teardown; gates input_dev access */
+ };
+ 
+ static int get_key(int data)
+@@ -172,7 +173,7 @@ static void key_up_tick(struct timer_list *t)
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&appleir->lock, flags);
+-	if (appleir->current_key) {
++	if (!appleir->removing && appleir->current_key) {
+ 		key_up(hid, appleir, appleir->current_key);
+ 		appleir->current_key = 0;
+ 	}
+@@ -195,6 +196,10 @@ static int appleir_raw_event(struct hid_device *hid, struct hid_report *report,
+ 		int index;
+ 
+ 		spin_lock_irqsave(&appleir->lock, flags);
++		if (appleir->removing) {
++			spin_unlock_irqrestore(&appleir->lock, flags);
++			goto out;
++		}
+ 		/*
+ 		 * If we already have a key down, take it up before marking
+ 		 * this one down
+@@ -229,17 +234,25 @@ static int appleir_raw_event(struct hid_device *hid, struct hid_report *report,
+ 	appleir->prev_key_idx = 0;
+ 
+ 	if (!memcmp(data, keyrepeat, sizeof(keyrepeat))) {
+-		key_down(hid, appleir, appleir->current_key);
+-		/*
+-		 * Remote doesn't do key up, either pull them up, in the test
+-		 * above, or here set a timer which pulls them up after 1/8 s
+-		 */
+-		mod_timer(&appleir->key_up_timer, jiffies + HZ / 8);
++		spin_lock_irqsave(&appleir->lock, flags);
++		if (!appleir->removing) {
++			key_down(hid, appleir, appleir->current_key);
++			/*
++			 * Remote doesn't do key up, either pull them up, in
++			 * the test above, or here set a timer which pulls them
++			 * up after 1/8 s
++			 */
++			mod_timer(&appleir->key_up_timer, jiffies + HZ / 8);
++		}
++		spin_unlock_irqrestore(&appleir->lock, flags);
+ 		goto out;
+ 	}
+ 
+ 	if (!memcmp(data, flatbattery, sizeof(flatbattery))) {
+-		battery_flat(appleir);
++		spin_lock_irqsave(&appleir->lock, flags);
++		if (!appleir->removing)
++			battery_flat(appleir);
++		spin_unlock_irqrestore(&appleir->lock, flags);
+ 		/* Fall through */
+ 	}
+ 
+@@ -318,8 +331,20 @@ static int appleir_probe(struct hid_device *hid, const struct hid_device_id *id)
+ static void appleir_remove(struct hid_device *hid)
  {
  	struct appleir *appleir = hid_get_drvdata(hid);
++	unsigned long flags;
++
++	/*
++	 * Mark the driver as tearing down so that any concurrent raw_event
++	 * (e.g. from a USB URB completion that hid_hw_stop() has not yet
++	 * killed) and the key_up_timer softirq stop touching input_dev
++	 * before hid_hw_stop() frees it via hidinput_disconnect().
++	 */
++	spin_lock_irqsave(&appleir->lock, flags);
++	appleir->removing = true;
++	spin_unlock_irqrestore(&appleir->lock, flags);
++
++	timer_shutdown_sync(&appleir->key_up_timer);
  	hid_hw_stop(hid);
--	del_timer_sync(&appleir->key_up_timer);
-+	timer_delete_sync(&appleir->key_up_timer);
+-	timer_delete_sync(&appleir->key_up_timer);
  }
  
  static const struct hid_device_id appleir_devices[] = {
