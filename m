@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B05219AD90;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D671A6809;
 	Fri, 17 Jul 2026 00:30:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784248233; cv=none; b=XL1vYLtKfs4HZBsmcl7sDyd/Qxk6U5oz46Ev2l8roySGUK7iwMIHQOMHhV+KPWH3qmHO/kH/55KOVqJPPG45SFQnNSPZ2lsG3oyK9HzVu3bbnR4gK0e1m8iuUy7RouNRXa3iak242i/+E64S6Btx38HekOKAOgXdWSUsGfWnCdo=
+	t=1784248233; cv=none; b=Ud5I333kSR5eILbz7Grrp/SO9fXN5a5Ge6NdM6tp3tI+lLYliQehcZD4H+Mf6+9u8vMHt/OohTXqWEd1riv/mwhPgCxAULvdOt7FFO901LXTflmZ1KHJn80YJZ8YRMvEh3JZUFPCWiGxQKC0/KXsMDU8/e4O9LzVq9/gOCnsUnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784248233; c=relaxed/simple;
-	bh=ioC4eodbAR+1Uyfpuko2Zd0ZkrM7igoZy/SFuML6ORE=;
+	bh=A6BGFjnrb0sGxm4ySrgUnFdjJrEj1Y+uBT36j939Xnw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eqPsaA3QmRQobzDEKlryppTD+xShcYsH4XATvHuttBNVSYfla1UzN3Jsr4O+28/+9aFLpe3ynqMELNRBzg6qh82G58YT3k6HpqW3FBNEkBMclxN6M8Fc7oZA5wzarJ6kxt3CzWpoQ3wWKJvOgxWZMroTFVeZQGbEJXcXDn/hmmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BkibWEkx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZgCUwpRSwKHKXKDfUKMgX65uFUJf2H6atU66rI6Gk34Zx8UkHk87Gx5F3ZqGf8dJrmAp1YB+/yRn+OiEVnmUjX3pxbGeigYvozumBv2wkYCDxQMwXGsq87sBtW3Bzy6Jedui7FLvnbjqI66apFfrY5jh/ppXSO33146MXGqqY4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SHxLEGKU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BkibWEkx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 951B91F00A3D;
-	Fri, 17 Jul 2026 00:30:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SHxLEGKU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF641F00A3A;
+	Fri, 17 Jul 2026 00:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784248231;
-	bh=jqlH4wneWbMAf8JjBiLX1bTl/sVQqX7skPWoj8yoesY=;
+	s=k20260515; t=1784248232;
+	bh=KyQzh9cAgWHiv+f51XfecFAFsLqN9MeOR+zzeRidaFs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BkibWEkxEb645+nXZzhJof8SmEPgjDXdHTbm45OKlK4kuD4YBOW8QQ43Va/dMG/p4
-	 F9153fCWi20R5wN2cEBvkAbpnBpJyylfMSfZbxFeXrzcvWGkcuS5ZuH0v1QqdNv8ZS
-	 Q/xpdyMEjE5nR0pBeOu+Te3l0SfopwLaxm5YgDAtkvaHs40Y5dJep+bDHv0RPXs0m5
-	 fILC0tOyXUFC5eT77uj/ncpUY4HmWBDVcI5dAbdgDNw8sPRn1ZRkHCWg/VuzzMrVEH
-	 AX+S+zY9m7RE8oXplZwANRRtHrhJyD15fDISQR35w5DkD+VXaSy8WOyVSZDITP0Y75
-	 DFDGZQUUX4FKg==
+	b=SHxLEGKUEqPS/uTbTfuN0+qoZkrJv6a4zhRpq3omfyZC+J08m/+oglJROCBSlTPzj
+	 GKfzXuVdY+UrmQ0QmzR+DcJ1sz88rBYUBXIRhoDmTzBz/lqVDQi70d5TENIWU5/qWA
+	 wNqIyFi4BR0LKY3XxamQaNoR/KSHKrc+4Ms8ahKc5vkqBByi9J1sebsrFO9yLwwQWE
+	 qp3OH09VIleBYy7kqp2GfgU+uw9f/j14TPaRWPY1yco9K/FETGTKjbhqrfkVg+V6Kk
+	 1v/BWQhr3AkWothaxP5dv0O1hvWwDwFGT//y4AiT2iYwO42eWM0mVjDlIa+LdbxUWi
+	 6Ks/fxHQlMIpg==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
@@ -33,14 +33,15 @@ Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Brendan Higgins <brendan.higgins@linux.dev>,
 	David Gow <davidgow@davidgow.net>,
+	SeongJae Park <sjpark@amazon.de>,
 	damon@lists.linux.dev,
 	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 1/7] mm/damon/core: initialize damos->last_applied
-Date: Thu, 16 Jul 2026 17:30:15 -0700
-Message-ID: <20260717003022.119437-2-sj@kernel.org>
+Subject: [PATCH 2/7] mm/damon/core-kunit: check region count before testing in split_at()
+Date: Thu, 16 Jul 2026 17:30:16 -0700
+Message-ID: <20260717003022.119437-3-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260717003022.119437-1-sj@kernel.org>
 References: <20260717003022.119437-1-sj@kernel.org>
@@ -52,47 +53,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Multiple DAMON regions could exist across a folio.  If they fulfill the
-condition to apply a DAMOS scheme, the scheme could be applied multiple
-times to the folio.  To avoid this, each DAMOS scheme stores the folio
-that the scheme was applied to last time in the damos->last_applied
-field and skips repeatedly applying the same scheme to the same folio.
+damon_test_split_at() test next region that is assumed to be created by
+damon_split_region_at() invocation.  But the split might fail.  In this
+case, the succeeding test may dereference invalid pointers returned by
+damon_next_region().
 
-The field is being used without initialization, though.  Hence, the
-mechanism could wrongly skip applying a scheme to a folio at the very
-first time of DAMOS run.
+The invalid pointer may not cause a really bad user impact, because of
+the implementation detail.  It would only read wrong contents in the
+belonging damon_target struct.  Depending on the future change of the
+offset from the link header to the accessing field, this could also be
+really dangerous, though.  Still, the realistic user impact would be
+limited.  It would affect only test run setups.
 
-The user impact is trivial.  DAMON might unexpectedly skip applying
-DAMOS action for one folio for the first time per scheme.  In the
-DAMON's best-effort world, this is never a real problem.  No critical
-consequences such as kernel panic or memory corruption happen.
-
-It is a clear bug, though, and the fix is straightforward.  Fix the
-issue by initializing the field in DAMOS scheme creation function,
-damon_new_scheme().
+Fix it by testing if the number of regions was also changed as expected
+and exit early for the failure.
 
 The issue was discovered [1] by Sashiko.
 
-[1] https://lore.kernel.org/20260714055436.120034-1-sj@kernel.org
+[1] https://lore.kernel.org/20260714142352.100478-1-sj@kernel.org
 
-Fixes: 94ba17adaba0 ("mm/damon: avoid applying DAMOS action to same entity multiple times")
-Cc: <stable@vger.kernel.org> # 6.15.x
+Fixes: 17ccae8bb5c9 ("mm/damon: add kunit tests")
+Cc: <stable@vger.kernel.org> # 5.15.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 1 +
- 1 file changed, 1 insertion(+)
+ mm/damon/tests/core-kunit.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index f464b4f0976c3..60255f5cd715e 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -705,6 +705,7 @@ struct damos *damon_new_scheme(struct damos_access_pattern *pattern,
- 	INIT_LIST_HEAD(&scheme->ops_filters);
- 	scheme->stat = (struct damos_stat){};
- 	scheme->max_nr_snapshots = 0;
-+	scheme->last_applied = NULL;
- 	INIT_LIST_HEAD(&scheme->list);
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index eba643762132f..322a295ac2cec 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -155,6 +155,10 @@ static void damon_test_split_at(struct kunit *test)
+ 	r->age = 10;
+ 	damon_add_region(r, t);
+ 	damon_split_region_at(t, r, 25);
++	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 2);
++	if (damon_nr_regions(t) != 2)
++		goto out;
++
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 0ul);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 25ul);
  
- 	scheme->quota = *(damos_quota_init(quota));
+@@ -166,6 +170,7 @@ static void damon_test_split_at(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, r->last_nr_accesses, r_new->last_nr_accesses);
+ 	KUNIT_EXPECT_EQ(test, r->age, r_new->age);
+ 
++out:
+ 	damon_free_target(t);
+ }
+ 
 -- 
 2.47.3
