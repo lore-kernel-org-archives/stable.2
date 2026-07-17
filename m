@@ -1,33 +1,52 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0FA26159E;
-	Fri, 17 Jul 2026 09:09:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392AD374A0E
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 09:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784279359; cv=none; b=Akahk2YiXMKjoj96ojoQH8QlbJYUeaTD/StkM8BkNm3CO6TORzHNBRcLz+KmVvx4Yv1Jjh24o6VosM9J2WibuaXa6XK8iWn+j9TlQQMreEJiIpZXufdpWCKbguDzZnS+bdqKv6i86YA3JgeIwkHkE9jtuVAsb2tKtWQ7Pu2xcbY=
+	t=1784279412; cv=none; b=CBobf9pfDqXRW2IeY8TCkqFMxfKHSW3UvNynXvnvgO2EuY+dJN6XU+2vXGSeEl56slm0oK9cRjJRAqCBJZBAK2pFCIwqOzdq+o2GWCU4okD4ZP+R1jK3+mg41OdR0yhyXvUzCr3L7bYaXgaHt5PpjQTKY9pmOtjat4nGh54DkmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784279359; c=relaxed/simple;
-	bh=SdL7vaie1iVm0Uqsd+hSgCyngPIokN0XTUTmdLokKik=;
+	s=arc-20240116; t=1784279412; c=relaxed/simple;
+	bh=hKsnA6sADSVlFatKWv3dmaVcBSbmEECwHYMhwIqODjI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j7MmKGDVbdIeMp/tNTQnI1SUNK7Fnl5Rn41wO2gixdk0JVbDPAG+DEG+lCy9/puQfcLnHGXihyTlXvQmTguA/jEfyPHS1S7bYjXFYdgtwMupUM7qxzawVtyOBKAEVkdn1/49M/c7TWpu8EBAdvZF5azzxxmxg0NRzZrvq2XAqes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTNM/OUs; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=s9mUAUI6CzNIMUc0/HIXGiL+qNeMfv4Dv1ZDi2kInNWJ6HMc3FSMcSCIPzk5P3VD1wtCURFUj/IerpDMLsg3oZw0rznyeQXXh6PWDHFNqpcRx2g5hZXl4gtXJCkNRbo+i8aynz7jL4YSAmYHZb6DZE9uMgv6A8+ebOLVFZGVQrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=xoO1k0Q1; arc=none smtp.client-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTNM/OUs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1AC11F00A3D;
-	Fri, 17 Jul 2026 09:09:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784279357;
-	bh=8hDLGVnRCVJmvr3vYWUVHX9dK81AR2oabc5yMqDGpv8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CTNM/OUs7WYBRthOa7sxeviy2ss9V2NMHXfSI40iKlYwStGfZv0236M7i1D/6DpA8
-	 ddP50XPK2ArCklwcuxf1OYLH6bUJMcke39mX8yxQCat4gzUWtjtnES4a8MvewcXKwh
-	 hiCevr25HkWNe8xZLPRv1oBaDbrGNn/OOsZuBJQlt5Nl5kfmkCLA4DyVpzvP8yPI/E
-	 5qs+Ga4y1Ta+VG/wDzcG5KboczyH3trGbDDn0eGsx2jQYaEzfAx/6g69dlYTsRzG/U
-	 0LgErA/GtRghM+ZJ5sjCvY2HR2nwWTzzKuqwQbPCfNWOg3C6LwbPmO5zq18Pvesop3
-	 5qdpqxkusrsvQ==
-Message-ID: <3f10acf9-5441-4f77-a93b-31552d7eb706@kernel.org>
-Date: Fri, 17 Jul 2026 11:09:13 +0200
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="xoO1k0Q1"
+Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
+	by cmsmtp with ESMTPS
+	id kVzpwgjmGaC0UkeYcwKfgA; Fri, 17 Jul 2026 09:08:34 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id keYbwy0f7ooyIkeYbwbtBc; Fri, 17 Jul 2026 09:08:34 +0000
+X-Authority-Analysis: v=2.4 cv=AZ6xH2XG c=1 sm=1 tr=0 ts=6a59f112
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=Nghn086io5pY4Qe7T5wA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=W452KQ49ORuGyDWTt93wAxvfGknLCKHwLMQ0kzWhsA4=; b=xoO1k0Q1HysxJ1kjgnRMbdFpz7
+	9EQ3d51I3pKXB8sssnJsnfPPfD5aDyCC6j1b+uhlqafqWcrF9/Dy4XBepD3ds+fgJ3E68Wlkh06NP
+	GOTKeltdYOLq4ZynZ0K+dK8CXYTL7EBdVu7ZjRNPrkXNzJrBLsa5TrychFg5KKz5+VC5S4M3hD+1Y
+	9ZbexuI/F+ram47MH99wT4xT3fVfEEVQg1fQvSYDSz3Gxc24RuCgIi716CvAxPSbA89y/dlMfnk4W
+	2WRFgcwCSCUjdDGbknML1FRLVyYVWhZxIgq17mXlduSWhTByUne+PEczm9xUJNSZA+l5x6mSnOYdq
+	kOToycHQ==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:60528 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.2)
+	(envelope-from <re@w6rz.net>)
+	id 1wkeYa-000000042cA-3vYB;
+	Fri, 17 Jul 2026 03:08:32 -0600
+Message-ID: <375d79dc-9dea-4c75-b5e1-19fd7e83038f@w6rz.net>
+Date: Fri, 17 Jul 2026 02:08:31 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,108 +54,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm/page_reporting: use system_freezable_wq to fix
- UAF during suspend
-To: Link Lin <linkl@google.com>, Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, "Michael S . Tsirkin" <mst@redhat.com>
-Cc: virtualization@lists.linux.dev, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, prasin@google.com, rientjes@google.com,
- duenwen@google.com, jasowang@redhat.com, xuanzhuo@linux.alibaba.com,
- Ammar Faizi <ammarfaizi2@openresty.com>, jiaqiyan@google.com,
- ahwilkins@google.com, Greg Thelen <gthelen@google.com>,
- Alexander Duyck <alexander.duyck@gmail.com>, jthoughton@google.com,
- stable@vger.kernel.org
-References: <20260717002311.681748-1-linkl@google.com>
- <20260717002311.681748-2-linkl@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 7.1 000/518] 7.1.4-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260716133047.772246337@linuxfoundation.org>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260717002311.681748-2-linkl@google.com>
-Content-Type: text/plain; charset=UTF-8
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wkeYa-000000042cA-3vYB
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:60528
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNF3LiixT7KLFaWc4GKvkI6zqBgerWsCTBi9EnU1fzO9yR3wuvOSFsaHRSxWobEnx2mCTjRNY2zvGjzN/9SY8tY6do140OA60Mpg2Spjg32hvIz41xoK
+ Lle/lh6+cuSuHuFNvD55fGleRMPXChCOJfwlABKSfNEfM13MDIGWKE2/nx5DqL2RKPHJuMDNkmg9Ew==
 
-On 7/17/26 02:22, Link Lin wrote:
-> During PM freeze (e.g. S3 suspend or S4 hibernation), device drivers like
-> virtio_balloon reset their underlying virtio devices and delete their
-> virtqueues via vdev->config->del_vqs().
-> 
-> However, page reporting work (page_reporting_process) was scheduled on
-> the global system_wq. Because system_wq lacks the WQ_FREEZABLE flag, the
-> PM freezer skips it, leaving page_reporting_process active during
-> suspend. If pages are freed into the buddy allocator while suspending,
-> page reporting invokes virtballoon_free_page_report() on deleted
-> virtqueues:
-> 
->     [  196.795226] general protection fault, probably for non-canonical address 0xaa1436fe70dae6df: 0000 [#1] SMP NOPTI
->     [  196.825967] Workqueue: events page_reporting_process
->     [  196.831038] RIP: 0010:virtqueue_add_split+0x233/0x4c0 [virtio_ring]
->     [  196.927073] virtballoon_free_page_report+0x3a/0xe0 [virtio_balloon]
->     [  196.946943] page_reporting_process+0x370/0x4f0
-> 
-> Fix this by switching page reporting work to system_freezable_wq. This
-> ensures that the PM freezer pauses page_reporting_process before device
-> drivers destroy their reporting virtqueues.
-> 
-> This aligns with the driver's existing design. The comment in
-> virtballoon_freeze() states:
->     /*
->      * The workqueue is already frozen by the PM core before this
->      * function is called.
->      */
-> 
-> Suggested-by: David Hildenbrand <david@redhat.com>
-> Suggested-by: Michael S. Tsirkin <mst@redhat.com>
-> Acked-by: David Rientjes <rientjes@google.com>
-> Fixes: 924a663f75e2 ("virtio-balloon: Reporting free page reservations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Link Lin <linkl@google.com>
+On 7/16/26 06:24, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.4 release.
+> There are 518 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sat, 18 Jul 2026 13:30:01 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.4-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
--- 
-Cheers,
+Tested-by: Ron Economos <re@w6rz.net>
 
-David
