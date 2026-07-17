@@ -1,87 +1,108 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7906360EFF;
-	Fri, 17 Jul 2026 18:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C70939DBE4;
+	Fri, 17 Jul 2026 18:53:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784314188; cv=none; b=ZYC359Yw9w/K5+mEfbP9j+tXKTQ7xhwDf4eunMFI2gF7pNgym64jae6gUX22cE9po9Mf5FzStmUNVN+GaOpk9VSYb5j+t3LeFvQTxGIxsm1TpirR63vBJD8STPPBav+c2egHMYQvAK03cnmYqX4QOicOzzWqBoAdlYCerkMHDto=
+	t=1784314432; cv=none; b=Zt+gi5XG1ki/2eBh7mPdeRKBnVoJLPlNThzEm00SgOHDMj1/NnxpWbZ2A1xdVlrWc+UNlCvb7cAa9yw/xMFQFEDVSjLuKPHZgFdOr4zmZFM+mcrhT0pubRe3GHkalIJxQCrXJiopfVjpIEOgLMkZzvHvZVc2my4rjw3kP6FnLPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784314188; c=relaxed/simple;
-	bh=+nTllAieJyIjdxvMH1TIW9EUfls0WsTNMkaOsTLg4O4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eLNthb6tmbK+C9movdvOyhzqlKe5NsfZVSY6EGCegOr59uu0JAc9H1InbsEkCvht2Nvr2BjXGAthkvggt8YZqZj9D61Fg35DO2VkAcrJZ26qxsR+BtOI8241ec5Vp8NZGucATkE/B7dz+JOA9tCp6NQB8HK+5tPvCroiZp2gRzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=p+N0UHZn; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784314432; c=relaxed/simple;
+	bh=1AO5W78NhVX0WLOqrDInGhKoC0dyNJy9H267o/k3x0w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YYx2HniuAqTvELmwXYdWwmVfDWvfgFqsZYKJbjZ2cTm0gNoewCWpZvSxMoYYwZItDoFM4Jddcbtmex5822yGWJmGTen+XOxNHkIYwzfLyfJvmUksR8iobpph9nsoyvqt+sVbhnPcaZPyFKYkJRf4qwdXv1EpjkPfEZFjCCTkRdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dc+VszDy; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p+N0UHZn"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 680EF664;
-	Fri, 17 Jul 2026 20:48:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784314128;
-	bh=+nTllAieJyIjdxvMH1TIW9EUfls0WsTNMkaOsTLg4O4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=p+N0UHZnKmbo1Sxh06p6dYRiG4/itMp2EjjMVCSsnHebf0wC9uMLcRzsFMevb5h/U
-	 R1oxjVF0kkJClgaigksPAGg/36LGP+XNdX1yjF8ZA9HpFWrWtgMuC5cQI2hMhbXcvg
-	 6ZnDwPTZN/b68uehPqhLxdFIUNhr6i4mNmhOa5Uo=
-Date: Fri, 17 Jul 2026 21:49:43 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dc+VszDy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784314431; x=1815850431;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=1AO5W78NhVX0WLOqrDInGhKoC0dyNJy9H267o/k3x0w=;
+  b=dc+VszDyRRJMPnM3TkSTk/nFk0gbHBWZJKunQg8zcFCy2xLr2vntqzzs
+   PgWwLJ4PSZ3mxHD06BJxUo+YLza7wlrNSEi/sRVpvCa+CgD/bMXW/9/l6
+   ewdi245CryN1r9yYsG7SudfpYrnMT5K2serZm9UNH24Vrc8MT4RVoenUG
+   E3BzIXS5rw8llOg2yEF2hK6t7suRgqt4885LYnBLWYa0vxmH1utISiXUI
+   7Qc7xRsJAtliQeLlQpFEyXQpbxuN9lecgoBeeSZHbBjHFsta1S0puHodk
+   KhyXdy7v9O8i74kbJAQa1TZ+5jKIF6aFmSoTUVDvD4tbPmLqE/aknYBbw
+   w==;
+X-CSE-ConnectionGUID: /vHKrlgUQWKXEcOsz1CvAg==
+X-CSE-MsgGUID: IZyM+gE8SPmyMNz3j8xF4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="95347631"
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
+   d="scan'208";a="95347631"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 11:53:48 -0700
+X-CSE-ConnectionGUID: RXfXfxzPRlWSjNwAP51I4Q==
+X-CSE-MsgGUID: sXhcT6FnTmGb+QP95TeDiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
+   d="scan'208";a="261827248"
+Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
+  by fmviesa005.fm.intel.com with ESMTP; 17 Jul 2026 11:53:47 -0700
+From: Tony Nguyen <anthony.l.nguyen@intel.com>
+To: davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	netdev@vger.kernel.org
+Cc: Sergey Temerkhanov <sergey.temerkhanov@intel.com>,
+	anthony.l.nguyen@intel.com,
+	richardcochran@gmail.com,
+	jacob.e.keller@intel.com,
 	stable@vger.kernel.org,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	"H. Nikolaus Schaller" <hns@goldelico.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Subject: Re: [PATCH] drm/bridge: display-connector: fix i2c adapter leak on
- probe failure
-Message-ID: <20260717184943.GF1889304@killaraus.ideasonboard.com>
-References: <20260717085716.1619275-1-johan@kernel.org>
- <20260717122035.GB1926197@killaraus.ideasonboard.com>
- <alpBiFzfbaTXae8l@hovoldconsulting.com>
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Simon Horman <horms@kernel.org>,
+	Rinitha S <sx.rinitha@intel.com>
+Subject: [PATCH net 08/13] ice: use READ_ONCE() to access cached PHC time
+Date: Fri, 17 Jul 2026 11:53:30 -0700
+Message-ID: <20260717185340.3595286-9-anthony.l.nguyen@intel.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20260717185340.3595286-1-anthony.l.nguyen@intel.com>
+References: <20260717185340.3595286-1-anthony.l.nguyen@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <alpBiFzfbaTXae8l@hovoldconsulting.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 17, 2026 at 04:51:52PM +0200, Johan Hovold wrote:
-> On Fri, Jul 17, 2026 at 03:20:35PM +0300, Laurent Pinchart wrote:
-> > On Fri, Jul 17, 2026 at 10:57:16AM +0200, Johan Hovold wrote:
-> > > Make sure to drop the i2c adapter device and module references on failed
-> > > regulator and enable gpio lookup (and regulator enable) during probe
-> > > (e.g. on probe deferral).
-> > > 
-> > > Note that of_get_i2c_adapter_by_node() does not return error pointers,
-> > > but i2c_put_adapter() can handle a NULL argument so the error pointer
-> > > check at remove works even if it is misleading.
-> > 
-> > I've already sent a fix for this, see
-> > 
-> > https://lore.kernel.org/dri-devel/20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com/
-> 
-> Ah, ok. If that series is blocked perhaps you can send the fix
-> separately.
+From: Sergey Temerkhanov <sergey.temerkhanov@intel.com>
 
-Done.
+ptp.cached_phc_time is a 64-bit value updated by a periodic work item
+on one CPU and read locklessly on another.  On 32-bit or non-atomic
+architectures this can result in a torn read.  Use READ_ONCE() to
+enforce a single atomic load.
 
-https://lore.kernel.org/dri-devel/20260717184836.2017386-1-laurent.pinchart+renesas@ideasonboard.com
+Fixes: 77a781155a65 ("ice: enable receive hardware timestamping")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sergey Temerkhanov <sergey.temerkhanov@intel.com>
+Signed-off-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Tested-by: Rinitha S <sx.rinitha@intel.com> (A Contingent worker at Intel)
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+---
+ drivers/net/ethernet/intel/ice/ice_ptp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/net/ethernet/intel/ice/ice_ptp.c b/drivers/net/ethernet/intel/ice/ice_ptp.c
+index ec3d89d8d4d3..1469038bc895 100644
+--- a/drivers/net/ethernet/intel/ice/ice_ptp.c
++++ b/drivers/net/ethernet/intel/ice/ice_ptp.c
+@@ -346,7 +346,7 @@ static u64 ice_ptp_extend_40b_ts(struct ice_pf *pf, u64 in_tstamp)
+ 		return 0;
+ 	}
+ 
+-	return ice_ptp_extend_32b_ts(pf->ptp.cached_phc_time,
++	return ice_ptp_extend_32b_ts(READ_ONCE(pf->ptp.cached_phc_time),
+ 				     (in_tstamp >> 8) & mask);
+ }
+ 
 -- 
-Regards,
+2.47.1
 
-Laurent Pinchart
