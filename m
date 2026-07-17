@@ -1,110 +1,87 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0DA360EFF;
-	Fri, 17 Jul 2026 18:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7906360EFF;
+	Fri, 17 Jul 2026 18:49:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784314121; cv=none; b=EfAgzdhDzlSQVm2rkmK3zg9Kv2vZvqzlopZBJQAaRYkgznby27IB3P6uW/ct8qwmSR1hStSmfG9VS51xuMxBJle2Xuz1Qo6xYTJlILY1yaNQvdDTUj5giBHVas3ITLRKDf3qCB2RGge+Qa3BVkY5LPfOVqBHnymawy9g3jF5D4w=
+	t=1784314188; cv=none; b=ZYC359Yw9w/K5+mEfbP9j+tXKTQ7xhwDf4eunMFI2gF7pNgym64jae6gUX22cE9po9Mf5FzStmUNVN+GaOpk9VSYb5j+t3LeFvQTxGIxsm1TpirR63vBJD8STPPBav+c2egHMYQvAK03cnmYqX4QOicOzzWqBoAdlYCerkMHDto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784314121; c=relaxed/simple;
-	bh=jJ7R+wwz8w6ZuFFtfjFEaGPZs98mzCpVLOeIWTgQUho=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pdY+liS8zUnvD1moLBs7kUU7HF6/EEXxXDPsQCTYYBA96X1iKPQP+pVjjSUM7kUty47hJubv7Qqq1RUhifjuXSQysNvQsK/BgLgUbyEDOErI/5iVujpqXxIyYRTtM4diH64HMtIcxrvAIOWEvAg7ZgwiFzFq9/5OJGDt/tLU1TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=fzJfn2kH; arc=none smtp.client-ip=213.167.242.64
+	s=arc-20240116; t=1784314188; c=relaxed/simple;
+	bh=+nTllAieJyIjdxvMH1TIW9EUfls0WsTNMkaOsTLg4O4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eLNthb6tmbK+C9movdvOyhzqlKe5NsfZVSY6EGCegOr59uu0JAc9H1InbsEkCvht2Nvr2BjXGAthkvggt8YZqZj9D61Fg35DO2VkAcrJZ26qxsR+BtOI8241ec5Vp8NZGucATkE/B7dz+JOA9tCp6NQB8HK+5tPvCroiZp2gRzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=p+N0UHZn; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fzJfn2kH"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p+N0UHZn"
 Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 15CF8664;
-	Fri, 17 Jul 2026 20:47:41 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 680EF664;
+	Fri, 17 Jul 2026 20:48:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784314061;
-	bh=jJ7R+wwz8w6ZuFFtfjFEaGPZs98mzCpVLOeIWTgQUho=;
-	h=From:To:Cc:Subject:Date:From;
-	b=fzJfn2kHq5tRR+It5NYrawcu5D1V/KEeaBjEjXWCWjVbsZTP0v/DyBhiBEhD2xeEZ
-	 7siUfgsNZIi4xTg6d28rO+ukLVurJfSUfN3DNBq5wQoQrmkrdl1U4tBCvNoJ+lzsm+
-	 vjBhaFQvqqeHFVHKzYRvQAkttfV+a08XPDurx7eE=
-From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-renesas-soc@vger.kernel.org,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Johan Hovold <johan@kernel.org>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	s=mail; t=1784314128;
+	bh=+nTllAieJyIjdxvMH1TIW9EUfls0WsTNMkaOsTLg4O4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=p+N0UHZnKmbo1Sxh06p6dYRiG4/itMp2EjjMVCSsnHebf0wC9uMLcRzsFMevb5h/U
+	 R1oxjVF0kkJClgaigksPAGg/36LGP+XNdX1yjF8ZA9HpFWrWtgMuC5cQI2hMhbXcvg
+	 6ZnDwPTZN/b68uehPqhLxdFIUNhr6i4mNmhOa5Uo=
+Date: Fri, 17 Jul 2026 21:49:43 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ti.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/bridge: display-connector: Fix I2C adapter resource leak
-Date: Fri, 17 Jul 2026 21:48:36 +0300
-Message-ID: <20260717184836.2017386-1-laurent.pinchart+renesas@ideasonboard.com>
-X-Mailer: git-send-email 2.54.0
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Subject: Re: [PATCH] drm/bridge: display-connector: fix i2c adapter leak on
+ probe failure
+Message-ID: <20260717184943.GF1889304@killaraus.ideasonboard.com>
+References: <20260717085716.1619275-1-johan@kernel.org>
+ <20260717122035.GB1926197@killaraus.ideasonboard.com>
+ <alpBiFzfbaTXae8l@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <alpBiFzfbaTXae8l@hovoldconsulting.com>
 
-If the probe function returns an error after getting the I2C adapter for
-DDC, the reference to the adapter is never released. Fix it by releasing
-it in the bridge .destroy() handler.
+On Fri, Jul 17, 2026 at 04:51:52PM +0200, Johan Hovold wrote:
+> On Fri, Jul 17, 2026 at 03:20:35PM +0300, Laurent Pinchart wrote:
+> > On Fri, Jul 17, 2026 at 10:57:16AM +0200, Johan Hovold wrote:
+> > > Make sure to drop the i2c adapter device and module references on failed
+> > > regulator and enable gpio lookup (and regulator enable) during probe
+> > > (e.g. on probe deferral).
+> > > 
+> > > Note that of_get_i2c_adapter_by_node() does not return error pointers,
+> > > but i2c_put_adapter() can handle a NULL argument so the error pointer
+> > > check at remove works even if it is misleading.
+> > 
+> > I've already sent a fix for this, see
+> > 
+> > https://lore.kernel.org/dri-devel/20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com/
+> 
+> Ah, ok. If that series is blocked perhaps you can send the fix
+> separately.
 
-There is no need to test the ddc pointer with !IS_ERR(), as
-of_get_i2c_adapter_by_node() returns NULL on error.
+Done.
 
-Fixes: 2e2bf3a5584d ("drm/bridge: display-connector: add DP support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Reviewed-by: Johan Hovold <johan@kernel.org>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/bridge/display-connector.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+https://lore.kernel.org/dri-devel/20260717184836.2017386-1-laurent.pinchart+renesas@ideasonboard.com
 
-diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
-index d1e74dd2e051..eb3412ec30a0 100644
---- a/drivers/gpu/drm/bridge/display-connector.c
-+++ b/drivers/gpu/drm/bridge/display-connector.c
-@@ -43,6 +43,13 @@ static int display_connector_attach(struct drm_bridge *bridge,
- 	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
- }
- 
-+static void display_connector_destroy(struct drm_bridge *bridge)
-+{
-+	struct display_connector *conn = to_display_connector(bridge);
-+
-+	i2c_put_adapter(conn->bridge.ddc);
-+}
-+
- static enum drm_connector_status display_connector_detect(struct drm_bridge *bridge)
- {
- 	struct display_connector *conn = to_display_connector(bridge);
-@@ -208,6 +215,7 @@ static u32 *display_connector_get_input_bus_fmts(struct drm_bridge *bridge,
- 
- static const struct drm_bridge_funcs display_connector_bridge_funcs = {
- 	.attach = display_connector_attach,
-+	.destroy = display_connector_destroy,
- 	.detect = display_connector_bridge_detect,
- 	.hpd_enable = display_connector_hpd_enable,
- 	.hpd_disable = display_connector_hpd_disable,
-@@ -439,9 +447,6 @@ static void display_connector_remove(struct platform_device *pdev)
- 		regulator_disable(conn->supply);
- 
- 	drm_bridge_remove(&conn->bridge);
--
--	if (!IS_ERR(conn->bridge.ddc))
--		i2c_put_adapter(conn->bridge.ddc);
- }
- 
- static const struct of_device_id display_connector_match[] = {
-
-base-commit: 5b9af25f2d0b574b4058c9f8c84486a597168116
 -- 
 Regards,
 
 Laurent Pinchart
-
