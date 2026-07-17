@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930F242A7A5
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 15:00:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E333E0754
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 15:00:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784300408; cv=none; b=m4pw8zWPwM3pa6zEp7iGbLS3aMiCWVhAUeYZ+K08wPjSlMWjcO6d4Ae3iVCkwVPIDzuBdb89a5YIaLkHfyy1o3/4DHTGi+q3N2Sb4j8DYkQdYzz6dCrMOQFBW6CTdr8Rv4zkfrL1QpP8dS8bVSFEeZCJX4MAsuxC/ZD/5yARrNY=
+	t=1784300412; cv=none; b=H20jB89/3CeuMlQH0ODCxkjsWDFhACWo2Blv8whlyY0wkUcpMr5+BGygRKrgKrlKwFC6QFG/kWt3YdU9GmXvXk3UZXWRG/x7/IUicECiR2P2TJNxQPxHiFxRtkgBxfBF8jFaa5ghNHETrH7HzURddpDyLQsfqU5GMsRKuiVl9gE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784300408; c=relaxed/simple;
-	bh=LSlC977RRp02L9noalefMFM4zlkQDvQDtVLsBnUdElQ=;
+	s=arc-20240116; t=1784300412; c=relaxed/simple;
+	bh=TOjrz96DLt/7ZK6iSZtemY1F5nRC7YqklDikmRn9Fpo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kVDksFoDDoAXseYKAHU2JOiOZqiqaRAwS2m+zrstBDRsBK1Uax9uptRbKHUPW58cXMYx9YkucIPZRpaxTzGRsZCvasHZk4iOBr1Ii8knAvNtWLa2D8ECTr5WBLGWpbYZVPtXeezK6l7u2dCS9H17hZ70BJWSsFO7eFCOj/Z7nOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kf7NFgdd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EKDVIifVf+SV6oPdPPipjUEDIA/grd8n1qdnyOFqJerISZPi8QHaHp1ZJjlCcJ2TvzJ5gCBUs/4aaIuWX018q9vSfS7B+Lfla5eU2lK8IfphPkZUi6e4wveChKs+lTeJ+LVcESjMEurMzAOXhkrV9qIhfjYGpL6KKa1UpVNI580=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bc80eR0T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kf7NFgdd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 193F31F00A3D;
-	Fri, 17 Jul 2026 15:00:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bc80eR0T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5DB1F00A3D;
+	Fri, 17 Jul 2026 15:00:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784300402;
-	bh=yK0u57TPcBHk6spoRdLlIBTs4sbYa/eZIiO4+8GLdbs=;
+	s=k20260515; t=1784300409;
+	bh=OE0vprUNT5U6+0or737TuxeFzNW0C6By5xZ/dJfqXTQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kf7NFgddIxwHFVe7zCAdGVhdwjhWJ7McT4l0XGTaPppTR1GbSiqdUmnJ2QSjmK2Z0
-	 8yIpQdx6jN7rk09YfBmmKU0fXWh39144+If1zTFWuZpBc/di/8+ZzdQ5NmsliejiPU
-	 xtDryp1QEQSudapzrYMuwp2At4svu+kaFESdw+KnLPr3pkpBmHUWujDYEK7Izo7pMt
-	 aIOMTpgvwwn8HPTjiAIIg74c8Kv3WDyBiYNOoWVValpT4A180R2Kk/EZtQknk46uJV
-	 uozqlRd1/FI0iZu5OcUcJXaDNomt5QHUtOu8RlNHk1uEHlbWzXc6gD01AKvFzQU885
-	 XHHUU8AZrVO1A==
+	b=bc80eR0T3kAua/m+Dit0LEEx8BJtD98EGakuEwkusH/dbypqWboLNLD65+oVs0kBP
+	 DHR+VLEfwscWr24Bfx/0zPjv5lpJVUHzhzVRxnWzEiRaNfnfBNTmvtlth/3DOXmGnM
+	 G5Qs1Ow23XEE+8NdJq8GfLRBN83YZ5TZuOzyDpgLQKcS+f/kkXuQbF6NdZhTyRcgfP
+	 QT2zCKvTlkrpHbgD1AW+Ep8GyxtZagqvZgBhEIzQjbUKZZywZWwC4mnxi53wc6uyTl
+	 YeF93MBG0aKPH2DOVeh+Ftc1SZFnbiJbB5ZZx7SssS8oZmcDv59mIptb7dlSVptEQw
+	 PF3Gq63InXiqg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Manish Khadka <maskmemanish@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Oleg Nesterov <oleg@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] HID: appleir: fix UAF on pending key_up_timer in remove()
-Date: Fri, 17 Jul 2026 10:59:59 -0400
-Message-ID: <20260717145959.1930377-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] seqlock: Introduce scoped_seqlock_read()
+Date: Fri, 17 Jul 2026 11:00:05 -0400
+Message-ID: <20260717150007.1930653-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717145959.1930377-1-sashal@kernel.org>
-References: <2026071429-oblong-grunt-47d0@gregkh>
- <20260717145959.1930377-1-sashal@kernel.org>
+In-Reply-To: <2026071445-confusion-showing-c025@gregkh>
+References: <2026071445-confusion-showing-c025@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,149 +45,163 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Manish Khadka <maskmemanish@gmail.com>
+From: Peter Zijlstra <peterz@infradead.org>
 
-[ Upstream commit 75fe87e19d8aff81eb2c64d15d244ab8da4de945 ]
+[ Upstream commit cc39f3872c0865bef992b713338df369554fa9e0 ]
 
-appleir_remove() runs hid_hw_stop() before timer_delete_sync().
-hid_hw_stop() synchronously unregisters the HID input device via
-hid_disconnect() -> hidinput_disconnect() -> input_unregister_device(),
-which drops the last reference and frees the underlying input_dev when
-no userspace handle holds it open.
+The read_seqbegin/need_seqretry/done_seqretry API is cumbersome and
+error prone. With the new helper the "typical" code like
 
-key_up_tick() reads appleir->input_dev and calls input_report_key() /
-input_sync() on it.  The timer is armed from appleir_raw_event() with
-a HZ/8 (~125 ms) timeout on every keydown and key-repeat report.  If a
-key was pressed shortly before the device is disconnected, the timer
-can fire after hid_hw_stop() has freed input_dev but before the
-teardown drains it.
+	int seq, nextseq;
+	unsigned long flags;
 
-A simple reorder is not sufficient.  Putting the timer drain first
-still leaves a window where a USB URB completion (raw_event) running
-during hid_hw_stop() can call mod_timer() and re-arm the timer, which
-then fires after hidinput_disconnect() has freed input_dev.  The same
-URB-completion window also lets raw_event() reach key_up(), key_down()
-and battery_flat() directly, all of which dereference
-appleir->input_dev.
+	nextseq = 0;
+	do {
+		seq = nextseq;
+		flags = read_seqbegin_or_lock_irqsave(&seqlock, &seq);
 
-Introduce a 'removing' flag on struct appleir, gated by the existing
-spinlock.  appleir_remove() sets the flag under the lock and then
-shuts down the timer with timer_shutdown_sync(), which both drains any
-in-flight callback and permanently disables further mod_timer() calls.
-appleir_raw_event() and key_up_tick() bail out early if the flag is
-set, so no path can arm or run the timer, or dereference
-appleir->input_dev, after remove() has started tearing down.
+		// read-side critical section
 
-The keyrepeat and flatbattery branches of appleir_raw_event()
-previously called into the input layer without holding the spinlock;
-take it now so the flag check is well-defined.  This incidentally
-closes a pre-existing read-side race on appleir->current_key in the
-keyrepeat branch.
+		nextseq = 1;
+	} while (need_seqretry(&seqlock, seq));
+	done_seqretry_irqrestore(&seqlock, seq, flags);
 
-This bug is structurally a sibling of commit 4db2af929279 ("HID:
-appletb-kbd: fix UAF in inactivity-timer cleanup path") and has been
-present since the driver was introduced.
+can be rewritten as
 
-Fixes: 9a4a5574ce42 ("HID: appleir: add support for Apple ir devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Manish Khadka <maskmemanish@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+	scoped_seqlock_read (&seqlock, ss_lock_irqsave) {
+		// read-side critical section
+	}
+
+Original idea by Oleg Nesterov; with contributions from Linus.
+
+Originally-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Stable-dep-of: 6650527444da ("proc: protect ptrace_may_access() with exec_update_lock (part 1)")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-appleir.c | 45 ++++++++++++++++++++++++++++++---------
- 1 file changed, 35 insertions(+), 10 deletions(-)
+ include/linux/seqlock.h | 111 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 111 insertions(+)
 
-diff --git a/drivers/hid/hid-appleir.c b/drivers/hid/hid-appleir.c
-index bb7db9ae41c249..7a3fcdf7cd1460 100644
---- a/drivers/hid/hid-appleir.c
-+++ b/drivers/hid/hid-appleir.c
-@@ -109,9 +109,10 @@ struct appleir {
- 	struct hid_device *hid;
- 	unsigned short keymap[ARRAY_SIZE(appleir_key_table)];
- 	struct timer_list key_up_timer;	/* timer for key up */
--	spinlock_t lock;		/* protects .current_key */
-+	spinlock_t lock;		/* protects .current_key, .removing */
- 	int current_key;		/* the currently pressed key */
- 	int prev_key_idx;		/* key index in a 2 packets message */
-+	bool removing;			/* set during teardown; gates input_dev access */
- };
- 
- static int get_key(int data)
-@@ -172,7 +173,7 @@ static void key_up_tick(struct timer_list *t)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&appleir->lock, flags);
--	if (appleir->current_key) {
-+	if (!appleir->removing && appleir->current_key) {
- 		key_up(hid, appleir, appleir->current_key);
- 		appleir->current_key = 0;
- 	}
-@@ -195,6 +196,10 @@ static int appleir_raw_event(struct hid_device *hid, struct hid_report *report,
- 		int index;
- 
- 		spin_lock_irqsave(&appleir->lock, flags);
-+		if (appleir->removing) {
-+			spin_unlock_irqrestore(&appleir->lock, flags);
-+			goto out;
-+		}
- 		/*
- 		 * If we already have a key down, take it up before marking
- 		 * this one down
-@@ -229,17 +234,25 @@ static int appleir_raw_event(struct hid_device *hid, struct hid_report *report,
- 	appleir->prev_key_idx = 0;
- 
- 	if (!memcmp(data, keyrepeat, sizeof(keyrepeat))) {
--		key_down(hid, appleir, appleir->current_key);
--		/*
--		 * Remote doesn't do key up, either pull them up, in the test
--		 * above, or here set a timer which pulls them up after 1/8 s
--		 */
--		mod_timer(&appleir->key_up_timer, jiffies + HZ / 8);
-+		spin_lock_irqsave(&appleir->lock, flags);
-+		if (!appleir->removing) {
-+			key_down(hid, appleir, appleir->current_key);
-+			/*
-+			 * Remote doesn't do key up, either pull them up, in
-+			 * the test above, or here set a timer which pulls them
-+			 * up after 1/8 s
-+			 */
-+			mod_timer(&appleir->key_up_timer, jiffies + HZ / 8);
-+		}
-+		spin_unlock_irqrestore(&appleir->lock, flags);
- 		goto out;
- 	}
- 
- 	if (!memcmp(data, flatbattery, sizeof(flatbattery))) {
--		battery_flat(appleir);
-+		spin_lock_irqsave(&appleir->lock, flags);
-+		if (!appleir->removing)
-+			battery_flat(appleir);
-+		spin_unlock_irqrestore(&appleir->lock, flags);
- 		/* Fall through */
- 	}
- 
-@@ -318,8 +331,20 @@ static int appleir_probe(struct hid_device *hid, const struct hid_device_id *id)
- static void appleir_remove(struct hid_device *hid)
- {
- 	struct appleir *appleir = hid_get_drvdata(hid);
-+	unsigned long flags;
-+
-+	/*
-+	 * Mark the driver as tearing down so that any concurrent raw_event
-+	 * (e.g. from a USB URB completion that hid_hw_stop() has not yet
-+	 * killed) and the key_up_timer softirq stop touching input_dev
-+	 * before hid_hw_stop() frees it via hidinput_disconnect().
-+	 */
-+	spin_lock_irqsave(&appleir->lock, flags);
-+	appleir->removing = true;
-+	spin_unlock_irqrestore(&appleir->lock, flags);
-+
-+	timer_shutdown_sync(&appleir->key_up_timer);
- 	hid_hw_stop(hid);
--	timer_delete_sync(&appleir->key_up_timer);
+diff --git a/include/linux/seqlock.h b/include/linux/seqlock.h
+index b4b4ce9a4151ec..7a14857c24ff70 100644
+--- a/include/linux/seqlock.h
++++ b/include/linux/seqlock.h
+@@ -1266,4 +1266,115 @@ done_seqretry_irqrestore(seqlock_t *lock, int seq, unsigned long flags)
+ 	if (seq & 1)
+ 		read_sequnlock_excl_irqrestore(lock, flags);
  }
- 
- static const struct hid_device_id appleir_devices[] = {
++
++enum ss_state {
++	ss_done = 0,
++	ss_lock,
++	ss_lock_irqsave,
++	ss_lockless,
++};
++
++struct ss_tmp {
++	enum ss_state	state;
++	unsigned long	data;
++	spinlock_t	*lock;
++	spinlock_t	*lock_irqsave;
++};
++
++static inline void __scoped_seqlock_cleanup(struct ss_tmp *sst)
++{
++	if (sst->lock)
++		spin_unlock(sst->lock);
++	if (sst->lock_irqsave)
++		spin_unlock_irqrestore(sst->lock_irqsave, sst->data);
++}
++
++extern void __scoped_seqlock_invalid_target(void);
++
++#if defined(CONFIG_CC_IS_GCC) && CONFIG_GCC_VERSION < 90000
++/*
++ * For some reason some GCC-8 architectures (nios2, alpha) have trouble
++ * determining that the ss_done state is impossible in __scoped_seqlock_next()
++ * below.
++ */
++static inline void __scoped_seqlock_bug(void) { }
++#else
++/*
++ * Canary for compiler optimization -- if the compiler doesn't realize this is
++ * an impossible state, it very likely generates sub-optimal code here.
++ */
++extern void __scoped_seqlock_bug(void);
++#endif
++
++static inline void
++__scoped_seqlock_next(struct ss_tmp *sst, seqlock_t *lock, enum ss_state target)
++{
++	switch (sst->state) {
++	case ss_done:
++		__scoped_seqlock_bug();
++		return;
++
++	case ss_lock:
++	case ss_lock_irqsave:
++		sst->state = ss_done;
++		return;
++
++	case ss_lockless:
++		if (!read_seqretry(lock, sst->data)) {
++			sst->state = ss_done;
++			return;
++		}
++		break;
++	}
++
++	switch (target) {
++	case ss_done:
++		__scoped_seqlock_invalid_target();
++		return;
++
++	case ss_lock:
++		sst->lock = &lock->lock;
++		spin_lock(sst->lock);
++		sst->state = ss_lock;
++		return;
++
++	case ss_lock_irqsave:
++		sst->lock_irqsave = &lock->lock;
++		spin_lock_irqsave(sst->lock_irqsave, sst->data);
++		sst->state = ss_lock_irqsave;
++		return;
++
++	case ss_lockless:
++		sst->data = read_seqbegin(lock);
++		return;
++	}
++}
++
++#define __scoped_seqlock_read(_seqlock, _target, _s)			\
++	for (struct ss_tmp _s __cleanup(__scoped_seqlock_cleanup) =	\
++	     { .state = ss_lockless, .data = read_seqbegin(_seqlock) };	\
++	     _s.state != ss_done;					\
++	     __scoped_seqlock_next(&_s, _seqlock, _target))
++
++/**
++ * scoped_seqlock_read (lock, ss_state) - execute the read side critical
++ *                                        section without manual sequence
++ *                                        counter handling or calls to other
++ *                                        helpers
++ * @lock: pointer to seqlock_t protecting the data
++ * @ss_state: one of {ss_lock, ss_lock_irqsave, ss_lockless} indicating
++ *            the type of critical read section
++ *
++ * Example:
++ *
++ *     scoped_seqlock_read (&lock, ss_lock) {
++ *         // read-side critical section
++ *     }
++ *
++ * Starts with a lockess pass first. If it fails, restarts the critical
++ * section with the lock held.
++ */
++#define scoped_seqlock_read(_seqlock, _target)				\
++	__scoped_seqlock_read(_seqlock, _target, __UNIQUE_ID(seqlock))
++
+ #endif /* __LINUX_SEQLOCK_H */
 -- 
 2.53.0
 
