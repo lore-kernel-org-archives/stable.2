@@ -1,114 +1,93 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FBC3BE14D
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 15:16:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EE03375D5
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 15:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784301396; cv=none; b=h5EJdnxuSeAPOG1FguMmTzWosyVSBnHs8XDjZOHwDGEWQZbETeM4WdCDhHQ7elR0CTiIuC0eVFJBJNeqm62YUAm9gkjevEh+4yJ9y1itsisL8QQwDqGqGajHoZK00gB+Q/JdLWVavaTo+4Op63PJyZORh3pjIl624gcId5PuRiY=
+	t=1784301426; cv=none; b=ckboEC3i+RGk0ViQtjUmsav1O9XffVEExCS1neV6gJeHVcxZXP/uFKtnkIjsBcgrqyzZrFEoJxcg0eMxXUXaNXKgWU2Cv7mcDnPJ6rYJaltSnpOE1gC0c1Thq3ffcA3P3ypHg0OKZi4m853t9N3iwRwN7J4JawhPQyyu80Nzb4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784301396; c=relaxed/simple;
-	bh=NNibbsMBzcBhzHKyyVyWoEjs9JNqg5eZd/fl/Nu8GEg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kOp5rhLp/rekHoaQRgylOKgMRvY2kGrVnHmiPjn1jAHhT+M7Uzqf3CsmfqgAlU5648/KdJ//4tIzr1zAqctU6iui8panQsaMnGUGuIYtSqggm+7QgCUk266UNTT7IY7ERZIUVe68IZKXSifKrhuXofiIG9C0i9JhsJq0YMDJbEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bXkjmYQ3; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784301426; c=relaxed/simple;
+	bh=TTq4I5LbcPxcZinSKb8uDNZe7BzWWqfDJESOfHGQhhA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mFVpTGIKkZ7ypn0fcX7zy+sLuXHYxs2CuHt2xzDpJ724ihV5TJNO4fDLRTGkUIDyRNI6Epb/wmVguHJl8aWoAQLe77g+ErM4rva0zEFKxTqJqKKXwf4cn1ltM+Q36FF5CphdI5mocjO1ZySqTTPk13UbSZiJYKMxGlFKEWMLOcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ErJkPTqi; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bXkjmYQ3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784301394;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=TRhb9mvNrRYyHgkhEJwct4IUo2+m3ly9XG+UwgjaINA=;
-	b=bXkjmYQ3rvFSjX6TY3q4fHvN7jBKP1DwS41ueLPojKhvo9DK/ILi+YqULCojnKp06c4dgX
-	dnW/vtWGr+2JbYoaVV6sMzL2MiO3inE2FaOwZ0hXrhpZlwjGFcsZwjxeO51xLcaL4MJwpG
-	GxPAN3R/xtNOln6TtkKAMG2mwxiJ6pE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-302-dNHHZgzCNfWqsyxdkLZFtg-1; Fri,
- 17 Jul 2026 11:16:30 -0400
-X-MC-Unique: dNHHZgzCNfWqsyxdkLZFtg-1
-X-Mimecast-MFC-AGG-ID: dNHHZgzCNfWqsyxdkLZFtg_1784301389
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5CFF11955D8D;
-	Fri, 17 Jul 2026 15:16:29 +0000 (UTC)
-Received: from lenovo-t14s.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 726A33004182;
-	Fri, 17 Jul 2026 15:16:27 +0000 (UTC)
-From: Laurent Vivier <lvivier@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	Jakub Kicinski <kuba@kernel.org>,
-	linux-usb@vger.kernel.org,
-	Stefano Brivio <sbrivio@redhat.com>,
-	Oliver Neukum <oneukum@suse.com>,
-	Laurent Vivier <lvivier@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] usbnet: cap max_mtu for drivers without bind callback
-Date: Fri, 17 Jul 2026 17:16:26 +0200
-Message-ID: <20260717151626.2913171-1-lvivier@redhat.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ErJkPTqi"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47d70879764so5777710f8f.2
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 08:17:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1784301423; x=1784906223; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ksrf2BBRNj0ansfYiNu1tWZJpJoXMwRWSwrgtPfAp0Q=;
+        b=ErJkPTqi6TFyCzk66sOzJ6eY5wXAONttNlspawckWZB6mO/2+vkBDUVSoup1nTZ9LY
+         +z2xw9fbKouIUNwc6WtPIHZ/qMVocg9Jji0YsNiExBavq7DVgngSs5YDGtS0YY/VbI0M
+         pGklVkLwCv2SHiK9R2Je6fPX53LSrAgx7sxNGB0/BCwmiOtc8UrP1CvZJHFh2JXsTClw
+         F/tbEWGU3odKvljxsKGq7HnAs94Mrkprq/U8+clKn+jl/ceBkVqRQNaE5Z55m6sChnEV
+         ym/m/nld7jylR0r+T92gIdRq8l7hUUaNgwQ5xzQkWGHroh610TxqkZUy8/bxDdV4wb98
+         mtTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784301423; x=1784906223;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ksrf2BBRNj0ansfYiNu1tWZJpJoXMwRWSwrgtPfAp0Q=;
+        b=a5/V+ro41XVKwfWPzMleps5G5hALJNbOEPEsg34BjhekZdYYrifCfIBtg2ELopVVk8
+         l3g6jnQx8igujalREKhXAxGDyBwv5q2M6Vp3LxkFNBMr8eBISa83nMBfrhixdFNOuElr
+         6R+VKwlBJvPVn8MjOl4W2KQ57NanI3ay6rhmFfqs9H2aH2vVRVA3Be6lLdsqiijfXHGG
+         iTFvRKf51JpFXaTeR5SboAvBtIALM2id9LlgsyLIhEEi23kNrivdHK+7VJMcZsiua4Ug
+         83PgoHPN+qNPy71RlKuQ53cETQl8wH5N+bUoy4fjFWgVRB576lmF5ZjiaN85Rag5VNDH
+         yRXw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrj+/yc2RpPPW4XEHeH2otk0LAOviZpIS2Vyd9SEEI35DN9M4t+nloslPI6/a8OE5/yFTfygcE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCRxuzek45YVTygXYwT1An2O2KpDaXXzBjQ8rkGL+2aGsElHrK
+	ADuY8wIS6AoXpBJ1YKiEI5DE2njYM3sbtEODBNDCJbp5O+0BMkaysrLHNBrioFfnbf0=
+X-Gm-Gg: AfdE7cndqwUHvdTyodZabnj7IAHxEwvVqJpuFK1UQJxhfYKS4GCFpFwNco+eXfbXnVt
+	J7cSuJfyBN3nKMrpjVYyL+nO32z4eCGQbvEzGoQs5NdopnL49Trgk/tczXF7lk+862cka//R6kT
+	UF/S3QnsXrmb76h3x3GTP7LZb120pjnKkEn7kKKi/YLVv2zVQlNQH6a8LUtVaOvZ+y5hiekm1u6
+	3C5D7zjqvmNXnihViDNOMrgP3uc72BhixLLpFFBNQc8OVhugZBzGpBrsHsqc9s1IsgD9JCiSR4h
+	sjTT1FRH8oVZHNafV17olhZe8SEUeRQN0Oal0p/ag5muaViRIEIl1fNVsuOJufhT1P7aMBdnI5a
+	O0s8ph717v+OULTD4GFj4woll/U/CqypRBCWTBm0unU8DsBDflBpDzPYe4bQ4zponcwjXdaXAIC
+	OJyjkQ
+X-Received: by 2002:a05:600c:4fce:b0:493:fa66:4861 with SMTP id 5b1f17b1804b1-4954a404bc2mr40817825e9.25.1784301422930;
+        Fri, 17 Jul 2026 08:17:02 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49549c96ff7sm55142625e9.10.2026.07.17.08.17.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 08:17:02 -0700 (PDT)
+Date: Fri, 17 Jul 2026 17:16:55 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Bradley Morgan <include@grrlz.net>
+Cc: akpm@linux-foundation.org, feng.tang@linux.alibaba.com,
+	sashiko-bot@kernel.org, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] panic: flatten nmi_panic control flow
+Message-ID: <alpHZ7ZbeyWAGoIw@pathway.suse.cz>
+References: <20260714173103.11585-1-include@grrlz.net>
+ <20260714173103.11585-3-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714173103.11585-3-include@grrlz.net>
 
-Commit c7159e960f14 ("usbnet: limit max_mtu based on device's hard_mtu")
-caps max_mtu inside the if (info->bind) block in usbnet_probe(). Drivers
-without a bind callback never enter this block, so max_mtu stays at
-ETH_MAX_MTU.
+On Tue 2026-07-14 17:31:01, Bradley Morgan wrote:
+> panic() is __noreturn, so the else after panic_try_start() is dead.
+> Drop it so the force_cpu path can be added cleanly on top.
+> 
+> Signed-off-by: Bradley Morgan <include@grrlz.net>
 
-QEMU's usb-net device (0x0525/0xa4a2) is claimed by the cdc_subset
-driver which has no bind callback. The guest accepts any MTU from DHCP
-(e.g. 65520 from passt), leading to TCP segments that exceed the
-device's 2048-byte receive buffer and are silently dropped.
+LGTM:
 
-Move the max_mtu capping after the if/else block so it applies to all
-usbnet drivers.
+Reviewed-by: Petr Mladek <pmladek@suse.com>
 
-Fixes: c7159e960f14 ("usbnet: limit max_mtu based on device's hard_mtu")
-Cc: stable@vger.kernel.org
-Link: https://gitlab.com/qemu-project/qemu/-/issues/3268
-Link: https://bugs.passt.top/show_bug.cgi?id=189
-Signed-off-by: Laurent Vivier <lvivier@redhat.com>
----
- drivers/net/usb/usbnet.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
-index 25518635b7b7..d87299025552 100644
---- a/drivers/net/usb/usbnet.c
-+++ b/drivers/net/usb/usbnet.c
-@@ -1825,10 +1825,6 @@ usbnet_probe(struct usb_interface *udev, const struct usb_device_id *prod)
- 		if ((dev->driver_info->flags & FLAG_NOARP) != 0)
- 			net->flags |= IFF_NOARP;
- 
--		if ((dev->driver_info->flags & FLAG_NOMAXMTU) == 0 &&
--		    net->max_mtu > (dev->hard_mtu - net->hard_header_len))
--			net->max_mtu = dev->hard_mtu - net->hard_header_len;
--
- 		if (net->mtu > (dev->hard_mtu - net->hard_header_len))
- 			net->mtu = dev->hard_mtu - net->hard_header_len;
- 
-@@ -1851,6 +1847,10 @@ usbnet_probe(struct usb_interface *udev, const struct usb_device_id *prod)
- 		if (status == 0 && !usb_check_bulk_endpoints(udev, ep_addrs))
- 			status = -EINVAL;
- 	}
-+	if ((dev->driver_info->flags & FLAG_NOMAXMTU) == 0 &&
-+	    net->max_mtu > (dev->hard_mtu - net->hard_header_len))
-+		net->max_mtu = dev->hard_mtu - net->hard_header_len;
-+
- 	if (status >= 0 && dev->status)
- 		status = init_status(dev, udev);
- 	if (status < 0)
--- 
-2.54.0
-
+Best Regards,
+Petr
