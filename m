@@ -1,143 +1,210 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1843E169E
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 08:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784276992; cv=pass; b=NhBLevgSWqzZ1/cvVw1+THQb1AlvAYteRrZeWplAo6pkVo+L0e8Ay6xVVftolx/dq6tR+VgJ2kowus6DIGdwf9OnKqILgeW+y5pTEGCL2lmAOHuk/69nlq6wxgL4o03ikLprWBXWsNska1hiAvLVWRxgtCGRdv/4Ix86YcR4ctE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784276992; c=relaxed/simple;
-	bh=0t9JFG9qYMxku99fuegP0SFobvht98c9pfQEgjYuBo8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N471woKyDbF6zxmfwv0SgljyVwOkg2Jt7/Kow+A+iOvlW5aSsLI388M3oB3LUH0+FQAy9xD3YrF4vWvEOivo/FJcpHv21LtoduuOMQnGRcyLFBwiSAq+X8xFeWQMs+OSCXE9FLjWOQ/GKXYA+ArspzTKY0Xjzyx9V1PkIWSclz8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=uBDfMHh6; arc=pass smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84464331222
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 08:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784278019; cv=none; b=RhO5LIsBmKNUq5gapW9O1NgpmIZHhRnElqRcbzfk9CjpMH8r5rfyZyaN+I3+zNoKbFbER6S5PM2FUZnd0Ek14+8w1t5YVMTbPN46QrcZDCfOn52rz76g7z0TM6rkl+7NpJvXJ/v/8JVvC8WBgigDKx1YGEaiVAQdiSOJUcpKOb4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784278019; c=relaxed/simple;
+	bh=A8xpebSaaQSXV4EPEpqxExKI2SAxI2OAwhCC9qjihIw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EQdtt8rAik6Jfmno3Wp3pgAP9fG2/IcP+0sHXbihm3BymWooc42NwGSGMTcu48EEzlG6VWYTF8fdSQEID6TCi91emTSBKc0rbuYwDvNiMfwSGLJh6/p97zGWbNaHlCkGpUtF4+ou73V+gEwLKhBxS1qchOp0eGPTjcF43wKse2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G/iMfK5h; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="uBDfMHh6"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c9ef3e1337fso5223000a12.2
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 01:29:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784276990; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nyPg1jK+mlXWjIM2iFVuvgewujCtXJvul9SGbP3abetucTgcjbHp9QlDSQAF6OEnox
-         Sn8GZDmgCJE863dqjatt5TukhjcN2TGT7+1XDnPryid/wUNLmSTNUcQbofiHPO/iXQVE
-         8Ssxkd3QJrQAPpMOiuljyX2P4Ky3ZN0Ij6rS7YMuYNGVKQkzwiGtgFE3pZhxAkV8ZNJ5
-         7c35MHD36xt63e/sdsK439e9l2ju42httm6zN3RR1/DbUuiUXgm/p8YclXUX9lS2YJsF
-         WRviWlEL8hm+2Qbt5qoY3Gr2sFfj24Km/mTQ8hEQbBpLByJnYy3Dn2EJISasyAhnUuox
-         ztjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bsyN6n1X+GJ2Z5rKNi2r3QYlGOgGQhzgZqC6Hvjv0XI=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=rHt97efVawbYWJWGebGbY703kHUssxuZMGYqsgG0alPG1XWV447gjMiR7EeuMpB3rZ
-         MSwQRZUeubzixMLv274aMf6BuQ2HRBFlz65VTuMZW2RIrHN2aBaDxPyMm1inRfXpS5iR
-         rRi6LAE8xx+fRBcJjMg0w1KZ/aMf2gzzh+ZAkpZLhVLjioDGEg1ljvrj12ZkFqLZulVl
-         2H0Y3RBd/jsGt2aHH+iAucwka/wYnYjE21thZumzH6JY/KeSM9HqyiuCPGsx2TVpnogD
-         8h/evGRoqk8F7Gj78ChOiSnvZwxlrd6x2q0apGOdj3ifoERBvFU+m6xISGghsgA59usp
-         MSPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G/iMfK5h"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cee9b74ee1so40929955ad.3
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 01:46:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=futuring-girl.com; s=google; t=1784276990; x=1784881790; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bsyN6n1X+GJ2Z5rKNi2r3QYlGOgGQhzgZqC6Hvjv0XI=;
-        b=uBDfMHh6HSRiMvozwxOo66PKtG0ZfGQQJqAcXAVDzHkyYR5WQer9UUMiBcPGidMWPL
-         FaPLfdZaO6Es7BQuCg/Cb3RCu2mvJDVV7yjEFNJ15k+j5aeY8HuReoFMyX6YnntltcnO
-         DX5hDPacFEgOBdySPUBB2vf/yvvYgdrMZk22/jxNi816X+gDVt5Law6uLkDz6PHX2LXP
-         QlmNSgpFFZZG9nZ1hrQvLDfl24NnCUYwnFQClpCYlSZaJ53y5Urh7jeXTu4vNwPWnd+M
-         bfHHYPV9/wgEmHEBoOFlr5bOW7fPn+O0Z70yX5GP37s+ctwrDBPqj9HAuOiWBFxc3Xgu
-         ekng==
+        d=gmail.com; s=20251104; t=1784278018; x=1784882818; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wHC4U75uHN7griHlGyDVa7HlPfycllJJT0cM4ZMBj1k=;
+        b=G/iMfK5hz9oetWCOcjQTItT13TEPeLr7ZQjjPu6gdgoMvxIN5ozzPvAl08/ZyvYI1b
+         dmUnWgrVsSG67PMfPgVOyr6EX5RnqXNf52G3jDmhHwJvVlFubinE121QtVewg4V/HIOR
+         Wig8In657iCC71m5M1a2nRwPrqLMMOp/9BnciXGu9uKUlybzmsjw10aHzp9VKrq1cwQN
+         2npZZcF+kNffMcF8XQZpEEUppRsIVrcx9bpxK3X7Zj+0u3EQG4oTo1aNYEl79OL3k8Z0
+         vVdtjlpJHe9rghfZHBaRk1aASi+vkfKIOYYShXfGxYw3z+599cJLmw2PqHLRhhBbJupc
+         Fovg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784276990; x=1784881790;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1784278018; x=1784882818;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bsyN6n1X+GJ2Z5rKNi2r3QYlGOgGQhzgZqC6Hvjv0XI=;
-        b=pnAkCOBJSogOj1XnkjAV1QllwTigcadbuYX6czDpa0d7Vv1eHE++OpgoQZ2OB8xqtM
-         LFa4qjXdzmklnanPHAkJm1qZ9qz4CykEEGbDH00G+3rTSnwt/V4bn74RL1BqcAVVvbw7
-         xEtFud6U6QKrPK2naolIM6y+nxu+coSCagYzOt57H4Y3Dmqg7v/tD2EKRntNX6bvh1El
-         4zroRHBeS8FHmVcdDRtfdGSvTaiLsVkV5jZAQ8xFb2xbc6o7U05AO1GIkKROZKt70cix
-         6Kuhm+0Fx4QtOJq53tSqJ1mo4vm1AjmnjgZRKXUw8nOJ5GGBap8tFps7AV2F4d/Styjd
-         OWkw==
-X-Gm-Message-State: AOJu0Yy/JxZQXYOV7V/lGMspASWmtINohY1Ic0AON4r3XwBzlJUqhYWW
-	6jvav9KxR3xAhCkQnGAnH04CUvRkQsSmxiTIYHTGk017KMRcNORXRUFrmmrflhGh+a42l5nRdbg
-	sR5KMMwxJdktyWbkJBrlYnIfJ0Y6+KAfUYQO9WBrEyA==
-X-Gm-Gg: AfdE7cktHjMJ6DrwzH3odARhDRJNtISD/Jx00AN2SOPl76AVykyMZwA8oB4bbFAq7Ob
-	V9iTlynAgXDBi3nXPs/kb8zfffzZ4Gw1vYqEocr1m9NU57+dkCZyaGg5xx5HDukGsBvPNvY6/4Y
-	gFRqUdutGzH4OW2zRKgijVEtNXa0gkbdQnO5CpsEyad3tJmhzG2STPJRtj5Q4qR7cbLvABYSAdV
-	ueKvM0ffFm/BXoCkHoy+Y1IjDdg//auiTGwWt1HZBC8ahCtNWP3ctxnqgIigHD8QB7Mj5pIanFq
-	rGLWBo21H4Fay2AC17s=
-X-Received: by 2002:a05:6a21:6e95:b0:3c0:9c1a:893e with SMTP id
- adf61e73a8af0-3c3ada3e2e6mr1770184637.70.1784276989861; Fri, 17 Jul 2026
- 01:29:49 -0700 (PDT)
+        bh=wHC4U75uHN7griHlGyDVa7HlPfycllJJT0cM4ZMBj1k=;
+        b=K8Zm55IXPhZM2JWOT7Yf9683yDoXGjWmvwhOtUtraBkQwY3/ettyhZFxoLlS/r0zQs
+         nqLv3u5MqJAwigAc7KRI0ZKKsAtTu2SSH8L821BsgLJDOi/2YDRG567mP4ZfC0rMQjPG
+         S8q0UGMX2vNLW0XnyGFHdzQb7egxRUZyinjng7ndhqCgXd5KGWL+ZIXbLZkCCQpjBkD7
+         Kw181q5Kph+rBLYlrPlNzh9iV7j9aa8nStyjqLRecDJjC/A5s98OvWNx8vAlhegwUihl
+         kOKUHJyntIfjT6onvmjIL5wFdI9p8zFOTExbLjpFNtm8vcYcQ5zrbTGFDTgiWT0bPsd4
+         lUZg==
+X-Forwarded-Encrypted: i=1; AHgh+RpEUxXz7Hg8aTLvaTIexYgR9ZyiHRmzaKpIhDmb4fA1G9u7fPrNkrSJFzyyHSTqQ610BEwxhbE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0+wpUKG67s9RFOsZe0QRG3/ccNIIhnbRlb4GrOj2Qu/bSqYF3
+	xrLKZduTVREdINh2M4VgrrwxSTmbw0ofsHtAhqCl/p4+H9YcDJ9yXlZX
+X-Gm-Gg: AfdE7cnGvL9XOgrFOoT7JpDB0mSeFwFkmo6GcHWgSRieYtYjvPsVNniSNLLZ4DsImYv
+	xRb2TbIMBYE3hZiPxSdy4f2F5GhZE/YuzKEUq3fJ/ZJNFMgL5Uq5j7hmCkqHQNqUNcXAMItzpfw
+	MLo1SsA5q6b5gIPVj/N0IvdM1S3gOacMOgvMsZf8zpITCpqHl3tAoA8onafqY22hr1JAK/YdCp6
+	9lgg+saLnm6vXsPNwz4HNtjcq1B83+l14zjZsDt0ft/eUIVfr7FBFSdvFc1A6u5/UTj0AS+rJWz
+	VW/XJpNNfLyKRpBkJeluYmeOMyZmSPl8+nhaI7QvXCYNBKsAVhYpV4BGfm0HY3/q3Ro7LRTijX7
+	dnMjvdqVRrI8KKdIdKmIfLvUwQu+MqnbSB3DgTzNEZOo8POfFQcCkmx6vv0b8uI/y3nWZ6H7U14
+	dmgEHV9zXvLZSqdlqERfOa3g4=
+X-Received: by 2002:a17:903:230f:b0:2c9:9a19:df with SMTP id d9443c01a7336-2cf348aae13mr17638315ad.18.1784278017632;
+        Fri, 17 Jul 2026 01:46:57 -0700 (PDT)
+Received: from [10.125.192.114] ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf347a7c9fsm6699325ad.84.2026.07.17.01.46.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Jul 2026 01:46:56 -0700 (PDT)
+Message-ID: <9c63fae9-0608-5192-665c-2811205a64c6@gmail.com>
+Date: Fri, 17 Jul 2026 16:46:37 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716133047.772246337@linuxfoundation.org>
-In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
-From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
-Date: Fri, 17 Jul 2026 17:29:33 +0900
-X-Gm-Features: AUfX_mzoMNdeZUUZN06JT_8hRl2lSZ_0mLEjp5zCBlYqYm4zCoRug6tYz9ObcTg
-Message-ID: <CAKL4bV4EODs29Ra3wO77kmvu+UHnX3N8rELbmHRFW1RMwbfizQ@mail.gmail.com>
-Subject: Re: [PATCH 7.1 000/518] 7.1.4-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.15.0
+Subject: Re: [PATCH 1/2] mm/zswap: Fix global shrinker when memory cgroup is
+ disabled
+To: Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, tj@kernel.org,
+ hannes@cmpxchg.org, shakeel.butt@linux.dev, mhocko@kernel.org,
+ mkoutny@suse.com, chengming.zhou@linux.dev, muchun.song@linux.dev,
+ roman.gushchin@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Hao Jia <jiahao1@lixiang.com>,
+ stable@vger.kernel.org
+References: <20260714081510.16895-1-jiahao.kernel@gmail.com>
+ <20260714081510.16895-2-jiahao.kernel@gmail.com>
+ <CAO9r8zM5nzDqNcx5UoDgGexvR6jf8MmJV9SomM4AS7n-rZ2o5Q@mail.gmail.com>
+ <20260714193129.f81711f516504b659d544741@linux-foundation.org>
+ <7a1fe347-7ca6-4768-9308-420bf1251f54@gmail.com>
+ <CAO9r8zMDndmoxi_XvQv3rkkhCfb+aW3=8JdE3gAv2YOKiyiFSA@mail.gmail.com>
+ <7b35fd4e-7662-10ae-159b-303350e4e59c@gmail.com>
+ <CAKEwX=Ob9shetuJK4y=NZods3KkT=U_3W4S_ALzxX3EDLomWEA@mail.gmail.com>
+ <CAO9r8zMy3C=tTLsyv_WkAS8Fd_Z3uSCmX4cekPLo8KkNb9bkCA@mail.gmail.com>
+From: Hao Jia <jiahao.kernel@gmail.com>
+In-Reply-To: <CAO9r8zMy3C=tTLsyv_WkAS8Fd_Z3uSCmX4cekPLo8KkNb9bkCA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Greg
 
-On Thu, Jul 16, 2026 at 10:38=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.1.4 release.
-> There are 518 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sat, 18 Jul 2026 13:30:01 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.1.4-rc1.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
 
-Linux version 7.1.4-rc1 tested.
+On 2026/7/17 08:08, Yosry Ahmed wrote:
+> On Thu, Jul 16, 2026 at 11:19 AM Nhat Pham <nphamcs@gmail.com> wrote:
+>>
+>> On Wed, Jul 15, 2026 at 7:21 PM Hao Jia <jiahao.kernel@gmail.com> wrote:
+>>>
+>>>
+>>>
+>>> On 2026/7/16 00:13, Yosry Ahmed wrote:
+>>>> On Wed, Jul 15, 2026 at 5:31 AM Hao Jia <jiahao.kernel@gmail.com> wrote:
+>>>>>
+>>>>>
+>>>>>
+>>>>> On 2026/7/15 10:31, Andrew Morton wrote:
+>>>>>> On Tue, 14 Jul 2026 09:52:59 -0700 Yosry Ahmed <yosry@kernel.org> wrote:
+>>>>>>
+>>>>>>>> When memory cgroup is disabled, mem_cgroup_iter() always returns NULL.
+>>>>>>>> Therefore, the global shrinker shrink_worker() always takes the !memcg
+>>>>>>>> branch. After MAX_RECLAIM_RETRIES empty walks, the worker simply gives up,
+>>>>>>>> so it fails to write back anything.
+>>>>>>>>
+>>>>>>>> Therefore, when memory cgroup is disabled, fall through with the !memcg
+>>>>>>>> branch and shrink the root memcg directly.
+>>>>>>>>
+>>>>>>>> With memcg disabled, shrink_memcg() only returns -ENOENT when the root
+>>>>>>>> LRU is empty, which means the total pages are already below thr. The
+>>>>>>>> loop then safely bails out via the zswap_total_pages() <= thr check.
+>>>>>>>> For any other return value from shrink_memcg(), the loop is guaranteed
+>>>>>>>> to terminate, either after MAX_RECLAIM_RETRIES failures or once the
+>>>>>>>> threshold is met.
+>>>>>>>>
+>>>>>>>> Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
+>>>>>>>> Cc: stable@vger.kernel.org
+>>>>>>>> Suggested-by: Nhat Pham <nphamcs@gmail.com>
+>>>>>>>> Acked-by: Nhat Pham <nphamcs@gmail.com>
+>>>>>>>> Acked-by: Yosry Ahmed <yosry@kernel.org>
+>>>>>>>> Reported-by: Yosry Ahmed <yosry@kernel.org>
+>>>>>>>> Closes: https://lore.kernel.org/all/CAO9r8zPVzMKFbCixxD-qgtRrkFxWVrHiZZeLc=eyTPKPVQgX4g@mail.gmail.com
+>>>>>>>> Signed-off-by: Hao Jia <jiahao1@lixiang.com>
+>>>>>>>
+>>>>>>> Patch 2 doesn't really depend on this one, right?
+>>>>>>>
+>>>>>>> If that's the case I think this can (and should be) picked up
+>>>>>>> separately as a hotfix. Andrew, WDYT?
+>>>>>>
+>>>>>> Please update the changelog to clearly describe the userspace-visible
+>>>>>> effects of the bug, thanks.
+>>>>>
+>>>>> I am not entirely sure if my understanding is correct here, but maybe I
+>>>>> should add something like this to the commit message?
+>>>>>
+>>>>> When cgroup_disable=memory is used (or with CONFIG_MEMCG=n), the global
+>>>>> shrinker fails to write back any pages. Consequently, the zswap pool
+>>>>> fills up to its limit and rejects further storage, preventing memory
+>>>>> pressure from being offloaded to the backing swap device.
+>>>>
+>>>> I think you can simply write that zswap writeback when the limit is
+>>>> hit is broken when memcg is disabled.
+>>> Will do. Thanks!
+>>>
+>>>>
+>>>>>
+>>>>>> Also, AI review has flagged several possible issues, all appear to be
+>>>>>> serious:
+>>>>>>         https://sashiko.dev/#/patchset/20260714081510.16895-1-jiahao.kernel@gmail.com
+>>>>>
+>>>>> For AI review comments on this patch:
+>>>>> I suspect this scenario might only exist in theory. For zswap LRU to be
+>>>>> empty while zswap_total_pages() > thr holds true, it would require a
+>>>>> prolonged state where there are always more than thr zswap entries on
+>>>>> the zswap LRU whenever zswap_total_pages() > thr is evaluated, yet the
+>>>>> zswap LRU happens to be empty during shrink_memcg(root_memcg).
+>>>>>
+>>>>> If we want to fix this, perhaps we could do something like this?
+>>>>>
+>>>>> Yosry, Nhat, what are your thoughts on this?
+>>>>
+>>>> Do we need to do this? The last paragraph in your changelog explains
+>>>> why this can't happen because zswap_total_pages() should be 0 in this
+>>>> case. Did I miss something?
+>>>
+>>> The loop would require the following sequence to repeat indefinitely:
+>>>
+>>> 1、zswap_total_pages() > thr evaluates to true.
+>>> 2、During shrink_memcg(root_memcg), the zswap LRU is concurrently drained
+>>> to empty.
+>>> 3、Before zswap_total_pages() > thr is evaluated again, the zswap LRU is
+>>> heavily refilled such that zswap_total_pages() > thr holds true once more.
+>>>
+>>> For our case to manifest, it would require zswap_total_pages() and the
+>>> zswap LRU state to repeatedly hit this exact window with perfect
+>>> alignment over a **prolonged period**. Therefore, I suspect this
+>>> scenario might only exist in theory.
+>>
+>> Yeah seems very artificial indeed.
+>>
+>> If we want to be extra careful here, maybe we can put a cond_resched()
+>> there or replace the continue with goto resched or sth?
+> 
+> I think it's also possible with the current code with memcg enabled.
+> It's still possible that the shrinker puts usage under the acceptance
+> threshold and then a new zswap stores puts it back above the
+> threshold, and so on.
+> 
+> Perhaps as Nhat said, just goto resched instead of continue if we're
+> really worried, but I think even that is not really necessary.
+> 
 
-Build successfully completed.
-Boot successfully completed.
-No dmesg regressions.
-Video output normal.
-Sound output normal.
+Yes, but to be strictly rigorous, let's add a goto resched; anyway.
 
-Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+Thanks,
+Hao
 
-[    0.000000] Linux version 7.1.4-rc1rv-g01c8c5ba0d4c
-(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.1.1 20260625, GNU ld (GNU
-Binutils) 2.46.1) #1 SMP PREEMPT_DYNAMIC Fri Jul 17 17:03:38 JST 2026
-
-Thanks
-
-Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+> I think we generally want to clean up and simplify the shrinking loop
+> in zswap_shrinker(), but I don't have any great ideas.
