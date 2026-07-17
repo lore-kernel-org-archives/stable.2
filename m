@@ -1,43 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6371742A145
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:34:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A47442A15A;
+	Fri, 17 Jul 2026 14:34:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784298894; cv=none; b=hTSjwdbBQpuTwQ1nqQm+ojPt6XABvm1eFzHisKHnQlo5gtjNjK8b31bJwe0GKHlkJO+XP3CmgKLs6D+Y0x+RmOMDdV5RnJtsVpD6vXHdulEkJqhJWIEbT1CqVS07JHFxHxc6jIYWaTQ3NRCkTDQglRklKmV+WKvbggaTlLUrhtY=
+	t=1784298894; cv=none; b=QfG1isb20AnDjgzxNmIh3ACFYgKJeL9Pgc1FCvLjFY6b2lxp0WJgB1KiCZujEgmlklSCKG/NLae+Hsho8CZqK0nXjyqwQGzg82mOLueaRPGAaycpfZ4WXjhiFyoaMAqiv9v4VLJngT8eEPrsAwgP0u3YdHKBuex59jG/FDtgM8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784298894; c=relaxed/simple;
-	bh=Hx48YZ/dNHthp7/RsrnwCe7TKff5OwUCsoMruaDY6OA=;
+	bh=ioC4eodbAR+1Uyfpuko2Zd0ZkrM7igoZy/SFuML6ORE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=odvdiuFQyCJliAGI/n0cKsUIJwyRs1UA4auMUbFg1srv+nzIHPgvP7fflofybVTLTRsCklet1Ngb+ItA0jHscCudBj755qoiTyfNiHlSxXZnhJj2AofGPI0FTExu6Er27Jl6vd15PuYI9UDdN0xj0EKR+AC5bXCmbVtxwv+FzbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F2/jz515; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nsndIAC2OkgLSsj9yhs+WYT8BQcCRuGvBEorLBqtf0ocl3AL4Sol7bHZw8HCfLjb2pO+tjqBfquyUWiMtHDpM4NR0PJFDEYogzSbQxdFj/2VjNHaYsB9iBbWBVi5Ihbj8EwsEAYkEHtc+Uam3EE/WTZpj6zXBJRs68bivjc20VA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E1VkfEE7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F2/jz515"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8DD51F00A3F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E1VkfEE7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D50911F00A3D;
 	Fri, 17 Jul 2026 14:34:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784298893;
-	bh=VXFj4EflelvkOCYtDQxRCItk8ewXVFWEWm93TRO1/yQ=;
+	bh=jqlH4wneWbMAf8JjBiLX1bTl/sVQqX7skPWoj8yoesY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F2/jz515CVL2jxLBZnhVAolfc/pk+JI8oBqiMti/W3+lJKCNBzZJkNclH9j4EKm7L
-	 BBDymOkXv0qOk6pSCl71yEsZckW4pZGujofladeunjNCfMHX78pFjKK3oJ6K/lE7Lr
-	 R3IEfzaRKlFkMP0fGy9EMH13PJequCab4tklV18uy0DF35DZGSrVeXqe8lRgV1bjjn
-	 8U4AgDkbG8yAvpkN8QlgdrTzfSlT8ViXPCprPN8OpYXQTkQKEXyYkvzu9kDTRlqqMG
-	 HarNVCdbfgQ1dciKMIORzmxDge8JbxbSwLY9EB0YzgRaIZJWJHXwtRf30nWIdCYjIn
-	 RTv/dLtT903uw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Oleg Nesterov <oleg@redhat.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] seqlock: Change do_task_stat() to use scoped_seqlock_read()
-Date: Fri, 17 Jul 2026 10:34:49 -0400
-Message-ID: <20260717143450.1877881-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717143450.1877881-1-sashal@kernel.org>
-References: <2026071445-halved-nullify-54b3@gregkh>
- <20260717143450.1877881-1-sashal@kernel.org>
+	b=E1VkfEE73Ld52yTp8XyAQnrJXqTiZfuPBrpHJg+wQgO+3sNQ0Iyu8PFiSyJKuDbfW
+	 3LWPnW+dMyu7SVgLfgHiFoaZGVFY8xNd8VJu2HvUcIds2AT64Af4X2wpvGjjAIlYWr
+	 CLrl4T0i7m2CYniO15KQb6ZXzke4uxN7QXT/oY2PnJYdnfys+nwsgv85juPh4Gh1Dl
+	 ZGuVYrxhMsoNjjfaeFcQpFodyLIDvCoIsJDoyIgBeDLnLsDS68WGxSyzPhsTDCixx5
+	 BFb0yKZ04XxR4H3Ii52aoGoEW7pZF983iz5p3Rmu7pdCgZ9Fi8s6OdJ93u6AalQbzP
+	 r6ZQ95HO5A2CA==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v1.1 1/7] mm/damon/core: initialize damos->last_applied
+Date: Fri, 17 Jul 2026 07:34:38 -0700
+Message-ID: <20260717143445.91207-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260717143445.91207-1-sj@kernel.org>
+References: <20260717143445.91207-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,55 +52,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Oleg Nesterov <oleg@redhat.com>
+Multiple DAMON regions could exist across a folio.  If they fulfill the
+condition to apply a DAMOS scheme, the scheme could be applied multiple
+times to the folio.  To avoid this, each DAMOS scheme stores the folio
+that the scheme was applied to last time in the damos->last_applied
+field and skips repeatedly applying the same scheme to the same folio.
 
-[ Upstream commit b76f72bea2c601afec81829ea427fc0d20f83216 ]
+The field is being used without initialization, though.  Hence, the
+mechanism could wrongly skip applying a scheme to a folio at the very
+first time of DAMOS run.
 
-To simplify the code and make it more readable.
+The user impact is trivial.  DAMON might unexpectedly skip applying
+DAMOS action for one folio for the first time per scheme.  In the
+DAMON's best-effort world, this is never a real problem.  No critical
+consequences such as kernel panic or memory corruption happen.
 
-[peterz: change to new interface]
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Stable-dep-of: 6650527444da ("proc: protect ptrace_may_access() with exec_update_lock (part 1)")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+It is a clear bug, though, and the fix is straightforward.  Fix the
+issue by initializing the field in DAMOS scheme creation function,
+damon_new_scheme().
+
+The issue was discovered [1] by Sashiko.
+
+[1] https://lore.kernel.org/20260714055436.120034-1-sj@kernel.org
+
+Fixes: 94ba17adaba0 ("mm/damon: avoid applying DAMOS action to same entity multiple times")
+Cc: <stable@vger.kernel.org> # 6.15.x
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- fs/proc/array.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+ mm/damon/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/proc/array.c b/fs/proc/array.c
-index 363d9331216b91..d5cf316f3eb429 100644
---- a/fs/proc/array.c
-+++ b/fs/proc/array.c
-@@ -483,7 +483,6 @@ static int do_task_stat(struct seq_file *m, struct pid_namespace *ns,
- 	unsigned long flags;
- 	int exit_code = task->exit_code;
- 	struct signal_struct *sig = task->signal;
--	unsigned int seq = 1;
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index f464b4f0976c3..60255f5cd715e 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -705,6 +705,7 @@ struct damos *damon_new_scheme(struct damos_access_pattern *pattern,
+ 	INIT_LIST_HEAD(&scheme->ops_filters);
+ 	scheme->stat = (struct damos_stat){};
+ 	scheme->max_nr_snapshots = 0;
++	scheme->last_applied = NULL;
+ 	INIT_LIST_HEAD(&scheme->list);
  
- 	state = *get_task_state(task);
- 	vsize = eip = esp = 0;
-@@ -540,10 +539,7 @@ static int do_task_stat(struct seq_file *m, struct pid_namespace *ns,
- 	if (permitted && (!whole || num_threads < 2))
- 		wchan = !task_is_running(task);
- 
--	do {
--		seq++; /* 2 on the 1st/lockless path, otherwise odd */
--		flags = read_seqbegin_or_lock_irqsave(&sig->stats_lock, &seq);
--
-+	scoped_seqlock_read (&sig->stats_lock, ss_lock_irqsave) {
- 		cmin_flt = sig->cmin_flt;
- 		cmaj_flt = sig->cmaj_flt;
- 		cutime = sig->cutime;
-@@ -565,8 +561,7 @@ static int do_task_stat(struct seq_file *m, struct pid_namespace *ns,
- 			}
- 			rcu_read_unlock();
- 		}
--	} while (need_seqretry(&sig->stats_lock, seq));
--	done_seqretry_irqrestore(&sig->stats_lock, seq, flags);
-+	}
- 
- 	if (whole) {
- 		thread_group_cputime_adjusted(task, &utime, &stime);
+ 	scheme->quota = *(damos_quota_init(quota));
 -- 
-2.53.0
-
+2.47.3
