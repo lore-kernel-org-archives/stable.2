@@ -1,97 +1,147 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4D3331A61;
-	Fri, 17 Jul 2026 08:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A7D73E0222;
+	Fri, 17 Jul 2026 08:26:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784276337; cv=none; b=OfZajQSpqX9+k3VsT7UTqf9eGFhDn8ok4j1cV7Dph9THWjjg6x8OXR4GdfGsrw0AYRwfzBwximCCe4pW+w9/wfKr9zb3JcrhGnohpbNcMEG9vkSoImQojLPGuP8UvWBnW7hcPjoY56WKVLCDEfLecEMBlrn02t54v8jyIS7JFwk=
+	t=1784276789; cv=none; b=RqrAaVbCvcPe85iDjACpdKRqbEfPYw+Tdw9Di8hj8e8ChhaO4jnD+2XU5mj1+QgYaNHnGYoRJIFIxfgNiZ7+7DGJP3oORmtgdauhyd3mA5HZIXGQVk+nuFAOXZKcq0/YV9fP29jwdHvp7c2czghB2H35+pmK7zwFJrElMxl7IG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784276337; c=relaxed/simple;
-	bh=4eqwJocznfk1qCzm9smfcedRYjWTocSlvUWgRMrq5qQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vux16oijjX4IjIzs7OaMR9n5VEw8Ap9ZJlOzcBH178o1GRw6UnO43XkC0C1W1iIHQGAfau+9JmA/JJLn7OEmwroJdPWNyGgfLLqJrtMqGAV0D4TTv8SRxSlNfcsi22+UXE4rTAxhz3cf+0GhFM1DtYTyyFSFihevt5T/BodGXg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=SO/3J9kD; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1784276789; c=relaxed/simple;
+	bh=JrX3G6gCgBD6tWah/ZvNkTG2+7hQEj9NEK9hik330Cg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ueGqJc4FZX7p52WxuYphUIUIyvgUNGC0/EA6X35Zmbqc6KN1RSCgH8AJWrm79nbVFHMrv+G0rRxbFcmWYf4zYtWBsmAvbOIZlYCycB1WvUhXjYm85U/b6fVVP8iWIUcgo3tXRckKbQoRSXba8oF0KgkbqGV+X4IwMkQAbC2TDSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=i/r4q+oc reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="SO/3J9kD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=whazl9Cr8OKKBhetdb/FWk7It0nd2O2kqxLKYX3c2r0=; 
-	b=SO/3J9kDH+hjq3iBt+U9mdvrIt1Ybr6OhKzw8fbW696C+HienV51YxDb3eNb6747fjkil0mdH0v
-	Y5nV0tX5uTJIKtskWr9yYI4uWEWAJFDBxgK6MDTZjw8QEcMN6rPkC42aYkudUnsXsla3YIc2XG33j
-	R9p11yCKnEDWoNq/8rmkRrwKP+NczTA18olJyheVKN5axCF0tQsu90YfgiBjUkC7AUWpp5VQ3Tz2Q
-	qlDoNq9nNzS4OB9MPARrLglP/NGDgvdLgGZ6B43E0PSmGTrHCZDoQvpIDs1IV1OwOL3hfzEjkM+Lj
-	A9l0SOwDTq/gxLkyfdbmJkZh1c51scCwnKfw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1wkdmS-0000000EODf-3tXq;
-	Fri, 17 Jul 2026 16:18:49 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 17 Jul 2026 18:18:48 +1000
-Date: Fri, 17 Jul 2026 18:18:48 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: demiobenour@gmail.com
-Cc: Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Biggers <ebiggers@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
-Message-ID: <alnlaCXmoLRAlr96@gondor.apana.org.au>
-References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="i/r4q+oc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=NdVdA34gWd
+	FbTsZVFbVWkDikNT1Mh0btJhkR+78Rhrw=; b=i/r4q+ocEf32q9h+jPL/GedT+K
+	NQnY0Emwyt5ySyK7GwhNQ9m0efJ4FC3hqcx649ql0dqrum8+jmICI1We4QKbB7VD
+	5TgpumtOGqjkXkM3/L/7lqxM0KWxD1a7YxPvgU/2Fmgu21Y0G4OKA8gtWGvfdh+f
+	QbQPNqxSX8/dR+UxM=
+Received: from wmy.localdomain (unknown [115.53.180.253])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with SMTP id BLQMCkCGzTIc51lqocQOAQ--.7216S2;
+	Fri, 17 Jul 2026 16:26:07 +0800 (CST)
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>
+Cc: Aaron Tomlin <atomlin@atomlin.com>,
+	Johan Hovold <johan@kernel.org>,
+	linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] module: fix UAF and GPF in idempotent_init_module via heap allocation
+Date: Fri, 17 Jul 2026 16:26:01 +0800
+Message-Id: <20260717082601.81704-1-25181214217@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkCGzTIc51lqocQOAQ--.7216S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGrWfWF43uw4fZw4xuF48Zwb_yoW5AF13pF
+	s3Way3KFsaywsxWa18Jr1vg34agrW8CF4jva4fKw1fCr15Xr9FkF1ftw1S9FyUXrZ5CrZr
+	KF45tr1UWFWUXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
+	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
+	x2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4
+	vE14v_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
+	W8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JUf9NsU
+	UUUU=
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUREWpY9Xh9sQAAs0
 
-On Sun, Jul 12, 2026 at 05:31:31PM -0400, Demi Marie Obenour via B4 Relay wrote:
-> From: Demi Marie Obenour <demiobenour@gmail.com>
-> 
-> This driver is harmful:
-> 
-> - It is much slower than the CPU [1] [2].
-> - It Has a history of bugs [2] [3].
-> - It does not have exclusive access to the hardware [4], causing races
->   with the secure world.
-> - It register its implementations with too low a cra_priority for them
->   to be actually used [5].
-> 
-> Therefore, disable it to ensure that nobody builds it into kernels they
-> intend to ship.
-> 
-> In the future, the driver will be used for processing restricted media
-> content.  However, the kernel does not currently support this.  Since
-> the driver will have future uses, allow building it if COMPILE_TEST is
-> enabled.
-> 
-> [1]: https://lore.kernel.org/r/20250704070322.20692-1-ebiggers@kernel.org/
-> [2]: https://lore.kernel.org/r/20250615031807.GA81869@sol/
-> [3]: https://lore.kernel.org/r/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com/
-> [4]: https://lore.kernel.org/r/20260629-qcom-qce-cmd-descr-v20-0-56f67da84c05@oss.qualcomm.com/
-> [5]: https://lore.kernel.org/r/20260524204537.GB110177@quark/
-> 
-> Fixes: ec8f5d8f6f76 ("crypto: qce - Qualcomm crypto engine driver")
-> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
-> ---
-> Changes in v2:
-> - Add Fixes: ec8f5d8f6f76 ("crypto: qce - Qualcomm crypto engine driver")
-> - Add Cc: stable@vger.kernel.org
-> - Link to v1: https://lore.kernel.org/r/20260712-qce-broken-v1-1-85e2bff17871@gmail.com
-> ---
->  arch/arm/configs/multi_v7_defconfig | 1 -
->  arch/arm64/configs/defconfig        | 1 -
->  drivers/crypto/Kconfig              | 6 +++++-
->  3 files changed, 5 insertions(+), 3 deletions(-)
+During concurrent module loading (e.g., triggered by syzkaller), the
+idempotent module loading mechanism uses a local stack variable
+(`struct idempotent idem`) to track the state of waiters.
 
-Patch applied.  Thanks.
+If a task executing idempotent_init_module() is abruptly terminated
+(e.g., killed by a fatal signal or otherwise completely exits before
+reaching the list cleanup paths) after adding its node to the global
+`idem_hash` list, its kernel stack is prematurely freed and reclaimed.
+
+However, the stack-allocated node remains linked in the list. Subsequent
+module loading attempts that traverse the list will dereference this
+stale stack pointer, leading to KASAN slab-out-of-bounds reads and
+General Protection Faults (GPF):
+
+  BUG: KASAN: slab-out-of-bounds in idempotent_init_module+0x54a/0x620
+  Read of size 8 at addr ffff888106367df8 by task modprobe/433
+  ...
+  The buggy address belongs to the object at ffff8881063676c0
+   which belongs to the cache shmem_inode_cache of size 1392
+  ...
+  Oops: general protection fault, probably for non-canonical address
+
+Fix this by dynamically allocating `struct idempotent` on the heap
+via `kmalloc_obj()`. This decouples the list node's lifespan from the
+process stack, ensuring that even if the task is abruptly terminated,
+the global list safely points to valid heap memory until properly
+unlinked, preventing memory corruption.
+
+Fixes: 9b9879fc0327 ("modules: catch concurrent module loads, treat them as idempotent")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+---
+ kernel/module/main.c | 24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
+
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index 46dd8d25a605..39f05ac4b1a1 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -3779,21 +3779,29 @@ static int init_module_from_file(struct file *f, const char __user * uargs, int
+ 
+ static int idempotent_init_module(struct file *f, const char __user * uargs, int flags)
+ {
+-	struct idempotent idem;
++	struct idempotent *idem;
++	int ret;
+ 
+ 	if (!(f->f_mode & FMODE_READ))
+ 		return -EBADF;
+ 
++	idem = kmalloc_obj(*idem, GFP_KERNEL);
++	if (!idem)
++		return -ENOMEM;
++
+ 	/* Are we the winners of the race and get to do this? */
+-	if (!idempotent(&idem, file_inode(f))) {
+-		int ret = init_module_from_file(f, uargs, flags);
+-		return idempotent_complete(&idem, ret);
++	if (!idempotent(idem, file_inode(f))) {
++		ret = init_module_from_file(f, uargs, flags);
++		ret = idempotent_complete(idem, ret);
++	} else {
++		/*
++		 * Somebody else won the race and is loading the module.
++		 */
++		ret = idempotent_wait_for_completion(idem);
+ 	}
+ 
+-	/*
+-	 * Somebody else won the race and is loading the module.
+-	 */
+-	return idempotent_wait_for_completion(&idem);
++	kfree(idem);
++	return ret;
+ }
+ 
+ SYSCALL_DEFINE3(finit_module, int, fd, const char __user *, uargs, int, flags)
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.34.1
+
