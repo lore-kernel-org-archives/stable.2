@@ -1,156 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A794E3A6B66;
-	Fri, 17 Jul 2026 18:53:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA1B3750CB
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 19:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784314435; cv=none; b=lsMdlPClvCqiz3WWgiTZ+EcZSWRy9eI/GIGgfaimZcoKHtswFbgg+AM3soHbKgJwsfCt6zhyGfu1Xd1sg7VJPDT1+xi0p2t3ikBs3H7PBxu1PNQiMHwP3iqjCwGYjeHmuosLVsdz4PQKnUBngbLJWEYCg5ZaYzAvzE12Zfti4MA=
+	t=1784315305; cv=none; b=Fpn2kCEgpBIekjdy2gxpuHJZ35mU2BH+uWGBPrIHlIbFNR37LfTOtY7VmaeQYJINUv0xYr2JuDYma8cvcUtNduEKUHO7Id2JvVI6kud73jkLqqjXEMH90T1rAJrw+qzy0080J6Ul5tUkBszfLfSHgQbkbCrIFFx+5asNT6k8M0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784314435; c=relaxed/simple;
-	bh=xufC4EUuCf6ntUipqbGc/fRxVwUBmlWsbU+G6Pk4cfg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pb2SEiM6J5bRJuYaaRdR8A/fOew6zE0yFWZ7XFBMZc+ZISW+A9JCHO5EoHpjXFCaVHA1B2e/7yLwvGAX8ayOig9SVYWhLydy8lcltodwi3WRZ+d1H5QWiln9JBrGF9UJDdAReHVUvALeQyxKMVdO5y9xzvlDpaaNahfxSheZxN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CnyF3u/G; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784315305; c=relaxed/simple;
+	bh=8rwDxA0XSOwvaBmFjlbE4Je5DPFd6kCu56rmVbuWb4A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oDD8w2sQEmXCwrzPhZq1kgULr6wAQ4gHYORXxVMzjFvpt+poAxRzos6T75muIBaNvEs1TVwdZmPTgWrCE35W5kCUh9VVkndLDDX8bqdvMNEBo96FFOXu9iCNGCoUf26BZ6DRP6NolROeeOj5Uu+uIBBYGtVFAn1PUzXOujL3bFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IEDdyPQ5; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CnyF3u/G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784314434; x=1815850434;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=xufC4EUuCf6ntUipqbGc/fRxVwUBmlWsbU+G6Pk4cfg=;
-  b=CnyF3u/GlOQkOE9vFx6bAlgpUyHHn3xU0q96T4aixl6FOlvdKE8IOjw3
-   /XY5slAbao5m01WU9JZjiE7nEFRweD0NQ3neHeQrO8niF5rapNjr/yGzR
-   8635cQInhjetlqHMSi87nuy8UVKjs61meNWzOVUO4ZlzHu+3X7Kv4ciHx
-   UJ8UnQscmrdqcSGeaJcDIDJWB9yCBFbswWVF87Zsc+deS3N2Z7HDBTHb5
-   yytl44e0vnncqle9yUe88+YDj66K9yX7A24cMcWnUqDXXKlpMhgD+Uy9k
-   kKQnhuJT3RmXQ3DkKSxuQfewTlZ+xn6YUlR7otBGyWnqwYeSciIAgLggP
-   A==;
-X-CSE-ConnectionGUID: 4UyWYPdxRb6eFDFyBNTU5w==
-X-CSE-MsgGUID: kli9eFJYTRmp4eE5Ch5ZGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="95347665"
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="95347665"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 11:53:51 -0700
-X-CSE-ConnectionGUID: iVLn9aWFT3adE2wagS/mwQ==
-X-CSE-MsgGUID: ostKvh4aS0aUELl57aRqXw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="261827269"
-Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
-  by fmviesa005.fm.intel.com with ESMTP; 17 Jul 2026 11:53:49 -0700
-From: Tony Nguyen <anthony.l.nguyen@intel.com>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org
-Cc: Junrui Luo <moonafterrain@outlook.com>,
-	anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	Yuhao Jiang <danisjiang@gmail.com>,
-	stable@vger.kernel.org,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Simon Horman <horms@kernel.org>,
-	Rafal Romanowski <rafal.romanowski@intel.com>
-Subject: [PATCH net 13/13] iavf: validate num_vsis in VIRTCHNL_OP_GET_VF_RESOURCES response
-Date: Fri, 17 Jul 2026 11:53:35 -0700
-Message-ID: <20260717185340.3595286-14-anthony.l.nguyen@intel.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20260717185340.3595286-1-anthony.l.nguyen@intel.com>
-References: <20260717185340.3595286-1-anthony.l.nguyen@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IEDdyPQ5"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38e08baf860so5781530a91.2
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:08:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784315303; x=1784920103; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NtNKtp784jLI3cfxFkoMon75bDpNr5z9iWtT6MawmxQ=;
+        b=IEDdyPQ5z8hoRDJrLn46zWfhvoI4NAPf7WH1lxH4mWB4nag//U1RoTNWrBBx3igpNt
+         wk0H5PwKpLzCiBxIZ0jAfnUJQHBEflCN1+XnqKbfm4ZzYj3kW3yJwuP9/9Scs+oJShpp
+         mWkoOJQHaYtKCPPzoT1RFaljnwJS1nES5oP6Nz2ij+m6NABDTac8ZFgem67uZUOIBK4O
+         m0rO0vGF2G9nEe0QmVtTzR7/HvhghpuuvkixlcZBf0YdjWfuGpTaIeKWMraNS5zq+27U
+         f/oL4/JDmYVV9f1NgUX2rdXzUHYPRycu9vmeXwv7Oz4pCq2eTl59jnBCAjCrlvODEffL
+         Qawg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784315303; x=1784920103;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NtNKtp784jLI3cfxFkoMon75bDpNr5z9iWtT6MawmxQ=;
+        b=gVDL+TtFOAxqI3Hg7GPwUyFytXTppIHvEmvMWEJFH5AWdu7cRKGnLMbRFaBYt9UJuW
+         BqIc34SAoDLXw1DM525Ogc7OvhJoK4cktjzmBhIMiVQZla2uPvc3y3CyTSmf+ovYpiB/
+         gcdEIEoEQ12MaTkfpLLuxNFqTEVXlSKQKkPSJIkd8bBQ7QESbWz4LBV5MRo9jLuLWT5c
+         jpGfN+05XSDWS1xdZoqQH1UVea4GVIlSWtjrwn96w2IzXaVB8aBkQdDYdovW+pSRjyrU
+         wfcdJUSurfXZmpdBpbBnlFAi4QzreQjcfS4Ef3XhVBSXDzq5UXPxxe2Lm/N/SQ+FHeoQ
+         bkWA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4dicVPhdkawXHPv52zd9Xl7bjtNk+BKK+/pqxsrKe4LZdWdnhQflCyu+N2TTYhRTxPn+EW38=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyZS5cQ+7pVcllJWB4lP1XUPj1rm3gD8RzzQKfAlkPsauABYz0Z
+	5e1bjH+WW03LSYB0l1UEIdk2YjN0Mn9g0Cin2RyUHl0nKwlsQE7un6v9
+X-Gm-Gg: AfdE7cmGooRfCryJwTsbgcycuc+FPPPhB6ksNIWTrY5JUWmHjo0MaNHRHd16Hz48Jg/
+	S9O4iKoFICCYgDYEJBRpBs857dHyYqrGnhNIvl5WGCuteHIn8QO0Sc8ix9+Wlb9eyECitKqpdcy
+	IC0rGAJ+RF+Nt7z13T/IKu2sv3SNjHbZpiDjKUeMvyWwuwy4G/xzpZG2PG/z/UedNWXrZhPym4y
+	mJNmwWGFYbBXNkm4c68lM8N1QPCL0gF6Kss4Fyi8wQHu+5FQ29dtk4KZP55yHUYBo4Ib1wBKA7N
+	Dzir34tBMYNjwTQ/1dhvZLWIgx73xxpc4Kg6CXw8gmcr3HJD2o8jFcj122oth60OIqXZVyOh2dC
+	YbIGr16TmGa91GbisTp00zY+0xsu3rG7du54U2Hr9PzLkyDJ8Ct0FqlsUsoVI/7Tiq7fl/vQlTO
+	9uw3wc3/WD0v7zo1h7Ug6Ii1EjiNZC
+X-Received: by 2002:a17:90b:3ccd:b0:38e:11ba:992e with SMTP id 98e67ed59e1d1-38e4b57dd07mr3819471a91.35.1784315303098;
+        Fri, 17 Jul 2026 12:08:23 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429f9bb62sm9209012eec.2.2026.07.17.12.08.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Jul 2026 12:08:22 -0700 (PDT)
+Message-ID: <a230a463-a9d4-49fa-878c-a2117965a748@gmail.com>
+Date: Fri, 17 Jul 2026 12:08:21 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/495] 6.18.39-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260717101904.922623678@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260717101904.922623678@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Junrui Luo <moonafterrain@outlook.com>
+On 7/17/26 03:41, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.39 release.
+> There are 495 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 19 Jul 2026 10:18:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.39-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-The VF allocates a fixed-size buffer for IAVF_MAX_VF_VSI (3) VSI
-entries when processing a VIRTCHNL_OP_GET_VF_RESOURCES response from
-the PF. However, num_vsis from the PF response is used unchecked as
-the loop bound when iterating over vsi_res[] in multiple functions.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-A PF sending num_vsis greater than IAVF_MAX_VF_VSI, or the received
-message is shorter than num_vsis claims leads to out-of-bounds accesses
-on the vsi_res[] array.
-
-Clamp num_vsis based on the actual bytes copied from the PF response.
-
-Fixes: 5eae00c57f5e ("i40evf: main driver core")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Tested-by: Rafal Romanowski <rafal.romanowski@intel.com>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
----
- .../net/ethernet/intel/iavf/iavf_virtchnl.c   | 26 +++++++++++++++----
- 1 file changed, 21 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-index ec234cc8bd9d..c4039d2b24a4 100644
---- a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-+++ b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-@@ -248,12 +248,28 @@ int iavf_send_vf_ptp_caps_msg(struct iavf_adapter *adapter)
- /**
-  * iavf_validate_num_queues
-  * @adapter: adapter structure
-+ * @msglen: length of the received VF resource message
-  *
-- * Validate that the number of queues the PF has sent in
-- * VIRTCHNL_OP_GET_VF_RESOURCES is not larger than the VF can handle.
-+ * Validate the VIRTCHNL_OP_GET_VF_RESOURCES response from the PF. Ensure
-+ * num_vsis does not exceed what the message length can cover, and cap
-+ * num_queue_pairs to the VF maximum.
-  **/
--static void iavf_validate_num_queues(struct iavf_adapter *adapter)
-+static void iavf_validate_num_queues(struct iavf_adapter *adapter, u16 msglen)
- {
-+	u16 max_vsis;
-+
-+	if (msglen < sizeof(struct virtchnl_vf_resource))
-+		max_vsis = 0;
-+	else
-+		max_vsis = (msglen - sizeof(struct virtchnl_vf_resource)) /
-+			   sizeof(struct virtchnl_vsi_resource);
-+
-+	if (adapter->vf_res->num_vsis > max_vsis) {
-+		dev_info(&adapter->pdev->dev, "Received %d VSIs, but message can only cover %d\n",
-+			 adapter->vf_res->num_vsis, max_vsis);
-+		adapter->vf_res->num_vsis = max_vsis;
-+	}
-+
- 	if (adapter->vf_res->num_queue_pairs > IAVF_MAX_REQ_QUEUES) {
- 		struct virtchnl_vsi_resource *vsi_res;
- 		int i;
-@@ -300,7 +316,7 @@ int iavf_get_vf_config(struct iavf_adapter *adapter)
- 	 * we aren't getting too many queues
- 	 */
- 	if (!err)
--		iavf_validate_num_queues(adapter);
-+		iavf_validate_num_queues(adapter, min(event.msg_len, len));
- 	iavf_vf_parse_hw_config(hw, adapter->vf_res);
- 
- 	kfree(event.msg_buf);
-@@ -2578,7 +2594,7 @@ void iavf_virtchnl_completion(struct iavf_adapter *adapter,
- 		u16 len = IAVF_VIRTCHNL_VF_RESOURCE_SIZE;
- 
- 		memcpy(adapter->vf_res, msg, min(msglen, len));
--		iavf_validate_num_queues(adapter);
-+		iavf_validate_num_queues(adapter, min(msglen, len));
- 		iavf_vf_parse_hw_config(&adapter->hw, adapter->vf_res);
- 		if (is_zero_ether_addr(adapter->hw.mac.addr)) {
- 			/* restore current mac address */
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.47.1
-
+Florian
