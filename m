@@ -1,218 +1,298 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AF83890E4;
-	Fri, 17 Jul 2026 11:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADC83F12ED
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784289442; cv=fail; b=Zth82g920VxQS7F8lZCRv4mqNi4nYUBf3T4r0dnObcKL/UH+Rj/F1XzO4EyvZSjhnlGux3Zv24YNgocHDiH+OaMPRDP5bHjReGEHk46UmFYpjzve9fUbsEPxD6c4dubxurLaCJvvSqDsQBtvFTOGijMwqnktXwwcEcAA7nn+UOg=
+	t=1784289610; cv=pass; b=bOc/7qInp1N+77l9NkTzmw1LD4Kg8rn0WiuGO1/GcTpO0aGvdZWnd9TsX6vwhcS+f+BryL+XjoAYXYEZc8BlB1E6GpFsQfANay6+rPFxn/oiBFyXtzCMC1PyY7lR+SQAwebX67soHtRaV81Z8uKPBkVemYXlCOlarcDk6WNx7dU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784289442; c=relaxed/simple;
-	bh=nbzzV/j9+aLhccIBDI0k+4YWOk7rxL9DHKdHwsejjWc=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=f/2RXKnccJAnse1LNL+XGPJA0tYZcr5VtEG63A/7QXhoM/LZG1oWYIr/ml8+wNNaypyCHo6CG1ABDVByEVG2WkpKDaAO3lziWCWRKqNJ9UZDIIT4Rx+QjCaEgHQapxxao8Y2hl9AeodnJHyLXyi4du0YULVMSy0qckWik7frQQY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ds8v8AFZ; arc=fail smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784289610; c=relaxed/simple;
+	bh=k1XNn44v3qsaD0EI0G0pfPOXJSQRZQe0hXtKXACW6ys=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PUDnIYYdURWLwJvvjyTNETWxzKSi6yxO3waWtZthCN0xVVXMqQYtdXae9Dhww7JPKtcxOSIA/vYtANJWw3CY4Fe3hcI10jgvSq58LTU3DvoOqwkXEJ2FWKv4yaYTdXbo3oduTcHsOenegc8U23AJxmtvr7uwgiknt/Fo63dhfyM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fhWQQWIs; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=E2TXRwv+; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ds8v8AFZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784289439; x=1815825439;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=nbzzV/j9+aLhccIBDI0k+4YWOk7rxL9DHKdHwsejjWc=;
-  b=ds8v8AFZsFZehx+m8sPBpajgIfObGkCKULaaBD8xFfjxWCnqoPKuHPL+
-   NF2K6ZaIrI+0mfiXciyu26qLYH0i1nt643YlU1SJsRN78ddnwlVDu7Emg
-   KYBLabt9oJ+b5Y8tpFc/DtTm6xMOV/9hNxsfSa+UYAFE3OpRgGgu6ZNMh
-   CfMVLF64n4qL8KuD4BOxsRdtZMJzcOkljI9bqNtO72Fkhr+AFCug7uwYN
-   cgXPSoE1uigwXKju/AIJk/LiZxOoaUOOxu8Tj0pvvjcBXdZzRZ+4vAuec
-   AiB1ayjfZJVmatPM/lYXpVnH7besqZ8yU5JYMv8cJTZs/09sBaYGEL8Kp
-   g==;
-X-CSE-ConnectionGUID: 30ohqwbHQhCH7BGMCvkK9A==
-X-CSE-MsgGUID: QOPvc075SPS/5X45g4UXhg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="107753148"
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="107753148"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 04:57:18 -0700
-X-CSE-ConnectionGUID: v+2I/0E+Tv6UWWQLL+sCkg==
-X-CSE-MsgGUID: AKuqrbBqTNq3C9k71kXt1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="256851365"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 04:57:18 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 17 Jul 2026 04:57:17 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Fri, 17 Jul 2026 04:57:17 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.27) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 17 Jul 2026 04:57:17 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dSrwhNl6WB5z+/RV7JkOOhckehwPLsEcIS5nqwn3mDErJdcZf5hVrV/8DAmap9UrYWe2D3bTdyz+bIiuq899xksfgA9hNrnqErJujrTrI4USywLdOwEFdQcOLapVFEn4yrrv5r6qGYTm2j2MIKoST5xzAKi7RezqKlJ35Kuo1PBVTV2Fw8HJIUgCkSReLalNR7K07xsYwzrsM6o829d7VcHQHa7nK4o46PjA9Nh3qhNWWuBMRZ36ijD8j509igN9a9ws6G8mKZaK+4JdqprqsTwKLOnAYUfQZAP1a1VDBBnvu9rh5yzTDiIH8eFWsKv0/l/coEW3GgLzNxLDdHvv0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/PlQUktfMIYgw5VbPGBSUkfhV4nx9a8kpMHalXxpC9s=;
- b=oCHdnK7O/N/4zrdkAo1y2iI6O/LPhX0p5V3fE4BCRn/HEbROEhlS0uey8vAuJNWooD+6DKQBDWNwg9JbhV64ar7Jtib1ps56BWOr1V/hWNEzG9XGcQxNu+pytfqTsK5CfZpnBPtzKablBha7zBs6rItnAly3K7L185kJW9WLzPZ2a0a2EWXklsbmXn3Iylrtl89SyecpFVREqhTjYshx88Cy3Fw3fLnIWc5NPxv8E3Mu0rL4YQHAAqwe/sFmqyMFMB3GUw34BxN6jbkXQe/lwE4ZeGCJMUvTReGH5JqoAicBh/OuE4euYWyra94Cv7P8epNe2+oa2y/Ik5s3Tkb0TQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7636.namprd11.prod.outlook.com (2603:10b6:510:26f::13)
- by DM4PR11MB6094.namprd11.prod.outlook.com (2603:10b6:8:ab::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.13; Fri, 17 Jul
- 2026 11:57:13 +0000
-Received: from PH0PR11MB7636.namprd11.prod.outlook.com
- ([fe80::d611:6fa9:bc34:46b]) by PH0PR11MB7636.namprd11.prod.outlook.com
- ([fe80::d611:6fa9:bc34:46b%5]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 11:57:13 +0000
-Message-ID: <2efef615-83ff-4172-a680-e02e999bfa8b@intel.com>
-Date: Fri, 17 Jul 2026 17:27:02 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] usb: typec: ucsi: Correct teardown ordering in
- ucsi_init() error path
-To: Andrei Kuchynski <akuchynski@chromium.org>, Heikki Krogerus
-	<heikki.krogerus@linux.intel.com>, Jameson Thies <jthies@google.com>, "Benson
- Leung" <bleung@chromium.org>, <linux-usb@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Pooja Katiyar
-	<pooja.katiyar@intel.com>, Abhishek Pandit-Subedi
-	<abhishekpandit@chromium.org>, Johan Hovold <johan@kernel.org>, Hsin-Te Yuan
-	<yuanhsinte@chromium.org>, Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>,
-	Jack Pham <quic_jackp@quicinc.com>, Sergey Senozhatsky
-	<senozhatsky@chromium.org>, <stable@vger.kernel.org>
-References: <20260717104614.325250-1-akuchynski@chromium.org>
-Content-Language: en-GB
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260717104614.325250-1-akuchynski@chromium.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0024.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:b8::10) To PH0PR11MB7636.namprd11.prod.outlook.com
- (2603:10b6:510:26f::13)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fhWQQWIs";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="E2TXRwv+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784289605;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KNMO1oYrbjElfFaSy7vQKoIRJB+LB6OR3rh+O+eE0CA=;
+	b=fhWQQWIsHLoofychuas8jvJLJyV6Cz2a/YW7Mjj0Nxos1RR/WGSgdowjInkNXsrhoXDM+X
+	50dImX15TAlRNLdI/IQ+VpcbnO0or0i5xE1Pm5gu9hC2bGEYCUmOBBaWcjpGjh5yUlxnjX
+	3PrNoQHFJlA+JTC5KZqdzsmfblRYewA=
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
+ [209.85.160.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-391-8l6rlGBNP_iWnGRTf_YX9w-1; Fri, 17 Jul 2026 08:00:04 -0400
+X-MC-Unique: 8l6rlGBNP_iWnGRTf_YX9w-1
+X-Mimecast-MFC-AGG-ID: 8l6rlGBNP_iWnGRTf_YX9w_1784289603
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-451d80641efso8071132fac.2
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 05:00:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784289603; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LVJrKxWV03q1J7rHXXIFV/SlYSvXxclBjWMtUHoog3DS2N9tKIcr7l4OW1qDyWMkFA
+         dYsZvNHIkz1cbc9OvftVhqYpf5fsZWSvwGI4AXDGJPreoZ/7nN5qxSMq1QgvW7i5LxAn
+         52hFCrCIrmbbLNV4dYEG3Kf6YesZdooDiHhvVJHsAU5InqWlugTN7eIW+vggIO95GAeq
+         ZpsGv9kzEst4ERfBIKONsyifCN2IGnlZnbHE9TiY72h7tnSWzzyWyvI1mmXq1eWuD8Mh
+         SnpcBRWRuRHVPrM0/5MASEEfD7N3E42XWdTiKzHh5MzTtllsO8Y/5UPk8E+JW1GvY84H
+         vBIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KNMO1oYrbjElfFaSy7vQKoIRJB+LB6OR3rh+O+eE0CA=;
+        fh=G2HNrvwD6CF1SL+ZvwtMlTeqplrfBDE/wKSPvRn1a6o=;
+        b=nybYhJvHLavIgnDT4zYMeqiioUWJtYtd5IGNoBvHdTYKkBRfrk1S6uqKpO0c2bg/S3
+         kQsShdAOm18psVaFNfn0ySQP35HnPKo1tm6XzZzBCBTCNQr/NUK/4AaVN0S+Xady4ouZ
+         dCxcHMLMlvqGEYZ5YwivFNuYHU8Due2ICK8+fanmz7VE1j3BN2t6sCU2FroKqU8yoX5/
+         wWwEaR0Gr/xKAMc7hKNvwZe2iLDLFgLTi0uv//EQfcj4bJnOC8d8iINYAlLv+TDJ/oVT
+         iTbN5P46ZIkti0OjHF5lyVOpnQGeAkGEP2ulZzBP0dc/ePv3hzLIQWI//jLvkvrENa6c
+         MCUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784289603; x=1784894403; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KNMO1oYrbjElfFaSy7vQKoIRJB+LB6OR3rh+O+eE0CA=;
+        b=E2TXRwv+HYcSH/ojJ7lS2JmOixkMT8bTxTTqAyPOUf46fVXLLUCG63IOp3I4BcHtlQ
+         lnbVgNTJLMQdkYyAuzRFw5YZZl0UHk2Wn3tjH7eesWi6vpWS6l65N4JW4wS8b3ADKO+z
+         NqYCwTJiN4+Zv3Mu9Wz/RULHrX2l2jmdI0JMJlyZIQE9B4iE1Wq57RwAzcPCdW/OR7hC
+         LA8oU6grGwiccRLqb13Nt1/n2AEmX35CLHFRrevSxAgi+2Dk+dU8fHrWWNlB9dpkrnTq
+         YluelUOYE0EalTw9bKH/veSpw/v3iD2TO120C5NPIVhQnezxJHoBIodUcy8vuCkoVHQv
+         Cipg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784289603; x=1784894403;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KNMO1oYrbjElfFaSy7vQKoIRJB+LB6OR3rh+O+eE0CA=;
+        b=eO45Sz8kOxL4K7xTlOO4E/GYb8p6dLdKbdXZofnMQe+/gJVJjUloJjHh6LpwChpiv3
+         GlTmBG4M7b09fWHYqMcqrs4k8IY+L9zIyUNMNKnQIwFQ56gpTHWOizZq8TweMSR+HsSo
+         nI9Tk3hisGyoxHMQ3wLYaOvzYxo8A+q3xqzhxAtAWbx+KNSjEdScbaS7czzB6Q8lCwyW
+         OcOjy6m07a0BFsdeYJiTeS0Gge4chSbtou1KHlpC/qPfBybkDwx6Aoqjdd7vP62/557b
+         +OUdqh+gRaPfqxCeAnx71JZ7GjrgczycfaepVwc8D1lgvSuSY5l09dXGgnHImUvv6/zs
+         R60w==
+X-Forwarded-Encrypted: i=1; AHgh+RqaW0VQIbv/C9tihzuYkfc5dDk1yz0tMgWfur+xNFDgfcNKtDemM2r/S1WI1WH0/H5GTUvMTXA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRdDAbBU6ebTQRXXRin3UqkFNuEH88/wmdMQKdpLGvUkbSUY/p
+	7+L9LUeRG4Ywzryg/Gj1kHfzp9op7gF5+DfFIRs8GKzEVTNUXxm0dUG0IJP2AYdGscztXQDJWgC
+	dizvum1s7DSdgfchUfdMe0ahhN50kq3lwf6isIJF67cOGRfDNilZBtZJxwYWc4f8LjMIzZdoUV0
+	65dQjr8uMqXjVbUv1ZgGlR98oXwakKkG6n
+X-Gm-Gg: AfdE7cl5Ej+qzcKcesS8otkWS5dTmkTZtTV7H3t/pLpNavK5hSe3eacOPndwxPqc6e/
+	p3UueN8qIoz8XKmbvPwxBANzSg6cuUjg/THCob5N3vipblgoFubJ66A7dQTu7w/5Z62ufB3Uv5/
+	zfYiSNndGpekvhbQ7zxg5kCNg10S7GX0CFMH6WDlzZzn7vfvEzzRvTv7vMb4FHrv3P6QxE0TlrG
+	cNZftYKfvIO3oWx5g==
+X-Received: by 2002:a05:6808:6902:b0:496:1009:ec5a with SMTP id 5614622812f47-4a4d0160614mr1146334b6e.1.1784289603038;
+        Fri, 17 Jul 2026 05:00:03 -0700 (PDT)
+X-Received: by 2002:a05:6808:6902:b0:496:1009:ec5a with SMTP id
+ 5614622812f47-4a4d0160614mr1146300b6e.1.1784289602009; Fri, 17 Jul 2026
+ 05:00:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7636:EE_|DM4PR11MB6094:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cecb794-6106-489a-8b56-08dee3fa8a27
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: zUk9hbnEgezSc1iz49/71F1OCQHYMu48c+udViwUXKP6WZP47/7Bz4RmJH4px7PqUlpMqfHbmFi25/ie+UFRMDrgpHqLA/Ps0RDcntorbelYVKDI3iU+er7dcdhw+Yh4gtwYyR7SIFmWhaclBBQYfry8bhM5XWnB8Tmu4YPNkIPwXWB8psmXqy1bqXzx3dUHFu+2c7b3XYbD3+xmF2OT5yyHkiZfW7Px/4kPIr7+egP0Ap58LrL/b2ZatxctSsYfi+tzVpTuMps2A0PSD55IlYdj175jAx+rpvVWtj2y9VHPuxiVNZgYrt7gCVqeCgPXqeLMGXb1FOQQOkyIBpM86dspbHJx0kiWkF5lQJHs72Gd9JOXJ1hJeH48vcSEA4amS3PfGlvSkafbD8/KV9MMe5vI6Hu6FzQlgqBshcJ+JFvgPm/dASKz9XoY5o071r3TnMv9ViJTrTPP6dvjZugcabMyPRgcq2lzidrdvamhFGt1+tEpdWyfayKtzQ0OmgxWTC5fJZiQqiC4kpFlrVJChF1Pi7RmI20Bg1Oq1YgUj3w2wE49GqHSr8po9rnXs3h1k5JcRzA++wIGw6gZFheI1rOZ5RbuwIs5Wvv8lLMETMuWml/L5y9sNBRFqJ6N65TU3YKPSATqrWPfJNyNtSbbf7jXDkz7qMG4kA6UrA2oG6s=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR11MB7636.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWlTaUMrZFJtL2h0eFNkRHpHbGkvYUtxZDlCeEdNTGhtT05CcDIvc05kWDZx?=
- =?utf-8?B?WUVQaUhzV2llZzVmWjFXZFVSbUhFNE14TWtLN0dSNnBsQlZkRWNlT0xpbXFa?=
- =?utf-8?B?SnFtTThrRitWd29idzdqMjdUZlFlTkdJVUl0Nm8zNVBKdkVwLythVlZvODBm?=
- =?utf-8?B?SE9JeEM3OGhQV2dnejBRcnljNFFncmtUVU1pZ05PS1dYSE5XWWtVQmpkTERY?=
- =?utf-8?B?NWZ3TEZMT05SN1lmMjkvNElPZkozN2IzYjhrMnZlaGVZZ1BEQXhRNWx1NHdU?=
- =?utf-8?B?SlEyUlRXVnFIMXQ2UnROQ0lhWkQxcDZXR0F1Tm83bTBDa251SkN5OFE5YVdJ?=
- =?utf-8?B?TjhGZS9VNGFOVTNIdjRyVE1Fd1lIS2Q4NzBNL1ZPeUQxQlovbEdpVHVMWVM5?=
- =?utf-8?B?MjF3U0xkWkZwQVBkdTI2a0tLVjZ4WTZJNWhVNHFYNGthMENCeXMvam9OMGpj?=
- =?utf-8?B?b0Q0QisydzlNeXB4TUFnMi9OcExpc1NiWm42VEtibktkMzdjeXk1M01UU0ti?=
- =?utf-8?B?K0wzUzg3SDhrK2FwZlVmQWc2V3Btdnp6cTA2UURRWkw3clAvT04zVmV3QWRC?=
- =?utf-8?B?R25uOGp6SXlhNE9LUENVVGREeS9tcHNtdWplUENWVGxBaGFTZGVYcm1DNFBm?=
- =?utf-8?B?NzI5NHhHTm9ieWVybHkzSDdJN2g0RS9NTUNCY3J0V1JBaFhHbFRNMkZjamhk?=
- =?utf-8?B?Z0VINm1DZVVkK256WHlUMkpMUDZrcDdSMyt5Lzl4azVLdVVWUkZoSGc0WW5w?=
- =?utf-8?B?Tzh0N2lmUHJqZm5rZTRpWnVWMFdpWHo5eGc4blNBM2FPQ2k3ZVk5U3ZiTGMz?=
- =?utf-8?B?NXpKK3p0S0phRzFlZ3oyY01Ya0tUTFhUSS9VK1k1RzhsazBCWlJMQ1pXQ0k0?=
- =?utf-8?B?dS8rdm1MTk96MTg3a1JTZzJ3L3V4YnJwdmJRblFmME1lVHQ2RytUWUFEQldB?=
- =?utf-8?B?K3ZYVGhVUitVZGdhMmRSK0o3Ty9Pam9Qbk9wbm5zMmN0VzV2MUdjV25jaExU?=
- =?utf-8?B?TDQ2cWxnTFlCSUMyc043OUdtWlczdmZhQXh1dlF0OTVuY0E3c0c3cy9DZXVz?=
- =?utf-8?B?NDVGZ244cXczdWlMQXlmRUJUWHNudkJDb3ZkR2xCNEpKclE5TjRibVJpYlhr?=
- =?utf-8?B?cDJmM2pSVlY2OG9WaTdkY0Ird1pCK2U4Q0dSTlUvUk42RTNzT2ppNUZ5LzBy?=
- =?utf-8?B?UkVHM0hLMGNiKzZMWEx0aEJRZ3h1ZzBBekk3Q0JqRldvdWcwN2NhNGx0ODYw?=
- =?utf-8?B?d3hCSUJiQUlNdnNlTXpUbUE2c0ZDc0FvL2dCQm1Sa3dtMEtjbmNkWEMyWVpi?=
- =?utf-8?B?MU9PTVNTQWlpdGZMT01DeUxEazAxRmp6dEJXY2xkR0pWaVNqNWNubjZmTWpl?=
- =?utf-8?B?QUc2MjFUZXZ4RzVDTFk1VDJleStVZEVNc2d5K2V4MjV0M2R3QUM3YVNmdkh3?=
- =?utf-8?B?c1dRU3orMnRRdDlESUVEa2IwcTN3em5xaU9QR1FZRlRmK2QxZXFmYUduc0tp?=
- =?utf-8?B?THhZeERTLy9kWUwrakdBL3BZYkJXS0tHdUFvam9aeURmeGw0ZHFROGdCZERH?=
- =?utf-8?B?cFJBeExLNEQvTzZYTkwzUGUvSWpxRlRpdXpIcHpnMEtZQnd0VzFDb281NktT?=
- =?utf-8?B?RUxTSFUxUzV5UjZIZk1CVmxrcENpK1BwU1NTWDZRMmRQOGlzcGNPTTRteTdt?=
- =?utf-8?B?cGY0ZStaenZtTXFOVE5yUkdEc2ZHaUNhWEl5c3RtQzloenA3L0ZnNTJpOHpL?=
- =?utf-8?B?Sk1QWFJsbVdyaXhtdFZ5NVErVksxU1RRSEJLY2cvb2ZFZ1EzTHlPUFgrcEhR?=
- =?utf-8?B?RzdmQTFRbDBodXVhNVN1WUhRSU14SWpvOFhoRC9BRisrVGorMHh3UFRLbDJl?=
- =?utf-8?B?K2RwQUR1YjM5YTdIbDJTZE5rSkhxWmt0dFJZajQ1TEQwRzlIZnFJY2JabERB?=
- =?utf-8?B?Qm9GS1ArWkFKc2NhN3RiUkp2a1k0bGt1WURUL2tBR2p6aW5PZTVLYmplYTBF?=
- =?utf-8?B?QWdCMUNmWDFUeHFxYmwxcDRaZEtYM2hLbEpvTTlWQVFJTnJDalo3MzhIU1JM?=
- =?utf-8?B?NnkwUTBUUG8waWNTaUN5RFh2YlhUR3VxbGhnQ3BId1ZyTUxoS1FONDdkbXd0?=
- =?utf-8?B?dFBndzlIV0hhMzUxWlc3cjFlUld5S3NkcVBOTEFicFlIeUpwK0VFa01Za3dN?=
- =?utf-8?B?dWxIK0RpMDZaNnNvSFRadUFQcVNCZlFEMzM4dTJ4ay83eW8wenMzR3VuTXpM?=
- =?utf-8?B?QnVISWhjRzJaQUJhSU1aVXJ6T2I1bWFLNGhKSklKZCtRb3NWVVhKYmJad05J?=
- =?utf-8?B?bDBRMk1HV2oyWnBheUFWa1oxL2NnVXBML29nZWZsTVJMd3IxS0pWSVZvRnZ3?=
- =?utf-8?Q?g5JQWlPlR1c3aFgM=3D?=
-X-Exchange-RoutingPolicyChecked: SVGSMM2YmfqAlnjRK8LT7aSvLN4OHvLW5N4Ksy75HqdJrNWl/e4P1i22VSHBAbkoE9h69JLeZ8k9dBDi0NDklHcEBbsgDLYwHuz1L7Skzbtk9qzdV2dcjz6Qo48N+gANrJJBa7qpVhr9lfS2dzMH1t4XJIcQaoG7nJVeXVDv2tQQG8/Kn9dYLMzAGNoEDashEAF257WFQBfATI7leSk8rUZcTo5Mn/58ZtABcyiU1v3NNl4UeQ6S+xAV9VV2ZNMNQI1KaUMRXlKJ+12rIFRbFtEbTraPtguyjZs+lL1Y7FSIOCx+/zD9kt0wOu/efzp9YGd1Zqz5KZGrZtNyq5kXAQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cecb794-6106-489a-8b56-08dee3fa8a27
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7636.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 11:57:13.5416
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YwKTrVNk0Ri7AK6cXJrhZTZt7VO5XDT5euANKqbElohFv7AQOl5Gn1Jb4cLQBvxei27NSMTaE8zA8EBPuYxeXWo3iSa4iH+F05IFo4tuWic=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6094
-X-OriginatorOrg: intel.com
+References: <20260629144837.3244851-1-desnesn@redhat.com>
+In-Reply-To: <20260629144837.3244851-1-desnesn@redhat.com>
+From: Desnes Nunes <desnesn@redhat.com>
+Date: Fri, 17 Jul 2026 08:59:49 -0300
+X-Gm-Features: AUfX_mzpKeLRkWyX5IJziXQww7lPcrKAFEzEkmYK5hcKf6-cJXL-hIHQkRlAgFA
+Message-ID: <CACaw+eyE+Rk3NeGaWmo=Psw+aDNp4=Ggzj3DnrkL-fp04NZc+g@mail.gmail.com>
+Subject: Re: [PATCH v2] iommu/vt-d: Fix UCTP context table slot when copying
+ root entries
+To: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+	stable@vger.kernel.org
+Cc: baolu.lu@linux.intel.com, dwmw2@infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hello Baolu,
 
+Can I further assist with any more requests or answering any remaining
+questions since the v1 review?
 
-On 7/17/2026 4:16 PM, Andrei Kuchynski wrote:
-> The commit 7aa7d4bf9d3f ("usb: typec: ucsi: Fix race condition and
-> ordering in port unregistration") consolidated port teardown into the
-> ucsi_unregister_port() helper. However, it introduced an ordering problem
-> in the ucsi_init() error path.
-> 
-> Fix this by ensuring ucsi_unregister_port() is called before we unregister
-> their corresponding lockdep keys.
-> 
+Best regards,
 
-Feel free to use.
+Desnes
 
-Tested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-
-
-> Cc: stable@vger.kernel.org
-> Fixes: 7aa7d4bf9d3f ("usb: typec: ucsi: Fix race condition and ordering in port unregistration")
-> Reported-by: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-> Closes: https://lore.kernel.org/all/22064276-6c56-411a-9f20-6917ceeb865f@intel.com/
-> Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
+On Mon, Jun 29, 2026 at 11:49=E2=80=AFAM Desnes Nunes <desnesn@redhat.com> =
+wrote:
+>
+> When translation is already enabled at boot (e.g. kdump), the vt-d driver
+> copies context tables from the previous kernel's root table. In scalable
+> mode, buses that only populate the upper root half (UCTP, devfn >=3D 0x80=
+)
+> should be written to ctxt_tbls[tbl_idx + 1] through copy_context_table().
+> However, the current copy path always uses tbl[tbl_idx + 0] in this situa=
+-
+> tion. Since idx wraps to 0 at devfn 0x80 due to a zeroed LCTP, new_ce for
+> LCTP will be NULL and keep pos equals to 0. Thus, UCTP entries will be co=
+-
+> pied into tbl[tbl_idx + 0] instead of tbl[tbl_idx + 1], and written after=
+-
+> wards to root_entry[bus].lo instead of .hi in copy_translation_tables().
+>
+> In short, devices on bus 0x80 with devfn >=3D 0x80 fail DMA with fault 0x=
+39,
+> which will break drivers running in kernels with translation pre-enabled.
+> This fixes NO_PASID DMAR faults for UCTP-only buses such as:
+>
+> DMAR: [DMA Read NO_PASID] Request device [80:14.0] fault addr 0xe81759000=
+ [fault reason 0x39] SM: Present bit in Root Entry is clear
+>
+> For instance, this fault yielded to locking issues between systemd and
+> xHCI, blocking a system's reboot after a vmcore was captured with kdump:
+>
+> [   72.987601] systemd-udevd[246]: usb3: Worker [255] processing SEQNUM=
+=3D2193 is taking a long time
+> [  132.237566] dracut-initqueue[277]: Timed out while waiting for udev qu=
+eue to empty.
+> [  202.988014] systemd-udevd[246]: usb3: Worker [255] processing SEQNUM=
+=3D2193 killed
+> [  202.998059] systemd-udevd[246]: usb3: Worker [255] terminated by signa=
+l 9 (KILL).
+> ...
+> [  206.288378] kdump[569]: saving vmcore complete
+> ...
+> [  206.821258] systemd-shutdown[1]: Rebooting.
+> [  246.858495] INFO: task kworker/0:1:11 blocked for more than 122 second=
+s.
+> [  246.865319]       Not tainted 7.0.0-clean #1
+> [  246.869663] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disable=
+s this message.
+> [  246.877623] task:kworker/0:1     state:D stack:0     pid:11 tgid:11   =
+ ppid:2      task_flags:0x4208160 flags:0x00080000
+> [  246.888942] Workqueue: usb_hub_wq hub_event
+> [  246.893202] Call Trace:
+> [  246.895690]  <TASK>
+> [  246.897828]  __schedule+0x299/0x5c0
+> [  246.901378]  schedule+0x27/0x80
+> [  246.904572]  schedule_timeout+0xbd/0x100
+> [  246.908565]  __wait_for_common+0x97/0x1b0
+> [  246.912644]  ? __pfx_schedule_timeout+0x10/0x10
+> [  246.917252]  xhci_alloc_dev+0x9e/0x2b0
+> [  246.921068]  usb_alloc_dev+0x7a/0x3b0
+> [  246.924795]  hub_port_connect+0x285/0x960
+> [  246.928873]  hub_port_connect_change+0x94/0x290
+> [  246.933482]  port_event+0x4bb/0x840
+> [  246.937030]  hub_event+0x141/0x460
+> [  246.940489]  process_one_work+0x196/0x390
+> [  246.944569]  worker_thread+0x1af/0x320
+> [  246.948383]  ? __pfx_worker_thread+0x10/0x10
+> [  246.952724]  kthread+0xe3/0x120
+> [  246.955921]  ? __pfx_kthread+0x10/0x10
+> [  246.959736]  ret_from_fork+0x199/0x260
+> [  246.963550]  ? __pfx_kthread+0x10/0x10
+> [  246.967362]  ret_from_fork_asm+0x1a/0x30
+> [  246.971355]  </TASK>
+> [  369.738508] INFO: task systemd-shutdow:1 blocked for more than 122 sec=
+onds.
+> [  369.745593]       Not tainted 7.0.0-clean #1
+> [  369.749935] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disable=
+s this message.
+> [  369.757897] task:systemd-shutdow state:D stack:0     pid:1 tgid:1   pp=
+id:0      task_flags:0x400100 flags:0x00080000
+> [  369.769128] Call Trace:
+> [  369.771616]  <TASK>
+> [  369.773752]  __schedule+0x299/0x5c0
+> [  369.777299]  schedule+0x27/0x80
+> [  369.780493]  schedule_preempt_disabled+0x15/0x30
+> [  369.785188]  __mutex_lock.constprop.0+0x547/0xac0
+> [  369.789974]  device_shutdown+0xac/0x1b0
+> [  369.793877]  kernel_restart+0x3a/0x70
+> [  369.797603]  __do_sys_reboot+0x147/0x240
+> [  369.801595]  do_syscall_64+0x11b/0x6a0
+> [  369.805407]  ? handle_mm_fault+0x110/0x350
+> [  369.809574]  ? do_user_addr_fault+0x206/0x680
+> [  369.814006]  ? irqentry_exit+0x7a/0x4d0
+> [  369.817907]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [  369.823046] RIP: 0033:0x7fe2958da917
+> [  369.826684] RSP: 002b:00007ffc5c458618 EFLAGS: 00000206 ORIG_RAX: 0000=
+0000000000a9
+> [  369.834383] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fe29=
+58da917
+> [  369.841639] RDX: 0000000001234567 RSI: 0000000028121969 RDI: 00000000f=
+ee1dead
+> [  369.848893] RBP: 00007ffc5c458790 R08: 0000000000000069 R09: 00000000f=
+fffffff
+> [  369.856148] R10: 0000000000000000 R11: 0000000000000206 R12: 000000000=
+0000000
+> [  369.863402] R13: 0000000000000000 R14: 00007ffc5c4588b8 R15: 000000000=
+0000000
+> [  369.870659]  </TASK>
+> [  369.872888] INFO: task systemd-shutdow:1 is blocked on a mutex likely =
+owned by task kworker/0:1:11.
+>
+> Fixes: 091d42e43d21 ("iommu/vt-d: Copy translation tables from old kernel=
+")
+> Signed-off-by: Desnes Nunes <desnesn@redhat.com>
 > ---
-> Changes in v2:
-> - Added Reported-by tag.
-> 
->   drivers/usb/typec/ucsi/ucsi.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-> index 1ae4224d2dfc3..49f1c53721bbd 100644
-> --- a/drivers/usb/typec/ucsi/ucsi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi.c
-> @@ -2142,11 +2142,11 @@ static int ucsi_init(struct ucsi *ucsi)
->   	return 0;
->   
->   err_unregister:
-> +	for (con = connector; con->port; con++)
-> +		ucsi_unregister_port(con);
->   	for (i = 0; i < ucsi->cap.num_connectors; i++)
->   		lockdep_unregister_key(&connector[i].lock_key);
->   
-> -	for (con = connector; con->port; con++)
-> -		ucsi_unregister_port(con);
->   	kfree(connector);
->   err_reset:
->   	memset(&ucsi->cap, 0, sizeof(ucsi->cap));
+> V1 -> V2: Updated commit message and added xHCI stack trace as requested
+>
+> v1: https://lore.kernel.org/linux-iommu/ajnlKDglN6wEBBrS@google.com/T/#t
+>
+>  drivers/iommu/intel/iommu.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> index 4d0e65bc131d..737936f942a0 100644
+> --- a/drivers/iommu/intel/iommu.c
+> +++ b/drivers/iommu/intel/iommu.c
+> @@ -1443,7 +1443,7 @@ static int copy_context_table(struct intel_iommu *i=
+ommu,
+>                               struct context_entry **tbl,
+>                               int bus, bool ext)
+>  {
+> -       int tbl_idx, pos =3D 0, idx, devfn, ret =3D 0, did;
+> +       int tbl_idx, tbl_slot =3D 0, idx, devfn, ret =3D 0, did;
+>         struct context_entry *new_ce =3D NULL, ce;
+>         struct context_entry *old_ce =3D NULL;
+>         struct root_entry re;
+> @@ -1459,10 +1459,9 @@ static int copy_context_table(struct intel_iommu *=
+iommu,
+>                 if (idx =3D=3D 0) {
+>                         /* First save what we may have and clean up */
+>                         if (new_ce) {
+> -                               tbl[tbl_idx] =3D new_ce;
+> +                               tbl[tbl_idx + tbl_slot] =3D new_ce;
+>                                 __iommu_flush_cache(iommu, new_ce,
+>                                                     VTD_PAGE_SIZE);
+> -                               pos =3D 1;
+>                         }
+>
+>                         if (old_ce)
+> @@ -1484,6 +1483,9 @@ static int copy_context_table(struct intel_iommu *i=
+ommu,
+>                                 }
+>                         }
+>
+> +                       /* Track if saving UCTP or LCTP entries in scalab=
+le mode */
+> +                       tbl_slot =3D ext && devfn >=3D 0x80 ? 1 : 0;
+> +
+>                         ret =3D -ENOMEM;
+>                         old_ce =3D memremap(old_ce_phys, PAGE_SIZE,
+>                                         MEMREMAP_WB);
+> @@ -1512,7 +1514,7 @@ static int copy_context_table(struct intel_iommu *i=
+ommu,
+>                 new_ce[idx] =3D ce;
+>         }
+>
+> -       tbl[tbl_idx + pos] =3D new_ce;
+> +       tbl[tbl_idx + tbl_slot] =3D new_ce;
+>
+>         __iommu_flush_cache(iommu, new_ce, VTD_PAGE_SIZE);
+>
+> --
+> 2.54.0
+>
 
