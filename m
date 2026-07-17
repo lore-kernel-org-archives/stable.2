@@ -1,87 +1,42 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B1642FCD0;
-	Fri, 17 Jul 2026 14:53:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9853B14DE
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:55:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784299986; cv=none; b=Zc9z1SNMSMzZzI1FesJjK7wxUjPZ/xHN6+yu073eHuz6sBWLMdGyD7II0vztJezpfIaKx8TGJ/nNM/YG+Km5cAUbGI4sz22KBYUvcUcHhkPrQc9/mXKhTKksev+9xiaddlp5/G/BZKLCYnpawqKJjIcP7mO0FVeLroCOKhBrlgs=
+	t=1784300106; cv=none; b=g1SUbWAZ8YncYwh7vG5T/yS4Aabcam+bPrlV4zhDM1Pq/4RXoCDJaaTbpaA0/6vxEW7bfuipbzSEnHqmXWKXwE7NoWUBWxCIYcHZmRk9QXtIEB0sQcdS7MXoBc8RmIuVXQANbB9m23/emcdlt1bkdWhrmqfqDCcBSzhI/0EWQ4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784299986; c=relaxed/simple;
-	bh=dyxCvKqe/bgL8/UAv84A8tM51QU4qZZ3bv7WC2hGeKo=;
+	s=arc-20240116; t=1784300106; c=relaxed/simple;
+	bh=JwnZL+YCwllclzay+NAvX531J2L0uvIGoYbc+fni1AA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ozkgDoyUuw+y4lP/9rL764EeHzsYvyF0/OPPn1iBiS5sCAlTbIvdyUCPuBNAQZy47M30t5hdejd/+RLTMXLIYq0LrmfxGFvxeRoOygCX6DJq3+pdLW/MosaWaoT4iq5mMdIE/pNDrF7ZfQbljzowKFvlKvryyrWSA9I3aE8VqxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LQmm/Ucm; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 MIME-Version; b=HbMWXKJLuBtlb02NSOYqCaFlXuxqOR8l4uwN1jEMdEDNmBJKO75xxt8523nbd7nKYux30Yu6m0duUseVNtYLP2tHQEFtvBpLi8R4Q8+xhin+EKxdXun+4ZY+jljUKrI+C1+YyIyFbT6DbM86A1EWekszP4uQXKUCPxt6D+t+6A4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C2qBTpJc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LQmm/Ucm"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 48C9D1A1065;
-	Fri, 17 Jul 2026 14:52:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1AC3460361;
-	Fri, 17 Jul 2026 14:52:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9892911BD2195;
-	Fri, 17 Jul 2026 16:52:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784299975; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=qCmU1MyL7zxZtzwAGxXkVRLqO+rKk+ae2dd7R96TSC4=;
-	b=LQmm/Ucm+1wOR65qotHec+wGwY0LnMW680p0HtvhPcaBSe0fi5Fqt51Zs/zZofJtGh4OIi
-	4cNSlzEel9WdAfHb15+zLmWdNWe1/zOJGtTbtLp8yWjjq3b6CT2vZeXO0IciKP31vVNGGh
-	4PYing0unFjmzs33QZGZ48LKQKXenkDOEfiJbNXXSL1z4KVHE+z54WSv7Ao3KjDd6W82lB
-	uOBHMddLv+sV1fe5mQBFHgy6paT6jE18cvomTHd3eyqxNxgRTpblVHDw6f/JokqC5UfFvk
-	/P3YoxXMBfXiaoq/tR4MM+VG0YoZmJnK92NkGmtVSuoThSgZGoaXN5j3aWL6lA==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Richard Cheng <icheng@nvidia.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Lizhi Hou <lizhi.hou@amd.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v10 08/10] PCI: of: Set fwnode device of newly created PCI device nodes
-Date: Fri, 17 Jul 2026 16:51:43 +0200
-Message-ID: <20260717145147.823749-9-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260717145147.823749-1-herve.codina@bootlin.com>
-References: <20260717145147.823749-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C2qBTpJc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8EE1F000E9;
+	Fri, 17 Jul 2026 14:55:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784300104;
+	bh=fmR4VEhcoV4cTfcr6MRsWAiofxCIXhD3woZ+A7YVLhc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C2qBTpJcQN/9HtLceFDUCRoBUu4KqSgNs2NPURCnRomN+HvTgtQ5w0vr8BLjwOWuZ
+	 uRD0myJ9ZAuKplRpv1K9p+Zn3Zknqs/p9nXofw7joCw+G9XOpFnFUQ2ySoELte8tzs
+	 4IsBaln+xKHTJaBu5diofLDJQhIF7eJn/oiKF5Ev4dH8t4CSpmS/lMZtL9th6L+iZa
+	 bb2iK86O/xZeKm9N5nZA2du/4zXoER5nQ8yuOqI132da6PcbpJ27+DuFCtn9WyB4Xj
+	 2cQO+yS0efpyL7IFnJPynz1mbi//EmOc403XjfAn4X2ETrxKAyE01PMTGQnDQ65mBA
+	 fUHTwZE9+OnNA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] treewide: Switch/rename to timer_delete[_sync]()
+Date: Fri, 17 Jul 2026 10:55:01 -0400
+Message-ID: <20260717145502.1925738-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071428-footless-stunner-a722@gregkh>
+References: <2026071428-footless-stunner-a722@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,71 +44,37 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Device-tree node can be created when CONFIG_PCI_DYNAMIC_OF_NODES. Those
-nodes are created and filled based on PCI core information but the
-fwnode device field is not set.
+From: Thomas Gleixner <tglx@linutronix.de>
 
-When later an overlay is applied, this confuses fw_devlink. Indeed,
-without any device attached to the node, fw_devlink considers that this
-node will never become a device. When this node is pointed as a
-supplier, devlink looks at its ancestors in order to find a node with a
-device that could be used as the supplier.
+[ Upstream commit 8fa7292fee5c5240402371ea89ab285ec856c916 ]
 
-In the PCI use case, this leads to links that wrongly use the PCI root
-bridge device as the supplier instead of the expected PCI device.
+timer_delete[_sync]() replaces del_timer[_sync](). Convert the whole tree
+over and remove the historical wrapper inlines.
 
-Setting the fwnode device to the device of the PCI device allows devlink
-to use this device as a supplier and so, correct links are created.
+Conversion was done with coccinelle plus manual fixups where necessary.
 
-Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
-Cc: stable@vger.kernel.org
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Stable-dep-of: 75fe87e19d8a ("HID: appleir: fix UAF on pending key_up_timer in remove()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/of.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/hid/hid-appleir.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-index 6a533f9bbf3c..a98f360c289a 100644
---- a/drivers/pci/of.c
-+++ b/drivers/pci/of.c
-@@ -657,6 +657,7 @@ void of_pci_remove_node(struct pci_dev *pdev)
- 	if (!np || !of_node_check_flag(np, OF_DYNAMIC))
- 		return;
+diff --git a/drivers/hid/hid-appleir.c b/drivers/hid/hid-appleir.c
+index c45e5aa569d25f..bb7db9ae41c249 100644
+--- a/drivers/hid/hid-appleir.c
++++ b/drivers/hid/hid-appleir.c
+@@ -319,7 +319,7 @@ static void appleir_remove(struct hid_device *hid)
+ {
+ 	struct appleir *appleir = hid_get_drvdata(hid);
+ 	hid_hw_stop(hid);
+-	del_timer_sync(&appleir->key_up_timer);
++	timer_delete_sync(&appleir->key_up_timer);
+ }
  
-+	fw_devlink_set_device(&np->fwnode, NULL);
- 	device_remove_of_node(&pdev->dev);
- 	of_changeset_revert(np->data);
- 	of_changeset_destroy(np->data);
-@@ -709,9 +710,16 @@ void of_pci_make_dev_node(struct pci_dev *pdev)
- 	if (ret)
- 		goto out_free_node;
- 
-+	/*
-+	 * Set the fwnode device in order to have fw_devlink creating links
-+	 * pointing to this PCI device instead of walking up to the PCI host
-+	 * bridge.
-+	 */
-+	fw_devlink_set_device(&np->fwnode, &pdev->dev);
-+
- 	ret = of_changeset_apply(cset);
- 	if (ret)
--		goto out_free_node;
-+		goto out_clear_devlink_dev;
- 
- 	np->data = cset;
- 
-@@ -726,6 +734,8 @@ void of_pci_make_dev_node(struct pci_dev *pdev)
- out_revert_cset:
- 	np->data = NULL;
- 	of_changeset_revert(cset);
-+out_clear_devlink_dev:
-+	fw_devlink_set_device(&np->fwnode, NULL);
- out_free_node:
- 	of_node_put(np);
- out_destroy_cset:
+ static const struct hid_device_id appleir_devices[] = {
 -- 
-2.55.0
+2.53.0
 
