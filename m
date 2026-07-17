@@ -1,79 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5303E9C16;
-	Fri, 17 Jul 2026 10:00:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA383C5523;
+	Fri, 17 Jul 2026 10:16:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784282437; cv=none; b=im3xSo5hmvr0O+SrBMC/5e6wlhNmqbGJi53FxPVfIoTh7nrB/h3NGtzkiaKBIERU5vGbppgTEi/xmcxBXopK2gUzc7chyeekjNAeqjikLBwhrc06fxUOBsJSFcA8FnI11jQ6ogtGW/oTnFyfrUoXiypoM7dFgo/WAsoSw7Tvdto=
+	t=1784283387; cv=none; b=fBwyvwm8FUw0nGH+Xy+pV+MTsTlND3OjDsm510p4LD+01y7lyddFbJ/aNd1e57dm+5AIWCTlhSZClpCVjUnXkBnSp1NEN98uXFN/lY8+zkauk61TTgNSClvJQCQif/y5K6hlcrW4ybgxGwllYkKuMcDJFLpgAQcOLXFu4Opr4JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784282437; c=relaxed/simple;
-	bh=4jCBcRVrlaLOBYAzTmCWXlcxLi58obhrcv78JY6m11w=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=c5YPcMkkIAgtbUJfR1uxFfLiKYMjlXPAZGA7uFwjiU+kcVhoCsHoQS/PVDuJ3SLSM+m46+5h+bsYvbPpzX8UtAIcJwhEVRkTo4QuPSp/Aq62oTsR2eq6NjeMGJcFY9S7j0SQ810Ux+KRj2rm5KylSl1at3xFskzXorqyQ6I4Hlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGy1Rgez; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784283387; c=relaxed/simple;
+	bh=BdhS9yvmn5Yq/YaENAWVpoirpRgw3bQiq47TSTob03c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jH310bDGX6Ag+FvZvQ2I2pkeQiYIYcrD7S/Bvw2kRPT1h1cPslSW1/P9x0jZDt/IbZtLIqc6/OZwJh1CbduQv3401nWd7hwwzE2mcarPIfv1/P90xLdzqt1e2Ne3oERAHgTPkkVcOmoJ895oFr1pIJoTyFOadjBBctqlc0TvnHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yC/Qv8Zo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGy1Rgez"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039571F00A3D;
-	Fri, 17 Jul 2026 10:00:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784282436;
-	bh=R169iEgJLSTU6BsFVGZtAdHBaDZjsfylReCCD0K+Uo4=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kGy1Rgezx3zfwFJoiBo2kQErslDHZ6iRMb5LFAgsbZUwUqkoQ3JcSAOhXDnb1lqsK
-	 vKWC6oemOyzJIy6KqhldbN7mEeesYY5c0QmWovmcc0zkkKlDGGBNGpvhxiJAzQv1mA
-	 vE36Zl4/VFZIF6ZSNH2v3HS85/1p8ngO1Hqse83hDUBs1a2RBghAixtIKbZeosOLgv
-	 4UDek3q4xdS8ZogKyKrK3st26sE1/qqIEFNAiIPHWeBNoPKxrlhOuGwpGZ28CsGe92
-	 AnslXJLRQ4eSJpF7Hn/Zu4e5sCiRN4wFdSUgHURyLhGO7PVFTrjLTiReev+UqjexDn
-	 fBqUmv6Mu7CZg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id C1D34380CED1;
-	Fri, 17 Jul 2026 10:00:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yC/Qv8Zo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7369C1F00A3A;
+	Fri, 17 Jul 2026 10:16:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784283380;
+	bh=Z10+3eYhKXZYs/JisbiOPFbJ8g1kFgXTyiMYwOnxBAo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=yC/Qv8ZobEpVBWOjzNZLKl+X/A48reChO1gFYRqnBHiU93uBNIK7GyIr7IJKXMv0J
+	 /JaLkt1Vs3VDR9DHdc1VBaTnaWHO8i4OZKor9Nsp3RLvvFEKFbvw0LRFLVn1EvoUvp
+	 V1z5lGFgFHYQgH12z2IdcVL5sbx28569c7GZoFpE=
+Date: Fri, 17 Jul 2026 12:16:13 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Andrei Kuchynski <akuchynski@chromium.org>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Jameson Thies <jthies@google.com>,
+	Benson Leung <bleung@chromium.org>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Pooja Katiyar <pooja.katiyar@intel.com>,
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
+	Johan Hovold <johan@kernel.org>,
+	Hsin-Te Yuan <yuanhsinte@chromium.org>,
+	Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>,
+	Jack Pham <quic_jackp@quicinc.com>,
+	"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: ucsi: Correct teardown ordering in
+ ucsi_init() error path
+Message-ID: <2026071705-vertigo-retorted-ea53@gregkh>
+References: <20260717095006.101389-1-akuchynski@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net/mlx5: free mlx5_st_idx_data on final dealloc
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178428240839.1642910.17157981121127705010.git-patchwork-notify@kernel.org>
-Date: Fri, 17 Jul 2026 10:00:08 +0000
-References: <20260702222507.1234467-1-zhipingz@meta.com>
-In-Reply-To: <20260702222507.1234467-1-zhipingz@meta.com>
-To: Zhiping Zhang <zhipingz@meta.com>
-Cc: jgg@ziepe.ca, leon@kernel.org, saeedm@nvidia.com, tariqt@nvidia.com,
- mbloch@nvidia.com, michaelgur@nvidia.com, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717095006.101389-1-akuchynski@chromium.org>
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Thu, 2 Jul 2026 15:24:58 -0700 you wrote:
-> Workloads that repeatedly allocate and release mkeys carrying TPH
-> steering-tag hints (e.g. churning RDMA MRs) leak one
-> struct mlx5_st_idx_data per cycle; kmemleak flags it as unreferenced
-> and the kmalloc slab grows over time.
+On Fri, Jul 17, 2026 at 09:50:06AM +0000, Andrei Kuchynski wrote:
+> The commit 7aa7d4bf9d3f ("usb: typec: ucsi: Fix race condition and
+> ordering in port unregistration") consolidated port teardown into the
+> ucsi_unregister_port() helper. However, it introduced an ordering problem
+> in the ucsi_init() error path.
 > 
-> When the last reference to an ST table entry is dropped,
-> mlx5_st_dealloc_index() removed the entry from idx_xa but the backing
-> mlx5_st_idx_data allocation was never freed.
+> Fix this by ensuring ucsi_unregister_port() is called before we unregister
+> their corresponding lockdep keys.
 > 
-> [...]
+> Cc: stable@vger.kernel.org
+> Fixes: 7aa7d4bf9d3f ("usb: typec: ucsi: Fix race condition and ordering in port unregistration")
+> Link: https://lore.kernel.org/all/22064276-6c56-411a-9f20-6917ceeb865f@intel.com/
+> Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
+> ---
+>  drivers/usb/typec/ucsi/ucsi.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Here is the summary with links:
-  - [net,v2] net/mlx5: free mlx5_st_idx_data on final dealloc
-    https://git.kernel.org/netdev/net/c/df6134b527a8
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+You forgot a reported-by: tag :(
 
