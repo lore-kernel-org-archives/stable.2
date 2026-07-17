@@ -1,250 +1,355 @@
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665EA33F588
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 03:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784260017; cv=pass; b=eOI1u5B/BaGngAvHRu+eM2GPqWv8gCKCpXBh4f1BIxx0o/oGDxAzc+MpsW29/fGqJlAwLveZK+LIxWX1eUam6x7QZMwCkYTrMNdXgyu8Pv58SbPUiH5n5nnS0s0mekX2mlaMvio5g8sshQlyjwef1WZA5R2ITErbCAV6nhn5SFY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784260017; c=relaxed/simple;
-	bh=N3fP95K9irXNso3jags5aBR487rSqTZ+oeDUbB+drfs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hsrps4xgXvL/5Q7xjz3TNFi593DiVA7VoSMLrouG38AHPQEp2si9/1zcY74MY2dbaP7tQm7+/Y5cBWuyCyR181EWH325K50EYROo/Fn6xsGUlkU4xTZXSYRswTjukj1KWcm/7XLD8FoIWs1L7bDtVm7TafmJxBN1v7MFnXEMuG8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qdYj+q2E; arc=pass smtp.client-ip=209.85.160.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4643131AAA3;
+	Fri, 17 Jul 2026 03:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784260408; cv=none; b=TFBMEg7SfcyZHWmjEzTBdJkOqmyzDkwmcH707KDmxLzprBXDWg89YpBuUiwAaRoQfwPH/38xGK9EKTrdWoswbazGd2gq+p0UP0+9XUxuhPujLAuLmlNpzdrrHAHA5N4bXgXdDIP1lBuOuhQ/15a4lclwZSa3JLbUW/Pd5iCTSLk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784260408; c=relaxed/simple;
+	bh=kg8wTpyKJcycHALKQ28TnoUsjxMZPc5InWegFCNQNHA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rczr218ayy3gLawOf7lOnLdArnfKrdOjyRh1n85b8i3zBrEuTkod+DNO8sLVPo9GpmiOj2thMIO64TUDZBEoWeDzHLkvrE6RnwKawIa5l83VSmzz9ih2Z9fYTLPe5utxh1f2awqiU2yycUZmDlUNCzd/UIyyaXiixD40Awb9BDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a4TBJqu9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qdYj+q2E"
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4513435cdd2so3040978fac.2
-        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 20:46:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784260014; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EoH5vz2Co9f3q6lHiJexE0/F6sd/cc/XqOF8eiPx++irDlcR1WrU/DO0PyvFZTPq7O
-         MsXa5BYlKVbtRyZqKXsCaHHUo38P5QZMULUpVTz448PVykCHmEX7D4ZihvwL524CVjp8
-         Yg60IiKvB1Lp6DO641p6CR24DEbEw3BYzrrJPNC2gNza1oW+P3NZgc6c0M3f+KS3R9Nm
-         4wPRNzqVjfxOGftXNNXHAEl5tXPOAJRP5VavScGiZyXuSi7EiRDwDjTdixT7ItkDuwi3
-         QfXkQpq/KuOptOPx8vM8cily7k8axaR4zGTsWpPBjHiVet/tx727Xwe2luqyGE5+rYu8
-         iOVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+qfsfSM7+v1WClc9BxhjMt2YlMxMtKRK2E8WppuykZI=;
-        fh=nz6CskT8+eOUseESeuaYwgrzw05OroyKj/NA57yYmx4=;
-        b=XhdHRWWkglGB83bx9NwOSHxug4nfF+H9S/MWyNr1UIegBLvVZnkJ3PadLJXM/28GO0
-         iKdBcn0TybHrNgexAS9QHEhfq5kPLeEtmLdv7fHGgBDqK5Ezeimrkak1TcXJ5vog6Rit
-         tU4AS2dk+uP0QuRg2N1Felkc2ICDsG+NqyvM6CV4uC9G+57Lks1MlWyQyxkScxVUn4ga
-         ssasN/9TFA4NQJxqpoEcg7QEX/Qw+zh8UZHn958AIePQq1JXwqncFgCGa4zrdD5C+oWk
-         OlaukfCZbXmYJR4FQvEgsfsrKvaAaNsXEY2Zb9kVj6CwloW4uc9Lop8s5NRsZKAEorUx
-         Or6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784260014; x=1784864814; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+qfsfSM7+v1WClc9BxhjMt2YlMxMtKRK2E8WppuykZI=;
-        b=qdYj+q2EWfrycp3pPsJ+CchD861m7W4DZKe8nqTihfVjt+54usexVwm9bnRRb1NWSK
-         mojP4UoNaybtyuILBit3sAseHl+OW9T9ukOC6P+fWqKkxhDl7Du76wvOtXBlcZ1f4R6P
-         4idaRD2Yn2KtYn42ZA5nKrGwmDykLXA0mnffL9oed2P48c4WI1WCVXs0aZghEfFxLS+y
-         5OlVgUEayX7Pkb7w957zNY+ESWWnQkjNCnyLyqRGNw5GnscjLmFVxDBJmDuhLyxNu4cQ
-         dhLo6E5zpWjG7QPzyo+boYPcxzOag6ZYjHLCRZI1fmj8OT1rvzkfOQjk48ybkDLY7mra
-         ju8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784260014; x=1784864814;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+qfsfSM7+v1WClc9BxhjMt2YlMxMtKRK2E8WppuykZI=;
-        b=j/cfYQ9M1SpUikAjqfe6rtIRVmHm1OOZWnP/udOwAauXTJv2wn/KRIj8Neuc3du2QX
-         y2DNL1AA5palJimuW9LQ2vjOt6z64Gqt2mF9ih8EFwlz75990whAEi1DCLVM3oom5CeV
-         lxoH/vD5JWcJg/m2SRpR5WdK49AHY3cJBryGxWFofnUKQzWWmhTDIyuRfHKG9/6CxMg7
-         pMC9I2nMOtTiLBJa60HUdUa8Serv3EWPCFt1PdN+mEF695BTMcBqnpo1A8Z8vks7hK+K
-         UPfaEbQ1m0WuCJuxxk3qQM0IEIwWRETiuKW2+wxweOjih6YB+aeZ7h4HSpMghMvUUZfO
-         Hsuw==
-X-Forwarded-Encrypted: i=1; AHgh+RqZvFvXOtLtntU61GPPVCiczyQfNIziolH0dWaULNrV0Aqca9vQsYodpV8UF+Bl/UeZv+eQSuQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJR7gkfHWp/RXQJ57yKN8KiAbAmoesl70yvwqAVP8oxv9lfHd9
-	pxxiK42v8WeEmYoPpKTrfTVInt0t9sZT2NMLNPKixYBHv0mAukVj5YL2OqG02n5fi1fqFlDF2CU
-	OP863JfoqU/bNli8Hmu2YZbii+/8SeJo=
-X-Gm-Gg: AfdE7ckA/ENfBXTUaBFRZe2RS1un5fdLgqhtsQ7VNaUP+Y5D+rWKr+pcO3U3Xz1xwzV
-	CY36IVUmZRIJEsqKTu3BsUcEuUCmXw7NHPSSIpVGqphcP89YLHLbrCTpowELu8A1mG5/mAt73z9
-	fJPOucEEAUTAix6J+aifAU2r0j+JNRken2iRCzmGWa2eVLSVNQv/ofHPXGOYCRTRBowtyH/8by+
-	x1P36O9LNlYgvlZ8VcF8EA3dlsyvl9CU/XJI183uOPNuquls9eYd7q0K9/V710RKiC4nKdda5OW
-	nqw44ytVTcE3vUJd
-X-Received: by 2002:a05:6808:14c6:b0:4a4:a693:9d8f with SMTP id
- 5614622812f47-4a4d03063fdmr419990b6e.6.1784260013937; Thu, 16 Jul 2026
- 20:46:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a4TBJqu9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39521F000E9;
+	Fri, 17 Jul 2026 03:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784260406;
+	bh=xeMBgFFZuSuHc7d5PQhWpxIImykXqEb+Xvzouxvl2k8=;
+	h=From:To:Cc:Subject:Date;
+	b=a4TBJqu9yuJUEHnlglb/VYl8j2SqK/g+3PZRWaKvZPg8TZmqxeJnu4vkeFVwEk1jy
+	 zcpOXrIl3kFYiyBrzP/bCXKbYZ1UoWGRPIj80PDIUoW/rZ+QFtws2neOdZsvABe9hy
+	 kVIPc9tEpuVJzTm8DGS6uELs5Ot8TZeuX/runweZUCcFifBsH3PFUG/82hVVIcxOBy
+	 D7imp0z21bE1PS66sDti4ELFI0MxzgH3cyZC5RxT/7wBiSscmfHiKV83+L80I760Q2
+	 XzsNUV56OlVjMclNz+lZA6H+20mq498KYKIBpbTg0BKhkoTBZrykbyBDX96hnVlqP2
+	 7UE6NpkfTWwYQ==
+From: Eric Biggers <ebiggers@kernel.org>
+To: stable@vger.kernel.org
+Cc: linux-crypto@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Eric Biggers <ebiggers@kernel.org>,
+	Tianchu Chen <flynnnchen@tencent.com>,
+	Corentin LABBE <clabbe.montjoie@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Subject: [PATCH 7.1,6.18,6.12,6.6,6.1] crypto: sun4i-ss - Remove insecure and unused rng_alg
+Date: Thu, 16 Jul 2026 20:50:58 -0700
+Message-ID: <20260717035058.352737-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716-series-vmap-race-fix-v4-0-8c108c4317df@kernel.org> <20260716-series-vmap-race-fix-v4-2-8c108c4317df@kernel.org>
-In-Reply-To: <20260716-series-vmap-race-fix-v4-2-8c108c4317df@kernel.org>
-From: David CARLIER <devnexen@gmail.com>
-Date: Fri, 17 Jul 2026 04:46:42 +0100
-X-Gm-Features: AUfX_mxBLT37KrDyrNbP0EYWC50r_QKOrJ4iSaMj1OT4QL3-liPKJMNfSVRy2ow
-Message-ID: <CA+XhMqzUO49FiC-Oa6VYUt7Wm9RZLH30DhUH2kVn_PBodyZ6dg@mail.gmail.com>
-Subject: Re: [PATCH mm-hotfixes v4 2/4] x86/mm/pat: acquire init_mm write lock
- to avoid UAF
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Suren Baghdasaryan <surenb@google.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Uladzislau Rezki <urezki@gmail.com>, 
-	Toshi Kani <toshi.kani@hpe.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	"Denis V. Lunev" <den@virtuozzo.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, 16 Jul 2026 at 22:31, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
->
-> x86 implements page attribute modification using its Change Page
-> Attributes (CPA) mechanism.
->
-> This tracks properties of ranges such as cache mode through x86 page
-> attributes, and as part of that logic manipulates kernel page tables.
->
-> Since commit 41d88484c71c ("x86/mm/pat: restore large ROX pages after
-> fragmentation") ranges of kernel page table entries can be collapsed into
-> huge page table entries as part of this logic.
->
-> As part of this collapse, it frees the page tables which the collapsed
-> entries previously pointed to, and it does so without any relevant locks
-> being held to preclude concurrent kernel page table walkers.
->
-> The only way this code can be reached is if CPA_COLLAPSE is specified, and
-> this is only set in set_memory_rox() via:
->
-> set_memory_rox()
-> -> change_page_attr_set_clr()
-> -> cpa_flush()
-> -> cpa_collapse_large_pages()
->
-> Notable users of this are execmem and bpf when manipulating executable
-> mappings.
->
-> However, this is problematic for ptdump as it walks ranges it does not own
-> and thus runs the risk of a use-after-free on page tables freed underneath
-> it.
->
-> In addition, concurrent CPA collapse operations are possible which can also
-> cause races.
->
-> Resolve the issue by acquiring the mmap write lock on init_mm across the
-> whole operation.
->
-> It is safe to acquire a sleeping lock as all the callers invoke
-> set_memory_rox() from process context and in any case,
-> change_page_attr_set_clr() calls vm_unmap_alias() which ultimately takes a
-> mutex, disallowing atomic context here.
->
-> Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  arch/x86/mm/pat/set_memory.c | 15 ++++++++++++++-
->  include/linux/mmap_lock.h    |  2 ++
->  2 files changed, 16 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> index d023a40a1e03..d1e63f7d267f 100644
-> --- a/arch/x86/mm/pat/set_memory.c
-> +++ b/arch/x86/mm/pat/set_memory.c
-> @@ -22,6 +22,7 @@
->  #include <linux/cc_platform.h>
->  #include <linux/set_memory.h>
->  #include <linux/memregion.h>
-> +#include <linux/cleanup.h>
->
->  #include <asm/e820/api.h>
->  #include <asm/processor.h>
-> @@ -410,7 +411,7 @@ static void __cpa_flush_tlb(void *data)
->
->  static int collapse_large_pages(unsigned long addr, struct list_head *pgtables);
->
-> -static void cpa_collapse_large_pages(struct cpa_data *cpa)
-> +static void __cpa_collapse_large_pages(struct cpa_data *cpa)
->  {
->         unsigned long start, addr, end;
->         struct ptdesc *ptdesc, *tmp;
-> @@ -442,6 +443,18 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
->         }
->  }
->
-> +static void cpa_collapse_large_pages(struct cpa_data *cpa)
-> +{
-> +       /*
-> +        * Take the mmap write lock on init_mm to:
-> +        * - Avoid a use-after-free if raced by ptdump (which takes its own
-> +        *   write lock on init_mm).
-> +        * - Serialise concurrent CPA walkers.
-> +        */
-> +       scoped_guard(mmap_write_lock, &init_mm)
-> +               __cpa_collapse_large_pages(cpa);
-> +}
-> +
->  static void cpa_flush(struct cpa_data *cpa, int cache)
->  {
->         unsigned int i;
-> diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-> index 6b5c2390cc30..047f5f5e2c34 100644
-> --- a/include/linux/mmap_lock.h
-> +++ b/include/linux/mmap_lock.h
-> @@ -621,6 +621,8 @@ static inline void mmap_read_unlock(struct mm_struct *mm)
->
->  DEFINE_GUARD(mmap_read_lock, struct mm_struct *,
->              mmap_read_lock(_T), mmap_read_unlock(_T))
-> +DEFINE_GUARD(mmap_write_lock, struct mm_struct *,
-> +            mmap_write_lock(_T), mmap_write_unlock(_T))
->  DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
->
->  static inline void mmap_read_unlock_non_owner(struct mm_struct *mm)
->
-> --
-> 2.55.0
->
+commit b2c41fa9dd8fc740c489e060b199165771f268d1 upstream.
 
-Hi,
+Remove sun4i_ss_rng, as it is insecure and unused:
 
-This bullet confuses me. __change_page_attr() and friends are serialised by
-cpa_lock/pgd_lock and never take init_mm's mmap lock, so this doesn't
-exclude them.
+- It has multiple vulnerabilities.  sun4i_ss_prng_seed() is missing
+  locking and has a buffer overflow.  sun4i_ss_prng_generate() fails to
+  fill the entire buffer with cryptographic random bytes, because it
+  rounds the destination length down and also doesn't actually wait for
+  the hardware to be ready before pulling bytes from it.
 
-Collapse vs collapse looks covered already: collapse_large_pages() holds
-pgd_lock across the walk and both collapse_pmd_page()/collapse_pud_page()
-calls, and the pmd_leaf()/pud_leaf() early-outs stop a second CPU
-re-queueing a collapsed table. I couldn't build the interleaving behind the
-cover letter's "could result in memory corruption". Can you spell it out?
+- No user of this code is known.  It's usable only theoretically via the
+  "rng" algorithm type of AF_ALG.  But userspace actually just uses the
+  actual Linux RNG (/dev/random etc) instead.  And rng_algs don't
+  contribute entropy to the actual Linux RNG either.  (This may have
+  been confused with hwrng, which does contribute entropy.)
 
-If the reason is really Will's v3 point - collapse rounds up to PMD/PUD and
-frees tables outside its caller's range, so it has to exclude
-walk_kernel_page_table_range() walkers holding the read lock - then say
-that. It's a UAF independent of ptdump, and it's why v3's read lock wasn't
-enough.
+The sun4i_ss_prng_seed() buffer overflow was reported by Tianchu Chen
+and discovered by Atuin - Automated Vulnerability Discovery Engine
 
-Also: patch 1 justifies the trylock fallback on ptdump being rare, but this
-takes the write lock on every set_memory_rox() (BPF JIT, module load,
-execmem), even when nothing collapsed. vmap_try_huge_*() then loses the
-trylock and quietly falls back to PTEs on every BPF load. No counter, no
-trace. Not a blocker and I've no better idea, but fa93b45fd397 was about
-getting vmalloc-huge on by default, so it's worth calling out.
+There's no point in fixing all these vulnerabilities individually when
+this is unused code, so let's just remove it.
 
-Rest looks right. 4/4 restores pud_free_pmd_page() exactly as it was before
-fa93b45fd397, and 3/4 builds the same walk init_mm got via
-walk_kernel_page_table_range_lockless().
+Fixes: b8ae5c7387ad ("crypto: sun4i-ss - support the Security System PRNG")
+Cc: stable@vger.kernel.org
+Reported-by: Tianchu Chen <flynnnchen@tencent.com>
+Closes: https://lore.kernel.org/r/af749a8447bd7f0e9dd26ca6c87e9c6afecb09d9@linux.dev/
+Acked-by: Corentin LABBE <clabbe.montjoie@gmail.com>
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+---
+ arch/arm/configs/sunxi_defconfig              |  1 -
+ drivers/crypto/allwinner/Kconfig              |  8 ---
+ drivers/crypto/allwinner/sun4i-ss/Makefile    |  1 -
+ .../crypto/allwinner/sun4i-ss/sun4i-ss-core.c | 36 ----------
+ .../crypto/allwinner/sun4i-ss/sun4i-ss-prng.c | 69 -------------------
+ drivers/crypto/allwinner/sun4i-ss/sun4i-ss.h  | 20 ------
+ 6 files changed, 135 deletions(-)
+ delete mode 100644 drivers/crypto/allwinner/sun4i-ss/sun4i-ss-prng.c
 
-Reviewed-by: David Carlier <devnexen@gmail.com>
+diff --git a/arch/arm/configs/sunxi_defconfig b/arch/arm/configs/sunxi_defconfig
+index a83d29fed175..f4b8d8f7dbef 100644
+--- a/arch/arm/configs/sunxi_defconfig
++++ b/arch/arm/configs/sunxi_defconfig
+@@ -170,7 +170,6 @@ CONFIG_ROOT_NFS=y
+ CONFIG_NLS_CODEPAGE_437=y
+ CONFIG_NLS_ISO8859_1=y
+ CONFIG_CRYPTO_DEV_SUN4I_SS=y
+-CONFIG_CRYPTO_DEV_SUN4I_SS_PRNG=y
+ CONFIG_CRYPTO_DEV_SUN8I_CE=y
+ CONFIG_CRYPTO_DEV_SUN8I_SS=y
+ CONFIG_DMA_CMA=y
+diff --git a/drivers/crypto/allwinner/Kconfig b/drivers/crypto/allwinner/Kconfig
+index 7270e5fbc573..1048f8e95ba8 100644
+--- a/drivers/crypto/allwinner/Kconfig
++++ b/drivers/crypto/allwinner/Kconfig
+@@ -25,14 +25,6 @@ config CRYPTO_DEV_SUN4I_SS
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called sun4i-ss.
+ 
+-config CRYPTO_DEV_SUN4I_SS_PRNG
+-	bool "Support for Allwinner Security System PRNG"
+-	depends on CRYPTO_DEV_SUN4I_SS
+-	select CRYPTO_RNG
+-	help
+-	  Select this option if you want to provide kernel-side support for
+-	  the Pseudo-Random Number Generator found in the Security System.
+-
+ config CRYPTO_DEV_SUN4I_SS_DEBUG
+ 	bool "Enable sun4i-ss stats"
+ 	depends on CRYPTO_DEV_SUN4I_SS
+diff --git a/drivers/crypto/allwinner/sun4i-ss/Makefile b/drivers/crypto/allwinner/sun4i-ss/Makefile
+index c0a2797d3168..06a9ae81f9f8 100644
+--- a/drivers/crypto/allwinner/sun4i-ss/Makefile
++++ b/drivers/crypto/allwinner/sun4i-ss/Makefile
+@@ -1,4 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ obj-$(CONFIG_CRYPTO_DEV_SUN4I_SS) += sun4i-ss.o
+ sun4i-ss-y += sun4i-ss-core.o sun4i-ss-hash.o sun4i-ss-cipher.o
+-sun4i-ss-$(CONFIG_CRYPTO_DEV_SUN4I_SS_PRNG) += sun4i-ss-prng.o
+diff --git a/drivers/crypto/allwinner/sun4i-ss/sun4i-ss-core.c b/drivers/crypto/allwinner/sun4i-ss/sun4i-ss-core.c
+index 58a76e2ba64e..35ef0930e77f 100644
+--- a/drivers/crypto/allwinner/sun4i-ss/sun4i-ss-core.c
++++ b/drivers/crypto/allwinner/sun4i-ss/sun4i-ss-core.c
+@@ -213,23 +213,6 @@ static struct sun4i_ss_alg_template ss_algs[] = {
+ 		}
+ 	}
+ },
+-#ifdef CONFIG_CRYPTO_DEV_SUN4I_SS_PRNG
+-{
+-	.type = CRYPTO_ALG_TYPE_RNG,
+-	.alg.rng = {
+-		.base = {
+-			.cra_name		= "stdrng",
+-			.cra_driver_name	= "sun4i_ss_rng",
+-			.cra_priority		= 300,
+-			.cra_ctxsize		= 0,
+-			.cra_module		= THIS_MODULE,
+-		},
+-		.generate               = sun4i_ss_prng_generate,
+-		.seed                   = sun4i_ss_prng_seed,
+-		.seedsize               = SS_SEED_LEN / BITS_PER_BYTE,
+-	}
+-},
+-#endif
+ };
+ 
+ static int sun4i_ss_debugfs_show(struct seq_file *seq, void *v)
+@@ -247,12 +230,6 @@ static int sun4i_ss_debugfs_show(struct seq_file *seq, void *v)
+ 				   ss_algs[i].stat_req, ss_algs[i].stat_opti, ss_algs[i].stat_fb,
+ 				   ss_algs[i].stat_bytes);
+ 			break;
+-		case CRYPTO_ALG_TYPE_RNG:
+-			seq_printf(seq, "%s %s reqs=%lu tsize=%lu\n",
+-				   ss_algs[i].alg.rng.base.cra_driver_name,
+-				   ss_algs[i].alg.rng.base.cra_name,
+-				   ss_algs[i].stat_req, ss_algs[i].stat_bytes);
+-			break;
+ 		case CRYPTO_ALG_TYPE_AHASH:
+ 			seq_printf(seq, "%s %s reqs=%lu\n",
+ 				   ss_algs[i].alg.hash.halg.base.cra_driver_name,
+@@ -471,13 +448,6 @@ static int sun4i_ss_probe(struct platform_device *pdev)
+ 				goto error_alg;
+ 			}
+ 			break;
+-		case CRYPTO_ALG_TYPE_RNG:
+-			err = crypto_register_rng(&ss_algs[i].alg.rng);
+-			if (err) {
+-				dev_err(ss->dev, "Fail to register %s\n",
+-					ss_algs[i].alg.rng.base.cra_name);
+-			}
+-			break;
+ 		}
+ 	}
+ 
+@@ -497,9 +467,6 @@ static int sun4i_ss_probe(struct platform_device *pdev)
+ 		case CRYPTO_ALG_TYPE_AHASH:
+ 			crypto_unregister_ahash(&ss_algs[i].alg.hash);
+ 			break;
+-		case CRYPTO_ALG_TYPE_RNG:
+-			crypto_unregister_rng(&ss_algs[i].alg.rng);
+-			break;
+ 		}
+ 	}
+ error_pm:
+@@ -520,9 +487,6 @@ static void sun4i_ss_remove(struct platform_device *pdev)
+ 		case CRYPTO_ALG_TYPE_AHASH:
+ 			crypto_unregister_ahash(&ss_algs[i].alg.hash);
+ 			break;
+-		case CRYPTO_ALG_TYPE_RNG:
+-			crypto_unregister_rng(&ss_algs[i].alg.rng);
+-			break;
+ 		}
+ 	}
+ 
+diff --git a/drivers/crypto/allwinner/sun4i-ss/sun4i-ss-prng.c b/drivers/crypto/allwinner/sun4i-ss/sun4i-ss-prng.c
+deleted file mode 100644
+index 491fcb7b81b4..000000000000
+--- a/drivers/crypto/allwinner/sun4i-ss/sun4i-ss-prng.c
++++ /dev/null
+@@ -1,69 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-#include "sun4i-ss.h"
+-
+-int sun4i_ss_prng_seed(struct crypto_rng *tfm, const u8 *seed,
+-		       unsigned int slen)
+-{
+-	struct sun4i_ss_alg_template *algt;
+-	struct rng_alg *alg = crypto_rng_alg(tfm);
+-
+-	algt = container_of(alg, struct sun4i_ss_alg_template, alg.rng);
+-	memcpy(algt->ss->seed, seed, slen);
+-
+-	return 0;
+-}
+-
+-int sun4i_ss_prng_generate(struct crypto_rng *tfm, const u8 *src,
+-			   unsigned int slen, u8 *dst, unsigned int dlen)
+-{
+-	struct sun4i_ss_alg_template *algt;
+-	struct rng_alg *alg = crypto_rng_alg(tfm);
+-	int i, err;
+-	u32 v;
+-	u32 *data = (u32 *)dst;
+-	const u32 mode = SS_OP_PRNG | SS_PRNG_CONTINUE | SS_ENABLED;
+-	size_t len;
+-	struct sun4i_ss_ctx *ss;
+-	unsigned int todo = (dlen / 4) * 4;
+-
+-	algt = container_of(alg, struct sun4i_ss_alg_template, alg.rng);
+-	ss = algt->ss;
+-
+-	err = pm_runtime_resume_and_get(ss->dev);
+-	if (err < 0)
+-		return err;
+-
+-	if (IS_ENABLED(CONFIG_CRYPTO_DEV_SUN4I_SS_DEBUG)) {
+-		algt->stat_req++;
+-		algt->stat_bytes += todo;
+-	}
+-
+-	spin_lock_bh(&ss->slock);
+-
+-	writel(mode, ss->base + SS_CTL);
+-
+-	while (todo > 0) {
+-		/* write the seed */
+-		for (i = 0; i < SS_SEED_LEN / BITS_PER_LONG; i++)
+-			writel(ss->seed[i], ss->base + SS_KEY0 + i * 4);
+-
+-		/* Read the random data */
+-		len = min_t(size_t, SS_DATA_LEN / BITS_PER_BYTE, todo);
+-		readsl(ss->base + SS_TXFIFO, data, len / 4);
+-		data += len / 4;
+-		todo -= len;
+-
+-		/* Update the seed */
+-		for (i = 0; i < SS_SEED_LEN / BITS_PER_LONG; i++) {
+-			v = readl(ss->base + SS_KEY0 + i * 4);
+-			ss->seed[i] = v;
+-		}
+-	}
+-
+-	writel(0, ss->base + SS_CTL);
+-	spin_unlock_bh(&ss->slock);
+-
+-	pm_runtime_put(ss->dev);
+-
+-	return 0;
+-}
+diff --git a/drivers/crypto/allwinner/sun4i-ss/sun4i-ss.h b/drivers/crypto/allwinner/sun4i-ss/sun4i-ss.h
+index 6c5d4aa6453c..f7d1c79ac677 100644
+--- a/drivers/crypto/allwinner/sun4i-ss/sun4i-ss.h
++++ b/drivers/crypto/allwinner/sun4i-ss/sun4i-ss.h
+@@ -31,8 +31,6 @@
+ #include <crypto/internal/skcipher.h>
+ #include <crypto/aes.h>
+ #include <crypto/internal/des.h>
+-#include <crypto/internal/rng.h>
+-#include <crypto/rng.h>
+ 
+ #define SS_CTL            0x00
+ #define SS_KEY0           0x04
+@@ -62,10 +60,6 @@
+ 
+ /* SS_CTL configuration values */
+ 
+-/* PRNG generator mode - bit 15 */
+-#define SS_PRNG_ONESHOT		(0 << 15)
+-#define SS_PRNG_CONTINUE	(1 << 15)
+-
+ /* IV mode for hash */
+ #define SS_IV_ARBITRARY		(1 << 14)
+ 
+@@ -94,14 +88,10 @@
+ #define SS_OP_3DES		(2 << 4)
+ #define SS_OP_SHA1		(3 << 4)
+ #define SS_OP_MD5		(4 << 4)
+-#define SS_OP_PRNG		(5 << 4)
+ 
+ /* Data end bit - bit 2 */
+ #define SS_DATA_END		(1 << 2)
+ 
+-/* PRNG start bit - bit 1 */
+-#define SS_PRNG_START		(1 << 1)
+-
+ /* SS Enable bit - bit 0 */
+ #define SS_DISABLED		(0 << 0)
+ #define SS_ENABLED		(1 << 0)
+@@ -128,9 +118,6 @@
+ #define SS_RXFIFO_EMP_INT_ENABLE	(1 << 2)
+ #define SS_TXFIFO_AVA_INT_ENABLE	(1 << 0)
+ 
+-#define SS_SEED_LEN 192
+-#define SS_DATA_LEN 160
+-
+ /*
+  * struct ss_variant - Describe SS hardware variant
+  * @sha1_in_be:		The SHA1 digest is given by SS in BE, and so need to be inverted.
+@@ -151,9 +138,6 @@ struct sun4i_ss_ctx {
+ 	char buf[4 * SS_RX_MAX];/* buffer for linearize SG src */
+ 	char bufo[4 * SS_TX_MAX]; /* buffer for linearize SG dst */
+ 	spinlock_t slock; /* control the use of the device */
+-#ifdef CONFIG_CRYPTO_DEV_SUN4I_SS_PRNG
+-	u32 seed[SS_SEED_LEN / BITS_PER_LONG];
+-#endif
+ 	struct dentry *dbgfs_dir;
+ 	struct dentry *dbgfs_stats;
+ };
+@@ -164,7 +148,6 @@ struct sun4i_ss_alg_template {
+ 	union {
+ 		struct skcipher_alg crypto;
+ 		struct ahash_alg hash;
+-		struct rng_alg rng;
+ 	} alg;
+ 	struct sun4i_ss_ctx *ss;
+ 	unsigned long stat_req;
+@@ -231,6 +214,3 @@ int sun4i_ss_des_setkey(struct crypto_skcipher *tfm, const u8 *key,
+ 			unsigned int keylen);
+ int sun4i_ss_des3_setkey(struct crypto_skcipher *tfm, const u8 *key,
+ 			 unsigned int keylen);
+-int sun4i_ss_prng_generate(struct crypto_rng *tfm, const u8 *src,
+-			   unsigned int slen, u8 *dst, unsigned int dlen);
+-int sun4i_ss_prng_seed(struct crypto_rng *tfm, const u8 *seed, unsigned int slen);
 
-Cheers !
+base-commit: 199c9959d3a9b53f346c221757fc7ac507fbac50
+-- 
+2.55.0
+
