@@ -1,452 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6589C2BE035;
-	Fri, 17 Jul 2026 03:45:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784259935; cv=none; b=rthU6eM1nP1ZAcb4PbARTKITOT+DI+0bGdcLey8W9zVSBM/0Un2ffEuMfPwnDqG7rB24JAyFvh/eMb1Voab700zpbUmDlQbIp8GXmcBPQs02JOEftBfn/YEXo8/IFhATm4Ie0l2tvgF5B66OO3EQuznYXqlLRVKyzYmqAoVshYU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784259935; c=relaxed/simple;
-	bh=92YsZLkZ77ICCaJORj8gIWeWOZfiRVSVxtlCQhTcqaw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h8JNRacCH3tVBAVgKt0NVDJvnA/DRmilBj1Dagjcc5IAKa1t3N/e5WuTQ7kaKzgIE1/Vtp7/ztSqJXxtRrmwbL4CB3jZv8QjGuH5eF2XQIGsSeCM6tljeX/dlB72wAE+uYBTSMprJhCZAXLDrAx004y5v0WQ0dgOscUB2cPRgec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hfyxwy+c; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665EA33F588
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 03:46:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784260017; cv=pass; b=eOI1u5B/BaGngAvHRu+eM2GPqWv8gCKCpXBh4f1BIxx0o/oGDxAzc+MpsW29/fGqJlAwLveZK+LIxWX1eUam6x7QZMwCkYTrMNdXgyu8Pv58SbPUiH5n5nnS0s0mekX2mlaMvio5g8sshQlyjwef1WZA5R2ITErbCAV6nhn5SFY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784260017; c=relaxed/simple;
+	bh=N3fP95K9irXNso3jags5aBR487rSqTZ+oeDUbB+drfs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hsrps4xgXvL/5Q7xjz3TNFi593DiVA7VoSMLrouG38AHPQEp2si9/1zcY74MY2dbaP7tQm7+/Y5cBWuyCyR181EWH325K50EYROo/Fn6xsGUlkU4xTZXSYRswTjukj1KWcm/7XLD8FoIWs1L7bDtVm7TafmJxBN1v7MFnXEMuG8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qdYj+q2E; arc=pass smtp.client-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hfyxwy+c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12C3F1F000E9;
-	Fri, 17 Jul 2026 03:45:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784259934;
-	bh=nBI3yy7Uw2/e1RHxfnV8BfWVGQ3P1P23PPCMjQ+4t0A=;
-	h=From:To:Cc:Subject:Date;
-	b=Hfyxwy+cAE2s6fbFMagG5OS+h7x87rCoRrkXs1kF36LWhh5hQ/1z3xfC+H33XDqpS
-	 ojb3YqaT609j7Z05DmmQTj54x6NR7bZAm4Z9K6/HaKMLrjHyR1vjPo/HcHqmtB2Lxt
-	 VzAdRxTlmpqWhqb+bqm1pJ2PLMIy/13XdcTM2BNYRyQ11uULRjlfGfYt6t5AxFeJZr
-	 lJ5MmaJXPTkzfv0jr1zpBdJuxyRXVKVeiQpXfqMc9dCxzBvMPMS73ghC8FdLUh/5no
-	 Sj02IqLN6cUFDoGVVADS+H7hHf5w+4uVhrpoaYjAPN5Xd/C85OGh96ZZctPkJ/TAhk
-	 cA82RHUZWvGpQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-crypto@vger.kernel.org,
-	Weili Qian <qianweili@huawei.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: [PATCH 6.6,6.1,5.15] crypto: hisi-trng - Remove crypto_rng interface
-Date: Thu, 16 Jul 2026 20:42:54 -0700
-Message-ID: <20260717034254.328204-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qdYj+q2E"
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4513435cdd2so3040978fac.2
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 20:46:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784260014; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EoH5vz2Co9f3q6lHiJexE0/F6sd/cc/XqOF8eiPx++irDlcR1WrU/DO0PyvFZTPq7O
+         MsXa5BYlKVbtRyZqKXsCaHHUo38P5QZMULUpVTz448PVykCHmEX7D4ZihvwL524CVjp8
+         Yg60IiKvB1Lp6DO641p6CR24DEbEw3BYzrrJPNC2gNza1oW+P3NZgc6c0M3f+KS3R9Nm
+         4wPRNzqVjfxOGftXNNXHAEl5tXPOAJRP5VavScGiZyXuSi7EiRDwDjTdixT7ItkDuwi3
+         QfXkQpq/KuOptOPx8vM8cily7k8axaR4zGTsWpPBjHiVet/tx727Xwe2luqyGE5+rYu8
+         iOVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=+qfsfSM7+v1WClc9BxhjMt2YlMxMtKRK2E8WppuykZI=;
+        fh=nz6CskT8+eOUseESeuaYwgrzw05OroyKj/NA57yYmx4=;
+        b=XhdHRWWkglGB83bx9NwOSHxug4nfF+H9S/MWyNr1UIegBLvVZnkJ3PadLJXM/28GO0
+         iKdBcn0TybHrNgexAS9QHEhfq5kPLeEtmLdv7fHGgBDqK5Ezeimrkak1TcXJ5vog6Rit
+         tU4AS2dk+uP0QuRg2N1Felkc2ICDsG+NqyvM6CV4uC9G+57Lks1MlWyQyxkScxVUn4ga
+         ssasN/9TFA4NQJxqpoEcg7QEX/Qw+zh8UZHn958AIePQq1JXwqncFgCGa4zrdD5C+oWk
+         OlaukfCZbXmYJR4FQvEgsfsrKvaAaNsXEY2Zb9kVj6CwloW4uc9Lop8s5NRsZKAEorUx
+         Or6Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784260014; x=1784864814; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+qfsfSM7+v1WClc9BxhjMt2YlMxMtKRK2E8WppuykZI=;
+        b=qdYj+q2EWfrycp3pPsJ+CchD861m7W4DZKe8nqTihfVjt+54usexVwm9bnRRb1NWSK
+         mojP4UoNaybtyuILBit3sAseHl+OW9T9ukOC6P+fWqKkxhDl7Du76wvOtXBlcZ1f4R6P
+         4idaRD2Yn2KtYn42ZA5nKrGwmDykLXA0mnffL9oed2P48c4WI1WCVXs0aZghEfFxLS+y
+         5OlVgUEayX7Pkb7w957zNY+ESWWnQkjNCnyLyqRGNw5GnscjLmFVxDBJmDuhLyxNu4cQ
+         dhLo6E5zpWjG7QPzyo+boYPcxzOag6ZYjHLCRZI1fmj8OT1rvzkfOQjk48ybkDLY7mra
+         ju8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784260014; x=1784864814;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+qfsfSM7+v1WClc9BxhjMt2YlMxMtKRK2E8WppuykZI=;
+        b=j/cfYQ9M1SpUikAjqfe6rtIRVmHm1OOZWnP/udOwAauXTJv2wn/KRIj8Neuc3du2QX
+         y2DNL1AA5palJimuW9LQ2vjOt6z64Gqt2mF9ih8EFwlz75990whAEi1DCLVM3oom5CeV
+         lxoH/vD5JWcJg/m2SRpR5WdK49AHY3cJBryGxWFofnUKQzWWmhTDIyuRfHKG9/6CxMg7
+         pMC9I2nMOtTiLBJa60HUdUa8Serv3EWPCFt1PdN+mEF695BTMcBqnpo1A8Z8vks7hK+K
+         UPfaEbQ1m0WuCJuxxk3qQM0IEIwWRETiuKW2+wxweOjih6YB+aeZ7h4HSpMghMvUUZfO
+         Hsuw==
+X-Forwarded-Encrypted: i=1; AHgh+RqZvFvXOtLtntU61GPPVCiczyQfNIziolH0dWaULNrV0Aqca9vQsYodpV8UF+Bl/UeZv+eQSuQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJR7gkfHWp/RXQJ57yKN8KiAbAmoesl70yvwqAVP8oxv9lfHd9
+	pxxiK42v8WeEmYoPpKTrfTVInt0t9sZT2NMLNPKixYBHv0mAukVj5YL2OqG02n5fi1fqFlDF2CU
+	OP863JfoqU/bNli8Hmu2YZbii+/8SeJo=
+X-Gm-Gg: AfdE7ckA/ENfBXTUaBFRZe2RS1un5fdLgqhtsQ7VNaUP+Y5D+rWKr+pcO3U3Xz1xwzV
+	CY36IVUmZRIJEsqKTu3BsUcEuUCmXw7NHPSSIpVGqphcP89YLHLbrCTpowELu8A1mG5/mAt73z9
+	fJPOucEEAUTAix6J+aifAU2r0j+JNRken2iRCzmGWa2eVLSVNQv/ofHPXGOYCRTRBowtyH/8by+
+	x1P36O9LNlYgvlZ8VcF8EA3dlsyvl9CU/XJI183uOPNuquls9eYd7q0K9/V710RKiC4nKdda5OW
+	nqw44ytVTcE3vUJd
+X-Received: by 2002:a05:6808:14c6:b0:4a4:a693:9d8f with SMTP id
+ 5614622812f47-4a4d03063fdmr419990b6e.6.1784260013937; Thu, 16 Jul 2026
+ 20:46:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260716-series-vmap-race-fix-v4-0-8c108c4317df@kernel.org> <20260716-series-vmap-race-fix-v4-2-8c108c4317df@kernel.org>
+In-Reply-To: <20260716-series-vmap-race-fix-v4-2-8c108c4317df@kernel.org>
+From: David CARLIER <devnexen@gmail.com>
+Date: Fri, 17 Jul 2026 04:46:42 +0100
+X-Gm-Features: AUfX_mxBLT37KrDyrNbP0EYWC50r_QKOrJ4iSaMj1OT4QL3-liPKJMNfSVRy2ow
+Message-ID: <CA+XhMqzUO49FiC-Oa6VYUt7Wm9RZLH30DhUH2kVn_PBodyZ6dg@mail.gmail.com>
+Subject: Re: [PATCH mm-hotfixes v4 2/4] x86/mm/pat: acquire init_mm write lock
+ to avoid UAF
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Suren Baghdasaryan <surenb@google.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Uladzislau Rezki <urezki@gmail.com>, 
+	Toshi Kani <toshi.kani@hpe.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, 
+	Ryan Roberts <ryan.roberts@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	"Denis V. Lunev" <den@virtuozzo.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-commit 216a7795ec210bdabd5dad42323eee70bbfc8d90 upstream.
+On Thu, 16 Jul 2026 at 22:31, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+>
+> x86 implements page attribute modification using its Change Page
+> Attributes (CPA) mechanism.
+>
+> This tracks properties of ranges such as cache mode through x86 page
+> attributes, and as part of that logic manipulates kernel page tables.
+>
+> Since commit 41d88484c71c ("x86/mm/pat: restore large ROX pages after
+> fragmentation") ranges of kernel page table entries can be collapsed into
+> huge page table entries as part of this logic.
+>
+> As part of this collapse, it frees the page tables which the collapsed
+> entries previously pointed to, and it does so without any relevant locks
+> being held to preclude concurrent kernel page table walkers.
+>
+> The only way this code can be reached is if CPA_COLLAPSE is specified, and
+> this is only set in set_memory_rox() via:
+>
+> set_memory_rox()
+> -> change_page_attr_set_clr()
+> -> cpa_flush()
+> -> cpa_collapse_large_pages()
+>
+> Notable users of this are execmem and bpf when manipulating executable
+> mappings.
+>
+> However, this is problematic for ptdump as it walks ranges it does not own
+> and thus runs the risk of a use-after-free on page tables freed underneath
+> it.
+>
+> In addition, concurrent CPA collapse operations are possible which can also
+> cause races.
+>
+> Resolve the issue by acquiring the mmap write lock on init_mm across the
+> whole operation.
+>
+> It is safe to acquire a sleeping lock as all the callers invoke
+> set_memory_rox() from process context and in any case,
+> change_page_attr_set_clr() calls vm_unmap_alias() which ultimately takes a
+> mutex, disallowing atomic context here.
+>
+> Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  arch/x86/mm/pat/set_memory.c | 15 ++++++++++++++-
+>  include/linux/mmap_lock.h    |  2 ++
+>  2 files changed, 16 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+> index d023a40a1e03..d1e63f7d267f 100644
+> --- a/arch/x86/mm/pat/set_memory.c
+> +++ b/arch/x86/mm/pat/set_memory.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/cc_platform.h>
+>  #include <linux/set_memory.h>
+>  #include <linux/memregion.h>
+> +#include <linux/cleanup.h>
+>
+>  #include <asm/e820/api.h>
+>  #include <asm/processor.h>
+> @@ -410,7 +411,7 @@ static void __cpa_flush_tlb(void *data)
+>
+>  static int collapse_large_pages(unsigned long addr, struct list_head *pgtables);
+>
+> -static void cpa_collapse_large_pages(struct cpa_data *cpa)
+> +static void __cpa_collapse_large_pages(struct cpa_data *cpa)
+>  {
+>         unsigned long start, addr, end;
+>         struct ptdesc *ptdesc, *tmp;
+> @@ -442,6 +443,18 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
+>         }
+>  }
+>
+> +static void cpa_collapse_large_pages(struct cpa_data *cpa)
+> +{
+> +       /*
+> +        * Take the mmap write lock on init_mm to:
+> +        * - Avoid a use-after-free if raced by ptdump (which takes its own
+> +        *   write lock on init_mm).
+> +        * - Serialise concurrent CPA walkers.
+> +        */
+> +       scoped_guard(mmap_write_lock, &init_mm)
+> +               __cpa_collapse_large_pages(cpa);
+> +}
+> +
+>  static void cpa_flush(struct cpa_data *cpa, int cache)
+>  {
+>         unsigned int i;
+> diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+> index 6b5c2390cc30..047f5f5e2c34 100644
+> --- a/include/linux/mmap_lock.h
+> +++ b/include/linux/mmap_lock.h
+> @@ -621,6 +621,8 @@ static inline void mmap_read_unlock(struct mm_struct *mm)
+>
+>  DEFINE_GUARD(mmap_read_lock, struct mm_struct *,
+>              mmap_read_lock(_T), mmap_read_unlock(_T))
+> +DEFINE_GUARD(mmap_write_lock, struct mm_struct *,
+> +            mmap_write_lock(_T), mmap_write_unlock(_T))
+>  DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
+>
+>  static inline void mmap_read_unlock_non_owner(struct mm_struct *mm)
+>
+> --
+> 2.55.0
+>
 
-drivers/crypto/hisilicon/trng/trng.c exposes the same hardware through
-two completely separate interfaces, crypto_rng and hwrng.  However, the
-implementation of this is buggy because it permits generation operations
-from these interfaces to run concurrently with each other, accessing the
-same registers.  That is, hisi_trng_generate() synchronizes with itself
-but not with hisi_trng_read().  This results in potential repetition of
-output from the RNG, output of non-random values, etc.
+Hi,
 
-Fortunately, there's actually no point in hardware RNG drivers
-implementing the crypto_rng interface.  It's not actually used by
-anything besides the "rng" algorithm type of AF_ALG, which in turn is
-not actually used in practice.  Other crypto_rng hardware drivers are
-likewise being phased out, leaving just the hwrng support.
+This bullet confuses me. __change_page_attr() and friends are serialised by
+cpa_lock/pgd_lock and never take init_mm's mmap lock, so this doesn't
+exclude them.
 
-Thus, remove it to simplify the code and avoid conflict (and confusion)
-with the hwrng interface which is the one that actually matters.
+Collapse vs collapse looks covered already: collapse_large_pages() holds
+pgd_lock across the walk and both collapse_pmd_page()/collapse_pud_page()
+calls, and the pmd_leaf()/pud_leaf() early-outs stop a second CPU
+re-queueing a collapsed table. I couldn't build the interleaving behind the
+cover letter's "could result in memory corruption". Can you spell it out?
 
-Fixes: e4d9d10ef4be ("crypto: hisilicon/trng - add support for PRNG")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
----
- drivers/crypto/hisilicon/Kconfig     |   1 -
- drivers/crypto/hisilicon/trng/trng.c | 298 +--------------------------
- 2 files changed, 2 insertions(+), 297 deletions(-)
+If the reason is really Will's v3 point - collapse rounds up to PMD/PUD and
+frees tables outside its caller's range, so it has to exclude
+walk_kernel_page_table_range() walkers holding the read lock - then say
+that. It's a UAF independent of ptdump, and it's why v3's read lock wasn't
+enough.
 
-diff --git a/drivers/crypto/hisilicon/Kconfig b/drivers/crypto/hisilicon/Kconfig
-index 4137a8bf131f..107bfffaead2 100644
---- a/drivers/crypto/hisilicon/Kconfig
-+++ b/drivers/crypto/hisilicon/Kconfig
-@@ -79,6 +79,5 @@ config CRYPTO_DEV_HISI_TRNG
- 	tristate "Support for HISI TRNG Driver"
- 	depends on ARM64 && ACPI
- 	select HW_RANDOM
--	select CRYPTO_RNG
- 	help
- 	  Support for HiSilicon TRNG Driver.
-diff --git a/drivers/crypto/hisilicon/trng/trng.c b/drivers/crypto/hisilicon/trng/trng.c
-index b2d9b5310b78..6584ed051e09 100644
---- a/drivers/crypto/hisilicon/trng/trng.c
-+++ b/drivers/crypto/hisilicon/trng/trng.c
-@@ -1,234 +1,27 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright (c) 2019 HiSilicon Limited. */
- 
--#include <crypto/internal/rng.h>
- #include <linux/acpi.h>
--#include <linux/crypto.h>
- #include <linux/err.h>
- #include <linux/hw_random.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/kernel.h>
--#include <linux/list.h>
- #include <linux/module.h>
--#include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/random.h>
- 
- #define HISI_TRNG_REG		0x00F0
- #define HISI_TRNG_BYTES		4
- #define HISI_TRNG_QUALITY	512
--#define HISI_TRNG_VERSION	0x01B8
--#define HISI_TRNG_VER_V1	GENMASK(31, 0)
- #define SLEEP_US		10
- #define TIMEOUT_US		10000
--#define SW_DRBG_NUM_SHIFT	2
--#define SW_DRBG_KEY_BASE	0x082C
--#define SW_DRBG_SEED(n)         (SW_DRBG_KEY_BASE - ((n) << SW_DRBG_NUM_SHIFT))
--#define SW_DRBG_SEED_REGS_NUM	12
--#define SW_DRBG_SEED_SIZE	48
--#define SW_DRBG_BLOCKS		0x0830
--#define SW_DRBG_INIT		0x0834
--#define SW_DRBG_GEN		0x083c
--#define SW_DRBG_STATUS		0x0840
--#define SW_DRBG_BLOCKS_NUM	4095
--#define SW_DRBG_DATA_BASE	0x0850
--#define SW_DRBG_DATA_NUM	4
--#define SW_DRBG_DATA(n)		(SW_DRBG_DATA_BASE - ((n) << SW_DRBG_NUM_SHIFT))
--#define SW_DRBG_BYTES		16
--#define SW_DRBG_ENABLE_SHIFT	12
--#define SEED_SHIFT_24		24
--#define SEED_SHIFT_16		16
--#define SEED_SHIFT_8		8
--#define SW_MAX_RANDOM_BYTES	65520
--
--struct hisi_trng_list {
--	struct mutex lock;
--	struct list_head list;
--	bool is_init;
--};
- 
- struct hisi_trng {
- 	void __iomem *base;
--	struct hisi_trng_list *trng_list;
--	struct list_head list;
- 	struct hwrng rng;
--	u32 ver;
--	u32 ctx_num;
--	/* The bytes of the random number generated since the last seeding. */
--	u32 random_bytes;
--	struct mutex lock;
--};
--
--struct hisi_trng_ctx {
--	struct hisi_trng *trng;
- };
- 
--static atomic_t trng_active_devs;
--static struct hisi_trng_list trng_devices;
--static int hisi_trng_read(struct hwrng *rng, void *buf, size_t max, bool wait);
--
--static int hisi_trng_set_seed(struct hisi_trng *trng, const u8 *seed)
--{
--	u32 val, seed_reg, i;
--	int ret;
--
--	writel(0x0, trng->base + SW_DRBG_BLOCKS);
--
--	for (i = 0; i < SW_DRBG_SEED_SIZE;
--	     i += SW_DRBG_SEED_SIZE / SW_DRBG_SEED_REGS_NUM) {
--		val = seed[i] << SEED_SHIFT_24;
--		val |= seed[i + 1UL] << SEED_SHIFT_16;
--		val |= seed[i + 2UL] << SEED_SHIFT_8;
--		val |= seed[i + 3UL];
--
--		seed_reg = (i >> SW_DRBG_NUM_SHIFT) % SW_DRBG_SEED_REGS_NUM;
--		writel(val, trng->base + SW_DRBG_SEED(seed_reg));
--	}
--
--	writel(SW_DRBG_BLOCKS_NUM | (0x1 << SW_DRBG_ENABLE_SHIFT),
--	       trng->base + SW_DRBG_BLOCKS);
--	writel(0x1, trng->base + SW_DRBG_INIT);
--	ret = readl_relaxed_poll_timeout(trng->base + SW_DRBG_STATUS,
--					 val, val & BIT(0), SLEEP_US, TIMEOUT_US);
--	if (ret) {
--		pr_err("failed to init trng(%d)\n", ret);
--		return -EIO;
--	}
--
--	trng->random_bytes = 0;
--
--	return 0;
--}
--
--static int hisi_trng_seed(struct crypto_rng *tfm, const u8 *seed,
--			  unsigned int slen)
--{
--	struct hisi_trng_ctx *ctx = crypto_rng_ctx(tfm);
--	struct hisi_trng *trng = ctx->trng;
--	int ret;
--
--	if (slen < SW_DRBG_SEED_SIZE) {
--		pr_err("slen(%u) is not matched with trng(%d)\n", slen,
--			SW_DRBG_SEED_SIZE);
--		return -EINVAL;
--	}
--
--	mutex_lock(&trng->lock);
--	ret = hisi_trng_set_seed(trng, seed);
--	mutex_unlock(&trng->lock);
--
--	return ret;
--}
--
--static int hisi_trng_reseed(struct hisi_trng *trng)
--{
--	u8 seed[SW_DRBG_SEED_SIZE];
--	int size;
--
--	if (!trng->random_bytes)
--		return 0;
--
--	size = hisi_trng_read(&trng->rng, seed, SW_DRBG_SEED_SIZE, false);
--	if (size != SW_DRBG_SEED_SIZE)
--		return -EIO;
--
--	return hisi_trng_set_seed(trng, seed);
--}
--
--static int hisi_trng_get_bytes(struct hisi_trng *trng, u8 *dstn, unsigned int dlen)
--{
--	u32 data[SW_DRBG_DATA_NUM];
--	u32 currsize = 0;
--	u32 val = 0;
--	int ret;
--	u32 i;
--
--	ret = hisi_trng_reseed(trng);
--	if (ret)
--		return ret;
--
--	do {
--		ret = readl_relaxed_poll_timeout(trng->base + SW_DRBG_STATUS,
--						 val, val & BIT(1), SLEEP_US, TIMEOUT_US);
--		if (ret) {
--			pr_err("failed to generate random number(%d)!\n", ret);
--			break;
--		}
--
--		for (i = 0; i < SW_DRBG_DATA_NUM; i++)
--			data[i] = readl(trng->base + SW_DRBG_DATA(i));
--
--		if (dlen - currsize >= SW_DRBG_BYTES) {
--			memcpy(dstn + currsize, data, SW_DRBG_BYTES);
--			currsize += SW_DRBG_BYTES;
--		} else {
--			memcpy(dstn + currsize, data, dlen - currsize);
--			currsize = dlen;
--		}
--
--		trng->random_bytes += SW_DRBG_BYTES;
--		writel(0x1, trng->base + SW_DRBG_GEN);
--	} while (currsize < dlen);
--
--	return ret;
--}
--
--static int hisi_trng_generate(struct crypto_rng *tfm, const u8 *src,
--			      unsigned int slen, u8 *dstn, unsigned int dlen)
--{
--	struct hisi_trng_ctx *ctx = crypto_rng_ctx(tfm);
--	struct hisi_trng *trng = ctx->trng;
--	unsigned int currsize = 0;
--	unsigned int block_size;
--	int ret;
--
--	if (!dstn || !dlen) {
--		pr_err("output is error, dlen %u!\n", dlen);
--		return -EINVAL;
--	}
--
--	do {
--		block_size = min_t(unsigned int, dlen - currsize, SW_MAX_RANDOM_BYTES);
--		mutex_lock(&trng->lock);
--		ret = hisi_trng_get_bytes(trng, dstn + currsize, block_size);
--		mutex_unlock(&trng->lock);
--		if (ret)
--			return ret;
--		currsize += block_size;
--	} while (currsize < dlen);
--
--	return 0;
--}
--
--static int hisi_trng_init(struct crypto_tfm *tfm)
--{
--	struct hisi_trng_ctx *ctx = crypto_tfm_ctx(tfm);
--	struct hisi_trng *trng;
--	u32 ctx_num = ~0;
--
--	mutex_lock(&trng_devices.lock);
--	list_for_each_entry(trng, &trng_devices.list, list) {
--		if (trng->ctx_num < ctx_num) {
--			ctx_num = trng->ctx_num;
--			ctx->trng = trng;
--		}
--	}
--	ctx->trng->ctx_num++;
--	mutex_unlock(&trng_devices.lock);
--
--	return 0;
--}
--
--static void hisi_trng_exit(struct crypto_tfm *tfm)
--{
--	struct hisi_trng_ctx *ctx = crypto_tfm_ctx(tfm);
--
--	mutex_lock(&trng_devices.lock);
--	ctx->trng->ctx_num--;
--	mutex_unlock(&trng_devices.lock);
--}
--
- static int hisi_trng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
- {
- 	struct hisi_trng *trng;
-@@ -260,42 +53,6 @@ static int hisi_trng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
- 	return currsize;
- }
- 
--static struct rng_alg hisi_trng_alg = {
--	.generate = hisi_trng_generate,
--	.seed =	hisi_trng_seed,
--	.seedsize = SW_DRBG_SEED_SIZE,
--	.base = {
--		.cra_name = "stdrng",
--		.cra_driver_name = "hisi_stdrng",
--		.cra_priority = 300,
--		.cra_ctxsize = sizeof(struct hisi_trng_ctx),
--		.cra_module = THIS_MODULE,
--		.cra_init = hisi_trng_init,
--		.cra_exit = hisi_trng_exit,
--	},
--};
--
--static void hisi_trng_add_to_list(struct hisi_trng *trng)
--{
--	mutex_lock(&trng_devices.lock);
--	list_add_tail(&trng->list, &trng_devices.list);
--	mutex_unlock(&trng_devices.lock);
--}
--
--static int hisi_trng_del_from_list(struct hisi_trng *trng)
--{
--	int ret = -EBUSY;
--
--	mutex_lock(&trng_devices.lock);
--	if (!trng->ctx_num) {
--		list_del(&trng->list);
--		ret = 0;
--	}
--	mutex_unlock(&trng_devices.lock);
--
--	return ret;
--}
--
- static int hisi_trng_probe(struct platform_device *pdev)
- {
- 	struct hisi_trng *trng;
-@@ -305,70 +62,20 @@ static int hisi_trng_probe(struct platform_device *pdev)
- 	if (!trng)
- 		return -ENOMEM;
- 
--	platform_set_drvdata(pdev, trng);
--
- 	trng->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(trng->base))
- 		return PTR_ERR(trng->base);
- 
--	trng->ctx_num = 0;
--	trng->random_bytes = SW_MAX_RANDOM_BYTES;
--	mutex_init(&trng->lock);
--	trng->ver = readl(trng->base + HISI_TRNG_VERSION);
--	if (!trng_devices.is_init) {
--		INIT_LIST_HEAD(&trng_devices.list);
--		mutex_init(&trng_devices.lock);
--		trng_devices.is_init = true;
--	}
--
--	hisi_trng_add_to_list(trng);
--	if (trng->ver != HISI_TRNG_VER_V1 &&
--	    atomic_inc_return(&trng_active_devs) == 1) {
--		ret = crypto_register_rng(&hisi_trng_alg);
--		if (ret) {
--			dev_err(&pdev->dev,
--				"failed to register crypto(%d)\n", ret);
--			atomic_dec_return(&trng_active_devs);
--			goto err_remove_from_list;
--		}
--	}
--
- 	trng->rng.name = pdev->name;
- 	trng->rng.read = hisi_trng_read;
- 	trng->rng.quality = HISI_TRNG_QUALITY;
-+
- 	ret = devm_hwrng_register(&pdev->dev, &trng->rng);
--	if (ret) {
-+	if (ret)
- 		dev_err(&pdev->dev, "failed to register hwrng: %d!\n", ret);
--		goto err_crypto_unregister;
--	}
--
--	return ret;
--
--err_crypto_unregister:
--	if (trng->ver != HISI_TRNG_VER_V1 &&
--	    atomic_dec_return(&trng_active_devs) == 0)
--		crypto_unregister_rng(&hisi_trng_alg);
--
--err_remove_from_list:
--	hisi_trng_del_from_list(trng);
- 	return ret;
- }
- 
--static int hisi_trng_remove(struct platform_device *pdev)
--{
--	struct hisi_trng *trng = platform_get_drvdata(pdev);
--
--	/* Wait until the task is finished */
--	while (hisi_trng_del_from_list(trng))
--		;
--
--	if (trng->ver != HISI_TRNG_VER_V1 &&
--	    atomic_dec_return(&trng_active_devs) == 0)
--		crypto_unregister_rng(&hisi_trng_alg);
--
--	return 0;
--}
--
- static const struct acpi_device_id hisi_trng_acpi_match[] = {
- 	{ "HISI02B3", 0 },
- 	{ }
-@@ -377,7 +84,6 @@ MODULE_DEVICE_TABLE(acpi, hisi_trng_acpi_match);
- 
- static struct platform_driver hisi_trng_driver = {
- 	.probe		= hisi_trng_probe,
--	.remove         = hisi_trng_remove,
- 	.driver		= {
- 		.name	= "hisi-trng-v2",
- 		.acpi_match_table = ACPI_PTR(hisi_trng_acpi_match),
+Also: patch 1 justifies the trylock fallback on ptdump being rare, but this
+takes the write lock on every set_memory_rox() (BPF JIT, module load,
+execmem), even when nothing collapsed. vmap_try_huge_*() then loses the
+trylock and quietly falls back to PTEs on every BPF load. No counter, no
+trace. Not a blocker and I've no better idea, but fa93b45fd397 was about
+getting vmalloc-huge on by default, so it's worth calling out.
 
-base-commit: da47cbc254661aa66d61ef061485a7080305c4be
--- 
-2.55.0
+Rest looks right. 4/4 restores pud_free_pmd_page() exactly as it was before
+fa93b45fd397, and 3/4 builds the same walk init_mm got via
+walk_kernel_page_table_range_lockless().
 
+Reviewed-by: David Carlier <devnexen@gmail.com>
+
+Cheers !
