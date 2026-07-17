@@ -1,87 +1,129 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9509B38F65C;
-	Fri, 17 Jul 2026 08:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91143DD87A;
+	Fri, 17 Jul 2026 08:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784278644; cv=none; b=iIW2Iae/POArma4xUQGW57IiU2014fI7hGBvhTV0iBg93skcgcMqmaJUlXie4W/LU7P9HTjmAVaRfioxQVNFlLmAmFOIqoDcIdulOPeyAbsmFRY3VIrW6bcdzaupVQaG5uet/jvtSygB5bARj+kEoHNF7dHctVYwjFfEBvrgFuk=
+	t=1784278701; cv=none; b=utdNabyecCgRa+ApdzLa8n/M65KRJssCWNhAoFK3aCP0OvWXUz4gBUhtxN+fVebymsSDWCTEmeUKyDfa/anrbnFTMi5+eyGoAlymP8lxUXPLyuKwNOnrz/TNKveDhN2I93dVy9y/GZM+fqzVqnNcworWZtqVwdMgIa1c5gJyDQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784278644; c=relaxed/simple;
-	bh=iCOzUgjInpKDmnvCoM3/Sr3+AKpivHGUNFh8fjYXuuc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KysAs4pQ0rq/Fq8OPG0vd60hynLORnesmbDefYn7OuOjd8piBE2fChduNnQtCPvJ5znWdM04rbZkeooNDCx0tfCHAaGPWTasAuC6q0g28ph+iKFowhiw9moUZP+SQTGROnpE35UNDJ3uFSq4iKCdt6QaMZfo/L9K0wII9A0Ex1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lufKBv4H; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784278701; c=relaxed/simple;
+	bh=N2gNV9pAOG3sYnwCXk7d06rhZ7CxAMYou7WHUBmLXVU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dDmYd4w94t7CA0CQYJERiS6Rcc9VgorOPho3N8MCZLVMCUrI9YQV6jPIpa4seQd+ye0jcMUtyq3+l4YClQrVpdf7hE7+rFtMYJNUgavytAbS+FGe9qd7ge/eERNS2SNdXEy20Z2x1DSZJ4vueHcMcCyy4+u8S7DKu5pYVQgg+80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ENkUMMN+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lufKBv4H"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id CA38A4E40E15;
-	Fri, 17 Jul 2026 08:57:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9C07460361;
-	Fri, 17 Jul 2026 08:57:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D8D4A11BD3D58;
-	Fri, 17 Jul 2026 10:57:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784278638; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=nTNRAxvEHNQ1OIdSiaDOiaaYwtM2T5SNfxCq9yNYGPY=;
-	b=lufKBv4HIEovc2Fl4nCvPnMb1T2e0LMrfQ2aeag4SFqnp1Hx4ExHhhYhb6fxHNfeQMbJD5
-	l+hKW+8JJuK4WMvsDQp7XhUZhf195ndlizoewD5bjqK902l27rnSKRbTwIHA5Mt4dk1ohF
-	14zfDKnn3ziRAv5FSBeUFkICu7KxRoBeqrPFV4dcwekhuI7u/zOrlcj5PyquBkOqAn4cfG
-	pN9hlY3Qepya8cMxS4uXs5KUYYmJOgfrgkCSqXUFLY65BapLrg+leXEXMUmC4E/5i+eFqW
-	QQNAB7tKG6CAHF3oYsOIPGjgjvqlMe35VkKmu0is3nT/Sn/QmyFJdi1ItDTrZw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Ibrahim Hashimov <security@auditcode.ai>
-Cc: Alexander Aring <alex.aring@gmail.com>,  Stefan Schmidt
- <stefan@datenfreihafen.org>,  "David S . Miller" <davem@davemloft.net>,
-  Eric Dumazet <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>,
-  Paolo Abeni <pabeni@redhat.com>,  Simon Horman <horms@kernel.org>,
-  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH net] mac802154: hold an interface reference across the
- scan worker
-In-Reply-To: <20260710140927.13228-1-security@auditcode.ai> (Ibrahim
-	Hashimov's message of "Fri, 10 Jul 2026 16:09:27 +0200")
-References: <20260710140927.13228-1-security@auditcode.ai>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Fri, 17 Jul 2026 10:57:14 +0200
-Message-ID: <878q7akn85.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ENkUMMN+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7651F000E9;
+	Fri, 17 Jul 2026 08:58:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784278699;
+	bh=iv4uXxn+GKJb3u9fgDa2VmuoPL5Se5Dx66tyxt7nYps=;
+	h=From:To:Cc:Subject:Date;
+	b=ENkUMMN+Xz2YTZ748nkH3PnWLGGPbD9CFI+c3wqdLecWnhQEOmrD1woNldQuYGFsc
+	 q++5ZJ6dsbp8wQKF1mLltocvVIWNqNY60iLVWxutW9xtQWmFG1qSID6DWciVRzyFnx
+	 k5Gg8KnCF1TfTkC14ThkNiskgi+RMrZElqBQQE92hI6bvz31PsNNmJfxMZJ7Ks3xPM
+	 nH/0bWu5DymvXMM2aZZi2Kx8uihj5lHom89IPJLZq3Z1sTHV2/Ayb5VEsbjyUJEOb9
+	 9a0+tutH01GTphtAfNOsE97umLV6qDP0tDgp5vhMDeeJsBoDmbwCJKJPJ2P44ky1rT
+	 nFIMSAEOnuthA==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1wkeOe-00000006nGP-2uPl;
+	Fri, 17 Jul 2026 10:58:16 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	stable@vger.kernel.org,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: [PATCH] drm/bridge: display-connector: fix i2c adapter leak on probe failure
+Date: Fri, 17 Jul 2026 10:57:16 +0200
+Message-ID: <20260717085716.1619275-1-johan@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Ibrahim,
+Make sure to drop the i2c adapter device and module references on failed
+regulator and enable gpio lookup (and regulator enable) during probe
+(e.g. on probe deferral).
 
-> +	/* From here on sdata->dev is dereferenced after rcu_read_unlock() and
-> +	 * outside the rtnl: in the dev_err()/dev_dbg() traces below, in
-> +	 * mac802154_transmit_beacon_req() (skb->dev =3D sdata->dev) and in the
-> +	 * end_scan mac802154_scan_cleanup_locked() call. A concurrent teardown
-> +	 * of that interface (NL802154_CMD_DEL_INTERFACE ->
-> +	 * ieee802154_if_remove(), or a full PHY removal via
-> +	 * ieee802154_unregister_hw()) can unregister the netdev; the actual
-> +	 * free then runs asynchronously from netdev_run_todo() with the rtnl
-> +	 * already dropped, so neither holding the rtnl nor the per-PHY
-> +	 * IEEE802154_IS_SCANNING flag keeps sdata->dev alive here. Pin it with
-> +	 * a reference taken while we still hold the RCU read lock (so the
-> +	 * netdev cannot be freed before we bump the refcount) and drop it at
-> +	 * every exit below. This blocks the teardown's netdev_run_todo() until
-> +	 * this worker iteration is done; it cannot self-deadlock because the
-> +	 * unregistering task claims the net_todo_list entry under the rtnl, so
-> +	 * the blocking netdev_wait_allrefs_any() always runs on that task, not
-> +	 * on this single-threaded worker.
-> +	 */
+Note that of_get_i2c_adapter_by_node() does not return error pointers,
+but i2c_put_adapter() can handle a NULL argument so the error pointer
+check at remove works even if it is misleading.
 
-The patch seems correct, the fix as well, but can we trim down this huge
-comment please?
+Fixes: 2e2bf3a5584d ("drm/bridge: display-connector: add DP support")
+Fixes: 6de79dd3a920 ("drm/bridge: display-connector: add ddc-en gpio support")
+Fixes: 6eb6b6f0a012 ("drm/bridge: display-connector: handle hdmi-pwr supply")
+Cc: stable@vger.kernel.org	# 5.12
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: H. Nikolaus Schaller <hns@goldelico.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/gpu/drm/bridge/display-connector.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-Thanks,
-Miqu=C3=A8l
+diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+index 16c0631adeb1..c38de5518211 100644
+--- a/drivers/gpu/drm/bridge/display-connector.c
++++ b/drivers/gpu/drm/bridge/display-connector.c
+@@ -208,6 +208,13 @@ static int display_connector_get_supply(struct platform_device *pdev,
+ 	return PTR_ERR_OR_ZERO(conn->supply);
+ }
+ 
++static void display_connector_put_ddc(void *_ddc)
++{
++	struct i2c_adapter *ddc = _ddc;
++
++	i2c_put_adapter(ddc);
++}
++
+ static int display_connector_probe(struct platform_device *pdev)
+ {
+ 	struct display_connector *conn;
+@@ -328,6 +335,12 @@ static int display_connector_probe(struct platform_device *pdev)
+ 			of_node_put(phandle);
+ 			if (!conn->bridge.ddc)
+ 				return -EPROBE_DEFER;
++
++			ret = devm_add_action_or_reset(&pdev->dev,
++						       display_connector_put_ddc,
++						       conn->bridge.ddc);
++			if (ret)
++				return ret;
+ 		} else {
+ 			dev_dbg(&pdev->dev,
+ 				"No I2C bus specified, disabling EDID readout\n");
+@@ -403,9 +416,6 @@ static void display_connector_remove(struct platform_device *pdev)
+ 		regulator_disable(conn->supply);
+ 
+ 	drm_bridge_remove(&conn->bridge);
+-
+-	if (!IS_ERR(conn->bridge.ddc))
+-		i2c_put_adapter(conn->bridge.ddc);
+ }
+ 
+ static const struct of_device_id display_connector_match[] = {
+-- 
+2.54.0
+
