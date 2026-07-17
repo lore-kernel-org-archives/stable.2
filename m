@@ -1,82 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF587233949;
-	Fri, 17 Jul 2026 00:36:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0982B3D76;
+	Fri, 17 Jul 2026 00:39:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784248573; cv=none; b=Rsv6SJXNKLS6k44fa6IO6snIKaesiw3u0AXygyG8sCnzNpc43tcnlj+G9ww9LDNaPY2wEZW814OhId0in9m9CEXwwVMl+huhgmigndZ6UGToJZTzVCRaqTzpEDdeUrTrng/iDZEwATkwc9RLj+/iyljFlUrnEbrbi8mSXoE4y6s=
+	t=1784248792; cv=none; b=HulN0HeiNpAoIew38EavSCpcm1iVKWSo1mtbJS31/eVEfutvbAJSV3m3Su4JkBy7J20H5th7zmw07mr7TqwYIpt9C4JHDEwCz7b5i6Xjn3RF76rNE7b6lb9qfmu4NKdnV4+WJVWKeARtKDOBA5ZB9hzP6FHEN7UkFEBREHKr8tQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784248573; c=relaxed/simple;
-	bh=c61hOkuDWPBGPWAgT2NivMHAoDabUOUUcZxFPw5ZdOM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BqDCoO22UzJ99Hdks0UdqT6bwO+t1OkOr6ejc/5K/gQmAZi2ql49V2+F9fttO8su/Uu9KrElGogPpqUUzf3mAEvGFzdKRghP7y+2RhxRCr4FWnYDXRpCLcIXhZEM4fLPvSzRqtBXVoOOk6Grrapsx/p9BaeH1DYLsI81JdIDkEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B2Nmepm/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784248792; c=relaxed/simple;
+	bh=FK7CzkkxNOWY2tZd5acQugSYRcIFkzQ6YnY8Dbkty84=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=HpaT6Rvu09VzkOb7YSJUP4ifO+KknqDw5JTqMt4e+fxrF+0dwsZ2d/Tmd4XKKupv3xe22mpMsNlDYp8K25HWMyXl7Tx0IeLI2v+46qwsLOlnjdo/jQM1/owNrDZ6JlKTx4BO495pu3cLxqbIje0ODc9yF6i4LSUXWq7FkXP29/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=XfhikE3g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B2Nmepm/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C853B1F000E9;
-	Fri, 17 Jul 2026 00:36:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784248572;
-	bh=yck5fMQTI8Lgd/l6ZJL4otYv+LUV/fGsbBTHTeYDaOE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B2Nmepm/UQuRYmEEm7d/cHjnPlws+fRZF/GB8188Yp22qZkPik60jslanx2voR18X
-	 frNkRg23A6PI4Q7MKl5+AkqWrN6Pu1ojNHLuizg7ZnSLIm3DYxGZt13MBsbbWiLcvT
-	 IvVNaOw/ODMlzRO+5hP4VY0RaXy1dGv40yT+CpHscge0pYVcO4Uh3G2iuEHtNVJrTR
-	 Q80NrQEOcq3CKes06eMaEEbHAIhWV3jJI/z5ND24rAyK1MOvuwAQTP+PNKUBs6THHt
-	 9OG5Scfg/GDzVHVGTZ8qy7YdD0H0rxXfBAA0zoMCX0nZQQiEFh4arbAHCim/+lC1YU
-	 oZG8fVJ8/T+WQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 7.1 000/518] 7.1.4-rc1 review
-Date: Fri, 17 Jul 2026 02:35:56 +0200
-Message-ID: <20260717003556.133341-1-ojeda@kernel.org>
-In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
-References: <20260716133047.772246337@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="XfhikE3g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340471F000E9;
+	Fri, 17 Jul 2026 00:39:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784248790;
+	bh=bSW5HxEFq+ITIVQonZ02kyA5U7MyDuFVOxWZi2QyV6k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XfhikE3guLBwj8Z869Wij09nEwSan5JaooHiPLP4Leq6MO2SJc831atjD+F4Q0D1s
+	 41WE4V2Pl3izSM02t9EfoEDrHbrKeZ+TWGGtTCqViezWxjdxI208UscWhFL1jtvKr8
+	 aRMzuCx5ZLfmFhzFUnLCD6z3enncwoeprrTN1qGk=
+Date: Thu, 16 Jul 2026 17:39:49 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, Michal Hocko
+ <mhocko@suse.com>, cgroups@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, SeongJae Park <sj@kernel.org>
+Subject: Re: [PATCH v2] mm: memcg: initialize *locked in
+ memcg1_oom_prepare() stub
+Message-Id: <20260716173949.0f87d0ab30c5eecb01067fce@linux-foundation.org>
+In-Reply-To: <20260716-memcg-oom-uninit-locked-v2-1-63631d878eb4@debian.org>
+References: <20260716-memcg-oom-uninit-locked-v2-1-63631d878eb4@debian.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, 16 Jul 2026 15:24:28 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.1.4 release.
-> There are 518 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Thu, 16 Jul 2026 06:42:18 -0700 Breno Leitao <leitao@debian.org> wrote:
+
+> mem_cgroup_oom() passes an uninitialized "locked" to memcg1_oom_prepare()
+> and reads it back in memcg1_oom_finish():
 > 
-> Responses should be made by Sat, 18 Jul 2026 13:30:01 +0000.
-> Anything received after that time might be too late.
+> 	bool locked, ret;
+> 	...
+> 	if (!memcg1_oom_prepare(memcg, &locked))
+> 		return false;
+> 	ret = mem_cgroup_out_of_memory(memcg, mask, order);
+> 	memcg1_oom_finish(memcg, locked);
+> 
+> This relies on memcg1_oom_prepare() setting *locked whenever it returns
+> true.  The CONFIG_MEMCG_V1=y version does, but the stub used when
+> CONFIG_MEMCG_V1=n returns true without touching *locked, so
+> memcg1_oom_finish() consumes an uninitialized value.  On a memcg OOM this
+> is reported by UBSAN:
+> 
+>   UBSAN: invalid-load in mm/memcontrol.c:1932:27
+>   load of value 0 is not a valid value for type 'bool' (aka '_Bool')
+> 
+> Initialize *locked to false in the stub; with cgroup v1 compiled out
+> there is no OOM lock to take.
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+Thanks.
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+Sashiko, as is its wont, reminds us that we all suck:
+	https://sashiko.dev/#/patchset/20260716-memcg-oom-uninit-locked-v2-1-63631d878eb4@debian.org
 
-Thanks!
-
-Cheers,
-Miguel
+Does this potential memcg issue look legit?
