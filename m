@@ -1,169 +1,150 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69232F25F3;
-	Fri, 17 Jul 2026 17:06:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7137D3009E1;
+	Fri, 17 Jul 2026 17:06:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784308008; cv=none; b=B/vp2/3/VXI5DKxoVMUXJj93CvD7G6JwsJ/1G3GD7bYwSCQlJSKTIQrcO4q937bRHjZnipxYkT+e/ABZczexLwB/Rx8W2Kdx6zcIhN93nk402xc1saRBDRAixy42tBJ3SDQRKET73xlbBmlml1Pg2SsSUOP4zbKKdgOzmMKHUlM=
+	t=1784308008; cv=none; b=Ej7Gs+DYtR614B7O+F673JvnJlVyJM8tMu6t6tkdbDiGmhDP7E7AClOtIIMopIbumZQ/aUX+dtmKVXl99gxFdKgP8rwMsy4P+9ymUafxvjFrKmEHLzt9/TpeAX7wcAo+I156xkIidO2e7E8+UupVk0w7N9jyWwAE2Jf1OWmmlSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784308008; c=relaxed/simple;
-	bh=ATAuCtRgTI47ab/4i/ehtkuSuuifYx0O+tpApZ8SsTc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BtEDl++YefKZZdiabakuYvqFYNS5FPNUsCeA8HFTDX0vShCboOYBirF33kC1M7mwVys0zG5KAUfatuyLZrc8EK8BA6PPKVv8J7h0aT/NS3wbdRrt3rboBe6srOzoVVak4C9EUbsvQxxEJhg4c4W3kbfhI7L/At0SgkS+6/hR4vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.100])
-	by APP-05 (Coremail) with SMTP id zQCowABXiEIWYVpqwLcMAA--.14167S2;
-	Sat, 18 Jul 2026 01:06:31 +0800 (CST)
-Message-ID: <9a55a96b53c5f88bc1e079945b710ee854471ee3.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2] drm/imagination: acquire vm_ctx->lock before mapping
- memory to GPU VM
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Alessio Belle <Alessio.Belle@imgtec.com>
-Cc: "airlied@gmail.com" <airlied@gmail.com>, "tzimmermann@suse.de"	
- <tzimmermann@suse.de>, "matt.coster@imgtec.com" <matt.coster@imgtec.com>, 
- "simona@ffwll.ch"	 <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"	
- <dri-devel@lists.freedesktop.org>, Brendan King <Brendan.King@imgtec.com>, 
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>, Frank Binns
- <Frank.Binns@imgtec.com>,  Brajesh Gupta <Brajesh.Gupta@imgtec.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,  "dakr@kernel.org"	
- <dakr@kernel.org>, "maarten.lankhorst@linux.intel.com"	
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>
-Date: Sat, 18 Jul 2026 01:06:30 +0800
-In-Reply-To: <164ad51d357350cde4e9e84cbe1ebc970c871af7.camel@imgtec.com>
-References: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
-	 <164ad51d357350cde4e9e84cbe1ebc970c871af7.camel@imgtec.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	bh=HtYWDJLWJG7fhQjbhZInKTid9UxMtoEjQSzHOJDJ7Ak=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OA3Qn7REMtKslKCkMNqh2y3iGf8SOGKnPxQfOo95tI/rAGPH22KLBe6BrrXMiRN34fwzyI/FzXdrky4D3TBme0ieUVoztQEehFvZnQ5h58GtCefi3wPt31nUPbQCEiMJo2f/tlfaI1wu7/yXkA+4pHmSHzIz7zR6pdykTNJbAB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GgGTF1Fo; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GgGTF1Fo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784308007; x=1815844007;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=HtYWDJLWJG7fhQjbhZInKTid9UxMtoEjQSzHOJDJ7Ak=;
+  b=GgGTF1Fojktn6Gznb/2MiX4wTUMrN5iUSGnWJZVLyyt+QpLkRQwkLEUs
+   gCNzWwN0NncwIs2ubpJLpuOnaoFQosl5964p+1GDQh8nUUPwKjZYURGv2
+   lDayVr2fN18uCwb+TH0b+IM8IMNzomx4YDStA0b535DdXQqGDb2fyIBcX
+   +euRnHFYBKrd+WstnGdwQbCwO+I3sIw2yE80nA1qdOR2uYLUpMpIs6yhu
+   n+PyDoG99uf8NuE5rJYmZmis46RDzA/rGjs8YIMaoVHaBJ3tKS5gaEErM
+   ulUC4/BfyjG2bKd6cw/DoQz8fHd5fVm7IdlBX/UbL7bTcUjNl8qDRpQ1r
+   A==;
+X-CSE-ConnectionGUID: OFrfNpyNSYmRS8AkFH17Nw==
+X-CSE-MsgGUID: dSyD9hWiS4KxAYWtRaUIYg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="110533809"
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
+   d="scan'208";a="110533809"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 10:06:47 -0700
+X-CSE-ConnectionGUID: 62/6Z53oR5i939U5O/RVrA==
+X-CSE-MsgGUID: iogBsboYQ7qeT7Yh3tib3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
+   d="scan'208";a="286903922"
+Received: from guptapa-desk.jf.intel.com (HELO desk) ([10.165.239.46])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 10:06:47 -0700
+Date: Fri, 17 Jul 2026 10:06:46 -0700
+From: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
+To: stable@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>
+Cc: bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+	x86@kernel.org, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>
+Subject: [PATCH 6.6.y 5/6] bpf: Prefer packs that won't trigger an IBPB flush
+ on allocation
+Message-ID: <20260717-cbpf-jit-spray-hardening-6-6-y-v1-5-e04f1b2893de@linux.intel.com>
+X-Mailer: b4 0.16-dev
+References: <20260717-cbpf-jit-spray-hardening-6-6-y-v1-0-e04f1b2893de@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:zQCowABXiEIWYVpqwLcMAA--.14167S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGw15ArykCrW8CF43tFy8AFb_yoW5trWkp3
-	yfKa4Ykw40krWqy3W7t3yYkry3Aw4F9a1fGFyktas5Zr15Wrnrtr1Fqry5uFyDArs7Gw47
-	tF4qva9ag34jyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxUqiFxDUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717-cbpf-jit-spray-hardening-6-6-y-v1-0-e04f1b2893de@linux.intel.com>
 
-=E5=9C=A8 2026-07-17=E4=BA=94=E7=9A=84 11:14 +0000=EF=BC=8CAlessio Belle=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Tue, 2026-07-14 at 15:36 +0800, Icenowy Zheng wrote:
-> > The drm gpuvm code doesn't protect find operation against map
-> > operation,
-> > and the driver needs to ensure a map operation shouldn't happen
-> > when a
-> > find operation is in progress.
-> >=20
-> > In some cases a find operation will be in progress when doing
-> > map/unmap
-> > operations, and the find operation will do a NULL pointer
-> > deference.
-> >=20
-> > An example of the stack trace of such NULL deference is shown
-> > below:
-> >=20
-> > ```
-> > Unable to handle kernel access to user memory without uaccess
-> > routines at
-> > virtual address 0000000000000010
-> >=20
-> > [<ffffffff01e989d4>] drm_gpuva_find+0x28/0x6c [drm_gpuvm]
-> > [<ffffffff01ed3a40>] pvr_vm_unmap+0x34/0x68 [powervr]
-> > [<ffffffff01ec69da>] pvr_ioctl_vm_unmap+0x2e/0x50 [powervr]
-> > [<ffffffff8080ce0a>] drm_ioctl_kernel+0x8e/0xdc
-> > [<ffffffff8080d016>] drm_ioctl+0x1be/0x3e0
-> > [<ffffffff802bec3e>] __riscv_sys_ioctl+0xba/0xc4
-> > [<ffffffff80d858b2>] do_trap_ecall_u+0x23e/0x3f4
-> > [<ffffffff80d92288>] handle_exception+0x168/0x174
-> > ```
-> >=20
-> > As all occurences of drm_gpuva_find*() are already guarded by
-> > vm_ctx->lock, make pvr_vm_map() to acquire this lock to prevent
-> > disturbing any find operation. This fixes the NULL deference
-> > problem in
-> > drm_gpuva_find*().
-> >=20
-> > Cc: stable@vger.kernel.org
-> > Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related
-> > code")
-> > Fixes: 4bc736f890ce ("drm/imagination: vm: make use of GPUVM's
-> > drm_exec helper")
-> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->=20
-> Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
->=20
-> p.s. there's a double typo deference -> dereference that I can fix
-> before
-> applying this early next week.
+commit a9b1f19a6a673ba06820898d0f1ad02883ea1639 upstream.
 
-Oops I made the same mistake again when rephrasing the message...
+Currently BPF pack allocator picks the chunks from the first available
+pack. While this is okay, it naturally leads to more frequent flushes
+when there are multiple packs in the system that weren't used since the
+last flush.
 
-Maybe I need some reinforced learning.
+As an optimization prefer allocating the new programs from packs that
+are unused since last flush. When all packs are dirty, allocation forces
+a flush and marks all packs clean.
 
-Thanks,
-Icenowy
+Below are some future optimizations ideas:
 
->=20
-> Thanks,
-> Alessio
->=20
-> > ---
-> > Changes in v2:
-> > - Dropped wrongly duplicated mutex_unlock() call and reordered it
-> > to
-> > =C2=A0 before pvr_vm_bind_op_fini() (the lock is acquired after
-> > =C2=A0 pvr_vm_bind_op_map_init() call). (Thanks to Brajesh)
-> > - Added a extra Fixes pointing to the original broken code that was
-> > =C2=A0 refactored by the original Fixes (but still broken). (Thanks to
-> > =C2=A0 Alessio)
-> > - Fixed some typos in commit message. (Thanks to Alessio)
-> > - Added a stacktrace of the oops that occured on my board. (As
-> > suggested
-> > =C2=A0 by Alessio)
-> >=20
-> > =C2=A0drivers/gpu/drm/imagination/pvr_vm.c | 2 ++
-> > =C2=A01 file changed, 2 insertions(+)
-> >=20
-> > diff --git a/drivers/gpu/drm/imagination/pvr_vm.c
-> > b/drivers/gpu/drm/imagination/pvr_vm.c
-> > index 396d349fb6ce4..ceb78694cd987 100644
-> > --- a/drivers/gpu/drm/imagination/pvr_vm.c
-> > +++ b/drivers/gpu/drm/imagination/pvr_vm.c
-> > @@ -747,6 +747,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx,
-> > struct pvr_gem_object *pvr_obj,
-> > =C2=A0
-> > =C2=A0	pvr_gem_object_get(pvr_obj);
-> > =C2=A0
-> > +	mutex_lock(&vm_ctx->lock);
-> > =C2=A0	err =3D drm_gpuvm_exec_lock(&vm_exec);
-> > =C2=A0	if (err)
-> > =C2=A0		goto err_cleanup;
-> > @@ -756,6 +757,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx,
-> > struct pvr_gem_object *pvr_obj,
-> > =C2=A0	drm_gpuvm_exec_unlock(&vm_exec);
-> > =C2=A0
-> > =C2=A0err_cleanup:
-> > +	mutex_unlock(&vm_ctx->lock);
-> > =C2=A0	pvr_vm_bind_op_fini(&bind_op);
-> > =C2=A0
-> > =C2=A0	return err;
+  1. Currently, the "dirty" tracking is only done at the pack-level.
+     Flush frequency can further be reduced with chunk-level tracking.
+     This requires a new bitmap per-pack to track the dirty state.
+  2. IBPB flush is done on all CPUs, even if only a single CPU ran the
+     BPF program. On a system with hundreds of CPUs this could be a
+     major bottleneck forcing hundreds of IPIs to deliver the flush.
+     The solution is to track the CPUs where a BPF program ran, and
+     issue IBPB only on those CPUs.
+  3. Avoid IBPB when flush is already done at other sources (e.g.
+     context switch).
+
+Signed-off-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
+Acked-by: Daniel Borkmann <daniel@iogearbox.net>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+---
+ kernel/bpf/core.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
+index a2e5684d6239..7dc59570cd25 100644
+--- a/kernel/bpf/core.c
++++ b/kernel/bpf/core.c
+@@ -917,8 +917,8 @@ static struct bpf_prog_pack *alloc_new_pack(bpf_jit_fill_hole_t bpf_fill_ill_ins
+ void *bpf_prog_pack_alloc(u32 size, bpf_jit_fill_hole_t bpf_fill_ill_insns, bool was_classic)
+ {
+ 	unsigned int nbits = BPF_PROG_SIZE_TO_NBITS(size);
+-	struct bpf_prog_pack *pack;
+-	unsigned long pos;
++	struct bpf_prog_pack *pack, *fallback_pack = NULL;
++	unsigned long pos, fallback_pos = 0;
+ 	void *ptr = NULL;
+ 
+ 	mutex_lock(&pack_mutex);
+@@ -943,8 +943,29 @@ void *bpf_prog_pack_alloc(u32 size, bpf_jit_fill_hole_t bpf_fill_ill_insns, bool
+ 	list_for_each_entry(pack, &pack_list, list) {
+ 		pos = bitmap_find_next_zero_area(pack->bitmap, BPF_PROG_CHUNK_COUNT, 0,
+ 						 nbits, 0);
+-		if (pos < BPF_PROG_CHUNK_COUNT)
++		if (pos >= BPF_PROG_CHUNK_COUNT)
++			continue;
++		/* Flush not enabled, use any pack */
++		if (!static_branch_unlikely(&bpf_pred_flush_enabled))
+ 			goto found_free_area;
++		/*
++		 * cBPF reuse of a dirty pack triggers a flush, so prefer a
++		 * clean pack for cBPF. eBPF never flushes, so pick the first
++		 * free pack, dirty or clean.
++		 */
++		if (!was_classic || !pack->arch_flush_needed)
++			goto found_free_area;
++		if (!fallback_pack) {
++			fallback_pack = pack;
++			fallback_pos = pos;
++		}
++	}
++
++	/* No preferred pack found */
++	if (fallback_pack) {
++		pack = fallback_pack;
++		pos = fallback_pos;
++		goto found_free_area;
+ 	}
+ 
+ 	pack = alloc_new_pack(bpf_fill_ill_insns);
+
+-- 
+2.43.0
+
 
