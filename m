@@ -1,152 +1,116 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216783F7AB2
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:21:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4349E3F6C26;
+	Fri, 17 Jul 2026 12:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784290906; cv=none; b=Ajdj61KmqH6Et9vuBEEBiQWgMD87jn4R5H1Ga0FsZN64I0I1s+1oJo/vjYU7+4f6mv9TWg8Iaezaw7jR4XKIUseKoqRo7qbIdQ029MuMt+j5OqMilLFPNppgCnTYjpL1aCMw1fdEopv8bfNdzCQFvViXfGkfUD13gGQMJF8Q9Gw=
+	t=1784290918; cv=none; b=NiG69QevGcL5sRgrGYf0HgY+Z4v/DQNXYg4HF7QdLalTY4wOOA0B8gFqU3hJVfDFTq8Td3MN2vLJX30KjHyD9J1TY5UmpPjcZsYQ3anPQZEuy0S4GhuJF9YfqjQltrYt0X7YPtHyt/9a2LtD3T0sMMnrpKk2xCd6eRdtS0eeu80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784290906; c=relaxed/simple;
-	bh=7CZqx4Otfur/VG9ZildeM2Vdazq6H7GOJhrqLMzNNo8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=qPBgLOz7XCreHfaYuSSaWdcKQd9meoOuR32AY2JRDZpxBHjAAz427XMxwhVfWAPROEaYEYapkWq9z69HbWUoqDqyEVp3x53Nk/qd7KVLU79U1A5ZZ2CWwqPc5rIoN+JSR53chqgKFdcbmhedv2iFVKN6Hqjg9swbnu+kk1QWY3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=dBMXY+F8; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784290918; c=relaxed/simple;
+	bh=whLMtwHeR8oIOg9sm0uROx3C0eqPSagEQ6BP8x7o2Zk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SUBEgHtRbQzVauxq4+YNNTSiXKDY1Es/JU0jMQvm+n0TGx/jvVVratZblz+xJ+ra6/tcJznQ+G1Zg52dPMQ6P5k4HP64+fwho1CUp3hMiomHV6hz/fiTVqHB2626lYRWrZDMqraXecBC/xkj32pQwmm9iQQqyY7YVWXL3C2igjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jB5PWGyo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="dBMXY+F8"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 728211A1038;
-	Fri, 17 Jul 2026 12:21:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3E24960361;
-	Fri, 17 Jul 2026 12:21:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A41F611BD0C29;
-	Fri, 17 Jul 2026 14:21:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784290901; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=XPHS+G2PK3HSSLicq3iMEc5QRy9j7GIGDRoyVEfXr+E=;
-	b=dBMXY+F8CCxhqFSV2pc3cGPj3sIiqQ8eAAjFGGXzWubu7wTFvMtjRG/j65pWaRiAKu+o/l
-	eFlhHDwkjydZqKeCqd5HRJlykii7zTzOU9gizijYDxCn4rsNKZKCTIK9AQzBwP/aX3WjL7
-	torGWviK40d82yFqlF+Xf8nstGXLbsVZQCxbK8p+YIYCJOn52pCzkVZlxjiyckg7K8UIHG
-	6u8EyH1/CHT1iGYgNYymtozQy+lWJ6pHZLf0yaTT5YEzqWGZkJvWW6egisGnFrWtok9qxz
-	cUC8ZSP1vBOe3nMPC+WdEKc57hRz1iarw6RMWgJ67BVVLgZk8kChHtZlgqLfFw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: vigneshr@ti.com,  richard@nod.at,  linux-mtd@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  Huang Shijie <b32955@freescale.com>,
-  stable@vger.kernel.org
-Subject: Re: [PATCH] mtd: rawnand: validate ONFI extended parameter page
- sections
-In-Reply-To: <20260715084226.38336-1-pengpeng@iscas.ac.cn> (Pengpeng Hou's
-	message of "Wed, 15 Jul 2026 16:42:26 +0800")
-References: <20260715084226.38336-1-pengpeng@iscas.ac.cn>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Fri, 17 Jul 2026 14:21:36 +0200
-Message-ID: <871pd1kdrj.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jB5PWGyo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FCE91F00A3A;
+	Fri, 17 Jul 2026 12:21:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784290915;
+	bh=gAmTeBmuRfkvTtrAi+vxy6npn3un2/1du1pt12NAkUI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jB5PWGyo8T2H5eDzRcQClqPwJ8Ek5PAphzulnAp2tHBmbqCq8DvM962O4W/BPk8wa
+	 lpq7UTZQWk4dGDhFcbsc01VoKHYrw1badie43222pmu8JNzt+UBByB7Nvu+q+mTSTT
+	 Javash8plTH1pg8XGU5vvoz/LbvQoeaw7nt8n3nA=
+Date: Fri, 17 Jul 2026 14:21:47 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Panagiotis Petrakopoulos <npetrakopoulos2003@gmail.com>
+Cc: linux-staging@lists.linux.dev, Hans de Goede <hdegoede@redhat.com>,
+	Bastien Nocera <hadess@hadess.net>,
+	Larry Finger <Larry.Finger@lwfinger.net>,
+	Jes Sorensen <jes.sorensen@gmail.com>,
+	Manuel Ebner <manuelebner@mailbox.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] staging: rtl8723bs: fix missing shared-key auth
+ challenge length check
+Message-ID: <2026071726-crust-capped-9011@gregkh>
+References: <20260708104252.144101-1-npetrakopoulos2003@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708104252.144101-1-npetrakopoulos2003@gmail.com>
 
-Hi Pengpeng,
-
-On 15/07/2026 at 16:42:26 +08, Pengpeng Hou <pengpeng@iscas.ac.cn> wrote:
-
-> nand_flash_detect_ext_param_page() allocates a length declared by the ONFI
-> parameter page.  It treats the returned data as a fixed header followed by
-> variable-length sections.  It reads that header and advances over sections
-> without first proving that the page and each current section fit in the
-> allocated buffer.
->
-> Reject pages shorter than the fixed header.  Track remaining bytes while
-> walking sections.  Require the ECC section to cover every field read from
-> struct onfi_ext_ecc_info.
->
-> Fixes: 6dcbe0cdd83f ("mtd: get the ECC info from the Extended Parameter P=
-age")
+On Wed, Jul 08, 2026 at 01:42:52PM +0300, Panagiotis Petrakopoulos wrote:
+> The WEP shared-key authentication handlers use the challenge-text
+> element's length. This text and its length are attacker-controlled.
+> The handlers do not check the length against the fixed 128-byte
+> chg_txt buffer.
+> 
+> In OnAuthClient() the length from rtw_get_ie() can be up to 255 bytes.
+> It is used to perform memcpy() into the 128-byte pmlmeinfo->chg_txt.
+> A malicious AP sending a malformed WLAN_EID_CHALLENGE element can
+> overflow/underfill chg_txt by up to 127 bytes. This is reachable over
+> the air, before association, during shared-key authentication. In the
+> case of an overflow, the driver can write out of bounds. In the case
+> of an underfill, the driver can echo stale buffer memory. In OnAuth() 
+> a similar issue is observed. The driver compares a full 128 bytes
+> regardless of the element's length, reading past a shorter element.
+> 
+> The challenge text is defined to be exactly 128 octets, which is
+> already provided as the WLAN_AUTH_CHALLENGE_LEN define; require the
+> element to be exactly that length in both handlers.
+> 
+> Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> Signed-off-by: Panagiotis Petrakopoulos <npetrakopoulos2003@gmail.com>
+> Reviewed-by: Manuel Ebner <manuelebner@mailbox.org>
 > ---
->  drivers/mtd/nand/raw/nand_onfi.c | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/mtd/nand/raw/nand_onfi.c b/drivers/mtd/nand/raw/nand=
-_onfi.c
-> index cd3ad373883e..40b7db10bd73 100644
-> --- a/drivers/mtd/nand/raw/nand_onfi.c
-> +++ b/drivers/mtd/nand/raw/nand_onfi.c
-> @@ -40,11 +40,16 @@ static int nand_flash_detect_ext_param_page(struct na=
-nd_chip *chip,
->  	struct onfi_ext_section *s;
->  	struct onfi_ext_ecc_info *ecc;
->  	uint8_t *cursor;
-> +	size_t section_len;
-> +	size_t remaining;
->  	int ret;
->  	int len;
->  	int i;
->=20=20
->  	len =3D le16_to_cpu(p->ext_param_page_length) * 16;
-> +	if (len < sizeof(*ep))
-> +		return -EINVAL;
-> +
->  	ep =3D kmalloc(len, GFP_KERNEL);
->  	if (!ep)
->  		return -ENOMEM;
-> @@ -77,11 +82,24 @@ static int nand_flash_detect_ext_param_page(struct na=
-nd_chip *chip,
->=20=20
->  	/* find the ECC section. */
->  	cursor =3D (uint8_t *)(ep + 1);
-> +	remaining =3D len - sizeof(*ep);
->  	for (i =3D 0; i < ONFI_EXT_SECTION_MAX; i++) {
->  		s =3D ep->sections + i;
-> -		if (s->type =3D=3D ONFI_SECTION_TYPE_2)
-> +		section_len =3D s->length * 16;
-> +		if (section_len > remaining) {
-> +			pr_debug("The section is invalid.\n");
+> v2:
+> improved patch description for clarity. no code changes.
+> 
+> testing:
+> Compile-tested only; I do not have RTL8723BS hardware to test the
+> shared-key authentication path at runtime. The change only rejects
+> challenge elements whose length differs from the spec-mandated 128
+> bytes, so conforming peers are unaffected.
+> 
+>  drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+> index a86d6f97cf02..13634d4e83d1 100644
+> --- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+> +++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+> @@ -787,7 +787,7 @@ unsigned int OnAuth(struct adapter *padapter, union recv_frame *precv_frame)
+>  			p = rtw_get_ie(pframe + WLAN_HDR_A3_LEN + 4 + _AUTH_IE_OFFSET_, WLAN_EID_CHALLENGE, (int *)&ie_len,
+>  					len - WLAN_HDR_A3_LEN - _AUTH_IE_OFFSET_ - 4);
+>  
+> -			if (!p || ie_len <= 0) {
+> +			if (!p || ie_len != WLAN_AUTH_CHALLENGE_LEN) {
+>  				status = WLAN_STATUS_CHALLENGE_FAIL;
+>  				goto auth_fail;
+>  			}
+> @@ -873,7 +873,7 @@ unsigned int OnAuthClient(struct adapter *padapter, union recv_frame *precv_fram
+>  			p = rtw_get_ie(pframe + WLAN_HDR_A3_LEN + _AUTH_IE_OFFSET_, WLAN_EID_CHALLENGE, (int *)&len,
+>  				pkt_len - WLAN_HDR_A3_LEN - _AUTH_IE_OFFSET_);
+>  
+> -			if (!p)
+> +			if (!p || len != WLAN_AUTH_CHALLENGE_LEN)
+>  				goto authclnt_fail;
+>  
+>  			memcpy(pmlmeinfo->chg_txt, p + 2, len);
+> -- 
+> 2.55.0
+> 
 
-This debug message is not useful, it could mention the section, and at
-least contain "ONFI" in it. But since you have access to a nand_chip, it
-is also probably better to use dev_dbg here.
+This does not apply against my staging-linus branch.  Can you rebase and
+resend?
 
-> +			goto ext_out;
-> +		}
-> +
-> +		if (s->type =3D=3D ONFI_SECTION_TYPE_2) {
-> +			if (section_len < sizeof(*ecc)) {
-> +				pr_debug("The ECC section is
-> invalid.\n");
+thanks,
 
-Same.
-
-> +				goto ext_out;
-> +			}
->  			break;
-> -		cursor +=3D s->length * 16;
-> +		}
-
-\n
-
-> +		cursor +=3D section_len;
-> +		remaining -=3D section_len;
->  	}
->  	if (i =3D=3D ONFI_EXT_SECTION_MAX) {
->  		pr_debug("We can not find the ECC section.\n");
-
-Chances are this will never happen, because it is hardware hard to
-tamper with, covered by an initial CRC, and if the manufacturers mess up
-so badly their tables the chips won't be manufactured anyway.
-
-But, heh, the cost of this is tolerable. Nevertheless, a v2 is expected.
-
-Thanks,
-Miqu=C3=A8l
+greg k-h
