@@ -1,116 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4349E3F6C26;
-	Fri, 17 Jul 2026 12:21:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D9B1EA65;
+	Fri, 17 Jul 2026 12:22:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784290918; cv=none; b=NiG69QevGcL5sRgrGYf0HgY+Z4v/DQNXYg4HF7QdLalTY4wOOA0B8gFqU3hJVfDFTq8Td3MN2vLJX30KjHyD9J1TY5UmpPjcZsYQ3anPQZEuy0S4GhuJF9YfqjQltrYt0X7YPtHyt/9a2LtD3T0sMMnrpKk2xCd6eRdtS0eeu80=
+	t=1784290944; cv=none; b=bcKgRg9sg/Ed5NnaVZfQw09YGsbq6ntqeL2fn45inRz5PeTPXoEHzi61SghKTM+oO4NG5NPuv/nk8p/+ut++b85u8S4I2Qk7YpRV+b4uSvB/vo9x3DH0HSgpi3+xZKdmK+YiPLZgq+GJA7KS6CvEMAfVmBQ4CQ5TADBbxazRHlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784290918; c=relaxed/simple;
-	bh=whLMtwHeR8oIOg9sm0uROx3C0eqPSagEQ6BP8x7o2Zk=;
+	s=arc-20240116; t=1784290944; c=relaxed/simple;
+	bh=KC/MTNppPmvsxoG7oEAL0JWqaUV8QgDHm1Qegm/NhAM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SUBEgHtRbQzVauxq4+YNNTSiXKDY1Es/JU0jMQvm+n0TGx/jvVVratZblz+xJ+ra6/tcJznQ+G1Zg52dPMQ6P5k4HP64+fwho1CUp3hMiomHV6hz/fiTVqHB2626lYRWrZDMqraXecBC/xkj32pQwmm9iQQqyY7YVWXL3C2igjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jB5PWGyo; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nOS0MQdsyx5IVeuVQqzVZHlve99M8CEVrbbGt+zEWMpf4yBiOnHrFqwJVhgg3/hhf+H19ZkgaBdfhiBJu1VG+tDWzkQUZ+cTT33y9MfHp1HxKaeT9zBkQSNvN+tihn9Hd5G46D2FJ0GfH5OV3ThwZacEiRAJMEowyykxET52vpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tIC+ySsz; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jB5PWGyo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FCE91F00A3A;
-	Fri, 17 Jul 2026 12:21:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784290915;
-	bh=gAmTeBmuRfkvTtrAi+vxy6npn3un2/1du1pt12NAkUI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jB5PWGyo8T2H5eDzRcQClqPwJ8Ek5PAphzulnAp2tHBmbqCq8DvM962O4W/BPk8wa
-	 lpq7UTZQWk4dGDhFcbsc01VoKHYrw1badie43222pmu8JNzt+UBByB7Nvu+q+mTSTT
-	 Javash8plTH1pg8XGU5vvoz/LbvQoeaw7nt8n3nA=
-Date: Fri, 17 Jul 2026 14:21:47 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Panagiotis Petrakopoulos <npetrakopoulos2003@gmail.com>
-Cc: linux-staging@lists.linux.dev, Hans de Goede <hdegoede@redhat.com>,
-	Bastien Nocera <hadess@hadess.net>,
-	Larry Finger <Larry.Finger@lwfinger.net>,
-	Jes Sorensen <jes.sorensen@gmail.com>,
-	Manuel Ebner <manuelebner@mailbox.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] staging: rtl8723bs: fix missing shared-key auth
- challenge length check
-Message-ID: <2026071726-crust-capped-9011@gregkh>
-References: <20260708104252.144101-1-npetrakopoulos2003@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tIC+ySsz"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7A09C1337;
+	Fri, 17 Jul 2026 14:21:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784290884;
+	bh=KC/MTNppPmvsxoG7oEAL0JWqaUV8QgDHm1Qegm/NhAM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tIC+ySszbPErHtri9MKLctyCpAe4lf1ZHZniZVeGQdeELRHo6yp9B34uPzO/lnxhW
+	 foF2bTF8wjdv/HT2S1inU7vxMkwsXk4w6wAm17iZh27gJCPR78gN4UTzUDtIFfzAZ/
+	 hFxazao3fUrb8z94X6/kCAM9Sc1LEk5JgNlnAgH0=
+Date: Fri, 17 Jul 2026 15:22:19 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] drm/bridge: dw-hdmi: fix i2c adapter leak on probe
+ failure
+Message-ID: <20260717122219.GC1926197@killaraus.ideasonboard.com>
+References: <20260717090819.1630965-1-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260708104252.144101-1-npetrakopoulos2003@gmail.com>
+In-Reply-To: <20260717090819.1630965-1-johan@kernel.org>
 
-On Wed, Jul 08, 2026 at 01:42:52PM +0300, Panagiotis Petrakopoulos wrote:
-> The WEP shared-key authentication handlers use the challenge-text
-> element's length. This text and its length are attacker-controlled.
-> The handlers do not check the length against the fixed 128-byte
-> chg_txt buffer.
+On Fri, Jul 17, 2026 at 11:08:19AM +0200, Johan Hovold wrote:
+> Make sure to drop the i2c adapter device and module references before
+> returning when detecting a malformed devicetree during probe.
 > 
-> In OnAuthClient() the length from rtw_get_ie() can be up to 255 bytes.
-> It is used to perform memcpy() into the 128-byte pmlmeinfo->chg_txt.
-> A malicious AP sending a malformed WLAN_EID_CHALLENGE element can
-> overflow/underfill chg_txt by up to 127 bytes. This is reachable over
-> the air, before association, during shared-key authentication. In the
-> case of an overflow, the driver can write out of bounds. In the case
-> of an underfill, the driver can echo stale buffer memory. In OnAuth() 
-> a similar issue is observed. The driver compares a full 128 bytes
-> regardless of the element's length, reading past a shorter element.
-> 
-> The challenge text is defined to be exactly 128 octets, which is
-> already provided as the WLAN_AUTH_CHALLENGE_LEN define; require the
-> element to be exactly that length in both handlers.
-> 
-> Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Panagiotis Petrakopoulos <npetrakopoulos2003@gmail.com>
-> Reviewed-by: Manuel Ebner <manuelebner@mailbox.org>
+> Fixes: 80e2f97968b5 ("drm: bridge: dw-hdmi: Switch to regmap for register access")
+> Cc: stable@vger.kernel.org	# 4.12
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+
 > ---
-> v2:
-> improved patch description for clarity. no code changes.
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> testing:
-> Compile-tested only; I do not have RTL8723BS hardware to test the
-> shared-key authentication path at runtime. The change only rejects
-> challenge elements whose length differs from the spec-mandated 128
-> bytes, so conforming peers are unaffected.
-> 
->  drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-> index a86d6f97cf02..13634d4e83d1 100644
-> --- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-> +++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-> @@ -787,7 +787,7 @@ unsigned int OnAuth(struct adapter *padapter, union recv_frame *precv_frame)
->  			p = rtw_get_ie(pframe + WLAN_HDR_A3_LEN + 4 + _AUTH_IE_OFFSET_, WLAN_EID_CHALLENGE, (int *)&ie_len,
->  					len - WLAN_HDR_A3_LEN - _AUTH_IE_OFFSET_ - 4);
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> index 17d5caedb32e..9eb6cf8a321f 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -3389,7 +3389,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+>  			break;
+>  		default:
+>  			dev_err(dev, "reg-io-width must be 1 or 4\n");
+> -			return ERR_PTR(-EINVAL);
+> +			ret = -EINVAL;
+> +			goto err_res;
+>  		}
 >  
-> -			if (!p || ie_len <= 0) {
-> +			if (!p || ie_len != WLAN_AUTH_CHALLENGE_LEN) {
->  				status = WLAN_STATUS_CHALLENGE_FAIL;
->  				goto auth_fail;
->  			}
-> @@ -873,7 +873,7 @@ unsigned int OnAuthClient(struct adapter *padapter, union recv_frame *precv_fram
->  			p = rtw_get_ie(pframe + WLAN_HDR_A3_LEN + _AUTH_IE_OFFSET_, WLAN_EID_CHALLENGE, (int *)&len,
->  				pkt_len - WLAN_HDR_A3_LEN - _AUTH_IE_OFFSET_);
->  
-> -			if (!p)
-> +			if (!p || len != WLAN_AUTH_CHALLENGE_LEN)
->  				goto authclnt_fail;
->  
->  			memcpy(pmlmeinfo->chg_txt, p + 2, len);
-> -- 
-> 2.55.0
-> 
+>  		iores = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 
-This does not apply against my staging-linus branch.  Can you rebase and
-resend?
+-- 
+Regards,
 
-thanks,
-
-greg k-h
+Laurent Pinchart
