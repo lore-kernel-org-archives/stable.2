@@ -1,45 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CCF2F8EAF
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 01:37:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE752C0F81;
+	Fri, 17 Jul 2026 01:37:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784252278; cv=none; b=O9KNd8Eu9yhMLD9Kq/Y+1925c/I4+yzCHppGcybquiefNQ6S8d40UpPpwyjNcnWJVmgRgqCFelqc6bLgZqeXj9+BWWuY7ItheUV7/0Ap5/l5tDVsTIOwd5h2ZV1EkGnoBKF9++R+9WIK1FE6zvLZqCk2Z+9XhIZ7n5Prr+HawAw=
+	t=1784252280; cv=none; b=B9fM7GilHwRzOmfGg+IiQsXT5stfz1U7iI+NEa0Qq2yjle50NwEmmH3saEHS3f+onRCJDb173I3Q4IRqFpVAuMCM3zn0Mo1Ag6RBGi2rDTlTCD8QVNh9sHYsRI/fOX2I54K1LuHWquMeq2teMEO9p296RO1VWqFWSawrv/S33w4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784252278; c=relaxed/simple;
-	bh=27cmhaoz+HM4ZMxdQJfaY220QhiAAH2CQWcAmzBozr0=;
+	s=arc-20240116; t=1784252280; c=relaxed/simple;
+	bh=+4qV4iMuqjNYYclLyURVg+3Yz6/QyGSgI7KXwJ2cEVs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BHTXPFoA0DEw7YgRBVENr4Bm5rWIDNFLij2wIpF4C/yVrN3u3sFTVau/7JsagjRDh61lC1GwGP6eBDEjJnWW9/u/PKfQtiyF6Bt0vVVh+04xg//7sofpbYxQ/WN73jkQqpSPC+5AHL/39nkuvDT9jBrFVdbEcICy5yqbksmgsks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ULw08LDd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=D6Bn0MHyHC8uzhsmqkF0aMrLeCg9yUDuemwhMBDCquFay5mLKHq6hneROal4Ubl6TtrRNt10AsR5yEEiSJQRFanEyGc1PI2FarCfJiTKgICyHT5lDRqE+K4gecj+d+Xsm6uwgNv4hWMxAnP9wt9ljevoVUehrSYWEeyOdA/PT5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JSYJVlQ4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ULw08LDd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 779891F00A3A;
-	Fri, 17 Jul 2026 01:37:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JSYJVlQ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 889D51F00A3F;
+	Fri, 17 Jul 2026 01:37:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784252277;
-	bh=h2+ma5LxVFGqMrLWlG5UKPg0Bp2I7YM+Z201nMwf2qU=;
+	s=k20260515; t=1784252279;
+	bh=xN419WW436l578SyNHLzWNkb608Pt+kwr5S/9FasBuw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ULw08LDdnU85vEKNx5DGq+NwFwEs29Z+HlVMPMqF4C4uAGLZur1efpIlNHgh8uTFA
-	 lHgf341hnKRwCRYuIEvQza+Z9cBskNRv52Z4H0alvzKvLJT7W6PuUCuIQY615oNQme
-	 UNDVZNpNqOav/pnhgLIgvPWwdnTXLzOZI5Ezk8rv2iOxfsUHP4VIWWaDFkIMAZxpBq
-	 r9etteDArRm6/oeNmEbaH+5qYtDF/EebpOyy5RVPIfj4E9H3cAzkmY9xd+FFAuLmaA
-	 SNmhZOajQAVCvrWG8sGdw5yEYL/rLD3tlLJN96x69ddvHmgNoCOWRAq/c3BGHcUh80
-	 hDRc50Ek72Y6A==
+	b=JSYJVlQ4fC7uO0KLm3AlZrzwHOjDsomXGsHbc5bAM2X7Vn0ud4aUw0pABkFLvTfVN
+	 aRECljuCPqiuxyBUi6MF6NR55JptJIdbjAT0WjiCEf6rxAuyBjbV3keZzQrC55YDbZ
+	 OiefZuvUFkL3PXu371YUMLK0lsUgw7fDfI8buohIug5BBIgh+qP3Nhcazx0e0fFwLa
+	 KATSqm2TVMTJJDvMJENiUs3DXkalFJZYVmL0CaU3lrktZ/UWZwGRM2P7955333ia20
+	 OboH+1gQLRK3c2cSMS2CprtEwTSOIToHPODGWyERqnbiu/wH3xQBncwX3Z41TpzGAn
+	 XdfWG7wOsAqIw==
 From: Sasha Levin <sashal@kernel.org>
-To: Erwan Velu <e.velu@criteo.com>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Adam Li <adamli@os.amperecomputing.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	colin.i.king@gmail.com,
-	Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: sched/fair: Only update stats for allowed CPUs when looking for dst group
-Date: Thu, 16 Jul 2026 21:37:35 -0400
-Message-ID: <20260716232340.0008-stable-reply@kernel.org>
+	chenridong@huawei.com,
+	tj@kernel.org,
+	lulie@linux.alibaba.com,
+	lizefan.x@bytedance.com,
+	hannes@cmpxchg.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	eadavis@qq.com,
+	chenridong@huaweicloud.com,
+	akpm@linux-foundation.org,
+	surenb@google.com,
+	dust.li@linux.alibaba.com
+Subject: Re: [PATCH 6.12.y 0/2] sched/psi: fix race in pressure_write (CVE-2026-52991)
+Date: Thu, 16 Jul 2026 21:37:36 -0400
+Message-ID: <20260716232340.0009-stable-reply@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071635-goliath-clamp-5cef@gregkh>
-References: <2026071635-goliath-clamp-5cef@gregkh>
+In-Reply-To: <20260715083245.32115-1-lulie@linux.alibaba.com>
+References: <20260715083245.32115-1-lulie@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,15 +55,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 16, 2026 at 03:12:00PM +0200, Greg KH wrote:
-> On Wed, Jul 15, 2026 at 04:29:09PM +0200, Erwan Velu wrote:
-> > Please backport commit 82d6e01a0699800efd8b048eb584c907ccb47b7a, introduced
-> > in 6.19 as all stable kernels are affected by a significant performance
-> > issue.
+On Wed, Jul 15, 2026 at 04:32:43PM +0800, Philo Lu wrote:
+> Backport of the CVE-2026-52991 fix.
 >
-> Now applied to the 6.18.y tree, thanks.
+>   1/2 (94a4acfec146) clear of->priv on release, turning the UAF into an
+>       easier-to-detect NULL deref.
+>   2/2 (a5b98009f16d, the CVE fix) extend cgroup_mutex to cover all
+>       of->priv accesses, read ctx after taking the kn lock, and NULL-check
+>       of->priv. It depends on 1/2 as discussed in [0].
 
-Queued for 6.12, 6.6, 6.1, 5.15, and 5.10 as well, thanks.
+I'm holding off on this series (and the 6.6.y/6.1.y ones) for now: a5b98009f16d
+moves the psi trigger write path under cgroup_mutex, which means the psimon
+kthread gets created while holding cgroup_mutex and introduces a deadlock risk.
+
+Tejun has a follow-up fix for that which is in the cgroup tree but hasn't
+reached mainline yet. Once it lands, I'll queue your series together with it on
+all three branches.
 
 -- 
 Thanks,
