@@ -1,95 +1,84 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8386A3BD225;
-	Fri, 17 Jul 2026 07:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F468221F0C;
+	Fri, 17 Jul 2026 07:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784272410; cv=none; b=UZyONGbEsKaTrX7oxQZELWZBxjSuXGHfXVrt70wzoG/34sHdWqLJBdxv6GPstdBS7bgmwaB3oMoJX/NRtVI8x9BHM0Zqoty+qttr+lPP0uMGwE80HMCsKwDgRZu4mWIPvxq10B3bapg1+bX6pOQe8PBUlbYzAfRq+Eh/2RGqVfk=
+	t=1784272888; cv=none; b=Pc98W6MV/edGKePYi875asSIUYiLVTPQ1nyYw9Z9vFcOl2nlS5c7CZEj7RPsHI3tAopeNCjIlbPbL++CL4+Myl6yUmBrRS6GgpNV3Dqo35yAeMuP6H8Dj9lo554AEwiW6OH90LpM+wmpUGEGMmt1wdmSxM2oLdLnSLAbCKmfWrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784272410; c=relaxed/simple;
-	bh=/GRBTVCBnNMhdTmgROYtCEFwoe4XtBNJQfBS3w9bKhg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mNFtd9HzEFp38jo59OzyV7rjm/8F45IV1ChUTRhzBSPxaTcI61egbFwqLzaNAlpnZwxMlPlQaY6rT324fmPOkVYpf3k/AzP3xqlk4paP3xLgCoxD9bk/k/lPbqe4T/Dw2h07UP76ZDUWZyYTFgJpecvnEnr1wVaOhwSv7sjg8YQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: fd4f9fa481ae11f1aa26b74ffac11d73-20260717
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:2d2486ae-ce1c-4cc2-ba41-e3ebc4a8d99d,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:781a12360464066d5a466714afb83265,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|136|850|865|898,TC:nil,Content:0|15|
-	50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: fd4f9fa481ae11f1aa26b74ffac11d73-20260717
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1548124036; Fri, 17 Jul 2026 15:13:19 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: Nas Chung <nas.chung@chipsnmedia.com>,
-	Jackson Lee <jackson.lee@chipsnmedia.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linmao Li <lilinmao@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: chips-media: wave5: Handle polling IRQ thread failure
-Date: Fri, 17 Jul 2026 15:13:15 +0800
-Message-Id: <20260717071315.1485454-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1784272888; c=relaxed/simple;
+	bh=QSkKd6L3/R5xGlFb041ENdAdqR+bZr0FcGvkH7yCuu8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VXBRGEhXEaQ7g1YHKfH+8lH/tBsbPkbtPvD/ja6t7z4Z6xclAK4L8kvksB8+iZ/puUymAMZYh7l8UAVFZ2QO4LT1yLE8i6kp1Upedu6QHfOppHy9bPwttZBY6+LJBhB6QiRnBHhpff0VBdA9EOOPOyts88ZVAwgbyh8WNNKEVDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=GEPiwNao; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="GEPiwNao"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 6012D14C2D6;
+	Fri, 17 Jul 2026 09:13:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1784272403;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Il2ieanJNJrfHS1elTEpEDjJBDaUtNnDMAU5uF8bFuo=;
+	b=GEPiwNaoFVbhrHN4ow8ee8TUgrY6DqFX+07D0AexGqLrEUHg/Edlf6UxeMOVH/rRJYRyoB
+	NtinmktlFOYsWubujALKYfIBDPMTOFT6L0gM//4ylRdUWpXW9bvOUhOcb/uMR4iBqCV6/5
+	uYLKZ2OwJwZWasmsfKU34q4Zg35qemsyLXsvROzNRVGdpl3KV1M9vyHUn8dWpv9QlkQUj/
+	8mRr63IwCmwKFpOcABZPhn3CZuPyRZh/771n8J5P0l4goVaq3+A3IXrlQfWll+oKrH2pOL
+	1FlCCu3TlwrfZpls1LIr8wVZ+jIkKIhxvMKkTq/FZJo3WrXB9ElXDfmD2m0fqw==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 4be6e309;
+	Fri, 17 Jul 2026 07:13:16 +0000 (UTC)
+Date: Fri, 17 Jul 2026 16:13:01 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/349] 6.12.96-rc1 review
+Message-ID: <alnV_eOopvB9Orjp@codewreck.org>
+References: <20260716133033.287196923@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260716133033.287196923@linuxfoundation.org>
 
-When falling back to polling mode, wave5_vpu_probe() does not check the
-return value of kthread_run().  On failure, dev->irq_thread holds an
-error pointer instead of a valid task pointer.
+Greg Kroah-Hartman wrote on Thu, Jul 16, 2026 at 03:28:54PM +0200:
+> This is the start of the stable review cycle for the 6.12.96 release.
+> There are 349 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sat, 18 Jul 2026 13:30:01 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.96-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 
-Both the probe error path and the remove path only check
-dev->irq_thread against NULL before calling kthread_stop() on it, so an
-error pointer passes the check and kthread_stop() crashes on it.
 
-Check the kthread_run() result, clear dev->irq_thread and unwind the
-probe on failure.
+Tested 5a3bcd4be3fe ("Linux 6.12.96-rc1") on:
+- arm i.MX6ULL (Armadillo 640)
+- arm64 i.MX8ULP (Armadillo IoT A9E)
 
-Fixes: e66ff2b08e4e ("media: chips-media: wave5: Fix Null reference while testing fluster")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
----
- drivers/media/platform/chips-media/wave5/wave5-vpu.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+No obvious regression in dmesg or basic tests:
+Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu.c b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-index 76d57c6b636a..37df270b5f99 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-@@ -340,6 +340,13 @@ static int wave5_vpu_probe(struct platform_device *pdev)
- 		dev_err(&pdev->dev, "failed to get irq resource, falling back to polling\n");
- 		sema_init(&dev->irq_sem, 1);
- 		dev->irq_thread = kthread_run(irq_thread, dev, "irq thread");
-+		if (IS_ERR(dev->irq_thread)) {
-+			ret = PTR_ERR(dev->irq_thread);
-+			dev_err(&pdev->dev, "failed to create irq thread\n");
-+			dev->irq_thread = NULL;
-+			goto err_vdi_release;
-+		}
-+
- 		hrtimer_setup(&dev->hrtimer, &wave5_vpu_timer_callback, CLOCK_MONOTONIC,
- 			      HRTIMER_MODE_REL_PINNED);
- 		dev->worker = kthread_run_worker(0, "vpu_irq_thread");
--- 
-2.25.1
-
+--
+Dominique Martinet
