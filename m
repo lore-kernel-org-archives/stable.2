@@ -1,153 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5554C3F1AA8;
-	Fri, 17 Jul 2026 11:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCB13F4833;
+	Fri, 17 Jul 2026 11:37:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784287850; cv=none; b=Qs8Siyz/Zj9PKZpYqf5f8ozo9YOqMpbw0tqWVM0+IkOSQlnUviie9XvJc+kWnDiQE8NBldyAO/qvjN0xycdeiKTzirtKaNWfutKShLAE/dtdU2+V4uAVaXyR4qbaL54mrddzYfv/Ws+jT5Q5aRxhPt6e1tMpX9yDURDc8Ku4D9M=
+	t=1784288259; cv=none; b=p3op3zEMrraiFooplbBLl9Bx/7R57ruxX3B0dcc6SD9smr/+8BqEYC+FxEGaZzhOswCMNyblVl4HdYo8iotzuBiu0TfubhhBHsOaJ/Y55gTDvc8mA78iyddHkMtoVyW4N7a6KZOApaYFWnuq8BRVOsgYl8YGPqtgQLDRyfl5nng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784287850; c=relaxed/simple;
-	bh=XH0bTbd8PQ+uJqwGAphGeklYpbJLRfXC2YtGdGf5MUQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m8SsEQ39RNX0ZwuyKFu6YHUkuUicqSL70vOuIaNqej+GZi9WGYVCaIAT+HkC6GfMb1Avyt/2jbgFwiRiv2FIQ/ZkTtzZQ+z6lAcNjmWkB27eUaC4uM6wpJm1bzFQrw8BIV+xHtThteOeOu0L47AN20EBPTs42FCh8og0kz9Y5PY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mm6Mjx2W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784288259; c=relaxed/simple;
+	bh=kg+Uno28y8LH0GLqJP4j+/TvRJiU5EsXOvYmq5/Z454=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=mEXLtxMx8QVHPhvl/EY6TxJabmJGRMp+wwEYdejgRu165ZcnNNGlTMFE9vcVS0Fa2CgTmeFab3NNXFTLQZiiJx8ufhQuvc88LGQWEt8wiBcjYWclljUtAqyzbVYw+6dv4MGt2SvX1l0cKZtp3ostrhQ4wmiWomZ3DPoYCTO2A7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wxttU1oA; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mm6Mjx2W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6D01F000E9;
-	Fri, 17 Jul 2026 11:30:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784287847;
-	bh=Z77F8t8gGlaXLq5H5fqhrXWlygcKdmYBzV6kxoIyf9k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mm6Mjx2WdJ6T9LFLOqOCy1chNn5Dfw9PYBRptQkrjobxEd6vdKZLFyWmyExSV/IXO
-	 kAoVHmBEWIKVYOz94aV4seSn830RCuIjBT/xQg4Cr0LJVahJuc1ntlKVjPNrzVVdaV
-	 thsnBEOE0IROso9ahcOE1hw75IA/w37iZJgWnJlqe3JM8tW0cGt33sGZdDndeu0nlq
-	 req+4/lVTHvqtyAkvbM4J5acpd9z8LGvG4KD+v8A1sy9uFscqtEM7ZDXAgqAm+8YGh
-	 HLj+sAwlRqvIpc+VPdGp7LfESROOJknoQznqamj40WF3XjNkWbqbqHyDI64Nzvgbmu
-	 Hm+KJoBMLN7Bw==
-Date: Fri, 17 Jul 2026 12:30:38 +0100
-From: Will Deacon <will@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Toshi Kani <toshi.kani@hpe.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>,
-	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	"Denis V. Lunev" <den@virtuozzo.com>, stable@vger.kernel.org
-Subject: Re: [PATCH mm-hotfixes v4 2/4] x86/mm/pat: acquire init_mm write
- lock to avoid UAF
-Message-ID: <aloSXsTLOSepa5fA@willie-the-truck>
-References: <20260716-series-vmap-race-fix-v4-0-8c108c4317df@kernel.org>
- <20260716-series-vmap-race-fix-v4-2-8c108c4317df@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wxttU1oA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 50C374E40E19;
+	Fri, 17 Jul 2026 11:37:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 23E5160363;
+	Fri, 17 Jul 2026 11:37:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5AC4C11BD0D05;
+	Fri, 17 Jul 2026 13:37:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784288248; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=kg+Uno28y8LH0GLqJP4j+/TvRJiU5EsXOvYmq5/Z454=;
+	b=wxttU1oAiok8Es3N+ZVzBrA7tmb+RDahAu2/CX9Sh9AsaJJjbRnyqMDUg6GsVBLyFq7ElY
+	tycs4cn1wYyZdqVS6ypIQ00qqXuRytn318n9pV8Vdw48KhZWhCEXG+cJoJHtOyd8ud+p6V
+	7NdTSnM/Cv7l2sogWk5MwAHiai7dJGOiH7OCwN0ACUpib1VkQGOdLpwEkUDbtAfy2njeFJ
+	VQtfNGn7i2duIjT9dHfLobplo/89PvAgLccs1734/lNot3lXc6KisbR4O9lGKsEet3sTg5
+	2Sj8Dh/3l1ZyT/5zDeZebHri5OFu9BG8x11YJPY/+HySRexOvngz0tlDq/ZyoA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Ibrahim Hashimov <security@auditcode.ai>
+Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,
+  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v2] mac802154: hold an interface reference across the
+ scan worker
+In-Reply-To: <20260717105810.26226-1-security@auditcode.ai> (Ibrahim
+	Hashimov's message of "Fri, 17 Jul 2026 12:58:09 +0200")
+References: <20260710140927.13228-1-security@auditcode.ai>
+	<20260717105810.26226-1-security@auditcode.ai>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Fri, 17 Jul 2026 13:37:26 +0200
+Message-ID: <87fr1hkft5.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260716-series-vmap-race-fix-v4-2-8c108c4317df@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Jul 16, 2026 at 10:31:13PM +0100, Lorenzo Stoakes (ARM) wrote:
-> x86 implements page attribute modification using its Change Page
-> Attributes (CPA) mechanism.
-> 
-> This tracks properties of ranges such as cache mode through x86 page
-> attributes, and as part of that logic manipulates kernel page tables.
-> 
-> Since commit 41d88484c71c ("x86/mm/pat: restore large ROX pages after
-> fragmentation") ranges of kernel page table entries can be collapsed into
-> huge page table entries as part of this logic.
-> 
-> As part of this collapse, it frees the page tables which the collapsed
-> entries previously pointed to, and it does so without any relevant locks
-> being held to preclude concurrent kernel page table walkers.
-> 
-> The only way this code can be reached is if CPA_COLLAPSE is specified, and
-> this is only set in set_memory_rox() via:
-> 
-> set_memory_rox()
-> -> change_page_attr_set_clr()
-> -> cpa_flush()
-> -> cpa_collapse_large_pages()
-> 
-> Notable users of this are execmem and bpf when manipulating executable
-> mappings.
-> 
-> However, this is problematic for ptdump as it walks ranges it does not own
-> and thus runs the risk of a use-after-free on page tables freed underneath
-> it.
-> 
-> In addition, concurrent CPA collapse operations are possible which can also
-> cause races.
-> 
-> Resolve the issue by acquiring the mmap write lock on init_mm across the
-> whole operation.
+Hello,
 
-Thanks, Lorenzo.
+> Fixes: 57588c71177f ("mac802154: Handle passive scanning")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+> Assisted-by: AuditCode-AI:2026.07
 
-This ain't worth much here, but all the same:
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
-Reviewed-by: Will Deacon <will@kernel.org>
-
-with one nit below:
-
-> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> index d023a40a1e03..d1e63f7d267f 100644
-> --- a/arch/x86/mm/pat/set_memory.c
-> +++ b/arch/x86/mm/pat/set_memory.c
-> @@ -22,6 +22,7 @@
->  #include <linux/cc_platform.h>
->  #include <linux/set_memory.h>
->  #include <linux/memregion.h>
-> +#include <linux/cleanup.h>
->  
->  #include <asm/e820/api.h>
->  #include <asm/processor.h>
-> @@ -410,7 +411,7 @@ static void __cpa_flush_tlb(void *data)
->  
->  static int collapse_large_pages(unsigned long addr, struct list_head *pgtables);
->  
-> -static void cpa_collapse_large_pages(struct cpa_data *cpa)
-> +static void __cpa_collapse_large_pages(struct cpa_data *cpa)
->  {
->  	unsigned long start, addr, end;
->  	struct ptdesc *ptdesc, *tmp;
-> @@ -442,6 +443,18 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
->  	}
->  }
->  
-> +static void cpa_collapse_large_pages(struct cpa_data *cpa)
-> +{
-> +	/*
-> +	 * Take the mmap write lock on init_mm to:
-> +	 * - Avoid a use-after-free if raced by ptdump (which takes its own
-> +	 *   write lock on init_mm).
-> +	 * - Serialise concurrent CPA walkers.
-
-The CPA lock should handle those, so I think it's the non-CPA walkers
-that are problematic. Looks like Sashiko reckons it's found some that
-don't take the mmap_lock at all [1], but this is still a big step in the
-right direction, fixes the ptdump case and we're not trying to boil the
-ocean.
-
-Will
-
-[1] https://lore.kernel.org/all/20260716215307.14A6E1F000E9@smtp.kernel.org/#t
+Thanks,
+Miqu=C3=A8l
