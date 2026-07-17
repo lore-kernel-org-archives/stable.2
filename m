@@ -1,70 +1,201 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCB13F4833;
-	Fri, 17 Jul 2026 11:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD543DE45C;
+	Fri, 17 Jul 2026 11:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784288259; cv=none; b=p3op3zEMrraiFooplbBLl9Bx/7R57ruxX3B0dcc6SD9smr/+8BqEYC+FxEGaZzhOswCMNyblVl4HdYo8iotzuBiu0TfubhhBHsOaJ/Y55gTDvc8mA78iyddHkMtoVyW4N7a6KZOApaYFWnuq8BRVOsgYl8YGPqtgQLDRyfl5nng=
+	t=1784288461; cv=none; b=KuSY9X4GdSiUP+3zbX+aIjHTr8DtxDAQSujzzR/6oyEr9r5YRQpk5sq3VsaHAsp2i16Epq1oF4Cuxdi1oCsRAbE26tb59w9erQpF9zI8NZoHMb8OWSEimbmYH4vhy1TPn+ECSglfDhvIO7ikwDSf3UhtSd5IQMqbKXnkflKvKas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784288259; c=relaxed/simple;
-	bh=kg+Uno28y8LH0GLqJP4j+/TvRJiU5EsXOvYmq5/Z454=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=mEXLtxMx8QVHPhvl/EY6TxJabmJGRMp+wwEYdejgRu165ZcnNNGlTMFE9vcVS0Fa2CgTmeFab3NNXFTLQZiiJx8ufhQuvc88LGQWEt8wiBcjYWclljUtAqyzbVYw+6dv4MGt2SvX1l0cKZtp3ostrhQ4wmiWomZ3DPoYCTO2A7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wxttU1oA; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784288461; c=relaxed/simple;
+	bh=Dq3NfMG9vTxz8615uFZN59ykS5dijz8IdMkpDWyk7T0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=udfB88qCCNl4CTGBHNBOn0fkVH73EH46yhuP/0Eoo04BuFqEqKE4roSn8iIkWpFL5RS+2p9TWd2zB8dnrHIs1tloBfaIzk3wKjKCy2V45jhdsfGocZcnc4Xzcvc1RRNimNuZn6Y8d2b13xB4uZXo3hJH5LK9c0dN+2GiZMF6OvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F+ylRJNl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wxttU1oA"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 50C374E40E19;
-	Fri, 17 Jul 2026 11:37:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 23E5160363;
-	Fri, 17 Jul 2026 11:37:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5AC4C11BD0D05;
-	Fri, 17 Jul 2026 13:37:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784288248; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=kg+Uno28y8LH0GLqJP4j+/TvRJiU5EsXOvYmq5/Z454=;
-	b=wxttU1oAiok8Es3N+ZVzBrA7tmb+RDahAu2/CX9Sh9AsaJJjbRnyqMDUg6GsVBLyFq7ElY
-	tycs4cn1wYyZdqVS6ypIQ00qqXuRytn318n9pV8Vdw48KhZWhCEXG+cJoJHtOyd8ud+p6V
-	7NdTSnM/Cv7l2sogWk5MwAHiai7dJGOiH7OCwN0ACUpib1VkQGOdLpwEkUDbtAfy2njeFJ
-	VQtfNGn7i2duIjT9dHfLobplo/89PvAgLccs1734/lNot3lXc6KisbR4O9lGKsEet3sTg5
-	2Sj8Dh/3l1ZyT/5zDeZebHri5OFu9BG8x11YJPY/+HySRexOvngz0tlDq/ZyoA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Ibrahim Hashimov <security@auditcode.ai>
-Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,
-  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH v2] mac802154: hold an interface reference across the
- scan worker
-In-Reply-To: <20260717105810.26226-1-security@auditcode.ai> (Ibrahim
-	Hashimov's message of "Fri, 17 Jul 2026 12:58:09 +0200")
-References: <20260710140927.13228-1-security@auditcode.ai>
-	<20260717105810.26226-1-security@auditcode.ai>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Fri, 17 Jul 2026 13:37:26 +0200
-Message-ID: <87fr1hkft5.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F+ylRJNl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB5B41F000E9;
+	Fri, 17 Jul 2026 11:40:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784288458;
+	bh=wMxcpm+IoVsxd9X54J6KG7SdZat99QLXoKqL6gFffBA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F+ylRJNlTcwJhGBJ01DIn7oLm7TXQAXu2+mO4HsHi6022TFDme52Ltzf3ykFIWRiX
+	 sDUdKjTGWVvaP9TatyQ/XjfOHTVub9UT1FV65inDcTpw4W8oOP9O6WVi9El6ZeqsqJ
+	 m46cQ0zYPorXuwz6Y8HY8rwe2DW1IF0j5tCHwJX9N192yjBgysenD381xVaGlm/Fvk
+	 Cvsz+r+CrYck/qWkFmT6wVGOyFCWQqzs3VrwfmwtwPew8yesYwgkFpSzcvp0B+O/Fz
+	 6Ct97dz1xPU8clKQl2wZ+nr4fCUbBsTibi8odepAZRFcXrNNRwCVOw1m3xVZHW8xNn
+	 UNs+8qr93MSiw==
+Date: Fri, 17 Jul 2026 12:40:38 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, 
+	Ryan Roberts <ryan.roberts@arm.com>
+Cc: David Carlier <devnexen@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	"Denis V. Lunev" <den@virtuozzo.com>, stable@vger.kernel.org
+Subject: Re: [PATCH mm-hotfixes v4 2/4] x86/mm/pat: acquire init_mm write
+ lock to avoid UAF
+Message-ID: <aloAVwijpWpfO-5n@lucifer>
+References: <20260716-series-vmap-race-fix-v4-0-8c108c4317df@kernel.org>
+ <20260716-series-vmap-race-fix-v4-2-8c108c4317df@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260716-series-vmap-race-fix-v4-2-8c108c4317df@kernel.org>
 
-Hello,
+On Thu, Jul 16, 2026 at 10:31:13PM +0100, Lorenzo Stoakes (ARM) wrote:
 
-> Fixes: 57588c71177f ("mac802154: Handle passive scanning")
+OK so note to self - don't send series late in the evening when you're
+exhausted :)
+
+I rather glossed over the problem, Will's reply, and Denis's excellent bug
+report at [0].
+
+So. The (other) problem with CPA, as Denis pointed out, is that
+__change_page_attr() can update something in a page table that is
+concurrently being torn down, with set_pte_atomic() being the point at
+which the UAF occurs.
+
+With the switch to a write lock we can simply do:
+
+	scoped_guard(mmap_read_lock, &init_mm)
+		ret = __change_page_attr_set_clr(&cpa, 1);
+
+In change_page_attr_set_clr().
+
+Since CPA_COLLAPSE is only ever invoked via set_memory_rox() collapse is
+only done via change_page_attr_set_clr() and this covers all callers which
+are impacted by this.
+
+If people are agreeable to this I will respin with an additional patch to
+do this, as it makes sense to bundle it in this series with its depend
+change (this patch) included and properly ordered.
+
+Cheers, Lorenzo
+
+
+[0]:https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org/
+
+> x86 implements page attribute modification using its Change Page
+> Attributes (CPA) mechanism.
+>
+> This tracks properties of ranges such as cache mode through x86 page
+> attributes, and as part of that logic manipulates kernel page tables.
+>
+> Since commit 41d88484c71c ("x86/mm/pat: restore large ROX pages after
+> fragmentation") ranges of kernel page table entries can be collapsed into
+> huge page table entries as part of this logic.
+>
+> As part of this collapse, it frees the page tables which the collapsed
+> entries previously pointed to, and it does so without any relevant locks
+> being held to preclude concurrent kernel page table walkers.
+>
+> The only way this code can be reached is if CPA_COLLAPSE is specified, and
+> this is only set in set_memory_rox() via:
+>
+> set_memory_rox()
+> -> change_page_attr_set_clr()
+> -> cpa_flush()
+> -> cpa_collapse_large_pages()
+>
+> Notable users of this are execmem and bpf when manipulating executable
+> mappings.
+>
+> However, this is problematic for ptdump as it walks ranges it does not own
+> and thus runs the risk of a use-after-free on page tables freed underneath
+> it.
+>
+> In addition, concurrent CPA collapse operations are possible which can also
+> cause races.
+>
+> Resolve the issue by acquiring the mmap write lock on init_mm across the
+> whole operation.
+>
+> It is safe to acquire a sleeping lock as all the callers invoke
+> set_memory_rox() from process context and in any case,
+> change_page_attr_set_clr() calls vm_unmap_alias() which ultimately takes a
+> mutex, disallowing atomic context here.
+>
+> Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> Assisted-by: AuditCode-AI:2026.07
-
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
-Thanks,
-Miqu=C3=A8l
+> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  arch/x86/mm/pat/set_memory.c | 15 ++++++++++++++-
+>  include/linux/mmap_lock.h    |  2 ++
+>  2 files changed, 16 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+> index d023a40a1e03..d1e63f7d267f 100644
+> --- a/arch/x86/mm/pat/set_memory.c
+> +++ b/arch/x86/mm/pat/set_memory.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/cc_platform.h>
+>  #include <linux/set_memory.h>
+>  #include <linux/memregion.h>
+> +#include <linux/cleanup.h>
+>
+>  #include <asm/e820/api.h>
+>  #include <asm/processor.h>
+> @@ -410,7 +411,7 @@ static void __cpa_flush_tlb(void *data)
+>
+>  static int collapse_large_pages(unsigned long addr, struct list_head *pgtables);
+>
+> -static void cpa_collapse_large_pages(struct cpa_data *cpa)
+> +static void __cpa_collapse_large_pages(struct cpa_data *cpa)
+>  {
+>  	unsigned long start, addr, end;
+>  	struct ptdesc *ptdesc, *tmp;
+> @@ -442,6 +443,18 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
+>  	}
+>  }
+>
+> +static void cpa_collapse_large_pages(struct cpa_data *cpa)
+> +{
+> +	/*
+> +	 * Take the mmap write lock on init_mm to:
+> +	 * - Avoid a use-after-free if raced by ptdump (which takes its own
+> +	 *   write lock on init_mm).
+> +	 * - Serialise concurrent CPA walkers.
+> +	 */
+> +	scoped_guard(mmap_write_lock, &init_mm)
+> +		__cpa_collapse_large_pages(cpa);
+> +}
+> +
+>  static void cpa_flush(struct cpa_data *cpa, int cache)
+>  {
+>  	unsigned int i;
+> diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+> index 6b5c2390cc30..047f5f5e2c34 100644
+> --- a/include/linux/mmap_lock.h
+> +++ b/include/linux/mmap_lock.h
+> @@ -621,6 +621,8 @@ static inline void mmap_read_unlock(struct mm_struct *mm)
+>
+>  DEFINE_GUARD(mmap_read_lock, struct mm_struct *,
+>  	     mmap_read_lock(_T), mmap_read_unlock(_T))
+> +DEFINE_GUARD(mmap_write_lock, struct mm_struct *,
+> +	     mmap_write_lock(_T), mmap_write_unlock(_T))
+>  DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
+>
+>  static inline void mmap_read_unlock_non_owner(struct mm_struct *mm)
+>
+> --
+> 2.55.0
+>
