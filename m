@@ -1,115 +1,99 @@
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392AD374A0E
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 09:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82013B42C3;
+	Fri, 17 Jul 2026 09:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784279412; cv=none; b=CBobf9pfDqXRW2IeY8TCkqFMxfKHSW3UvNynXvnvgO2EuY+dJN6XU+2vXGSeEl56slm0oK9cRjJRAqCBJZBAK2pFCIwqOzdq+o2GWCU4okD4ZP+R1jK3+mg41OdR0yhyXvUzCr3L7bYaXgaHt5PpjQTKY9pmOtjat4nGh54DkmM=
+	t=1784279775; cv=none; b=M02QmKOnglk0W1fmeNNQKNxrh5mqpMaYhNYBy52CLVfKTiBMNO8oHvrp92OZtirsYhZTuN+e8euCkarOi4sFpz9VfPez4asPhNA6t+IoOhgT7bykh9bsYJ/6fL8m9JgEKm8sRvPhcO3qfI4P0mK956dDhDLeVBMpd6dk73IBv6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784279412; c=relaxed/simple;
-	bh=hKsnA6sADSVlFatKWv3dmaVcBSbmEECwHYMhwIqODjI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s9mUAUI6CzNIMUc0/HIXGiL+qNeMfv4Dv1ZDi2kInNWJ6HMc3FSMcSCIPzk5P3VD1wtCURFUj/IerpDMLsg3oZw0rznyeQXXh6PWDHFNqpcRx2g5hZXl4gtXJCkNRbo+i8aynz7jL4YSAmYHZb6DZE9uMgv6A8+ebOLVFZGVQrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=xoO1k0Q1; arc=none smtp.client-ip=35.89.44.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1784279775; c=relaxed/simple;
+	bh=848OXhe6U0KxRAxr7jnpPmZd+1CeMFV88mt0Nz7HL8M=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=O/wCY03i9S+7psfXsdhKlL6F2DBc7nVV2Bzoeu10GXYpOgF2/l/lNiraXT3OmwhmyJ16ZKqzo0eNOf0r3rvV8OlK726veHopri/Tglg2e3lUqwB1ZfbcFIpPBAQ9R8eCrt3J4ZKrMuA3PdxQ07qxPJ/4X8Dya/Zf37Vs41kv6SE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OuTK+U/g; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="xoO1k0Q1"
-Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
-	by cmsmtp with ESMTPS
-	id kVzpwgjmGaC0UkeYcwKfgA; Fri, 17 Jul 2026 09:08:34 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id keYbwy0f7ooyIkeYbwbtBc; Fri, 17 Jul 2026 09:08:34 +0000
-X-Authority-Analysis: v=2.4 cv=AZ6xH2XG c=1 sm=1 tr=0 ts=6a59f112
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=Nghn086io5pY4Qe7T5wA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=W452KQ49ORuGyDWTt93wAxvfGknLCKHwLMQ0kzWhsA4=; b=xoO1k0Q1HysxJ1kjgnRMbdFpz7
-	9EQ3d51I3pKXB8sssnJsnfPPfD5aDyCC6j1b+uhlqafqWcrF9/Dy4XBepD3ds+fgJ3E68Wlkh06NP
-	GOTKeltdYOLq4ZynZ0K+dK8CXYTL7EBdVu7ZjRNPrkXNzJrBLsa5TrychFg5KKz5+VC5S4M3hD+1Y
-	9ZbexuI/F+ram47MH99wT4xT3fVfEEVQg1fQvSYDSz3Gxc24RuCgIi716CvAxPSbA89y/dlMfnk4W
-	2WRFgcwCSCUjdDGbknML1FRLVyYVWhZxIgq17mXlduSWhTByUne+PEczm9xUJNSZA+l5x6mSnOYdq
-	kOToycHQ==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:60528 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.2)
-	(envelope-from <re@w6rz.net>)
-	id 1wkeYa-000000042cA-3vYB;
-	Fri, 17 Jul 2026 03:08:32 -0600
-Message-ID: <375d79dc-9dea-4c75-b5e1-19fd7e83038f@w6rz.net>
-Date: Fri, 17 Jul 2026 02:08:31 -0700
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OuTK+U/g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ar
+	NuXaaXPl+pNmtWexIb7J0Kf0kgXGBRhY0rUy8F624=; b=OuTK+U/gkX7aJUHN5/
+	gbQh/pNa1aL6rGvOdEDFRHRiIncdrMBHu8NoDfOYStMeBHTTlPZR023+TlmPvOrs
+	6ajrhu8YvhMmdflw1tA9XN13xhDWko9vIGI9ZRfD4s4bNR8qASHf0AcMLlSvZgaU
+	D3fcA+5yLdYnR00ANa6RBz19o=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3jTm_8llqT1CgJA--.17062S5;
+	Fri, 17 Jul 2026 17:15:49 +0800 (CST)
+From: wangdich9700@163.com
+To: tiwai@suse.de,
+	david.laight.linux@gmail.com,
+	wangdich9700@163.com
+Cc: wangdicheng@kylinos.cn,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 3/3] ASoC: fsl_easrc: Use div64_u64 for 64-by-64 division
+Date: Fri, 17 Jul 2026 17:15:42 +0800
+Message-Id: <20260717091542.721877-4-wangdich9700@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260717091542.721877-1-wangdich9700@163.com>
+References: <20260717091542.721877-1-wangdich9700@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 000/518] 7.1.4-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260716133047.772246337@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260716133047.772246337@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wkeYa-000000042cA-3vYB
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:60528
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 19
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNF3LiixT7KLFaWc4GKvkI6zqBgerWsCTBi9EnU1fzO9yR3wuvOSFsaHRSxWobEnx2mCTjRNY2zvGjzN/9SY8tY6do140OA60Mpg2Spjg32hvIz41xoK
- Lle/lh6+cuSuHuFNvD55fGleRMPXChCOJfwlABKSfNEfM13MDIGWKE2/nx5DqL2RKPHJuMDNkmg9Ew==
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3jTm_8llqT1CgJA--.17062S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tF1UZFyxCFyxKr43WrWkXrb_yoW8WF43pr
+	ZFg398JF98GF43Jan7Grs2vFykJFZ7Cr4SkFZ8tw1j93s5Zw18tFWftw1Fkay7tryxGrZY
+	gr4Dt345XF1UZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRUDGnUUUUU=
+X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/xtbCwAXeLmpZ8sX7CwAA3B
 
-On 7/16/26 06:24, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.4 release.
-> There are 518 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sat, 18 Jul 2026 13:30:01 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.4-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+From: wangdicheng <wangdicheng@kylinos.cn>
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Fix a coccinelle warning about do_div() truncating a 64-bit divisor:
 
-Tested-by: Ron Economos <re@w6rz.net>
+sound/soc/fsl/fsl_easrc.c:2061:2-8: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
+
+In fsl_easrc_m2m_calc_out_len(), val1 is computed as:
+
+  val1 = (u64)in_rate << frac_bits;   // frac_bits up to 39
+  do_div(val1, out_rate);
+  val1 += (s64)ctx_priv->ratio_mod << (frac_bits - 31);
+  val1 = val1 >> 12;
+
+In the worst case (in_rate=384000, out_rate=8000, frac_bits=39):
+  val1 = 384000 << 39 / 8000 = 26,388,279,068,672
+  val1 >> 12 = 6,440,497,829  (33 bits, exceeds 32-bit range)
+
+val1 is then used as the divisor in do_div(val2, val1), where
+do_div() silently truncates it to 32 bits, producing incorrect
+results. Use div64_u64() to perform a proper 64-by-64 division.
+
+Fixes: 955ac624058f ("ASoC: fsl_easrc: Add EASRC ASoC CPU DAI drivers")
+Cc: stable@vger.kernel.org
+Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+---
+ sound/soc/fsl/fsl_easrc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
+index 114a6c0b6b73..d0bbe9f71e36 100644
+--- a/sound/soc/fsl/fsl_easrc.c
++++ b/sound/soc/fsl/fsl_easrc.c
+@@ -2058,7 +2058,7 @@ static int fsl_easrc_m2m_calc_out_len(struct fsl_asrc_pair *pair, int input_buff
+ 		/* right shift 12 bit to make ratio in 32bit space */
+ 		val2 = (u64)in_samples << (frac_bits - 12);
+ 		val1 = val1 >> 12;
+-		do_div(val2, val1);
++		val2 = div64_u64(val2, val1);
+ 		out_samples = val2;
+ 
+ 		out_length = out_samples * out_width * channels;
+-- 
+2.25.1
 
