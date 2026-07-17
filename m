@@ -1,127 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA1A292B54;
-	Fri, 17 Jul 2026 13:47:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3C841A789
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:00:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784296038; cv=none; b=DyWLfd+ljnAaCDAlcYZxIKX0R9xiYYYOfGiUTAC0HztRg3hOjqc9MAowhHpEmWd8yGopeU6ZRMhvnaGsbqGlMhYBVIFuFqqnljqDYXAQIu2lZk6woujGt0kSTl3sUGKhM68HH6F7nO/AfTLCD8wUCUiTtjXvtvxpCMS890Eo9mc=
+	t=1784296820; cv=none; b=N1SnCLJzDmzcLHO6/tEiDbNWEANRTtS4EVhCxGCZcnArUg88MUwfHCbi4O+I4UQQoa0CC3d4OGZNHaAO+1x9ao24D/SGFkNNi7ERfBHTfpRxwM/UIEl+s4OxhCRwmJKoRJaLGps+iqWbzoCas+JU71xos1AFguE0bwH+tbf7g6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784296038; c=relaxed/simple;
-	bh=kTYRnfjDhY8tuvsLXMhcUfYLaAjs4BzmAwCL+frgLYM=;
+	s=arc-20240116; t=1784296820; c=relaxed/simple;
+	bh=FcWUqCq7/zPRS6HtlsoAeH8tY2vTw43+bpQs80YahFw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H+p5IZ2GbGADJ+7jDfDZckYtbz7j28SLssQAcXThidBs40HXCc0XeVZRwz2cJ0hJ4sRcaiU9aGnWoEoxV/IzOu9TjToNTUkpb8mZ8j50BOq7aJRx0yLubeR0bACZZwnVU0pGGxpUpD4dB/8aAg8IwY3rRAetmqdIc61g6zzEobg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lMF/KSp6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=r30HinoZpoVkcVCJwxNmex4gEEJt+fE4cvPyERYxqaIsuISF40Pkti16ONIjfLY1Maa83fH7OW7zod7mo70PjOljeEF41MKm44Dxe3uSkYtzQyq7LFBuJr3e9eQt3yiqKrurPSboLB0lw0BhNSVblDJW1cjLkw2+hJ0i5dekx80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HAkPYx59; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lMF/KSp6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B58A31F00A3A;
-	Fri, 17 Jul 2026 13:47:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HAkPYx59"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D931F000E9;
+	Fri, 17 Jul 2026 14:00:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784296037;
-	bh=XPCGV5xtkbJdOl7D2OggvGt9h+BVrZS/noJ6rOCEFUw=;
+	s=k20260515; t=1784296818;
+	bh=uIlQKQc/IUG2LSeWYmbIvn7WFbA2oToTRWwMLrmj4Dg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lMF/KSp6YFZzBDGd3TJyq5bOuQWhOFB78wQzrArMizvuOBTxQv7nPAfug5UPxHsfw
-	 HzFpSRPTCKkIpHWi7JNbXy/g9CDc8HHO0rM6c1PJuYuJMI5h7GfTUn9AbPO3evMXYn
-	 CuDpaZ+irA+5RO30lneoB1Hw0/2y0YliFseBAw+ktjfgbnguXujfhUuvNmaBlWtui6
-	 ge3DEeYbljj2z1188jScvsbCoIOY2SuW4lIS+gBhhyLHKL7cvKZDSO9y6wG3TdA+aS
-	 R9UtnL4yjRgJD3tOzcudFa/8I6mIDp3v6JhKmlIpDf9Xyf2/TkZ7ipg1jx8TABx97m
-	 a+beZpP8ZZDxQ==
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-To: linux-media@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Ma Ke <make24@iscas.ac.cn>,
-	Kees Cook <kees@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] Revert "media: v4l2-dev: fix error handling in __video_register_device()"
-Date: Fri, 17 Jul 2026 15:42:45 +0200
-Message-ID: <0b9987559a8f448af82ea22ba281c0bc0f462bd3.1784295766.git.hverkuil+cisco@kernel.org>
+	b=HAkPYx595wHiGntb6MSzwj/k71/2ZqUKTIQqXBFlh7gIGkzmSvPs6x6s+xxHfbRIn
+	 HokHtngBSA2/DvL1daccj8A2khu9Wyh1w9m1ZtvzOBwb39NQ5229ebWMeTRFxp/zEG
+	 Wc701ZrPGtB5w+mUbOHd/DLTnbWrYs8HbwUfOdpL+5oB1CI2frYpoX1W+boXiG7X5g
+	 eCAkSU/HYXHLk/kp+lJAo9m0tyXvf+3w50QuK2FoXuN7GzewLsAMO9nBGH6dQerCv0
+	 4aWWEKcIePaHZ2x5E6+DEIWl2dyuj2tP3MvenBSx+qXc2MwjCK1PJCjXDCvQMk+e3O
+	 LQap5/91kvQyQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Zhangjin Wu <falcon@tinylab.org>,
+	Willy Tarreau <w@1wt.eu>,
+	Christian Brauner <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] proc: use generic setattr() for /proc/$PID/net
+Date: Fri, 17 Jul 2026 10:00:13 -0400
+Message-ID: <20260717140016.1717138-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1784295766.git.hverkuil+cisco@kernel.org>
-References: <cover.1784295766.git.hverkuil+cisco@kernel.org>
+In-Reply-To: <2026071447-twitter-wick-5966@gregkh>
+References: <2026071447-twitter-wick-5966@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This reverts commit 2a934fdb01db6458288fc9386d3d8ceba6dd551a.
+From: Thomas Weißschuh <linux@weissschuh.net>
 
-The intentions of that patch were good, but it doesn't work.
+[ Upstream commit 18e66ae67673f2c8df6f02428798b1355691f2a9 ]
 
-The idea is that if device_register fails, you have to do a put_device
-to let the ref counter release resources.
+All other files in /proc/$PID/ use proc_setattr().
 
-However, the V4L2 API says that if video_register_device() fails, then
-you have to call video_device_release(), which kfree()s the video_device
-struct.
+Not using it allows the usage of chmod() on /proc/$PID/net, even on
+other processes owned by the same user.
+The same would probably also be true for other attributes to be changed.
 
-But the put_device() will already have freed the struct, so you end
-up in a double-free scenario.
+As this technically represents an ABI change it is not marked for
+stable so any unlikely regressions are caught during a full release cycle.
 
-There is not really a good way of fixing this without breaking
-video_register_device() into two parts, one that initializes everything,
-and one that does the actual device_register, and then converting all
-V4L2 drivers to this new model.
-
-That is a massive job, and it is very unlikely that device_register
-will fail.
-
-So rather than ending up in a double-free scenario, just revert this
-patch, and in that case we'll have a small memory leak. Which is a lot
-more robust.
-
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Fixes: 2a934fdb01db ("media: v4l2-dev: fix error handling in __video_register_device()")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-media/20260520090624.1071139-1-lgs201920130244@gmail.com/
-Link: https://lore.kernel.org/all/2026042058-charm-storable-4ad8@gregkh/
+Fixes: e9720acd728a ("[NET]: Make /proc/net a symlink on /proc/self/net (v3)")
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+Link: https://lore.kernel.org/lkml/d0d111ef-edae-4760-83fb-36db84278da1@t-8ch.de/
+Fixes: b4844fa0bdb4 ("selftests/nolibc: implement a few tests for various syscalls")
+Tested-by: Zhangjin Wu <falcon@tinylab.org>
+Signed-off-by: Willy Tarreau <w@1wt.eu>
+Message-Id: <20230624-proc-net-setattr-v1-2-73176812adee@weissschuh.net>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 6255da28d4bb ("proc: protect ptrace_may_access() with exec_update_lock (FD links)")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/v4l2-core/v4l2-dev.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ fs/proc/proc_net.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-index 5516b2bbb08f..d750bf10febe 100644
---- a/drivers/media/v4l2-core/v4l2-dev.c
-+++ b/drivers/media/v4l2-core/v4l2-dev.c
-@@ -1071,25 +1071,25 @@ int __video_register_device(struct video_device *vdev,
- 	vdev->dev.class = &video_class;
- 	vdev->dev.devt = MKDEV(VIDEO_MAJOR, vdev->minor);
- 	vdev->dev.parent = vdev->dev_parent;
--	vdev->dev.release = v4l2_device_release;
- 	dev_set_name(&vdev->dev, "%s%d", name_base, vdev->num);
--
--	/* Increase v4l2_device refcount */
--	v4l2_device_get(vdev->v4l2_dev);
--
- 	mutex_lock(&videodev_lock);
- 	ret = device_register(&vdev->dev);
- 	if (ret < 0) {
- 		mutex_unlock(&videodev_lock);
- 		pr_err("%s: device_register failed\n", __func__);
--		put_device(&vdev->dev);
--		return ret;
-+		goto cleanup;
- 	}
-+	/* Register the release callback that will be called when the last
-+	   reference to the device goes away. */
-+	vdev->dev.release = v4l2_device_release;
+diff --git a/fs/proc/proc_net.c b/fs/proc/proc_net.c
+index 123e3c9d8674b4..06ae48da253c8c 100644
+--- a/fs/proc/proc_net.c
++++ b/fs/proc/proc_net.c
+@@ -311,6 +311,7 @@ static int proc_tgid_net_getattr(struct user_namespace *mnt_userns,
+ const struct inode_operations proc_net_inode_operations = {
+ 	.lookup		= proc_tgid_net_lookup,
+ 	.getattr	= proc_tgid_net_getattr,
++	.setattr        = proc_setattr,
+ };
  
- 	if (nr != -1 && nr != vdev->num && warn_if_nr_in_use)
- 		pr_warn("%s: requested %s%d, got %s\n", __func__,
- 			name_base, nr, video_device_node_name(vdev));
- 
-+	/* Increase v4l2_device refcount */
-+	v4l2_device_get(vdev->v4l2_dev);
-+
- 	/* Part 5: Register the entity. */
- 	ret = video_register_media_controller(vdev);
- 
+ static int proc_tgid_net_readdir(struct file *file, struct dir_context *ctx)
 -- 
 2.53.0
 
