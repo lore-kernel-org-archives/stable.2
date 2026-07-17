@@ -1,44 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3C841A789
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:00:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352AB41A90D
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:00:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784296820; cv=none; b=N1SnCLJzDmzcLHO6/tEiDbNWEANRTtS4EVhCxGCZcnArUg88MUwfHCbi4O+I4UQQoa0CC3d4OGZNHaAO+1x9ao24D/SGFkNNi7ERfBHTfpRxwM/UIEl+s4OxhCRwmJKoRJaLGps+iqWbzoCas+JU71xos1AFguE0bwH+tbf7g6w=
+	t=1784296821; cv=none; b=CbyjN5GlSXICOPYiGZfCmifSu6Lnf/f2spLYBpNJ92E8Yk0e51+njzgpYGxSBZaXTJr9bhDx2bbprKP10kYlCH5j+QhxDdqhyyIthd8B/fULujCLoBo5omTwEpMXHlaJvqSF4cs6ecSz0LftFTlapFaBObOyQ8Un6PbZzpLq8oI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784296820; c=relaxed/simple;
-	bh=FcWUqCq7/zPRS6HtlsoAeH8tY2vTw43+bpQs80YahFw=;
+	s=arc-20240116; t=1784296821; c=relaxed/simple;
+	bh=AnMKKEFoIGnWCsPuEQNhpQj5z5SUT8/nI8b6MWryVaU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r30HinoZpoVkcVCJwxNmex4gEEJt+fE4cvPyERYxqaIsuISF40Pkti16ONIjfLY1Maa83fH7OW7zod7mo70PjOljeEF41MKm44Dxe3uSkYtzQyq7LFBuJr3e9eQt3yiqKrurPSboLB0lw0BhNSVblDJW1cjLkw2+hJ0i5dekx80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HAkPYx59; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=njXp2ji8ogeFfSHe+LTYPIfmg2jg46YA474jXm/rUbPxocXxy5HpsImSauYOORcqgRzWebTUMpMhw85X6QuJv1FuZ9bU6ltm5XXJqUof1mzq9HrzyrzU4c5/AM1ACMHgrBPI+7UVKKBX950EnbQ62TSn5FK7nt6y7ZD9y05D2ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6ZlaSIU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HAkPYx59"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D931F000E9;
-	Fri, 17 Jul 2026 14:00:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6ZlaSIU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0E91F00A3A;
+	Fri, 17 Jul 2026 14:00:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784296818;
-	bh=uIlQKQc/IUG2LSeWYmbIvn7WFbA2oToTRWwMLrmj4Dg=;
+	s=k20260515; t=1784296819;
+	bh=8WiAaJhkpR8mdfZhs0n/p1DlS+8hLOSnOeZ2xFOFgPE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HAkPYx595wHiGntb6MSzwj/k71/2ZqUKTIQqXBFlh7gIGkzmSvPs6x6s+xxHfbRIn
-	 HokHtngBSA2/DvL1daccj8A2khu9Wyh1w9m1ZtvzOBwb39NQ5229ebWMeTRFxp/zEG
-	 Wc701ZrPGtB5w+mUbOHd/DLTnbWrYs8HbwUfOdpL+5oB1CI2frYpoX1W+boXiG7X5g
-	 eCAkSU/HYXHLk/kp+lJAo9m0tyXvf+3w50QuK2FoXuN7GzewLsAMO9nBGH6dQerCv0
-	 4aWWEKcIePaHZ2x5E6+DEIWl2dyuj2tP3MvenBSx+qXc2MwjCK1PJCjXDCvQMk+e3O
-	 LQap5/91kvQyQ==
+	b=N6ZlaSIUY3hgSfN7GunmY0jy6fzFvrxmL/DBRUf8rYQG2uh4KBTxeDSFkgckKrt9F
+	 +tXOew7UZbGw/1nxNewPlQxbyadiwFXSqMKwXRvH7YQ04c+ZjpV2eQoKt8mCydDVZH
+	 rIz8Zq3VdQnRsrzHEljw77na8MtuNYPhd8Ke+wsEWpINpxem45//AzKRzxkrDr8wc+
+	 vf3CQPL2ORK5yAvC1I+2h8HFh+eecxUBFACAO4lwVPKPHmAEgWiXZNnKrikW3BxO3z
+	 UvukdaJmHkxRhGTePFHXekewix8bpSfoRlkdO2Xmz6UEuKXkgJTZAimbpOVMCMneZ8
+	 rK4LPc23ty5Ow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Zhangjin Wu <falcon@tinylab.org>,
-	Willy Tarreau <w@1wt.eu>,
+Cc: "Tyler Hicks (Microsoft)" <code@tyhicks.com>,
+	"Kevin Parsons (Microsoft)" <parsonskev@gmail.com>,
 	Christian Brauner <brauner@kernel.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Jann Horn <jannh@google.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Hardik Garg <hargar@linux.microsoft.com>,
+	Allen Pais <apais@linux.microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/4] proc: use generic setattr() for /proc/$PID/net
-Date: Fri, 17 Jul 2026 10:00:13 -0400
-Message-ID: <20260717140016.1717138-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/4] proc: Move fdinfo PTRACE_MODE_READ check into the inode .permission operation
+Date: Fri, 17 Jul 2026 10:00:14 -0400
+Message-ID: <20260717140016.1717138-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071447-twitter-wick-5966@gregkh>
+In-Reply-To: <20260717140016.1717138-1-sashal@kernel.org>
 References: <2026071447-twitter-wick-5966@gregkh>
+ <20260717140016.1717138-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,45 +53,162 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Weißschuh <linux@weissschuh.net>
+From: "Tyler Hicks (Microsoft)" <code@tyhicks.com>
 
-[ Upstream commit 18e66ae67673f2c8df6f02428798b1355691f2a9 ]
+[ Upstream commit 0a960ba49869ebe8ff859d000351504dd6b93b68 ]
 
-All other files in /proc/$PID/ use proc_setattr().
+The following commits loosened the permissions of /proc/<PID>/fdinfo/
+directory, as well as the files within it, from 0500 to 0555 while also
+introducing a PTRACE_MODE_READ check between the current task and
+<PID>'s task:
 
-Not using it allows the usage of chmod() on /proc/$PID/net, even on
-other processes owned by the same user.
-The same would probably also be true for other attributes to be changed.
+ - commit 7bc3fa0172a4 ("procfs: allow reading fdinfo with PTRACE_MODE_READ")
+ - commit 1927e498aee1 ("procfs: prevent unprivileged processes accessing fdinfo dir")
 
-As this technically represents an ABI change it is not marked for
-stable so any unlikely regressions are caught during a full release cycle.
+Before those changes, inode based system calls like inotify_add_watch(2)
+would fail when the current task didn't have sufficient read permissions:
 
-Fixes: e9720acd728a ("[NET]: Make /proc/net a symlink on /proc/self/net (v3)")
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
-Link: https://lore.kernel.org/lkml/d0d111ef-edae-4760-83fb-36db84278da1@t-8ch.de/
-Fixes: b4844fa0bdb4 ("selftests/nolibc: implement a few tests for various syscalls")
-Tested-by: Zhangjin Wu <falcon@tinylab.org>
-Signed-off-by: Willy Tarreau <w@1wt.eu>
-Message-Id: <20230624-proc-net-setattr-v1-2-73176812adee@weissschuh.net>
+ [...]
+ lstat("/proc/1/task/1/fdinfo", {st_mode=S_IFDIR|0500, st_size=0, ...}) = 0
+ inotify_add_watch(64, "/proc/1/task/1/fdinfo",
+		   IN_MODIFY|IN_ATTRIB|IN_MOVED_FROM|IN_MOVED_TO|IN_CREATE|IN_DELETE|
+		   IN_ONLYDIR|IN_DONT_FOLLOW|IN_EXCL_UNLINK) = -1 EACCES (Permission denied)
+ [...]
+
+This matches the documented behavior in the inotify_add_watch(2) man
+page:
+
+ ERRORS
+       EACCES Read access to the given file is not permitted.
+
+After those changes, inotify_add_watch(2) started succeeding despite the
+current task not having PTRACE_MODE_READ privileges on the target task:
+
+ [...]
+ lstat("/proc/1/task/1/fdinfo", {st_mode=S_IFDIR|0555, st_size=0, ...}) = 0
+ inotify_add_watch(64, "/proc/1/task/1/fdinfo",
+		   IN_MODIFY|IN_ATTRIB|IN_MOVED_FROM|IN_MOVED_TO|IN_CREATE|IN_DELETE|
+		   IN_ONLYDIR|IN_DONT_FOLLOW|IN_EXCL_UNLINK) = 1757
+ openat(AT_FDCWD, "/proc/1/task/1/fdinfo",
+	O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = -1 EACCES (Permission denied)
+ [...]
+
+This change in behavior broke .NET prior to v7. See the github link
+below for the v7 commit that inadvertently/quietly (?) fixed .NET after
+the kernel changes mentioned above.
+
+Return to the old behavior by moving the PTRACE_MODE_READ check out of
+the file .open operation and into the inode .permission operation:
+
+ [...]
+ lstat("/proc/1/task/1/fdinfo", {st_mode=S_IFDIR|0555, st_size=0, ...}) = 0
+ inotify_add_watch(64, "/proc/1/task/1/fdinfo",
+		   IN_MODIFY|IN_ATTRIB|IN_MOVED_FROM|IN_MOVED_TO|IN_CREATE|IN_DELETE|
+		   IN_ONLYDIR|IN_DONT_FOLLOW|IN_EXCL_UNLINK) = -1 EACCES (Permission denied)
+ [...]
+
+Reported-by: Kevin Parsons (Microsoft) <parsonskev@gmail.com>
+Link: https://github.com/dotnet/runtime/commit/89e5469ac591b82d38510fe7de98346cce74ad4f
+Link: https://stackoverflow.com/questions/75379065/start-self-contained-net6-build-exe-as-service-on-raspbian-system-unauthorizeda
+Fixes: 7bc3fa0172a4 ("procfs: allow reading fdinfo with PTRACE_MODE_READ")
+Cc: stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Kalesh Singh <kaleshsingh@google.com>
+Cc: Hardik Garg <hargar@linux.microsoft.com>
+Cc: Allen Pais <apais@linux.microsoft.com>
+Signed-off-by: Tyler Hicks (Microsoft) <code@tyhicks.com>
+Link: https://lore.kernel.org/r/20240501005646.745089-1-code@tyhicks.com
 Signed-off-by: Christian Brauner <brauner@kernel.org>
 Stable-dep-of: 6255da28d4bb ("proc: protect ptrace_may_access() with exec_update_lock (FD links)")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/proc/proc_net.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/proc/fd.c | 42 ++++++++++++++++++++----------------------
+ 1 file changed, 20 insertions(+), 22 deletions(-)
 
-diff --git a/fs/proc/proc_net.c b/fs/proc/proc_net.c
-index 123e3c9d8674b4..06ae48da253c8c 100644
---- a/fs/proc/proc_net.c
-+++ b/fs/proc/proc_net.c
-@@ -311,6 +311,7 @@ static int proc_tgid_net_getattr(struct user_namespace *mnt_userns,
- const struct inode_operations proc_net_inode_operations = {
- 	.lookup		= proc_tgid_net_lookup,
- 	.getattr	= proc_tgid_net_getattr,
-+	.setattr        = proc_setattr,
+diff --git a/fs/proc/fd.c b/fs/proc/fd.c
+index 913bef0d2a36c4..1cb1f0dbe59e06 100644
+--- a/fs/proc/fd.c
++++ b/fs/proc/fd.c
+@@ -72,7 +72,18 @@ static int seq_show(struct seq_file *m, void *v)
+ 	return 0;
+ }
+ 
+-static int proc_fdinfo_access_allowed(struct inode *inode)
++static int seq_fdinfo_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, seq_show, inode);
++}
++
++/**
++ * Shared /proc/pid/fdinfo and /proc/pid/fdinfo/fd permission helper to ensure
++ * that the current task has PTRACE_MODE_READ in addition to the normal
++ * POSIX-like checks.
++ */
++static int proc_fdinfo_permission(struct mnt_idmap *idmap, struct inode *inode,
++				  int mask)
+ {
+ 	bool allowed = false;
+ 	struct task_struct *task = get_proc_task(inode);
+@@ -86,18 +97,13 @@ static int proc_fdinfo_access_allowed(struct inode *inode)
+ 	if (!allowed)
+ 		return -EACCES;
+ 
+-	return 0;
++	return generic_permission(idmap, inode, mask);
+ }
+ 
+-static int seq_fdinfo_open(struct inode *inode, struct file *file)
+-{
+-	int ret = proc_fdinfo_access_allowed(inode);
+-
+-	if (ret)
+-		return ret;
+-
+-	return single_open(file, seq_show, inode);
+-}
++static const struct inode_operations proc_fdinfo_file_inode_operations = {
++	.permission	= proc_fdinfo_permission,
++	.setattr	= proc_setattr,
++};
+ 
+ static const struct file_operations proc_fdinfo_file_operations = {
+ 	.open		= seq_fdinfo_open,
+@@ -339,6 +345,8 @@ static struct dentry *proc_fdinfo_instantiate(struct dentry *dentry,
+ 	ei = PROC_I(inode);
+ 	ei->fd = data->fd;
+ 
++	inode->i_op = &proc_fdinfo_file_inode_operations;
++
+ 	inode->i_fop = &proc_fdinfo_file_operations;
+ 	tid_fd_update_inode(task, inode, 0);
+ 
+@@ -358,23 +366,13 @@ static int proc_readfdinfo(struct file *file, struct dir_context *ctx)
+ 				  proc_fdinfo_instantiate);
+ }
+ 
+-static int proc_open_fdinfo(struct inode *inode, struct file *file)
+-{
+-	int ret = proc_fdinfo_access_allowed(inode);
+-
+-	if (ret)
+-		return ret;
+-
+-	return 0;
+-}
+-
+ const struct inode_operations proc_fdinfo_inode_operations = {
+ 	.lookup		= proc_lookupfdinfo,
++	.permission	= proc_fdinfo_permission,
+ 	.setattr	= proc_setattr,
  };
  
- static int proc_tgid_net_readdir(struct file *file, struct dir_context *ctx)
+ const struct file_operations proc_fdinfo_operations = {
+-	.open		= proc_open_fdinfo,
+ 	.read		= generic_read_dir,
+ 	.iterate_shared	= proc_readfdinfo,
+ 	.llseek		= generic_file_llseek,
 -- 
 2.53.0
 
