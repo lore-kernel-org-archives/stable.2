@@ -1,100 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0673DDAE5;
-	Fri, 17 Jul 2026 12:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7581DC198;
+	Fri, 17 Jul 2026 12:20:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784290390; cv=none; b=bLfCqB7uhwFHSy9VGXloPXmJu8I+i+inqIpiichoER2J+Fh87rzKewPYDVLz1MobTPABdkLB9hxZh07Fw3yHI+FklN8U3ZzAi+1lyIyoWHRMBkA3dv1K3ArsNF+MFRvDYVRcQt6JjL7feb9bupzoXARM+TOEhzxOvH6nQ6FCtrM=
+	t=1784290842; cv=none; b=nfuT3Out8ut4prE/ve9bGQBAzDiHDI41TLczh83W1ngka1RLo2kODPmdFFwCdvKVO5j6fClj2GczHOa4AP7vbkwOlWa/Xtfj+/WQada8Km8qi9PFLTP9nXi7YDQCQrFqYFbGbGfLo7zZhYVpWPstuG5xjzPAfGNw8pdULR2Jpgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784290390; c=relaxed/simple;
-	bh=Ax0qum+9ONyQlDdDc0Fe6aWyz5j+p0vdYKFoEjglluE=;
+	s=arc-20240116; t=1784290842; c=relaxed/simple;
+	bh=YOVxSWiQL0aN807/SUl2kDGbkC7l6+xHHkmC1CBtUV0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JJDvftsJ8wU2lCfq4WzPHbXP+4V95niy/4YLCXEiORfIfWnpXBpPOcibNs/FwXXqxfySq0W/JDlM/iC+0Bc2Ktr0+IhamEcANR1gp+eYaMsSzBlSJzRARyg+dXoDGIMHb8BQzYXH/fxRjCY59XF4IiOrw4MPzGcZ+xSLiWr6510=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=azEJHSoj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=X3wqPPSlhPxRDiG6hcjdKS27bAV5gpTwTEMWeIkVl0Ra7rkegzFs3SxwglxYaMcGXmqYD/i0ra/ZofklZhjy1hMUb8x2MQL412Kcb5m7rL47HOZb+4TVEL3muiYKN/HBApVZ/XUAJLq9tpxwY3BdRtsoj2WTnALGHMa+FbRcDe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kLTaWeiT; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="azEJHSoj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554E51F000E9;
-	Fri, 17 Jul 2026 12:13:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784290388;
-	bh=7IngRKP+1oI6ikH0PsflMTaobE2bdkCxNm/jkx/T4D8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=azEJHSojGN6W+HLtYPW1ADZMRpb0A6rIhbpEdTq6nsEQg2KPeCj4+zSW2hAwaHcUO
-	 62+Nx/VOvhOK+1EIRYU8B7e+BOAcxu1/HAvGo2jO+WBesWXOlAmQJDSOPNPsbYmZc8
-	 rxFP64AINqO8DiSIDysxm7n5maugbHzcYEkmZ4IE=
-Date: Fri, 17 Jul 2026 14:13:01 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Vaibhav Agarwal <vaibhav.sr@gmail.com>,
-	Mark Greer <mgreer@animalcreek.com>,
-	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: audio: bound topology parsing to the
- received buffer
-Message-ID: <2026071744-unsteady-easter-16ab@gregkh>
-References: <20260710212312.117781-1-meatuni001@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kLTaWeiT"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D3800664;
+	Fri, 17 Jul 2026 14:19:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784290781;
+	bh=YOVxSWiQL0aN807/SUl2kDGbkC7l6+xHHkmC1CBtUV0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kLTaWeiTH4uB2CjLg6ezM596tR2YuHRKYCqXnFBGwJE1amk6D1hhUCEQ3NIDLjRXz
+	 +Lumt58oVlS9OrxmA6SDszT2OwrMPROIS0BMSLBxB59wWHPQXXjv8EwTuLYbQur7BA
+	 rvhgxM2BJpfjMwPWBcJ6mqWorPte3iDzb9Zw2sBI=
+Date: Fri, 17 Jul 2026 15:20:35 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Subject: Re: [PATCH] drm/bridge: display-connector: fix i2c adapter leak on
+ probe failure
+Message-ID: <20260717122035.GB1926197@killaraus.ideasonboard.com>
+References: <20260717085716.1619275-1-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260710212312.117781-1-meatuni001@gmail.com>
+In-Reply-To: <20260717085716.1619275-1-johan@kernel.org>
 
-On Sat, Jul 11, 2026 at 02:23:12AM +0500, Muhammad Bilal wrote:
-> The Greybus audio topology parser trusts length and count fields taken
-> straight from the module's topology blob and never checks them against
-> the size of the buffer it actually allocated, leading to out-of-bounds
-> reads of the kernel heap.
-> 
-> gb_audio_gb_get_topology() reads a u16 size from the module, allocates a
-> buffer of that size, fetches the topology into it, and then discards the
-> size. gbaudio_tplg_parse_data() then walks that buffer using fields
-> stored inside it:
-> 
->   - gbaudio_tplg_process_header() computes the control, widget and route
->     block offsets by adding the wire-supplied __le32 size_dais,
->     size_controls and size_widgets onto the buffer base with no bound, so
->     a module that reports a small allocation size but large block sizes
->     moves those offsets far past the end of the buffer before they are
->     dereferenced.
-> 
->   - gbaudio_tplg_process_kcontrols(), _process_widgets() and
->     _process_routes() iterate num_controls / num_widgets / num_routes
->     (also from the blob) and advance a pointer by a per-element size that
->     includes the __le16 names_length of an enumerated control, again with
->     no check that the element stays inside the buffer.
-> 
->   - gb_generate_enum_strings() loops over an attacker-controlled __le32
->     items count and, for each, scans for a NUL terminator with no end
->     pointer, walking off the end of the buffer.
-> 
-> A malicious or malfunctioning module can therefore make the parser read
-> past the allocation. The wild block offsets are most likely to hit an
-> unmapped page and oops (denial of service); the byte-at-a-time enum scan
-> walks from a still-valid pointer and can copy adjacent heap bytes into
-> ALSA control name strings, which are readable by unprivileged local
-> users, so an information leak cannot be ruled out.
-> 
-> Thread the allocated topology size from gb_audio_gb_get_topology()
-> through to gbaudio_tplg_parse_data() and bound every walk against the end
-> of the buffer: verify the block offsets are ordered and within the
-> buffer (the "< previous" tests also catch a 32-bit unsigned wrap of the
-> running offset), check each control, widget and route lies fully inside
-> its block before use, and give gb_generate_enum_strings() an explicit
-> end pointer plus an items-versus-names_length sanity check.
-> 
-> Fixes: 6339d2322c47 ("greybus: audio: Add topology parser for GB codec")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Hi Johan,
 
-How was this found, and tested?
+Thank you for the patch.
 
-thanks,
+On Fri, Jul 17, 2026 at 10:57:16AM +0200, Johan Hovold wrote:
+> Make sure to drop the i2c adapter device and module references on failed
+> regulator and enable gpio lookup (and regulator enable) during probe
+> (e.g. on probe deferral).
+> 
+> Note that of_get_i2c_adapter_by_node() does not return error pointers,
+> but i2c_put_adapter() can handle a NULL argument so the error pointer
+> check at remove works even if it is misleading.
 
-greg k-h
+I've already sent a fix for this, see
+
+https://lore.kernel.org/dri-devel/20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com/
+
+> Fixes: 2e2bf3a5584d ("drm/bridge: display-connector: add DP support")
+> Fixes: 6de79dd3a920 ("drm/bridge: display-connector: add ddc-en gpio support")
+> Fixes: 6eb6b6f0a012 ("drm/bridge: display-connector: handle hdmi-pwr supply")
+> Cc: stable@vger.kernel.org	# 5.12
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Cc: H. Nikolaus Schaller <hns@goldelico.com>
+> Cc: Dmitry Baryshkov <lumag@kernel.org>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
+>  drivers/gpu/drm/bridge/display-connector.c | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+> index 16c0631adeb1..c38de5518211 100644
+> --- a/drivers/gpu/drm/bridge/display-connector.c
+> +++ b/drivers/gpu/drm/bridge/display-connector.c
+> @@ -208,6 +208,13 @@ static int display_connector_get_supply(struct platform_device *pdev,
+>  	return PTR_ERR_OR_ZERO(conn->supply);
+>  }
+>  
+> +static void display_connector_put_ddc(void *_ddc)
+> +{
+> +	struct i2c_adapter *ddc = _ddc;
+> +
+> +	i2c_put_adapter(ddc);
+> +}
+> +
+>  static int display_connector_probe(struct platform_device *pdev)
+>  {
+>  	struct display_connector *conn;
+> @@ -328,6 +335,12 @@ static int display_connector_probe(struct platform_device *pdev)
+>  			of_node_put(phandle);
+>  			if (!conn->bridge.ddc)
+>  				return -EPROBE_DEFER;
+> +
+> +			ret = devm_add_action_or_reset(&pdev->dev,
+> +						       display_connector_put_ddc,
+> +						       conn->bridge.ddc);
+> +			if (ret)
+> +				return ret;
+>  		} else {
+>  			dev_dbg(&pdev->dev,
+>  				"No I2C bus specified, disabling EDID readout\n");
+> @@ -403,9 +416,6 @@ static void display_connector_remove(struct platform_device *pdev)
+>  		regulator_disable(conn->supply);
+>  
+>  	drm_bridge_remove(&conn->bridge);
+> -
+> -	if (!IS_ERR(conn->bridge.ddc))
+> -		i2c_put_adapter(conn->bridge.ddc);
+>  }
+>  
+>  static const struct of_device_id display_connector_match[] = {
+
+-- 
+Regards,
+
+Laurent Pinchart
