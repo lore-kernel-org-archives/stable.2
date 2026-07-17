@@ -1,124 +1,241 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51283E0224
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 08:06:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F10943E0226;
+	Fri, 17 Jul 2026 08:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784275627; cv=none; b=TNOT3lro4RZ9kJNBDxvK2FhW5pL2cDkk8d+abaqYq3z7sRHsV5ue35hEx2Ew8Ko97xVxGNoYc4pI0i+n3y5w6SgvTtESCFVZcSyQDbLwDLyqHgjzuTrafEwPRF1kdRyzhw6RBYGMn96Ep0yKJReFrMcV9Hig8/toikugq/5npkY=
+	t=1784276126; cv=none; b=DIYm7Fyw0MvLzT6N73/guSiyf/QoiMQ3jyjb+nhDGCD8Ge8PbyCf0eBzTn0yOejup79DTRYwHSFWQeAfnOS96miCGXFN3haOSdjliMcPWEGw5ZkMjZb7bhJ6sSjVzk3XIqImFbMqNmBWItn7GcuEcWv4aeDVqRAYy9uT+vY0i84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784275627; c=relaxed/simple;
-	bh=t79G/LYMwsAfhRbBxWdx/4uZ2p2LpvRja3Ft/eWpBlw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M+5oww6P5OnltZPhJq4wLEHDTfL4ZGUJp6o3rt1TfWezDk3t7KoJpbKLL6Jl+161f4wH2Bp9QyQjuH16iYFfAFWJQEcNsvadqeDKm5yU2krLpNkRPLzyO41097q8X7nJIs+IxwwdhLzOUBaifcJVG7+OxDU9aqHfqie5/xcxqYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e5cr6cRz; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784276126; c=relaxed/simple;
+	bh=CypDGazUdzhzDylLJH0I9K4emm8xsSLi+DX8MCGlinQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Ue0Inebg9Zd582DUN2TVKGgJQpQeuGwp/xBk29G5ytBs9fZUJ4pij8ROZ+JU98DLf1HfTXH02ylcKExqWzVAHmh018pXVKvPro3tmBhXRM+7AdgWDCblIe4CUDgmDPpH0pPCKyU5nTRywOcHYArfI7BPtNY3Ky8CBLGfjY/PksA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=SjEXlQVx; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e5cr6cRz"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4953ddae026so17896685e9.3
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 01:06:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="SjEXlQVx"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784275614; x=1784880414; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hku7lsn7Y8coCKFT6sYY6u36fZf6kr/SG26MYxf+TCk=;
-        b=e5cr6cRzz5e4GI/zlKWasQxmrWohH2YvDzAhuA7NCIZt+i2LmOKMF/0ke42iLicACl
-         rY6nOO2dF2K9IVDe/9tHytKkPP+J8H+35Dqtc8xQD/9CE0sQZQL2V/W/dTAlnr6mrw87
-         dRhK3wzu8mIma4SUoZPzgmDBGrixOfgV/pZPAOokH5ZcmwETbshOodnuggtKhaSIjuLV
-         rW0+SliaExGfe+PVkFAvtt+y6Tj897ef1BvymqyR8PSsMtaUUR9CQgNKZIXFvlTFKIAJ
-         WZnCe7ToWbXQz3++ueYZIBBgkLC5xSkhmbfGCWuteFGIdKDStVqjOfkthJTf2Aox7Vd9
-         i7xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784275614; x=1784880414;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hku7lsn7Y8coCKFT6sYY6u36fZf6kr/SG26MYxf+TCk=;
-        b=mgSC2nlWaAiQzmSdf4L7DQ25jn6AAuCAs8KfgF67vb6Jgl0T7aCFPSL1WQN7yBOBdH
-         TA5Z7cHZB2yQsSV8SpGm7khECq4yNVkuQwdvKO+AlUyOXbpDQr5D2HPrycH5AF25Uezm
-         jfDLsat+KhO+Mhqrz0D0iJwruzazsPW5JlDr/yriA/9FTx0GYlm76qNLb/bphwoRidkF
-         W6U7hWJ4cMRwlQKeNSp450DH9gweo5wTMS8kuC8DgG7f3/xjUqTSklV1cD1dEHwWD5JW
-         z6H9/7GyooBZWQXw5/Kp+UKxuHAqUI35HM9ebD5HSxWE09AaXbyaMjnLHz4G3wFk3y2b
-         waKA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp46yirCR9V8XCMPywnk5GiHXke3LETVXAkr2I6oOj6N+VzFccpiH0g7r6Gq1XEW/ICjZXtlKM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxO47mVcx6S8sBzlspkCSC0bXB0H4FEsj9asVfROZRJlxE7gcc2
-	wiHyxRN36/cw/UkGDCOO6yTlgUAXHxoVWD1KsJRFPrUx517WW3jaHlV1
-X-Gm-Gg: AfdE7ckkII6Md0RfjVaH1272wzgKYxGLDs98kaF3XW/tQ7G6XVMs8jWQL8eBG5jxwg/
-	hmm//1mwYjMN0IXL50VA+PA5Wm3auhGDYuIncLRSP/d4pao0s6mePM2HTaL3JUDUqF2NPnkOmSi
-	0w84ROoRnyq1JC3sqUX7r8MDTy1nKevir9OeMPGMZ0ryclpQhxXGvxLb8kzwX1YXNZ5lcDXOUqe
-	NIYp9XqCDdDYxdP0ffrbS9Rp0KIsPgqd/UGIgu5OnJbilUmzTdOi4S8x+XziKQ5vE/ofyWfsd63
-	6Mn6geo+697Ep+VamcHsm3wNPCfEO0sd790xUC25oXRLeiFQEw237yfM/xAGoji+PRz8kv8SKRx
-	3GQRrwWlMOhgDvzCuvGU12B5TzLlh3ks8uEMHOTz8By3CinXHsJ9nqCnAxWblbY0THZjqomMgtK
-	GGzDgsaGdf+CEchD3WpMESmsOJaBiqe7FLMlBcRXI=
-X-Received: by 2002:a05:600c:4753:b0:493:bc4b:b8c with SMTP id 5b1f17b1804b1-4954a413024mr16451125e9.38.1784275613708;
-        Fri, 17 Jul 2026 01:06:53 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49549a47e64sm38939555e9.8.2026.07.17.01.06.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 01:06:53 -0700 (PDT)
-Date: Fri, 17 Jul 2026 09:06:52 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: wangdich9700@163.com
-Cc: tiwai@suse.de, broonie@kernel.org, wangdicheng@kylinos.cn,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 4/4] ASoC: tlv320aic32x4: Use div64_ul for division by
- unsigned long
-Message-ID: <20260717090652.6fccc633@pumpkin>
-In-Reply-To: <20260717070252.525545-5-wangdich9700@163.com>
-References: <20260717070252.525545-1-wangdich9700@163.com>
-	<20260717070252.525545-5-wangdich9700@163.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
+	Date:Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=OVD/l1O1steeViKQdCQV2xNlE/y/HpeiSx
+	bzhVMr2Kg=; b=SjEXlQVxGG1eWiTJvT72vwvhbEU45Jo4E3PF42bfFwc+MAbmO4
+	vB18csN0xZS84Of0O5GffAgUui8BRx2ORKVz6BzX4ggOyGcEpi2cF90yoNndLxNa
+	Z51qRYw7WCvyQ7WQU/E1HduuPLMFFsqv0BrfyXPKQHtZn6mZvbLNoOuqk=
+Received: from node118.platform-default.svc.cluster.local (unknown [36.102.215.18])
+	by web1 (Coremail) with SMTP id yAQGZQBnCMh45FlqWWMXAA--.33958S3;
+	Fri, 17 Jul 2026 16:15:05 +0800 (CST)
+From: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+To: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Eric Dumazet <edumazet@google.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>,
+	stable@vger.kernel.org,
+	yyxroy22@gmail.com
+Subject: [PATCH net 1/2] tcp: challenge ACK for non-exact RST in SYN-RECEIVED
+Date: Fri, 17 Jul 2026 08:14:42 +0000
+Message-Id: <20260717081443.809393-2-yangyx22@mails.tsinghua.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260717081443.809393-1-yangyx22@mails.tsinghua.edu.cn>
+References: <20260717081443.809393-1-yangyx22@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yAQGZQBnCMh45FlqWWMXAA--.33958S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3Jr15Jr1fGry5uw47Zr4Dtwb_yoW7uw43pF
+	WxCrWakr4DZayxuFn3A34DCwnxKws5Z34a934xX3yrAwn8Gr17CFWktr42vr1UCr4fuw4a
+	qas0gr42kF1DA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUdjb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIE
+	c7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2
+	xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2
+	jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5V
+	A0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_
+	Wrylc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
+	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+	xVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
+	8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
+	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
+	ZEXa7xRpc_SDUUUUU==
+X-CM-SenderInfo: 51dqw5r0ssqzpdlo2hxwvl0wxkxdhvlgxou0/
 
-On Fri, 17 Jul 2026 15:02:52 +0800
-wangdich9700@163.com wrote:
+The SYN-RECEIVED request-socket path in tcp_check_req() accepts an
+in-window RST without requiring SEG.SEQ to exactly match RCV.NXT.  A
+non-exact RST therefore removes the request instead of eliciting a
+challenge ACK.
 
-> From: wangdicheng <wangdicheng@kylinos.cn>
-> 
-> Fix a compiler warning about do_div() truncating an unsigned long divisor:
-> 
-> sound/soc/codecs/tlv320aic32x4-clk.c:169:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_ul instead.
-> 
-> do_div() truncates the divisor to 32 bits, but parent_rate is unsigned
-> long which is 64-bit on 64-bit platforms. Use div64_ul() to correctly
-> handle the unsigned long divisor across all architectures.
+RFC 9293 section 3.10.7.4 applies the RFC 5961 reset check in
+SYN-RECEIVED: an exact RST resets the connection, while a non-exact
+in-window RST must trigger a challenge ACK and be dropped.
 
-And the code has to process the same values on 32bit.
-So the value must fit in 32bits and do_div() is fine.
-Doesn't 'fix' anything.
+Apply that check before the ACK-field validation, following the RFC
+sequence-number, RST, then ACK processing order.  Factor the per-netns
+challenge ACK quota out of tcp_send_challenge_ack() so request sockets
+can share it.  Use the request socket's send_ack() callback and its own
+out-of-window ACK timestamp to send and rate-limit the response.
 
-	David
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Fixes: 282f23c6ee34 ("tcp: implement RFC 5961 3.2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+---
+ include/net/tcp.h        |  2 ++
+ net/ipv4/tcp_input.c     | 56 ++++++++++++++++++++++++++++++----------
+ net/ipv4/tcp_minisocks.c | 12 ++++++++-
+ 3 files changed, 56 insertions(+), 14 deletions(-)
 
-> 
-> Fixes: 514b044cba66 ("ASoC: tlv320aic32x4: Model PLL in CCF")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
-> ---
->  sound/soc/codecs/tlv320aic32x4-clk.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/codecs/tlv320aic32x4-clk.c b/sound/soc/codecs/tlv320aic32x4-clk.c
-> index 5c0a76a4a106..9359492051ad 100644
-> --- a/sound/soc/codecs/tlv320aic32x4-clk.c
-> +++ b/sound/soc/codecs/tlv320aic32x4-clk.c
-> @@ -166,7 +166,7 @@ static int clk_aic32x4_pll_calc_muldiv(struct clk_aic32x4_pll_muldiv *settings,
->  	 * math in the kernel.
->  	 */
->  	multiplier = (u64) rate * settings->p * 10000;
-> -	do_div(multiplier, parent_rate);
-> +	multiplier = div64_ul(multiplier, parent_rate);
->  
->  	/*
->  	 * J can't be over 64, so R can scale this.
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 6d376ea4d..2c5b88953 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -1974,6 +1974,8 @@ static inline void tcp_fast_path_check(struct sock *sk)
+ 
+ bool tcp_oow_rate_limited(struct net *net, const struct sk_buff *skb,
+ 			  int mib_idx, u32 *last_oow_ack_time);
++void tcp_reqsk_send_challenge_ack(struct sock *sk, struct sk_buff *skb,
++				  struct request_sock *req);
+ 
+ static inline void tcp_mib_init(struct net *net)
+ {
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index 61045a888..daff93d51 100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -4038,24 +4038,17 @@ static void tcp_send_ack_reflect_ect(struct sock *sk, bool accecn_reflector)
+ 	__tcp_send_ack(sk, tp->rcv_nxt, flags);
+ }
+ 
+-/* RFC 5961 7 [ACK Throttling] */
+-static void tcp_send_challenge_ack(struct sock *sk, bool accecn_reflector)
++/* Consume one slot from the per-netns RFC 5961 challenge ACK quota.
++ * Returns true if a challenge ACK may be sent.
++ */
++static bool tcp_challenge_ack_allowed(struct net *net)
+ {
+-	struct tcp_sock *tp = tcp_sk(sk);
+-	struct net *net = sock_net(sk);
+ 	u32 count, now, ack_limit;
+ 
+-	/* First check our per-socket dupack rate limit. */
+-	if (__tcp_oow_rate_limited(net,
+-				   LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
+-				   &tp->last_oow_ack_time))
+-		return;
+-
+ 	ack_limit = READ_ONCE(net->ipv4.sysctl_tcp_challenge_ack_limit);
+ 	if (ack_limit == INT_MAX)
+-		goto send_ack;
++		return true;
+ 
+-	/* Then check host-wide RFC 5961 rate limit. */
+ 	now = jiffies / HZ;
+ 	if (now != READ_ONCE(net->ipv4.tcp_challenge_timestamp)) {
+ 		u32 half = (ack_limit + 1) >> 1;
+@@ -4067,12 +4060,49 @@ static void tcp_send_challenge_ack(struct sock *sk, bool accecn_reflector)
+ 	count = READ_ONCE(net->ipv4.tcp_challenge_count);
+ 	if (count > 0) {
+ 		WRITE_ONCE(net->ipv4.tcp_challenge_count, count - 1);
+-send_ack:
++		return true;
++	}
++	return false;
++}
++
++/* RFC 5961 7 [ACK Throttling] */
++static void tcp_send_challenge_ack(struct sock *sk, bool accecn_reflector)
++{
++	struct tcp_sock *tp = tcp_sk(sk);
++	struct net *net = sock_net(sk);
++
++	/* First check our per-socket dupack rate limit. */
++	if (__tcp_oow_rate_limited(net,
++				   LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
++				   &tp->last_oow_ack_time))
++		return;
++
++	/* Then check the per-netns RFC 5961 rate limit. */
++	if (tcp_challenge_ack_allowed(net)) {
+ 		NET_INC_STATS(net, LINUX_MIB_TCPCHALLENGEACK);
+ 		tcp_send_ack_reflect_ect(sk, accecn_reflector);
+ 	}
+ }
+ 
++/* Send a challenge ACK from a SYN-RECEIVED request socket. Uses
++ * __tcp_oow_rate_limited() directly so that an RST carrying payload
++ * cannot bypass the per-request rate limit.
++ */
++void tcp_reqsk_send_challenge_ack(struct sock *sk, struct sk_buff *skb,
++				  struct request_sock *req)
++{
++	struct net *net = sock_net(sk);
++
++	if (__tcp_oow_rate_limited(net, LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
++				   &tcp_rsk(req)->last_oow_ack_time))
++		return;
++
++	if (tcp_challenge_ack_allowed(net)) {
++		NET_INC_STATS(net, LINUX_MIB_TCPCHALLENGEACK);
++		req->rsk_ops->send_ack(sk, skb, req);
++	}
++}
++
+ static void tcp_store_ts_recent(struct tcp_sock *tp)
+ {
+ 	tp->rx_opt.ts_recent = tp->rx_opt.rcv_tsval;
+diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
+index ddc4b17a8..6ab3e3a0b 100644
+--- a/net/ipv4/tcp_minisocks.c
++++ b/net/ipv4/tcp_minisocks.c
+@@ -833,7 +833,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
+ 	 * elsewhere and is checked directly against the child socket rather
+ 	 * than req because user data may have been sent out.
+ 	 */
+-	if ((flg & TCP_FLAG_ACK) && !fastopen &&
++	if ((flg & TCP_FLAG_ACK) && !(flg & TCP_FLAG_RST) && !fastopen &&
+ 	    (TCP_SKB_CB(skb)->ack_seq !=
+ 	     tcp_rsk(req)->snt_isn + 1))
+ 		return sk;
+@@ -872,6 +872,16 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
+ 		flg &= ~TCP_FLAG_SYN;
+ 	}
+ 
++	/* RFC 5961 section 3.2, as clarified by RFC 9293 section
++	 * 3.10.7.4, requires a challenge ACK for a non-exact
++	 * in-window RST in SYN-RECEIVED.
++	 */
++	if ((flg & TCP_FLAG_RST) &&
++	    TCP_SKB_CB(skb)->seq != tcp_rsk(req)->rcv_nxt) {
++		tcp_reqsk_send_challenge_ack(sk, skb, req);
++		return NULL;
++	}
++
+ 	/* RFC793: "second check the RST bit" and
+ 	 *	   "fourth, check the SYN bit"
+ 	 */
+-- 
+2.34.1
 
