@@ -1,141 +1,85 @@
-Received: from mxout5.mail.janestreet.com (mxout5.mail.janestreet.com [64.215.233.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D5213EC68B
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 16:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.215.233.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFB0318BA8;
+	Fri, 17 Jul 2026 16:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784304674; cv=none; b=dvKypLxWg52RVVwKJG72zvQ+51NI5+opVmhUBzHlpd7oYEY6FXOj7NjrhYR7PTwkavA6OU95bNQI5MmTtzfyUh441U5TWDZM6XOKsKZEIDSkMkF/G/+uCeXXB25nPbYSfqlfPyagaF9aElUTgWdV2RqSAE09n2jgfOBcKGUEbPY=
+	t=1784304967; cv=none; b=QIueJK62MF4ZZaxhBJfX2577hXkXTqOXuF81BLof4aCwG9qrHElfRVdaIFEaizCR5XMXgWGNrZDDSB6O7Jy72HVPJ1uv8yCBlvvoPwjiq5JNXd8G4kzQ3s2leSv1YdrDP2YrVPkAEUh07UX+TWYl0M8l/+a7yKWftY2MJx5kbTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784304674; c=relaxed/simple;
-	bh=8XmzPHHLac1BAEO/8BCt+dGNeXUdTN+Iy3oomvKGrdo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RzXWOU8rgRj6r7kt7nwgMLmB96DkdxdO8pjy9pDle5ySJ9YF2hSflJjHJ/yirSsHgUBMTnxLY5dQdIi+XtWbkoywM/FtbZ9NIDDgK2kyl2kP218xsQJDboqUQBqlscmScMapyJ4hKJhk4g83nO3SALljXQ5UTaiybYh6d/9ixHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=janestreet.com; spf=pass smtp.mailfrom=janestreet.com; dkim=pass (2048-bit key) header.d=janestreet.com header.i=@janestreet.com header.b=bQNdminc; arc=none smtp.client-ip=64.215.233.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=janestreet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=janestreet.com
+	s=arc-20240116; t=1784304967; c=relaxed/simple;
+	bh=Q0c3LAz0+gwYvfmYC0b/X4QUh/4mETCV6zZs9VNm29k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=reEGXDRWINiC6XMTKGgOsOBwiT9VsMUXxfReN+MCah5ALrPmWcbhFg+OcYLzAUNBxVtC0DtL7yUYx/2hP6DRzNvX1892is3e9d4tE3551ufwO4BxOHJ8iZHARvdoylA4BGHYujm/xqypz/b92/6C1u50SgqF/GsEEvg1ycPJ3Yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FKS7zoDF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=janestreet.com header.i=@janestreet.com header.b="bQNdminc"
-From: Eric Hagberg <ehagberg@janestreet.com>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
- 	sashal@kernel.org,
- 	dave.hansen@intel.com,
- 	dave.hansen@linux.intel.com,
- 	peterz@infradead.org,
- 	luto@kernel.org,
- 	x86@kernel.org,
- 	linux-kernel@vger.kernel.org,
- 	sforshee@kernel.org,
- 	gthelen@google.com,
- 	ehagberg@janestreet.com,
- 	nbarnes@janestreet.com,
- 	Stephen Dolan <sdolan@janestreet.com>
-Subject: [PATCH 6.1.y 6.6.y 6.12.y] x86/mm: Fix check/use ordering in switch_mm_irqs_off()
-Date: Fri, 17 Jul 2026 12:04:30 -0400
-Message-ID: <20260717160430.2857897-1-ehagberg@janestreet.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FKS7zoDF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 240831F000E9;
+	Fri, 17 Jul 2026 16:16:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784304965;
+	bh=jZgWRm5y/LtA8Hx+Cn4vDzKdPQ6SoScTdBSaUEIRnJ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FKS7zoDFsgPHGeTy+sZnTrtmNon2XfPsKqx2yFbNzan1Ym29gz90IprHQXMQhr5K3
+	 XUxtmYWLk0axxZz1oDuSEipc6E0ucdSRQKE58kkAvJTfF4gwo04Z8CEZ/+hRJKxWm+
+	 UD0FvIg2FWCOhUbCT3eX+dQj5T8g49fd0jIfIECZkziMG6gztN4iWMrxyScBnJu/Uc
+	 /UdKOtssfz46YKE+VoJEb/f2jsYbWA/0YYI6DQdk/q+jZi+W5mWxSDPQpPIe6txK4m
+	 YmG9Y0TAFT76eNNDKL04CEcuqCVq962UIN4GrYjIJ4aj9qwDXz2BPdRRA1rcU7WeP0
+	 Ocn3A2LLY5jCQ==
+Date: Fri, 17 Jul 2026 09:16:03 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: herbert@gondor.apana.org.au, stable@vger.kernel.org,
+	linux-crypto@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] crypto: xilinx-trng - Remove crypto_rng
+ interface" failed to apply to 7.1-stable tree
+Message-ID: <20260717161603.GC2046@quark>
+References: <2026071501-handstand-curtain-592d@gregkh>
+ <20260717021831.GA1847@sol>
+ <2026071718-agreeably-sapling-e9b4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=janestreet.com;
-  s=waixah; t=1784304314;
-  bh=+qFxQR3RFaq/ALtLCKtXkSDMyDLzKDdocHVaibS4brk=;
-  h=From:To:Cc:Subject:Date;
-  b=bQNdmincD6T6MolgO8Y2ISOmyesP8PTk/v0903nWGBu2ckNRTj7mx36Lpj5i1/+u3
-  woFPP6hoedOjhf5g6WWFEEdm903HvwQoweadvgGn9uv20R5Nh3MIVUsH3I/OzEBVHu
-  L43RdCDBH9a92BcHB9kEGOvOc6hsv/ViLe+A6eIEL2Ko9V2oqjt3xzAoJJhjU7EpzY
-  k4lQy2TRgGUyicFStOi/VVbZnEFuB2zXXduRvoUpvXM4g0BFF989yMQNwNgSy1iFZO
-  ao79f0nV0BOh74Xrr2aCSoOSgBhCy4nhsL0cjaiihRAx89ULdOp/JMldTI12U5Qy8W
-  LeYoYCT5RKGUw==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026071718-agreeably-sapling-e9b4@gregkh>
 
-This is a stable-specific fix. There is no single upstream commit to
-cherry-pick; the equivalent mainline fix is commit 83b0177a6c48
-("x86/mm: Fix SMP ordering in switch_mm_irqs_off()"), which is in
-v6.18 but does not apply to these trees because the surrounding code
-was refactored.
+On Fri, Jul 17, 2026 at 09:38:26AM +0200, Greg KH wrote:
+> On Thu, Jul 16, 2026 at 07:18:31PM -0700, Eric Biggers wrote:
+> > On Wed, Jul 15, 2026 at 12:16:01PM +0200, gregkh@linuxfoundation.org wrote:
+> > > 
+> > > The patch below does not apply to the 7.1-stable tree.
+> > > If someone wants it applied there, or to any other stable or longterm
+> > > tree, then please email the backport, including the original git commit
+> > > id to <stable@vger.kernel.org>.
+> > > 
+> > > To reproduce the conflict and resubmit, you may use the following commands:
+> > > 
+> > > git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+> > > git checkout FETCH_HEAD
+> > > git cherry-pick -x 32b4d29280ed2a991dc196d5845b892acedc63b8
+> > > # <resolve conflicts, build, test, etc.>
+> > > git commit -s
+> > > git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071501-handstand-curtain-592d@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+> > > 
+> > > Possible dependencies:
+> > 
+> > It actually cherry-picks cleanly.
+> 
+> Odd, I got this error:
+> Hunk #2 FAILED at 13.
 
-The backports of commit fea4e317f9e7 ("x86/mm: Eliminate window where
-TLB flushes may be inadvertently skipped") -- the fix for
-CVE-2025-37964 -- to the 6.1, 6.6 and 6.12 trees ended up with two
-code blocks in the wrong order relative to mainline. The fix depends
-on setting cpu_tlbstate.loaded_mm to LOADED_MM_SWITCHING *before*
-reading tlb_gen, so that a concurrent TLB shootdown either sees
-LOADED_MM_SWITCHING and sends the IPI, or the switching CPU sees the
-updated tlb_gen. In the stable trees the write of LOADED_MM_SWITCHING
-was placed after the tlb_gen read, so the race window fea4e317f9e7 was
-meant to close is still open and CVE-2025-37964 is unfixed there:
-a process can be left running with stale TLB entries, which typically
-manifests as rare, hard-to-bisect memory corruption or segfaults.
+Use 'git cherry-pick', just like you're telling everyone else to do.
 
-This has been confirmed by several independent parties:
+> > And you also failed to Cc the subsystem mailing list.
+> 
+> We don't do that for stable FAILED emails, as that would just spam too
+> many lists too often.
 
-  - reproduced on 6.1.y/6.6.y/6.12.y with the test program in [1],
-    and confirmed fixed by this patch
-  - Seth Forshee saw segfaults on 6.12.y within ~30 minutes of running
-    a test workload; with this patch it ran 18 hours cleanly [2]
-  - Greg Thelen reports 6.6.y- and 6.12.y-based test failures fixed by
-    this patch [3]
+They are part of the kernel development process and need to be sent to
+the proper lists.
 
-Dave Hansen acked the patch [4] and has no objection to it going into
-stable [5].
-
-The patch below is against 6.12.y; the identical change applies to
-6.1.y and 6.6.y. (The cpumask_test_cpu()/smp_mb() portion of the
-mainline fix is not needed here because commit 209954cbc7d0
-("x86/mm/tlb: Update mm_cpumask lazily") was never backported to these
-trees.)
-
-[1] https://lore.kernel.org/lkml/CAHDw0oGd0B4=uuv8NGqbUQ_ZVmSheU2bN70e4QhFXWvuAZdt2w@mail.gmail.com/
-[2] https://lore.kernel.org/lkml/aZYWXe739XUJrBld@do-x1carbon/
-[3] https://lore.kernel.org/lkml/CAHH2K0brx9omC9QYyB6Lio3t_1Lf8v=VaFoiaG23UgQ-aec89Q@mail.gmail.com/
-[4] https://lore.kernel.org/lkml/281e8018-5506-4a79-8775-e0de7e58b95f@intel.com/
-[5] https://lore.kernel.org/lkml/86421ee5-5332-46c2-bb48-d40310b818be@intel.com/
-
-Fixes: fea4e317f9e7 ("x86/mm: Eliminate window where TLB flushes may be inadvertently skipped")  # 6.1.y/6.6.y/6.12.y backports
-Acked-by: Dave Hansen <dave.hansen@intel.com>
-Tested-by: Seth Forshee <sforshee@kernel.org>
-Tested-by: Eric Hagberg <ehagberg@janestreet.com>
-Signed-off-by: Stephen Dolan <sdolan@janestreet.com>
----
- arch/x86/mm/tlb.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
-index 8629d90fdcd9..e87ef47cfb09 100644
---- a/arch/x86/mm/tlb.c
-+++ b/arch/x86/mm/tlb.c
-@@ -606,6 +606,14 @@ void switch_mm_irqs_off(struct mm_struct *unused, struct mm_struct *next,
- 		 */
- 		cond_mitigation(tsk);
- 
-+		/*
-+		 * Indicate that CR3 is about to change. nmi_uaccess_okay()
-+		 * and others are sensitive to the window where mm_cpumask(),
-+		 * CR3 and cpu_tlbstate.loaded_mm are not all in sync.
-+		 */
-+		this_cpu_write(cpu_tlbstate.loaded_mm, LOADED_MM_SWITCHING);
-+		barrier();
-+
- 		/*
- 		 * Stop remote flushes for the previous mm.
- 		 * Skip kernel threads; we never send init_mm TLB flushing IPIs,
-@@ -623,14 +631,6 @@ void switch_mm_irqs_off(struct mm_struct *unused, struct mm_struct *next,
- 		next_tlb_gen = atomic64_read(&next->context.tlb_gen);
- 
- 		choose_new_asid(next, next_tlb_gen, &new_asid, &need_flush);
--
--		/*
--		 * Indicate that CR3 is about to change. nmi_uaccess_okay()
--		 * and others are sensitive to the window where mm_cpumask(),
--		 * CR3 and cpu_tlbstate.loaded_mm are not all in sync.
--		 */
--		this_cpu_write(cpu_tlbstate.loaded_mm, LOADED_MM_SWITCHING);
--		barrier();
- 	}
- 
- 	new_lam = mm_lam_cr3_mask(next);
-
+- Eric
