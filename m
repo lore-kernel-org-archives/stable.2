@@ -1,202 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8AF3E00BE
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:23:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D2942903D
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:26:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784298195; cv=none; b=LLecJ8GJC92SVINVmO4AxmFBWOE+fDQavoZ/PZCVr3PlLN0jDni/Uwq2pgZ9iWCrXaXtBbFe2VPjTsP+Y/p+OBRR8btlMvcmKFvI77i5dNLEzAVuY2TQy4vx0l2JLad2u7tICo3JVVS1U0kFYp/CVYXK4moMuwzbJSJAyPJIfGs=
+	t=1784298409; cv=none; b=Y2SLHekmG3eYNrCCdEzrFuGaadVPHfgD8zM7WwCN8NsTiM52STNQm4VKVO7ZlnyvlLERvuN9k+GzAYoHTHta1fvNBEuKjiR2PZtfsWMtNgQ1sViKVo1mnTG8bCKowRevo0LinDpI1Gkp6XkLo5H7xF1fyVFdBQJk884UMNxhrfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784298195; c=relaxed/simple;
-	bh=+fyUN8BrkDuUeaeWUXXeFUYVtuicZI8+rgXAdIZaRxA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pR3S+m9STc9+WBixsC/icxaC+/CX+85E415+wo0cS5l3aMIrVyfqgbB6RIsGfU1DFnadV9eiKoo7PtbgN7e6Cn/NPsjcLrxpFbteJfHtauSSBrDVMCNpJv/tKnb980Aqmk/lF8sTzk5E6h004VZ+NLAAkGKOmolt3os9rjg2Q4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EM29jMS4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784298409; c=relaxed/simple;
+	bh=oohGbbAaLkslWdgC4Krwn0hyoZWvS3LxdokSu2BvOOE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=l/o3bjT7gly+ghzywJaowhmUIj9cInUFihfZG4XtGyjGmPwUES/3IKO0QyFIF8tv+5DpHm0Y81lTIjRGAHKhyOtdMp8YEgVpdMIv/zNigAbknvL/BDyYcJRYd+gL9CuQo9P+yGd9EwG4DuZuzBCmnLjOF8X/vZasWL8O2tXEu4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lbrK+kmf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZUBT7E/U; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EM29jMS4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02BC51F00A3D;
-	Fri, 17 Jul 2026 14:23:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784298194;
-	bh=rkHInHT2/Nrjui4SSXAES5s+aqySjTseT8NXozTE6KM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EM29jMS4ulJjMBEKp/v5NYiZNBJKxVN+bORKGBfAQCd98bfsre18JMGgG0EPLdOpC
-	 1+hJNXT/LkNq+qi6PPNo+U5LKoB6Ot7+hU7b35u3QVluO4hQqzWsCacWlNHTGZDrM+
-	 oXSOcyl6YGGV8Wal3+CYV/FTFzLgiSE1KPFNmMkyPgud9WhbYFVlsuSlaLE9Irzg2Y
-	 boeIVYCXjz0ZjsEK+WVucWm3Cj9fBxsVRz8nNgt167335nNz3mVZsazdTJQFbrEQFt
-	 X3VwL6o+2MsBKt+vvpZu7uGSV0JHfn6XLeMUMZZpQOugsHiGD0kQhEs6nFioNiWE0V
-	 /xt3383R9HNiA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Trung Nguyen <trungnh@cystack.net>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] HID: multitouch: fix out-of-bounds bit access on mt_io_flags
-Date: Fri, 17 Jul 2026 10:23:10 -0400
-Message-ID: <20260717142310.1824932-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717142310.1824932-1-sashal@kernel.org>
-References: <2026071418-scariness-mantis-da0b@gregkh>
- <20260717142310.1824932-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lbrK+kmf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZUBT7E/U"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HE7u7p2106276
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:26:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=DnJzG8liwW0p9lFDlKh2ng
+	X3HM625dVQVl02XQ3FxcY=; b=lbrK+kmfH333XrFlpHdgqI/hR6KKFJt/oLualr
+	FbUYywgIGmTrz1J2sHOBQMBxbunU1V0o0zDJAu82XNalwGAeOkQOUAyKmSKAwNTT
+	aBU+uxPQfk3vR21OFvlpVkKzVexXGlwinzzl+5gBw6P9F2R/qKNz20CF06j+NNLp
+	RldRXvyhUV7rLqnDs019caFkBkuZL8nf17/ffVqcKXey7oz96OgZH9Sf6LebAcmu
+	FkaODQ73Tif0DibIW+xudW2DCdHkBxSvJqVPeE8NJv2eeMLW2x9a6TK/rO4WwllB
+	b/Q8CD/WbRgqbvpgh46jfDUbDeT0FTiORi1ARYxS+5O1ZiTQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffhpfh3wx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:26:45 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51a8c689b5fso143334411cf.0
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 07:26:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784298405; x=1784903205; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DnJzG8liwW0p9lFDlKh2ngX3HM625dVQVl02XQ3FxcY=;
+        b=ZUBT7E/UlA0sdOs2wcGsi/gY8FK0CoQpROBkdGMaC6X13cIbZQqTc1l54RZwdRoP6q
+         FTwAbTaJTmqJP8YEebKBXtMFEVLM5OeUjcH7v9GWlEmDTuLTldJP3mqXBSRFLQ+XGysC
+         4iDvLAWOZLns9uvcM2HNVFmG5pLiQ7t+kz/5uDnr+h8WXx4cbAPHNxmmVvs/4flWEFQe
+         qGUm2Q6pRifL2c/+UJXKZZaIE4EJvhyEoL4IyUEEmZwdzVjaSGsV5q5f7Qqf0Li0jtir
+         W+bCRkDrvOR/xmt3o9K7KKSgNs4EaAgGo11aSk1tKORS1hlJ+AqhyQaPHr83xmc367nU
+         l6qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784298405; x=1784903205;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=DnJzG8liwW0p9lFDlKh2ngX3HM625dVQVl02XQ3FxcY=;
+        b=QDSTeUeUPt61ikHuVwDr4MaaUE8tCwYHDsjkB6aUnM53TcSRNTAT0CH8MaCScdmiak
+         LQFrq7E6FDE57OYJytWQVhTKOMhgWM4M5e/jo9oXTElYLSfJ4bSc66zomv/XHbnzLIyS
+         u6MZQ0A5eSk1ZBTFrWccYMElmNbTdQ+nONcCpLBZJxrt1Gsfry9WDrBhkc0HR4XnTJM7
+         Esh1v2TjNwrVbx5aMUhzHE5xe4m5t5Xtid3gBd2xrmTrCt3Ud6aSO6zhK24RYIHkf4jG
+         gc5A2LLv+1PyjneTOZjf1tBa5mVKRDn1jPKmL4k4pwCxx/YC0ef3ccX9N41zrfrelxyO
+         oZIg==
+X-Forwarded-Encrypted: i=1; AHgh+RpZLYZbGMn1ypb6kDDjZGxNPQ54+E0XWtMVzbe2xKDxWqHT2Gc0xrNHKmAMtRHYyvBkp68mPSk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6q/bB0PSwM7NiGZJGJTqkkS53jMpVKXv4nJvzp1Nt33UevQHX
+	g5kAK/svUS3WmuEosxemgQdZM7yE5Ck9pQhqf7QIyDdKm4IcLhX9ZCX97vH2eW/sga4SREuyBPy
+	O2rSEsxlaDFoYX7LZBXJqLbNpgUsB3QsbIQoYGEXQ87BTpOvJ7cO0Vvt0vKA=
+X-Gm-Gg: AfdE7cmElhA36hrXnTW6FtUYURwkvIJtuzo7QccYLYuvWKz079mfcSzrfp8Fu4ZuAak
+	1+PwReSjEMwnC2+w9Ip8+xJlCDFnm/TF812Xz36KB4OglxyI4TpNY2eVjIcQWChe2oJJ4mHNfbh
+	JhbLPwn1+yDe9+HzQjKe/mIKzoDUXhsXDPgu99uFJqJQjuHsvXMcwq+uN+nFW95/3d7KDwCSNgh
+	Ctr+ONwrQAkT+5g9ZdwTNTU8vHt1U7dAjDKQ2Hqv2nBKtOsfspbpS0YYorNOYnlB4wWWX9vGoaU
+	wTsKBnREasQ8AWp+HbBw2LijCvBXjo2giTHlwlE+FIVKB4ipzvYDop1rSjnJqd7T64JegG1ywiV
+	r2e0PVt4zLK2nQZ2IdZZyh7CQnIcecaVWpe02A3y2rLYf7VJFN4Iu2oluCNLgjvFSj7ylT/b5Kv
+	3uCIfDC2+qP2n9aIh+tlTU+cxuaWplBW0WeTjSk/XN2Zym1xiHjQo=
+X-Received: by 2002:a05:622a:22a2:b0:517:9407:5c36 with SMTP id d75a77b69052e-5213e28dc47mr24764221cf.53.1784298405282;
+        Fri, 17 Jul 2026 07:26:45 -0700 (PDT)
+X-Received: by 2002:a05:622a:22a2:b0:517:9407:5c36 with SMTP id d75a77b69052e-5213e28dc47mr24763851cf.53.1784298404832;
+        Fri, 17 Jul 2026 07:26:44 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:751c:d61c:c91:60dd])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69e7000688dsm824789a12.29.2026.07.17.07.26.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 07:26:43 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 17 Jul 2026 16:26:33 +0200
+Subject: [PATCH] block: partitions: of: Fix NULL dereference on partition
+ without reg
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260717-partition-null-v1-1-47984cff2d7e@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAJg7WmoC/x2MQQqAIBAAvyJ7bkEFk/pKdCjbakFMtCKQ/p50H
+ JiZApkSU4ZeFEh0c+YjVFCNALdPYSPkpTJoqVtplcU4pZPPamG4vMdZGtKuMy2RhRrFRCs//3A
+ Y3/cDHm7ZcWAAAAA=
+X-Change-ID: 20260717-partition-null-b05e2c956ee7
+To: Jens Axboe <axboe@kernel.dk>, Christian Marangi <ansuelsmth@gmail.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDE0NiBTYWx0ZWRfX8xzGNECQmUKH
+ 83Dg7WM+kuuRp6XLmSBhHHkgELlJiQA+wMqU0eMQpY93650PJSqiHLh6sUj0sVwpsZW74jZOMcQ
+ wbnXCnh44IJR9g6ttU3vG9F46lb+KI/KUd6J6LVTb2Za7tHq7b2NJVjzeaqi6HGjUBdFzEq9/tB
+ vXebk4NqfHgBGvZz+olvg61Tw2xPVP9nCE/vv3kmy4OOYpzmeq3vRkqVc+kIOwnAhPAf0RBDfp0
+ xpSWTBNJ9LfUVhRtTcbFvc4k8bl+zDPb+HgrEyV2h9qoTU+2Wb/sMK7/8i7bXy3UZxWUegqWHUr
+ Hxz/7jGVbWtSlZqfQCgdorbRlhAtOmg9VVmDWNXlFGjV5wO9sJpW5QNd8S2X20/9oPEcTvtAxAO
+ QVRtxRWWgGdWw/r5GKe6tV2qJpfl2pOF93yE3IG9RqFW2PKOsRKiH2+2Du4uDt1Qzho1JDw3V+9
+ n4sQoHhETSEkRhSnK9w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDE0NiBTYWx0ZWRfXy1MdtQ+LMlDP
+ V9HeyH0sNSy56t9GjOhmHV29SO8tnMVcg+gwXIK2jOcs8cDr8X4cov6wupI46is4DdBwf7ImwlU
+ pOYanWiD9952/gNQnjxGxm/HJNMO/n4=
+X-Authority-Analysis: v=2.4 cv=YeWNIQRf c=1 sm=1 tr=0 ts=6a5a3ba5 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=e4y8cmn4OwqddjlM7QMA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: qBvJ7Prmt7E07OLT3vE9ZAffKFeVvcsA
+X-Proofpoint-ORIG-GUID: qBvJ7Prmt7E07OLT3vE9ZAffKFeVvcsA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_04,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170146
 
-From: Trung Nguyen <trungnh@cystack.net>
+A child node of a fixed-partitions node may lack a reg property, either
+because it is malformed or because it is not a partition entry at all.
+In that case of_get_property() returns NULL to reg, which is then
+dereferenced without proper checking.
 
-[ Upstream commit 8813b0612275cc61fe9e6603d0ee019247ade6be ]
-
-mt_io_flags is a single unsigned long, but mt_process_slot(),
-mt_release_pending_palms() and mt_release_contacts() use it as a
-per-slot bitmap indexed by the slot number. That slot number is only
-bounded by td->maxcontacts, which is taken from the device's
-ContactCountMaximum feature report and can be up to 255, not by
-BITS_PER_LONG.
-
-As a result, a multitouch device that advertises a large contact count
-makes set_bit()/clear_bit() operate past the mt_io_flags word and
-corrupt the adjacent members of struct mt_device. The sticky-fingers
-release timer is the easiest way to reach this. mt_release_contacts()
-runs
-
-	for (i = 0; i < mt->num_slots; i++)
-		clear_bit(i, &td->mt_io_flags);
-
-with num_slots == maxcontacts. For maxcontacts around 250 the loop
-clears the bits that overlap td->applications.next, zeroing that list
-head, and the list_for_each_entry() that immediately follows then
-dereferences NULL. The kernel panics from timer (softirq) context. On a
-KASAN build this shows up as a general protection fault in
-mt_release_contacts() with a null-ptr-deref at offset 0x58, which is
-offsetof(struct mt_application, num_received).
-
-The state is reachable from an untrusted USB or Bluetooth HID
-multitouch device; no local privileges are required.
-
-Store the per-slot active state in a separately allocated bitmap sized
-for maxcontacts, the same pattern already used for pending_palm_slots,
-and keep only MT_IO_FLAGS_RUNNING in mt_io_flags. The two
-"mt_io_flags & MT_IO_SLOTS_MASK" arming checks become
-bitmap_empty(td->active_slots, td->maxcontacts).
-
-Move MT_IO_FLAGS_RUNNING back to bit 0. It was bumped to bit 32 by the
-same commit to leave the low byte for the slot bits; with the slot bits
-gone it fits in bit 0 again, which also keeps it within the unsigned
-long on 32-bit.
-
-Fixes: 46f781e0d151 ("HID: multitouch: fix sticky fingers")
+Fixes: 2e3a191e89f9 ("block: add support for partition table defined in OF")
 Cc: stable@vger.kernel.org
-Signed-off-by: Trung Nguyen <trungnh@cystack.net>
-Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/hid/hid-multitouch.c | 32 ++++++++++++++++++++------------
- 1 file changed, 20 insertions(+), 12 deletions(-)
+ block/partitions/of.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 6c04eed0a46464..4481bf5c9133d5 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -31,6 +31,7 @@
-  * [1] https://gitlab.freedesktop.org/libevdev/hid-tools
-  */
+diff --git a/block/partitions/of.c b/block/partitions/of.c
+index 53664ea06b6540e3d1155141adaafac7286f2d21..dab36513eba336344c9558d486a8915624b0fca8 100644
+--- a/block/partitions/of.c
++++ b/block/partitions/of.c
+@@ -15,6 +15,9 @@ static int validate_of_partition(struct device_node *np, int slot)
+ 	int a_cells = of_n_addr_cells(np);
+ 	int s_cells = of_n_size_cells(np);
  
-+#include <linux/bitmap.h>
- #include <linux/device.h>
- #include <linux/hid.h>
- #include <linux/module.h>
-@@ -83,8 +84,7 @@ enum latency_mode {
- 	HID_LATENCY_HIGH = 1,
- };
- 
--#define MT_IO_SLOTS_MASK		GENMASK(7, 0) /* reserve first 8 bits for slot tracking */
--#define MT_IO_FLAGS_RUNNING		32
-+#define MT_IO_FLAGS_RUNNING		0
- 
- static const bool mtrue = true;		/* default for true */
- static const bool mfalse;		/* default for false */
-@@ -160,10 +160,9 @@ struct mt_device {
- 	struct mt_class mtclass;	/* our mt device class */
- 	struct timer_list release_timer;	/* to release sticky fingers */
- 	struct hid_device *hdev;	/* hid_device we're attached to */
--	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING)
--					 * first 8 bits are reserved for keeping the slot
--					 * states, this is fine because we only support up
--					 * to 250 slots (MT_MAX_MAXCONTACT)
-+	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING) */
-+	unsigned long *active_slots;	/* bitmap of slots with an active
-+					 * contact, sized for maxcontacts
- 					 */
- 	__u8 inputmode_value;	/* InputMode HID feature value */
- 	__u8 maxcontacts;
-@@ -947,7 +946,7 @@ static void mt_release_pending_palms(struct mt_device *td,
- 
- 	for_each_set_bit(slotnum, app->pending_palm_slots, td->maxcontacts) {
- 		clear_bit(slotnum, app->pending_palm_slots);
--		clear_bit(slotnum, &td->mt_io_flags);
-+		clear_bit(slotnum, td->active_slots);
- 
- 		input_mt_slot(input, slotnum);
- 		input_mt_report_slot_inactive(input);
-@@ -1153,9 +1152,9 @@ static int mt_process_slot(struct mt_device *td, struct input_dev *input,
- 		input_event(input, EV_ABS, ABS_MT_TOUCH_MAJOR, major);
- 		input_event(input, EV_ABS, ABS_MT_TOUCH_MINOR, minor);
- 
--		set_bit(slotnum, &td->mt_io_flags);
-+		set_bit(slotnum, td->active_slots);
- 	} else {
--		clear_bit(slotnum, &td->mt_io_flags);
-+		clear_bit(slotnum, td->active_slots);
- 	}
- 
- 	return 0;
-@@ -1290,7 +1289,7 @@ static void mt_touch_report(struct hid_device *hid,
- 	 * defect.
- 	 */
- 	if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
--		if (td->mt_io_flags & MT_IO_SLOTS_MASK)
-+		if (!bitmap_empty(td->active_slots, td->maxcontacts))
- 			mod_timer(&td->release_timer,
- 				  jiffies + msecs_to_jiffies(100));
- 		else
-@@ -1330,6 +1329,15 @@ static int mt_touch_input_configured(struct hid_device *hdev,
- 	if (td->is_buttonpad)
- 		__set_bit(INPUT_PROP_BUTTONPAD, input->propbit);
- 
-+	if (!td->active_slots) {
-+		td->active_slots = devm_kcalloc(&td->hdev->dev,
-+						BITS_TO_LONGS(td->maxcontacts),
-+						sizeof(long),
-+						GFP_KERNEL);
-+		if (!td->active_slots)
-+			return -ENOMEM;
-+	}
++	if (!reg)
++		return -EINVAL;
 +
- 	app->pending_palm_slots = devm_kcalloc(&hi->input->dev,
- 					       BITS_TO_LONGS(td->maxcontacts),
- 					       sizeof(long),
-@@ -1738,7 +1746,7 @@ static void mt_release_contacts(struct hid_device *hid)
- 			for (i = 0; i < mt->num_slots; i++) {
- 				input_mt_slot(input_dev, i);
- 				input_mt_report_slot_inactive(input_dev);
--				clear_bit(i, &td->mt_io_flags);
-+				clear_bit(i, td->active_slots);
- 			}
- 			input_mt_sync_frame(input_dev);
- 			input_sync(input_dev);
-@@ -1761,7 +1769,7 @@ static void mt_expired_timeout(struct timer_list *t)
- 	 */
- 	if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
- 		return;
--	if (td->mt_io_flags & MT_IO_SLOTS_MASK)
-+	if (!bitmap_empty(td->active_slots, td->maxcontacts))
- 		mt_release_contacts(hdev);
- 	clear_bit_unlock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags);
- }
+ 	/* Make sure reg len match the expected addr and size cells */
+ 	if (len / sizeof(*reg) != a_cells + s_cells)
+ 		return -EINVAL;
+
+---
+base-commit: fce2dfa773ced15f27dd27cd0b482a7473cdcf2a
+change-id: 20260717-partition-null-b05e2c956ee7
+
+Best regards,
 -- 
-2.53.0
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
