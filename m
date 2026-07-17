@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A523D37882A;
-	Fri, 17 Jul 2026 07:38:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248203B892D;
+	Fri, 17 Jul 2026 07:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784273917; cv=none; b=Tt9K66Tsr28l2CFV97Bf+04Ti/Sa4NsHB73GhGY69PtCuYTMHdXE9QXM6OEEVvKCtEM9JkXg879r19fkGy6eypb7XZHm6aI/ixILQsrBoF7ROn5rMFAkYJ3ORy6yK/8t4OSGZBOZBfbvC/na7f8/6TnQzvgJfq3rYqzwHEGq/do=
+	t=1784273971; cv=none; b=ke3Y/ocaNqOSIXsKJKMzHSqGk6hbZlF04s6Bb5wAJE3jd/Abu6ekWYbn9Ze+boy9uaOMFOhvSoZL0YMSSqMCiwBynFa+24NfAX5HyRQf4mIdHCD6jmxrmJsqgqARLjV/immH2er6mEMjzLlH0YAvGpldlgTBuV9DlQ5jwfzOEX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784273917; c=relaxed/simple;
-	bh=35Egi6eYojtwSuFv2vZqQOmZXxTNspHF/kyNeaQV+6k=;
+	s=arc-20240116; t=1784273971; c=relaxed/simple;
+	bh=5tFL1PH7prPzH4wPyJtK7F3tr0cOvgbRcwxfot9bFCA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gUcWj1AG+JPypRhck209B6RQu6eyIDoXtZ+fqBpdKgCZi7Z2G1g42yxbJ1AvVKtJh/xCQeuQB6NkF6A8BfZUb6gJapGY/LUzF8syl0I2qsMFlX1FRSjEOBAIVu5qm5lPhD4tI/er4XaxEglePtRwPbCJRpmJaASUjIrHGgbpxxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZsqBt1iy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ben0+1dp40nklw05OgG46lxTO1DRSTOiCCsdr4CIbfIrId357NistbK/nLi1MPpvHtH/v5TJRkxl956X1CCuf0Di5UGf4Wzpfc7JQVMSd1/J77MHJfbnUtR+cxTKesI8oKnrl81Blrn+SMxALC7Evq/Uh2+zFONgyusqXq2oJbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=r4azZUBw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZsqBt1iy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFDFC1F000E9;
-	Fri, 17 Jul 2026 07:38:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="r4azZUBw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1F741F000E9;
+	Fri, 17 Jul 2026 07:39:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784273913;
-	bh=3bTr/9a59bs+l9+c0stRNq6g+HWb2iB6xnFMyoYzLsk=;
+	s=korg; t=1784273969;
+	bh=5c3hFhVg+UxNhtE1IvSzccMYNFWd7NfOTEs/lnb1Dg8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZsqBt1iyWGyZOFpeRsX5JxBs4Dh7Hq2nc7xbmdCUUlhPcG3mLSwdM6ZVU1A+pmNyz
-	 MykGQ6NKQJaNE3NdrCwOfPQlCur6ZZhs3roEwfE/zM72GBO0cxcRZe+DdtNFaMDWsD
-	 C6fnFHvLkqLwKFA4/G+WxYzAxiRRm0cSinvXzuQ0=
-Date: Fri, 17 Jul 2026 09:38:26 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: herbert@gondor.apana.org.au, stable@vger.kernel.org,
-	linux-crypto@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] crypto: xilinx-trng - Remove crypto_rng
- interface" failed to apply to 7.1-stable tree
-Message-ID: <2026071718-agreeably-sapling-e9b4@gregkh>
-References: <2026071501-handstand-curtain-592d@gregkh>
- <20260717021831.GA1847@sol>
+	b=r4azZUBwWDzat///77IR1BSRzNZnLcG5xcmhOh+SXfY3hxtYc5uMNBrhKbgvLNuiX
+	 IwESNe5PvuS89/RLp2HyT8BaB5Ar+1xC/5ZV4nqAbxyc+Of8gfbOwR9d986sczw/Iy
+	 JtzZ8MUecry5VUkQj3WXfR9R/EXso40a9xQ/pP7Q=
+Date: Fri, 17 Jul 2026 09:39:22 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Vivian Wang <wangruikang@iscas.ac.cn>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	Paul Walmsley <pjw@kernel.org>, Han Gao <gaohan@iscas.ac.cn>
+Subject: Re: [PATCH 6.12 310/349] riscv: mm: Define DIRECT_MAP_PHYSMEM_END
+Message-ID: <2026071714-clarinet-diabetes-279d@gregkh>
+References: <20260716133033.287196923@linuxfoundation.org>
+ <20260716133040.256132969@linuxfoundation.org>
+ <777f4850-cfa8-4751-b3cd-2875f55c20e6@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,37 +41,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260717021831.GA1847@sol>
+In-Reply-To: <777f4850-cfa8-4751-b3cd-2875f55c20e6@iscas.ac.cn>
 
-On Thu, Jul 16, 2026 at 07:18:31PM -0700, Eric Biggers wrote:
-> On Wed, Jul 15, 2026 at 12:16:01PM +0200, gregkh@linuxfoundation.org wrote:
-> > 
-> > The patch below does not apply to the 7.1-stable tree.
-> > If someone wants it applied there, or to any other stable or longterm
-> > tree, then please email the backport, including the original git commit
-> > id to <stable@vger.kernel.org>.
-> > 
-> > To reproduce the conflict and resubmit, you may use the following commands:
-> > 
-> > git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
-> > git checkout FETCH_HEAD
-> > git cherry-pick -x 32b4d29280ed2a991dc196d5845b892acedc63b8
-> > # <resolve conflicts, build, test, etc.>
-> > git commit -s
-> > git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071501-handstand-curtain-592d@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
-> > 
-> > Possible dependencies:
+On Fri, Jul 17, 2026 at 01:20:36AM +0800, Vivian Wang wrote:
+> On 7/16/26 21:34, Greg Kroah-Hartman wrote:
 > 
-> It actually cherry-picks cleanly.
+> > 6.12-stable review patch.  If anyone has any objections, please let me know.
+> >
+> > ------------------
+> >
+> > From: Vivian Wang <wangruikang@iscas.ac.cn>
+> >
+> > commit f3336b48cf9d3f2d1fc78e3289c0ded2f00876ee upstream.
+> >
+> > On RISC-V, the actual mappable range of physical address space is
+> > dependent on the current MMU mode i.e. satp_mode (See
+> > Documentation/arch/riscv/vm-layout.rst).
+> >
+> > Define the DIRECT_MAP_PHYSMEM_END macro based on the existing virtual
+> > address space layout macros to expose this information to
+> > get_free_mem_region(). Otherwise, it returns a region that couldn't be
+> > mapped, which breaks ZONE_DEVICE.
+> >
+> > Cc: stable@vger.kernel.org # v6.13+
+> 
+> Please drop for all <= 6.12 (so, keep for 6.18.y, 7.1.y; drop for
+> 6.12.y, 6.6.y, 6.1.y, 5.15.y).
+> 
+> The name DIRECT_MAP_PHYSMEM_END is only in use since 6.13 (commit
+> afe789b7367a ("kaslr: rename physmem_end and PHYSMEM_END to
+> direct_map_physmem_end")). It does nothing for earlier versions. I also
+> don't think it's important enough to be worth backporting for these
+> older branches.
 
-Odd, I got this error:
-Hunk #2 FAILED at 13.
-
-> And you also failed to Cc the subsystem mailing list.
-
-We don't do that for stable FAILED emails, as that would just spam too
-many lists too often.
-
-thanks for the backports!
+Now dropped, thanks for the the review!
 
 greg k-h
