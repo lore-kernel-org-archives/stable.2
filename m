@@ -1,54 +1,45 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A47314D35
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 15:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4934836F415;
+	Fri, 17 Jul 2026 15:51:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784303475; cv=none; b=ABKQxywhA82X+LCnSSplx9XB18idR9pdiw0OYdI7pfIMfM9kNqAiJ5NfQ17lWmT5Yp++ra8Ai3CasdmYUogYBY19i9k9br5EfcZ8ZGZhYCVUoyRpgi5iPa99RBaXTlN42b+lhLLSNtLOA+6Hg68xBAzfWrJfUzThOSASLwxvvKY=
+	t=1784303483; cv=none; b=UYVbiDvGQML6t4C5ooLXvUFyeWq80wbABbHd4ly6arUeKq65RWH8PG6G+p4xBYGKMwmyFIdDfyenAM/8uVfEEQgKx4FLm/ooi6xGqQyuD7zKN6eWzEFSOZdttr+VIxDeLPlIwIIhHckDTVB/CytztcxGGpLWwtZid3gRFgw00/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784303475; c=relaxed/simple;
-	bh=GYJP/Qkkuv8SC1nesZ+zygEQnpqogv4O8mP20JmumIg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PVDzwuLo97kXsRU9M8iF0uJBScVONa8qE5Lh706X1JvE9Yme4DaTr8yCNDQyuqhpLiuN7xGikJ88Q/mKNsBTMMnMz7uy/3PKCgQHxQzec4zTMxb7KGKDOEhjzWnwYx1SVttikrQ1eUD8Zy1SHhpdBfd3a2DuESvuWh8001wJIZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DVsv/XcZ; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784303483; c=relaxed/simple;
+	bh=xBFgSomNCRi+tDQPbgAd2B3Dn2bAKVQsUrmJ2vJGI80=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gnwEvazTq0MWL6zo5RIRWfgW6RNLuhBARcKKJWpqq3J8Gr82FO3LcVT64ywPIOpiKtw92io3WN+OZqDKM9SPAZyrNVvVRiS52WAaawGe1ENJxRxIMzwa1nfp/DEwiTqSoTPl72z1yjlb/RaD9q7WztRuvcg0SWBMlO/ZE92ViZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=co5XnJeO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DVsv/XcZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784303473; x=1815839473;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=GYJP/Qkkuv8SC1nesZ+zygEQnpqogv4O8mP20JmumIg=;
-  b=DVsv/XcZMtxM+DT0l5WQNZjQ7iRbsrxicVgnMCjUurmIixEsrhnecbat
-   JXkR00azxQH6aggPQ8yonltu55EutQ6sr32FSFxLEpq9t1ryIEQj0FpIO
-   fB758zN9oZ9jVX9o+c8ai+fWqMRGidoDETjogSRmIfKsSi0MIYVqKu0Xj
-   EXpAfVCq8I6Nfa5ej9iNPSycV6P1G3aMguA59lTXs/tKam/YRBYpo4nCr
-   uT9Tjx9kiqppdXRfDt4r6cxSWre6SoG75D4kvP3bLJ9zyutW0V8Pc2l91
-   9zSFppgvMXntFOfoJmMfxElqhTOxQvdF5jYDrqJEjqvo1x2/Nq2ni02db
-   A==;
-X-CSE-ConnectionGUID: 3onBN8tzT1uIBs4uuRLT3w==
-X-CSE-MsgGUID: HOcbt2q8SxOFHJoVckmfUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="96112550"
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="96112550"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 08:51:12 -0700
-X-CSE-ConnectionGUID: 05KjFR8HTwO1JHWIrXr50g==
-X-CSE-MsgGUID: nAsNTk8cRAmFYlI9eCCxng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="257452336"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.241])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 08:51:10 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] drm/i915/cdclk: Avoid spurious cdclk sanitization on PTL+
-Date: Fri, 17 Jul 2026 18:51:06 +0300
-Message-ID: <20260717155107.17801-1-ville.syrjala@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="co5XnJeO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE8F1F000E9;
+	Fri, 17 Jul 2026 15:51:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784303481;
+	bh=0oqxau51EGKx57oku9xsQOfk6GBi1jETcfV+2YVQ3ow=;
+	h=From:To:Cc:Subject:Date;
+	b=co5XnJeOeQhVC3VInEvUrEbB8ZDoww+NXJe4cyoVIOLUZSYJtI0GColUNDUFhaDRj
+	 VIHm23b8Moeb0jEmLlh7Xd9EMK/USiXzJkTz4Kdxl7jqOrWIhk0xbSl30y+ZWq59wE
+	 cQlcHdrGVdfC86ZUGjtexmuNYbNp3g8zVf4zb+IGaAOOuo5wSicxlEeN2HU6Y7NLof
+	 drXzJvvIt5rUcQaSAgrrv844lxNCu6kBEvVL/offm9ZguSDOtGus8VjlB20zUZ2Y6Q
+	 nI7gnJxJqPbfTRU8dXQiUkveAR1UVNSVjiiN+BcuiL2JhJuIi+/JD6G3YinfvTyDC1
+	 fvh4WpU8eIGBw==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1wkkqN-00000007mKZ-2FbP;
+	Fri, 17 Jul 2026 17:51:19 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	stable@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH] USB: phy: fsl-usb: fix missing static keywords
+Date: Fri, 17 Jul 2026 17:49:57 +0200
+Message-ID: <20260717154957.1853976-1-johan@kernel.org>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -56,44 +47,277 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+A recent change enabling compile testing of a Freescale dual-role
+controller indirectly enabled a USB PHY driver to be built. That driver
+in turn is missing a bunch of static keywords which results in warnings
+like:
 
-Apparently PTL+ no longer has the cd2x pipe select field in
-CDCLK_CTL. Take that into account during CDCLK sanitization.
+drivers/usb/phy/phy-fsl-usb.c:105:5: error: no previous prototype for 'write_ulpi' [-Werror=missing-prototypes]
+  105 | int write_ulpi(u8 addr, u8 data)
+        |     ^~~~~~~~~~
 
-This currently triggers a spurious CDCLK sanitization during
-driver load on PTL+ which will causes a visible glitch on all
-active displays.
+which consequently breaks -Werror builds.
 
-Cc: stable@vger.kernel.org
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8550
-Fixes: 3f9de66f8acb ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Add the missing static keywords.
+
+Fixes: 0807c500a1a6 ("USB: add Freescale USB OTG Transceiver driver")
+Cc: stable@vger.kernel.org	# 3.0
+Reported-by: Mark Brown <broonie@kernel.org>
+Link: https://lore.kernel.org/r/4f9f5ff9-8eaa-4bd5-9331-37119f78e13f@sirena.org.uk
+Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/usb/phy/phy-fsl-usb.c | 52 +++++++++++++++++------------------
+ drivers/usb/phy/phy-fsl-usb.h |  6 ++--
+ 2 files changed, 29 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index a53d88727177..9e5e15b0c4d1 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2381,8 +2381,10 @@ static void bxt_sanitize_cdclk(struct intel_display *display)
- 	 * dividers both syncing to an active pipe, or asynchronously
- 	 * (PIPE_NONE).
- 	 */
--	cdctl &= ~bxt_cdclk_cd2x_pipe_mask(display);
--	cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-+	if (DISPLAY_VER(display) < 30) {
-+		cdctl &= ~bxt_cdclk_cd2x_pipe_mask(display);
-+		cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-+	}
+diff --git a/drivers/usb/phy/phy-fsl-usb.c b/drivers/usb/phy/phy-fsl-usb.c
+index 35d79f11b03d..1986f7e9d9be 100644
+--- a/drivers/usb/phy/phy-fsl-usb.c
++++ b/drivers/usb/phy/phy-fsl-usb.c
+@@ -46,7 +46,7 @@
  
- 	if (cdctl != expected) {
- 		if (DISPLAY_VER(display) < 20) {
+ static const char driver_name[] = "fsl-usb2-otg";
+ 
+-const pm_message_t otg_suspend_state = {
++static const pm_message_t otg_suspend_state = {
+ 	.event = 1,
+ };
+ 
+@@ -57,11 +57,11 @@ static struct fsl_otg *fsl_otg_dev;
+ static int srp_wait_done;
+ 
+ /* FSM timers */
+-struct fsl_otg_timer *a_wait_vrise_tmr, *a_wait_bcon_tmr, *a_aidl_bdis_tmr,
++static struct fsl_otg_timer *a_wait_vrise_tmr, *a_wait_bcon_tmr, *a_aidl_bdis_tmr,
+ 	*b_ase0_brst_tmr, *b_se0_srp_tmr;
+ 
+ /* Driver specific timers */
+-struct fsl_otg_timer *b_data_pulse_tmr, *b_vbus_pulse_tmr, *b_srp_fail_tmr,
++static struct fsl_otg_timer *b_data_pulse_tmr, *b_vbus_pulse_tmr, *b_srp_fail_tmr,
+ 	*b_srp_wait_tmr, *a_wait_enum_tmr;
+ 
+ static struct list_head active_timers;
+@@ -102,7 +102,7 @@ static void (*_fsl_writel)(u32 v, unsigned __iomem *p);
+ #define fsl_writel(val, addr)	writel(val, addr)
+ #endif /* CONFIG_PPC32 */
+ 
+-int write_ulpi(u8 addr, u8 data)
++static int write_ulpi(u8 addr, u8 data)
+ {
+ 	u32 temp;
+ 
+@@ -115,7 +115,7 @@ int write_ulpi(u8 addr, u8 data)
+ /* Operations that will be called from OTG Finite State Machine */
+ 
+ /* Charge vbus for vbus pulsing in SRP */
+-void fsl_otg_chrg_vbus(struct otg_fsm *fsm, int on)
++static void fsl_otg_chrg_vbus(struct otg_fsm *fsm, int on)
+ {
+ 	u32 tmp;
+ 
+@@ -133,7 +133,7 @@ void fsl_otg_chrg_vbus(struct otg_fsm *fsm, int on)
+ }
+ 
+ /* Discharge vbus through a resistor to ground */
+-void fsl_otg_dischrg_vbus(int on)
++static void fsl_otg_dischrg_vbus(int on)
+ {
+ 	u32 tmp;
+ 
+@@ -151,7 +151,7 @@ void fsl_otg_dischrg_vbus(int on)
+ }
+ 
+ /* A-device driver vbus, controlled through PP bit in PORTSC */
+-void fsl_otg_drv_vbus(struct otg_fsm *fsm, int on)
++static void fsl_otg_drv_vbus(struct otg_fsm *fsm, int on)
+ {
+ 	u32 tmp;
+ 
+@@ -169,7 +169,7 @@ void fsl_otg_drv_vbus(struct otg_fsm *fsm, int on)
+  * Pull-up D+, signalling connect by periperal. Also used in
+  * data-line pulsing in SRP
+  */
+-void fsl_otg_loc_conn(struct otg_fsm *fsm, int on)
++static void fsl_otg_loc_conn(struct otg_fsm *fsm, int on)
+ {
+ 	u32 tmp;
+ 
+@@ -188,7 +188,7 @@ void fsl_otg_loc_conn(struct otg_fsm *fsm, int on)
+  * port.  In host mode, controller will automatically send SOF.
+  * Suspend will block the data on the port.
+  */
+-void fsl_otg_loc_sof(struct otg_fsm *fsm, int on)
++static void fsl_otg_loc_sof(struct otg_fsm *fsm, int on)
+ {
+ 	u32 tmp;
+ 
+@@ -203,7 +203,7 @@ void fsl_otg_loc_sof(struct otg_fsm *fsm, int on)
+ }
+ 
+ /* Start SRP pulsing by data-line pulsing, followed with v-bus pulsing. */
+-void fsl_otg_start_pulse(struct otg_fsm *fsm)
++static void fsl_otg_start_pulse(struct otg_fsm *fsm)
+ {
+ 	u32 tmp;
+ 
+@@ -219,7 +219,7 @@ void fsl_otg_start_pulse(struct otg_fsm *fsm)
+ 	fsl_otg_add_timer(fsm, b_data_pulse_tmr);
+ }
+ 
+-void b_data_pulse_end(unsigned long foo)
++static void b_data_pulse_end(unsigned long foo)
+ {
+ #ifdef HA_DATA_PULSE
+ #else
+@@ -230,7 +230,7 @@ void b_data_pulse_end(unsigned long foo)
+ 	fsl_otg_pulse_vbus();
+ }
+ 
+-void fsl_otg_pulse_vbus(void)
++static void fsl_otg_pulse_vbus(void)
+ {
+ 	srp_wait_done = 0;
+ 	fsl_otg_chrg_vbus(&fsl_otg_dev->fsm, 1);
+@@ -238,7 +238,7 @@ void fsl_otg_pulse_vbus(void)
+ 	fsl_otg_add_timer(&fsl_otg_dev->fsm, b_vbus_pulse_tmr);
+ }
+ 
+-void b_vbus_pulse_end(unsigned long foo)
++static void b_vbus_pulse_end(unsigned long foo)
+ {
+ 	fsl_otg_chrg_vbus(&fsl_otg_dev->fsm, 0);
+ 
+@@ -251,7 +251,7 @@ void b_vbus_pulse_end(unsigned long foo)
+ 	fsl_otg_add_timer(&fsl_otg_dev->fsm, b_srp_wait_tmr);
+ }
+ 
+-void b_srp_end(unsigned long foo)
++static void b_srp_end(unsigned long foo)
+ {
+ 	fsl_otg_dischrg_vbus(0);
+ 	srp_wait_done = 1;
+@@ -266,7 +266,7 @@ void b_srp_end(unsigned long foo)
+  * a_host will start by SRP.  It needs to set b_hnp_enable before
+  * actually suspending to start HNP
+  */
+-void a_wait_enum(unsigned long foo)
++static void a_wait_enum(unsigned long foo)
+ {
+ 	VDBG("a_wait_enum timeout\n");
+ 	if (!fsl_otg_dev->phy.otg->host->b_hnp_enable)
+@@ -276,13 +276,13 @@ void a_wait_enum(unsigned long foo)
+ }
+ 
+ /* The timeout callback function to set time out bit */
+-void set_tmout(unsigned long indicator)
++static void set_tmout(unsigned long indicator)
+ {
+ 	*(int *)indicator = 1;
+ }
+ 
+ /* Initialize timers */
+-int fsl_otg_init_timers(struct otg_fsm *fsm)
++static int fsl_otg_init_timers(struct otg_fsm *fsm)
+ {
+ 	/* FSM used timers */
+ 	a_wait_vrise_tmr = otg_timer_initializer(&set_tmout, TA_WAIT_VRISE,
+@@ -339,7 +339,7 @@ int fsl_otg_init_timers(struct otg_fsm *fsm)
+ }
+ 
+ /* Uninitialize timers */
+-void fsl_otg_uninit_timers(void)
++static void fsl_otg_uninit_timers(void)
+ {
+ 	/* FSM used timers */
+ 	kfree(a_wait_vrise_tmr);
+@@ -391,7 +391,7 @@ static struct fsl_otg_timer *fsl_otg_get_timer(enum otg_fsm_timer t)
+ }
+ 
+ /* Add timer to timer list */
+-void fsl_otg_add_timer(struct otg_fsm *fsm, void *gtimer)
++static void fsl_otg_add_timer(struct otg_fsm *fsm, void *gtimer)
+ {
+ 	struct fsl_otg_timer *timer = gtimer;
+ 	struct fsl_otg_timer *tmp_timer;
+@@ -421,7 +421,7 @@ static void fsl_otg_fsm_add_timer(struct otg_fsm *fsm, enum otg_fsm_timer t)
+ }
+ 
+ /* Remove timer from the timer list; clear timeout status */
+-void fsl_otg_del_timer(struct otg_fsm *fsm, void *gtimer)
++static void fsl_otg_del_timer(struct otg_fsm *fsm, void *gtimer)
+ {
+ 	struct fsl_otg_timer *timer = gtimer;
+ 	struct fsl_otg_timer *tmp_timer, *del_tmp;
+@@ -443,7 +443,7 @@ static void fsl_otg_fsm_del_timer(struct otg_fsm *fsm, enum otg_fsm_timer t)
+ }
+ 
+ /* Reset controller, not reset the bus */
+-void otg_reset_controller(void)
++static void otg_reset_controller(void)
+ {
+ 	u32 command;
+ 
+@@ -455,7 +455,7 @@ void otg_reset_controller(void)
+ }
+ 
+ /* Call suspend/resume routines in host driver */
+-int fsl_otg_start_host(struct otg_fsm *fsm, int on)
++static int fsl_otg_start_host(struct otg_fsm *fsm, int on)
+ {
+ 	struct usb_otg *otg = fsm->otg;
+ 	struct device *dev;
+@@ -522,7 +522,7 @@ int fsl_otg_start_host(struct otg_fsm *fsm, int on)
+  * Call suspend and resume function in udc driver
+  * to stop and start udc driver.
+  */
+-int fsl_otg_start_gadget(struct otg_fsm *fsm, int on)
++static int fsl_otg_start_gadget(struct otg_fsm *fsm, int on)
+ {
+ 	struct usb_otg *otg = fsm->otg;
+ 	struct device *dev;
+@@ -704,7 +704,7 @@ static int fsl_otg_start_hnp(struct usb_otg *otg)
+  * intact.  It needs to have knowledge of some USB interrupts
+  * such as port change.
+  */
+-irqreturn_t fsl_otg_isr(int irq, void *dev_id)
++static irqreturn_t fsl_otg_isr(int irq, void *dev_id)
+ {
+ 	struct otg_fsm *fsm = &((struct fsl_otg *)dev_id)->fsm;
+ 	struct usb_otg *otg = ((struct fsl_otg *)dev_id)->phy.otg;
+@@ -830,7 +830,7 @@ static int fsl_otg_conf(struct platform_device *pdev)
+ }
+ 
+ /* OTG Initialization */
+-int usb_otg_start(struct platform_device *pdev)
++static int usb_otg_start(struct platform_device *pdev)
+ {
+ 	struct fsl_otg *p_otg;
+ 	struct usb_phy *otg_trans = usb_get_phy(USB_PHY_TYPE_USB2);
+@@ -1002,7 +1002,7 @@ static void fsl_otg_remove(struct platform_device *pdev)
+ 		pdata->exit(pdev);
+ }
+ 
+-struct platform_driver fsl_otg_driver = {
++static struct platform_driver fsl_otg_driver = {
+ 	.probe = fsl_otg_probe,
+ 	.remove = fsl_otg_remove,
+ 	.driver = {
+diff --git a/drivers/usb/phy/phy-fsl-usb.h b/drivers/usb/phy/phy-fsl-usb.h
+index 95bfe7f1b83a..b754077875c3 100644
+--- a/drivers/usb/phy/phy-fsl-usb.h
++++ b/drivers/usb/phy/phy-fsl-usb.h
+@@ -373,6 +373,6 @@ struct fsl_otg_config {
+ 
+ #define FSL_OTG_NAME		"fsl-usb2-otg"
+ 
+-void fsl_otg_add_timer(struct otg_fsm *fsm, void *timer);
+-void fsl_otg_del_timer(struct otg_fsm *fsm, void *timer);
+-void fsl_otg_pulse_vbus(void);
++static void fsl_otg_add_timer(struct otg_fsm *fsm, void *timer);
++static void fsl_otg_del_timer(struct otg_fsm *fsm, void *timer);
++static void fsl_otg_pulse_vbus(void);
 -- 
 2.54.0
 
