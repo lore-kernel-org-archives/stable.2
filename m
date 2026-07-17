@@ -1,60 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92EFA311C2D
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 01:37:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9007A30B521;
+	Fri, 17 Jul 2026 01:37:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784252272; cv=none; b=BQLcJX6KHIsY2rp0ImzVa4Ve1vB8ax7vOKPAhzvIWSx9qZ6AeNdTcA74z+I+ZnQl+lg0MWqxKjio8wfNK27SsYfkNn9kbIrebfUpRzgxWy/uUMtxmCZFYTxu+/xOtwqZ/tKDgjQ6YWr6qInlyGYIefIPOCUMonR37PM+IoE4sA0=
+	t=1784252274; cv=none; b=hn6u58IaF24H4qXWfwSel/InOXmPWOT4tO/9Q54debFUdxbl6OM7C6qsD9F9glP+x80U6rGUwnK/4EigJf34iXwFZxnJzSWN4+h3WpdUXZEQ70M+jT40jxhVcl0uadxvh+jqtig06iRiQ41euyv/Vs108LYn9f4Ni2NoCI2qivk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784252272; c=relaxed/simple;
-	bh=zTDEBC84/cEAFrg3irrSXDknCyflgdaw/Lm0bEK8+ao=;
+	s=arc-20240116; t=1784252274; c=relaxed/simple;
+	bh=rGN0VQxZ3TqjKiCYbTfxduH7jbrsa6Wr07+Wo8t5k18=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PAdusKMiKPtS0F4z8sAXrTmBTJyjoDH4a/vjUml+JXKeB3OlUYFpzEBW4j9m2LGuMLcPCp7tIdXpjYsXhxmNqSvnItBvGGxrjr57EChZFQSmF5p5yLGUkbxeFPNOF/NeluETMFalp+9EkhVVTVNe7J07+4xsFy8tKDILsYIWrSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tdj447U0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=iS21tFLTAM5r9Zs7EOOly28Hegmv9figj61sYnbK4VneAOEVI6Aiyvykupp87GJvlS+WbJh1Li2hc3Q0qYwDjZTDzCOeYeZAw+o97i+nfZlOAhtqzt4HAPHgZt4YKwPcP2urJYaekS4Fa+stZIDK0K1EEao2+6rcCK+YoPQuGG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kgXq5ZA0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tdj447U0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86851F00A3A;
-	Fri, 17 Jul 2026 01:37:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kgXq5ZA0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E1881F00A3F;
+	Fri, 17 Jul 2026 01:37:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784252271;
-	bh=9EUBSZpMnBOaIEKSGbcI129CUm/xtGnKjCdmNO+KS0k=;
+	s=k20260515; t=1784252273;
+	bh=feJ0HPBZTu2PuHDib8T6yytq1r2lUpywampWhM/VSfg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Tdj447U0jE+/DaQmFa9vgSUqVrIUbS3pqp33SSknuPOSlaHNIptzs4vZKEvTgtNwg
-	 NP79eWyWhz7vbcSqagLjHJ9Lf7++A/geM+k+k913Do29MZ+pHV3xFTrr5MSRTipZ+X
-	 IBXnbvYsOONNdTw7VO8ZvdD6ab7kPHUs2dAtyMLuaPQmE24ZX2unJz+F/J7WXT5THZ
-	 o54lyc7ZWkQLfsFzRkLvvdCigBOxLKR9U19VYUrXsLptlYh64fdIhNLEfM0kYKAiRD
-	 gKbOJ4gq1e9FIrrPPtta8/qSuoxORqPJIDkkXyZyvl3bHAtUFbdWsCepUoGzu4Q3OS
-	 6EW4oGrz1rofw==
+	b=kgXq5ZA0Cw+4xaE7UgKTqJnp1/dIO/rFszTUVVIdZOfPuokIjzxSB3MJTjrtbNVCO
+	 6q62lmxxgsolcEsEgYfT1kSQeIDvWNWxHLbGNW/wSOfpN5Cx3fh+gplRSP+tvr/ac+
+	 SQRxISBUjG5MO+JakmcwJJnTOOHasJYXFZb3lAwCrpcbaBJQQ5PzjEiHGlhusTGAjE
+	 Y2EBQslY/Hm2xdmBjMQONZws8va9+qifyWE5qIUearyHaebP/bFrG/MZvCIAErAHpx
+	 k8NcCRGrfD3lf99jWKjiq8IP0w/0bH1MIh9bAQGNB3zvNsgYwWvNGRiBvG/GGP0fI8
+	 ukYrut+GUX8PQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@kernel.org>,
-	Weidong Zhu <weizhu@fiu.edu>,
-	Chao Shi <coshi036@gmail.com>
-Subject: Re: [PATCH 6.6.y] block: skip sync_blockdev() on surprise removal in bdev_mark_dead()
-Date: Thu, 16 Jul 2026 21:37:31 -0400
-Message-ID: <20260716232340.0004-stable-reply@kernel.org>
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Dmytro Maluka <dmaluka@chromium.org>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	"Keshavamurthy, Anil S" <anil.s.keshavamurthy@intel.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Adrian Bunk <bunk@stusta.de>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Konstantin Andreev <andreev@swemel.ru>
+Subject: Re: [PATCH 6.12.y] iommu/vt-d: Clear Present bit before tearing down context entry
+Date: Thu, 16 Jul 2026 21:37:32 -0400
+Message-ID: <20260716232340.0005-stable-reply@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260716073452.3246468-1-coshi036@gmail.com>
-References: <20260716073452.3246468-1-coshi036@gmail.com>
+In-Reply-To: <20260714222124.1906678-1-andreev@swemel.ru>
+References: <20260714222124.1906678-1-andreev@swemel.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 16, 2026 at 03:34:52AM -0400, Chao Shi wrote:
-> bdev_mark_dead()'s @surprise == true means the device is already gone.
-> The filesystem callback fs_bdev_mark_dead() honours this and skips
-> sync_filesystem(), but the bare block device path (no ->mark_dead op)
-> lost its !surprise guard when the holder ->mark_dead callback was wired
-> up (see Fixes), and now calls sync_blockdev() unconditionally, which can
-> hang forever waiting on writeback that can no longer complete.
+On Wed, Jul 15, 2026 at 01:21:23AM +0300, Konstantin Andreev wrote:
+> When tearing down a context entry, the current implementation zeros the
+> entire 128-bit entry using multiple 64-bit writes. This creates a window
+> where the hardware can fetch a "torn" entry — where some fields are
+> already zeroed while the 'Present' bit is still set — leading to
+> unpredictable behavior or spurious faults.
 
-Queued for 6.6, thanks.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
