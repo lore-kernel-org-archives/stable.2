@@ -1,112 +1,111 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D6E2F8EB4
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 18:26:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC902F8EB4;
+	Fri, 17 Jul 2026 18:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784312812; cv=none; b=io7D7uwT4R/irfnNo3SA605oq7cOyBBEnYx6KuELUyYd5Ja/CoJegTwZfcZqIY2wFbsRApHWxOti0g9vusHDvjgoS0WAEY76ElP4AnXPtR/tKu1xokJEkt1q0M/SHa/FiqeHopaTXOollCbVb2vPYtBdCpV4ZV3OsAcO8y+wjJg=
+	t=1784312889; cv=none; b=iK8BM8PSsbQ9BsfNu9CveE4+UU3eA7thyrTq6QQ3+LgdUF89DrrYCKOkF3hM3hdbKltj4n9RTQoAOWatGRVT3meJES6pDqPWIehCzB/mMLEcTQ/ioEsClYAWuLKPurUs6RKF0ASIrTP3aF0wCkAgLtwhxDjXx75Bn6+9lBmloI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784312812; c=relaxed/simple;
-	bh=tKyySihkT20xIqRU3Wp22Nft9XxHtSfOyRrQ/6QIdOE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ofZDkeoDcWFfWh5bDv56Rj4h2+m5WvVXB0fG8L0V4VkGVAPIjwLErv0+Ilmee7XxfT651A+LbfKNR770tj7mwLNca6DlUi9+GdtTlcOSiT8aAUfpMpxg6/8et59Gc6nmbq8Uw7X8s9dfrNQeLYRVZ0USxfV8m0215FYuw8UbbKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lsghO3LA; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784312889; c=relaxed/simple;
+	bh=cY72Q3eaRUqzShiCt1IhCPUROEqqx3q2tARINzYOV4E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FFU+sttlpUG01patG5Vkw9QweVjSjjA8yc6UZfuFAu54sIfhw7eN/7RwGNEL4Bxe3qN2HosdCWuKsxIy93EBcPwcEkpVfUSfaaGU1Z2hwFqPE3NYEhnkCg7B/Bp0ugvILPW8G7YzZqnCCfZ/jvt0auTIFboFzcRR5kkGxtZCRjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=R7STgd6L; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsghO3LA"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38df94d4dd8so3464611a91.2
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 11:26:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784312811; x=1784917611; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CXC8PXJJavATSwTaY4dMubvNR7I9l5U7+WOoLpAqGuc=;
-        b=lsghO3LApuZq2M8kZbYzEI5vdl5fX8hl6ycawS9mKQkhdWnWFRR+ZdRmRHQJLBleG1
-         7xh5qUccHJbNWgxM53jKqvO80OmvFPjqVRJ97uqDptE9ap8KhwWNvKXcfKB5saE+Hhpm
-         YHxIwj+qeDRXONZ+rzCC1ASuHXSXDJYYzxF9zpPwPPAJ0oiHvo7hCfvR+2occE8ciKv3
-         J8RpFzORbom1Z85o0nExvQib1g9VjA22lh5qQpUG1T1eeFCGedu6mmEZOS16D8vO6WDa
-         +GT2SpBHUDwEhznKA5Ocsav35PgVprJ17LCNZ2oCdBhEqyXLQSazQu0laLYX/18rIrSK
-         bN+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784312811; x=1784917611;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CXC8PXJJavATSwTaY4dMubvNR7I9l5U7+WOoLpAqGuc=;
-        b=I3W3tsl/pzV9nkp0kNE1PnTMT63B0suqSnVu2FJg7QzRGAyn1ZTNciO7aIYYOvlD/J
-         EuRxKDE2k/mYb+6WZAYbRUA4XOIb2CehU6NUaF54Vgzv3cfzD8mkHchIJ7VOeyeZz730
-         zHScw7U8woIHzucI4JOHyaFcdfDptueiGI+/A7RNaf4Ms+NMklRa/KJvpH2JtReOHfo1
-         YAyGgpSMRFOMjjgEVS7GzNBJ0EstI6pBD6AhLbLIwBU/spuVzRJ497BbPUIiv01j0i7J
-         NePKQ80zMB3OihoISu3QBiYOGBEZRBwnRwPIO2N4Tce2x45zIKJiECwDnxVRqxehv8r1
-         VGdg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpf6szhkaiir88D5UCOidWa7s1Ch9WEFSn0kZgGpB8iXyHnGFE/SD++IzsvunynN4aJOGVpiS8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGNpf0CD8UgPNOBq52LrWlE86pSu0vOCQFJvHQqfoMd5rdqcP5
-	13dOAz2f0c2cPH7vnpW7W4Vktrmzd4Hmced+5/Kl1wLIEmaaM2oa9Qsa4OsDJQ==
-X-Gm-Gg: AfdE7cm5ggaxD9c90PS8L+Av0C+j91A7xoSKtcnNGrY7nNMTk7C7ByRc3l0h5pDEOLR
-	hECYrYRTorpahGoUF0SdvD0BSJoEwx8mYoGlIOic0cFZp9S8h/RxTswusFRps98BF9VDU9P0wRs
-	GewlpCMEA2xegU0lDkbcqM8mLeAw/D6NSDyViZQx8Nti7TZtfK2fWnU5mSC0oej4SDgmwsifCM8
-	BLsZEa62oeGmlkGKCgYv5AepwEj2h6/OeUh2gDYa7oTwLhzP4KUaUTp6HcmkX8vL7kKgUra+/hq
-	bB9PwjYOvw/TXvJprZjTKDl6+c0JzEPkyyOaG71ZNJrREa8YVg3tu96N+9xRSArQFT24gP28R+M
-	AdzXxs9YPKWV5NfZf0atjN44fFnNfvTmoeTXaxGStZpncjJzQNImf6ID9JKDpd59msViWxDnv4j
-	iVdlBQK0kxqpcbXTD6QpAfKW/HBEc0
-X-Received: by 2002:a17:90b:3886:b0:36b:944b:fd81 with SMTP id 98e67ed59e1d1-38e4b3d27c3mr3989067a91.4.1784312810914;
-        Fri, 17 Jul 2026 11:26:50 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429cf22b3sm9811189eec.0.2026.07.17.11.26.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 11:26:49 -0700 (PDT)
-Message-ID: <7dab6f4b-e7e1-4df8-ac29-066973055f4b@gmail.com>
-Date: Fri, 17 Jul 2026 11:26:48 -0700
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="R7STgd6L"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 848A3664;
+	Fri, 17 Jul 2026 20:27:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784312827;
+	bh=cY72Q3eaRUqzShiCt1IhCPUROEqqx3q2tARINzYOV4E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=R7STgd6L+KOgQCiaKfyd7K6xlKz0oKgSyLncZv15XbVpe7f8XdcG6/yZywtz/cnPJ
+	 FEUE/B2JxA4axWgncKM7reSaVprTV0eA/ixjWhhY1SToj65R2WXm/w5KUXPe77/CZj
+	 yyBRUcU113yN8RFmRgtdLk+8Gk88+OXbIMwue1zI=
+Date: Fri, 17 Jul 2026 21:28:02 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	linux-renesas-soc@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] drm/bridge: display-connector: Fix I2C adapter
+ resource leak
+Message-ID: <20260717182802.GD1889304@killaraus.ideasonboard.com>
+References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com>
+ <alpEVeVmH5oiqmaj@hovoldconsulting.com>
+ <DK0Y5JTE66EA.111RUXTL6W8FA@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/357] 6.12.96-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260717101823.379399592@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260717101823.379399592@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <DK0Y5JTE66EA.111RUXTL6W8FA@bootlin.com>
 
-On 7/17/26 03:41, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.96 release.
-> There are 357 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Fri, Jul 17, 2026 at 05:21:11PM +0200, Luca Ceresoli wrote:
+> On Fri Jul 17, 2026 at 5:03 PM CEST, Johan Hovold wrote:
+> > On Mon, Jul 06, 2026 at 12:35:40AM +0300, Laurent Pinchart wrote:
+> >> If the probe function returns an error after getting the I2C adapter for
+> >> DDC, the reference to the adapter is never released. Fix it by releasing
+> >> it in the bridge .destroy() handler.
+> >>
+> >> There is no need to test the ddc pointer with !IS_ERR(), as
+> >> of_get_i2c_adapter_by_node() returns NULL on error.
+> >
+> > I stumbled over this this morning as well and posted a fix here (which
+> > releases the adapter on driver unbind as is currently done):
+> >
+> > 	https://lore.kernel.org/lkml/20260717085716.1619275-1-johan@kernel.org/
+> >
+> >> Fixes: 6de79dd3a920 ("drm/bridge: display-connector: add ddc-en gpio support")
+> >
+> > I believe this issue was first introduced by commit 2e2bf3a5584d
+> > ("drm/bridge: display-connector: add DP support") a few releases
+> > earlier.
+> >
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> >
+> > Reviewed-by: Johan Hovold <johan@kernel.org>
 > 
-> Responses should be made by Sun, 19 Jul 2026 10:17:43 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.96-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+> While Johan's patch has the benefit of putting the i2c adapter at remove
+> time (as opposed to destroy time, which is potentially a long time later),
+> it is also more complex. So I'd say this patch is fine.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+In this case putting the I2C adapter early is probably fine, but in
+general I really prefer reference-counting and releasing references at
+destroy time. This ensures that the resources stay available if they
+need to be accessed between .remove() and destruction (for instance in a
+.release() handler following a close() or munmap() from userspace). I
+think late release should be the default, as it's safer, and early
+release should be carefully reviewed when it's required.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> Maybe we should have a devm version of of_get_i2c_adapter_by_node() to make
+> it all simpler.
+> 
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
 -- 
-Florian
+Regards,
+
+Laurent Pinchart
