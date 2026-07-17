@@ -1,173 +1,485 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C383C1961
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 09:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0451F03DE
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 09:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784280668; cv=none; b=AiP/KfdIIMAbE26WqWm4smpy+d+uZ03eLQlJu3rkQlP6FDGinp/gIP4J1hbQJuoEhAiRQAAmytKykma6HSL34/hAkR3cW4+viorSIpT3bAOhqTQIwr1AhyeL25BU+9Ea9AQozel8lN7ez88IQg86/twXamPMzbzftgmjVkbsFxE=
+	t=1784280739; cv=none; b=d6yGNWVoJhXqkphwYEeJv5MjCsxLtZ7E15zjdPYMH8dFC9gGjVrKRGPC4+Ld4CdG+MkMfjqMo3YI/9eYFO1IoXrD5HODw5a8cIDHfyhtqmPY85yNCCzc7BTUHb5Bvh++l0upquddUMVdmcS22GosbxfY1Xs4LnLXCDMMbFG+uvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784280668; c=relaxed/simple;
-	bh=KLQicBeZx0Z69urp/IOAXMYEPDKZvOhCcrX1HF6jdio=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AkVgPxmvB0zO5Cs754tf1hgMiWU8YzPbB/G9+zPJ7HMlMvFcS21LX0ZEOBF+7T5sJlcSZrp0Nctf4MqPtFyh66lw6MIIAgcylGiKDvgcOCgpkXn8LuF8q/K3+AgapZoDuekznOVl76Rc+DKXsX2OTeIzbYIeSk3ybjc3hK1NEEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oRtCgrBR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FnXmNwfJ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784280739; c=relaxed/simple;
+	bh=9i5kNxLXdJ8Y1461iKxKCXIB2sQ3QKZcLaPbgYKodIc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NNcCthi5sXtZ1pxaJy6tO6zGDiIFsIYKaUwr+xczlpQw7gLsYef6tXx8fRrWpiN+MGL5/2Rk3Bf3FoJi5g5fP5vHlPphTplcjFrXMpg0EC2koJhC2HvXGis2RjH5ssioV5IkYOUqz+9ToRaMabn2WROQ7DCPkWihFg4PWKfmCN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=k7ojeDpy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oRtCgrBR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FnXmNwfJ"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H9LQhV1461966
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 09:31:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aM5py9i2hJf4DZx69ahJpSCbCz3n48OjyDSAbOkMjFM=; b=oRtCgrBRdHoViwzM
-	LG5fZ3Qtm/T9lqDjRRsho928cj4yGFjiZ7ocnfWG4g2jGu4LouKj4drIxODGmCDN
-	hk155wgwaa3EzVCXb+PyRUhCiixVOnUTOmGpR8o9zPXE3tDpGcIaIEZPm3RNOoyU
-	jugju53PopccCKOVpTtElrL8knYVkeSqimN5ezE1x/T0VmCSOyPQfKbofY+k4ap4
-	9/hIbcGQagEL23n5XDL4gwg9Yszx7jLoBR/pwjXUAFxFr0/Q5tQNxIo5Aw2cGgHq
-	NKomTPiwTAFg9LW2R5WwsTRPLS7bCFG5WDfrcZH9hpmQcESIXzn4xMeP2x6rO09n
-	ITe7tw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffhpfg16k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 09:31:05 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c21be5bb4so24121221cf.0
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 02:31:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784280665; x=1784885465; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aM5py9i2hJf4DZx69ahJpSCbCz3n48OjyDSAbOkMjFM=;
-        b=FnXmNwfJIwmZsItyOpo25TClwFJWwrdwDTgmlRxjg2R5d2Z8tntsynDPsO3d7mypUM
-         t29M/ffx49FSmqX67D4whGn9vhWJylqGPl5HWdfv/K3WoUmJKpzZQwVokuNs5wu07fjZ
-         Mc7AIzrwmlobOTyvj7OokTLY0/FJdlaBXuNnXxCKIdvuJRjFizNTbPswLrndfZhtCJhG
-         Nb5LoeM/GcEdRnDInMbhBAacB1q7tjJ+OBl+LI4gu/8puqU4TMYBFBDSL30NUvJxdLC1
-         r2znulH6QaacJCDy8s7nZwAi3wa7WjjA1NLPIv06yUXx3Qtz6TvbMs3pCawC9N/xeKbz
-         QCNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784280665; x=1784885465;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aM5py9i2hJf4DZx69ahJpSCbCz3n48OjyDSAbOkMjFM=;
-        b=Tn1YvBcfRduPpOrp/p1paOi81TVyOhMiWzB93O/DkKWB5WKHIDQ8lId+pE0vnJ6ndy
-         ZYAylwSdBG8tjPXIiQ1YKjr1fI1wdMLHwBdRWAiEmqaSGFh7LI2wTVYB6jNhnUBQllqk
-         yTQ4iBAl91w3WxPDEkXowzxHBhmitmsXoa9pfwzv9zeiUPxFAFn0DU+6ZDnmLbwrcwo8
-         yQg113I07Wy678JImcwGU8i0Ce6Pk1AG3mRYh/M7QAkNsNXj6MyBWL4V0JW5R2nRYT5I
-         NQ1n42qW8QBaceGu3niHV9PXUuVituVw97qmzdM3yyjZyYj41Zu9V7h0HO7/u0JjwJRr
-         S/mQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpDsc7JmFG7Rj+nodSAAUbSn+nGQREff1ciKBUhvpztt/k7dAPvma+gDP+EXXfauE0bOXWt3z4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSKgkp/WO0v+GWV6KyLBrcvelGDwvC1WBWUR9q1HfADnzqPhGn
-	ehZblLHWVnxcLOdDx/M8G8lWIJoaseOKjnf1p8m8EF2MXtwG56fXUGSmC/iJHXcdBPe5sEnhEaS
-	7SGmu3ZkJpfSQFqMoO86SDrTYcEMkm2meNHJOiuwR/VoBRMD3eo22hKOIpeo=
-X-Gm-Gg: AfdE7cmvj3ieQJEfABBkHWnsomMhIiT4iWjs9x7ShpMY00H5L4VARB9txevKGe98J2a
-	fIoPoQCVbMfqLcpBz0mMIMGRWL8RiMi9J8xb7IcVLYfxmN5SESAdYARg/qkPF2dbANAjgL5TRMP
-	8otajc9RQFkcW64lpPQzSdiufzTbgEECbj4UH4pz6sTTDUR9wpFGKloMt4ekPCTMEFhXehcw333
-	fYuaTZBu1yyHcmvJDAGtQ6zJqmWj2tF7ZdJN33sq610WUYkTLN7iBF8iwYYKg75U/dIQBnFCIzd
-	Q3RTlMn2HWoQL3BO4I3GVy2rwGRbzHa5YQpCdNQCUykZ/oV5/yLRlnTdFSOxjbrGDH9pIQES+U9
-	QN67PeD40rdbKmuLSsId9aSdH
-X-Received: by 2002:ac8:6145:0:20b0:51a:88bd:95a0 with SMTP id d75a77b69052e-5213c109e32mr8622911cf.1.1784280665442;
-        Fri, 17 Jul 2026 02:31:05 -0700 (PDT)
-X-Received: by 2002:ac8:6145:0:20b0:51a:88bd:95a0 with SMTP id d75a77b69052e-5213c109e32mr8622751cf.1.1784280665011;
-        Fri, 17 Jul 2026 02:31:05 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1712a63ae0sm46622166b.33.2026.07.17.02.31.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 02:31:04 -0700 (PDT)
-Message-ID: <bc13f78b-287c-4832-b2f1-a68e7b35b57d@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 11:31:02 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="k7ojeDpy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BE71F000E9;
+	Fri, 17 Jul 2026 09:32:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784280738;
+	bh=uSWtFBJz8HMHICKMtthr9fe0T6RvxoiiJxnUCLppsgc=;
+	h=Subject:To:Cc:From:Date;
+	b=k7ojeDpy1+g+fvoQeQvoBNstobxYHT3C8S57omSW0jALv5NByk0R8R52HSsWumgFa
+	 827Df/vYi4pDpo74kwfGE6hJ0AtdmMXpw2VEAeTzcOAQf516/KHd5PG3tuapwpunZx
+	 jMnhPeY32oTxa273+RJD8y0R4dDORVfWgEC/NDWM=
+Subject: FAILED: patch "[PATCH] xfs: don't replace the wrong part of the cow fork" failed to apply to 7.1-stable tree
+To: djwong@kernel.org,cem@kernel.org,hch@lst.de
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 17 Jul 2026 11:32:10 +0200
+Message-ID: <2026071710-dental-gracious-1e66@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] remoteproc: qcom_q6v5_mss: Fix off-by-one error in
- regulator error cleanup
-To: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>, andersson@kernel.org,
-        mathieu.poirier@linaro.org
-Cc: quic_akdwived@quicinc.com, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20260710194638.1502-1-saileshnandanavanam@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260710194638.1502-1-saileshnandanavanam@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDA5NCBTYWx0ZWRfXypu4oXFVwz9o
- gpqgUjp0FdsU1nyQ4nT5j3oLx5IpqDWZwOWcQj3GW8RfphqBBhpDmhqcMU+POFnaOrnfwjZl/jR
- OA29hwmea6IvCaN5cGR7riTx3PYHA7mePvtdZRl2faG9JYU9xj+VQtziCYI0Ks0MFYIyplyYNh6
- YAo4IcvHGSOiECcr+RkAitVSN97/MHhhDGppnjAHEQGvTNq4uQbQsuiiKwsSWK7/lPAOwANibzk
- MYLO5r6/bGfky7OYLjS9t3jl/Rj2oTk8v3mDWZo6LeWjE5szh/4VFlz412vvSC/TUtgTCkcaV8g
- s5RIhQaP37eyTeusjfOnX7ofjhD/DKFaGZ3Yf8mrCQ0ieuEgoMqjNDkYk8li+CNC+aXMbzb0YAt
- FTyl9VSIYXleaUAZqrE/f44p92UXLg6T6a0ZK7WcrXtMM46YMLpNwrRlrrxuLWUxkCac85/Gad+
- P8dau/hGSO6tUSSgdLg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDA5NCBTYWx0ZWRfXxHzZgxSPMDQ6
- uZxE+nWjKMudR8ZfYcUHNajismzyychm05Fu/HlxkgBep7Sfypf9C+QjqI78xTAEzzxv/h8TwRt
- wgdviqzK1R1l1ipaP/rVN4zP8rewFn0=
-X-Authority-Analysis: v=2.4 cv=YeWNIQRf c=1 sm=1 tr=0 ts=6a59f65a cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=hI5qLSgjwfH9RGL9AckA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: hXePVweQep3Ckgo0w0xceFcE2Si5F0ON
-X-Proofpoint-ORIG-GUID: hXePVweQep3Ckgo0w0xceFcE2Si5F0ON
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170094
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On 7/10/26 9:46 PM, Sailesh Nandanavanam wrote:
-> In q6v5_regulator_enable(), when any operation fails for regulator at
-> index 'i', the error cleanup path unconditionally calls
-> regulator_disable() starting from index 'i'. However, regulator 'i'
-> was never successfully enabled at this point, resulting in an
-> unbalanced disable.
-> 
-> There are three distinct failure points:
-> - regulator_set_voltage() failure: voltage was never set, load was
-> never set, regulator was never enabled.
-> - regulator_set_load() failure: voltage was set, but regulator was
-> never enabled.
-> - regulator_enable() failure: voltage and load were set, but
-> regulator was never enabled.
-> 
-> Fix this by introducing three separate error labels to handle each
-> failure point correctly. For the failing regulator at index 'i',
-> only reset the resources that were actually configured, without
-> calling regulator_disable(). Then roll back all previously enabled
-> regulators using 'i--' in the for loop initializer to skip the
-> never-enabled regulator.
-> 
-> Fixes: 19f902b53b47 ("remoteproc: qcom: Initialize and enable proxy and active regulators.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>
-> ---
 
-[...]
+The patch below does not apply to the 7.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> -err:
-> -	for (; i >= 0; i--) {
-> +err_enable:
-> +	if (regs[i].uA > 0)
-> +		regulator_set_load(regs[i].reg, 0);
-> +err_set_load:
-> +	if (regs[i].uV > 0)
-> +		regulator_set_voltage(regs[i].reg, 0, INT_MAX);
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The first two labels only unwind a single regulator
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x a1caeeadbf57ff86dfc3454398c46de86056a74e
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071710-dental-gracious-1e66@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
-Konrad
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From a1caeeadbf57ff86dfc3454398c46de86056a74e Mon Sep 17 00:00:00 2001
+From: "Darrick J. Wong" <djwong@kernel.org>
+Date: Mon, 13 Jul 2026 23:04:08 -0700
+Subject: [PATCH] xfs: don't replace the wrong part of the cow fork
+
+LOLLM points out that xfs_iext_lookup_extent can return a @got where
+got->br_startoff < startoff.  In this case, xrep_cow_replace_range
+replaces the entire mapping instead of just the part that had been
+marked bad in the bitmap, but advances the bitmap cursor in
+xrep_cow_replace by the amount replaced.  As a result, we fail to
+replace the end of the bad range, and replace part of the good range.
+
+Fix this by rewriting the replace method to handle replacing the middle
+of a cow fork mapping.  This we do by returning both the current mapping
+as @got, and the subset of the mapping that we want to replace as @rep,
+using @rep to store the results of the new allocation, and comparing
+@rep to @got to figure out the exact transformations needed.
+
+Cc: stable@vger.kernel.org # v6.8
+Fixes: dbbdbd0086320a ("xfs: repair problems in CoW forks")
+Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+diff --git a/fs/xfs/scrub/cow_repair.c b/fs/xfs/scrub/cow_repair.c
+index 0075b6d5a1b5..ca3405a26b64 100644
+--- a/fs/xfs/scrub/cow_repair.c
++++ b/fs/xfs/scrub/cow_repair.c
+@@ -80,12 +80,6 @@ struct xrep_cow {
+ 	unsigned int		next_bno;
+ };
+ 
+-/* CoW staging extent. */
+-struct xrep_cow_extent {
+-	xfs_fsblock_t		fsbno;
+-	xfs_extlen_t		len;
+-};
+-
+ /*
+  * Mark the part of the file range that corresponds to the given physical
+  * space.  Caller must ensure that the physical range is within xc->irec.
+@@ -401,22 +395,21 @@ out_rtg:
+ STATIC int
+ xrep_cow_alloc(
+ 	struct xfs_scrub	*sc,
+-	xfs_extlen_t		maxlen,
+-	struct xrep_cow_extent	*repl)
++	struct xfs_bmbt_irec	*del)
+ {
+ 	struct xfs_alloc_arg	args = {
+ 		.tp		= sc->tp,
+ 		.mp		= sc->mp,
+ 		.oinfo		= XFS_RMAP_OINFO_SKIP_UPDATE,
+ 		.minlen		= 1,
+-		.maxlen		= maxlen,
++		.maxlen		= del->br_blockcount,
+ 		.prod		= 1,
+ 		.resv		= XFS_AG_RESV_NONE,
+ 		.datatype	= XFS_ALLOC_USERDATA,
+ 	};
+ 	int			error;
+ 
+-	error = xfs_trans_reserve_more(sc->tp, maxlen, 0);
++	error = xfs_trans_reserve_more(sc->tp, del->br_blockcount, 0);
+ 	if (error)
+ 		return error;
+ 
+@@ -428,8 +421,8 @@ xrep_cow_alloc(
+ 
+ 	xfs_refcount_alloc_cow_extent(sc->tp, false, args.fsbno, args.len);
+ 
+-	repl->fsbno = args.fsbno;
+-	repl->len = args.len;
++	del->br_startblock = args.fsbno;
++	del->br_blockcount = args.len;
+ 	return 0;
+ }
+ 
+@@ -440,10 +433,12 @@ xrep_cow_alloc(
+ STATIC int
+ xrep_cow_alloc_rt(
+ 	struct xfs_scrub	*sc,
+-	xfs_extlen_t		maxlen,
+-	struct xrep_cow_extent	*repl)
++	struct xfs_bmbt_irec	*del)
+ {
+-	xfs_rtxlen_t		maxrtx = xfs_rtb_to_rtx(sc->mp, maxlen);
++	xfs_fsblock_t		fsbno;
++	xfs_rtxlen_t		maxrtx =
++		min(U32_MAX, xfs_blen_to_rtbxlen(sc->mp, del->br_blockcount));
++	xfs_extlen_t		len;
+ 	int			error;
+ 
+ 	error = xfs_trans_reserve_more(sc->tp, 0, maxrtx);
+@@ -451,11 +446,14 @@ xrep_cow_alloc_rt(
+ 		return error;
+ 
+ 	error = xfs_rtallocate_rtgs(sc->tp, NULLRTBLOCK, 1, maxrtx, 1, false,
+-			false, &repl->fsbno, &repl->len);
++			false, &fsbno, &len);
+ 	if (error)
+ 		return error;
+ 
+-	xfs_refcount_alloc_cow_extent(sc->tp, true, repl->fsbno, repl->len);
++	xfs_refcount_alloc_cow_extent(sc->tp, true, fsbno, len);
++
++	del->br_startblock = fsbno;
++	del->br_blockcount = len;
+ 	return 0;
+ }
+ 
+@@ -469,19 +467,19 @@ static inline int
+ xrep_cow_find_mapping(
+ 	struct xrep_cow		*xc,
+ 	struct xfs_iext_cursor	*icur,
+-	xfs_fileoff_t		startoff,
+-	struct xfs_bmbt_irec	*got)
++	xfs_fileoff_t		badoff,
++	xfs_extlen_t		badlen,
++	struct xfs_bmbt_irec	*got,
++	struct xfs_bmbt_irec	*rep)
+ {
+ 	struct xfs_inode	*ip = xc->sc->ip;
+ 	struct xfs_ifork	*ifp = xfs_ifork_ptr(ip, XFS_COW_FORK);
+ 
+-	if (!xfs_iext_lookup_extent(ip, ifp, startoff, icur, got))
++	if (!xfs_iext_lookup_extent(ip, ifp, badoff, icur, got))
+ 		goto bad;
++	memcpy(rep, got, sizeof(*rep));
+ 
+-	if (got->br_startoff > startoff)
+-		goto bad;
+-
+-	if (got->br_blockcount == 0)
++	if (got->br_startoff > badoff)
+ 		goto bad;
+ 
+ 	if (isnullstartblock(got->br_startblock))
+@@ -490,6 +488,24 @@ xrep_cow_find_mapping(
+ 	if (xfs_bmap_is_written_extent(got))
+ 		goto bad;
+ 
++	if (got->br_startoff < badoff) {
++		const int64_t	delta = badoff - got->br_startoff;
++
++		rep->br_blockcount -= delta;
++		rep->br_startoff += delta;
++		rep->br_startblock += delta;
++	}
++
++	if (got->br_startoff + got->br_blockcount > badoff + badlen) {
++		const int64_t	delta = (got->br_startoff + got->br_blockcount) -
++					(badoff + badlen);
++
++		rep->br_blockcount -= delta;
++	}
++
++	if (got->br_blockcount == 0)
++		goto bad;
++
+ 	return 0;
+ bad:
+ 	ASSERT(0);
+@@ -500,46 +516,92 @@ bad:
+ #define REPLACE_RIGHT_SIDE	(1U << 1)
+ 
+ /*
+- * Given a CoW fork mapping @got and a replacement mapping @repl, remap the
+- * beginning of @got with the space described by @rep.
++ * Given a CoW fork mapping @got and a replacement mapping @rep, map the space
++ * described by @rep into the cow fork, pushing aside @got as necessary.  @icur
++ * must point to iext tree leaf containing @got.
+  */
+ static inline void
+ xrep_cow_replace_mapping(
+-	struct xfs_inode		*ip,
+-	struct xfs_iext_cursor		*icur,
+-	const struct xfs_bmbt_irec	*got,
+-	const struct xrep_cow_extent	*repl)
++	struct xfs_inode	*ip,
++	struct xfs_iext_cursor	*icur,
++	struct xfs_bmbt_irec	*got,
++	struct xfs_bmbt_irec	*rep)
+ {
+-	struct xfs_bmbt_irec		new = *got; /* struct copy */
++	struct xfs_ifork	*ifp = xfs_ifork_ptr(ip, XFS_COW_FORK);
++	xfs_fileoff_t		rep_endoff =
++			rep->br_startoff + rep->br_blockcount;
++	xfs_fileoff_t		got_endoff =
++			got->br_startoff + got->br_blockcount;
++	uint32_t		state = BMAP_COWFORK;
+ 
+-	ASSERT(repl->len > 0);
++	ASSERT(rep->br_blockcount > 0);
+ 	ASSERT(!isnullstartblock(got->br_startblock));
++	ASSERT(got->br_startoff <= rep->br_startoff);
++	ASSERT(got_endoff >= rep_endoff);
+ 
+-	trace_xrep_cow_replace_mapping(ip, got, repl->fsbno, repl->len);
++	trace_xrep_cow_replace_mapping(ip, got, rep);
+ 
+-	if (got->br_blockcount == repl->len) {
++	if (got->br_startoff == rep->br_startoff)
++		state |= BMAP_LEFT_FILLING;
++	if (got_endoff == rep_endoff)
++		state |= BMAP_RIGHT_FILLING;
++
++	switch (state & (BMAP_LEFT_FILLING | BMAP_RIGHT_FILLING)) {
++	case BMAP_LEFT_FILLING | BMAP_RIGHT_FILLING:
+ 		/*
+-		 * The new extent is a complete replacement for the existing
+-		 * extent.  Update the COW fork record.
++		 * Replacement matches the whole mapping, update the record.
+ 		 */
+-		new.br_startblock = repl->fsbno;
+-		xfs_iext_update_extent(ip, BMAP_COWFORK, icur, &new);
+-		return;
++		xfs_iext_update_extent(ip, state, icur, rep);
++		break;
++	case BMAP_LEFT_FILLING:
++		/*
++		 * Replace the first part of the mapping: Update the cursor
++		 * position with the new mapping, then add a record with the
++		 * tail of the old mapping.
++		 */
++		got->br_startoff = rep_endoff;
++		got->br_blockcount -= rep->br_blockcount;
++		got->br_startblock += rep->br_blockcount;
++
++		xfs_iext_update_extent(ip, state, icur, rep);
++		xfs_iext_next(ifp, icur);
++		xfs_iext_insert(ip, icur, got, state);
++		break;
++	case BMAP_RIGHT_FILLING:
++		/*
++		 * Replacing the last part of the mapping.  Shorten the current
++		 * mapping then add a record with the new mapping.
++		 */
++		got->br_blockcount -= rep->br_blockcount;
++
++		xfs_iext_update_extent(ip, state, icur, got);
++		xfs_iext_next(ifp, icur);
++		xfs_iext_insert(ip, icur, rep, state);
++		break;
++	case 0:
++		/*
++		 * Replacing the middle of the extent.  Shorten the current
++		 * mapping, add a new record with the new mapping, and add a
++		 * second new record with the tail of the old mapping.
++		 */
++		got->br_blockcount = rep->br_startoff - got->br_startoff;
++
++		struct xfs_bmbt_irec	new = {
++			.br_startoff	= rep_endoff,
++			.br_blockcount	= got_endoff - rep_endoff,
++			.br_state	= got->br_state,
++			.br_startblock	= got->br_startblock +
++						rep->br_blockcount +
++						got->br_blockcount,
++		};
++
++		xfs_iext_update_extent(ip, state, icur, got);
++		xfs_iext_next(ifp, icur);
++		xfs_iext_insert(ip, icur, rep, state);
++		xfs_iext_next(ifp, icur);
++		xfs_iext_insert(ip, icur, &new, state);
++		break;
+ 	}
+-
+-	/*
+-	 * The new extent can replace the beginning of the COW fork record.
+-	 * Move the left side of @got upwards, then insert the new record.
+-	 */
+-	new.br_startoff += repl->len;
+-	new.br_startblock += repl->len;
+-	new.br_blockcount -= repl->len;
+-	xfs_iext_update_extent(ip, BMAP_COWFORK, icur, &new);
+-
+-	new.br_startoff = got->br_startoff;
+-	new.br_startblock = repl->fsbno;
+-	new.br_blockcount = repl->len;
+-	xfs_iext_insert(ip, icur, &new, BMAP_COWFORK);
+ }
+ 
+ /*
+@@ -553,33 +615,30 @@ xrep_cow_replace_range(
+ 	xfs_extlen_t		*blockcount)
+ {
+ 	struct xfs_iext_cursor	icur;
+-	struct xrep_cow_extent	repl;
+-	struct xfs_bmbt_irec	got;
++	struct xfs_bmbt_irec	got, rep;
+ 	struct xfs_scrub	*sc = xc->sc;
+-	xfs_fileoff_t		nextoff;
+-	xfs_extlen_t		alloc_len;
++	xfs_fsblock_t		old_fsbno;
+ 	int			error;
+ 
+ 	/*
+-	 * Put the existing CoW fork mapping in @got.  If @got ends before
+-	 * @rep, truncate @rep so we only replace one extent mapping at a time.
++	 * Put the existing CoW fork mapping in @got, and put in @rep the
++	 * contents of @got trimmed to @startoff/@blockcount.  We only want
++	 * to replace the bad region, and only one mapping at a time.
+ 	 */
+-	error = xrep_cow_find_mapping(xc, &icur, startoff, &got);
++	error = xrep_cow_find_mapping(xc, &icur, startoff, *blockcount, &got,
++			&rep);
+ 	if (error)
+ 		return error;
+-	nextoff = min(startoff + *blockcount,
+-		      got.br_startoff + got.br_blockcount);
++	old_fsbno = rep.br_startblock;
+ 
+ 	/*
+ 	 * Allocate a replacement extent.  If we don't fill all the blocks,
+ 	 * shorten the quantity that will be deleted in this step.
+ 	 */
+-	alloc_len = min_t(xfs_fileoff_t, XFS_MAX_BMBT_EXTLEN,
+-			  nextoff - startoff);
+ 	if (XFS_IS_REALTIME_INODE(sc->ip))
+-		error = xrep_cow_alloc_rt(sc, alloc_len, &repl);
++		error = xrep_cow_alloc_rt(sc, &rep);
+ 	else
+-		error = xrep_cow_alloc(sc, alloc_len, &repl);
++		error = xrep_cow_alloc(sc, &rep);
+ 	if (error)
+ 		return error;
+ 
+@@ -587,7 +646,7 @@ xrep_cow_replace_range(
+ 	 * Replace the old mapping with the new one, and commit the metadata
+ 	 * changes made so far.
+ 	 */
+-	xrep_cow_replace_mapping(sc->ip, &icur, &got, &repl);
++	xrep_cow_replace_mapping(sc->ip, &icur, &got, &rep);
+ 
+ 	xfs_inode_set_cowblocks_tag(sc->ip);
+ 	error = xfs_defer_finish(&sc->tp);
+@@ -596,15 +655,15 @@ xrep_cow_replace_range(
+ 
+ 	/* Note the old CoW staging extents; we'll reap them all later. */
+ 	if (XFS_IS_REALTIME_INODE(sc->ip))
+-		error = xrtb_bitmap_set(&xc->old_cowfork_rtblocks,
+-				got.br_startblock, repl.len);
++		error = xrtb_bitmap_set(&xc->old_cowfork_rtblocks, old_fsbno,
++				rep.br_blockcount);
+ 	else
+-		error = xfsb_bitmap_set(&xc->old_cowfork_fsblocks,
+-				got.br_startblock, repl.len);
++		error = xfsb_bitmap_set(&xc->old_cowfork_fsblocks, old_fsbno,
++				rep.br_blockcount);
+ 	if (error)
+ 		return error;
+ 
+-	*blockcount = repl.len;
++	*blockcount = rep.br_blockcount;
+ 	return 0;
+ }
+ 
+diff --git a/fs/xfs/scrub/trace.h b/fs/xfs/scrub/trace.h
+index 1b7d9e07a27d..d48a6db5b5f3 100644
+--- a/fs/xfs/scrub/trace.h
++++ b/fs/xfs/scrub/trace.h
+@@ -2672,9 +2672,9 @@ TRACE_EVENT(xrep_cow_mark_file_range,
+ );
+ 
+ TRACE_EVENT(xrep_cow_replace_mapping,
+-	TP_PROTO(struct xfs_inode *ip, const struct xfs_bmbt_irec *irec,
+-		 xfs_fsblock_t new_startblock, xfs_extlen_t new_blockcount),
+-	TP_ARGS(ip, irec, new_startblock, new_blockcount),
++	TP_PROTO(struct xfs_inode *ip, const struct xfs_bmbt_irec *got,
++		 const struct xfs_bmbt_irec *rep),
++	TP_ARGS(ip, got, rep),
+ 	TP_STRUCT__entry(
+ 		__field(dev_t, dev)
+ 		__field(xfs_ino_t, ino)
+@@ -2682,28 +2682,34 @@ TRACE_EVENT(xrep_cow_replace_mapping,
+ 		__field(xfs_fileoff_t, startoff)
+ 		__field(xfs_filblks_t, blockcount)
+ 		__field(xfs_exntst_t, state)
++		__field(xfs_fileoff_t, new_startoff)
+ 		__field(xfs_fsblock_t, new_startblock)
+ 		__field(xfs_extlen_t, new_blockcount)
++		__field(xfs_exntst_t, new_state)
+ 	),
+ 	TP_fast_assign(
+ 		__entry->dev = ip->i_mount->m_super->s_dev;
+ 		__entry->ino = I_INO(ip);
+-		__entry->startoff = irec->br_startoff;
+-		__entry->startblock = irec->br_startblock;
+-		__entry->blockcount = irec->br_blockcount;
+-		__entry->state = irec->br_state;
+-		__entry->new_startblock = new_startblock;
+-		__entry->new_blockcount = new_blockcount;
++		__entry->startoff = got->br_startoff;
++		__entry->startblock = got->br_startblock;
++		__entry->blockcount = got->br_blockcount;
++		__entry->state = got->br_state;
++		__entry->new_startoff = rep->br_startoff;
++		__entry->new_startblock = rep->br_startblock;
++		__entry->new_blockcount = rep->br_blockcount;
++		__entry->new_state = rep->br_state;
+ 	),
+-	TP_printk("dev %d:%d ino 0x%llx startoff 0x%llx startblock 0x%llx fsbcount 0x%llx state 0x%x new_startblock 0x%llx new_fsbcount 0x%x",
++	TP_printk("dev %d:%d ino 0x%llx startoff 0x%llx startblock 0x%llx fsbcount 0x%llx state 0x%x new_startoff 0x%llx new_startblock 0x%llx new_fsbcount 0x%x new_state 0x%x",
+ 		  MAJOR(__entry->dev), MINOR(__entry->dev),
+ 		  __entry->ino,
+ 		  __entry->startoff,
+ 		  __entry->startblock,
+ 		  __entry->blockcount,
+ 		  __entry->state,
++		  __entry->new_startoff,
+ 		  __entry->new_startblock,
+-		  __entry->new_blockcount)
++		  __entry->new_blockcount,
++		  __entry->new_state)
+ );
+ 
+ TRACE_EVENT(xrep_cow_free_staging,
+
