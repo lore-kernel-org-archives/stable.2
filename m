@@ -1,278 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F842C11D6;
-	Fri, 17 Jul 2026 17:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBA0388E7C
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 17:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784309485; cv=none; b=mKHgMv96PiOqxK1cpSOADmxaDjeoUSrcwYgGJiOZN8DgxzBzboYklnqJcX5k0SxM8TIrsbC1ZSGcS+A1I/t6gsoKhUq/HvD9W3S6VkPAjDVFsCpedzenpEYW1oin5u4rOzwHKZLgBX+FAVmDnAj/Om4Ujn08iYHPMMBDgmAtIaE=
+	t=1784309595; cv=none; b=SckLMwgpV6/ZX2F+2NSn7IBz6SBI2bBYcnwO7dbftz5unyVmU6Vk5OnerKGp+ymmcpfNNRk3lAQk5eYdsmlAK/mqTUp5RNXxD40fXtGi7g3ifkOb33pAv/6J8eR1q7/z1KHNVhaRyH/TfKeyW+1X2d+C2fO3pj08ivSZMxB2N2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784309485; c=relaxed/simple;
-	bh=kE9XtB6iyw7BSFNAuuPgI01clqwgzMyGQ2yqQHsLjJM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IT+7aRYBxf7xwFk60eMLdQ+o4xyhve1FTtl56NBPlU++jgTKd3+vWWQFep7NTq0cJdHH+4QAVjRpbH9m87wqjxmHtka9lqgZ7GjoLHRUQUAJ3PR1w4I5Pd33qu6VfelRI0ihwQ/p8n2dnNBJn4aknglK2d2ATN5bWqdD8q1E0nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wxu9zgqI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784309595; c=relaxed/simple;
+	bh=76KHIUPx9GCfNmaVdnsDKiBK1kR39PFNUqTbo2lrbSA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U6jWsQYVwysee2BktZqUFegSGZTB0FGI30ByY+D+n4GDuOGEWSQIwQVNkB4RqG5AwXtwNL67R6JlykoLLfr998f9QZykQQTaFVTUijBNnjRiUQCyYwHUcqNU0LsFRkeorhOSS9MoSfKi1AnwQJRp6Ftr5Gr7Azrqo2lRpb1sWcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nYtWaUOl; arc=none smtp.client-ip=95.215.58.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wxu9zgqI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A7C1F00A3D;
-	Fri, 17 Jul 2026 17:31:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784309483;
-	bh=6tB+p5fpJihvWmKYtOqn6XBXbSKHjdM1g/8Wc7lnKAc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Wxu9zgqIph5rtq6bTKYeHsaiTgxmWpTOwq98kp7/FgXG55S4zw0mETpYJT0yfbyPq
-	 v4V5g+nDLg/ghKYBi5mk8rvjZlAhytiKJcx45c4Brl9l2yYq3Oq6NsJfFC417wfHzQ
-	 nEBMYY/F2Hn0ehBJGokTLjGbrdWaaUUhz4wU8dEmGho81WigKlnV7ujaEaUP1nKnn2
-	 9KjKwty8unA4lldmoJS4SwYuTYkCO8/kkwO6cuknvoWVtcbs1W8JJfUWjmO6QUDDLH
-	 dBZTx4vjOUiYj9omJD2y5FfAmxxaZXP1/vo2uMdE8m4CbzOsEyj2QKTHzh5//tJKCN
-	 LXQOR0tArV9qA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 17 Jul 2026 18:30:11 +0100
-Subject: [PATCH mm-hotfixes v5 5/5] arm64: remove redundant concurrent
- ptdump UAF mitigation
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nYtWaUOl"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784309582;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=jfVNmz4n0x/JwWN2HD4U6AXAQsD3HYnYjroMMw5DfXU=;
+	b=nYtWaUOlS8XBlZJdR3bTiUP6sW5pMWFVvxli6DityuypieucVrP6pE90zFpJ6XRKWGEUMD
+	Zazyib6KRzHY5WyHSi+g0w4/Y59p1vll+Ljs26R+ETzhaCPDJqk6ozI312zTnhGoVWR/0W
+	t2VBXrkdrzytBJcgl6+nC0xNnxAh/IA=
+From: Usama Arif <usama.arif@linux.dev>
+To: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com,
+	mhiramat@kernel.org,
+	rostedt@goodmis.org,
+	leitao@debian.org
+Cc: Usama Arif <usama.arif@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH] tracing: Fix context switch counter truncation
+Date: Fri, 17 Jul 2026 10:32:52 -0700
+Message-ID: <20260717173252.3431565-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-series-vmap-race-fix-v5-5-606a0ac6d3e5@kernel.org>
-References: <20260717-series-vmap-race-fix-v5-0-606a0ac6d3e5@kernel.org>
-In-Reply-To: <20260717-series-vmap-race-fix-v5-0-606a0ac6d3e5@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
- Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Dev Jain <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>
-Cc: David Carlier <devnexen@gmail.com>, ljs@kernel.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, "Denis V. Lunev" <den@virtuozzo.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7063; i=ljs@kernel.org;
- h=from:subject:message-id; bh=kE9XtB6iyw7BSFNAuuPgI01clqwgzMyGQ2yqQHsLjJM=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKi0rbPmiD/OZTXw4v7yvRv651ei/3cuKD+SZn7s71WQ
- nr3o9af7ShlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEHn1lZJhx43Hz5ID+kmJe
- 3r7zmyZwv3D7KhTYJX5kG2fK/jdH7mgw/GTkPXPjdkyIsd0f84dBtVY3N+yRF7h5eeHxcueUi5Y
- sW1gA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-This partially reverts commit fa93b45fd397 ("arm64: Enable vmalloc-huge
-with ptdump"), retaining vmalloc-huge support but eliminating the now
-redundant mitigation against a race between huge vmap page table freeing
-and ptdump, as this issue has now been fixed at core.
+trace_user_fault_read() samples nr_context_switches_cpu() before enabling
+preemption and retries the user copy if the counter changes. The helper
+returns unsigned long long because rq->nr_switches is u64, but the saved
+value is unsigned int.
 
-We also simultaneously remove the arm64 if-deffery when acquiring the mmap
-read lock upon vmap huge page table promotion as it is no longer required.
+Once a CPU has performed 2^32 context switches, assigning the counter to
+cnt discards its upper bits. The comparison after the copy promotes cnt
+back to unsigned long long, but the lost bits remain zero, so it reports a
+change even when the task was never scheduled out. Every retry then fails
+the same way until the 100-try guard warns and the user copy is abandoned.
 
-Note that this patch relies on the preceding vmalloc patch, and should not
-be backported alone.
+This affects long-running systems and workloads with high context-switch
+rates. A CPU switching 1,000 times per second takes about 50 days.
 
-Fixes: fa93b45fd397 ("arm64: Enable vmalloc-huge with ptdump")
+Store the sampled count in unsigned long long so the full value is
+preserved.
+
+Fixes: 64cf7d058a00 ("tracing: Have trace_marker use per-cpu data to read user space")
 Cc: stable@vger.kernel.org
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Will Deacon <will@kernel.org>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- arch/arm64/include/asm/ptdump.h |  2 --
- arch/arm64/mm/mmu.c             | 43 ++++-------------------------------------
- arch/arm64/mm/ptdump.c          | 11 ++---------
- mm/vmalloc.c                    | 15 +++-----------
- 4 files changed, 9 insertions(+), 62 deletions(-)
+ kernel/trace/trace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/include/asm/ptdump.h b/arch/arm64/include/asm/ptdump.h
-index 5b374a6ab34a..50a195eda8ed 100644
---- a/arch/arm64/include/asm/ptdump.h
-+++ b/arch/arm64/include/asm/ptdump.h
-@@ -7,8 +7,6 @@
- 
- #include <linux/ptdump.h>
- 
--DECLARE_STATIC_KEY_FALSE(arm64_ptdump_lock_key);
--
- #ifdef CONFIG_PTDUMP
- 
- #include <linux/mm_types.h>
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index a25d8beacc83..bd52fca6e872 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -49,8 +49,6 @@
- #define NO_CONT_MAPPINGS	BIT(1)
- #define NO_EXEC_MAPPINGS	BIT(2)	/* assumes FEAT_HPDS is not used */
- 
--DEFINE_STATIC_KEY_FALSE(arm64_ptdump_lock_key);
--
- u64 kimage_voffset __ro_after_init;
- EXPORT_SYMBOL(kimage_voffset);
- 
-@@ -1864,8 +1862,7 @@ int pmd_clear_huge(pmd_t *pmdp)
- 	return 1;
- }
- 
--static int __pmd_free_pte_page(pmd_t *pmdp, unsigned long addr,
--			       bool acquire_mmap_lock)
-+int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 1146b83b711a..412a8daf2162 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -6188,7 +6188,7 @@ char *trace_user_fault_read(struct trace_user_buf_info *tinfo,
  {
- 	pte_t *table;
- 	pmd_t pmd;
-@@ -1877,25 +1874,13 @@ static int __pmd_free_pte_page(pmd_t *pmdp, unsigned long addr,
- 		return 1;
- 	}
+ 	int cpu = smp_processor_id();
+ 	char *buffer = per_cpu_ptr(tinfo->tbuf, cpu)->buf;
+-	unsigned int cnt;
++	unsigned long long cnt;
+ 	int trys = 0;
+ 	int ret;
  
--	/* See comment in pud_free_pmd_page for static key logic */
- 	table = pte_offset_kernel(pmdp, addr);
- 	pmd_clear(pmdp);
- 	__flush_tlb_kernel_pgtable(addr);
--	if (static_branch_unlikely(&arm64_ptdump_lock_key) && acquire_mmap_lock) {
--		mmap_read_lock(&init_mm);
--		mmap_read_unlock(&init_mm);
--	}
--
- 	pte_free_kernel(NULL, table);
- 	return 1;
- }
- 
--int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
--{
--	/* If ptdump is walking the pagetables, acquire init_mm.mmap_lock */
--	return __pmd_free_pte_page(pmdp, addr, /* acquire_mmap_lock = */ true);
--}
--
- int pud_free_pmd_page(pud_t *pudp, unsigned long addr)
- {
- 	pmd_t *table;
-@@ -1911,36 +1896,16 @@ int pud_free_pmd_page(pud_t *pudp, unsigned long addr)
- 	}
- 
- 	table = pmd_offset(pudp, addr);
--
--	/*
--	 * Our objective is to prevent ptdump from reading a PMD table which has
--	 * been freed. In this race, if pud_free_pmd_page observes the key on
--	 * (which got flipped by ptdump) then the mmap lock sequence here will,
--	 * as a result of the mmap write lock/unlock sequence in ptdump, give
--	 * us the correct synchronization. If not, this means that ptdump has
--	 * yet not started walking the pagetables - the sequence of barriers
--	 * issued by __flush_tlb_kernel_pgtable() guarantees that ptdump will
--	 * observe an empty PUD.
--	 */
--	pud_clear(pudp);
--	__flush_tlb_kernel_pgtable(addr);
--	if (static_branch_unlikely(&arm64_ptdump_lock_key)) {
--		mmap_read_lock(&init_mm);
--		mmap_read_unlock(&init_mm);
--	}
--
- 	pmdp = table;
- 	next = addr;
- 	end = addr + PUD_SIZE;
- 	do {
- 		if (pmd_present(pmdp_get(pmdp)))
--			/*
--			 * PMD has been isolated, so ptdump won't see it. No
--			 * need to acquire init_mm.mmap_lock.
--			 */
--			__pmd_free_pte_page(pmdp, next, /* acquire_mmap_lock = */ false);
-+			pmd_free_pte_page(pmdp, next);
- 	} while (pmdp++, next += PMD_SIZE, next != end);
- 
-+	pud_clear(pudp);
-+	__flush_tlb_kernel_pgtable(addr);
- 	pmd_free(NULL, table);
- 	return 1;
- }
-diff --git a/arch/arm64/mm/ptdump.c b/arch/arm64/mm/ptdump.c
-index 1c20144700d7..5a76c59b5ada 100644
---- a/arch/arm64/mm/ptdump.c
-+++ b/arch/arm64/mm/ptdump.c
-@@ -283,13 +283,6 @@ void note_page_flush(struct ptdump_state *pt_st)
- 	note_page(pt_st, 0, -1, pte_val(pte_zero));
- }
- 
--static void arm64_ptdump_walk_pgd(struct ptdump_state *st, struct mm_struct *mm)
--{
--	static_branch_inc(&arm64_ptdump_lock_key);
--	ptdump_walk_pgd(st, mm, NULL);
--	static_branch_dec(&arm64_ptdump_lock_key);
--}
--
- void ptdump_walk(struct seq_file *s, struct ptdump_info *info)
- {
- 	unsigned long end = ~0UL;
-@@ -318,7 +311,7 @@ void ptdump_walk(struct seq_file *s, struct ptdump_info *info)
- 		}
- 	};
- 
--	arm64_ptdump_walk_pgd(&st.ptdump, info->mm);
-+	ptdump_walk_pgd(&st.ptdump, info->mm, NULL);
- }
- 
- static void __init ptdump_initialize(void)
-@@ -360,7 +353,7 @@ bool ptdump_check_wx(void)
- 		}
- 	};
- 
--	arm64_ptdump_walk_pgd(&st.ptdump, &init_mm);
-+	ptdump_walk_pgd(&st.ptdump, &init_mm, NULL);
- 
- 	if (st.wx_pages || st.uxn_pages) {
- 		pr_warn("Checked W+X mappings: FAILED, %lu W+X pages found, %lu non-UXN pages found\n",
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index d5c4d2bb770b..f4fa227a8d7f 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -169,10 +169,7 @@ static int vmap_try_huge_pmd(pmd_t *pmd, unsigned long addr, unsigned long end,
- 	 * Concurrent read lock holders are safe: each exclusively owns
- 	 * the range it operates on and cannot reach this page table.
- 	 */
--#ifndef CONFIG_ARM64
--	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
--#endif
--	{
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm) {
- 		if (!pmd_free_pte_page(pmd, addr))
- 			return 0;
- 		return pmd_set_huge(pmd, phys_addr, prot);
-@@ -229,10 +226,7 @@ static int vmap_try_huge_pud(pud_t *pud, unsigned long addr, unsigned long end,
- 		return pud_set_huge(pud, phys_addr, prot);
- 
- 	/* See comment in vmap_try_huge_pmd(). */
--#ifndef CONFIG_ARM64
--	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
--#endif
--	{
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm) {
- 		if (!pud_free_pmd_page(pud, addr))
- 			return 0;
- 		return pud_set_huge(pud, phys_addr, prot);
-@@ -289,10 +283,7 @@ static int vmap_try_huge_p4d(p4d_t *p4d, unsigned long addr, unsigned long end,
- 		return p4d_set_huge(p4d, phys_addr, prot);
- 
- 	/* See comment in vmap_try_huge_pmd(). */
--#ifndef CONFIG_ARM64
--	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
--#endif
--	{
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm) {
- 		if (!p4d_free_pud_page(p4d, addr))
- 			return 0;
- 		return p4d_set_huge(p4d, phys_addr, prot);
-
 -- 
-2.55.0
+2.53.0-Meta
 
