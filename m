@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D2E3093DB
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 18:11:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9674737C0EC
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 18:11:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784311897; cv=none; b=UjS1qgscYs+GRvoIOGNYbfwbnGRbQBa23mqqXKysCOATlYqcntgRBuiThaa4ywOwFn2eIa+KzhH20J4RhdV5h80QndMWTBNqstyam9Vi0gefmj7gTxNesU3ZvVe9Fi3vqsEfZ0pCltj82m8PdrVngolxruvHJACBx0F6k5FjM34=
+	t=1784311912; cv=none; b=BBxzptXMHkrG6Z9tFdOj41+bh1vCljBuyva+mzmsxoG/aE5AllEkXyWb1rQIBplImDRguJgqp2F5plqRUbe2Ix2DCDieQW0lPgWWPKx8f33PSv2+3Ap1dsLxa5EyyOGDOUo5Y2g3lXx5AiTJiqGAZYAMrA85bVer7o7BCiu01xY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784311897; c=relaxed/simple;
-	bh=1yEUXWUEBLB+KH2qvgt47ic6svQDci+1ifEqdDtvawA=;
+	s=arc-20240116; t=1784311912; c=relaxed/simple;
+	bh=mUUv1wxBgGV/qtG3Vq0SCCXSuUiATpyxjbb9DMGHnqM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ni6qrE2IJvwZv/0cG9U+cNGPOTmPiQ9aj1RrOplTvDxioFKHf3q4xU7dXBmFJbiR+nPwga8L81YDJjz3Iqvxsvsl1GQOjRrhL1iEg/JY7Subuh1F30eUH94fLfwFVIxOMDT8ykyFZH+DxOqHm8lzvL8ypLMmvFNLziTroZcvhtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FT0BLBaI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=arTvps+VDnVjcj7KvXRmTx7asVstlPEGBHdMn964Tav4wKpJxWWJHSBLPtFz/ZgOgfRsmmVBHSoY9d1X0Ro0FeQ9H6kDH0XkWCSuoplmpVRoJnxRT1IXNUSDOJsdGk1w7FRidTu/5nc4GUH6/TwVyh4Zd5XYDB9NAurw6YRTiwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n1tGy24M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FT0BLBaI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71EE51F00A3A;
-	Fri, 17 Jul 2026 18:11:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n1tGy24M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B59491F000E9;
+	Fri, 17 Jul 2026 18:11:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784311895;
-	bh=EiSWEBdkVBPCKwLYMN5yXkH0gGMp0OsJCS7PzRuoJ3Q=;
+	s=k20260515; t=1784311911;
+	bh=IlNFNLuwE81Ki3oPFtuEQoUG4k2mS2CynTU+gHDRACU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FT0BLBaIxeET5dDj/pLt3XcXdLRApkIvqRIEvwkEI0tTRkc+NKE145KKtuT8bcDxe
-	 ar/wmzLagwWYYbCK2MD5EnQ1To30mgWqIWcujoBmJ3QLjtDzQf7LHlTHGHrJ3ihmPo
-	 95gLcA2iKHsiWacL0oaaiOESjjhsBz1Zu6CVGgO+KD8ruLRrp4WA4TRnlfcB8ZtMUA
-	 aXMbrNvLEm1Cv+/wYZhlo0oG7J/4P76TQxLspQjvyyt7YtvQ6OMFDKYo25DrYlScA+
-	 yRKa/xkQB8uTHfTY/qiASgVu81JFskrgi4RxN5G6cxTG52J37cN7BgLCbHRi+NNXt5
-	 Hh35MDHUpWAcQ==
+	b=n1tGy24MAN8MRo+aYlrfrru6RSIrq8cGePo/iQRX+9+H0EwJ1UubxB21lahEQBQ7s
+	 E6c1HJfGzlPaluYToZsNzU+0lleD8/PCqjQhOA5xOZ1TTcVxwxPn5EgaNhV6yd1BcT
+	 pBZGRiqUy67WOlTAd5+CHsOz1FquUdF3RS6nFb4X8S9NBEt/8UYzMnAzmYljKF3SQZ
+	 w3M8uyGUCp7krgxGv0KO320h/79S0Vxg4M0eViaqh8ICXNoOhMp4tkW8jSWXOOk1XT
+	 MLserMQdI3ujhk/H1OSAKtVW9WMGEyV5o6ajYdDra4yC6zwI5VwIns2ev0fU6aMrMk
+	 zlu6cQWlRhfow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Trung Nguyen <trungnh@cystack.net>,
-	Benjamin Tissoires <bentiss@kernel.org>,
+Cc: Jann Horn <jannh@google.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] HID: multitouch: fix out-of-bounds bit access on mt_io_flags
-Date: Fri, 17 Jul 2026 14:11:33 -0400
-Message-ID: <20260717181133.2086215-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] proc: protect ptrace_may_access() with exec_update_lock (part 1)
+Date: Fri, 17 Jul 2026 14:11:49 -0400
+Message-ID: <20260717181149.2086640-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717181133.2086215-1-sashal@kernel.org>
-References: <2026071419-refined-abrasion-5918@gregkh>
- <20260717181133.2086215-1-sashal@kernel.org>
+In-Reply-To: <2026071445-ridden-persuader-5fac@gregkh>
+References: <2026071445-ridden-persuader-5fac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,156 +45,212 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Trung Nguyen <trungnh@cystack.net>
+From: Jann Horn <jannh@google.com>
 
-[ Upstream commit 8813b0612275cc61fe9e6603d0ee019247ade6be ]
+[ Upstream commit 6650527444dadc63d84aa939d14ecba4fadb2f69 ]
 
-mt_io_flags is a single unsigned long, but mt_process_slot(),
-mt_release_pending_palms() and mt_release_contacts() use it as a
-per-slot bitmap indexed by the slot number. That slot number is only
-bounded by td->maxcontacts, which is taken from the device's
-ContactCountMaximum feature report and can be up to 255, not by
-BITS_PER_LONG.
+Fix the easy cases where procfs currently calls ptrace_may_access() without
+exec_update_lock protection, where the fix is to simply add the extra lock
+or use mm_access():
 
-As a result, a multitouch device that advertises a large contact count
-makes set_bit()/clear_bit() operate past the mt_io_flags word and
-corrupt the adjacent members of struct mt_device. The sticky-fingers
-release timer is the easiest way to reach this. mt_release_contacts()
-runs
+ - do_task_stat(): grab exec_update_lock
+ - proc_pid_wchan(): grab exec_update_lock
+ - proc_map_files_lookup(): use mm_access() instead of get_task_mm()
+ - proc_map_files_readdir(): use mm_access() instead of get_task_mm()
+ - proc_ns_get_link(): grab exec_update_lock
+ - proc_ns_readlink(): grab exec_update_lock
 
-	for (i = 0; i < mt->num_slots; i++)
-		clear_bit(i, &td->mt_io_flags);
-
-with num_slots == maxcontacts. For maxcontacts around 250 the loop
-clears the bits that overlap td->applications.next, zeroing that list
-head, and the list_for_each_entry() that immediately follows then
-dereferences NULL. The kernel panics from timer (softirq) context. On a
-KASAN build this shows up as a general protection fault in
-mt_release_contacts() with a null-ptr-deref at offset 0x58, which is
-offsetof(struct mt_application, num_received).
-
-The state is reachable from an untrusted USB or Bluetooth HID
-multitouch device; no local privileges are required.
-
-Store the per-slot active state in a separately allocated bitmap sized
-for maxcontacts, the same pattern already used for pending_palm_slots,
-and keep only MT_IO_FLAGS_RUNNING in mt_io_flags. The two
-"mt_io_flags & MT_IO_SLOTS_MASK" arming checks become
-bitmap_empty(td->active_slots, td->maxcontacts).
-
-Move MT_IO_FLAGS_RUNNING back to bit 0. It was bumped to bit 32 by the
-same commit to leave the low byte for the slot bits; with the slot bits
-gone it fits in bit 0 again, which also keeps it within the unsigned
-long on 32-bit.
-
-Fixes: 46f781e0d151 ("HID: multitouch: fix sticky fingers")
+Fixes: f83ce3e6b02d ("proc: avoid information leaks to non-privileged processes")
 Cc: stable@vger.kernel.org
-Signed-off-by: Trung Nguyen <trungnh@cystack.net>
-Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
+Signed-off-by: Jann Horn <jannh@google.com>
+Link: https://patch.msgid.link/20260518-procfs-lockfix-part1-v1-1-5c3d20e0ac33@google.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ converted NULL return from mm_access() to ERR_PTR(-ESRCH) at call sites since 5.15's mm_access() returns NULL when the task has no mm ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-multitouch.c | 32 ++++++++++++++++++++------------
- 1 file changed, 20 insertions(+), 12 deletions(-)
+ fs/proc/array.c      |  6 ++++++
+ fs/proc/base.c       | 41 ++++++++++++++++++++++++-----------------
+ fs/proc/namespaces.c | 12 ++++++++++++
+ 3 files changed, 42 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index c3bcc23d7c7ca1..e4b91c0866bb98 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -31,6 +31,7 @@
-  * [1] https://gitlab.freedesktop.org/libevdev/hid-tools
-  */
+diff --git a/fs/proc/array.c b/fs/proc/array.c
+index 6f30b5a3166786..65f4e4df785d61 100644
+--- a/fs/proc/array.c
++++ b/fs/proc/array.c
+@@ -468,6 +468,11 @@ static int do_task_stat(struct seq_file *m, struct pid_namespace *ns,
+ 	unsigned long flags;
+ 	struct signal_struct *sig = task->signal;
+ 	unsigned int seq = 1;
++	int ret;
++
++	ret = down_read_killable(&task->signal->exec_update_lock);
++	if (ret)
++		return ret;
  
-+#include <linux/bitmap.h>
- #include <linux/device.h>
- #include <linux/hid.h>
- #include <linux/module.h>
-@@ -81,8 +82,7 @@ enum latency_mode {
- 	HID_LATENCY_HIGH = 1,
- };
+ 	state = *get_task_state(task);
+ 	vsize = eip = esp = 0;
+@@ -642,6 +647,7 @@ static int do_task_stat(struct seq_file *m, struct pid_namespace *ns,
+ 		seq_puts(m, " 0");
  
--#define MT_IO_SLOTS_MASK		GENMASK(7, 0) /* reserve first 8 bits for slot tracking */
--#define MT_IO_FLAGS_RUNNING		32
-+#define MT_IO_FLAGS_RUNNING		0
+ 	seq_putc(m, '\n');
++	up_read(&task->signal->exec_update_lock);
+ 	if (mm)
+ 		mmput(mm);
+ 	return 0;
+diff --git a/fs/proc/base.c b/fs/proc/base.c
+index 3405005199b613..ddd73fca706530 100644
+--- a/fs/proc/base.c
++++ b/fs/proc/base.c
+@@ -423,18 +423,24 @@ static int proc_pid_wchan(struct seq_file *m, struct pid_namespace *ns,
+ {
+ 	unsigned long wchan;
+ 	char symname[KSYM_NAME_LEN];
++	int err;
  
- static const bool mtrue = true;		/* default for true */
- static const bool mfalse;		/* default for false */
-@@ -158,10 +158,9 @@ struct mt_device {
- 	struct mt_class mtclass;	/* our mt device class */
- 	struct timer_list release_timer;	/* to release sticky fingers */
- 	struct hid_device *hdev;	/* hid_device we're attached to */
--	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING)
--					 * first 8 bits are reserved for keeping the slot
--					 * states, this is fine because we only support up
--					 * to 250 slots (MT_MAX_MAXCONTACT)
-+	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING) */
-+	unsigned long *active_slots;	/* bitmap of slots with an active
-+					 * contact, sized for maxcontacts
- 					 */
- 	__u8 inputmode_value;	/* InputMode HID feature value */
- 	__u8 maxcontacts;
-@@ -915,7 +914,7 @@ static void mt_release_pending_palms(struct mt_device *td,
++	err = down_read_killable(&task->signal->exec_update_lock);
++	if (err)
++		return err;
+ 	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+ 		goto print0;
  
- 	for_each_set_bit(slotnum, app->pending_palm_slots, td->maxcontacts) {
- 		clear_bit(slotnum, app->pending_palm_slots);
--		clear_bit(slotnum, &td->mt_io_flags);
-+		clear_bit(slotnum, td->active_slots);
- 
- 		input_mt_slot(input, slotnum);
- 		input_mt_report_slot_inactive(input);
-@@ -1100,9 +1099,9 @@ static int mt_process_slot(struct mt_device *td, struct input_dev *input,
- 		input_event(input, EV_ABS, ABS_MT_TOUCH_MAJOR, major);
- 		input_event(input, EV_ABS, ABS_MT_TOUCH_MINOR, minor);
- 
--		set_bit(slotnum, &td->mt_io_flags);
-+		set_bit(slotnum, td->active_slots);
- 	} else {
--		clear_bit(slotnum, &td->mt_io_flags);
-+		clear_bit(slotnum, td->active_slots);
+ 	wchan = get_wchan(task);
+ 	if (wchan && !lookup_symbol_name(wchan, symname)) {
+ 		seq_puts(m, symname);
++		up_read(&task->signal->exec_update_lock);
+ 		return 0;
  	}
  
+ print0:
+ 	seq_putc(m, '0');
++	up_read(&task->signal->exec_update_lock);
  	return 0;
-@@ -1237,7 +1236,7 @@ static void mt_touch_report(struct hid_device *hid,
- 	 * defect.
- 	 */
- 	if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
--		if (td->mt_io_flags & MT_IO_SLOTS_MASK)
-+		if (!bitmap_empty(td->active_slots, td->maxcontacts))
- 			mod_timer(&td->release_timer,
- 				  jiffies + msecs_to_jiffies(100));
- 		else
-@@ -1277,6 +1276,15 @@ static int mt_touch_input_configured(struct hid_device *hdev,
- 	if (td->is_buttonpad)
- 		__set_bit(INPUT_PROP_BUTTONPAD, input->propbit);
+ }
+ #endif /* CONFIG_KALLSYMS */
+@@ -2357,17 +2363,17 @@ static struct dentry *proc_map_files_lookup(struct inode *dir,
+ 	if (!task)
+ 		goto out;
  
-+	if (!td->active_slots) {
-+		td->active_slots = devm_kcalloc(&td->hdev->dev,
-+						BITS_TO_LONGS(td->maxcontacts),
-+						sizeof(long),
-+						GFP_KERNEL);
-+		if (!td->active_slots)
-+			return -ENOMEM;
+-	result = ERR_PTR(-EACCES);
+-	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+-		goto out_put_task;
+-
+ 	result = ERR_PTR(-ENOENT);
+ 	if (dname_to_vma_addr(dentry, &vm_start, &vm_end))
+ 		goto out_put_task;
+ 
+-	mm = get_task_mm(task);
++	mm = mm_access(task, PTRACE_MODE_READ_FSCREDS);
+ 	if (!mm)
++		mm = ERR_PTR(-ESRCH);
++	if (IS_ERR(mm)) {
++		result = ERR_CAST(mm);
+ 		goto out_put_task;
 +	}
+ 
+ 	result = ERR_PTR(-EINTR);
+ 	if (mmap_read_lock_killable(mm))
+@@ -2416,23 +2422,24 @@ proc_map_files_readdir(struct file *file, struct dir_context *ctx)
+ 	if (!task)
+ 		goto out;
+ 
+-	ret = -EACCES;
+-	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+-		goto out_put_task;
+-
+ 	ret = 0;
+ 	if (!dir_emit_dots(file, ctx))
+ 		goto out_put_task;
+ 
+-	mm = get_task_mm(task);
++	mm = mm_access(task, PTRACE_MODE_READ_FSCREDS);
+ 	if (!mm)
++		mm = ERR_PTR(-ESRCH);
++	if (IS_ERR(mm)) {
++		ret = PTR_ERR(mm);
++		/* if the task has no mm, the directory should just be empty */
++		if (ret == -ESRCH)
++			ret = 0;
+ 		goto out_put_task;
++	}
+ 
+ 	ret = mmap_read_lock_killable(mm);
+-	if (ret) {
+-		mmput(mm);
+-		goto out_put_task;
+-	}
++	if (ret)
++		goto out_put_mm;
+ 
+ 	nr_files = 0;
+ 
+@@ -2456,8 +2463,7 @@ proc_map_files_readdir(struct file *file, struct dir_context *ctx)
+ 		if (!p) {
+ 			ret = -ENOMEM;
+ 			mmap_read_unlock(mm);
+-			mmput(mm);
+-			goto out_put_task;
++			goto out_put_mm;
+ 		}
+ 
+ 		p->start = vma->vm_start;
+@@ -2465,7 +2471,6 @@ proc_map_files_readdir(struct file *file, struct dir_context *ctx)
+ 		p->mode = vma->vm_file->f_mode;
+ 	}
+ 	mmap_read_unlock(mm);
+-	mmput(mm);
+ 
+ 	for (i = 0; i < nr_files; i++) {
+ 		char buf[4 * sizeof(long) + 2];	/* max: %lx-%lx\0 */
+@@ -2482,6 +2487,8 @@ proc_map_files_readdir(struct file *file, struct dir_context *ctx)
+ 		ctx->pos++;
+ 	}
+ 
++out_put_mm:
++	mmput(mm);
+ out_put_task:
+ 	put_task_struct(task);
+ out:
+diff --git a/fs/proc/namespaces.c b/fs/proc/namespaces.c
+index 8e159fc78c0a12..3a824f62dfccd6 100644
+--- a/fs/proc/namespaces.c
++++ b/fs/proc/namespaces.c
+@@ -55,6 +55,10 @@ static const char *proc_ns_get_link(struct dentry *dentry,
+ 	if (!task)
+ 		return ERR_PTR(-EACCES);
+ 
++	error = down_read_killable(&task->signal->exec_update_lock);
++	if (error)
++		goto out_put_task;
 +
- 	app->pending_palm_slots = devm_kcalloc(&hi->input->dev,
- 					       BITS_TO_LONGS(td->maxcontacts),
- 					       sizeof(long),
-@@ -1655,7 +1663,7 @@ static void mt_release_contacts(struct hid_device *hid)
- 			for (i = 0; i < mt->num_slots; i++) {
- 				input_mt_slot(input_dev, i);
- 				input_mt_report_slot_inactive(input_dev);
--				clear_bit(i, &td->mt_io_flags);
-+				clear_bit(i, td->active_slots);
- 			}
- 			input_mt_sync_frame(input_dev);
- 			input_sync(input_dev);
-@@ -1678,7 +1686,7 @@ static void mt_expired_timeout(struct timer_list *t)
- 	 */
- 	if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
- 		return;
--	if (td->mt_io_flags & MT_IO_SLOTS_MASK)
-+	if (!bitmap_empty(td->active_slots, td->maxcontacts))
- 		mt_release_contacts(hdev);
- 	clear_bit_unlock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags);
+ 	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+ 		goto out;
+ 
+@@ -64,6 +68,8 @@ static const char *proc_ns_get_link(struct dentry *dentry,
+ 
+ 	error = nd_jump_link(&ns_path);
+ out:
++	up_read(&task->signal->exec_update_lock);
++out_put_task:
+ 	put_task_struct(task);
+ 	return ERR_PTR(error);
+ }
+@@ -80,11 +86,17 @@ static int proc_ns_readlink(struct dentry *dentry, char __user *buffer, int bufl
+ 	if (!task)
+ 		return res;
+ 
++	res = down_read_killable(&task->signal->exec_update_lock);
++	if (res)
++		goto out_put_task;
++
+ 	if (ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS)) {
+ 		res = ns_get_name(name, sizeof(name), task, ns_ops);
+ 		if (res >= 0)
+ 			res = readlink_copy(buffer, buflen, name);
+ 	}
++	up_read(&task->signal->exec_update_lock);
++out_put_task:
+ 	put_task_struct(task);
+ 	return res;
  }
 -- 
 2.53.0
