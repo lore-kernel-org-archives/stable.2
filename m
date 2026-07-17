@@ -1,124 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F293E379ECD;
-	Fri, 17 Jul 2026 17:54:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CE33002B6;
+	Fri, 17 Jul 2026 18:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784310849; cv=none; b=oo6Uie6YQX5ZneupDKNRZXuQa65jdsxcjWSuybaUeZfp6FP5KTVrsjfR82tVnSxel2FSCzjf6gwYjtSQ65Mjz/+wfRrfA4DWNvxATMkmXXcU7Fsz9WA22kvCT+i7zeD81Etq/U46ApsjsU4AFSy7Y+g0qYeLyyeTrKOtqb2hDQo=
+	t=1784311514; cv=none; b=aqpOt8XZ1qrqjVQ4Yb3cZnHpz+BpukJ1o8b6Y5hFTLLEMfQbj6klAit5ykIDtyPlumU8PSX6zlg6JxteKnF5WmrC1GQxFrqVc/lg16IENFkICJLhKwwzDTxvHntI/GEp4m5eJijSdT+l078BSh7FbWX7Icex4I3vBGXExPqFbiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784310849; c=relaxed/simple;
-	bh=fVyo+aBDlkCO5YY4oF7PlSe29p3IKXJswtx8B0+nwcc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FHkmz7qfNZenHIXPy+BthnZwa9HCve+6TU56o9qd0dGqE4OFtvTID/Q3JoCerVFSkNd4wLorMit/L6G7fK4UTqTVCTpzyBFlVotOvhyB+bDe+dJgKEJW6MV5e/e/P5DjT2m5s9+1lWcAEQRJsjGcgGcye0LWPrOrJYZ8aZK9Fns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YWuN+WtD; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784311514; c=relaxed/simple;
+	bh=moMl3E65h89Fm072BiQDDw0MZgkDGYQCCZHgVYMQCWg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eSSNoEI9BESC8+OOazYCQxk8cyAyNyzyP614mcOUMx998vnpYXRgAMEAGNDKttQM7aNhXTaJwREnr5K7keNcN5GDG1+FO4t3Xd/GM8D8CbsFYeUFdrVVz8S1SEvZrbqfA+vo3oPXpma/cNcz04tO60GMyNmabe9JinBvDgcJEKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MzFNHvro; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YWuN+WtD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784310848; x=1815846848;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fVyo+aBDlkCO5YY4oF7PlSe29p3IKXJswtx8B0+nwcc=;
-  b=YWuN+WtDepUXbajyzhqUBbb9HIm7PlqSn4awb98fCXpy19pXnShK2aUu
-   NwcYNDxn/WmWHP9U5FefrkP+T1J0tmFISUAKPfs/cGD/xZ9gjXYLMtJ9/
-   5rGoaUGjl1tKz2rcHXBYEKdjZA0sgbnWDl4x58Xcd3F9B9U0FGz2eSYzy
-   pdlXB3CFSh0Pg0Ey91G3AUdAd4o9ncwQPExgxM11SBbCx8+YLOAAK5Rdp
-   nOpk31Gn9MvO8jYIUYd6KJNhbZ4n93t3MNYyopm8D21+3bGHLSDA9I3tE
-   lR0cyEeJJ6m97NQe71PqtPa9Jp9ifXBWzdpw3EuugPBtIidBUxhDDnmCJ
-   Q==;
-X-CSE-ConnectionGUID: V+50oMLnTDqL8iSEKcvFuQ==
-X-CSE-MsgGUID: Dx4g1utCSxWYqm8O6TBOWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="88663944"
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="88663944"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 10:54:08 -0700
-X-CSE-ConnectionGUID: rU2XKYITTKqvg5UjJZhATA==
-X-CSE-MsgGUID: MLNPqyruR/mPFEeeXBytSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="258845509"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.143])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 10:54:04 -0700
-Date: Fri, 17 Jul 2026 20:54:02 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Ryan Wilbur <rwilbur633@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Manuel Lauss <manuel.lauss@gmail.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] serial: 8250: clear stuck RX-timeout interrupt on
- LPC32xx (PORT_LPC3220)
-Message-ID: <alpsOr5ZVqa_eLs9@ashevche-desk.local>
-References: <20260717123530.481021-1-rwilbur633@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MzFNHvro"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7CF91F00A3A;
+	Fri, 17 Jul 2026 18:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784311512;
+	bh=bAt2B2DVBX4/RIpHNlO5/JDoLwNz0B6Ol+c72/5t3UA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MzFNHvroNpxLssZqtDE/XzisYnpfZTw7q6hhmN2FsH0HM/1K/Ck03+b4yToNC8BFM
+	 e2nA1/X53VCAdYAxXw0SpVBiFy+pf7EIeTE2TpOdwjEH/ygihfaxBJCDyTzPtLrb1g
+	 YolAHpsYonN2KOcRj8XToi826MiewgqkOV/JdJjq4YkJKobLWq1dhIwERvSGWisdNG
+	 9ybxIL7Jy3VwIv4BiWyZXwMg6tO3CS6lg5VMd8zQqB+TOKMAJLfYmHSNXlnX77aLLN
+	 gyP+uY2DSl4GnAX+BGqUfp6M3HsonmcxJW7+SCrE4u9yROwK9SY8UzlKT2Ca0XN6rk
+	 s4/02TpbIKBsg==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	x86@kernel.org,
+	stable@vger.kernel.org,
+	Michael Kelley <mhklinux@outlook.com>,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: [PATCH v8 01/23] dma-direct: return struct page from dma_direct_alloc_from_pool()
+Date: Fri, 17 Jul 2026 23:34:19 +0530
+Message-ID: <20260717180442.110954-2-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260717180442.110954-1-aneesh.kumar@kernel.org>
+References: <20260717180442.110954-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260717123530.481021-1-rwilbur633@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 17, 2026 at 09:35:30AM -0300, Ryan Wilbur wrote:
-> The LPC32xx UART can latch an RX character-timeout interrupt while the
-> RX FIFO is empty: IIR reports UART_IIR_RX_TIMEOUT (0x0c) but LSR.DR is
-> clear. A character timeout is only cleared by reading RHR, but
-> serial8250_rx_chars() reads RHR only when LSR.DR is set, so nothing ever
-> clears the condition. The interrupt is level-triggered and re-fires
-> immediately, so on a single-core ARM926 the resulting interrupt
-> storm livelocks the CPU.
-> 
-> It is reproducible when userspace repeatedly opens the front-panel port
-> (ttyS1): serial8250_do_set_termios() re-enables interrupts on unlock and
-> the handler then spins forever with iir=0xcc lsr=0x60 ier=0x05, tripping
-> the soft-lockup detector in serial8250_handle_irq_locked().
-> 
-> Fix this by doing one throwaway RHR read to clear the timeout. It is gated
-> on PORT_LPC3220 and only fires when the FIFO is empty (LSR.DR clear), so
-> no real received data is ever discarded, and it is a no-op on healthy
-> UARTs which never report a timeout with DR==0.
-> 
-> This is the same class of bug already worked around for other 8250 cores;
-> see commit 424d79183af0 ("serial: 8250_dw: Avoid "too much work" from bogus rx timeout interrupt")
-> which reports the identical iir=0xcc/lsr=0x60. See also
-> UART_RX_TIMEOUT_QUIRK in 8250_omap, and the note in 8250_bcm7271.
+Commit 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool
+helper") changed dma_direct_alloc_from_pool() to return the CPU address
+from dma_alloc_from_pool(). That fits dma_direct_alloc(), but
+dma_direct_alloc_pages() also uses the helper and expects a struct page *.
 
-...
+Fix this by making dma_direct_alloc_from_pool() return the struct page *
+again, and pass the CPU address back through an out-parameter for the
+dma_direct_alloc() caller.
 
-> +	/*
-> +	 * On PORT_LPC3220 the UART can raise an RX character-timeout
-> +	 * interrupt with an empty RX FIFO (IIR reports RX_TIMEOUT but
-> +	 * LSR.DR is clear). The timeout is only cleared by reading RHR,
-> +	 * but the RX path below is skipped when the FIFO is empty, so
-> +	 * nothing clears it. IRQ then re-fires immediately and livelocks
-> +	 * this single-core. Do one throwaway RHR read to clear it.
+Fixes: 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool helper")
+Cc: stable@vger.kernel.org
+Tested-by: Michael Kelley <mhklinux@outlook.com>
+Tested-by: Mostafa Saleh <smostafa@google.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+---
+ kernel/dma/direct.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-> +	 * Same bug worked around for other 8250 cores (8250_dw, 8250_omap, 8250_bcm7271).
-
-This is 8250-port.c.
-
-> +	 */
-> +	if (port->type == PORT_LPC3220 &&
-
-Why do we have this then?
-
-> +	    (iir & UART_IIR_RX_TIMEOUT) == UART_IIR_RX_TIMEOUT &&
-> +	    !(status & UART_LSR_DR))
-> +		serial_in(up, UART_RX);
-
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index d8219efe3273..363d984d90e7 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -164,22 +164,21 @@ static bool dma_direct_use_pool(struct device *dev, gfp_t gfp)
+ 	return !gfpflags_allow_blocking(gfp) && !is_swiotlb_for_alloc(dev);
+ }
+ 
+-static void *dma_direct_alloc_from_pool(struct device *dev, size_t size,
+-		dma_addr_t *dma_handle, gfp_t gfp)
++static struct page *dma_direct_alloc_from_pool(struct device *dev, size_t size,
++		dma_addr_t *dma_handle, void **cpu_addr, gfp_t gfp)
+ {
+ 	struct page *page;
+ 	u64 phys_limit;
+-	void *ret;
+ 
+ 	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_DMA_COHERENT_POOL)))
+ 		return NULL;
+ 
+ 	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
+-	page = dma_alloc_from_pool(dev, size, &ret, gfp, dma_coherent_ok);
++	page = dma_alloc_from_pool(dev, size, cpu_addr, gfp, dma_coherent_ok);
+ 	if (!page)
+ 		return NULL;
+ 	*dma_handle = phys_to_dma_direct(dev, page_to_phys(page));
+-	return ret;
++	return page;
+ }
+ 
+ static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
+@@ -247,8 +246,11 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+ 	 * the atomic pools instead if we aren't allowed block.
+ 	 */
+ 	if ((remap || force_dma_unencrypted(dev)) &&
+-	    dma_direct_use_pool(dev, gfp))
+-		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
++	    dma_direct_use_pool(dev, gfp)) {
++		page = dma_direct_alloc_from_pool(dev, size, dma_handle,
++						  &ret, gfp);
++		return page ? ret : NULL;
++	}
+ 
+ 	/* we always manually zero the memory once we are done */
+ 	page = __dma_direct_alloc_pages(dev, size, gfp & ~__GFP_ZERO, true);
+@@ -357,7 +359,7 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
+ 	void *ret;
+ 
+ 	if (force_dma_unencrypted(dev) && dma_direct_use_pool(dev, gfp))
+-		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
++		return dma_direct_alloc_from_pool(dev, size, dma_handle, &ret, gfp);
+ 
+ 	page = __dma_direct_alloc_pages(dev, size, gfp, false);
+ 	if (!page)
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
