@@ -1,43 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E8B31E831;
-	Fri, 17 Jul 2026 02:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47ABA24A07C;
+	Fri, 17 Jul 2026 02:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784256508; cv=none; b=pcgcMN2cZ4XC/D/pz6OBfAua6Rj2+GhDuoBqPV3SsEhU3fjXOCT0EznQCW14dOPrp3ZEdTBMZJKIdmhRn7wrDQPDDPoWni8wPl3cwCtxkopEuWsy/fxn+99FIENrGtKyWGaVYb4pYfh6mRHuEaB4htLfU/52LwBXofSkVE++ExU=
+	t=1784256978; cv=none; b=G3dMeMsRMYIv2DvU97dLzjkKG0C+EjMr8xL2c2kfpDjPhkyriR6D5/wj7jdvtCiX3oaE2Qm6urzsksM3EjjYpD5StdRi1cMLNyr63Ov3rCN0nTTIB1jaiVrMKFjOAffNuaSAJmP1LEO4MTb5vAHVTfLwKY4j3OP7OqyNQ1JRRUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784256508; c=relaxed/simple;
-	bh=IqygerktyTEPyLEiokq9VxE6GDX7wRzJHIK46ETWviI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GleX/ifGAw9Qd5orMTWssRkzd+AB/xOzX/z+3e0/iJ6ePC6GpaD3p6yc9SPY+1jIPzkHynj6BcP0/exBUCv/2Td0B5sO4jZlr0Irmngg6CYMY+Zo+jT3W9fXn58eVshrLhfg94bi3uVQ2TH1CquiuUWS6F3ZBneoKklTCyEcGl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGHciYM1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784256978; c=relaxed/simple;
+	bh=Vpb1BU3/U6gHwbAKD5b+6BHmEWVYkaUsfG0Yr559dJg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tDgATYYdlxNRIwd65oMtwPm9TKY66gRxT/SHDb8rwB16TBq8Pq0VRR+D7LdCiXv1MKpRvPW5S3SD8Pzfgnyi382cLd53QG+Yn0pfTcWVi919nEs9AcJ+Hw/Z4ajGBAwWKHsxcEtF6W9z6j1hDKFyzbMtJDae+xSyuSDSThwTn4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Ds20sJPZ; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGHciYM1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69F941F00A3E;
-	Fri, 17 Jul 2026 02:48:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784256506;
-	bh=rMf1AkGg6ZAVO5CXXISnGnNmfYJhNNFj6Yjj2NwEEjc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DGHciYM1wlaaQ9cuHdf5j6wyHU4W3RSSTok+6qeLB1JogDefbtwZQv+V1Ql4LmQip
-	 6PxseYcWB0CcvLVU3NCQBR52BYEIxZt5ugztwmVaD0iHc+ynXOH7JL95add+fw3NJr
-	 vhXAXdspxVI8xvTRQnabzVcpaObWhMLL7twNGo6VHynvtVb/wbEsENORIQmZi0ko5w
-	 qhUWl7N697gX+0rELz+ex/oQTMFfvluCHBpqE1D/4xiAjFPVWV3qHq5XhEJMi7gUlv
-	 WpQm/D1R1o6qktqIsESFrpgW62mquNiba7R/xIF+BM/vBOdb7s9pUFRUWlQoKvwvBp
-	 aZ2vM6uEgsKjQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-crypto@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Christian Lamparter <chunkeey@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: [PATCH 5.10 3/3] crypto: crypto4xx - Remove insecure and unused rng_alg
-Date: Thu, 16 Jul 2026 19:46:05 -0700
-Message-ID: <20260717024605.87486-4-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260717024605.87486-1-ebiggers@kernel.org>
-References: <20260717024605.87486-1-ebiggers@kernel.org>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Ds20sJPZ"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 468584280;
+	Fri, 17 Jul 2026 10:56:09 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 ath-current] wifi: ath12k: convert scan timeout to wiphy delayed work
+Date: Fri, 17 Jul 2026 10:56:02 +0800
+Message-Id: <20260717025602.262916-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,235 +38,268 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9f6e00b99403a1kunmdec449f220c0f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDH08YVh5DQxpJHhpISE5IS1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Ds20sJPZf3UlcCC6he7PMb0+TD9q0mC5p1aa4+qDmjxBtBM5FX6kCxONxHcLhT7aNgl31x5jwiJQKJVr32N1sPOKk+pn0CHvMwORbBne3Y6pgHNliWC5Siwfqw6omiu/yv/AONZnbApKBEIlvhMD1MBxXyL5AXNd1O67C8lPaAA=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=FSO2j91TkEpI8QtMWnZWa6dR1VeafzmNPq3IfWih298=;
+	h=date:mime-version:subject:message-id:from;
 
-commit 7811ec9e973d2c9e465083699f0c8240b98cb8c4 upstream.
+ath12k_mac_op_stop() is called with the wiphy mutex held and calls
+ath12k_mac_stop(), which cancels ar->scan.timeout. The timeout worker
+also takes the wiphy mutex before aborting the scan, so synchronously
+cancelling it from the stop path can deadlock if the worker has started
+and is waiting for the same mutex.
 
-Remove crypto4xx_rng, as it is insecure and unused:
+Do not drop the wiphy mutex inside the mac80211 stop callback. Convert
+ar->scan.timeout to wiphy_delayed_work instead, so the timeout callback
+runs in wiphy work context with the wiphy mutex held. This matches the
+locking model used by the scan vdev cleanup work and lets stop/cancel
+paths use wiphy_delayed_work_cancel() while they already hold the wiphy
+mutex.
 
-- It has only a 64-bit security strength, which is highly inadequate.
-  This can be seen by the fact that crypto4xx_hw_init() seeds it with
-  only 64 bits of entropy, and the fact that the original commit
-  mentions that it implements ANSI X9.17 Annex C.
+The old scan-finish path could cancel the delayed work directly from WMI
+event context. With wiphy_delayed_work that cancellation must happen from
+wiphy context, so keep it in scan.vdev_clean_wk. Mark scans whose cleanup
+work has been queued so a timeout work item that was already queued before
+cleanup runs does not abort a scan that is already finishing.
 
-  Another issue was that this driver didn't implement the crypto_rng API
-  correctly, as crypto4xx_prng_generate() didn't return 0 on success.
-
-- No user of this code is known.  It's usable only theoretically via the
-  "rng" algorithm type of AF_ALG.  But userspace actually just uses the
-  actual Linux RNG (/dev/random etc) instead.  And rng_algs don't
-  contribute entropy to the actual Linux RNG either.  (This may have
-  been confused with hwrng, which does contribute entropy.)
-
-Fixes: d072bfa48853 ("crypto: crypto4xx - add prng crypto support")
+Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
+Suggested-by: Johannes Berg <johannes@sipsolutions.net>
 Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Acked-by: Christian Lamparter <chunkeey@gmail.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/crypto/amcc/crypto4xx_core.c    | 87 -------------------------
- drivers/crypto/amcc/crypto4xx_core.h    |  4 --
- drivers/crypto/amcc/crypto4xx_reg_def.h | 11 ----
- 3 files changed, 102 deletions(-)
+Changes in v3:
+  - Convert scan.timeout to wiphy_delayed_work instead of dropping the
+    mac80211-owned wiphy lock in ath12k_mac_op_stop().
+  - Cancel the timeout from scan.vdev_clean_wk to preserve the
+    scan-finish cancellation from wiphy context.
+  - Add scan.finish_queued so an already queued timeout work item does not
+    abort a scan that has already queued its cleanup work.
 
-diff --git a/drivers/crypto/amcc/crypto4xx_core.c b/drivers/crypto/amcc/crypto4xx_core.c
-index b0841b3504a5..d370e707dbdd 100644
---- a/drivers/crypto/amcc/crypto4xx_core.c
-+++ b/drivers/crypto/amcc/crypto4xx_core.c
-@@ -31,11 +31,9 @@
- #include <crypto/ctr.h>
- #include <crypto/gcm.h>
- #include <crypto/sha.h>
--#include <crypto/rng.h>
- #include <crypto/scatterwalk.h>
- #include <crypto/skcipher.h>
- #include <crypto/internal/aead.h>
--#include <crypto/internal/rng.h>
- #include <crypto/internal/skcipher.h>
- #include "crypto4xx_reg_def.h"
- #include "crypto4xx_core.h"
-@@ -989,10 +987,6 @@ static int crypto4xx_register_alg(struct crypto4xx_device *sec_dev,
- 			rc = crypto_register_aead(&alg->alg.u.aead);
- 			break;
+Changes in v2:
+  - Rebase on ath.git ath-current.
+  - Use ath-current subject tag as requested.
+  - Move the synchronous scan timeout drain out of the locked stop path
+    instead of adding it in the wrong start-path context.
+  - Update Fixes to the ath12k commit that introduced the stop-time
+    scan.timeout drain.
+
+ drivers/net/wireless/ath/ath12k/core.c |  2 +-
+ drivers/net/wireless/ath/ath12k/core.h |  3 +-
+ drivers/net/wireless/ath/ath12k/mac.c  | 50 ++++++++++++++++++--------
+ 3 files changed, 38 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath12k/core.c b/drivers/net/wireless/ath/ath12k/core.c
+index 742d4fd1b598..95673d3be9da 100644
+--- a/drivers/net/wireless/ath/ath12k/core.c
++++ b/drivers/net/wireless/ath/ath12k/core.c
+@@ -1463,7 +1463,7 @@ void ath12k_core_halt(struct ath12k *ar)
  
--		case CRYPTO_ALG_TYPE_RNG:
--			rc = crypto_register_rng(&alg->alg.u.rng);
--			break;
--
- 		default:
- 			rc = crypto_register_skcipher(&alg->alg.u.cipher);
- 			break;
-@@ -1018,10 +1012,6 @@ static void crypto4xx_unregister_alg(struct crypto4xx_device *sec_dev)
- 			crypto_unregister_aead(&alg->alg.u.aead);
- 			break;
- 
--		case CRYPTO_ALG_TYPE_RNG:
--			crypto_unregister_rng(&alg->alg.u.rng);
--			break;
--
- 		default:
- 			crypto_unregister_skcipher(&alg->alg.u.cipher);
- 		}
-@@ -1080,69 +1070,6 @@ static irqreturn_t crypto4xx_ce_interrupt_handler_revb(int irq, void *data)
- 		PPC4XX_TMO_ERR_INT);
+ 	ath12k_mac_scan_finish(ar);
+ 	ath12k_mac_peer_cleanup_all(ar);
+-	cancel_delayed_work_sync(&ar->scan.timeout);
++	wiphy_delayed_work_cancel(ath12k_ar_to_hw(ar)->wiphy, &ar->scan.timeout);
+ 	cancel_work_sync(&ar->regd_update_work);
+ 	cancel_work_sync(&ar->regd_channel_update_work);
+ 	cancel_work_sync(&ab->rfkill_work);
+diff --git a/drivers/net/wireless/ath/ath12k/core.h b/drivers/net/wireless/ath/ath12k/core.h
+index fc5127b5c1a3..b6fd5e9dfdb7 100644
+--- a/drivers/net/wireless/ath/ath12k/core.h
++++ b/drivers/net/wireless/ath/ath12k/core.h
+@@ -635,11 +635,12 @@ struct ath12k {
+ 		struct completion started;
+ 		struct completion completed;
+ 		struct completion on_channel;
+-		struct delayed_work timeout;
++		struct wiphy_delayed_work timeout;
+ 		enum ath12k_scan_state state;
+ 		bool is_roc;
+ 		int roc_freq;
+ 		bool roc_notify;
++		bool finish_queued;
+ 		struct wiphy_work vdev_clean_wk;
+ 		struct ath12k_link_vif *arvif;
+ 	} scan;
+diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
+index 51c4df32e716..f53df8d4c808 100644
+--- a/drivers/net/wireless/ath/ath12k/mac.c
++++ b/drivers/net/wireless/ath/ath12k/mac.c
+@@ -5162,7 +5162,7 @@ void __ath12k_mac_scan_finish(struct ath12k *ar)
+ 			ieee80211_remain_on_channel_expired(hw);
+ 		fallthrough;
+ 	case ATH12K_SCAN_STARTING:
+-		cancel_delayed_work(&ar->scan.timeout);
++		ar->scan.finish_queued = true;
+ 		complete_all(&ar->scan.completed);
+ 		wiphy_work_queue(ar->ah->hw->wiphy, &ar->scan.vdev_clean_wk);
+ 		break;
+@@ -5254,14 +5254,23 @@ static void ath12k_scan_abort(struct ath12k *ar)
+ 	spin_unlock_bh(&ar->data_lock);
  }
  
--static int ppc4xx_prng_data_read(struct crypto4xx_device *dev,
--				 u8 *data, unsigned int max)
--{
--	unsigned int i, curr = 0;
--	u32 val[2];
--
--	do {
--		/* trigger PRN generation */
--		writel(PPC4XX_PRNG_CTRL_AUTO_EN,
--		       dev->ce_base + CRYPTO4XX_PRNG_CTRL);
--
--		for (i = 0; i < 1024; i++) {
--			/* usually 19 iterations are enough */
--			if ((readl(dev->ce_base + CRYPTO4XX_PRNG_STAT) &
--			     CRYPTO4XX_PRNG_STAT_BUSY))
--				continue;
--
--			val[0] = readl_be(dev->ce_base + CRYPTO4XX_PRNG_RES_0);
--			val[1] = readl_be(dev->ce_base + CRYPTO4XX_PRNG_RES_1);
--			break;
--		}
--		if (i == 1024)
--			return -ETIMEDOUT;
--
--		if ((max - curr) >= 8) {
--			memcpy(data, &val, 8);
--			data += 8;
--			curr += 8;
--		} else {
--			/* copy only remaining bytes */
--			memcpy(data, &val, max - curr);
--			break;
--		}
--	} while (curr < max);
--
--	return curr;
--}
--
--static int crypto4xx_prng_generate(struct crypto_rng *tfm,
--				   const u8 *src, unsigned int slen,
--				   u8 *dstn, unsigned int dlen)
--{
--	struct rng_alg *alg = crypto_rng_alg(tfm);
--	struct crypto4xx_alg *amcc_alg;
--	struct crypto4xx_device *dev;
--	int ret;
--
--	amcc_alg = container_of(alg, struct crypto4xx_alg, alg.u.rng);
--	dev = amcc_alg->dev;
--
--	mutex_lock(&dev->core_dev->rng_lock);
--	ret = ppc4xx_prng_data_read(dev, dstn, dlen);
--	mutex_unlock(&dev->core_dev->rng_lock);
--	return ret;
--}
--
--
--static int crypto4xx_prng_seed(struct crypto_rng *tfm, const u8 *seed,
--			unsigned int slen)
--{
--	return 0;
--}
--
- /*
-  * Supported Crypto Algorithms
-  */
-@@ -1312,18 +1239,6 @@ static struct crypto4xx_alg_common crypto4xx_alg[] = {
- 			.cra_module	= THIS_MODULE,
- 		},
- 	} },
--	{ .type = CRYPTO_ALG_TYPE_RNG, .u.rng = {
--		.base = {
--			.cra_name		= "stdrng",
--			.cra_driver_name        = "crypto4xx_rng",
--			.cra_priority		= 300,
--			.cra_ctxsize		= 0,
--			.cra_module		= THIS_MODULE,
--		},
--		.generate               = crypto4xx_prng_generate,
--		.seed                   = crypto4xx_prng_seed,
--		.seedsize               = 0,
--	} },
- };
+-static void ath12k_scan_timeout_work(struct work_struct *work)
++static void ath12k_scan_timeout_work(struct wiphy *wiphy,
++				     struct wiphy_work *work)
+ {
+-	struct ath12k *ar = container_of(work, struct ath12k,
+-					 scan.timeout.work);
++	struct wiphy_delayed_work *dwork;
++	struct ath12k *ar;
++
++	dwork = container_of(work, struct wiphy_delayed_work, work);
++	ar = container_of(dwork, struct ath12k, scan.timeout);
++
++	spin_lock_bh(&ar->data_lock);
++	if (ar->scan.finish_queued) {
++		spin_unlock_bh(&ar->data_lock);
++		return;
++	}
++	spin_unlock_bh(&ar->data_lock);
  
- /*
-@@ -1393,7 +1308,6 @@ static int crypto4xx_probe(struct platform_device *ofdev)
- 	core_dev->dev->core_dev = core_dev;
- 	core_dev->dev->is_revb = is_revb;
- 	core_dev->device = dev;
--	mutex_init(&core_dev->rng_lock);
- 	spin_lock_init(&core_dev->lock);
- 	INIT_LIST_HEAD(&core_dev->dev->alg_list);
- 	ratelimit_default_init(&core_dev->dev->aead_ratelimit);
-@@ -1471,7 +1385,6 @@ static int crypto4xx_remove(struct platform_device *ofdev)
- 	tasklet_kill(&core_dev->tasklet);
- 	/* Un-register with Linux CryptoAPI */
- 	crypto4xx_unregister_alg(core_dev->dev);
--	mutex_destroy(&core_dev->rng_lock);
- 	/* Free all allocated memory */
- 	crypto4xx_stop_all(core_dev);
+-	wiphy_lock(ath12k_ar_to_hw(ar)->wiphy);
+ 	ath12k_scan_abort(ar);
+-	wiphy_unlock(ath12k_ar_to_hw(ar)->wiphy);
+ }
  
-diff --git a/drivers/crypto/amcc/crypto4xx_core.h b/drivers/crypto/amcc/crypto4xx_core.h
-index 0d83cde84cca..d8224bbe89ca 100644
---- a/drivers/crypto/amcc/crypto4xx_core.h
-+++ b/drivers/crypto/amcc/crypto4xx_core.h
-@@ -14,10 +14,8 @@
- #define __CRYPTO4XX_CORE_H__
+ static void ath12k_mac_scan_send_complete(struct ath12k *ar,
+@@ -5292,6 +5301,8 @@ static void ath12k_scan_vdev_clean_work(struct wiphy *wiphy, struct wiphy_work *
  
- #include <linux/ratelimit.h>
--#include <linux/mutex.h>
- #include <linux/scatterlist.h>
- #include <crypto/internal/aead.h>
--#include <crypto/internal/rng.h>
- #include <crypto/internal/skcipher.h>
- #include "crypto4xx_reg_def.h"
- #include "crypto4xx_sa.h"
-@@ -111,7 +109,6 @@ struct crypto4xx_core_device {
- 	u32 irq;
- 	struct tasklet_struct tasklet;
- 	spinlock_t lock;
--	struct mutex rng_lock;
- };
+ 	arvif = ar->scan.arvif;
  
- struct crypto4xx_ctx {
-@@ -135,7 +132,6 @@ struct crypto4xx_alg_common {
- 	union {
- 		struct skcipher_alg cipher;
- 		struct aead_alg aead;
--		struct rng_alg rng;
- 	} u;
- };
++	wiphy_delayed_work_cancel(wiphy, &ar->scan.timeout);
++
+ 	/* The scan vdev has already been deleted. This can occur when a
+ 	 * new scan request is made on the same vif with a different
+ 	 * frequency, causing the scan arvif to move from one radio to
+@@ -5323,6 +5334,7 @@ static void ath12k_scan_vdev_clean_work(struct wiphy *wiphy, struct wiphy_work *
+ 	}
  
-diff --git a/drivers/crypto/amcc/crypto4xx_reg_def.h b/drivers/crypto/amcc/crypto4xx_reg_def.h
-index 1038061224da..73d626308a84 100644
---- a/drivers/crypto/amcc/crypto4xx_reg_def.h
-+++ b/drivers/crypto/amcc/crypto4xx_reg_def.h
-@@ -90,20 +90,9 @@
- #define CRYPTO4XX_BYTE_ORDER_CFG 		0x000600d8
- #define CRYPTO4XX_ENDIAN_CFG			0x000600d8
+ 	ar->scan.state = ATH12K_SCAN_IDLE;
++	ar->scan.finish_queued = false;
+ 	ar->scan_channel = NULL;
+ 	ar->scan.roc_freq = 0;
+ 	spin_unlock_bh(&ar->data_lock);
+@@ -5609,6 +5621,7 @@ static int ath12k_mac_initiate_hw_scan(struct ieee80211_hw *hw,
+ 		reinit_completion(&ar->scan.completed);
+ 		ar->scan.state = ATH12K_SCAN_STARTING;
+ 		ar->scan.is_roc = false;
++		ar->scan.finish_queued = false;
+ 		ar->scan.arvif = arvif;
+ 		ret = 0;
+ 		break;
+@@ -5665,6 +5678,7 @@ static int ath12k_mac_initiate_hw_scan(struct ieee80211_hw *hw,
  
--#define CRYPTO4XX_PRNG_STAT			0x00070000
--#define CRYPTO4XX_PRNG_STAT_BUSY		0x1
- #define CRYPTO4XX_PRNG_CTRL			0x00070004
- #define CRYPTO4XX_PRNG_SEED_L			0x00070008
- #define CRYPTO4XX_PRNG_SEED_H			0x0007000c
--
--#define CRYPTO4XX_PRNG_RES_0			0x00070020
--#define CRYPTO4XX_PRNG_RES_1			0x00070024
--#define CRYPTO4XX_PRNG_RES_2			0x00070028
--#define CRYPTO4XX_PRNG_RES_3			0x0007002C
--
--#define CRYPTO4XX_PRNG_LFSR_L			0x00070030
--#define CRYPTO4XX_PRNG_LFSR_H			0x00070034
--
- /*
-  * Initialize CRYPTO ENGINE registers, and memory bases.
-  */
+ 		spin_lock_bh(&ar->data_lock);
+ 		ar->scan.state = ATH12K_SCAN_IDLE;
++		ar->scan.finish_queued = false;
+ 		spin_unlock_bh(&ar->data_lock);
+ 		goto exit;
+ 	}
+@@ -5672,9 +5686,10 @@ static int ath12k_mac_initiate_hw_scan(struct ieee80211_hw *hw,
+ 	ath12k_dbg(ar->ab, ATH12K_DBG_MAC, "mac scan started");
+ 
+ 	/* Add a margin to account for event/command processing */
+-	ieee80211_queue_delayed_work(ath12k_ar_to_hw(ar), &ar->scan.timeout,
+-				     msecs_to_jiffies(arg->max_scan_time +
+-						      ATH12K_MAC_SCAN_TIMEOUT_MSECS));
++	wiphy_delayed_work_queue(ath12k_ar_to_hw(ar)->wiphy,
++				 &ar->scan.timeout,
++				 msecs_to_jiffies(arg->max_scan_time +
++						  ATH12K_MAC_SCAN_TIMEOUT_MSECS));
+ 
+ exit:
+ 	if (arg) {
+@@ -5757,6 +5772,7 @@ int ath12k_mac_op_hw_scan(struct ieee80211_hw *hw,
+ 				spin_lock_bh(&ar->data_lock);
+ 				ar->scan.arvif = NULL;
+ 				ar->scan.state = ATH12K_SCAN_IDLE;
++				ar->scan.finish_queued = false;
+ 				ar->scan_channel = NULL;
+ 				ar->scan.roc_freq = 0;
+ 				spin_unlock_bh(&ar->data_lock);
+@@ -5792,7 +5808,7 @@ void ath12k_mac_op_cancel_hw_scan(struct ieee80211_hw *hw,
+ 
+ 		ath12k_scan_abort(ar);
+ 
+-		cancel_delayed_work_sync(&ar->scan.timeout);
++		wiphy_delayed_work_cancel(hw->wiphy, &ar->scan.timeout);
+ 	}
+ }
+ EXPORT_SYMBOL(ath12k_mac_op_cancel_hw_scan);
+@@ -9935,7 +9951,7 @@ static void ath12k_mac_stop(struct ath12k *ar)
+ 
+ 	clear_bit(ATH12K_FLAG_CAC_RUNNING, &ar->dev_flags);
+ 
+-	cancel_delayed_work_sync(&ar->scan.timeout);
++	wiphy_delayed_work_cancel(ath12k_ar_to_hw(ar)->wiphy, &ar->scan.timeout);
+ 	wiphy_work_cancel(ath12k_ar_to_hw(ar)->wiphy, &ar->scan.vdev_clean_wk);
+ 	cancel_work_sync(&ar->regd_channel_update_work);
+ 	cancel_work_sync(&ar->regd_update_work);
+@@ -10962,6 +10978,7 @@ void ath12k_mac_op_remove_interface(struct ieee80211_hw *hw,
+ 			}
+ 
+ 			ar->scan.state = ATH12K_SCAN_IDLE;
++			ar->scan.finish_queued = false;
+ 			ar->scan_channel = NULL;
+ 			ar->scan.roc_freq = 0;
+ 			spin_unlock_bh(&ar->data_lock);
+@@ -13876,7 +13893,7 @@ int ath12k_mac_op_cancel_remain_on_channel(struct ieee80211_hw *hw,
+ 
+ 	ath12k_scan_abort(ar);
+ 
+-	cancel_delayed_work_sync(&ar->scan.timeout);
++	wiphy_delayed_work_cancel(hw->wiphy, &ar->scan.timeout);
+ 	wiphy_work_flush(hw->wiphy, &ar->scan.vdev_clean_wk);
+ 
+ 	return 0;
+@@ -13956,6 +13973,7 @@ int ath12k_mac_op_remain_on_channel(struct ieee80211_hw *hw,
+ 		reinit_completion(&ar->scan.on_channel);
+ 		ar->scan.state = ATH12K_SCAN_STARTING;
+ 		ar->scan.is_roc = true;
++		ar->scan.finish_queued = false;
+ 		ar->scan.arvif = arvif;
+ 		ar->scan.roc_freq = chan->center_freq;
+ 		ar->scan.roc_notify = true;
+@@ -13998,6 +14016,7 @@ int ath12k_mac_op_remain_on_channel(struct ieee80211_hw *hw,
+ 
+ 		spin_lock_bh(&ar->data_lock);
+ 		ar->scan.state = ATH12K_SCAN_IDLE;
++		ar->scan.finish_queued = false;
+ 		spin_unlock_bh(&ar->data_lock);
+ 		return ret;
+ 	}
+@@ -14011,8 +14030,8 @@ int ath12k_mac_op_remain_on_channel(struct ieee80211_hw *hw,
+ 		return -ETIMEDOUT;
+ 	}
+ 
+-	ieee80211_queue_delayed_work(hw, &ar->scan.timeout,
+-				     msecs_to_jiffies(duration));
++	wiphy_delayed_work_queue(hw->wiphy, &ar->scan.timeout,
++				 msecs_to_jiffies(duration));
+ 
+ 	return 0;
+ }
+@@ -15052,6 +15071,7 @@ static void ath12k_mac_setup(struct ath12k *ar)
+ 	ar->num_tx_chains = hweight32(pdev->cap.tx_chain_mask);
+ 	ar->num_rx_chains = hweight32(pdev->cap.rx_chain_mask);
+ 	ar->scan.arvif = NULL;
++	ar->scan.finish_queued = false;
+ 	ar->vdev_id_11d_scan = ATH12K_11D_INVALID_VDEV_ID;
+ 
+ 	spin_lock_init(&ar->data_lock);
+@@ -15077,7 +15097,7 @@ static void ath12k_mac_setup(struct ath12k *ar)
+ 	ar->thermal.temperature = 0;
+ 	ar->thermal.hwmon_dev = NULL;
+ 
+-	INIT_DELAYED_WORK(&ar->scan.timeout, ath12k_scan_timeout_work);
++	wiphy_delayed_work_init(&ar->scan.timeout, ath12k_scan_timeout_work);
+ 	wiphy_work_init(&ar->scan.vdev_clean_wk, ath12k_scan_vdev_clean_work);
+ 	INIT_WORK(&ar->regd_channel_update_work, ath12k_regd_update_chan_list_work);
+ 	INIT_LIST_HEAD(&ar->regd_channel_update_queue);
 -- 
-2.55.0
-
+2.34.1
