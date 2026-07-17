@@ -1,30 +1,30 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5D239A808
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 17:29:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3A935B137
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 17:29:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784309384; cv=none; b=a0QUS8JWo8hPGwWH8IaWPK1Htwhm5HUb2cURKFqDpcLL29GMAJ+yeWJgD7ZQHHpcKpqmDS5Oro05CjSssgRt/o+pXgPyhAXLtyMGKeLSe0PyNfTERnwCxDOtSPWeclND6VmCsBDO4yMqZIY0hG4GVdeZZfHxIeP5GyQ7gsHmBD4=
+	t=1784309384; cv=none; b=Bn4l5Q96bhpFq9qEeipJIR36kOGVopx9tXk7c7QoI5PPnOtIXK+UiEmk6M3ntBqEofGj8Eqh+4DRcZkFJ7bdJ1EKT2Kd4Ql8hNhlKfwhH9Uu0n6Ap1ac7YxR8a8kACTQsu5eRVyG23UeFhu/b/mXXSD0NFta5T06rB8q80OwYwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784309384; c=relaxed/simple;
-	bh=6aQcWQSD5U51/gieI061vR7ucQYXBNEF4CylM7xlErs=;
+	bh=tnsYQCAHKXWaq9F840ikzkpQE1wkYiF10OrPqNhcUkk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tf4T+Sy3nE/XqUn22EOhH3oIHkAr8XTZps1dNaVjJa8qBOUspFeY3aEsvgI+2R7QqD+TFt9Ts2ZXQF8Oc8vLNer00cjvVEFcXaWr3vykY3F6yg1xUxC7+7RmnPXzefnpSmTTUWUIIrYZLw7/uz7ecbP97wromI456kopp0+s35I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=f9Z/+TmA; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version; b=gryam3JdVgBNqP6JMT1N7aAyhXLa+rl+u6T2mrjCjGJgCK3eVEBweCbytmulussJuSm+0D9ONRN5PNNeH/2wJ+DC+nsh7Xg4wBOAVz+n62/VR/OIa7eRVzmz/4Wr5jA5pAnFsWeibXsLHqz3StHJSvD5H2sG7YT5hP9VdPC2yKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=fVbvpxC4; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="f9Z/+TmA"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="fVbvpxC4"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type;
-	bh=HL9WPv5ThIJKrIQZG8RqXMS9KKDk4aKZQQsAXwMSQrk=; b=f9Z/+TmAltV9SfMf6uZn+fqP8V
-	RZPamUbf6W3nJv2szzOyXlEPJM06uUhuVV0DWdZIAm5e4mcELq/R2k7H9VPmWPIay60zAH5ZYaoBm
-	hMLtTzXZBOe2R1Cigme907Gzz6bMe3IztcNzwBEkWxMoA/LNXm2YRoVaptSvsHkWxF86SR/SMYgs2
-	Kk8P3YF5iIoy1KLlRS2OHdMxntQJUZEiJWgtQEFoXSTef/QdgB3l0EJbeQRiOtYyfCi1T5sz1ewHm
-	C7mDsf4UWw50O+WPXNm7rzanSigSVEos8qjgkuo3IwHB9ilLvDqAmEo/EgyJu0mJbQhthWoqTLS//
-	SAzWMNPg==;
+	bh=CpY6v5+knFLQsLC5nlGBVW2mF/Qg3X6aZVi2ffwKkbQ=; b=fVbvpxC4zzB79kw40DXdJ3pqSh
+	Ejcq/HMh9FueLP6+Z+Yxsg5dYgLH7u688gapOxFkxdOfTuIZIEfvD9dFUc/Nt8cJFHhNThww52YiA
+	yHDut7yttCQBWQRXO4uzrG0p16Sw1S19ZYOspqvbnD2OYzrsa61xg8VXC7XmuuqaCDmZxIlIrL1uH
+	6fLPvmWRl16UtXxCRZBPhJvuh9S38LPqpBop79vb3ERsQFA+xEuOc8r83xNk16fH0MY9iln/R1jKt
+	TQm3Eqn36Cp1tiLbqD5C8kAkJdtp+XoDfYqFADTcNOtsbkqAuIc4BEH1XzPdeX+rPPgq+RSEM6iTL
+	JXBOeiyw==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: stable@vger.kernel.org
 Cc: heiko@sntech.de,
@@ -33,9 +33,9 @@ Cc: heiko@sntech.de,
 	kuniyu@google.com,
 	Jakub Kicinski <kuba@kernel.org>,
 	Heiko Stuebner <heiko.stuebner@cherry.de>
-Subject: [PATCH 6.12.y 8/9] af_unix: Don't use skb_recv_datagram() in unix_stream_read_skb().
-Date: Fri, 17 Jul 2026 19:29:21 +0200
-Message-ID: <20260717172922.3398851-9-heiko@sntech.de>
+Subject: [PATCH 6.12.y 3/9] af_unix: Set drop reason in manage_oob().
+Date: Fri, 17 Jul 2026 19:29:16 +0200
+Message-ID: <20260717172922.3398851-4-heiko@sntech.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260717172922.3398851-1-heiko@sntech.de>
 References: <20260717172922.3398851-1-heiko@sntech.de>
@@ -47,95 +47,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kuniyuki Iwashima <kuniyu@google.com>
+From: Kuniyuki Iwashima <kuniyu@amazon.com>
 
-[ Upstream commit d0aac85449dec992bb8dc2503f2cb9e94ef436db ]
+[ Upstream commit 533643b091dd6e246d57caf81e6892fa9cbb1cc9 ]
 
-unix_stream_read_skb() calls skb_recv_datagram() with MSG_DONTWAIT,
-which is mostly equivalent to sock_error(sk) + skb_dequeue().
+AF_UNIX SOCK_STREAM socket supports MSG_OOB.
 
-In the following patch, we will add a new field to cache the number
-of bytes in the receive queue.  Then, we want to avoid introducing
-atomic ops in the fast path, so we will reuse the receive queue lock.
+When OOB data is sent to a socket, recv() will break at that point.
 
-As a preparation for the change, let's not use skb_recv_datagram()
-in unix_stream_read_skb().
+If the next recv() does not have MSG_OOB, the normal data following
+the OOB data is returned.
 
-Note that sock_error() is now moved out of the u->iolock mutex as
-the mutex does not synchronise the peer's close() at all.
+Then, the OOB skb is dropped.
 
-Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20250702223606.1054680-4-kuniyu@google.com
+Let's define a new drop reason for that case in manage_oob().
+
+  # echo 1 > /sys/kernel/tracing/events/skb/kfree_skb/enable
+
+  # python3
+  >>> from socket import *
+  >>> s1, s2 = socketpair(AF_UNIX)
+  >>> s1.send(b'a', MSG_OOB)
+  >>> s1.send(b'b')
+  >>> s2.recv(2)
+  b'b'
+
+  # cat /sys/kernel/tracing/trace_pipe
+  ...
+     python3-223 ... kfree_skb: ... location=unix_stream_read_generic+0x59e/0xc20 reason: UNIX_SKIP_OOB
+
+Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+Link: https://patch.msgid.link/20250116053441.5758-6-kuniyu@amazon.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
 ---
- net/unix/af_unix.c | 39 ++++++++++++++++++++++-----------------
- 1 file changed, 22 insertions(+), 17 deletions(-)
+ include/net/dropreason-core.h | 6 ++++++
+ net/unix/af_unix.c            | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
+diff --git a/include/net/dropreason-core.h b/include/net/dropreason-core.h
+index 06912797712a..07826c85d31c 100644
+--- a/include/net/dropreason-core.h
++++ b/include/net/dropreason-core.h
+@@ -9,6 +9,7 @@
+ 	FN(SOCKET_CLOSE)		\
+ 	FN(SOCKET_FILTER)		\
+ 	FN(SOCKET_RCVBUFF)		\
++	FN(UNIX_SKIP_OOB)		\
+ 	FN(PKT_TOO_SMALL)		\
+ 	FN(TCP_CSUM)			\
+ 	FN(UDP_CSUM)			\
+@@ -131,6 +132,11 @@ enum skb_drop_reason {
+ 	SKB_DROP_REASON_SOCKET_FILTER,
+ 	/** @SKB_DROP_REASON_SOCKET_RCVBUFF: socket receive buff is full */
+ 	SKB_DROP_REASON_SOCKET_RCVBUFF,
++	/**
++	 * @SKB_DROP_REASON_UNIX_SKIP_OOB: Out-Of-Band data is skipped by
++	 * recv() without MSG_OOB so dropped.
++	 */
++	SKB_DROP_REASON_UNIX_SKIP_OOB,
+ 	/** @SKB_DROP_REASON_PKT_TOO_SMALL: packet size is too small */
+ 	SKB_DROP_REASON_PKT_TOO_SMALL,
+ 	/** @SKB_DROP_REASON_TCP_CSUM: TCP checksum error */
 diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-index a18a4b022970..f1e81843c1b0 100644
+index 4caff11068c3..e0f5a9382149 100644
 --- a/net/unix/af_unix.c
 +++ b/net/unix/af_unix.c
-@@ -2720,6 +2720,7 @@ static struct sk_buff *manage_oob(struct sk_buff *skb, struct sock *sk,
+@@ -2714,7 +2714,7 @@ static struct sk_buff *manage_oob(struct sk_buff *skb, struct sock *sk,
+ 	spin_unlock(&sk->sk_receive_queue.lock);
  
- static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
- {
-+	struct sk_buff_head *queue = &sk->sk_receive_queue;
- 	struct unix_sock *u = unix_sk(sk);
- 	struct sk_buff *skb;
- 	int err;
-@@ -2727,30 +2728,34 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
- 	if (unlikely(READ_ONCE(sk->sk_state) != TCP_ESTABLISHED))
- 		return -ENOTCONN;
+ 	consume_skb(read_skb);
+-	kfree_skb(unread_skb);
++	kfree_skb_reason(unread_skb, SKB_DROP_REASON_UNIX_SKIP_OOB);
  
--	mutex_lock(&u->iolock);
--	skb = skb_recv_datagram(sk, MSG_DONTWAIT, &err);
--	mutex_unlock(&u->iolock);
--	if (!skb)
-+	err = sock_error(sk);
-+	if (err)
- 		return err;
- 
--#if IS_ENABLED(CONFIG_AF_UNIX_OOB)
--	if (unlikely(skb == READ_ONCE(u->oob_skb))) {
--		bool drop = false;
-+	mutex_lock(&u->iolock);
-+	spin_lock(&queue->lock);
- 
--		spin_lock(&sk->sk_receive_queue.lock);
--		if (likely(skb == u->oob_skb)) {
--			WRITE_ONCE(u->oob_skb, NULL);
--			drop = true;
--		}
--		spin_unlock(&sk->sk_receive_queue.lock);
-+	skb = __skb_dequeue(queue);
-+	if (!skb) {
-+		spin_unlock(&queue->lock);
-+		mutex_unlock(&u->iolock);
-+		return -EAGAIN;
-+	}
- 
--		if (drop) {
--			kfree_skb_reason(skb, SKB_DROP_REASON_UNIX_SKIP_OOB);
--			return -EAGAIN;
--		}
-+#if IS_ENABLED(CONFIG_AF_UNIX_OOB)
-+	if (skb == u->oob_skb) {
-+		WRITE_ONCE(u->oob_skb, NULL);
-+		spin_unlock(&queue->lock);
-+		mutex_unlock(&u->iolock);
-+
-+		kfree_skb_reason(skb, SKB_DROP_REASON_UNIX_SKIP_OOB);
-+		return -EAGAIN;
- 	}
- #endif
- 
-+	spin_unlock(&queue->lock);
-+	mutex_unlock(&u->iolock);
-+
- 	return recv_actor(sk, skb);
+ 	return skb;
  }
- 
 -- 
 2.53.0
 
