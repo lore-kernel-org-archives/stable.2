@@ -1,35 +1,55 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 3b.pm (3b.pm [159.69.114.162])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775C73E556C;
-	Fri, 17 Jul 2026 09:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C8D3C8716;
+	Fri, 17 Jul 2026 09:51:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.114.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784281866; cv=none; b=I7sMh3gYhPuOvHUIHW9LYbRzJbyqq40SltEjj7YlLZWeCPj2x9j5hITTY8LuUakbHQ6o1l9iHB0gomfQdf2awEbtviV25P38mqMU/bMvjdkDDA4+VYQPQ3lMWIeo/nH82K4yGLxmvFduWnbzhAobkdIUimi5BykBiT5kipZ5Src=
+	t=1784281878; cv=none; b=pCtQ47ePS69HJgODsdrTfzm113rYqxCCVzoUpuyxyxwSEXFw4e3a0i8UCrCYnpm+WK5KttCWMFhmdIVHYZKYNaIV2gxkLd0ArrzaeN13D9dfg3nVrEoh4svpgosvRp8T1nqLztvJXVmihjZB9PCyfjepAkDSdu3Zz/aE97p7DVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784281866; c=relaxed/simple;
-	bh=mUWMf9MNONinFiabu+hEz9VcTRG5x75XT9idOiPkO2k=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=bZWB/5zqMwg7tAXw40pi4mAdw6iL1mSBHcYwEu4QQsJjFLpi8BEb0c8p/nQqEqOY9l70PpLaRxpedo3U79GPf1OgQ8K7lu32k9mdi9at+CLeeupTmJBvMVl9EcGn20EOYpShqKiIZbTLzHHM6LJ/312BKmFmRVNK8wHDvLWu6QY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iT+8eI6Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784281878; c=relaxed/simple;
+	bh=Si70S4g2EmY+Kbsc81yJ+X6h1VLtSwHrkX2O2Nj8lAg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xy2VBbPmhkU/s6pNHMiaPTZqM+Ni2C2s35Ycss16Th+uChmpFGspfHmL9HudnXmFUzSilM+ONbQgOQV+T9cw1vtBt3gIJAAcgagwRfXOVmTI67HTuL9AcCLCVcOMrgP49jaBNwK7XVZhMc2V5HCY1vW87SEqfRuMOGgnQ+VujUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=3b.pm; spf=pass smtp.mailfrom=3b.pm; dkim=pass (3072-bit key) header.d=3b.pm header.i=@3b.pm header.b=JfZaXOgr; dkim=permerror (0-bit key) header.d=3b.pm header.i=@3b.pm header.b=vD2J+ADc; arc=none smtp.client-ip=159.69.114.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=3b.pm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=3b.pm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iT+8eI6Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121131F00A3A;
-	Fri, 17 Jul 2026 09:51:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784281865;
-	bh=mKO1Fiakkh1h+AOr/G3m12sMtIzuxXO//589j2cm15M=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=iT+8eI6Y1txWm5tXZ63k7xQoy6/SAph+D/9UJBUZpOJIYDeYsaBv9GN8mlBJOaKb3
-	 DrHzbOg7hTsspo4GrP9mTh67woEt9TNZXiXP0VfJ2lPNCs9GmyrYJrQSSK4lx1SaVb
-	 Xo4GpniTL/XJdIiPuxIzh9aG7oKYfH/QOMPA4xXnkNyd6jhGRU0hay9ZBlHsAwdV9A
-	 cme+0PiNVD9cAkbGxZynhek23loyJNegih24xOXIDi1En+k2Zqu2aM495bFhfP1ZE9
-	 Z9SNeA6FMoH18cIFYOuWa5COlEQ1j5b+hNu4/vtPV5fOCr24wlSvURTPnuAM+QMxzw
-	 zS7wfZBbvxBpA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0CBF380CECD;
-	Fri, 17 Jul 2026 09:50:38 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (3072-bit key) header.d=3b.pm header.i=@3b.pm header.b="JfZaXOgr";
+	dkim=permerror (0-bit key) header.d=3b.pm header.i=@3b.pm header.b="vD2J+ADc"
+DKIM-Signature: v=1; a=rsa-sha256; s=20250428rsa; d=3b.pm; c=relaxed/relaxed; r=y;
+	h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To
+	:From:Organization:Content-Type:In-Reply-To:References:List-Id:User-Agent
+	:Thread-Topic:Thread-Index; t=1784281710; bh=HMQdhO4A8i1cuDck9n7I3DxjT138z7
+	rpMGxly49GsyA=; b=JfZaXOgrT9t//9xs3RZ/SGWRlVzcVoeYnCiCmUH//+nBi8LGaSscHTTA6
+	TvdEJ41TAGpBn8MOxpugojQNDCsGHkB50A28vKGlYQVPSRV9x/JJ62i8yjnUtnYm/ktsvpPqnJo
+	cMcaXj13GpKx3BEFbXJuGLT7vsnJbLEvjZJEN1OhQwqIs1PeQoEpLQrE9Nl9zmABiSVW7135P15
+	H5Mgmywsv2Odt5Py698PCE7RfkQ2OxNSY7lvMMJ6RVVDhR116yIdrl7GasbkfyAygTHM2JBXv+e
+	8ZmJawf5Bn16B9gA957qYC2qZRgvK64oJwRRyfit0CJlLePlcD2kx6XAM3sSBs36Fmd/8nAwT4z
+	c3k5yjJTBLOPqukPmFMPpOYIR/aBuOu+jwwS6LNRfDiRLZ1Q036EEpYD++muDhtxdX4b5bXiSIW
+	uqXjlOc0k1OaQLOF1Y/ZZYx2Y3NQ4Jruo7BoxbQS4JQkxp+X+N7Uuu8pWVU2HWsUiVa6h+IyHdc
+	Tdvku;
+DKIM-Signature: v=1; a=ed25519-sha256; s=20250428eddsa; d=3b.pm; c=relaxed/relaxed; r=y;
+	h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To
+	:From:Organization:Content-Type:In-Reply-To:References:List-Id:User-Agent
+	:Thread-Topic:Thread-Index; t=1784281710; bh=HMQdhO4A8i1cuDck9n7I3DxjT138z7
+	rpMGxly49GsyA=; b=vD2J+ADc4cR/CWnE0Eee4MGFfE8SMWyJur1dXcWMdrWUwbju02eP+B91U
+	F4ylWTeKCNDfAjWUJqhfxXz13WEBA==;
+From: Philipp David <pd-lkml@3b.pm>
+To: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Philipp David <pd-lkml@3b.pm>,
+	stable@vger.kernel.org
+Subject: [PATCH] igc: fix netdev not re-attached after resume if interface is down
+Date: Fri, 17 Jul 2026 11:22:00 +0200
+Message-ID: <20260717092159.35496-2-pd-lkml@3b.pm>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,43 +57,51 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] can: esd_usb: kill anchored URBs before freeing
- netdevs
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178428183738.1639384.11588765728790272276.git-patchwork-notify@kernel.org>
-Date: Fri, 17 Jul 2026 09:50:37 +0000
-References: <20260709164159.497640-1-fanwu01@zju.edu.cn>
-In-Reply-To: <20260709164159.497640-1-fanwu01@zju.edu.cn>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: linux-can@vger.kernel.org, frank.jungclaus@esd.eu, socketcan@esd.eu,
- mkl@pengutronix.de, mailhol@kernel.org, jedrzej.jagielski@intel.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+__igc_resume() calls netif_device_attach() only inside the
+netif_running() branch, so an interface that was down during suspend
+is never re-attached on resume. It then stays in the not-present state
+that __igc_shutdown() set via netif_device_detach(): ethtool reports
+ENODEV and every attempt to bring the interface up fails the
+netif_device_present() check in __dev_open() with -ENODEV, silently,
+since __igc_resume() returns 0. Only reloading the driver recovers the
+device.
 
-This patch was applied to netdev/net.git (main)
-by Marc Kleine-Budde <mkl@pengutronix.de>:
+This is easy to hit in practice because NetworkManager brings managed
+interfaces down before sleep unless Wake-on-LAN is configured, making
+the adapter unusable after every suspend/resume cycle with WoL
+disabled.
 
-On Thu,  9 Jul 2026 16:41:59 +0000 you wrote:
-> esd_usb_disconnect() frees each CAN netdev with free_candev() inside
-> its per-netdev loop and only calls unlink_all_urbs(dev) afterwards.
-> The per-netdev private data (struct esd_usb_net_priv) is embedded in
-> the net_device allocation returned by alloc_candev(), so once
-> free_candev() has run, dev->nets[i] points to freed memory.
-> unlink_all_urbs() then dereferences the freed dev->nets[i] to kill the
-> per-netdev TX anchor (usb_kill_anchored_urbs(&priv->tx_submitted)),
-> clear active_tx_jobs, and reset priv->tx_contexts[].
-> 
-> [...]
+Re-attach the netdev on every successful resume, as igb and e1000e do.
 
-Here is the summary with links:
-  - [net,v2] can: esd_usb: kill anchored URBs before freeing netdevs
-    https://git.kernel.org/netdev/net/c/c43122fef328
+Fixes: 6f31d6b643a3 ("igc: Refactor runtime power management flow")
+Cc: stable@vger.kernel.org
+Signed-off-by: Philipp David <pd-lkml@3b.pm>
+---
+ drivers/net/ethernet/intel/igc/igc_main.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-You are awesome, thank you!
+diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
+index 2c9e2dfd8499..e777c2df0b73 100644
+--- a/drivers/net/ethernet/intel/igc/igc_main.c
++++ b/drivers/net/ethernet/intel/igc/igc_main.c
+@@ -7586,11 +7586,13 @@ static int __igc_resume(struct device *dev, bool rpm)
+ 		err = __igc_open(netdev, true);
+ 		if (!rpm)
+ 			rtnl_unlock();
+-		if (!err)
+-			netif_device_attach(netdev);
++		if (err)
++			return err;
+ 	}
+ 
+-	return err;
++	netif_device_attach(netdev);
++
++	return 0;
+ }
+ 
+ static int igc_resume(struct device *dev)
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.54.0
 
