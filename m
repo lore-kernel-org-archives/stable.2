@@ -1,50 +1,78 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9A6A3CB547;
-	Fri, 17 Jul 2026 07:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077253B7749
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 07:44:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784274113; cv=none; b=deMmZfkL0EhTKp/LJxmO3j8+La7p4bU+ScaB5Ju8WEWYm0AJQ6wOdrYwlHNhSWpBBmjDr9PtJscZ4GSwcDddsz6/ycJ7tvU30A6u41b5xWEDkpSG5S7hFPniOZs7jyOwQNLAG8F706CyldQ/4dak+DjlBWFh99g3sHutTCAEryk=
+	t=1784274253; cv=none; b=tgwJdXfxoOdhqfvKIz6lfkpYhKTxta8FIhMxEhe5BZTw4/rW1RCHB2ViAjJZcxY04S8iF35GdemwqBr/1hnB5T1WiP2D0qNXmqaJNQ3nwUEjSB7Vz/d+qAaqyHoZLN8u1A7oP9Sw5vmGbnfuKfWvU/6CGRRt/gPqHk+gqOrlH6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784274113; c=relaxed/simple;
-	bh=8SKEyKMndiTDRqfCdBwt9rcLVmSwLTh2lFDRogWrbaw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q4xf60j8gbJjDUwTtjZVy4UipXFskIY1OtnZqvVo3Wmn8ewOT7/VwzWy6h7Uyeo3GN9i+xLEb9viqJ37GUaXtmUZSAlilN2Bhdt6MfphWG2oCa2mSkIqtm3NoHsv1EMYm17sH8Q11L17QhptFGpYW43oYonMzawB3BvjRABiguw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=WsM8wkYj; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1784274253; c=relaxed/simple;
+	bh=pD/Fr7j7LC+S7XDE6hgjwu9ZKftutKyPHkQZ8/uVhes=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ciS4Vb890gZbbfIc2f1j7j93Xk7a9v/fDyqiXEefpttlpvHIFLuGqni68k4gICmpC9b5YPzena/Al61xWIMC3HHPswBwlxOcCXi0lAzwhiigDT4iLcq9L1/209fHhj8od9L5biRq9iNBbM6ZWdPle3CMy16eLt9aMS/0wZsuCg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aAXgLN8H; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="WsM8wkYj"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aAXgLN8H"
+Received: by mail-pj2-f11.google.com with SMTP id d9443c01a7336-2cf02ecb572so22176985ad.1
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 00:44:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-Id:MIME-Version:Content-Transfer-Encoding; bh=4sYHR
-	0xVe0LOZkuozwLuH94zFR49TXLrdUIOJTadZJQ=; b=WsM8wkYj/gnT37xRZL/RD
-	zixj1n108bb0xI/40c5FEn8QxZg/Jt9DO1p58OF55yFCh1b56+/sMgJTC/Pp5ro8
-	NoYpm06sIYx4Lu8jQ9x7QHUTtV3CFlYO/UI+S9Ij46ztGkIvIod9+97/ZwhQ4NxO
-	NmCds9xuLbKuC+VbcyNn8k=
-Received: from node118.platform-default.svc.cluster.local (unknown [36.102.215.18])
-	by web2 (Coremail) with SMTP id yQQGZQAXFbeX3FlqabEKAA--.18314S2;
-	Fri, 17 Jul 2026 15:41:13 +0800 (CST)
-From: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
+        d=gmail.com; s=20251104; t=1784274251; x=1784879051; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FUjQiBhhn7qizDAcVRjlQTGe1kqerqqbLUUA/pK1im4=;
+        b=aAXgLN8HovhLg7LogaFQgoJpgeUgBYsQFO201v4vXHRAvmTLPK2h+bJaItvaNW6ILJ
+         PDXVJhE4KNrq33TktRA+K7wotXEX7OxnY2RWsZGbJBkYDfZTIaDKR4LQR07tD/k1KLb4
+         2bV5SxHBAOeX/hZAqZJ6S8nkRzb25F3i4pXqhdk14cynVz8QRh1TTyXsZQvQ3SfVELG/
+         aU6yxMumMeNyPVKgFEumaHKKKbZycVUEOeGeYXw1KKTsFRjQFJqMwAcoQisn94jcxTCI
+         gnCTMckPJUnD9cDi1in4IhcYE57MgYrew+MP1p4JMGRkuczeoeVKxXX6efgVICipeFtY
+         nscw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784274251; x=1784879051;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FUjQiBhhn7qizDAcVRjlQTGe1kqerqqbLUUA/pK1im4=;
+        b=JcpnZC/ov8KdGUoSTz7UCWAUxD4fvBrjM5q4xeG0dp05VixumNqD5KoRgEf4McmDRn
+         lRq9CmnYB51gAT5sMtrFwJLWGwn+sMehcw48FoNq/J26WFkZulIanY0OYXnnzwFjM1jH
+         z0uAFlp1yHEpexvBuCJ3rlYcCHtfeaX19vdrD/ljrfQIT+iZQCAY6QwimZy0kcAhRWKN
+         Kz9EWYmNtMLdTxp9y0o6UTvoFBa0t1xlqvyFfY1p582/lYvwEbiUZzsIpFZNmt3uPM0K
+         VCCtbJ1Rf72PUJXeGA081+NNm+vCOZ5B4iT59HBJIsg+fx2KyBTrDth1aEHdgq9c59VO
+         CQDw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr1k+h81a2WLbnRbSaPSFf6NXoVbEyYqWS5oPHNMW/JB9mWcaKOIBhOC4zxd3MBOQi3dTcrQnw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwkSqwd0lMPK5w8Fk0M5PpA3HgZeYsvO5JdabfaU4/4QZa8KtJ4
+	IN1TZ7hW5az6CV0mGMDNwRBw8q427XTsXEg31ty9GT8htJMnk0bnsu9U
+X-Gm-Gg: AfdE7cmJTlZA4qNNM1LqyCS19LQxhiimiW3ISrp6Ucpkbz1q1swUKsYmw1UihdQd+5n
+	UeU+F0zgG0hkZk7HL4WIuIJYPsQrAgAh54aPOtDFbaICI4Kg1ugfJXSudWOouAaeGrdjTlKHd7V
+	VZj+v2AScO3HT1dp/hxRoQRTC4iLZoafrCCmVxlm1olbVb5lJyai88iF3UEMy2O0dPQoa6HNdTo
+	L63s2fzy4k60zmGnIFUwC043cb8Gb6BFp4mu2iKUhhj8iJ/f3DdtJY1yzao7FSpptQSA2AP2ti3
+	of//OqBTrrqrC/Phjg+Yrj9CPWcgeuoxoqP+t/DqelKX3zScrmFZF/dm9ZlWIfDwBqZtISgS8FM
+	r5HeA9WpFD8ahMI+G92wyCCaUh4eLdarV9BfLl5emunkxWwPv2VjCcOnIVoTDqBucMnGxZpR91V
+	na
+X-Received: by 2002:a17:902:ce0d:b0:2cc:9a86:9c42 with SMTP id d9443c01a7336-2cf349eb316mr15543705ad.45.1784274251165;
+        Fri, 17 Jul 2026 00:44:11 -0700 (PDT)
+Received: from server.lan ([150.230.217.250])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3448fba7sm6062165ad.6.2026.07.17.00.44.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 00:44:10 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Jiawen Wu <jiawenwu@trustnetic.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	stable@vger.kernel.org,
-	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	yyxroy22@gmail.com
-Subject: [PATCH net] ipv4: reject impossible oversized fragments at queue time
-Date: Fri, 17 Jul 2026 07:41:09 +0000
-Message-Id: <20260717074109.686170-1-yangyx22@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Coia Prant <coiaprant@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: pcs: xpcs: fix SGMII state reading
+Date: Fri, 17 Jul 2026 15:43:25 +0800
+Message-ID: <20260717074324.3250043-2-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,85 +80,109 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yQQGZQAXFbeX3FlqabEKAA--.18314S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAry8uFWfArWUKw4DtF4rGrg_yoW5XFykpa
-	9xtFykCr1rGF97Jw1qvF4Iq3y5Gr4kXa1jgryFyr93Aws8KFyvvFW0kFyag3W3KrWkZFy0
-	v343ta98CFZ5JaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPY14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
-	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
-	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
-	0VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxkIecxEwV
-	AFwVW8CwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRSD7-U
-	UUUU=
-X-CM-SenderInfo: 51dqw5r0ssqzpdlo2hxwvl0wxkxdhvlgxou0/
 
-ip_frag_queue() computes each incoming fragment's end offset and may
-store it in qp->q.len without checking that the fragment can fit within
-the 65535 byte IPv4 datagram limit, even with the minimum IPv4 header.
-The only 65535 byte check lives later in ip_frag_reasm(), after the
-fragment has already been accepted into the reassembly queue and has
-updated its state.
+Commit 2a22b7ae2fa3 ("net: pcs: xpcs: adapt Wangxun NICs for SGMII mode")
+added a path in xpcs_get_state_c37_sgmii() that reads speed/duplex from
+BMCR after AN completes. However, BMCR does not reflect the negotiated
+result on the hardware where this has been tested:
 
-A fragment whose end offset exceeds 65535 minus the minimum 20-byte IPv4
-header cannot be part of any valid IPv4 datagram. Letting it update
-qp->q.len leaves the shared reassembly queue with an impossible expected
-length. A later legitimate two-fragment datagram sharing that key can no
-longer complete reassembly and is not delivered.
+- On RK3568 (MAC side SGMII), BMCR returns a fixed hardware reset value
+- Wangxun engineer Jiawen Wu confirmed that on their side, "BMCR looks
+  like it only wants to be return as 0" [0]
 
-This was verified at runtime on Linux 6.12.93-0-virt. A same-key
-oversized-fragment injection (offset 65528, payload 8, end 65536) drove
-legitimate two-fragment UDP delivery from 8/8 to 0/8, while a cross-ID
-control stayed at 8/8.
+The correct information is available in CL37_ANSGM_STS, which contains
+the actual link status and negotiated speed/duplex.
 
-With this change applied to net main, the same-key test delivered 8/8.
-A valid 65535-byte datagram with a 20-byte header was also delivered with
-both in-order and reverse-order fragments; its 65507-byte UDP payload
-was intact in both cases.
+This bug was previously masked by phylink core, which overrides the PCS
+link state with the PHY state when a PHY is present:
 
-Add a per-fragment bound check in ip_frag_queue() right after computing
-end and before any qp->q.len update or skb insertion. IPv4 always needs
-at least a struct iphdr, so an end offset greater than IP_MAX_MTU minus
-sizeof(struct iphdr) cannot fit in any valid IPv4 datagram. Use that
-minimum-header bound rather than the current fragment's IHL because
-fragments may arrive out of order and the first fragment may carry
-non-copied options that later fragments lack. The existing check in
-ip_frag_reasm() continues to validate the final length against the
-actual header length of the first fragment.
+        /* If we have a phy, the "up" state is the union of both the
+         * PHY and the MAC
+         */
+        if (phy)
+                link_state.link &= pl->phy_state.link;
 
-Drop only the invalid skb so an existing queue for the same key remains
-intact.
+Thus, when the link is down, the PHY's link_down state is applied on top
+of whatever the PCS reports, hiding the broken PCS state reading path.
 
-The issue was found by Yuxiang Yang, Yizhou Zhao, Ao Wang, Xuewei Feng,
-Qi Li, and Ke Xu, with assistance from GLM-5.2 by Z.ai.
+Modify xpcs_get_state_c37_sgmii() to:
+1. Read link state from CL37_ANSGM_STS
+2. If link is up, report speed/duplex from CL37_ANSGM_STS
+3. Remove the broken BMCR reading path entirely
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Also properly set state->an_complete to reflect the AN completion status,
+and clear CL37_ANCMPLT_INTR when link is down to avoid stale state.
+
+[0] https://lore.kernel.org/all/000c01dd1593$2ac0b0f0$804212d0$@trustnetic.com/
+
+Fixes: 2a22b7ae2fa3 ("net: pcs: xpcs: adapt Wangxun NICs for SGMII mode")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Tested-by: Jiawen Wu <jiawenwu@trustnetic.com>
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
 ---
- net/ipv4/ip_fragment.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/pcs/pcs-xpcs.c | 32 +++++++-------------------------
+ 1 file changed, 7 insertions(+), 25 deletions(-)
 
-diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index c790d2f49..32e5240a5 100644
---- a/net/ipv4/ip_fragment.c
-+++ b/net/ipv4/ip_fragment.c
-@@ -291,6 +291,8 @@ static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb, int *refs)
- 	/* Determine the position of this fragment. */
- 	end = offset + skb->len - skb_network_offset(skb) - ihl;
- 	err = -EINVAL;
-+	if (end > IP_MAX_MTU - sizeof(struct iphdr))
-+		goto err;
+diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+index e69fa2f0a0e8d..0337e2bcc0125 100644
+--- a/drivers/net/pcs/pcs-xpcs.c
++++ b/drivers/net/pcs/pcs-xpcs.c
+@@ -1058,6 +1058,7 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
  
- 	/* Is this the final fragment? */
- 	if ((flags & IP_MF) == 0) {
+ 	/* Reset link_state */
+ 	state->link = false;
++	state->an_complete = false;
+ 	state->speed = SPEED_UNKNOWN;
+ 	state->duplex = DUPLEX_UNKNOWN;
+ 	state->pause = 0;
+@@ -1069,6 +1070,8 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
+ 	if (ret < 0)
+ 		return ret;
+ 
++	state->an_complete = ret & DW_VR_MII_AN_STS_C37_ANCMPLT_INTR;
++
+ 	if (ret & DW_VR_MII_C37_ANSGM_SP_LNKSTS) {
+ 		int speed_value;
+ 
+@@ -1086,34 +1089,13 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
+ 			state->duplex = DUPLEX_FULL;
+ 		else
+ 			state->duplex = DUPLEX_HALF;
+-	} else if (ret == DW_VR_MII_AN_STS_C37_ANCMPLT_INTR) {
+-		int speed, duplex;
+-
+-		state->link = true;
+-
+-		speed = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_BMCR);
+-		if (speed < 0)
+-			return speed;
+-
+-		speed &= BMCR_SPEED100 | BMCR_SPEED1000;
+-		if (speed == BMCR_SPEED1000)
+-			state->speed = SPEED_1000;
+-		else if (speed == BMCR_SPEED100)
+-			state->speed = SPEED_100;
+-		else if (speed == 0)
+-			state->speed = SPEED_10;
+-
+-		duplex = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_ADVERTISE);
+-		if (duplex < 0)
+-			return duplex;
+ 
+-		if (duplex & ADVERTISE_1000XFULL)
+-			state->duplex = DUPLEX_FULL;
+-		else if (duplex & ADVERTISE_1000XHALF)
+-			state->duplex = DUPLEX_HALF;
++		return 0;
++	}
+ 
++	/* Clear AN complete status or interrupt */
++	if (state->an_complete)
+ 		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
+-	}
+ 
+ 	return 0;
+ }
 -- 
-2.34.1
+2.47.3
 
