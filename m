@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638BE39DBFC;
-	Fri, 17 Jul 2026 18:53:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDD43A383C;
+	Fri, 17 Jul 2026 18:53:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784314433; cv=none; b=CuZWny8T3gVWXzvxoZUsrFOY+/Gf/G4VbB/M3ic74uE87cWtFIz+huRe4FqyC4ZtDBtoqDxSxD84dFC6yZ2Rq4gNuQ8D1O782OlgXO/V3fAqLmjEznngEkAftckqwY9c2F0KaoLik6PMv1ijtd2BO+K8JX9Ky1Gj7VZFC3zyv/Y=
+	t=1784314434; cv=none; b=c/medRrIYGJySckjIX39RBEcbW6l+OjHYGXD32oAn2vLjH5zdlVZg67ZPdLgqZ7vhzjK/m7B7B/m+C5NozEXrDKtomDKXZHWkO2HDI9qogQiKXA0z5NK1vDyAIwEcTgCgrKIJMmbbFv8jwptQ8ym21pk2iw2RqWFN80IQlat5NE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784314433; c=relaxed/simple;
-	bh=nZ70++5OQd2qI/EgwJYyFBbsjrqoZEdjl9QcQwO74q0=;
+	s=arc-20240116; t=1784314434; c=relaxed/simple;
+	bh=JLcB4ySPF/PF+chFAinAMquU9n2vAiYJK/lKnD9xZ7g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hMkUsu19ICFTytY0+NrwwefDRqjcnXUw/ncL5Nkvp/2I83dwd6MgW2lMYq2itkJfW/BlUJVGKjs6KHDNZPWfZzz7RTQc0DXz8ldv3WH9DhjMzjwwVwWeboz1m0MEhYk7pQWtqxY9S1+Hh0DPnDb/2C1QsGC2E/HrUlRXN71vzqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WoDArHxF; arc=none smtp.client-ip=198.175.65.11
+	 MIME-Version; b=honeJWPDkItfa0D8Gk+FQz5dO75PxqKDqvyLdE7oictOpd/v87kn+moarceiXAnQKTk46tINbwRHYhucvAUHy8EU2Im91XQIUnw2jBZE/82xVDBfEzdTbnZ5AeyPA6Zh81Q4kC96cVFITMv1psRaS3nmZw7y847iMW1opEGgJ2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UElb157G; arc=none smtp.client-ip=198.175.65.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WoDArHxF"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UElb157G"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784314432; x=1815850432;
+  t=1784314433; x=1815850433;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=nZ70++5OQd2qI/EgwJYyFBbsjrqoZEdjl9QcQwO74q0=;
-  b=WoDArHxFE4MmazVy3zpqYHazfy6Fnq4PVo+9rLbO5GO9NKLjkWuNWpTZ
-   PAJRtUir+AG+T96vjQWNbeQkMaImh0e/XVWvmlXsc+UKw0CcYdILdcNLy
-   VSuYNIpL9thY35ih0SHaSeMIe1VMUP5tavCOs1R9lQaP1XGgS5/t9XjBS
-   eXptFQAKuKgkf64jPP6N1O22ruRVwaE3AcFHkci5uHJrt/SfzZjr4ffQM
-   fWP4GqioUHe/KBjNEejVRmMcE4iPzc1DOmUnPwEQK5VmGyrHMGE50UDJI
-   Ibvmx6Me/oi87QaVDnFWOyue39VLODtDxc29dJ8m1iQ+9j1EMcwW0rbIH
+  bh=JLcB4ySPF/PF+chFAinAMquU9n2vAiYJK/lKnD9xZ7g=;
+  b=UElb157GvYhn3snMQtxNkHMDS640gIWgS1TeeR5gJucePtNJpWPKs2jn
+   W4qm7VPkISjCCaPlQY9WwULVwX92HuWSKwsS7HhLA6SzMDjJW+XjSq5h+
+   7MlYPlEDj+dj3mQO0MgT3yXivKy5ibxWVSVpWejav+AllD8wokloBawWV
+   JJuY0JRiCNqrAA908k74IAQIO5iOUewTkHxLwKWh/MGhuytb66Jpv9GQD
+   aNtzzjQU+KNJ9TH6ZMTZZ07Bli4vL2iaNkbHq96jNB/trssdyEVSMs6Rw
+   bf6pNJxcb/lqYBegQCX6275zHfU0qZ6pplDT8UlBdJmpD7YDzMHqY+Djn
    g==;
-X-CSE-ConnectionGUID: +batF9PQR+2DDKUHp0OGcw==
-X-CSE-MsgGUID: v9PSwjqGQLegYgDT2tFgLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="95347639"
+X-CSE-ConnectionGUID: 5jwmYkIiS4a6yxdGzWI/BA==
+X-CSE-MsgGUID: fJVShBMZTzuGE+ksIiVJiA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="95347652"
 X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="95347639"
+   d="scan'208";a="95347652"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 11:53:49 -0700
-X-CSE-ConnectionGUID: pfqfVWw4Q9+vl2iyDrq40Q==
-X-CSE-MsgGUID: 8BqFY3DJRVSAfEX28i9mXQ==
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 11:53:50 -0700
+X-CSE-ConnectionGUID: EQlCllcnRP2bIR/ibEFipw==
+X-CSE-MsgGUID: r7iMHqGnTV6hAmnd8PP4VQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="261827253"
+   d="scan'208";a="261827259"
 Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
-  by fmviesa005.fm.intel.com with ESMTP; 17 Jul 2026 11:53:47 -0700
+  by fmviesa005.fm.intel.com with ESMTP; 17 Jul 2026 11:53:48 -0700
 From: Tony Nguyen <anthony.l.nguyen@intel.com>
 To: davem@davemloft.net,
 	kuba@kernel.org,
@@ -50,17 +50,15 @@ To: davem@davemloft.net,
 	edumazet@google.com,
 	andrew+netdev@lunn.ch,
 	netdev@vger.kernel.org
-Cc: Paul Greenwalt <paul.greenwalt@intel.com>,
+Cc: Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
 	anthony.l.nguyen@intel.com,
 	horms@kernel.org,
-	richardcochran@gmail.com,
-	jacob.e.keller@intel.com,
 	stable@vger.kernel.org,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Rinitha S <sx.rinitha@intel.com>
-Subject: [PATCH net 09/13] ice: fix PTP Call Trace during PTP release
-Date: Fri, 17 Jul 2026 11:53:31 -0700
-Message-ID: <20260717185340.3595286-10-anthony.l.nguyen@intel.com>
+	Marcin Szycik <marcin.szycik@linux.intel.com>,
+	Rafal Romanowski <rafal.romanowski@intel.com>
+Subject: [PATCH net 11/13] ice: reject out-of-range ptype in ice_parser_profile_init
+Date: Fri, 17 Jul 2026 11:53:33 -0700
+Message-ID: <20260717185340.3595286-12-anthony.l.nguyen@intel.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20260717185340.3595286-1-anthony.l.nguyen@intel.com>
 References: <20260717185340.3595286-1-anthony.l.nguyen@intel.com>
@@ -72,52 +70,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paul Greenwalt <paul.greenwalt@intel.com>
+From: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
 
-If a PF reset occurs when the PTP state is ICE_PTP_UNINIT, then
-ice_ptp_rebuild() will update the state to ICE_PTP_ERROR. This will
-result in the following PTP release call trace during driver unload:
+set_bit(rslt->ptype, prof->ptypes) operates on a DECLARE_BITMAP of
+ICE_FLOW_PTYPE_MAX (1024) bits. Nothing prevents a malicious VF from
+providing ptype >= 1024 through VIRTCHNL, resulting in a write past
+the end of the bitmap and a kernel page fault.
 
-    kernel BUG at lib/list_debug.c:52!
-    ice_ptp_release+0x332/0x3c0 [ice]
-    ice_deinit_features.part.0+0x10e/0x120 [ice]
-    ice_remove+0x100/0x220 [ice]
+Reproduced with a custom kernel module injecting a crafted
+VIRTCHNL_OP_ADD_RSS_CFG on E810-C QSFP (8086:1592),
+FW 4.91 0x800214af 1.3909.0, ICE COMMS DDP 1.3.53.0,
+kernel 7.1.0-rc1.
 
-This was observed when passing PF1 through to a VM. ice_ptp_init()
-fails because ctrl_pf is NULL and sets the state to ICE_PTP_UNINIT.
+crash_parser: ice_parser_profile_init @ ffffffffc0d61b60
+crash_parser: setting ptype=0xffff (max valid=1023)
+crash_parser: calling ice_parser_profile_init -- expect OOB crash!
+BUG: kernel NULL pointer dereference, address: 0000000000000000
+Oops: Oops: 0002 [#1] SMP NOPTI
+CPU: 56 UID: 0 PID: 165011 Comm: insmod Kdump: loaded Tainted: G S U OE 7.1.0-rc1 #1
+Hardware name: Intel Corporation S2600BPB/S2600BPB
+RIP: 0010:ice_parser_profile_init+0x2d/0x1d0 [ice]
+Call Trace:
+ <TASK>
+ ? __pfx_ice_parser_profile_init+0x10/0x10 [ice]
+ crash_init+0x127/0xff0 [crash_parser]
+ do_one_initcall+0x45/0x310
+ do_init_module+0x64/0x270
+ init_module_from_file+0xcc/0xf0
+ idempotent_init_module+0x17b/0x280
+ __x64_sys_finit_module+0x6e/0xe0
 
-Fix by detecting the ICE_PTP_UNINIT state in ice_ptp_rebuild() and
-returning without error, preventing the invalid state transition to
-ICE_PTP_ERROR. The only valid path to ICE_PTP_ERROR is from
-ICE_PTP_RESETTING after a failed rebuild.
+Bail out early with -EINVAL when ptype is out of range.
 
-Fixes: 8293e4cb2ff5 ("ice: introduce PTP state machine")
+Fixes: e312b3a1e209 ("ice: add API for parser profile initialization")
 Cc: stable@vger.kernel.org
-Signed-off-by: Paul Greenwalt <paul.greenwalt@intel.com>
 Signed-off-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Tested-by: Rinitha S <sx.rinitha@intel.com> (A Contingent worker at Intel)
+Reviewed-by: Marcin Szycik <marcin.szycik@linux.intel.com>
+Tested-by: Rafal Romanowski <rafal.romanowski@intel.com>
 Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
 ---
- drivers/net/ethernet/intel/ice/ice_ptp.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/net/ethernet/intel/ice/ice_parser.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_ptp.c b/drivers/net/ethernet/intel/ice/ice_ptp.c
-index 1469038bc895..eaec36ab6ae3 100644
---- a/drivers/net/ethernet/intel/ice/ice_ptp.c
-+++ b/drivers/net/ethernet/intel/ice/ice_ptp.c
-@@ -3037,6 +3037,11 @@ void ice_ptp_rebuild(struct ice_pf *pf, enum ice_reset_req reset_type)
- 	struct ice_ptp *ptp = &pf->ptp;
- 	int err;
+diff --git a/drivers/net/ethernet/intel/ice/ice_parser.c b/drivers/net/ethernet/intel/ice/ice_parser.c
+index f8e69630fb72..3ede4c1a5a8a 100644
+--- a/drivers/net/ethernet/intel/ice/ice_parser.c
++++ b/drivers/net/ethernet/intel/ice/ice_parser.c
+@@ -2368,6 +2368,9 @@ int ice_parser_profile_init(struct ice_parser_result *rslt,
+ 	u16 proto_off = 0;
+ 	u16 off;
  
-+	if (ptp->state == ICE_PTP_UNINIT) {
-+		dev_dbg(ice_pf_to_dev(pf), "PTP was not initialized, skipping rebuild\n");
-+		return;
-+	}
++	if (rslt->ptype >= ICE_FLOW_PTYPE_MAX)
++		return -EINVAL;
 +
- 	if (ptp->state == ICE_PTP_READY) {
- 		ice_ptp_prepare_for_reset(pf, reset_type);
- 	} else if (ptp->state != ICE_PTP_RESETTING) {
+ 	memset(prof, 0, sizeof(*prof));
+ 	set_bit(rslt->ptype, prof->ptypes);
+ 	if (blk == ICE_BLK_SW) {
 -- 
 2.47.1
 
