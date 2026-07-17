@@ -1,113 +1,83 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27628282F29;
-	Fri, 17 Jul 2026 14:48:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEBB3FDBEA;
+	Fri, 17 Jul 2026 14:51:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784299744; cv=none; b=r6OC60pxuL9De5ThB/Kk6NxS8QMLA8sHDz++DgUuL2h1JOAd3ib6/Urtod0WcDEXEsL8u58/D5hlTAIG8XVuoR8054slCLfjVAjvPXBK671KlHNyI5cW2b3M91uD8zBPFcAl0Rs+Q9QAxfH5R/n8HRxlaNp2fjLrs23jhiN6Xsk=
+	t=1784299918; cv=none; b=jsatv1ywMyGXzS+OEd0B5y5fV5UPFIOnLHOqFdbP95pvJb9x9QY4Yr9o2c8TK3mz5lF8g8Yap8ZDHNylVSr372TT56jk1vOJLmWMQhF4jDZcdd4mifhQhRPIR/2WaTznkrv/5DNNo8Ymnqjjc4Magu84okJpl9XGymgWvO4Jrrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784299744; c=relaxed/simple;
-	bh=8DC/CiaERW17Q5mUFwMipX/LNuykz/ZNwmGFCVVvf/U=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CIpb4LX/Bps1cffxkcGOkC5nwuAoaeHBix7dHXV6WXwtthCrOOM2ANRMSn7KEP1kRPk/6XV4GUOjqBA2qMx9xVGi6brtczig75/1UzmXwfsbvPHnpVsK/6Wj3s3p7jrLmxLVkNppCbjtJtoTk49LqK+71Dqq7d5dZt9XaIoixE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=JFirxtg3; arc=none smtp.client-ip=54.243.244.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1784299918; c=relaxed/simple;
+	bh=c28HQwSPV288clzWCvhxGMGcKGXJ1w79r2JAEiUSVS0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sgBPl1b5eahGCfmzPp8EkzDeArqUsAXwuwssrhVdCTwQWZJVBXks9VcokaFpUu4DgYcnZa3qJb566bGAVhW+Vf6nd2C/lgSndeF9qCT5FmJbAy9tNaBIV15tervY6BuG0TIOITRau+c2CETicVxzvPV/qsWV2fXZhpi1kJxY9Pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nl7TwgaG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="JFirxtg3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1784299659;
-	bh=6JzeASk9jwDLgL6o0FbyFZ25btIeFesG/TB+SvbFpwk=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=JFirxtg3sQOu1yh8AgTMh4CagTqljg4GFse1SXOV1y7MjaqE5KK4NLqjPx7kcDA7w
-	 cxj5TRvTEkC7IxP9e6brvCfhlllXLs+7HWmZFC/XP/aXbby9m4n5GOi6svbCj5MpVT
-	 21dmxNKfuGMc+HTpffAgalKm/XOzGVf84XUgYsnk=
-X-QQ-mid: esmtpsz16t1784299652tb02afd81
-X-QQ-Originating-IP: hZfxU+CzM6MzYjuR1wiZzMwDER2bSv9D9iNf1ncJYO0=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 17 Jul 2026 22:47:29 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 17506133365807019503
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nl7TwgaG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF841F000E9;
+	Fri, 17 Jul 2026 14:51:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784299914;
+	bh=3Duoeoo110DbZrKZ4PxQfoBi3CcQu5zCYlkp7oI2Bkc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Nl7TwgaGI/ltnF/vCMXtyZmia9735PgdyKGC9gfdqr/6Sgz2NCppHh4a4ut7S5BDs
+	 vZVvIwv/ujYG0+DC6ULctWxjwNhr2a6x6e4rwCVT6bsCxPkZJI5fli3lKfWReaC9QI
+	 p1Xfh0yu4wHroSLWIoljNGgyfSRc0QbaVtQAKewtPk24oMlumIva6fuXgJMGoYTQLZ
+	 lzEnPUbXBYvHK0oGvwOtHKG7EKC5qJJzMxU5hDPEK0MyDeVZaGloGVoqB1y6uAvfhH
+	 gPQkBUblNM0TPOE4sVcIPe64Q7kKwDEkG6JZcF2l65tJRYKgGaqH/9SAy7lpG6+YIv
+	 zYV6lPW9nG8Fg==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1wkjuq-00000007cg2-0ViK;
+	Fri, 17 Jul 2026 16:51:52 +0200
+Date: Fri, 17 Jul 2026 16:51:52 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.18 000/480] 6.18.39-rc1 review
-Date: Fri, 17 Jul 2026 22:47:24 +0800
-Message-Id: <20260717144724.111189-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260716133044.672218725@linuxfoundation.org>
-References: <20260716133044.672218725@linuxfoundation.org>
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Subject: Re: [PATCH] drm/bridge: display-connector: fix i2c adapter leak on
+ probe failure
+Message-ID: <alpBiFzfbaTXae8l@hovoldconsulting.com>
+References: <20260717085716.1619275-1-johan@kernel.org>
+ <20260717122035.GB1926197@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OKoUMtfBBN2HS6Um5Pmfi787bCc3ooq2LhfxUUSJphzv761yDZY1yO4R
-	/vnw3YkPZ0NJ0FcHStXICvmdxoI4QWnqXIwh8AJLW8fpaG9+fUlz9VzXuJxUoHdugPMw+Db
-	ZlcSxtEJv6/AG0ZDhUy97DcsoL5yTmLgG3OMiLzZ1iqTm0xILVfUABhPNNjmrZ3rYlcDTWf
-	PimDxmVfzOKfwIno/tCrxZNv8trAz9TGBQsWgi4cKq63cThvewddbgk4+FLGGknJEw1dNsq
-	j9963GOzN0KCytJDUjHa/umAW/DCpcTsUxcWQ3QSiL/pDxFXgzXi60GNjOnLe6dASc1nn++
-	wO/O8XiBn1VBn1S3U+Jqhu5cmhmq0DIFT5lCMUWfLorUeiAnOerHZJQmcRfCsSH17WyTI/A
-	prf4K8uIt+gwqWPmiRugGFEAvwpaOEWPhiRcbAVS0hFbAbvh0UcoPiMIruyKUh0A3jOH/wX
-	Ecb6TG1UhFmg6u8G3eQQ8Kk97uvc+u3laxjecOKhiJ5RfCq/+OvKjGIYiHGAxRM+9fBFvaF
-	gpgQbOF/JbBI2mQ/fsEZx+3Ipo/xOeFxKOJOmZJGcYccpb4yruQOFcjlQDe6/9BcUbTocZN
-	9I/e8gTRZo2J4ripxt5HANvNCYMrENErT/g3i16Ss+D3HjxIC3eGQyIMH0Qs1UQIB4N+s3i
-	wYrzvvfysw1qlH/WDpzy7qYA7gLhBb7p/erCoVK4UDMuZuZK3c26IerCh5w1gx6g5Vwi0py
-	ET8aLLclScPRPdsaXCGAVk1iUEpBDBdhNQbZA+/3YTG7zNnUw65zGwdgyhyeV6NAtBRDk+m
-	DZJar5WCFk0U4jNg3GuhvvYBloZK7XWs8ZR1zdr/0So1wCtbh78ZDzBcOh0rmYIfYZe7h0q
-	JfkPvCsPQOA+DkFpJTxWer6VwHcXTcBynxtDfcZonr3SAhss6YsDAqB2bOSPkrEKFQH+dJT
-	8/kLH/b3iNP89JjA9ubat2gx7sWRNPUADhwzqjLqmodVSKIIsjFRuGrwalIkmjV+H2l55+Q
-	R5pEmb+sCEgGcsZFHWCduIpZLFSeUB55z5YFAmdubqqNPr1W+b4Rhx7ulTEmFyIRGa+dW05
-	W57kAgSj+iE9UWL3fjPFjnUbycUg1r0S3exhY4IhY2E
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717122035.GB1926197@killaraus.ideasonboard.com>
 
-Hi,
+On Fri, Jul 17, 2026 at 03:20:35PM +0300, Laurent Pinchart wrote:
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+> On Fri, Jul 17, 2026 at 10:57:16AM +0200, Johan Hovold wrote:
+> > Make sure to drop the i2c adapter device and module references on failed
+> > regulator and enable gpio lookup (and regulator enable) during probe
+> > (e.g. on probe deferral).
+> > 
+> > Note that of_get_i2c_adapter_by_node() does not return error pointers,
+> > but i2c_put_adapter() can handle a NULL argument so the error pointer
+> > check at remove works even if it is misleading.
+> 
+> I've already sent a fix for this, see
+> 
+> https://lore.kernel.org/dri-devel/20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com/
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+Ah, ok. If that series is blocked perhaps you can send the fix
+separately.
 
-BRs
-Wentao Guan
-
-defconfigs:
-https://gist.github.com/opsiff/a840ae9e3d6857f5b7bacb9cdc49f8e9
-
-Log:
-Linux version 6.18.39-rc1-g8b991bdbbd89 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
-Linux version 6.18.39-rc1-g8b991bdbbd89 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Fri Jul 17 02:48:08 CST 2026
-Linux version 6.18.39-rc1-g8b991bdbbd89 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
-Linux version 6.18.39-rc1-g8b991bdbbd89 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Fri Jul 17 03:05:33 CST 2026
-Linux version 6.18.39-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
-Linux version 6.18.39-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Fri Jul 17 03:22:05 CST 2026
-Linux version 6.18.39-rc1-g8b991bdbbd89 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
-Linux version 6.18.39-rc1-g8b991bdbbd89 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Fri Jul 17 02:27:34 CST 2026
-
+Johan
