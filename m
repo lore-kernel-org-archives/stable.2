@@ -1,77 +1,43 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6799E429CFE
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5392942903D
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784298136; cv=none; b=sVRxEC3HxiTxkirS3r5iMypUAF2CyulXON5sUcZ4K6ehx7R2k7fE/zY/sRitO/qIePMl2TJtLZnDBVAWxSF6PW9c7blKnzVpc5vdyNe6gTKkc7dOZ4Mb4KwQKUD+NUmb+bpOBs1aKtHPMtXDeeV3RzX7L0zdDZaKftHaVRvYuxk=
+	t=1784298168; cv=none; b=hP5Sw61WTt64YXUzL2itGxuOgSb2eMwjwFMCSkR+Mj7DKvnEaHktvnwwy+lLkvu9ksK47Zbzbig29vparaNnmZH3aZnf7jnKdFpH2skoT3Fld3i87mezeM+XBmaTu4YYAix+vsQJ3k4rAEY6DVWBpOJcT/QX5yulTfMlTE8L9U4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784298136; c=relaxed/simple;
-	bh=7kow3xJStgv3CCEwPVH94AHQZCvexA38wioGE90Sw6U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CgHOW//8XlkPWuayFpxFNHQsyafy74GVjOnIlYIAB/1ByvQxTLTGnQQh8jSAPT3GNaMpGAm6T1M7eP4KqI6dOYKXTYl681Dq2NwGp73Nik2PHxqSARFBbDiaUarsCldhrQc5Yow0soickH650nabYli6Aj3gN8tDLjBrpdLI+Ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k+uDacnM; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784298168; c=relaxed/simple;
+	bh=Lgs9P96j95lWhIEL/yHTC4H4Fd5TvvC887cXqyZgXY0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nmT+8n0mqPyl0uKQV4+HC49gRIdbZGuTSuP4JJfK9zwaPIY4yTUaeKvV/WwOJF1gFNLUiiUQ5z22RC8L7J8IH+i0VT+/4fsOAb91tS4r+YHd3mYH+TNMSSJUFXsfUWKhU90LqMDK1IrdiomdrovJNJb8oG5TG8NjTJVZgnuh0Qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b0sULqoN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k+uDacnM"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38125cebfdaso4880230a91.1
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 07:22:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784298135; x=1784902935; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ye+2o/nLKhbl8EFiB/65QBjN6Z27bE/oD+7iGYaj4l0=;
-        b=k+uDacnMuUWqF/WA/cN2H1c7Ym5Sg2/1g3VJJvl+SvPGxKBv44jXNlYUFvcL0A4Vv2
-         Aqpzu1WaNnU0V6AQsrSTvt+z4Xv2txDIxViGjHj4iYKAW2UTdb7HGkwJ75BF2PYCw44b
-         KktPl/U2XgAVYUa0903TwsTRFvvC96e7wRzUsWkpcSBrI1HNTnwOvsH0yIf9Rmiwr7xz
-         +czaKSfSCDQEUgYeKc5BJCkD8HLRfvNC/JUjrrCTmqxi60Tsz7clQOT5chEpGqrZ9ws0
-         UCT1tg5nZBKtOZVYI2x3ToWVyJ/oUjWQntzMqtTS8AWAytixyU7djLtjTKVDzJn3X5n1
-         w0YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784298135; x=1784902935;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ye+2o/nLKhbl8EFiB/65QBjN6Z27bE/oD+7iGYaj4l0=;
-        b=PgFUQNUH6pZvF7Cp52nRQ04Xcww+4xsAdYbkQ4PgfEMCbQfb4VgZgw4QHwaKKhWeEH
-         CyNE/aW8BJhKc0ROJVeIQse4R09zpoXX/GN26kjuhep7TI3TFeGPSv26njQMsL2boC7z
-         GEivaQBilYSLIQf7bgNJHkyFd285yGoDTbqWzg7n9PC4pLcwMgL0pdXyoWZAzYfuT8cu
-         Icoep5696lHvhO8c7JgDjENvfFP2FacdI5sT8JsfI3TMrfNfAQr8wFajrA2ShwbTHwCk
-         k3JWGcNsAUycHzZeW+Ogvl5vbTzzPw1X0Ykh6Th/o1Gz+FuiblCpO95wnpqSD540yxgo
-         JapQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqKMQgzjDnG9tH2xALTm+FGtCmMVgZ6WQ+ObotyUovtKmXhKVCqWgPIEnhREHz4qMZyAywbCs0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyotB7MgprSkubCUk9ghd2rMVOmkrMSVr4cxyfIq/Wm8jBkjSXf
-	F6rE+civwA2UNAxT6Ozy3hueD7NhlPcaRKx88VqKuNzBX0D6EZ7wewT+
-X-Gm-Gg: AfdE7ckVkTMEGMW+P+kWZEng0QkhxewiiovyL51rMpaEwQK/wtvlVJ3NSVpkoDT+G/7
-	k2oWJJsu/kIj4zMR6XrM0owbQkcoyHle8/V+LbigQH/HQ/h00fNz4GPaDth6ChvUz2zGd7rHZkr
-	8tbC3zWkS27FGjN3T6kAaVdfO5ZNwkAUtO+UZusPme0sFLvUDrC/HAEIHKDIs/4pFl7/P72xqph
-	0t24D79sYNS/QXF5F4/Z9PGVYy32xBBdS7JL3YTYeb5/ExpGcOtJ6vINDtr23QgZGxrfl2NoV2h
-	BxJMoukVyL2cpkzXfI/Vi19k5aFKi2dJXjY9GVXrdJ8mLIeiHS6NBIUI1ylJpUs3yiraK+uLm0M
-	nExpI/2/6IouRFHEbu7xGuDU4HhI1rbfVKugXhayliOEjtqRCiKPboi8FQQU5CoT88FhxMn9brV
-	W/pb1s
-X-Received: by 2002:a17:90b:1dc3:b0:384:5b5b:3465 with SMTP id 98e67ed59e1d1-38e4b5792e4mr3066215a91.29.1784298134525;
-        Fri, 17 Jul 2026 07:22:14 -0700 (PDT)
-Received: from [127.0.1.1] ([188.253.12.32])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39de785dsm3009325a91.4.2026.07.17.07.22.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 07:22:14 -0700 (PDT)
-From: Jia Jia <physicalmtea@gmail.com>
-To: mst@redhat.com,
-	jasowang@redhat.com,
-	michael.christie@oracle.com
-Cc: pbonzini@redhat.com,
-	stefanha@redhat.com,
-	eperezma@redhat.com,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] vhost-scsi: Prevent OOM from invalid protection SGL count
-Date: Fri, 17 Jul 2026 22:22:05 +0800
-Message-Id: <20260717142205.103515-1-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b0sULqoN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5071B1F000E9;
+	Fri, 17 Jul 2026 14:22:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784298167;
+	bh=GQ7/2qzEt8lZJSsWd9tb0zm1n6LY1MaigtiNVF9TET0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=b0sULqoNuLejOJDhUimEFs+vHii3lv679UmtcBk3I1U+0l6F/jxjUy2F9HHkyiuG0
+	 nJWUXf+0zT5J2J5u9BUDoGzXdxTgIGLIrlr71wZ90O781Uh98FxT7P3Xlz9k3T7SvJ
+	 WALRu69ym2WRNZ8jEU9E+FpgymxDlOBML6XRj3ta8D1rnlDXk9AgqCcsST1L3Xat7o
+	 WuP5re/RpK/xRAiCsseY3Ebxt/x4m/bhvWY9xKltMAOUnnBa62vDeCyriWaA1pv/ka
+	 synRHSCMYIqQv73lDcmOgwLYyDy/m/Z2r+fvdf3Mbt3Q+crgdUvEVoeH8rLbgj0V+U
+	 Hw3/LCc/EgZZQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	"Harry Yoo (Oracle)" <harry@kernel.org>,
+	Hao Li <hao.li@linux.dev>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/slab: do not limit zeroing to orig_size when only red zoning is enabled
+Date: Fri, 17 Jul 2026 10:22:44 -0400
+Message-ID: <20260717142244.1820826-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071403-afar-policy-60a2@gregkh>
+References: <2026071403-afar-policy-60a2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,45 +46,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The protection SGL path passes the result of vhost_scsi_calc_sgls()
-directly to sg_alloc_table_chained(). The helper returns a negative
-errno when the iterator is invalid or the request exceeds the segment
-limit. The negative errno is then treated as a very large unsigned count
-and sends the request into the SGL allocation path with an invalid size.
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 
-Repeated malformed T10-PI submissions from a host-side application caused
-memory usage to rise sharply. MemAvailable fell to about 200 MB, and PSI
-full avg10 reached about 1.46. The OOM killer terminated several userspace
-processes before the endpoint cleanup completed. The kernel log included:
+[ Upstream commit 648927ceb84021a25a0fbd5673740956f318d534 ]
 
-    [17036.451028] Out of memory: Killed process 2345 (systemd)
-    [17036.493325] Out of memory: Killed process 2349 (sd-pam)
-    [17078.265127] Out of memory: Killed process 1793 (networkd-dispat)
+When init (zeroing) on allocation is requested, for kmalloc() we
+generally have to zero the full object size even if a smaller size is
+requested, in order to provide krealloc()'s __GFP_ZERO guarantees.
 
-Return the calculation error before setting up the protection SGL. This
-keeps the protection path consistent with the data SGL path and prevents
-the invalid count from entering the allocation path.
+But if we track the requested size, krealloc() uses that information to
+do the right thing, so we can zero only the requested size. With red
+zoning also enabled, any extra size became part of the red zone, so it
+must not be zeroed and thus we must zero only the requested size.
 
-Fixes: bca939d5bcd0 ("vhost-scsi: Dynamically allocate scatterlists")
+However the current check is imprecise, and will trigger also when only
+SLAB_RED_ZONE is enabled without SLAB_STORE_USER (which enables tracking
+the requested size). This means enabling red zoning alone can compromise
+krealloc()'s __GFP_ZERO contract.
+
+Fix this by using slub_debug_orig_size() instead, which is the exact
+check for whether the requested size is tracked. We don't need to care
+if red zoning is also enabled or not. Also update and expand the
+comment accordingly.
+
+Fixes: 9ce67395f5a0 ("mm/slub: only zero requested size of buffer for kzalloc when debug enabled")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+Link: https://patch.msgid.link/20260610-slab_alloc_flags-v2-1-7190909db118@kernel.org
+Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+Reviewed-by: Hao Li <hao.li@linux.dev>
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vhost/scsi.c | 3 +++
- 1 file changed, 3 insertions(+)
+ mm/slab.h | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
-index 9a1253b9d..8486652fd 100644
---- a/drivers/vhost/scsi.c
-+++ b/drivers/vhost/scsi.c
-@@ -972,6 +972,9 @@ vhost_scsi_mapal(struct vhost_scsi *vs, struct vhost_scsi_cmd *cmd,
- 	if (prot_bytes) {
- 		sgl_count = vhost_scsi_calc_sgls(prot_iter, prot_bytes,
- 						 VHOST_SCSI_PREALLOC_PROT_SGLS);
-+		if (sgl_count < 0)
-+			return sgl_count;
-+
- 		cmd->prot_table.sgl = cmd->prot_sgl;
- 		ret = sg_alloc_table_chained(&cmd->prot_table, sgl_count,
- 					     cmd->prot_table.sgl,
+diff --git a/mm/slab.h b/mm/slab.h
+index 62df6eeeb5ead7..cd55e4a7678d91 100644
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -734,14 +734,17 @@ static inline void slab_post_alloc_hook(struct kmem_cache *s,
+ 	flags &= gfp_allowed_mask;
+ 
+ 	/*
+-	 * For kmalloc object, the allocated memory size(object_size) is likely
+-	 * larger than the requested size(orig_size). If redzone check is
+-	 * enabled for the extra space, don't zero it, as it will be redzoned
+-	 * soon. The redzone operation for this extra space could be seen as a
+-	 * replacement of current poisoning under certain debug option, and
+-	 * won't break other sanity checks.
++	 * For kmalloc object, the allocated size (object_size) can be larger
++	 * than the requested size (orig_size). We however need to zero the
++	 * whole object_size to handle possible later krealloc() with
++	 *__GFP_ZERO properly.
++	 *
++	 * But if we keep track of the requested size, krealloc() uses that
++	 * information. Additionally if red zoning is enabled, the extra space
++	 * is also red zone, so we should not overwrite it. So limit zeroing to
++	 * orig_size if we track it.
+ 	 */
+-	if (kmem_cache_debug_flags(s, SLAB_STORE_USER | SLAB_RED_ZONE) &&
++	if (kmem_cache_debug_flags(s, SLAB_STORE_USER) &&
+ 	    (s->flags & SLAB_KMALLOC))
+ 		zero_size = orig_size;
+ 
 -- 
-2.43.0
+2.53.0
+
