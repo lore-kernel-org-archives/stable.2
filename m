@@ -1,166 +1,86 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D2942903D
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C4831326B;
+	Fri, 17 Jul 2026 14:29:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784298409; cv=none; b=Y2SLHekmG3eYNrCCdEzrFuGaadVPHfgD8zM7WwCN8NsTiM52STNQm4VKVO7ZlnyvlLERvuN9k+GzAYoHTHta1fvNBEuKjiR2PZtfsWMtNgQ1sViKVo1mnTG8bCKowRevo0LinDpI1Gkp6XkLo5H7xF1fyVFdBQJk884UMNxhrfw=
+	t=1784298596; cv=none; b=k5uFISRvHyvYRD7mgfkq37esbWwbYN8vBQ4DdNRKBSEo/IgR0QOGUlHOE+1O6B1pgXmfySZYnSWUf8953D8vh1eqsU7Ma5JyOGDJZOs0O+g2aAiYLd/L41f5DwgQXzM4lsfNn5BN/gp13ZGFlMH0Tqs1347ncC2H2Mn8fCyfEOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784298409; c=relaxed/simple;
-	bh=oohGbbAaLkslWdgC4Krwn0hyoZWvS3LxdokSu2BvOOE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=l/o3bjT7gly+ghzywJaowhmUIj9cInUFihfZG4XtGyjGmPwUES/3IKO0QyFIF8tv+5DpHm0Y81lTIjRGAHKhyOtdMp8YEgVpdMIv/zNigAbknvL/BDyYcJRYd+gL9CuQo9P+yGd9EwG4DuZuzBCmnLjOF8X/vZasWL8O2tXEu4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lbrK+kmf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZUBT7E/U; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784298596; c=relaxed/simple;
+	bh=I5ldIjRGD3cNvUQF+m5WOM6prop/74NfY9VNphtqOQA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gRRcW+i4pIV9cd+h850NZlNlYoJjK5wuGoKnfuzBkBYCGWQ/IX5MONpTo3csRxTzfjvVSo96/wyLC89CBUBlR242Z/tjTXiaEP7vbLrDzFdDOdVlTFLxk1LLfU+KaYmcOx1MbWWkVoFnePs1xUMdOjGH8atBLsW435+28awdoeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=hceIPzM9; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lbrK+kmf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZUBT7E/U"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HE7u7p2106276
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:26:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=DnJzG8liwW0p9lFDlKh2ng
-	X3HM625dVQVl02XQ3FxcY=; b=lbrK+kmfH333XrFlpHdgqI/hR6KKFJt/oLualr
-	FbUYywgIGmTrz1J2sHOBQMBxbunU1V0o0zDJAu82XNalwGAeOkQOUAyKmSKAwNTT
-	aBU+uxPQfk3vR21OFvlpVkKzVexXGlwinzzl+5gBw6P9F2R/qKNz20CF06j+NNLp
-	RldRXvyhUV7rLqnDs019caFkBkuZL8nf17/ffVqcKXey7oz96OgZH9Sf6LebAcmu
-	FkaODQ73Tif0DibIW+xudW2DCdHkBxSvJqVPeE8NJv2eeMLW2x9a6TK/rO4WwllB
-	b/Q8CD/WbRgqbvpgh46jfDUbDeT0FTiORi1ARYxS+5O1ZiTQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffhpfh3wx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:26:45 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51a8c689b5fso143334411cf.0
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 07:26:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784298405; x=1784903205; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DnJzG8liwW0p9lFDlKh2ngX3HM625dVQVl02XQ3FxcY=;
-        b=ZUBT7E/UlA0sdOs2wcGsi/gY8FK0CoQpROBkdGMaC6X13cIbZQqTc1l54RZwdRoP6q
-         FTwAbTaJTmqJP8YEebKBXtMFEVLM5OeUjcH7v9GWlEmDTuLTldJP3mqXBSRFLQ+XGysC
-         4iDvLAWOZLns9uvcM2HNVFmG5pLiQ7t+kz/5uDnr+h8WXx4cbAPHNxmmVvs/4flWEFQe
-         qGUm2Q6pRifL2c/+UJXKZZaIE4EJvhyEoL4IyUEEmZwdzVjaSGsV5q5f7Qqf0Li0jtir
-         W+bCRkDrvOR/xmt3o9K7KKSgNs4EaAgGo11aSk1tKORS1hlJ+AqhyQaPHr83xmc367nU
-         l6qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784298405; x=1784903205;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=DnJzG8liwW0p9lFDlKh2ngX3HM625dVQVl02XQ3FxcY=;
-        b=QDSTeUeUPt61ikHuVwDr4MaaUE8tCwYHDsjkB6aUnM53TcSRNTAT0CH8MaCScdmiak
-         LQFrq7E6FDE57OYJytWQVhTKOMhgWM4M5e/jo9oXTElYLSfJ4bSc66zomv/XHbnzLIyS
-         u6MZQ0A5eSk1ZBTFrWccYMElmNbTdQ+nONcCpLBZJxrt1Gsfry9WDrBhkc0HR4XnTJM7
-         Esh1v2TjNwrVbx5aMUhzHE5xe4m5t5Xtid3gBd2xrmTrCt3Ud6aSO6zhK24RYIHkf4jG
-         gc5A2LLv+1PyjneTOZjf1tBa5mVKRDn1jPKmL4k4pwCxx/YC0ef3ccX9N41zrfrelxyO
-         oZIg==
-X-Forwarded-Encrypted: i=1; AHgh+RpZLYZbGMn1ypb6kDDjZGxNPQ54+E0XWtMVzbe2xKDxWqHT2Gc0xrNHKmAMtRHYyvBkp68mPSk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6q/bB0PSwM7NiGZJGJTqkkS53jMpVKXv4nJvzp1Nt33UevQHX
-	g5kAK/svUS3WmuEosxemgQdZM7yE5Ck9pQhqf7QIyDdKm4IcLhX9ZCX97vH2eW/sga4SREuyBPy
-	O2rSEsxlaDFoYX7LZBXJqLbNpgUsB3QsbIQoYGEXQ87BTpOvJ7cO0Vvt0vKA=
-X-Gm-Gg: AfdE7cmElhA36hrXnTW6FtUYURwkvIJtuzo7QccYLYuvWKz079mfcSzrfp8Fu4ZuAak
-	1+PwReSjEMwnC2+w9Ip8+xJlCDFnm/TF812Xz36KB4OglxyI4TpNY2eVjIcQWChe2oJJ4mHNfbh
-	JhbLPwn1+yDe9+HzQjKe/mIKzoDUXhsXDPgu99uFJqJQjuHsvXMcwq+uN+nFW95/3d7KDwCSNgh
-	Ctr+ONwrQAkT+5g9ZdwTNTU8vHt1U7dAjDKQ2Hqv2nBKtOsfspbpS0YYorNOYnlB4wWWX9vGoaU
-	wTsKBnREasQ8AWp+HbBw2LijCvBXjo2giTHlwlE+FIVKB4ipzvYDop1rSjnJqd7T64JegG1ywiV
-	r2e0PVt4zLK2nQZ2IdZZyh7CQnIcecaVWpe02A3y2rLYf7VJFN4Iu2oluCNLgjvFSj7ylT/b5Kv
-	3uCIfDC2+qP2n9aIh+tlTU+cxuaWplBW0WeTjSk/XN2Zym1xiHjQo=
-X-Received: by 2002:a05:622a:22a2:b0:517:9407:5c36 with SMTP id d75a77b69052e-5213e28dc47mr24764221cf.53.1784298405282;
-        Fri, 17 Jul 2026 07:26:45 -0700 (PDT)
-X-Received: by 2002:a05:622a:22a2:b0:517:9407:5c36 with SMTP id d75a77b69052e-5213e28dc47mr24763851cf.53.1784298404832;
-        Fri, 17 Jul 2026 07:26:44 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:751c:d61c:c91:60dd])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69e7000688dsm824789a12.29.2026.07.17.07.26.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 07:26:43 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 16:26:33 +0200
-Subject: [PATCH] block: partitions: of: Fix NULL dereference on partition
- without reg
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="hceIPzM9"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1784298573; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=2QkTdjWC0lSY6M9Vz7HbKNPdgT55JYfFATk17MFjoN4=;
+	b=hceIPzM9OCRLw4T+NbL5RspTvcY+prC/qfx3zCrIoWhkHEkidPvWBCnVhYmPF3uDlM2O1qpPQHGzQa+RHJIfllMTvDrZiYOeTxQQgIvO2x0Rk6FF4Vz8UrOtKqiNuqjsjnBKS/Z4FCuL285m0tgxJHDGX5lrguE7dcPnsJ5dgWM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R621e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=jefflexu@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0X7HYLFb_1784298572;
+Received: from localhost(mailfrom:jefflexu@linux.alibaba.com fp:SMTPD_---0X7HYLFb_1784298572 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 17 Jul 2026 22:29:33 +0800
+From: Jingbo Xu <jefflexu@linux.alibaba.com>
+To: miklos@szeredi.hu,
+	fuse-devel@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	horst@birthelmer.de,
+	stable@vger.kernel.org
+Subject: [PATCH v2] fuse: don't bump attr_version for async direct read completion
+Date: Fri, 17 Jul 2026 22:29:32 +0800
+Message-Id: <20260717142932.71778-1-jefflexu@linux.alibaba.com>
+X-Mailer: git-send-email 2.19.1.6.gb485710b
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-partition-null-v1-1-47984cff2d7e@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAJg7WmoC/x2MQQqAIBAAvyJ7bkEFk/pKdCjbakFMtCKQ/p50H
- JiZApkSU4ZeFEh0c+YjVFCNALdPYSPkpTJoqVtplcU4pZPPamG4vMdZGtKuMy2RhRrFRCs//3A
- Y3/cDHm7ZcWAAAAA=
-X-Change-ID: 20260717-partition-null-b05e2c956ee7
-To: Jens Axboe <axboe@kernel.dk>, Christian Marangi <ansuelsmth@gmail.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDE0NiBTYWx0ZWRfX8xzGNECQmUKH
- 83Dg7WM+kuuRp6XLmSBhHHkgELlJiQA+wMqU0eMQpY93650PJSqiHLh6sUj0sVwpsZW74jZOMcQ
- wbnXCnh44IJR9g6ttU3vG9F46lb+KI/KUd6J6LVTb2Za7tHq7b2NJVjzeaqi6HGjUBdFzEq9/tB
- vXebk4NqfHgBGvZz+olvg61Tw2xPVP9nCE/vv3kmy4OOYpzmeq3vRkqVc+kIOwnAhPAf0RBDfp0
- xpSWTBNJ9LfUVhRtTcbFvc4k8bl+zDPb+HgrEyV2h9qoTU+2Wb/sMK7/8i7bXy3UZxWUegqWHUr
- Hxz/7jGVbWtSlZqfQCgdorbRlhAtOmg9VVmDWNXlFGjV5wO9sJpW5QNd8S2X20/9oPEcTvtAxAO
- QVRtxRWWgGdWw/r5GKe6tV2qJpfl2pOF93yE3IG9RqFW2PKOsRKiH2+2Du4uDt1Qzho1JDw3V+9
- n4sQoHhETSEkRhSnK9w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDE0NiBTYWx0ZWRfXy1MdtQ+LMlDP
- V9HeyH0sNSy56t9GjOhmHV29SO8tnMVcg+gwXIK2jOcs8cDr8X4cov6wupI46is4DdBwf7ImwlU
- pOYanWiD9952/gNQnjxGxm/HJNMO/n4=
-X-Authority-Analysis: v=2.4 cv=YeWNIQRf c=1 sm=1 tr=0 ts=6a5a3ba5 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=e4y8cmn4OwqddjlM7QMA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: qBvJ7Prmt7E07OLT3vE9ZAffKFeVvcsA
-X-Proofpoint-ORIG-GUID: qBvJ7Prmt7E07OLT3vE9ZAffKFeVvcsA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_04,2026-07-17_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170146
+Content-Transfer-Encoding: 8bit
 
-A child node of a fixed-partitions node may lack a reg property, either
-because it is malformed or because it is not a partition entry at all.
-In that case of_get_property() returns NULL to reg, which is then
-dereferenced without proper checking.
+The attr_version counter should only be incremented when cached
+attributes are actually modified (as documented in commit 1fb69e781729
+("fuse: fix race between getattr and write")).  Async direct reads do not
+modify any cached inode attributes (size, mtime, ctime), so bumping
+attr_version in fuse_aio_complete() for reads is incorrect.
 
-Fixes: 2e3a191e89f9 ("block: add support for partition table defined in OF")
-Cc: stable@vger.kernel.org
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+This unconditional bump causes a livelock when auto_inval_data is
+enabled together with writeback_cache: fuse_cache_read_iter() issues a
+FUSE_GETATTR before every read, but by the time the response arrives,
+an async DIO read completion has already incremented fi->attr_version
+past the snapshot taken before the request.  The GETATTR result is then
+discarded (attr_version race), fi->i_time is never refreshed, and every
+subsequent read triggers yet another GETATTR -- creating an infinite
+loop of useless round-trips.
+
+Fix this by only bumping attr_version for write completions, consistent
+with the synchronous DIO write path (fuse_write_update_attr) and the
+cached write path.
+
+Fixes: 01e9d11a3e79 ("fuse: add support of async IO")
+Reviewed-by: Horst Birthelmer <hbirthelmer@ddn.com>
+Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
 ---
- block/partitions/of.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/fuse/file.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/block/partitions/of.c b/block/partitions/of.c
-index 53664ea06b6540e3d1155141adaafac7286f2d21..dab36513eba336344c9558d486a8915624b0fca8 100644
---- a/block/partitions/of.c
-+++ b/block/partitions/of.c
-@@ -15,6 +15,9 @@ static int validate_of_partition(struct device_node *np, int slot)
- 	int a_cells = of_n_addr_cells(np);
- 	int s_cells = of_n_size_cells(np);
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index ceada75310b8..c41287e8bc15 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -688,7 +688,7 @@ static void fuse_aio_complete(struct fuse_io_priv *io, int err, ssize_t pos)
+ 		struct address_space *mapping = io->iocb->ki_filp->f_mapping;
+ 		ssize_t res = fuse_get_res_by_io(io);
  
-+	if (!reg)
-+		return -EINVAL;
-+
- 	/* Make sure reg len match the expected addr and size cells */
- 	if (len / sizeof(*reg) != a_cells + s_cells)
- 		return -EINVAL;
-
----
-base-commit: fce2dfa773ced15f27dd27cd0b482a7473cdcf2a
-change-id: 20260717-partition-null-b05e2c956ee7
-
-Best regards,
+-		if (res >= 0) {
++		if (res >= 0 && io->write) {
+ 			struct fuse_conn *fc = get_fuse_conn(inode);
+ 			struct fuse_inode *fi = get_fuse_inode(inode);
+ 
 -- 
-Loic Poulain <loic.poulain@oss.qualcomm.com>
+2.19.1.6.gb485710b
 
