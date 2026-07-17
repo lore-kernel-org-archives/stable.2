@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53207282F29
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 18:11:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D2E3093DB
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 18:11:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784311896; cv=none; b=EiyhTM/W8RxqaOGXxtpn9kySa0iDjABeRSuaUPT8DATm7ONcG1r7qsf4OfnRg0KKj9i7XXpjFyl5GGnoSmrJOeV+XLwztPzPV99XwskvGOAozP5QKnGLoq5aNg4nDc/N/1cWxHI43vvrCz2MD9Z4/pIbkMHfeXgnwLxYkhB4Qik=
+	t=1784311897; cv=none; b=UjS1qgscYs+GRvoIOGNYbfwbnGRbQBa23mqqXKysCOATlYqcntgRBuiThaa4ywOwFn2eIa+KzhH20J4RhdV5h80QndMWTBNqstyam9Vi0gefmj7gTxNesU3ZvVe9Fi3vqsEfZ0pCltj82m8PdrVngolxruvHJACBx0F6k5FjM34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784311896; c=relaxed/simple;
-	bh=jD+0GesKCDgClUsHZwWUp1CPCX15kOm4g+SwQuQ6HxI=;
+	s=arc-20240116; t=1784311897; c=relaxed/simple;
+	bh=1yEUXWUEBLB+KH2qvgt47ic6svQDci+1ifEqdDtvawA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OmAE8jSXej3EIhg3psOH4WxeKGyOwBEWtxY7TS4JBNN8WutQf+P7vb7X15BfOowt+NrDhJgIDDuHiPlnNfxFcKItfPmOHVG4k1h5zXrg4MpcZjx6tcpwj4AHoYy2NJ/dMyoE7RLynHVZGWgg22FFufuleuQOH/aouC8fK+Lm0Uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGAOiYqA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ni6qrE2IJvwZv/0cG9U+cNGPOTmPiQ9aj1RrOplTvDxioFKHf3q4xU7dXBmFJbiR+nPwga8L81YDJjz3Iqvxsvsl1GQOjRrhL1iEg/JY7Subuh1F30eUH94fLfwFVIxOMDT8ykyFZH+DxOqHm8lzvL8ypLMmvFNLziTroZcvhtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FT0BLBaI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGAOiYqA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99CD11F000E9;
-	Fri, 17 Jul 2026 18:11:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FT0BLBaI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71EE51F00A3A;
+	Fri, 17 Jul 2026 18:11:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784311895;
-	bh=Rb148nkCpT3TVE7AIceKk9SFFm6I4cs1f+NIZI/SI0Y=;
+	bh=EiSWEBdkVBPCKwLYMN5yXkH0gGMp0OsJCS7PzRuoJ3Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XGAOiYqALpkpiLcyQiHuEBcQVqxfHGDRX+Tke6ZWaLB3u5j9DQq9TT9NrytHmt+Yl
-	 Wbg7gDrVlq+MPyLLZmnfEWNr7+7nzOZwpn8EsmMRfJ0DHfVl77JHJZGvUdp9GOFIHr
-	 jyEIT7Yy+YpLYoYmQsIBkkP9vIHNswnx3nmzMN+HTEmpq1US+wb4AZpyRGIwtel1pW
-	 KVO5ONJ59VhbaI7xFNXcMLWCzkSgZ6yrrvFiw4GjhcGETwryAVoFUf1c2Jozob3kyA
-	 9fJ2sEBMfUb7fw6zNaVaWt0XWiEzXW7KLpxfoSjVEwO5sBzdHuawqqP1DTI1mFWHqA
-	 +GO64RXle4aYg==
+	b=FT0BLBaIxeET5dDj/pLt3XcXdLRApkIvqRIEvwkEI0tTRkc+NKE145KKtuT8bcDxe
+	 ar/wmzLagwWYYbCK2MD5EnQ1To30mgWqIWcujoBmJ3QLjtDzQf7LHlTHGHrJ3ihmPo
+	 95gLcA2iKHsiWacL0oaaiOESjjhsBz1Zu6CVGgO+KD8ruLRrp4WA4TRnlfcB8ZtMUA
+	 aXMbrNvLEm1Cv+/wYZhlo0oG7J/4P76TQxLspQjvyyt7YtvQ6OMFDKYo25DrYlScA+
+	 yRKa/xkQB8uTHfTY/qiASgVu81JFskrgi4RxN5G6cxTG52J37cN7BgLCbHRi+NNXt5
+	 Hh35MDHUpWAcQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Angela Czubak <aczubak@google.com>,
-	Jonathan Denose <jdenose@google.com>,
+Cc: Trung Nguyen <trungnh@cystack.net>,
 	Benjamin Tissoires <bentiss@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] HID: add haptics page defines
-Date: Fri, 17 Jul 2026 14:11:32 -0400
-Message-ID: <20260717181133.2086215-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] HID: multitouch: fix out-of-bounds bit access on mt_io_flags
+Date: Fri, 17 Jul 2026 14:11:33 -0400
+Message-ID: <20260717181133.2086215-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071419-refined-abrasion-5918@gregkh>
+In-Reply-To: <20260717181133.2086215-1-sashal@kernel.org>
 References: <2026071419-refined-abrasion-5918@gregkh>
+ <20260717181133.2086215-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,77 +46,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Angela Czubak <aczubak@google.com>
+From: Trung Nguyen <trungnh@cystack.net>
 
-[ Upstream commit 5e0ae59159e3a07391a35865bb79ff335473fa79 ]
+[ Upstream commit 8813b0612275cc61fe9e6603d0ee019247ade6be ]
 
-Introduce haptic usages as defined in HID Usage Tables specification.
-Add HID units for newton and gram.
+mt_io_flags is a single unsigned long, but mt_process_slot(),
+mt_release_pending_palms() and mt_release_contacts() use it as a
+per-slot bitmap indexed by the slot number. That slot number is only
+bounded by td->maxcontacts, which is taken from the device's
+ContactCountMaximum feature report and can be up to 255, not by
+BITS_PER_LONG.
 
-Signed-off-by: Angela Czubak <aczubak@google.com>
-Co-developed-by: Jonathan Denose <jdenose@google.com>
-Signed-off-by: Jonathan Denose <jdenose@google.com>
+As a result, a multitouch device that advertises a large contact count
+makes set_bit()/clear_bit() operate past the mt_io_flags word and
+corrupt the adjacent members of struct mt_device. The sticky-fingers
+release timer is the easiest way to reach this. mt_release_contacts()
+runs
+
+	for (i = 0; i < mt->num_slots; i++)
+		clear_bit(i, &td->mt_io_flags);
+
+with num_slots == maxcontacts. For maxcontacts around 250 the loop
+clears the bits that overlap td->applications.next, zeroing that list
+head, and the list_for_each_entry() that immediately follows then
+dereferences NULL. The kernel panics from timer (softirq) context. On a
+KASAN build this shows up as a general protection fault in
+mt_release_contacts() with a null-ptr-deref at offset 0x58, which is
+offsetof(struct mt_application, num_received).
+
+The state is reachable from an untrusted USB or Bluetooth HID
+multitouch device; no local privileges are required.
+
+Store the per-slot active state in a separately allocated bitmap sized
+for maxcontacts, the same pattern already used for pending_palm_slots,
+and keep only MT_IO_FLAGS_RUNNING in mt_io_flags. The two
+"mt_io_flags & MT_IO_SLOTS_MASK" arming checks become
+bitmap_empty(td->active_slots, td->maxcontacts).
+
+Move MT_IO_FLAGS_RUNNING back to bit 0. It was bumped to bit 32 by the
+same commit to leave the low byte for the slot bits; with the slot bits
+gone it fits in bit 0 again, which also keeps it within the unsigned
+long on 32-bit.
+
+Fixes: 46f781e0d151 ("HID: multitouch: fix sticky fingers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Trung Nguyen <trungnh@cystack.net>
 Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
-Stable-dep-of: 8813b0612275 ("HID: multitouch: fix out-of-bounds bit access on mt_io_flags")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/hid.h | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ drivers/hid/hid-multitouch.c | 32 ++++++++++++++++++++------------
+ 1 file changed, 20 insertions(+), 12 deletions(-)
 
-diff --git a/include/linux/hid.h b/include/linux/hid.h
-index aaae2fecd4ae6e..8a105caf6bcb2d 100644
---- a/include/linux/hid.h
-+++ b/include/linux/hid.h
-@@ -152,6 +152,7 @@ struct hid_item {
- #define HID_UP_TELEPHONY	0x000b0000
- #define HID_UP_CONSUMER		0x000c0000
- #define HID_UP_DIGITIZER	0x000d0000
-+#define HID_UP_HAPTIC		0x000e0000
- #define HID_UP_PID		0x000f0000
- #define HID_UP_HPVENDOR         0xff7f0000
- #define HID_UP_HPVENDOR2        0xff010000
-@@ -299,6 +300,28 @@ struct hid_item {
- #define HID_DG_TOOLSERIALNUMBER	0x000d005b
- #define HID_DG_LATENCYMODE	0x000d0060
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index c3bcc23d7c7ca1..e4b91c0866bb98 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -31,6 +31,7 @@
+  * [1] https://gitlab.freedesktop.org/libevdev/hid-tools
+  */
  
-+#define HID_HP_SIMPLECONTROLLER	0x000e0001
-+#define HID_HP_WAVEFORMLIST	0x000e0010
-+#define HID_HP_DURATIONLIST	0x000e0011
-+#define HID_HP_AUTOTRIGGER	0x000e0020
-+#define HID_HP_MANUALTRIGGER	0x000e0021
-+#define HID_HP_AUTOTRIGGERASSOCIATEDCONTROL 0x000e0022
-+#define HID_HP_INTENSITY	0x000e0023
-+#define HID_HP_REPEATCOUNT	0x000e0024
-+#define HID_HP_RETRIGGERPERIOD	0x000e0025
-+#define HID_HP_WAVEFORMVENDORPAGE	0x000e0026
-+#define HID_HP_WAVEFORMVENDORID	0x000e0027
-+#define HID_HP_WAVEFORMCUTOFFTIME	0x000e0028
-+#define HID_HP_WAVEFORMNONE	0x000e1001
-+#define HID_HP_WAVEFORMSTOP	0x000e1002
-+#define HID_HP_WAVEFORMCLICK	0x000e1003
-+#define HID_HP_WAVEFORMBUZZCONTINUOUS	0x000e1004
-+#define HID_HP_WAVEFORMRUMBLECONTINUOUS	0x000e1005
-+#define HID_HP_WAVEFORMPRESS	0x000e1006
-+#define HID_HP_WAVEFORMRELEASE	0x000e1007
-+#define HID_HP_VENDORWAVEFORMMIN	0x000e2001
-+#define HID_HP_VENDORWAVEFORMMAX	0x000e2fff
-+
- #define HID_VD_ASUS_CUSTOM_MEDIA_KEYS	0xff310076
- /*
-  * HID report types --- Ouch! HID spec says 1 2 3!
-@@ -384,6 +407,12 @@ struct hid_item {
- #define HID_REPORT_PROTOCOL	1
- #define HID_BOOT_PROTOCOL	0
++#include <linux/bitmap.h>
+ #include <linux/device.h>
+ #include <linux/hid.h>
+ #include <linux/module.h>
+@@ -81,8 +82,7 @@ enum latency_mode {
+ 	HID_LATENCY_HIGH = 1,
+ };
  
-+/*
-+ * HID units
-+ */
-+#define HID_UNIT_GRAM		0x0101
-+#define HID_UNIT_NEWTON		0xe111
+-#define MT_IO_SLOTS_MASK		GENMASK(7, 0) /* reserve first 8 bits for slot tracking */
+-#define MT_IO_FLAGS_RUNNING		32
++#define MT_IO_FLAGS_RUNNING		0
+ 
+ static const bool mtrue = true;		/* default for true */
+ static const bool mfalse;		/* default for false */
+@@ -158,10 +158,9 @@ struct mt_device {
+ 	struct mt_class mtclass;	/* our mt device class */
+ 	struct timer_list release_timer;	/* to release sticky fingers */
+ 	struct hid_device *hdev;	/* hid_device we're attached to */
+-	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING)
+-					 * first 8 bits are reserved for keeping the slot
+-					 * states, this is fine because we only support up
+-					 * to 250 slots (MT_MAX_MAXCONTACT)
++	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING) */
++	unsigned long *active_slots;	/* bitmap of slots with an active
++					 * contact, sized for maxcontacts
+ 					 */
+ 	__u8 inputmode_value;	/* InputMode HID feature value */
+ 	__u8 maxcontacts;
+@@ -915,7 +914,7 @@ static void mt_release_pending_palms(struct mt_device *td,
+ 
+ 	for_each_set_bit(slotnum, app->pending_palm_slots, td->maxcontacts) {
+ 		clear_bit(slotnum, app->pending_palm_slots);
+-		clear_bit(slotnum, &td->mt_io_flags);
++		clear_bit(slotnum, td->active_slots);
+ 
+ 		input_mt_slot(input, slotnum);
+ 		input_mt_report_slot_inactive(input);
+@@ -1100,9 +1099,9 @@ static int mt_process_slot(struct mt_device *td, struct input_dev *input,
+ 		input_event(input, EV_ABS, ABS_MT_TOUCH_MAJOR, major);
+ 		input_event(input, EV_ABS, ABS_MT_TOUCH_MINOR, minor);
+ 
+-		set_bit(slotnum, &td->mt_io_flags);
++		set_bit(slotnum, td->active_slots);
+ 	} else {
+-		clear_bit(slotnum, &td->mt_io_flags);
++		clear_bit(slotnum, td->active_slots);
+ 	}
+ 
+ 	return 0;
+@@ -1237,7 +1236,7 @@ static void mt_touch_report(struct hid_device *hid,
+ 	 * defect.
+ 	 */
+ 	if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
+-		if (td->mt_io_flags & MT_IO_SLOTS_MASK)
++		if (!bitmap_empty(td->active_slots, td->maxcontacts))
+ 			mod_timer(&td->release_timer,
+ 				  jiffies + msecs_to_jiffies(100));
+ 		else
+@@ -1277,6 +1276,15 @@ static int mt_touch_input_configured(struct hid_device *hdev,
+ 	if (td->is_buttonpad)
+ 		__set_bit(INPUT_PROP_BUTTONPAD, input->propbit);
+ 
++	if (!td->active_slots) {
++		td->active_slots = devm_kcalloc(&td->hdev->dev,
++						BITS_TO_LONGS(td->maxcontacts),
++						sizeof(long),
++						GFP_KERNEL);
++		if (!td->active_slots)
++			return -ENOMEM;
++	}
 +
- /*
-  * This is the global environment of the parser. This information is
-  * persistent for main-items. The global environment can be saved and
+ 	app->pending_palm_slots = devm_kcalloc(&hi->input->dev,
+ 					       BITS_TO_LONGS(td->maxcontacts),
+ 					       sizeof(long),
+@@ -1655,7 +1663,7 @@ static void mt_release_contacts(struct hid_device *hid)
+ 			for (i = 0; i < mt->num_slots; i++) {
+ 				input_mt_slot(input_dev, i);
+ 				input_mt_report_slot_inactive(input_dev);
+-				clear_bit(i, &td->mt_io_flags);
++				clear_bit(i, td->active_slots);
+ 			}
+ 			input_mt_sync_frame(input_dev);
+ 			input_sync(input_dev);
+@@ -1678,7 +1686,7 @@ static void mt_expired_timeout(struct timer_list *t)
+ 	 */
+ 	if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
+ 		return;
+-	if (td->mt_io_flags & MT_IO_SLOTS_MASK)
++	if (!bitmap_empty(td->active_slots, td->maxcontacts))
+ 		mt_release_contacts(hdev);
+ 	clear_bit_unlock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags);
+ }
 -- 
 2.53.0
 
