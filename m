@@ -1,176 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5644B309DDB;
-	Fri, 17 Jul 2026 12:37:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C323FADFC
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:37:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784291840; cv=none; b=LqtmbQLFXbBN6Y1gkpmnFPyMThxzOAMGKCAmHOXEs6k3/HsHGkCqMrzi/1xxHevIMMHK6rwTgEavWZxNpMZMuIwS7BOtTKy/HYOwMZJpqTN8EMTwHKHLPNKbIi94sA6TWFmkutM/20IvPaBUPR+mYfS7sjSX41OS6Avphmqwakc=
+	t=1784291847; cv=none; b=Xt+i16BAIZJQraayM/gPq6cipFhziT1nH9DcVaTQOgwe9Zn/vpQ5lHD6R4peycTqTNyehfRytI0MYA+PVI11w/1q3gRCbjsWBa1D0kim3oJYMxUDACxd3p+Mo0s3fpaitEEHYGELY4vQzkyI6tGbTG7lInqUgnivsr4E1LMVpfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784291840; c=relaxed/simple;
-	bh=7yut5cpCju07AY1s/WSgZ6BNVqcQfe4iJL1O2nZr9zM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jNdwenuy9/k3U18pYz6sDp2mtsao1MLkcTMqxTTmGFzUKb4S8gjMmispCZvwtc6QyILFGjjyM6Ht/tG7ax/JH6HlcpOVAyuWq6ie9lupX7/oGnp9xXXRsMKyh7ETasJhnZ0n8ORRLj72GyNGBqnC6SECD0hoylZtbhSENpacTSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nZLkE/bJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784291847; c=relaxed/simple;
+	bh=tdkXLx/uIjYRxlxI3SsmfBwUx18merN3vrX4uE+v1gM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JkrvhVepZHRZkYVK6eJQnbox1+VcbEJlbDSwnCNZghHDCa5mOa78iZ0hEbUat4KtasWkpIfINTGISKVCucd14hdNqFHdHdXuGGFMJDMF3MTasfKBkBzzDAOM34u+pdeLU8HsVJnbAZLTkYs2m7txKEvanrFFufHNO8cIfVs8kwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kQ3VxSSV; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nZLkE/bJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C1E1F000E9;
-	Fri, 17 Jul 2026 12:37:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784291836;
-	bh=10Pps67StB+D8Oz+CHxSoKLyp+1YN5wm9G/z2f5JrXU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nZLkE/bJSWWf4AiQe5eLUgmhe0knks4wC+kwBdmZE11uvU+0fujSa8aLvBxLzJJP0
-	 mXrP+NCZhlFZRE3SZ0HvYREIONpfot14m46IQe2McS/52sSyKNcbHh0jg1e3wylSPI
-	 h/sf1qVavLL8OGLMDuu24XZqF2V1M/0b0kSfZxqg=
-Date: Fri, 17 Jul 2026 14:37:08 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: w15303746062@163.com
-Cc: arnd@arndb.de, linux-kernel@vger.kernel.org, kees@kernel.org,
-	stable@vger.kernel.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: Re: [PATCH v4 2/2] misc: ibmasm: Fix dynamic out-of-bounds MMIO
- access via malicious MFA
-Message-ID: <2026071745-bamboo-aerobics-7657@gregkh>
-References: <20260624032425.384325-1-w15303746062@163.com>
- <20260624032425.384325-3-w15303746062@163.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kQ3VxSSV"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HAfloM1716084
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:37:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=9lOcgZpQ3h2mCH79CZsBZkOvcvMy2vA/lZhmIozLX
+	8M=; b=kQ3VxSSVEh9spwtJUvuufjPgijjkQFlRxtMS86OgEQafRvxij7WnnZFyt
+	ufN0aUw5A2h/M5i6qFoPPHMj0KPwbWowfGheSEulMdt/mDFe6L22/y6+o28GKoEu
+	w1um30ihLrY0EszzcMSR98T/V1wwnZSNjgmbJ5eo8yNGWEsfUCxpIjFTmi/ls0/z
+	59mGZlEV2NTJJcm4fjwNHDiF71ATclR0vKfice59rwHrTQJfRb6tY00AXtBAY1fq
+	ajm1eEfohMI2WYoLpLRLH+4Qi0QT/0jI9jXbD8EMR/LlHBd8bny9SFWqUR457pTS
+	/fZZo53ixhAZPrPhMEgGdp5cnVkfQ==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fbf2ands5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:37:22 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66HCYd16032293
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:37:21 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fc05qhu59-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:37:21 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66HCbF4O62325140
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 17 Jul 2026 12:37:15 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4222B20043;
+	Fri, 17 Jul 2026 12:37:15 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2486520040;
+	Fri, 17 Jul 2026 12:37:15 +0000 (GMT)
+Received: from a46lp05.lnxne.boe (unknown [9.87.84.240])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 17 Jul 2026 12:37:15 +0000 (GMT)
+From: Eduard Shishkin <edward6@linux.ibm.com>
+To: linux390-list@tuxmaker.boeblingen.de.ibm.com, sth@linux.ibm.com,
+        hoeppner@linux.ibm.com, oberpar@linux.ibm.com
+Cc: stable@vger.kernel.org, Eduard Shishkin <edward6@linux.ibm.com>,
+        Volkan Unal <vunal@linux.ibm.com>
+Subject: [PATCH] s390/dasd: Fix the leak of references on DASD discipline module
+Date: Fri, 17 Jul 2026 14:36:59 +0200
+Message-ID: <20260717123659.51834-1-edward6@linux.ibm.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260624032425.384325-3-w15303746062@163.com>
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDEyNCBTYWx0ZWRfX1Tb8flDJZzuk
+ 67T7fXyQJyaHMwr5cQwv6U7kGf/nMn+17sHMnGwhP5b/mbutj+lpCwujm7ufN14OpuF7MyGT2Nu
+ rtfEp+/y6/TRtC5cOAnZmZjiKZDtPa0=
+X-Proofpoint-GUID: WOMeNIWECqzD2zAYLatpbOUGDM1ZSyz3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDEyNCBTYWx0ZWRfX/atGdDt/pubU
+ TYDardxYAYA1/al85QUJhw3oUQDC9HgWNrIU4O5VGenUDjKYizeSzvsj0rxpCgh97uXEoiTHwJR
+ EjWTytfXW7UkMSZpW4e5XQaxM7OUAd3Q4R5VGEgiLnC5VPZJyQN3bfNjp1xZg9tLaD98vVZNW1q
+ ptLFJHmaNER832RsB0agCHyhQXoGso0sSi863wbrEsApIqcmYJoscJm9v0spPsTxQ+RbkpAVFA0
+ 0f/zuovyeZI09hXMZNhDwSAHVmUwQ0WecbUZ+Vq1/YX/kjRswDXiKUu+M1QzOUQ/YLr1ntq9PF6
+ TC6NOdgAZAumcow8AOf49MQ1HVHoqsWq0KELUrcn+vekcU2PXXOZXFRED2q7YhqaQTYH+1NH1o9
+ VN44j4hNktizEIIPm63rjxGnWTV5vGipSHaahEPepkFYnnu+JQdrrNoeliYR7cogbEcO6049/nc
+ FBrM8touqiPRGzXGn/Q==
+X-Proofpoint-ORIG-GUID: WOMeNIWECqzD2zAYLatpbOUGDM1ZSyz3
+X-Authority-Analysis: v=2.4 cv=PvajqQM3 c=1 sm=1 tr=0 ts=6a5a2202 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=6DgnVkiGh2xwanU8t6sA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_03,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0
+ clxscore=1011 lowpriorityscore=0 spamscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170124
 
-On Wed, Jun 24, 2026 at 11:24:25AM +0800, w15303746062@163.com wrote:
-> From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-> 
-> The ibmasm driver reads dynamic Message Frame Addresses (MFA) from
-> hardware queues and uses them directly as offsets to dereference I2O
-> messages via get_i2o_message().
-> 
-> If a malformed or fuzzed device provides a malicious MFA, it can cause
-> the driver to access memory far beyond the mapped BAR, leading to an
-> out-of-bounds (OOB) access and potential kernel panic during runtime.
-> 
-> Fix this by validating the target offset against the actual mapped size
-> before dereferencing. This validation strictly accounts for both the
-> i2o_header and the dynamic payload size using safe subtraction to prevent
-> integer overflow bypasses.
-> 
-> If the bounds check fails, the invalid MFA is released back to the
-> inbound queue via set_mfa_inbound() to prevent a hardware mailbox deadlock.
-> 
-> Fixes: bdbeed75b288 ("pci: use pci_ioremap_bar() in drivers/misc")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-> ---
->  drivers/misc/ibmasm/lowlevel.c | 30 ++++++++++++++++++++++++++----
->  drivers/misc/ibmasm/lowlevel.h | 25 +++++++++++++++++++++++--
->  2 files changed, 49 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/misc/ibmasm/lowlevel.c b/drivers/misc/ibmasm/lowlevel.c
-> index 5313230f36ad..68dd493a7953 100644
-> --- a/drivers/misc/ibmasm/lowlevel.c
-> +++ b/drivers/misc/ibmasm/lowlevel.c
-> @@ -9,7 +9,6 @@
->  
->  #include "ibmasm.h"
->  #include "lowlevel.h"
-> -#include "i2o.h"
->  #include "dot_command.h"
->  #include "remote.h"
->  
-> @@ -34,7 +33,13 @@ int ibmasm_send_i2o_message(struct service_processor *sp)
->  		return 1;
->  
->  	header.message_size = outgoing_message_size((unsigned int)command_size);
-> -	message = get_i2o_message(sp->base_address, mfa);
-> +	message = get_i2o_message(sp->base_address, sp->mapped_size, mfa,
-> +				  sizeof(struct i2o_header) + command_size);
-> +	if (!message) {
-> +		/* Release the allocated inbound MFA to prevent mailbox deadlock */
-> +		set_mfa_inbound(sp->base_address, mfa);
-> +		return 1;
-> +	}
->  
->  	memcpy_toio(&message->header, &header, sizeof(struct i2o_header));
->  	memcpy_toio(&message->data, command->buffer, command_size);
-> @@ -63,8 +68,25 @@ irqreturn_t ibmasm_interrupt_handler(int irq, void * dev_id)
->  
->  	mfa = get_mfa_outbound(base_address);
->  	if (valid_mfa(mfa)) {
-> -		struct i2o_message *msg = get_i2o_message(base_address, mfa);
-> -		ibmasm_receive_message(sp, &msg->data, incoming_data_size(msg));
-> +		struct i2o_message *msg = get_i2o_message(base_address,
-> +							  sp->mapped_size, mfa,
-> +							  sizeof(struct i2o_header));
-> +		if (msg) {
-> +			u32 data_size = incoming_data_size(msg);
-> +			u32 offset = GET_MFA_ADDR(mfa);
-> +
-> +			/*
-> +			 * Secondary check for dynamic payload size.
-> +			 * Use subtraction to perfectly prevent integer overflow.
-> +			 */
-> +			if (unlikely(data_size > sp->mapped_size - offset -
-> +						 sizeof(struct i2o_header)))
-> +				dbg("received mfa payload out of bounds\n");
-> +			else
-> +				ibmasm_receive_message(sp, &msg->data, data_size);
-> +		} else {
-> +			dbg("received mfa header out of bounds\n");
-> +		}
->  	} else
->  		dbg("didn't get a valid MFA\n");
->  
-> diff --git a/drivers/misc/ibmasm/lowlevel.h b/drivers/misc/ibmasm/lowlevel.h
-> index 545dfe384117..c0f08106c52c 100644
-> --- a/drivers/misc/ibmasm/lowlevel.h
-> +++ b/drivers/misc/ibmasm/lowlevel.h
-> @@ -13,6 +13,9 @@
->  #define __IBMASM_CONDOR_H__
->  
->  #include <asm/io.h>
-> +#include <linux/compiler.h>
-> +#include <linux/types.h>
-> +#include "i2o.h"
->  
->  #define VENDORID_IBM	0x1014
->  #define DEVICEID_RSA	0x010F
-> @@ -118,9 +121,27 @@ static inline void set_mfa_inbound(void __iomem *base_address, u32 mfa)
->  	writel(mfa, base_address + INBOUND_QUEUE_PORT);
->  }
->  
-> -static inline struct i2o_message *get_i2o_message(void __iomem *base_address, u32 mfa)
-> +/**
-> + * get_i2o_message - Convert MFA to i2o_message pointer with bounds check
-> + * @base_address: BAR 0 virtual address
-> + * @mapped_size:  actual size of BAR 0 mapping
-> + * @mfa:          Message Frame Address from hardware
-> + * @msg_size:     Required size of the message (header + payload)
-> + *
-> + * Returns NULL if the offset derived from @mfa does not fit within
-> + * the mapped BAR (including the i2o_message header).
-> + */
-> +static inline struct i2o_message *get_i2o_message(void __iomem *base_address,
-> +						  resource_size_t mapped_size,
-> +						  u32 mfa, size_t msg_size)
->  {
-> -	return (struct i2o_message *)(GET_MFA_ADDR(mfa) + base_address);
-> +	u32 offset = GET_MFA_ADDR(mfa);
-> +
-> +	/* Prevent read/write beyond the ioremap region and avoid integer underflow/overflow */
-> +	if (unlikely(offset > mapped_size || msg_size > mapped_size - offset))
-> +		return NULL;
-> +
-> +	return (struct i2o_message *)(offset + base_address);
->  }
+In dasd_destroy_partitions() instead of fput() use its synchronous
+version __fput_sync(). Otherwise, dasd_delete_device() can be called
+before dasd_release(), which makes the last one not release the
+captured resources, as the associated dasd_device doesn't longer
+exist. In particular, the reference to dasd_eckd_mod is not dropped,
+reasons why the module cannot be unloaded.
+Steps to reproduce the problem:
 
-That is a big function to inline, are you sure it's still needed that
-way and shouldn't just go in the .c file?
+\# lsmod | grep dasd
+dasd_eckd_mod         180224  0
+\# echo 1 > /sys/bus/ccw/devices/0.0.ef01/online
+\# echo 0 > /sys/bus/ccw/devices/0.0.ef01/online
+\# lsmod | grep dasd
+dasd_eckd_mod         180224  1
 
-thanks,
+Fixes: c8e108d80cd8 ("s390: port block device access to file")
+Reviewed-by: Stefan Haberland <sth@linux.ibm.com>
+Tested-by: Volkan Unal <vunal@linux.ibm.com>
+Signed-off-by: Eduard Shishkin <edward6@linux.ibm.com>
+---
+ drivers/s390/block/dasd_genhd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-greg k-h
+diff --git a/drivers/s390/block/dasd_genhd.c b/drivers/s390/block/dasd_genhd.c
+index 930b47acdb8d..8a878c346799 100644
+--- a/drivers/s390/block/dasd_genhd.c
++++ b/drivers/s390/block/dasd_genhd.c
+@@ -213,7 +213,7 @@ void dasd_destroy_partitions(struct dasd_block *block)
+ 	mutex_unlock(&file_bdev(bdev_file)->bd_disk->open_mutex);
+ 
+ 	/* Matching blkdev_put to the blkdev_get in dasd_scan_partitions. */
+-	fput(bdev_file);
++	__fput_sync(bdev_file);
+ }
+ 
+ int dasd_gendisk_init(void)
+-- 
+2.48.1
+
