@@ -1,43 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EF53B52E7
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:13:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784297586; cv=none; b=NFut5mK5dCdK3F/xuL7lqm/WLJrQroN/U8QMoeWlTKGycu9OAE2YS4rdq2dtOWx0uF640faYGYjQtUpslpHm1tqoF18ZyRkbr5Ddx53iYWWeqwad8sqOot3+voKLxxTDPmDsd38zgT8LB6+8lQLmkIphCzkr8vUPcwxEnz8jSNw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784297586; c=relaxed/simple;
-	bh=+fyUN8BrkDuUeaeWUXXeFUYVtuicZI8+rgXAdIZaRxA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BiP3PEUEjdzgvuRlDx5Ateok63nC3ewdV6ErWKboHHcWlnGgtZDSs0PnO6pdoQ9jPms18c9eTBNUP+x3FY2f1mPp8u/pU/u6W+A2azKr4gq3WmI+1TNi4ba+f4WMWV3k3J4lNavEevHEJuk+lKvS3h4DxiQEwgWtl4mgLfq+aK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NIyfDP8p; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FBD40096B;
+	Fri, 17 Jul 2026 14:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784297855; cv=pass; b=AFfvCuo0E7oxpLy47II328x6VOhaHtqOAgiUlsuDXxWKRyDCMtgYOP4Ao2UKheYCFT8VDMFm21cvDlWshbjfaKg7PVT458PUO1BZjdn4A8LxWT2105ghvVnQuMVygxW5G6Sv0AAkurOLKO4g9TKo10/zplHx8sGFNoRIq8Rjmcw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784297855; c=relaxed/simple;
+	bh=1NzIq33Rk1skyMOZjZs6TKz7uab11yLglT40Ls7rp+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=boppgymDBAaw0DYHAVZrAwmbEG3kEN95NNT7+NtrA71WcTVSN9be633Bcthsn62tP/31/g1mudI4lrCCOt7AsRDkOsJ2LGwoatFHPN6ffO5vuHSrVit3i7B1RLJDkTSdBFTbGj0U9MJLXQX1RVmkQQY6XHx2OqoRKFLJRjpTKOY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com; spf=pass smtp.mailfrom=yoavmoshe.com; dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b=IovFTTOd; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoavmoshe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NIyfDP8p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A7D1F00A3E;
-	Fri, 17 Jul 2026 14:13:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784297584;
-	bh=rkHInHT2/Nrjui4SSXAES5s+aqySjTseT8NXozTE6KM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NIyfDP8ppVyaku8Al7F3pFG5ODeiqfv4u6klVOh0QEGIWYnXfQxIweyppFGcdj37x
-	 V0gNfpKmsgfqglqyXWLuWMAgnUk6Xsll7/x0IqGwm7W/NGS/uPm7WTl8KxTHCHeGPr
-	 +IL5o2hvYYe67eMzBSOTzB0lGwp9s3EnYXDulswBN6vDg3sN1YWjC+pfWRC5YjLYBb
-	 JEqy0XTbZHKDHSP4txFJVdNiJUunHqbTv+a81S0anAxQStB6W0a3TqSmAd/s/uSheZ
-	 8nx22ZR3O+R4oWjtyIlD4K5ZPyh18Ie9C6MuCGoJXVp/Q4qdPvC5YiedftzEcOmVMZ
-	 pobY+BGcWhEBQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Trung Nguyen <trungnh@cystack.net>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] HID: multitouch: fix out-of-bounds bit access on mt_io_flags
-Date: Fri, 17 Jul 2026 10:13:01 -0400
-Message-ID: <20260717141302.1738251-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717141302.1738251-1-sashal@kernel.org>
-References: <2026071417-praising-reconvene-e068@gregkh>
- <20260717141302.1738251-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b="IovFTTOd"
+ARC-Seal: i=1; a=rsa-sha256; t=1784297826; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=CDkMTTxuUuk7SF1KddlgIXqNWa+X+ryUZ6W7ZBjtxo2+tVrR8KCgP9NZPYzos+A7cA7MVkWBHliKgNl1v2IL3m+8NWaAH1CJ0Nm1fSJMP3fMugyZ1HtCUyGuB161uveZoGaRcrkaziS2TMdHTJi4/Cqi8fBjvEDmZ5emCh2GTy8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784297826; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=epmNXjS7d94Ny0G3QrInR/+5Mb0BLlrxlvJkC02EnzE=; 
+	b=lxVfX2xUkWcVskpBJpSlIB/adeVtQFT4Q/gi1No48Zvh2n4F2/PtLd905EcLQV0qeSQPzM9Kb1nHAOGn5qKOeGJu4E/VrK2VAI40GaUcieNPecHI9CO8Cqsh77Ga1wMnsUNNhi6y3p+R1dfrF30U6Dbm3Sj861nCoGV5Sq0/X9c=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=yoavmoshe.com;
+	spf=pass  smtp.mailfrom=linux@yoavmoshe.com;
+	dmarc=pass header.from=<linux@yoavmoshe.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784297826;
+	s=zoho; d=yoavmoshe.com; i=linux@yoavmoshe.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=epmNXjS7d94Ny0G3QrInR/+5Mb0BLlrxlvJkC02EnzE=;
+	b=IovFTTOdduyuOxDCRlNJ6SZVMU99gB64Zo1SoVFAAIsF7eiDSryxPaP9nNl/sjpl
+	SUsYKCICECArOdFUQdKF3wUYlI2WO2xKACFSd2KkW+Ysf6eiWwVSQRmTHKN+KEUbhBg
+	k9RjqdlDBdQKK7p0oVVV8V40jCbL0UOaFp3cP0JI=
+Received: by mx.zohomail.com with SMTPS id 1784297824078494.6809075628678;
+	Fri, 17 Jul 2026 07:17:04 -0700 (PDT)
+From: Yo'av Moshe <linux@yoavmoshe.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Russell King <linux@armlinux.org.uk>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	llvm@lists.linux.dev,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yo'av Moshe <linux@yoavmoshe.com>
+Subject: [PATCH] ARM: imx: Fix suspend/resume crash with Clang CFI
+Date: Fri, 17 Jul 2026 16:16:48 +0200
+Message-ID: <20260717141648.1007059-1-linux@yoavmoshe.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,158 +62,39 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-From: Trung Nguyen <trungnh@cystack.net>
+Relocated suspend code in OCRAM lacks compiler-generated CFI type
+signatures. When CONFIG_CFI=y is active, the indirect call to
+imx6_suspend_in_ocram_fn triggers a strict CFI violation panic.
 
-[ Upstream commit 8813b0612275cc61fe9e6603d0ee019247ade6be ]
+Annotate imx6q_suspend_finish with __nocfi to bypass CFI checking
+for this specific indirect call.
 
-mt_io_flags is a single unsigned long, but mt_process_slot(),
-mt_release_pending_palms() and mt_release_contacts() use it as a
-per-slot bitmap indexed by the slot number. That slot number is only
-bounded by td->maxcontacts, which is taken from the device's
-ContactCountMaximum feature report and can be up to 255, not by
-BITS_PER_LONG.
-
-As a result, a multitouch device that advertises a large contact count
-makes set_bit()/clear_bit() operate past the mt_io_flags word and
-corrupt the adjacent members of struct mt_device. The sticky-fingers
-release timer is the easiest way to reach this. mt_release_contacts()
-runs
-
-	for (i = 0; i < mt->num_slots; i++)
-		clear_bit(i, &td->mt_io_flags);
-
-with num_slots == maxcontacts. For maxcontacts around 250 the loop
-clears the bits that overlap td->applications.next, zeroing that list
-head, and the list_for_each_entry() that immediately follows then
-dereferences NULL. The kernel panics from timer (softirq) context. On a
-KASAN build this shows up as a general protection fault in
-mt_release_contacts() with a null-ptr-deref at offset 0x58, which is
-offsetof(struct mt_application, num_received).
-
-The state is reachable from an untrusted USB or Bluetooth HID
-multitouch device; no local privileges are required.
-
-Store the per-slot active state in a separately allocated bitmap sized
-for maxcontacts, the same pattern already used for pending_palm_slots,
-and keep only MT_IO_FLAGS_RUNNING in mt_io_flags. The two
-"mt_io_flags & MT_IO_SLOTS_MASK" arming checks become
-bitmap_empty(td->active_slots, td->maxcontacts).
-
-Move MT_IO_FLAGS_RUNNING back to bit 0. It was bumped to bit 32 by the
-same commit to leave the low byte for the slot bits; with the slot bits
-gone it fits in bit 0 again, which also keeps it within the unsigned
-long on 32-bit.
-
-Fixes: 46f781e0d151 ("HID: multitouch: fix sticky fingers")
 Cc: stable@vger.kernel.org
-Signed-off-by: Trung Nguyen <trungnh@cystack.net>
-Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Yo'av Moshe <linux@yoavmoshe.com>
 ---
- drivers/hid/hid-multitouch.c | 32 ++++++++++++++++++++------------
- 1 file changed, 20 insertions(+), 12 deletions(-)
+Tested on a Kobo Clara HD (i.MX6SLL SoC) running postmarketOS edge. 
+Before this patch, suspending the device caused an immediate silent 
+hang requiring a hard-reboot. With this patch applied, suspend and 
+resume work successfully.
 
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 6c04eed0a46464..4481bf5c9133d5 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -31,6 +31,7 @@
-  * [1] https://gitlab.freedesktop.org/libevdev/hid-tools
-  */
- 
-+#include <linux/bitmap.h>
- #include <linux/device.h>
- #include <linux/hid.h>
- #include <linux/module.h>
-@@ -83,8 +84,7 @@ enum latency_mode {
- 	HID_LATENCY_HIGH = 1,
- };
- 
--#define MT_IO_SLOTS_MASK		GENMASK(7, 0) /* reserve first 8 bits for slot tracking */
--#define MT_IO_FLAGS_RUNNING		32
-+#define MT_IO_FLAGS_RUNNING		0
- 
- static const bool mtrue = true;		/* default for true */
- static const bool mfalse;		/* default for false */
-@@ -160,10 +160,9 @@ struct mt_device {
- 	struct mt_class mtclass;	/* our mt device class */
- 	struct timer_list release_timer;	/* to release sticky fingers */
- 	struct hid_device *hdev;	/* hid_device we're attached to */
--	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING)
--					 * first 8 bits are reserved for keeping the slot
--					 * states, this is fine because we only support up
--					 * to 250 slots (MT_MAX_MAXCONTACT)
-+	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING) */
-+	unsigned long *active_slots;	/* bitmap of slots with an active
-+					 * contact, sized for maxcontacts
- 					 */
- 	__u8 inputmode_value;	/* InputMode HID feature value */
- 	__u8 maxcontacts;
-@@ -947,7 +946,7 @@ static void mt_release_pending_palms(struct mt_device *td,
- 
- 	for_each_set_bit(slotnum, app->pending_palm_slots, td->maxcontacts) {
- 		clear_bit(slotnum, app->pending_palm_slots);
--		clear_bit(slotnum, &td->mt_io_flags);
-+		clear_bit(slotnum, td->active_slots);
- 
- 		input_mt_slot(input, slotnum);
- 		input_mt_report_slot_inactive(input);
-@@ -1153,9 +1152,9 @@ static int mt_process_slot(struct mt_device *td, struct input_dev *input,
- 		input_event(input, EV_ABS, ABS_MT_TOUCH_MAJOR, major);
- 		input_event(input, EV_ABS, ABS_MT_TOUCH_MINOR, minor);
- 
--		set_bit(slotnum, &td->mt_io_flags);
-+		set_bit(slotnum, td->active_slots);
- 	} else {
--		clear_bit(slotnum, &td->mt_io_flags);
-+		clear_bit(slotnum, td->active_slots);
- 	}
- 
+ arch/arm/mach-imx/pm-imx6.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/mach-imx/pm-imx6.c b/arch/arm/mach-imx/pm-imx6.c
+index a671ca498..d9b0c1803 100644
+--- a/arch/arm/mach-imx/pm-imx6.c
++++ b/arch/arm/mach-imx/pm-imx6.c
+@@ -360,7 +360,7 @@ int imx6_set_lpm(enum mxc_cpu_pwr_mode mode)
  	return 0;
-@@ -1290,7 +1289,7 @@ static void mt_touch_report(struct hid_device *hid,
- 	 * defect.
- 	 */
- 	if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
--		if (td->mt_io_flags & MT_IO_SLOTS_MASK)
-+		if (!bitmap_empty(td->active_slots, td->maxcontacts))
- 			mod_timer(&td->release_timer,
- 				  jiffies + msecs_to_jiffies(100));
- 		else
-@@ -1330,6 +1329,15 @@ static int mt_touch_input_configured(struct hid_device *hdev,
- 	if (td->is_buttonpad)
- 		__set_bit(INPUT_PROP_BUTTONPAD, input->propbit);
- 
-+	if (!td->active_slots) {
-+		td->active_slots = devm_kcalloc(&td->hdev->dev,
-+						BITS_TO_LONGS(td->maxcontacts),
-+						sizeof(long),
-+						GFP_KERNEL);
-+		if (!td->active_slots)
-+			return -ENOMEM;
-+	}
-+
- 	app->pending_palm_slots = devm_kcalloc(&hi->input->dev,
- 					       BITS_TO_LONGS(td->maxcontacts),
- 					       sizeof(long),
-@@ -1738,7 +1746,7 @@ static void mt_release_contacts(struct hid_device *hid)
- 			for (i = 0; i < mt->num_slots; i++) {
- 				input_mt_slot(input_dev, i);
- 				input_mt_report_slot_inactive(input_dev);
--				clear_bit(i, &td->mt_io_flags);
-+				clear_bit(i, td->active_slots);
- 			}
- 			input_mt_sync_frame(input_dev);
- 			input_sync(input_dev);
-@@ -1761,7 +1769,7 @@ static void mt_expired_timeout(struct timer_list *t)
- 	 */
- 	if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
- 		return;
--	if (td->mt_io_flags & MT_IO_SLOTS_MASK)
-+	if (!bitmap_empty(td->active_slots, td->maxcontacts))
- 		mt_release_contacts(hdev);
- 	clear_bit_unlock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags);
  }
+ 
+-static int imx6q_suspend_finish(unsigned long val)
++static int __nocfi imx6q_suspend_finish(unsigned long val)
+ {
+ 	if (!imx6_suspend_in_ocram_fn) {
+ 		cpu_do_idle();
 -- 
-2.53.0
+2.55.0
 
