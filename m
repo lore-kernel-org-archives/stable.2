@@ -1,91 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B18A378D64
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 19:24:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847F438228A;
+	Fri, 17 Jul 2026 19:29:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784316249; cv=none; b=nHLnRQwdYdZmHvh465wl+g0NvUGnf0H2obGdSl7+Z9QXMpAdYLmXVIHtJF982w7W4dLz+J09LljJrS9T/ZwTOJ9AsSuRhY7dY6TAvwUFjIRD1jNY147ZZFsxO/w9w/7N6OWUpr2mqtjE/J9T2cDSfkDzn+toWNPwd3K1If1wzw4=
+	t=1784316551; cv=none; b=FIcVd8+ce48h7MUhD5/v54NLMbYx+m6J0Q6HbuI4R5R8BL1enFApomHiu/AMic6MVbYFlewoD//WuvVY36UR/ontoG7MgDtzEe/sp6KjHtjSJrGlHxTCtMWzCQAHqhYckB5a3jY9ImTNxuvJt4eQnXzjnDve/bo6tqqFyomP5LA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784316249; c=relaxed/simple;
-	bh=fvPkBzbpwmuRoBK+/aFroMGI0jmLv7cXPtrvu7Ztb5s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JhNIl6v67QIQrZU1kvBN7y9hb5KXo+pQPic4lPOZ0R9qjkv76uY7yEjM2nH2Lj02fFT+wL3JA5R65+Kiu588PCFNHoOjsk2WvxDGX18uj9uo4BwZzONI4MEBJHM2yYNcq0XXzi1t/SX3GnkLOFj5IKgCPXeZhffNg2ds8LIPUVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dwb99UwY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784316551; c=relaxed/simple;
+	bh=KgINJPKFLM01aqOJA6LxNGcRE/h96xrGUwHHr58I1aY=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=eTl1Dc3AnsG3RkE9dVXX3N1rfYQLEecO58iGA3sfXOercVpuqjdh1ZQ80mpNwmSk9FvXcbbvfgbo/6FLaaHo4GzDkKRBj/Nq0XAmqn3BxtsR0FiWbsvIR2K0lwwO1bQ5G31Ng07QNgeNGq+tndWjVDp1sa6qR3gjLPv3qZD1paY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RBUssh5E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dwb99UwY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5193D1F00A3A;
-	Fri, 17 Jul 2026 19:24:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784316248;
-	bh=Ek552cWKWJhVzyAtmj1pSOWKoHPBkize6PUtKZrvCS0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dwb99UwYpFvt6MEg4YHfz9zXR8d1MESinD2JY/JBs/iXNrF5L9ezIHwthONsUHxAD
-	 SUnNbHsSJT0RcGFUDgOkLNqOtN/w91tU9UN94Md+T7TmO30QYLEA3oNf+UdmC32ihO
-	 2eDEdIpBE8+vwI1akJ8dQed0r9x9O7YUqfgYbR6ERQky/o7GVtPK46b6vW/9NyGwQr
-	 R8FxPBTr8+BlFCB6Nu6jdi9igckYaYkL651lmjEa3FvxVdVgx8olSEsW9716psHQjg
-	 5lzIa9fRltyurLBFlGvX1yiGnyd4/a4dzSy7ViQZKSZURSHaFhE5+s3KOL0UVaKJhS
-	 ZuzhVm4wK9BWQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Oleg Makarenko <oleg@makarenk.ooo>,
-	Oliver Roundtree <oroundtree1@gmail.com>,
-	=?UTF-8?q?Ryno=20Kotz=C3=A9?= <lemon.xah@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] HID: pidff: Use correct effect type in effect update
-Date: Fri, 17 Jul 2026 15:24:03 -0400
-Message-ID: <20260717192403.2131944-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717192403.2131944-1-sashal@kernel.org>
-References: <2026071445-promoter-disburse-fa77@gregkh>
- <20260717192403.2131944-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RBUssh5E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF5171F000E9;
+	Fri, 17 Jul 2026 19:29:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784316549;
+	bh=ui+ORj1/z8nhcz2rVBcwlFO5TeUDA1QRckff/Axxhfc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=RBUssh5EaLehERy4Cgi0QGmJnAOAqgTzVfUX3zA0MRCL/hp/gU1KuyrB1kS6Q7wSc
+	 3CuE6RDTXx/8Yl95lAMi7m9NoXKXnJyX7bcJPQVkywGVvyBnHKTn7ZcFYO3itBGKP1
+	 rCb1/Gdr+DbERUhJfZim7lwhNLXLpKzROb62w/uo=
+Date: Fri, 17 Jul 2026 12:29:08 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt
+ <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Uladzislau
+ Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, Dave Hansen
+ <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, Peter
+ Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo
+ Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, Catalin
+ Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Dev Jain
+ <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, David Carlier
+ <devnexen@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, "Denis V. Lunev"
+ <den@virtuozzo.com>, stable@vger.kernel.org,
+ syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+Subject: Re: [PATCH mm-hotfixes v5 0/5] mm: fix UAF caused by race between
+ ptdump and vmap pgtable freeing
+Message-Id: <20260717122908.3d9f4a8ad76a748d859b43f2@linux-foundation.org>
+In-Reply-To: <20260717-series-vmap-race-fix-v5-0-606a0ac6d3e5@kernel.org>
+References: <20260717-series-vmap-race-fix-v5-0-606a0ac6d3e5@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Oleg Makarenko <oleg@makarenk.ooo>
+On Fri, 17 Jul 2026 18:30:06 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-[ Upstream commit b251598b8bf37300510868f739a79e07800d41ce ]
+> Kernel page table walkers fall into two broad categories - those ranges
+> where no exclusion is required via walk_kernel_page_table_range_lockless()
+> and those where exclusion is required via walk_kernel_page_table_range()
+> or walk_page_range_debug().
+> 
+> The former category is used only by arm64 arch code operating on ranges it
+> both wholly owns and does not concurrently write.
+> 
+> The latter category consists of kernel page table walkers operating on
+> ranges that are wholly owned (but which need exclusion against concurrent
+> writers).
+> 
+> The lock used for exclusion is the mmap lock, and for kernel ranges this
+> the mmap lock on init_mm.
+> 
+> ptdump is a special case being both the only user of
+> walk_page_range_debug(), and the only case in which it walks ranges it does
+> not own.
+> 
+> This presents a problem, as page tables may be freed under ptdump. And
+> indeed there is a use-after-free bug in the kernel as a result, which this
+> series addresses.
+> 
+> ...
+>
+> This series works around this by #ifndef CONFIG_ARM64'ing the mmap read
+> lock in vmap logic, then partially reverting commit fa93b45fd397 ("arm64:
+> Enable vmalloc-huge with ptdump"), keeping the enablement of huge vmap
+> support, and removing the ifdeffery with the partial revert patch.
+> 
 
-When updating an existing effect, the effect type from the last created
-effect was sent to the device instead of the updated one.
-This caused incorrect reports when a game creates multiple different
-effects and updates only one that is not the last created.
+Thanks, I updated mm-hotfixes-unstable to this version.
 
-Fixes FFB in multiple games that create multiple simultaneous effects
-(Forza Horizon 5/6).
+> v5:
+> * Rebased on latest master of Linus's tree.
+> * Accumulated tags, thanks everybody!
+> * Added additional commit to fix race between CPA collapse/attribute set.
+> * Slight commit message tweaks.
 
-Fixes: 224ee88fe395 ("Input: add force feedback driver for PID devices")
-Cc: stable@vger.kernel.org
-Tested-by: Oliver Roundtree <oroundtree1@gmail.com>
-Co-developed-by: Ryno Kotzé <lemon.xah@gmail.com>
-Signed-off-by: Ryno Kotzé <lemon.xah@gmail.com>
-Signed-off-by: Oleg Makarenko <oleg@makarenk.ooo>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hid/usbhid/hid-pidff.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Here's how v5 altered mm.git.  This is from the addition of [3/5] - no
+other patches changed.
 
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
-index 2dfe44de4c4c74..0e653b104b5259 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -460,7 +460,7 @@ static void pidff_set_effect_report(struct pidff_device *pidff,
- 	pidff->set_effect[PID_EFFECT_BLOCK_INDEX].value[0] =
- 		pidff->block_load[PID_EFFECT_BLOCK_INDEX].value[0];
- 	pidff->set_effect_type->value[0] =
--		pidff->create_new_effect_type->value[0];
-+		pidff_get_effect_type_id(pidff, effect);
+
+ arch/x86/mm/pat/set_memory.c |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+--- a/arch/x86/mm/pat/set_memory.c~b
++++ a/arch/x86/mm/pat/set_memory.c
+@@ -2122,7 +2122,9 @@ static int change_page_attr_set_clr(unsi
+ 	cpa.curpage = 0;
+ 	cpa.force_split = force_split;
  
- 	pidff_set_duration(&pidff->set_effect[PID_DURATION],
- 		effect->replay.length);
--- 
-2.53.0
+-	ret = __change_page_attr_set_clr(&cpa, 1);
++	/* Avoid race with concurrent CPA collapse. */
++	scoped_guard(mmap_read_lock, &init_mm)
++		ret = __change_page_attr_set_clr(&cpa, 1);
+ 
+ 	/*
+ 	 * Check whether we really changed something:
+_
 
