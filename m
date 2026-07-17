@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4431941B8D0
-	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:00:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E3441BA68
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 14:00:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784296825; cv=none; b=tcm5sEgYLKvpbP7/sHftpWmmALlsgk12vXIPR0dDUl7+u7XHWuVuaLT0vpY4iuc2XxVA0S9zlE1rMWLM9+QnXMr4VdyGX1g5Mu/e/zDP70EcPyp/ZezfwNkbt6/HJEP8XAfl5CVmK6Fc4vHxPn26wGM/++R2L4FasKEQj1F+XNg=
+	t=1784296829; cv=none; b=sTJFEG69M5+gna8lhGuaaf3sPckuweeFtxIWnTzKVuDMYu47rj9QWf29D/vjjEPKWi+0efcnurqjFQiaIMlEiWFUWcPejVWLfUmUbVGvV/IMofN9mzRVRCwQ9OVniDok8QE77acSEQgO9YoArxNjqjASC8C8cSXy2HeniUWkMnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784296825; c=relaxed/simple;
-	bh=GVmSLGCkNDkpUQef1IfHhWF1Mtelsb+ckK6nXmG3deA=;
+	s=arc-20240116; t=1784296829; c=relaxed/simple;
+	bh=35SzOfw12CkKN2xKbdQN+5Y1yMAtdOwlxv1IeMDyXLA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=khTnRYnReihnvBYhaxw9ZA6x+UnWlCrTjgwdQcj4Wi5cx3GS3J4lEg4NaAawDXFdEVfiy4EeFuh103nfbxq2blICeDdUV424GqMyv1UTanwdaxRu9G8UQR6cO54AE8LCeM6NFgTlubADGfUuT9eYMtnZVztql8O7dOsyZ1RjLLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+czM/sB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=o9avuiuUN+FiAv66bBCw5O6I9KufEfaGKBT6x6vkdj2psBcfUAs5YDyltIx/XuYXoYLKR98DYioFgPXXVZRJUy/FCS8YoyxvZkv66zX/Xu+p/Gpvuysr4iEVObESwA/4ddkcxu3i3F25/AMsS82yS+EfdS4pQf1TF1Sc8d9h5C0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RkNf1YQw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+czM/sB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82501F00A3D;
-	Fri, 17 Jul 2026 14:00:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RkNf1YQw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8531E1F000E9;
+	Fri, 17 Jul 2026 14:00:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784296824;
-	bh=6dNKFeXfS/CETl7bfzle1iCtfv9jpdi94tTcU3PqAoY=;
+	s=k20260515; t=1784296828;
+	bh=6PlOI7oQA8wHElqK94GEkQYcnDr1ErFEWIWIqvhq19A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D+czM/sBEmUr1HK5Rj9V7YnOSzDRbMKa784BXs0Andz0jSZtvcXS8NxhX+kq5XeZa
-	 o+L+puFGXfnn+BRGNUq+O+Kn03yvQpkQmb9uVptu2Dmxf0Gz31zF1MU4gmNHii2eX/
-	 aeiTyIi2OeVtRjUSjeHGt2W4vy2AaZgKL9b+7P7fNSFO+W/TbjOpeX39UAXdMUYmiy
-	 Sn1cEjYPzriJkZyhFDSHemVyQ14OIbM00TOvQlHT6DVbXC5qQ72uwtbHuo0OCUcIY+
-	 o45Sjc/HyC7xXckPuax4zIuFOFFgKHCFfMfVnw34Rq2E0nNe+GmvSD5DvOrV7QZccd
-	 OyTR3jpFzvR2w==
+	b=RkNf1YQwXgoMGPjoJXi/jvEozK/+aDOIZ5ddRrhNMhXGE7SYemyDQ136sg3JIx3LR
+	 R340R0ppplajMaNCvl8pjw4HLGw9ck2BLEww8+p9cC9GHHLXUPPBfWEd75PvyyWZnL
+	 OMThu0R574MhIatUSNplvxW9m1rqSZDJ+QG4wLxAi3MPg4CbdWeLwfrfwpNc8kJE2j
+	 G10rvUafJNT/egVpHPBX7p6zbeOY8uJDKBYhSysCqYhJyMc/gYMF5tV1HaLKvhIf/k
+	 qI3IlElooP5RdFlYmpDp1AnFRaDdtd3jMh7rNTSyoURHx1N8FOjJCvSAUGltL0WC/i
+	 baXR3Mx10f8ew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Trung Nguyen <trungnh@cystack.net>,
-	Benjamin Tissoires <bentiss@kernel.org>,
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Oleg Nesterov <oleg@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] HID: multitouch: fix out-of-bounds bit access on mt_io_flags
-Date: Fri, 17 Jul 2026 10:00:21 -0400
-Message-ID: <20260717140021.1717288-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] seqlock: Introduce scoped_seqlock_read()
+Date: Fri, 17 Jul 2026 10:00:23 -0400
+Message-ID: <20260717140025.1717514-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717140021.1717288-1-sashal@kernel.org>
-References: <2026071417-rarity-paralyze-9329@gregkh>
- <20260717140021.1717288-1-sashal@kernel.org>
+In-Reply-To: <2026071445-sadden-utmost-ad28@gregkh>
+References: <2026071445-sadden-utmost-ad28@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,157 +45,163 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Trung Nguyen <trungnh@cystack.net>
+From: Peter Zijlstra <peterz@infradead.org>
 
-[ Upstream commit 8813b0612275cc61fe9e6603d0ee019247ade6be ]
+[ Upstream commit cc39f3872c0865bef992b713338df369554fa9e0 ]
 
-mt_io_flags is a single unsigned long, but mt_process_slot(),
-mt_release_pending_palms() and mt_release_contacts() use it as a
-per-slot bitmap indexed by the slot number. That slot number is only
-bounded by td->maxcontacts, which is taken from the device's
-ContactCountMaximum feature report and can be up to 255, not by
-BITS_PER_LONG.
+The read_seqbegin/need_seqretry/done_seqretry API is cumbersome and
+error prone. With the new helper the "typical" code like
 
-As a result, a multitouch device that advertises a large contact count
-makes set_bit()/clear_bit() operate past the mt_io_flags word and
-corrupt the adjacent members of struct mt_device. The sticky-fingers
-release timer is the easiest way to reach this. mt_release_contacts()
-runs
+	int seq, nextseq;
+	unsigned long flags;
 
-	for (i = 0; i < mt->num_slots; i++)
-		clear_bit(i, &td->mt_io_flags);
+	nextseq = 0;
+	do {
+		seq = nextseq;
+		flags = read_seqbegin_or_lock_irqsave(&seqlock, &seq);
 
-with num_slots == maxcontacts. For maxcontacts around 250 the loop
-clears the bits that overlap td->applications.next, zeroing that list
-head, and the list_for_each_entry() that immediately follows then
-dereferences NULL. The kernel panics from timer (softirq) context. On a
-KASAN build this shows up as a general protection fault in
-mt_release_contacts() with a null-ptr-deref at offset 0x58, which is
-offsetof(struct mt_application, num_received).
+		// read-side critical section
 
-The state is reachable from an untrusted USB or Bluetooth HID
-multitouch device; no local privileges are required.
+		nextseq = 1;
+	} while (need_seqretry(&seqlock, seq));
+	done_seqretry_irqrestore(&seqlock, seq, flags);
 
-Store the per-slot active state in a separately allocated bitmap sized
-for maxcontacts, the same pattern already used for pending_palm_slots,
-and keep only MT_IO_FLAGS_RUNNING in mt_io_flags. The two
-"mt_io_flags & MT_IO_SLOTS_MASK" arming checks become
-bitmap_empty(td->active_slots, td->maxcontacts).
+can be rewritten as
 
-Move MT_IO_FLAGS_RUNNING back to bit 0. It was bumped to bit 32 by the
-same commit to leave the low byte for the slot bits; with the slot bits
-gone it fits in bit 0 again, which also keeps it within the unsigned
-long on 32-bit.
+	scoped_seqlock_read (&seqlock, ss_lock_irqsave) {
+		// read-side critical section
+	}
 
-Fixes: 46f781e0d151 ("HID: multitouch: fix sticky fingers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Trung Nguyen <trungnh@cystack.net>
-Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
+Original idea by Oleg Nesterov; with contributions from Linus.
+
+Originally-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Stable-dep-of: 6650527444da ("proc: protect ptrace_may_access() with exec_update_lock (part 1)")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-multitouch.c | 32 ++++++++++++++++++++------------
- 1 file changed, 20 insertions(+), 12 deletions(-)
+ include/linux/seqlock.h | 111 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 111 insertions(+)
 
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 760f9db44c9e32..b8e6cc67c6b64a 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -31,6 +31,7 @@
-  * [1] https://gitlab.freedesktop.org/libevdev/hid-tools
-  */
- 
-+#include <linux/bitmap.h>
- #include <linux/device.h>
- #include <linux/hid.h>
- #include <linux/module.h>
-@@ -84,8 +85,7 @@ enum latency_mode {
- 	HID_LATENCY_HIGH = 1,
- };
- 
--#define MT_IO_SLOTS_MASK		GENMASK(7, 0) /* reserve first 8 bits for slot tracking */
--#define MT_IO_FLAGS_RUNNING		32
-+#define MT_IO_FLAGS_RUNNING		0
- 
- static const bool mtrue = true;		/* default for true */
- static const bool mfalse;		/* default for false */
-@@ -160,10 +160,9 @@ struct mt_device {
- 	struct mt_class mtclass;	/* our mt device class */
- 	struct timer_list release_timer;	/* to release sticky fingers */
- 	struct hid_device *hdev;	/* hid_device we're attached to */
--	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING)
--					 * first 8 bits are reserved for keeping the slot
--					 * states, this is fine because we only support up
--					 * to 250 slots (MT_MAX_MAXCONTACT)
-+	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING) */
-+	unsigned long *active_slots;	/* bitmap of slots with an active
-+					 * contact, sized for maxcontacts
- 					 */
- 	__u8 inputmode_value;	/* InputMode HID feature value */
- 	__u8 maxcontacts;
-@@ -968,7 +967,7 @@ static void mt_release_pending_palms(struct mt_device *td,
- 
- 	for_each_set_bit(slotnum, app->pending_palm_slots, td->maxcontacts) {
- 		clear_bit(slotnum, app->pending_palm_slots);
--		clear_bit(slotnum, &td->mt_io_flags);
-+		clear_bit(slotnum, td->active_slots);
- 
- 		input_mt_slot(input, slotnum);
- 		input_mt_report_slot_inactive(input);
-@@ -1174,9 +1173,9 @@ static int mt_process_slot(struct mt_device *td, struct input_dev *input,
- 		input_event(input, EV_ABS, ABS_MT_TOUCH_MAJOR, major);
- 		input_event(input, EV_ABS, ABS_MT_TOUCH_MINOR, minor);
- 
--		set_bit(slotnum, &td->mt_io_flags);
-+		set_bit(slotnum, td->active_slots);
- 	} else {
--		clear_bit(slotnum, &td->mt_io_flags);
-+		clear_bit(slotnum, td->active_slots);
- 	}
- 
- 	return 0;
-@@ -1311,7 +1310,7 @@ static void mt_touch_report(struct hid_device *hid,
- 	 * defect.
- 	 */
- 	if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
--		if (td->mt_io_flags & MT_IO_SLOTS_MASK)
-+		if (!bitmap_empty(td->active_slots, td->maxcontacts))
- 			mod_timer(&td->release_timer,
- 				  jiffies + msecs_to_jiffies(100));
- 		else
-@@ -1351,6 +1350,15 @@ static int mt_touch_input_configured(struct hid_device *hdev,
- 	if (td->is_buttonpad)
- 		__set_bit(INPUT_PROP_BUTTONPAD, input->propbit);
- 
-+	if (!td->active_slots) {
-+		td->active_slots = devm_kcalloc(&td->hdev->dev,
-+						BITS_TO_LONGS(td->maxcontacts),
-+						sizeof(long),
-+						GFP_KERNEL);
-+		if (!td->active_slots)
-+			return -ENOMEM;
+diff --git a/include/linux/seqlock.h b/include/linux/seqlock.h
+index 5298765d6ca482..60ba4535358429 100644
+--- a/include/linux/seqlock.h
++++ b/include/linux/seqlock.h
+@@ -1186,4 +1186,115 @@ done_seqretry_irqrestore(seqlock_t *lock, int seq, unsigned long flags)
+ 	if (seq & 1)
+ 		read_sequnlock_excl_irqrestore(lock, flags);
+ }
++
++enum ss_state {
++	ss_done = 0,
++	ss_lock,
++	ss_lock_irqsave,
++	ss_lockless,
++};
++
++struct ss_tmp {
++	enum ss_state	state;
++	unsigned long	data;
++	spinlock_t	*lock;
++	spinlock_t	*lock_irqsave;
++};
++
++static inline void __scoped_seqlock_cleanup(struct ss_tmp *sst)
++{
++	if (sst->lock)
++		spin_unlock(sst->lock);
++	if (sst->lock_irqsave)
++		spin_unlock_irqrestore(sst->lock_irqsave, sst->data);
++}
++
++extern void __scoped_seqlock_invalid_target(void);
++
++#if defined(CONFIG_CC_IS_GCC) && CONFIG_GCC_VERSION < 90000
++/*
++ * For some reason some GCC-8 architectures (nios2, alpha) have trouble
++ * determining that the ss_done state is impossible in __scoped_seqlock_next()
++ * below.
++ */
++static inline void __scoped_seqlock_bug(void) { }
++#else
++/*
++ * Canary for compiler optimization -- if the compiler doesn't realize this is
++ * an impossible state, it very likely generates sub-optimal code here.
++ */
++extern void __scoped_seqlock_bug(void);
++#endif
++
++static inline void
++__scoped_seqlock_next(struct ss_tmp *sst, seqlock_t *lock, enum ss_state target)
++{
++	switch (sst->state) {
++	case ss_done:
++		__scoped_seqlock_bug();
++		return;
++
++	case ss_lock:
++	case ss_lock_irqsave:
++		sst->state = ss_done;
++		return;
++
++	case ss_lockless:
++		if (!read_seqretry(lock, sst->data)) {
++			sst->state = ss_done;
++			return;
++		}
++		break;
 +	}
 +
- 	app->pending_palm_slots = devm_kcalloc(&hi->input->dev,
- 					       BITS_TO_LONGS(td->maxcontacts),
- 					       sizeof(long),
-@@ -1815,7 +1823,7 @@ static void mt_release_contacts(struct hid_device *hid)
- 			for (i = 0; i < mt->num_slots; i++) {
- 				input_mt_slot(input_dev, i);
- 				input_mt_report_slot_inactive(input_dev);
--				clear_bit(i, &td->mt_io_flags);
-+				clear_bit(i, td->active_slots);
- 			}
- 			input_mt_sync_frame(input_dev);
- 			input_sync(input_dev);
-@@ -1838,7 +1846,7 @@ static void mt_expired_timeout(struct timer_list *t)
- 	 */
- 	if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
- 		return;
--	if (td->mt_io_flags & MT_IO_SLOTS_MASK)
-+	if (!bitmap_empty(td->active_slots, td->maxcontacts))
- 		mt_release_contacts(hdev);
- 	clear_bit_unlock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags);
- }
++	switch (target) {
++	case ss_done:
++		__scoped_seqlock_invalid_target();
++		return;
++
++	case ss_lock:
++		sst->lock = &lock->lock;
++		spin_lock(sst->lock);
++		sst->state = ss_lock;
++		return;
++
++	case ss_lock_irqsave:
++		sst->lock_irqsave = &lock->lock;
++		spin_lock_irqsave(sst->lock_irqsave, sst->data);
++		sst->state = ss_lock_irqsave;
++		return;
++
++	case ss_lockless:
++		sst->data = read_seqbegin(lock);
++		return;
++	}
++}
++
++#define __scoped_seqlock_read(_seqlock, _target, _s)			\
++	for (struct ss_tmp _s __cleanup(__scoped_seqlock_cleanup) =	\
++	     { .state = ss_lockless, .data = read_seqbegin(_seqlock) };	\
++	     _s.state != ss_done;					\
++	     __scoped_seqlock_next(&_s, _seqlock, _target))
++
++/**
++ * scoped_seqlock_read (lock, ss_state) - execute the read side critical
++ *                                        section without manual sequence
++ *                                        counter handling or calls to other
++ *                                        helpers
++ * @lock: pointer to seqlock_t protecting the data
++ * @ss_state: one of {ss_lock, ss_lock_irqsave, ss_lockless} indicating
++ *            the type of critical read section
++ *
++ * Example:
++ *
++ *     scoped_seqlock_read (&lock, ss_lock) {
++ *         // read-side critical section
++ *     }
++ *
++ * Starts with a lockess pass first. If it fails, restarts the critical
++ * section with the lock held.
++ */
++#define scoped_seqlock_read(_seqlock, _target)				\
++	__scoped_seqlock_read(_seqlock, _target, __UNIQUE_ID(seqlock))
++
+ #endif /* __LINUX_SEQLOCK_H */
 -- 
 2.53.0
 
