@@ -1,104 +1,222 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DAFA0229B38;
-	Fri, 17 Jul 2026 01:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784250900; cv=none; b=I7LCvm8IbREcxjx4raYZlYRJQS9iF8VJGg2xyRxZ6HM23Vur6JCXEkYNzT2z4hD/R93/dbr3Gq49z9oI4Kzp7YHqSGWcHAbeGkjzQll4ToK/IJI1tpIME7lFsPDxoXEgBSr9nh/Zo8DhcwIrSN1M+KOPYO8zEWdorHw4tTT91uQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784250900; c=relaxed/simple;
-	bh=zr0ECF91I15oSc4s2YT5iUepBgUeUKKUpPo3A5CpUaE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DmSsYvVKAbg2tiHs+Ct+JAbH9WDIUXPAgEL6uLExYynH3BWs3sm2v1imG0ro5BIlY84uyCuC4x0oIMRAmJEdtuL3NtDlj9KMpPSxghX2KhT08iEXYG/HgY4uvpe1U74wvjnXsag18uV3F2cqQRGY0+4Y3SJ/qAYYh5v1/P0l89A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=4.193.249.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDXKDQEgllqkIICAA--.4781S3;
-	Fri, 17 Jul 2026 09:14:45 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgBn+tADgllqPGf0Ag--.58410S2;
-	Fri, 17 Jul 2026 09:14:43 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: dri-devel@lists.freedesktop.org
-Cc: lucas.demarchi@intel.com,
-	thomas.hellstrom@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	intel-xe@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] drm/xe: Use timer_shutdown_sync() to quiesce the self-rearming irq_fail timer
-Date: Fri, 17 Jul 2026 01:13:48 +0000
-Message-Id: <20260717011348.3141550-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A76D23EA9B
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 01:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784251852; cv=pass; b=lKWgairQ/PIwIB1Wb5IgXV2kXbFOHknuDafTsDT8spD2rQIosKfVaxzFWFDdtyPyYIV5yBIXiIE8SO88unQTNGDP2droCPQQMDV/dJUS7WPsn7Hq8GF6v7yoy+rdkkkM/ypO1BvyTwj5AderB8hRSOIjSLJqLYtw9/M6/XUSUT0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784251852; c=relaxed/simple;
+	bh=OBEEQrnqhUOFUCZbEXhhBV5LLdskcVhecEoX0s3BLpg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s508nN8d1z/E0rfBIRqthU55l8FINm7fY5yalvVp9/GBBf3GyC0+6VtMr+yAxIEJT0z7PrzeUS9tlSJEbZ2Q3Cb3TSHIqnllcuhJ2ZAoxuaHRxn3VRtOxJcauJO3/eXSvHAH7pNE9F33DWbttXkCRKJUcjGcrgP5ynzCwlWRZUo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nYImcS0C; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nYImcS0C"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c167aa9500dso321563866b.3
+        for <stable@vger.kernel.org>; Thu, 16 Jul 2026 18:30:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784251848; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Lovyq5EGjrSMF39RXg2Rxpz/f6T4kxfLajNyJHPXzmiU5OyahUk4Xy7SVF0ac6j0W9
+         cP0ykiUVMzZ97tfhFslAdnmd8L/UMPkFqoCaZtmz5cSzvphKKRuGiOMoVbpOsS0Vupds
+         Q/3b9qrR6Sb6dUrL5/YQ5h8ZVkNeYqK0hFUdEPa9OGx2aIBgJ64xiM68695lu8qkdPrW
+         mnXdBg2N+v+3It8MjhJ/QRY/ny2p/dYwPVitCgByY6AogqmcgnpxUwdJnDCqT1o7k6TB
+         KDj5/Su4wfcQ/Pp1IMfQfPRjOJ3XF85b2zkTOUTL03vEDCSPOVEEajrxuIRuXUUIUTfw
+         7nYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RZ9TBkxSpUZL44kNUoTv9yQ/Eho7g6USaFbCzSHCIVs=;
+        fh=T7WsPk7UoN5vsNeIhLaqfrvRmbkGlDvrpn7HIjMMsQo=;
+        b=pcxNp9kHWtly+z2bG8KlvztLYlBLITiKcG/xcfYGpfVsw83+qGWe6Q7G/tYYFQ8mjL
+         9DDp5NJ71db4qT1RokTe1ZvIL8P4ltNGaIyNPr3uRgBqnzmUZcB3ii/PiJOPyf0GhIyp
+         /tdtEVnX24UX1jBP9+wUazBXislcuLFPM9p3i+L0ylvOq3SWbS/wdjned+P8hrWg4NDu
+         1rR56WvMk4h1fuWMS588O1gaOtC7rDP8QAK4gDqgBufuPUOn+/z8bkluxyn1beVyHrvS
+         PGcjU0hKgX0IJfx8QqOvwopKb8G4sK3uazC3cPVZW6u4h5wdwl0DKfakUG0LsaNNOr73
+         UbeQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784251848; x=1784856648; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RZ9TBkxSpUZL44kNUoTv9yQ/Eho7g6USaFbCzSHCIVs=;
+        b=nYImcS0CBsv9AuA/qyBmLJdtLNSKtsWzQde8L3Zu9M6WHFos1mAL+uTEMx87tfDOFb
+         SG/CLc4BBN6Au/VXxCM3UjR4YeHvKMN33TxXrrhIwvODNPQkfetyg/1WqnSFUeMTwMkN
+         gi7p1yBKLexy3P9Bh6K4jssRxZzf+ecVZyegBwoqCrf/PiLC1keJkSC3HpXHAGvBO6uE
+         S+P/9zvzFyVdic79OFI2OV/4r2pOZHx4sLdNOyYuItSo3oTdBe8QnGdHiu0KzKBnBmE8
+         v9/aPx5gk6FbiuCd92mQjQTo+dQHLqa//z1g7/iy22cwpk/cdRjThZuArVx9+AjbW70s
+         ygzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784251848; x=1784856648;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RZ9TBkxSpUZL44kNUoTv9yQ/Eho7g6USaFbCzSHCIVs=;
+        b=EzKBezzaqd0k1a6Luytr83/GzFSqwaKwEvDIpXUWpRjWPrWRuS69j7tQLtwmD3XIBM
+         XH4EYZQvk6kue708EzTNSLyL0VHITg+qgWVslj6hfqOtkMbAHnEIQ8znd3vH0a2qv20H
+         9YFxxt3NgzD9DDF558FR1n3pil3WPg8rWY8Rh3bg07j9mbZbk/mM5t2zdxIO6dx0D/rQ
+         bGYXdVN63z2+s4ESMGPGZGWUk/C0tMvTN5jdudINa9RWOwMu7UPmldUTvUjIx81p2VNd
+         hR/cIJiQSrfxkf4arjyXcRG+Qhvw35vGrbZiJj5YV7hyTh72D8JpxRDPOVgPapVuJEfZ
+         NiiA==
+X-Forwarded-Encrypted: i=1; AHgh+RpCLHLdHrd6jmWTo7Fesi6HYcbfAxdNiZgyJYGBaoK8S/ERGiGk2a8x/1tcyP2RrVUOecR24Ds=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxLXOV3Y/4bJAxYLriOfZiDtBbf3lXOWSj4Yj/Eh619aXZRTyj
+	+ovjJzPPctmPGTOosjKJvkD234ryi8/6O6DYzUWON0JVcah69wtfMKsTjhg4mtZNYPBXJxMYxNq
+	+tHHdfp+SUIYJAcsEYTqwpZf4Xk6EAGA=
+X-Gm-Gg: AfdE7cndZPrLBYPjvFmDRpxzrRmKFz5dnhEhU8zoL6omdQFRu+OsV/31Y5L1kPlvP/l
+	81Qx/vqCdm+TJt+8+Flb6fHqtyVHUgvnoiTr34O86dittGUnLiM5ODPacBNssnh3gXFCTzw0+QN
+	6EyZSCbo67sheB60PBZTSHdu3hV3N4fMqHLguZX9hDXK3UYpamVBXDkxBchSolPohAs7rxbLFmz
+	yBSLt5aHARsKT9SDnsUzno9FEb8iaU5BcQZkzICK51BJ9Uph7XaKL4vt6yLdQVPgZLDi3TEn5tY
+	eUlQF4HnQ5TI0kE7LQf3YGbDn/6O6A==
+X-Received: by 2002:a17:907:930a:b0:c15:efb1:9ff7 with SMTP id
+ a640c23a62f3a-c16b4702bfamr12697466b.28.1784251848021; Thu, 16 Jul 2026
+ 18:30:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgBn+tADgllqPGf0Ag--.58410S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?S/T2MAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI2lcIsOMl+SKSxLpipLfxGxgT1v3pfDpcRD3+WkznGT7PQ+
-	s3jpI3sGajjaNn4hN2UgQOeVi8muadMAnkH2STNd
-X-Coremail-Antispam: 1Uk129KBj93XoW7WF4rJw4kKFWDur1xGr4fXrc_yoW8WF15pa
-	y5Xr1Utr9Fq3WI9F17Zan3WFy5Aas3JFZrK34DGay3Zrs8Cw4rtFyDurZIyFyrAa47XF9F
-	yrs5trWSqw4DCagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57
-	IF6xkI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE
-	14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2
-	IYc2Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I
-	3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxV
-	WUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAF
-	wI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcI
-	k0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j
-	6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
+References: <20260716174511.8738-1-nickolay.lysenko@gmail.com> <79884bc0-1a2c-4e34-b8c7-75292f3466f6@gmx.com>
+In-Reply-To: <79884bc0-1a2c-4e34-b8c7-75292f3466f6@gmx.com>
+From: Mykola Lysenko <nickolay.lysenko@gmail.com>
+Date: Thu, 16 Jul 2026 18:30:36 -0700
+X-Gm-Features: AUfX_mxBE4PDdRf64j_fJODWXG-NvH4rSdWUtcRl_DQY19VejLd8-db-0a4ldeU
+Message-ID: <CAMtxOX2m5SCQ5Qp4LmUCKRSrxQnmJcx_UCVrKEGd4-EZ--qvWw@mail.gmail.com>
+Subject: Re: [PATCH] btrfs: raid56: fix inverted bio-list check in scrub read assembly
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Cc: linux-btrfs@vger.kernel.org, clm@fb.com, josef@toxicpanda.com, 
+	dsterba@suse.com, wqu@suse.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The execlist port's irq_fail timer re-arms itself from its callback.
-xe_execlist_port_destroy() currently uses timer_delete() to stop it.
+Hi Qu! Thanks a lot for your review!
 
-timer_delete() neither waits for a callback already running on another
-CPU nor prevents that callback from rearming the timer. Thus, a callback
-can rearm irq_fail during teardown and a later invocation can access the
-port after the drmm cleanup has freed it.
+On Thu, Jul 16, 2026 at 3:29=E2=80=AFPM Qu Wenruo <quwenruo.btrfs@gmx.com> =
+wrote:
+>
+>
+>
+> =E5=9C=A8 2026/7/17 03:15, Mykola Lysenko =E5=86=99=E9=81=93:
+> > Commit 5387bd958180 ("btrfs: raid56: remove sector_ptr structure")
+> > converted the bio-list membership checks from sector pointers to
+> > physical addresses.  The two conversions in rmw_assemble_write_bios()
+> > kept their polarity (skip the sector when it is NOT in the bio list,
+> > i.e. when there is nothing to write), but scrub_assemble_read_bios()
+> > has the opposite polarity -- skip the sector when it IS in the bio
+> > list, because then there is nothing to read -- and the conversion
+> > flipped it:
+> >
+> >       -       sector =3D sector_in_rbio(rbio, stripe, sectornr, 1);
+> >       -       if (sector)
+> >       +       paddr =3D sector_paddr_in_rbio(rbio, stripe, sectornr, 1)=
+;
+> >       +       if (paddr =3D=3D INVALID_PADDR)
+> >                       continue;
+> >
+> > Since a parity-scrub rbio's bio list only holds the empty completion
+> > bio, the result is that scrub_assemble_read_bios() submits no reads at
+> > all.
+>
+> Then you should remove the check completely, and replace it with an
+> ASSERT() to make sure scrub should not have any bio sectors, aka,
+> rbio->bio_paddrs[] are all INVALID_PADDR, or all bios (should be one) in
+> the bio_list are empty.
+>
+> Otherwise the analyze looks good to me.
 
-Use timer_shutdown_sync(), which waits for a running callback and
-prevents further rearming. xe_execlist_port_destroy() does not hold
-port->lock while shutting down the timer, so this cannot deadlock with
-the callback.
+Sounds good, will be addressed in v2.
 
-This issue was found by an in-house static analysis tool and confirmed
-by manual code review.
+>
+> > finish_parity_scrub() then compares the parity it computes from
+> > the (cached, correct) data stripes against whatever happens to be in
+> > the freshly allocated, uninitialized stripe pages:
+> >
+> >    - if the garbage differs from the computed parity, the sector is
+> >      "repaired" and written back -- accidentally producing the correct
+> >      on-disk result;
+> >    - if a recycled page happens to still hold the old (correct) parity
+> >      content, the sector is deemed clean, dropped from dbitmap, and the
+> >      actually-corrupt on-disk parity is left in place -- silently, with
+> >      every scrub error counter reading zero.
+>
+> Unfortunately that's by design, as scrub never reports P/Q corruptions
+> since there is no counter for them, and there is no space left for
+> expansion either.
 
-Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/gpu/drm/xe/xe_execlist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Got it, will reframe.
 
-diff --git a/drivers/gpu/drm/xe/xe_execlist.c b/drivers/gpu/drm/xe/xe_execlist.c
-index 9fb99c038ea8..c1153dca8af3 100644
---- a/drivers/gpu/drm/xe/xe_execlist.c
-+++ b/drivers/gpu/drm/xe/xe_execlist.c
-@@ -287,7 +287,7 @@ struct xe_execlist_port *xe_execlist_port_create(struct xe_device *xe,
- 
- void xe_execlist_port_destroy(struct xe_execlist_port *port)
- {
--	timer_delete(&port->irq_fail);
-+	timer_shutdown_sync(&port->irq_fail);
- 
- 	/* Prevent an interrupt while we're destroying */
- 	spin_lock_irq(&gt_to_xe(port->hwe->gt)->irq.lock);
--- 
-2.34.1
+>
+> >
+> > The second case is intermittent because it depends on page-allocator
+> > recycling.  Observed with fstests btrfs/297 (raid5, 2 devices): the
+> > corrupted P stripe intermittently stays corrupt after a scrub that
+> > reports no errors -- roughly 1/10 runs on x86-64 KVM and up to 7/8 on
+> > a UML build whose timing favors page reuse. Instrumentation of
+> > verify_one_parity_step() showed the "on disk" bytes never matching the
+> > device content (stale 0xaa / zeroed pages instead of the injected
+> > 0xff), and after this fix the injected corruption is read, detected
+> > and repaired in every run (8/8 UML, 10/10 KVM).
+> >
+> > Fixes: 5387bd958180 ("btrfs: raid56: remove sector_ptr structure")
+> > CC: stable@vger.kernel.org # 7.1+
+> > Signed-off-by: Mykola Lysenko <nickolay.lysenko@gmail.com>
+> > ---
+> > Note 1: I found, reproduced and created a fix for this problem using AI
+> > tools
+>
+> Not sure if we still require the disclosure of AI usage using
+> Assisted-by: tag, but I'd prefer that to be extra clear.
 
+Sounds good.
+
+>
+> Thanks,
+> Qu
+
+Thank you!
+
+>
+> >
+> > Note 2: I am referencing UML (User-Mode Linux) above which is coming
+> > from the project https://github.com/mykola-lysenko/btrfs-uml-fstests/ t=
+o
+> > run xfstests in the UML. For reference only.
+> >
+> >   fs/btrfs/raid56.c | 8 ++++----
+> >   1 file changed, 4 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
+> > index 00a01b97cc..93de764d70 100644
+> > --- a/fs/btrfs/raid56.c
+> > +++ b/fs/btrfs/raid56.c
+> > @@ -2910,11 +2910,11 @@ static int scrub_assemble_read_bios(struct btrf=
+s_raid_bio *rbio)
+> >
+> >               /*
+> >                * We want to find all the sectors missing from the rbio =
+and
+> > -              * read them from the disk. If sector_paddr_in_rbio() fin=
+ds a sector
+> > -              * in the bio list we don't need to read it off the strip=
+e.
+> > +              * read them from the disk. If sector_paddrs_in_rbio() fi=
+nds a
+> > +              * sector in the bio list we don't need to read it off th=
+e
+> > +              * stripe.
+> >                */
+> > -             paddrs =3D sector_paddrs_in_rbio(rbio, stripe, sectornr, =
+1);
+> > -             if (paddrs =3D=3D NULL)
+> > +             if (sector_paddrs_in_rbio(rbio, stripe, sectornr, 1))
+> >                       continue;
+> >
+> >               paddrs =3D rbio_stripe_paddrs(rbio, stripe, sectornr);
+>
