@@ -1,192 +1,162 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010026.outbound.protection.outlook.com [52.101.61.26])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841F9429CCA;
-	Fri, 17 Jul 2026 16:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784305292; cv=fail; b=STCjuDxVACZ5rCRI6Q6xJsKozhQncPD5ktJgGrlHeY5e25wbsF9NXw4YljXn45UJpIZG0zXgAKoEXb4COTLDAxDXn5IjXURhfCVvnfw7Ew2DcvI7a1UXhwLjIcbVixZnRsI04Hka3qpjTKCOpVFDxCFjphdfS1aAZkKx/IEN0b0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784305292; c=relaxed/simple;
-	bh=ZeiXP2klQS/hPOl6dx2GwlEE82P0lHTpvK/88tlNh4o=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=deOuoGM+heUOCXDq1Cz124hFkxozp6qmYG+7IJkakkkL3oDSd6iBxpvbxmtDrL50iFwaetzgMFjqZR4/5o5JzVq+Yxyq6lRp6Y5VEq3QB5QCaAIYlKYgTzhQ9m1K5fKuhEz8uDikQbj6tuWpP7oy06c564QPP6XqVsrv6xHs6EI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=STxkl/PO; arc=fail smtp.client-ip=52.101.61.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE2449620
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 16:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784305917; cv=none; b=IaK6YsowFK9JO0o2sgvw6rQV2iPjG8wpWFWG5QBvX6cYmassXNuGIecxIFSl47CA49j/3ST7UHiTtaMb7FHEZ8E4vMXJbzcfhs/ntpHcF064rVYvS2ehjNYthOlJqr807OloanUCUVmrnBsnq1n6doDA61Luo0LNEOriKgc5XPc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784305917; c=relaxed/simple;
+	bh=CBfSqK2AvgdhR+Bzp0CO34iyovUNpliOo+OgVtl30zk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=chXlvqpG7IgWioK1A3bvYaLAdUxfdPSgQEABZgbnmCuMtTie5Zs81WjpfqsItbpreDf9kg3ixYVMOXwf6huUXobDOWVQB0nUB7FWwfQ3pozYyZt9xJesmaKnofUru0afcZwSPwTiB+kvxlpx9QfV7UCOm8na+mJHt0Rxp3h70lQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Bsn0bczL; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=pmsu/1kO; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="STxkl/PO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O+p6WXBb8k6D99plXjnp7tfXLY5VjzHCIa9TjLMPvwJtQBU/jhaknCZ1sx7+177H1639Sxmq1RpXDyCj/lfIMZ3P5Rbw2a+CiWGWoCpkO+g+dQFGrwkBq9Olfldh+VASqwe9J1PY2NkdVXuchPeAPxo5hxu4F9m1nyw1VXmBJBysQr/eDUOKDEVeRuM/+f5Ml6xNgwuJOP4KLWeRoOf9yFN+3kyv1qnQTsYi4YRUYgMj9y7oUws1FrmvxEoN9NN7UC5SRI02AMKir+TE/LM86YkoqXUE5k0JkLd2BRxeLJEREUimYt6duQHskMeW1HkEkSB1iK0+eLLelRGannDDRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MKpNyvGiusIqZgi9DcCmmFbs5w0a8YDmT58BKS3XVnM=;
- b=gxzDrSR8+ypHg5xRVggTFl6g1wDXUwbUgDv70v2p7Cru5pIHKOL5yo330us3b0/g5I9LkoD7briFZOqwKDi0B9ScAFiQqzEBgmuEkl9o43An12hYnQS6Cl2nGq55FI+uh63DYR28PKq8CIVIax0c3dIwX5fiZZ0sWaKRoefMPLqPMBLhzCwu40iK0hZxqKaqNLjcbtzWESju90o89XbFdNehyr5ZR522Pfv6hCmZVmI7VD0jGyd46Y6gPLqy5j4ij8g/ECaXYjHJdq2XZsu41W65u5ZiLdLopeSO060fWYv7E8o8CncnERny+JPirFcl3v7iAJC3p3yZ/by/d4qABg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MKpNyvGiusIqZgi9DcCmmFbs5w0a8YDmT58BKS3XVnM=;
- b=STxkl/PORTjZcboCqgmP+d1PHwiar5mqS6yKMYZDWSbeeSyqBUxkW3svdGF7zhBHWmAOoxijJMk8Tbyt1PK3uiMo87SIyLOEJJJK4F6psX9AEhQT8paxosD1lTv4hHWCkPYalRRbdggFKjFUNRjNEDUWsYoxiA8/K2DPqXshJUc=
-Received: from DSSP220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:3d3::12) by
- PH7PR12MB7019.namprd12.prod.outlook.com (2603:10b6:510:1b9::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.12; Fri, 17 Jul 2026 16:21:19 +0000
-Received: from DS3PEPF0000C380.namprd04.prod.outlook.com
- (2603:10b6:8:3d3:cafe::4c) by DSSP220CA0012.outlook.office365.com
- (2603:10b6:8:3d3::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.13 via Frontend Transport; Fri,
- 17 Jul 2026 16:21:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF0000C380.mail.protection.outlook.com (10.167.23.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.5 via Frontend Transport; Fri, 17 Jul 2026 16:21:19 +0000
-Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 17 Jul
- 2026 11:21:17 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-CC: Hans de Goede <hansg@kernel.org>, open list
-	<linux-kernel@vger.kernel.org>, "open list:X86 PLATFORM DRIVERS"
-	<platform-driver-x86@vger.kernel.org>, Mario Limonciello
-	<mario.limonciello@amd.com>, Francis De Brabandere <francisdb@gmail.com>,
-	<stable@vger.kernel.org>
-Subject: [PATCH 2/4] platform/x86/amd/pmc: Fix error handling in amd_stb_s2d_init()
-Date: Fri, 17 Jul 2026 11:20:21 -0500
-Message-ID: <20260717162023.956346-3-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260717162023.956346-1-mario.limonciello@amd.com>
-References: <20260717162023.956346-1-mario.limonciello@amd.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Bsn0bczL";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="pmsu/1kO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784305906;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J0HLfgnrtjxNOO4Lwlf1DY9lZMzmjOSTkB4j+MM+kqU=;
+	b=Bsn0bczLdgO6ODU5YGth9ShbPJ3wdpdgDnC1jBL7O3u0AQtABAu140HnkQkgKOUUBfpdqf
+	EXFDSvXEcYaXi08BbTS9mF3qo6YTRu9CPpnQvin+0HSc8TM0Qw/d9ySobltthCAgrMmqVx
+	aF/Yiec2y5zrkD4bebIk9zTlYL1DP6Y=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-614-crRMnNYpPES22G3ukiL_Sg-1; Fri, 17 Jul 2026 12:31:44 -0400
+X-MC-Unique: crRMnNYpPES22G3ukiL_Sg-1
+X-Mimecast-MFC-AGG-ID: crRMnNYpPES22G3ukiL_Sg_1784305904
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-47162f83c75so1059597f8f.1
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 09:31:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784305903; x=1784910703; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=J0HLfgnrtjxNOO4Lwlf1DY9lZMzmjOSTkB4j+MM+kqU=;
+        b=pmsu/1kO3IEzA0DlV0HiXQ8K2bWbTiZGG/mO30bjNoIOvT6VJ+3+OJQGrwoECz/TPm
+         R9N/2xlwrePe/ltmpQxigppFTDoz29ArGPTWKusY0ZElIpv2A7toofijes4u9FnTGlit
+         kBNzgIcZdKJGFEbmRpelZVvrO0RVSewn+J8g4riTCBeWi3jA4KoMPPVBXElTrzZK2ft8
+         eIg3VkFV79CWYc4X6SjQV0CRtFWpTjvCV7JhS05AsopW0CU2ylr6+nNFcEH8XTtkCPSJ
+         JllRyuQcKxgfrmcDZnzLQSGH/RppFgitwC5jcIEgtlfGa2idBu7yg146zmyeydSsCUtp
+         qDqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784305903; x=1784910703;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J0HLfgnrtjxNOO4Lwlf1DY9lZMzmjOSTkB4j+MM+kqU=;
+        b=sXgcfNDPjXFbRBR3hpJfmsx48Lx8NC7VKS3M9zws2CSGlrQLYEiJExvG3+rntO2uyG
+         jDe6tTnxXk5dFFQE0HqAK40X++Fhtrsy3twwcJvSJzFAJfD4G3Q/cudKHrskesBYl6qf
+         yEa7lHygPemB932HnTjlqquSSVV4+tA8synfM3ZGLS6Vx+2WhtdlALfTE6ViPqzOvk9A
+         0uQS1bYhO8BLVK0mRm4keM0vuX2w5bE8KHBAjfr0HOkLr4Oq9jUaC/DTkjC9hJrXofmD
+         FbPOUWLrf/SnvE6hJYQh63BivbrcbzmrYYYsEwwn7J88qcaCnuGCjaoolPihMYjfAwGN
+         BFeA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpka8x4+VHiSSeLWN0hBhWQGZ0c4R2sh2CboXrL+C8mrTDYDNi3zVPnDEOrPmLs1Yw4AQXASp4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwAQ/aI246xw41gJ0l98y3ZKRUQe4buulcUQEvZBL0jbomYuDmV
+	EVVRMfKRTusdEsvXpvzPuCojOR90eLGEF+d+I8cen3lduR0QrXZEXYpglykjuTJ/UnRokAXNsLi
+	r15R87pM7yyQlYK7twTYtOzgmd7WWqf4ILSInMFBif/z8MmqlNFwsg4ceWw==
+X-Gm-Gg: AfdE7cnLtFGnh6YeS4F++6+G4/rnRXe4LOWRCt/hvlo4q463halqPepjxX55rHlDS9v
+	te+AtbFaPi1Fq/T1eX918jSQEuhT9u4k3XDIfZhYSd5JXAe0njlubZD+J7f8o2bYSnGNr/2XT8z
+	vfoSUmBAu8sy59oPqsEwHYR3jwlvpxHFFP3ikvB0ylADRkQ8pJDdNwsTR4Tf5Y45rkiIK7apKc5
+	6IyRu7pUeqRskb1PQ+Xak1drr1LQFqSbl1ciFccKmuENvtHegdFyIi/Z9J/VZQYi+TOHfiSt+jS
+	Q8j7t66rBv7HL8MmS5oHt5SV9i4V64wJDnHsT7ImKjpG6RdqFPb8RESEMkI982tQb5qVsnh5zOo
+	FRNK7XcEMdszJAzPdaPwvunBT
+X-Received: by 2002:a05:6000:2f85:b0:46e:6959:35a7 with SMTP id ffacd0b85a97d-47f623e803emr4407846f8f.22.1784305903442;
+        Fri, 17 Jul 2026 09:31:43 -0700 (PDT)
+X-Received: by 2002:a05:6000:2f85:b0:46e:6959:35a7 with SMTP id ffacd0b85a97d-47f623e803emr4407792f8f.22.1784305902878;
+        Fri, 17 Jul 2026 09:31:42 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-24-117.inter.net.il. [80.230.24.117])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63eeece9sm5310864f8f.37.2026.07.17.09.31.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 09:31:42 -0700 (PDT)
+Date: Fri, 17 Jul 2026 12:31:39 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Mike Christie <michael.christie@oracle.com>
+Cc: Jia Jia <physicalmtea@gmail.com>, jasowang@redhat.com,
+	Linfeng Sun <slf@hdu.edu.cn>, pbonzini@redhat.com,
+	stefanha@redhat.com, eperezma@redhat.com,
+	virtualization@lists.linux.dev, kvm@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] vhost-scsi: Prevent OOM from invalid protection SGL count
+Message-ID: <20260717123129-mutt-send-email-mst@kernel.org>
+References: <20260717142205.103515-1-physicalmtea@gmail.com>
+ <8f5b5350-0be9-4b79-a6c9-069d418dee30@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C380:EE_|PH7PR12MB7019:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0588c573-2bd4-4901-2a4b-08dee41f6f33
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|56012099006|11063799006|3023799007|13003099007|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	+V0v8aEkDwh9XKR0H4vLF9+UNzpNC9Rt86QSCIHN2ufWdSJoPzOWjsLJCVqWZ4XDgO24mxUEph5iyjUmkFdxI1Ksb0i6bnzdaaF3x2UOO7sVMovimLYncLAcadoD75J6yFnr/v0KJsag2TV11j7biy506Eb3U0yGaeoCba7ahC9jI/I3VwsKc8yBYqn6XcThhwR3Zuz3Hoqy9aemMcYlaiFbS/kgFZ0mIZqUJ4b7nvNu5PLndZT/Mssv/xpcsFDmr7SeFvjuGDId0FWgnn6rlXRO9BdEzr9UyH8edZF5mMSfFSR1UcHzEgUbvvvE5/OaFQfuLI13zCqdnyU8pff9HuhiDN0LX0VQh4/t51D1Or0AmYX59cxLvoSQrhe+mMDolOI+Qpd9TD0rS4RDEsRz2FKdT2VUQg884gj2whn7fRW6zMS6QS8htYNMcqpzrJy/Nclvb3wqaX4HN3Xo1UqfytiNQKB3cPrp9b+ziqPBRKCnlLTEm2OdToVyYlK6Q2NMK6z7ndA3lYFX87YP07lnzB97t2l2zmzqBKISFUDJIY5oiLxHhhNXR7XMP5hlHalXYCw9IuqKkpxr4792Rvwl6LF7a1kbTrjYlGhvktgea7BwUw+Jt0z8TPcRuLPLdhekMZWNrHxxcfZQ4tEYmwEZLw+Ctlz9IWKse9RGVR/yxXhjp6oaznAsmtYQ25GwTR/hVhbSt1molZJQ5e8LiIj6GA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(56012099006)(11063799006)(3023799007)(13003099007)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	OBVPdBmar1zWLXHUQq1gcVY+aIdyz0SboMhm3QswfdzThuyymE99NUWViwvvoK2mOX2hOGTv1HQ9i4ugTcs+Xt3NY27Aj1meFZwy4I7m+FrZy5u6cgIYZ3/uLzTMIDZR7OjLVt3McY25GKl+GJl+Yvm4oh22nVn2qHJdr0+dGCPcA6oA2DoIET5xawnUK8YwoGRLTan41pZIak2LgHis4ktAZQM4xZrdYi1gyuQ/ZxXN9xaccsTSu20W+E4JwiaH5SHo42lz2LLp4bsCiWkbnOpgoAL8hc1DuiN+AHs5ICCzXytgeVpvbU0fmUpn7C6M57roFye/0OHgyqn5Qt0XoPKn/yBDzQoqb1xtbR//K8bRA0VI9do1Gb0YXoWRTCZUYeaEkdbs2gTapE37OznZAyUD19y3Ac0J0Xrhmex7yvh+rJ4hkIwWNCJD1HHYSNEg
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 16:21:19.3142
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0588c573-2bd4-4901-2a4b-08dee41f6f33
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF0000C380.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7019
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8f5b5350-0be9-4b79-a6c9-069d418dee30@oracle.com>
 
-amd_stb_s2d_init() has two problems on its error paths:
+On Fri, Jul 17, 2026 at 10:13:36AM -0500, Mike Christie wrote:
+> cc'ing Linfeng.
+> 
+> Linfeng also reported this bug and provided a patch that has your check and
+> an extra check to avoid calling into the function in the first place. It's
+> been stuck in some other list.
+> 
+> I think it might be best for Linfeng to re-submit their patch now so it can
+> get merged. For that patch, I think there was one outstanding question left
+> where Michael had asked if the issue was found with AI so the proper tag
+> could be added. I don't think that question was responded to.
 
- - The return value of the S2D_TELEMETRY_SIZE SMU command is discarded.
-   When the SMU refuses the command (e.g. "SMU cmd failed. err: 0xff")
-   the failure is only noticed indirectly through the telemetry size
-   check and reported as -EIO, masking the real error.
+Right, was waiting for that.
 
- - dev->msg_port is switched to MSG_PORT_S2D before issuing the S2D SMU
-   commands but is only restored to MSG_PORT_PMC on the success path.
-   The early "return -EIO" leaves the port stuck on MSG_PORT_S2D, so all
-   subsequent SMU communication - including the s2idle prepare/restore
-   handlers - is directed at the wrong mailbox.
-
-Consolidate the exit path through a single label so the message port is
-always restored, and propagate the SMU command error directly instead of
-inferring it from the size.
-
-Assisted-by: Claude:opus
-Reported-by: Francis De Brabandere <francisdb@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221759
-Tested-by: Francis De Brabandere <francisdb@gmail.com>
-Fixes: 3d7d407dfb05 ("platform/x86: amd-pmc: Add support for AMD Spill to DRAM STB feature")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/platform/x86/amd/pmc/mp1_stb.c | 28 +++++++++++++++-----------
- 1 file changed, 16 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
-index 753d630f3283d..6a048cb2605ec 100644
---- a/drivers/platform/x86/amd/pmc/mp1_stb.c
-+++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
-@@ -289,7 +289,7 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
- 	u32 phys_addr_low, phys_addr_hi;
- 	u64 stb_phys_addr;
- 	u32 size = 0;
--	int ret;
-+	int ret = 0;
- 
- 	if (!enable_stb)
- 		return 0;
-@@ -306,13 +306,17 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
- 	/* Spill to DRAM feature uses separate SMU message port */
- 	dev->msg_port = MSG_PORT_S2D;
- 
--	amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
--	if (size != S2D_TELEMETRY_BYTES_MAX)
--		return -EIO;
-+	ret = amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
-+	if (ret)
-+		goto out;
-+	if (size != S2D_TELEMETRY_BYTES_MAX) {
-+		ret = -EIO;
-+		goto out;
-+	}
- 
--	/* Get DRAM size */
--	ret = amd_pmc_send_cmd(dev, S2D_DRAM_SIZE, &dev->dram_size, dev->stb_arg.s2d_msg_id, true);
--	if (ret || !dev->dram_size)
-+	/* Get DRAM size; fall back to the default if the query fails */
-+	if (amd_pmc_send_cmd(dev, S2D_DRAM_SIZE, &dev->dram_size, dev->stb_arg.s2d_msg_id, true) ||
-+	    !dev->dram_size)
- 		dev->dram_size = S2D_TELEMETRY_DRAMBYTES_MAX;
- 
- 	/* Get STB DRAM address */
-@@ -321,12 +325,12 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
- 
- 	stb_phys_addr = ((u64)phys_addr_hi << 32 | phys_addr_low);
- 
--	/* Clear msg_port for other SMU operation */
--	dev->msg_port = MSG_PORT_PMC;
--
- 	dev->stb_virt_addr = devm_ioremap(dev->dev, stb_phys_addr, dev->dram_size);
- 	if (!dev->stb_virt_addr)
--		return -ENOMEM;
-+		ret = -ENOMEM;
- 
--	return 0;
-+out:
-+	/* Restore the default message port for subsequent SMU operations */
-+	dev->msg_port = MSG_PORT_PMC;
-+	return ret;
- }
--- 
-2.43.0
+> 
+> On 7/17/26 9:22 AM, Jia Jia wrote:
+> > The protection SGL path passes the result of vhost_scsi_calc_sgls()
+> > directly to sg_alloc_table_chained(). The helper returns a negative
+> > errno when the iterator is invalid or the request exceeds the segment
+> > limit. The negative errno is then treated as a very large unsigned count
+> > and sends the request into the SGL allocation path with an invalid size.
+> > 
+> > Repeated malformed T10-PI submissions from a host-side application caused
+> > memory usage to rise sharply. MemAvailable fell to about 200 MB, and PSI
+> > full avg10 reached about 1.46. The OOM killer terminated several userspace
+> > processes before the endpoint cleanup completed. The kernel log included:
+> > 
+> >      [17036.451028] Out of memory: Killed process 2345 (systemd)
+> >      [17036.493325] Out of memory: Killed process 2349 (sd-pam)
+> >      [17078.265127] Out of memory: Killed process 1793 (networkd-dispat)
+> > 
+> > Return the calculation error before setting up the protection SGL. This
+> > keeps the protection path consistent with the data SGL path and prevents
+> > the invalid count from entering the allocation path.
+> > 
+> > Fixes: bca939d5bcd0 ("vhost-scsi: Dynamically allocate scatterlists")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+> > ---
+> >   drivers/vhost/scsi.c | 3 +++
+> >   1 file changed, 3 insertions(+)
+> > 
+> > diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
+> > index 9a1253b9d..8486652fd 100644
+> > --- a/drivers/vhost/scsi.c
+> > +++ b/drivers/vhost/scsi.c
+> > @@ -972,6 +972,9 @@ vhost_scsi_mapal(struct vhost_scsi *vs, struct vhost_scsi_cmd *cmd,
+> >   	if (prot_bytes) {
+> >   		sgl_count = vhost_scsi_calc_sgls(prot_iter, prot_bytes,
+> >   						 VHOST_SCSI_PREALLOC_PROT_SGLS);
+> > +		if (sgl_count < 0)
+> > +			return sgl_count;
+> > +
+> >   		cmd->prot_table.sgl = cmd->prot_sgl;
+> >   		ret = sg_alloc_table_chained(&cmd->prot_table, sgl_count,
+> >   					     cmd->prot_table.sgl,
+> > -- 
+> > 2.43.0
+> > 
 
