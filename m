@@ -1,131 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDB4349CD7;
-	Fri, 17 Jul 2026 17:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FC42E3B12
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 17:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784308199; cv=none; b=JD6xDc5h8Vn4O7ZVnDldVSiV10KPFCKUf96S5DqOm//CMoQITqWpO3zH2Z74LrJTU44NFBYPpzLR3dDFoX5LERXV+j2BCjD0NPfZgCngM/mJDj1HRmB9M/yFKuEOdfHtORE5cF9ceKwJ2tJul2+Dg1LGOaOnMk9gJlTUTsGpz8o=
+	t=1784309307; cv=none; b=BYnFiH9YbzZ6f9a67dYH8GNRcZRVuxmUkLXVXbLEtngvdp2DEzRxpRUF4DhN5SMWAg1/t/XL2shfq0vy2iOOpoTIEvDmbnRJn80W0bYLr653yx3mlmOT5kYDxcACE9yjkAsNDgKLwpz9KGF/RLwhXuNwnw1Lw5Ege9/FsD9xWsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784308199; c=relaxed/simple;
-	bh=ym2v4YmYfJCHRs2bjR8+AYF/V8og/2Ps/38jlnEn5mE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=avNxDOv866cphhX8jaw5z2UynkQV0TkU7Nk1jZUcaw5tteRqwzJNdKbzGMz7bVdPY/bMBIvMiqQuHOM8pE8NetQkS3JgRAy5uim8bUYna7kr2ng8y92qY5f0C7B8t8NJYM2cuERhjJjSPKEvdmEna24bRO3/YB65Hw3mf6AskcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5TbUhyE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784309307; c=relaxed/simple;
+	bh=h9fj7i8AH506HFL/gfEtWIscVlLumPioFQmf4b+vdGc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RrqQ3x+QqzejMfU9i2V1RuiS+AIfdi7ZlDVXUzHwrfvTVw1JmOwkI/oMO1yeAN2r/qQqIL4WlpGseVsNdsGhayvBRe8Axl9hhm++nZ/I+0tmXmplWjb/cBHV712JtPcvkVk7490KD2cSzx64dFZuXERv6toIvsaR5ucP3jpMQig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r7xZOLG7; arc=none smtp.client-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5TbUhyE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D3E11F000E9;
-	Fri, 17 Jul 2026 17:09:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784308197;
-	bh=vrIIp5vvuim1vMqA0JaquYGqHqFXlC/x9tIPiRIrp0w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i5TbUhyEKURDYC//pmORMnyZIHNvtflLPqTTUQgKjllucYKinkcQl+ssuKZrzA7nW
-	 0n1w6zhI7AJ8gx3SWYRLm94qclZsGIEQ9CYPDjQfTiGpHLt9Ff7ggdTTeowCJZyvZT
-	 mmNL9TJt8Z4HGsobH3Avb+VLWn2yNV9cWWxBd8b16diMtjrchCYgSJTlEAAgI4EMtR
-	 aiifL/uiUt/WVKnSRKSEfa6fDxMc1TzQVBaCh2F+csc0OP+bVjd9+fe4qH0b2/tfHr
-	 XdbQCSQJDcpGeFjTha6ceq7sFcmk0kmVqlPIxSwi/mMCo0mGgQBP0XzDJPuvtj9nIW
-	 X6fVJCtnhYTmQ==
-Date: Fri, 17 Jul 2026 12:09:56 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: hongxing.zhu@oss.nxp.com
-Cc: frank.li@nxp.com, l.stach@pengutronix.de, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
-	bhelgaas@google.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Soeren Moch <smoch@web.de>,
-	stable@vger.kernel.org, Richard Zhu <hongxing.zhu@nxp.com>
-Subject: Re: [PATCH v3] PCI: imx6: Keep i.MX6Q Root Port MSI capability with
- iMSI-RX to work around hardware bug
-Message-ID: <20260717170956.GC11343@bhelgaas>
-References: <20260717033203.2965045-1-hongxing.zhu@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r7xZOLG7"
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-902f92b8504so74218816d6.2
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 10:28:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784309304; x=1784914104; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kk0zvlROK4CGetKUdREFFy369z04aN1QAFj/lbaZkpI=;
+        b=r7xZOLG7koitruLOmY7/1AI9nwVRrdJ5fpwl7pRjH4Z8906vcbtspZMhtLZ3mzhk9z
+         82Z72OsdIBhXY0LKi46Pb8auAf4hjJT00fJ4s4IDcuzkZb8hm7fbYMC439aicxHmRJ84
+         7VUiiAxxb5cCpzdypxvXZAiiZyzRNsbSLt6QmenNGGLon2Ij0NKCEGeBNg87xuApo88O
+         egED9neqALBv9DD2yotR/Q81+DnYfidH2M990Ien9ijn15uARI+xco6F8dOryAOfItYH
+         EOmvk/u25EJxnhvqSW3b+PnSAfQdFCtADwEES75UndyyzQ9cz1MB7aabOeEvhEXc6jJO
+         auBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784309304; x=1784914104;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kk0zvlROK4CGetKUdREFFy369z04aN1QAFj/lbaZkpI=;
+        b=T0SgwRcoNs1mmME8/GvxtaLvH2s9cOjkzZGp9jPfr06gfkHaROUY50683dk0OEw2F2
+         K2qGr61S46yIUxwF9gMfxru0/5LARQBt18XGecpRYQxXTXndRYOMpXPKpMuQtCiZylvz
+         TnU1kkXl9LLjDsnucoJVVNu6a9+7rAmosS9RXuPF+Y9GCX0a1eR0aeVVpJICX54/AX5A
+         7pEEeTyJVGnpOQWC53MCl9G5IFYiCHclgtuiaDLvQtVhSv+1qM7XGzejyoWx0td0EfyP
+         MtLrM1YiAr+jrHzdDkRLOJDm+q3oaS2fBxiATFVf5/LF2gajtneNQGiWm1ACyqAwr2ox
+         49gg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro0iWOgUi9nnAsIaFJ79mExujuDNvSeBlc9idf7q6X+8b2CErfaKOAEDOVeVFNZO5XMbCawNxA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzka8i9E1/SIIUdMkPDNhgBebbPJ4hYUEDqxjcKMta8jkFglR5v
+	e8z9AkOFKGVKAGl+5MmnfPZiuzIB0L2ujvSlaY1iaF6pkBII/cGKSYxV
+X-Gm-Gg: AfdE7cmUi9Eo5oIik4xbOSX6TsA1w4Omk2y6px0/5aCrFccUOUfg9b7p+SbSRvPIS3R
+	wzX3TEv2TPjfwuZ15X6cNH3ang2M/8x7qTZZpvYrYQSOSsP+wbJ78G5vfFPXDS1+xiXsyB2anhJ
+	FlmLEoIgjGd+QQwIiFcdHcPAuqUwJnVU7fS44MpP1YtbiS2+5Y2uW0Hl4FFQ7ZnQ+E+Xn/g6soQ
+	tAEVF9YcNJbv0uMuuQzc6R0VbvzUZS8i7ZVG+4F57rPNfQjl5tdJE/umylRDg2ykwNujF2lqKb2
+	Hd3hzi26i6ArasmihyF2SbR74dM2oVpj4YzNT6PeZga4r6qoiaZIzM1qB7clw0X1LJd/C5NFWYd
+	+02oeZGlcNgiD3I+EanlJrsySHwsyN4dJ0BY+1/A+Tq1CQpI6nY5U/Q4r1Zwrz14thxOkc4c2fU
+	6DhAknQJbQvvtGPqGShOD/uGPwqMlNg4oTbALxI+6mXQ==
+X-Received: by 2002:a05:6214:212f:b0:8f3:ba0f:e7de with SMTP id 6a1803df08f44-907783541a3mr39136046d6.11.1784309304275;
+        Fri, 17 Jul 2026 10:28:24 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907786f9de0sm21502666d6.40.2026.07.17.10.28.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 10:28:24 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: linux-nfs@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	cel@kernel.org,
+	jlayton@kernel.org,
+	neil@brown.name,
+	okorniev@redhat.com,
+	Dai.Ngo@oracle.com,
+	tom@talpey.com,
+	trondmy@kernel.org,
+	anna@kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Subject: [PATCH] lockd: fix NULL dereference on lockowner allocation failure
+Date: Fri, 17 Jul 2026 13:28:09 -0400
+Message-ID: <20260717172809.1591290-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260717033203.2965045-1-hongxing.zhu@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 17, 2026 at 11:32:03AM +0800, hongxing.zhu@oss.nxp.com wrote:
-> From: Soeren Moch <smoch@web.de>
-> 
-> On some NXP chipsets, disabling Root Port MSI/MSI-X Capabilities blocks
-> MSIs originating from Endpoints from reaching the iMSI-RX controller.
-> 
-> To address this hardware bug, commit 3a4e8302e72f ("PCI: imx6: Keep Root
-> Port MSI capability with iMSI-RX to work around hardware bug") preserves
-> Root Port MSI and MSI-X Capabilities on i.MX7D, i.MX8MM, and i.MX8MQ
-> when iMSI-RX is in use.
-> 
-> The same applies to i.MX6Q, i.MX6QP and i.MX6SX. So preserve Root Port
-> MSI/MSI-X Capabilities there as well.
-> 
-> Note that preserving these Capabilities means Root Port-originated MSIs
-> such as AER and PME won't be received due to separate hardware limitations.
-> Users may need to use workarounds such as passing the 'pcie_pme=nomsi'
-> command-line parameter.
-> 
-> Fixes: f5cd8a929c825 ("PCI: dwc: Remove MSI/MSIX capability for Root Port if iMSI-RX is used as MSI controller")
-> Cc: <stable@vger.kernel.org> # 7.0+
-> Signed-off-by: Soeren Moch <smoch@web.de>
-> Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
-> Acked-by: Richard Zhu <hongxing.zhu@nxp.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+nlmclnt_locks_init_private() installs NLM file lock operations even when
+nlmclnt_find_lockowner() fails to allocate a lockowner. nlmclnt_proc()
+then returns -ENOMEM, but the VFS still tears down the partially
+initialized file_lock and calls locks_release_private().
 
-Applied to pci/for-linus for v7.2, thank you!
+That invokes nlmclnt_locks_release_private(), which dereferences
+fl->fl_u.nfs_fl.owner and crashes because the owner was never installed.
 
-> ---
-> changes in v3:
-> - Extend the fix to i.MX6QP and i.MX6SX variants as well.
-> - Update the commit descriptions suggested by Bjorn.
-> 
-> changes in v2:
-> - collect a-b and r-b tags
-> - use correct fixes tag (Manivannan)
->   (reference commit that introduced the bug, not the incomplete fix)
-> ---
->  drivers/pci/controller/dwc/pci-imx6.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-> index 98e1db751132a..dba27eac6bff6 100644
-> --- a/drivers/pci/controller/dwc/pci-imx6.c
-> +++ b/drivers/pci/controller/dwc/pci-imx6.c
-> @@ -1995,7 +1995,8 @@ static const struct imx_pcie_drvdata drvdata[] = {
->  		.flags = IMX_PCIE_FLAG_IMX_PHY |
->  			 IMX_PCIE_FLAG_SPEED_CHANGE_WORKAROUND |
->  			 IMX_PCIE_FLAG_BROKEN_SUSPEND |
-> -			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND,
-> +			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND |
-> +			 IMX_PCIE_FLAG_KEEP_MSI_CAP,
->  		.dbi_length = 0x200,
->  		.gpr = "fsl,imx6q-iomuxc-gpr",
->  		.ltssm_off = IOMUXC_GPR12,
-> @@ -2011,7 +2012,8 @@ static const struct imx_pcie_drvdata drvdata[] = {
->  		.flags = IMX_PCIE_FLAG_IMX_PHY |
->  			 IMX_PCIE_FLAG_SPEED_CHANGE_WORKAROUND |
->  			 IMX_PCIE_FLAG_SKIP_L23_READY |
-> -			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND,
-> +			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND |
-> +			 IMX_PCIE_FLAG_KEEP_MSI_CAP,
->  		.gpr = "fsl,imx6q-iomuxc-gpr",
->  		.ltssm_off = IOMUXC_GPR12,
->  		.ltssm_mask = IMX6Q_GPR12_PCIE_CTL_2,
-> @@ -2026,7 +2028,8 @@ static const struct imx_pcie_drvdata drvdata[] = {
->  		.flags = IMX_PCIE_FLAG_IMX_PHY |
->  			 IMX_PCIE_FLAG_SPEED_CHANGE_WORKAROUND |
->  			 IMX_PCIE_FLAG_SKIP_L23_READY |
-> -			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND,
-> +			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND |
-> +			 IMX_PCIE_FLAG_KEEP_MSI_CAP,
->  		.dbi_length = 0x200,
->  		.gpr = "fsl,imx6q-iomuxc-gpr",
->  		.ltssm_off = IOMUXC_GPR12,
-> -- 
-> 2.34.1
-> 
+Clear fl_ops before attempting to initialize the NLM private state, and
+install the NLM lock operations only after a lockowner has been allocated
+successfully.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+---
+ fs/lockd/clntproc.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/fs/lockd/clntproc.c b/fs/lockd/clntproc.c
+index f06faf577cea..f8018bfe9c64 100644
+--- a/fs/lockd/clntproc.c
++++ b/fs/lockd/clntproc.c
+@@ -487,9 +487,12 @@ static const struct file_lock_operations nlmclnt_lock_ops = {
+ static void nlmclnt_locks_init_private(struct file_lock *fl, struct nlm_host *host)
+ {
+ 	fl->fl_u.nfs_fl.state = 0;
++	fl->fl_ops = NULL;
+ 	fl->fl_u.nfs_fl.owner = nlmclnt_find_lockowner(host,
+ 						       fl->c.flc_owner);
+ 	INIT_LIST_HEAD(&fl->fl_u.nfs_fl.list);
++	if (!fl->fl_u.nfs_fl.owner)
++		return;
+ 	fl->fl_ops = &nlmclnt_lock_ops;
+ }
+ 
+
+base-commit: fce2dfa773ced15f27dd27cd0b482a7473cdcf2a
+-- 
+2.43.0
+
