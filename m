@@ -1,121 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847F438228A;
-	Fri, 17 Jul 2026 19:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784316551; cv=none; b=FIcVd8+ce48h7MUhD5/v54NLMbYx+m6J0Q6HbuI4R5R8BL1enFApomHiu/AMic6MVbYFlewoD//WuvVY36UR/ontoG7MgDtzEe/sp6KjHtjSJrGlHxTCtMWzCQAHqhYckB5a3jY9ImTNxuvJt4eQnXzjnDve/bo6tqqFyomP5LA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784316551; c=relaxed/simple;
-	bh=KgINJPKFLM01aqOJA6LxNGcRE/h96xrGUwHHr58I1aY=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=eTl1Dc3AnsG3RkE9dVXX3N1rfYQLEecO58iGA3sfXOercVpuqjdh1ZQ80mpNwmSk9FvXcbbvfgbo/6FLaaHo4GzDkKRBj/Nq0XAmqn3BxtsR0FiWbsvIR2K0lwwO1bQ5G31Ng07QNgeNGq+tndWjVDp1sa6qR3gjLPv3qZD1paY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RBUssh5E; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBA0E54B
+	for <stable@vger.kernel.org>; Fri, 17 Jul 2026 19:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784316849; cv=pass; b=cvhThsbeYdg4t4ypJJOqdzU22O6b42qpl66C62TTVylbqsuKYEkbPIQ+CoeyjzTmJuB8q/yGoO6OVAMHcDnPgwD10WGZOhNSG490mQUYnrpTC3kayqhz9nlB3Ms6mas7j7j0w/Ucp4tJ59qwi/FckzU+0Z7karaBLLtpyQeI8lY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784316849; c=relaxed/simple;
+	bh=Z2+x0bVuX2JZuXF66F8NzOj726FZhm0l0KRuCmFB0LE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qF//9Pycf3PnFO2wgGTm9nzx9aLemKrVRwFFRVVA9C08fkN7Xeu7q/IbS7lA5SATbgCYQwkCIvpYVZlBd1d/r3nat3pbLJDdYQpMJhqA0Jar1Zkj88nAm0yjXGmnmWEcnwD29MlkDkpEtziVTORe/48SBNGJFI2V2YVcR7uuh1o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GhpA09/D; arc=pass smtp.client-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RBUssh5E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF5171F000E9;
-	Fri, 17 Jul 2026 19:29:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GhpA09/D"
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c08df8513so34028741cf.3
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 12:34:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784316846; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KZ92I0FZ9DOW2+S6BOVkNDjuGnPuigRGs9OJ78y1bz3lryiWd8YD5pWpW0HNINQ9Ms
+         +5XCNw0VvQmA9WoZQqSefUnVfIIWPWnh8xcOtgpa77gxrU8ZRsb6UBWhbwc3jFP2eZXJ
+         uazA1o5NFWBj47DKjlcntm0Mm3MDrEFjvnQ3glsiNFr6Dg5mTnwN1KSwd9LtQLU2afZD
+         puIhhx0cdSnbI+G7MQB2WnzcX7++8coKExpJf1CpQzx+x3Mg0N/wYo4B+urN2fa8qV04
+         L7jRTIGxubvFK7AgbiYpVK552rpyCzZK+FxNdicJOrO4bWouDDzr94a34LSyMiLmLkUw
+         Gq7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0VXJKOtnkf44j+tQQsqQzA0l3vLSi+Q72kwccQQQrtI=;
+        fh=Npo6q59QiPZXSrHOeoWAvJL8NhFw2AlcJzTP2aIVBgE=;
+        b=Y6QvWELZMrlPILhP4ZUfMKhwbSX6jw2AhcaURAPqXBpIA9Dpu5Od04LpCwKclCUwV/
+         L1T+ba7Unjm3X+12qwIdulKPToTCVi0qoZSyToR03+LWAZ7oVq/ywivd9DIQJiAfTnFf
+         KIxVb/9/r21l51cZ0DxuhT3IiGFYQkBI0jUnFZ53zQF05J5wARXIwLqpvtTTqBzFUZ//
+         Fi6kJ5Ho9YSPXuicHf/EhxPg1BpuT3L1ENaX10dWiy908pXetzbOeCcSWK2Fkni9Y2F2
+         m8v8WlehkJOQU1ZN93lqRjReLYEaheboEKzgU/KdgyYmJsZVk+FHXJfVkiVmuGRDeZ6J
+         e+3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784316549;
-	bh=ui+ORj1/z8nhcz2rVBcwlFO5TeUDA1QRckff/Axxhfc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RBUssh5EaLehERy4Cgi0QGmJnAOAqgTzVfUX3zA0MRCL/hp/gU1KuyrB1kS6Q7wSc
-	 3CuE6RDTXx/8Yl95lAMi7m9NoXKXnJyX7bcJPQVkywGVvyBnHKTn7ZcFYO3itBGKP1
-	 rCb1/Gdr+DbERUhJfZim7lwhNLXLpKzROb62w/uo=
-Date: Fri, 17 Jul 2026 12:29:08 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt
- <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Uladzislau
- Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, Dave Hansen
- <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, Peter
- Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo
- Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, Catalin
- Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Dev Jain
- <dev.jain@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, David Carlier
- <devnexen@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, "Denis V. Lunev"
- <den@virtuozzo.com>, stable@vger.kernel.org,
- syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-Subject: Re: [PATCH mm-hotfixes v5 0/5] mm: fix UAF caused by race between
- ptdump and vmap pgtable freeing
-Message-Id: <20260717122908.3d9f4a8ad76a748d859b43f2@linux-foundation.org>
-In-Reply-To: <20260717-series-vmap-race-fix-v5-0-606a0ac6d3e5@kernel.org>
-References: <20260717-series-vmap-race-fix-v5-0-606a0ac6d3e5@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=google.com; s=20251104; t=1784316846; x=1784921646; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0VXJKOtnkf44j+tQQsqQzA0l3vLSi+Q72kwccQQQrtI=;
+        b=GhpA09/DoCfXdyGGw7zJ9bP9uoHcFXAbDYNrOfZd4UlF6r56MqXBISyGIx0DH/aA+8
+         flc7lUkG2oUgoH+SEAnwAWbY600DXVGjWpnBy9jxSUoMCWJQb+eCSukiujd8/C3fOhn5
+         VFWqs9q9rCDcJgKCFmwZFGrX5QAtWniCUAuW5ajgJl5qX0QYd4I7gUd3anDnsoxYlR2N
+         GsytER35otGTNYcygF2S+3nvQLb7JN7ql6TcKD22THvKQcHMcqqyqCEZIqPRO1wV9HfD
+         Y2opmcQUoxDtfe244ASkRTcS7TugCUGj10aQhJA+w01AQAFu7xg1esbIO02vwCeDhA4h
+         Cz3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784316846; x=1784921646;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0VXJKOtnkf44j+tQQsqQzA0l3vLSi+Q72kwccQQQrtI=;
+        b=gW28wzzpRcG/U34yYba29sn+tYmNIdDl3jhkcEQmkDw4didjoRAwXhJ/v9AhGqUv0E
+         g0VCEhWXjGYJ+ES+ru7lmBiRZOo0nlVm+FwpNqHSpDsNexyyt3B/5iUYEOkmhh6A9Lq4
+         D4heuiHmzoH2Fx6su3Taovq0HarVyv5aRdxmlZV7wDcWSREWP3iBScQ5+ICR6rPCeWkD
+         bT5g/YRsvPUtZjc1DNCJy0NlNsfeuxegAo7oRMO5NSpu7mlCVFebGX1HGKQDCz/KuokS
+         s6BK3wD1dzdicARuX64lumx1zhAMuiyOx6Qjo+2iw+rVKG1ML9a11K/NLiuGt3AtGnlC
+         7Thg==
+X-Forwarded-Encrypted: i=1; AHgh+RpYCtlN9ZrkwiblxowCcUbsM0taxh2M4MD7DeGXd1gLHj27EB/RNQ6124sq73KuzKwwFsB4Mrg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxuU2dBjJQY8/kCU11uGX7xSRCaO7WHTigy5GvTwVuXS9CUFbXa
+	U4CgC/8U51DSHFKFf12P4P5bEA8sEKZNsexlnhE9YjytIZOeHpFVG1Tpew3KE2OTAp5fUc3K38g
+	eueT1dptqf7wC1S6IPRbq6tOow2mqHYesRR1NdVL/
+X-Gm-Gg: AfdE7cmV2NREcbM0bTdNHphj0XJZwj0Ob2tKDQ/3hfUrp7iOWyfpQBVHnakgPUiUEda
+	HnSNtFMdQBfI9Cuh5bm9K7RAOiIAa68Nz+tKKCyNEN0xiU0YSo43SjF4sUy6XO1gcXHpMeGX8YZ
+	h9vOHCFfZ654U2yJ8dHziuvH0cHoWBQfB+j+4Cvv+GKDyjahtjLZY4boR8/8H1IwCiH2QJ0/KVZ
+	BuQjyKz/JFfurRozMjwMW9kWHX7hfXdLtk4a77jXuU7Q9A18F0ERxuTrcN3SIEfFIHAIcL0zl+E
+	Ig5k82WiyeUWuSu4c+fMDRw8vSyYNdioTAZu96S/XqX01TO+r3mkIRi9XHIgFXfK8nNcJ0TEBFu
+	GdhTDIh2B
+X-Received: by 2002:a05:622a:a05:b0:51c:1c00:e46 with SMTP id
+ d75a77b69052e-5213c7e8436mr37586171cf.25.1784316845085; Fri, 17 Jul 2026
+ 12:34:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+References: <20260717074109.686170-1-yangyx22@mails.tsinghua.edu.cn>
+In-Reply-To: <20260717074109.686170-1-yangyx22@mails.tsinghua.edu.cn>
+From: Eric Dumazet <edumazet@google.com>
+Date: Fri, 17 Jul 2026 21:33:52 +0200
+X-Gm-Features: AUfX_mzjSXpXhmgPyFW5IUal0VGKT4ixqqI6k9wW0PNFr2YNbw4acNqb_17YTjk
+Message-ID: <CANn89iLK7dN3JObPGCsgep5aCobrfT-gKpdPpmG3uZwgyOwa7Q@mail.gmail.com>
+Subject: Re: [PATCH net] ipv4: reject impossible oversized fragments at queue time
+To: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com, 
+	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>, Ao Wang <wangao@seu.edu.cn>, 
+	Xuewei Feng <fengxw06@126.com>, Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>, 
+	yyxroy22@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 17 Jul 2026 18:30:06 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-
-> Kernel page table walkers fall into two broad categories - those ranges
-> where no exclusion is required via walk_kernel_page_table_range_lockless()
-> and those where exclusion is required via walk_kernel_page_table_range()
-> or walk_page_range_debug().
-> 
-> The former category is used only by arm64 arch code operating on ranges it
-> both wholly owns and does not concurrently write.
-> 
-> The latter category consists of kernel page table walkers operating on
-> ranges that are wholly owned (but which need exclusion against concurrent
-> writers).
-> 
-> The lock used for exclusion is the mmap lock, and for kernel ranges this
-> the mmap lock on init_mm.
-> 
-> ptdump is a special case being both the only user of
-> walk_page_range_debug(), and the only case in which it walks ranges it does
-> not own.
-> 
-> This presents a problem, as page tables may be freed under ptdump. And
-> indeed there is a use-after-free bug in the kernel as a result, which this
-> series addresses.
-> 
-> ...
+On Fri, Jul 17, 2026 at 9:41=E2=80=AFAM Yuxiang Yang
+<yangyx22@mails.tsinghua.edu.cn> wrote:
 >
-> This series works around this by #ifndef CONFIG_ARM64'ing the mmap read
-> lock in vmap logic, then partially reverting commit fa93b45fd397 ("arm64:
-> Enable vmalloc-huge with ptdump"), keeping the enablement of huge vmap
-> support, and removing the ifdeffery with the partial revert patch.
-> 
+> ip_frag_queue() computes each incoming fragment's end offset and may
+> store it in qp->q.len without checking that the fragment can fit within
+> the 65535 byte IPv4 datagram limit, even with the minimum IPv4 header.
+> The only 65535 byte check lives later in ip_frag_reasm(), after the
+> fragment has already been accepted into the reassembly queue and has
+> updated its state.
+>
+> A fragment whose end offset exceeds 65535 minus the minimum 20-byte IPv4
+> header cannot be part of any valid IPv4 datagram. Letting it update
+> qp->q.len leaves the shared reassembly queue with an impossible expected
+> length. A later legitimate two-fragment datagram sharing that key can no
+> longer complete reassembly and is not delivered.
+>
+> This was verified at runtime on Linux 6.12.93-0-virt. A same-key
+> oversized-fragment injection (offset 65528, payload 8, end 65536) drove
+> legitimate two-fragment UDP delivery from 8/8 to 0/8, while a cross-ID
+> control stayed at 8/8.
+>
+> With this change applied to net main, the same-key test delivered 8/8.
+> A valid 65535-byte datagram with a 20-byte header was also delivered with
+> both in-order and reverse-order fragments; its 65507-byte UDP payload
+> was intact in both cases.
+>
+> Add a per-fragment bound check in ip_frag_queue() right after computing
+> end and before any qp->q.len update or skb insertion. IPv4 always needs
+> at least a struct iphdr, so an end offset greater than IP_MAX_MTU minus
+> sizeof(struct iphdr) cannot fit in any valid IPv4 datagram. Use that
+> minimum-header bound rather than the current fragment's IHL because
+> fragments may arrive out of order and the first fragment may carry
+> non-copied options that later fragments lack. The existing check in
+> ip_frag_reasm() continues to validate the final length against the
+> actual header length of the first fragment.
+>
+> Drop only the invalid skb so an existing queue for the same key remains
+> intact.
 
-Thanks, I updated mm-hotfixes-unstable to this version.
+I have a hard time understanding the issue.
 
-> v5:
-> * Rebased on latest master of Linus's tree.
-> * Accumulated tags, thanks everybody!
-> * Added additional commit to fix race between CPA collapse/attribute set.
-> * Slight commit message tweaks.
+This is an invalid packet, why should we add more bloat to
+the kernel just to 'optimize' this case?
 
-Here's how v5 altered mm.git.  This is from the addition of [3/5] - no
-other patches changed.
+You understand that IP frags are unreliable no matter how hard we try
+to 'fix' them, right ?
 
 
- arch/x86/mm/pat/set_memory.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
 
---- a/arch/x86/mm/pat/set_memory.c~b
-+++ a/arch/x86/mm/pat/set_memory.c
-@@ -2122,7 +2122,9 @@ static int change_page_attr_set_clr(unsi
- 	cpa.curpage = 0;
- 	cpa.force_split = force_split;
- 
--	ret = __change_page_attr_set_clr(&cpa, 1);
-+	/* Avoid race with concurrent CPA collapse. */
-+	scoped_guard(mmap_read_lock, &init_mm)
-+		ret = __change_page_attr_set_clr(&cpa, 1);
- 
- 	/*
- 	 * Check whether we really changed something:
-_
-
+>
+> The issue was found by Yuxiang Yang, Yizhou Zhao, Ao Wang, Xuewei Feng,
+> Qi Li, and Ke Xu, with assistance from GLM-5.2 by Z.ai.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+> ---
+>  net/ipv4/ip_fragment.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+> index c790d2f49..32e5240a5 100644
+> --- a/net/ipv4/ip_fragment.c
+> +++ b/net/ipv4/ip_fragment.c
+> @@ -291,6 +291,8 @@ static int ip_frag_queue(struct ipq *qp, struct sk_bu=
+ff *skb, int *refs)
+>         /* Determine the position of this fragment. */
+>         end =3D offset + skb->len - skb_network_offset(skb) - ihl;
+>         err =3D -EINVAL;
+> +       if (end > IP_MAX_MTU - sizeof(struct iphdr))
+> +               goto err;
+>
+>         /* Is this the final fragment? */
+>         if ((flags & IP_MF) =3D=3D 0) {
+> --
+> 2.34.1
+>
