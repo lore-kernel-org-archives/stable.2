@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2900487BE
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 01:33:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48C422689C
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 01:33:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784338420; cv=none; b=U7s+/3+P2ujD61Lwi+eESsc8xtaIv0MOYaBOrHMex/T33vbFOhjmjlzsFG8WviHRXvMqDBQAiT+i9ur+N/LWL9Me52T+mLKjZ6/7cS7vT/FFf9Q6xxNTalqutcaH+f/Yomgkin6K15fu/t2j8pcAJs1NF+TtT+d38Z7YBfwFEBQ=
+	t=1784338420; cv=none; b=Ksm7/7ZbOMUID3OpWWVp6h9f7zP2+HWy/G9MGqUybniYI9/yOYyD43tuTRMdgdo8LVgxjoWCyqI7rpF7pk9xrV0ng+U/KTnpSWmtk7Vp4svoDCALp6XPQUTgDnHr08RFdbsyyvzPV3i7R7WcCBv1i+Kh68gOnOoU1h0f5OVjaow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784338420; c=relaxed/simple;
-	bh=ZQtPGBhTJ3pZ6TQobSuDp+peF8fid+spbbSCrr1KuNU=;
+	bh=AJgf2kNOkQCiqAfUH42yWm60zMKHUwqJSzE8oga5UVE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ws+mwUFliNGvSK7MjFBp0/uaeLkd0yiHdByG/pKqVAzS9Fj9XueluHos9VzIKn4DiQcgfOCTQL+tDGPi+APho+4zBE7rdiOcnIUv9fwDRm0Ca9P6hAgYac535IBfyTITO9Pnva+/fRJGxQNZ00JMKevsGiot6VmbXqUFdloKHrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K0zJoev8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hBR3e65F1Anp9UsFPnjjIjngyI57Sasfzc6hUs2XOXupz/TLVxmzhDvYYCXFWNbSDiKnUJRLnyUF08i5UhaYuXmJS75cC3hBTQakHbCfTd/ZeQ+8wKkqJGqX1EPMRbkyIzoOi5Rwne4e4te3dO/d7qwdlPcqUNe+E69lr1yhs+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AkamrmhW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K0zJoev8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EC81F00A3A;
-	Sat, 18 Jul 2026 01:33:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AkamrmhW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5AD71F00A3F;
+	Sat, 18 Jul 2026 01:33:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784338418;
-	bh=H0Ek5Agqzv72cLzL5gEqJGWM8LWp26YdrwIFNkOeqx0=;
+	s=k20260515; t=1784338419;
+	bh=cRzjSXHoZYPANYZOqvJH52f0+I4gqyX+O3voU5ORLK8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K0zJoev8qyhr7R2898Rl9A3JRPhcXdEd3EOUQDrsMkXI8Yj2K+GosUVH98iG9SYNo
-	 Q+UQVhHLD/NHXG9FgYlSRkIiXtLwn+bg0JSXh1hTr3dImrF6L4Fbaz1ptE9x4ZWzZL
-	 pCFi9AsTtHS07/SE3gTXZvFMpsSDp2SoFFIe12e+v8eGz461KuNpjqKTct0X4EWYJP
-	 gb1ikg0CERao+2g7FYzbJ5+wc9Eipc6LHEAQokel3t6TiV+aqinaE5Qwl8BMCsQ1o3
-	 tt0T578wsX2yzQgF2GZswdHndnEqu5jNUqf5u9u0SMkqzcGd0dQVDZfJmptlS27igz
-	 twUiw2iI+VFYA==
+	b=AkamrmhWTS49AuE8fF7EHNqYCGw1q92Swu+x3KCBiiV++L8CxpZjjO2y03m1ze3BC
+	 olEvEGNXMvour61aGRGd8HJHiHXEaDHZwLTDHiPSt1/H133I7/VJAyKG/kYpCoY39j
+	 +FkX0sdiT1+9u4BQF5lLshv36nlYQwDs9EBX8dYZwxbGva8XgJjFaasMf97jSQvwMd
+	 +ZSBOaHPq5qkxfkulg9IWLNIVJrKEdk9AA+LM+nhou1BkbXIAoBfygWsN4mDhMOEgQ
+	 cXpfLqe9V92XIb0LlVTjSIF/Ofj9XHbDQpmPRb58R0AKokFIMCxwTb3Ukw60wZvuxu
+	 lC+S0m5k48NTQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
-	Abaci Robot <abaci@linux.alibaba.com>,
+Cc: Yousef Alhouseen <alhouseenyousef@gmail.com>,
 	"Darrick J. Wong" <djwong@kernel.org>,
-	Dave Chinner <dchinner@redhat.com>,
-	Dave Chinner <david@fromorbit.com>,
+	syzbot+b7dfbed0c6c2b5e9fd34@syzkaller.appspotmail.com,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/3] xfs: Remove dead code
-Date: Fri, 17 Jul 2026 21:33:34 -0400
-Message-ID: <20260718013335.2621394-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/3] xfs: use null daddr for unset first bad log block
+Date: Fri, 17 Jul 2026 21:33:35 -0400
+Message-ID: <20260718013335.2621394-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260718013335.2621394-1-sashal@kernel.org>
 References: <2026071429-showdown-footpad-d6da@gregkh>
@@ -49,112 +48,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-[ Upstream commit e62c720817597f259b81f1ff004eb042293bf046 ]
+[ Upstream commit cc9af5e461ea5f6e37738f3f1e41c45a9b7f45d6 ]
 
-Remove tht entire xlog_recover_check_summary() function, this entire
-function is dead code and has been for 12 years.
+xlog_do_recovery_pass() may return before setting first_bad.  The caller
+must distinguish that case from an error at a valid log block, including
+block zero after the log wraps.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-Reviewed-by: Dave Chinner <dchinner@redhat.com>
-Signed-off-by: Dave Chinner <david@fromorbit.com>
-Stable-dep-of: cc9af5e461ea ("xfs: use null daddr for unset first bad log block")
+Initialize first_bad to XFS_BUF_DADDR_NULL and test it explicitly before
+treating the error as a torn write.
+
+Fixes: 7088c4136fa1 ("xfs: detect and trim torn writes during log recovery")
+Suggested-by: Darrick J. Wong <djwong@kernel.org>
+Reported-by: syzbot+b7dfbed0c6c2b5e9fd34@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b7dfbed0c6c2b5e9fd34
+Cc: stable@vger.kernel.org # v4.5
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/xfs_log_recover.c | 59 ----------------------------------------
- 1 file changed, 59 deletions(-)
+ fs/xfs/xfs_log_recover.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
-index c8e2423a13d82b..c439afb7a7aced 100644
+index c439afb7a7aced..4c9c06d6021ab1 100644
 --- a/fs/xfs/xfs_log_recover.c
 +++ b/fs/xfs/xfs_log_recover.c
-@@ -39,13 +39,6 @@ STATIC int
- xlog_clear_stale_blocks(
- 	struct xlog	*,
- 	xfs_lsn_t);
--#if defined(DEBUG)
--STATIC void
--xlog_recover_check_summary(
--	struct xlog *);
--#else
--#define	xlog_recover_check_summary(log)
--#endif
- STATIC int
- xlog_do_recovery_pass(
-         struct xlog *, xfs_daddr_t, xfs_daddr_t, int, xfs_daddr_t *);
-@@ -3373,8 +3366,6 @@ xlog_do_recover(
- 	}
- 	mp->m_alloc_set_aside = xfs_alloc_set_aside(mp);
- 
--	xlog_recover_check_summary(log);
--
- 	/* Normal transactions can now occur */
- 	clear_bit(XLOG_ACTIVE_RECOVERY, &log->l_opstate);
- 	return 0;
-@@ -3517,7 +3508,6 @@ xlog_recover_finish(
- 	}
- 
- 	xlog_recover_process_iunlinks(log);
--	xlog_recover_check_summary(log);
- 
- 	/*
- 	 * Recover any CoW staging blocks that are still referenced by the
-@@ -3551,52 +3541,3 @@ xlog_recover_cancel(
+@@ -1028,7 +1028,7 @@ xlog_verify_head(
+ {
+ 	struct xlog_rec_header	*tmp_rhead;
+ 	char			*tmp_buffer;
+-	xfs_daddr_t		first_bad;
++	xfs_daddr_t		first_bad = XFS_BUF_DADDR_NULL;
+ 	xfs_daddr_t		tmp_rhead_blk;
+ 	int			found;
+ 	int			error;
+@@ -1057,7 +1057,8 @@ xlog_verify_head(
+ 	 */
+ 	error = xlog_do_recovery_pass(log, *head_blk, tmp_rhead_blk,
+ 				      XLOG_RECOVER_CRCPASS, &first_bad);
+-	if ((error == -EFSBADCRC || error == -EFSCORRUPTED) && first_bad) {
++	if ((error == -EFSBADCRC || error == -EFSCORRUPTED) &&
++	    first_bad != XFS_BUF_DADDR_NULL) {
+ 		/*
+ 		 * We've hit a potential torn write. Reset the error and warn
+ 		 * about it.
+@@ -3540,4 +3541,3 @@ xlog_recover_cancel(
+ 	if (xlog_recovery_needed(log))
  		xlog_recover_cancel_intents(log);
  }
- 
--#if defined(DEBUG)
--/*
-- * Read all of the agf and agi counters and check that they
-- * are consistent with the superblock counters.
-- */
--STATIC void
--xlog_recover_check_summary(
--	struct xlog		*log)
--{
--	struct xfs_mount	*mp = log->l_mp;
--	struct xfs_perag	*pag;
--	struct xfs_buf		*agfbp;
--	struct xfs_buf		*agibp;
--	xfs_agnumber_t		agno;
--	uint64_t		freeblks;
--	uint64_t		itotal;
--	uint64_t		ifree;
--	int			error;
 -
--	freeblks = 0LL;
--	itotal = 0LL;
--	ifree = 0LL;
--	for_each_perag(mp, agno, pag) {
--		error = xfs_read_agf(mp, NULL, pag->pag_agno, 0, &agfbp);
--		if (error) {
--			xfs_alert(mp, "%s agf read failed agno %d error %d",
--						__func__, pag->pag_agno, error);
--		} else {
--			struct xfs_agf	*agfp = agfbp->b_addr;
--
--			freeblks += be32_to_cpu(agfp->agf_freeblks) +
--				    be32_to_cpu(agfp->agf_flcount);
--			xfs_buf_relse(agfbp);
--		}
--
--		error = xfs_read_agi(mp, NULL, pag->pag_agno, &agibp);
--		if (error) {
--			xfs_alert(mp, "%s agi read failed agno %d error %d",
--						__func__, pag->pag_agno, error);
--		} else {
--			struct xfs_agi	*agi = agibp->b_addr;
--
--			itotal += be32_to_cpu(agi->agi_count);
--			ifree += be32_to_cpu(agi->agi_freecount);
--			xfs_buf_relse(agibp);
--		}
--	}
--}
--#endif /* DEBUG */
 -- 
 2.53.0
 
