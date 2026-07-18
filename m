@@ -1,121 +1,149 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E65B335972;
-	Sat, 18 Jul 2026 02:12:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0344723394C;
+	Sat, 18 Jul 2026 02:24:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784340773; cv=none; b=I+rcc0ivLwqsRSc3lSc49sCCryGQH2kxg85wP4eBYNSdLi2BpohC3RKrNIRuZGM/kMgpge1wk3ptsTynBop+yzXjuUhPy7IGTJ1bDbmMiQpe8r0P9HyKVsAsd+Dbf4bVE+BNQ99uxOPqI1H/CKEUxAdSZGcc2MxVDKkmvLtNmUo=
+	t=1784341457; cv=none; b=D+5BlQtSMywemFBw1gfVZ/7Cmuz/60KyI5uTkicRDW+f3eGlUVuoHlrn99KPldYLNvJkvQvtf195OUIqKAKGXk9YYlOGNV90x6ABaCdXzP/84+9HxpFlHrCG1NxOdkrBJae4SMEC0h9Y1ID6wOYOtHg2zRyWtfV1S+hSlimxMNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784340773; c=relaxed/simple;
-	bh=FQAxCInk2AF8mBO39ha0IVg7+b8kN4qIDSfhr6AwqeM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=epEdM124mPBV3h2ACsvGpRDZcKc6vHEFxyftBW+ER+Q38xm/WGVzvJW/vzHSQAPm9SAa8BY4GeNxsjV6eNTL2CeLxML16W9mJqvi49bNspmgeAknMASNkHlmA7cC+UbBXryXbTYBm7dG1u+z4Kb+oEDIaskwt5hGfNXgAFQKvZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDn738V4Vpqo_8KAA--.4374S3;
-	Sat, 18 Jul 2026 10:12:39 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgC36jEV4VpqssxhAg--.22301S2;
-	Sat, 18 Jul 2026 10:12:37 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: heikki.krogerus@linux.intel.com
-Cc: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] usb: typec: ucsi: acpi: Fix use-after-free of ucsi on remove
-Date: Sat, 18 Jul 2026 02:11:42 +0000
-Message-Id: <20260718021142.3146566-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1784341457; c=relaxed/simple;
+	bh=x/Y8EzPL7b4EDoZjFZQHBRi45esriY/zeM9DlLQXxFE=;
+	h=Date:To:From:Subject:Message-Id; b=VzJw8vcpV4la93UOZ9l8WwA2SJgvLrYzb7vTvq4ToRYsJKWqk9uKWksPPnRKbZ8488xm8nc9RbXu7Ni++dgoZ2SOTo/6mMiOhYCyQG0QX+kyM0iVoWJsORTQzhXRhsX+oXKOdw43Ap3wSE90/SbZJgcM+sGHM3i1WBV3QqH2/kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=g3BJJMib; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="g3BJJMib"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BCC11F000E9;
+	Sat, 18 Jul 2026 02:24:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784341455;
+	bh=GssBdU1a0R7dTCH4n67hKKQ/CKDMb+o05baTzK+ljqY=;
+	h=Date:To:From:Subject;
+	b=g3BJJMib+Amp3o49s/burDhKPPlXpPFYk7mqb5q0RPW3xdyC0IxEt3lLEVwXNF0iu
+	 PP+ReVfa+80Vli4fxlVxDT9u2q232oLU9dAo4HaqgozByCAyQIg1+mWWCPvjiAUw0b
+	 QCKIEu2jkUf0UT2y1ue3Cg5MFqoJfmu7rdt4MGtg=
+Date: Fri, 17 Jul 2026 19:24:15 -0700
+To: mm-commits@vger.kernel.org,vishal.moola@gmail.com,stable@vger.kernel.org,rppt@kernel.org,palmer@dabbelt.com,namcao@linutronix.de,muchun.song@linux.dev,kas@kernel.org,guoren@kernel.org,david@kernel.org,aou@eecs.berkeley.edu,alex@ghiti.fr,xujiakai2025@iscas.ac.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + riscv-mm-use-physical-alignment-for-vmemmap_start_pfn.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260718022415.6BCC11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgC36jEV4VpqssxhAg--.22301S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?IIomyAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZz7YkbJ3AoyGBdg4rUAvmX1NnfkbRhgWhLC2J6tQB0GXIUi
-	MA23mPTTVIkZA5npcoqp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxCw4xurykAF48ZFyxuF45Jwc_yoW5XrWxpr
-	WIk3y0kw40gF1Yga1kXwn5XFy8uF4kZry7GF1Ig3yxGws8uw1UXF93t3W5CFy5Jr98Wanr
-	Ar48Ja45Zay5AwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjx
-	CEc2xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAF
-	wI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0x
-	vY0x0EwIxGrwACjcxG0xvY0x0EwIxGrVCF72vEw4AK0wCF04k20xvY0x0EwIxGrwCFx2Iq
-	xVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r
-	106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AK
-	xVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7
-	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_
-	Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jnKsUUUUUU=
 
-The ACPI notify handler ucsi_acpi_notify() calls
-ua->ucsi->ops->read_cci() and ucsi_notify_common(), both of which
-dereference ua->ucsi with no NULL guard.  In ucsi_acpi_remove(),
-ucsi_destroy() frees ua->ucsi (kfree) before
-acpi_remove_notify_handler() is called, so a notify dispatch already
-in flight on another CPU may access the freed object after
-ucsi_destroy().
 
-  CPU 0 (remove)                    | CPU 1 (ACPI notify wq)
-    ucsi_destroy(ua->ucsi)          |   ucsi_acpi_notify(ua)
-      kfree(ucsi) // FREE           |     ua->ucsi->ops->read_cci(...) // USE
+The patch titled
+     Subject: riscv/mm: use physical alignment for vmemmap_start_pfn
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     riscv-mm-use-physical-alignment-for-vmemmap_start_pfn.patch
 
-Move acpi_remove_notify_handler() before ucsi_destroy() in the remove
-path.  It is kept after ucsi_unregister(): ucsi_unregister() cancels
-connector work whose handler issues GET_CONNECTOR_STATUS through
-ucsi_send_command_common(), which waits for a completion that is
-signalled from the notify path, so the handler must stay registered
-until that work has been cancelled.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/riscv-mm-use-physical-alignment-for-vmemmap_start_pfn.patch
 
-acpi_remove_notify_handler() drains in-flight notify dispatches before
-returning: it calls acpi_os_wait_events_complete(), which flushes
-kacpi_notify_wq. Because ACPI device-notify dispatch is deferred to that
-same workqueue (acpi_os_execute(OSL_NOTIFY_HANDLER, ...)), the flush
-guarantees any queued or running ucsi_acpi_notify() has returned before
-the function returns, so ucsi_destroy() frees an object no handler can
-reach. This mirrors commit 1f0bdc2884b6 ("usb: typec: ucsi: ccg: Fix
-use-after-free of ucsi on remove"), which moved free_irq() before
-ucsi_destroy() with the same ordering rationale.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-The probe error paths already order acpi_remove_notify_handler() (or
-omit it, when install failed) before ucsi_destroy(), and are unchanged.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-This issue was found by an in-house static analysis tool.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Fixes: f56de278e8ec ("usb: typec: ucsi: acpi: Move to the new API")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Jiakai Xu <xujiakai2025@iscas.ac.cn>
+Subject: riscv/mm: use physical alignment for vmemmap_start_pfn
+Date: Thu, 16 Jul 2026 11:53:25 +0000
+
+RISC-V computes vmemmap_start_pfn by rounding phys_ram_base down to
+VMEMMAP_ADDR_ALIGN.  That alignment must therefore be expressed in the
+physical-address domain.
+
+Commit 476849b0fba4 ("riscv/mm: align vmemmap to maximal folio size")
+attempted to account for the maximal folio alignment by feeding
+MAX_FOLIO_VMEMMAP_ALIGN directly into VMEMMAP_ADDR_ALIGN.  However,
+MAX_FOLIO_VMEMMAP_ALIGN is measured in bytes of struct page storage,
+whereas VMEMMAP_ADDR_ALIGN is used to align a physical address.
+
+The mask-based compound_info encoding requires pfn_to_page(0) to be
+naturally aligned to MAX_FOLIO_VMEMMAP_ALIGN.  Commit 9f94db4c7eaa
+("mm/sparse: check memmap alignment for compound_info_has_mask()") added a
+check for that requirement and exposed the unit mismatch on systems such
+as QEMU virt, where the DRAM base is not aligned to MAX_FOLIO_NR_PAGES *
+PAGE_SIZE.
+
+Here is the log:
+[    0.000000][    C0] ------------[ cut here ]------------
+[    0.000000][    C0] WARNING: mm/sparse.c:365 at sparse_init+0x58a/0x6fe, CPU#0: swapper/0
+[    0.000000][    C0] Modules linked in:
+[    0.000000][    C0] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.2.0-rc3-g1d8304bdd65f #2 PREEMPT 
+[    0.000000][    C0] Hardware name: riscv-virtio,qemu (DT)
+[    0.000000][    C0] epc : sparse_init+0x58a/0x6fe
+[    0.000000][    C0]  ra : sparse_init+0x58a/0x6fe
+[    0.000000][    C0] epc : ffffffff86851c88 ra : ffffffff86851c88 sp : ffffffff88807a30
+[    0.000000][    C0]  gp : ffffffff8a3bf240 tp : ffffffff88842080 t0 : ff600000ffab6000
+[    0.000000][    C0]  t1 : 000000017fab6000 t2 : 65203a6573726363 s0 : ffffffff88807bc0
+[    0.000000][    C0]  s1 : 000000000e000000 a0 : 0000000000000007 a1 : 0000000000000000
+[    0.000000][    C0]  a2 : 0000000000000002 a3 : ffffffff86851c88 a4 : 0000000000000000
+[    0.000000][    C0]  a5 : ffffffff88843080 a6 : 0000000000000003 a7 : 0000000000000000
+[    0.000000][    C0]  s2 : ff60000000000000 s3 : 0040000000000000 s4 : 0004000000000000
+[    0.000000][    C0]  s5 : ffffffff8a4d92e0 s6 : ff600000ffab55e0 s7 : ffffffff88384d00
+[    0.000000][    C0]  s8 : 0000000000000003 s9 : ffffffff88384cc1 s10: ffffffff88384cc0
+[    0.000000][    C0]  s11: ffffffff8a4daae0 t3 : ffffffff915e8b20 t4 : ffffffff915e8b20
+[    0.000000][    C0]  t5 : ffffffff915e8b20 t6 : ffffffff915e8bc8 ssp : 0000000000000000
+[    0.000000][    C0] status: 0000000200000100 badaddr: ffffffff86851c88 cause: 0000000000000003
+[    0.000000][    C0] [<ffffffff86851c88>] sparse_init+0x58a/0x6fe
+[    0.000000][    C0] [<ffffffff8683d396>] mm_core_init_early+0x116/0x1e30
+[    0.000000][    C0] [<ffffffff86801edc>] start_kernel+0xd2/0x848
+
+Convert MAX_FOLIO_VMEMMAP_ALIGN to the equivalent physical alignment
+before using it in VMEMMAP_ADDR_ALIGN.  This keeps the existing
+round_down() logic while making the resulting vmemmap base satisfy the
+mask-alignment requirement.
+
+Link: https://lore.kernel.org/20260716115326.3466926-1-xujiakai2025@iscas.ac.cn
+Fixes: 476849b0fba4 ("riscv/mm: align vmemmap to maximal folio size")
+Signed-off-by: Jiakai Xu <xujiakai2025@iscas.ac.cn>
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Guo Ren <guoren@kernel.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Nam Cao <namcao@linutronix.de>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+Assisted-by: YuanSheng:DeepSeek-V4-Flash
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/usb/typec/ucsi/ucsi_acpi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index 60b12961e..1d56eadc9 100644
---- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-+++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -257,10 +257,10 @@ static void ucsi_acpi_remove(struct platform_device *pdev)
- 	struct ucsi_acpi *ua = platform_get_drvdata(pdev);
+ arch/riscv/mm/init.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- a/arch/riscv/mm/init.c~riscv-mm-use-physical-alignment-for-vmemmap_start_pfn
++++ a/arch/riscv/mm/init.c
+@@ -61,7 +61,8 @@ EXPORT_SYMBOL(phys_ram_base);
  
- 	ucsi_unregister(ua->ucsi);
--	ucsi_destroy(ua->ucsi);
+ #ifdef CONFIG_SPARSEMEM_VMEMMAP
+ #define VMEMMAP_ADDR_ALIGN	max(1ULL << SECTION_SIZE_BITS, \
+-				    MAX_FOLIO_VMEMMAP_ALIGN)
++				    PFN_PHYS(MAX_FOLIO_VMEMMAP_ALIGN / \
++					     sizeof(struct page)))
  
- 	acpi_remove_notify_handler(ACPI_HANDLE(&pdev->dev), ACPI_DEVICE_NOTIFY,
- 				   ucsi_acpi_notify);
-+	ucsi_destroy(ua->ucsi);
- }
- 
- static int ucsi_acpi_resume(struct device *dev)
--- 
-2.34.1
+ unsigned long vmemmap_start_pfn __ro_after_init;
+ EXPORT_SYMBOL(vmemmap_start_pfn);
+_
+
+Patches currently in -mm which might be from xujiakai2025@iscas.ac.cn are
+
+riscv-mm-use-physical-alignment-for-vmemmap_start_pfn.patch
 
