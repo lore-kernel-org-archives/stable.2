@@ -1,65 +1,43 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA9970836;
-	Sat, 18 Jul 2026 21:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871FB378D74
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 21:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784410709; cv=none; b=N2K2TnhEJaZl7gxRtEhxFzpaZklDMDp43Nt/8OKwf1mRFySRnssLo7E3E38Z/v68M+ZjVGGlENEjri3zr3POMwNS/Dj3tFDiAPjL7gQeZzD/Cx0Ayc7YdfPMijrMPkbg6wGkXp4BEXGvuoIlyBzdDT5nKru43nZmrPUex0iWTz8=
+	t=1784411419; cv=none; b=hPOIr4ZPuqVQMJdK0X+WOQpSHLE5QKgv8TShfUnh4BtNqnokHhV4fbslIFb14xZrgoFheQEIc6zUBVUHd4LBC3o7QzcceYxMZRwP6II1tswXLgomSh0KEcefhQtDbveeYf/F+mvU4DKJ685xQ8HTI8ItugiQCPNZuQiheOc0yC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784410709; c=relaxed/simple;
-	bh=OTfzyKQ7+oCD1jpnlmlq0O1dWNXiT6pkFts+V4CBv7w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z75AZnH7CnSkGUVjk5jvXbn0ylK/y0+p1mTWp5ctfYcGd3tC3drk0OUboga+xl1OF/VqTrYOC+veraQsLzrLMsY89EvuIr0+ljkIOkTYTyGRsEPUBFMYyV8tMhMRd0BeBkJBi25EMYGFYzJ+lXmJTUAygtvy8/dqjLq/IYNiuNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=bx/4U/R6; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=D5mzjP1h; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1784411419; c=relaxed/simple;
+	bh=9aelhLhEhzCpLMbp6IpoAmA0LjnKSn2i/NZrW4g1HNE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aMcL+cqZt4+NqPtY/B/Q25D8S2h9Nz0DsxiS8zNFpq0Y1xFk/d4gumt3SgJV6jBwqKkJYo/jhssW07kn6COxtcZy5KPg9CvLvRgZ5p3kDvZqJS1omzuJmVqQ/z/N5JPa5TQAeHc/I8jYgfRy89C4sVGhPw8lAhRWaWIigiOrZDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpXKhrjj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="bx/4U/R6";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="D5mzjP1h"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4h2gBT4jMczKq6c;
-	Sat, 18 Jul 2026 23:38:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784410705;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=2sznBgGicK/LYhOMmvPfuquDqZpSQCSAOYd1pIJIztU=;
-	b=bx/4U/R6TOJZKLu0+buETkLFlv+J8dn32nZA3eJGDCGtzuujt4pE0kwz2XPGxiQF02zRHw
-	nQpzFDBb5jHnZ4N0nbKxnyTzQelgx3M4VKEeUy6D44NqAsNRSyWFwi8CfTPsIfJ2/QYULG
-	txYoHQu03rBpcOLgr8UDyOjm4pbAe4+Lba1sA3UxdSyRBSwIT4fCj8dLFuDlXFkDufiENw
-	xFdh2JodyXyiQ2BrPVNLb4fWeBZmBa61foyE0eExoqUib6hBCcoARFmszfOJgeE9jzla99
-	nWOubtnCqXp2BulveV/z6P2NjLUkFbvFKTD/3GloOwQzfjUo48mElbHXlrxEQQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=D5mzjP1h;
-	spf=pass (outgoing_mbo_mout: domain of bennib@mailbox.org designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=bennib@mailbox.org
-From: Benjamin Boortz <bennib@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784410704;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=2sznBgGicK/LYhOMmvPfuquDqZpSQCSAOYd1pIJIztU=;
-	b=D5mzjP1h/j5S2y7G2aqguBhTjY2wmFsZGTnKvmsxWhB/0sgJGYo7ZbCGqHGB77cfqw4rRs
-	hbQKd7gqrvexe/VOfqX0sLGVM0s4vuor9ZXheI56N8weDPvqARtfneNe2uRZBaGPPMosTo
-	iq4APGJVreK3eNTOx6KzCJGa66TEkLF4dEEPQQM6cZKmAtOfhqQibZxpi6yLUcQixk26ex
-	r+mN6vGBD6CUMllqWL+TL7t1fMAM8amxL+nAvaU+HFQo2a4mKx6Xv3Qzf+tcc9MvcKyW0q
-	cIhnQ9Zb1MvIxnZAg95/+vhBVz7Cdc7CWVbNYxcHd1/2jnvfc9g/pK4RZkG6Sw==
-To: linusw@kernel.org,
-	lee@kernel.org,
-	vladimir.oltean@nxp.com,
-	colin.foster@in-advantage.com,
-	andy.shevchenko@gmail.com
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Benjamin Boortz <bennib@mailbox.org>
-Subject: [PATCH] pinctrl: microchip-sgpio: add missing select REGMAP_MMIO
-Date: Sat, 18 Jul 2026 23:35:15 +0200
-Message-ID: <20260718213738.2470294-1-bennib@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpXKhrjj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AE2C1F000E9;
+	Sat, 18 Jul 2026 21:50:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784411417;
+	bh=wqV+ExuVrloTw+9rtdqt0VYBVsIBrgk/zhFRmzzI1hs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cpXKhrjjIhbwDyADkZMv8gldwEKb0wUL0AWZ+NWgWkPr1vCL55HxF+2l1OR+1Pu+s
+	 hPa8ZCn/iG+WfnR24gAP9xypmzeCGOCPBLQwAhlSBjmEDc/+w40GG9JWmDdcuJNOUD
+	 m1yXB/k+LfrfP59XsrhXy9IErear88HmMxI6qmyVrVPbh5M7l0mJQA4W+GuSrcIWZV
+	 3FjEo/rjQeInHTpfvxCgmiQaD1LJ/WXsMnAN+NCZMZdw3Ox7TYyu8xfqoZG4YlpxFH
+	 lfcqRZpTI0fWQNo6XGmunBZ+lO3wWrBq6+2zWLgsJ/5KtRA/AnNJIk+dSaXWiOjML1
+	 TwAyNw6ZUObPw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ingo Rohloff <ingo.rohloff@lauterbach.com>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] usb: dwc3: Support USB3340x ULPI PHY high-speed negotiation.
+Date: Sat, 18 Jul 2026 17:50:14 -0400
+Message-ID: <20260718215015.3447229-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071411-expose-starless-4335@gregkh>
+References: <2026071411-expose-starless-4335@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,57 +45,155 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: ed84a9c939c8868e3ea
-X-MBO-RS-META: beiuuyrqrmnu7seahqze71diiu15kkfm
-X-Rspamd-Queue-Id: 4h2gBT4jMczKq6c
 
-The driver calls ocelot_regmap_from_resource() via <linux/mfd/ocelot.h>,
-which internally uses devm_regmap_init_mmio() and requires REGMAP_MMIO.
-The Kconfig entry does not select REGMAP_MMIO, causing a build failure
-when no other driver in the config happens to pull in REGMAP_MMIO:
+From: Ingo Rohloff <ingo.rohloff@lauterbach.com>
 
-  include/linux/mfd/ocelot.h:19:51: warning: 'struct regmap_config'
-    declared inside parameter list will not be visible outside of this
-    definition or declaration
-  include/linux/mfd/ocelot.h:34:24: error: implicit declaration of
-    function 'devm_regmap_init_mmio'
-  drivers/pinctrl/pinctrl-microchip-sgpio.c:910:16: error: variable
-    'regmap_config' has initializer but incomplete type
-  drivers/pinctrl/pinctrl-microchip-sgpio.c:911:18: error: 'struct
-    regmap_config' has no member named 'reg_bits'
+[ Upstream commit a28de63356575612954d4e5d5f48a2488f50e16d ]
 
-Found by randconfig testing on arm64; tinyconfig reproducer below.
+The Microchip USB3340x ULPI PHY requires a delay when switching to the
+high-speed transmitter. See:
+    http://ww1.microchip.com/downloads/en/DeviceDoc/80000645A.pdf
+    Module 2 "Device Enumeration Failure with Link IP Systems"
 
-Fixes: 68c873363a78 ("pinctrl: microchip-sgpio: add ability to be used in a non-mmio configuration")
-Cc: stable@vger.kernel.org
-Signed-off-by: Benjamin Boortz <bennib@mailbox.org>
+For details on the behavior and fix, refer to the AMD (formerly Xilinx)
+forum post: "USB stuck in full speed mode with USB3340 ULPI PHY, ZynqMP."
+
+This patch uses the USB PHY Vendor-ID and Product-ID to detect the
+USB3340 PHY and then applies the necessary fix if this PHY is found.
+
+Signed-off-by: Ingo Rohloff <ingo.rohloff@lauterbach.com>
+Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Link: https://patch.msgid.link/20260305121452.54082-2-ingo.rohloff@lauterbach.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: e0f844d9d742 ("usb: dwc3: fix dwc3_readl() and dwc3_writel() calls in dwc3_ulpi_setup()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Reproducer (tinyconfig, arm64, without patch):
+ drivers/usb/dwc3/core.c | 20 ++++++++++++++++++++
+ drivers/usb/dwc3/core.h |  4 ++++
+ drivers/usb/dwc3/ulpi.c | 25 +++++++++++++++++++++++++
+ 3 files changed, 49 insertions(+)
 
-  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- tinyconfig
-  scripts/config --enable CONFIG_PINCTRL
-  scripts/config --enable CONFIG_GPIOLIB
-  scripts/config --enable CONFIG_PINCTRL_MICROCHIP_SGPIO
-  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- olddefconfig
-  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- \
-      drivers/pinctrl/pinctrl-microchip-sgpio.o
-  -> CONFIG_REGMAP_MMIO absent, build fails as shown above.
-
- drivers/pinctrl/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
-index c2cdd7b2c49b..23ea76dc6261 100644
---- a/drivers/pinctrl/Kconfig
-+++ b/drivers/pinctrl/Kconfig
-@@ -426,6 +426,7 @@ config PINCTRL_MICROCHIP_SGPIO
- 	select GENERIC_PINCONF
- 	select GENERIC_PINCTRL_GROUPS
- 	select GENERIC_PINMUX_FUNCTIONS
-+	select REGMAP_MMIO
- 	help
- 	  Support for the serial GPIO interface used on Microsemi and
- 	  Microchip SoCs. By using a serial interface, the SIO
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index a1f99c3b5f3784..6fda6adbca18ae 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -781,6 +781,24 @@ static int dwc3_hs_phy_setup(struct dwc3 *dwc, int index)
+ 	return 0;
+ }
+ 
++static void dwc3_ulpi_setup(struct dwc3 *dwc)
++{
++	int index;
++	u32 reg;
++
++	/* Don't do anything if there is no ULPI PHY */
++	if (!dwc->ulpi)
++		return;
++
++	if (dwc->enable_usb2_transceiver_delay) {
++		for (index = 0; index < dwc->num_usb2_ports; index++) {
++			reg = dwc3_readl(dwc->regs, DWC3_GUSB2PHYCFG(index));
++			reg |= DWC3_GUSB2PHYCFG_XCVRDLY;
++			dwc3_writel(dwc->regs, DWC3_GUSB2PHYCFG(index), reg);
++		}
++	}
++}
++
+ /**
+  * dwc3_phy_setup - Configure USB PHY Interface of DWC3 Core
+  * @dwc: Pointer to our controller context structure
+@@ -1355,6 +1373,8 @@ static int dwc3_core_init(struct dwc3 *dwc)
+ 		dwc->ulpi_ready = true;
+ 	}
+ 
++	dwc3_ulpi_setup(dwc);
++
+ 	if (!dwc->phys_ready) {
+ 		ret = dwc3_core_get_phy(dwc);
+ 		if (ret)
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index a35b3db1f9f3e7..a39bf284c763f7 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -302,6 +302,7 @@
+ #define DWC3_GUSB2PHYCFG_SUSPHY		BIT(6)
+ #define DWC3_GUSB2PHYCFG_ULPI_UTMI	BIT(4)
+ #define DWC3_GUSB2PHYCFG_ENBLSLPM	BIT(8)
++#define DWC3_GUSB2PHYCFG_XCVRDLY	BIT(9)
+ #define DWC3_GUSB2PHYCFG_PHYIF(n)	(n << 3)
+ #define DWC3_GUSB2PHYCFG_PHYIF_MASK	DWC3_GUSB2PHYCFG_PHYIF(1)
+ #define DWC3_GUSB2PHYCFG_USBTRDTIM(n)	(n << 10)
+@@ -1161,6 +1162,8 @@ struct dwc3_glue_ops {
+  *	3	- Reserved
+  * @dis_metastability_quirk: set to disable metastability quirk.
+  * @dis_split_quirk: set to disable split boundary.
++ * @enable_usb2_transceiver_delay: Set to insert a delay before the
++ *			assertion of the TxValid signal during a HS Chirp.
+  * @sys_wakeup: set if the device may do system wakeup.
+  * @wakeup_configured: set if the device is configured for remote wakeup.
+  * @suspended: set to track suspend event due to U3/L2.
+@@ -1403,6 +1406,7 @@ struct dwc3 {
+ 	unsigned		dis_metastability_quirk:1;
+ 
+ 	unsigned		dis_split_quirk:1;
++	unsigned		enable_usb2_transceiver_delay:1;
+ 	unsigned		async_callbacks:1;
+ 	unsigned		sys_wakeup:1;
+ 	unsigned		wakeup_configured:1;
+diff --git a/drivers/usb/dwc3/ulpi.c b/drivers/usb/dwc3/ulpi.c
+index 57daad15f502da..a256b7f5d78b47 100644
+--- a/drivers/usb/dwc3/ulpi.c
++++ b/drivers/usb/dwc3/ulpi.c
+@@ -10,10 +10,13 @@
+ #include <linux/delay.h>
+ #include <linux/time64.h>
+ #include <linux/ulpi/regs.h>
++#include <linux/ulpi/driver.h>
+ 
+ #include "core.h"
+ #include "io.h"
+ 
++#define USB_VENDOR_MICROCHIP 0x0424
++
+ #define DWC3_ULPI_ADDR(a) \
+ 		((a >= ULPI_EXT_VENDOR_SPECIFIC) ? \
+ 		DWC3_GUSB2PHYACC_ADDR(ULPI_ACCESS_EXTENDED) | \
+@@ -83,6 +86,26 @@ static const struct ulpi_ops dwc3_ulpi_ops = {
+ 	.write = dwc3_ulpi_write,
+ };
+ 
++static void dwc3_ulpi_detect_config(struct dwc3 *dwc)
++{
++	struct ulpi *ulpi = dwc->ulpi;
++
++	switch (ulpi->id.vendor) {
++	case USB_VENDOR_MICROCHIP:
++		switch (ulpi->id.product) {
++		case 0x0009:
++			/* Microchip USB3340 ULPI PHY */
++			dwc->enable_usb2_transceiver_delay = true;
++			break;
++		default:
++			break;
++		}
++		break;
++	default:
++		break;
++	}
++}
++
+ int dwc3_ulpi_init(struct dwc3 *dwc)
+ {
+ 	/* Register the interface */
+@@ -92,6 +115,8 @@ int dwc3_ulpi_init(struct dwc3 *dwc)
+ 		return PTR_ERR(dwc->ulpi);
+ 	}
+ 
++	dwc3_ulpi_detect_config(dwc);
++
+ 	return 0;
+ }
+ 
 -- 
-2.55.0
+2.53.0
 
