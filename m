@@ -1,42 +1,43 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2582271468;
-	Sat, 18 Jul 2026 02:33:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ABED025B09F;
+	Sat, 18 Jul 2026 02:44:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784342022; cv=none; b=AlJiAHvHnHB8zjNqQorFmhlTFjQwOTdPh+W9LjZU7TeiepE5MSSPavLivOJzMHWlz1dlouW1CoPGT99NOkJLNt97aP1CFgUSt6sJpfwFsm+z4bAXOk1ng6khkA1JLTgHVo/lCQijfJ2aj6zcrNlUt7s+LDelb7Bk4IFfqvYNEGg=
+	t=1784342699; cv=none; b=bfM08KBp4+fSaXnSxwIn5JQThHBTmRIakfCkPTslO9Ejax4G7REVJgzpVo+MDg0y7xRWq7+6Pgy1QPzk5yDAAuiTiJAIhLqevNNYCWEd4WYNosYNajjVJQAt+NW/NHyKesNGJY8fE6gBUyXUjaBwDdOH6vAfnT/XHXD33YIuFmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784342022; c=relaxed/simple;
-	bh=T48itO9BTAprMr+guQs8A9h6LUkElMQGpmoF+Dltuoo=;
+	s=arc-20240116; t=1784342699; c=relaxed/simple;
+	bh=67J5Fgv1g+WjNPQavQi2nkbOwU2YuDTAPjsDdjDvZk4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=XsEakiHG5Le0JM2mZvqXx+tAGEAEBRe7Ud5HubN4AkjG71i6eCpgn+lbE0XuTkhJGbt1EJAAw2sA9PG7HD82PgQiCZ7SzM+CFFTOPuQBcMyw1NnlHwa+bT/t6IjuvRZgc8Ma0n6j9q/VdF+hrE32mOmG9hFoATOu23PyzZJ8KYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=vs6qI529 reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="vs6qI529"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=+i0pzYp5ov+CVjL5Zd1h9BUIvraHx8sSVD
-	W7eroboWs=; b=vs6qI529zPM4NXYVSR2OOPTv5lE5q0FD7QmBD1hJ09nCqyLfzb
-	S1Ccv/XWU7fTzs+xrPeBYNijK/mdzvtm4N3/b+B7cndFSp5aImWeUan/gz97KhNv
-	WNQ67iqx5gTlFBrE8C4pXjh9pVYbemKhxU1dLmsyfPqp/4/9gRzj8bHyI=
-Received: from wmy.localdomain (unknown [115.53.182.64])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkCW+9T25VpqJQQYAQ--.52490S3;
-	Sat, 18 Jul 2026 10:33:30 +0800 (CST)
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-To: gregkh@linuxfoundation.org,
-	arnd@arndb.de
-Cc: kees@kernel.org,
+	 MIME-Version; b=TZIuV2SuI94pW3oWI0TDL7SeB65uUL46CfGQJwLKiRxa05GRm7oXxHgDe5g+AaiEmPXGKc1RFdowAN4puUNOYSVcxvOuYSY/GOv0LryL/uCFgTGO8xUHmbaZblTWSQnkcD//AlvtbCkCDZMHvWuCW8zQ0Lj3YgDtHf97MYKd3Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wC3NjWi6FpqgykLAA--.4810S3;
+	Sat, 18 Jul 2026 10:44:50 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgBnMXWg6Fpq+aBHAw--.27942S3;
+	Sat, 18 Jul 2026 10:44:50 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: arend.vanspriel@broadcom.com,
+	kvalo@kernel.org
+Cc: eddiephillips@google.com,
+	franky.lin@broadcom.com,
+	hante.meuleman@broadcom.com,
+	wright.feng@infineon.com,
+	linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	SHA-cyfmac-dev-list@infineon.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: [PATCH v6 1/2] misc: ibmasm: Fix static out-of-bounds MMIO access during probe
-Date: Sat, 18 Jul 2026 10:33:23 +0800
-Message-Id: <20260718023324.95237-2-25181214217@stu.xidian.edu.cn>
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] wifi: brcmfmac: make release_scratchbuffers idempotent
+Date: Sat, 18 Jul 2026 02:43:52 +0000
+Message-Id: <20260718024353.3147201-2-fanwu01@zju.edu.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260718023324.95237-1-25181214217@stu.xidian.edu.cn>
-References: <20260718023324.95237-1-25181214217@stu.xidian.edu.cn>
+In-Reply-To: <20260718024353.3147201-1-fanwu01@zju.edu.cn>
+References: <20260718024353.3147201-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,102 +45,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkCW+9T25VpqJQQYAQ--.52490S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxAFyfXw13Kry8XrWfJF1DWrg_yoW5ZryUpF
-	Z7W3yYkrWUXF4vgw47J3yDuFyrGas7KFWj93y3Aa4fZFyYyFy3ZF1jka47WryxJ3WkKa10
-	yrWUJry5Wa1DJaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
-	x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
-	ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1l
-	nxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4
-	CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvj
-	eVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I
-	1lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4UMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjpBT7UUUUU==
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUSEWpaRvg-pgAAsT
+X-CM-TRANSID:zS_KCgBnMXWg6Fpq+aBHAw--.27942S3
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?CIqjvQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WNxrLdUUyojjsh/MFpH0EOURAe6WXmf9rU7cGu361cagswD
+	49fJYyanNG7eGj/tRo8nLJuT1O+x+sR/9gt+BHM5
+X-Coremail-Antispam: 1Uk129KBj93XoW7ZryUKFW7tw4DCrWxAr4fWFX_yoW8KF1xpF
+	y3KFWjyF4UArWkW393uF13ZFyFkanYy345C3yxJ34fu3y5AryrXr40kFy0vrZ8ArWftay2
+	qw48t345Xr15WacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8D5r7UUUUU==
 
-The ibmasm driver maps PCI BAR 0 without verifying if the hardware-provided
-resource length is sufficient to cover statically accessed registers.
+brcmf_pcie_release_scratchbuffers() frees the shared.scratch and
+shared.ringupd DMA buffers with dma_free_coherent() but does not clear
+the pointers afterwards, unlike the sibling release_ringbuffers() which
+NULLs commonrings/flowrings/idxbuf on release.
 
-When evaluating the driver against emulated hardware or during virtual
-device fuzzing, a malformed device may expose a significantly undersized
-BAR 0. This leads to an out-of-bounds (OOB) access when reading or writing
-to registers such as INTR_CONTROL_REGISTER (offset 0x13A4) or mouse
-interrupt controls (offset 0xAC000) during probe. A page fault here
-while holding the idempotent_init_module() lock causes a cascading global
-soft lockup.
+Both the bus_reset .reset callback (brcmf_pcie_reset) and
+brcmf_pcie_remove() call release_scratchbuffers.  When reset teardown
+has run before removal, remove's own teardown would call
+dma_free_coherent() a second time on the already-freed DMA allocation.
 
-Fix this by storing the mapped size in 'struct service_processor' and
-ensuring the BAR is at least large enough to cover the highest statically
-accessed hardware register before calling pci_ioremap_bar(). This highest
-static access (offset 0xAC1FC) occurs via the display_depth() macro
-during ibmasmfs filesystem initialization.
+NULL the pointers after free, matching release_ringbuffers(), so a later
+release observes that the allocation has already been released.  This
+patch makes repeated sequential release safe; the reset-work lifetime is
+handled separately by the following patch.
 
-Fixes: bdbeed75b288 ("pci: use pci_ioremap_bar() in drivers/misc")
+This issue was found by an in-house static analysis tool.
+
+Fixes: 4684997d9eea ("brcmfmac: reset PCIe bus on a firmware crash")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Assisted-by: Codex:gpt-5.6
 ---
- drivers/misc/ibmasm/ibmasm.h   |  1 +
- drivers/misc/ibmasm/lowlevel.h |  3 +++
- drivers/misc/ibmasm/module.c   | 13 +++++++++++++
- 3 files changed, 17 insertions(+)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/misc/ibmasm/ibmasm.h b/drivers/misc/ibmasm/ibmasm.h
-index a5ced88ca923..8d69198bf10f 100644
---- a/drivers/misc/ibmasm/ibmasm.h
-+++ b/drivers/misc/ibmasm/ibmasm.h
-@@ -140,6 +140,7 @@ struct service_processor {
- 	struct list_head	node;
- 	spinlock_t		lock;
- 	void __iomem		*base_address;
-+	resource_size_t		mapped_size;
- 	unsigned int		irq;
- 	struct command		*current_command;
- 	struct command		*heartbeat;
-diff --git a/drivers/misc/ibmasm/lowlevel.h b/drivers/misc/ibmasm/lowlevel.h
-index 25f1ed07c3c5..970d30478c7b 100644
---- a/drivers/misc/ibmasm/lowlevel.h
-+++ b/drivers/misc/ibmasm/lowlevel.h
-@@ -33,6 +33,9 @@
- #define INTR_STATUS_REGISTER   0x13A0
- #define INTR_CONTROL_REGISTER  0x13A4
- 
-+/* Highest static MMIO offset accessed during probe (display_depth during fs init) */
-+#define IBMASM_MAX_REG_OFFSET  0xAC1FC
-+
- #define SCOUT_COM_A_BASE         0x0000
- #define SCOUT_COM_B_BASE         0x0100
- #define SCOUT_COM_C_BASE         0x0200
-diff --git a/drivers/misc/ibmasm/module.c b/drivers/misc/ibmasm/module.c
-index 4509c15a76a8..87d4d698a5ff 100644
---- a/drivers/misc/ibmasm/module.c
-+++ b/drivers/misc/ibmasm/module.c
-@@ -93,6 +93,19 @@ static int ibmasm_init_one(struct pci_dev *pdev, const struct pci_device_id *id)
- 	}
- 
- 	sp->irq = pdev->irq;
-+	sp->mapped_size = pci_resource_len(pdev, 0);
-+
-+	/*
-+	 * Ensure BAR 0 is large enough to cover the highest statically
-+	 * accessed hardware register (IBMASM_MAX_REG_OFFSET).
-+	 */
-+	if (sp->mapped_size < IBMASM_MAX_REG_OFFSET + 4) {
-+		dev_err(sp->dev, "PCI BAR0 too small, need at least %zu bytes\n",
-+			(size_t)(IBMASM_MAX_REG_OFFSET + 4));
-+		result = -ENODEV;
-+		goto error_ioremap;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+index 13662aa4b..9f10b3fff 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+@@ -1383,16 +1383,20 @@ static int brcmf_pcie_init_ringbuffers(struct brcmf_pciedev_info *devinfo)
+ static void
+ brcmf_pcie_release_scratchbuffers(struct brcmf_pciedev_info *devinfo)
+ {
+-	if (devinfo->shared.scratch)
++	if (devinfo->shared.scratch) {
+ 		dma_free_coherent(&devinfo->pdev->dev,
+ 				  BRCMF_DMA_D2H_SCRATCH_BUF_LEN,
+ 				  devinfo->shared.scratch,
+ 				  devinfo->shared.scratch_dmahandle);
+-	if (devinfo->shared.ringupd)
++		devinfo->shared.scratch = NULL;
 +	}
-+
- 	sp->base_address = pci_ioremap_bar(pdev, 0);
- 	if (!sp->base_address) {
- 		dev_err(sp->dev, "Failed to ioremap pci memory\n");
++	if (devinfo->shared.ringupd) {
+ 		dma_free_coherent(&devinfo->pdev->dev,
+ 				  BRCMF_DMA_D2H_RINGUPD_BUF_LEN,
+ 				  devinfo->shared.ringupd,
+ 				  devinfo->shared.ringupd_dmahandle);
++		devinfo->shared.ringupd = NULL;
++	}
+ }
+ 
+ static int brcmf_pcie_init_scratchbuffers(struct brcmf_pciedev_info *devinfo)
 -- 
 2.34.1
 
