@@ -1,147 +1,144 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FB32DAFBB;
-	Sat, 18 Jul 2026 04:56:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA6128B7EA
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 05:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784350598; cv=none; b=ifwT+WHBJisbkPSg0RYIK1kNzDpBIyuiJ7KH3F3BQFVIaY34GWmhcDNW8/bKC8VhXQVi0hyeLybkaF9Sfnmud+tW9GsNKxqSaX6CWGIF2RAnNC+D9ohFx2bJgxMS963EZG0KTRaZa8r/toUplvsXNeW0A63LVDlHPSJSNCjzy7Y=
+	t=1784351370; cv=none; b=cxIibzDNMps7iKYRhIXBbCXVICgKVoH5+q7CZPfKct5EpWhvAWLZ9ZQkcMlsb5NuRtfjK6jiZVxua2UTsQbr+bTUtQSUyDAzh/2lZA0LveLGf3d4uTpPu/zm/qfy7ikIER574QV6GYS8WAbZd0mZ/6qNSIg1V9KFN2sCfmi+Cgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784350598; c=relaxed/simple;
-	bh=43j02/lHfdIU9W1w14GAjkVTT7/TUiKZk5i8QdLvw6A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BvKumoNTaVAHYCIZeEm3P2r7N+r6IXZxOX84yD+7lIbFc2mZLob2dazzBvc/5Xkla+3rRoBvBaL8+hvr8pVdV6y8tUCuJDGSTzSsWDlbG23KJL1K/WxkqCQBGoZrR3jvZmhE8imAh4eNuqEhHiTWbxfTW7oA4BPxsFxfCe1est4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=NUmhS8Z1; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	s=arc-20240116; t=1784351370; c=relaxed/simple;
+	bh=m0ccft+gceUz3MPTqfWxpwD+GP4/rdsMkv/6QSxi0lI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Adh4zopt4W/scFIWyu8TZGNI85YhFZxkidofLGuLtiUALsWY71EXBYwpL7EK2K4w6NwKE2d0/hUewvkVfgMU7HqB/wzju0H6ZDnPOrm7kiNk2Z4++P7Tia+g7ynkdZ8MzB7pqluJvkWGq4hY+PJ/WAN0uZ6gu4MolVmN18wvrV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NKn+I1wb; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="NUmhS8Z1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1784350526;
-	bh=Q/pyZY0DdHNUC4u3NjOVXwZgQU9zqflnqZH/B/PFBV4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=NUmhS8Z1KjIO54y+5hWyizw3IATtUc6C+7RTD9QLVGRujdTnDGLoflbe4z+KK6+pJ
-	 wKJnpTX8YDf4qqNkYmT4WIlLptHNCfLoDJXl6U8L1IiMcXQg9AdBF1QR04xN9M6m42
-	 uqfCs1qpSY8Z2XDeuQWdrexNeiAaIyoeIJIiOz7s=
-X-QQ-mid: esmtpgz14t1784350518te0b5efe8
-X-QQ-Originating-IP: ZXM8ov0nZslofLfrmJw4Lk4AcNaqjgEVt+WRQllxOiQ=
-Received: from [127.0.0.1] ( [36.152.24.129])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 18 Jul 2026 12:55:16 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7271053026370203753
-Message-ID: <FCE172839ADB7A63+1133eef1-621d-4d73-ae86-f5039b6673ee@smail.nju.edu.cn>
-Date: Sat, 18 Jul 2026 12:55:16 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NKn+I1wb"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-845b6d9bf39so2368871b3a.1
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 22:09:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784351369; x=1784956169; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GGpAvn9E9sdeBFr4azx3JRFkGov7PU5BobgH3wDuOJg=;
+        b=NKn+I1wbZuA/B9fCidmzfsUEB/JblJf4P1v5WooyeC54yXKFLKRXxnRdVBAXfodph8
+         SchRMexgUtFgUXfm7FEfV9jXo2mGXKA3sZx6uB8TgKtrGSy+hGq75M0gshAHB3rBivOO
+         1gXJxO61zCdY4kshgSOhSQ9F5DxFXG1XqYI1rt2oqoaMddMSKRbEQQENj8UbSDZETbi1
+         XEo2z6jcXxWAE+F8OpTKyuusa7vsu2ZnBQdMclP4QWXZyaDANnIhzyVAx8bMA6z8QoLt
+         Y3rggPYFJ6v+rG1PiEVtogr/EfuUAyQ8192zbnkYwER/4mpm9j1xfnWvHwYXIA480xah
+         /REQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784351369; x=1784956169;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GGpAvn9E9sdeBFr4azx3JRFkGov7PU5BobgH3wDuOJg=;
+        b=VYx57bfKJ8wp+BjlvZUJccbEcH5UoWfAdPvo2B6nB53FepUHjrRQs51g/GSt72eX+9
+         y5AeBjiUIhEz922L2Dn7AJdjvJLuKc9yRRX4HR2MxDQkqnK4hroBEwEjkhBuHA4RPIfg
+         dfnTYPjrFKpJM74/xTcEsRKFrSAkQ5PeN/ZI7VFxMn2wvV3YZS8sOj0sS75TBYSXWMyM
+         tEexO5POu9E6zolFOEop8yU/JVP8dEs/WsP+Lc6QAi6vIH7lzsG0V6Qso4zpRT2PV2Ry
+         MzLeQ20wNUYPOKeR6VvGPJGybwS2XAMTiA8+PPITf5zdbu8/We8dqvdkl+ezIQ3GYz+V
+         QyYQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqKO35SqXFvuQMYwKjEfvxveLxAtwumYezv44xdqz6OYKfOIdj2a+VIc35YkqOmByYx6Si5RM0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzX006KyP2z2HmYYEB3baBnm1mbMfT2QusY8pqyPpurNxiP3eEl
+	Zwm/w82lVaqEhKVfHdzTzCsjEPy1zWfdi6SI+oUKAytrHdUfGR9oqQa5RvQD+Q==
+X-Gm-Gg: AfdE7cnJ5Pek5hKFpNw6jOSVHNeGdGl5J2KWLPQqrsrQeilP4/kpJgiHU3wpLmsbO/J
+	uCMFfzTLSc8VbNQ+7AG4tgeKjGIMW4KPWnK1vs/JMQac9XuWzI9AhyDlNbVkSraNsQOyuQovlE5
+	pFyrUW+vxQ+l1qghX/mkzS6/5qkY/inQzuOqSLS0+K6wpiTp3dkf4OfnFO4ve5sWyUNqlSbRPTw
+	BSiFFNK3ddPNScfakYby1mxc+Ifd/BCn6s0QL24T6o8SEgpxsimqTbOKHHf4YgDgF3J9IdM6XOB
+	zxuFSgCIpbGHs1axH8qrO5eIVjoX5nq9UX9QFv2FgzT/SMrveFLnGVV7pTpW4EewcpFfyRzMmq9
+	bAIN6pguye2Nqh+GPi5y/MNklc7nOjxB7Dw/amRQg/CGGC9TfLqIYS1pGJYnnwtzOOuP8YQ9pQr
+	tIaO7oNLy0edY1qQ==
+X-Received: by 2002:a05:6a00:1f14:b0:847:9803:ec6f with SMTP id d2e1a72fcca58-84beb187fc2mr9986170b3a.10.1784351368541;
+        Fri, 17 Jul 2026 22:09:28 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2afd07e2sm2205246b3a.61.2026.07.17.22.09.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 22:09:28 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Paul Moore <paul@paul-moore.com>
+Cc: Eric Paris <eparis@redhat.com>,
+	Ricardo Robaina <rrobaina@redhat.com>,
+	Richard Guy Briggs <rgb@redhat.com>,
+	audit@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>
+Subject: [PATCH v2] audit: fix potential integer overflow in audit_log_n_string()
+Date: Sat, 18 Jul 2026 13:09:22 +0800
+Message-ID: <20260718050922.1980425-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260715024635.25376-1-zhanxusheng@xiaomi.com>
+References: <20260715024635.25376-1-zhanxusheng@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iommu/iommufd: Fix IOPF group ownership UAF
-To: "Tian, Kevin" <kevin.tian@intel.com>, "joro@8bytes.org"
- <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>,
- "jgg@ziepe.ca" <jgg@ziepe.ca>
-Cc: "robin.murphy@arm.com" <robin.murphy@arm.com>,
- "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>
-References: <B4F28798E2E784CA+d29f723c-b2b5-4b67-8d1c-4f7b9b0b27cb@smail.nju.edu.cn>
- <9BE255A7A4AB5AAA+20260715042421.3148159-1-peiyang_he@smail.nju.edu.cn>
- <SA2PR11MB484486F27784FF0AA0C2D7858CC62@SA2PR11MB4844.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-In-Reply-To: <SA2PR11MB484486F27784FF0AA0C2D7858CC62@SA2PR11MB4844.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NzOHSugmTg7XGPPDjG7j/6TlXNj2kVZ0pwrm/CxNsaRkItG/QHvo/0u/
-	xdWutc/rcqcFeJWiCbc2J20+q+JR/714qn4iSA12Eh5CuU9SmGfBa6vFSU7lmN3QHQvL3mD
-	CLAoPeVW/VCjuGxIYt+Oq91qtbKpUdwsjia9AByGvX6Tz5URsNNCVD1+cpDwaVCyfzGmHnH
-	cD1yupOUDL75i2hcNfpJThpLZhSGN4QF/17AVo/Bp253qXyt6YFIBWGFVLGajnrtPro8Tno
-	K2GO76uTJv+JqV5f8DxFlrXn5szZmhqqfi4sVKlh13w72Vd+crAf6YL+SzXYSEOP5cRZpsb
-	MDPWiLAcIKOyOvgj7KSlXyUiiIefAgu62vqC2306lXk1pfW3HCF9E8wH9bCWpwLCzblkZZw
-	jyGgPDTN6C9FRUK6um1wVjfLYDrqsWGP8N6DjVglxAeB4/9dQwzEu16o6nzFg3GxK4DuKKB
-	QoprNtTiuIt/puPmet2npFtyHtHQj4zIoodzElEhRnpJE5CLbglaIbEl6AXC6URij0m0qg5
-	1IuqFjIextrSRVSk06mdHjcg+kv7LBmMDTikDvzc5SDWWDlpFq/7/+WSjK23YOKWKReZbkI
-	jihNIopdYLM8T601LTKGh34gcxuiUwVPUbVrXwdSbULNGU5w/NGfOjLnYHLyh/7p6spMMc/
-	ep7vOL8MfPSR8kyjnPiOmygEek7UeFvkALlgGHY6JDJ3T8pNJHzhptWlZPEnaJICHvVMb/6
-	++y/dJIctYTh84UYAsa9TVQEDlySRTK//herNphTKSHUu/L1wWBTfviqdASyzoHxY7YAw8D
-	xc+dStLZLi7yAmA0ZGYYxC8E/38BJJlI+jOTYmsIXCfO14r/zvm529VcYDCoWapc1ZSWgNq
-	wpgXgsJ4ctkyomyU/HGIYeDUONyrYYJTda2ZHjHTW8+gcD1YC5O2HDRqF2RxvY0nC/o3Bl+
-	1U/l8S2WlIitbd5+84kjWIdPVYZ68lf/ZA/sB4/oV8x6ULeWbhDgnEARe5zmc1q00IwkYOg
-	t+0+sXNeQlA42CLFWeosXiJZ/AJwtxAGFLkU3u1a6JvAA6z/EZ
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-On 2026/7/17 16:00, Tian, Kevin wrote:
->> From: Peiyang He <peiyang_he@smail.nju.edu.cn>
->> Sent: Wednesday, July 15, 2026 12:24 PM
->>
->> iopf_group_alloc() links each last-page IOPF group into the generic IOPF
->> pending list before invoking the domain fault handler.
->> iommufd_fault_iopf_handler() also queued an accepted group in the
->> IOMMUFD deliver list without removing it from the generic pending list.
->>
->> When detach or HWPT replacement drops the device's IOPF reference count
->> to zero, an IOMMU driver may call iopf_queue_remove_device(). That
->> function responds to and frees groups through the generic pending list
->> without removing the same groups from IOMMUFD's deliver list or response
->> xarray. A later read, response, or cleanup can then access the freed
->> group and cause a UAF.
->>
->> Fix this by separating response state from generic ownership.
->> Add iopf_group::response_pending to track whether a device response
->> is still owed, independently of generic pending-list membership,
->> and update that state under iommu_fault_param::lock in a helper.
->> Before publishing an accepted group to the IOMMUFD deliver list, call
->> iopf_group_take_ownership() to remove it from the generic pending list.
->> IOMMUFD then becomes the sole owner responsible for responding to and
->> freeing the group.
-> 
-> this is ok but could be simplified.
-> 
-> There is no use case in which we allow a group staying in the pending
-> list after its response has been sent. Actually every iopf_group_response()
-> is followed by iopf_free_group().
-> 
-> so let's just remove the list_empty() check in iopf_group_response().
-> 
-> better - move iopf_free_group() into iopf_group_response() (with a special
-> handling in err unwinding of iommu_report_device_fault()).
-> 
->> +/**
->> + * iopf_group_take_ownership - Take ownership of a group of page faults
->> + * @group: the group of faults whose ownership is transferred to the fault
->> handler
->> + *
->> + * Remove the group from the generic IOPF pending list. The fault handler is
->> + * responsible for responding to and freeing the group after this returns.
->> + */
->> +void iopf_group_take_ownership(struct iopf_group *group)
-> 
-> iopf_group_dequeue()
-> 
->> @@ -582,7 +582,7 @@ static int iommufd_hwpt_replace_device(struct
->> iommufd_device *idev,
->>  	if (rc)
->>  		goto out_free_handle;
->>
->> -	iommufd_auto_response_faults(hwpt, old_handle);
->> +	iommufd_auto_response_faults(old, old_handle);
-> 
-> this belongs to another patch already queued by Jason.
-> 
+audit_log_n_string() computes new_len as "slen + 3" (enclosing quotes
+plus the NUL terminator) and stores it into an int, while slen is a
+size_t.  For a sufficiently large slen the addition can overflow and/or
+the result be truncated when assigned to the int new_len, so the
+"new_len > avail" check can be bypassed and the subsequent
+memcpy(ptr, string, slen) can write past the skb tail.
 
-Hi Kevin,
+This is the same class of bug that was fixed for the hex sibling in
+commit 65dfde57d1e2 ("audit: fix potential integer overflow in
+audit_log_n_hex()"); both helpers are reached through
+audit_log_n_untrustedstring() with the same length source.
 
-v2 patch has addressed all these issues and passed my PoC. Thanks for your feedback!
+Make new_len a size_t and use check_add_overflow() to catch the
+overflow, mirroring the audit_log_n_hex() fix.  No functional change for
+the in-tree callers, which all pass bounded lengths.
 
-Best,
-Peiyang
+Fixes: 168b7173959f ("AUDIT: Clean up logging of untrusted strings")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
+v2:
+ - drop the unnecessary (size_t) cast on the constant (Paul Moore)
+ - emit "?" instead of "\"?\"" on overflow, matching
+   audit_log_n_hex() (Paul Moore)
 
+ kernel/audit.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/audit.c b/kernel/audit.c
+index 562476937fa7..9412af9144bc 100644
+--- a/kernel/audit.c
++++ b/kernel/audit.c
+@@ -2120,7 +2120,8 @@ void audit_log_n_hex(struct audit_buffer *ab, const unsigned char *buf,
+ void audit_log_n_string(struct audit_buffer *ab, const char *string,
+ 			size_t slen)
+ {
+-	int avail, new_len;
++	int avail;
++	size_t new_len;
+ 	unsigned char *ptr;
+ 	struct sk_buff *skb;
+ 
+@@ -2130,7 +2131,13 @@ void audit_log_n_string(struct audit_buffer *ab, const char *string,
+ 	BUG_ON(!ab->skb);
+ 	skb = ab->skb;
+ 	avail = skb_tailroom(skb);
+-	new_len = slen + 3;	/* enclosing quotes + null terminator */
++
++	/* enclosing quotes + null terminator */
++	if (check_add_overflow(slen, 3, &new_len)) {
++		audit_log_format(ab, "?");
++		return;
++	}
++
+ 	if (new_len > avail) {
+ 		avail = audit_expand(ab, new_len);
+ 		if (!avail)
+-- 
+2.43.0
 
