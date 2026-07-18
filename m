@@ -1,110 +1,116 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB2F366564
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 05:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784352633; cv=pass; b=CH0ZOIi/ySZNhmGTL+gnurytvhiVnEQrcwAhpP0EbgcgslsTKOJ21JjwaFik4w5wGfsvZSW1/tet+QRAsCdAZCNjwsAvB5XJrWWWPmfmVE6mfOgAwVVARCF7G+4YHglLskOnseA+IYsv62r9TRQj1VG731h64Ia432XaxOV1tQA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784352633; c=relaxed/simple;
-	bh=St5k3xj4AeRhAT3qhfUkT73XJDbiQlQOZPv5JEO7Dv0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OBx7TDt6Y5Jec8C/EuCPKHbu0KEvDHtAkXeF/AjXq9RlwS/LIdiAcVHB2rQa352w4pTwEHoFKyP2N2kNE1aN9+R01nnqR5bZBzSoVrTHQig8G3pmrEOUe1on03ms9E/mgy38rfTejUptS5eAknpImCCZrE308HfIx3pSTQA3g5A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dLSNAWpG; arc=pass smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dLSNAWpG"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c15b509c323so1119211966b.0
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 22:30:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784352630; cv=none;
-        d=google.com; s=arc-20260327;
-        b=X3eIjYXKK04HeFiSVkVeIE1GMQU9CjQ87x/5l/I+LUamq3XboZeaGkhzeE1gTdvisw
-         HqYM2r4yFu9HvmcJxjiwhKFQ6qXKQm3VwRUNa3lxTB848dfTXB0URTiIQikb5a8UkK9l
-         Lr7bdhOpa7tqC02gCtZsfeWQDxwcDibZdJCx0gOIO4QvDgPCOZC/NonTvlHPDTrJWhLt
-         yZeukXwWURJPuv02PkHStO5/yjXTB9HOIFtxq9CKO7KxS6aA9cfxZI8K+Tkr4iGNUW+9
-         fbthjyTNeNFTAzvbgVYViljjO7og4iazOD+XB2RvaYd00D9OgilzCceMxItZbDyLwoQh
-         gt1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=St5k3xj4AeRhAT3qhfUkT73XJDbiQlQOZPv5JEO7Dv0=;
-        fh=j+mfeEywSerLjn6MuTNw9AVyKmZe3xFZeLTkaKWQArA=;
-        b=Kfdj7CYn+2ax9vnWfcTKkJ72H+4uTuP4goimfcKHFfQkSR4Ow/xZwLu2T88waKX5mP
-         B8jhQTrf6UvFndWJAR73JDdgOCRekLpyChkVhudMgrNY3B6UUHenGlz6D4MkqAwTvyQ6
-         uRIrfjdM/vZirtd6xKhqtHAHISFSd8NDbEmUMTEfiGCRv1l2XxfRXLwUJLcN7SAtP5Oq
-         x/mxOl+DSuRCMHhSX6Ojn1R55+5mbeqncUhe4mKdhOANP/AcjkslyYYqKX3CnsKLP+PZ
-         rxwYsD79G7pXJSQI1ftIx7fkL20jW7eKjiBkvPFJ0TsbAuVNOCRhtnaj7qgaKdujhh2y
-         1fxQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784352630; x=1784957430; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=St5k3xj4AeRhAT3qhfUkT73XJDbiQlQOZPv5JEO7Dv0=;
-        b=dLSNAWpGn+AYA3Ja8ZBDg6U+/i+xfqMpH34m6m9kjklwRkNUmUsWx7D2/3kytFqpzw
-         zqPPKFBg5mIHGSsXuoJEOLtZyOoz6XGBVzpy+w+GzXF7z0DzLgmLlEZFpAowngvaT1Zz
-         OYmnhQx59SbVcbXiMBdUrGUE5fQQoMbf7/QxWKN9ToMrhf6jyJ5PAodODi6bMUtleX67
-         gZXl2DIJNcd6TvPEpiUJdnXnrD8HdlwOA8t0cTkYCUYxrJGIizZW3v50+qKGFAUaz7cL
-         60csjiweZU7cT+VPlBySAHD8zok8+kUydSXTTAShOkK0sY2QWt8zjjaJXsAasFOUxgxg
-         nr8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784352630; x=1784957430;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=St5k3xj4AeRhAT3qhfUkT73XJDbiQlQOZPv5JEO7Dv0=;
-        b=icgECFEhoc046RKpfvUHlwhm+xroRTixsf3VMAc012UyUOAt1o2EKlg+9WOCFaUA+9
-         d6HFkUL3a1RMWtyDhHkTg0btktC996kJ0nWsVQdL3tCgXjdsNHU3sFMIc4z0qWRlclJY
-         P8a2cpsEWBlLlFsT1iqo0elvzOl+AJ8FpsgYrPezEdGKN3h3plZku9leS8bd9rvdcOWs
-         L3yGnbgyt7cc2FXmMJ5LBVGlJfParzUPnnZYXeHRb+mknPnm5RgdrboccQBXLdEs1cCu
-         gS6zukrq678INNJPDdaOYIK4Cwosp73wOCpxKanr/MSYhXd/qLkBf8IlJ1MQf4LDlw8W
-         H3Mg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq021Pzz61yO9JvsWofpDBRKmnz9KE8gNNq2L81KboZxabAJQKjykJDfod+5ITPyDjxQnl4WNg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4e57Ed/RAY/BE5cAEWkhr9KDl/MnxjvoRECi9N4kL7Qy1YLoH
-	2Kr7yc/G6CheemAcnwNU+uOVHvWNF+LsD1lyLMkYgEMSu9T5rCCR5HtD3Z32qCVLMt5rOMf4Fhj
-	hHDLFFUxDkkr1j7LwNbzSseaqfp9ZAY0=
-X-Gm-Gg: AfdE7cnXWk234qFvneRhwOTLjpOvSzpDOiFFb2wqbbp8lNETJwIaYa0vEjBJ9noO77O
-	K6EOklNQp7x/mKRwtOyonWH/60/AwkckShHD09LVXwaKzsQyjEw+SqCClHmNqQqnH6zEC+20AuL
-	rB3NZGe5eI8gOesXuOGt9YBFJyir+2MCGJdFtH+/LQGCsKrMS873QzyBUsyzU/YEGLzzXkBXaJo
-	kP/khPti7lt2/mq0seO5Wxisq8QNdEgodYm3Xio80YgkhxoM9H2Ytiu+y26HjMZy3zbQxlzdmS8
-	E1wKeA4voe/cDc7/Qk0CxZXcLxgMwqDPHbuWvLvbbd8g5X4=
-X-Received: by 2002:a17:907:e1d3:10b0:c12:34ed:da14 with SMTP id
- a640c23a62f3a-c16b47ea252mr147632766b.64.1784352630205; Fri, 17 Jul 2026
- 22:30:30 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CBE3033E9;
+	Sat, 18 Jul 2026 06:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784355589; cv=none; b=L1w+uHH+H9QPqeP5h+lJPk7mOb2gX2Ysnz08f2LjXSXjbuVY2GgVY0L7vdaLU58l4rICa3k+I7kqBV6/X6qYN83ij1XrQHJ5Wdn8vSwoiGelBhnQrUGFoNLhGopkAjWVetGtvjZrlvR3/Ps/C8DGLhK9lwublhjGgbvR6RQwpTY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784355589; c=relaxed/simple;
+	bh=FoGCFCvwyGZW9MzyAyxb5vILM2PseAQAD2D6SMY43oo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ck0zHST/I8ruNYWF22EfiF9YGGb0YYA8ulZJeS39HngF2eoX30jVQHe0pIUvj/gHnce8K4sST12jPCa2Dc8MtqPxoLLqhcqSH14NpOP9sdMsJZLN6egJPQGqTuA3ICybwNuv/UxSJ3CS4dO7ZHiurMSum0pvnDtOisdNRoYGIn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: a54440ae827011f1aa26b74ffac11d73-20260718
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
+	GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:aa229de1-5b93-4bf7-a093-92fe2663594a,IP:15,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:15
+X-CID-INFO: VERSION:1.3.12,REQID:aa229de1-5b93-4bf7-a093-92fe2663594a,IP:15,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:15
+X-CID-META: VersionHash:e7bac3a,CLOUDID:2e8df5f657f352ce2f4664dca231ff15,BulkI
+	D:26071814193738HHCTBC,BulkQuantity:0,Recheck:0,SF:10|38|66|78|102|127|136
+	|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:ni
+	l,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE
+	:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: a54440ae827011f1aa26b74ffac11d73-20260718
+X-User: pengcan@kylinos.cn
+Received: from lenovo [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <pengcan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 970417700; Sat, 18 Jul 2026 14:19:34 +0800
+From: Can Peng <pengcan@kylinos.cn>
+To: jic23@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	rajat.khandelwal@linux.intel.com
+Cc: linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Can Peng <pengcan@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: pressure: mpl115: Fix runtime PM cleanup on probe failure
+Date: Sat, 18 Jul 2026 14:19:09 +0800
+Message-ID: <20260718061909.428476-1-pengcan@kylinos.cn>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260717195336.98500-1-nikhilsolanke5@gmail.com>
-In-Reply-To: <20260717195336.98500-1-nikhilsolanke5@gmail.com>
-From: Nikhil Solanke <nikhilsolanke5@gmail.com>
-Date: Sat, 18 Jul 2026 11:00:19 +0530
-X-Gm-Features: AUfX_mxhIJFm-FhL7GTanL1EAGlmqlbs9olf-RM3hy7jEr95fa0uEkWsyyRhdQw
-Message-ID: <CAFgddhJpqOO+pBrVs6U=mMOfXrO1DPTZ6XAbwPQubjYz4ZB35A@mail.gmail.com>
-Subject: Re: [PATCH 0/2] usbcore: Add quirk for 255-byte initial config read
-To: linux-usb@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
-	stern@rowland.harvard.edu, michal.pecio@gmail.com, corbet@lwn.net, 
-	skhan@linuxfoundation.org, linux-doc@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Sorry, forgot to mark this as v3. This should be [PATCH v3 0/2].
+mpl115_probe() enables runtime PM when a shutdown GPIO is present and
+then returns the result of devm_iio_device_register(). If registration
+fails, runtime PM remains enabled and autosuspend remains selected.
 
-Changes from v2:
-- put strings in a single line
-- copy bytes from desc to bigbuffer instead of pointer aliasing.
-- change tabs to spaces in documentation
-- reworded some comments
-- drop USB_CONFIG_WINDOWS_REQ_SIZE macro
-- revert USB_DELAY_INIT to original behavior. no delay before 1st request.
-- split announce_device() so we can report device ids early before
-vendor strings
+The same unmanaged runtime PM state is also left behind on driver
+unbind, as the IIO device registration is managed but the runtime PM
+setup is not.
 
-Thanks,
-Nikhil Solanke
+Use devm_pm_runtime_enable() so runtime PM is disabled automatically
+on probe failure and driver unbind. Also unwind the initial
+pm_runtime_get_noresume() reference if setting up runtime PM fails
+before the matching put.
+
+Fixes: 0c3a333524a3 ("iio: pressure: mpl115: Implementing low power mode by shutdown gpio")
+Cc: stable@vger.kernel.org
+Signed-off-by: Can Peng <pengcan@kylinos.cn>
+---
+ drivers/iio/pressure/mpl115.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/iio/pressure/mpl115.c b/drivers/iio/pressure/mpl115.c
+index 16e112b796ba..9e77b76bd1fa 100644
+--- a/drivers/iio/pressure/mpl115.c
++++ b/drivers/iio/pressure/mpl115.c
+@@ -204,8 +204,17 @@ int mpl115_probe(struct device *dev, const char *name,
+ 	if (data->shutdown) {
+ 		/* Enable runtime PM */
+ 		pm_runtime_get_noresume(dev);
+-		pm_runtime_set_active(dev);
+-		pm_runtime_enable(dev);
++		ret = pm_runtime_set_active(dev);
++		if (ret) {
++			pm_runtime_put_noidle(dev);
++			return ret;
++		}
++
++		ret = devm_pm_runtime_enable(dev);
++		if (ret) {
++			pm_runtime_put_noidle(dev);
++			return ret;
++		}
+ 
+ 		/*
+ 		 * As the device takes 3 ms to come up with a fresh
+-- 
+2.53.0
+
