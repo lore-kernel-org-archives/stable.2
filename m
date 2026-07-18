@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F70207A20;
-	Sat, 18 Jul 2026 11:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5DB207A20
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 11:20:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784373644; cv=none; b=frkhaV8zBZJGAzdZC1RF2SNJauLCKEmnVx2aajQfmVI7ZAT5yYBfYvz2ikzzqFxWJTItqNUlfJ4Rr7HzZG6yNAgDbYaSZ1k1ZZoLr7EMGUvPM+iy0sYqFdKcx/+cRIziLTSpOxbKJ3ulxeS7GSvAnRm64f047CUCN2chqjGBo+c=
+	t=1784373652; cv=none; b=oTGbXFJlCcbIbSVM/HPdIrItagdTjj1K0cxu4VXClRU/lI/V8BNWrWds7wekcqK7RIArdH3atkRK79unX9AYSwRxBB7BUKA0p5/tFk/mOojYlqsnGPRN4CArDoltnPWkscwgFbWG4pvTTzjPkfHG1TYnrHCvqkcfKJrk3wl2RL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784373644; c=relaxed/simple;
-	bh=zLmhq4YsHiCn3pB7AZlNjituw1gyzAHH1InVmlHQ4Qo=;
+	s=arc-20240116; t=1784373652; c=relaxed/simple;
+	bh=0ePgmCnMgvFAvbihEjSkJ6a9v63H/J5Csrh9/phdfQE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gzY9HEuHMs2clb++ZSGoc9um0Jvg1xUzQQdcIIY8vuMJk/5TiZ35uwa8APcnZY1cK2VInJvXrSXDfYxaVXdVy7ZzuiDYDdhG0RcChmXruqTbPSuYRUQ9N0wUtJuduhw4fH76nmtkzTC1/0iChmerhkShSb647M71Q5YndRHiLGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fd1kHzAB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=j8jmOCb5GHgpdIsfNveNwbP4zfIh7dC4xbbgkRjkvNxj1AtZw+dTkLTLXz84Aw2wQxw2x4u5Ink4MfBzwkDhVcGi1NW6J3FXOUw169mZmudDhUfmNgiWqXlqzfK9nouNIXU6sAf2lY8sL+3Ntcs3v6eQ1fwVs84qm+kR71Fhz50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=omYazY/t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fd1kHzAB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A056D1F000E9;
-	Sat, 18 Jul 2026 11:20:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="omYazY/t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BBBA1F000E9;
+	Sat, 18 Jul 2026 11:20:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784373641;
-	bh=+7jZFulb33bxWvhRcxlcTZKgXbhxxmQi599TAhgr1w8=;
+	s=k20260515; t=1784373650;
+	bh=BA0oLBtrdaNVK7WImQcBj3Y7HgmE0RAU24a1Gol1bYM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fd1kHzABY1ENfo3AY++nGqyuLfJ3jAKMSAaAKaLjYHnLDxM2NvyFBZ/SMhrWShJeP
-	 flrOCoRzrKXB9iniJSois15lf5O8rOdMxsQngQuAOv0Ok99jwcaCg7dQrL8c+PwiVJ
-	 Q0hUARg3hByl+vwHu6yH8lTYMaA+O1dgdLk8HztabJb1l0Md57/YEHjyZEn7FUmRA7
-	 R7Iiq8G2bYR5jD9USCSm6vmqv8KPEcVivzmVD/8vNbG7O7wxmHTRgkr5KiDcmlozBD
-	 U61MKfw/OYAHBzOor5/WUC/wv4KBycOCVlbGzmENt9YgaAYWNBAffgiS8ImuEt2+Xk
-	 svciWBTfxN2Fg==
+	b=omYazY/tWr07u6VPihhsKQphK6QVplpRQTJ+BHLQIp5BXDeNeyTxsHF5HGT3qx4S3
+	 ttPPDVt5lhpqj2EBfBzJWeq3buFSLKknyFRSbiFP5T3Z2vmOd0oaDZhWMm46Wh0wp+
+	 TgS4c+x5jASh8JPgzSDJf/peZ0poWJUW2IyowspaYPrHq3qdmrdcPHnjLTvqMDQgbn
+	 OZOYuvOrGNF3xFtTgrFzmVGXfFSF7OOMf5KfbpVOYO0d1+JYIjwAh56b/hYsUvO26t
+	 QcMj3qVoSv0KOweXlUn/KuOy6ZglLeSiQb98nDEDYMBPP+l5I6zQaBCHNyEnh/xuZG
+	 e1gFV7L+yDVCg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>,
-	linux-fsdevel@vger.kernel.org,
+Cc: Dave Chinner <dchinner@redhat.com>,
+	Christoph Hellwig <hch@lst.de>,
+	"Darrick J. Wong" <djwong@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] hfs/hfsplus: prevent getting negative values of offset/length
-Date: Sat, 18 Jul 2026 07:20:37 -0400
-Message-ID: <20260718112038.2956632-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] xfs: reflect sb features in xfs_mount
+Date: Sat, 18 Jul 2026 07:20:47 -0400
+Message-ID: <20260718112048.2959902-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071427-party-pantry-0a68@gregkh>
-References: <2026071427-party-pantry-0a68@gregkh>
+In-Reply-To: <2026071407-parmesan-cyclic-e3d5@gregkh>
+References: <2026071407-parmesan-cyclic-e3d5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,977 +46,283 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Viacheslav Dubeyko <slava@dubeyko.com>
+From: Dave Chinner <dchinner@redhat.com>
 
-[ Upstream commit 00c14a09a70e10ae18eb3707d0059291425c04bd ]
+[ Upstream commit a1d86e8dec8c1325d301c9d5594bb794bc428fc3 ]
 
-The syzbot reported KASAN out-of-bounds issue in
-hfs_bnode_move():
+Currently on-disk feature checks require decoding the superblock
+fileds and so can be non-trivial. We have almost 400 hundred
+individual feature checks in the XFS code, so this is a significant
+amount of code. To reduce runtime check overhead, pre-process all
+the version flags into a features field in the xfs_mount at mount
+time so we can convert all the feature checks to a simple flag
+check.
 
-[   45.588165][ T9821] hfs: dst 14, src 65536, len -65536
-[   45.588895][ T9821] ==================================================================
-[   45.590114][ T9821] BUG: KASAN: out-of-bounds in hfs_bnode_move+0xfd/0x140
-[   45.591127][ T9821] Read of size 18446744073709486080 at addr ffff888035935400 by task repro/9821
-[   45.592207][ T9821]
-[   45.592420][ T9821] CPU: 0 UID: 0 PID: 9821 Comm: repro Not tainted 6.16.0-rc7-dirty #42 PREEMPT(full)
-[   45.592428][ T9821] Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   45.592431][ T9821] Call Trace:
-[   45.592434][ T9821]  <TASK>
-[   45.592437][ T9821]  dump_stack_lvl+0x1c1/0x2a0
-[   45.592446][ T9821]  ? __virt_addr_valid+0x1c8/0x5c0
-[   45.592454][ T9821]  ? __pfx_dump_stack_lvl+0x10/0x10
-[   45.592461][ T9821]  ? rcu_is_watching+0x15/0xb0
-[   45.592469][ T9821]  ? lock_release+0x4b/0x3e0
-[   45.592476][ T9821]  ? __virt_addr_valid+0x1c8/0x5c0
-[   45.592483][ T9821]  ? __virt_addr_valid+0x4a5/0x5c0
-[   45.592491][ T9821]  print_report+0x17e/0x7c0
-[   45.592497][ T9821]  ? __virt_addr_valid+0x1c8/0x5c0
-[   45.592504][ T9821]  ? __virt_addr_valid+0x4a5/0x5c0
-[   45.592511][ T9821]  ? __phys_addr+0xd3/0x180
-[   45.592519][ T9821]  ? hfs_bnode_move+0xfd/0x140
-[   45.592526][ T9821]  kasan_report+0x147/0x180
-[   45.592531][ T9821]  ? _printk+0xcf/0x120
-[   45.592537][ T9821]  ? hfs_bnode_move+0xfd/0x140
-[   45.592544][ T9821]  ? hfs_bnode_move+0xfd/0x140
-[   45.592552][ T9821]  kasan_check_range+0x2b0/0x2c0
-[   45.592557][ T9821]  ? hfs_bnode_move+0xfd/0x140
-[   45.592565][ T9821]  __asan_memmove+0x29/0x70
-[   45.592572][ T9821]  hfs_bnode_move+0xfd/0x140
-[   45.592580][ T9821]  hfs_brec_remove+0x473/0x560
-[   45.592589][ T9821]  hfs_cat_move+0x6fb/0x960
-[   45.592598][ T9821]  ? __pfx_hfs_cat_move+0x10/0x10
-[   45.592607][ T9821]  ? seqcount_lockdep_reader_access+0x122/0x1c0
-[   45.592614][ T9821]  ? lockdep_hardirqs_on+0x9c/0x150
-[   45.592631][ T9821]  ? __lock_acquire+0xaec/0xd80
-[   45.592641][ T9821]  hfs_rename+0x1dc/0x2d0
-[   45.592649][ T9821]  ? __pfx_hfs_rename+0x10/0x10
-[   45.592657][ T9821]  vfs_rename+0xac6/0xed0
-[   45.592664][ T9821]  ? __pfx_vfs_rename+0x10/0x10
-[   45.592670][ T9821]  ? d_alloc+0x144/0x190
-[   45.592677][ T9821]  ? bpf_lsm_path_rename+0x9/0x20
-[   45.592683][ T9821]  ? security_path_rename+0x17d/0x490
-[   45.592691][ T9821]  do_renameat2+0x890/0xc50
-[   45.592699][ T9821]  ? __pfx_do_renameat2+0x10/0x10
-[   45.592707][ T9821]  ? getname_flags+0x1e5/0x540
-[   45.592714][ T9821]  __x64_sys_rename+0x82/0x90
-[   45.592720][ T9821]  ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   45.592725][ T9821]  do_syscall_64+0xf3/0x3a0
-[   45.592741][ T9821]  ? exc_page_fault+0x9f/0xf0
-[   45.592748][ T9821]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   45.592754][ T9821] RIP: 0033:0x7f7f73fe3fc9
-[   45.592760][ T9821] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 48
-[   45.592765][ T9821] RSP: 002b:00007ffc7e116cf8 EFLAGS: 00000283 ORIG_RAX: 0000000000000052
-[   45.592772][ T9821] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f7f73fe3fc9
-[   45.592776][ T9821] RDX: 0000200000000871 RSI: 0000200000000780 RDI: 00002000000003c0
-[   45.592781][ T9821] RBP: 00007ffc7e116d00 R08: 0000000000000000 R09: 00007ffc7e116d30
-[   45.592784][ T9821] R10: fffffffffffffff0 R11: 0000000000000283 R12: 00005557e81f8250
-[   45.592788][ T9821] R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
-[   45.592795][ T9821]  </TASK>
-[   45.592797][ T9821]
-[   45.619721][ T9821] The buggy address belongs to the physical page:
-[   45.620300][ T9821] page: refcount:1 mapcount:1 mapping:0000000000000000 index:0x559a88174 pfn:0x35935
-[   45.621150][ T9821] memcg:ffff88810a1d5b00
-[   45.621531][ T9821] anon flags: 0xfff60000020838(uptodate|dirty|lru|owner_2|swapbacked|node=0|zone=1|lastcpupid=0x7ff)
-[   45.622496][ T9821] raw: 00fff60000020838 ffffea0000d64d88 ffff888021753e10 ffff888029da0771
-[   45.623260][ T9821] raw: 0000000559a88174 0000000000000000 0000000100000000 ffff88810a1d5b00
-[   45.624030][ T9821] page dumped because: kasan: bad access detected
-[   45.624602][ T9821] page_owner tracks the page as allocated
-[   45.625115][ T9821] page last allocated via order 0, migratetype Movable, gfp_mask 0x140dca(GFP_HIGHUSER_MOVABLE|__GFP_ZERO0
-[   45.626685][ T9821]  post_alloc_hook+0x240/0x2a0
-[   45.627127][ T9821]  get_page_from_freelist+0x2101/0x21e0
-[   45.627628][ T9821]  __alloc_frozen_pages_noprof+0x274/0x380
-[   45.628154][ T9821]  alloc_pages_mpol+0x241/0x4b0
-[   45.628593][ T9821]  vma_alloc_folio_noprof+0xe4/0x210
-[   45.629066][ T9821]  folio_prealloc+0x30/0x180
-[   45.629487][ T9821]  __handle_mm_fault+0x34bd/0x5640
-[   45.629957][ T9821]  handle_mm_fault+0x40e/0x8e0
-[   45.630392][ T9821]  do_user_addr_fault+0xa81/0x1390
-[   45.630862][ T9821]  exc_page_fault+0x76/0xf0
-[   45.631273][ T9821]  asm_exc_page_fault+0x26/0x30
-[   45.631712][ T9821] page last free pid 5269 tgid 5269 stack trace:
-[   45.632281][ T9821]  free_unref_folios+0xc73/0x14c0
-[   45.632740][ T9821]  folios_put_refs+0x55b/0x640
-[   45.633177][ T9821]  free_pages_and_swap_cache+0x26d/0x510
-[   45.633685][ T9821]  tlb_flush_mmu+0x3a0/0x680
-[   45.634105][ T9821]  tlb_finish_mmu+0xd4/0x200
-[   45.634525][ T9821]  exit_mmap+0x44c/0xb70
-[   45.634914][ T9821]  __mmput+0x118/0x420
-[   45.635286][ T9821]  exit_mm+0x1da/0x2c0
-[   45.635659][ T9821]  do_exit+0x652/0x2330
-[   45.636039][ T9821]  do_group_exit+0x21c/0x2d0
-[   45.636457][ T9821]  __x64_sys_exit_group+0x3f/0x40
-[   45.636915][ T9821]  x64_sys_call+0x21ba/0x21c0
-[   45.637342][ T9821]  do_syscall_64+0xf3/0x3a0
-[   45.637756][ T9821]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   45.638290][ T9821] page has been migrated, last migrate reason: numa_misplaced
-[   45.638956][ T9821]
-[   45.639173][ T9821] Memory state around the buggy address:
-[   45.639677][ T9821]  ffff888035935300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   45.640397][ T9821]  ffff888035935380: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   45.641117][ T9821] >ffff888035935400: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   45.641837][ T9821]                    ^
-[   45.642207][ T9821]  ffff888035935480: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   45.642929][ T9821]  ffff888035935500: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   45.643650][ T9821] ==================================================================
+There is also a need to convert the dynamic feature flags to update
+the m_features field. This is required for attr, attr2 and quota
+features. New xfs_mount based wrappers are added for this.
 
-This commit [1] fixes the issue if an offset inside of b-tree node
-or length of the request is bigger than b-tree node. However,
-this fix is still not ready for negative values
-of the offset or length. Moreover, negative values of
-the offset or length doesn't make sense for b-tree's
-operations. Because we could try to access the memory address
-outside of the beginning of memory page's addresses range.
-Also, using of negative values make logic very complicated,
-unpredictable, and we could access the wrong item(s)
-in the b-tree node.
-
-This patch changes b-tree interface by means of converting
-signed integer arguments of offset and length on u32 type.
-Such conversion has goal to prevent of using negative values
-unintentionally or by mistake in b-tree operations.
-
-[1] 'commit a431930c9bac ("hfs: fix slab-out-of-bounds in hfs_bnode_read()")'
-
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-cc: Yangtao Li <frank.li@vivo.com>
-cc: linux-fsdevel@vger.kernel.org
-Link: https://lore.kernel.org/r/20251002200020.2578311-1-slava@dubeyko.com
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Stable-dep-of: 966cb76fb285 ("hfs/hfsplus: fix u32 overflow in check_and_correct_requested_length")
+Signed-off-by: Dave Chinner <dchinner@redhat.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Stable-dep-of: 03866d130ed3 ("xfs: fix unreachable BIGTIME check in dquot flush validation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/hfs/bfind.c          |  2 +-
- fs/hfs/bnode.c          | 52 ++++++++++++------------
- fs/hfs/brec.c           |  2 +-
- fs/hfs/btree.c          |  2 +-
- fs/hfs/btree.h          | 71 +++++++++++++++++----------------
- fs/hfs/hfs_fs.h         | 88 ++++++++++++++++++++++++-----------------
- fs/hfs/inode.c          |  3 +-
- fs/hfsplus/bfind.c      |  2 +-
- fs/hfsplus/bnode.c      | 60 ++++++++++++++--------------
- fs/hfsplus/brec.c       |  2 +-
- fs/hfsplus/btree.c      |  2 +-
- fs/hfsplus/hfsplus_fs.h | 38 +++++++++---------
- 12 files changed, 171 insertions(+), 153 deletions(-)
+ fs/xfs/libxfs/xfs_format.h |  2 +-
+ fs/xfs/libxfs/xfs_sb.c     | 64 ++++++++++++++++++++++++++++++++
+ fs/xfs/libxfs/xfs_sb.h     |  1 +
+ fs/xfs/xfs_dquot.c         |  2 +-
+ fs/xfs/xfs_log_recover.c   |  1 +
+ fs/xfs/xfs_mount.c         |  1 +
+ fs/xfs/xfs_mount.h         | 75 ++++++++++++++++++++++++++++++++++++++
+ fs/xfs/xfs_rtalloc.c       |  3 ++
+ 8 files changed, 147 insertions(+), 2 deletions(-)
 
-diff --git a/fs/hfs/bfind.c b/fs/hfs/bfind.c
-index 6d37b4c7590347..be4cb0e3a68fe1 100644
---- a/fs/hfs/bfind.c
-+++ b/fs/hfs/bfind.c
-@@ -164,7 +164,7 @@ int hfs_brec_find(struct hfs_find_data *fd)
- 	return res;
+diff --git a/fs/xfs/libxfs/xfs_format.h b/fs/xfs/libxfs/xfs_format.h
+index dd764da08f6fcc..015ad9b285726a 100644
+--- a/fs/xfs/libxfs/xfs_format.h
++++ b/fs/xfs/libxfs/xfs_format.h
+@@ -412,7 +412,7 @@ static inline bool xfs_sb_version_hasprojid32bit(struct xfs_sb *sbp)
+ 		(sbp->sb_features2 & XFS_SB_VERSION2_PROJID32BIT));
  }
  
--int hfs_brec_read(struct hfs_find_data *fd, void *rec, int rec_len)
-+int hfs_brec_read(struct hfs_find_data *fd, void *rec, u32 rec_len)
+-static inline void xfs_sb_version_addprojid32bit(struct xfs_sb *sbp)
++static inline void xfs_sb_version_addprojid32(struct xfs_sb *sbp)
  {
- 	int res;
+ 	sbp->sb_versionnum |= XFS_SB_VERSION_MOREBITSBIT;
+ 	sbp->sb_features2 |= XFS_SB_VERSION2_PROJID32BIT;
+diff --git a/fs/xfs/libxfs/xfs_sb.c b/fs/xfs/libxfs/xfs_sb.c
+index 66e8353da2f3c2..c4fee38f039868 100644
+--- a/fs/xfs/libxfs/xfs_sb.c
++++ b/fs/xfs/libxfs/xfs_sb.c
+@@ -91,6 +91,70 @@ xfs_perag_put(
+ 	trace_xfs_perag_put(pag->pag_mount, pag->pag_agno, ref, _RET_IP_);
+ }
  
-diff --git a/fs/hfs/bnode.c b/fs/hfs/bnode.c
-index e8cd1a31f2470c..e239bcef8b1f49 100644
---- a/fs/hfs/bnode.c
-+++ b/fs/hfs/bnode.c
-@@ -16,14 +16,14 @@
- #include "btree.h"
++uint64_t
++xfs_sb_version_to_features(
++	struct xfs_sb	*sbp)
++{
++	uint64_t	features = 0;
++
++	/* optional V4 features */
++	if (sbp->sb_rblocks > 0)
++		features |= XFS_FEAT_REALTIME;
++	if (sbp->sb_versionnum & XFS_SB_VERSION_ATTRBIT)
++		features |= XFS_FEAT_ATTR;
++	if (sbp->sb_versionnum & XFS_SB_VERSION_QUOTABIT)
++		features |= XFS_FEAT_QUOTA;
++	if (sbp->sb_versionnum & XFS_SB_VERSION_ALIGNBIT)
++		features |= XFS_FEAT_ALIGN;
++	if (sbp->sb_versionnum & XFS_SB_VERSION_LOGV2BIT)
++		features |= XFS_FEAT_LOGV2;
++	if (sbp->sb_versionnum & XFS_SB_VERSION_DALIGNBIT)
++		features |= XFS_FEAT_DALIGN;
++	if (sbp->sb_versionnum & XFS_SB_VERSION_EXTFLGBIT)
++		features |= XFS_FEAT_EXTFLG;
++	if (sbp->sb_versionnum & XFS_SB_VERSION_SECTORBIT)
++		features |= XFS_FEAT_SECTOR;
++	if (sbp->sb_versionnum & XFS_SB_VERSION_BORGBIT)
++		features |= XFS_FEAT_ASCIICI;
++	if (sbp->sb_versionnum & XFS_SB_VERSION_MOREBITSBIT) {
++		if (sbp->sb_features2 & XFS_SB_VERSION2_LAZYSBCOUNTBIT)
++			features |= XFS_FEAT_LAZYSBCOUNT;
++		if (sbp->sb_features2 & XFS_SB_VERSION2_ATTR2BIT)
++			features |= XFS_FEAT_ATTR2;
++		if (sbp->sb_features2 & XFS_SB_VERSION2_PROJID32BIT)
++			features |= XFS_FEAT_PROJID32;
++		if (sbp->sb_features2 & XFS_SB_VERSION2_FTYPE)
++			features |= XFS_FEAT_FTYPE;
++	}
++
++	if (XFS_SB_VERSION_NUM(sbp) != XFS_SB_VERSION_5)
++		return features;
++
++	/* Always on V5 features */
++	features |= XFS_FEAT_ALIGN | XFS_FEAT_LOGV2 | XFS_FEAT_EXTFLG |
++		    XFS_FEAT_LAZYSBCOUNT | XFS_FEAT_ATTR2 | XFS_FEAT_PROJID32 |
++		    XFS_FEAT_V3INODES | XFS_FEAT_CRC | XFS_FEAT_PQUOTINO;
++
++	/* Optional V5 features */
++	if (sbp->sb_features_ro_compat & XFS_SB_FEAT_RO_COMPAT_FINOBT)
++		features |= XFS_FEAT_FINOBT;
++	if (sbp->sb_features_ro_compat & XFS_SB_FEAT_RO_COMPAT_RMAPBT)
++		features |= XFS_FEAT_RMAPBT;
++	if (sbp->sb_features_ro_compat & XFS_SB_FEAT_RO_COMPAT_REFLINK)
++		features |= XFS_FEAT_REFLINK;
++	if (sbp->sb_features_ro_compat & XFS_SB_FEAT_RO_COMPAT_INOBTCNT)
++		features |= XFS_FEAT_INOBTCNT;
++	if (sbp->sb_features_incompat & XFS_SB_FEAT_INCOMPAT_FTYPE)
++		features |= XFS_FEAT_FTYPE;
++	if (sbp->sb_features_incompat & XFS_SB_FEAT_INCOMPAT_SPINODES)
++		features |= XFS_FEAT_SPINODES;
++	if (sbp->sb_features_incompat & XFS_SB_FEAT_INCOMPAT_META_UUID)
++		features |= XFS_FEAT_META_UUID;
++	if (sbp->sb_features_incompat & XFS_SB_FEAT_INCOMPAT_BIGTIME)
++		features |= XFS_FEAT_BIGTIME;
++	return features;
++}
++
+ /* Check all the superblock fields we care about when reading one in. */
+ STATIC int
+ xfs_validate_sb_read(
+diff --git a/fs/xfs/libxfs/xfs_sb.h b/fs/xfs/libxfs/xfs_sb.h
+index 92465a9a516204..e83152e018b4da 100644
+--- a/fs/xfs/libxfs/xfs_sb.h
++++ b/fs/xfs/libxfs/xfs_sb.h
+@@ -29,6 +29,7 @@ extern void	xfs_sb_mount_common(struct xfs_mount *mp, struct xfs_sb *sbp);
+ extern void	xfs_sb_from_disk(struct xfs_sb *to, struct xfs_dsb *from);
+ extern void	xfs_sb_to_disk(struct xfs_dsb *to, struct xfs_sb *from);
+ extern void	xfs_sb_quota_from_disk(struct xfs_sb *sbp);
++extern uint64_t	xfs_sb_version_to_features(struct xfs_sb *sbp);
  
- static inline
--bool is_bnode_offset_valid(struct hfs_bnode *node, int off)
-+bool is_bnode_offset_valid(struct hfs_bnode *node, u32 off)
- {
- 	bool is_valid = off < node->tree->node_size;
+ extern int	xfs_update_secondary_sbs(struct xfs_mount *mp);
  
- 	if (!is_valid) {
- 		pr_err("requested invalid offset: "
- 		       "NODE: id %u, type %#x, height %u, "
--		       "node_size %u, offset %d\n",
-+		       "node_size %u, offset %u\n",
- 		       node->this, node->type, node->height,
- 		       node->tree->node_size, off);
+diff --git a/fs/xfs/xfs_dquot.c b/fs/xfs/xfs_dquot.c
+index 3a2bfc075e9081..05b168a025192c 100644
+--- a/fs/xfs/xfs_dquot.c
++++ b/fs/xfs/xfs_dquot.c
+@@ -1218,7 +1218,7 @@ xfs_qm_dqflush_check(
+ 
+ 	/* bigtime flag should never be set on root dquots */
+ 	if (dqp->q_type & XFS_DQTYPE_BIGTIME) {
+-		if (!xfs_sb_version_hasbigtime(&dqp->q_mount->m_sb))
++		if (!xfs_has_bigtime(dqp->q_mount))
+ 			return __this_address;
+ 		if (dqp->q_id == 0)
+ 			return __this_address;
+diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
+index e61f28ce3e44e0..c0f8d87c48ecfb 100644
+--- a/fs/xfs/xfs_log_recover.c
++++ b/fs/xfs/xfs_log_recover.c
+@@ -3325,6 +3325,7 @@ xlog_do_recover(
+ 	xfs_buf_relse(bp);
+ 
+ 	/* re-initialise in-core superblock and geometry structures */
++	mp->m_features |= xfs_sb_version_to_features(sbp);
+ 	xfs_reinit_percpu_counters(mp);
+ 	error = xfs_initialize_perag(mp, sbp->sb_agcount, &mp->m_maxagi);
+ 	if (error) {
+diff --git a/fs/xfs/xfs_mount.c b/fs/xfs/xfs_mount.c
+index c408dded40dc2c..c01c8fc938db3d 100644
+--- a/fs/xfs/xfs_mount.c
++++ b/fs/xfs/xfs_mount.c
+@@ -345,6 +345,7 @@ xfs_readsb(
+ 		goto reread;
  	}
-@@ -32,7 +32,7 @@ bool is_bnode_offset_valid(struct hfs_bnode *node, int off)
- }
  
- static inline
--int check_and_correct_requested_length(struct hfs_bnode *node, int off, int len)
-+u32 check_and_correct_requested_length(struct hfs_bnode *node, u32 off, u32 len)
- {
- 	unsigned int node_size;
++	mp->m_features |= xfs_sb_version_to_features(sbp);
+ 	xfs_reinit_percpu_counters(mp);
  
-@@ -42,12 +42,12 @@ int check_and_correct_requested_length(struct hfs_bnode *node, int off, int len)
- 	node_size = node->tree->node_size;
+ 	/* no need to be quiet anymore, so reset the buf ops */
+diff --git a/fs/xfs/xfs_mount.h b/fs/xfs/xfs_mount.h
+index 3a6bc9dc11b5c9..9eb58f4cf0199c 100644
+--- a/fs/xfs/xfs_mount.h
++++ b/fs/xfs/xfs_mount.h
+@@ -131,6 +131,7 @@ typedef struct xfs_mount {
+ 	int			m_fixedfsid[2];	/* unchanged for life of FS */
+ 	uint			m_qflags;	/* quota status flags */
+ 	uint64_t		m_flags;	/* global mount flags */
++	uint64_t		m_features;	/* active filesystem features */
+ 	int64_t			m_low_space[XFS_LOWSP_MAX];
+ 	struct xfs_ino_geometry	m_ino_geo;	/* inode geometry */
+ 	struct xfs_trans_resv	m_resv;		/* precomputed res values */
+@@ -221,6 +222,80 @@ typedef struct xfs_mount {
  
- 	if ((off + len) > node_size) {
--		int new_len = (int)node_size - off;
-+		u32 new_len = node_size - off;
+ #define M_IGEO(mp)		(&(mp)->m_ino_geo)
  
- 		pr_err("requested length has been corrected: "
- 		       "NODE: id %u, type %#x, height %u, "
--		       "node_size %u, offset %d, "
--		       "requested_len %d, corrected_len %d\n",
-+		       "node_size %u, offset %u, "
-+		       "requested_len %u, corrected_len %u\n",
- 		       node->this, node->type, node->height,
- 		       node->tree->node_size, off, len, new_len);
- 
-@@ -57,12 +57,12 @@ int check_and_correct_requested_length(struct hfs_bnode *node, int off, int len)
- 	return len;
- }
- 
--void hfs_bnode_read(struct hfs_bnode *node, void *buf, int off, int len)
-+void hfs_bnode_read(struct hfs_bnode *node, void *buf, u32 off, u32 len)
- {
- 	struct page *page;
--	int pagenum;
--	int bytes_read;
--	int bytes_to_read;
-+	u32 pagenum;
-+	u32 bytes_read;
-+	u32 bytes_to_read;
- 
- 	if (!is_bnode_offset_valid(node, off))
- 		return;
-@@ -70,7 +70,7 @@ void hfs_bnode_read(struct hfs_bnode *node, void *buf, int off, int len)
- 	if (len == 0) {
- 		pr_err("requested zero length: "
- 		       "NODE: id %u, type %#x, height %u, "
--		       "node_size %u, offset %d, len %d\n",
-+		       "node_size %u, offset %u, len %u\n",
- 		       node->this, node->type, node->height,
- 		       node->tree->node_size, off, len);
- 		return;
-@@ -86,7 +86,7 @@ void hfs_bnode_read(struct hfs_bnode *node, void *buf, int off, int len)
- 		if (pagenum >= node->tree->pages_per_bnode)
++/*
++ * Flags for m_features.
++ *
++ * These are all the active features in the filesystem, regardless of how
++ * they are configured.
++ */
++#define XFS_FEAT_ATTR		(1ULL << 0)	/* xattrs present in fs */
++#define XFS_FEAT_NLINK		(1ULL << 1)	/* 32 bit link counts */
++#define XFS_FEAT_QUOTA		(1ULL << 2)	/* quota active */
++#define XFS_FEAT_ALIGN		(1ULL << 3)	/* inode alignment */
++#define XFS_FEAT_DALIGN		(1ULL << 4)	/* data alignment */
++#define XFS_FEAT_LOGV2		(1ULL << 5)	/* version 2 logs */
++#define XFS_FEAT_SECTOR		(1ULL << 6)	/* sector size > 512 bytes */
++#define XFS_FEAT_EXTFLG		(1ULL << 7)	/* unwritten extents */
++#define XFS_FEAT_ASCIICI	(1ULL << 8)	/* ASCII only case-insens. */
++#define XFS_FEAT_LAZYSBCOUNT	(1ULL << 9)	/* Superblk counters */
++#define XFS_FEAT_ATTR2		(1ULL << 10)	/* dynamic attr fork */
++#define XFS_FEAT_PARENT		(1ULL << 11)	/* parent pointers */
++#define XFS_FEAT_PROJID32	(1ULL << 12)	/* 32 bit project id */
++#define XFS_FEAT_CRC		(1ULL << 13)	/* metadata CRCs */
++#define XFS_FEAT_V3INODES	(1ULL << 14)	/* Version 3 inodes */
++#define XFS_FEAT_PQUOTINO	(1ULL << 15)	/* non-shared proj/grp quotas */
++#define XFS_FEAT_FTYPE		(1ULL << 16)	/* inode type in dir */
++#define XFS_FEAT_FINOBT		(1ULL << 17)	/* free inode btree */
++#define XFS_FEAT_RMAPBT		(1ULL << 18)	/* reverse map btree */
++#define XFS_FEAT_REFLINK	(1ULL << 19)	/* reflinked files */
++#define XFS_FEAT_SPINODES	(1ULL << 20)	/* sparse inode chunks */
++#define XFS_FEAT_META_UUID	(1ULL << 21)	/* metadata UUID */
++#define XFS_FEAT_REALTIME	(1ULL << 22)	/* realtime device present */
++#define XFS_FEAT_INOBTCNT	(1ULL << 23)	/* inobt block counts */
++#define XFS_FEAT_BIGTIME	(1ULL << 24)	/* large timestamps */
++#define XFS_FEAT_NEEDSREPAIR	(1ULL << 25)	/* needs xfs_repair */
++
++#define __XFS_HAS_FEAT(name, NAME) \
++static inline bool xfs_has_ ## name (struct xfs_mount *mp) \
++{ \
++	return mp->m_features & XFS_FEAT_ ## NAME; \
++}
++
++/* Some features can be added dynamically so they need a set wrapper, too. */
++#define __XFS_ADD_FEAT(name, NAME) \
++	__XFS_HAS_FEAT(name, NAME); \
++static inline void xfs_add_ ## name (struct xfs_mount *mp) \
++{ \
++	mp->m_features |= XFS_FEAT_ ## NAME; \
++	xfs_sb_version_add ## name(&mp->m_sb); \
++}
++
++__XFS_HAS_FEAT(nlink, NLINK)
++__XFS_ADD_FEAT(quota, QUOTA)
++__XFS_HAS_FEAT(align, ALIGN)
++__XFS_HAS_FEAT(dalign, DALIGN)
++__XFS_HAS_FEAT(logv2, LOGV2)
++__XFS_HAS_FEAT(sector, SECTOR)
++__XFS_HAS_FEAT(extflg, EXTFLG)
++__XFS_HAS_FEAT(asciici, ASCIICI)
++__XFS_HAS_FEAT(lazysbcount, LAZYSBCOUNT)
++__XFS_ADD_FEAT(attr2, ATTR2)
++__XFS_HAS_FEAT(parent, PARENT)
++__XFS_ADD_FEAT(projid32, PROJID32)
++__XFS_HAS_FEAT(crc, CRC)
++__XFS_HAS_FEAT(v3inodes, V3INODES)
++__XFS_HAS_FEAT(pquotino, PQUOTINO)
++__XFS_HAS_FEAT(ftype, FTYPE)
++__XFS_HAS_FEAT(finobt, FINOBT)
++__XFS_HAS_FEAT(rmapbt, RMAPBT)
++__XFS_HAS_FEAT(reflink, REFLINK)
++__XFS_HAS_FEAT(sparseinodes, SPINODES)
++__XFS_HAS_FEAT(metauuid, META_UUID)
++__XFS_HAS_FEAT(realtime, REALTIME)
++__XFS_HAS_FEAT(inobtcounts, INOBTCNT)
++__XFS_HAS_FEAT(bigtime, BIGTIME)
++__XFS_HAS_FEAT(needsrepair, NEEDSREPAIR)
++
+ /*
+  * Flags for m_flags.
+  */
+diff --git a/fs/xfs/xfs_rtalloc.c b/fs/xfs/xfs_rtalloc.c
+index ede1baf31413c1..915bc2950d4a9a 100644
+--- a/fs/xfs/xfs_rtalloc.c
++++ b/fs/xfs/xfs_rtalloc.c
+@@ -1101,6 +1101,9 @@ xfs_growfs_rt(
+ 		error = xfs_trans_commit(tp);
+ 		if (error)
  			break;
- 		page = node->page[pagenum];
--		bytes_to_read = min_t(int, len - bytes_read, PAGE_SIZE - off);
-+		bytes_to_read = min_t(u32, len - bytes_read, PAGE_SIZE - off);
- 
- 		memcpy_from_page(buf + bytes_read, page, off, bytes_to_read);
- 
-@@ -95,7 +95,7 @@ void hfs_bnode_read(struct hfs_bnode *node, void *buf, int off, int len)
++
++		/* Ensure the mount RT feature flag is now set. */
++		mp->m_features |= XFS_FEAT_REALTIME;
  	}
- }
- 
--u16 hfs_bnode_read_u16(struct hfs_bnode *node, int off)
-+u16 hfs_bnode_read_u16(struct hfs_bnode *node, u32 off)
- {
- 	__be16 data;
- 	// optimize later...
-@@ -103,7 +103,7 @@ u16 hfs_bnode_read_u16(struct hfs_bnode *node, int off)
- 	return be16_to_cpu(data);
- }
- 
--u8 hfs_bnode_read_u8(struct hfs_bnode *node, int off)
-+u8 hfs_bnode_read_u8(struct hfs_bnode *node, u32 off)
- {
- 	u8 data;
- 	// optimize later...
-@@ -111,10 +111,10 @@ u8 hfs_bnode_read_u8(struct hfs_bnode *node, int off)
- 	return data;
- }
- 
--void hfs_bnode_read_key(struct hfs_bnode *node, void *key, int off)
-+void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off)
- {
- 	struct hfs_btree *tree;
--	int key_len;
-+	u32 key_len;
- 
- 	tree = node->tree;
- 	if (node->type == HFS_NODE_LEAF ||
-@@ -125,14 +125,14 @@ void hfs_bnode_read_key(struct hfs_bnode *node, void *key, int off)
- 
- 	if (key_len > sizeof(hfs_btree_key) || key_len < 1) {
- 		memset(key, 0, sizeof(hfs_btree_key));
--		pr_err("hfs: Invalid key length: %d\n", key_len);
-+		pr_err("hfs: Invalid key length: %u\n", key_len);
- 		return;
- 	}
- 
- 	hfs_bnode_read(node, key, off, key_len);
- }
- 
--void hfs_bnode_write(struct hfs_bnode *node, void *buf, int off, int len)
-+void hfs_bnode_write(struct hfs_bnode *node, void *buf, u32 off, u32 len)
- {
- 	struct page *page;
- 
-@@ -142,7 +142,7 @@ void hfs_bnode_write(struct hfs_bnode *node, void *buf, int off, int len)
- 	if (len == 0) {
- 		pr_err("requested zero length: "
- 		       "NODE: id %u, type %#x, height %u, "
--		       "node_size %u, offset %d, len %d\n",
-+		       "node_size %u, offset %u, len %u\n",
- 		       node->this, node->type, node->height,
- 		       node->tree->node_size, off, len);
- 		return;
-@@ -157,20 +157,20 @@ void hfs_bnode_write(struct hfs_bnode *node, void *buf, int off, int len)
- 	set_page_dirty(page);
- }
- 
--void hfs_bnode_write_u16(struct hfs_bnode *node, int off, u16 data)
-+void hfs_bnode_write_u16(struct hfs_bnode *node, u32 off, u16 data)
- {
- 	__be16 v = cpu_to_be16(data);
- 	// optimize later...
- 	hfs_bnode_write(node, &v, off, 2);
- }
- 
--void hfs_bnode_write_u8(struct hfs_bnode *node, int off, u8 data)
-+void hfs_bnode_write_u8(struct hfs_bnode *node, u32 off, u8 data)
- {
- 	// optimize later...
- 	hfs_bnode_write(node, &data, off, 1);
- }
- 
--void hfs_bnode_clear(struct hfs_bnode *node, int off, int len)
-+void hfs_bnode_clear(struct hfs_bnode *node, u32 off, u32 len)
- {
- 	struct page *page;
- 
-@@ -180,7 +180,7 @@ void hfs_bnode_clear(struct hfs_bnode *node, int off, int len)
- 	if (len == 0) {
- 		pr_err("requested zero length: "
- 		       "NODE: id %u, type %#x, height %u, "
--		       "node_size %u, offset %d, len %d\n",
-+		       "node_size %u, offset %u, len %u\n",
- 		       node->this, node->type, node->height,
- 		       node->tree->node_size, off, len);
- 		return;
-@@ -195,8 +195,8 @@ void hfs_bnode_clear(struct hfs_bnode *node, int off, int len)
- 	set_page_dirty(page);
- }
- 
--void hfs_bnode_copy(struct hfs_bnode *dst_node, int dst,
--		struct hfs_bnode *src_node, int src, int len)
-+void hfs_bnode_copy(struct hfs_bnode *dst_node, u32 dst,
-+		    struct hfs_bnode *src_node, u32 src, u32 len)
- {
- 	struct page *src_page, *dst_page;
- 
-@@ -216,7 +216,7 @@ void hfs_bnode_copy(struct hfs_bnode *dst_node, int dst,
- 	set_page_dirty(dst_page);
- }
- 
--void hfs_bnode_move(struct hfs_bnode *node, int dst, int src, int len)
-+void hfs_bnode_move(struct hfs_bnode *node, u32 dst, u32 src, u32 len)
- {
- 	struct page *page;
- 	void *ptr;
-diff --git a/fs/hfs/brec.c b/fs/hfs/brec.c
-index b01db1fae147cd..a463315316bf6a 100644
---- a/fs/hfs/brec.c
-+++ b/fs/hfs/brec.c
-@@ -62,7 +62,7 @@ u16 hfs_brec_keylen(struct hfs_bnode *node, u16 rec)
- 	return retval;
- }
- 
--int hfs_brec_insert(struct hfs_find_data *fd, void *entry, int entry_len)
-+int hfs_brec_insert(struct hfs_find_data *fd, void *entry, u32 entry_len)
- {
- 	struct hfs_btree *tree;
- 	struct hfs_bnode *node, *new_node;
-diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
-index 2fa4b1f8cc7fb0..6f754b93475299 100644
---- a/fs/hfs/btree.c
-+++ b/fs/hfs/btree.c
-@@ -224,7 +224,7 @@ static struct hfs_bnode *hfs_bmap_new_bmap(struct hfs_bnode *prev, u32 idx)
- }
- 
- /* Make sure @tree has enough space for the @rsvd_nodes */
--int hfs_bmap_reserve(struct hfs_btree *tree, int rsvd_nodes)
-+int hfs_bmap_reserve(struct hfs_btree *tree, u32 rsvd_nodes)
- {
- 	struct inode *inode = tree->inode;
- 	u32 count;
-diff --git a/fs/hfs/btree.h b/fs/hfs/btree.h
-index 0e6baee932453b..97f88035b2248f 100644
---- a/fs/hfs/btree.h
-+++ b/fs/hfs/btree.h
-@@ -86,48 +86,49 @@ struct hfs_find_data {
- 
- 
- /* btree.c */
--extern struct hfs_btree *hfs_btree_open(struct super_block *, u32, btree_keycmp);
--extern void hfs_btree_close(struct hfs_btree *);
--extern void hfs_btree_write(struct hfs_btree *);
--extern int hfs_bmap_reserve(struct hfs_btree *, int);
--extern struct hfs_bnode * hfs_bmap_alloc(struct hfs_btree *);
-+extern struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id,
-+					btree_keycmp keycmp);
-+extern void hfs_btree_close(struct hfs_btree *tree);
-+extern void hfs_btree_write(struct hfs_btree *tree);
-+extern int hfs_bmap_reserve(struct hfs_btree *tree, u32 rsvd_nodes);
-+extern struct hfs_bnode *hfs_bmap_alloc(struct hfs_btree *tree);
- extern void hfs_bmap_free(struct hfs_bnode *node);
- 
- /* bnode.c */
--extern void hfs_bnode_read(struct hfs_bnode *, void *, int, int);
--extern u16 hfs_bnode_read_u16(struct hfs_bnode *, int);
--extern u8 hfs_bnode_read_u8(struct hfs_bnode *, int);
--extern void hfs_bnode_read_key(struct hfs_bnode *, void *, int);
--extern void hfs_bnode_write(struct hfs_bnode *, void *, int, int);
--extern void hfs_bnode_write_u16(struct hfs_bnode *, int, u16);
--extern void hfs_bnode_write_u8(struct hfs_bnode *, int, u8);
--extern void hfs_bnode_clear(struct hfs_bnode *, int, int);
--extern void hfs_bnode_copy(struct hfs_bnode *, int,
--			   struct hfs_bnode *, int, int);
--extern void hfs_bnode_move(struct hfs_bnode *, int, int, int);
--extern void hfs_bnode_dump(struct hfs_bnode *);
--extern void hfs_bnode_unlink(struct hfs_bnode *);
--extern struct hfs_bnode *hfs_bnode_findhash(struct hfs_btree *, u32);
--extern struct hfs_bnode *hfs_bnode_find(struct hfs_btree *, u32);
--extern void hfs_bnode_unhash(struct hfs_bnode *);
--extern void hfs_bnode_free(struct hfs_bnode *);
--extern struct hfs_bnode *hfs_bnode_create(struct hfs_btree *, u32);
--extern void hfs_bnode_get(struct hfs_bnode *);
--extern void hfs_bnode_put(struct hfs_bnode *);
-+extern void hfs_bnode_read(struct hfs_bnode *node, void *buf, u32 off, u32 len);
-+extern u16 hfs_bnode_read_u16(struct hfs_bnode *node, u32 off);
-+extern u8 hfs_bnode_read_u8(struct hfs_bnode *node, u32 off);
-+extern void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off);
-+extern void hfs_bnode_write(struct hfs_bnode *node, void *buf, u32 off, u32 len);
-+extern void hfs_bnode_write_u16(struct hfs_bnode *node, u32 off, u16 data);
-+extern void hfs_bnode_write_u8(struct hfs_bnode *node, u32 off, u8 data);
-+extern void hfs_bnode_clear(struct hfs_bnode *node, u32 off, u32 len);
-+extern void hfs_bnode_copy(struct hfs_bnode *dst_node, u32 dst,
-+			   struct hfs_bnode *src_node, u32 src, u32 len);
-+extern void hfs_bnode_move(struct hfs_bnode *node, u32 dst, u32 src, u32 len);
-+extern void hfs_bnode_dump(struct hfs_bnode *node);
-+extern void hfs_bnode_unlink(struct hfs_bnode *node);
-+extern struct hfs_bnode *hfs_bnode_findhash(struct hfs_btree *tree, u32 cnid);
-+extern struct hfs_bnode *hfs_bnode_find(struct hfs_btree *tree, u32 num);
-+extern void hfs_bnode_unhash(struct hfs_bnode *node);
-+extern void hfs_bnode_free(struct hfs_bnode *node);
-+extern struct hfs_bnode *hfs_bnode_create(struct hfs_btree *tree, u32 num);
-+extern void hfs_bnode_get(struct hfs_bnode *node);
-+extern void hfs_bnode_put(struct hfs_bnode *node);
- 
- /* brec.c */
--extern u16 hfs_brec_lenoff(struct hfs_bnode *, u16, u16 *);
--extern u16 hfs_brec_keylen(struct hfs_bnode *, u16);
--extern int hfs_brec_insert(struct hfs_find_data *, void *, int);
--extern int hfs_brec_remove(struct hfs_find_data *);
-+extern u16 hfs_brec_lenoff(struct hfs_bnode *node, u16 rec, u16 *off);
-+extern u16 hfs_brec_keylen(struct hfs_bnode *node, u16 rec);
-+extern int hfs_brec_insert(struct hfs_find_data *fd, void *entry, u32 entry_len);
-+extern int hfs_brec_remove(struct hfs_find_data *fd);
- 
- /* bfind.c */
--extern int hfs_find_init(struct hfs_btree *, struct hfs_find_data *);
--extern void hfs_find_exit(struct hfs_find_data *);
--extern int __hfs_brec_find(struct hfs_bnode *, struct hfs_find_data *);
--extern int hfs_brec_find(struct hfs_find_data *);
--extern int hfs_brec_read(struct hfs_find_data *, void *, int);
--extern int hfs_brec_goto(struct hfs_find_data *, int);
-+extern int hfs_find_init(struct hfs_btree *tree, struct hfs_find_data *fd);
-+extern void hfs_find_exit(struct hfs_find_data *fd);
-+extern int __hfs_brec_find(struct hfs_bnode *bnode, struct hfs_find_data *fd);
-+extern int hfs_brec_find(struct hfs_find_data *fd);
-+extern int hfs_brec_read(struct hfs_find_data *fd, void *rec, u32 rec_len);
-+extern int hfs_brec_goto(struct hfs_find_data *fd, int cnt);
- 
- 
- struct hfs_bnode_desc {
-diff --git a/fs/hfs/hfs_fs.h b/fs/hfs/hfs_fs.h
-index 68d0305880f714..1bce2ec271d4df 100644
---- a/fs/hfs/hfs_fs.h
-+++ b/fs/hfs/hfs_fs.h
-@@ -171,73 +171,89 @@ struct hfs_sb_info {
- #define HFS_FLG_ALT_MDB_DIRTY	2
- 
- /* bitmap.c */
--extern u32 hfs_vbm_search_free(struct super_block *, u32, u32 *);
--extern int hfs_clear_vbm_bits(struct super_block *, u16, u16);
-+extern u32 hfs_vbm_search_free(struct super_block *sb, u32 goal, u32 *num_bits);
-+extern int hfs_clear_vbm_bits(struct super_block *sb, u16 start, u16 count);
- 
- /* catalog.c */
--extern int hfs_cat_keycmp(const btree_key *, const btree_key *);
-+extern int hfs_cat_keycmp(const btree_key *key1, const btree_key *key2);
- struct hfs_find_data;
--extern int hfs_cat_find_brec(struct super_block *, u32, struct hfs_find_data *);
--extern int hfs_cat_create(u32, struct inode *, const struct qstr *, struct inode *);
--extern int hfs_cat_delete(u32, struct inode *, const struct qstr *);
--extern int hfs_cat_move(u32, struct inode *, const struct qstr *,
--			struct inode *, const struct qstr *);
--extern void hfs_cat_build_key(struct super_block *, btree_key *, u32, const struct qstr *);
-+extern int hfs_cat_find_brec(struct super_block *sb, u32 cnid,
-+			     struct hfs_find_data *fd);
-+extern int hfs_cat_create(u32 cnid, struct inode *dir,
-+			  const struct qstr *str, struct inode *inode);
-+extern int hfs_cat_delete(u32 cnid, struct inode *dir, const struct qstr *str);
-+extern int hfs_cat_move(u32 cnid, struct inode *src_dir,
-+			const struct qstr *src_name,
-+			struct inode *dst_dir,
-+			const struct qstr *dst_name);
-+extern void hfs_cat_build_key(struct super_block *sb, btree_key *key,
-+			      u32 parent, const struct qstr *name);
- 
- /* dir.c */
- extern const struct file_operations hfs_dir_operations;
- extern const struct inode_operations hfs_dir_inode_operations;
- 
- /* extent.c */
--extern int hfs_ext_keycmp(const btree_key *, const btree_key *);
--extern int hfs_free_fork(struct super_block *, struct hfs_cat_file *, int);
--extern int hfs_ext_write_extent(struct inode *);
--extern int hfs_extend_file(struct inode *);
--extern void hfs_file_truncate(struct inode *);
-+extern int hfs_ext_keycmp(const btree_key *key1, const btree_key *key2);
-+extern int hfs_free_fork(struct super_block *sb,
-+			 struct hfs_cat_file *file, int type);
-+extern int hfs_ext_write_extent(struct inode *inode);
-+extern int hfs_extend_file(struct inode *inode);
-+extern void hfs_file_truncate(struct inode *inode);
- 
--extern int hfs_get_block(struct inode *, sector_t, struct buffer_head *, int);
-+extern int hfs_get_block(struct inode *inode, sector_t block,
-+			 struct buffer_head *bh_result, int create);
- 
- /* inode.c */
- extern const struct address_space_operations hfs_aops;
- extern const struct address_space_operations hfs_btree_aops;
- 
- int hfs_write_begin(struct file *file, struct address_space *mapping,
--		loff_t pos, unsigned len, struct page **pagep, void **fsdata);
--extern struct inode *hfs_new_inode(struct inode *, const struct qstr *, umode_t);
--extern void hfs_inode_write_fork(struct inode *, struct hfs_extent *, __be32 *, __be32 *);
--extern int hfs_write_inode(struct inode *, struct writeback_control *);
--extern int hfs_inode_setattr(struct user_namespace *, struct dentry *,
--			     struct iattr *);
-+		loff_t pos, unsigned int len, struct page **pagep,
-+		void **fsdata);
-+extern struct inode *hfs_new_inode(struct inode *dir, const struct qstr *name,
-+				   umode_t mode);
-+extern void hfs_inode_write_fork(struct inode *inode, struct hfs_extent *ext,
-+				 __be32 *log_size, __be32 *phys_size);
-+extern int hfs_write_inode(struct inode *inode, struct writeback_control *wbc);
-+extern int hfs_inode_setattr(struct user_namespace *mnt_userns,
-+			     struct dentry *dentry, struct iattr *attr);
- extern void hfs_inode_read_fork(struct inode *inode, struct hfs_extent *ext,
--			__be32 log_size, __be32 phys_size, u32 clump_size);
--extern struct inode *hfs_iget(struct super_block *, struct hfs_cat_key *, hfs_cat_rec *);
--extern void hfs_evict_inode(struct inode *);
--extern void hfs_delete_inode(struct inode *);
-+				__be32 __log_size, __be32 phys_size,
-+				u32 clump_size);
-+extern struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key,
-+				hfs_cat_rec *rec);
-+extern void hfs_evict_inode(struct inode *inode);
-+extern void hfs_delete_inode(struct inode *inode);
- 
- /* attr.c */
- extern const struct xattr_handler *hfs_xattr_handlers[];
- 
- /* mdb.c */
--extern int hfs_mdb_get(struct super_block *);
--extern void hfs_mdb_commit(struct super_block *);
--extern void hfs_mdb_close(struct super_block *);
--extern void hfs_mdb_put(struct super_block *);
-+extern int hfs_mdb_get(struct super_block *sb);
-+extern void hfs_mdb_commit(struct super_block *sb);
-+extern void hfs_mdb_close(struct super_block *sb);
-+extern void hfs_mdb_put(struct super_block *sb);
- 
- /* part_tbl.c */
--extern int hfs_part_find(struct super_block *, sector_t *, sector_t *);
-+extern int hfs_part_find(struct super_block *sb,
-+			 sector_t *part_start, sector_t *part_size);
- 
- /* string.c */
- extern const struct dentry_operations hfs_dentry_operations;
- 
--extern int hfs_hash_dentry(const struct dentry *, struct qstr *);
--extern int hfs_strcmp(const unsigned char *, unsigned int,
--		      const unsigned char *, unsigned int);
-+extern int hfs_hash_dentry(const struct dentry *dentry, struct qstr *this);
-+extern int hfs_strcmp(const unsigned char *s1, unsigned int len1,
-+		      const unsigned char *s2, unsigned int len2);
- extern int hfs_compare_dentry(const struct dentry *dentry,
--		unsigned int len, const char *str, const struct qstr *name);
-+				unsigned int len, const char *str,
-+				const struct qstr *name);
- 
- /* trans.c */
--extern void hfs_asc2mac(struct super_block *, struct hfs_name *, const struct qstr *);
--extern int hfs_mac2asc(struct super_block *, char *, const struct hfs_name *);
-+extern void hfs_asc2mac(struct super_block *sb,
-+			struct hfs_name *out, const struct qstr *in);
-+extern int hfs_mac2asc(struct super_block *sb,
-+			char *out, const struct hfs_name *in);
- 
- /* super.c */
- extern void hfs_mark_mdb_dirty(struct super_block *sb);
-diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-index aedb4b2621891c..e45cc396dc004b 100644
---- a/fs/hfs/inode.c
-+++ b/fs/hfs/inode.c
-@@ -50,7 +50,8 @@ static void hfs_write_failed(struct address_space *mapping, loff_t to)
- }
- 
- int hfs_write_begin(struct file *file, struct address_space *mapping,
--		loff_t pos, unsigned len, struct page **pagep, void **fsdata)
-+		loff_t pos, unsigned int len, struct page **pagep,
-+		void **fsdata)
- {
- 	int ret;
- 
-diff --git a/fs/hfsplus/bfind.c b/fs/hfsplus/bfind.c
-index 41f4f56f90fac4..094ce196a4d4a6 100644
---- a/fs/hfsplus/bfind.c
-+++ b/fs/hfsplus/bfind.c
-@@ -210,7 +210,7 @@ int hfs_brec_find(struct hfs_find_data *fd, search_strategy_t do_key_compare)
- 	return res;
- }
- 
--int hfs_brec_read(struct hfs_find_data *fd, void *rec, int rec_len)
-+int hfs_brec_read(struct hfs_find_data *fd, void *rec, u32 rec_len)
- {
- 	int res;
- 
-diff --git a/fs/hfsplus/bnode.c b/fs/hfsplus/bnode.c
-index fb437598e26259..d634838d767dfa 100644
---- a/fs/hfsplus/bnode.c
-+++ b/fs/hfsplus/bnode.c
-@@ -20,10 +20,10 @@
- 
- 
- /* Copy a specified range of bytes from the raw data of a node */
--void hfs_bnode_read(struct hfs_bnode *node, void *buf, int off, int len)
-+void hfs_bnode_read(struct hfs_bnode *node, void *buf, u32 off, u32 len)
- {
- 	struct page **pagep;
--	int l;
-+	u32 l;
- 
- 	if (!is_bnode_offset_valid(node, off))
- 		return;
-@@ -31,7 +31,7 @@ void hfs_bnode_read(struct hfs_bnode *node, void *buf, int off, int len)
- 	if (len == 0) {
- 		pr_err("requested zero length: "
- 		       "NODE: id %u, type %#x, height %u, "
--		       "node_size %u, offset %d, len %d\n",
-+		       "node_size %u, offset %u, len %u\n",
- 		       node->this, node->type, node->height,
- 		       node->tree->node_size, off, len);
- 		return;
-@@ -43,17 +43,17 @@ void hfs_bnode_read(struct hfs_bnode *node, void *buf, int off, int len)
- 	pagep = node->page + (off >> PAGE_SHIFT);
- 	off &= ~PAGE_MASK;
- 
--	l = min_t(int, len, PAGE_SIZE - off);
-+	l = min_t(u32, len, PAGE_SIZE - off);
- 	memcpy_from_page(buf, *pagep, off, l);
- 
- 	while ((len -= l) != 0) {
- 		buf += l;
--		l = min_t(int, len, PAGE_SIZE);
-+		l = min_t(u32, len, PAGE_SIZE);
- 		memcpy_from_page(buf, *++pagep, 0, l);
- 	}
- }
- 
--u16 hfs_bnode_read_u16(struct hfs_bnode *node, int off)
-+u16 hfs_bnode_read_u16(struct hfs_bnode *node, u32 off)
- {
- 	__be16 data;
- 	/* TODO: optimize later... */
-@@ -61,7 +61,7 @@ u16 hfs_bnode_read_u16(struct hfs_bnode *node, int off)
- 	return be16_to_cpu(data);
- }
- 
--u8 hfs_bnode_read_u8(struct hfs_bnode *node, int off)
-+u8 hfs_bnode_read_u8(struct hfs_bnode *node, u32 off)
- {
- 	u8 data;
- 	/* TODO: optimize later... */
-@@ -69,10 +69,10 @@ u8 hfs_bnode_read_u8(struct hfs_bnode *node, int off)
- 	return data;
- }
- 
--void hfs_bnode_read_key(struct hfs_bnode *node, void *key, int off)
-+void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off)
- {
- 	struct hfs_btree *tree;
--	int key_len;
-+	u32 key_len;
- 
- 	tree = node->tree;
- 	if (node->type == HFS_NODE_LEAF ||
-@@ -84,17 +84,17 @@ void hfs_bnode_read_key(struct hfs_bnode *node, void *key, int off)
- 
- 	if (key_len > sizeof(hfsplus_btree_key) || key_len < 1) {
- 		memset(key, 0, sizeof(hfsplus_btree_key));
--		pr_err("hfsplus: Invalid key length: %d\n", key_len);
-+		pr_err("hfsplus: Invalid key length: %u\n", key_len);
- 		return;
- 	}
- 
- 	hfs_bnode_read(node, key, off, key_len);
- }
- 
--void hfs_bnode_write(struct hfs_bnode *node, void *buf, int off, int len)
-+void hfs_bnode_write(struct hfs_bnode *node, void *buf, u32 off, u32 len)
- {
- 	struct page **pagep;
--	int l;
-+	u32 l;
- 
- 	if (!is_bnode_offset_valid(node, off))
- 		return;
-@@ -102,7 +102,7 @@ void hfs_bnode_write(struct hfs_bnode *node, void *buf, int off, int len)
- 	if (len == 0) {
- 		pr_err("requested zero length: "
- 		       "NODE: id %u, type %#x, height %u, "
--		       "node_size %u, offset %d, len %d\n",
-+		       "node_size %u, offset %u, len %u\n",
- 		       node->this, node->type, node->height,
- 		       node->tree->node_size, off, len);
- 		return;
-@@ -114,29 +114,29 @@ void hfs_bnode_write(struct hfs_bnode *node, void *buf, int off, int len)
- 	pagep = node->page + (off >> PAGE_SHIFT);
- 	off &= ~PAGE_MASK;
- 
--	l = min_t(int, len, PAGE_SIZE - off);
-+	l = min_t(u32, len, PAGE_SIZE - off);
- 	memcpy_to_page(*pagep, off, buf, l);
- 	set_page_dirty(*pagep);
- 
- 	while ((len -= l) != 0) {
- 		buf += l;
--		l = min_t(int, len, PAGE_SIZE);
-+		l = min_t(u32, len, PAGE_SIZE);
- 		memcpy_to_page(*++pagep, 0, buf, l);
- 		set_page_dirty(*pagep);
- 	}
- }
- 
--void hfs_bnode_write_u16(struct hfs_bnode *node, int off, u16 data)
-+void hfs_bnode_write_u16(struct hfs_bnode *node, u32 off, u16 data)
- {
- 	__be16 v = cpu_to_be16(data);
- 	/* TODO: optimize later... */
- 	hfs_bnode_write(node, &v, off, 2);
- }
- 
--void hfs_bnode_clear(struct hfs_bnode *node, int off, int len)
-+void hfs_bnode_clear(struct hfs_bnode *node, u32 off, u32 len)
- {
- 	struct page **pagep;
--	int l;
-+	u32 l;
- 
- 	if (!is_bnode_offset_valid(node, off))
- 		return;
-@@ -144,7 +144,7 @@ void hfs_bnode_clear(struct hfs_bnode *node, int off, int len)
- 	if (len == 0) {
- 		pr_err("requested zero length: "
- 		       "NODE: id %u, type %#x, height %u, "
--		       "node_size %u, offset %d, len %d\n",
-+		       "node_size %u, offset %u, len %u\n",
- 		       node->this, node->type, node->height,
- 		       node->tree->node_size, off, len);
- 		return;
-@@ -156,22 +156,22 @@ void hfs_bnode_clear(struct hfs_bnode *node, int off, int len)
- 	pagep = node->page + (off >> PAGE_SHIFT);
- 	off &= ~PAGE_MASK;
- 
--	l = min_t(int, len, PAGE_SIZE - off);
-+	l = min_t(u32, len, PAGE_SIZE - off);
- 	memzero_page(*pagep, off, l);
- 	set_page_dirty(*pagep);
- 
- 	while ((len -= l) != 0) {
--		l = min_t(int, len, PAGE_SIZE);
-+		l = min_t(u32, len, PAGE_SIZE);
- 		memzero_page(*++pagep, 0, l);
- 		set_page_dirty(*pagep);
- 	}
- }
- 
--void hfs_bnode_copy(struct hfs_bnode *dst_node, int dst,
--		    struct hfs_bnode *src_node, int src, int len)
-+void hfs_bnode_copy(struct hfs_bnode *dst_node, u32 dst,
-+		    struct hfs_bnode *src_node, u32 src, u32 len)
- {
- 	struct page **src_page, **dst_page;
--	int l;
-+	u32 l;
- 
- 	hfs_dbg(BNODE_MOD, "copybytes: %u,%u,%u\n", dst, src, len);
- 	if (!len)
-@@ -188,12 +188,12 @@ void hfs_bnode_copy(struct hfs_bnode *dst_node, int dst,
- 	dst &= ~PAGE_MASK;
- 
- 	if (src == dst) {
--		l = min_t(int, len, PAGE_SIZE - src);
-+		l = min_t(u32, len, PAGE_SIZE - src);
- 		memcpy_page(*dst_page, src, *src_page, src, l);
- 		set_page_dirty(*dst_page);
- 
- 		while ((len -= l) != 0) {
--			l = min_t(int, len, PAGE_SIZE);
-+			l = min_t(u32, len, PAGE_SIZE);
- 			memcpy_page(*++dst_page, 0, *++src_page, 0, l);
- 			set_page_dirty(*dst_page);
- 		}
-@@ -225,11 +225,11 @@ void hfs_bnode_copy(struct hfs_bnode *dst_node, int dst,
- 	}
- }
- 
--void hfs_bnode_move(struct hfs_bnode *node, int dst, int src, int len)
-+void hfs_bnode_move(struct hfs_bnode *node, u32 dst, u32 src, u32 len)
- {
- 	struct page **src_page, **dst_page;
- 	void *src_ptr, *dst_ptr;
--	int l;
-+	u32 l;
- 
- 	hfs_dbg(BNODE_MOD, "movebytes: %u,%u,%u\n", dst, src, len);
- 	if (!len)
-@@ -299,7 +299,7 @@ void hfs_bnode_move(struct hfs_bnode *node, int dst, int src, int len)
- 		dst &= ~PAGE_MASK;
- 
- 		if (src == dst) {
--			l = min_t(int, len, PAGE_SIZE - src);
-+			l = min_t(u32, len, PAGE_SIZE - src);
- 
- 			dst_ptr = kmap_local_page(*dst_page) + src;
- 			src_ptr = kmap_local_page(*src_page) + src;
-@@ -309,7 +309,7 @@ void hfs_bnode_move(struct hfs_bnode *node, int dst, int src, int len)
- 			kunmap_local(dst_ptr);
- 
- 			while ((len -= l) != 0) {
--				l = min_t(int, len, PAGE_SIZE);
-+				l = min_t(u32, len, PAGE_SIZE);
- 				dst_ptr = kmap_local_page(*++dst_page);
- 				src_ptr = kmap_local_page(*++src_page);
- 				memmove(dst_ptr, src_ptr, l);
-diff --git a/fs/hfsplus/brec.c b/fs/hfsplus/brec.c
-index 1918544a78716e..53e4fa3f608b97 100644
---- a/fs/hfsplus/brec.c
-+++ b/fs/hfsplus/brec.c
-@@ -60,7 +60,7 @@ u16 hfs_brec_keylen(struct hfs_bnode *node, u16 rec)
- 	return retval;
- }
- 
--int hfs_brec_insert(struct hfs_find_data *fd, void *entry, int entry_len)
-+int hfs_brec_insert(struct hfs_find_data *fd, void *entry, u32 entry_len)
- {
- 	struct hfs_btree *tree;
- 	struct hfs_bnode *node, *new_node;
-diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
-index fe6a54c4083c34..72c593308bbaa4 100644
---- a/fs/hfsplus/btree.c
-+++ b/fs/hfsplus/btree.c
-@@ -344,7 +344,7 @@ static struct hfs_bnode *hfs_bmap_new_bmap(struct hfs_bnode *prev, u32 idx)
- }
- 
- /* Make sure @tree has enough space for the @rsvd_nodes */
--int hfs_bmap_reserve(struct hfs_btree *tree, int rsvd_nodes)
-+int hfs_bmap_reserve(struct hfs_btree *tree, u32 rsvd_nodes)
- {
- 	struct inode *inode = tree->inode;
- 	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
-diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
-index b971cd9021ba02..06d6354001fe52 100644
---- a/fs/hfsplus/hfsplus_fs.h
-+++ b/fs/hfsplus/hfsplus_fs.h
-@@ -388,21 +388,21 @@ u32 hfsplus_calc_btree_clump_size(u32 block_size, u32 node_size, u64 sectors,
- struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id);
- void hfs_btree_close(struct hfs_btree *tree);
- int hfs_btree_write(struct hfs_btree *tree);
--int hfs_bmap_reserve(struct hfs_btree *tree, int rsvd_nodes);
-+int hfs_bmap_reserve(struct hfs_btree *tree, u32 rsvd_nodes);
- struct hfs_bnode *hfs_bmap_alloc(struct hfs_btree *tree);
- void hfs_bmap_free(struct hfs_bnode *node);
- 
- /* bnode.c */
--void hfs_bnode_read(struct hfs_bnode *node, void *buf, int off, int len);
--u16 hfs_bnode_read_u16(struct hfs_bnode *node, int off);
--u8 hfs_bnode_read_u8(struct hfs_bnode *node, int off);
--void hfs_bnode_read_key(struct hfs_bnode *node, void *key, int off);
--void hfs_bnode_write(struct hfs_bnode *node, void *buf, int off, int len);
--void hfs_bnode_write_u16(struct hfs_bnode *node, int off, u16 data);
--void hfs_bnode_clear(struct hfs_bnode *node, int off, int len);
--void hfs_bnode_copy(struct hfs_bnode *dst_node, int dst,
--		    struct hfs_bnode *src_node, int src, int len);
--void hfs_bnode_move(struct hfs_bnode *node, int dst, int src, int len);
-+void hfs_bnode_read(struct hfs_bnode *node, void *buf, u32 off, u32 len);
-+u16 hfs_bnode_read_u16(struct hfs_bnode *node, u32 off);
-+u8 hfs_bnode_read_u8(struct hfs_bnode *node, u32 off);
-+void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off);
-+void hfs_bnode_write(struct hfs_bnode *node, void *buf, u32 off, u32 len);
-+void hfs_bnode_write_u16(struct hfs_bnode *node, u32 off, u16 data);
-+void hfs_bnode_clear(struct hfs_bnode *node, u32 off, u32 len);
-+void hfs_bnode_copy(struct hfs_bnode *dst_node, u32 dst,
-+		    struct hfs_bnode *src_node, u32 src, u32 len);
-+void hfs_bnode_move(struct hfs_bnode *node, u32 dst, u32 src, u32 len);
- void hfs_bnode_dump(struct hfs_bnode *node);
- void hfs_bnode_unlink(struct hfs_bnode *node);
- struct hfs_bnode *hfs_bnode_findhash(struct hfs_btree *tree, u32 cnid);
-@@ -417,7 +417,7 @@ bool hfs_bnode_need_zeroout(struct hfs_btree *tree);
- /* brec.c */
- u16 hfs_brec_lenoff(struct hfs_bnode *node, u16 rec, u16 *off);
- u16 hfs_brec_keylen(struct hfs_bnode *node, u16 rec);
--int hfs_brec_insert(struct hfs_find_data *fd, void *entry, int entry_len);
-+int hfs_brec_insert(struct hfs_find_data *fd, void *entry, u32 entry_len);
- int hfs_brec_remove(struct hfs_find_data *fd);
- 
- /* bfind.c */
-@@ -430,7 +430,7 @@ int hfs_find_rec_by_key(struct hfs_bnode *bnode, struct hfs_find_data *fd,
- int __hfs_brec_find(struct hfs_bnode *bnode, struct hfs_find_data *fd,
- 		    search_strategy_t rec_found);
- int hfs_brec_find(struct hfs_find_data *fd, search_strategy_t do_key_compare);
--int hfs_brec_read(struct hfs_find_data *fd, void *rec, int rec_len);
-+int hfs_brec_read(struct hfs_find_data *fd, void *rec, u32 rec_len);
- int hfs_brec_goto(struct hfs_find_data *fd, int cnt);
- 
- /* catalog.c */
-@@ -588,14 +588,14 @@ hfsplus_btree_lock_class(struct hfs_btree *tree)
- }
- 
- static inline
--bool is_bnode_offset_valid(struct hfs_bnode *node, int off)
-+bool is_bnode_offset_valid(struct hfs_bnode *node, u32 off)
- {
- 	bool is_valid = off < node->tree->node_size;
- 
- 	if (!is_valid) {
- 		pr_err("requested invalid offset: "
- 		       "NODE: id %u, type %#x, height %u, "
--		       "node_size %u, offset %d\n",
-+		       "node_size %u, offset %u\n",
- 		       node->this, node->type, node->height,
- 		       node->tree->node_size, off);
- 	}
-@@ -604,7 +604,7 @@ bool is_bnode_offset_valid(struct hfs_bnode *node, int off)
- }
- 
- static inline
--int check_and_correct_requested_length(struct hfs_bnode *node, int off, int len)
-+u32 check_and_correct_requested_length(struct hfs_bnode *node, u32 off, u32 len)
- {
- 	unsigned int node_size;
- 
-@@ -614,12 +614,12 @@ int check_and_correct_requested_length(struct hfs_bnode *node, int off, int len)
- 	node_size = node->tree->node_size;
- 
- 	if ((off + len) > node_size) {
--		int new_len = (int)node_size - off;
-+		u32 new_len = node_size - off;
- 
- 		pr_err("requested length has been corrected: "
- 		       "NODE: id %u, type %#x, height %u, "
--		       "node_size %u, offset %d, "
--		       "requested_len %d, corrected_len %d\n",
-+		       "node_size %u, offset %u, "
-+		       "requested_len %u, corrected_len %u\n",
- 		       node->this, node->type, node->height,
- 		       node->tree->node_size, off, len, new_len);
- 
+ 	if (error)
+ 		goto out_free;
 -- 
 2.53.0
 
