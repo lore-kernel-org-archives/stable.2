@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5E62DFF04;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6822E7376;
 	Sat, 18 Jul 2026 17:06:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784394392; cv=none; b=cTEoJdrWby7AOL9+DTybwA+7KP9rLvQcVRbkfqc6uSmw3M8dHi3lvmFqR0Pe8QDC0fXRJFSl93KbauIEAkgqlPNzhhA25YTHElnyCsL8kyaqza/t7ba8wjvMVWmDlzKUHyf2KBbQt7m3nQv4e5TOmxESQ2+qvxDZppWN0/mtoMg=
+	t=1784394392; cv=none; b=YfQzkBxoR32JsA8mhhqfqpRYNIcSEckHaadXjFOJnvxjOw3zZ6qIP/ifujIHhRrv5ZQ2kr6tA7kxZC27fypTGKwPGYuTOZGL8e2RtZVSh9KKzeNhqr1eEYa43hnZbgh79GisIK9CiMbHv5aACS+bjsGogOSMhhXK9PjLEd69fwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784394392; c=relaxed/simple;
-	bh=+pzC4MgggAqh94dvxJCxx/cQIdDxbqD+7O8JFQFFrks=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aWv9Rdb05CwYxZrC7AnRGY6WJUYtLJcZ/lq31z4OQy20CyTto4SfK8TSBvh9lUIuxOVcOJzN3w723dHiBibT7UoQzQT3luhlUz1NNdVal7MhP2lWNCN/qhCFOxeNdJxDcrC2B3TfRSJrpTSAl+Z+8fZESfCPfETtaCzqDLIuytQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ChnISspS; arc=none smtp.client-ip=10.30.226.201
+	bh=YVzVTS3yfTz3Fpn4bxNP94OBR+Wp6n8cJXaURHReZ6U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mnLpcf5kT/NfZZA4AuLTPOvUZhGMdF4fExZJRJvOUdZ7sfrP6vnhxoooQPHXeT2P2zdM9REvw38ab9df4m9BaFD4EdV61c3ZxaPk1T09xMc48lV/a3oDvAXty77dCZlKIobHYh2uZWP4+DfU1pwXJBtXWDSI5oNWv1LWcJYoEtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MHWWsm5k; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ChnISspS"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2A1E5C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MHWWsm5k"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 24813C2BCB7;
 	Sat, 18 Jul 2026 17:06:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1784394392;
-	bh=+pzC4MgggAqh94dvxJCxx/cQIdDxbqD+7O8JFQFFrks=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ChnISspS8HzuW5859ZIErhewOP5Svk/r+BQN5bVBbYFQ1FJ0UyU40mO/XLY4vjHbI
-	 l1v+zEKduIVR3cs0g5B3uEcNoN+4a+7IwLDPg/SN0qqLmDfUNXsr/Q98iP9XJGPOcd
-	 vQZ+s1cxkIfPe7RuNsE5nRlIU+T0pVeueS0UOmxsi736zAP0dJvoFJ78275M+mnDU6
-	 pjNP79TXct3glV3hYQAIOgnfcrZ5aeTTxpvjpJ3dmFUt8QU9jLKVxdIDaECI0GB752
-	 P0Gc3OERjSQ4IrEuEUgrCdlFe1FzHjgIwDv8QE8MysD21CQ2YNWoDuBEve9n9Nv9j6
-	 0JGnq97Ni98pA==
+	bh=YVzVTS3yfTz3Fpn4bxNP94OBR+Wp6n8cJXaURHReZ6U=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=MHWWsm5kDP5Q0mktCHh2v9gCw0TwH3xPhaYXrNRlT1PVb/uZi5bcDi8EiGwkb1Kjf
+	 gs1VKUygvBWEOiW1pEG2+S43SS+AfGq0Pp0ZPMPi1ackpCjZoxlAARWo1TFP6Q8eO6
+	 MGUWlc1na6yhwiRL9U0s++6+dlgsG63eQY3MixHkxVXftzpgOodOXSdAV0VvPPblfs
+	 LpbbzhR2r1NUDGWMtqTPPAsEp8ztiBNlsTV5JeUuID1+cFKYom4h7tdYiy7kyJk6lM
+	 Gsbdsjhp2PBy4XOb7pd+YtaiyyRTC6PLp8J08iVWCM3J0k0ohdpqPSSFEg9I75dj6n
+	 wRrig4Q0LdtCw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 04E24C4450A;
-	Sat, 18 Jul 2026 17:06:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8574C4451B;
+	Sat, 18 Jul 2026 17:06:31 +0000 (UTC)
 From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Sat, 18 Jul 2026 19:06:29 +0200
-Subject: [PATCH 1/5] dt-bindings: usb: parade,ps8830: Add
- parade,disable-usb4 property
+Subject: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
+ USB4 docks
+Date: Sat, 18 Jul 2026 19:06:28 +0200
+Message-Id: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,9 +41,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260718-ps883x-disable-usb4-v1-1-cec86d0b909e@oldschoolsolutions.biz>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
-In-Reply-To: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0atI1gZav9WriItGowZEpUERxLtbX
+ L7FzAPKQVihTR4IfInKvkXYNIFh8dvMKGM0ZCarTG0dHupcfuMo6mllPJUKtA2ZabA5lZ4glkf
+ gSe7/2vXv+wFCb18kZQAAAA==
+X-Change-ID: 20260718-ps883x-disable-usb4-19b0fc13b5ab
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -55,12 +56,12 @@ Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
  stable@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>, 
  Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784394390; l=1158;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784394390; l=3110;
  i=jens.glathe@oldschoolsolutions.biz; s=20240919;
  h=from:subject:message-id;
- bh=yrl6VP90X+qBDgzq2kPIZXWW8gy8rpei3j/WcM153qs=;
- b=6G4y8ZLykC2QUUG4dfWiXI32wWerJe6esfFw3KbJfJZLUiI4JDqQYl/7mj88BqmQqJssaMILn
- 21ybx/ri+6fDQP7ERROm3WUmrOprk1reEvYPHWR76UqnDwVSutt4EJ2
+ bh=YVzVTS3yfTz3Fpn4bxNP94OBR+Wp6n8cJXaURHReZ6U=;
+ b=DZWzcN6ExfomMn/qKUwIcdGwtfI7YlcHPZ+0pbphXAgeO88tq3W1ZInBAdA4WjN4ILSaVtQ/5
+ ltNIjewtXObDIcYbMuWPQlarhGXAhQ4NDQXDShX0JIQ58K2s2dEGz6F
 X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
  pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
 X-Endpoint-Received: by B4 Relay for
@@ -68,37 +69,70 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 Reply-To: jens.glathe@oldschoolsolutions.biz
 
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+On Qualcomm X1E80100 platforms (e.g. Lenovo ThinkPad T14s Gen 6)
+using the Parade PS883x retimer, connecting USB4-capable docks such
+as the Lenovo 40B0 via a regular Type-C cable (which forces the dock
+into Type-C fallback mode) often results in working USB but no
+DisplayPort output.
 
-Document a new optional boolean property "parade,disable-usb4".
-When present, the retimer rejects USB4 mode by returning -EOPNOTSUPP,
-forcing a fallback to USB3 + DP Alternate Mode.
+This series addresses the issue with two main changes:
 
-Assisted-by: Grok(xAI):4.3
+- Add a new optional DT property "parade,disable-usb4". When present,
+  the PS883x driver rejects USB4 mode (-EOPNOTSUPP). This forces the
+  Type-C stack to fall back to USB3 + DP Alt Mode, which works
+  reliably with the 40B0.
+
+- Refactor DP altmode handling to also support the legacy
+  TYPEC_DP_STATE_F request (deprecated since DP Alt Mode 1.0b) sent by
+  the 40B0 and other docks (e.g. SSK SC220).
+
+- Add a short delay after writing configuration registers, which
+  improves hotplug reliability.
+
+This is a temporary workaround until full USB4 DP tunneling support is
+available in the X1E USB4 controller and qmp-combo PHY stack.
+
+Note: The DT patch adds the new property to all currently upstream
+boards using the PS883x retimer (15 files). Happy to split it on v2
+if requested.
+
+As an additional observation, the same dock with type-c cable works well
+on Thinkpad X13s, Thinkbook 16 G7 QOY, Ideapad 5 14Q8X9, but doesn't need
+the ps883x changes (naturally). 
+
 Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 ---
- Documentation/devicetree/bindings/usb/parade,ps8830.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+Jens Glathe (5):
+      dt-bindings: usb: parade,ps8830: Add parade,disable-usb4 property
+      usb: typec: ps883x: Return -EOPNOTSUPP for USB4 when parade,disable-usb4 is set
+      usb: typec: mux: ps883x: refactor DP altmode handling and support TYPEC_DP_STATE_F
+      usb: typec: mux: ps883x: add a delay after writing config regs
+      arm64: dts: qcom: x1: disable ps883x USB4 capability
 
-diff --git a/Documentation/devicetree/bindings/usb/parade,ps8830.yaml b/Documentation/devicetree/bindings/usb/parade,ps8830.yaml
-index eaeab1c01a594..44242907461eb 100644
---- a/Documentation/devicetree/bindings/usb/parade,ps8830.yaml
-+++ b/Documentation/devicetree/bindings/usb/parade,ps8830.yaml
-@@ -66,6 +66,12 @@ properties:
-           Sideband Use (SBU) AUX lines endpoint to the Type-C connector for the purpose of
-           handling altmode muxing and orientation switching.
- 
-+  parade,disable-usb4:
-+    type: boolean
-+    description:
-+      When present, the retimer rejects USB4 mode (returns -EOPNOTSUPP).
-+      This forces the Type-C stack to fall back to USB3 + DP Alternate Mode.
-+
- required:
-   - compatible
-   - reg
+ .../devicetree/bindings/usb/parade,ps8830.yaml     |  6 +++
+ arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts         |  4 ++
+ .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts  |  2 +
+ arch/arm64/boot/dts/qcom/purwa-iot-evk.dts         |  6 +++
+ arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi |  4 ++
+ arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi  |  4 ++
+ arch/arm64/boot/dts/qcom/x1-crd.dtsi               |  6 +++
+ arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi        |  4 ++
+ arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi   |  2 +
+ arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi  |  4 ++
+ arch/arm64/boot/dts/qcom/x1e001de-devkit.dts       |  6 +++
+ .../dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi    |  4 ++
+ .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     |  4 ++
+ .../boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts  |  6 +++
+ .../dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts    |  2 +
+ .../boot/dts/qcom/x1e80100-microsoft-romulus.dtsi  |  4 ++
+ drivers/usb/typec/mux/ps883x.c                     | 47 +++++++++++++++-------
+ 17 files changed, 100 insertions(+), 15 deletions(-)
+---
+base-commit: 0718283ab28bc3907e10b61a6b4be6fefa1cbb2f
+change-id: 20260718-ps883x-disable-usb4-19b0fc13b5ab
 
+Best regards,
 -- 
-2.53.0
+Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
 
