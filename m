@@ -1,210 +1,105 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D79F3612E3
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 23:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD120312832
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 23:50:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784418228; cv=none; b=RASFhTX6rKx6LyHjTf4B/a1gGlweXxBRP5h9okS+VoerhByTcOBMDqvdSJLa/LX3LpVAPQ/RLQDAnu5F0Yf9x5GK6LzX9VEl4QBidU5O+cLHEy0FhdMVu+1+I2O/7QvsvE9f/PSQmIA/NjsFWlBn4Dh6gllDG7EPphI4alwIajU=
+	t=1784418609; cv=none; b=YgmyXYfA/35eSVr2lkB4Oe6XbdL5AYl2dzSlIlJGOQEaSK1hGyM3+ukVwOWKdcXjQCdHUzlxLKOtdRdvZ3QbewWEWsgx+rT3v6HeFh2ievWQm+/yQSjLMBuEemn+K+OjkEjiWlRRZGXzc/VF6HyffgsjYGd1YjDupE2bhlyCIV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784418228; c=relaxed/simple;
-	bh=aCWuo4ztA8U5az1+qqgZSny899Q2Wv86b7SuvY+fdqY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rnVLg1rBY9PR8wjGo6rkVYEPHZxd0M8jZWuDOwvL6c9rUluGzsQnzT6HX+Z6WnvvN5LQx5sIIt+62grbu/11IhFzuQURsvgn3zYR29azTlm3KPfvf9U/dhwU4MAZaXZsbAKJ9cChCLJotJD3n44ST2e6BijvxHfBB5QyxYFsdxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=GwEs9CBE; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1784418609; c=relaxed/simple;
+	bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Eii7O+82MnnxsBybXoQq8+VX2IfpzWsgxljJ9DRCO92hKy1AgFo99lCV6oRydXcIM1dfwxmB/VvhW9BVoSPBFsjfCPk+3LkWkWUDIcbqFMcH9LuZifgQRSS6vLfw5RR/OrWJe14ssChcKhc9oyEUJw9lq5DulMGZ7Z+riICt644=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iH9mkNTY; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=TJORIRuM; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="GwEs9CBE"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493b966dd74so36657075e9.3
-        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 16:43:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iH9mkNTY";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="TJORIRuM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784418606;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+	b=iH9mkNTYSPoGbD08Lhq3f/+b7nwIZ3Y/xxMJPbtBfRfyiqJlYM0n5aXCj+OryKQWFb22Tp
+	Xsz3SSjOkciUluVQI366pvZ7XJZO7K7ie4oTJlbxRcLeilFl4sr1UWL+cyYARgzRh5Zkyf
+	X1icpm7ZTMMzLotRCucEj7dkHrS1axE=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-412-2OifyfVgM22mieano5gQ2w-1; Sat, 18 Jul 2026 19:50:05 -0400
+X-MC-Unique: 2OifyfVgM22mieano5gQ2w-1
+X-Mimecast-MFC-AGG-ID: 2OifyfVgM22mieano5gQ2w_1784418604
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47f6d70223dso456639f8f.1
+        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 16:50:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784418223; x=1785023023; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h5Y99LzlmWcB/aRdYatPYwMGyrI5r994FwWm3x1wOqM=;
-        b=GwEs9CBEQYI3S69Q5NlQYLMHiFmjd+UQVT/SqndX3our8fROTOTmtZqNyrcaiVDRh7
-         f2vXV+8URZQwtMO/eicUuN//aY5s+GemZLQ1zoH8tJL6ZD0R3XcLnK7wWCXo8CbMY1av
-         glRIjaBMiUHyGcxnl8i6Us2a0CGAmkPs0lEiz0g4EG5U72BOaD4tTNAea/1qWRzesu1e
-         MpREeEbnXNWeiKu2kVIqUB5ssmu5yaLnidoIfhXHBavvfZlZ/VeoI+yhW2ok5c/3QcDH
-         x6jzSN/q1PGXMVj7+gI5xRd0WZcfKWKAh5eRjltDOzP0spvVr/DfALD4tD0lAu9AFXZk
-         Ga7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784418223; x=1785023023;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=redhat.com; s=google; t=1784418604; x=1785023404; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=h5Y99LzlmWcB/aRdYatPYwMGyrI5r994FwWm3x1wOqM=;
-        b=H+mESkAc+Rg03nXyx2zFNR35YIfhP9F1kdXhyr4VJ4i09zCsPEoPymxnYut7h3wX8Q
-         Toc24nCfhnEw1WLfKbJYH+TOVOs3pge3cskQJepvZoOIx4WUBO2oOGhDKfv9iYo9Jm1J
-         9FzUHKHRR3Uy2EqqdzW2JrRaPMXDmHSjrhML63fJZvU919RYzi2u5iufI3ODrZrDGdib
-         JBrquWVfxyix6tKL/dGTwu4VZtkBlmTBKHeY9PGkPWQrk6umNuLs7HqRlhbQ+Bgx30id
-         goRP+UNzbttOF2zSMmExLnpxuz1TSHd66U6TBDf3bghqJKmrv1d/ct/GCsR0anUp7Lu5
-         skmg==
-X-Forwarded-Encrypted: i=1; AHgh+RrX2SbwrNm3akkjbYHALHixHkxo15qv/4OduMVbP8CytM3l2NziGLycE3HIuQAH1gW7PHDXY8Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyed4Yj86O5InVxD0OGiIZa6+quWB/l4oBahQ1/V9GtiJwFXGHH
-	g2O8HBOu/o9LXwE5Ypp+yyrwXE0iItJicXxcdwpctlw2Rwr0eQvEubumk2eiK/bJMkg=
-X-Gm-Gg: AfdE7cnUNeq4PGb7H6MibrKjkyrkdPqweVt0sLOUJ3ELLBGEkMkz8JTkmoQt+j5h/m/
-	4Yleu0ZgSgq/1xrZzrU+OM4LtN/riohaTGNoCSM2fc+X5JL4Shbf1UNuCSgkDdrYupScni4PYOH
-	NT0au4sHJMDUnF9MUeJXbem3Hp1DM2c3NS9aWxYiL+uKwXzHhncsf+gmuEGvKImM9uwtgBc8j2X
-	yvUBGm/m8AJ/0UQWkqAbIzHeyV5Bc+LfZY75AMhzWcoYLmqolGxGD8zUQfauXjTDBZVZA+0AlDU
-	eLWYmT+aSgYk4vbtwZT548NxvKi4hQ1r/46APY3hbxi4saq54wx6uupAZ72EsPQSH2EPIJPYdso
-	K+AV9yUz8B/+/nP6gf3LCG3f5CUc5wmPa6+E3AhnwhZlO9e9WFbjJ42aVKYIWKskQ0H+rMk8=
-X-Received: by 2002:a05:600c:4ed4:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-4954a3ec5f7mr86951455e9.2.1784418223490;
-        Sat, 18 Jul 2026 16:43:43 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2af9f477sm3380040b3a.58.2026.07.18.16.43.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 18 Jul 2026 16:43:42 -0700 (PDT)
-Message-ID: <41772a0a-7ad7-4ec1-b88c-b616d740c00f@suse.com>
-Date: Sun, 19 Jul 2026 09:13:37 +0930
+        bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+        b=TJORIRuMuVR/PM0iM+dcZxxBrlNGfDjBcwKV5iBI4PkjKFC+1lrdtKhfrkVS1vSfwU
+         SID28urmvB6F8hZDVUqt92o9fmQVTINb3WUeoG7CxSS7ATz8F6dJhScHwlcriVrtXKlM
+         fyQThVeABicyIaej+mFOzNGUa0r7j1AymCGx/CfSaa+hsZAa8kjsKo3GdCeFHJBh82LS
+         iFq+jyOJONXXPzCywV2ldl+4lnzyreoFwXku30MOBBLBIvTpWKEdL1h8+7Q+r5hkwJxz
+         8ib1Yz+F8Gt1xHRXQ+afoWafuuq3t9hMzm1Rwy0Ucm+nzxaDq3IajHrggn5GYrW07Ri+
+         jOEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784418604; x=1785023404;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+        b=X9+oeV1Bsoxuf977KNwI2B+Hoc0Ve1p7bx0JO5D6iJ6M8BVh+wTkcTkrZzfSwqPfdJ
+         fc4K+hsRDvDH8CkoCXfYJ1bpEbYeLbWC/9cPtho+R9w47j8UGXz6tvG5HjINlroJHMlP
+         RchpzzLZFx11WN1y58/zUvVjxEa2yKEmKXhoTl0a1zlhdWpblNiPtN4IEustG3vbujnE
+         HKSdPRT7++2NOO0ZbK+WetoxFJjW93z5ft9gUIP5GuOxBwImC0VSisVd/mXniL+bG6yz
+         AlFVm1aWWlDVVjvCx65g8t9MiBTOXK30qHKNRwuewUQxZdGCALnnObkC4DK6hR7rZ8pl
+         BWkg==
+X-Forwarded-Encrypted: i=1; AHgh+RrIwaDHZmBxdD17HwFKnZ566A3Ri8+d+IE1e9kI7b6jOrmR/ZSy/QSBv1XAh8AsefCJQ8gmA70=@vger.kernel.org
+X-Gm-Message-State: AOJu0YynVv7vlyj9vm1R4kd4KgC0IQZoQuzJ9jHGNKbScvNO48HnBvWH
+	7mxOeBtOU0sJVL6eRhTVOx/NYiX77ZpkJZli0+Sx3pvak+HJJ6L9BxlPq0KLTx6xEVDWi79UdCu
+	e3fNmt1sX7p5D3GwX8iQSoW7PY/2anvvyj6212w0GJuKSCC+rCSPvwCy/qg==
+X-Gm-Gg: AfdE7clMc8T2T/QrxSWDm+YLclRx+62VsL8fgQSk0TnOYw7nse5rl56ea8cnQvpWSeO
+	enLp7Ttoa2FJJdzyoESploZMv9jdO2JmkO6kZfQ2cW1bGdpmOa3Mg08DNvIGRf8+IhAx3AXdSzy
+	VzLo80XDI3qqv0muJ0hVfBdVf3lkoVArnc9oFwazZzir3/wWxCxtZBJPrsyVMpON4eaHTnIsZ4g
+	AgPLZpvsE1qmtut+6PzbwgToZW39UOUGH7boWPzIFr44jEBnGv265ME96PEOCLgZ6vi3H64DYvo
+	CC+zU9urwvi1WNUe4kKSEwPqq/Ec9rqM8i2V1BmkzKBncSOn6pUeAvE837lLdk957X79EivMflE
+	ZkP1NVniaW4U04vxtq1FNvTbBzMhMiAuW+sBrSzB9htIpXccdZ50EwppSiJvZLH1kAhFeZJzfAv
+	wkk4A=
+X-Received: by 2002:a05:6000:3113:b0:477:47c6:36e5 with SMTP id ffacd0b85a97d-47f6230dc46mr10589675f8f.25.1784418604216;
+        Sat, 18 Jul 2026 16:50:04 -0700 (PDT)
+X-Received: by 2002:a05:6000:3113:b0:477:47c6:36e5 with SMTP id ffacd0b85a97d-47f6230dc46mr10589655f8f.25.1784418603681;
+        Sat, 18 Jul 2026 16:50:03 -0700 (PDT)
+Received: from [192.168.10.48] ([151.95.47.37])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e52f81sm16841322f8f.9.2026.07.18.16.50.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 18 Jul 2026 16:50:02 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: Phil Rosenthal via B4 Relay <devnull+phil.phil.gs@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Phil Rosenthal <phil@phil.gs>
+Subject: Re: [PATCH v3] KVM: x86/mmu: Fix use-after-free on vendor module reload
+Date: Sun, 19 Jul 2026 01:50:00 +0200
+Message-ID: <20260718235000.50192-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260718-kvm-mmu-cache-uaf-v3-1-e103b93c74e1@phil.gs>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] btrfs: raid56: fix scrub read assembly submitting no
- reads
-To: Mykola Lysenko <nickolay.lysenko@gmail.com>, linux-btrfs@vger.kernel.org
-Cc: quwenruo.btrfs@gmx.com, clm@fb.com, josef@toxicpanda.com,
- dsterba@suse.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260718233710.176782-1-nickolay.lysenko@gmail.com>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
- Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
- fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
- 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
- V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
- rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <20260718233710.176782-1-nickolay.lysenko@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Queued, thanks.
 
-
-在 2026/7/19 09:07, Mykola Lysenko 写道:
-> Commit 5387bd958180 ("btrfs: raid56: remove sector_ptr structure")
-> converted the bio-list membership checks from sector pointers to
-> physical addresses. The two conversions in rmw_assemble_write_bios()
-> kept their polarity (skip the sector when it is NOT in the bio list,
-> i.e. when there is nothing to write), but scrub_assemble_read_bios()
-> has the opposite polarity -- skip the sector when it IS in the bio
-> list, because then there is nothing to read -- and the conversion
-> flipped it:
-> 
-> 	-	sector = sector_in_rbio(rbio, stripe, sectornr, 1);
-> 	-	if (sector)
-> 	+	paddr = sector_paddr_in_rbio(rbio, stripe, sectornr, 1);
-> 	+	if (paddr == INVALID_PADDR)
-> 		continue;
-> 
-> Since a parity-scrub rbio's bio list only holds the empty completion
-> bio, the result is that scrub_assemble_read_bios() submits no reads at
-> all. finish_parity_scrub() then compares the parity it computes from
-> the (cached, correct) data stripes against whatever happens to be in
-> the freshly allocated, uninitialized stripe pages:
-> 
->    - if the garbage differs from the computed parity, the sector is
->      "repaired" and written back -- accidentally producing the correct
->      on-disk result;
->    - if a recycled page happens to still hold the old (correct) parity
->      content, the sector is deemed clean, dropped from dbitmap, and the
->      actually-corrupt on-disk parity is left in place. (Scrub reports
->      no errors either way: there is no counter for P/Q corruption by
->      design, so the bug here is purely the failure to read and repair.)
-> 
-> The second case is intermittent because it depends on page-allocator
-> recycling. Observed with fstests btrfs/297 (raid5, 2 devices): the
-> corrupted P stripe intermittently stays corrupt after a scrub --
-> roughly 1/10 runs on x86-64 KVM and up to 7/8 on a UML build whose
-> timing favors page reuse.
-> 
-> Since the bio-list check can never be true for a parity-scrub rbio --
-> raid56_parity_alloc_scrub_rbio() adds a single empty completion bio
-> (asserting bi_size == 0), bio_paddrs[] is only populated by
-> index_rbio_pages() which is never called for BTRFS_RBIO_PARITY_SCRUB,
-> and rbio_can_merge() refuses to merge rbios of different operations --
-> remove the dead check entirely and assert the invariant instead, as
-> suggested by Qu Wenruo.
-> 
-> After this fix the injected corruption is read, detected and repaired
-> in every run (8/8 UML, 10/10 KVM), and the new assertion never fires
-> across the full fstests raid group.
-> 
-> Fixes: 5387bd958180 ("btrfs: raid56: remove sector_ptr structure")
-> CC: stable@vger.kernel.org # 7.1+
-> Suggested-by: Qu Wenruo <quwenruo.btrfs@gmx.com>
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Mykola Lysenko <nickolay.lysenko@gmail.com>
-
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-
-And pushed into for-next branch.
-
-Thanks,
-Qu
-> ---
-> v2: per Qu Wenruo's review -- the membership check is dead code in
-> either polarity for a scrub rbio, so remove it and ASSERT the
-> invariant instead of restoring the original polarity; clarify in the
-> message that the absence of P/Q error reporting is by design; move the
-> AI-usage disclosure to an Assisted-by tag per
-> Documentation/process/coding-assistants.rst.
-> 
-> v1: https://lore.kernel.org/linux-btrfs/20260716174511.8738-1-nickolay.lysenko@gmail.com/
-> 
-> Note: UML (User-Mode Linux) results above come from
-> https://github.com/mykola-lysenko/btrfs-uml-fstests/ -- for reference
-> only.
-> 
->   fs/btrfs/raid56.c | 11 +++++------
->   1 file changed, 5 insertions(+), 6 deletions(-)
-> 
-> --- a/fs/btrfs/raid56.c
-> +++ b/fs/btrfs/raid56.c
-> @@ -2909,13 +2909,12 @@ static int scrub_assemble_read_bios(struct btrfs_raid_bio *rbio)
->   			continue;
-> 
->   		/*
-> -		 * We want to find all the sectors missing from the rbio and
-> -		 * read them from the disk. If sector_paddr_in_rbio() finds a sector
-> -		 * in the bio list we don't need to read it off the stripe.
-> +		 * A parity-scrub rbio carries no data in its bio list: the
-> +		 * only bio there is the empty completion bio added by
-> +		 * raid56_parity_alloc_scrub_rbio().  Every sector is read
-> +		 * from the stripe, so only assert that invariant here.
->   		 */
-> -		paddrs = sector_paddrs_in_rbio(rbio, stripe, sectornr, 1);
-> -		if (paddrs == NULL)
-> -			continue;
-> +		ASSERT(!sector_paddrs_in_rbio(rbio, stripe, sectornr, 1));
-> 
->   		paddrs = rbio_stripe_paddrs(rbio, stripe, sectornr);
->   		/*
-> --
-> 2.43.0
+Paolo
 
