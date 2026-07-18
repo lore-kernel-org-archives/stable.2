@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5762317AE11;
-	Sat, 18 Jul 2026 01:16:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA96722689C
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 01:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784337403; cv=none; b=qE/RSmto2H1c6SPQ5WtYEcB3oDD14YCeAj+4AuH7x/h/ZKCaCaVauviB8o+XfuW96GEyHraLPTPiI0D35ssHgpRevFhyjkYDqPCEFDla/bvlwLSqa9/ur8S2K8baQ2Xuoeui5VBmDpfgRK6TiummKh62cwMKwdrcKnQ4SDFJawY=
+	t=1784338418; cv=none; b=sPc/Ji0qL/Z3Mls8hSIeHvQ8vvijNemr6EHzx8uRNX3+RPKmC1c9uqIta3Pt8dhGqL9lVO+FwWvfLMY51lI6ww2arx9Mv5l4iQYN2j0Cx1dS1sN77dfJCEE4+OTKIFmYKUrIk9SFhSFFN4Z2WF6iq0edDjVdW3SVe9VqraSbw1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784337403; c=relaxed/simple;
-	bh=Lqi2YwCusFbChQ7YTr8FMBpdtA//RV85o7CWGL7aswE=;
+	s=arc-20240116; t=1784338418; c=relaxed/simple;
+	bh=G11uD7ZejIwJX+sRylqH07lXOEKQ1L/5fwq909kKjhM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fL54O1rk63CFilYx8KSnc+ouUsXbE84JjKrClfeTIqdqdcf31AndB2ieJ/4P72+EPzWP7n9rz4elBD6Rs8kXU7pfTzh/UN8o/9C75Peu07tcxHm4aZ+WCX3wvX0FwYrCPULj9+k6weL0SpJbpLXcimUn88GWh1GreQRvG8x/3C8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTm0b95q; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=J+VicLxSUpqrJFQ2CjRn5wahiV5EFhV2OpkaLNz02BpmJJ+QSPvNWnbC0dx693vkb6ahv7EvSzY8PQ72SBuZmHUKj+O6GQ4ND23scseTv5wGM6o7PKZtyIsUVAfm8hP3gkSxmN6G8dLv+zX+aXypALqy9t88MIFpJ2CqDZeVNm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N52upVo0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTm0b95q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9CCE1F00A3A;
-	Sat, 18 Jul 2026 01:16:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N52upVo0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65081F000E9;
+	Sat, 18 Jul 2026 01:33:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784337402;
-	bh=48yTB0Lmrlpk8mR2lJ0g6c6+HUj48QmCvaO5G2InBZY=;
+	s=k20260515; t=1784338417;
+	bh=RPehG0oSh91M/EVUszLQho+fQ2vY7RdK87TV2OchNhw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nTm0b95qgrff+QxYQfesDPwKrrL3LF3vu3i5qbdg3GgNN5ixfYjsTPZ7bC+Uu9Jjl
-	 ex84bPnshtoXqo/05QEzk42b9UCM4g+JX6C3lvBV1AeIwG8B7pflym4wCUF0DOBQkc
-	 j8LcG+sklUYJ6v3qnwIkZWJM6VYZ051BddzuzKjGVQPWbf+RmQS/zvJcMttMeJyHVo
-	 psdeX80RhJcBO7i93RIsZAG1OfAeE4C2uiPMSRs6iyt4XixqiNVzE4ZTUFOlt863xp
-	 FEStjzTBRyEl8oeYSr47E8VOFH1XRqNypGOrJQt7SOTwS5i24EP2mknqueMLxLPnCu
-	 q/v/ycrABYj2A==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [RFC PATCH] mm/damon/core: handle region split failure in apply_min_nr_regions()
-Date: Fri, 17 Jul 2026 18:16:34 -0700
-Message-ID: <20260718011634.94132-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260718010312.90397-1-sj@kernel.org>
-References: 
+	b=N52upVo0BPM67Nh0gTz/8T9EUz164JZXtuNN+vZX0TjDfgGNCi1Qk0Kzr73aIx3IW
+	 jMK7DwRypAtqA7LVX7xLcog3JG6q3jzx43rzjP6vgliARJ401HT5mYKSI2bkQQxygU
+	 tTL/DY7skJiIARTGTF6aXIKHgj3V3AbLSGpJpfsaas+2qXYmSNYLzXLKq531GrE2tK
+	 E9t7xFtWRU+8W79kTACpKL0KwKzopXB7cXZMCsDo32U50SwCmrkZ27Y8GqS2EUPgpJ
+	 UOb26xv90/DGXzhEfDH+gcwg6OcCeYo81Y3dTGKEvca0xQ55CQXni0mcJwOKuUW1/I
+	 SnV8sbZnfIIwg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+	Abaci Robot <abaci@linux.alibaba.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] xfs: Remove redundant assignment of mp
+Date: Fri, 17 Jul 2026 21:33:33 -0400
+Message-ID: <20260718013335.2621394-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071429-showdown-footpad-d6da@gregkh>
+References: <2026071429-showdown-footpad-d6da@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,38 +46,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, 17 Jul 2026 18:03:12 -0700 SJ Park <sj@kernel.org> wrote:
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 
-> On Fri, 17 Jul 2026 17:43:00 -0700 SJ Park <sj@kernel.org> wrote:
-> 
-> > damon_apply_min_nr_regions() repeatedly split each region until its size
-> > becomes small enough to meet the user-defined low limit of the number of
-> > regions.  The loop assumes the split operation (damon_split_region_at())
-> > will always succeed and create the new region.  But the operation could
-> > silently fail for memory allocation failures, for example.  If such
-> > failure happens and the region was the last region, the linked
-> > list-based next region fetching returns invalid pointer.  As a result,
-> > invalid memory dereference and corruption could happen.  Fix by breaking
-> > the loop in the corner case.
-> 
-> Sashiko found no blocker for this series.  Sashiko sent findings to damon@
-> mailing list [1], and I replied to all the comments.  Please read those for
-> details.
+[ Upstream commit f4901a182d33d05a3b7020e2af97c635f6c47959 ]
 
-My intention was to add this reply to other mail[1] but I only mistakenly
-replied here.
+mp is being initialized to log->l_mp but this is never read
+as record is overwritten later on. Remove the redundant
+assignment.
 
-This is true, though.  Sashiko found no issue in this patch.  But that means
-nothing since this is an RFC.  I will repost this patch after dropping the RFC
-and rebasing to latest mm-new, tomorrow.
+Cleans up the following clang-analyzer warning:
 
-[1] https://lore.kernel.org/20260718011322.94001-1-sj@kernel.org
+fs/xfs/xfs_log_recover.c:3543:20: warning: Value stored to 'mp' during
+its initialization is never read [clang-analyzer-deadcode.DeadStores].
 
-> 
-> [1] https://lore.kernel.org/damon/
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Stable-dep-of: cc9af5e461ea ("xfs: use null daddr for unset first bad log block")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/xfs/xfs_log_recover.c | 2 --
+ 1 file changed, 2 deletions(-)
 
+diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
+index 825e585758bb08..c8e2423a13d82b 100644
+--- a/fs/xfs/xfs_log_recover.c
++++ b/fs/xfs/xfs_log_recover.c
+@@ -3570,8 +3570,6 @@ xlog_recover_check_summary(
+ 	uint64_t		ifree;
+ 	int			error;
+ 
+-	mp = log->l_mp;
+-
+ 	freeblks = 0LL;
+ 	itotal = 0LL;
+ 	ifree = 0LL;
+-- 
+2.53.0
 
-Thanks,
-SJ
-
-[...]
