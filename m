@@ -1,79 +1,75 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA6128B7EA
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 05:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4243431E7
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 05:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784351370; cv=none; b=cxIibzDNMps7iKYRhIXBbCXVICgKVoH5+q7CZPfKct5EpWhvAWLZ9ZQkcMlsb5NuRtfjK6jiZVxua2UTsQbr+bTUtQSUyDAzh/2lZA0LveLGf3d4uTpPu/zm/qfy7ikIER574QV6GYS8WAbZd0mZ/6qNSIg1V9KFN2sCfmi+Cgc=
+	t=1784352507; cv=none; b=pdwujwE07fdN7q84xSFc+UcBqMbA+CH1i2En2E9ID9qDfXjwbwLGnrow283dVLIRl8on+93OBTEJhj1dbsO/38IvZlD76AJaA6hmLC3dIoWSNkJtld/DfHE+HZGVkDNQ+Di9rbZnWNmYexyV+t4uqYNYerZy0ShBCTaDKwrvv8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784351370; c=relaxed/simple;
-	bh=m0ccft+gceUz3MPTqfWxpwD+GP4/rdsMkv/6QSxi0lI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Adh4zopt4W/scFIWyu8TZGNI85YhFZxkidofLGuLtiUALsWY71EXBYwpL7EK2K4w6NwKE2d0/hUewvkVfgMU7HqB/wzju0H6ZDnPOrm7kiNk2Z4++P7Tia+g7ynkdZ8MzB7pqluJvkWGq4hY+PJ/WAN0uZ6gu4MolVmN18wvrV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NKn+I1wb; arc=none smtp.client-ip=209.85.210.169
+	s=arc-20240116; t=1784352507; c=relaxed/simple;
+	bh=TkDJ4FmP8CsXKYshsdPNQxDgexCOgsQdT5y/Gb32wCM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L4mHMRG+0bX6OLXonff60L39xZsnmSP34rSsbEQLpI4IQcY9PA9VejUJnpRKFj3EkWoMrjR0LF0kR0kbuyi936bSp1CFKU/1Yo6TRYcADLC/g6CReJyzyATRHaWDxjoj7ZHYg8GvHEZMUOhLstVP5jt2LarREQ0EYEzOQM/oHeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yb8NAp9g; arc=none smtp.client-ip=209.85.160.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NKn+I1wb"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-845b6d9bf39so2368871b3a.1
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 22:09:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yb8NAp9g"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c0a81d286so18878751cf.1
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 22:28:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784351369; x=1784956169; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GGpAvn9E9sdeBFr4azx3JRFkGov7PU5BobgH3wDuOJg=;
-        b=NKn+I1wbZuA/B9fCidmzfsUEB/JblJf4P1v5WooyeC54yXKFLKRXxnRdVBAXfodph8
-         SchRMexgUtFgUXfm7FEfV9jXo2mGXKA3sZx6uB8TgKtrGSy+hGq75M0gshAHB3rBivOO
-         1gXJxO61zCdY4kshgSOhSQ9F5DxFXG1XqYI1rt2oqoaMddMSKRbEQQENj8UbSDZETbi1
-         XEo2z6jcXxWAE+F8OpTKyuusa7vsu2ZnBQdMclP4QWXZyaDANnIhzyVAx8bMA6z8QoLt
-         Y3rggPYFJ6v+rG1PiEVtogr/EfuUAyQ8192zbnkYwER/4mpm9j1xfnWvHwYXIA480xah
-         /REQ==
+        d=gmail.com; s=20251104; t=1784352504; x=1784957304; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RNGLrPX1b+m8I8qDGUqtc6iyYbzijqi3N+HkRN1Rmho=;
+        b=Yb8NAp9gm3Av5ZFD1WetE79MQ0cqMP8jlTLNIFf+rP8bpvCHHtC9G6xqFlJsu2aEsq
+         I/Ml9JNi19OehjvpzxeSKzRcbRfEnWB5Kv1H+4mBdJzS+/HLuzG8/VmgqYKhHmKOpgxV
+         vdtllTbt9QBCj+J49WGUYNSVh9C7uh3iQoYnNIKeyR7C4zvhFquwPAxIPXtEtrd4nV2i
+         cLWBK6oUbknTKd5J/BUVfW19K6kNFjNOF94sVROnGEDXRvpcxbOmipvM3Lv9wx0NqbIW
+         DBj7ZZDG2fI9Q5V86EaYAAdq7B0v0MRH8NsUoyK1qxSynmSpFMcyw5kSoDK5qBCr23RZ
+         hRAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784351369; x=1784956169;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GGpAvn9E9sdeBFr4azx3JRFkGov7PU5BobgH3wDuOJg=;
-        b=VYx57bfKJ8wp+BjlvZUJccbEcH5UoWfAdPvo2B6nB53FepUHjrRQs51g/GSt72eX+9
-         y5AeBjiUIhEz922L2Dn7AJdjvJLuKc9yRRX4HR2MxDQkqnK4hroBEwEjkhBuHA4RPIfg
-         dfnTYPjrFKpJM74/xTcEsRKFrSAkQ5PeN/ZI7VFxMn2wvV3YZS8sOj0sS75TBYSXWMyM
-         tEexO5POu9E6zolFOEop8yU/JVP8dEs/WsP+Lc6QAi6vIH7lzsG0V6Qso4zpRT2PV2Ry
-         MzLeQ20wNUYPOKeR6VvGPJGybwS2XAMTiA8+PPITf5zdbu8/We8dqvdkl+ezIQ3GYz+V
-         QyYQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqKO35SqXFvuQMYwKjEfvxveLxAtwumYezv44xdqz6OYKfOIdj2a+VIc35YkqOmByYx6Si5RM0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzX006KyP2z2HmYYEB3baBnm1mbMfT2QusY8pqyPpurNxiP3eEl
-	Zwm/w82lVaqEhKVfHdzTzCsjEPy1zWfdi6SI+oUKAytrHdUfGR9oqQa5RvQD+Q==
-X-Gm-Gg: AfdE7cnJ5Pek5hKFpNw6jOSVHNeGdGl5J2KWLPQqrsrQeilP4/kpJgiHU3wpLmsbO/J
-	uCMFfzTLSc8VbNQ+7AG4tgeKjGIMW4KPWnK1vs/JMQac9XuWzI9AhyDlNbVkSraNsQOyuQovlE5
-	pFyrUW+vxQ+l1qghX/mkzS6/5qkY/inQzuOqSLS0+K6wpiTp3dkf4OfnFO4ve5sWyUNqlSbRPTw
-	BSiFFNK3ddPNScfakYby1mxc+Ifd/BCn6s0QL24T6o8SEgpxsimqTbOKHHf4YgDgF3J9IdM6XOB
-	zxuFSgCIpbGHs1axH8qrO5eIVjoX5nq9UX9QFv2FgzT/SMrveFLnGVV7pTpW4EewcpFfyRzMmq9
-	bAIN6pguye2Nqh+GPi5y/MNklc7nOjxB7Dw/amRQg/CGGC9TfLqIYS1pGJYnnwtzOOuP8YQ9pQr
-	tIaO7oNLy0edY1qQ==
-X-Received: by 2002:a05:6a00:1f14:b0:847:9803:ec6f with SMTP id d2e1a72fcca58-84beb187fc2mr9986170b3a.10.1784351368541;
-        Fri, 17 Jul 2026 22:09:28 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2afd07e2sm2205246b3a.61.2026.07.17.22.09.25
+        d=1e100.net; s=20251104; t=1784352504; x=1784957304;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RNGLrPX1b+m8I8qDGUqtc6iyYbzijqi3N+HkRN1Rmho=;
+        b=HID0uuNSth/fIez3Qjvi4fl8wKXCnNSXgGGoG9KeNkWbvywYZPsPRVRJSe/Yxn36wm
+         uKUE/92HLiVImebqUrkpNrixxJ9rZuj0Nr+GMMmtSkAZQmGKLZ9aXcpgIVeqfFaco5BU
+         nOJBwzGeVLbNiJBXYNqi9kgJ8ZtZr+Xzvlb4tkf8WCRKZ6vUkhjTigUED+AyJ77HDr4X
+         oShvysw4eaa/6k+EssdXvPzZdJZ7NptpL+OffFdtuo29ja7eIErDlvXf5vCSSfREM0HI
+         dP9W9gDcLMeNG2zWZPSZpdBVhZCL6tUSN8B3adzTnycSSZNMzVIUhgc1ziJj3x6WiJKO
+         6wzA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqk/+GiYZkVBN0w0ioeuPnomYc2Aakr4XHC8al+k7IPb0hQjdqAmfeoKGv0fa3Uk6uiVGa6xg0=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7UlB6pjTfnXrLKbjpAkeIrXfY6Y5cxV3HEeYDMoUPtwldbRBF
+	JkwW/tn9gJvGcudvn+LS6jwVmG8ZNd2gZLHzNXcfnwUJAZYD5tNgi2GM
+X-Gm-Gg: AfdE7cnAh7FmV8hu83aBk+fHtBTvfO+mNlituveB+gqHRazs8GOb+DflmEJUCT0h5DO
+	/hd7gsTTKj9UUtGiJOCuCy6+w5BC4xdWdh6X+9bVVaBa/ILTLoZbR/fZfG2wYpgPI7eN0CHoYbd
+	zDdUXXibsFlNXSb3VwYgIin5qKYoGYd74nYrsTRk835WajDxNwFFp35N2NDGlfrA0Xt3KjMlEAj
+	5G3JFVuPgAdGqx0L3h3j+HmLxyDaxzKwjBpJmzyMkEubiT88VzFexTQgVGA/xN3uwZddqFX7sZ4
+	tdLQ9jBTC6kvBFltBoMHW9esYwzjhNFIUNAefP/4BNKKo0unl4HcqVs45HkmPHq1eIlyWmmG9lT
+	RHql4j1eUBFkRXKlvaAFKlBN5Jw2dSBMYDzvy33/gkKxT1WtiyFXMluxLf9k9nSL38CDlIdVfoH
+	q049PSScTwcrjEFHaYJdDv4FHD1+0SmHY=
+X-Received: by 2002:a05:622a:41:b0:51a:8ee6:c54a with SMTP id d75a77b69052e-52129d98067mr53980861cf.11.1784352504598;
+        Fri, 17 Jul 2026 22:28:24 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5214f015f71sm27624941cf.16.2026.07.17.22.28.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 22:09:28 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: Paul Moore <paul@paul-moore.com>
-Cc: Eric Paris <eparis@redhat.com>,
-	Ricardo Robaina <rrobaina@redhat.com>,
-	Richard Guy Briggs <rgb@redhat.com>,
-	audit@vger.kernel.org,
+        Fri, 17 Jul 2026 22:28:24 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>
+Cc: Celeste Liu <uwu@coelacanthus.name>,
+	Kees Cook <kees@kernel.org>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	linux-can@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: [PATCH v2] audit: fix potential integer overflow in audit_log_n_string()
-Date: Sat, 18 Jul 2026 13:09:22 +0800
-Message-ID: <20260718050922.1980425-1-zhanxusheng@xiaomi.com>
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH can] can: gs_usb: fix hardware timestamp state for mixed channels
+Date: Sat, 18 Jul 2026 01:28:15 -0400
+Message-ID: <20260718052815.2507496-1-shuangpeng.kernel@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260715024635.25376-1-zhanxusheng@xiaomi.com>
-References: <20260715024635.25376-1-zhanxusheng@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,63 +78,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-audit_log_n_string() computes new_len as "slen + 3" (enclosing quotes
-plus the NUL terminator) and stores it into an int, while slen is a
-size_t.  For a sufficiently large slen the addition can overflow and/or
-the result be truncated when assigned to the int new_len, so the
-"new_len > avail" check can be bypassed and the subsequent
-memcpy(ptr, string, slen) can write past the skb tail.
+The hardware timestamp state is shared by struct gs_usb, but gs_can_open()
+and gs_can_close() tie its initialization and teardown to active_channels
+and to the feature bits of the channel being opened or closed.
 
-This is the same class of bug that was fixed for the hex sibling in
-commit 65dfde57d1e2 ("audit: fix potential integer overflow in
-audit_log_n_hex()"); both helpers are reached through
-audit_log_n_untrustedstring() with the same length source.
+This is wrong for mixed-channel devices in both directions. If a
+non-timestamp channel opens first, a later timestamp-capable channel does
+not initialize the shared cyclecounter/timecounter because active_channels
+is already non-zero. Timestamp RX then calls timecounter_cyc2time() with
+parent->tc.cc unset.
 
-Make new_len a size_t and use check_add_overflow() to catch the
-overflow, mirroring the audit_log_n_hex() fix.  No functional change for
-the in-tree callers, which all pass bounded lengths.
+Conversely, if a timestamp-capable channel opens first and starts the
+shared delayed work, then closes while a non-timestamp channel remains
+active, disconnect may close the non-timestamp channel last. The old
+teardown check skips gs_usb_timestamp_stop() in that case and frees
+struct gs_usb while the delayed work timer is still queued.
 
-Fixes: 168b7173959f ("AUDIT: Clean up logging of untrusted strings")
+Track whether the shared timestamp work has been started in struct
+gs_usb. Start it whenever opening a timestamp-capable channel and the
+shared state is not started yet, and stop it when the last channel closes
+regardless of that channel's feature bits. Initialize the delayed work and
+lock once during probe.
+
+Fixes: 45dfa45f52e6 ("can: gs_usb: add RX and TX hardware timestamp support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 ---
-v2:
- - drop the unnecessary (size_t) cast on the constant (Paul Moore)
- - emit "?" instead of "\"?\"" on overflow, matching
-   audit_log_n_hex() (Paul Moore)
+ drivers/net/can/usb/gs_usb.c | 30 ++++++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 10 deletions(-)
 
- kernel/audit.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/audit.c b/kernel/audit.c
-index 562476937fa7..9412af9144bc 100644
---- a/kernel/audit.c
-+++ b/kernel/audit.c
-@@ -2120,7 +2120,8 @@ void audit_log_n_hex(struct audit_buffer *ab, const unsigned char *buf,
- void audit_log_n_string(struct audit_buffer *ab, const char *string,
- 			size_t slen)
- {
--	int avail, new_len;
-+	int avail;
-+	size_t new_len;
- 	unsigned char *ptr;
- 	struct sk_buff *skb;
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index ec9a7cbbbc69..bf956fef0d19 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -337,6 +337,7 @@ struct gs_usb {
  
-@@ -2130,7 +2131,13 @@ void audit_log_n_string(struct audit_buffer *ab, const char *string,
- 	BUG_ON(!ab->skb);
- 	skb = ab->skb;
- 	avail = skb_tailroom(skb);
--	new_len = slen + 3;	/* enclosing quotes + null terminator */
+ 	unsigned int hf_size_rx;
+ 	u8 active_channels;
++	bool timestamp_started;
+ 	u8 channel_cnt;
+ 
+ 	unsigned int pipe_in;
+@@ -480,19 +481,23 @@ static void gs_usb_timestamp_init(struct gs_usb *parent)
+ 	cc->shift = 32 - bits_per(NSEC_PER_SEC / GS_USB_TIMESTAMP_TIMER_HZ);
+ 	cc->mult = clocksource_hz2mult(GS_USB_TIMESTAMP_TIMER_HZ, cc->shift);
+ 
+-	spin_lock_init(&parent->tc_lock);
+ 	spin_lock_bh(&parent->tc_lock);
+ 	timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
+ 	spin_unlock_bh(&parent->tc_lock);
+ 
+-	INIT_DELAYED_WORK(&parent->timestamp, gs_usb_timestamp_work);
+ 	schedule_delayed_work(&parent->timestamp,
+ 			      GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
 +
-+	/* enclosing quotes + null terminator */
-+	if (check_add_overflow(slen, 3, &new_len)) {
-+		audit_log_format(ab, "?");
++	parent->timestamp_started = true;
+ }
+ 
+ static void gs_usb_timestamp_stop(struct gs_usb *parent)
+ {
++	if (!parent->timestamp_started)
 +		return;
-+	}
 +
- 	if (new_len > avail) {
- 		avail = audit_expand(ab, new_len);
- 		if (!avail)
+ 	cancel_delayed_work_sync(&parent->timestamp);
++	parent->timestamp_started = false;
+ }
+ 
+ static void gs_update_state(struct gs_can *dev, struct can_frame *cf)
+@@ -959,6 +964,7 @@ static int gs_can_open(struct net_device *netdev)
+ 	struct urb *urb = NULL;
+ 	u32 ctrlmode;
+ 	u32 flags = 0;
++	bool timestamp_started = false;
+ 	int rc, i;
+ 
+ 	rc = open_candev(netdev);
+@@ -980,10 +986,13 @@ static int gs_can_open(struct net_device *netdev)
+ 
+ 	can_rx_offload_enable(&dev->offload);
+ 
+-	if (!parent->active_channels) {
+-		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+-			gs_usb_timestamp_init(parent);
++	if ((dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP) &&
++	    !parent->timestamp_started) {
++		gs_usb_timestamp_init(parent);
++		timestamp_started = true;
++	}
+ 
++	if (!parent->active_channels) {
+ 		for (i = 0; i < GS_MAX_RX_URBS; i++) {
+ 			u8 *buf;
+ 
+@@ -1094,11 +1103,11 @@ static int gs_can_open(struct net_device *netdev)
+ out_usb_free_urb:
+ 	usb_free_urb(urb);
+ out_usb_kill_anchored_urbs:
++	if (timestamp_started)
++		gs_usb_timestamp_stop(parent);
++
+ 	if (!parent->active_channels) {
+ 		usb_kill_anchored_urbs(&parent->rx_submitted);
+-
+-		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+-			gs_usb_timestamp_stop(parent);
+ 	}
+ 
+ 	can_rx_offload_disable(&dev->offload);
+@@ -1155,8 +1164,7 @@ static int gs_can_close(struct net_device *netdev)
+ 	if (!parent->active_channels) {
+ 		usb_kill_anchored_urbs(&parent->rx_submitted);
+ 
+-		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+-			gs_usb_timestamp_stop(parent);
++		gs_usb_timestamp_stop(parent);
+ 	}
+ 
+ 	/* Stop sending URBs */
+@@ -1577,6 +1585,8 @@ static int gs_usb_probe(struct usb_interface *intf,
+ 	parent->channel_cnt = icount;
+ 
+ 	init_usb_anchor(&parent->rx_submitted);
++	spin_lock_init(&parent->tc_lock);
++	INIT_DELAYED_WORK(&parent->timestamp, gs_usb_timestamp_work);
+ 
+ 	usb_set_intfdata(intf, parent);
+ 	parent->udev = udev;
 -- 
 2.43.0
 
