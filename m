@@ -1,156 +1,182 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2AE33F584
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 19:02:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBA4369D50;
+	Sat, 18 Jul 2026 19:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784401355; cv=none; b=uQua1ITEBfQZUNrcp9TkRG6ZQi/99+ct0nbqHkeuMQJzsnDjusJC2aNnG3AqYgKI9HOD649Z4nL+6CGbK111h2LcFfy4HD5rIb67cdGU0E5f/Ez5Qbkp5HTc0L8oyFm7uEFMZQblgvxjfo3nnxFB6qOW3sy6I0kAqezmCngqKkw=
+	t=1784401405; cv=none; b=STFqOHWqmCZlMOLoKbRDcID/LYh8q5PE4KoiIROJKtgrTTsEAZLswIU7GemGBZ3SzSmXXSQivf3PITkb2TILuIDWv+T/KtY4mW7JXiwJ+x9+031RIAADFRqxvCzDD/3lUhev6qSvnL9ytR9Y43nRBC23pb9ven2cWrstksFey58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784401355; c=relaxed/simple;
-	bh=XZdD3zKdSTbuGZxGX0Q/ZUS+GERYGHbGZ7CTTNOTzCY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FzYm0ZgPa1pID4hf+GT2LS/38Bbn3q1p79WKATpa1t8vr7Rw/6NrsdccIgYYE3ZdhmesH6MnWIuktoCtfuEMaCCHsui2Q+B2LJL3hvSKfXMoH0hzSVkI5szJeuOjey521Iwnf9vglb1anq47RGmSOz6O5r6juGnB/nJSE0I4luc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=stykqD7q; arc=none smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784401405; c=relaxed/simple;
+	bh=zhYYvOhaho/7VgCq3WK6nUGsOlDKZXKgAJs8jB71zsw=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Il9h/J25mgPDdZWxxx7q3PSSh+e+IJwZpQ3bkMsnmEzhpGIRkn4UI6lNqoqXOqutnFc7SsUG0RsPkV99hf+fmSSgWfUtLdbC+Ow4qVXm5221rFqY/v9AA+1YTMAWQJKKnlWVpjB711JlqDAkr3EJIyV6aam+flWNefugnnmQFws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=LBLx6jl8; arc=none smtp.client-ip=79.135.106.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="stykqD7q"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-69e7a5b61e4so1757750a12.2
-        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 12:02:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784401345; x=1785006145; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zu/jYX89xJfIleoyKAvoiz/I4BllDAYOzQIUgGaxN8U=;
-        b=stykqD7qikaAVsVUWUDQC1LtUP3sIoo1LS4ezA/Ubadw46rBDX6VGpGvAnmnMxks3J
-         XD+SHt5mMgUZoyuj9v1justFKH6gMZpjfqFVF6jeY7krc8O/pe2+1PqF2caOJCD92Ida
-         sW3k0h0TpW9jaYT82l/kuy3BogtuVo+x56qW/UYEyaNPsONku0m6oOwpuFy3wekdYp2I
-         W47Th6v5eZSKPrK78Cfc7u3ZWSqFzn995I8L98vc5Da9ASL7Bcqb3N9s/w2UGseRCHVP
-         qwFUhYFjueKUsSsHNqkPlF55qTK46TIe/F8n9p+LS/Chi/5VA+agyNhSQjxyG17vqf1R
-         pR6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784401345; x=1785006145;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zu/jYX89xJfIleoyKAvoiz/I4BllDAYOzQIUgGaxN8U=;
-        b=Eo5XwKTgvxJXkyGc72S2K/dUR4J2BXleSKcQuo8A9s5797QXrYy+p1llN3txv5O/DD
-         GLlAfg9HLzuNTRChre/0ck4KUwcRPUh8FET0S0mcxdYRGYrti1HSesd3y5zHXamqM1Dv
-         e04f4i6QAQ7WPhrDghepD9LULzDE5PqzGN8xfD8rIP4XKhL3R2JAcqcxs8zm0Y31q9r0
-         3iHaBRK/WQuFqszAfbUuIZoO2GxwOjSzTpJplx6Y7ON+KRB8+z/SBvtE3V/qp/TW7u4R
-         52jZuXOVAYFw0X1WVKvW1ie6V5er3Q6n/63kRpqe1NNtpWDN+mH5wJ0gF7NziM1Q7IJv
-         jbYQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpMm8sxR+POPhmpy0PIO1RWgYGK3Pwjyyy6LiM/vD8I3ZvkX+V6Oh1hlXNy0hhbKNWT8h/eHzo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnYPUvr8faMIuPmMLA+hmwqcFaZSM2MYVbYAEqkm8VYoxbH8aN
-	RiVXOkJ7tQzAKVwzFwd7ehBtw2scjCcs4k3aU4F3r3mmlXtYgD5hZ4yx
-X-Gm-Gg: AfdE7cm2EHtf1i08jSNrrUbt9B++lsjHzRoWDcXAigLTzlhTIO3Kpx2L7To1tMdlae8
-	EPmT/xbn29b3RCnXBmMGrjszKUrghBcrCh4Cyof9SpX9NEqzsjdztCuxyKj4y+sSct4RU+Pd1jP
-	pgT+Te1ntu23vcS6EdM11WDtDmiZLHUEZBZFdh15fTvUCxvrdl7oW9f5sUykVRgFJBh3OHooq7R
-	OEm43wi0X0hbhLoVdlH2d0BVyt5da6BDbX2l0xzz0vigd6umuk/ZGfF7VXFiP+J05xxjOqNCqKb
-	/FcuNowiD19oTourTdcbAh4433KC2EFEcXgcrzCXwQaDXLyDC8oAeuo5k6lBbg0/o3t19s09GP7
-	DZXHzL+BHk+TpymvkkNSE7twQ5r7pP77L0NFyaDzMG6+5X5j7naaEezC5KqlgrJc+47GjpVXvYK
-	dncdGowEm/Fw33pnSQD5JY+x27l+5hr1keZcu2zdMuofb4pyuU5H2f5g8=
-X-Received: by 2002:a05:6402:51cb:b0:698:c1d9:8134 with SMTP id 4fb4d7f45d1cf-69e6525c1b7mr3043951a12.9.1784401345439;
-        Sat, 18 Jul 2026 12:02:25 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69e6ffbba0fsm2392534a12.17.2026.07.18.12.02.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 12:02:24 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH 5/5] staging: rtl8723bs: fix skb->len underflow in monitor TX path
-Date: Sun, 19 Jul 2026 00:02:12 +0500
-Message-ID: <20260718190212.64409-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260718185445.63070-1-meatuni001@gmail.com>
-References: <20260718185445.63070-1-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="LBLx6jl8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1784401392; x=1784660592;
+	bh=0mMT9SlGMTbWgB8nWj8kf5WAsWksPyAGRgxPmE3iLwg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=LBLx6jl82226ppSRX0g51UqTpWojt0T2dfC5llecoYy2UBWGHI1v61wXtaNbQaBUr
+	 3/zXUF7Bw3ERGaSqFmrZbN/jXXIigqdPsf+VLhTYzgpiqr25g7Doe1ltsvTC2pMSXg
+	 aQAYDDKEmh0NKDMzOJ1KC5JP1+o4RKWqPcoXD4SiEsWhd7d39uwV64GhXgjs1YqIWk
+	 pC8VkBj1OOMyEQCbrTVudBINaWZgep4lflxWGYLY0PX40bmxt2QWwlqIDkZxZgq5D0
+	 lh9Iw2vbvEd7s58bAKl+XCc36UBhePx5kYolHAX4OVKO6G2VVR8ntaA/sTHWobBKgK
+	 E3XQI8V5CY6sw==
+Date: Sat, 18 Jul 2026 19:03:07 +0000
+To: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>
+From: YANXIN LI <fadouse@pm.me>
+Cc: Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, security@kernel.org, stable@vger.kernel.org
+Subject: [PATCH] ufs: use u64 for directory size in ufs_last_byte
+Message-ID: <20260718190300.867109-1-fadouse@pm.me>
+Feedback-ID: 173252840:user:proton
+X-Pm-Message-ID: c098664789eca833834cd241e3972dfec92dd384
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------e5c151bfc3db30c68330db426ce0f9a46ad89cda13042ea907b012f059cd9061"; charset=utf-8
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------e5c151bfc3db30c68330db426ce0f9a46ad89cda13042ea907b012f059cd9061
+Content-Type: multipart/mixed;
+ boundary=0fafd488aa6eda8a14572b502f6c93bf8243223ced30784f759ab26816d2
+From: YANXIN LI <fadouse@pm.me>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	security@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ufs: use u64 for directory size in ufs_last_byte
+Date: Sun, 19 Jul 2026 03:03:00 +0800
+Message-ID: <20260718190300.867109-1-fadouse@pm.me>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+
+--0fafd488aa6eda8a14572b502f6c93bf8243223ced30784f759ab26816d2
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-rtw_cfg80211_monitor_if_xmit_entry() strips a radiotap header with
-skb_pull(skb, rtap_len), then immediately dereferences the 802.11
-header fields (frame_control, addr1, addr2) without checking that
-skb->len is still large enough to contain a struct ieee80211_hdr
-(24 bytes).
+ufs1_read_inode() and ufs2_read_inode() copy the untrusted 64-bit
+on-disk size into inode->i_size.  ufs_last_byte() then truncates that
+value to an unsigned int before calculating the valid extent of a
+directory folio.
 
-Further down, it calls:
+A directory size of exactly 4 GiB is truncated to zero.  In
+ufs_find_entry(), subtracting the requested record length from that zero
+forms an endpoint almost 4 GiB beyond the mapped folio.  A crafted UFS2
+image produces:
 
-	skb_pull(skb, dot11_hdr_len + qos_len + snap_len -
-			sizeof(src_mac_addr) * 2);
+  BUG: KASAN: use-after-free in ufs_find_entry+0x583/0x6e0 [ufs]
+  Read of size 1
+  ...
+  ufs_find_entry
+  ufs_inode_by_name
+  ufs_lookup
+  __lookup_slow
+  path_lookupat
 
-again with no check that skb->len covers this amount first. Plain
-skb_pull() does not itself validate the requested length against
-skb->len; on a too-short injected frame this makes skb->len
-underflow to a huge unsigned value, after which skb->data and the
-following memcpy()s operate on a corrupted skb.
+The KASAN classification reflects that the adjacent physical page was
+free; the source-level operation is an out-of-folio read.  A controlled
+UFS1 test with CONFIG_UFS_FS_WRITE enabled also made ufs_find_entry()
+return a directory entry from an adjacent anonymous page.  unlink() then
+passed that pointer to ufs_delete_entry(), which cleared the adjacent
+page's 3
+2-bit d_ino.  This write result reproduced three out of three
+times.
 
-This function is reachable by writing a raw frame to a monitor-mode
-network device, which does not require elevated privileges beyond
-being able to create/use a monitor-mode interface (CAP_NET_RAW).
+UFS normally requires a privileged mount path.  A relevant boundary is
+a privileged automounter or image-processing service handling an
+attacker-supplied filesystem.  The write primitive additionally requires
+UFS1 to be mounted read-write with CONFIG_UFS_FS_WRITE enabled; the read
+is reachable with read-only UFS2.
 
-Add explicit skb->len checks before dereferencing the 802.11 header
-and before each skb_pull(), bailing out via the existing "fail"
-error path on any mismatch.
+Keep the intermediate size arithmetic at 64 bits so non-final pages are
+bounded at PAGE_SIZE.  With this change, the same controlled tests reach
+the real on-disk directory entry and produce no adjacent-page write or
+KASAN report.  A reproducer and full validation logs are available on
+request.
 
-Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
+The vulnerable helper is present in v7.2-rc3, v7.1, v6.18.38, v6.12.95,
+v6.6.111, and upstream master at 1229e2e57a5c.  Runtime reproduction and
+fix validation were performed in an x86-64 QEMU guest running v7.2-rc3
+with generic KASAN.
+
+Fixes: b71034e5e67d ("[PATCH] ufs: directory and page cache:
+ from blocks to pages")
 Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Signed-off-by: YANXIN LI <fadouse@pm.me>
 ---
- drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ fs/ufs/dir.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-index 6a97afd89dc7..eac1b6ac4c67 100644
---- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-+++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-@@ -2034,10 +2034,15 @@ static netdev_tx_t rtw_cfg80211_monitor_if_xmit_entry(struct sk_buff *skb, struc
- 	/* Skip the ratio tap header */
- 	skb_pull(skb, rtap_len);
+diff --git a/fs/ufs/dir.c b/fs/ufs/dir.c
+index e62fe5667..69e6d5535 100644
+--- a/fs/ufs/dir.c
++++ b/fs/ufs/dir.c
+@@ -213,7 +213,7 @@ static void *ufs_get_folio(struct inode *dir, unsigned long n,
+ static unsigned
+ ufs_last_byte(struct inode *inode, unsigned long page_nr)
+ {
+-	unsigned last_byte = inode->i_size;
++	u64 last_byte = inode->i_size;
  
-+	if (unlikely(skb->len < sizeof(struct ieee80211_hdr)))
-+		goto fail;
-+
- 	dot11_hdr = (struct ieee80211_hdr *)skb->data;
- 	frame_control = le16_to_cpu(dot11_hdr->frame_control);
- 	/* Check if the QoS bit is set */
- 	if ((frame_control & IEEE80211_FCTL_FTYPE) == IEEE80211_FTYPE_DATA) {
-+		int pull_len;
-+
- 		/* Check if this ia a Wireless Distribution System (WDS) frame
- 		 * which has 4 MAC addresses
- 		 */
-@@ -2046,13 +2051,19 @@ static netdev_tx_t rtw_cfg80211_monitor_if_xmit_entry(struct sk_buff *skb, struc
- 		if ((frame_control & 0x0300) == 0x0300)
- 			dot11_hdr_len += 6;
- 
-+		if (unlikely(skb->len < dot11_hdr_len + qos_len))
-+			goto fail;
-+
- 		memcpy(dst_mac_addr, dot11_hdr->addr1, sizeof(dst_mac_addr));
- 		memcpy(src_mac_addr, dot11_hdr->addr2, sizeof(src_mac_addr));
- 
- 		/* Skip the 802.11 header, QoS (if any) and SNAP, but leave spaces for
- 		 * two MAC addresses
- 		 */
--		skb_pull(skb, dot11_hdr_len + qos_len + snap_len - sizeof(src_mac_addr) * 2);
-+		pull_len = dot11_hdr_len + qos_len + snap_len - sizeof(src_mac_addr) * 2;
-+		if (unlikely(pull_len < 0 || skb->len < pull_len))
-+			goto fail;
-+		skb_pull(skb, pull_len);
- 		pdata = (unsigned char *)skb->data;
- 		memcpy(pdata, dst_mac_addr, sizeof(dst_mac_addr));
- 		memcpy(pdata + sizeof(dst_mac_addr), src_mac_addr, sizeof(src_mac_addr));
+ 	last_byte -= page_nr << PAGE_SHIFT;
+ 	if (last_byte > PAGE_SIZE)
+
+base-commit: 1229e2e57a5c2980ccd457b9b53ea0eed5a22ab3
 -- 
-2.55.0
+2.54.0
+
+
+--0fafd488aa6eda8a14572b502f6c93bf8243223ced30784f759ab26816d2
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="publickey - fadouse@pm.me -
+ 0x99485AA3.asc"; name="publickey - fadouse@pm.me - 0x99485AA3.asc"
+Content-Type: application/pgp-keys; filename="publickey - fadouse@pm.me -
+ 0x99485AA3.asc"; name="publickey - fadouse@pm.me - 0x99485AA3.asc"
+
+LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
+ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuOS4wCgp4ak1FYVV1T01SWUpLd1lCQkFIYVJ3
+OEJBUWRBdG5ZbFN6SFRMSEEySXp1TkUxQXk4SnJLVUN4NmhQKy90YzRMCkRYQ25yZXpOSFdaaFpH
+OTFjMlZBY0cwdWJXVWdQR1poWkc5MWMyVkFjRzB1YldVK3dzQVJCQk1XQ2dDREJZSnAKUzQ0eEF3
+c0pCd2tRdVoxZ3QrWG0yWFJGRkFBQUFBQUFIQUFnYzJGc2RFQnViM1JoZEdsdmJuTXViM0JsYm5C
+bgpjR3B6TG05eVp6bTBCcDNlRVhSV2tuSWdDbFd3dmR4Wm1vMVhuVmI2RmthalhUVk0xQi9qQXhV
+S0NBUVdBQUlCCkFoa0JBcHNEQWg0QkZpRUVtVWhhbzNaL0FuQkk0TEJZdVoxZ3QrWG0yWFFBQUxx
+MkFRRDc4SzZwZWRTWDNsZE4KeXFkM09IMXVNak8zdjdMWU1oTytsN2NuU0xXckVBRCtPQ1NxMTFT
+ZWFLb2JzVkdyTGVqVE1zbU1zUEI4am54ZgppZDNoQ04rcGV3VE9PQVJwUzQ0eEVnb3JCZ0VFQVpk
+VkFRVUJBUWRBd1hkelZJcUVIL3g4SFpqUi9QT3QyQWlGCmJFbTZZcVhYMmoydjJpS0RzUU1EQVFn
+SHdyNEVHQllLQUhBRmdtbExqakVKRUxtZFlMZmw1dGwwUlJRQUFBQUEKQUJ3QUlITmhiSFJBYm05
+MFlYUnBiMjV6TG05d1pXNXdaM0JxY3k1dmNtZGRLTlFZREZXY0VWZDN4T0hlUXA2cwp5bjc5TkZw
+TnFrSHoraXpwSUxCblVnS2JEQlloQkpsSVdxTjJmd0p3U09Dd1dMbWRZTGZsNXRsMEFBRHpRZ0Qv
+CmNJSjA4OUprbm9nVHM2dnZRWitKM0xSSURhSTkrUW0rVDVxT21OazR5WEVCQUxQSWxKQ1M4YWg1
+ZEJZWmE5TCsKSHFqYkRtZVNnRG81OHVTeCtpV3crNlVMCj1NdXNUCi0tLS0tRU5EIFBHUCBQVUJM
+SUMgS0VZIEJMT0NLLS0tLS0=
+--0fafd488aa6eda8a14572b502f6c93bf8243223ced30784f759ab26816d2--
+
+--------e5c151bfc3db30c68330db426ce0f9a46ad89cda13042ea907b012f059cd9061
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wqsEARYIAF0FgmpbzekJELmdYLfl5tl0NRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmex002270kdeI29v4hUlShPFiEEmUhao3Z/AnBI
+4LBYuZ1gt+Xm2XQAAK/DAP9K7aa07ZVJFLrZa/xic+EAGWzsYQli8Y7eih0+
+qA29pwEAw/2jiAm3nvdLkkJUhf6mZQDxfb8mN6JZUrZis/7Qkws=
+=WP5q
+-----END PGP SIGNATURE-----
+
+
+--------e5c151bfc3db30c68330db426ce0f9a46ad89cda13042ea907b012f059cd9061--
 
