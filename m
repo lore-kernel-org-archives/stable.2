@@ -1,75 +1,67 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D064243F0BE
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 07:40:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B3D37AA97;
+	Sat, 18 Jul 2026 09:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784360442; cv=none; b=XbvwOj+t2CW288zZVmWoUsVNrnmhkhs6/MAVrxUBkXF8WBBkLS5XBPZlTKa0+oZAphkDyIXBe1DpHInLc2o27O5p3yBN+QG9GSy89uhaC4nMawsrszW765GduO4HzUGrkbO9OHwv0E4MrjSrlNXIs+LXI82y5Jfy2gR9kJpWsWo=
+	t=1784365303; cv=none; b=LVUXCfCAWiGtbyBz9WCUQnA/UdKUuUYjW+xaz73Ht1/k9goyy4+PnIfWGj3EQtXGv8jvEiYt9gm+N3BhK37nZOA3zAvOPnXk9eZDHVGWY7p7zWIOv3+SmQyOd+EmvlgYCCrMKsWhDsn2Rfbgi7fLV+KDpIjXtTJEYXRtfY9a6No=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784360442; c=relaxed/simple;
-	bh=CHqctaXOh1YRZ6r+fEuQSQe/xUi6dXaEscZOn0peo18=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZbHbVlSaBiZkYqujs5WGUrvbQOHxE7cFXIb7ySXyw/ycNznf/kpWiJtBRess7mNEtp5XG395X/wllZB4HlOBc5+osVAHvQcAnlML7HeSjCSKGhjt4T379LrxYRnOsFUYW84Wtzhsvbro2/R2Ib4FdXAOb68e9VEMdHMLnxvKN2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oIYg6s5H; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oIYg6s5H"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-381b831d535so5994289a91.0
-        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 00:40:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784360440; x=1784965240; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4sz+zAG3Op3BP7KFhD4nzcWAAX6/+g0R994WeqVfx14=;
-        b=oIYg6s5HLIDMc3ITOkP51RXdF3lw4smzJ9e+oK5O0nflXZhRV3DlsO5YOshePUv+D9
-         59j6KdYJuJIpAtsR/eBlHbzKTb69pvtPVKmVEgg/1N9+687+B+Q0rkzqVADcXq4w0CVc
-         iiNkDsDfF0YxPr3oAotrzIatxGavtbYv8wRH6XCYDLKpt/tFoRvl+Fzp4CyYUdvuUZlz
-         kNFKVg7YMG/bXksEmc4r7fTVrMKOKhrFzXgMlbt+mruRrzTEdrUkX/ym75P9oQq7T6oe
-         EItB4mP4FF6kK5EwfdXjqCVkOz2rpwL1zCK5lZv5BQCZ32JA4aojqz1XK29zy5l6gPr8
-         OXug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784360440; x=1784965240;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4sz+zAG3Op3BP7KFhD4nzcWAAX6/+g0R994WeqVfx14=;
-        b=Zaceh0Jyzp+tmRbL92Lpvmtp5G8HCQSVmHV5k+dSEXJ2Gegp7ITGWQ/R8GaUarFjU4
-         xpv/MDwLrZCJkCo62mmj15aEF3PJ0CSbtEdUhaNRNxSet+h9qMLxfWmQMM4i+B9vn7Kq
-         BFeX89lF5aumM0u3j6ObV7vbUkezew9Z1bASWyANdsLsWsz0Q3FTaBgGd4moQcfZxnGt
-         R4ov+UHDmDBW+DG6QDn83LeIY9YMzyHDMwgiLYMCWS43hQ/PJYQxblM7qtZuY3uaac1I
-         Oi/oAJe/HxdehhaD4go08V1Ck+Cs2CRwKp1Nd5ipK6eGweR+5DRJOkRyt6NcjSMiyH4j
-         FS1A==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+cHShSfF4Fez6of2Y8zGq+4R01RZnsEr23gcLNg7pGoi6rQd9RZkNmAGO50Mwsdv7yHee6q8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxln0DHAo8X7BWU1yfbKKkDZGgid+NJBKcJVHXKi7ogvib//PlL
-	XAwPqm+XpgVuUQd+3qP3kHKIfwCxqaWb03VZjvgmfkc6ufaFnrxbfUlV
-X-Gm-Gg: AfdE7cmATI1dq+swh//eFoL5dlFpW0CVKTaNQDxnDuvAVLJbqqbJu5yyPNp7tapUfSH
-	7r29j430nTSOCmsP2eXukEcAn7xXjimHfCIc0kqa9VrIj1/9jQXB7iJINrTMq1Pf5L/EphFt8CD
-	lQGvzICL1cEjcbB3zn94XIRTrncXzjZ8MW9sWtvEaRyLZ8y7NP8r3XQjhCJmo2OooBE7hDS7Bil
-	phOcSKgmv06k4zLE0J1Mces0Rui8AEIkUSIZohGvCF6dgWurJZOhnGTzpASm6tmpuIxldtQGT+0
-	pz/d8gXBJ/2q+8EWOE7nQvQ6iNskqJ39orFp8dD0/Y6DtPK4IVAvw6SAUS8P4sW8U7C6tUjgNJL
-	C2juh46ynp3Or0TtQPslCa5Wf9wGd4vOf+BIDAt1CL+wZgNUl/LM8YDM1kzJHusIaBO0Ua6vTk4
-	BmKXzeh8HP+CRK5rjHMKM0crrW5aEX2cnt0ajDmSFTidfwZLw3EOeCdTnmnRTPR0pMtZ8=
-X-Received: by 2002:a17:90b:1dca:b0:38d:ef48:b04 with SMTP id 98e67ed59e1d1-38e4b454d1cmr6489775a91.10.1784360440044;
-        Sat, 18 Jul 2026 00:40:40 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e3a0d7a5bsm4311651a91.9.2026.07.18.00.40.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 00:40:39 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: James Ogletree <jogletre@opensource.cirrus.com>,
-	Fred Treven <fred.treven@cirrus.com>,
-	Ben Bright <ben.bright@cirrus.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: patches@opensource.cirrus.com,
-	linux-input@vger.kernel.org,
+	s=arc-20240116; t=1784365303; c=relaxed/simple;
+	bh=qzWdfFHM4276VR80Poqhbwj/zpuNWpXwG6JIORxroEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UamBHJbwjp7mWMFapC+tx/ywlSk2sUsA4lgjmm4of94MSmo+FZx/r2d4/sXkgF5cyGidl5qPtAv0D3M4S3v9mcNg1dBsg+kyBzoAwa+7NCrSDRdN1oIaKM2gc5mblrbaCkTnV4DtdhO7A8l9hfUdAWTX+ODZk2Q1prt6S2srzg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 468ba19e828711f1aa26b74ffac11d73-20260718
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
+	GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:74026dc9-ed6e-4377-9713-549c45f3e9c4,IP:15,
+	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:-10
+X-CID-INFO: VERSION:1.3.12,REQID:74026dc9-ed6e-4377-9713-549c45f3e9c4,IP:15,UR
+	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-10
+X-CID-META: VersionHash:e7bac3a,CLOUDID:b09afbe85e233be6cea232d369eb7bda,BulkI
+	D:260718151802GOA6MZ3Q,BulkQuantity:1,Recheck:0,SF:10|38|66|78|81|82|102|1
+	27|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:
+	41,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BR
+	E:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 468ba19e828711f1aa26b74ffac11d73-20260718
+X-User: pengcan@kylinos.cn
+Received: from lenovo [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <pengcan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1296818041; Sat, 18 Jul 2026 17:01:34 +0800
+From: Can Peng <pengcan@kylinos.cn>
+To: jack.zhu@starfivetech.com,
+	changhuang.liang@starfivetech.com,
+	keith.zhao@starfivetech.com,
+	vkoul@kernel.org,
+	neil.armstrong@linaro.org
+Cc: linux-phy@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH] Input: cs40l50-vibra - validate custom data from user space
-Date: Sat, 18 Jul 2026 16:40:32 +0900
-Message-ID: <20260718074032.1864861-1-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Can Peng <pengcan@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] phy: starfive: Fix runtime PM cleanup in JH7110 DPHY TX probe
+Date: Sat, 18 Jul 2026 17:00:53 +0800
+Message-ID: <20260718090054.444513-2-pengcan@kylinos.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260718090054.444513-1-pengcan@kylinos.cn>
+References: <20260718090054.444513-1-pengcan@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,80 +70,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cs40l50_add() copies the custom data of an FF_PERIODIC/FF_CUSTOM effect
-straight from the ff_effect the user passed to EVIOCSFF, without
-requiring it to hold anything:
+stf_dphy_probe() enables runtime PM before getting the clock and
+reset controls, creating the PHY and registering the PHY provider. If
+any of those steps fails, probe returns with runtime PM still enabled.
 
-    work_data.custom_data = memdup_array_user(periodic->custom_data,
-                                              periodic->custom_len,
-                                              sizeof(s16));
-    work_data.custom_len = periodic->custom_len;
+The driver also has no remove callback, so runtime PM is left enabled
+on driver unbind after a successful probe.
 
-The driver then reads two words out of that buffer: custom_data[0] as the
-waveform bank in cs40l50_effect_bank_set(), and custom_data[1] as the
-index within the bank in cs40l50_effect_index_set().  Neither read is
-covered by a length check, and custom_len is fully user controlled:
+Use devm_pm_runtime_enable() so runtime PM is disabled automatically
+on later probe failures and on driver unbind.
 
-  - custom_len == 0 makes memdup_array_user() call memdup_user() with a
-    length of zero, which returns ZERO_SIZE_PTR rather than an error, so
-    custom_data[0] dereferences it.
-
-  - custom_len == 1 allocates two bytes.  A bank of ROM or RAM keeps
-    effect->type out of the OWT case, and custom_data[1] is then read one
-    word past the allocation.
-
-The bank value itself is also mishandled.  It is masked with
-CS40L50_CUSTOM_DATA_MASK (0xffff) but stored in an s16, so a
-custom_data[0] of 0x8000 or above wraps to a negative value that passes
-the "bank_type >= CS40L50_WVFRM_BANK_NUM" test.
-cs40l50_effect_index_set() indexes vib->dsp.banks[] with it before the
-switch statement's default case gets a chance to reject it:
-
-    base_index = vib->dsp.banks[effect->type].base_index;
-    max_index = vib->dsp.banks[effect->type].max_index;
-
-Require the two words the driver reads to be present, and hold the masked
-bank in a u32 so the existing upper-bound test covers the whole range.
-The da7280 haptic driver already range checks custom_len this way.
-
-Fixes: c38fe1bb5d21 ("Input: cs40l50 - Add support for the CS40L50 haptic driver")
+Fixes: d3ab79553308 ("phy: starfive: Add mipi dphy tx support")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Signed-off-by: Can Peng <pengcan@kylinos.cn>
 ---
- drivers/input/misc/cs40l50-vibra.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/phy/starfive/phy-jh7110-dphy-tx.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/input/misc/cs40l50-vibra.c b/drivers/input/misc/cs40l50-vibra.c
-index 996d6c38cca4..7ef4534fea2f 100644
---- a/drivers/input/misc/cs40l50-vibra.c
-+++ b/drivers/input/misc/cs40l50-vibra.c
-@@ -139,10 +139,10 @@ static struct cs40l50_effect *cs40l50_find_effect(int id, struct list_head *effe
- static int cs40l50_effect_bank_set(struct cs40l50_work *work_data,
- 				   struct cs40l50_effect *effect)
+diff --git a/drivers/phy/starfive/phy-jh7110-dphy-tx.c b/drivers/phy/starfive/phy-jh7110-dphy-tx.c
+index c64d1c91b130..181491a93807 100644
+--- a/drivers/phy/starfive/phy-jh7110-dphy-tx.c
++++ b/drivers/phy/starfive/phy-jh7110-dphy-tx.c
+@@ -392,6 +392,7 @@ static int stf_dphy_probe(struct platform_device *pdev)
  {
--	s16 bank_type = work_data->custom_data[0] & CS40L50_CUSTOM_DATA_MASK;
-+	u32 bank_type = work_data->custom_data[0] & CS40L50_CUSTOM_DATA_MASK;
+ 	struct phy_provider *phy_provider;
+ 	struct stf_dphy *dphy;
++	int ret;
  
- 	if (bank_type >= CS40L50_WVFRM_BANK_NUM) {
--		dev_err(work_data->vib->dev, "Invalid bank (%d)\n", bank_type);
-+		dev_err(work_data->vib->dev, "Invalid bank (%u)\n", bank_type);
- 		return -EINVAL;
- 	}
+ 	dphy = devm_kzalloc(&pdev->dev, sizeof(*dphy), GFP_KERNEL);
+ 	if (!dphy)
+@@ -406,7 +407,9 @@ static int stf_dphy_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dphy->topsys))
+ 		return PTR_ERR(dphy->topsys);
  
-@@ -326,6 +326,12 @@ static int cs40l50_add(struct input_dev *dev, struct ff_effect *effect,
- 		return -EINVAL;
- 	}
+-	pm_runtime_enable(&pdev->dev);
++	ret = devm_pm_runtime_enable(&pdev->dev);
++	if (ret)
++		return ret;
  
-+	if (periodic->custom_len < CS40L50_OWT_CUSTOM_DATA_SIZE) {
-+		dev_err(vib->dev, "Invalid custom data length (%u)\n",
-+			periodic->custom_len);
-+		return -EINVAL;
-+	}
-+
- 	work_data.custom_data = memdup_array_user(effect->u.periodic.custom_data,
- 						  effect->u.periodic.custom_len,
- 						  sizeof(s16));
+ 	dphy->txesc_clk = devm_clk_get(&pdev->dev, "txesc");
+ 	if (IS_ERR(dphy->txesc_clk))
 -- 
-2.43.0
+2.53.0
 
