@@ -1,151 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75DF2DB794;
-	Sat, 18 Jul 2026 10:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784372103; cv=none; b=Z49NWUgIcG01ZpnayebeTNvloq2IkGpMgKbxCkqvKDw1pchQLMdPgD4MmznnExBD3WbpTRmAReQzHsVDLAgxz9QUPePYwJmqwzKBCw5FfDteBHj4d3T95Dq6EXWszKkbxxgL/EN+Mjl6uDzmUURHmtFeK65acZzchyQ6jflAN8M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784372103; c=relaxed/simple;
-	bh=VPez2kCk8EUMWhoDf8qATR/LDnFE4PepJlxC3mOAojQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cSkS1PLVHW6511OZex2mVJsIuwm3od81JrCleokIcnkGeM+eOkkFsCuvG7o7H2tqURKFi0bSTvk4T2lUN3bLjAfb/haUDlz688J8R1urFXeWhOGhGL7eGbPtQT1CUyxZUhkV9How29rayzDdfncLeuOi1huO6BrgBH9Z4DUarCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aiI8R0kP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E166B279DCC;
+	Sat, 18 Jul 2026 11:14:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784373272; cv=pass; b=VbRsqGWaZl7YjGAYLI7JxKVp/J/bf7zD5WzIcUhOVGYpj27fgQ3bY+KjEmMJySj3aWjnoGEEG7hsJgYGvPjm8xYlAn32gUhPqNne+v5oIJcKWZihZFdpZLzWFdTri6PPtDEGZhG+qddj6aPGcBQPdq53DcsiDnozDPmSW61koMY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784373272; c=relaxed/simple;
+	bh=FUF/L0YQUgnbI0bPv9EPxElG5C9UkN++rcE66XWvi9U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MutGPAbC8Erda9tSDH3wS0LEAcUEi5qMWzUt/IwaKRjZomnBXIu4Fn3sfgaIK9fL7zswZzdbW0iFwQMZGHJfGmJaIQp3LlH8tp2bFO44cpEiP40O4GGveW2ap2bqsbWuSMBmnNvUO8GT5ozsHZBFe71/0DlX2GbJ7jX+bqpCLLg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com; spf=pass smtp.mailfrom=yoavmoshe.com; dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b=OjxlDIQP; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoavmoshe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aiI8R0kP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B31D1F000E9;
-	Sat, 18 Jul 2026 10:54:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784372102;
-	bh=6Wk95nsyLty8ZIxsRyt5wCr5/RC7WWcTwZjDgbSZNSs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aiI8R0kPNLSytO43AkjaOcOjJhYehi+jiu0VA1Efoyqtg1kBLTrE0UTrpEjDlMu/K
-	 dnFZ5QtHXVwRiuDjw8yONGi0FSYk9RBir2PD/U99wZJ1Vb4q+9Q4RbVpWwNVcr91Yq
-	 r26wxPsubsi+R9hxTg+TqhAGi1e756ZR7odtaCpKb0PSYO/H5GFAFLy4cbmG5YQ0re
-	 pgLWdpkAR+xyXqa9zjTTRyaD6kK/ktq2b15gni9Bc+q78KU5jfhbAVk+s5GWZpn6Tg
-	 mzKAgRuA9T7wlRb+kZ1gwGzSToi43PYttqNOzzE6ePr5aWjBeK4df/8CUqk7vVM6BB
-	 us/qCDz52pdng==
-Date: Sat, 18 Jul 2026 13:54:50 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@suse.com>, Uladzislau Rezki <urezki@gmail.com>,
-	Toshi Kani <toshi.kani@hpe.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b="OjxlDIQP"
+ARC-Seal: i=1; a=rsa-sha256; t=1784373246; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=if8p2g63ITDvhABr/zWpriI9BywMAXDKj3F8s6oHylzQxuV9QMb8rigA5TzlZ102uNdhAFlD9LatMSG9xF2fzrlmcuWLAjWOpnD9W0kQ5PnO5Q8ObHvdse9gbtadOpRmCttMcW26VPQQdAnJi22KeeMfBz6Z0dOYzeLK8VKuP0Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784373246; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=rWVwE/9DychYc9K/smhGvixkna2otDPJRQGtaKRGia8=; 
+	b=lUq+iEFnrSttvegBx1BRVaCPqc+3NKbHvjjluyqDXZ8svEORYUqT0zU9SoEgzOLSPI4kZTxsUmHVAvWp93AdfNpPpEjh8dSXUCa3pExEsfZgsgMBM2YenRy/QOtXdQjcKJRN9mGlQmlQ6UpbUoxG8vbetR/BQGc1y/fg/h2Dm2U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=yoavmoshe.com;
+	spf=pass  smtp.mailfrom=linux@yoavmoshe.com;
+	dmarc=pass header.from=<linux@yoavmoshe.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784373246;
+	s=zoho; d=yoavmoshe.com; i=linux@yoavmoshe.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=rWVwE/9DychYc9K/smhGvixkna2otDPJRQGtaKRGia8=;
+	b=OjxlDIQPZsu0xwlECLDxUoqFVJpPMd0C3flJrzhOgyl//qNXxbC2+dWxSfP9mMDb
+	SmclIl6IqaNPBtVBtOQIwAPGMzBqZBxttm77vABDO/NWGppuD3LQzGvDgtJe8oJXugn
+	9Det5OsDIAYohDiaR5fjSli0xnhniJS2fLuOb98M=
+Received: by mx.zohomail.com with SMTPS id 1784373244727305.1665306068262;
+	Sat, 18 Jul 2026 04:14:04 -0700 (PDT)
+From: Yo'av Moshe <linux@yoavmoshe.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Russell King <linux@armlinux.org.uk>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
-	"Denis V. Lunev" <den@virtuozzo.com>, stable@vger.kernel.org
-Subject: Re: [PATCH mm-hotfixes v5 3/5] x86/mm/pat: acquire init_mm read lock
- on attribute change to avoid UAF
-Message-ID: <altbeuTZ0HCz_7HS@kernel.org>
-References: <20260717-series-vmap-race-fix-v5-0-606a0ac6d3e5@kernel.org>
- <20260717-series-vmap-race-fix-v5-3-606a0ac6d3e5@kernel.org>
+	llvm@lists.linux.dev,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yo'av Moshe <linux@yoavmoshe.com>
+Subject: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
+Date: Sat, 18 Jul 2026 13:13:40 +0200
+Message-ID: <20260718111340.159896-1-linux@yoavmoshe.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260717-series-vmap-race-fix-v5-3-606a0ac6d3e5@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Fri, Jul 17, 2026 at 06:30:09PM +0100, Lorenzo Stoakes (ARM) wrote:
-> A previous commit protected us against races between ptdump and CPA
-> collapse, however one still exists between attribute changes and collapse
-> as reported by Denis V. Lunev (linked).
-> 
-> When an attribute change arises, a lockless page table walker obtains a PTE
-> entry, which is later written to via set_pte_atomic():
-> 
-> ...
-> -> change_page_attr_set_clr()
-> -> __change_page_attr_set_clr()
-> -> __change_page_attr()
-> 	-> _lookup_address_cpa()
-> 	-> lookup_address_in_pgd_attr()
-> 	-> [ lockless page table walker ]
-> -> set_pte_atomic()
-> 
-> There is nothing preventing a concurrent CPA collapse which can free the
-> PTE that was retrieved here, resulting in a use-after-free.
-> 
-> With the mmap write lock taken on init_mm over CPA collapse, we can now
-> resolve this race by acquiring an mmap read lock on init_mm over
-> __change_page_attr_set_clr().
-> 
-> This locks across the whole operation over which the walk and the PTE entry
-> write occurs, solving the race.
-> 
-> It is safe to do this here, as no spinlocks are held upon entry to
-> __change_page_attr_set_clr().
-> 
-> The CPA_COLLAPSE flag is only set by set_memory_rox(), which exclusively
-> operates upon vmalloc ranges, and on x86 only within the module mapping
-> space.
-> 
-> This is important, because some callers directly invoke
-> __change_page_attr_set_clr(), bypassing this lock. However, none of these
-> operate within the module mapping space.
-> 
-> * cpa_process_alias() - a recursive helper called by
->   __change_page_attr_set_clr().
-> * __set_memory_enc_pgtable() - operates on the direct mapping and (via
->   __vmbus_establish_gpadl()) the vmalloc mapping space.
-> * __set_pages_[n]p() - called by set_direct_map_[invalid, default,
->   valid]_noflush(), __kernel_map_pages() - operates on the direct map.
-> * kernel_[un]map_pages_in_pgd() - operates on EFI ranges.
-> 
-> This work is based upon Denis V. Lunev's excellent analysis of the bug with
-> gratitude.
-> 
-> Link: https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org/
-> Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  arch/x86/mm/pat/set_memory.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> index d1e63f7d267f..301fb9e77d91 100644
-> --- a/arch/x86/mm/pat/set_memory.c
-> +++ b/arch/x86/mm/pat/set_memory.c
-> @@ -2122,7 +2122,9 @@ static int change_page_attr_set_clr(unsigned long *addr, int numpages,
->  	cpa.curpage = 0;
->  	cpa.force_split = force_split;
->  
-> -	ret = __change_page_attr_set_clr(&cpa, 1);
-> +	/* Avoid race with concurrent CPA collapse. */
-> +	scoped_guard(mmap_read_lock, &init_mm)
-> +		ret = __change_page_attr_set_clr(&cpa, 1);
+Relocated suspend code in OCRAM lacks compiler-generated CFI type
+signatures. When CONFIG_CFI=y is active, the indirect call to
+imx6_suspend_in_ocram_fn triggers a strict CFI violation panic.
 
-There's a small issue with this. debug_pagealloc_unmap_pages() ends up here
-and since it's called from __free_pages() it can be in an atomic context.
+To resolve this safely without reducing CFI protection scope:
+1. Create a minimal wrapper function imx6_suspend_in_ocram annotated
+   with __nocfi to handle the unverified indirect call.
+2. Remove the __nocfi annotation from the main imx6q_suspend_finish
+   function to preserve full CFI coverage for other indirect calls
+   in that scope (such as cpu_do_idle() and flush_cache_all()).
+3. Mark global variables ccm_base, suspend_ocram_base, and the
+   imx6_suspend_in_ocram_fn pointer as __ro_after_init to prevent
+   them from being used as target vectors for CFI bypass exploits.
 
->  
->  	/*
->  	 * Check whether we really changed something:
-> 
-> -- 
-> 2.55.0
-> 
+Cc: stable@vger.kernel.org
+Signed-off-by: Yo'av Moshe <linux@yoavmoshe.com>
+---
+Tested on a Kobo Clara HD (i.MX6SLL SoC) running postmarketOS edge. 
+Before this patch, suspending the device caused an immediate silent 
+hang requiring a hard-reboot. With this patch applied, suspend and 
+resume work successfully.
 
+Differences from v2:
+- Restrained __nocfi scope by adding a dedicated, minimal 1-line 
+  wrapper function (imx6_suspend_in_ocram) for the OCRAM call, 
+  avoiding disabling CFI checks for cpu_do_idle() and flush_cache_all().
+- Marked global pointers ccm_base and suspend_ocram_base as
+  __ro_after_init to fully neutralize Write-What-Where exploit bypasses.
+
+ arch/arm/mach-imx/pm-imx6.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm/mach-imx/pm-imx6.c b/arch/arm/mach-imx/pm-imx6.c
+index a671ca498..3d5b960c5 100644
+--- a/arch/arm/mach-imx/pm-imx6.c
++++ b/arch/arm/mach-imx/pm-imx6.c
+@@ -61,9 +61,9 @@
+ #define MX6Q_SUSPEND_OCRAM_SIZE		0x1000
+ #define MX6_MAX_MMDC_IO_NUM		33
+ 
+-static void __iomem *ccm_base;
+-static void __iomem *suspend_ocram_base;
+-static void (*imx6_suspend_in_ocram_fn)(void __iomem *ocram_vbase);
++static void __iomem *ccm_base __ro_after_init;
++static void __iomem *suspend_ocram_base __ro_after_init;
++static void (*imx6_suspend_in_ocram_fn)(void __iomem *ocram_vbase) __ro_after_init;
+ 
+ /*
+  * suspend ocram space layout:
+@@ -360,6 +360,11 @@ int imx6_set_lpm(enum mxc_cpu_pwr_mode mode)
+ 	return 0;
+ }
+ 
++static void __nocfi imx6_suspend_in_ocram(void __iomem *ocram_vbase)
++{
++	imx6_suspend_in_ocram_fn(ocram_vbase);
++}
++
+ static int imx6q_suspend_finish(unsigned long val)
+ {
+ 	if (!imx6_suspend_in_ocram_fn) {
+@@ -374,7 +379,7 @@ static int imx6q_suspend_finish(unsigned long val)
+ 		if (!((struct imx6_cpu_pm_info *)
+ 			suspend_ocram_base)->l2_base.vbase)
+ 			flush_cache_all();
+-		imx6_suspend_in_ocram_fn(suspend_ocram_base);
++		imx6_suspend_in_ocram(suspend_ocram_base);
+ 	}
+ 
+ 	return 0;
 -- 
-Sincerely yours,
-Mike.
+2.55.0
+
