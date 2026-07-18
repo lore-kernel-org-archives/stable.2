@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9234F34F462
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 15:13:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0C638BF7A
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 15:20:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784387615; cv=none; b=K4DEFTfMLEUNHRTlXPqp81pgQAEKAlalend7kdyNMG12TJcIOQcaHpAvBwQlwm3E2izv8cupet8J4arvtOH/b6aWvM8dnwS578VVf8g7S1YWIOtJpsRUJs2iFSfkQ1U+36FssMV13/6SHbza4MotRdIY1pc+tEQAXtnS05YqLX0=
+	t=1784388009; cv=none; b=nZ4wV5alJBvo2zu6irTZv8LhDqM2Qm9EivZn6IEk/4b2UidYFBhRKSxMVJhIBWg1KhtyzU5OD4wedk5E2Nr18QWajWxRnt3fGYdZL7Ijd6Kq2ZJjDnXIzKdNVpJIpeflfltd33TBIb6ucCg9I6CJbCvg3lXRTcw5m9x67t/LKcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784387615; c=relaxed/simple;
-	bh=rAHUxFdVT8Ktr7gZDMFzfv7S4S3SoWzV9CznJ3Y4exA=;
+	s=arc-20240116; t=1784388009; c=relaxed/simple;
+	bh=OkEvF45dxV5H2Dp5AUIKcBP4gIttmecfyaUXLQqB8SY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jLFOu5Fs6fc81fIdxIYd3/WvY8truwhh/oANBSHD6c1RceVn+l+o+8ou0rVOlpWnAZs0gUZROBBLZ/sIS8s3vBiuGLwCjvoMGvPvK7rsZLFp/ZimOts70KeBeA0llkQ03z4lNzHx8Id9FqNE8Su+xtnHapSgqxHdiuiEN+VmtX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5+Oloxm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JAaavOoyKBxHX/QWJQPQ3RsirZT6ZYLr1rgASpu0GZvwIqOzfxFWUcXpTDRTIrMMNtEw1NoR59bifkBNgpXK7v6Gd1yMn1GvOYdqtsHCsPbvIsbjY9t0rZHmjN/M39RWrt5u23yflKDzPEoaXTCIfE0+Fh1r2YVt0nUeRkXCRnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hj6JY0wx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5+Oloxm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7ED41F00AC4;
-	Sat, 18 Jul 2026 15:13:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hj6JY0wx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A4571F000E9;
+	Sat, 18 Jul 2026 15:20:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784387614;
-	bh=KsqRemqAZcjqryYFjrerYcHLugMnR4woyYGmG5uMlMY=;
+	s=k20260515; t=1784388008;
+	bh=orzKjhjX8NbOMs50vC+yxVasZNg0+xg0hNpYyq6+4VY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L5+Oloxm3gV0bK+EFwd31CV7xasfSOwg0CewpXGY+4ALWLoLGHrPKKoRrdBelNkud
-	 iqK/NhhF46YKFdSqkxYaZYwuYaMBUavLiAhBT6kdZGFfxYQOQF179yu4nWmYLTchhi
-	 8qTym+m9x01H688YpF/iTpTKmqx1DZsVGm2c5nwanlJ5okeQA7HZmWlgH9xHNtWWhu
-	 kUFf/UnicUk19xYKqOiAw4yqpuRv/AdQTriiUKq8XIrUlbCiDqursAQVjI6kDBy93W
-	 A3oKvWUFwCtmXko8X4urB7RKUrKJLfGXSHHiGRPGCSvfm2k1zj21mnAnINw4zaYuym
-	 jchu6L0TdyMUg==
+	b=Hj6JY0wxxsiGjSC18LSPYdhO4xCRPU2m7gVtUQsVniTNQe8qw6lhUyXvKZQt9g02g
+	 4Ksgkb3AaX24dVdSQ1wUYBzBlTsoZlAUi2LknCJTQoMJ6XNlClVCDjiiwXdynpBYqD
+	 B0HHU+FiCkZmiMyiarPWp/swv5MYZpm5eRYm66eIUBrXm89q+4oohR9P6MwvUqMRnt
+	 FNncRDUa13OYme7Du4uopN0Z/Jfn23Ye1nJv9ZT1TS3T2J9SuAGxTUIMKG7y7zEMhX
+	 W4AT/0CPM3avtJ0KrMFuenSomxSN3u7W6d0MdFE4odTt0XvjKJLImSAmAReLA0MFNm
+	 YIOx8K2Odec2w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vlad Poenaru <vlad.wing@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Alexei Starovoitov <ast@kernel.org>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] bpf: Allow LPM map access from sleepable BPF programs
-Date: Sat, 18 Jul 2026 11:13:29 -0400
-Message-ID: <20260718151329.3271163-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] skmsg: convert struct sk_msg_sg::copy to a bitmap
+Date: Sat, 18 Jul 2026 11:20:04 -0400
+Message-ID: <20260718152005.3278231-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260718151329.3271163-1-sashal@kernel.org>
-References: <2026071449-absurd-charm-2576@gregkh>
- <20260718151329.3271163-1-sashal@kernel.org>
+In-Reply-To: <2026071405-duo-banknote-b789@gregkh>
+References: <2026071405-duo-banknote-b789@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,117 +45,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vlad Poenaru <vlad.wing@gmail.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 2f884d371fafea137afea504d49ee4a7c8d7985b ]
+[ Upstream commit 5a8fb33e530512ee67a11b30f3451a4f030f4b01 ]
 
-trie_lookup_elem() annotates its rcu_dereference_check() walks with
-only rcu_read_lock_bh_held().  Because rcu_dereference_check(p, c)
-resolves to "c || rcu_read_lock_held()", this passes for XDP/NAPI and
-classic RCU readers but fails for sleepable BPF programs, which enter
-via __bpf_prog_enter_sleepable() and hold only rcu_read_lock_trace().
+We have plans for increasing MAX_SKB_FRAGS, but sk_msg_sg::copy
+is currently an unsigned long, limiting MAX_SKB_FRAGS to 30 on 32bit arches.
 
-trie_update_elem() and trie_delete_elem() have the same problem in a
-different form: they walk the trie with plain rcu_dereference(), which
-asserts rcu_read_lock_held() unconditionally.  Both are reachable from
-sleepable BPF programs via the bpf_map_update_elem / bpf_map_delete_elem
-helpers, and from the syscall path under classic rcu_read_lock().  In
-the writer paths the trie is actually protected by trie->lock (an
-rqspinlock taken across the walk); we never relied on the RCU read-side
-lock to keep nodes alive there.
+Convert it to a bitmap, as Jakub suggested.
 
-A sleepable LSM hook that ends up touching an LPM trie therefore
-triggers lockdep on debug kernels:
-
-  =============================
-  WARNING: suspicious RCU usage
-  7.1.0-... Tainted: G            E
-  -----------------------------
-  kernel/bpf/lpm_trie.c:249 suspicious rcu_dereference_check() usage!
-  1 lock held by net_tests/540:
-   #0: (rcu_tasks_trace_srcu_struct){....}-{0:0},
-       at: __bpf_prog_enter_sleepable+0x26/0x280
-  Call Trace:
-   dump_stack_lvl
-   lockdep_rcu_suspicious
-   trie_lookup_elem
-   bpf_prog_..._enforce_security_socket_connect
-   bpf_trampoline_...
-   security_socket_connect
-   __sys_connect
-   do_syscall_64
-
-This is lockdep-only -- no UAF, since Tasks Trace RCU does serialize
-against the trie's reclaim path -- but it spams the console once per
-distinct callsite on every debug kernel running a sleepable BPF LSM
-that touches an LPM trie, which is increasingly common.
-
-For the lookup path, switch the rcu_dereference_check() annotation
-from rcu_read_lock_bh_held() to bpf_rcu_lock_held(), which accepts all
-three contexts (classic, BH, Tasks Trace).  Other map types already
-follow this convention.
-
-For trie_update_elem() and trie_delete_elem(), annotate the walks as
-rcu_dereference_protected(*p, 1) -- matching trie_free() in the same
-file -- since trie->lock is held across the walk.  rqspinlock has no
-lockdep_map, so the predicate degenerates to '1' rather than
-lockdep_is_held(&trie->lock); the protection is real but not
-machine-verifiable.  trie_get_next_key() also uses bare
-rcu_dereference() but is reachable only from the BPF syscall, which
-holds classic rcu_read_lock() before dispatching, so it is left
-untouched.
-
-Fixes: 694cea395fde ("bpf: Allow RCU-protected lookups to happen from bh context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Link: https://lore.kernel.org/r/20260609135558.193287-2-vlad.wing@gmail.com
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: 2ccbc9a38746 ("bpf, sockmap: keep sk_msg copy state in sync")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/lpm_trie.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ include/linux/skmsg.h | 11 +++++------
+ net/core/filter.c     |  4 ++--
+ 2 files changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/bpf/lpm_trie.c b/kernel/bpf/lpm_trie.c
-index fd8983d542af76..4d373c8279cc71 100644
---- a/kernel/bpf/lpm_trie.c
-+++ b/kernel/bpf/lpm_trie.c
-@@ -245,7 +245,7 @@ static void *trie_lookup_elem(struct bpf_map *map, void *_key)
- 
- 	/* Start walking the trie from the root node ... */
- 
--	for (node = rcu_dereference_check(trie->root, rcu_read_lock_bh_held());
-+	for (node = rcu_dereference_check(trie->root, bpf_rcu_lock_held());
- 	     node;) {
- 		unsigned int next_bit;
- 		size_t matchlen;
-@@ -279,7 +279,7 @@ static void *trie_lookup_elem(struct bpf_map *map, void *_key)
- 		 */
- 		next_bit = extract_bit(key->data, node->prefixlen);
- 		node = rcu_dereference_check(node->child[next_bit],
--					     rcu_read_lock_bh_held());
-+					     bpf_rcu_lock_held());
- 	}
- 
- 	if (!found)
-@@ -362,7 +362,7 @@ static long trie_update_elem(struct bpf_map *map,
+diff --git a/include/linux/skmsg.h b/include/linux/skmsg.h
+index e9e9fabbfedd89..1e041bc2ce8e3b 100644
+--- a/include/linux/skmsg.h
++++ b/include/linux/skmsg.h
+@@ -29,7 +29,7 @@ struct sk_msg_sg {
+ 	u32				end;
+ 	u32				size;
+ 	u32				copybreak;
+-	unsigned long			copy;
++	DECLARE_BITMAP(copy, MAX_MSG_FRAGS + 2);
+ 	/* The extra two elements:
+ 	 * 1) used for chaining the front and sections when the list becomes
+ 	 *    partitioned (e.g. end < start). The crypto APIs require the
+@@ -38,7 +38,6 @@ struct sk_msg_sg {
  	 */
- 	slot = &trie->root;
+ 	struct scatterlist		data[MAX_MSG_FRAGS + 2];
+ };
+-static_assert(BITS_PER_LONG >= NR_MSG_FRAG_IDS);
  
--	while ((node = rcu_dereference(*slot))) {
-+	while ((node = rcu_dereference_protected(*slot, 1))) {
- 		matchlen = longest_prefix_match(trie, node, key);
+ /* UAPI in filter.c depends on struct sk_msg_sg being first element. */
+ struct sk_msg {
+@@ -235,7 +234,7 @@ static inline void sk_msg_compute_data_pointers(struct sk_msg *msg)
+ {
+ 	struct scatterlist *sge = sk_msg_elem(msg, msg->sg.start);
  
- 		if (node->prefixlen != matchlen ||
-@@ -483,7 +483,7 @@ static long trie_delete_elem(struct bpf_map *map, void *_key)
- 	trim = &trie->root;
- 	trim2 = trim;
- 	parent = NULL;
--	while ((node = rcu_dereference(*trim))) {
-+	while ((node = rcu_dereference_protected(*trim, 1))) {
- 		matchlen = longest_prefix_match(trie, node, key);
+-	if (test_bit(msg->sg.start, &msg->sg.copy)) {
++	if (test_bit(msg->sg.start, msg->sg.copy)) {
+ 		msg->data = NULL;
+ 		msg->data_end = NULL;
+ 	} else {
+@@ -254,7 +253,7 @@ static inline void sk_msg_page_add(struct sk_msg *msg, struct page *page,
+ 	sg_set_page(sge, page, len, offset);
+ 	sg_unmark_end(sge);
  
- 		if (node->prefixlen != matchlen ||
+-	__set_bit(msg->sg.end, &msg->sg.copy);
++	__set_bit(msg->sg.end, msg->sg.copy);
+ 	msg->sg.size += len;
+ 	sk_msg_iter_next(msg, end);
+ }
+@@ -263,9 +262,9 @@ static inline void sk_msg_sg_copy(struct sk_msg *msg, u32 i, bool copy_state)
+ {
+ 	do {
+ 		if (copy_state)
+-			__set_bit(i, &msg->sg.copy);
++			__set_bit(i, msg->sg.copy);
+ 		else
+-			__clear_bit(i, &msg->sg.copy);
++			__clear_bit(i, msg->sg.copy);
+ 		sk_msg_iter_var_next(i);
+ 		if (i == msg->sg.end)
+ 			break;
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 27550e8b05a655..878b79529a006f 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -2677,7 +2677,7 @@ BPF_CALL_4(bpf_msg_pull_data, struct sk_msg *, msg, u32, start,
+ 	 * account for the headroom.
+ 	 */
+ 	bytes_sg_total = start - offset + bytes;
+-	if (!test_bit(i, &msg->sg.copy) && bytes_sg_total <= len)
++	if (!test_bit(i, msg->sg.copy) && bytes_sg_total <= len)
+ 		goto out;
+ 
+ 	/* At this point we need to linearize multiple scatterlist
+@@ -2900,7 +2900,7 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_msg *, msg, u32, start,
+ 	/* Place newly allocated data buffer */
+ 	sk_mem_charge(msg->sk, len);
+ 	msg->sg.size += len;
+-	__clear_bit(new, &msg->sg.copy);
++	__clear_bit(new, msg->sg.copy);
+ 	sg_set_page(&msg->sg.data[new], page, len + copy, 0);
+ 	if (rsge.length) {
+ 		get_page(sg_page(&rsge));
 -- 
 2.53.0
 
