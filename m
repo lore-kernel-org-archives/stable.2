@@ -1,199 +1,106 @@
-Received: from latitanza.investici.org (latitanza.investici.org [185.218.207.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E4E43F0A1;
-	Sat, 18 Jul 2026 11:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.218.207.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A92A345CDD
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 12:05:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784375690; cv=none; b=n5T35xDJYtcllx2yRMmX1zLfaweEvCugwV/av9+GMBUCHivRAGVzDbQbCE07pRIMprEk5yIbSWYDXa4clLaWWAO+7mZzKK8+bzjj++Je8ONgyRF0KWzQqJIJ2FF6+vijrkrHLE+LWl26JCohcytgxodEvpV9YEJ6D2Ux5SAr79Y=
+	t=1784376314; cv=none; b=Ou8oRZUtFW6SMU9JevSUy1Me5pn4QyfmKhzrVWM9cDK9yWhU3qhhPBTp2Bl9ufMo8E2dK8sXg7PJVyNyubH5iIoTvG6nezJ1TmPK7ApbsOMiFcs+tJBCR+2wkz+civrHNUNgfCKQkr1FTA7ij9pQjkJ12c/QSWKDUjQZba7+I6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784375690; c=relaxed/simple;
-	bh=Od5TMuPtg/dytALZicKtq64UBl+914lM7NBsil94AuI=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=raPoAW3f2iYcKSN7woH5/Vt136csV8JKi0rGK+GbPMjn0CF3uQy/c+t/rM9pWEyn3zc/g94EUrLlEbGFo1rn3si0I6jr1adoFSfI5P1bgAZGWg5XoEkqyyONYTi1Tzm49b7OKSHzcBySlB6UCo5Nq86vn3wFl8ul1LJA1+22HBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=AozA5S0/; arc=none smtp.client-ip=185.218.207.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
+	s=arc-20240116; t=1784376314; c=relaxed/simple;
+	bh=UVQD7xZC19STANRHQeLYYOB6lofOMAO1isLrdP9clP8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kHnIccrSYveibMdcJlr2EmuMPbYubJwyDCEDtsSpEEd8dh0g+J4wosBmUtfR8JU13qa8nbenJ60zM+T3+fAMnf3okf0jj9lZKHpq0Nq+7MmEWnUIaIhTyo9ge68RYgblnFUCFNJdkIqvmHnFxLYVvizM+nY1LVYWevTQFZgDwoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b44ecTjp; arc=none smtp.client-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="AozA5S0/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1784375677;
-	bh=euB67fX2hzoA+rb1l4cjhCrMh2BKG3iJ7BkTvNiQ6Jk=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=AozA5S0/hFtNxBsqvJZJ5jBZJ0Lfnh4W7c5cfi54vtE0zuvRBA1rOVeV3OgW6PEQ8
-	 7Vmh3FNu0fumB74kJY+syJHmf/V8fcFN5H274xdoiSQU5Mlsy46ct2lz/eeNgxERRW
-	 sFV6IU/jm4eWnahg8r9oSvl2SsoNdEdfV/hqEf6s=
-Received: from mx3.investici.org (unknown [127.0.0.1])
-	by latitanza.investici.org (Postfix) with ESMTP id 4h2QDs621MzGpQy;
-	Sat, 18 Jul 2026 11:54:37 +0000 (UTC)
-Received: by mx3.investici.org (Postfix) id 4h2QDs3Tj0zGpQg;
-	Sat, 18 Jul 2026 11:54:37 +0000 (UTC)
-Date: Sat, 18 Jul 2026 12:54:37 +0100
-From: Bradley Morgan <include@grrlz.net>
-To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>, brauner@kernel.org
-CC: oleg@redhat.com, akpm@linux-foundation.org, jack@suse.cz, avagin@gmail.com,
- ptikhomirov@virtuozzo.com, mjguzik@gmail.com, linux-kernel@vger.kernel.org,
- AutonomousCodeSecurity@microsoft.com, tgopinath@linux.microsoft.com,
- kys@microsoft.com, blbllhy@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] pid: fix cad_pid use-after-free race
-In-Reply-To: <20260718032000.9184-2-blbllhy@gmail.com>
-References: <20260718032000.9184-1-blbllhy@gmail.com> <20260718032000.9184-2-blbllhy@gmail.com>
-Message-ID: <F5A46F56-F5A4-4EEA-B3E0-9FE04C398AAD@grrlz.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b44ecTjp"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-92e55b62640so585955785a.0
+        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 05:05:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784376312; x=1784981112; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3Up2YZHFeIMQmB6EqO7RZlnVeEM60lSIwrWpc7fQrQg=;
+        b=b44ecTjp4hdjoe+OOrr4kGpa4Q7ndKzI09TU3MlJ72kQCbjsOq9TCyCPHKM2AUbbHD
+         lgupABa4+TLiROvIwAuwyPb29i/3IP687gMvUGwp500bxFxb1AhulwPC8wa1qfB24YBi
+         lX8zijbNiehqhMJp1p58kcHcWXAehwnNEVuGbGX5KI64MJsj4Pqvu4ULzou5/aAdTljw
+         vnErVcA/Lpe0Ju0oqMIrwhwClHKS/EwpI35lbU/vzRZpl0/P6hfrs8of2gRfPNFt5c+f
+         lpPKobDzYm5aDkWLs6oaBzvMt2wsKFUPtVeP2G5FwCuJnNgne72zZrVpc0VhBryMD6Ik
+         oFzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784376312; x=1784981112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3Up2YZHFeIMQmB6EqO7RZlnVeEM60lSIwrWpc7fQrQg=;
+        b=Iv4OVGvS7AeLjqfnLctL10IJ2B6tAjBdIVX5Pjo9LjJzM3cWg6+uIPOQTgKnK2s+Lt
+         K50BGqc5B2+sgJvjazvyTXq4Cztie+ArAKVp7ehW8rC8NH6D1OJSPKyEeDylytFusLD1
+         BMCbbHzrsH3mu2fxPcxj1UsPV8rF9jCv+ESexCbdAmasuUd4X9AN31zqfbe2+lvdMlM0
+         p/Geir65PAU0bOLzHNeTqRU84a1uEjEJ8aSztL4LsnrT5mKOt9VvybWXJnoHoVQbUuSK
+         S+LIOuRwh0gqWZ4MzxDYyjx6lDwCMJxaTVJLHFiydm2xiKfsP4DTCcCTmK9pEmOLxE5W
+         umYA==
+X-Forwarded-Encrypted: i=1; AHgh+RqvUxAPhYz+HKVDd6j9fc/TLPn/LZZ2EQzBLMfAOINiZpsgO2M/OXNp3wT8qslW4EEGg1minIE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxkke7x7F4BW6gCfrANL6WjeDuxS6npgYvuhQTFr++wShB0UH/4
+	13TOZRF6aWJ57VDKwZhhn296ThB9ezhWfmWVg6lXPtuo6FMMg2+C//Q=
+X-Gm-Gg: AfdE7ck02yS4p2RCj70pFHUvSA9lFxTOLi54TUiJXt+nRWspFyw7cmUJ0ou2fGLjJFb
+	0uN2Q/DeWxnw6sudy4+g9VpVAsPGoDlsnWrmi/TwKd/KSaYEGBtgNEOHP5vgemyUpaT5h4QGJfZ
+	OYrbCbl4w+2ljFP7aBeN/NTCoR/6qScsqwliKiHpSJdv2Reoi5TrhnUB2wNggWy/XbtDqaUziVt
+	ZhCjm7TCoOKNMW8igK5I60PBCjyz6TbaazqrjVvzNw7Ua2dZHmbC38sKamXJHa5Zf4w1zYgCspw
+	knBU2abI2aLAhNOMajX4N0R38/ADHlLWiFI2NlFBOZPmFeCHNc/+MDTFenTtQ6+Bq9lRqUX0C5P
+	B+2Mfn3IU4Q5bt4hRdQnq6WHF175gWh9Qvahp/r5Goq8nzR6TcrE8+jS5Cb+bj/fGwrRiBQFIJQ
+	zWs4egFDhITsipOkchEJ2s5nk/dHfeG/jLaQP//fnLZ0nMcahmO+/1ysY=
+X-Received: by 2002:a05:620a:198a:b0:915:f27f:e70e with SMTP id af79cd13be357-930b3ee61a0mr648064685a.23.1784376311790;
+        Sat, 18 Jul 2026 05:05:11 -0700 (PDT)
+Received: from NAUTEL-9N0B043.nautel.com (host-76-11-42-59.public.eastlink.ca. [76.11.42.59])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-930b549629dsm389690485a.47.2026.07.18.05.05.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 18 Jul 2026 05:05:11 -0700 (PDT)
+From: Ryan Wilbur <rwilbur633@gmail.com>
+To: andriy.shevchenko@linux.intel.com
+Cc: gregkh@linuxfoundation.org,
+	hvilleneuve@dimonoff.com,
+	ilpo.jarvinen@linux.intel.com,
+	jirislaby@kernel.org,
+	john.ogness@linutronix.de,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	manuel.lauss@gmail.com,
+	rwilbur633@gmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] serial: 8250: clear stuck RX-timeout interrupt on LPC32xx (PORT_LPC3220)
+Date: Sat, 18 Jul 2026 09:04:36 -0300
+Message-Id: <20260718120436.20196-1-rwilbur633@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <alpsOr5ZVqa_eLs9@ashevche-desk.local>
+References: <alpsOr5ZVqa_eLs9@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On July 18, 2026 4:20:00 AM GMT+01:00, "Cen Zhang (Microsoft)"
-<blbllhy@gmail.com> wrote:
->proc_do_cad_pid() reads the global cad_pid pointer and passes it to
->pid_vnr() without protecting the lifetime of the referenced struct pid.
->A concurrent writer can replace cad_pid and drop the final reference to
->the old struct pid after the reader has loaded the pointer but before
->pid_vnr() has finished dereferencing it, causing a use-after-free.
+On Fri, Jul 17, 2026 at 20:54:02 +0300, Andy Shevchenko wrote:
+> > +      * Same bug worked around for other 8250 cores (8250_dw, 8250_omap, 8250_bcm7271).
 >
->The sysctl is mode 0600, but access is checked against the owning user
->namespace, so an unprivileged user can reach it via userns, pidns, and a
->proc mount.
+> This is 8250-port.c.
 >
->Fix this by treating cad_pid as an RCU-protected pointer at both read
->sites and by waiting for a grace period before dropping the old reference
->on the write side.
+> > +   if (port->type == PORT_LPC3220 &&
 >
->KASAN crash stack:
->  kernel/pid.c:545 pid_nr_ns()        # reads freed pid->level
->  kernel/pid.c:556 pid_vnr()
->  kernel/pid.c:775 proc_do_cad_pid()
->  fs/proc/proc_sysctl.c proc_sys_call_handler()
->  fs/read_write.c vfs_read()
->  fs/read_write.c __x64_sys_pread64()
->
->Fixes: 9ec52099e4b8 ("[PATCH] replace cad_pid by a struct pid")
->Reported-by: AutonomousCodeSecurity@microsoft.com
->Closes: https://lore.kernel.org/all/20260717210143.4734-1-blbllhy@gmail.com/
->Suggested-by: Mateusz Guzik <mjguzik@gmail.com>
->Reviewed-by: Bradley Morgan <include@grrlz.net>
+> Why do we have this then?
 
-This tag remains, no need to revoke.
-
-Reviewed-by: Bradley Morgan <include@grrlz.net>
+dw/omap/bcm7271 handle their variants of this in their
+own drivers. LPC32xx (PORT_LPC3220) has no dedicated 8250 glue driver.
+  
+I gated it on port->type because LPC32xx is the only hardware I can test
+on, and I wanted to avoid changing behaviour on 8250 variants I can't
+verify. That said, the read only fires on a bogus IIR=RX_TIMEOUT with LSR.DR
+clear, which a healthy 16550 never reports, so it's harmless on other
+parts. Unless you object, I'll drop the PORT_LPC3220 gate to allow for generic
+handling.
 
 
->Cc: stable@vger.kernel.org
->Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
->---
->v2:
->  - Split out kill_cad_pid() deinline into a preparatory patch.
->  - Annotate cad_pid as __rcu and use rcu_dereference().
->  - Protect kill_cad_pid() by taking a pid reference under RCU.
->  - Add a comment explaining why synchronize_rcu() is used instead of
->    call_rcu().
->
-> include/linux/sched.h |  2 +-
-> init/main.c           |  2 +-
-> kernel/pid.c          | 26 +++++++++++++++++++++++---
-> kernel/reboot.c       |  2 +-
-> 4 files changed, 26 insertions(+), 6 deletions(-)
->
->diff --git a/include/linux/sched.h b/include/linux/sched.h
->index 373bcc0598d1..31ce72b1233c 100644
->--- a/include/linux/sched.h
->+++ b/include/linux/sched.h
->@@ -1767,7 +1767,7 @@ static inline bool is_lazy_mmu_mode_active(void)
-> }
-> #endif
-> 
->-extern struct pid *cad_pid;
->+extern struct pid __rcu *cad_pid;
-> 
-> /*
->  * Per process flags
->diff --git a/init/main.c b/init/main.c
->index e363232b428b..19a10d0c2760 100644
->--- a/init/main.c
->+++ b/init/main.c
->@@ -1636,7 +1636,7 @@ static noinline void __init kernel_init_freeable(void)
-> 	 */
-> 	set_mems_allowed(node_states[N_MEMORY]);
-> 
->-	cad_pid = get_pid(task_pid(current));
->+	rcu_assign_pointer(cad_pid, get_pid(task_pid(current)));
-> 
-> 	smp_prepare_cpus(setup_max_cpus);
-> 
->diff --git a/kernel/pid.c b/kernel/pid.c
->index 234ebee29375..bffc5f765080 100644
->--- a/kernel/pid.c
->+++ b/kernel/pid.c
->@@ -559,7 +559,17 @@ EXPORT_SYMBOL_GPL(pid_vnr);
-> 
-> int kill_cad_pid(int sig, int priv)
-> {
->-	return kill_pid(cad_pid, sig, priv);
->+	struct pid *pid;
->+	int ret;
->+
->+	rcu_read_lock();
->+	pid = get_pid(rcu_dereference(cad_pid));
->+	rcu_read_unlock();
->+
->+	ret = kill_pid(pid, sig, priv);
->+	put_pid(pid);
->+
->+	return ret;
-> }
-> 
-> pid_t __task_pid_nr_ns(struct task_struct *task, enum pid_type type,
->@@ -773,11 +783,15 @@ static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffe
-> 		size_t *lenp, loff_t *ppos)
-> {
-> 	struct pid *new_pid;
->+	struct pid *old_pid;
-> 	pid_t tmp_pid;
-> 	int r;
-> 	struct ctl_table tmp_table = *table;
-> 
->-	tmp_pid = pid_vnr(cad_pid);
->+	rcu_read_lock();
->+	tmp_pid = pid_vnr(rcu_dereference(cad_pid));
->+	rcu_read_unlock();
->+
-> 	tmp_table.data = &tmp_pid;
-> 
-> 	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
->@@ -788,7 +802,13 @@ static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffe
-> 	if (!new_pid)
-> 		return -ESRCH;
-> 
->-	put_pid(xchg(&cad_pid, new_pid));
->+	old_pid = unrcu_pointer(xchg(&cad_pid, RCU_INITIALIZER(new_pid)));
->+	/*
->+	 * Wait for cad_pid readers before put_pid().  We cannot use
->+	 * call_rcu() here because free_pid() already owns pid->rcu.
->+	 */
->+	synchronize_rcu();
->+	put_pid(old_pid);
-> 	return 0;
-> }
-> 
->diff --git a/kernel/reboot.c b/kernel/reboot.c
->index 695c33e75efd..fc191a48c0e9 100644
->--- a/kernel/reboot.c
->+++ b/kernel/reboot.c
->@@ -24,7 +24,7 @@
->  */
-> 
-> static int C_A_D = 1;
->-struct pid *cad_pid;
->+struct pid __rcu *cad_pid;
-> EXPORT_SYMBOL(cad_pid);
-> 
-> #if defined(CONFIG_ARM)
->
-
-Thanks!
