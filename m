@@ -1,111 +1,121 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75C41EE7B7
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 01:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E65B335972;
+	Sat, 18 Jul 2026 02:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784338979; cv=none; b=ciCH9pZiWl5Uda6kcEt6HP2WcNI7h7W1Kh9cqTySYyvGx5SE8BRnCAgftsvYYJYT8YsGm9T+PY2dq/Zwdysj96eck0bViDtR+OihsZIpx5+zthCjChMrsrCd2uYfGmrV0wCrBAaKXFOmpAFVYB0Cx6tc6qqA0MP4iL8gT+fY2pw=
+	t=1784340773; cv=none; b=I+rcc0ivLwqsRSc3lSc49sCCryGQH2kxg85wP4eBYNSdLi2BpohC3RKrNIRuZGM/kMgpge1wk3ptsTynBop+yzXjuUhPy7IGTJ1bDbmMiQpe8r0P9HyKVsAsd+Dbf4bVE+BNQ99uxOPqI1H/CKEUxAdSZGcc2MxVDKkmvLtNmUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784338979; c=relaxed/simple;
-	bh=tzpV5Q+kEKWdMfYHZm/eH1lwHftKZQj4hFItFUavIzk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=n11V0wta3s2/K6H9TI110Ir/u3UxGtFx7FLSLfGvCy7yHVKDJHPZrpy++4LfwMl7YAgOVD+yWTZ/cLunIWrEQ1jDBd56CaLw7k6nZIIEChQX6sAiC6jWdoNKyHRZiheQIQXF0MfW7YjKtPWgBXcHliW6dMe1FMEu0pKyzBKv3YI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=mCWVU82e; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="mCWVU82e"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493f25d47dcso32953875e9.1
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 18:42:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1784338976; x=1784943776; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O3clgJcwSjud4cWyU1JLhAejxLBMQ4geUn3FcNJdjRU=;
-        b=mCWVU82e8CYCV38+Lz2vGG1dCEfECN2CtrGRayivMBYePGSTiGw7SJRdvk/c0Q7EHG
-         hM2AMkqYtk1nzoeY3b5Cu3xi5/lOVYGW6o3umjyef8Ug7IcCbVuV5xc4kY8FYcNRq1nD
-         jqZ6bq18iiag28VUORsxJymq3R67ST57otyB+CGgMus/vg1OwSBunQeVf5NFzc+HCmwq
-         QiFqQ8DSofsHW4wpOV06yDcvx0bo7U109anbgS/dXDuQ2+4q2kmJt5P4kb+aptauQUig
-         c8Fqt8kzhvSeahlkhRKRzju9hWerT3UBHqcoRYqXHm25Jo3zsSWj7AXAG60WHNk50OtR
-         g5ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784338976; x=1784943776;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O3clgJcwSjud4cWyU1JLhAejxLBMQ4geUn3FcNJdjRU=;
-        b=pebBsmBsFUpIeu6CIKLeRWRZeGWgbbMitbu1idYjrc/ubFBfejnLR6ipT5B3ordHyH
-         h47y68NO9T0sPpF5LXy9LqJ3c6iZoFVM2UHPdG04IBuJsNmmo8ssTsRFa0pezuoCz0xY
-         8/dGMEV4p7ehc6Eoap3gB96nRAW1N4QOT4kWL7bvbkwyB04OhX3jpDICHo+FjU1Jjzb1
-         111YhvzZ+h0XQXzKGyWlQaSWlGnWaCFA7UT7EqwzXzn8p8br5T1CY02n19SehIoXjPjj
-         xgdo51qVoD2IHRQoZx3qTyN5na+1XH/2BkGM7livMWSnH2LoyXk33HO+xdw+nU/AhPVs
-         hM9A==
-X-Forwarded-Encrypted: i=1; AHgh+RqtjRZVJhl4I2Y2fv8cksWq2MORZrTmzUL0Vc0W+/jK88DSIuHOPTEtaG5xU+aostzsuav3+n0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJbExzau0jCs+1whocasJO470Y6OQ0o15gQLkCHNNWEf5pArsu
-	l3EXQCT03DufdGM6M5W0aAiRI3aoVf1aaNNbmW5qV+UZK/JN9WEHldo=
-X-Gm-Gg: AfdE7ckDFyIoZUplsasdJqfo8LHiRWOUfor0VAn/ceyQiEzHvzSWdoGorSVuZqTwNo7
-	FVz3OmCjCgdFCmIYACHBQzVb6+lsqt0VSZuAuowGaYHOMT5auHXOjjNti0NKclZywYINoR4gjku
-	70rK6VHPPCVl7J2ZDQmkk3lTn2dMcpnixyg7/rHhzvfzHCEMGFfZRas7ocqWEtODQHk2pKsXles
-	c94qS0ssGAIW9lwwpcDldGbxRypC4KIvXkxvgZ1lXlFawTBrzNw70/UJ+mhuM1BSKWh3sFHk/QH
-	FB5pVvhP7tPQJW7QR0X4XUYUhLM2KkYFz2imFVMusk/JatdiPGWPyHErykrcUI/6P70KZYajcM9
-	Ds4AhwiqFF/QgNL6OlJv/zWQq7ftH0I3gwqeQKitgNcj7p3Z3866xph5kB74GueRcXgMCyeaAaN
-	IZ8FxUYaXvPrZjDMnIYiMWI1Z/I/RXJuvSkS5xCxlzoiOvCei8DENo3jI=
-X-Received: by 2002:a05:600c:4685:b0:495:4a77:1327 with SMTP id 5b1f17b1804b1-4954a771521mr56511635e9.33.1784338976025;
-        Fri, 17 Jul 2026 18:42:56 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2acbcc.dip0.t-ipconnect.de. [91.42.203.204])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49548e0fcdbsm90874815e9.2.2026.07.17.18.42.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 18:42:55 -0700 (PDT)
-Message-ID: <7bce7e41-3419-44f7-b184-666c016c755c@googlemail.com>
-Date: Sat, 18 Jul 2026 03:42:54 +0200
+	s=arc-20240116; t=1784340773; c=relaxed/simple;
+	bh=FQAxCInk2AF8mBO39ha0IVg7+b8kN4qIDSfhr6AwqeM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=epEdM124mPBV3h2ACsvGpRDZcKc6vHEFxyftBW+ER+Q38xm/WGVzvJW/vzHSQAPm9SAa8BY4GeNxsjV6eNTL2CeLxML16W9mJqvi49bNspmgeAknMASNkHlmA7cC+UbBXryXbTYBm7dG1u+z4Kb+oEDIaskwt5hGfNXgAFQKvZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDn738V4Vpqo_8KAA--.4374S3;
+	Sat, 18 Jul 2026 10:12:39 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgC36jEV4VpqssxhAg--.22301S2;
+	Sat, 18 Jul 2026 10:12:37 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: heikki.krogerus@linux.intel.com
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] usb: typec: ucsi: acpi: Fix use-after-free of ucsi on remove
+Date: Sat, 18 Jul 2026 02:11:42 +0000
+Message-Id: <20260718021142.3146566-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.12 000/357] 6.12.96-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260717101823.379399592@linuxfoundation.org>
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260717101823.379399592@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgC36jEV4VpqssxhAg--.22301S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?IIomyAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZz7YkbJ3AoyGBdg4rUAvmX1NnfkbRhgWhLC2J6tQB0GXIUi
+	MA23mPTTVIkZA5npcoqp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxCw4xurykAF48ZFyxuF45Jwc_yoW5XrWxpr
+	WIk3y0kw40gF1Yga1kXwn5XFy8uF4kZry7GF1Ig3yxGws8uw1UXF93t3W5CFy5Jr98Wanr
+	Ar48Ja45Zay5AwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjx
+	CEc2xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAF
+	wI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0x
+	vY0x0EwIxGrwACjcxG0xvY0x0EwIxGrVCF72vEw4AK0wCF04k20xvY0x0EwIxGrwCFx2Iq
+	xVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r
+	106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AK
+	xVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7
+	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_
+	Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jnKsUUUUUU=
 
-Am 17.07.2026 um 12:41 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.12.96 release.
-> There are 357 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+The ACPI notify handler ucsi_acpi_notify() calls
+ua->ucsi->ops->read_cci() and ucsi_notify_common(), both of which
+dereference ua->ucsi with no NULL guard.  In ucsi_acpi_remove(),
+ucsi_destroy() frees ua->ucsi (kfree) before
+acpi_remove_notify_handler() is called, so a notify dispatch already
+in flight on another CPU may access the freed object after
+ucsi_destroy().
 
-Just like rc1, rc2 builds, boots and works fine on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or 
-regressions found.
+  CPU 0 (remove)                    | CPU 1 (ACPI notify wq)
+    ucsi_destroy(ua->ucsi)          |   ucsi_acpi_notify(ua)
+      kfree(ucsi) // FREE           |     ua->ucsi->ops->read_cci(...) // USE
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+Move acpi_remove_notify_handler() before ucsi_destroy() in the remove
+path.  It is kept after ucsi_unregister(): ucsi_unregister() cancels
+connector work whose handler issues GET_CONNECTOR_STATUS through
+ucsi_send_command_common(), which waits for a completion that is
+signalled from the notify path, so the handler must stay registered
+until that work has been cancelled.
 
+acpi_remove_notify_handler() drains in-flight notify dispatches before
+returning: it calls acpi_os_wait_events_complete(), which flushes
+kacpi_notify_wq. Because ACPI device-notify dispatch is deferred to that
+same workqueue (acpi_os_execute(OSL_NOTIFY_HANDLER, ...)), the flush
+guarantees any queued or running ucsi_acpi_notify() has returned before
+the function returns, so ucsi_destroy() frees an object no handler can
+reach. This mirrors commit 1f0bdc2884b6 ("usb: typec: ucsi: ccg: Fix
+use-after-free of ucsi on remove"), which moved free_irq() before
+ucsi_destroy() with the same ordering rationale.
 
-Beste Grüße,
-Peter Schneider
+The probe error paths already order acpi_remove_notify_handler() (or
+omit it, when install failed) before ucsi_destroy(), and are unchanged.
 
+This issue was found by an in-house static analysis tool.
+
+Fixes: f56de278e8ec ("usb: typec: ucsi: acpi: Move to the new API")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/usb/typec/ucsi/ucsi_acpi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+index 60b12961e..1d56eadc9 100644
+--- a/drivers/usb/typec/ucsi/ucsi_acpi.c
++++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+@@ -257,10 +257,10 @@ static void ucsi_acpi_remove(struct platform_device *pdev)
+ 	struct ucsi_acpi *ua = platform_get_drvdata(pdev);
+ 
+ 	ucsi_unregister(ua->ucsi);
+-	ucsi_destroy(ua->ucsi);
+ 
+ 	acpi_remove_notify_handler(ACPI_HANDLE(&pdev->dev), ACPI_DEVICE_NOTIFY,
+ 				   ucsi_acpi_notify);
++	ucsi_destroy(ua->ucsi);
+ }
+ 
+ static int ucsi_acpi_resume(struct device *dev)
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.34.1
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
