@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCF935A385
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 21:50:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12139339708
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 21:50:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784411432; cv=none; b=YyFzdkbuHaznZEIPEv10z0xyYZN7ubvTPIwaiCNhbMJm5ZP9qtgR6GkmKj++PaRFYUHP25cpaEZJUskjbIw1lewMlQAdPsaBK9oppBgGiN8iOM0coLC9go2XHRTUddAIj5990N3CfdP3DnKgq2IGhKmCGbN5kyaqrtFoIJSHtnA=
+	t=1784411437; cv=none; b=m+Vat6Ab8h0RyMrOl90tKitIixKYeyiS6y2SLhbSaTTVwwdRGbS241G8lN0GB41DDisZDe2adaSkTXmXz26O29hxp8Ps6EV1gsdza4CRrU3TvkeLo+orqJelk/MTuhJlPbkFMZp8t+oPQ3BNRF6UeghJgieBhROwwSnEMt9L1HU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784411432; c=relaxed/simple;
-	bh=DQuyWTeYe/0KkPJN9R/6FONkM8H9RaDKoZruMYBRMIo=;
+	s=arc-20240116; t=1784411437; c=relaxed/simple;
+	bh=vfyazkwtvGlkQ7JxXjx977GwvliQh2if27DOCdLJ6Z8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FYTGlWqco8jd3COvSXkzko+vrZaOIBfSwCSREIHljxupsyKHwxZa8t535Dku3xbTP2nZty+4UfQwO/OBNlVX5wmlavId72kVE3Wx6pCY8gUQ1jGWp+tbwJxAm5iJoj0teUQ5EC8a056YTfAQPpB/BB9mOzmHGzU7MDSbkUcCD70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fDW0UqE1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dyE3DGX9pkylAf4gv2oQu2DLd5ltuptrcbL58USGxP4fzo52P+ItrzdeqUDdYw2XLBeAL81z+yPy1ftVZx0xllLgIZxgPHCYHQXWujcPxrLzIkUJ7xgmkDuSPKrngul+Bss6ZXXauDZlqzCsJxElW2JTbA6EzdXVX/dNiLuw3rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Truuuk4v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fDW0UqE1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3086A1F00A3E;
-	Sat, 18 Jul 2026 21:50:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Truuuk4v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7E61F000E9;
+	Sat, 18 Jul 2026 21:50:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784411430;
-	bh=VKix8E37tK5ZbJz1cbQPVOiNQM8bE40Oj7iza5eQFto=;
+	s=k20260515; t=1784411435;
+	bh=RoUQIhsyNhsLxTvajSUx0uKecAXtZN1YsIfyns9ML+A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fDW0UqE1MeRuWce98ZpU9kQv6gBwwUg2w0QLXx93vW3YFUIgGOUskuZwA/VXkVXNC
-	 K1R66PuL4CZmySTsGt/tf6LuwG17yi3GgbhAToHY65ALEi41TMvZ9/C81+53GukT2s
-	 VzyGVkxHBb1wpNKv8sRGqg9mxUFJhrB4bCnsK0ksQGEal3IC0Whqrk/ZpazULVQ80w
-	 q+AJ+29mMK0ID+F0fnX3aWBRnFTdVBh2UNSFoD4v0puqPWld71XhCCsgnM8Ovpk7SM
-	 Q9PKWlRuyQnkeQyPoX2JA4TAdjTL8vlvT4Eb1ABb0vyBjvDk9x9j61drTYMMrRJmh3
-	 xwoymiBXF/XKg==
+	b=Truuuk4vufvwq8vrX2HR2n2OBgsE06WlZGy5EzrxY1T2LoA5IK2mePkIK5/Dxbi63
+	 /Fx0krH6seNW5FjqfLxLYGwWsFdhkhgKSOo9X/DowVDPRB4Zb5veBS7tAFINaGP7NZ
+	 bEAVrpOB/ojQnL8QfgG4IHC+pG44C4sWmt4LqezASQUbsrdgnjEeC6qr+1/N2DSipa
+	 aoZR4GyjA9H1+xxPfdudZM3rjZhhenALunx47JB1G2q+dKCq3fWI5ez69gLSZekM9T
+	 hcSnXr9wl6HAwZwwdzBBo+XHiDt0Z0qCsyTzounfVHVubce3ZCT0kVoHlVJtR7v1Wc
+	 kVk2ztS7K0LyQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vlad Poenaru <vlad.wing@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Alexei Starovoitov <ast@kernel.org>,
+Cc: Mauricio Faria de Oliveira <mfo@igalia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Stanislaw Gruszka <stf_xl@wp.pl>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] bpf: Allow LPM map access from sleepable BPF programs
-Date: Sat, 18 Jul 2026 17:50:27 -0400
-Message-ID: <20260718215027.3447522-2-sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/3] usb: atm: ueagle-atm: use dev_dbg() for 'device found' message
+Date: Sat, 18 Jul 2026 17:50:31 -0400
+Message-ID: <20260718215033.3447737-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260718215027.3447522-1-sashal@kernel.org>
-References: <2026071450-landmine-pouring-a4f5@gregkh>
- <20260718215027.3447522-1-sashal@kernel.org>
+In-Reply-To: <2026071426-neurosis-lumpish-e192@gregkh>
+References: <2026071426-neurosis-lumpish-e192@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,117 +46,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vlad Poenaru <vlad.wing@gmail.com>
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
 
-[ Upstream commit 2f884d371fafea137afea504d49ee4a7c8d7985b ]
+[ Upstream commit 05c5075c3115010f97434c53d353d9a0d4b0e64e ]
 
-trie_lookup_elem() annotates its rcu_dereference_check() walks with
-only rcu_read_lock_bh_held().  Because rcu_dereference_check(p, c)
-resolves to "c || rcu_read_lock_held()", this passes for XDP/NAPI and
-classic RCU readers but fails for sleepable BPF programs, which enter
-via __bpf_prog_enter_sleepable() and hold only rcu_read_lock_trace().
+Convert dev_info() to dev_dbg().
 
-trie_update_elem() and trie_delete_elem() have the same problem in a
-different form: they walk the trie with plain rcu_dereference(), which
-asserts rcu_read_lock_held() unconditionally.  Both are reachable from
-sleepable BPF programs via the bpf_map_update_elem / bpf_map_delete_elem
-helpers, and from the syscall path under classic rcu_read_lock().  In
-the writer paths the trie is actually protected by trie->lock (an
-rqspinlock taken across the walk); we never relied on the RCU read-side
-lock to keep nodes alive there.
+Per 'Documentation/process/coding-style.rst':
 
-A sleepable LSM hook that ends up touching an LPM trie therefore
-triggers lockdep on debug kernels:
+  13) Printing kernel messages
 
-  =============================
-  WARNING: suspicious RCU usage
-  7.1.0-... Tainted: G            E
-  -----------------------------
-  kernel/bpf/lpm_trie.c:249 suspicious rcu_dereference_check() usage!
-  1 lock held by net_tests/540:
-   #0: (rcu_tasks_trace_srcu_struct){....}-{0:0},
-       at: __bpf_prog_enter_sleepable+0x26/0x280
-  Call Trace:
-   dump_stack_lvl
-   lockdep_rcu_suspicious
-   trie_lookup_elem
-   bpf_prog_..._enforce_security_socket_connect
-   bpf_trampoline_...
-   security_socket_connect
-   __sys_connect
-   do_syscall_64
+  ...  When drivers are working properly they are quiet,
+  so prefer to use dev_dbg/pr_debug unless something is wrong.
 
-This is lockdep-only -- no UAF, since Tasks Trace RCU does serialize
-against the trie's reclaim path -- but it spams the console once per
-distinct callsite on every debug kernel running a sleepable BPF LSM
-that touches an LPM trie, which is increasingly common.
+While in there, correct the verb form and add 'with' for clarity.
 
-For the lookup path, switch the rcu_dereference_check() annotation
-from rcu_read_lock_bh_held() to bpf_rcu_lock_held(), which accepts all
-three contexts (classic, BH, Tasks Trace).  Other map types already
-follow this convention.
-
-For trie_update_elem() and trie_delete_elem(), annotate the walks as
-rcu_dereference_protected(*p, 1) -- matching trie_free() in the same
-file -- since trie->lock is held across the walk.  rqspinlock has no
-lockdep_map, so the predicate degenerates to '1' rather than
-lockdep_is_held(&trie->lock); the protection is real but not
-machine-verifiable.  trie_get_next_key() also uses bare
-rcu_dereference() but is reachable only from the BPF syscall, which
-holds classic rcu_read_lock() before dispatching, so it is left
-untouched.
-
-Fixes: 694cea395fde ("bpf: Allow RCU-protected lookups to happen from bh context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Link: https://lore.kernel.org/r/20260609135558.193287-2-vlad.wing@gmail.com
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://lore.kernel.org/all/2026051628-squatter-stature-c0e0@gregkh/
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
+Link: https://patch.msgid.link/20260520-ueagle-atm-cleanup-v1-1-010c8bc7b214@igalia.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: e2674dfbed8a ("usb: atm: ueagle-atm: wait for pre-firmware load in .disconnect()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/lpm_trie.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/usb/atm/ueagle-atm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/bpf/lpm_trie.c b/kernel/bpf/lpm_trie.c
-index 15c2525900fa31..62a9ce1969d090 100644
---- a/kernel/bpf/lpm_trie.c
-+++ b/kernel/bpf/lpm_trie.c
-@@ -237,7 +237,7 @@ static void *trie_lookup_elem(struct bpf_map *map, void *_key)
+diff --git a/drivers/usb/atm/ueagle-atm.c b/drivers/usb/atm/ueagle-atm.c
+index f3ae72feb5bfc3..71559a934133a8 100644
+--- a/drivers/usb/atm/ueagle-atm.c
++++ b/drivers/usb/atm/ueagle-atm.c
+@@ -2590,7 +2590,7 @@ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 	int ret;
  
- 	/* Start walking the trie from the root node ... */
- 
--	for (node = rcu_dereference_check(trie->root, rcu_read_lock_bh_held());
-+	for (node = rcu_dereference_check(trie->root, bpf_rcu_lock_held());
- 	     node;) {
- 		unsigned int next_bit;
- 		size_t matchlen;
-@@ -271,7 +271,7 @@ static void *trie_lookup_elem(struct bpf_map *map, void *_key)
- 		 */
- 		next_bit = extract_bit(key->data, node->prefixlen);
- 		node = rcu_dereference_check(node->child[next_bit],
--					     rcu_read_lock_bh_held());
-+					     bpf_rcu_lock_held());
- 	}
- 
- 	if (!found)
-@@ -354,7 +354,7 @@ static long trie_update_elem(struct bpf_map *map,
- 	 */
- 	slot = &trie->root;
- 
--	while ((node = rcu_dereference(*slot))) {
-+	while ((node = rcu_dereference_protected(*slot, 1))) {
- 		matchlen = longest_prefix_match(trie, node, key);
- 
- 		if (node->prefixlen != matchlen ||
-@@ -475,7 +475,7 @@ static long trie_delete_elem(struct bpf_map *map, void *_key)
- 	trim = &trie->root;
- 	trim2 = trim;
- 	parent = NULL;
--	while ((node = rcu_dereference(*trim))) {
-+	while ((node = rcu_dereference_protected(*trim, 1))) {
- 		matchlen = longest_prefix_match(trie, node, key);
- 
- 		if (node->prefixlen != matchlen ||
+ 	uea_enters(usb);
+-	uea_info(usb, "ADSL device founded vid (%#X) pid (%#X) Rev (%#X): %s\n",
++	uea_dbg(usb, "ADSL device found with vid (%#X) pid (%#X) Rev (%#X): %s\n",
+ 		le16_to_cpu(usb->descriptor.idVendor),
+ 		le16_to_cpu(usb->descriptor.idProduct),
+ 		le16_to_cpu(usb->descriptor.bcdDevice),
 -- 
 2.53.0
 
