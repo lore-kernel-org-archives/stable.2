@@ -1,117 +1,130 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC79275AFD
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 02:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784343280; cv=pass; b=ujn6JRA+GZDfGSh0plBv7fA4ukA07AJaMxMhL7KNI9wdZ8/lH54dSvTprGWxq8B+DGRRKUySWVfSz6Tw2qgPZJJJJ4T8v/J/etTW7JsL7f1PeB0AmZijfMkBzl4H8AcJic6WJYGjaO0pu9LA5Dhz1OOPJ3U5xK42kcT1did14Xw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784343280; c=relaxed/simple;
-	bh=+fXmQ4fYM/C8Kf7eQ39kwb3zDj7n5IWktBlZL1t9nH4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TauqvC312lOz37SQuq7Bf4WdCViaqhBSZ87cUBivelJiWa//VXEPUiFrt68Lwne6SPlR0sLWaVL9mNGZ1v2kY1s7fSekafSV7XE1zabN4B8sdmoZYhmIlvThfVOyVgxr3dmzdKtcorKpFBVSbZtCdUsKf3C6Clg69NEZ2s7Mi6A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LdPwoVK4; arc=pass smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2575A283C93
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 02:55:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784343315; cv=none; b=WpoULhIa+KJQTgY0s5DQk/22qIwllpLlFkyJEdf8nGDpLOmRwFGGy0b1AwDEKAQ2hdnDRiPYkz2Jwoi5kqxjJJKyW5rVeQCZzjKu0P/LlnvI7ccxw8LPfyTPK/4cF9N/PZGGwNW3x/WlCHeRGiTFklHjAj+j5OfmR/XlrI+i8SE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784343315; c=relaxed/simple;
+	bh=Ul0DFw3Ej73eiCwcTexNy8jh0poOMPwPODq7wz9FOLo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GdxKCjbsGEkW5FdiIcyy0cd5z5FmGCILDAswq6hydsmRm+2LSn8XOexe1R7v+zn4My0bnDnRYXy6XGIR1oV9DVeeKoSp9WAurQfOsx8E0FwcJFA8843veoMFxMycVJuXMwdoosXuoYSe8FKzWbbfBXx2G3nii/PX9bC90f30/gU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RvgJ5Vio; arc=none smtp.client-ip=209.85.219.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LdPwoVK4"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-69e54d9c8c6so2625760a12.0
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 19:54:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784343277; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Zy5rQfeqrs99fMKK4qc1XtgtIsxeACQtAFmLAI9PZV/NEp+qN9EXBcGs8OF8mgk+Yu
-         BTzTaSuepmTdaAIfnD+ST/bT+VsPMXQxrbkCP5tJrKE4ukUxusosxzwA4Ht5WRu8OFXD
-         INJ7+HSD55HMyY8fMTbk5IPZW8URKu5fK4Gmaosze/gwFZ/hmOa5xmfSDy5FjBXSFuHz
-         h0KwrCsFwMYnPlMoX1GqEUQBwxI1gaDntABZYh2LY6bYdZh0Ancyh1V9xsw61a/nB7Dc
-         LmkxF+3VSclIxm6IHCLmZvNJav1LUHeKmvvs6FqN8zFTqo9jpKyqJjNcek9AyO9a3Zey
-         XC8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+fXmQ4fYM/C8Kf7eQ39kwb3zDj7n5IWktBlZL1t9nH4=;
-        fh=ziI4Ygim6Nqoprh9W22bs+MdCBaSioxPT/vd/TLfvXA=;
-        b=ZAZo6dCXDIlU1SF6Nq9EVCLVLlNsxOwFzvmyJeESRWmUn0QvpW/9NN24Xn3AeScKjr
-         QjxPX5XMFhlab6uF1PDViVxLMyC1a95dsRN3Gsg+AEpDzM+qylRtpi7Progzj8CSN29y
-         rrrrUaJEpq07EONYbxh94IVYnah9pdafJ7Z9TFUU7ybeqP7TCjF1nTNIHIbT5l4be79N
-         AwemasQCysIIPScyx/EcWZzHOPe8y1QlmekwCeyaHYk5XHED41e2vXs+FfdlrvxTihps
-         wNCnF72mc7pBTRBZuIRmkDjcHvHD9VGaoEEA8NUuuQfRwzy8cDKK8Id6SXDeZshJskJ3
-         uChA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RvgJ5Vio"
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-902f92b8504so78995476d6.2
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 19:55:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784343277; x=1784948077; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+fXmQ4fYM/C8Kf7eQ39kwb3zDj7n5IWktBlZL1t9nH4=;
-        b=LdPwoVK4r21xHQBhFYMh2wNZjtjS01olV0WUUvnW2RKI7whpHOAPuWtgbhMJ2HO7PN
-         lpn/AhamjcilY82TXMdy6F20AhKFMtXGYb93KKTmkp2AAi+s6Q9mjy2F5WbZCbE37wSH
-         BjkDrjbOJNY4uWQ3qPELEuCSF3CrnNvBwQvIBrNL+6/UudiYJL7fIAcCYwkK96kKbJ0O
-         UV+scKgI36Y1kGLlVfrdalDjsRWm6WvChzPaZN7ztTEbAa7WXRUNAKXT0lP13xUeEPEM
-         HCBG8OsrjLJpT8CoXhzkWbXNb3M7p0UCokPbr/WKTETiMdO2+HSKuiV8M1R74svU9qhH
-         Bceg==
+        d=gmail.com; s=20251104; t=1784343312; x=1784948112; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=47ZO/fVoFhUn5pOP6KZbb4HeOIXd+WNQBMG6RHvVVbs=;
+        b=RvgJ5ViotQLfRJiSoeDnezx0MSxNBQrQhs1y/0aA3Lc4gB4efOA9SsmL9lNInY91Bo
+         BHii1kkunIXszvkFdLmUMdwBqx8feuJNjK7EPwG21Y497bYfH5gKiGgIaZqE9zkr2eoc
+         3tpU3Oy+CW6yygTJ9+id/LdfSWvC+pde91Y2xFmvw8WBLhgF2pRfSJTuf6ek4i0p7k44
+         kr5Zv60T5M5OQfbPQEOnDENEryu68zeNh5cn/Tc3Dyxj0wDyDkjisBlII63/jLj5I0h1
+         Wywvz+L1guefGKMynuFzgj12D4oK1teUgCGDuDM9Ew6AkRl14UX9hDAKKzDfo3XEzUCD
+         079g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784343277; x=1784948077;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+fXmQ4fYM/C8Kf7eQ39kwb3zDj7n5IWktBlZL1t9nH4=;
-        b=OFq9MPvwcz9xmyPxRsXYAH99sojkzsoG+IJwcPB4jqeYxnqxv8Q3qNx9/K8yHkGaG4
-         GNceziHhhONL0mY6xtThT1lBro9S3usGM43xCd1/aIJHhqQAv1GSoZy72Qg2GlYF9jny
-         hQYNN6k4uhwEUQCZoPFMo8qH07CEDDQe22z4sKSHsvV3EAN6Iy5HPhYKPWJUKj4T2iZn
-         hTlzZRD452xWpYie5ih8HIWEumWmsdQsAd1KFoUOZc7RcvRgO4ET1flHPifReakl7Bq3
-         AWFUa040Ida0lpk6WUXqtZka3P47ijwLZrpqGICYPq1i8Cirh5DTr+NDR4JzjPUk5dMQ
-         FFBw==
-X-Gm-Message-State: AOJu0YxdHjP4QVk2lLKuGV7QaInrsoe2FY+7XzERWnIB6Pb2rxlXBaHm
-	8ShMc32iz9KabSwgbl69Re17Krz6GTYmwLGIGPJUuST+kovrJUGbxe36jVB6/tPA2zWlWExvrxo
-	4tCAN+bEljJCP4RKXCC95V9wLyvfHe7w=
-X-Gm-Gg: AfdE7ckgNWZUMrdI5jw3ipE8lRYTvdkgCCk3RgjSsomLAS4fCX+XN5Q+AoS9y4pec+s
-	XyuieRea1YLPcunno8VF6J2DgIaoGoFvqtXC0a/loIKinqWZC72ZeoVef3PfuEH8slqZUudj1fj
-	T6xsctJahyjlDLvnKDyYoXo/zt2jSh+s/JsFY0tkTE4glMwVlLZy/KLF1KVjZho8ob4Lk9JlTq9
-	5FohQQhhnDWwN5e/+0E3Goxr62KmLdGfep68R4jwHhPyJGTQQCc4nj/h6/M
-X-Received: by 2002:a05:6402:50d1:b0:699:6d24:e298 with SMTP id
- 4fb4d7f45d1cf-69e65228d68mr2144266a12.8.1784343277018; Fri, 17 Jul 2026
- 19:54:37 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784343312; x=1784948112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=47ZO/fVoFhUn5pOP6KZbb4HeOIXd+WNQBMG6RHvVVbs=;
+        b=UcZrgxubdFbhcMrcW7WrRWN6MUKsZUbLnNY9V/cVffq5jytW+hRzoGS+6+LrSaPm/n
+         UiY9TpdWjtlDsH0Cpy9effLJmz5rJky9oPJjD4jSU0CgawAJtvg0T8+L94bdtnbNRqeD
+         QS+uU1jHLImdUWg8QhxMbOhysbqlc7YT0T4bO5OInsPTdMN+HslJgRT0swSYO7BvlMXZ
+         OOXafALXlEnG9q2zrxKQ9PKdWS7qTavygULP9UhZV70BRhGgbtpntljZXOr6HrsUOgdU
+         /AeXDN2wW1XzzFlJHmPHJo2PHk/hNSxiVvNr07SLP791aG8dkB0nSIl2IxUcgrblrGCa
+         Ip5Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoYiGNxY8+cLxm3mS4UXSxGdh4l73pZavQHVulgZ03+x3Zsng30no1e0t8pKVexdEFacLUe+Go=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywxx7TVo2l7lc11qTUN6jaqq6fIw50AlrxJcQZ6/o9uxi6TVX0f
+	sXzdJ0DRH0cWV/Iq+qO1lU95MioRca6gyTYhYQ565m8RgCyoTGt03uTlh0540LGZ
+X-Gm-Gg: AfdE7clEJ6Uqx8Kqpiit583MdT1nRPIWNM1/UglZvWAPNH7e7q/ZnWBZugQCCynsacB
+	oylAqknG3oVgLgbmfAys5vGHjHsqP2sLtxgXLGikNbtGkBXx7gMxYc6qfX3u3TDOkPcxVn7n2eG
+	CIjSbJtC7RWV9YUbnB7McPFIUtrZ82tS/6ZsV1XuUtVGDcvsfc2TVh5pZqWCu1JariN3R84E9Ar
+	xBfAIRpCl/6b+vTH+ZBhfULXhLVTwoZXsT2YjovGO2jTbjhycBOacDTtSwqYx8vFhY6fjkrf7DS
+	VTgqhkxQttduekrvyT/aJYKnamwhI9YLnpxrX3Z5tZtWdo2yXpGTbBWc/5IZBFJXEo/Sjb1FhKl
+	wi1znwO1jB+W6RU6uTdxlc83AkFnjspcjPuUEdkUYWPabAZ75beI6yuGMNlag8FyDBwRTGNsD9i
+	skZ7oJndrjdGUKVT5hs65hfgRDhCyKHig=
+X-Received: by 2002:a05:6214:331b:b0:907:8374:6abb with SMTP id 6a1803df08f44-90783746d93mr18429716d6.59.1784343311874;
+        Fri, 17 Jul 2026 19:55:11 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90778728a50sm31883066d6.47.2026.07.17.19.55.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 19:55:11 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Subject: [PATCH] media: gspca: hold a usb_device reference while registered
+Date: Fri, 17 Jul 2026 22:54:34 -0400
+Message-ID: <20260718025434.2259756-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716073452.3246468-1-coshi036@gmail.com> <20260716232340.0004-stable-reply@kernel.org>
-In-Reply-To: <20260716232340.0004-stable-reply@kernel.org>
-From: Chao S <coshi036@gmail.com>
-Date: Fri, 17 Jul 2026 22:54:25 -0400
-X-Gm-Features: AUfX_mzzrnuEc2G7zOVpiKj8Lx_0pvDhqY13_Znnwo-AmE71xJjjJMiUKekMGDM
-Message-ID: <CACd_6n0OJ=7itGD5_ooqFRmD+NwURddTE8Y=4pgWJvonapJs9g@mail.gmail.com>
-Subject: Re: [PATCH 6.6.y] block: skip sync_blockdev() on surprise removal in bdev_mark_dead()
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@kernel.org>, Weidong Zhu <weizhu@fiu.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Thank you!
+gspca keeps a pointer to the probed struct usb_device in
+gspca_dev->dev, but it does not hold a reference to it. The
+V4L2/video-device reference can keep the outer gspca_dev alive after USB
+disconnect, and the streaming queue can then be canceled from the last
+file release path.
 
-Best,
-Chao
+That late release path still calls into gspca_stream_off(), which may
+call sub-driver stop callbacks or usb_set_interface() and dereference
+gspca_dev->dev after the USB core has freed the device.
 
-On Thu, Jul 16, 2026 at 9:37=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> On Thu, Jul 16, 2026 at 03:34:52AM -0400, Chao Shi wrote:
-> > bdev_mark_dead()'s @surprise =3D=3D true means the device is already go=
-ne.
-> > The filesystem callback fs_bdev_mark_dead() honours this and skips
-> > sync_filesystem(), but the bare block device path (no ->mark_dead op)
-> > lost its !surprise guard when the holder ->mark_dead callback was wired
-> > up (see Fixes), and now calls sync_blockdev() unconditionally, which ca=
-n
-> > hang forever waiting on writeback that can no longer complete.
->
-> Queued for 6.6, thanks.
->
-> --
-> Thanks,
-> Sasha
+Take a reference to the usb_device when storing it in gspca_dev and drop
+it from the final gspca_release() path. Balance the reference in the
+probe error path as well.
+
+Fixes: 63eb9546dcb5 ("V4L/DVB (8152): Initial release of gspca with only one driver.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+---
+ drivers/media/usb/gspca/gspca.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+index 594d73e50b9f..59eb4cec1aed 100644
+--- a/drivers/media/usb/gspca/gspca.c
++++ b/drivers/media/usb/gspca/gspca.c
+@@ -1178,6 +1178,7 @@ static void gspca_release(struct v4l2_device *v4l2_device)
+ 	v4l2_ctrl_handler_free(gspca_dev->vdev.ctrl_handler);
+ 	v4l2_device_unregister(&gspca_dev->v4l2_dev);
+ 	kfree(gspca_dev->usb_buf);
++	usb_put_dev(gspca_dev->dev);
+ 	kfree(gspca_dev);
+ }
+ 
+@@ -1462,7 +1463,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
+ 		ret = -ENOMEM;
+ 		goto out;
+ 	}
+-	gspca_dev->dev = dev;
++	gspca_dev->dev = usb_get_dev(dev);
+ 	gspca_dev->iface = intf->cur_altsetting->desc.bInterfaceNumber;
+ 	gspca_dev->xfer_ep = -1;
+ 
+@@ -1574,6 +1575,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
+ 	if (sd_desc->probe_error)
+ 		sd_desc->probe_error(gspca_dev);
+ 	kfree(gspca_dev->usb_buf);
++	usb_put_dev(gspca_dev->dev);
+ 	kfree(gspca_dev);
+ 	return ret;
+ }
+-- 
+2.43.0
+
