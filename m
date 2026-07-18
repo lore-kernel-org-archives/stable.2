@@ -1,103 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AC1380FD4;
-	Fri, 17 Jul 2026 23:45:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB604C92;
+	Sat, 18 Jul 2026 00:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784331931; cv=none; b=kQEiE4BlXd00m1elJiT7Gvffs0ntL29gzO49EZSoYXclWr5uVu8FEfjgLCvaJsECkIVh5Zb2ax3DTMxMAStDPDHe90D2aOJbBbpuPL+Ivewsk7lti4RbSYkiPCPyoKgySNbKH/gbqqseDImbPZZx2lj4EJzok5c22g9OJAl/GF4=
+	t=1784333685; cv=none; b=HoFxAA8kt+j/oNOmyD+QS8b/iY10qdQjKAOJdDkJd8N7V/7/5P74zXi4GZMFkAO/GTQC9RayQ7S7ktbz0WHn5PDm7TrLoPf5I7JRxvhu80gIjzv83pgX6aj2IthQJxOdqjFXhVzVCN49fjWo4nkH5/n0D98zFDzAqXJIashijjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784331931; c=relaxed/simple;
-	bh=GRt7KkB88gPFQXlQ9xP34WSMD6x47Jtchmy4QAp+0O0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=pZegBprEEh43+zJ8AUNN5VuKM2kTDOoVaZetghd7WC/APcYc6coTRN0fwfuugRsWFTNH3pY4zdz6O4fbLGwmdSqRs7pSIJLr7dxLPiJ0oAW0E9ktZO+Ckon0/Ab+iNxyXq3J9IBdh4VvNjNORRqeR3qZ8dNXnrPQNrrPKChDOKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3+n9W4a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784333685; c=relaxed/simple;
+	bh=3448GkA1t6Jl6X21pfqGd/NvX+4HQAakoG2dBo3KndQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n7DMgu+7ftBy70C9Bq8QlMehbxOWNxaf2cYBgIVEc0NnSGS1nBO5H0pFXlhQU4dizynAf+I5dA9jeAaqS+l5JmxhzqhF1UcZ6tP/DbYI3w9s2MRhzcl+0rXHnTtSwu/LCB4oqNUCbpJLQq8Ugf8h6eAH+/bOGfvvCyqx0nW3Fy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYGnmLe4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3+n9W4a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5231F000E9;
-	Fri, 17 Jul 2026 23:45:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYGnmLe4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209751F000E9;
+	Sat, 18 Jul 2026 00:14:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784331926;
-	bh=t92nG5HOJRBg9LyAAWTooX92pMDv7O5FeBYwyZhCWZs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=m3+n9W4aL1bfen8MiaRECrI/KDcOlfLylLc9IGFlVquEnaS4muHalDMO4Ia3rbMPr
-	 7JsGZ5sNIYkQl6oY3v9L04i8QA5Enn6tRSMtvQw2+Wu/sRJruletC49VYQ5FGPZDCk
-	 aGS+K5giY78qjodaympjeYubnt/T4ZOOdwHaFfNlsz9+L86RrfWiue2g2ee3tKERFJ
-	 q0YnvjCjdWJf5Z4gFWbSW+YDrTdsrd+7Z9HRKC0Qy78LX1GkQz/7S6FKrPLNqnY/LW
-	 Bnmbrwo06Arf0caSbZ17Hha2yGuGOPIIg68kNRHc/SoUI0sb0cTcApw/3Iu7K3kpkH
-	 fklHdEoWUhc5g==
-Date: Sat, 18 Jul 2026 08:45:22 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- mathieu.desnoyers@efficios.com, rostedt@goodmis.org, leitao@debian.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] tracing: Fix context switch counter truncation
-Message-Id: <20260718084522.055fc8a671eaf2d2cd927fc2@kernel.org>
-In-Reply-To: <20260717173252.3431565-1-usama.arif@linux.dev>
-References: <20260717173252.3431565-1-usama.arif@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=k20260515; t=1784333684;
+	bh=C59WxJAx9LrXUNDaNGJL5jVA+tsD6SkqhBTrog+cChA=;
+	h=From:To:Cc:Subject:Date;
+	b=aYGnmLe4GTa1XTkI3KjkuzAlDHG2WXvP/qtcnwrbqJHj5X8E5ODcXjEZh1HOmN02b
+	 wHawkjJwEa7LwqPithsVfBy6DG/TxZkgtOwHjHcofj841fcp50GRRHcV698lkdzv/q
+	 rQqG/HOOztBgMbHkzZEb/NOLst5V7yFarDCkJxkFYUZ1OGoMrTvUEbuPsdLadhMkHd
+	 s7CGmR7xuZKbldqLrRe3VZoH0/ZVv2vL7cajP60L3asB78KNocXYQeBuBDVukm8aol
+	 uiKSYYYn0QIIixb1+GAuULmHtnUycSo/Sih5xfXeY3TowhyAD7YRvQVdtrcGyqaUsZ
+	 33hONYUS3r3SQ==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	SeongJae Park <sjpark@amazon.de>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 0/7] mm/damon: fix uninitialized DAMOS field and kunit exec expectation bugs
+Date: Fri, 17 Jul 2026 17:14:34 -0700
+Message-ID: <20260718001442.87129-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 17 Jul 2026 10:32:52 -0700
-Usama Arif <usama.arif@linux.dev> wrote:
+Fix a few Sashiko-found unurgent bugs.  Patch 1 fixes use of
+uninitialized damos->last_applied field.  Patches 2-7 fix DAMON kunit
+tests that do invalid memory access under test failures.
 
-> trace_user_fault_read() samples nr_context_switches_cpu() before enabling
-> preemption and retries the user copy if the counter changes. The helper
-> returns unsigned long long because rq->nr_switches is u64, but the saved
-> value is unsigned int.
-> 
-> Once a CPU has performed 2^32 context switches, assigning the counter to
-> cnt discards its upper bits. The comparison after the copy promotes cnt
-> back to unsigned long long, but the lost bits remain zero, so it reports a
-> change even when the task was never scheduled out. Every retry then fails
-> the same way until the 100-try guard warns and the user copy is abandoned.
-> 
-> This affects long-running systems and workloads with high context-switch
-> rates. A CPU switching 1,000 times per second takes about 50 days.
-> 
-> Store the sampled count in unsigned long long so the full value is
-> preserved.
+The bugs are better to be fixed and eventually merged into stable@
+kernel.  That said, the fixes are arguably not urgent.  Patch 1 only
+introduces negligible DAMOS efficiency degradation in occasional
+cases.  Kunit fixes could introduce quite bad consequences but those
+are test code that affect only test run setups.
 
-Looks good to me.
+Changes from RFC v1.1
+- RFC v1.1: https://lore.kernel.org/20260717143445.91207-1-sj@kernel.org
+- Drop RFC.
+Changes from RFC
+- RFC: https://lore.kernel.org/20260717003022.119437-1-sj@kernel.org
+  (Was not having RFC tag on the subject by a mistake)
+- Add missed region split failure check in filter_out() test.
+- Rebase to latest mm-new.
 
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+SJ Park (7):
+  mm/damon/core: initialize damos->last_applied
+  mm/damon/core-kunit: check region count before testing in split_at()
+  mm/damon/vaddr-kunit: check region count in three_regions test
+  mm/damon/core-kunit: handle region split failure in filter_out()
+  mm/damon/core-kunit: skip wrong dest walk in commit_dests_for()
+  mm/damon/core-kunit: skip wrong quota goal walk in
+    commit_quota_goals()
+  mm/damon/core-kunit: skip wrong region walk in commit_target_regions()
 
-Thanks!
-
-> 
-> Fixes: 64cf7d058a00 ("tracing: Have trace_marker use per-cpu data to read user space")
-> Cc: stable@vger.kernel.org
-> Reported-by: Breno Leitao <leitao@debian.org>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
->  kernel/trace/trace.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> index 1146b83b711a..412a8daf2162 100644
-> --- a/kernel/trace/trace.c
-> +++ b/kernel/trace/trace.c
-> @@ -6188,7 +6188,7 @@ char *trace_user_fault_read(struct trace_user_buf_info *tinfo,
->  {
->  	int cpu = smp_processor_id();
->  	char *buffer = per_cpu_ptr(tinfo->tbuf, cpu)->buf;
-> -	unsigned int cnt;
-> +	unsigned long long cnt;
->  	int trys = 0;
->  	int ret;
->  
-> -- 
-> 2.53.0-Meta
-> 
+ mm/damon/core.c              |  1 +
+ mm/damon/tests/core-kunit.h  | 30 ++++++++++++++++++++++++++++--
+ mm/damon/tests/vaddr-kunit.h |  5 +++++
+ 3 files changed, 34 insertions(+), 2 deletions(-)
 
 
+base-commit: 6bb81496f18939ccbc5f16840d5b2cf1af6c995e
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.47.3
