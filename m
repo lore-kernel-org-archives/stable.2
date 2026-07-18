@@ -1,43 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD09134F462
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 15:13:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AB734D911
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 15:13:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784387614; cv=none; b=GIm4WkktgA67WYzuZtah4sw1zLXM3LhttFb8ITzLoYKP+dkPJPRMlJE5G9CFi1GVuhB2PA0FejDiTb2z2X/zA44eRKA9vRgYrVHNXCg3PXHcgSrIVisAn2RZFwe1haMVrOB9bKZTDpB8neRElkU1pTmGj0A4QW6JzSKLf7uVkOw=
+	t=1784387615; cv=none; b=pQOSGgtXu3nWjKWGb17cFruXJm9jmmXrEn/7MVd38LCOJKUbbSxizODiDf3tjLsAHgfwZJiCrabantVBWO7S4EQ3QjoV3PG/e6rJaTqaobDKJ6KCq7jK5/ivte5dn/3udiwAgaMfe1FPthtvmNcXAsmWAJB7cgMasiISSwEy7QY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784387614; c=relaxed/simple;
-	bh=PJDRd5tsyxtyt0BEH8TTcZXa9BzUkeBpZ4AsC1QU1Qc=;
+	s=arc-20240116; t=1784387615; c=relaxed/simple;
+	bh=GtFIM/4RE+RRYI3QJkaoheUfjRboma/VToevAo6gEMU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ru7+NS83zGPINWKz0P3Njt5KhxrT7TTmNwKGFtPxsgVfZQ6Amkgu0Ho6+x/7iAeaGMmSnTkw3/Abl9pxOQmF2tAFd7GoCHRY8mS+tkMa7eKT9A/PWYxw8wdopGLAqiJiec/I/T3WBK/JHVEWU9FoNjyIuMs6WQX5cfMPk8qLbV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QJesfIvm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TvR/XXTg/U8zUmpET4oelt0q55zY60jFyictAGzs42sFX3bsohCdqWohL5M2mtSB+VawM1/mo+B34oge9KYU4iThKIPifN8xRbf5qiPOEHe6jyFXIOFjek7u7OH7/RYsPVawLo9RLx+LvO4PfTgT11Izn0HmKnTZ9O43DZLnfDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m19vQFfe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QJesfIvm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B549C1F00A3A;
-	Sat, 18 Jul 2026 15:13:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m19vQFfe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8B61F00A3F;
+	Sat, 18 Jul 2026 15:13:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784387612;
-	bh=K0cm3YBCi5g/gigINTA59oY2r573tq46vOpoca0LyqM=;
+	s=k20260515; t=1784387613;
+	bh=ko91k9JVqWaPBvxB35AQ6HfEVzLJcgBuncVJzUBUXeU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QJesfIvmjQqY2UcZNOIk7slqBaB/s7JlxOlaSg3PuAZ8K8b57ASUKj/K6xD5eI787
-	 w2Qyr6Xq94qXb9TU/3y2QSBhe1O/RQ/LOXbRmkx74cGbc4SJ3pqav1oVM4bFJhZRhp
-	 BXrTCpNpn6wLLg5/iBL+HZWcBuNdD0+1C5iwB5awk4+oTs5o+BHk4zDabCrPqH/kK9
-	 CPnJgbAm34ABD900sSjU/wvOwl96AGZ+136KMZOTRObIO1/k4dO7/LgyUGEASeJTPt
-	 prVS+GXcp6mH82sM8fl0r9f9TvmKyTr6sY8po+miGT0RRijk2l/f4YC0mhWK5/ul1T
-	 nKXMlfbmBYyPQ==
+	b=m19vQFfeG3l+xRpT1rLDMGgbJGSw2MTJbOuxGmwjLlPWWV5iqWhkVmGmMaxkQr7/4
+	 8zyMuH67tK4tcxYduiboHxFFDXYklbwwEPooVFxIIQcFvBQzkFNrYxBMUhtGOznzlv
+	 kIqDQoXEW81Gnvcfr5XgeeAFAc18IEnQpDAMlnB1CeT3Pa9AKWV+7Uznkh/OKP80oj
+	 h96FpYdCj0lnl3FzsNj/6c9Qa4RfspttWEwIOF4tRJ4J5wYc1ndgICW7aUADNaCg6T
+	 BjvEoBE3PwUFMzKc+cGpimNh/C28Ax5oU4wv3kfQgfauuLwDo24n8f6VlAOmYghWiB
+	 E8JSsOdQBw3zA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Luis Gerhorst <luis.gerhorst@fau.de>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Henriette Herzog <henriette.herzog@rub.de>,
-	Maximilian Ott <ott@cs.fau.de>,
-	Milan Stephan <milan.stephan@fau.de>,
-	Alexei Starovoitov <ast@kernel.org>,
+Cc: Andrii Nakryiko <andrii@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jiri Olsa <jolsa@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] bpf, arm64, powerpc: Add bpf_jit_bypass_spec_v1/v4()
-Date: Sat, 18 Jul 2026 11:13:27 -0400
-Message-ID: <20260718151329.3271163-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] bpf: Consistently use bpf_rcu_lock_held() everywhere
+Date: Sat, 18 Jul 2026 11:13:28 -0400
+Message-ID: <20260718151329.3271163-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260718151329.3271163-1-sashal@kernel.org>
 References: <2026071449-absurd-charm-2576@gregkh>
@@ -48,214 +45,175 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Luis Gerhorst <luis.gerhorst@fau.de>
+From: Andrii Nakryiko <andrii@kernel.org>
 
-[ Upstream commit 03c68a0f8c68936a0bb915b030693923784724cb ]
+[ Upstream commit 48a97ffc6c826640907d13b199e29008f4fe2c15 ]
 
-JITs can set bpf_jit_bypass_spec_v1/v4() if they want the verifier to
-skip analysis/patching for the respective vulnerability. For v4, this
-will reduce the number of barriers the verifier inserts. For v1, it
-allows more programs to be accepted.
+We have many places which open-code what's now is bpf_rcu_lock_held()
+macro, so replace all those places with a clean and short macro invocation.
+For that, move bpf_rcu_lock_held() macro into include/linux/bpf.h.
 
-The primary motivation for this is to not regress unpriv BPF's
-performance on ARM64 in a future commit where BPF_NOSPEC is also used
-against Spectre v1.
-
-This has the user-visible change that v1-induced rejections on
-non-vulnerable PowerPC CPUs are avoided.
-
-For now, this does not change the semantics of BPF_NOSPEC. It is still a
-v4-only barrier and must not be implemented if bypass_spec_v4 is always
-true for the arch. Changing it to a v1 AND v4-barrier is done in a
-future commit.
-
-As an alternative to bypass_spec_v1/v4, one could introduce NOSPEC_V1
-AND NOSPEC_V4 instructions and allow backends to skip their lowering as
-suggested by commit f5e81d111750 ("bpf: Introduce BPF nospec instruction
-for mitigating Spectre v4"). Adding bpf_jit_bypass_spec_v1/v4() was
-found to be preferable for the following reason:
-
-* bypass_spec_v1/v4 benefits non-vulnerable CPUs: Always performing the
-  same analysis (not taking into account whether the current CPU is
-  vulnerable), needlessly restricts users of CPUs that are not
-  vulnerable. The only use case for this would be portability-testing,
-  but this can later be added easily when needed by allowing users to
-  force bypass_spec_v1/v4 to false.
-
-* Portability is still acceptable: Directly disabling the analysis
-  instead of skipping the lowering of BPF_NOSPEC(_V1/V4) might allow
-  programs on non-vulnerable CPUs to be accepted while the program will
-  be rejected on vulnerable CPUs. With the fallback to speculation
-  barriers for Spectre v1 implemented in a future commit, this will only
-  affect programs that do variable stack-accesses or are very complex.
-
-For PowerPC, the SEC_FTR checking in bpf_jit_bypass_spec_v4() is based
-on the check that was previously located in the BPF_NOSPEC case.
-
-For LoongArch, it would likely be safe to set both
-bpf_jit_bypass_spec_v1() and _v4() according to
-commit a6f6a95f2580 ("LoongArch, bpf: Fix jit to skip speculation
-barrier opcode"). This is omitted here as I am unable to do any testing
-for LoongArch.
-
-Hari's ack concerns the PowerPC part only.
-
-Signed-off-by: Luis Gerhorst <luis.gerhorst@fau.de>
-Acked-by: Hari Bathini <hbathini@linux.ibm.com>
-Cc: Henriette Herzog <henriette.herzog@rub.de>
-Cc: Maximilian Ott <ott@cs.fau.de>
-Cc: Milan Stephan <milan.stephan@fau.de>
-Link: https://lore.kernel.org/r/20250603211318.337474-1-luis.gerhorst@fau.de
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Acked-by: Jiri Olsa <jolsa@kernel.org>
+Link: https://lore.kernel.org/bpf/20251014201403.4104511-1-andrii@kernel.org
 Stable-dep-of: 2f884d371faf ("bpf: Allow LPM map access from sleepable BPF programs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/net/bpf_jit_comp.c     | 21 ++++++++++++---------
- arch/powerpc/net/bpf_jit_comp64.c | 21 +++++++++++++++++----
- include/linux/bpf.h               | 11 +++++++++--
- kernel/bpf/core.c                 | 15 +++++++++++++++
- 4 files changed, 53 insertions(+), 15 deletions(-)
+ include/linux/bpf.h               |  3 +++
+ include/linux/bpf_local_storage.h |  3 ---
+ kernel/bpf/hashtab.c              | 21 +++++++--------------
+ kernel/bpf/helpers.c              | 12 ++++--------
+ 4 files changed, 14 insertions(+), 25 deletions(-)
 
-diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
-index c852749405e0c7..907bcc64d42435 100644
---- a/arch/arm64/net/bpf_jit_comp.c
-+++ b/arch/arm64/net/bpf_jit_comp.c
-@@ -1558,15 +1558,7 @@ static int build_insn(const struct bpf_insn *insn, struct jit_ctx *ctx,
- 
- 	/* speculation barrier */
- 	case BPF_ST | BPF_NOSPEC:
--		/*
--		 * Nothing required here.
--		 *
--		 * In case of arm64, we rely on the firmware mitigation of
--		 * Speculative Store Bypass as controlled via the ssbd kernel
--		 * parameter. Whenever the mitigation is enabled, it works
--		 * for all of the kernel code with no need to provide any
--		 * additional instructions.
--		 */
-+		/* See bpf_jit_bypass_spec_v4() */
- 		break;
- 
- 	/* ST: *(size *)(dst + off) = imm */
-@@ -2730,6 +2722,17 @@ bool bpf_jit_supports_percpu_insn(void)
- 	return true;
- }
- 
-+bool bpf_jit_bypass_spec_v4(void)
-+{
-+	/* In case of arm64, we rely on the firmware mitigation of Speculative
-+	 * Store Bypass as controlled via the ssbd kernel parameter. Whenever
-+	 * the mitigation is enabled, it works for all of the kernel code with
-+	 * no need to provide any additional instructions. Therefore, skip
-+	 * inserting nospec insns against Spectre v4.
-+	 */
-+	return true;
-+}
-+
- bool bpf_jit_inlines_helper_call(s32 imm)
- {
- 	switch (imm) {
-diff --git a/arch/powerpc/net/bpf_jit_comp64.c b/arch/powerpc/net/bpf_jit_comp64.c
-index af8b07cc5fcbf1..5a51476ec92828 100644
---- a/arch/powerpc/net/bpf_jit_comp64.c
-+++ b/arch/powerpc/net/bpf_jit_comp64.c
-@@ -440,6 +440,23 @@ static int bpf_jit_emit_tail_call(u32 *image, struct codegen_context *ctx, u32 o
- 	return 0;
- }
- 
-+bool bpf_jit_bypass_spec_v1(void)
-+{
-+#if defined(CONFIG_PPC_E500) || defined(CONFIG_PPC_BOOK3S_64)
-+	return !(security_ftr_enabled(SEC_FTR_FAVOUR_SECURITY) &&
-+		 security_ftr_enabled(SEC_FTR_BNDS_CHK_SPEC_BAR));
-+#else
-+	return true;
-+#endif
-+}
-+
-+bool bpf_jit_bypass_spec_v4(void)
-+{
-+	return !(security_ftr_enabled(SEC_FTR_FAVOUR_SECURITY) &&
-+		 security_ftr_enabled(SEC_FTR_STF_BARRIER) &&
-+		 stf_barrier_type_get() != STF_BARRIER_NONE);
-+}
-+
- /*
-  * We spill into the redzone always, even if the bpf program has its own stackframe.
-  * Offsets hardcoded based on BPF_PPC_STACK_SAVE -- see bpf_jit_stack_local()
-@@ -864,10 +881,6 @@ int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct code
- 		 * BPF_ST NOSPEC (speculation barrier)
- 		 */
- 		case BPF_ST | BPF_NOSPEC:
--			if (!security_ftr_enabled(SEC_FTR_FAVOUR_SECURITY) ||
--					!security_ftr_enabled(SEC_FTR_STF_BARRIER))
--				break;
--
- 			switch (stf_barrier) {
- 			case STF_BARRIER_EIEIO:
- 				EMIT(PPC_RAW_EIEIO() | 0x02000000);
 diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index e8d9803cc6756f..c2d03364168f54 100644
+index c2d03364168f54..9e1731db76d86e 100644
 --- a/include/linux/bpf.h
 +++ b/include/linux/bpf.h
-@@ -2216,6 +2216,9 @@ bpf_prog_run_array_uprobe(const struct bpf_prog_array *array,
- 	return ret;
- }
+@@ -2219,6 +2219,9 @@ bpf_prog_run_array_uprobe(const struct bpf_prog_array *array,
+ bool bpf_jit_bypass_spec_v1(void);
+ bool bpf_jit_bypass_spec_v4(void);
  
-+bool bpf_jit_bypass_spec_v1(void);
-+bool bpf_jit_bypass_spec_v4(void);
++#define bpf_rcu_lock_held() \
++	(rcu_read_lock_held() || rcu_read_lock_trace_held() || rcu_read_lock_bh_held())
 +
  #ifdef CONFIG_BPF_SYSCALL
  DECLARE_PER_CPU(int, bpf_prog_active);
  extern struct mutex bpf_stats_enabled_mutex;
-@@ -2386,12 +2389,16 @@ static inline bool bpf_allow_uninit_stack(const struct bpf_token *token)
+diff --git a/include/linux/bpf_local_storage.h b/include/linux/bpf_local_storage.h
+index dcddb0aef7d8cb..87836e26ee0f5c 100644
+--- a/include/linux/bpf_local_storage.h
++++ b/include/linux/bpf_local_storage.h
+@@ -18,9 +18,6 @@
  
- static inline bool bpf_bypass_spec_v1(const struct bpf_token *token)
+ #define BPF_LOCAL_STORAGE_CACHE_SIZE	16
+ 
+-#define bpf_rcu_lock_held()                                                    \
+-	(rcu_read_lock_held() || rcu_read_lock_trace_held() ||                 \
+-	 rcu_read_lock_bh_held())
+ struct bpf_local_storage_map_bucket {
+ 	struct hlist_head list;
+ 	raw_spinlock_t lock;
+diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+index 9f9026a619d599..66eaf95f9dbeac 100644
+--- a/kernel/bpf/hashtab.c
++++ b/kernel/bpf/hashtab.c
+@@ -685,8 +685,7 @@ static void *__htab_map_lookup_elem(struct bpf_map *map, void *key)
+ 	struct htab_elem *l;
+ 	u32 hash, key_size;
+ 
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 
+ 	key_size = map->key_size;
+ 
+@@ -1122,8 +1121,7 @@ static long htab_map_update_elem(struct bpf_map *map, void *key, void *value,
+ 		/* unknown flags */
+ 		return -EINVAL;
+ 
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 
+ 	key_size = map->key_size;
+ 
+@@ -1240,8 +1238,7 @@ static long htab_lru_map_update_elem(struct bpf_map *map, void *key, void *value
+ 		/* unknown flags */
+ 		return -EINVAL;
+ 
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 
+ 	key_size = map->key_size;
+ 
+@@ -1309,8 +1306,7 @@ static long __htab_percpu_map_update_elem(struct bpf_map *map, void *key,
+ 		/* unknown flags */
+ 		return -EINVAL;
+ 
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 
+ 	key_size = map->key_size;
+ 
+@@ -1364,8 +1360,7 @@ static long __htab_lru_percpu_map_update_elem(struct bpf_map *map, void *key,
+ 		/* unknown flags */
+ 		return -EINVAL;
+ 
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 
+ 	key_size = map->key_size;
+ 
+@@ -1442,8 +1437,7 @@ static long htab_map_delete_elem(struct bpf_map *map, void *key)
+ 	u32 hash, key_size;
+ 	int ret;
+ 
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 
+ 	key_size = map->key_size;
+ 
+@@ -1478,8 +1472,7 @@ static long htab_lru_map_delete_elem(struct bpf_map *map, void *key)
+ 	u32 hash, key_size;
+ 	int ret;
+ 
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 
+ 	key_size = map->key_size;
+ 
+diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
+index 8aa7ca9c34c749..3126ec5097f157 100644
+--- a/kernel/bpf/helpers.c
++++ b/kernel/bpf/helpers.c
+@@ -37,8 +37,7 @@
+  */
+ BPF_CALL_2(bpf_map_lookup_elem, struct bpf_map *, map, void *, key)
  {
--	return cpu_mitigations_off() || bpf_token_capable(token, CAP_PERFMON);
-+	return bpf_jit_bypass_spec_v1() ||
-+		cpu_mitigations_off() ||
-+		bpf_token_capable(token, CAP_PERFMON);
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 	return (unsigned long) map->ops->map_lookup_elem(map, key);
  }
  
- static inline bool bpf_bypass_spec_v4(const struct bpf_token *token)
+@@ -54,8 +53,7 @@ const struct bpf_func_proto bpf_map_lookup_elem_proto = {
+ BPF_CALL_4(bpf_map_update_elem, struct bpf_map *, map, void *, key,
+ 	   void *, value, u64, flags)
  {
--	return cpu_mitigations_off() || bpf_token_capable(token, CAP_PERFMON);
-+	return bpf_jit_bypass_spec_v4() ||
-+		cpu_mitigations_off() ||
-+		bpf_token_capable(token, CAP_PERFMON);
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 	return map->ops->map_update_elem(map, key, value, flags);
  }
  
- int bpf_map_new_fd(struct bpf_map *map, int flags);
-diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
-index 517710c89fa505..00e42c9598fae1 100644
---- a/kernel/bpf/core.c
-+++ b/kernel/bpf/core.c
-@@ -3032,6 +3032,21 @@ bool __weak bpf_jit_needs_zext(void)
- 	return false;
+@@ -72,8 +70,7 @@ const struct bpf_func_proto bpf_map_update_elem_proto = {
+ 
+ BPF_CALL_2(bpf_map_delete_elem, struct bpf_map *, map, void *, key)
+ {
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 	return map->ops->map_delete_elem(map, key);
  }
  
-+/* By default, enable the verifier's mitigations against Spectre v1 and v4 for
-+ * all archs. The value returned must not change at runtime as there is
-+ * currently no support for reloading programs that were loaded without
-+ * mitigations.
-+ */
-+bool __weak bpf_jit_bypass_spec_v1(void)
-+{
-+	return false;
-+}
-+
-+bool __weak bpf_jit_bypass_spec_v4(void)
-+{
-+	return false;
-+}
-+
- /* Return true if the JIT inlines the call to the helper corresponding to
-  * the imm.
-  *
+@@ -129,8 +126,7 @@ const struct bpf_func_proto bpf_map_peek_elem_proto = {
+ 
+ BPF_CALL_3(bpf_map_lookup_percpu_elem, struct bpf_map *, map, void *, key, u32, cpu)
+ {
+-	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_trace_held() &&
+-		     !rcu_read_lock_bh_held());
++	WARN_ON_ONCE(!bpf_rcu_lock_held());
+ 	return (unsigned long) map->ops->map_lookup_percpu_elem(map, key, cpu);
+ }
+ 
 -- 
 2.53.0
 
