@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAAF2C3757
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 15:32:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1A029D266
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 15:33:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784388780; cv=none; b=cPgL/uJk6PUqR43AXZ2TLp8y9/Bb+aMiTVOwJIwJ98y9INFz5aUbaEDlwKq0MJ0bJDRVnHfWhxUpKiCCCgiPDlx6/r5NizsgKKxoNpY8erYer3nIlq01egLSI+Bxm5erUkjLa0XkFAktPQlKz1xV49Ca8NxtvG0mErz0uTOiG/4=
+	t=1784388782; cv=none; b=l4rAhsjKrcjy/jNpF5Wne7VXLuUQ7XCgt+g69IKSTbMEd/NIf6CGMG/1ebikhptF0dQCfcy1P9KTqD/7IrWDcXU3GNrz50Ft8hLGV3fe0WXEi9/UWsM7Rv94C2tPhRdbZsItv2WyobDS+iGX4DIiTPz3tI53Y+o7K9P5U7vMnzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784388780; c=relaxed/simple;
-	bh=xPjXlggnxAeem1C75EpcNeusoWq+h/PP6kWFx47ZrXs=;
+	s=arc-20240116; t=1784388782; c=relaxed/simple;
+	bh=/lpqxllZWHIgB/4vmSIKn5oXU/Het6C0cNonBZCAzd8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OPIb6cRT3KERA4/5esMeENSNmzJ4CFKTMvSLA3k85hg1t3Rry+EgMzps8uY8zAsj0ynBCtzEJ655fkT34JcBQJgyEFnAm7QCrDjP1dkIpStpnn0/73j0BoCuC9pD8C8aEv/enwBBpkaV+ErwE2iu/+zi8mMHsEZC9ers2kziSY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jvDYyxTp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TSaajdlimNCb9OtZzrx9Cx6vHTd2D4XUoF7vSW1naNaPiTDqrNSye1AA8gJ8rqiZ53wfM3sdV84JbVraZebPhPJTdlLTymsEHTCHfL6yGBwiDm7nNWOE7lZ/ZvgwGHIeJxiielEgt/2F6R0tn0l/3OHPS+KhyHABfk4Mv9xBgFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TI1mZI1N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jvDYyxTp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A68FF1F000E9;
-	Sat, 18 Jul 2026 15:32:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TI1mZI1N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846E21F00A3A;
+	Sat, 18 Jul 2026 15:32:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784388779;
-	bh=TxO4D14aS+jYFu+bnx3bIy/JXPfgMlGpUPJiT5HA2ww=;
+	s=k20260515; t=1784388780;
+	bh=d3YXQJocNlupqzyH/ymFsZpJySl2XQRfzW8CLDdUa6Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jvDYyxTpO+OXbA9U7vKsULU8I683BhJKtdgz1xpi2FFvwWaEub77t32s3Csah+Nkc
-	 +QD/A0THiH5jXKleHDk4hHhwwirPiFcTqPt1rAkLrtltVlyoigbAg8347a0y5IeyBY
-	 G4XfsUNWXsICe9OIprNnG/bQgvfqm0nzSnI5AtJWob6iHpZo36IF6E6EIrw6lbGxxd
-	 le2oQEqQ6hiUM0PIFiFnF66u2xvfey60vE3lWo58S6uwhO1/Y36yyt9vFEbOsskW1e
-	 CQgS3UGQ0xgcby8gEpAfyDVglHem683N63FN/S3K4I6BOegQdqouVSKQVbq609lWhC
-	 87kjMbsQ+l4/w==
+	b=TI1mZI1Nzl41GRkcGVSoSUjxD7tn07hGnqQWp7mOa3pJKx9+taZzjjSbA7mhlumdN
+	 gzwDxB3OOE3NroMX2bPsokt4alKzrnI169O46mrnvNi208WW6SAgVr2R9oOzKlzduz
+	 eNvm30rEYcDxcXc236jWI3DfpuzFaqTbKefmiy61hmuMB3GeDllGj+rReSLJIAB5xV
+	 tdv2HZ+OuYJMjPk4PCQWES/OLloNMRIXN4VEgoeVoQaq/hAvmcejmt+zeMTqeAGVn/
+	 ea/d7T+gzcOj3w2rqPmI8/3b1VuyzNq0nIXxKOPbXjetZGHhcmPZaITC0zqBvCOxwd
+	 e+XAmN/x7WwaQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christoph Hellwig <hch@lst.de>,
 	"Darrick J. Wong" <djwong@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
 	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] xfs: add a xfs_groups_to_rfsbs helper
-Date: Sat, 18 Jul 2026 11:32:56 -0400
-Message-ID: <20260718153257.3311310-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] xfs: only log freed extents for the current RTG in zoned growfs
+Date: Sat, 18 Jul 2026 11:32:57 -0400
+Message-ID: <20260718153257.3311310-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071441-surfacing-postwar-8451@gregkh>
+In-Reply-To: <20260718153257.3311310-1-sashal@kernel.org>
 References: <2026071441-surfacing-postwar-8451@gregkh>
+ <20260718153257.3311310-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,94 +50,59 @@ Content-Transfer-Encoding: 8bit
 
 From: Christoph Hellwig <hch@lst.de>
 
-[ Upstream commit 0ec73eb3f12350799c4b3fb764225f6e38b42d1e ]
+[ Upstream commit 44cccefe65749821d9a13523c8b763bf1262ef73 ]
 
-Plus a rtgroup wrapper and use that to avoid overflows when converting
-zone/rtg counts to block counts.
+Otherwise a power fail or crash during growfs could lead to an
+elevated sb_rblocks counter.
 
+Note that the step function is much simpler compared to the classic RT
+allocator as zoned RT sections must be aligned to real time group
+boundaries.
+
+Fixes: 01b71e64bb87 ("xfs: support growfs on zoned file systems")
+Cc: <stable@vger.kernel.org> # v6.15
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Stable-dep-of: 44cccefe6574 ("xfs: only log freed extents for the current RTG in zoned growfs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/libxfs/xfs_group.h    | 9 +++++++++
- fs/xfs/libxfs/xfs_rtgroup.h  | 8 ++++++++
- fs/xfs/xfs_zone_gc.c         | 3 +--
- fs/xfs/xfs_zone_space_resv.c | 8 +++-----
- 4 files changed, 21 insertions(+), 7 deletions(-)
+ fs/xfs/xfs_rtalloc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/xfs/libxfs/xfs_group.h b/fs/xfs/libxfs/xfs_group.h
-index 4423932a231300..4ae638f1c2c519 100644
---- a/fs/xfs/libxfs/xfs_group.h
-+++ b/fs/xfs/libxfs/xfs_group.h
-@@ -98,6 +98,15 @@ xfs_group_max_blocks(
- 	return xg->xg_mount->m_groups[xg->xg_type].blocks;
- }
+diff --git a/fs/xfs/xfs_rtalloc.c b/fs/xfs/xfs_rtalloc.c
+index 59fad43063a781..907c88034c8dc4 100644
+--- a/fs/xfs/xfs_rtalloc.c
++++ b/fs/xfs/xfs_rtalloc.c
+@@ -887,8 +887,7 @@ xfs_growfs_rt_sb_fields(
  
-+static inline xfs_rfsblock_t
-+xfs_groups_to_rfsbs(
-+	struct xfs_mount	*mp,
-+	uint32_t		nr_groups,
-+	enum xfs_group_type	type)
-+{
-+	return (xfs_rfsblock_t)mp->m_groups[type].blocks * nr_groups;
-+}
-+
- static inline xfs_fsblock_t
- xfs_group_start_fsb(
- 	struct xfs_group	*xg)
-diff --git a/fs/xfs/libxfs/xfs_rtgroup.h b/fs/xfs/libxfs/xfs_rtgroup.h
-index d4fcf591e63d08..a94e925ae67cb6 100644
---- a/fs/xfs/libxfs/xfs_rtgroup.h
-+++ b/fs/xfs/libxfs/xfs_rtgroup.h
-@@ -371,4 +371,12 @@ static inline int xfs_initialize_rtgroups(struct xfs_mount *mp,
- # define xfs_rtgroup_get_geometry(rtg, rgeo)	(-EOPNOTSUPP)
- #endif /* CONFIG_XFS_RT */
- 
-+static inline xfs_rfsblock_t
-+xfs_rtgs_to_rfsbs(
-+	struct xfs_mount	*mp,
-+	uint32_t		nr_groups)
-+{
-+	return xfs_groups_to_rfsbs(mp, nr_groups, XG_TYPE_RTG);
-+}
-+
- #endif /* __LIBXFS_RTGROUP_H */
-diff --git a/fs/xfs/xfs_zone_gc.c b/fs/xfs/xfs_zone_gc.c
-index d18c43598d4b39..935b21c2b3bf52 100644
---- a/fs/xfs/xfs_zone_gc.c
-+++ b/fs/xfs/xfs_zone_gc.c
-@@ -181,8 +181,7 @@ xfs_zoned_need_gc(
- 	available = xfs_estimate_freecounter(mp, XC_FREE_RTAVAILABLE);
- 
- 	if (available <
--	    mp->m_groups[XG_TYPE_RTG].blocks *
--	    (mp->m_max_open_zones - XFS_OPEN_GC_ZONES))
-+	    xfs_rtgs_to_rfsbs(mp, mp->m_max_open_zones - XFS_OPEN_GC_ZONES))
- 		return true;
- 
- 	free = xfs_estimate_freecounter(mp, XC_FREE_RTEXTENTS);
-diff --git a/fs/xfs/xfs_zone_space_resv.c b/fs/xfs/xfs_zone_space_resv.c
-index 9cd38716fd25f6..0e54e557a585e3 100644
---- a/fs/xfs/xfs_zone_space_resv.c
-+++ b/fs/xfs/xfs_zone_space_resv.c
-@@ -54,12 +54,10 @@ xfs_zoned_default_resblks(
+ static int
+ xfs_growfs_rt_zoned(
+-	struct xfs_rtgroup	*rtg,
+-	xfs_rfsblock_t		nrblocks)
++	struct xfs_rtgroup	*rtg)
  {
- 	switch (ctr) {
- 	case XC_FREE_RTEXTENTS:
--		return (uint64_t)XFS_RESERVED_ZONES *
--			mp->m_groups[XG_TYPE_RTG].blocks +
--			mp->m_sb.sb_rtreserved;
-+		return xfs_rtgs_to_rfsbs(mp, XFS_RESERVED_ZONES) +
-+				mp->m_sb.sb_rtreserved;
- 	case XC_FREE_RTAVAILABLE:
--		return (uint64_t)XFS_GC_ZONES *
--			mp->m_groups[XG_TYPE_RTG].blocks;
-+		return xfs_rtgs_to_rfsbs(mp, XFS_GC_ZONES);
- 	default:
- 		ASSERT(0);
- 		return 0;
+ 	struct xfs_mount	*mp = rtg_mount(rtg);
+ 	struct xfs_mount	*nmp;
+@@ -900,7 +899,8 @@ xfs_growfs_rt_zoned(
+ 	 * Calculate new sb and mount fields for this round.  Also ensure the
+ 	 * rtg_extents value is uptodate as the rtbitmap code relies on it.
+ 	 */
+-	nmp = xfs_growfs_rt_alloc_fake_mount(mp, nrblocks,
++	nmp = xfs_growfs_rt_alloc_fake_mount(mp,
++			xfs_rtgs_to_rfsbs(mp, rtg_rgno(rtg) + 1),
+ 			mp->m_sb.sb_rextsize);
+ 	if (!nmp)
+ 		return -ENOMEM;
+@@ -1189,7 +1189,7 @@ xfs_growfs_rtg(
+ 	}
+ 
+ 	if (xfs_has_zoned(mp)) {
+-		error = xfs_growfs_rt_zoned(rtg, nrblocks);
++		error = xfs_growfs_rt_zoned(rtg);
+ 		goto out_rele;
+ 	}
+ 
 -- 
 2.53.0
 
