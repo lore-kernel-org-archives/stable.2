@@ -1,82 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5961C385D97;
-	Sat, 18 Jul 2026 14:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D9037FF5E
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 14:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784383910; cv=none; b=gK8z6pJo3iGFFTSg6eW0lTc44T4D2rKdGiL99Srg+OUzXdPY6EQ37jt0ia5NMMUKzHvSu/2+/V8aV/qhSKKcj0rhC4QfGHfBDBgMl+HgrCiuNmtkOeLbYXpd9Blqdkbqd8jwaFLDwc5IyMPZZ+x42bWndUgsyKIUf6bn+1OVmpk=
+	t=1784384034; cv=none; b=YV7e08tFdwSj8ZNyLHfCnXZuGmHisYJra5wGLQBilIm+MWBgoiQpxLRy4S4oOaRPtj0Z4fk/MMWGcp3qyNVQn7RvqT86EZ15WKobVYYKGdaW8gAneSBXqvD1OtE7IrsKkHofuPOR+GfeNnngP6mIJxLinMjR/6Qo6Y4Edg2eDz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784383910; c=relaxed/simple;
-	bh=erAc4HFvyvv/O6FdqjEfKgP67aqIhjzlmL/bje4xYQs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DVIsPitSPP2yZ9uNcN4mQss0cBiy5VrTOkmUrfBDwsQJEJTA4GqbTKse7xIAo+NFoPSo9KMmQdAFtv1gR3SUz4TUtP7YY+8YGPxfmf18lx6iXxet0iqVFta3bk2z6fFFzrJxVaENwjR+KVEL5FLk0yOxe+FYnIacNpm+exKC2zU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B2phgvnU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784384034; c=relaxed/simple;
+	bh=l02zWMAuDP6KcJlfFyW+ZETLma/XHm2vVvlqj9+yuVU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PZWNGvTM5c+jDSiSdurQ4zDfXJF+0IfsSATDxS+k5YrptoonaXBMv03vUy3Jd3ABPVUHrdflox+lGuPvUZvBdMyPhap0DD6ZI0Y56zhhWsGq5OF48W9q3kJ+VSMfTIsU4NKPXkbblqVDwVbJVyWYrocwqQXnV8txJIESwW7uhMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=F5soukgo; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B2phgvnU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A0991F000E9;
-	Sat, 18 Jul 2026 14:11:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784383908;
-	bh=gIDt1r93beiDShx7BRFm57xEWD75yxWybQQfRhTyHWE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B2phgvnUaHOBkwP58pA/Nn4nfBRMXK7dA5EpqowpdF3i0pDgKJFXL/6OWpF3B+wdd
-	 efzqYIkXF9dnavIyUS9nQU/uZyriymPulHTYEI62rFj4kWsqWlbHPb7K85PAsMHuva
-	 zGs4WIVAS5xyGbXC0GhHugw0b8FUSEezUIZwovzB/lRanLDtqe365b4RGPWmdOh6e5
-	 i4QFy3p15fM7cfae5gQ5hPXlFOyECvnwH2oSkq4F7gOcTMZDoOIrqdoJVy0CD0JSAQ
-	 PHzSNP3L27bibVd2c7FhviqsB9EkKvYfT2gdauYd2uY/iey/UjXFxVsl/PQZcBfV80
-	 PVPwH9s6fYSKQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 7.1 000/533] 7.1.4-rc2 review
-Date: Sat, 18 Jul 2026 16:11:38 +0200
-Message-ID: <20260718141138.84184-1-ojeda@kernel.org>
-In-Reply-To: <20260717101912.682013354@linuxfoundation.org>
-References: <20260717101912.682013354@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F5soukgo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784384032;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CCU2rGh5Cxun9d6ye08sFZOUqBIoJdbLrfNH/ZbKECM=;
+	b=F5soukgout7pr03SQPtdm2uzxyOgoK5iWWCKBo9oHON+GlGgyc9uHThI5RcUtx2cfcLzyS
+	hbt1zD75mgnVh8uk6YarJYNZO2Em60JE7X2HgZtDqzHUI39vMI8Y7M7w/TdK6ZP7yDODtu
+	EH//8UXmEAnU2sXWbxZkRg4VrkTwrLU=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-554-YKB008Z-PliMca8TyjKf5Q-1; Sat,
+ 18 Jul 2026 10:13:46 -0400
+X-MC-Unique: YKB008Z-PliMca8TyjKf5Q-1
+X-Mimecast-MFC-AGG-ID: YKB008Z-PliMca8TyjKf5Q_1784384024
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DC49018007ED;
+	Sat, 18 Jul 2026 14:13:43 +0000 (UTC)
+Received: from fedora (unknown [10.44.49.164])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 7BBCE158A;
+	Sat, 18 Jul 2026 14:13:39 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Sat, 18 Jul 2026 16:13:43 +0200 (CEST)
+Date: Sat, 18 Jul 2026 16:13:37 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Bradley Morgan <include@grrlz.net>
+Cc: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>, brauner@kernel.org,
+	akpm@linux-foundation.org, jack@suse.cz, avagin@gmail.com,
+	ptikhomirov@virtuozzo.com, mjguzik@gmail.com,
+	linux-kernel@vger.kernel.org, AutonomousCodeSecurity@microsoft.com,
+	tgopinath@linux.microsoft.com, kys@microsoft.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] pid: fix cad_pid use-after-free race
+Message-ID: <aluKEZtkhbC0yUcT@redhat.com>
+References: <20260718032000.9184-1-blbllhy@gmail.com>
+ <20260718032000.9184-2-blbllhy@gmail.com>
+ <alt9fbrO1WlJg-Jh@redhat.com>
+ <FF14144B-5235-4805-8E78-5C1AFBCC631A@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <FF14144B-5235-4805-8E78-5C1AFBCC631A@grrlz.net>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Fri, 17 Jul 2026 12:41:50 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+On 07/18, Bradley Morgan wrote:
 >
-> This is the start of the stable review cycle for the 7.1.4 release.
-> There are 533 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 19 Jul 2026 10:18:26 +0000.
-> Anything received after that time might be too late.
+> On July 18, 2026 2:19:57 PM GMT+01:00, Oleg Nesterov <oleg@redhat.com>
+>
+> > Hmm. Why do we need get/put_pid() ? I think that
+> >
+> > 	rcu_read_lock();
+> > 	ret = kill_pid(rcu_dereference(cad_pid), sig, priv);
+> > 	rcu_read_unlock();
+> >
+> > 	return ret;
+> >
+> > should work just fine?
+>
+> youre right that the get/put is redundant. kill_pid() doesnt sleep, it just
+> grabs tasklist_lock,
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+(no it doesn't take tasklist)
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+> but i dont think either form is actually safe, and thats the bit id like
+> Cen to address. rcu_read_lock() only protects the pid if the freeing side
+> defers to a grace period. on the cad_pid path it doesnt:
+>
+> proc_do_cad_pid():
+> 	put_pid(xchg(&cad_pid, new_pid));
 
-Thanks!
+I must have missed something.
 
-Cheers,
-Miguel
+But this patch adds synchronize_rcu() before the final put_pid() ?
+
+And. If kill_pid(rcu_dereference(cad_pid)) was not safe under rcu_read_lock(),
+then get_pid(rcu_dereference(cad_pid)) would be equally unsafe?
+
+Oleg.
+
