@@ -1,100 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA943207A20
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 11:21:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9EE35972;
+	Sat, 18 Jul 2026 11:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784373664; cv=none; b=rT9Ga6qhTPUYEv53iKOLQOTpwA89Eg8xS9Amp2HZ4avQa9mD/+pzc+ij0Qbk+0Km1k7rF8GKabW2HpW9JPRgRqQk+gvhrlLL9iFWsNHgEkSZSsrfMP0V13/yEVLPkgAfDlNyWGGLRb2MbR2aBDAbXxFeZzAfAOhvAUZhDKEBVYo=
+	t=1784374223; cv=none; b=RWVplLxeX2QyHlMH2RKeOWO1YazX29mU2VUXN7F23yQfsg9L2IM7hRmUzpUekppjzp8Wd5ssHgOHLjCezZ3ANCbIyrjT+yDJz5gLu1uoYBY8kEkyT2PN6TklJEyMkodRmwWB/LpIa1w3rNO4U5/U1CpE2GkHQrTfg9ImOrHpUD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784373664; c=relaxed/simple;
-	bh=tYWdO0NoKP4oLMpV0JjPyN8vmRFD5US/VLJQ0iXJdQU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jbe8fhgbbzt2fWrqOLSsmSuSSjE6zKAwh0CMrfOkMAk9NoRW/hCjchqmDqVZafR5rRG32yVd5N/NSQj2VX7CW8VXjIaavPdWNePEzYr4+V1SY9RCGiokJhMduUKFFqnLZdn8zEi9jyZrGRErCx2q0WTe3da6cxVcDHIouS47u68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFTczWmt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784374223; c=relaxed/simple;
+	bh=boFit2Hy/EG+JX1++7ZX5P/mBiURjKww6YJUqa1i2Kg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Dvs1avSN8P65kAe+ObROMP2AO2Iwotrqw4qClRnPF2ySI1TFrddoZ5KlkZU/i5RLjRU1wdCMrv/Q9iRycDGLQXFDimH/mLTesZgjDv7m2JQABCeAvb+ZY3GOEuqgFc5qqRtpDeHYz6W8LAM6a3ui7Nl6D0JJIq4A53L1/QwAYMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=V5YQC7Ue; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFTczWmt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E183C1F000E9;
-	Sat, 18 Jul 2026 11:21:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784373663;
-	bh=v6yFpgJchAczlSnHTdMML5t+xEZQf7UtNHN4vyyb7hk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AFTczWmtZjipmnggPzGChV9wHoas40C+hZKIoznE0Gogd9NoFyW53fRGvxeI4tr5R
-	 pM74yB5OOcQ2l5CYQb/v2KOBcxS+h4P/sRcAd/pePaxinBYjauYZURU66TiVH6r71F
-	 758eKXHBts0d+wvICrlR3t8zzis6Fx1jyU87KlW7cccWmb4jGugn0djS1UnTLQTWGc
-	 8fGlV6Ftbl4yyHwWfj9QnS7xYYWksp4hXMOuDodmAelzQMthGghS+hn7/TtvNQ1aZY
-	 zNxslKfSgtI3Yf4yT2pyy1E6rWQ13olaBWzA1jqmQDr6Uv/yL1/pf1rgZbR1tOFMB1
-	 h2N6K6V/0zmqQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yousef Alhouseen <alhouseenyousef@gmail.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	syzbot+b7dfbed0c6c2b5e9fd34@syzkaller.appspotmail.com,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] xfs: use null daddr for unset first bad log block
-Date: Sat, 18 Jul 2026 07:21:01 -0400
-Message-ID: <20260718112101.2964955-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071429-resilient-tidy-1cad@gregkh>
-References: <2026071429-resilient-tidy-1cad@gregkh>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="V5YQC7Ue"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4h2Phm5HFbzKnR5;
+	Sat, 18 Jul 2026 13:30:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784374216;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=impHDjenMIJErEGwDatH0w1SiMFR8u879Cjzsuf2iok=;
+	b=V5YQC7UeDTEjbe402VoyHW+O4eByuzyQMKs562aNH1f1PTDQgWRyRhLG7k+62kPRjDGM4b
+	HhtZReOzxd2itJtWIzsgc0sQoYwII8y83BsFEa0yQwL2dILam3EikOXSc6HU/5RHFcBZqe
+	WcGgYa99X4UMr2OQqqLAccP3BS6Ajl3NHG70Nnm9IT/HazIaCA5AKhl7Q/rhBMJ9Q04yxE
+	85kU88G6Svq95H+ISh4b/KSgjTLCR4ObGddNhGGJDOL99f08U+XtEQQ3hcddoMQfpyljbO
+	5L/8bUmlTUdqGUYRPUyjH3pmg3CaWpquyzsYU16qvcrkigaa0PTs+iWMeFIesw==
+Message-ID: <49ad090f48d0ad38a46642c2ddd019ae3cfebc82.camel@mailbox.org>
+Subject: Re: [PATCH] USB: phy: fsl-usb: fix missing static keywords
+From: Manuel Ebner <manuelebner@mailbox.org>
+To: Johan Hovold <johan@kernel.org>, Greg Kroah-Hartman
+	 <gregkh@linuxfoundation.org>
+Cc: linux-next@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Date: Sat, 18 Jul 2026 13:30:11 +0200
+In-Reply-To: <20260717154957.1853976-1-johan@kernel.org>
+References: <20260717154957.1853976-1-johan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: defd08d209d5d9186f3
+X-MBO-RS-META: qb4kafrytksnh784kfinnqhmnj564f6y
 
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+On Fri, 2026-07-17 at 17:49 +0200, Johan Hovold wrote:
+> A recent change enabling compile testing of a Freescale dual-role
+> controller indirectly enabled a USB PHY driver to be built. That driver
+> in turn is missing a bunch of static keywords which results in warnings
+> like:
+>=20
+> drivers/usb/phy/phy-fsl-usb.c:105:5: error: no previous prototype for 'wr=
+ite_ulpi' [-
+> Werror=3Dmissing-prototypes]
+> =C2=A0 105 | int write_ulpi(u8 addr, u8 data)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0 ^~~~=
+~~~~~~
+>=20
+> which consequently breaks -Werror builds.
+>=20
+> Add the missing static keywords.
+>=20
+> Fixes: 0807c500a1a6 ("USB: add Freescale USB OTG Transceiver driver")
+> Cc: stable@vger.kernel.org	# 3.0
 
-[ Upstream commit cc9af5e461ea5f6e37738f3f1e41c45a9b7f45d6 ]
+Add linux-next@vger.kernel.org
 
-xlog_do_recovery_pass() may return before setting first_bad.  The caller
-must distinguish that case from an error at a valid log block, including
-block zero after the log wraps.
+> Reported-by: Mark Brown <broonie@kernel.org>
+> Link: https://lore.kernel.org/r/4f9f5ff9-8eaa-4bd5-9331-37119f78e13f@sire=
+na.org.uk
+> Signed-off-by: Johan Hovold <johan@kernel.org>
 
-Initialize first_bad to XFS_BUF_DADDR_NULL and test it explicitly before
-treating the error as a torn write.
+Reviewed-by: Manuel Ebner <manuelebner@mailbox.org>
 
-Fixes: 7088c4136fa1 ("xfs: detect and trim torn writes during log recovery")
-Suggested-by: Darrick J. Wong <djwong@kernel.org>
-Reported-by: syzbot+b7dfbed0c6c2b5e9fd34@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b7dfbed0c6c2b5e9fd34
-Cc: stable@vger.kernel.org # v4.5
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ adjusted hunk offsets for context drift and dropped an inapplicable whitespace-only end-of-file hunk whose context doesn't exist in 5.10 ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Thanks
+ Manuel
+
+> ---
+> =C2=A0drivers/usb/phy/phy-fsl-usb.c | 52 +++++++++++++++++---------------=
 ---
- fs/xfs/xfs_log_recover.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
-index e61f28ce3e44e0..86831b1bbf58fe 100644
---- a/fs/xfs/xfs_log_recover.c
-+++ b/fs/xfs/xfs_log_recover.c
-@@ -1034,7 +1034,7 @@ xlog_verify_head(
- {
- 	struct xlog_rec_header	*tmp_rhead;
- 	char			*tmp_buffer;
--	xfs_daddr_t		first_bad;
-+	xfs_daddr_t		first_bad = XFS_BUF_DADDR_NULL;
- 	xfs_daddr_t		tmp_rhead_blk;
- 	int			found;
- 	int			error;
-@@ -1063,7 +1063,8 @@ xlog_verify_head(
- 	 */
- 	error = xlog_do_recovery_pass(log, *head_blk, tmp_rhead_blk,
- 				      XLOG_RECOVER_CRCPASS, &first_bad);
--	if ((error == -EFSBADCRC || error == -EFSCORRUPTED) && first_bad) {
-+	if ((error == -EFSBADCRC || error == -EFSCORRUPTED) &&
-+	    first_bad != XFS_BUF_DADDR_NULL) {
- 		/*
- 		 * We've hit a potential torn write. Reset the error and warn
- 		 * about it.
--- 
-2.53.0
-
+> =C2=A0drivers/usb/phy/phy-fsl-usb.h |=C2=A0 6 ++--
+> =C2=A02 files changed, 29 insertions(+), 29 deletions(-)
+>=20
+> [...]
