@@ -1,121 +1,151 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94FF339858;
-	Sat, 18 Jul 2026 10:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75DF2DB794;
+	Sat, 18 Jul 2026 10:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784371363; cv=none; b=I5aXC5XeNLbmWhNUmEctbjPm3hZrMdqhoMbBrgllHNYpZ4e0CFPYKfcGsp08QeufBpssbToLkcvYISArwqGGH6LSvZaTbSOcz3PM8H3EnR2iO2zv3lldgzeyFyUFJ+Za/IW3A0uW2mIYLKs/viuCqNNZ3oILtp6HQzBMkzYVlW8=
+	t=1784372103; cv=none; b=Z49NWUgIcG01ZpnayebeTNvloq2IkGpMgKbxCkqvKDw1pchQLMdPgD4MmznnExBD3WbpTRmAReQzHsVDLAgxz9QUPePYwJmqwzKBCw5FfDteBHj4d3T95Dq6EXWszKkbxxgL/EN+Mjl6uDzmUURHmtFeK65acZzchyQ6jflAN8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784371363; c=relaxed/simple;
-	bh=wE5jTxIYZmSYp+7Y8nhpz79gIGpKWgDrQwESwB+ta1A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AJoUhFgcHREzyGXPm0xfTDiKIQmQDW8FMYnY4v9vDtdl5lKHIPzxlPMwAd+LwcAJxauLK7n3dpbcsX0Auq0ngBzxIljvYbnaiLZ1ZuULGQm1DyRmcS+P2pE3HLSnlXtbH8wQZvK+ld7gj67XfwHCT7mLg6/v4RVW9mzJwJzm0ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=EurtRQWY; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=TYOcPjNG; arc=none smtp.client-ip=202.12.124.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1784372103; c=relaxed/simple;
+	bh=VPez2kCk8EUMWhoDf8qATR/LDnFE4PepJlxC3mOAojQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cSkS1PLVHW6511OZex2mVJsIuwm3od81JrCleokIcnkGeM+eOkkFsCuvG7o7H2tqURKFi0bSTvk4T2lUN3bLjAfb/haUDlz688J8R1urFXeWhOGhGL7eGbPtQT1CUyxZUhkV9How29rayzDdfncLeuOi1huO6BrgBH9Z4DUarCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aiI8R0kP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="EurtRQWY";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="TYOcPjNG"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 0E3EF7A008E;
-	Sat, 18 Jul 2026 06:42:38 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-10.internal (MEProxy); Sat, 18 Jul 2026 06:42:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1784371357;
-	 x=1784457757; bh=MHDTZdhiY13X04nGIOG40YQ1ACv1dv6Ds8lAgiIAZnc=; b=
-	EurtRQWYy4ZhLNwQP/7I+V3WXI7aXvhl0xjeWzQmTLxthoIMnB1Uy51WwWsfcBdG
-	6U1s0LsQ1ESb1JNgZeFASlW7K/32q+bkpaQR1tOOaQVh8XZdIWU6JzdxmgDnFIlo
-	oVAPkZD9d49fm8DbPUkQ1g+Mh7aR5e/Nb+b2fPTCAwrjstFvng1aaiKUpU9L9/Ho
-	SbVwwSoxEbQj6b/V4FYr+N01ZAP+WaGR2mbcH/TFzv//AJCofaX6YrMVKnQ4UMYP
-	9X9DCPh8x8Qy2Xmr1Wklhx/AE98w7cxC4XBei8VYvnwWjmuNJPRtyY8chvoc57Mk
-	fmVzAJeUmFQj+30FlvvXAw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784371357; x=
-	1784457757; bh=MHDTZdhiY13X04nGIOG40YQ1ACv1dv6Ds8lAgiIAZnc=; b=T
-	YOcPjNGxgce+jjlRNmroPjGFpz7GkrneJSzlNjVlus97Qx88WBD11YJ+fzje8sDP
-	syn8HT5S7+dCRjBfH6ZPquMid6Lud+N24J4F1JGSmsNpgIXnuP9y1I9gbCB6k+9W
-	UNYrPXUhAQCAbwpNdwFX60jjzsxV0snn4WF1urhhis+QtGKmr8tCU2gKAYyVzATA
-	o2gXvL+qwjKT57TMr4R7lZpxUrq7wUqfI4FZUi6agIbSsUQY9iB3OJRvI0rl8ccM
-	4p2p8IC3argVNyxrdArfnMcHPHJ0kOpAcFSTBGIt/m2vPmxRT7bx/xiAxzpmCK0Z
-	KAwok8LimvWr5lP4pG0+w==
-X-ME-Sender: <xms:nVhbamswGkEfJeV1LCDS8OqjQdq9kGWOcHS-MTpXtCfQuB1EU5VZbg>
-    <xme:nVhbanUOTojJaJkxOMmUvXQRacDwmneX6J1AZ_cIG6zt7OIDKi9gCYXTZz53YCEyD
-    y_SC6pSVoZiPtoiKYwx5U5cmQHXeD3QstBIPLgRDl47MZ36sh3-cdk>
-X-ME-Received: <xmr:nVhbatQsKf3bIFxSUykwDoAbog-O7DHhOASzvCHYpDTKWvlgL_-HnTj6S8N-R4ryTmeTYc2kQN9tHJDrJZUH3KakcGXyfnph>
-X-ME-Proxy-Cause: dmFkZTEPkwvfGWjBHlO+XqD/FkXaMGT4eo2Knm3i5/MSuFkbsEBTCTaTUM6ZZHJ7Gh4zwn
-    ylW/HZ+AbIYhYs30hP/GITyxdJJqXkZoi26HF9ToMAKkdXsNtG1QcNL9XSeT5K8w6vUwQ+
-    TEEd0UGwduTsE1A5bPAzT6cuRg9MyijymZkqOnX+drqmKIAeYjxgBIKsB9E6WMRJyCJs3y
-    rI5Iw70AeI4SlqwVExLP0a8j7/ofPtD/rSIB7riUyjjfXxNsBYcaiuI3zjqQ38UXgRM1ms
-    jZa1a2pmnjpds44Chu2w4lKLtcfd057XYWmXZhqzfzLGYIkwYHTkRYUhoy3Y3/a+tM6/NW
-    5klyY5JOF44XZPJXgVtOosdto8M+03ck9LvYmx6xCEx6S2m4Bqp/0LvooW35esdcDZ7oQ0
-    30frv7/8QPk3lFC5V/Musl14R+7ywdfVwC2DuDK82ZQuP/GcL0i+Kny4hWnrnaMTIF2fdp
-    54ErEzfChEtIdJEqtXWQnAS9lOkOsB0OQf/OFvJWsJEtfsUuZ757L1M0ZlqV11yymat0uC
-    yFeli+kIwbzmWHlgEXjAdnHLuGFdmBFPKfgqHdBgojtjLqcQmzwQDRg77iUuaeHlkOlJDS
-    L8s5msE/gk9439o/e3lBm37qj9mcvf87xw4AhpSsdPX9SreoD0aGtNrZ0WSw
-X-ME-Proxy: <xmx:nVhbalJ4sUc2mvWMLCbeEblKpIQPcv7tRvTQDsQAMHzUcpATOhIOlA>
-    <xmx:nVhbau2frXsyBl1iMbIyo8kcDd4ZoOSSMw94THNHqO5pjepDQsIl_w>
-    <xmx:nVhbaoKcc1szAl4p0xCYQE2HvsprB8HAeMnLX5WjJ1QPZEAI8FOggA>
-    <xmx:nVhbaumQeNwEYabgAJvmaXSQkH_SC50fJzzqVbkV6iRsONPjX2GXZw>
-    <xmx:nVhbahAbs7kWZaJVI8kBVomSxxmFz0TbPhWq-Dy8GFYO0H9n1FunhvZR>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 18 Jul 2026 06:42:34 -0400 (EDT)
-Message-ID: <5178ec6b-6f9f-4f89-8685-87c630c769a9@pobox.com>
-Date: Sat, 18 Jul 2026 03:42:32 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aiI8R0kP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B31D1F000E9;
+	Sat, 18 Jul 2026 10:54:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784372102;
+	bh=6Wk95nsyLty8ZIxsRyt5wCr5/RC7WWcTwZjDgbSZNSs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aiI8R0kPNLSytO43AkjaOcOjJhYehi+jiu0VA1Efoyqtg1kBLTrE0UTrpEjDlMu/K
+	 dnFZ5QtHXVwRiuDjw8yONGi0FSYk9RBir2PD/U99wZJ1Vb4q+9Q4RbVpWwNVcr91Yq
+	 r26wxPsubsi+R9hxTg+TqhAGi1e756ZR7odtaCpKb0PSYO/H5GFAFLy4cbmG5YQ0re
+	 pgLWdpkAR+xyXqa9zjTTRyaD6kK/ktq2b15gni9Bc+q78KU5jfhbAVk+s5GWZpn6Tg
+	 mzKAgRuA9T7wlRb+kZ1gwGzSToi43PYttqNOzzE6ePr5aWjBeK4df/8CUqk7vVM6BB
+	 us/qCDz52pdng==
+Date: Sat, 18 Jul 2026 13:54:50 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@suse.com>, Uladzislau Rezki <urezki@gmail.com>,
+	Toshi Kani <toshi.kani@hpe.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	David Carlier <devnexen@gmail.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	"Denis V. Lunev" <den@virtuozzo.com>, stable@vger.kernel.org
+Subject: Re: [PATCH mm-hotfixes v5 3/5] x86/mm/pat: acquire init_mm read lock
+ on attribute change to avoid UAF
+Message-ID: <altbeuTZ0HCz_7HS@kernel.org>
+References: <20260717-series-vmap-race-fix-v5-0-606a0ac6d3e5@kernel.org>
+ <20260717-series-vmap-race-fix-v5-3-606a0ac6d3e5@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 7.1 000/533] 7.1.4-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260717101912.682013354@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260717101912.682013354@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717-series-vmap-race-fix-v5-3-606a0ac6d3e5@kernel.org>
 
-On 7/17/26 3:41 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.4 release.
-> There are 533 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Fri, Jul 17, 2026 at 06:30:09PM +0100, Lorenzo Stoakes (ARM) wrote:
+> A previous commit protected us against races between ptdump and CPA
+> collapse, however one still exists between attribute changes and collapse
+> as reported by Denis V. Lunev (linked).
 > 
-> Responses should be made by Sun, 19 Jul 2026 10:18:26 +0000.
-> Anything received after that time might be too late.
+> When an attribute change arises, a lockless page table walker obtains a PTE
+> entry, which is later written to via set_pte_atomic():
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.4-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
+> ...
+> -> change_page_attr_set_clr()
+> -> __change_page_attr_set_clr()
+> -> __change_page_attr()
+> 	-> _lookup_address_cpa()
+> 	-> lookup_address_in_pgd_attr()
+> 	-> [ lockless page table walker ]
+> -> set_pte_atomic()
 > 
-> thanks,
+> There is nothing preventing a concurrent CPA collapse which can free the
+> PTE that was retrieved here, resulting in a use-after-free.
 > 
-> greg k-h
+> With the mmap write lock taken on init_mm over CPA collapse, we can now
+> resolve this race by acquiring an mmap read lock on init_mm over
+> __change_page_attr_set_clr().
+> 
+> This locks across the whole operation over which the walk and the PTE entry
+> write occurs, solving the race.
+> 
+> It is safe to do this here, as no spinlocks are held upon entry to
+> __change_page_attr_set_clr().
+> 
+> The CPA_COLLAPSE flag is only set by set_memory_rox(), which exclusively
+> operates upon vmalloc ranges, and on x86 only within the module mapping
+> space.
+> 
+> This is important, because some callers directly invoke
+> __change_page_attr_set_clr(), bypassing this lock. However, none of these
+> operate within the module mapping space.
+> 
+> * cpa_process_alias() - a recursive helper called by
+>   __change_page_attr_set_clr().
+> * __set_memory_enc_pgtable() - operates on the direct mapping and (via
+>   __vmbus_establish_gpadl()) the vmalloc mapping space.
+> * __set_pages_[n]p() - called by set_direct_map_[invalid, default,
+>   valid]_noflush(), __kernel_map_pages() - operates on the direct map.
+> * kernel_[un]map_pages_in_pgd() - operates on EFI ranges.
+> 
+> This work is based upon Denis V. Lunev's excellent analysis of the bug with
+> gratitude.
+> 
+> Link: https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org/
+> Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  arch/x86/mm/pat/set_memory.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+> index d1e63f7d267f..301fb9e77d91 100644
+> --- a/arch/x86/mm/pat/set_memory.c
+> +++ b/arch/x86/mm/pat/set_memory.c
+> @@ -2122,7 +2122,9 @@ static int change_page_attr_set_clr(unsigned long *addr, int numpages,
+>  	cpa.curpage = 0;
+>  	cpa.force_split = force_split;
+>  
+> -	ret = __change_page_attr_set_clr(&cpa, 1);
+> +	/* Avoid race with concurrent CPA collapse. */
+> +	scoped_guard(mmap_read_lock, &init_mm)
+> +		ret = __change_page_attr_set_clr(&cpa, 1);
 
-Tested on several amd64 systems and an arm64 virtual machine. Working
-well, no regressions observed.
+There's a small issue with this. debug_pagealloc_unmap_pages() ends up here
+and since it's called from __free_pages() it can be in an atomic context.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+>  
+>  	/*
+>  	 * Check whether we really changed something:
+> 
+> -- 
+> 2.55.0
+> 
 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+Sincerely yours,
+Mike.
