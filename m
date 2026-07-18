@@ -1,42 +1,42 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0262A38944E
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 12:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A2F38BF7A
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 12:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784377247; cv=pass; b=uZicucPoHaGdTrXQdnjI4fGsTtwN9En2xo3I/6dcJLiRLPZ0FBSICrEB5Qb1vp5MFSHAQcYWP6I9bc/63BBN8GTqnhzQUpVhJPvGU7t9CA5+Q7POGjLNsW8YFpFz+M3t1iKaosIXIilea8MFgPPbB4ICV7/LhcNkLgSZ9VGdgFA=
+	t=1784377248; cv=pass; b=sYkdC8+vxnP5iy3DMQOwiog5wSN/blJzMY7+fEpCog5qp0s51jdCm7K7PJ7GXvNqY57/B7Mz7TYfDNvyjxUiFpQ18pWOUB64KENbhauWbFT7fNSOwE6mDf7/u3YgVoAXPkGq3CqW+w+HK0Vc2RlWpn9uK/nU8ay/97YcEYSXAPw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784377247; c=relaxed/simple;
-	bh=P/ZIRJmEU2s5wwtOYFS1NtVVw0zy1c0TjDsa0ZWWs2A=;
+	s=arc-20240116; t=1784377248; c=relaxed/simple;
+	bh=SawkhVKH+C/u+ep19YJdq5ABv7YXpG25grrv5K0m2hg=;
 	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qrPXXG/tu4m3NWSij6GprKt8LfzdcxWyKZEOmYI/OC/eK0CeY0Wuvd89U8UBvMNZxOj2/Mk/JQ3ur56d/6+vedAu0M//B8Sox9r+MFKwU9FG/cqC7vkyC221M58WGHxeKC7OpP2U1GxvlAf22tOqQxQSW3rQxC8Df7hL+h9JGBs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAtnHNhz; arc=pass smtp.client-ip=74.125.224.51
+	 To:Cc:Content-Type; b=LTcY1qJEmvDpB2XLpm+9yBEb9OWLpNYXMe+jL4XjBk4EtDRE2glhxUmnS5Q0KMICcmBGYmafD+QhV/ojprB9E6QCtaBtJNVh22PkIgmgtsWu1YSKxAA/uhqvLPH6YczbHiDAy6/u7awYXvz6J2qsI4Wg4QO0uKrsCzi4T9ZUyFU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rK8tdRhB; arc=pass smtp.client-ip=74.125.224.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAtnHNhz"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66826484b67so3498011d50.1
-        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 05:20:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rK8tdRhB"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-667b0ced2d3so9975431d50.2
+        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 05:20:46 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1784377245; cv=none;
         d=google.com; s=arc-20260327;
-        b=HcPuw4OAgwNNnVxYrTkRpt/VRbt6PXNB5kIcX1ZrRbskfZvLvtNCIW1w8AmC+bbTq2
-         t3LW4tlSLdxp89yhfpkLH4+jU+df5Y8/5kfBKfI1hj7+EAatHFOafpHoVOlWiJDYFCQw
-         8Aj4fhACY2lOj2tzkr9YMGHyoSxwShUcOC+RuYtqAM3+KmKw6plWKcc+kkfAgwHb4cSl
-         EjuFQGLKLUb4GqaNVKC8IORz2MDClaNJZP6dBdXuXVsHKtkf5V4PBl8YK4DeqUPUSkrb
-         rKEaALWiwqrksmuj/zPwk4mZGdNMVY0CTwj3B4FAq8RV4yDVkH2LsF+vN3wqpPu+mlEc
-         Hz0g==
+        b=QaP8nGQ8gmTDzVF0sTMmMKf/r5y/XKUf08i7LdAOZHA+0o+gSgr11Yvbx/yZJlQ4hZ
+         KfClWvsxcQO9DEla407uSVNW8QWpvUXOkWmWv216Viv79zeNvphYBq9/AUDkfhgPU5Et
+         t53eK4K43V7ucNv2NCpcm5ugL3bb3dt5hXd/SC2Y1wwEThHBO0+RyOl9xYLPnPSTbWxr
+         6RR0gnUmPhpssf+yqQTk2CLdBRlPlO3c1Rv5qTCmpbd3RewtqJRC9HzsDATkg/5u09mJ
+         HJHc7WV0PZhh58w+gHBMWuEeSJpSl/LjA9MFFR9ypdhMxOm++/5h9uy5JY2G3G4fqEou
+         azeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :mime-version:references:in-reply-to:dkim-signature;
-        bh=P/ZIRJmEU2s5wwtOYFS1NtVVw0zy1c0TjDsa0ZWWs2A=;
-        fh=cYbxue90MuJ2G178XDNvUldFw/0HGnyQ/a5zmoFeeI8=;
-        b=Vp+M8Tcr8X156SdynAC9BxmF+SYZWeO91lJX1JSYQYlqFhYDmwNMz/pa98+D2DwvaW
-         8e1GOKPnsQ7YrZW50IZLLpbGEeQRQjqNkBjvAeD0WTDQJ0WaJ+a/HhAAuy8LFcgN9Oj4
-         X4KSLzzmt+NKiJSZerUwa1QTNSVxdrea0cdjrubZKZ8u/2hZUzgwD5AONQMFCWsF4pV4
-         KO+ycLts9U76SFajYNJZMBSDAkKALApUzsrBDI13sFeEDydMAepUf/6TYpyGpR3IaLXl
-         TEk/GlMT/o6M3V9bePwGhcMsnShLPb3QO0P7wpw5sJoVdUvH1V6VgelEvZ22fs7U83iV
-         cdtA==;
+        bh=SawkhVKH+C/u+ep19YJdq5ABv7YXpG25grrv5K0m2hg=;
+        fh=Y1bIraur+asCZ0GNgFChTyTPasz4nyskxa3GXPhEi5s=;
+        b=IB0RsJ/SkhvxRgEQVYLI/rRo+ZX+nnpcOpqstJseFKrSGdmqXlTAuumluyzX8yG/TT
+         t7rKl0l/AEWkINjStq/UZwlwiBk+r2LBzaERcVpOBplx7jhVJ1IvlKMII+2O3X0InlR/
+         gr/RT2mXRK6fhhz5Vs8Wt0rB4AoAvFqipj0BI+LSsGf6wxcAfSiEsg8LutJKrpeiPDcq
+         xWwsTGH0cSHDoUBjsqN2Hxc09pxVa8i/VJUxtT8N9XmlZ7j6LMO9pUzQ/WweRz9XllLd
+         J8VNSMLmFVYwrFUDKZfuxQmZ07cRQK+DEXe2wEaLwmo996Smg6jatWyWkHtyBtPj4V/A
+         v2rg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -44,45 +44,43 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:mime-version:references:in-reply-to:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=P/ZIRJmEU2s5wwtOYFS1NtVVw0zy1c0TjDsa0ZWWs2A=;
-        b=MAtnHNhzccMGUs4uTjV2XwV6Fkv3fAdVqmQ+HmQ0dECLMuMLnEFFV4Uvq9i+q6gJTC
-         Hu9ic5enCL9dRLYbCtEmTJ+tCHQF3L6HU52di/MC3gjQjhVFUo5kNxvh+wRgrgyH7mQg
-         sN6UGjK/3/IlCCLnU14g8mLMzuwVb5aiow4lcPA6S+fiJfe5nD47X8AAIFJDPFv+3RhI
-         Na8BzJuncEXX3aUsEivRS+Tngo02o6mV4HR8c0UwOsv/UvGJ1BYkdI8R6AxVtJWxWxJC
-         nksNYqqHLf41BmvN9y5LHUmLQod60o+fBuYyPBH6iFa3RNxLPkR/z9qcdco+5UqT6YPg
-         eYYQ==
+        bh=SawkhVKH+C/u+ep19YJdq5ABv7YXpG25grrv5K0m2hg=;
+        b=rK8tdRhBCZGmCjFwHJAZrSAy/R5CWqCNYAHdAaTwvkQP/6RcRYWBprl1VqbNVaUUsS
+         jxqchWrCWLdDgbeqautYrKdufPK18YjfO8UYbtQZ4HcVlV8xF5hmCuCryfHh1UCPzCcg
+         I1GvuhDz4SBh42AXie4UGRD/insCGoJSLeqfHGLKZk9UkaKgiKBL0BQTUEkl1+cDsfN5
+         M61/XKoxywFgAS+dCRlN+namyLs5vQeqhIvGVC/N7Mt9iz8LdHUyS47HjBm+nkWt6M9K
+         RRUY7VwpzgGIDXAFj40wJTJDwVLEX22hvA+QrCS5q3xSSxwNcnXQbJAOLV9fVgibWzqN
+         Q7hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1784377245; x=1784982045;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:mime-version:references:in-reply-to:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P/ZIRJmEU2s5wwtOYFS1NtVVw0zy1c0TjDsa0ZWWs2A=;
-        b=NwYVqOmHKh05+bgQq20cfV8ixmdrptMyTij9NJak1Kf9UNk8H3XyuccYC0zoiqHksc
-         BocaLd73Zyu3zUMlDEN+TeLbZbckQgHTrYPlzH5jeTf8TZk5M1ynraEtZSBFsfqXENT0
-         CmLoo5ItYjrAkokwAovhESeolmWNEJ33Ww1nXqWQJSR32ysRTl6B5GEQRFiMGxzePGnl
-         9GB8kXAjT/HMi8uZaWgIIAqoVIM61IfMNuG0OrsOEtEnqmSfQe5H1VEsvr9K99ZVd4rd
-         6Df+T71a9knIUQ66Co3CcUXHxxNtAO4kxylHLm2DuuePa5Y3RKFV8jTTXTtb7zmKJGGn
-         gSsQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrS4YNskr64WA2PWq76bTRTylpFZXrsCLWSW2teH0NXiBeH4VHoIFP2zdhArgTyXMXqNlXNdmA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNXW1x2OdubcCME1AWrv2MURjNMaU4vGwxX0QbKz63TVimIUhl
-	xKzSSmr0yHCwcvka3zWAmitTCTydQcEQE3VMCAFu+oWPLu7C2trTs37cD+C6xHyiUaI73H06qFy
-	zLXe0qUVcIiMvccQ2XV4zlaXlJLFc61Q=
-X-Gm-Gg: AfdE7clw1EC1dNHywRWEvIyyNvgLO4W9rqipFStQQOuHMHPvzU793IFK1ZhXJmOR8UV
-	UssO7xcHo1d8l6JlEPbvC7FJqidRycnFkQrSMhEnfcxrf6jdydFBxTGvZvCaBPz0K+LysQOpOas
-	5Ezai7c5/neaE1QPgQoVxEwBgPzB9VIOR1sRKFNZ66QfaHLGMj3cM8cCeUNb7Op9qAnIWqFMtUf
-	416Y2CGS9uFrCXWCyqswdVm/JCCxqpHIYwSYBX6cyGgSC0a2E194EPlYDysIeauyoy1IYKf
-X-Received: by 2002:a53:d24a:0:b0:668:ba3:fbe7 with SMTP id
- 956f58d0204a3-6683bd99f2cmr1268824d50.93.1784377244920; Sat, 18 Jul 2026
- 05:20:44 -0700 (PDT)
+        bh=SawkhVKH+C/u+ep19YJdq5ABv7YXpG25grrv5K0m2hg=;
+        b=na8MxxF+/I0tt10YZ62h/63/vyk2Ul3MCi2PEeobYbQNJYeVd91ncl5WxG/uiuoPPm
+         TRdm4e6Atymitkyfs6zIM3glAwXHAjV2fdYEhZsWjCKZmCP/0pUoHavGw1fS/cgAJ7ry
+         WvMEanqaiZYiIW7ozgFqoXVjeBE+Ux/cfx4hqD5MPw0f7CNcRx/VnHUj9P8mfaa4gfNq
+         Uy7Kg1j3wyGbGh9ryOfhjA8z/5Ee0PAbVJ55adwJ0QncK5aJ9Ou+483b8Ts4hcDdJV6t
+         4QQX8Q49Yx3fSNxpS3QWZv+kXdjXYHmln27GsMW21d4kUFhxVFlE8k0YTsuxeYHj5cL5
+         rdPA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro8jg0hXRnj0Ov8bHboqC3GCZ4/isGqNZXGlsRRZiRCj7SE+pDaxfar5e3UTr2WVOU7lZub9Y8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5LgHs3ANbI8sgl4BDOoGc9tbIo9kUs0paJQT5qCh8sAqS63uz
+	iAv2lQTh8QswCtbtVKgod/LmtPTZJsKH2CDYxyZjcwOiP0g4hbyft8ob99JsruUBYo3BTJs0Xna
+	rGts7rAF97kSx/ordp7VN1JsBVUSOphM=
+X-Gm-Gg: AfdE7ckby/F8uJUso7zvSLwhccbE7AXDdGdF5X9SSrKZ6roUL+56w7UO93vRUoqXmc0
+	mvQOcit3/U5mnxRV8vDudy66T08B7yAuFXaEb1QySesjYhqRqdOQyHCLww9AEIDk9svDLZYAyaK
+	ft1NYgv9HtFMuiFVvQP4Yj2dYHWTCrjVXF0jzU8s2/OA2XmuwrYeC2klVWBeN0+0S/3WSuoEdcq
+	1xYCIW47N4Gi2mCTeRj0NPcA+6mmCAn4eXex+NPlModX+lnWxS+Qc6EeDN8TQ==
+X-Received: by 2002:a05:690e:43c2:b0:667:c01a:4ac5 with SMTP id
+ 956f58d0204a3-6683bb0c3b6mr1363452d50.38.1784377245608; Sat, 18 Jul 2026
+ 05:20:45 -0700 (PDT)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sat, 18 Jul 2026 07:20:42 -0500
+ Sat, 18 Jul 2026 07:20:44 -0500
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sat, 18 Jul 2026 07:20:42 -0500
-In-Reply-To: <87jyr8jgr8.fsf@bootlin.com>
-References: <20260627235805.17310-1-alhouseenyousef@gmail.com>
- <877bncnx25.fsf@bootlin.com> <CAMuQ4bWf+o_ZDMXn1tTw30veo-30Mt9XZehT8BPErJ30Kx_95A@mail.gmail.com>
- <87jyr8jgr8.fsf@bootlin.com>
+ Sat, 18 Jul 2026 07:20:44 -0500
+In-Reply-To: <87h5m2g70l.fsf@bootlin.com>
+References: <20260709221858.158063-1-devnexen@gmail.com> <87h5m2g70l.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,57 +88,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Date: Sat, 18 Jul 2026 07:20:42 -0500
-X-Gm-Features: AUfX_mz62dEF0Vq5bXVUAbEJ8S4AYECuR0xq5pd1LEcB8_UKBr09Lg_v4EYwfJ0
-Message-ID: <CAMuQ4bWObh9FVFifH91UMcdugn6YD79T1wAqeJ2owBnzsMdnCA@mail.gmail.com>
-Subject: Re: [PATCH net] ieee802154: hwsim: free PIB after unregistering hardware
-To: miquel.raynal@bootlin.com
-Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+Date: Sat, 18 Jul 2026 07:20:44 -0500
+X-Gm-Features: AUfX_mx-LxGT1icCnBbh0h4QeQdJg-IRuavKQPCspOdeBSsqwocWMxKfeD5I5ro
+Message-ID: <CAMuQ4bVWGV8Qz7LM1RCVhXJGRV0KVPFXvvhshDEijkv=+aq7Yg@mail.gmail.com>
+Subject: Re: [PATCH] ieee802154: hwsim: serialize pib updates to fix double-free
+To: miquel.raynal@bootlin.com, devnexen@gmail.com
+Cc: alex.aring@gmail.com, stable@vger.kernel.org, 
+	syzbot+60332fd095f8bb2946ad@syzkaller.appspotmail.com, 
+	stefan@datenfreihafen.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
 	linux-wpan@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	syzbot+4707bb8a43a42fca2b97@syzkaller.appspotmail.com
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Agreed. I'll use rcu_access_pointer() in v2; it expresses the final
-pointer fetch more directly once unregister has quiesced the updaters.
+Yes. I'll send v2 of my teardown patch with rcu_access_pointer(). It
+is separate from David's patch: mine moves the final PIB free after
+unregister, while David's serializes concurrent runtime PIB
+replacements. I don't think his patch is superseded by mine.
 
 Thanks,
 Yousef
 
-On Mon, 06 Jul 2026 17:10:35 +0200, Miquel Raynal
+On Mon, 13 Jul 2026 18:59:38 +0200, Miquel Raynal
 <miquel.raynal@bootlin.com> wrote:
-> Hello Yousef,
+> Hello David,
 >
-> On 03/07/2026 at 04:19:42 -07, Yousef Alhouseen <alhouseenyousef@gmail.co=
-m> wrote:
+> On 09/07/2026 at 23:18:58 +01, David Carlier <devnexen@gmail.com> wrote:
 >
-> > Hello Miquel,
+> > hwsim_update_pib() does an unserialized read-swap-free of phy->pib:
 > >
-> > After ieee802154_unregister_hw() returns, the driver callbacks that
-> > can replace phy->pib have been quiesced, and hwsim_del() has exclusive
-> > ownership of the final teardown. The pointer is no longer being
-> > fetched inside an RCU read-side critical section, so rcu_dereference()
-> > is not appropriate there.
+> > pib_old =3D rtnl_dereference(phy->pib);
+> > ...
+> > rcu_assign_pointer(phy->pib, pib);
+> > kfree_rcu(pib_old, rcu);
+> >
+> > It assumes the RTNL is held, but ->set_channel is not always called
+> > under it: the mac802154 scan worker changes channels via
+> > drv_set_channel() without the RTNL. Such an update can race an
+> > RTNL-held one on the same phy; both read the same pib_old and both
+> > kfree_rcu() it, double-freeing the object. With SLUB percpu sheaves
+> > batching kfree_rcu(), this surfaces as a KASAN invalid-free in
+> > rcu_free_sheaf().
+> >
+> > struct hwsim_phy has no lock for pib. Add one and make the swap atomic
+> > with rcu_replace_pointer() under it, dropping the misleading
+> > rtnl_dereference().
+> >
+> > Reported-by: syzbot+60332fd095f8bb2946ad@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D60332fd095f8bb2946ad
+> > Fixes: f25da51fdc38 ("ieee802154: hwsim: add replacement for fakelb")
+> > Signed-off-by: David Carlier <devnexen@gmail.com>
+> > Cc: <stable@vger.kernel.org>
 >
-> That's right.
+> Thank you for the patch, but I think Yousef already provided a similar
+> patch:
 >
-> > rcu_dereference_protected(phy->pib, 1) expresses that there can no
-> > longer be a concurrent updater at that point; the protection condition
-> > is the completed unregister rather than a locally held lock. The value
-> > is only fetched so the final object can be passed to kfree_rcu().
+> https://lore.kernel.org/all/20260627235805.17310-1-alhouseenyousef@gmail.=
+com/
 >
-> While I believe this is indeed true, it actually feels slightly overkill
-> since there is no updater anymore and, as far as I understand, the only
-> thing that we need here is to get the pointer value for freeing, right?
->
-> > rcu_access_pointer() would also be sufficient for that limited use if
-> > you prefer it, and I can use that spelling in a v2.
->
-> If you don't mind, I feel like rcu_access_pointer() is exactly what we
-> need here. It is also more understandable, even though I agree in
-> practice there are no differences in this case.
+> Yousef, can you confirm you will send v2 soon?
 >
 > Thanks,
 > Miqu=C3=A8l
