@@ -1,176 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C6BF22D785;
-	Sat, 18 Jul 2026 02:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE11265CA2
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 03:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784343554; cv=none; b=oVNuOYnY7KRJSGpjk+VhwR4J8RHdglDBb29SjLBHpOPi8lxUzOsJ1Oa1un3t+mzo3b38PUfb0qZWxhbgJnWtr/IpIloLjCzO64JucFg59IPY3Dl1CXQL3geLt+ia5fcp/vWYsI2Z09pzlWWI/sA7H+2XYHdbJyGS/8ib2meU9Nc=
+	t=1784344768; cv=none; b=uh6eySdEjMcMtGmjAtVHPwuA6Vj4XRYZqwD32gwkiQDZqY2OkxRvmg0Kp216cSPU/6RJ4NxeF7vzUwOPR/5RCk8Tu9XQFs3NNS8ZWue/D8nT1hvtRiEa2xMXP5R/ayVDJS7vQW+Fe4biFSXGSHAb3zGPYllkRlApVdNQan2DQz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784343554; c=relaxed/simple;
-	bh=ZjSsPVjJ7HavXEJ3ndcEq551lROrEwqcODSLG35C+XE=;
-	h=Date:To:From:Subject:Message-Id; b=q4jzjNZr8gcqCu9tg8InuW1lUHE2Gobwoz73dkswqNtuAiz6e/9c00J/34sTYhfyJJD8H3f5Z1hdTkaQFI/eQaYN8CjuIjuFWS/s+N+aryETJMNeTIyNy3jbbuOelGe5Lhziij2yr4eLUx7ft5IAmJhDLQZmFCvySc7cMYAECxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=UBdWs0Br; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784344768; c=relaxed/simple;
+	bh=jMKeFhJ2gJYiQ2a7B/MZdYTlnZqh4byeTe9ypGhGzZs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ko7Zwb2/Ii7fD3qhypa4MokBZJHTQmzoPf8PMo7sXfmVMvNmq+z6TAGF4VFJCWyiAmgn87kZ3QT48jtQ4CUlc4O5LzGa/UB2+wBV48ACQz40G9r6crq3X9C4+8sp258yxmkV8uG3gCTtF5AzSNqB3vZPWpjxqaAyy/74ahwcOZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=OwHQJTOl; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="UBdWs0Br"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A54C1F000E9;
-	Sat, 18 Jul 2026 02:59:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="OwHQJTOl"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493f6de72faso15099545e9.0
+        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 20:19:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784343552;
-	bh=ugKol4BMMuZgkYMFSNQiKfUQsg0qB8+EzsM7YruiibQ=;
-	h=Date:To:From:Subject;
-	b=UBdWs0BrA4A39KZ0Q2gyx+X2iBAVF3CqQ5Kx6BZhkjZvpeDOcMtK97IC2fKjZR2Di
-	 WdfzHw3Ly9a6hGGOsDKW6xnp4eZbKcDVKGtW6LXJ6vI0ug3l6nbuZVWmJ5on7JIGRX
-	 J5QwNVBBq3u5JxFk1608UlN2EsO7SkEsKjpTxgqY=
-Date: Fri, 17 Jul 2026 19:59:11 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,zhanghao1@kylinos.cn,stable@vger.kernel.org,ryan.roberts@arm.com,npache@redhat.com,nao.horiguchi@gmail.com,ljs@kernel.org,linmiaohe@huawei.com,liam@infradead.org,lance.yang@linux.dev,dev.jain@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,baohua@kernel.org,kas@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-huge_memory-unlock-i_mmap_rwsem-before-releasing-after-split-folios.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260718025912.0A54C1F000E9@smtp.kernel.org>
+        d=googlemail.com; s=20251104; t=1784344765; x=1784949565; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7MZoof7cDAoZkq0M3AxNvmUn9E2JO8aGJgWTXOJFjQo=;
+        b=OwHQJTOlp9YIX2pPFtSWas3NY7EVNTn+Z+EjSp9cQzhdaeAJY3hJNyhNEotxATe5nT
+         TnrKwsV4jEbSrAdCm6z/IPd8G1xGEZcnY63Pb3eYjfnqWzqqMwCoiRFtOEmRdw9c2zEP
+         +YKBgWc7N5VW/hY5l9icVDvMRVWSOijGZwO7L51a9nDxFtTIL2/4Xfyy/c8S7F9Xem6q
+         0ZCHxZWX/bsvAnI24uYoG/OxfIxE32trKz4KFVbch1oXX0aZrHSi4cj4E4LH/OdDVlyj
+         XsZRvMRE9gXfHaGC6/hgicRAG3d3PaSFoAc1q9+I2cMsJTJXlGIDwyUD/FlkpmNjhWzk
+         +b7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784344765; x=1784949565;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7MZoof7cDAoZkq0M3AxNvmUn9E2JO8aGJgWTXOJFjQo=;
+        b=klD04hJXmrGVsSVfUAs9IFOtdWgyyrsY8b/vYsjUKmqe3QrK1fy+GFdaoj9S3yY4iK
+         kggxdKWsfS2a3lGsZE8etx6Ij4Bj/bGC0LpRcunlYVO0rKyESJmq3YNkwx+JtkF5OTdh
+         rk9nIhajxTa5lkMc6mVxqSm+tquKq/VzevLRG04Rs8aS4PvuRTEKiELX3sZnJ7OPE6MB
+         rt8lfGQsn+y6ktf6L2jz9YLnDBC3y8AkL/X2x9JoOSFYE5pl3UF4HVyqQvMSAE6KG84i
+         f7RobZOlJF9Rpiy83U2uU9u7KpkKMebRLocOdh1qNfxHi/4iwIjEl7EO3k6Tj8+3iw4D
+         NvLw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq8rmhVXCZdU8S8B/vDJ9tXLT38GSovDE7ItZpkJ5JlDZ+JvqfrlhI3aa1H/5t+Ym6xNdt0RuM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzncXDozvwJ3WNppB7URqJ4CL3mcQJ3Fb33ElTWbl1jRluSJE49
+	IOjGRHFJEAuRD7POmXfl+GSopW2h4i6sPGxPawE6wA8oMqs3V9uCPUY=
+X-Gm-Gg: AfdE7clGifmlLolcgqsJ83ub3esij61QFNcWsoVxjv0n2oOqxUkDIYCmv6HrUpeu7Rn
+	kNPlIiAFx3BHJLpUgSH3Go6va9KzQcPR9pjRn6KdUVweN5ox6BnCs1b1LKButmrxKT6wTJT1Sik
+	DM2Yz38IuXJCDR/7sObzDbsspvH3C6ZsYQgeRHvvV9e0o+7uxWhMecUzwYC+GzSTKu/mR0ds1BV
+	QZQROr6UfkwNyfOHOwWRyhowpRvWIFkuFE550DZS/yw6tEfjh/EFWzXome34n1XfnOWeOYsAPm/
+	kzdTNMq1ulywYjud/ZadGg9qO3pl8/Vy9jy8c/3adkUy9mBUbEMttDOThWoY0/gcQXRypWIpoo/
+	258943yVH3WWnCoLcvboEui2E1vKYzTGA9bcJfi9cW+0Lkk7aNHBG9M9JX8LuwszdhDkKRoCZxi
+	Lqq82BF0kNIYYdXkxYP/n6VS9L+Hk/FcxfVkMhe7uy9vl4I7IXxkUqNg==
+X-Received: by 2002:a05:600d:104:b0:493:e49f:1541 with SMTP id 5b1f17b1804b1-4954288e0d9mr81342365e9.6.1784344764453;
+        Fri, 17 Jul 2026 20:19:24 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2b4ae2.dip0.t-ipconnect.de. [91.43.74.226])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63edcf8dsm9529444f8f.27.2026.07.17.20.19.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Jul 2026 20:19:24 -0700 (PDT)
+Message-ID: <34d1572a-b7f2-409a-b681-37c63f37e6f3@googlemail.com>
+Date: Sat, 18 Jul 2026 05:19:23 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.1 000/533] 7.1.4-rc2 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260717101912.682013354@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260717101912.682013354@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 17.07.2026 um 12:41 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.1.4 release.
+> There are 533 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+Just like rc1, rc2 builds, boots and works fine on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or 
+regressions found.
+
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
 
-The patch titled
-     Subject: mm/huge_memory: unlock i_mmap_rwsem before releasing after-split folios
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-huge_memory-unlock-i_mmap_rwsem-before-releasing-after-split-folios.patch
+Beste Grüße,
+Peter Schneider
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-huge_memory-unlock-i_mmap_rwsem-before-releasing-after-split-folios.patch
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: mm/huge_memory: unlock i_mmap_rwsem before releasing after-split folios
-Date: Thu, 16 Jul 2026 10:54:24 +0100
-
-__folio_split() keeps dereferencing the mapping after the split:
-shmem_uncharge(mapping->host) and remap_page() while the folios are still
-frozen/locked, and i_mmap_unlock_read(mapping) at the very end, after the
-after-split folios have been unlocked and freed.
-
-Nothing holds an inode reference across that.  The split relies on @folio
--- which the beyond-EOF drop loop never removes, as it starts at
-folio_next(folio) -- staying locked and in the page cache to hold off
-eviction.  But the unlock loop unlocks @folio before i_mmap_unlock_read()
-runs.  If the caller's @lock_at is a tail beyond EOF, as memory_failure()
-passes when splitting a poisoned tail of a shmem THP that reaches past
-i_size during truncation, it too is gone from the page cache; so once
-@folio is unlocked no locked, in-cache folio pins the inode, and a
-concurrent final iput() can evict and RCU-free it before
-i_mmap_unlock_read() touches i_mmap_rwsem:
-
-  BUG: KASAN: slab-use-after-free in __up_read+0x634/0x790
-   i_mmap_unlock_read include/linux/fs.h:537 [inline]
-   __folio_split+0x732/0x1640 mm/huge_memory.c:4100
-   try_to_split_thp_page+0xab/0x390 mm/memory-failure.c:1675
-   memory_failure+0x1394/0x26e0 mm/memory-failure.c:2470
-
-  Freed by task 4601:
-   shmem_free_in_core_inode+0x54/0xb0 mm/shmem.c:5177
-   evict+0x57f/0xac0 fs/inode.c:870
-
-Do every mapping dereference while @folio still pins the inode: drop
-i_mmap_rwsem right after remap_page(), before the loop that unlocks and
-frees the after-split folios, and clear @mapping so the exit path does not
-unlock it again.  shmem_uncharge() and remap_page() already run before
-that point, so after this nothing past the unlock loop touches the inode
-or the mapping.
-
-This is now a rule the split depends on, alongside keeping @folio frozen
-until the page cache is updated: no inode or mapping dereference once the
-after-split folios start being unlocked.
-
-Link: https://lore.kernel.org/20260716095424.471052-1-kirill@shutemov.name
-Fixes: baa355fd3314 ("thp: file pages support for split_huge_page()")
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reported-by: Hao Zhang <zhanghao1@kylinos.cn>
-Closes: https://lore.kernel.org/linux-mm/20260710071344.GA106129@zh-pc
-Co-developed-by: Hao Zhang <zhanghao1@kylinos.cn>
-Signed-off-by: Hao Zhang <zhanghao1@kylinos.cn>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/huge_memory.c |   12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
---- a/mm/huge_memory.c~mm-huge_memory-unlock-i_mmap_rwsem-before-releasing-after-split-folios
-+++ a/mm/huge_memory.c
-@@ -4114,6 +4114,18 @@ fail:
- 	remap_page(folio, 1 << old_order, ttu_flags);
- 
- 	/*
-+	 * Drop the mapping while the inode is still pinned. @folio stays
-+	 * locked and present in the page cache until the loop below, so
-+	 * eviction cannot free the inode yet; @lock_at is not enough, it may
-+	 * be a tail beyond EOF that the split already dropped from the page
-+	 * cache. Nothing past this point may touch the inode or the mapping.
-+	 */
-+	if (mapping) {
-+		i_mmap_unlock_read(mapping);
-+		mapping = NULL;
-+	}
-+
-+	/*
- 	 * Unlock all after-split folios except the one containing
- 	 * @lock_at page. If @folio is not split, it will be kept locked.
- 	 */
-_
-
-Patches currently in -mm which might be from kas@kernel.org are
-
-fs-proc-task_mmu-fix-pagemap_scan-written-state-for-unpopulated-ptes.patch
-mm-hugetlb-fix-swap-entry-corruption-when-clearing-uffd-wp-at-fork.patch
-fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes.patch
-mm-huge_memory-unlock-i_mmap_rwsem-before-releasing-after-split-folios.patch
-mm-decouple-protnone-helpers-from-config_numa_balancing.patch
-mm-rename-uffd-wp-pte-bit-macros-to-uffd.patch
-mm-rename-uffd-wp-pte-accessors-to-uffd.patch
-userfaultfd-test-uffd-vma-flags-through-the-vma_flags_t-api.patch
-mm-add-vm_uffd_rwp-vma-flag.patch
-mm-add-mm_cp_uffd_rwp-change_protection-flag.patch
-mm-preserve-rwp-marker-across-pte-rewrites.patch
-mm-handle-vm_uffd_rwp-in-khugepaged-rmap-and-gup.patch
-userfaultfd-add-uffdio_register_mode_rwp-and-uffdio_rwprotect-plumbing.patch
-mm-userfaultfd-add-rwp-fault-delivery-and-expose-uffdio_register_mode_rwp.patch
-mm-pagemap-add-page_is_accessed-for-rwp-tracking.patch
-userfaultfd-add-uffd_feature_rwp_async-for-async-fault-resolution.patch
-userfaultfd-add-uffdio_set_mode-for-runtime-sync-async-toggle.patch
-selftests-mm-add-userfaultfd-rwp-tests.patch
-documentation-userfaultfd-document-rwp-working-set-tracking.patch
-selftests-mm-add-pagemap_scan-test-for-thp-pmd-holes.patch
-mm-huge_memory-remove-unused-can_split_folio.patch
-mm-huge_memory-fold-split_folio_to_list_to_order-into-split_folio_to_order.patch
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
