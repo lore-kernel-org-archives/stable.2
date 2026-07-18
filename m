@@ -1,130 +1,90 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2575A283C93
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 02:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C87B63CB;
+	Sat, 18 Jul 2026 02:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784343315; cv=none; b=WpoULhIa+KJQTgY0s5DQk/22qIwllpLlFkyJEdf8nGDpLOmRwFGGy0b1AwDEKAQ2hdnDRiPYkz2Jwoi5kqxjJJKyW5rVeQCZzjKu0P/LlnvI7ccxw8LPfyTPK/4cF9N/PZGGwNW3x/WlCHeRGiTFklHjAj+j5OfmR/XlrI+i8SE=
+	t=1784343534; cv=none; b=mDG64alg9JLFiXet0IIbdYcontUGztkpNNA1WcXXunDeQJ1G+SNFv4tg179a6HZivD+v3zyT1EuhlvFJXvPRmY0Vsn2RaiXLQfo13fxJ2A2VmptIkKgOJT/nC4hhJPL3vnU+Mec6izAAfB1rxapaJyt3zbd8HhfDIiKTJyQ5c+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784343315; c=relaxed/simple;
-	bh=Ul0DFw3Ej73eiCwcTexNy8jh0poOMPwPODq7wz9FOLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GdxKCjbsGEkW5FdiIcyy0cd5z5FmGCILDAswq6hydsmRm+2LSn8XOexe1R7v+zn4My0bnDnRYXy6XGIR1oV9DVeeKoSp9WAurQfOsx8E0FwcJFA8843veoMFxMycVJuXMwdoosXuoYSe8FKzWbbfBXx2G3nii/PX9bC90f30/gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RvgJ5Vio; arc=none smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784343534; c=relaxed/simple;
+	bh=91v0/iJ/sBap2EZmMBh+s7tNcttFSSvd1iz8I9UCua8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=WlJMqR+33GO53MBNAHBYw7qNuhLX/R6PcurMFNTypLmpNUl7ZVkwvjWKwOnbFv8WBSbEA3ALgWJ4/dhfb0QXRzrYb76TXPiFEusRakaFkpknyITZqGkoZscLSekHRPuGjdAJR+ISvu/y/R+fIGHyZfeMx1okhKf1FBA2joTAGw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=FWepOhTb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RvgJ5Vio"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-902f92b8504so78995476d6.2
-        for <stable@vger.kernel.org>; Fri, 17 Jul 2026 19:55:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FWepOhTb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527D61F000E9;
+	Sat, 18 Jul 2026 02:58:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784343312; x=1784948112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=47ZO/fVoFhUn5pOP6KZbb4HeOIXd+WNQBMG6RHvVVbs=;
-        b=RvgJ5ViotQLfRJiSoeDnezx0MSxNBQrQhs1y/0aA3Lc4gB4efOA9SsmL9lNInY91Bo
-         BHii1kkunIXszvkFdLmUMdwBqx8feuJNjK7EPwG21Y497bYfH5gKiGgIaZqE9zkr2eoc
-         3tpU3Oy+CW6yygTJ9+id/LdfSWvC+pde91Y2xFmvw8WBLhgF2pRfSJTuf6ek4i0p7k44
-         kr5Zv60T5M5OQfbPQEOnDENEryu68zeNh5cn/Tc3Dyxj0wDyDkjisBlII63/jLj5I0h1
-         Wywvz+L1guefGKMynuFzgj12D4oK1teUgCGDuDM9Ew6AkRl14UX9hDAKKzDfo3XEzUCD
-         079g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784343312; x=1784948112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=47ZO/fVoFhUn5pOP6KZbb4HeOIXd+WNQBMG6RHvVVbs=;
-        b=UcZrgxubdFbhcMrcW7WrRWN6MUKsZUbLnNY9V/cVffq5jytW+hRzoGS+6+LrSaPm/n
-         UiY9TpdWjtlDsH0Cpy9effLJmz5rJky9oPJjD4jSU0CgawAJtvg0T8+L94bdtnbNRqeD
-         QS+uU1jHLImdUWg8QhxMbOhysbqlc7YT0T4bO5OInsPTdMN+HslJgRT0swSYO7BvlMXZ
-         OOXafALXlEnG9q2zrxKQ9PKdWS7qTavygULP9UhZV70BRhGgbtpntljZXOr6HrsUOgdU
-         /AeXDN2wW1XzzFlJHmPHJo2PHk/hNSxiVvNr07SLP791aG8dkB0nSIl2IxUcgrblrGCa
-         Ip5Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoYiGNxY8+cLxm3mS4UXSxGdh4l73pZavQHVulgZ03+x3Zsng30no1e0t8pKVexdEFacLUe+Go=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywxx7TVo2l7lc11qTUN6jaqq6fIw50AlrxJcQZ6/o9uxi6TVX0f
-	sXzdJ0DRH0cWV/Iq+qO1lU95MioRca6gyTYhYQ565m8RgCyoTGt03uTlh0540LGZ
-X-Gm-Gg: AfdE7clEJ6Uqx8Kqpiit583MdT1nRPIWNM1/UglZvWAPNH7e7q/ZnWBZugQCCynsacB
-	oylAqknG3oVgLgbmfAys5vGHjHsqP2sLtxgXLGikNbtGkBXx7gMxYc6qfX3u3TDOkPcxVn7n2eG
-	CIjSbJtC7RWV9YUbnB7McPFIUtrZ82tS/6ZsV1XuUtVGDcvsfc2TVh5pZqWCu1JariN3R84E9Ar
-	xBfAIRpCl/6b+vTH+ZBhfULXhLVTwoZXsT2YjovGO2jTbjhycBOacDTtSwqYx8vFhY6fjkrf7DS
-	VTgqhkxQttduekrvyT/aJYKnamwhI9YLnpxrX3Z5tZtWdo2yXpGTbBWc/5IZBFJXEo/Sjb1FhKl
-	wi1znwO1jB+W6RU6uTdxlc83AkFnjspcjPuUEdkUYWPabAZ75beI6yuGMNlag8FyDBwRTGNsD9i
-	skZ7oJndrjdGUKVT5hs65hfgRDhCyKHig=
-X-Received: by 2002:a05:6214:331b:b0:907:8374:6abb with SMTP id 6a1803df08f44-90783746d93mr18429716d6.59.1784343311874;
-        Fri, 17 Jul 2026 19:55:11 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90778728a50sm31883066d6.47.2026.07.17.19.55.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 19:55:11 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Subject: [PATCH] media: gspca: hold a usb_device reference while registered
-Date: Fri, 17 Jul 2026 22:54:34 -0400
-Message-ID: <20260718025434.2259756-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	d=linux-foundation.org; s=korg; t=1784343532;
+	bh=7XfoPT2oMNPE2z0d13/Tu8kgBcJ84oX1g4DISyS+F0k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FWepOhTbOgtkwWe0uWCffWMkZAjEQetO4+9YEM2hiBh7+YW8vBOWMlqibhC3MjQhm
+	 3W/nxK3uKOVKbhaLsrn9kgLn6c3XXw9JdWUs4+GsTvMgs28jfMgNe/2mx4bBqFDafZ
+	 cN5YPCdmPBv9X9WhHUcLMf73fMnxq//FhYIU/07c=
+Date: Fri, 17 Jul 2026 19:58:51 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>,
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev
+ Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Hao Zhang
+ <zhanghao1@kylinos.cn>, Hao Zhang <hao_zhang_kdev@163.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, "Kiryl Shutsemau (Meta)"
+ <kas@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v3] mm/huge_memory: unlock i_mmap_rwsem before releasing
+ after-split folios
+Message-Id: <20260717195851.609269e143b4b9eb857f2a6a@linux-foundation.org>
+In-Reply-To: <20260716095424.471052-1-kirill@shutemov.name>
+References: <20260716095424.471052-1-kirill@shutemov.name>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-gspca keeps a pointer to the probed struct usb_device in
-gspca_dev->dev, but it does not hold a reference to it. The
-V4L2/video-device reference can keep the outer gspca_dev alive after USB
-disconnect, and the streaming queue can then be canceled from the last
-file release path.
+On Thu, 16 Jul 2026 10:54:24 +0100 Kiryl Shutsemau <kirill@shutemov.name> wrote:
 
-That late release path still calls into gspca_stream_off(), which may
-call sub-driver stop callbacks or usb_set_interface() and dereference
-gspca_dev->dev after the USB core has freed the device.
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> __folio_split() keeps dereferencing the mapping after the split:
+> shmem_uncharge(mapping->host) and remap_page() while the folios are still
+> frozen/locked, and i_mmap_unlock_read(mapping) at the very end, after the
+> after-split folios have been unlocked and freed.
+> 
+> Nothing holds an inode reference across that. The split relies on @folio
+> -- which the beyond-EOF drop loop never removes, as it starts at
+> folio_next(folio) -- staying locked and in the page cache to hold off
+> eviction. But the unlock loop unlocks @folio before i_mmap_unlock_read()
+> runs. If the caller's @lock_at is a tail beyond EOF, as memory_failure()
+> passes when splitting a poisoned tail of a shmem THP that reaches past
+> i_size during truncation, it too is gone from the page cache; so once
+> @folio is unlocked no locked, in-cache folio pins the inode, and a
+> concurrent final iput() can evict and RCU-free it before
+> i_mmap_unlock_read() touches i_mmap_rwsem:
+> 
+>   BUG: KASAN: slab-use-after-free in __up_read+0x634/0x790
+>    i_mmap_unlock_read include/linux/fs.h:537 [inline]
+>    __folio_split+0x732/0x1640 mm/huge_memory.c:4100
+>    try_to_split_thp_page+0xab/0x390 mm/memory-failure.c:1675
+>    memory_failure+0x1394/0x26e0 mm/memory-failure.c:2470
 
-Take a reference to the usb_device when storing it in gspca_dev and drop
-it from the final gspca_release() path. Balance the reference in the
-probe error path as well.
+Added as a hotfix. thanks.
 
-Fixes: 63eb9546dcb5 ("V4L/DVB (8152): Initial release of gspca with only one driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- drivers/media/usb/gspca/gspca.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+>  mm/huge_memory.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 594d73e50b9f..59eb4cec1aed 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -1178,6 +1178,7 @@ static void gspca_release(struct v4l2_device *v4l2_device)
- 	v4l2_ctrl_handler_free(gspca_dev->vdev.ctrl_handler);
- 	v4l2_device_unregister(&gspca_dev->v4l2_dev);
- 	kfree(gspca_dev->usb_buf);
-+	usb_put_dev(gspca_dev->dev);
- 	kfree(gspca_dev);
- }
- 
-@@ -1462,7 +1463,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
- 		ret = -ENOMEM;
- 		goto out;
- 	}
--	gspca_dev->dev = dev;
-+	gspca_dev->dev = usb_get_dev(dev);
- 	gspca_dev->iface = intf->cur_altsetting->desc.bInterfaceNumber;
- 	gspca_dev->xfer_ep = -1;
- 
-@@ -1574,6 +1575,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
- 	if (sd_desc->probe_error)
- 		sd_desc->probe_error(gspca_dev);
- 	kfree(gspca_dev->usb_buf);
-+	usb_put_dev(gspca_dev->dev);
- 	kfree(gspca_dev);
- 	return ret;
- }
--- 
-2.43.0
+Sashiko might have found a pre-existing bug in there:
+
+	https://sashiko.dev/#/patchset/20260716095424.471052-1-kirill@shutemov.name
+
+(why is mapping_set_update() a) a macro and b) undocumented?)
 
