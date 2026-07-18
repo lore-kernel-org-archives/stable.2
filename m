@@ -1,123 +1,82 @@
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9611374A0E;
-	Sat, 18 Jul 2026 12:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.248.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F9E36CDE3;
+	Sat, 18 Jul 2026 12:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784377348; cv=none; b=g//6PsveIxUQWnKoUjZrrm/BvH0w83bfbLzpROyeHAYHggcfEBoweNAr0pSL68+/EjWWNIuiB1YbYkltneIkBVY8iVqqPiQdWpjjrQLqL8j1kwiRC6Vbc6ltdt8BGbpWPiXJb5te31p+hghZ3/C3vNwWFpiAmPDaKHm6AfMbXPw=
+	t=1784377711; cv=none; b=NQSHFbVaVD22T/4vYKOmveh4KaKVNjrQa4mWUr3kmaw0LLnxfVxqgvsO7mTuNVukgnSd0xL5uILNROxE+If1NgzGnqiUW5Yi1Y+DfB9e2+wY5HJ9Vh9MImcFaSJ0vDYQ+F6/RHj1GMVWqcAD4DWkjh+7WOCS8ezt1qa11t4LtAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784377348; c=relaxed/simple;
-	bh=s4WP1WzsZU26sY99HAth2G8R98jfdSkHxiyV38po4/E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VatpiFFu6zmJ71eNCoelNOyXABpJK5z1R/ia70jbl47jYvIsvsLeXNUiylCa0MHzfRi0V5iWR2HV7vsJ2zzPzKwNamdQy7HPR4rjCqEUI3r6jhlS15gKlVXngqF7YY7Chi/xIVULma7cndbKDWEQNA3pD3DoqRw8yArAyghh47Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks; spf=none smtp.mailfrom=deq.rocks; dkim=pass (2048-bit key) header.d=deq.rocks header.i=@deq.rocks header.b=gy5ynHeO; arc=none smtp.client-ip=91.216.248.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	s=arc-20240116; t=1784377711; c=relaxed/simple;
+	bh=HBBqp/UpK/saHbExuFiOgU7CK4MAMnKNPLN/+CYf2lU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PHuogxdJ25wG3+e5LuHJ5iGEN4XqhVMflZ9/LB1CHGa5Bc9O3je7Tfe0DGKR6ZfNtDne8vtHmlOQzXZWzt+Q2AQzVriF90G/7A3fmSetftuyzxcT1bzymbKJDzAlgLlcJI5E4ifw8TNc1+hkB4dMlsXCKrTbmQArvSZZaRoxClY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KRdSwNRZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deq.rocks header.i=@deq.rocks header.b="gy5ynHeO"
-From: Andre Eikmeyer <dev@deq.rocks>
-X-Lima-ML-UUID: 2512b6ff-dae7-41ca-b2c8-abc7fa4f48a8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1784376940;
-	bh=s4WP1WzsZU26sY99HAth2G8R98jfdSkHxiyV38po4/E=;
-	h=From:To:Cc:Subject:Date:From;
-	b=gy5ynHeOzYQNVWbxVNFb+P1aPXVhAvgNbrID0nGG62lZB6+0DkopA2RQhF3R4sHZe
-	 9HXp9ut582daM65Lfml5qBoRLdLt3wbAy5MS8mKjcUvxnST4/UBzoDLazDXPywhqqe
-	 4BqnK1lC7J9YGXXBukPb+X8WDS0RDz20dW0p1nV9sjyuckJG4r2UI1LO3NwPuQx4CA
-	 Q6qxMNviLQaMBFhHhs5y1JE4Y2F5B3MUUO4dAXB8lkUp1oocFmfH4RfErRv2cZJNL/
-	 vhOMKftFvxPDVcMnOm6/zK8cmPECTEn5KkJtvUSdca7SMGaEAHiM1NKZRzWFHjkqqc
-	 iQxmcauVo845Q==
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	Aditya Garg <gargaditya08@live.com>,
-	Andre Eikmeyer <dev@deq.rocks>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] HID: apple: preserve keyboard backlight across T2 resume
-Date: Sat, 18 Jul 2026 14:15:26 +0200
-Message-ID: <20260718121527.15924-1-dev@deq.rocks>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KRdSwNRZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0CCF1F000E9;
+	Sat, 18 Jul 2026 12:28:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784377710;
+	bh=Uw5d5ebwVlzoiNKU5qSUHIUtMEJb/SrzPykd+PAuB2c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KRdSwNRZB8jSiaQWVZSI2Z1uNk0dMBPQV5staUWyN+MojZhUKWP16vpOZrtkGkNu5
+	 wKQy1HvTz92KiknU5zoWIn0NTXPcnefV42B2RErboqqer/kOLvbRb8BGqm9F8BI6e+
+	 BLWcE4t/I0HdC6IYW5f9PONezvJJ9AfqA+1RdFGX4pvRaRe5WsgVufJeYPihv8d0B+
+	 MbQ7awq9TRM5D2f7Ln4x1/60uPJjCAvUh24CDsZNQXEy7matYmRV2m+uujHhwMrKd2
+	 sX5y24HOYR92EWuqb9K4RBg/2ci1jUgUz9KpByEY1xYqriWH9IvPH+MZ2cdcQpXtg1
+	 N98TS2rSU8xmw==
+Date: Sat, 18 Jul 2026 13:28:24 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.1 000/533] 7.1.4-rc2 review
+Message-ID: <0799f4ee-8b7d-49f4-80d9-e0290b99601a@sirena.org.uk>
+References: <20260717101912.682013354@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VZnJrQvrpCeMb2Z9"
+Content-Disposition: inline
+In-Reply-To: <20260717101912.682013354@linuxfoundation.org>
+X-Cookie: Do not pick the flowers.
 
-The T2 virtual USB host controller re-enumerates the internal keyboard
-after system resume. The butterfly keyboard backlight currently uses
-LED_CORE_SUSPENDRESUME, so the LED core sends a blocking request to the
-old HID device while it is disappearing. That request fails with -ENODEV
-and the newly probed device starts with its backlight off.
 
-To fix this, we cache the requested brightness when the old HID device is
-removed and restore it when the replacement is probed. We let
-re-enumeration handle restoration instead of issuing a request through the
-stale device.
+--VZnJrQvrpCeMb2Z9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Fixes: 1f95a6cd5ad7 ("HID: apple: ensure the keyboard backlight is off if suspending")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
- drivers/hid/hid-apple.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+On Fri, Jul 17, 2026 at 12:41:50PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.4 release.
+> There are 533 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-diff --git a/drivers/hid/hid-apple.c b/drivers/hid/hid-apple.c
-index bf7dd0fbf249..a5f232cc2b66 100644
---- a/drivers/hid/hid-apple.c
-+++ b/drivers/hid/hid-apple.c
-@@ -91,6 +91,9 @@ struct apple_sc_backlight {
- 	struct hid_device *hdev;
- };
- 
-+/* T2 VHCI re-enumerates the internal keyboard across system resume. */
-+static int apple_backlight_resume_brightness = -1;
-+
- struct apple_backlight_config_report {
- 	u8 report_id;
- 	u8 version;
-@@ -825,6 +828,7 @@ static int apple_backlight_led_set(struct led_classdev *led_cdev,
- static int apple_backlight_init(struct hid_device *hdev)
- {
- 	int ret;
-+	int brightness;
- 	struct apple_sc *asc = hid_get_drvdata(hdev);
- 	struct apple_backlight_config_report *rep;
- 
-@@ -860,13 +864,20 @@ static int apple_backlight_init(struct hid_device *hdev)
- 	asc->backlight->cdev.name = "apple::kbd_backlight";
- 	asc->backlight->cdev.max_brightness = rep->backlight_on_max;
- 	asc->backlight->cdev.brightness_set_blocking = apple_backlight_led_set;
--	asc->backlight->cdev.flags = LED_CORE_SUSPENDRESUME;
-+	/* VHCI re-enumeration restores the cached brightness in the next probe. */
-+
-+	brightness = READ_ONCE(apple_backlight_resume_brightness);
-+	if (brightness < 0)
-+		brightness = LED_OFF;
-+	else
-+		brightness = min_t(int, brightness, rep->backlight_on_max);
- 
--	ret = apple_backlight_set(hdev, 0, 0);
-+	ret = apple_backlight_set(hdev, brightness, 0);
- 	if (ret < 0) {
- 		hid_err(hdev, "backlight set request failed: %d\n", ret);
- 		goto cleanup_and_exit;
- 	}
-+	asc->backlight->cdev.brightness = brightness;
- 
- 	ret = devm_led_classdev_register(&hdev->dev, &asc->backlight->cdev);
- 
-@@ -999,6 +1010,9 @@ static void apple_remove(struct hid_device *hdev)
- 
- 	if (asc->quirks & APPLE_RDESC_BATTERY)
- 		timer_delete_sync(&asc->battery_timer);
-+	if (asc->backlight)
-+		WRITE_ONCE(apple_backlight_resume_brightness,
-+			   asc->backlight->cdev.brightness);
- 
- 	hid_hw_stop(hdev);
- }
--- 
-2.55.0
+Tested-by: Mark Brown <broonie@kernel.org>
 
+--VZnJrQvrpCeMb2Z9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpbcWcACgkQJNaLcl1U
+h9CasAf/cJcRdiNjHIhoEZg0xow8xCJ65a+wvM/fFnzp4/Opj1ulF1sitsCrMWTM
+XWvi7R13bi8Z3PTpuZ66JcEmgdRJyfO2yeHp3A00HO5L7fgmsZ86WzPFJy+WxazU
+7Dh5Fs2CbjPoZX9KwvHQEF0R21r/4egyw1nvwOBox81pqKE3x1dWTSIJMro+RxTu
+lzPiqRoJ7lcb0jbAin/tkTmK9SWUnhnu9YX9dYoQd8GJkD1n+2MNfw/9+5TVBHoc
+7zx2YZ5WX70mSqxXlysnhsLgvvnFnIMqKe8SeiEJNW6FSoyFOaJSTYdmcYb68/xt
+2r84rUXD92qDK9RLv4nNXvAw5KFDSA==
+=/NgC
+-----END PGP SIGNATURE-----
+
+--VZnJrQvrpCeMb2Z9--
