@@ -1,106 +1,146 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A92A345CDD
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 12:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784376314; cv=none; b=Ou8oRZUtFW6SMU9JevSUy1Me5pn4QyfmKhzrVWM9cDK9yWhU3qhhPBTp2Bl9ufMo8E2dK8sXg7PJVyNyubH5iIoTvG6nezJ1TmPK7ApbsOMiFcs+tJBCR+2wkz+civrHNUNgfCKQkr1FTA7ij9pQjkJ12c/QSWKDUjQZba7+I6k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784376314; c=relaxed/simple;
-	bh=UVQD7xZC19STANRHQeLYYOB6lofOMAO1isLrdP9clP8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kHnIccrSYveibMdcJlr2EmuMPbYubJwyDCEDtsSpEEd8dh0g+J4wosBmUtfR8JU13qa8nbenJ60zM+T3+fAMnf3okf0jj9lZKHpq0Nq+7MmEWnUIaIhTyo9ge68RYgblnFUCFNJdkIqvmHnFxLYVvizM+nY1LVYWevTQFZgDwoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b44ecTjp; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0262A38944E
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 12:20:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784377247; cv=pass; b=uZicucPoHaGdTrXQdnjI4fGsTtwN9En2xo3I/6dcJLiRLPZ0FBSICrEB5Qb1vp5MFSHAQcYWP6I9bc/63BBN8GTqnhzQUpVhJPvGU7t9CA5+Q7POGjLNsW8YFpFz+M3t1iKaosIXIilea8MFgPPbB4ICV7/LhcNkLgSZ9VGdgFA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784377247; c=relaxed/simple;
+	bh=P/ZIRJmEU2s5wwtOYFS1NtVVw0zy1c0TjDsa0ZWWs2A=;
+	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qrPXXG/tu4m3NWSij6GprKt8LfzdcxWyKZEOmYI/OC/eK0CeY0Wuvd89U8UBvMNZxOj2/Mk/JQ3ur56d/6+vedAu0M//B8Sox9r+MFKwU9FG/cqC7vkyC221M58WGHxeKC7OpP2U1GxvlAf22tOqQxQSW3rQxC8Df7hL+h9JGBs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAtnHNhz; arc=pass smtp.client-ip=74.125.224.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b44ecTjp"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-92e55b62640so585955785a.0
-        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 05:05:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAtnHNhz"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66826484b67so3498011d50.1
+        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 05:20:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784377245; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HcPuw4OAgwNNnVxYrTkRpt/VRbt6PXNB5kIcX1ZrRbskfZvLvtNCIW1w8AmC+bbTq2
+         t3LW4tlSLdxp89yhfpkLH4+jU+df5Y8/5kfBKfI1hj7+EAatHFOafpHoVOlWiJDYFCQw
+         8Aj4fhACY2lOj2tzkr9YMGHyoSxwShUcOC+RuYtqAM3+KmKw6plWKcc+kkfAgwHb4cSl
+         EjuFQGLKLUb4GqaNVKC8IORz2MDClaNJZP6dBdXuXVsHKtkf5V4PBl8YK4DeqUPUSkrb
+         rKEaALWiwqrksmuj/zPwk4mZGdNMVY0CTwj3B4FAq8RV4yDVkH2LsF+vN3wqpPu+mlEc
+         Hz0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:references:in-reply-to:dkim-signature;
+        bh=P/ZIRJmEU2s5wwtOYFS1NtVVw0zy1c0TjDsa0ZWWs2A=;
+        fh=cYbxue90MuJ2G178XDNvUldFw/0HGnyQ/a5zmoFeeI8=;
+        b=Vp+M8Tcr8X156SdynAC9BxmF+SYZWeO91lJX1JSYQYlqFhYDmwNMz/pa98+D2DwvaW
+         8e1GOKPnsQ7YrZW50IZLLpbGEeQRQjqNkBjvAeD0WTDQJ0WaJ+a/HhAAuy8LFcgN9Oj4
+         X4KSLzzmt+NKiJSZerUwa1QTNSVxdrea0cdjrubZKZ8u/2hZUzgwD5AONQMFCWsF4pV4
+         KO+ycLts9U76SFajYNJZMBSDAkKALApUzsrBDI13sFeEDydMAepUf/6TYpyGpR3IaLXl
+         TEk/GlMT/o6M3V9bePwGhcMsnShLPb3QO0P7wpw5sJoVdUvH1V6VgelEvZ22fs7U83iV
+         cdtA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784376312; x=1784981112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3Up2YZHFeIMQmB6EqO7RZlnVeEM60lSIwrWpc7fQrQg=;
-        b=b44ecTjp4hdjoe+OOrr4kGpa4Q7ndKzI09TU3MlJ72kQCbjsOq9TCyCPHKM2AUbbHD
-         lgupABa4+TLiROvIwAuwyPb29i/3IP687gMvUGwp500bxFxb1AhulwPC8wa1qfB24YBi
-         lX8zijbNiehqhMJp1p58kcHcWXAehwnNEVuGbGX5KI64MJsj4Pqvu4ULzou5/aAdTljw
-         vnErVcA/Lpe0Ju0oqMIrwhwClHKS/EwpI35lbU/vzRZpl0/P6hfrs8of2gRfPNFt5c+f
-         lpPKobDzYm5aDkWLs6oaBzvMt2wsKFUPtVeP2G5FwCuJnNgne72zZrVpc0VhBryMD6Ik
-         oFzg==
+        d=gmail.com; s=20251104; t=1784377245; x=1784982045; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:references:in-reply-to:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P/ZIRJmEU2s5wwtOYFS1NtVVw0zy1c0TjDsa0ZWWs2A=;
+        b=MAtnHNhzccMGUs4uTjV2XwV6Fkv3fAdVqmQ+HmQ0dECLMuMLnEFFV4Uvq9i+q6gJTC
+         Hu9ic5enCL9dRLYbCtEmTJ+tCHQF3L6HU52di/MC3gjQjhVFUo5kNxvh+wRgrgyH7mQg
+         sN6UGjK/3/IlCCLnU14g8mLMzuwVb5aiow4lcPA6S+fiJfe5nD47X8AAIFJDPFv+3RhI
+         Na8BzJuncEXX3aUsEivRS+Tngo02o6mV4HR8c0UwOsv/UvGJ1BYkdI8R6AxVtJWxWxJC
+         nksNYqqHLf41BmvN9y5LHUmLQod60o+fBuYyPBH6iFa3RNxLPkR/z9qcdco+5UqT6YPg
+         eYYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784376312; x=1784981112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3Up2YZHFeIMQmB6EqO7RZlnVeEM60lSIwrWpc7fQrQg=;
-        b=Iv4OVGvS7AeLjqfnLctL10IJ2B6tAjBdIVX5Pjo9LjJzM3cWg6+uIPOQTgKnK2s+Lt
-         K50BGqc5B2+sgJvjazvyTXq4Cztie+ArAKVp7ehW8rC8NH6D1OJSPKyEeDylytFusLD1
-         BMCbbHzrsH3mu2fxPcxj1UsPV8rF9jCv+ESexCbdAmasuUd4X9AN31zqfbe2+lvdMlM0
-         p/Geir65PAU0bOLzHNeTqRU84a1uEjEJ8aSztL4LsnrT5mKOt9VvybWXJnoHoVQbUuSK
-         S+LIOuRwh0gqWZ4MzxDYyjx6lDwCMJxaTVJLHFiydm2xiKfsP4DTCcCTmK9pEmOLxE5W
-         umYA==
-X-Forwarded-Encrypted: i=1; AHgh+RqvUxAPhYz+HKVDd6j9fc/TLPn/LZZ2EQzBLMfAOINiZpsgO2M/OXNp3wT8qslW4EEGg1minIE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxkke7x7F4BW6gCfrANL6WjeDuxS6npgYvuhQTFr++wShB0UH/4
-	13TOZRF6aWJ57VDKwZhhn296ThB9ezhWfmWVg6lXPtuo6FMMg2+C//Q=
-X-Gm-Gg: AfdE7ck02yS4p2RCj70pFHUvSA9lFxTOLi54TUiJXt+nRWspFyw7cmUJ0ou2fGLjJFb
-	0uN2Q/DeWxnw6sudy4+g9VpVAsPGoDlsnWrmi/TwKd/KSaYEGBtgNEOHP5vgemyUpaT5h4QGJfZ
-	OYrbCbl4w+2ljFP7aBeN/NTCoR/6qScsqwliKiHpSJdv2Reoi5TrhnUB2wNggWy/XbtDqaUziVt
-	ZhCjm7TCoOKNMW8igK5I60PBCjyz6TbaazqrjVvzNw7Ua2dZHmbC38sKamXJHa5Zf4w1zYgCspw
-	knBU2abI2aLAhNOMajX4N0R38/ADHlLWiFI2NlFBOZPmFeCHNc/+MDTFenTtQ6+Bq9lRqUX0C5P
-	B+2Mfn3IU4Q5bt4hRdQnq6WHF175gWh9Qvahp/r5Goq8nzR6TcrE8+jS5Cb+bj/fGwrRiBQFIJQ
-	zWs4egFDhITsipOkchEJ2s5nk/dHfeG/jLaQP//fnLZ0nMcahmO+/1ysY=
-X-Received: by 2002:a05:620a:198a:b0:915:f27f:e70e with SMTP id af79cd13be357-930b3ee61a0mr648064685a.23.1784376311790;
-        Sat, 18 Jul 2026 05:05:11 -0700 (PDT)
-Received: from NAUTEL-9N0B043.nautel.com (host-76-11-42-59.public.eastlink.ca. [76.11.42.59])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930b549629dsm389690485a.47.2026.07.18.05.05.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 05:05:11 -0700 (PDT)
-From: Ryan Wilbur <rwilbur633@gmail.com>
-To: andriy.shevchenko@linux.intel.com
-Cc: gregkh@linuxfoundation.org,
-	hvilleneuve@dimonoff.com,
-	ilpo.jarvinen@linux.intel.com,
-	jirislaby@kernel.org,
-	john.ogness@linutronix.de,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	manuel.lauss@gmail.com,
-	rwilbur633@gmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] serial: 8250: clear stuck RX-timeout interrupt on LPC32xx (PORT_LPC3220)
-Date: Sat, 18 Jul 2026 09:04:36 -0300
-Message-Id: <20260718120436.20196-1-rwilbur633@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <alpsOr5ZVqa_eLs9@ashevche-desk.local>
-References: <alpsOr5ZVqa_eLs9@ashevche-desk.local>
+        d=1e100.net; s=20251104; t=1784377245; x=1784982045;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:references:in-reply-to:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P/ZIRJmEU2s5wwtOYFS1NtVVw0zy1c0TjDsa0ZWWs2A=;
+        b=NwYVqOmHKh05+bgQq20cfV8ixmdrptMyTij9NJak1Kf9UNk8H3XyuccYC0zoiqHksc
+         BocaLd73Zyu3zUMlDEN+TeLbZbckQgHTrYPlzH5jeTf8TZk5M1ynraEtZSBFsfqXENT0
+         CmLoo5ItYjrAkokwAovhESeolmWNEJ33Ww1nXqWQJSR32ysRTl6B5GEQRFiMGxzePGnl
+         9GB8kXAjT/HMi8uZaWgIIAqoVIM61IfMNuG0OrsOEtEnqmSfQe5H1VEsvr9K99ZVd4rd
+         6Df+T71a9knIUQ66Co3CcUXHxxNtAO4kxylHLm2DuuePa5Y3RKFV8jTTXTtb7zmKJGGn
+         gSsQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrS4YNskr64WA2PWq76bTRTylpFZXrsCLWSW2teH0NXiBeH4VHoIFP2zdhArgTyXMXqNlXNdmA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyNXW1x2OdubcCME1AWrv2MURjNMaU4vGwxX0QbKz63TVimIUhl
+	xKzSSmr0yHCwcvka3zWAmitTCTydQcEQE3VMCAFu+oWPLu7C2trTs37cD+C6xHyiUaI73H06qFy
+	zLXe0qUVcIiMvccQ2XV4zlaXlJLFc61Q=
+X-Gm-Gg: AfdE7clw1EC1dNHywRWEvIyyNvgLO4W9rqipFStQQOuHMHPvzU793IFK1ZhXJmOR8UV
+	UssO7xcHo1d8l6JlEPbvC7FJqidRycnFkQrSMhEnfcxrf6jdydFBxTGvZvCaBPz0K+LysQOpOas
+	5Ezai7c5/neaE1QPgQoVxEwBgPzB9VIOR1sRKFNZ66QfaHLGMj3cM8cCeUNb7Op9qAnIWqFMtUf
+	416Y2CGS9uFrCXWCyqswdVm/JCCxqpHIYwSYBX6cyGgSC0a2E194EPlYDysIeauyoy1IYKf
+X-Received: by 2002:a53:d24a:0:b0:668:ba3:fbe7 with SMTP id
+ 956f58d0204a3-6683bd99f2cmr1268824d50.93.1784377244920; Sat, 18 Jul 2026
+ 05:20:44 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sat, 18 Jul 2026 07:20:42 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sat, 18 Jul 2026 07:20:42 -0500
+In-Reply-To: <87jyr8jgr8.fsf@bootlin.com>
+References: <20260627235805.17310-1-alhouseenyousef@gmail.com>
+ <877bncnx25.fsf@bootlin.com> <CAMuQ4bWf+o_ZDMXn1tTw30veo-30Mt9XZehT8BPErJ30Kx_95A@mail.gmail.com>
+ <87jyr8jgr8.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Date: Sat, 18 Jul 2026 07:20:42 -0500
+X-Gm-Features: AUfX_mz62dEF0Vq5bXVUAbEJ8S4AYECuR0xq5pd1LEcB8_UKBr09Lg_v4EYwfJ0
+Message-ID: <CAMuQ4bWObh9FVFifH91UMcdugn6YD79T1wAqeJ2owBnzsMdnCA@mail.gmail.com>
+Subject: Re: [PATCH net] ieee802154: hwsim: free PIB after unregistering hardware
+To: miquel.raynal@bootlin.com
+Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	linux-wpan@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	syzbot+4707bb8a43a42fca2b97@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 17, 2026 at 20:54:02 +0300, Andy Shevchenko wrote:
-> > +      * Same bug worked around for other 8250 cores (8250_dw, 8250_omap, 8250_bcm7271).
+Agreed. I'll use rcu_access_pointer() in v2; it expresses the final
+pointer fetch more directly once unregister has quiesced the updaters.
+
+Thanks,
+Yousef
+
+On Mon, 06 Jul 2026 17:10:35 +0200, Miquel Raynal
+<miquel.raynal@bootlin.com> wrote:
+> Hello Yousef,
 >
-> This is 8250-port.c.
+> On 03/07/2026 at 04:19:42 -07, Yousef Alhouseen <alhouseenyousef@gmail.co=
+m> wrote:
 >
-> > +   if (port->type == PORT_LPC3220 &&
+> > Hello Miquel,
+> >
+> > After ieee802154_unregister_hw() returns, the driver callbacks that
+> > can replace phy->pib have been quiesced, and hwsim_del() has exclusive
+> > ownership of the final teardown. The pointer is no longer being
+> > fetched inside an RCU read-side critical section, so rcu_dereference()
+> > is not appropriate there.
 >
-> Why do we have this then?
-
-dw/omap/bcm7271 handle their variants of this in their
-own drivers. LPC32xx (PORT_LPC3220) has no dedicated 8250 glue driver.
-  
-I gated it on port->type because LPC32xx is the only hardware I can test
-on, and I wanted to avoid changing behaviour on 8250 variants I can't
-verify. That said, the read only fires on a bogus IIR=RX_TIMEOUT with LSR.DR
-clear, which a healthy 16550 never reports, so it's harmless on other
-parts. Unless you object, I'll drop the PORT_LPC3220 gate to allow for generic
-handling.
-
-
+> That's right.
+>
+> > rcu_dereference_protected(phy->pib, 1) expresses that there can no
+> > longer be a concurrent updater at that point; the protection condition
+> > is the completed unregister rather than a locally held lock. The value
+> > is only fetched so the final object can be passed to kfree_rcu().
+>
+> While I believe this is indeed true, it actually feels slightly overkill
+> since there is no updater anymore and, as far as I understand, the only
+> thing that we need here is to get the pointer value for freeing, right?
+>
+> > rcu_access_pointer() would also be sufficient for that limited use if
+> > you prefer it, and I can use that spelling in a v2.
+>
+> If you don't mind, I feel like rcu_access_pointer() is exactly what we
+> need here. It is also more understandable, even though I agree in
+> practice there are no differences in this case.
+>
+> Thanks,
+> Miqu=C3=A8l
