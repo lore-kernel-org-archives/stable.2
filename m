@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BCA3370E4
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 16:31:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4408A2C86D
+	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 16:31:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784392272; cv=none; b=OfxPfcpTXJ8gz805msiiYGd0MjeDHjoNSOFAu9xTQv6nBFkE6NIcXw1EWmF001TbzBuNCeuZNkaWky4gnNhc5K/CI8vYmYu5iQocMVxWLyFMTT67tItM9rqCDrLjAtfhxVVfjfoO1ezYD5LmTbSREI35AJ85X2qGTHxuubEcq40=
+	t=1784392276; cv=none; b=oEX5Ez/yQLwWfZe5uEpYhsVO8hjdf9NlZcZK1BTKAJ63bEt/oJr4V9mGaoHUiNNr/tnNW9S4eKPeXVll/cq5M/4nCHYF5KvZ1isj3/qBURkqy1+iOKfKY9Ig9Qs5ZPa/3krzVcATy4AETVaLtsNp5LMbk85W8Ts139KOlS5jA5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784392272; c=relaxed/simple;
-	bh=aAFbPsNu1c+krYEDqLU9+wPto8VJVqErGx3GQz40Rfo=;
+	s=arc-20240116; t=1784392276; c=relaxed/simple;
+	bh=1lo0mlXKu1wiOzmpo5Jx4V6jgYxJS50ff53s0bIdpp0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sVt0upCLX30QQypnwi2AV5M3Y56qA+1Ec38Qt4EtK2C3hxzIR7Hgj8n9zNmt2zdFOTZKEOBmN8ee5w4MHum0fPnpJrdCTNCGuUpkvbqhIwItOppFpzcorU+gS+IJqgHqClpGiMFgTWEK07bT+Y8dz0n3IVXgGuS3IFkyg5rdQoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DaBJ2xVq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qglmXvJS5aQGN9Y/3CqMc6roFW+FKW3NpOo9vQ6RAFiUNzj0kaVYsEMf1OFAyvxuCWwtgCZT7Bp3Tif2jrbDO0YZgBH6Vj6RJFlD6YgIzN0WTjIpv4lBDmESyFDSxNY+X/MwlkWm1clXEu62fWjmDKW+HqMNoq5U6Dh59H6m670=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n8/udjfw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DaBJ2xVq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9684C1F00A3A;
-	Sat, 18 Jul 2026 16:31:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n8/udjfw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10CE61F000E9;
+	Sat, 18 Jul 2026 16:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784392270;
-	bh=ITAjq4dR47MHyLi6a7UE9QnKLOHUeLzZ2jvgtQHeWsw=;
+	s=k20260515; t=1784392274;
+	bh=gWoIGqhdCZ33FgW3i3jwHcSypK2wkaNR5uLHzlCXS6I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DaBJ2xVqj8TSw5xwAkCMYOj17ZfCqFfo7CZlRG9LHvL75so19+5Stu9+1zP8tYkp3
-	 Acqw2Ms1mq4jpgZJMfHca4+FBKdIgu4QEhejOJsaViAqcibZtZxcjmdApEs3f55M4S
-	 OYF2H7jQZCyU67n2Q7Q26EwmtYohW9QtY+4G8CMsc5iEDgMdiO1Nd09uMY4cefMu1j
-	 5moxdEYUjsRBboxOgeKOzLFJNP5186yNtUCLw1/byhJm5PfwL4rfRMWIDf4HPoh6GM
-	 HvFOE4DmebfKuWfn9mi8xNph30SkgrYq0gKX0ebpjio6bsq6lXeiwUG3mFGX9w66Eg
-	 eI/pGtGz5Z43Q==
+	b=n8/udjfw9gTM2hjMSoa6/ZJSMjcqxU7KtLh8LRPzfpYNF3V5EzuJmsFAtEQfnjSYm
+	 9osdGMuN/4b/Pmo4lTmHuf5zVc1A2xJxrFEn/l8jwDcYvztFRN9tcO3jReB80Wg/SK
+	 81zIV6UVBMgYyGGFdqzk4dBTTUUDYTl6DmaV78GJdTwDLB9lEKZbd1uAW8pPj1Y/Kf
+	 x9zU/n5l7nFbio3rF0pVtH/irqW96RwXlS/4J1AFEMoLQhzf7VfXs5GgYmi3fsqM5b
+	 imYdwXmHJFvBzaLnPhbOmtaCf/AHUI4zsrDu7BVmmp+QtoUtO4kBAy+X+i1eaGBUeL
+	 cIiiemesJM5Mw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vlad Poenaru <vlad.wing@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>,
+	Toke Hoiland-Jorgensen <toke@redhat.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jesper Dangaard Brouer <brouer@redhat.com>,
 	Alexei Starovoitov <ast@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] bpf: Allow LPM map access from sleepable BPF programs
-Date: Sat, 18 Jul 2026 12:31:07 -0400
-Message-ID: <20260718163107.3338970-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] xdp: introduce flags field in xdp_buff/xdp_frame
+Date: Sat, 18 Jul 2026 12:31:11 -0400
+Message-ID: <20260718163112.3339166-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260718163107.3338970-1-sashal@kernel.org>
-References: <2026071450-landmine-pouring-a4f5@gregkh>
- <20260718163107.3338970-1-sashal@kernel.org>
+In-Reply-To: <2026071421-video-bucket-8e49@gregkh>
+References: <2026071421-video-bucket-8e49@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,99 +48,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vlad Poenaru <vlad.wing@gmail.com>
+From: Lorenzo Bianconi <lorenzo@kernel.org>
 
-[ Upstream commit 2f884d371fafea137afea504d49ee4a7c8d7985b ]
+[ Upstream commit 2e88d4ff03013937028f5397268b21e10cf68713 ]
 
-trie_lookup_elem() annotates its rcu_dereference_check() walks with
-only rcu_read_lock_bh_held().  Because rcu_dereference_check(p, c)
-resolves to "c || rcu_read_lock_held()", this passes for XDP/NAPI and
-classic RCU readers but fails for sleepable BPF programs, which enter
-via __bpf_prog_enter_sleepable() and hold only rcu_read_lock_trace().
+Introduce flags field in xdp_frame and xdp_buffer data structures
+to define additional buffer features. At the moment the only
+supported buffer feature is frags bit (XDP_FLAGS_HAS_FRAGS).
+frags bit is used to specify if this is a linear buffer
+(XDP_FLAGS_HAS_FRAGS not set) or a frags frame (XDP_FLAGS_HAS_FRAGS
+set). In the latter case the driver is expected to initialize the
+skb_shared_info structure at the end of the first buffer to link together
+subsequent buffers belonging to the same frame.
 
-trie_update_elem() and trie_delete_elem() have the same problem in a
-different form: they walk the trie with plain rcu_dereference(), which
-asserts rcu_read_lock_held() unconditionally.  Both are reachable from
-sleepable BPF programs via the bpf_map_update_elem / bpf_map_delete_elem
-helpers, and from the syscall path under classic rcu_read_lock().  In
-the writer paths the trie is actually protected by trie->lock (an
-rqspinlock taken across the walk); we never relied on the RCU read-side
-lock to keep nodes alive there.
-
-A sleepable LSM hook that ends up touching an LPM trie therefore
-triggers lockdep on debug kernels:
-
-  =============================
-  WARNING: suspicious RCU usage
-  7.1.0-... Tainted: G            E
-  -----------------------------
-  kernel/bpf/lpm_trie.c:249 suspicious rcu_dereference_check() usage!
-  1 lock held by net_tests/540:
-   #0: (rcu_tasks_trace_srcu_struct){....}-{0:0},
-       at: __bpf_prog_enter_sleepable+0x26/0x280
-  Call Trace:
-   dump_stack_lvl
-   lockdep_rcu_suspicious
-   trie_lookup_elem
-   bpf_prog_..._enforce_security_socket_connect
-   bpf_trampoline_...
-   security_socket_connect
-   __sys_connect
-   do_syscall_64
-
-This is lockdep-only -- no UAF, since Tasks Trace RCU does serialize
-against the trie's reclaim path -- but it spams the console once per
-distinct callsite on every debug kernel running a sleepable BPF LSM
-that touches an LPM trie, which is increasingly common.
-
-For the lookup path, switch the rcu_dereference_check() annotation
-from rcu_read_lock_bh_held() to bpf_rcu_lock_held(), which accepts all
-three contexts (classic, BH, Tasks Trace).  Other map types already
-follow this convention.
-
-For trie_update_elem() and trie_delete_elem(), annotate the walks as
-rcu_dereference_protected(*p, 1) -- matching trie_free() in the same
-file -- since trie->lock is held across the walk.  rqspinlock has no
-lockdep_map, so the predicate degenerates to '1' rather than
-lockdep_is_held(&trie->lock); the protection is real but not
-machine-verifiable.  trie_get_next_key() also uses bare
-rcu_dereference() but is reachable only from the BPF syscall, which
-holds classic rcu_read_lock() before dispatching, so it is left
-untouched.
-
-Fixes: 694cea395fde ("bpf: Allow RCU-protected lookups to happen from bh context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Link: https://lore.kernel.org/r/20260609135558.193287-2-vlad.wing@gmail.com
+Acked-by: Toke Hoiland-Jorgensen <toke@redhat.com>
+Acked-by: John Fastabend <john.fastabend@gmail.com>
+Acked-by: Jesper Dangaard Brouer <brouer@redhat.com>
+Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
+Link: https://lore.kernel.org/r/e389f14f3a162c0a5bc6a2e1aa8dd01a90be117d.1642758637.git.lorenzo@kernel.org
 Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Stable-dep-of: aa496720618f ("bpf: Reject fragmented frames in devmap")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/lpm_trie.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/net/xdp.h | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/kernel/bpf/lpm_trie.c b/kernel/bpf/lpm_trie.c
-index 484227a214822c..def44994c479fc 100644
---- a/kernel/bpf/lpm_trie.c
-+++ b/kernel/bpf/lpm_trie.c
-@@ -236,7 +236,7 @@ static void *trie_lookup_elem(struct bpf_map *map, void *_key)
+diff --git a/include/net/xdp.h b/include/net/xdp.h
+index b2ac69cb30b3d7..aa0c1249ed98ef 100644
+--- a/include/net/xdp.h
++++ b/include/net/xdp.h
+@@ -66,6 +66,10 @@ struct xdp_txq_info {
+ 	struct net_device *dev;
+ };
  
- 	/* Start walking the trie from the root node ... */
++enum xdp_buff_flags {
++	XDP_FLAGS_HAS_FRAGS	= BIT(0), /* non-linear xdp buff */
++};
++
+ struct xdp_buff {
+ 	void *data;
+ 	void *data_end;
+@@ -74,13 +78,30 @@ struct xdp_buff {
+ 	struct xdp_rxq_info *rxq;
+ 	struct xdp_txq_info *txq;
+ 	u32 frame_sz; /* frame size to deduce data_hard_end/reserved tailroom*/
++	u32 flags; /* supported values defined in xdp_buff_flags */
+ };
  
--	for (node = rcu_dereference_check(trie->root, rcu_read_lock_bh_held());
-+	for (node = rcu_dereference_check(trie->root, bpf_rcu_lock_held());
- 	     node;) {
- 		unsigned int next_bit;
- 		size_t matchlen;
-@@ -270,7 +270,7 @@ static void *trie_lookup_elem(struct bpf_map *map, void *_key)
- 		 */
- 		next_bit = extract_bit(key->data, node->prefixlen);
- 		node = rcu_dereference_check(node->child[next_bit],
--					     rcu_read_lock_bh_held());
-+					     bpf_rcu_lock_held());
- 	}
++static __always_inline bool xdp_buff_has_frags(struct xdp_buff *xdp)
++{
++	return !!(xdp->flags & XDP_FLAGS_HAS_FRAGS);
++}
++
++static __always_inline void xdp_buff_set_frags_flag(struct xdp_buff *xdp)
++{
++	xdp->flags |= XDP_FLAGS_HAS_FRAGS;
++}
++
++static __always_inline void xdp_buff_clear_frags_flag(struct xdp_buff *xdp)
++{
++	xdp->flags &= ~XDP_FLAGS_HAS_FRAGS;
++}
++
+ static __always_inline void
+ xdp_init_buff(struct xdp_buff *xdp, u32 frame_sz, struct xdp_rxq_info *rxq)
+ {
+ 	xdp->frame_sz = frame_sz;
+ 	xdp->rxq = rxq;
++	xdp->flags = 0;
+ }
  
- 	if (!found)
+ static __always_inline void
+@@ -122,8 +143,14 @@ struct xdp_frame {
+ 	 */
+ 	struct xdp_mem_info mem;
+ 	struct net_device *dev_rx; /* used by cpumap */
++	u32 flags; /* supported values defined in xdp_buff_flags */
+ };
+ 
++static __always_inline bool xdp_frame_has_frags(struct xdp_frame *frame)
++{
++	return !!(frame->flags & XDP_FLAGS_HAS_FRAGS);
++}
++
+ #define XDP_BULK_QUEUE_SIZE	16
+ struct xdp_frame_bulk {
+ 	int count;
+@@ -180,6 +207,7 @@ void xdp_convert_frame_to_buff(struct xdp_frame *frame, struct xdp_buff *xdp)
+ 	xdp->data_end = frame->data + frame->len;
+ 	xdp->data_meta = frame->data - frame->metasize;
+ 	xdp->frame_sz = frame->frame_sz;
++	xdp->flags = frame->flags;
+ }
+ 
+ static inline
+@@ -206,6 +234,7 @@ int xdp_update_frame_from_buff(struct xdp_buff *xdp,
+ 	xdp_frame->headroom = headroom - sizeof(*xdp_frame);
+ 	xdp_frame->metasize = metasize;
+ 	xdp_frame->frame_sz = xdp->frame_sz;
++	xdp_frame->flags = xdp->flags;
+ 
+ 	return 0;
+ }
 -- 
 2.53.0
 
