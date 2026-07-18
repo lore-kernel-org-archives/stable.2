@@ -1,249 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94692E7631;
-	Sat, 18 Jul 2026 04:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FB32DAFBB;
+	Sat, 18 Jul 2026 04:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784349303; cv=none; b=kd1HXigOS3pQcvU9pvMcCfRo4ZbvaI86tHztBDTcf+JfdXZN9TnpSHRuC9c4NHcMWZIPmlmAnI5629052bIhh0RL2msxDxW0e1t18Unx84PHDyKPi7kmNPjIztWlJZ7ucrRP+8jCgfXs3gn9lrZG0Mex2HfbnBi0DHRv+DICzOo=
+	t=1784350598; cv=none; b=ifwT+WHBJisbkPSg0RYIK1kNzDpBIyuiJ7KH3F3BQFVIaY34GWmhcDNW8/bKC8VhXQVi0hyeLybkaF9Sfnmud+tW9GsNKxqSaX6CWGIF2RAnNC+D9ohFx2bJgxMS963EZG0KTRaZa8r/toUplvsXNeW0A63LVDlHPSJSNCjzy7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784349303; c=relaxed/simple;
-	bh=Fo/FGAKjfX/QLYTFhKKzih2jgeP24kO0kvchGRnOAXY=;
-	h=Date:To:From:Subject:Message-Id; b=WkEyRdFruGGingBcsGOz7p5R9DV8gQ5eV0Bts07UpZzNEq5UhVbGTXx0SCRVUXMO+dYFmEvpEnKsZBywrRV2HDkzGcRCqbhQuerfsqImk1U+2B0QYe/uQOuMyuJrNB9Hr2FWt2+ekLW2dshH+QM9uo0AUohXoRtmIbsIltyFsxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=e0mNfBj7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784350598; c=relaxed/simple;
+	bh=43j02/lHfdIU9W1w14GAjkVTT7/TUiKZk5i8QdLvw6A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BvKumoNTaVAHYCIZeEm3P2r7N+r6IXZxOX84yD+7lIbFc2mZLob2dazzBvc/5Xkla+3rRoBvBaL8+hvr8pVdV6y8tUCuJDGSTzSsWDlbG23KJL1K/WxkqCQBGoZrR3jvZmhE8imAh4eNuqEhHiTWbxfTW7oA4BPxsFxfCe1est4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=NUmhS8Z1; arc=none smtp.client-ip=18.169.211.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="e0mNfBj7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D571F000E9;
-	Sat, 18 Jul 2026 04:35:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784349301;
-	bh=5SPUc0Lfre9s+yzwFkLVrQX/017zI5rq/g00A+LOdQc=;
-	h=Date:To:From:Subject;
-	b=e0mNfBj7bUPEo7nx7P6EHgEKk41r2ZP/KGxDDiYIK9u5X2zEbgUS/BF508+lniupG
-	 REcB/DoOJR4Qs0x7CWs5tv++s8dxNKDt5HLvnnuM2J4GhpxrQcJa7wLbutdHERpuKD
-	 xknk1ceqaWCovR4haan4JVslIZ2uwdGF8NWvumu4=
-Date: Fri, 17 Jul 2026 21:35:01 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,brendan.higgins@linux.dev,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions.patch added to mm-new branch
-Message-Id: <20260718043501.86D571F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="NUmhS8Z1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1784350526;
+	bh=Q/pyZY0DdHNUC4u3NjOVXwZgQU9zqflnqZH/B/PFBV4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=NUmhS8Z1KjIO54y+5hWyizw3IATtUc6C+7RTD9QLVGRujdTnDGLoflbe4z+KK6+pJ
+	 wKJnpTX8YDf4qqNkYmT4WIlLptHNCfLoDJXl6U8L1IiMcXQg9AdBF1QR04xN9M6m42
+	 uqfCs1qpSY8Z2XDeuQWdrexNeiAaIyoeIJIiOz7s=
+X-QQ-mid: esmtpgz14t1784350518te0b5efe8
+X-QQ-Originating-IP: ZXM8ov0nZslofLfrmJw4Lk4AcNaqjgEVt+WRQllxOiQ=
+Received: from [127.0.0.1] ( [36.152.24.129])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 18 Jul 2026 12:55:16 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 7271053026370203753
+Message-ID: <FCE172839ADB7A63+1133eef1-621d-4d73-ae86-f5039b6673ee@smail.nju.edu.cn>
+Date: Sat, 18 Jul 2026 12:55:16 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu/iommufd: Fix IOPF group ownership UAF
+To: "Tian, Kevin" <kevin.tian@intel.com>, "joro@8bytes.org"
+ <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>,
+ "jgg@ziepe.ca" <jgg@ziepe.ca>
+Cc: "robin.murphy@arm.com" <robin.murphy@arm.com>,
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>
+References: <B4F28798E2E784CA+d29f723c-b2b5-4b67-8d1c-4f7b9b0b27cb@smail.nju.edu.cn>
+ <9BE255A7A4AB5AAA+20260715042421.3148159-1-peiyang_he@smail.nju.edu.cn>
+ <SA2PR11MB484486F27784FF0AA0C2D7858CC62@SA2PR11MB4844.namprd11.prod.outlook.com>
+Content-Language: en-US
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+In-Reply-To: <SA2PR11MB484486F27784FF0AA0C2D7858CC62@SA2PR11MB4844.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NzOHSugmTg7XGPPDjG7j/6TlXNj2kVZ0pwrm/CxNsaRkItG/QHvo/0u/
+	xdWutc/rcqcFeJWiCbc2J20+q+JR/714qn4iSA12Eh5CuU9SmGfBa6vFSU7lmN3QHQvL3mD
+	CLAoPeVW/VCjuGxIYt+Oq91qtbKpUdwsjia9AByGvX6Tz5URsNNCVD1+cpDwaVCyfzGmHnH
+	cD1yupOUDL75i2hcNfpJThpLZhSGN4QF/17AVo/Bp253qXyt6YFIBWGFVLGajnrtPro8Tno
+	K2GO76uTJv+JqV5f8DxFlrXn5szZmhqqfi4sVKlh13w72Vd+crAf6YL+SzXYSEOP5cRZpsb
+	MDPWiLAcIKOyOvgj7KSlXyUiiIefAgu62vqC2306lXk1pfW3HCF9E8wH9bCWpwLCzblkZZw
+	jyGgPDTN6C9FRUK6um1wVjfLYDrqsWGP8N6DjVglxAeB4/9dQwzEu16o6nzFg3GxK4DuKKB
+	QoprNtTiuIt/puPmet2npFtyHtHQj4zIoodzElEhRnpJE5CLbglaIbEl6AXC6URij0m0qg5
+	1IuqFjIextrSRVSk06mdHjcg+kv7LBmMDTikDvzc5SDWWDlpFq/7/+WSjK23YOKWKReZbkI
+	jihNIopdYLM8T601LTKGh34gcxuiUwVPUbVrXwdSbULNGU5w/NGfOjLnYHLyh/7p6spMMc/
+	ep7vOL8MfPSR8kyjnPiOmygEek7UeFvkALlgGHY6JDJ3T8pNJHzhptWlZPEnaJICHvVMb/6
+	++y/dJIctYTh84UYAsa9TVQEDlySRTK//herNphTKSHUu/L1wWBTfviqdASyzoHxY7YAw8D
+	xc+dStLZLi7yAmA0ZGYYxC8E/38BJJlI+jOTYmsIXCfO14r/zvm529VcYDCoWapc1ZSWgNq
+	wpgXgsJ4ctkyomyU/HGIYeDUONyrYYJTda2ZHjHTW8+gcD1YC5O2HDRqF2RxvY0nC/o3Bl+
+	1U/l8S2WlIitbd5+84kjWIdPVYZ68lf/ZA/sB4/oV8x6ULeWbhDgnEARe5zmc1q00IwkYOg
+	t+0+sXNeQlA42CLFWeosXiJZ/AJwtxAGFLkU3u1a6JvAA6z/EZ
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
+On 2026/7/17 16:00, Tian, Kevin wrote:
+>> From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+>> Sent: Wednesday, July 15, 2026 12:24 PM
+>>
+>> iopf_group_alloc() links each last-page IOPF group into the generic IOPF
+>> pending list before invoking the domain fault handler.
+>> iommufd_fault_iopf_handler() also queued an accepted group in the
+>> IOMMUFD deliver list without removing it from the generic pending list.
+>>
+>> When detach or HWPT replacement drops the device's IOPF reference count
+>> to zero, an IOMMU driver may call iopf_queue_remove_device(). That
+>> function responds to and frees groups through the generic pending list
+>> without removing the same groups from IOMMUFD's deliver list or response
+>> xarray. A later read, response, or cleanup can then access the freed
+>> group and cause a UAF.
+>>
+>> Fix this by separating response state from generic ownership.
+>> Add iopf_group::response_pending to track whether a device response
+>> is still owed, independently of generic pending-list membership,
+>> and update that state under iommu_fault_param::lock in a helper.
+>> Before publishing an accepted group to the IOMMUFD deliver list, call
+>> iopf_group_take_ownership() to remove it from the generic pending list.
+>> IOMMUFD then becomes the sole owner responsible for responding to and
+>> freeing the group.
+> 
+> this is ok but could be simplified.
+> 
+> There is no use case in which we allow a group staying in the pending
+> list after its response has been sent. Actually every iopf_group_response()
+> is followed by iopf_free_group().
+> 
+> so let's just remove the list_empty() check in iopf_group_response().
+> 
+> better - move iopf_free_group() into iopf_group_response() (with a special
+> handling in err unwinding of iommu_report_device_fault()).
+> 
+>> +/**
+>> + * iopf_group_take_ownership - Take ownership of a group of page faults
+>> + * @group: the group of faults whose ownership is transferred to the fault
+>> handler
+>> + *
+>> + * Remove the group from the generic IOPF pending list. The fault handler is
+>> + * responsible for responding to and freeing the group after this returns.
+>> + */
+>> +void iopf_group_take_ownership(struct iopf_group *group)
+> 
+> iopf_group_dequeue()
+> 
+>> @@ -582,7 +582,7 @@ static int iommufd_hwpt_replace_device(struct
+>> iommufd_device *idev,
+>>  	if (rc)
+>>  		goto out_free_handle;
+>>
+>> -	iommufd_auto_response_faults(hwpt, old_handle);
+>> +	iommufd_auto_response_faults(old, old_handle);
+> 
+> this belongs to another patch already queued by Jason.
+> 
 
-The patch titled
-     Subject: mm/damon/core-kunit: skip wrong region walk in commit_target_regions()
-has been added to the -mm mm-new branch.  Its filename is
-     mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions.patch
+Hi Kevin,
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions.patch
+v2 patch has addressed all these issues and passed my PoC. Thanks for your feedback!
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Best,
+Peiyang
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core-kunit: skip wrong region walk in commit_target_regions()
-Date: Fri, 17 Jul 2026 17:14:41 -0700
-
-damon_test_commit_target_regions_for() traverses expected values array
-after damon_commit_target_regions() call.  It assumes
-damon_commit_target_regions() made expected number of regions.  It might
-not.  Because the traversal is made based on the region count, it could do
-out of bounds access to the expectation value array.
-
-The consequent user impact (out-of-bound access) is quite bad.  The
-realistic user impact would be limited, though.  It would affect only test
-run setups.
-
-Fix it by testing if the number of regions was also changed as expected
-and exit early for the failure.
-
-The issue was discovered [1] by Sashiko.
-
-Link: https://lore.kernel.org/20260718001442.87129-8-sj@kernel.org
-Link: https://lore.kernel.org/20260713144757.39740-1-sj@kernel.org [1]
-Fixes: 603f67eb91e0 ("mm/damon/tests/core-kunit: add damon_commit_target_regions() test")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: <stable@vger.kernel.org> # 6.19.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/damon/tests/core-kunit.h |    9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
---- a/mm/damon/tests/core-kunit.h~mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions
-+++ a/mm/damon/tests/core-kunit.h
-@@ -1277,14 +1277,19 @@ static void damon_test_commit_target_reg
- 		kunit_skip(test, "src target setup fail");
- 	}
- 	damon_commit_target_regions(dst_target, src_target, 1);
-+
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(dst_target), nr_expect_regions);
-+	if (damon_nr_regions(dst_target) != nr_expect_regions)
-+		goto out;
-+
- 	i = 0;
- 	damon_for_each_region(r, dst_target) {
- 		KUNIT_EXPECT_EQ(test, r->ar.start, expect_start_end[i][0]);
- 		KUNIT_EXPECT_EQ(test, r->ar.end, expect_start_end[i][1]);
- 		i++;
- 	}
--	KUNIT_EXPECT_EQ(test, damon_nr_regions(dst_target), nr_expect_regions);
--	KUNIT_EXPECT_EQ(test, i, nr_expect_regions);
-+
-+out:
- 	damon_free_target(dst_target);
- 	damon_free_target(src_target);
- }
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-samples-damon-wsse-handle-damon_start-failure.patch
-samples-damon-prcl-handle-damon_start-failure.patch
-samples-damon-mtier-handle-damon_start-failure.patch
-samples-damon-mtier-handle-damon_stop-failure.patch
-samples-damon-wsse-stop-and-free-damon-ctx-when-damon_call-fails.patch
-samples-damon-prcl-stop-and-free-damon-ctx-when-damon_call-fails.patch
-mm-damon-sysfs-kobject_del-target-normal-context-and-kdamond-dirs.patch
-mm-damon-sysfs-kobject_del-region-and-target-error-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-region-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-filter-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-quota-goal-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-action-destination-dirs.patch
-mm-damon-sysfs-kobject_del-probe-dirs.patch
-mm-damon-sysfs-kobject_del-probe-filter-dirs.patch
-mm-damon-sysfs-kobject_del-probe-dirs-in-probes_addd_dir-error-path.patch
-mm-damon-sysfs-schemes-kobject_del-region-for-populate_region-error.patch
-docs-mm-damon-design-update-for-damos_quota_node_eligible_mem_bp.patch
-docs-abi-damon-document-probe-files.patch
-mm-damon-tests-core-kunit-test-damon_rand.patch
-selftests-damon-sysfssh-test-multiple-probe-dirs-creation.patch
-selftests-damon-sysfssh-test-coreops_filters-directories.patch
-selftests-damon-sysfssh-test-dests-dir.patch
-selftests-damon-sysfssh-test-all-files-in-quota-goal-dir.patch
-mm-damon-core-reduce-range-setup-in-damon_commit_target_regions.patch
-mm-damon-sysfs-split-probe-setup-function-out.patch
-mm-damon-sysfs-split-out-filters-setup-function.patch
-mm-damon-sysfs-fix-typos-in-probe_addrm_dirs-s-attr-probe.patch
-mm-damon-core-introduce-damon_nr_accesses_mvsum.patch
-mm-damon-tests-core-kunit-test-damon_mvsum.patch
-mm-damon-core-always-update-last_nr_accesses-for-intervals-change.patch
-mm-damon-core-handle-unreset-nr_accesses-in-damon_nr_accesses_mvsum.patch
-mm-damon-core-use-damon_nr_accesses_mvsum-in-__damos_valid_target.patch
-mm-damon-core-use-damon_nr_accesses_mvsum-for-damos-region-tracing.patch
-mm-damon-sysfs-schemes-use-damon_nr_accesses_mvsum-for-damo-regions.patch
-mm-damon-core-remove-damon_warn_fix_nr_accesses_corruption.patch
-mm-damon-core-remove-damon_verify_reset_aggregated.patch
-mm-damon-core-remove-damon_verify_merge_regions_of.patch
-mm-damon-tests-core-kunit-remove-nr_accesses_bp-setup-and-tests.patch
-selftests-damon-drgn_dump_damon_status-do-not-dump-nr_accesses_bp.patch
-mm-damon-core-remove-nr_accesses_bp-setups-and-updates.patch
-mm-damon-core-remove-attrs-param-from-damon_update_region_access_rate.patch
-mm-damon-paddr-remove-attrs-param-from-__damon_pa_check_access.patch
-mm-damon-vaddr-remove-attrs-param-from-__damon_va_check_access.patch
-mm-damon-core-remove-damon_moving_sum-and-its-unit-test.patch
-mm-damon-core-remove-damon_region-nr_accesses_bp.patch
-mm-damon-add-damon_region-last_probe_hits.patch
-mm-damon-core-introduce-damon_probe_hits_mvsum.patch
-mm-damon-sysfs-schemes-set-probe-hits-as-pseudo-moving-sums.patch
-mm-damon-core-safely-validate-src-on-damon_commit_ctx.patch
-mm-damon-core-do-parameter-testing-commit-on-damon_start.patch
-mm-damon-sysfs-remove-duplicated-commit-input-validity-check.patch
-mm-damon-reclaim-remove-duplicated-min_region_sz-power-of-2-check.patch
-mm-damon-lru_sort-remove-duplicated-min_region_sz-power_of_2-check.patch
-mm-damon-document-region-size-validation-in-damon_set_regions.patch
-mm-damon-core-remove-start-end-check-in-damon_set_region_system_rams.patch
-mm-damon-sysfs-remove-region-size-validation.patch
-mm-damon-core-stop-ctxs-in-damon_start-before-returning-an-error.patch
-samples-damon-mtier-do-not-stop-first-context-for-damon_start-failure.patch
-mm-damon-core-make-damon_stop-never-fails.patch
-mm-damon-sysfs-ignore-damon_stop-return-value.patch
-mm-damon-reclaaim-ignore-damon_stop-return-value.patch
-mm-damon-lru_sort-ignore-damon_stop-return-value.patch
-mm-damon-core-change-damon_stop-return-type-to-void.patch
-samples-damon-mtier-stop-all-contexts-with-single-damon_stop-call.patch
-mm-damon-core-wait-ctx-stop-in-damon_call-before-reruning-an-error.patch
-samples-damon-wsse-do-not-stop-ctx-for-damon_call-failure.patch
-samples-damon-prcl-do-not-stop-damon-for-damon_call-failure.patch
-mm-damon-core-remove-comment-and-test-for-nr_to_bp-divide-by-zero.patch
-mm-damon-core-s-damon_max_nr_accesses-damon_nr_samples_per_aggr.patch
-mm-damon-core-s-accesses_bp_to_nr_accesses-sample_bp_to_count.patch
-mm-damon-core-s-nr_accesses_to_accesses_bp-sample_count_to_bp.patch
-mm-damon-core-s-nr_accesses_for_new_attrs-nr_samples_for_new_attrs.patch
-mm-damon-core-update-probe-hits-for-new-parameter-commit.patch
-mm-damon-core-handle-unreset-probe_hits-in-probe_hits_mvsum.patch
-mm-damon-core-introduce-damon_probe-weight.patch
-mm-damon-core-ask-apply_probes-ops-callback-to-set-sampling-address.patch
-mm-damon-paddr-set-samples-in-apply_probes-if-requested.patch
-mm-damon-core-ask-apply_probe-to-return-max-probe-hits-weighted-sum.patch
-mm-damon-core-implement-damon_probe_hits_wsum.patch
-mm-damon-paddr-respect-return_max_wsum.patch
-mm-damon-core-use-abs_diff-instead-of-abs.patch
-mm-damon-core-extend-merge-function-to-work-with-probe-hits.patch
-mm-damon-core-disallow-probe_hits-overflow-on-attrs-only-monitoring.patch
-mm-damon-core-validate-params-for-probe-hits-weighted-sum-overflow.patch
-mm-damon-core-disable-access-monitoring-when-probe-weights-are-set.patch
-mm-damon-core-set-samples-in-apply_probes-if-probe-weights-are-set.patch
-mm-damon-core-s-max_nr_accesses-max_merge_score-in-kdamond_fn.patch
-mm-damon-core-get-merge-threshold-from-probe-hits-when-weights-are-set.patch
-mm-damon-core-implement-damon_has_probe_weight.patch
-mm-damon-sysfs-implement-probe-weight-file.patch
-docs-mm-damon-design-document-attrs-only-monitoring.patch
-docs-admin-guide-mm-damon-usage-document-weight-sysfs-file.patch
-docs-abi-damon-document-probe-weight-file.patch
-mm-damon-core-skip-aging-from-repeated-aggressive-merging.patch
-mm-damon-core-hide-private-damon_region-fields.patch
-mm-damon-core-hide-private-damon_target-fields.patch
-mm-damon-core-hide-private-damos_quota_goal-fields.patch
-mm-damon-core-hide-private-damos_quota-fields.patch
-mm-damon-core-hide-private-damos_filter-fields.patch
-mm-damon-core-hide-private-damos-fields.patch
-mm-damon-core-hide-private-damon_filter-fields.patch
-mm-damon-core-hide-private-damon_probe-fields.patch
-mm-damon-sysfs-do-not-directly-access-damon_ctx-ops.patch
-mm-damon-core-hide-core-private-damon_ctx-fields.patch
-mm-damon-core-avoid-infinite-kdamond_merge_regions-internal-loop.patch
-mm-damon-tests-core-kunit-catch-test-failure-in-test_merge_regions_of.patch
-mm-damon-vaddr-drop-last-same-folio-access-check-optimization.patch
-mm-damon-paddr-drop-last-same-folio-access-check-reuse-optimization.patch
-mm-damon-sysfs-read-addr_unit-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-core-initialize-damos-last_applied.patch
-mm-damon-core-kunit-check-region-count-before-testing-in-split_at.patch
-mm-damon-vaddr-kunit-check-region-count-in-three_regions-test.patch
-mm-damon-core-kunit-handle-region-split-failure-in-filter_out.patch
-mm-damon-core-kunit-skip-wrong-dest-walk-in-commit_dests_for.patch
-mm-damon-core-kunit-skip-wrong-quota-goal-walk-in-commit_quota_goals.patch
-mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions.patch
 
