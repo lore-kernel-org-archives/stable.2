@@ -1,148 +1,91 @@
-Received: from aposti.net (aposti.net [185.119.170.32])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F893A2576;
-	Sun, 19 Jul 2026 15:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.119.170.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C2525B2F4
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784473637; cv=none; b=muYJbc+I5dOWRwaZDZMWUYAG0k+NoVXP2VAhPhwMzwc56oJW4E3MsflFVuvp7uqtye0YdVQu+j7tgE8lmHowhHhS9AJyknEdc8mhprUo1hyTyeIx2pI8N7HQXVvhysKwWB/x7K7tTZCIKd7CYVFdQ8rugzCtWTMilxASp8uIQU8=
+	t=1784474112; cv=none; b=Ry3wJTRLSotqPzbRWGaU/9EYmR/vn6pgR5kUoiMQvnOpcL2wbB6maPSU90OnU5QDTTCd08V0GgXonjUeCg2XrCN0LP4zpnX2lGCSPDymuP2PaoYZk4gToC3dorLwyGGCaNwL6JFDxbZ0aGNV7WiTdF/auYSYzeqjV74LAy0lsRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784473637; c=relaxed/simple;
-	bh=QnNwdkTqOLiMGGNT01qFp2bvC6tjqhvmizSL0TXXDlE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SjOW8lpAqswFiuRo266faDqD2t9kreyMKO0TJo/GV3n/9l83gaiW2hf2CevouAk06Vp6gbgyzS9Hc1gOSBc4+ipNTKRoEYgT+LNHJunSo+loZS9w/DyyB9nlqC8mxTdshKH0ayizWjoxjzhq1CPcCnESdWSj+BdiApj3AfLmOLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net; spf=pass smtp.mailfrom=crapouillou.net; dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b=roIHmX4y; arc=none smtp.client-ip=185.119.170.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+	s=arc-20240116; t=1784474112; c=relaxed/simple;
+	bh=3dPhIGXKwLq7rorj74QybPtMlL++1XGXqZmO8WVRkRw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CL/29Fv3fTWdVoA4sNxIKurU2viSZsDt6M7yWTmQ5giDTFQYi8BDdMUzPYud1k+t4Ws2ahu/ci45C+O7VA6pYMgo0nZc3DDAnknD3+OGFU8lLEif7vu1bryIp4YBUe7w9ZveDFi8CfVpnTJSZwf440vFXLzO0NRaY2mA/iAMmxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ow/8DmUg; arc=none smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b="roIHmX4y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
-	s=mail; t=1784473633;
-	bh=QnNwdkTqOLiMGGNT01qFp2bvC6tjqhvmizSL0TXXDlE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=roIHmX4yqyUUSV3TeF5wxejFbLbWqRbM7S4Zy5LJxECTksGlmSPqGaXjGC+wEpe/N
-	 r9PkYLmdrDU7obM2+2FB9NeJDhdTCOpvE3iVtUfOPNu10qBrkjsShmQixzZP3IeqmX
-	 PNHQQkb/Qs42zE0wUrM27iUrMOnOWLgpOZXpOIQs=
-Message-ID: <a08203c004280827fda87fc4c83660aedb446440.camel@crapouillou.net>
-Subject: Re: [PATCH] i2c: jz4780: Cache clock rate at probe to prevent CCF
- prepare_lock deadlock
-From: Paul Cercueil <paul@crapouillou.net>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, Andi Shyti
-	 <andi.shyti@kernel.org>
-Cc: linux-mips@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, letux-kernel@openphoenux.org, 
-	stable@vger.kernel.org
-Date: Sun, 19 Jul 2026 17:07:09 +0200
-In-Reply-To: <c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
-References: 
-	<c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
-Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
- keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
- LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
- FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
- z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
- +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
- 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
- 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
- 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
- dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
- 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
- rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
- lBwgAhlGy6nqP7O3u7q23hRU=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ow/8DmUg"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-81dfdbd86d1so56129187b3.1
+        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 08:15:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784474110; x=1785078910; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3dPhIGXKwLq7rorj74QybPtMlL++1XGXqZmO8WVRkRw=;
+        b=Ow/8DmUgsBsY0YgDi6Vbh+1YnqjdqqzApiN9cLEAoQsKKD3se9rM6ZPjjLKYaGUrQg
+         +6JfSq2ZqeEpIIMFMQTaSIAJd912QYeboTFeC+UuzOJIxFDocuwy+fDNky8Z/Z3uVxc+
+         TUAHQmQPx8cHC8wK7bu6/VTt8UHzjh1NllX6VAHYkwiWfpbj+byOyI7GSJPfuIxm4p1w
+         uSb52KAqEvQ5mXC+/NXrqOAdpygSlVVo8cU6UpAKL4BGnHa1J1nRz5ArI262CVBGJGC1
+         KlO1ZA+huGrTSR6TZbWBn+Xe5mXQS4aRA1WeIaHhjh4jsWtUovFT9PxOrmzErnEmZ15H
+         S63A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784474110; x=1785078910;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3dPhIGXKwLq7rorj74QybPtMlL++1XGXqZmO8WVRkRw=;
+        b=DCA2yNdWXiTgqtQwTsnoibUSilrVweaxqIEM4R3vrPZw0747XVy8VeTuvgdVjdEnAK
+         HdbaNY3pE0ZJ9WR07cxB7DWf0LIyh5KzWsy2XjmomCRdAb3pScNad93vmKfoN0DcWbQ1
+         PP4+GA2KsZZow5m50FLKzIt205/a/elVunOOgwR4iO7V+e+LwXD5UiswVp+rq09wuYX5
+         7y+9xbcYfiwCUKWiSfdR5lGq4ndvwxBvgnz1syOl+JMxO4qPgyG5goFDHqvZIFTmaLuP
+         dEzK0uttzpekgrBFQkTfqYy6mftfgRGgC+zVvhb5vKYKKVLZEcP4XYeM0ahCl+T0dsEr
+         wQfQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpkK8Kp2hjRrvN95Uc/blafxQrPfe8FgJ5ZEmYfIxscbI1Z+K0ZBuJsj9G1+ZVimj0heDIi3X4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxsQGzPtxIdo65KkIYa6XAef3t2DWof8BYZg2U3TKW0msQ7gVzb
+	AYU4KYZRA1wgKmerzPhP2vBpsSv9d3uV36VIDAOstlMe+odSPSWaJl9B
+X-Gm-Gg: AfdE7cklX83k+54iNpepakFMW6LtZvDyYR7Ub1rLVWsMO4qlOVDbrWcjlZyNYVe52qP
+	TlcRyjZ4qqYD2d2nConghM1uZ3Ef7kZfjYtPYx056URbbHcrKicIrJ4ppZriwVF8tfCDLGT6QMT
+	TeNHDn/n8tqZ7qg32kDtje1Y6Ica0Zbovwg6r1qV64+WkJ9qhvjvEuNt7rvkkpHsdsqWJkrYhB2
+	EYsEKDMUG2+uf127Ly3uSYOW8R0jXaf6EovNm5DlG+9xKGT/Edgs0XhK1GbM8uui/ywnfLjYIo7
+	EcGW7gKrqRpXxbFWIgqotvgL/Vs2IqWFp609ivvJ93Hx8D9Mzm+MSo6YdumaDwzwvpYebZ2dAuO
+	itCDYZKnd4FPzcEmCBkuwLWy4yB3QQFDgy9fZiuCnRIqlEpLgGgKblwXb2o35tbskqf6zfFD1o1
+	A2P9ioD/xQMx419n19BzMJhYZ48VjfRohel2B8eWVhwo3g3Q5vBH0UlgNT8Bt4ytOUrePj6KqS8
+	RJkzJnbTx4fnQ==
+X-Received: by 2002:a05:690c:6887:b0:81e:c436:c530 with SMTP id 00721157ae682-81ef22d3ec6mr37750817b3.14.1784474110024;
+        Sun, 19 Jul 2026 08:15:10 -0700 (PDT)
+Received: from LAPTOP-83ECOPAB.f7a5e5c3-cab1-4810-bdbb-207cdd06de9e.globalsecureaccess.local ([136.55.173.105])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81ef42f0c31sm41080617b3.48.2026.07.19.08.15.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 08:15:09 -0700 (PDT)
+From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+To: oleg@redhat.com
+Cc: AutonomousCodeSecurity@microsoft.com,
+	akpm@linux-foundation.org,
+	avagin@gmail.com,
+	blbllhy@gmail.com,
+	brauner@kernel.org,
+	include@grrlz.net,
+	jack@suse.cz,
+	kys@microsoft.com,
+	linux-kernel@vger.kernel.org,
+	mjguzik@gmail.com,
+	ptikhomirov@virtuozzo.com,
+	stable@vger.kernel.org,
+	tgopinath@linux.microsoft.com
+Subject: Re: [PATCH v2 2/2] pid: fix cad_pid use-after-free race
+Date: Sun, 19 Jul 2026 11:15:08 -0400
+Message-ID: <20260719151509.4843-1-blbllhy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <aluim8REjBcE4ejB@redhat.com>
+References: <aluim8REjBcE4ejB@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Nikolaus,
-
-Le vendredi 10 juillet 2026 =C3=A0 08:58 +0200, H. Nikolaus Schaller a
-=C3=A9crit=C2=A0:
-> Fix a severe AB/BA deadlock between the Common Clock Framework (CCF)
-> and the I2C adapter lock, which triggers when an I2C-controlled clock
-> generator (like the Si5351) is registered or modified under the CCF.
->=20
-> During a clock frequency change, the CCF acquires its global
-> 'prepare_lock'
-> mutex and calls i2c_transfer() to update the chip registers, stalling
-> for the adapter's I2C bus lock.
->=20
-> Concurrently, a parallel transfer on the same bus (e.g., a GPIO
-> expander
-> handling LEDs) can hold the I2C adapter lock. Inside the transfer
-> path,
-> jz4780_i2c_set_speed() calls clk_get_rate() to dynamically calculate
-> timings. This call attempts to acquire the blocked CCF
-> 'prepare_lock',
-> creating a circular dependency that freezes the system or at least
-> the involved processes and workers.
->=20
-> Eliminate the synchronous clk_get_rate() call from the active
-> transfer
-> path by caching the peripheral clock rate once - inside the private
-> jz4780_i2c structure during jz4780_i2c_probe(). Update
-> jz4780_i2c_set_speed() to use this cached value, decoupling active
-> I2C
-> transactions from the CCF internal locks.
->=20
-> Assisted-by web based Google AI.
->=20
-> Fixes: ba92222ed63a12 ("i2c: jz4780: Add i2c bus controller driver
-> for Ingenic JZ4780")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-> ---
-> =C2=A0drivers/i2c/busses/i2c-jz4780.c | 5 ++++-
-> =C2=A01 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/i2c/busses/i2c-jz4780.c
-> b/drivers/i2c/busses/i2c-jz4780.c
-> index 664a5471d9335..d729cec9cdf2c 100644
-> --- a/drivers/i2c/busses/i2c-jz4780.c
-> +++ b/drivers/i2c/busses/i2c-jz4780.c
-> @@ -141,6 +141,7 @@ struct jz4780_i2c {
-> =C2=A0	void __iomem		*iomem;
-> =C2=A0	int			 irq;
-> =C2=A0	struct clk		*clk;
-> +	unsigned		long clk_rate;
-
-That's a weird spacing. Should probably be "unsigned long" on the left
-side.
-
-> =C2=A0	struct i2c_adapter	 adap;
-> =C2=A0	const struct ingenic_i2c_config *cdata;
-> =C2=A0
-> @@ -246,7 +247,7 @@ static int jz4780_i2c_set_target(struct
-> jz4780_i2c *i2c, unsigned char address)
-> =C2=A0
-> =C2=A0static int jz4780_i2c_set_speed(struct jz4780_i2c *i2c)
-> =C2=A0{
-> -	int dev_clk_khz =3D clk_get_rate(i2c->clk) / 1000;
-> +	int dev_clk_khz =3D i2c->clk_rate / 1000;
-
-You cache `i2c->clk_rate` but only use it divided by 1000, so maybe
-cache `clk_rate_khz` instead?
-
-Cheers,
--Paul
-
-> =C2=A0	int cnt_high =3D 0;	/* HIGH period count of the SCL
-> clock */
-> =C2=A0	int cnt_low =3D 0;	/* LOW period count of the SCL clock
-> */
-> =C2=A0	int cnt_period =3D 0;	/* period count of the SCL clock */
-> @@ -796,6 +797,8 @@ static int jz4780_i2c_probe(struct
-> platform_device *pdev)
-> =C2=A0	if (IS_ERR(i2c->clk))
-> =C2=A0		return PTR_ERR(i2c->clk);
-> =C2=A0
-> +	i2c->clk_rate =3D clk_get_rate(i2c->clk);
-> +
-> =C2=A0	ret =3D of_property_read_u32(pdev->dev.of_node, "clock-
-> frequency",
-> =C2=A0				=C2=A0=C2=A0 &clk_freq);
-> =C2=A0	if (ret) {
+Thanks, I will drop the get_pid()/put_pid() in v3 and keep the RCU approach.
