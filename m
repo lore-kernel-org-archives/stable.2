@@ -1,39 +1,39 @@
 Received: from ixit.cz (ixit.cz [185.100.197.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64511380FD8;
-	Sun, 19 Jul 2026 11:54:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4EB2C86D;
+	Sun, 19 Jul 2026 11:54:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784462052; cv=none; b=KUY31mcwcjaLIlRq/wsiZ4tw5U5WHohhomdVq/NxbBSTumy4vMAZDbNLLxyH34IXXVl97X+m0M9xbr+sEV0mmQ7cl+Hg94qf8BCl4AeeSU/XWPJ1rs36GKt4u0OBiS442nYSo2Z/NB1zJ/flQRLwqnYW1TCxAWLW8xKTjfYvkOY=
+	t=1784462081; cv=none; b=Ftvr9SWAQNYOgVfsjDIL1VLJZK3758Lzd/2XgOJ38qTeL230oS7G2dTnoYfcHqM4k9wD2Bc1db2m0tdnPFgD6KGNDs9DpXdybBv4OuZlWepm3YNGcgCF1GO4ubaGkmssblfvtUFJ+baMdW5mlCzquyI3QZcgkD/fKMqJf7rur68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784462052; c=relaxed/simple;
-	bh=ysu496wkYyDPNy4UtjkzhheYLJSstmjIQsD58PvkO0E=;
+	s=arc-20240116; t=1784462081; c=relaxed/simple;
+	bh=ZxoKGtt1W6TxWWYUBgP97bKzwyi9KacKWdLCg8OPuRY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hd5w6iJqJm1/fPKAyI+/aWaGjk9pCUOpL2//dYdwzjGk+3JyLCtnbC7P+3gsBoocRoAABrdpBecLxkvsXrHPxlNuihX8UfXwttKndVbO/mexRT7l9LfuNrfFsmnrL+FpGFpiX82Im7xk96/WuU7ill3UEJ2tOd0ZUguY+RCuTsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=PeQUuiVW; arc=none smtp.client-ip=185.100.197.86
+	 In-Reply-To:Content-Type; b=OL55OVn/Wu/LsQEJUDNDjHwyTobj11TMAi+b3PJ6j3LkfGSwEbNIRhm0qW87UM2rTWdlguEWeNIgS3R2WFKQplyYEm2C/i27GymDNCgY0MS74Vz7wtqNRtBJZSTGvNzsXNepDvP8xjfv7yVo4CV/fOVmVBGE5a51iPWbNmCmwKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=PwBJUDBk; arc=none smtp.client-ip=185.100.197.86
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="PeQUuiVW"
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="PwBJUDBk"
 Received: from [192.168.1.182] (ip-62-24-73-79.bb.vodafone.cz [62.24.73.79])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id AC97253402AF;
-	Sun, 19 Jul 2026 13:54:08 +0200 (CEST)
+	by ixit.cz (Postfix) with ESMTPSA id D216953402AF;
+	Sun, 19 Jul 2026 13:54:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1784462048;
+	t=1784462077;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=0oud3ONW6zV/T8t9DbOU+1lK5iOAairrRLcNu03G540=;
-	b=PeQUuiVWWi/1ZwRA9YwLOS7isbeGBHspvVhEHyrWJkScpQ50QQpWFgjk/W8m6hjZNO+lDH
-	Hjl3+PQj8EFgJuXrvPO13/mo9fS89V9KP/h84ygkPeGtZLXcySWc9cWvGIaD7PuKvod/sj
-	CmqldE5KZ+JX4N27EoCWrln5ODsT7GM=
-Message-ID: <bafc5a4f-de22-47f5-b706-603dc168b7ff@ixit.cz>
-Date: Sun, 19 Jul 2026 13:54:08 +0200
+	bh=PsK8uNcn+7B1MNkrcMwBjD2UoVL3uoTGMoceQSYky7c=;
+	b=PwBJUDBkvjtbk2JTEVJ1BL6Zs539yrPork9TnZg6HYDoX9N5xbrzNLJG0dNKrRMOUR14Ub
+	GJv41evKhyZIDDefTh8hMqIKeQdfz51LPE+LQw8psRxn6lyOcblHkGyge7AQWjbgYMgTfL
+	GlEierPtG3UpTTddrr7Wj5xQyodl4dY=
+Message-ID: <7574625f-f75b-4a7f-9a39-92e45ba5075e@ixit.cz>
+Date: Sun, 19 Jul 2026 13:54:36 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -101,41 +101,15 @@ In-Reply-To: <edfa1b87-a28c-40ca-85ca-e11ac3482518@bynar.io>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 29/06/2026 14:23, Sam P wrote:
-> On 27/06/2026 19:41, David Heidelberg wrote:
->>> Assisted-by: Bynario AI
->>
->> Hello Samuel,
->>
->> the fix look good, may I ask you to follow the Assisted-by syntax as requested 
->> in [1]?
->>
->> Thank you
->> David
->>
->> [1] https://docs.kernel.org/process/coding-assistants.html
-> 
-> Hey David,
-> 
-> The :MODEL_VERSION was omitted as we use a range of different models and 
-> versions in our pipeline, making it hard to attribute to a single model/version. 
-> As for the AGENT_NAME, in this instance, would the correct syntax be to remove 
-> the spacing here (e.g. Bynario-AI)?
-> 
-> Once clarified, I'll submit a new patch with the correct syntax.
 
-Hello Sam,
+On Fri, 26 Jun 2026 10:03:01 +0100, Samuel Page wrote:
+ > nfc: nci: fix uninit-value in the RF discover/activated NTF handlers
 
-with recent discussion about the tag itself, I'm fine to keep it as-is :)
+Applied, thanks!
 
-David
+[1/1] nfc: nci: fix uninit-value in the RF discover/activated NTF handlers
+       commit: 7b5b8b3bb6d96474484b5666eac5a793eb0fdb4e
 
-> 
-> Thanks,
-> Sam
-> 
-> 
-
+Best regards,
 -- 
-David Heidelberg
-
+David Heidelberg <david@ixit.cz>
