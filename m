@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B90330B07
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 14:26:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2162C1F427C
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 14:53:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784471189; cv=none; b=lPLlgoZS4Cfo2IIQAp+pPy6F/XK3L1ofo+rdhSSydxg5QBguU6ZQMaB+8ONi8vAUcngVClOnOdMuSXhRj4SGPLcN5dw55bz15QAVSDJ+NmZtI5C0PXectRcI7mgBz/XqYLjwPVEEb/KK/LgU+t7efvJwFTZzemq78zvXWKTTyGQ=
+	t=1784472826; cv=none; b=AY4e7IfKsrvQyQAtIwfhKBeiPUEhCGw50pVJmbeVjDxB+5yBwtt+zvPppv1CGKjF/Ecf6lDPPBgQ1JODtf7mUmsDq4VHuvlf/hfg6xWFpmWX6ssiB3Q0UgKwcr935jzTOkIR0axbQaQS7cV6zMHHkq3hEH1IUt3HjuzYZKYK3JI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784471189; c=relaxed/simple;
-	bh=T3S7mGE2dmx0pn6MJPdSh8dkPns/6Vb8QQGnuqm1lSA=;
+	s=arc-20240116; t=1784472826; c=relaxed/simple;
+	bh=EBQU40Gislt3ggB7SgtC75YNqc5YgkHEpNp4DE94l0U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RZDS0GttZA9TKxBprRqb5mtbALBhPQam6hlz2BsDfxLoeTyWYEEuQgVwkITWSHRhFoLEInS3Cy1CaGy65gXQfGWZkKx5pcSuJqYvSMvvX/ofQZgFW+8ZSdfrdEesnPC99qDZ7YGNz1zcc2E7fX4kq6jg3WHC7c1KnvTwZdhlT3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G7lEOi10; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EcSlDZsw/IWSckX6trnmHbdkMieyJY4gE1BiJRdkzJtXan+9BUvZiBLv2sE6D10HHbEMvQsLAdydfJ2rAXcxkIUIGZdR4CD+sRaZZVvWHKSHIwSJNAB59iSmy1W0F+gGX3TN+rIMnJS59SWZOy5RUgvqBidONLXOYz9lFMISFq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LoW2IrWD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G7lEOi10"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8338C1F000E9;
-	Sun, 19 Jul 2026 14:26:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LoW2IrWD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CE321F000E9;
+	Sun, 19 Jul 2026 14:53:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784471188;
-	bh=5JUF41dhjDns1uGWMoZVEfibGI4ajL4PCEoL1/0PmdY=;
+	s=k20260515; t=1784472824;
+	bh=71Ag4jQ69XBJ6WNIjcjf5hmek8MokEjH1wfjGMhqg3E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G7lEOi10298+Os6jKFtGuukJYAurKO8K0Dd66fDPWI5qik/9y0mxeGWTapDv/6OCd
-	 qO6h3Jf3nirdUlivASnSEKyjF5Q9q1ArcM2XYbXi0WASAhDwSSiiUS0fiAlgt/Jm8s
-	 1noIiCEoQlcjgnJaICx6GsJMcmj3IRut5ev40Wj3HFI1daUk47MMdb7tugOqF96ayE
-	 sTdUbD72NecBYz/UiaWXkN6JjyicEyg6OYY/hgfg+XszL5Sgm+N+EpUXs6Z5Obz9cz
-	 Tj89SPMFuHdA3fOZBliqQ0OedOkT4JBgL15ZSmF3Ajb+naSHbgtD54edjhj/GXy9rG
-	 +FnDta4+OaImQ==
+	b=LoW2IrWDio4VVYWZbbJXRScrQ8Lt9FZCFyS3WegUzSRzLLTiNfvtUpp+MBkEdpwdX
+	 Oxak9eSta7kgas/qgK0w7T7hCzGp8qjtqZB8HM7mCO19EIYPAtXkxMIAis+hqPhaTb
+	 EBe1Uf1v4+ughKbVun6XK9vLXa2jd2XILcdlKowDfP4hYPxdpJUIz4gEaB1zpOxhUO
+	 z9GfU5eE1kGmkABhXMrGexyjPXjNU7/S2A+5f7RXS3Hd7fNx9OF1Wuo/bA3GjdXkor
+	 h0kRWz0RJ3c/CXfEqqyufaXhDqSnmsGD8VKBn3fK+Jg+O75em3FD+LHlNyZ7apf/Lk
+	 FHuT7vErTS97g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
-	stable <stable@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
+Cc: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] usb: free iso schedules on failed submit
-Date: Sun, 19 Jul 2026 10:26:25 -0400
-Message-ID: <20260719142625.4094867-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] usb: gadget: function: Simplify diagnostic messaging in printer
+Date: Sun, 19 Jul 2026 10:53:41 -0400
+Message-ID: <20260719145342.5397-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071434-steed-earmuff-b781@gregkh>
-References: <2026071434-steed-earmuff-b781@gregkh>
+In-Reply-To: <2026071412-epilepsy-clerk-af1b@gregkh>
+References: <2026071412-epilepsy-clerk-af1b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,111 +45,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dawei Feng <dawei.feng@seu.edu.cn>
+From: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
 
-[ Upstream commit b9399d25fbb34a05bbe76eeedd730f62ff2670e9 ]
+[ Upstream commit 57b7b733b1a7aeab25bc2670afff608214284863 ]
 
-EHCI and FOTG210 isochronous submits build an ehci_iso_sched before
-linking the URB to the endpoint queue, and keep the staged schedule in
-urb->hcpriv until iso_stream_schedule() and the link helpers consume it.
-If the controller is no longer accessible, or usb_hcd_link_urb_to_ep()
-fails, submit jumps to done_not_linked before that handoff happens and
-leaks the staged schedule still attached to urb->hcpriv.
+Don't issue messages which can be easily achieved with ftrace.
+In case of printer_open() the return code is propagated to other layers
+so the user will know about -EBUSY anyway.
 
-Free the staged schedule from done_not_linked when submit fails before
-the URB is linked and clear urb->hcpriv after the free.
-
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing
-v6.13-rc1. The tool is still under development and is not yet publicly
-available. Manual inspection confirms that the bug is still
-present in v7.1.1.
-
-An x86_64 allyesconfig build showed no new warnings. As we do not have an
-EHCI host controller with a USB isochronous device to test with, no
-runtime testing was able to be performed.
-
-Fixes: 8de98402652c ("[PATCH] USB: Fix USB suspend/resume crasher (#2)")
-Fixes: e9df41c5c589 ("USB: make HCDs responsible for managing endpoint queues")
-Fixes: 7d50195f6c50 ("usb: host: Faraday fotg210-hcd driver")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
-Link: https://patch.msgid.link/20260630071419.349161-1-dawei.feng@seu.edu.cn
+Signed-off-by: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+Link: https://lore.kernel.org/r/20221123110746.59611-1-andrzej.p@collabora.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 30adce93d5c4 ("usb: gadget: f_printer: take kref only for successful open")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/ehci-sched.c  | 11 +++++++++--
- drivers/usb/host/fotg210-hcd.c |  6 ++++--
- 2 files changed, 13 insertions(+), 4 deletions(-)
+ drivers/usb/gadget/function/f_printer.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
-index 0f85aa9b2fb1a3..3e636fe5b056ca 100644
---- a/drivers/usb/host/ehci-sched.c
-+++ b/drivers/usb/host/ehci-sched.c
-@@ -1625,6 +1625,7 @@ iso_stream_schedule(
- 			status = 1;	/* and give it back immediately */
- 			iso_sched_free(stream, sched);
- 			sched = NULL;
-+			urb->hcpriv = NULL;
- 		}
- 	}
- 	urb->error_count = skip / period;
-@@ -1655,8 +1656,6 @@ iso_stream_schedule(
- 	return status;
+diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
+index a31f2fe5d98434..8a65094c421e3b 100644
+--- a/drivers/usb/gadget/function/f_printer.c
++++ b/drivers/usb/gadget/function/f_printer.c
+@@ -363,7 +363,7 @@ printer_open(struct inode *inode, struct file *fd)
+ 	spin_unlock_irqrestore(&dev->lock, flags);
  
-  fail:
--	iso_sched_free(stream, sched);
--	urb->hcpriv = NULL;
- 	return status;
+ 	kref_get(&dev->kref);
+-	DBG(dev, "printer_open returned %x\n", ret);
++
+ 	return ret;
  }
  
-@@ -1968,6 +1967,10 @@ static int itd_submit(struct ehci_hcd *ehci, struct urb *urb,
- 		usb_hcd_unlink_urb_from_ep(ehci_to_hcd(ehci), urb);
- 	}
-  done_not_linked:
-+	if (status < 0) {
-+		iso_sched_free(stream, urb->hcpriv);
-+		urb->hcpriv = NULL;
-+	}
- 	spin_unlock_irqrestore(&ehci->lock, flags);
-  done:
- 	return status;
-@@ -2345,6 +2348,10 @@ static int sitd_submit(struct ehci_hcd *ehci, struct urb *urb,
- 		usb_hcd_unlink_urb_from_ep(ehci_to_hcd(ehci), urb);
- 	}
-  done_not_linked:
-+	if (status < 0) {
-+		iso_sched_free(stream, urb->hcpriv);
-+		urb->hcpriv = NULL;
-+	}
- 	spin_unlock_irqrestore(&ehci->lock, flags);
-  done:
- 	return status;
-diff --git a/drivers/usb/host/fotg210-hcd.c b/drivers/usb/host/fotg210-hcd.c
-index b0b6caaa29bd44..7e088f7d93f8c0 100644
---- a/drivers/usb/host/fotg210-hcd.c
-+++ b/drivers/usb/host/fotg210-hcd.c
-@@ -4275,8 +4275,6 @@ static int iso_stream_schedule(struct fotg210_hcd *fotg210, struct urb *urb,
+@@ -381,7 +381,6 @@ printer_close(struct inode *inode, struct file *fd)
+ 	spin_unlock_irqrestore(&dev->lock, flags);
+ 
+ 	kref_put(&dev->kref, printer_dev_free);
+-	DBG(dev, "printer_close\n");
+ 
  	return 0;
+ }
+@@ -867,8 +866,6 @@ static void printer_reset_interface(struct printer_dev *dev)
+ 	if (dev->interface < 0)
+ 		return;
  
- fail:
--	iso_sched_free(stream, sched);
--	urb->hcpriv = NULL;
- 	return status;
+-	DBG(dev, "%s\n", __func__);
+-
+ 	if (dev->in_ep->desc)
+ 		usb_ep_disable(dev->in_ep);
+ 
+@@ -906,8 +903,6 @@ static void printer_soft_reset(struct printer_dev *dev)
+ {
+ 	struct usb_request	*req;
+ 
+-	INFO(dev, "Received Printer Reset Request\n");
+-
+ 	if (usb_ep_disable(dev->in_ep))
+ 		DBG(dev, "Failed to disable USB in_ep\n");
+ 	if (usb_ep_disable(dev->out_ep))
+@@ -1204,8 +1199,6 @@ static void printer_func_disable(struct usb_function *f)
+ {
+ 	struct printer_dev *dev = func_to_printer(f);
+ 
+-	DBG(dev, "%s\n", __func__);
+-
+ 	printer_reset_interface(dev);
  }
  
-@@ -4570,6 +4568,10 @@ static int itd_submit(struct fotg210_hcd *fotg210, struct urb *urb,
- 	else
- 		usb_hcd_unlink_urb_from_ep(fotg210_to_hcd(fotg210), urb);
- done_not_linked:
-+	if (status < 0) {
-+		iso_sched_free(stream, urb->hcpriv);
-+		urb->hcpriv = NULL;
-+	}
- 	spin_unlock_irqrestore(&fotg210->lock, flags);
- done:
- 	return status;
 -- 
 2.53.0
 
