@@ -1,115 +1,126 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4EB2C86D;
-	Sun, 19 Jul 2026 11:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9515F392C52
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 12:11:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784462081; cv=none; b=Ftvr9SWAQNYOgVfsjDIL1VLJZK3758Lzd/2XgOJ38qTeL230oS7G2dTnoYfcHqM4k9wD2Bc1db2m0tdnPFgD6KGNDs9DpXdybBv4OuZlWepm3YNGcgCF1GO4ubaGkmssblfvtUFJ+baMdW5mlCzquyI3QZcgkD/fKMqJf7rur68=
+	t=1784463114; cv=none; b=jAKyEPANUwXhVjZbYfHyZ53vhsdGb/MepazQNuEEeaqXS/tlKnQOKDcky0Pg6XHyPS09apJh3IuIrYBreWO2SYlQU4F5lB5RQbavwxDBs11Fizn6LbIcbo5ZjJaEpYSY1cjNM+EKtgawnxBg+77QHVBrX5YhXZedu2VHHpAQIdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784462081; c=relaxed/simple;
-	bh=ZxoKGtt1W6TxWWYUBgP97bKzwyi9KacKWdLCg8OPuRY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OL55OVn/Wu/LsQEJUDNDjHwyTobj11TMAi+b3PJ6j3LkfGSwEbNIRhm0qW87UM2rTWdlguEWeNIgS3R2WFKQplyYEm2C/i27GymDNCgY0MS74Vz7wtqNRtBJZSTGvNzsXNepDvP8xjfv7yVo4CV/fOVmVBGE5a51iPWbNmCmwKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=PwBJUDBk; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1784463114; c=relaxed/simple;
+	bh=5VMovNs5r6OHs/wcX2aDD1qfvLwXJxRv8Jf5x/+peMc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kqr5RuV9fqAF158z+tGaHcXD4qrYNSl1UiJ/AyZKXfsQlNx0GzKKHFlo+0vaROdaI7SCrBg81kAF5H1FcK//JNwiuzEt9aG/NgRBsYRLd45b0mOxKtl/u6ZLfAhJbo4GJvIRm9xeOmtKJ0ejF3OEV+5lOENoeHQLHtQ1/7iNG9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OTk6X1rN; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="PwBJUDBk"
-Received: from [192.168.1.182] (ip-62-24-73-79.bb.vodafone.cz [62.24.73.79])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id D216953402AF;
-	Sun, 19 Jul 2026 13:54:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1784462077;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=PsK8uNcn+7B1MNkrcMwBjD2UoVL3uoTGMoceQSYky7c=;
-	b=PwBJUDBkvjtbk2JTEVJ1BL6Zs539yrPork9TnZg6HYDoX9N5xbrzNLJG0dNKrRMOUR14Ub
-	GJv41evKhyZIDDefTh8hMqIKeQdfz51LPE+LQw8psRxn6lyOcblHkGyge7AQWjbgYMgTfL
-	GlEierPtG3UpTTddrr7Wj5xQyodl4dY=
-Message-ID: <7574625f-f75b-4a7f-9a39-92e45ba5075e@ixit.cz>
-Date: Sun, 19 Jul 2026 13:54:36 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OTk6X1rN"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4955158f26aso6323475e9.3
+        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 05:11:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784463111; x=1785067911; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DogqYPGisrMHm1D/3xJuw8fk3DrWTbuaVsByeLIrnm8=;
+        b=OTk6X1rNgNDGEnrF/sXouhIGXU/re7R5PHMbQtY/Jh7jRGNa0DJRMLjrlT54GwCXLO
+         1PfDb8ZUJ0X0mpjhv+t6ox36jK63loZ6L64vOyriJ5qlbjXq7PjqMy4/kwDN+z6/UkVB
+         D0jfJcICYiLi9Xcj6go6pkyHp2HI3pqniDvtBa1XC4iwCBMbn7B1GgbK9LGsbyfCTHTw
+         mWO3AO4DYnmVXhWbMPsUym9Z2QcCV17+qsiDfpuKvIc2ByH0OqS1jgXyL2CfIEz1yQnK
+         OEWVkDBJK4YV2cqL75RLUX+cOwfQE1jYpxMZSPz8Xs9cboLfKUQpbtPOXhjxslJAq0Cf
+         RThw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784463111; x=1785067911;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DogqYPGisrMHm1D/3xJuw8fk3DrWTbuaVsByeLIrnm8=;
+        b=GLQzA5aATrZOS3ymuVnQcg+CW+ovBd5nNHEG2ZuR1vNnxmcEtOQYOzyJ8jIp3hGqoR
+         B0k1T/TLnAK8LlYZjtWTlemDV8mLwnqETB99b2ibpncKVnvWtELRHom1IDpJwQXDuHKg
+         /J4Fr91lJeyJWzKo5tHEIb0/TiY1/2TEbYxgYgPkjTDCF73aFI/7uIQWSfIyaymLYD9A
+         SQ9yF7ySgXYlZz2WGcji+fPTx9uEl5bc7yxt4xiZYP14XWzcHmO7e3LSCRddBuqOW9jN
+         z+LKHfupd6uMlRzM/7du5fW1Mp0Cv/fwHbUGkhH/FB5ICq+ICb/msHrUAizYWrCk7HWi
+         KXAg==
+X-Forwarded-Encrypted: i=1; AHgh+RpMtQ/rV/bSr6qwCQQXnOR+cRup8jq1Zme0PgIDtqFZGKpEYYc4nwmK3/eCUozw4WVCTFRbiSs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxe/IPRyrhzlD5PGjQt2p7uV+qUkN/FKCMG7ki7Wl2Ktmrg5+aw
+	NRbmnJU0UQXbFGYqmQvqurtTsunDJOo+eVYjpVftW4qRG75Z1ErwhpBl
+X-Gm-Gg: AfdE7cl8veh/Ywt5TMINP3A4GscyTJoZtUTVeOpWyxB8O+8h7nL4znNxlP3wel2XbHm
+	cemfKCtpN3oJfRVbwqe82HPMkgERl4oFaRF09WDRwRKL7tC63HbP3mMYdqh2ASJXOrnSjMuiXoC
+	ZYMG/61VGLko4GpGaEEWeDCoj3xJnfGA7JuM27ZSIno+hkTG73qVOm6VxyD77BByTBAf2uw1clk
+	5/EU6kNsb58YxdmC6/s43nsGfx0XTsyZzlt9ibqT+k9WW8PeKxfMX6i8zL9Q9gdksKmK9AcOvay
+	jSJtyshgeY8WEOpp/v0lYnIq79miKE+GWvzDTfGZ8KzZlDimNTqS/8VSHeFwv8gsnfLlVJToLjU
+	Tw9BfzZHh3hLXWg1Tl0DrxIGT+pgxcnA7FJUMbGSP5y72lbg6Pq2kcMs/vrDCa1obWQyLuNq72h
+	xRywuHPoGFi+Ur+7Rg1QVN6eSRO2yWTNYOuHmry2heLjc0chOWSWP7CfWPVAyAZYzceljOrTZql
+	Y0oA/Ti89ofpAwlMQ3tPaD2djvKMRvhDWKW0p0QGq5u38nTxf2HdCLP4EY55v/QhcJDVHXDjTO/
+	Rd+oEFqiTQ==
+X-Received: by 2002:a05:600c:1382:b0:495:699:5c8b with SMTP id 5b1f17b1804b1-4954a3e206dmr104802035e9.7.1784463110404;
+        Sun, 19 Jul 2026 05:11:50 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-aeaf-bd01-78a0-2a2d-507f-c97c.310.pool.telefonica.de. [2a02:3100:aeaf:bd01:78a0:2a2d:507f:c97c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63ed1911sm21750744f8f.22.2026.07.19.05.11.49
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 19 Jul 2026 05:11:49 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Will Deacon <will@kernel.org>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] pinctrl: devicetree: don't free uninitialized dev_name on error path
+Date: Sun, 19 Jul 2026 14:11:40 +0200
+Message-Id: <20260719121140.28730-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] nfc: nci: fix uninit-value in the RF
- discover/activated NTF handlers
-To: Sam P <sam@bynar.io>
-Cc: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260626090301.2139500-1-sam@bynar.io>
- <9f73948f-7045-4ef3-bc8c-731fde943c1e@ixit.cz>
- <edfa1b87-a28c-40ca-85ca-e11ac3482518@bynar.io>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <edfa1b87-a28c-40ca-85ca-e11ac3482518@bynar.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+dt_remember_or_free_map() duplicates dev_name for each map entry. If
+kstrdup_const() fails, dt_free_map() frees dev_name in all num_maps
+entries, including entries that have not been initialized.
 
-On Fri, 26 Jun 2026 10:03:01 +0100, Samuel Page wrote:
- > nfc: nci: fix uninit-value in the RF discover/activated NTF handlers
+Some pinctrl drivers, including pinctrl-imx, allocate the map with
+kmalloc() and leave dev_name for the core to initialize. The untouched
+entries therefore contain uninitialized data which is passed to
+kfree_const().
 
-Applied, thanks!
+Reproduced on qemu's mcimx6ul-evk (pinctrl-imx) with failslab injection
+while binding the pinctrl-consuming device, under KASAN:
 
-[1/1] nfc: nci: fix uninit-value in the RF discover/activated NTF handlers
-       commit: 7b5b8b3bb6d96474484b5666eac5a793eb0fdb4e
+  BUG: KASAN: double-free in dt_free_map+0x34/0xa4
+  Free of addr c425a900 by task init/1
+   kfree from dt_free_map+0x34/0xa4
+   dt_free_map from dt_remember_or_free_map+0x184/0x198
+   dt_remember_or_free_map from pinctrl_dt_to_map+0x33c/0x4c8
+   pinctrl_dt_to_map from create_pinctrl+0x9c/0x5c0
 
-Best regards,
+Initialize all dev_name fields to NULL before duplicating the device
+name, making the full-map cleanup safe after a partial failure.
+
+Fixes: be4c60b563ed ("pinctrl: devicetree: Avoid taking direct reference to device name string")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ drivers/pinctrl/devicetree.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/pinctrl/devicetree.c b/drivers/pinctrl/devicetree.c
+index 02a271dd292f..465b43092eb7 100644
+--- a/drivers/pinctrl/devicetree.c
++++ b/drivers/pinctrl/devicetree.c
+@@ -69,6 +69,10 @@ static int dt_remember_or_free_map(struct pinctrl *p, const char *statename,
+ 	int i;
+ 	struct pinctrl_dt_map *dt_map;
+ 
++	/* Initialize dev_name before any allocation can fail */
++	for (i = 0; i < num_maps; i++)
++		map[i].dev_name = NULL;
++
+ 	/* Initialize common mapping table entry fields */
+ 	for (i = 0; i < num_maps; i++) {
+ 		const char *devname;
 -- 
-David Heidelberg <david@ixit.cz>
+2.53.0
