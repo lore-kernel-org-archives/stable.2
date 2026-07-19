@@ -1,45 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84EF1C84BB
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 16:39:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA921FC110
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 16:41:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784479163; cv=none; b=qhkETRSPWe1IVaMSMGYr9i5hwS9MwRx5SjfKkpmgFz0SkXn/Rh20VVK5CEx5Ejg5UVab3dMNAUCHo6NbJsxhJl0JsRsJiLYHlV2Tu7vQ188uPBaWUqjKH7IdGs6XnzvhVZFppRKbYoq3zUFjFM/K8k0Y5iBgZxvgb71Hflx2gjw=
+	t=1784479270; cv=none; b=K4F1fZZ44DxYAQ0K9lextfrHJlcNWwQlFIIhY3pSCxR1kzn1Q+OKF1094xSjLORejaocgxAeNJDkFbMI772Twi5fiVXQsXxYdLVAbX85uyVKTVPHeBwCzxzFSYgLUsMPijaIbBIJ+C8eeoEx2noG6JKye1Ar16aEpQ9ehHGcSYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784479163; c=relaxed/simple;
-	bh=oC184yePf2fptYYFkvsPyZ11JxPvANUfngpm4pfvaYI=;
+	s=arc-20240116; t=1784479270; c=relaxed/simple;
+	bh=JJhubFsyyXa6fO2ZzF8iSoRl/pgPnj9xSMNFaxBGceA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aNK1lS1wD/4GNABVRQif77/c4MICAPsGkTXF2Qf5PUrXeAVB2CrVSU297AAHazOG+8jzkmvkJ8ebBktaYshMiUKuAw7cWv0/fzWIljK20YLfsLAzfOx/oHbjJqTLSjxae0BQV4KvutbfBihq38wq2wC0IrNtE+a3XywObsD2bHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9R7b71C; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=F+lKkCDsN5z+sdZWSSjDFdlKalhUX+xfhn8F5RWfL9S8/PqLzjhwgV64kJGIzK5n2XbH/9Blz1YXPZCd4i+4CmwssCxXXP5f+Y2uOCIShkyoUHg8I+OAN+mDWq8/n70b4moMB3X/4OCBDPdGal/IytL8up3p0u/No8y9o/3ak80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+z+lJzx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9R7b71C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3FD11F00A3A;
-	Sun, 19 Jul 2026 16:39:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+z+lJzx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 632E21F000E9;
+	Sun, 19 Jul 2026 16:41:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784479162;
-	bh=NU8oq7gni2NyXM67XxCKmF6KBYK4V2V2SeKGY4Iiecw=;
+	s=k20260515; t=1784479268;
+	bh=V73uYO+Ysbu+nkFuTQV7NmmUbbg8S+bb3REgrBeXDIs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q9R7b71CSw80fzFj1CLie82kWetocb25OC2qfAjeHe96uVUC98a0uQICzztdysaNL
-	 Jyh6WAhKUYIdMRBzUplOvCP8dY6Mpjk31fF/JlMgtpEkdAcLi8Lvui1YPuwYXAxa+J
-	 rq/CZ4YYzGNUEPCRZfzoEhrG4dMfa8fUWzsqVHjOTgRDwpnm2YJI2M5anzsHIJZodT
-	 dLK3ubUVq7REGJlV51PIPZ7gBzeVheuEm4c3IyvEkNj03d6P4qjjPLXJ7vwtp9y633
-	 yl4DeIvi0ePwNd6wbhYnflM+O18nb0BESqWzh392wv7RYu6svmOctmPfXVFCONU9V6
-	 GbR5cAjr/WnAQ==
+	b=K+z+lJzxMyAYf3wmfbuj6s3mPmo01iAEG96weLjU38liqT1whc3uATouAUn9VKyQ2
+	 5410P/zylvFeCU0d5TkAzOOOM+9SAjjs1wMChFVideDjvhbUCq2jUOHOWOQDtKUtXc
+	 yCzFiLPvu9sWnCs1bhYVv1/t1JL72DCNTOhM1BuXZw1LWpQWtLa+mXDvDa7siyZppD
+	 yvTwSeoghg6SPIhcp1D9IxwtqA4t/3+7sQpbYnjLj2GvtZsIs6Z/xQpzbgYf+bPP0I
+	 DaMnKxNyyRDKdoqErbgw4zbCsHmCkNNn7U7uHyeGZR2ZeEsom+jqgWwFKfbKBVpa9c
+	 18aVa9hHOLP2w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
+Cc: Mauricio Faria de Oliveira <mfo@igalia.com>,
 	stable <stable@kernel.org>,
-	Yue Sun <samsun1006219@gmail.com>,
+	syzbot+ce1e5a1b4e086b43e56d@syzkaller.appspotmail.com,
+	syzbot+306212936b13e520679d@syzkaller.appspotmail.com,
+	syzbot+457452d30bcdda75ead2@syzkaller.appspotmail.com,
+	Andrey Tsygunka <aitsygunka@yandex.ru>,
+	Stanislaw Gruszka <stf_xl@wp.pl>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] USB: iowarrior: fix use-after-free on disconnect race
-Date: Sun, 19 Jul 2026 12:39:19 -0400
-Message-ID: <20260719163919.650822-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] usb: atm: ueagle-atm: wait for pre-firmware load in .disconnect()
+Date: Sun, 19 Jul 2026 12:41:05 -0400
+Message-ID: <20260719164105.663963-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260719163919.650822-1-sashal@kernel.org>
-References: <2026071456-raider-refocus-2e33@gregkh>
- <20260719163919.650822-1-sashal@kernel.org>
+In-Reply-To: <2026071428-filing-parched-4bab@gregkh>
+References: <2026071428-filing-parched-4bab@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,159 +51,174 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
 
-[ Upstream commit c602254ba4c10f60a73cd99d147874f86a3f485c ]
+[ Upstream commit e2674dfbed8a30d57e2bc872c4bfa6c3eec918bf ]
 
-mutex_unlock() may access the mutex structure after releasing the lock
-and therefore cannot be used to manage lifetime of objects directly
-(unlike spinlocks and refcounts). [1][2]
+ueagle-atm uses the asynchronous request_firmware_nowait() in .probe(),
+but does not wait for its completion, not even in .disconnect(); so, if the
+device is unplugged meanwhile, its teardown runs concurrently with that.
 
-Use a kref to release the driver data to avoid use-after-free in
-mutex_unlock() when release() races with disconnect().
+Even though this inconsistency is worth addressing on its own, it has also
+triggered several bug reports in syzbot over the years (some auto-closed)
+where the firmware sysfs fallback mechanism (CONFIG_FW_LOADER_USER_HELPER)
+creates a firmware subdirectory in the device directory during its removal,
+which might hit unexpected conditions in kernfs, apparently, depending at
+which point the add and remove operations raced. (See links.)
 
-[1] a51749ab34d9 ("locking/mutex: Document that mutex_unlock() is non-atomic")
-[2] 2b9d9e0a9ba0 ("locking/mutex: Clarify that mutex_unlock(), and most
-                   other sleeping locks, can still use the lock object
-                   after it's unlocked")
+The pattern is:
 
-Fixes: 946b960d13c1 ("USB: add driver for iowarrior devices.")
+usb ?-?: Direct firmware load for ueagle-atm/eagle?.fw failed with error -2
+usb ?-?: Falling back to sysfs fallback for: ueagle-atm/eagle?.fw
+<ERROR>
+Call trace:
+ ...
+ kernfs_create_dir_ns
+ sysfs_create_dir_ns
+ create_dir
+ kobject_add_internal
+ kobject_add_varg
+ kobject_add
+ class_dir_create_and_add
+ get_device_parent
+ device_add
+ fw_load_sysfs_fallback
+ fw_load_from_user_helper
+ firmware_fallback_sysfs
+ _request_firmware
+ request_firmware_work_func
+ ...
+
+(Some variations are observed, after fw_load_sysfs_fallback(), e.g., [1].)
+
+While the kernfs side is being looked at, the ueagle-atm side can be fixed
+by waiting for the pre-firmware load in the .disconnect() handler.
+
+This change has a similar approach to previous work by Andrey Tsygunka [2]
+(wait_for_completion() in .disconnect()), but it is relatively different in
+design/implementation; using the Originally-by tag for credit assignment.
+
+This has been tested with:
+- synthetic reproducer to check the error path;
+- USB gadget (virtual device) to check the firmware upload path;
+- QEMU device emulator to check the device ID re-enumeration path;
+(The latter two were written by Claude; no other code/text in this commit.)
+
+Links (year first reported):
+ 2025 https://syzbot.org/bug?extid=ce1e5a1b4e086b43e56d
+ 2025 https://syzbot.org/bug?extid=9af8471255ac36e34fd4
+ 2024 https://syzbot.org/bug?extid=306212936b13e520679d
+ 2023 https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
+ 2022 https://syzbot.org/bug?extid=782984d6f1701b526edb
+ 2021 https://syzbot.org/bug?id=f3f221579f4ef7e9691281f3c6f56c05f83e8490
+ 2021 https://syzbot.org/bug?id=84d86f0d71394829df6fc53daf6642c045983881
+ 2021 https://syzbot.org/bug?id=3302dc1c0e2b9c94f2e8edb404eabc9267bc6f90
+
+[1] https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
+[2] https://lore.kernel.org/lkml/20250410093146.3776801-2-aitsygunka@yandex.ru/
+
 Cc: stable <stable@kernel.org>
-Reported-by: Yue Sun <samsun1006219@gmail.com>
-Link: https://lore.kernel.org/r/20260618080204.38322-1-samsun1006219@gmail.com
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260622152612.116422-2-johan@kernel.org
+Reported-by: syzbot+ce1e5a1b4e086b43e56d@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=ce1e5a1b4e086b43e56d
+Reported-by: syzbot+306212936b13e520679d@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=306212936b13e520679d
+Reported-by: syzbot+457452d30bcdda75ead2@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
+Originally-by: Andrey Tsygunka <aitsygunka@yandex.ru>
+Fixes: b72458a80c75 ("[PATCH] USB: Eagle and ADI 930 usb adsl modem driver")
+Assisted-by: Claude:claude-opus-4.7 # usb gadget & qemu device for testing
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
+Link: https://patch.msgid.link/20260526-ueagle-atm_req-fw-sync-v3-1-93c01961daaf@igalia.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/misc/iowarrior.c | 57 +++++++++++++++---------------------
- 1 file changed, 24 insertions(+), 33 deletions(-)
+ drivers/usb/atm/ueagle-atm.c | 36 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 31 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/usb/misc/iowarrior.c b/drivers/usb/misc/iowarrior.c
-index 7c217b1f71f293..d23cb584c13c39 100644
---- a/drivers/usb/misc/iowarrior.c
-+++ b/drivers/usb/misc/iowarrior.c
-@@ -71,6 +71,7 @@ static struct usb_driver iowarrior_driver;
+diff --git a/drivers/usb/atm/ueagle-atm.c b/drivers/usb/atm/ueagle-atm.c
+index e8e43c38aa1b43..cd53d36aa30748 100644
+--- a/drivers/usb/atm/ueagle-atm.c
++++ b/drivers/usb/atm/ueagle-atm.c
+@@ -599,7 +599,9 @@ static int uea_send_modem_cmd(struct usb_device *usb,
+ static void uea_upload_pre_firmware(const struct firmware *fw_entry,
+ 								void *context)
+ {
+-	struct usb_device *usb = context;
++	struct usb_interface *intf = context;
++	struct usb_device *usb = interface_to_usbdev(intf);
++	struct completion *fw_done = usb_get_intfdata(intf);
+ 	const u8 *pfw;
+ 	u8 value;
+ 	u32 crc = 0;
+@@ -670,15 +672,17 @@ static void uea_upload_pre_firmware(const struct firmware *fw_entry,
+ err:
+ 	release_firmware(fw_entry);
+ 	uea_leaves(usb);
++	complete(fw_done);
+ }
  
- /* Structure to hold all of our device specific stuff */
- struct iowarrior {
-+	struct kref kref;
- 	struct mutex mutex;			/* locks this structure */
- 	struct usb_device *udev;		/* save off the usb device pointer */
- 	struct usb_interface *interface;	/* the interface for this device */
-@@ -243,8 +244,10 @@ static void iowarrior_write_callback(struct urb *urb)
  /*
-  *	iowarrior_delete
+  * uea_load_firmware - Load usb firmware for pre-firmware devices.
   */
--static inline void iowarrior_delete(struct iowarrior *dev)
-+static inline void iowarrior_delete(struct kref *kref)
+-static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
++static int uea_load_firmware(struct usb_interface *intf, unsigned int ver)
  {
-+	struct iowarrior *dev = container_of(kref, struct iowarrior, kref);
-+
- 	kfree(dev->int_in_buffer);
- 	usb_free_urb(dev->int_in_urb);
- 	kfree(dev->read_queue);
-@@ -644,6 +647,9 @@ static int iowarrior_open(struct inode *inode, struct file *file)
+ 	int ret;
+ 	char *fw_name = EAGLE_FIRMWARE;
++	struct usb_device *usb = interface_to_usbdev(intf);
+ 
+ 	uea_enters(usb);
+ 	uea_info(usb, "pre-firmware device, uploading firmware\n");
+@@ -702,7 +706,7 @@ static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
  	}
- 	/* increment our usage count for the driver */
- 	++dev->opened;
+ 
+ 	ret = request_firmware_nowait(THIS_MODULE, 1, fw_name, &usb->dev,
+-					GFP_KERNEL, usb,
++					GFP_KERNEL, intf,
+ 					uea_upload_pre_firmware);
+ 	if (ret)
+ 		uea_err(usb, "firmware %s is not available\n", fw_name);
+@@ -2597,8 +2601,23 @@ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 
+ 	usb_reset_device(usb);
+ 
+-	if (UEA_IS_PREFIRM(id))
+-		return uea_load_firmware(usb, UEA_CHIP_VERSION(id));
++	if (UEA_IS_PREFIRM(id)) {
++		struct completion *fw_done;
 +
-+	kref_get(&dev->kref);
++		/* Wait for the firmware load to be done, in .disconnect() */
++		fw_done = kzalloc(sizeof(*fw_done), GFP_KERNEL);
++		if (!fw_done)
++			return -ENOMEM;
 +
- 	/* save our object in the file's private structure */
- 	file->private_data = dev;
- 	retval = 0;
-@@ -659,7 +665,6 @@ static int iowarrior_open(struct inode *inode, struct file *file)
- static int iowarrior_release(struct inode *inode, struct file *file)
- {
- 	struct iowarrior *dev;
--	int retval = 0;
++		init_completion(fw_done);
++		usb_set_intfdata(intf, fw_done);
++
++		ret = uea_load_firmware(intf, UEA_CHIP_VERSION(id));
++		if (ret)
++			kfree(fw_done);
++
++		return ret;
++	}
  
- 	dev = file->private_data;
- 	if (!dev)
-@@ -667,29 +672,18 @@ static int iowarrior_release(struct inode *inode, struct file *file)
- 
- 	/* lock our device */
- 	mutex_lock(&dev->mutex);
-+	dev->opened = 0;	/* we're closing now */
- 
--	if (dev->opened <= 0) {
--		retval = -ENODEV;	/* close called more than once */
--		mutex_unlock(&dev->mutex);
--	} else {
--		dev->opened = 0;	/* we're closing now */
--		retval = 0;
--		if (dev->present) {
--			/*
--			   The device is still connected so we only shutdown
--			   pending read-/write-ops.
--			 */
--			usb_kill_urb(dev->int_in_urb);
--			wake_up_interruptible(&dev->read_wait);
--			wake_up_interruptible(&dev->write_wait);
--			mutex_unlock(&dev->mutex);
--		} else {
--			/* The device was unplugged, cleanup resources */
--			mutex_unlock(&dev->mutex);
--			iowarrior_delete(dev);
--		}
-+	if (dev->present) {
-+		usb_kill_urb(dev->int_in_urb);
-+		wake_up_interruptible(&dev->read_wait);
-+		wake_up_interruptible(&dev->write_wait);
+ 	ret = usbatm_usb_probe(intf, id, &uea_usbatm_driver);
+ 	if (ret == 0) {
+@@ -2629,6 +2648,13 @@ static void uea_disconnect(struct usb_interface *intf)
+ 		usbatm_usb_disconnect(intf);
+ 		mutex_unlock(&uea_mutex);
+ 		uea_info(usb, "ADSL device removed\n");
++	} else if (usb->config->desc.bNumInterfaces == 1) {
++		struct completion *fw_done = usb_get_intfdata(intf);
++
++		uea_dbg(usb, "pre-firmware device, waiting firmware upload\n");
++		wait_for_completion(fw_done);
++		uea_dbg(usb, "pre-firmware device, finished waiting\n");
++		kfree(fw_done);
  	}
--	return retval;
-+	mutex_unlock(&dev->mutex);
-+
-+	kref_put(&dev->kref, iowarrior_delete);
-+
-+	return 0;
- }
  
- static __poll_t iowarrior_poll(struct file *file, poll_table * wait)
-@@ -774,6 +768,7 @@ static int iowarrior_probe(struct usb_interface *interface,
- 	if (!dev)
- 		return retval;
- 
-+	kref_init(&dev->kref);
- 	mutex_init(&dev->mutex);
- 
- 	atomic_set(&dev->intr_idx, 0);
-@@ -892,7 +887,8 @@ static int iowarrior_probe(struct usb_interface *interface,
- 	return retval;
- 
- error:
--	iowarrior_delete(dev);
-+	kref_put(&dev->kref, iowarrior_delete);
-+
- 	return retval;
- }
- 
-@@ -913,20 +909,15 @@ static void iowarrior_disconnect(struct usb_interface *interface)
- 	dev->present = 0;
- 
- 	if (dev->opened) {
--		/* There is a process that holds a filedescriptor to the device ,
--		   so we only shutdown read-/write-ops going on.
--		   Deleting the device is postponed until close() was called.
--		 */
- 		usb_kill_urb(dev->int_in_urb);
- 		usb_kill_anchored_urbs(&dev->submitted);
- 		wake_up_interruptible(&dev->read_wait);
- 		wake_up_interruptible(&dev->write_wait);
--		mutex_unlock(&dev->mutex);
--	} else {
--		/* no process is using the device, cleanup now */
--		mutex_unlock(&dev->mutex);
--		iowarrior_delete(dev);
- 	}
-+
-+	mutex_unlock(&dev->mutex);
-+
-+	kref_put(&dev->kref, iowarrior_delete);
- }
- 
- /* usb specific object needed to register this driver with the usb subsystem */
+ 	uea_leaves(usb);
 -- 
 2.53.0
 
