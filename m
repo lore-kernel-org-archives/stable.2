@@ -1,40 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3F817A2E8
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 12:43:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4920A1AE877
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 12:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784465037; cv=none; b=EyNbmGR1PwXFU3360ZGORZ0KLAxsG3KvVOhIRHMFYS/97sgqokYNg8Gx1DmF2a8pOuV1o1QKECM+eU/EDLhlq5TjMFY8/7nnL1ikjNHHQHFaSC7Hkj7BWaGkeb6WIOFh4F6w9Yw6QG1uFsRfE3Yy9qJSIgv9rW1//8gglhxi3l8=
+	t=1784465038; cv=none; b=fzzWRPoj8e+KyHA5d8qcGFwdwoeKsbMNpn01b8gctPwE3get90kKAACZJQZCe1ELux6bUTrF6ESuXBRV/KV4QvdL5Jz56RA5jNAqz23eVGpgrOkChHc/8nJjGzfpUn2BzQlUA3FXbdSJGgj47PTL4BzPC4kYeoC0PGE2098YKvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784465037; c=relaxed/simple;
-	bh=EdlQzDe2J+OtiKVpJh8BzaVr7ZZvjzj5T5MRoCY+ZiY=;
+	s=arc-20240116; t=1784465038; c=relaxed/simple;
+	bh=j9Y7XU9c8anXv2yNV7SpRpeBfr1PqBaoyiujm3AetwM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H/i12rWsMLKqkNmIQPnrRZE+Vm07lFhd2q6PmUPAltKDY+dCXDL2l0tBTmUF2tabVHlKCxY+D+vBQ35KvC5/Oyz8jEZWP/B2iyHU3lttp4jy351LII5Laz3roP5r+GWcrSHdGl09YSXilJR77l0ZSq2QZMUsOgggDgbRwEohi4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PswQghh0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LY/iB0lu7PyUCnQsZHGrAENVTdz7EccGYt3kvMVMQ5SMUFIeKeO4+YFJm/Yu4cYvv/4A0zP5H5kGP7KDwe0dd6M3TOCObX9Ae+nM1S9/81uMhWsgyz00lzNkO0dgLLp7xikmTHVQ1MJkamNuPj8REkahnyx9S+F1AQA+t0Om7ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ud22wkn/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PswQghh0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A2FF1F00A3F;
-	Sun, 19 Jul 2026 12:43:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ud22wkn/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29AA81F000E9;
+	Sun, 19 Jul 2026 12:43:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784465035;
-	bh=y9PqlzK3GWACBz+FXCc76twtA55cmzAUEkdaO3Bv+Eg=;
+	s=k20260515; t=1784465037;
+	bh=3dm4QKH2jGTyB62mhFz8wpAgznFh1D9U4QpcJJm/ghQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PswQghh0vl7K4wKoW31KtSThZ9JgbnjUkK0NbiXKKhtHhAydQn4VxhRLTcF7AKbvs
-	 nCZVnMx+4+0SbV/a+Onc71cqAmDGBAqagzImxc4fLMUn7Xfi5GREvcO32xJBTGR0ax
-	 6efDb43ep78JJNVZJ6w7JH+9CzKt0knRcHs4wPr5mpkyTGtpXFs1OaCiCzLlOolr+h
-	 SQiR1YA70BADPb96uymUXz5pZnoCfZb6+N1fKkzsgaaloSVNMa/aDkpLzlzOt/SS+q
-	 RJqZwcwua2nbyV7YZbW0+RSzbTohqJNbNfBRbThyMcVFSZm5URHhgsJpAN8QGbdzvl
-	 1wLbdCDk1oQ9Q==
+	b=Ud22wkn/AlFfVjYZiGz21Ug+FTHRbaJJqNOMjh0rOyDKZ2s+OYEjo2AVPNC0bLHk/
+	 UX/0qva7mhten6KqZoomGcifBKCe61yDDTpaEamBvhttDfu3PvZTnx/CmC0bPYU1rG
+	 YGzAh7AvGf4/EmzIWgAEtB/SfYesgndocVaSWNBHMc37/Knf+CaQbLO2tf7PUsaIpA
+	 pQHBN+HlHBH+vN/KBqk78Cwj4tEaUPryrgyd8JruJ7DD7nzHFnJAygyy30t0ThMqwT
+	 Bs0OlWmWDMLLjVPou3m3cLPjlSTSfXrUCg9OqmJvGIfCA2aQm41rdIt5dzFlV5lIr5
+	 QfbfPJueBNWqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Mauricio Faria de Oliveira <mfo@igalia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable <stable@kernel.org>,
+	syzbot+ce1e5a1b4e086b43e56d@syzkaller.appspotmail.com,
+	syzbot+306212936b13e520679d@syzkaller.appspotmail.com,
+	syzbot+457452d30bcdda75ead2@syzkaller.appspotmail.com,
+	Andrey Tsygunka <aitsygunka@yandex.ru>,
 	Stanislaw Gruszka <stf_xl@wp.pl>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/5] usb: atm: ueagle-atm: remove function entry/exit debug messages
-Date: Sun, 19 Jul 2026 08:43:47 -0400
-Message-ID: <20260719124348.3646001-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y 5/5] usb: atm: ueagle-atm: wait for pre-firmware load in .disconnect()
+Date: Sun, 19 Jul 2026 08:43:48 -0400
+Message-ID: <20260719124348.3646001-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260719124348.3646001-1-sashal@kernel.org>
 References: <2026071427-sulfate-await-a368@gregkh>
@@ -49,334 +54,172 @@ Content-Transfer-Encoding: 8bit
 
 From: Mauricio Faria de Oliveira <mfo@igalia.com>
 
-[ Upstream commit 1414b2242c2e9d670c4d8b83480f13db57627ba9 ]
+[ Upstream commit e2674dfbed8a30d57e2bc872c4bfa6c3eec918bf ]
 
-Remove the driver-internal function entry/exit debug messages
-in favor of existing kernel-level function tracing mechanisms.
+ueagle-atm uses the asynchronous request_firmware_nowait() in .probe(),
+but does not wait for its completion, not even in .disconnect(); so, if the
+device is unplugged meanwhile, its teardown runs concurrently with that.
 
-Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Link: https://lore.kernel.org/all/2026051657-scruffy-embark-45ea@gregkh/
+Even though this inconsistency is worth addressing on its own, it has also
+triggered several bug reports in syzbot over the years (some auto-closed)
+where the firmware sysfs fallback mechanism (CONFIG_FW_LOADER_USER_HELPER)
+creates a firmware subdirectory in the device directory during its removal,
+which might hit unexpected conditions in kernfs, apparently, depending at
+which point the add and remove operations raced. (See links.)
+
+The pattern is:
+
+usb ?-?: Direct firmware load for ueagle-atm/eagle?.fw failed with error -2
+usb ?-?: Falling back to sysfs fallback for: ueagle-atm/eagle?.fw
+<ERROR>
+Call trace:
+ ...
+ kernfs_create_dir_ns
+ sysfs_create_dir_ns
+ create_dir
+ kobject_add_internal
+ kobject_add_varg
+ kobject_add
+ class_dir_create_and_add
+ get_device_parent
+ device_add
+ fw_load_sysfs_fallback
+ fw_load_from_user_helper
+ firmware_fallback_sysfs
+ _request_firmware
+ request_firmware_work_func
+ ...
+
+(Some variations are observed, after fw_load_sysfs_fallback(), e.g., [1].)
+
+While the kernfs side is being looked at, the ueagle-atm side can be fixed
+by waiting for the pre-firmware load in the .disconnect() handler.
+
+This change has a similar approach to previous work by Andrey Tsygunka [2]
+(wait_for_completion() in .disconnect()), but it is relatively different in
+design/implementation; using the Originally-by tag for credit assignment.
+
+This has been tested with:
+- synthetic reproducer to check the error path;
+- USB gadget (virtual device) to check the firmware upload path;
+- QEMU device emulator to check the device ID re-enumeration path;
+(The latter two were written by Claude; no other code/text in this commit.)
+
+Links (year first reported):
+ 2025 https://syzbot.org/bug?extid=ce1e5a1b4e086b43e56d
+ 2025 https://syzbot.org/bug?extid=9af8471255ac36e34fd4
+ 2024 https://syzbot.org/bug?extid=306212936b13e520679d
+ 2023 https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
+ 2022 https://syzbot.org/bug?extid=782984d6f1701b526edb
+ 2021 https://syzbot.org/bug?id=f3f221579f4ef7e9691281f3c6f56c05f83e8490
+ 2021 https://syzbot.org/bug?id=84d86f0d71394829df6fc53daf6642c045983881
+ 2021 https://syzbot.org/bug?id=3302dc1c0e2b9c94f2e8edb404eabc9267bc6f90
+
+[1] https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
+[2] https://lore.kernel.org/lkml/20250410093146.3776801-2-aitsygunka@yandex.ru/
+
+Cc: stable <stable@kernel.org>
+Reported-by: syzbot+ce1e5a1b4e086b43e56d@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=ce1e5a1b4e086b43e56d
+Reported-by: syzbot+306212936b13e520679d@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=306212936b13e520679d
+Reported-by: syzbot+457452d30bcdda75ead2@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2
+Originally-by: Andrey Tsygunka <aitsygunka@yandex.ru>
+Fixes: b72458a80c75 ("[PATCH] USB: Eagle and ADI 930 usb adsl modem driver")
+Assisted-by: Claude:claude-opus-4.7 # usb gadget & qemu device for testing
 Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
 Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
-Link: https://patch.msgid.link/20260520-ueagle-atm-cleanup-v1-2-010c8bc7b214@igalia.com
+Link: https://patch.msgid.link/20260526-ueagle-atm_req-fw-sync-v3-1-93c01961daaf@igalia.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: e2674dfbed8a ("usb: atm: ueagle-atm: wait for pre-firmware load in .disconnect()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/atm/ueagle-atm.c | 56 ++++--------------------------------
- 1 file changed, 6 insertions(+), 50 deletions(-)
+ drivers/usb/atm/ueagle-atm.c | 36 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 31 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/usb/atm/ueagle-atm.c b/drivers/usb/atm/ueagle-atm.c
-index 43d966c855fa0a..0eea8a9912bcd8 100644
+index 0eea8a9912bcd8..a943a5257a59fb 100644
 --- a/drivers/usb/atm/ueagle-atm.c
 +++ b/drivers/usb/atm/ueagle-atm.c
-@@ -50,12 +50,6 @@
- 				"[ueagle-atm vdbg]  " format, ##args); \
- 	} while (0)
- 
--#define uea_enters(usb_dev) \
--	uea_vdbg(usb_dev, "entering %s\n" , __func__)
--
--#define uea_leaves(usb_dev) \
--	uea_vdbg(usb_dev, "leaving  %s\n" , __func__)
--
- #define uea_err(usb_dev, format, args...) \
- 	dev_err(&(usb_dev)->dev , "[UEAGLE-ATM] " format , ##args)
- 
-@@ -605,7 +599,6 @@ static void uea_upload_pre_firmware(const struct firmware *fw_entry,
+@@ -593,7 +593,9 @@ static int uea_send_modem_cmd(struct usb_device *usb,
+ static void uea_upload_pre_firmware(const struct firmware *fw_entry,
+ 								void *context)
+ {
+-	struct usb_device *usb = context;
++	struct usb_interface *intf = context;
++	struct usb_device *usb = interface_to_usbdev(intf);
++	struct completion *fw_done = usb_get_intfdata(intf);
+ 	const u8 *pfw;
+ 	u8 value;
  	u32 crc = 0;
- 	int ret, size;
- 
--	uea_enters(usb);
- 	if (!fw_entry) {
- 		uea_err(usb, "firmware is not available\n");
- 		goto err;
-@@ -669,7 +662,6 @@ static void uea_upload_pre_firmware(const struct firmware *fw_entry,
+@@ -662,15 +664,17 @@ static void uea_upload_pre_firmware(const struct firmware *fw_entry,
  	uea_err(usb, "firmware is corrupted\n");
  err:
  	release_firmware(fw_entry);
--	uea_leaves(usb);
++	complete(fw_done);
  }
  
  /*
-@@ -680,7 +672,6 @@ static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
+  * uea_load_firmware - Load usb firmware for pre-firmware devices.
+  */
+-static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
++static int uea_load_firmware(struct usb_interface *intf, unsigned int ver)
+ {
  	int ret;
  	char *fw_name = EAGLE_FIRMWARE;
++	struct usb_device *usb = interface_to_usbdev(intf);
  
--	uea_enters(usb);
  	uea_info(usb, "pre-firmware device, uploading firmware\n");
  
- 	switch (ver) {
-@@ -709,7 +700,6 @@ static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
- 	else
- 		uea_info(usb, "loading firmware %s\n", fw_name);
- 
--	uea_leaves(usb);
- 	return ret;
- }
- 
-@@ -1136,7 +1126,6 @@ static int uea_cmv_e1(struct uea_softc *sc,
- 	struct cmv_e1 cmv;
- 	int ret;
- 
--	uea_enters(INS_TO_USBDEV(sc));
- 	uea_vdbg(INS_TO_USBDEV(sc), "Function : %d-%d, Address : %c%c%c%c, "
- 			"offset : 0x%04x, data : 0x%08x\n",
- 			E1_FUNCTION_TYPE(function),
-@@ -1163,9 +1152,8 @@ static int uea_cmv_e1(struct uea_softc *sc,
- 							sizeof(cmv), &cmv);
- 	if (ret < 0)
- 		return ret;
--	ret = wait_cmv_ack(sc);
--	uea_leaves(INS_TO_USBDEV(sc));
--	return ret;
-+
-+	return wait_cmv_ack(sc);
- }
- 
- static int uea_cmv_e4(struct uea_softc *sc,
-@@ -1174,7 +1162,6 @@ static int uea_cmv_e4(struct uea_softc *sc,
- 	struct cmv_e4 cmv;
- 	int ret;
- 
--	uea_enters(INS_TO_USBDEV(sc));
- 	memset(&cmv, 0, sizeof(cmv));
- 
- 	uea_vdbg(INS_TO_USBDEV(sc), "Function : %d-%d, Group : 0x%04x, "
-@@ -1198,9 +1185,8 @@ static int uea_cmv_e4(struct uea_softc *sc,
- 							sizeof(cmv), &cmv);
- 	if (ret < 0)
- 		return ret;
--	ret = wait_cmv_ack(sc);
--	uea_leaves(INS_TO_USBDEV(sc));
--	return ret;
-+
-+	return wait_cmv_ack(sc);
- }
- 
- static inline int uea_read_cmv_e1(struct uea_softc *sc,
-@@ -1294,7 +1280,6 @@ static int uea_stat_e1(struct uea_softc *sc)
- 	u32 data;
- 	int ret;
- 
--	uea_enters(INS_TO_USBDEV(sc));
- 	data = sc->stats.phy.state;
- 
- 	ret = uea_read_cmv_e1(sc, E1_SA_STAT, 0, &sc->stats.phy.state);
-@@ -1437,7 +1422,6 @@ static int uea_stat_e4(struct uea_softc *sc)
- 	u32 tmp_arr[2];
- 	int ret;
- 
--	uea_enters(INS_TO_USBDEV(sc));
- 	data = sc->stats.phy.state;
- 
- 	/* XXX only need to be done before operationnal... */
-@@ -1804,7 +1788,6 @@ static int uea_start_reset(struct uea_softc *sc)
- 	u16 zero = 0;	/* ;-) */
- 	int ret;
- 
--	uea_enters(INS_TO_USBDEV(sc));
- 	uea_info(INS_TO_USBDEV(sc), "(re)booting started\n");
- 
- 	/* mask interrupt */
-@@ -1872,7 +1855,6 @@ static int uea_start_reset(struct uea_softc *sc)
- 		return ret;
- 
- 	sc->reset = 0;
--	uea_leaves(INS_TO_USBDEV(sc));
- 	return ret;
- }
- 
-@@ -1888,7 +1870,6 @@ static int uea_kthread(void *data)
- 	int ret = -EAGAIN;
- 
- 	set_freezable();
--	uea_enters(INS_TO_USBDEV(sc));
- 	while (!kthread_should_stop()) {
- 		if (ret < 0 || sc->reset)
- 			ret = uea_start_reset(sc);
-@@ -1897,7 +1878,7 @@ static int uea_kthread(void *data)
- 		if (ret != -EAGAIN)
- 			uea_wait(sc, 0, msecs_to_jiffies(1000));
- 	}
--	uea_leaves(INS_TO_USBDEV(sc));
-+
- 	return ret;
- }
- 
-@@ -1910,8 +1891,6 @@ static int load_XILINX_firmware(struct uea_softc *sc)
- 	u8 value;
- 	char *fw_name = FPGA930_FIRMWARE;
- 
--	uea_enters(INS_TO_USBDEV(sc));
--
- 	ret = request_firmware(&fw_entry, fw_name, &sc->usb_dev->dev);
- 	if (ret) {
- 		uea_err(INS_TO_USBDEV(sc), "firmware %s is not available\n",
-@@ -1955,7 +1934,6 @@ static int load_XILINX_firmware(struct uea_softc *sc)
- err1:
- 	release_firmware(fw_entry);
- err0:
--	uea_leaves(INS_TO_USBDEV(sc));
- 	return ret;
- }
- 
-@@ -1965,7 +1943,6 @@ static void uea_dispatch_cmv_e1(struct uea_softc *sc, struct intr_pkt *intr)
- 	struct cmv_dsc_e1 *dsc = &sc->cmv_dsc.e1;
- 	struct cmv_e1 *cmv = &intr->u.e1.s2.cmv;
- 
--	uea_enters(INS_TO_USBDEV(sc));
- 	if (le16_to_cpu(cmv->wPreamble) != E1_PREAMBLE)
- 		goto bad1;
- 
-@@ -1989,7 +1966,6 @@ static void uea_dispatch_cmv_e1(struct uea_softc *sc, struct intr_pkt *intr)
- 	if (cmv->bFunction == E1_MAKEFUNCTION(E1_ADSLDIRECTIVE,
- 							E1_MODEMREADY)) {
- 		wake_up_cmv_ack(sc);
--		uea_leaves(INS_TO_USBDEV(sc));
- 		return;
+@@ -693,7 +697,7 @@ static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
  	}
  
-@@ -2003,7 +1979,6 @@ static void uea_dispatch_cmv_e1(struct uea_softc *sc, struct intr_pkt *intr)
- 	sc->data = sc->data << 16 | sc->data >> 16;
+ 	ret = request_firmware_nowait(THIS_MODULE, 1, fw_name, &usb->dev,
+-					GFP_KERNEL, usb,
++					GFP_KERNEL, intf,
+ 					uea_upload_pre_firmware);
+ 	if (ret)
+ 		uea_err(usb, "firmware %s is not available\n", fw_name);
+@@ -2556,8 +2560,23 @@ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
  
- 	wake_up_cmv_ack(sc);
--	uea_leaves(INS_TO_USBDEV(sc));
- 	return;
+ 	usb_reset_device(usb);
  
- bad2:
-@@ -2011,14 +1986,12 @@ static void uea_dispatch_cmv_e1(struct uea_softc *sc, struct intr_pkt *intr)
- 			"Function : %d, Subfunction : %d\n",
- 			E1_FUNCTION_TYPE(cmv->bFunction),
- 			E1_FUNCTION_SUBTYPE(cmv->bFunction));
--	uea_leaves(INS_TO_USBDEV(sc));
- 	return;
- 
- bad1:
- 	uea_err(INS_TO_USBDEV(sc), "invalid cmv received, "
- 			"wPreamble %d, bDirection %d\n",
- 			le16_to_cpu(cmv->wPreamble), cmv->bDirection);
--	uea_leaves(INS_TO_USBDEV(sc));
- }
- 
- /* The modem send us an ack. First with check if it right */
-@@ -2027,7 +2000,6 @@ static void uea_dispatch_cmv_e4(struct uea_softc *sc, struct intr_pkt *intr)
- 	struct cmv_dsc_e4 *dsc = &sc->cmv_dsc.e4;
- 	struct cmv_e4 *cmv = &intr->u.e4.s2.cmv;
- 
--	uea_enters(INS_TO_USBDEV(sc));
- 	uea_dbg(INS_TO_USBDEV(sc), "cmv %x %x %x %x %x %x\n",
- 		be16_to_cpu(cmv->wGroup), be16_to_cpu(cmv->wFunction),
- 		be16_to_cpu(cmv->wOffset), be16_to_cpu(cmv->wAddress),
-@@ -2039,7 +2011,6 @@ static void uea_dispatch_cmv_e4(struct uea_softc *sc, struct intr_pkt *intr)
- 	if (be16_to_cpu(cmv->wFunction) == E4_MAKEFUNCTION(E4_ADSLDIRECTIVE,
- 						E4_MODEMREADY, 1)) {
- 		wake_up_cmv_ack(sc);
--		uea_leaves(INS_TO_USBDEV(sc));
- 		return;
- 	}
- 
-@@ -2052,7 +2023,6 @@ static void uea_dispatch_cmv_e4(struct uea_softc *sc, struct intr_pkt *intr)
- 	sc->data = be32_to_cpu(cmv->dwData[0]);
- 	sc->data1 = be32_to_cpu(cmv->dwData[1]);
- 	wake_up_cmv_ack(sc);
--	uea_leaves(INS_TO_USBDEV(sc));
- 	return;
- 
- bad2:
-@@ -2060,7 +2030,6 @@ static void uea_dispatch_cmv_e4(struct uea_softc *sc, struct intr_pkt *intr)
- 			"Function : %d, Subfunction : %d\n",
- 			E4_FUNCTION_TYPE(cmv->wFunction),
- 			E4_FUNCTION_SUBTYPE(cmv->wFunction));
--	uea_leaves(INS_TO_USBDEV(sc));
- 	return;
- }
- 
-@@ -2088,8 +2057,6 @@ static void uea_intr(struct urb *urb)
- 	struct intr_pkt *intr = urb->transfer_buffer;
- 	int status = urb->status;
- 
--	uea_enters(INS_TO_USBDEV(sc));
--
- 	if (unlikely(status < 0)) {
- 		uea_err(INS_TO_USBDEV(sc), "uea_intr() failed with %d\n",
- 		       status);
-@@ -2129,8 +2096,6 @@ static int uea_boot(struct uea_softc *sc, struct usb_interface *intf)
- 	int ret = -ENOMEM;
- 	int size;
- 
--	uea_enters(INS_TO_USBDEV(sc));
--
- 	if (UEA_CHIP_VERSION(sc) == EAGLE_IV) {
- 		size = E4_INTR_PKT_SIZE;
- 		sc->dispatch_cmv = uea_dispatch_cmv_e4;
-@@ -2187,7 +2152,6 @@ static int uea_boot(struct uea_softc *sc, struct usb_interface *intf)
- 		goto err2;
- 	}
- 
--	uea_leaves(INS_TO_USBDEV(sc));
- 	return 0;
- 
- err2:
-@@ -2197,7 +2161,6 @@ static int uea_boot(struct uea_softc *sc, struct usb_interface *intf)
- 	sc->urb_int = NULL;
- 	kfree(intr);
- err0:
--	uea_leaves(INS_TO_USBDEV(sc));
- 	return ret;
- }
- 
-@@ -2207,7 +2170,7 @@ static int uea_boot(struct uea_softc *sc, struct usb_interface *intf)
- static void uea_stop(struct uea_softc *sc)
- {
- 	int ret;
--	uea_enters(INS_TO_USBDEV(sc));
+-	if (UEA_IS_PREFIRM(id))
+-		return uea_load_firmware(usb, UEA_CHIP_VERSION(id));
++	if (UEA_IS_PREFIRM(id)) {
++		struct completion *fw_done;
 +
- 	ret = kthread_stop(sc->kthread);
- 	uea_dbg(INS_TO_USBDEV(sc), "kthread finish with status %d\n", ret);
++		/* Wait for the firmware load to be done, in .disconnect() */
++		fw_done = kzalloc_obj(*fw_done);
++		if (!fw_done)
++			return -ENOMEM;
++
++		init_completion(fw_done);
++		usb_set_intfdata(intf, fw_done);
++
++		ret = uea_load_firmware(intf, UEA_CHIP_VERSION(id));
++		if (ret)
++			kfree(fw_done);
++
++		return ret;
++	}
  
-@@ -2221,7 +2184,6 @@ static void uea_stop(struct uea_softc *sc)
- 	flush_work(&sc->task);
- 
- 	release_firmware(sc->dsp_firm);
--	uea_leaves(INS_TO_USBDEV(sc));
- }
- 
- /* syfs interface */
-@@ -2494,8 +2456,6 @@ static int uea_bind(struct usbatm_data *usbatm, struct usb_interface *intf,
- 	int ret, ifnum = intf->altsetting->desc.bInterfaceNumber;
- 	unsigned int alt;
- 
--	uea_enters(usb);
--
- 	/* interface 0 is for firmware/monitoring */
- 	if (ifnum != UEA_INTR_IFACE_NO)
- 		return -ENODEV;
-@@ -2588,7 +2548,6 @@ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 	struct usb_device *usb = interface_to_usbdev(intf);
- 	int ret;
- 
--	uea_enters(usb);
- 	uea_dbg(usb, "ADSL device found with vid (%#X) pid (%#X) Rev (%#X): %s\n",
- 		le16_to_cpu(usb->descriptor.idVendor),
- 		le16_to_cpu(usb->descriptor.idProduct),
-@@ -2619,7 +2578,6 @@ static void uea_disconnect(struct usb_interface *intf)
- {
- 	struct usb_device *usb = interface_to_usbdev(intf);
- 	int ifnum = intf->altsetting->desc.bInterfaceNumber;
--	uea_enters(usb);
- 
- 	/* ADI930 has 2 interfaces and eagle 3 interfaces.
- 	 * Pre-firmware device has one interface
-@@ -2630,8 +2588,6 @@ static void uea_disconnect(struct usb_interface *intf)
+ 	ret = usbatm_usb_probe(intf, id, &uea_usbatm_driver);
+ 	if (ret == 0) {
+@@ -2587,6 +2606,13 @@ static void uea_disconnect(struct usb_interface *intf)
+ 		usbatm_usb_disconnect(intf);
  		mutex_unlock(&uea_mutex);
  		uea_info(usb, "ADSL device removed\n");
++	} else if (usb->config->desc.bNumInterfaces == 1) {
++		struct completion *fw_done = usb_get_intfdata(intf);
++
++		uea_dbg(usb, "pre-firmware device, waiting firmware upload\n");
++		wait_for_completion(fw_done);
++		uea_dbg(usb, "pre-firmware device, finished waiting\n");
++		kfree(fw_done);
  	}
--
--	uea_leaves(usb);
  }
  
- /*
 -- 
 2.53.0
 
