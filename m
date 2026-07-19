@@ -1,157 +1,193 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71073A255F
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB1B3A3E7E;
+	Sun, 19 Jul 2026 15:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.119.170.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784473372; cv=none; b=eNxoiRpbOq8d/pqGLGJdjfI7xvs8TvL1jBdQZBkOM2zPWzdohlQGg+pehZnO+pU4UoNZzL5AJGLjCIxnwII9SPQg0aFFK/yie7FiPfQbzuzldlMIuzki5QbhwHtbSMNA7W80NOaTAm7Da+miEdqttW2vV5qNaSehbyof5wJEbu0=
+	t=1784473387; cv=none; b=hSiiNzuT0OTYpjE63znsntEdUev8YQBxngP8Zl3uWL3MaDc53BBXUQYJztszqmswZcIDKwIEGeJR60DqxNXAAAtELhmlfEen0bORA5E+OPH9bnaym/5UdwuJwg04jRZjQf/vPU6xSpCOtXz84TKLpOY9wtTzN1MsTMbwdZnqlpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784473372; c=relaxed/simple;
-	bh=eSbibO+xhCniUvMt1FIWRWvPjNpLGZrzkTdVYCwi9r4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EtQDTMocKGJjFSi5cx9T/SNMZaLWfZTHsCqmNsdY0honH+qiwAjtz6k4FsNMGPUjIEM5PUnAhZydzxXK2EWPHEyQj2OxvzWjPmLilKljUpiuRy5/3bikhDuDJFDpBvBIwo/44hhbwuwbrUvSjh6dClo2V82fe5OUNyygeny/HzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oPeb39/v; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784473387; c=relaxed/simple;
+	bh=B8qK7lqEuvyus4sqtOERzmEfJ4WVIkOIgPFctA386ks=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IUM5V5AnxWfPqX7NoA5PUj+QhOMr23gzs5vOsokHCp8Os3U25dS4M/nZ/PFxWd8F3etdxCiNpG399aVntuAfodB1ghh+am2mhoSUcOisfHfwCrvQVzMShJ+CS3HiX9e06zsNQG+0torMFhHCDw2qahKAELUtjmlWKDdzou38cSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net; spf=pass smtp.mailfrom=crapouillou.net; dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b=fRCW4Qqi; arc=none smtp.client-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oPeb39/v"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ceeee8c46bso15475235ad.2
-        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 08:02:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784473370; x=1785078170; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Min+DEzQsYXU48SJanwQaH6Js4T7CtgnWZ/eBINWIyc=;
-        b=oPeb39/vmuPz8ATR95oqeqhHqYa1efqgj0nqND11IBU3Eqj528lhyFAl2josHR/GFJ
-         1nYLhq8wo2VAFgnbKVPdA4wK7Cvo6/rhi+CFR3b4wEfiFwZk1ylJTNktjDsKX08Mo7fx
-         Z5CT7XcMF1aaCc4XBOjUCeoNukSqjUskkuJW8H5WVaylpHazwKrITG6tjwkrHW3YJ6Py
-         QuYmB+5egu7V3jdIxrPWKR+slyLDYWyiKwX5HBLfI5+uQOikVsjOPrcEdp2urtfXF4RT
-         PdCQKKfD4yrxzzFWbX1YgpaZKkoz3sAyMM0UDqbtWPgAoANvG3a7ovsCU8wqxQ2HNUWA
-         ZzPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784473370; x=1785078170;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Min+DEzQsYXU48SJanwQaH6Js4T7CtgnWZ/eBINWIyc=;
-        b=jTZQ3c4gi7ynUKd8Dkw38qB7Aau3kmJeLsKbv7e6OIB5zAR8+e+/y2z2Z9qIggesBa
-         GiFT5R829SeOpdAL1QAyfJy2x4YOkuuVNohNcZ4n7mbQPJb3mW1g/HzImKpqHRSwQbMT
-         yr9SS/iOmH20WDh0CHBpDntY9zL8ty6cLI2G3B9SOX9fVtascJQrCGzUpxu9Y+jvYani
-         smVxnMUtH7BYpw6Klu7HIk9nk3tBnAyb2yqb2ZDYxv83lTg2xbKVtFDJAx54/+WDulOK
-         1DdlsZqWUehGloYhGKIXhv31p0/kbktpeJ9BAxeL/PxlmHcFPlX7w5+NZmPkotMW8tHh
-         t0dw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+ZB3Ybg4haCQ/XZuDPMJB9oXq+24eZ3kBPiwxRxBEVyTllAlROZb0UdejwZqXe2nIiG3Jvuo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywn33Lr3KUSG/zSdadeN/BamdsI6KTNRMddOwaH6rGfU0BxV4VK
-	7EY4pCFp8KVoAPrDO+Y6n/PP71ar5zA6QyLfsPXU9jfnmEua3s79MDE0apZo2stJtN0=
-X-Gm-Gg: AfdE7cnRBWmn/rgNIhfHYXVwOwjJNzDT+wHUPcFx1CP86w01ACSmn5wyTCQw1ST5qTs
-	e9P9nrub5DlD0UfFGR8po8LquGAqEHHiCxtCkngpQpihn2h0bqynmhFik2dvHDIsY2+cfQ1QSbl
-	afpr8z0wY6TTQZCqjsR54keLOCtomzgtC2auBJiftlz7cbal1ILirX8KYZgV04l1r2q4/3SfRz/
-	3GuMKc6D2unbLexkqvWpFQn3Rzya0i56bpEVnGmS47m0jkl6Q0mo/EFf9hiwjwvLMRaDK76J6hV
-	+EnmnkSKN89zPJ0TzRVGoXE1nQqqme3Y/GHb+w1EoTKuYymtkC/pCJMblFQIX8wygKUbsMwk380
-	Cpf+fFoX9fNEXqlgstGEN7Rk72sI4Hfn/+1BCBswiSDvkgbP1L/M6cDyBN6TuUZDFUVY+aVb8f7
-	NQ2HCrIMOV4ggsM5/0SlRa6RRSxLhZmJKjiaVr3tHOhdPcNPsWAjk03izfT3g=
-X-Received: by 2002:a17:902:ccd1:b0:2ca:d344:7743 with SMTP id d9443c01a7336-2cf34a05d6cmr90369635ad.7.1784473369952;
-        Sun, 19 Jul 2026 08:02:49 -0700 (PDT)
-Received: from localhost.localdomain ([14.218.106.255])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf346d9b00sm42198945ad.53.2026.07.19.08.02.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 08:02:49 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Robert Olsson <robert.olsson@its.uu.se>,
-	Stephen Hemminger <stephen@networkplumber.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] net: pktgen: fix proc entry use-after-free
-Date: Sun, 19 Jul 2026 22:57:40 +0800
-Message-ID: <20260719145740.2888967-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b="fRCW4Qqi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
+	s=mail; t=1784473382;
+	bh=B8qK7lqEuvyus4sqtOERzmEfJ4WVIkOIgPFctA386ks=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=fRCW4QqifXu8a5lcyBgnb747dUdSyJMN+TblaTBKvW0EA1+dz7/BVB4sRmDuN8H1x
+	 P4KneZFr57LfYDK1R8N3nGwQjHfHc9e/A+n3awoNqww6yfFEO68UL9u3eOsXq59gpL
+	 eg1NOcYGg0J99KsmSCD3xRsr0wRsPBv8nQEcWUDg=
+Message-ID: <da19028e919ac510f1248ecb1bd3d9e218cbae7c.camel@crapouillou.net>
+Subject: Re: [PATCH] i2c: jz4780: Cache clock rate at probe to prevent CCF
+ prepare_lock deadlock
+From: Paul Cercueil <paul@crapouillou.net>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, linux-mips@vger.kernel.org, 
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	letux-kernel@openphoenux.org, stable@vger.kernel.org
+Date: Sun, 19 Jul 2026 17:02:58 +0200
+In-Reply-To: <E96B15FD-5B86-4375-B8B2-2051AC477F0F@goldelico.com>
+References: 
+	<c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
+	 <alf7rSWaLBO8WBkR@zenone.zhora.eu>
+	 <36148F30-156F-4E74-8765-D718F6FE7E76@goldelico.com>
+	 <aliLbNJ51Ns0dIHX@zenone.zhora.eu>
+	 <9421BB47-EFC8-4D82-989F-82A84FE46749@goldelico.com>
+	 <aljCGkhZEQHzZVSW@zenone.zhora.eu>
+	 <d869fc2e2fe6eec530a65a2e93b642fad1fd9903.camel@crapouillou.net>
+	 <E96B15FD-5B86-4375-B8B2-2051AC477F0F@goldelico.com>
+Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
+ keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
+ LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
+ FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
+ z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
+ +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
+ 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
+ 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
+ 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
+ dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
+ 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
+ rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
+ lBwgAhlGy6nqP7O3u7q23hRU=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-pktgen_change_name() replaces pkt_dev->entry while holding t->if_lock.
-pktgen_remove_device() removes the same entry before
-_rem_dev_from_if_list() takes that lock.
+Hi Nikolaus,
 
-This allows the following interleaving:
+Le dimanche 19 juillet 2026 =C3=A0 15:23 +0200, H. Nikolaus Schaller a
+=C3=A9crit=C2=A0:
+> Hi Paul,
+>=20
+> > Am 19.07.2026 um 14:53 schrieb Paul Cercueil
+> > <paul@crapouillou.net>:
+> >=20
+> > Hi Andi, Nikolaus,
+> >=20
+> > Le jeudi 16 juillet 2026 =C3=A0 13:41 +0200, Andi Shyti a =C3=A9crit :
+> >=20
+> > I think there's a misunderstanding.
+> >=20
+> > The JZ4780 I2C host's parent clock rate does not change here, so
+> > caching its rate should be fine.
+> >=20
+> > The clock rate that can change in this setup is the one of the
+> > Si5351
+> > clock *generator* that is a I2C device.
+>=20
+> Exactly.
+>=20
+> >=20
+> > >=20
+> > > > But again: how would you solve this?
+> >=20
+> > I believe you have this problem because your Si5351's clocks are
+> > parented to the I2C host's clock, am I right?
+>=20
+> No. There is no direct reference to i2c clocks:
+>=20
+> / {
+> 	ref25: xtal {
+> 		compatible =3D "fixed-clock";
+> 		clock-output-names =3D"ref";
+> 		#clock-cells =3D <0>;
+> 		clock-frequency =3D <25000000>;
+> 	};
+> };
+>=20
+> &i2c1 {
+> 	clkgen: clock-generator@60 {
+> 		status =3D "okay";
+>=20
+> 		compatible =3D "silabs,si5351a-msop";	// 10-MSOP
+> package has just 3 clock outputs
+> 		reg =3D <0x60>;	// 61?
+> 		#address-cells =3D <1>;
+> 		#size-cells =3D <0>;
+> 		#clock-cells =3D <1>;
+>=20
+> 		/* Connect XTAL input to 25MHz reference */
+> 		clocks =3D <&ref25>;
+> 		clock-names =3D "xtal";
+>=20
+> 		/* Use XTAL input as source of PLL0 and PLL1 */
+> 		silabs,pll-source =3D <0 0>, <1 0>;
+>=20
+> 		/* Don't reset PLL1 on rate adjustment */
+> 		silabs,pll-reset-mode =3D <1 1>;
+>=20
+> 		/*
+> 		* Overwrite CLK0 configuration with:
+> 		* - 8 mA output drive strength
+> 		* - initialize output as floating
+> 		* - PLL0 as clock source of multisynth 0
+> 		* - Multisynth 0 as clock source of output divider
+> 		* - Multisynth 0 can change PLL0
+> 		*/
+> 		master: clkout@0 {
+> 			reg =3D <0>;
+> 			silabs,drive-strength =3D <8>;
+> 			silabs,multisynth-source =3D <0>;
+> 			silabs,clock-source =3D <0>;
+> 			silabs,pll-master;
+> 			silabs,disable-state =3D <2>;
+> 			clock-frequency =3D <8000000>;
+> 		};
+> ...
+>=20
+> >=20
+> > So when you try to change a Si5351 clock rate, it will get the
+> > clock's
+> > lock and the clock parent's lock, aka. the I2C host clock's lock.
+> > Then
+> > trying to send a I2C command will indirectly trigger clk_get_rate()
+> > on
+> > the I2C host's clock to be called, causing a lockup.
+> >=20
+> > I think the solution would be, and CLK people can correct me here,
+> > to
+> > just drop the relation to the I2C host lock. Your Si5351 clocks are
+> > not
+> > derived in any way from the clock used by the I2C hardware in the
+> > JZ
+> > SoC (unless they are?), so I think they should just not have any
+> > parent.
+>=20
+> The problem appears to be deeper, that an already locked clock
+> manipulation
+> requested from the Si5351 drivers issues an jz4780 xfer. Which asks
+> for clock
+> information. This then tries to acquire the same lock which blocks.
+>=20
+> And the next i2c transfer from a different i2c client tries another
+> jz4780 xfer,
+> which is locked because the previous one with the si5351 never
+> completes.
 
-  CPU 0 (NETDEV_CHANGENAME)       CPU 1 (kpktgend)
-  if_lock(t)
-  proc_remove(pkt_dev->entry)
-                                  proc_remove(pkt_dev->entry)
-  pkt_dev->entry = proc_create_data(...)
-  if_unlock(t)
+Indeed, clk_get_rate() gets a static lock.
 
-The kthread can pass the stale proc_dir_entry to proc_remove() after the
-rename path has freed it. A reproducer with a widened race window reports:
+> IMHO the standard solution is never to ask for clock rates during i2c
+> xfer
+> but only once during jz4780 i2c probe and cache this value. Drivers
+> for other
+> SoC are doing it the same way. And this is what this patch is fixing.
 
-  BUG: KASAN: slab-use-after-free in proc_remove+0x78/0x80
-  Read of size 8 at addr ffff8881478fea70 by task kpktgend_0/67
-  Call Trace:
-   proc_remove+0x78/0x80
-   pktgen_remove_device.isra.0+0x11c/0x4c0
-   pktgen_thread_worker+0x1214/0x6bc0
-   kthread+0x2c6/0x3b0
-  Allocated by task 95:
-   __proc_create+0x204/0x790
-   proc_create_data+0x72/0xe0
-   pktgen_thread_write+0xd61/0x1510
-  Freed by task 28:
-   kmem_cache_free+0xcb/0x3d0
-   proc_free_inode+0x5b/0x80
-   rcu_core+0x50a/0x1850
-  The buggy address belongs to the object at ffff8881478fea00
-   which belongs to the cache proc_dir_entry of size 192
+Yeah, agreed.
 
-Move proc_remove() into the if_lock-protected list removal helper. Keep it
-before list_del_rcu() to preserve the ordering required by add_device().
-The rename path must then finish replacing the entry before removal, or
-it observes that the device is no longer on the list.
+>=20
+> BR and thanks,
+> Nikolaus
 
-Fixes: 39df232f1a9b ("[PKTGEN]: fix device name handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
- net/core/pktgen.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/net/core/pktgen.c b/net/core/pktgen.c
-index 8e185b318288..ee64f3012321 100644
---- a/net/core/pktgen.c
-+++ b/net/core/pktgen.c
-@@ -3972,6 +3972,7 @@ static void _rem_dev_from_if_list(struct pktgen_thread *t,
- 	struct pktgen_dev *p;
- 
- 	if_lock(t);
-+	proc_remove(pkt_dev->entry);
- 	list_for_each_safe(q, n, &t->if_list) {
- 		p = list_entry(q, struct pktgen_dev, list);
- 		if (p == pkt_dev)
-@@ -4001,9 +4002,6 @@ static int pktgen_remove_device(struct pktgen_thread *t,
- 	 * list to determine if interface already exist, avoid race
- 	 * with proc_create_data()
- 	 */
--	proc_remove(pkt_dev->entry);
--
--	/* And update the thread if_list */
- 	_rem_dev_from_if_list(t, pkt_dev);
- 
- #ifdef CONFIG_XFRM
--- 
-2.43.0
-
+Cheers,
+-Paul
