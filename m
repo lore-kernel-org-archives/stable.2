@@ -1,77 +1,42 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B7F3A2E33
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 17:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7BE3B38AD
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 18:01:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784483456; cv=none; b=TcoJQmEQ/U+yC8uZwP4ILUNCW/3JIYfPNCWQGXx/OLPUjWyJ3H+/lW5v5k6lrpCh917xV3wSbE0kabKmP+f5KcFD8oz1i3zCOTE4osDQFUdtDKu7ppqWsIV46Oln6Or/NL/7VyMANX4dXPnqR+PfMiiSeW2FmXcV9/OWdbfuQtY=
+	t=1784484098; cv=none; b=mQZM29BCzCEydSfVbukJxeOAkTYFvSHgW4h1ow3hE0IQ/a+1YI2hcZtU7PGk1Jb9+EIcIBVBsWZAtgnyrdi/H7VdDRH8CQJOe4DWEJsxa/PCIPplQzidUpCH/N9xxyRCjEewrI8u1cGgKbqyXOqUgCEdxSqmcgcgGttmE+/RTAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784483456; c=relaxed/simple;
-	bh=1pN32S2baW0QTY05fmozR5sB5cIXnuaBLTrX1Su/s9Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AFbB3qfC+yFyaMvmypo+tVHD4TQw0oG9aZ6Rq6bNtuGsKmhYpa+e/crca48juEQYWGTrQqJY+iOIrujFdEq/SoQ+7MfTdnqEikcgJn1IbFh5kAy3xbLlizI9fbUqHkEzIR6aCrqx9qY1ZAxYmW0gFOMf3XQyqFFXs5GQVNDhOYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bvJtKtV5; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784484098; c=relaxed/simple;
+	bh=gbYL2HaJNZvOJP3mpWv2esYadRnHF/0shFu+Z4e39Q8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RCkoF3+gQ9ZZd1U1DRQEqDBiQwHGFGc0NEilWWR6GYkuABYj+PsQeKI2B+DPl6LdDSkkvIS96azITcgcHgM4TV7RSHljIVgfV+A5HieoIXGmXhDRHNUT5WLHlLce/JhQOBdPmSncQ3EVELkOhJPCCFAjgKoXwXVdLiZLEEeNXqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eXXlhsrZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bvJtKtV5"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso6335600a91.3
-        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 10:50:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784483454; x=1785088254; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W6kSz/qjXQ0gTFAPWdJ8WtRiGAzWRY2MZwa0jKAIf2A=;
-        b=bvJtKtV5VxaBWBvksjALdqenXnw30sZXqrjneIx2V5yAO6+lBV9ej+jDdbUnobx7zB
-         kn35Dwiiv9UORrHfTZ71zX+xjIvGvFmQecbC6v+zBGyFZpRrtvdXhGP+F6dvl9vqpAqu
-         zdSbEs5263U0Ni3wQ2x8+xIU6MZZz53L/RbcuIAnRlHgAEI07WJy5W9ifhU4dMfwTxx0
-         PwvRBO+uOBzWfQRO2MrOvPd4I4xJrKqWhkkKBrPn6NhELLeF05qsOsBlupQigKog7BhE
-         NGPLEOpKOh2ucJGIhQH2zT26yPWDbnzKeE3rT3jbXPVAOhgdkmfDq5eLP8zP0ybR6q0C
-         3Vfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784483454; x=1785088254;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W6kSz/qjXQ0gTFAPWdJ8WtRiGAzWRY2MZwa0jKAIf2A=;
-        b=OlERgBo4516xqqR3teQWHFjvHdXf9ebonUtwfsSzH3r3BhFw3vh6rmqjjsyoK4S+6M
-         wrSqj8tPC1M6QQzqwKbyXMkb7Q9comEH8F/Rx8LhRzC6UFqAoOHyIsMRw5B9XO66Q4sa
-         Wjd+3zXUEJeB0n3wjnrreLZTBTLzTK3AlzZ4brnziTj9BEe2Qx8EbnrcGSHaWst9tHEC
-         3I4ud9fytZhPc2H/X0lps3svEYhysiyde6YJ50rE3CLrTf1nUg4dtyoz8xo4AFHI/u50
-         zW+sXx4jHnvL19WxILyJoLhRTzWsaZ46f0mbh72gCOPfU8DNc+xXcHwRrq72vHM+0PdB
-         j4Ig==
-X-Forwarded-Encrypted: i=1; AHgh+RrJpKwg8s5UXZUbWxZVHXXGOGuuBoH1+Zfu2CpZ8CJigDRj/SXV2YnHOeo+bRzzUVxivX6ieKU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YynseQjK38nJuTeA8CvikkBaNyytZrqutK/gXPvAZuMAhF2ICQR
-	6U6rmGVUqrcgUq6HS83zJBk9G+Y5uBQmccOzHBMhv2QxxGWk1YwwL6Ww
-X-Gm-Gg: AfdE7cnYGRVcUpRLulGcj3KUOYAMswyk8OnlDlunhwGI/AxnosHcDzuLDMGrVRQH42n
-	0sNAmck1MF/WmRanQkqOcL9FvjN67EOwsmZDVtQ+rqTt/1+9G5GU5n9h3oD2QuMdw7mTlI/ByxL
-	qt03y/XsZu6RU8ohVspdK9OLleqkrGcKcZcf7qx21BtTDCz6FT4FzpU7A7KjvzHXHj7KGkD3ohZ
-	gP1UQYF8lhUYo2cbVTU7CgCNchdhz6taC6YAas66LcF8WZJWUBn9ymmoq8PXV1aWp9WJE7BJhDt
-	stBK4cWtgejtUzGgXjlRAIG+oBAbDewxVOa/s1nqUK0iCPLqGpNqnXHYNRGKI30y8F6lVsuzXIF
-	UlYtbw7cyPy0qBF3eIvh2uTASKX8Qz30qZ/zLkinBgKisxwE9wikP9YSLlgC/mVpr69byaybjfI
-	bSTbAVUINmSQEeiNUvQYgKj+APziMskxlmxGgEN+VnK01LMjc=
-X-Received: by 2002:a17:90a:d40f:b0:38e:542:6485 with SMTP id 98e67ed59e1d1-38e4b4461e1mr11236442a91.12.1784483454468;
-        Sun, 19 Jul 2026 10:50:54 -0700 (PDT)
-Received: from fx.tailc0aff1.ts.net ([206.206.192.132])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13ce29c2a48sm20625345c88.2.2026.07.19.10.50.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 10:50:53 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] netdevsim: tc: serialize access to nsim_block_cb_list
-Date: Sun, 19 Jul 2026 10:50:29 -0700
-Message-ID: <20260719175028.988301-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eXXlhsrZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A5B91F00ADE;
+	Sun, 19 Jul 2026 18:01:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784484090;
+	bh=Nn+8zAjDOGAIbghwO5kj24XJApTDRwjUzLU3Ze7CjqQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eXXlhsrZO+/tEUooPG4ayR1HzpoTyNaamydRvcxtfu9pZBHYy7E9r8LX0BB3anVsB
+	 XCflpubkH34l7xp72OI/YuwPAwNbjKnEFzaIzSGw/JXMGEEEMT/y0AD+txOumhd2dp
+	 KZaXCzVpjbQSuaAsF16LjLlqmSRGRGBYxqULiH+lGLelhUNUFwqJM4T2EyGo7Zst4i
+	 zRLVBasVV1BVIVyTPYJ8fqZQATpwR7llq3yrQ9GovwiJSov+tDc7C2av2Y92wKAUnx
+	 eUoYDh5gWD9YTcy2MgMDldc7kZxdzwusFnIK45EJbLTwkbSLIyyK0MxJfPhQxSC/9H
+	 KHhMRRCV5s3WA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Johan Hovold <johan@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] USB: serial: digi_acceleport: fix write buffer corruption
+Date: Sun, 19 Jul 2026 14:01:28 -0400
+Message-ID: <20260719180128.1055268-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071418-aground-flatly-63ff@gregkh>
+References: <2026071418-aground-flatly-63ff@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,85 +45,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nsim_setup_tc() passes a single global nsim_block_cb_list, shared by every
-netdevsim device, to flow_block_cb_setup_simple(). That helper does
-list_add_tail()/list_del() on the list on block bind/unbind and walks it
-in flow_block_cb_is_busy(); it takes no lock of its own and relies on the
-caller for serialization.
+From: Johan Hovold <johan@kernel.org>
 
-The tc control path calls ndo_setup_tc(TC_SETUP_BLOCK) under rtnl, but the
-nf_tables hardware offload path reaches it under the per-netns nftables
-commit_mutex only. Two nft transactions committing offload chains from
-different netns thus run flow_block_cb_setup_simple() on the same list
-concurrently, corrupting it and freeing a flow_block_cb that the other CPU
-still walks:
+[ Upstream commit 24ca1fea8f2753bf33e1d458ec1ae5d9b7796a65 ]
 
- list_del corruption. prev->next should be ffff88801f18ff00, but was ffff88801de82b00.
- kernel BUG at lib/list_debug.c:62!
- RIP: 0010:__list_del_entry_valid_or_report (lib/list_debug.c:62)
-  flow_block_cb_setup_simple (net/core/flow_offload.c:369)
-  nsim_setup_tc (drivers/net/netdevsim/tc.c)
-  nft_block_offload_cmd (net/netfilter/nf_tables_offload.c:394)
-  nft_flow_rule_offload_commit (net/netfilter/nf_tables_offload.c:585)
-  nf_tables_commit (net/netfilter/nf_tables_api.c:10490)
-  nfnetlink_rcv_batch (net/netfilter/nfnetlink.c:577)
-  nfnetlink_rcv (net/netfilter/nfnetlink.c:649)
-  netlink_unicast (net/netlink/af_netlink.c:1314)
-  netlink_sendmsg (net/netlink/af_netlink.c:1889)
-  __sys_sendto (net/socket.c:729)
+The digi_write_inb_command() is supposed to wait for the write urb to
+become available or return an error, but instead it updates the transfer
+buffer and tries to resubmit the urb on timeout.
 
-With KASAN the same race is reported as a slab-use-after-free read of the
-freed flow_block_cb (kmalloc-192) in flow_block_cb_setup_simple(). The
-trace above is from a 6.12.y reproduction.
+To make things worse, for commands like break control where no timeout
+is used, the driver would corrupt the urb immediately due to a broken
+jiffies comparison (on 32-bit machines this takes five minutes of uptime
+to trigger due to INITIAL_JIFFIES).
 
-Serialize the list with a mutex. ndo_setup_tc(TC_SETUP_BLOCK) always runs
-in process context, so sleeping on the mutex is fine.
+Fix this by adding the missing return on timeout and waiting
+indefinitely when no timeout has been specified as intended.
 
-Fixes: 955bcb6ea0df ("drivers: net: use flow block API")
-Reported-by: Xiang Mei <xmei5@asu.edu>
+This issue was (sort of) flagged by Sashiko when reviewing an unrelated
+change to the driver.
+
+Link: https://sashiko.dev/#/patchset/20260610132232.356139-1-johan%40kernel.org?part=11
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+[ adjusted context for 5.10's `&port->write_wait` (no `priv->write_wait`) and kept the existing `unsigned long flags = 0;` declaration alongside the new `expire` variable ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/netdevsim/tc.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/usb/serial/digi_acceleport.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/netdevsim/tc.c b/drivers/net/netdevsim/tc.c
-index a415e02a6df1..30dd7f924b71 100644
---- a/drivers/net/netdevsim/tc.c
-+++ b/drivers/net/netdevsim/tc.c
-@@ -72,11 +72,13 @@ static int nsim_setup_tc_ets(struct net_device *dev,
- }
+diff --git a/drivers/usb/serial/digi_acceleport.c b/drivers/usb/serial/digi_acceleport.c
+index d03bba38d802d2..f785b9a79ba09c 100644
+--- a/drivers/usb/serial/digi_acceleport.c
++++ b/drivers/usb/serial/digi_acceleport.c
+@@ -429,20 +429,22 @@ static int digi_write_inb_command(struct usb_serial_port *port,
+ 	int len;
+ 	struct digi_port *priv = usb_get_serial_port_data(port);
+ 	unsigned char *data = port->write_urb->transfer_buffer;
++	unsigned long expire;
+ 	unsigned long flags = 0;
  
- static LIST_HEAD(nsim_block_cb_list);
-+static DEFINE_MUTEX(nsim_block_cb_lock);
+ 	dev_dbg(&port->dev, "digi_write_inb_command: TOP: port=%d, count=%d\n",
+ 		priv->dp_port_num, count);
  
- int
- nsim_setup_tc(struct net_device *dev, enum tc_setup_type type, void *type_data)
- {
- 	struct netdevsim *ns = netdev_priv(dev);
-+	int err;
+ 	if (timeout)
+-		timeout += jiffies;
+-	else
+-		timeout = ULONG_MAX;
++		expire = jiffies + timeout;
  
- 	switch (type) {
- 	case TC_SETUP_QDISC_TAPRIO:
-@@ -84,10 +86,13 @@ nsim_setup_tc(struct net_device *dev, enum tc_setup_type type, void *type_data)
- 	case TC_SETUP_QDISC_ETS:
- 		return nsim_setup_tc_ets(dev, type_data);
- 	case TC_SETUP_BLOCK:
--		return flow_block_cb_setup_simple(type_data,
--						  &nsim_block_cb_list,
--						  nsim_setup_tc_block_cb,
--						  ns, ns, true);
-+		mutex_lock(&nsim_block_cb_lock);
-+		err = flow_block_cb_setup_simple(type_data,
-+						 &nsim_block_cb_list,
-+						 nsim_setup_tc_block_cb,
-+						 ns, ns, true);
-+		mutex_unlock(&nsim_block_cb_lock);
-+		return err;
- 	case TC_SETUP_FT:
- 		return 0;
- 	default:
+ 	spin_lock_irqsave(&priv->dp_port_lock, flags);
+ 	while (count > 0 && ret == 0) {
+-		while (priv->dp_write_urb_in_use &&
+-		       time_before(jiffies, timeout)) {
++		while (priv->dp_write_urb_in_use) {
++			if (timeout && time_after(jiffies, expire)) {
++				ret = -ETIMEDOUT;
++				break;
++			}
+ 			cond_wait_interruptible_timeout_irqrestore(
+ 				&port->write_wait, DIGI_RETRY_TIMEOUT,
+ 				&priv->dp_port_lock, flags);
+@@ -451,6 +453,9 @@ static int digi_write_inb_command(struct usb_serial_port *port,
+ 			spin_lock_irqsave(&priv->dp_port_lock, flags);
+ 		}
+ 
++		if (ret)
++			break;
++
+ 		/* len must be a multiple of 4 and small enough to */
+ 		/* guarantee the write will send buffered data first, */
+ 		/* so commands are in order with data and not split */
 -- 
-2.43.0
+2.53.0
 
