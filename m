@@ -1,169 +1,113 @@
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4103563EB
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 09:26:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4923812E4;
+	Sun, 19 Jul 2026 09:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784453181; cv=none; b=bmQgivZxRtbCbaqhKWjghJx9Itjc/CgtU7+yjBnju5ILjrJE6qJ+cxfo6JXVVjo4TfdYZTmca2TsACO90Ngmp1c8ggR1EBfDqaPIAMZdXeBPM/bKVzTrXrjiWVvhBHTszeOzqX45Gdxb1FVFDNk+dcjLyza6xoOHUlqaxGgxsxU=
+	t=1784454310; cv=none; b=SvyKC/ui9Ly16+FVtQ/D0o6/63ITYEQ1QqziRI3X4jdG8WAUDF1Go/jJ271PSGxhg0W2GLqJqc63egFtGt76w0If7hwyHWysh6sW8oBehEtiu4M2CTqoiZNl/ZjIvNsndsg4qZ/Mu5ApZI716jdDBrPibdMOt2rk9WkfKmPQsp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784453181; c=relaxed/simple;
-	bh=WHTosAEBkKeHfZPFAJNRYfRewxUmvZjjyzeVjk3Hhbw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dRteOa9WgSceQ32DSAr1fFVTAcT6nfE61GW+Vf3PJIB0jGDOT6Tc0Wtfttjx2KuFDKyxuEH5eraDQcmatfqkUBWPdJLOstYAZ3SqEP5oFJAba3OQWd8kIhdOVeZIdohIMOw2R0I3LMgetipdOKjbz5OPB7KkiAmDMMtWAN5pt+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bMQtCGpz; arc=none smtp.client-ip=91.218.175.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784454310; c=relaxed/simple;
+	bh=7XVb+aWZavzvQpvvndZ+LSfqnfl+7g29MbheipKJ8z8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PwPuYZL5HraQekc4DfYtZuPt0YahjBf9LnFgyRBZKhQrwZ06Mmzk3X8V3z8CHPp8058vtma1Z0Wd/rewW21PVOGdbFctulIuVVnMmufkYxhJmU2ROu50H5TRg0HQCckKnGFE8wZHyNgNc7FlGzkjGcy3DQnHtUaFhnfrVSdRPdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=IADQy3uU; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=CRSyoB/Z; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bMQtCGpz"
-Message-ID: <60fc9d67-50f8-46f4-b40a-8cd01999b86d@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784453175;
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="IADQy3uU";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CRSyoB/Z"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4h2zJr10j1zKn7K;
+	Sun, 19 Jul 2026 11:45:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784454300;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kMDbXEPT9HVFE46E0Kn2ocp0XNAdBGRS7bCopOkI/6g=;
-	b=bMQtCGpzwzfnKPwhL9QRD+oXgsu7rQ45g32B41JHeq0/TPTBroxZqnl17aIvhJcdVxLlb2
-	zsOKZC6ekjEIP8Oz/PJT28IsQCy/pPdzvN6TjXww1HOarPOTVs9KgWxOgCgQ3ysOUVGjCE
-	DhZUmjvjDm+rnL3OPK3J+ngHZCmU1iw=
-Date: Sun, 19 Jul 2026 10:25:53 +0100
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3LNAIyV6C/kCfkSIjYEVhDnFhKOD8ilH36CMkTJD3bU=;
+	b=IADQy3uU3UdXp/KqwdTAzzsW+AHWpy2l235NFVSa4SvaQicKpLhZgmuzmtnqBWtjut34im
+	bd5Y7PhLh/33s0DO8u9QugmsdaS8G+qXZXTnJq4qn44ykwVdUr53fmER0BCOhU4lLGOMSd
+	7+318D0GR2qMCoYICsP68hFxLgh3hM/Jj6f8fNHJdeoPR7ouSuj9rcqvn51K52RokPeRF/
+	lox9GE5DvLeznJIeA5dHDa4nIbpii9K89OAgn7+++lUn2qIocCIVoT7PFQeX9Gx0ReCqia
+	XEh3b26VSyjzpco9WoHVpY8oOBla+UGsK9oqPMM5wAgHxWQC6gvs6x7tMLUZQw==
+From: Benjamin Boortz <bennib@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784454298;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3LNAIyV6C/kCfkSIjYEVhDnFhKOD8ilH36CMkTJD3bU=;
+	b=CRSyoB/Zu3MbzjI+iWEVej6njA6+4ihQkPg9tZmPxyuH2ZuIXCKQoGKA/xCB3phDX6PysU
+	qFbAZ33EE7y8aGc/g8MIqjLO6ZyNyyS1zoeRNfGdxccS8SstLe7j10d7trGt9d9YYOjo+S
+	pSOv2V39fMs/fPedBO3/zSL4IkSeKZ9Xh1AlO7+IBANoXbCbX6i8Fs43TgZpJsEaQ1J3iU
+	/c45uVlYpQ6BhnTw5a9BNE3eao56/9L1zJRZNQvd0fff9yjHrs6diMSAKfKawhUv6V1vRp
+	1SJFEfbeWvp6TI4Ap7irc/QktUM9LjHXd1PsqghUZCbam9fxzKDrukA7r2T+og==
+To: linusw@kernel.org,
+	andy.shevchenko@gmail.com
+Cc: lee@kernel.org,
+	vladimir.oltean@nxp.com,
+	colin.foster@in-advantage.com,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Benjamin Boortz <bennib@mailbox.org>,
+	Andy Shevchenko <andy@kernel.org>
+Subject: [PATCH v2] pinctrl: microchip-sgpio: add missing select REGMAP_MMIO
+Date: Sun, 19 Jul 2026 11:41:46 +0200
+Message-ID: <20260719094427.1328725-1-bennib@mailbox.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH can v2] can: gs_usb: fix hardware timestamp state for
- mixed channels
-To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>
-Cc: Celeste Liu <uwu@coelacanthus.name>, Kees Cook <kees@kernel.org>,
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260718052815.2507496-1-shuangpeng.kernel@gmail.com>
- <20260719030000.3667449-1-shuangpeng.kernel@gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20260719030000.3667449-1-shuangpeng.kernel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 28842fe07a6ab262c79
+X-MBO-RS-META: sbtoftzcxn4919kxjc3aupafnoccsg5h
 
-On 19.07.2026 04:00, Shuangpeng Bai wrote:
-> The hardware timestamp state is shared by struct gs_usb, but gs_can_open()
-> and gs_can_close() tie its initialization and teardown to active_channels
-> and to the feature bits of the channel being opened or closed.
-> 
-> This is wrong for mixed-channel devices in both directions. If a
-> non-timestamp channel opens first, a later timestamp-capable channel does
-> not initialize the shared cyclecounter/timecounter because active_channels
-> is already non-zero. Timestamp RX then calls timecounter_cyc2time() with
-> parent->tc.cc unset.
-> 
-> Conversely, if a timestamp-capable channel opens first and starts the
-> shared delayed work, then closes while a non-timestamp channel remains
-> active, disconnect may close the non-timestamp channel last. The old
-> teardown check skips gs_usb_timestamp_stop() in that case and frees
-> struct gs_usb while the delayed work timer is still queued.
-> 
-> Count the number of active timestamp-capable channels. Start the shared
-> timestamp worker when the first such channel opens, stop it when the last
-> such channel closes, and unwind the count if open fails.
-> 
-> Fixes: 45dfa45f52e6 ("can: gs_usb: add RX and TX hardware timestamp support")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+The driver calls ocelot_regmap_from_resource() via <linux/mfd/ocelot.h>,
+which internally uses devm_regmap_init_mmio() and requires REGMAP_MMIO.
+The Kconfig entry does not select REGMAP_MMIO, causing a build failure
+when no other driver in the config happens to pull in REGMAP_MMIO:
 
-no need for this tag, I didn't suggest the idea
+  include/linux/mfd/ocelot.h:34:24: error: implicit declaration of function 'devm_regmap_init_mmio'
 
-> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-> ---
-> Changes in v2:
-> - Count active timestamp-capable channels instead of tracking only whether
->    the shared timestamp worker has been started.
-> - Stop the shared timestamp worker when the last timestamp-capable channel
->    closes, even if non-timestamp channels remain open.
-> - Unwind the timestamp-capable channel count on gs_can_open() failures.
-> 
->   drivers/net/can/usb/gs_usb.c | 28 ++++++++++++++++++----------
->   1 file changed, 18 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> index ec9a7cbbbc69..9cc197803e0d 100644
-> --- a/drivers/net/can/usb/gs_usb.c
-> +++ b/drivers/net/can/usb/gs_usb.c
-> @@ -337,6 +337,7 @@ struct gs_usb {
->   
->   	unsigned int hf_size_rx;
->   	u8 active_channels;
-> +	u8 active_timestamp_channels;
->   	u8 channel_cnt;
->   
->   	unsigned int pipe_in;
-> @@ -980,10 +981,13 @@ static int gs_can_open(struct net_device *netdev)
->   
->   	can_rx_offload_enable(&dev->offload);
->   
-> -	if (!parent->active_channels) {
-> -		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
-> +	if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP) {
-> +		if (!parent->active_timestamp_channels)
->   			gs_usb_timestamp_init(parent);
-> +		parent->active_timestamp_channels++;
+Found by randconfig testing on arm64; tinyconfig reproducer below.
 
-I think it would be better to move active_timestamp_channels management into
-gs_usb_timestamp_init()/gs_usb_timestamp_stop() - it will simplify code in main
-functions.
+Fixes: 2afbbab45c26 ("pinctrl: microchip-sgpio: update to support regmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Benjamin Boortz <bennib@mailbox.org>
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
+---
+Reproducer (tinyconfig, arm64, without patch):
 
-Please, start new thread for each version of your patch.
+  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- tinyconfig
+  scripts/config --enable CONFIG_PINCTRL
+  scripts/config --enable CONFIG_GPIOLIB
+  scripts/config --enable CONFIG_PINCTRL_MICROCHIP_SGPIO
+  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- olddefconfig
+  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- \
+      drivers/pinctrl/pinctrl-microchip-sgpio.o
+  -> CONFIG_REGMAP_MMIO absent, build fails as shown above.
 
+ drivers/pinctrl/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-> +	}
->   
-> +	if (!parent->active_channels) {
->   		for (i = 0; i < GS_MAX_RX_URBS; i++) {
->   			u8 *buf;
->   
-> @@ -1094,13 +1098,15 @@ static int gs_can_open(struct net_device *netdev)
->   out_usb_free_urb:
->   	usb_free_urb(urb);
->   out_usb_kill_anchored_urbs:
-> -	if (!parent->active_channels) {
-> -		usb_kill_anchored_urbs(&parent->rx_submitted);
-> -
-> -		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
-> +	if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP) {
-> +		parent->active_timestamp_channels--;
-> +		if (!parent->active_timestamp_channels)
->   			gs_usb_timestamp_stop(parent);
->   	}
->   
-> +	if (!parent->active_channels)
-> +		usb_kill_anchored_urbs(&parent->rx_submitted);
-> +
->   	can_rx_offload_disable(&dev->offload);
->   	close_candev(netdev);
->   
-> @@ -1152,13 +1158,15 @@ static int gs_can_close(struct net_device *netdev)
->   
->   	/* Stop polling */
->   	parent->active_channels--;
-> -	if (!parent->active_channels) {
-> -		usb_kill_anchored_urbs(&parent->rx_submitted);
-> -
-> -		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
-> +	if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP) {
-> +		parent->active_timestamp_channels--;
-> +		if (!parent->active_timestamp_channels)
->   			gs_usb_timestamp_stop(parent);
->   	}
->   
-> +	if (!parent->active_channels)
-> +		usb_kill_anchored_urbs(&parent->rx_submitted);
-> +
->   	/* Stop sending URBs */
->   	usb_kill_anchored_urbs(&dev->tx_submitted);
->   	atomic_set(&dev->active_tx_urbs, 0);
+diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
+index c2cdd7b2c49b..23ea76dc6261 100644
+--- a/drivers/pinctrl/Kconfig
++++ b/drivers/pinctrl/Kconfig
+@@ -426,6 +426,7 @@ config PINCTRL_MICROCHIP_SGPIO
+ 	select GENERIC_PINCONF
+ 	select GENERIC_PINCTRL_GROUPS
+ 	select GENERIC_PINMUX_FUNCTIONS
++	select REGMAP_MMIO
+ 	help
+ 	  Support for the serial GPIO interface used on Microsemi and
+ 	  Microchip SoCs. By using a serial interface, the SIO
+-- 
+2.55.0
 
