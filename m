@@ -1,85 +1,42 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C2525B2F4
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFA6264A86
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784474112; cv=none; b=Ry3wJTRLSotqPzbRWGaU/9EYmR/vn6pgR5kUoiMQvnOpcL2wbB6maPSU90OnU5QDTTCd08V0GgXonjUeCg2XrCN0LP4zpnX2lGCSPDymuP2PaoYZk4gToC3dorLwyGGCaNwL6JFDxbZ0aGNV7WiTdF/auYSYzeqjV74LAy0lsRo=
+	t=1784474237; cv=none; b=SBs0C6z2e1rWPt7qRYD+llnBmu9qbti6ffLNnB1Iqw5ydyWAl8yoLJ8C9R/yqGq/rsnVUel4VHq38CuMjEZGnSCjjDV5IPnpnFlBaU8Vz2KIJAUql9bu7RrnAWMw6lUR3EpdwSXRsMS7V0lSYEQMQlLfUmZU97mMa3pLoXhSMQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784474112; c=relaxed/simple;
-	bh=3dPhIGXKwLq7rorj74QybPtMlL++1XGXqZmO8WVRkRw=;
+	s=arc-20240116; t=1784474237; c=relaxed/simple;
+	bh=ij5GZRuQPByDTcTVWt3V33AFEAb5OsMrsyAm3RvTeTQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CL/29Fv3fTWdVoA4sNxIKurU2viSZsDt6M7yWTmQ5giDTFQYi8BDdMUzPYud1k+t4Ws2ahu/ci45C+O7VA6pYMgo0nZc3DDAnknD3+OGFU8lLEif7vu1bryIp4YBUe7w9ZveDFi8CfVpnTJSZwf440vFXLzO0NRaY2mA/iAMmxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ow/8DmUg; arc=none smtp.client-ip=209.85.128.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=hHbsd7aqkZcz19srIlO1bspRCa6z8Rj4Q74dxc41XzxkG0poytG/K8cS8Z8UiaEyAbz5oPXuZxG4tbjjp789JzaG88iup4m8DNGelpbB7tfxCGqFS+KSF1BWV2uYl8FK3dLSSgU023WYwZPf7Elis4P2iljtCQKiSRBjjd1FZSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EacvaV3p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ow/8DmUg"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-81dfdbd86d1so56129187b3.1
-        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 08:15:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784474110; x=1785078910; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3dPhIGXKwLq7rorj74QybPtMlL++1XGXqZmO8WVRkRw=;
-        b=Ow/8DmUgsBsY0YgDi6Vbh+1YnqjdqqzApiN9cLEAoQsKKD3se9rM6ZPjjLKYaGUrQg
-         +6JfSq2ZqeEpIIMFMQTaSIAJd912QYeboTFeC+UuzOJIxFDocuwy+fDNky8Z/Z3uVxc+
-         TUAHQmQPx8cHC8wK7bu6/VTt8UHzjh1NllX6VAHYkwiWfpbj+byOyI7GSJPfuIxm4p1w
-         uSb52KAqEvQ5mXC+/NXrqOAdpygSlVVo8cU6UpAKL4BGnHa1J1nRz5ArI262CVBGJGC1
-         KlO1ZA+huGrTSR6TZbWBn+Xe5mXQS4aRA1WeIaHhjh4jsWtUovFT9PxOrmzErnEmZ15H
-         S63A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784474110; x=1785078910;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3dPhIGXKwLq7rorj74QybPtMlL++1XGXqZmO8WVRkRw=;
-        b=DCA2yNdWXiTgqtQwTsnoibUSilrVweaxqIEM4R3vrPZw0747XVy8VeTuvgdVjdEnAK
-         HdbaNY3pE0ZJ9WR07cxB7DWf0LIyh5KzWsy2XjmomCRdAb3pScNad93vmKfoN0DcWbQ1
-         PP4+GA2KsZZow5m50FLKzIt205/a/elVunOOgwR4iO7V+e+LwXD5UiswVp+rq09wuYX5
-         7y+9xbcYfiwCUKWiSfdR5lGq4ndvwxBvgnz1syOl+JMxO4qPgyG5goFDHqvZIFTmaLuP
-         dEzK0uttzpekgrBFQkTfqYy6mftfgRGgC+zVvhb5vKYKKVLZEcP4XYeM0ahCl+T0dsEr
-         wQfQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpkK8Kp2hjRrvN95Uc/blafxQrPfe8FgJ5ZEmYfIxscbI1Z+K0ZBuJsj9G1+ZVimj0heDIi3X4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxsQGzPtxIdo65KkIYa6XAef3t2DWof8BYZg2U3TKW0msQ7gVzb
-	AYU4KYZRA1wgKmerzPhP2vBpsSv9d3uV36VIDAOstlMe+odSPSWaJl9B
-X-Gm-Gg: AfdE7cklX83k+54iNpepakFMW6LtZvDyYR7Ub1rLVWsMO4qlOVDbrWcjlZyNYVe52qP
-	TlcRyjZ4qqYD2d2nConghM1uZ3Ef7kZfjYtPYx056URbbHcrKicIrJ4ppZriwVF8tfCDLGT6QMT
-	TeNHDn/n8tqZ7qg32kDtje1Y6Ica0Zbovwg6r1qV64+WkJ9qhvjvEuNt7rvkkpHsdsqWJkrYhB2
-	EYsEKDMUG2+uf127Ly3uSYOW8R0jXaf6EovNm5DlG+9xKGT/Edgs0XhK1GbM8uui/ywnfLjYIo7
-	EcGW7gKrqRpXxbFWIgqotvgL/Vs2IqWFp609ivvJ93Hx8D9Mzm+MSo6YdumaDwzwvpYebZ2dAuO
-	itCDYZKnd4FPzcEmCBkuwLWy4yB3QQFDgy9fZiuCnRIqlEpLgGgKblwXb2o35tbskqf6zfFD1o1
-	A2P9ioD/xQMx419n19BzMJhYZ48VjfRohel2B8eWVhwo3g3Q5vBH0UlgNT8Bt4ytOUrePj6KqS8
-	RJkzJnbTx4fnQ==
-X-Received: by 2002:a05:690c:6887:b0:81e:c436:c530 with SMTP id 00721157ae682-81ef22d3ec6mr37750817b3.14.1784474110024;
-        Sun, 19 Jul 2026 08:15:10 -0700 (PDT)
-Received: from LAPTOP-83ECOPAB.f7a5e5c3-cab1-4810-bdbb-207cdd06de9e.globalsecureaccess.local ([136.55.173.105])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81ef42f0c31sm41080617b3.48.2026.07.19.08.15.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 08:15:09 -0700 (PDT)
-From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-To: oleg@redhat.com
-Cc: AutonomousCodeSecurity@microsoft.com,
-	akpm@linux-foundation.org,
-	avagin@gmail.com,
-	blbllhy@gmail.com,
-	brauner@kernel.org,
-	include@grrlz.net,
-	jack@suse.cz,
-	kys@microsoft.com,
-	linux-kernel@vger.kernel.org,
-	mjguzik@gmail.com,
-	ptikhomirov@virtuozzo.com,
-	stable@vger.kernel.org,
-	tgopinath@linux.microsoft.com
-Subject: Re: [PATCH v2 2/2] pid: fix cad_pid use-after-free race
-Date: Sun, 19 Jul 2026 11:15:08 -0400
-Message-ID: <20260719151509.4843-1-blbllhy@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EacvaV3p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2331F000E9;
+	Sun, 19 Jul 2026 15:17:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784474236;
+	bh=i1GwLJ7bipidWoNHw2FEiAQjTNegF2KYwQu4YL+SIJ4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EacvaV3pPCn7Gn/ea9PHBRmsC5nNqbS83b7wSsha16aBAE0b5jGgi149pmc6OPOgO
+	 tVzhN7SsMML6T8fpty1nV8LxdwTnP1hWSDvJnUQds9CfIxMfBqVw2jCA0keC/52Hv4
+	 0UxvCe9qTvqVC9kYFZCH5Szfko4jJwdW0Vz8iCIBbYDi7dT0u9TdtRpitL1TCk6u2d
+	 GQbxz4L/fyFVFrWYIJSokFl8ffkIIRA9ZusR1YacrY9I1cY1WALWbclRNBuDEY0mC2
+	 +J2+K4tHv25nsWL6Oj+/6vE4k8Wh2RDJXHW1Fue7qala4ldbKp8DIzV0lvOQICDmQg
+	 FQ/unPvbWJvVA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Oliver Neukum <oneukum@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] usb: iowarrior: remove inherent race with minor number
+Date: Sun, 19 Jul 2026 11:17:13 -0400
+Message-ID: <20260719151714.124320-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aluim8REjBcE4ejB@redhat.com>
-References: <aluim8REjBcE4ejB@redhat.com>
+In-Reply-To: <2026071455-trustful-avatar-54ed@gregkh>
+References: <2026071455-trustful-avatar-54ed@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,4 +45,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Thanks, I will drop the get_pid()/put_pid() in v3 and keep the RCU approach.
+From: Oliver Neukum <oneukum@suse.com>
+
+[ Upstream commit 56dd29088c9d9510c48a8ebad2465248fde36551 ]
+
+The driver saves the minor number it gets upon registration
+in its descriptor for debugging purposes. However, there is
+inevitably a window between registration and saving the correct
+minor in a descriptor. During this window the debugging output
+will be wrong.
+As wrong debug output is worse than no debug output, just
+remove it.
+
+Signed-off-by: Oliver Neukum <oneukum@suse.com>
+Link: https://patch.msgid.link/20260312094619.1590556-1-oneukum@suse.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: c602254ba4c1 ("USB: iowarrior: fix use-after-free on disconnect race")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/misc/iowarrior.c | 17 +++--------------
+ 1 file changed, 3 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/usb/misc/iowarrior.c b/drivers/usb/misc/iowarrior.c
+index 4fae04094021e3..2d0c65c1c32740 100644
+--- a/drivers/usb/misc/iowarrior.c
++++ b/drivers/usb/misc/iowarrior.c
+@@ -74,7 +74,6 @@ struct iowarrior {
+ 	struct mutex mutex;			/* locks this structure */
+ 	struct usb_device *udev;		/* save off the usb device pointer */
+ 	struct usb_interface *interface;	/* the interface for this device */
+-	unsigned char minor;			/* the starting minor number for this device */
+ 	struct usb_endpoint_descriptor *int_out_endpoint;	/* endpoint for reading (needed for IOW56 only) */
+ 	struct usb_endpoint_descriptor *int_in_endpoint;	/* endpoint for reading */
+ 	struct urb *int_in_urb;		/* the urb for reading data */
+@@ -246,7 +245,6 @@ static void iowarrior_write_callback(struct urb *urb)
+  */
+ static inline void iowarrior_delete(struct iowarrior *dev)
+ {
+-	dev_dbg(&dev->interface->dev, "minor %d\n", dev->minor);
+ 	kfree(dev->int_in_buffer);
+ 	usb_free_urb(dev->int_in_urb);
+ 	kfree(dev->read_queue);
+@@ -297,9 +295,6 @@ static ssize_t iowarrior_read(struct file *file, char __user *buffer,
+ 		goto exit;
+ 	}
+ 
+-	dev_dbg(&dev->interface->dev, "minor %d, count = %zd\n",
+-		dev->minor, count);
+-
+ 	/* read count must be packet size (+ time stamp) */
+ 	if ((count != dev->report_size)
+ 	    && (count != (dev->report_size + 1))) {
+@@ -379,8 +374,6 @@ static ssize_t iowarrior_write(struct file *file,
+ 		retval = -ENODEV;
+ 		goto exit;
+ 	}
+-	dev_dbg(&dev->interface->dev, "minor %d, count = %zd\n",
+-		dev->minor, count);
+ 	/* if count is 0 we're already done */
+ 	if (count == 0) {
+ 		retval = 0;
+@@ -523,9 +516,6 @@ static long iowarrior_ioctl(struct file *file, unsigned int cmd,
+ 		goto error_out;
+ 	}
+ 
+-	dev_dbg(&dev->interface->dev, "minor %d, cmd 0x%.4x, arg %ld\n",
+-		dev->minor, cmd, arg);
+-
+ 	retval = 0;
+ 	io_res = 0;
+ 	switch (cmd) {
+@@ -672,8 +662,6 @@ static int iowarrior_release(struct inode *inode, struct file *file)
+ 	if (!dev)
+ 		return -ENODEV;
+ 
+-	dev_dbg(&dev->interface->dev, "minor %d\n", dev->minor);
+-
+ 	/* lock our device */
+ 	mutex_lock(&dev->mutex);
+ 
+@@ -776,6 +764,7 @@ static int iowarrior_probe(struct usb_interface *interface,
+ 	struct usb_host_interface *iface_desc;
+ 	int retval = -ENOMEM;
+ 	int res;
++	int minor;
+ 
+ 	/* allocate memory for our device state and initialize it */
+ 	dev = kzalloc(sizeof(struct iowarrior), GFP_KERNEL);
+@@ -891,12 +880,12 @@ static int iowarrior_probe(struct usb_interface *interface,
+ 		goto error;
+ 	}
+ 
+-	dev->minor = interface->minor;
++	minor = interface->minor;
+ 
+ 	/* let the user know what node this device is now attached to */
+ 	dev_info(&interface->dev, "IOWarrior product=0x%x, serial=%s interface=%d "
+ 		 "now attached to iowarrior%d\n", dev->product_id, dev->chip_serial,
+-		 iface_desc->desc.bInterfaceNumber, dev->minor - IOWARRIOR_MINOR_BASE);
++		 iface_desc->desc.bInterfaceNumber, minor - IOWARRIOR_MINOR_BASE);
+ 	return retval;
+ 
+ error:
+-- 
+2.53.0
+
