@@ -1,78 +1,47 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.219])
+Received: from mailout02.platinum-mail.de (mx02.platinum-mail.de [89.58.18.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885222E92BA;
-	Sun, 19 Jul 2026 20:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.219
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784492424; cv=pass; b=ZwwKniIZZFVTehSciSE2Ac+0f3i1+wIilbpP2AMfF2HM4DvroLyfi1zAWUaTgHlzAVgHaVCme5R7Ugetu8a2bnzgnyXiXhkjQmnpIHyqxY6cD59fjEBOIYGymjKXAaaNFKWlMztmtVCl7ttdf7utQzdNnT+tv/a3VsVnCVYtC6Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784492424; c=relaxed/simple;
-	bh=kKlQiAmYKfNPgF+zFR0/vyJuTZHscc+/RcHIOIdYaWs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=joq7A/JBzguLiXYLCPK3AKOzfhfRrZWkYF9omtaNDzpgKYhPRg4i7ZmorYNXfVBgV0HlNzJN5pnQ/wI9CoOf2M5uWidItFfM2I8S6N7cl9r5IyZml1ugPeS4+xqzglt86CNZ0KCs364HTteOQ2OW/SZdf3q1XzwJrvF4Ck+SeXM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=bNxiirRN; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=+fljUks5; arc=pass smtp.client-ip=81.169.146.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCA123D7FB
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 20:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.58.18.167
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784492576; cv=none; b=AFc5nP2aL8ve1C+7ocdDrbW7MtiUD9ZwuPsLpQuY0daYoYn/CeMZHcHhVLqwKtRjOPhgucULNPP/ApZkz9ejJqVLp3swfbNAE+uio9EsEP1amdlHk8WWzlZA2qWRNHcCOgpOthVhjmqHG3PjwrvdzQrBzgKEwPvc2chvRao2tsE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784492576; c=relaxed/simple;
+	bh=IVHptBzTulzVzCXj5RTZquMiLovkrsASJwy1yGQkD/g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SszJ2tG/Uv8lahg21WwwdcF4J3at/0ySrXvoZS13RjXrrgfH32V0soTZ7r6Hr7niMtXfVob63lLCDTWuZC3f4shHeoVN6kZ8wb/TMeRVsq3I+QhVIQcqYgvpmtITC8SQMEqXHMFvIShqqXnMn74JViijHwCad+qcmSoug7OG4YI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=achill.org; spf=pass smtp.mailfrom=achill.org; dkim=pass (2048-bit key) header.d=achill.org header.i=@achill.org header.b=SMhF7vSB; arc=none smtp.client-ip=89.58.18.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=achill.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=achill.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="bNxiirRN";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="+fljUks5"
-ARC-Seal: i=1; a=rsa-sha256; t=1784492403; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=kjVIf541L8Bu1M8hfqi0BuYngxoSzPNz4X4lFdSyhuzQCoYzfvIdtR2bvBMhhAuciv
-    CaqELYbIS4hZ2/t2c9Y8JaQ32oRcXGC15Rq6wNqqUgLRcv7p8hDh6K4o2QY+mo1q8F61
-    hdsD+xkbVlfeX3ZkaxMzKygyThXe7auHSruPHS+s9rb5eo54oNdrFJZnovwgeKFHnPaW
-    SGXUB4y3CCf39wyIkl7oTAGv9PbXx0/mtmZqxcTtZmUO39Dlnj0Zq6MdHrXW2qlR9r6e
-    +gfGk8lJV0zDPg4DhCeE10CNDkdEp8vGtpeALl7PuvFYfwTOhJRQGfveGSZ2ZMtJvqRa
-    HZ9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784492403;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=DGeEX502BY/Q1+XKpGRmjA3rFXgEQE6RwfBgPXI9uLM=;
-    b=JYV2hlV426VF83I54/Y/3Kx7GXywZjEgqejrh96ny5QIudeteZPEml0LtgZxQ2V0hF
-    mlCPKaobxN08gOAnT8LoCHQlufMgrLA7IUdRbZRH9XmFFJvdypRkjS7qswghhceRI6k9
-    exI/9nIcnYL8EZ5gZ2vKT8t/0AjAW8KrqgEftnLP9at55vOj2NdsoX/M/ifuttOP6PCe
-    JqRwSoVBvzr2w7g1M9C3syECPgzvMN+xj8nXNthV7fEMDYH6K+AIaO3biGEN0gOMRafX
-    6a78ksaXSumd0+okDSN/2BtrORw8nOIS0Itek/jEoUp79STvMBEOXzA5+PVDGe7BN/Vi
-    Nikw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784492403;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=DGeEX502BY/Q1+XKpGRmjA3rFXgEQE6RwfBgPXI9uLM=;
-    b=bNxiirRN2vLgGyLLAzIwgkHWpSeZLG2o58cQIGwDsyWazmrOTjHkOxZoNjOuCJ730a
-    ORzeOQUTvLR/f8z+BE8v2t53p55tQCnzSaWYISMjUKShx/a9ne7j7kVFgs+yK8LWo14T
-    gq4KrzXhygnkkBHyddhLb6VmCn/UKDWWaUSpMe7LuU18MWcTxxA+XXGBcX9Ce2DToiTc
-    LUepbMloWU6pFJo0g2dMQ7UzhDB4VqxL1RYdIrZCysmwLNQ4q9IyW1DkaMkGWBVckp17
-    NYv44UkTALVgMnjsEw/fjlYSzreNHRnsqkOov8i5r+kikE8UxngQo5hRpRIXhZW1CB1a
-    m6oA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784492403;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=DGeEX502BY/Q1+XKpGRmjA3rFXgEQE6RwfBgPXI9uLM=;
-    b=+fljUks5i0IOdvKB0+/E9vp/XxcWDIDP1LyhAD92tNt3HadFoY8y4LRYbCzVvhqJIg
-    qEWFqIGxf3SBeXzg+bBg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ0JoInciN3JyLCGNPVWcns8O5VzNQLiZpJpg="
-Received: from iMac.fritz.box
-    by smtp.strato.de (RZmta 55.5.6 AUTH)
-    with ESMTPSA id Q58eac26JKK25nC
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 19 Jul 2026 22:20:02 +0200 (CEST)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Paul Cercueil <paul@crapouillou.net>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-mips@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	letux-kernel@openphoenux.org,
-	"H. Nikolaus Schaller" <hns@goldelico.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] i2c: jz4780: Cache host clock rate at probe to prevent CCF prepare_lock deadlock
-Date: Sun, 19 Jul 2026 22:19:43 +0200
-Message-ID: <2db6fd233aceb7238474e4833f4d25ca681c3ffb.1784492382.git.hns@goldelico.com>
+	dkim=pass (2048-bit key) header.d=achill.org header.i=@achill.org header.b="SMhF7vSB"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mailout02.platinum-mail.de (Mail Service) with ESMTPS id DE7DA9A0B21
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 20:13:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; d=achill.org; s=mail; c=relaxed/simple;
+	t=1784492015; h=date:message-id:subject:from:to;
+	bh=IVHptBzTulzVzCXj5RTZquMiLovkrsASJwy1yGQkD/g=;
+	b=SMhF7vSB8oVsrlCQt36w4MXEKLqvbN7+j4cVfxf2hh4i9HSJEfZGx5g1SJbuWn2KWlLunhfCOlx
+	bvIuxqNXK+mob1j6+axuUuZs8Seh5+YG7Rm1J9hQI/0emxjIAVGclSC6/OTaCy5galjAYVX2+xlx5
+	smZ3BgMbhu+TBPR51b1jd+IXouFj4Kw9QrcD27z0zRJmdEhkOd2ZqKQSgb4noLmqbvL9iyzE9/WlH
+	ZTHWG1SYtVN5SuDhY7MV9G04QP5Un5dx8VxWBUy5IbzmXeKqVs1aclWIjc+Ft841mBovUqkx0AvEd
+	+8Z8hdV+P+naZR+aJK7RolDsXRMzgYEbcWoA==
+From: Achill Gilgenast <achill@achill.org>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org
+Cc: Achill Gilgenast <achill@achill.org>,
+	stable@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: [PATCH] x86/tools: Scope uapi include dirs to vdso2c
+Date: Sun, 19 Jul 2026 22:12:56 +0200
+Message-ID: <20260719201328.183537-1-achill@achill.org>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,74 +49,62 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
 
-Fix a severe AB/BA deadlock between the Common Clock Framework (CCF)
-and the I2C adapter lock, which triggers when an I2C-controlled clock
-generator client (like the Si5351) is registered or modified under the CCF.
+With a76108d05ee1 ("x86/entry/vdso: Move vdso2c to arch/x86/tools"),
+-I$(srctree)/include/uapi and -I$(srctree)/arch/$(SUBARCH)/include/uapi
+were added to HOST_EXTRACFLAGS, which also applies to hostprogs like tools/=
+insn_sanity.
 
-During an i2c client clock (generator) frequency change, the CCF acquires its global
-'prepare_lock' mutex and the driver calls i2c_transfer() to update the client's
-chip registers, stalling for the adapter's I2C bus lock.
+As a result <asm/insn.h> -> <asm/byteorder.h> -> <linux/swab.h> now
+resolves to include/uapi/linux/swab.h when building insn_sanity. However th=
+e
+uapi header uses __attribute_const__ which is normally undefined.
 
-Concurrently, an independent, parallel transfer on the same bus (e.g., a GPIO
-expander handling LEDs) can hold the I2C adapter lock. Inside this parallel
-transfer path, jz4780_i2c_set_speed() calls clk_get_rate() on the host
-controller's input clock to calculate bus timings. This call attempts to acquire
-the blocked CCF 'prepare_lock', creating a circular dependency that freezes
-the system.
+	In file included from /home/achill/git/linux/include/uapi/linux/byteorder/=
+little_endian.h:14,
+	                 from /usr/include/asm/byteorder.h:5,
+	                 from /home/achill/git/linux/tools/arch/x86/include/asm/in=
+sn.h:10,
+	                 from /home/achill/git/linux/arch/x86/tools/insn_sanity.c:=
+17:
+	/home/achill/git/linux/include/uapi/linux/swab.h:48:15: error: unknown typ=
+e name '__attribute_const__'; did you mean '__attribute__'?
+	   48 | static inline __attribute_const__ __u16 __fswab16(__u16 val)
+	      |               ^~~~~~~~~~~~~~~~~~~
+	      |               __attribute__
 
-The jz4780 host controller clock itself is static and never changes at runtime.
+So only include the uapi include dirs when building vdso2c.
 
-However, calling clk_get_rate() inside the active transfer path introduces
-an unnecessary dependency on the CCF internal locks.
-
-Eliminate this synchronous clk_get_rate() call from the active transfer
-path by caching the static host peripheral clock rate once - inside the private
-jz4780_i2c structure during jz4780_i2c_probe(). Update jz4780_i2c_set_speed()
-to use this cached value, safely decoupling active I2C transactions from the
-CCF internal locks without any risk of stale timings.
-
-Assisted-by web based Google AI (pinpointing the bug and writing the message).
-
-Fixes: ba92222ed63a12 ("i2c: jz4780: Add i2c bus controller driver for Ingenic JZ4780")
+Fixes: a76108d05ee1 ("x86/entry/vdso: Move vdso2c to arch/x86/tools")
 Cc: stable@vger.kernel.org
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Signed-off-by: Achill Gilgenast <achill@achill.org>
 ---
- drivers/i2c/busses/i2c-jz4780.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ arch/x86/tools/Makefile | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-jz4780.c b/drivers/i2c/busses/i2c-jz4780.c
-index 664a5471d93357..695be3b2146085 100644
---- a/drivers/i2c/busses/i2c-jz4780.c
-+++ b/drivers/i2c/busses/i2c-jz4780.c
-@@ -141,6 +141,7 @@ struct jz4780_i2c {
- 	void __iomem		*iomem;
- 	int			 irq;
- 	struct clk		*clk;
-+	unsigned long		 clk_rate_khz;
- 	struct i2c_adapter	 adap;
- 	const struct ingenic_i2c_config *cdata;
- 
-@@ -246,7 +247,7 @@ static int jz4780_i2c_set_target(struct jz4780_i2c *i2c, unsigned char address)
- 
- static int jz4780_i2c_set_speed(struct jz4780_i2c *i2c)
- {
--	int dev_clk_khz = clk_get_rate(i2c->clk) / 1000;
-+	int dev_clk_khz = i2c->clk_rate_khz;
- 	int cnt_high = 0;	/* HIGH period count of the SCL clock */
- 	int cnt_low = 0;	/* LOW period count of the SCL clock */
- 	int cnt_period = 0;	/* period count of the SCL clock */
-@@ -796,6 +797,8 @@ static int jz4780_i2c_probe(struct platform_device *pdev)
- 	if (IS_ERR(i2c->clk))
- 		return PTR_ERR(i2c->clk);
- 
-+	i2c->clk_rate_khz = clk_get_rate(i2c->clk) / 1000;
+diff --git a/arch/x86/tools/Makefile b/arch/x86/tools/Makefile
+index 39a183fffd04..24030dcc3243 100644
+--- a/arch/x86/tools/Makefile
++++ b/arch/x86/tools/Makefile
+@@ -38,8 +38,10 @@ $(obj)/insn_decoder_test.o: $(srctree)/tools/arch/x86/li=
+b/insn.c $(srctree)/tool
+=20
+ $(obj)/insn_sanity.o: $(srctree)/tools/arch/x86/lib/insn.c $(srctree)/tool=
+s/arch/x86/lib/inat.c $(srctree)/tools/arch/x86/include/asm/inat_types.h $(=
+srctree)/tools/arch/x86/include/asm/inat.h $(srctree)/tools/arch/x86/includ=
+e/asm/insn.h $(objtree)/arch/x86/lib/inat-tables.c
+=20
+-HOST_EXTRACFLAGS +=3D -I$(srctree)/tools/include -I$(srctree)/include/uapi=
+ \
+-		    -I$(srctree)/arch/$(SUBARCH)/include/uapi
++HOST_EXTRACFLAGS +=3D -I$(srctree)/tools/include
 +
- 	ret = of_property_read_u32(pdev->dev.of_node, "clock-frequency",
- 				   &clk_freq);
- 	if (ret) {
--- 
++HOSTCFLAGS_vdso2c.o +=3D -I$(srctree)/include/uapi \
++	-I$(srctree)/arch/$(SUBARCH)/include/uapi
+=20
+ hostprogs	+=3D relocs vdso2c
+ relocs-objs	:=3D relocs_32.o relocs_64.o relocs_common.o
+--=20
 2.55.0
-
