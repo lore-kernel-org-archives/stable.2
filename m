@@ -1,38 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF9C17A2E8
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 12:43:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7972A264A86
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 12:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784465035; cv=none; b=bUCysUMlW717SqGBTBjRLSBPrBFzB7TWoDo3MqvTPd3CZemkpZ+6ujpkVFjmpTFzjVUi7sPl2cbeawCP1rVwbjY7HmwQP7YzYzhI0Fu6PKCFJhikFyKiSQnzJxjTkwqL3B31/nNrFMvzwSeegMmj1XcgS76+aim+NmIRi47wHzI=
+	t=1784465036; cv=none; b=AtC8i0Z9MVgvM+EkMIPT+fJgBq0GdtOQzG77s1mPbI+G1ecVG+rY4pAlLx7YhoXB8j2bhlB6jqwfx5idff6yLRflx2CnduSqI4ulBPfcfuto7/dOoRg8F1XGzq3ocR9E+3UmQvQbo50+9aAM4v8RbJ7HPU57Y3kaGyK6FAbE/Jw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784465035; c=relaxed/simple;
-	bh=g5TxrZZ4b27M9TTmINgA5cxz9/ojbKHAy5k4InmdUGg=;
+	s=arc-20240116; t=1784465036; c=relaxed/simple;
+	bh=owZVE8Wq/4Gs2v50OotS3hkEUZ1DLUfv0RhEFg59vIo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rt3CaVX4gsjIZlfM1CeRiHihgKTKlpvOgWLlzUW36vSumY1SvHvAfYzkusU+MxoAqs7WOcHBAing2Yugjy4z4T5jgHy5DRJI3q/lf7iKzTV/dQ+MUk7pp2QzT5MCNiVzFmNQKkMuqIVVArXMzLyCFnIYCAObfg4ZkJkzVaoRpzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PI5VIDPG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qulTmhlR5+i1P3P7RCaoSyvSCDGXhHgmA5A0Ean/TxnFpk5kSfs+i3FZbdkbrYbw2ZcQdspJeRkYSfPDcCAKcpGD6wRxDfGCnOXA/Hl8+Ap632tPL3JuzstD9M6Ph6Wo5N6zw9MYuuX85fhh4yWzhHfYQ6kpXn1q0MHDt1OUWVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lbNP61e6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PI5VIDPG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB35B1F00A3A;
-	Sun, 19 Jul 2026 12:43:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lbNP61e6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8409F1F00A3E;
+	Sun, 19 Jul 2026 12:43:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784465034;
-	bh=ALbLSRcHkAe8ee5Bbla/n6BJDf8pJ6FVAjFFHYaPGAo=;
+	s=k20260515; t=1784465035;
+	bh=DWvDAAY4IsTZxT/8KAjIrOwKNo20+QWXP3SXptWbfgc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PI5VIDPGT/QouJy4HFXYQAVhvyLVf54EwHiixc1l5BseR/yHvzX9ipVtNXLP+Kjpl
-	 StY8bZUWgoMBOsRlHwOZ0Wip2PSQ+XVM71rjB1DvpJPpSK+FVHp3PflgX/+UF3jLPq
-	 deMpA7Q8UNlwKH70nZ/oaOOH/Kg92p8kqczyEAvXPDOcn4GnxWBHNZN4mVVonHiXmp
-	 7ljbKWNJOxaVcGxbVKMJ8vDmRmRzDi8D9dzdBTzfkt93uhnP5ehR/0pz3n87OgW7Oi
-	 0emmVQgpgGfVqZfEHhYo1K7RoHZMLDlEaahPMMkbLvmhpNd4baFbVOUYHejoo/8a4P
-	 2oCtY5X6cZulA==
+	b=lbNP61e6EYgoSLIz8gOrU/Z9j84pCQ9MW19+wqBmUeqP5EaT7IwAEm1ySzO75hJ4o
+	 a7ULfCKCEWu9WnwfCUcCNMK3eJaCH6NhH+3fHcniX5/o9sX/pcW9hOZIgnpz6yCVSH
+	 399f/P1F2QWuBLyokTXwe/71HfNDsqAoS5reG660Lh861dwKiE3cDlnPLtQ1L5e/pZ
+	 Z3D9f0YTVf/Z1WeJixa0R1nV/y7cE/ZANfGyBaUwUsTFb/WXNPt5ja824CKZYLiG9z
+	 BYPvN+shwxyXV15l1ntsqiYaVvD+rkIa/LjYuCQyJl90G/EpES1cU4CTUJ5ly0HCy9
+	 sRbMfkqzuE9Cg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+Cc: Mauricio Faria de Oliveira <mfo@igalia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Stanislaw Gruszka <stf_xl@wp.pl>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/5] add default_gfp() helper macro and use it in the new *alloc_obj() helpers
-Date: Sun, 19 Jul 2026 08:43:45 -0400
-Message-ID: <20260719124348.3646001-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/5] usb: atm: ueagle-atm: use dev_dbg() for 'device found' message
+Date: Sun, 19 Jul 2026 08:43:46 -0400
+Message-ID: <20260719124348.3646001-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260719124348.3646001-1-sashal@kernel.org>
 References: <2026071427-sulfate-await-a368@gregkh>
@@ -45,136 +47,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
 
-[ Upstream commit e19e1b480ac73c3e62ffebbca1174f0f511f43e7 ]
+[ Upstream commit 05c5075c3115010f97434c53d353d9a0d4b0e64e ]
 
-Most simple allocations use GFP_KERNEL, and with the new allocation
-helpers being introduced, let's just take advantage of that to simplify
-that default case.
+Convert dev_info() to dev_dbg().
 
-It's a numbers game:
+Per 'Documentation/process/coding-style.rst':
 
-    git grep 'alloc_obj(' |
-	sed 's/.*\(GFP_[_A-Z]*\).*/\1/' |
-	sort | uniq -c | sort -n | tail
+  13) Printing kernel messages
 
-shows that about 90% of all those new allocator instances just use that
-standard GFP_KERNEL.
+  ...  When drivers are working properly they are quiet,
+  so prefer to use dev_dbg/pr_debug unless something is wrong.
 
-Those helpers are already macros, and we can easily just make it be the
-default case when the gfp argument is missing.
+While in there, correct the verb form and add 'with' for clarity.
 
-And yes, we could do that for all the legacy interfaces too, but let's
-keep it to just the new ones at least for now, since those all got
-converted recently anyway, so this is not any "extra" noise outside of
-that limited conversion.
-
-And, in fact, I want to do this before doing the -rc1 release, exactly
-so that we don't get extra merge conflicts.
-
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://lore.kernel.org/all/2026051628-squatter-stature-c0e0@gregkh/
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
+Link: https://patch.msgid.link/20260520-ueagle-atm-cleanup-v1-1-010c8bc7b214@igalia.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: e2674dfbed8a ("usb: atm: ueagle-atm: wait for pre-firmware load in .disconnect()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/gfp.h  |  4 ++++
- include/linux/slab.h | 48 ++++++++++++++++++++++----------------------
- 2 files changed, 28 insertions(+), 24 deletions(-)
+ drivers/usb/atm/ueagle-atm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/gfp.h b/include/linux/gfp.h
-index b155929af5b110..09559f7126ac7c 100644
---- a/include/linux/gfp.h
-+++ b/include/linux/gfp.h
-@@ -13,6 +13,10 @@
- struct vm_area_struct;
- struct mempolicy;
+diff --git a/drivers/usb/atm/ueagle-atm.c b/drivers/usb/atm/ueagle-atm.c
+index cd0f7b4bd82ab1..43d966c855fa0a 100644
+--- a/drivers/usb/atm/ueagle-atm.c
++++ b/drivers/usb/atm/ueagle-atm.c
+@@ -2589,7 +2589,7 @@ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 	int ret;
  
-+/* Helper macro to avoid gfp flags if they are the default one */
-+#define __default_gfp(a,...) a
-+#define default_gfp(...) __default_gfp(__VA_ARGS__ __VA_OPT__(,) GFP_KERNEL)
-+
- /* Convert GFP flags to their corresponding migrate type */
- #define GFP_MOVABLE_MASK (__GFP_RECLAIMABLE|__GFP_MOVABLE)
- #define GFP_MOVABLE_SHIFT 3
-diff --git a/include/linux/slab.h b/include/linux/slab.h
-index 7701b38cedeca9..6e5a3fbf6cd882 100644
---- a/include/linux/slab.h
-+++ b/include/linux/slab.h
-@@ -1017,8 +1017,8 @@ void *kmalloc_nolock_noprof(size_t size, gfp_t gfp_flags, int node);
-  * Returns: newly allocated pointer to a @VAR_OR_TYPE on success, or NULL
-  * on failure.
-  */
--#define kmalloc_obj(VAR_OR_TYPE, GFP)			\
--	__alloc_objs(kmalloc, GFP, typeof(VAR_OR_TYPE), 1)
-+#define kmalloc_obj(VAR_OR_TYPE, ...) \
-+	__alloc_objs(kmalloc, default_gfp(__VA_ARGS__), typeof(VAR_OR_TYPE), 1)
- 
- /**
-  * kmalloc_objs - Allocate an array of the given type
-@@ -1029,8 +1029,8 @@ void *kmalloc_nolock_noprof(size_t size, gfp_t gfp_flags, int node);
-  * Returns: newly allocated pointer to array of @VAR_OR_TYPE on success,
-  * or NULL on failure.
-  */
--#define kmalloc_objs(VAR_OR_TYPE, COUNT, GFP)		\
--	__alloc_objs(kmalloc, GFP, typeof(VAR_OR_TYPE), COUNT)
-+#define kmalloc_objs(VAR_OR_TYPE, COUNT, ...) \
-+	__alloc_objs(kmalloc, default_gfp(__VA_ARGS__), typeof(VAR_OR_TYPE), COUNT)
- 
- /**
-  * kmalloc_flex - Allocate a single instance of the given flexible structure
-@@ -1044,32 +1044,32 @@ void *kmalloc_nolock_noprof(size_t size, gfp_t gfp_flags, int node);
-  * will immediately fail if @COUNT is larger than what the type of the
-  * struct's counter variable can represent.
-  */
--#define kmalloc_flex(VAR_OR_TYPE, FAM, COUNT, GFP)	\
--	__alloc_flex(kmalloc, GFP, typeof(VAR_OR_TYPE),	FAM, COUNT)
-+#define kmalloc_flex(VAR_OR_TYPE, FAM, COUNT, ...) \
-+	__alloc_flex(kmalloc, default_gfp(__VA_ARGS__), typeof(VAR_OR_TYPE), FAM, COUNT)
- 
- /* All kzalloc aliases for kmalloc_(obj|objs|flex). */
--#define kzalloc_obj(P, GFP)				\
--	__alloc_objs(kzalloc, GFP, typeof(P), 1)
--#define kzalloc_objs(P, COUNT, GFP)			\
--	__alloc_objs(kzalloc, GFP, typeof(P), COUNT)
--#define kzalloc_flex(P, FAM, COUNT, GFP)		\
--	__alloc_flex(kzalloc, GFP, typeof(P), FAM, COUNT)
-+#define kzalloc_obj(P, ...) \
-+	__alloc_objs(kzalloc, default_gfp(__VA_ARGS__), typeof(P), 1)
-+#define kzalloc_objs(P, COUNT, ...) \
-+	__alloc_objs(kzalloc, default_gfp(__VA_ARGS__), typeof(P), COUNT)
-+#define kzalloc_flex(P, FAM, COUNT, ...)		\
-+	__alloc_flex(kzalloc, default_gfp(__VA_ARGS__), typeof(P), FAM, COUNT)
- 
- /* All kvmalloc aliases for kmalloc_(obj|objs|flex). */
--#define kvmalloc_obj(P, GFP)				\
--	__alloc_objs(kvmalloc, GFP, typeof(P), 1)
--#define kvmalloc_objs(P, COUNT, GFP)			\
--	__alloc_objs(kvmalloc, GFP, typeof(P), COUNT)
--#define kvmalloc_flex(P, FAM, COUNT, GFP)		\
--	__alloc_flex(kvmalloc, GFP, typeof(P), FAM, COUNT)
-+#define kvmalloc_obj(P, ...) \
-+	__alloc_objs(kvmalloc, default_gfp(__VA_ARGS__), typeof(P), 1)
-+#define kvmalloc_objs(P, COUNT, ...) \
-+	__alloc_objs(kvmalloc, default_gfp(__VA_ARGS__), typeof(P), COUNT)
-+#define kvmalloc_flex(P, FAM, COUNT, ...) \
-+	__alloc_flex(kvmalloc, default_gfp(__VA_ARGS__), typeof(P), FAM, COUNT)
- 
- /* All kvzalloc aliases for kmalloc_(obj|objs|flex). */
--#define kvzalloc_obj(P, GFP)				\
--	__alloc_objs(kvzalloc, GFP, typeof(P), 1)
--#define kvzalloc_objs(P, COUNT, GFP)			\
--	__alloc_objs(kvzalloc, GFP, typeof(P), COUNT)
--#define kvzalloc_flex(P, FAM, COUNT, GFP)		\
--	__alloc_flex(kvzalloc, GFP, typeof(P), FAM, COUNT)
-+#define kvzalloc_obj(P, ...) \
-+	__alloc_objs(kvzalloc, default_gfp(__VA_ARGS__), typeof(P), 1)
-+#define kvzalloc_objs(P, COUNT, ...) \
-+	__alloc_objs(kvzalloc, default_gfp(__VA_ARGS__), typeof(P), COUNT)
-+#define kvzalloc_flex(P, FAM, COUNT, ...) \
-+	__alloc_flex(kvzalloc, default_gfp(__VA_ARGS__), typeof(P), FAM, COUNT)
- 
- #define kmem_buckets_alloc(_b, _size, _flags)	\
- 	alloc_hooks(__kmalloc_node_noprof(PASS_BUCKET_PARAMS(_size, _b), _flags, NUMA_NO_NODE))
+ 	uea_enters(usb);
+-	uea_info(usb, "ADSL device founded vid (%#X) pid (%#X) Rev (%#X): %s\n",
++	uea_dbg(usb, "ADSL device found with vid (%#X) pid (%#X) Rev (%#X): %s\n",
+ 		le16_to_cpu(usb->descriptor.idVendor),
+ 		le16_to_cpu(usb->descriptor.idProduct),
+ 		le16_to_cpu(usb->descriptor.bcdDevice),
 -- 
 2.53.0
 
