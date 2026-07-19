@@ -1,126 +1,102 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9515F392C52
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 12:11:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF723932C9
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 12:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784463114; cv=none; b=jAKyEPANUwXhVjZbYfHyZ53vhsdGb/MepazQNuEEeaqXS/tlKnQOKDcky0Pg6XHyPS09apJh3IuIrYBreWO2SYlQU4F5lB5RQbavwxDBs11Fizn6LbIcbo5ZjJaEpYSY1cjNM+EKtgawnxBg+77QHVBrX5YhXZedu2VHHpAQIdo=
+	t=1784463213; cv=none; b=PZFAuYJnB7QvkYpFFALmeQRm2lxJmVxzoAULxI0kWl5ROxkb7VgwVKqFstyWyulY6O7dz3OtipC51ehvuEpF1J0xwU1K2zOagPjMYKww2v5S/Fv1S0TTM+TPCoyy/dNVhLJ77Ek2xxNWBs5qOWt3ww8aOGKeIJJULtkhsUKc+/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784463114; c=relaxed/simple;
-	bh=5VMovNs5r6OHs/wcX2aDD1qfvLwXJxRv8Jf5x/+peMc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kqr5RuV9fqAF158z+tGaHcXD4qrYNSl1UiJ/AyZKXfsQlNx0GzKKHFlo+0vaROdaI7SCrBg81kAF5H1FcK//JNwiuzEt9aG/NgRBsYRLd45b0mOxKtl/u6ZLfAhJbo4GJvIRm9xeOmtKJ0ejF3OEV+5lOENoeHQLHtQ1/7iNG9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OTk6X1rN; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784463213; c=relaxed/simple;
+	bh=SEVuYeHG7EG3M6jUXQOcgadJluIBpruY3xd0fJRHbgA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NFFHfirU6lR6hCYuEQw2XNkBT9i8psSBZyeMttB7I26iOwbgYMgyHqufkUx9S9mvS9aMElArAkwDmYmOv1hAHmhdJVDZ4lodHnWEF5rfZLhdROhN+xQj0YAg2384MxSyjFMJcThRzv0DPRNSMIP3NiN0UH19EvWD9PFnzbciJek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zbyBG7Pb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OTk6X1rN"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4955158f26aso6323475e9.3
-        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 05:11:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784463111; x=1785067911; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DogqYPGisrMHm1D/3xJuw8fk3DrWTbuaVsByeLIrnm8=;
-        b=OTk6X1rNgNDGEnrF/sXouhIGXU/re7R5PHMbQtY/Jh7jRGNa0DJRMLjrlT54GwCXLO
-         1PfDb8ZUJ0X0mpjhv+t6ox36jK63loZ6L64vOyriJ5qlbjXq7PjqMy4/kwDN+z6/UkVB
-         D0jfJcICYiLi9Xcj6go6pkyHp2HI3pqniDvtBa1XC4iwCBMbn7B1GgbK9LGsbyfCTHTw
-         mWO3AO4DYnmVXhWbMPsUym9Z2QcCV17+qsiDfpuKvIc2ByH0OqS1jgXyL2CfIEz1yQnK
-         OEWVkDBJK4YV2cqL75RLUX+cOwfQE1jYpxMZSPz8Xs9cboLfKUQpbtPOXhjxslJAq0Cf
-         RThw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784463111; x=1785067911;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DogqYPGisrMHm1D/3xJuw8fk3DrWTbuaVsByeLIrnm8=;
-        b=GLQzA5aATrZOS3ymuVnQcg+CW+ovBd5nNHEG2ZuR1vNnxmcEtOQYOzyJ8jIp3hGqoR
-         B0k1T/TLnAK8LlYZjtWTlemDV8mLwnqETB99b2ibpncKVnvWtELRHom1IDpJwQXDuHKg
-         /J4Fr91lJeyJWzKo5tHEIb0/TiY1/2TEbYxgYgPkjTDCF73aFI/7uIQWSfIyaymLYD9A
-         SQ9yF7ySgXYlZz2WGcji+fPTx9uEl5bc7yxt4xiZYP14XWzcHmO7e3LSCRddBuqOW9jN
-         z+LKHfupd6uMlRzM/7du5fW1Mp0Cv/fwHbUGkhH/FB5ICq+ICb/msHrUAizYWrCk7HWi
-         KXAg==
-X-Forwarded-Encrypted: i=1; AHgh+RpMtQ/rV/bSr6qwCQQXnOR+cRup8jq1Zme0PgIDtqFZGKpEYYc4nwmK3/eCUozw4WVCTFRbiSs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxe/IPRyrhzlD5PGjQt2p7uV+qUkN/FKCMG7ki7Wl2Ktmrg5+aw
-	NRbmnJU0UQXbFGYqmQvqurtTsunDJOo+eVYjpVftW4qRG75Z1ErwhpBl
-X-Gm-Gg: AfdE7cl8veh/Ywt5TMINP3A4GscyTJoZtUTVeOpWyxB8O+8h7nL4znNxlP3wel2XbHm
-	cemfKCtpN3oJfRVbwqe82HPMkgERl4oFaRF09WDRwRKL7tC63HbP3mMYdqh2ASJXOrnSjMuiXoC
-	ZYMG/61VGLko4GpGaEEWeDCoj3xJnfGA7JuM27ZSIno+hkTG73qVOm6VxyD77BByTBAf2uw1clk
-	5/EU6kNsb58YxdmC6/s43nsGfx0XTsyZzlt9ibqT+k9WW8PeKxfMX6i8zL9Q9gdksKmK9AcOvay
-	jSJtyshgeY8WEOpp/v0lYnIq79miKE+GWvzDTfGZ8KzZlDimNTqS/8VSHeFwv8gsnfLlVJToLjU
-	Tw9BfzZHh3hLXWg1Tl0DrxIGT+pgxcnA7FJUMbGSP5y72lbg6Pq2kcMs/vrDCa1obWQyLuNq72h
-	xRywuHPoGFi+Ur+7Rg1QVN6eSRO2yWTNYOuHmry2heLjc0chOWSWP7CfWPVAyAZYzceljOrTZql
-	Y0oA/Ti89ofpAwlMQ3tPaD2djvKMRvhDWKW0p0QGq5u38nTxf2HdCLP4EY55v/QhcJDVHXDjTO/
-	Rd+oEFqiTQ==
-X-Received: by 2002:a05:600c:1382:b0:495:699:5c8b with SMTP id 5b1f17b1804b1-4954a3e206dmr104802035e9.7.1784463110404;
-        Sun, 19 Jul 2026 05:11:50 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-aeaf-bd01-78a0-2a2d-507f-c97c.310.pool.telefonica.de. [2a02:3100:aeaf:bd01:78a0:2a2d:507f:c97c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63ed1911sm21750744f8f.22.2026.07.19.05.11.49
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 19 Jul 2026 05:11:49 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Will Deacon <will@kernel.org>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] pinctrl: devicetree: don't free uninitialized dev_name on error path
-Date: Sun, 19 Jul 2026 14:11:40 +0200
-Message-Id: <20260719121140.28730-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zbyBG7Pb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD52E1F000E9;
+	Sun, 19 Jul 2026 12:13:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784463212;
+	bh=9zNEDRwq89sCDN+yeZuMXPk0VVo7vwCgXe+dviq5RcY=;
+	h=Subject:To:Cc:From:Date;
+	b=zbyBG7Pb7iOR0eItg255lJJQgmZUOoL1uex4gs+UhnZoc++i6R2ALKuUiutFEGUIc
+	 HWIkPiLsWUdFKEk+e83oXgxKt0YHIH6zC+yaBYFkyrpZ8f7qd9w+kXn2ibdsjXZnQF
+	 qHYHpyCD1AMWI/lT7Xl70+6RXMHIKaaxyGU50rnQ=
+Subject: FAILED: patch "[PATCH] nvmet-tcp: check INIT_FAILED before nvmet_req_uninit in" failed to apply to 5.15-stable tree
+To: kumar.shivam43666@gmail.com,hch@lst.de,kbusch@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Sun, 19 Jul 2026 14:13:23 +0200
+Message-ID: <2026071923-dehydrate-bubble-9f0f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-dt_remember_or_free_map() duplicates dev_name for each map entry. If
-kstrdup_const() fails, dt_free_map() frees dev_name in all num_maps
-entries, including entries that have not been initialized.
 
-Some pinctrl drivers, including pinctrl-imx, allocate the map with
-kmalloc() and leave dev_name for the core to initialize. The untouched
-entries therefore contain uninitialized data which is passed to
-kfree_const().
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Reproduced on qemu's mcimx6ul-evk (pinctrl-imx) with failslab injection
-while binding the pinctrl-consuming device, under KASAN:
+To reproduce the conflict and resubmit, you may use the following commands:
 
-  BUG: KASAN: double-free in dt_free_map+0x34/0xa4
-  Free of addr c425a900 by task init/1
-   kfree from dt_free_map+0x34/0xa4
-   dt_free_map from dt_remember_or_free_map+0x184/0x198
-   dt_remember_or_free_map from pinctrl_dt_to_map+0x33c/0x4c8
-   pinctrl_dt_to_map from create_pinctrl+0x9c/0x5c0
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 4606467a75cfc16721937272ed29462a750b60c8
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026071923-dehydrate-bubble-9f0f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-Initialize all dev_name fields to NULL before duplicating the device
-name, making the full-map cleanup safe after a partial failure.
+Possible dependencies:
 
-Fixes: be4c60b563ed ("pinctrl: devicetree: Avoid taking direct reference to device name string")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- drivers/pinctrl/devicetree.c | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/pinctrl/devicetree.c b/drivers/pinctrl/devicetree.c
-index 02a271dd292f..465b43092eb7 100644
---- a/drivers/pinctrl/devicetree.c
-+++ b/drivers/pinctrl/devicetree.c
-@@ -69,6 +69,10 @@ static int dt_remember_or_free_map(struct pinctrl *p, const char *statename,
- 	int i;
- 	struct pinctrl_dt_map *dt_map;
- 
-+	/* Initialize dev_name before any allocation can fail */
-+	for (i = 0; i < num_maps; i++)
-+		map[i].dev_name = NULL;
-+
- 	/* Initialize common mapping table entry fields */
- 	for (i = 0; i < num_maps; i++) {
- 		const char *devname;
--- 
-2.53.0
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 4606467a75cfc16721937272ed29462a750b60c8 Mon Sep 17 00:00:00 2001
+From: Shivam Kumar <kumar.shivam43666@gmail.com>
+Date: Wed, 18 Mar 2026 18:56:58 -0400
+Subject: [PATCH] nvmet-tcp: check INIT_FAILED before nvmet_req_uninit in
+ digest error path
+
+In nvmet_tcp_try_recv_ddgst(), when a data digest mismatch is detected,
+nvmet_req_uninit() is called unconditionally. However, if the command
+arrived via the nvmet_tcp_handle_req_failure() path, nvmet_req_init()
+had returned false and percpu_ref_tryget_live() was never executed. The
+unconditional percpu_ref_put() inside nvmet_req_uninit() then causes a
+refcount underflow, leading to a WARNING in
+percpu_ref_switch_to_atomic_rcu, a use-after-free diagnostic, and
+eventually a permanent workqueue deadlock.
+
+Check cmd->flags & NVMET_TCP_F_INIT_FAILED before calling
+nvmet_req_uninit(), matching the existing pattern in
+nvmet_tcp_execute_request().
+
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Shivam Kumar <kumar.shivam43666@gmail.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+
+diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+index 4b8b02341ddc..69e971b179ae 100644
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -1310,7 +1310,8 @@ static int nvmet_tcp_try_recv_ddgst(struct nvmet_tcp_queue *queue)
+ 			queue->idx, cmd->req.cmd->common.command_id,
+ 			queue->pdu.cmd.hdr.type, le32_to_cpu(cmd->recv_ddgst),
+ 			le32_to_cpu(cmd->exp_ddgst));
+-		nvmet_req_uninit(&cmd->req);
++		if (!(cmd->flags & NVMET_TCP_F_INIT_FAILED))
++			nvmet_req_uninit(&cmd->req);
+ 		nvmet_tcp_free_cmd_buffers(cmd);
+ 		nvmet_tcp_fatal_error(queue);
+ 		ret = -EPROTO;
+
