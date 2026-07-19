@@ -1,206 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0EE39E162
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784474944; cv=none; b=e8QkTA5wAbVB5WCtP7mnfsa/i4wVDmsLyRbt1wnbco+hf+gmClXawAf2SwzcncKsXCxp4i+f1A1e4NU5sAgVj1c48qnpPg0CeHO3KSEF5c0O6Q3sxeLoELC57RE/X0MJxRZO3beqiacNSn1hzyM8wRrBe/mY0YFfDuItRdMMTZ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784474944; c=relaxed/simple;
-	bh=6KD9SnE6JFA/6StnZlkgQoUQOoaI1PXZbcZwkdKBEbY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S24bt0et5NoNMso5pLUbOcvoHrbg3zlooovFsTlrZF2sSiYjsY+bPH0mR97rmxsU8vuXW+EMqflXU8TUjj7sMVcB9O7BAFNoCPoDGfpaC++eKkM8a5oiNP8xMTsxIs/E3aanIce+F0cTYZMRkKeP7mhh4tfYPjwvWN7B9Ji2YlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yl7SCixV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8645322B594;
+	Sun, 19 Jul 2026 15:38:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.221
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784475520; cv=pass; b=fcRV2TF5arzR0W708EhoL8mNRI1uJQvpuZp/sqCi4KhO+MP0C2OuTDQeeDHNVcVKmhE4JtTSeZJdEIbrzf/HDjYlgHaIk3wIdl3nXu6KEUymgl5KDdErlDlVnSLpRa1nL9LxAiRSROW5XSiuMfRIGqHvM9p/8bYQG6sW6lonV7g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784475520; c=relaxed/simple;
+	bh=KBX6ZiZ/9vnudTKrYmVvyYrWlGwC29w1bnVhe8kO5ng=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=URuUn8Nb4YEyzo2a15haSTsOfXSVexjfvCIfCcDzJqvJrDaS6x1ForsDizr4ADVnCjmA3U1OJTcIagRLR2hs/LZWbSLUMjosaIAaRl17jX1NHwd5kHP915RodLTlkDdTY2c5Desd5SGh+8qQPoYPFjzmnvCLDpo2FkAH/EjgsIs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=SIkXPD8Y; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=jqMrDIwX; arc=pass smtp.client-ip=81.169.146.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yl7SCixV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34C31F00A3D;
-	Sun, 19 Jul 2026 15:29:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784474942;
-	bh=MKAHXtUrzeCabd0wrO61LnxygmeEPsnY2lyHRCyr7WY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yl7SCixVFX958alXQF+l881jqmKZSc50g10hkntG3tf/nGl/i4d360D/M5bfHA1d4
-	 wUSTGtipLWfGg4E9EeZ+tHRYiauYDUYz+iKRpCA7kTqA9897K+ow+fjCXrz0xrNba5
-	 RvlGPuq1k2LbIYmJz00uaLmjXkiIZKpSUtdYbC8a5gAkn6MYnbwofdsxHMwGWvyvsb
-	 Vf17ft4EQe6yPI9/PbTg0LlALtnF3I7JgycOg5OW2LmOgB6vQoyyFb2UDu1rn6ZV9V
-	 DO/jQAQMf0xaN+Z84UT6bCvo1n5IhUxAHcxMDqfmEAIML2ZDAsnq5pOg8VlAFvISbm
-	 MznIxtTSolncQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	stable <stable@kernel.org>,
-	Yue Sun <samsun1006219@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] USB: iowarrior: fix use-after-free on disconnect race
-Date: Sun, 19 Jul 2026 11:28:59 -0400
-Message-ID: <20260719152859.190429-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260719152859.190429-1-sashal@kernel.org>
-References: <2026071456-chihuahua-thyself-7200@gregkh>
- <20260719152859.190429-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="SIkXPD8Y";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="jqMrDIwX"
+ARC-Seal: i=1; a=rsa-sha256; t=1784475506; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=kju4gQH+q7a5wr2O4G85Z4pYTbyS9sOYAZBq/V5VRlsguwjIXw49WZvArbyCOEtRpK
+    6eG5me7elIx0XDwqh/xMM6j7pElBD7VN/pFXwK/lH6eTIXGirFIBJui05zXKCewHcHWa
+    5nmtPIVzJaUFuLMp9UFKisyDQ/D5thKy1P/+cioMoZZ3aBTxrcbghb51yEHKEFzm0XFU
+    mKCdgMxXtlOOXC0IAdfulrr8GQwkM1s56TBqHZJXgWjRVfBPMYEVs3KAmf/VSXmbaX81
+    J/SNmhXLIdDCpFcFsFlMelnFkTzYOLDdp+81T3BaX0V0E2pLCvl966+tsXOSmH66TIRR
+    OWFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784475506;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=u/JCs8fQlddPmKg8eJUPplCbWk2Oa8TpGF5Ma9k4XaE=;
+    b=pf+zb9Yio1nRNYWG2S1+op1YaLZkOtV+rwmpltdg0FHJr+FLwIgm5qjsgw6C93ZGZg
+    QkWY3VLQCeLvYYU3mer9fYl+ruHn0dGHAU/dBFchwPsmfp9Sa6RufFaIRxFRSMCMEVWY
+    +yE7+Qu9EtPsO5nGhZpIP+05S6EZs8xOzrMcEzPxnYZjynGUrH6/t3uSanLZtxdNNgtG
+    xJWxRih6jaArOcX3C7zJzG+Kaiv8N7YjJfUPKcHQSprA6gIlcw13lQFDqvkt4tkhcU9e
+    6rvPIc2dd2yHIzguUzSDDWKlNadH+WrbaNLI/SNvmqEOtIKnOJsmA5tO4W9UkNWrz7A0
+    IqKw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784475506;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=u/JCs8fQlddPmKg8eJUPplCbWk2Oa8TpGF5Ma9k4XaE=;
+    b=SIkXPD8YBicTptxFlkavzn9p+ra1tHY3pgc4+w2pbpYX/Tmvr4LeUUqgpyKQqBPRzP
+    tFVfJWIpGIQXxwfEhAC6uWOvQoDV56tdOyxsLZEGfxchW+EluTNzK9l0kQWsZs411o0z
+    hHpz2qaBbAffLrkX8kkhG8kjkRcOdSj5ve8ch6Oa8Cp9muFvyPWI68B4jrvZHaORTSjH
+    VDmNhdtzGOpolDIZFJ54GQ9MW7zH2DqBm5kPDKeqkm6qIrd7nEyECqw4UxV+MAN5CEo6
+    RrUEi0kmpyrDVcnA3h5LTS2/UCVUB39I58VKB68+t4NHyVLt7fCUsusfbwiPcqDwcboU
+    +m6g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784475506;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=u/JCs8fQlddPmKg8eJUPplCbWk2Oa8TpGF5Ma9k4XaE=;
+    b=jqMrDIwXZoFky6LuXjRC3zOlbkWlO6IBFbX6KtEyF0wul5ygbGqWMeCiTKBweZUR0o
+    wnTuQPan38f4cB1CUjDg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9o12DNOsPj0lFzL1yfz8Z"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.5.6 DYNA|AUTH)
+    with ESMTPSA id Q58eac26JFcP5IH
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Sun, 19 Jul 2026 17:38:25 +0200 (CEST)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH] i2c: jz4780: Cache clock rate at probe to prevent CCF
+ prepare_lock deadlock
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <a08203c004280827fda87fc4c83660aedb446440.camel@crapouillou.net>
+Date: Sun, 19 Jul 2026 17:38:15 +0200
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+ linux-mips@vger.kernel.org,
+ linux-i2c@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1629D165-4BF0-41A4-A528-A377DD5F2588@goldelico.com>
+References: <c69ca6511780aa4759a428cb7fb70de43ee5211b.1783666715.git.hns@goldelico.com>
+ <a08203c004280827fda87fc4c83660aedb446440.camel@crapouillou.net>
+To: Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
-From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit c602254ba4c10f60a73cd99d147874f86a3f485c ]
 
-mutex_unlock() may access the mutex structure after releasing the lock
-and therefore cannot be used to manage lifetime of objects directly
-(unlike spinlocks and refcounts). [1][2]
+> Am 19.07.2026 um 17:07 schrieb Paul Cercueil <paul@crapouillou.net>:
+>=20
+> Hi Nikolaus,
+>=20
+> Le vendredi 10 juillet 2026 =C3=A0 08:58 +0200, H. Nikolaus Schaller a
+> =C3=A9crit :
+>> Fix a severe AB/BA deadlock between the Common Clock Framework (CCF)
+>> and the I2C adapter lock, which triggers when an I2C-controlled clock
+>> generator (like the Si5351) is registered or modified under the CCF.
+>>=20
+>> During a clock frequency change, the CCF acquires its global
+>> 'prepare_lock'
+>> mutex and calls i2c_transfer() to update the chip registers, stalling
+>> for the adapter's I2C bus lock.
+>>=20
+>> Concurrently, a parallel transfer on the same bus (e.g., a GPIO
+>> expander
+>> handling LEDs) can hold the I2C adapter lock. Inside the transfer
+>> path,
+>> jz4780_i2c_set_speed() calls clk_get_rate() to dynamically calculate
+>> timings. This call attempts to acquire the blocked CCF
+>> 'prepare_lock',
+>> creating a circular dependency that freezes the system or at least
+>> the involved processes and workers.
+>>=20
+>> Eliminate the synchronous clk_get_rate() call from the active
+>> transfer
+>> path by caching the peripheral clock rate once - inside the private
+>> jz4780_i2c structure during jz4780_i2c_probe(). Update
+>> jz4780_i2c_set_speed() to use this cached value, decoupling active
+>> I2C
+>> transactions from the CCF internal locks.
+>>=20
+>> Assisted-by web based Google AI.
+>>=20
+>> Fixes: ba92222ed63a12 ("i2c: jz4780: Add i2c bus controller driver
+>> for Ingenic JZ4780")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+>> ---
+>>  drivers/i2c/busses/i2c-jz4780.c | 5 ++++-
+>>  1 file changed, 4 insertions(+), 1 deletion(-)
+>>=20
+>> diff --git a/drivers/i2c/busses/i2c-jz4780.c
+>> b/drivers/i2c/busses/i2c-jz4780.c
+>> index 664a5471d9335..d729cec9cdf2c 100644
+>> --- a/drivers/i2c/busses/i2c-jz4780.c
+>> +++ b/drivers/i2c/busses/i2c-jz4780.c
+>> @@ -141,6 +141,7 @@ struct jz4780_i2c {
+>>   void __iomem *iomem;
+>>   int irq;
+>>   struct clk *clk;
+>> + unsigned long clk_rate;
+>=20
+> That's a weird spacing. Should probably be "unsigned long" on the left
+> side.
 
-Use a kref to release the driver data to avoid use-after-free in
-mutex_unlock() when release() races with disconnect().
+indeed a typo - should be
 
-[1] a51749ab34d9 ("locking/mutex: Document that mutex_unlock() is non-atomic")
-[2] 2b9d9e0a9ba0 ("locking/mutex: Clarify that mutex_unlock(), and most
-                   other sleeping locks, can still use the lock object
-                   after it's unlocked")
+TAB unsigned long TAB clk_rate;
 
-Fixes: 946b960d13c1 ("USB: add driver for iowarrior devices.")
-Cc: stable <stable@kernel.org>
-Reported-by: Yue Sun <samsun1006219@gmail.com>
-Link: https://lore.kernel.org/r/20260618080204.38322-1-samsun1006219@gmail.com
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260622152612.116422-2-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/usb/misc/iowarrior.c | 57 +++++++++++++++---------------------
- 1 file changed, 24 insertions(+), 33 deletions(-)
+Interestingly checkpatch.pl did not complain...
 
-diff --git a/drivers/usb/misc/iowarrior.c b/drivers/usb/misc/iowarrior.c
-index 770f0044d8e2ff..7a754449c81412 100644
---- a/drivers/usb/misc/iowarrior.c
-+++ b/drivers/usb/misc/iowarrior.c
-@@ -71,6 +71,7 @@ static struct usb_driver iowarrior_driver;
- 
- /* Structure to hold all of our device specific stuff */
- struct iowarrior {
-+	struct kref kref;
- 	struct mutex mutex;			/* locks this structure */
- 	struct usb_device *udev;		/* save off the usb device pointer */
- 	struct usb_interface *interface;	/* the interface for this device */
-@@ -243,8 +244,10 @@ static void iowarrior_write_callback(struct urb *urb)
- /*
-  *	iowarrior_delete
-  */
--static inline void iowarrior_delete(struct iowarrior *dev)
-+static inline void iowarrior_delete(struct kref *kref)
- {
-+	struct iowarrior *dev = container_of(kref, struct iowarrior, kref);
-+
- 	kfree(dev->int_in_buffer);
- 	usb_free_urb(dev->int_in_urb);
- 	kfree(dev->read_queue);
-@@ -641,6 +644,9 @@ static int iowarrior_open(struct inode *inode, struct file *file)
- 	}
- 	/* increment our usage count for the driver */
- 	++dev->opened;
-+
-+	kref_get(&dev->kref);
-+
- 	/* save our object in the file's private structure */
- 	file->private_data = dev;
- 	retval = 0;
-@@ -656,7 +662,6 @@ static int iowarrior_open(struct inode *inode, struct file *file)
- static int iowarrior_release(struct inode *inode, struct file *file)
- {
- 	struct iowarrior *dev;
--	int retval = 0;
- 
- 	dev = file->private_data;
- 	if (!dev)
-@@ -664,29 +669,18 @@ static int iowarrior_release(struct inode *inode, struct file *file)
- 
- 	/* lock our device */
- 	mutex_lock(&dev->mutex);
-+	dev->opened = 0;	/* we're closing now */
- 
--	if (dev->opened <= 0) {
--		retval = -ENODEV;	/* close called more than once */
--		mutex_unlock(&dev->mutex);
--	} else {
--		dev->opened = 0;	/* we're closing now */
--		retval = 0;
--		if (dev->present) {
--			/*
--			   The device is still connected so we only shutdown
--			   pending read-/write-ops.
--			 */
--			usb_kill_urb(dev->int_in_urb);
--			wake_up_interruptible(&dev->read_wait);
--			wake_up_interruptible(&dev->write_wait);
--			mutex_unlock(&dev->mutex);
--		} else {
--			/* The device was unplugged, cleanup resources */
--			mutex_unlock(&dev->mutex);
--			iowarrior_delete(dev);
--		}
-+	if (dev->present) {
-+		usb_kill_urb(dev->int_in_urb);
-+		wake_up_interruptible(&dev->read_wait);
-+		wake_up_interruptible(&dev->write_wait);
- 	}
--	return retval;
-+	mutex_unlock(&dev->mutex);
-+
-+	kref_put(&dev->kref, iowarrior_delete);
-+
-+	return 0;
- }
- 
- static __poll_t iowarrior_poll(struct file *file, poll_table * wait)
-@@ -771,6 +765,7 @@ static int iowarrior_probe(struct usb_interface *interface,
- 	if (!dev)
- 		return retval;
- 
-+	kref_init(&dev->kref);
- 	mutex_init(&dev->mutex);
- 
- 	atomic_set(&dev->intr_idx, 0);
-@@ -889,7 +884,8 @@ static int iowarrior_probe(struct usb_interface *interface,
- 	return retval;
- 
- error:
--	iowarrior_delete(dev);
-+	kref_put(&dev->kref, iowarrior_delete);
-+
- 	return retval;
- }
- 
-@@ -910,20 +906,15 @@ static void iowarrior_disconnect(struct usb_interface *interface)
- 	dev->present = 0;
- 
- 	if (dev->opened) {
--		/* There is a process that holds a filedescriptor to the device ,
--		   so we only shutdown read-/write-ops going on.
--		   Deleting the device is postponed until close() was called.
--		 */
- 		usb_kill_urb(dev->int_in_urb);
- 		usb_kill_anchored_urbs(&dev->submitted);
- 		wake_up_interruptible(&dev->read_wait);
- 		wake_up_interruptible(&dev->write_wait);
--		mutex_unlock(&dev->mutex);
--	} else {
--		/* no process is using the device, cleanup now */
--		mutex_unlock(&dev->mutex);
--		iowarrior_delete(dev);
- 	}
-+
-+	mutex_unlock(&dev->mutex);
-+
-+	kref_put(&dev->kref, iowarrior_delete);
- }
- 
- /* usb specific object needed to register this driver with the usb subsystem */
--- 
-2.53.0
+>=20
+>>   struct i2c_adapter adap;
+>>   const struct ingenic_i2c_config *cdata;
+>> =20
+>> @@ -246,7 +247,7 @@ static int jz4780_i2c_set_target(struct
+>> jz4780_i2c *i2c, unsigned char address)
+>> =20
+>>  static int jz4780_i2c_set_speed(struct jz4780_i2c *i2c)
+>>  {
+>> - int dev_clk_khz =3D clk_get_rate(i2c->clk) / 1000;
+>> + int dev_clk_khz =3D i2c->clk_rate / 1000;
+>=20
+> You cache `i2c->clk_rate` but only use it divided by 1000, so maybe
+> cache `clk_rate_khz` instead?
+
+Yes, that is more precise.
+
+I can update and send a V2 with a revised commit message.
+
+BR and thanks,
+Nikolaus
 
