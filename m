@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA921FC110
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 16:41:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84F92C15BE
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 16:57:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784479270; cv=none; b=K4F1fZZ44DxYAQ0K9lextfrHJlcNWwQlFIIhY3pSCxR1kzn1Q+OKF1094xSjLORejaocgxAeNJDkFbMI772Twi5fiVXQsXxYdLVAbX85uyVKTVPHeBwCzxzFSYgLUsMPijaIbBIJ+C8eeoEx2noG6JKye1Ar16aEpQ9ehHGcSYQ=
+	t=1784480231; cv=none; b=IuSDP1cSuEcP0RqwuUyw/tscEl/JCE6CsjAby7oNovNHkzIGTPcfkACMYykF2OAy0wgSvCqDjlkwlFdfWW13TkIUekHgdVmQbETlXiIrvfe+yYZLOHo17PlkW24wUVJTJXxwzb4B2cAsmCLl+E0fB0dqJpiom+oNLXErzhG761c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784479270; c=relaxed/simple;
-	bh=JJhubFsyyXa6fO2ZzF8iSoRl/pgPnj9xSMNFaxBGceA=;
+	s=arc-20240116; t=1784480231; c=relaxed/simple;
+	bh=iRRFoOmo1id4UpIGTtBiYAniLBg58uQggq5kgEw2KXo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F+lKkCDsN5z+sdZWSSjDFdlKalhUX+xfhn8F5RWfL9S8/PqLzjhwgV64kJGIzK5n2XbH/9Blz1YXPZCd4i+4CmwssCxXXP5f+Y2uOCIShkyoUHg8I+OAN+mDWq8/n70b4moMB3X/4OCBDPdGal/IytL8up3p0u/No8y9o/3ak80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+z+lJzx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=t59FfaUh4rWO1xJFmhKLddMgEnhmfmG+uwLWZEqTkmA552Xqetqb9ysdMQ9+abguGajoBIP42cvIyIUslyV2ER5Clkkr7ISRtaer9atcjPGUHAIRbaiB0fb/T3inf6oKn+ceSj+4dJa7bZwm+X5N8tO7PmrT60O5pOXOSn6psRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DhZXUgcS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+z+lJzx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 632E21F000E9;
-	Sun, 19 Jul 2026 16:41:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DhZXUgcS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 836DF1F000E9;
+	Sun, 19 Jul 2026 16:57:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784479268;
-	bh=V73uYO+Ysbu+nkFuTQV7NmmUbbg8S+bb3REgrBeXDIs=;
+	s=k20260515; t=1784480229;
+	bh=iETEOGD6pdQvsREHqfuwdJeDbnSwPryb/9SDZvlLfnQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K+z+lJzxMyAYf3wmfbuj6s3mPmo01iAEG96weLjU38liqT1whc3uATouAUn9VKyQ2
-	 5410P/zylvFeCU0d5TkAzOOOM+9SAjjs1wMChFVideDjvhbUCq2jUOHOWOQDtKUtXc
-	 yCzFiLPvu9sWnCs1bhYVv1/t1JL72DCNTOhM1BuXZw1LWpQWtLa+mXDvDa7siyZppD
-	 yvTwSeoghg6SPIhcp1D9IxwtqA4t/3+7sQpbYnjLj2GvtZsIs6Z/xQpzbgYf+bPP0I
-	 DaMnKxNyyRDKdoqErbgw4zbCsHmCkNNn7U7uHyeGZR2ZeEsom+jqgWwFKfbKBVpa9c
-	 18aVa9hHOLP2w==
+	b=DhZXUgcSvc7Dr+QDbva0aHcK9AmwpuStcFa0Gd1WhIxmjympTcU1xpy5lB7CDqcyJ
+	 A+VhSobmJIGefwae1F/3ByDNAF4PhPb5WB50wT1sQpqN7rQMLlTm82GzrdyqjFmAIm
+	 CEraT7tnVzPBIcKvdcfB45qYjMoTRjJVbiHZuvZeE4h2LAOZiha9k5uAhPGGT1+uwl
+	 FnDKDhZYUKPBGMLn6kZ09vAYEIvMeGbYgyMQdqUUFkjr28vVCoCPaf/04T9M6H4dqp
+	 qReSu1ccNPiK+hlRbAdckJYWZB67zEF4UYW6kZC4pcs6cXTIlnMVUz5g276fseqoHN
+	 1nSq9veZMkPvg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Mauricio Faria de Oliveira <mfo@igalia.com>,
@@ -37,12 +37,12 @@ Cc: Mauricio Faria de Oliveira <mfo@igalia.com>,
 	Stanislaw Gruszka <stf_xl@wp.pl>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] usb: atm: ueagle-atm: wait for pre-firmware load in .disconnect()
-Date: Sun, 19 Jul 2026 12:41:05 -0400
-Message-ID: <20260719164105.663963-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] usb: atm: ueagle-atm: wait for pre-firmware load in .disconnect()
+Date: Sun, 19 Jul 2026 12:57:06 -0400
+Message-ID: <20260719165706.748133-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071428-filing-parched-4bab@gregkh>
-References: <2026071428-filing-parched-4bab@gregkh>
+In-Reply-To: <2026071428-gatherer-armory-edaa@gregkh>
+References: <2026071428-gatherer-armory-edaa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -137,7 +137,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 31 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/usb/atm/ueagle-atm.c b/drivers/usb/atm/ueagle-atm.c
-index e8e43c38aa1b43..cd53d36aa30748 100644
+index 5812f7ea7f9021..b41f352769f072 100644
 --- a/drivers/usb/atm/ueagle-atm.c
 +++ b/drivers/usb/atm/ueagle-atm.c
 @@ -599,7 +599,9 @@ static int uea_send_modem_cmd(struct usb_device *usb,
@@ -179,7 +179,7 @@ index e8e43c38aa1b43..cd53d36aa30748 100644
  					uea_upload_pre_firmware);
  	if (ret)
  		uea_err(usb, "firmware %s is not available\n", fw_name);
-@@ -2597,8 +2601,23 @@ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
+@@ -2598,8 +2602,23 @@ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
  
  	usb_reset_device(usb);
  
@@ -205,7 +205,7 @@ index e8e43c38aa1b43..cd53d36aa30748 100644
  
  	ret = usbatm_usb_probe(intf, id, &uea_usbatm_driver);
  	if (ret == 0) {
-@@ -2629,6 +2648,13 @@ static void uea_disconnect(struct usb_interface *intf)
+@@ -2630,6 +2649,13 @@ static void uea_disconnect(struct usb_interface *intf)
  		usbatm_usb_disconnect(intf);
  		mutex_unlock(&uea_mutex);
  		uea_info(usb, "ADSL device removed\n");
