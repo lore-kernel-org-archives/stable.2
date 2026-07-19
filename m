@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F283A0E99
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:00:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638D23A1684
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:00:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784473251; cv=none; b=OCNAf+8ZGFGPX/jwjHNcEUyE1ZIfPYehFHax9E8AjpU6QIv1DlNjQLvkZsvrPG66dkS8mpcXL0Cv6bDWqDLyaN7mXMCT94ET95PcrIO4S/vOrFrdvB3joiTvVb+kgtuU/Ts89V6FmkRpjKH+mD+rWMtGLDU+4qzWGLZqfvS1w/Q=
+	t=1784473252; cv=none; b=OsDzsR5CCGzHE7PuNXem+d7ORoXzZmMJeObLRnTICxwzbL0+QY0DdqwLJT8YhwRrfP1kuBPVzxWjpqxdhP7AKqXZ/HnIVWvgbW6SuetTx5hQ5+I6M49gcZETNDMpv4h/6OR+iICSaV+0L5fxou4DOs30YPT+zFWwieWOmDlm914=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784473251; c=relaxed/simple;
-	bh=TdzGziEhY3bIdY0r9wd7TLiNXg9aQMgoXvbF1z6rMPo=;
+	s=arc-20240116; t=1784473252; c=relaxed/simple;
+	bh=TasdsgvqIUlJ2YWFjByuqsoHqd/bUOItTTKjDyOStKE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uAPE2HoSIFCjYMpIAT2JgkKrd+lY4ka19Po7cW/ul44opIWYTnZyoNnyI4W2sUq+e2/f/ih4QHA/8zmomX3bjlaD1stCAzpyV3De92z90shYBVSJCkV6UlO6GQf4wqgBfEEzQQJxodmW8NbksS2OzWhmCB58ZpNyKfgWJkc3WNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WlpClf27; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BiNVHV/mQHiONowuQsN+JKPq375n7AFh8//9iDP9sMnr/BsBNpZvgJAK6uSTl2HYPX6ih7pHw5pJ68Ntn4+nyguZz81brHjWkWcUd1CMd7bg2BRss5b/fpw8LVZGkBsUXE7o3c0BRVqan5rFidVJTygc5VvZllKADGaMQR554OE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Io0ofVE+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WlpClf27"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9345C1F000E9;
-	Sun, 19 Jul 2026 15:00:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Io0ofVE+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2B81F00ACA;
+	Sun, 19 Jul 2026 15:00:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784473250;
-	bh=kaPwX0fxPl7l91njxLhKv8jvamuHZtSJpwGIlWSjrFE=;
+	s=k20260515; t=1784473251;
+	bh=8gYGMISry2xs9B1EJNjGuCFPdaFr+BSrV4JxwCe1eaA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WlpClf276FcsoJdKS3f9RX+U0ds3ojpr0onrnawFLsi+6ZaPme8yCyPUIxPuFxNnG
-	 gq1Ec30qKLiGcaxb+VcPI675VBrHeCaxm3S1RKywXnuSTpYxyu2lUUAJn2mtsi2ni7
-	 1A+KXgu+ZpOewEE7vrUqZYEYSfD4Q6jMDoHhEPR5A9VOUxZag7qvPXuo1SUICJyNyX
-	 n2PtTZBbcwfIuMafRvYpanTABdZU6LR7BKK6eXvTFW0wC6qBFz2v5mA79X23wL1jBX
-	 DP842Z+qYP2p+5IsRPuiPPjsJbR5fqR41ST945nDrxdd4/QP2bos/R9exh6auEc2r8
-	 r3PA0fKBxPZPw==
+	b=Io0ofVE+a2OzbQb3Fl2GtrU3ZDJIOmgfoQRE0EVd9cHctAvMgjR+aFgWyYbsudyOJ
+	 19cdeGPRzCu8vvqw1Pv0K/05dsQylU9QA6+JFV1FG3oW/PAeyThXVmna2ywVKAF3Yr
+	 U1nyMXCXCZ5Y34/d0/KifsE8S9p/GVJQyT+nI2tHhmMPx9Dwl/NeAKPsChpmpEFvW1
+	 o8Ap9338uA9bc1uVlcJrp8qyvX23b3yuABZvuYIGuLp+ST8FNv/I59tJqgEiulT7qU
+	 3SNCgKOcff3kne7XU3m1ZIazruuplu45UbiFFLR82dXoBRVOt+zLmY5YU2I7Owmana
+	 1u7q4XkFA3Zxw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	heiko@sntech.de,
-	quentin.schulz@cherry.de,
-	kuniyu@amazon.com,
-	kuniyu@google.com,
-	Heiko Stuebner <heiko.stuebner@cherry.de>
-Subject: Re: [PATCH 6.12.y 0/9] Backport "af_unix: Drop all SCM attributes for SOCKMAP"
-Date: Sun, 19 Jul 2026 11:00:23 -0400
-Message-ID: <20260718192718.0009-stable-reply@kernel.org>
+	gregkh@linuxfoundation.org,
+	linkinjeon@kernel.org,
+	Yuezhang.Mo@sony.com,
+	Rochan Avlur <rochan.avlur@gmail.com>
+Subject: Re: [PATCH 6.18.y] exfat: preserve benign secondary entries during rename and move
+Date: Sun, 19 Jul 2026 11:00:24 -0400
+Message-ID: <20260718192718.0010-stable-reply@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717172922.3398851-1-heiko@sntech.de>
-References: <20260717172922.3398851-1-heiko@sntech.de>
+In-Reply-To: <20260716165127.2998-1-rochan.avlur@gmail.com>
+References: <20260716165127.2998-1-rochan.avlur@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,14 +47,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This series backports the "Drop all SCM attributes for SOCKMAP" for
-> af_unix onto 6.12.
+> Commit 8258ef28001a ("exfat: handle unreconized benign secondary
+> entries") added cluster freeing for benign secondary entries inside
+> exfat_remove_entries().  However, exfat_remove_entries() is also called
+> from the rename and move paths (exfat_rename_file and exfat_move_file),
+> where the old entry set is being relocated rather than deleted.
 
-Queued the series for 6.12, and picked up the fix for 6.18 as well,
-thanks.
-
-6.6.y/6.1.y/5.15.y still lack the fix, so backports along the same
-lines would be welcome there too if you'd like to extend coverage.
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
