@@ -1,82 +1,71 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E7C2472AF
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 16:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CC7126BF1
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 16:24:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784477820; cv=none; b=d/qJmpDxLIRWsl35ElPKNRkg72cFDXN8y3O8i+1wUnLj2eK0jsWKtExqYnZW2Spi/7dI/+YJ5x4GQb2OXagz6T3CSU7DiZr5X41xBcRGTlbEoAYDzoCLiruQpPhR6ZSCSpdnA14PHpEP0OidTSHdJAyCa901ev4igRCtN6gg5h0=
+	t=1784478284; cv=none; b=jh8FmpBsmrkttJtN+rrW3Le+0ItUsFwWvqH7uID9LG7FiV57+TgcHNcjcqXltDpvzp0hsx0LWiFn+qaWEV+RfrXwVNmVTOpgK0pxxiAokNSBWyqqmIE+LIevQXxX8UMYsQkjAlNJjhscCbKIRkPBHFnN3mjgfeAMKDiY7Fyfs+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784477820; c=relaxed/simple;
-	bh=iSGrBa9MrZpnBNiL/pSvSPtiuYn2CkLBSU+mghu130o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dzmW47gSzqfuAyxnth/8stogwNwDpfHzDvvV/PBh8s6U0tSqdTaxUgKZYg3PDBdN5evzXGJ3JNnzmkWET2Pt7Cn84LxhuT6CuKErU4WfODJx6YVRFf1Hsxf8ZlGNUPTmUK5GE59jjlzT3dZXB0J35zxt7Wz9WJ99M9D3wVw50rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DxqWL1aY; arc=none smtp.client-ip=209.85.210.175
+	s=arc-20240116; t=1784478284; c=relaxed/simple;
+	bh=lls+axzfyfbPlmpiWP9MviDLbR2C1B2lrbGamHYgbyI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a2SutrtodYOtqOJNX1EybtjrUvXkdj5JhpGgIeMJf/IDUiCvIrO4bWsw5aXrZItq+qVLz0hSg5nU/i9k91cjunCgSxF3LfnUdEUb0TVQ+AWtsFmkBgHEbsd5Dp81k99yVt2UqsUJ4HAPnPsxj9l7rNuUpxSeRFpLqG2BtdYZ3yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YDCJG4rU; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DxqWL1aY"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8482ac263bdso246578b3a.3
-        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 09:16:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YDCJG4rU"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc7a269ca1so20513015ad.3
+        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 09:24:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784477818; x=1785082618; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784478282; x=1785083082; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WsGdm1kAKTSurBA0TqYfEfEn/QcPy7r5m6E0+HTCYIw=;
-        b=DxqWL1aYc8w6Y2MR25y5MkHQy/eZV0OavN1GzY23KlH+Xj5TE4UqkzJH6CGQuUIURI
-         WP1q8yQkkrX1hcAZQv8aOU7V7zFyJIaTOR0i8VwX2aDD0NwGzWcTYdHmidxVOHI18l4l
-         bXiU9nxThyC1xzPA9pxEQtVIYOpaUjgd7el6o4aNnV+rqLOxhlQwQl78+AQALCTbLu3z
-         lolhIaHuFJx0HfVft0iUzvOKaT52fWEWOMsfh0gcYbXF61x6KrvUhFbzPbhCfjmJyzzJ
-         D+v+H6QyaxGUh5AXqdMzdAwkQq9ZozMEdAyJMB5AjAGOUBocCCFN6s44eOt+mFma/ACD
-         eJjg==
+        bh=j8UqeMyxU1RhWc7nUD5ALPha2axtqfJyzgN4FsQvE/g=;
+        b=YDCJG4rUAHt046iX/VBZz/dHGJYuky8JMQ9YP7a/IEIsIbO1/rcznZS6Y7vClq40+R
+         T07hZwL9fukQHSBijpMsqjv3z6imV/kP0DGFomml1STI00LGKp568vkaK6U+hMXpXyg8
+         s2LR0RqU0I2oALrZXnWQSpdhBrhDsz293cC4lxCle+1PMfjPrF5dnOvsvMpvdU3SZ7BG
+         Kk+w+vA6rfA3PA8kp0QXwNsOEOmtnhR3qc/1yf3clF+Zrl/MFYUhhDrl6FNIBuQeFfJZ
+         mDdScdqLoHkmkQlgVDoYwFP74c7FgG+jVBWWldCjFif42GopwOi1R0bPjTv3vygQKGwo
+         LeIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784477818; x=1785082618;
+        d=1e100.net; s=20251104; t=1784478282; x=1785083082;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WsGdm1kAKTSurBA0TqYfEfEn/QcPy7r5m6E0+HTCYIw=;
-        b=haNGkuXPHrgNhcC3owJ0sGzpU/A/110TrSIqPQKT3atNk7xvSgsKTrHt/9Nl+f0rN9
-         89FVdCB7tGUYXEjEdkiIXK88s4aqUYqY8vLzkY6H58ZdxsT0RNkM0jIFe9WAh5XKWfe4
-         WZErJ88GBInRMPF71sBhgbCFLlfyUG2vQWMWJKQYfe9XNWyu4Xk87f68A/m+c/cEpWZo
-         vpJoMfW+pQcueyG+TRLvuLGK9s0EfPno9NhN1w5Pc14owXv1rFwBgJE8XEWKEtX/Siye
-         zm93u+n6/qqzpKw3zxkp9ipE00yLkc2Voc9KT5VAu7kVdW8JCzR0wtmcR8DxfbEsUZ2G
-         /A/w==
-X-Forwarded-Encrypted: i=1; AHgh+RoKHHPwRUCuF/dZetbXppAVnFLdJyY0bLdfC5fC6JvzipDo2jXm/M/XcrSHE+7xEitMQB9GJnE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwN8zO048kePuaEEcov/NdP56J0WpVZjnLFN3fdpBqc0K/FYZOr
-	113R9JnefdM/45xFJLflPvClTK2EvtAa+nYEzd7I1bx9A450Ls0+O8Lq
-X-Gm-Gg: AfdE7clqByxWcP/9G/cKl0ZojtIO+ceWVs49+Ao4/OBnA3cEV9OaTHxG3XOs8zCqcb4
-	pZ3ncvYglhFyMIlZRx+U4vUGV5lU+YCJUVPlK0moBXeI9ufv+vkXFhxiFIU0LbvecqihHKSxTqV
-	dd3ipAknDjE2PRfuZr6h1socbsA1SRjC9vFQgPrAo/wVq/e3AWY0RBHKc9NtxcfZTdFtLIs93fx
-	PrIqZCUJ+ro1yOi6FEFDE+n7zPMfF/NITWq8KJzvR31WnXx/auq/Ygt6tUjsgCP/Li5+ByKsTij
-	yal19D87SjuNvNV/6E7h7cxX1uTX0EwLaDIWBdC2lbOgEDT5gPdRsFKAPTD4eYs+gdQB3XSLvhD
-	yEiu2vMQ7M1BBEdP1tmOTgqWIujIMcTCgvx0H28S94emPnR4NTck4CI2uy3wu/Cc5W1rUHYID90
-	+nDXmomHKpICUwFkSZxsjsCKMkf9aaDAoDymX1JRLmTw9Sq0i3d8qGc0m3MKs=
-X-Received: by 2002:a05:6a00:ad2:b0:846:8b0a:1536 with SMTP id d2e1a72fcca58-84c294da01amr8277970b3a.4.1784477817551;
-        Sun, 19 Jul 2026 09:16:57 -0700 (PDT)
+        bh=j8UqeMyxU1RhWc7nUD5ALPha2axtqfJyzgN4FsQvE/g=;
+        b=psBUJxyTsAkRpriOhmzZfEe1UuLDou3L9Knzr9mkI/r2/wiLCPuXBgAukMjb27Fgrs
+         qyPQJ3lNiywcuEWcOrNeMEJz4sk0MYybnLEMTR+1iq1Q2+PzRbbSdQiZI7PJOLP3zjy0
+         3eLqnCcOrkok9LFMSRvk5ToW6aG7jJXvVv1GwD1LPEhnyMEm4IdbodFB2aQEacS8+ZlO
+         N1iH+cyWg9WG7GOonFsGkBIzUKKj0VnrcH71nx30fvLPeqiiBqPRm9J76BaIYf2Xs4U2
+         L7wOXkWZSUs4Xihp/of67OlNA4Rp7srktZrM7BAgv/2rmLGz0goFPzR3A47mW/tXypAP
+         r2yA==
+X-Forwarded-Encrypted: i=1; AHgh+RpBNUxdOugpzrkGBr4vkN6J//EjSvSdIPDXcPuiD5RDg9TvZVsJu4tmIJ47sQ1dPeLCapSgKUE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzF7eviNRsQRTXQWxdhSsnUc2NTSL3+06uA5rKyvyxtAwN66Re0
+	5xCFtaIPlKRoQ7AogkhcGy65UBwOhmCfDAuPC+oMC5z5iHaTrUUOzHdX
+X-Gm-Gg: AfdE7cmK4bGcBbKbBp7vWmpuxXfDRZxfKdtSTjZeLB8KK85pUoHor6CUg1oh4NlEIJD
+	QcyfbscfLNnuJmQUlD5ac7vrKxiU/sPQi9CcwtnVvfIpaoIiFs8SB/NF9HvC0edOHtIoPLpG197
+	BcIc7w3BEzf6y1yVEBkQeCqfI+I6OONQsccid8g+1B7oG1ziz4oSJaXxE95TUQguQO44bNydGzq
+	LbP1FlmNLsG7bcaeGnoUfZG6NdrALDT4CBb/uH+CqG8w2N0PjhmnapmllJyRK6u9EWu3HBJ3xkJ
+	PGnHeG2c0DAojDw9uBBkv7rC9Th6K/XDzhDVAgnldCBV4dUgB/6EUpHoS5izlNW5eWprzxUGU0n
+	fkvt0WTkkuakV6E07YEsDFpKm563vsJuJy+SYD22QU3fltVaI7fVYvbOACIJGJJoab9T1qlnG3J
+	6zSkAnKKMCHBj832VWe8UhsEgbxxI5jilzMpmy09moNRZnXsS7
+X-Received: by 2002:a17:902:f68b:b0:2ca:d803:5c8f with SMTP id d9443c01a7336-2cf3485119amr90372745ad.1.1784478281838;
+        Sun, 19 Jul 2026 09:24:41 -0700 (PDT)
 Received: from localhost.localdomain ([14.218.106.255])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c3793ec61sm3018204b3a.42.2026.07.19.09.16.50
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf347119dfsm41881925ad.56.2026.07.19.09.24.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 09:16:55 -0700 (PDT)
+        Sun, 19 Jul 2026 09:24:41 -0700 (PDT)
 From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Eric Dumazet <edumazet@google.com>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jakub Sitnicki <jakub@cloudflare.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	bpf@vger.kernel.org (open list:BPF [L7 FRAMEWORK] (sockmap))
-Cc: netdev@vger.kernel.org,
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Chengfeng Ye <nicoyip.dev@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] bpf, sockmap: Fix cork use-after-free in tcp_bpf_sendmsg()
-Date: Mon, 20 Jul 2026 00:16:30 +0800
-Message-ID: <20260719161630.2901208-1-nicoyip.dev@gmail.com>
+Subject: [PATCH] Bluetooth: hci_sync: Protect UUID list traversal
+Date: Mon, 20 Jul 2026 00:24:27 +0800
+Message-ID: <20260719162427.2902105-1-nicoyip.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -86,67 +75,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tcp_bpf_sendmsg() keeps msg_tx across sk_stream_wait_memory(), which
-drops and reacquires the socket lock.  Its error path tries to decide
-whether msg_tx names the local temporary message by comparing it with
-the current value of psock->cork.
+The hci_sync conversion moved class-of-device and EIR generation from an
+HCI request built under hdev->lock to asynchronous command sync work.
+The worker holds hdev->req_lock, but that lock does not serialize access
+to hdev->uuids against add_uuid() and remove_uuid(), which update the
+list under hdev->lock.
 
-This comparison is unsafe when two threads send on the same socket:
+The following interleaving can therefore occur:
 
-  Thread A                         Thread B
-  msg_tx = psock->cork
-  sk_msg_alloc() fails
-  sk_stream_wait_memory()
-    releases the socket lock      acquires the socket lock
-                                  completes the cork
-                                  psock->cork = NULL
-                                  frees the cork
-    reacquires the socket lock
-  msg_tx != psock->cork
-  sk_msg_free(msg_tx)
+  CPU0 (command sync work)       CPU1 (management socket)
+  fetch uuid from the list
+                                list_del(&uuid->list)
+                                kfree(uuid)
+  read uuid->size
 
-The stale cork is therefore mistaken for the local temporary message
-and freed again.  KASAN reported:
+KASAN reports the resulting use-after-free:
 
-  BUG: KASAN: slab-use-after-free in sk_msg_free+0x49/0x50
-  Read of size 4 at addr ffff88810c908800 by task poc/90
+  BUG: KASAN: slab-use-after-free in eir_create+0xb8f/0xee0
+  Read of size 1 at addr ffff88810dbd8620 by task kworker/u17:0/87
+  Workqueue: hci0 hci_cmd_sync_work
   Call Trace:
-   sk_msg_free+0x49/0x50
-   tcp_bpf_sendmsg+0x14f5/0x1cc0
-   __sys_sendto+0x32c/0x3a0
-   __x64_sys_sendto+0xdb/0x1b0
-  Allocated by task 89:
+   eir_create+0xb8f/0xee0
+   hci_update_eir_sync+0x1c0/0x330
+   hci_cmd_sync_work+0x13c/0x290
+   process_one_work+0x63a/0x1070
+   worker_thread+0x45b/0xd10
+
+  Allocated by task 86:
    __kasan_kmalloc+0x8f/0xa0
-   tcp_bpf_sendmsg+0x16b3/0x1cc0
-  Freed by task 91:
+   add_uuid+0x18a/0x4b0
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+  Freed by task 92:
    __kasan_slab_free+0x43/0x70
    kfree+0x131/0x3c0
-   tcp_bpf_sendmsg+0xec3/0x1cc0
+   remove_uuid+0x25e/0x560
+   hci_sock_sendmsg+0x1033/0x1ea0
 
-msg_tx can only name the stack-local tmp or the shared cork.  Test for
-tmp directly so a changed psock->cork cannot turn a shared message into
-an apparent local one.
+Hold hdev->lock while generating and committing the class-of-device and
+EIR snapshots.  Release it before sending an HCI command, so controller
+waits do not happen under the device lock.  This protects all UUID list
+walks in these paths and restores the serialization lost in the command
+sync conversion.
 
-Fixes: 604326b41a6f ("bpf, sockmap: convert to generic sk_msg interface")
+Fixes: 161510ccf91c ("Bluetooth: hci_sync: Make use of hci_cmd_sync_queue set 1")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- net/ipv4/tcp_bpf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/bluetooth/hci_sync.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
-index 8e905b50dead..a30475afb6f8 100644
---- a/net/ipv4/tcp_bpf.c
-+++ b/net/ipv4/tcp_bpf.c
-@@ -604,7 +604,7 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- wait_for_memory:
- 		err = sk_stream_wait_memory(sk, &timeo);
- 		if (err) {
--			if (msg_tx && msg_tx != psock->cork)
-+			if (msg_tx == &tmp)
- 				sk_msg_free(sk, msg_tx);
- 			goto out_err;
- 		}
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 532534bc601c..c0b1fc293b49 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -929,12 +929,16 @@ int hci_update_eir_sync(struct hci_dev *hdev)
+ 
+ 	memset(&cp, 0, sizeof(cp));
+ 
++	hci_dev_lock(hdev);
+ 	eir_create(hdev, cp.data);
+ 
+-	if (memcmp(cp.data, hdev->eir, sizeof(cp.data)) == 0)
++	if (memcmp(cp.data, hdev->eir, sizeof(cp.data)) == 0) {
++		hci_dev_unlock(hdev);
+ 		return 0;
++	}
+ 
+ 	memcpy(hdev->eir, cp.data, sizeof(cp.data));
++	hci_dev_unlock(hdev);
+ 
+ 	return __hci_cmd_sync_status(hdev, HCI_OP_WRITE_EIR, sizeof(cp), &cp,
+ 				     HCI_CMD_TIMEOUT);
+@@ -966,6 +970,7 @@ int hci_update_class_sync(struct hci_dev *hdev)
+ 	if (hci_dev_test_flag(hdev, HCI_SERVICE_CACHE))
+ 		return 0;
+ 
++	hci_dev_lock(hdev);
+ 	cod[0] = hdev->minor_class;
+ 	cod[1] = hdev->major_class;
+ 	cod[2] = get_service_classes(hdev);
+@@ -973,8 +978,12 @@ int hci_update_class_sync(struct hci_dev *hdev)
+ 	if (hci_dev_test_flag(hdev, HCI_LIMITED_DISCOVERABLE))
+ 		cod[1] |= 0x20;
+ 
+-	if (memcmp(cod, hdev->dev_class, 3) == 0)
++	if (memcmp(cod, hdev->dev_class, 3) == 0) {
++		hci_dev_unlock(hdev);
+ 		return 0;
++	}
++
++	hci_dev_unlock(hdev);
+ 
+ 	return __hci_cmd_sync_status(hdev, HCI_OP_WRITE_CLASS_OF_DEV,
+ 				     sizeof(cod), cod, HCI_CMD_TIMEOUT);
 -- 
 2.43.0
 
