@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60E0399346
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 14:26:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B90330B07
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 14:26:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784471186; cv=none; b=LSg9DVX1iGNGgAVmwJ6EimqUggcEWhy2A30b+2Twg7+6PP0jQJBbPGbowArSf3Z8UUMz1DpG2RPprTwzje3sx7GWkZB0zDlayDvldZMbQ6/ncnFbxzme+Zv5Rsw3U2TROS8dEdQlYF3RMlJwgfb25WMf7GAWmA7zAcU4IjqePIw=
+	t=1784471189; cv=none; b=lPLlgoZS4Cfo2IIQAp+pPy6F/XK3L1ofo+rdhSSydxg5QBguU6ZQMaB+8ONi8vAUcngVClOnOdMuSXhRj4SGPLcN5dw55bz15QAVSDJ+NmZtI5C0PXectRcI7mgBz/XqYLjwPVEEb/KK/LgU+t7efvJwFTZzemq78zvXWKTTyGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784471186; c=relaxed/simple;
-	bh=G5RiBfYwMqpURrhxkSgtncqbGrEPvAeCDPLR3EP7qgA=;
+	s=arc-20240116; t=1784471189; c=relaxed/simple;
+	bh=T3S7mGE2dmx0pn6MJPdSh8dkPns/6Vb8QQGnuqm1lSA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nhVxqwHML2sFLbTcQ3gjDRVnLprxxM1W6GMmNVL8Lmh1vwHAEIzWWG7xOjYm0TyA/1HN53Krn79b4u8swdQ8DPjMarWpnDBj1e5iBN9Z0eCGYFvj3kwLoDBT+qe6sSYKRQUI17PmWA0TthmF4b7d9zP5rTxwpttVIdrnwVZBM7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZHxDOAg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RZDS0GttZA9TKxBprRqb5mtbALBhPQam6hlz2BsDfxLoeTyWYEEuQgVwkITWSHRhFoLEInS3Cy1CaGy65gXQfGWZkKx5pcSuJqYvSMvvX/ofQZgFW+8ZSdfrdEesnPC99qDZ7YGNz1zcc2E7fX4kq6jg3WHC7c1KnvTwZdhlT3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G7lEOi10; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZHxDOAg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC38D1F00A3A;
-	Sun, 19 Jul 2026 14:26:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G7lEOi10"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8338C1F000E9;
+	Sun, 19 Jul 2026 14:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784471185;
-	bh=tXUxa0IPECf24YyFyXN9MSkg4zpv0yFthMA8fqp5d0E=;
+	s=k20260515; t=1784471188;
+	bh=5JUF41dhjDns1uGWMoZVEfibGI4ajL4PCEoL1/0PmdY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TZHxDOAgeOKJog+v1nPzO6XPolw6MRqC8ee+tbcbUz3hZJveF0gxKcSvvs/d5CKuA
-	 09AVM6UQl6rmsnbB1CcxbYEmWXkT+66iWgv86qAsUI/2TWItf5ayszat965d4glkpN
-	 mVT/QM8kLO4PmOIXockMRarn4jhM/+4U4v8NrPqMNud7lLhhmxD/t1omRFsEibei6w
-	 Ma5weAzDJwllh21rFBKJ6dcYfxqaxK03eyiGdhImeghgBNywuqaUJYhnjoMhDh++1H
-	 qPNajf8DIKHKCsZdXBhk8yZHlIpc9gFP9gehW63jVp13iFD3IwJKCxQUiRicPFMm/K
-	 KvfInZjvoaKAg==
+	b=G7lEOi10298+Os6jKFtGuukJYAurKO8K0Dd66fDPWI5qik/9y0mxeGWTapDv/6OCd
+	 qO6h3Jf3nirdUlivASnSEKyjF5Q9q1ArcM2XYbXi0WASAhDwSSiiUS0fiAlgt/Jm8s
+	 1noIiCEoQlcjgnJaICx6GsJMcmj3IRut5ev40Wj3HFI1daUk47MMdb7tugOqF96ayE
+	 sTdUbD72NecBYz/UiaWXkN6JjyicEyg6OYY/hgfg+XszL5Sgm+N+EpUXs6Z5Obz9cz
+	 Tj89SPMFuHdA3fOZBliqQ0OedOkT4JBgL15ZSmF3Ajb+naSHbgtD54edjhj/GXy9rG
+	 +FnDta4+OaImQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
+Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
 	stable <stable@kernel.org>,
-	Yue Sun <samsun1006219@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] USB: iowarrior: fix use-after-free on disconnect race
-Date: Sun, 19 Jul 2026 10:26:22 -0400
-Message-ID: <20260719142622.4094754-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] usb: free iso schedules on failed submit
+Date: Sun, 19 Jul 2026 10:26:25 -0400
+Message-ID: <20260719142625.4094867-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260719142622.4094754-1-sashal@kernel.org>
-References: <2026071455-frostily-swimsuit-a10b@gregkh>
- <20260719142622.4094754-1-sashal@kernel.org>
+In-Reply-To: <2026071434-steed-earmuff-b781@gregkh>
+References: <2026071434-steed-earmuff-b781@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,158 +47,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Dawei Feng <dawei.feng@seu.edu.cn>
 
-[ Upstream commit c602254ba4c10f60a73cd99d147874f86a3f485c ]
+[ Upstream commit b9399d25fbb34a05bbe76eeedd730f62ff2670e9 ]
 
-mutex_unlock() may access the mutex structure after releasing the lock
-and therefore cannot be used to manage lifetime of objects directly
-(unlike spinlocks and refcounts). [1][2]
+EHCI and FOTG210 isochronous submits build an ehci_iso_sched before
+linking the URB to the endpoint queue, and keep the staged schedule in
+urb->hcpriv until iso_stream_schedule() and the link helpers consume it.
+If the controller is no longer accessible, or usb_hcd_link_urb_to_ep()
+fails, submit jumps to done_not_linked before that handoff happens and
+leaks the staged schedule still attached to urb->hcpriv.
 
-Use a kref to release the driver data to avoid use-after-free in
-mutex_unlock() when release() races with disconnect().
+Free the staged schedule from done_not_linked when submit fails before
+the URB is linked and clear urb->hcpriv after the free.
 
-[1] a51749ab34d9 ("locking/mutex: Document that mutex_unlock() is non-atomic")
-[2] 2b9d9e0a9ba0 ("locking/mutex: Clarify that mutex_unlock(), and most
-                   other sleeping locks, can still use the lock object
-                   after it's unlocked")
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still
+present in v7.1.1.
 
-Fixes: 946b960d13c1 ("USB: add driver for iowarrior devices.")
+An x86_64 allyesconfig build showed no new warnings. As we do not have an
+EHCI host controller with a USB isochronous device to test with, no
+runtime testing was able to be performed.
+
+Fixes: 8de98402652c ("[PATCH] USB: Fix USB suspend/resume crasher (#2)")
+Fixes: e9df41c5c589 ("USB: make HCDs responsible for managing endpoint queues")
+Fixes: 7d50195f6c50 ("usb: host: Faraday fotg210-hcd driver")
 Cc: stable <stable@kernel.org>
-Reported-by: Yue Sun <samsun1006219@gmail.com>
-Link: https://lore.kernel.org/r/20260618080204.38322-1-samsun1006219@gmail.com
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260622152612.116422-2-johan@kernel.org
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
+Link: https://patch.msgid.link/20260630071419.349161-1-dawei.feng@seu.edu.cn
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/misc/iowarrior.c | 57 +++++++++++++++---------------------
- 1 file changed, 24 insertions(+), 33 deletions(-)
+ drivers/usb/host/ehci-sched.c  | 11 +++++++++--
+ drivers/usb/host/fotg210-hcd.c |  6 ++++--
+ 2 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/usb/misc/iowarrior.c b/drivers/usb/misc/iowarrior.c
-index f9266ae8164100..827b364c9f5db9 100644
---- a/drivers/usb/misc/iowarrior.c
-+++ b/drivers/usb/misc/iowarrior.c
-@@ -71,6 +71,7 @@ static struct usb_driver iowarrior_driver;
- 
- /* Structure to hold all of our device specific stuff */
- struct iowarrior {
-+	struct kref kref;
- 	struct mutex mutex;			/* locks this structure */
- 	struct usb_device *udev;		/* save off the usb device pointer */
- 	struct usb_interface *interface;	/* the interface for this device */
-@@ -243,8 +244,10 @@ static void iowarrior_write_callback(struct urb *urb)
- /*
-  *	iowarrior_delete
-  */
--static inline void iowarrior_delete(struct iowarrior *dev)
-+static inline void iowarrior_delete(struct kref *kref)
- {
-+	struct iowarrior *dev = container_of(kref, struct iowarrior, kref);
-+
- 	kfree(dev->int_in_buffer);
- 	usb_free_urb(dev->int_in_urb);
- 	kfree(dev->read_queue);
-@@ -640,6 +643,9 @@ static int iowarrior_open(struct inode *inode, struct file *file)
+diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
+index 0f85aa9b2fb1a3..3e636fe5b056ca 100644
+--- a/drivers/usb/host/ehci-sched.c
++++ b/drivers/usb/host/ehci-sched.c
+@@ -1625,6 +1625,7 @@ iso_stream_schedule(
+ 			status = 1;	/* and give it back immediately */
+ 			iso_sched_free(stream, sched);
+ 			sched = NULL;
++			urb->hcpriv = NULL;
+ 		}
  	}
- 	/* increment our usage count for the driver */
- 	++dev->opened;
-+
-+	kref_get(&dev->kref);
-+
- 	/* save our object in the file's private structure */
- 	file->private_data = dev;
- 	retval = 0;
-@@ -655,7 +661,6 @@ static int iowarrior_open(struct inode *inode, struct file *file)
- static int iowarrior_release(struct inode *inode, struct file *file)
- {
- 	struct iowarrior *dev;
--	int retval = 0;
+ 	urb->error_count = skip / period;
+@@ -1655,8 +1656,6 @@ iso_stream_schedule(
+ 	return status;
  
- 	dev = file->private_data;
- 	if (!dev)
-@@ -663,29 +668,18 @@ static int iowarrior_release(struct inode *inode, struct file *file)
- 
- 	/* lock our device */
- 	mutex_lock(&dev->mutex);
-+	dev->opened = 0;	/* we're closing now */
- 
--	if (dev->opened <= 0) {
--		retval = -ENODEV;	/* close called more than once */
--		mutex_unlock(&dev->mutex);
--	} else {
--		dev->opened = 0;	/* we're closing now */
--		retval = 0;
--		if (dev->present) {
--			/*
--			   The device is still connected so we only shutdown
--			   pending read-/write-ops.
--			 */
--			usb_kill_urb(dev->int_in_urb);
--			wake_up_interruptible(&dev->read_wait);
--			wake_up_interruptible(&dev->write_wait);
--			mutex_unlock(&dev->mutex);
--		} else {
--			/* The device was unplugged, cleanup resources */
--			mutex_unlock(&dev->mutex);
--			iowarrior_delete(dev);
--		}
-+	if (dev->present) {
-+		usb_kill_urb(dev->int_in_urb);
-+		wake_up_interruptible(&dev->read_wait);
-+		wake_up_interruptible(&dev->write_wait);
- 	}
--	return retval;
-+	mutex_unlock(&dev->mutex);
-+
-+	kref_put(&dev->kref, iowarrior_delete);
-+
-+	return 0;
+  fail:
+-	iso_sched_free(stream, sched);
+-	urb->hcpriv = NULL;
+ 	return status;
  }
  
- static __poll_t iowarrior_poll(struct file *file, poll_table * wait)
-@@ -770,6 +764,7 @@ static int iowarrior_probe(struct usb_interface *interface,
- 	if (!dev)
- 		return retval;
- 
-+	kref_init(&dev->kref);
- 	mutex_init(&dev->mutex);
- 
- 	atomic_set(&dev->intr_idx, 0);
-@@ -888,7 +883,8 @@ static int iowarrior_probe(struct usb_interface *interface,
- 	return retval;
- 
- error:
--	iowarrior_delete(dev);
-+	kref_put(&dev->kref, iowarrior_delete);
-+
- 	return retval;
- }
- 
-@@ -912,19 +908,14 @@ static void iowarrior_disconnect(struct usb_interface *interface)
- 	usb_kill_anchored_urbs(&dev->submitted);
- 
- 	if (dev->opened) {
--		/* There is a process that holds a filedescriptor to the device ,
--		   so we only shutdown read-/write-ops going on.
--		   Deleting the device is postponed until close() was called.
--		 */
- 		usb_kill_urb(dev->int_in_urb);
- 		wake_up_interruptible(&dev->read_wait);
- 		wake_up_interruptible(&dev->write_wait);
--		mutex_unlock(&dev->mutex);
--	} else {
--		/* no process is using the device, cleanup now */
--		mutex_unlock(&dev->mutex);
--		iowarrior_delete(dev);
+@@ -1968,6 +1967,10 @@ static int itd_submit(struct ehci_hcd *ehci, struct urb *urb,
+ 		usb_hcd_unlink_urb_from_ep(ehci_to_hcd(ehci), urb);
  	}
-+
-+	mutex_unlock(&dev->mutex);
-+
-+	kref_put(&dev->kref, iowarrior_delete);
+  done_not_linked:
++	if (status < 0) {
++		iso_sched_free(stream, urb->hcpriv);
++		urb->hcpriv = NULL;
++	}
+ 	spin_unlock_irqrestore(&ehci->lock, flags);
+  done:
+ 	return status;
+@@ -2345,6 +2348,10 @@ static int sitd_submit(struct ehci_hcd *ehci, struct urb *urb,
+ 		usb_hcd_unlink_urb_from_ep(ehci_to_hcd(ehci), urb);
+ 	}
+  done_not_linked:
++	if (status < 0) {
++		iso_sched_free(stream, urb->hcpriv);
++		urb->hcpriv = NULL;
++	}
+ 	spin_unlock_irqrestore(&ehci->lock, flags);
+  done:
+ 	return status;
+diff --git a/drivers/usb/host/fotg210-hcd.c b/drivers/usb/host/fotg210-hcd.c
+index b0b6caaa29bd44..7e088f7d93f8c0 100644
+--- a/drivers/usb/host/fotg210-hcd.c
++++ b/drivers/usb/host/fotg210-hcd.c
+@@ -4275,8 +4275,6 @@ static int iso_stream_schedule(struct fotg210_hcd *fotg210, struct urb *urb,
+ 	return 0;
+ 
+ fail:
+-	iso_sched_free(stream, sched);
+-	urb->hcpriv = NULL;
+ 	return status;
  }
  
- /* usb specific object needed to register this driver with the usb subsystem */
+@@ -4570,6 +4568,10 @@ static int itd_submit(struct fotg210_hcd *fotg210, struct urb *urb,
+ 	else
+ 		usb_hcd_unlink_urb_from_ep(fotg210_to_hcd(fotg210), urb);
+ done_not_linked:
++	if (status < 0) {
++		iso_sched_free(stream, urb->hcpriv);
++		urb->hcpriv = NULL;
++	}
+ 	spin_unlock_irqrestore(&fotg210->lock, flags);
+ done:
+ 	return status;
 -- 
 2.53.0
 
