@@ -1,170 +1,141 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from ixit.cz (ixit.cz [185.100.197.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E92E291C10;
-	Sun, 19 Jul 2026 10:20:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64511380FD8;
+	Sun, 19 Jul 2026 11:54:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784456462; cv=none; b=gyFfMOJoJVg1CIqUwmZ02gQbvldEsKOZQYwcR4WgdrfHUsLrEci8yqqSxeXL5X4/GmHAhFEYgDKGBFTqPf1tGyrTr0QbOh4lIaZNVTmgRzeaYLYNcNiT66ndXMPBqLEEGYj3j1csDGmYlRdaDDYm3OGiMTbin/lxhEn19b8KQNI=
+	t=1784462052; cv=none; b=KUY31mcwcjaLIlRq/wsiZ4tw5U5WHohhomdVq/NxbBSTumy4vMAZDbNLLxyH34IXXVl97X+m0M9xbr+sEV0mmQ7cl+Hg94qf8BCl4AeeSU/XWPJ1rs36GKt4u0OBiS442nYSo2Z/NB1zJ/flQRLwqnYW1TCxAWLW8xKTjfYvkOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784456462; c=relaxed/simple;
-	bh=YWNPSNHXhUMQZugFK/yG01ivnCUCqLg/UiD4aCM9rig=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LDnhbKnugPVne1f28PLtlBPy5FLa6Nw4UJgQVkXUT/S/931rubax14KF3HUuouWC5Djl5qHirCG6cGIxl35kx8IOTJaCDV/BxMtFk8fR1iQcEhAVt1zxLuP3NPANuAIWm9IMib7yETMtZKg5V5BpcwF17TCLFIfNvMTDVmkpW2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y8vwOk14; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784462052; c=relaxed/simple;
+	bh=ysu496wkYyDPNy4UtjkzhheYLJSstmjIQsD58PvkO0E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hd5w6iJqJm1/fPKAyI+/aWaGjk9pCUOpL2//dYdwzjGk+3JyLCtnbC7P+3gsBoocRoAABrdpBecLxkvsXrHPxlNuihX8UfXwttKndVbO/mexRT7l9LfuNrfFsmnrL+FpGFpiX82Im7xk96/WuU7ill3UEJ2tOd0ZUguY+RCuTsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=PeQUuiVW; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y8vwOk14"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784456460; x=1815992460;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=YWNPSNHXhUMQZugFK/yG01ivnCUCqLg/UiD4aCM9rig=;
-  b=Y8vwOk14n6skjEEe/pBWQjfath/Kez5pm6l77+vj5CdzSlH95Frl5rVM
-   8/Ip1h8cubUBSoUg6GkWqzIP4ia3uJ02EHISRdKF3IQc+yKRjqf7IiqSN
-   HqESB2m8uA4ZM4fgSjscw5YsDLWTk6NwN30swJVNMCSVmoq3clHfxQUqk
-   vdSYm1jvfyGV/74EHOJG4C5zYdKV0dctZ6W8YQtgzRCpv5S/iRIb22FnP
-   vBxoXwoems7xpIwjuI6FklCiLzPwDx4k1+6XS1KVWJpeeLvjVKTGdXvZk
-   qXSqIN72Myq8T28KjXVc4iNcspEUH/Hg+M/F63o1rDkbd7TXWZSgOcGNG
-   Q==;
-X-CSE-ConnectionGUID: fec5N1BJTtWDBmHoGO35cw==
-X-CSE-MsgGUID: iS0+1YJSS36/3RbluoQzqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11850"; a="84048444"
-X-IronPort-AV: E=Sophos;i="6.25,172,1779174000"; 
-   d="scan'208";a="84048444"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 03:20:59 -0700
-X-CSE-ConnectionGUID: lwnsNq9wTgKc6rnz4TW7fw==
-X-CSE-MsgGUID: i1O1v9PqTPygTM4MBmRGRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,172,1779174000"; 
-   d="scan'208";a="252818198"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 03:20:56 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Sun, 19 Jul 2026 12:57:55 +0300
-Subject: [PATCH char-misc] mei: pull kvfree out of spinlock
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="PeQUuiVW"
+Received: from [192.168.1.182] (ip-62-24-73-79.bb.vodafone.cz [62.24.73.79])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id AC97253402AF;
+	Sun, 19 Jul 2026 13:54:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1784462048;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0oud3ONW6zV/T8t9DbOU+1lK5iOAairrRLcNu03G540=;
+	b=PeQUuiVWWi/1ZwRA9YwLOS7isbeGBHspvVhEHyrWJkScpQ50QQpWFgjk/W8m6hjZNO+lDH
+	Hjl3+PQj8EFgJuXrvPO13/mo9fS89V9KP/h84ygkPeGtZLXcySWc9cWvGIaD7PuKvod/sj
+	CmqldE5KZ+JX4N27EoCWrln5ODsT7GM=
+Message-ID: <bafc5a4f-de22-47f5-b706-603dc168b7ff@ixit.cz>
+Date: Sun, 19 Jul 2026 13:54:08 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] nfc: nci: fix uninit-value in the RF
+ discover/activated NTF handlers
+To: Sam P <sam@bynar.io>
+Cc: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260626090301.2139500-1-sam@bynar.io>
+ <9f73948f-7045-4ef3-bc8c-731fde943c1e@ixit.cz>
+ <edfa1b87-a28c-40ca-85ca-e11ac3482518@bynar.io>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <edfa1b87-a28c-40ca-85ca-e11ac3482518@bynar.io>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260719-kvfree_out_of_spinlock-v1-1-e07d6333bea7@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBA0avIrBswLlL0KqWEOJnoYJvIjEpBv
- HvTLt/i/xOUhElhaE4QOli55Ap7awDnkCcyHKuhazvX3m1vliMJkS/75kvyunJ+FVxMGtEGjNE
- F56DGq1Diz3/8+J3EvFkRntf1BbRZiWZzAAAA
-X-Change-ID: 20260719-kvfree_out_of_spinlock-fbc1acdd6a66
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Tomas Winkler <tomasw@gmail.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Menachem Adin <menachem.adin@intel.com>, 
- Alexander Usyskin <alexander.usyskin@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784455091; l=3228;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=YWNPSNHXhUMQZugFK/yG01ivnCUCqLg/UiD4aCM9rig=;
- b=skAZhVLV2E4YBgbVTqlrKFjgeOIpFC6zP1QdOK1nBqDlhJUXDerbKKiO9EKbFXEuuzppSKCIO
- XtY/D89JFYXAxDUeIfHL0f3Kw+7g1kcX5+XAOzPaSfIPDwl90zMRSA9
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-The read buffer allocation was changed from kmalloc() to kvmalloc().
+On 29/06/2026 14:23, Sam P wrote:
+> On 27/06/2026 19:41, David Heidelberg wrote:
+>>> Assisted-by: Bynario AI
+>>
+>> Hello Samuel,
+>>
+>> the fix look good, may I ask you to follow the Assisted-by syntax as requested 
+>> in [1]?
+>>
+>> Thank you
+>> David
+>>
+>> [1] https://docs.kernel.org/process/coding-assistants.html
+> 
+> Hey David,
+> 
+> The :MODEL_VERSION was omitted as we use a range of different models and 
+> versions in our pipeline, making it hard to attribute to a single model/version. 
+> As for the AGENT_NAME, in this instance, would the correct syntax be to remove 
+> the spacing here (e.g. Bynario-AI)?
+> 
+> Once clarified, I'll submit a new patch with the correct syntax.
 
-This buffer is part of mei_cl_cb structure that can be queued in
-rd_complete queue protected by spinlock.
-Releasing the structure leads to errors like below when freeing buffer
-that allocated non-contiguous:
+Hello Sam,
 
-BUG: sleeping function called from invalid context at mm/vmalloc.c:3448
+with recent discussion about the tag itself, I'm fine to keep it as-is :)
 
-Separate mei_cl_cb structure dequeue and release to
-perform only dequeue under spinlock and push release out of spinlock.
+David
 
-Cc: stable@vger.kernel.org
-Fixes: 4adf613e01bf ("mei: use kvmalloc for read buffer")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16359
-Reviewed-by: Menachem Adin <menachem.adin@intel.com>
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
----
- drivers/misc/mei/client.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+> 
+> Thanks,
+> Sam
+> 
+> 
 
-diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
-index 643b0039cc72..26d2b2742d50 100644
---- a/drivers/misc/mei/client.c
-+++ b/drivers/misc/mei/client.c
-@@ -425,18 +425,24 @@ static void mei_io_tx_list_free_cl(struct list_head *head,
- }
- 
- /**
-- * mei_io_list_free_fp - free cb from a list that matches file pointer
-+ * mei_io_rd_list_free_fp - free cb from a rd_completed list that matches file pointer
-  *
-- * @head: io list
-+ * @cl: host client
-  * @fp: file pointer (matching cb file object), may be NULL
-  */
--static void mei_io_list_free_fp(struct list_head *head, const struct file *fp)
-+static void mei_io_rd_list_free_fp(struct mei_cl *cl, const struct file *fp)
- {
- 	struct mei_cl_cb *cb, *next;
-+	LIST_HEAD(cmpl_list);
- 
--	list_for_each_entry_safe(cb, next, head, list)
-+	spin_lock(&cl->rd_completed_lock);
-+	list_for_each_entry_safe(cb, next, &cl->rd_completed, list)
- 		if (!fp || fp == cb->fp)
--			mei_io_cb_free(cb);
-+			list_move(&cb->list, &cmpl_list);
-+	spin_unlock(&cl->rd_completed_lock);
-+
-+	list_for_each_entry_safe(cb, next, &cmpl_list, list)
-+		mei_io_cb_free(cb);
- }
- 
- /**
-@@ -565,9 +571,7 @@ int mei_cl_flush_queues(struct mei_cl *cl, const struct file *fp)
- 		mei_io_list_flush_cl(&cl->dev->ctrl_rd_list, cl);
- 		mei_cl_free_pending(cl);
- 	}
--	spin_lock(&cl->rd_completed_lock);
--	mei_io_list_free_fp(&cl->rd_completed, fp);
--	spin_unlock(&cl->rd_completed_lock);
-+	mei_io_rd_list_free_fp(cl, fp);
- 
- 	return 0;
- }
-@@ -1401,7 +1405,7 @@ void mei_cl_add_rd_completed(struct mei_cl *cl, struct mei_cl_cb *cb)
- }
- 
- /**
-- * mei_cl_del_rd_completed - free read completed callback with lock
-+ * mei_cl_del_rd_completed - unlink read completed callback with lock and free it
-  *
-  * @cl: host client
-  * @cb: callback block
-@@ -1410,8 +1414,9 @@ void mei_cl_add_rd_completed(struct mei_cl *cl, struct mei_cl_cb *cb)
- void mei_cl_del_rd_completed(struct mei_cl *cl, struct mei_cl_cb *cb)
- {
- 	spin_lock(&cl->rd_completed_lock);
--	mei_io_cb_free(cb);
-+	list_del_init(&cb->list);
- 	spin_unlock(&cl->rd_completed_lock);
-+	mei_io_cb_free(cb);
- }
- 
- /**
-
----
-base-commit: 775553d19b163446c38c5ff24dd0a01065376932
-change-id: 20260719-kvfree_out_of_spinlock-fbc1acdd6a66
-
-Best regards,
 -- 
-Alexander Usyskin <alexander.usyskin@intel.com>
+David Heidelberg
 
