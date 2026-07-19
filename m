@@ -1,84 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B183B0AD4
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 18:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6880C2D0C9D
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 18:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784484105; cv=none; b=lHJEa4adDlQVOC5je7zZViSRkR4QWTBZrUHffWwkGpgMb8R4nZmsySq1KbjEYmufrS7PQqPpZOQ2mKSmYEdgup5ifJjd26zKGyBf06OtBMD6IiFU9MOZ12RsbXcnK+NEma4gmpczYmakER5VJxg4HGA23kZjNEuVPreED8IIrNU=
+	t=1784486429; cv=none; b=Ow6lntrrmvdF61K9lXfKn1vUlrsIJUHw2FzIdjulJigh+GHoSR0p6+LEzsTOBAJ1GMte449ufztLVXDbY2h5yFMIJFjtkmXb+1z3JUc3azHmJBx8I/twh6dq1Mx3CwqBHlEyTEkKcerVeQA/b6rCDxyE1OaTn1zZduMnNHLtlzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784484105; c=relaxed/simple;
-	bh=j/nXUV5vdfXnI/lL2HrtTwcFaXZCD/tbktet+3inSX8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LWlbsQ7G+GsVsEQsBWXzgcDEOKWxJcWRjIVYbUyi6azKctAQwye1o38MT14QRin3a/neohtoShP9Oks79ke/owaAfniJQm1tBtq8xLeF4Toua4gO8B+mld+wtBBYHzNyU4z6iCLhH/02I7AImGo6k5NltT7oEnom7vcsnTDnekY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mIkjBwUc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784486429; c=relaxed/simple;
+	bh=sbXhwiQL9w53zOdpxt2CejGm2MR157c+CewiOpxuzog=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fARaurAFkUMswl0nrgE9fuNwqo2ZiSe3mUwaw1bwMLayZ+4tlsJEsHtYATZamr5CHfsvcaHOu5QsXa2sErX6/kEulB/rzKP7MgFvbs6gkjuyuQrGC9LbkMbm4Rh9Mr55C7MR6K/GXZzKAE5/STLZwvCjgqpJp3VMqP8q2XVRYNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=philpotter.co.uk; spf=pass smtp.mailfrom=philpotter.co.uk; dkim=pass (2048-bit key) header.d=philpotter-co-uk.20251104.gappssmtp.com header.i=@philpotter-co-uk.20251104.gappssmtp.com header.b=QJVY3kzh; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=philpotter.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpotter.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mIkjBwUc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959F61F01562;
-	Sun, 19 Jul 2026 18:01:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784484096;
-	bh=njvr54StkxfZ8XkcM5OnI4fAQt6o3CAE0YSSri8GqcE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mIkjBwUcQgG2xRE7o6hCduNMyopQZFVWRbwYwtecOH5PwO9c8K9ymVpzXboXPo90L
-	 l80rIhEUrQNzQwteUxKd7FpTLTJZAthiKlmTAVFYyrJxsxqS2YwIXOrmknqf3T4Q40
-	 MthtLWwJvEnAhPP9ny4Drshg1v1zLPqoOxNKyeCbAUqR83CNEWu6eLr/HarF28vPvz
-	 M6VgSbRr3Kw9txleoXe1Fs7GmN30jiWVWWOYUGK/A8KYrDj3GVLDEW1VvnMKhR5nBC
-	 Vk18XcTwh4NtuR8m8cDw3KWRRkXYtBd/gIkeHNNKMxi3tDutHVsYpiAao2D/g+kBco
-	 RuxiC8cf/m+tQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Andy Yan <andyshrk@163.com>,
-	stable <stable@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] usb: typec: tcpm: Fix VDM type for Enter Mode commands
-Date: Sun, 19 Jul 2026 14:01:34 -0400
-Message-ID: <20260719180134.1055370-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071438-t-shirt-chest-a453@gregkh>
-References: <2026071438-t-shirt-chest-a453@gregkh>
+	dkim=pass (2048-bit key) header.d=philpotter-co-uk.20251104.gappssmtp.com header.i=@philpotter-co-uk.20251104.gappssmtp.com header.b="QJVY3kzh"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f785467faso79974f8f.2
+        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 11:40:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=philpotter-co-uk.20251104.gappssmtp.com; s=20251104; t=1784486424; x=1785091224; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cChVpYVXCl1uEl+yJutgaGgGYt1KXZ1V7q0HD0QVhgM=;
+        b=QJVY3kzhShWwSSf5YNWzrQ2h0mSYY/UFnXaojSDsA76yQAn81n8/TiVdbupDjXa5Ho
+         zeulnJ7LWfjKeD+ZaTFteF9NjmV6h2bSnPBYDD6GrTN3RbhwCSgpONioDnPCUhCb6dow
+         jJN30D8OWO2VFnhYCpLSJZYGyJ3vwwyxtQMcabrHc4iigdFDl/gmPCiB77arD3aFk3zU
+         zxyvsl1IgS0rv46xzZ1en20WTi6xS0b9fU4jw61fScEvDDn1ypA3DV/EN/jQcIaBnNgU
+         +6Cc55OHZ7rEIN8Mdm9dNaBQTcSnofCH4a5xny/709aH7Vb+y75uGdla2AWkALw3splH
+         0L4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784486424; x=1785091224;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cChVpYVXCl1uEl+yJutgaGgGYt1KXZ1V7q0HD0QVhgM=;
+        b=c7+4yyctwOmatpElPKree31SUPosGYm8GLTwyaHLGJoiFaX1zR4ghpP/XzY1HTrkEH
+         mERCFWl9R/BVivsS7C+NobpkPW81WLFe2nbekdelsCz2J0matUJjp4yR2DUrckf2GmO9
+         zBixGw1vFvvElOdpszqQu6BF/dXii+76iII5uJxFUEaCT1WZLMHdeEht0wAu2WIfovvz
+         HSqsFTlC0ZOTyEjnFdi6W5XnLmNMQ2lIP7b6ZG92yQ5O11Hkwbj0a3Q/ahTDM9+CbNpD
+         pCuACN3Mum95tQ16+r3owcmJ3RuZwo/LKLBCFpaBwhJycY2Aa0yMyMZTKGmwdWfqlcyd
+         r9CA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro5+THNySrG2sYgM92NeoFKGsOMeHmYtglPJbuUbP/69jZPD6PBYAfhvRjOI0RmOmEwpt3b7xg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBbw7FVZa29fe8mPFMx0oFIWWlM1zsiV6OrbLeuvGnnJoB4Wkz
+	xrdN5wH+o0oajdvLosGi0jIyxavAkHgJb20S+YGfL2RntGpL7vUBunAn08VuO8RWIGQ=
+X-Gm-Gg: AfdE7ckF/9hWwPDgspg8DmhYVaKPSXrEOifbl6iy7Axry4gNDsJDyExG26bv01HtoAH
+	+l31a/7DFhil0AQvbIFzdXGVGTM2K2U8RbprbfWEdwzRHvGLJBeFnlvS7GsZxyIywdizACkXmhR
+	3r8iuc8awLeabKel6AHfvoqh750XyVTdtLCxxDhr+W/8HAzMKkgxvayFytcElZ2DnVb8PctRp88
+	s1iDwcu8CELCpWzlYE3uPqyrbixp2ViprUzGkqmsemFToZoIo8WjViib+pw2WY6MDyQxhCQz4Mo
+	2JzEo12rcOjB+EkZArIlTIOhNrfSat/5cFwUZh8RwG+Rp4zgGZZlUC6XWfLJmHfXDmmo2KR7xan
+	3Ugzsevy2Wa/wQQxqvvt+ajisnGppvkXJrIuWoy157jCgtbA1mMfYtYAMHHGGzoXNtFzrdGooi6
+	hy6eVPjCYVdoSu8e3MfsxMdUOqcPl3C+pgcObcPpVvVcG0ZVAjoLPCwFUyVF8w
+X-Received: by 2002:a05:600c:524c:b0:495:4e12:6ae5 with SMTP id 5b1f17b1804b1-4954e126afamr107220415e9.26.1784486424495;
+        Sun, 19 Jul 2026 11:40:24 -0700 (PDT)
+Received: from equinox (2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.6.1.f.d.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:df16::2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4955de8895dsm22842685e9.4.2026.07.19.11.40.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 11:40:24 -0700 (PDT)
+Date: Sun, 19 Jul 2026 19:40:22 +0100
+From: Phillip Potter <phil@philpotter.co.uk>
+To: raoxu <raoxu@uniontech.com>
+Cc: phil@philpotter.co.uk, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] cdrom: fix stack out-of-bounds read in CDROMVOLCTRL
+Message-ID: <al0aFtSXRNqVpbAw@equinox>
+References: <461EA3D17ECF5C5C+20260713082013.3423808-1-raoxu@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <461EA3D17ECF5C5C+20260713082013.3423808-1-raoxu@uniontech.com>
 
-From: Andy Yan <andyshrk@163.com>
+On Mon, Jul 13, 2026 at 04:20:13PM +0800, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
+> 
+> mmc_ioctl_cdrom_volume() first reads the audio control mode page into a
+> 32-byte stack buffer with cgc->buflen set to 24.  If the device reports a
+> block descriptor, the function increases cgc->buflen to include that
+> descriptor and reads the page again.
+> 
+> For CDROMVOLCTRL, the function then builds a MODE SELECT parameter list
+> by moving cgc->buffer forward by offset - 8 bytes.  This drops the block
+> descriptor from the outgoing payload and leaves a new 8-byte mode
+> parameter header in front of the audio control page.  However, cgc->buflen
+> is left unchanged.
+> 
+> With a standard 8-byte block descriptor, cgc->buffer points at buffer + 8
+> but cgc->buflen remains 32.  cdrom_mode_select() therefore asks the low
+> level packet path to write 32 bytes from that adjusted pointer, reading 8
+> bytes past the end of the 32-byte stack buffer.
+> 
+> This is not hit by CDROMVOLREAD, and CDROMVOLCTRL only triggers it on
+> drives that return a non-zero block descriptor length, which helps explain
+> why it has gone unnoticed.  The overread is also sent to the device as
+> extra MODE SELECT payload, so it may not produce an obvious local failure.
+> 
+> Reduce cgc->buflen by the same amount as the buffer pointer adjustment so
+> the MODE SELECT transfer covers only the intended parameter list.
+> 
+> Fixes: 3147c531b6b5 ("cdrom: split mmc_ioctl to lower stack usage")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> ---
+>  drivers/cdrom/cdrom.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/cdrom/cdrom.c b/drivers/cdrom/cdrom.c
+> index 62934cf4b10d..4f1fd389260f 100644
+> --- a/drivers/cdrom/cdrom.c
+> +++ b/drivers/cdrom/cdrom.c
+> @@ -3187,6 +3187,7 @@ static noinline int mmc_ioctl_cdrom_volume(struct cdrom_device_info *cdi,
+>  
+>  	/* set volume */
+>  	cgc->buffer = buffer + offset - 8;
+> +	cgc->buflen -= offset - 8;
+>  	memset(cgc->buffer, 0, 8);
+>  	return cdrom_mode_select(cdi, cgc);
+>  }
+> -- 
+> 2.50.1
+> 
 
-[ Upstream commit 9cff680e47632b7723cb19f9c5e63669063c3417 ]
+So I've looked at the patch and surrounding code in more detail now,
+certainly seems correct to me - nice spot.
 
-VDO() second parameter is VDM type (bit 15): 1 for SVDM, 0 for UVDM.
-Using 'vdo ? 2 : 1' corrupts SVID low bit when vdo is non-NULL
-(2 << 15 = BIT(16)). Enter Mode is always SVDM, hardcode to 1.
+I can confirm I've build and boot tested it too, and for what it's
+worth, I can still set the volume correctly with a simple C binary I put
+together.
 
-Fixes: 8face9aa57c8 ("usb: typec: Add parameter for the VDO to typec_altmode_enter()")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Andy Yan <andyshrk@163.com>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20260604105059.18750-1-andyshrk@163.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/usb/typec/tcpm/tcpm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+One thing however - I don't think your Fixes tag is correct. I went back
+and looked at this commit (3147c531b6b5), and the problem is still
+technically present even prior to this refactor, all the way back to the
+initial Linux git commit (1da177e4c3f4).
 
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index 60bba8501532df..d0e5bc1433e70f 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -2226,7 +2226,7 @@ static int tcpm_altmode_enter(struct typec_altmode *altmode, u32 *vdo)
- 	if (svdm_version < 0)
- 		return svdm_version;
- 
--	header = VDO(altmode->svid, vdo ? 2 : 1, svdm_version, CMD_ENTER_MODE);
-+	header = VDO(altmode->svid, 1, svdm_version, CMD_ENTER_MODE);
- 	header |= VDO_OPOS(altmode->mode);
- 
- 	tcpm_queue_vdm_unlocked(port, header, vdo, vdo ? 1 : 0);
--- 
-2.53.0
+Are you happy for me to adjust this therefore? Assuming you are, I'll
+pass this up for inclusion with the adjusted Fixes tag. Let me know.
 
+Regards,
+Phil
