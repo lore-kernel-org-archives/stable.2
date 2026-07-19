@@ -1,60 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EC439D6D5;
-	Sun, 19 Jul 2026 15:00:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D86139DBE4;
+	Sun, 19 Jul 2026 15:00:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784473242; cv=none; b=rqnslDuMASLEx2rPSpy7N0hGvwfB/faImnlkcwbIfM/EZQJZfqBmd0a8qreMOQszmgCF62ekc7q0xQGaVZYDUQ7EpuBxB9Tns6KyEl6QAtBhoGVvAnG7u8kYHQ+sV94AE9qfw7SUetNljmckIvzRz8HjvFNr78XqZZsX05qKuRk=
+	t=1784473243; cv=none; b=UYuYwwOE4AbOTqBomyDoSxZ5t3gGNfeC9R+P0g58H8gG2kavKz1G3WKF7lEja6zEdSDx4N46Np0FF1dYiolkZDDyhLjLnnuXmSTflssv2LnO+OVaqZFnqjxhTTQCOYfqnaeN+oOTama5AgtkfHjJuCSM6o43hTRQhvqrlpEBCOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784473242; c=relaxed/simple;
-	bh=dzRHrn1Mo4qXkLAXXkoAUi+Pwn0y5RhauZYHKoQtb+o=;
+	s=arc-20240116; t=1784473243; c=relaxed/simple;
+	bh=tGhN2uV1WzLAahSp0Hy4ZQaAuCy6aDgfirOiN0tGWXs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BJ0C3IXEi0Nvn3XLbAH4dHg9qmHpP2iSFmq3rFVpST3E4koGmZr14lT6BsdnWbMs1LN4yZmHxAM5urkYz4gJKAroBzBBq5MxqzE6VNibt5YjOY+F9z+egYZjB6InWYRAuzhDu5K6Xo0fmufL63ftJYiO6tyfKtttMGobOtowoUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k/uRUoLv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cc7zwPfs40N4NFLyEKx4oagzBqyk8o4Mv7QUiDZCCJUyFD4JJsEDDZN2DkKxqxvOSI1jZm0S9f76OYbk9mnboME8I+GkZCVwxCbWO2sm2W3Vz3X8t76djdTGzD076lZusEnJ0vsX/WDUJAXv50A8lFYeHr/tlEEwUYWUbTfOr0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GZ0+ajDd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k/uRUoLv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079E71F00A3A;
-	Sun, 19 Jul 2026 15:00:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GZ0+ajDd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F591F00A3D;
+	Sun, 19 Jul 2026 15:00:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784473241;
-	bh=ii3cTMtCWqWfqA7E2ZcVF3XDG7sonjvGyWKO3WM070Y=;
+	s=k20260515; t=1784473242;
+	bh=WpkD8MQKrC+jDmbGLobs0i4G1Ax9jQZbVYzYuUo8JNQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k/uRUoLvPuQv1ddZPvs7mK/oy69Vz8yTp3YspCc0z+53HF1uKrpQQ1GtP38B8dglI
-	 pkb+UiJntIQW3jiIFxypDbPkr2F7c5uRhxBVirny7W968AdhU2l/8rfx2Ko5qHNKXe
-	 S7WtcJAft7qNBhtvDoODxF45nW4CUMHX0jEbExBcQRt4cqsYEDaDm2kC9FdQVMw8fM
-	 wJvGL/YgrLtKQM1Sz74a2jXr5Q+AsNIrFcURqrT96vFZoZ5YSOQhuYTE7MWy5WslP1
-	 f1HIxRgQBdV81yak10xez9u7AcxRxuVacLSnM/NmaG4RvGy1PAZpeyv0Pay0bJmvs0
-	 af2RSkuC1tM4g==
+	b=GZ0+ajDdZBVVDxM/Z+FsKyfH3QIBYzg8xeIngpYR4Jiry229cVCI1X8AV0YNwbQN7
+	 4/t2HvEYfFGo8AUnGIcKzYsT1ZPuknXpBEglT/iOwPHMuuWlUNWlig0+SlApo0E07I
+	 yhGQF4R1MKw4Bhi/Wz88BgkCZMhVmu7nBo2JexHicBhc6IBeEiLLegdk6EFcX2fQ4o
+	 G7gK3OpE/rna7M0xu+3BXwnQgxZGOBOqmk/wrZXFmSujp+nHTGJuQ6v7NH7Pb4K4pf
+	 0rrH7zMfVBBhOG7zua4TcsAGTKD2pQ8kh/lXsIMHxkN269qNYf6MDeT23htlfTlg3J
+	 66tILWBPcwVaQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Alexander Martyniuk <alexevgmart@gmail.com>,
-	lvc-project@linuxtesting.org,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Arseniy Krasnov <avkrasnov@salutedevices.com>,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Maher Azzouzi <maherazz04@gmail.com>
-Subject: Re: [PATCH 6.12] vsock/virtio: fix zerocopy completion for multi-skb sends
-Date: Sun, 19 Jul 2026 11:00:15 -0400
-Message-ID: <20260718192718.0001-stable-reply@kernel.org>
+	Eric Biggers <ebiggers@kernel.org>,
+	Taeyang Lee <0wn@theori.io>,
+	Feng Ning <feng@innora.ai>,
+	Demi Marie Obenour <demiobenour@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Subject: Re: [PATCH 5.15,5.10] crypto: af_alg - Remove zero-copy support from skcipher and aead
+Date: Sun, 19 Jul 2026 11:00:16 -0400
+Message-ID: <20260718192718.0002-stable-reply@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260716163600.115458-1-alexevgmart@gmail.com>
-References: <20260716163600.115458-1-alexevgmart@gmail.com>
+In-Reply-To: <20260717033403.285821-1-ebiggers@kernel.org>
+References: <20260717033403.285821-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,13 +50,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> When a large message is fragmented into multiple skbs, the zerocopy
-> uarg is only allocated and attached to the last skb in the loop.
-> Non-final skbs carry pinned user pages with no completion tracking,
-> so the kernel has no way to notify userspace when those pages are safe
-> to reuse.
+> The zero-copy support is one of the riskiest aspects of AF_ALG.  It
+> allows userspace to request cryptographic operations directly on
+> pagecache pages of files like the 'su' binary.
 
-Queued for 6.12, thanks.
+Queued for 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
