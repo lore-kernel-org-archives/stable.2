@@ -1,96 +1,78 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD120312832
-	for <stable@vger.kernel.org>; Sat, 18 Jul 2026 23:50:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316BE17D6
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 00:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784418609; cv=none; b=YgmyXYfA/35eSVr2lkB4Oe6XbdL5AYl2dzSlIlJGOQEaSK1hGyM3+ukVwOWKdcXjQCdHUzlxLKOtdRdvZ3QbewWEWsgx+rT3v6HeFh2ievWQm+/yQSjLMBuEemn+K+OjkEjiWlRRZGXzc/VF6HyffgsjYGd1YjDupE2bhlyCIV8=
+	t=1784419738; cv=none; b=UGgulTEzvRdub+rg+F9azrxOyhwXEVNVunkHweeupxmIGnlB43YxdFN2fvuCMsXITk4+DidUzWeNsDlHJetIayxN+7/t2KLdFNm/uQgFv8Xku2s2+rICR7FMpNEO8FmX6ENeWDMVjmN10mSUA/FG3tb18C/wwcjg8crBYY6GtcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784418609; c=relaxed/simple;
-	bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Eii7O+82MnnxsBybXoQq8+VX2IfpzWsgxljJ9DRCO92hKy1AgFo99lCV6oRydXcIM1dfwxmB/VvhW9BVoSPBFsjfCPk+3LkWkWUDIcbqFMcH9LuZifgQRSS6vLfw5RR/OrWJe14ssChcKhc9oyEUJw9lq5DulMGZ7Z+riICt644=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iH9mkNTY; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=TJORIRuM; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784419738; c=relaxed/simple;
+	bh=7D8/SUNsLqJeWmAc6/7M650HPOnCtrqgAwDdxP/Awdo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XDtW/wunH4rU0u4Y6VrlHe15tTzpe/WBS2uWiWD/6jxnIvKurcJ2tNFAQRIx+1tZrQs5plaHxNym1zoR8yJx/AVFjRSkEluAcsr4cUim7aeVvcHQsg5N0euGR745Q+Mk5eRMvawU0j6fo7VpVPRTp61ZFzmoCu7SLxyWOiyJ5AM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HAev/fB0; arc=none smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iH9mkNTY";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="TJORIRuM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784418606;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
-	b=iH9mkNTYSPoGbD08Lhq3f/+b7nwIZ3Y/xxMJPbtBfRfyiqJlYM0n5aXCj+OryKQWFb22Tp
-	Xsz3SSjOkciUluVQI366pvZ7XJZO7K7ie4oTJlbxRcLeilFl4sr1UWL+cyYARgzRh5Zkyf
-	X1icpm7ZTMMzLotRCucEj7dkHrS1axE=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-412-2OifyfVgM22mieano5gQ2w-1; Sat, 18 Jul 2026 19:50:05 -0400
-X-MC-Unique: 2OifyfVgM22mieano5gQ2w-1
-X-Mimecast-MFC-AGG-ID: 2OifyfVgM22mieano5gQ2w_1784418604
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47f6d70223dso456639f8f.1
-        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 16:50:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HAev/fB0"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b021916bd3so7999466e87.3
+        for <stable@vger.kernel.org>; Sat, 18 Jul 2026 17:08:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784418604; x=1785023404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
-        b=TJORIRuMuVR/PM0iM+dcZxxBrlNGfDjBcwKV5iBI4PkjKFC+1lrdtKhfrkVS1vSfwU
-         SID28urmvB6F8hZDVUqt92o9fmQVTINb3WUeoG7CxSS7ATz8F6dJhScHwlcriVrtXKlM
-         fyQThVeABicyIaej+mFOzNGUa0r7j1AymCGx/CfSaa+hsZAa8kjsKo3GdCeFHJBh82LS
-         iFq+jyOJONXXPzCywV2ldl+4lnzyreoFwXku30MOBBLBIvTpWKEdL1h8+7Q+r5hkwJxz
-         8ib1Yz+F8Gt1xHRXQ+afoWafuuq3t9hMzm1Rwy0Ucm+nzxaDq3IajHrggn5GYrW07Ri+
-         jOEQ==
+        d=gmail.com; s=20251104; t=1784419735; x=1785024535; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V3noO0sro3v6wdXAQL9ZZ57Lcl83tArU5b36o7WZkR8=;
+        b=HAev/fB0kBpxx5GaHOp3B9ae33qHPRuRa84ShYV1ZHuA7nxmbzxQZq6EY1Z1Z1hLrg
+         dI4xxNsX4E1VsPYmOBM0RM8Gj8nswZ45qWaZBlYakDRuR34kop39dfagaXu+RU2s/DdA
+         9TazQQsswYgNAN04ApAD7DN7uI7qIKubJugSdkv/S3gJlxvcU3MHcqF4nB6Cos1Lq3oc
+         JHl+OPTGlwKqc3Es6hQG5pUxGs8SWP+Est+3d4yIPN0VncIqTpYtjITY9+3GI07cOIHI
+         iv46o2qAvONIbz2vGX1quoLre+dS3McElK9iDPHjYYK4zyerpn+1EEkXY2Os4cFF/K02
+         RqIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784418604; x=1785023404;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
-        b=X9+oeV1Bsoxuf977KNwI2B+Hoc0Ve1p7bx0JO5D6iJ6M8BVh+wTkcTkrZzfSwqPfdJ
-         fc4K+hsRDvDH8CkoCXfYJ1bpEbYeLbWC/9cPtho+R9w47j8UGXz6tvG5HjINlroJHMlP
-         RchpzzLZFx11WN1y58/zUvVjxEa2yKEmKXhoTl0a1zlhdWpblNiPtN4IEustG3vbujnE
-         HKSdPRT7++2NOO0ZbK+WetoxFJjW93z5ft9gUIP5GuOxBwImC0VSisVd/mXniL+bG6yz
-         AlFVm1aWWlDVVjvCx65g8t9MiBTOXK30qHKNRwuewUQxZdGCALnnObkC4DK6hR7rZ8pl
-         BWkg==
-X-Forwarded-Encrypted: i=1; AHgh+RrIwaDHZmBxdD17HwFKnZ566A3Ri8+d+IE1e9kI7b6jOrmR/ZSy/QSBv1XAh8AsefCJQ8gmA70=@vger.kernel.org
-X-Gm-Message-State: AOJu0YynVv7vlyj9vm1R4kd4KgC0IQZoQuzJ9jHGNKbScvNO48HnBvWH
-	7mxOeBtOU0sJVL6eRhTVOx/NYiX77ZpkJZli0+Sx3pvak+HJJ6L9BxlPq0KLTx6xEVDWi79UdCu
-	e3fNmt1sX7p5D3GwX8iQSoW7PY/2anvvyj6212w0GJuKSCC+rCSPvwCy/qg==
-X-Gm-Gg: AfdE7clMc8T2T/QrxSWDm+YLclRx+62VsL8fgQSk0TnOYw7nse5rl56ea8cnQvpWSeO
-	enLp7Ttoa2FJJdzyoESploZMv9jdO2JmkO6kZfQ2cW1bGdpmOa3Mg08DNvIGRf8+IhAx3AXdSzy
-	VzLo80XDI3qqv0muJ0hVfBdVf3lkoVArnc9oFwazZzir3/wWxCxtZBJPrsyVMpON4eaHTnIsZ4g
-	AgPLZpvsE1qmtut+6PzbwgToZW39UOUGH7boWPzIFr44jEBnGv265ME96PEOCLgZ6vi3H64DYvo
-	CC+zU9urwvi1WNUe4kKSEwPqq/Ec9rqM8i2V1BmkzKBncSOn6pUeAvE837lLdk957X79EivMflE
-	ZkP1NVniaW4U04vxtq1FNvTbBzMhMiAuW+sBrSzB9htIpXccdZ50EwppSiJvZLH1kAhFeZJzfAv
-	wkk4A=
-X-Received: by 2002:a05:6000:3113:b0:477:47c6:36e5 with SMTP id ffacd0b85a97d-47f6230dc46mr10589675f8f.25.1784418604216;
-        Sat, 18 Jul 2026 16:50:04 -0700 (PDT)
-X-Received: by 2002:a05:6000:3113:b0:477:47c6:36e5 with SMTP id ffacd0b85a97d-47f6230dc46mr10589655f8f.25.1784418603681;
-        Sat, 18 Jul 2026 16:50:03 -0700 (PDT)
-Received: from [192.168.10.48] ([151.95.47.37])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e52f81sm16841322f8f.9.2026.07.18.16.50.02
+        d=1e100.net; s=20251104; t=1784419735; x=1785024535;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V3noO0sro3v6wdXAQL9ZZ57Lcl83tArU5b36o7WZkR8=;
+        b=iFkGxSfn6GRyASsOYtqKDZ/6pyrz0mYEs/jV7wRplGLPxjnVCqcF2rLAwox79pSoIQ
+         U9y4ILw/MK0b/Tjf3BJ7Gbv2zzC0ieMk+epGh5KEsj7j83mAOqBe4FyDbu2N+AZkZwW8
+         u+O810xfc5hFryQNLr+S7771f0QtFgyJamq5BUzgtcSqldHA0dBaDwPTo4A6SyFLxri1
+         UcOGhEruWNQbSxgksDr4guARBlXW/xS03YtJvVmRHrwzFeb13JefJyOXDxNaRFjkxgZ1
+         t7wxZ1fcVoGYDV91lCFZa6nqNcIgaiiL1oF+EYver3p5vRtQYRbluIlJQ7Omnu9RA2fZ
+         ilbw==
+X-Forwarded-Encrypted: i=1; AHgh+RpAtTTrY17DcTds6uQWELda6oAQpVejKKXnVBzH8L+go71/pImE1U3R7pUleLBMijyAB2FjKgQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/1tMW/K9hz1f3b8TVaXATtvx8TU65i0NUzuK1hNGjhy0l2lvr
+	UgPYMb4+Q5rF97V5ZNMnm00H2q8uivIR3j4Po5RKLvXpcpGiM1MmHZSZ
+X-Gm-Gg: AfdE7cnK/pM2hGW8v16bvo7IXWMddVdfXc5VMOMLGaefzc4xr6o7sW7tf1MkmPg6eJ3
+	jm8C8AlxWQraX9KOQXA3je5dVm0MUeqmsH/pNxmu1bTdJKqtDSuA7A4V2MWZ2cUan87GRgBlxlA
+	CvGk09C4KEOpn+9cQx/duTN/Mk5HeBBexhixzu4MDbODSnQHSIPmm7wF1IrYbsaZ2tbw+bgVXX6
+	680sJH1U7Gn8WOnx6wNIGNI0P+3YJ71FE7Dg7bq41FxY+EMywztos5FazNycKI0Sb2qZoU2lQYf
+	JXcPXFFoVpsRt6Nktjp4lN7cAYEgVpExHBGLVb3G+NFg1g4B4eBmOlocv4KyctUbosMByF1VUYX
+	ttYfaf3a+smI4mIRZBhy9H6E2nzhWeWRCnaDrTktbHCPg9rQjF24qwFLjOWm5cZwYvuZxu2XBpp
+	szrQWKNxwQ6AYPGmtxLztyxAn7QSBuWYm9x6AkNwYA/gvPl61LDAI5oppo/UmhrpBFP2BjXoYzr
+	A==
+X-Received: by 2002:a05:6512:15a7:b0:5b0:215b:5de8 with SMTP id 2adb3069b0e04-5b28fabd8f0mr1772058e87.64.1784419734986;
+        Sat, 18 Jul 2026 17:08:54 -0700 (PDT)
+Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b291e0eaccsm1324841e87.38.2026.07.18.17.08.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 16:50:02 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: Phil Rosenthal via B4 Relay <devnull+phil.phil.gs@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        Sat, 18 Jul 2026 17:08:53 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Kai-Heng Feng <kai.heng.feng@canonical.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Rupesh Majhi <zoone.rupert@gmail.com>,
 	stable@vger.kernel.org,
-	Phil Rosenthal <phil@phil.gs>
-Subject: Re: [PATCH v3] KVM: x86/mmu: Fix use-after-free on vendor module reload
-Date: Sun, 19 Jul 2026 01:50:00 +0200
-Message-ID: <20260718235000.50192-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260718-kvm-mmu-cache-uaf-v3-1-e103b93c74e1@phil.gs>
-References: 
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>
+Subject: [PATCH] iio: pressure: dps310: fix NULL pointer dereference on ACPI probe
+Date: Sun, 19 Jul 2026 03:07:52 +0300
+Message-ID: <20260719000752.75936-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -99,7 +81,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Queued, thanks.
+When the device is enumerated through its ACPI HID (IFX3100),
+i2c_client_get_device_id() returns NULL: the ACPI-derived client name
+does not match the driver's i2c_device_id table. dps310_probe() then
+dereferences that NULL pointer in "iio->name = id->name" and crashes the
+kernel during probe.
 
-Paolo
+The IIO device name is always "dps310", so set it directly and drop the
+now-unused device-id lookup.
+
+Fixes: 72ff282819d0 ("iio: pressure: dps310: Add ACPI HID table")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+---
+ drivers/iio/pressure/dps310.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index f45af72a0554..45bdb8c7670f 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -845,7 +845,6 @@ static const struct iio_info dps310_info = {
+ 
+ static int dps310_probe(struct i2c_client *client)
+ {
+-	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+ 	struct dps310_data *data;
+ 	struct iio_dev *iio;
+ 	int rc;
+@@ -858,7 +857,7 @@ static int dps310_probe(struct i2c_client *client)
+ 	data->client = client;
+ 	mutex_init(&data->lock);
+ 
+-	iio->name = id->name;
++	iio->name = DPS310_DEV_NAME;
+ 	iio->channels = dps310_channels;
+ 	iio->num_channels = ARRAY_SIZE(dps310_channels);
+ 	iio->info = &dps310_info;
+-- 
+2.43.0
 
