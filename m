@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD05277818
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 14:16:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2B9330B07
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 14:26:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784470597; cv=none; b=KSQV02gMNur/s53+hsNfDeXlfCTS+wnTF6y8sS/BTSrP482fGBIqxIBjJkBc4eWy1nmhDv2tZ8rrtgyb+E+KTOHhT+H9o1UtcujMYDH44aNNRgQc4bCm5XSeHBAgEEgBV17YNtSfMgPgPWLm5RNA5u2vLWisBFxabRkcGj4Dwg0=
+	t=1784471182; cv=none; b=SGwP7IGC+y1dA0KEDeadK0/Wuh8pjqHBl+GfI9sZ5gha/ReK/JyK5+TxwE1LLPno5CO9MUWBl5sG69Ky4H8qNBmWB+7/PgvKR5GWyzMj29YGLPHlgzexV8aPlSrwNq+DIYEeX7spah5vuCCZLzcQgw02Yx3RFn1XM+DVGdePS6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784470597; c=relaxed/simple;
-	bh=1H7ZTeS6jkKVPK1zkkqD+EGX9mtvMf9/RAjVG2cBM0g=;
+	s=arc-20240116; t=1784471182; c=relaxed/simple;
+	bh=8cIi+CHThbw47GFMvG4HK0rdvLyHFifYjQsQciQwd0c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pnhVJ0pmBbXHopBUcnBfXW545/tks5SZDBzOZrt+YdWVCgj5PCMUPs/WUqNr8t5VqT+sdxiHrQcfPymSX3n8218usl0Z6aVhCBTg2DZ5iFbaQYIqfJk+Mk94UHzabjqD5mIAWSe8Jhsa87zrkASyBWB4F3+tAiZhUfdTXU9pMos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bHSJK8ub; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NH++rw8+lg3PjOuhHXYdSNSRn0eEw5uzP6AF0rgTEsN/gge4S7nrmEzQqT1nfycYLDDExTZsX9fD962PDk7FMXZH2e7QtHN+sg8iUDxEbxm9pYqkOyCTuku2aI58mUSiDQ7GLZZ0qs8SARt2SXcB/d4OEyxqhyNghj4M5CTn+e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QbVyKSqq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bHSJK8ub"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7385B1F00A3D;
-	Sun, 19 Jul 2026 14:16:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QbVyKSqq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D331F000E9;
+	Sun, 19 Jul 2026 14:26:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784470596;
-	bh=Pd/3OVTiBG2e9czHFOg6FSliqt1meumjK0aBX/unJqk=;
+	s=k20260515; t=1784471180;
+	bh=HCmDfcUKJ7MSZlTG84s3vB9F8EhiMn16iZxcFNOJy94=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bHSJK8ubfEKqL+1rcNlqpQ5m9E+mKVNU1B8Ovl/vyIIuNErn2YqKMcJGvfPIH7fra
-	 WDBeI+vIzkESxIWJDN2Zo0qWmbO6nPLaidpmOci2vxncZrjT1eibWD9CxhNcjx2E1B
-	 L5GpPhGlwh/4geZ1EXBQsJVMKQSwvFMWHG+MSt3bqJ8/MtdVKHOhEBln+GP10G8olY
-	 IGj/nX/RUrVt7JCgVC6OmK1yi51X/MvPm+3+ciXH2EVeP1aUwmgeYRRRLVQZM+uR74
-	 RKAge2Gt2t5JTOGJOtYZiTTZ8qSol7Vyf5jbqNE774n0trqmy72rA7Iqe3DfqeRMoV
-	 vm1pKEoQb4MiQ==
+	b=QbVyKSqqP3ZXIPMRIpOPx2GFM9I+BOLv6AahCKMVEI0J+A075V/35Jo6SmEpjEPu9
+	 6rQBjbFlOerKxKapO1wtCmJdP5rUQhgADIXsrxLvTuSIbVN1V+SEOnBGCbsMqz5wiF
+	 nv8CpdoEutRhKj9lawcNQwEzPL4bs2w6Wqq598TC9lKZuwX2FiSGAyr15hKaZaukRj
+	 DQOr5XEUJKTdxswIgmQDltaYa2EaGnegEJHGGlc3MdTUMrXLy9yGscJWwNukp1m3p9
+	 Ow2FkauWdij3hz8nRDpljkPl3IMY0uN/v/+jpMhNXGp9k/e9aNxvQDGtJEgrM7gAXB
+	 yIbtC4mIJjeMA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xu Rao <raoxu@uniontech.com>,
-	stable <stable@kernel.org>,
+Cc: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] usb: gadget: f_printer: take kref only for successful open
-Date: Sun, 19 Jul 2026 10:16:32 -0400
-Message-ID: <20260719141632.4057531-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] usb: gadget: function: Simplify diagnostic messaging in printer
+Date: Sun, 19 Jul 2026 10:26:17 -0400
+Message-ID: <20260719142618.4094375-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260719141632.4057531-1-sashal@kernel.org>
-References: <2026071412-chop-overreach-6861@gregkh>
- <20260719141632.4057531-1-sashal@kernel.org>
+In-Reply-To: <2026071412-palpable-underuse-1c58@gregkh>
+References: <2026071412-palpable-underuse-1c58@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,43 +45,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
 
-[ Upstream commit 30adce93d5c4a5a1ec29d9249e3fdfcc391d406b ]
+[ Upstream commit 57b7b733b1a7aeab25bc2670afff608214284863 ]
 
-printer_open() returns -EBUSY when the character device is already
-open, but it increments dev->kref regardless of the return value. VFS
-does not call ->release() for a failed open, so every rejected second
-open permanently leaks one reference.
+Don't issue messages which can be easily achieved with ftrace.
+In case of printer_open() the return code is propagated to other layers
+so the user will know about -EBUSY anyway.
 
-Move kref_get() into the successful-open branch.
-
-Fixes: e8d5f92b8d30 ("usb: gadget: function: printer: fix use-after-free in __lock_acquire")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Link: https://patch.msgid.link/80295742B820DA9B+20260626064617.4090626-1-raoxu@uniontech.com
+Signed-off-by: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+Link: https://lore.kernel.org/r/20221123110746.59611-1-andrzej.p@collabora.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 30adce93d5c4 ("usb: gadget: f_printer: take kref only for successful open")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/f_printer.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/usb/gadget/function/f_printer.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
 diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
-index 6f995b87aa5743..fe87f551b8f30e 100644
+index 728cb9702d5a99..60e833bd75f8e6 100644
 --- a/drivers/usb/gadget/function/f_printer.c
 +++ b/drivers/usb/gadget/function/f_printer.c
-@@ -360,12 +360,11 @@ printer_open(struct inode *inode, struct file *fd)
- 		ret = 0;
- 		/* Change the printer status to show that it's on-line. */
- 		dev->printer_status |= PRINTER_SELECTED;
-+		kref_get(&dev->kref);
- 	}
- 
+@@ -365,7 +365,7 @@ printer_open(struct inode *inode, struct file *fd)
  	spin_unlock_irqrestore(&dev->lock, flags);
  
--	kref_get(&dev->kref);
--
+ 	kref_get(&dev->kref);
+-	DBG(dev, "printer_open returned %x\n", ret);
++
  	return ret;
+ }
+ 
+@@ -383,7 +383,6 @@ printer_close(struct inode *inode, struct file *fd)
+ 	spin_unlock_irqrestore(&dev->lock, flags);
+ 
+ 	kref_put(&dev->kref, printer_dev_free);
+-	DBG(dev, "printer_close\n");
+ 
+ 	return 0;
+ }
+@@ -868,8 +867,6 @@ static void printer_reset_interface(struct printer_dev *dev)
+ 	if (dev->interface < 0)
+ 		return;
+ 
+-	DBG(dev, "%s\n", __func__);
+-
+ 	if (dev->in_ep->desc)
+ 		usb_ep_disable(dev->in_ep);
+ 
+@@ -907,8 +904,6 @@ static void printer_soft_reset(struct printer_dev *dev)
+ {
+ 	struct usb_request	*req;
+ 
+-	INFO(dev, "Received Printer Reset Request\n");
+-
+ 	if (usb_ep_disable(dev->in_ep))
+ 		DBG(dev, "Failed to disable USB in_ep\n");
+ 	if (usb_ep_disable(dev->out_ep))
+@@ -1205,8 +1200,6 @@ static void printer_func_disable(struct usb_function *f)
+ {
+ 	struct printer_dev *dev = func_to_printer(f);
+ 
+-	DBG(dev, "%s\n", __func__);
+-
+ 	printer_reset_interface(dev);
  }
  
 -- 
