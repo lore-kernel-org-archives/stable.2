@@ -1,189 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7C316A956;
-	Sun, 19 Jul 2026 20:18:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784492339; cv=none; b=jQMHyFlaHc7EI/Q2r5s4EP5PXitiD/yNsYIDLJ7PzGMxk/+iIXeqycsE1AxQ+2PnU7KTUGgMFg1M9/ubUyM/3z+pL4QgMXVZJtBX1VLJZUZGn7m6HbtQTrTmnnvb0e8AkDgS4SCVzORg4s6R93njGbOU1xgJBW++L+JE+m2pQBo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784492339; c=relaxed/simple;
-	bh=thVtydnaWoT8dmenlclZXGezzqGziGmuZyJmX5O7ieY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RyQLrpumJaeIzZPsi+7GqWb+FSoD5JL1F7WWbAmZKrQJljd8q1xNv6uuRLABtR+juPZuKmw/igNUoCn6A1mHCkCP/p4kI+jkPF5TPFbIAEjboDB7FvCJxUqscTt9mlCY33qIobBp4jKM4mf8dQhGAWZefe+i+hfRrDD8h9igfaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=onar85+4; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885222E92BA;
+	Sun, 19 Jul 2026 20:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.219
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784492424; cv=pass; b=ZwwKniIZZFVTehSciSE2Ac+0f3i1+wIilbpP2AMfF2HM4DvroLyfi1zAWUaTgHlzAVgHaVCme5R7Ugetu8a2bnzgnyXiXhkjQmnpIHyqxY6cD59fjEBOIYGymjKXAaaNFKWlMztmtVCl7ttdf7utQzdNnT+tv/a3VsVnCVYtC6Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784492424; c=relaxed/simple;
+	bh=kKlQiAmYKfNPgF+zFR0/vyJuTZHscc+/RcHIOIdYaWs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=joq7A/JBzguLiXYLCPK3AKOzfhfRrZWkYF9omtaNDzpgKYhPRg4i7ZmorYNXfVBgV0HlNzJN5pnQ/wI9CoOf2M5uWidItFfM2I8S6N7cl9r5IyZml1ugPeS4+xqzglt86CNZ0KCs364HTteOQ2OW/SZdf3q1XzwJrvF4Ck+SeXM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=bNxiirRN; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=+fljUks5; arc=pass smtp.client-ip=81.169.146.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="onar85+4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5F662C19425;
-	Sun, 19 Jul 2026 20:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784492339;
-	bh=thVtydnaWoT8dmenlclZXGezzqGziGmuZyJmX5O7ieY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=onar85+4FlH7TPpgF0ZHjBrBDAcfCup/5dd3t/t0dzGVmtdHrw6fCHlnwc77NEUCQ
-	 MPlrg2YdNsUyEO4tzz4H8GQYAOvRhicHhjkPTNbP2j2nxx7bWIb1N4Ysxxr/IXCDS3
-	 K6WLhqvH1viyB44VHRNMSDsStSfe+S/W6QcyK4SCxPSRhf8tENCzZ5IZ/6Cz9Z21Yn
-	 lbB+oe/eg28woAdGdjdmxFCgP3Neg9a5pOvxR7jVv2apJdRVBeARQLoSPFBuQZhcHR
-	 i5wqCQSju/XHlJpZtb3QriVx+FQ7Oe17hMT30/co0qAEpf7XL9TLN9egjvbpvoHoQg
-	 9/1uas6aHR9eQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AA00C4451B;
-	Sun, 19 Jul 2026 20:18:59 +0000 (UTC)
-From: Phil Rosenthal via B4 Relay <devnull+phil.phil.gs@kernel.org>
-Date: Sun, 19 Jul 2026 16:18:56 -0400
-Subject: [PATCH] KVM: x86/mmu: Skip rmap aging when the rmap lock was
- elided
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="bNxiirRN";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="+fljUks5"
+ARC-Seal: i=1; a=rsa-sha256; t=1784492403; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=kjVIf541L8Bu1M8hfqi0BuYngxoSzPNz4X4lFdSyhuzQCoYzfvIdtR2bvBMhhAuciv
+    CaqELYbIS4hZ2/t2c9Y8JaQ32oRcXGC15Rq6wNqqUgLRcv7p8hDh6K4o2QY+mo1q8F61
+    hdsD+xkbVlfeX3ZkaxMzKygyThXe7auHSruPHS+s9rb5eo54oNdrFJZnovwgeKFHnPaW
+    SGXUB4y3CCf39wyIkl7oTAGv9PbXx0/mtmZqxcTtZmUO39Dlnj0Zq6MdHrXW2qlR9r6e
+    +gfGk8lJV0zDPg4DhCeE10CNDkdEp8vGtpeALl7PuvFYfwTOhJRQGfveGSZ2ZMtJvqRa
+    HZ9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784492403;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=DGeEX502BY/Q1+XKpGRmjA3rFXgEQE6RwfBgPXI9uLM=;
+    b=JYV2hlV426VF83I54/Y/3Kx7GXywZjEgqejrh96ny5QIudeteZPEml0LtgZxQ2V0hF
+    mlCPKaobxN08gOAnT8LoCHQlufMgrLA7IUdRbZRH9XmFFJvdypRkjS7qswghhceRI6k9
+    exI/9nIcnYL8EZ5gZ2vKT8t/0AjAW8KrqgEftnLP9at55vOj2NdsoX/M/ifuttOP6PCe
+    JqRwSoVBvzr2w7g1M9C3syECPgzvMN+xj8nXNthV7fEMDYH6K+AIaO3biGEN0gOMRafX
+    6a78ksaXSumd0+okDSN/2BtrORw8nOIS0Itek/jEoUp79STvMBEOXzA5+PVDGe7BN/Vi
+    Nikw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784492403;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=DGeEX502BY/Q1+XKpGRmjA3rFXgEQE6RwfBgPXI9uLM=;
+    b=bNxiirRN2vLgGyLLAzIwgkHWpSeZLG2o58cQIGwDsyWazmrOTjHkOxZoNjOuCJ730a
+    ORzeOQUTvLR/f8z+BE8v2t53p55tQCnzSaWYISMjUKShx/a9ne7j7kVFgs+yK8LWo14T
+    gq4KrzXhygnkkBHyddhLb6VmCn/UKDWWaUSpMe7LuU18MWcTxxA+XXGBcX9Ce2DToiTc
+    LUepbMloWU6pFJo0g2dMQ7UzhDB4VqxL1RYdIrZCysmwLNQ4q9IyW1DkaMkGWBVckp17
+    NYv44UkTALVgMnjsEw/fjlYSzreNHRnsqkOov8i5r+kikE8UxngQo5hRpRIXhZW1CB1a
+    m6oA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784492403;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=DGeEX502BY/Q1+XKpGRmjA3rFXgEQE6RwfBgPXI9uLM=;
+    b=+fljUks5i0IOdvKB0+/E9vp/XxcWDIDP1LyhAD92tNt3HadFoY8y4LRYbCzVvhqJIg
+    qEWFqIGxf3SBeXzg+bBg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ0JoInciN3JyLCGNPVWcns8O5VzNQLiZpJpg="
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.5.6 AUTH)
+    with ESMTPSA id Q58eac26JKK25nC
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sun, 19 Jul 2026 22:20:02 +0200 (CEST)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Paul Cercueil <paul@crapouillou.net>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-mips@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] i2c: jz4780: Cache host clock rate at probe to prevent CCF prepare_lock deadlock
+Date: Sun, 19 Jul 2026 22:19:43 +0200
+Message-ID: <2db6fd233aceb7238474e4833f4d25ca681c3ffb.1784492382.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260719-rmap-age-elided-submit-v1-1-cb32f2390765@phil.gs>
-X-B4-Tracking: v=1; b=H4sIAC8xXWoC/x2MSQqAMAwAvyI5G7DiVr8iHloTNeBGqyIU/27xO
- AMzATw7YQ9tEsDxLV72LYJKExhms02MQpEhz/Iqq5VGt5oDTfS8CDGhv+wqJ+qGLBWlstoaiPH
- heJTnH3f9+36uZLuVaAAAAA==
-X-Change-ID: 20260719-rmap-age-elided-submit-98dbd451b9ba
-To: Sean Christopherson <seanjc@google.com>, 
- Paolo Bonzini <pbonzini@redhat.com>
-Cc: James Houghton <jthoughton@google.com>, kvm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Phil Rosenthal <phil@phil.gs>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784492338; l=5986;
- i=phil@phil.gs; s=20260718; h=from:subject:message-id;
- bh=AB9wnwC4hzODsYdAQ8GBVdzTy/ojWza4YJOqutVPhTM=;
- b=lc8sIjUmRodDeHa6Ck/I43b/DlbZqJTFma4cV2NWzloVrBMU6oSwGYrrI2H/hzg6XrhZFv6kj
- FB7sad4p8kBBVknq69pmmBmoM/adaC9QNOtTvLL+hbyIIMoBDLr8QHY
-X-Developer-Key: i=phil@phil.gs; a=ed25519;
- pk=08BMg1YPtTS5NnKn5I1Mq1ra3MdAg49Awe6OjrC59fs=
-X-Endpoint-Received: by B4 Relay for phil@phil.gs/20260718 with auth_id=881
-X-Original-From: Phil Rosenthal <phil@phil.gs>
-Reply-To: phil@phil.gs
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-From: Phil Rosenthal <phil@phil.gs>
+Fix a severe AB/BA deadlock between the Common Clock Framework (CCF)
+and the I2C adapter lock, which triggers when an I2C-controlled clock
+generator client (like the Si5351) is registered or modified under the CCF.
 
-__kvm_rmap_lock() deliberately elides the rmap lock when it observes an
-empty rmap.  In that case kvm_rmap_lock_readonly() also re-enables
-preemption and returns zero, so the caller holds neither the rmap lock
-nor a preemption reference.  The elision documents the invariant it
-relies on:
+During an i2c client clock (generator) frequency change, the CCF acquires its global
+'prepare_lock' mutex and the driver calls i2c_transfer() to update the client's
+chip registers, stalling for the adapter's I2C bus lock.
 
-	 * Elide the lock if the rmap is empty, as lockless walkers (read-only
-	 * mode) don't need to (and can't) walk an empty rmap, nor can they add
-	 * entries to the rmap.  I.e. the only paths that process empty rmaps
-	 * do so while holding mmu_lock for write, and are mutually exclusive.
+Concurrently, an independent, parallel transfer on the same bus (e.g., a GPIO
+expander handling LEDs) can hold the I2C adapter lock. Inside this parallel
+transfer path, jz4780_i2c_set_speed() calls clk_get_rate() on the host
+controller's input clock to calculate bus timings. This call attempts to acquire
+the blocked CCF 'prepare_lock', creating a circular dependency that freezes
+the system.
 
-kvm_rmap_age_gfn_range() ignores the returned value and unconditionally
-enters for_each_rmap_spte_lockless().  The iterator starts with
-rmap_get_first(), which re-reads rmap_head->val rather than using the
-value returned by the lock.  If a writer populates the rmap between the
-lock's read and the iterator's re-read, the aging path walks the newly
-installed rmap without holding its lock.
+The jz4780 host controller clock itself is static and never changes at runtime.
 
-For a KVM_RMAP_MANY rmap this leaves the walker following a
-pte_list_desc chain that it never locked.  A writer holding mmu_lock for
-write may free that chain (e.g. kvm_zap_all_rmap_sptes() on the recycle
-path, or any rmap zap) via kmem_cache_free() while the walk is in
-progress, giving a slab use-after-free.  Nothing serialises the two: the
-aging path runs without mmu_lock when CONFIG_KVM_MMU_LOCKLESS_AGING=y,
-and the rmap lock that would otherwise exclude the writer was elided.
-Because the empty path re-enables preemption, the interval between the
-two reads can span an arbitrary scheduling delay.
+However, calling clk_get_rate() inside the active transfer path introduces
+an unnecessary dependency on the CCF internal locks.
 
-Skip the walk when locking returned zero, as required by the
-lock-elision invariant.  kvm_rmap_unlock_readonly() already treats zero
-as requiring no unlock, so the early continue does not leak a lock or a
-preemption reference.  Missing an SPTE installed after the empty
-observation is harmless because aging is best-effort.
+Eliminate this synchronous clk_get_rate() call from the active transfer
+path by caching the static host peripheral clock rate once - inside the private
+jz4780_i2c structure during jz4780_i2c_probe(). Update jz4780_i2c_set_speed()
+to use this cached value, safely decoupling active I2C transactions from the
+CCF internal locks without any risk of stale timings.
 
-Fixes: af3b6a9eba48 ("KVM: x86/mmu: Walk rmaps (shadow MMU) without holding mmu_lock when aging gfns")
+Assisted-by web based Google AI (pinpointing the bug and writing the message).
+
+Fixes: ba92222ed63a12 ("i2c: jz4780: Add i2c bus controller driver for Ingenic JZ4780")
 Cc: stable@vger.kernel.org
-Signed-off-by: Phil Rosenthal <phil@phil.gs>
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
-This bug was identified and confirmed with AI assistance; per
-Documentation/process/security-bugs.rst it is therefore reported in the
-open rather than via the security list.
+ drivers/i2c/busses/i2c-jz4780.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-The static analysis and runtime evidence are described separately.
-
-Static: the invariant quoted above is stated by __kvm_rmap_lock(), and
-kvm_rmap_age_gfn_range() is the one caller that violates it by walking
-after an elided (zero) lock.  This holds regardless of any runtime
-result.
-
-Runtime: I confirmed the use-after-free is reachable on a KASAN build
-(CONFIG_KASAN_GENERIC=y, CONFIG_KVM_MMU_LOCKLESS_AGING=y, kvm.tdp_mmu=0,
-kvm_intel.ept=0 so shared pages build multi-SPTE pte_list_desc rmaps).
-This is not a natural reproducer: it is a test-only race amplifier.  A
-test hook widens two windows (a delay after the zero-lock observation,
-and a delay after the iterator has cached iter->desc) and schedules the
-real lockless aging function onto recently recycled gfns.  The alloc and
-free are unmodified production paths; only the scheduling of the aging
-walk and the two delays are injected.  The test-only instrumentation is
-available privately on request.  KASAN then reports a
-slab-use-after-free, read in the rmap_get_next() step of
-for_each_rmap_spte_lockless() (the symbol is
-kvm_rmap_age_gfn_range.isra.0 in the instrumented build):
-
-  BUG: KASAN: slab-use-after-free in kvm_rmap_age_gfn_range.isra.0+0x7e4/0xa60 [kvm]
-  Read of size 8 at addr ffff88814690c6d8 by task kworker/12:2/81966
-  Workqueue: events age_race_workfn [kvm]     <- test hook: lockless aging, no mmu_lock
-   kvm_rmap_age_gfn_range.isra.0+0x7e4/0xa60 [kvm]
-   age_race_workfn+0x14b/0x1a0 [kvm]
-   process_one_work+0x6c8/0x1020
-  Allocated by task 94096:
-   kmem_cache_alloc_noprof+0x179/0x460
-   __kvm_mmu_topup_memory_cache+0x136/0x540 [kvm]
-   paging64_page_fault+0x2b6/0x1e70 [kvm]      <- one vCPU faults, allocs the desc
-  Freed by task 94095:
-   kmem_cache_free+0x11d/0x4a0
-   kvm_zap_all_rmap_sptes+0xe9/0x1a0 [kvm]
-   __rmap_add+0x2c4/0x5e0 [kvm]
-   mmu_set_spte+0x6d6/0x1060 [kvm]
-   paging64_page_fault+0x1385/0x1e70 [kvm]     <- another vCPU, under mmu_lock,
-                                                  recycles and frees the desc
-  The buggy address belongs to the object at ffff88814690c6c0
-   which belongs to the cache pte_list_desc of size 128
-
-The three tasks are distinct (read 81966 / alloc 94096 / free 94095),
-confirming genuine concurrency rather than a self-inflicted free.  With
-the fix applied under the same injection load, the zero -> populated
-window is still observed but the walk is skipped and no KASAN report is
-produced.
-
-Alternative fix: this patch fixes the only current caller that ignores
-an empty return.  A class-wide alternative would pass the value returned
-by kvm_rmap_lock_readonly() into the iterator instead of having
-rmap_get_first() re-read the rmap, so no lockless walker could
-reintroduce the bug.  I chose the smaller change for ease of
-backporting, and can send the larger one if preferred.
----
- arch/x86/kvm/mmu/mmu.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 234d0a95abf534193e8285e61dfb7e0c56ba19ad..e57c4580f58564bbf984364b3563f6b00aee21a9 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -1723,6 +1723,9 @@ static bool kvm_rmap_age_gfn_range(struct kvm *kvm,
- 			rmap_head = gfn_to_rmap(gfn, level, range->slot);
- 			rmap_val = kvm_rmap_lock_readonly(rmap_head);
+diff --git a/drivers/i2c/busses/i2c-jz4780.c b/drivers/i2c/busses/i2c-jz4780.c
+index 664a5471d93357..695be3b2146085 100644
+--- a/drivers/i2c/busses/i2c-jz4780.c
++++ b/drivers/i2c/busses/i2c-jz4780.c
+@@ -141,6 +141,7 @@ struct jz4780_i2c {
+ 	void __iomem		*iomem;
+ 	int			 irq;
+ 	struct clk		*clk;
++	unsigned long		 clk_rate_khz;
+ 	struct i2c_adapter	 adap;
+ 	const struct ingenic_i2c_config *cdata;
  
-+			if (!rmap_val)
-+				continue;
+@@ -246,7 +247,7 @@ static int jz4780_i2c_set_target(struct jz4780_i2c *i2c, unsigned char address)
+ 
+ static int jz4780_i2c_set_speed(struct jz4780_i2c *i2c)
+ {
+-	int dev_clk_khz = clk_get_rate(i2c->clk) / 1000;
++	int dev_clk_khz = i2c->clk_rate_khz;
+ 	int cnt_high = 0;	/* HIGH period count of the SCL clock */
+ 	int cnt_low = 0;	/* LOW period count of the SCL clock */
+ 	int cnt_period = 0;	/* period count of the SCL clock */
+@@ -796,6 +797,8 @@ static int jz4780_i2c_probe(struct platform_device *pdev)
+ 	if (IS_ERR(i2c->clk))
+ 		return PTR_ERR(i2c->clk);
+ 
++	i2c->clk_rate_khz = clk_get_rate(i2c->clk) / 1000;
 +
- 			for_each_rmap_spte_lockless(rmap_head, &iter, sptep, spte) {
- 				if (!is_accessed_spte(spte))
- 					continue;
-
----
-base-commit: 25f744ffa0c8e799e06250ce2e618367b166b0d4
-change-id: 20260719-rmap-age-elided-submit-98dbd451b9ba
-
-Best regards,
+ 	ret = of_property_read_u32(pdev->dev.of_node, "clock-frequency",
+ 				   &clk_freq);
+ 	if (ret) {
 -- 
-Phil Rosenthal <phil@phil.gs>
-
+2.55.0
 
