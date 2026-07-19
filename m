@@ -1,45 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29743A1A29
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71073A255F
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784473311; cv=none; b=iTyv31/MHPTlFbJ4ZwC9LlH7fS0qO45HFELzaDcYNhvE9ykccn0JMoEEg1dH2Chj2LX/MXtUlO1MSkpAOQ+EDq59vxKb4VxpaQ1ldWxaqxQad/0Wdd6JUKR9VZIHfC/1OEKnSN93o6OOyrOIzBW22axfxfahIHXT94+MT5Ly2nU=
+	t=1784473372; cv=none; b=eNxoiRpbOq8d/pqGLGJdjfI7xvs8TvL1jBdQZBkOM2zPWzdohlQGg+pehZnO+pU4UoNZzL5AJGLjCIxnwII9SPQg0aFFK/yie7FiPfQbzuzldlMIuzki5QbhwHtbSMNA7W80NOaTAm7Da+miEdqttW2vV5qNaSehbyof5wJEbu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784473311; c=relaxed/simple;
-	bh=G5RiBfYwMqpURrhxkSgtncqbGrEPvAeCDPLR3EP7qgA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hSR3ll4sIVOXjAXGNxSn6vrSypdGz9CuQ37M8wW0cp7Cj42v1yl+ttl6PKZqjPlgtBTcpdn3InEmFPb3NMtLQALIsbYDbYzwENv930JBMBTa6X+AMnqVLzHJOviIZoPyZ934KcieHDXoIv4n5nrEwgNeOch13RwObbFBJowCgiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mXNAh4tl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784473372; c=relaxed/simple;
+	bh=eSbibO+xhCniUvMt1FIWRWvPjNpLGZrzkTdVYCwi9r4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EtQDTMocKGJjFSi5cx9T/SNMZaLWfZTHsCqmNsdY0honH+qiwAjtz6k4FsNMGPUjIEM5PUnAhZydzxXK2EWPHEyQj2OxvzWjPmLilKljUpiuRy5/3bikhDuDJFDpBvBIwo/44hhbwuwbrUvSjh6dClo2V82fe5OUNyygeny/HzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oPeb39/v; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mXNAh4tl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFD641F000E9;
-	Sun, 19 Jul 2026 15:01:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784473310;
-	bh=tXUxa0IPECf24YyFyXN9MSkg4zpv0yFthMA8fqp5d0E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mXNAh4tljmIs9GSSIlDuZ1vyP21dqFV9sDhtFZVb93Gk8edlRjIQ7aKF3K3FmcLw/
-	 +AW27URaJfByCli2Ks4Hd5Qp0qM5VCfx1wrrQmgGeIjB7rZvalRCBg1ScC4nh2GRXs
-	 4/NsDm2PaiQW93lls6oJPMlpBqG/+pUPZZswAPPltlmhf8Y/YXxKHHQNG1WPwOSz/+
-	 j5Kr6L0U5ZDrxW0nJWw42mXnhAl8QAosMmVJeesU+lOLs9L2t+nRPuiCimeEC6gNc/
-	 wSX89G+leZoZ+ADXrjQYzC87DfyUvFy0AJtsqCzhx6SbxNgAd9INfRqSLX2UqvFMWV
-	 vF2c6PfXs+jjA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	stable <stable@kernel.org>,
-	Yue Sun <samsun1006219@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] USB: iowarrior: fix use-after-free on disconnect race
-Date: Sun, 19 Jul 2026 11:01:47 -0400
-Message-ID: <20260719150147.60929-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260719150147.60929-1-sashal@kernel.org>
-References: <2026071455-frosting-daringly-00de@gregkh>
- <20260719150147.60929-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oPeb39/v"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ceeee8c46bso15475235ad.2
+        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 08:02:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784473370; x=1785078170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Min+DEzQsYXU48SJanwQaH6Js4T7CtgnWZ/eBINWIyc=;
+        b=oPeb39/vmuPz8ATR95oqeqhHqYa1efqgj0nqND11IBU3Eqj528lhyFAl2josHR/GFJ
+         1nYLhq8wo2VAFgnbKVPdA4wK7Cvo6/rhi+CFR3b4wEfiFwZk1ylJTNktjDsKX08Mo7fx
+         Z5CT7XcMF1aaCc4XBOjUCeoNukSqjUskkuJW8H5WVaylpHazwKrITG6tjwkrHW3YJ6Py
+         QuYmB+5egu7V3jdIxrPWKR+slyLDYWyiKwX5HBLfI5+uQOikVsjOPrcEdp2urtfXF4RT
+         PdCQKKfD4yrxzzFWbX1YgpaZKkoz3sAyMM0UDqbtWPgAoANvG3a7ovsCU8wqxQ2HNUWA
+         ZzPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784473370; x=1785078170;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Min+DEzQsYXU48SJanwQaH6Js4T7CtgnWZ/eBINWIyc=;
+        b=jTZQ3c4gi7ynUKd8Dkw38qB7Aau3kmJeLsKbv7e6OIB5zAR8+e+/y2z2Z9qIggesBa
+         GiFT5R829SeOpdAL1QAyfJy2x4YOkuuVNohNcZ4n7mbQPJb3mW1g/HzImKpqHRSwQbMT
+         yr9SS/iOmH20WDh0CHBpDntY9zL8ty6cLI2G3B9SOX9fVtascJQrCGzUpxu9Y+jvYani
+         smVxnMUtH7BYpw6Klu7HIk9nk3tBnAyb2yqb2ZDYxv83lTg2xbKVtFDJAx54/+WDulOK
+         1DdlsZqWUehGloYhGKIXhv31p0/kbktpeJ9BAxeL/PxlmHcFPlX7w5+NZmPkotMW8tHh
+         t0dw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+ZB3Ybg4haCQ/XZuDPMJB9oXq+24eZ3kBPiwxRxBEVyTllAlROZb0UdejwZqXe2nIiG3Jvuo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywn33Lr3KUSG/zSdadeN/BamdsI6KTNRMddOwaH6rGfU0BxV4VK
+	7EY4pCFp8KVoAPrDO+Y6n/PP71ar5zA6QyLfsPXU9jfnmEua3s79MDE0apZo2stJtN0=
+X-Gm-Gg: AfdE7cnRBWmn/rgNIhfHYXVwOwjJNzDT+wHUPcFx1CP86w01ACSmn5wyTCQw1ST5qTs
+	e9P9nrub5DlD0UfFGR8po8LquGAqEHHiCxtCkngpQpihn2h0bqynmhFik2dvHDIsY2+cfQ1QSbl
+	afpr8z0wY6TTQZCqjsR54keLOCtomzgtC2auBJiftlz7cbal1ILirX8KYZgV04l1r2q4/3SfRz/
+	3GuMKc6D2unbLexkqvWpFQn3Rzya0i56bpEVnGmS47m0jkl6Q0mo/EFf9hiwjwvLMRaDK76J6hV
+	+EnmnkSKN89zPJ0TzRVGoXE1nQqqme3Y/GHb+w1EoTKuYymtkC/pCJMblFQIX8wygKUbsMwk380
+	Cpf+fFoX9fNEXqlgstGEN7Rk72sI4Hfn/+1BCBswiSDvkgbP1L/M6cDyBN6TuUZDFUVY+aVb8f7
+	NQ2HCrIMOV4ggsM5/0SlRa6RRSxLhZmJKjiaVr3tHOhdPcNPsWAjk03izfT3g=
+X-Received: by 2002:a17:902:ccd1:b0:2ca:d344:7743 with SMTP id d9443c01a7336-2cf34a05d6cmr90369635ad.7.1784473369952;
+        Sun, 19 Jul 2026 08:02:49 -0700 (PDT)
+Received: from localhost.localdomain ([14.218.106.255])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf346d9b00sm42198945ad.53.2026.07.19.08.02.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 08:02:49 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Thorsten Blum <thorsten.blum@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Robert Olsson <robert.olsson@its.uu.se>,
+	Stephen Hemminger <stephen@networkplumber.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] net: pktgen: fix proc entry use-after-free
+Date: Sun, 19 Jul 2026 22:57:40 +0800
+Message-ID: <20260719145740.2888967-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,158 +84,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+pktgen_change_name() replaces pkt_dev->entry while holding t->if_lock.
+pktgen_remove_device() removes the same entry before
+_rem_dev_from_if_list() takes that lock.
 
-[ Upstream commit c602254ba4c10f60a73cd99d147874f86a3f485c ]
+This allows the following interleaving:
 
-mutex_unlock() may access the mutex structure after releasing the lock
-and therefore cannot be used to manage lifetime of objects directly
-(unlike spinlocks and refcounts). [1][2]
+  CPU 0 (NETDEV_CHANGENAME)       CPU 1 (kpktgend)
+  if_lock(t)
+  proc_remove(pkt_dev->entry)
+                                  proc_remove(pkt_dev->entry)
+  pkt_dev->entry = proc_create_data(...)
+  if_unlock(t)
 
-Use a kref to release the driver data to avoid use-after-free in
-mutex_unlock() when release() races with disconnect().
+The kthread can pass the stale proc_dir_entry to proc_remove() after the
+rename path has freed it. A reproducer with a widened race window reports:
 
-[1] a51749ab34d9 ("locking/mutex: Document that mutex_unlock() is non-atomic")
-[2] 2b9d9e0a9ba0 ("locking/mutex: Clarify that mutex_unlock(), and most
-                   other sleeping locks, can still use the lock object
-                   after it's unlocked")
+  BUG: KASAN: slab-use-after-free in proc_remove+0x78/0x80
+  Read of size 8 at addr ffff8881478fea70 by task kpktgend_0/67
+  Call Trace:
+   proc_remove+0x78/0x80
+   pktgen_remove_device.isra.0+0x11c/0x4c0
+   pktgen_thread_worker+0x1214/0x6bc0
+   kthread+0x2c6/0x3b0
+  Allocated by task 95:
+   __proc_create+0x204/0x790
+   proc_create_data+0x72/0xe0
+   pktgen_thread_write+0xd61/0x1510
+  Freed by task 28:
+   kmem_cache_free+0xcb/0x3d0
+   proc_free_inode+0x5b/0x80
+   rcu_core+0x50a/0x1850
+  The buggy address belongs to the object at ffff8881478fea00
+   which belongs to the cache proc_dir_entry of size 192
 
-Fixes: 946b960d13c1 ("USB: add driver for iowarrior devices.")
-Cc: stable <stable@kernel.org>
-Reported-by: Yue Sun <samsun1006219@gmail.com>
-Link: https://lore.kernel.org/r/20260618080204.38322-1-samsun1006219@gmail.com
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260622152612.116422-2-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Move proc_remove() into the if_lock-protected list removal helper. Keep it
+before list_del_rcu() to preserve the ordering required by add_device().
+The rename path must then finish replacing the entry before removal, or
+it observes that the device is no longer on the list.
+
+Fixes: 39df232f1a9b ("[PKTGEN]: fix device name handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- drivers/usb/misc/iowarrior.c | 57 +++++++++++++++---------------------
- 1 file changed, 24 insertions(+), 33 deletions(-)
+ net/core/pktgen.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/usb/misc/iowarrior.c b/drivers/usb/misc/iowarrior.c
-index f9266ae8164100..827b364c9f5db9 100644
---- a/drivers/usb/misc/iowarrior.c
-+++ b/drivers/usb/misc/iowarrior.c
-@@ -71,6 +71,7 @@ static struct usb_driver iowarrior_driver;
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index 8e185b318288..ee64f3012321 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -3972,6 +3972,7 @@ static void _rem_dev_from_if_list(struct pktgen_thread *t,
+ 	struct pktgen_dev *p;
  
- /* Structure to hold all of our device specific stuff */
- struct iowarrior {
-+	struct kref kref;
- 	struct mutex mutex;			/* locks this structure */
- 	struct usb_device *udev;		/* save off the usb device pointer */
- 	struct usb_interface *interface;	/* the interface for this device */
-@@ -243,8 +244,10 @@ static void iowarrior_write_callback(struct urb *urb)
- /*
-  *	iowarrior_delete
-  */
--static inline void iowarrior_delete(struct iowarrior *dev)
-+static inline void iowarrior_delete(struct kref *kref)
- {
-+	struct iowarrior *dev = container_of(kref, struct iowarrior, kref);
-+
- 	kfree(dev->int_in_buffer);
- 	usb_free_urb(dev->int_in_urb);
- 	kfree(dev->read_queue);
-@@ -640,6 +643,9 @@ static int iowarrior_open(struct inode *inode, struct file *file)
- 	}
- 	/* increment our usage count for the driver */
- 	++dev->opened;
-+
-+	kref_get(&dev->kref);
-+
- 	/* save our object in the file's private structure */
- 	file->private_data = dev;
- 	retval = 0;
-@@ -655,7 +661,6 @@ static int iowarrior_open(struct inode *inode, struct file *file)
- static int iowarrior_release(struct inode *inode, struct file *file)
- {
- 	struct iowarrior *dev;
--	int retval = 0;
+ 	if_lock(t);
++	proc_remove(pkt_dev->entry);
+ 	list_for_each_safe(q, n, &t->if_list) {
+ 		p = list_entry(q, struct pktgen_dev, list);
+ 		if (p == pkt_dev)
+@@ -4001,9 +4002,6 @@ static int pktgen_remove_device(struct pktgen_thread *t,
+ 	 * list to determine if interface already exist, avoid race
+ 	 * with proc_create_data()
+ 	 */
+-	proc_remove(pkt_dev->entry);
+-
+-	/* And update the thread if_list */
+ 	_rem_dev_from_if_list(t, pkt_dev);
  
- 	dev = file->private_data;
- 	if (!dev)
-@@ -663,29 +668,18 @@ static int iowarrior_release(struct inode *inode, struct file *file)
- 
- 	/* lock our device */
- 	mutex_lock(&dev->mutex);
-+	dev->opened = 0;	/* we're closing now */
- 
--	if (dev->opened <= 0) {
--		retval = -ENODEV;	/* close called more than once */
--		mutex_unlock(&dev->mutex);
--	} else {
--		dev->opened = 0;	/* we're closing now */
--		retval = 0;
--		if (dev->present) {
--			/*
--			   The device is still connected so we only shutdown
--			   pending read-/write-ops.
--			 */
--			usb_kill_urb(dev->int_in_urb);
--			wake_up_interruptible(&dev->read_wait);
--			wake_up_interruptible(&dev->write_wait);
--			mutex_unlock(&dev->mutex);
--		} else {
--			/* The device was unplugged, cleanup resources */
--			mutex_unlock(&dev->mutex);
--			iowarrior_delete(dev);
--		}
-+	if (dev->present) {
-+		usb_kill_urb(dev->int_in_urb);
-+		wake_up_interruptible(&dev->read_wait);
-+		wake_up_interruptible(&dev->write_wait);
- 	}
--	return retval;
-+	mutex_unlock(&dev->mutex);
-+
-+	kref_put(&dev->kref, iowarrior_delete);
-+
-+	return 0;
- }
- 
- static __poll_t iowarrior_poll(struct file *file, poll_table * wait)
-@@ -770,6 +764,7 @@ static int iowarrior_probe(struct usb_interface *interface,
- 	if (!dev)
- 		return retval;
- 
-+	kref_init(&dev->kref);
- 	mutex_init(&dev->mutex);
- 
- 	atomic_set(&dev->intr_idx, 0);
-@@ -888,7 +883,8 @@ static int iowarrior_probe(struct usb_interface *interface,
- 	return retval;
- 
- error:
--	iowarrior_delete(dev);
-+	kref_put(&dev->kref, iowarrior_delete);
-+
- 	return retval;
- }
- 
-@@ -912,19 +908,14 @@ static void iowarrior_disconnect(struct usb_interface *interface)
- 	usb_kill_anchored_urbs(&dev->submitted);
- 
- 	if (dev->opened) {
--		/* There is a process that holds a filedescriptor to the device ,
--		   so we only shutdown read-/write-ops going on.
--		   Deleting the device is postponed until close() was called.
--		 */
- 		usb_kill_urb(dev->int_in_urb);
- 		wake_up_interruptible(&dev->read_wait);
- 		wake_up_interruptible(&dev->write_wait);
--		mutex_unlock(&dev->mutex);
--	} else {
--		/* no process is using the device, cleanup now */
--		mutex_unlock(&dev->mutex);
--		iowarrior_delete(dev);
- 	}
-+
-+	mutex_unlock(&dev->mutex);
-+
-+	kref_put(&dev->kref, iowarrior_delete);
- }
- 
- /* usb specific object needed to register this driver with the usb subsystem */
+ #ifdef CONFIG_XFRM
 -- 
-2.53.0
+2.43.0
 
