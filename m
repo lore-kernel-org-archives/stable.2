@@ -1,94 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B1E2609C5;
-	Sun, 19 Jul 2026 09:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E92E291C10;
+	Sun, 19 Jul 2026 10:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784454566; cv=none; b=GOE3Z52c0EHlGYaSIhdmXHMaHMWpvo+pcMXp3xRShJpUywQfY2iINMRamPpL9olyTo+hspQyyQs7vWwue0jtDqq/XIlSPm+xocXbb/TgRRQnc0cZzrQzpgPSNiO9G79nbAcxflEMIMS+3LVWRvCytSdUwbJdVuN8c36hxLikqTY=
+	t=1784456462; cv=none; b=gyFfMOJoJVg1CIqUwmZ02gQbvldEsKOZQYwcR4WgdrfHUsLrEci8yqqSxeXL5X4/GmHAhFEYgDKGBFTqPf1tGyrTr0QbOh4lIaZNVTmgRzeaYLYNcNiT66ndXMPBqLEEGYj3j1csDGmYlRdaDDYm3OGiMTbin/lxhEn19b8KQNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784454566; c=relaxed/simple;
-	bh=saByvZ6CrG7X8x9R/giPvCfdhn+z4EQvMxRtiQW1nl0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JMCu32zvbMKonGubUB7W+Z9GLTLebPyP0BBO4uaiZSfRHLm2/yt2tEsovRNP+l5YqzkmOxPvNEG/DkV+h1Z79PKf0GQh/zerXayhvi+fR1DDzv7HuKp2yrjJ+pY/fPHbVD4h9uW60yDYLKjjWAg84Jo2LX6XY4DfepVNudP7pKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BJp48ITA; arc=none smtp.client-ip=198.175.65.20
+	s=arc-20240116; t=1784456462; c=relaxed/simple;
+	bh=YWNPSNHXhUMQZugFK/yG01ivnCUCqLg/UiD4aCM9rig=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LDnhbKnugPVne1f28PLtlBPy5FLa6Nw4UJgQVkXUT/S/931rubax14KF3HUuouWC5Djl5qHirCG6cGIxl35kx8IOTJaCDV/BxMtFk8fR1iQcEhAVt1zxLuP3NPANuAIWm9IMib7yETMtZKg5V5BpcwF17TCLFIfNvMTDVmkpW2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y8vwOk14; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BJp48ITA"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y8vwOk14"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784454565; x=1815990565;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=saByvZ6CrG7X8x9R/giPvCfdhn+z4EQvMxRtiQW1nl0=;
-  b=BJp48ITA4MsfM4UxWrZVZlDhdb/XSibs1OFzNtxrxooJbOA+e0jdHINl
-   tJRqVsvgbmB1SZbePDReBCJFvrgodSqjN7BUdRrG/R4TPhFIOTlygRpv5
-   IXMSYJopdkD/2kWqkxYSBcNxrydE5T8crunpolx4P6ZSgFIBnuxA900Bw
-   uj0G6Bb7ag1KEjcjluc6C32VzE7KfcK2/7o3h2wcocreukafgk2Q0fs4d
-   3lG3K5ic54S7vDCuiJGET3kR/8OAymvGD4JpdpJfXMicrNvRbecmCHXiy
-   pUxETsVl0ADhMSZ6wEoBNiSNPwBXT2kLty0Tv2eY/SAZoysiykxALO0WX
-   A==;
-X-CSE-ConnectionGUID: /VbMMvDNSxi5LT5SlkpvhA==
-X-CSE-MsgGUID: d5I8/UC4Rwefa9UH0fFyfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11850"; a="84831985"
+  t=1784456460; x=1815992460;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=YWNPSNHXhUMQZugFK/yG01ivnCUCqLg/UiD4aCM9rig=;
+  b=Y8vwOk14n6skjEEe/pBWQjfath/Kez5pm6l77+vj5CdzSlH95Frl5rVM
+   8/Ip1h8cubUBSoUg6GkWqzIP4ia3uJ02EHISRdKF3IQc+yKRjqf7IiqSN
+   HqESB2m8uA4ZM4fgSjscw5YsDLWTk6NwN30swJVNMCSVmoq3clHfxQUqk
+   vdSYm1jvfyGV/74EHOJG4C5zYdKV0dctZ6W8YQtgzRCpv5S/iRIb22FnP
+   vBxoXwoems7xpIwjuI6FklCiLzPwDx4k1+6XS1KVWJpeeLvjVKTGdXvZk
+   qXSqIN72Myq8T28KjXVc4iNcspEUH/Hg+M/F63o1rDkbd7TXWZSgOcGNG
+   Q==;
+X-CSE-ConnectionGUID: fec5N1BJTtWDBmHoGO35cw==
+X-CSE-MsgGUID: iS0+1YJSS36/3RbluoQzqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11850"; a="84048444"
 X-IronPort-AV: E=Sophos;i="6.25,172,1779174000"; 
-   d="scan'208";a="84831985"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 02:49:24 -0700
-X-CSE-ConnectionGUID: IsEO89ltRe+Q7wmTo90pPA==
-X-CSE-MsgGUID: p43xZHhyR4K+wO14mR5Ylg==
+   d="scan'208";a="84048444"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 03:20:59 -0700
+X-CSE-ConnectionGUID: lwnsNq9wTgKc6rnz4TW7fw==
+X-CSE-MsgGUID: i1O1v9PqTPygTM4MBmRGRg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,172,1779174000"; 
-   d="scan'208";a="262156186"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.56])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 02:49:21 -0700
-Date: Sun, 19 Jul 2026 12:49:18 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Benjamin Boortz <bennib@mailbox.org>
-Cc: linusw@kernel.org, andy.shevchenko@gmail.com, lee@kernel.org,
-	vladimir.oltean@nxp.com, colin.foster@in-advantage.com,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH v2] pinctrl: microchip-sgpio: add missing select
- REGMAP_MMIO
-Message-ID: <alydngVPPaqCoaw9@ashevche-desk.local>
-References: <20260719094427.1328725-1-bennib@mailbox.org>
+   d="scan'208";a="252818198"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 03:20:56 -0700
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Date: Sun, 19 Jul 2026 12:57:55 +0300
+Subject: [PATCH char-misc] mei: pull kvfree out of spinlock
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260719094427.1328725-1-bennib@mailbox.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260719-kvfree_out_of_spinlock-v1-1-e07d6333bea7@intel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBA0avIrBswLlL0KqWEOJnoYJvIjEpBv
+ HvTLt/i/xOUhElhaE4QOli55Ap7awDnkCcyHKuhazvX3m1vliMJkS/75kvyunJ+FVxMGtEGjNE
+ F56DGq1Diz3/8+J3EvFkRntf1BbRZiWZzAAAA
+X-Change-ID: 20260719-kvfree_out_of_spinlock-fbc1acdd6a66
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Tomas Winkler <tomasw@gmail.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Menachem Adin <menachem.adin@intel.com>, 
+ Alexander Usyskin <alexander.usyskin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784455091; l=3228;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=YWNPSNHXhUMQZugFK/yG01ivnCUCqLg/UiD4aCM9rig=;
+ b=skAZhVLV2E4YBgbVTqlrKFjgeOIpFC6zP1QdOK1nBqDlhJUXDerbKKiO9EKbFXEuuzppSKCIO
+ XtY/D89JFYXAxDUeIfHL0f3Kw+7g1kcX5+XAOzPaSfIPDwl90zMRSA9
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-On Sun, Jul 19, 2026 at 11:41:46AM +0200, Benjamin Boortz wrote:
-> The driver calls ocelot_regmap_from_resource() via <linux/mfd/ocelot.h>,
-> which internally uses devm_regmap_init_mmio() and requires REGMAP_MMIO.
-> The Kconfig entry does not select REGMAP_MMIO, causing a build failure
-> when no other driver in the config happens to pull in REGMAP_MMIO:
-> 
->   include/linux/mfd/ocelot.h:34:24: error: implicit declaration of function 'devm_regmap_init_mmio'
-> 
-> Found by randconfig testing on arm64; tinyconfig reproducer below.
-> 
-> Fixes: 2afbbab45c26 ("pinctrl: microchip-sgpio: update to support regmap")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Benjamin Boortz <bennib@mailbox.org>
-> Reviewed-by: Andy Shevchenko <andy@kernel.org>
-> ---
+The read buffer allocation was changed from kmalloc() to kvmalloc().
 
-This is v2. It misses a changelog here.
+This buffer is part of mei_cl_cb structure that can be queued in
+rd_complete queue protected by spinlock.
+Releasing the structure leads to errors like below when freeing buffer
+that allocated non-contiguous:
 
-No need to resend _this_ time, just reply to this query with
-what has been changed v1..v2.
+BUG: sleeping function called from invalid context at mm/vmalloc.c:3448
 
+Separate mei_cl_cb structure dequeue and release to
+perform only dequeue under spinlock and push release out of spinlock.
+
+Cc: stable@vger.kernel.org
+Fixes: 4adf613e01bf ("mei: use kvmalloc for read buffer")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16359
+Reviewed-by: Menachem Adin <menachem.adin@intel.com>
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+---
+ drivers/misc/mei/client.c | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index 643b0039cc72..26d2b2742d50 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -425,18 +425,24 @@ static void mei_io_tx_list_free_cl(struct list_head *head,
+ }
+ 
+ /**
+- * mei_io_list_free_fp - free cb from a list that matches file pointer
++ * mei_io_rd_list_free_fp - free cb from a rd_completed list that matches file pointer
+  *
+- * @head: io list
++ * @cl: host client
+  * @fp: file pointer (matching cb file object), may be NULL
+  */
+-static void mei_io_list_free_fp(struct list_head *head, const struct file *fp)
++static void mei_io_rd_list_free_fp(struct mei_cl *cl, const struct file *fp)
+ {
+ 	struct mei_cl_cb *cb, *next;
++	LIST_HEAD(cmpl_list);
+ 
+-	list_for_each_entry_safe(cb, next, head, list)
++	spin_lock(&cl->rd_completed_lock);
++	list_for_each_entry_safe(cb, next, &cl->rd_completed, list)
+ 		if (!fp || fp == cb->fp)
+-			mei_io_cb_free(cb);
++			list_move(&cb->list, &cmpl_list);
++	spin_unlock(&cl->rd_completed_lock);
++
++	list_for_each_entry_safe(cb, next, &cmpl_list, list)
++		mei_io_cb_free(cb);
+ }
+ 
+ /**
+@@ -565,9 +571,7 @@ int mei_cl_flush_queues(struct mei_cl *cl, const struct file *fp)
+ 		mei_io_list_flush_cl(&cl->dev->ctrl_rd_list, cl);
+ 		mei_cl_free_pending(cl);
+ 	}
+-	spin_lock(&cl->rd_completed_lock);
+-	mei_io_list_free_fp(&cl->rd_completed, fp);
+-	spin_unlock(&cl->rd_completed_lock);
++	mei_io_rd_list_free_fp(cl, fp);
+ 
+ 	return 0;
+ }
+@@ -1401,7 +1405,7 @@ void mei_cl_add_rd_completed(struct mei_cl *cl, struct mei_cl_cb *cb)
+ }
+ 
+ /**
+- * mei_cl_del_rd_completed - free read completed callback with lock
++ * mei_cl_del_rd_completed - unlink read completed callback with lock and free it
+  *
+  * @cl: host client
+  * @cb: callback block
+@@ -1410,8 +1414,9 @@ void mei_cl_add_rd_completed(struct mei_cl *cl, struct mei_cl_cb *cb)
+ void mei_cl_del_rd_completed(struct mei_cl *cl, struct mei_cl_cb *cb)
+ {
+ 	spin_lock(&cl->rd_completed_lock);
+-	mei_io_cb_free(cb);
++	list_del_init(&cb->list);
+ 	spin_unlock(&cl->rd_completed_lock);
++	mei_io_cb_free(cb);
+ }
+ 
+ /**
+
+---
+base-commit: 775553d19b163446c38c5ff24dd0a01065376932
+change-id: 20260719-kvfree_out_of_spinlock-fbc1acdd6a66
+
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Alexander Usyskin <alexander.usyskin@intel.com>
 
