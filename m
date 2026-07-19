@@ -1,48 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC253A0E8E;
-	Sun, 19 Jul 2026 15:00:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74A13A16AC;
+	Sun, 19 Jul 2026 15:00:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784473248; cv=none; b=NwvQu0YJ5ITXOAVtKFev0uA+rHfPrcWzQ4EL9YXIkxZlgjr5fsLkyyLywG2D66XHarbsfM2b0/Z8tMAwkwCOZd316r5VCOc4sE2PxWEXihgkPbdzJKBeEFSqI+BPuKZrwsSjP98k+LvyMihOJQ5AnxqjXb7mRDQ1PkLX0EqrIA0=
+	t=1784473249; cv=none; b=FORyymF7Ox9zEbYjIzsTb76nbVgl15blQGTLBGw+lWo/WuxS67pDerqzvhxHQMenyZLUOY4KE4AKqvarZU3dcLapQle3wCW6UAfHkLaSyFH0e1c8BI/LbQhA/FZ5Ji31ww0GL96PaHFjBoHCEm+r+yt8COHEGAVugJq3NpEIQnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784473248; c=relaxed/simple;
-	bh=pwGMbGsFKHIo/QOq0WYwNYypdVGJ6zpdbimVeczKZ3c=;
+	s=arc-20240116; t=1784473249; c=relaxed/simple;
+	bh=kXUFFBnGEJySSYdlObCtjK9hVDooR4eMh5DPbS5Oup8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZvJSN1FMPWR/1KpXnGPGgy+GX7CB6S/b6rKQuB0lQCr0Rc94gwKEIEqYQyA0gUsdzYMSVmy3w0hMVxaCiLtVN30TDGnh89yTc4f8xIss64yaCLY7BWglLJEe8ErHlhX/55ZHeGvh5nhWhjZ20qU4at1J6R+YsRY7GGjQ9cY2dZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cBlrYXeO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pbCSZqrHywaM1bUvbWoGJri83zDy+nZhHKFYKWYX4ZNhXe+j8x4uf2ArGecGxFwOXn8GjU8jJV6hSTWsdmWsFhQwHkOg0WLrKnTEtCpgusR6LN5JTS7FqjGIwzic75MOmSd+Da0Q2NLHHtYuGPsq389V9HZTjEjAhL5F7AyR2xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASRpZhc+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cBlrYXeO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A061F00A3D;
-	Sun, 19 Jul 2026 15:00:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASRpZhc+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45E6B1F00A3A;
+	Sun, 19 Jul 2026 15:00:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784473247;
-	bh=rCzWimPZ+onC9lTctxP2h8S3r9cHrMbOsnB1/tRqSxc=;
+	s=k20260515; t=1784473248;
+	bh=ehItWtwJdnqDENUmEDn5VCP+a56QBD4uOdlQAuRVDUw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cBlrYXeOnY6an9SDy8FHY8o6D2+y1o6C5UP43MYdT4czjXdfeZYaruluaoWwSaJTP
-	 BMAG8Cwikv8/XxPfeg0sIOXBBUx9lqLEXvVMbtTbktmx+Bc6zPt+QiJxjJmrYaeVpO
-	 5WWatnAm9fcpwYVe42qYuRm76r+NsjevqpOMllcnkYKzD92Wxf9DG4/gClBERN8Urt
-	 8c/vBt9IQo2ICcjxWlovAYZeGVwW9LhbdoNpBzK1UnDvLJ2pbdwzEukBHb0GdUZRs7
-	 yV0Isy7BanZ0WYhDgz+e0+7QPDD3KMtQZPG8kZYfUW6vpCllqMVHOMJ9V4B6MHa1pi
-	 yAJnKBWSHotQQ==
+	b=ASRpZhc+Q8o5+eb12tDH65sFAjH+vrHxt85LdypoLwOA+uOCiO2cuaVO8OILcxZ+7
+	 1zhuUCQUKlCKQegurqtiqZIfma4lEE1kUH6kRpkvCyxiiMI0yYQsw34DM03oCal2fO
+	 dZdAxJzpHws3QmPS3DsaLcFu7KmiBo9Ivi/IXYKfOxcOnc9DNKAu5ZD1SnpExf+9J7
+	 4fgLsjTUj7Y8k6UkTkbK3dZO1dtjD9/Rl0ObEEl83UCzJXbHQw4EpqFrZxkedFoduX
+	 xQPlcIw2tOJ4Uh2UmJbPC2lDqy7GZRC10TCyp2UPw6a70tSN8cSqJRhXM6OaIdjbOP
+	 rBlR1lUyn1xbg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	vasant.hegde@amd.com,
-	joerg.roedel@amd.com,
-	iommu@lists.linux.dev,
-	dheerajkumar.srivastava@amd.com,
-	bp@alien8.de,
-	Michael.Roth@amd.com,
-	linux-coco@lists.linux.dev,
-	liam.merwick@oracle.com
-Subject: Re: [PATCH linux-6.12.y v1 0/2] Backporting SEV-SNP CVE-2023-20585 to linux-stable
-Date: Sun, 19 Jul 2026 11:00:20 -0400
-Message-ID: <20260718192718.0006-stable-reply@kernel.org>
+	gregkh@linuxfoundation.org,
+	dave.hansen@intel.com,
+	dave.hansen@linux.intel.com,
+	peterz@infradead.org,
+	luto@kernel.org,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	sforshee@kernel.org,
+	gthelen@google.com,
+	ehagberg@janestreet.com,
+	nbarnes@janestreet.com,
+	Stephen Dolan <sdolan@janestreet.com>
+Subject: Re: [PATCH 6.1.y 6.6.y 6.12.y] x86/mm: Fix check/use ordering in switch_mm_irqs_off()
+Date: Sun, 19 Jul 2026 11:00:21 -0400
+Message-ID: <20260718192718.0007-stable-reply@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717104909.3850331-1-liam.merwick@oracle.com>
-References: <20260717104909.3850331-1-liam.merwick@oracle.com>
+In-Reply-To: <20260717160430.2857897-1-ehagberg@janestreet.com>
+References: <20260717160430.2857897-1-ehagberg@janestreet.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,11 +55,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The upstream commits apply cleanly to linux-7.0.y and linux-6.18.y
-> and an AUTOSEL email[2] was sent (but not pulled so far).
+> The backports of commit fea4e317f9e7 ("x86/mm: Eliminate window where
+> TLB flushes may be inadvertently skipped") -- the fix for
+> CVE-2025-37964 -- to the 6.1, 6.6 and 6.12 trees ended up with two
+> code blocks in the wrong order relative to mainline.
 
-Queued the series for 6.12, and picked up the upstream commits for 6.18
-as well, thanks.
+Queued for 6.12, 6.6, and 6.1, thanks.
 
 -- 
 Thanks,
