@@ -1,87 +1,82 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7400E3AB292
-	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236CE34B697
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 16:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784476732; cv=none; b=CII/75UeZV2Tly9omqnsQh7yraN1lVlsZz9GT3pdYYyO6pIEUF3qso3igK4EtCxpv47gXdvKoPM18Sag3mhGtzJZXA6/yT4YMjaqPG6mBnO6fPTWMIEnHsUdKAoQbZIgrlRqs9A+eC/JzasBCw3UY/4a+And385qRxjREEfAxQo=
+	t=1784477004; cv=none; b=ei96k0Yerr2bmEMQQLcLx6DAhP1OQnIcNx30gCLA/rukJBA0fWvHgcYkeknSroZoPwEVCY8EgHXfnBMMTwwhM8TYhAMPRIsVggE2s6s25rnWCQ3kwC5FLE1zeUgAhg6c/jQwThV5Is9t5XTvQMrSeWRcQRoUcywkod+wcFqY4+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784476732; c=relaxed/simple;
-	bh=2Vp6ZEoGdF2JWiQ5Nva8QA+jE3mhwaAVLPknQBofvd0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pja1nWzpA9lgl0AIf6oUfcO1W32ow617kfqIVjhHybbGQuIvwRDu9lhRU6mM/iXSnHGkAJmNMKZUewaFXxYsSEH7LTOK90iu953g5lbW854sPIERQgDwQi5e3VxXtIjsmDgrnzd4aMgIY0mVmjh3WOh8d9By9ZXUMWsFC+cs1Cc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IurKo201; arc=none smtp.client-ip=74.125.224.54
+	s=arc-20240116; t=1784477004; c=relaxed/simple;
+	bh=u+nD+ppcmkGvSwsqARVDMuWhSCeO3Xb0BbZCEpSTc/g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gTDuE/ye+FMJnTd2SsBisU8YxAfTK/kaS0takTC1jg2lwOBTwWpDrzsxS4gNVKsLmlbHeQNUulwWkKF+o2UFO539567OT4LoFz79q6InJNsXnW3bI+4ff0H2gqddjT/4Xv6uNmHri/gpFZmuRcrRtEXxw05+dOUSm25adXJ0oyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TQqdWI2k; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IurKo201"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-664a09bc459so13267693d50.1
-        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 08:58:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TQqdWI2k"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc7a269ca1so20480905ad.3
+        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 09:03:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784476728; x=1785081528; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rTXBPoNQjw/poWOMQDZZWXuifJL9LBXIhF26CE3fbu4=;
-        b=IurKo201itr+OXdw5oA4cQcQ6F2I523mmx/vo7ki+XeOTtjoJAIx6HoVpTziX7Gv7u
-         HU4OSLqs2TRPnTYc3PnV4v4dm9Mdc35iC55QxkqC5ITLervm0lmJ18KUhx6UcwgcImTy
-         QsolqcNAJQktY8cw2PFnT7V1nN1ru2OYixUqQ4q1Q65lVbSDL3Dx9xH+L4OPerjv7nWI
-         lP8do+p2qZROFPU19TQ/VlBDALRwKdNhMtf92Czz3YsvNCjZsMWOrrGCixAsg7e83lka
-         tQwBTp937AouTnLjVS3ypOwWtCv47qd87V3lROC2VJ450pgTWKZlBCGmLFfaH3EYdrZO
-         Xp6A==
+        d=gmail.com; s=20251104; t=1784477002; x=1785081802; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GhZkSvga/r+hHGYJZyAEE9P2eaz6oeqktfsL1oAQxtg=;
+        b=TQqdWI2kXJQJlGOIeONzS3eJ/CGCdqaCxRXwu4mco4kgBDOt39Jx80q5xJH0VNqaRm
+         ZNv0pdYBIi+ZzABixhBzbAna1jqxY8jGDXNMIFlKlb89lfVk+1FCTvNGzB5KeYuo1+zq
+         ziERSncY4AJtFQ0UX/UNkJuFjqn+qYywvzMgCMxRlcpek7sUM8b44DT1RQWz2LviZ5zD
+         21WrEXHj0oAnO+dxaFVU0KYbnJFuyL8qdMa0HP55cofNpVi6SatUVhRg8cWWPIJ5R9EF
+         cPCCQIeqw4vQ8U8Rfw2Epr3ofF9Y3yVugf6uXXkCGOHJaK9lvw4F+fZ98Tc3T/qxxpfN
+         s+ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784476728; x=1785081528;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rTXBPoNQjw/poWOMQDZZWXuifJL9LBXIhF26CE3fbu4=;
-        b=eMlZAA9drggsTFkhJfatNHQ6j1SWfUlu+AibLymHmn0h3uM7Hva4vtepIE4Gx8ywnp
-         ZRpgAi4CE+IM09S6dBj6nZmETUwe2k2bQ3e/Q2wVJQ9ZGm5fX9DHfGcGXwGT1Mjcpni4
-         idp6frsKkudmuBuJFJqyaToli7zrONwIZ6RuBUqcOYR73rhq3XJyVB6p9plYlhe4NaKR
-         ZxcR5lYhf7ZkXgrc+d7hd9n3Pf/jaMytknsiMypXLkKolI7R2x8hDBEaLwXYMUOMhMXw
-         hK2zqzDhEamtdb2CBXQEfPRLBuOaLSJKuRAUIqc12KT3IVeOolIXrUsjmyCxib4XPQFz
-         JTvg==
-X-Forwarded-Encrypted: i=1; AHgh+RqgCWfdinbgvg65VKDvXZV0+2yyik2DgkgwjrWEVXc2HqDJBRslatzWU7Ql1A8vUICEKjsfSjg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlHTpyK5f3vWnDENsNhA6Ynhw3L4ojPQyvhRhz1Dlt3sF3nfxn
-	FfhImbDyH0Xy5791zPz6EXL7j/hQMU0cPV/kgd4Gei2U8ttfCubG98OB
-X-Gm-Gg: AfdE7clC4p5InvxsL72yP6Gky81027dkGh44pBi/FX/psnBMVCgS75hoG1h86s2UWnn
-	SpRXaXHJvAiENAs+ZuIJa8uUZxhmtRxALkxLSZGgJcsKsAwALz/oKiZ07YbyINz6+g9RciZnC/L
-	Q/9QAAI2HdD0cHHBlSrk8sMCsOQI3uDw8E7R8cadIxNIt2vDPJSthe/4tP/CGbQ3jl+C9ZxOmgx
-	4rIWG/81j+diuZszEIX2qL+7dqSq2NARZhk+Tah9jYsNLc5rSjGbV693mosvHihNBOqhM2ScQMT
-	16c9e3rv1jLZvR4bRuWaaFU6kF5L/WBqHdad0LEbo5xFhjoReGXNLG40xN8m2Ubyz2/0l9uo6EI
-	c5znULVW5WWimKfTyyhmnGCbb0OcWAY0pqp49dskMBln1bXx7bc52SD/2sPgw717DdJy8yVTLaY
-	hLCdQWYTkGzW8HLgvneAaLBx+nAULTnOczLQY+fJxPRN2tNFojkr+aSZBAq47bAhLHFDUHEwEU7
-	XD2REt21vZMQQ==
-X-Received: by 2002:a53:c14e:0:b0:667:db13:bdc1 with SMTP id 956f58d0204a3-6683bbddf95mr2154590d50.9.1784476728324;
-        Sun, 19 Jul 2026 08:58:48 -0700 (PDT)
-Received: from LAPTOP-83ECOPAB.f7a5e5c3-cab1-4810-bdbb-207cdd06de9e.globalsecureaccess.local ([136.55.173.105])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6683b8cd3aasm4761234d50.21.2026.07.19.08.58.47
+        d=1e100.net; s=20251104; t=1784477002; x=1785081802;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GhZkSvga/r+hHGYJZyAEE9P2eaz6oeqktfsL1oAQxtg=;
+        b=PO3YIdjYsvq9IxzC9CiVtYpfpGBo3tUOc1iU5GOkXJ4DLhCly0OvCOocLkXPDi11vK
+         Ct6JRVCfcJPlXmT11diegoNh9I6PQQIPGOP50m2OzQaBCfQqAxCpQJBHgJ9pNGsMj8H6
+         tK1/WDEd1O/A8i4Q070+AZPX/K5HgiZ0GwgDXDMNQDtrMaVBSu89P9p/smclURAjJU+7
+         0nztZuEeqCTQ2GkdOn021DatEvAkv6dd+J14UH8zWcUEbqxZ+wjrJmagURHwff46kXQG
+         Cm8eSV2Cq6GfJk9EXGiEHqrJnun88c79lvX7vDDceNRt+WxHHwVOB+P3YqBMRvQZvdm3
+         /ssQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpTfyZWR0o6QIuImfaGWA8vJeVv+G5REJC9R5f+hkBDPkikGgrMIWxQk9jQEusttgTBzDOg1Js=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzc0yuD08xmRshvexifWG1whPdU6Amx/NNiGfnZb1W26Fpd5vp5
+	+EfPXg6benIKYCl0OhEUbB0M29Qwvpck7xJn/rgXwdwSWaAzjc9Wx3Pk
+X-Gm-Gg: AfdE7clswpMj+S6w4q+s87iwiFjU7RFdHU51gLGwD8/FiHGG6fDCO1tA5rLn09fwXGu
+	3y38tBzz8c8CxpFsT7+2yU/Jpk1TMx5Zs8Rpdi5eAHVt961fmJjDFF5AKSljfJsqMz2ErrAUtjZ
+	KZNdT4t5hZsF0VPzmPQ6mDeVO+WYEJ/onwUsynVrGy5QD8+C6DfqyjDXGhWWAvsTURbRKoHPVoX
+	aglLL3WMcp3yuf17OvHWs5ZO19VIYMTql5khasYN7czsUJJl24LAD+cctnnwTN431yXx/BwQPuX
+	/gTeu5MLdGLFkOFL5YzxW66nrldAkMUBU1FjXihuzoNFWUkSuPfPWE84g7TQlltPnD0zR5ua4j1
+	iEAF99JbqmT6NTucdNIH6F80/x7NgnVhourqNGJiQqr8Sx8s9/At5SYJ9RZim8Hkhrhd616Zw9w
+	yibxWqASeP1gaFnl5EnVc9SQRbPTC1pxjua6zmSnH1tUFZVtSn
+X-Received: by 2002:a17:902:e549:b0:2ca:de3:15eb with SMTP id d9443c01a7336-2cf346316a0mr100841435ad.0.1784477002283;
+        Sun, 19 Jul 2026 09:03:22 -0700 (PDT)
+Received: from localhost.localdomain ([14.218.106.255])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3448db72sm42571615ad.1.2026.07.19.09.03.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 08:58:47 -0700 (PDT)
-From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-To: brauner@kernel.org
-Cc: oleg@redhat.com,
-	akpm@linux-foundation.org,
-	jack@suse.cz,
-	avagin@gmail.com,
-	ptikhomirov@virtuozzo.com,
-	mjguzik@gmail.com,
-	include@grrlz.net,
-	ebiederm@xmission.com,
-	legion@kernel.org,
+        Sun, 19 Jul 2026 09:03:20 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	SeungJu Cheon <suunj1331@gmail.com>,
+	Chengfeng <dg573847474@gmail.com>,
+	Tim Bird <tim.bird@sony.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Johan Hovold <johan@kernel.org>,
+	Bastien Nocera <hadess@hadess.net>,
+	"J. Suter" <jsuter@hardwave.de>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	blbllhy@gmail.com,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] pid: fix cad_pid use-after-free race
-Date: Sun, 19 Jul 2026 11:58:42 -0400
-Message-ID: <20260719155842.7069-2-blbllhy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260719155842.7069-1-blbllhy@gmail.com>
-References: <20260719155842.7069-1-blbllhy@gmail.com>
+Subject: [PATCH] Bluetooth: RFCOMM: Fix session UAF in set_termios
+Date: Mon, 20 Jul 2026 00:03:11 +0800
+Message-ID: <20260719160311.2898053-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,144 +85,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-proc_do_cad_pid() reads the global cad_pid pointer and passes it to
-pid_vnr() without protecting the lifetime of the referenced struct pid.
-A concurrent writer can replace cad_pid and drop the final reference to
-the old struct pid after the reader has loaded the pointer but before
-pid_vnr() has finished dereferencing it, causing a use-after-free.
+rfcomm_tty_set_termios() tests dlc->session without rfcomm_mutex and
+later passes the pointer to rfcomm_send_rpn(). The latter dereferences
+both session->initiator and session->sock. Meanwhile, krfcommd can
+unlink the DLC and free the session while holding rfcomm_mutex.
 
-The sysctl is mode 0600, but access is checked against the owning user
-namespace, so an unprivileged user can reach it via userns, pidns, and a
-proc mount.
+The race can proceed as follows:
 
-Fix this by treating cad_pid as an RCU-protected pointer at both read
-sites and by waiting for a grace period before dropping the old reference
-on the write side.
+  TTY ioctl task                 krfcommd
+  --------------                 --------
+  load dlc->session
+  enter rfcomm_send_rpn()
+                                 lock rfcomm_mutex
+                                 clear dlc->session
+                                 free session
+                                 unlock rfcomm_mutex
+  read session->initiator
 
-KASAN crash stack:
-  kernel/pid.c:545 pid_nr_ns()        # reads freed pid->level
-  kernel/pid.c:556 pid_vnr()
-  kernel/pid.c:775 proc_do_cad_pid()
-  fs/proc/proc_sysctl.c proc_sys_call_handler()
-  fs/read_write.c vfs_read()
-  fs/read_write.c __x64_sys_pread64()
+KASAN reported:
 
-Fixes: 9ec52099e4b8 ("[PATCH] replace cad_pid by a struct pid")
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Closes: https://lore.kernel.org/all/20260717210143.4734-1-blbllhy@gmail.com/
-Suggested-by: Mateusz Guzik <mjguzik@gmail.com>
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Bradley Morgan <include@grrlz.net>
+  BUG: KASAN: slab-use-after-free in rfcomm_send_rpn+0x297/0x2a0
+  Read of size 4 at addr ffff88810012a850 by task poc/92
+
+  Call Trace:
+   rfcomm_send_rpn+0x297/0x2a0
+   rfcomm_tty_set_termios+0x50d/0x850
+   tty_set_termios+0x596/0x950
+   set_termios+0x46a/0x6e0
+   tty_mode_ioctl+0x152/0xbd0
+   tty_ioctl+0x915/0x1240
+   __x64_sys_ioctl+0x134/0x1c0
+
+  Allocated by task 92:
+   rfcomm_session_add+0x9e/0x2e0
+   rfcomm_dlc_open+0x8b1/0xe00
+   rfcomm_dev_activate+0x85/0x1a0
+   rfcomm_tty_open+0x90/0x280
+
+  Freed by task 68:
+   kfree+0x131/0x3c0
+   rfcomm_session_del+0x119/0x180
+   rfcomm_run+0x737/0x4710
+
+Add rfcomm_dlc_send_rpn(), which holds rfcomm_mutex while it verifies
+that the DLC is still attached and sends the RPN frame. Have the TTY
+path use the helper and drop its unlocked session check. This keeps the
+session valid through both the frame construction and socket send.
+
+Fixes: 3a5e903c09ae ("[Bluetooth]: Implement RFCOMM remote port negotiation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
-v3:
-  - Keep kill_cad_pid() inside the RCU read-side critical section
-    instead of taking a pid reference, as suggested by Oleg.
+ include/net/bluetooth/rfcomm.h |  3 +++
+ net/bluetooth/rfcomm/core.c    | 17 +++++++++++++++++
+ net/bluetooth/rfcomm/tty.c     |  7 +++----
+ 3 files changed, 23 insertions(+), 4 deletions(-)
 
-v2:
-  - Split out kill_cad_pid() deinline into a preparatory patch.
-  - Annotate cad_pid as __rcu and use rcu_dereference().
-  - Protect kill_cad_pid() by taking a pid reference under RCU.
-  - Add a comment explaining why synchronize_rcu() is used instead of
-    call_rcu().
-
- include/linux/sched.h |  2 +-
- init/main.c           |  2 +-
- kernel/pid.c          | 22 +++++++++++++++++++---
- kernel/reboot.c       |  2 +-
- 4 files changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 373bcc0598d1..31ce72b1233c 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1767,7 +1767,7 @@ static inline bool is_lazy_mmu_mode_active(void)
+diff --git a/include/net/bluetooth/rfcomm.h b/include/net/bluetooth/rfcomm.h
+index feb6b3ae5e69..102c278e3584 100644
+--- a/include/net/bluetooth/rfcomm.h
++++ b/include/net/bluetooth/rfcomm.h
+@@ -226,6 +226,9 @@ int rfcomm_send_rpn(struct rfcomm_session *s, int cr, u8 dlci,
+ 			u8 bit_rate, u8 data_bits, u8 stop_bits,
+ 			u8 parity, u8 flow_ctrl_settings,
+ 			u8 xon_char, u8 xoff_char, u16 param_mask);
++int rfcomm_dlc_send_rpn(struct rfcomm_dlc *d, u8 bit_rate, u8 data_bits,
++			u8 stop_bits, u8 parity, u8 flow_ctrl_settings,
++			u8 xon_char, u8 xoff_char, u16 param_mask);
+ 
+ /* ---- RFCOMM DLCs (channels) ---- */
+ struct rfcomm_dlc *rfcomm_dlc_alloc(gfp_t prio);
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index ebeae17b71d1..75f7512dec54 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -1028,6 +1028,23 @@ int rfcomm_send_rpn(struct rfcomm_session *s, int cr, u8 dlci,
+ 	return rfcomm_send_frame(s, buf, ptr - buf);
  }
- #endif
  
--extern struct pid *cad_pid;
-+extern struct pid __rcu *cad_pid;
- 
- /*
-  * Per process flags
-diff --git a/init/main.c b/init/main.c
-index e363232b428b..19a10d0c2760 100644
---- a/init/main.c
-+++ b/init/main.c
-@@ -1636,7 +1636,7 @@ static noinline void __init kernel_init_freeable(void)
- 	 */
- 	set_mems_allowed(node_states[N_MEMORY]);
- 
--	cad_pid = get_pid(task_pid(current));
-+	rcu_assign_pointer(cad_pid, get_pid(task_pid(current)));
- 
- 	smp_prepare_cpus(setup_max_cpus);
- 
-diff --git a/kernel/pid.c b/kernel/pid.c
-index 234ebee29375..fb7c0d18efa9 100644
---- a/kernel/pid.c
-+++ b/kernel/pid.c
-@@ -559,7 +559,13 @@ EXPORT_SYMBOL_GPL(pid_vnr);
- 
- int kill_cad_pid(int sig, int priv)
++int rfcomm_dlc_send_rpn(struct rfcomm_dlc *d, u8 bit_rate, u8 data_bits,
++			u8 stop_bits, u8 parity, u8 flow_ctrl_settings,
++			u8 xon_char, u8 xoff_char, u16 param_mask)
++{
++	int err = -ENOTCONN;
++
++	rfcomm_lock();
++	if (d->session)
++		err = rfcomm_send_rpn(d->session, 1, d->dlci, bit_rate,
++				      data_bits, stop_bits, parity,
++				      flow_ctrl_settings, xon_char, xoff_char,
++				      param_mask);
++	rfcomm_unlock();
++
++	return err;
++}
++
+ static int rfcomm_send_rls(struct rfcomm_session *s, int cr, u8 dlci, u8 status)
  {
--	return kill_pid(cad_pid, sig, priv);
-+	int ret;
-+
-+	rcu_read_lock();
-+	ret = kill_pid(rcu_dereference(cad_pid), sig, priv);
-+	rcu_read_unlock();
-+
-+	return ret;
+ 	struct rfcomm_hdr *hdr;
+diff --git a/net/bluetooth/rfcomm/tty.c b/net/bluetooth/rfcomm/tty.c
+index 4b9a699ec59b..b2c1060394e6 100644
+--- a/net/bluetooth/rfcomm/tty.c
++++ b/net/bluetooth/rfcomm/tty.c
+@@ -858,7 +858,7 @@ static void rfcomm_tty_set_termios(struct tty_struct *tty,
+ 
+ 	BT_DBG("tty %p termios %p", tty, old);
+ 
+-	if (!dev || !dev->dlc || !dev->dlc->session)
++	if (!dev || !dev->dlc)
+ 		return;
+ 
+ 	/* Handle turning off CRTSCTS */
+@@ -979,9 +979,8 @@ static void rfcomm_tty_set_termios(struct tty_struct *tty,
+ 	}
+ 
+ 	if (changes)
+-		rfcomm_send_rpn(dev->dlc->session, 1, dev->dlc->dlci, baud,
+-				data_bits, stop_bits, parity,
+-				RFCOMM_RPN_FLOW_NONE, x_on, x_off, changes);
++		rfcomm_dlc_send_rpn(dev->dlc, baud, data_bits, stop_bits, parity,
++				    RFCOMM_RPN_FLOW_NONE, x_on, x_off, changes);
  }
  
- pid_t __task_pid_nr_ns(struct task_struct *task, enum pid_type type,
-@@ -773,11 +779,15 @@ static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffe
- 		size_t *lenp, loff_t *ppos)
- {
- 	struct pid *new_pid;
-+	struct pid *old_pid;
- 	pid_t tmp_pid;
- 	int r;
- 	struct ctl_table tmp_table = *table;
- 
--	tmp_pid = pid_vnr(cad_pid);
-+	rcu_read_lock();
-+	tmp_pid = pid_vnr(rcu_dereference(cad_pid));
-+	rcu_read_unlock();
-+
- 	tmp_table.data = &tmp_pid;
- 
- 	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
-@@ -788,7 +798,13 @@ static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffe
- 	if (!new_pid)
- 		return -ESRCH;
- 
--	put_pid(xchg(&cad_pid, new_pid));
-+	old_pid = unrcu_pointer(xchg(&cad_pid, RCU_INITIALIZER(new_pid)));
-+	/*
-+	 * Wait for cad_pid readers before put_pid().  We cannot use
-+	 * call_rcu() here because free_pid() already owns pid->rcu.
-+	 */
-+	synchronize_rcu();
-+	put_pid(old_pid);
- 	return 0;
- }
- 
-diff --git a/kernel/reboot.c b/kernel/reboot.c
-index 695c33e75efd..fc191a48c0e9 100644
---- a/kernel/reboot.c
-+++ b/kernel/reboot.c
-@@ -24,7 +24,7 @@
-  */
- 
- static int C_A_D = 1;
--struct pid *cad_pid;
-+struct pid __rcu *cad_pid;
- EXPORT_SYMBOL(cad_pid);
- 
- #if defined(CONFIG_ARM)
+ static void rfcomm_tty_throttle(struct tty_struct *tty)
 -- 
-2.53.0
+2.43.0
 
