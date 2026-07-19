@@ -1,155 +1,99 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010023.outbound.protection.outlook.com [40.93.198.23])
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6F4200110;
-	Sun, 19 Jul 2026 08:41:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784450517; cv=fail; b=lWI9VeZMrAgKgpoM+5rJVNsxrPPWEUyTcMqk17Cfs1tPShqP1r5zvtZOO+vhKS1uFE1xfPnBVFQquphh8EVTUZklgG/RBoZeLqHHJ/glkl1TIyPpfLsdF0OsAFaihQ6o8bEG0kChQqStJ/nfX3I9mAJWurPE31xs5ymCOGdfPZo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784450517; c=relaxed/simple;
-	bh=l9N07ErxZAVyRdcK4w3qUS0oyW9EtpNYCH0y6klcSr4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KxXVKNrh2surL0GbYZWO8FSjbLlWFJMguTvDGVpHduHKlnmfmL3EsaC8qZ4tN5yjbOoA4W/B0quuK46Gey/tcnNXqMD91ahHnZtZdsSeugQLRPNyTvDeoyEfhQkEOHrhTSoEfRzfYo23Uo6tZXC6qrVzPKyKbYllt5gdjmxzBDY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=EkEsTFtW; arc=fail smtp.client-ip=40.93.198.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F953806D9;
+	Sun, 19 Jul 2026 08:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784450736; cv=none; b=OBRKYO4pfPKXoAMy4KIbZET+p4/Ni0TWkAsO5mv+DjcG7Ck+BH3KBhtB2HFEpDfeKQrcrpdA7LYGbkpQET8QMINXVVoNKNkShv0toUMspDfCvLQ0HLUezPysVrCkJWVib0DB9sjzqDO59OlU9T/QUxo8WewMzZ4JjZrS4BJQzGk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784450736; c=relaxed/simple;
+	bh=mr5uU9bG1jypqHI5+oUDLAsVh1KcDPH3TiYZ2d1fmWE=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=o1IOrl3GgliveaexVVTPpfIIAhNuwqag6nheKYKWqhI7XWGx5UffizpI6aOCXUiCkSO1/Sscywhy+4RlioB+3YxQBNNQwrv/RjzFJ9IAkfEcOcSiRHI1FzIKm1HWGL9qMOEOlLTfy0ryK+AOzCZa4gA+EIueq9I0eRxJU9OjlxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=iI4kFqPS; arc=none smtp.client-ip=162.62.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="EkEsTFtW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MJTieNVKsRGvtOXXxHUj6Rn0QoV4NHpoBHgnHmsREMpqnOF8AgPNFH4ZyZj2Q9wXmJYg4J1fUHiagKfh2I5riprlvRHleiVPqKBuu3W27NFrvBnZESIIw7f6DbUgz8yRfVwVYR9MZ4cElHF//8C0XzSjw+UtuuObfY4x03jqTZKifld6JbxZVSQPnsb6MhUmS8UCOBw+KlJsnxdF4b67VWHO3gPHslfx/Qy9q5Satom96jTq2fZMb+f/HgHpewLPB7uctnqhQHbix5lMdncOmSQfAL3pFe7mnZ33qu4yT8iAumiJDoi5LSygAoKzR1fQYC4ydgeuwCeBsXMQpkklaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ekvrcK3e4leYPIu6t7yk1Ce36VFz67Jem7UCibN0Lto=;
- b=sqrBZpF6NIcNApVpiEKNgXw3UaZ5wHFK0ZqAsSTpMRs3nVCAIrrrJ69QpC435K7/hkwwNEdsCxNjRhHx68KOkTrj5I5IZK9YqdFPLox4/uYGeflXfCiu/9QlIN2TFr8Gi7n8rqqVFk6FsXTq018yqf2vcq2AdJSHoh8rx2LP5Yp7h/rUgs+1DzdMIo/33T7o1/u+I6K/yF7Qa7vITfsuwR/DYvsqmGeuMhVCY4FP4VLDL6GFwsaztl1G5xFQhKFbytJBzefSy3MEEhqoxyeqSs4qa3KKkOA5kN6EezsdjxEYpQV++cd8z972h18K/+DKNmLkmDXHpUv2Z/sn1VrDbg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ekvrcK3e4leYPIu6t7yk1Ce36VFz67Jem7UCibN0Lto=;
- b=EkEsTFtWQmQ51hGltw3W6coPDMAhp8McUDeZAlzMsgNASHqd5EkyFS8KJBU3Ye8ctirXH+UkER+PgvEWrWchijg4gysZCBtGaShNjBa3spkMvHzZnKbyl7zUyyllMhRM5NjuIOj/BQVx/wBti8TEwUAv3GnLk5gk+RQMVPy9cjg0R2bjx9nc+3wg0/ueD1yhOv1z2M3UCq8BokJSLgge2Du4Yibu2Uha9It+a3Z4Sn2HqwpV0rW58PVlPF4kMpEJnECBn6L6K5p7G822RcVFPuwma1gvLbMkyQ+yvLKooMy3uKGI2hD+Ftek0gx69uCjzKu0fAgN+LlZKftR8tqhTQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12)
- by SN7PR12MB8103.namprd12.prod.outlook.com (2603:10b6:806:355::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.15; Sun, 19 Jul
- 2026 08:41:51 +0000
-Received: from SA3PR12MB7901.namprd12.prod.outlook.com
- ([fe80::6f7f:5844:f0f7:acc2]) by SA3PR12MB7901.namprd12.prod.outlook.com
- ([fe80::6f7f:5844:f0f7:acc2%5]) with mapi id 15.21.0223.013; Sun, 19 Jul 2026
- 08:41:51 +0000
-Date: Sun, 19 Jul 2026 11:41:42 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="iI4kFqPS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1784450723; bh=dUvX8gecFJ2u6baMcbOFCOLfemTBHpSn5RLuwC5A4MY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iI4kFqPSnKO213Vb+OvYUIeoShKsYfvrFeF40f11/BpMQ75TIgyts64PeT5DrTm9e
+	 Gvs1SR2CIt+p+66O9rzvxZfglq+V9vC93yguBr9M6TtjdShgo8w+Tr/I/vev6e9Ei/
+	 xr2m0MNMcXvWE4frgK6vKQhdPWye87Ma7M1M11bw=
+Received: from ikun ([223.65.85.165])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id B5213A5C; Sun, 19 Jul 2026 16:45:18 +0800
+X-QQ-mid: xmsmtpt1784450718tarqiyoj6
+Message-ID: <tencent_ED3CBD42DCDC72213E6292A83A7924155109@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJ7hi3npMz4REHgCb43EKtDQcpCCg1bQ7BYSLYUEYMA8MwGdlBQa
+	 CGDza58dQ51c+W6O3yQ+6bbyo4iVMbPjZn0WhWxzXcvyFzOYh5tNVCbtybO9WfRPfppBNls9FKSh
+	 vKGUorclOfrnjnlWA39oxDXYWgfbeYVi8dvDAGuGYHXg5cPrxJP3kP8J528dOpkVWOwF7O10e36u
+	 gj5VtJpcRgsUH4pZFH2PMZsxvDwMMuEhIujpzF4yEiAcHpIjK//zziYJa0n036O0gquYcoX6tRkV
+	 T+9je79OaQNohcLOu/+lQh+ZQcBzL5Luldf79Y9g1WCPLgTrspXxyThK7Ue8eeIMOn9a4bGfGxU4
+	 f6knND1sSWModBTxyb7t10O3eGS/Bvv6LbSdMOqn3KGy7jy+luIeX3XP9vhecFe7kzI7+q5bzocR
+	 Xs14ys/PnIC5V2JvwdrLNQH185aA08Fp5up5/Utv7gPE1clIwt48QqD2WKtuJpbgFD601meVpDbj
+	 nfywIBffOOViqw8IpKuCKvmiHyaLXXKfikr15rb8bzbK2Y79iWJ3zlh0pcsHmxyGfTuwfSVfiMJ2
+	 qndRrYXkhzn8GHb4/iKDwLvkHlCY10D53QvzZv8hvWh5hHJZfEC7pbSxtVfwOVUtWly5dcXbGU9E
+	 GsIn37mdgIfFGoc77ZWFP3Cj8CckX8cmlGvzUiDq/goSm4DGEtenrGvUKDQ4zE6ldMVS1Q9uu02s
+	 hA+mMG3pK674ap00vKIdSBA0W1fWyOvMCDC7RyvrLgojs0NBY3o2fFBOWNfTPRztnPQmzs5jRuaI
+	 4yoisfKKG1tQqZo9obDv5Cj7FqvjClk1aMqa6CtyyY3EGY7nOG2Eeq3dxzoj9Eb5Oclia74mBvEN
+	 Qy+b1V6OFXncQmzUJvpZ3b1GPk9i5l2NCp3Kc7GtBSFodVX/aq62p+dshdt+1Grf7xKT7JEyezGr
+	 2sBCiMYpm1GnuwXu8n06SMYgX4rA3BipwPwDano+V7tFZeeh0ZeGYZJXo0g/siMjVpOnjMKzUnZ7
+	 JffUkSZL2YtwxwbUK2YjEJ0ABLsnY=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Guanghui Yang <3497809730@qq.com>
+To: jaegeuk@kernel.org
+Cc: chao@kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Guanghui Yang <3497809730@qq.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net] ipconfig: bound BOOTP options by UDP datagram length
-Message-ID: <20260719084142.GA1906127@shredder>
-References: <20260713141107.10418-1-zhaoyz24@mails.tsinghua.edu.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260713141107.10418-1-zhaoyz24@mails.tsinghua.edu.cn>
-X-ClientProxiedBy: FR0P281CA0227.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b2::7) To SA3PR12MB7901.namprd12.prod.outlook.com
- (2603:10b6:806:306::12)
+Subject: [PATCH v2] f2fs: fix dentry folio leak in find_in_level
+Date: Sun, 19 Jul 2026 16:45:14 +0800
+X-OQ-MSGID: <20260719084514.586-1-3497809730@qq.com>
+X-Mailer: git-send-email 2.52.0.windows.1
+In-Reply-To: <tencent_E3A22766836A9AE740D1CEF328C4DB8D0805@qq.com>
+References: <tencent_E3A22766836A9AE740D1CEF328C4DB8D0805@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB7901:EE_|SN7PR12MB8103:EE_
-X-MS-Office365-Filtering-Correlation-Id: 195afd94-0569-45a7-4b22-08dee5719426
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|6133799003|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	k3++jsDHNVSQddB2p+7CCF0LgKiRQmo462Mi2cfQBQJ4+sJfaf7goddc539XI7ua5xyJRHCsymhi2ELNOt1AzdC7pK9cMl061ITJlPl+uUJB32nq7pu5/+nCSebZGyk9kAKYhw/zxXRkoxgt2L+ZxYUrqNpKCO+4T6pK48E2900ESaYxz09NOAYjd52Bp3ovKzjJ68P+9ZrxQ236l3hHUutpJXHCusQzLVVpNvf2tsSaWKlOBJ7zkHSyaTJfFwbLbEy4Dch96gDyD3PO1hER+9E5L0CzXADZtxpojoNu8uSDEd8VkRMDi7wgqkAb01ZpzoAoJy3/MFuQvlMAQRVHo6Pu/u7oijdDvw25KK+KYxAVIChdHv5okMgL/0dGfL2l8J7WLDNqILMJ+iH1tm65Gy94vFQzQwNUx0iWcWjdzwwNKb+7hKzwRqfxE8nuFfjn15Fml8FN6zwF1aGXM4kLrvvhoXEXmueNBzRz7RVvdswTEvX1k7/KZnfVUuKAL4kLexVdETED+2ztV+HWyK4J2vTnyUUGwDuoiYuBBqdTvaBlOpzgWquSieNq5zzlwT8E4QnqYI+j2QNOBYdk9nYEb9isNTHyVsDonDLjl/cARCZojoVtGKOv/Kd53KPhvtvvPRmUa0SpmivqVFDaYT/006HxqAu4dUCoLwJ+uO7rjDc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB7901.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Rf0VGDMZ1AkIWCELGrp7X3uO1FQOKVsrw8/wPdibXeuUZsUP3UQkYYXbZQKG?=
- =?us-ascii?Q?Xz1V9ZXfomVWF0C1PjqQR/KQyTvG7tCXq0OpJMbshe/sajKLnmyHhiL5ZuKy?=
- =?us-ascii?Q?fOZZ3398Ut1CC2BIAuAIIZZ4puUv6fN5N99PTHbiqXSQ3lTgvTdIKXOfyOYU?=
- =?us-ascii?Q?EzFzkV43w4WP7iBNpoYjVKQQFZfIjdxG3Uofju9wR2NFmz1dgoVuZnySnLIM?=
- =?us-ascii?Q?RgpVF3S1j+jeuCl3TNMbuEyV5S/Ti8kTpK7qp6Lxg7AjHJ//06GSnGNVjLh7?=
- =?us-ascii?Q?9uKWQjJLGOqbDjZOYHEdMeWzK/yc0OGMAv8RcND+PZYgLl6H/S44OorJJzLY?=
- =?us-ascii?Q?t/Crxa9CoPHk4x8+Gy9hLyDMb5XsFEikWQAz2IVG/vuSeeOLI7UZ9MNMGls9?=
- =?us-ascii?Q?Ia6KnhRiN3Qg67MEVdjRkx9QrkcmbYbz1ycqo4arQkLW7CB7Fx62JdCJLE83?=
- =?us-ascii?Q?IpCX3YAleTGxDWFmVtO3FYRhFaqf70Pmn93ls1OzuzloQzU2wKRA92F9B1Cl?=
- =?us-ascii?Q?AiflBzFe6zFoE0YX1zep1Xew8M+p22IOseeWYc00I81h/4TOBe31++f3lcgN?=
- =?us-ascii?Q?P+hRQZHIrHZxWgp+Xm8pPdL5rsLHY+tMGSYvBE9vpfS+SekGIUW0+y2QOpFE?=
- =?us-ascii?Q?tklOggpGWc3TxojwDPecxVLi+U4FAJgj7W+YgDz/kxI6MpEXhnzRvBfoIAB7?=
- =?us-ascii?Q?lQ+OMDaw948d/zIw9y0vqVXbqQWehSC8IXedPyKQc55g6fBPVD0qj0SPLtYm?=
- =?us-ascii?Q?nCADL5m8B9axh2r3hH6v6E2Gp8UABRXeZ0FNBhVyK/fPUlPiS3puRrs2Ce1Y?=
- =?us-ascii?Q?dTsrI0ZGkO1LTlK7jOzGilmM6KGoTixYCUGrmQOevV3ZFg2Uqvo7q7064WYK?=
- =?us-ascii?Q?fRp7EPhhH/Lg7iukAlUOVUfqQ2qW6E3yduakSjyU739U51oIOCKQBZh4kSJA?=
- =?us-ascii?Q?eJogjUgrDVxTkbDfdTZYoTlZFUdaWBjmWAJQt0rEWUw2G/lk4IoRAxRvVdnH?=
- =?us-ascii?Q?e2HiSVNVyGv4opMhZF/Uc5NjpJIW9/SD4cBszftMy0OOCXONxWt34UvLl6+6?=
- =?us-ascii?Q?NwG4WqOxUCESuwXH3V35GY6gODHAoJcBM2S3onU1WFhXVvYatKb/0+65hm0Z?=
- =?us-ascii?Q?9oEI5ak6sXMhzMus7JK3rhcwwEvZa9dwYsxWjngEu8tKCnoZ1f6hInK4G4Eq?=
- =?us-ascii?Q?hSyynWV5DtxZWM6z4ctlmVD5Q95KbvMkUCPDXxEQfQj+eOXZ8ltdFlgT+YQp?=
- =?us-ascii?Q?m6keZ33MAEX4GTOlncAKGFx3AO6yDmWl7/fHjTmejdShvMY24eygeoFDiobu?=
- =?us-ascii?Q?UxiJhiVAMP4saj585jvS77necGl5CEaOSVk9lKAueD7d8Z7rwV5h7O8yGzMS?=
- =?us-ascii?Q?2TdnUebLXTw6FJDxveU8fUKu6S05QZ/KAB/Li9yCrTwfKD+7E4vZbcPy6or0?=
- =?us-ascii?Q?b4bDXzH+5NVtJypNnHgKEuNReuRL8+skpmoHowAxMf6Ko/UUtTChZpUejvNI?=
- =?us-ascii?Q?5FZvCtp+uT5UZtLpGzejGuFYMqsW7GjPBoYqUBQXuUxJXHYNWa2GKnJDKB7F?=
- =?us-ascii?Q?Nd5Q/3oibxWwmcFFTS3yEUevG+v+LfkV6oH3oFwcC+s8IQ+vnA5d6Co4zDTg?=
- =?us-ascii?Q?cNkdKNDDIVZYrC2X5DGd2ngKWI7fl8P69be++gsypaj/paAZ1dJQcz8+OOC7?=
- =?us-ascii?Q?QAt00jD5VKCG2OBaNWObJf7OfnDNUBBX1SDwZum25jGGVFIr?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 195afd94-0569-45a7-4b22-08dee5719426
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7901.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2026 08:41:51.4469
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IjR8kZMx/qfClrQMfVDBG7r7DZqVCL4XAcmYDhM54OqZThd8YwjNu9IT4zifdkF5JuUQtVfgLRFREYxHlSFhgA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8103
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 13, 2026 at 10:11:06PM +0800, Yizhou Zhao wrote:
-> ic_bootp_recv() accepts an IP packet whose total length exceeds its UDP
-> datagram length.  This is valid at the IP layer, but DHCP/BOOTP options
-> belong to the UDP payload.  The option parser nevertheless uses the IP
-> total length as its end boundary.
-> 
-> Consequently, an on-link attacker that can race a boot-time DHCP exchange
-> can put DHCP options after the declared UDP payload and have ipconfig
-> consume them.  A QEMU/KVM reproduction with ip=dhcp accepted a forged
-> DHCPOFFER/DHCPACK with an IP total length of 290 and UDP length of 248;
-> the tail supplied a netmask and an off-link gateway, causing boot-time
-> network configuration to fail.
-> 
-> Use the UDP datagram end as the parser boundary.  The receiver already
-> verifies that the UDP datagram lies within the IP packet, so this retains
-> normal valid DHCP/BOOTP parsing while excluding the IP-only tail.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-> Reported-by: Ao Wang <wangao@seu.edu.cn>
-> Reported-by: Xuewei Feng <fengxw06@126.com>
-> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-> Assisted-by: Claude-Code:GLM-5.2-special
-> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+find_in_level() gets a dentry folio with f2fs_find_data_folio() before
+calling find_in_block().  If find_in_block() returns an error, the
+function stores the error in res_folio and breaks out of the loop without
+dropping the dentry folio.
 
-The code change looks correct, but why frame it as a security fix?
-Can't an "on-link attacker" forge the UDP payload instead?
+This leaks the folio reference on the find_in_block() error path.  Drop
+the dentry folio before returning the error to the caller.
+
+Fixes: 7ad08a58bf67 ("f2fs: Handle casefolding with Encryption")
+Cc: stable@vger.kernel.org
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Guanghui Yang <3497809730@qq.com>
+---
+ fs/f2fs/dir.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
+index a9563f7fcd88..0562ad211351 100644
+--- a/fs/f2fs/dir.c
++++ b/fs/f2fs/dir.c
+@@ -320,6 +320,7 @@ static struct f2fs_dir_entry *find_in_level(struct inode *dir,
+ 
+ 		de = find_in_block(dir, dentry_folio, fname, &max_slots, use_hash);
+ 		if (IS_ERR(de)) {
++			f2fs_folio_put(dentry_folio, false);
+ 			*res_folio = ERR_CAST(de);
+ 			de = NULL;
+ 			break;
+
+base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
+-- 
+2.52.0.windows.1
+
