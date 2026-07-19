@@ -1,52 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6B53A0E99;
-	Sun, 19 Jul 2026 15:01:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99083A1A2D
+	for <stable@vger.kernel.org>; Sun, 19 Jul 2026 15:01:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784473264; cv=none; b=okzPLKcTlrxsWOkVpbvuyC4Rlf9McWJ9kVD9qkFxL9ODXzPEbDEV1G7a/jsOtStb9R/D9slXI5aIt1HQn4g/rYOOLCMoUdh6uaQYim6xzAQMiX4PZ8SRUwd54aAxpFaPxg1iWIoarrjqMSFCyp7qciaStp/6Eixdb7pKjCqWT+I=
+	t=1784473311; cv=none; b=kCyIY5hHzdEbc0xUQFc/SUcQ2A8zMi0Q+Jh/a6UBlIneXrV5ceZR/CDSO21owBfRMq9XoffGr4aURLcQci59V8dJ2S853B0TymUSnt+kE5caV4/06Q7nqbOggdfF8KbRRojQQ+F0nnPpqPleVMlll3YJwFaQFs0vovj3aFMIHTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784473264; c=relaxed/simple;
-	bh=l8YHxl2GP5YDQVXzNy+qHX/q1HmVOPiu7snktXuZAPY=;
+	s=arc-20240116; t=1784473311; c=relaxed/simple;
+	bh=sHm+k3rUejMkocQmtT8yTdjeOevphl9ExsN75WoEVP4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=slKsKK1IhMjxFt+TOyMWSz9I7toWVEZFbvja3BXqFj4xM7jwbfdgV2voVvW1KYhPXHf8DazyMrUclwehgamVCGgu8cxAjong5pPzj9tOQAtwBOM6YVWVJVaS9EzeYGhO6nwdgeGTuBhpcVdS1YGD6zlnqy+cn1WMLZdnTSabdVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dpD+I4xA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=d31b3qnCfjbvDLHcLvbv51frJnUQivHMc4wXkIdKdzWxg5mJtK4xIiQuMWkn6QOIpnlDO89SW1NSNvqWc6JTtVcj+MutPEG6csPGNBAO2JYG4r/MRGYdMSI+f+7eGU1CfY4tFNJxvYBnevjDApBsWvo0V5GZYNP2BJz35DH++tg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mdfeD+cx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dpD+I4xA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEF781F00A3A;
-	Sun, 19 Jul 2026 15:00:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mdfeD+cx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 414EB1F00A3A;
+	Sun, 19 Jul 2026 15:01:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784473261;
-	bh=he4QShXo/hm/vEiGnRhLGzz6JHIPgvhYG9sEjtQzwcQ=;
+	s=k20260515; t=1784473309;
+	bh=D2LoO2VJT1kdBCnDsuI1rrrnxIw+yEL2lJ9Nb0fKBnY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dpD+I4xA8hlRcoWkfNcFJmu1s2GGoomMuCJbEgbwvr4UeuVUZSmGyDDEbaZ+rjme1
-	 oky5jSTCIFpaGLMRfFN5FwLjLrfYB7QNhMhyYp5G28DRIvbSgju/05n+nAvJUSOmge
-	 4YLHYAxs9k3olHLelnlfhShPIrDi1Umpio3PpjzW55qAoa61RWpGaAM/5wKHH8mQDO
-	 Ov/lzbuLxn7RnqqFM7trIY/ARsKvdRVqa4E1RhO/MyRPYnz6kAgSxUy6IWr5wutfRc
-	 Q1+5siNc6Df9kuqsxFE8iGT71cBInbNbZEE0ok7p7VUm5PHm+J+vL6puZinzPAGlgo
-	 T3mOjfbv5PtuA==
+	b=mdfeD+cx332KVa6ZNqSj+/Z3oQ1vjHAtelasJ/ObRo664qJKj0J8AsSbUsXATc+5Q
+	 ld2jBMlOBY+UgRyx9PBQ+oOssPTrkqPnkR+PlslyVDTLBNRXamEbsCyUQ8RWHn/L5j
+	 CHaDNsvn9ixrRZ32S6CXjxtesbCzixNP1vsU+rJYxJnhDY0L71nyVVJ39A+f5lBSTb
+	 49fuC2pZNEgE/dMHIc7Cjj0SdpFuDPchLOdY3a9R/RZs+EXnvxRxX4NLFBjn+3OMET
+	 aqdpk5Tw9/BJ1n7GbI6pvyyUej/YMaPBi5SPXPDxvmIIHvQoC1op/qQUXC9gBnRciH
+	 Yw6wYWG9mXxeQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	chenridong@huawei.com,
-	tj@kernel.org,
-	lizefan.x@bytedance.com,
-	hannes@cmpxchg.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	eadavis@qq.com,
-	chenridong@huaweicloud.com,
-	akpm@linux-foundation.org,
-	surenb@google.com,
-	dust.li@linux.alibaba.com,
-	Philo Lu <lulie@linux.alibaba.com>
-Subject: Re: [PATCH 6.12.y 0/2] sched/psi: fix race in pressure_write (CVE-2026-52991)
-Date: Sun, 19 Jul 2026 11:00:32 -0400
-Message-ID: <20260718192718.0018-stable-reply@kernel.org>
+Cc: Oliver Neukum <oneukum@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] usb: iowarrior: remove inherent race with minor number
+Date: Sun, 19 Jul 2026 11:01:46 -0400
+Message-ID: <20260719150147.60929-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <9805cccf-91d8-4766-a79a-035e5de39857@linux.alibaba.com>
-References: <9805cccf-91d8-4766-a79a-035e5de39857@linux.alibaba.com>
+In-Reply-To: <2026071455-frosting-daringly-00de@gregkh>
+References: <2026071455-frosting-daringly-00de@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,25 +45,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> BTW, I have an unrelated question. I'd like to backport some stable
-> patches to earlier LTS trees (e.g. from 6.18 down to 6.6). For patchsets
-> like this one that apply cleanly to multiple versions (6.1, 6.6, and
-> 6.12), which of the following is preferred?
->
-> (1) A single patchset covering all three trees, with subjects like
-> "[PATCH 6.1.y/6.6.y/6.12.y] ..."
->
-> (2) Three separate patchsets, one per stable tree.
+From: Oliver Neukum <oneukum@suse.com>
 
-A single combined patchset is fine when the same patches apply cleanly
-to all the target trees - just list the versions in the subject like
-you described. Separate per-tree submissions are only needed when the
-backports diverge.
+[ Upstream commit 56dd29088c9d9510c48a8ebad2465248fde36551 ]
 
-On this series: still holding for now - Tejun's fix for the psimon
-creation under cgroup_mutex hasn't landed in mainline yet. Once it
-does, I'll queue the series for 6.12, 6.6, and 6.1.
+The driver saves the minor number it gets upon registration
+in its descriptor for debugging purposes. However, there is
+inevitably a window between registration and saving the correct
+minor in a descriptor. During this window the debugging output
+will be wrong.
+As wrong debug output is worse than no debug output, just
+remove it.
 
+Signed-off-by: Oliver Neukum <oneukum@suse.com>
+Link: https://patch.msgid.link/20260312094619.1590556-1-oneukum@suse.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: c602254ba4c1 ("USB: iowarrior: fix use-after-free on disconnect race")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/misc/iowarrior.c | 17 +++--------------
+ 1 file changed, 3 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/usb/misc/iowarrior.c b/drivers/usb/misc/iowarrior.c
+index 38f6dcdfd7fb91..f9266ae8164100 100644
+--- a/drivers/usb/misc/iowarrior.c
++++ b/drivers/usb/misc/iowarrior.c
+@@ -74,7 +74,6 @@ struct iowarrior {
+ 	struct mutex mutex;			/* locks this structure */
+ 	struct usb_device *udev;		/* save off the usb device pointer */
+ 	struct usb_interface *interface;	/* the interface for this device */
+-	unsigned char minor;			/* the starting minor number for this device */
+ 	struct usb_endpoint_descriptor *int_out_endpoint;	/* endpoint for reading (needed for IOW56 only) */
+ 	struct usb_endpoint_descriptor *int_in_endpoint;	/* endpoint for reading */
+ 	struct urb *int_in_urb;		/* the urb for reading data */
+@@ -246,7 +245,6 @@ static void iowarrior_write_callback(struct urb *urb)
+  */
+ static inline void iowarrior_delete(struct iowarrior *dev)
+ {
+-	dev_dbg(&dev->interface->dev, "minor %d\n", dev->minor);
+ 	kfree(dev->int_in_buffer);
+ 	usb_free_urb(dev->int_in_urb);
+ 	kfree(dev->read_queue);
+@@ -297,9 +295,6 @@ static ssize_t iowarrior_read(struct file *file, char __user *buffer,
+ 		goto exit;
+ 	}
+ 
+-	dev_dbg(&dev->interface->dev, "minor %d, count = %zd\n",
+-		dev->minor, count);
+-
+ 	/* read count must be packet size (+ time stamp) */
+ 	if ((count != dev->report_size)
+ 	    && (count != (dev->report_size + 1))) {
+@@ -379,8 +374,6 @@ static ssize_t iowarrior_write(struct file *file,
+ 		retval = -ENODEV;
+ 		goto exit;
+ 	}
+-	dev_dbg(&dev->interface->dev, "minor %d, count = %zd\n",
+-		dev->minor, count);
+ 	/* if count is 0 we're already done */
+ 	if (count == 0) {
+ 		retval = 0;
+@@ -523,9 +516,6 @@ static long iowarrior_ioctl(struct file *file, unsigned int cmd,
+ 		goto error_out;
+ 	}
+ 
+-	dev_dbg(&dev->interface->dev, "minor %d, cmd 0x%.4x, arg %ld\n",
+-		dev->minor, cmd, arg);
+-
+ 	retval = 0;
+ 	switch (cmd) {
+ 	case IOW_WRITE:
+@@ -671,8 +661,6 @@ static int iowarrior_release(struct inode *inode, struct file *file)
+ 	if (!dev)
+ 		return -ENODEV;
+ 
+-	dev_dbg(&dev->interface->dev, "minor %d\n", dev->minor);
+-
+ 	/* lock our device */
+ 	mutex_lock(&dev->mutex);
+ 
+@@ -775,6 +763,7 @@ static int iowarrior_probe(struct usb_interface *interface,
+ 	struct usb_host_interface *iface_desc;
+ 	int retval = -ENOMEM;
+ 	int res;
++	int minor;
+ 
+ 	/* allocate memory for our device state and initialize it */
+ 	dev = kzalloc(sizeof(struct iowarrior), GFP_KERNEL);
+@@ -890,12 +879,12 @@ static int iowarrior_probe(struct usb_interface *interface,
+ 		goto error;
+ 	}
+ 
+-	dev->minor = interface->minor;
++	minor = interface->minor;
+ 
+ 	/* let the user know what node this device is now attached to */
+ 	dev_info(&interface->dev, "IOWarrior product=0x%x, serial=%s interface=%d "
+ 		 "now attached to iowarrior%d\n", dev->product_id, dev->chip_serial,
+-		 iface_desc->desc.bInterfaceNumber, dev->minor - IOWARRIOR_MINOR_BASE);
++		 iface_desc->desc.bInterfaceNumber, minor - IOWARRIOR_MINOR_BASE);
+ 	return retval;
+ 
+ error:
 -- 
-Thanks,
-Sasha
+2.53.0
+
