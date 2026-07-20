@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699E92C234E
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBD42BE7B6
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:22:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560958; cv=none; b=ThkC0+c29B43nSIWIg1rvG7NC6VVtuMF5ICcrgB83aK92E994obUlvHT+xuIlKRxtLjOoiQANCiPMJI251IYxaZ/F9zEeN0xo9dNV8vro9ORKmBuX7tFdvoDRVjEVTMRiJEioJMzYL+r0PqLLC5BjK9nko3Dz7+aWa9bx/IyrAc=
+	t=1784560966; cv=none; b=gEs0TCp6jWdZDTuwFGlC6+gHx3zP7e/i6vOX9YFPhgMUapm94Fd0bMx2DQ+7QB8UXS9E6bxPLzCx2DyuiPEXCfA0mOB8bCZ10Z/BPx+SM0E8ulBiIJqgZrjTwqkJ9OP2vjrT/M7X2jbV33pFu71j6feRVlx2KIwSAxaSTaKUjB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560958; c=relaxed/simple;
-	bh=nfW2F8orrGAn4zxgmTi36Cny5tA0rtjXBeqNjH7KvRM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uOfRPiayQcho4vbRpjqeUjtT1oTCH0kE7+1MiBA27wQ42OLkknVb/nb+dAhWoUGWcjpl7Ym9I2rQXUGxU2BnQe93+Q0WyD0KSlk/O+r8oFU0vIXiYnqIuEaweuTIERt/FOdLqhmrMrWmeKgPZDbjq0HKePQ9JLRofBFHV7E0/lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xip5gkxN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560966; c=relaxed/simple;
+	bh=w45foug3SI/MQbS3lkj0FEFadUWGFMwOrqZY0WH686c=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JrXwBb3HLW+oY/SL2K8+/ORYYPVsktevcK194uAnxHrQTtSD9gnJJOh3CbLq+xkIMB1/ki67IdDvYTj3mZOGsvVAjCNpcnMmmpeBxFVG5MpswHWmM4hbhJ1rMv/N4GrY7qTAqPMaU5uLjWBG4aynSgRFq/UaAEXE/AnTgP4ftew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sZ/mXf9A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xip5gkxN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B17F1F000E9;
-	Mon, 20 Jul 2026 15:22:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sZ/mXf9A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A2601F000E9;
+	Mon, 20 Jul 2026 15:22:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560957;
-	bh=FfqQgrxKCpejirUS9bc9N2RV66rnBtPKtXFWUkfHsCo=;
+	s=korg; t=1784560965;
+	bh=5tc7sOzd8iMxyXNE5ojE59Oc2nv8qTP8ZQ7Wroq+OpQ=;
 	h=Subject:To:Cc:From:Date;
-	b=xip5gkxNoeemovqvi0HUjDoXkx74yqKwW4UN0/b15NqYF5Cip1TY1Ln8PuCOdhTip
-	 xcQHi09wlXztpsogq5hhwnT5pX6KbYNOYyKiXzRuHvIvHZpgGAAfUPQ7ClIhXx3JPY
-	 ATSVk8wP3Txh34zqb9HPKd06w4dgiY1ym7q3Jgo8=
-Subject: FAILED: patch "[PATCH] scsi: ufs: core: tracing: Do not dereference pointers in" failed to apply to 7.1-stable tree
+	b=sZ/mXf9AzUsLKDM1dx3XdXeRgd2Lcg6KrzOKYKBO+5ZOb1sNhxTLsrfMeh1tqJMZu
+	 F0HCDKjhEA0fGySwsEshl8YXHH8I9CinR1RZuCYQh6kC/gPR7BjTUlQmc9oBIGfxUI
+	 6K/ZOHH5SbtIUUv+5BU7VdxrhGbHni2lKWERxVL4=
+Subject: FAILED: patch "[PATCH] scsi: ufs: core: tracing: Do not dereference pointers in" failed to apply to 6.18-stable tree
 To: rostedt@goodmis.org,bvanassche@acm.org,martin.petersen@oracle.com,peter.wang@mediatek.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 20 Jul 2026 17:22:28 +0200
-Message-ID: <2026072027-stencil-malformed-6e74@gregkh>
+Message-ID: <2026072028-animal-expiring-a6a1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 46aea2c64e110ed1878fa5363f86ddc8fd79c9c4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072027-stencil-malformed-6e74@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072028-animal-expiring-a6a1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
