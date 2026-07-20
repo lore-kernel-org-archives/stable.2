@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA08E437473
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:55:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8699B437473
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:55:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784562956; cv=none; b=NHwqkh9Q3qIkLqNXGloFN8lxm6akyRpRE7tzTKFD4CuAv5JD8NwCA0l3zgBphHQg5x8yv6r92Z9Dv5SoAWGhNzm1V/sYor+aBw0hgMvkASJhOZvqRZdlvAqfAZ8YVrHfMPIwKnHXygWMxiB+ohLS51TBRJSFbJ7BmwQcCguFL50=
+	t=1784562958; cv=none; b=Ugf0P1KqV/Svu5mFoOBypcERqXaAEBiuRBPR3BHm/4ut7GaoYkBKz8Q+ZdLoYMT1wJj/VOI9sTo2hk7fnCjl/uQBkUNP7ZdLprIzKAeniKUSRmCfrG8uiJFUCUexQ/EQgcTVHFk/l0+VArz/AwZD3T8WqyA6ATk+rAFIJ6kgFb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784562956; c=relaxed/simple;
-	bh=z//1mtwHaC3z/yNzV2seGmDAXcnCgrtDlOMUAf62HTk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ORAONeoeSlxImIGmcT4MXQ2UjZ/n5VWxKtpxsy9xldjT5C1xJhewbR5lPK1jujw65rcJ/bk3n2mjipoYg4ofNcHInRPbjbuTwgefKR200+68bmCUXFoVh5ggHiyq67gY3r28sNgwaMuGpDUOMrr920rwY/C9hi6i1s4X6nQ/q/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=C+OT91KJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784562958; c=relaxed/simple;
+	bh=lhB8dwDFFn1KgowCY9QqodnLpivmp6NS6T+H0IfYEUg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iBkmYt2GXAm2+EMSNUL5S35V7BNshV0dznFpUUskpr9i5p4rANQD5QvyMDm+MiwS5x55fjeE03ExRRbTXj/5KisOsTe9GOvISa0PnY9V8cnt4ovqP6Dkb4Ehp8Tq9Z2mptjte0FGb3rAvuCwCZZUvmLbnR0qcGqGBAK6fTKUbhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KjX/nnnU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="C+OT91KJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0ED1F000E9;
-	Mon, 20 Jul 2026 15:55:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KjX/nnnU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48C01F000E9;
+	Mon, 20 Jul 2026 15:55:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784562954;
-	bh=9Lgi/gQIJrd+hNef+rhcfoSDXiYZ7eUUy30yc9Hvlnk=;
+	s=korg; t=1784562957;
+	bh=RXgHzMxJqTu7w+/Y4KBZqN1GqXB1sJT7PvnFoVOjflI=;
 	h=Subject:To:Cc:From:Date;
-	b=C+OT91KJc+56fXpH8LwPb4ooD6rkRS7VfuxLkHCLc3J7BEZ055RVnBns0ftTbptjC
-	 lFbQNwgHfBlm8haXLOcHbSTypgYNFuTqgyD8i7FEZm+NgGyTXDDGUOPtOqrDvM5IEt
-	 q++13pIysMGNazTNcbMggH4VTWTDvayDFVK6CHRY=
-Subject: FAILED: patch "[PATCH] net: mana: Optimize irq affinity for low vcpu configs" failed to apply to 7.1-stable tree
+	b=KjX/nnnU5/MeMV1KhV272os9lMhXAZaa/ReeZ8kc5gu7qY2vctN7WemkGF5seIee1
+	 6455gEXSqwX6kk1evBNdYJ9h9YWZR63dSgXoMlcDZpl+j5KTtfr4el5jOYGhQacwsH
+	 q/ZqOEVSDxxF5feZeQGHiKfuuhsO4AelDlGSkCGw=
+Subject: FAILED: patch "[PATCH] net: mana: Optimize irq affinity for low vcpu configs" failed to apply to 6.18-stable tree
 To: shradhagupta@linux.microsoft.com,ernis@linux.microsoft.com,haiyangz@microsoft.com,horms@kernel.org,kuba@kernel.org,ynorov@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:50:08 +0200
-Message-ID: <2026072008-secrecy-showcase-bb79@gregkh>
+Date: Mon, 20 Jul 2026 17:50:09 +0200
+Message-ID: <2026072009-humid-given-b308@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5316394b1752f6cf3f9901e7fefdec1cd1d97fd3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072008-secrecy-showcase-bb79@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072009-humid-given-b308@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
