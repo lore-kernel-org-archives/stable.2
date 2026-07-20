@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9AA432BF6
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:14:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839CD432BEC
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:14:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560460; cv=none; b=FpzNJ9gywNVVpq0MHlR3q1YXQfFfQJcrXMUJtxQq+eXaq9ohRf3thEBMCKjkksOk1lK/Q5pC4fLgFEPerypyQPsBuj1p+aJFAu6yW+3ZBXG6R3lC32i1y9V4Z5PUPiQINapPCnNmDP3/JwIXRV7bmoUXhwUZ09njapI+N4Pi3lY=
+	t=1784560462; cv=none; b=AyJO7kiR48ZqRoEvKt6UaqgdVgxV+MGQ94ADNw69wv7qA/EcPlbs4YKw1IVp7QRc7I5nPGfQc2S4SesRHCb8K9lXnGEQwjazp4LzkwWoLuaJQJFBysnuRYqSUA+3uj28lxjfW0HliXqZUMkMDq61LxdjVYLCOJOXazjkQaob+qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560460; c=relaxed/simple;
-	bh=UQyv6D86sZ92EfMGG48X7/q6RVoK92aJDmxDRuw4r8A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Yjq5HCY+3N+Vc/Qi0kH6lDum3PBrVDF13u03coXRsJDuwqmohI6B7GrNQRusWHdISbmfABPFFzSO0b7bBlF4j8IVKKCDSs3K9z5+MFvIURvrzpzRu7agh5ijfwXvxJS0mW6PDHWIFFbfMgzVIzF46spQhVUtQ0Mnt5i3mx4dSfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YPYqAn1L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560462; c=relaxed/simple;
+	bh=z3vunKAXv6tVoI0u8rQ8Nho8fWYVYuBLwvilQjetpjM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qLbor97Fgw5q8TenddA6BvDL4K0DMAUTqDVdlyuPW926KEGJVUmcxuBwMssLOZZQZ32oe/yigWujubSnsrJxwrp6zKQZHDWq/vPiGwze8LCZvOPk4Et86e2tH4IYJt8ReBxjcP5OXLg1u/2Bs/v2mWpUM/3JIfkdvErfX2tnhpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cvJYOH42; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YPYqAn1L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1241F000E9;
-	Mon, 20 Jul 2026 15:14:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cvJYOH42"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1711F000E9;
+	Mon, 20 Jul 2026 15:14:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560458;
-	bh=UK4CZ08pia8qIKocckefxL3BK2flFf3gX+A8BcjE0FM=;
+	s=korg; t=1784560461;
+	bh=h6KqVO+RT7fcXkGWMZSKHjDxtv6x3P/puOQt8IRRQJA=;
 	h=Subject:To:Cc:From:Date;
-	b=YPYqAn1LP76aeJz3GwQoa9te6Os81+2rZ9Y7gaArNFQLYQuTorep5Y2v94uhljyZA
-	 ABzKUj6JYaHaWw9x0ESJUhz6aDzsFOxVD6b3ntTy5OIxoCi/WiE8PDQSCa20JSsi/x
-	 ALHN63/I8Ee8ho6coqCzW+eyEWrvJ36XwsOthcb0=
-Subject: FAILED: patch "[PATCH] can: bcm: fix CAN frame rx/tx statistics" failed to apply to 5.15-stable tree
+	b=cvJYOH42funzKAJbjxdh3GFdYtes9JuzVUnszQYi7p4vzfdNuvDqHbe0jmsPoFuKM
+	 rpeZlnFfiMyoxY48H+9UjadY/TcIAZEllUzHYJNwcMB+W3nVRGdB8nZ1NserJSHRuO
+	 I9XXR7FWQ7EY8XXm2W3YsaR2+LyG9vcuhn+uRGVA=
+Subject: FAILED: patch "[PATCH] can: bcm: fix data race on rx_stamp/rx_ifindex in" failed to apply to 6.18-stable tree
 To: socketcan@hartkopp.net,mkl@pengutronix.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:13:47 +0200
-Message-ID: <2026072047-area-pacifier-8bf6@gregkh>
+Date: Mon, 20 Jul 2026 17:13:56 +0200
+Message-ID: <2026072056-posing-gown-1aaf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e6c24ba95fc3f1b5e1dcd28b1c6e59ef61a9daa5
+git cherry-pick -x 58fd6cbc8541216af1d7ed272ea7ac2b66d50fd8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072047-area-pacifier-8bf6@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072056-posing-gown-1aaf@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,192 +62,66 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e6c24ba95fc3f1b5e1dcd28b1c6e59ef61a9daa5 Mon Sep 17 00:00:00 2001
+From 58fd6cbc8541216af1d7ed272ea7ac2b66d50fd8 Mon Sep 17 00:00:00 2001
 From: Oliver Hartkopp <socketcan@hartkopp.net>
-Date: Tue, 14 Jul 2026 18:55:26 +0200
-Subject: [PATCH] can: bcm: fix CAN frame rx/tx statistics
+Date: Tue, 14 Jul 2026 18:55:32 +0200
+Subject: [PATCH] can: bcm: fix data race on rx_stamp/rx_ifindex in
+ bcm_rx_handler()
 
-KCSAN detected a data race within the bcm_rx_handler() when two CAN frames
-have been simultaneously received and processed in a single rx op by two
-different CPUs.
+For an rx op subscribed on all interfaces (ifindex == 0), the same op
+is registered once in the shared per-netns wildcard filter list, so
+bcm_rx_handler() can run concurrently on different CPUs for frames
+arriving on different net devices.
 
-Use atomic operations with (signed) long data types to access the
-statistics in the hot path to fix the KCSAN complaint.
+op->rx_stamp and op->rx_ifindex were written before bcm_rx_update_lock was
+taken, allowing concurrent writers to race each other - including a torn
+store of the 64-bit rx_stamp on 32-bit platforms.
 
-Additionally simplify the update and check of statistics overflow by
-using the atomic operations in separate bcm_update_[rx|tx]_stats()
-functions. The rx variant runs under bcm_rx_update_lock to prevent
-races when resetting the two rx counters; the tx variant runs under
-bcm_tx_lock and only needs to guard its own counter's overflow.
+Beyond a torn store bcm_send_to_user() must report the timestamp/ifindex
+of the very same frame whose content it is delivering. So the assignment
+is placed in the same unbroken bcm_rx_update_lock section as the content
+comparison.
 
-As the rx path resets its values already at LONG_MAX / 100, there is
-no conflict between the two locking domains (bcm_rx_update_lock vs.
-bcm_tx_lock) even for ops that use both paths.
-
-The rx statistics update and the frames_filtered update in
-bcm_rx_changed() were previously performed in two separate
-bcm_rx_update_lock sections. For an rx op subscribed on all interfaces
-(ifindex == 0), bcm_rx_handler() can run concurrently on different
-CPUs, so a counter reset by one CPU between these two sections could
-leave frames_filtered larger than frames_abs on another CPU, producing
-a bogus (even negative) reduction percentage in procfs. Update the
-statistics in the same critical section as bcm_rx_changed() to close
-this gap, which also removes the now unneeded extra lock/unlock pair
-around the traffic_flags calculation.
+As a side effect, the RTR-request frame feature (which never reach
+bcm_send_to_user()) no longer updates rx_stamp/rx_ifindex, since only
+the notification path needs them.
 
 Fixes: ffd980f976e7 ("[CAN]: Add broadcast manager (bcm) protocol")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-can/20260707145135.5BC831F00A3A@smtp.kernel.org/
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20260714-bcm_fixes-v15-4-562f7e3e42da@hartkopp.net
+Link: https://patch.msgid.link/20260714-bcm_fixes-v15-10-562f7e3e42da@hartkopp.net
 Cc: stable@kernel.org
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 1e5f8d65d351..03c98e4cc677 100644
+index a53dba6ab8b8..f213a0b37791 100644
 --- a/net/can/bcm.c
 +++ b/net/can/bcm.c
-@@ -112,7 +112,7 @@ struct bcm_op {
- 	int ifindex;
- 	canid_t can_id;
- 	u32 flags;
--	unsigned long frames_abs, frames_filtered;
-+	atomic_long_t frames_abs, frames_filtered;
- 	struct bcm_timeval ival1, ival2;
- 	struct hrtimer timer, thrtimer;
- 	ktime_t rx_stamp, kt_ival1, kt_ival2, kt_lastmsg;
-@@ -229,10 +229,13 @@ static int bcm_proc_show(struct seq_file *m, void *v)
+@@ -800,11 +800,6 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
+ 	/* disable timeout */
+ 	hrtimer_cancel(&op->timer);
  
- 	list_for_each_entry_rcu(op, &bo->rx_ops, list) {
- 
--		unsigned long reduction;
-+		long reduction, frames_filtered, frames_abs;
-+
-+		frames_filtered = atomic_long_read(&op->frames_filtered);
-+		frames_abs = atomic_long_read(&op->frames_abs);
- 
- 		/* print only active entries & prevent division by zero */
--		if (!op->frames_abs)
-+		if (!frames_abs)
- 			continue;
- 
- 		seq_printf(m, "rx_op: %03X %-5s ", op->can_id,
-@@ -254,9 +257,9 @@ static int bcm_proc_show(struct seq_file *m, void *v)
- 				   (long long)ktime_to_us(op->kt_ival2));
- 
- 		seq_printf(m, "# recv %ld (%ld) => reduction: ",
--			   op->frames_filtered, op->frames_abs);
-+			   frames_filtered, frames_abs);
- 
--		reduction = 100 - (op->frames_filtered * 100) / op->frames_abs;
-+		reduction = 100 - (frames_filtered * 100) / frames_abs;
- 
- 		seq_printf(m, "%s%ld%%\n",
- 			   (reduction == 100) ? "near " : "", reduction);
-@@ -280,7 +283,8 @@ static int bcm_proc_show(struct seq_file *m, void *v)
- 			seq_printf(m, "t2=%lld ",
- 				   (long long)ktime_to_us(op->kt_ival2));
- 
--		seq_printf(m, "# sent %ld\n", op->frames_abs);
-+		seq_printf(m, "# sent %ld\n",
-+			   atomic_long_read(&op->frames_abs));
- 	}
- 	seq_putc(m, '\n');
- 
-@@ -290,6 +294,24 @@ static int bcm_proc_show(struct seq_file *m, void *v)
- }
- #endif /* CONFIG_PROC_FS */
- 
-+static void bcm_update_rx_stats(struct bcm_op *op)
-+{
-+	/* prevent overflow of the reduction% calculation in bcm_proc_show() */
-+	if (atomic_long_inc_return(&op->frames_abs) > LONG_MAX / 100) {
-+		atomic_long_set(&op->frames_filtered, 0);
-+		atomic_long_set(&op->frames_abs, 0);
-+	}
-+}
-+
-+static void bcm_update_tx_stats(struct bcm_op *op)
-+{
-+	/* tx_op has no reduction% calculation - use the full range and
-+	 * just keep the displayed counter non-negative on overflow
-+	 */
-+	if (atomic_long_inc_return(&op->frames_abs) == LONG_MAX)
-+		atomic_long_set(&op->frames_abs, 0);
-+}
-+
- /*
-  * bcm_can_tx - send the (next) CAN frame to the appropriate CAN interface
-  *              of the given bcm tx op
-@@ -346,7 +368,7 @@ static void bcm_can_tx(struct bcm_op *op, struct canfd_frame *cf)
- 	spin_lock_bh(&op->bcm_tx_lock);
- 
- 	if (!err)
--		op->frames_abs++;
-+		bcm_update_tx_stats(op);
- 
- 	/* only advance the cyclic sequence if nothing reset currframe while
- 	 * we were sending - a concurrent TX_RESET_MULTI_IDX means this
-@@ -505,12 +527,9 @@ static void bcm_rx_changed(struct bcm_op *op, struct canfd_frame *data)
- {
- 	struct bcm_msg_head head;
- 
--	/* update statistics */
--	op->frames_filtered++;
+-	/* save rx timestamp */
+-	op->rx_stamp = skb->tstamp;
+-	/* save originator for recvfrom() */
+-	op->rx_ifindex = skb->dev->ifindex;
 -
--	/* prevent statistics overflow */
--	if (op->frames_filtered > ULONG_MAX/100)
--		op->frames_filtered = op->frames_abs = 0;
-+	/* update statistics (frames_filtered <= frames_abs) */
-+	if (atomic_long_read(&op->frames_abs))
-+		atomic_long_inc(&op->frames_filtered);
- 
- 	/* this element is not throttled anymore */
- 	data->flags &= ~RX_THR;
-@@ -756,24 +775,30 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
- 	op->rx_stamp = skb->tstamp;
- 	/* save originator for recvfrom() */
- 	op->rx_ifindex = skb->dev->ifindex;
--	/* update statistics */
--	op->frames_abs++;
- 
--	/* snapshot the flag under lock: op->flags/op->frames may be updated
--	 * concurrently by bcm_rx_setup().
--	 */
-+	/* op->flags/op->frames may be updated concurrently by bcm_rx_setup() */
+ 	/* op->flags/op->frames may be updated concurrently by bcm_rx_setup() */
  	spin_lock_bh(&op->bcm_rx_update_lock);
--	rtr_frame = op->flags & RX_RTR_FRAME;
--	if (rtr_frame)
--		memcpy(&rtrframe, op->frames, op->cfsiz);
--	spin_unlock_bh(&op->bcm_rx_update_lock);
  
-+	rtr_frame = op->flags & RX_RTR_FRAME;
- 	if (rtr_frame) {
-+		bcm_update_rx_stats(op);
-+		/* snapshot RTR content under lock */
-+		memcpy(&rtrframe, op->frames, op->cfsiz);
-+		spin_unlock_bh(&op->bcm_rx_update_lock);
-+
- 		/* send reply for RTR-request (placed in op->frames[0]) */
- 		bcm_can_tx(op, &rtrframe);
- 		return;
- 	}
- 
-+	/* update statistics in the same critical section as bcm_rx_changed()
-+	 * below: frames_filtered must never be checked/incremented against a
-+	 * frames_abs snapshot from a concurrent bcm_rx_handler() call on
-+	 * another CPU for the same (wildcard) op, or frames_filtered can end
-+	 * up larger than frames_abs.
-+	 */
-+	bcm_update_rx_stats(op);
-+
- 	/* compute flags to distinguish between own/local/remote CAN traffic */
- 	traffic_flags = 0;
- 	if (skb->sk) {
-@@ -782,8 +807,6 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
+@@ -836,6 +831,14 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
  			traffic_flags |= RX_OWN;
  	}
  
--	spin_lock_bh(&op->bcm_rx_update_lock);
--
++	/* save rx timestamp and originator for recvfrom() under lock.
++	 * For an op subscribed on all interfaces (ifindex == 0)
++	 * bcm_rx_handler() can run concurrently on different CPUs so
++	 * the CAN content and the meta data must be bundled correctly.
++	 */
++	op->rx_stamp = skb->tstamp;
++	op->rx_ifindex = skb->dev->ifindex;
++
  	if (op->flags & RX_FILTER_ID) {
  		/* the easiest case */
  		bcm_rx_update_and_send(op, op->last_frames, rxframe,
