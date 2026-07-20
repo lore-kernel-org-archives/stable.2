@@ -1,51 +1,45 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D70B43786E;
-	Mon, 20 Jul 2026 17:08:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784567332; cv=pass; b=lMc3fIAeqxZxZpsjb2cSdlqHW7rDaPDD08ZhUHV1aXARaa5irSBLmG3OWpK2A3lurf7yPzyLVVcceE5U0MLWSYeJgzk9c51Pys2xt4M6yaNTawHxQsGxFvtEd49geWuKbidS+qFnUWRvJqAc2ob4a791V6DXfw7/hZkGG2n4yo8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784567332; c=relaxed/simple;
-	bh=jAAPr+NzkcF2+Oosp8LKgy5a74mmAcQ21+C08Ruro/k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JmJOW/NsndgBD+KECZcbVkaLV48dBWeWo71vLNSev6UQvFALZFo2NKS6Ka0jQol9V/jvtRhdi55T4WMHoit8LwzQwV/FvLPVPvVTF+KDvVQ3AnBFTVFnkPlxJ09WL2WN1YIoTPDqJbIa51ESh8uIUMobQS8zmltgzDNMC+46I1g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=baT3UPtC; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5534446F9
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 17:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784567734; cv=none; b=M04Ha+cZzqJukf9VSLGvD/EbwkGT/vgOvOmNpzVKuQR6DC2P/nzpMYRmRP/b/B5GMwqG18265njXqxLRr+D1JkWtvpe1Y+zJKnZ5m/OxoNzm02AuFyu8C4+Xlihkk+ZKuXx0NVp+Pes5p1rwBnzpUv/ZfoxrRk75nqNV3w4smIE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784567734; c=relaxed/simple;
+	bh=vJL4VpDlagCdTco1HSnsO1SutaF1aIXKk7ZDpocEW6Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=g6OCAkIvT5pnDSbFu2eva08wpCYWY0IOGaqlnmubu/lFEGyB4ekTAUQCHYHOE62A3P5xxFBV1rS5WrL+g/ON2+7rub9jb3szh1kmC+2BGbHVgIwELI15WucyUsjEm3oVG7pkQFBy4pt12/9KP/R220XoLsCSr+vcZPEZgTS8nv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aEG8aN3f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="baT3UPtC"
-ARC-Seal: i=1; a=rsa-sha256; t=1784567313; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=SzfDqKeOLlt/lE1+eZOcJiPT7P7J3Dky+E/Uw0Dme6Hy25aEl6X5n9DR6paMyrNuv8ayC8yCb/5h3Nh2LbUHWfDLTz8VEMvo1J6rsotA8pJb25kTtRw8YAP2If+G88nSE0f+yj1rM28YoeF9K9Lj5KLNpKpcit4Xr8MDlIAJAwM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1784567313; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Q+odzwMiVWZ3Eq1b7HuOgOgBPZLqMNN6vIgDe0sl3xk=; 
-	b=kbuijMIrSOwBSS2Uw/lAdlXUt9M29VWM36cFqiuP13inmpU2va0mU0I8n63/Cn2W2h2oD/XORrFEgouLCzfVgd4ZUyqjb1zeMGA+1rQn5+9c3vapaUZw4wLBgBWrt7UtMUK34xfoXfNH/LgdBiZiCTCmDiUODv8FRWzuUmF6Ye0=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=auditcode.ai;
-	spf=pass  smtp.mailfrom=security@auditcode.ai;
-	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784567313;
-	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Q+odzwMiVWZ3Eq1b7HuOgOgBPZLqMNN6vIgDe0sl3xk=;
-	b=baT3UPtCIAQgzZQuUY4DP4Z4Fyuf/f3WPLZEzmmgP4bZMAxItjicGpTfUvIH2MTz
-	RFKMmssBvn6NjztE4mlH80gQnKnN7Gu2OYwq8xhVrppRq1tE1gSAfFAnuwecs+vb5s/
-	xY4Qg2XiwzQWd6QpW9MQE701N3wMS+PeNqFF5vXU=
-Received: by mx.zoho.eu with SMTPS id 1784567311239469.60805300631216;
-	Mon, 20 Jul 2026 19:08:31 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: joseph.qi@linux.alibaba.com,
-	mark@fasheh.com,
-	jlbec@evilplan.org
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ocfs2/dlm: validate lockname_len in dlm_mig_lockres_handler()
-Date: Mon, 20 Jul 2026 19:08:28 +0200
-Message-ID: <20260720170828.11476-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aEG8aN3f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBAB1F000E9;
+	Mon, 20 Jul 2026 17:15:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784567728;
+	bh=yNU03f5z66qikIHhPq382zUd1zuALvbfSqI/i+ve7BM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aEG8aN3fjkT4Qbaz0lz1mICPxJAaZSYc6MvB4en6Y45DBSgGwwkaMipcXTkXVZDtC
+	 O5VUKElO09IS4XV8BaQl33eylwL2XlZT6Hn6pYM54yeOaikdED7RNaQseOOeQh4CIp
+	 uvJM/Diz9ffHQMYOOp9yhElH/ty+kaZt6eNXVXs36nlDlD+z49E06qweavkYGRqokY
+	 dGCHVb/J41/Of/fm/UkN+GwweXWT0LkSejq+Bz1jmcFOvxWlNMGGGgmEtGRQoF1QSq
+	 CCF2f0f1yA3O1CsH9pVLOPyR3y6ijAzRBZz1GdBwuIXLkjYKKBJqtIBWMyjM1N3dHs
+	 xmyIDl4A2YVWQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Weiwen Hu <huweiwen@linux.alibaba.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] nvme: rename nvme_sc_to_pr_err to nvme_status_to_pr_err
+Date: Mon, 20 Jul 2026 13:15:22 -0400
+Message-ID: <20260720171525.2695254-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071540-stiffly-shrill-b8b3@gregkh>
+References: <2026071540-stiffly-shrill-b8b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,105 +47,64 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-dlm_mig_lockres_handler() handles an incoming DLM_MIG_LOCKRES_MSG o2net
-message from a remote DLM domain node and copies the migratable lockres
-straight out of the wire buffer:
+From: Weiwen Hu <huweiwen@linux.alibaba.com>
 
-    struct dlm_migratable_lockres *mres =
-        (struct dlm_migratable_lockres *)msg->buf;
-    ...
-    res = dlm_new_lockres(dlm, mres->lockname, mres->lockname_len);
+[ Upstream commit 22f19a584d7045e0509f103dbc5c0acfd6415163 ]
 
-mres->lockname_len is a raw u8 field taken verbatim from the network
-message (dlmcommon.h), so it can be anywhere in [0, 255].
-dlm_new_lockres() forwards it unchanged into dlm_init_lockres():
+This should better match its semantic.  "sc" is used in the NVMe spec to
+specifically refer to the last 8 bits in the status field. We should not
+reuse "sc" here.
 
-    qname = (char *) res->lockname.name;
-    memcpy(qname, name, namelen);
-
-res->lockname.name is allocated from dlm_lockname_cache, a dedicated
-kmem_cache sized exactly DLM_LOCKID_NAME_MAX (32) bytes
-(dlm_init_master_caches(), dlmmaster.c). Any lockname_len above 32
-therefore makes memcpy() write past the end of that 32-byte slab object;
-the maximum attacker-controlled value of 255 yields a 223-byte
-slab-out-of-bounds write (CWE-787) with fully attacker-controlled content
-(the bytes are mres->lockname itself).
-
-The o2net receive path only bounds-checks the whole payload against
-nh_max_len (cluster/tcp.c); it has no notion of the lockname_len
-sub-field and cannot catch this. Every other DLM message handler that
-consumes an attacker-supplied name length already guards it against
-DLM_LOCKID_NAME_MAX right after pulling it out of the wire structure:
-dlm_master_request_handler(), dlm_assert_master_handler(),
-dlm_deref_lockres_handler() and dlm_deref_lockres_done_handler()
-(dlmmaster.c), and the equivalent check in dlmconvert.c / dlmast.c.
-dlm_mig_lockres_handler() is simply missing the same check -- present
-since the file's introduction and never covered because exercising it
-requires two heartbeating o2cb cluster nodes and a joined DLM domain,
-i.e. it is invisible to single-node testing and to fuzzers that don't
-speak the o2net/o2cb protocol.
-
-The attacker is any node it fully controls (or is on-path and can spoof)
-that is heartbeating in the same o2cb cluster and has been permitted to
-join the DLM domain. o2net authentication is limited to cluster
-membership (nodes list + heartbeat), not per-message payload validation,
-so a single rogue or compromised cluster member, or an on-path attacker
-able to inject on the unauthenticated o2net TCP stream, can send one
-crafted DLM_MIG_LOCKRES_MSG frame with lockname_len = 255 to any other
-domain member and corrupt adjacent dlm_lockname_cache slab objects,
-leading to memory corruption and, depending on slab layout, a crash or
-worse.
-
-Reject the message before it reaches dlm_new_lockres() /
-__dlm_lookup_lockres_full() if mres->lockname_len exceeds
-DLM_LOCKID_NAME_MAX, mirroring the validation idiom already used by the
-sibling handlers above. The check is placed immediately after the
-existing dlm_joined() gate, before any use of mres->lockname /
-mres->lockname_len, and follows this function's own early-return style
-(dlm_put(dlm); return -EINVAL;) rather than the later "leave:" label,
-since at this point buf/item are still NULL and no refs have been taken.
-This is the smallest possible fix: one bounds check, no change to wire
-format, on-disk format, or any other code path.
-
-Reproduced on a v6.19 KASAN-instrumented kernel with an in-kernel
-injector that calls dlm_mig_lockres_handler() directly (bypassing the
-o2net accept/heartbeat gate that otherwise requires a second heartbeating
-cluster node) against a live single-node OCFS2/o2cb DLM domain. A control
-frame with lockname_len = 8 completed cleanly; an otherwise-identical
-frame differing only in lockname_len = 255 reliably produced
-"KASAN: slab-out-of-bounds in dlm_new_lockres", deterministically and
-with no dependence on timing or allocator state. Full network delivery
-over a real two-node o2cb cluster was not exercised: the injector proves
-handler-reachability and the write is deterministic once the handler
-runs, but the o2net wire path itself was not verified end-to-end.
-
-Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
+Signed-off-by: Weiwen Hu <huweiwen@linux.alibaba.com>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Stable-dep-of: 53cd102a7a56 ("nvmet: fix pre-auth out-of-bounds heap read in Discovery Get Log Page")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/dlm/dlmrecovery.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/nvme/host/pr.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/fs/ocfs2/dlm/dlmrecovery.c b/fs/ocfs2/dlm/dlmrecovery.c
-index 9b97bf73df22..ec7edffc8ca8 100644
---- a/fs/ocfs2/dlm/dlmrecovery.c
-+++ b/fs/ocfs2/dlm/dlmrecovery.c
-@@ -1366,6 +1366,12 @@ int dlm_mig_lockres_handler(struct o2net_msg *msg, u32 len, void *data,
- 		return -EINVAL;
- 	}
+diff --git a/drivers/nvme/host/pr.c b/drivers/nvme/host/pr.c
+index 1df7cb31556011..a50bb3bb97573c 100644
+--- a/drivers/nvme/host/pr.c
++++ b/drivers/nvme/host/pr.c
+@@ -72,12 +72,12 @@ static int nvme_send_ns_pr_command(struct nvme_ns *ns, struct nvme_command *c,
+ 	return nvme_submit_sync_cmd(ns->queue, c, data, data_len);
+ }
  
-+	if (mres->lockname_len > DLM_LOCKID_NAME_MAX) {
-+		mlog(ML_ERROR, "Invalid name length!");
-+		dlm_put(dlm);
-+		return -EINVAL;
-+	}
-+
- 	BUG_ON(!(mres->flags & (DLM_MRES_RECOVERY|DLM_MRES_MIGRATION)));
+-static int nvme_sc_to_pr_err(int nvme_sc)
++static int nvme_status_to_pr_err(int status)
+ {
+-	if (nvme_is_path_error(nvme_sc))
++	if (nvme_is_path_error(status))
+ 		return PR_STS_PATH_FAILED;
  
- 	real_master = mres->master;
+-	switch (nvme_sc & 0x7ff) {
++	switch (status & 0x7ff) {
+ 	case NVME_SC_SUCCESS:
+ 		return PR_STS_SUCCESS;
+ 	case NVME_SC_RESERVATION_CONFLICT:
+@@ -122,7 +122,7 @@ static int nvme_pr_command(struct block_device *bdev, u32 cdw10,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return nvme_sc_to_pr_err(ret);
++	return nvme_status_to_pr_err(ret);
+ }
+ 
+ static int nvme_pr_register(struct block_device *bdev, u64 old,
+@@ -197,7 +197,7 @@ static int nvme_pr_resv_report(struct block_device *bdev, void *data,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return nvme_sc_to_pr_err(ret);
++	return nvme_status_to_pr_err(ret);
+ }
+ 
+ static int nvme_pr_read_keys(struct block_device *bdev,
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
