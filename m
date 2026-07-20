@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4E2414A04
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27200414DE9
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:21:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784550092; cv=none; b=EFKmyfXqC6iV9R74B6DXtQzgReGe+044zM3E5jT7Sd2KquRPAUxAwfTcc4HAccYWKTGb2Ig408/9W5l+1GlLZAnQCF5pN25dpLx0O7eS1ojTsf+4pwhBonIO6N1lXsg8U8Jr5NWqSv3Yr5P7LGPzC5pLsKt+SJ6VCr+HNVF7DJw=
+	t=1784550095; cv=none; b=poMlVYQDiq3+mJrvQsjwUXGiG7QrGaJYj6Kn2suo6c1DWEutXYoX2KZ+a5/EMDjavbJZMs/e+w3MiVbz4H3yJ6gG04qXuqXcgS9Qg2+K/Y0VjXKQbOWtXRJQE6ygO6pQf+/2l0asYAQiCxYtFNJ2CsVTqOXWi3Uig5/0ueSkESA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784550092; c=relaxed/simple;
-	bh=4saFzf3NbFtm16fuxsVhdG1UKQ0mCmyQ8NFZAwbzU60=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Bz2doIYP9wdiNRtp332VeekNkoutN5ffiKHTTZr89TXbUfF+wzPYtrvW7KjsTiHLOpcnqNaIVSJvR2Fa1qNheYt0Jq0p5f8WFMsxunMKYEM+mwTbgr241/YfxeBvLIoXKB1b50XmGIMtZj/S74KUGxwvvWwzmUojav5o8jPc3Q8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WFYiisXu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784550095; c=relaxed/simple;
+	bh=PnHkvQgv+UlKe2Sk4OV0qP7VJwsFBQSqhVrFMy19RTw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jETEuLp6xOe4TUfiRPL94SwziSkKJQcCYaeWYwAVv0+3HleV/Pm4XxWM4SIxziMj58cxxTP5qhzJBNgkQF6PEmjMEqWwpGPTCBhXc//jCco4xIZfkJCY20wMcuI1k1atO1kPClxn793C49m4rBvY7P2Y5lrV7i5GBLiYvEfyNAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wNsVCkYg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WFYiisXu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EEEA1F000E9;
-	Mon, 20 Jul 2026 12:21:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wNsVCkYg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76A7F1F00AC4;
+	Mon, 20 Jul 2026 12:21:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784550090;
-	bh=cl0qh/SJzKewjxuy74aErVDgd5hxeyiabMcTf2/BPiY=;
+	s=korg; t=1784550094;
+	bh=2cXRPiCbhUJvbZOG4iIdpasxIxRrbiEcgnt3ZtCkQJY=;
 	h=Subject:To:Cc:From:Date;
-	b=WFYiisXuFm5mm5y1jMJXCotsgl4JDBsVRwG1/Dreyr7LF2OO+HzREk6wsdV7DOnR+
-	 oC0DZhvC667hGnfVytqtTIqVLv9JMuqqF0TdH8p+BSbKKGyshxzW6QWs92s8+H/2UW
-	 H/73mL7+lGU4Tm+li3jeNlvjeDbx4G3ZZtbUMbDA=
-Subject: FAILED: patch "[PATCH] KVM: Move kvm_io_bus_get_dev() locking responsibilities to" failed to apply to 5.10-stable tree
-To: maz@kernel.org,oupton@kernel.org,will@kernel.org
+	b=wNsVCkYg4qqwzjWmibydcmGyW2W5ch2T2ufaE6suLjvSDaWHVglQIaEashdK8aXmV
+	 2uxTbNnWE3OARpZpqTPi7ZXvozFKUY+GIwQs+zK43p1R0NpjxeHVb46cyiHK05filL
+	 NDYhCfLCUqG7ab4Xg26bY3SkBlQsG9lG1W79RtSQ=
+Subject: FAILED: patch "[PATCH] KVM: nVMX: Don't use vmcs01.GUEST_CR3 to snapshot L1's CR3" failed to apply to 6.18-stable tree
+To: seanjc@google.com,jmattson@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 14:21:07 +0200
-Message-ID: <2026072007-gift-earwig-6100@gregkh>
+Date: Mon, 20 Jul 2026 14:21:15 +0200
+Message-ID: <2026072015-velocity-evident-8f30@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3a07249981629ace483ebbef81ef6b34c2d2afec
+git cherry-pick -x 3e6dd2b9b7b2884743ed7a0873b8743cc0df6d40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072007-gift-earwig-6100@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072015-velocity-evident-8f30@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,79 +62,87 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3a07249981629ace483ebbef81ef6b34c2d2afec Mon Sep 17 00:00:00 2001
-From: Marc Zyngier <maz@kernel.org>
-Date: Sat, 27 Jun 2026 11:51:05 +0100
-Subject: [PATCH] KVM: Move kvm_io_bus_get_dev() locking responsibilities to
- callers
+From 3e6dd2b9b7b2884743ed7a0873b8743cc0df6d40 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Fri, 12 Jun 2026 07:56:42 -0700
+Subject: [PATCH] KVM: nVMX: Don't use vmcs01.GUEST_CR3 to snapshot L1's CR3
+ when EPT is disabled
 
-kvm_io_bus_get_dev() returns a device that is only matched by the
-address, and nothing else. This can cause a lifetime issue if
-the matched device is not the expected type, as by the time
-the caller can introspect the object, it might be gone (the srcu
-lock having been dropped).
+Add a dedicated field in "struct nested_vmx" to track L1's pre-VM-Enter CR3
+instead of using vmcs01.GUEST_CR3, which isn't anywhere near as safe as the
+comment purports it to be.  E.g. in addition to the warn_on_missed_cc bug
+(that was fixed by relocating the consistency check), if getting vmcs12
+pages (during actual nested VM-Entry) fails and EPT is disabled (in KVM),
+KVM will return control to userspace with vmcs01.GUEST_CR3 holding a guest-
+controlled value.
 
-Given that there is only a single user of this helper, the simplest
-option is to move the locking responsibility to the caller, which
-can keep the srcu lock held for as long as it wants.
+Alternatively, KVM could force a reload of vmcs01.GUEST_CR3 by resetting
+the MMU context in the error path, but as above, the safety of the vmcs01
+approach is extremely questionable, e.g. it took all of ~4 months for the
+code to break.
 
-Note that this aligns with other kvm_io_bus*() helpers, which
-already require the srcu lock to be held by the callers.
-
-Reported-by: Will Deacon <will@kernel.org>
-Fixes: 8a39d00670f07 ("KVM: kvm_io_bus: Add kvm_io_bus_get_dev() call")
-Link: https://lore.kernel.org/all/20260626111344.802555-1-maz@kernel.org
+Fixes: 671ddc700fd0 ("KVM: nVMX: Don't leak L1 MMIO regions to L2")
 Cc: stable@vger.kernel.org
-Reviewed-by: Oliver Upton <oupton@kernel.org>
-Link: https://patch.msgid.link/20260627105105.1005990-1-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Cc: Jim Mattson <jmattson@google.com>
+Link: https://patch.msgid.link/20260612145642.452392-3-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index 67d107e9a77d..c90abde39fb8 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -508,6 +508,8 @@ static struct vgic_its *__vgic_doorbell_to_its(struct kvm *kvm, gpa_t db)
- 	struct kvm_io_device *kvm_io_dev;
- 	struct vgic_io_device *iodev;
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 4fc4349810a3..bb0eb40b4448 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -3658,19 +3658,14 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
+ 				    &vmx->nested.pre_vmenter_ssp_tbl);
  
-+	guard(srcu)(&kvm->srcu);
+ 	/*
+-	 * Overwrite vmcs01.GUEST_CR3 with L1's CR3 if EPT is disabled.  In the
+-	 * event of a "late" VM-Fail, i.e. a VM-Fail detected by hardware but
+-	 * not KVM, KVM must unwind its software model to the pre-VM-Entry host
+-	 * state.  When EPT is disabled, GUEST_CR3 holds KVM's shadow CR3, not
+-	 * L1's "real" CR3, which causes nested_vmx_restore_host_state() to
+-	 * corrupt vcpu->arch.cr3.  Stuffing vmcs01.GUEST_CR3 results in the
+-	 * unwind naturally setting arch.cr3 to the correct value.  Smashing
+-	 * vmcs01.GUEST_CR3 is safe because nested VM-Exits, and the unwind,
+-	 * reset KVM's MMU, i.e. vmcs01.GUEST_CR3 is guaranteed to be
+-	 * overwritten with a shadow CR3 prior to re-entering L1.
++	 * Stash L1's CR3, so that in the event of a "late" VM-Fail, i.e. a
++	 * VM-Fail detected by hardware but not KVM, KVM can unwind its
++	 * software model to the pre-VM-Entry host state.  When EPT is
++	 * disabled, GUEST_CR3 holds KVM's shadow CR3, not L1's "real" CR3,
++	 * and so simply restoring from vmcs01.GUEST_CR3 would corrupt
++	 * vcpu->arch.cr3.
+ 	 */
+-	if (!enable_ept)
+-		vmcs_writel(GUEST_CR3, vcpu->arch.cr3);
++	vmx->nested.pre_vmenter_cr3 = kvm_read_cr3(vcpu);
+ 
+ 	vmx_switch_vmcs(vcpu, &vmx->nested.vmcs02);
+ 
+@@ -4982,7 +4977,7 @@ static void nested_vmx_restore_host_state(struct kvm_vcpu *vcpu)
+ 	vmx_set_cr4(vcpu, vmcs_readl(CR4_READ_SHADOW));
+ 
+ 	nested_ept_uninit_mmu_context(vcpu);
+-	vcpu->arch.cr3 = vmcs_readl(GUEST_CR3);
++	vcpu->arch.cr3 = vmx->nested.pre_vmenter_cr3;
+ 	kvm_register_mark_available(vcpu, VCPU_REG_CR3);
+ 
+ 	/*
+diff --git a/arch/x86/kvm/vmx/vmx.h b/arch/x86/kvm/vmx/vmx.h
+index de9de0d2016c..dc8517f15bc4 100644
+--- a/arch/x86/kvm/vmx/vmx.h
++++ b/arch/x86/kvm/vmx/vmx.h
+@@ -159,6 +159,13 @@ struct nested_vmx {
+ 	bool has_preemption_timer_deadline;
+ 	bool preemption_timer_expired;
+ 
++	/*
++	 * Used to restore L1's CR3 if hardware detects a VM-Fail Consistency
++	 * Check that KVM does not, in which case KVM needs to unwind CR3 back
++	 * to its pre-VM-Enter state, NOT to vmcs01.HOST_CR3.
++	 */
++	unsigned long pre_vmenter_cr3;
 +
- 	kvm_io_dev = kvm_io_bus_get_dev(kvm, KVM_MMIO_BUS, db);
- 	if (!kvm_io_dev)
- 		return ERR_PTR(-EINVAL);
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 89489996fbc1..5788eac0ab81 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -6068,25 +6068,19 @@ struct kvm_io_device *kvm_io_bus_get_dev(struct kvm *kvm, enum kvm_bus bus_idx,
- 					 gpa_t addr)
- {
- 	struct kvm_io_bus *bus;
--	int dev_idx, srcu_idx;
--	struct kvm_io_device *iodev = NULL;
-+	int dev_idx;
- 
--	srcu_idx = srcu_read_lock(&kvm->srcu);
-+	lockdep_assert_held(&kvm->srcu);
- 
- 	bus = kvm_get_bus_srcu(kvm, bus_idx);
- 	if (!bus)
--		goto out_unlock;
-+		return NULL;
- 
- 	dev_idx = kvm_io_bus_get_first_dev(bus, addr, 1);
- 	if (dev_idx < 0)
--		goto out_unlock;
-+		return NULL;
- 
--	iodev = bus->range[dev_idx].dev;
--
--out_unlock:
--	srcu_read_unlock(&kvm->srcu, srcu_idx);
--
--	return iodev;
-+	return bus->range[dev_idx].dev;
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_io_bus_get_dev);
- 
+ 	/*
+ 	 * Used to snapshot MSRs that are conditionally loaded on VM-Enter in
+ 	 * order to propagate the guest's pre-VM-Enter value into vmcs02.  For
 
