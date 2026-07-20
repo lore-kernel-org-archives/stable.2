@@ -1,120 +1,144 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0F7426432
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:54:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1985E353EDF
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784555663; cv=none; b=DMiMj4HQzpZRexwWnwq5lnPi1s6DGeFVlcpK/uo5QznuqnAQl+rim/cw/IDS1hKtojohtnVPfqscekHH9EtpNmg1ZxJBcJKM8Ax9I7biQ6SLeSNf3i17fbQ3gAka+sz0jI6c/8kejsff8ylk3NGCZq27xY+BjT/A44ObdyztO/I=
+	t=1784555710; cv=none; b=cRUSfjN5kCXT2x13+xzm0xHSxJJgPX+tROG54F3KuiPbbOC8phIF1dyzSG4OKoD+StP+rNLkQMo8rycohxqvz3Rlf402yYal7rEyTE0bV6KpvI1s17n4Uok7rJNx0KsAtT9mHGjFKadKHwu/TV8fevdhQHGX01PNW6awfbvzmbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784555663; c=relaxed/simple;
-	bh=9bkDgJFd3PiXF21kdLzF7oWhWzPCbt3yohbc00d53II=;
+	s=arc-20240116; t=1784555710; c=relaxed/simple;
+	bh=ytwEU5RfDaDajHRevNBTG0La1pgLWtGUIqvYoSEoEK8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CI9tf3uNNsB6Wq7bYb3D12ILaIrMEcH2vjaLZ94Ywxiy/u7E7/Sw7JYz9y/JDfIiJxj2t7OK5l/X40uF7Lkm9CIKnwBUYRWVo2FR6i3Xbx3A7SDfywE6WhtoWbUfNTeXbyQ1VL2Kh4/R3ZEcPB635xi2VxAzV9cp3MaLg7qHEgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pbfnd/m6; arc=none smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=QyvYSjzrqrXKSufIZBwRE0V/3sChhBbVT40BpZDxzZr89xaHYyjwu/YlgM0A1naokGsBeKc3IYLzYSS0KxmrWKm+UB4MiveTIL59iKUY6yCoC+GjP4zlKo4de0uPMueFlu9adF2SDlSPHDn8VwBuj2N+EaNPsUJGaT5Xt0CGIjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jf6qBzMh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pbfnd/m6"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-92e6c4a867cso437062885a.0
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 06:54:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784555660; x=1785160460; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HlX0m6vRtBZ9M584YjVjHwMHCvgTV6JNPP74nWUqyEY=;
-        b=Pbfnd/m6tbx+CJ3Yh381cA8iZiRvklwZFxJQpsjYqUFV+CyfuQLfuf9297FdtXCRo4
-         XJbmCFq4BM60SzVho9wrcER6iyzmT19SBd6hyyJqBIwv5PE8SdRCrgawRffGM8osMnM3
-         UOJAafpJ9rhce9zDYQlFc04SmL6rJ8TPGRA+P+aRSVdgYreP3C40LfkQ0YI0O0hpg5wN
-         5V3uDBX192lHySrHgHjDK5pCwK/U8QkB9SDvpuI5NI2Px4PQYZ+h+U+gb8pq9qQCHRmx
-         B4QkYTxvpmWX4id1oe091qKQjtAstdp6sl6rVlV/DP+jHccrkKRIlaR8sywYd21iHfjA
-         0HHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784555660; x=1785160460;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HlX0m6vRtBZ9M584YjVjHwMHCvgTV6JNPP74nWUqyEY=;
-        b=l5Q++RZlE8CxK6E+2n6BnyQkIpqs6CYQdnaGMYhnMHCIMNAHhrXhraGjUHFdmlNk1D
-         lvtOeMDPJcEHAzYT/+qXW2EvQAyfSUjC7Yx/UesTaER0SguS+bN+FZC5QfPTM0eytGIv
-         VX/pd6+uZgxepA3EzyHBz2L0nYMYRbhFnbcs1AS5RXIw9YWslHL3rortckLCfKgTCziD
-         xRYpWkek1QIe1Blikr297LrDt7AuZHKj4xFgiEpS6itId9hzS5bQgPAp9zu6aZLHhFSO
-         us07fhgGXNCdeRZGJMHf0PFtaQg4wMriHyVEI+PM8hvC+8ACDH+gW0kVEk88v18RTmde
-         a99w==
-X-Gm-Message-State: AOJu0YyevojN8cbSmSrzmNUtS2d3u2biZUa9QA4E4IYwgBLozducJI5f
-	p0EboIPO4OssBy/HHm2TZn2eqXVCtFZ/6S+66YnRT4r3NQKJpzHqIOBcG/q3Eg==
-X-Gm-Gg: AfdE7ckv4hGX/Kh7dQ82ulJ4V5zh0wwmMvzvq4jVEJLGMc6ucqnkqRmk/tzcPEbHTyy
-	horz9XSkfPFCrE1JFnPoHQLg5CqTAFZJchw45Nw12eNOXwjGujMQ361W78b2+77EWUsiD2Ng6N1
-	KS3GttCsR067xngilVbVUhmvDgvSlKR6ynZU8b5iYUeVPLvldEb/lz9eal1dSBovo1ZnJ04F+GZ
-	MystQlKXYMeLTGgqiBlEnmH/r13tcVmErBt6dUcEd9HNDfWfD2uwnG6bgMyrpxJnbn0ZLEP21rg
-	3iA6/OAE+1Mr+1sWOjMo8birvpanA7yzEvu+ziyPfW5Q4fOI2YT2CZlyN1N+I4DUifemMZ2EIyz
-	qzsO4u1Zjpr37H8FjZkoOxp31gIuy7myxZYPlPo3wDT+yJjd4pxvYQzjtz+l07UdCaifQKOTLbo
-	FqZPKjXFllbL8M1jhRUdtGDWmV7RxclHo6bMy3dISZBHwCO6h8+MHsrUFacJw=
-X-Received: by 2002:a05:620a:288a:b0:92e:f3ca:2ec8 with SMTP id af79cd13be357-930b3e4b8a0mr1355871585a.19.1784555659495;
-        Mon, 20 Jul 2026 06:54:19 -0700 (PDT)
-Received: from localhost.localdomain (syr-227-232.syr.edu. [128.230.227.232])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930b545e47bsm894611885a.35.2026.07.20.06.54.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 20 Jul 2026 06:54:19 -0700 (PDT)
-From: Shivam Kumar <kumar.shivam43666@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jf6qBzMh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD731F000E9;
+	Mon, 20 Jul 2026 13:55:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784555708;
+	bh=gxYggZIgioIfVNykYGuXc3nz+KPodwXE3Lud8AnkVF4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jf6qBzMh6MbmJMStMj7dbtxXfNpB1pH4guAlyZpwJZLj61sJDholRZcwV7Op76PfL
+	 NqaCP4l5zg5SLyHRU1CH05MEbmBhXRm3HLBwN/SKcNmV527S+91heWQ2gYND0fgHWf
+	 0STB110p1TOM2pLlBIV8Ha7qSDGTp/tJeYlhXsWeZ7j1BFzvf5A0B/i2ajk9j2q6Zq
+	 /70B8IunvyzilKstTKa1rmgMIIj543mxArYeKtVY2dlYOZElHRfEaCa3r5g73KVth7
+	 q9X8I6EFK87ScU9kFXn8dhz8hz2QJ7MokoQNqutLy23JGlexK8EoJmKLmmsCVV5/Ol
+	 FDHk5WpuRGavQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shivam Kumar <kumar.shivam43666@gmail.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>
-Subject: [PATCH 5.10.y] nvmet-tcp: check INIT_FAILED before nvmet_req_uninit in digest error path
-Date: Mon, 20 Jul 2026 09:54:15 -0400
-Message-ID: <20260720135415.11708-1-kumar.shivam43666@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <2026071925-skimmer-retainer-3785@gregkh>
-References: <2026071925-skimmer-retainer-3785@gregkh>
+Cc: Tyler Baker <tyler.baker@oss.qualcomm.com>,
+	stable <stable@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Peter Chen <peter.chen@kernel.org>,
+	=?UTF-8?q?Micha=C5=82=20Nazarewicz?= <mina86@mina86.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] usb: gadget: f_fs: initialize reset_work at allocation time
+Date: Mon, 20 Jul 2026 09:55:05 -0400
+Message-ID: <20260720135505.1350249-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071457-deepness-vixen-ba68@gregkh>
+References: <2026071457-deepness-vixen-ba68@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-commit 4606467a75cfc16721937272ed29462a750b60c8 upstream.
+From: Tyler Baker <tyler.baker@oss.qualcomm.com>
 
-In nvmet_tcp_try_recv_ddgst(), when a data digest mismatch is detected,
-nvmet_req_uninit() is called unconditionally. However, if the command
-arrived via the nvmet_tcp_handle_req_failure() path, nvmet_req_init()
-had returned false and percpu_ref_tryget_live() was never executed. The
-unconditional percpu_ref_put() inside nvmet_req_uninit() then causes a
-refcount underflow, leading to a WARNING in
-percpu_ref_switch_to_atomic_rcu, a use-after-free diagnostic, and
-eventually a permanent workqueue deadlock.
+[ Upstream commit 3137b243c93982fe3460335e12f9247739766e10 ]
 
-Check cmd->flags & NVMET_TCP_F_INIT_FAILED before calling
-nvmet_req_uninit(), matching the existing pattern in
-nvmet_tcp_execute_request().
+ffs_fs_kill_sb() unconditionally calls cancel_work_sync() on
+ffs->reset_work when a functionfs instance is unmounted:
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Shivam Kumar <kumar.shivam43666@gmail.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[shivam: inlined nvmet_tcp_finish_cmd() at the fix site for 5.10.y]
-Signed-off-by: Shivam Kumar <kumar.shivam43666@gmail.com>
+	ffs_data_reset(ffs);
+	cancel_work_sync(&ffs->reset_work);
+
+However ffs->reset_work is only ever initialized via INIT_WORK() in
+ffs_func_set_alt() and ffs_func_disable(), and only on the
+FFS_DEACTIVATED path. That state is reached solely by ffs_data_closed()
+when the instance is mounted with the "no_disconnect" option, so for the
+common case (no "no_disconnect", or mounted and unmounted without ever
+being deactivated) reset_work is never initialized.
+
+ffs_data_new() allocates the ffs_data with kzalloc_obj() and does not
+initialize reset_work, and ffs_data_reset()/ffs_data_clear() do not touch
+it either, so reset_work.func is left NULL. cancel_work_sync() on such a
+work then trips the WARN_ON(!work->func) guard in __flush_work():
+
+  WARNING: kernel/workqueue.c:4301 at __flush_work+0x330/0x360, CPU#3: umount
+  Call trace:
+   __flush_work
+   cancel_work_sync
+   ffs_fs_kill_sb [usb_f_fs]
+   deactivate_locked_super
+   deactivate_super
+   cleanup_mnt
+   __cleanup_mnt
+   task_work_run
+   exit_to_user_mode_loop
+   el0_svc
+
+On older kernels cancel_work_sync() on a zero-initialized work struct was
+a silent no-op, which hid the missing initialization.
+
+Initialize reset_work once in ffs_data_new() so it is always valid for
+the lifetime of the ffs_data, and drop the now-redundant INIT_WORK()
+calls from the two deactivation paths.
+
+Fixes: 18d6b32fca38 ("usb: gadget: f_fs: add "no_disconnect" mode")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Tested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Reviewed-by: Peter Chen <peter.chen@kernel.org>
+Acked-by: Michał Nazarewicz <mina86@mina86.com>
+Link: https://patch.msgid.link/20260609193635.2284430-1-tyler.baker@oss.qualcomm.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ dropped the ffs_func_disable hunk since 6.6 predates the disable-body split and routes disable through ffs_func_set_alt, so removing the single lazy INIT_WORK there covers both paths ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/target/tcp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/usb/gadget/function/f_fs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-index edcc0662c..ba5817006 100644
---- a/drivers/nvme/target/tcp.c
-+++ b/drivers/nvme/target/tcp.c
-@@ -1200,7 +1200,9 @@ static int nvmet_tcp_try_recv_ddgst(struct nvmet_tcp_queue *queue)
- 			queue->idx, cmd->req.cmd->common.command_id,
- 			queue->pdu.cmd.hdr.type, le32_to_cpu(cmd->recv_ddgst),
- 			le32_to_cpu(cmd->exp_ddgst));
--		nvmet_tcp_finish_cmd(cmd);
-+		if (!(cmd->flags & NVMET_TCP_F_INIT_FAILED))
-+			nvmet_req_uninit(&cmd->req);
-+		nvmet_tcp_free_cmd_buffers(cmd);
- 		nvmet_tcp_fatal_error(queue);
- 		ret = -EPROTO;
- 		goto out;
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 6efa8ac71b1a08..bcf0248133cc50 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -255,6 +255,7 @@ static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data);
+ static void ffs_release_dev(struct ffs_dev *ffs_dev);
+ static int ffs_ready(struct ffs_data *ffs);
+ static void ffs_closed(struct ffs_data *ffs);
++static void ffs_reset_work(struct work_struct *work);
+ 
+ /* Misc helper functions ****************************************************/
+ 
+@@ -1786,6 +1787,7 @@ static struct ffs_data *ffs_data_new(const char *dev_name)
+ 	init_waitqueue_head(&ffs->ev.waitq);
+ 	init_waitqueue_head(&ffs->wait);
+ 	init_completion(&ffs->ep0req_completion);
++	INIT_WORK(&ffs->reset_work, ffs_reset_work);
+ 
+ 	/* XXX REVISIT need to update it in some places, or do we? */
+ 	ffs->ev.can_stall = 1;
+@@ -3342,7 +3344,6 @@ static int ffs_func_set_alt(struct usb_function *f,
+ 
+ 	if (ffs->state == FFS_DEACTIVATED) {
+ 		ffs->state = FFS_CLOSING;
+-		INIT_WORK(&ffs->reset_work, ffs_reset_work);
+ 		schedule_work(&ffs->reset_work);
+ 		return -ENODEV;
+ 	}
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
