@@ -1,47 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C68A3A9624;
-	Mon, 20 Jul 2026 08:54:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CF13CFF6B;
+	Mon, 20 Jul 2026 08:55:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784537688; cv=none; b=KxxWnmnLxXsEreH/Cqc7TNGl4qXqyy31qHdB1vcBUrYvraRpKJ4D9QE1tJte+qig1gqf5yAL/MEQuNuS9P8dWGPNPsVi5ftkmkUBjO6D3vx7/bqu3Pj5hSNZiz5ThRPQV7LlkKIat9Gbtf3x2KVuvvgIJh0M4p5c+wJbbL6yaUE=
+	t=1784537727; cv=none; b=kXipmpAF5D0fwhO7F6AXoGpOIUVL7yUdnYi+T6pMfGu+xMVD1kEUG/E5N0aXpvhBp68uRkrjI+cCpSE3XSYVqdq5gMqV6AdXuXxq1H4TVEBzSsfZd7EzwKhOldS7Pz1MQlYK/YfL4cZaf1Z+/RR0B1lLIddRZHfBlyJ9n/vxKrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784537688; c=relaxed/simple;
-	bh=ER4h41nxh8wOjXQ1MeCGfCWy8bVkDsfbe9Wje8dQ3sA=;
+	s=arc-20240116; t=1784537727; c=relaxed/simple;
+	bh=6kDWmnBaOGN9mIgLZxZAGshikUf2cPz7qahnJgxmS2s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lOJPxHE742XZQUS+35xYtQiIL33IXZYc9nRFOm/JnQv4suKYMtviBPT9UrExK9gXh+WWkpNP8Ke8eL7UDVQ6w53KkWZ78Q+LgBcSoNC4Tvbbs5NPMs6a4r+69XWeMQG0i5dvjA7UGK+WKnVNG+mXnUqEev1g3GtOHeLHtfKPXkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HhDzV2UF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QIEc8OM7JmLrlgokaMmKc/Oz2CibbIFAWxICksg/mFx2JLzudORfvBRvHD9fFDwVDhELo8kneZLgxQ45brS8xFR6DBlh0IAXYw3cG6BN39CdTSs9sdXpTy7BjcVWAp6mlf4dZ0KMePgHBhpGBGvcU3JhqYfaOk13XjP0bgNQHSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FvrhHfwC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HhDzV2UF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9321F000E9;
-	Mon, 20 Jul 2026 08:54:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FvrhHfwC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D1A61F000E9;
+	Mon, 20 Jul 2026 08:55:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784537686;
-	bh=fup5XMJ6sgb5lXCta8odLe0ofoInKtEBXBWu3QUMy3A=;
+	s=k20260515; t=1784537726;
+	bh=IVvg3iyIecPWVJOKr+bqU7r+J25fao6Gg09Zf2QWVVU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HhDzV2UFaZ+VCm5IHOFQVbwGmrbdqIHhvxQJVBgqxFBa1RUCcltaUdELdpl2+d9oL
-	 oiR4YELsB2kfQU+4VSXn2vfODPSPTZ4ZZGYRw7NRaNWMWAXtdsEOsNuCoD0e67WPcY
-	 CuvU7TS2VPrVu4HCnFrke7/e/u0OijUka+zM9cnH3nGc64SNmrLAodsfteh5kTN2xo
-	 LjfnzuCGCoPmfJ+mmZ+1vqKXIjXBQomDk4K9Wfd7JR7dzDP13btP1iX1Eeuo4rtBSL
-	 TVlAzfQtKQK9kXxhbnPL2ivh2EgztodCse6ouRTvNB0P6RVEgzm/ZWFRfR5crFQ7Tc
-	 2Vt7G9Cf4bptw==
+	b=FvrhHfwCd5dmJKoeRqAPDyW+zB7L2TkNgY5my9D9drVT2AJ1Xtmr0PAnXk0SszFij
+	 iSrNwxMgiiiILx+syzVN38gDiTLc2AbGvUYsfglk7fX231fjLv7tAeftdqNB1swkqE
+	 9SaBmbIt6btVHOrQ1LBx3187EUSyp9A1y7UEQ4FPanCeLOhWUuT+TjpeWOdfNRzWEp
+	 e6VpjVi1BeL2hRc1N/DaVt9GOa2LFr0DSYmvBJ8BvNkIcmKXojt0xZztTj4xRZowsU
+	 HA6OdyW3dwosaNWe5ZDmG3Rr2QKoFLhifaeEl86wwq4SnEEifA3JlB6sG363rwmAax
+	 fpAoDirY/nBFg==
 From: Jiri Olsa <jolsa@kernel.org>
 To: Alexei Starovoitov <ast@kernel.org>,
 	Daniel Borkmann <daniel@iogearbox.net>,
 	Andrii Nakryiko <andrii@kernel.org>
 Cc: stable@vger.kernel.org,
 	Tao Chen <chen.dylane@linux.dev>,
+	STAR Labs SG <info@starlabs.sg>,
 	bpf@vger.kernel.org,
 	Martin KaFai Lau <martin.lau@linux.dev>,
 	Eduard Zingerman <eddyz87@gmail.com>,
 	Song Liu <songliubraving@fb.com>,
 	Yonghong Song <yhs@fb.com>,
-	Quentin Monnet <qmo@kernel.org>,
-	STAR Labs SG <info@starlabs.sg>
-Subject: [PATCH bpf-next 5/9] bpf: Disable preemption in bpf_get_stackid
-Date: Mon, 20 Jul 2026 10:53:47 +0200
-Message-ID: <20260720085351.655075-6-jolsa@kernel.org>
+	Quentin Monnet <qmo@kernel.org>
+Subject: [PATCH bpf-next 9/9] bpf: Disable preemption in __bpf_get_stack
+Date: Mon, 20 Jul 2026 10:53:51 +0200
+Message-ID: <20260720085351.655075-10-jolsa@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260720085351.655075-1-jolsa@kernel.org>
 References: <20260720085351.655075-1-jolsa@kernel.org>
@@ -53,69 +53,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The get_perf_callchain call needs disabled preemption plus we need
-it disabled as long as we access its returned trace entries buffer.
+From: Daniel Borkmann <borkmann@iogearbox.net>
 
-Note the bpf_get_stackid_pe function is executed already with
-preemption disabled.
+get_perf_callchain() returns a per-CPU perf_callchain_entry buffer and
+releases its recursion slot via put_callchain_entry() before returning,
+so nothing keeps the entry reserved while __bpf_get_stack() consumes
+it below.
+
+A preemptible BPF program (e.g. a non-sleepable raw tracepoint program
+on a PREEMPT kernel, which runs under migrate_disable() but not
+preempt_disable()) can be scheduled out between obtaining the entry
+and the copy. Another task scheduled on the same CPU then reuses the
+same per-CPU buffer and overwrites trace->nr with a larger value.
+copy_len is then computed from the inflated trace->nr and can exceed
+the caller's buffer, causing an out-of-bounds write in the memcpy()
+and in the build_id path.
+
+The rcu_read_lock() previously taken here does not prevent this. It is
+only taken on the may_fault path, and under CONFIG_PREEMPT_RCU it does
+not disable preemption; it merely keeps perf's callchain buffer array
+alive (freed via call_rcu()) and does nothing to stop another task
+from reusing the entry.
+
+Disable preemption around obtaining the callchain entry and copying
+it into the caller's buffer, so the entry cannot be reused underneath
+us and trace->nr stays bounded by max_depth. Build ID resolution may
+fault and is therefore deferred until after preemption is re-enabled;
+by then the instruction pointers have already been copied into buf,
+so it operates only on that private copy. Note, preempt_disable() also
+subsumes the buffer-lifetime guarantee the rcu_read_lock() provided,
+since a preempt-disabled section is an RCU read-side critical section
+for the callchain buffers' call_rcu() reclaim.
 
 Cc: stable@vger.kernel.org
-Fixes: d5a3b1f69186 ("bpf: introduce BPF_MAP_TYPE_STACK_TRACE")
+Fixes: c195651e565a ("bpf: add bpf_get_stack helper")
 Reported-by: Tao Chen <chen.dylane@linux.dev>
-Closes: https://lore.kernel.org/bpf/20260206090653.1336687-2-chen.dylane@linux.dev/
+Closes: https://lore.kernel.org/bpf/20260206090653.1336687-1-chen.dylane@linux.dev/
+Reported-by: STAR Labs SG <info@starlabs.sg>
+Signed-off-by: Daniel Borkmann <borkmann@iogearbox.net>
+[ changed Fixes: commit ]
 Signed-off-by: Jiri Olsa <jolsa@kernel.org>
 ---
- kernel/bpf/stackmap.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ kernel/bpf/stackmap.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-index 83efd5892d90..a64b14ffd1e8 100644
+index 57cd4c33403b..37f8e46319b3 100644
 --- a/kernel/bpf/stackmap.c
 +++ b/kernel/bpf/stackmap.c
-@@ -625,30 +625,37 @@ BPF_CALL_3(bpf_get_stackid, struct pt_regs *, regs, struct bpf_map *, map,
- 	struct perf_callchain_entry *trace;
- 	struct stackid stackid;
- 	bool kernel = !user;
-+	int err = -EFAULT;
- 	u32 max_depth;
--	int err;
+@@ -819,8 +819,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
  
- 	if (unlikely(flags & ~(BPF_F_SKIP_FIELD_MASK | BPF_F_USER_STACK |
- 			       BPF_F_FAST_STACK_CMP | BPF_F_REUSE_STACKID)))
- 		return -EINVAL;
+ 	max_depth = stack_map_calculate_max_depth(size, elem_size, flags);
  
- 	max_depth = stack_map_calculate_max_depth(map->value_size, elem_size, flags);
-+
+-	if (may_fault)
+-		rcu_read_lock(); /* need RCU for perf's callchain below */
 +	preempt_disable();
- 	trace = get_perf_callchain(regs, kernel, user, max_depth,
- 				   false, false, 0);
  
- 	if (unlikely(!trace))
- 		/* couldn't fetch the stack trace */
--		return -EFAULT;
-+		goto out;
+ 	if (kernel && task) {
+ 		trace = get_callchain_entry_for_task(task, max_depth);
+@@ -830,16 +829,14 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 	}
  
- 	err = stackid_fastpath(&stackid, map, trace, flags);
- 	if (err != -ENOENT)
--		return err;
-+		goto out;
- 
- 	new_bucket = stackid_new_bucket(&stackid, map, trace, flags);
--	if (!new_bucket)
--		return -ENOMEM;
-+	if (new_bucket) {
+ 	if (unlikely(!trace) || trace->nr < skip) {
+-		if (may_fault)
+-			rcu_read_unlock();
 +		preempt_enable();
-+		return stackid_install(&stackid, map, new_bucket, flags);
-+	}
-+	err = -ENOMEM;
+ 		goto err_fault;
+ 	}
  
--	return stackid_install(&stackid, map, new_bucket, flags);
-+out:
+ 	trace_nr = callchain_store(trace, buf, size, elem_size, flags);
+ 
+ 	/* trace should not be dereferenced after this point */
+-	if (may_fault)
+-		rcu_read_unlock();
 +	preempt_enable();
-+	return err;
- }
  
- const struct bpf_func_proto bpf_get_stackid_proto = {
+ 	return callchain_finalize(buf, size, trace_nr, elem_size, user_build_id, user, may_fault);
+ 
 -- 
 2.54.0
 
