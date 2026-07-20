@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B299F414A3A
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:21:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D5E414DCC
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784550097; cv=none; b=JGSHHW5cywIqr2viEeQzuxGsxSVzp8LVYibw7PBnOoJK04HhtU52VLJmjvZ7Srfin2gREwEFKE1pkDtmXO9Ef7Xy42BgMyfDBBNBS6AM73TwwtrMAbrCxl3zmqqgpAzIsihHU8/zQOcyQm8WUD82YwlJ9peZPahNs248+ReYgOU=
+	t=1784550100; cv=none; b=GDBjeoPgsPw2VcPGY2Kzq+uwLgRaDNsfvPanMTbksYK7/PO/SDXI1ER11HV6uKHm75ZDdUWdCkwnBdACnvD4O1YLGWlVJbpXwAOLTtlcPfCU0Q2jbIghDldAjVJnaa/9Miy0ZvLNkK81xvJkLdLpTfmiJxVm0s0LUGC6BviiXAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784550097; c=relaxed/simple;
-	bh=wCYM/hWA8XwytYcjIHKt+qZnNOGZ8AfcockvIXAP2SA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VcQfC4lnUXNh6NnQkzyf0hoZqPfPrluvcjlqNQlNZOSVQWUXDuhaXigD26BflS9gagc3oEcflTFS6qLjqFx0CIw/mHnySwknWTc25rQhDbFSMjGKJcDv1ommNtYqJhu47UeIqfsBTUDCQ9X6cIvTD+Ug6+VRABR424bEbRkvUr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dVRHBNFz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784550100; c=relaxed/simple;
+	bh=VVJaE4nL5fg68gE1I4jdMuVlQe6pC+dlo15JvIgccT4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fr4HwWg6J3ggcXsoLm3SNBoNZ62UH4mV5TlMbjjparimWQc97Ah9JRs+tg2cWLvF7G1DJ+nVQr+0wgMEsjIbImnOjI6oiziMqiDLXdUiEAD7uYPxQZz8hElq0FbZQl/ZtGtlVr9y1s+KGmnNzE2y/iqm3wnf0eP5nT/bQIkdPsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=J61wBSNB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dVRHBNFz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22B311F00A3D;
-	Mon, 20 Jul 2026 12:21:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="J61wBSNB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF95F1F00A3A;
+	Mon, 20 Jul 2026 12:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784550096;
-	bh=ZX+OTId+BArOzlqXmI/4IXXqCSPgOYTDfASVfc7NvrE=;
+	s=korg; t=1784550099;
+	bh=JxSoetTEjLx+uXxfW1Hdxii00w/E22NDvq309oD4ugE=;
 	h=Subject:To:Cc:From:Date;
-	b=dVRHBNFz0KByldDdP7vyWzR49ON4zEwuC7yZDMmQdUQemkbMh8+BV5EgO/1iVQK7b
-	 uHEsJnOxUdxJikYbL7XaHmHQFmoBPL6EbxhpbwwTK29dXMaSmawqk0Z6HHLyFq7Lgx
-	 49d4U8VZ4+BwULYf31t6LowGAAZEPcgZLTPeMHBg=
-Subject: FAILED: patch "[PATCH] KVM: nVMX: Don't use vmcs01.GUEST_CR3 to snapshot L1's CR3" failed to apply to 7.1-stable tree
+	b=J61wBSNBE51G9yOTVGXn1+kgWpzc6GEkAkB7JPeLeOx0uZKKn6lESnBpApSsIheyg
+	 nCl6PmVhu344CIJt6QIx3lPKBFKb4GRT837hdhV28qfIO5eEFjJbThTDifVilfbKM8
+	 QGBYtvlkFIs6oXyp6yepu404EdEdLwciNT1BhgNg=
+Subject: FAILED: patch "[PATCH] KVM: nVMX: Don't use vmcs01.GUEST_CR3 to snapshot L1's CR3" failed to apply to 6.6-stable tree
 To: seanjc@google.com,jmattson@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 14:21:15 +0200
-Message-ID: <2026072015-chain-cosmetics-ff0e@gregkh>
+Date: Mon, 20 Jul 2026 14:21:16 +0200
+Message-ID: <2026072016-retry-prewar-fa32@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3e6dd2b9b7b2884743ed7a0873b8743cc0df6d40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072015-chain-cosmetics-ff0e@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072016-retry-prewar-fa32@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
