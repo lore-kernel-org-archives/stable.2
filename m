@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4446942B732
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:29:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6AE42DFEA
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:29:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557774; cv=none; b=Hk+L/jmg5sdm2JtPPEYaHoXddGKi1WbyT9bNFq7At9wznkMR24FqGJKI2pyAqcHxeUFPNSRQ+98lJPTtwEIIwGj0ioIRDD8Fg/en4evzUd684xxnXaYvqp0WcBQykOQAQEPUS1ukmXO+6tQ6geFHNjCcK0cnMvI07O3KfQlzWFY=
+	t=1784557785; cv=none; b=u+uG4om+ZTDE5qqWenk1hKinmYW3LgDe9W8J/qO9As8qli3xWPODQB+BiM3v7wYXfB5Aq4cr5+7ZzB/sNzMk1u8ZrdnpkLAjJUdvDJC8ER1Py0Pn/0z05BHZfq8XhVChjISUoHRZ7J6OAotZEXOkZTePgvjox4ThoY5wEpXgUrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557774; c=relaxed/simple;
-	bh=nkKKUr6OLDsYpjxZDT6G+Hxw2fGS1pL0IczswNV6T2Y=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QEA+Al9uS2uMIygtJM7wZs+lorc1DDvPqPyVnQDSdcJ/q88KiWpfIRdflTegsPhbOg2Ov8qm2ns+CA0fk3YAGags3kFc116k8+nbiaf+14AXDXDXw1ZWsCNDKlitTNaD4hQDFq/WV99HND6PeZz4BrEaDEkyqWhvPGGEVkThf8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Mc6ybph1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557785; c=relaxed/simple;
+	bh=VaKH0YZxWN/abgng93Eq1J4cySP4/qEMgiVuuYHik4c=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XRkGTg6vxdlzniNLTU4949Jk4W8rdvOd/mJXu2PRwzgYoVsRrm7DmQ5Cl8uXowo79YzL3A0LECkOy2DWs+ctmA6Ovt9LFl8lSWnOXkc1G8baBYOCiMzFOag041TpJUrofjwywSLg0opcvYVPgwWcZL6GfP1m+i6HCCYJIdn2A2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SKLGANPd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Mc6ybph1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A65001F00A3E;
-	Mon, 20 Jul 2026 14:29:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SKLGANPd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D73A1F000E9;
+	Mon, 20 Jul 2026 14:29:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784557773;
-	bh=5T87W1331eIkme6M4KHIUTw5HKOehHb49cKGGiJhZA0=;
+	s=korg; t=1784557784;
+	bh=XAJjm66ji3gGXCvIC06UGiv/QjJ7Ijg8auZADKhzBN0=;
 	h=Subject:To:Cc:From:Date;
-	b=Mc6ybph1GaiVbXsfAKZbB2cTnzNkpdpXsAeHmnyNivqo2ltfsQ+cjBxGKB4DETXD3
-	 07sXFt8/4SlcFDrp5qu18c4atgtVv6Z834Efmyzws/9siuxVqUJvXSR3nI7zecjkSr
-	 kLTgvbSjFGpRVTU5CD/azAqOJtnGb6EGv3e3XtnM=
-Subject: FAILED: patch "[PATCH] mm/damon/core: trace esz at first setup" failed to apply to 6.18-stable tree
-To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
+	b=SKLGANPdzk5vHOhetHzZdWLW0twoIRQlr2PlvxUpxZk01OYClnDyh/CYGu8xDgcMf
+	 j0kvbJnioDVyMsW8CtacymUqlUuy0HbkOUQhBvy+l0bLOI1s2QW70fVN8NV/wfwIJ7
+	 CXFNQXqkRMvrNWtLNavBLJF14Vrg7MA/jX3nmkcQ=
+Subject: FAILED: patch "[PATCH] fs/proc/task_mmu: fix make_uffd_wp_huge_pte() prot-update" failed to apply to 6.18-stable tree
+To: kas@kernel.org,akpm@linux-foundation.org,balbirs@nvidia.com,david@kernel.org,dev.jain@arm.com,ljs@kernel.org,mhocko@suse.com,peterx@redhat.com,rppt@kernel.org,sashiko-bot@kernel.org,stable@vger.kernel.org,surenb@google.com,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:29:16 +0200
-Message-ID: <2026072016-imprison-unknown-9cd4@gregkh>
+Date: Mon, 20 Jul 2026 16:29:35 +0200
+Message-ID: <2026072035-discolor-busily-8d3a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7e6cc35f5283eab81a14231a64ecd640b690c48c
+git cherry-pick -x 04718f7c9290f95385f0dd328758753dc1c36dec
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072016-imprison-unknown-9cd4@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072035-discolor-busily-8d3a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,54 +62,111 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7e6cc35f5283eab81a14231a64ecd640b690c48c Mon Sep 17 00:00:00 2001
-From: SeongJae Park <sj@kernel.org>
-Date: Wed, 20 May 2026 08:03:10 -0700
-Subject: [PATCH] mm/damon/core: trace esz at first setup
+From 04718f7c9290f95385f0dd328758753dc1c36dec Mon Sep 17 00:00:00 2001
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Date: Fri, 29 May 2026 18:23:25 +0100
+Subject: [PATCH] fs/proc/task_mmu: fix make_uffd_wp_huge_pte() prot-update
+ race
 
-DAMON traces effective size quota from the second update, only if a change
-has been made by the update.  Tracing only changed updates was an
-intentional decision to avoid unnecessary same value tracing.  Always
-skipping the first value is just an unintended mistake.
+Patch series "userfaultfd/pagemap: pre-existing fixes".
 
-The mistake makes the tracepoint based investigation incomplete, because
-the first effective size quota is never traced.  It is not a big issue
-when the 'consist' quota tuner is used, because it keeps changing the
-quota in the usual setup.
+These are pre-existing bug fixes that were carried at the front of the
+userfaultfd RWP working-set-tracking series up to v5 [1].  Per review
+feedback that fixes should not sit in the middle of a feature series, they
+are split out and sent on their own; the RWP series is reposted rebased on
+top of this.
 
-However, when the 'temporal' tuner is used, the quota value is not changed
-before the goal achievement status is completely changed.  For example, if
-the DAMOS scheme is started with an under-achieved goal, the quota is set
-to the maximum value, and kept the same value until the goal is achieved.
-Because DAMON skips the first value, the user cannot know what effective
-quota the current scheme is using.  Only after the goal is achieved, the
-effective quota is changed to zero, and traced.
+All six were flagged by the Sashiko AI review of the RWP series and carry
+Reported-by: Sashiko AI review <sashiko-bot@kernel.org>.  They are
+independent of RWP, apply to mm-new directly, and carry Cc: stable@.
 
-Unconditionally trace the initial quota value to fix this problem.
+  1: fs/proc/task_mmu: a missing huge_ptep_modify_prot_start() in
+     make_uffd_wp_huge_pte() can lose hardware Dirty/Accessed updates
+     when PAGEMAP_SCAN write-protects a hugetlb PTE.
 
-Note that the 'temporal' quota tuner was introduced by commit af738a6a00c1
-("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL"), which was
-added to 7.1-rc1.  But even with the 'consist' quota tuner, the tracing is
-unintentionally incomplete.  Hence this commit marks the introduction of
-the trace event as the broken commit.
+  2: fs/proc/task_mmu: pagemap_scan_hugetlb_entry() compares the range
+     against HPAGE_SIZE rather than the hstate page size, so it never
+     write-protects gigantic hugetlb pages.
 
-Link: https://lore.kernel.org/20260520150311.80925-1-sj@kernel.org
-Fixes: a86d695193bf ("mm/damon: add trace event for effective size quota")
-Signed-off-by: SeongJae Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.17.x
+  3: fs/proc/task_mmu: PAGEMAP_SCAN with PM_SCAN_WP_MATCHING over an
+     unpopulated hugetlb range self-deadlocks -- pagemap_scan_pte_hole()
+     calls uffd_wp_range() while walk_hugetlb_range() holds the hugetlb
+     vma lock for read, and hugetlb_change_protection() then takes it
+     for write. Install the marker inline instead.
+
+  4: mm/huge_memory: change_non_present_huge_pmd() drops pmd_swp_uffd_wp
+     on a device-private PMD permission downgrade, silently losing the
+     uffd-wp marker.
+
+  5: userfaultfd: must_wait() applies pte_write() to a locklessly read
+     PTE without checking pte_present(), so swap/migration entries
+     decode random offset bits and a thread can stay parked on a stale
+     fault.
+
+  6: userfaultfd: __VMA_UFFD_FLAGS feeds VMA_UFFD_MINOR_BIT (41) to
+     mk_vma_flags() unconditionally, an out-of-bounds write into the
+     single-word vma_flags_t on 32-bit. Build the mask from config-gated
+     per-mode masks so an unavailable bit is never materialised.
+
+
+This patch (of 6):
+
+make_uffd_wp_huge_pte() arms the UFFD_WP bit on a present HugeTLB PTE by
+calling huge_ptep_modify_prot_commit() with a ptent snapshot that was
+fetched without the corresponding huge_ptep_modify_prot_start().  The
+start helper is what atomically clears the entry so the kernel-owned
+snapshot stays consistent until the commit; without it, the hardware may
+set Dirty or Accessed in the live PTE between the original read and the
+commit, and huge_ptep_modify_prot_commit() (whose generic implementation
+just calls set_huge_pte_at()) then writes the stale snapshot back over the
+live hardware bits, losing the update.
+
+The non-hugetlb sibling make_uffd_wp_pte() does this correctly via
+ptep_modify_prot_start() / ptep_modify_prot_commit().  Mirror that pattern
+for the present-PTE branch.  The migration case stays as-is -- migration
+entries are non-present, so there's no hardware update to race against.
+
+Link: https://lore.kernel.org/20260529172331.356655-1-kas@kernel.org
+Link: https://lore.kernel.org/20260529172331.356655-2-kas@kernel.org
+Link: https://lore.kernel.org/all/20260526130509.2748441-1-kirill@shutemov.name/ [1]
+Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
+Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b33920873871..265d51ade25b 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2899,6 +2899,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- 	if (!quota->total_charged_sz && !quota->charged_from) {
- 		quota->charged_from = jiffies;
- 		damos_set_effective_quota(c, s);
-+		if (trace_damos_esz_enabled())
-+			damos_trace_esz(c, s, quota);
- 	}
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 1e3a15bf46f4..e21a38ac745b 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -2610,12 +2610,16 @@ static void make_uffd_wp_huge_pte(struct vm_area_struct *vma,
+ 	if (softleaf_is_hwpoison(entry) || softleaf_is_marker(entry))
+ 		return;
  
- 	/* New charge window starts */
+-	if (softleaf_is_migration(entry))
++	if (softleaf_is_migration(entry)) {
+ 		set_huge_pte_at(vma->vm_mm, addr, ptep,
+ 				pte_swp_mkuffd_wp(ptent), psize);
+-	else
+-		huge_ptep_modify_prot_commit(vma, addr, ptep, ptent,
+-					     huge_pte_mkuffd_wp(ptent));
++	} else {
++		pte_t old_pte, new_pte;
++
++		old_pte = huge_ptep_modify_prot_start(vma, addr, ptep);
++		new_pte = huge_pte_mkuffd_wp(old_pte);
++		huge_ptep_modify_prot_commit(vma, addr, ptep, old_pte, new_pte);
++	}
+ }
+ #endif /* CONFIG_HUGETLB_PAGE */
+ 
 
