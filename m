@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B781436342
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:51:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3B743800B
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:55:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784562684; cv=none; b=bAMiUHKiqxhH2jaKaJ5ZAvvBfcngaY9FkW7xge5kYCUCm6OluxUI6EW4t4+bn19gl3t5R5xO4p6couWYW5UHkn7yNlgTKY2xaspVJG4kEHeWpRvE98UiAa4ccHK5kj7B0jCCaPly82BPf5cUVrY4fCTs17B80tCSsEJTYPj4fBk=
+	t=1784562924; cv=none; b=duIoDyG3lylfpB8UgZgX+0IyzcTpUhxJ9/iupqf6zcyUAUbJBMCDF5rQXXFuqmJ2APYDDaQQOyORDAIe0DzEYhK5gGQNawKQL3XxczNmBkXAUS9JxwPtz/cH4BUxCFcAPiorDGScYRgJo84EmAzm3aXvioNP8Z1TSpJhIUp5wjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784562684; c=relaxed/simple;
-	bh=HkOZ3GAePKrbAYP+xT5D+I6SM/5VCiyknCQm7/M9CSU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UNlO/qqE5nrpCOe4M0uCvCtmxXa0LKBAwBdevNZkCP8ddcgggTSpUXyWviI1If3s/ejWTiD2Tk9fftd3MLubep3wnxKBt34IpYQJ+G2TJwdnfDTq6J5DQ5ykSsL5yLziv04NTSEAbob47XbDj9vD13uPZv21kc29bUYj+wPzlMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tS7NSkFf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784562924; c=relaxed/simple;
+	bh=oduNIFcsZIzg3jcqiks1vM+GWbJs6mSoq0lYpncwjb8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Bn/9G5mr1of8ki7hbzV5Sc1bHf3pHCULtnl14j2RjxkvPWAYinulnw5BcBJ0Wq1+JH56/U01nUya9BM7QWX5uPbEJhv0SqJGG4MyPTDS/kiQks1FzTS+/R3EQVVyOJVRnYwOisPpyD6fMj3mgVWQjSiZhvyr9RurLbLuxK1PjQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KFOc7uVj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tS7NSkFf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0C891F000E9;
-	Mon, 20 Jul 2026 15:51:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KFOc7uVj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3161F00A3D;
+	Mon, 20 Jul 2026 15:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784562683;
-	bh=ce1OSl0RcdNpW+b8zN0oeVJ6mVkjwMaW9U1LwRgHHYU=;
+	s=korg; t=1784562922;
+	bh=rMEaQPWV7ElR0q0YW5bBBpkuioB8E/Jc2mfYMhVUDvI=;
 	h=Subject:To:Cc:From:Date;
-	b=tS7NSkFfiJ1buAsYMAd9Z+hTvS1puxi32mS4LEhcACS+gfGeRCSQ2HoPDvD2DIuRP
-	 H65AzNU1emUcsRf7lD3aeVUVb2m3n0bELRQKUaPTrNJP06Zas/YekhBta4ktx1Y9+T
-	 mXtRLPeIAKpxrxjdnvvtHLk3F/jeaxAwbnaA4x90=
-Subject: FAILED: patch "[PATCH] Input: ims-pcu - fix race condition in reset_device sysfs" failed to apply to 5.15-stable tree
-To: dmitry.torokhov@gmail.com,sashiko-bot@kernel.org
+	b=KFOc7uVjYLgdDJ0RguM6eFcqlYPKHonLmC1+KUm0xK4fKJ8QzAAWDJ4dzFQ8USVOS
+	 i5BFq1JnMaUSkCnRfQ1vArhY9xYYBOagf1ixhQLOjjcbaV+yODa5LVOxmMyMOtzKB+
+	 5/WQSXrRvpx6GKlh5TU9NkX452C7bWw9/ZPkFsGU=
+Subject: FAILED: patch "[PATCH] locking/rt: Fix the incorrect RCU protection in" failed to apply to 6.12-stable tree
+To: tglx@kernel.org,bigeasy@linutronix.de,jannh@google.com,viro@zeniv.linux.org.uk
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:46:30 +0200
-Message-ID: <2026072030-handwork-earmuff-b1c2@gregkh>
+Date: Mon, 20 Jul 2026 17:48:58 +0200
+Message-ID: <2026072058-enjoyable-enamel-6b91@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 411b8c4b274737c3bf08e1e025801161603cfffc
+git cherry-pick -x 89038cc87d80c77e7aa6f42a64b2573b74af339f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072030-handwork-earmuff-b1c2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072058-enjoyable-enamel-6b91@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,36 +62,105 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 411b8c4b274737c3bf08e1e025801161603cfffc Mon Sep 17 00:00:00 2001
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Fri, 22 May 2026 10:29:04 -0700
-Subject: [PATCH] Input: ims-pcu - fix race condition in reset_device sysfs
- callback
+From 89038cc87d80c77e7aa6f42a64b2573b74af339f Mon Sep 17 00:00:00 2001
+From: Thomas Gleixner <tglx@kernel.org>
+Date: Fri, 19 Jun 2026 14:52:08 +0200
+Subject: [PATCH] locking/rt: Fix the incorrect RCU protection in
+ rt_spin_unlock()
 
-The ims_pcu_reset_device() sysfs callback calls ims_pcu_execute_command()
-without acquiring pcu->cmd_mutex. This can lead to data races and
-corruption of the shared command buffer if triggered concurrently with
-other commands.
+rt_spin_unlock() releases the RCU protection before unlocking the
+lock. That opens the door for the following UAF scenario:
 
-Acquire pcu->cmd_mutex before calling ims_pcu_execute_command().
+ T1					T2
+ spin_lock(&p->lock);		rcu_read_lock();
+ invalidate(p);			p = rcu_dereference(ptr);
+ rcu_assign_pointer(ptr, NULL);	if (!p) return;
+ spin_unlock(&p->lock);		spin_lock(&p->lock)
+ 				   lock(&lock->lock);
+				   rcu_read_lock();
+ kfree_rcu(p);			rcu_read_unlock();
+				....
+				spin_unlock(&p->lock)
+				  rcu_read_unlock(); // Ends grace period
+ rcu_do_batch()
+   kfree(p);
+			    UAF ->	  rt_mutex_cmpxchg_release(&lock->lock...)
 
-Fixes: 628329d52474 ("Input: add IMS Passenger Control Unit driver")
+Regular spinlocks keep preemption disabled accross the unlock operation,
+which provides full RCU protection, but the RT substitution fails to
+resemble that. Same applies for the rwlock substitution.
+
+Move the rcu_read_unlock() invocation past the unlock operations to match
+the non-RT semantics. This makes it asymmetric vs. rt_xxx_lock(), but
+that's harmless as the caller needs to hold RCU read lock across the lock
+operation. The migrate_enable() call stays before the unlock operation
+because there is no per CPU operation in the unlock path which would
+require migration to be kept disabled.
+
+Fixes: 0f383b6dc96e ("locking/spinlock: Provide RT variant")
+Reported-by: syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com
+Decoded-by: Jann Horn <jannh@google.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Acked-by: Al Viro <viro@zeniv.linux.org.uk>
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko bot <sashiko-bot@kernel.org>
-Assisted-by: Gemini:gemini-3.1-pro
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Link: https://patch.msgid.link/87jyrud75z.ffs@fw13
 
-diff --git a/drivers/input/misc/ims-pcu.c b/drivers/input/misc/ims-pcu.c
-index 4f8265c0772f..39bc02ef3e53 100644
---- a/drivers/input/misc/ims-pcu.c
-+++ b/drivers/input/misc/ims-pcu.c
-@@ -1153,6 +1153,8 @@ static ssize_t ims_pcu_reset_device(struct device *dev,
+diff --git a/kernel/locking/spinlock_rt.c b/kernel/locking/spinlock_rt.c
+index db1e11b45de6..1d5e1b3c60bf 100644
+--- a/kernel/locking/spinlock_rt.c
++++ b/kernel/locking/spinlock_rt.c
+@@ -79,10 +79,27 @@ void __sched rt_spin_unlock(spinlock_t *lock) __releases(RCU)
+ {
+ 	spin_release(&lock->dep_map, _RET_IP_);
+ 	migrate_enable();
+-	rcu_read_unlock();
  
- 	dev_info(pcu->dev, "Attempting to reset device\n");
- 
-+	guard(mutex)(&pcu->cmd_mutex);
+ 	if (unlikely(!rt_mutex_cmpxchg_release(&lock->lock, current, NULL)))
+ 		rt_mutex_slowunlock(&lock->lock);
 +
- 	error = ims_pcu_execute_command(pcu, PCU_RESET, &reset_byte, 1);
- 	if (error) {
- 		dev_info(pcu->dev,
++	/*
++	 * This must be last to prevent the following UAF:
++	 *
++	 * T1					T2
++	 * spin_lock(&p->lock);			rcu_read_lock();
++	 * invalidate(p);			p = rcu_dereference(ptr);
++	 * rcu_assign_pointer(ptr, NULL);	if (!p) return;
++	 * spin_unlock(&p->lock);		spin_lock(&p->lock);
++	 * kfree_rcu(p);			rcu_read_unlock();
++	 *					....
++	 *					spin_unlock(&p->lock)
++	 *					  rcu_read_unlock(); // Ends grace period
++	 * rcu_do_batch()
++	 *   kfree(p);
++	 *			    UAF ->	  rt_mutex_cmpxchg_release(&p->lock.lock...)
++	 */
++	rcu_read_unlock();
+ }
+ EXPORT_SYMBOL(rt_spin_unlock);
+ 
+@@ -262,17 +279,21 @@ void __sched rt_read_unlock(rwlock_t *rwlock) __releases(RCU)
+ {
+ 	rwlock_release(&rwlock->dep_map, _RET_IP_);
+ 	migrate_enable();
+-	rcu_read_unlock();
+ 	rwbase_read_unlock(&rwlock->rwbase, TASK_RTLOCK_WAIT);
++
++	/* This must be last. See comment in rt_spin_unlock() */
++	rcu_read_unlock();
+ }
+ EXPORT_SYMBOL(rt_read_unlock);
+ 
+ void __sched rt_write_unlock(rwlock_t *rwlock) __releases(RCU)
+ {
+ 	rwlock_release(&rwlock->dep_map, _RET_IP_);
+-	rcu_read_unlock();
+ 	migrate_enable();
+ 	rwbase_write_unlock(&rwlock->rwbase);
++
++	/* This must be last. See comment in rt_spin_unlock() */
++	rcu_read_unlock();
+ }
+ EXPORT_SYMBOL(rt_write_unlock);
+ 
 
