@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7E43EC692
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 10:54:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412D93EC2DB
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 10:54:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784544897; cv=none; b=XWqnllDWDqHFPqnH/lS6lojC3iR9llQZUxfPpSst0wGQnXU7lA8wQmBXrd7kuX+XGZibxqAxlkto6FR5VG3ktKKeQpG5iLiKk/sHfEC/v+e/4bIe63iCSv0+WloC6TgbPTpWd/lfoRywsWqbJoK0AKr4DscxI1bshPCACVI7ytc=
+	t=1784544898; cv=none; b=AMUREolliAcAyLRRcKf1ANAiSUBewTPySYrzFg4U5UJeY3ilMLx/5scx7D7EMOYhRvZ7700JmO66SXBIe61mmdBH/I4T4Og2cbYCGZG4oCAakpczcN+fzyaV7A+SRDPQQEw5X2t3jOEEUv74baXyOG4cMzOeCNOSVcQg73gert8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784544897; c=relaxed/simple;
-	bh=wnaTmItyaP2k0D1H1320nmDO9M2d2BdMrv9JYPAzwY8=;
+	s=arc-20240116; t=1784544898; c=relaxed/simple;
+	bh=0/f1Jsc5ztqO7NIkoLjCr6OLhMwNA+JQimm9F83GEIQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rT+J5irS+pkOGJ/cluKWF9WqAA4NOrOXq27mtwjFzyx5v/xMKEsJtb20jx/L7DLS8vviyN9N4JNdI6RJA7lm/Gw3fyNOB+exyjCeE29JLeXjIvUYC3ohD98dLzfmlPUdP+j0KazaZ7+0YJ5WT3JFC6opHRZkjKynV+WPig1qiYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b6lyMGR3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=hF45vfXATnK9r9WwhX0kuvjRCOKl3KCezbDlixWc96f92vzhiHBK0Z/ee0eURsKr8UrU0OAKZ5Dk8qPvIjG15/rG6TG5wKr31dq+v90FcE44EcZ2pIm4MaU6YPyaUbaBxvWDRP8F741vFZuhZNp93WV3mxvzyYqahTYysUHPvag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WESc7Z7C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b6lyMGR3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6D251F00A3D;
-	Mon, 20 Jul 2026 10:54:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WESc7Z7C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7635B1F00AC4;
+	Mon, 20 Jul 2026 10:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784544896;
-	bh=Ie4R2j+7B1T2nDcKhwa9nnxbyQxGkAGue85wc2BjyqI=;
+	s=k20260515; t=1784544897;
+	bh=13gX4yNgHUbkaNtGwispG7sINxolJtedO103bs5IS1k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b6lyMGR3AdSUgNXqaFoMPsNfrT9yq9M3k9eQK6/5BoSOde+QqMdLh9GlVhzcwz6Dr
-	 YD2Aq+BKjYCKIUle/7iEBzkUC0qqmNd/h2dEmaUfNpg3VrKrdkwgzBmPZyFNeFXLy5
-	 WmBf3qA45OqNRdhCA3ob13OLMWbpl62kErBDOUV1EwrGhJofZSms8h2cjNnZPdl4zN
-	 DKq3u1Pr48eLbFzWNwj+SrRHlTnKdSUYAHO7R9M97rNsOxisVpp5ZZ6pfHYvAUuytL
-	 Iafqm5QsO9zp3hjuJXB2Z7kjgDXBJLDu7VgZ4+6zjdBKt/ft07SJdkWnR4SAGZWzDy
-	 0v6xAR7hwYa1Q==
+	b=WESc7Z7CAeOQCfSbxYUFcSfRPqbb55z9EPH9SIQ497IjH00GUjSkI7Q42BiNDynay
+	 gBrQ2OFSXUHHWaBaeo6bNP1Oy9beZTomHg/NYHpedwD8ZBHM7ljmIBQuIy/TP9Wx+e
+	 0saKVesOHTjYKGmhmjm9rhzWX4+/Psz65vhsuRJ2TBi6oDg+XuBynW81cT9WsSICH9
+	 /D82gWM6TZNHDxr1wsQ7FD9Z9Wnl2t5F2/PAD6lxKJkIxUdIIOGvZa4zKnFv4ihTaz
+	 Rd6IlYBJ9gkE859H82z6YbPtwWEkkEbboYwK7i0CVshtcNHQZ8ybhyaaf2egeuuXQa
+	 s0r85Dn4bAgUA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Al Viro <viro@zeniv.linux.org.uk>,
+Cc: Neill Kapron <nkapron@google.com>,
+	stable <stable@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] functionfs: switch to simple_remove_by_name()
-Date: Mon, 20 Jul 2026 06:54:47 -0400
-Message-ID: <20260720105452.216179-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] usb: gadget: f_fs: Tie read_buffer lifetime to ffs_epfile
+Date: Mon, 20 Jul 2026 06:54:48 -0400
+Message-ID: <20260720105452.216179-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260720105452.216179-1-sashal@kernel.org>
 References: <2026071425-shield-overhung-4ba9@gregkh>
@@ -47,163 +48,53 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Al Viro <viro@zeniv.linux.org.uk>
+From: Neill Kapron <nkapron@google.com>
 
-[ Upstream commit c7747fafaba0dcdad3d7da240e961927b4865f98 ]
+[ Upstream commit 8bdcf96eb135aebacac319667f87db034fb38406 ]
 
-No need to return dentry from ffs_sb_create_file() or keep it around
-afterwards.
+Currently, ffs_epfile_release unconditionally frees the endpoint's
+read_buffer when a file descriptor is closed. If userspace explicitly
+opens the endpoint multiple times and closes one, the read_buffer is
+destroyed. This can lead to silent data loss if other file descriptors
+are still actively reading from the endpoint.
 
-To avoid subtle issues with getting to ffs from epfiles in
-ffs_epfiles_destroy(), pass the superblock as explicit argument.
-Callers have it anyway.
+By tying the lifetime of the read_buffer to the ffs_epfile structure itself
+(which is destroyed when the functionfs instance is torn down in
+ffs_epfiles_destroy), we eliminate the brittle dependency on open/release
+calls while correctly matching the conceptual lifetime of unread data on
+the hardware endpoint.
 
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Stable-dep-of: 8bdcf96eb135 ("usb: gadget: f_fs: Tie read_buffer lifetime to ffs_epfile")
+Fixes: 9353afbbfa7b ("usb: gadget: f_fs: buffer data from ‘oversized’ OUT requests")
+Cc: stable <stable@kernel.org>
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Neill Kapron <nkapron@google.com>
+Link: https://patch.msgid.link/20260619040609.4010746-3-nkapron@google.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/f_fs.c | 51 +++++++++++++-----------------
- 1 file changed, 22 insertions(+), 29 deletions(-)
+ drivers/usb/gadget/function/f_fs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 5ef9a7a7f3bc30..bd82db001c7250 100644
+index bd82db001c7250..7705877fdaa8f1 100644
 --- a/drivers/usb/gadget/function/f_fs.c
 +++ b/drivers/usb/gadget/function/f_fs.c
-@@ -162,8 +162,6 @@ struct ffs_epfile {
- 	struct ffs_data			*ffs;
- 	struct ffs_ep			*ep;	/* P: ffs->eps_lock */
+@@ -1352,7 +1352,6 @@ ffs_epfile_release(struct inode *inode, struct file *file)
  
--	struct dentry			*dentry;
--
- 	/*
- 	 * Buffer for holding data from partial reads which may happen since
- 	 * we’re rounding user read requests to a multiple of a max packet size.
-@@ -273,11 +271,11 @@ struct ffs_desc_helper {
- };
+ 	mutex_unlock(&epfile->dmabufs_mutex);
  
- static int  __must_check ffs_epfiles_create(struct ffs_data *ffs);
--static void ffs_epfiles_destroy(struct ffs_epfile *epfiles, unsigned count);
-+static void ffs_epfiles_destroy(struct super_block *sb,
-+				struct ffs_epfile *epfiles, unsigned count);
+-	__ffs_epfile_read_buffer_free(epfile);
+ 	ffs_data_closed(epfile->ffs);
  
--static struct dentry *
--ffs_sb_create_file(struct super_block *sb, const char *name, void *data,
--		   const struct file_operations *fops);
-+static int ffs_sb_create_file(struct super_block *sb, const char *name,
-+			      void *data, const struct file_operations *fops);
- 
- /* Devices management *******************************************************/
- 
-@@ -1881,9 +1879,8 @@ ffs_sb_make_inode(struct super_block *sb, void *data,
- }
- 
- /* Create "regular" file */
--static struct dentry *ffs_sb_create_file(struct super_block *sb,
--					const char *name, void *data,
--					const struct file_operations *fops)
-+static int ffs_sb_create_file(struct super_block *sb, const char *name,
-+			      void *data, const struct file_operations *fops)
- {
- 	struct ffs_data	*ffs = sb->s_fs_info;
- 	struct dentry	*dentry;
-@@ -1891,16 +1888,16 @@ static struct dentry *ffs_sb_create_file(struct super_block *sb,
- 
- 	dentry = d_alloc_name(sb->s_root, name);
- 	if (!dentry)
--		return NULL;
-+		return -ENOMEM;
- 
- 	inode = ffs_sb_make_inode(sb, data, fops, NULL, &ffs->file_perms);
- 	if (!inode) {
- 		dput(dentry);
--		return NULL;
-+		return -ENOMEM;
- 	}
- 
- 	d_add(dentry, inode);
--	return dentry;
-+	return 0;
- }
- 
- /* Super block */
-@@ -1943,10 +1940,7 @@ static int ffs_sb_fill(struct super_block *sb, struct fs_context *fc)
- 		return -ENOMEM;
- 
- 	/* EP0 file */
--	if (!ffs_sb_create_file(sb, "ep0", ffs, &ffs_ep0_operations))
--		return -ENOMEM;
--
--	return 0;
-+	return ffs_sb_create_file(sb, "ep0", ffs, &ffs_ep0_operations);
- }
- 
- enum {
-@@ -2176,7 +2170,7 @@ static void ffs_data_closed(struct ffs_data *ffs)
- 							flags);
- 
- 			if (epfiles)
--				ffs_epfiles_destroy(epfiles,
-+				ffs_epfiles_destroy(ffs->sb, epfiles,
- 						 ffs->eps_count);
- 
- 			if (ffs->setup_state == FFS_SETUP_PENDING)
-@@ -2241,7 +2235,7 @@ static void ffs_data_clear(struct ffs_data *ffs)
- 	 * copy of epfile will save us from use-after-free.
- 	 */
- 	if (epfiles) {
--		ffs_epfiles_destroy(epfiles, ffs->eps_count);
-+		ffs_epfiles_destroy(ffs->sb, epfiles, ffs->eps_count);
- 		ffs->epfiles = NULL;
- 	}
- 
-@@ -2338,6 +2332,7 @@ static int ffs_epfiles_create(struct ffs_data *ffs)
- {
- 	struct ffs_epfile *epfile, *epfiles;
- 	unsigned i, count;
-+	int err;
- 
- 	count = ffs->eps_count;
- 	epfiles = kcalloc(count, sizeof(*epfiles), GFP_KERNEL);
-@@ -2355,12 +2350,11 @@ static int ffs_epfiles_create(struct ffs_data *ffs)
- 		else
- 			sprintf(epfile->name, "ep%u", i);
- 		epfile->in = (ffs->eps_addrmap[i] & USB_ENDPOINT_DIR_MASK) ? 1 : 0;
--		epfile->dentry = ffs_sb_create_file(ffs->sb, epfile->name,
--						 epfile,
--						 &ffs_epfile_operations);
--		if (!epfile->dentry) {
--			ffs_epfiles_destroy(epfiles, i - 1);
--			return -ENOMEM;
-+		err = ffs_sb_create_file(ffs->sb, epfile->name,
-+					 epfile, &ffs_epfile_operations);
-+		if (err) {
-+			ffs_epfiles_destroy(ffs->sb, epfiles, i - 1);
-+			return err;
- 		}
- 	}
- 
-@@ -2368,16 +2362,15 @@ static int ffs_epfiles_create(struct ffs_data *ffs)
  	return 0;
- }
- 
--static void ffs_epfiles_destroy(struct ffs_epfile *epfiles, unsigned count)
-+static void ffs_epfiles_destroy(struct super_block *sb,
-+				struct ffs_epfile *epfiles, unsigned count)
- {
- 	struct ffs_epfile *epfile = epfiles;
-+	struct dentry *root = sb->s_root;
+@@ -2370,6 +2369,7 @@ static void ffs_epfiles_destroy(struct super_block *sb,
  
  	for (; count; --count, ++epfile) {
  		BUG_ON(mutex_is_locked(&epfile->mutex));
--		if (epfile->dentry) {
--			simple_recursive_removal(epfile->dentry, NULL);
--			epfile->dentry = NULL;
--		}
-+		simple_remove_by_name(root, epfile->name, NULL);
++		__ffs_epfile_read_buffer_free(epfile);
+ 		simple_remove_by_name(root, epfile->name, NULL);
  	}
  
- 	kfree(epfiles);
 -- 
 2.53.0
 
