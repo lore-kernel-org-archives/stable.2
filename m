@@ -1,264 +1,158 @@
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9BD3909BC
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 19:12:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784574746; cv=pass; b=rvpRjWk4DSo2xYONY9mSXpmzP2xU4Npqbdyhq+IG6/twcgPNysZdSZbQJWPWaMZFg9uWk4C2ClU5dIkexfWn6qDljgdekiVpTYk1Sxf1AK97owhv5JFoMwkqysbrd7gUpORZQjHAUj6yGmX4we7KuKQTiTAGJOtmFKi9lwuSUF0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784574746; c=relaxed/simple;
-	bh=mREub83eGI32NFJ5AQK+0Smu7QqyiGENCYK6tMBvBH4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aCeeS55fDjU0XMSH0SUyfMsJs7itKyDxeycLmOXZn6UXk3dVCa2m/vnDeyLfUMrJ/Yp5IQYkNlePXO8kpcPA66xXoYQTw0TB/x6f3EcMUBJ2aApR1wQs9IXbhZarI9Xm52LsV6MS+y3E6Vxw6vqlpcBSgAhhvRasOTeJ47n4Jwc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NF3uueS5; arc=pass smtp.client-ip=209.85.160.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2F43A3E6F
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 19:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784574808; cv=none; b=pyHyxdFkHmVu+GCFIHa9l52y4BQNIGxfpNwQYs03cGE4xNJDc5msXyJSAdQKSgmhwP0QS1M9A+UZpMiPNqUI4YgCBb/DBxmn14dr3wIgXfzWZ4HdTvD+48yyl8JRIDbBS3A3vyrKn6SPgMyumiCyOdIDMiarcdYGSwVIHw0MlrA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784574808; c=relaxed/simple;
+	bh=n9hjvS79Gw4F+TRn7WgQGmj61r8D4HoJDfkprX6ec5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bRc48OCubhWCtI7krPzt/7fu95dQI8jo6etX9uWVDPT8uopNgnSexHOG95nXXcW/fp/3vTXy4XypBbO/8c3z+tdubGA9lHHLbDjHI+RHD3fUjHWNSugUEjmyOkaCpiwaV5gb3IdMsDgql7frTALTidNOpSWm2wQu5zurY7e/lTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=fwj+4wkL; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NF3uueS5"
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-44ae14b4fd6so3656135fac.2
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:12:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784574743; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sz/osx83qWhgtL/zbwg91OmhISrHcTG8hjRV+Jfyh4b0mDHnxZEOSC01JTOrGzNUMA
-         yqnebD+0PxQft/zdpfqRgMgd8ZDvWBm9q/WMQxt3aI7JdHafyHmIguIGfMjlur/96riq
-         MmL0j9aI43EJAhk22FUpeX9nbMsGu4ET9mD6MWwhXQ2EsrctgadaV8EEsMAAdDDwFQgv
-         KIXkLnvKuU4aIXfmkik4Vy8+wURy2t5baCv2wjZpjIYGyK/J3B15u8Vxiax9wmuBMmnw
-         hSuoCfaa03mSb5Sk6HZbQm+LD8oMWLLw7MQzsuX5jhAJS377+wOjTGtT/jYe0IScoI53
-         sHRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qgTohs12tn7pUsawXCo+sFgrXRMEdlm/0Hs5iyyxK0A=;
-        fh=TiE4PhWEfk36fBs8j/iNmFniKmFjXgCJ6QrsGBOJqPE=;
-        b=eHAysm5WShQQ4gKErDjVCn9LYPnCjaQYth2RJfTdNjfUvSa6dp0WCWqrVgINBQxBR7
-         tWPu186wO6g0WYmcSGKenlzIG47DUpn/Xch4qQvvo5SCRwfXnXsNefSkhCndYBFbM3Qx
-         DU0IQfhCoeVS1DbjgFmnAAJrk8W3gmQ7xyx/wPB4f1wez0vXqe/HWYrYIymaEWCoG0ui
-         PU1ffUPtP12bGE+rAQTPtPsUiejLjLfkp/r32cbSjXhse75VIe3OV1VciVwDidl9GgJz
-         tLmw0ZhZBdSFdeFJvHcDiiyVJRoXCFoRBChxlyfly/t+HkPwb9+3Osy52TWL0jwL8OiS
-         8Q0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="fwj+4wkL"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4955484387cso12590935e9.1
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:13:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784574743; x=1785179543; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qgTohs12tn7pUsawXCo+sFgrXRMEdlm/0Hs5iyyxK0A=;
-        b=NF3uueS5U52/IORfZPJUBzNXoATpcJNTTjGNTS9lACvN5iijlpAhTYRCifnadG9m0z
-         R5D5ZumY38oeSTpFUDTyqXetll5fAOs1YKeGiJWWjfLESI1m9V9IqEhw4Wtl73fn4/Mo
-         bXplRmg8cIYmzKYhPlRxTF53sEnpHjou8+d2W/5lHM0nPq9uphbrxx16gzWBwzgOWF9M
-         HHGca5s8VKu3Am3ftAZZMgwgmoVnLlYu6qmn/SV1+WCi2+YSR+8vvR2KShm1U8q7f5pL
-         a0gRnmH8IjJSmtdPbtxuIBQwoDlaGrIjsW8ldOkOACcTv3pOc1fSyxyHqq5XKEBUlePL
-         Z0aw==
+        d=0sec.ai; s=google; t=1784574805; x=1785179605; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xKFoZd3/2cdDCdHVjqGsrFciG9zJW2+KmWDiRs5og20=;
+        b=fwj+4wkLC6PRhYdKyUZFyyaOrLjMUH3IsWa0MEsZFpmtUf3Wb9RwAZxriRHppMwpA4
+         WGj8NnPsR0wTSn3GoyzVE44leVL9fZ71cXtCIBJ3dwnkgczYfv56gYRVgwT48m/rnXG7
+         HIwMRgFeBBqbg4X0tKuQEY14UKIxSpRaRUcRDU+7R7saJgZuB35g2upMSNnJqPuCHGim
+         Rba1nYnrUfec3DxLNsmJ+T5cXRmb3Il67zsHkryz7nkLtrMqDDZ0Kkj1NvMVdj/xlWMU
+         SsEIzaPsWBnwn/I1rdh7cDd8JEn7dx1qKyDWfF4HEPq4N+khmL6WHdWaAvbs7HgG6S1T
+         oKBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784574743; x=1785179543;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qgTohs12tn7pUsawXCo+sFgrXRMEdlm/0Hs5iyyxK0A=;
-        b=kdbPkHL68TZMaupKtDopGOLN25yDXEFSYlTsoq+R+gsFyldBl+ZaSzBEEPhcZ5ujXq
-         6R4zWXnP945or1wtpNiVifXepIxWbTvnybxKVJZF3jeUPlckghrrA2oF3eyyTEajS7A1
-         zb8RJ3kyzIdPewoyDviNtoWC4V8a0RSv5pea3TgnykX97skrAwMixhTrdkTcbMLP6O1/
-         dgdLUZsYmeBIzH0GYn7Pb5G51QUO30SAwnT39OAcTOQSLwCwGKVq/UmxyBc/ZRx1es+1
-         PdJSlFSqAVMxwrFd0B7AWT+h/YaoQA4C0ieCnM30BDs6GaRtbz2mjUNtfoUy/ZXJRNWo
-         gShA==
-X-Forwarded-Encrypted: i=1; AHgh+RpzuPGm1LRhFKX5JqzSROJ3KSDcI5ZH3lxQkoVamoT/PJL95ZdGjKvf+s1Jr9+O9vhA0ukTbWc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCThCR6GT0sQUu2WZsEmv2nMwOIlgpQAMMaRYG+yPW2DLxnTR/
-	4Qfg6Ap4goBawMiOJnzxo1C8fyQBSKs/aF2TEUwgHWWwGj2PBBNsjRmDsgjCJtWq/mSBWm29kgL
-	Z/iQgdHWDBsm53ZDqq6XLn135Vnvu6xg=
-X-Gm-Gg: AfdE7clH0kK4NYk8AheS9FSc78MkohejzZHw27aNFAJwWiuqzfXWw7LZQVqo7St9pPO
-	wVMoCq/fL60R49hUzsDIC9yJPY5NeW7p/2OUX0fZSYhovPhBxxuhrIRmIrjGaQB/t47dvvJ4ehA
-	6Lg9hWzAEuI5CuEgAfj+7kE/OJFrZthpb3qTDxiaBI8mG5C3iEVijkm95PPuDJruEqkxcRXh9tj
-	ryQK1fCw/CdZmjEvW3gTLmX9W+5vxTYpffCIEatv2VuRyH3DMvurn4LeneqsrOVzORuJh5SPqo/
-	AzRhX2CHi/O21viyHU0=
-X-Received: by 2002:a05:6870:a488:b0:441:3cdc:28c7 with SMTP id
- 586e51a60fabf-456902170bdmr7045940fac.9.1784574742840; Mon, 20 Jul 2026
- 12:12:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784574805; x=1785179605;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xKFoZd3/2cdDCdHVjqGsrFciG9zJW2+KmWDiRs5og20=;
+        b=em/D6Lt4WbuiLZiJkYnueOdNBrw0YBIEjqXUZVqP+fy2LHyuz/BII7k2lubfLQyPKY
+         5TuTKsubN6tMA2beZ/xD/NJyFO2fGAJS659pqBaAOuj8Nhn+y/jC59uVCJE9iL98qZxo
+         9quGMzt1SrJGXiFmbcL89JDaWL+ed1qHkWnKNrWC8OdfXF3h786mdsJcbCf9LcFlwvuH
+         /7TO/d2qaa/bdsEdrtjaT2kIVj6AEucOhr9V2aIZ3Js1XxkwIvd1HPGgDMXyWDwF8fXu
+         wXG6sVUyI9/kd+ZSovWPbvi/6tfWZTz9+R00mx7+k7XBHQVysanKn80NR/KW+czCxsiC
+         4l+A==
+X-Forwarded-Encrypted: i=1; AHgh+RqEsQltIBxvTCB7A6Qj/I3rxlKjnlCZu3o5/Cg11OC1a+qdtwGEXhShCkuSXO8PIaC979f2V34=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQuCt3vGP8cjLdaksg3jCk76n0gicLKtrtkryRHrtyQMpqmtkY
+	70IkPpD5L8o6nCS1izuCSkasxX+dlw/NZ4ITdxm41flx+4ERqCRnNh7P8TMG64/w2frd
+X-Gm-Gg: AfdE7ckx9bhGPiYfMU2/HJh4H7IUyCU4a/Y4OXQyL16AGXBLLOUrMGUttFhxnwRJfL7
+	mp1TOFXxE39GeZ/xiCx2uo9IPjjeo6WkVwDzwJSkBJfwpYMf1njZuwYPyDnGeNk0lCzXXHrYWa9
+	TSaniKGQMjif36JO8QbKd2SlJe8FfI3IVa8tjXHhMbtRVMgFcAR4I+bxd7WIw3kPqCA0ae6OlPv
+	smuE898P3+alnZvCqOHGb89Sp2lRNF7QOw+TE5u7P/agGpLqDh6I3GbjfpPfMS6kRbllWnCh+Mj
+	AYhjEx+6MkIIXeQxbcpVuhGNvCcrGhykJsn+tiheju4hL/RH94wZuZYkYmuwCh2QbnWYjwEPBMx
+	Uo+m/DH+ftZ1qYTRFsi6XnU6r3aintJ+9QesWQ2fZvEneUmcTz/BpV5duVD3mT83VycjK1CxYu3
+	3a3JXN14AlhIpVXLJGndyrv8SHungtB7Syb8haWCbEbrtGNgljF+oqmFq/lWJDyPeCIe1qLSweG
+	LtZZf8p6ReudWLG8jU4rQos
+X-Received: by 2002:a05:600c:2204:b0:492:3754:15f2 with SMTP id 5b1f17b1804b1-4954a40bbdemr129148725e9.32.1784574804745;
+        Mon, 20 Jul 2026 12:13:24 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.14])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956536870esm13926345e9.3.2026.07.20.12.13.23
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 20 Jul 2026 12:13:24 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Amitkumar Karwar <amitkumar.karwar@nxp.com>,
+	Neeraj Kale <neeraj.sanjaykale@nxp.com>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Doruk Tan Ozturk <doruk@0sec.ai>
+Subject: [PATCH v2] Bluetooth: btnxpuart: Fix out-of-bounds firmware read in nxp_recv_fw_req_v1()
+Date: Mon, 20 Jul 2026 21:13:22 +0200
+Message-ID: <20260720191322.14432-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260720150207.1963786-1-charles.daoust@gmail.com> <2a80e88e-936d-4927-a915-352fe92e47df@rowland.harvard.edu>
-In-Reply-To: <2a80e88e-936d-4927-a915-352fe92e47df@rowland.harvard.edu>
-From: "Charles D'Aoust" <charles.daoust@gmail.com>
-Date: Mon, 20 Jul 2026 15:12:11 -0400
-X-Gm-Features: AUfX_my8a4yLN_j8L1tIkscz-2rravyhw63mOlWyCUvY8YFH5chrZpGkergO1Gw
-Message-ID: <CAAhWKQQU5Bj6iDGP2KYTcx=TpGDo70qLR_vpyJqc9jAA4KkxCg@mail.gmail.com>
-Subject: Re: [PATCH] usb: core: add USB_QUIRK_CONFIG_DESC_READ_255 for Razer
- BlackShark V3 Pro
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-You are correct, they are indeed the same. I apologize, I missed it.
+Commit 25c286d75821 ("Bluetooth: btnxpuart: Fix out-of-bounds firmware
+read in nxp_recv_fw_req_v3()") bounded the v3 firmware download offset but
+left an unbounded read in the v1 handler.
+
+nxp_recv_fw_req_v1() advances a device-driven download offset
+(fw_dnld_v1_offset) by fw_v1_sent_bytes on every request, and that
+bookkeeping runs even when the payload write is skipped, so the offset can
+walk past nxpdev->fw->size. When the controller then requests a header
+(len == HDR_LEN), the driver reads the 16-byte bootloader header at
+
+  nxp_get_data_len(nxpdev->fw->data + nxpdev->fw_dnld_v1_offset)
+
+with no bound on the offset, reading past the end of the firmware image.
+A malicious or malfunctioning NXP UART controller can drive this to read
+out-of-bounds kernel memory during firmware download.
+
+Bound the offset before the header read, and convert the payload write
+guard to the overflow-safe form used by the v3 path (fw_dnld_v1_offset is
+u32, so fw_dnld_v1_offset + len can wrap). Log the offset, expected length
+and firmware size at the reject site to aid debugging of a real device.
+
+This was found by 0sec automated security-research tooling
+(https://0sec.ai).
+
+Fixes: 689ca16e5232 ("Bluetooth: NXP: Add protocol support for NXP Bluetooth chipsets")
+Cc: stable@vger.kernel.org
+Reviewed-by: Neeraj Sanjay Kale <neeraj.sanjaykale@nxp.com>
+Assisted-by: 0sec:claude-opus-4-8
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
-Charles D=E2=80=99Aoust
+v2: log offset/expected_len/fw size at the reject site (requested by
+    Neeraj Kale and Paul Menzel).  No functional change to the bound
+    itself vs v1.
 
----
-Charles D=E2=80=99Aoust
+v1: https://lore.kernel.org/linux-bluetooth/20260705115650.81724-1-doruk@0sec.ai/
+ drivers/bluetooth/btnxpuart.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/bluetooth/btnxpuart.c b/drivers/bluetooth/btnxpuart.c
+index 0bb300eef157..6d62d07a542b 100644
+--- a/drivers/bluetooth/btnxpuart.c
++++ b/drivers/bluetooth/btnxpuart.c
+@@ -1041,11 +1041,19 @@ static int nxp_recv_fw_req_v1(struct hci_dev *hdev, struct sk_buff *skb)
+ 		 * and we need to re-send the previous header again.
+ 		 */
+ 		if (len == nxpdev->fw_v1_expected_len) {
+-			if (len == HDR_LEN)
++			if (len == HDR_LEN) {
++				if (nxpdev->fw_dnld_v1_offset >= nxpdev->fw->size ||
++				    nxpdev->fw->size - nxpdev->fw_dnld_v1_offset < HDR_LEN) {
++					bt_dev_err(hdev, "FW request out of bounds: offset %u, expected_len %u, fw size %zu",
++						   nxpdev->fw_dnld_v1_offset, len,
++						   nxpdev->fw->size);
++					goto free_skb;
++				}
+ 				nxpdev->fw_v1_expected_len = nxp_get_data_len(nxpdev->fw->data +
+ 									nxpdev->fw_dnld_v1_offset);
+-			else
++			} else {
+ 				nxpdev->fw_v1_expected_len = HDR_LEN;
++			}
+ 		} else if (len == HDR_LEN) {
+ 			/* FW download out of sync. Send previous chunk again */
+ 			nxpdev->fw_dnld_v1_offset -= nxpdev->fw_v1_sent_bytes;
+@@ -1053,7 +1061,8 @@ static int nxp_recv_fw_req_v1(struct hci_dev *hdev, struct sk_buff *skb)
+ 		}
+ 	}
+ 
+-	if (nxpdev->fw_dnld_v1_offset + len <= nxpdev->fw->size)
++	if (nxpdev->fw_dnld_v1_offset < nxpdev->fw->size &&
++	    len <= nxpdev->fw->size - nxpdev->fw_dnld_v1_offset)
+ 		serdev_device_write_buf(nxpdev->serdev, nxpdev->fw->data +
+ 					nxpdev->fw_dnld_v1_offset, len);
+ 	nxpdev->fw_v1_sent_bytes = len;
+-- 
+2.43.0
 
-On Mon, Jul 20, 2026 at 12:04=E2=80=AFPM Alan Stern <stern@rowland.harvard.=
-edu> wrote:
->
-> On Mon, Jul 20, 2026 at 11:01:26AM -0400, Charles Daoust wrote:
-> > From: Charles D'Aoust <charles.daoust@gmail.com>
-> >
-> > The Razer BlackShark V3 Pro wireless headset dongle (1532:0577)
-> > fingerprints its host during the first enumeration after power-on: if
-> > the first GET_DESCRIPTOR(CONFIGURATION) request asks for 255 bytes, as
-> > Windows does, the dongle enables its vendor HID command channel; if it
-> > sees the 9-byte header-only read that Linux issues, it disables that
-> > channel for the rest of the power session.  Audio still works in that
-> > state, but battery reporting and all vendor commands are silently
-> > ignored, and nothing short of removing power recovers the device:
-> > resets, re-enumerations and byte-exact replays of complete Windows
-> > control sessions were all verified not to help.
-> >
-> > Both read lengths are spec-compliant (the device truncates the reply
-> > to wLength); the firmware was evidently only validated against the
-> > larger request.  The kernel already accommodates this class of
-> > firmware assumption during enumeration: hub_port_init() reads the
-> > device descriptor with a 64-byte request because that is what Windows
-> > does and what many devices expect.
-> >
-> > Add USB_QUIRK_CONFIG_DESC_READ_255, which makes usb_get_configuration()
-> > request 255 bytes for the initial configuration descriptor read rather
-> > than USB_DT_CONFIG_SIZE, apply it to 1532:0577, and expose it as
-> > runtime quirk letter 'r'.  Devices without the quirk are unaffected.
-> >
-> > The trigger was isolated by single-variable bisection on otherwise
-> > unmodified kernels: with only the widened initial read, the dongle's
-> > vendor channel comes up enabled on a cold plug with no interface
-> > drivers bound (bare enumeration only); without it, it never does.
-> >
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Charles D'Aoust <charles.daoust@gmail.com>
-> > ---
->
-> Is this not the same as
->
-> https://lore.kernel.org/linux-usb/20260717195336.98500-2-nikhilsolanke5@g=
-mail.com/
->
-> ?
->
-> Alan Stern
->
-> >  Documentation/admin-guide/kernel-parameters.txt |  3 +++
-> >  drivers/usb/core/config.c                       | 13 ++++++++++---
-> >  drivers/usb/core/quirks.c                       |  6 ++++++
-> >  include/linux/usb/quirks.h                      |  3 +++
-> >  4 files changed, 22 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Document=
-ation/admin-guide/kernel-parameters.txt
-> > index b5493a7f8..1bd138ba6 100644
-> > --- a/Documentation/admin-guide/kernel-parameters.txt
-> > +++ b/Documentation/admin-guide/kernel-parameters.txt
-> > @@ -8169,6 +8169,9 @@ Kernel parameters
-> >                               q =3D USB_QUIRK_FORCE_ONE_CONFIG (Device
-> >                                       claims zero configurations,
-> >                                       forcing to 1);
-> > +                             r =3D USB_QUIRK_CONFIG_DESC_READ_255 (ini=
-tial
-> > +                                     configuration descriptor read mus=
-t
-> > +                                     request 255 bytes, as Windows doe=
-s);
-> >                       Example: quirks=3D0781:5580:bk,0a5c:5834:gij
-> >
-> >       usbhid.mousepoll=3D
-> > diff --git a/drivers/usb/core/config.c b/drivers/usb/core/config.c
-> > index cd3231d21..c7e21cc76 100644
-> > --- a/drivers/usb/core/config.c
-> > +++ b/drivers/usb/core/config.c
-> > @@ -908,7 +908,7 @@ int usb_get_configuration(struct usb_device *dev)
-> >  {
-> >       struct device *ddev =3D &dev->dev;
-> >       int ncfg =3D dev->descriptor.bNumConfigurations;
-> > -     unsigned int cfgno, length;
-> > +     unsigned int cfgno, length, first_read_len;
-> >       unsigned char *bigbuffer;
-> >       struct usb_config_descriptor *desc;
-> >       int result;
-> > @@ -938,7 +938,14 @@ int usb_get_configuration(struct usb_device *dev)
-> >       if (!dev->rawdescriptors)
-> >               return -ENOMEM;
-> >
-> > -     desc =3D kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
-> > +     /*
-> > +      * Some devices (see USB_QUIRK_CONFIG_DESC_READ_255) malfunction =
-unless
-> > +      * the initial configuration descriptor read requests 255 bytes, =
-as
-> > +      * Windows does.  Only the header is consumed here either way.
-> > +      */
-> > +     first_read_len =3D (dev->quirks & USB_QUIRK_CONFIG_DESC_READ_255)=
- ?
-> > +                      255 : USB_DT_CONFIG_SIZE;
-> > +     desc =3D kmalloc(first_read_len, GFP_KERNEL);
-> >       if (!desc)
-> >               return -ENOMEM;
-> >
-> > @@ -946,7 +953,7 @@ int usb_get_configuration(struct usb_device *dev)
-> >               /* We grab just the first descriptor so we know how long
-> >                * the whole configuration is */
-> >               result =3D usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
-> > -                 desc, USB_DT_CONFIG_SIZE);
-> > +                 desc, first_read_len);
-> >               if (result < 0) {
-> >                       dev_err(ddev, "unable to read config index %d "
-> >                           "descriptor/%s: %d\n", cfgno, "start", result=
-);
-> > diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-> > index 87ee2d938..c8f71b825 100644
-> > --- a/drivers/usb/core/quirks.c
-> > +++ b/drivers/usb/core/quirks.c
-> > @@ -142,6 +142,9 @@ static int quirks_param_set(const char *value, cons=
-t struct kernel_param *kp)
-> >                               break;
-> >                       case 'q':
-> >                               flags |=3D USB_QUIRK_FORCE_ONE_CONFIG;
-> > +                             break;
-> > +                     case 'r':
-> > +                             flags |=3D USB_QUIRK_CONFIG_DESC_READ_255=
-;
-> >                       /* Ignore unrecognized flag characters */
-> >                       }
-> >               }
-> > @@ -496,6 +499,9 @@ static const struct usb_device_id usb_quirk_list[] =
-=3D {
-> >       /* Razer - Razer Blade Keyboard */
-> >       { USB_DEVICE(0x1532, 0x0116), .driver_info =3D
-> >                       USB_QUIRK_LINEAR_UFRAME_INTR_BINTERVAL },
-> > +     /* Razer - Razer BlackShark V3 Pro wireless headset dongle */
-> > +     { USB_DEVICE(0x1532, 0x0577), .driver_info =3D
-> > +                     USB_QUIRK_CONFIG_DESC_READ_255 },
-> >       /* Razer - Razer Kiyo Pro Webcam */
-> >       { USB_DEVICE(0x1532, 0x0e05), .driver_info =3D USB_QUIRK_NO_LPM }=
-,
-> >
-> > diff --git a/include/linux/usb/quirks.h b/include/linux/usb/quirks.h
-> > index b3cc7beab..02de5ed48 100644
-> > --- a/include/linux/usb/quirks.h
-> > +++ b/include/linux/usb/quirks.h
-> > @@ -81,4 +81,7 @@
-> >  /* Device claims zero configurations, forcing to 1 */
-> >  #define USB_QUIRK_FORCE_ONE_CONFIG           BIT(18)
-> >
-> > +/* initial configuration descriptor read must request 255 bytes (Windo=
-ws) */
-> > +#define USB_QUIRK_CONFIG_DESC_READ_255               BIT(19)
-> > +
-> >  #endif /* __LINUX_USB_QUIRKS_H */
-> > --
-> > 2.55.0
-> >
-> >
