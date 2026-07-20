@@ -1,159 +1,111 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD9632F765
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 11:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1CB349CD0
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 11:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784546367; cv=none; b=sWl/ImAMgwW418ADv/9o1cgFX1gUHDrqZwmDzKCVrC/uGjiRVqTIwmVyVs4rIT51NJwyYefKIpd6r8k+h18b/A9ZWrhe/BdS33I9oL5NHynzlFdFskxJyXelDvH+1/1xPB3b+A1aDRKaOfu+xP+26kIR5KymGOp7Qv7eb00PPP0=
+	t=1784546761; cv=none; b=qBQM311ehSh5X9rg3sH6plYKVLEuGuFDBpiTTaYDqEamiUB3pe99ieo+WeXEl/bkfxBOeriPhNx0jsYPYM5JwG/jmNQhEZ2PW75XijKhaQMsqKhIWrZuf15UxcIYpQ0bKJteT0NrrlWDcba6AlSpO13i9Rt5vH7/xHrrI2C5FFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784546367; c=relaxed/simple;
-	bh=0/7vyfn3ez2gQVNAZTrNqxNynKaQbM82xBSRTVyMLVw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LVVa6TJbSVu2e0zwBn8WgYm16lbZIr5t4NOJEXZ4FlUlegZy0gZxYvAZcMJqTuCmEtEHyBr8NCWO63XXflV3mQjxHRA5XlyY0a8en86qTSO/KliCfvIvFkvLERl4O1J5uft1/5WtlFILlHGqTJhTqkdYeUFibvapxHMSfceO57A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=yX7kGdlH; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=5PJz4dnP; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=x5euKueh; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=IQXrD4ih; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1784546761; c=relaxed/simple;
+	bh=MK/EvtItOpT/zgPL5nusrcrvyqvBtj5dEqAmbXtdchU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gxFXmDqyGuAsxkFkITgKukLxgCCcBEOB+XXzdiGAu+UuZ+373/6WWrc37ukkl/4mg2ucnhwy2q0IVV6h5AmkNUfQLc3VaL9q1NKhKJI9QT4MFIA2msmVWiCHUajuktP3wtGq/OfsQs5jlNiuMELBf6Ysydf/CKUsqATq1PsJLRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in; spf=pass smtp.mailfrom=cse.iitm.ac.in; dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b=ZzYLsrOX; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cse.iitm.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="yX7kGdlH";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="5PJz4dnP";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="x5euKueh";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="IQXrD4ih"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9AD873DF9;
-	Mon, 20 Jul 2026 11:19:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1784546363;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T32nYv4gIl3iKHMR4R1EXlrLvwS5FcxtQ883X4X50no=;
-	b=yX7kGdlH9LcO6Xm3qqSKCjlAaOdJBBtBvOaBA5N6fdb9W4VMGj4GblZpG/2pDizYviiAkj
-	kqe63U04ZznJoHPgbr4FYmX+ej8G+rAoK93/sQgHQ6KXKr3dLgQUHFjxY8E7LqJrUXh0p+
-	sqJQFpha1xglnWilVvsukTn1hTdmHHc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1784546363;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T32nYv4gIl3iKHMR4R1EXlrLvwS5FcxtQ883X4X50no=;
-	b=5PJz4dnPEzEYKeD2JtKML8A0rven5RkFae947gPMx0qAo+31coLRyUhuwH71jEOkxvmF69
-	8MjDO9ZcOagRKnBw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=x5euKueh;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=IQXrD4ih
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1784546362;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T32nYv4gIl3iKHMR4R1EXlrLvwS5FcxtQ883X4X50no=;
-	b=x5euKuehojfz/cho1rRNd4Gix8GJRzrowd7zgwWdBw2VNrzTHCdfZbljHTqxRVij+s8ls0
-	DAyRImGTMlLFJYf37MyGrlcnp3vs9kgv5S2sXH9o5czf6pYpPl3O6JeA1B/DJEGboGFle7
-	JnUpJfW213etazRzAIebq8+74IPJAFM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1784546362;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T32nYv4gIl3iKHMR4R1EXlrLvwS5FcxtQ883X4X50no=;
-	b=IQXrD4ihJBBRx8wCPFseKwW6/4ot2vkUCvu3qqocm17ULLemyeKuVa3+bLq8m6n5szcgx5
-	4Pk6KATI1w1fK/BQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7A8CA779AA;
-	Mon, 20 Jul 2026 11:19:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id PyEmHToEXmoMEgAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Mon, 20 Jul 2026 11:19:22 +0000
-Date: Mon, 20 Jul 2026 13:19:13 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Guanghui Yang <3497809730@qq.com>
-Cc: linux-btrfs@vger.kernel.org, Chris Mason <clm@fb.com>,
-	David Sterba <dsterba@suse.com>, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="ZzYLsrOX"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2caea3f742bso120013885ad.0
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 04:25:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1784546755; x=1785151555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/f8DL2vIooznsDdQVfwxZs99v9VD407+Uz6ZGQECJlg=;
+        b=ZzYLsrOXWgI/t//OcBM7IkjVk2+QfSAjpGf/m+fqZDmpYtlSde23k8bDD595O87kYt
+         1H19npplrfZ3NUqikX3L/Qe4EGekvIr61wL233x6+CLNcquvu6x2lgbxIjmAuxm69Sy0
+         l4jA3p6So6xb/THoiH3tRwLa2jMr65g3SvyGML0oad9KpszwU7UnjabiTVAj3J2QdPMn
+         9lQDN53iCeFoBFFc4ROSAu3Cx1HSCun4O52k7T/c1OnQafofphegl+oIi38vxq2Ss5T0
+         0l/VdT/PMrNRrGnvsmD+FIlcKwSNl300h1vNUasaPMKuqm6Wfp82gWwr459GnGL8ZKiN
+         vvNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784546755; x=1785151555;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/f8DL2vIooznsDdQVfwxZs99v9VD407+Uz6ZGQECJlg=;
+        b=NP8eDAETmxkaJVZsA3fUCdl8a6IqWoq3/z7up40GOcSDfa0jN9T2PNjQEIwpl6I5ss
+         P2cdpGXqzAZN6dZ35bYsAZLuIXzhdJkds85ST1oLmoTTx/cdJ0lX5Sp4SDUlQPFI4GIA
+         bnqM+ormbIIj5JoqHASvZGOqRS4MOmuaewfkhBYs9Ypv1xr+r512YgQW2DMYsdOZsNz2
+         ZxjPPkzQzjkb4snfSSaG9o8HrkYVfw87fLotrpNou0t2Y89nRITLpshP5rk6k0XFKe8y
+         ILApAwvGR+v7o0tzwgziQaEWrkUyq+h5ITBuP88rs3mM8o9BXa3S/y3iEiqktsKsNMv5
+         FOPA==
+X-Forwarded-Encrypted: i=1; AHgh+RpzYfEiujjPYs1jTaw4vpRxcU+cjEwLCOibOJ22XCFUAZALTOk0rS43mX36AIfXOQM5wymJKU4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuLtC6SiEAN+R4qebxGAnoeFDHnqK6++1lbOv7Cli/9Py4BDYh
+	ac48MhyJcnxW0XyMXrCrKd18JI+HgB3Pic6dQAtcfjmiZqNo/sHgExOM7nDMSVXy4EZ5X3B5ez2
+	Y+JIJMzs=
+X-Gm-Gg: AR+sD119UziQUVKwVAtXkFBkEt+DjtYYZdhJ4RPK9eU86HGRMSl4ivTDRMaAfmaubDC
+	Fcwa6FYDBs2lY1/FQ0J8k3o/W6TCdFRt4LxZVMsNJ9hBIlWscoekhvx64B4eV5X3HM1CpEYbJZv
+	RFxr2mx+sPxpKmGBzPy2ehbONfHxtTIoLaCLFwfFeCzfQadxHgS2gOjXSxBez9XEO4wFiTaMHwe
+	1mMz5cBqa2ooh39rjY0RI6mMAGHWFT33jCtALG0Qmb/fvJKkCh9adPGA13iE/tfTEQqqAwWLDwl
+	hs5XF1t3m5vh0JcPAbhVcnsT407MzXx9DoILHcBqPlako8d3i5THgnxaJpsyUfrTW7y2QRxu5VO
+	si4uT6sB3e1qbDRZOJQ5O/OqxXK33L0hOG/tC6GMMyIkAYwyKY5tzVEOdm+N3WIV3DfmC1OhdE9
+	jgPcp0ggwDC2MyGX6SnGknQZNfqe6KQ21LfZMbrFQb4Ahnq/Bw+trunXw5xYBOu3n9LzDoOt2ag
+	iJOtJeoPMiqlbU3zUO1A1Nhkb1HiLN4
+X-Received: by 2002:a17:90b:4a08:b0:380:9157:d6c with SMTP id 98e67ed59e1d1-38e4b41043cmr15033493a91.10.1784546755329;
+        Mon, 20 Jul 2026 04:25:55 -0700 (PDT)
+Received: from Metius.iitm.ac.in ([103.158.43.43])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-13ce2de31a7sm30620268c88.15.2026.07.20.04.25.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 04:25:54 -0700 (PDT)
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+To: lee@kernel.org
+Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	gustavo@embeddedor.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] btrfs: drop recovered reloc root refs on recovery failure
-Message-ID: <20260720111913.GE10684@twin.jikos.cz>
-Reply-To: dsterba@suse.cz
-References: <tencent_73CA9825AA069E0BC5194FA9102FB7618807@qq.com>
+Subject: [PATCH] mfd: sm501: Fix potential memory leak in sm501_register_gpio_i2c_instance()
+Date: Mon, 20 Jul 2026 16:55:31 +0530
+Message-ID: <20260720112533.70538-1-nihaal@cse.iitm.ac.in>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_73CA9825AA069E0BC5194FA9102FB7618807@qq.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 9AD873DF9
-X-Spam-Flag: NO
-X-Spam-Score: -4.21
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.21 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_TO(0.00)[qq.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	FREEMAIL_ENVRCPT(0.00)[qq.com];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[twin.jikos.cz:mid,suse.cz:replyto,suse.cz:dkim,qq.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Transfer-Encoding: 8bit
 
-On Sun, Jul 12, 2026 at 04:22:32AM +0000, Guanghui Yang wrote:
-> During relocation recovery, each fs root gets a reference to its relocation
-> root. If loading or adding a later root fails, or if the first transaction
-> commit fails, btrfs_recover_relocation() jumps to out_unset before
-> merge_reloc_roots() and clean_dirty_subvols().
-> 
-> put_reloc_control() drops the list-owned relocation root references, but it
-> does not clear fs_root->reloc_root or drop the references owned by those
-> pointers. Mount cleanup only drops them when BTRFS_FS_ERROR is set, so an
-> error such as -ENOMEM while processing a later root can leave references
-> behind.
-> 
-> Keep temporary references to the fs roots associated during recovery. On
-> failure, clear their reloc_root pointers and drop the corresponding
-> references. Once the first transaction commit succeeds, drop only the
-> temporary fs root references and let the normal merge and cleanup paths
-> handle the relocation roots.
-> 
-> Fault injection on a pending-relocation image confirmed the cleanup gap.
-> With an injected first-commit failure, 25 fs roots had reloc_root set with
-> fs_error=0. With this fix, the same failure path drops that count to 0
-> before mount fails.
-> 
-> Fixes: f44deb7442ed ("btrfs: hold a ref on the root->reloc_root")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanghui Yang <3497809730@qq.com>
+The memory allocated for pdev in sm501_create_subdev() is not freed in
+an error path in sm501_register_gpio_i2c_instance(). Fix that by
+releasing the platform dev in the error path.
 
-Added to for-next, thanks.
+Fixes: ae7b8eda27b3 ("mfd: sm501: Fix potential NULL pointer dereference")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+---
+Compile tested only. Issue found using static analysis.
+
+ drivers/mfd/sm501.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mfd/sm501.c b/drivers/mfd/sm501.c
+index b5bda477ebfc..49c6b21a44e8 100644
+--- a/drivers/mfd/sm501.c
++++ b/drivers/mfd/sm501.c
+@@ -1103,8 +1103,10 @@ static int sm501_register_gpio_i2c_instance(struct sm501_devdata *sm,
+ 	/* Create a gpiod lookup using gpiochip-local offsets */
+ 	lookup = devm_kzalloc(&pdev->dev, struct_size(lookup, table, 3),
+ 			      GFP_KERNEL);
+-	if (!lookup)
++	if (!lookup) {
++		platform_device_put(pdev);
+ 		return -ENOMEM;
++	}
+ 
+ 	lookup->dev_id = "i2c-gpio";
+ 	lookup->table[0] = (struct gpiod_lookup)
+-- 
+2.43.0
+
