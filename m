@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 858B9399007;
-	Mon, 20 Jul 2026 10:11:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD8B39D6F6;
+	Mon, 20 Jul 2026 10:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784542313; cv=none; b=Hk0axwSB6fbfZrS1TX5BaNn8Jasof2oXlWUMh1pM9UTMZ14VDn3I+hv38yl+qmCTq0pAwXUGg5XpvRJgUpOW3dwvzEJcQXS5c4QXX+YIxA5KVXRjnQvEYR/KmVyRJKgJ5oE+5s94gU9MK3R88cLEKuMcuZ/vKepDQUGHpHqQetE=
+	t=1784542588; cv=none; b=FTYge3dzLSBlP2xAlvGQWRTeLQjXyc4XVjY643uZbzIxdnc6PdoNP4/72Rq/VLQUJD3E8GMXqPCC7VIKHbKPqrZtiZuccfXvMKPDQYi/NkFXSbP2T1J70MSy4tf1dPci7o9X2zInqbP4XgVRc5cI8LSBnGZGBA0KS7qZlO3riKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784542313; c=relaxed/simple;
-	bh=DewHG13sUWC7dIhfFvBcDvyz9zU9ThsJoF2f4+913QM=;
+	s=arc-20240116; t=1784542588; c=relaxed/simple;
+	bh=ADieEAaK+o/Nq+SJZXlvHtDRxqqoa7X3zkOwV/cZgvo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BUO0G+x+gSLmjpoQBojdTHzcdcYbFAc3IHhytdtGnaUV8ORDYMFLBSgQrnQ+9SQLYfMJBO6I0rfUi+pZZVSkU1vUzR2v8OCOnn/XwUiJIeZsvJre3/OvdYxcYOAkre+bga7OYGHOTyvrnCtVlF0g87/4Fg+D3eD2h+BskB0JURQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NVEnz2ec; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=mYWmW1jm60CtxqBTXq6YjfHttVrq8+jwegEyZbYG3zNeHwO7U0203kW785stFHmj3N6vhDHcN+THu5n+pPVSwn1f4HR9LqP1EEgaYrXvtfB9JggK1JO9zFJ927tXLFsSpbwiXYwjJk1CvZUEfnFfstxn0wW/B6//6JAk9aFE3dI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UChYx/C5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NVEnz2ec"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9033A1F00A3A;
-	Mon, 20 Jul 2026 10:11:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UChYx/C5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD3561F000E9;
+	Mon, 20 Jul 2026 10:16:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784542301;
-	bh=dbm6A8rAyWLjLJX3rbi1Bn9V1WupYEoffrCvgsjM+sk=;
+	s=k20260515; t=1784542583;
+	bh=n/XiRnjoecUPvWsrdRPiHusws6HknDHs3oFMmApiOYc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NVEnz2ec5EMP0aXv914FPIV+OGPSj9DOh0NKq4hyYH2wGFyhPWAv+I9fN9lIMol6d
-	 5U8nlax0pKLlxgW0fplKnC0iYlb9yGDRNkEb8gPWxhKiuNdHGzyw+gbHtxDMbtpxmk
-	 AOToUof/CGIo8yXUQ8Nz4Ce6SL/gDnj/cZ9WP3R3ztmK9154SHhJ964lEdALLxdnk/
-	 QDP5bDtE+/AJOXn3ROupmWkCgwCIxCdiw59XBfeVx2h0bsx3XDrx9qtlw7mAUqTmp0
-	 jTvlfElidWxtRnhnQrv2MfGRZvbI1njGCg1bqJaZGxfoUIyQqen3WX4ci2HMZM94jb
-	 vFy7MU122hJhw==
-Date: Mon, 20 Jul 2026 11:11:38 +0100
+	b=UChYx/C5FGO7HfNHbwR++D3PSCQSBZgFQLYcruzcCFCo2cFw7dqIAvJGQRiX6AdRG
+	 +FSw7OTGCqZGI2/sZuIDXTIG3sirJJFW+qxR1jIx0+AhptddpnKhNrvMD7Tkq5WvSQ
+	 c250jtbAXoDWVjHj1ieX8wUMoHNcuVchJVfLVSdUGl6bxidXxBSGTT8Yz80e3hHztW
+	 WUnsuaZfhBzRUrf3ZTAc9x/q+TOMUZxq0rcKwgZh3lGg1LJ5MvqrMXKX7TlHtwmfiH
+	 /mpK5yvcHNbrZf2y8p3V4Y7U5tje4okDFGTfSdio7i0xhZnEtZx0JLRsJAg6BsYEMb
+	 JQfPeGcgHRwOA==
+Date: Mon, 20 Jul 2026 11:16:20 +0100
 From: Simon Horman <horms@kernel.org>
 To: Doruk Tan Ozturk <doruk@0sec.ai>
 Cc: david@ixit.cz, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] nfc: port100: reject frames whose declared length
- exceeds the received data
-Message-ID: <20260720101138.GC19108@horms.kernel.org>
-References: <20260711123651.32595-1-doruk@0sec.ai>
+Subject: Re: [PATCH net] nfc: fdp: bound the device-supplied read size in
+ fdp_nci_i2c_read()
+Message-ID: <20260720101620.GD19108@horms.kernel.org>
+References: <20260711123641.32502-1-doruk@0sec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,30 +43,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260711123651.32595-1-doruk@0sec.ai>
+In-Reply-To: <20260711123641.32502-1-doruk@0sec.ai>
 
-On Sat, Jul 11, 2026 at 02:36:51PM +0200, Doruk Tan Ozturk wrote:
-> port100_recv_response() passes the URB transfer buffer to
-> port100_rx_frame_is_valid(), which checksums le16_to_cpu(frame->datalen)
-> bytes of frame->data. datalen is a 16-bit field supplied by the device
-> and is never checked against the number of bytes actually received
-> (urb->actual_length), so a device reporting a datalen larger than the
-> received frame makes port100_data_checksum() read out of bounds past the
-> transfer buffer.
+On Sat, Jul 11, 2026 at 02:36:41PM +0200, Doruk Tan Ozturk wrote:
+> fdp_nci_i2c_read() reads a "length packet" from the FDP I2C controller and
+> computes the size of the next I2C transfer from two device-supplied bytes:
 > 
-> Reject a response whose declared frame size does not fit the received
-> length before validating it.
+> 	phy->next_read_size = (tmp[2] << 8) + tmp[3] + 3;
+> 
+> next_read_size is a u16 (up to 65535) and is never bounded. On the next
+> loop iteration it is used directly as the length passed to
+> 
+> 	i2c_master_recv(client, tmp, len);
+> 
+> which reads into the fixed 261-byte stack buffer
+> tmp[FDP_NCI_I2C_MAX_PAYLOAD]. A malicious or malfunctioning controller
+> that reports a large length thus overflows the stack buffer -- the
+> r != len check runs only after the read has already happened.
+> 
+> Reject a next-read size larger than the buffer and resynchronize.
 > 
 > Found by 0sec (https://0sec.ai) using automated source analysis; the
 > missing bound is evident from source. Compile-tested.
 > 
-> Fixes: 562d4d59b8a1 ("NFC: Sony Port-100 Series driver")
+> Fixes: a06347c04c13 ("NFC: Add Intel Fields Peak NFC solution driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: 0sec:claude-opus-4-8
 > Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+> ---
+>  drivers/nfc/fdp/i2c.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/nfc/fdp/i2c.c b/drivers/nfc/fdp/i2c.c
+> index c1896a1d978c..581f85f0dfa8 100644
+> --- a/drivers/nfc/fdp/i2c.c
+> +++ b/drivers/nfc/fdp/i2c.c
+> @@ -128,7 +128,7 @@ static const struct nfc_phy_ops i2c_phy_ops = {
+>  
+>  static int fdp_nci_i2c_read(struct fdp_i2c_phy *phy, struct sk_buff **skb)
+>  {
+> -	int r, len;
+> +	int r = -EREMOTEIO, len;
+>  	u8 tmp[FDP_NCI_I2C_MAX_PAYLOAD], lrc, k;
+>  	u16 i;
+>  	struct i2c_client *client = phy->i2c_dev;
+> @@ -140,6 +140,13 @@ static int fdp_nci_i2c_read(struct fdp_i2c_phy *phy, struct sk_buff **skb)
+>  
+>  		len = phy->next_read_size;
+>  
+> +		if (len > FDP_NCI_I2C_MAX_PAYLOAD) {
+> +			dev_dbg(&client->dev, "%s: read size %d too large\n",
+> +				__func__, len);
+> +			phy->next_read_size = FDP_NCI_I2C_MIN_PAYLOAD;
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+I think it would be more robust to explicitly set r here.
+Because it is assigned a little later in the loop, overriding
+the default assignment made by the first hunk of this patch.
 
-FTR, I do not believe the issues raised in the AI-generated review of this
-patch on sashiko.dev should impede the progress of this patch. Rather, I
-think those issues can be considered in the context of possible follow-up.
+> +			goto flush;
+> +		}
+> +
+>  		r = i2c_master_recv(client, tmp, len);
+>  		if (r != len) {
+>  			dev_dbg(&client->dev, "%s: i2c recv err: %d\n",
+> -- 
+> 2.43.0
+> 
