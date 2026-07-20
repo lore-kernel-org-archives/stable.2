@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FDB134CF
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 02:35:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127FF134CF
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 02:35:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784514947; cv=none; b=o/6/WoSqhA9rOhPV01Thf1D+FKYiih7t+9UCWHyHoKF/mgXTkAUvCMdW6JSUwhtM/OirolVRSmmIAzUIiRAj8DihGI0u0M7O23/qJipQyZCDT3Gg58ATAhT8qD0IMYjeV1XMY7N9ahsRZezGXotWX7Q8HR/DgEIzn60Pjj/XFfY=
+	t=1784514957; cv=none; b=cb3sAOqUXsYVaAMV2vhITYonLmWfZ1soAppQJwNTSjU2wDzatsW+RCIxfuQoZRxDycZSSt3kWnEXY+cPsEc1kwzNuavEb0OszFDz6Aq9uoInK1Yu+yM7XuGZnDzA5UJorhnu+keaIeuiSWd4XKyYoADyhc1W8zs6JlxZWHr0+7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784514947; c=relaxed/simple;
-	bh=wuGRmU2hTrO8TR7cjwX08dS7CHmP+HJk8TT1d0j9suc=;
+	s=arc-20240116; t=1784514957; c=relaxed/simple;
+	bh=FR0n8Yvs3v7Gzj1m/oOePmjX/JxKhGAV+zOcxKMUzgk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qIDOrie7RqfoWIDD3HnBDLsiJBGWzwzm4if0++752w4NkWwZzt78z/DEtrPOnfBGekPXV2Yt18+zaCSo0gQCfdGxogDEHVaMF6oZ2PVqTNeywt/I38FR1fpoOVa5kn5im+nqYHEI8BcVAAoRDK7tSlfEA7dOZ6hG3lExM4Bo3rE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzTLD2qn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h65fHElKZtAOOIeHcm10FmIxvWlOQpbOSJDY13paRn4JlIj39kRChiugJ72ES2aiAQLBGf294C2k6RsGoeu2kT3/9CfeY8SroWANdCfep8k0JlYflckLpOMVMGUSJLcYZ6oDV+EBBjGxtfbUX7rAZmGDWKs/vNsTwwoW8ubEYdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gBynfB4i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzTLD2qn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80DF11F00A3A;
-	Mon, 20 Jul 2026 02:35:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gBynfB4i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38BC91F000E9;
+	Mon, 20 Jul 2026 02:35:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784514945;
-	bh=L4H5x18UogLTp3lORPjPMYzfd5lMCJZ9B+9qjJC1wdo=;
+	s=k20260515; t=1784514955;
+	bh=Y6WMS2NT3APqPW6jhpY1FQBzHzVS9HK1YtsMPB61obQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hzTLD2qnEdF6aXjkCzqI3KRszQxq6qe9pN/M1TplRi4j3j/A6FvfXvgbfCdEvz452
-	 KHu+cOwoXCzvgace8Kda9N6sDW4V92vD+ejog2Z+4F+Ktl/inAtCpxsBpTLDYhVWSl
-	 EmWbkERpypE3V3nSWTTKaRxzHa9CYEIMr6OPEBulhPRdatznFMRxg6QMwhfhITCofR
-	 Irb3kmipRqrFfxkFpHbUrbnVQxWNU+Mt5AqpBZj2pJ3ghh+6PFGcGpkzt0mg+JUW0O
-	 HsrcZOsD8VWHGvrvuO0QCzupd9RSI5q+i6v+BRQPMr/ctjvHuCEVZk/uXvP+3460/c
-	 Nq3GYkvaTKylA==
+	b=gBynfB4iGTfNKlbhuMUal/lLisJbr6XkG+gj7F/lr4JBqh/l7qyo6rNQoAwMxUcXl
+	 mHT+dwBIGk350oZVPy34aa/XsnQONeKorIinvnwOJwL7BXJX7tfNswHrRuN0o2Qqif
+	 iXGjChwg0gl1AKkzsuszTn5fFzOikvjO8/CGmaoUBsAOty3F2Qnjxlh51BdeffoBdy
+	 X+8y39NBScLy+E6qB/mu1xRGIsrWSVDtds+ERyhABSnMITt60CWdNV6U4EGYntZ0wF
+	 AbYf+mFeOSW0JdTq/JgJpIcFsoMivQ3pv1OnDCssVCE/HjQ1mRAa2or1ZiDUjsZUkp
+	 7Nwxc+gbCShuA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	stable <stable@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	Miklos Szeredi <mszeredi@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 5/5] usb: typec: ucsi: ccg: Fix use-after-free of ucsi on remove
-Date: Sun, 19 Jul 2026 22:35:39 -0400
-Message-ID: <20260720023539.2968115-5-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/6] new helper: simple_remove_by_name()
+Date: Sun, 19 Jul 2026 22:25:46 -0400
+Message-ID: <20260720023553.2928009-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260720023539.2968115-1-sashal@kernel.org>
-References: <2026071423-employed-mankind-78ba@gregkh>
- <20260720023539.2968115-1-sashal@kernel.org>
+In-Reply-To: <2026071455-cultural-frenzy-db69@gregkh>
+References: <2026071455-cultural-frenzy-db69@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,55 +45,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Al Viro <viro@zeniv.linux.org.uk>
 
-[ Upstream commit 1f0bdc2884b67de337215079bba166df0cdf4ac5 ]
+[ Upstream commit 4051a9115ad24bb9a691774730ca9c1dd56de665 ]
 
-The threaded IRQ handler ccg_irq_handler() calls ucsi_notify_common(),
-which on a connector-change event calls ucsi_connector_change() and
-schedules connector work.  In ucsi_ccg_remove(), ucsi_destroy() frees
-uc->ucsi (kfree) before free_irq() is called, so a handler invocation
-already in flight may access the freed object after ucsi_destroy().
+simple_recursive_removal(), but instead of victim dentry it takes
+parent + name.
 
-  CPU 0 (remove)            | CPU 1 (threaded IRQ)
-    ucsi_destroy(uc->ucsi)  |   ccg_irq_handler()
-      kfree(ucsi) // FREE   |     ucsi_notify_common(uc->ucsi) // USE
+Used to be open-coded in fs/fuse/control.c, but there's no need to expose
+the guts of that thing there and there are other potential users, so
+let's lift it into libfs...
 
-Move free_irq() before ucsi_destroy() in the remove path.  It is kept
-after ucsi_unregister(): ucsi_unregister() cancels connector work whose
-handler issues GET_CONNECTOR_STATUS through ucsi_send_command_common(),
-which waits for a completion that is signalled from the IRQ handler, so
-the IRQ must stay active until that work has been cancelled.
-
-The probe error path already orders free_irq() before ucsi_destroy().
-
-This bug was found by static analysis.
-
-Fixes: e32fd989ac1c ("usb: typec: ucsi: ccg: Move to the new API")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20260616132011.103279-1-fanwu01@zju.edu.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Acked-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Stable-dep-of: 3137b243c939 ("usb: gadget: f_fs: initialize reset_work at allocation time")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/typec/ucsi/ucsi_ccg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/fuse/control.c  |  7 +------
+ fs/libfs.c         | 13 +++++++++++++
+ include/linux/fs.h |  2 ++
+ 3 files changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
-index 68a693d92dd05a..8d69bc5bff20a9 100644
---- a/drivers/usb/typec/ucsi/ucsi_ccg.c
-+++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
-@@ -1418,8 +1418,8 @@ static int ucsi_ccg_remove(struct i2c_client *client)
- 	cancel_work_sync(&uc->work);
- 	pm_runtime_disable(uc->dev);
- 	ucsi_unregister(uc->ucsi);
--	ucsi_destroy(uc->ucsi);
- 	free_irq(uc->irq, uc);
-+	ucsi_destroy(uc->ucsi);
+diff --git a/fs/fuse/control.c b/fs/fuse/control.c
+index ce11f4b427c281..2e300f6d646c31 100644
+--- a/fs/fuse/control.c
++++ b/fs/fuse/control.c
+@@ -290,18 +290,13 @@ static void remove_one(struct dentry *dentry)
+  */
+ void fuse_ctl_remove_conn(struct fuse_conn *fc)
+ {
+-	struct dentry *dentry;
+ 	char name[32];
  
- 	return 0;
+ 	if (!fuse_control_sb || fc->no_control)
+ 		return;
+ 
+ 	sprintf(name, "%u", fc->dev);
+-	dentry = lookup_noperm_positive_unlocked(&QSTR(name), fuse_control_sb->s_root);
+-	if (!IS_ERR(dentry)) {
+-		simple_recursive_removal(dentry, remove_one);
+-		dput(dentry);	// paired with lookup_noperm_positive_unlocked()
+-	}
++	simple_remove_by_name(fuse_control_sb->s_root, name, remove_one);
  }
+ 
+ static int fuse_ctl_fill_super(struct super_block *sb, struct fs_context *fsc)
+diff --git a/fs/libfs.c b/fs/libfs.c
+index 96551deff8e501..52f00bfc8f7baa 100644
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -647,6 +647,19 @@ void simple_recursive_removal(struct dentry *dentry,
+ }
+ EXPORT_SYMBOL(simple_recursive_removal);
+ 
++void simple_remove_by_name(struct dentry *parent, const char *name,
++                           void (*callback)(struct dentry *))
++{
++	struct dentry *dentry;
++
++	dentry = lookup_noperm_positive_unlocked(&QSTR(name), parent);
++	if (!IS_ERR(dentry)) {
++		simple_recursive_removal(dentry, callback);
++		dput(dentry);	// paired with lookup_noperm_positive_unlocked()
++	}
++}
++EXPORT_SYMBOL(simple_remove_by_name);
++
+ /* caller holds parent directory with I_MUTEX_PARENT */
+ void locked_recursive_removal(struct dentry *dentry,
+                               void (*callback)(struct dentry *))
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 39269c7d167e6d..95986609923592 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -3654,6 +3654,8 @@ extern int simple_rename(struct mnt_idmap *, struct inode *,
+ 			 unsigned int);
+ extern void simple_recursive_removal(struct dentry *,
+                               void (*callback)(struct dentry *));
++extern void simple_remove_by_name(struct dentry *, const char *,
++                              void (*callback)(struct dentry *));
+ extern void locked_recursive_removal(struct dentry *,
+                               void (*callback)(struct dentry *));
+ extern int noop_fsync(struct file *, loff_t, loff_t, int);
 -- 
 2.53.0
 
