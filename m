@@ -1,110 +1,235 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A5C2FFFB5
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 19:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784577017; cv=none; b=SGabbVcahIuDShYkMTQaHnFKVpG3r+zFsNQ46MtsHjQVZu+qtIbII7PxHUDi35bT4GxJqoHIO0Kko9s1kfg34Ywy/KSROHWVtZc0tYtgFHslwJiMErvbgtRFQdsFQcqeR9UCQObzm2qxl+cUVvnLITZAEkuwGeNvfx9AwRJb4co=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784577017; c=relaxed/simple;
-	bh=WTv88pS1piYHaZqCCTqHPSb1WOUAbqfeKICv2O/qElM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=tCCLLUvxeFWJz/FbzJCowYFcTlINj7Rh0iDJEo6Fy/k6xa0N+TKFq9FEXg7HSJYMEJexcgVvoNR31uV/T7u0sHvsP5Q/6q44rsOImi40/ahWJ/j9WoxZJ2/Jv0cRxdm0gZhpoY9Y3Gu8ctxKTS4Ef+2Aw8AlpIc53fbNX4effqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=r+05I01O; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9363038BF9C
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 19:55:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784577314; cv=pass; b=K6Qr1erJZ+HUSpRvO7jEMahB+5JPrpn7jI15jRg/G2BAGrJAC5WZdwotnI5HC/bX+F9SHz4KXKrOWIOZjTsaaScFZQNJUY3gUTN/3rKJNanitHAE8BOhchK4oktHw2JQSP7+/1cAZvzGxCSA9TKvEn8EgEHCKi65J2MXcIQfNPA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784577314; c=relaxed/simple;
+	bh=U6naqr8/fm2E7FQtlwL+QylvLk20pczaI7HxTKdFd5s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MHh2wTPoqkmHmbX+DWXlE34VclbB9vu7MxYnv+nWKtQywMR6/Oe7OxpISuBZyOrZcULHqxbL/6Efg+yRAJFVnBxl5SPV/8XxFmRuU7w4sNBjtlN5fUhfriYJlgNCjpjz02Duj2RJInziX6ooZgnMllw/sjYv4R9yH7TjaZ6k0iQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FWiRO74l; arc=pass smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="r+05I01O"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso130110745ad.0
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:50:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FWiRO74l"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-81eff3ddba4so30664547b3.3
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:55:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784577310; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NbSmX2kuPIec47srJy1bhltcwlWrgET7N+nGxiWVWutO+PyDfzSax5eJw6a4xHAf1n
+         mZARELw5Fg+QloxRpV8ll9XjgT5QjYgFUSZXbG809EMz5GvDyVCoDFXYxUo1jMwHMKhm
+         Xdkb5E11KZ/HoIfA+YQCBuOxfESb0uCrAmjjmR7jjtCAIubaSx7UtUnnyDuWw1m4r7Lg
+         jfvqRabcqVeCrePKdYG6kcTHgvL7RiZmfr9Us/isani18gjyM06y/Rcfhe2XYdRsIPtL
+         mZt/Slbz7/fx8kMTI8IO2WFaN7eGGCtLyD8+iNUNE/qhHd6ud2UvUlcpTQLVqfdQ9yol
+         HuZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/AOtXMyuIHsHhRfVMauZWyjtCTCZoSPj81jh5GgUwec=;
+        fh=7QUH51M1LLVfl+UjI5KURHp8BUB5MpBWZhSVYYcwbUQ=;
+        b=B/AG/wHFuOpu6l5I5+H01P/1r43TuSjmkH8ab+axGGf3iO732wVvBQppBJ54izMlzx
+         lRmybOsuUSTT6V+Z8Qc6M3EhSoErcrlYsSMyMRZsb53/pTiI8j0UIzYxV0b67RfZhyDm
+         P1OVmTo1riB3iw/5tPE4tREr13hwXlaKakupRqYwminQmvpecDbjtYhrJj/43UFDUAjb
+         ye3Bdb+TRxGvczf54K0SJvxsroDF3s8EhJh84ytvkVmnB0P7os20GwHYJ1CzSZgh4gvP
+         4s5TQfXgMeYySq36XPwRtDgnDx32aYKsvYlwaBAGWP8N4gY4Q0J4WjJ0wMM7tWWdPVn7
+         yk8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784577015; x=1785181815; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ef1+IvZCLF8E/vl5kLc0HDclZmYX/lxxqgnA8GJxZ6w=;
-        b=r+05I01O7rm3xJZJ5zFj15GwmZUHfnS6ykPFIzh6P0kCRObitwaHAJoiF6FI58YfZb
-         mIC6LY4sWfzNgqfP9sAY5gB+tGiwkqTFolBM4sAyFFyNrVfo2rHP3wiWFeKJAVjvbyTb
-         uVi0DhzvPI2CnTV1o2J2KXRe0K2j2fTv3guW084Q2R+IJiauavxym0aZY0zoEDTbY6al
-         5M/8ihKRF9GP1QNNYT+NEOaqB3bqUrAftTbOfbaY128muZIYLvf+Sw4OzymsK8iAa+U+
-         KBl2MuXZ1zG/upnP3WBJWnuny5t5GZeN/OPUgUYp2G0wvZxufGA4cXfM9GnzVsoUp4YE
-         EXTw==
+        d=gmail.com; s=20251104; t=1784577310; x=1785182110; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/AOtXMyuIHsHhRfVMauZWyjtCTCZoSPj81jh5GgUwec=;
+        b=FWiRO74lhMxjxDk1LJhjl3w7DuNoRlmfDWqxJjJsyiAW+mnUhf87q+4lvWDg4O3VSc
+         aOtePuRrmshG1TQchNxYgQdGCfXDI44KT8/zjQ97KoxRiY/LA2EGFS0nevUhpuykRMe7
+         a25Ym9J4NvTzwF0zbg4mkSadvKPGdFb/MVQSZZDBxyoYDaxplhSQ2Ac5qL/s/aRslfAY
+         BrM75O5ZFKeRcty/fALGa9DKcpSptQmlQiStgF6t2Mv7jSQY5pqPy6ppqtssyhMGtorA
+         5MxkwDwEAHRCuWuLqS7iH802zev0FfHrjUgLOei9IjvyPN2Xp9wOgBFsn78BNBwIoQA1
+         kdmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784577015; x=1785181815;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ef1+IvZCLF8E/vl5kLc0HDclZmYX/lxxqgnA8GJxZ6w=;
-        b=Yvza7gwWjdK1RPKsaqdO8ZMjOiOi3OtQT0qtP6cSnub6ufY8jvu6bbbdtnG4vwDnF9
-         6qQDUgJwpqD8PewhTmPQEWDcwQ9IAIfQDyC/qgB9EH31mvo8u9n6ehW5RZug9+naqOci
-         CdhkbPVkVC8Es6kGambMax8jIFrmUW9ETcQt3FLYhtM+ZYt80JHHeSKhExHaegkg/l3n
-         l1KglHXB6Io1lDeA1m8NoZMznI84nP1wXh0d5l17rMb79wKawnUvJP9PrPpYTcZe6UdG
-         bH32ZS40qqOnYabbJ90Sf2gXZPwFfrj13G0qsNIT2wYsRiMC6RHWvtfmV1rtx6H0Nrhv
-         QnNw==
-X-Forwarded-Encrypted: i=1; AHgh+Rom2D7EGFW2zPfVft9FDVvzTbAw8nnHxlq7R74rb+kKDPcSlA8Dz5IZmVHmDn65l+pRDmMs5/A=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxxPH68DErcjNsW517DPmC0ZJPk6ZDT7/5Qz1w+1sgtwFuRZ3B
-	brjHOSWtfaCd68CouyS4QTR3cxmUjLlnY8kzFGXc89Mes6Mg3gSf/PqOoSdZsJYC0M5DExFWLRR
-	A4y1QAw==
-X-Received: from plda5.prod.google.com ([2002:a17:902:ee85:b0:2cb:97da:d8ed])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ce8a:b0:2cc:61e8:5fba
- with SMTP id d9443c01a7336-2cf349a2153mr164731445ad.32.1784577014659; Mon, 20
- Jul 2026 12:50:14 -0700 (PDT)
-Date: Mon, 20 Jul 2026 12:50:14 -0700
-In-Reply-To: <059088ac-81e7-48a9-b4e1-05dad48975f6@amd.com>
+        d=1e100.net; s=20251104; t=1784577310; x=1785182110;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/AOtXMyuIHsHhRfVMauZWyjtCTCZoSPj81jh5GgUwec=;
+        b=fVoLRAE5xVIcMsZCPPpQqPcCkIhJv75AEMLUWlmI16ecPG1UXohJz21UkYQEZFLiJb
+         WKDHFuLCQ+BAJu0AENJeIeTX+6l6fKYKeEK/cyF59FnogavDU4Y/5GtAB52zyxaRpq3p
+         EpD3pMxkEMjyDqYs1hAGPviYNVdgU/3u2N8dX4A8zgDF+krTcx/2YFrx30E7x9sUtoZ0
+         /Ym73eWY789ZLgHK5YijP8fufuRVw7/IDJscptFlHw01/05a1XZQVfZQmtkkHa79clp1
+         Ubfo6MCJribxgLvyvZreDO9YALXtlF0yd4fYlnWOVZtWKtD/YdzwaieHocJztYegSLZX
+         Ta3A==
+X-Forwarded-Encrypted: i=1; AHgh+RpHFJDgwkcTyKwlmYbF5aqD4ydF8LDVGuOm9DMm2lGHiPrlFII6w2Dg7dM2w1Z6riGYpTgBV4A=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBpVZVgj70wtOqRz95ac9JtgXTCxYARtS5+9I5I0mmV1stuggn
+	s4lyku8lUC4qfPHreb+qawT5BoT81gtMDrqZ2H7ot/QtpEr+C5An35b0u0cBkvoDgN4vpeqKlD2
+	XYiyrazrb3YKRxZ2wWzAb32ZOnZnu5H0=
+X-Gm-Gg: AR+sD10KeLqbAniQ3N3ANeAod/X8v/ovBIuSIxS56Maq0b3D6imyEX+fGkpNNr3o/8M
+	RM3nmKLjz3P6BVPLEHB50+qrTo9i9lW7OGC2uNk6wfOKL9UfZdFQQh27ehTmcmsA5pitVWpGPYM
+	23x6oFheoj8eymPmcC6g+OlUIzxEGgaFDiR0pfDHLLuYQFSYdGP5aCa4Om9ShMi9omfubD2SRnF
+	cI3fXYTyw5vw7fjc76aOgEmpX46T4dcXaHgPyQl/wOuA2lj9M2fjrD4MaxlqWX+Oc358b9De1Ca
+	vRgJ/OkU67ON3E5yMmTEwlDp1Ey3jMbW1pUZhByuHErCe1bo
+X-Received: by 2002:a05:690c:6702:b0:81e:2e67:bb9b with SMTP id
+ 00721157ae682-81ef26edccfmr47109007b3.58.1784577310290; Mon, 20 Jul 2026
+ 12:55:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260715063626.65899-1-pankaj.gupta@amd.com> <abecb83f-aea8-403e-bc10-4d8d878c0d8c@kernel.org>
- <059088ac-81e7-48a9-b4e1-05dad48975f6@amd.com>
-Message-ID: <al579lcf0NnxhD3T@google.com>
-Subject: Re: [PATCH v2] KVM: SEV: drop FOLL_WRITE for encrypted region registration
-From: Sean Christopherson <seanjc@google.com>
-To: Pankaj Gupta <pankaj.gupta@amd.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, pbonzini@redhat.com, tglx@kernel.org, bp@alien8.de, 
-	mingo@redhat.com, dave.hansen@linux.intel.com, x86@kernel.org, 
-	thomas.lendacky@amd.com, hpa@zytor.com, yangge1116@126.com, ljs@kernel.org, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20260720164738.2921802-1-nicoyip.dev@gmail.com>
+In-Reply-To: <20260720164738.2921802-1-nicoyip.dev@gmail.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Mon, 20 Jul 2026 15:54:58 -0400
+X-Gm-Features: AUfX_mwx2tFRY0jR9aCJZGYE-cu6e-hrJK27ReHcPbzYy4X9ldy2V3BG6Q6JokQ
+Message-ID: <CABBYNZ+G3jD3A6-k1fEm2sSRa27o8s0PNN_arzVa8de-eJK8oQ@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: hci_sync: Fix scan response data UAF
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 15, 2026, Pankaj Gupta wrote:
-> > > Commit 7e066cb9b71a ("KVM: SEV: Use long-term pin when registering
-> > > encrypted memory regions") added FOLL_LONGTERM to
-> > > sev_mem_enc_register_region() so anonymous guest RAM is migrated out of
-> > > MIGRATE_CMA/ZONE_MOVABLE before a long term pin. It also kept
-> > > FOLL_WRITE on the pin.
-> > > 
-> > > Combining FOLL_WRITE with FOLL_LONGTERM breaks registration of file-backed
-> > > guest memory, such as virtio-pmem host memory-backend-file mappings
-> > > (MAP_SHARED). GUP rejects long-term writable pins on dirty tracked file
-> > > mappings since:
-> > > 
-> > > commit 8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast writing to file-backed mappings")
-> > > commit a6e79df92e4a ("mm/gup: disallow FOLL_LONGTERM GUP-fast writing to file-backed mappings").
-> > > 
-> > > Region registration only requires long-term pin to prevent page migration and
-> > > does not write through this GUP pin.
-> > > 
-> > > Drop FOLL_WRITE and pin guest memory only with FOLL_LONGTERM.
-> > Worth mentioning here something like
-> > 
-> > "In the past, FOLL_WRITE was required to trigger CoW unsharing, making sure that
-> > we don't end up replacing the page in the page tables during a later write fault
-> > after already having pinned a (shared) page in MAP_PRIVATE mappings.
-> > FOLL_LONGTERM does that nowadays (see gup_must_unshare()) even without FOLL_WRITE.
+Hi,
 
-Heh, this was going to be my exact question about why it was safe to drop FOLL_WRITE :-)
+On Mon, Jul 20, 2026 at 12:47=E2=80=AFPM Chengfeng Ye <nicoyip.dev@gmail.co=
+m> wrote:
+>
+> eir_create_scan_rsp() calls hci_find_adv_instance(), whose return value i=
+s
+> valid only while hdev->lock is held.  After advertising setup was moved t=
+o
+> hci_cmd_sync_work, neither scan response data builder held that lock.
+> hci_set_ext_scan_rsp_data_sync() also kept the returned pointer while
+> waiting for the controller and wrote scan_rsp_changed through it afterwar=
+d.
+>
+> An advertising termination event can therefore interleave as follows:
+>
+>   hci_cmd_sync_work                 hci_rx_work
+>   hci_find_adv_instance()
+>   __hci_cmd_sync_status()
+>     wait for controller reply       hci_dev_lock()
+>                                     hci_remove_adv_instance()
+>                                       kfree(adv)
+>   adv->scan_rsp_changed =3D false
+>
+> KASAN reported:
+>
+>   BUG: KASAN: slab-use-after-free in hci_set_ext_scan_rsp_data_sync+0x2e1=
+/0x300
+>   Write of size 1 at addr ffff88810a45d21d by task kworker/u17:0/88
+>   Workqueue: hci0 hci_cmd_sync_work
+>   Call Trace:
+>    hci_set_ext_scan_rsp_data_sync+0x2e1/0x300
+>    hci_schedule_adv_instance_sync+0x390/0x4c0
+>    hci_cmd_sync_work+0x173/0x300
+>   Allocated by task 87:
+>    hci_add_adv_instance+0x538/0xac0
+>    add_advertising+0x885/0x1160
+>   Freed by task 89:
+>    kfree+0x131/0x3c0
+>    hci_remove_adv_instance+0x1d8/0x3b0
+>    hci_le_ext_adv_term_evt+0x17b/0x730
+>
+> Hold hdev->lock while looking up the instance, building the scan
+> response, and clearing its dirty bit.  Clear the bit before waiting for
+> the controller so no adv_info pointer survives the wait, and restore it
+> under the lock if the command fails.  This also preserves an update that
+> races with a successful command because that update sets the bit again.
+> Protect the legacy scan response builder with the same lock.
+>
+> Fixes: cba6b758711c ("Bluetooth: hci_sync: Make use of hci_cmd_sync_queue=
+ set 2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ---
+>  net/bluetooth/hci_sync.c | 32 +++++++++++++++++++++++++++-----
+>  1 file changed, 27 insertions(+), 5 deletions(-)
+>
+> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+> index 532534bc601c..8c69a98c71e8 100644
+> --- a/net/bluetooth/hci_sync.c
+> +++ b/net/bluetooth/hci_sync.c
+> @@ -1490,9 +1490,13 @@ static int hci_set_ext_scan_rsp_data_sync(struct h=
+ci_dev *hdev, u8 instance)
+>         int err;
+>
+>         if (instance) {
+> +               hci_dev_lock(hdev);
+> +
+>                 adv =3D hci_find_adv_instance(hdev, instance);
+> -               if (!adv || !adv->scan_rsp_changed)
+> +               if (!adv || !adv->scan_rsp_changed) {
+> +                       hci_dev_unlock(hdev);
+>                         return 0;
+> +               }
+>         }
+>
+>         len =3D eir_create_scan_rsp(hdev, instance, pdu->data);
+> @@ -1502,15 +1506,27 @@ static int hci_set_ext_scan_rsp_data_sync(struct =
+hci_dev *hdev, u8 instance)
+>         pdu->operation =3D LE_SET_ADV_DATA_OP_COMPLETE;
+>         pdu->frag_pref =3D LE_SET_ADV_DATA_NO_FRAG;
+>
+> +       if (adv) {
+> +               adv->scan_rsp_changed =3D false;
+> +               hci_dev_unlock(hdev);
+> +       }
+> +
+>         err =3D __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_EXT_SCAN_RSP_DA=
+TA,
+>                                     struct_size(pdu, data, len), pdu,
+>                                     HCI_CMD_TIMEOUT);
+> -       if (err)
+> +       if (err) {
+> +               if (instance) {
+> +                       hci_dev_lock(hdev);
+> +                       adv =3D hci_find_adv_instance(hdev, instance);
+> +                       if (adv)
+> +                               adv->scan_rsp_changed =3D true;
+> +                       hci_dev_unlock(hdev);
+> +               }
+> +
+>                 return err;
+> +       }
+>
+> -       if (adv) {
+> -               adv->scan_rsp_changed =3D false;
+> -       } else {
+> +       if (!instance) {
+>                 memcpy(hdev->scan_rsp_data, pdu->data, len);
+>                 hdev->scan_rsp_data_len =3D len;
+>         }
+> @@ -1525,8 +1541,14 @@ static int __hci_set_scan_rsp_data_sync(struct hci=
+_dev *hdev, u8 instance)
+>
+>         memset(&cp, 0, sizeof(cp));
+>
+> +       if (instance)
+> +               hci_dev_lock(hdev);
+> +
+>         len =3D eir_create_scan_rsp(hdev, instance, cp.data);
+>
+> +       if (instance)
+> +               hci_dev_unlock(hdev);
+> +
+>         if (hdev->scan_rsp_data_len =3D=3D len &&
+>             !memcmp(cp.data, hdev->scan_rsp_data, len))
+>                 return 0;
+> --
+> 2.43.0
 
-> > Given that SEV only pins RAM for XYZ and doesn't actually write to the pinned
-> > pages, we can just drop the FOLL_WRITE"
-> > 
-> > Fill out XYZ :)
-> 
-> Sure :)
-> 
-> I will update the commit message in v3.
+It looks like Sashiko found some other places where this could be a problem=
+:
 
-No need for a v3, I'll add a blurb when applying.
+https://sashiko.dev/#/patchset/20260720164738.2921802-1-nicoyip.dev%40gmail=
+.com
+
+--=20
+Luiz Augusto von Dentz
