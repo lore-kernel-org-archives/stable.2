@@ -1,129 +1,172 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF34E2641CA;
-	Mon, 20 Jul 2026 20:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71013B4EAD
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 20:12:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784578066; cv=none; b=vAqfeGdfcAHnxzpvv3eh7gEsKK/eYp5GBJQ7gYpQo97bMy4LzDWVnyLhkzKn3/BNhhKNpQCE3stGd/7mGXMR3mYM0WOA2kSiWLmEyaMjsiOPYyKv/iMp4GM2+5nmYtEERsFxSXWMe0e/YAuOLWealgtQ31HyOFIXLx4Vtntx5Qk=
+	t=1784578344; cv=none; b=Vur78lr6dStE0HSW1JMCjLBcpy0d0peCGEd8ENSQqX20fM37+76tIs2h2Oh6+JaRS5TLFo4bbpt3Zteeb8vvTWJoywbSSD91Am+NLoG0JEAZvGLeKljM2+ZPYeXEMgLZrZXcicFdN467USaGVpahVDV9Vw9stqbPn3ufuCVHz4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784578066; c=relaxed/simple;
-	bh=Jy1+Wm9Vy6BteYPlPzfj8ZNVn+e4W/J3qes0hb9vnhA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WnGTaCwMeqXwldlG7Jj/fOFCXaspMhtSwIhoIBoK8SH8G1J0vWlG1kghx7ZnZYQRG3PfDLK6sKhbt4tyRZ2F8dIt91lDgTPFFdUrX+Z5XcKNDTLlGbHbEeOR4KTtrhN7UFwO2CCphEozPyrm7jJCFwBvMsuzT1U8JQ3PPmwR0EA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=CwVmJZ/x; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1784578344; c=relaxed/simple;
+	bh=YFQime2e/KMxTdkTpQbLFTR4IUPGEDfw8ma8/rXd/JA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=Jr1BKhuQ2stydTGy1or5jXxS8CDnd/d3PnZnf3NDCVxxBc3OwIAAFxjK9yokEDxZel8GLrDhwS3Vxf1UpEsC3FGylgqnIOIk5VLAeaTcvCa0yYJ5jnzfyMOg8jYM2iPpV9Tb1n8+9JOukp6ZVCVY1eKUHbxQIai6zUDpunhEb04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=llKyc0JP; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="CwVmJZ/x"
-Received: by linux.microsoft.com (Postfix, from userid 1173)
-	id CF38A20B7169; Mon, 20 Jul 2026 13:07:32 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CF38A20B7169
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1784578052;
-	bh=JY4lTYxbNAjs31iCIWh2OWIe8kSCIzV3Kr9v5xirdFs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CwVmJZ/xNjzx8AmFJoh/Pbxr1d1EOEeSEY3AWsCJIFfUJ6lTfNULIIEObSlpXy765
-	 rwGBUKiFM+cds/ezbJarTqY7AFQqXoepuF0U8erzprqG+g75M9rgQdsL3K9XAOpket
-	 HVxflh2qpUiZx68a0A08ov3iaSZt3PoUHjX9huPU=
-Date: Mon, 20 Jul 2026 13:07:32 -0700
-From: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
-To: Michael Bommarito <michael.bommarito@gmail.com>
-Cc: Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: mana: cap HWC init max message size to
- HW_CHANNEL_MAX_REQUEST_SIZE
-Message-ID: <al6ABAMHeE76yldL@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20260711150628.2914205-1-michael.bommarito@gmail.com>
+	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="llKyc0JP"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cace91f112so107764235ad.0
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:12:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1784578338; x=1785183138; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=d/IryXvteIZWiLHIz2ggYKGDAJY33GpRv0CKTKx2c4A=;
+        b=llKyc0JPqRCSbcyzyIA+iePvK6KPhJAalzoFbC9B9wQZeN0sANqGMk/9ibWbJnjyzh
+         ltT4RVf8xeI3WyxNFfDsYeyk7WzptasTapKkv9IZc6vhe8csMw0+1Rd3YdoKrzjTUvkj
+         4k9CUax0me6xSCSPBr/v1V75GZHQmuBArL4xyPIJb11equMWrEgd8IEjA1L/Rk/iQzS8
+         0tzIJ/bQq+Io/1kvzKQOVrQ0iiiCd1yeAEhZn8dTnD/dDftbRWayjAAA2f6eHA51lC2E
+         XvoQrBt59DY271kN6mj+qXu677jKNMlPZXLvk+U905MpDZqSEPe+7g4r4ItSFGRlqVif
+         UgsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784578338; x=1785183138;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d/IryXvteIZWiLHIz2ggYKGDAJY33GpRv0CKTKx2c4A=;
+        b=M0b//fX7qpnNFnMxJfjpueDKAXz11dK0ZK1b3SUKEFOiyFZ1yjKF0QH4/Jmsox8ML8
+         9BS4TMVcCpkwFIQqAefx3fXHDbFoJa79VtpxfRz3p7rKpyq0vo76OGpJcTZFggL9B3e6
+         w4i5e+fMXQz4yTMF5Cv1IzotU4Gv2Kepa2fEKoVE1djNsTTN4VzcE9UwlwF4PIWJJQBW
+         evHEyGI3RB1adgWv9uTjyGMEwogi+JipKWoSi2bxpQrSVheYh8GM5PyLYq7oBNWIIyr+
+         dwYF4/u/x7bJv2Dum9maSGxbXci8yOGquAmRpT1QQJ+cbG18mc4RQU0ShkOWw2apwEFg
+         Xqbg==
+X-Forwarded-Encrypted: i=1; AHgh+RqB772mISyQX9gN9v84nUjhunT3fGVc/cdYlQkO+Q7FQssAZFbfngV6iZnfyx9O8YAx54pqRoE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxI41s5gZ7SM6aTiZ6eIfZCw8zQblDHWOkrDv9Gr9SAPHiOyua6
+	Fi8awiuGFS3cR2LFvULTvfdMgk4WLOUf+qAzrQ8HinNbKq0uaGUeg0wDy5WR2e8uy4M=
+X-Gm-Gg: AfdE7clySRqwXA6qn6DoNVLCm6vxVUGj47+rxGdkOJqqzBA+4MrhjCEMfk1/9uSdYr5
+	9M98fDXBiK1awvGN872FsRvrYniVrk5nzhlkp5uyluMK80lbtKdfpGQ3yJOfBwdekNKU++s00B9
+	ZeQAtma+lVRaztI9pY4CZbzvq1sq3x/LGLU++omqTNerUP/puBxOr9izmLerNXREdYTXI0NVaM8
+	pqNl0SEC3BWmm3o3Q/c7Ko4nx9o5NupL65q0vEtNwbqoc4TT9Xo06N4HA7DDV1l/L5YOkXkqipV
+	yDR9WDXM/6Q3DrG0sedpbgcyBytsSRcO2BjWrXLowShIIcUta3h2J9eYEWckP8V7OxSN1o6k5TA
+	L0eqxS8hDE7kEyMgaM7Jvuc5JpNRP3WJhlksLU3cZ7PQlCfBcRxP7mQy7KW48CWCfwxgLF1JRyZ
+	Xpz3xHeqev3p3bPGQYfISlDDTR2FQC9vw33FOuIY8TxA==
+X-Received: by 2002:a05:6a21:648f:b0:3b2:924c:566e with SMTP id adf61e73a8af0-3c3ad973471mr17553818637.36.1784578338337;
+        Mon, 20 Jul 2026 13:12:18 -0700 (PDT)
+Received: from localhost (107-190-31-17.cpe.teksavvy.com. [107.190.31.17])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cb519aeb676sm5057046a12.19.2026.07.20.13.12.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Jul 2026 13:12:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260711150628.2914205-1-michael.bommarito@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 20 Jul 2026 16:12:16 -0400
+Message-Id: <DK3O81WR05WI.ZR3AJUCCX424@etsalapatis.com>
+Subject: Re: [PATCH] bpf, sockmap: Fix cork use-after-free in
+ tcp_bpf_sendmsg()
+From: "Emil Tsalapatis" <emil@etsalapatis.com>
+To: "Chengfeng Ye" <nicoyip.dev@gmail.com>, "Eric Dumazet"
+ <edumazet@google.com>, "Neal Cardwell" <ncardwell@google.com>, "Kuniyuki
+ Iwashima" <kuniyu@google.com>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Jakub Sitnicki" <jakub@cloudflare.com>, "Jiayuan Chen"
+ <jiayuan.chen@linux.dev>, "David S. Miller" <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Simon
+ Horman" <horms@kernel.org>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "open list:BPF [L7 FRAMEWORK] (sockmap)"
+ <bpf@vger.kernel.org>
+Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+X-Mailer: aerc 0.20.1
+References: <20260719161630.2901208-1-nicoyip.dev@gmail.com>
+In-Reply-To: <20260719161630.2901208-1-nicoyip.dev@gmail.com>
 
-On Sat, Jul 11, 2026 at 11:06:28AM -0400, Michael Bommarito wrote:
-> mana_hwc_init_event_handler() in hw_channel.c stores device-advertised
-> HWC_INIT_DATA_MAX_REQUEST and HWC_INIT_DATA_MAX_RESPONSE values
-> without bounds checking. mana_hwc_alloc_dma_buf() later computes the
-> DMA buffer size as MANA_PAGE_ALIGN(q_depth * max_msg_size) in 32-bit
-> arithmetic. A malicious device returning a large max_msg_size causes
-> the product to wrap, allocating a small buffer while laying out
-> q_depth request slots at the unwrapped stride, placing slots outside
-> the allocation.
-
-I don't think the described data flow actually
-exists in the current tree, so the security framing looks inaccurate.
-Please check the comment below.
-> 
-> Impact: a compromised hypervisor device model or malicious MANA PCI
-> device can cause out-of-bounds DMA buffer writes during HWC channel
-> initialization. A reproducer is available on request.
-> 
-> Clamp both values to HW_CHANNEL_MAX_REQUEST_SIZE (4096), consistent
-> with the cap already applied at the channel-create callsite.
-> 
-> Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
+On Sun Jul 19, 2026 at 12:16 PM EDT, Chengfeng Ye wrote:
+> tcp_bpf_sendmsg() keeps msg_tx across sk_stream_wait_memory(), which
+> drops and reacquires the socket lock.  Its error path tries to decide
+> whether msg_tx names the local temporary message by comparing it with
+> the current value of psock->cork.
+>
+> This comparison is unsafe when two threads send on the same socket:
+>
+>   Thread A                         Thread B
+>   msg_tx =3D psock->cork
+>   sk_msg_alloc() fails
+>   sk_stream_wait_memory()
+>     releases the socket lock      acquires the socket lock
+>                                   completes the cork
+>                                   psock->cork =3D NULL
+>                                   frees the cork
+>     reacquires the socket lock
+>   msg_tx !=3D psock->cork
+>   sk_msg_free(msg_tx)
+>
+> The stale cork is therefore mistaken for the local temporary message
+> and freed again.  KASAN reported:
+>
+>   BUG: KASAN: slab-use-after-free in sk_msg_free+0x49/0x50
+>   Read of size 4 at addr ffff88810c908800 by task poc/90
+>   Call Trace:
+>    sk_msg_free+0x49/0x50
+>    tcp_bpf_sendmsg+0x14f5/0x1cc0
+>    __sys_sendto+0x32c/0x3a0
+>    __x64_sys_sendto+0xdb/0x1b0
+>   Allocated by task 89:
+>    __kasan_kmalloc+0x8f/0xa0
+>    tcp_bpf_sendmsg+0x16b3/0x1cc0
+>   Freed by task 91:
+>    __kasan_slab_free+0x43/0x70
+>    kfree+0x131/0x3c0
+>    tcp_bpf_sendmsg+0xec3/0x1cc0
+>
+> msg_tx can only name the stack-local tmp or the shared cork.  Test for
+> tmp directly so a changed psock->cork cannot turn a shared message into
+> an apparent local one.
+>
+> Fixes: 604326b41a6f ("bpf, sockmap: convert to generic sk_msg interface")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-7
-> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 > ---
->  drivers/net/ethernet/microsoft/mana/hw_channel.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> index 48a9acea4ab6c..a0916b50cffce 100644
-> --- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> +++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> @@ -152,10 +152,14 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
->  			break;
->  
->  		case HWC_INIT_DATA_MAX_REQUEST:
-> +			if (val == 0 || val > HW_CHANNEL_MAX_REQUEST_SIZE)
-> +				val = HW_CHANNEL_MAX_REQUEST_SIZE;
->  			hwc->hwc_init_max_req_msg_size = val;
->  			break;
->  
->  		case HWC_INIT_DATA_MAX_RESPONSE:
-> +			if (val == 0 || val > HW_CHANNEL_MAX_REQUEST_SIZE)
-> +				val = HW_CHANNEL_MAX_REQUEST_SIZE;
->  			hwc->hwc_init_max_resp_msg_size = val;
->  			break;
->  
 
-The clamp is applied to hwc->hwc_init_max_req_msg_size and
-hwc->hwc_init_max_resp_msg_size. Tracing where those two fields are
-consumed:
+Hi Chengfeng,
 
-  mana_hwc_init_event_handler()
-	|
-  mana_hwc_establish_channel() // copies them out to *max_req_msg_size
-        |                          and *max_resp_msg_size
-  mana_hwc_create_channel()    // passes those locals only to
-        |                          mana_hwc_test_channel()
-  mana_hwc_test_channel()      // passed as parameters but never
-                                   used them
+The patch looks good:
 
-The DMA buffers that alloc_dma_buf() sizes are created from
-mana_hwc_init_queues(), which is called with the compile-time constants:
+Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
 
-    err = mana_hwc_init_queues(hwc, HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH,
-                   HW_CHANNEL_MAX_REQUEST_SIZE,
-                   HW_CHANNEL_MAX_RESPONSE_SIZE);
+There is one caveat: Normally we ignore pre-existing issues Sashiko
+finds while reviewing the patch that are unrelated to the change itself.
+For this function, however, I think we should make an exception because
+it has multiple glaring issues we can fix more cleanly if we do it all
+at once. E.g., tmp never gets cleaned up even if there are allocations
+hanging off of it.
 
-Therefore, q_depth * max_msg_size cannot wrap from a device-controlled
-value here.
+Would you be willing to expand the patch that addresses the Sashiko
+comments, even if unrelated to your fix? That would save us the time
+to review the inevitable followups and provide more coherent
+refactoring.
 
-Thanks,
-Vennela
-> -- 
-> 2.53.0
-> 
+>  net/ipv4/tcp_bpf.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
+> index 8e905b50dead..a30475afb6f8 100644
+> --- a/net/ipv4/tcp_bpf.c
+> +++ b/net/ipv4/tcp_bpf.c
+> @@ -604,7 +604,7 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct ms=
+ghdr *msg, size_t size)
+>  wait_for_memory:
+>  		err =3D sk_stream_wait_memory(sk, &timeo);
+>  		if (err) {
+> -			if (msg_tx && msg_tx !=3D psock->cork)
+> +			if (msg_tx =3D=3D &tmp)
+>  				sk_msg_free(sk, msg_tx);
+>  			goto out_err;
+>  		}
 
-> 
