@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D372749C1
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:22:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8327C2D29CF
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:22:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560923; cv=none; b=QKMBmaT5ChasoCaxCSYTRCvOvhT0SjQ1QaGmRWLXr/54vUN+QzxKkXUGNv4OtuaXTbLd2lBa4wCSE3e58GiBDvVsKwVVYJJcPZ9GEgoqoaJA9c2XYR6DNR3b7zU25Iz7NSzlZlNPzGBGWgAhKtvSQqu523WRE8NyOo5DGpAOrd8=
+	t=1784560941; cv=none; b=B93qgLKQOn2T8lv6+aY0VEZ48lgTWuza1zw7L5SdcnlQcBSn2d41YPSf6seT6SM9mek1dXjyDmH6kzruv0cxJ2YH5XOt6bdeYKD4bc6iO8BO/CBINFdP+v7ZGaNkQWUwONWDh15YqQWPTo4Md8XjuhwWP9L8C5Km1U1pU80Twuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560923; c=relaxed/simple;
-	bh=UlQKIyg7vWS4w8fY2V+V34lHIBqTnTAu4fOeOWiVaOM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fiikTaYMSl6uHjuaEFRDBhoKezy/3WEhPYaV/rDlqwmYOVHnpLqMIKuACbD51tkepBwBj7ql1W+NNUqsFpI4qQGkAzUF72uRUR8cukRBnqBreN0lqOnSYSxTEtPkZlxhIsJf4kW5DGv2/jUv6MnwF1whvWSgQGP5rXLKiS3s51k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YJNwT1O9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560941; c=relaxed/simple;
+	bh=Y49oWmIPPpFqqR8Y9vLYEZajbBbJdIkp3h9pSscG3W0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=d6JYn7tqtkV+M0DdlJGz2tzfUF4YMfdaqlPIysD2MPGoBr3t/oFysmucVGpp4VCp1NxNxznoWiX0lJIiUg5mNxe9O3KneyEEPW3TXiYluK4o8n48Je1wcq3p24WNPqJYHyMNfI0AUBGsdXFUoOBoWSjGcqjq7ouGCnfbhmjX9Fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=azSN+BXk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YJNwT1O9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E44F1F000E9;
-	Mon, 20 Jul 2026 15:22:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="azSN+BXk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA6321F00A3D;
+	Mon, 20 Jul 2026 15:22:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560921;
-	bh=5HAZolM+jK2s/gD12PrITY63BLfW0f0EF0b0t+l6mVo=;
+	s=korg; t=1784560939;
+	bh=hpmiMpFwKp4qqgdmJR80zLJLq46pYfJdADGt7dgWies=;
 	h=Subject:To:Cc:From:Date;
-	b=YJNwT1O92QY+Ebx7qr93u8X88PUsHGglRLaAe/3xcVJ3w5V7TSnrX8WXuSu2UyMQm
-	 Knb+lwERHAvdgY+CWkfKcWiNloKdX1ksdS86FfyuYY6kNmdQzG6xNXGS19GF79I13x
-	 APUXxy5a0+HZCOzv1eMvpZ2tmcXujFqpHFJYDWC0=
-Subject: FAILED: patch "[PATCH] scsi: xen: scsiback: Free unsubmitted command instead of" failed to apply to 5.10-stable tree
-To: michael.bommarito@gmail.com,jgross@suse.com,martin.petersen@oracle.com
+	b=azSN+BXkjlAGYNdEG6TxHOj6wFJjlpFMQhuJcMJXAanti5w+OUcR7//efA5JOYRKj
+	 d3OYS71BUyp3X0dLpODhsdY3MsRKUXmSCwyHLBSxuWjWHj3cg+O9tTCt4WTmdbWOnI
+	 Adqj8Um2j0tXM8/YLoFbZoZ5Jsz5KlynMguI+lTo=
+Subject: FAILED: patch "[PATCH] scsi: target: Bound PR-OUT TransportID parsing to the" failed to apply to 5.10-stable tree
+To: hexlabsecurity@proton.me,ddiss@suse.de,john.g.garry@oracle.com,martin.petersen@oracle.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:21:52 +0200
-Message-ID: <2026072052-ignore-sharper-eb94@gregkh>
+Date: Mon, 20 Jul 2026 17:22:10 +0200
+Message-ID: <2026072010-thinly-purr-b2b4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x ca978f8a93d4d36841839bf2847d29b88c2591d6
+git cherry-pick -x d04a179085c262c9ed577d0a4cbc6482ff1fd9a3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072052-ignore-sharper-eb94@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072010-thinly-purr-b2b4@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,93 +62,251 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ca978f8a93d4d36841839bf2847d29b88c2591d6 Mon Sep 17 00:00:00 2001
-From: Michael Bommarito <michael.bommarito@gmail.com>
-Date: Thu, 11 Jun 2026 08:30:45 -0400
-Subject: [PATCH] scsi: xen: scsiback: Free unsubmitted command instead of
- double-putting it
+From d04a179085c262c9ed577d0a4cbc6482ff1fd9a3 Mon Sep 17 00:00:00 2001
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Date: Thu, 11 Jun 2026 13:42:26 -0500
+Subject: [PATCH] scsi: target: Bound PR-OUT TransportID parsing to the
+ received buffer
 
-scsiback_get_pend_req() obtains a command tag and returns a vscsibk_pend
-whose embedded se_cmd has only been memset to 0, so its cmd_kref is 0;
-the se_cmd is initialised (kref_init() via target_init_cmd()) only
-later, in scsiback_cmd_exec(), on the successful VSCSIIF_ACT_SCSI_CDB
-path. The two error paths in scsiback_do_cmd_fn() taken before the
-command is submitted -- a failed scsiback_gnttab_data_map() and an
-unknown ring_req.act -- call
-transport_generic_free_cmd(&pending_req->se_cmd, 0), which kref_put()s a
-refcount of 0. That underflows it ("refcount_t: underflow;
-use-after-free") and, as the release function is not run, leaks the
-command tag.
+core_scsi3_decode_spec_i_port() and core_scsi3_emulate_register_and_move()
+hand the raw PERSISTENT RESERVE OUT parameter buffer to
+target_parse_pr_out_transport_id() without telling it how many bytes are
+valid.  For an iSCSI TransportID (FORMAT CODE 01b),
+iscsi_parse_pr_out_transport_id() locates the ",i,0x" ISID separator with
+an unbounded strstr() (and on the error path prints the name with a further
+unbounded "%s").  An initiator can submit a TransportID whose iSCSI name
+contains neither a ",i,0x" substring nor a NUL terminator, filling the
+parameter list to its end, so the scan runs off the end of the buffer.
 
-Impact: a pvSCSI guest can leak every command tag of a LUN's session,
-stopping the LUN, by submitting requests with a bad grant reference or
-an unknown request type; under panic_on_warn the refcount underflow
-panics the host.
+When the parameter list spans more than one page the buffer is a multi-page
+vmap (transport_kmap_data_sg()), so the over-read walks into the trailing
+vmalloc guard page and oopses (KASAN: vmalloc-out-of-bounds in strstr).  It
+is reachable by any fabric that delivers a PR OUT to a device exported
+through an iSCSI TPG, including a guest via vhost-scsi.
 
-Add a helper that just returns the tag with target_free_tag() and sends
-the error response. It frees the tag while the v2p reference still pins
-the session, and snapshots the response fields beforehand because
-freeing the tag can let another ring reuse the pending_req slot.
+Pass the number of received bytes down to the parser and validate the iSCSI
+TransportID's own self-described length (ADDITIONAL LENGTH + 4) once, up
+front: reject it if it is below the spc4r17 minimum or larger than the
+received buffer, then bound the separator search, the ISID walk and the
+name copy by that length.  This is the length check the callers already
+perform after the parse (core_scsi3_decode_spec_i_port() compares tid_len
+against tpdl, core_scsi3_emulate_register_and_move() validates it against
+data_length), moved ahead of the scan.  Also drop the unbounded "%s" of the
+unterminated name.
 
-Fixes: 2dbcdf33dbf6 ("xen-scsiback: Convert to percpu_ida tag allocation")
+Add per-format explicit name-length checks before copying into i_str,
+rather than silently truncating with min_t: for FORMAT CODE 00b reject if
+the descriptor body (tid_len - 4 bytes) cannot fit in
+i_str[TRANSPORT_IQN_LEN]; for FORMAT CODE 01b reject if the name portion
+(from &buf[4] up to the separator) cannot fit.  Both checks make the bounds
+intent explicit at each format branch.
+
+While here, also reject a FORMAT CODE 01b TransportID whose ",i,0x"
+separator sits at the very end of the descriptor: that leaves an empty ISID
+and points the returned port nexus pointer at buf + tid_len, one past the
+descriptor, which the registration code (__core_scsi3_locate_pr_reg(),
+__core_scsi3_alloc_registration()) then dereferences as the ISID string --
+the same over-read of the parameter buffer for a malformed descriptor.
+
+Fixes: c66ac9db8d4a ("[SCSI] target: Add LIO target core v4.0.0-rc6")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Link: https://patch.msgid.link/20260611123046.2323342-2-michael.bommarito@gmail.com
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: John Garry <john.g.garry@oracle.com>
+Reviewed-by: David Disseldorp <ddiss@suse.de>
+Link: https://patch.msgid.link/20260611-b4-disp-9f20739e-v6-1-f6630e2aae44@proton.me
 Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 
-diff --git a/drivers/xen/xen-scsiback.c b/drivers/xen/xen-scsiback.c
-index e33f95c91b09..f324732eba7f 100644
---- a/drivers/xen/xen-scsiback.c
-+++ b/drivers/xen/xen-scsiback.c
-@@ -611,6 +611,25 @@ static void scsiback_disconnect(struct vscsibk_info *info)
- 	xenbus_unmap_ring_vfree(info->dev, info->ring.sring);
+diff --git a/drivers/target/target_core_fabric_lib.c b/drivers/target/target_core_fabric_lib.c
+index 87c5d26a5089..2853b95b2c59 100644
+--- a/drivers/target/target_core_fabric_lib.c
++++ b/drivers/target/target_core_fabric_lib.c
+@@ -290,13 +290,24 @@ static void sbp_parse_pr_out_transport_id(char *buf, char *i_str)
+ static bool iscsi_parse_pr_out_transport_id(
+ 	struct se_portal_group *se_tpg,
+ 	char *buf,
++	u32 buf_len,
+ 	u32 *out_tid_len,
+ 	char **port_nexus_ptr,
+ 	char *i_str)
+ {
+ 	char *p;
++	u32 tid_len;
+ 	int i;
+-	u8 format_code = (buf[0] & 0xc0);
++	u8 format_code;
++
++	/*
++	 * The 4-byte iSCSI TransportID header (FORMAT CODE + 2-byte ADDITIONAL
++	 * LENGTH) must be present before any of it can be parsed.
++	 */
++	if (buf_len < 4)
++		return false;
++
++	format_code = buf[0] & 0xc0;
+ 	/*
+ 	 * Check for FORMAT CODE 00b or 01b from spc4r17, section 7.5.4.6:
+ 	 *
+@@ -316,15 +327,17 @@ static bool iscsi_parse_pr_out_transport_id(
+ 		return false;
+ 	}
+ 	/*
+-	 * If the caller wants the TransportID Length, we set that value for the
+-	 * entire iSCSI Tarnsport ID now.
++	 * Reconstruct the self-described TransportID length from the ADDITIONAL
++	 * LENGTH field plus the 4-byte header.  Reject it if it is below the
++	 * spc4r17 section 7.5.4.6 minimum (ADDITIONAL LENGTH shall be at least
++	 * 20) or if it runs past the bytes actually received, so that every
++	 * access below stays inside the TransportID.
+ 	 */
+-	if (out_tid_len) {
+-		/* The shift works thanks to integer promotion rules */
+-		*out_tid_len = get_unaligned_be16(&buf[2]);
+-		/* Add four bytes for iSCSI Transport ID header */
+-		*out_tid_len += 4;
+-	}
++	tid_len = get_unaligned_be16(&buf[2]) + 4;
++	if (tid_len < 24 || tid_len > buf_len)
++		return false;
++	if (out_tid_len)
++		*out_tid_len = tid_len;
+ 
+ 	/*
+ 	 * Check for ',i,0x' separator between iSCSI Name and iSCSI Initiator
+@@ -332,16 +345,32 @@ static bool iscsi_parse_pr_out_transport_id(
+ 	 * format.
+ 	 */
+ 	if (format_code == 0x40) {
+-		p = strstr(&buf[4], ",i,0x");
++		p = strnstr(&buf[4], ",i,0x", tid_len - 4);
+ 		if (!p) {
+-			pr_err("Unable to locate \",i,0x\" separator"
+-				" for Initiator port identifier: %s\n",
+-				&buf[4]);
++			pr_err("Unable to locate \",i,0x\" separator in iSCSI TransportID\n");
++			return false;
++		}
++		/*
++		 * The iSCSI name runs from &buf[4] up to the separator; reject it
++		 * if it cannot fit in i_str[TRANSPORT_IQN_LEN].
++		 */
++		if (p - &buf[4] >= TRANSPORT_IQN_LEN) {
++			pr_err("iSCSI Initiator port name too long in TransportID\n");
+ 			return false;
+ 		}
+ 		*p = '\0'; /* Terminate iSCSI Name */
+ 		p += 5; /* Skip over ",i,0x" separator */
+ 
++		/*
++		 * The ISID must follow the separator.  A ",i,0x" sitting at the
++		 * very end of the TransportID leaves no ISID and would point the
++		 * port nexus at buf + tid_len, i.e. past the descriptor, which
++		 * the registration code then reads as the ISID string.
++		 */
++		if (p >= buf + tid_len) {
++			pr_err("Missing ISID in iSCSI Initiator port TransportID\n");
++			return false;
++		}
+ 		*port_nexus_ptr = p;
+ 		/*
+ 		 * Go ahead and do the lower case conversion of the received
+@@ -349,7 +378,7 @@ static bool iscsi_parse_pr_out_transport_id(
+ 		 * for comparison against the running iSCSI session's ISID from
+ 		 * iscsi_target.c:lio_sess_get_initiator_sid()
+ 		 */
+-		for (i = 0; i < 12; i++) {
++		for (i = 0; i < 12 && p < buf + tid_len; i++) {
+ 			/*
+ 			 * The first ISCSI INITIATOR SESSION ID field byte
+ 			 * containing an ASCII null character terminates the
+@@ -367,10 +396,22 @@ static bool iscsi_parse_pr_out_transport_id(
+ 			*p = tolower(*p);
+ 			p++;
+ 		}
+-	} else
++		strscpy(i_str, &buf[4], TRANSPORT_IQN_LEN);
++	} else {
+ 		*port_nexus_ptr = NULL;
+-
+-	strscpy(i_str, &buf[4], TRANSPORT_IQN_LEN);
++		/*
++		 * FORMAT CODE 00b: the name occupies buf[4..tid_len-1].  The
++		 * declared length tid_len - 4 must fit in i_str[TRANSPORT_IQN_LEN].
++		 * (For 01b the same tid_len bound would be over-restrictive: the
++		 * descriptor also carries the separator and ISID, so a legal
++		 * <=223-byte name gives tid_len up to 244.)
++		 */
++		if (tid_len - 4 >= TRANSPORT_IQN_LEN) {
++			pr_err("iSCSI Initiator port name too long in TransportID\n");
++			return false;
++		}
++		strscpy(i_str, &buf[4], tid_len - 4);
++	}
+ 	return true;
  }
  
-+/*
-+ * Send the error response for a request that did not reach the target core
-+ * and return its tag.  Free the tag before the response drops the v2p
-+ * reference that keeps the session alive, and snapshot what the response
-+ * needs since returning the tag can let the slot be reused.
-+ */
-+static void scsiback_resp_and_free(struct vscsibk_pend *pending_req,
-+				   int32_t result)
-+{
-+	struct vscsibk_info *info = pending_req->info;
-+	struct v2p_entry *v2p = pending_req->v2p;
-+	struct se_session *se_sess = v2p->tpg->tpg_nexus->tvn_se_sess;
-+	u16 rqid = pending_req->rqid;
-+
-+	target_free_tag(se_sess, &pending_req->se_cmd);
-+	scsiback_send_response(info, NULL, result, 0, rqid);
-+	kref_put(&v2p->kref, scsiback_free_translation_entry);
-+}
-+
- static void scsiback_device_action(struct vscsibk_pend *pending_req,
- 	enum tcm_tmreq_table act, int tag)
- {
-@@ -792,9 +811,8 @@ static int scsiback_do_cmd_fn(struct vscsibk_info *info,
- 		case VSCSIIF_ACT_SCSI_CDB:
- 			if (scsiback_gnttab_data_map(&ring_req, pending_req)) {
- 				scsiback_fast_flush_area(pending_req);
--				scsiback_do_resp_with_sense(NULL,
--						DID_ERROR << 16, 0, pending_req);
--				transport_generic_free_cmd(&pending_req->se_cmd, 0);
-+				scsiback_resp_and_free(pending_req,
-+						       DID_ERROR << 16);
- 			} else {
- 				scsiback_cmd_exec(pending_req);
- 			}
-@@ -808,9 +826,7 @@ static int scsiback_do_cmd_fn(struct vscsibk_info *info,
- 			break;
- 		default:
- 			pr_err_ratelimited("invalid request\n");
--			scsiback_do_resp_with_sense(NULL, DID_ERROR << 16, 0,
--						    pending_req);
--			transport_generic_free_cmd(&pending_req->se_cmd, 0);
-+			scsiback_resp_and_free(pending_req, DID_ERROR << 16);
- 			break;
- 		}
+@@ -420,8 +461,16 @@ int target_get_pr_transport_id(struct se_node_acl *nacl,
+ }
  
+ bool target_parse_pr_out_transport_id(struct se_portal_group *tpg,
+-		char *buf, u32 *out_tid_len, char **port_nexus_ptr, char *i_str)
++		char *buf, u32 buf_len, u32 *out_tid_len,
++		char **port_nexus_ptr, char *i_str)
+ {
++	/*
++	 * The fixed-length SAS/SRP/FCP/SBP TransportIDs are 24 bytes; the iSCSI
++	 * format is variable and bounds itself against buf_len below.
++	 */
++	if (tpg->proto_id != SCSI_PROTOCOL_ISCSI && buf_len < 24)
++		return false;
++
+ 	switch (tpg->proto_id) {
+ 	case SCSI_PROTOCOL_SAS:
+ 		/*
+@@ -440,8 +489,8 @@ bool target_parse_pr_out_transport_id(struct se_portal_group *tpg,
+ 		sbp_parse_pr_out_transport_id(buf, i_str);
+ 		break;
+ 	case SCSI_PROTOCOL_ISCSI:
+-		return iscsi_parse_pr_out_transport_id(tpg, buf, out_tid_len,
+-					port_nexus_ptr, i_str);
++		return iscsi_parse_pr_out_transport_id(tpg, buf, buf_len,
++					out_tid_len, port_nexus_ptr, i_str);
+ 	default:
+ 		pr_err("Unknown proto_id: 0x%02x\n", tpg->proto_id);
+ 		return false;
+diff --git a/drivers/target/target_core_internal.h b/drivers/target/target_core_internal.h
+index 763e6d26e187..f0886ea29034 100644
+--- a/drivers/target/target_core_internal.h
++++ b/drivers/target/target_core_internal.h
+@@ -104,7 +104,8 @@ int	target_get_pr_transport_id(struct se_node_acl *nacl,
+ 		struct t10_pr_registration *pr_reg, int *format_code,
+ 		unsigned char *buf);
+ bool target_parse_pr_out_transport_id(struct se_portal_group *tpg,
+-		char *buf, u32 *out_tid_len, char **port_nexus_ptr, char *i_str);
++		char *buf, u32 buf_len, u32 *out_tid_len,
++		char **port_nexus_ptr, char *i_str);
+ 
+ /* target_core_hba.c */
+ struct se_hba *core_alloc_hba(const char *, u32, u32);
+diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
+index 11790f2c5d80..0b19997c2edd 100644
+--- a/drivers/target/target_core_pr.c
++++ b/drivers/target/target_core_pr.c
+@@ -1573,7 +1573,7 @@ core_scsi3_decode_spec_i_port(
+ 
+ 			iport_ptr = NULL;
+ 			tid_found = target_parse_pr_out_transport_id(tmp_tpg,
+-					ptr, &tid_len, &iport_ptr, i_str);
++					ptr, tpdl, &tid_len, &iport_ptr, i_str);
+ 			if (!tid_found)
+ 				continue;
+ 			/*
+@@ -3285,7 +3285,7 @@ core_scsi3_emulate_pro_register_and_move(struct se_cmd *cmd, u64 res_key,
+ 		goto out;
+ 	}
+ 	tid_found = target_parse_pr_out_transport_id(dest_se_tpg,
+-			&buf[24], &tmp_tid_len, &iport_ptr, initiator_str);
++			&buf[24], tid_len, &tmp_tid_len, &iport_ptr, initiator_str);
+ 	if (!tid_found) {
+ 		pr_err("SPC-3 PR REGISTER_AND_MOVE: Unable to locate"
+ 			" initiator_str from Transport ID\n");
 
