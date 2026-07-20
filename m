@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05ECA27874F
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:20:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF5A27874F
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:21:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560841; cv=none; b=NLLaFNWgD2w183Q6PUzrrBkUA431mryTDHuubGePAjle44bsrAd5hWlY2Iq3udO6Lunz+TfJb5V+FsKHNyET8VV2a4R/GBo14GPoGw99++jk0TwdqG7AG86+G2h3zh8ATlW5trSsTZrEd6QEOSQ4GLHZIcnE2YcBELHQLfwbhnY=
+	t=1784560861; cv=none; b=DUEyP+CehPP4FgY6rMixl2UmZ3oQfDM1MWphDiT/DzNr+BuWyxRcO4OOEavklhzIkbp8oO9FgmtZHA2f0zZI+4hF14h3pV6nEY1KX8Olq8KxOKvtpETDebiuhCLuY5ysveU3qfikx0n+TvW1BrtpCf6SUzLMy0A0vaWWx5dwrNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560841; c=relaxed/simple;
-	bh=zpl1s8Qw6pC/PdVwIiCKLd0DDmXLJydq+jJy345BjDo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hR7xNZq5xPOqokVj12bqP7aQw0+IaVBi/O6Hv7WCpXgKZDkxZ/+CDhghNF0YzNh2Eq4J3tA7V5Zr04wVDDyZMm4kbrmDnZZkUQYasqWkZPWE4LQ6bRO4rlx4SHniL+v1vFMSQJRWsPTx/5vf5uJBbm1j7BOBpWGDqxRQk2j7J/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ALXs0YEb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560861; c=relaxed/simple;
+	bh=u1DBWYYT3Vx9zdCd7hKrqRunqeHkKror4gotFViHj/w=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=N8sUwMFobXZvGZFIz/l7LY4XrqmfI49PVkCtr8pljHACD+sAHo81y/xU6SNU/nPPlXe8KdzEtBsHvd4JiHARgDW0zhov1F0pNeK9C4+RWeydEcyepnrYvvZFGPJc82zK9JK6psULj0anO6WVLgIjHtrRVPIHFcf8qzhvA5lk0z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ad2FZBtq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ALXs0YEb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287661F000E9;
-	Mon, 20 Jul 2026 15:20:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ad2FZBtq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66EFF1F000E9;
+	Mon, 20 Jul 2026 15:20:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560839;
-	bh=ViAuoJkXGeXTr5WrNVw4se7XvoTaPOJNQ7Ttko2Z5Pk=;
+	s=korg; t=1784560859;
+	bh=kvmMzFyVQbn4YJ/eQL8rGWPkm3rDG5QooakrSYw+mBg=;
 	h=Subject:To:Cc:From:Date;
-	b=ALXs0YEbWR1t1V4XaUl3ef1geVh7L9GO3bo+Xaz/asWbWYpOa6ErVSRzizA7zspJD
-	 TnzFs7hJoPRb7KUT37/Mc4C/P9G7PYOkTYIZxiiJ4Hr5qjn93QlZIcH7MQbq91y6Fu
-	 RGgVF0Zkswxz2ClpdozV6AW+fNTXBLSsIIIMFqg0=
-Subject: FAILED: patch "[PATCH] accel/amdxdna: reject command submission on devices without a" failed to apply to 6.18-stable tree
-To: doruk@0sec.ai,lizhi.hou@amd.com
+	b=ad2FZBtqlcolIXIvLlgMnvJEDNacfVus4phwW2DD5liiitwyoAqwuSNisX50fwMrU
+	 teGKS19quL0Rj5jH4k7AI/HUqaEbxOFA2Di4ddokExyUXL5qPC5MCzIlLcfTAEzR6j
+	 r2zFCWwus3Z+kWwm3lJSKoE7Qgw4f7nYR8EhBGJ8=
+Subject: FAILED: patch "[PATCH] accel/ivpu: Reject firmware log with size smaller than header" failed to apply to 6.6-stable tree
+To: raushan.jhon@gmail.com,karol.wachowski@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:20:30 +0200
-Message-ID: <2026072030-chastity-composed-e7c9@gregkh>
+Date: Mon, 20 Jul 2026 17:20:50 +0200
+Message-ID: <2026072050-fragment-movie-d688@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 38953513d7313992676d4136cd425cdb70c6278e
+git cherry-pick -x ddb44baed257560f192b145ed36cf8c0a412de47
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072030-chastity-composed-e7c9@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072050-fragment-movie-d688@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,44 +62,48 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 38953513d7313992676d4136cd425cdb70c6278e Mon Sep 17 00:00:00 2001
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-Date: Mon, 13 Jul 2026 19:30:29 +0200
-Subject: [PATCH] accel/amdxdna: reject command submission on devices without a
- submit op
+From ddb44baed257560f192b145ed36cf8c0a412de47 Mon Sep 17 00:00:00 2001
+From: Jhonraushan <raushan.jhon@gmail.com>
+Date: Wed, 15 Jul 2026 13:12:06 +0530
+Subject: [PATCH] accel/ivpu: Reject firmware log with size smaller than header
 
-amdxdna_cmd_submit() calls xdna->dev_info->ops->cmd_submit()
-unconditionally, but only aie2_dev_ops defines that callback.
-aie4_vf_ops (the AIE4 SR-IOV virtual function) does not, so a user
-AMDXDNA_EXEC_CMD ioctl on an AIE4 device reaches a NULL function-pointer
-call and oopses the kernel. AIE4 submits work through a mapped user queue
-and doorbell, not this ioctl path.
+fw_log_from_bo() validates the tracing buffer header_size and that the
+log fits within the BO, but never checks that log->size is at least
+log->header_size. fw_log_print_buffer() then computes:
 
-Reject the submission early with -EOPNOTSUPP when the device provides no
-cmd_submit op, so the shared EXEC ioctl is a clean no-op on such devices.
+  u32 data_size = log->size - log->header_size;
 
-Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
+which underflows to a near-U32_MAX value when firmware reports a log whose
+size is smaller than its header. That huge data_size defeats the
+log_start/log_end bounds clamps added by commit dd1311bcf0e6 ("accel/ivpu:
+Add bounds checks for firmware log indices"), so fw_log_print_lines() reads
+far past the small real data region of the BO. A size of 0 also makes
+fw_log_from_bo() advance the offset by 0, causing the callers to loop
+forever on the same header.
+
+Reject logs whose size is smaller than the header (which also rejects
+size == 0).
+
+Fixes: d4e4257afa6e ("accel/ivpu: Add firmware tracing support")
 Cc: stable@vger.kernel.org
-Found by 0sec automated security-research tooling (https://0sec.ai).
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Link: https://patch.msgid.link/20260713173030.87541-3-doruk@0sec.ai
+Signed-off-by: Jhonraushan <raushan.jhon@gmail.com>
+Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+Link: https://patch.msgid.link/20260715074206.867712-1-raushan.jhon@gmail.com
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index a5c8c2c4de6d..bdbd3db12a6c 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -590,6 +590,10 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
- 	int ret, idx;
- 
- 	XDNA_DBG(xdna, "Command BO hdl %d, Arg BO count %d", cmd_bo_hdl, arg_bo_cnt);
-+
-+	if (!xdna->dev_info->ops->cmd_submit)
-+		return -EOPNOTSUPP;
-+
- 	job = kzalloc_flex(*job, bos, arg_bo_cnt);
- 	if (!job)
- 		return -ENOMEM;
+diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_fw_log.c
+index 275baf844b56..716467aa3156 100644
+--- a/drivers/accel/ivpu/ivpu_fw_log.c
++++ b/drivers/accel/ivpu/ivpu_fw_log.c
+@@ -43,6 +43,10 @@ static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *off
+ 		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", log->header_size);
+ 		return -EINVAL;
+ 	}
++	if (log->size < log->header_size) {
++		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
++		return -EINVAL;
++	}
+ 	if ((char *)log + log->size > (char *)ivpu_bo_vaddr(bo) + ivpu_bo_size(bo)) {
+ 		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
+ 		return -EINVAL;
 
