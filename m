@@ -1,85 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F4A419309;
-	Mon, 20 Jul 2026 12:40:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F353D88E5
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:42:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784551229; cv=none; b=fNRef0MGgqcN7owiQJJV7GioGTtQxoPbXN2V6P0U8byGfDGtTsy2JIDWh0qcq5sEusUaNeOyni96r5et+agqnEpEdGhqclqv1wGLzbGLfAC+On1ePzh+n7jEwokKFGNcTbkU/SWKasDU17hYXKIdOHeNYc+QCIawefLQH+9yVac=
+	t=1784551326; cv=none; b=Sjqtqec34Msgezv9R09BtSbk/6WWkr2GqPQQyD2Ru4ALz7GWZD6jjtr4pTt/Ep6IJmsTlaFhm9DvaQcCBH7BPYu56Vc8fF1VEYAKQ8K+cgkxQ1oGPAW2EgUZrQnSrtO1RkmXzLIlgwZdVSwt5d1RMhYjAP9iTVGwFe/um72dW6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784551229; c=relaxed/simple;
-	bh=+Cmv+ibbGaHqbmFp4DK6NU/RMqv3p9IzAGf7vvtFqoM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=PqqdhjApm/mpWcN2WNYI+aINygU5e59/L9rJR2LEVL7G34EJos1ENEQCsNjzDy/m3xXuQy77fSQoj5Bc0DQX4o3mrwdgVHT9r3Ji+nxWDHJPX/ZreeHKCP0X53GSfxKYjD0kO0jhrIIjYc/5bxDBaTB/0CnbcjqwrSVEPlvoNEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecxIasuA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784551326; c=relaxed/simple;
+	bh=BVgJVANa82ERU9gYqiiYEUsMdpQq06ZEVE1fpYjAKCM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BaMh1tFrbFLwAISTObP5TmRmiKQKPsGiRINaztQO5x+3C9oRdAK3kzJL+Et4Q4DTC3l83CLDaOFyvLmmCGWZ9WrQ9xJjFDbAGP0wjdMuMEGaikWNh+2VEi9JrXmdeW0xVGHbg2k//OJcgGlMzSslXorbzRwd7/Bvngr+35JmZlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZjU6+LYZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecxIasuA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54A81F000E9;
-	Mon, 20 Jul 2026 12:40:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784551227;
-	bh=6gSJYyG5tqoS/xfJ/ocf6PHpv571KSG20n/AuJPymfo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ecxIasuA0P8PpS9EavsmRZ74Bo1ipvZL31wrcSQpUaUWw8cpPGkk40TmYO+yO9DlY
-	 M/msTR4My1TuHQhB3uUJGRqHQFYThOHMHJNo1Oc/2kNm5gkE8gvw1rAaDlvDgP4ILp
-	 8TxD9gB7yxMUu0ge2JqO/zTc7mYK0iKRnDHXQMYMcySe0zCXVMD+5N13HD2nIgULqf
-	 mY7N9+E8n5m/+e5eBzGLcuIJ/brp7rdgPRcQWOyMhKHnI1fsOw0cLSLEKPlSZ3zTOd
-	 DSbo1DAhRH15t/cLxwMc79K1Fo/lqPC3FzpbJxFs1XNKwgTqB2nIg68/ZCdY3cf4j5
-	 Y9eBlBJISLlBA==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org, Christian Brauner <brauner@kernel.org>
-Cc: Farid Zakaria <farid.m.zakaria@gmail.com>, 
- Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, 
- Kees Cook <kees@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, Jonathan Corbet <corbet@lwn.net>, 
- linux-mm@kvack.org, bpf@vger.kernel.org, jannh@google.com, 
- mail@johnericson.me, stable@vger.kernel.org
-In-Reply-To: <20260720-beglichen-kognitiv-organismus-5e1e55326c56@brauner>
-References: <20260720-beglichen-kognitiv-organismus-5e1e55326c56@brauner>
-Subject: Re: [PATCH] binfmt_misc: set have_execfd only once the interpreter
- is opened
-Message-Id: <20260720-atemschutz-kaufanreiz-bezaubern-ba50b64e6eda@brauner>
-Date: Mon, 20 Jul 2026 14:39:42 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZjU6+LYZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1641F000E9;
+	Mon, 20 Jul 2026 12:42:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784551325;
+	bh=3RMYFER4TecpKeu8Q+yuGl/Gj0bxOUZMkiciXuC0Nr0=;
+	h=Subject:To:Cc:From:Date;
+	b=ZjU6+LYZARNGFMDmtANA9KAwdpHqfZwY5CRQabFI9YbxnhoU0T7K6dj8Tn/xOjw22
+	 s7VIbhgcXxaaO73pPf/c2U9B/WkXdJrr68s2oFGw5dhgdBpB6HbxjmRh0HltQeN6Z4
+	 xuCnSmbQxC0MtXXzmz5rC3zgpOtR8wvLu/ahes+E=
+Subject: FAILED: patch "[PATCH] batman-adv: retrieve ethhdr after potential skb realloc on RX" failed to apply to 6.12-stable tree
+To: sven@narfation.org,sashiko-bot@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 20 Jul 2026 14:41:56 +0200
+Message-ID: <2026072056-gothic-untreated-85a2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev-4217c
-X-Developer-Signature: v=1; a=openpgp-sha256; l=947; i=brauner@kernel.org;
- h=from:subject:message-id; bh=+Cmv+ibbGaHqbmFp4DK6NU/RMqv3p9IzAGf7vvtFqoM=;
- b=kA0DAAoWkcYbwGV43KIByyZiAGpeFzigvU9VQJeNJJWZJLdTmcBRaJNg56EYC+1uIDhtNA2MS
- Ih1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmpeFzgACgkQkcYbwGV43KJ3ZgEAjybq
- L1I5/9t8lCZCgjKwIWelalu/62YFIKz6ujfc6vIBALyCtTQh2A0vT/iAZK6JWds3c8MVq0f0Oar
- VPQj3vKoJ
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Mon, 20 Jul 2026 14:36:49 +0200, Christian Brauner wrote:
-> binfmt_misc: set have_execfd only once the interpreter is opened
 
-Moving this into vfs.fixes.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
----
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 035e1fed892d3d06002a73ff73668f618a514644
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072056-gothic-untreated-85a2@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Possible dependencies:
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
+thanks,
 
-[1/1] binfmt_misc: set have_execfd only once the interpreter is opened
-      https://git.kernel.org/vfs/vfs/c/d1e8308f6a1c
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 035e1fed892d3d06002a73ff73668f618a514644 Mon Sep 17 00:00:00 2001
+From: Sven Eckelmann <sven@narfation.org>
+Date: Sun, 28 Jun 2026 06:44:13 +0200
+Subject: [PATCH] batman-adv: retrieve ethhdr after potential skb realloc on RX
+
+pskb_may_pull() in batadv_interface_rx() could reallocate the buffer behind
+the skb. Variables which were pointing to the old buffer need to be
+reassigned to avoid an use-after-free.
+
+This was done correctly for the VLAN header but missed for the ethernet
+header which is later used for the TT and AP isolation handling.
+
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: c6c8fea29769 ("net: Add batman-adv meshing protocol")
+Fixes: c78296665c3d ("batman-adv: Check skb size before using encapsulated ETH+VLAN header")
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+
+diff --git a/net/batman-adv/mesh-interface.c b/net/batman-adv/mesh-interface.c
+index 44026810b99c..511f70e0706a 100644
+--- a/net/batman-adv/mesh-interface.c
++++ b/net/batman-adv/mesh-interface.c
+@@ -434,6 +434,7 @@ void batadv_interface_rx(struct net_device *mesh_iface,
+ 		if (!pskb_may_pull(skb, VLAN_ETH_HLEN))
+ 			goto dropped;
+ 
++		ethhdr = eth_hdr(skb);
+ 		vhdr = skb_vlan_eth_hdr(skb);
+ 
+ 		/* drop batman-in-batman packets to prevent loops */
 
