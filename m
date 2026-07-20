@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C910261B9B
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 02:35:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCCA2620DE
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 02:35:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784514959; cv=none; b=VoNW9dVaLJY/gwQBUhlx1HXqW+rXY10J/T6CvPYjFHbK8oiREA7L9YiwxLrF4gYY6xjcChDRm7wrfcIBsOne9o35kV3NBOCnu68JSOGgb7LjsM5+fI75PO5rVDPtg/5QZx1jc4XXuJX0/ryhGus7pHpK6o5ar3zcnNe30cDCxhQ=
+	t=1784514959; cv=none; b=mwlmXJhCWXqeJg+dfbrLNxuTUcYN9gFDf2zDAYZIRi48casA5fFeqz1VHWHFVk+3OuVJ+jsGsR4gZDjpntyVkmMlh7uSj31CWk9KJU3lVJk1En1ih1sZvGZfi4w7Kdvu8bqfYdISiyM+Uu4hFVqIrTFpPsxyaZbL/9IGKk60fY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784514959; c=relaxed/simple;
-	bh=U3NRy/um1FKSkgQ4FTxQt45fk0WRFgEtxGthz6DxI2o=;
+	bh=EYYSljluAoaLLGAF9OrnT9cj0le6PnoXmkjBbKL16ps=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bm0IDtO4SzB1EsG3fFkuOG9C+BSloiazfIdCzbFHDEDBRBln8hXhrKPUa9lDu7EPO5vRJkFikZS8Z+UcVe9CCeRkxMrtt0TM/cS0xHlJikW790ER2x+ei7r/sPCs4/o0Br6j/2aJ/47QOzPq+5wVz5UQf36H67AaeSGZjOYSmcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QogfDnbu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=U2dI7W9ebUwNupw8di8m8+Itth63/o9EU/kCvIVYgEwL1BdjdjEpjONgz1Xzktq7o+uLu9zxxdgbnX4a7uLbNxmgb+cg/sZUez8OMd9uEXMN/y8sNlIusWhmqC2wW9X0777961W5GNsfrm2J4K7aMkmkn089IONTUa04AHVizYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iA4ROBL+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QogfDnbu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A6981F000E9;
-	Mon, 20 Jul 2026 02:35:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iA4ROBL+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26D251F00A3A;
+	Mon, 20 Jul 2026 02:35:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784514957;
-	bh=GIqwaxr3is8+KmMtWPRpXshdsFxX8kvI5DwJmJhXP/g=;
+	s=k20260515; t=1784514958;
+	bh=rHTzs8F3n/Rl+3QnCI+mBGHCao8Dh9ynsaFaDtWTfRQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QogfDnbuZxHFHnuZMykfRFLJZRRln4PreK4hG2ghBnnkSxJDRHf0RdbigpvCgu3Ig
-	 OWMnbzdRtRV9Pa5Tbl9MvNIZXzNjp4idcI1R4cts5IxZfseti2GtCSdXEQKxvhtHPX
-	 NBl9V2uHebjl5lRCc5Z4a1qEeuGEA1biwr9L6yapZkI219ydUX3s0SOojuKEy35Q+B
-	 pwksGY07eEiuXphZiLMRD+PPRYpgc92vvvrFvnAjXmLameMsmgFWCWaDwpJT1dZv5o
-	 HzNMsX/tpk7Y6QT3X8ArcGj6GQ5HasxuzinBe+WQY6270IMLGruZVu1lHBknlyRAMN
-	 cTk4DOln7TdjA==
+	b=iA4ROBL+zuYn88s1OFd011xHdUjpTMSyvvyZq1cpYhD3W24wJNzl9EMk+YD+/vT3z
+	 YfbY88bwXWgvO8FZQt0nEfmkmAzkGjQehDFvbC2t4BE0ihr0Efpm+nfq2Yh8y9IzY7
+	 Nnw+cVOL0bLxxX+PknFhOYIDSZOQOnvl6OWCZd+XRMZfNDcdbOD0ON1MZq6xhfTled
+	 NKCTLhW/nKpfSjwFqXb1Mg7AiywqLVbK2bwf+NsfDgjqQzPUsYO8X12UcL2hTdTYat
+	 Q7Cl86W2EH7+wpeqCTjhsiX61Qg+1sHRSJDVTJAq26tVuh4b29KRw1nyWPj4htsT6b
+	 /WVuQeoMG9w2A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Al Viro <viro@zeniv.linux.org.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Samuel Wu <wusamuel@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/6] functionfs: switch to simple_remove_by_name()
-Date: Sun, 19 Jul 2026 22:25:49 -0400
-Message-ID: <20260720023553.2928009-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y 5/6] functionfs: use spinlock for FFS_DEACTIVATED/FFS_CLOSING transitions
+Date: Sun, 19 Jul 2026 22:25:50 -0400
+Message-ID: <20260720023553.2928009-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260720023553.2928009-1-sashal@kernel.org>
 References: <2026071455-cultural-frenzy-db69@gregkh>
@@ -44,166 +44,115 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Al Viro <viro@zeniv.linux.org.uk>
 
-[ Upstream commit c7747fafaba0dcdad3d7da240e961927b4865f98 ]
+[ Upstream commit 2005aabe94eaab8608879d98afb901bc99bc3a31 ]
 
-No need to return dentry from ffs_sb_create_file() or keep it around
-afterwards.
+When all files are closed, functionfs needs ffs_data_reset() to be
+done before any further opens are allowed.
 
-To avoid subtle issues with getting to ffs from epfiles in
-ffs_epfiles_destroy(), pass the superblock as explicit argument.
-Callers have it anyway.
+During that time we have ffs->state set to FFS_CLOSING; that makes
+->open() fail with -EBUSY.  Once ffs_data_reset() is done, it
+switches state (to FFS_READ_DESCRIPTORS) indicating that opening
+that thing is allowed again.  There's a couple of additional twists:
+	* mounting with -o no_disconnect delays ffs_data_reset()
+from doing that at the final ->release() to the first subsequent
+open().  That's indicated by ffs->state set to FFS_DEACTIVATED;
+if open() sees that, it immediately switches to FFS_CLOSING and
+proceeds with doing ffs_data_reset() before returning to userland.
+	* a couple of usb callbacks need to force the delayed
+transition; unfortunately, they are done in locking environment
+that does not allow blocking and ffs_data_reset() can block.
+As the result, if these callbacks see FFS_DEACTIVATED, they change
+state to FFS_CLOSING and use schedule_work() to get ffs_data_reset()
+executed asynchronously.
 
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Unfortunately, the locking is rather insufficient.  A fix attempted
+in e5bf5ee26663 ("functionfs: fix the open/removal races") had closed
+a bunch of UAF, but it didn't do anything to the callbacks, lacked
+barriers in transition from FFS_CLOSING to FFS_READ_DESCRIPTORS
+_and_ it had been too heavy-handed in open()/open() serialization -
+I've used ffs->mutex for that, and it's being held over actual IO on
+ep0, complete with copy_from_user(), etc.
+
+Even more unfortunately, the userland side is apparently racy enough
+to have the resulting timing changes (no failures, just a delayed
+return of open(2)) disrupt the things quite badly.  Userland bugs
+or not, it's a clear regression that needs to be dealt with.
+
+Solution is to use a spinlock for serializing these state checks and
+transitions - unlike ffs->mutex it can be taken in these callbacks
+and it doesn't disrupt the timings in open().
+
+We could introduce a new spinlock, but it's easier to use the one
+that is already there (ffs->eps_lock) instead - the locking
+environment is safe for it in all affected places.
+
+Since now it is held over all places that alter or check the
+open count (ffs->opened), there's no need to keep that atomic_t -
+int would serve just fine and it's simpler that way.
+
+Fixes: e5bf5ee26663 ("functionfs: fix the open/removal races")
+Fixes: 18d6b32fca38 ("usb: gadget: f_fs: add "no_disconnect" mode") # v4.0
+Tested-by: Samuel Wu <wusamuel@google.com>
 Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
 Stable-dep-of: 3137b243c939 ("usb: gadget: f_fs: initialize reset_work at allocation time")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/f_fs.c | 51 +++++++++++++-----------------
- 1 file changed, 22 insertions(+), 29 deletions(-)
+ drivers/usb/gadget/function/f_fs.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 9fd06780f59923..9816d672b509c0 100644
+index 9816d672b509c0..8720ca0f64d091 100644
 --- a/drivers/usb/gadget/function/f_fs.c
 +++ b/drivers/usb/gadget/function/f_fs.c
-@@ -162,8 +162,6 @@ struct ffs_epfile {
- 	struct ffs_data			*ffs;
- 	struct ffs_ep			*ep;	/* P: ffs->eps_lock */
- 
--	struct dentry			*dentry;
--
- 	/*
- 	 * Buffer for holding data from partial reads which may happen since
- 	 * we’re rounding user read requests to a multiple of a max packet size.
-@@ -273,11 +271,11 @@ struct ffs_desc_helper {
- };
- 
- static int  __must_check ffs_epfiles_create(struct ffs_data *ffs);
--static void ffs_epfiles_destroy(struct ffs_epfile *epfiles, unsigned count);
-+static void ffs_epfiles_destroy(struct super_block *sb,
-+				struct ffs_epfile *epfiles, unsigned count);
- 
--static struct dentry *
--ffs_sb_create_file(struct super_block *sb, const char *name, void *data,
--		   const struct file_operations *fops);
-+static int ffs_sb_create_file(struct super_block *sb, const char *name,
-+			      void *data, const struct file_operations *fops);
- 
- /* Devices management *******************************************************/
- 
-@@ -1881,9 +1879,8 @@ ffs_sb_make_inode(struct super_block *sb, void *data,
- }
- 
- /* Create "regular" file */
--static struct dentry *ffs_sb_create_file(struct super_block *sb,
--					const char *name, void *data,
--					const struct file_operations *fops)
-+static int ffs_sb_create_file(struct super_block *sb, const char *name,
-+			      void *data, const struct file_operations *fops)
+@@ -3736,6 +3736,7 @@ static int ffs_func_set_alt(struct usb_function *f,
  {
- 	struct ffs_data	*ffs = sb->s_fs_info;
- 	struct dentry	*dentry;
-@@ -1891,16 +1888,16 @@ static struct dentry *ffs_sb_create_file(struct super_block *sb,
+ 	struct ffs_function *func = ffs_func_from_usb(f);
+ 	struct ffs_data *ffs = func->ffs;
++	unsigned long flags;
+ 	int ret = 0, intf;
  
- 	dentry = d_alloc_name(sb->s_root, name);
- 	if (!dentry)
--		return NULL;
-+		return -ENOMEM;
+ 	if (alt > MAX_ALT_SETTINGS)
+@@ -3748,12 +3749,15 @@ static int ffs_func_set_alt(struct usb_function *f,
+ 	if (ffs->func)
+ 		ffs_func_eps_disable(ffs->func);
  
- 	inode = ffs_sb_make_inode(sb, data, fops, NULL, &ffs->file_perms);
- 	if (!inode) {
- 		dput(dentry);
--		return NULL;
-+		return -ENOMEM;
++	spin_lock_irqsave(&ffs->eps_lock, flags);
+ 	if (ffs->state == FFS_DEACTIVATED) {
+ 		ffs->state = FFS_CLOSING;
++		spin_unlock_irqrestore(&ffs->eps_lock, flags);
+ 		INIT_WORK(&ffs->reset_work, ffs_reset_work);
+ 		schedule_work(&ffs->reset_work);
+ 		return -ENODEV;
  	}
++	spin_unlock_irqrestore(&ffs->eps_lock, flags);
  
- 	d_add(dentry, inode);
--	return dentry;
-+	return 0;
- }
- 
- /* Super block */
-@@ -1943,10 +1940,7 @@ static int ffs_sb_fill(struct super_block *sb, struct fs_context *fc)
- 		return -ENOMEM;
- 
- 	/* EP0 file */
--	if (!ffs_sb_create_file(sb, "ep0", ffs, &ffs_ep0_operations))
--		return -ENOMEM;
--
--	return 0;
-+	return ffs_sb_create_file(sb, "ep0", ffs, &ffs_ep0_operations);
- }
- 
- enum {
-@@ -2180,7 +2174,7 @@ static void ffs_data_closed(struct ffs_data *ffs)
- 							flags);
- 
- 			if (epfiles)
--				ffs_epfiles_destroy(epfiles,
-+				ffs_epfiles_destroy(ffs->sb, epfiles,
- 						 ffs->eps_count);
- 
- 			if (ffs->setup_state == FFS_SETUP_PENDING)
-@@ -2239,7 +2233,7 @@ static void ffs_data_clear(struct ffs_data *ffs)
- 	 * copy of epfile will save us from use-after-free.
- 	 */
- 	if (epfiles) {
--		ffs_epfiles_destroy(epfiles, ffs->eps_count);
-+		ffs_epfiles_destroy(ffs->sb, epfiles, ffs->eps_count);
- 		ffs->epfiles = NULL;
- 	}
- 
-@@ -2336,6 +2330,7 @@ static int ffs_epfiles_create(struct ffs_data *ffs)
+ 	if (ffs->state != FFS_ACTIVE)
+ 		return -ENODEV;
+@@ -3771,16 +3775,20 @@ static void ffs_func_disable(struct usb_function *f)
  {
- 	struct ffs_epfile *epfile, *epfiles;
- 	unsigned i, count;
-+	int err;
+ 	struct ffs_function *func = ffs_func_from_usb(f);
+ 	struct ffs_data *ffs = func->ffs;
++	unsigned long flags;
  
- 	count = ffs->eps_count;
- 	epfiles = kcalloc(count, sizeof(*epfiles), GFP_KERNEL);
-@@ -2353,12 +2348,11 @@ static int ffs_epfiles_create(struct ffs_data *ffs)
- 		else
- 			sprintf(epfile->name, "ep%u", i);
- 		epfile->in = (ffs->eps_addrmap[i] & USB_ENDPOINT_DIR_MASK) ? 1 : 0;
--		epfile->dentry = ffs_sb_create_file(ffs->sb, epfile->name,
--						 epfile,
--						 &ffs_epfile_operations);
--		if (!epfile->dentry) {
--			ffs_epfiles_destroy(epfiles, i - 1);
--			return -ENOMEM;
-+		err = ffs_sb_create_file(ffs->sb, epfile->name,
-+					 epfile, &ffs_epfile_operations);
-+		if (err) {
-+			ffs_epfiles_destroy(ffs->sb, epfiles, i - 1);
-+			return err;
- 		}
+ 	if (ffs->func)
+ 		ffs_func_eps_disable(ffs->func);
+ 
++	spin_lock_irqsave(&ffs->eps_lock, flags);
+ 	if (ffs->state == FFS_DEACTIVATED) {
+ 		ffs->state = FFS_CLOSING;
++		spin_unlock_irqrestore(&ffs->eps_lock, flags);
+ 		INIT_WORK(&ffs->reset_work, ffs_reset_work);
+ 		schedule_work(&ffs->reset_work);
+ 		return;
  	}
++	spin_unlock_irqrestore(&ffs->eps_lock, flags);
  
-@@ -2366,16 +2360,15 @@ static int ffs_epfiles_create(struct ffs_data *ffs)
- 	return 0;
- }
- 
--static void ffs_epfiles_destroy(struct ffs_epfile *epfiles, unsigned count)
-+static void ffs_epfiles_destroy(struct super_block *sb,
-+				struct ffs_epfile *epfiles, unsigned count)
- {
- 	struct ffs_epfile *epfile = epfiles;
-+	struct dentry *root = sb->s_root;
- 
- 	for (; count; --count, ++epfile) {
- 		BUG_ON(mutex_is_locked(&epfile->mutex));
--		if (epfile->dentry) {
--			simple_recursive_removal(epfile->dentry, NULL);
--			epfile->dentry = NULL;
--		}
-+		simple_remove_by_name(root, epfile->name, NULL);
- 	}
- 
- 	kfree(epfiles);
+ 	if (ffs->state == FFS_ACTIVE) {
+ 		ffs->func = NULL;
 -- 
 2.53.0
 
