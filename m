@@ -1,109 +1,238 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5A5396B9A;
-	Mon, 20 Jul 2026 06:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDB1A390986;
+	Mon, 20 Jul 2026 06:09:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784527740; cv=none; b=jAUH5JwLXvLQ1sdUMctZz1gOGAVpcKEKRkgwAFcSVygxu8rDs+wBTd2oZanMLiTJa+XzrN1x/GSSDTbWswGlvRPHKeYguJRjtV1PvqP25oRw7reiR2vK8bu2qfInHuyl3I+mwaJXjDoHYHuqFtId8yMk65deP6Ky9vGEYfRFb28=
+	t=1784527751; cv=none; b=jWi9f9hSpZz4edxw/Jzdwd0ZdA0ucPiJwomZnEQOaFrY/SvxqGEPwdLq1qIb9EI6OYuLWaZjejGUjXKrMYnCqRFUjP4nz7DQ1l+BH6CCgYOHdO54WZgU3w5zGCrYWQ/wZBCi+JZXaaasxUNUtdZiM6M3Mu5T9v1QYa+ryd9fv9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784527740; c=relaxed/simple;
-	bh=4JPdDSZPLoNcjwbTXCJzkIN+Z3+z0tCrOV2TrQcHiw8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vBcWdwTKquBvdEdXTrm1Q/yrFGXqiMcqCbT/DXTLtNm44h6I/WhLMdwboW4QguQ1FAQf/3xB8A+WjEHsHxShRIAmPhHSLIaehTJ7HmrglBFmrrhKXqLjG3XZ2VJwmsmcs3kriK1r3xMpn1m2SgHOUAb0LW08iyO9kvhYmyTaFdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H24bv4XQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784527751; c=relaxed/simple;
+	bh=xlRZXYo+gI9Iqt3i1PyD44CPK395Ynsfk2045Be+ydE=;
+	h=Date:To:From:Subject:Message-Id; b=BMOTb1sFeQUXNNp5z4mQRUqNYPj/T8rG4H2k0jxH35ZLVJUVBianCm6Zd1aTRxhSpNaK6gzkgfujpuXCW41LnCggL5qHqfA2uzQ/wIz0OLtCCYIchsG+WgK1cupNMLWgUN1elfSj/liaAaX7G48SFTvcWXmg5P2OH/hwk+Ti0Bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=IQXlBd7h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H24bv4XQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E37641F000E9;
-	Mon, 20 Jul 2026 06:08:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784527732;
-	bh=hkHEouwlt6hTQycxY0xmps0aXJ7t4g0QoU7CcIZyP0A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=H24bv4XQlfV4zDZkBw/7RFPhsl3KklE1tAg43IUq7o24exyMNm0A8lr07djG2uu85
-	 lHNbzVXAcb8PVNDpLyRDalMLAHhNnEq2zZbaN9+HjeAL36zfWa4mOC1VRq1REsPI6F
-	 iWIO8cxHdNPSamZaXnB/uNgmt76CzSHUX4ikXqYNaolgKN+VcU1O0LQDWjmdEhZ5SQ
-	 eyrNY39koWSCANnRvSen5CUVFtWW6hzyQbHjJykotK/5ybfHNPn5E82NC6Lcs8OV+y
-	 2grAVGennoA05G8OcqZtgA8sWiYhzCd1fpTeCQNZQHyW8obZzn1/vODbpVEAQp1Bhl
-	 yai/hZj7nI5FQ==
-Message-ID: <0d58c9fe-7aed-43dd-8d00-6edfee9e2876@kernel.org>
-Date: Mon, 20 Jul 2026 08:08:48 +0200
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="IQXlBd7h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DCC61F000E9;
+	Mon, 20 Jul 2026 06:09:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784527742;
+	bh=wqA++d67hOG4dNKoh7Eq+tePc85W37shNzcVrnrU6Eg=;
+	h=Date:To:From:Subject;
+	b=IQXlBd7hqP3jdMMCpdTyyoAl3vek/LQOyAECEVK48rOHoEyniMHfG6exIT7ROxPFV
+	 jYB9MRkVTbS0Bvguc4PrQTTpAplQpbBUgbR/cRdbiwvEsmj+8RSxlW/ideYI4goM5g
+	 J+zWnNg5vfJmP0uBCOkqGo2yEiKm3J0nCthZdnU4=
+Date: Sun, 19 Jul 2026 23:09:02 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-damon-ops-common-use-nr_accesses-moving-sum-for-quota-score.patch added to mm-new branch
+Message-Id: <20260720060902.6DCC61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] serial: 8250: validate iomem_base in
- serial8250_verify_port()
-To: Mingyu Wang <25181214217@stu.xidian.edu.cn>, gregkh@linuxfoundation.org
-Cc: ilpo.jarvinen@linux.intel.com, john.ogness@linutronix.de,
- andriy.shevchenko@linux.intel.com, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org, syzkaller@googlegroups.com,
- stable@vger.kernel.org
-References: <20260720053733.102186-1-25181214217@stu.xidian.edu.cn>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20260720053733.102186-1-25181214217@stu.xidian.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 20. 07. 26, 7:37, Mingyu Wang wrote:
-> Fix this by tightening the validation in serial8250_verify_port().
-> Reject any TIOCSSERIAL requests that attempt to modify the io_type
-> to/from memory-mapped types, or change the iomem_base of an existing
-> memory-mapped port. Userspace can still legitimately modify IRQs or
-> baud rates of MMIO ports as long as the io_type and mapbase remain
-> unchanged.
 
-Pardon my ignorance, but isn't TIOCSSERIAL intended exactly to change 
-the type or mapbase when needed for ports without UPF_FIXED_PORT (and 
-under root)?
+The patch titled
+     Subject: mm/damon/ops-common: use nr_accesses moving sum for quota score
+has been added to the -mm mm-new branch.  Its filename is
+     mm-damon-ops-common-use-nr_accesses-moving-sum-for-quota-score.patch
 
-thanks,
--- 
-js
-suse labs
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-ops-common-use-nr_accesses-moving-sum-for-quota-score.patch
+
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: SJ Park <sj@kernel.org>
+Subject: mm/damon/ops-common: use nr_accesses moving sum for quota score
+Date: Sun, 19 Jul 2026 09:11:33 -0700
+
+Since commit 42f994b71404 ("mm/damon/core: implement scheme-specific apply
+interval"), DAMOS scheme can be applied at any time.  At that time,
+nr_accesses may not be fully aggregated.  But the quota prioritization
+score is calculated using the not fully aggregated count.  As a result,
+the performance of DAMOS could be degraded.  Fix by using
+damon_nr_accesses_mvsum() instead.
+
+The user impact of the issue is suboptimum DAMOS performance under certain
+setups.  Nonetheless, the bug was there from the beginning of the setup
+availability.  In other words, the suboptimum performance is the baseline
+of the setup and hence it didn't cause regression.  Also the extent of the
+suboptimality was not big enough to be found from users and testers. 
+Still, this is a clear bug that is better to be fixed, and can be easily
+fixed.
+
+Link: https://lore.kernel.org/20260719161136.90191-1-sj@kernel.org
+Fixes: 42f994b71404 ("mm/damon/core: implement scheme-specific apply interval")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.7.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/damon/ops-common.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+--- a/mm/damon/ops-common.c~mm-damon-ops-common-use-nr_accesses-moving-sum-for-quota-score
++++ a/mm/damon/ops-common.c
+@@ -111,8 +111,9 @@ int damon_hot_score(struct damon_ctx *c,
+ 	unsigned int age_weight = s->quota.weight_age;
+ 	int hotness;
+ 
+-	freq_subscore = r->nr_accesses * DAMON_MAX_SUBSCORE /
+-		damon_nr_samples_per_aggr(&c->attrs);
++	freq_subscore = mult_frac(damon_nr_accesses_mvsum(r, c),
++			DAMON_MAX_SUBSCORE,
++			damon_nr_samples_per_aggr(&c->attrs));
+ 
+ 	age_in_sec = (unsigned long)r->age * c->attrs.aggr_interval / 1000000;
+ 	if (age_in_sec)
+_
+
+Patches currently in -mm which might be from sj@kernel.org are
+
+samples-damon-wsse-handle-damon_start-failure.patch
+samples-damon-prcl-handle-damon_start-failure.patch
+samples-damon-mtier-handle-damon_start-failure.patch
+samples-damon-mtier-handle-damon_stop-failure.patch
+samples-damon-wsse-stop-and-free-damon-ctx-when-damon_call-fails.patch
+samples-damon-prcl-stop-and-free-damon-ctx-when-damon_call-fails.patch
+mm-damon-sysfs-kobject_del-target-normal-context-and-kdamond-dirs.patch
+mm-damon-sysfs-kobject_del-region-and-target-error-dirs.patch
+mm-damon-sysfs-schemes-kobject_del-scheme-dirs.patch
+mm-damon-sysfs-schemes-kobject_del-scheme-region-dirs.patch
+mm-damon-sysfs-schemes-kobject_del-scheme-filter-dirs.patch
+mm-damon-sysfs-schemes-kobject_del-scheme-quota-goal-dirs.patch
+mm-damon-sysfs-schemes-kobject_del-scheme-action-destination-dirs.patch
+mm-damon-sysfs-kobject_del-probe-dirs.patch
+mm-damon-sysfs-kobject_del-probe-filter-dirs.patch
+mm-damon-sysfs-kobject_del-probe-dirs-in-probes_addd_dir-error-path.patch
+mm-damon-sysfs-schemes-kobject_del-region-for-populate_region-error.patch
+docs-mm-damon-design-update-for-damos_quota_node_eligible_mem_bp.patch
+docs-abi-damon-document-probe-files.patch
+mm-damon-tests-core-kunit-test-damon_rand.patch
+selftests-damon-sysfssh-test-multiple-probe-dirs-creation.patch
+selftests-damon-sysfssh-test-coreops_filters-directories.patch
+selftests-damon-sysfssh-test-dests-dir.patch
+selftests-damon-sysfssh-test-all-files-in-quota-goal-dir.patch
+mm-damon-core-reduce-range-setup-in-damon_commit_target_regions.patch
+mm-damon-sysfs-split-probe-setup-function-out.patch
+mm-damon-sysfs-split-out-filters-setup-function.patch
+mm-damon-sysfs-fix-typos-in-probe_addrm_dirs-s-attr-probe.patch
+mm-damon-core-introduce-damon_nr_accesses_mvsum.patch
+mm-damon-tests-core-kunit-test-damon_mvsum.patch
+mm-damon-core-always-update-last_nr_accesses-for-intervals-change.patch
+mm-damon-core-handle-unreset-nr_accesses-in-damon_nr_accesses_mvsum.patch
+mm-damon-core-use-damon_nr_accesses_mvsum-in-__damos_valid_target.patch
+mm-damon-core-use-damon_nr_accesses_mvsum-for-damos-region-tracing.patch
+mm-damon-sysfs-schemes-use-damon_nr_accesses_mvsum-for-damo-regions.patch
+mm-damon-core-remove-damon_warn_fix_nr_accesses_corruption.patch
+mm-damon-core-remove-damon_verify_reset_aggregated.patch
+mm-damon-core-remove-damon_verify_merge_regions_of.patch
+mm-damon-tests-core-kunit-remove-nr_accesses_bp-setup-and-tests.patch
+selftests-damon-drgn_dump_damon_status-do-not-dump-nr_accesses_bp.patch
+mm-damon-core-remove-nr_accesses_bp-setups-and-updates.patch
+mm-damon-core-remove-attrs-param-from-damon_update_region_access_rate.patch
+mm-damon-paddr-remove-attrs-param-from-__damon_pa_check_access.patch
+mm-damon-vaddr-remove-attrs-param-from-__damon_va_check_access.patch
+mm-damon-core-remove-damon_moving_sum-and-its-unit-test.patch
+mm-damon-core-remove-damon_region-nr_accesses_bp.patch
+mm-damon-add-damon_region-last_probe_hits.patch
+mm-damon-core-introduce-damon_probe_hits_mvsum.patch
+mm-damon-sysfs-schemes-set-probe-hits-as-pseudo-moving-sums.patch
+mm-damon-core-safely-validate-src-on-damon_commit_ctx.patch
+mm-damon-core-do-parameter-testing-commit-on-damon_start.patch
+mm-damon-sysfs-remove-duplicated-commit-input-validity-check.patch
+mm-damon-reclaim-remove-duplicated-min_region_sz-power-of-2-check.patch
+mm-damon-lru_sort-remove-duplicated-min_region_sz-power_of_2-check.patch
+mm-damon-document-region-size-validation-in-damon_set_regions.patch
+mm-damon-core-remove-start-end-check-in-damon_set_region_system_rams.patch
+mm-damon-sysfs-remove-region-size-validation.patch
+mm-damon-core-stop-ctxs-in-damon_start-before-returning-an-error.patch
+samples-damon-mtier-do-not-stop-first-context-for-damon_start-failure.patch
+mm-damon-core-make-damon_stop-never-fails.patch
+mm-damon-sysfs-ignore-damon_stop-return-value.patch
+mm-damon-reclaaim-ignore-damon_stop-return-value.patch
+mm-damon-lru_sort-ignore-damon_stop-return-value.patch
+mm-damon-core-change-damon_stop-return-type-to-void.patch
+samples-damon-mtier-stop-all-contexts-with-single-damon_stop-call.patch
+mm-damon-core-wait-ctx-stop-in-damon_call-before-reruning-an-error.patch
+samples-damon-wsse-do-not-stop-ctx-for-damon_call-failure.patch
+samples-damon-prcl-do-not-stop-damon-for-damon_call-failure.patch
+mm-damon-core-remove-comment-and-test-for-nr_to_bp-divide-by-zero.patch
+mm-damon-core-s-damon_max_nr_accesses-damon_nr_samples_per_aggr.patch
+mm-damon-core-s-accesses_bp_to_nr_accesses-sample_bp_to_count.patch
+mm-damon-core-s-nr_accesses_to_accesses_bp-sample_count_to_bp.patch
+mm-damon-core-s-nr_accesses_for_new_attrs-nr_samples_for_new_attrs.patch
+mm-damon-core-update-probe-hits-for-new-parameter-commit.patch
+mm-damon-core-handle-unreset-probe_hits-in-probe_hits_mvsum.patch
+mm-damon-core-introduce-damon_probe-weight.patch
+mm-damon-core-ask-apply_probes-ops-callback-to-set-sampling-address.patch
+mm-damon-paddr-set-samples-in-apply_probes-if-requested.patch
+mm-damon-core-ask-apply_probe-to-return-max-probe-hits-weighted-sum.patch
+mm-damon-core-implement-damon_probe_hits_wsum.patch
+mm-damon-paddr-respect-return_max_wsum.patch
+mm-damon-core-use-abs_diff-instead-of-abs.patch
+mm-damon-core-extend-merge-function-to-work-with-probe-hits.patch
+mm-damon-core-disallow-probe_hits-overflow-on-attrs-only-monitoring.patch
+mm-damon-core-validate-params-for-probe-hits-weighted-sum-overflow.patch
+mm-damon-core-disable-access-monitoring-when-probe-weights-are-set.patch
+mm-damon-core-set-samples-in-apply_probes-if-probe-weights-are-set.patch
+mm-damon-core-s-max_nr_accesses-max_merge_score-in-kdamond_fn.patch
+mm-damon-core-get-merge-threshold-from-probe-hits-when-weights-are-set.patch
+mm-damon-core-implement-damon_has_probe_weight.patch
+mm-damon-sysfs-implement-probe-weight-file.patch
+docs-mm-damon-design-document-attrs-only-monitoring.patch
+docs-admin-guide-mm-damon-usage-document-weight-sysfs-file.patch
+docs-abi-damon-document-probe-weight-file.patch
+mm-damon-core-skip-aging-from-repeated-aggressive-merging.patch
+mm-damon-core-hide-private-damon_region-fields.patch
+mm-damon-core-hide-private-damon_target-fields.patch
+mm-damon-core-hide-private-damos_quota_goal-fields.patch
+mm-damon-core-hide-private-damos_quota-fields.patch
+mm-damon-core-hide-private-damos_filter-fields.patch
+mm-damon-core-hide-private-damos-fields.patch
+mm-damon-core-hide-private-damon_filter-fields.patch
+mm-damon-core-hide-private-damon_probe-fields.patch
+mm-damon-sysfs-do-not-directly-access-damon_ctx-ops.patch
+mm-damon-core-hide-core-private-damon_ctx-fields.patch
+mm-damon-core-avoid-infinite-kdamond_merge_regions-internal-loop.patch
+mm-damon-tests-core-kunit-catch-test-failure-in-test_merge_regions_of.patch
+mm-damon-vaddr-drop-last-same-folio-access-check-optimization.patch
+mm-damon-paddr-drop-last-same-folio-access-check-reuse-optimization.patch
+mm-damon-sysfs-read-addr_unit-only-once-in-damon_sysfs_apply_inputs.patch
+mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
+mm-damon-core-initialize-damos-last_applied.patch
+mm-damon-core-kunit-check-region-count-before-testing-in-split_at.patch
+mm-damon-vaddr-kunit-check-region-count-in-three_regions-test.patch
+mm-damon-core-kunit-handle-region-split-failure-in-filter_out.patch
+mm-damon-core-kunit-skip-wrong-dest-walk-in-commit_dests_for.patch
+mm-damon-core-kunit-skip-wrong-quota-goal-walk-in-commit_quota_goals.patch
+mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions.patch
+mm-damon-ops-common-use-nr_accesses-moving-sum-for-quota-score.patch
+
