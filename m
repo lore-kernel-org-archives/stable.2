@@ -1,39 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCCA2620DE
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 02:35:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0B3134CF
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 02:35:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784514959; cv=none; b=mwlmXJhCWXqeJg+dfbrLNxuTUcYN9gFDf2zDAYZIRi48casA5fFeqz1VHWHFVk+3OuVJ+jsGsR4gZDjpntyVkmMlh7uSj31CWk9KJU3lVJk1En1ih1sZvGZfi4w7Kdvu8bqfYdISiyM+Uu4hFVqIrTFpPsxyaZbL/9IGKk60fY0=
+	t=1784514961; cv=none; b=S4P7QB4kQ6Mir2T3acq29kj1zW2tNPUcFPPTDeATQFL3T4zliOEaIA1e6TIwcbhrnArgoCXV4PJhGgPkIVyZX/ZZEdABZ/090NcLJjWisyBAkgtoOboTdWWLdbCAu05DhvHgfl3ickd6GVD3lAv88sIQvLZoFKoS1aM3ixfSA/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784514959; c=relaxed/simple;
-	bh=EYYSljluAoaLLGAF9OrnT9cj0le6PnoXmkjBbKL16ps=;
+	s=arc-20240116; t=1784514961; c=relaxed/simple;
+	bh=r+qXIReAXR0YBorsmGQqVRSdL1AKQ5RhnBP0XebuRoE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U2dI7W9ebUwNupw8di8m8+Itth63/o9EU/kCvIVYgEwL1BdjdjEpjONgz1Xzktq7o+uLu9zxxdgbnX4a7uLbNxmgb+cg/sZUez8OMd9uEXMN/y8sNlIusWhmqC2wW9X0777961W5GNsfrm2J4K7aMkmkn089IONTUa04AHVizYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iA4ROBL+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Ixu1PYKc6js6H4kPCbll3d9p1KVs38r02acb5THVPGxkLkYleKQV/HIpZDewD2/I+J6pjJlLrvGQwUXt6R6dZA7aulqHPTZt/jQ+QwhuBOosFldC1K705DOaGnwhIG0FXdAFup0M+2bQpwpnEKHy9izFNXwKjXNSdPQ1MbNAe8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jnh18VeB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iA4ROBL+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26D251F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jnh18VeB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2691F00A3E;
 	Mon, 20 Jul 2026 02:35:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784514958;
-	bh=rHTzs8F3n/Rl+3QnCI+mBGHCao8Dh9ynsaFaDtWTfRQ=;
+	s=k20260515; t=1784514959;
+	bh=RCZ6OuRmEG/XEUklMqunOKdTQjApK0ifLobEXUZ2QXk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iA4ROBL+zuYn88s1OFd011xHdUjpTMSyvvyZq1cpYhD3W24wJNzl9EMk+YD+/vT3z
-	 YfbY88bwXWgvO8FZQt0nEfmkmAzkGjQehDFvbC2t4BE0ihr0Efpm+nfq2Yh8y9IzY7
-	 Nnw+cVOL0bLxxX+PknFhOYIDSZOQOnvl6OWCZd+XRMZfNDcdbOD0ON1MZq6xhfTled
-	 NKCTLhW/nKpfSjwFqXb1Mg7AiywqLVbK2bwf+NsfDgjqQzPUsYO8X12UcL2hTdTYat
-	 Q7Cl86W2EH7+wpeqCTjhsiX61Qg+1sHRSJDVTJAq26tVuh4b29KRw1nyWPj4htsT6b
-	 /WVuQeoMG9w2A==
+	b=jnh18VeByQtQZI0wGzA+w4QCHxhM4HMRd6vBdu08Mxr3ZxQMQ44T25yHq3OeDoOhO
+	 Ao3I4r7wJKcm5scIgKrEdrC91YO9wPKcI78l4B8DBqi2uyijo5y3XNHWSSj34BUPS9
+	 uJ9ElX3HtMUyOlw+MCuLIkRNyna5Qk4MjYcOLAA8s6reZJXpWsRHNfA7LHHkdYK1ZM
+	 CRZ1ehl9NubiJLWM9cHYpzUymdm8gLNMe9vna/qlsyxpoFOsW9V9WK0X0UFjQAkV3x
+	 6AGyKn8cf7tbRko/G7JnHAEGOdSQzLsYplWUcfuGl7hVVLM/VukYdyIbC92zrjC9fp
+	 s4/TS7ip0YwFQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Al Viro <viro@zeniv.linux.org.uk>,
-	Samuel Wu <wusamuel@google.com>,
+Cc: Tyler Baker <tyler.baker@oss.qualcomm.com>,
+	stable <stable@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Peter Chen <peter.chen@kernel.org>,
+	=?UTF-8?q?Micha=C5=82=20Nazarewicz?= <mina86@mina86.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 5/6] functionfs: use spinlock for FFS_DEACTIVATED/FFS_CLOSING transitions
-Date: Sun, 19 Jul 2026 22:25:50 -0400
-Message-ID: <20260720023553.2928009-5-sashal@kernel.org>
+Subject: [PATCH 6.18.y 6/6] usb: gadget: f_fs: initialize reset_work at allocation time
+Date: Sun, 19 Jul 2026 22:25:51 -0400
+Message-ID: <20260720023553.2928009-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260720023553.2928009-1-sashal@kernel.org>
 References: <2026071455-cultural-frenzy-db69@gregkh>
@@ -44,115 +50,103 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Al Viro <viro@zeniv.linux.org.uk>
+From: Tyler Baker <tyler.baker@oss.qualcomm.com>
 
-[ Upstream commit 2005aabe94eaab8608879d98afb901bc99bc3a31 ]
+[ Upstream commit 3137b243c93982fe3460335e12f9247739766e10 ]
 
-When all files are closed, functionfs needs ffs_data_reset() to be
-done before any further opens are allowed.
+ffs_fs_kill_sb() unconditionally calls cancel_work_sync() on
+ffs->reset_work when a functionfs instance is unmounted:
 
-During that time we have ffs->state set to FFS_CLOSING; that makes
-->open() fail with -EBUSY.  Once ffs_data_reset() is done, it
-switches state (to FFS_READ_DESCRIPTORS) indicating that opening
-that thing is allowed again.  There's a couple of additional twists:
-	* mounting with -o no_disconnect delays ffs_data_reset()
-from doing that at the final ->release() to the first subsequent
-open().  That's indicated by ffs->state set to FFS_DEACTIVATED;
-if open() sees that, it immediately switches to FFS_CLOSING and
-proceeds with doing ffs_data_reset() before returning to userland.
-	* a couple of usb callbacks need to force the delayed
-transition; unfortunately, they are done in locking environment
-that does not allow blocking and ffs_data_reset() can block.
-As the result, if these callbacks see FFS_DEACTIVATED, they change
-state to FFS_CLOSING and use schedule_work() to get ffs_data_reset()
-executed asynchronously.
+	ffs_data_reset(ffs);
+	cancel_work_sync(&ffs->reset_work);
 
-Unfortunately, the locking is rather insufficient.  A fix attempted
-in e5bf5ee26663 ("functionfs: fix the open/removal races") had closed
-a bunch of UAF, but it didn't do anything to the callbacks, lacked
-barriers in transition from FFS_CLOSING to FFS_READ_DESCRIPTORS
-_and_ it had been too heavy-handed in open()/open() serialization -
-I've used ffs->mutex for that, and it's being held over actual IO on
-ep0, complete with copy_from_user(), etc.
+However ffs->reset_work is only ever initialized via INIT_WORK() in
+ffs_func_set_alt() and ffs_func_disable(), and only on the
+FFS_DEACTIVATED path. That state is reached solely by ffs_data_closed()
+when the instance is mounted with the "no_disconnect" option, so for the
+common case (no "no_disconnect", or mounted and unmounted without ever
+being deactivated) reset_work is never initialized.
 
-Even more unfortunately, the userland side is apparently racy enough
-to have the resulting timing changes (no failures, just a delayed
-return of open(2)) disrupt the things quite badly.  Userland bugs
-or not, it's a clear regression that needs to be dealt with.
+ffs_data_new() allocates the ffs_data with kzalloc_obj() and does not
+initialize reset_work, and ffs_data_reset()/ffs_data_clear() do not touch
+it either, so reset_work.func is left NULL. cancel_work_sync() on such a
+work then trips the WARN_ON(!work->func) guard in __flush_work():
 
-Solution is to use a spinlock for serializing these state checks and
-transitions - unlike ffs->mutex it can be taken in these callbacks
-and it doesn't disrupt the timings in open().
+  WARNING: kernel/workqueue.c:4301 at __flush_work+0x330/0x360, CPU#3: umount
+  Call trace:
+   __flush_work
+   cancel_work_sync
+   ffs_fs_kill_sb [usb_f_fs]
+   deactivate_locked_super
+   deactivate_super
+   cleanup_mnt
+   __cleanup_mnt
+   task_work_run
+   exit_to_user_mode_loop
+   el0_svc
 
-We could introduce a new spinlock, but it's easier to use the one
-that is already there (ffs->eps_lock) instead - the locking
-environment is safe for it in all affected places.
+On older kernels cancel_work_sync() on a zero-initialized work struct was
+a silent no-op, which hid the missing initialization.
 
-Since now it is held over all places that alter or check the
-open count (ffs->opened), there's no need to keep that atomic_t -
-int would serve just fine and it's simpler that way.
+Initialize reset_work once in ffs_data_new() so it is always valid for
+the lifetime of the ffs_data, and drop the now-redundant INIT_WORK()
+calls from the two deactivation paths.
 
-Fixes: e5bf5ee26663 ("functionfs: fix the open/removal races")
-Fixes: 18d6b32fca38 ("usb: gadget: f_fs: add "no_disconnect" mode") # v4.0
-Tested-by: Samuel Wu <wusamuel@google.com>
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Stable-dep-of: 3137b243c939 ("usb: gadget: f_fs: initialize reset_work at allocation time")
+Fixes: 18d6b32fca38 ("usb: gadget: f_fs: add "no_disconnect" mode")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Tested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Reviewed-by: Peter Chen <peter.chen@kernel.org>
+Acked-by: Michał Nazarewicz <mina86@mina86.com>
+Link: https://patch.msgid.link/20260609193635.2284430-1-tyler.baker@oss.qualcomm.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/f_fs.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/usb/gadget/function/f_fs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 9816d672b509c0..8720ca0f64d091 100644
+index 8720ca0f64d091..deeb43836197a3 100644
 --- a/drivers/usb/gadget/function/f_fs.c
 +++ b/drivers/usb/gadget/function/f_fs.c
-@@ -3736,6 +3736,7 @@ static int ffs_func_set_alt(struct usb_function *f,
- {
- 	struct ffs_function *func = ffs_func_from_usb(f);
- 	struct ffs_data *ffs = func->ffs;
-+	unsigned long flags;
- 	int ret = 0, intf;
+@@ -289,6 +289,7 @@ static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data);
+ static void ffs_release_dev(struct ffs_dev *ffs_dev);
+ static int ffs_ready(struct ffs_data *ffs);
+ static void ffs_closed(struct ffs_data *ffs);
++static void ffs_reset_work(struct work_struct *work);
  
- 	if (alt > MAX_ALT_SETTINGS)
-@@ -3748,12 +3749,15 @@ static int ffs_func_set_alt(struct usb_function *f,
- 	if (ffs->func)
- 		ffs_func_eps_disable(ffs->func);
+ /* Misc helper functions ****************************************************/
  
-+	spin_lock_irqsave(&ffs->eps_lock, flags);
+@@ -2206,6 +2207,7 @@ static struct ffs_data *ffs_data_new(const char *dev_name)
+ 	init_waitqueue_head(&ffs->ev.waitq);
+ 	init_waitqueue_head(&ffs->wait);
+ 	init_completion(&ffs->ep0req_completion);
++	INIT_WORK(&ffs->reset_work, ffs_reset_work);
+ 
+ 	/* XXX REVISIT need to update it in some places, or do we? */
+ 	ffs->ev.can_stall = 1;
+@@ -3753,7 +3755,6 @@ static int ffs_func_set_alt(struct usb_function *f,
  	if (ffs->state == FFS_DEACTIVATED) {
  		ffs->state = FFS_CLOSING;
-+		spin_unlock_irqrestore(&ffs->eps_lock, flags);
- 		INIT_WORK(&ffs->reset_work, ffs_reset_work);
+ 		spin_unlock_irqrestore(&ffs->eps_lock, flags);
+-		INIT_WORK(&ffs->reset_work, ffs_reset_work);
  		schedule_work(&ffs->reset_work);
  		return -ENODEV;
  	}
-+	spin_unlock_irqrestore(&ffs->eps_lock, flags);
- 
- 	if (ffs->state != FFS_ACTIVE)
- 		return -ENODEV;
-@@ -3771,16 +3775,20 @@ static void ffs_func_disable(struct usb_function *f)
- {
- 	struct ffs_function *func = ffs_func_from_usb(f);
- 	struct ffs_data *ffs = func->ffs;
-+	unsigned long flags;
- 
- 	if (ffs->func)
- 		ffs_func_eps_disable(ffs->func);
- 
-+	spin_lock_irqsave(&ffs->eps_lock, flags);
+@@ -3784,7 +3785,6 @@ static void ffs_func_disable(struct usb_function *f)
  	if (ffs->state == FFS_DEACTIVATED) {
  		ffs->state = FFS_CLOSING;
-+		spin_unlock_irqrestore(&ffs->eps_lock, flags);
- 		INIT_WORK(&ffs->reset_work, ffs_reset_work);
+ 		spin_unlock_irqrestore(&ffs->eps_lock, flags);
+-		INIT_WORK(&ffs->reset_work, ffs_reset_work);
  		schedule_work(&ffs->reset_work);
  		return;
  	}
-+	spin_unlock_irqrestore(&ffs->eps_lock, flags);
- 
- 	if (ffs->state == FFS_ACTIVE) {
- 		ffs->func = NULL;
 -- 
 2.53.0
 
