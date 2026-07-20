@@ -1,75 +1,71 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2F43A3E6F
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 19:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C8D392822
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 19:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784574808; cv=none; b=pyHyxdFkHmVu+GCFIHa9l52y4BQNIGxfpNwQYs03cGE4xNJDc5msXyJSAdQKSgmhwP0QS1M9A+UZpMiPNqUI4YgCBb/DBxmn14dr3wIgXfzWZ4HdTvD+48yyl8JRIDbBS3A3vyrKn6SPgMyumiCyOdIDMiarcdYGSwVIHw0MlrA=
+	t=1784574930; cv=none; b=GXc0mUzAH9xSzgKjBw6J0t2Qor3l7QCfXnp6sos81Q3BQMfO5uXVhEP3uHporpSn6qM51zCu1bZG/G78qoERFx34qGbolaFD8cIy9Fn6DCgeA2KmsRGQ1Ax7yhRovMobVVqQjVN0LV9Ihxb2GKK5hsIxqFN0GrqW+28sPYOK6UU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784574808; c=relaxed/simple;
-	bh=n9hjvS79Gw4F+TRn7WgQGmj61r8D4HoJDfkprX6ec5M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bRc48OCubhWCtI7krPzt/7fu95dQI8jo6etX9uWVDPT8uopNgnSexHOG95nXXcW/fp/3vTXy4XypBbO/8c3z+tdubGA9lHHLbDjHI+RHD3fUjHWNSugUEjmyOkaCpiwaV5gb3IdMsDgql7frTALTidNOpSWm2wQu5zurY7e/lTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=fwj+4wkL; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1784574930; c=relaxed/simple;
+	bh=xGOyn27kAb2aUQ2aktYzNNe4IoaFrQIOT8r1ok3Xtr0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pDGBcKQPxDNpmsP3/MZlvIxfVh2e5W/3EWFFFFKTRvUoFg4oiUXocv70TOJxCbClti8YTaJ72aVxUBkJuvgGL+vt/Y7SsFaGslt10Lk7yVk1CY6u3QEne9ETxZGjV+47sYC4or6ZwDCaf33ZEEOst9hEezHQL7X19mZy3YQ1CVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=boesQUmc; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="fwj+4wkL"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4955484387cso12590935e9.1
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:13:26 -0700 (PDT)
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="boesQUmc"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47de0093c42so5761656f8f.3
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:15:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1784574805; x=1785179605; darn=vger.kernel.org;
+        d=0sec.ai; s=google; t=1784574927; x=1785179727; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xKFoZd3/2cdDCdHVjqGsrFciG9zJW2+KmWDiRs5og20=;
-        b=fwj+4wkLC6PRhYdKyUZFyyaOrLjMUH3IsWa0MEsZFpmtUf3Wb9RwAZxriRHppMwpA4
-         WGj8NnPsR0wTSn3GoyzVE44leVL9fZ71cXtCIBJ3dwnkgczYfv56gYRVgwT48m/rnXG7
-         HIwMRgFeBBqbg4X0tKuQEY14UKIxSpRaRUcRDU+7R7saJgZuB35g2upMSNnJqPuCHGim
-         Rba1nYnrUfec3DxLNsmJ+T5cXRmb3Il67zsHkryz7nkLtrMqDDZ0Kkj1NvMVdj/xlWMU
-         SsEIzaPsWBnwn/I1rdh7cDd8JEn7dx1qKyDWfF4HEPq4N+khmL6WHdWaAvbs7HgG6S1T
-         oKBA==
+        bh=5XDxWfj8KWZ9DgniRwAUL8R0m0HpW65KqxOgihYK1aU=;
+        b=boesQUmcQve0LMfhp8Sq8RPEztONnkxYK9HAlpScNDaJZVI6NdiLf5cxWAozBZIvgB
+         DpbTKWb/uSgIZxf7BsQDfbDxAfRq16VqzmPnhXrZWNzwZPSmPUXUO5gCVINPbhNPbVbo
+         iUMPd4r+QKJV/JjOaSACnaOWS/9M8JgMFl6DKpmqVjjG0mqkKJ0NpNu72WllB9+EuoYF
+         idCnNxdAv2bHOKs7ABSfxONA1R4/rFWwHGVdwKlHADqeT5ppGpmdEPIT3dYNYyzPLELp
+         alKdijUvXcdFd9o8iAru8fXgfk1bFhrwdddU2VFskSfvypgzduhCAS1AeL9Cfv8c12pv
+         GdvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784574805; x=1785179605;
+        d=1e100.net; s=20251104; t=1784574927; x=1785179727;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xKFoZd3/2cdDCdHVjqGsrFciG9zJW2+KmWDiRs5og20=;
-        b=em/D6Lt4WbuiLZiJkYnueOdNBrw0YBIEjqXUZVqP+fy2LHyuz/BII7k2lubfLQyPKY
-         5TuTKsubN6tMA2beZ/xD/NJyFO2fGAJS659pqBaAOuj8Nhn+y/jC59uVCJE9iL98qZxo
-         9quGMzt1SrJGXiFmbcL89JDaWL+ed1qHkWnKNrWC8OdfXF3h786mdsJcbCf9LcFlwvuH
-         /7TO/d2qaa/bdsEdrtjaT2kIVj6AEucOhr9V2aIZ3Js1XxkwIvd1HPGgDMXyWDwF8fXu
-         wXG6sVUyI9/kd+ZSovWPbvi/6tfWZTz9+R00mx7+k7XBHQVysanKn80NR/KW+czCxsiC
-         4l+A==
-X-Forwarded-Encrypted: i=1; AHgh+RqEsQltIBxvTCB7A6Qj/I3rxlKjnlCZu3o5/Cg11OC1a+qdtwGEXhShCkuSXO8PIaC979f2V34=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQuCt3vGP8cjLdaksg3jCk76n0gicLKtrtkryRHrtyQMpqmtkY
-	70IkPpD5L8o6nCS1izuCSkasxX+dlw/NZ4ITdxm41flx+4ERqCRnNh7P8TMG64/w2frd
-X-Gm-Gg: AfdE7ckx9bhGPiYfMU2/HJh4H7IUyCU4a/Y4OXQyL16AGXBLLOUrMGUttFhxnwRJfL7
-	mp1TOFXxE39GeZ/xiCx2uo9IPjjeo6WkVwDzwJSkBJfwpYMf1njZuwYPyDnGeNk0lCzXXHrYWa9
-	TSaniKGQMjif36JO8QbKd2SlJe8FfI3IVa8tjXHhMbtRVMgFcAR4I+bxd7WIw3kPqCA0ae6OlPv
-	smuE898P3+alnZvCqOHGb89Sp2lRNF7QOw+TE5u7P/agGpLqDh6I3GbjfpPfMS6kRbllWnCh+Mj
-	AYhjEx+6MkIIXeQxbcpVuhGNvCcrGhykJsn+tiheju4hL/RH94wZuZYkYmuwCh2QbnWYjwEPBMx
-	Uo+m/DH+ftZ1qYTRFsi6XnU6r3aintJ+9QesWQ2fZvEneUmcTz/BpV5duVD3mT83VycjK1CxYu3
-	3a3JXN14AlhIpVXLJGndyrv8SHungtB7Syb8haWCbEbrtGNgljF+oqmFq/lWJDyPeCIe1qLSweG
-	LtZZf8p6ReudWLG8jU4rQos
-X-Received: by 2002:a05:600c:2204:b0:492:3754:15f2 with SMTP id 5b1f17b1804b1-4954a40bbdemr129148725e9.32.1784574804745;
-        Mon, 20 Jul 2026 12:13:24 -0700 (PDT)
+        bh=5XDxWfj8KWZ9DgniRwAUL8R0m0HpW65KqxOgihYK1aU=;
+        b=d7Z6sLq9FWHoSncpK1sR0wkspNxcUVZs4vDx+57Z5mcxiYUuBA0riKwsCq/FEC7UiH
+         A47KqVUd4884b0gWL2NmpnAMvy5Qzaz0lhuF9oprFOSF1ew8wSRFfa2bRVkz7KeWL1x+
+         lR7+z6brNphNW/AV2dEMxJpFbt7wNXjLWPBJJEIdU43vsKVS5rsWJSKJbmFJVvJldSty
+         9+pbauPaE7ZMg7i9PBz74Zg7XjlYWBubKehIrL0TUcIgyhUlvyYtp4mxfs3hxfeRKLiD
+         FqDIizTwINUOh6w8ShJhSNBumL4I+TppCJ9ESBR7WedIbAKCXdUgpsn/ainU7n2mrFA+
+         +YGQ==
+X-Gm-Message-State: AOJu0YxNICHan5cSbQyi+nyckULzH11Ty3xPk/ce9ny5s/txVvoNvC0o
+	zQ5wrCI5Thk8R6vObp7Lp4WHgdBZos2e8WpMuwW2RVEsYcx7QTRQjqdf0SXzcxCAh67IppKiJvR
+	I23UD0Q==
+X-Gm-Gg: AR+sD12WKzx+46taasA0tjmppNho9WvsZv9U2JNlU3o4WVszHXqlsSo0kDoFlonIR2X
+	LbhAlTidf5buBRq1pNjketoKih7X+wuvF4RWsHjGPDmTn1Gtm+g6poFrf064TMpWUkK5Z8syyug
+	spUZQM37cPVrI42Jy60bqb7i6N3s/aJ4LbVH1h/GVDZIP4O/mcNpxh+OUtFqnTqe00TezoF1vmW
+	xwOi8QEYCKF7lg8paPGNKM6UqT+jGJ+t9yq7bAvp7dWq7hc+pOfRQ5w80A7p5sanp+jWZjMsM0d
+	VvPzMajj4jnm77jn5RL8f6XBvMlhZXHvDXIQ0lfoaa9os1H70MAYhJ2zmXFbpQsGYWTXf5yY3YA
+	Q32wkziI8TaY/LzEf88mwwBzx9H7j3uh5QmlA8nH9SrlKRgPnp37Kx9j7BvpCmNCKOVPtjc+3RZ
+	3fj+FD/+La8sLbJ4IariJ7wv9G21WxxM4LOKo1UR8bZs+3DW8XLz9K0g6AMoIqyJ1iuQudnRGBz
+	8EX+K5L3qEVvi07bBlNRFol
+X-Received: by 2002:a5d:5d82:0:b0:47f:59b4:390c with SMTP id ffacd0b85a97d-47f62329496mr17832694f8f.50.1784574927315;
+        Mon, 20 Jul 2026 12:15:27 -0700 (PDT)
 Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.14])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956536870esm13926345e9.3.2026.07.20.12.13.23
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63ee926dsm30211503f8f.35.2026.07.20.12.15.26
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 20 Jul 2026 12:13:24 -0700 (PDT)
+        Mon, 20 Jul 2026 12:15:26 -0700 (PDT)
 From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Amitkumar Karwar <amitkumar.karwar@nxp.com>,
-	Neeraj Kale <neeraj.sanjaykale@nxp.com>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
-	linux-bluetooth@vger.kernel.org,
+To: stable@vger.kernel.org
+Cc: herbert@gondor.apana.org.au,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
 	Doruk Tan Ozturk <doruk@0sec.ai>
-Subject: [PATCH v2] Bluetooth: btnxpuart: Fix out-of-bounds firmware read in nxp_recv_fw_req_v1()
-Date: Mon, 20 Jul 2026 21:13:22 +0200
-Message-ID: <20260720191322.14432-1-doruk@0sec.ai>
+Subject: [PATCH 6.1/6.6/6.12.y] crypto: rsa-pkcs1pad: Don't WARN on an empty digest
+Date: Mon, 20 Jul 2026 21:15:25 +0200
+Message-ID: <20260720191525.15450-1-doruk@0sec.ai>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -79,80 +75,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 25c286d75821 ("Bluetooth: btnxpuart: Fix out-of-bounds firmware
-read in nxp_recv_fw_req_v3()") bounded the v3 firmware download offset but
-left an unbounded read in the v1 handler.
+KEYCTL_PKEY_VERIFY lets an unprivileged caller supply a zero-length
+digest (in_len == 0).  keyctl_pkey_params_get_2() accepts the zero
+length and the request reaches pkcs1pad_verify(), where the empty
+digest is rejected but only after being passed through
+WARN_ON(!digest_size).  The warning is therefore directly
+user-triggerable, and on kernels built with panic_on_warn=1 an
+unprivileged process can panic the machine -- a local denial of
+service.  Reproduced as UID 65534 in a setuid sandbox.
 
-nxp_recv_fw_req_v1() advances a device-driven download offset
-(fw_dnld_v1_offset) by fw_v1_sent_bytes on every request, and that
-bookkeeping runs even when the payload write is skipped, so the offset can
-walk past nxpdev->fw->size. When the controller then requests a header
-(len == HDR_LEN), the driver reads the 16-byte bootloader header at
+Keep rejecting the invalid request with -EINVAL, but do not emit a
+warning for the user-controlled length.
 
-  nxp_get_data_len(nxpdev->fw->data + nxpdev->fw_dnld_v1_offset)
+Mainline does not contain this code path; commit 1e562deacecc
+("crypto: rsassa-pkcs1 - Migrate to sig_alg backend") removed
+pkcs1pad_verify() in v6.13-rc1.  This is a minimal fix for the
+affected stable branches.  It applies as-is to 6.1.y, 6.6.y and
+6.12.y (identical pkcs1pad_verify); the 5.10.y/5.15.y form is sent
+as a separate patch due to the older req->dst_len spelling.
 
-with no bound on the offset, reading past the end of the firmware image.
-A malicious or malfunctioning NXP UART controller can drive this to read
-out-of-bounds kernel memory during firmware download.
+Found by 0sec automated security-research tooling (https://0sec.ai).
 
-Bound the offset before the header read, and convert the payload write
-guard to the overflow-safe form used by the v3 path (fw_dnld_v1_offset is
-u32, so fw_dnld_v1_offset + len can wrap). Log the offset, expected length
-and firmware size at the reject site to aid debugging of a real device.
-
-This was found by 0sec automated security-research tooling
-(https://0sec.ai).
-
-Fixes: 689ca16e5232 ("Bluetooth: NXP: Add protocol support for NXP Bluetooth chipsets")
+Fixes: c7381b012872 ("crypto: akcipher - new verify API for public key algorithms")
 Cc: stable@vger.kernel.org
-Reviewed-by: Neeraj Sanjay Kale <neeraj.sanjaykale@nxp.com>
-Assisted-by: 0sec:claude-opus-4-8
+Assisted-by: 0sec:multi-model
 Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
-v2: log offset/expected_len/fw size at the reject site (requested by
-    Neeraj Kale and Paul Menzel).  No functional change to the bound
-    itself vs v1.
+ crypto/rsa-pkcs1pad.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v1: https://lore.kernel.org/linux-bluetooth/20260705115650.81724-1-doruk@0sec.ai/
- drivers/bluetooth/btnxpuart.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/bluetooth/btnxpuart.c b/drivers/bluetooth/btnxpuart.c
-index 0bb300eef157..6d62d07a542b 100644
---- a/drivers/bluetooth/btnxpuart.c
-+++ b/drivers/bluetooth/btnxpuart.c
-@@ -1041,11 +1041,19 @@ static int nxp_recv_fw_req_v1(struct hci_dev *hdev, struct sk_buff *skb)
- 		 * and we need to re-send the previous header again.
- 		 */
- 		if (len == nxpdev->fw_v1_expected_len) {
--			if (len == HDR_LEN)
-+			if (len == HDR_LEN) {
-+				if (nxpdev->fw_dnld_v1_offset >= nxpdev->fw->size ||
-+				    nxpdev->fw->size - nxpdev->fw_dnld_v1_offset < HDR_LEN) {
-+					bt_dev_err(hdev, "FW request out of bounds: offset %u, expected_len %u, fw size %zu",
-+						   nxpdev->fw_dnld_v1_offset, len,
-+						   nxpdev->fw->size);
-+					goto free_skb;
-+				}
- 				nxpdev->fw_v1_expected_len = nxp_get_data_len(nxpdev->fw->data +
- 									nxpdev->fw_dnld_v1_offset);
--			else
-+			} else {
- 				nxpdev->fw_v1_expected_len = HDR_LEN;
-+			}
- 		} else if (len == HDR_LEN) {
- 			/* FW download out of sync. Send previous chunk again */
- 			nxpdev->fw_dnld_v1_offset -= nxpdev->fw_v1_sent_bytes;
-@@ -1053,7 +1061,8 @@ static int nxp_recv_fw_req_v1(struct hci_dev *hdev, struct sk_buff *skb)
- 		}
- 	}
+diff --git a/crypto/rsa-pkcs1pad.c b/crypto/rsa-pkcs1pad.c
+index cd501195f34a..225fcc3377dd 100644
+--- a/crypto/rsa-pkcs1pad.c
++++ b/crypto/rsa-pkcs1pad.c
+@@ -557,7 +557,7 @@ static int pkcs1pad_verify(struct akcipher_request *req)
+ 	const unsigned int digest_size = req->dst_len;
+ 	int err;
  
--	if (nxpdev->fw_dnld_v1_offset + len <= nxpdev->fw->size)
-+	if (nxpdev->fw_dnld_v1_offset < nxpdev->fw->size &&
-+	    len <= nxpdev->fw->size - nxpdev->fw_dnld_v1_offset)
- 		serdev_device_write_buf(nxpdev->serdev, nxpdev->fw->data +
- 					nxpdev->fw_dnld_v1_offset, len);
- 	nxpdev->fw_v1_sent_bytes = len;
+-	if (WARN_ON(req->dst) || WARN_ON(!digest_size) ||
++	if (WARN_ON(req->dst) || !digest_size ||
+ 	    !ctx->key_size || sig_size != ctx->key_size)
+ 		return -EINVAL;
+ 
 -- 
 2.43.0
 
