@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAA03BCD01
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 20:18:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402F53BCD01
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 20:18:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784578729; cv=none; b=sum9vIe98IcX1qG4vaW0+8tbHcWr7N4MH6ph8zRPE1LgSTgmHBAuyTnSduWbnxgtjU3bPAIR+fdJofWXjsymR9Zz8a/JzwVB7zCmuyeZtzYSXTa6ivhIr4x8kXUyEXIlKpRKvH+a9RUQvG1YLfAKdZlRxP2o2Siz/kCWMCaT0OU=
+	t=1784578734; cv=none; b=HlCI8+/sSbUJ/ez3p6GYabDJKKzxDkJDaSmefsQdsRUd2vdpri/zvXugXTO3e27WRC0DQ58SaIdfhHbd5uF7tdQUWoaWpn5ht34J+fdnuWzwsQyHMvlYET8wQSpMZ6YgDXZpaTDWA58HVKupaGMp2QYZPKti19mkP205cOaeRfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784578729; c=relaxed/simple;
-	bh=7B6GzaEixm+X2cXZp4UHhPWpCA2562iK8nYppAxPd5c=;
+	s=arc-20240116; t=1784578734; c=relaxed/simple;
+	bh=4FyuTkwbqfh2fh5kMsLr7bSHIwxA/kMJjmDdbvxdG4o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gFkT/9JEJ1DjhZYpbSOJMg1d2jARqPtsXbOeN122thoFj3wJLY/8KMnj2S9a57pxv4a/DjvvnOSVsdzkKQEtPUhzfXYA7SHLtPfAnGgyM/Pi4tSaV4sRxAIy50L+a9Dkfc8YQysH/FC2TIRieO+NTZS0bWbBET6J+Hku+ocbGH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eTSRcjKA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Nvk1mEtPuUY7RKm9wOhAcMI7idlO6WdY1f2SWVTseaDnnbG+t+1keI43eY3zPvEbDllkJ4G0IPX/AEobRFMYzOfWQeGz4ItUW0x+fSQH5qXhVURwucL4d6erbgvoVLYfYlvu14xdi61jS1OmklQNcmRbHfBSPvWq9wnArPQR/C0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IyF8rVdv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eTSRcjKA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C81E51F000E9;
-	Mon, 20 Jul 2026 20:18:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IyF8rVdv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A151F000E9;
+	Mon, 20 Jul 2026 20:18:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784578727;
-	bh=7nHSiPgAOJQUIKQLjn5Qnzn5yXrd3eqIBZBrNWnBd7A=;
+	s=k20260515; t=1784578732;
+	bh=NZWoaDozpMgmEnRxeIaSMGm3PAqhC8yBmnWdDoUeC3I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eTSRcjKA9HB5XKogxIBgVNL6WXa8yCWrqJmFcLGZ6LH0Ri9r0AAsGsagWRoBO1Lms
-	 2kFLWHY3CjLyyd31e1O64peZpAh1Nnif3X/OKJ32AfwXxQiwX75T7xb0gifBUKWJE5
-	 sw0jcF00Jebc7AREJ3SdPMwYS5CU9gAI62uT7iN9oltJfo9+z4EGo9may3gkU/B3tM
-	 HBHfnonFoprsIRINYHDptgsgTQKDIoHN96NMsPA6x156/VHvW6petrKQ4g8eijJXxs
-	 SE/7fMHsLVMVP6gmoNC9uS3oR0uh+QO18ASaH2eETVai4OL/dRzn9IptmptP/iyvu2
-	 nI7v+PBhXJQEA==
+	b=IyF8rVdv8i6iMHgPNVmRzQ1yXhMJ8D/s0nSf/V2joiofFcEaBW4j2/4VyrUYq0H+8
+	 NNIhl612HJzKaczvuEMenITZoZ2Y2dajSXmeEYiJGrMJFRm1O5xgEOI3ypbt0T5s97
+	 vQxOAv4dHadAGLD9reu9ibu88X0xUeYxGjdgtOjC1vvc2+oGdvBNMd2oGi+pGuDfF7
+	 gccM3Y0iFjdUG2vKG68VAFXguHN+RTTcfkFLrixOa80fdfZ5N5iP9PAjTSPFFaC4sr
+	 Z+ntx8qIxCvuf/Mh7R3PeXtvofyn3tWkjj5DKRKiVlR4bWIZFl/SdqZMtZeNVrQZQN
+	 8r93cJv/AqORQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Qu Wenruo <wqu@suse.com>,
-	Filipe Manana <fdmanana@suse.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: Weiwen Hu <huweiwen@linux.alibaba.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] btrfs: check and set EXTENT_DELALLOC_NEW before clearing EXTENT_DELALLOC
-Date: Mon, 20 Jul 2026 16:18:45 -0400
-Message-ID: <20260720201845.3239316-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] nvme: fix status magic numbers
+Date: Mon, 20 Jul 2026 16:18:48 -0400
+Message-ID: <20260720201850.3239465-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071524-shape-unsavory-2d51@gregkh>
-References: <2026071524-shape-unsavory-2d51@gregkh>
+In-Reply-To: <2026071541-variably-lion-7934@gregkh>
+References: <2026071541-variably-lion-7934@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,274 +48,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qu Wenruo <wqu@suse.com>
+From: Weiwen Hu <huweiwen@linux.alibaba.com>
 
-[ Upstream commit 95ee2231896d5f2a31760411429075a99d6045a7 ]
+[ Upstream commit d89a5c6705998ddc42b104f8eabd3c4b9e8fde08 ]
 
-[WARNING]
-When running test cases with injected errors or shutdown, e.g.
-generic/388 or generic/475, there is a chance that the following kernel
-warning is triggered:
+Replaced some magic numbers about SC and SCT with enum and macro.
 
-  BTRFS info (device dm-2): first mount of filesystem d8a19a28-3232-4809-b0df-38df83e71bff
-  BTRFS info (device dm-2): using crc32c checksum algorithm
-  BTRFS info (device dm-2): checking UUID tree
-  BTRFS info (device dm-2): turning on async discard
-  BTRFS info (device dm-2): enabling free space tree
-  BTRFS critical (device dm-2 state E): emergency shutdown
-  ------------[ cut here ]------------
-  WARNING: extent_io.c:1742 at extent_writepage_io+0x437/0x520 [btrfs], CPU#2: kworker/u43:2/651591
-  CPU: 2 UID: 0 PID: 651591 Comm: kworker/u43:2 Tainted: G        W  OE       7.0.0-rc6-custom+ #365 PREEMPT(full)  5804053f02137e627472d94b5128cc9fcb110e88
-  RIP: 0010:extent_writepage_io+0x437/0x520 [btrfs]
-  Call Trace:
-   <TASK>
-   extent_write_cache_pages+0x2a5/0x820 [btrfs 70299925d0856939e93b17d480651713b3cbba58]
-   btrfs_writepages+0x74/0x130 [btrfs 70299925d0856939e93b17d480651713b3cbba58]
-   do_writepages+0xd0/0x160
-   __writeback_single_inode+0x42/0x340
-   writeback_sb_inodes+0x22d/0x580
-   wb_writeback+0xc6/0x360
-   wb_workfn+0xbd/0x470
-   process_one_work+0x198/0x3b0
-   worker_thread+0x1c8/0x330
-   kthread+0xee/0x120
-   ret_from_fork+0x2a6/0x330
-   ret_from_fork_asm+0x11/0x20
-   </TASK>
-  ---[ end trace 0000000000000000 ]---
-  BTRFS error (device dm-2 state E): root 5 ino 259 folio 1323008 is marked dirty without notifying the fs
-  BTRFS error (device dm-2 state E): failed to submit blocks, root=5 inode=259 folio=1323008 submit_bitmap=0: -117
-  BTRFS info (device dm-2 state E): last unmount of filesystem d8a19a28-3232-4809-b0df-38df83e71bff
-
-[CAUSE]
-Inside btrfs we have the following pattern in several locations, for
-example inside btrfs_dirty_folio():
-
-	btrfs_clear_extent_bit(&inode->io_tree, start_pos, end_of_last_block,
-			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
-			       cached);
-
-	ret = btrfs_set_extent_delalloc(inode, start_pos, end_of_last_block,
-					extra_bits, cached);
-	if (ret)
-		return ret;
-
-However btrfs_set_extent_delalloc() can return IO errors other than -ENOMEM
-through the following callchain:
-
- btrfs_set_extent_delalloc()
- \- btrfs_find_new_delalloc_bytes()
-    \- btrfs_get_extent()
-       \- btrfs_lookup_file_extent()
-          \- btrfs_search_slot()
-
-When such IO error happened, the previous btrfs_clear_extent_bit() has
-cleared the EXTENT_DELALLOC for the range, and we're expecting
-btrfs_set_extent_delalloc() to re-set EXTENT_DELALLOC.
-
-But since btrfs_set_extent_delalloc() failed before
-btrfs_set_extent_bit(), EXTENT_DELALLOC flag is no longer present.
-
-And if the folio range is dirty before entering
-btrfs_set_extent_delalloc(), we got a dirty folio but no EXTENT_DELALLOC
-flag now.
-
-Then we hit the folio writeback:
-
-  extent_writepage()
-  |- writepage_delalloc()
-  |  No ordered extent is created, as there is no EXTENT_DELALLOC set
-  |  for the folio range.
-  |  This also means the folio has no ordered flag set.
-  |
-  |- extent_writepage_io()
-     \- if (unlikely(!folio_test_ordered(folio))
-        Now we hit the warning.
-
-[FIX]
-Introduce a new helper, btrfs_reset_extent_delalloc() to replace the
-currently open-coded btrfs_clear_extent_bit() +
-btrfs_set_extent_delalloc() combination.
-
-Instead of calling btrfs_clear_extent_bit() first, update
-EXTENT_DELALLOC_NEW first, as that part can fail due to metadata IO,
-meanwhile btrfs_clear_extent_bit() and btrfs_set_extent_bit() won't
-return any error but retry memory allocation until succeeded.
-
-This allows us to fail early without clearing EXTENT_DELALLOC bit, so
-even if that new btrfs_reset_extent_delalloc() failed before touching
-EXTENT_DELALLOC, the existing dirty range will still have their old
-EXTENT_DELALLOC flag present, thus avoid the warning.
-
-CC: stable@vger.kernel.org # 6.1+
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
+Signed-off-by: Weiwen Hu <huweiwen@linux.alibaba.com>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Stable-dep-of: 53cd102a7a56 ("nvmet: fix pre-auth out-of-bounds heap read in Discovery Get Log Page")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/ctree.h   |  2 ++
- fs/btrfs/file.c    | 12 ++------
- fs/btrfs/inode.c   | 73 +++++++++++++++++++++++++++++++++-------------
- fs/btrfs/reflink.c |  5 +---
- 4 files changed, 58 insertions(+), 34 deletions(-)
+ drivers/nvme/host/core.c      |  4 ++--
+ drivers/nvme/host/multipath.c |  2 +-
+ drivers/nvme/host/nvme.h      |  4 ++--
+ include/linux/nvme.h          | 14 ++++++++++++--
+ 4 files changed, 17 insertions(+), 7 deletions(-)
 
-diff --git a/fs/btrfs/ctree.h b/fs/btrfs/ctree.h
-index 85884d7350d3cc..16795e91aee291 100644
---- a/fs/btrfs/ctree.h
-+++ b/fs/btrfs/ctree.h
-@@ -3327,6 +3327,8 @@ int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
- int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
- 			      unsigned int extra_bits,
- 			      struct extent_state **cached_state);
-+int btrfs_reset_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
-+				unsigned int extra_bits, struct extent_state **cached_state);
- struct btrfs_new_inode_args {
- 	/* Input */
- 	struct inode *dir;
-diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
-index b670d5d72a3827..0970ec776ff8e0 100644
---- a/fs/btrfs/file.c
-+++ b/fs/btrfs/file.c
-@@ -144,16 +144,8 @@ int btrfs_dirty_pages(struct btrfs_inode *inode, struct page **pages,
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index f3071bd11fdd39..4902a4a1d3a31f 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -262,7 +262,7 @@ static void nvme_delete_ctrl_sync(struct nvme_ctrl *ctrl)
  
- 	end_of_last_block = start_pos + num_bytes - 1;
- 
--	/*
--	 * The pages may have already been dirty, clear out old accounting so
--	 * we can set things up properly
--	 */
--	clear_extent_bit(&inode->io_tree, start_pos, end_of_last_block,
--			 EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
--			 cached);
--
--	err = btrfs_set_extent_delalloc(inode, start_pos, end_of_last_block,
--					extra_bits, cached);
-+	err = btrfs_reset_extent_delalloc(inode, start_pos, end_of_last_block,
-+					  extra_bits, cached);
- 	if (err)
- 		return err;
- 
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index 577f7e2895b66a..6eaa32e2e09634 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -2845,7 +2845,11 @@ int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
- 			      unsigned int extra_bits,
- 			      struct extent_state **cached_state)
+ static blk_status_t nvme_error_status(u16 status)
  {
--	WARN_ON(PAGE_ALIGNED(end));
-+	const u32 blocksize = inode->root->fs_info->sectorsize;
-+
-+	/* Basic alignment check. */
-+	ASSERT(IS_ALIGNED(start, blocksize));
-+	ASSERT(IS_ALIGNED(end + 1, blocksize));
+-	switch (status & 0x7ff) {
++	switch (status & NVME_SCT_SC_MASK) {
+ 	case NVME_SC_SUCCESS:
+ 		return BLK_STS_OK;
+ 	case NVME_SC_CAP_EXCEEDED:
+@@ -1248,7 +1248,7 @@ EXPORT_SYMBOL_NS_GPL(nvme_execute_passthru_rq, NVME_TARGET_PASSTHRU);
  
- 	if (start >= i_size_read(&inode->vfs_inode) &&
- 	    !(inode->flags & BTRFS_INODE_PREALLOC)) {
-@@ -3055,6 +3059,51 @@ int btrfs_writepage_cow_fixup(struct page *page)
- 	return -EAGAIN;
+ /*
+  * Recommended frequency for KATO commands per NVMe 1.4 section 7.12.1:
+- * 
++ *
+  *   The host should send Keep Alive commands at half of the Keep Alive Timeout
+  *   accounting for transport roundtrip times [..].
+  */
+diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
+index 4bc0ce9c16df19..8dda563e6e4822 100644
+--- a/drivers/nvme/host/multipath.c
++++ b/drivers/nvme/host/multipath.c
+@@ -68,7 +68,7 @@ bool nvme_mpath_set_disk_name(struct nvme_ns *ns, char *disk_name, int *flags)
+ void nvme_failover_req(struct request *req)
+ {
+ 	struct nvme_ns *ns = req->q->queuedata;
+-	u16 status = nvme_req(req)->status & 0x7ff;
++	u16 status = nvme_req(req)->status & NVME_SCT_SC_MASK;
+ 	unsigned long flags;
+ 	struct bio *bio;
+ 
+diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+index c6cd3d65065c8e..c7674a2d076ec8 100644
+--- a/drivers/nvme/host/nvme.h
++++ b/drivers/nvme/host/nvme.h
+@@ -615,7 +615,7 @@ static inline u32 nvme_bytes_to_numd(size_t len)
+ 
+ static inline bool nvme_is_ana_error(u16 status)
+ {
+-	switch (status & 0x7ff) {
++	switch (status & NVME_SCT_SC_MASK) {
+ 	case NVME_SC_ANA_TRANSITION:
+ 	case NVME_SC_ANA_INACCESSIBLE:
+ 	case NVME_SC_ANA_PERSISTENT_LOSS:
+@@ -628,7 +628,7 @@ static inline bool nvme_is_ana_error(u16 status)
+ static inline bool nvme_is_path_error(u16 status)
+ {
+ 	/* check for a status code type of 'path related status' */
+-	return (status & 0x700) == 0x300;
++	return (status & NVME_SCT_MASK) == NVME_SCT_PATH;
  }
  
-+/*
-+ * Clear the old accounting flags and set EXTENT_DELALLOC for the range.
-+ *
-+ * Return <0 for error, in that case no range has EXTENT_DELALLOC bit cleared or set.
-+ */
-+int btrfs_reset_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
-+				unsigned int extra_bits, struct extent_state **cached_state)
-+{
-+	const u32 blocksize = inode->root->fs_info->sectorsize;
-+
-+	/* The @extra_bits can only be EXTENT_NORESERVE for now. */
-+	ASSERT(!(extra_bits & ~EXTENT_NORESERVE));
-+
-+	/* Basic alignment check. */
-+	ASSERT(IS_ALIGNED(start, blocksize));
-+	ASSERT(IS_ALIGNED(end + 1, blocksize));
-+
-+	/*
-+	 * Check and set DELALLOC_NEW flag, this needs to search tree thus can
-+	 * fail early.  Thus we want to do this before clearing EXTENT_DELALLOC.
-+	 */
-+	if (start >= i_size_read(&inode->vfs_inode) &&
-+	    !(inode->flags & BTRFS_INODE_PREALLOC)) {
-+		/*
-+		 * There can't be any extents following EOF in this case so just
-+		 * set the delalloc new bit for the range directly.
-+		 */
-+		extra_bits |= EXTENT_DELALLOC_NEW;
-+	} else {
-+		int ret;
-+
-+		ret = btrfs_find_new_delalloc_bytes(inode, start, end + 1 - start,
-+						    NULL);
-+		if (unlikely(ret))
-+			return ret;
-+	}
-+	/* Clear the old accounting as the range may already be dirty. */
-+	clear_extent_bit(&inode->io_tree, start, end,
-+			 EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING |
-+			 EXTENT_DEFRAG, cached_state);
-+	return set_extent_bit(&inode->io_tree, start, end,
-+			      EXTENT_DELALLOC | extra_bits, cached_state,
-+			      GFP_NOFS);
-+}
-+
- static int insert_reserved_file_extent(struct btrfs_trans_handle *trans,
- 				       struct btrfs_inode *inode, u64 file_pos,
- 				       struct btrfs_file_extent_item *stack_fi,
-@@ -5037,12 +5086,7 @@ int btrfs_truncate_block(struct btrfs_inode *inode, loff_t from, loff_t len,
- 		goto again;
- 	}
+ /*
+diff --git a/include/linux/nvme.h b/include/linux/nvme.h
+index 94fa0184c153f4..ab9d26a9406563 100644
+--- a/include/linux/nvme.h
++++ b/include/linux/nvme.h
+@@ -1485,6 +1485,7 @@ enum {
+ 	/*
+ 	 * Generic Command Status:
+ 	 */
++	NVME_SCT_GENERIC		= 0x0,
+ 	NVME_SC_SUCCESS			= 0x0,
+ 	NVME_SC_INVALID_OPCODE		= 0x1,
+ 	NVME_SC_INVALID_FIELD		= 0x2,
+@@ -1531,6 +1532,7 @@ enum {
+ 	/*
+ 	 * Command Specific Status:
+ 	 */
++	NVME_SCT_COMMAND_SPECIFIC	= 0x100,
+ 	NVME_SC_CQ_INVALID		= 0x100,
+ 	NVME_SC_QID_INVALID		= 0x101,
+ 	NVME_SC_QUEUE_SIZE		= 0x102,
+@@ -1604,6 +1606,7 @@ enum {
+ 	/*
+ 	 * Media and Data Integrity Errors:
+ 	 */
++	NVME_SCT_MEDIA_ERROR		= 0x200,
+ 	NVME_SC_WRITE_FAULT		= 0x280,
+ 	NVME_SC_READ_ERROR		= 0x281,
+ 	NVME_SC_GUARD_CHECK		= 0x282,
+@@ -1616,16 +1619,23 @@ enum {
+ 	/*
+ 	 * Path-related Errors:
+ 	 */
++	NVME_SCT_PATH			= 0x300,
+ 	NVME_SC_ANA_PERSISTENT_LOSS	= 0x301,
+ 	NVME_SC_ANA_INACCESSIBLE	= 0x302,
+ 	NVME_SC_ANA_TRANSITION		= 0x303,
+ 	NVME_SC_HOST_PATH_ERROR		= 0x370,
+ 	NVME_SC_HOST_ABORTED_CMD	= 0x371,
  
--	clear_extent_bit(&inode->io_tree, block_start, block_end,
--			 EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
--			 &cached_state);
--
--	ret = btrfs_set_extent_delalloc(inode, block_start, block_end, 0,
--					&cached_state);
-+	ret = btrfs_reset_extent_delalloc(inode, block_start, block_end, 0, &cached_state);
- 	if (ret) {
- 		unlock_extent(io_tree, block_start, block_end, &cached_state);
- 		goto out_unlock;
-@@ -8685,19 +8729,8 @@ vm_fault_t btrfs_page_mkwrite(struct vm_fault *vmf)
- 		}
- 	}
+-	NVME_SC_CRD			= 0x1800,
+-	NVME_SC_DNR			= 0x4000,
++	NVME_SC_MASK			= 0x00ff, /* Status Code */
++	NVME_SCT_MASK			= 0x0700, /* Status Code Type */
++	NVME_SCT_SC_MASK		= NVME_SCT_MASK | NVME_SC_MASK,
++
++	NVME_SC_CRD			= 0x1800, /* Command Retry Delayed */
++	NVME_SC_DNR			= 0x4000, /* Do Not Retry */
+ };
  
--	/*
--	 * page_mkwrite gets called when the page is firstly dirtied after it's
--	 * faulted in, but write(2) could also dirty a page and set delalloc
--	 * bits, thus in this case for space account reason, we still need to
--	 * clear any delalloc bits within this page range since we have to
--	 * reserve data&meta space before lock_page() (see above comments).
--	 */
--	clear_extent_bit(&BTRFS_I(inode)->io_tree, page_start, end,
--			  EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING |
--			  EXTENT_DEFRAG, &cached_state);
--
--	ret2 = btrfs_set_extent_delalloc(BTRFS_I(inode), page_start, end, 0,
--					&cached_state);
-+	ret2 = btrfs_reset_extent_delalloc(BTRFS_I(inode), page_start, end, 0,
-+					   &cached_state);
- 	if (ret2) {
- 		unlock_extent(io_tree, page_start, page_end, &cached_state);
- 		ret = VM_FAULT_SIGBUS;
-diff --git a/fs/btrfs/reflink.c b/fs/btrfs/reflink.c
-index fc6e428525781f..be33fd5a217688 100644
---- a/fs/btrfs/reflink.c
-+++ b/fs/btrfs/reflink.c
-@@ -90,10 +90,7 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
- 	if (ret < 0)
- 		goto out_unlock;
- 
--	clear_extent_bit(&inode->io_tree, file_offset, range_end,
--			 EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
--			 NULL);
--	ret = btrfs_set_extent_delalloc(inode, file_offset, range_end, 0, NULL);
-+	ret = btrfs_reset_extent_delalloc(inode, file_offset, range_end, 0, NULL);
- 	if (ret)
- 		goto out_unlock;
- 
++#define NVME_SCT(status) ((status) >> 8 & 7)
++
+ struct nvme_completion {
+ 	/*
+ 	 * Used by Admin and Fabrics commands to return data:
 -- 
 2.53.0
 
