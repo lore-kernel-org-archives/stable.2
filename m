@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64E0433BC9
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:10:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1969140FDA0
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:10:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560243; cv=none; b=i+fi38GnEeCObYE0uvp+QmjhY9QHrWvzLU/CETeZo2TUKQsWz0RVxwY9rgQv0taofluwLxyHeYX80cozOmY9CCvPnRO2U/Bixa8ZWJBYa3wNyAfyhhstsgMPj98AzMaoE7RwVfwJQOWpvnyKoyPxfEbZszEWUdY4BEOkn0H5fwc=
+	t=1784560245; cv=none; b=OPvlvAnSmwr86HavOJag9MPjMkOBlBsx+7TxwdwLj013Sv6Yyynco+p3Lxb3W9KQyz17fTh0HZIXjWmFeSms5PLfobdGiPqohNg6z/Qn9W9oDLY43dTxmM+Zgz7ckUKNybOQbzquht3P/TORDnTPsAkUg4PXcn10sUaj9n1DyyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560243; c=relaxed/simple;
-	bh=bgGmUlHSOYcsG10MO6Iq8mkBhG63kXNaHKqzoho4vag=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SAUjCZ5SskRaD9JND1fLNmOKx4jSF6bewnvc6jhHkav7LprS5yc35jwU29HHjPwIzfx+ESXWPH/9e+yeeNKNHoVwhhknznW5KYBRki6ifRNFbg9O2pmNMHN+PJlxi7zykK0LDZSyTtOYEJDCAKogw3MxmV7ZdrZmOSldvJstjxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WwSkGRUt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560245; c=relaxed/simple;
+	bh=ds2fEM5DAHu3uGOtVrQZoVA7P/To+xaPY69d4QN7HS4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=D8y7VFNHMa6NnAK0YfLT3aCnCNF7kun1kgA1h6r1FTE76Px+v87NAeNgBsubc0JPN6CgsFo8xj1EQC72Ut1aaQDLmYr2QSMvhX0Cyd1YVBu06hOnOGhiD6fwLszUF8l1AYTEQEeX8sSgQcwSefzxHkWhm1cuFYFwp3186CfI1iQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Kd1XxDyw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WwSkGRUt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 089601F00A3A;
-	Mon, 20 Jul 2026 15:10:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Kd1XxDyw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 313491F000E9;
+	Mon, 20 Jul 2026 15:10:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560240;
-	bh=1/XYU+Qtks21sb2GBSmUcMzE5WodoUp8x1xMIYQRE7c=;
+	s=korg; t=1784560243;
+	bh=FL83626Vqrf+UgMGYfC4Il6zdgUArmFMMyidX25BOVc=;
 	h=Subject:To:Cc:From:Date;
-	b=WwSkGRUtT+xC1Vkgrtqi5AuF94m/yQqnlUakYNBW0FEcxBLa3jFoooXxkeQn6SMyY
-	 VPqv+NmNjOHNf3sYpl2wSe8dE2DC+32W7SC4S+PbcJpPNmMmLbf+z2VxVbugzlxCwX
-	 E9/T3CknVL7hPQohi4w6kVNuOTr9rIJi7W6nk2hc=
-Subject: FAILED: patch "[PATCH] ovl: use linked upper dentry in copy-up tmpfile" failed to apply to 6.18-stable tree
+	b=Kd1XxDyw+1mSxviJNgI6iiMcAHTSrGVnO/Vhet8wRi9vPz/J11OxKe+eRHv6Qdko8
+	 aQ7I2Fyki814NgZt2N4Wh1KQp4bOcdHQeIcoitCNobejoh2MdCWTIehQ2XUe2Yrjzb
+	 jdlotcrKzHIkj5S2l58CijGRVHJCq1aJg4NYns5Y=
+Subject: FAILED: patch "[PATCH] ovl: use linked upper dentry in copy-up tmpfile" failed to apply to 6.6-stable tree
 To: souvik@amlalabs.com,amir73il@gmail.com,brauner@kernel.org,mszeredi@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:10:31 +0200
-Message-ID: <2026072031-identical-landslide-20e5@gregkh>
+Date: Mon, 20 Jul 2026 17:10:32 +0200
+Message-ID: <2026072032-dyslexia-eradicate-638b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x e348eecd4d8fa8d18a5157ff59f7be1dc59c5928
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072031-identical-landslide-20e5@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072032-dyslexia-eradicate-638b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
