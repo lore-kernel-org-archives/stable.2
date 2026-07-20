@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7443127B353
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:16:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444F52DB795
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:16:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560572; cv=none; b=aRGaXrWNh+qCiiP1Ny3t2TydUZ3D/D/ozqaOkHI5E63eVu6rV1y9GknlyLPYZOOIMaQJJswaIwcsOM+Uz1I5rVEPJB6CpcXSgn8/pU+p+3G9feJExPaYxkqR7csTGaOlglt4D9+7VZGgS8i2mLCH5MyUobRIhKdsdM19+opMnsM=
+	t=1784560591; cv=none; b=gVfRk55637FeCf+bqiZR/yroTychKnHSp1P53Ra6IJJSqfC2Uq9+uhWmVwQYfVRNLnfoBAmtowmvqv+7PzrNbqIl8YZ1imgJV7Fg5kwmH336c7EgRWLi5YhHzkahRI5kv6JUXZ5ij09tW389mqtFXZMqwbj4xCSCNuvHFmwuD1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560572; c=relaxed/simple;
-	bh=9kppF4iiAwnWa6pnNPvMNQy7Pjv92OvIiDjVbN7lA1c=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sieUO8EkJZqWRUKbDfLHC/mJKwO7osWb0W5rTmIPxsOv8LW05fQeI7kZ81QN+OhlI9k9x9QiuAbykBRhBO3144ZA2IIYX/Ibw5/0uF3r6D2blI8XUhGor3XMLlpPbhQ/fj+VQ+GK5b4l6ZTlMDHZ3qceFFJC3zAW0xUVCvzOuEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DZsRgUyd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560591; c=relaxed/simple;
+	bh=qIv4k6F0/0oLotgWuRYgFbqVbh2iuRUo5icETvniTMw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tt+UtjqaccmFf9eFS6IcB723zB4B7Nmg9zMdPJ0gccqXstt2vm9qsmIreC6OSUxutwElmbQgnq0vSB+2Vw+PGpPjAIjnrttN1O7sG5lS7DnORZks6+fT0O2Zaoy5sfdwEgCe+Otps/X9wpgaiQquSWLwIvJl2Z3cZWt+KHnwIWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bz8HzKRZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DZsRgUyd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D60481F000E9;
-	Mon, 20 Jul 2026 15:16:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bz8HzKRZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA0BE1F000E9;
+	Mon, 20 Jul 2026 15:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560571;
-	bh=FSRaHuk33srIrBXybQ+Xc4cFkjCRAcBN/ihGUOE1SYk=;
+	s=korg; t=1784560590;
+	bh=9gWK2sS9y3EoFjTHdBWm2fNF55RK5m5ZgKsfktVLIOw=;
 	h=Subject:To:Cc:From:Date;
-	b=DZsRgUydmCT9sWsO1A8MrpvJHp1hR+A5nyF1jjn0KfLYrd4o/R1eugX76um9tpQwi
-	 o4DzR8aAC/L0ybPuMMJLUb+xEER9wUr8Phhs0/BSg3yZHp9dnU0eAoSfda3qzZN8au
-	 7QDTY239lj74aBaxxg8hYaLdRQfAjBvjW1QFQ5Ug=
-Subject: FAILED: patch "[PATCH] bpf: Reject negative const offsets for buffer pointers" failed to apply to 7.1-stable tree
-To: sun.jian.kdev@gmail.com,eddyz87@gmail.com,shung-hsi.yu@suse.com
+	b=bz8HzKRZ6jdxdCtQdyhxLibFpUPv8qoGgdzZ+OOdK+k4kx3Gp9HOyGAqZF+A0mAY0
+	 M0+UlJiU/QIMEn8EHKWn3ze1sfS85d0SGx1XTz0AUmGncXdXmQ/HvPmCBBUTpqmn2x
+	 2I+NOdqH/n871QQRPeE42wEcl831IHnr2t8FUqWU=
+Subject: FAILED: patch "[PATCH] block: remove redundant GD_NEED_PART_SCAN in add_disk_final()" failed to apply to 6.12-stable tree
+To: connordw@amazon.com,axboe@kernel.dk,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:16:02 +0200
-Message-ID: <2026072002-stony-borax-fbef@gregkh>
+Date: Mon, 20 Jul 2026 17:16:21 +0200
+Message-ID: <2026072021-refurnish-abdomen-0f40@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x fd4cfa8c8f9a17cdec0539334d28754bc1d8a5d9
+git cherry-pick -x 181bb9c9eae4f69fe510a62a42c2932d0314a800
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072002-stony-borax-fbef@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072021-refurnish-abdomen-0f40@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,110 +62,59 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From fd4cfa8c8f9a17cdec0539334d28754bc1d8a5d9 Mon Sep 17 00:00:00 2001
-From: Sun Jian <sun.jian.kdev@gmail.com>
-Date: Tue, 14 Jul 2026 02:38:45 -0700
-Subject: [PATCH] bpf: Reject negative const offsets for buffer pointers
+From 181bb9c9eae4f69fe510a62a42c2932d0314a800 Mon Sep 17 00:00:00 2001
+From: Connor Williamson <connordw@amazon.com>
+Date: Mon, 15 Jun 2026 13:07:15 +0000
+Subject: [PATCH] block: remove redundant GD_NEED_PART_SCAN in add_disk_final()
 
-The verifier rejects variable offsets for PTR_TO_TP_BUFFER and PTR_TO_BUF
-accesses, but it currently accepts a constant negative offset produced by
-pointer arithmetic.
+add_disk_final() sets GD_NEED_PART_SCAN before calling bdev_add(),
+then calls disk_scan_partitions() which sets the flag itself. The
+early set is redundant and introduces a race.
 
-Commit 022ac0750883 ("bpf: use reg->var_off instead of reg->off for
-pointers") moved constant pointer offsets from reg->off to reg->var_off.
-However, __check_buffer_access() continued to check only the instruction
-offset. An access with reg->var_off equal to -8 and an instruction offset
-of zero therefore passes verification.
+Between bdev_add() and disk_scan_partitions(), concurrent openers
+(multipathd, blkid, LVM) see the flag in blkdev_get_whole() and
+trigger bdev_disk_changed(). When disk_scan_partitions() then runs,
+it calls bdev_disk_changed() again, dropping the partitions the
+concurrent opener already created before re-adding them, which can
+result in transient partition disappearances.
 
-For writable raw tracepoints, the access end is also calculated from the
-unsigned reg->var_off.value. An eight-byte access starting at -8 wraps
-the calculated end to zero, allowing the program to load and attach
-without increasing max_tp_access.
+The race is observable by inserting an msleep() between bdev_add()
+and disk_scan_partitions() while running concurrent open() calls
+during device bind. Without artificial delay, it manifests under
+scheduling pressure during boot on systems with aggressive device
+scanners (multipathd, systemd-udevd).
 
-After ensuring that reg->var_off is constant, calculate the effective
-access start using signed arithmetic and reject it when it is negative.
-Use the validated start to calculate the access end for both
-PTR_TO_TP_BUFFER and PTR_TO_BUF.
+Therefore, do not set GD_NEED_PART_SCAN in add_disk_final(). Other
+GD_NEED_PART_SCAN consumers (blkdev_get_whole(),
+sd_need_revalidate()) should not be affected as the flag
+is set internally by disk_scan_partitions().
 
-Fixes: 022ac0750883 ("bpf: use reg->var_off instead of reg->off for pointers")
-Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
-Acked-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-Cc: stable@vger.kernel.org # 5.2.0
-Link: https://patch.msgid.link/20260714093846.18159-2-sun.jian.kdev@gmail.com
-Signed-off-by: Eduard Zingerman <eddyz87@gmail.com>
+The retry-on-next-open intention from commit e5cfefa97bcc
+("block: fix scan partition for exclusively open device again")
+should also not be affected as the early return paths in
+disk_scan_partitions() should be unreachable at device registration
+time (bd_holder is NULL and open_partitions is zero).
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 6515d4d3c003..9f1333676365 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -5326,14 +5326,11 @@ static int check_max_stack_depth(struct bpf_verifier_env *env)
- static int __check_buffer_access(struct bpf_verifier_env *env,
- 				 const char *buf_info,
- 				 const struct bpf_reg_state *reg,
--				 argno_t argno, int off, int size)
-+				 argno_t argno, int off, int size,
-+				 u32 *access_end)
- {
--	if (off < 0) {
--		verbose(env,
--			"%s invalid %s buffer access: off=%d, size=%d\n",
--			reg_arg_name(env, argno), buf_info, off, size);
--		return -EACCES;
--	}
-+	s64 start;
-+
- 	if (!tnum_is_const(reg->var_off)) {
- 		char tn_buf[48];
+Fixes: e5cfefa97bcc ("block: fix scan partition for exclusively open device again")
+Cc: stable@vger.kernel.org
+Signed-off-by: Connor Williamson <connordw@amazon.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20260615130715.53693-1-connordw@amazon.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+
+diff --git a/block/genhd.c b/block/genhd.c
+index 30ac0ffe6517..df2c3c69b467 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -407,10 +407,6 @@ static void add_disk_final(struct gendisk *disk)
+ 	struct device *ddev = disk_to_dev(disk);
  
-@@ -5344,6 +5341,15 @@ static int __check_buffer_access(struct bpf_verifier_env *env,
- 		return -EACCES;
- 	}
- 
-+	start = (s64)reg->var_off.value + off;
-+	if (start < 0) {
-+		verbose(env,
-+			"%s invalid negative %s buffer offset: off=%d, var_off=%lld\n",
-+			reg_arg_name(env, argno), buf_info, off, (s64)reg->var_off.value);
-+		return -EACCES;
-+	}
-+
-+	*access_end = start + size;
- 	return 0;
- }
- 
-@@ -5351,14 +5357,14 @@ static int check_tp_buffer_access(struct bpf_verifier_env *env,
- 				  const struct bpf_reg_state *reg,
- 				  argno_t argno, int off, int size)
- {
-+	u32 access_end;
- 	int err;
- 
--	err = __check_buffer_access(env, "tracepoint", reg, argno, off, size);
-+	err = __check_buffer_access(env, "tracepoint", reg, argno, off, size, &access_end);
- 	if (err)
- 		return err;
- 
--	env->prog->aux->max_tp_access = max(reg->var_off.value + off + size,
--					    env->prog->aux->max_tp_access);
-+	env->prog->aux->max_tp_access = max(access_end, env->prog->aux->max_tp_access);
- 
- 	return 0;
- }
-@@ -5370,13 +5376,14 @@ static int check_buffer_access(struct bpf_verifier_env *env,
- 			       u32 *max_access)
- {
- 	const char *buf_info = type_is_rdonly_mem(reg->type) ? "rdonly" : "rdwr";
-+	u32 access_end;
- 	int err;
- 
--	err = __check_buffer_access(env, buf_info, reg, argno, off, size);
-+	err = __check_buffer_access(env, buf_info, reg, argno, off, size, &access_end);
- 	if (err)
- 		return err;
- 
--	*max_access = max(reg->var_off.value + off + size, *max_access);
-+	*max_access = max(access_end, *max_access);
- 
- 	return 0;
- }
+ 	if (!(disk->flags & GENHD_FL_HIDDEN)) {
+-		/* Make sure the first partition scan will be proceed */
+-		if (get_capacity(disk) && disk_has_partscan(disk))
+-			set_bit(GD_NEED_PART_SCAN, &disk->state);
+-
+ 		bdev_add(disk->part0, ddev->devt);
+ 		if (get_capacity(disk))
+ 			disk_scan_partitions(disk, BLK_OPEN_READ);
 
