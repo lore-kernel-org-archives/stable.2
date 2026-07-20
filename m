@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919253E3145
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 16:51:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38B840EBB4
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 16:51:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784566279; cv=none; b=VVsBF8Dt4lXJBeQ7zsWZ82Mbd/JrGrb9t15NBJii8IJYvP2DuUe9JmK74OE+0c7g37MrJxDjPkJxi/UU55JCLW1zZozmkWTZGl05fBWrVZBWOM3LR4zjhmuW4XaWZ80MO9JJ9f700vpxnQJvqQDPmLOSng9vsYhRXd36fbGYZKI=
+	t=1784566280; cv=none; b=KaPy57WWsa5x/1RPOtJllQHi0JtZtGuJU4g7qb4v+r/jzTTzXQ3Ei32ohENPLNcm0OjI5DDVPuxodOD8FNYz3dyDIT6JrLDge4xalCsPVtxg3ZQZDiNVssunIUYauO0ek7EIgGpT9lShQxS02AIOZZAnUvz7m7F6nPZNHaE2iNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784566279; c=relaxed/simple;
-	bh=LHA5uvzjMLz+r1nyQqEd95t8eJ082//bFwB0F2eer5k=;
+	s=arc-20240116; t=1784566280; c=relaxed/simple;
+	bh=7pEMBcUBxFB6dkKSSD2HgqnwVVWHQ7s0QMPKC7Ipv30=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VTp7q07GpvJKQ8Uwr/ma14mc/zdDuvAzBawx/oZzjNrlLwlaarY3HUjpt2TzuPSwbQhMr/frAvTGhjyAMvQGqowFgY+9M/6WxYWOD5VKQH6jQP5PGh7ZFm6lHQBicry2d543iGvqsAMkwP9hIWMnV4yWLfSqVvy2M94ih1VEN+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vq6+s48r; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pLiYRSW+Eej3SwrSTlI//sg2+OqSe8EEGCW9qITOBQ7sphmz6rG3y2rFPXhgs9TXOqVE/ktMBHUtoT93Ju5cexsPqgN1IHVnz/cA2EXXyxMpFuWIFWXZ/Umcqx405eLEMDwKXamyHMBqfxeKRonJ6DMz5gBnpeq3qwKkQY3AD1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=exExoJL0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vq6+s48r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1DEF1F000E9;
-	Mon, 20 Jul 2026 16:51:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="exExoJL0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1AB31F00A3D;
+	Mon, 20 Jul 2026 16:51:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784566278;
-	bh=aJw5vJOPjOa18VUmnnO2Bj3QrOlgCybrNQET/ApCFlk=;
+	s=k20260515; t=1784566279;
+	bh=6ztfSg0fmB5Q4j5y4Oh1yOC4bpgNuIUqnRQJ2GJMaOE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Vq6+s48rw7zv5C4sGCQ5BwgAk09wze8mgqWoOVLD8G1XTrAMUKRth91vd4rVUS4xL
-	 O52xF9oHo+vjJVnDNkuas1ZY+0iCtWp0AOUE27s/k/nuj71X+oNKsRWX8dAgTfRL3S
-	 dt7LgUe302jflcZsgFqnlzch/PvC0WxbLFRrt7qWXtDB/NKUweWsMgTjyqdADYLqMw
-	 aRrDupBbUj4Z1HIdbPsyQfKbdLQ303slxvfcCbBmfDl1qxB/r4/Q4esQ+1S617SAEp
-	 5F9v/g3CWhHTSgM/xxqIkDVHguIqTwaMCWhrtHeCFlGoWKWR7N4x9QSFa1qaunmHpR
-	 p2fJqCcnjejnA==
+	b=exExoJL0GEMFidTYlADa7id8wE3CNTutf3cfhbzwBEToU9WTg/ULiC0hiSsLPe/0D
+	 5kXYo1JKSEtHgGg7evTw9rWdSZUWlApWJKTIxCZI/r2fnIW5Ywchf74/Oe9eZfypFi
+	 vHQ4Atzw8I3Hv/C3xXxVGkL+xalAazn4wFLpsCY9iKqveQjbG/SYO33kWeeR//mUfk
+	 4Qq9ey+4OfUOKDnzMLkwOmWG3Oyl0XpmCjGYXgJpf6dIdLPJdEvzVwtsRr1AaFvGl+
+	 B+GaSGYMZprKSsw6R4TquqSinN8WK6Wak/h6LdL5m/3Nm5QATignXqJ+zrPaLCa206
+	 JSbzZp8m6nj6g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Qu Wenruo <wqu@suse.com>,
 	Boris Burkov <boris@bur.io>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/5] btrfs: concentrate the error handling of submit_one_sector()
-Date: Mon, 20 Jul 2026 12:51:11 -0400
-Message-ID: <20260720165115.2527045-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/5] btrfs: replace for_each_set_bit() with for_each_set_bitmap()
+Date: Mon, 20 Jul 2026 12:51:12 -0400
+Message-ID: <20260720165115.2527045-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071509-driveway-had-c0ca@gregkh>
+In-Reply-To: <20260720165115.2527045-1-sashal@kernel.org>
 References: <2026071509-driveway-had-c0ca@gregkh>
+ <20260720165115.2527045-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,20 +49,28 @@ Content-Transfer-Encoding: 8bit
 
 From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit 44820d80026e0b509007d41c83d42f1213ee8589 ]
+[ Upstream commit e6698b34fab33867ef3faeeea6feb165f31aae24 ]
 
-Currently submit_one_sector() has only one failure path from
-btrfs_get_extent().
+Inside extent_io.c, there are several simple call sites doing things
+like:
 
-However the error handling is split into two parts, one inside
-submit_one_sector(), which clears the dirty flag and finishes the
-writeback for the fs block.
+	for_each_set_bit(bit, bitmap, bitmap_size) {
+		/* handle one fs block */
+	}
 
-The other part is to submit any remaining bio inside bio_ctrl and mark
-the ordered extent finished for the fs block.
+The workload includes:
 
-There is no special reason that we must split the error handling, let's
-just concentrate all the error handling into submit_one_sector().
+- set_bit()
+  Inside extent_writepage_io().
+
+  This can be replaced with a bitmap_set().
+
+- btrfs_folio_set_lock()
+- btrfs_mark_ordered_io_finished()
+  Inside writepage_delalloc().
+
+  Instead of calling it multiple times, we can pass a range into the
+  function with one call.
 
 Reviewed-by: Boris Burkov <boris@bur.io>
 Signed-off-by: Qu Wenruo <wqu@suse.com>
@@ -70,70 +79,69 @@ Signed-off-by: David Sterba <dsterba@suse.com>
 Stable-dep-of: ff66fe666233 ("btrfs: fix incorrect buffered IO fallback for append direct writes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/extent_io.c | 29 +++++++++++++++--------------
- 1 file changed, 15 insertions(+), 14 deletions(-)
+ fs/btrfs/extent_io.c | 26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
 
 diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
-index 4b2bd3cc3ed33e..b8e2b605d52c1e 100644
+index b8e2b605d52c1e..88b5581df7dc16 100644
 --- a/fs/btrfs/extent_io.c
 +++ b/fs/btrfs/extent_io.c
-@@ -1599,7 +1599,7 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
+@@ -1427,8 +1427,9 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
+ 	u64 delalloc_start = page_start;
+ 	u64 delalloc_end = page_end;
+ 	u64 delalloc_to_write = 0;
++	unsigned int start_bit;
++	unsigned int end_bit;
+ 	int ret = 0;
+-	int bit;
  
- /*
-  * Return 0 if we have submitted or queued the sector for submission.
-- * Return <0 for critical errors, and the sector will have its dirty flag cleared.
-+ * Return <0 for critical errors, and the involved sector will be cleaned up.
-  *
-  * Caller should make sure filepos < i_size and handle filepos >= i_size case.
-  */
-@@ -1623,6 +1623,13 @@ static int submit_one_sector(struct btrfs_inode *inode,
- 
- 	em = btrfs_get_extent(inode, NULL, filepos, sectorsize);
- 	if (IS_ERR(em)) {
-+		/*
-+		 * bio_ctrl may contain a bio crossing several folios.
-+		 * Submit it immediately so that the bio has a chance
-+		 * to finish normally, other than marked as error.
-+		 */
-+		submit_one_bio(bio_ctrl);
-+
- 		/*
- 		 * When submission failed, we should still clear the folio dirty.
- 		 * Or the folio will be written back again but without any
-@@ -1631,6 +1638,13 @@ static int submit_one_sector(struct btrfs_inode *inode,
- 		btrfs_folio_clear_dirty(fs_info, folio, filepos, sectorsize);
- 		btrfs_folio_set_writeback(fs_info, folio, filepos, sectorsize);
- 		btrfs_folio_clear_writeback(fs_info, folio, filepos, sectorsize);
-+
-+		/*
-+		 * Since there is no bio submitted to finish the ordered
-+		 * extent, we have to manually finish this sector.
-+		 */
-+		btrfs_mark_ordered_io_finished(inode, folio, filepos,
-+					       fs_info->sectorsize, false);
- 		return PTR_ERR(em);
+ 	/* Save the dirty bitmap as our submission bitmap will be a subset of it. */
+ 	if (btrfs_is_subpage(fs_info, folio)) {
+@@ -1438,10 +1439,12 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
+ 		bio_ctrl->submit_bitmap = 1;
  	}
  
-@@ -1756,19 +1770,6 @@ static noinline_for_stack int extent_writepage_io(struct btrfs_inode *inode,
- 		}
- 		ret = submit_one_sector(inode, folio, cur, bio_ctrl, i_size);
- 		if (unlikely(ret < 0)) {
--			/*
--			 * bio_ctrl may contain a bio crossing several folios.
--			 * Submit it immediately so that the bio has a chance
--			 * to finish normally, other than marked as error.
--			 */
--			submit_one_bio(bio_ctrl);
--			/*
--			 * Failed to grab the extent map which should be very rare.
--			 * Since there is no bio submitted to finish the ordered
--			 * extent, we have to manually finish this sector.
--			 */
--			btrfs_mark_ordered_io_finished(inode, folio, cur,
--						       fs_info->sectorsize, false);
- 			if (!found_error)
- 				found_error = ret;
- 			continue;
+-	for_each_set_bit(bit, &bio_ctrl->submit_bitmap, blocks_per_folio) {
+-		u64 start = page_start + (bit << fs_info->sectorsize_bits);
++	for_each_set_bitrange(start_bit, end_bit, &bio_ctrl->submit_bitmap,
++			      blocks_per_folio) {
++		u64 start = page_start + (start_bit << fs_info->sectorsize_bits);
++		u32 len = (end_bit - start_bit) << fs_info->sectorsize_bits;
+ 
+-		btrfs_folio_set_lock(fs_info, folio, start, fs_info->sectorsize);
++		btrfs_folio_set_lock(fs_info, folio, start, len);
+ 	}
+ 
+ 	/* Lock all (subpage) delalloc ranges inside the folio first. */
+@@ -1558,10 +1561,13 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
+ 				fs_info->sectorsize_bits,
+ 				blocks_per_folio);
+ 
+-		for_each_set_bit(bit, &bio_ctrl->submit_bitmap, bitmap_size)
+-			btrfs_mark_ordered_io_finished(inode, folio,
+-				page_start + (bit << fs_info->sectorsize_bits),
+-				fs_info->sectorsize, false);
++		for_each_set_bitrange(start_bit, end_bit, &bio_ctrl->submit_bitmap,
++				      bitmap_size) {
++			u64 start = page_start + (start_bit << fs_info->sectorsize_bits);
++			u32 len = (end_bit - start_bit) << fs_info->sectorsize_bits;
++
++			btrfs_mark_ordered_io_finished(inode, folio, start, len, false);
++		}
+ 		return ret;
+ 	}
+ out:
+@@ -1727,8 +1733,8 @@ static noinline_for_stack int extent_writepage_io(struct btrfs_inode *inode,
+ 		return ret;
+ 	}
+ 
+-	for (cur = start; cur < end; cur += fs_info->sectorsize)
+-		set_bit((cur - folio_start) >> fs_info->sectorsize_bits, &range_bitmap);
++	bitmap_set(&range_bitmap, (start - folio_pos(folio)) >> fs_info->sectorsize_bits,
++		   len >> fs_info->sectorsize_bits);
+ 	bitmap_and(&bio_ctrl->submit_bitmap, &bio_ctrl->submit_bitmap, &range_bitmap,
+ 		   blocks_per_folio);
+ 
 -- 
 2.53.0
 
