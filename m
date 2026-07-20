@@ -1,133 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755E3428485
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19F53B3C0D
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784554937; cv=none; b=qPRbF6CztzAQPtVYxhpJAtpv6zP/I3rpMdrbLbi8/EAVlmBPafUhoDFdNSXAdrYxDnZW/KQPoyNH0AEII5a5FId5k2UXcwneqfiuJD/jbqdC2QWNwZ0+LQRJCRlxHcPPN89lEitKGtNWTQGMmeKrdNFKXcfDidH6ui3/3FZHlU4=
+	t=1784554973; cv=none; b=ZPrnCes/mKTl0ju/d2kVRocKX3jmFUphgzBWu0AcQHfWtDqsjxSys73RRx5jRG7BM8mDnmSMCFE7Q/WeykA8ERT26Uqt1PIpA/axtrdHebbl9w5N1y8//BDe9CX8l7wdFS6AWpSMs4kNTeKsyi9ZmR2xj2q4gKcL3OA2SdEJYjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784554937; c=relaxed/simple;
-	bh=88r5Ndq9EDZSoiuw9bYNi+5VrT/2F0kZeyGL7sNQ+LI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mYM7r35sF9oUCNuoWSEbiLuaixvHBFGe3WXTKnk8uqqmAS1uVK5z2nj1quixgTVEnBdZxXBgxUeMV8gapRd5BssDQh2oqwr1Qv++4e3f4LkB2Y56K35qNGDE+L2/QcPuhSFEvqXywHSk7EgHVxGhvfF7PO6bWaD+SFrJ6HSvpI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dw4ggapl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784554973; c=relaxed/simple;
+	bh=EsvKt5wGyial0Aed20j3d9Zn1kRAIYlLAYXoevWcNWc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uJM4+uDw4K5uEzoNX/30lCpLPmEFI7GkvsMYTyFzuysccJ06Gp5iPAlwGoeuLcO7dDGJjMazUyQ4iHlqWFpSguaXgLvA4itGLJ7xAfjCR4onOd0kbUtZnvCYpkgCyhhrCzWpQeAqEmReg7dSz4udv1IRi6qG7bx5M/WN3CpNejo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=OQ38jxH4; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dw4ggapl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A9A1F000E9;
-	Mon, 20 Jul 2026 13:42:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784554933;
-	bh=+HmTtptAYVgSPw4oB7HZzBr+w8DrPHIy/NVQfIHgawo=;
-	h=Subject:To:Cc:From:Date;
-	b=dw4ggaplXIw2tQi1P6EYM26orgmwDTJSWr4KEKaWUq2qHQakOhBeddYf1qt/xsat5
-	 1M26mqpHJZWPJKohd0Z8zo1o14w6tkAuMiUTtIeOoxF31iCVNcosy5GSSgTaF7pwIt
-	 rhTao5/RGRs9k3kE1a9iJWB5HMlvDf0c1hWq5rIY=
-Subject: FAILED: patch "[PATCH] pinctrl: renesas: rzg2l: Use -ENOTSUPP instead of -EOPNOTSUPP" failed to apply to 6.18-stable tree
-To: claudiu.beznea.uj@bp.renesas.com,bartosz.golaszewski@oss.qualcomm.com,geert+renesas@glider.be
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 15:42:04 +0200
-Message-ID: <2026072004-whisking-poncho-be11@gregkh>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="OQ38jxH4"
+Received: by dvalin.narfation.org (Postfix) id 2A6DA20131;
+	Mon, 20 Jul 2026 13:42:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1784554967;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S1/5e4POs9+uR4/TQMz3IU5d1A5JKulzbZDqSeevvFU=;
+	b=OQ38jxH4dlu5Os0L/BXuDUy3thxcRdA/xIeJedwhhRHpgcwIJbE8qFauq7K8YqcGwz1hVS
+	6HN6ZCsAYmPcoGQ4YpCFTY3AEETD0norjREnJH4AFS46WrefjWcZqfvhtyu8EpuZznjJ3H
+	pGYdMXXrqsjhwi4toSTUlYDLcTR/+AA=
+From: Sven Eckelmann <sven@narfation.org>
+To: stable@vger.kernel.org
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.12.y] batman-adv: clean untagged VLAN on netdev registration failure
+Date: Mon, 20 Jul 2026 15:42:34 +0200
+Message-ID: <20260720134234.568023-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026072025-entire-upward-8119@gregkh>
+References: <2026072025-entire-upward-8119@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+commit 8669a550c752d86baebc5fdc83b8ff35c4372c0e upstream.
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+When an mesh interface is registered, it creates an untagged struct
+batadv_meshif_vlan on top of it via the NETDEV_REGISTER notifier. But in
+this process, another receiver of this notification can veto the
+registration. The netdev registration will be aborted because of this veto.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The register_netdevice() call will try to clean up the net_device using
+unregister_netdevice_queue() - which only uses the .priv_destructor to
+free private resources. In this situation, .dellink will not be called.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x c1492da3939c89372929e062d731f328f7693f1e
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072004-whisking-poncho-be11@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+The cleanup of the untagged batadv_meshif_vlan must thefore be done in the
+destructor to avoid a leak of this object.
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From c1492da3939c89372929e062d731f328f7693f1e Mon Sep 17 00:00:00 2001
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Date: Fri, 15 May 2026 15:40:07 +0300
-Subject: [PATCH] pinctrl: renesas: rzg2l: Use -ENOTSUPP instead of -EOPNOTSUPP
-
-The pinctrl and GPIO core code make exceptions for the -ENOTSUPP error
-code.  One such example is gpio_set_config_with_argument_optional(),
-which returns success when gpio_set_config_with_argument() returns
--ENOTSUPP, but reports failure for all other error codes.
-
-Returning -EOPNOTSUPP from the pinctrl driver on the unsupported pinctrl
-operation may lead to boot failures when pinctrl drivers implements
-struct gpio_chip::set_config, the system uses GPIO hogs, and the
-struct gpio_chip::set_config implementation returns -EOPNOTSUPP for the
-unsupported operations.
-
-Return -ENOTSUPP for the unsupported pinctrl operation.
-
-Fixes: 560c633d378a ("pinctrl: renesas: rzg2l: Drop oen_read and oen_write callbacks")
-Fixes: c4c4637eb57f ("pinctrl: renesas: Add RZ/G2L pin and gpio controller driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Link: https://patch.msgid.link/20260515124008.2947838-2-claudiu.beznea@kernel.org
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Fixes: 5d2c05b21337 ("batman-adv: add per VLAN interface attribute framework")
+[ switch to old "mesh_iface" name "soft_iface" ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+---
+ net/batman-adv/main.c           |  8 ++++++++
+ net/batman-adv/soft-interface.c | 13 ++-----------
+ net/batman-adv/soft-interface.h |  2 ++
+ 3 files changed, 12 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-index a106e087c224..05a33655e6cc 100644
---- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-+++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-@@ -1281,7 +1281,7 @@ static int rzg2l_read_oen(struct rzg2l_pinctrl *pctrl, unsigned int _pin)
- 	int bit;
+diff --git a/net/batman-adv/main.c b/net/batman-adv/main.c
+index e989a81084e92..c2e1250aa4333 100644
+--- a/net/batman-adv/main.c
++++ b/net/batman-adv/main.c
+@@ -259,6 +259,7 @@ int batadv_mesh_init(struct net_device *soft_iface)
+ void batadv_mesh_free(struct net_device *soft_iface)
+ {
+ 	struct batadv_priv *bat_priv = netdev_priv(soft_iface);
++	struct batadv_softif_vlan *vlan;
  
- 	if (!pctrl->data->pin_to_oen_bit)
--		return -EOPNOTSUPP;
-+		return -ENOTSUPP;
+ 	atomic_set(&bat_priv->mesh_state, BATADV_MESH_DEACTIVATING);
  
- 	bit = pctrl->data->pin_to_oen_bit(pctrl, _pin);
- 	if (bit < 0)
-@@ -1323,7 +1323,7 @@ static int rzg2l_write_oen(struct rzg2l_pinctrl *pctrl, unsigned int _pin, u8 oe
- 	u8 val;
+@@ -274,6 +275,13 @@ void batadv_mesh_free(struct net_device *soft_iface)
  
- 	if (!pctrl->data->pin_to_oen_bit)
--		return -EOPNOTSUPP;
-+		return -ENOTSUPP;
+ 	batadv_mcast_free(bat_priv);
  
- 	bit = pctrl->data->pin_to_oen_bit(pctrl, _pin);
- 	if (bit < 0)
-@@ -1754,7 +1754,7 @@ static int rzg2l_pinctrl_pinconf_set(struct pinctrl_dev *pctldev,
- 			break;
++	/* destroy the "untagged" VLAN */
++	vlan = batadv_softif_vlan_get(bat_priv, BATADV_NO_FLAGS);
++	if (vlan) {
++		batadv_softif_destroy_vlan(bat_priv, vlan);
++		batadv_softif_vlan_put(vlan);
++	}
++
+ 	/* Free the TT and the originator tables only after having terminated
+ 	 * all the other depending components which may use these structures for
+ 	 * their purposes.
+diff --git a/net/batman-adv/soft-interface.c b/net/batman-adv/soft-interface.c
+index f46064333f334..a24c39d5fa740 100644
+--- a/net/batman-adv/soft-interface.c
++++ b/net/batman-adv/soft-interface.c
+@@ -602,8 +602,8 @@ int batadv_softif_create_vlan(struct batadv_priv *bat_priv, unsigned short vid)
+  * @bat_priv: the bat priv with all the soft interface information
+  * @vlan: the object to remove
+  */
+-static void batadv_softif_destroy_vlan(struct batadv_priv *bat_priv,
+-				       struct batadv_softif_vlan *vlan)
++void batadv_softif_destroy_vlan(struct batadv_priv *bat_priv,
++				struct batadv_softif_vlan *vlan)
+ {
+ 	/* explicitly remove the associated TT local entry because it is marked
+ 	 * with the NOPURGE flag
+@@ -1099,22 +1099,13 @@ static int batadv_softif_newlink(struct net *src_net, struct net_device *dev,
+ static void batadv_softif_destroy_netlink(struct net_device *soft_iface,
+ 					  struct list_head *head)
+ {
+-	struct batadv_priv *bat_priv = netdev_priv(soft_iface);
+ 	struct batadv_hard_iface *hard_iface;
+-	struct batadv_softif_vlan *vlan;
  
- 		default:
--			return -EOPNOTSUPP;
-+			return -ENOTSUPP;
- 		}
+ 	list_for_each_entry(hard_iface, &batadv_hardif_list, list) {
+ 		if (hard_iface->soft_iface == soft_iface)
+ 			batadv_hardif_disable_interface(hard_iface);
  	}
  
-@@ -1837,7 +1837,7 @@ static int rzg2l_pinctrl_pinconf_group_get(struct pinctrl_dev *pctldev,
+-	/* destroy the "untagged" VLAN */
+-	vlan = batadv_softif_vlan_get(bat_priv, BATADV_NO_FLAGS);
+-	if (vlan) {
+-		batadv_softif_destroy_vlan(bat_priv, vlan);
+-		batadv_softif_vlan_put(vlan);
+-	}
+-
+ 	unregister_netdevice_queue(soft_iface, head);
+ }
  
- 		/* Check config matching between to pin  */
- 		if (i && prev_config != *config)
--			return -EOPNOTSUPP;
-+			return -ENOTSUPP;
- 
- 		prev_config = *config;
- 	}
+diff --git a/net/batman-adv/soft-interface.h b/net/batman-adv/soft-interface.h
+index 9f2003f1a4972..13709a5d23e3b 100644
+--- a/net/batman-adv/soft-interface.h
++++ b/net/batman-adv/soft-interface.h
+@@ -22,6 +22,8 @@ void batadv_interface_rx(struct net_device *soft_iface,
+ bool batadv_softif_is_valid(const struct net_device *net_dev);
+ extern struct rtnl_link_ops batadv_link_ops;
+ int batadv_softif_create_vlan(struct batadv_priv *bat_priv, unsigned short vid);
++void batadv_softif_destroy_vlan(struct batadv_priv *bat_priv,
++				struct batadv_softif_vlan *vlan);
+ void batadv_softif_vlan_release(struct kref *ref);
+ struct batadv_softif_vlan *batadv_softif_vlan_get(struct batadv_priv *bat_priv,
+ 						  unsigned short vid);
+-- 
+2.47.3
 
