@@ -1,86 +1,99 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83578223DE7
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F138182D6
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:30:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784554221; cv=none; b=EpJpfD88nSMsBFw3ogObuROlg8VOOqCBPDCFApxp/IH0rkMGi4o0vrAOb+enCce6ac/+x6tWy+Wek/MntEtS9cFK2+RGDNZWlSQhq45K1WOMMQ3lVsaO0tNXEzwPvjvp0TFsYh1lzvWO9Kms1q/RZfQl+R+YnS0bPRyA95/poEQ=
+	t=1784554229; cv=none; b=s2/lRGIUp7QZLAwIGplBSNnLrh04KVFrxsQE0xKBKSU6P4/1fadQEYGLi3o/NBXFPdjEaeCmggJV+WHiNSdHCWXJLEaX1u6NkDZba10Z2A+v9dbpdbA+rOyH4WQzzUpVeKbnwQhFwCYbN9y/RAOPFVCzx3nPIlW16oAP0OEeFKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784554221; c=relaxed/simple;
-	bh=OcLsxRIQNSqAt8rM3ensX8aG+Kes3lsxh3izH5AsZ0Q=;
+	s=arc-20240116; t=1784554229; c=relaxed/simple;
+	bh=yNdIMmLv0NGNH8QqEoRMldkDkWPXEm11ax+7PtoSVuE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dXEyNAqqwIrfPDNz1C1TYpCKnQL7aMHAoEAmS8chwzUx51VCHvwro582QFzK517g13tAmjg6v2SrGhn1XvDiRkOwpvvNDzRPqJmmNdUAknMY+a+kEEHthSMBCa3/gKmj+6f4kyTnzzKRzTtbyoR80w8jjOuQT4beUNHcPpEFWpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=wiidfx+y; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	 MIME-Version:Content-Type; b=K5pyWkaVLU7ftrVgXL4yxm4/GIPjKpEHf0aKA3mbQs6JQixYEuSCdTPTIYgkN4o+zeqTsx2UJZSCj/LDENFNOnPfXlTLV47UUw6a112pcTScdy9YfYvPu9ptT2HytwUNFUNSixYvwRkaLYgGlP9oFy88mXdEeAXXYb9j6j53+v4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLOYE3uN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="wiidfx+y"
-Received: by dvalin.narfation.org (Postfix) id 786A320131;
-	Mon, 20 Jul 2026 13:30:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1784554218;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8yPW+qb+d71lcSMUQAIZvIuGN/JxWEu4oCxpESbPHxQ=;
-	b=wiidfx+yPIkRjuh6n2V3vQfOD2KddZuqx63SrzoOpphbl8i19G6i9Jg6m2HDZBzvGz3g8U
-	mmT1uzX2ksXo2xgNDBGWT+JEwZBVN0PANHzCW3oEjV0zWgiUC/EPmASlD5XH4+/oLXK/0P
-	7B6tWt5BIgcxtWpJTjRaeveIQOl1KPc=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLOYE3uN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068CA1F000E9;
+	Mon, 20 Jul 2026 13:30:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784554228;
+	bh=fI19ko+0CH3iJu+cXZQYOUhdvRlQMARwDTLxDYi/ffg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FLOYE3uNt1s0xbqy0sfBxXpNhmhATfT6HsY2Kk9BMeUYhlX7x8ZzOlFQW6dQwXfFp
+	 qfEM5ETnfkpSz0HDZWnP+wideOTjVNhc1m7Ygd7L+HRA0bZDTLwAVDdC78alZOwJvc
+	 PcHbyEZ6R5kz3LZZlMeiKFs7Porw7dc/rHPRJCQxuy/Qja1I9HC9I50n6lJnp+439p
+	 Kb9ttv7yca+Tb2+6SRkslBPlp8yCAp7OoD0gXWrf4yP47ikGsTYeFg5o20X0s1DIGD
+	 NPuZNXNCd8n/kupK2UspP6zIM2Ubv0ypayPAPP+aHrc98af8MaCudsnkw59tlwBF0T
+	 i/xfinToS01Ww==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 6.12.y] batman-adv: ensure minimal ethernet header on TX
-Date: Mon, 20 Jul 2026 15:29:51 +0200
-Message-ID: <20260720132951.334751-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072041-bruising-resort-e0fb@gregkh>
-References: <2026072041-bruising-resort-e0fb@gregkh>
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] crypto: atmel - Drop explicit initialization of struct i2c_device_id::driver_data to 0
+Date: Mon, 20 Jul 2026 09:30:25 -0400
+Message-ID: <20260720133026.1149181-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071512-stuffed-blunderer-f733@gregkh>
+References: <2026071512-stuffed-blunderer-f733@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-commit 49df66b7993c80b80c7eb9a84ba5b3410c8296a0 upstream.
+From: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
 
-As documented in commit 8bd67ebb50c0 ("net: bridge: xmit: make sure we have
-at least eth header len bytes"), it is possible by for a local user with
-eBPF TC hook access to attach a tc filter which truncates the packet and
-redirects to an batadv interface. But the code assumes that at least
-ETH_HLEN bytes are available and thus might read outside of the available
-buffer.
+[ Upstream commit d86ad3911a5d4549297ed810ee450e5772fd665f ]
 
-The batadv_interface_tx() must therefore always check itself if enough data
-is available for the ethernet header and don't rely on min_header_len.
+These drivers don't use the driver_data member of struct i2c_device_id,
+so don't explicitly initialize this member.
 
-Cc: stable@vger.kernel.org
-Fixes: c6c8fea29769 ("net: Add batman-adv meshing protocol")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-[ move from mesh- to soft-interface.c ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+This prepares putting driver_data in an anonymous union which requires
+either no initialization or named designators. But it's also a nice
+cleanup on its own.
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Stable-dep-of: ea5e57cc9718 ("crypto: atmel-sha204a - drop hwrng quality reduction for ATSHA204A")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/soft-interface.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/crypto/atmel-ecc.c     | 2 +-
+ drivers/crypto/atmel-sha204a.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/net/batman-adv/soft-interface.c b/net/batman-adv/soft-interface.c
-index f46064333f334..f64c3058ad191 100644
---- a/net/batman-adv/soft-interface.c
-+++ b/net/batman-adv/soft-interface.c
-@@ -206,6 +206,9 @@ static netdev_tx_t batadv_interface_tx(struct sk_buff *skb,
- 	if (atomic_read(&bat_priv->mesh_state) != BATADV_MESH_ACTIVE)
- 		goto dropped;
+diff --git a/drivers/crypto/atmel-ecc.c b/drivers/crypto/atmel-ecc.c
+index 813d8517e1c3ca..9da5a03880807d 100644
+--- a/drivers/crypto/atmel-ecc.c
++++ b/drivers/crypto/atmel-ecc.c
+@@ -380,7 +380,7 @@ MODULE_DEVICE_TABLE(of, atmel_ecc_dt_ids);
+ #endif
  
-+	if (!pskb_may_pull(skb, ETH_HLEN))
-+		goto dropped;
-+
- 	/* reset control block to avoid left overs from previous users */
- 	memset(skb->cb, 0, sizeof(struct batadv_skb_cb));
+ static const struct i2c_device_id atmel_ecc_id[] = {
+-	{ "atecc508a", 0 },
++	{ "atecc508a" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, atmel_ecc_id);
+diff --git a/drivers/crypto/atmel-sha204a.c b/drivers/crypto/atmel-sha204a.c
+index 2cf5407818f146..b4bb35eb4a4b4b 100644
+--- a/drivers/crypto/atmel-sha204a.c
++++ b/drivers/crypto/atmel-sha204a.c
+@@ -139,8 +139,8 @@ static const struct of_device_id atmel_sha204a_dt_ids[] __maybe_unused = {
+ MODULE_DEVICE_TABLE(of, atmel_sha204a_dt_ids);
  
+ static const struct i2c_device_id atmel_sha204a_id[] = {
+-	{ "atsha204", 0 },
+-	{ "atsha204a", 0 },
++	{ "atsha204" },
++	{ "atsha204a" },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(i2c, atmel_sha204a_id);
 -- 
-2.47.3
+2.53.0
 
