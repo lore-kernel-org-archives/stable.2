@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB9E3BED5C
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 20:18:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE9D3A5423
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 20:19:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784578737; cv=none; b=opqmJdkxKDwAH9RR9QsoWgKPmxfcJSA/Jkq2dtI+QM7SmnRoBUnCBBHD8gKpOrthjxUFoVsNZt/PusqjAD3UoiZ71zkq6w4puuD7mRFVVCYAIsEgWDfvkEu4M7dzq4B3Wy9cDoLEHzdIZR5NAtrRJY2XOAiRkrNqgEgzP0JUNgA=
+	t=1784578751; cv=none; b=ZrPnbLiKKLf7X6wdPvO3q2THik4bnO9NXG6wIZXx1Ati3ogwzhCIxH1oa6PY6A0lfqRQAm4dhF62gM/kLNq0+H6AGulGo1MeMaAcyhJs9Tf6Cb9KuEx6bx0w5+H/Y7qsT1qyD/Ormgx5o4+nInLPM3/qDAQ/TfhBJzb6r1Kdoiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784578737; c=relaxed/simple;
-	bh=kO6o9x3M0ehSiBOG4cezBN3qb3LdMmYkpTcYAySdMmI=;
+	s=arc-20240116; t=1784578751; c=relaxed/simple;
+	bh=O3VtUVjg1//WrQoeQXURQtuokazDtpBuAu9jTPXrFOg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k2dJGqn2vkRumsYiO5urbDL15VbaubIDe1J0ZHGyOH3rkhg/bGmv+BU0Xhzk/cFSG1Qj42JC0AG6Qyd01WuOckqfbVxSpVoK6UKoys/PyrmYMHppD0at5OluwOnPnxsKSJPsxCYH13LjUHqEeO3f5SkzopsrkaVkT/IAHENn6As=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OiomuoNL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WNRSP2LQeU1pDc/NckVPTDjuCoR2hYBpr8pFQF21ImHP8elP6H616Uv8Opamm9Ts9yCAW5p71it/Yk+NXlidfSrR02zfCnQSvMlm7mEWuwB2On/N7Tu2sxIsXGOrY0v0zrk2o7IjcrMC+jWuNL8lBxzg5MAjkZr+0/Jc2iJOEnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEVIeB/g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OiomuoNL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9091F000E9;
-	Mon, 20 Jul 2026 20:18:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEVIeB/g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B71A1F000E9;
+	Mon, 20 Jul 2026 20:19:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784578736;
-	bh=gs0Md4/okfuZ1KSDkT9CHvNqnMwTIXgPzunQlbq8jJY=;
+	s=k20260515; t=1784578749;
+	bh=ahYcY03g2egmlcdLtk7kW6SxUGpEYXbUdmdE08iQnNo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OiomuoNLQcbZmjqlAnk+L/vmZzPqtbEgZAhD14OacQKqx40IKc3G4DNnms8R0+DnB
-	 o2Hz5uPDym2PPlG2XvCnDrtkXI1nwfzysv2aZsyQQxM0GBt06lNTvt+hhNBraFAVDv
-	 zjdYq4POg19al+pIg5g4ubRZsmiM+8XAkn2QdPNiZ9fx37xQ0u1Nnj1cASNt+4BNcc
-	 VBoDLYsjyhWiGICZDxJehRXabbvirLLTbTyR4mm4aa+YHofBk6Y8YYC+tM5DpxRkcf
-	 IRU/7jB1yxLZVdfXIvyo7fGrJWmbZqJB8KQYrc3FhR7ciBHL0RJ5j0r/gkozdpSDK0
-	 MTRE7eFvr87kA==
+	b=iEVIeB/ge7P+jSoX/qGBOEOxrxTEIrwSGLfgAsLWV5us55wiMO47KGzuLhmoE3h8c
+	 +TAmI+EDfou2oxv2eBVE2FC8WFtXJOaHbzGCs/gggulc8qO4QlxNIBG476EqTAHdoq
+	 X8qYV1qhruw/0u1O5xlX6eZFmtOovzIIsiE5zD55+CNOURl34SsJzPIUFpyzDMyWqO
+	 yNKazJtGZwkAYQ2XvFWKKs0Cw44CBbUJCvKMjkoZoFIJMGLoRjEa/ccs+jLZA2vtop
+	 OH6VPey6yl0YFEiEFcwtvb9px86tiRCVmLMYVWpjrE9GkvXd5tHFidT7viLSinyn+p
+	 XBNpfLP05hQaw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ahsan Atta <ahsan.atta@intel.com>,
-	Maksim Lukoshkov <maksim.lukoshkov@intel.com>,
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Qu Wenruo <wqu@suse.com>,
+	Boris Burkov <boris@bur.io>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] crypto: qat - fix restarting state leak on allocation failure
-Date: Mon, 20 Jul 2026 16:18:53 -0400
-Message-ID: <20260720201853.3239508-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] btrfs: fix false IO failure after falling back to buffered write
+Date: Mon, 20 Jul 2026 16:19:06 -0400
+Message-ID: <20260720201907.3240613-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071552-tributary-pound-4afa@gregkh>
-References: <2026071552-tributary-pound-4afa@gregkh>
+In-Reply-To: <2026071510-legend-handled-035f@gregkh>
+References: <2026071510-legend-handled-035f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,56 +46,200 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ahsan Atta <ahsan.atta@intel.com>
+From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit 7d3ed20f7e46b3e991936fedd7a28f3ff4aec8d2 ]
+[ Upstream commit 66ff4d366e7eb4d31813d2acabf3af512ce03aa5 ]
 
-In adf_dev_aer_schedule_reset(), ADF_STATUS_RESTARTING is set before
-allocating reset_data. If the allocation fails, the function returns
--ENOMEM without queuing reset work, so nothing ever clears the bit.
-This leaves the device permanently stuck in the restarting state,
-causing all subsequent reset attempts to be silently skipped.
+[BUG]
+The test case generic/362 will fail with "nodatasum" mount option (*):
 
-Fix this by using test_and_set_bit() to atomically claim the
-RESTARTING state, preventing duplicate reset scheduling races under
-concurrent fatal error reporting. If the subsequent allocation fails,
-clear the bit to restore clean state so future reset attempts can
-proceed.
+ MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
 
-Cc: stable@vger.kernel.org
-Fixes: d8cba25d2c68 ("crypto: qat - Intel(R) QAT driver framework")
-Signed-off-by: Ahsan Atta <ahsan.atta@intel.com>
-Co-developed-by: Maksim Lukoshkov <maksim.lukoshkov@intel.com>
-Signed-off-by: Maksim Lukoshkov <maksim.lukoshkov@intel.com>
-Reviewed-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+ generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
+    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
+    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:21:17.574771567 +0930
+    @@ -1,2 +1,3 @@
+     QA output created by 362
+    +First write failed: Input/output error
+     Silence is golden
+    ...
+
+*: If the test case has been executed before with default data checksum,
+the failure will not reproduce. Need the following fix to make it
+reliably reproducible:
+https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
+
+[CAUSE]
+Inside __iomap_dio_rw(), the -EFAULT/-ENOTBLK error is not directly returned.
+Thus we never got an error pointer from __iomap_dio_rw().
+
+The call chain looks like this:
+
+ btrfs_direct_write()
+ |- btrfs_dio_write()
+ |-  __iomap_dio_rw()
+ |  |- iomap_iter()
+ |  |  |- btrfs_dio_iomap_begin()
+ |  |     Now an ordered extent is allocated for the 4K write.
+ |  |
+ |  |- iomi.status = iomap_dio_iter()
+ |  |  Where iomap_dio_iter() returned -EFAULT.
+ |  |
+ |  |- ret = iomap_iter()
+ |  |  |- btrfs_dio_iomap_end()
+ |  |  |  |- btrfs_finish_ordered_extent(uptodate = false)
+ |  |  |  |  |- can_finish_ordered_extent()
+ |  |  |  |     |- btrfs_mark_ordered_extent_error()
+ |  |  |  |        |- mapping_set_error()
+ |  |  |  |           Now the address space is marked error.
+ |  |  |  | return -ENOTBLK
+ |  |  |- return -ENOTBLK
+ |  |- if (ret == -ENOTBLK) { ret = 0; }
+ |     Now the return value is reset to 0.
+ |     Thus no error pointer will be returned.
+ |
+ |- ret = iomap_dio_complete()
+ |  Since no byte is submitted, @ret is 0.
+ |
+ |- Fallback to buffered IO
+ |  And the buffered write finished without error
+ |
+ |- filemap_fdatawait_range()
+    |- filemap_check_errors()
+       The previous error is recorded, thus an error is returned
+
+However the buffered write is properly submitted and finished, the error
+is from the btrfs_finish_ordered_extent() call with @uptodate = false.
+
+[FIX]
+When a short dio write happened, any range that is submitted will have
+btrfs_extract_ordered_extent() to be called, thus the submitted range
+will always have an OE just covering the submitted range.
+
+The remaining OE range is never submitted, thus they should be treated
+as truncated, not an error. So that we can properly reclaim and not
+insert an unnecessary file extent item, without marking the mapping as
+error.
+
+Extract a helper, btrfs_mark_ordered_extent_truncated(), and utilize
+that helper to mark the direct IO ordered extent as truncated, so it
+won't cause failure for the later buffered fallback.
+
+[REASON FOR NO FIXES TAG]
+The bug itself is pretty old, at commit f85781fb505e ("btrfs: switch to
+iomap for direct IO") we're already passing @uptodate=false finishing
+the OE.
+But at that time OE with IOERR won't call mapping_set_error(), so it's
+not exposed.
+Later commit d61bec08b904 ("btrfs: mark ordered extent and inode with
+error if we fail to finish") finally exposed the bug, but that commit
+is doing a correct job, not the root cause.
+
+Anyway the bug is very old, dating back to 5.1x days, thus only CC to
+stable.
+
+CC: stable@vger.kernel.org # 5.15+
+Reviewed-by: Boris Burkov <boris@bur.io>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: ff66fe666233 ("btrfs: fix incorrect buffered IO fallback for append direct writes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/qat/qat_common/adf_aer.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/btrfs/inode.c        | 33 +++++++++++++++++++++++++--------
+ fs/btrfs/ordered-data.c | 12 ++++++++++++
+ fs/btrfs/ordered-data.h |  2 ++
+ 3 files changed, 39 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/crypto/qat/qat_common/adf_aer.c b/drivers/crypto/qat/qat_common/adf_aer.c
-index 56c45c3408fc58..9ae9e5c88d34b5 100644
---- a/drivers/crypto/qat/qat_common/adf_aer.c
-+++ b/drivers/crypto/qat/qat_common/adf_aer.c
-@@ -116,13 +116,14 @@ static int adf_dev_aer_schedule_reset(struct adf_accel_dev *accel_dev,
- 	struct adf_reset_dev_data *reset_data;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 577f7e2895b66a..758a1ce83cf749 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -7987,12 +7987,33 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
+ 	if (submitted < length) {
+ 		pos += submitted;
+ 		length -= submitted;
+-		if (write)
++		if (write) {
++			struct btrfs_ordered_extent *ordered;
++
++			/*
++			 * We have a short write, and the ordered extent is
++			 * not split at submission time on this tree, so it
++			 * may cover both the submitted range and the range
++			 * that was never submitted.
++			 *
++			 * Truncate the ordered extent to the part that was
++			 * submitted properly, so the never submitted range
++			 * is reclaimed without inserting a file extent item
++			 * for it and without marking it as an IO error.
++			 */
++			ordered = btrfs_lookup_ordered_extent(BTRFS_I(inode),
++							      pos);
++			if (ordered) {
++				btrfs_mark_ordered_extent_truncated(ordered,
++						pos - ordered->file_offset);
++				btrfs_put_ordered_extent(ordered);
++			}
+ 			btrfs_mark_ordered_io_finished(BTRFS_I(inode), NULL,
+-						       pos, length, false);
+-		else
++						       pos, length, true);
++		} else {
+ 			unlock_extent(&BTRFS_I(inode)->io_tree, pos,
+ 				      pos + length - 1, NULL);
++		}
+ 		ret = -ENOTBLK;
+ 	}
  
- 	if (!adf_dev_started(accel_dev) ||
--	    test_bit(ADF_STATUS_RESTARTING, &accel_dev->status))
-+	    test_and_set_bit(ADF_STATUS_RESTARTING, &accel_dev->status))
- 		return 0;
+@@ -8516,11 +8537,7 @@ static void btrfs_invalidate_folio(struct folio *folio, size_t offset,
+ 					 EXTENT_LOCKED | EXTENT_DO_ACCOUNTING |
+ 					 EXTENT_DEFRAG, &cached_state);
  
--	set_bit(ADF_STATUS_RESTARTING, &accel_dev->status);
- 	reset_data = kzalloc(sizeof(*reset_data), GFP_KERNEL);
--	if (!reset_data)
-+	if (!reset_data) {
-+		clear_bit(ADF_STATUS_RESTARTING, &accel_dev->status);
- 		return -ENOMEM;
-+	}
- 	reset_data->accel_dev = accel_dev;
- 	init_completion(&reset_data->compl);
- 	reset_data->mode = mode;
+-		spin_lock_irq(&inode->ordered_tree.lock);
+-		set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
+-		ordered->truncated_len = min(ordered->truncated_len,
+-					     cur - ordered->file_offset);
+-		spin_unlock_irq(&inode->ordered_tree.lock);
++		btrfs_mark_ordered_extent_truncated(ordered, cur - ordered->file_offset);
+ 
+ 		/*
+ 		 * If the ordered extent has finished, we're safe to delete all
+diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+index 69fd4f9d840b56..a9f44de06decf8 100644
+--- a/fs/btrfs/ordered-data.c
++++ b/fs/btrfs/ordered-data.c
+@@ -279,6 +279,18 @@ void btrfs_add_ordered_sum(struct btrfs_ordered_extent *entry,
+ 	spin_unlock_irq(&tree->lock);
+ }
+ 
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len)
++{
++	struct btrfs_inode *inode = BTRFS_I(ordered->inode);
++
++	ASSERT(truncate_len <= ordered->num_bytes);
++	spin_lock_irq(&inode->ordered_tree.lock);
++	set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
++	ordered->truncated_len = min(ordered->truncated_len, truncate_len);
++	spin_unlock_irq(&inode->ordered_tree.lock);
++}
++
+ static void finish_ordered_fn(struct btrfs_work *work)
+ {
+ 	struct btrfs_ordered_extent *ordered_extent;
+diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
+index cc3ca4bb9bd542..9bb82aa5a2e462 100644
+--- a/fs/btrfs/ordered-data.h
++++ b/fs/btrfs/ordered-data.h
+@@ -209,6 +209,8 @@ void btrfs_lock_and_flush_ordered_range(struct btrfs_inode *inode, u64 start,
+ bool btrfs_try_lock_ordered_range(struct btrfs_inode *inode, u64 start, u64 end);
+ int btrfs_split_ordered_extent(struct btrfs_ordered_extent *ordered, u64 pre,
+ 			       u64 post);
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len);
+ int __init ordered_data_init(void);
+ void __cold ordered_data_exit(void);
+ 
 -- 
 2.53.0
 
