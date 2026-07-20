@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B904D414DCC
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:22:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5EA417BFB
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:31:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784550163; cv=none; b=t6+5Ld4MbUs5aTVZAsMFpHXk1zf92/6Ga5ouCvvsOP/LyzuQ5jcIr33bXr6pA23SrWStTZVnZOli2kX46nmbzvV/ihRJ0PdM6iQF2M43Gw0YiF+ocdYf4LbeclM8dt1OMinA6aFdG7i0ugx7DpHsfPAql/eQcEL1W6YEZ/eAPMI=
+	t=1784550682; cv=none; b=FQ4Kr7C3prSv1atxDbtR7qInPosnLFZNx30IOXt6TlJAH6rtSchkZAZyYdKUkw2Ovryl08arLLsdAQdrF35XhNRBLQ8227Q1X+aXmPyDe3/Au52RWFvGcxd7gH3D2ndGSw9+ohF0LFzTcKuJXUoIYMc6cKfFxGBXIEohk66DPzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784550163; c=relaxed/simple;
-	bh=AFWrarc6zvU9Bp0BWHvz+TTgpeJq5TtFy7whwVnggZM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UllnJQ2yG+LVSiV15VyYA0a4WN/R2ktawA0OW3+nKXcxk/JzeodI1y9ix1/+xdsapgoD/ZZVBO3Xe7ZjRlJvqGz8SVjqtQXzrjFchRPcLyWPBFHRUbqvuIc8AYrAHdQjd1RNr4KejrdoM9Isj51JuGlPflIBXvr7v43rhJKqa1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GOsSzIF0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784550682; c=relaxed/simple;
+	bh=3Jt2kpycJEppXnVbUXQofxxiuAdgYuaBMY2FM7VhgFo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Gdew+8ShmhzMuLd6VuuvHSbVCCn6KJKLPl3z4WM6cWQw6k8I0WOEfqXXR+DY3DZwmtWZvghw/9wf2uOfDajspc5MZkLK+8vsrEBHdW79z1LLpYMnoSRfvyxOZMlu7paqBkSGTyext24NHwi6tp4182QjlntSzCGvGKAIC62Gqn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gAwsnvce; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GOsSzIF0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0676A1F00A3A;
-	Mon, 20 Jul 2026 12:22:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gAwsnvce"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20B21F000E9;
+	Mon, 20 Jul 2026 12:31:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784550162;
-	bh=7djA0H6Atd0pFODS8IYc5SYFRsuaNmUkmJqvuKeas4E=;
+	s=korg; t=1784550681;
+	bh=o5cOQDKDtw3tkDAkvdUAIqzp3hhI7CXAQ/7LdRpmw1E=;
 	h=Subject:To:Cc:From:Date;
-	b=GOsSzIF0tJJXk7DOpYKWxwL3vfWp5tw864ccPheVPYYx7jtdaU0uf71XR1SDeX9Gh
-	 yGmu8vemMbQ8diJgByEmgcbr28fFe96VBAUADngzba7shqoywQqsPzjTmtJQCCxYkr
-	 ky6rlPqfkT4BZO1qdUxBraLfDs7CxeBULDKe9b5U=
-Subject: FAILED: patch "[PATCH] KVM: arm64: nv: Re-translate VNCR before injecting abort" failed to apply to 6.18-stable tree
-To: oupton@kernel.org,maz@kernel.org,sashiko-bot@kernel.org
+	b=gAwsnvce6OhN3bQwMWHNFKlwpvjRhBzEEkgHynnXV1x/k8dDdSsgOrs7RIgkIHHKI
+	 jd4qyIp+/FdMAelB7afMUMgN2GFYmv2q4TEamusEe91gYlqDAOQ9tagcFL3pfP35nb
+	 c54JcH1JdRzx2CgTFNjjBMxfLDp+Z1nWIe9rTENw=
+Subject: FAILED: patch "[PATCH] KVM: nVMX: Put vmcs12 pages if nested VM-Enter fails due to" failed to apply to 6.6-stable tree
+To: seanjc@google.com,minhnguyen.080505@gmail.com,pbonzini@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 14:22:33 +0200
-Message-ID: <2026072033-frigidly-corncob-3b28@gregkh>
+Date: Mon, 20 Jul 2026 14:27:13 +0200
+Message-ID: <2026072013-catalyst-repaying-3028@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x bb645aa0a4caeaf7f9cd32e9a948594d434c1a8f
+git cherry-pick -x 2f2312c422fd2695da772cecb30c69994b795964
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072033-frigidly-corncob-3b28@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072013-catalyst-repaying-3028@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,163 +62,43 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From bb645aa0a4caeaf7f9cd32e9a948594d434c1a8f Mon Sep 17 00:00:00 2001
-From: Oliver Upton <oupton@kernel.org>
-Date: Thu, 18 Jun 2026 16:42:04 -0700
-Subject: [PATCH] KVM: arm64: nv: Re-translate VNCR before injecting abort
+From 2f2312c422fd2695da772cecb30c69994b795964 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Tue, 14 Jul 2026 09:03:06 -0700
+Subject: [PATCH] KVM: nVMX: Put vmcs12 pages if nested VM-Enter fails due to
+ invalid guest state
 
-KVM faults in the VNCR page with FOLL_WRITE whenever the guest aborts
-for a write, similar to how a regular stage-2 mapping is handled. It is
-entirely possible that the guest reads from the VNCR before writing to
-it, in which case the PFN could only be read-only.
+Put all vmcs12 pages if KVM synthesizes a nested VM-Exit due to invalid
+guest while emulating VMLAUNCH or VMRESUME.  The invalid guest state path
+doesn't use nested_vmx_vmexit() as that API is intended to be used if and
+only if L2 is active, and the open coded equivalent neglects to put the
+vmcs12 pages.  Failure to put the vmcs12 pages leaks any pinned pages
+(and/or mappings) if L1 retries VMLAUNCH/VMRESUME.
 
-Invalidate the VNCR TLB and re-fetch the translation upon taking a VNCR
-abort, allowing the host mapping to be faulted in for write the second
-time around. Interestingly enough, this also satisfies the ordering
-requirements of FEAT_ETS2/3 between descriptor updates and MMU faults.
+Note, the !from_vmenter scenario doesn't suffer the same problem, as
+vmx_get_nested_state_pages() only gets/pins/maps the vmcs12 pages if L2 is
+active, i.e. if a "full" VM-Exit is guaranteed before KVM will retry
+getting vmcs12 pages.
 
+Fixes: 96c66e87deee ("KVM/nVMX: Use kvm_vcpu_map when mapping the virtual APIC page")
+Fixes: 3278e0492554 ("KVM/nVMX: Use kvm_vcpu_map when mapping the posted interrupt descriptor table")
+Fixes: fe1911aa443e ("KVM: nVMX: Use kvm_vcpu_map() to get/pin vmcs12's APIC-access page")
+Reported-by: Minh Nguyen <minhnguyen.080505@gmail.com>
 Cc: stable@vger.kernel.org
-Fixes: 2a359e072596 ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Oliver Upton <oupton@kernel.org>
-Link: https://patch.msgid.link/20260618234207.1063941-4-oupton@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 53dea9c3f14f..7fffd86eee94 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -1466,88 +1466,61 @@ static void handle_vncr_perm(struct kvm_vcpu *vcpu)
- 	kvm_inject_nested_sync(vcpu, esr);
- }
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index bb0eb40b4448..220d42ebc82e 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -3761,6 +3761,8 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
+ 	if (!from_vmentry)
+ 		return NVMX_VMENTRY_VMEXIT;
  
--static bool kvm_vncr_tlb_lookup(struct kvm_vcpu *vcpu)
--{
--	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
--
--	lockdep_assert_held_read(&vcpu->kvm->mmu_lock);
--
--	if (!vt->valid)
--		return false;
--
--	if (read_vncr_el2(vcpu) != vt->gva)
--		return false;
--
--	if (vt->wr.nG)
--		return get_asid_by_regime(vcpu, TR_EL20) == vt->wr.asid;
--
--	return true;
--}
--
- int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
- {
- 	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
- 	u64 esr = kvm_vcpu_get_esr(vcpu);
-+	bool is_gmem = false;
-+	bool perm;
-+	int ret;
- 
- 	WARN_ON_ONCE(!(esr & ESR_ELx_VNCR));
- 
- 	if (kvm_vcpu_abt_issea(vcpu))
- 		return kvm_handle_guest_sea(vcpu);
- 
--	if (esr_fsc_is_permission_fault(esr)) {
--		handle_vncr_perm(vcpu);
--	} else if (esr_fsc_is_translation_fault(esr)) {
--		bool valid, is_gmem = false;
--		int ret;
--
--		scoped_guard(read_lock, &vcpu->kvm->mmu_lock)
--			valid = kvm_vncr_tlb_lookup(vcpu);
--
--		if (!valid)
--			ret = kvm_translate_vncr(vcpu, &is_gmem);
--		else
--			ret = -EPERM;
--
--		switch (ret) {
--		case -EAGAIN:
--			/* Let's try again... */
--			break;
--		case -ENOMEM:
--			/*
--			 * For guest_memfd, this indicates that it failed to
--			 * create a folio to back the memory. Inform userspace.
--			 */
--			if (is_gmem)
--				return 0;
--			/* Otherwise, let's try again... */
--			break;
--		case -EFAULT:
--		case -EIO:
--		case -EHWPOISON:
--			if (is_gmem)
--				return 0;
--			fallthrough;
--		case -EINVAL:
--		case -ENOENT:
--		case -EACCES:
--			/*
--			 * Translation failed, inject the corresponding
--			 * exception back to EL2.
--			 */
--			esr &= ~ESR_ELx_FSC;
--			esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
--
--			kvm_inject_nested_sync(vcpu, esr);
--			break;
--		case -EPERM:
--			/* Hack to deal with POE until we get kernel support */
--			handle_vncr_perm(vcpu);
--			break;
--		case 0:
--			break;
--		}
--	} else {
-+	if (!esr_fsc_is_translation_fault(esr) && !esr_fsc_is_permission_fault(esr)) {
- 		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
-+		return 1;
-+	}
++	nested_put_vmcs12_pages(vcpu);
 +
-+	ret = kvm_translate_vncr(vcpu, &is_gmem);
-+	switch (ret) {
-+	case -EAGAIN:
-+		/* Let's try again... */
-+		return 1;
-+	case -ENOMEM:
-+		/*
-+		 * For guest_memfd, this indicates that it failed to
-+		 * create a folio to back the memory. Inform userspace.
-+		 */
-+		if (is_gmem)
-+			return 0;
-+		/* Otherwise, let's try again... */
-+		break;
-+	case -EFAULT:
-+	case -EIO:
-+	case -EHWPOISON:
-+		if (is_gmem)
-+			return 0;
-+		fallthrough;
-+	case -EINVAL:
-+	case -ENOENT:
-+	case -EACCES:
-+		/*
-+		 * Translation failed, inject the corresponding
-+		 * exception back to EL2.
-+		 */
-+		esr &= ~ESR_ELx_FSC;
-+		esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
-+
-+		kvm_inject_nested_sync(vcpu, esr);
-+		break;
-+	case 0:
-+		perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
-+		if (!perm)
-+			handle_vncr_perm(vcpu);
-+		break;
- 	}
- 
- 	return 1;
+ 	load_vmcs12_host_state(vcpu, vmcs12);
+ 	vmcs12->vm_exit_reason = exit_reason.full;
+ 	if (enable_shadow_vmcs || nested_vmx_is_evmptr12_valid(vmx))
 
