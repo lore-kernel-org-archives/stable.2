@@ -1,122 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAC23DCDAB
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:10:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5340942B723;
+	Mon, 20 Jul 2026 14:12:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784556638; cv=none; b=WV1tVHKhsiPl4ZHJ1xwYV/+5l83bK8o/WQ+QThlAj5ypDi3mUR30hiMhMi9EW6g1riKMo3eLaw0pj5+JzyHvxo3JXoMNs+w93h0oqwh6N0DKt9UDfujf/e3bMD2jm29TJEAA0Kmio555qcJ5Ar2RTzgELk8nFxeR2LcHYuLHyDk=
+	t=1784556742; cv=none; b=KWkSgaI+BdgDLWEOzUOXZkuBQFhSoss1Ig9VAp5NUadjwb/008SiZXjIFWEWHc29srmjk13zlE0GcZWB++62Iqn1q5KeOazyQA/kHT1WpdfJcnTeWT1T4R8vLKMnFdK2bt9p2+LAMxtVuVLXb6ckzR+bfxMYFkGoyF74xTQVEUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784556638; c=relaxed/simple;
-	bh=N/865bA6GgUHnp7FJNzA/QzIqo4TeKX5X7Db7qUtN1s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NnbA0ICKqZoykvT+kUxn1BOIqxoped5+GPwlWGEpTnmWAf4+3n8ky1W7kAPb+mEqlOcQf6hpW7Mz3XVZNcsJKzbN06CzcIHpPXtRc66k3d7/W2R5HAp13IzTQPUFxGlVQ3ZgNcEo6HPzj1f/RyF5+GmKZRc3gCAEg6MBSGV6stw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kq30UUTZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784556742; c=relaxed/simple;
+	bh=3jWwqtgXHBsY+nVyaeJ11bLFoZhM6a/BfIH8kXVyx/0=;
+	h=From:To:CC:In-Reply-To:References:Subject:Message-ID:Date:
+	 MIME-Version:Content-Type; b=o8TKjLQE0L4ol4flRCFA6wJWadRw44atl/BrObqfs1iB1SxGa42cTg3V4rxlF5DNGpFb9lRA3cwbvZDx+NxoThwLWVQlqdAcSEk/YLmCXnFrktfGllWDUVk43ap1SaQxoTV/WHntTxx3RvtysoialBvuIrTnRnjg0tcqSbWybyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=rBVPRbgy; arc=none smtp.client-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kq30UUTZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FCEC1F00A3E;
-	Mon, 20 Jul 2026 14:10:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784556637;
-	bh=lW0/DKg6r3hegGR8aHW3pfRMmVRXPacgYjoY6dC6CWo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kq30UUTZdTsO3e3VFco7ICsNiDsoWr17QTIcX2SmZuG3/W7SV59ZA6TNXspZ+uB8z
-	 qQQG403PY+vk1HfZCbhfgaKgCS5hgPGogh2XfnALnzF8VtC7huEWlLwPqO/sy7bCPD
-	 pUO+qFSqiXcxipq7QTq/2l8DP4RJIV7Qj3v3Wgg6ttPofNK/KuqD55ksJMUpOsACew
-	 WZsBQOCzfzxRp8EJ7TqQtcSvWmb2fjBV6+JCAQWygsbjUw7IZ3WZn3m6u1a+OvOCVO
-	 OqHts7cZ3BNz4dMis4X9LJpHMSjQY3EJ7mq/SaYqRKESjHIEl54iu10e4tM9Cv4j09
-	 JE22TczdpKK9Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Tianchu Chen <flynnnchen@tencent.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	Keith Busch <kbusch@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] nvmet-auth: validate reply message payload bounds against transfer length
-Date: Mon, 20 Jul 2026 10:10:33 -0400
-Message-ID: <20260720141033.1500263-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260720141033.1500263-1-sashal@kernel.org>
-References: <2026071506-ankle-quartered-9eb2@gregkh>
- <20260720141033.1500263-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="rBVPRbgy"
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KDrFoi2987752;
+	Mon, 20 Jul 2026 15:12:02 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=J
+	bxx8hw4Eo4sD7QV5xyetGYbpf3+ILqg7Hfp4NhHhtQ=; b=rBVPRbgyvum21AU7g
+	5yenIrsDml/ISEyhWhGBcSyiwukNQKfbSqXlG2/YMZpSwoAbfq9Un3v9wM18lAri
+	GWkXRTtrjLeIzqjhMGCBTgBSGBkvGJ6AbrW+6DD+wyzK831X3BP+dWU6+tvyYzHD
+	JDv3XyGUsjM54vdazi8sMHp4DbKaKWh1T6aUBleaUsZUH8418xt0Us0Lr9j1JQRS
+	Kq66xAnUGLyJc1E8NrrPogqWvxQDoSI1XONgnRLt/JC7bXhPltXIv1z/YwhTa36i
+	9knLx2tE7QqT3VsutkLndw1z1QxrA/9tY1HuTL4WlZeVlr/zX/aHmLa/a1oSZj7o
+	3xj4w==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4fhmy1g0dh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 20 Jul 2026 15:12:02 +0100 (BST)
+Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.9) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 20 Jul
+ 2026 15:12:00 +0100
+From: Alessio Belle <alessio.belle@imgtec.com>
+To: Frank Binns <frank.binns@imgtec.com>,
+        Matt Coster
+	<matt.coster@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Icenowy Zheng <zhengxingda@iscas.ac.cn>
+CC: Alessio Belle <Alessio.Belle@imgtec.com>,
+        Brajesh Gupta
+	<Brajesh.Gupta@imgtec.com>,
+        Brendan King <Brendan.King@imgtec.com>,
+        "Danilo
+ Krummrich" <dakr@kernel.org>,
+        <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+        Icenowy Zheng <uwu@icenowy.me>, <stable@vger.kernel.org>
+In-Reply-To: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
+References: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH v2] drm/imagination: acquire vm_ctx->lock before
+ mapping memory to GPU VM
+Message-ID: <178455672087.464601.4204532217928591036.b4-ty@imgtec.com>
+Date: Mon, 20 Jul 2026 15:12:00 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDE1OCBTYWx0ZWRfX0OAw3oYPc5Rw
+ 43IRIIoaT6rO9wms/dfXv+j2CX2pi/VVE+c5ClFU4T/1u/lEn0AxMVkE6bEhZkJbBc3PcLCC4H/
+ z23cUH4xYsGBqHqiw9MGtGx4Zv5z3ow58Fil+HfxXqr37KbIjrl+hx065NVzI7bCtPh4X6rRVRo
+ wjbaXzyRVuQqJ1oXaN8hBugC79xNqbFUWo/MJDvowj7arvAGf0HiIpx/Sh8cX6CZsSN+JI9Mgs0
+ gIUxnAn0VQwVJMhTwNg1xNaCrxTkNtiTVDgkj9AKNWR2AzZdk/ghdXPeDcjZ9OLol4QkB/L57d+
+ LbcwUDbZPowvu/mr198ywD+OU08kLPTHdpQaQRkPgJt5ELpGvvaoVeUAe08rn7DTserWol7Hu7l
+ 9lM8JhU68DmPOS3bRWNxvIu8o4DuedyKjyFI1+86VvEYKiJs7F0vJ45JdRJ728GYwvIQHsYaqZb
+ lNoIQzSX8UAmEi0V1SQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDE1OCBTYWx0ZWRfX0rAX/3VGIXfv
+ gL8LFonlzDnneeTTA03+AeU7srtKmQh6AUbEnqxPzrsZiXFvU+CMxmOfzBVfgz/tglO/vBAbQPF
+ 65IaaHpS4QPunKxgKlddsVhHo9RvTC0=
+X-Proofpoint-GUID: ExdzClEsO37VXwoQp_rL_7X6g2QWAxFv
+X-Authority-Analysis: v=2.4 cv=YIevDxGx c=1 sm=1 tr=0 ts=6a5e2cb2 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=rvaOABGgyOwA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=CNkhBcH9ogg0Ut-P5gEA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: ExdzClEsO37VXwoQp_rL_7X6g2QWAxFv
 
-From: Tianchu Chen <flynnnchen@tencent.com>
+On Tue, 14 Jul 2026 15:36:41 +0800, Icenowy Zheng wrote:
+> The drm gpuvm code doesn't protect find operation against map operation,
+> and the driver needs to ensure a map operation shouldn't happen when a
+> find operation is in progress.
+> 
+> In some cases a find operation will be in progress when doing map/unmap
+> operations, and the find operation will do a NULL pointer deference.
+> 
+> [...]
 
-[ Upstream commit 3a413ece2504c70aa34a20be4dafec04e8c741f9 ]
+Applied to drm-misc-fixes, thanks!
 
-nvmet_auth_reply() accesses the variable-length rval[] array using
-attacker-controlled hl (hash length) and dhvlen (DH value length) fields
-without verifying they fit within the allocated buffer of tl bytes.
+[1/1] drm/imagination: acquire vm_ctx->lock before mapping memory to GPU VM
+      commit: 17e2030f37600994440f875dc410615d5c66ee6d
 
-A malicious NVMe-oF initiator can craft a DHCHAP_REPLY message with a
-small transfer length but large hl/dhvlen values, causing out-of-bounds
-heap reads when the target processes the DH public key (rval + 2*hl) or
-performs the host response memcmp.
-
-With DH authentication configured, the OOB pointer is passed directly to
-sg_init_one() and read by crypto_kpp_compute_shared_secret(), reaching
-up to 526 bytes past the buffer. This is exploitable pre-authentication.
-
-Add bounds validation ensuring sizeof(*data) + 2*hl + dhvlen <= tl before
-any access to the variable-length fields.
-
-Discovered by Atuin - Automated Vulnerability Discovery Engine.
-
-Fixes: db1312dd9548 ("nvmet: implement basic In-Band Authentication")
-Cc: stable@vger.kernel.org
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/nvme/target/fabrics-cmd-auth.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-index a78f2d5c7d5c85..ccd5dd3dac85f9 100644
---- a/drivers/nvme/target/fabrics-cmd-auth.c
-+++ b/drivers/nvme/target/fabrics-cmd-auth.c
-@@ -109,13 +109,22 @@ static u8 nvmet_auth_negotiate(struct nvmet_req *req, void *d)
- 	return 0;
- }
- 
--static u8 nvmet_auth_reply(struct nvmet_req *req, void *d)
-+static u8 nvmet_auth_reply(struct nvmet_req *req, void *d, u32 tl)
- {
- 	struct nvmet_ctrl *ctrl = req->sq->ctrl;
- 	struct nvmf_auth_dhchap_reply_data *data = d;
--	u16 dhvlen = le16_to_cpu(data->dhvlen);
-+	u16 dhvlen;
- 	u8 *response;
- 
-+	if (tl < sizeof(*data))
-+		return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
-+
-+	dhvlen = le16_to_cpu(data->dhvlen);
-+
-+	/* Validate that hl and dhvlen fit within the transfer length */
-+	if (sizeof(*data) + 2 * (size_t)data->hl + dhvlen > tl)
-+		return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
-+
- 	pr_debug("%s: ctrl %d qid %d: data hl %d cvalid %d dhvlen %u\n",
- 		 __func__, ctrl->cntlid, req->sq->qid,
- 		 data->hl, data->cvalid, dhvlen);
-@@ -287,7 +296,7 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
- 
- 	switch (data->auth_id) {
- 	case NVME_AUTH_DHCHAP_MESSAGE_REPLY:
--		dhchap_status = nvmet_auth_reply(req, d);
-+		dhchap_status = nvmet_auth_reply(req, d, tl);
- 		if (dhchap_status == 0)
- 			req->sq->dhchap_step =
- 				NVME_AUTH_DHCHAP_MESSAGE_SUCCESS1;
+Best regards,
 -- 
-2.53.0
+Alessio Belle <alessio.belle@imgtec.com>
 
