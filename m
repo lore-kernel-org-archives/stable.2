@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FBB3E009B
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:05:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152603DF01C
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:05:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784559916; cv=none; b=QdqR28NkulXV8S4GlSkbeWKlEnUbXQNdEnprjh5nbNfR7joCWH8vbEsihI4YC7l9Ez+RJzEaWgfIO3PQgdThhXKzhKzkbUZZrxxDYYZLQTu6FFYg6FvhRYpS+/BbJXEpo94mbAwFYGNwtuqhnUouQrmwEovQiZYfmREz3Gq1oWk=
+	t=1784559935; cv=none; b=PWk8HVkvOYYlMi/pUE+P7mweDU4qZe+j3s00yNFdf7fEYXlUT+bwmoxKpkq01rBauMLjt2VwuBr7v7K+qfZOktf9a7qpU4/uKFVrJsxxDOosR2EIdTdpwSYoM4GaBbj+MHYPNVvefNEivMgaBBo0sHrGDkK3Tpslha9RkFMKueo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784559916; c=relaxed/simple;
-	bh=lEAQxKNynMjzFloGC63Ry1k8zxDZ3DMXCt+P+bBA4UM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MpHVQSkIJ1qLXeBF7hXR8zvsY308QARHMAV/8D9U8GfaUmW4AUj5N2ngEFxLL6K2wJeaRY+3Md7lmk+nqpD7qaOlBb3zHAndPA0qvVgy1Z41dXXbIjdfN7wjDGgSRZ8NdqQXulDtCd/uOk1N1InyK3cuIroDTSw0s1XrNGss9aw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2o7fHRqz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784559935; c=relaxed/simple;
+	bh=x6U4xUoacM0AddvxkOeVKNxmlNdKBqHFRFIwUonsCKU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=c6WYPV089lImKhPDyOS4sCxpopnyLpm59vpQywazHO82XPWxwynPz2LrzmRt0w5VpyHuYM31RhQdI1Pjr+44JekQU8mRO06qgmvk/nlLMo9AKmpEAekP49hI5t3ikqGC3MUJKDbqEY4qzX6BlYJMdB64Eg6h0tK8f4LqLy25unk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R63xYO/A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2o7fHRqz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75F61F000E9;
-	Mon, 20 Jul 2026 15:05:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R63xYO/A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57C581F000E9;
+	Mon, 20 Jul 2026 15:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784559915;
-	bh=0sO4xc1/qwo06LMpErpQkbMZMSDIksYIqDXoBd6koLA=;
+	s=korg; t=1784559933;
+	bh=krjsefMmOMJpXSB73RxbRS3QX/lxwF+TNw9hn+BTb/s=;
 	h=Subject:To:Cc:From:Date;
-	b=2o7fHRqzBaWzEnix5ADn+hF7RkKhqSgPUv0x2y2cQyTPuXSQQ6NH5YAWFbYlha52H
-	 j/8k4Vfehd5cq47K0TMqKnNk6+qhHTkVc005DVNgGVNcGdyJR91OwS5kxgZUnxUCH7
-	 Ss8gqjcFdAYlpnXU0NisStO8i3opDY6flAkIOd8o=
-Subject: FAILED: patch "[PATCH] smb: client: use kvzalloc() for megabyte buffer in simple" failed to apply to 5.10-stable tree
-To: fredric.cover.lkernel@gmail.com,stfrench@microsoft.com
+	b=R63xYO/AcFx2bqfV7KwOaF+9jswFmimltp7LCeX8I9HV0mfV94Kbc1Uc+MG7TSrfl
+	 oHin7NeFNuXEbG7mMd8M8ggeLOg0GGoTbamqxLoa53cH4BoXW1CRIYwmtyw9HF7DOI
+	 vkqLnzyWok7vkwIujvW+4Y1ONIqjXs060vwB/lUs=
+Subject: FAILED: patch "[PATCH] ksmbd: fix integer overflow in set_file_allocation_info()" failed to apply to 5.15-stable tree
+To: security@auditcode.ai,linkinjeon@kernel.org,stfrench@microsoft.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:04:58 +0200
-Message-ID: <2026072058-blaming-unseated-0a99@gregkh>
+Date: Mon, 20 Jul 2026 17:05:24 +0200
+Message-ID: <2026072024-headphone-posh-4ed4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 806c00c23e3ce8eae397a40ced536ef88ae4e012
+git cherry-pick -x 1c0ae3df692ea2a4ce992f786346154e75a3f0d5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072058-blaming-unseated-0a99@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072024-headphone-posh-4ed4@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,74 +62,102 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 806c00c23e3ce8eae397a40ced536ef88ae4e012 Mon Sep 17 00:00:00 2001
-From: Fredric Cover <fredric.cover.lkernel@gmail.com>
-Date: Sat, 11 Jul 2026 19:54:02 -0700
-Subject: [PATCH] smb: client: use kvzalloc() for megabyte buffer in simple
- fallocate
+From 1c0ae3df692ea2a4ce992f786346154e75a3f0d5 Mon Sep 17 00:00:00 2001
+From: Ibrahim Hashimov <security@auditcode.ai>
+Date: Thu, 9 Jul 2026 17:05:30 +0200
+Subject: [PATCH] ksmbd: fix integer overflow in set_file_allocation_info()
 
-Currently in smb3_simple_fallocate_range(), a 1 MB buffer is allocated
-using kzalloc(). Under heavy memory fragmentation, a contiguous 1 MB block
-of physical memory (an order-8 allocation) may not be available,
-causing the allocation to fail.
+set_file_allocation_info() converts the client-supplied
+FILE_ALLOCATION_INFORMATION::AllocationSize into a 512-byte block
+count with:
 
-This failure was observed during xfstests generic/013 on a 4GB RAM
-test machine running fsstress:
+	alloc_blks = (le64_to_cpu(file_alloc_info->AllocationSize) + 511) >> 9;
 
-fsstress: page allocation failure: order:8,
-mode:0x40dc0(GFP_KERNEL|__GFP_ZERO|__GFP_COMP),
-nodemask=(null),cpuset=/,mems_allowed=0
+AllocationSize is a fully client-controlled __le64 field; the only
+validation performed by the caller (smb2_set_info_file(), case
+FILE_ALLOCATION_INFORMATION) is that the fixed buffer is at least
+sizeof(struct smb2_file_alloc_info) == 8 bytes. The value itself is
+never range-checked before this arithmetic.
 
-Call Trace:
- <TASK>
- dump_stack_lvl+0x5d/0x80
- warn_alloc+0x163/0x190
- __alloc_pages_slowpath.constprop.0+0x71b/0x12f0
- __alloc_frozen_pages_noprof+0x2f6/0x340
- alloc_pages_mpol+0xb6/0x170
- ___kmalloc_large_node+0xb3/0xd0
- __kmalloc_large_noprof+0x1e/0xc0
- smb3_simple_falloc.isra.0+0x62b/0x960
- cifs_fallocate+0xed/0x180
- vfs_fallocate+0x165/0x3c0
- __x64_sys_fallocate+0x48/0xa0
- do_syscall_64+0xe1/0x640
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
- </TASK>
+When AllocationSize is close to U64_MAX (e.g. 0xffffffffffffffff),
+"AllocationSize + 511" wraps around mod 2^64 to a small number
+(0xffffffffffffffff + 511 = 510), so alloc_blks becomes 0. Since any
+existing regular file has stat.blocks > 0, the function then takes
+the "shrink" branch and calls:
 
-Node 0 Normal: 3375*4kB ... 7*128kB 0*256kB 0*512kB 0*1024kB 0*2048kB 0*4096kB
+	ksmbd_vfs_truncate(work, fp, alloc_blks * 512);   /* == 0 */
 
-Since this scratch buffer does not require physically contiguous memory,
-switch the allocation to kvzalloc(). This retains the performance
-benefits of kmalloc() under normal conditions, while gracefully falling
-back to virtually contiguous memory when physical allocation fails.
+silently truncating the file to size 0, even though the client asked
+to grow the allocation to (what looks like) the maximum possible
+size. The trailing "if (size < alloc_blks * 512) i_size_write(inode,
+size);" restore is guarded by a comparison that is never true once
+alloc_blks == 0, so the truncation is not undone. This lets an
+authenticated SMB client that already holds an open handle with
+FILE_WRITE_DATA on a file silently truncate that same file to size 0
+via a single crafted SET_INFO(FILE_ALLOCATION_INFORMATION) request
+advertising a near-U64_MAX AllocationSize, even though the request
+asks to grow the file's allocation rather than shrink it. This is a
+functional/data-loss bug, not a privilege-boundary
+violation: the same client could already truncate the file via
+FILE_END_OF_FILE_INFORMATION or a plain write.
 
-Fixes: 966a3cb7c7db ("cifs: improve fallocate emulation")
+Fix it by validating AllocationSize against MAX_LFS_FILESIZE, the
+same upper bound the VFS itself uses to reject unrepresentable file
+sizes, before doing the "+511" rounding, and rejecting oversized
+values with -EINVAL. Bounding AllocationSize to
+MAX_LFS_FILESIZE - 511 guarantees the "+511" addition cannot wrap,
+and that the subsequent "alloc_blks * 512" values passed to
+vfs_fallocate() and ksmbd_vfs_truncate() stay within a representable
+loff_t as well.
+
+No legitimate SMB client asks for an allocation size anywhere near
+2^64 bytes, so this only rejects a value that was previously
+silently misinterpreted as zero.
+
+Runtime-verified on a v6.19 KASAN test stand: sending SET_INFO
+(FILE_ALLOCATION_INFORMATION) with AllocationSize = 0xffffffffffffffff
+against ksmbd now returns -EINVAL and leaves the target file's size
+unchanged, where the unpatched kernel truncated it from 4096 to 0
+bytes.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
-Tested-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Steve French <stfrench@microsoft.com>
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 6bce44b171e4..5f0e268aa644 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3595,7 +3595,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index b73167785e87..320b46db9377 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -6781,6 +6781,7 @@ static int set_file_allocation_info(struct ksmbd_work *work,
+ 	 */
+ 
+ 	loff_t alloc_blks;
++	u64 alloc_size;
+ 	struct inode *inode;
+ 	struct kstat stat;
+ 	int rc;
+@@ -6796,7 +6797,19 @@ static int set_file_allocation_info(struct ksmbd_work *work,
  	if (rc)
- 		goto out;
+ 		return rc;
  
--	buf = kzalloc(1024 * 1024, GFP_KERNEL);
-+	buf = kvzalloc(1024 * 1024, GFP_KERNEL);
- 	if (buf == NULL) {
- 		rc = -ENOMEM;
- 		goto out;
-@@ -3652,7 +3652,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+-	alloc_blks = (le64_to_cpu(file_alloc_info->AllocationSize) + 511) >> 9;
++	/*
++	 * AllocationSize is fully client-controlled (the caller only
++	 * validates the fixed 8-byte buffer length). Reject values that
++	 * would overflow the "round up to 512-byte blocks" conversion
++	 * below instead of silently wrapping it to a tiny block count,
++	 * which would truncate the file to a size the client never
++	 * asked for.
++	 */
++	alloc_size = le64_to_cpu(file_alloc_info->AllocationSize);
++	if (alloc_size > MAX_LFS_FILESIZE - 511)
++		return -EINVAL;
++
++	alloc_blks = (alloc_size + 511) >> 9;
+ 	inode = file_inode(fp->filp);
  
-  out:
- 	kfree(out_data);
--	kfree(buf);
-+	kvfree(buf);
- 	return rc;
- }
- 
+ 	if (alloc_blks > stat.blocks) {
 
