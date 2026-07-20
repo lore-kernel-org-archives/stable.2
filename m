@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9982443800B
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:56:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5528841A76F
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:56:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784562999; cv=none; b=CCV8mHDHQtOZXP0yQ4Cn9dRbOky2jR3zLsZHC12EVhoTRRx9LVa87fCT/DkFDfazxOBj42jXt3nwMpEpohIzQERo5tVTvo6IwiEy8QOh987WsF4bQq0FeYRhcnN4fYpBS0e9z3vOkjXuAOdwGEdJRHgE95nDLIx4DLwitXTEsdo=
+	t=1784563000; cv=none; b=fntd4csyaQ9f315BqDa7S6YJyoQJzTltxiALa4/YSpPlnKrdoNcY30UCmFNbMRSW8m5IpgBIXahd6fgetHNBgan//EIzAW2u4PY/e5d05oraLoyzYAGB9FM4jJzR7ToBDBDy3GcWb5i8Sbwvp472ScGkMLaR+THyJgablNUV/mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784562999; c=relaxed/simple;
-	bh=eHFrCQT7dSNTsT4cclwIz7mIPzdHJj1axUZPCny2lpw=;
+	s=arc-20240116; t=1784563000; c=relaxed/simple;
+	bh=hYABaYxFut9ADa36g0VqLF9pSNzME5d2wSJWWJTJ/Ik=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tGrZqjlzEHpKkGnc0UZvyDr1M1I3ujEkcxZdDICkoCgKxUyfX8irj/bJp3uaOOPutnJ/r2jITyRz5WV0E7D4vkxnyX2HhohVM60PN9UnRWgV6pru9l4fNQ8L8tMeFAOZLdWKqCxOXzVjRjuRxvkoOjCMGXIRSa+4Idoroo2sT6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4dSllLQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ui6BxRTSbN9kn9jA7/5UhwLwv7QNBlg43az09pGdvMednELfJmhSS1TThkRaG1fSqWjKmrq1zWfhZdynX0WDV8DSoYAuf5EPMuGZylB/Oiw7Wi4eZOipIOoViM2Fuxbup0R6yegOZSOBb8wv+SPcAntpt/weocrM1Z64Xa+DjB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mcdKJMn/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4dSllLQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCECE1F00A3F;
-	Mon, 20 Jul 2026 15:56:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mcdKJMn/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF201F000E9;
+	Mon, 20 Jul 2026 15:56:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784562998;
-	bh=YylXKmY/7223UNFbEGcGaKA+smx1n828Ehx3YJkOOAE=;
+	s=k20260515; t=1784562999;
+	bh=it29BojUDH9/mHnL3LJ5at13htyLqqIWyi4UcK6vV0U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A4dSllLQL6fFbHbPBUxgywIAKA7dvU3zDcjQWJESD8kUqyIv8izFzPX+kQu9Rc9Jz
-	 TsK1C4cV5vZlwOR5CQFVmM+DzQK3ZqV838WoHNHcLxLq5O7mWP0H8RR2UV9DQqcHX5
-	 e89f3WAUTchtDiGTczHSJB2uVAVbnbyFkUaJvw6Z37NYAaBBRd8Bs6zFCeMEuFCyPX
-	 hFL+D+yqcfsOufnkzj5koJARottXjyF3CHNO3R3NUs2EEembjqPHTNrFO9zn8NHOlC
-	 PC9Vy4enfIYILjZT1O2dYfKk3MQk39qx1Kuwgv8ow3kTytqjT9TG3amDlImBFRIGbY
-	 Hpwvd75h8WYFg==
+	b=mcdKJMn/UdWs0AoEUgC6KvHW7JAyURwlCXOdNHcCsnciUZLQauxMDldRg7XHdDx14
+	 0fRJeBbipL6xcTJ2ltu0+89RH4r1HL7xsM4aUo0IXZuqaFUCURcDHm+PFqmYoDif1T
+	 XgZaUoXqHQL9/xjoLyjkv2/9Q2q+lnkFYrfMe1+XR1MGTylQYHh2o8zcUcuJ/jGZXR
+	 b4tqFvXsMG36X1oTy/o+QICt18CCCIns0mlT0zyi7f4E+zflBOm9R+SjxKYddpJiZe
+	 hBdg0EIPI57/RyNvd4w+xJ9ZMAgpDDyzvu1kH9obNSt3uUWNGEHgULzuFYeN3wAirN
+	 oJr/SbMgAO9fQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Qu Wenruo <wqu@suse.com>,
-	Boris Burkov <boris@bur.io>,
+	Filipe Manana <fdmanana@suse.com>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] btrfs: replace for_each_set_bit() with for_each_set_bitmap()
-Date: Mon, 20 Jul 2026 11:56:33 -0400
-Message-ID: <20260720155635.2425597-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] btrfs: remove folio parameter from ordered io related functions
+Date: Mon, 20 Jul 2026 11:56:34 -0400
+Message-ID: <20260720155635.2425597-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260720155635.2425597-1-sashal@kernel.org>
 References: <2026071553-kite-shadow-2c30@gregkh>
@@ -49,99 +49,347 @@ Content-Transfer-Encoding: 8bit
 
 From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit e6698b34fab33867ef3faeeea6feb165f31aae24 ]
+[ Upstream commit a11d6912fdd9e57aff889ec97256b1d6b4e5bf06 ]
 
-Inside extent_io.c, there are several simple call sites doing things
-like:
+Both functions btrfs_finish_ordered_extent() and
+btrfs_mark_ordered_io_finished() are accepting an optional folio
+parameter.
 
-	for_each_set_bit(bit, bitmap, bitmap_size) {
-		/* handle one fs block */
-	}
+That @folio is passed into can_finish_ordered_extent(), which later will
+test and clear the ordered flag for the involved range.
 
-The workload includes:
+However I do not think there is any other call site that can clear
+ordered flags of an page cache folio and can affect
+can_finish_ordered_extent().
 
-- set_bit()
-  Inside extent_writepage_io().
+There are limited *_clear_ordered() callers out of
+can_finish_ordered_extent() function:
 
-  This can be replaced with a bitmap_set().
+- btrfs_migrate_folio()
+  This is completely unrelated, it's just migrating the ordered flag to
+  the new folio.
 
-- btrfs_folio_set_lock()
-- btrfs_mark_ordered_io_finished()
-  Inside writepage_delalloc().
+- btrfs_cleanup_ordered_extents()
+  We manually clean the ordered flags of all involved folios, then call
+  btrfs_mark_ordered_io_finished() without a @folio parameter.
+  So it doesn't need and didn't pass a @folio parameter in the first
+  place.
 
-  Instead of calling it multiple times, we can pass a range into the
-  function with one call.
+- btrfs_writepage_fixup_worker()
+  This function is going to be removed soon, and we should not hit that
+  function anymore.
 
-Reviewed-by: Boris Burkov <boris@bur.io>
+- btrfs_invalidate_folio()
+  This is the real call site we need to bother with.
+
+  If we already have a bio running, btrfs_finish_ordered_extent() in
+  end_bbio_data_write() will be executed first, as
+  btrfs_invalidate_folio() will wait for the writeback to finish.
+
+  Thus if there is a running bio, it will not see the range has
+  ordered flags, and just skip to the next range.
+
+  If there is no bio running, meaning the ordered extent is created but
+  the folio is not yet submitted.
+
+  In that case btrfs_invalidate_folio() will manually clear the folio
+  ordered range, but then manually finish the ordered extent with
+  btrfs_dec_test_ordered_pending() without bothering the folio ordered
+  flags.
+
+  Meaning if the OE range with folio ordered flags will be finished
+  manually without the need to call can_finish_ordered_extent().
+
+This means all can_finish_ordered_extent() call sites should get a range
+that has folio ordered flag set, thus the old "return false" branch
+should never be triggered.
+
+Now we can:
+
+- Remove the @folio parameter from involved functions
+  * btrfs_mark_ordered_io_finished()
+  * btrfs_finish_ordered_extent()
+
+  For call sites passing a @folio into those functions, let them
+  manually clear the ordered flag of involved folios.
+
+- Move btrfs_finish_ordered_extent() out of the loop in
+  end_bbio_data_write()
+
+  We only need to call btrfs_finish_ordered_extent() once per bbio,
+  not per folio.
+
+- Add an ASSERT() to make sure all folio ranges have ordered flags
+  It's only for end_bbio_data_write().
+
+  And we already have enough safe nets to catch over-accounting of ordered
+  extents.
+
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
 Signed-off-by: Qu Wenruo <wqu@suse.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
 Stable-dep-of: 66ff4d366e7e ("btrfs: fix false IO failure after falling back to buffered write")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/extent_io.c | 26 ++++++++++++++++----------
- 1 file changed, 16 insertions(+), 10 deletions(-)
+ fs/btrfs/compression.c  |  2 +-
+ fs/btrfs/direct-io.c    |  9 ++++-----
+ fs/btrfs/extent_io.c    | 23 ++++++++++++++---------
+ fs/btrfs/inode.c        |  6 ++++--
+ fs/btrfs/ordered-data.c | 29 +++++------------------------
+ fs/btrfs/ordered-data.h |  6 ++----
+ 6 files changed, 30 insertions(+), 45 deletions(-)
 
+diff --git a/fs/btrfs/compression.c b/fs/btrfs/compression.c
+index 65d883da86c60b..7bd5e7ff97f232 100644
+--- a/fs/btrfs/compression.c
++++ b/fs/btrfs/compression.c
+@@ -316,7 +316,7 @@ static void btrfs_finish_compressed_write_work(struct work_struct *work)
+ 	struct compressed_bio *cb =
+ 		container_of(work, struct compressed_bio, write_end_work);
+ 
+-	btrfs_finish_ordered_extent(cb->bbio.ordered, NULL, cb->start, cb->len,
++	btrfs_finish_ordered_extent(cb->bbio.ordered, cb->start, cb->len,
+ 				    cb->bbio.bio.bi_status == BLK_STS_OK);
+ 
+ 	if (cb->writeback)
+diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
+index 8ce58aa4189f2c..fae5e005da45a5 100644
+--- a/fs/btrfs/direct-io.c
++++ b/fs/btrfs/direct-io.c
+@@ -624,7 +624,7 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
+ 		pos += submitted;
+ 		length -= submitted;
+ 		if (write)
+-			btrfs_finish_ordered_extent(dio_data->ordered, NULL,
++			btrfs_finish_ordered_extent(dio_data->ordered,
+ 						    pos, length, false);
+ 		else
+ 			unlock_dio_extent(&BTRFS_I(inode)->io_tree, pos,
+@@ -656,9 +656,8 @@ static void btrfs_dio_end_io(struct btrfs_bio *bbio)
+ 	}
+ 
+ 	if (btrfs_op(bio) == BTRFS_MAP_WRITE) {
+-		btrfs_finish_ordered_extent(bbio->ordered, NULL,
+-					    dip->file_offset, dip->bytes,
+-					    !bio->bi_status);
++		btrfs_finish_ordered_extent(bbio->ordered, dip->file_offset,
++					    dip->bytes, !bio->bi_status);
+ 	} else {
+ 		unlock_dio_extent(&inode->io_tree, dip->file_offset,
+ 				  dip->file_offset + dip->bytes - 1, NULL);
+@@ -736,7 +735,7 @@ static void btrfs_dio_submit_io(const struct iomap_iter *iter, struct bio *bio,
+ 
+ 		ret = btrfs_extract_ordered_extent(bbio, dio_data->ordered);
+ 		if (ret) {
+-			btrfs_finish_ordered_extent(dio_data->ordered, NULL,
++			btrfs_finish_ordered_extent(dio_data->ordered,
+ 						    file_offset, dip->bytes,
+ 						    !ret);
+ 			bio->bi_status = errno_to_blk_status(ret);
 diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
-index af5244900adf26..4fc116b0e6cd43 100644
+index 4fc116b0e6cd43..e31c1f800cfe64 100644
 --- a/fs/btrfs/extent_io.c
 +++ b/fs/btrfs/extent_io.c
-@@ -1245,8 +1245,9 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
- 	u64 delalloc_start = page_start;
- 	u64 delalloc_end = page_end;
- 	u64 delalloc_to_write = 0;
-+	unsigned int start_bit;
-+	unsigned int end_bit;
- 	int ret = 0;
--	int bit;
+@@ -485,6 +485,7 @@ static void end_bbio_data_write(struct btrfs_bio *bbio)
+ 	int error = blk_status_to_errno(bio->bi_status);
+ 	struct folio_iter fi;
+ 	const u32 sectorsize = fs_info->sectorsize;
++	u32 bio_size = 0;
  
- 	/* Save the dirty bitmap as our submission bitmap will be a subset of it. */
- 	if (btrfs_is_subpage(fs_info, inode->vfs_inode.i_mapping)) {
-@@ -1256,10 +1257,12 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
- 		bio_ctrl->submit_bitmap = 1;
- 	}
+ 	ASSERT(!bio_flagged(bio, BIO_CLONED));
+ 	bio_for_each_folio_all(fi, bio) {
+@@ -495,6 +496,7 @@ static void end_bbio_data_write(struct btrfs_bio *bbio)
+ 		/* Only order 0 (single page) folios are allowed for data. */
+ 		ASSERT(folio_order(folio) == 0);
  
--	for_each_set_bit(bit, &bio_ctrl->submit_bitmap, blocks_per_folio) {
--		u64 start = page_start + (bit << fs_info->sectorsize_bits);
-+	for_each_set_bitrange(start_bit, end_bit, &bio_ctrl->submit_bitmap,
-+			      blocks_per_folio) {
-+		u64 start = page_start + (start_bit << fs_info->sectorsize_bits);
-+		u32 len = (end_bit - start_bit) << fs_info->sectorsize_bits;
++		bio_size += len;
+ 		/* Our read/write should always be sector aligned. */
+ 		if (!IS_ALIGNED(fi.offset, sectorsize))
+ 			btrfs_err(fs_info,
+@@ -505,13 +507,15 @@ static void end_bbio_data_write(struct btrfs_bio *bbio)
+ 		"incomplete page write with offset %zu and length %zu",
+ 				   fi.offset, fi.length);
  
--		btrfs_folio_set_lock(fs_info, folio, start, fs_info->sectorsize);
-+		btrfs_folio_set_lock(fs_info, folio, start, len);
- 	}
- 
- 	/* Lock all (subpage) delalloc ranges inside the folio first. */
-@@ -1376,10 +1379,13 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
- 				fs_info->sectorsize_bits,
- 				blocks_per_folio);
- 
--		for_each_set_bit(bit, &bio_ctrl->submit_bitmap, bitmap_size)
--			btrfs_mark_ordered_io_finished(inode, folio,
--				page_start + (bit << fs_info->sectorsize_bits),
--				fs_info->sectorsize, false);
-+		for_each_set_bitrange(start_bit, end_bit, &bio_ctrl->submit_bitmap,
-+				      bitmap_size) {
-+			u64 start = page_start + (start_bit << fs_info->sectorsize_bits);
-+			u32 len = (end_bit - start_bit) << fs_info->sectorsize_bits;
+-		btrfs_finish_ordered_extent(bbio->ordered, folio, start, len,
+-					    !error);
+ 		if (error)
+ 			mapping_set_error(folio->mapping, error);
 +
-+			btrfs_mark_ordered_io_finished(inode, folio, start, len, false);
-+		}
++		ASSERT(btrfs_folio_test_ordered(fs_info, folio, start, len));
++		btrfs_folio_clear_ordered(fs_info, folio, start, len);
+ 		btrfs_folio_clear_writeback(fs_info, folio, start, len);
+ 	}
+ 
++	btrfs_finish_ordered_extent(bbio->ordered, bbio->file_offset, bio_size, !error);
+ 	bio_put(bio);
+ }
+ 
+@@ -1384,7 +1388,8 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
+ 			u64 start = page_start + (start_bit << fs_info->sectorsize_bits);
+ 			u32 len = (end_bit - start_bit) << fs_info->sectorsize_bits;
+ 
+-			btrfs_mark_ordered_io_finished(inode, folio, start, len, false);
++			btrfs_folio_clear_ordered(fs_info, folio, start, len);
++			btrfs_mark_ordered_io_finished(inode, start, len, false);
+ 		}
  		return ret;
  	}
- out:
-@@ -1539,8 +1545,8 @@ static noinline_for_stack int extent_writepage_io(struct btrfs_inode *inode,
- 		return 1;
+@@ -1460,6 +1465,7 @@ static int submit_one_sector(struct btrfs_inode *inode,
+ 		 * ordered extent.
+ 		 */
+ 		btrfs_folio_clear_dirty(fs_info, folio, filepos, sectorsize);
++		btrfs_folio_clear_ordered(fs_info, folio, filepos, sectorsize);
+ 		btrfs_folio_set_writeback(fs_info, folio, filepos, sectorsize);
+ 		btrfs_folio_clear_writeback(fs_info, folio, filepos, sectorsize);
+ 
+@@ -1467,8 +1473,8 @@ static int submit_one_sector(struct btrfs_inode *inode,
+ 		 * Since there is no bio submitted to finish the ordered
+ 		 * extent, we have to manually finish this sector.
+ 		 */
+-		btrfs_mark_ordered_io_finished(inode, folio, filepos,
+-					       fs_info->sectorsize, false);
++		btrfs_mark_ordered_io_finished(inode, filepos, fs_info->sectorsize,
++					       false);
+ 		return PTR_ERR(em);
  	}
  
--	for (cur = start; cur < end; cur += fs_info->sectorsize)
--		set_bit((cur - folio_start) >> fs_info->sectorsize_bits, &range_bitmap);
-+	bitmap_set(&range_bitmap, (start - folio_pos(folio)) >> fs_info->sectorsize_bits,
-+		   len >> fs_info->sectorsize_bits);
- 	bitmap_and(&bio_ctrl->submit_bitmap, &bio_ctrl->submit_bitmap, &range_bitmap,
- 		   blocks_per_folio);
+@@ -1573,8 +1579,8 @@ static noinline_for_stack int extent_writepage_io(struct btrfs_inode *inode,
+ 			spin_unlock_irqrestore(&inode->ordered_tree_lock, flags);
+ 			btrfs_put_ordered_extent(ordered);
  
+-			btrfs_mark_ordered_io_finished(inode, folio, cur,
+-						       fs_info->sectorsize, true);
++			btrfs_folio_clear_ordered(fs_info, folio, cur, fs_info->sectorsize);
++			btrfs_mark_ordered_io_finished(inode, cur, fs_info->sectorsize, true);
+ 			/*
+ 			 * This range is beyond i_size, thus we don't need to
+ 			 * bother writing back.
+@@ -2415,8 +2421,7 @@ void extent_write_locked_range(struct inode *inode, const struct folio *locked_f
+ 		 * code is just in case, but shouldn't actually be run.
+ 		 */
+ 		if (IS_ERR(folio)) {
+-			btrfs_mark_ordered_io_finished(BTRFS_I(inode), NULL,
+-						       cur, cur_len, false);
++			btrfs_mark_ordered_io_finished(BTRFS_I(inode), cur, cur_len, false);
+ 			mapping_set_error(mapping, PTR_ERR(folio));
+ 			cur = cur_end + 1;
+ 			continue;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index c79dd6ff03dc14..3f5312b1823afb 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -456,7 +456,7 @@ static inline void btrfs_cleanup_ordered_extents(struct btrfs_inode *inode,
+ 		}
+ 	}
+ 
+-	return btrfs_mark_ordered_io_finished(inode, NULL, offset, bytes, false);
++	return btrfs_mark_ordered_io_finished(inode, offset, bytes, false);
+ }
+ 
+ static int btrfs_dirty_inode(struct btrfs_inode *inode);
+@@ -2937,7 +2937,9 @@ static void btrfs_writepage_fixup_worker(struct btrfs_work *work)
+ 		 * to reflect the errors and clean the page.
+ 		 */
+ 		mapping_set_error(folio->mapping, ret);
+-		btrfs_mark_ordered_io_finished(inode, folio, page_start,
++		btrfs_folio_clear_ordered(fs_info, folio, page_start,
++					  folio_size(folio));
++		btrfs_mark_ordered_io_finished(inode, page_start,
+ 					       folio_size(folio), !ret);
+ 		folio_clear_dirty_for_io(folio);
+ 	}
+diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+index 6ac254a5290732..c7901fb167db79 100644
+--- a/fs/btrfs/ordered-data.c
++++ b/fs/btrfs/ordered-data.c
+@@ -338,30 +338,13 @@ static void finish_ordered_fn(struct btrfs_work *work)
+ }
+ 
+ static bool can_finish_ordered_extent(struct btrfs_ordered_extent *ordered,
+-				      struct folio *folio, u64 file_offset,
+-				      u64 len, bool uptodate)
++				      u64 file_offset, u64 len, bool uptodate)
+ {
+ 	struct btrfs_inode *inode = ordered->inode;
+ 	struct btrfs_fs_info *fs_info = inode->root->fs_info;
+ 
+ 	lockdep_assert_held(&inode->ordered_tree_lock);
+ 
+-	if (folio) {
+-		ASSERT(folio->mapping);
+-		ASSERT(folio_pos(folio) <= file_offset);
+-		ASSERT(file_offset + len <= folio_pos(folio) + folio_size(folio));
+-
+-		/*
+-		 * Ordered (Private2) bit indicates whether we still have
+-		 * pending io unfinished for the ordered extent.
+-		 *
+-		 * If there's no such bit, we need to skip to next range.
+-		 */
+-		if (!btrfs_folio_test_ordered(fs_info, folio, file_offset, len))
+-			return false;
+-		btrfs_folio_clear_ordered(fs_info, folio, file_offset, len);
+-	}
+-
+ 	/* Now we're fine to update the accounting. */
+ 	if (WARN_ON_ONCE(len > ordered->bytes_left)) {
+ 		btrfs_crit(fs_info,
+@@ -403,8 +386,7 @@ static void btrfs_queue_ordered_fn(struct btrfs_ordered_extent *ordered)
+ }
+ 
+ void btrfs_finish_ordered_extent(struct btrfs_ordered_extent *ordered,
+-				 struct folio *folio, u64 file_offset, u64 len,
+-				 bool uptodate)
++				 u64 file_offset, u64 len, bool uptodate)
+ {
+ 	struct btrfs_inode *inode = ordered->inode;
+ 	unsigned long flags;
+@@ -413,7 +395,7 @@ void btrfs_finish_ordered_extent(struct btrfs_ordered_extent *ordered,
+ 	trace_btrfs_finish_ordered_extent(inode, file_offset, len, uptodate);
+ 
+ 	spin_lock_irqsave(&inode->ordered_tree_lock, flags);
+-	ret = can_finish_ordered_extent(ordered, folio, file_offset, len,
++	ret = can_finish_ordered_extent(ordered, file_offset, len,
+ 					uptodate);
+ 	spin_unlock_irqrestore(&inode->ordered_tree_lock, flags);
+ 
+@@ -466,8 +448,7 @@ void btrfs_finish_ordered_extent(struct btrfs_ordered_extent *ordered,
+  * extent(s) covering it.
+  */
+ void btrfs_mark_ordered_io_finished(struct btrfs_inode *inode,
+-				    struct folio *folio, u64 file_offset,
+-				    u64 num_bytes, bool uptodate)
++				    u64 file_offset, u64 num_bytes, bool uptodate)
+ {
+ 	struct rb_node *node;
+ 	struct btrfs_ordered_extent *entry = NULL;
+@@ -530,7 +511,7 @@ void btrfs_mark_ordered_io_finished(struct btrfs_inode *inode,
+ 		ASSERT(end + 1 - cur < U32_MAX);
+ 		len = end + 1 - cur;
+ 
+-		if (can_finish_ordered_extent(entry, folio, cur, len, uptodate)) {
++		if (can_finish_ordered_extent(entry, cur, len, uptodate)) {
+ 			spin_unlock_irqrestore(&inode->ordered_tree_lock, flags);
+ 			btrfs_queue_ordered_fn(entry);
+ 			spin_lock_irqsave(&inode->ordered_tree_lock, flags);
+diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
+index 4e152736d06cbd..cbfac6044dfb6a 100644
+--- a/fs/btrfs/ordered-data.h
++++ b/fs/btrfs/ordered-data.h
+@@ -163,11 +163,9 @@ void btrfs_put_ordered_extent(struct btrfs_ordered_extent *entry);
+ void btrfs_remove_ordered_extent(struct btrfs_inode *btrfs_inode,
+ 				struct btrfs_ordered_extent *entry);
+ void btrfs_finish_ordered_extent(struct btrfs_ordered_extent *ordered,
+-				 struct folio *folio, u64 file_offset, u64 len,
+-				 bool uptodate);
++				 u64 file_offset, u64 len, bool uptodate);
+ void btrfs_mark_ordered_io_finished(struct btrfs_inode *inode,
+-				    struct folio *folio, u64 file_offset,
+-				    u64 num_bytes, bool uptodate);
++				    u64 file_offset, u64 num_bytes, bool uptodate);
+ bool btrfs_dec_test_ordered_pending(struct btrfs_inode *inode,
+ 				    struct btrfs_ordered_extent **cached,
+ 				    u64 file_offset, u64 io_size);
 -- 
 2.53.0
 
